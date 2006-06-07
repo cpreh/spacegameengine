@@ -6,7 +6,6 @@
 #include "./renderer_types.hpp"
 #include "../math/vector2.hpp"
 #include "../math/dim.hpp"
-#include "../main/bitfield.hpp"
 
 namespace sge
 {

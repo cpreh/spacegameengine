@@ -31,8 +31,8 @@ namespace sge
 			typedef typename Base::pointer pointer;
 			typedef typename Base::const_pointer const_pointer;
 
-			basic_texture(const size_type sz, const unsigned mipmaps, const resource_flag_t flags)
-				: texture_base(Type), mipmaps(mipmaps), flags(flags)
+			basic_texture(const size_type sz, const unsigned mipmaps, const resource_flag_t _flags)
+				: texture_base(Type), mipmaps(mipmaps), _flags(_flags)
 			{
 				glGenTextures(1,&id);
 				if(is_error())
@@ -47,10 +47,10 @@ namespace sge
 				glDeleteTextures(1,&id);
 			}
 			void restore(){}
-			resource_flag_t get_flags() const { return flags; }
+			resource_flag_t flags() const { return _flags; }
 		private:
 			unsigned mipmaps;
-			resource_flag_t flags;
+			resource_flag_t _flags;
 		};
 	}
 }

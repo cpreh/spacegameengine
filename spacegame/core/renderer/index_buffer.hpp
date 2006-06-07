@@ -37,10 +37,10 @@ namespace sge
 		virtual reverse_iterator rend() = 0;
 		virtual const_reverse_iterator rend() const = 0;
 		virtual size_type size() const = 0;
-		virtual resource_flag_t get_flags() const = 0;
+		virtual resource_flag_t flags() const = 0;
 		virtual void resize(size_type newsize, const_pointer data = 0) = 0;
-		virtual pointer raw_data() = 0;
-		virtual const_pointer raw_data() const = 0;
+		virtual pointer data() = 0;
+		virtual const_pointer data() const = 0;
 		virtual ~index_buffer(){}
 	};
 

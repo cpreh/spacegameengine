@@ -25,16 +25,23 @@ void sge::sprite::update()
 
 void sge::sprite::update_where(vertex_buffer::iterator it)
 {
-	const rect rt(space_unit(tex->r.left)  / s.texsize, space_unit(tex->r.top)    / s.texsize,
-		      space_unit(tex->r.right) / s.texsize, space_unit(tex->r.bottom) / s.texsize),
+	const virtual_texture::rect& area = tex->lock_area();
+
+	const rect rt(space_unit(area.left)  / s.texsize, space_unit(area.top)    / s.texsize,
+		      space_unit(area.right) / s.texsize, space_unit(area.bottom) / s.texsize),
+
 	           rs(space_x_2d_to_3d(x())        ,space_y_2d_to_3d(y()),
 	              space_x_2d_to_3d(x()+width()),space_y_2d_to_3d(y()+height()));
+
 	(*it  ).pos()    = pos3(rs.left,rs.top);
 	(*it++).tex()[0] = tex_pos(rt.left,rt.top);
+
 	(*it  ).pos()    = pos3(rs.right,rs.top);
 	(*it++).tex()[0] = tex_pos(rt.right,rt.top);
+
 	(*it  ).pos()    = pos3(rs.right,rs.bottom);
 	(*it++).tex()[0] = tex_pos(rt.right,rt.bottom);
+
 	(*it  ).pos()    = pos3(rs.left,rs.bottom);
 	(*it  ).tex()[0] = tex_pos(rt.left,rt.bottom);
 }
@@ -52,7 +59,7 @@ sge::index_buffer::iterator sge::sprite::update_ib(index_buffer::iterator it)
 
 void sge::sprite::draw()
 {
-	if(!get_texture())
+	if(!tex)
 		return;
 	{
 		boost::array<char,sizeof(float)*5*4> buf;
@@ -65,6 +72,29 @@ void sge::sprite::draw()
 		s.ib->set_data(buf.data(),0,6);
 	}
 	s.set_parameters();
-	s.r->set_texture(0,get_texture());
+	s.r->set_texture(0,tex->my_texture());
 	s.r->render(s.vb,s.ib,0,4,PT_Triangle,2);
 }
+
+sge::texture_ptr sge::sprite::get_texture() const { return tex ? tex->my_texture() : texture_ptr(); }
+
+bool sge::sprite::equal_texture(const sprite& l, const sprite& r)
+{
+	return l.get_texture() == r.get_texture();
+}
+
+bool sge::sprite::less(const sprite& l, const sprite& r)
+{
+	const bool lvis = l.visible(), rvis = r.visible();
+	const unsigned lz = l.z(), rz = r.z();
+	sge::texture_ptr ltex = l.get_texture(), rtex = r.get_texture();
+
+	if(lvis != rvis)
+		return lvis > rvis;
+	if(lz != rz)
+		return lz > rz;
+	if(ltex != rtex)
+		return ltex < rtex;
+	return false;
+}
+

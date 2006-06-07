@@ -49,7 +49,7 @@ namespace sge
 		explicit raw_vector(size_type sz, const A& _a = A())
 			: a(_a), first(a.allocate(sz)), last(first+sz), cap(last) {}
 		raw_vector(size_type sz, const T& t, const A& _a = A())
-			: a(_a), first(a.allocate(sz)), last(first+size), cap(last)
+			: a(_a), first(a.allocate(sz)), last(first+sz), cap(last)
 		{
 			for(iterator it = begin(); it != end(); ++it)
 				*it = t;
@@ -98,61 +98,11 @@ namespace sge
 		}
 
 		void pop_back() { --last; }
-
-		/*iterator insert(iterator pos, const T& x)
-		{
-			size_type nsize = size()+1;
-			if(_capacity() < nsize)
-			{
-				pointer n = a.allocate(nsize), c = n;
-				size_type d = std::distance(begin(),pos);
-				copy(begin(),begin()+d,n);
-				c+=d;
-				*c = x;
-				copy(++pos,end(),++c);
-				a.deallocate(first,_capacity());
-				first = n;
-				cap = last = first + nsize;
-			}
-			else
-			{
-				_copy_backwards(pos,end());
-				*pos = x;
-				return pos;
-			}
-		}*/
-
-		/*void insert(iterator pos, size_type sz, const T& x)
-		{
-			size_type nsize = size()+sz;
-			if(_capacity() < nsize)
-			{
-				pointer n = a.allocate(nsize), c = n;
-				size_type d = std::distance(begin(),pos);
-				copy(begin(),begin()+d,n);
-				c+=d;
-				std::uninitialized_fill_n(c,c+sz,x);
-				c+=sz;
-				copy(++pos,end(),c);
-				a.deallocate(first,_capacity());
-				first = n;
-				cap = last = first + nsize;
-			}
-			else
-			{
-				
-			}
-		}*/
-
 		void clear() { last=first; }
 		
 		size_type size() const { return last-first; }
 		bool empty() const { return size()==0; }
 		size_type max_size() const { return a.max_size(); }
-		/*void resize (size_type sz)
-		{
-			
-		}*/
 
 		void swap (raw_vector& x)
 		{

@@ -17,12 +17,12 @@ namespace gui
 		SGEGUIDLLAPI bool value() const;
 		void text(const std::string& t) { _text = t; }
 		const std::string& text() const { return _text; }
-		void text_color(const color _col) { col = _col; }
-		color text_color() const { return _col; }
+		void text_color(const color c) { _text_color = c; }
+		color text_color() const { return _text_color; }
 	private:
 		SGEGUIDLLAPI virtual void on_draw(const draw_event& event);
 		std::string _text;
-		color col;
+		color       _text_color;
 		click_box box;
 	};
 	typedef shared_ptr<check_box> check_box_ptr;

@@ -5,6 +5,7 @@
 #include <list>
 #include <functional>
 #include <boost/filesystem/path.hpp>
+#include "./bitwise_cast.hpp"
 #include "./algorithm.hpp"
 #include "./library.hpp"
 #include "./window.hpp"
@@ -77,7 +78,7 @@ namespace sge
 				load_plugin(type);
 				it = --loaded_plugins.end();
 			}
-			return c_cast<Fun>(it->lib->get_function(detail::plugin_traits<T>::plugin_loader_name()));
+			return bitwise_cast<Fun>(it->lib->get_function(detail::plugin_traits<T>::plugin_loader_name()));
 		}
 		
 		plugin_info_array plugin_infos;

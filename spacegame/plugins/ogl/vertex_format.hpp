@@ -37,7 +37,7 @@ namespace sge
 		class vertex_format {
 		public:
 			vertex_format(const sge::vertex_format& f);
-			const offset_info& get_oi() const { return oi; }
+			const offset_info& offsets() const { return oi; }
 			void use_me();
 		private:
 			offset_info oi;

@@ -16,7 +16,7 @@ sge::gui::line_strip::line_strip(const point_array& points, const color line_col
 
 void sge::gui::line_strip::init()
 {
-	vb = rend->create_vertex_buffer(create_vertex_format().add(VU_Pos),points.size());
+	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos),points.size());
 	ib = rend->create_index_buffer(points.size()*2);
 	lock_ptr<index_buffer> l(ib.get());
 	{

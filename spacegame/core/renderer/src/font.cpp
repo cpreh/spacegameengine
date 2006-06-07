@@ -112,14 +112,14 @@ unsigned sge::font::create_text_res(vertex_buffer_ptr& vb,
 
 	unsigned count = 0;
 	const text_unit width = size.w, height = size.h;
-	const resource_flag_t flags = resource_flag_t(static_buf ? RF_WriteOnly : (RF_WriteOnly | RF_Dynamic));
+	const resource_flag_t flags = resource_flag_t(static_buf ? RF_WriteOnly : resource_flag_t(RF_WriteOnly) | RF_Dynamic);
 	const vertex_buffer::size_type vbsize = chr_count*4;
 	const index_buffer::size_type ibsize = chr_count*6;
-	if(!vb || vb->get_flags() != flags)
-		vb = r->create_vertex_buffer(create_vertex_format().add(VU_Pos).add(VU_Tex),vbsize,flags);
+	if(!vb || vb->flags() != flags)
+		vb = r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),vbsize,flags);
 	vb->resize(vbsize);
 
-	if(!ib || ib->get_flags() != flags || ib->size() < ibsize)
+	if(!ib || ib->flags() != flags || ib->size() < ibsize)
 	{
 		ib = r->create_index_buffer(ibsize,flags);
 		lock_ptr<index_buffer> l(ib.get(),LF_Discard);

@@ -17,8 +17,10 @@ namespace sge
 {
 namespace gui
 {
-	typedef space_unit unit;
-	typedef sge::rect  rect;
+
+typedef space_unit             unit;
+typedef sge::basic_rect<unit>  rect;
+
 }
 }
 

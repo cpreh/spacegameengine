@@ -65,15 +65,15 @@ namespace {
 sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 {
 	vertex_size offset = 0;
-	const sge::vertex_format::usage_list& l = f.get_elements();
+	const sge::vertex_format::usage_list& l = f.elements();
 
 	for(sge::vertex_format::usage_list::const_iterator it = l.begin(); it != l.end(); ++it)
 	{
-		for(vertex_size count = 0; count < it->get_count(); ++count)
+		for(vertex_size count = 0; count < it->count(); ++count)
 		{
-			const vertex_size cur = offset + count*it->get_size();
-			const actor_info ai(cur,f.get_stride(),count);
-			switch(it->get_usage()) {
+			const vertex_size cur = offset + count*it->size();
+			const actor_info ai(cur, f.stride(), count);
+			switch(it->usage()) {
 			case VU_Pos:
 				actors.push_back(actor_base_ptr(new pos_actor(ai)));
 				break;
@@ -91,8 +91,8 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 			}
 		}
 		
-		fill_offset_info(oi,offset,it->get_usage());
-		offset += it->get_stride();
+		oi[it->usage()] = offset;
+		offset += it->stride();
 	}
 }
 

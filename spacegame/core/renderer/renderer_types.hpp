@@ -5,7 +5,6 @@
 #include <stdexcept>
 #include "../main/types.hpp"
 #include "../main/window.hpp"
-#include "../main/bitfield.hpp"
 #include "../math/vector2.hpp"
 #include "../math/vector3.hpp"
 #include "../math/vector4.hpp"
@@ -131,13 +130,13 @@ namespace sge
 	}
 
 	enum resource_flags {
-		RF_Dynamic,//     = 1,
-		RF_WriteOnly,//   = 1 << 1,
-		RF_AutoRestore,// = 1 << 2,
+		RF_Dynamic     = 1,
+		RF_WriteOnly   = 1 << 1,
+		RF_AutoRestore = 1 << 2,
 		RF_Default     = RF_WriteOnly,
 		RF_num_elements
 	};
-	typedef bitfield<resource_flags,RF_num_elements> resource_flag_t;
+	typedef unsigned resource_flag_t;
 
 	enum lock_flags {
 		LF_Default,

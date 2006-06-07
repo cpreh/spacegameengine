@@ -31,6 +31,7 @@ namespace sge
 
 		static const char* const no_texture;
 	private:
+		void insert_texture(virtual_texture_ptr, const std::string& name);
 		void set_parameters();
 		sprite_list::iterator attach(sprite& s);
 		void detach(const sprite& s);

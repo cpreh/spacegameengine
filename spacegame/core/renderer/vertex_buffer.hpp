@@ -12,7 +12,6 @@
 #include "../math/vector4.hpp"
 #include "./vertex_format.hpp"
 #include "./renderer_types.hpp"
-#include "./vertex_pointer.hpp"
 
 namespace sge
 {
@@ -24,8 +23,7 @@ namespace sge
 		typedef vertex_pointer::size_type       size_type;
 		typedef vertex_pointer::difference_type difference_type;
 		typedef vertex_pointer::pointer         pointer;
-		typedef vertex_pointer::const_pointer   const_pointer;
-
+		typedef const_vertex_pointer::pointer   const_pointer;
 	private:
 		template<typename Stored>
 			class iterator_impl : public boost::iterator_facade<iterator_impl<Stored>,Stored,std::random_access_iterator_tag,Stored,difference_type> {
@@ -67,16 +65,16 @@ namespace sge
 		virtual reverse_iterator rend() = 0;
 		virtual const_reverse_iterator rend() const = 0;
 		virtual size_type size() const = 0;
-		virtual resource_flag_t get_flags() const = 0;
+		virtual resource_flag_t flags() const = 0;
 		virtual void lock(lock_flag_t flags = LF_Default) = 0;
 		virtual void unlock() = 0;
 		virtual void set_data(const_pointer data, size_type first, size_type count) = 0;
 		virtual void resize(size_type newsize, const_pointer data = 0) = 0;
-		virtual size_type get_stride() const = 0;
-		virtual iterator create_iterator(pointer data) const = 0;
+		virtual size_type stride() const = 0;
+		virtual iterator create_iterator(pointer data) = 0;
 		virtual const_iterator create_iterator(const_pointer data) const = 0;
-		virtual pointer raw_data() = 0;
-		virtual const_pointer raw_data() const = 0;
+		virtual pointer data() = 0;
+		virtual const_pointer data() const = 0;
 		virtual const vertex_format& get_vertex_format() const = 0;
 		virtual ~vertex_buffer(){}
 	};

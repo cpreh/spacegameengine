@@ -25,7 +25,7 @@ namespace sge
 		typedef const value_type*        const_pointer;
 		virtual ~basic_texture_base() {}
 		virtual size_type size() const = 0;
-		virtual resource_flag_t get_flags() const = 0;
+		virtual resource_flag_t flags() const = 0;
 	};
 	typedef basic_texture_base<BitDepth32> texture_base;
 	typedef shared_ptr<texture_base> texture_base_ptr;

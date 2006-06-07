@@ -3,9 +3,9 @@
 
 namespace sge
 {
-	template<typename IncompatibleType, typename Source> IncompatibleType c_cast(const Source& s)
+	template<typename Dest, typename Source> Dest c_cast(const Source& s)
 	{
-		return (IncompatibleType)s;
+		return (Dest)s;
 	}
 }
 

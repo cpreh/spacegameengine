@@ -5,7 +5,7 @@
 sge::gui::line::line(const point p1, const point p2, const color line_color, const renderer_ptr rend)
 : p1(p1), p2(p2), line_color(line_color), rend(rend)
 {
-	vb = rend->create_vertex_buffer(create_vertex_format().add(VU_Pos),2,RF_AutoRestore);
+	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos),2,RF_AutoRestore);
 	recalc_vertices();
 }
 
