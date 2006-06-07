@@ -1,0 +1,33 @@
+from glob import glob
+
+flags = '-Wall -ansi -pedantic -g'
+
+core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags)
+libcore = core.SharedLibrary('sgecore', [glob('./core/main/src/*.cpp'), glob('./core/math/src/*.cpp'), glob('./core/renderer/src/*.cpp')])
+
+gui = Environment(LIBPATH = ['./'], LIBS = ['boost_filesystem', 'boost_signals', 'sgecore'], CCFLAGS = flags)
+libgui = gui.SharedLibrary('sgegui', [glob('./gui/src/*.cpp')])
+
+ogl = Environment(LIBS = ['GL', 'X11', 'GLEW', 'Xxf86vm'], CCFLAGS = flags)
+libogl = ogl.SharedLibrary('sgeogl', [glob('./plugins/ogl/src/*.cpp')])
+ogl.Install('bin',libogl)
+
+devil = Environment(LIBS = ['IL', 'ILU'], CCFLAGS = flags)
+libdevil = devil.SharedLibrary('sgedevil', [glob('./plugins/devil/src/*.cpp')])
+devil.Install('bin',libdevil)
+
+freetype = Environment(LIBS = ['freetype'], CCFLAGS = flags)
+freetype.Append(CCFLAGS = ' -I/usr/include/freetype2')
+libfreetype = freetype.SharedLibrary('sgefreetype', [glob('./plugins/freetype/src/*.cpp')])
+freetype.Install('bin',libfreetype)
+
+xinput = Environment(LIBS = ['X11'], CCFLAGS = flags)
+libxinput = xinput.SharedLibrary('sgexinput', [glob('./plugins/xinput/src/*.cpp')])
+xinput.Install('bin',libxinput)
+
+#fmod = Environment(LIBS = ['fmod'], CCFLAGS = flags)
+#libfmod = fmod.SharedLibrary('sgefmod', [glob('./plugins/fmod/src/*.cpp')])
+#fmod.Install('bin',libfmod)
+
+test = Environment(LIBPATH = ['./'], LIBS = ['sgecore','sgegui'], CCFLAGS = flags)
+test.Program('sgetest', ['./test/test.cpp'])
