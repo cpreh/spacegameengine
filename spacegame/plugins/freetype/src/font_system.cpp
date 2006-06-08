@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include "../../../core/renderer/renderer_types.hpp"
 #include "../../../core/renderer/renderer.hpp"
 #include "../../../core/main/raw_vector.hpp"
 #include "../font_system.hpp"

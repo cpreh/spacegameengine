@@ -110,8 +110,18 @@ bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name
 	return add_texture(im->data(),im->width(),im->height(),name);
 }
 
+void sge::sprite_system::insert_texture(const virtual_texture_ptr t, const std::string& name)
+{
+	virtual_textures[name] = t;
+}
+
 bool sge::sprite_system::remove_texture(const std::string& name)
 {
+	virtual_texture_map::iterator it = virtual_textures.find(name);
+	if(it == virtual_textures.end())
+		return false;
+	virtual_textures.erase(it);
+	return true;
 }
 
 void sge::sprite_system::clear()
@@ -157,21 +167,21 @@ void sge::sprite_system::set_parameters()
 	r->set_filter_state(0,FARG_MagFilter,FARGV_Linear);							
 }
 
-/*const sge::texture_fragment* sge::sprite_system::get_texture_fragment(const std::string& name)
+sge::virtual_texture_ptr sge::sprite_system::vtexture(const std::string& name) const
 {
 	if(name == no_texture)
-		return 0;
+		return virtual_texture_ptr();
 	
-	texture_fragment_map::const_iterator it = fragments.find(name);
-	if(it == fragments.end())
+	virtual_texture_map::const_iterator it = virtual_textures.find(name);
+	if(it == virtual_textures.end())
 	{
 		texture_not_present_handler(name);
-		it = fragments.find(name);
-		if(it == fragments.end())
+		it = virtual_textures.find(name);
+		if(it == virtual_textures.end())
 			throw std::logic_error(std::string("texture_not_present_handler in sprite_system failed") += name);
 	}
 	return it->second;
-}*/
+}
 
 const char* const sge::sprite_system::no_texture = "";
 
@@ -185,7 +195,24 @@ sge::virtual_texture_ptr sge::fragmented_texture::consume_fragments(const textur
 {
 	const texture::size_type dw = round_div_int(w, elemsize),
 	                         dh = round_div_int(h, elemsize);
-	
+	for(fragment_matrix::size_type y = 0; y < fragments.ydim() - dh; ++y)
+		for(fragment_matrix::size_type x = 0; x < fragments.xdim() - dw; ++x)
+		{
+			const virtual_texture::rect cur(x, y, x + dw, y + dh);
+			if(check_rect(cur))
+				return virtual_texture_ptr(new virtual_texture(cur,this));
+			x += dw;
+		}
+	return virtual_texture_ptr(); // not found
+}
+
+bool sge::fragmented_texture::check_rect(const virtual_texture::rect& r) const
+{
+	for(fragment_matrix::size_type y = r.top; y < r.bottom; ++y)
+		for(fragment_matrix::size_type x = r.left; x < r.right; ++x)
+			if(!fragments[x][y])
+				return false;
+	return true;
 }
 
 void sge::fragmented_texture::return_fragments(const virtual_texture& t)

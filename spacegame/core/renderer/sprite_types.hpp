@@ -21,7 +21,7 @@ public:
 
 	virtual_texture(const rect&, fragmented_texture*);
 	~virtual_texture();
-	rect lock_area() const;
+	rect lock_area() const { return area; }
 	texture_ptr my_texture() const;
 private:
 	rect area;
@@ -38,6 +38,7 @@ public:
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const { return tex; }
 private:
+	bool check_rect(const virtual_texture::rect&) const;
 	typedef array2<raw_vector<bool> > fragment_matrix;
 	texture::size_type elemsize;
 	fragment_matrix fragments;

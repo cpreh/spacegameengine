@@ -30,8 +30,6 @@ namespace sge
 		return RGBA_MAKRO(r,g,b,a);
 	}
 
-	#undef ARGB_MAKRO
-
 	inline float   red_part_rgba_f(const color c) { return ((c & 0xFF000000) >> 24) / 255.f; }
 	inline float green_part_rgba_f(const color c) { return ((c &   0xFF0000) >> 16) / 255.f; }
 	inline float  blue_part_rgba_f(const color c) { return ((c &     0xFF00) >>  8) / 255.f; }
@@ -39,7 +37,7 @@ namespace sge
 	
 	struct colors {
 		static const color black  = static_rgb<  0,  0,  0>::value,
-				   white  = static_rgb<255,255,255>::value,
+		                   white  = static_rgb<255,255,255>::value,
 				   red    = static_rgb<255,  0,  0>::value,
 				   green  = static_rgb<  0,255,  0>::value,
 				   blue   = static_rgb<  0,  0,255>::value,

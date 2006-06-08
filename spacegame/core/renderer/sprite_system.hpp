@@ -27,10 +27,11 @@ namespace sge
 		bool remove_texture(const std::string& name);
 		void draw();
 		void clear();
-		virtual_texture_ptr vtexture(const std::string&) const;
 
 		static const char* const no_texture;
 	private:
+		virtual_texture_ptr vtexture(const std::string&) const;
+
 		void insert_texture(virtual_texture_ptr, const std::string& name);
 		void set_parameters();
 		sprite_list::iterator attach(sprite& s);
@@ -44,7 +45,7 @@ namespace sge
 		renderer_ptr r;
 		texture::size_type texsize, elemsize;
 
-		typedef std::map<std::string,virtual_texture_ptr> virtual_texture_map;
+		typedef std::map<std::string, virtual_texture_ptr> virtual_texture_map;
 		virtual_texture_map virtual_textures;
 
 		typedef shared_ptr<fragmented_texture> fragmented_texture_ptr;

@@ -25,9 +25,5 @@ xinput = Environment(LIBS = ['X11'], CCFLAGS = flags)
 libxinput = xinput.SharedLibrary('sgexinput', [glob('./plugins/xinput/src/*.cpp')])
 xinput.Install('bin',libxinput)
 
-#fmod = Environment(LIBS = ['fmod'], CCFLAGS = flags)
-#libfmod = fmod.SharedLibrary('sgefmod', [glob('./plugins/fmod/src/*.cpp')])
-#fmod.Install('bin',libfmod)
-
 test = Environment(LIBPATH = ['./'], LIBS = ['sgecore','sgegui'], CCFLAGS = flags)
 test.Program('sgetest', ['./test/test.cpp'])
