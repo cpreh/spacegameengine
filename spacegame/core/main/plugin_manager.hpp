@@ -78,7 +78,7 @@ namespace sge
 				load_plugin(type);
 				it = --loaded_plugins.end();
 			}
-			return bitwise_cast<Fun>(it->lib->get_function(detail::plugin_traits<T>::plugin_loader_name()));
+			return it->lib->load_function<Fun>(detail::plugin_traits<T>::plugin_loader_name());
 		}
 		
 		plugin_info_array plugin_infos;

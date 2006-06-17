@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <iostream>
 #include "./types.hpp"
-#include "./c_cast.hpp"
+#include "./bitwise_cast.hpp"
 
 #ifdef SGE_WINDOWS_PLATFORM
 	#define WIN32_LEAN_AND_MEAN
@@ -58,12 +58,13 @@ namespace sge
 #endif
 		}
 
-		void* get_function(const std::string& fun)
+		template<typename Fun>
+		Fun load_function(const std::string& fun)
 		{
 #ifdef SGE_WINDOWS_PLATFORM
-			void* ptr = sge::c_cast<void*>(GetProcAddress(handle,fun.c_str()));
+			Fun ptr = reinterpret_cast<Fun>(GetProcAddress(handle,fun.c_str()));
 #elif SGE_LINUX_PLATFORM
-			void* ptr = dlsym(handle,fun.c_str());
+			Fun ptr = bitwise_cast<Fun>(dlsym(handle,fun.c_str()));
 #endif
 			if(!ptr)
 				throw std::runtime_error(std::string("failed to load function ") + fun + " from library " + name() + " : " + liberror());

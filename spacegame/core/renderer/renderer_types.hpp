@@ -1,5 +1,5 @@
-#ifndef SGE_RENDERERTYPES_HPP_INCLUDED
-#define SGE_RENDERERTYPES_HPP_INCLUDED
+#ifndef SGE_RENDERER_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_TYPES_HPP_INCLUDED
 
 #include <vector>
 #include <stdexcept>
@@ -29,6 +29,8 @@ namespace sge
 	{
 		return RGBA_MAKRO(r,g,b,a);
 	}
+
+#undef RGBA_MAKRO
 
 	inline float   red_part_rgba_f(const color c) { return ((c & 0xFF000000) >> 24) / 255.f; }
 	inline float green_part_rgba_f(const color c) { return ((c &   0xFF0000) >> 16) / 255.f; }

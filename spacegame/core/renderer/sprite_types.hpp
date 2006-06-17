@@ -38,10 +38,9 @@ public:
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const { return tex; }
 private:
-	bool check_rect(const virtual_texture::rect&) const;
-	typedef array2<raw_vector<bool> > fragment_matrix;
+	typedef bsp_tree<texture::size_type> bsp_type;
 	texture::size_type elemsize;
-	fragment_matrix fragments;
+	bsp_type bsp;
 	texture_ptr tex;
 };
 
