@@ -25,7 +25,7 @@ void sge::sprite::update()
 
 void sge::sprite::update_where(vertex_buffer::iterator it)
 {
-	const virtual_texture::rect& area = tex->lock_area();
+	const virtual_texture::rect& area = tex->area();
 
 	const rect rt(space_unit(area.left)  / s.texsize, space_unit(area.top)    / s.texsize,
 		      space_unit(area.right) / s.texsize, space_unit(area.bottom) / s.texsize),

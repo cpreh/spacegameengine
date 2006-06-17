@@ -1,8 +1,9 @@
 #include <algorithm>
 #include <stdexcept>
 #include "../sprite_system.hpp"
-#include "../../renderer/vertex_format.hpp"
-#include "../../renderer/lock_ptr.hpp"
+#include "../vertex_format.hpp"
+#include "../lock_ptr.hpp"
+#include "../../main/functional.hpp"
 
 namespace
 {
@@ -12,38 +13,6 @@ void default_texture_not_present_handler(const std::string& s)
 	throw std::runtime_error(std::string("texture \"") + s + "\" not present in sprite_system! (default handler)");
 }
 
-}
-
-template<typename NewArg1, typename NewArg2, typename Fun>
-	class binary_dereference_binder : public std::binary_function<NewArg1,NewArg2,typename Fun::result_type> {
-public:
-	binary_dereference_binder(const Fun& f)
-		: f(f) {}
-	typename Fun::result_type operator()(NewArg1 arg1, NewArg2 arg2) const { return f(*arg1,*arg2); }
-private:
-	Fun f;
-};
-
-template<typename NewArg1, typename Fun>
-	class unary_dereference_binder : public std::unary_function<NewArg1,typename Fun::result_type> {
-public:
-	unary_dereference_binder(const Fun& f)
-		: f(f) {}
-	typename Fun::result_type operator()(NewArg1 arg) const { return t(*arg); }
-private:
-	Fun f;
-};
-
-template<typename NewArg1, typename NewArg2, typename Fun>
-	binary_dereference_binder<NewArg1,NewArg2,Fun> dereference_binder(const Fun& f)
-{
-	return binary_dereference_binder<NewArg1,NewArg2,Fun>(f);
-}
-
-template<typename NewArg1, typename Fun>
-	unary_dereference_binder<NewArg1,Fun> dereference_binder(const Fun& f)
-{
-	return unary_dereference_binder<NewArg1,Fun>(f);
 }
 
 sge::sprite_system::sprite_system(const renderer_ptr r, const texture::size_type tex_size_pow2, const texture::size_type elements_per_row, const handler_function handler)

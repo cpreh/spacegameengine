@@ -9,6 +9,7 @@
 #include "../main/shared_ptr.hpp"
 #include "../main/array2.hpp"
 #include "../main/raw_vector.hpp"
+#include "../main/bsp_tree.hpp"
 
 namespace sge
 {
@@ -21,10 +22,10 @@ public:
 
 	virtual_texture(const rect&, fragmented_texture*);
 	~virtual_texture();
-	rect lock_area() const { return area; }
+	rect area() const { return _area; }
 	texture_ptr my_texture() const;
 private:
-	rect area;
+	rect _area;
 	fragmented_texture* fragment;
 };
 
