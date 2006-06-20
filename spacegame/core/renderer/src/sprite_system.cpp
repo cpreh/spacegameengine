@@ -65,11 +65,11 @@ bool sge::sprite_system::add_texture(const texture::const_pointer src, const tex
 
 	for(fragmented_texture_list::iterator it = fragmented_textures.begin(); it != fragmented_textures.end(); ++it)
 		if(virtual_texture_ptr p = (*it)->consume_fragments(w,h))
-			return insert_texture(p,name), true;
+			return insert_texture(p,src,name), true;
 		
 	fragmented_textures.push_back(fragmented_texture_ptr(new fragmented_texture(r, texsize, elemsize)));
 	if(virtual_texture_ptr p = fragmented_textures.back()->consume_fragments(w,h))
-		return insert_texture(p,name), true;
+		return insert_texture(p,src,name), true;
 	// give up
 	throw std::runtime_error("sprite_system::add_texture: failed to allocate texture!");
 }
@@ -79,7 +79,7 @@ bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name
 	return add_texture(im->data(),im->width(),im->height(),name);
 }
 
-void sge::sprite_system::insert_texture(const virtual_texture_ptr t, const std::string& name)
+void sge::sprite_system::insert_texture(const virtual_texture_ptr t, const texture::const_pointer src, const std::string& name)
 {
 	virtual_textures[name] = t;
 }

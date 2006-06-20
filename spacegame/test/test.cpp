@@ -25,13 +25,13 @@ try
 	sge::font_system_ptr fs = pm.get_plugin<sge::font_system>();
 	sge::input_system_ptr is = pm.get_plugin<sge::input_system>(rend->get_window());
 	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arial.ttf");
-//	sge::sprite_system ss(rend,9,2);
-//	sge::image_ptr im = pl->load_image("/home/sefi/left.png");
-//	const std::string bender_name("bender");
-//	ss.add_texture(im,bender_name);
-//	sge::sprite spr(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
+	sge::sprite_system ss(rend,9,2);
+	sge::image_ptr im = pl->load_image("/home/sefi/cpp/spacegame/mainskin/button.png");
+	const std::string bender_name("bender");
+	ss.add_texture(im,bender_name);
+	sge::sprite spr(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 //	sge::sprite spr2(ss,sge::point(0,0),sge::dim(0.5,0.5),0,bender_name);
-	sge::gui::manager man(rend,fn,pl,"/home/sefi/cpp/ffggame/texture/mainskin/");
+	/*sge::gui::manager man(rend,fn,pl,"./mainskin");
 	sge::gui::frame fr1(man,0,sge::point(0,0.2),sge::dim(1,1),"background_big");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.5,0.5));
 	sge::gui::list list1(man,&fr1,sge::point(0.5,0),sge::dim(0.2,0.2));
@@ -40,18 +40,18 @@ try
 	//sge::gui::icon_button ib1(man,0,sge::point(0.5,0),sge::dim(0.5,0.5),"exit_0","exit_1","exit_2");
 	list1.push_back("LOL");
 	list1.push_back("BAR");
-	list1.push_back("ROFL!");
+	list1.push_back("ROFL!");*/
 
-	btn1.click_signal.connect(boost::lambda::var(running) = false);
+	//btn1.click_signal.connect(boost::lambda::var(running) = false);
 	while(running)
 	{
 		const sge::input_array inp = is->get_input();
 		if(sge::key_value(inp,sge::KC_ESC))
 			running = false;
 		rend->begin_rendering();
-		//ss.draw();
-		man.process(inp);
-		fn.draw_text("baalsjdjsdafjasjfldfld",sge::point(0.5,0.5),sge::dim(0.5,0.5),sge::colors::black);
+		ss.draw();
+		//man.process(inp);
+	//	fn.draw_text("baalsjdjsdafjasjfldfld",sge::point(0.5,0.5),sge::dim(0.5,0.5),sge::colors::black);
 		rend->end_rendering();
 	}
 }

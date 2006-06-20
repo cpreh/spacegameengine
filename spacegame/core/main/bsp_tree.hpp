@@ -79,7 +79,7 @@ public:
 
 	void erase(iterator it)
 	{
-		delete &(it.ref);
+		delete it.ref;
 	}
 
 	iterator find(const value_type& t)
@@ -99,7 +99,7 @@ private:
 		// case 1: left and right are absent
 		if(!n.left && !n.right)
 			return insert_node(n, n.left, value_type(point_type(n.rect.left, n.rect.top), dim));
-
+		
 		// case 2: right node is absent
 		if(!n.right)
 			return insert_case_2(dim, n, *n.left, n.right);

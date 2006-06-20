@@ -24,7 +24,7 @@ namespace {
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), mmwidth(mmap->max_keypermod), last_x(0), last_y(0), last_mouse(0)
 {
-	if(XGrabPointer(wnd->get_display(),wnd->get_window(),true,PointerMotionMask|KeyPressMask|KeyReleaseMask,GrabModeAsync,GrabModeAsync,wnd->get_window(),None,CurrentTime) != GrabSuccess)
+	if(XGrabPointer(wnd->get_display(),wnd->get_window(),true,None,/*PointerMotionMask|KeyPressMask|KeyReleaseMask,*/GrabModeAsync,GrabModeAsync,wnd->get_window(),None,CurrentTime) != GrabSuccess)
 		throw std::runtime_error("XGrabPointer() failed");
 	if(XGrabKeyboard(wnd->get_display(),wnd->get_window(),true,GrabModeAsync, GrabModeAsync, CurrentTime) != GrabSuccess)
 		throw std::runtime_error("XGrabKeyboard() failed");
