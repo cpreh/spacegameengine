@@ -3,10 +3,12 @@
 
 namespace sge
 {
-	template<typename Dest, typename Source> Dest c_cast(const Source& s)
-	{
-		return (Dest)s;
-	}
+
+template<typename Dest, typename Source> Dest c_cast(const Source& s)
+{
+	return (Dest)s;
+}
+
 }
 
 #endif

@@ -5,20 +5,23 @@
 
 namespace sge
 {
-	template<typename T> class lock_ptr {
-	public:
-		lock_ptr(T* t, lock_flag_t flags = LF_Default)
-			: t(t)
-		{
-			t->lock(flags);
-		}
-		~lock_ptr()
-		{
-			t->unlock();
-		}
-	private:
-		T* t;
-	};
+
+template<typename T> class lock_ptr {
+public:
+	lock_ptr(T* t, lock_flag_t flags = LF_Default)
+		: t(t)
+	{
+		t->lock(flags);
+	}
+	~lock_ptr()
+	{
+		t->unlock();
+	}
+private:
+	T* t;
+};
+
+
 }
 
 #endif
