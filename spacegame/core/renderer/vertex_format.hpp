@@ -4,6 +4,14 @@
 #include <cstddef>
 #include <vector>
 #include <stdexcept>
+#include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/is_const.hpp>
+#include <boost/type_traits/add_pointer.hpp>
+#include <boost/type_traits/is_pointer.hpp>
+#include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/remove_pointer.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/not.hpp>
 #include "../main/types.hpp"
 #include "./renderer_types.hpp"
 
@@ -36,6 +44,7 @@ namespace sge
 	};
 	
 	typedef std::size_t vertex_size;
+	typedef std::ptrdiff_t vertex_difference;
 
 	const vertex_size vertex_element_size[] = {
 		3*sizeof(vertex_traits<VU_Pos>::element_type),
@@ -80,25 +89,40 @@ namespace sge
 		vertex_size _stride;
 	};
 
-	template<typename T> struct is_const { static const bool value = false; };
-	template<typename T> struct is_const<const T&> { static const bool value = true; };
-	template<typename T> struct is_const<const T*> { static const bool value = true; };
-	
-	template<bool,typename T> struct apply_const_if { typedef T type; };
-	template<typename T> struct apply_const_if<true,T*> { typedef const T* type; };
-	template<typename T> struct apply_const_if<true,T&> { typedef const T& type; };
+	template<typename T, bool Deref> struct dereference_if {
+		static T do_it(T t) { return t; }
+	};
+	template<typename T> struct dereference_if<T,true> {
+		static typename boost::add_reference<typename boost::remove_pointer<T>::type >::type do_it(T t) { return *t; }
+	};
 
         template<bool Is_Const> class vertex_pointer_impl {
         public:
-                typedef char              value_type;
-                typedef std::ptrdiff_t    difference_type;
-                typedef std::size_t       size_type;
-                typedef typename apply_const_if<Is_Const,char*>::type pointer;
+                typedef char               value_type;
+                typedef vertex_difference  difference_type;
+                typedef vertex_size        size_type;
+                typedef typename boost::mpl::if_c<Is_Const,const value_type*, value_type*>::type pointer;
 
-                template<vertex_usage U> typename apply_const_if<is_const<pointer>::value,typename vertex_traits<U>::packed_type>::type element() const
+                template<vertex_usage U>
+			typename boost::add_reference<
+			                              typename boost::mpl::if_<boost::is_const<pointer>,
+			                                                       typename boost::add_const<typename vertex_traits<U>::packed_type>::type,
+			                                                       typename vertex_traits<U>::packed_type>::type
+			>::type element() const
 		{
-			return *reinterpret_cast<typename apply_const_if<is_const<pointer>::value,typename vertex_traits<U>::packed_type>::type*>(data + oi[U]);
+			typedef typename vertex_traits<U>::packed_type packed_type;
+			typedef typename boost::mpl::if_<boost::is_pointer<packed_type>,
+				                         packed_type,
+				                         typename boost::add_pointer<packed_type>::type
+							 >::type ref_to_packed;
+
+			typedef typename boost::mpl::if_<boost::is_const<pointer>,
+						         pointer_to_packed,
+			                                 typename boost::add_const<pointer_to_packed>::type
+							 >::type type_to_cast;
+			return dereference_if<type_to_cast, boost::mpl::not_<boost::is_pointer<packed_type> >::value>::do_it(reinterpret_cast<type_to_cast>(data + oi[U]));
 		}
+
                 typename vertex_traits<VU_Pos>::packed_type pos() const { return element<VU_Pos>(); }
                 typename vertex_traits<VU_Normal>::packed_type normal() const { return element<VU_Normal>(); }
                 typename vertex_traits<VU_Tex>::packed_type tex() const { return element<VU_Tex>(); }
@@ -110,8 +134,9 @@ namespace sge
                 template<bool OtherConst>
                 vertex_pointer_impl(const vertex_pointer_impl<OtherConst>& o)
                         : data(o.data), stride(o.stride), oi(o.oi) {}
-        private:
+
                 pointer data;
+        private:
                 size_type stride;
                 const offset_info& oi;
         };

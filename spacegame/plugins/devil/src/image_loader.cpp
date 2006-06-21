@@ -3,11 +3,11 @@
 
 sge::devil::image_loader::image_loader()
 {
-	ilSetInteger(IL_FORMAT_MODE,IL_RGBA);
 	ilEnable(IL_FORMAT_SET);
+	ilSetInteger(IL_FORMAT_MODE,IL_RGBA);
 }
 
-sge::image_ptr sge::devil::image_loader::load_image(const std::string& path, unsigned w, unsigned h)
+sge::image_ptr sge::devil::image_loader::load_image(const std::string& path, const unsigned w, const unsigned h)
 {
 	image_ptr im(new image(path));
 	

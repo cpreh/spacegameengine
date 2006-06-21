@@ -2,7 +2,6 @@
 #include "../sprite_system.hpp"
 #include "../lock_ptr.hpp"
 #include "../transform.hpp"
-#include <iostream>
 #include <boost/array.hpp>
 
 
@@ -23,6 +22,8 @@ void sge::sprite::update()
 	update_where(s.vb->begin()+vb_pos);
 }
 
+#include <iostream> //TODO:remove
+
 void sge::sprite::update_where(vertex_buffer::iterator it)
 {
 	const virtual_texture::rect& area = tex->area();
@@ -33,13 +34,36 @@ void sge::sprite::update_where(vertex_buffer::iterator it)
 	           rs(space_x_2d_to_3d(x())        ,space_y_2d_to_3d(y()),
 	              space_x_2d_to_3d(x()+width()),space_y_2d_to_3d(y()+height()));
 
-	(*it  ).pos()    = pos3(rs.left,rs.top);
+/*	char* p = it->data;
+
+	*reinterpret_cast<vector3<space_unit>*>(p) = pos3(rs.left,rs.top);
+	p += sizeof(vector3<space_unit>);
+	*reinterpret_cast<vector2<space_unit>*>(p) = tex_pos(rt.left,rt.top);
+	p += sizeof(vector2<space_unit>);
+
+	*reinterpret_cast<vector3<space_unit>*>(p) = pos3(rs.right,rs.top);
+	p += sizeof(vector3<space_unit>);
+	*reinterpret_cast<vector2<space_unit>*>(p) = tex_pos(rt.right,rt.top);
+	p += sizeof(vector2<space_unit>);
+	
+	*reinterpret_cast<vector3<space_unit>*>(p) = pos3(rs.right,rs.bottom);
+	p += sizeof(vector3<space_unit>);
+	*reinterpret_cast<vector2<space_unit>*>(p) = tex_pos(rt.right,rt.bottom);
+	p += sizeof(vector2<space_unit>);
+	
+	*reinterpret_cast<vector3<space_unit>*>(p) = pos3(rs.left,rs.bottom);
+	p += sizeof(vector3<space_unit>);
+	*reinterpret_cast<vector2<space_unit>*>(p) = tex_pos(rt.left,rt.bottom);
+	p += sizeof(vector2<space_unit>);*/
+
+
+	(*it++).pos()    = pos3(rs.left,rs.top);
 	(*it++).tex()[0] = tex_pos(rt.left,rt.top);
 
-	(*it  ).pos()    = pos3(rs.right,rs.top);
+	(*it++).pos()    = pos3(rs.right,rs.top);
 	(*it++).tex()[0] = tex_pos(rt.right,rt.top);
 
-	(*it  ).pos()    = pos3(rs.right,rs.bottom);
+	(*it++).pos()    = pos3(rs.right,rs.bottom);
 	(*it++).tex()[0] = tex_pos(rt.right,rt.bottom);
 
 	(*it  ).pos()    = pos3(rs.left,rs.bottom);

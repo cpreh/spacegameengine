@@ -1,5 +1,6 @@
 #include "../image.hpp"
 #include <IL/ilu.h>
+#include <iostream>
 
 sge::devil::image::image(const std::string& file)
 {

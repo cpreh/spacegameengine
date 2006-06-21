@@ -58,7 +58,7 @@ public:
 		bind_me();
 		glUnmapBufferARB(Type);
 		dest = 0;
-								
+
 		if(is_error())
 			throw std::runtime_error("glUnmapBufferARB() failed!");
 	}

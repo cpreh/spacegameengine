@@ -11,8 +11,8 @@ namespace sge
 	public:
 		typedef basic_texture_base<BitDepth> base;
 		typedef typename base::size_type size_type;
-		virtual size_type get_width() const = 0;
-		virtual size_type get_height() const = 0;
+		virtual size_type width() const = 0;
+		virtual size_type height() const = 0;
 		virtual size_type size() const = 0;
 	};
 	typedef basic_render_target<BitDepth32> render_target;

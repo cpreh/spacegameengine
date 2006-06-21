@@ -9,7 +9,7 @@ sge::x_window::x_window(const window_size sz, const std::string& _title, Display
 	swa.colormap = cmap;
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
-	swa.override_redirect = True;
+	swa.override_redirect = False; //True;
 	swa.event_mask = FocusChangeMask | KeyPressMask | KeyReleaseMask | PropertyChangeMask | StructureNotifyMask | KeymapStateMask | PointerMotionMask;
 	wnd = XCreateWindow(dsp,RootWindow(dsp,vi->screen),0,0,sz.w,sz.h,0,vi->depth, InputOutput, vi->visual, CWColormap /*| CWOverrideRedirect*/ | CWBorderPixel | CWEventMask, &swa);
 	XStoreName(dsp,wnd,_title.c_str());

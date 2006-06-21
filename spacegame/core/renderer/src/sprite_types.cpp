@@ -11,6 +11,11 @@ sge::virtual_texture::~virtual_texture()
 
 sge::texture_ptr sge::virtual_texture::my_texture() const { return fragment->get_texture(); }
 
+void sge::virtual_texture::set_data(const texture::const_pointer src)
+{
+	my_texture()->set_data(src,&_area);
+}
+
 sge::fragmented_texture::fragmented_texture(const renderer_ptr r, const texture::size_type texsize, const texture::size_type elemsize)
   : elemsize(elemsize),
     bsp(bsp_type::dim_type(texsize, texsize)),

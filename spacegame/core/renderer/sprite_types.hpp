@@ -24,6 +24,7 @@ public:
 	~virtual_texture();
 	rect area() const { return _area; }
 	texture_ptr my_texture() const;
+	void set_data(texture::const_pointer src);
 private:
 	rect _area;
 	fragmented_texture* fragment;

@@ -14,7 +14,7 @@ namespace sge
 		           const value_type& right = value_type(), const value_type& bottom = value_type())
 			: left(left), top(top), right(right), bottom(bottom) {}
 		basic_rect(const basic_point<T>& pos, const basic_dim<T>& sz)
-			: left(pos.x), top(pos.x + sz.w), right(pos.y), bottom(pos.y + sz.h) {}
+			: left(pos.x), top(pos.y), right(pos.x + sz.w), bottom(pos.y + sz.h) {}
 		
 		value_type left, top, right, bottom;
 	};

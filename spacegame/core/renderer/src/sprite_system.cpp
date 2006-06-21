@@ -71,16 +71,24 @@ bool sge::sprite_system::add_texture(const texture::const_pointer src, const tex
 	if(virtual_texture_ptr p = fragmented_textures.back()->consume_fragments(w,h))
 		return insert_texture(p,src,name), true;
 	// give up
-	throw std::runtime_error("sprite_system::add_texture: failed to allocate texture!");
+	throw std::runtime_error("sprite_system::add_texture(): failed to allocate texture!");
 }
+
+#include <iostream> // TODO: remove
 
 bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name)
 {
+	std::cout << "Adding " << im->width() << ' ' << im->height() << '\n';
 	return add_texture(im->data(),im->width(),im->height(),name);
 }
 
 void sge::sprite_system::insert_texture(const virtual_texture_ptr t, const texture::const_pointer src, const std::string& name)
 {
+	std::cout << "Filling " << t->area() << '\n';
+	color* c = new color[512*512];
+	std::fill(c,c+512*512,colors::blue);
+	t->my_texture()->set_data(c);
+	delete[] c;
 	virtual_textures[name] = t;
 }
 
@@ -107,8 +115,10 @@ void sge::sprite_system::draw()
 			it = (*sit)->update_ib(it);
 	}
 
-	lock_ptr<vertex_buffer> l(vb.get(),LF_Discard);
-	std::for_each(sprites.begin(),sprites.end(),std::mem_fun(&sprite::update));
+	{
+		lock_ptr<vertex_buffer> l(vb.get(),LF_Discard);
+		std::for_each(sprites.begin(),sprites.end(),std::mem_fun(&sprite::update));
+	}
 
 	set_parameters();
 	
@@ -116,13 +126,14 @@ void sge::sprite_system::draw()
 	for(sprite_list::iterator it = sprites.begin(); it != sprites.end() && (*it)->visible(); )
 	{
 		unsigned num_objects;
-		it = first_mismatch(it, sprites.end(), num_objects, dereference_binder<const sprite*, const sprite*>(std::ptr_fun(sprite::equal_texture)));
+		sprite_list::iterator next = first_mismatch_if(it, sprites.end(), num_objects, dereference_binder<const sprite*, const sprite*>(std::ptr_fun(sprite::equal_texture)));
 		if((*it)->get_texture())
 		{
 			r->set_texture(0,(*it)->get_texture());
 			r->render(vb,ib,0,unsigned(vb->size()),PT_Triangle,num_objects*2,first_index);
 		}
 		first_index += num_objects * 6;
+		it = next;
 	}
 }
 

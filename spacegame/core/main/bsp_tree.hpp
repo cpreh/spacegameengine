@@ -1,6 +1,7 @@
 #ifndef SGE_BSP_TREE_HPP_INCLUDED
 #define SGE_BSP_TREE_HPP_INCLUDED
 
+#include <stdexcept>
 #include "../math/rect.hpp"
 #include "../math/dim.hpp"
 #include "../math/point.hpp"
@@ -68,9 +69,17 @@ public:
 		node* ref;
 	};
 
+	class invalid_dimension : public std::logic_error {
+	public:
+		invalid_dimension() : std::logic_error("bsp_tree(dim), dim.w or dim.h may not be 0!") {}
+	};
+
 	bsp_tree(const dim_type dim)
-		: head(value_type(0,0,dim.w,dim.h), 0)
-	{}
+		: head(value_type(0,0,dim.w-1,dim.h-1), 0)
+	{
+		if(dim.w == 0 || dim.h == 0)
+			throw invalid_dimension();
+	}
 
 	iterator insert(const dim_type dim)
 	{
@@ -98,7 +107,7 @@ private:
 
 		// case 1: left and right are absent
 		if(!n.left && !n.right)
-			return insert_node(n, n.left, value_type(point_type(n.rect.left, n.rect.top), dim));
+			return insert_node(n, n.left, value_type(point_type(n.rect.left, n.rect.top), dim_type(dim.w-1,dim.h-1)));
 		
 		// case 2: right node is absent
 		if(!n.right)
@@ -125,12 +134,12 @@ private:
 		// try to insert the node at the right side
 		if(dim.w < width(ref.rect) - width(exist.rect))
 			if(dim.h < height(ref.rect) - height(exist.rect))
-				return insert_node(ref, empty, value_type(exist.rect.right, 0, exist.rect.right + dim.w, dim.h));
+				return insert_node(ref, empty, value_type(exist.rect.right, 0, exist.rect.right + dim.w - 1, dim.h - 1));
 
 		// try to insert the node at the bottom side
 		if(dim.h < height(ref.rect) - height(exist.rect))
 			if(dim.w < width(ref.rect) - width(exist.rect))
-				return insert_node(ref, empty, value_type(0, exist.rect.bottom, dim.w, exist.rect.bottom + dim.h));
+				return insert_node(ref, empty, value_type(0, exist.rect.bottom, dim.w - 1, exist.rect.bottom + dim.h - 1));
 
 		return end();
 	}

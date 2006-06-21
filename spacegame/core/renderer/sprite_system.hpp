@@ -27,13 +27,12 @@ namespace sge
 		bool remove_texture(const std::string& name);
 		void draw();
 		void clear();
-
+		void set_parameters();
 		static const char* const no_texture;
 	private:
 		virtual_texture_ptr vtexture(const std::string&) const;
 
 		void insert_texture(virtual_texture_ptr, texture::const_pointer src, const std::string& name);
-		void set_parameters();
 		sprite_list::iterator attach(sprite& s);
 		void detach(const sprite& s);
 		vertex_buffer::size_type free_vb_pos();

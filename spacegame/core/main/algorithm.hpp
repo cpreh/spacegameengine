@@ -71,7 +71,7 @@ template<typename T> struct bit_and_fun {
 };
 
 template<typename InputIterator, typename Size, typename BinaryPredicate>
-InputIterator first_mismatch(InputIterator first, InputIterator last, Size& cnt, BinaryPredicate pred)
+InputIterator first_mismatch_if(InputIterator first, InputIterator last, Size& cnt, BinaryPredicate pred)
 {
 	cnt = 0;
 	if(first==last)

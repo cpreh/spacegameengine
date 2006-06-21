@@ -3,6 +3,8 @@
 #include "../core/main/util.hpp"
 #include "../core/renderer/sprite_system.hpp"
 #include "../core/renderer/font.hpp"
+#include "../core/renderer/renderer.hpp"
+#include "../core/renderer/renderer_types.hpp"
 #include "../core/input/input_functions.hpp"
 #include "../gui/manager.hpp"
 #include "../gui/button.hpp"
@@ -49,7 +51,9 @@ try
 		if(sge::key_value(inp,sge::KC_ESC))
 			running = false;
 		rend->begin_rendering();
-		ss.draw();
+		ss.set_parameters();
+		spr.draw();
+		//ss.draw();
 		//man.process(inp);
 	//	fn.draw_text("baalsjdjsdafjasjfldfld",sge::point(0.5,0.5),sge::dim(0.5,0.5),sge::colors::black);
 		rend->end_rendering();
