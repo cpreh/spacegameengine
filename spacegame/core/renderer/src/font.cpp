@@ -200,7 +200,7 @@ unsigned sge::font::create_text_res(vertex_buffer_ptr& vb,
 				const text_unit top = pos.y + ch_pos.vshift * font_height(),
 				                bottom = top + bounds.h;
 
-			/*	(*vit).pos() = text_to_space(pos.x,top);
+				(*vit).pos() = text_to_space(pos.x,top);
 				(*vit++).tex()[0] = tex_pos(tp.left,tp.top);
 				(*vit).pos() = text_to_space(pos.x+bounds.w,top);
 				(*vit++).tex()[0] = tex_pos(tp.right,tp.top);
@@ -208,7 +208,7 @@ unsigned sge::font::create_text_res(vertex_buffer_ptr& vb,
 				(*vit++).tex()[0] = tex_pos(tp.right,tp.bottom);
 				(*vit).pos() = text_to_space(pos.x,bottom);
 				(*vit++).tex()[0] = tex_pos(tp.left,tp.bottom);
-			*/	
+				
 				pos.x += bounds.w;
 			}
 

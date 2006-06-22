@@ -27,7 +27,7 @@ private:
 };
 
 template<typename T> bool operator==(const auto_ptr<T>& l, const auto_ptr<T>& r) { return l.get() == r.get(); }
-template<typename T> bool operator!=(const auto_ptr<T>& l, const auto_ptr<T>& r) { return !(l==r); }}
+template<typename T> bool operator!=(const auto_ptr<T>& l, const auto_ptr<T>& r) { return !(l==r); }
 
 }
 

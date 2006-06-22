@@ -74,17 +74,13 @@ bool sge::sprite_system::add_texture(const texture::const_pointer src, const tex
 	throw std::runtime_error("sprite_system::add_texture(): failed to allocate texture!");
 }
 
-#include <iostream> // TODO: remove
-
 bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name)
 {
-	std::cout << "Adding " << im->width() << ' ' << im->height() << '\n';
 	return add_texture(im->data(),im->width(),im->height(),name);
 }
 
 void sge::sprite_system::insert_texture(const virtual_texture_ptr t, const texture::const_pointer src, const std::string& name)
 {
-	std::cout << "Filling " << t->area() << '\n';
 	color* c = new color[512*512];
 	std::fill(c,c+512*512,colors::blue);
 	t->my_texture()->set_data(c);

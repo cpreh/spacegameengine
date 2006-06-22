@@ -90,6 +90,9 @@ private:
 	vertex_size _stride;
 };
 
+namespace detail
+{
+
 template<typename T, bool Deref> struct dereference_if {
 	static T do_it(T t) { return t; }
 };
@@ -97,22 +100,26 @@ template<typename T> struct dereference_if<T,true> {
 	static typename boost::add_reference<typename boost::remove_pointer<T>::type >::type do_it(T t) { return *t; }
 };
 
-template<bool Is_Const> class vertex_pointer_impl {
+template<bool IsConst, typename T> struct return_type {
+private:
+	typedef typename boost::mpl::if_c<IsConst, typename boost::add_const<T>::type, T>::type cv_type;
+public:
+	typedef typename boost::mpl::if_<boost::is_pointer<T>, cv_type, typename boost::add_reference<cv_type>::type>::type type;
+};
+
+}
+
+template<bool IsConst> class vertex_pointer_impl {
 public:
 	typedef char               value_type;
 	typedef vertex_difference  difference_type;
 	typedef vertex_size        size_type;
-	typedef typename boost::mpl::if_c<Is_Const,const value_type*, value_type*>::type pointer;
+	typedef typename boost::mpl::if_c<IsConst,const value_type*, value_type*>::type pointer;
 
 	template<vertex_usage U>
-		typename boost::mpl::if_<boost::is_pointer<typename vertex_traits<U>::packed_type> >,
-		                         add_reference<
-		                              typename boost::mpl::if_<boost::is_const<pointer>,
-		                                                       typename boost::add_const<typename vertex_traits<U>::packed_type>::type,
-		                                                       typename vertex_traits<U>::packed_type>::type
-		>::type element() const
+		typename detail::return_type<IsConst, typename vertex_traits<U>::packed_type>::type
+	element() const
 	{
-		// VU_Pos: vector2<float>& *reinterpret_cast<vector2<float>*>(data);
 		typedef typename vertex_traits<U>::packed_type packed_type;
 		typedef typename boost::mpl::if_<boost::is_pointer<packed_type>,
 		                                 packed_type,
@@ -123,13 +130,13 @@ public:
 		                                 pointer_to_packed,
 		                                 typename boost::add_const<pointer_to_packed>::type
 		                                >::type type_to_cast;
-		return dereference_if<type_to_cast, boost::mpl::not_<boost::is_pointer<packed_type> >::value>::do_it(reinterpret_cast<type_to_cast>(data + oi[U]));
+		return detail::dereference_if<type_to_cast, boost::mpl::not_<boost::is_pointer<packed_type> >::value>::do_it(reinterpret_cast<type_to_cast>(data + oi[U]));
 	}
 
-	typename vertex_traits<VU_Pos>::packed_type pos() const { return element<VU_Pos>(); }
-	typename vertex_traits<VU_Normal>::packed_type normal() const { return element<VU_Normal>(); }
-	typename vertex_traits<VU_Tex>::packed_type tex() const { return element<VU_Tex>(); }
-	typename vertex_traits<VU_Diffuse>::packed_type diffuse() const { return element<VU_Diffuse>(); }
+	typename detail::return_type<IsConst, vertex_traits<VU_Pos    >::packed_type>::type pos() const { return element<VU_Pos>(); }
+	typename detail::return_type<IsConst, vertex_traits<VU_Normal >::packed_type>::type normal() const { return element<VU_Normal>(); }
+	typename detail::return_type<IsConst, vertex_traits<VU_Tex    >::packed_type>::type tex() const { return element<VU_Tex>(); }
+	typename detail::return_type<IsConst, vertex_traits<VU_Diffuse>::packed_type>::type diffuse() const { return element<VU_Diffuse>(); }
 
 	vertex_pointer_impl(const pointer data, const size_type stride, const offset_info& oi)
 		: data(data), stride(stride), oi(oi) {}
@@ -138,7 +145,7 @@ public:
 	vertex_pointer_impl(const vertex_pointer_impl<OtherConst>& o)
 		: data(o.data), stride(o.stride), oi(o.oi) {}
 
-	private:
+private:
 	pointer data;
 	size_type stride;
 	const offset_info& oi;

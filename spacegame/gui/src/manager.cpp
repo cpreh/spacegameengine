@@ -1,9 +1,10 @@
 #include "../../core/input/key_type.hpp"
-#include "../../core/main/file.hpp"
 #include "../manager.hpp"
 #include "../skin.hpp"
 #include <boost/bind.hpp>
 #include <boost/function.hpp>
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
 #include <iostream>
 
 sge::gui::manager::manager(const renderer_ptr rend, font& gui_font, const image_loader_ptr il, const std::string& graphics_path)
@@ -31,13 +32,14 @@ sge::gui::manager::manager(const renderer_ptr rend, font& gui_font, const image_
 
 void sge::gui::manager::on_texture_not_present(const std::string& name)
 {
-	const find_file_ret r = find_file(graphics_path,name);
-	if(!r.second)
-	{
-		std::cerr << "Unable to find texture " << name << " for gui system!\n";
-		return;
-	}
-	sprite_sys.add_texture(il->load_image(r.first),name);
+	boost::filesystem::directory_iterator end;
+	for(boost::filesystem::directory_iterator it(graphics_path); it != end; ++it)
+		if(it->string() == name)
+		{
+			sprite_sys.add_texture(il->load_image(it->string()),name);
+			return;
+		}
+	std::cerr << "Unable to find texture " << name << " for gui system!\n";
 }
 
 void sge::gui::manager::process(const input_array& v)
