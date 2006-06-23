@@ -1,15 +1,6 @@
 #ifndef SGE_TYPES_HPP_INCLUDED
 #define SGE_TYPES_HPP_INCLUDED
 
-#include "./dllapi.hpp"
-
-#ifdef SGE_CORE_EXPORTS
-	#define SGECOREDLLAPI SGEDLLEXPORT
-#else
-	#define SGECOREDLLAPI SGEDLLIMPORT
-#endif
-
-
 #ifdef _WIN32
 	#define SGE_WINDOWS_PLATFORM 1
 #elif __linux__
@@ -18,18 +9,20 @@
 
 namespace sge
 {
-	typedef unsigned char  uchar;
-	typedef unsigned short ushort;
-	typedef unsigned int   uint;
-	typedef unsigned long  ulong;
-	typedef char           int8;
-	typedef short int      int16;
-	typedef int            int32;
-	typedef uchar          uint8;
-	typedef ushort         uint16;
-	typedef uint           uint32;
 
-	typedef float space_unit;
+typedef unsigned char  uchar;
+typedef unsigned short ushort;
+typedef unsigned int   uint;
+typedef unsigned long  ulong;
+typedef char           int8;
+typedef short int      int16;
+typedef int            int32;
+typedef uchar          uint8;
+typedef ushort         uint16;
+typedef uint           uint32;
+
+typedef float space_unit;
+
 }
 
 #endif

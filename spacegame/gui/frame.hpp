@@ -9,13 +9,16 @@ namespace sge
 {
 namespace gui
 {
-	class manager;
 
-	class frame : public rectangle {
-	public:
-		SGEGUIDLLAPI frame(manager& man, element* parent, point pos, dim sz, const std::string& my_texture, bool visible = true, bool enabled = true);
-	};
-	typedef shared_ptr<frame> frame_ptr;
+class manager;
+
+class frame : public rectangle {
+public:
+	frame(manager& man, element* parent, point pos, dim sz, const std::string& my_texture, bool visible = true, bool enabled = true);
+};
+
+typedef shared_ptr<frame> frame_ptr;
+
 }
 }
 

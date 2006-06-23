@@ -23,6 +23,7 @@ namespace detail {
 	template<typename T> struct plugin_traits;
 	template<typename T> struct no_window_plugin { typedef T* (*plugin_function)(); };
 	template<typename T> struct window_plugin { typedef T* (*plugin_function)(window_ptr); };
+
 	template<> struct plugin_traits<renderer_system> : no_window_plugin<renderer_system> { 
 		static const char* plugin_loader_name() { return "create_renderer_system"; }
 		static plugin_type get_plugin_type() { return PT_Renderer; }
@@ -54,10 +55,10 @@ typedef shared_ptr<library> library_ptr;
 public:
 	typedef std::vector<plugin_info> plugin_info_array;
 
-	SGECOREDLLAPI plugin_manager();
-	SGECOREDLLAPI void load_plugin(plugin_type mask, unsigned number = 0);
-	SGECOREDLLAPI void load_plugin(const std::string& filename);
-	SGECOREDLLAPI void get_plugin_info(plugin_type mask, plugin_info_array& v);
+	plugin_manager();
+	void load_plugin(plugin_type mask, unsigned number = 0);
+	void load_plugin(const std::string& filename);
+	void get_plugin_info(plugin_type mask, plugin_info_array& v);
 	template<typename T> shared_ptr<T> get_plugin(const unsigned index = 0)
 	{
 		typedef typename detail::plugin_traits<T>::plugin_function plugin_function;

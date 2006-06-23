@@ -6,13 +6,15 @@
 
 namespace sge
 {
-	namespace ogl
-	{
-		template<typename D, typename S> D convert_cast(const S&);
-		template<> GLenum convert_cast(const primitive_type& t);
-		GLuint convert_lock_flags(lock_flag_t f);
-		GLuint convert_resource_flags(resource_flag_t t);
-	}
+namespace ogl
+{
+
+template<typename D, typename S> D convert_cast(const S&);
+template<> GLenum convert_cast(const primitive_type& t);
+GLuint convert_lock_flags(lock_flag_t f);
+GLuint convert_resource_flags(resource_flag_t t);
+
+}
 }
 
 #endif

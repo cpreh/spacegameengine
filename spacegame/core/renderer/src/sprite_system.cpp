@@ -82,7 +82,10 @@ bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name
 void sge::sprite_system::insert_texture(const virtual_texture_ptr t, const texture::const_pointer src, const std::string& name)
 {
 	color* c = new color[512*512];
-	std::fill(c,c+512*512,colors::blue);
+	//for(color* p = c; p != c+512*512; ++p)
+	//	*p = rand();
+	for(color* d = c; d < c + width(t->area())*height(t->area()) / 4; ++d)
+		*d = src[d-c];
 	t->my_texture()->set_data(c);
 	delete[] c;
 	virtual_textures[name] = t;

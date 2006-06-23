@@ -5,13 +5,6 @@
 #include "../core/math/rect.hpp"
 #include "../core/math/dim.hpp"
 #include "../core/main/types.hpp"
-#include "../core/main/dllapi.hpp"
-
-#ifdef SGEGUI_EXPORTS
-	#define SGEGUIDLLAPI SGEDLLEXPORT
-#else
-	#define SGEGUIDLLAPI SGEDLLIMPORT
-#endif
 
 namespace sge
 {

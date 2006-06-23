@@ -9,18 +9,22 @@
 
 namespace sge
 {
-	struct driver_info {
-		std::string name;
-	};
 
-	typedef std::vector<driver_info> driver_info_array;
-	class audio_system {
-	public:
-		virtual ~audio_system(){}
-		virtual void get_driver_info(driver_info_array& v) = 0;
-		virtual audio_device_ptr create_audio_device(unsigned num = 0) = 0;
-	};
-	typedef shared_ptr<audio_system> audio_system_ptr;
+struct driver_info {
+	std::string name;
+};
+
+typedef std::vector<driver_info> driver_info_array;
+
+class audio_system {
+public:
+	virtual ~audio_system(){}
+	virtual void get_driver_info(driver_info_array& v) = 0;
+	virtual audio_device_ptr create_audio_device(unsigned num = 0) = 0;
+};
+
+typedef shared_ptr<audio_system> audio_system_ptr;
+
 }
 
 #endif

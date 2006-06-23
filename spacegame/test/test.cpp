@@ -52,8 +52,8 @@ try
 			running = false;
 		rend->begin_rendering();
 		ss.set_parameters();
-		spr.draw();
-		//ss.draw();
+		//spr.draw();
+		ss.draw();
 		//man.process(inp);
 	//	fn.draw_text("baalsjdjsdafjasjfldfld",sge::point(0.5,0.5),sge::dim(0.5,0.5),sge::colors::black);
 		rend->end_rendering();

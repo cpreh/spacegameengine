@@ -17,10 +17,10 @@ void sge::frames_counter::update()
 	}
 }
 
-std::string sge::frames_counter::get_frames_str() const
+std::string sge::frames_counter::frames_str() const
 {
 	std::ostringstream oss;
-	oss << get_frames();
+	oss << frames();
 	return oss.str();
 }
-unsigned sge::frames_counter::get_frames() const { return display_frames; }
+unsigned sge::frames_counter::frames() const { return display_frames; }

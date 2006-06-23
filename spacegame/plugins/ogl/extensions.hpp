@@ -5,10 +5,12 @@
 
 namespace sge
 {
-	namespace ogl
-	{
-		void load_extensions();
-	}
+namespace ogl
+{
+
+void load_extensions();
+
+}
 }
 
 #endif

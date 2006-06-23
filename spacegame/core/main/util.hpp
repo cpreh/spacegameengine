@@ -5,7 +5,9 @@
 
 namespace sge
 {
-	SGECOREDLLAPI void sleep(ulong milli_seconds);
+
+void sleep(ulong milli_seconds);
+
 }
 
 #endif

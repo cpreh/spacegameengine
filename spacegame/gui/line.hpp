@@ -9,17 +9,19 @@ namespace sge
 {
 namespace gui
 {
-	class line {
-	public:
-		SGEGUIDLLAPI line(point p1, point p2, color line_color, renderer_ptr rend);
-		SGEGUIDLLAPI void draw();
-		point p1, p2;
-		color line_color;
-	private:
-		void recalc_vertices();
-		renderer_ptr          rend;
-		vertex_buffer_ptr     vb;
-	};
+
+class line {
+public:
+	line(point p1, point p2, color line_color, renderer_ptr rend);
+	void draw();
+	point p1, p2;
+	color line_color;
+private:
+	void recalc_vertices();
+	renderer_ptr          rend;
+	vertex_buffer_ptr     vb;
+};
+
 }
 }
 

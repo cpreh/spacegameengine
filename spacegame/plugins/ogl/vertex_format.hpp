@@ -9,43 +9,45 @@
 
 namespace sge
 {
-	namespace ogl
-	{
-		inline void* vbo_offset(const size_t sz)
-		{
-			return reinterpret_cast<void*>(sz);
-		}
+namespace ogl
+{
 
-		struct actor_info {
-			actor_info(vertex_size offset, vertex_size stride, vertex_size index)
-				: offset(vbo_offset(offset)), stride(stride), index(index) {}
-			void*       offset;
-			vertex_size stride;
-			vertex_size index;
-		};
+inline void* vbo_offset(const size_t sz)
+{
+	return reinterpret_cast<void*>(sz);
+}
 
-		class actor_base {
-		public:
-			actor_base(const actor_info& ai)
-				: ai(ai) {}
-			virtual ~actor_base(){}
-			virtual void operator()() const = 0;
-		protected:
-			actor_info ai;
-		};
-		
-		class vertex_format {
-		public:
-			vertex_format(const sge::vertex_format& f);
-			const offset_info& offsets() const { return oi; }
-			void use_me();
-		private:
-			offset_info oi;
-			typedef shared_ptr<actor_base> actor_base_ptr;
-			typedef std::vector<actor_base_ptr> actor_array;
-			actor_array actors;
-		};
-	}
+struct actor_info {
+	actor_info(vertex_size offset, vertex_size stride, vertex_size index)
+		: offset(vbo_offset(offset)), stride(stride), index(index) {}
+	void*       offset;
+	vertex_size stride;
+	vertex_size index;
+};
+
+class actor_base {
+public:
+	actor_base(const actor_info& ai)
+		: ai(ai) {}
+	virtual ~actor_base(){}
+	virtual void operator()() const = 0;
+protected:
+	actor_info ai;
+};
+
+class vertex_format {
+public:
+	vertex_format(const sge::vertex_format& f);
+	const offset_info& offsets() const { return oi; }
+	void use_me();
+private:
+	offset_info oi;
+	typedef shared_ptr<actor_base> actor_base_ptr;
+	typedef std::vector<actor_base_ptr> actor_array;
+	actor_array actors;
+};
+
+}
 }
 
 #endif

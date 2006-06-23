@@ -6,20 +6,22 @@
 
 namespace sge
 {
-	namespace gui
-	{
-		class text_cursor : sprite {
-		public:
-			text_cursor(sprite_system& s, point pos, dim sz, timer::interval_type blink_time);
-			void draw();
-			using sprite::width;
-			using sprite::height;
-			using sprite::pos;
-		private:
-			timer  blink_timer;
-			bool   visible;
-		};
-	}
+namespace gui
+{
+
+class text_cursor : sprite {
+public:
+	text_cursor(sprite_system& s, point pos, dim sz, timer::interval_type blink_time);
+	void draw();
+	using sprite::width;
+	using sprite::height;
+	using sprite::pos;
+private:
+	timer  blink_timer;
+	bool   visible;
+};
+
+}
 }
 
 #endif
