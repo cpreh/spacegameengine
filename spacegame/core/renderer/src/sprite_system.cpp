@@ -84,7 +84,7 @@ void sge::sprite_system::insert_texture(const virtual_texture_ptr t, const textu
 	color* c = new color[512*512];
 	//for(color* p = c; p != c+512*512; ++p)
 	//	*p = rand();
-	for(color* d = c; d < c + width(t->area())*height(t->area()) / 4; ++d)
+	for(color* d = c; d < c + width(t->area())*height(t->area()); ++d)
 		*d = src[d-c];
 	t->my_texture()->set_data(c);
 	delete[] c;

@@ -11,7 +11,8 @@ namespace
 	{
 		return lib.load_function<version_function>("plugin_version_info");
 	}
-	const char* const plugin_path = "/usr/lib/spacegame";
+
+	const char* const plugin_path = PLUGIN_PATH;
 	const char* const plugin_extension = ".so";
 }
 

@@ -2,7 +2,7 @@ from glob import glob
 
 flags = '-Wall -ansi -pedantic -g'
 
-core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags)
+core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"/usr/lib/spacegame\\\""})
 libcore = core.SharedLibrary('sgecore', [glob('./core/main/src/*.cpp'), glob('./core/math/src/*.cpp'), glob('./core/renderer/src/*.cpp')])
 
 gui = Environment(LIBPATH = ['./'], LIBS = ['boost_filesystem', 'boost_signals', 'sgecore'], CCFLAGS = flags)
