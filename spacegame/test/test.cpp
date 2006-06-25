@@ -51,11 +51,9 @@ try
 		if(sge::key_value(inp,sge::KC_ESC))
 			running = false;
 		rend->begin_rendering();
-		ss.set_parameters();
-		//spr.draw();
 		ss.draw();
 		//man.process(inp);
-	//	fn.draw_text("baalsjdjsdafjasjfldfld",sge::point(0.5,0.5),sge::dim(0.5,0.5),sge::colors::black);
+		fn.draw_text("abc",sge::point(0.5,0.5),sge::dim(0.5,0.5),sge::colors::black);
 		rend->end_rendering();
 	}
 }

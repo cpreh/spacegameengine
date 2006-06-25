@@ -27,7 +27,7 @@ public:
 		if(!r)
 			glTexImage2D(GL_TEXTURE_2D,0,4,width(),height(),0,format,type,src);
 		else
-			glTexSubImage2D(GL_TEXTURE_2D,0,r->left,r->top,r->right-r->left,r->bottom-r->top,format,type,src);
+			glTexSubImage2D(GL_TEXTURE_2D,0,r->left,r->top,r->width(),r->height(),format,type,src);
 		if(is_error())
 			throw std::runtime_error("glTex(Sub)Image2D() failed!");
 	}

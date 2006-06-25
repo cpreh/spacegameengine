@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include "../../../core/renderer/renderer_types.hpp"
 #include "../../../core/renderer/renderer.hpp"
+#include "../../../core/renderer/texture_helper.hpp"
 #include "../../../core/main/raw_vector.hpp"
 #include "../font_system.hpp"
 #include FT_GLYPH_H
@@ -31,12 +32,13 @@ sge::ft::font_system::~font_system()
 	FT_Done_FreeType(library);
 }
 
+// TODO: portabel in case of sizeof(int)==1
 sge::font_information sge::ft::font_system::create_font(const renderer_ptr r, const std::string& font_name, const bool italic, const font_weight weight, const text_unit height, const std::locale& loc)
 {
 	font_information info;
-	
+
 	const texture::size_type tex_size = 512;
-	
+
 	FT_Face face;
 	if(FT_New_Face(library,font_name.c_str(),0,&face))
 		throw std::runtime_error(std::string("FT_New_Face() failed for font: ") += font_name);
@@ -46,13 +48,13 @@ sge::font_information sge::ft::font_system::create_font(const renderer_ptr r, co
 	if(FT_Set_Pixel_Sizes(face,0,pixel_size))
 		throw std::runtime_error("FT_Set_Pixel_Sizes() failed");
 	info.font_height = text_unit(pixel_size) / tex_size;
-	
+
 	const char min = std::numeric_limits<char>::min(),
 	           max = std::numeric_limits<char>::max();
 	info.positions.reserve(unsigned(max)-min);
-	
+
 	info.tex = r->create_texture(0,tex_size,tex_size);
-	
+
 	unsigned cur_x = 0, cur_y = 0;
 	int max_height = 0;
 	for(int i = min; i <= max; ++i)
@@ -63,7 +65,7 @@ sge::font_information sge::ft::font_system::create_font(const renderer_ptr r, co
 			info.positions.push_back(font_information::position());
 			continue;
 		}
-	
+
 		FT_Glyph glyph;
 		if(FT_Get_Glyph(face->glyph,&glyph))
 			throw std::runtime_error("FT_Get_Glyph() failed");
@@ -75,7 +77,7 @@ sge::font_information sge::ft::font_system::create_font(const renderer_ptr r, co
 		FT_BitmapGlyph bitmap_glyph = reinterpret_cast<FT_BitmapGlyph>(glyph);
 
 		FT_Bitmap& bitmap = bitmap_glyph->bitmap;
-		const int width = bitmap.width + 2, height = bitmap.rows + 2;
+		const int width = bitmap.width, height = bitmap.rows;
 		max_height = std::max(height,max_height);
 		if(cur_x + width >= tex_size)
 		{
@@ -86,20 +88,18 @@ sge::font_information sge::ft::font_system::create_font(const renderer_ptr r, co
 		if(cur_y + height >= tex_size)
 			throw std::runtime_error("Problem with freetype font: texture too small!");
 
-		const lock_rect lrect(cur_x,cur_y,cur_x+width,cur_y+height);
+		const lock_rect lrect(lock_rect::point_type(cur_x, cur_y), lock_rect::dim_type(width, height));
 
 		info.positions.push_back(
-				font_information::position(
-					font_information::rect(space_unit(lrect.left)/tex_size,space_unit(lrect.top)/tex_size,
-					                    space_unit(lrect.left+bitmap.width)/tex_size,space_unit(lrect.top+bitmap.rows)/tex_size),
+				font_information::position(to_coordinate_rect(lrect, info.tex),
 				text_unit(pixel_size-bitmap_glyph->top) / pixel_size));
-	
+
 		raw_vector<color> expanded(width*height);
 		for(int y = 0; y < height; ++y)
 			for(int x = 0; x < width; ++x)
 				expanded[y*width+x] = y < bitmap.rows && x < bitmap.width ?
 					(bitmap.buffer[y*bitmap.width+x] ? colors::white : colors::transparent) : 0;
-		
+
 		info.tex->set_data(expanded.data(),&lrect);
 		cur_x += width;
 	}

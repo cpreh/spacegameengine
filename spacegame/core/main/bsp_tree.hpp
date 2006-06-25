@@ -69,17 +69,9 @@ public:
 		node* ref;
 	};
 
-	class invalid_dimension : public std::logic_error {
-	public:
-		invalid_dimension() : std::logic_error("bsp_tree(dim), dim.w or dim.h may not be 0!") {}
-	};
-
 	bsp_tree(const dim_type dim)
-		: head(value_type(0,0,dim.w-1,dim.h-1), 0)
-	{
-		if(dim.w == 0 || dim.h == 0)
-			throw invalid_dimension();
-	}
+		: head(value_type(point_type(0,0),dim), 0)
+	{}
 
 	iterator insert(const dim_type dim)
 	{
@@ -107,13 +99,13 @@ private:
 
 		// case 1: left and right are absent
 		if(!n.left && !n.right)
-			return insert_node(n, n.left, value_type(point_type(n.rect.left, n.rect.top), dim_type(dim.w-1,dim.h-1)));
+			return insert_node(n, n.left, value_type(point_type(n.rect.left, n.rect.top), dim));
 		
-		// case 2: right node is absent
+		// case 2: right node is absent but left node is there
 		if(!n.right)
 			return insert_case_2(dim, n, *n.left, n.right);
 
-		// case 2: symmetric case
+		// case 2: symmetric case (left node is absent but right node is there)
 		if(!n.left)
 			return insert_case_2(dim, n, *n.right, n.left);
 
@@ -132,14 +124,14 @@ private:
 			return ret;
 	
 		// try to insert the node at the right side
-		if(dim.w < width(ref.rect) - width(exist.rect))
-			if(dim.h < height(ref.rect) - height(exist.rect))
-				return insert_node(ref, empty, value_type(exist.rect.right, 0, exist.rect.right + dim.w - 1, dim.h - 1));
+		if(dim.w <= width(ref.rect) - width(exist.rect))
+			if(dim.h <= height(ref.rect) - height(exist.rect))
+				return insert_node(ref, empty, value_type(point_type(exist.rect.right + 1, 0), dim));
 
 		// try to insert the node at the bottom side
-		if(dim.h < height(ref.rect) - height(exist.rect))
-			if(dim.w < width(ref.rect) - width(exist.rect))
-				return insert_node(ref, empty, value_type(0, exist.rect.bottom, dim.w - 1, exist.rect.bottom + dim.h - 1));
+		if(dim.h <= height(ref.rect) - height(exist.rect))
+			if(dim.w <= width(ref.rect) - width(exist.rect))
+				return insert_node(ref, empty, value_type(point_type(0, exist.rect.bottom + 1), dim));
 
 		return end();
 	}

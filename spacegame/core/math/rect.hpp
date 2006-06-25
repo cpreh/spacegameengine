@@ -11,23 +11,30 @@ namespace sge
 
 template<typename T> struct basic_rect {
 	typedef T value_type;
+	typedef basic_point<T> point_type;
+	typedef basic_dim<T> dim_type;
+
 	basic_rect(const value_type& left  = value_type(), const value_type& top    = value_type(),
 	           const value_type& right = value_type(), const value_type& bottom = value_type())
 		: left(left), top(top), right(right), bottom(bottom) {}
-	basic_rect(const basic_point<T>& pos, const basic_dim<T>& sz)
-		: left(pos.x), top(pos.y), right(pos.x + sz.w), bottom(pos.y + sz.h) {}
-	
+
+	basic_rect(const point_type& pos, const dim_type& sz)
+		: left(pos.x), top(pos.y), right(pos.x + sz.w - 1), bottom(pos.y + sz.h - 1) {}
+
+	value_type width() const { return right - left + 1; }
+	value_type height() const { return bottom - top + 1; }
+
 	value_type left, top, right, bottom;
 };
 
 template<typename T> inline T width(const basic_rect<T>& r)
 {
-	return r.right - r.left;
+	return r.width();
 }
 
 template<typename T> inline T height(const basic_rect<T>& r)
 {
-	return r.bottom - r.top;
+	return r.height();
 }
 
 template<typename T> inline bool operator==(const basic_rect<T>& l, const basic_rect<T>& r)
