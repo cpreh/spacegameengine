@@ -7,17 +7,12 @@
 #include "../main/shared_ptr.hpp"
 #include "../main/types.hpp"
 #include "../main/algorithm.hpp"
-#include "../math/vector2.hpp"
-#include "../math/vector3.hpp"
-#include "../math/vector4.hpp"
 #include "./vertex_format.hpp"
 #include "./renderer_types.hpp"
 
 namespace sge
 {
 class vertex_buffer {
-	friend class iterator;
-	friend class const_iterator;
 public:
 	typedef vertex_pointer::value_type      value_type;
 	typedef vertex_pointer::size_type       size_type;

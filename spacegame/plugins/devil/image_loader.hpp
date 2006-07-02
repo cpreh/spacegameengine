@@ -10,20 +10,22 @@
 
 namespace sge
 {
-	namespace devil
-	{
-		class image_loader : public sge::image_loader {
-		public:
-			image_loader();
-			sge::image_ptr load_image(const std::string& path, unsigned w = 0, unsigned h = 0);
-		private:
-			struct il_init_guard {
-				il_init_guard() { ilInit(); iluInit(); }
-				~il_init_guard() { ilShutDown(); }
-			};
-			il_init_guard g;
-		};
-	}
+namespace devil
+{
+
+class image_loader : public sge::image_loader {
+public:
+	image_loader();
+	sge::image_ptr load_image(const std::string& path, unsigned w = 0, unsigned h = 0);
+private:
+	struct il_init_guard {
+		il_init_guard() { ilInit(); iluInit(); }
+		~il_init_guard() { ilShutDown(); }
+	};
+	il_init_guard g;
+};
+
+}
 }
 
 #endif
