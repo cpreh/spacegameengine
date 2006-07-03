@@ -6,6 +6,8 @@
 #include "../math/dim.hpp"
 #include "../math/point.hpp"
 
+#include <iostream> //TODO
+
 namespace sge
 {
 
@@ -31,8 +33,9 @@ private:
 				else
 					parent->right = 0;
 			}
-			delete right;
-			delete left;
+			std::cout << "deleting " << right << ' ' << left << '\n';
+			delete right; right = 0;
+			delete left; left = 0;
 		}
 
 		friend bool operator==(const node& l, const node& r)
@@ -97,7 +100,7 @@ private:
 		if(dim > n.rect)
 			return end();
 
-		// case 1: left and right are absent
+		// case 1: left and right are absent -> always put in the left node
 		if(!n.left && !n.right)
 			return insert_node(n, n.left, value_type(point_type(n.rect.left, n.rect.top), dim));
 		
@@ -122,16 +125,31 @@ private:
 		iterator ret = insert_recursive(dim, exist);
 		if(ret != end())
 			return ret;
-	
-		// try to insert the node at the right side
-		if(dim.w <= width(ref.rect) - width(exist.rect))
-			if(dim.h <= height(ref.rect) - height(exist.rect))
-				return insert_node(ref, empty, value_type(point_type(exist.rect.right + 1, 0), dim));
 
-		// try to insert the node at the bottom side
-		if(dim.h <= height(ref.rect) - height(exist.rect))
-			if(dim.w <= width(ref.rect) - width(exist.rect))
-				return insert_node(ref, empty, value_type(point_type(0, exist.rect.bottom + 1), dim));
+		// add empty node to fill up the space left by 'exist'
+
+		const size_type w = width(ref.rect) - width(exist.rect),
+		                h = height(ref.rect) - height(exist.rect);
+
+		// case 1: width and height are too big
+		if(dim.w > w && dim.h > h)
+			return end();
+
+		// case 2: width is ok and height is ok
+		if(dim.w <= w && dim.h <= h)
+		{
+		
+		}
+
+		// case 3: width is ok, height doesn't matter
+		else if(dim.w <= w)
+		{
+		}
+
+		// case 4: height is ok, width doesn't matter
+		else
+		{
+		}
 
 		return end();
 	}

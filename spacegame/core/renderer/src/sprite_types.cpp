@@ -1,11 +1,14 @@
 #include "../sprite_types.hpp"
 
+#include <iostream> // TODO
+
 sge::virtual_texture::virtual_texture(const rect& _area, fragmented_texture* const fragment)
 	: _area(_area), fragment(fragment)
 {}
 
 sge::virtual_texture::~virtual_texture()
 {
+	std::cout << "return_fragments " << this << '\n';
 	fragment->return_fragments(*this);
 }
 
@@ -16,9 +19,8 @@ void sge::virtual_texture::set_data(const texture::const_pointer src)
 	my_texture()->set_data(src,&_area);
 }
 
-sge::fragmented_texture::fragmented_texture(const renderer_ptr r, const texture::size_type texsize, const texture::size_type elemsize)
-  : elemsize(elemsize),
-    bsp(bsp_type::dim_type(texsize, texsize)),
+sge::fragmented_texture::fragmented_texture(const renderer_ptr r, const texture::size_type texsize)
+  : bsp(bsp_type::dim_type(texsize, texsize)),
     tex(r->create_texture(0, texsize, texsize))
 {}
 

@@ -5,11 +5,12 @@
 #include <boost/function.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/convenience.hpp>
 #include <iostream>
 
 sge::gui::manager::manager(const renderer_ptr rend, font& gui_font, const image_loader_ptr il, const std::string& graphics_path)
 : graphics_path(graphics_path),
-  sprite_sys(rend,9,4,boost::bind(&manager::on_texture_not_present,this,_1)),
+  sprite_sys(rend, boost::bind(&manager::on_texture_not_present, this, _1)),
   gui_font(gui_font),
   il(il),
   cur(*this,point(0.5f,0.5f),dim(0.025f,0.025f)),
@@ -34,7 +35,7 @@ void sge::gui::manager::on_texture_not_present(const std::string& name)
 {
 	boost::filesystem::directory_iterator end;
 	for(boost::filesystem::directory_iterator it(graphics_path); it != end; ++it)
-		if(it->string() == name)
+		if(boost::filesystem::basename(*it) == name)
 		{
 			sprite_sys.add_texture(il->load_image(it->string()),name);
 			return;

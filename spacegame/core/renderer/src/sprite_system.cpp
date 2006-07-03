@@ -15,11 +15,10 @@ void default_texture_not_present_handler(const std::string& s)
 
 }
 
-sge::sprite_system::sprite_system(const renderer_ptr r, const texture::size_type tex_size_pow2, const texture::size_type elements_per_row, const handler_function handler)
+sge::sprite_system::sprite_system(const renderer_ptr r, const handler_function handler)
   : texture_not_present_handler(handler == 0 ? default_texture_not_present_handler : handler),
     r(r),
-    texsize(pow_int(2,tex_size_pow2)),
-    elemsize(texsize/elements_per_row)
+    texsize(512) // TODO: let the driver determinate the best texture size
 {
 	const unsigned init_sprites = 25;
 	resource_flag_t rf = RF_WriteOnly | RF_Dynamic;
@@ -67,11 +66,11 @@ bool sge::sprite_system::add_texture(const texture::const_pointer src, const tex
 		if(virtual_texture_ptr p = (*it)->consume_fragments(w,h))
 			return insert_texture(p,src,name), true;
 		
-	fragmented_textures.push_back(fragmented_texture_ptr(new fragmented_texture(r, texsize, elemsize)));
+	fragmented_textures.push_back(fragmented_texture_ptr(new fragmented_texture(r, texsize)));
 	if(virtual_texture_ptr p = fragmented_textures.back()->consume_fragments(w,h))
 		return insert_texture(p,src,name), true;
 	// give up
-	throw std::runtime_error("sprite_system::add_texture(): failed to allocate texture!");
+	throw std::runtime_error(std::string("sprite_system::add_texture(): failed to allocate texture \"") += name + "\" (texture may be too big)!");
 }
 
 bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name)
@@ -151,7 +150,7 @@ sge::virtual_texture_ptr sge::sprite_system::vtexture(const std::string& name) c
 		texture_not_present_handler(name);
 		it = virtual_textures.find(name);
 		if(it == virtual_textures.end())
-			throw std::logic_error(std::string("texture_not_present_handler in sprite_system failed") += name);
+			throw std::logic_error(std::string("texture_not_present_handler in sprite_system failed for texture \"") += name + "\"!");
 	}
 	return it->second;
 }

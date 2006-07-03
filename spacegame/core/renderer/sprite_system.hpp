@@ -22,7 +22,7 @@ class sprite_system : boost::noncopyable {
 public:
 	typedef boost::function<void (const std::string&)> handler_function;
 
-	sprite_system(renderer_ptr r, texture::size_type tex_size_pow2, texture::size_type elements_per_row, handler_function not_found_handler = 0);
+	sprite_system(renderer_ptr r, handler_function not_found_handler = 0);
 	bool add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const std::string& name);
 	bool add_texture(image_ptr im, const std::string& name);
 	bool remove_texture(const std::string& name);
@@ -43,7 +43,7 @@ private:
 	handler_function texture_not_present_handler;
 	sprite_list sprites;
 	renderer_ptr r;
-	texture::size_type texsize, elemsize;
+	texture::size_type texsize;
 
 	typedef shared_ptr<fragmented_texture> fragmented_texture_ptr;
 	typedef std::list<fragmented_texture_ptr> fragmented_texture_list;

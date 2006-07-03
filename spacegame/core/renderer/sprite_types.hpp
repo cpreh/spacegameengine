@@ -35,13 +35,12 @@ typedef shared_ptr<const virtual_texture> const_virtual_texture_ptr;
 
 class fragmented_texture : boost::noncopyable {
 public:
-	fragmented_texture(renderer_ptr r, texture::size_type texsize, texture::size_type elemsize);
+	fragmented_texture(renderer_ptr r, texture::size_type texsize);
 	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const { return tex; }
 private:
 	typedef bsp_tree<texture::size_type> bsp_type;
-	texture::size_type elemsize;
 	bsp_type bsp;
 	texture_ptr tex;
 };
