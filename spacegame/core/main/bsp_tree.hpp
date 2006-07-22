@@ -32,6 +32,8 @@ private:
 					parent->left = 0;
 				else
 					parent->right = 0;
+				if(parent->left == 0 && parent->right == 0 && parent->parent != 0)
+					delete parent;
 			}
 			std::cout << "deleting " << right << ' ' << left << '\n';
 			delete right; right = 0;
@@ -126,32 +128,44 @@ private:
 		if(ret != end())
 			return ret;
 
-		// add empty node to fill up the space left by 'exist'
-
-		const size_type w = width(ref.rect) - width(exist.rect),
-		                h = height(ref.rect) - height(exist.rect);
+		const size_type free_w = width(ref.rect) - width(exist.rect),
+		                free_h = height(ref.rect) - height(exist.rect);
 
 		// case 1: width and height are too big
-		if(dim.w > w && dim.h > h)
+		if(dim.w > free_w && dim.h > free_h)
 			return end();
 
-		// case 2: width is ok and height is ok
-		if(dim.w <= w && dim.h <= h)
+		// case 2: left is the existing node so existing rect is at left-top
+		if(ref.left == &exist)
 		{
-		
+			// case 2.1: insert at bottom
+			if(dim.h <= free_h)
+			{
+				iterator p = insert_node(ref, empty, value_type(ref.rect.left, exist.rect.bottom, ref.rect.right, ref.rect.bottom));
+				return insert_recursive(dim, *p.ref);
+			}
+			// case 2.2: insert at right
+			else // if(dim.w <= free_w)
+			{
+				iterator p = insert_node(ref, empty, value_type(exist.rect.right, ref.rect.top, ref.rect.right, ref.rect.bottom));
+				return insert_recursive(dim, *p.ref);
+			}
+			throw std::logic_error("bsp_tree is b0rken!");
 		}
 
-		// case 3: width is ok, height doesn't matter
-		else if(dim.w <= w)
+		// case 3: right is the existing node so occupy the rest
+		// case 3.1: existing node is at bottom
+		if(exist.rect.bottom == ref.rect.bottom)
 		{
+			iterator p = insert_node(ref, empty, value_type(ref.rect.left, ref.rect.top, ref.rect.right, exist.rect.top));
+			return insert_recursive(dim, *p.ref);
 		}
-
-		// case 4: height is ok, width doesn't matter
+		// case 3.2: existing node is at right
 		else
 		{
+			iterator p = insert_node(ref, empty, value_type(ref.rect.left, ref.rect.top, exist.rect.left, ref.rect.bottom));
+			return insert_recursive(dim, *p.ref);
 		}
-
-		return end();
 	}
 
 	iterator insert_node(node& ref, node*& n, const value_type& rect)
