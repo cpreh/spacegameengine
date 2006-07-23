@@ -69,7 +69,7 @@ bool sge::sprite_system::add_texture(const texture::const_pointer src, const tex
 	fragmented_textures.push_back(fragmented_texture_ptr(new fragmented_texture(r, texsize)));
 	if(virtual_texture_ptr p = fragmented_textures.back()->consume_fragments(w,h))
 		return insert_texture(p,src,name), true;
-	// give up
+	// TODO: ask the driver if a texture this big can be created and do it
 	throw std::runtime_error(std::string("sprite_system::add_texture(): failed to allocate texture \"") += name + "\" (texture may be too big)!");
 }
 
@@ -95,6 +95,7 @@ bool sge::sprite_system::remove_texture(const std::string& name)
 
 void sge::sprite_system::clear()
 {
+	virtual_textures.clear();
 }
 
 void sge::sprite_system::draw()

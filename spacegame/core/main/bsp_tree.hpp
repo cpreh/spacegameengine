@@ -6,8 +6,6 @@
 #include "../math/dim.hpp"
 #include "../math/point.hpp"
 
-#include <iostream> //TODO
-
 namespace sge
 {
 
@@ -20,8 +18,8 @@ public:
 	typedef const value_type& const_reference;
 private:
 	struct node {
-		node(const value_type& rect, node* const parent, node* const left = 0, node* const right = 0)
-			: rect(rect), parent(parent), left(left), right(right)
+		node(const value_type& rect, node* const parent, const bool final, node* const left = 0, node* const right = 0)
+			: rect(rect), parent(parent), left(left), right(right), final(final)
 		{}
 
 		~node()
@@ -35,9 +33,8 @@ private:
 				if(parent->left == 0 && parent->right == 0 && parent->parent != 0)
 					delete parent;
 			}
-			std::cout << "deleting " << right << ' ' << left << '\n';
-			delete right; right = 0;
-			delete left; left = 0;
+			delete left;
+			delete right;
 		}
 
 		friend bool operator==(const node& l, const node& r)
@@ -53,12 +50,13 @@ private:
 		node* parent;
 		node* left;
 		node* right;
+		bool final;
 	};
 public:
 	class iterator {
 		friend class bsp_tree;
-		iterator(node& ref)
-			: ref(&ref) {}
+		iterator(node* ref)
+			: ref(ref) {}
 	public:
 		const_reference operator*() const { return ref->rect; }
 
@@ -75,7 +73,7 @@ public:
 	};
 
 	bsp_tree(const dim_type dim)
-		: head(value_type(point_type(0,0),dim), 0)
+		: head(value_type(point_type(0,0),dim), 0, false)
 	{}
 
 	iterator insert(const dim_type dim)
@@ -93,25 +91,25 @@ public:
 		return find_recursive(t, head);
 	}
 
-	iterator end() { return iterator(head); }
+	iterator end() { return iterator(0); }
 private:
 	node head;
 
 	iterator insert_recursive(const dim_type dim, node& n)
 	{
-		if(dim > n.rect)
+		if(n.final || dim > n.rect)
 			return end();
 
 		// case 1: left and right are absent -> always put in the left node
 		if(!n.left && !n.right)
-			return insert_node(n, n.left, value_type(point_type(n.rect.left, n.rect.top), dim));
+			return insert_node(n, n.left, true, value_type(point_type(n.rect.left, n.rect.top), dim));
 		
 		// case 2: right node is absent but left node is there
-		if(!n.right)
+		if(n.left && !n.right)
 			return insert_case_2(dim, n, *n.left, n.right);
 
 		// case 2: symmetric case (left node is absent but right node is there)
-		if(!n.left)
+		if(n.right && !n.left)
 			return insert_case_2(dim, n, *n.right, n.left);
 
 		// case 3: both nodes are there
@@ -131,6 +129,8 @@ private:
 		const size_type free_w = width(ref.rect) - width(exist.rect),
 		                free_h = height(ref.rect) - height(exist.rect);
 
+		const value_type& rr = ref.rect,
+		                  er = exist.rect;
 		// case 1: width and height are too big
 		if(dim.w > free_w && dim.h > free_h)
 			return end();
@@ -140,44 +140,36 @@ private:
 		{
 			// case 2.1: insert at bottom
 			if(dim.h <= free_h)
-			{
-				iterator p = insert_node(ref, empty, value_type(ref.rect.left, exist.rect.bottom, ref.rect.right, ref.rect.bottom));
-				return insert_recursive(dim, *p.ref);
-			}
+				return insert_two(dim, ref, empty, value_type(rr.left, er.bottom+1, rr.right, rr.bottom));
 			// case 2.2: insert at right
 			else // if(dim.w <= free_w)
-			{
-				iterator p = insert_node(ref, empty, value_type(exist.rect.right, ref.rect.top, ref.rect.right, ref.rect.bottom));
-				return insert_recursive(dim, *p.ref);
-			}
-			throw std::logic_error("bsp_tree is b0rken!");
+				return insert_two(dim, ref, empty, value_type(er.right+1, rr.top, rr.right, rr.bottom));
 		}
 
 		// case 3: right is the existing node so occupy the rest
 		// case 3.1: existing node is at bottom
-		if(exist.rect.bottom == ref.rect.bottom)
-		{
-			iterator p = insert_node(ref, empty, value_type(ref.rect.left, ref.rect.top, ref.rect.right, exist.rect.top));
-			return insert_recursive(dim, *p.ref);
-		}
+		if(er.bottom == rr.bottom)
+			return insert_two(dim, ref, empty, value_type(rr.left, rr.top, rr.right, er.top+1));
 		// case 3.2: existing node is at right
 		else
-		{
-			iterator p = insert_node(ref, empty, value_type(ref.rect.left, ref.rect.top, exist.rect.left, ref.rect.bottom));
-			return insert_recursive(dim, *p.ref);
-		}
+			return insert_two(dim, ref, empty, value_type(rr.left, rr.top, er.left+1, rr.bottom));
 	}
 
-	iterator insert_node(node& ref, node*& n, const value_type& rect)
+	iterator insert_node(node& ref, node*& n, const bool final, const value_type& rect)
 	{
-		n = new node(rect, &ref);
-		return iterator(*n);
+		n = new node(rect, &ref, final);
+		return iterator(n);
+	}
+
+	iterator insert_two(const dim_type dim, node& ref, node*& n, const value_type& rect)
+	{
+		return insert_recursive(dim, *insert_node(ref, n, false, rect).ref);
 	}
 
 	iterator find_recursive(const value_type& t, node& n)
 	{
 		if(n.rect == t)
-			return n;
+			return iterator(&n);
 		if(n.left && contains(n.left->rect, t))
 			return find_recursive(t, *n.left);
 		if(n.right && contains(n.right->rect, t))

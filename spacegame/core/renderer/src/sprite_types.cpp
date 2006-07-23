@@ -8,7 +8,6 @@ sge::virtual_texture::virtual_texture(const rect& _area, fragmented_texture* con
 
 sge::virtual_texture::~virtual_texture()
 {
-	std::cout << "return_fragments " << this << '\n';
 	fragment->return_fragments(*this);
 }
 
