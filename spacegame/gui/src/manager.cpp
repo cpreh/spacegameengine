@@ -43,6 +43,7 @@ void sge::gui::manager::on_texture_not_present(const std::string& name)
 	std::cerr << "Unable to find texture " << name << " for gui system!\n";
 }
 
+// TODO: clean up this function (much redundancy)
 void sge::gui::manager::process(const input_array& v)
 {
 	const unit cursor_speed = 1;
@@ -185,5 +186,5 @@ void sge::gui::manager::move_mouse(const unit x, const unit y)
 
 void sge::gui::manager::draw_selection(const point p, const dim sz)
 {
-
+	// TODO: draw selection
 }
