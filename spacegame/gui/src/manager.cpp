@@ -8,9 +8,10 @@
 #include <boost/filesystem/convenience.hpp>
 #include <iostream>
 
-sge::gui::manager::manager(const renderer_ptr rend, font& gui_font, const image_loader_ptr il, const std::string& graphics_path)
+sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input_sys, font& gui_font, const image_loader_ptr il, const std::string& graphics_path)
 : graphics_path(graphics_path),
   sprite_sys(rend, boost::bind(&manager::on_texture_not_present, this, _1)),
+  input_sys(input_sys),
   gui_font(gui_font),
   il(il),
   cur(*this,point(0.5f,0.5f),dim(0.025f,0.025f)),
@@ -28,7 +29,8 @@ sge::gui::manager::manager(const renderer_ptr rend, font& gui_font, const image_
   key_repeat(false),
   last_mouse(""),
   mouse_repeat(false),
-  _root(*this)
+  _root(*this),
+  input_callback(input_sys->register_callback(boost::bind(&manager::key_callback, this, _1)))
 {}
 
 void sge::gui::manager::on_texture_not_present(const std::string& name)
@@ -44,102 +46,102 @@ void sge::gui::manager::on_texture_not_present(const std::string& name)
 }
 
 // TODO: clean up this function (much redundancy)
-void sge::gui::manager::process(const input_array& v)
+void sge::gui::manager::key_callback(const key_pair& input)
 {
 	const unit cursor_speed = 1;
 
-	for(input_array::const_iterator it = v.begin(); it != v.end(); ++it)
-	{
-		const key_type& key = it->first;
-		const key_code code = key.code;
-		const bool val = it->second != 0 ? true : false;
+	const key_type& key = input.first;
+	const key_code code = key.code;
 
-		switch(code) {
-		case KC_LCTRL:
-		case KC_RCTRL:
-			key_mod.ctrl_down = val;
-			break;
-		case KC_LSHIFT:
-		case KC_RSHIFT:
-			key_mod.shift_down = val;
-			break;
-		case KC_ALT:
-			key_mod.alt_down = val;
-			break;
-		case KC_ALTGR:
-			key_mod.alt_down = key_mod.ctrl_down = val;
-			break;
-		case KC_MOUSEX:
-			move_mouse(it->second * cursor_speed,0);
-			break;
-		case KC_MOUSEY:
-			move_mouse(0,it->second * cursor_speed);
-			break;
-		default:
-			if(is_mouse_key(code))
+	const bool val = input.second != 0 ? true : false;
+
+	switch(code) {
+	case KC_LCTRL:
+	case KC_RCTRL:
+		key_mod.ctrl_down = val;
+		break;
+	case KC_LSHIFT:
+	case KC_RSHIFT:
+		key_mod.shift_down = val;
+		break;
+	case KC_ALT:
+		key_mod.alt_down = val;
+		break;
+	case KC_ALTGR:
+		key_mod.alt_down = key_mod.ctrl_down = val;
+		break;
+	case KC_MOUSEX:
+		move_mouse(input.second * cursor_speed,0);
+		break;
+	case KC_MOUSEY:
+		move_mouse(0,input.second * cursor_speed);
+		break;
+	default:
+		if(is_mouse_key(code))
+		{
+			if(code==KC_MOUSEL)
+				cur.pressed(val);
+			const mouse_button_event e(cur.pos(),code,key_mod,val,key.char_code);
+			if(val)
 			{
+				_root.mouse_down(e);
+				if(last_mouse != key)
+				{
+					last_mouse = key;
+					mouse_repeat = false;
+					mouse_repeat_time.reset();
+				}
+			}
+			else
+			{
+				_root.mouse_up(e);
 				if(code==KC_MOUSEL)
-					cur.pressed(val);
-
-				const mouse_button_event e(cur.pos(),code,key_mod,val,key.char_code);
-				if(val)
+					pressed(0);
+				if(key==last_mouse)
 				{
-					_root.mouse_down(e);
-					if(last_mouse != key)
-					{
-						last_mouse = key;
-						mouse_repeat = false;
-						mouse_repeat_time.reset();
-					}
-				}
-				else
-				{
-					_root.mouse_up(e);
-					if(code==KC_MOUSEL)
-						pressed(0);
-					if(key==last_mouse)
-					{
-						mouse_repeat_time.reset();
-						last_mouse.code = KC_DEFAULT;
-						mouse_repeat = false;
-					}
-				}
-
-				if(focus() == root())
-					focus(0);
-			}
-			else if(is_keyboard_key(code))
-			{
-				const keyboard_button_event e(code,key_mod,val,key.char_code);
-				if(!focus())
-					break;
-				
-				if(val)
-				{
-					focus()->key_down(e);
-					focus()->key_press(e);
-					if(key != last_key)
-					{
-						last_key = key;
-						key_repeat_time.reset();
-						key_repeat = false;
-					}
-				}
-				else
-				{
-					focus()->key_up(e);
-					if(key == last_key)
-					{
-						last_key.code = KC_DEFAULT;
-						key_repeat_time.reset();
-						key_repeat = false;
-					}
+					mouse_repeat_time.reset();
+					last_mouse.code = KC_DEFAULT;
+					mouse_repeat = false;
 				}
 			}
-			break;
+			if(focus() == root())
+				focus(0);
 		}
+		else if(is_keyboard_key(code))
+		{
+			const keyboard_button_event e(code,key_mod,val,key.char_code);
+			if(!focus())
+				break;
+				
+			if(val)
+			{
+				focus()->key_down(e);
+				focus()->key_press(e);
+				if(key != last_key)
+				{
+					last_key = key;
+					key_repeat_time.reset();
+					key_repeat = false;
+				}
+			}
+			else
+			{
+				focus()->key_up(e);
+				if(key == last_key)
+				{
+					last_key.code = KC_DEFAULT;
+					key_repeat_time.reset();
+					key_repeat = false;
+				}
+			}
+		}
+		break;
 	}
+}
 
+// TODO:: clean up as well
+void sge::gui::manager::process()
+{
 	// Repeat key if still down
 	if(focus())
 	{

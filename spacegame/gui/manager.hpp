@@ -27,8 +27,8 @@ class manager : boost::noncopyable {
 public:
 	friend class element;
 
-	manager(renderer_ptr rend, font& f, image_loader_ptr il, const std::string& graphics_path);
-	void process(const input_array& input);
+	manager(renderer_ptr rend, input_system_ptr input_sys, font& f, image_loader_ptr il, const std::string& graphics_path);
+	void process();
 	void focus(element* const e) { _focus = e; }
 	element* focus() const { return _focus; }
 	element* hover() const { return _hover; }
@@ -38,6 +38,7 @@ public:
 	font& get_font() const { return gui_font; }
 	sprite_system& get_sprite_system() { return sprite_sys; }
 private:
+	void key_callback(const key_pair&);
 	void on_texture_not_present(const std::string& name);
 	void move_mouse(unit x, unit y);
 
@@ -56,6 +57,7 @@ private:
 
 	std::string             graphics_path;
 	sprite_system           sprite_sys;
+	input_system_ptr        input_sys;
 	font&                   gui_font;
 	image_loader_ptr        il;
 	cursor                  cur;
@@ -75,6 +77,7 @@ private:
 	bool                    mouse_repeat;
 	root_elem               _root;
 	modifier_state          key_mod;
+	callback_handle         input_callback;
 };
 
 }

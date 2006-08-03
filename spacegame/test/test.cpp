@@ -5,7 +5,6 @@
 #include "../core/renderer/font.hpp"
 #include "../core/renderer/renderer.hpp"
 #include "../core/renderer/renderer_types.hpp"
-#include "../core/input/input_functions.hpp"
 #include "../gui/manager.hpp"
 #include "../gui/button.hpp"
 #include "../gui/text_edit.hpp"
@@ -14,6 +13,19 @@
 #include "../gui/frame.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/bind.hpp>
+
+class input_receiver {
+public:
+	input_receiver(bool& running)
+		: running(running) {}
+	void operator()(const sge::key_pair& p)
+	{
+		if(p.first.code == sge::KC_ESC)
+			running = false;
+	}
+private:
+	bool& running;
+};
 
 int main()
 try
@@ -35,7 +47,7 @@ try
 	ss.add_texture(im,":(((");
 	sge::sprite spr(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 	sge::sprite spr2(ss,sge::point(0,0),sge::dim(0.5,0.5),0,bender_name);
-	sge::gui::manager man(rend,fn,pl,"/home/sefi/cpp/spacegame/mainskin/");
+	sge::gui::manager man(rend,is,fn,pl,"/home/sefi/cpp/spacegame/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.5,0.5));
 	sge::gui::list list1(man,&fr1,sge::point(0.5,0),sge::dim(0.2,0.2));
@@ -48,14 +60,15 @@ try
 
 	btn1.click_signal.connect(boost::lambda::var(running) = false);
 	
+	input_receiver recv(running);
+	sge::callback_handle cbh = is->register_callback(recv);
+
 	while(running)
 	{
-		const sge::input_array inp = is->get_input();
-		if(sge::key_value(inp,sge::KC_ESC))
-			running = false;
 		rend->begin_rendering();
+		is->dispatch();
 		ss.draw();
-		man.process(inp);
+		man.process();
 		fn.draw_text("abc",sge::point(0.5,0.5),sge::dim(0.5,0.5),sge::colors::black);
 		rend->end_rendering();
 	}

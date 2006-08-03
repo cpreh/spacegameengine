@@ -10,9 +10,9 @@ namespace sge
 struct modifier_state {
 	modifier_state(bool shift_down = false, bool ctrl_down = false, bool alt_down = false)
 		: shift_down(shift_down), ctrl_down(ctrl_down), alt_down(alt_down) {}
-		bool shift_down;
-		bool ctrl_down;
-		bool alt_down;
+	bool shift_down;
+	bool ctrl_down;
+	bool alt_down;
 };
 
 enum key_code {

@@ -1,6 +1,7 @@
 #include <cstddef>
 #include "../../../core/main/algorithm.hpp"
 #include "../../../core/input/key_type.hpp"
+#include "../../../core/input/callback_handle.hpp"
 #include "../input_system.hpp"
 #include <X11/keysym.h>
 #include <X11/Xlib.h>
@@ -29,7 +30,6 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	if(XGrabKeyboard(wnd->get_display(),wnd->get_window(),true,GrabModeAsync, GrabModeAsync, CurrentTime) != GrabSuccess)
 		throw std::runtime_error("XGrabKeyboard() failed");
 	
-
 	XDefineCursor(wnd->get_display(),wnd->get_window(),None);
 	
 	x11tosge[NoSymbol] = KC_None;
@@ -62,10 +62,13 @@ sge::xinput::input_system::~input_system()
 	XUngrabPointer(wnd->get_display(),CurrentTime);
 }
 
-sge::input_array sge::xinput::input_system::get_input()
+sge::callback_handle sge::xinput::input_system::register_callback(const callback& c)
 {
-	sge::input_array ret;
-	
+	return callback_handle(new callback_handle_impl(sig.connect(c)));
+}
+
+void sge::xinput::input_system::dispatch()
+{
 	XEvent xev;
 	while(XCheckMaskEvent(wnd->get_display(), KeyReleaseMask | KeyPressMask, &xev))
 	{
@@ -75,18 +78,18 @@ sge::input_array sge::xinput::input_system::get_input()
 		char ch;
 		ch = XLookupString(reinterpret_cast<XKeyEvent*>(&xev),keybuf,sizeof(keybuf),&ks,&state) == 1 ? keybuf[0] : 0;
 		const key_type key(get_key_name(ks),modifiers,get_key_code(ks),ch);
-		ret.push_back(key_pair(key, xev.type == KeyRelease ? 0 : 1));
+		sig(key_pair(key, xev.type == KeyRelease ? 0 : 1));
 	}
 	
 	Window root, child;
 	int root_x, root_y, win_x, win_y;
 	unsigned mask;
 	XQueryPointer(wnd->get_display(),wnd->get_window(),&root,&child,&root_x,&root_y,&win_x,&win_y,&mask);
-	unsigned diff_mask = mask ^ last_mouse;
+	const unsigned diff_mask = mask ^ last_mouse;
 	if(diff_mask & Button1Mask)
-		ret.push_back(key_pair(key_type("Mouse1",modifiers,KC_MOUSEL,0),mask & Button1Mask ? 1 : 0 ));
+		sig(key_pair(key_type("Mouse1",modifiers,KC_MOUSEL,0),mask & Button1Mask ? 1 : 0 ));
 	if(diff_mask & Button2Mask)
-		ret.push_back(key_pair(key_type("Mouse2",modifiers,KC_MOUSER,0),mask & Button2Mask ? 1 : 0));
+		sig(key_pair(key_type("Mouse2",modifiers,KC_MOUSER,0),mask & Button2Mask ? 1 : 0));
 	last_mouse = mask;
 
 	int deltax = 0, deltay = 0;
@@ -95,12 +98,11 @@ sge::input_array sge::xinput::input_system::get_input()
 		deltay = xev.xmotion.y - last_y;
 	}
 	if(deltax)
-		ret.push_back(key_pair(key_type("MouseX",modifiers,KC_MOUSEX,0),space_unit(deltax) / wnd->size().w));
+		sig(key_pair(key_type("MouseX",modifiers,KC_MOUSEX,0),space_unit(deltax) / wnd->size().w));
 	if(deltay)
-		ret.push_back(key_pair(key_type("MouseY",modifiers,KC_MOUSEY,0),space_unit(deltay) / wnd->size().h));
+		sig(key_pair(key_type("MouseY",modifiers,KC_MOUSEY,0),space_unit(deltay) / wnd->size().h));
 
 	reset_pointer();
-	return ret;
 }
 
 void sge::xinput::input_system::reset_pointer()
