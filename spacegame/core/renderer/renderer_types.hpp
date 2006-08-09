@@ -4,12 +4,8 @@
 #include <vector>
 #include <stdexcept>
 #include "../main/types.hpp"
-#include "../main/window.hpp"
 #include "../math/vector2.hpp"
 #include "../math/vector3.hpp"
-#include "../math/vector4.hpp"
-#include "../math/matrix4x4.hpp"
-#include "../math/quaternion.hpp"
 
 namespace sge
 {
@@ -38,17 +34,17 @@ inline float green_part_rgba_f(const color c) { return ((c &   0xFF0000) >> 16) 
 inline float  blue_part_rgba_f(const color c) { return ((c &     0xFF00) >>  8) / 255.f; }
 inline float alpha_part_rgba_f(const color c) { return  (c &       0xFF)        / 255.f; }
 
-struct colors {
-	static const color black  = static_rgb<  0,  0,  0>::value,
-	                   white  = static_rgb<255,255,255>::value,
-	                   red    = static_rgb<255,  0,  0>::value,
-	                   green  = static_rgb<  0,255,  0>::value,
-	                   blue   = static_rgb<  0,  0,255>::value,
-	                   yellow = static_rgb<  0,255,255>::value,
-	                   purple = static_rgb<255,  0,255>::value,
-	                   orange = static_rgb<255,255,  0>::value,
-	                   transparent = static_rgba<0,0,0,0>::value;
-};
+namespace colors {
+	const color black  = static_rgb<  0,  0,  0>::value,
+	            white  = static_rgb<255,255,255>::value,
+	            red    = static_rgb<255,  0,  0>::value,
+	            green  = static_rgb<  0,255,  0>::value,
+	            blue   = static_rgb<  0,  0,255>::value,
+	            yellow = static_rgb<  0,255,255>::value,
+	            purple = static_rgb<255,  0,255>::value,
+	            orange = static_rgb<255,255,  0>::value,
+	            transparent = static_rgba<0,0,0,0>::value;
+}
 
 enum bit_depth {
 	BD_16,
@@ -254,7 +250,7 @@ enum filter_arg_value {
 class stage_type {
 public:
 	typedef unsigned value_type;
-	static const value_type max_stage = 4;
+	static value_type max_stage() { return 4; }
 	stage_type(const value_type i) : stage(i) { check(); }
 	stage_type& operator=(const value_type& v)
 	{
@@ -266,7 +262,7 @@ public:
 private:
 	void check() const
 	{
-		if(stage >= max_stage)
+		if(stage >= max_stage())
 			throw std::range_error("stage_type must be in [0;MAX_STAGE)!");
 	}
 	value_type stage;
@@ -297,7 +293,6 @@ struct material {
 
 enum matrix_usage {
 	MU_Transform,
-	MU_Camera,
 	MU_Projection
 };
 

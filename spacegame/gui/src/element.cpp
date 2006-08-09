@@ -4,6 +4,8 @@
 #include "../manager.hpp"
 #include <iostream>
 
+// TODO: clean up enabled and visible
+
 namespace {
 	bool sort_z_order(const sge::gui::element* const l, const sge::gui::element* const r)
 	{
@@ -92,7 +94,7 @@ void sge::gui::element::mouse_move(const mouse_move_event& event)
 	if(!enabled)
 		return;
 
-	const point loc_pos = relative_pos() - event.pos();
+	const point loc_pos = event.pos() - relative_pos();
 	const mouse_move_event e(loc_pos,event.mod_state());
 
 	bool processed = false;
@@ -113,8 +115,9 @@ void sge::gui::element::glob_mouse_move(const mouse_move_event& event)
 	if(!enabled)
 		return;
 
-	const point loc_pos = relative_pos() - event.pos();
+	const point loc_pos = event.pos() - relative_pos();
 	const mouse_move_event e(loc_pos,event.mod_state());
+
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
 		if((*it)->is_visible())
 			(*it)->glob_mouse_move(e);
@@ -160,7 +163,7 @@ void sge::gui::element::mouse_down(const mouse_button_event& event)
 		return;
 
 	const point loc_pos = event.pos()-relative_pos();
-	const mouse_button_event e(event.pos()-relative_pos(),event.code(),event.mod_state(),true,event.char_code());
+	const mouse_button_event e(loc_pos,event.code(),event.mod_state(),true,event.char_code());
 
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
 		if((*it)->is_visible() && (*it)->intersects(loc_pos))
@@ -181,7 +184,7 @@ void sge::gui::element::mouse_up(const mouse_button_event& event)
 		return;
 
 	const point loc_pos = event.pos()-relative_pos();
-	const mouse_button_event e(event.pos()-relative_pos(),event.code(),event.mod_state(),false,event.char_code());
+	const mouse_button_event e(loc_pos,event.code(),event.mod_state(),false,event.char_code());
 
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
 		if((*it)->is_visible() && (*it)->intersects(loc_pos))

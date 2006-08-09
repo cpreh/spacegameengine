@@ -7,12 +7,17 @@
 #include "../../../core/renderer/renderer_types.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
+#include "../conversion.hpp"
 #ifdef WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include "../../../core/main/win32_window.hpp"
 #endif
 #include <GL/gl.h>
+
+// TODO: consistent error checking
+
+#include <iostream> // TODO: remove when debugging messages are gone
 
 namespace
 {
@@ -30,6 +35,9 @@ namespace
 	}
 }
 
+
+// TODO: move the Xerror code somewhere more appropriate
+
 #ifdef SGE_LINUX_PLATFORM
 #include <iostream>
 
@@ -42,7 +50,7 @@ int handler(Display* const d, XErrorEvent* const e)
 }
 #endif
 
-sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
+sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned /*adapter*/)
 	: clear_zbuffer(false), clear_stencil(false), clear_back_buffer(true)
 {
 #ifdef SGE_WINDOWS_PLATFORM
@@ -117,6 +125,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	cm.reset(new x_colormap(d,XCreateColormap(d,RootWindow(d,vi->screen),vi->visual,AllocNone)));
 
 	wnd.reset(new x_window(window::window_size(param.mode.width,param.mode.height),"ogl",d,screen,vi.t,(*cm).c));
+
+	// TODO: search for correct resolution
+
 	/*if(!param.windowed)
 	{
 		if(XF86VidModeSwitchToMode(d,screen,&*modes[1]) == False)
@@ -167,7 +178,8 @@ sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(const index_buffer
 sge::render_target_ptr sge::ogl::renderer::create_render_target(const render_target::size_type width,
                                                                 const render_target::size_type height)
 {
-	return render_target_ptr();
+	std::cerr << "stub: ogl::renderer::create_render_target\n";
+	return render_target_ptr(); // TODO: stub
 }
 
 sge::texture_ptr sge::ogl::renderer::create_texture(const texture::const_pointer src,
@@ -193,14 +205,16 @@ sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_t
                                                                   const volume_texture::size_type depth,
                                                                   const resource_flag_t flags)
 {
-	return volume_texture_ptr();
+	std::cerr << "stub: ogl::renderer::create_volume_texture\n";
+	return volume_texture_ptr(); // TODO: stub
 }
 
 sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_src_array* const src,
                                                               const cube_texture::size_type sz,
 							      const resource_flag_t flags)
 {
-	return cube_texture_ptr();
+	std::cerr << "sub: ogl::renderer::create_cube_texture\n";
+	return cube_texture_ptr(); // TODO: stub
 }
 
 void sge::ogl::renderer::end_rendering()
@@ -212,6 +226,7 @@ void sge::ogl::renderer::end_rendering()
 
 void sge::ogl::renderer::get_caps(renderer_caps& caps) const
 {
+	std::cerr << "stub: ogl::renderer::get_caps\n";
 }
 
 sge::window_ptr sge::ogl::renderer::get_window() const
@@ -230,7 +245,7 @@ void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::inde
 	case PT_Line:
 	case PT_Triangle:
 		set_index_buffer(ib);
-		glDrawElements(prim_type,num_indices(ptype,pcount),GL_UNSIGNED_SHORT,vbo_offset(first_index*2));
+		glDrawElements(prim_type, num_indices(ptype,pcount), GL_UNSIGNED_SHORT, vbo_offset(first_index*2));
 		break;
 	case PT_Point:
 	case PT_LineStrip:
@@ -243,25 +258,7 @@ void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::inde
 
 void sge::ogl::renderer::reset(const renderer_parameters* const param)
 {
-}
-
-namespace {
-	inline GLenum bool_state_to_glenum(const sge::bool_state state)
-	{
-		using namespace sge;
-		switch(state) {
-		case BS_EnableAlphaBlending:
-			return GL_BLEND;
-		case BS_EnableZBuffer:
-			return GL_DEPTH_TEST;
-		case BS_EnableStencil:
-			return GL_STENCIL_TEST;
-		case BS_EnableFog:
-			return GL_FOG;
-		default:
-			throw std::logic_error("bool_state_to_glenum: wrong state");
-		}
-	}
+	// TODO: do we really need this?
 }
 
 void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type value)
@@ -277,7 +274,7 @@ void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type 
 		clear_stencil = value;
 		break;
 	default:
-		const GLenum glstate = bool_state_to_glenum(state);
+		const GLenum glstate = convert_cast<GLenum>(state);
 		if(value)
 			glEnable(glstate);
 		else
@@ -287,6 +284,31 @@ void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type 
 
 void sge::ogl::renderer::set_filter_state(const stage_type stage, const filter_arg type, const filter_arg_value arg)
 {
+	const GLenum tex_type = GL_TEXTURE_2D;
+
+	if(stage > 0)
+	{
+		std::cerr << "stub: stage not supported in ogl::renderer::set_filter_state\n";
+		return;
+	}
+	if(arg == FARGV_Anisotropic)
+	{
+		std::cerr << "sub: FARG_Anisotropic not supported in ogl::renderer::set_filter_state\n";
+		return;
+	}
+
+	const GLenum filter_arg = convert_cast<GLenum>(arg);
+
+	if(type == FARG_MipFilter)
+	{
+		glTexParameteri(tex_type, GL_TEXTURE_MIN_FILTER, filter_arg);
+		glTexParameteri(tex_type, GL_TEXTURE_MAG_FILTER, filter_arg);
+	}
+	else
+	{
+	        const GLenum filter_type = convert_cast<GLenum>(type);
+		glTexParameteri(tex_type, filter_type, filter_arg);
+	}
 }
 
 void sge::ogl::renderer::set_float_state(const float_state state, const float_type value)
@@ -309,14 +331,24 @@ void sge::ogl::renderer::set_int_state(const int_state state, const int_type val
 
 void sge::ogl::renderer::set_material(const material& mat)
 {
+	const GLenum face = GL_FRONT_AND_BACK;
+	glMaterialfv(face, GL_AMBIENT, reinterpret_cast<const GLfloat*>(&mat.ambient));
+	glMaterialfv(face, GL_DIFFUSE, reinterpret_cast<const GLfloat*>(&mat.diffuse));
+	glMaterialfv(face, GL_SPECULAR, reinterpret_cast<const GLfloat*>(&mat.specular));
+	glMaterialfv(face, GL_EMISSION, reinterpret_cast<const GLfloat*>(&mat.emissive));
+	glMaterialf(face, GL_SHININESS, mat.power);
 }
 
 void sge::ogl::renderer::set_matrix(const matrix_usage usage, const matrix4x4& matrix)
 {
+	const GLenum type = convert_cast<GLenum>(usage);
+	glMatrixMode(type);
+	glLoadMatrixf(reinterpret_cast<const GLfloat*>(&matrix));
 }
 
 void sge::ogl::renderer::set_render_target(const render_target_ptr target)
 {
+	std::cerr << "stub: ogl::renderer::set_render_target\n";
 }
 
 void sge::ogl::renderer::set_texture(const stage_type stage, const texture_base_ptr tex)
@@ -334,12 +366,16 @@ void sge::ogl::renderer::set_texture(const stage_type stage, const texture_base_
 	glEnable(b->get_type());
 }
 
+// TODO: stage engine?
+
 void sge::ogl::renderer::set_texture_stage_arg(const stage_type stage, const stage_arg type, const stage_arg_value value)
 {
+	std::cerr << "stub: ogl::renderer::set_texture_stage_arg\n";
 }
 
 void sge::ogl::renderer::set_texture_stage_op(const stage_type stage, const stage_op type, const stage_op_value value)
 {
+	std::cerr << "stub: ogl::renderer::set_texture_stage_op\n";
 }
 
 void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)

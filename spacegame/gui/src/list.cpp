@@ -15,9 +15,11 @@ sge::gui::list::list(manager& m, element* const parent, const point pos, const d
 void sge::gui::list::on_draw(const draw_event& event)
 {
 	rectangle::on_draw(event);
+
 	const size_type scroll_pos = vscrollbar.scroll_pos();
 	size_type max = size_type(height() / line_height) + scroll_pos;
 	max = std::min(max,elements.size());
+
 	const text_flag_t flags = TXTF_AlignLeft | TXTF_AlignTop | TXTF_NoMultiLine;
 	my_font.font_height(line_height);
 	for(size_type i = scroll_pos; i < max; ++i)
@@ -89,6 +91,6 @@ void sge::gui::list::calc_scrollbar()
 {
 	vscrollbar.scroll_max(elements.size()*line_height > height() ?
 		static_cast<size_type>(std::ceil((elements.size()*line_height-height())/line_height))+1 :
-		1);
+		0);
 }
 

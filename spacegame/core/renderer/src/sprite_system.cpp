@@ -132,11 +132,11 @@ void sge::sprite_system::draw()
 
 void sge::sprite_system::set_parameters()
 {
-	r->set_matrix(MU_Camera,matrix4x4<space_unit>());
+	r->set_matrix(MU_Transform,matrix4x4<space_unit>());
 	r->set_matrix(MU_Projection,matrix_ortogonal_xy<space_unit>());
-	r->set_texture_stage_op(  0, SOP_Color,   SOPV_SelectArg1);
-	r->set_texture_stage_arg( 0, SARG_Color1, SARGV_Texture);
-	r->set_texture_stage_op(1,SOP_Color,SOPV_Disable);
+//	r->set_texture_stage_op(  0, SOP_Color,   SOPV_SelectArg1);
+//	r->set_texture_stage_arg( 0, SARG_Color1, SARGV_Texture);
+//	r->set_texture_stage_op(1,SOP_Color,SOPV_Disable);
 	r->set_filter_state(0,FARG_MagFilter,FARGV_Linear);							
 }
 

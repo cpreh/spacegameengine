@@ -50,13 +50,15 @@ try
 	sge::gui::manager man(rend,is,fn,pl,"/home/sefi/cpp/spacegame/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.5,0.5));
-	sge::gui::list list1(man,&fr1,sge::point(0.5,0),sge::dim(0.2,0.2));
-	sge::gui::icon_button icbtn1(man,&fr1,sge::point(0,0),sge::dim(0.1,0.1),"newgame_0","newgame_1","newgame_2");
+	sge::gui::list list1(man,&fr1,sge::point(0.5,0.1),sge::dim(0.2,0.8));
+	sge::gui::icon_button icbtn1(man,&fr1,sge::point(0,0.8),sge::dim(0.5,0.1),"newgame_0","newgame_1","newgame_2");
 	//sge::gui::text_edit te1(man,0,sge::point(0,0.5),sge::dim(0.5,0.3),"abc");
 	//sge::gui::icon_button ib1(man,0,sge::point(0.5,0),sge::dim(0.5,0.5),"exit_0","exit_1","exit_2");
 	list1.push_back("LOL");
 	list1.push_back("BAR");
 	list1.push_back("ROFL!");
+	for(int i = 0; i < 20; ++i)
+		list1.push_back("TEST");
 
 	btn1.click_signal.connect(boost::lambda::var(running) = false);
 	

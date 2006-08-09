@@ -10,6 +10,8 @@
 #include "./cube_texture.hpp"
 #include "./volume_texture.hpp"
 #include "./render_target.hpp"
+#include "../math/matrix4x4.hpp"
+#include "../main/window.hpp"
 
 namespace sge
 {

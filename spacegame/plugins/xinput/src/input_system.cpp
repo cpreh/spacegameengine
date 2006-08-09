@@ -1,26 +1,11 @@
 #include <cstddef>
-#include "../../../core/main/algorithm.hpp"
+#include "../../../core/main/bit.hpp"
 #include "../../../core/input/key_type.hpp"
 #include "../../../core/input/callback_handle.hpp"
 #include "../input_system.hpp"
 #include <X11/keysym.h>
 #include <X11/Xlib.h>
 #include <X11/X.h>
-
-namespace {
-	inline bool bit(const char c, const unsigned bit)
-	{
-		return c & (1<<bit);
-	}
-	inline bool bit_a(const char c[], const unsigned bit)
-	{
-		return c[bit/8]&(1<<(bit%8));
-	}
-	template<std::size_t sz> inline bool bit_a(const boost::array<char,sz>& c, const unsigned bit)
-	{
-		return bit_a(c.data(),bit);
-	}
-}
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), mmwidth(mmap->max_keypermod), last_x(0), last_y(0), last_mouse(0)

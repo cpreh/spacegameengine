@@ -235,11 +235,11 @@ void sge::font::draw_ex(const vertex_buffer_ptr vb, const index_buffer_ptr ib,
 	r->set_bool_state(BS_EnableAlphaBlending,true);
 	r->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
 	r->set_int_state(IS_AmbientLightColor,col);
-	r->set_texture_stage_op( 0, SOP_Color,   SOPV_SelectArg1 );
-	r->set_texture_stage_arg(0, SARG_Color1, SARGV_Diffuse   );
-	r->set_texture_stage_op( 0, SOP_Alpha,   SOPV_SelectArg1 );
-	r->set_texture_stage_arg(0, SARG_Alpha1, SARGV_Texture   );
-	r->set_texture_stage_op( 1, SOP_Color,   SOPV_Disable    );
-	r->set_texture_stage_op( 1, SOP_Alpha,   SOPV_Disable    );
+//	r->set_texture_stage_op( 0, SOP_Color,   SOPV_SelectArg1 );
+//	r->set_texture_stage_arg(0, SARG_Color1, SARGV_Diffuse   );
+//	r->set_texture_stage_op( 0, SOP_Alpha,   SOPV_SelectArg1 );
+//	r->set_texture_stage_arg(0, SARG_Alpha1, SARGV_Texture   );
+//	r->set_texture_stage_op( 1, SOP_Color,   SOPV_Disable    );
+//	r->set_texture_stage_op( 1, SOP_Alpha,   SOPV_Disable    );
 	r->render(vb,ib,0,vb->size(),PT_Triangle,count);
 }

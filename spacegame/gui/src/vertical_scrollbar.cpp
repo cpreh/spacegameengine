@@ -3,6 +3,8 @@
 #include "../skin.hpp"
 #include <boost/bind.hpp>
 
+#include <iostream> // TODO. remove
+
 sge::gui::vertical_scrollbar::vertical_scrollbar(manager& m, element* const parent, const point pos, const dim sz, const bool visible, const bool enabled)
 : rectangle(m,parent,pos,sz,skin::scrollbar_name,visible,enabled),
   s_pos(0),
@@ -16,8 +18,7 @@ void sge::gui::vertical_scrollbar::scroll_max(const size_type max)
 {
 	s_max = max; 
 	scrollbar.height(scroll_max_h()/(s_max+1));
-	if(s_pos > s_max)
-		s_pos = s_max;
+	s_pos = std::min(s_pos,s_max);
 	recalc_pos();
 }
 
@@ -42,17 +43,20 @@ void sge::gui::vertical_scrollbar::on_glob_mouse_move(const mouse_move_event& ev
 
 	const point p = event.pos();
 	const unit distx = 0.1f;
+
 	if(p.y < 0 || p.y > height() || 
 	   p.x < -distx || p.x > width() + distx)
 		return;
 
+	scrollbar.y(p.y);
 
-	scrollbar.y(p.y-up_scroll_button.height());
 	const unit miny = up_scroll_button.height();
 	scrollbar.y(std::max(scrollbar.y(),miny));
-	const unit maxy = scroll_max_h() + up_scroll_button.height() - scrollbar.height();
+
+	const unit maxy = down_scroll_button.y() - scrollbar.height();
 	scrollbar.y(std::min(scrollbar.y(),maxy));
-	s_pos = static_cast<size_type>((scrollbar.y() - up_scroll_button.height()) / maxy) * (s_max+1);
+
+	s_pos = static_cast<size_type>((scrollbar.y() - miny) / (maxy-miny) * s_max);
 }
 
 void sge::gui::vertical_scrollbar::on_mouse_up(const mouse_button_event& event)
@@ -83,8 +87,7 @@ void sge::gui::vertical_scrollbar::move_scrollbar(const point click_pos)
 	if(click_pos.y > scrollbar.y() + scrollbar.height())
 	{
 		s_pos += stride;
-		if(s_pos > s_max)
-			s_pos = s_max;
+		s_pos = std::min(s_pos,s_max);
 	}
 	else if(click_pos.y < scrollbar.y())
 	{
