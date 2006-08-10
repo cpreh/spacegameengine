@@ -6,10 +6,20 @@
 #include <X11/keysym.h>
 #include <X11/Xlib.h>
 #include <X11/X.h>
+#include <X11/extensions/xf86dga.h>
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
-	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), mmwidth(mmap->max_keypermod), last_x(0), last_y(0), last_mouse(0)
+	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), mmwidth(mmap->max_keypermod), last_mouse(0), dga_guard(wnd)
 {
+	int flags;
+	if(XF86DGAQueryDirectVideo(wnd->get_display(),wnd->get_screen(),&flags)==false)
+		throw std::runtime_error("XF86DGAQueryDirectVideo() failed");
+//	if(!(flags & XF86DGADirectMouse))
+//		throw std::runtime_error("DGA Mouse not supported! Non DGA implementation is not present yet!");
+
+	XF86DGADirectVideo(wnd->get_display(),wnd->get_screen(),XF86DGADirectMouse);
+	dga_guard.enabled = true;
+
 	if(XGrabPointer(wnd->get_display(),wnd->get_window(),true,None,/*PointerMotionMask|KeyPressMask|KeyReleaseMask,*/GrabModeAsync,GrabModeAsync,wnd->get_window(),None,CurrentTime) != GrabSuccess)
 		throw std::runtime_error("XGrabPointer() failed");
 	if(XGrabKeyboard(wnd->get_display(),wnd->get_window(),true,GrabModeAsync, GrabModeAsync, CurrentTime) != GrabSuccess)
@@ -37,8 +47,6 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	x11tosge[XK_Page_Down] = KC_PGDN;
 	x11tosge[XK_End] = KC_END;
 	x11tosge[XK_Begin] = KC_HOME;
-	
-	reset_pointer();
 }
 
 sge::xinput::input_system::~input_system()
@@ -60,8 +68,7 @@ void sge::xinput::input_system::dispatch()
 		XComposeStatus state;
 		char keybuf[32];
 		KeySym ks;
-		char ch;
-		ch = XLookupString(reinterpret_cast<XKeyEvent*>(&xev),keybuf,sizeof(keybuf),&ks,&state) == 1 ? keybuf[0] : 0;
+		const char ch = XLookupString(reinterpret_cast<XKeyEvent*>(&xev),keybuf,sizeof(keybuf),&ks,&state) == 1 ? keybuf[0] : 0;
 		const key_type key(get_key_name(ks),modifiers,get_key_code(ks),ch);
 		sig(key_pair(key, xev.type == KeyRelease ? 0 : 1));
 	}
@@ -79,26 +86,15 @@ void sge::xinput::input_system::dispatch()
 
 	int deltax = 0, deltay = 0;
 	while(XCheckTypedEvent(wnd->get_display(), MotionNotify, &xev)) {
-		deltax = xev.xmotion.x - last_x;
-		deltay = xev.xmotion.y - last_y;
+		deltax += xev.xmotion.x_root;
+		deltay += xev.xmotion.y_root;
 	}
 	if(deltax)
 		sig(key_pair(key_type("MouseX",modifiers,KC_MOUSEX,0),space_unit(deltax) / wnd->size().w));
 	if(deltay)
 		sig(key_pair(key_type("MouseY",modifiers,KC_MOUSEY,0),space_unit(deltay) / wnd->size().h));
-
-	reset_pointer();
 }
 
-void sge::xinput::input_system::reset_pointer()
-{
-	XWarpPointer(wnd->get_display(),None,wnd->get_window(),0,0,0,0,wnd->size().w/2,wnd->size().h/2);
-	XEvent xev;
-	while(XCheckTypedEvent(wnd->get_display(), MotionNotify, &xev));
-	last_x = wnd->size().w/2;
-	last_y = wnd->size().h/2;
-}
-	
 std::string sge::xinput::input_system::get_key_name(const KeySym ks) const
 {
 	return XKeysymToString(ks);

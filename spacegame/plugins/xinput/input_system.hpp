@@ -7,6 +7,7 @@
 #include "../../core/input/input_system.hpp"
 #include "../../core/main/x_window.hpp"
 #include <boost/array.hpp>
+#include <X11/extensions/xf86dga.h>
 
 struct XModifierKeyMap;
 
@@ -30,7 +31,6 @@ private:
 	key_code get_key_code(KeySym ks) const;
 	std::string get_key_name(KeySym ks) const;
 	void update_modifiers(const key_value_array& keys);
-	void reset_pointer();
 
 	x_window_ptr wnd;
 	XModifierKeymap* mmap;
@@ -38,11 +38,22 @@ private:
 
 	key_value_array last_keys;
 	modifier_state modifiers;
-	int last_x, last_y;
 	unsigned last_mouse;
 
 	typedef std::map<unsigned,key_code> x11_to_sge_array;
 	x11_to_sge_array x11tosge;
+
+	struct _dga_guard {
+		_dga_guard(const x_window_ptr wnd) : enabled(false), wnd(wnd) {}
+		~_dga_guard()
+		{
+			if(enabled)
+				XF86DGADirectVideo(wnd->get_display(),wnd->get_screen(),0);
+		}
+		bool enabled;
+		x_window_ptr wnd;
+	};
+	_dga_guard dga_guard;
 };
 
 }

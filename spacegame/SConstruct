@@ -21,7 +21,7 @@ freetype.Append(CCFLAGS = ' -I/usr/include/freetype2')
 libfreetype = freetype.SharedLibrary('sgefreetype', [glob('./plugins/freetype/src/*.cpp')])
 freetype.Install('bin',libfreetype)
 
-xinput = Environment(LIBS = ['X11'], CCFLAGS = flags)
+xinput = Environment(LIBS = ['X11', 'Xxf86dga'], CCFLAGS = flags)
 libxinput = xinput.SharedLibrary('sgexinput', [glob('./plugins/xinput/src/*.cpp')])
 xinput.Install('bin',libxinput)
 
