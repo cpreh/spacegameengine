@@ -92,12 +92,12 @@ template<typename T> inline vector3<T> operator* (const T& l, const vector3<T>& 
 	return vector3<T>(r) *= l;
 }
 
-template<typename T> inline T dot_product (const vector3<T>& l, const vector3<T>& r)
+template<typename T> inline T dot_p(const vector3<T>& l, const vector3<T>& r)
 {
 	return l.x * r.x + l.y * r.y + l.z * r.z;
 }
 
-template<typename T> inline vector3<T> cross_product(const vector3<T>& l, const vector3<T>& r)
+template<typename T> inline vector3<T> cross_p(const vector3<T>& l, const vector3<T>& r)
 {
 	return vector3<T>(l.y*r.z - l.z*r.y,
 	                  l.z*r.x - l.x*r.z,

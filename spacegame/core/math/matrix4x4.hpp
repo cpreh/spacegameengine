@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <ostream>
+#include <cstddef>
 #include "./vector3.hpp"
 
 namespace sge
@@ -12,16 +13,15 @@ struct no_initialization_tag {};
 
 template<typename T> class matrix4x4 {
 public:
-	typedef T      value_type;
-	typedef size_t size_type;
+	typedef T           value_type;
+	typedef std::size_t size_type;
 
 	class proxy {
 		friend class matrix4x4;
 	public:
-		value_type& operator[](size_type y) { return p[y*stride + x]; }
-		const value_type& operator[](size_type y) const { return p[y*stride + x]; }
+		value_type& operator[](const size_type& y) const { return p[y*stride + x]; }
 	private:
-		proxy(size_type x, value_type* p) : x(x), p(p) {}
+		proxy(const size_type& x, value_type* const p) : x(x), p(p) {}
 		size_type x;
 		value_type* p;
 
@@ -32,9 +32,9 @@ public:
 	class const_proxy {
 		friend class matrix4x4;
 	public:
-		const value_type& operator[](size_type y) const { return p[y*stride + x]; }
+		const value_type& operator[](const size_type& y) const { return p[y*stride + x]; }
 	private:
-		const_proxy(size_type x, const value_type* p) : x(x), p(p) {}
+		const_proxy(const size_type& x, const value_type* const p) : x(x), p(p) {}
 
 		size_type x;
 		const value_type* p;
@@ -51,10 +51,10 @@ public:
 	  m_02(0), m_12(0), m_22(1), m_32(0),
 	  m_03(0), m_13(0), m_23(0), m_33(1) {}
 
-	matrix4x4(value_type _00, value_type _10, value_type _20, value_type _30,
-	          value_type _01, value_type _11, value_type _21, value_type _31,
-	          value_type _02, value_type _12, value_type _22, value_type _32,
-	          value_type _03, value_type _13, value_type _23, value_type _33)
+	matrix4x4(const value_type& _00, const value_type& _10, const value_type& _20, const value_type& _30,
+	          const value_type& _01, const value_type& _11, const value_type& _21, const value_type& _31,
+	          const value_type& _02, const value_type& _12, const value_type& _22, const value_type& _32,
+	          const value_type& _03, const value_type& _13, const value_type& _23, const value_type& _33)
 		: m_00(_00), m_10(_10), m_20(_20), m_30(_30),
 		  m_01(_01), m_11(_11), m_21(_21), m_31(_31),
 		  m_02(_02), m_12(_12), m_22(_22), m_32(_32),
@@ -113,10 +113,10 @@ public:
 	const_proxy operator[](size_type x) const { return const_proxy(x,&m_00); }
 private:
 	static const size_type stride = 4;
-	value_type m_00, m_10, m_20, m_30;
-	value_type m_01, m_11, m_21, m_31;
-	value_type m_02, m_12, m_22, m_32;
-	value_type m_03, m_13, m_23, m_33;
+	value_type m_00, m_10, m_20, m_30,
+	           m_01, m_11, m_21, m_31,
+	           m_02, m_12, m_22, m_32,
+	           m_03, m_13, m_23, m_33;
 };
 
 template<typename T> inline matrix4x4<T> operator+ (const matrix4x4<T>& r)
@@ -253,14 +253,14 @@ template<typename T> inline matrix4x4<T> matrix_look_at(const vector3<T>& eye,
 	const vector3<T> xaxis = normalize(cross_product(up, zaxis));
 	const vector3<T> yaxis = cross_product(zaxis, xaxis);
 
-	return matrix4x4<T>(xaxis.x,                  yaxis.x,                  zaxis.x,                  0,
-	                    xaxis.y,                  yaxis.y,                  zaxis.y,                  0,
-	                    xaxis.z,                  yaxis.z,                  zaxis.z,                  0,
-	                    -dot_product(xaxis,eye),  -dot_product(yaxis,eye),  -dot_product(zaxis,eye),  1);
+	return matrix4x4<T>(xaxis.x,            yaxis.x,            zaxis.x,            0,
+	                    xaxis.y,            yaxis.y,            zaxis.y,            0,
+	                    xaxis.z,            yaxis.z,            zaxis.z,            0,
+	                    -dot_p(xaxis,eye),  -dot_p(yaxis,eye),  -dot_p(zaxis,eye),  1);
 }
 
 
-/*template<typename T> inline matrix4x4<T> matrix_perspective(const T& aspect, const T& fov, const T& near, const T& far)
+template<typename T> inline matrix4x4<T> matrix_perspective(const T& aspect, const T& fov, const T& near, const T& far)
 {
 	const T h = T(1) / std::tan(fov / T(2)),
 	        w = h * aspect,
@@ -269,9 +269,9 @@ template<typename T> inline matrix4x4<T> matrix_look_at(const vector3<T>& eye,
 	                    0, h, 0, 0,
 	                    0, 0, q, 1,
 	                    0, 0, -q*near, 0);
-}*/
+}
 
-template<typename T> inline matrix4x4<T> matrix_ortogonal_xy()
+template<typename T> inline matrix4x4<T> matrix_orthogonal_xy()
 {
 	return matrix4x4<T>(1,0,0,0,
 	                    0,1,0,0,

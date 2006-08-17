@@ -32,6 +32,7 @@ typedef unsigned text_flag_t;
 typedef space_unit text_unit;
 typedef point text_pos;
 typedef basic_dim<text_unit> text_size;
+typedef basic_rect<text_unit> text_rect;
 
 struct font_parameters {
 	font_parameters(const std::string& font_name, const bool italic = false,

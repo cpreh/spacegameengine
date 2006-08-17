@@ -14,7 +14,7 @@ class font_system : public sge::font_system {
 public:
 	font_system();
 	~font_system();
-	font_information create_font(renderer_ptr r, const std::string& font_name, bool italic, font_weight weight, text_unit height, const std::locale& loc);
+	text_rect create_font(renderer_ptr r, const std::string& font_name, font_weight weight);
 private:
 	FT_Library library;
 };
