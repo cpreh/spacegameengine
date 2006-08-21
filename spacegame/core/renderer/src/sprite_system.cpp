@@ -102,14 +102,14 @@ void sge::sprite_system::draw()
 {
 	sprites.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
 	{
-		lock_ptr<index_buffer> l(ib.get(),LF_Discard);
+		lock_ptr<index_buffer_ptr> l(ib,LF_Discard);
 		index_buffer::iterator it = ib->begin();
 		for(sprite_list::iterator sit = sprites.begin(); sit != sprites.end(); ++sit)
 			it = (*sit)->update_ib(it);
 	}
 
 	{
-		lock_ptr<vertex_buffer> l(vb.get(),LF_Discard);
+		lock_ptr<vertex_buffer_ptr> l(vb,LF_Discard);
 		std::for_each(sprites.begin(),sprites.end(),std::mem_fun(&sprite::update));
 	}
 
@@ -132,8 +132,8 @@ void sge::sprite_system::draw()
 
 void sge::sprite_system::set_parameters()
 {
-	r->set_matrix(MU_Transform,matrix4x4<space_unit>());
-	r->set_matrix(MU_Projection,matrix_ortogonal_xy<space_unit>());
+	r->set_transformation(matrix4x4<space_unit>());
+	r->projection_orthogonal();
 //	r->set_texture_stage_op(  0, SOP_Color,   SOPV_SelectArg1);
 //	r->set_texture_stage_arg( 0, SARG_Color1, SARGV_Texture);
 //	r->set_texture_stage_op(1,SOP_Color,SOPV_Disable);

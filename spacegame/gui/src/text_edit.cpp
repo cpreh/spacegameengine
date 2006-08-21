@@ -45,7 +45,7 @@ void sge::gui::text_edit::on_key_press(const keyboard_button_event& event)
 			_text.erase(cursor_pos,1);
 		break;
 	default:
-		if(my_font.is_print(char_code))
+		//if(my_font.is_print(char_code)) FIXME?
 		{
 			_text.insert(cursor_pos,1,char_code);
 			increase_cursor_pos();
@@ -60,13 +60,13 @@ void sge::gui::text_edit::on_click(const mouse_button_event& event)
 	cursor_pos = text_start;
 	std::string::size_type& i = cursor_pos;
 	for(unit sz = 0; sz < x && i < _text.size(); ++i)
-		sz += my_font.char_size(_text.at(i)).w;
+		sz += my_font.char_width(_text.at(i));
 }
 
 void sge::gui::text_edit::increase_cursor_pos()
 {
 	++cursor_pos;
-	while(my_font.string_size(_text,text_start,cursor_pos-text_start).w >= text_width())
+	while(my_font.text_size(_text.begin(), _text.end(), text_start, cursor_pos-text_start).w >= text_width())
 		++text_start;
 }
 
@@ -80,13 +80,13 @@ void sge::gui::text_edit::decrease_cursor_pos()
 void sge::gui::text_edit::on_draw(const draw_event& event)
 {
 	rectangle::on_draw(event);
-	my_font.font_height(cur.height());
-	my_font.draw_text(_text.substr(text_start,_text.size()-text_start), event.pos(), size(), _text_color, TXTF_AlignLeft | TXTF_AlignVCenter | TXTF_NoMultiLine);
+	my_font.font_height(cur.height()); // FIXME
+	my_font.draw_text(_text.substr(text_start,_text.size()-text_start), event.pos(), size(), _text_color, FTF_AlignLeft | FTF_AlignVCenter | FTF_NoMultiLine);
 	if(m.focus() == this)
 	{
 		point pos = event.pos();
 		if(cursor_pos > 0 && cursor_pos <= _text.size())
-			pos.x += my_font.string_size(_text, text_start, cursor_pos-text_start).w;
+			pos.x += my_font.text_size(_text.begin(), _text.end(), text_start, cursor_pos-text_start).w;
 
 		pos.y += height() / 2 - cur.height() / 2;
 		cur.pos(pos);

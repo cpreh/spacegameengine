@@ -17,7 +17,7 @@
 
 // TODO: consistent error checking
 
-#include <iostream> // TODO: remove when debugging messages are gone
+#include <iostream> // TODO: remove when stub messages are gone
 
 namespace
 {
@@ -50,6 +50,7 @@ int handler(Display* const d, XErrorEvent* const e)
 }
 #endif
 
+// TODO: maybe support different adapters?
 sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned /*adapter*/)
 	: clear_zbuffer(false), clear_stencil(false), clear_back_buffer(true)
 {
@@ -234,8 +235,8 @@ sge::window_ptr sge::ogl::renderer::get_window() const
 	return wnd;
 }
 
-unsigned sge::ogl::renderer::get_screen_height() const { return 0; }
-unsigned sge::ogl::renderer::get_screen_width() const { return 0; }
+unsigned sge::ogl::renderer::screen_height() const { return 1024; } // TODO:
+unsigned sge::ogl::renderer::screen_width() const { return 768; } // TODO:
 
 void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
 {
@@ -339,11 +340,22 @@ void sge::ogl::renderer::set_material(const material& mat)
 	glMaterialf(face, GL_SHININESS, mat.power);
 }
 
-void sge::ogl::renderer::set_matrix(const matrix_usage usage, const matrix4x4& matrix)
+void sge::ogl::renderer::set_transformation(const matrix4x4<space_unit>& matrix)
 {
-	const GLenum type = convert_cast<GLenum>(usage);
-	glMatrixMode(type);
+	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(reinterpret_cast<const GLfloat*>(&matrix));
+}
+
+void sge::ogl::renderer::projection_orthogonal()
+{
+	const matrix4x4<space_unit> matrix(matrix_orthogonal_xy<space_unit>());
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(reinterpret_cast<const GLfloat*>(&matrix));
+}
+
+void sge::ogl::renderer::projection_perspective(const space_unit fov, const space_unit near, const space_unit far)
+{
+	std::cerr << "stub: og::renderer::projection_perspective\n";
 }
 
 void sge::ogl::renderer::set_render_target(const render_target_ptr target)

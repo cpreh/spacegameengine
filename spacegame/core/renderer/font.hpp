@@ -13,6 +13,7 @@
 #include "./font_types.hpp"
 #include "./renderer.hpp"
 #include "../font/font_system.hpp"
+#include "../font/font_impl.hpp"
 
 namespace sge
 {
@@ -26,35 +27,35 @@ public:
 	font(renderer_ptr r, font_system_ptr font_sys, const std::string& font_name, font_weight weight = FW_Normal);
 	
 	void font_height(unsigned scale);
-	text_unit font_height() const;
-	text_unit optimal_font_height_base() const;
+	font_unit font_height() const;
+	font_unit optimal_font_height_base() const;
 	
-	text_size draw_text(const string_type& text, text_pos pos, text_size max_size, color col, text_flag_t flags = TXTF_AlignLeft | TXTF_AlignTop);
+	font_size draw_text(const string_type& text, font_pos pos, font_size max_size, color col, font_flag_t flags = FTF_Default);
 	
-	text_unit char_width(char_type ch) const;
-	text_unit char_size(char_type ch) const;
-	text_size string_size(string_type::const_iterator beg, string_type::const_iterator end) const;
-	text_size string_size(string_type::const_iterator beg, string_type::const_iterator end, text_unit width, text_flag_t flags = TXTF_AlignLeft | TXTF_AlignTop) const;
+	font_unit text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator& send, const font_unit width) const;
+	font_unit char_width(char_type ch) const;
+	unsigned char_width_pixel(char_type ch) const;
+	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = FTF_Default) const;
+
+	void set_parameters();
 private:
-	unsigned create_text_res(vertex_buffer_ptr& vb, index_buffer_ptr& ib, text_pos pos, text_size& size,
-	                         const string_type& text, text_flag_t tflags, bool static_buf);
-	void draw_ex(vertex_buffer_ptr vb, index_buffer_ptr ib,
-	             color col, unsigned count = 0);
+	font_unit line_width(string_type::const_iterator beg, string_type::const_iterator& end, font_unit width, font_flag_t tflags) const;
+	void draw_line(vertex_buffer::iterator& it, font_pos pos, font_unit width, font_size max_sz, string_type::const_iterator beg, string_type::const_iterator end, font_flag_t tflags);
+	void flush_text();
 
 	struct job {
-		job(const texture_ptr tex, const size_type first, const size_type last)
-			: tex(tex), first(first), last(last) {}
+		job(const texture_ptr tex, const size_type first_index, const size_type last_index)
+			: tex(tex), first_index(first_index), last_index(last_index) {}
 		texture_ptr tex;
-		size_type first, last;
+		size_type first_index, last_index;
 	};
 	typedef std::vector<job> job_array;
 
 	renderer_ptr              r;
+	font_impl_ptr             impl;
+	unsigned                  font_height_pixel;
 	vertex_buffer_ptr         vb;
 	index_buffer_ptr          ib;
-	color                     last_color;
-	font_impl_ptr             font_sys;
-	unsigned                  font_height_pixel;
 	job_array                 jobs;
 	texture_ptr               last_texture;
 	size_type                 last_index;

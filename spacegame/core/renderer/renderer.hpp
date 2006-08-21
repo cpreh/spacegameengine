@@ -18,8 +18,6 @@ namespace sge
 
 class renderer {
 public:
-	typedef sge::matrix4x4<space_unit> matrix4x4;
-
 	virtual void begin_rendering() = 0;
 	virtual void end_rendering() = 0;
 	virtual void render(vertex_buffer_ptr vb, index_buffer_ptr ib, unsigned first_vertex, unsigned num_vertices, primitive_type ptype, unsigned pcount, unsigned first_index = 0) = 0;
@@ -31,10 +29,12 @@ public:
 	virtual void set_filter_state(stage_type stage, filter_arg type, filter_arg_value arg) = 0;
 	virtual void set_texture(stage_type stage, texture_base_ptr tex) = 0;
 	virtual void set_material(const material& mat) = 0;
-	virtual void set_matrix(matrix_usage usage, const matrix4x4& mat) = 0;
+	virtual void set_transformation(const matrix4x4<space_unit>& mat) = 0;
+	virtual void projection_perspective(space_unit fov, space_unit near, space_unit far) = 0;
+	virtual void projection_orthogonal() = 0;
 	virtual void set_render_target(render_target_ptr target) = 0;
-	virtual unsigned get_screen_width() const = 0;
-	virtual unsigned get_screen_height() const = 0;
+	virtual unsigned screen_width() const = 0;
+	virtual unsigned screen_height() const = 0;
 	virtual window_ptr get_window() const = 0;
 
 	virtual texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels = 1, resource_flag_t flags = RF_Default) = 0;

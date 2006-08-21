@@ -12,7 +12,7 @@ void sge::gui::check_box::on_draw(const draw_event& event)
 {
 	rectangle::on_draw(event);
 	const dim cbsz(box.width(),0);
-	m.get_font().draw_text(_text, event.pos()+point(cbsz.w,cbsz.h), size()-cbsz, _text_color, TXTF_AlignLeft | TXTF_AlignVCenter);
+	m.get_font().draw_text(_text, event.pos()+point(cbsz.w,cbsz.h), size()-cbsz, _text_color, FTF_AlignLeft | FTF_AlignVCenter);
 }
 
 bool sge::gui::check_box::value() const { return box.value(); }

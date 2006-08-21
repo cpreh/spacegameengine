@@ -12,22 +12,22 @@ namespace sge
 
 typedef uint32 color;
 
-#define RGBA_MAKRO(r,g,b,a) color(color(a) << 24 | color(r) << 16 | color(g) << 8 | color(b))
+#define SGE_RGBA_MAKRO(r,g,b,a) color(color(a) << 24 | color(r) << 16 | color(g) << 8 | color(b))
 
 template<uchar r, uchar g, uchar b, uchar a> struct static_rgba {
-	static const color value = RGBA_MAKRO(r,g,b,a);
+	static const color value = SGE_RGBA_MAKRO(r,g,b,a);
 };
 
 template<uchar r, uchar g, uchar b> struct static_rgb {
-	static const color value = RGBA_MAKRO(r,g,b,255);
+	static const color value = static_rgba<r,g,b,255>::value;
 };
 
 inline color rgba(const uchar r, const uchar g, const uchar b, const uchar a)
 {
-	return RGBA_MAKRO(r,g,b,a);
+	return SGE_RGBA_MAKRO(r,g,b,a);
 }
 
-#undef RGBA_MAKRO
+#undef SGE_RGBA_MAKRO
 
 inline float   red_part_rgba_f(const color c) { return ((c & 0xFF000000) >> 24) / 255.f; }
 inline float green_part_rgba_f(const color c) { return ((c &   0xFF0000) >> 16) / 255.f; }
@@ -289,11 +289,6 @@ struct material {
 	color4     specular; 
 	color4     emissive; 
 	space_unit power; 
-};
-
-enum matrix_usage {
-	MU_Transform,
-	MU_Projection
 };
 
 }

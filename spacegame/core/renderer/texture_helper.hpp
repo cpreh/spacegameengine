@@ -1,6 +1,11 @@
 #ifndef SGE_TEXTURE_HELPER_HPP_INCLUDED
 #define SGE_TEXTURE_HELPER_HPP_INCLUDED
 
+#include "../main/types.hpp"
+#include "../main/shared_ptr.hpp"
+#include "../math/rect.hpp"
+#include "../renderer/texture.hpp"
+
 namespace sge
 {
 

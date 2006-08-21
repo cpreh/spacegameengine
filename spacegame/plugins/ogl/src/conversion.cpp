@@ -76,14 +76,3 @@ template<> GLenum sge::ogl::convert_cast(const filter_arg_value& arg)
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const matrix_usage& u)
-{
-	switch(u) {
-	case MU_Transform:
-		return GL_MODELVIEW;
-	case MU_Projection:
-		return GL_PROJECTION;
-	default:
-		throw std::logic_error("unsupported matrix_usage");
-	}
-}

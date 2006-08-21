@@ -5,7 +5,6 @@
 #include <deque>
 #include "./rectangle.hpp"
 #include "./vertical_scrollbar.hpp"
-#include "./line_strip.hpp"
 
 namespace sge
 {

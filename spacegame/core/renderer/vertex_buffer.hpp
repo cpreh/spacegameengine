@@ -33,6 +33,7 @@ private:
 		void increment() { data += stride; }
 		void decrement() { data -= stride; }
 		bool equal(const iterator_impl& r) const { return data == r.data; }
+		difference_type distance_to(const iterator_impl& r) const { return r.data - data; }
 		Stored dereference() const { return Stored(data,stride,oi); }
 		template<typename OtherStored> friend class iterator_impl;
 	public:

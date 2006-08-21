@@ -35,11 +35,13 @@ public:
 	void set_filter_state(stage_type stage, filter_arg type, filter_arg_value arg);
 	void set_texture(stage_type stage, texture_base_ptr tex);
 	void set_material(const material& mat);
-	void set_matrix(matrix_usage usage, const matrix4x4& matrix);
+	void set_transformation(const matrix4x4<space_unit>& matrix);
+	void projection_perspective(space_unit fov, space_unit near, space_unit far);
+	void projection_orthogonal();
 	void set_render_target(render_target_ptr target);
 
-	unsigned get_screen_width() const;
-	unsigned get_screen_height() const;
+	unsigned screen_width() const;
+	unsigned screen_height() const;
 	window_ptr get_window() const;
 
 	texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels, resource_flag_t flags);

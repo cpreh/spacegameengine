@@ -1,7 +1,7 @@
 #include "../sprite.hpp"
 #include "../sprite_system.hpp"
 #include "../lock_ptr.hpp"
-#include "../transform.hpp"
+#include "../sprite_helper.hpp"
 #include <boost/array.hpp>
 
 
@@ -27,32 +27,14 @@ void sge::sprite::update_where(vertex_buffer::iterator it)
 	const virtual_texture::rect& area = tex->area();
 
 	const rect rt(space_unit(area.left)  / s.texsize, space_unit(area.top)    / s.texsize,
-		      space_unit(area.right) / s.texsize, space_unit(area.bottom) / s.texsize),
+		      space_unit(area.right) / s.texsize, space_unit(area.bottom) / s.texsize);
 
-	           rs(space_x_2d_to_3d(x())        ,space_y_2d_to_3d(y()),
-	              space_x_2d_to_3d(x()+width()),space_y_2d_to_3d(y()+height()));
-
-	(*it  ).pos()    = pos3(rs.left,rs.top);
-	(*it++).tex()[0] = tex_pos(rt.left,rt.top);
-
-	(*it  ).pos()    = pos3(rs.right,rs.top);
-	(*it++).tex()[0] = tex_pos(rt.right,rt.top);
-
-	(*it  ).pos()    = pos3(rs.right,rs.bottom);
-	(*it++).tex()[0] = tex_pos(rt.right,rt.bottom);
-
-	(*it  ).pos()    = pos3(rs.left,rs.bottom);
-	(*it  ).tex()[0] = tex_pos(rt.left,rt.bottom);
+	fill_sprite_in_vb(it, get_rect(), rt);
 }
 
 sge::index_buffer::iterator sge::sprite::update_ib(index_buffer::iterator it)
 {
-	(*it++) = vb_pos + 0;
-	(*it++) = vb_pos + 1;
-	(*it++) = vb_pos + 2;
-	(*it++) = vb_pos + 0;
-	(*it++) = vb_pos + 2;
-	(*it++) = vb_pos + 3;
+	fill_sprite_indices(it,vb_pos);
 	return it;
 }
 

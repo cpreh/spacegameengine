@@ -20,15 +20,14 @@ void sge::gui::list::on_draw(const draw_event& event)
 	size_type max = size_type(height() / line_height) + scroll_pos;
 	max = std::min(max,elements.size());
 
-	const text_flag_t flags = TXTF_AlignLeft | TXTF_AlignTop | TXTF_NoMultiLine;
-	my_font.font_height(line_height);
+	my_font.font_height(line_height); // TODO: fixme
 	for(size_type i = scroll_pos; i < max; ++i)
 	{
 		if(i == static_cast<size_type>(selected_))
 			m.draw_selection(point(event.pos().x,event.pos().y+line_height*(i-scroll_pos)),
 					 dim(width(),line_height));
 		my_font.draw_text(elements.at(i),point(event.pos().x,event.pos().y+line_height*(i-scroll_pos)),
-		                  dim(width(),line_height*2),text_color,flags);
+		                  dim(width(),line_height*2),text_color, FTF_Default | FTF_NoMultiLine);
 	}
 }
 
