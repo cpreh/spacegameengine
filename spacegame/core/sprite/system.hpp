@@ -7,7 +7,7 @@
 #include <vector>
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
-#include "./sprite_types.hpp"
+#include "./types.hpp"
 #include "./sprite.hpp"
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"

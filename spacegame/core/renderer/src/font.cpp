@@ -7,7 +7,7 @@
 #include "../transform.hpp"
 #include "../lock_ptr.hpp"
 #include "../font.hpp"
-#include "../sprite_helper.hpp"
+#include "../../sprite/helper.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 

@@ -1,11 +1,12 @@
 #ifndef SGE_OGL_RENDERER_HPP_INCLUDED
 #define SGE_OGL_RENDERER_HPP_INCLUDED
 
+#include "../../core/main/types.hpp"
 #include "../../core/renderer/renderer.hpp"
 #include "../../core/main/window.hpp"
-#ifdef WIN32
+#ifdef SGE_WINDOWS_PLATFORM
 #include "../../core/main/win32.hpp"
-#elif __linux__
+#elif SGE_LINUX_PLATFORM
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <GL/glx.h>
@@ -27,6 +28,7 @@ public:
 	void begin_rendering();
 	void end_rendering();
 	void render(vertex_buffer_ptr vb, index_buffer_ptr ib, unsigned first_vertex, unsigned num_vertices, primitive_type ptype, unsigned pcount, unsigned first_index = 0);
+
 	void set_int_state(int_state state, int_type value);
 	void set_float_state(float_state state, float_type value);
 	void set_bool_state(bool_state state, bool_type value);
@@ -40,10 +42,6 @@ public:
 	void projection_orthogonal();
 	void set_render_target(render_target_ptr target);
 
-	unsigned screen_width() const;
-	unsigned screen_height() const;
-	window_ptr get_window() const;
-
 	texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels, resource_flag_t flags);
 	volume_texture_ptr create_volume_texture(volume_texture::const_pointer data, volume_texture::size_type width, volume_texture::size_type height, volume_texture::size_type depth, resource_flag_t flags);
 	cube_texture_ptr create_cube_texture(const cube_side_src_array* data, cube_texture::size_type size, resource_flag_t flags = RF_Default);
@@ -51,8 +49,10 @@ public:
 	index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags, index_buffer::const_pointer data);
 	render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height);
 
-	void reset(const renderer_parameters* param);
 	void get_caps(renderer_caps& caps) const;
+	unsigned screen_width() const;
+	unsigned screen_height() const;
+	window_ptr get_window() const;
 private:
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);

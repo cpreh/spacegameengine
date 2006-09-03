@@ -2,7 +2,7 @@
 #define SGE_TEXT_CURSOR_HPP_INCLUDED
 
 #include "../core/main/timer.hpp"
-#include "../core/renderer/sprite.hpp"
+#include "../core/sprite/sprite.hpp"
 
 namespace sge
 {

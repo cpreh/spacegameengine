@@ -1,9 +1,11 @@
 #include <algorithm>
 #include <stdexcept>
-#include "../sprite_system.hpp"
-#include "../vertex_format.hpp"
-#include "../lock_ptr.hpp"
+#include "../system.hpp"
+#include "../../renderer/vertex_format.hpp"
+#include "../../renderer/lock_ptr.hpp"
 #include "../../main/functional.hpp"
+
+#include <iostream>
 
 namespace
 {
@@ -21,8 +23,7 @@ sge::sprite_system::sprite_system(const renderer_ptr r, const handler_function h
     texsize(512) // TODO: let the driver determinate the best texture size
 {
 	const unsigned init_sprites = 25;
-	resource_flag_t rf = RF_WriteOnly | RF_Dynamic;
-	vb = r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),init_sprites*4,rf);
+	vb = r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),init_sprites*4, RF_WriteOnly | RF_Dynamic);
 	ib = r->create_index_buffer(init_sprites*6);
 	free_pos.reserve(init_sprites);
 	for(unsigned i = 0; i < init_sprites; ++i)
@@ -125,7 +126,7 @@ void sge::sprite_system::draw()
 			r->set_texture(0,(*it)->get_texture());
 			r->render(vb,ib,0,unsigned(vb->size()),PT_Triangle,num_objects*2,first_index);
 		}
-		first_index += num_objects * 6;
+		first_index += num_objects * detail::indices_per_sprite;
 		it = next;
 	}
 }
@@ -134,10 +135,7 @@ void sge::sprite_system::set_parameters()
 {
 	r->set_transformation(matrix4x4<space_unit>());
 	r->projection_orthogonal();
-//	r->set_texture_stage_op(  0, SOP_Color,   SOPV_SelectArg1);
-//	r->set_texture_stage_arg( 0, SARG_Color1, SARGV_Texture);
-//	r->set_texture_stage_op(1,SOP_Color,SOPV_Disable);
-	r->set_filter_state(0,FARG_MagFilter,FARGV_Linear);							
+	r->set_filter_state(0,FARG_MagFilter,FARGV_Linear);
 }
 
 sge::virtual_texture_ptr sge::sprite_system::vtexture(const std::string& name) const

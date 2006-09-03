@@ -128,9 +128,9 @@ inline bool operator!=(const color4& l, const color4& r)
 }
 
 enum resource_flags {
+	RF_None,
 	RF_Dynamic     = 1,
 	RF_WriteOnly   = 1 << 1,
-	RF_AutoRestore = 1 << 2,
 	RF_Default     = RF_WriteOnly,
 	RF_num_elements
 };

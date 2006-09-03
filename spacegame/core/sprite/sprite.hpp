@@ -11,7 +11,8 @@
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/texture.hpp"
-#include "./sprite_types.hpp"
+#include "./types.hpp"
+#include "./details.hpp"
 
 namespace sge
 {
@@ -20,10 +21,13 @@ class sprite_system;
 class sprite;
 typedef std::list<sprite*> sprite_list;
 
+namespace detail
+{
+	const index_buffer::size_type indices_per_sprite = 6;
+}
+
 class sprite {
 public:
-	typedef basic_rect<space_unit> rect;
-
 	sprite(sprite_system& s, point pos, dim sz, unsigned z, const std::string& tex, bool visible = true);
 	sprite(const sprite& s);
 
@@ -45,7 +49,7 @@ public:
 	dim size() const { return sz; }
 	unsigned z() const { return _z; }
 	bool visible() const { return _visible; }
-	rect get_rect() const { return rect(x(),y(),x()+width(),y()+height()); }
+	rect get_rect() const { return rect(pos(),size()); }
 	
 	void draw();
 	~sprite();

@@ -1,8 +1,9 @@
-#include "../sprite_types.hpp"
+#include "../types.hpp"
+#include "../details.hpp"
 
 #include <iostream> // TODO
 
-sge::virtual_texture::virtual_texture(const rect& _area, fragmented_texture* const fragment)
+sge::virtual_texture::virtual_texture(const lock_rect& _area, fragmented_texture* const fragment)
 	: _area(_area), fragment(fragment)
 {}
 

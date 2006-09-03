@@ -1,7 +1,8 @@
 #include "../core/main/plugin_manager.hpp"
 #include "../core/renderer/lock_ptr.hpp"
 #include "../core/main/util.hpp"
-#include "../core/renderer/sprite_system.hpp"
+#include "../core/sprite/system.hpp"
+#include "../core/sprite/sprite.hpp"
 #include "../core/renderer/font.hpp"
 #include "../core/renderer/renderer.hpp"
 #include "../core/renderer/renderer_types.hpp"
@@ -44,7 +45,7 @@ try
 	const std::string bender_name("bender");
 
 	ss.add_texture(im,bender_name);
-	ss.add_texture(im,":(((");
+//	ss.add_texture(im,":(((");
 	sge::sprite spr(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 	sge::sprite spr2(ss,sge::point(0,0),sge::dim(0.5,0.5),0,bender_name);
 	/*sge::gui::manager man(rend,is,fn,pl,"/home/sefi/cpp/spacegame/mainskin/");

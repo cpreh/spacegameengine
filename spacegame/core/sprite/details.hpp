@@ -1,14 +1,12 @@
-#ifndef SGE_SPRITE_TYPES_HPP_INCLUDED
-#define SGE_SPRITE_TYPES_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAILS_HPP_INCLUDED
+#define SGE_SPRITE_DETAILS_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
 #include "../math/rect.hpp"
-#include "./texture.hpp"
-#include "./renderer.hpp"
+#include "../renderer/texture.hpp"
+#include "../renderer/renderer.hpp"
 #include "../main/types.hpp"
 #include "../main/shared_ptr.hpp"
-#include "../main/array2.hpp"
-#include "../main/raw_vector.hpp"
 #include "../main/bsp_tree.hpp"
 
 namespace sge
@@ -18,15 +16,13 @@ class fragmented_texture;
 
 class virtual_texture : boost::noncopyable {
 public:
-	typedef basic_rect<texture::size_type> rect;
-
-	virtual_texture(const rect&, fragmented_texture*);
+	virtual_texture(const lock_rect&, fragmented_texture*);
 	~virtual_texture();
-	rect area() const { return _area; }
+	lock_rect area() const { return _area; }
 	texture_ptr my_texture() const;
 	void set_data(texture::const_pointer src);
 private:
-	rect _area;
+	lock_rect _area;
 	fragmented_texture* fragment;
 };
 

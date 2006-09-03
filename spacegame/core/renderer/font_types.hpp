@@ -2,11 +2,8 @@
 #define SGE_FONT_TYPES_HPP_INCLUDED
 
 #include <string>
-#include "../main/types.hpp"
+#include "../math/types.hpp"
 #include "./renderer_types.hpp"
-#include "../math/vector2.hpp"
-#include "../math/dim.hpp"
-#include "../math/rect.hpp"
 
 namespace sge
 {
@@ -32,8 +29,8 @@ typedef unsigned font_flag_t;
 
 typedef space_unit font_unit;
 typedef point font_pos;
-typedef basic_dim<font_unit> font_size;
-typedef basic_rect<font_unit> font_rect;
+typedef dim   font_size;
+typedef rect   font_rect;
 typedef char font_char;
 typedef std::basic_string<font_char> font_string;
 

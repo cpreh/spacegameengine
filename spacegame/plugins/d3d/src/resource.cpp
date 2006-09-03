@@ -1,13 +1,13 @@
 #include "../resource.hpp"
 #include "../renderer.hpp"
 
-sge::d3d::resource::resource(renderer* r)
-: r(r)
-{
-	r->resources.push_back(this);
-}
+sge::d3d::resource::resource(renderer* const r, const bool needs_restore)
+: my_list(needs_restore ? &r->resources : 0),
+  my_place(needs_restore ? my_list.insert(my_list.end()) : my_list.end())
+{}
 
 sge::d3d::resource::~resource()
 {
-	r->resources.erase(std::find(r->resources.begin(),r->resources.end(),this));
+	if(my_list)
+		my_list->erase(my_place);
 }

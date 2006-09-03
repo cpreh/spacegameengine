@@ -1,9 +1,10 @@
 #include "../sprite.hpp"
-#include "../sprite_system.hpp"
-#include "../lock_ptr.hpp"
-#include "../sprite_helper.hpp"
+#include "../system.hpp"
+#include "../../renderer/lock_ptr.hpp"
+#include "../helper.hpp"
 #include <boost/array.hpp>
 
+#include <iostream>
 
 sge::sprite::sprite(sprite_system& s, const point p, const dim sz, const unsigned _z, const std::string& name, const bool vis)
 	: p(p), sz(sz), _z(_z), _visible(vis), s(s), tex(s.vtexture(name)), vb_pos(s.free_vb_pos()), my_place(s.attach(*this))
@@ -24,10 +25,12 @@ void sge::sprite::update()
 
 void sge::sprite::update_where(vertex_buffer::iterator it)
 {
-	const virtual_texture::rect& area = tex->area();
+	const lock_rect& area = tex->area();
 
 	const rect rt(space_unit(area.left)  / s.texsize, space_unit(area.top)    / s.texsize,
 		      space_unit(area.right) / s.texsize, space_unit(area.bottom) / s.texsize);
+
+	std::cerr << get_rect() << '\n';
 
 	fill_sprite_in_vb(it, get_rect(), rt);
 }
@@ -43,14 +46,14 @@ void sge::sprite::draw()
 	if(!tex)
 		return;
 	{
-		boost::array<char,sizeof(float)*5*4> buf;
+		boost::array<vertex_buffer::value_type,sizeof(space_unit)*5*4> buf; // FIXME: magic constants
 		update_where(s.vb->create_iterator(buf.c_array()));
 		s.vb->set_data(buf.data(),vb_pos,4);
 	}
 	{
-		boost::array<index_buffer::value_type,6> buf;
+		boost::array<index_buffer::value_type, detail::indices_per_sprite> buf;
 		update_ib(buf.c_array());
-		s.ib->set_data(buf.data(),0,6);
+		s.ib->set_data(buf.data(), 0, detail::indices_per_sprite);
 	}
 	s.set_parameters();
 	s.r->set_texture(0,tex->my_texture());

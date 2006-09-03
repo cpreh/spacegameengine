@@ -3,7 +3,7 @@
 
 #include "./types.hpp"
 #include "./element.hpp"
-#include "../core/renderer/sprite.hpp"
+#include "../core/sprite/sprite.hpp"
 
 namespace sge
 {

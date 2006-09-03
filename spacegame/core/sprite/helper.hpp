@@ -1,20 +1,21 @@
 #ifndef SGE_SPRITE_HELDER_HPP_INCLUDED
 #define SGE_SPRITE_HELDER_HPP_INCLUDED
 
-#include "../main/types.hpp"
-#include "./vertex_buffer.hpp"
-#include "./index_buffer.hpp"
-#include "../math/rect.hpp"
-#include "./transform.hpp"
+#include "../renderer/vertex_buffer.hpp"
+#include "../renderer/index_buffer.hpp"
+#include "../renderer/transform.hpp"
+#include "./types.hpp"
+
+#include <iostream>
 
 namespace sge
 {
 
-inline void fill_sprite_in_vb(vertex_buffer::iterator& it, const basic_rect<space_unit>& rsb, const basic_rect<space_unit>& rt)
+inline void fill_sprite_in_vb(vertex_buffer::iterator& it, const rect& rsb, const rect& rt)
 {
-	const basic_rect<space_unit> rs(space_x_2d_to_3d(rsb.left), space_y_2d_to_3d(rsb.top),
-	                                space_x_2d_to_3d(rsb.right),space_y_2d_to_3d(rsb.bottom));
+	const rect rs(space_rect_2d_to_3d(rsb));
 
+	std::cerr << rs << rt << "\n\n";
 	(*it  ).pos()    = pos3(rs.left,rs.top);
 	(*it++).tex()[0] = tex_pos(rt.left,rt.top);
 
@@ -29,7 +30,7 @@ inline void fill_sprite_in_vb(vertex_buffer::iterator& it, const basic_rect<spac
 
 }
 
-inline void fill_sprite_indices(index_buffer::iterator& it, const unsigned start)
+inline void fill_sprite_indices(index_buffer::iterator& it, const index_buffer::value_type start)
 {
 	(*it++) = start*0;
 	(*it++) = start*1;

@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include "../math/rect.hpp"
 #include "../math/dim.hpp"
-#include "../math/point.hpp"
+#include "../math/vector2.hpp"
 
 namespace sge
 {
@@ -12,7 +12,7 @@ namespace sge
 template<typename Size> class bsp_tree {
 public:
 	typedef Size size_type;
-	typedef basic_point<size_type> point_type;
+	typedef vector2<size_type> point_type;
 	typedef basic_dim<size_type> dim_type;
 	typedef basic_rect<size_type> value_type;
 	typedef const value_type& const_reference;

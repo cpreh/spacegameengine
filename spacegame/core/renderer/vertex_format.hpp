@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <vector>
 #include <stdexcept>
+#include <algorithm>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/add_pointer.hpp>
@@ -12,6 +13,8 @@
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/not.hpp>
+#include <boost/lambda/bind.hpp>
+#include <boost/lambda/lambda.hpp>
 #include "../main/types.hpp"
 #include "./renderer_types.hpp"
 
@@ -73,9 +76,13 @@ private:
 class vertex_format {
 public:
 	typedef std::vector<vertex_element> usage_list;
+	
 	vertex_format() : _stride(0) {}
+
 	const usage_list& elements() const { return ulist; }
+
 	vertex_size stride() const { return _stride; }
+
 	vertex_format& add(const vertex_usage u, const vertex_size count = 1)
 	{
 		oi[u] = _stride;
@@ -83,7 +90,13 @@ public:
 		_stride += vertex_element_size[u] * count;
 		return *this;
 	}
+
 	const offset_info& offsets() const { return oi; }
+
+	bool uses(const vertex_usage e) const
+	{
+		return std::find_if(ulist.begin(),ulist.end(),boost::lambda::bind(&vertex_element::usage,boost::lambda::_1) == e) != ulist.end();
+	}
 private:
 	offset_info oi;
 	usage_list  ulist;

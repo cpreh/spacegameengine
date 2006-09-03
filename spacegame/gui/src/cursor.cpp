@@ -2,8 +2,8 @@
 #include "../manager.hpp"
 #include "../skin.hpp"
 
-sge::gui::cursor::cursor(manager& m, point start, dim sz)
-: sprite(m.get_sprite_system(),start,sz,0,skin::cursor_name),
+sge::gui::cursor::cursor(manager& m, const point start, const dim sz)
+: sprite(m.get_sprite_system(), start, sz, 0, skin::cursor_name),
   mouse_min(0,0),
   mouse_max(1,1),
   is_pressed(false)

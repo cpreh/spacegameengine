@@ -1,10 +1,9 @@
-#include "../../../core/main/dllapi.hpp"
 #include "../../../core/main/plugin_manager.hpp"
 #include "../renderer_system.hpp"
 
 extern "C"
 {
-	SGEDLLEXPORT void plugin_version_info(sge::plugin_info* p)
+	void plugin_version_info(sge::plugin_info* const p)
 	{
 		if(!p)
 			return;
@@ -15,7 +14,7 @@ extern "C"
 		p->type = sge::PT_Renderer;
 	}
 
-	SGEDLLEXPORT sge::renderer_system* create_rend_system()
+	sge::renderer_system* create_rend_system()
 	{
 		return new sge::d3d::renderer_system();
 	}

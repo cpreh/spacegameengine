@@ -4,14 +4,14 @@
 #include "./vector2.hpp"
 #include "./line_seg2.hpp"
 #include "./dim.hpp"
-#include "./point.hpp"
+#include "./vector2.hpp"
 
 namespace sge
 {
 
 template<typename T> struct basic_rect {
 	typedef T value_type;
-	typedef basic_point<T> point_type;
+	typedef vector2<T> point_type;
 	typedef basic_dim<T> dim_type;
 
 	basic_rect(const value_type& left  = value_type(), const value_type& top    = value_type(),

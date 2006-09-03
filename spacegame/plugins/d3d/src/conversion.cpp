@@ -14,10 +14,7 @@ template<> DWORD sge::d3d::convert_cast (const lock_flag_t& r)
 
 template<> D3DPOOL sge::d3d::convert_cast (const resource_flag_t& r)
 {
-	if(r & RF_AutoRestore)
-		return D3DPOOL_MANAGED;
-	else
-		return D3DPOOL_DEFAULT;
+	return r & RF_Dynamic ? D3DPOOL_DEFAULT : D3DPOOL_MANAGED;
 }
 
 template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const primitive_type& r)

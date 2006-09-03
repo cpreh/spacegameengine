@@ -3,10 +3,9 @@
 #include "../index_buffer.hpp"
 #include "../conversion.hpp"
 
-sge::d3d::index_buffer::index_buffer(renderer* const r, d3d_device_ptr device, const size_type sz,
-                                     const resource_flag_t flags, const const_pointer src)
-: resource(r),
-  device(device), buffer(0), flags(flags), sz(sz), lock_dest(0)
+sge::d3d::index_buffer::index_buffer(renderer* const r, d3d_device_ptr device, const size_type sz, const resource_flag_t nflags, const const_pointer src)
+: resource(r, nflags & RF_Dynamic),
+  device(device), buffer(0), _flags(nflags), sz(sz), lock_dest(0)
 {
 	init(src);
 }
@@ -89,8 +88,15 @@ void sge::d3d::index_buffer::unlock()
 	lock_dest = 0;
 }
 
-sge::d3d::index_buffer::size_type sge::d3d::index_buffer::size() const { return sz; }
-sge::resource_flag_t sge::d3d::index_buffer::get_flags() const { return flags; }
+sge::d3d::index_buffer::size_type sge::d3d::index_buffer::size() const
+{
+	return sz;
+}
+
+sge::resource_flag_t sge::d3d::index_buffer::flags() const
+{
+	return _flags;
+}
 
 void sge::d3d::index_buffer::resize(const size_type newsize)
 {
@@ -103,14 +109,20 @@ void sge::d3d::index_buffer::resize(const size_type newsize)
 
 void sge::d3d::index_buffer::on_loss()
 {
-	if(!(flags & RF_AutoRestore))
-		buffer = 0;
+	buffer = 0;
 }
 
-void sge::d3d::index_buffer::restore()
+void sge::d3d::index_buffer::on_reset()
 {
 	init();
 }
 
-sge::d3d::index_buffer::pointer sge::d3d::index_buffer::raw_data() { return lock_dest; }
-sge::d3d::index_buffer::const_pointer sge::d3d::index_buffer::raw_data() const { return lock_dest; }
+sge::d3d::index_buffer::pointer sge::d3d::index_buffer::data()
+{
+	return lock_dest;
+}
+
+sge::d3d::index_buffer::const_pointer sge::d3d::index_buffer::data() const
+{
+	return lock_dest;
+}

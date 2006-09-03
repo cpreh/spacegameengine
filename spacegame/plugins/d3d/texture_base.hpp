@@ -5,20 +5,22 @@
 
 namespace sge
 {
-	namespace d3d
-	{
-		class renderer;
+namespace d3d
+{
+
+class renderer;
 		
-		class texture_base {
-			friend class renderer;
-		protected:
-			texture_base(IDirect3DBaseTexture9* base);
-			void set_base(IDirect3DBaseTexture9* base);
-			virtual ~texture_base(){}
-		private:
-			IDirect3DBaseTexture9* base;
-		};
-	}
+class texture_base {
+	friend class renderer;
+protected:
+	texture_base(IDirect3DBaseTexture9* base);
+	void set_base(IDirect3DBaseTexture9* base);
+	virtual ~texture_base(){}
+private:
+	IDirect3DBaseTexture9* base;
+};
+
+}
 }
 
 #endif

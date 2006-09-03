@@ -257,11 +257,6 @@ void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::inde
 	}
 }
 
-void sge::ogl::renderer::reset(const renderer_parameters* const param)
-{
-	// TODO: do we really need this?
-}
-
 void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type value)
 {
 	switch(state) {

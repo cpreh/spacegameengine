@@ -53,6 +53,12 @@ inline space_unit pixel_size_to_space(const unsigned v, const unsigned screen_si
 	return space_unit(v * space_unit(2) / screen_size);
 }
 
+inline basic_rect<space_unit> space_rect_2d_to_3d(const basic_rect<space_unit>& r)
+{
+	return basic_rect<space_unit>(space_x_2d_to_3d(r.left), space_y_2d_to_3d(r.top),
+	                              space_x_2d_to_3d(r.right), space_y_2d_to_3d(r.bottom));
+}
+
 }
 
 #endif
