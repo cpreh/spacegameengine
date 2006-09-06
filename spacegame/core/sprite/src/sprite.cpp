@@ -25,14 +25,8 @@ void sge::sprite::update()
 
 void sge::sprite::update_where(vertex_buffer::iterator it)
 {
-	const lock_rect& area = tex->area();
-
-	const rect rt(space_unit(area.left)  / s.texsize, space_unit(area.top)    / s.texsize,
-		      space_unit(area.right) / s.texsize, space_unit(area.bottom) / s.texsize);
-
-	std::cerr << get_rect() << '\n';
-
-	fill_sprite_in_vb(it, get_rect(), rt);
+	fill_sprite_in_vb(it, get_rect(), get_texture() ? 
+			tex_size_to_space_rect(tex->area(), get_texture()->width(), get_texture()->height()) : rect());
 }
 
 sge::index_buffer::iterator sge::sprite::update_ib(index_buffer::iterator it)
@@ -45,18 +39,19 @@ void sge::sprite::draw()
 {
 	if(!tex)
 		return;
+	
+	boost::array<vertex_buffer::value_type,sizeof(space_unit)*5*4> buf; // FIXME: magic constants
+	update_where(s.vb->create_iterator(buf.c_array()));
+	s.vb->set_data(buf.data(),vb_pos,4);
+	
 	{
-		boost::array<vertex_buffer::value_type,sizeof(space_unit)*5*4> buf; // FIXME: magic constants
-		update_where(s.vb->create_iterator(buf.c_array()));
-		s.vb->set_data(buf.data(),vb_pos,4);
+	boost::array<index_buffer::value_type, detail::indices_per_sprite> buf;
+	update_ib(buf.c_array());
+	s.ib->set_data(buf.data(), 0, detail::indices_per_sprite);
 	}
-	{
-		boost::array<index_buffer::value_type, detail::indices_per_sprite> buf;
-		update_ib(buf.c_array());
-		s.ib->set_data(buf.data(), 0, detail::indices_per_sprite);
-	}
+
 	s.set_parameters();
-	s.r->set_texture(0,tex->my_texture());
+	s.r->set_texture(0,get_texture());
 	s.r->render(s.vb,s.ib,0,4,PT_Triangle,2);
 }
 
@@ -73,12 +68,12 @@ bool sge::sprite::less(const sprite& l, const sprite& r)
 	const unsigned lz = l.z(), rz = r.z();
 	sge::texture_ptr ltex = l.get_texture(), rtex = r.get_texture();
 
-	if(lvis != rvis)
-		return lvis > rvis;
-	if(lz != rz)
-		return lz > rz;
-	if(ltex != rtex)
-		return ltex < rtex;
-	return false;
+	return lvis == rvis ?
+	                    lz == rz ?
+	                             ltex == rtex ? 
+	                                          false
+	                                          : ltex < rtex
+		                     : lz < rz
+		            : lvis < rvis;
 }
 

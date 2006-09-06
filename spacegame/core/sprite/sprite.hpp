@@ -24,6 +24,7 @@ typedef std::list<sprite*> sprite_list;
 namespace detail
 {
 	const index_buffer::size_type indices_per_sprite = 6;
+	const vertex_buffer::size_type vertices_per_sprite = 4;
 }
 
 class sprite {

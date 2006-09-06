@@ -3,6 +3,7 @@
 
 #include "../main/types.hpp"
 #include "./renderer_types.hpp"
+#include "./texture.hpp"
 
 namespace sge
 {
@@ -57,6 +58,11 @@ inline basic_rect<space_unit> space_rect_2d_to_3d(const basic_rect<space_unit>& 
 {
 	return basic_rect<space_unit>(space_x_2d_to_3d(r.left), space_y_2d_to_3d(r.top),
 	                              space_x_2d_to_3d(r.right), space_y_2d_to_3d(r.bottom));
+}
+
+inline basic_rect<space_unit> tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height)
+{
+	return basic_rect<space_unit>(space_unit(l.left) / width, space_unit(l.top) / height, space_unit(l.right) / width, space_unit(l.bottom) / height);
 }
 
 }

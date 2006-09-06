@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+//TODO: maybe exchange dereference_binder with something of boost::lambda
+
 namespace
 {
 
@@ -23,23 +25,24 @@ sge::sprite_system::sprite_system(const renderer_ptr r, const handler_function h
     texsize(512) // TODO: let the driver determinate the best texture size
 {
 	const unsigned init_sprites = 25;
-	vb = r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),init_sprites*4, RF_WriteOnly | RF_Dynamic);
-	ib = r->create_index_buffer(init_sprites*6);
+	vb = r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
+	ib = r->create_index_buffer(init_sprites * detail::indices_per_sprite);
 	free_pos.reserve(init_sprites);
 	for(unsigned i = 0; i < init_sprites; ++i)
-		free_pos.push_back(i*4);
+		free_pos.push_back(i * detail::vertices_per_sprite);
 }
 
 sge::vertex_buffer::size_type sge::sprite_system::free_vb_pos()
 {
 	if(free_pos.empty())
 	{
-		const vertex_buffer::size_type new_size = vb->size()*2;
-		free_pos.reserve(new_size/4);
-		for(unsigned i = vb->size(); i < new_size; i+=4)
+		const unsigned grow_factor = 2;
+		const vertex_buffer::size_type new_size = vb->size() * grow_factor;
+		free_pos.reserve(new_size / detail::vertices_per_sprite);
+		for(unsigned i = vb->size(); i < new_size; i += detail::vertices_per_sprite)
 			free_pos.push_back(i);
 		vb->resize(new_size);
-		ib->resize(ib->size()*2);
+		ib->resize(ib->size() * grow_factor);
 	}
 	const vertex_buffer::size_type vb_pos = free_pos.back();
 	free_pos.pop_back();
@@ -65,11 +68,17 @@ bool sge::sprite_system::add_texture(const texture::const_pointer src, const tex
 
 	for(fragmented_texture_list::iterator it = fragmented_textures.begin(); it != fragmented_textures.end(); ++it)
 		if(virtual_texture_ptr p = (*it)->consume_fragments(w,h))
-			return insert_texture(p,src,name), true;
+		{
+			insert_texture(p, src, name);
+			return true;
+		}
 		
 	fragmented_textures.push_back(fragmented_texture_ptr(new fragmented_texture(r, texsize)));
 	if(virtual_texture_ptr p = fragmented_textures.back()->consume_fragments(w,h))
-		return insert_texture(p,src,name), true;
+	{
+		insert_texture(p,src,name);
+		return true;
+	}
 	// TODO: ask the driver if a texture this big can be created and do it
 	throw std::runtime_error(std::string("sprite_system::add_texture(): failed to allocate texture \"") += name + "\" (texture may be too big)!");
 }
@@ -103,19 +112,19 @@ void sge::sprite_system::draw()
 {
 	sprites.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
 	{
-		lock_ptr<index_buffer_ptr> l(ib,LF_Discard);
+		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
 		index_buffer::iterator it = ib->begin();
 		for(sprite_list::iterator sit = sprites.begin(); sit != sprites.end(); ++sit)
 			it = (*sit)->update_ib(it);
 	}
 
 	{
-		lock_ptr<vertex_buffer_ptr> l(vb,LF_Discard);
+		lock_ptr<vertex_buffer_ptr> _lock(vb,LF_Discard);
 		std::for_each(sprites.begin(),sprites.end(),std::mem_fun(&sprite::update));
 	}
 
 	set_parameters();
-	
+
 	unsigned first_index = 0;
 	for(sprite_list::iterator it = sprites.begin(); it != sprites.end() && (*it)->visible(); )
 	{
@@ -123,6 +132,7 @@ void sge::sprite_system::draw()
 		sprite_list::iterator next = first_mismatch_if(it, sprites.end(), num_objects, dereference_binder<const sprite*, const sprite*>(std::ptr_fun(sprite::equal_texture)));
 		if((*it)->get_texture())
 		{
+			// TODO: maybe sort vertexbuffer too
 			r->set_texture(0,(*it)->get_texture());
 			r->render(vb,ib,0,unsigned(vb->size()),PT_Triangle,num_objects*2,first_index);
 		}

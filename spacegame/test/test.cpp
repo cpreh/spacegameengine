@@ -41,13 +41,13 @@ try
 	sge::input_system_ptr is = pm.get_plugin<sge::input_system>(rend->get_window());
 //	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arial.ttf");
 	sge::sprite_system ss(rend);
-	sge::image_ptr im = pl->load_image("/home/sefi/cpp/spacegame/mainskin/button.png");
+	sge::image_ptr im = pl->load_image("/home/sefi/cpp/spacegame/mainskin/cancel_0.png");
 	const std::string bender_name("bender");
 
 	ss.add_texture(im,bender_name);
 //	ss.add_texture(im,":(((");
-	sge::sprite spr(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
-	sge::sprite spr2(ss,sge::point(0,0),sge::dim(0.5,0.5),0,bender_name);
+	sge::sprite spr(ss,sge::point(0,0),sge::dim(0.5,0.5),0,bender_name);
+	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 	/*sge::gui::manager man(rend,is,fn,pl,"/home/sefi/cpp/spacegame/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.5,0.5));
@@ -70,6 +70,9 @@ try
 	{
 		rend->begin_rendering();
 		is->dispatch();
+//		ss.set_parameters();
+//		spr.draw();
+//		spr2.draw();
 		ss.draw();
 		//man.process();
 		//fn.draw_text("abc",sge::point(0.5,0.5),sge::dim(0.5,0.5),sge::colors::black);

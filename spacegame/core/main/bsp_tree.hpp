@@ -97,7 +97,7 @@ private:
 
 	iterator insert_recursive(const dim_type dim, node& n)
 	{
-		if(n.final || dim > n.rect)
+		if(n.final || dim.w > n.rect.width() || dim.h > n.rect.height())
 			return end();
 
 		// case 1: left and right are absent -> always put in the left node
@@ -140,19 +140,19 @@ private:
 		{
 			// case 2.1: insert at bottom
 			if(dim.h <= free_h)
-				return insert_two(dim, ref, empty, value_type(rr.left, er.bottom+1, rr.right, rr.bottom));
+				return insert_two(dim, ref, empty, value_type(rr.left, er.bottom, rr.right, rr.bottom));
 			// case 2.2: insert at right
 			else // if(dim.w <= free_w)
-				return insert_two(dim, ref, empty, value_type(er.right+1, rr.top, rr.right, rr.bottom));
+				return insert_two(dim, ref, empty, value_type(er.right, rr.top, rr.right, rr.bottom));
 		}
 
 		// case 3: right is the existing node so occupy the rest
 		// case 3.1: existing node is at bottom
 		if(er.bottom == rr.bottom)
-			return insert_two(dim, ref, empty, value_type(rr.left, rr.top, rr.right, er.top+1));
+			return insert_two(dim, ref, empty, value_type(rr.left, rr.top, rr.right, er.top));
 		// case 3.2: existing node is at right
 		else
-			return insert_two(dim, ref, empty, value_type(rr.left, rr.top, er.left+1, rr.bottom));
+			return insert_two(dim, ref, empty, value_type(rr.left, rr.top, er.left, rr.bottom));
 	}
 
 	iterator insert_node(node& ref, node*& n, const bool final, const value_type& rect)
