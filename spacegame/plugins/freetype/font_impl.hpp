@@ -4,6 +4,7 @@
 #include <climits>
 #include <memory>
 #include <vector>
+#include <boost/array.hpp>
 #include "../../core/font/font_impl.hpp"
 #include "../../core/renderer/renderer.hpp"
 #include "../../core/renderer/texture.hpp"
@@ -34,7 +35,8 @@ private:
 	texture_ptr cur_tex;
 	texture::size_type cur_x, cur_y;
 
-	font_char_rect buffer[UCHAR_MAX];
+	typedef boost::array<font_char_rect, UCHAR_MAX> buffer_type;
+	buffer_type buffer;
 	typedef std::vector<texture_ptr> texture_array;
 	texture_array textures;
 };

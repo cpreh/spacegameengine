@@ -39,15 +39,15 @@ try
 	sge::image_loader_ptr pl = pm.get_plugin<sge::image_loader>();
 	sge::font_system_ptr fs = pm.get_plugin<sge::font_system>();
 	sge::input_system_ptr is = pm.get_plugin<sge::input_system>(rend->get_window());
-//	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arial.ttf");
-	sge::sprite_system ss(rend);
-	sge::image_ptr im = pl->load_image("/home/sefi/cpp/spacegame/mainskin/cancel_0.png");
-	const std::string bender_name("bender");
+	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arial.ttf");
+//	sge::sprite_system ss(rend);
+//	sge::image_ptr im = pl->load_image("/home/sefi/cpp/spacegame/mainskin/cancel_0.png");
+//	const std::string bender_name("bender");
 
-	ss.add_texture(im,bender_name);
+//	ss.add_texture(im,bender_name);
 //	ss.add_texture(im,":(((");
-	sge::sprite spr(ss,sge::point(0,0),sge::dim(0.5,0.5),0,bender_name);
-	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
+//	sge::sprite spr(ss,sge::point(0,0),sge::dim(0.5,0.5),0,bender_name);
+//	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 	/*sge::gui::manager man(rend,is,fn,pl,"/home/sefi/cpp/spacegame/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.5,0.5));
@@ -66,16 +66,15 @@ try
 	input_receiver recv(running);
 	sge::callback_handle cbh = is->register_callback(recv);
 
+	fn.height(0.01);
+
 	while(running)
 	{
 		rend->begin_rendering();
 		is->dispatch();
-//		ss.set_parameters();
-//		spr.draw();
-//		spr2.draw();
-		ss.draw();
+//		ss.draw();
 		//man.process();
-		//fn.draw_text("abc",sge::point(0.5,0.5),sge::dim(0.5,0.5),sge::colors::black);
+		fn.draw_text("1234567890 1234567890 1234567890",sge::point(0.1,0.5),sge::dim(0.1,0.5),sge::colors::white);
 		rend->end_rendering();
 	}
 }

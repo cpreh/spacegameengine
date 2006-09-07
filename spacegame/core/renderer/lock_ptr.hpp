@@ -13,9 +13,19 @@ public:
 	{
 		t->lock(flags);
 	}
+
+	void unlock()
+	{
+		if(t)
+		{
+			t->unlock();
+			t.reset();
+		}
+	}
+
 	~lock_ptr()
 	{
-		t->unlock();
+		unlock();
 	}
 private:
 	T t;

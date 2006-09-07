@@ -80,7 +80,7 @@ void sge::gui::text_edit::decrease_cursor_pos()
 void sge::gui::text_edit::on_draw(const draw_event& event)
 {
 	rectangle::on_draw(event);
-	my_font.font_height(cur.height()); // FIXME
+	my_font.height(cur.height()); // FIXME
 	my_font.draw_text(_text.substr(text_start,_text.size()-text_start), event.pos(), size(), _text_color, FTF_AlignLeft | FTF_AlignVCenter | FTF_NoMultiLine);
 	if(m.focus() == this)
 	{

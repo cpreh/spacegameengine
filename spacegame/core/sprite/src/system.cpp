@@ -134,7 +134,7 @@ void sge::sprite_system::draw()
 		{
 			// TODO: maybe sort vertexbuffer too
 			r->set_texture(0,(*it)->get_texture());
-			r->render(vb,ib,0,unsigned(vb->size()),PT_Triangle,num_objects*2,first_index);
+			r->render(vb,ib,0,vb->size(),PT_Triangle,num_objects*2,first_index);
 		}
 		first_index += num_objects * detail::indices_per_sprite;
 		it = next;

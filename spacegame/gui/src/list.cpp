@@ -20,7 +20,7 @@ void sge::gui::list::on_draw(const draw_event& event)
 	size_type max = size_type(height() / line_height) + scroll_pos;
 	max = std::min(max,elements.size());
 
-	my_font.font_height(line_height); // TODO: fixme
+	my_font.height(line_height); // TODO: fixme
 	for(size_type i = scroll_pos; i < max; ++i)
 	{
 		if(i == static_cast<size_type>(selected_))

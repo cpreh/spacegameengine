@@ -11,5 +11,6 @@ sge::gui::static_text::static_text(manager& m, element* const parent, const std:
 void sge::gui::static_text::on_draw(const draw_event& event)
 {
 	rectangle::on_draw(event);
+	m.get_font().height(height()/2); // FIXME
 	m.get_font().draw_text(_text, event.pos(), size(), _text_color);
 }

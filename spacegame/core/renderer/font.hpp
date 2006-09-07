@@ -18,7 +18,6 @@
 namespace sge
 {
 class font {
-	friend class cached_text;
 public:
 	typedef font_char char_type;
 	typedef font_string string_type;
@@ -26,9 +25,10 @@ public:
 	
 	font(renderer_ptr r, font_system_ptr font_sys, const std::string& font_name, font_weight weight = FW_Normal);
 	
-	void font_height(unsigned scale);
-	font_unit font_height() const;
-	font_unit optimal_font_height_base() const;
+	void height(space_unit _height);
+	void height_pixel_scale(unsigned scale);
+	font_unit height() const;
+	font_unit optimal_height_base() const;
 	
 	font_size draw_text(const string_type& text, font_pos pos, font_size max_size, color col, font_flag_t flags = FTF_Default);
 	
@@ -40,8 +40,8 @@ public:
 	void set_parameters();
 private:
 	font_unit line_width(string_type::const_iterator beg, string_type::const_iterator& end, font_unit width, font_flag_t tflags) const;
-	void draw_line(vertex_buffer::iterator& it, font_pos pos, font_unit width, font_size max_sz, string_type::const_iterator beg, string_type::const_iterator end, font_flag_t tflags);
-	void flush_text();
+	void add_job(size_type cur_index);
+	void flush();
 
 	struct job {
 		job(const texture_ptr tex, const size_type first_index, const size_type last_index)
@@ -53,7 +53,7 @@ private:
 
 	renderer_ptr              r;
 	font_impl_ptr             impl;
-	unsigned                  font_height_pixel;
+	font_unit                 _height;
 	vertex_buffer_ptr         vb;
 	index_buffer_ptr          ib;
 	job_array                 jobs;
