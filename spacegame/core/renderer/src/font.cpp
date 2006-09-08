@@ -11,8 +11,6 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 
-#include <iostream>
-
 sge::font::font(const renderer_ptr r, const font_system_ptr font_sys, const std::string& font_name, const font_weight weight)
  : r(r),
  impl(font_sys->create_font(r,font_name,weight)),
@@ -82,18 +80,9 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 	lock_ptr<vertex_buffer_ptr> _lock(vb,LF_Discard);
 	vertex_buffer::iterator vit = vb->begin();
 
-	while(/*sbeg != text.end() && sz.h + height() < max_sz.h*/ true)
+	while(sbeg != text.end() && sz.h + height() < max_sz.h)
 	{
-		if(sbeg == text.end())
-		{
-			std::cerr << "sbeg is text.end()\n";
-			break;
-		}
-/*		if(sz.h + height() >= max_sz.h)
-		{
-			std::cerr << "height too large\n";
-			break;
-		}*/
+		send = text.end();
 		const font_unit width = line_width(sbeg, send, max_sz.w, flags);
 
 		pos.x = start_pos.x;
@@ -135,7 +124,6 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 
 void sge::font::add_job(const size_type cur_index)
 {
-	std::cerr << "add_job (" << last_index << ',' << cur_index << ")\n";
 	jobs.push_back(job(last_texture, last_index, cur_index));
 	last_index = cur_index;
 }
@@ -191,14 +179,12 @@ sge::font_unit sge::font::line_width(string_type::const_iterator sbeg, string_ty
 	{
 		if(std::isspace(*sbeg,std::locale()))
 		{
-			std::cerr << "isspace " << std::distance(sbeg,send) << '\n';
 			last_white = sbeg;
 			last_width = w;
 		}
 		w += char_width(*sbeg);
 		if(last_width > 0 && w > width)
 		{
-			std::cerr << "line_width of " << std::distance(sbeg,send)+1 << '\n';
 			send = ++last_white;
 			return last_width;
 		}

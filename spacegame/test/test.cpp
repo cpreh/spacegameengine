@@ -66,7 +66,7 @@ try
 	input_receiver recv(running);
 	sge::callback_handle cbh = is->register_callback(recv);
 
-	fn.height(0.01);
+	fn.height(0.1);
 
 	while(running)
 	{
@@ -74,7 +74,7 @@ try
 		is->dispatch();
 //		ss.draw();
 		//man.process();
-		fn.draw_text("1234567890 1234567890 1234567890",sge::point(0.1,0.5),sge::dim(0.1,0.5),sge::colors::white);
+		fn.draw_text("1234567890 abcdefghijklmn 1234567890",sge::point(0.1,0.5),sge::dim(0.1,0.5),sge::colors::white);
 		rend->end_rendering();
 	}
 }

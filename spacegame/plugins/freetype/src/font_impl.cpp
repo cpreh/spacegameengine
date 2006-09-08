@@ -69,13 +69,15 @@ sge::font_char_rect sge::ft::font_impl::load_char(const font_char c)
 	rect.top = font_unit(pixel_size - bitmap_glyph->top) / pixel_size;
 
 	raw_vector<color> expanded(bitmap.width * bitmap.rows);
-	for(int y = 0; y < bitmap.rows; ++y)
+	const unsigned char* data = bitmap.buffer;
+	for(int y = 0; y < bitmap.rows; ++y, data += bitmap.pitch)
 		for(int x = 0; x < bitmap.width; ++x)
-			expanded[y*bitmap.width+x] = bitmap.buffer[y*bitmap.width+x] ? colors::white : colors::transparent;
+			expanded[y*bitmap.width+x] = *(data + x) ? colors::white : colors::transparent;
 
 	cur_tex->set_data(expanded.data(),&lrect);
 	cur_x += bitmap.width;
 
+	std::cerr << c << ' ' << bitmap.rows << '\n';
 	return buffer[index];
 }
 
