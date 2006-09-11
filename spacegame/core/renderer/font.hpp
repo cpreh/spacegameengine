@@ -34,7 +34,6 @@ public:
 	
 	font_unit text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator& send, const font_unit width) const;
 	font_unit char_width(char_type ch) const;
-	unsigned char_width_pixel(char_type ch) const;
 	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = FTF_Default) const;
 
 	void set_parameters();

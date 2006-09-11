@@ -48,7 +48,7 @@ try
 //	ss.add_texture(im,":(((");
 //	sge::sprite spr(ss,sge::point(0,0),sge::dim(0.5,0.5),0,bender_name);
 //	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
-	/*sge::gui::manager man(rend,is,fn,pl,"/home/sefi/cpp/spacegame/mainskin/");
+	sge::gui::manager man(rend,is,fn,pl,"/home/sefi/cpp/spacegame/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.5,0.5));
 	sge::gui::list list1(man,&fr1,sge::point(0.5,0.1),sge::dim(0.2,0.8));
@@ -61,20 +61,20 @@ try
 	for(int i = 0; i < 20; ++i)
 		list1.push_back("TEST");
 
-	btn1.click_signal.connect(boost::lambda::var(running) = false);*/
+	btn1.click_signal.connect(boost::lambda::var(running) = false);
 	
 	input_receiver recv(running);
 	sge::callback_handle cbh = is->register_callback(recv);
 
-	fn.height(0.1);
+	fn.height(0.05);
 
 	while(running)
 	{
 		rend->begin_rendering();
 		is->dispatch();
 //		ss.draw();
-		//man.process();
-		fn.draw_text("1234567890 abcdefghijklmn 1234567890",sge::point(0.1,0.5),sge::dim(0.1,0.5),sge::colors::white);
+		man.process();
+		fn.draw_text("1234567890 abcdef ghij adsfasdf asf asdds klmn 1234567890",sge::point(0.1,0.1),sge::dim(0.8,0.8),sge::colors::white);
 		rend->end_rendering();
 	}
 }

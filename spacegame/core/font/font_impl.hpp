@@ -8,16 +8,17 @@
 namespace sge
 {
 
-struct font_char_rect {
+struct font_entity {
 	font_rect rect;
 	texture_ptr tex;
 	font_unit top;
+	font_unit h_scale;
 };
 
 class font_impl {
 public:
 	virtual ~font_impl(){}
-	virtual font_char_rect load_char(font_char c) = 0;
+	virtual font_entity load_char(font_char c) = 0;
 	virtual unsigned optimal_height_base() const = 0;
 };
 

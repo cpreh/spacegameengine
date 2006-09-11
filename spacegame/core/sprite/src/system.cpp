@@ -132,7 +132,6 @@ void sge::sprite_system::draw()
 		sprite_list::iterator next = first_mismatch_if(it, sprites.end(), num_objects, dereference_binder<const sprite*, const sprite*>(std::ptr_fun(sprite::equal_texture)));
 		if((*it)->get_texture())
 		{
-			// TODO: maybe sort vertexbuffer too
 			r->set_texture(0,(*it)->get_texture());
 			r->render(vb,ib,0,vb->size(),PT_Triangle,num_objects*2,first_index);
 		}
@@ -145,6 +144,7 @@ void sge::sprite_system::set_parameters()
 {
 	r->set_transformation(matrix4x4<space_unit>());
 	r->projection_orthogonal();
+	r->set_filter_state(0,FARG_MinFilter,FARGV_Linear);
 	r->set_filter_state(0,FARG_MagFilter,FARGV_Linear);
 }
 

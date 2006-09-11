@@ -3,8 +3,6 @@
 #include "../font_impl.hpp"
 #include FT_GLYPH_H
 
-#include <iostream>
-
 namespace {
 	struct glyph_ptr {
 		glyph_ptr(FT_Glyph& g) : g(g) {}
@@ -27,7 +25,7 @@ sge::ft::font_impl::font_impl(library& lib, const renderer_ptr r, const std::str
 		throw std::runtime_error("FT_Set_Pixel_Sizes() failed");
 }
 
-sge::font_char_rect sge::ft::font_impl::load_char(const font_char c)
+sge::font_entity sge::ft::font_impl::load_char(const font_char c)
 {
 	// FIXME: handle case where the char is greater than a whole texture
 	const std::size_t index = c-CHAR_MIN;
@@ -63,10 +61,11 @@ sge::font_char_rect sge::ft::font_impl::load_char(const font_char c)
 
 	const lock_rect lrect(lock_rect::point_type(cur_x, cur_y), lock_rect::dim_type(bitmap.width, bitmap.rows));
 	
-	font_char_rect& rect = buffer[index];
-	rect.tex = cur_tex;
-	rect.rect = tex_size_to_space_rect(lrect, cur_tex->width(), cur_tex->height());
-	rect.top = font_unit(pixel_size - bitmap_glyph->top) / pixel_size;
+	font_entity& entity = buffer[index];
+	entity.tex = cur_tex;
+	entity.rect = tex_size_to_space_rect(lrect, cur_tex->width(), cur_tex->height());
+	entity.top = font_unit(pixel_size - bitmap_glyph->top) / pixel_size;
+	entity.h_scale = font_unit(bitmap.rows) / pixel_size;
 
 	raw_vector<color> expanded(bitmap.width * bitmap.rows);
 	const unsigned char* data = bitmap.buffer;
@@ -77,7 +76,6 @@ sge::font_char_rect sge::ft::font_impl::load_char(const font_char c)
 	cur_tex->set_data(expanded.data(),&lrect);
 	cur_x += bitmap.width;
 
-	std::cerr << c << ' ' << bitmap.rows << '\n';
 	return buffer[index];
 }
 

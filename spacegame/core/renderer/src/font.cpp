@@ -1,4 +1,3 @@
-#include <limits>
 #include <locale>
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
@@ -93,9 +92,9 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 
 		for(;sbeg != send; ++sbeg)
 		{
-			const font_char_rect reg = impl->load_char(*sbeg);
-			const font_size      sz(char_width(*sbeg),height());
-			const font_rect      fp(pos,sz); // FIXME: font top positioning
+			const font_entity reg = impl->load_char(*sbeg);
+			const font_size      sz(char_width(*sbeg), height() * reg.h_scale);
+			const font_rect      fp(font_pos(pos.x, pos.y + height() * reg.top), sz); // FIXME: font top positioning
 
 			if(last_texture != reg.tex)
 			{
@@ -128,15 +127,12 @@ void sge::font::add_job(const size_type cur_index)
 	last_index = cur_index;
 }
 
-unsigned sge::font::char_width_pixel(const char_type ch) const
-{
-	const font_char_rect fc = impl->load_char(ch);
-	return static_cast<unsigned>((fc.rect.right - fc.rect.left) * fc.tex->width());
-}
-
 sge::font_unit sge::font::char_width(const char_type ch) const
 {
-	return font_unit(char_width_pixel(ch)) / r->screen_width();
+	const font_entity entity = impl->load_char(ch);
+	if(entity.rect.height() == 0)
+		return 0;
+	return (entity.rect.width() / entity.rect.height()) * height() * entity.h_scale;
 }
 
 sge::font_unit sge::font::text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator& send, const font_unit width) const
