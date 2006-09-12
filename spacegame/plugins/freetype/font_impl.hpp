@@ -19,7 +19,7 @@ namespace ft
 
 class font_impl : public sge::font_impl {
 public:
-	font_impl(library& lib, renderer_ptr r, const std::string& font_name, const font_weight weight);
+	font_impl(library& lib, renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel, font_weight weight);
 	font_entity load_char(font_char c);
 	unsigned optimal_height_base() const;
 private:

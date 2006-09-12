@@ -113,7 +113,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned /*adapte
 	int screen = DefaultScreen(d);
 
 	int mode_count;
-	XF86VidModeGetAllModeLines(d,screen,&mode_count,&modes);
+	if(XF86VidModeGetAllModeLines(d,screen,&mode_count,&modes) == False)
+		throw std::runtime_error("XF86VidModeGetAllModeLines() failed");
 
 	int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 16, None};
 	vi = glXChooseVisual(d,screen,attributes);
@@ -321,6 +322,12 @@ void sge::ogl::renderer::set_int_state(const int_state state, const int_type val
 	switch(state) {
 	case IS_ClearColor:
 		glClearColor(red_part_rgba_f(value),green_part_rgba_f(value),blue_part_rgba_f(value),alpha_part_rgba_f(value));
+		break;
+	case IS_AmbientLightColor:
+		{
+		const color4 fc = color_to_color4(value);
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, reinterpret_cast<const GLfloat*>(&fc));
+		}
 		break;
 	}
 }

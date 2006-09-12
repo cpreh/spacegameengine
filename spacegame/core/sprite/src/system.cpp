@@ -142,6 +142,7 @@ void sge::sprite_system::draw()
 
 void sge::sprite_system::set_parameters()
 {
+	r->set_bool_state(BS_EnableLighting,false);
 	r->set_transformation(matrix4x4<space_unit>());
 	r->projection_orthogonal();
 	r->set_filter_state(0,FARG_MinFilter,FARGV_Linear);

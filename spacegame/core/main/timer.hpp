@@ -25,11 +25,11 @@ public:
 	frames_type update();
 	frames_type elapsed_frames();
 	void reset();
-	interval_type get_interval() const { return interval; }
-	interval_type get_last_time() const { return last_time; }
+	interval_type interval() const { return _interval; }
+	interval_type last_time() const { return _last_time; }
 private:
-	interval_type interval;
-	interval_type last_time;
+	interval_type _interval,
+	              _last_time;
 };
 
 }

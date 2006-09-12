@@ -41,7 +41,7 @@ public:
 	void z(unsigned nz) { _z = nz; }
 	void visible(bool nvisible) { _visible = nvisible; }
 	void set_texture(const std::string& name);
-		
+	
 	space_unit x() const { return p.x; }
 	space_unit y() const { return p.y; }
 	point pos() const { return p; }
@@ -51,7 +51,11 @@ public:
 	unsigned z() const { return _z; }
 	bool visible() const { return _visible; }
 	rect get_rect() const { return rect(pos(),size()); }
-	
+	point center() const; 
+	void rotate(space_unit angle) { _rot = angle; }
+	void rotate_acc(space_unit angle);
+	void rotate_around(const point* p);
+
 	void draw();
 	~sprite();
 
@@ -68,6 +72,9 @@ private:
 	point p;
 	dim sz;
 	unsigned _z;
+	space_unit _rot;
+	point _rot_around;
+	bool _use_rot_around;
 	bool _visible;
 	sprite_system& s;
 	const_virtual_texture_ptr tex;

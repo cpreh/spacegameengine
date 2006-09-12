@@ -17,9 +17,9 @@ sge::timer::interval_type read_clock()
 }
 }
 
-sge::timer::timer(interval_type interval)
-: interval(interval),
-  last_time(read_clock())
+sge::timer::timer(const interval_type _interval)
+: _interval(_interval),
+  _last_time(read_clock())
 {}
 
 sge::timer::frames_type sge::timer::update()
@@ -33,14 +33,14 @@ sge::timer::frames_type sge::timer::update()
 sge::timer::frames_type sge::timer::elapsed_frames()
 {
 	const interval_type ntime = read_clock(),
-	                    dif = ntime - last_time;
-	if(dif < interval)
+	                    dif = ntime - last_time();
+	if(dif < interval())
 		return 0;
-	return frames_type(dif) / interval;
+	return frames_type(dif) / interval();
 }
 
 void sge::timer::reset()
 {
-	last_time = read_clock();
+	_last_time = read_clock();
 }
 

@@ -12,7 +12,7 @@ namespace ft
 
 class font_system : public sge::font_system {
 public:
-	font_impl_ptr create_font(renderer_ptr r, const std::string& font_name, font_weight weight);
+	font_impl_ptr create_font(renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel, font_weight weight);
 private:
 	library _library;
 };

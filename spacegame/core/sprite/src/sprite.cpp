@@ -7,11 +7,11 @@
 #include <iostream>
 
 sge::sprite::sprite(sprite_system& s, const point p, const dim sz, const unsigned _z, const std::string& name, const bool vis)
-	: p(p), sz(sz), _z(_z), _visible(vis), s(s), tex(s.vtexture(name)), vb_pos(s.free_vb_pos()), my_place(s.attach(*this))
+	: p(p), sz(sz), _z(_z), _rot(0), _use_rot_around(false), _visible(vis), s(s), tex(s.vtexture(name)), vb_pos(s.free_vb_pos()), my_place(s.attach(*this))
 {}
 
 sge::sprite::sprite(const sprite& spr)
-	: p(spr.p), sz(spr.sz), _z(spr._z), s(spr.s), tex(spr.tex), vb_pos(s.free_vb_pos()), my_place(s.attach(*this))
+	: p(spr.p), sz(spr.sz), _z(spr._z), _rot(spr._rot), _rot_around(spr._rot_around), _use_rot_around(spr._use_rot_around), s(spr.s), tex(spr.tex), vb_pos(s.free_vb_pos()), my_place(s.attach(*this))
 {}
 
 void sge::sprite::set_texture(const std::string& name) { tex = s.vtexture(name); }
@@ -25,8 +25,11 @@ void sge::sprite::update()
 
 void sge::sprite::update_where(vertex_buffer::iterator it)
 {
-	fill_sprite_in_vb(it, get_rect(), get_texture() ? 
-			tex_size_to_space_rect(tex->area(), get_texture()->width(), get_texture()->height()) : rect());
+	const rect tex_rect = get_texture() ? tex_size_to_space_rect(tex->area(), get_texture()->width(), get_texture()->height()) : rect();
+	if(_rot == 0)
+		fill_sprite_vertices(it, get_rect(), tex_rect);
+	else
+		fill_sprite_vertices_rotated(it, get_rect(), _rot, _use_rot_around ? _rot_around : center(), tex_rect);
 }
 
 sge::index_buffer::iterator sge::sprite::update_ib(index_buffer::iterator it)
@@ -55,7 +58,31 @@ void sge::sprite::draw()
 	s.r->render(s.vb,s.ib,0,4,PT_Triangle,2);
 }
 
-sge::texture_ptr sge::sprite::get_texture() const { return tex ? tex->my_texture() : texture_ptr(); }
+sge::texture_ptr sge::sprite::get_texture() const
+{
+	return tex ? tex->my_texture() : texture_ptr();
+}
+
+sge::point sge::sprite::center() const
+{
+	return point(x() + width() / 2, y() + height() / 2);
+}
+
+void sge::sprite::rotate_acc(const space_unit r)
+{
+	_rot += r;
+	if(_rot > 2*PI)
+		_rot -= 2*PI;
+	if(_rot < 0)
+		_rot += 2*PI;
+}
+
+void sge::sprite::rotate_around(const point* const p)
+{
+	_use_rot_around = p;
+	if(p)
+		_rot_around = *p;
+}
 
 bool sge::sprite::equal_texture(const sprite& l, const sprite& r)
 {

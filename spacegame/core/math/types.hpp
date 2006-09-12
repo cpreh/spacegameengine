@@ -13,6 +13,8 @@ typedef vector2<space_unit> point;
 typedef basic_dim<space_unit> dim;
 typedef basic_rect<space_unit> rect;
 
+const double PI = 3.14159265358979323846;
+
 }
 
 #endif

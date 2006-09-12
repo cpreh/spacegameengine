@@ -47,6 +47,8 @@ template<> GLenum sge::ogl::convert_cast(const bool_state& state)
 		return GL_STENCIL_TEST;
 	case BS_EnableFog:
 		return GL_FOG;
+	case BS_EnableLighting:
+		return GL_LIGHTING;
 	default:
 		throw std::logic_error("unsupported bool_state");
 	}

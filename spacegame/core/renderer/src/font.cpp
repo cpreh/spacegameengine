@@ -10,9 +10,9 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 
-sge::font::font(const renderer_ptr r, const font_system_ptr font_sys, const std::string& font_name, const font_weight weight)
+sge::font::font(const renderer_ptr r, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
  : r(r),
- impl(font_sys->create_font(r,font_name,weight)),
+ impl(font_sys->create_font(r,font_name,quality_in_pixel,weight)),
  vb(r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),200)),
  ib(r->create_index_buffer(vb->size()*3/2))
 {
@@ -94,7 +94,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 		{
 			const font_entity reg = impl->load_char(*sbeg);
 			const font_size      sz(char_width(*sbeg), height() * reg.h_scale);
-			const font_rect      fp(font_pos(pos.x, pos.y + height() * reg.top), sz); // FIXME: font top positioning
+			const font_rect      fp(font_pos(pos.x + height() * reg.left, pos.y + height() * reg.top), sz);
 
 			if(last_texture != reg.tex)
 			{
@@ -102,8 +102,8 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 				last_texture = reg.tex;
 			}
 
-			fill_sprite_in_vb(vit, fp, reg.rect);
-			pos.x += sz.w;
+			fill_sprite_vertices(vit, fp, reg.rect);
+			pos.x += char_space(*sbeg);
 		}
 
 		sbeg = send;
@@ -130,9 +130,13 @@ void sge::font::add_job(const size_type cur_index)
 sge::font_unit sge::font::char_width(const char_type ch) const
 {
 	const font_entity entity = impl->load_char(ch);
-	if(entity.rect.height() == 0)
-		return 0;
-	return (entity.rect.width() / entity.rect.height()) * height() * entity.h_scale;
+	return height() * entity.v_scale;
+}
+
+sge::font_unit sge::font::char_space(const char_type ch) const
+{
+	const font_entity entity = impl->load_char(ch);
+	return height() * entity.x_advance;
 }
 
 sge::font_unit sge::font::text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator& send, const font_unit width) const
@@ -140,9 +144,9 @@ sge::font_unit sge::font::text_width_unformatted(string_type::const_iterator sbe
 	font_unit w(0);
 	for(; sbeg != send; ++sbeg)
 	{
-		if(w + char_width(*sbeg) > width)
+		w += char_space(*sbeg);
+		if(w > width)
 			break;
-		w += char_width(*sbeg);
 	}
 	send = sbeg;
 	return w;
@@ -171,19 +175,24 @@ sge::font_unit sge::font::line_width(string_type::const_iterator sbeg, string_ty
 	font_unit w(0), last_width(0);
 	string_type::const_iterator last_white = sbeg;
 
-	for(;sbeg != send; ++sbeg)
+	for(; sbeg != send; ++sbeg)
 	{
 		if(std::isspace(*sbeg,std::locale()))
 		{
 			last_white = sbeg;
 			last_width = w;
 		}
-		w += char_width(*sbeg);
-		if(last_width > 0 && w > width)
+		const font_unit nw = w + char_space(*sbeg);
+		if(nw > width)
 		{
-			send = ++last_white;
-			return last_width;
+			if(last_width > 0)
+			{
+				send = ++last_white;
+				return last_width;
+			}
+			send = sbeg;
 		}
+		w = nw;
 	}
 	return w;
 }
@@ -195,7 +204,7 @@ void sge::font::flush()
 		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
 		index_buffer::iterator iib = ib->begin();
 		for(job_array::const_iterator it = jobs.begin(); it != jobs.end(); ++it)
-			for(size_type i = it->first_index; i <= it->last_index; ++i)
+			for(size_type i = it->first_index; i < it->end_index; ++i)
 				fill_sprite_indices(iib, i*4);
 	}
 
@@ -208,7 +217,7 @@ void sge::font::flush()
 			r->set_texture(0,it->tex);
 			last_texture = it->tex;
 		}
-		r->render(vb, ib, 0, vb->size(), PT_Triangle, (it->last_index-it->first_index+1)*2, it->first_index*6);
+		r->render(vb, ib, 0, vb->size(), PT_Triangle, (it->end_index-it->first_index)*2, it->first_index*6);
 	}
 	jobs.clear();
 }
@@ -217,7 +226,8 @@ void sge::font::set_parameters()
 {
 	r->projection_orthogonal();
 	r->set_bool_state(BS_EnableAlphaBlending,true);
+	r->set_bool_state(BS_EnableLighting,true);
 	r->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
-	r->set_filter_state(0,FARG_MinFilter,FARGV_Point);
-	r->set_filter_state(0,FARG_MagFilter,FARGV_Point);
+	r->set_filter_state(0,FARG_MinFilter,FARGV_Linear);
+	r->set_filter_state(0,FARG_MagFilter,FARGV_Linear);
 }

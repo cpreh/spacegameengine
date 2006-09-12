@@ -5,6 +5,7 @@
 #include <ostream>
 #include <cstddef>
 #include "./vector3.hpp"
+#include "./matrix_proxy.hpp"
 
 namespace sge
 {
@@ -15,33 +16,9 @@ template<typename T> class matrix4x4 {
 public:
 	typedef T           value_type;
 	typedef std::size_t size_type;
-
-	class proxy {
-		friend class matrix4x4;
-	public:
-		value_type& operator[](const size_type& y) const { return p[y*stride + x]; }
-	private:
-		proxy(const size_type& x, value_type* const p) : x(x), p(p) {}
-		size_type x;
-		value_type* p;
-
-		proxy(const proxy&);
-		proxy& operator=(const proxy&);
-	};
-
-	class const_proxy {
-		friend class matrix4x4;
-	public:
-		const value_type& operator[](const size_type& y) const { return p[y*stride + x]; }
-	private:
-		const_proxy(const size_type& x, const value_type* const p) : x(x), p(p) {}
-
-		size_type x;
-		const value_type* p;
-
-		const_proxy(const proxy&);
-		proxy& operator=(const proxy&);
-	};
+	static const size_type stride = 4;
+	typedef detail::matrix_proxy_impl<value_type&, value_type*, stride> proxy;
+	typedef detail::matrix_proxy_impl<const value_type&, const value_type*, stride> const_proxy;
 
 	matrix4x4(no_initialization_tag) {}
 
@@ -112,7 +89,6 @@ public:
 	proxy operator[](size_type x) { return proxy(x,&m_00); }
 	const_proxy operator[](size_type x) const { return const_proxy(x,&m_00); }
 private:
-	static const size_type stride = 4;
 	value_type m_00, m_10, m_20, m_30,
 	           m_01, m_11, m_21, m_31,
 	           m_02, m_12, m_22, m_32,
