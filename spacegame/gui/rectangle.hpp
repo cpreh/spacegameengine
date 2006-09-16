@@ -25,6 +25,8 @@ public:
 	using sprite::width;
 	using sprite::height;
 	using sprite::size;
+	using sprite::get_rect;
+	using sprite::center;
 	bool intersects(point p) const;
 protected:
 	virtual void on_draw(const draw_event& event);

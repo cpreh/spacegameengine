@@ -102,7 +102,7 @@ void sge::d3d::renderer::set_vertex_buffer(const vertex_buffer_ptr buffer)
 		return;
 
 	d3d::vertex_buffer* const d3d_buffer = ptr_cast<d3d::vertex_buffer*>(buffer.get());
-	const d3d_vertex_declaration_ptr decl = d3d_buffer->d3d_format.get_vertex_declaration();
+	const d3d_vertex_declaration_ptr decl = d3d_buffer->d3d_format.vertex_declaration();
 	if(decl != vertex_declaration)
 	{
 		if(device->SetVertexDeclaration(decl.get()) != D3D_OK)

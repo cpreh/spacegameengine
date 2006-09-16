@@ -4,8 +4,6 @@
 #include "../helper.hpp"
 #include <boost/array.hpp>
 
-#include <iostream>
-
 sge::sprite::sprite(sprite_system& s, const point p, const dim sz, const unsigned _z, const std::string& name, const bool vis)
 	: p(p), sz(sz), _z(_z), _rot(0), _use_rot_around(false), _visible(vis), s(s), tex(s.vtexture(name)), vb_pos(s.free_vb_pos()), my_place(s.attach(*this))
 {}

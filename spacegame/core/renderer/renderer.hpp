@@ -42,7 +42,7 @@ public:
 	virtual index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags = RF_Default, index_buffer::const_pointer data = 0) = 0;
 	virtual render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height) = 0;
 
-	virtual void get_caps(renderer_caps& caps) const = 0;
+	virtual const renderer_caps& caps() const = 0;
 	virtual unsigned screen_width() const = 0;
 	virtual unsigned screen_height() const = 0;
 	virtual window_ptr get_window() const = 0;

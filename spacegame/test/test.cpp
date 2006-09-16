@@ -50,23 +50,25 @@ try
 	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 	sge::gui::manager man(rend,is,fn,pl,"/home/sefi/cpp/spacegame/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
-	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.5,0.5));
+	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.3,0.3));
 	sge::gui::list list1(man,&fr1,sge::point(0.5,0.1),sge::dim(0.2,0.8));
 	sge::gui::icon_button icbtn1(man,&fr1,sge::point(0,0.8),sge::dim(0.5,0.1),"newgame_0","newgame_1","newgame_2");
-	//sge::gui::text_edit te1(man,0,sge::point(0,0.5),sge::dim(0.5,0.3),"abc");
-//	sge::gui::icon_button ib1(man,0,sge::point(0.5,0),sge::dim(0.5,0.5),"exit_0","exit_1","exit_2");
+	sge::gui::text_edit te1(man,&fr1,sge::point(0,0.5),sge::dim(0.7,0.3),"abc");
+	sge::gui::icon_button ib1(man,0,sge::point(0.5,0),sge::dim(0.5,0.5),"exit_0","exit_1","exit_2");
 	list1.push_back("LOL");
 	list1.push_back("BAR");
 	list1.push_back("ROFL!");
 	for(int i = 0; i < 20; ++i)
-		list1.push_back("TEST");
+	{
+		std::ostringstream os;
+		os << "TEST" << i;
+		list1.push_back(os.str());
+	}
 
 	btn1.click_signal.connect(boost::lambda::var(running) = false);
 	
 	input_receiver recv(running);
 	sge::callback_handle cbh = is->register_callback(recv);
-
-	fn.height(0.05);
 
 	const sge::point around(0.5,0.5);
 	spr.rotate_around(&around);
@@ -74,6 +76,7 @@ try
 	sge::timer frames(1000);
 
 	unsigned fps = 0, cur_fps;
+	sge::space_unit angle = 0;
 
 	while(running)
 	{
@@ -83,11 +86,17 @@ try
 			fps = 0;
 		}
 		if(timer.update())
+		{
+			angle += sge::PI*0.01;
 			spr.rotate_acc(sge::PI*0.01);
+		}
+
 		rend->begin_rendering();
 		is->dispatch();
 		ss.draw();
 		man.process();
+		fn.transform(sge::matrix_rotation_z(angle));
+		fn.height(0.05);
 		fn.draw_text("1234567890 abcdef ghij adsfasdf asf asdds klmn 1234567890",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;

@@ -1,6 +1,5 @@
 #include "../manager.hpp"
 #include "../rectangle.hpp"
-#include <iostream>
 
 sge::gui::rectangle::rectangle(manager& m, element* const parent, const point pos, const dim sz, const std::string& tex, const bool visible, const bool enabled)
 : element(m,parent,visible,true),

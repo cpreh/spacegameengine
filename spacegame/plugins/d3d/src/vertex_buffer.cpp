@@ -12,7 +12,7 @@ sge::d3d::vertex_buffer::vertex_buffer(renderer* const r, const d3d_device_ptr d
 
 void sge::d3d::vertex_buffer::init(const const_pointer src)
 {
-	const DWORD fvf = d3d_format.get_fvf();
+	const DWORD fvf = d3d_format.fvf();
 	const DWORD usage = convert_cast<DWORD>(flags);
 	const D3DPOOL pool = convert_cast<D3DPOOL>(flags);
 
@@ -69,12 +69,12 @@ sge::d3d::vertex_buffer::const_reverse_iterator sge::d3d::vertex_buffer::rend() 
 
 sge::d3d::vertex_buffer::iterator sge::d3d::vertex_buffer::create_iterator(const pointer data) const
 {
-	return iterator(data,d3d_format.get_stride(),d3d_format.get_offset_info());
+	return iterator(data,d3d_format.stride(),d3d_format.get_offset_info());
 }
 
 sge::d3d::vertex_buffer::const_iterator sge::d3d::vertex_buffer::create_iterator(const const_pointer data) const
 {
-	return const_iterator(data,d3d_format.get_stride(),d3d_format.get_offset_info());
+	return const_iterator(data,d3d_format.stride(),d3d_format.get_offset_info());
 }
 
 void sge::d3d::vertex_buffer::lock(const lock_flag_t flags, const size_type first, const size_type count)

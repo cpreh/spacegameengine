@@ -1,6 +1,7 @@
 #ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
 #define SGE_SPRITE_SYSTEM_HPP_INCLUDED
 
+#include <stdexcept>
 #include <list>
 #include <map>
 #include <string>
@@ -14,6 +15,7 @@
 #include "../renderer/texture.hpp"
 #include "../renderer/renderer.hpp"
 #include "../image/image.hpp"
+#include "../math/matrix4x4.hpp"
 
 namespace sge
 {
@@ -21,6 +23,7 @@ namespace sge
 class sprite_system : boost::noncopyable {
 public:
 	typedef boost::function<void (const std::string&)> handler_function;
+	typedef matrix4x4<space_unit> matrix_type;
 
 	sprite_system(renderer_ptr r, handler_function not_found_handler = 0);
 	bool add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const std::string& name);
@@ -29,7 +32,13 @@ public:
 	void draw();
 	void clear();
 	void set_parameters();
+	void transform(const matrix_type& mat);
 	static const char* const no_texture;
+
+	class image_too_big : public std::logic_error {
+	public:
+		image_too_big() : std::logic_error("image in sprite_system::add_texture is too big") {}
+	};
 private:
 	virtual_texture_ptr vtexture(const std::string&) const;
 
@@ -56,6 +65,8 @@ private:
 	index_buffer_ptr ib;
 	typedef std::vector<vertex_buffer::size_type> free_pos_vector;
 	free_pos_vector free_pos;
+
+	matrix_type     trans;
 };
 
 }

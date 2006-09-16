@@ -14,6 +14,7 @@
 #include "./renderer.hpp"
 #include "../font/font_system.hpp"
 #include "../font/font_impl.hpp"
+#include "../math/matrix4x4.hpp"
 
 namespace sge
 {
@@ -22,6 +23,7 @@ public:
 	typedef font_char char_type;
 	typedef font_string string_type;
 	typedef std::size_t size_type;
+	typedef matrix4x4<space_unit> matrix_type;
 	
 	font(renderer_ptr r, font_system_ptr font_sys, const std::string& font_name, unsigned quality_in_pixel = 32, font_weight weight = FW_Normal);
 	
@@ -36,9 +38,10 @@ public:
 	font_unit char_width(char_type ch) const;
 	font_unit char_space(char_type ch) const;
 	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = FTF_Default) const;
-
-	void set_parameters();
+	
+	void transform(const matrix_type& mat);
 private:
+	void set_parameters();
 	font_unit line_width(string_type::const_iterator beg, string_type::const_iterator& end, font_unit width, font_flag_t tflags) const;
 	void add_job(size_type cur_index);
 	void flush();
@@ -51,14 +54,15 @@ private:
 	};
 	typedef std::vector<job> job_array;
 
-	renderer_ptr              r;
-	font_impl_ptr             impl;
-	font_unit                 _height;
-	vertex_buffer_ptr         vb;
-	index_buffer_ptr          ib;
-	job_array                 jobs;
-	texture_ptr               last_texture;
-	size_type                 last_index;
+	renderer_ptr           r;
+	font_impl_ptr          impl;
+	font_unit              _height;
+	vertex_buffer_ptr      vb;
+	index_buffer_ptr       ib;
+	job_array              jobs;
+	texture_ptr            last_texture;
+	size_type              last_index;
+	matrix_type            trans;
 };
 
 typedef shared_ptr<font> font_ptr;

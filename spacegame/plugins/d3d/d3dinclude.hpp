@@ -3,8 +3,12 @@
 
 #include "../../core/main/shared_ptr.hpp"
 
+#ifdef SGE_WINDOWS_PLATFORM
 #define WIN32_LEAN_AND_MEAN
 #include <d3d9.h>
+#else
+#include <wine/windows/d3d9.h>
+#endif
 
 namespace sge
 {

@@ -51,8 +51,8 @@ int handler(Display* const d, XErrorEvent* const e)
 #endif
 
 // TODO: maybe support different adapters?
-sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned /*adapter*/)
-	: clear_zbuffer(false), clear_stencil(false), clear_back_buffer(true)
+sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
+	: param(param), clear_zbuffer(false), clear_stencil(false), clear_back_buffer(true)
 {
 #ifdef SGE_WINDOWS_PLATFORM
 	const unsigned color_depth = bit_depth_bit_count(param.mode.depth);
@@ -149,6 +149,10 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned /*adapte
 	set_bool_state(BS_EnableAlphaBlending,true);
 	set_bool_state(BS_EnableZBuffer,false);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+	// TODO: implement caps
+	_caps.adapter_number = adapter;
+	_caps.max_tex_size = 1024;
 }
 
 sge::ogl::renderer::~renderer()
@@ -226,9 +230,9 @@ void sge::ogl::renderer::end_rendering()
 #endif
 }
 
-void sge::ogl::renderer::get_caps(renderer_caps& caps) const
+const sge::renderer_caps& sge::ogl::renderer::caps() const
 {
-	std::cerr << "stub: ogl::renderer::get_caps\n";
+	return _caps;
 }
 
 sge::window_ptr sge::ogl::renderer::get_window() const
@@ -236,8 +240,8 @@ sge::window_ptr sge::ogl::renderer::get_window() const
 	return wnd;
 }
 
-unsigned sge::ogl::renderer::screen_height() const { return 1024; } // TODO:
-unsigned sge::ogl::renderer::screen_width() const { return 768; } // TODO:
+unsigned sge::ogl::renderer::screen_height() const { return param.mode.width; }
+unsigned sge::ogl::renderer::screen_width() const { return param.mode.height; }
 
 void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
 {

@@ -49,14 +49,16 @@ public:
 	index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags, index_buffer::const_pointer data);
 	render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height);
 
-	void get_caps(renderer_caps& caps) const;
+	const renderer_caps& caps() const;
 	unsigned screen_width() const;
 	unsigned screen_height() const;
 	window_ptr get_window() const;
 private:
+	renderer_parameters param;
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);
 	bool clear_zbuffer, clear_stencil, clear_back_buffer;
+	renderer_caps _caps;
 #ifdef SGE_WINDOWS_PLATFORM
 	win_hdc    hdc;
 	win_hglrc  hglrc;

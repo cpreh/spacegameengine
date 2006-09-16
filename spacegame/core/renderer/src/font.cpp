@@ -39,6 +39,11 @@ void sge::font::height(const space_unit h)
 	_height = h;
 }
 
+void sge::font::transform(const matrix_type& m)
+{
+	trans = m;
+}
+
 sge::font_size sge::font::draw_text(const string_type& text, const font_pos start_pos,
                                     const font_size max_sz, const color col, const font_flag_t flags)
 {
@@ -93,7 +98,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 		for(;sbeg != send; ++sbeg)
 		{
 			const font_entity reg = impl->load_char(*sbeg);
-			const font_size      sz(char_width(*sbeg), height() * reg.h_scale);
+			const font_size      sz(char_width(*sbeg), height() * reg.v_scale);
 			const font_rect      fp(font_pos(pos.x + height() * reg.left, pos.y + height() * reg.top), sz);
 
 			if(last_texture != reg.tex)
@@ -130,7 +135,7 @@ void sge::font::add_job(const size_type cur_index)
 sge::font_unit sge::font::char_width(const char_type ch) const
 {
 	const font_entity entity = impl->load_char(ch);
-	return height() * entity.v_scale;
+	return height() * entity.h_scale;
 }
 
 sge::font_unit sge::font::char_space(const char_type ch) const
@@ -224,6 +229,7 @@ void sge::font::flush()
 
 void sge::font::set_parameters()
 {
+	r->set_transformation(trans);
 	r->projection_orthogonal();
 	r->set_bool_state(BS_EnableAlphaBlending,true);
 	r->set_bool_state(BS_EnableLighting,true);

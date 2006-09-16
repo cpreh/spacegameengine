@@ -29,7 +29,7 @@ sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_
 		fill_offset_info(oi,offset,usage);
 		offset += it->get_stride();
 	}
-	stride = offset;
+	_stride = offset;
 	
 	const D3DVERTEXELEMENT9 end_token = D3DDECL_END();
 	vertex_elements.push_back(end_token);
@@ -37,7 +37,7 @@ sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_
 	IDirect3DVertexDeclaration9* decl;
 	if(device->CreateVertexDeclaration(&vertex_elements.front(),&decl) != D3D_OK)
 		throw std::runtime_error("CreateVertexDeclaration)= failed");
-	vertex_declaration = decl;
+	_vertex_declaration = decl;
 
 	//if(D3DXFVFFromDeclarator(&vertex_elements.front(),&fvf) != D3D_OK)
 	//	fvf = 0;

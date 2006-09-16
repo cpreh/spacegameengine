@@ -5,8 +5,6 @@
 #include "../../renderer/lock_ptr.hpp"
 #include "../../main/functional.hpp"
 
-#include <iostream>
-
 //TODO: maybe exchange dereference_binder with something of boost::lambda
 
 namespace
@@ -80,12 +78,26 @@ bool sge::sprite_system::add_texture(const texture::const_pointer src, const tex
 		return true;
 	}
 	// TODO: ask the driver if a texture this big can be created and do it
-	throw std::runtime_error(std::string("sprite_system::add_texture(): failed to allocate texture \"") += name + "\" (texture may be too big)!");
+	//throw std::runtime_error(std::string("sprite_system::add_texture(): failed to allocate texture \"") += name + "\" (texture may be too big)!");
+	// if(r->caps(MAX_TEX_SIZE) >= std::max(w,h))
+	
+	throw image_too_big();
 }
 
 bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name)
 {
-	return add_texture(im->data(),im->width(),im->height(),name);
+	try
+	{
+		return add_texture(im->data(),im->width(),im->height(),name);
+	}
+	catch(const image_too_big&)
+	{
+		const texture::size_type max_size = r->caps().max_tex_size;
+		const unsigned factor = std::max(im->width(),im->height()) / max_size + 1;
+
+		im->resize(im->width() / factor, im->height() / factor);
+		return add_texture(im->data(),im->width(),im->height(),name);
+	}
 }
 
 void sge::sprite_system::insert_texture(const virtual_texture_ptr t, const texture::const_pointer src, const std::string& name)
@@ -140,10 +152,15 @@ void sge::sprite_system::draw()
 	}
 }
 
+void sge::sprite_system::transform(const matrix_type& mat)
+{
+	trans = mat;
+}
+
 void sge::sprite_system::set_parameters()
 {
 	r->set_bool_state(BS_EnableLighting,false);
-	r->set_transformation(matrix4x4<space_unit>());
+	r->set_transformation(trans);
 	r->projection_orthogonal();
 	r->set_filter_state(0,FARG_MinFilter,FARGV_Linear);
 	r->set_filter_state(0,FARG_MagFilter,FARGV_Linear);

@@ -3,8 +3,6 @@
 #include "../skin.hpp"
 #include <boost/bind.hpp>
 
-#include <iostream> // TODO. remove
-
 sge::gui::vertical_scrollbar::vertical_scrollbar(manager& m, element* const parent, const point pos, const dim sz, const bool visible, const bool enabled)
 : rectangle(m,parent,pos,sz,skin::scrollbar_name,visible,enabled),
   s_pos(0),

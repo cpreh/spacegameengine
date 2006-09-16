@@ -14,21 +14,23 @@ namespace {
 }
 
 sge::ft::font_impl::font_impl(library& lib, const renderer_ptr r, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
-: r(r), pixel_size(quality_in_pixel), cur_tex(r->create_texture(0,tex_size,tex_size)), cur_x(0), cur_y(0)
+: r(r), quality_in_pixel(quality_in_pixel), cur_tex(r->create_texture(0,tex_size,tex_size)), cur_x(0), cur_y(0)
 {
 	FT_Face face;
 	if(FT_New_Face(lib.impl, font_name.c_str(), 0, &face))
 		throw std::runtime_error(std::string("FT_New_Face() failed for font: ") += font_name);
 	_face.reset(new face_guard(face));
 
-	if(FT_Set_Pixel_Sizes(face,0,pixel_size))
+	if(FT_Set_Pixel_Sizes(face,0,quality_in_pixel))
 		throw std::runtime_error("FT_Set_Pixel_Sizes() failed");
+
+	pixel_size = (*_face.get())->height >> 6;
 }
 
 sge::font_entity sge::ft::font_impl::load_char(const font_char c)
 {
 	// FIXME: handle case where the char is greater than a whole texture
-	const std::size_t index = c-CHAR_MIN;
+	const std::size_t index = std::size_t(c)-CHAR_MIN;
 	if(buffer[index].tex)
 		return buffer[index];
 
@@ -36,7 +38,7 @@ sge::font_entity sge::ft::font_impl::load_char(const font_char c)
 		throw std::runtime_error("FT_Load_Glyph() failed");
 
 	FT_Glyph glyph;
-	if(FT_Get_Glyph(_face->impl->glyph,&glyph))
+	if(FT_Get_Glyph((*_face.get())->glyph,&glyph))
 		throw std::runtime_error("FT_Get_Glyph() failed");
 	glyph_ptr _glyph_gurad(glyph);
 
@@ -65,10 +67,10 @@ sge::font_entity sge::ft::font_impl::load_char(const font_char c)
 	entity.rect = tex_size_to_space_rect(lrect, cur_tex->width(), cur_tex->height());
 	entity.tex = cur_tex;
 	entity.left = font_unit(bitmap_glyph->left) / pixel_size;
-	entity.top = font_unit(pixel_size - bitmap_glyph->top) / pixel_size;
-	entity.x_advance = font_unit(_face->impl->glyph->advance.x >> 6) / pixel_size;
-	entity.h_scale = font_unit(bitmap.rows) / pixel_size;
-	entity.v_scale = font_unit(bitmap.width) / pixel_size;
+	entity.top = font_unit(quality_in_pixel - bitmap_glyph->top) / pixel_size; // FIXME
+	entity.x_advance = font_unit((*_face.get())->glyph->advance.x >> 6) / pixel_size;
+	entity.v_scale = font_unit(bitmap.rows) / pixel_size;
+	entity.h_scale = font_unit(bitmap.width) / pixel_size;
 
 	raw_vector<color> expanded(bitmap.width * bitmap.rows);
 	const unsigned char* data = bitmap.buffer;

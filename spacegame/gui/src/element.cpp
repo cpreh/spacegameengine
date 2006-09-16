@@ -1,10 +1,5 @@
-#include <limits>
-#include <algorithm>
 #include "../element.hpp"
 #include "../manager.hpp"
-#include <iostream>
-
-// TODO: clean up enabled and visible
 
 namespace {
 	bool sort_z_order(const sge::gui::element* const l, const sge::gui::element* const r)
@@ -57,11 +52,30 @@ void sge::gui::element::show()
 	to_front();
 }
 
-void sge::gui::element::hide() { visible = false; }
-bool sge::gui::element::is_visible() const { return visible; }
-void sge::gui::element::set_enable(const bool _enabled) { enabled = _enabled; }
-bool sge::gui::element::get_enable() const { return enabled; }
-sge::gui::element* sge::gui::element::get_parent() const { return parent; }
+void sge::gui::element::hide()
+{
+	visible = false;
+}
+
+bool sge::gui::element::is_visible() const
+{
+	return visible;
+}
+
+void sge::gui::element::set_enable(const bool _enabled)
+{
+	enabled = _enabled;
+}
+
+bool sge::gui::element::get_enable() const
+{
+	return enabled;
+}
+
+sge::gui::element* sge::gui::element::get_parent() const
+{
+	return parent;
+}
 
 void sge::gui::element::set_parent(element* const e)
 {
@@ -91,7 +105,7 @@ void sge::gui::element::click(const mouse_button_event& event)
 
 void sge::gui::element::mouse_move(const mouse_move_event& event)
 {
-	if(!enabled)
+	if(!enabled || !visible)
 		return;
 
 	const point loc_pos = event.pos() - relative_pos();
@@ -99,7 +113,7 @@ void sge::gui::element::mouse_move(const mouse_move_event& event)
 
 	bool processed = false;
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
-		if((*it)->is_visible() && (*it)->intersects(loc_pos))
+		if((*it)->intersects(loc_pos))
 		{
 			(*it)->mouse_move(e);
 			processed = true;
@@ -112,7 +126,7 @@ void sge::gui::element::mouse_move(const mouse_move_event& event)
 
 void sge::gui::element::glob_mouse_move(const mouse_move_event& event)
 {
-	if(!enabled)
+	if(!enabled || !visible)
 		return;
 
 	const point loc_pos = event.pos() - relative_pos();
@@ -121,7 +135,7 @@ void sge::gui::element::glob_mouse_move(const mouse_move_event& event)
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
 		if((*it)->is_visible())
 			(*it)->glob_mouse_move(e);
-	on_glob_mouse_move(event);
+	on_glob_mouse_move(e);
 }
 
 void sge::gui::element::draw(const draw_event& event)
@@ -140,6 +154,7 @@ void sge::gui::element::key_down(const keyboard_button_event& event)
 {
 	if(!enabled || !visible)
 		return;
+
 	on_key_down(event);
 }
 
@@ -159,14 +174,14 @@ void sge::gui::element::key_press(const keyboard_button_event& event)
 
 void sge::gui::element::mouse_down(const mouse_button_event& event)
 {
-	if(!enabled)
+	if(!enabled || !visible)
 		return;
 
 	const point loc_pos = event.pos()-relative_pos();
 	const mouse_button_event e(loc_pos,event.code(),event.mod_state(),true,event.char_code());
 
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
-		if((*it)->is_visible() && (*it)->intersects(loc_pos))
+		if((*it)->intersects(loc_pos))
 		{
 			(*it)->mouse_down(e);
 			return;
@@ -175,19 +190,19 @@ void sge::gui::element::mouse_down(const mouse_button_event& event)
 	m.focus(this);
 	if(event.code()==KC_MOUSEL)
 		m.pressed(this);
-	on_mouse_down(event);
+	on_mouse_down(e);
 }
 
 void sge::gui::element::mouse_up(const mouse_button_event& event)
 {
-	if(!enabled)
+	if(!enabled || !visible)
 		return;
 
 	const point loc_pos = event.pos()-relative_pos();
 	const mouse_button_event e(loc_pos,event.code(),event.mod_state(),false,event.char_code());
 
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
-		if((*it)->is_visible() && (*it)->intersects(loc_pos))
+		if((*it)->intersects(loc_pos))
 		{
 			(*it)->mouse_up(e);
 			return;
@@ -195,14 +210,25 @@ void sge::gui::element::mouse_up(const mouse_button_event& event)
 
 	if(pressed() && event.code()==KC_MOUSEL)
 		click(mouse_button_event(e));
-	on_mouse_up(event);
+	on_mouse_up(e);
 }
 
 void sge::gui::element::mouse_press(const mouse_button_event& event)
 {
 	if(!enabled || !visible)
 		return;
-	on_mouse_press(event);
+
+	const point loc_pos = event.pos()-relative_pos();
+	const mouse_button_event e(loc_pos,event.code(), event.mod_state(), event.value(), event.char_code());
+
+	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
+		if((*it)->intersects(loc_pos))
+		{
+			(*it)->mouse_press(e);
+			return;
+		}
+
+	on_mouse_press(e);
 }
 
 void sge::gui::element::higher_children_z()

@@ -21,7 +21,6 @@ public:
 protected:
 	void up_scroll_action();
 	void down_scroll_action();
-	virtual void scroll_position_change(size_type newpos){}
 private:
 	void on_glob_mouse_move(const mouse_move_event& event);
 	void on_mouse_up(const mouse_button_event& event);

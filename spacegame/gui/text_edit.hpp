@@ -4,6 +4,7 @@
 #include "./types.hpp"
 #include "./rectangle.hpp"
 #include "./text_cursor.hpp"
+#include "../core/renderer/font_types.hpp"
 
 namespace sge
 {
@@ -29,6 +30,7 @@ private:
 	void decrease_cursor_pos();
 	unit text_width() const;
 	unit text_height() const;
+	void set_height();
 	
 	font&                  my_font;
 	std::string            _text;
@@ -36,6 +38,7 @@ private:
 	std::string::size_type text_start,
 	                       cursor_pos;
 	text_cursor            cur;
+	static const font_flag_t flags = FTF_AlignLeft | FTF_AlignVCenter | FTF_NoMultiLine;
 };
 
 typedef shared_ptr<text_edit> text_edit_ptr;

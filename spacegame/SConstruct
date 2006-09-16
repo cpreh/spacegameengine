@@ -25,5 +25,9 @@ xinput = Environment(LIBS = ['X11', 'Xxf86dga'], CCFLAGS = flags)
 libxinput = xinput.SharedLibrary('sgexinput', [glob('./plugins/xinput/src/*.cpp')])
 xinput.Install('bin',libxinput)
 
+#d3d = Environment(LIBS = ['winelib'], CCFLAGS = flags)
+#libd3d = d3d.SharedLibrary('sged3d', [glob('./plugins/d3d/src/*.cpp')])
+#d3d.Install('bin',libd3d)
+
 test = Environment(LIBPATH = ['./'], LIBS = ['sgecore','sgegui'], CCFLAGS = flags)
 test.Program('sgetest', ['./test/test.cpp'])

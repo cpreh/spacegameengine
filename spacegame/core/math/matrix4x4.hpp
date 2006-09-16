@@ -255,6 +255,17 @@ template<typename T> inline matrix4x4<T> matrix_orthogonal_xy()
 	                    0,0,0,1);
 }
 
+template<typename T> inline matrix4x4<T> matrix_rotation_z(const T& angle)
+{
+	const T sinx = std::sin(angle),
+	        cosx = std::cos(angle);
+	return matrix4x4<T>(cosx, -sinx, 0, 0,
+	                    sinx,  cosx, 0, 0,
+			       0,     0, 1, 0,
+	                       0,     0, 0, 1);
+}
+
+
 }
 
 #endif

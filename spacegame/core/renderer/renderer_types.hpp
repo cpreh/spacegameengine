@@ -66,12 +66,11 @@ inline bool operator!= (const renderer_parameters& l, const renderer_parameters&
 
 typedef std::vector<display_mode> display_mode_array;
 struct renderer_caps {
-	int adapter_number;
+	unsigned adapter_number;
 	std::string driver_name;
 	std::string description;
 	display_mode_array display_modes;
-	unsigned max_tex_width;
-	unsigned max_tex_height;
+	unsigned max_tex_size;
 };
 
 enum resource_flags {

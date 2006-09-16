@@ -14,8 +14,8 @@ struct font_entity {
 	font_unit left;
 	font_unit top;
 	font_unit x_advance;
-	font_unit h_scale;
 	font_unit v_scale;
+	font_unit h_scale;
 };
 
 class font_impl {

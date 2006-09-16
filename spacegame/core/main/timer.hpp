@@ -23,13 +23,18 @@ public:
 
 	timer(interval_type interval);
 	frames_type update();
-	frames_type elapsed_frames();
+	frames_type elapsed_frames() const;
 	void reset();
+	bool expired() const;
 	interval_type interval() const { return _interval; }
 	interval_type last_time() const { return _last_time; }
+	void activate();
+	void deactivate();
+	bool active() const { return _active; }
 private:
 	interval_type _interval,
 	              _last_time;
+	bool          _active;
 };
 
 }

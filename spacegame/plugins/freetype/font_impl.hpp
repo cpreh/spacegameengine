@@ -26,15 +26,17 @@ private:
 	struct face_guard {
 		face_guard(FT_Face f) : impl(f) {}
 		~face_guard() { FT_Done_Face(impl); }
+		FT_Face operator->() const { return impl; }
 		FT_Face impl;
 	};
 
 	renderer_ptr r;
-	std::auto_ptr<face_guard> _face;
-	unsigned pixel_size;
+	unsigned quality_in_pixel;
 	texture_ptr cur_tex;
 	texture::size_type cur_x, cur_y;
 
+	std::auto_ptr<face_guard> _face;
+	unsigned pixel_size;
 	typedef boost::array<font_entity, UCHAR_MAX> buffer_type;
 	buffer_type buffer;
 	typedef std::vector<texture_ptr> texture_array;
