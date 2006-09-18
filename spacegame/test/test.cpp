@@ -75,7 +75,7 @@ try
 	sge::timer timer(30);
 	sge::timer frames(1000);
 
-	unsigned fps = 0, cur_fps;
+	unsigned fps = 0, cur_fps = 0;
 	sge::space_unit angle = 0;
 
 	while(running)
