@@ -8,7 +8,7 @@ sge::devil::image::image(const std::string& file)
 	id = new im_guard(temp);
 	bind_me();
 	if(ilLoadImage(const_cast<char*>(file.c_str())) == IL_FALSE)
-		throw std::runtime_error(std::string("ilLoadImage() failed!"));
+		throw std::runtime_error(std::string("ilLoadImage() failed! Could not load '") += file + "'!");
 	w = ilGetInteger(IL_IMAGE_WIDTH);
 	h = ilGetInteger(IL_IMAGE_HEIGHT);
 }
