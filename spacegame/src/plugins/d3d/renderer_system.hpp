@@ -1,7 +1,7 @@
 #ifndef SGE_D3D_RENDERER_SYSTEM_HPP_INCLUDED
 #define SGE_D3D_RENDERER_SYSTEM_HPP_INCLUDED
 
-#include "../../core/renderer/renderer_system.hpp"
+#include "../../renderer/renderer_system.hpp"
 #include "./d3dinclude.hpp"
 
 namespace sge

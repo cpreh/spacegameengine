@@ -1,8 +1,8 @@
 #ifndef SGE_TEXT_CURSOR_HPP_INCLUDED
 #define SGE_TEXT_CURSOR_HPP_INCLUDED
 
-#include "../core/main/timer.hpp"
-#include "../core/sprite/sprite.hpp"
+#include "../timer.hpp"
+#include "../sprite/sprite.hpp"
 
 namespace sge
 {

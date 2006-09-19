@@ -1,7 +1,7 @@
 #ifndef SGE_FONT_IMPL_HPP_INCLUDED
 #define SGE_FONT_IMPL_HPP_INCLUDED
 
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "../renderer/font_types.hpp"
 #include "../renderer/texture.hpp"
 

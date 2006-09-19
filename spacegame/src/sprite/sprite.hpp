@@ -7,7 +7,7 @@
 #include "../math/vector2.hpp"
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/texture.hpp"

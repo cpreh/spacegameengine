@@ -1,7 +1,7 @@
 #ifndef SGE_TRANSFORM_HPP_INCLUDED
 #define SGE_TRANSFORM_HPP_INCLUDED
 
-#include "../main/types.hpp"
+#include "../types.hpp"
 #include "./renderer_types.hpp"
 #include "./texture.hpp"
 

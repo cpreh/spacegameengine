@@ -1,17 +1,17 @@
-#include "../../../core/main/types.hpp"
+#include "../../../types.hpp"
 #include "../extensions.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
-#include "../../../core/main/ptr_cast.hpp"
-#include "../../../core/renderer/renderer_types.hpp"
+#include "../../../ptr_cast.hpp"
+#include "../../../renderer/renderer_types.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
 #include "../conversion.hpp"
-#ifdef WIN32
+#ifdef SGE_WINDOWS_PLATFORM
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#include "../../../core/main/win32_window.hpp"
+#include "../../../win32_window.hpp"
 #endif
 #include <GL/gl.h>
 

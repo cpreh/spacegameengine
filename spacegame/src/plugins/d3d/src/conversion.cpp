@@ -1,6 +1,6 @@
 #include <stdexcept>
 #include "../conversion.hpp"
-#include "../../../core/renderer/renderer_types.hpp"
+#include "../../../renderer/renderer_types.hpp"
 
 template<> DWORD sge::d3d::convert_cast (const lock_flag_t& r)
 {

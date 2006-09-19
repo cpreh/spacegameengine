@@ -1,10 +1,10 @@
 #ifndef SGE_OGL_VERTEX_FORMAT_HPP_INCLUDED
 #define SGE_OGL_VERTEX_FORMAT_HPP_INCLUDED
 
-#include "../../core/main/shared_ptr.hpp"
-#include "../../core/renderer/renderer_types.hpp"
-#include "../../core/renderer/vertex_format.hpp"
-#include "../../core/renderer/vertex_buffer.hpp"
+#include "../../shared_ptr.hpp"
+#include "../../renderer/renderer_types.hpp"
+#include "../../renderer/vertex_format.hpp"
+#include "../../renderer/vertex_buffer.hpp"
 #include <vector>
 
 namespace sge

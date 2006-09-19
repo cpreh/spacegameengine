@@ -1,8 +1,8 @@
-#ifndef SGE_DEVIL_PIC_LOADER_HPP_INCLUDED
-#define SGE_DEVIL_PIC_LOADER_HPP_INCLUDED
+#ifndef SGE_DEVIL_IMAGE_LOADER_HPP_INCLUDED
+#define SGE_DEVIL_IMAGE_LOADER_HPP_INCLUDED
 
-#include "../../core/main/shared_ptr.hpp"
-#include "../../core/image/image_loader.hpp"
+#include "../../shared_ptr.hpp"
+#include "../../image/image_loader.hpp"
 
 #include <IL/il.h>
 #include <IL/ilu.h>

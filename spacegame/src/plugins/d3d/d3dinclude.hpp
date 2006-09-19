@@ -1,7 +1,7 @@
 #ifndef SGE_D3D_D3DINCLUDE_HPP_INCLUDED
 #define SGE_D3D_D3DINCLUDE_HPP_INCLUDED
 
-#include "../../core/main/shared_ptr.hpp"
+#include "../../main/shared_ptr.hpp"
 
 #ifdef SGE_WINDOWS_PLATFORM
 #define WIN32_LEAN_AND_MEAN

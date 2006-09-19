@@ -10,7 +10,7 @@ SRC_URI="http://spacegameengine.sourceforge.net/${P}.tar.bz2"
 
 LICENSE="GPL"
 SLOT="0"
-KEYWORDS="~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE="opengl truetype devil xinput"
 
 DEPEND="${RDEPEND}
@@ -39,21 +39,23 @@ src_install() {
 	scons install prefix=/usr workdir=${WORKDIR} libdir=$(get_libdir) || die
 	# scons is too gay
 	insinto /usr/include/spacegame
-	doins core/main/*.hpp
+	doins src/*.hpp
 	insinto /usr/include/spacegame/renderer
-	doins core/renderer/*.hpp
+	doins src/renderer/*.hpp
 	insinto /usr/include/spacegame/input
-	doins core/input/*.hpp
+	doins src/input/*.hpp
 	insinto /usr/include/spacegame/font
-	doins core/font/*.hpp
+	doins src/font/*.hpp
 	insinto /usr/include/spacegame/image
-	doins core/image/*.hpp
+	doins src/image/*.hpp
 	insinto /usr/include/spacegame/sprite
-	doins core/sprite/*.hpp
+	doins src/sprite/*.hpp
 	insinto /usr/include/spacegame/math
-	doins core/math/*.hpp
+	doins src/math/*.hpp
+	insinto /usr/include/spacegame/audio
+	doins src/audio/*.hpp
 	insinto /usr/include/spacegame/gui
-	doins gui/*.hpp
+	doins src/gui/*.hpp
 
 	insinto /usr/share/games/spacegame/mainskin
 	doins media/mainskin/*.png

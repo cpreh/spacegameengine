@@ -1,7 +1,7 @@
-#ifndef SGE_FREETYPE_LIBRARY_HPP_INCLUDED
-#define SGE_FREETYPE_LIBRARY_HPP_INCLUDED
+#ifndef SGE_FT_LIBRARY_HPP_INCLUDED
+#define SGE_FT_LIBRARY_HPP_INCLUDED
 
-#include "../../core/main/shared_ptr.hpp"
+#include "../../shared_ptr.hpp"
 #include <ft2build.h>
 #include FT_FREETYPE_H
 

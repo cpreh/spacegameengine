@@ -2,7 +2,7 @@
 #define SGE_FONT_SYSTEM_HPP_INCLUDED
 
 #include <locale>
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "../renderer/texture.hpp"
 #include "../renderer/font_types.hpp"
 #include "../renderer/renderer.hpp"

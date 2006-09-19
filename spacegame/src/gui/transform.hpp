@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_TRANSFORM_HPP_INCLUDED
 #define SGE_GUI_TRANSFORM_HPP_INCLUDED
 
-#include "../core/renderer/renderer_types.hpp"
+#include "../renderer/renderer_types.hpp"
 #include "./types.hpp"
 
 namespace sge

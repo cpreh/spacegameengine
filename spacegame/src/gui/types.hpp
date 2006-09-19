@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_TYPES_HPP_INCLUDED
 #define SGE_GUI_TYPES_HPP_INCLUDED
 
-#include "../core/math/types.hpp"
+#include "../math/types.hpp"
 
 namespace sge
 {

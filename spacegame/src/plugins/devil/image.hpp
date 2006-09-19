@@ -1,9 +1,9 @@
 #ifndef SGE_DEVIL_IMAGE_HPP_INCLUDED
 #define SGE_DEVIL_IMAGE_HPP_INCLUDED
 
-#include "../../core/image/image_loader.hpp"
-#include "../../core/main/shared_ptr.hpp"
-#include "../../core/main/auto_ptr.hpp"
+#include "../../image/image_loader.hpp"
+#include "../../shared_ptr.hpp"
+#include "../../auto_ptr.hpp"
 #include <IL/il.h>
 
 namespace sge
@@ -31,6 +31,7 @@ private:
 	im_guard_ptr id;
 	size_type w, h;
 };
+
 typedef shared_ptr<image> image_ptr;
 
 }

@@ -4,7 +4,7 @@
 #include "./types.hpp"
 #include "./rectangle.hpp"
 #include "./text_cursor.hpp"
-#include "../core/renderer/font_types.hpp"
+#include "../renderer/font_types.hpp"
 
 namespace sge
 {

@@ -1,7 +1,7 @@
 #ifndef SGE_D3D_CUBE_TEXTURE_HPP_INCLUDED
 #define SGE_D3D_CUBE_TEXTURE_HPP_INCLUDED
 
-#include "../../core/renderer/cube_texture.hpp"
+#include "../../renderer/cube_texture.hpp"
 #include "./resource.hpp"
 #include "./texture_base.hpp"
 

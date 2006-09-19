@@ -2,9 +2,9 @@
 #define SGE_BSP_TREE_HPP_INCLUDED
 
 #include <stdexcept>
-#include "../math/rect.hpp"
-#include "../math/dim.hpp"
-#include "../math/vector2.hpp"
+#include "./math/rect.hpp"
+#include "./math/dim.hpp"
+#include "./math/vector2.hpp"
 
 namespace sge
 {

@@ -1,7 +1,7 @@
 #include "../input_system.hpp"
-#include "../../../core/main/plugin.hpp"
-#include "../../../core/main/x_window.hpp"
-#include "../../../core/main/ptr_cast.hpp"
+#include "../../../plugin.hpp"
+#include "../../../x_window.hpp"
+#include "../../../ptr_cast.hpp"
 
 extern "C"
 {

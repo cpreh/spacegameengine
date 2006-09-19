@@ -1,8 +1,8 @@
 #ifndef SGE_FT_FONT_SYSTEM_HPP_INCLUDED
 #define SGE_FT_FONT_SYSTEM_HPP_INCLUDED
 
-#include "../../core/font/font_system.hpp"
-#include "../../core/font/font_impl.hpp"
+#include "../../font/font_system.hpp"
+#include "../../font/font_impl.hpp"
 #include "./library.hpp"
 
 namespace sge

@@ -5,7 +5,7 @@
 #include <iterator>
 #include <memory>
 #include <stdexcept>
-#include "../math/rect.hpp"
+#include "./math/rect.hpp"
 
 namespace sge
 {

@@ -1,4 +1,4 @@
-#include "../../../core/renderer/lock_ptr.hpp"
+#include "../../../renderer/lock_ptr.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"

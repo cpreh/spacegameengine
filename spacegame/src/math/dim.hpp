@@ -1,7 +1,7 @@
 #ifndef SGE_DIM_HPP_INCLUDED
 #define SGE_DIM_HPP_INCLUDED
 
-#include "../main/types.hpp"
+#include "../types.hpp"
 #include "./vector2.hpp"
 
 namespace sge

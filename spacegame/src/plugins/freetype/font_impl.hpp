@@ -1,13 +1,13 @@
-#ifndef SGE_FREETYPE_FONT_IMPL_HPP_INCLUDED
-#define SGE_FREETYPE_FONT_IMPL_HPP_INCLUDED
+#ifndef SGE_FT_FONT_IMPL_HPP_INCLUDED
+#define SGE_FT_FONT_IMPL_HPP_INCLUDED
 
 #include <climits>
 #include <memory>
 #include <vector>
 #include <boost/array.hpp>
-#include "../../core/font/font_impl.hpp"
-#include "../../core/renderer/renderer.hpp"
-#include "../../core/renderer/texture.hpp"
+#include "../../font/font_impl.hpp"
+#include "../../renderer/renderer.hpp"
+#include "../../renderer/texture.hpp"
 #include "./library.hpp"
 #include <ft2build.h>
 #include FT_FREETYPE_H

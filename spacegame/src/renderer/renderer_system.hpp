@@ -2,8 +2,8 @@
 #define SGE_RENDER_ERSYSTEM_HPP_INCLUDED
 
 #include <vector>
-#include "../main/shared_ptr.hpp"
-#include "../main/types.hpp"
+#include "../shared_ptr.hpp"
+#include "../types.hpp"
 #include "./renderer_types.hpp"
 #include "./renderer.hpp"
 

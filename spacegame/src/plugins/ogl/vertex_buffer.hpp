@@ -1,7 +1,7 @@
 #ifndef SGE_OGL_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_OGL_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "../../core/renderer/vertex_buffer.hpp"
+#include "../../renderer/vertex_buffer.hpp"
 #include "./basic_arb_buffer.hpp"
 #include "./vertex_format.hpp"
 

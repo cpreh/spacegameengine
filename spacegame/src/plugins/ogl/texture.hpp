@@ -1,7 +1,7 @@
 #ifndef SGE_OGL_TEXTURE_HPP_INCLUDED
 #define SGE_OGL_TEXTURE_HPP_INCLUDED
 
-#include "../../core/renderer/texture.hpp"
+#include "../../renderer/texture.hpp"
 #include "./basic_texture.hpp"
 #include "./error.hpp"
 

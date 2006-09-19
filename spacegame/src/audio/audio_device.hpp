@@ -2,7 +2,7 @@
 #define SGE_AUDIO_DEVICE_HPP_INCLUDED
 
 #include <string>
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "./music.hpp"
 
 namespace sge

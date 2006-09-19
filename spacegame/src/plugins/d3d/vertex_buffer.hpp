@@ -1,7 +1,7 @@
 #ifndef SGE_D3D_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_D3D_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "../../core/renderer/vertex_buffer.hpp"
+#include "../../renderer/vertex_buffer.hpp"
 #include "./vertex_format.hpp"
 #include "./resource.hpp"
 

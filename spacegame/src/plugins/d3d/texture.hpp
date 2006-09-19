@@ -1,7 +1,7 @@
 #ifndef SGE_D3D_TEXTURE_HPP_INCLUDED
 #define SGE_D3D_TEXTURE_HPP_INCLUDED
 
-#include "../../core/renderer/texture.hpp"
+#include "../../renderer/texture.hpp"
 #include "./texture_base.hpp"
 #include "./resource.hpp"
 

@@ -1,7 +1,7 @@
 #ifndef SGE_D3D_RENDER_TARGET_HPP_INCLUDED
 #define SGE_D3D_RENDER_TARGET_HPP_INCLUDED
 
-#include "../../core/renderer/render_target.hpp"
+#include "../../renderer/render_target.hpp"
 #include "./resource.hpp"
 
 #include "./d3dinclude.hpp"

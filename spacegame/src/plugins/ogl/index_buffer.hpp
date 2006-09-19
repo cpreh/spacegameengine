@@ -1,7 +1,7 @@
 #ifndef SGE_OGL_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_OGL_INDEX_BUFFER_HPP_INCLUDED
 
-#include "../../core/renderer/index_buffer.hpp"
+#include "../../renderer/index_buffer.hpp"
 #include "./basic_arb_buffer.hpp"
 
 namespace sge

@@ -6,11 +6,11 @@
 #include <string>
 #include <boost/signal.hpp>
 #include <boost/utility.hpp>
-#include "../core/main/types.hpp"
-#include "../core/main/shared_ptr.hpp"
-#include "../core/renderer/renderer.hpp"
-#include "../core/input/key_type.hpp"
-#include "../core/math/rect.hpp"
+#include "../types.hpp"
+#include "../shared_ptr.hpp"
+#include "../renderer/renderer.hpp"
+#include "../input/key_type.hpp"
+#include "../math/rect.hpp"
 #include "./events.hpp"
 #include "./types.hpp"
 

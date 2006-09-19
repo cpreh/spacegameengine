@@ -1,4 +1,4 @@
-#include "../../../core/main/plugin.hpp"
+#include "../../../plugin.hpp"
 #include "../renderer_system.hpp"
 
 extern "C"

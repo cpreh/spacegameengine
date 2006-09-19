@@ -4,11 +4,11 @@
 #include <vector>
 #include <list>
 
-#include "../../core/math/matrix4x4.hpp"
-#include "../../core/math/vector3.hpp"
-#include "../../core/math/vector4.hpp"
-#include "../../core/renderer/renderer.hpp"
-#include "../../core/main/win32_window.hpp"
+#include "../../math/matrix4x4.hpp"
+#include "../../math/vector3.hpp"
+#include "../../math/vector4.hpp"
+#include "../../renderer/renderer.hpp"
+#include "../../win32_window.hpp"
 #include "./vertex_format.hpp"
 
 #include "./d3dinclude.hpp"

@@ -2,7 +2,7 @@
 #define SGE_CALLBACK_HANDLE_HPP_INCLUDED
 
 #include <boost/signals/connection.hpp>
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 
 namespace sge
 {

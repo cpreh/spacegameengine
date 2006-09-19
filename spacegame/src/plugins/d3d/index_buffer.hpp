@@ -1,7 +1,7 @@
 #ifndef SGE_D3D_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_D3D_INDEX_BUFFER_HPP_INCLUDED
 
-#include "../../core/renderer/index_buffer.hpp"
+#include "../../renderer/index_buffer.hpp"
 #include "./resource.hpp"
 
 #include "./d3dinclude.hpp"

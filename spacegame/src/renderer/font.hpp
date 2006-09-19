@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <string>
 #include <vector>
-#include "../main/shared_ptr.hpp"
-#include "../main/types.hpp"
+#include "../shared_ptr.hpp"
+#include "../types.hpp"
 #include "./renderer_types.hpp"
 #include "./index_buffer.hpp"
 #include "./vertex_buffer.hpp"

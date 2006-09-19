@@ -4,8 +4,8 @@
 #include <cstddef>
 #include <string>
 #include <map>
-#include "../../core/input/input_system.hpp"
-#include "../../core/main/x_window.hpp"
+#include "../../input/input_system.hpp"
+#include "../../x_window.hpp"
 #include <boost/array.hpp>
 #include <X11/extensions/xf86dga.h>
 

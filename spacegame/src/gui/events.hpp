@@ -2,7 +2,7 @@
 #define SGE_GUI_EVENTS_HPP_INCLUDED
 
 #include "./types.hpp"
-#include "../core/input/key_type.hpp"
+#include "../input/key_type.hpp"
 
 namespace sge
 {

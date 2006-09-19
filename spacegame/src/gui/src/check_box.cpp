@@ -15,4 +15,7 @@ void sge::gui::check_box::on_draw(const draw_event& event)
 	m.get_font().draw_text(_text, event.pos() + point(cbsz.w,cbsz.h), size()-cbsz, _text_color, FTF_AlignLeft | FTF_AlignVCenter);
 }
 
-bool sge::gui::check_box::value() const { return box.value(); }
+bool sge::gui::check_box::value() const
+{
+	return box.value();
+}

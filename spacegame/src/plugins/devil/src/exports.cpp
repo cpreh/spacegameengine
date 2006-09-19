@@ -1,4 +1,4 @@
-#include "../../../core/main/plugin.hpp"
+#include "../../../plugin.hpp"
 #include "../image_loader.hpp"
 
 extern "C"

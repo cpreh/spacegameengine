@@ -1,10 +1,10 @@
 #ifndef SGE_VECTOR2_HPP_INCLUDED
 #define SGE_VECTOR2_HPP_INCLUDED
 
+#include "../types.hpp"
 #include <cmath>
 #include <istream>
 #include <ostream>
-#include "../main/types.hpp"
 
 namespace sge
 {

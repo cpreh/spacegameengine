@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_STATIC_TEXT_HPP_INCLUDED
 #define SGE_GUI_STATIC_TEXT_HPP_INCLUDED
 
-#include "../core/main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "./types.hpp"
 #include "./rectangle.hpp"
 

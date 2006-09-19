@@ -3,7 +3,7 @@
 #include "../system.hpp"
 #include "../../renderer/vertex_format.hpp"
 #include "../../renderer/lock_ptr.hpp"
-#include "../../main/functional.hpp"
+#include "../../functional.hpp"
 
 //TODO: maybe exchange dereference_binder with something of boost::lambda
 

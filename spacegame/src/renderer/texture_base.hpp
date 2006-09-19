@@ -2,10 +2,10 @@
 #define SGE_TEXTURE_BASE_HPP_INCLUDED
 
 #include <cstddef>
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "../math/rect.hpp"
 #include "./renderer_types.hpp"
-#include "../main/types.hpp"
+#include "../types.hpp"
 
 namespace sge
 {

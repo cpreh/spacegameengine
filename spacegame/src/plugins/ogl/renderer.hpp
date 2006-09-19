@@ -1,18 +1,18 @@
 #ifndef SGE_OGL_RENDERER_HPP_INCLUDED
 #define SGE_OGL_RENDERER_HPP_INCLUDED
 
-#include "../../core/main/types.hpp"
-#include "../../core/renderer/renderer.hpp"
-#include "../../core/main/window.hpp"
+#include "../../types.hpp"
+#include "../../renderer/renderer.hpp"
+#include "../../window.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
-#include "../../core/main/win32.hpp"
+#include "../../win32.hpp"
 #elif SGE_LINUX_PLATFORM
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <GL/glx.h>
 #include <X11/extensions/xf86vmode.h>
-#include "../../core/main/x_window.hpp"
-#include "../../core/main/glx.hpp"
+#include "../../x_window.hpp"
+#include "../../glx.hpp"
 #endif
 
 namespace sge

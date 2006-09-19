@@ -1,5 +1,5 @@
-#include "../../../core/main/raw_vector.hpp"
-#include "../../../core/renderer/transform.hpp"
+#include "../../../raw_vector.hpp"
+#include "../../../renderer/transform.hpp"
 #include "../font_impl.hpp"
 #include FT_GLYPH_H
 

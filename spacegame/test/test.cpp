@@ -1,21 +1,22 @@
-#include "../core/main/plugin_manager.hpp"
-#include "../core/renderer/lock_ptr.hpp"
-#include "../core/main/util.hpp"
-#include "../core/sprite/system.hpp"
-#include "../core/sprite/sprite.hpp"
-#include "../core/renderer/font.hpp"
-#include "../core/renderer/renderer.hpp"
-#include "../core/renderer/renderer_types.hpp"
-#include "../core/main/media.hpp"
-#include "../gui/manager.hpp"
-#include "../gui/button.hpp"
-#include "../gui/text_edit.hpp"
-#include "../gui/list.hpp"
-#include "../gui/icon_button.hpp"
-#include "../gui/frame.hpp"
+#include "../src/plugin_manager.hpp"
+#include "../src/renderer/lock_ptr.hpp"
+#include "../src/util.hpp"
+#include "../src/sprite/system.hpp"
+#include "../src/sprite/sprite.hpp"
+#include "../src/renderer/font.hpp"
+#include "../src/renderer/renderer.hpp"
+#include "../src/renderer/renderer_types.hpp"
+#include "../src/media.hpp"
+#include "../src/gui/manager.hpp"
+#include "../src/gui/button.hpp"
+#include "../src/gui/text_edit.hpp"
+#include "../src/gui/list.hpp"
+#include "../src/gui/icon_button.hpp"
+#include "../src/gui/frame.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/bind.hpp>
 #include <sstream>
+#include <iostream>
 
 class input_receiver {
 public:

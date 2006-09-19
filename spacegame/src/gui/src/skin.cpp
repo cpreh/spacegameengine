@@ -1,7 +1,4 @@
-#include <fstream>
 #include "../skin.hpp"
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/operations.hpp>
 
 #define DEFINE_SKIN_NAME(x) sge::gui::skin::name_type sge::gui::skin:: x##_name = #x;
 

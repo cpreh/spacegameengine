@@ -1,4 +1,4 @@
-#include "../../../core/main/algorithm.hpp"
+#include "../../../algorithm.hpp"
 #include "../lock_ptr.hpp"
 #include "../texture.hpp"
 #include "../conversion.hpp"

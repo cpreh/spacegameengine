@@ -15,7 +15,7 @@
 #include <boost/mpl/not.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/lambda.hpp>
-#include "../main/types.hpp"
+#include "../types.hpp"
 #include "./renderer_types.hpp"
 
 namespace sge

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <stdexcept>
-#include "../main/types.hpp"
+#include "../types.hpp"
 #include "../math/vector2.hpp"
 #include "../math/vector3.hpp"
 #include "./color.hpp"

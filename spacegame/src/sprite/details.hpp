@@ -5,9 +5,9 @@
 #include "../math/rect.hpp"
 #include "../renderer/texture.hpp"
 #include "../renderer/renderer.hpp"
-#include "../main/types.hpp"
-#include "../main/shared_ptr.hpp"
-#include "../main/bsp_tree.hpp"
+#include "../types.hpp"
+#include "../shared_ptr.hpp"
+#include "../bsp_tree.hpp"
 
 namespace sge
 {

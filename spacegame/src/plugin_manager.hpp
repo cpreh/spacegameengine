@@ -10,11 +10,11 @@
 #include "./library.hpp"
 #include "./window.hpp"
 #include "./plugin.hpp"
-#include "../renderer/renderer_system.hpp"
-#include "../input/input_system.hpp"
-#include "../image/image_loader.hpp"
-#include "../audio/audio_system.hpp"
-#include "../font/font_system.hpp"
+#include "./renderer/renderer_system.hpp"
+#include "./input/input_system.hpp"
+#include "./image/image_loader.hpp"
+#include "./audio/audio_system.hpp"
+#include "./font/font_system.hpp"
 
 namespace sge
 {

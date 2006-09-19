@@ -1,8 +1,8 @@
 #ifndef SGE_D3D_CONVERSION_HPP_INCLUDED
 #define SGE_D3D_CONVERSION_HPP_INCLUDED
 
-#include "../../core/renderer/renderer_types.hpp"
-#include "../../core/renderer/renderer_system.hpp"
+#include "../../renderer/renderer_types.hpp"
+#include "../../renderer/renderer_system.hpp"
 
 #include "./d3dinclude.hpp"
 

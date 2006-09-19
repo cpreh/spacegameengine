@@ -1,7 +1,7 @@
 #ifndef SGE_MATH_TYPES_HPP_INCLUDED
 #define SGE_MATH_TYPES_HPP_INCLUDED
 
-#include "../main/types.hpp"
+#include "../types.hpp"
 #include "./vector2.hpp"
 #include "./dim.hpp"
 #include "./rect.hpp"

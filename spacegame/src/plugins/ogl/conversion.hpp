@@ -1,7 +1,7 @@
 #ifndef SGE_OGL_CONVERSION_HPP_INCLUDED
 #define SGE_OGL_CONVERSION_HPP_INCLUDED
 
-#include "../../core/renderer/renderer_types.hpp"
+#include "../../renderer/renderer_types.hpp"
 #include "./extensions.hpp"
 
 namespace sge

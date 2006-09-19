@@ -3,7 +3,7 @@
 
 #include "./types.hpp"
 #include "./shared_ptr.hpp"
-#include "../math/dim.hpp"
+#include "./math/dim.hpp"
 #include "./shared_ptr.hpp"
 
 namespace sge

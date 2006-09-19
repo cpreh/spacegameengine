@@ -1,7 +1,7 @@
 #ifndef SGE_RENDERER_HPP_INCLUDED
 #define SGE_RENDERER_HPP_INCLUDED
 
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "./renderer_types.hpp"
 #include "./vertex_buffer.hpp"
 #include "./index_buffer.hpp"
@@ -11,7 +11,7 @@
 #include "./volume_texture.hpp"
 #include "./render_target.hpp"
 #include "../math/matrix4x4.hpp"
-#include "../main/window.hpp"
+#include "../window.hpp"
 
 namespace sge
 {

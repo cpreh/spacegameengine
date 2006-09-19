@@ -2,7 +2,7 @@
 #define SGE_IMAGE_HPP_INCLUDED
 
 #include <boost/utility.hpp>
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "../renderer/renderer_types.hpp"
 
 namespace sge

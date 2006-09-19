@@ -1,7 +1,7 @@
 #ifndef SGE_D3D_VOLUME_TEXTURE_HPP_INCLUDED
 #define SGE_D3D_VOLUME_TEXTURE_HPP_INCLUDED
 
-#include "../../core/renderer/volume_texture.hpp"
+#include "../../renderer/volume_texture.hpp"
 #include "./resource.hpp"
 #include "./texture_base.hpp"
 

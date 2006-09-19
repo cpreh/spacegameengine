@@ -3,8 +3,8 @@
 
 #include <string>
 #include <vector>
-#include "../main/shared_ptr.hpp"
-#include "../main/window.hpp"
+#include "../shared_ptr.hpp"
+#include "../window.hpp"
 #include "./audio_device.hpp"
 
 namespace sge

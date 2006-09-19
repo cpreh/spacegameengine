@@ -1,5 +1,5 @@
-#include "../../../core/main/algorithm.hpp"
-#include "../../../core/renderer/lock_ptr.hpp"
+#include "../../../algorithm.hpp"
+#include "../../../renderer/lock_ptr.hpp"
 #include "../index_buffer.hpp"
 #include "../conversion.hpp"
 

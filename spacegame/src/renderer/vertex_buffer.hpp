@@ -4,9 +4,9 @@
 #include <iterator>
 #include <cstddef>
 #include <boost/iterator/iterator_facade.hpp>
-#include "../main/shared_ptr.hpp"
-#include "../main/types.hpp"
-#include "../main/algorithm.hpp"
+#include "../shared_ptr.hpp"
+#include "../types.hpp"
+#include "../algorithm.hpp"
 #include "./vertex_format.hpp"
 #include "./renderer_types.hpp"
 

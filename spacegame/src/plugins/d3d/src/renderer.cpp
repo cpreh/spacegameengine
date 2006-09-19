@@ -1,11 +1,11 @@
 #include <iterator>
 #include <algorithm>
 #include <functional>
-#include "../../../core/main/ptr_cast.hpp"
-#include "../../../core/main/raw_vector.hpp"
-#include "../../../core/math/quaternion.hpp"
-#include "../../../core/main/util.hpp"
-#include "../../../core/renderer/transform.hpp"
+#include "../../../ptr_cast.hpp"
+#include "../../../raw_vector.hpp"
+#include "../../../math/quaternion.hpp"
+#include "../../../util.hpp"
+#include "../../../renderer/transform.hpp"
 #include "../renderer.hpp"
 #include "../texture.hpp"
 #include "../volume_texture.hpp"

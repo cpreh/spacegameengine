@@ -1,7 +1,7 @@
 #include <cstddef>
-#include "../../../core/main/bit.hpp"
-#include "../../../core/input/key_type.hpp"
-#include "../../../core/input/callback_handle.hpp"
+#include "../../../bit.hpp"
+#include "../../../input/key_type.hpp"
+#include "../../../input/callback_handle.hpp"
 #include "../input_system.hpp"
 #include <X11/keysym.h>
 #include <X11/Xlib.h>

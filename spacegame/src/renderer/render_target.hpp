@@ -1,7 +1,7 @@
 #ifndef SGE_RENDER_TARGET_HPP_INCLUDED
 #define SGE_RENDER_TARGET_HPP_INCLUDED
 
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "./texture.hpp"
 
 namespace sge

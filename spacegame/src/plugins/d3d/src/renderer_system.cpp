@@ -1,6 +1,6 @@
-#include "../../../core/main/ptr_cast.hpp"
-#include "../../../core/main/util.hpp"
-#include "../../../core/renderer/renderer_types.hpp"
+#include "../../../ptr_cast.hpp"
+#include "../../../util.hpp"
+#include "../../../renderer/renderer_types.hpp"
 #include "../renderer_system.hpp"
 #include "../conversion.hpp"
 #include "../renderer.hpp"
@@ -11,7 +11,7 @@ sge::d3d::renderer_system::renderer_system()
 {
 	sys = Direct3DCreate9(D3D_SDK_VERSION);
 	if(!sys)
-		throw std::runtime_error("Initialization of  failed");
+		throw std::runtime_error("Initialization of d3d failed");
 }
 
 void sge::d3d::renderer_system::get_renderer_caps(renderer_caps_array& v) const
@@ -25,9 +25,7 @@ void sge::d3d::renderer_system::get_renderer_caps(renderer_caps_array& v) const
 	}
 }
 
-sge::renderer_ptr sge::d3d::renderer_system::create_renderer(
-	                        const renderer_parameters& param,
-							int adapter)
+sge::renderer_ptr sge::d3d::renderer_system::create_renderer(const renderer_parameters& param, int adapter)
 {
 	if(adapter == use_best_renderer)
 	{

@@ -1,11 +1,10 @@
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
-#include "../../../core/main/raw_vector.hpp"
+#include "../../../raw_vector.hpp"
 
 namespace
 {
-	void fill_offset_info(sge::offset_info&, sge::vertex_size offset,
-		                  sge::vertex_usage u);
+	void fill_offset_info(sge::offset_info&, sge::vertex_size offset, sge::vertex_usage u);
 	BYTE get_vertex_type(sge::vertex_usage u);
 }
 

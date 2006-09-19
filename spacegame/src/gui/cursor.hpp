@@ -2,7 +2,7 @@
 #define SGE_GUI_CURSOR_HPP_INCLUDED
 
 #include "./types.hpp"
-#include "../core/sprite/sprite.hpp"
+#include "../sprite/sprite.hpp"
 #include <boost/utility.hpp>
 
 namespace sge

@@ -11,26 +11,26 @@ bin_path = workdir + prefix + '/bin'
 media_path = prefix + '/share/games/spacegame'
 
 core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/spacegame' + "\\\"", 'MEDIA_PATH':"\\\"" + media_path + "\\\""})
-libcore = core.SharedLibrary('sgecore', [glob('./core/main/src/*.cpp'), glob('./core/math/src/*.cpp'), glob('./core/renderer/src/*.cpp'), glob('./core/sprite/src/*.cpp')])
+libcore = core.SharedLibrary('sgecore', [glob('./src/src/*.cpp'), glob('./src/renderer/src/*.cpp'), glob('./src/sprite/src/*.cpp')])
 
 gui = Environment(LIBPATH = ['.'], LIBS = ['boost_filesystem', 'boost_signals', 'sgecore'], CCFLAGS = flags)
-libgui = gui.SharedLibrary('sgegui', [glob('./gui/src/*.cpp')])
+libgui = gui.SharedLibrary('sgegui', [glob('./src/gui/src/*.cpp')])
 
 ogl = Environment(LIBS = ['GL', 'X11', 'GLEW', 'Xxf86vm'], CCFLAGS = flags)
-libogl = ogl.SharedLibrary('sgeogl', [glob('./plugins/ogl/src/*.cpp')])
+libogl = ogl.SharedLibrary('sgeogl', [glob('./src/plugins/ogl/src/*.cpp')])
 
 devil = Environment(LIBS = ['IL', 'ILU'], CCFLAGS = flags)
-libdevil = devil.SharedLibrary('sgedevil', [glob('./plugins/devil/src/*.cpp')])
+libdevil = devil.SharedLibrary('sgedevil', [glob('./src/plugins/devil/src/*.cpp')])
 
 freetype = Environment(LIBS = ['freetype'], CCFLAGS = flags)
 freetype.Append(CCFLAGS = ' -I/usr/include/freetype2')
-libfreetype = freetype.SharedLibrary('sgefreetype', [glob('./plugins/freetype/src/*.cpp')])
+libfreetype = freetype.SharedLibrary('sgefreetype', [glob('./src/plugins/freetype/src/*.cpp')])
 
 xinput = Environment(LIBS = ['X11', 'Xxf86dga'], CCFLAGS = flags)
-libxinput = xinput.SharedLibrary('sgexinput', [glob('./plugins/xinput/src/*.cpp')])
+libxinput = xinput.SharedLibrary('sgexinput', [glob('./src/plugins/xinput/src/*.cpp')])
 
 #d3d = Environment(LIBS = ['winelib'], CCFLAGS = flags)
-#libd3d = d3d.SharedLibrary('sged3d', [glob('./plugins/d3d/src/*.cpp')])
+#libd3d = d3d.SharedLibrary('sged3d', [glob('./src/plugins/d3d/src/*.cpp')])
 
 test = Environment(LIBPATH = ['.'], LIBS = ['sgecore','sgegui'], CCFLAGS = flags)
 testapp = test.Program('sgetest', ['./test/test.cpp'])

@@ -1,4 +1,4 @@
-#include "../../core/input/key_type.hpp"
+#include "../../input/key_type.hpp"
 #include "../manager.hpp"
 #include "../skin.hpp"
 #include <boost/bind.hpp>

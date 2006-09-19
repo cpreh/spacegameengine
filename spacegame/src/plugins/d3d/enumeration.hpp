@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "./renderer_system.hpp"
-#include "../../core/main/win32_window.hpp"
+#include "../../win32_window.hpp"
 
 #include "./d3dinclude.hpp"
 

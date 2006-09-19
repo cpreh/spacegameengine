@@ -1,7 +1,7 @@
 #ifndef SGE_MUSIC_HPP_INCLUDED
 #define SGE_MUSIC_HPP_INCLUDED
 
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 
 namespace sge
 {

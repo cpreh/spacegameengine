@@ -4,7 +4,7 @@
 #include <boost/utility.hpp>
 #include <boost/signal.hpp>
 #include <boost/signals/connection.hpp>
-#include "../main/shared_ptr.hpp"
+#include "../shared_ptr.hpp"
 #include "./key_type.hpp"
 #include "./callback_handle.hpp"
 

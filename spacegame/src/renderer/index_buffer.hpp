@@ -3,8 +3,8 @@
 
 #include <cstddef>
 #include <iterator>
-#include "../main/shared_ptr.hpp"
-#include "../main/types.hpp"
+#include "../shared_ptr.hpp"
+#include "../types.hpp"
 #include "./renderer_types.hpp"
 
 namespace sge
