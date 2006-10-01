@@ -141,12 +141,12 @@ template<typename T, typename Ch, typename Traits> inline std::basic_ostream<Ch,
 
 template<typename T> inline T length_quad(const vector3<T>& l)
 {
-	return l.length();
+	return l.length_quad();
 }
 
 template<typename T> inline T length(const vector3<T>& l)
 {
-	return l.length_quad();
+	return l.length();
 }
 
 }
