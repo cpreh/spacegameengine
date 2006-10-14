@@ -3,15 +3,19 @@ from glob import glob
 workdir = ARGUMENTS.get('workdir', '')
 prefix = ARGUMENTS.get('prefix', '.')
 libdir = ARGUMENTS.get('libdir', 'lib')
+argflags = ARGUMENTS.get('flags', '')
 
-flags = '-Wall -ansi -pedantic -O3'
+flags = '-Wall -ansi -pedantic' + argflags
 lib_path = workdir + prefix + '/' + libdir
-plugin_path = lib_path + '/spacegame'
+plugin_path = lib_path + '/sge'
 bin_path = workdir + prefix + '/bin'
-media_path = prefix + '/share/games/spacegame'
+media_path = prefix + '/share/games/sge'
+header_path = workdir + prefix + '/include/sge'
 
-core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/spacegame' + "\\\"", 'MEDIA_PATH':"\\\"" + media_path + "\\\""})
-libcore = core.SharedLibrary('sgecore', [glob('./src/src/*.cpp'), glob('./src/renderer/src/*.cpp'), glob('./src/sprite/src/*.cpp')])
+core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/sge' + "\\\"", 'MEDIA_PATH':"\\\"" + media_path + "\\\""})
+libcore = core.SharedLibrary('sgecore', [glob('./src/src/*.cpp'),
+                                         glob('./src/renderer/src/*.cpp'),
+                                         glob('./src/sprite/src/*.cpp')])
 
 gui = Environment(LIBPATH = ['.'], LIBS = ['boost_filesystem', 'boost_signals', 'sgecore'], CCFLAGS = flags)
 libgui = gui.SharedLibrary('sgegui', [glob('./src/gui/src/*.cpp')])
@@ -36,4 +40,20 @@ test = Environment(LIBPATH = ['.'], LIBS = ['sgecore','sgegui'], CCFLAGS = flags
 testapp = test.Program('sgetest', ['./test/test.cpp'])
 
 installer = Environment()
-installer.Alias(target = "install", source = [core.Install(lib_path,libcore), gui.Install(lib_path,libgui), ogl.Install(plugin_path,libogl), devil.Install(plugin_path,libdevil), freetype.Install(plugin_path,libfreetype), xinput.Install(plugin_path,libxinput), test.Install(bin_path,testapp)])
+installer.Alias(target = "install", source = [core.Install(lib_path,libcore),
+                                              gui.Install(lib_path,libgui),
+                                              ogl.Install(plugin_path,libogl),
+                                              devil.Install(plugin_path,libdevil),
+                                              freetype.Install(plugin_path,libfreetype),
+                                              xinput.Install(plugin_path,libxinput),
+                                              test.Install(bin_path,testapp),
+                                              installer.Install(header_path,[glob('./src/*.hpp')]),
+                                              installer.Install(header_path + '/audio',[glob('./src/audio/*.hpp')]),
+                                              installer.Install(header_path + '/font',[glob('./src/font/*.hpp')]),
+                                              installer.Install(header_path + '/gui',[glob('./src/gui/*.hpp')]),
+                                              installer.Install(header_path + '/image',[glob('./src/image/*.hpp')]),
+                                              installer.Install(header_path + '/input',[glob('./src/input/*.hpp')]),
+                                              installer.Install(header_path + '/math',[glob('./src/math/*.hpp')]),
+                                              installer.Install(header_path + '/renderer',[glob('./src/renderer/*.hpp')]),
+                                              installer.Install(header_path + '/sprite',[glob('./src/sprite/*.hpp')])
+					      ])
