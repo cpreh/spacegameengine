@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
-#include "./types.hpp"
+#include "../math/types.hpp"
 #include "./sprite.hpp"
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
@@ -76,9 +76,7 @@ private:
 	renderer_ptr rend;
 	texture::size_type texsize;
 
-	typedef shared_ptr<fragmented_texture> fragmented_texture_ptr;
-	typedef std::list<fragmented_texture_ptr> fragmented_texture_list;
-	fragmented_texture_list fragmented_textures;
+	texture_manager tex_man;
 
 	typedef std::map<std::string, virtual_texture_ptr> virtual_texture_map;
 	virtual_texture_map virtual_textures;

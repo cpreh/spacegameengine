@@ -18,36 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAILS_HPP_INCLUDED
-#define SGE_SPRITE_DETAILS_HPP_INCLUDED
+#ifndef SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#define SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
-#include "../math/rect.hpp"
 #include "../renderer/texture.hpp"
 #include "../renderer/renderer.hpp"
 #include "../types.hpp"
-#include "../shared_ptr.hpp"
 #include "../bsp_tree.hpp"
+#include "./virtual_texture.hpp"
 
 namespace sge
 {
-
-class fragmented_texture;
-
-class virtual_texture : boost::noncopyable {
-public:
-	virtual_texture(const lock_rect&, fragmented_texture*);
-	~virtual_texture();
-	lock_rect area() const { return _area; }
-	texture_ptr my_texture() const;
-	void set_data(texture::const_pointer src);
-private:
-	lock_rect _area;
-	fragmented_texture* fragment;
-};
-
-typedef shared_ptr<virtual_texture> virtual_texture_ptr;
-typedef shared_ptr<const virtual_texture> const_virtual_texture_ptr;
 
 class fragmented_texture : boost::noncopyable {
 public:

@@ -18,9 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TYPES_HPP_INCLUDED
-#define SGE_SPRITE_TYPES_HPP_INCLUDED
+#include "../fragmented_texture.hpp"
 
-#include "../math/types.hpp"
+sge::fragmented_texture::fragmented_texture(const renderer_ptr r, const texture::size_type texsize)
+  : bsp(bsp_type::dim_type(texsize, texsize)),
+    tex(r->create_texture(0, texsize, texsize))
+{}
 
-#endif
+sge::virtual_texture_ptr sge::fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+{
+	bsp_type::iterator it = bsp.insert(bsp_type::dim_type(w,h));
+	if(it == bsp.end())
+		return virtual_texture_ptr();
+	return virtual_texture_ptr(new virtual_texture(*it, this));
+}
+
+void sge::fragmented_texture::return_fragments(const virtual_texture& t)
+{
+	bsp.erase(bsp.find(t.area()));
+}

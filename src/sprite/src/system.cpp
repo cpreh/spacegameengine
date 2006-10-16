@@ -40,7 +40,8 @@ void default_texture_not_present_handler(sge::sprite_system&, const std::string&
 sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_function handler)
  : texture_not_present_handler(handler == 0 ? default_texture_not_present_handler : handler),
    rend(rend),
-   texsize(512) // TODO: let the driver determinate the best texture size
+   texsize(512), // TODO: let the driver determinate the best texture size
+   tex_man(rend)
 {
 	const unsigned init_sprites = 25;
 	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
@@ -84,25 +85,8 @@ bool sge::sprite_system::add_texture(const texture::const_pointer src, const tex
 	if(virtual_textures.find(name) != virtual_textures.end())
 		return false;
 
-	for(fragmented_texture_list::iterator it = fragmented_textures.begin(); it != fragmented_textures.end(); ++it)
-		if(virtual_texture_ptr p = (*it)->consume_fragments(w,h))
-		{
-			insert_texture(p, src, name);
-			return true;
-		}
-		
-	fragmented_textures.push_back(fragmented_texture_ptr(new fragmented_texture(rend, texsize)));
-	if(virtual_texture_ptr p = fragmented_textures.back()->consume_fragments(w,h))
-	{
-		insert_texture(p,src,name);
-		return true;
-	}
-	// TODO: ask the driver if a texture this big can be created and do it
-	//throw std::runtime_error(std::string("sprite_system::add_texture(): failed to allocate texture \"") += name + "\" (texture may be too big)!");
-	// if(r->caps(MAX_TEX_SIZE) >= std::max(w,h))
-	
-	throw image_too_big();
-	return false;
+	virtual_textures[name] = tex_man.add_texture(src,w,h);
+	return true;
 }
 
 bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name)
