@@ -24,21 +24,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../helper.hpp"
 #include <boost/array.hpp>
 
-sge::sprite::sprite(sprite_system& s, const point p, const dim sz, const unsigned _z, const std::string& name, const bool vis)
-	: p(p), sz(sz), _z(_z), _rot(0), _use_rot_around(false), _visible(vis), s(s), tex(s.vtexture(name)), vb_pos(s.free_vb_pos()), my_place(s.attach(*this))
+sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const unsigned _z, const std::string& name, const bool vis)
+	: p(p), sz(sz), _z(_z), _rot(0), _use_rot_around(false), _visible(vis), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
 {}
 
 sge::sprite::sprite(const sprite& spr)
-	: p(spr.p), sz(spr.sz), _z(spr._z), _rot(spr._rot), _rot_around(spr._rot_around), _use_rot_around(spr._use_rot_around), s(spr.s), tex(spr.tex), vb_pos(s.free_vb_pos()), my_place(s.attach(*this))
+	: p(spr.p), sz(spr.sz), _z(spr._z), _rot(spr._rot), _rot_around(spr._rot_around), _use_rot_around(spr._use_rot_around), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
 {}
 
-void sge::sprite::set_texture(const std::string& name) { tex = s.vtexture(name); }
+void sge::sprite::set_texture(const std::string& name)
+{
+	tex = spr_sys.vtexture(name);
+}
 
-sge::sprite::~sprite() { s.detach(*this); }
+sge::sprite::~sprite()
+{
+	spr_sys.detach(*this);
+}
 
 void sge::sprite::update()
 {
-	update_where(s.vb->begin()+vb_pos);
+	update_where(spr_sys.vb->begin()+vb_pos);
 }
 
 void sge::sprite::update_where(vertex_buffer::iterator it)
@@ -62,18 +68,18 @@ void sge::sprite::draw()
 		return;
 	
 	boost::array<vertex_buffer::value_type,sizeof(space_unit)*5*4> buf; // FIXME: magic constants
-	update_where(s.vb->create_iterator(buf.c_array()));
-	s.vb->set_data(buf.data(),vb_pos,4);
+	update_where(spr_sys.vb->create_iterator(buf.c_array()));
+	spr_sys.vb->set_data(buf.data(),vb_pos,4);
 	
 	{
 	boost::array<index_buffer::value_type, detail::indices_per_sprite> buf;
 	update_ib(buf.c_array());
-	s.ib->set_data(buf.data(), 0, detail::indices_per_sprite);
+	spr_sys.ib->set_data(buf.data(), 0, detail::indices_per_sprite);
 	}
 
-	s.set_parameters();
-	s.r->set_texture(0,get_texture());
-	s.r->render(s.vb,s.ib,0,4,PT_Triangle,2);
+	spr_sys.set_parameters();
+	spr_sys.get_renderer()->set_texture(0,get_texture());
+	spr_sys.get_renderer()->render(spr_sys.vb,spr_sys.ib,0,4,PT_Triangle,2);
 }
 
 sge::texture_ptr sge::sprite::get_texture() const

@@ -42,10 +42,10 @@ namespace sge
 
 class sprite_system : boost::noncopyable {
 public:
-	typedef boost::function<void (const std::string&)> handler_function;
+	typedef boost::function<void (sprite_system&,const std::string&)> handler_function;
 	typedef matrix4x4<space_unit> matrix_type;
 
-	sprite_system(renderer_ptr r, handler_function not_found_handler = 0);
+	sprite_system(renderer_ptr rend, handler_function not_found_handler = 0);
 	bool add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const std::string& name);
 	bool add_texture(image_ptr im, const std::string& name);
 	bool remove_texture(const std::string& name);
@@ -53,6 +53,8 @@ public:
 	void clear();
 	void set_parameters();
 	void transform(const matrix_type& mat);
+
+	renderer_ptr get_renderer() const;
 	static const char* const no_texture;
 
 	class image_too_big : public std::logic_error {
@@ -60,7 +62,7 @@ public:
 		image_too_big() : std::logic_error("image in sprite_system::add_texture is too big") {}
 	};
 private:
-	virtual_texture_ptr vtexture(const std::string&) const;
+	virtual_texture_ptr vtexture(const std::string&);
 
 	void insert_texture(virtual_texture_ptr, texture::const_pointer src, const std::string& name);
 	sprite_list::iterator attach(sprite& s);
@@ -71,7 +73,7 @@ private:
 
 	handler_function texture_not_present_handler;
 	sprite_list sprites;
-	renderer_ptr r;
+	renderer_ptr rend;
 	texture::size_type texsize;
 
 	typedef shared_ptr<fragmented_texture> fragmented_texture_ptr;

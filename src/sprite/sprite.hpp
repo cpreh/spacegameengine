@@ -96,7 +96,7 @@ private:
 	point _rot_around;
 	bool _use_rot_around;
 	bool _visible;
-	sprite_system& s;
+	sprite_system& spr_sys;
 	const_virtual_texture_ptr tex;
 	vertex_buffer::size_type vb_pos;
 	sprite_list::iterator my_place;
