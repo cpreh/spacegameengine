@@ -40,7 +40,6 @@ void default_texture_not_present_handler(sge::sprite_system&, const std::string&
 sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_function handler)
  : texture_not_present_handler(handler == 0 ? default_texture_not_present_handler : handler),
    rend(rend),
-   texsize(512), // TODO: let the driver determinate the best texture size
    tex_man(rend)
 {
 	const unsigned init_sprites = 25;
@@ -95,7 +94,7 @@ bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name
 	{
 		return add_texture(im->data(),im->width(),im->height(),name);
 	}
-	catch(const image_too_big&)
+	catch(const texture_manager::image_too_big&)
 	{
 		const texture::size_type max_size = rend->caps().max_tex_size;
 		const unsigned factor = std::max(im->width(),im->height()) / max_size + 1;
@@ -104,12 +103,6 @@ bool sge::sprite_system::add_texture(const image_ptr im, const std::string& name
 		return add_texture(im->data(),im->width(),im->height(),name);
 	}
 	return false;
-}
-
-void sge::sprite_system::insert_texture(const virtual_texture_ptr t, const texture::const_pointer src, const std::string& name)
-{
-	t->set_data(src);
-	virtual_textures[name] = t;
 }
 
 bool sge::sprite_system::remove_texture(const std::string& name)

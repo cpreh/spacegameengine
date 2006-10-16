@@ -15,7 +15,8 @@ header_path = workdir + prefix + '/include/sge'
 core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/sge' + "\\\"", 'MEDIA_PATH':"\\\"" + media_path + "\\\""})
 libcore = core.SharedLibrary('sgecore', [glob('./src/src/*.cpp'),
                                          glob('./src/renderer/src/*.cpp'),
-                                         glob('./src/sprite/src/*.cpp')])
+                                         glob('./src/sprite/src/*.cpp'),
+                                         glob('./src/texture/src/*.cpp')])
 
 gui = Environment(LIBPATH = ['.'], LIBS = ['boost_filesystem', 'boost_signals', 'sgecore'], CCFLAGS = flags)
 libgui = gui.SharedLibrary('sgegui', [glob('./src/gui/src/*.cpp')])

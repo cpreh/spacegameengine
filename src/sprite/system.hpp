@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/renderer.hpp"
 #include "../image/image.hpp"
 #include "../math/matrix4x4.hpp"
+#include "../texture/manager.hpp"
 
 namespace sge
 {
@@ -56,15 +57,9 @@ public:
 
 	renderer_ptr get_renderer() const;
 	static const char* const no_texture;
-
-	class image_too_big : public std::logic_error {
-	public:
-		image_too_big() : std::logic_error("image in sprite_system::add_texture is too big") {}
-	};
 private:
 	virtual_texture_ptr vtexture(const std::string&);
 
-	void insert_texture(virtual_texture_ptr, texture::const_pointer src, const std::string& name);
 	sprite_list::iterator attach(sprite& s);
 	void detach(const sprite& s);
 	vertex_buffer::size_type free_vb_pos();
@@ -74,7 +69,6 @@ private:
 	handler_function texture_not_present_handler;
 	sprite_list sprites;
 	renderer_ptr rend;
-	texture::size_type texsize;
 
 	texture_manager tex_man;
 
