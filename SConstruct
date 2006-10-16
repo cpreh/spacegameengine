@@ -56,6 +56,6 @@ installer.Alias(target = "install", source = [core.Install(lib_path,libcore),
                                               installer.Install(header_path + '/input',[glob('./src/input/*.hpp')]),
                                               installer.Install(header_path + '/math',[glob('./src/math/*.hpp')]),
                                               installer.Install(header_path + '/renderer',[glob('./src/renderer/*.hpp')]),
-                                              installer.Install(header_path + '/sprite',[glob('./src/sprite/*.hpp')])#,
-#					      installer.Install(media_path,[glob('./media/*')])
+                                              installer.Install(header_path + '/sprite',[glob('./src/sprite/*.hpp')]),
+					      installer.Install(media_path + '/mainskin',[glob('./media/mainskin/*')])
 					      ])
