@@ -9,10 +9,11 @@ flags = '-Wall -ansi -pedantic -g' + argflags
 lib_path = workdir + prefix + '/' + libdir
 plugin_path = lib_path + '/sge'
 bin_path = workdir + prefix + '/bin'
-media_path = prefix + '/share/games/sge'
+media = '/share/games/sge'
+media_path = workdir + '/share/games/sge'
 header_path = workdir + prefix + '/include/sge'
 
-core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/sge' + "\\\"", 'MEDIA_PATH':"\\\"" + media_path + "\\\""})
+core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/sge' + "\\\"", 'MEDIA_PATH':"\\\"" + prefix + media + "\\\""})
 libcore = core.SharedLibrary('sgecore', [glob('./src/src/*.cpp'),
                                          glob('./src/renderer/src/*.cpp'),
                                          glob('./src/sprite/src/*.cpp'),
@@ -57,5 +58,6 @@ installer.Alias(target = "install", source = [core.Install(lib_path,libcore),
                                               installer.Install(header_path + '/math',[glob('./src/math/*.hpp')]),
                                               installer.Install(header_path + '/renderer',[glob('./src/renderer/*.hpp')]),
                                               installer.Install(header_path + '/sprite',[glob('./src/sprite/*.hpp')]),
+					      installer.Install(header_path + '/texture',[glob('./src/texture/*.hpp')]),
 					      installer.Install(media_path + '/mainskin',[glob('./media/mainskin/*')])
 					      ])
