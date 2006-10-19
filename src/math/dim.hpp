@@ -39,15 +39,47 @@ struct basic_dim {
 
 template<typename T> basic_dim<T> operator+(const basic_dim<T>& l, const basic_dim<T>& r)
 {
-	return basic_dim<T>(l.w+r.w,l.h+r.h);
+	return basic_dim<T>(l.w + r.w, l.h + r.h);
 }
+
 template<typename T> basic_dim<T> operator-(const basic_dim<T>& l, const basic_dim<T>& r)
 {
-	return basic_dim<T>(l.w-r.w,l.h-r.h);
+	return basic_dim<T>(l.w - r.w, l.h - r.h);
 }
+
+template<typename T> basic_dim<T> operator*(const basic_dim<T>& l, const basic_dim<T>& r)
+{
+	return basic_dim<T>(l.w * r.w, l.h * r.h);
+}
+
+template<typename T> basic_dim<T> operator/(const basic_dim<T>& l, const basic_dim<T>& r)
+{
+	return basic_dim<T>(l.w / r.w, l.h / r.h);
+}
+
+template<typename T> basic_dim<T> operator+(const T& l, const basic_dim<T>& r)
+{
+	return basic_dim<T>(l + r.w, l + r.h);
+}
+
+template<typename T> basic_dim<T> operator-(const T& l, const basic_dim<T>& r)
+{
+	return basic_dim<T>(l - r.w, l - r.h);
+}
+
 template<typename T> basic_dim<T> operator*(const T& l, const basic_dim<T>& r)
 {
-	return basic_dim<T>(l*r.w,l*r.h);
+	return basic_dim<T>(l * r.w, l * r.h);
+}
+
+template<typename T> basic_dim<T> operator/(const basic_dim<T>& l, const T& r)
+{
+	return basic_dim<T>(l.w / r, l.h / r);
+}
+
+template<typename T, typename Ch, typename Traits> std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& os, const basic_dim<T>& d)
+{
+	return os << '(' << d.w << ',' << d.h << ')';
 }
 
 typedef basic_dim<space_unit> dim;

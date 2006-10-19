@@ -108,6 +108,8 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 	{
 		send = text.end();
 		const font_unit width = line_width(sbeg, send, max_sz.w, flags);
+		if(width == 0)
+			break;
 
 		pos.x = start_pos.x;
 		if(flags & FTF_AlignHCenter)
@@ -216,6 +218,7 @@ sge::font_unit sge::font::line_width(string_type::const_iterator sbeg, string_ty
 				return last_width;
 			}
 			send = sbeg;
+			return w;
 		}
 		w = nw;
 	}
