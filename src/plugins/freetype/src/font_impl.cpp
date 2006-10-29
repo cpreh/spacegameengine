@@ -54,7 +54,7 @@ sge::font_entity sge::ft::font_impl::load_char(const font_char c)
 	if(buffer[index].tex)
 		return buffer[index];
 
-	if(FT_Load_Glyph(_face->impl, FT_Get_Char_Index(_face->impl, c), FT_LOAD_DEFAULT))
+	if(FT_Load_Glyph(_face->impl, FT_Get_Char_Index(_face->impl, c), FT_LOAD_DEFAULT)) // FIXME: convert c to codepoint
 		throw std::runtime_error("FT_Load_Glyph() failed");
 
 	FT_Glyph glyph;

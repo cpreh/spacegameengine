@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/X.h>
 #include <X11/extensions/xf86dga.h>
 
+#include <iostream>
+
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), mmwidth(mmap->max_keypermod), last_mouse(0), dga_guard(wnd)
 {
@@ -88,7 +90,10 @@ void sge::xinput::input_system::dispatch()
 		XComposeStatus state;
 		char keybuf[32];
 		KeySym ks;
-		const char ch = XLookupString(reinterpret_cast<XKeyEvent*>(&xev),keybuf,sizeof(keybuf),&ks,&state) == 1 ? keybuf[0] : 0;
+		const int num_chars = XLookupString(reinterpret_cast<XKeyEvent*>(&xev),keybuf,sizeof(keybuf),&ks,&state);
+		const uchar_t ch = num_chars == 1 ? keybuf[0] : 0;
+		if(num_chars > 1)
+			std::cerr << "stub: character '" << keybuf << "' in XLookupString has " << num_chars << " bytes!\n";
 		const key_type key(get_key_name(ks),modifiers,get_key_code(ks),ch);
 		sig(key_pair(key, xev.type == KeyRelease ? 0 : 1));
 	}

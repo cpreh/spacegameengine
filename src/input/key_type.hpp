@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_KEY_TYPE_HPP_INCLUDED
 #define SGE_KEY_TYPE_HPP_INCLUDED
 
-#include <string>
 #include <utility>
+#include "../string.hpp"
 
 namespace sge
 {
@@ -198,7 +198,7 @@ enum key_code {
 };
 
 struct key_type {
-	typedef char char_type;
+	typedef uchar_t char_type;
 	key_type(const std::string& name, const modifier_state& state = modifier_state(), const key_code code = KC_None, const char_type char_code = 0)
 		: name(name), state(state), code(code), char_code(char_code) {}
 	std::string name;

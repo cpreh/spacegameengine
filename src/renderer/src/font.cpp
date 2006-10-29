@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <locale>
+#include <vector>
+#include "../../types.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
@@ -64,8 +66,7 @@ void sge::font::transform(const matrix_type& m)
 	trans = m;
 }
 
-sge::font_size sge::font::draw_text(const string_type& text, const font_pos start_pos,
-                                    const font_size max_sz, const color col, const font_flag_t flags)
+sge::font_size sge::font::draw_text(const string_type& text, const font_pos start_pos, const font_size max_sz, const color col, const font_flag_t flags)
 {
 	if(text.empty() || height() > max_sz.h)
 		return font_size();
