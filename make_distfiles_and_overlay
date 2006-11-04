@@ -1,0 +1,16 @@
+VER=0.1_alpha2
+NAME=spacegameengine
+NAME_AND_VER=${NAME}-$VER
+ORIGIN=/home/sefi
+PORTDIR_OVERLAY=/usr/local/portage
+
+cd ${ORIGIN}
+rm -rf ${NAME_AND_VER}
+cp -R ${NAME} ${NAME_AND_VER}
+tar -cjf ${NAME_AND_VER}.tar.bz2 ${NAME_AND_VER}
+rm -rf ${NAME_AND_VER}
+mv ${NAME_AND_VER}.tar.bz2 /usr/portage/distfiles
+mkdir -p ${PORTDIR_OVERLAY}/games-engines/${NAME}
+cp ${NAME}/${NAME_AND_VER}.ebuild ${PORTDIR_OVERLAY}/games-engines/${NAME}
+cd ${PORTDIR_OVERLAY}/games-engines/${NAME}
+ebuild ${NAME_AND_VER}.ebuild digest manifest

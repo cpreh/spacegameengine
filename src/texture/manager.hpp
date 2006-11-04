@@ -18,32 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
-#define SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
+#define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include "../shared_ptr.hpp"
-#include "../renderer/texture.hpp"
+#include <list>
+#include <stdexcept>
 #include "../renderer/renderer.hpp"
-#include "../types.hpp"
-#include "../bsp_tree.hpp"
-#include "./virtual_texture.hpp"
+#include "../renderer/texture.hpp"
+#include "./fragmented_texture.hpp"
 
 namespace sge
 {
 
-class fragmented_texture : boost::noncopyable {
+class texture_manager {
 public:
-	fragmented_texture(renderer_ptr r, texture::size_type texsize);
-	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
-	void return_fragments(const virtual_texture&);
-	texture_ptr get_texture() const { return tex; }
+	texture_manager(renderer_ptr rend);
+	virtual_texture_ptr add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h);
+	renderer_ptr get_renderer() const;
+
+	class image_too_big : public std::runtime_error {
+	public:
+		image_too_big() : std::runtime_error("texture_manager::add_texture() image too big!") {}
+	};
 private:
-	typedef bsp_tree<texture::size_type> bsp_type;
-	bsp_type bsp;
-	texture_ptr tex;
+	typedef std::list<fragmented_texture_ptr> fragmented_texture_list;
+	fragmented_texture_list fragmented_textures;
+	renderer_ptr rend;
 };
-typedef shared_ptr<fragmented_texture> fragmented_texture_ptr;
 
 }
 
