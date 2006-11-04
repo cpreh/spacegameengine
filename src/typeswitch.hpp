@@ -48,12 +48,10 @@ typedef boost::mpl::list<unsigned char, unsigned short, unsigned, unsigned long>
 typedef typeswitch<signed_types, 8>::type int8;
 typedef typeswitch<signed_types,16>::type int16;
 typedef typeswitch<signed_types,32>::type int32;
-typedef typeswitch<signed_types,64>::type int64;
 
 typedef typeswitch<unsigned_types, 8>::type uint8;
 typedef typeswitch<unsigned_types,16>::type uint16;
 typedef typeswitch<unsigned_types,32>::type uint32;
-typedef typeswitch<unsigned_types,64>::type uint64;
 
 }
 

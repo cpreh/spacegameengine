@@ -1,17 +1,19 @@
 from glob import glob
 
-workdir = ARGUMENTS.get('workdir', '')
+sandbox = ARGUMENTS.get('sandbox', '')
 prefix = ARGUMENTS.get('prefix', '.')
 libdir = ARGUMENTS.get('libdir', 'lib')
 argflags = ARGUMENTS.get('flags', '')
 
-flags = '-Wall -ansi -pedantic -g' + argflags
-lib_path = workdir + prefix + '/' + libdir
+sandboxprefix = sandbox + prefix
+
+flags = '-Wall -ansi -pedantic' + argflags
+lib_path = sandboxprefix + '/' + libdir
 plugin_path = lib_path + '/sge'
-bin_path = workdir + prefix + '/bin'
+bin_path = sandboxprefix + '/bin'
 media = '/share/games/sge'
-media_path = workdir + '/share/games/sge'
-header_path = workdir + prefix + '/include/sge'
+media_path = sandboxprefix + media
+header_path = sandboxprefix + '/include/sge'
 
 core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/sge' + "\\\"", 'MEDIA_PATH':"\\\"" + prefix + media + "\\\""})
 libcore = core.SharedLibrary('sgecore', [glob('./src/src/*.cpp'),

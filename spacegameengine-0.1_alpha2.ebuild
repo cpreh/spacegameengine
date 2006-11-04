@@ -35,46 +35,10 @@ pkg_setup() {
 }
 
 src_compile() {
-	scons ${MAKEOPTS} prefix=/usr workdir=${WORKDIR} libdir=$(get_libdir)
-	flags=${CXXFLAGS} || die
+	scons sandbox=${D} prefix=/usr libdir=$(get_libdir) || die
 }
 
 src_install() {
-	scons install prefix=/usr workdir=${WORKDIR} libdir=$(get_libdir) || die
-
-	WU=${WORKDIR}/usr
-	WI=${WU}/include/sge
-
-	insinto /usr/include/sge
-	doins ${WI}/*.hpp
-	insinto /usr/include/sge/renderer
-	doins ${WI}/renderer/*.hpp
-	insinto /usr/include/sge/input
-	doins ${WI}/input/*.hpp
-	insinto /usr/include/sge/font
-	doins ${WI}/font/*.hpp
-	insinto /usr/include/sge/image
-	doins ${WI}/image/*.hpp
-	insinto /usr/include/sge/sprite
-	doins ${WI}/sprite/*.hpp
-	insinto /usr/include/sge/math
-	doins ${WI}/math/*.hpp
-	insinto /usr/include/sge/audio
-	doins ${WI}/audio/*.hpp
-	insinto /usr/include/sge/gui
-	doins ${WI}/gui/*.hpp
-	insinto /usr/include/sge/texture
-	doins ${WI}/texture/*.hpp
-
-	insinto /usr/share/games/sge/mainskin
-	doins media/mainskin/*.png
-
-	exeinto /usr/bin
-	doexe sgetest
-
-	insinto /usr/$(get_libdir)/sge/
-	doins ${WU}/$(get_libdir)/sge/*.so
-
-	insinto /usr/$(get_libdir)/
-	doins ${WU}/$(get_libdir)/*.so
+	einfo ${D}
+	scons install sandbox=${D} prefix=/usr libdir=$(get_libdir) || die
 }
