@@ -85,10 +85,7 @@ template<typename T> inline bool contains(const basic_rect<T>& outer, const basi
 
 template<typename T> inline bool intersects(const basic_rect<T>& l, const basic_rect<T>& r)
 {
-	return ((l.left <= r.left && r.left <= l.right) ||
-	       (l.left <= r.right && r.right <= l.right)) &&
-	       ((l.top <= r.top && r.top <= l.bottom) ||
-	       (l.top <= r.bottom && r.bottom <= l.bottom));
+	return !(l.bottom < r.top || l.top > r.bottom || l.right < r.left || l.left > r.right);
 }
 
 template<typename T> inline bool intersects(const basic_rect<T>& r, const line_seg2<T>& l)

@@ -34,14 +34,17 @@ public:
 	key_state_tracker(input_system_ptr);
 	key_state operator[](const key_code&);
 	key_state operator[](const key_type&);
+	key_state operator[](const key_type::char_type&);
 private:
 	void event_handler(const key_pair& key);
 
 	typedef std::map<key_code, key_state> key_code_map;
 	typedef std::map<key_type, key_state> key_type_map;
+	typedef std::map<key_type::char_type, key_state> key_char_map;
 	callback_handle _cb;
 	key_code_map key_codes;
 	key_type_map key_types;
+	key_char_map key_chars;
 };
 
 }

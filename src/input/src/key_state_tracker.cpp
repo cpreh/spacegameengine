@@ -35,8 +35,14 @@ sge::key_state sge::key_state_tracker::operator[](const key_type& c)
 	return key_types[c];
 }
 
+sge::key_state sge::key_state_tracker::operator[](const key_type::char_type& c)
+{
+	return key_chars[c];
+}
+
 void sge::key_state_tracker::event_handler(const key_pair& key)
 {
 	key_codes[key.first.code] = key.second;
 	key_types[key.first] = key.second;
+	key_chars[key.first.char_code] = key.second;
 }

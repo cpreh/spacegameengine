@@ -75,7 +75,7 @@ void sge::sprite_system::draw(const vector2 trans)
 {
 	sprite_list to_draw;
 	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); ++it)
-		if(intersects((*it)->get_rect() - trans, rect(0,0,1,1)))
+		if(intersects(rect(0,0,1,1), (*it)->get_rect() - trans))
 				to_draw.push_back(*it);
 
 	to_draw.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));

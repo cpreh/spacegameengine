@@ -57,7 +57,7 @@ try
 	const std::string bender_name("bender");
 
 	ss.add_texture(im,bender_name);
-	sge::sprite spr(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
+	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,bender_name);
 //	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 	sge::gui::manager man(rend,is,fn,pl,sge::media_path() + "/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
@@ -91,6 +91,7 @@ try
 
 	sge::key_state_tracker ks(is);
 
+	sge::vector2 translation;
 	while(running)
 	{
 		if(frames.update())
@@ -100,13 +101,17 @@ try
 		}
 		if(ks[sge::KC_LEFT])
 	//	if(timer.update())
-			angle += sge::PI*0.01;
+//			angle += sge::PI*0.01;
+			translation.x -= 0.001;
 		if(ks[sge::KC_RIGHT])
-			angle -= sge::PI*0.01;
+//			angle -= sge::PI*0.01;
+			translation.x += 0.001;
+		if(ks['a'])
+			translation.y -= 0.001;
 
 		rend->begin_rendering();
 		is->dispatch();
-		ss.draw(sge::vector2(-0.5,-0.5));
+		ss.draw(translation);
 		man.process();
 		fn.transform(sge::matrix_rotation_z(angle));
 		fn.height(0.05);
