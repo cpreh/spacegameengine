@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_HPP_INCLUDED
 #define SGE_SPRITE_HPP_INCLUDED
 
-#include <list>
 #include <string>
 #include "../math/rect.hpp"
 #include "../math/vector2.hpp"
@@ -33,19 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture.hpp"
 #include "../math/types.hpp"
 #include "../texture/virtual_texture.hpp"
+#include "./sprite_fwd.hpp"
 
 namespace sge
 {
-
-class sprite_system;
-class sprite;
-typedef std::list<sprite*> sprite_list;
-
-namespace detail
-{
-	const index_buffer::size_type indices_per_sprite = 6;
-	const vertex_buffer::size_type vertices_per_sprite = 4;
-}
 
 class sprite {
 public:
@@ -72,9 +62,6 @@ public:
 	bool visible() const { return _visible; }
 	rect get_rect() const { return rect(pos(),size()); }
 	point center() const; 
-	void rotate(space_unit angle) { _rot = angle; }
-	void rotate_acc(space_unit angle);
-	void rotate_around(const point* p);
 
 	void draw();
 	~sprite();
@@ -83,6 +70,7 @@ public:
 	static bool less(const sprite& l, const sprite& r);
 private:
 	friend class sprite_system;
+	friend class sprite_drawer;
 
 	texture_ptr get_texture() const;
 	void update_where(vertex_buffer::iterator where);
@@ -93,8 +81,6 @@ private:
 	dim sz;
 	unsigned _z;
 	space_unit _rot;
-	point _rot_around;
-	bool _use_rot_around;
 	bool _visible;
 	sprite_system& spr_sys;
 	const_virtual_texture_ptr tex;

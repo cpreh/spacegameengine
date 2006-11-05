@@ -18,52 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
-#define SGE_SPRITE_SYSTEM_HPP_INCLUDED
+#ifndef SGE_TEXTURE_MAP_HPP_INCLUDED
+#define SGE_TEXTURE_MAP_HPP_INCLUDED
 
-#include <list>
 #include <string>
-#include <vector>
-#include <boost/function.hpp>
+#include <map>
 #include <boost/noncopyable.hpp>
-#include "../math/types.hpp"
-#include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
+#include <boost/function.hpp>
+#include "../texture/manager.hpp"
 #include "../renderer/renderer.hpp"
-#include "../math/matrix4x4.hpp"
-#include "./sprite_fwd.hpp"
-#include "./texture_map.hpp"
-#include "./sprite_drawer.hpp"
+#include "../image/image.hpp"
 
 namespace sge
 {
 
-class sprite_system : public texture_map {
+class texture_map : boost::noncopyable {
 public:
-	sprite_system(renderer_ptr rend, handler_function not_found_handler = 0);
-	void draw(vector2 translation = vector2());
+	typedef boost::function<void (texture_map&,const std::string&)> handler_function;
 
-	void set_parameters();
-	renderer_ptr get_renderer() const;
+	texture_map(renderer_ptr rend, handler_function not_found_handler = 0);
+	bool add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const std::string& name);
+	bool add_texture(image_ptr im, const std::string& name); // TODO: move this helper function somewhere else
+	bool remove_texture(const std::string& name);
+	
+	static const char* const no_texture;
 private:
-	sprite_list::iterator attach(sprite& s);
-	void detach(const sprite& s);
-	vertex_buffer::size_type free_vb_pos();
-
 	friend class sprite;
 
-	sprite_list sprites;
+	virtual_texture_ptr vtexture(const std::string&);
 
 	renderer_ptr rend;
-	sprite_drawer drawer;
-
-	vertex_buffer_ptr vb;
-	index_buffer_ptr ib;
-	typedef std::vector<vertex_buffer::size_type> free_pos_vector;
-	free_pos_vector free_pos;
+	handler_function texture_not_present_handler;
+	texture_manager tex_man;
+	
+	typedef std::map<std::string, virtual_texture_ptr> virtual_texture_map;
+	virtual_texture_map virtual_textures;
 };
 
 }
 
 #endif
-

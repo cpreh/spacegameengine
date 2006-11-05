@@ -1,8 +1,7 @@
 #include "../iconv.hpp"
 #include "../types.hpp"
 #include <cerrno>
-#include <boost/scoped_array.hpp>
-
+#include <locale>
 
 #ifdef SGE_LINUX_PLATFORM
 #include <iconv.h>
@@ -27,14 +26,16 @@ struct iconv_instance {
 		std::size_t result = iconv(conv, const_cast<char**>(inbuf), inbytes, outbuf, outbytes);
 		if ((result == static_cast<std::size_t>(-1)) && (errno == EINVAL))
 			throw sge::conversion_failed();
-		return
-			bytesread - *inbytes;
+		return bytesread - *inbytes;
 	}
 };
 
-sge::string encoding_to_string(const encoding& to)
+std::string encoding_to_string(const sge::encoding& to)
 {
+	using namespace sge;
 	switch(to) {
+	case enc_char_locale:
+		return std::locale().name();
 	case enc_utf8:
 		return "UTF-8";
 	case enc_ucs_4_internal:
@@ -44,30 +45,39 @@ sge::string encoding_to_string(const encoding& to)
 	}
 }
 
+const sge::encoding internal_encoding = sge::enc_ucs_4_internal;
+
+template<typename To, typename From>
+To _iconv(const From& input, const sge::encoding from, const sge::encoding to)
+{
+	iconv_instance ic(encoding_to_string(from), encoding_to_string(to));
+	To output;
+	
+	const std::size_t buf_size = 512;
+	char arr[buf_size];
+
+	const char *ib = reinterpret_cast<const char*>(input.c_str());
+	std::size_t in_size  = sizeof(typename From::value_type) * input.size();
+	while(in_size)
+	{
+		std::size_t out_size = buf_size;
+		char *ob = arr;
+		ic.convert(&ib, &in_size, &ob, &out_size);
+		output += To(reinterpret_cast<typename To::const_pointer>(&arr[0]), (buf_size - out_size) / sizeof(typename To::value_type));
+	}
+	return output;
 }
 
-// defined from iconv.h
-#undef iconv
+}
 
-const char* const internal_encoding = "UCS-4-INTERNAL";
-
-void sge::iconv(const ustring& input, string& output, const encoding to)
+sge::ustring sge::iconv(const std::string& input, const encoding from)
 {
-	output.clear();
-	iconv_instance ic(internal_encoding, encoding_to_string(to));
-	std::size_t len = 1;
-	while(len)
-	{
-		const std::size_t buf_size = 512;
-		boost::scoped_array<char> arr(new char[buf_size]);
-		std::size_t in_size  = sizeof(uchar_t) * input.size();
-		std::size_t out_size = sizeof(char   ) * len;
-		const char *ib = reinterpret_cast<const char*>(input.c_str());
-		      char *ob = reinterpret_cast<      char*>(arr.get());
-		std::size_t res = ic.convert(&ib, &in_size, &ob, &out_size);
-		len = res / sizeof(uchar_t);
-		output += string(arr.get(), buf_size - out_size);
-	}
+	return _iconv<ustring>(input, from, internal_encoding);
+}
+
+std::string sge::iconv(const ustring& input, const encoding to)
+{
+	return _iconv<std::string>(input, internal_encoding, to);
 }
 
 #endif

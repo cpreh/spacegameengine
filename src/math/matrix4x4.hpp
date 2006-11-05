@@ -209,9 +209,9 @@ template<typename T> inline matrix4x4<T> inverse(const matrix4x4<T>& r)
 
 template<typename T> inline matrix4x4<T> matrix_translation(const vector3<T>& v)
 {
-	return matrix4x4<T>(1, 0, 0, 0,
-	                    0, 1, 0, 0,
-	                    0, 0, 1, 0,
+	return matrix4x4<T>(  1,   0,   0, 0,
+	                      0,   1,   0, 0,
+	                      0,   0,   1, 0,
 	                    v.x, v.y, v.z, 1);
 }
 

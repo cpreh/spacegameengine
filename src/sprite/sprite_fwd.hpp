@@ -18,34 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_HPP_INCLUDED
-#define SGE_TIMER_HPP_INCLUDED
+#ifndef SGE_SPRITE_FWD_HPP_INCLUDED
+#define SGE_SPRITE_FWD_HPP_INCLUDED
 
-#include "./time.hpp"
+#include <list>
+#include "../renderer/vertex_buffer.hpp"
+#include "../renderer/index_buffer.hpp"
 
 namespace sge
 {
 
-class timer {
-public:
-	typedef float frames_type;
-	typedef time_type interval_type;
+class sprite_system;
+class sprite;
+typedef std::list<sprite*> sprite_list;
 
-	timer(interval_type interval);
-	frames_type update();
-	frames_type elapsed_frames() const;
-	void reset();
-	bool expired() const;
-	interval_type interval() const { return _interval; }
-	interval_type last_time() const { return _last_time; }
-	void activate();
-	void deactivate();
-	bool active() const { return _active; }
-private:
-	interval_type _interval,
-	              _last_time;
-	bool          _active;
-};
+namespace detail
+{
+	const index_buffer::size_type indices_per_sprite = 6;
+	const vertex_buffer::size_type vertices_per_sprite = 4;
+}
 
 }
 

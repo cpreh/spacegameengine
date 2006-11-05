@@ -18,34 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_HPP_INCLUDED
-#define SGE_TIMER_HPP_INCLUDED
+#ifndef SGE_TIME_HPP_INCLUDED
+#define SGE_TIME_HPP_INCLUDED
 
-#include "./time.hpp"
+#include "./types.hpp"
+
+#ifdef SGE_LINUX_PLATFORM
+#include <sys/time.h>
+#elif SGE_WINDOWS_PLATFORM
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
 
 namespace sge
 {
+#ifdef SGE_LINUX_PLATFORM
+	typedef suseconds_t time_type;
+#elif SGE_WINDOWS_PLATFORM
+	typedef DWORD time_type;
+#endif
 
-class timer {
-public:
-	typedef float frames_type;
-	typedef time_type interval_type;
-
-	timer(interval_type interval);
-	frames_type update();
-	frames_type elapsed_frames() const;
-	void reset();
-	bool expired() const;
-	interval_type interval() const { return _interval; }
-	interval_type last_time() const { return _last_time; }
-	void activate();
-	void deactivate();
-	bool active() const { return _active; }
-private:
-	interval_type _interval,
-	              _last_time;
-	bool          _active;
-};
+time_type time();
 
 }
 

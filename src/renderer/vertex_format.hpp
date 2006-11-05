@@ -60,7 +60,7 @@ template<> struct vertex_traits<VU_Normal> {
 };
 template<> struct vertex_traits<VU_Tex> {
 	typedef space_unit             element_type;
-	typedef vector2<element_type>* packed_type;
+	typedef basic_vector2<element_type>* packed_type;
 };
 template<> struct vertex_traits<VU_Diffuse> {
 	typedef int          element_type;

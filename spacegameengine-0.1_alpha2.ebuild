@@ -39,6 +39,5 @@ src_compile() {
 }
 
 src_install() {
-	einfo ${D}
 	scons install sandbox=${D} prefix=/usr libdir=$(get_libdir) || die
 }

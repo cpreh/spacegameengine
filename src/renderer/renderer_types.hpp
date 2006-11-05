@@ -108,9 +108,8 @@ enum lock_flags {
 };
 typedef unsigned lock_flag_t;
 
-typedef vector2<space_unit>    tex_pos;
+typedef vector2                tex_pos;
 typedef vector3<space_unit>    pos3;
-typedef vector2<space_unit>    point;
 typedef uint32                 int_type;
 typedef space_unit             float_type;
 typedef bool                   bool_type;
@@ -236,7 +235,7 @@ private:
 };
 
 struct view_port {
-	typedef vector2<space_unit> pos_type;
+	typedef vector2 pos_type;
 	pos_type     pos;
 	pos_type     sz;
 	space_unit   nearz;

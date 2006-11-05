@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/array.hpp>
 
 sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const unsigned _z, const std::string& name, const bool vis)
-	: p(p), sz(sz), _z(_z), _rot(0), _use_rot_around(false), _visible(vis), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
+	: p(p), sz(sz), _z(_z), _visible(vis), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
 {}
 
 sge::sprite::sprite(const sprite& spr)
-	: p(spr.p), sz(spr.sz), _z(spr._z), _rot(spr._rot), _rot_around(spr._rot_around), _use_rot_around(spr._use_rot_around), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
+	: p(spr.p), sz(spr.sz), _z(spr._z), _visible(spr._visible), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
 {}
 
 void sge::sprite::set_texture(const std::string& name)
@@ -50,10 +50,7 @@ void sge::sprite::update()
 void sge::sprite::update_where(vertex_buffer::iterator it)
 {
 	const rect tex_rect = get_texture() ? tex_size_to_space_rect(tex->area(), get_texture()->width(), get_texture()->height()) : rect();
-	if(_rot == 0)
-		fill_sprite_vertices(it, get_rect(), tex_rect);
-	else
-		fill_sprite_vertices_rotated(it, get_rect(), _rot, _use_rot_around ? _rot_around : center(), tex_rect);
+	fill_sprite_vertices(it, get_rect(), tex_rect);
 }
 
 sge::index_buffer::iterator sge::sprite::update_ib(index_buffer::iterator it)
@@ -90,22 +87,6 @@ sge::texture_ptr sge::sprite::get_texture() const
 sge::point sge::sprite::center() const
 {
 	return point(x() + width() / 2, y() + height() / 2);
-}
-
-void sge::sprite::rotate_acc(const space_unit r)
-{
-	_rot += r;
-	if(_rot > 2*PI)
-		_rot -= 2*PI;
-	if(_rot < 0)
-		_rot += 2*PI;
-}
-
-void sge::sprite::rotate_around(const point* const p)
-{
-	_use_rot_around = p;
-	if(p)
-		_rot_around = *p;
 }
 
 bool sge::sprite::equal_texture(const sprite& l, const sprite& r)

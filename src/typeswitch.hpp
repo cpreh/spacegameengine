@@ -21,37 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TYPESWITCH_HPP_INCLUDED
 #define SGE_TYPESWITCH_HPP_INCLUDED
 
-#include <limits>
-#include <boost/mpl/list.hpp>
-#include <boost/mpl/find_if.hpp>
+#include <boost/cstdint.hpp>
 
 namespace sge
 {
-template<typename T> struct type_bits {
-	enum { value = std::numeric_limits<T>::is_signed
-		? std::numeric_limits<T>::digits + 1
-		: std::numeric_limits<T>::digits };
-};
 
-template<unsigned Bits> struct has_bits {
-	template<typename Param>
-		struct apply : public boost::mpl::bool_<type_bits<Param>::value == Bits> {};
-};
+typedef boost::int8_t  int8;
+typedef boost::int16_t int16;
+typedef boost::int32_t int32;
+typedef boost::int64_t int64;
 
-template<typename TList, unsigned Bits> struct typeswitch
-	: boost::mpl::deref<typename boost::mpl::find_if<TList, has_bits<Bits> >::type>
-{};
-
-typedef boost::mpl::list<char, short, int, long> signed_types;
-typedef boost::mpl::list<unsigned char, unsigned short, unsigned, unsigned long> unsigned_types;
-
-typedef typeswitch<signed_types, 8>::type int8;
-typedef typeswitch<signed_types,16>::type int16;
-typedef typeswitch<signed_types,32>::type int32;
-
-typedef typeswitch<unsigned_types, 8>::type uint8;
-typedef typeswitch<unsigned_types,16>::type uint16;
-typedef typeswitch<unsigned_types,32>::type uint32;
+typedef boost::uint8_t  uint8;
+typedef boost::uint16_t uint16;
+typedef boost::uint32_t uint32;
+typedef boost::uint64_t uint64;
 
 }
 

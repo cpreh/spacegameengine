@@ -29,7 +29,25 @@ namespace sge
 
 typedef uint32 uchar_t;
 typedef std::basic_string<uchar_t> ustring;
-typedef std::string string;
+
+class string : public ustring {
+public:
+	string(const std::string& s, std::string::size_type pos = 0, std::string::size_type n = npos, const allocator_type& alloc = allocator_type());
+	string(std::string::const_pointer p, std::string::size_type n, const allocator_type& alloc = allocator_type());
+	string(std::string::const_pointer p, const allocator_type& alloc = allocator_type());
+	string(std::string::size_type n, std::string::value_type c, const allocator_type& alloc = allocator_type());
+/*	template<typename In>
+		string(In beg, In end, const allocator_type& alloc = allocator_type())
+	{
+	}*/
+	
+	explicit string(const allocator_type& alloc = allocator_type());
+	string(const string& s, size_type pos = 0, size_type n = npos, const allocator_type& alloc = allocator_type());
+	string(const_pointer p, size_type n, const allocator_type& alloc = allocator_type());
+	string(const_pointer p, const allocator_type& alloc = allocator_type());
+	string(size_type n, value_type c, const allocator_type& alloc = allocator_type());
+
+};
 
 }
 

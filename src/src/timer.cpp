@@ -19,27 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../timer.hpp"
-#include "../bin_io.hpp"
-#include <stdexcept>
-
-namespace {
-sge::timer::interval_type read_clock()
-{
-#ifdef SGE_LINUX_PLATFORM
-	struct timeval tv;
-	struct timezone tz;
-	if(gettimeofday(&tv,&tz) != 0)
-		throw std::runtime_error("gettimeofday() failed");
-	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
-#elif SGE_WINDOWS_PLATFORM
-	return GetTickCount();
-#endif
-}
-}
 
 sge::timer::timer(const interval_type _interval)
 : _interval(_interval),
-  _last_time(read_clock()),
+  _last_time(time()),
   _active(true)
 {}
 
@@ -49,9 +32,9 @@ sge::timer::frames_type sge::timer::update()
 		return 0;
 
 	const frames_type f = elapsed_frames();
-	if(f > 0)
+	if(f >= 1)
 		reset();
-	return f;
+	return f < 1 ? 0 : f;
 }
 
 sge::timer::frames_type sge::timer::elapsed_frames() const
@@ -59,16 +42,14 @@ sge::timer::frames_type sge::timer::elapsed_frames() const
 	if(!_active)
 		return 0;
 
-	const interval_type ntime = read_clock(),
+	const interval_type ntime = time(),
 	                    dif = ntime - last_time();
-	if(dif < interval())
-		return 0;
 	return frames_type(dif) / interval();
 }
 
 void sge::timer::reset()
 {
-	_last_time = read_clock();
+	_last_time = time();
 }
 
 bool sge::timer::expired() const

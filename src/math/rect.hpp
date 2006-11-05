@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RECT_HPP_INCLUDED
 #define SGE_RECT_HPP_INCLUDED
 
-#include "./vector2.hpp"
 #include "./line_seg2.hpp"
 #include "./dim.hpp"
 #include "./vector2.hpp"
@@ -31,7 +30,7 @@ namespace sge
 
 template<typename T> struct basic_rect {
 	typedef T value_type;
-	typedef vector2<T> point_type;
+	typedef basic_vector2<T> point_type;
 	typedef basic_dim<T> dim_type;
 
 	basic_rect(const value_type& left  = value_type(), const value_type& top    = value_type(),
@@ -67,7 +66,7 @@ template<typename T> inline bool operator!=(const basic_rect<T>& l, const basic_
 	return !(l==r);
 }
 
-template<typename T> inline bool intersects(const basic_rect<T>& r, const vector2<T>& p)
+template<typename T> inline bool intersects(const basic_rect<T>& r, const basic_vector2<T>& p)
 {
 	return p.x >= r.left && p.x <= r.right &&
 	       p.y >= r.top  && p.y <= r.bottom;
@@ -96,7 +95,7 @@ template<typename T> inline bool intersects(const basic_rect<T>& r, const line_s
 	       intersects(line_seg2<T>(vec(r.right, r.top),    vec(r.left,  r.top)),    l);
 }
 
-template<typename T> inline basic_rect<T> operator+(const basic_rect<T>& l, const vector2<T>& r)
+template<typename T> inline basic_rect<T> operator+(const basic_rect<T>& l, const basic_vector2<T>& r)
 {
 	return basic_rect<T>(l.left + r.x, l.top + r.y, l.right + r.x, l.bottom + r.y);
 }

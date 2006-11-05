@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../handler.hpp"
-#include "../system.hpp"
+#include "../texture_map.hpp"
 #include <boost/filesystem/convenience.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -28,7 +28,7 @@ sge::image_loader_handler::image_loader_handler(const std::string& path, const i
  : path(path), il(il)
 {}
 
-bool sge::image_loader_handler::operator()(sprite_system& ss, const std::string& name) const
+bool sge::image_loader_handler::operator()(texture_map& ss, const std::string& name) const
 {
 	const boost::filesystem::directory_iterator end;
 	for(boost::filesystem::directory_iterator it(path); it != end; ++it)

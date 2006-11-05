@@ -18,35 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_HPP_INCLUDED
-#define SGE_TIMER_HPP_INCLUDED
+#include <stdexcept>
+#include "../time.hpp"
 
-#include "./time.hpp"
-
-namespace sge
+sge::time_type sge::time()
 {
-
-class timer {
-public:
-	typedef float frames_type;
-	typedef time_type interval_type;
-
-	timer(interval_type interval);
-	frames_type update();
-	frames_type elapsed_frames() const;
-	void reset();
-	bool expired() const;
-	interval_type interval() const { return _interval; }
-	interval_type last_time() const { return _last_time; }
-	void activate();
-	void deactivate();
-	bool active() const { return _active; }
-private:
-	interval_type _interval,
-	              _last_time;
-	bool          _active;
-};
-
-}
-
+#ifdef SGE_LINUX_PLATFORM
+	struct timeval tv;
+	struct timezone tz;
+	if(gettimeofday(&tv,&tz) != 0)
+		throw std::runtime_error("gettimeofday() failed");
+	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+#elif SGE_WINDOWS_PLATFORM
+	return GetTickCount();
 #endif
+}

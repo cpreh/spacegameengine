@@ -34,22 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/gui/icon_button.hpp"
 #include "../src/gui/frame.hpp"
 #include <boost/lambda/lambda.hpp>
-#include <boost/bind.hpp>
+#include <boost/lambda/if.hpp>
 #include <sstream>
 #include <iostream>
-
-class input_receiver {
-public:
-	input_receiver(bool& running)
-		: running(running) {}
-	void operator()(const sge::key_pair& p)
-	{
-		if(p.first.code == sge::KC_ESC)
-			running = false;
-	}
-private:
-	bool& running;
-};
 
 int main()
 try
@@ -68,8 +55,8 @@ try
 	const std::string bender_name("bender");
 
 	ss.add_texture(im,bender_name);
-	sge::sprite spr(ss,sge::point(0,0),sge::dim(0.5,0.5),0,bender_name);
-	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
+	sge::sprite spr(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
+//	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 	sge::gui::manager man(rend,is,fn,pl,sge::media_path() + "/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.3,0.3));
@@ -86,13 +73,14 @@ try
 		list1.push_back(os.str());
 	}
 
-	btn1.click_signal.connect(boost::lambda::var(running) = false);
+	using boost::lambda::var;
+	using boost::lambda::bind;
+	using boost::lambda::_1;
+	using boost::lambda::if_;
 	
-	input_receiver recv(running);
-	sge::callback_handle cbh = is->register_callback(recv);
+	sge::callback_handle cbh = is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,_1)) == sge::KC_ESC)[var(running)=false]);
+	btn1.click_signal.connect(var(running) = false);
 
-	const sge::point around(0.5,0.5);
-	spr.rotate_around(&around);
 	sge::timer timer(30);
 	sge::timer frames(1000);
 
@@ -107,14 +95,11 @@ try
 			fps = 0;
 		}
 		if(timer.update())
-		{
 			angle += sge::PI*0.01;
-			spr.rotate_acc(sge::PI*0.01);
-		}
 
 		rend->begin_rendering();
 		is->dispatch();
-		ss.draw();
+		ss.draw(sge::vector2(-0.5,-0.5));
 		man.process();
 		fn.transform(sge::matrix_rotation_z(angle));
 		fn.height(0.05);

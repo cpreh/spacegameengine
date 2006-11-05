@@ -129,8 +129,9 @@ void sge::gui::manager::process()
 			focus()->key_press(keyboard_button_event(last_key.code,key_mod,true,last_key.char_code));
 	}
 
-	sprite_sys.transform(matrix4x4<space_unit>());
+	sprite_sys.set_parameters();
 	gui_font.transform(matrix4x4<space_unit>());
+	sprite_sys.get_renderer()->set_transformation(matrix4x4<space_unit>());
 	_root.draw(draw_event(point(0,0)));
 	cur.draw();
 }

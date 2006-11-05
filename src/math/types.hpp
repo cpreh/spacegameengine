@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-typedef vector2<space_unit> point;
 typedef basic_dim<space_unit> dim;
 typedef basic_rect<space_unit> rect;
 

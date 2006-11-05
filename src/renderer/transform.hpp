@@ -28,6 +28,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+inline space_unit trans_x_2d_to_3d(const space_unit x)
+{
+	return x*2;
+}
+
+inline space_unit trans_y_2d_to_3d(const space_unit y)
+{
+	return -y*2;
+}
+
+inline pos3 trans_2d_to_3d(const point pos)
+{
+	return pos3(trans_x_2d_to_3d(pos.x), trans_y_2d_to_3d(pos.y), 0);
+}
+
 inline space_unit space_x_2d_to_3d(const space_unit x)
 {
 	return x*space_unit(2)-1;
@@ -58,10 +73,9 @@ inline pos3 text_to_space(const point pos)
 	return space_2d_to_3d(pos);
 }
 
-inline vector2<unsigned> space_pos_to_pixel(const point a, const unsigned screen_width, const unsigned screen_height)
+inline basic_vector2<unsigned> space_pos_to_pixel(const point a, const unsigned screen_width, const unsigned screen_height)
 {
-	return vector2<unsigned>(unsigned((a.x + 1.0) / 2.0 * screen_width),
-	                         unsigned((-a.y + 1.0) / 2.0 * screen_height));
+	return basic_vector2<unsigned>(unsigned((a.x + 1.0) / 2.0 * screen_width), unsigned((-a.y + 1.0) / 2.0 * screen_height));
 }
 
 inline unsigned space_size_to_pixel(const space_unit s, const unsigned screen_size)

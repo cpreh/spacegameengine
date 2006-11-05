@@ -1,8 +1,10 @@
+#edit those two
+ORIGIN= #path to where the folder "spacegameengine" resides
+PORTDIR_OVERLAY=/usr/local/portage
+
 VER=0.1_alpha2
 NAME=spacegameengine
 NAME_AND_VER=${NAME}-$VER
-ORIGIN=/home/sefi
-PORTDIR_OVERLAY=/usr/local/portage
 
 cd ${ORIGIN}
 rm -rf ${NAME_AND_VER}

@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-class sprite_system;
+class texture_map;
 
 class image_loader_handler {
 public:
 	image_loader_handler(const std::string& path, image_loader_ptr il);
-	bool operator()(sprite_system& ss, const std::string& name) const;
+	bool operator()(texture_map& ss, const std::string& name) const;
 private:
 	const std::string path;
 	const image_loader_ptr il;
