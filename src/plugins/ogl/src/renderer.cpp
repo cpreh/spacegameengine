@@ -260,8 +260,15 @@ sge::window_ptr sge::ogl::renderer::get_window() const
 	return wnd;
 }
 
-unsigned sge::ogl::renderer::screen_height() const { return param.mode.width; }
-unsigned sge::ogl::renderer::screen_width() const { return param.mode.height; }
+unsigned sge::ogl::renderer::screen_height() const
+{
+	return param.mode.width;
+}
+
+unsigned sge::ogl::renderer::screen_width() const
+{
+	return param.mode.height;
+}
 
 void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
 {

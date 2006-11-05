@@ -54,6 +54,7 @@ private:
 
 	x_window_ptr wnd;
 	XModifierKeymap* mmap;
+	Colormap colormap;
 	unsigned mmwidth;
 
 	key_value_array last_keys;
@@ -62,6 +63,48 @@ private:
 
 	typedef std::map<unsigned,key_code> x11_to_sge_array;
 	x11_to_sge_array x11tosge;
+
+	struct _x_color {
+		_x_color(Display* dsp, Colormap colormap)
+		 : dsp(dsp), colormap(colormap), dealloc(false) {}
+		~_x_color()
+		{
+			if(dealloc)
+				XFreeColors(dsp, colormap, &color.pixel, 1, 0);
+		}
+		Display* dsp;
+		Colormap colormap;
+		bool dealloc;
+		XColor color;
+	};
+
+	struct _x_pixmap {
+		_x_pixmap(Display* dsp)
+		 : dsp(dsp), pixmap(None) {}
+		~_x_pixmap()
+		{
+			if(pixmap != None)
+				XFreePixmap(dsp, pixmap);
+		}
+		Display* dsp;
+		Pixmap pixmap;
+	};
+
+	struct _x_cursor {
+		_x_cursor(Display* dsp)
+		 : dsp(dsp), cursor(None) {}
+		~_x_cursor()
+		{
+			if(cursor != None)
+				XFreeCursor(dsp, cursor);
+		}
+		Display* dsp;
+		Cursor cursor;
+	};
+
+	_x_color _black;
+	_x_pixmap _no_bmp;
+	_x_cursor _no_cursor;
 
 	struct _dga_guard {
 		_dga_guard(const x_window_ptr wnd) : enabled(false), wnd(wnd) {}

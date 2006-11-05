@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/gui/list.hpp"
 #include "../src/gui/icon_button.hpp"
 #include "../src/gui/frame.hpp"
+#include "../src/input/input_system.hpp"
+#include "../src/input/key_state_tracker.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
 #include <sstream>
@@ -87,6 +89,8 @@ try
 	unsigned fps = 0, cur_fps = 0;
 	sge::space_unit angle = 0;
 
+	sge::key_state_tracker ks(is);
+
 	while(running)
 	{
 		if(frames.update())
@@ -94,8 +98,11 @@ try
 			cur_fps = fps;
 			fps = 0;
 		}
-		if(timer.update())
+		if(ks[sge::KC_LEFT])
+	//	if(timer.update())
 			angle += sge::PI*0.01;
+		if(ks[sge::KC_RIGHT])
+			angle -= sge::PI*0.01;
 
 		rend->begin_rendering();
 		is->dispatch();

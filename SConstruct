@@ -19,7 +19,8 @@ core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CC
 libcore = core.SharedLibrary('sgecore', [glob('./src/src/*.cpp'),
                                          glob('./src/renderer/src/*.cpp'),
                                          glob('./src/sprite/src/*.cpp'),
-                                         glob('./src/texture/src/*.cpp')])
+                                         glob('./src/texture/src/*.cpp'),
+                                         glob('./src/input/src/*.cpp')])
 
 gui = Environment(LIBPATH = ['.'], LIBS = ['boost_filesystem', 'boost_signals', 'sgecore'], CCFLAGS = flags)
 libgui = gui.SharedLibrary('sgegui', [glob('./src/gui/src/*.cpp')])
@@ -60,6 +61,6 @@ installer.Alias(target = "install", source = [core.Install(lib_path,libcore),
                                               installer.Install(header_path + '/math',[glob('./src/math/*.hpp')]),
                                               installer.Install(header_path + '/renderer',[glob('./src/renderer/*.hpp')]),
                                               installer.Install(header_path + '/sprite',[glob('./src/sprite/*.hpp')]),
-					      installer.Install(header_path + '/texture',[glob('./src/texture/*.hpp')]),
-					      installer.Install(media_path + '/mainskin',[glob('./media/mainskin/*')])
-					      ])
+                                              installer.Install(header_path + '/texture',[glob('./src/texture/*.hpp')]),
+                                              installer.Install(media_path + '/mainskin',[glob('./media/mainskin/*')])
+                                              ])

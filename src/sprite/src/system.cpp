@@ -73,22 +73,27 @@ void sge::sprite_system::detach(const sprite& s)
 
 void sge::sprite_system::draw(const vector2 trans)
 {
-	sprites.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
+	sprite_list to_draw;
+	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); ++it)
+		if(intersects((*it)->get_rect() - trans, rect(0,0,1,1)))
+				to_draw.push_back(*it);
+
+	to_draw.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
 	{
 		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
 		index_buffer::iterator it = ib->begin();
-		for(sprite_list::iterator sit = sprites.begin(); sit != sprites.end(); ++sit)
+		for(sprite_list::iterator sit = to_draw.begin(); sit != to_draw.end(); ++sit)
 			it = (*sit)->update_ib(it);
 	}
 
 	{
 		lock_ptr<vertex_buffer_ptr> _lock(vb,LF_Discard);
-		std::for_each(sprites.begin(),sprites.end(),std::mem_fun(&sprite::update));
+		std::for_each(to_draw.begin(), to_draw.end(),std::mem_fun(&sprite::update));
 	}
 
 	rend->set_transformation(matrix_translation(trans_2d_to_3d(trans)));
 
-	drawer.draw(sprites, vb, ib);
+	drawer.draw(to_draw, vb, ib);
 }
 
 void sge::sprite_system::set_parameters()

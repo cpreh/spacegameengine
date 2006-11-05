@@ -46,6 +46,11 @@ template<typename T> struct basic_rect {
 	value_type left, top, right, bottom;
 };
 
+template<typename T> inline basic_rect<T> operator-(const basic_rect<T>& l, const basic_vector2<T>& r)
+{
+	return basic_rect<T>(l.left - r.x, l.top - r.y, l.right - r.x, l.bottom - r.y);
+}
+
 template<typename T> inline T width(const basic_rect<T>& r)
 {
 	return r.width();

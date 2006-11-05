@@ -31,21 +31,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
-	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), mmwidth(mmap->max_keypermod), last_mouse(0), dga_guard(wnd)
+	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), colormap(DefaultColormap(wnd->get_display(),wnd->get_screen())), mmwidth(mmap->max_keypermod), last_mouse(0), _black(wnd->get_display(),colormap), _no_bmp(wnd->get_display()), _no_cursor(wnd->get_display()), dga_guard(wnd)
 {
+	// FIXME: Handle lost focus and reclaim the cursor
 	int flags;
 	if(XF86DGAQueryDirectVideo(wnd->get_display(),wnd->get_screen(),&flags)==false)
 		throw std::runtime_error("XF86DGAQueryDirectVideo() failed");
 //	if(!(flags & XF86DGADirectMouse))
 //		throw std::runtime_error("DGA Mouse not supported! Non DGA implementation is not present yet!");
 
+	XColor black, dummy;
+	if(XAllocNamedColor(wnd->get_display(), colormap, "black", &black, &dummy ) == 0)
+		throw std::runtime_error("XAllocNamedColor() failed");
+	_black.color = black;
+	_black.dealloc = true;
+
+	const char bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
+	_no_bmp.pixmap = XCreateBitmapFromData(wnd->get_display(), wnd->get_window(), bm_no_data, 8, 8 );
+	if(_no_bmp.pixmap == None)
+		throw std::runtime_error("XCreateBitmapFromData() failed");
+	_no_cursor.cursor = XCreatePixmapCursor(wnd->get_display(), _no_bmp.pixmap, _no_bmp.pixmap, &black, &black, 0, 0);
+	if(_no_cursor.cursor == None)
+		throw std::runtime_error("XCreatePixmapCursor() failed");
+
 	XF86DGADirectVideo(wnd->get_display(),wnd->get_screen(),XF86DGADirectMouse);
 	dga_guard.enabled = true;
 
-	if(XGrabPointer(wnd->get_display(),wnd->get_window(),true,None,/*PointerMotionMask|KeyPressMask|KeyReleaseMask,*/GrabModeAsync,GrabModeAsync,wnd->get_window(),None,CurrentTime) != GrabSuccess)
+	if(XGrabPointer(wnd->get_display(),wnd->get_window(),False,PointerMotionMask,GrabModeAsync,GrabModeAsync,wnd->get_window(),_no_cursor.cursor,CurrentTime) != GrabSuccess)
 		throw std::runtime_error("XGrabPointer() failed");
-	if(XGrabKeyboard(wnd->get_display(),wnd->get_window(),true,GrabModeAsync, GrabModeAsync, CurrentTime) != GrabSuccess)
-		throw std::runtime_error("XGrabKeyboard() failed");
+//	if(XGrabKeyboard(wnd->get_display(),wnd->get_window(),true,GrabModeAsync, GrabModeAsync, CurrentTime) != GrabSuccess)
+//		throw std::runtime_error("XGrabKeyboard() failed");
 	
 	XDefineCursor(wnd->get_display(),wnd->get_window(),None);
 	

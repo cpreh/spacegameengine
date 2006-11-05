@@ -46,6 +46,7 @@ void sge::sprite_drawer::draw(const sprite_list& sprites, const vertex_buffer_pt
 
 void sge::sprite_drawer::set_parameters()
 {
+	rend->set_int_state(IS_AmbientLightColor, colors::white);
 	rend->set_bool_state(BS_EnableLighting,false);
 	rend->projection_orthogonal();
 	rend->set_filter_state(0,FARG_MinFilter,FARGV_Linear);
