@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../renderer/lock_ptr.hpp"
 #include "../helper.hpp"
 #include <boost/array.hpp>
+#include <cmath>
 
-sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const unsigned _z, const std::string& name, const bool vis)
-	: p(p), sz(sz), _z(_z), _visible(vis), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
+sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const unsigned _z, const std::string& name, const space_unit _rotation, const bool vis)
+	: p(p), sz(sz), _z(_z), _visible(vis), _rotation(_rotation), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
 {}
 
 sge::sprite::sprite(const sprite& spr)
-	: p(spr.p), sz(spr.sz), _z(spr._z), _visible(spr._visible), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
+	: p(spr.p), sz(spr.sz), _z(spr._z), _visible(spr._visible), _rotation(spr._rotation), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
 {}
 
 void sge::sprite::set_texture(const std::string& name)
@@ -50,7 +51,10 @@ void sge::sprite::update()
 void sge::sprite::update_where(vertex_buffer::iterator it)
 {
 	const rect tex_rect = get_texture() ? tex_size_to_space_rect(tex->area(), get_texture()->width(), get_texture()->height()) : rect();
-	fill_sprite_vertices(it, get_rect(), tex_rect);
+	if(rotation() == 0)
+		fill_sprite_vertices(it, get_rect(), tex_rect);
+	else
+		fill_sprite_vertices_rotated(it, get_rect(), rotation(), center(), tex_rect);
 }
 
 sge::index_buffer::iterator sge::sprite::update_ib(index_buffer::iterator it)
@@ -84,9 +88,12 @@ sge::texture_ptr sge::sprite::get_texture() const
 	return tex ? tex->my_texture() : texture_ptr();
 }
 
-sge::point sge::sprite::center() const
+sge::rect sge::sprite::bounding_rect() const
 {
-	return point(x() + width() / 2, y() + height() / 2);
+	if(rotation() == 0)
+		return get_rect();
+	const space_unit radius = std::sqrt(center().x * center().x + x()*x());
+	return rect(center().x - radius, center().y - radius, center().x + radius, center().y + radius);
 }
 
 bool sge::sprite::equal_texture(const sprite& l, const sprite& r)

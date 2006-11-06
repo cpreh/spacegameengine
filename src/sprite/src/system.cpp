@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_function handler)
  : texture_map(rend,handler),
    rend(rend),
+   _clipping(true),
    drawer(rend)
 {
 	const unsigned init_sprites = 25;
@@ -73,9 +74,12 @@ void sge::sprite_system::detach(const sprite& s)
 
 void sge::sprite_system::draw(const vector2 trans)
 {
-	sprite_list to_draw;
-	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); ++it)
-		if(intersects(rect(0,0,1,1), (*it)->get_rect() - trans))
+	sprite_list _temp;
+	sprite_list& to_draw = _clipping ? _temp : sprites;
+
+	if(_clipping)
+		for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); ++it)
+			if(intersects(rect(0,0,1,1), (*it)->bounding_rect() - trans))
 				to_draw.push_back(*it);
 
 	to_draw.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
@@ -99,6 +103,11 @@ void sge::sprite_system::draw(const vector2 trans)
 void sge::sprite_system::set_parameters()
 {
 	drawer.set_parameters();
+}
+
+void sge::sprite_system::enable_clipping(const bool clipping)
+{
+	_clipping = clipping;
 }
 
 sge::renderer_ptr sge::sprite_system::get_renderer() const

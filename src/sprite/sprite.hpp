@@ -39,7 +39,7 @@ namespace sge
 
 class sprite {
 public:
-	sprite(sprite_system& s, point pos, dim sz, unsigned z, const std::string& tex, bool visible = true);
+	sprite(sprite_system& s, point pos, dim sz, unsigned z, const std::string& tex, space_unit rotation = 0, bool visible = true);
 	sprite(const sprite& s);
 
 	void x(space_unit nx) { p.x = nx; }
@@ -51,6 +51,7 @@ public:
 	void z(unsigned nz) { _z = nz; }
 	void visible(bool nvisible) { _visible = nvisible; }
 	void set_texture(const std::string& name);
+	void rotate(space_unit rot) { _rotation = rot; }
 	
 	space_unit x() const { return p.x; }
 	space_unit y() const { return p.y; }
@@ -61,7 +62,9 @@ public:
 	unsigned z() const { return _z; }
 	bool visible() const { return _visible; }
 	rect get_rect() const { return rect(pos(),size()); }
-	point center() const; 
+	point center() const { return  point(x() + width() / 2, y() + height() / 2); }
+	space_unit rotation() const { return _rotation; }
+	rect bounding_rect() const;
 
 	void draw();
 	~sprite();
@@ -80,8 +83,8 @@ private:
 	point p;
 	dim sz;
 	unsigned _z;
-	space_unit _rot;
 	bool _visible;
+	space_unit _rotation;
 	sprite_system& spr_sys;
 	const_virtual_texture_ptr tex;
 	vertex_buffer::size_type vb_pos;

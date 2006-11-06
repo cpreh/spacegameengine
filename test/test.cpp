@@ -100,14 +100,17 @@ try
 			fps = 0;
 		}
 		if(ks[sge::KC_LEFT])
-	//	if(timer.update())
-//			angle += sge::PI*0.01;
 			translation.x -= 0.001;
 		if(ks[sge::KC_RIGHT])
-//			angle -= sge::PI*0.01;
 			translation.x += 0.001;
-		if(ks['a'])
+		if(ks[sge::KC_UP])
 			translation.y -= 0.001;
+		if(ks[sge::KC_DOWN])
+			translation.y += 0.001;
+		if(timer.update())
+			angle += sge::PI*0.01;
+
+		spr.rotate(angle);
 
 		rend->begin_rendering();
 		is->dispatch();

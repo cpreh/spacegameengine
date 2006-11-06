@@ -43,6 +43,7 @@ public:
 	sprite_system(renderer_ptr rend, handler_function not_found_handler = 0);
 	void draw(vector2 translation = vector2());
 
+	void enable_clipping(bool);
 	void set_parameters();
 	renderer_ptr get_renderer() const;
 private:
@@ -55,6 +56,7 @@ private:
 	sprite_list sprites;
 
 	renderer_ptr rend;
+	bool _clipping;
 	sprite_drawer drawer;
 
 	vertex_buffer_ptr vb;
