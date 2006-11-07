@@ -41,12 +41,10 @@ public:
 	bool add_texture(image_ptr im, const std::string& name); // TODO: move this helper function somewhere else
 	bool remove_texture(const std::string& name);
 	
-	static const char* const no_texture;
-private:
-	friend class sprite;
-
 	virtual_texture_ptr vtexture(const std::string&);
 
+	static const char* const no_texture;
+private:
 	renderer_ptr rend;
 	handler_function texture_not_present_handler;
 	texture_manager tex_man;
