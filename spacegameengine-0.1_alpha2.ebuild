@@ -35,7 +35,7 @@ pkg_setup() {
 }
 
 src_compile() {
-	scons sandbox=${D} prefix=/usr libdir=$(get_libdir) || die
+	scons sandbox=${D} prefix=/usr libdir=$(get_libdir) flags="${CXXFLAGS}" || die
 }
 
 src_install() {
