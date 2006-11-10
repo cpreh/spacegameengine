@@ -79,7 +79,7 @@ public:
 
 		if(vb->size() < vertices.size())
 			vb->resize(vertices.size());
-		vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(vertices.data()),0,vertices.size());
+		vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(&vertices[0]),0,vertices.size());
 		rend->render(vb, index_buffer_ptr(), 0, vertices.size(), loop ? PT_LineLoop : PT_LineStrip, vertices.size()-1);
 	}
 
