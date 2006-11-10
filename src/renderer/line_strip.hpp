@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LINE_STRIP_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
+#include <vector>
 #include "../algorithm.hpp"
 #include "./renderer.hpp"
 #include "./vertex_buffer.hpp"
@@ -46,24 +47,15 @@ public:
 	typedef vertex_buffer::size_type size_type;
 
 	line_strip(const renderer_ptr rend, const color _col, const size_type init_lines = 50)
-	 : rend(rend), _col(_col), vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos), init_lines + 1)), pos(0)
-	{}
+	 : rend(rend), _col(_col), vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos),init_lines+1))
+	{
+		vertices.reserve(init_lines+1);
+	}
 
 	line_strip& add(const PointType a)
 	{
-		if(pos >= vb->size())
-		{
-			vertex_buffer_ptr tmp = rend->create_vertex_buffer(vb->get_vertex_format(), vb->size()*2);
-			{
-				lock_ptr<vertex_buffer_ptr> _l1(tmp), _l2(vb);
-				copy(vb->data(),vb->data()+vb->size()*vb->stride(),tmp->data());
-			}
-			vb = tmp;
-		}
-
 		const pos3 p = transform(a);
-		vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(&p),pos,1);
-		++pos;
+		vertices.push_back(p);
 		return *this;
 	}
 
@@ -72,9 +64,9 @@ public:
 		_col = c;
 	}
 
-	void draw()
+	void draw(const bool loop = false)
 	{
-		if(pos <= 1)
+		if(vertices.size() <= 1)
 			return;
 		rend->set_bool_state(BS_EnableAlphaBlending,false);
 		rend->set_transformation(matrix4x4<space_unit>());
@@ -84,18 +76,23 @@ public:
 		rend->set_filter_state(0,FARG_MinFilter,FARGV_Point);
 		rend->set_filter_state(0,FARG_MagFilter,FARGV_Point);
 		rend->set_texture(0,texture_ptr());
-		rend->render(vb,index_buffer_ptr(),0,pos,PT_LineStrip,pos-1);
+
+		if(vb->size() < vertices.size())
+			vb->resize(vertices.size());
+		vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(vertices.data()),0,vertices.size());
+		rend->render(vb, index_buffer_ptr(), 0, vertices.size(), loop ? PT_LineLoop : PT_LineStrip, vertices.size()-1);
 	}
 
 	void clear()
 	{
-		pos = 0;
+		vertices.clear();
 	}
 private:
+	typedef std::vector<pos3> pos_vector;
 	const renderer_ptr rend;
 	color _col;
+	pos_vector vertices;
 	vertex_buffer_ptr vb;
-	size_type pos;
 };
 
 }

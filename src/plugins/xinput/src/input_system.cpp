@@ -121,7 +121,7 @@ void sge::xinput::input_system::dispatch()
 	if(diff_mask & Button1Mask)
 		sig(key_pair(key_type("Mouse1",modifiers,KC_MOUSEL,0),mask & Button1Mask ? 1 : 0 ));
 	if(diff_mask & Button2Mask)
-		sig(key_pair(key_type("Mouse2",modifiers,KC_MOUSER,0),mask & Button2Mask ? 1 : 0));
+		sig(key_pair(key_type("Mouse2",modifiers,KC_MOUSER,0),mask & Button3Mask ? 1 : 0));
 	last_mouse = mask;
 
 	int deltax = 0, deltay = 0;

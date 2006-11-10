@@ -109,7 +109,7 @@ template<typename T> inline basic_vector2<T> operator* (const T& l, const basic_
 
 template<typename T> inline T dot_product (const basic_vector2<T>& l, const basic_vector2<T>& r)
 {
-	return basic_vector2<T>(l.x * r.x, l.y * r.y);
+	return l.x * r.x + l.y * r.y;
 }
 
 template<typename T> inline bool operator== (const basic_vector2<T>& l, const basic_vector2<T>& r)

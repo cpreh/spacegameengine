@@ -51,6 +51,8 @@ template<> GLenum sge::ogl::convert_cast(const primitive_type& t)
 		return GL_TRIANGLE_STRIP;
 	case PT_TriangleFan:
 		return GL_TRIANGLE_FAN;
+	case PT_LineLoop:
+		return GL_LINE_LOOP;
 	default:
 		throw std::logic_error("unsupported primitive_type");
 	}

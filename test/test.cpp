@@ -96,7 +96,7 @@ try
 
 	sge::line_strip<sge::point> ls(rend, sge::colors::red);
 	std::srand(std::time(0));
-	for(int i = 0; i < 100; ++i)
+	for(int i = 0; i < 5; ++i)
 		ls.add(sge::point(double(std::rand()) / RAND_MAX,double(std::rand())/RAND_MAX));
 	while(running)
 	{
@@ -128,7 +128,7 @@ try
 		std::ostringstream os;
 		os << cur_fps;
 		fn.draw_text(os.str(),sge::point(0.1,0.1),sge::dim(1,1),sge::colors::purple);
-		ls.draw();
+		ls.draw(true);
 		rend->end_rendering();
 		++fps;
 	}

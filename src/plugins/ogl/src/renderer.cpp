@@ -284,6 +284,7 @@ void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::inde
 	case PT_LineStrip:
 	case PT_TriangleStrip:
 	case PT_TriangleFan:
+	case PT_LineLoop:
 		glDrawArrays(prim_type,0,num_vertices);
 		break;
 	}

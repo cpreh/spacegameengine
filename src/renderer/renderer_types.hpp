@@ -118,6 +118,7 @@ enum primitive_type {
 	PT_Point,
 	PT_Line,
 	PT_LineStrip,
+	PT_LineLoop,
 	PT_Triangle,
 	PT_TriangleStrip,
 	PT_TriangleFan
