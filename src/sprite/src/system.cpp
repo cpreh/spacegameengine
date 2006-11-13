@@ -74,13 +74,10 @@ void sge::sprite_system::detach(const sprite& s)
 
 void sge::sprite_system::draw(const vector2 trans)
 {
-	sprite_list _temp;
-	sprite_list& to_draw = _clipping ? _temp : sprites;
-
-	if(_clipping)
-		for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); ++it)
-			if(intersects(rect(0,0,1,1), (*it)->bounding_rect() - trans))
-				to_draw.push_back(*it);
+	sprite_list to_draw;
+	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); ++it)
+		if((*it)->visible()  && (!_clipping || intersects(rect(0,0,1,1), (*it)->bounding_rect() - trans))) // FIXME: screen rect hard coded
+			to_draw.push_back(*it);
 
 	to_draw.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
 	{

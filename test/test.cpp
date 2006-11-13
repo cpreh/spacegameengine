@@ -60,6 +60,9 @@ try
 	ss.add_texture(im,bender_name);
 	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,bender_name);
 	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
+
+	ss.enable_clipping(false);
+	spr2.visible(false);
 	sge::gui::manager man(rend,is,fn,pl,sge::media_path() + "/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.3,0.3));

@@ -103,16 +103,13 @@ bool sge::sprite::equal_texture(const sprite& l, const sprite& r)
 
 bool sge::sprite::less(const sprite& l, const sprite& r)
 {
-	const bool lvis = l.visible(), rvis = r.visible();
 	const unsigned lz = l.z(), rz = r.z();
 	sge::texture_ptr ltex = l.get_texture(), rtex = r.get_texture();
 
-	return lvis == rvis ?
-	                    lz == rz ?
-	                             ltex == rtex ? 
-	                                          false
-	                                          : ltex < rtex
-		                     : lz < rz
-		            : lvis < rvis;
+	return lz == rz ?
+	                ltex == rtex ? 
+	                             false
+	                : ltex < rtex
+	       : lz < rz;
 }
 

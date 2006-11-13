@@ -31,7 +31,7 @@ void sge::sprite_drawer::draw(const sprite_list& sprites, const vertex_buffer_pt
 {
 	set_parameters();
 	unsigned first_index = 0;
-	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end() && (*it)->visible(); )
+	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); )
 	{
 		unsigned num_objects;
 		sprite_list::const_iterator next = first_mismatch_if(it, sprites.end(), num_objects, dereference_binder<const sprite*, const sprite*>(std::ptr_fun(sprite::equal_texture)));
