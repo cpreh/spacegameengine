@@ -62,8 +62,6 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 //	if(XGrabKeyboard(wnd->get_display(),wnd->get_window(),true,GrabModeAsync, GrabModeAsync, CurrentTime) != GrabSuccess)
 //		throw std::runtime_error("XGrabKeyboard() failed");
 	
-	XDefineCursor(wnd->get_display(),wnd->get_window(),None);
-	
 	x11tosge[NoSymbol] = KC_None;
 	x11tosge[XK_BackSpace] = KC_BACK;
 	x11tosge[XK_Tab] = KC_TAB;
@@ -120,7 +118,7 @@ void sge::xinput::input_system::dispatch()
 	const unsigned diff_mask = mask ^ last_mouse;
 	if(diff_mask & Button1Mask)
 		sig(key_pair(key_type("Mouse1",modifiers,KC_MOUSEL,0),mask & Button1Mask ? 1 : 0 ));
-	if(diff_mask & Button2Mask)
+	if(diff_mask & Button3Mask)
 		sig(key_pair(key_type("Mouse2",modifiers,KC_MOUSER,0),mask & Button3Mask ? 1 : 0));
 	last_mouse = mask;
 
