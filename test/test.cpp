@@ -38,12 +38,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/line_strip.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <sstream>
 #include <iostream>
+
+sge::point rand_point() { return sge::point(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
 
 int main()
 try
 {
+	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
 	sge::renderer_system_ptr rs = pm.get_plugin<sge::renderer_system>();
@@ -58,11 +62,16 @@ try
 	const std::string bender_name("bender");
 
 	ss.add_texture(im,bender_name);
-	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,bender_name);
-	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
+
+	boost::ptr_vector<sge::sprite> sprites;
+	for(unsigned i = 0; i < 1009; ++i)
+		sprites.push_back(new sge::sprite(ss,sge::point(rand_point()),sge::dim(0.1,0.1),0,bender_name));
+
+//	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,bender_name);
+//	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 
 	ss.enable_clipping(false);
-	spr2.visible(false);
+	//spr2.visible(false);
 	sge::gui::manager man(rend,is,fn,pl,sge::media_path() + "/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.3,0.3));
@@ -98,9 +107,8 @@ try
 	sge::vector2 translation;
 
 	sge::line_strip<sge::point> ls(rend, sge::colors::red);
-	std::srand(std::time(0));
 	for(int i = 0; i < 5; ++i)
-		ls.add(sge::point(double(std::rand()) / RAND_MAX,double(std::rand())/RAND_MAX));
+		ls.add(rand_point());
 	while(running)
 	{
 		if(frames.update())
@@ -119,7 +127,7 @@ try
 		if(timer.update())
 			angle += sge::PI*0.01;
 
-		spr.rotate(angle);
+		//spr.rotate(angle);
 
 		rend->begin_rendering();
 		is->dispatch();
