@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_HPP_INCLUDED
 
 #include "../shared_ptr.hpp"
-#include "./renderer_types.hpp"
+#include "./types.hpp"
 #include "./vertex_buffer.hpp"
 #include "./index_buffer.hpp"
 #include "./texture_base.hpp"
@@ -57,7 +57,7 @@ public:
 
 	virtual texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels = 1, resource_flag_t flags = RF_Default) = 0;
 	virtual volume_texture_ptr create_volume_texture(volume_texture::const_pointer data, volume_texture::size_type width, volume_texture::size_type height, volume_texture::size_type depth, resource_flag_t flags = RF_Default) = 0;
-	virtual cube_texture_ptr create_cube_texture(const cube_side_src_array* data, cube_texture::size_type size, resource_flag_t flags = RF_Default) = 0;
+	virtual cube_texture_ptr create_cube_texture(const cube_side_array* data, cube_texture::size_type size, resource_flag_t flags = RF_Default) = 0;
 	virtual vertex_buffer_ptr create_vertex_buffer(const vertex_format& format, vertex_buffer::size_type size, resource_flag_t flags = RF_Default, vertex_buffer::const_pointer data = 0) = 0;
 	virtual index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags = RF_Default, index_buffer::const_pointer data = 0) = 0;
 	virtual render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height) = 0;

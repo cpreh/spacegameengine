@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_CONVERSION_HPP_INCLUDED
 #define SGE_OGL_CONVERSION_HPP_INCLUDED
 
-#include "../../renderer/renderer_types.hpp"
-#include "./extensions.hpp"
+#include "../../renderer/types.hpp"
+#include "./common.hpp"
 
 namespace sge
 {
@@ -34,6 +34,7 @@ template<> GLenum convert_cast(const primitive_type& t);
 template<> GLenum convert_cast(const bool_state& b);
 template<> GLenum convert_cast(const filter_arg& a);
 template<> GLenum convert_cast(const filter_arg_value& av);
+template<> GLenum convert_cast(const cube_side& s);
 GLuint convert_lock_flags(lock_flag_t f);
 GLuint convert_resource_flags(resource_flag_t t);
 

@@ -258,6 +258,16 @@ struct material {
 	space_unit power; 
 };
 
+enum cube_side {
+	CS_Front,
+	CS_Back,
+	CS_Left,
+	CS_Right,
+	CS_Top,
+	CS_Bottom,
+	CS_num_elements
+};
+
 }
 
 #endif

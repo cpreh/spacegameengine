@@ -18,17 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../extensions.hpp"
-#include <stdexcept>
+#ifndef SGE_OGL_COMMON_HPP_INCLUDED
+#define SGE_OGL_COMMON_HPP_INCLUDED
 
-void sge::ogl::load_extensions()
-{
-	static bool extensions_loaded = false;
-	if(!extensions_loaded)
-	{
-		if(glewInit() != GLEW_OK)
-			throw std::runtime_error("glewInit() failed");
-		extensions_loaded = true;
-	}
+#include <GL/glew.h>
+#include <GL/gl.h>
 
-}
+#endif

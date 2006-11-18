@@ -46,8 +46,8 @@ public:
 	: std::runtime_error("An iconv conversion failed!") {}
 };
 
-ustring  iconv(const std::string& input, encoding from = enc_char_locale);
-std::string iconv(const ustring& input, encoding to = enc_char_locale);
+ustring  iconv(const std::string& input, encoding from = enc_char_locale, const ustring::allocator_type& alloc = ustring::allocator_type());
+std::string iconv(const ustring& input, encoding to = enc_char_locale, const std::string::allocator_type& alloc = std::string::allocator_type());
 
 }
 

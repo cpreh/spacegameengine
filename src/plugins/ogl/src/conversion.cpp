@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../conversion.hpp"
-#include <GL/glew.h>
-#include <GL/gl.h>
 
 GLuint sge::ogl::convert_lock_flags(const lock_flag_t f)
 {
@@ -100,3 +98,22 @@ template<> GLenum sge::ogl::convert_cast(const filter_arg_value& arg)
 	}
 }
 
+template<> GLenum sge::ogl::convert_cast(const cube_side& s)
+{
+	switch(s) {
+	case CS_Left:
+		return GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB;
+	case CS_Right:
+		return GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB;
+	case CS_Front:
+		return GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB;
+	case CS_Back:
+		return GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB;
+	case CS_Top:
+		return GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB;
+	case CS_Bottom:
+		return GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB;
+	default:
+		throw std::logic_error("unsupported cube_side");
+	}
+}

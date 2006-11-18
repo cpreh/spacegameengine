@@ -143,8 +143,3 @@ void sge::gui::manager::move_mouse(const unit x, const unit y)
 	_root.mouse_move(e);
 	_root.glob_mouse_move(e);
 }
-
-void sge::gui::manager::draw_selection(const point p, const dim sz)
-{
-	// TODO: draw selection
-}

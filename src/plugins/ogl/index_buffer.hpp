@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_INDEX_BUFFER_HPP_INCLUDED
 
 #include "../../renderer/index_buffer.hpp"
+#include "./common.hpp"
 #include "./basic_arb_buffer.hpp"
 
 namespace sge

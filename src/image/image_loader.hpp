@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <string>
 #include <boost/utility.hpp>
-#include "../renderer/renderer_types.hpp"
+#include "../renderer/types.hpp"
 #include "../renderer/renderer.hpp"
 #include "../renderer/texture.hpp"
 #include "../shared_ptr.hpp"

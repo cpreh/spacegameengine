@@ -53,7 +53,6 @@ public:
 	element* hover() const { return _hover; }
 	element* pressed() const { return _pressed; }
 	point cursor_pos() const { return cur.pos(); }
-	void draw_selection(point p, dim sz);
 	font& get_font() const { return gui_font; }
 	sprite_system& get_sprite_system() { return sprite_sys; }
 private:

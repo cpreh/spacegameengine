@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../types.hpp"
-#include "../extensions.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
 #include "../../../ptr_cast.hpp"
-#include "../../../renderer/renderer_types.hpp"
+#include "../../../renderer/types.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
+#include "../cube_texture.hpp"
+#include "../volume_texture.hpp"
 #include "../conversion.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #define WIN32_LEAN_AND_MEAN
@@ -164,8 +165,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	XMapWindow(d,wnd->get_window());
 	XFlush(d);
 #endif
-	load_extensions();
-	
+	if(glewInit() != GLEW_OK)
+		throw std::runtime_error("glewInit() failed");
+
 	set_bool_state(BS_EnableAlphaBlending,true);
 	set_bool_state(BS_EnableZBuffer,false);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -231,16 +233,14 @@ sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_t
                                                                   const volume_texture::size_type depth,
                                                                   const resource_flag_t flags)
 {
-	std::cerr << "stub: ogl::renderer::create_volume_texture\n";
-	return volume_texture_ptr(); // TODO: stub
+	return volume_texture_ptr(new volume_texture(src, width, height, depth, flags));
 }
 
-sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_src_array* const src,
+sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_array* const src,
                                                               const cube_texture::size_type sz,
 							      const resource_flag_t flags)
 {
-	std::cerr << "sub: ogl::renderer::create_cube_texture\n";
-	return cube_texture_ptr(); // TODO: stub
+	return cube_texture_ptr(new cube_texture(src,sz,flags));
 }
 
 void sge::ogl::renderer::end_rendering()
@@ -270,7 +270,7 @@ unsigned sge::ogl::renderer::screen_width() const
 	return param.mode.height;
 }
 
-void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
+void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned /*first_vertex*/, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
 {
 	set_vertex_buffer(vb);
 	const GLenum prim_type = convert_cast<GLenum>(ptype);

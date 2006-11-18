@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <string>
 #include "../math/types.hpp"
-#include "./renderer_types.hpp"
+#include "./types.hpp"
 
 namespace sge
 {

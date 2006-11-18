@@ -48,10 +48,10 @@ std::string encoding_to_string(const sge::encoding& to)
 const sge::encoding internal_encoding = sge::enc_ucs_4_internal;
 
 template<typename To, typename From>
-To _iconv(const From& input, const sge::encoding from, const sge::encoding to)
+To _iconv(const From& input, const sge::encoding from, const sge::encoding to, const typename To::allocator_type& alloc = typename To::allocator_type())
 {
 	iconv_instance ic(encoding_to_string(from), encoding_to_string(to));
-	To output;
+	To output(alloc);
 	
 	const std::size_t buf_size = 512;
 	char arr[buf_size];
@@ -70,14 +70,14 @@ To _iconv(const From& input, const sge::encoding from, const sge::encoding to)
 
 }
 
-sge::ustring sge::iconv(const std::string& input, const encoding from)
+sge::ustring sge::iconv(const std::string& input, const encoding from, const ustring::allocator_type& alloc)
 {
-	return _iconv<ustring>(input, from, internal_encoding);
+	return _iconv<ustring>(input, from, internal_encoding, alloc);
 }
 
-std::string sge::iconv(const ustring& input, const encoding to)
+std::string sge::iconv(const ustring& input, const encoding to, const std::string::allocator_type& alloc)
 {
-	return _iconv<std::string>(input, internal_encoding, to);
+	return _iconv<std::string>(input, internal_encoding, to, alloc);
 }
 
 #endif

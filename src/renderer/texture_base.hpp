@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include "../shared_ptr.hpp"
 #include "../math/rect.hpp"
-#include "./renderer_types.hpp"
+#include "./types.hpp"
 #include "../types.hpp"
 
 namespace sge

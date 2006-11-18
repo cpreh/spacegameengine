@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_VERTEX_FORMAT_HPP_INCLUDED
 
 #include "../../shared_ptr.hpp"
-#include "../../renderer/renderer_types.hpp"
+#include "../../renderer/types.hpp"
 #include "../../renderer/vertex_format.hpp"
 #include "../../renderer/vertex_buffer.hpp"
 #include <vector>

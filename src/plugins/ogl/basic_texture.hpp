@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 #define SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 
+#include "./common.hpp"
 #include "./texture_base.hpp"
 #include "./error.hpp"
-#include <GL/gl.h>
 #include <stdexcept>
 
 namespace sge
@@ -52,7 +52,7 @@ public:
 	typedef typename Base::pointer pointer;
 	typedef typename Base::const_pointer const_pointer;
 
-	basic_texture(const size_type sz, const unsigned mipmaps, const resource_flag_t _flags)
+	basic_texture(const unsigned mipmaps, const resource_flag_t _flags)
 	 : texture_base(Type), mipmaps(mipmaps), _flags(_flags)
 	{
 		glGenTextures(1,&id);
@@ -60,7 +60,7 @@ public:
 			throw std::runtime_error("glGenTextures() failed!");
 		bind_me();
 		tex_parameter_i(Type,GL_TEXTURE_MAX_LEVEL,mipmaps);
-		tex_parameter_i(Type,GL_GENERATE_MIPMAP,GL_TRUE);
+		tex_parameter_i(Type,GL_GENERATE_MIPMAP,mipmaps > 1 ? GL_TRUE : GL_FALSE);
 	}
 	virtual size_type size() const = 0;
 	~basic_texture()

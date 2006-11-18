@@ -18,22 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../manager.hpp"
-#include "../rectangle.hpp"
+#ifndef SGE_OGL_CUBE_TEXTURE_HPP_INCLUDED
+#define SGE_OGL_CUBE_TEXTURE_HPP_INCLUDED
 
-sge::gui::rectangle::rectangle(manager& m, element* const parent, const point pos, const dim sz, const std::string& tex, const bool visible, const bool enabled)
-: element(m,parent,visible,enabled),
-  sprite(m.get_sprite_system(),point(),sz,0,tex),
-  rel_pos(pos)
-{}
+#include "../../renderer/cube_texture.hpp"
+#include "./common.hpp"
+#include "./basic_texture.hpp"
 
-bool sge::gui::rectangle::intersects(const point p) const
+namespace sge
 {
-	return sge::intersects(rect(x(),y(),x()+width(),y()+height()),p);
+namespace ogl
+{
+
+class cube_texture : public basic_texture<sge::cube_texture,GL_TEXTURE_CUBE_MAP_ARB> { 
+public:
+	cube_texture(const cube_side_array* src, size_type sz, resource_flag_t flags);
+	size_type size() const;
+	void set_data(cube_side side, const_pointer src, const lock_rect* r);
+private:
+	const size_type sz;
+};
+
+
+}
 }
 
-void sge::gui::rectangle::on_draw(const draw_event& e)
-{
-	sprite::pos(e.pos());
-	sprite::draw();
-}
+#endif

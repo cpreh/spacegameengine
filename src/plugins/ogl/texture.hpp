@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_TEXTURE_HPP_INCLUDED
 
 #include "../../renderer/texture.hpp"
+#include "./common.hpp"
 #include "./basic_texture.hpp"
-#include "./error.hpp"
 
 namespace sge
 {
@@ -32,25 +32,13 @@ namespace ogl
 
 class texture : public basic_texture<sge::texture,GL_TEXTURE_2D> {
 public:
-	texture(const const_pointer src, const size_type nwidth, const size_type nheight, const unsigned mipmaps, const resource_flag_t flags)
-		: basic_texture<sge::texture,GL_TEXTURE_2D>(nwidth*nheight,mipmaps,flags), _width(nwidth), _height(nheight)
-	{
-		set_data(src);
-	}
-	size_type width() const { return _width; }
-	size_type height() const { return _height; }
-	size_type size() const { return width()*height(); }
-	void set_data(const const_pointer src, const lock_rect* const r = 0)
-	{
-		bind_me();
-		const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
-		if(!r)
-			glTexImage2D(GL_TEXTURE_2D,0,4,width(),height(),0,format,type,src);
-		else
-			glTexSubImage2D(GL_TEXTURE_2D,0,r->left,r->top,r->width(),r->height(),format,type,src);
-		if(is_error())
-			throw std::runtime_error("glTex(Sub)Image2D() failed!");
-	}
+	texture(const_pointer src, size_type width, size_type height, unsigned mipmaps, resource_flag_t flags);
+
+	size_type width() const;
+	size_type height() const;
+	size_type size() const;
+
+	void set_data(const_pointer src, const lock_rect* r = 0);
 private:
 	const size_type _width, _height;
 };

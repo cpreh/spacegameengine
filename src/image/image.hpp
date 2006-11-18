@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/utility.hpp>
 #include "../shared_ptr.hpp"
-#include "../renderer/renderer_types.hpp"
+#include "../renderer/types.hpp"
 
 namespace sge
 {

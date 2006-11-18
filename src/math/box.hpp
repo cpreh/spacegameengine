@@ -33,6 +33,21 @@ template<typename T> struct box {
 	    const value_type& front = value_type(), const value_type& back = value_type())
 		: left(left), top(top), right(right), bottom(bottom), front(front), back(back) {}
 		value_type left, top, right, bottom, front, back;
+
+	value_type width() const
+	{
+		return right - left;
+	}
+
+	value_type height() const
+	{
+		return bottom - top;
+	}
+
+	value_type depth() const
+	{
+		return back - front;
+	}
 };
 
 template<typename T> inline bool operator==(const box<T>& l, const box<T>& r)

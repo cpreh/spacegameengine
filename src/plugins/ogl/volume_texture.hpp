@@ -18,20 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_EXTENSIONS_HPP_INCLUDED
-#define SGE_OGL_EXTENSIONS_HPP_INCLUDED
+#ifndef SGE_OGL_VOLUME_TEXTURE_HPP_INCLUDED
+#define SGE_OGL_VOLUME_TEXTURE_HPP_INCLUDED
 
-#include <GL/glew.h>
+#include "../../renderer/volume_texture.hpp"
+#include "./common.hpp"
+#include "./basic_texture.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-void load_extensions();
+class volume_texture : public basic_texture<sge::volume_texture,GL_TEXTURE_3D> {
+public:
+	volume_texture(const_pointer src, size_type _width, size_type _height, size_type _depth, resource_flag_t flags);
+
+	size_type size() const;
+	size_type width() const;
+	size_type height() const;
+	size_type depth() const;
+
+	void set_data(const_pointer src, const lock_box* b = 0);
+private:
+	const size_type _width, _height, _depth;
+};
 
 }
 }
 
 #endif
-
