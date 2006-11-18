@@ -46,7 +46,6 @@ inline void fill_sprite_vertices(vertex_buffer::iterator& it, const rect& rsb, c
 
 	(*it  ).pos()    = pos3(rs.left,rs.bottom);
 	(*it++).tex()[0] = tex_pos(rt.left,rt.bottom);
-
 }
 
 inline void fill_sprite_vertices_rotated(vertex_buffer::iterator& it, const rect& rbs, const space_unit rot, const point center, const rect& rt)

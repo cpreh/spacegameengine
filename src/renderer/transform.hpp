@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #include "./renderer_types.hpp"
 #include "./texture.hpp"
+#include "../math/types.hpp"
 
 namespace sge
 {
@@ -45,12 +46,12 @@ inline pos3 trans_2d_to_3d(const point pos)
 
 inline space_unit space_x_2d_to_3d(const space_unit x)
 {
-	return x*space_unit(2)-1;
+	return (x-0.5)*2;
 }
 
 inline space_unit space_y_2d_to_3d(const space_unit y)
 {
-	return -y*2+1;
+	return (-y+0.5)*2;
 }
 
 inline pos3 space_2d_to_3d(const space_unit x, const space_unit y)
@@ -88,15 +89,14 @@ inline space_unit pixel_size_to_space(const unsigned v, const unsigned screen_si
 	return space_unit(v * space_unit(2) / screen_size);
 }
 
-inline basic_rect<space_unit> space_rect_2d_to_3d(const basic_rect<space_unit>& r)
+inline rect space_rect_2d_to_3d(const rect& r)
 {
-	return basic_rect<space_unit>(space_x_2d_to_3d(r.left), space_y_2d_to_3d(r.top),
-	                              space_x_2d_to_3d(r.right), space_y_2d_to_3d(r.bottom));
+	return rect(space_x_2d_to_3d(r.left), space_y_2d_to_3d(r.top), space_x_2d_to_3d(r.right), space_y_2d_to_3d(r.bottom));
 }
 
-inline basic_rect<space_unit> tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height)
+inline rect tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height)
 {
-	return basic_rect<space_unit>(space_unit(l.left) / width, space_unit(l.top) / height, space_unit(l.right) / width, space_unit(l.bottom) / height);
+	return rect(space_unit(l.left+1) / width, space_unit(l.top+1) / height, space_unit(l.right-1) / width, space_unit(l.bottom-1) / height);
 }
 
 }

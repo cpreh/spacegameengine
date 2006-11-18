@@ -58,11 +58,11 @@ private:
 		template<typename OtherStored> friend class iterator_impl;
 	public:
 		template<typename OtherStored>
-		iterator_impl(const iterator_impl<OtherStored&> r)
-		: data(r.data), stride(r.stride), oi(r.oi) {}
+		iterator_impl(const iterator_impl<OtherStored>& r)
+		 : data(r.data), stride(r.stride), oi(r.oi) {}
 
 		iterator_impl(typename Stored::pointer data, const size_type stride, const offset_info& oi)
-			: data(data), stride(stride), oi(oi) {}
+		 : data(data), stride(stride), oi(oi) {}
 	};
 
 public:
