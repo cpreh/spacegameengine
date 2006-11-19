@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../algorithm.hpp"
-#include "../lock_ptr.hpp"
+#include "../../../renderer/lock_ptr.hpp"
 #include "../texture.hpp"
 #include "../conversion.hpp"
 
@@ -33,14 +33,14 @@ sge::d3d::texture::texture(renderer* const r, d3d_device_ptr device, const const
 
 void sge::d3d::texture::init()
 {
-	const DWORD usage = flags & RF_Dynamic ? D3DUSAGE_DYNAMIC : 0;
+	const DWORD usage = convert_cast<DWORD>(flags());
 	const D3DPOOL pool = convert_cast<D3DPOOL>(flags());
 	const D3DFORMAT format = D3DFMT_A8R8G8B8;
 
 	IDirect3DTexture9* ptex;
-	if(device->CreateTexture(width,height,mip_levels,usage,format,pool,&ptex,0) != D3D_OK)
+	if(device->CreateTexture(width(),height(),mip_levels,usage,format,pool,&ptex,0) != D3D_OK)
 		throw std::runtime_error("failed to create texture");
-	tex = ptex;
+	tex.reset(ptex);
 	set_base(tex.get());
 }
 
@@ -60,7 +60,7 @@ void sge::d3d::texture::lock(const lock_rect* const r)
 		IDirect3DTexture9* temp;
 		if(device->CreateTexture(width(),height(),1,0,D3DFMT_A8R8G8B8,D3DPOOL_SYSTEMMEM,&temp,0) != D3D_OK)
 			throw std::runtime_error("creating temp texture failed");
-		temp_tex = temp;
+		temp_tex.reset(temp);
 		D3DLOCKED_RECT lr;
 		if(temp_tex->LockRect(0,&lr,0,lflags) != D3D_OK)
 			throw std::runtime_error("lock texture failed");
@@ -81,14 +81,14 @@ void sge::d3d::texture::unlock()
 			throw std::runtime_error("unlock texture failed");
 		if(device->UpdateTexture(temp_tex.get(),temp_tex.get()) != D3D_OK)
 			throw std::runtime_error("update texture failed");
-		temp_tex = 0;
+		temp_tex.reset();
 	}
 	lock_dest = 0;
 }
 
 void sge::d3d::texture::on_loss()
 {
-	tex = 0;
+	tex.reset();
 }
 
 void sge::d3d::texture::on_reset()
@@ -98,19 +98,19 @@ void sge::d3d::texture::on_reset()
 
 void sge::d3d::texture::set_data(const const_pointer data, const lock_rect* const r)
 {
-	lock_ptr<texture> l(this,r);
-	const size_type s = r ? width(*r) * height(*r) : size();
+	lock_ptr<texture*> l(this,r);
+	const size_type s = r ? r->width() * r->height() : size();
 	copy(data,data+s,lock_dest);
 }
 
 sge::d3d::texture::size_type sge::d3d::texture::width() const
 {
-	return width;
+	return _width;
 }
 
 sge::d3d::texture::size_type sge::d3d::texture::height() const
 {
-	return height;
+	return _height;
 }
 
 sge::d3d::texture::size_type sge::d3d::texture::size() const

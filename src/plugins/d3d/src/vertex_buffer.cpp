@@ -33,16 +33,16 @@ sge::d3d::vertex_buffer::vertex_buffer(renderer* const r, const d3d_device_ptr d
 void sge::d3d::vertex_buffer::init(const const_pointer src)
 {
 	const DWORD fvf = d3d_format.fvf();
-	const DWORD usage = convert_cast<DWORD>(flags);
-	const D3DPOOL pool = convert_cast<D3DPOOL>(flags);
+	const DWORD usage = convert_cast<DWORD>(flags());
+	const D3DPOOL pool = convert_cast<D3DPOOL>(flags());
 
 	IDirect3DVertexBuffer9* p;
-	if(device->CreateVertexBuffer(unsigned(get_stride() * size()),usage,fvf,pool,&p,0) != D3D_OK)
+	if(device->CreateVertexBuffer(unsigned(stride() * size()),usage,fvf,pool,&p,0) != D3D_OK)
 		throw std::runtime_error("cannot create vertex buffer");
-	buffer = p;
+	buffer.reset(p);
 	if(src)
 	{
-		lock_ptr<vertex_buffer> l(this);
+		lock_ptr<vertex_buffer*> l(this);
 		copy(src,src+sz*stride(),lock_dest);
 	}
 }
@@ -87,7 +87,7 @@ sge::d3d::vertex_buffer::const_reverse_iterator sge::d3d::vertex_buffer::rend() 
 	return const_reverse_iterator(begin());
 }
 
-sge::d3d::vertex_buffer::iterator sge::d3d::vertex_buffer::create_iterator(const pointer data) const
+sge::d3d::vertex_buffer::iterator sge::d3d::vertex_buffer::create_iterator(const pointer data)
 {
 	return iterator(data,d3d_format.stride(),d3d_format.get_offset_info());
 }
@@ -97,16 +97,31 @@ sge::d3d::vertex_buffer::const_iterator sge::d3d::vertex_buffer::create_iterator
 	return const_iterator(data,d3d_format.stride(),d3d_format.get_offset_info());
 }
 
-void sge::d3d::vertex_buffer::lock(const lock_flag_t flags, const size_type first, const size_type count)
+void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags, const size_type first, const size_type count)
 {
-	// TODO: convert here too?
 	if(lock_dest)
 		throw std::logic_error("d3d::vertex_buffer::lock() you have to unlock first!");
 	void* p = 0;
-	const DWORD lflags = convert_lock_flags(flags,flags);
-	if(buffer->Lock(first*get_stride(),count*get_stride(),&p,lflags) != D3D_OK)
+	const DWORD d3dlflags = convert_lock_flags(flags(),lflags);
+	if(buffer->Lock(first * stride(), count * stride(), &p, d3dlflags) != D3D_OK)
 		throw std::runtime_error("Cannot lock d3d vertex buffer!");
 	lock_dest = static_cast<pointer>(p);
+#ifndef SGE_USE_ARGB
+	if(get_vertex_format().uses(VU_Diffuse))
+		for(iterator it = begin(); it != end(); ++it)
+			it->diffuse() = argb_to_rgba(it->diffuse());
+#endif
+}
+
+void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags)
+{
+	lock(lflags,0,size());
+}
+
+void sge::d3d::vertex_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
+{
+	lock_ptr<vertex_buffer*> _l(this,LF_Discard,first,count);
+	copy(src + first*stride(), src + (first+count)*stride(), data());
 }
 
 void sge::d3d::vertex_buffer::unlock()
@@ -114,27 +129,28 @@ void sge::d3d::vertex_buffer::unlock()
 	if(!lock_dest)
 		throw std::logic_error("d3d::vertex_buffer::unlock() you have to lock first!");
 
+#ifndef SGE_USE_ARGB
 	if(get_vertex_format().uses(VU_Diffuse))
 		for(iterator it = begin(); it != end(); ++it)
 			it->diffuse() = rgba_to_argb(it->diffuse());
-	
+#endif
 	if(buffer->Unlock() != D3D_OK)
 		throw std::runtime_error("Cannot unlock d3d vertex buffer!");
 	lock_dest = 0;
 }
 
-void sge::d3d::vertex_buffer::resize(const size_type newsize)
+void sge::d3d::vertex_buffer::resize(const size_type newsize, const const_pointer new_data)
 {
 	if(lock_dest)
 		throw std::logic_error("d3d::vertex_buffer::resize() you have to unlock before resizing!");
 
 	sz = newsize;
-	init(0);
+	init(new_data);
 }
 
 void sge::d3d::vertex_buffer::on_loss()
 {
-	buffer = 0;
+	buffer.reset();
 }
 
 void sge::d3d::vertex_buffer::on_reset()
@@ -149,7 +165,7 @@ sge::d3d::vertex_buffer::size_type sge::d3d::vertex_buffer::size() const
 
 sge::vertex_size sge::d3d::vertex_buffer::stride() const
 {
-	return d3d_format.get_stride();
+	return d3d_format.stride();
 }
 
 sge::resource_flag_t sge::d3d::vertex_buffer::flags() const

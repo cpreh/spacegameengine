@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cmath>
 #include <ostream>
 #include <cstddef>
+#include <stdexcept>
 #include "./vector3.hpp"
 #include "./matrix_proxy.hpp"
 
@@ -255,6 +256,8 @@ template<typename T> inline matrix4x4<T> matrix_look_at(const vector3<T>& eye,
 	                    -dot_p(xaxis,eye),  -dot_p(yaxis,eye),  -dot_p(zaxis,eye),  1);
 }
 
+#undef near
+#undef far
 
 template<typename T> inline matrix4x4<T> matrix_perspective(const T& aspect, const T& fov, const T& near, const T& far)
 {

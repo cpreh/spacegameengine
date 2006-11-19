@@ -47,7 +47,7 @@ public:
 	void set_data(const_pointer src, const lock_box* b);
 
 	resource_flag_t flags() const;
-			
+
 	void lock(const lock_box* b);
 	void unlock();
 private:
@@ -55,15 +55,15 @@ private:
 	void on_reset();
 
 	void init();
-			
+
 	d3d_device_ptr          device;
 	d3d_volume_texture_ptr  tex;
 	d3d_volume_texture_ptr  temp_tex;
 	pointer                 lock_dest;
 	resource_flag_t         _flags;
-	size_type               width;
-	size_type               height;
-	size_type               depth;
+	size_type               _width;
+	size_type               _height;
+	size_type               _depth;
 };
 
 }

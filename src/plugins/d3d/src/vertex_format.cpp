@@ -33,20 +33,20 @@ sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_
 	raw_vector<D3DVERTEXELEMENT9> vertex_elements;
 
 	vertex_size offset = 0;
-	const sge::vertex_format::usage_list& l = f.get_elements();
+	const sge::vertex_format::usage_list& l = f.elements();
 	for(sge::vertex_format::usage_list::const_iterator it = l.begin(); it != l.end(); ++it)
 	{
-		const vertex_usage usage = it->get_usage();
+		const vertex_usage usage = it->usage();
 		D3DVERTEXELEMENT9 elem;
 		elem.Stream = 0;
 		elem.Method = D3DDECLMETHOD_DEFAULT;
 		elem.Offset = static_cast<WORD>(offset);
 		elem.Type = get_vertex_type(usage);
 		elem.Usage = static_cast<BYTE>(convert_cast<D3DDECLUSAGE>(usage));
-		for(elem.UsageIndex = 0; elem.UsageIndex < it->get_count(); ++elem.UsageIndex)
+		for(elem.UsageIndex = 0; elem.UsageIndex < it->count(); ++elem.UsageIndex)
 			vertex_elements.push_back(elem);
 		fill_offset_info(oi,offset,usage);
-		offset += it->get_stride();
+		offset += it->stride();
 	}
 	_stride = offset;
 	
@@ -56,10 +56,11 @@ sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_
 	IDirect3DVertexDeclaration9* decl;
 	if(device->CreateVertexDeclaration(&vertex_elements.front(),&decl) != D3D_OK)
 		throw std::runtime_error("CreateVertexDeclaration)= failed");
-	_vertex_declaration = decl;
+	_vertex_declaration.reset(decl);
 
 	//if(D3DXFVFFromDeclarator(&vertex_elements.front(),&fvf) != D3D_OK)
 	//	fvf = 0;
+	//	FIXME
 }
 
 namespace

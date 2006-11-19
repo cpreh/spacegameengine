@@ -19,26 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../cube_texture.hpp"
-#include "../lock_ptr.hpp"
+#include "../../../renderer/lock_ptr.hpp"
 #include "../../../algorithm.hpp"
 
 #include <iostream>
 
-sge::d3d::cube_texture::cube_texture(renderer* const r, d3d_device_ptr device, const cube_side_src_array* data, const size_type sz, const resource_flag_t nflags)
+sge::d3d::cube_texture::cube_texture(renderer* const r, d3d_device_ptr device, const cube_side_array* data, const size_type sz, const resource_flag_t nflags)
 :  d3d::texture_base(0), resource(r, nflags & RF_Dynamic),
    device(device), _flags(nflags), sz(sz), lock_dest(0)
 {
 	init(data);
 }
 
-void sge::d3d::cube_texture::init(const cube_side_src_array* const src)
+void sge::d3d::cube_texture::init(const cube_side_array* const src)
 {
 	if(!src)
 		return;
-	const cube_side_src_array& data = *src;
-	for(cube_side_src_array::size_type s = 0; s < data.size(); ++s)
+	const cube_side_array& data = *src;
+	for(cube_side_array::size_type s = 0; s < data.size(); ++s)
 	{
-		lock_ptr<cube_texture> l(this,cube_side(s));
+		lock_ptr<cube_texture*> l(this,cube_side(s));
 		copy(data[s],data[s]+size(),lock_dest);
 	}
 }
@@ -70,7 +70,7 @@ sge::cube_texture::size_type sge::d3d::cube_texture::size() const
 
 void sge::d3d::cube_texture::on_loss()
 {
-	tex = 0;
+	tex.reset();
 }
 
 void sge::d3d::cube_texture::on_reset()

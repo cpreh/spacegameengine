@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../ptr_cast.hpp"
 #include "../../../util.hpp"
-#include "../../../renderer/renderer_types.hpp"
+#include "../../../renderer/types.hpp"
 #include "../renderer_system.hpp"
 #include "../conversion.hpp"
 #include "../renderer.hpp"
@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enumeration.hpp"
 
 sge::d3d::renderer_system::renderer_system()
+ : sys(Direct3DCreate9(D3D_SDK_VERSION))
 {
-	sys = Direct3DCreate9(D3D_SDK_VERSION);
 	if(!sys)
 		throw std::runtime_error("Initialization of d3d failed");
 }
@@ -53,14 +53,16 @@ sge::renderer_ptr sge::d3d::renderer_system::create_renderer(const renderer_para
 		adapter = 0;
 	}
 
-	win32_window_ptr wnd = new win32_window(0,0,param.mode.width,param.mode.height);
+	const win32_window_ptr wnd(new win32_window(window::window_size(param.mode.width,param.mode.height)));
 	const DWORD tnl_flags = get_tnl_caps(adapter,sys);
 	D3DPRESENT_PARAMETERS pp = create_present_parameters(param,adapter,wnd,sys);
+
+	ShowCursor(FALSE);
 
 	IDirect3DDevice9* device;
 	if(sys->CreateDevice(adapter,D3DDEVTYPE_HAL,wnd->get_hwnd(),tnl_flags,&pp,&device) != D3D_OK)
 		throw std::runtime_error("Failed to initialize the renderer");
-	ShowCursor(FALSE);
 
-	return new renderer(device,param,adapter,wnd,sys);
+	const d3d_device_ptr device_p(device);
+	return renderer_ptr(new renderer(device_p,param,adapter,wnd,sys));
 }

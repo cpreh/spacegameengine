@@ -92,6 +92,16 @@ inline color4 color_to_color4(const color c)
 	return color4(red_part_rgba_f(c), green_part_rgba_f(c), blue_part_rgba_f(c), alpha_part_rgba_f(c));
 }
 
+inline color rgba_to_argb(const color c)
+{
+	return (c >> 8) | ((c & 0xFF) << 24);
+}
+
+inline color argb_to_rgba(const color c)
+{
+	return (c << 8) | ((c & 0xFF000000) >> 24);
+}
+
 }
 
 #endif

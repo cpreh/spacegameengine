@@ -35,7 +35,7 @@ namespace d3d
 class cube_texture : public d3d::texture_base, public sge::cube_texture, public resource {
 	friend class renderer;
 private:
-	cube_texture(renderer* r, d3d_device_ptr device, const cube_side_src_array* data, size_type sz, resource_flag_t flags);
+	cube_texture(renderer* r, d3d_device_ptr device, const cube_side_array* data, size_type sz, resource_flag_t flags);
 public:
 	size_type size() const;
 	resource_flag_t flags() const;
@@ -46,7 +46,7 @@ private:
 	void on_loss();
 	void on_reset();
 
-	void init(const cube_side_src_array* data = 0);
+	void init(const cube_side_array* data = 0);
 
 	d3d_device_ptr        device;
 	d3d_cube_texture_ptr  tex;

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer.hpp"
 
 sge::d3d::resource::resource(renderer* const r, const bool needs_restore)
-: my_list(needs_restore ? &r->resources : 0),
-  my_place(needs_restore ? my_list.insert(my_list.end()) : my_list.end())
+: my_list(needs_restore ? &(r->resources) : 0),
+  my_place(needs_restore ? my_list->insert(my_list->end(),this) : my_list->end())
 {}
 
 sge::d3d::resource::~resource()

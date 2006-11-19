@@ -38,7 +38,7 @@ libfreetype = freetype.SharedLibrary('sgefreetype', [glob('./src/plugins/freetyp
 xinput = Environment(LIBS = ['X11', 'Xxf86dga'], CCFLAGS = flags)
 libxinput = xinput.SharedLibrary('sgexinput', [glob('./src/plugins/xinput/src/*.cpp')])
 
-#d3d = Environment(LIBS = ['winelib'], CCFLAGS = flags)
+#d3d = Environment(CPPPATH = ['/usr/include/wine/windows'], LIBS = ['wine'], CCFLAGS = argflags)
 #libd3d = d3d.SharedLibrary('sged3d', [glob('./src/plugins/d3d/src/*.cpp')])
 
 test = Environment(LIBPATH = ['.'], LIBS = ['sgecore','sgegui'], CCFLAGS = flags)

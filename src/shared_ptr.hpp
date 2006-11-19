@@ -24,30 +24,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include "./smart_ptr_policies.hpp"
 #include <cstddef>
-#include <boost/shared_ptr.hpp>
 
 namespace sge
 {
-/*
+
 namespace detail {
-struct dynamic_cast_struct{};
+struct dynamic_cast_tag{};
 }
 	
 template<typename T, template <typename> class Deleter = heap_deleter> class shared_ptr : Deleter<T> {
 	typedef std::size_t counter_type;
 public:
+	typedef T     value_type;
 	typedef T&    reference;
 	typedef T*    pointer;
 	
 	shared_ptr()
-		: ptr(0), counter(new counter_type(1)) {}
+	 : ptr(0), counter(new counter_type(1)) {}
 
-	explicit shared_ptr(pointer p)
-		: ptr(p), counter(new counter_type(1)) {}
+	explicit shared_ptr(const pointer p)
+	 : ptr(p), counter(new counter_type(1)) {}
 
 	shared_ptr(const shared_ptr& r) { _assign(r); }
 	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r) { _assign(r); }
-	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r, detail::dynamic_cast_struct)
+	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r, detail::dynamic_cast_tag)
 	{
 		counter = r.counter;
 		++(*counter);
@@ -70,7 +70,7 @@ public:
 
 	~shared_ptr() { _release(); }
 
-	void reset(pointer p = 0)
+	void reset(const pointer p = 0)
 	{
 		if(p != get())
 		{
@@ -78,6 +78,17 @@ public:
 			ptr = p;
 			counter = new counter_type(1);
 		}
+	}
+private:
+	struct _dummy {
+		void operator delete(void*);
+	};
+public:
+	operator _dummy*() const
+	{
+		if(!(*this)) return 0;
+		static _dummy d;
+		return &d;
 	}
 private:
 	template<typename Other, template<typename> class OtherDeleter> friend class shared_ptr;
@@ -110,6 +121,11 @@ private:
 	counter_type*  counter;
 };
 
+template<typename T, template<typename> class D> bool operator! (const shared_ptr<T,D>& s)
+{
+	return !s.get();
+}
+
 template<typename T, template<typename> class D> bool operator< (const shared_ptr<T,D>& l, const shared_ptr<T,D>& r)
 {
 	return l.get() < r.get();
@@ -132,12 +148,8 @@ template<typename T, template<typename> class D> std::ostream& operator<< (std::
 
 template<typename T, typename U, template<typename> class D> shared_ptr<T,D> dynamic_pointer_cast(const shared_ptr<U,D>& s)
 {
-	return shared_ptr<T,D>(s, detail::dynamic_cast_struct());
+	return shared_ptr<T,D>(s, detail::dynamic_cast_tag());
 }
-*/
-
-using boost::shared_ptr;
-using boost::dynamic_pointer_cast;
 
 }
 

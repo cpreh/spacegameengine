@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <functional>
 #include "../../../ptr_cast.hpp"
 #include "../../../raw_vector.hpp"
-#include "../../../math/quaternion.hpp"
 #include "../../../util.hpp"
 #include "../../../renderer/transform.hpp"
+#include "../enumeration.hpp"
 #include "../renderer.hpp"
 #include "../texture.hpp"
 #include "../volume_texture.hpp"
@@ -34,9 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../constants.hpp"
 #include "../conversion.hpp"
-#include "../enumeration.hpp"
 #include "../resource.hpp"
 #include "../render_target.hpp"
+
+#include <iostream>
 
 namespace
 {
@@ -57,11 +58,11 @@ sge::d3d::renderer::renderer(const d3d_device_ptr device, const renderer_paramet
   clear_zbuffer(true),
   clear_stencil(false),
   clear_back_buffer(true),
-  clear_color(ARGB_MAKRO(255,255,255,255)),
+  clear_color(static_rgba<255,255,255,255>::value), // FIXME (should be argb)
   stencil_clear_val(0),
   zbuffer_clear_val(1.f)
 {
-	create_renderer_caps(adapter,sys,caps);
+	create_renderer_caps(adapter,sys,_caps);
 	init();
 }
 
@@ -70,15 +71,15 @@ void sge::d3d::renderer::init()
 	IDirect3DSurface9* surface;
 	if(device->GetRenderTarget(0,&surface) != D3D_OK)
 		throw std::runtime_error("d3d: cannot obtain default render target!");
-	default_render_target = surface;
+	default_render_target.reset(surface);
 	std::for_each(resources.begin(),resources.end(),std::mem_fun(&resource::on_reset));
 }
 
 void sge::d3d::renderer::release_resources()
 {
 	std::for_each(resources.begin(),resources.end(),std::mem_fun(&resource::on_loss));
-	default_render_target = 0;
-	vertex_declaration = 0;
+	default_render_target.reset();
+	vertex_declaration.reset();
 }
 
 sge::vertex_buffer_ptr sge::d3d::renderer::create_vertex_buffer(const sge::vertex_format& format, const vertex_buffer::size_type size, const resource_flag_t flags, const vertex_buffer::const_pointer data)
@@ -101,7 +102,7 @@ sge::volume_texture_ptr sge::d3d::renderer::create_volume_texture(const volume_t
 	return volume_texture_ptr(new volume_texture(this,device,data,width,height,depth,flags));
 }
 
-sge::cube_texture_ptr sge::d3d::renderer::create_cube_texture(const cube_side_src_array* const src, const cube_texture::size_type size, const resource_flag_t flags)
+sge::cube_texture_ptr sge::d3d::renderer::create_cube_texture(const cube_side_array* const src, const cube_texture::size_type size, const resource_flag_t flags)
 {
 	return cube_texture_ptr(new cube_texture(this,device,src,size,flags));
 }
@@ -173,10 +174,10 @@ void sge::d3d::renderer::reset(const renderer_parameters* const param)
 		if(parameters.mode.width != param->mode.width ||
 		   parameters.mode.height != param->mode.height)
 		{
-			render_window->set_size(window::window_pos(param->mode.width,param->mode.height));
+			render_window->size(window::window_size(param->mode.width,param->mode.height));
 			parameters.mode = param->mode;
 		}
-		parameters.multi_sampling = param->multi_sampling;
+		parameters.samples = param->samples;
 		parameters.windowed = param->windowed;
 		parameters.vsync = param->vsync;
 	}
@@ -185,7 +186,7 @@ void sge::d3d::renderer::reset(const renderer_parameters* const param)
 
 	while(device->TestCooperativeLevel() == D3DERR_DEVICELOST)
 	{
-		sge::process_window_msgs();
+		//sge::process_window_msgs();
 		sge::sleep(10);
 	}
 
@@ -235,27 +236,25 @@ void sge::d3d::renderer::set_filter_state(const stage_type stage, const filter_a
 	set_sampler_state(device,stage,d3d_type,d3d_value);
 }
 
-void sge::d3d::renderer::process_render_job(const render_job& r)
+void sge::d3d::renderer::render(const vertex_buffer_ptr nvb, const index_buffer_ptr nib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
 {
-	const D3DPRIMITIVETYPE prim_type = convert_cast<D3DPRIMITIVETYPE>(r.ptype);
-	if(vb != r.vb)
-		set_vertex_buffer(r.vb);
+	const D3DPRIMITIVETYPE prim_type = convert_cast<D3DPRIMITIVETYPE>(ptype);
+	if(vb != nvb)
+		set_vertex_buffer(nvb);
 
-	using namespace sge;
-	switch(r.ptype) {
+	switch(ptype) {
 	case PT_Line:
 	case PT_Triangle:
-		if(ib != r.ib)
-			set_index_buffer(r.ib);
-		if(device->DrawIndexedPrimitive(prim_type,0,r.first_vertex,
-			                            r.num_vertices,r.first_index,r.pcount) != D3D_OK)
+		if(ib != nib)
+			set_index_buffer(nib);
+		if(device->DrawIndexedPrimitive(prim_type,0,first_vertex,num_vertices,first_index,pcount) != D3D_OK)
 			throw std::runtime_error("DrawIndexedPrimitive() failed");
 		break;
 	case PT_Point:
 	case PT_LineStrip:
 	case PT_TriangleStrip:
 	case PT_TriangleFan:
-		if(device->DrawPrimitive(prim_type,r.first_vertex,r.pcount) != D3D_OK)
+		if(device->DrawPrimitive(prim_type,first_vertex,pcount) != D3D_OK)
 			throw std::runtime_error("DrawPrimitive() failed");
 		break;
 	}
@@ -371,16 +370,28 @@ void sge::d3d::renderer::set_int_state(const int_state state, const int_type val
 		break;
 	}
 }
-void sge::d3d::renderer::set_matrix(const matrix_usage usage, const matrix4x4& m)
+
+void sge::d3d::renderer::set_transformation(const matrix4x4<space_unit>& m)
 {
-	const D3DTRANSFORMSTATETYPE transform = convert_cast<D3DTRANSFORMSTATETYPE>(usage);
-	if(device->SetTransform(transform,reinterpret_cast<const D3DMATRIX*>(&m)) != D3D_OK)
+	if(device->SetTransform(D3DTS_WORLD,reinterpret_cast<const D3DMATRIX*>(&m)) != D3D_OK)
 		throw std::runtime_error("SetTransform() failed");
 }
 
-void sge::d3d::renderer::get_caps(renderer_caps& c) const
+void sge::d3d::renderer::projection_perspective(const space_unit fov, const space_unit near, const space_unit far)
 {
-	c = caps;
+	std::cerr << "stub: d3d::renderer::projection_perspective\n";
+}
+
+void sge::d3d::renderer::projection_orthogonal()
+{
+	const matrix4x4<space_unit> m(matrix_orthogonal_xy<space_unit>());
+	if(device->SetTransform(D3DTS_PROJECTION,reinterpret_cast<const D3DMATRIX*>(&m)) != D3D_OK)
+		throw std::runtime_error("SetTransform() failed");
+}
+
+const sge::renderer_caps& sge::d3d::renderer::caps() const
+{
+	return _caps;
 }
 
 unsigned sge::d3d::renderer::screen_width() const

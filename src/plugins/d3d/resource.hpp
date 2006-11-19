@@ -28,9 +28,10 @@ namespace sge
 namespace d3d
 {
 
+class resource;
 class renderer;
 
-typedef std::list<renderer*> resource_list;
+typedef std::list<resource*> resource_list;
 
 class resource {
 public:

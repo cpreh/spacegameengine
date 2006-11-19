@@ -19,11 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../ptr_cast.hpp"
+#include "../../../renderer/types.hpp"
 #include "../../../win32_window.hpp"
-#include "../../../renderer/renderer_types.hpp"
 #include "../enumeration.hpp"
 #include "../constants.hpp"
 #include "../conversion.hpp"
+
+#include <iostream>
 
 void sge::d3d::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, renderer_caps& c)
 {
@@ -36,8 +38,10 @@ void sge::d3d::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, r
 		throw std::runtime_error("GetAdapterIdentifier failed");
 
 	c.adapter_number = adapter;
-	c.max_tex_width = caps.MaxTextureWidth;
-	c.max_tex_height = caps.MaxTextureHeight;
+	c.max_tex_size = caps.MaxTextureWidth;
+	if(caps.MaxTextureWidth != caps.MaxTextureHeight)
+		std::cerr << "Warning: MaxTextureWidth != MaxTextureHeight (case not handled)\n";
+//	c.max_tex_height = caps.MaxTextureHeight;
 	c.driver_name = &identifier.Driver[0];
 	c.description = &identifier.Description[0];
 
@@ -112,7 +116,7 @@ D3DPRESENT_PARAMETERS sge::d3d::create_present_parameters(const renderer_paramet
 	pp.FullScreen_RefreshRateInHz = param.windowed ? 0 : param.mode.refresh_rate;
 	pp.hDeviceWindow = wnd->get_hwnd();
 	pp.MultiSampleQuality = 0;
-	pp.MultiSampleType = convert_cast<D3DMULTISAMPLE_TYPE>(param.multi_sampling);
+	pp.MultiSampleType = convert_cast<D3DMULTISAMPLE_TYPE>(param.samples);
 	pp.PresentationInterval = param.vsync ? D3DPRESENT_INTERVAL_ONE : D3DPRESENT_INTERVAL_IMMEDIATE;
 	pp.SwapEffect = constants::swap_effect();
 	pp.Windowed = param.windowed;

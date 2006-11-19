@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../algorithm.hpp"
+#include "../../../renderer/lock_ptr.hpp"
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"
-#include "../lock_ptr.hpp"
 
 sge::d3d::volume_texture::volume_texture(renderer* const r, d3d_device_ptr device, const const_pointer src, const size_type _width, const size_type _height, const size_type _depth, const resource_flag_t nflags)
 : d3d::texture_base(0), resource(r, nflags & RF_Dynamic),
@@ -40,7 +40,7 @@ void sge::d3d::volume_texture::init()
 	IDirect3DVolumeTexture9* ptex;
 	if(device->CreateVolumeTexture(width(),height(),depth(),1,usage,format,pool,&ptex,0) != D3D_OK)
 		throw std::runtime_error("failed to create texture");
-	tex = ptex;
+	tex.reset(ptex);
 	set_base(tex.get());
 }
 
@@ -61,7 +61,7 @@ void sge::d3d::volume_texture::lock(const lock_box* const b)
 		IDirect3DVolumeTexture9* temp;
 		if(device->CreateVolumeTexture(width(),height(),depth(),1,0,D3DFMT_A8R8G8B8,D3DPOOL_SYSTEMMEM,&temp,0) != D3D_OK)
 			throw std::runtime_error("creating temp texture failed");
-		temp_tex = temp;
+		temp_tex.reset(temp);
 		D3DLOCKED_BOX lb;
 		if(temp_tex->LockBox(0,&lb,0,lflags) != D3D_OK)
 			throw std::runtime_error("lock texture failed");
@@ -82,14 +82,14 @@ void sge::d3d::volume_texture::unlock()
 			throw std::runtime_error("unlock texture failed");
 		if(device->UpdateTexture(temp_tex.get(),tex.get()) != D3D_OK)
 			throw std::runtime_error("update texture failed");
-		temp_tex = 0;
+		temp_tex.reset(0);
 	}
 	lock_dest = 0;
 }
 
 void sge::d3d::volume_texture::on_loss()
 {
-	tex = 0;
+	tex.reset();
 }
 
 void sge::d3d::volume_texture::on_reset()
@@ -97,10 +97,10 @@ void sge::d3d::volume_texture::on_reset()
 	init();
 }
 
-void sge::d3d::volume_texture::set_data(const const_pointer data, const lock_box* b)
+void sge::d3d::volume_texture::set_data(const const_pointer data, const lock_box* const b)
 {
-	lock_ptr<volume_texture> l(this,b);
-	const size_type s = b ? width(*b) * height(*b) * depth(*b) : size();
+	lock_ptr<volume_texture*> l(this,b);
+	const size_type s = b ? b->width() * b->height() * b->depth() : size();
 	copy(data,data+s,lock_dest);
 }
 

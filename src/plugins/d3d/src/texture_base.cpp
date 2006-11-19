@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texture_base.hpp"
 
-sge::d3d::texture_base::texture_base(IDirect3DBaseTexture9* base)
+sge::d3d::texture_base::texture_base(IDirect3DBaseTexture9* const base)
 : base(base)
 {}
 
-void sge::d3d::texture_base::set_base(IDirect3DBaseTexture9* b)
+void sge::d3d::texture_base::set_base(IDirect3DBaseTexture9* const b)
 {
 	base = b;
 }

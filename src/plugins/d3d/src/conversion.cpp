@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <stdexcept>
 #include "../conversion.hpp"
-#include "../../../renderer/renderer_types.hpp"
+#include "../../../renderer/types.hpp"
 
-template<> DWORD sge::d3d::convert_cast (const lock_flag_t& r)
+template<> DWORD sge::d3d::convert_cast (const resource_flag_t& r)
 {
 	DWORD l = 0;
 	if(r & RF_Dynamic)
@@ -57,63 +57,44 @@ template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const primitive_type& r)
 	}
 }
 
-template<> DWORD sge::d3d::convert_cast (const text_flags& r)
-{
-	DWORD l = 0;
-	if(r & TXTF_AlignLeft)
-		l |= DT_LEFT;
-	if(r & TXTF_AlignHCenter)
-		l |= DT_CENTER;
-	if(r & TXTF_AlignRight)
-		l |= DT_RIGHT;
-	if(r & TXTF_AlignTop)
-		l |= DT_TOP;
-	if(r & TXTF_AlignVCenter)
-		l |= DT_VCENTER;
-	if(r & TXTF_AlignBottom)
-		l |= DT_BOTTOM | DT_SINGLELINE;
-	if(r & TXTF_NoMultiLine)
-		l |= DT_SINGLELINE;
-	return l;
-}
-
 template<> D3DMULTISAMPLE_TYPE sge::d3d::convert_cast (const multi_sample_type& r)
 {
 	switch(r) {
-	case MS_None:
+	case 0:
+	case 1:
 		return D3DMULTISAMPLE_NONE;
-	case MS_2_Samples:
+	case 2:
 		return D3DMULTISAMPLE_2_SAMPLES;
-	case MS_3_Samples:
+	case 3:
 		return D3DMULTISAMPLE_3_SAMPLES;
-	case MS_4_Samples:
+	case 4:
 		return D3DMULTISAMPLE_4_SAMPLES;
-	case MS_5_Samples:
+	case 5:
 		return D3DMULTISAMPLE_5_SAMPLES;
-	case MS_6_Samples:
+	case 6:
 		return D3DMULTISAMPLE_6_SAMPLES;
-	case MS_7_Samples:
+	case 7:
 		return D3DMULTISAMPLE_7_SAMPLES;
-	case MS_8_Samples:
+	case 8:
 		return D3DMULTISAMPLE_8_SAMPLES;
-	case MS_9_Samples:
+	case 9:
 		return D3DMULTISAMPLE_9_SAMPLES;
-	case MS_10_Samples:
+	case 10:
 		return D3DMULTISAMPLE_10_SAMPLES;
-	case MS_11_Samples:
+	case 11:
 		return D3DMULTISAMPLE_11_SAMPLES;
-	case MS_12_Samples:
+	case 12:
 		return D3DMULTISAMPLE_12_SAMPLES;
-	case MS_13_Samples:
+	case 13:
 		return D3DMULTISAMPLE_13_SAMPLES;
-	case MS_14_Samples:
+	case 14:
 		return D3DMULTISAMPLE_14_SAMPLES;
-	case MS_15_Samples:
+	case 15:
 		return D3DMULTISAMPLE_15_SAMPLES;
-	case MS_16_Samples:
+	case 16:
 		return D3DMULTISAMPLE_16_SAMPLES;
 	default:
-		throw std::logic_error("invalid multi_sample_type");
+		throw std::logic_error("invalid multi_sample_type value (must be <= 16)");
 	}
 }
 
@@ -130,20 +111,6 @@ template<> D3DDECLUSAGE sge::d3d::convert_cast (const vertex_usage& r)
 		return D3DDECLUSAGE_COLOR;
 	default:
 		throw std::logic_error("invalid vertex_usage");
-	}
-}
-
-template<> D3DTRANSFORMSTATETYPE sge::d3d::convert_cast (const matrix_usage& r)
-{
-	switch(r) {
-	case MU_Transform:
-		return D3DTS_WORLD;
-	case MU_Camera:
-		return D3DTS_VIEW;
-	case MU_Projection:
-		return D3DTS_PROJECTION;
-	default:
-		throw std::logic_error("invalid matrix_usage");
 	}
 }
 

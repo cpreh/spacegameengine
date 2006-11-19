@@ -85,7 +85,7 @@ public:
 	virtual void lock(lock_flag_t flags = LF_Default) = 0;
 	virtual void unlock() = 0;
 	virtual void set_data(const_pointer data, size_type first, size_type count) = 0;
-	virtual void resize(size_type newsize, const_pointer data = 0) = 0;
+	virtual void resize(size_type newsize, const_pointer new_data = 0) = 0;
 	virtual size_type stride() const = 0;
 	virtual iterator create_iterator(pointer data) = 0;
 	virtual const_iterator create_iterator(const_pointer data) const = 0;

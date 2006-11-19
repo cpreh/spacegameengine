@@ -46,12 +46,15 @@ public:
 	reverse_iterator rend();
 	const_reverse_iterator rend() const;
 	size_type size() const;
-	void resize(size_type newsize);
-	void lock(lock_flag_t flags, size_type first, size_type count);
+	void resize(size_type newsize, const_pointer new_data);
+	void lock(lock_flag_t flags);
 	void unlock();
+	void set_data(const_pointer src, size_type first, size_type count);
 	resource_flag_t flags() const;
 	pointer data();
 	const_pointer data() const;
+	
+	void lock(lock_flag_t lflags, size_type first, size_type count);
 private:
 	void on_loss();
 	void on_reset();

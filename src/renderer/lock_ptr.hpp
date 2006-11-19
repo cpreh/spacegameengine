@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LOCK_PTR_HPP_INCLUDED
 
 #include "./types.hpp"
+#include "./texture_base.hpp"
+#include "./volume_texture.hpp"
 
 namespace sge
 {
@@ -29,9 +31,30 @@ namespace sge
 template<typename T> class lock_ptr {
 public:
 	lock_ptr(const T t, const lock_flag_t flags = LF_Default)
-		: t(t)
+	 : t(t)
 	{
 		t->lock(flags);
+	}
+
+	lock_ptr(const T t, const cube_side side, const lock_flag_t flags = LF_Default)
+	 : t(t)
+	{
+		t->lock(side);
+	}
+
+	lock_ptr(const T t, const lock_rect* const l)
+	{
+		t->lock(l);
+	}
+
+	lock_ptr(const T t, const lock_box* const l)
+	{
+		t->lock(l);
+	}
+
+	lock_ptr(const T t, const lock_flag_t flags, const std::size_t first, const std::size_t count)
+	{
+		t->lock(flags,first,count);
 	}
 
 	void unlock()
@@ -39,7 +62,7 @@ public:
 		if(t)
 		{
 			t->unlock();
-			t.reset();
+			_reset<T>::reset_ptr(t);
 		}
 	}
 
@@ -49,8 +72,22 @@ public:
 	}
 private:
 	T t;
-};
 
+	template<typename U>
+	struct _reset {
+		static void reset_ptr(U& u)
+		{
+			u.reset();
+		}
+	};
+	template<typename U>
+	struct _reset<U*> {
+		static void reset_ptr(U*& u)
+		{
+			u = 0;
+		}
+	};
+};
 
 }
 
