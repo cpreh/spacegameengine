@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <stdexcept>
-#include "../../../core/main/ptr_cast.hpp"
-#include "../../../core/main/win32_window.hpp"
+#include "../../../ptr_cast.hpp"
+#include "../../../win32_window.hpp"
 #include "../input_system.hpp"
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
@@ -44,11 +44,15 @@ sge::dinput::input_system::input_system(const win32_window_ptr wnd)
 		throw std::runtime_error("DirectInput Enumeration failed");
 }
 
-sge::input_array& sge::dinput::input_system::get_input()
+sge::callback_handle sge::dinput::input_system::register_callback(const callback& c)
+{
+	return callback_handle(new callback_handle_impl(sig.connect(c)));
+}
+
+void sge::dinput::input_system::dispatch()
 {
 	for(device_array::iterator it = devices.begin(); it != devices.end(); ++it)
-		(*it)->get_input(input);
-	return input;
+		(*it)->dispatch(sig);
 }
 
 char sge::dinput::input_system::keycode_to_char(const key_code key, const modifier_state& mod_state) const

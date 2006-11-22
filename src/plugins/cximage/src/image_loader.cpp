@@ -18,26 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../plugin.hpp"
-#include "../input_system.hpp"
+#include "../image_loader.hpp"
 
-extern "C"
+sge::image_ptr sge::cximage::image_loader::load_image(const std::string& file, const unsigned w, const unsigned h)
 {
-	void plugin_version_info(sge::plugin_info* const p)
-	{
-		if(!p)
-			return;
-		p->name = "direct input plugin";
-		p->description = "";
-		p->min_core_version = 0x1;
-		p->plugin_version = 0x1;
-		p->type = sge::PT_Input;
-	}
-
-	sge::input_system* create_input_system(const sge::window_ptr w)
-	{
-		ptr_cast<win32_window*>(w.get());
-		sge::win32_window_ptr ww = boost::dynamic_pointer_cast<win32_window_ptr>(w);
-		return new sge::dinput::input_system(w);
-	}
+	return image_ptr(new image(file,w,h));
 }

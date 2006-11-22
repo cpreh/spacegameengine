@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-    inline void bound_pos(sge::key_state& state)
+	inline void bound_pos(sge::key_state& state)
 	{
 		if(state > 1.f)
 			state = 1.f;
@@ -57,7 +57,7 @@ sge::dinput::mouse::mouse(const dinput_ptr di, const std::string& name, const GU
 	acquire();
 }
 
-void sge::dinput::mouse::get_input(input_array& v)
+void sge::dinput::mouse::dispatch(input_system::signal_type& sig)
 {
 	input_buffer data;
 	DWORD elements;
@@ -75,12 +75,12 @@ void sge::dinput::mouse::get_input(input_array& v)
 			bound_pos(r);
 			bound_pos_neg(m);
 
-			v.push_back(key_pair(keys[data[i].dwOfs],m));
-			v.push_back(key_pair(l_keys[data[i].dwOfs],l));
-			v.push_back(key_pair(r_keys[data[i].dwOfs],r));
+			sig(key_pair(keys[data[i].dwOfs],m));
+			sig(key_pair(l_keys[data[i].dwOfs],l));
+			sig(key_pair(r_keys[data[i].dwOfs],r));
 		}
 		else
-			v.push_back(key_pair(keys[data[i].dwOfs],data[i].dwData & 0x80 ? 1.f : 0));
+			sig(key_pair(keys[data[i].dwOfs],data[i].dwData & 0x80 ? 1.f : 0));
 	}
 }
 

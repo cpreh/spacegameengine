@@ -18,25 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../core/main/dllapi.hpp"
-#include "../../../core/main/plugin_manager.hpp"
-#include "../pic_loader.hpp"
+#include "../../../plugin.hpp"
+#include "../image_loader.hpp"
 
 extern "C"
 {
-	DLLEXPORT void dll_version_info(sge::plugin_info* p)
+	void dll_version_info(sge::plugin_info* const p)
 	{
 		if(!p)
 			return;
-		p->name = "cxImage pic loader plugin";
+		p->name = "cxImage image loader plugin";
 		p->description = "";
 		p->min_core_version = 0x1;
 		p->plugin_version = 0x1;
-		p->type = sge::PT_PicLoader;
+		p->type = sge::PT_Image;
 	}
 
-	DLLEXPORT sge::pic_loader* create_pic_loader()
+	sge::image_loader* create_pic_loader()
 	{
-		return new sge::cximage::pic_loader();
+		return new sge::cximage::image_loader();
 	}
 }

@@ -44,7 +44,7 @@ sge::fmod::music::~music()
 	FSOUND_Stream_Close(stream);
 }
 
-void sge::fmod::music::play(bool loop)
+void sge::fmod::music::play(const bool loop)
 {
 	if(FSOUND_Stream_Play(0,stream)==-1)
 		throw std::runtime_error("Unable to play music");

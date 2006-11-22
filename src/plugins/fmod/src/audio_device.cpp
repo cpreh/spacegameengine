@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <stdexcept>
 #include "../audio_device.hpp"
 #include "../music.hpp"
-#include "../../../core/main/ptr_cast.hpp"
+#include "../../../ptr_cast.hpp"
 
 #ifdef SGE_WINDOWS_PLATFORM
-#include "../../../core/main/win32_window.hpp"
+#include "../../../win32_window.hpp"
 #endif
 
 sge::fmod::audio_device::audio_device(const unsigned num, const window_ptr w)

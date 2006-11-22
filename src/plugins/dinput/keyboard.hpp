@@ -28,21 +28,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-	namespace dinput
-	{
-		class keyboard : public input_device {
-		public:
-			keyboard(dinput_ptr, const std::string& name, GUID guid, unsigned index, HWND wnd, const key_converter& conv);
-			void process_input();
-			void get_input(input_array& v);
-			key_state query_key(const std::string& name);
-		private:
-			static BOOL CALLBACK enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
-			typedef std::map<unsigned,key_type> key_map;
-			key_map keys;
-			const key_converter& conv;
-		};
-	}
+namespace dinput
+{
+
+class keyboard : public input_device {
+public:
+	keyboard(dinput_ptr, const std::string& name, GUID guid, unsigned index, HWND wnd, const key_converter& conv);
+	void dispatch(input_system::signal_type&);
+	key_state query_key(const std::string& name);
+private:
+	static BOOL CALLBACK enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
+	typedef std::map<unsigned,key_type> key_map;
+	key_map keys;
+	const key_converter& conv;
+};
+
+}
 }
 
 #endif

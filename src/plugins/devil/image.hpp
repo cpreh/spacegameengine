@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_IMAGE_HPP_INCLUDED
 #define SGE_DEVIL_IMAGE_HPP_INCLUDED
 
-#include "../../image/image_loader.hpp"
+#include "../../image/image.hpp"
 #include "../../shared_ptr.hpp"
 #include "../../auto_ptr.hpp"
 #include <IL/il.h>

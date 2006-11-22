@@ -18,26 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../plugin.hpp"
-#include "../input_system.hpp"
+#include "../image.hpp"
 
-extern "C"
+sge::cximage::image::image(const std::string& file, const unsigned w, const unsigned h)
+ : img(file.c_str(),CXIMAGE_FORMAT_UNKNOWN)
 {
-	void plugin_version_info(sge::plugin_info* const p)
-	{
-		if(!p)
-			return;
-		p->name = "direct input plugin";
-		p->description = "";
-		p->min_core_version = 0x1;
-		p->plugin_version = 0x1;
-		p->type = sge::PT_Input;
-	}
+	if(!img.IsValid())
+		throw std::runtime_error(std::string("Loading ") += file + " with cximage failed!")
+	if(!img.AlphaIsValid())
+		Img.AlphaCreate();
+	if(w != 0 || h != 0)
+		resize(w,h);
+}
 
-	sge::input_system* create_input_system(const sge::window_ptr w)
-	{
-		ptr_cast<win32_window*>(w.get());
-		sge::win32_window_ptr ww = boost::dynamic_pointer_cast<win32_window_ptr>(w);
-		return new sge::dinput::input_system(w);
-	}
+void sge::cximage::image::resize(const size_type w, const size_type h)
+{
+	img.Resample2(w, h, CxImage::IM_BICUBIC2, CxImage::OM_TRANSPARENT);
+}
+
+sge::image::const_pointer sge::cximage::image::data() const
+{
+	return 0; // FIXME
+}
+
+sge::image::size_type sge::cximage::image::width() const
+{
+	return img.GetWidth();
+}
+
+sge::image::size_type sge::cximage::image::height() const
+{
+	return img.GetHeight();
 }

@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../core/main/dllapi.hpp"
 #include "../../../core/main/plugin.hpp"
 #include "../audio_system.hpp"
 
 extern "C"
 {
-	SGEDLLEXPORT void plugin_version_info(sge::plugin_info* const p)
+	void plugin_version_info(sge::plugin_info* const p)
 	{
 		if(!p)
 			return;
@@ -35,7 +34,7 @@ extern "C"
 		p->type = sge::PT_Audio;
 	}
 
-	SGEDLLEXPORT sge::audio_system* create_audio_system(const sge::window_ptr w)
+	sge::audio_system* create_audio_system(const sge::window_ptr w)
 	{
 		return new sge::fmod::audio_system(w);
 	}

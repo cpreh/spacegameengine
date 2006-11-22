@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../core/main/util.hpp"
-#include "../input_device.hpp"
 #include <stdexcept>
+#include "../../../util.hpp"
+#include "../input_device.hpp"
 
 const DWORD sge::dinput::input_device::coop_level(DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 const DIPROPDWORD sge::dinput::input_device::buffer_settings = {
@@ -30,8 +30,9 @@ const DIPROPDWORD sge::dinput::input_device::buffer_settings = {
 	DIPH_DEVICE,
 	buffer_size
 };
+const std::size_t sge::dinput::input_device::buffer_size;
 
-sge::dinput::input_device::input_device(dinput_ptr di, const std::string& name, GUID guid, unsigned index, HWND wnd)
+sge::dinput::input_device::input_device(const dinput_ptr di, const std::string& name, const GUID guid, const unsigned index, const HWND wnd)
 : index(index), name(name)
 {
 	IDirectInputDevice8* d;
@@ -85,10 +86,7 @@ void sge::dinput::input_device::poll()
 bool sge::dinput::input_device::_get_input(input_buffer data, DWORD& elements)
 {
 	elements = sizeof(input_buffer) / sizeof(DIDEVICEOBJECTDATA);
-	const HRESULT res = device->GetDeviceData(sizeof(DIDEVICEOBJECTDATA),
-	                                            data,
-	                                            &elements,
-	                                            0);
+	const HRESULT res = device->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), data, &elements, 0);
 	switch(res) {
 	case DI_OK:
 	case DI_BUFFEROVERFLOW:

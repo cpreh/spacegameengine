@@ -18,25 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CXIMAGE_PIC_LOADER_HPP_INCLUDED
-#define SGE_CXIMAGE_PIC_LOADER_HPP_INCLUDED
+#ifndef SGE_CXIMAGE_IMAGE_LOADER_HPP_INCLUDED
+#define SGE_CXIMAGE_IMAGE_LOADER_HPP_INCLUDED
 
 #include <string>
-#include "../../core/picloader/pic_loader.hpp"
+#include "../../image/image_loader.hpp"
 
 namespace sge
 {
-	namespace cximage
-	{
-		class pic_loader : public sge::pic_loader {
-		public:
-			void create_pic(const std::string& file, pixel_array& array,
-			                unsigned w = 0, unsigned h = 0);
-			texture_ptr create_texture(renderer_ptr device, const std::string& path,
-			                           unsigned mip_levels, unsigned flags, 
-			                           unsigned w = 0, unsigned h = 0);
-		};
-	}
+namespace cximage
+{
+
+class image_loader : public sge::image_loader {
+public:
+	image_ptr load_image(const std::string& file, unsigned w = 0, unsigned h = 0);
+};
+
+}
 }
 
 #endif

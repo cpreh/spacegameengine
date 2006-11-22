@@ -29,14 +29,14 @@ sge::dinput::keyboard::keyboard(const dinput_ptr di, const std::string& name, co
 	acquire();
 }
 
-void sge::dinput::keyboard::get_input(input_array& v)
+void sge::dinput::keyboard::dispatch(input_system::signal_type& sig)
 {
 	input_buffer data;
 	DWORD elements;
 	if(!_get_input(data,elements))
 		return;
 	for(unsigned i = 0; i < elements; ++i)
-		v.push_back(key_pair(keys[data[i].dwOfs],data[i].dwData & 0x80 ? 1.f : 0));
+		sig(key_pair(keys[data[i].dwOfs],data[i].dwData & 0x80 ? 1.f : 0));
 }
 
 BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)

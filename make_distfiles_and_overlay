@@ -1,5 +1,5 @@
 #edit those two
-ORIGIN= #path to where the folder "spacegameengine" resides
+ORIGIN= #path to where the directory "spacegameengine" resides
 PORTDIR_OVERLAY=/usr/local/portage
 
 VER=0.1_alpha2
