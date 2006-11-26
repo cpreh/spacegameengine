@@ -41,20 +41,22 @@ sge::ft::font_impl::font_impl(library& lib, const renderer_ptr r, const std::str
 		throw std::runtime_error(std::string("FT_New_Face() failed for font: ") += font_name);
 	_face.reset(new face_guard(face));
 
+	if(FT_Select_Charmap(face, FT_ENCODING_UNICODE) != 0)
+		throw std::runtime_error("No Unicode code map found!");
+
 	if(FT_Set_Pixel_Sizes(face,0,quality_in_pixel))
 		throw std::runtime_error("FT_Set_Pixel_Sizes() failed");
 
 	pixel_size = (*_face.get())->height >> 6;
 }
 
-sge::font_entity sge::ft::font_impl::load_char(const font_char c)
+const sge::font_entity& sge::ft::font_impl::load_char(const font_char c)
 {
-	// FIXME: handle case where the char is greater than a whole texture
-	const std::size_t index = std::size_t(c)-CHAR_MIN;
-	if(buffer[index].tex)
-		return buffer[index];
+	font_entity& entity = buffer[c];
+	if(entity.tex)
+		return entity;
 
-	if(FT_Load_Glyph(_face->impl, FT_Get_Char_Index(_face->impl, c), FT_LOAD_DEFAULT)) // FIXME: convert c to codepoint
+	if(FT_Load_Char(_face->impl, c /* FT_Get_Char_Index(_face->impl, c)*/, FT_LOAD_DEFAULT))
 		throw std::runtime_error("FT_Load_Glyph() failed");
 
 	FT_Glyph glyph;
@@ -83,7 +85,6 @@ sge::font_entity sge::ft::font_impl::load_char(const font_char c)
 
 	const lock_rect lrect(lock_rect::point_type(cur_x, cur_y), lock_rect::dim_type(bitmap.width, bitmap.rows));
 	
-	font_entity& entity = buffer[index];
 	entity.rect = tex_size_to_space_rect(lrect, cur_tex->width(), cur_tex->height());
 	entity.tex = cur_tex;
 	entity.left = font_unit(bitmap_glyph->left) / pixel_size;
@@ -98,13 +99,13 @@ sge::font_entity sge::ft::font_impl::load_char(const font_char c)
 		for(int x = 0; x < bitmap.width; ++x)
 		{
 			const unsigned char code = *(data + x);
-			expanded[y*bitmap.width+x] = code ? rgba(code,code,code,255) : colors::transparent;
+			expanded.at(y*bitmap.width+x) = code ? rgba(code,code,code,255) : colors::transparent;
 		}
 
 	cur_tex->set_data(expanded.data(),&lrect);
 	cur_x += bitmap.width + 1;
 
-	return buffer[index];
+	return entity;
 }
 
 unsigned sge::ft::font_impl::optimal_height_base() const

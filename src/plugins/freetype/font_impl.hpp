@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <climits>
 #include <memory>
 #include <vector>
-#include <boost/array.hpp>
+#include <map>
 #include "../../font/font_impl.hpp"
 #include "../../renderer/renderer.hpp"
 #include "../../renderer/texture.hpp"
@@ -40,7 +40,7 @@ namespace ft
 class font_impl : public sge::font_impl {
 public:
 	font_impl(library& lib, renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel, font_weight weight);
-	font_entity load_char(font_char c);
+	const font_entity& load_char(font_char c);
 	unsigned optimal_height_base() const;
 private:
 	struct face_guard {
@@ -57,7 +57,7 @@ private:
 
 	std::auto_ptr<face_guard> _face;
 	unsigned pixel_size;
-	typedef boost::array<font_entity, UCHAR_MAX> buffer_type;
+	typedef std::map<font_char, font_entity> buffer_type;
 	buffer_type buffer;
 	typedef std::vector<texture_ptr> texture_array;
 	texture_array textures;

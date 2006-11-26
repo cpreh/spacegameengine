@@ -107,6 +107,8 @@ template<typename T, typename Ch, typename Traits> std::basic_ostream<Ch,Traits>
 	return s << "((" << r.left << ',' << r.top << "),(" << r.right << ',' << r.bottom << "))";
 }
 
+typedef basic_rect<space_unit> rect;
+
 }
 
 #endif

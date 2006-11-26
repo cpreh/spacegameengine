@@ -26,11 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/vector2.hpp"
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
+#include "../math/circle.hpp"
 #include "../shared_ptr.hpp"
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/texture.hpp"
-#include "../math/types.hpp"
+#include "../math/circle.hpp"
 #include "../texture/virtual_texture.hpp"
 #include "./sprite_fwd.hpp"
 
@@ -52,6 +53,8 @@ public:
 	void visible(bool nvisible) { _visible = nvisible; }
 	void set_texture(const std::string& name);
 	void rotate(space_unit rot) { _rotation = rot; }
+	void rotate_around(point p);
+	void rotate_around();
 	
 	space_unit x() const { return p.x; }
 	space_unit y() const { return p.y; }
@@ -64,7 +67,9 @@ public:
 	rect get_rect() const { return rect(pos(),size()); }
 	point center() const { return  point(x() + width() / 2, y() + height() / 2); }
 	space_unit rotation() const { return _rotation; }
-	rect bounding_rect() const;
+	space_unit radius() const;
+	rect bounding_quad() const;
+	circle bounding_circle() const;
 
 	void draw();
 	~sprite();
@@ -89,6 +94,8 @@ private:
 	const_virtual_texture_ptr tex;
 	vertex_buffer::size_type vb_pos;
 	sprite_list::iterator my_place;
+	bool _use_rot_around;
+	point _rot_around;
 };
 
 typedef shared_ptr<sprite> sprite_ptr;

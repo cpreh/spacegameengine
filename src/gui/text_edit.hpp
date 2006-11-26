@@ -37,9 +37,9 @@ class manager;
 
 class text_edit : public rectangle {
 public:
-	text_edit(manager& m, element* parent, point pos, dim sz, const std::string& text = "", color text_color = colors::white, bool visible = true, bool enabled = true);
-	const std::string& text() const { return _text; }
-	void text(const std::string& text);
+	text_edit(manager& m, element* parent, point pos, dim sz, const string& text = "", color text_color = colors::white, bool visible = true, bool enabled = true);
+	const string& text() const { return _text; }
+	void text(const string& text);
 	color text_color() const { return _text_color; }
 	void text_color(const color c) { _text_color = c; }
 private:
@@ -53,9 +53,9 @@ private:
 	void set_height();
 	
 	font&                  my_font;
-	std::string            _text;
+	string                 _text;
 	color                  _text_color;
-	std::string::size_type text_start,
+	string::size_type      text_start,
 	                       cursor_pos;
 	text_cursor            cur;
 	static const font_flag_t flags = FTF_AlignLeft | FTF_AlignVCenter | FTF_NoMultiLine;

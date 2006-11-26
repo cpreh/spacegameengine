@@ -26,16 +26,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cmath>
 
 sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const unsigned _z, const std::string& name, const space_unit _rotation, const bool vis)
-	: p(p), sz(sz), _z(_z), _visible(vis), _rotation(_rotation), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
+ : p(p), sz(sz), _z(_z), _visible(vis), _rotation(_rotation), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this)), _use_rot_around(false)
 {}
 
 sge::sprite::sprite(const sprite& spr)
-	: p(spr.p), sz(spr.sz), _z(spr._z), _visible(spr._visible), _rotation(spr._rotation), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this))
+ : p(spr.p), sz(spr.sz), _z(spr._z), _visible(spr._visible), _rotation(spr._rotation), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this)), _use_rot_around(spr._use_rot_around), _rot_around(spr._rot_around)
 {}
 
 void sge::sprite::set_texture(const std::string& name)
 {
 	tex = spr_sys.vtexture(name);
+}
+
+void sge::sprite::rotate_around(const point p)
+{
+	_use_rot_around = true;
+	_rot_around = p;
+}
+
+void sge::sprite::rotate_around()
+{
+	_use_rot_around = false;
 }
 
 sge::sprite::~sprite()
@@ -54,7 +65,7 @@ void sge::sprite::update_where(vertex_buffer::iterator it)
 	if(rotation() == 0)
 		fill_sprite_vertices(it, get_rect(), tex_rect);
 	else
-		fill_sprite_vertices_rotated(it, get_rect(), rotation(), center(), tex_rect);
+		fill_sprite_vertices_rotated(it, get_rect(), rotation(), _use_rot_around ? _rot_around : center(), tex_rect);
 }
 
 sge::index_buffer::iterator sge::sprite::update_ib(index_buffer::iterator it)
@@ -88,12 +99,22 @@ sge::texture_ptr sge::sprite::get_texture() const
 	return tex ? tex->my_texture() : texture_ptr();
 }
 
-sge::rect sge::sprite::bounding_rect() const
+sge::space_unit sge::sprite::radius() const
+{
+	return std::max(std::sqrt(center().x * center().x + x()*x()), std::sqrt(center().y * center().y + y()*y()));
+}
+
+sge::rect sge::sprite::bounding_quad() const
 {
 	if(rotation() == 0)
 		return get_rect();
-	const space_unit radius = std::sqrt(center().x * center().x + x()*x());
-	return rect(center().x - radius, center().y - radius, center().x + radius, center().y + radius);
+	const space_unit rad = radius();
+	return rect(center().x - rad, center().y - rad, center().x + rad, center().y + rad);
+}
+
+sge::circle sge::sprite::bounding_circle() const
+{
+	return circle(center(),radius());
 }
 
 bool sge::sprite::equal_texture(const sprite& l, const sprite& r)

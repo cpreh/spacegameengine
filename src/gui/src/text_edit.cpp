@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../skin.hpp"
 #include <limits>
 
-sge::gui::text_edit::text_edit(manager& m, element* const parent, const point pos, const dim sz, const std::string& _text, const color _text_color, const bool visible, const bool enabled)
+sge::gui::text_edit::text_edit(manager& m, element* const parent, const point pos, const dim sz, const string& _text, const color _text_color, const bool visible, const bool enabled)
 : rectangle(m, parent, pos, sz, skin::textedit_name, visible, enabled),
   my_font(m.get_font()),
   _text(_text),
@@ -82,7 +82,7 @@ void sge::gui::text_edit::on_click(const mouse_button_event& event)
 	set_height();
 	const unit x = event.pos().x;
 	cursor_pos = text_start;
-	std::string::size_type& i = cursor_pos;
+	string::size_type& i = cursor_pos;
 	for(unit sz = 0; i < _text.size(); ++i)
 	{
 		const unit delta = my_font.char_space(_text.at(i));
@@ -127,7 +127,7 @@ void sge::gui::text_edit::on_draw(const draw_event& event)
 	}
 }
 
-void sge::gui::text_edit::text(const std::string& ntext)
+void sge::gui::text_edit::text(const string& ntext)
 {
 	cursor_pos = text_start = 0;
 	_text = ntext;

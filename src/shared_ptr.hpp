@@ -22,13 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHARED_PTR_HPP_INCLUDED
 
 #include <ostream>
-#include "./smart_ptr_policies.hpp"
 #include <cstddef>
+#include "./smart_ptr_policies.hpp"
+#include "./ptr_cast.hpp"
 
 namespace sge
 {
 
 namespace detail {
+struct static_cast_tag{};
 struct dynamic_cast_tag{};
 }
 	
@@ -51,8 +53,15 @@ public:
 	{
 		counter = r.counter;
 		++(*counter);
-		ptr = dynamic_cast<pointer>(r.get());
+		ptr = ptr_cast<pointer>(r.get());
 	}
+	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r, detail::static_cast_tag)
+	{
+		counter = r.counter;
+		++(*counter);
+		ptr = static_cast<pointer>(r.get());
+	}
+
 		
 	shared_ptr& operator=(const shared_ptr& r)
 	{
@@ -149,6 +158,11 @@ template<typename T, template<typename> class D> std::ostream& operator<< (std::
 template<typename T, typename U, template<typename> class D> shared_ptr<T,D> dynamic_pointer_cast(const shared_ptr<U,D>& s)
 {
 	return shared_ptr<T,D>(s, detail::dynamic_cast_tag());
+}
+
+template<typename T, typename U, template<typename> class D> shared_ptr<T,D> static_pointer_cast(const shared_ptr<U,D>& s)
+{
+	return shared_ptr<T,D>(s, detail::static_cast_tag());
 }
 
 }

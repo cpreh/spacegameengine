@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../manager.hpp"
 #include "../skin.hpp"
 
-sge::gui::static_text::static_text(manager& m, element* const parent, const std::string& _text, const point pos, const dim sz, const color _text_color, const bool visible, const bool enabled)
+sge::gui::static_text::static_text(manager& m, element* const parent, const string& _text, const point pos, const dim sz, const color _text_color, const bool visible, const bool enabled)
 :  rectangle(m, parent, pos, sz, skin::statictext_name, visible, enabled),
    _text(_text),
    _text_color(_text_color)

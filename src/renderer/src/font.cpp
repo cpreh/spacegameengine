@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <locale>
 #include <vector>
 #include "../../types.hpp"
 #include "../renderer.hpp"
@@ -28,15 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../transform.hpp"
 #include "../lock_ptr.hpp"
 #include "../font.hpp"
+#include "../../ucs4.hpp"
 #include "../../sprite/helper.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 
 sge::font::font(const renderer_ptr r, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
  : r(r),
- impl(font_sys->create_font(r,font_name,quality_in_pixel,weight)),
- vb(r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),200)),
- ib(r->create_index_buffer(vb->size()*3/2))
+   impl(font_sys->create_font(r,font_name,quality_in_pixel,weight)),
+   vb(r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),200)),
+   ib(r->create_index_buffer(vb->size()*3/2))
 {
 	height_pixel_scale(1);
 }
@@ -70,9 +70,6 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 {
 	if(text.empty() || height() > max_sz.h)
 		return font_size();
-	if(!last_texture)
-		last_texture = impl->load_char(text[0]).tex;
-
 	last_index = 0;
 
 	const vertex_buffer::size_type vbsize = text.size()*4;
@@ -120,13 +117,14 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 
 		for(;sbeg != send; ++sbeg)
 		{
-			const font_entity reg = impl->load_char(*sbeg);
+			const font_entity&   reg = impl->load_char(*sbeg);
 			const font_size      sz(char_width(*sbeg), height() * reg.v_scale);
 			const font_rect      fp(font_pos(pos.x + height() * reg.left, pos.y + height() * reg.top), sz);
 
 			if(last_texture != reg.tex)
 			{
-				add_job(std::distance(text.begin(),sbeg));
+				if(last_texture)
+					add_job(std::distance(text.begin(),sbeg));
 				last_texture = reg.tex;
 			}
 
@@ -157,13 +155,13 @@ void sge::font::add_job(const size_type cur_index)
 
 sge::font_unit sge::font::char_width(const char_type ch) const
 {
-	const font_entity entity = impl->load_char(ch);
+	const font_entity& entity = impl->load_char(ch);
 	return height() * entity.h_scale;
 }
 
 sge::font_unit sge::font::char_space(const char_type ch) const
 {
-	const font_entity entity = impl->load_char(ch);
+	const font_entity& entity = impl->load_char(ch);
 	return height() * entity.x_advance;
 }
 
@@ -205,7 +203,7 @@ sge::font_unit sge::font::line_width(string_type::const_iterator sbeg, string_ty
 
 	for(; sbeg != send; ++sbeg)
 	{
-		if(std::isspace(*sbeg,std::locale()))
+		if(isspace_ucs4(*sbeg))
 		{
 			last_white = sbeg;
 			last_width = w;

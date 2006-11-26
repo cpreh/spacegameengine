@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/input/input_system.hpp"
 #include "../src/input/key_state_tracker.hpp"
 #include "../src/renderer/line_strip.hpp"
+#include "../src/math/constants.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -59,6 +60,7 @@ try
 	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arial.ttf");
 	sge::sprite_system ss(rend);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "/mainskin/cancel_0.png");
+
 	const std::string bender_name("bender");
 
 	ss.add_texture(im,bender_name);
@@ -67,8 +69,8 @@ try
 	for(unsigned i = 0; i < 1009; ++i)
 		sprites.push_back(new sge::sprite(ss,sge::point(rand_point()),sge::dim(0.1,0.1),0,bender_name));
 
-//	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,bender_name);
-//	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
+	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,bender_name);
+	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
 
 	ss.enable_clipping(false);
 	//spr2.visible(false);
@@ -127,7 +129,7 @@ try
 		if(timer.update())
 			angle += sge::PI*0.01;
 
-		//spr.rotate(angle);
+		spr.rotate(angle);
 
 		rend->begin_rendering();
 		is->dispatch();
@@ -135,7 +137,7 @@ try
 		man.process();
 		fn.transform(sge::matrix_rotation_z(angle));
 		fn.height(0.05);
-		fn.draw_text("1234567890 abcdef ghij adsfasdf asf asdds klmn 1234567890",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
+		fn.draw_text("ßäöü 1234567890 abcdef ghij adsfasdf asf asdds klmn 1234567890",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;
 		fn.draw_text(os.str(),sge::point(0.1,0.1),sge::dim(1,1),sge::colors::purple);

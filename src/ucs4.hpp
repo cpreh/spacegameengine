@@ -18,21 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_TYPES_HPP_INCLUDED
-#define SGE_MATH_TYPES_HPP_INCLUDED
+#ifndef SGE_UCS4_HPP_INCLUDED
+#define SGE_UCS4_HPP_INCLUDED
 
-#include "../types.hpp"
-#include "./vector2.hpp"
-#include "./dim.hpp"
-#include "./rect.hpp"
+#include "./typeswitch.hpp"
 
 namespace sge
 {
 
-typedef basic_dim<space_unit> dim;
-typedef basic_rect<space_unit> rect;
+typedef uint32 uchar_t;
 
-const double PI = 3.14159265358979323846;
+bool isspace_ucs4(uchar_t);
 
 }
 

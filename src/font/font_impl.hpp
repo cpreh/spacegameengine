@@ -41,7 +41,7 @@ struct font_entity {
 class font_impl {
 public:
 	virtual ~font_impl(){}
-	virtual font_entity load_char(font_char c) = 0;
+	virtual const font_entity& load_char(font_char c) = 0;
 	virtual unsigned optimal_height_base() const = 0;
 };
 

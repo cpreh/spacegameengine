@@ -39,16 +39,17 @@ public:
 	typedef std::size_t     size_type;
 	typedef std::ptrdiff_t  difference_type;
 	static const difference_type no_selection = -1;
+
 	list(manager& m, element* parent, point pos, dim sz, unit line_height = 0.05, color text_color = colors::black, bool visible = true, bool enabled = true);
-	void push_back(const std::string& str);
+	void push_back(const string& str);
 	void pop_back();
 	void clear();
 	void delete_element(size_type index);
 	difference_type selected_index() const;
-	const std::string& selected() const;
-	std::string& selected();
-	const std::string& operator[](size_type index) const;
-	std::string& operator[](size_type index);
+	const string& selected() const;
+	string& selected();
+	const string& operator[](size_type index) const;
+	string& operator[](size_type index);
 	size_type size() const;
 private:
 	virtual void on_draw(const draw_event& event);
@@ -56,7 +57,7 @@ private:
 	void scroll_position_change(size_type npos);
 	void calc_scrollbar();
 
-	typedef std::deque<std::string> element_queue;
+	typedef std::deque<string> element_queue;
 	font&                  my_font;
 	color                  text_color;
 	unit                   line_height;

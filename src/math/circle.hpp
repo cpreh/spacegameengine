@@ -18,36 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GUI_STATIC_TEXT_HPP_INCLUDED
-#define SGE_GUI_STATIC_TEXT_HPP_INCLUDED
+#ifndef SGE_CIRCLE_HPP_INCLUDED
+#define SGE_CIRCLE_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
-#include "./types.hpp"
-#include "./rectangle.hpp"
+#include "../types.hpp"
+#include "./vector2.hpp"
 
 namespace sge
 {
-namespace gui
-{
 
-class manager;
-
-class static_text : public rectangle {
+template<typename T> class basic_circle {
 public:
-	static_text(manager& m, element* parent, const string& text, point pos, dim sz, color text_color = colors::black, bool visible = true, bool enabled = true);
-	const string& text() const { return _text; }
-	void text(const string& t) { _text = t; }
-	color text_color() const { return _text_color; }
-	void text_color(const color c) { _text_color = c; }
+	typedef basic_vector2<T> point_type;
+
+	basic_circle(const point_type& p, const T& _radius)
+	 : p(p), _radius(_radius)
+	{}
+
+	point_type& origin() { return p; }
+	const point_type& origin() const { return p; }
+	T& radius() { return _radius; }
+	const T& radius() const { return _radius; }
 private:
-	string _text;
-	color _text_color;
-	virtual void on_draw(const draw_event& event);
+	point_type p;
+	space_unit _radius;
 };
 
-typedef shared_ptr<static_text> static_text_ptr;
+typedef basic_circle<space_unit> circle;
 
-}
 }
 
 #endif

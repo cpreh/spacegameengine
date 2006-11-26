@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PTR_CAST_HPP_INCLUDED
 
 #include <typeinfo>
+#include <iostream>
 
 namespace sge
 {
@@ -34,7 +35,10 @@ template<typename T, typename U> inline T ptr_cast (const U u)
 
 	T t = dynamic_cast<T>(u);
 	if(!t)
+	{
+		std::cerr << "ptr_cast: logic error, trying to cast from " << typeid(U).name() << " to " << typeid(T).name() << "!\n";
 		throw std::bad_cast();
+	}
 	return t;
 #else
 	return static_cast<T>(u);

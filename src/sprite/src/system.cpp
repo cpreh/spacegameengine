@@ -76,7 +76,7 @@ void sge::sprite_system::draw(const vector2 trans)
 {
 	sprite_list to_draw;
 	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); ++it)
-		if((*it)->visible()  && (!_clipping || intersects(rect(0,0,1,1), (*it)->bounding_rect() - trans))) // FIXME: screen rect hard coded
+		if((*it)->visible()  && (!_clipping || intersects(rect(0,0,1,1), (*it)->bounding_quad() - trans))) // FIXME: screen rect hard coded
 			to_draw.push_back(*it);
 
 	to_draw.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));

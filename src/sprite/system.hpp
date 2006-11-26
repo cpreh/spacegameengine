@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
-#include "../math/types.hpp"
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/renderer.hpp"

@@ -1,7 +1,10 @@
-#include "../iconv.hpp"
-#include "../types.hpp"
 #include <cerrno>
 #include <locale>
+#include <algorithm>
+#include <cassert>
+#include "../iconv.hpp"
+#include "../types.hpp"
+#include "../ucs4.hpp"
 
 #ifdef SGE_LINUX_PLATFORM
 #include <iconv.h>
@@ -11,9 +14,10 @@ namespace {
 struct iconv_instance {
 	iconv_t conv;
 
-	iconv_instance(const std::string &from, const std::string &to) {
-		conv = iconv_open (to.c_str(), from.c_str());
-		if (conv == reinterpret_cast<iconv_t>(-1))
+	iconv_instance(const std::string &from, const std::string &to) 
+	 : conv(iconv_open(to.c_str(), from.c_str()))
+	{
+		if(conv == reinterpret_cast<iconv_t>(-1))
 			throw sge::invalid_conversion(from,to);
 	}
 
@@ -23,9 +27,16 @@ struct iconv_instance {
 
 	std::size_t convert(const char **inbuf, std::size_t *inbytes, char **outbuf, std::size_t *outbytes) {
 		std::size_t bytesread = *inbytes;
-		std::size_t result = iconv(conv, const_cast<char**>(inbuf), inbytes, outbuf, outbytes);
-		if ((result == static_cast<std::size_t>(-1)) && (errno == EINVAL))
-			throw sge::conversion_failed();
+		const std::size_t result = iconv(conv, const_cast<char**>(inbuf), inbytes, outbuf, outbytes);
+		if(result == static_cast<std::size_t>(-1))
+		{
+			switch(errno) {
+			case E2BIG:
+				break;
+			default:
+				throw sge::conversion_failed();
+			}
+		}
 		return bytesread - *inbytes;
 	}
 };
@@ -35,11 +46,11 @@ std::string encoding_to_string(const sge::encoding& to)
 	using namespace sge;
 	switch(to) {
 	case enc_char_locale:
-		return std::locale().name();
+		return "UTF-8"; //FIXME
 	case enc_utf8:
 		return "UTF-8";
 	case enc_ucs_4_internal:
-		return "UCS-4-INTERNAL";
+		return "UCS-4";
 	default:
 		throw std::logic_error("Invalid encoding!");
 	}
@@ -63,7 +74,16 @@ To _iconv(const From& input, const sge::encoding from, const sge::encoding to, c
 		std::size_t out_size = buf_size;
 		char *ob = arr;
 		ic.convert(&ib, &in_size, &ob, &out_size);
-		output += To(reinterpret_cast<typename To::const_pointer>(&arr[0]), (buf_size - out_size) / sizeof(typename To::value_type));
+
+		const std::size_t bytes_written = buf_size - out_size;
+
+		// FIXME why do we have to reverse the byteorder here?
+		const std::size_t ucs4_bytes = sizeof(sge::uchar_t);
+		assert(buf_size % ucs4_bytes == 0);
+		for(char* p = arr; p < &arr[bytes_written]; p += ucs4_bytes)
+			std::reverse(p, p + ucs4_bytes);
+
+		output += To(reinterpret_cast<typename To::const_pointer>(&arr[0]), (bytes_written) / sizeof(typename To::value_type));
 	}
 	return output;
 }

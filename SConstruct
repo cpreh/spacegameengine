@@ -7,7 +7,7 @@ argflags = ARGUMENTS.get('flags', '')
 
 sandboxprefix = sandbox + prefix
 
-flags = '-Wall -Wextra -ansi -pedantic ' + argflags
+flags = '-Wall -Wextra -ansi -pedantic -g ' + argflags
 lib_path = sandboxprefix + '/' + libdir
 plugin_path = lib_path + '/sge'
 bin_path = sandboxprefix + '/bin'
@@ -38,8 +38,8 @@ libfreetype = freetype.SharedLibrary('sgefreetype', [glob('./src/plugins/freetyp
 xinput = Environment(LIBS = ['X11', 'Xxf86dga'], CCFLAGS = flags)
 libxinput = xinput.SharedLibrary('sgexinput', [glob('./src/plugins/xinput/src/*.cpp')])
 
-d3d = Environment(CPPPATH = ['/usr/include/wine/windows'], CCFLAGS = argflags + ' /usr/lib/wine/d3d9.dll.so')
-libd3d = d3d.SharedLibrary('sged3d', [glob('./src/plugins/d3d/src/*.cpp')])
+#d3d = Environment(CPPPATH = ['/usr/include/wine/windows'], CCFLAGS = argflags + ' /usr/lib/wine/d3d9.dll.so')
+#libd3d = d3d.SharedLibrary('sged3d', [glob('./src/plugins/d3d/src/*.cpp')])
 
 test = Environment(LIBPATH = ['.'], LIBS = ['sgecore','sgegui'], CCFLAGS = flags)
 testapp = test.Program('sgetest', ['./test/test.cpp'])
@@ -51,7 +51,7 @@ installer.Alias(target = "install", source = [core.Install(lib_path,libcore),
                                               devil.Install(plugin_path,libdevil),
                                               freetype.Install(plugin_path,libfreetype),
                                               xinput.Install(plugin_path,libxinput),
-                                              d3d.Install(plugin_path,libd3d),
+                                           #  d3d.Install(plugin_path,libd3d),
                                               test.Install(bin_path,testapp),
                                               installer.Install(header_path,[glob('./src/*.hpp')]),
                                               installer.Install(header_path + '/audio',[glob('./src/audio/*.hpp')]),

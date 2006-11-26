@@ -59,7 +59,7 @@ void sge::gui::list::on_click(const mouse_button_event& event)
 		selected_ = sel;
 }
 
-void sge::gui::list::push_back(const std::string& str)
+void sge::gui::list::push_back(const string& str)
 {
 	elements.push_back(str);
 	calc_scrollbar();
@@ -92,25 +92,36 @@ void sge::gui::list::clear()
 	calc_scrollbar();
 }
 
-sge::gui::list::size_type sge::gui::list::size() const { return elements.size(); }
+sge::gui::list::size_type sge::gui::list::size() const
+{
+	return elements.size();
+}
 
-sge::gui::list::difference_type sge::gui::list::selected_index() const { return selected_; }
+sge::gui::list::difference_type sge::gui::list::selected_index() const
+{
+	return selected_;
+}
 
-const std::string& sge::gui::list::operator[](const size_type index) const { return elements[index]; }
-std::string& sge::gui::list::operator[](const size_type index) { return elements[index]; }
+const sge::string& sge::gui::list::operator[](const size_type index) const
+{
+	return elements[index];
+}
 
-const std::string& sge::gui::list::selected() const
+sge::string& sge::gui::list::operator[](const size_type index)
+{
+	return elements[index];
+}
+
+const sge::string& sge::gui::list::selected() const
 {
 	if(selected_ == no_selection)
 		throw std::runtime_error("No selection made in gui::list!");
 	return elements[selected_];
 }
 
-
 void sge::gui::list::calc_scrollbar()
 {
-	vscrollbar.scroll_max(elements.size()*line_height > height() ?
-		static_cast<size_type>(std::ceil((elements.size()*line_height-height())/line_height))+1 :
-		0);
+	vscrollbar.scroll_max(elements.size()*line_height > height() ? static_cast<size_type>(std::ceil((elements.size()*line_height-height())/line_height))+1 : 0);
 }
 
+const sge::gui::list::difference_type sge::gui::list::no_selection;

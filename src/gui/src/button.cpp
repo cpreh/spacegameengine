@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../manager.hpp"
 #include "../skin.hpp"
 
-sge::gui::button::button(manager& m, element* const parent, const std::string& _text,
+sge::gui::button::button(manager& m, element* const parent, const string& _text,
                          const point pos, const dim sz, const color _text_color, const bool visible, const bool enabled)
 : rectangle(m,parent,pos,sz,skin::button_name,visible,enabled),
   _text(_text), _text_color(_text_color)

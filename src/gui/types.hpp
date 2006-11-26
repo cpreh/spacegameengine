@@ -21,17 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_TYPES_HPP_INCLUDED
 #define SGE_GUI_TYPES_HPP_INCLUDED
 
-#include "../math/types.hpp"
+#include "../types.hpp"
+#include "../math/vector2.hpp"
+#include "../math/dim.hpp"
+#include "../math/rect.hpp"
 
 namespace sge
 {
 namespace gui
 {
 
-typedef sge::space_unit    unit;
-typedef sge::point   point;
-typedef sge::dim     dim;
-typedef sge::rect    rect;
+typedef sge::space_unit  unit;
+typedef sge::point       point;
+typedef sge::dim         dim;
+typedef sge::rect        rect;
 
 }
 }
