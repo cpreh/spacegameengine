@@ -73,7 +73,7 @@ int handler(Display* const d, XErrorEvent* const e)
 
 // TODO: maybe support different adapters?
 sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
-	: param(param), clear_zbuffer(false), clear_stencil(false), clear_back_buffer(true)
+ : param(param), clear_zbuffer(false), clear_stencil(false), clear_back_buffer(true)
 {
 #ifdef SGE_WINDOWS_PLATFORM
 	const unsigned color_depth = bit_depth_bit_count(param.mode.depth);
@@ -82,34 +82,34 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 		DEVMODE settings;
 		memset(&settings,0,sizeof(DEVMODE));
 		settings.dmSize=sizeof(DEVMODE);
-		settings.dmPelsWidth	= param.mode.width;
-		settings.dmPelsHeight	= param.mode.height;
-		settings.dmBitsPerPel	= color_depth;
+		settings.dmPelsWidth    = param.mode.width;
+		settings.dmPelsHeight   = param.mode.height;
+		settings.dmBitsPerPel   = color_depth;
 		settings.dmDisplayFrequency = param.mode.refresh_rate;
 		settings.dmFields = DM_BITSPERPEL|DM_PELSWIDTH|DM_PELSHEIGHT|DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN)!=DISP_CHANGE_SUCCESSFUL)
 			throw std::runtime_error("ChangeDisplaySettings() failed");
 	}
 
-	PIXELFORMATDESCRIPTOR pfd =	{
-		sizeof(PIXELFORMATDESCRIPTOR),		// Size Of This Pixel Format Descriptor
-			1,				// Version Number
-			PFD_DRAW_TO_WINDOW |		// Format Must Support Window
-			PFD_SUPPORT_OPENGL |		// Format Must Support OpenGL
-			PFD_DOUBLEBUFFER,		// Must Support Double Buffering
-			PFD_TYPE_RGBA,			// Request An RGBA Format
-			BYTE(color_depth),		// Select Our Color Depth
-			0, 0, 0, 0, 0, 0,		// Color Bits Ignored
-			0,				// No Alpha Buffer
-			0,				// Shift Bit Ignored
-			0,				// No Accumulation Buffer
-			0, 0, 0, 0,			// Accumulation Bits Ignored
-			16,				// 16Bit Z-Buffer (Depth Buffer)
-			0,//StencilBuffer ? 1 : 0,	// Stencil Buffer
-			0,				// No Auxiliary Buffer
-			PFD_MAIN_PLANE,			// Main Drawing Layer
-			0,				// Reserved
-			0, 0, 0				// Layer Masks Ignored
+	PIXELFORMATDESCRIPTOR pfd = {
+		sizeof(PIXELFORMATDESCRIPTOR),  // Size Of This Pixel Format Descriptor
+			1,                      // Version Number
+			PFD_DRAW_TO_WINDOW |    // Format Must Support Window
+			PFD_SUPPORT_OPENGL |    // Format Must Support OpenGL
+			PFD_DOUBLEBUFFER,       // Must Support Double Buffering
+			PFD_TYPE_RGBA,          // Request An RGBA Format
+			BYTE(color_depth),      // Select Our Color Depth
+			0, 0, 0, 0, 0, 0,       // Color Bits Ignored
+			0,                      // No Alpha Buffer
+			0,                      // Shift Bit Ignored
+			0,                      // No Accumulation Buffer
+			0, 0, 0, 0,             // Accumulation Bits Ignored
+			16,                     // 16Bit Z-Buffer (Depth Buffer)
+			0,                      // Stencil Buffer
+			0,                      // No Auxiliary Buffer
+			PFD_MAIN_PLANE,         // Main Drawing Layer
+			0,                      // Reserved
+			0, 0, 0                 // Layer Masks Ignored
 	};
 
 	wnd.reset(new win32_window(window::window_size(param.mode.width,param.mode.height),""));
@@ -117,7 +117,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	HWND hwnd = ww->get_hwnd();
 	hdc = GetDC(hwnd);
 	if(!hdc)
-		throw std::runtime_error("Cannot get hdc");
+		throw std::runtime_error("Cannot get hdc for opengl");
 	const int pixel_format = ChoosePixelFormat(hdc,&pfd);
 	if(pixel_format == 0)
 		throw std::runtime_error("ChoosePixelFormat() failed");
@@ -214,7 +214,7 @@ sge::texture_ptr sge::ogl::renderer::create_texture(const texture::const_pointer
                                                     const texture::size_type width,
                                                     const texture::size_type height,
                                                     const unsigned mip_levels,
-						    const resource_flag_t flags)
+                                                    const resource_flag_t flags)
 {
 	return texture_ptr(new texture(src,width,height,mip_levels,flags));
 }
@@ -222,7 +222,7 @@ sge::texture_ptr sge::ogl::renderer::create_texture(const texture::const_pointer
 sge::vertex_buffer_ptr sge::ogl::renderer::create_vertex_buffer(const sge::vertex_format& format,
                                                                 const vertex_buffer::size_type size,
                                                                 const resource_flag_t flags,
-								const vertex_buffer::const_pointer src)
+                                                                const vertex_buffer::const_pointer src)
 {
 	return vertex_buffer_ptr(new vertex_buffer(size,format,flags,src));
 }
@@ -238,7 +238,7 @@ sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_t
 
 sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_array* const src,
                                                               const cube_texture::size_type sz,
-							      const resource_flag_t flags)
+                                                              const resource_flag_t flags)
 {
 	return cube_texture_ptr(new cube_texture(src,sz,flags));
 }
@@ -389,7 +389,9 @@ void sge::ogl::renderer::projection_orthogonal()
 
 void sge::ogl::renderer::projection_perspective(const space_unit fov, const space_unit near, const space_unit far)
 {
-	std::cerr << "stub: og::renderer::projection_perspective\n";
+	const matrix4x4<space_unit> matrix(matrix_perspective<space_unit>(space_unit(screen_width())/screen_height(),fov,near,far));
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(reinterpret_cast<const GLfloat*>(&matrix));
 }
 
 void sge::ogl::renderer::set_render_target(const render_target_ptr target)

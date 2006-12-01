@@ -43,8 +43,8 @@ public:
 	sprite(sprite_system& s, point pos, dim sz, unsigned z, const std::string& tex, space_unit rotation = 0, bool visible = true);
 	sprite(const sprite& s);
 
-	void x(space_unit nx) { p.x = nx; }
-	void y(space_unit ny) { p.y = ny; }
+	void x(space_unit nx) { p.x() = nx; }
+	void y(space_unit ny) { p.y() = ny; }
 	void pos(point np) { p = np; }
 	void width(space_unit w) { sz.w = w; }
 	void height(space_unit h) { sz.h = h; }
@@ -56,15 +56,15 @@ public:
 	void rotate_around(point p);
 	void rotate_around();
 	
-	space_unit x() const { return p.x; }
-	space_unit y() const { return p.y; }
+	space_unit x() const { return p.x(); }
+	space_unit y() const { return p.y(); }
 	point pos() const { return p; }
 	space_unit width() const { return sz.w; }
 	space_unit height() const { return sz.h; }
 	dim size() const { return sz; }
 	unsigned z() const { return _z; }
 	bool visible() const { return _visible; }
-	rect get_rect() const { return rect(pos(),size()); }
+	rect get_rect() const;
 	point center() const { return  point(x() + width() / 2, y() + height() / 2); }
 	space_unit rotation() const { return _rotation; }
 	space_unit radius() const;

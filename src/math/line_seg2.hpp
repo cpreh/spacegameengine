@@ -32,7 +32,7 @@ template<typename T> class ray2;
 template<typename T> class line_seg2 {
 	friend class ray2<T>;
 public:
-	typedef basic_vector2<T> vec;
+	typedef math::vector<T,2> vec;
 	line_seg2(vec p, vec q) : p(p), d(q-p) {}
 	bool intersects(const line_seg2& r) const
 	{

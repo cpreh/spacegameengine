@@ -29,7 +29,7 @@ namespace sge
 {
 template<typename T> class ray2 {
 public:
-	typedef vector2<T> vec;
+	typedef vector<T,2> vec;
 	ray2(vec o, vec d) : o(o), d(d) {}
 	bool intersection(const line_seg2<T>& r, vec& v) const 
 	{

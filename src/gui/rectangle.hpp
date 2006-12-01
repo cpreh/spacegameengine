@@ -35,10 +35,10 @@ class manager;
 class rectangle : public element, private sprite {
 public:
 	rectangle(manager& m, element* parent, point pos, dim sz, const std::string& texture_name, bool visible = true, bool enabled = true);
-	unit x() const { return rel_pos.x; }
-	void x(const unit _x) { rel_pos.x = _x; }
-	unit y() const { return rel_pos.y; }
-	void y(const unit _y) { rel_pos.y = _y; }
+	unit x() const { return rel_pos.x(); }
+	void x(const unit _x) { rel_pos.x() = _x; }
+	unit y() const { return rel_pos.y(); }
+	void y(const unit _y) { rel_pos.y() = _y; }
 	point pos() const { return rel_pos; }
 	void pos(const point p) { rel_pos = p; }
 

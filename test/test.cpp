@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../src/math/constants.hpp"
 #include "../src/plugin_manager.hpp"
 #include "../src/renderer/lock_ptr.hpp"
 #include "../src/util.hpp"
@@ -36,12 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/input/input_system.hpp"
 #include "../src/input/key_state_tracker.hpp"
 #include "../src/renderer/line_strip.hpp"
-#include "../src/math/constants.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <sstream>
 #include <iostream>
+#include "../src/math/vector.hpp"
 
 sge::point rand_point() { return sge::point(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
 
@@ -65,14 +66,14 @@ try
 
 	ss.add_texture(im,bender_name);
 
-	boost::ptr_vector<sge::sprite> sprites;
+	/*boost::ptr_vector<sge::sprite> sprites;
 	for(unsigned i = 0; i < 1009; ++i)
-		sprites.push_back(new sge::sprite(ss,sge::point(rand_point()),sge::dim(0.1,0.1),0,bender_name));
+		sprites.push_back(new sge::sprite(ss,sge::point(rand_point()),sge::dim(0.1,0.1),0,bender_name));*/
 
 	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,bender_name);
-	sge::sprite spr2(ss,sge::point(0.5,0.5),sge::dim(0.5,0.5),0,bender_name);
+	sge::sprite spr2(ss,sge::point(0.25,-0.25),sge::dim(0.25,3),0,bender_name);
 
-	ss.enable_clipping(false);
+	ss.enable_clipping(true);
 	//spr2.visible(false);
 	sge::gui::manager man(rend,is,fn,pl,sge::media_path() + "/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
@@ -119,13 +120,13 @@ try
 			fps = 0;
 		}
 		if(ks[sge::KC_LEFT])
-			translation.x -= 0.001;
+			translation.x() -= 0.001;
 		if(ks[sge::KC_RIGHT])
-			translation.x += 0.001;
+			translation.x() += 0.001;
 		if(ks[sge::KC_UP])
-			translation.y -= 0.001;
+			translation.y() -= 0.001;
 		if(ks[sge::KC_DOWN])
-			translation.y += 0.001;
+			translation.y() += 0.001;
 		if(timer.update())
 			angle += sge::PI*0.01;
 

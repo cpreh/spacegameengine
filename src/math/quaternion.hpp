@@ -135,7 +135,7 @@ template<typename T> inline quaternion<T> quaternion_identity()
 	return quaternion<T>::identity();
 }
 
-template<typename T> inline quaternion<T> from_axis(const vector3<T>& dir)
+template<typename T> inline quaternion<T> from_axis(const vector<T,3>& dir)
 {
 	using std::sin;
 	using std::cos;

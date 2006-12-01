@@ -208,30 +208,30 @@ template<typename T> inline matrix4x4<T> inverse(const matrix4x4<T>& r)
 	return ret;
 }
 
-template<typename T> inline matrix4x4<T> matrix_translation(const vector3<T>& v)
+template<typename T> inline matrix4x4<T> matrix_translation(const math::vector<T,3>& v)
 {
-	return matrix4x4<T>(  1,   0,   0, 0,
-	                      0,   1,   0, 0,
-	                      0,   0,   1, 0,
-	                    v.x, v.y, v.z, 1);
+	return matrix4x4<T>(    1,     0,     0, 0,
+	                        0,     1,     0, 0,
+	                        0,     0,     1, 0,
+	                    v.x(), v.y(), v.z(), 1);
 }
 
 template<typename T> inline matrix4x4<T> matrix_translation(const T& x, const T& y, const T& z)
 {
-	return matrix_translation<T>(vector3<T>(x,y,z));
+	return matrix_translation<T>(math::vector<T,3>(x,y,z));
 }
 
-template<typename T> inline matrix4x4<T> matrix_scaling(const vector3<T>& v)
+template<typename T> inline matrix4x4<T> matrix_scaling(const math::vector<T,3>& v)
 {
-	return matrix4x4<T>(v.x, 0, 0, 0,
-	                    0, v.y, 0, 0,
-	                    0, 0, v.z, 0,
-	                    0, 0, 0, 1);
+	return matrix4x4<T>(v.x(),     0,     0, 0,
+	                        0, v.y(),     0, 0,
+	                        0,     0, v.z(), 0,
+	                        0,     0,     0, 1);
 }
 
 template<typename T> inline matrix4x4<T> matrix_scaling(const T& x, const T& y, const T& z)
 {
-	return matrix_scaling<T>(vector3<T>(x,y,z));
+	return matrix_scaling<T>(math::vector<T,3>(x,y,z));
 }
 
 template<typename T> inline matrix4x4<T> matrix_transpose(const matrix4x4<T>& m)
@@ -242,18 +242,19 @@ template<typename T> inline matrix4x4<T> matrix_transpose(const matrix4x4<T>& m)
 	                    m[3][0], m[3][1], m[3][2], m[3][3]);
 }
 
-template<typename T> inline matrix4x4<T> matrix_look_at(const vector3<T>& eye,
-                                                        const vector3<T>& at,
-                                                        const vector3<T>& up)
+template<typename T> inline matrix4x4<T> matrix_look_at(const math::vector<T,3>& eye,
+                                                        const math::vector<T,3>& at,
+                                                        const math::vector<T,3>& up)
 {
-	const vector3<T> zaxis = normalize(at - eye);
-	const vector3<T> xaxis = normalize(cross_product(up, zaxis));
-	const vector3<T> yaxis = cross_product(zaxis, xaxis);
+	using namespace math;
+	const math::vector<T,3> zaxis = normalize(at - eye),
+	                        xaxis = normalize(cross_product(up, zaxis)),
+	                        yaxis = cross(zaxis, xaxis);
 
-	return matrix4x4<T>(xaxis.x,            yaxis.x,            zaxis.x,            0,
-	                    xaxis.y,            yaxis.y,            zaxis.y,            0,
-	                    xaxis.z,            yaxis.z,            zaxis.z,            0,
-	                    -dot_p(xaxis,eye),  -dot_p(yaxis,eye),  -dot_p(zaxis,eye),  1);
+	return matrix4x4<T>(xaxis.x,          yaxis.x,          zaxis.x,          0,
+	                    xaxis.y,          yaxis.y,          zaxis.y,          0,
+	                    xaxis.z,          yaxis.z,          zaxis.z,          0,
+	                    -dot(xaxis,eye),  -dot(yaxis,eye),  -dot(zaxis,eye),  1);
 }
 
 #undef near

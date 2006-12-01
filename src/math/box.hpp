@@ -60,11 +60,11 @@ template<typename T> inline bool operator!=(const box<T>& l, const box<T>& r)
 	return !(l==r);
 }
 
-template<typename T> inline bool intersects(const box<T>& r, const vector3<T>& p)
+template<typename T> inline bool intersects(const box<T>& r, const math::vector<T,3>& p)
 {
-	return p.x >= r.left && p.x <= r.right &&
-	       p.y >= r.top  && p.y <= r.bottom &&
-	       p.z >= r.front && p.z <= r.back;
+	return p.x() >= r.left  && p.x() <= r.right &&
+	       p.y() >= r.top   && p.y() <= r.bottom &&
+	       p.z() >= r.front && p.z() <= r.back;
 }
 
 }

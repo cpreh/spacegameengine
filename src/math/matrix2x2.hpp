@@ -46,10 +46,10 @@ private:
 	           m_01, m_11;
 };
 
-template<typename T> inline basic_vector2<T> operator* (const matrix2x2<T>& l, const basic_vector2<T>& r)
+template<typename T> inline math::vector<T,2> operator* (const matrix2x2<T>& l, const math::vector<T,2>& r)
 {
-	return basic_vector2<T>(l[0][0] * r.x + l[0][1] * r.y,
-	                        l[1][0] * r.x + l[1][1] * r.y);
+	return math::vector<T,2>(l[0][0] * r.x() + l[0][1] * r.y(),
+	                         l[1][0] * r.x() + l[1][1] * r.y());
 }
 
 }

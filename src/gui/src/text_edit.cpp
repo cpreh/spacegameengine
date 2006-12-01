@@ -80,7 +80,7 @@ void sge::gui::text_edit::on_key_press(const keyboard_button_event& event)
 void sge::gui::text_edit::on_click(const mouse_button_event& event)
 {
 	set_height();
-	const unit x = event.pos().x;
+	const unit x = event.pos().x();
 	cursor_pos = text_start;
 	string::size_type& i = cursor_pos;
 	for(unit sz = 0; i < _text.size(); ++i)
@@ -119,9 +119,9 @@ void sge::gui::text_edit::on_draw(const draw_event& event)
 	if(m.focus() == this)
 	{
 		point pos = event.pos();
-		pos.x += my_font.text_size(_text.begin() + text_start, _text.begin() + cursor_pos, width(), flags).w;
+		pos.x() += my_font.text_size(_text.begin() + text_start, _text.begin() + cursor_pos, width(), flags).w;
 
-		pos.y += height() / 2 - cur.height() / 2;
+		pos.y() += height() / 2 - cur.height() / 2;
 		cur.pos(pos);
 		cur.draw();
 	}

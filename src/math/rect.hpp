@@ -30,7 +30,7 @@ namespace sge
 
 template<typename T> struct basic_rect {
 	typedef T value_type;
-	typedef basic_vector2<T> point_type;
+	typedef math::vector<T,2> point_type;
 	typedef basic_dim<T> dim_type;
 
 	basic_rect(const value_type& left  = value_type(), const value_type& top    = value_type(),
@@ -38,7 +38,7 @@ template<typename T> struct basic_rect {
 		: left(left), top(top), right(right), bottom(bottom) {}
 
 	basic_rect(const point_type& pos, const dim_type& sz)
-		: left(pos.x), top(pos.y), right(pos.x + sz.w), bottom(pos.y + sz.h) {}
+		: left(pos.x()), top(pos.y()), right(pos.x() + sz.w), bottom(pos.y() + sz.h) {}
 
 	value_type width() const { return right - left; }
 	value_type height() const { return bottom - top; }
@@ -46,9 +46,14 @@ template<typename T> struct basic_rect {
 	value_type left, top, right, bottom;
 };
 
-template<typename T> inline basic_rect<T> operator-(const basic_rect<T>& l, const basic_vector2<T>& r)
+template<typename T> inline basic_rect<T> operator+(const basic_rect<T>& l, const math::vector<T,2>& r)
 {
-	return basic_rect<T>(l.left - r.x, l.top - r.y, l.right - r.x, l.bottom - r.y);
+	return basic_rect<T>(l.left + r.x(), l.top + r.y(), l.right + r.x(), l.bottom + r.y());
+}
+
+template<typename T> inline basic_rect<T> operator-(const basic_rect<T>& l, const math::vector<T,2>& r)
+{
+	return basic_rect<T>(l.left - r.x(), l.top - r.y(), l.right - r.x(), l.bottom - r.y());
 }
 
 template<typename T> inline T width(const basic_rect<T>& r)
@@ -71,10 +76,10 @@ template<typename T> inline bool operator!=(const basic_rect<T>& l, const basic_
 	return !(l==r);
 }
 
-template<typename T> inline bool intersects(const basic_rect<T>& r, const basic_vector2<T>& p)
+template<typename T> inline bool intersects(const basic_rect<T>& r, const math::vector<T,2>& p)
 {
-	return p.x >= r.left && p.x <= r.right &&
-	       p.y >= r.top  && p.y <= r.bottom;
+	return p.x() >= r.left && p.x() <= r.right &&
+	       p.y() >= r.top  && p.y() <= r.bottom;
 }
 
 template<typename T> inline bool contains(const basic_rect<T>& outer, const basic_rect<T>& inner)
@@ -95,11 +100,6 @@ template<typename T> inline bool intersects(const basic_rect<T>& r, const line_s
 	       intersects(line_seg2<T>(vec(r.left, r.bottom),  vec(r.right, r.bottom)), l) ||
 	       intersects(line_seg2<T>(vec(r.right, r.bottom), vec(r.right, r.top)),    l) ||
 	       intersects(line_seg2<T>(vec(r.right, r.top),    vec(r.left,  r.top)),    l);
-}
-
-template<typename T> inline basic_rect<T> operator+(const basic_rect<T>& l, const basic_vector2<T>& r)
-{
-	return basic_rect<T>(l.left + r.x, l.top + r.y, l.right + r.x, l.bottom + r.y);
 }
 
 template<typename T, typename Ch, typename Traits> std::basic_ostream<Ch,Traits>& operator<<(std::basic_ostream<Ch,Traits>& s, const basic_rect<T>& r)

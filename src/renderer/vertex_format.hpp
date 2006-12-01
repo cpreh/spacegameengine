@@ -51,16 +51,16 @@ enum vertex_usage {
 
 template<vertex_usage u> struct vertex_traits;
 template<> struct vertex_traits<VU_Pos> {
-	typedef space_unit            element_type;
-	typedef vector3<element_type> packed_type;
+	typedef space_unit                   element_type;
+	typedef math::vector<element_type,3> packed_type;
 };
 template<> struct vertex_traits<VU_Normal> {
-	typedef space_unit            element_type;
-	typedef vector3<element_type> packed_type;
+	typedef space_unit                   element_type;
+	typedef math::vector<element_type,3> packed_type;
 };
 template<> struct vertex_traits<VU_Tex> {
-	typedef space_unit             element_type;
-	typedef basic_vector2<element_type>* packed_type;
+	typedef space_unit                    element_type;
+	typedef math::vector<element_type,2>* packed_type;
 };
 template<> struct vertex_traits<VU_Diffuse> {
 	typedef int          element_type;
@@ -82,7 +82,7 @@ typedef vertex_size offset_info[VU_num_elements];
 class vertex_element {
 public:
 	vertex_element(const vertex_usage _usage, const vertex_size _count)
-		: _usage(_usage), _count(_count), _size(vertex_element_size[_usage]) {}
+	 : _usage(_usage), _count(_count), _size(vertex_element_size[_usage]) {}
 	vertex_usage usage() const { return _usage; }
 	vertex_size  size() const { return _size; }
 	vertex_size  count() const { return _count; }
@@ -96,7 +96,7 @@ private:
 class vertex_format {
 public:
 	typedef std::vector<vertex_element> usage_list;
-	
+
 	vertex_format() : _stride(0) {}
 
 	const usage_list& elements() const { return ulist; }

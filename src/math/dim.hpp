@@ -32,7 +32,7 @@ struct basic_dim {
 	typedef T value_type;
 	basic_dim(const value_type& w = value_type(), const value_type& h = value_type())
 		: w(w), h(h) {}
-	explicit basic_dim(const basic_vector2<T>& v)
+	explicit basic_dim(const math::vector<T,2>& v)
 		: w(v.x), h(v.y) {}
 	value_type w,h;
 };

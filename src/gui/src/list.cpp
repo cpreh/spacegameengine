@@ -45,16 +45,16 @@ void sge::gui::list::on_draw(const draw_event& event)
 	{
 		// TODO: add selection highlighting
 //		if(i == static_cast<size_type>(selected_))
-//			m.draw_selection(point(event.pos().x,event.pos().y+line_height*(i-scroll_pos)),
+//			m.draw_selection(point(event.pos().x(),event.pos().y()+line_height*(i-scroll_pos)),
 //					 dim(width(),line_height));
-		my_font.draw_text(elements.at(i),point(event.pos().x,event.pos().y+line_height*(i-scroll_pos)),
+		my_font.draw_text(elements.at(i),point(event.pos().x(), event.pos().y() + line_height*(i-scroll_pos)),
 		                  dim(width(),line_height*2),text_color, FTF_Default | FTF_NoMultiLine);
 	}
 }
 
 void sge::gui::list::on_click(const mouse_button_event& event)
 {
-	const size_type sel = vscrollbar.scroll_pos() + static_cast<size_type>(event.pos().y / line_height);
+	const size_type sel = vscrollbar.scroll_pos() + static_cast<size_type>(event.pos().y() / line_height);
 	if(sel < elements.size())
 		selected_ = sel;
 }

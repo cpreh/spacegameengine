@@ -35,16 +35,16 @@ inline void fill_sprite_vertices(vertex_buffer::iterator& it, const rect& rsb, c
 {
 	const rect rs(space_rect_2d_to_3d(rsb));
 
-	(*it  ).pos()    = pos3(rs.left,rs.top);
+	(*it  ).pos()    = pos3(rs.left,rs.top,0);
 	(*it++).tex()[0] = tex_pos(rt.left,rt.top);
 
-	(*it  ).pos()    = pos3(rs.right,rs.top);
+	(*it  ).pos()    = pos3(rs.right,rs.top,0);
 	(*it++).tex()[0] = tex_pos(rt.right,rt.top);
 
-	(*it  ).pos()    = pos3(rs.right,rs.bottom);
+	(*it  ).pos()    = pos3(rs.right,rs.bottom,0);
 	(*it++).tex()[0] = tex_pos(rt.right,rt.bottom);
 
-	(*it  ).pos()    = pos3(rs.left,rs.bottom);
+	(*it  ).pos()    = pos3(rs.left,rs.bottom,0);
 	(*it++).tex()[0] = tex_pos(rt.left,rt.bottom);
 }
 

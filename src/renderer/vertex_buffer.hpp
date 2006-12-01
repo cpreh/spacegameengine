@@ -43,7 +43,7 @@ private:
 	template<typename Stored>
 	class iterator_impl : public boost::iterator_facade<iterator_impl<Stored>,Stored,std::random_access_iterator_tag,Stored,difference_type> {
 		friend class vertex_buffer;
-		
+
 		typename Stored::pointer data;
 		size_type stride;
 		const offset_info& oi;

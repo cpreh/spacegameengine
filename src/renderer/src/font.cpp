@@ -86,11 +86,11 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 	{
 		const font_unit text_height = text_size(text.begin(), text.end(), max_sz.w, flags).h;
 		if(flags & FTF_AlignVCenter)
-			pos.y += (max_sz.h - text_height) / 2.f;
+			pos.y() += (max_sz.h - text_height) / 2.f;
 		else if(flags & FTF_AlignBottom)
-			pos.y += max_sz.h - text_height;
-		if(pos.y < start_pos.y)
-			pos.y = start_pos.y;
+			pos.y() += max_sz.h - text_height;
+		if(pos.y() < start_pos.y())
+			pos.y() = start_pos.y();
 	}
 
 	r->set_int_state(IS_AmbientLightColor,col);
@@ -109,17 +109,17 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 		if(width == 0)
 			break;
 
-		pos.x = start_pos.x;
+		pos.x() = start_pos.x();
 		if(flags & FTF_AlignHCenter)
-			pos.x += (max_sz.w - width) / 2;
+			pos.x() += (max_sz.w - width) / 2;
 		else if(flags & FTF_AlignRight)
-			pos.x += max_sz.w - width;
+			pos.x() += max_sz.w - width;
 
 		for(;sbeg != send; ++sbeg)
 		{
 			const font_entity&   reg = impl->load_char(*sbeg);
 			const font_size      sz(char_width(*sbeg), height() * reg.v_scale);
-			const font_rect      fp(font_pos(pos.x + height() * reg.left, pos.y + height() * reg.top), sz);
+			const font_rect      fp(font_pos(pos.x() + height() * reg.left, pos.y() + height() * reg.top), sz);
 
 			if(last_texture != reg.tex)
 			{
@@ -129,7 +129,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 			}
 
 			fill_sprite_vertices(vit, fp, reg.rect);
-			pos.x += char_space(*sbeg);
+			pos.x() += char_space(*sbeg);
 		}
 
 		sbeg = send;
@@ -139,7 +139,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 		if(flags & FTF_NoMultiLine)
 			break;
 
-		pos.y += height();
+		pos.y() += height();
 	}
 	_lock.unlock();
 	add_job(std::distance(text.begin(),send));

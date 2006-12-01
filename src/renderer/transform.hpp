@@ -41,7 +41,7 @@ inline space_unit trans_y_2d_to_3d(const space_unit y)
 
 inline pos3 trans_2d_to_3d(const point pos)
 {
-	return pos3(trans_x_2d_to_3d(pos.x), trans_y_2d_to_3d(pos.y), 0);
+	return pos3(trans_x_2d_to_3d(pos.x()), trans_y_2d_to_3d(pos.y()), 0);
 }
 
 inline space_unit space_x_2d_to_3d(const space_unit x)
@@ -61,7 +61,7 @@ inline pos3 space_2d_to_3d(const space_unit x, const space_unit y)
 
 inline pos3 space_2d_to_3d(const point pos)
 {
-	return space_2d_to_3d(pos.x,pos.y);
+	return space_2d_to_3d(pos.x(), pos.y());
 }
 
 inline pos3 text_to_space(const space_unit x, const space_unit y)
@@ -74,9 +74,9 @@ inline pos3 text_to_space(const point pos)
 	return space_2d_to_3d(pos);
 }
 
-inline basic_vector2<unsigned> space_pos_to_pixel(const point a, const unsigned screen_width, const unsigned screen_height)
+inline math::vector<unsigned,2> space_pos_to_pixel(const point a, const unsigned screen_width, const unsigned screen_height)
 {
-	return basic_vector2<unsigned>(unsigned((a.x + 1.0) / 2.0 * screen_width), unsigned((-a.y + 1.0) / 2.0 * screen_height));
+	return math::vector<unsigned,2>(unsigned((a.x() + 1.0) / 2.0 * screen_width), unsigned((-a.y() + 1.0) / 2.0 * screen_height));
 }
 
 inline unsigned space_size_to_pixel(const space_unit s, const unsigned screen_size)

@@ -38,10 +38,8 @@ enum bit_depth {
 inline unsigned bit_depth_bit_count(const bit_depth d) { return d == BD_32 ? 32 : 16; }
 
 struct display_mode {
-	display_mode(const unsigned width, const unsigned height, const bit_depth depth,
-	             const unsigned refresh_rate)
-		: width(width), height(height), depth(depth),
-		  refresh_rate(refresh_rate) {}
+	display_mode(const unsigned width, const unsigned height, const bit_depth depth, const unsigned refresh_rate)
+	 : width(width), height(height), depth(depth), refresh_rate(refresh_rate) {}
 	unsigned  width;
 	unsigned  height;
 	bit_depth depth;
@@ -61,13 +59,9 @@ inline bool operator!= (const display_mode& l, const display_mode& r)
 typedef unsigned multi_sample_type;
 
 struct renderer_parameters {
-	renderer_parameters(const display_mode& mode, 
-	                    const multi_sample_type samples = 1,
-	                    const bool windowed = false,
-	                    const bool vsync = true)
-	: mode(mode), samples(samples),
-	  windowed(windowed), vsync(vsync) {}
-	
+	renderer_parameters(const display_mode& mode, const multi_sample_type samples = 1, const bool windowed = false, const bool vsync = true)
+	: mode(mode), samples(samples), windowed(windowed), vsync(vsync) {}
+
 	display_mode      mode;
 	multi_sample_type samples;
 	bool              windowed;
@@ -108,11 +102,11 @@ enum lock_flags {
 };
 typedef unsigned lock_flag_t;
 
-typedef vector2                tex_pos;
-typedef vector3<space_unit>    pos3;
-typedef uint32                 int_type;
-typedef space_unit             float_type;
-typedef bool                   bool_type;
+typedef vector2     tex_pos;
+typedef vector3     pos3;
+typedef uint32      int_type;
+typedef space_unit  float_type;
+typedef bool        bool_type;
 
 enum primitive_type {
 	PT_Point,
@@ -242,15 +236,14 @@ struct view_port {
 	space_unit   nearz;
 	space_unit   farz;
 	view_port(const space_unit x, const space_unit y, const space_unit w, const space_unit h, const space_unit nearz, const space_unit farz)
-		: pos(x,y), sz(w,h), nearz(nearz), farz(farz) {}
+	 : pos(x,y), sz(w,h), nearz(nearz), farz(farz) {}
 };
 
 struct material {
 	material(const color4 diffuse = color4(), const color4 ambient = color4(),
 	         const color4 specular = color4(), const color4 emissive = color4(),
 	         const space_unit power = 0)
-		: diffuse(diffuse), ambient(ambient), specular(specular),
-		  emissive(emissive), power(power) {}
+	 : diffuse(diffuse), ambient(ambient), specular(specular), emissive(emissive), power(power) {}
 	color4     diffuse;
 	color4     ambient; 
 	color4     specular; 

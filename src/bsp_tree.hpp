@@ -32,7 +32,7 @@ namespace sge
 template<typename Size> class bsp_tree {
 public:
 	typedef Size size_type;
-	typedef basic_vector2<size_type> point_type;
+	typedef math::vector<size_type,2> point_type;
 	typedef basic_dim<size_type> dim_type;
 	typedef basic_rect<size_type> value_type;
 	typedef const value_type& const_reference;

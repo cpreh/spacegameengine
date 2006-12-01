@@ -29,7 +29,7 @@ namespace sge
 
 template<typename T> class basic_circle {
 public:
-	typedef basic_vector2<T> point_type;
+	typedef math::vector<T,2> point_type;
 
 	basic_circle(const point_type& p, const T& _radius)
 	 : p(p), _radius(_radius)

@@ -62,11 +62,11 @@ void sge::gui::vertical_scrollbar::on_glob_mouse_move(const mouse_move_event& ev
 	const point p = event.pos();
 	const unit distx = 0.1f;
 
-	if(p.y < 0 || p.y > height() || 
-	   p.x < -distx || p.x > width() + distx)
+	if(p.y() < 0 || p.y() > height() || 
+	   p.x() < -distx || p.x() > width() + distx)
 		return;
 
-	scrollbar.y(p.y);
+	scrollbar.y(p.y());
 
 	const unit miny = up_scroll_button.height();
 	scrollbar.y(std::max(scrollbar.y(),miny));
@@ -102,12 +102,12 @@ void sge::gui::vertical_scrollbar::move_scrollbar(const point click_pos)
 
 	const size_type stride = 1;
 
-	if(click_pos.y > scrollbar.y() + scrollbar.height())
+	if(click_pos.y() > scrollbar.y() + scrollbar.height())
 	{
 		s_pos += stride;
 		s_pos = std::min(s_pos,s_max);
 	}
-	else if(click_pos.y < scrollbar.y())
+	else if(click_pos.y() < scrollbar.y())
 	{
 		if(s_pos >= stride)
 			s_pos -= stride;
