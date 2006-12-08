@@ -42,13 +42,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <sstream>
 #include <iostream>
-#include "../src/math/vector.hpp"
+//#include "../src/math/matrix.hpp"
 
 sge::point rand_point() { return sge::point(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
 
 int main()
 try
 {
+	//sge::math::matrix<float,3,3> matr;
+//	matr[1].length_quad();
+
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;

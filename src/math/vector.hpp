@@ -14,14 +14,14 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
 
+#ifndef SGE_VECTOR_MAX_SIZE
+#define SGE_VECTOR_MAX_SIZE 4
+#endif
+
 namespace sge
 {
 namespace math
 {
-
-#ifndef SGE_VECTOR_MAX_SIZE
-#define SGE_VECTOR_MAX_SIZE 4
-#endif
 
 template<typename T, std::size_t Dim>
 class vector {
@@ -33,9 +33,8 @@ public:
 	typedef std::size_t size_type;
 
 #define SGE_MATH_VECTOR_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
-//#define SGE_MATH_VECTOR_CTOR(z, n, text) template<typename OtherT> vector(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), OtherT const& param), typename boost::enable_if<boost::mpl::and_<boost::is_same<T,OtherT>, boost::mpl::bool_<Dim == BOOST_PP_ADD(n,1)> > >::type* = 0) { BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
 #define SGE_MATH_VECTOR_CTOR(z, n, text) vector(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
-BOOST_PP_REPEAT(SGE_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_CTOR, void)
+	BOOST_PP_REPEAT(SGE_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_CTOR, void)
 
 	vector()
 	{

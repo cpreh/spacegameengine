@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../bit.hpp"
 #include "../../../input/key_type.hpp"
 #include "../../../input/callback_handle.hpp"
+#include "../../../util.hpp"
 #include "../input_system.hpp"
 #include <X11/keysym.h>
 #include <X11/Xlib.h>
@@ -33,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), colormap(DefaultColormap(wnd->get_display(),wnd->get_screen())), mmwidth(mmap->max_keypermod), last_mouse(0), _black(wnd->get_display(),colormap), _no_bmp(wnd->get_display()), _no_cursor(wnd->get_display()), dga_guard(wnd)
 {
-	// FIXME: Handle lost focus and reclaim the cursor
 	int flags;
 	if(XF86DGAQueryDirectVideo(wnd->get_display(),wnd->get_screen(),&flags)==false)
 		throw std::runtime_error("XF86DGAQueryDirectVideo() failed");
@@ -57,11 +57,6 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	XF86DGADirectVideo(wnd->get_display(),wnd->get_screen(),XF86DGADirectMouse);
 	dga_guard.enabled = true;
 
-	if(XGrabPointer(wnd->get_display(),wnd->get_window(),False,PointerMotionMask,GrabModeAsync,GrabModeAsync,wnd->get_window(),_no_cursor.cursor,CurrentTime) != GrabSuccess)
-		throw std::runtime_error("XGrabPointer() failed");
-//	if(XGrabKeyboard(wnd->get_display(),wnd->get_window(),true,GrabModeAsync, GrabModeAsync, CurrentTime) != GrabSuccess)
-//		throw std::runtime_error("XGrabKeyboard() failed");
-	
 	x11tosge[NoSymbol] = KC_None;
 	x11tosge[XK_BackSpace] = KC_BACK;
 	x11tosge[XK_Tab] = KC_TAB;
@@ -82,6 +77,8 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	x11tosge[XK_Page_Down] = KC_PGDN;
 	x11tosge[XK_End] = KC_END;
 	x11tosge[XK_Begin] = KC_HOME;
+	
+	grab();
 }
 
 sge::xinput::input_system::~input_system()
@@ -95,42 +92,83 @@ sge::callback_handle sge::xinput::input_system::register_callback(const callback
 	return callback_handle(new callback_handle_impl(sig.connect(c)));
 }
 
+void sge::xinput::input_system::grab()
+{
+	for(;;)
+	{
+		if(XGrabPointer(wnd->get_display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor, CurrentTime) == GrabSuccess)
+			break;
+		sleep(10);
+	}
+}
+
 void sge::xinput::input_system::dispatch()
 {
 	XEvent xev;
-	while(XCheckMaskEvent(wnd->get_display(), KeyReleaseMask | KeyPressMask, &xev))
+	while(XPending(wnd->get_display()))
 	{
-		XComposeStatus state;
-		char keybuf[32];
-		KeySym ks;
-		const int num_chars = XLookupString(reinterpret_cast<XKeyEvent*>(&xev),keybuf,sizeof(keybuf),&ks,&state);
-		const uchar_t ch = num_chars == 1 ? keybuf[0] : 0;
-		if(num_chars > 1)
-			std::cerr << "stub: character '" << keybuf << "' in XLookupString has " << num_chars << " bytes!\n";
-		const key_type key(get_key_name(ks),modifiers,get_key_code(ks),ch);
-		sig(key_pair(key, xev.type == KeyRelease ? 0 : 1));
-	}
-	
-	Window root, child;
-	int root_x, root_y, win_x, win_y;
-	unsigned mask;
-	XQueryPointer(wnd->get_display(),wnd->get_window(),&root,&child,&root_x,&root_y,&win_x,&win_y,&mask);
-	const unsigned diff_mask = mask ^ last_mouse;
-	if(diff_mask & Button1Mask)
-		sig(key_pair(key_type("Mouse1",modifiers,KC_MOUSEL,0),mask & Button1Mask ? 1 : 0 ));
-	if(diff_mask & Button3Mask)
-		sig(key_pair(key_type("Mouse2",modifiers,KC_MOUSER,0),mask & Button3Mask ? 1 : 0));
-	last_mouse = mask;
+		XNextEvent(wnd->get_display(),&xev);
 
-	int deltax = 0, deltay = 0;
-	while(XCheckTypedEvent(wnd->get_display(), MotionNotify, &xev)) {
-		deltax += xev.xmotion.x_root;
-		deltay += xev.xmotion.y_root;
+		switch(xev.type) {
+		case KeyPress:
+		case KeyRelease:
+			// check for repeated key
+			if(xev.type == KeyRelease && XPending(wnd->get_display()))
+			{
+				XEvent peek;
+				XPeekEvent(wnd->get_display(), &peek);
+				if(peek.type == KeyPress &&
+				   peek.xkey.keycode == xev.xkey.keycode)
+				{
+					XNextEvent(wnd->get_display(), &peek);
+					continue;
+				}
+			}
+
+			{
+			XComposeStatus state;
+			KeySym ks;
+			char keybuf[32];
+
+			const int num_chars = XLookupString(reinterpret_cast<XKeyEvent*>(&xev),keybuf,sizeof(keybuf),&ks,&state);
+			const char code = keybuf[0];
+
+			if(num_chars > 1)
+			{
+				std::cerr << "stub: character '" << keybuf << "' in XLookupString has " << num_chars << " bytes!\n";
+				continue;
+			}
+			
+			sig(key_pair(key_type(get_key_name(ks), modifiers, get_key_code(ks), static_cast<uchar>(code)), xev.type == KeyRelease ? 0 : 1));
+			break;
+			}
+		case ButtonPress:
+		case ButtonRelease:
+			sig(key_pair(mouse_key(xev.xbutton.button), xev.type == ButtonRelease ? 0 : 1));
+			break;
+		case MotionNotify:
+			if(xev.xmotion.x_root)
+				sig(key_pair(key_type("MouseX", modifiers, KC_MOUSEX, 0), space_unit(xev.xmotion.x_root) / wnd->size().w));
+			if(xev.xmotion.y_root)
+				sig(key_pair(key_type("MouseY", modifiers, KC_MOUSEY, 0), space_unit(xev.xmotion.y_root) / wnd->size().h));
+			break;
+		case MapNotify:
+			grab();
+			break;
+		}
 	}
-	if(deltax)
-		sig(key_pair(key_type("MouseX",modifiers,KC_MOUSEX,0),space_unit(deltax) / wnd->size().w));
-	if(deltay)
-		sig(key_pair(key_type("MouseY",modifiers,KC_MOUSEY,0),space_unit(deltay) / wnd->size().h));
+}
+
+sge::key_type sge::xinput::input_system::mouse_key(const unsigned x11code) const
+{
+	switch(x11code) {
+	case 1:
+		return key_type("Mouse1",modifiers,KC_MOUSEL,0);
+	case 3:
+		return key_type("Mouse2",modifiers,KC_MOUSER,0);
+	default:
+		return key_type("Undefined mouse key",modifiers,KC_None,0);
+	}
 }
 
 std::string sge::xinput::input_system::get_key_name(const KeySym ks) const
@@ -146,6 +184,7 @@ sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const
 	return it->second;
 }
 
+// FIXME: modifiers should be updated
 void sge::xinput::input_system::update_modifiers(const key_value_array& keys)
 {
 	for (unsigned i = 0; i < mmwidth; ++i)

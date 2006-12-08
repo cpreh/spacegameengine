@@ -43,6 +43,9 @@ public:
 	callback_handle register_callback(const callback& c);
 	void dispatch();
 private:
+	void grab();
+	key_type mouse_key(unsigned x11code) const;
+
 	signal_type sig;
 
 	static const std::size_t key_array_size = 32;

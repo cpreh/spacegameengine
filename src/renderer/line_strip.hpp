@@ -41,8 +41,8 @@ template<> struct coordinate_transformator<point> {
 	pos3 transform(const point p) const { return space_2d_to_3d(p); }
 };
 
-template<typename PointType>
-class line_strip : coordinate_transformator<PointType>, boost::noncopyable {
+template<typename PointType, template<typename> class Transformator = coordinate_transformator>
+class line_strip : Transformator<PointType>, boost::noncopyable {
 public:
 	typedef vertex_buffer::size_type size_type;
 
@@ -81,6 +81,16 @@ public:
 			vb->resize(vertices.size());
 		vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(&vertices[0]),0,vertices.size());
 		rend->render(vb, index_buffer_ptr(), 0, vertices.size(), loop ? PT_LineLoop : PT_LineStrip, vertices.size()-1);
+	}
+
+	pos3& operator[](const size_type index)
+	{
+		return vertices[index];
+	}
+
+	const pos3& operator[](const size_type index) const
+	{
+		return vertices[index];
 	}
 
 	void clear()
