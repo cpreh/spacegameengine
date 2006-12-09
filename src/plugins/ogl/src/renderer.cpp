@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../../../ptr_cast.hpp"
 #include "../../../renderer/types.hpp"
+#include "../../../algorithm.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
 #include "../cube_texture.hpp"
@@ -137,6 +138,23 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	if(XF86VidModeGetAllModeLines(d,screen,&mode_count,&modes) == False)
 		throw std::runtime_error("XF86VidModeGetAllModeLines() failed");
 
+	if(!param.windowed)
+	{
+		std::cerr << "stub: non windowed mode not supported at the moment\n";
+	/*	for(std::size_t i = 1; i < mode_count; ++i)
+		{
+			const unsigned vrefresh = round_div_int(1000 * modes[i]->dotclock, unsigned(modes[i]->htotal * modes[i]->vtotal));
+			if(modes[i]->hdisplay == param.mode.width && modes[i]->vdisplay == param.mode.height && vrefresh == param.mode.refresh_rate)
+			{
+				if(XF86VidModeSwitchToMode(d,screen,&*modes[i]) == False)
+					throw std::runtime_error("XF86VidModeSwitchToMode() failed");
+				resolution_guard.reset(new xf86_resolution_guard(d,screen,&*modes[0]));
+				XF86VidModeSetViewPort(d,screen,0,0);
+				break;
+			}
+		}*/
+	}
+
 	int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 16, None};
 	vi = glXChooseVisual(d,screen,attributes);
 	if(vi == NULL)
@@ -148,21 +166,11 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	cm.reset(new x_colormap(d,XCreateColormap(d,RootWindow(d,vi->screen),vi->visual,AllocNone)));
 
 	wnd.reset(new x_window(window::window_size(param.mode.width,param.mode.height),"ogl",d,screen,vi.t,(*cm).c));
-
-	// TODO: search for correct resolution
-
-	/*if(!param.windowed)
-	{
-		if(XF86VidModeSwitchToMode(d,screen,&*modes[1]) == False)
-			throw std::runtime_error("XF86VidModeSwitchToMode() failed");
-		resolution_guard = new xf86_resolution_guard(d,screen,&*modes[0]);
-		XF86VidModeSetViewPort(d,screen,0,0);
-	}*/
+	XMapWindow(d,wnd->get_window());
 
 	if(glXMakeCurrent(d,wnd->get_window(),ct.c) == false)
 		throw std::runtime_error("glXMakeCurrent() failed");
 	cg.d = d;
-	XMapWindow(d,wnd->get_window());
 	XFlush(d);
 #endif
 	if(glewInit() != GLEW_OK)
@@ -270,7 +278,7 @@ unsigned sge::ogl::renderer::screen_width() const
 	return param.mode.height;
 }
 
-void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned /*first_vertex*/, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
+void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
 {
 	set_vertex_buffer(vb);
 	const GLenum prim_type = convert_cast<GLenum>(ptype);
@@ -285,7 +293,7 @@ void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::inde
 	case PT_TriangleStrip:
 	case PT_TriangleFan:
 	case PT_LineLoop:
-		glDrawArrays(prim_type,0,num_vertices);
+		glDrawArrays(prim_type, first_vertex, num_vertices);
 		break;
 	}
 }
@@ -313,8 +321,6 @@ void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type 
 
 void sge::ogl::renderer::set_filter_state(const stage_type stage, const filter_arg type, const filter_arg_value arg)
 {
-	const GLenum tex_type = GL_TEXTURE_2D;
-
 	if(stage > 0)
 	{
 		std::cerr << "stub: stage not supported in ogl::renderer::set_filter_state\n";
@@ -326,6 +332,7 @@ void sge::ogl::renderer::set_filter_state(const stage_type stage, const filter_a
 		return;
 	}
 
+	const GLenum tex_type = GL_TEXTURE_2D;
 	const GLenum filter_arg = convert_cast<GLenum>(arg);
 
 	if(type == FARG_MipFilter)

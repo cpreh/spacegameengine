@@ -119,7 +119,7 @@ template<typename Base, typename Exp> Base pow_int(const Base base, const Exp e)
 
 template<typename T> T round_div_int(const T  l, const T r)
 {
-	return l / r + (l%r) ? 1 : 0;
+	return l / r + ((l%r) ? 1 : 0);
 }
 
 }

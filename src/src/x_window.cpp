@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../x_window.hpp"
 sge::x_window::x_window(const window_size sz, const std::string& _title, Display* const dsp, const int screen, XVisualInfo* const vi, Colormap& cmap)
-	: sz(sz), _title(_title), _active(false), dsp(dsp), screen(screen)
+ : sz(sz), _title(_title), _active(false), dsp(dsp), screen(screen)
 {
 	XSetWindowAttributes swa;
 	swa.colormap = cmap;
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
-	swa.override_redirect = False;
+//	swa.override_redirect = False;
 	swa.event_mask = FocusChangeMask | KeyPressMask | KeyReleaseMask | PropertyChangeMask | StructureNotifyMask | KeymapStateMask | PointerMotionMask;
 	wnd = XCreateWindow(dsp,RootWindow(dsp,vi->screen),0,0,sz.w,sz.h,0,vi->depth, InputOutput, vi->visual, CWColormap /*| CWOverrideRedirect*/ | CWBorderPixel | CWEventMask, &swa);
 	XStoreName(dsp,wnd,_title.c_str());
@@ -50,16 +50,5 @@ void sge::x_window::title(const std::string& t)
 	_title = t;
 	XStoreName(dsp,wnd,_title.c_str());
 }
-/*
-void sge::process_window_msgs()
-{
-	static Display* dsp = XOpenDisplay(NULL);
-
-	XEvent event;
-	while(XPending(dsp))
-	{
-		XNextEvent(dsp,&event);
-	}
-}*/
 
 #endif

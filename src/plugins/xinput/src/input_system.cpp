@@ -37,8 +37,8 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	int flags;
 	if(XF86DGAQueryDirectVideo(wnd->get_display(),wnd->get_screen(),&flags)==false)
 		throw std::runtime_error("XF86DGAQueryDirectVideo() failed");
-//	if(!(flags & XF86DGADirectMouse))
-//		throw std::runtime_error("DGA Mouse not supported! Non DGA implementation is not present yet!");
+	if(flags & XF86DGADirectMouse)
+		throw std::runtime_error("DGA Mouse not supported! Non DGA implementation is not present yet!");
 
 	XColor black, dummy;
 	if(XAllocNamedColor(wnd->get_display(), colormap, "black", &black, &dummy ) == 0)
@@ -54,6 +54,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	if(_no_cursor.cursor == None)
 		throw std::runtime_error("XCreatePixmapCursor() failed");
 
+	grab();
 	XF86DGADirectVideo(wnd->get_display(),wnd->get_screen(),XF86DGADirectMouse);
 	dga_guard.enabled = true;
 
@@ -77,13 +78,10 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	x11tosge[XK_Page_Down] = KC_PGDN;
 	x11tosge[XK_End] = KC_END;
 	x11tosge[XK_Begin] = KC_HOME;
-	
-	grab();
 }
 
 sge::xinput::input_system::~input_system()
 {
-	XUngrabKeyboard(wnd->get_display(),CurrentTime);
 	XUngrabPointer(wnd->get_display(),CurrentTime);
 }
 
@@ -96,8 +94,19 @@ void sge::xinput::input_system::grab()
 {
 	for(;;)
 	{
-		if(XGrabPointer(wnd->get_display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor, CurrentTime) == GrabSuccess)
+		const int r = XGrabPointer(wnd->get_display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor, CurrentTime);
+		switch(r) {
+		case GrabSuccess:
+			return;
+		case GrabFrozen:
+			throw std::runtime_error("x11: Grab frozen!");
+		case GrabNotViewable:
+			throw std::runtime_error("x11: GrabNotViewable");
+		case AlreadyGrabbed:
 			break;
+		case GrabInvalidTime:
+			throw std::runtime_error("x11: GrabInvalidTime");
+		}
 		sleep(10);
 	}
 }
@@ -108,6 +117,8 @@ void sge::xinput::input_system::dispatch()
 	while(XPending(wnd->get_display()))
 	{
 		XNextEvent(wnd->get_display(),&xev);
+		if(XFilterEvent(&xev,None))
+			continue;
 
 		switch(xev.type) {
 		case KeyPress:
