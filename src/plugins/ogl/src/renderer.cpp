@@ -131,17 +131,21 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 		throw std::runtime_error("wglMakeCurrent() failed");
 #elif SGE_LINUX_PLATFORM
 	XSetErrorHandler(handler);
-	Display* d = dsp;
-	int screen = DefaultScreen(d);
-
-	int mode_count;
-	if(XF86VidModeGetAllModeLines(d,screen,&mode_count,&modes) == False)
-		throw std::runtime_error("XF86VidModeGetAllModeLines() failed");
+	int screen = DefaultScreen(dsp.get());
 
 	if(!param.windowed)
 	{
 		std::cerr << "stub: non windowed mode not supported at the moment\n";
-	/*	for(std::size_t i = 1; i < mode_count; ++i)
+		int event_base, error_base;
+		if(XF86VidModeQueryExtension(dsp.get(), &event_base, &error_base) == False)
+			std::cerr << "Warning: You have selected non window mode but you are lacking the xf86vidmode extension!";
+
+		/*int mode_count;
+
+		if(XF86VidModeGetAllModeLines(d,screen,&mode_count,&modes) == False)
+			throw std::runtime_error("XF86VidModeGetAllModeLines() failed");
+
+		for(std::size_t i = 1; i < mode_count; ++i)
 		{
 			const unsigned vrefresh = round_div_int(1000 * modes[i]->dotclock, unsigned(modes[i]->htotal * modes[i]->vtotal));
 			if(modes[i]->hdisplay == param.mode.width && modes[i]->vdisplay == param.mode.height && vrefresh == param.mode.refresh_rate)
@@ -156,22 +160,22 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	}
 
 	int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 16, None};
-	vi = glXChooseVisual(d,screen,attributes);
+	vi = glXChooseVisual(dsp.get(),screen,attributes);
 	if(vi == NULL)
 		throw std::runtime_error("glXChooseVisual() failed");
-	ct.c = glXCreateContext(d,vi.t,None,GL_TRUE);
-	ct.dsp = d;
+	ct.c = glXCreateContext(dsp.get(), vi.t, None, GL_TRUE);
+	ct.dsp = dsp.get();
 	if (ct.c == NULL)
 		throw std::runtime_error("glXCreateContext() failed");
-	cm.reset(new x_colormap(d,XCreateColormap(d,RootWindow(d,vi->screen),vi->visual,AllocNone)));
+	cm.reset(new x_colormap(dsp.get(), XCreateColormap(dsp.get(), RootWindow(dsp.get(),vi->screen),vi->visual,AllocNone)));
 
-	wnd.reset(new x_window(window::window_size(param.mode.width,param.mode.height),"ogl",d,screen,vi.t,(*cm).c));
-	XMapWindow(d,wnd->get_window());
+	wnd.reset(new x_window(window::window_size(param.mode.width, param.mode.height), "spacegameengine", dsp.get(), screen, vi.t, (*cm).c));
+	XMapWindow(dsp.get(), wnd->get_window());
 
-	if(glXMakeCurrent(d,wnd->get_window(),ct.c) == false)
+	if(glXMakeCurrent(dsp.get(), wnd->get_window(), ct.c) == false)
 		throw std::runtime_error("glXMakeCurrent() failed");
-	cg.d = d;
-	XFlush(d);
+	cg.d = dsp.get();
+	XFlush(dsp.get());
 #endif
 	if(glewInit() != GLEW_OK)
 		throw std::runtime_error("glewInit() failed");
@@ -254,7 +258,7 @@ sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_ar
 void sge::ogl::renderer::end_rendering()
 {
 #ifdef SGE_LINUX_PLATFORM
-	glXSwapBuffers(dsp,wnd->get_window());
+	glXSwapBuffers(dsp.get(), wnd->get_window());
 #endif
 }
 

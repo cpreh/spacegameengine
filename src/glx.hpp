@@ -32,8 +32,8 @@ namespace sge
 struct x_display {
 	x_display() : d(XOpenDisplay(NULL)) { if(!d) throw std::runtime_error("XOpenDisplay failed or dsp is 0"); }
 	~x_display() { XCloseDisplay(d); }
-	operator Display*() { return d; }
-	operator void*() { return d; }
+	Display* get() const { return d; }
+private:
 	Display* d;
 };
 	
