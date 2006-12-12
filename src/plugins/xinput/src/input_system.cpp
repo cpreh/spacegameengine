@@ -55,8 +55,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 		throw std::runtime_error("XCreatePixmapCursor() failed");
 
 	grab();
-	XF86DGADirectVideo(wnd->get_display(),wnd->get_screen(),XF86DGADirectMouse);
-	dga_guard.enabled = true;
+	enable_dga(true);
 
 	x11tosge[NoSymbol] = KC_None;
 	x11tosge[XK_BackSpace] = KC_BACK;
@@ -163,11 +162,23 @@ void sge::xinput::input_system::dispatch()
 			if(xev.xmotion.y_root)
 				sig(key_pair(key_type("MouseY", modifiers, KC_MOUSEY, 0), space_unit(xev.xmotion.y_root) / wnd->size().h));
 			break;
+		case LeaveNotify:
+			enable_dga(false);
+			break;
+		case EnterNotify:
+			enable_dga(true);
+			break;
 		case MapNotify:
 			grab();
 			break;
 		}
 	}
+}
+
+void sge::xinput::input_system::enable_dga(const bool enable)
+{
+	XF86DGADirectVideo(wnd->get_display(), wnd->get_screen(), enable ? XF86DGADirectMouse : 0);
+	dga_guard.enabled = enable;
 }
 
 sge::key_type sge::xinput::input_system::mouse_key(const unsigned x11code) const

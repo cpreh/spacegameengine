@@ -96,7 +96,7 @@ inline rect space_rect_2d_to_3d(const rect& r)
 
 inline rect tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height)
 {
-	return rect(space_unit(l.left+1) / width, space_unit(l.top+1) / height, space_unit(l.right-1) / width, space_unit(l.bottom-1) / height);
+	return rect(space_unit(l.left) / width, space_unit(l.top) / height, space_unit(l.right) / width, space_unit(l.bottom) / height);
 }
 
 }

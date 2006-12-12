@@ -42,7 +42,7 @@ template<> struct coordinate_transformator<point> {
 };
 
 template<typename PointType, template<typename> class Transformator = coordinate_transformator>
-class line_strip : Transformator<PointType>, boost::noncopyable {
+class line_strip : public Transformator<PointType>, boost::noncopyable {
 public:
 	typedef vertex_buffer::size_type size_type;
 

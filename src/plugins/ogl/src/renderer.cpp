@@ -138,7 +138,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 		std::cerr << "stub: non windowed mode not supported at the moment\n";
 		int event_base, error_base;
 		if(XF86VidModeQueryExtension(dsp.get(), &event_base, &error_base) == False)
-			std::cerr << "Warning: You have selected non window mode but you are lacking the xf86vidmode extension!";
+			std::cerr << "Warning: You have selected non windowed mode but you are lacking the xf86vidmode extension!";
 
 		/*int mode_count;
 
@@ -165,7 +165,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 		throw std::runtime_error("glXChooseVisual() failed");
 	ct.c = glXCreateContext(dsp.get(), vi.t, None, GL_TRUE);
 	ct.dsp = dsp.get();
-	if (ct.c == NULL)
+	if(ct.c == NULL)
 		throw std::runtime_error("glXCreateContext() failed");
 	cm.reset(new x_colormap(dsp.get(), XCreateColormap(dsp.get(), RootWindow(dsp.get(),vi->screen),vi->visual,AllocNone)));
 
@@ -183,6 +183,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	set_bool_state(BS_EnableAlphaBlending,true);
 	set_bool_state(BS_EnableZBuffer,false);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
 
 	// TODO: implement caps
 	_caps.adapter_number = adapter;

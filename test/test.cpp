@@ -49,8 +49,9 @@ sge::point rand_point() { return sge::point(double(std::rand())/RAND_MAX,double(
 int main()
 try
 {
-	//sge::math::matrix<float,3,3> matr;
-//	matr[1].length_quad();
+//	sge::math::matrix<float,3,3> matr(0,1,2,3,4,5,6,7,8);
+//	matr[1] = sge::math::matrix<float,3,1>(20,20,20);
+//	std::cerr << matr << '\n';
 
 	std::srand(std::time(0));
 	bool running = true;
@@ -61,7 +62,7 @@ try
 	sge::image_loader_ptr pl = pm.get_plugin<sge::image_loader>();
 	sge::font_system_ptr fs = pm.get_plugin<sge::font_system>();
 	sge::input_system_ptr is = pm.get_plugin<sge::input_system>(rend->get_window());
-	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arial.ttf");
+	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arial.ttf",16);
 	sge::sprite_system ss(rend);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "/mainskin/cancel_0.png");
 
@@ -139,8 +140,8 @@ try
 		is->dispatch();
 		ss.draw(translation);
 		man.process();
-		fn.transform(sge::matrix_rotation_z(angle));
-		fn.height(0.05);
+//		fn.transform(sge::matrix_rotation_z(angle));
+		fn.height_pixel_scale(1);
 		fn.draw_text("ßäöü 1234567890 abcdef ghij adsfasdf asf asdds klmn 1234567890",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;

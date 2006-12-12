@@ -44,6 +44,7 @@ public:
 	void dispatch();
 private:
 	void grab();
+	void enable_dga(bool);
 	key_type mouse_key(unsigned x11code) const;
 
 	signal_type sig;
