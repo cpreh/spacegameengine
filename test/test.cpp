@@ -62,7 +62,7 @@ try
 	sge::image_loader_ptr pl = pm.get_plugin<sge::image_loader>();
 	sge::font_system_ptr fs = pm.get_plugin<sge::font_system>();
 	sge::input_system_ptr is = pm.get_plugin<sge::input_system>(rend->get_window());
-	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arial.ttf",16);
+	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arialbd.ttf",32);
 	sge::sprite_system ss(rend);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "/mainskin/cancel_0.png");
 
@@ -91,7 +91,7 @@ try
 	for(int i = 0; i < 20; ++i)
 	{
 		std::ostringstream os;
-		os << "TEST" << i;
+		os << "jgAB" << i;
 		list1.push_back(os.str());
 	}
 
@@ -140,9 +140,10 @@ try
 		is->dispatch();
 		ss.draw(translation);
 		man.process();
-//		fn.transform(sge::matrix_rotation_z(angle));
+		fn.transform(sge::matrix_rotation_z(angle));
 		fn.height_pixel_scale(1);
-		fn.draw_text("ßäöü 1234567890 abcdef ghij adsfasdf asf asdds klmn 1234567890",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
+		fn.height(0.05);
+		fn.draw_text("ßäöü 1234567890 abcdef ghij adsfasdf asf asdds klmn 1234567890 even more longer blablablablasd afdkasjkdasdj sdfads fdas fasd sadg sdg gsd",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;
 		fn.draw_text(os.str(),sge::point(0.1,0.1),sge::dim(1,1),sge::colors::purple);

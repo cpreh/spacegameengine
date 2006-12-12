@@ -34,8 +34,11 @@ namespace {
 }
 
 sge::ft::font_impl::font_impl(library& lib, const renderer_ptr r, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
-: r(r), quality_in_pixel(quality_in_pixel), cur_tex(r->create_texture(0,tex_size,tex_size)), cur_x(0), cur_y(0)
+: r(r), cur_tex(r->create_texture(0,tex_size,tex_size)), cur_x(0), cur_y(0)
 {
+	if(weight != FW_Normal)
+		std::cerr << "stub: font weight parameter currently not supported by the freetype font plugin\n";
+
 	FT_Face face;
 	if(FT_New_Face(lib.impl, font_name.c_str(), 0, &face))
 		throw std::runtime_error(std::string("FT_New_Face() failed for font: ") += font_name);
@@ -47,7 +50,7 @@ sge::ft::font_impl::font_impl(library& lib, const renderer_ptr r, const std::str
 	if(FT_Set_Pixel_Sizes(face,0,quality_in_pixel))
 		throw std::runtime_error("FT_Set_Pixel_Sizes() failed");
 
-	pixel_size = (*_face.get())->height >> 6;
+	pixel_size =  (face->ascender >> 6) - (face->descender >> 6);
 }
 
 const sge::font_entity& sge::ft::font_impl::load_char(const font_char c)
@@ -56,7 +59,7 @@ const sge::font_entity& sge::ft::font_impl::load_char(const font_char c)
 	if(entity.tex)
 		return entity;
 
-	if(FT_Load_Char(_face->impl, c /* FT_Get_Char_Index(_face->impl, c)*/, FT_LOAD_DEFAULT))
+	if(FT_Load_Char(_face->impl, c, FT_LOAD_DEFAULT))
 		throw std::runtime_error("FT_Load_Glyph() failed");
 
 	FT_Glyph glyph;
@@ -84,11 +87,11 @@ const sge::font_entity& sge::ft::font_impl::load_char(const font_char c)
 	}
 
 	const lock_rect lrect(lock_rect::point_type(cur_x, cur_y), lock_rect::dim_type(bitmap.width, bitmap.rows));
-	
+
 	entity.rect = tex_size_to_space_rect(lrect, cur_tex->width(), cur_tex->height());
 	entity.tex = cur_tex;
 	entity.left = font_unit(bitmap_glyph->left) / pixel_size;
-	entity.top = font_unit(quality_in_pixel - bitmap_glyph->top) / pixel_size; // FIXME
+	entity.top = font_unit(pixel_size - bitmap_glyph->top + ((*_face.get())->descender >> 6)) / pixel_size;
 	entity.x_advance = font_unit((*_face.get())->glyph->advance.x >> 6) / pixel_size;
 	entity.v_scale = font_unit(bitmap.rows) / pixel_size;
 	entity.h_scale = font_unit(bitmap.width) / pixel_size;

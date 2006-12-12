@@ -51,7 +51,6 @@ private:
 	};
 
 	renderer_ptr r;
-	unsigned quality_in_pixel;
 	texture_ptr cur_tex;
 	texture::size_type cur_x, cur_y;
 
