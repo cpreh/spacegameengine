@@ -80,7 +80,7 @@ try
 
 	ss.enable_clipping(true);
 	//spr2.visible(false);
-	sge::gui::manager man(rend,is,fn,pl,sge::media_path() + "/mainskin/");
+	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "/mainskin/", 0.05);
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.45,0.1));
 	sge::gui::list list1(man,&fr1,sge::point(0.5,0.1),sge::dim(0.2,0.8));
@@ -96,7 +96,7 @@ try
 		list1.push_back(os.str());
 	}
 
-	sge::gui::static_text st(man, &fr1, "hello there, i'm a multi lined static_text", sge::point(0.5,0.8), sge::dim(0.3,0.1), 0.05, sge::colors::red);
+	sge::gui::static_text st(man, &fr1, "hello there, i'm a multi lined static_text", sge::point(0.5,0.8), sge::dim(0.3,0.1), sge::colors::red);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;

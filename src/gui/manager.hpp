@@ -47,7 +47,7 @@ class manager : boost::noncopyable, public boost::signals::trackable {
 public:
 	friend class element;
 
-	manager(renderer_ptr rend, input_system_ptr input_sys, font& f, image_loader_ptr il, const std::string& graphics_path);
+	manager(renderer_ptr rend, input_system_ptr input_sys, font& f, image_loader_ptr il, const std::string& graphics_path, const unit font_height);
 	void process();
 	void focus(element* const e) { _focus = e; }
 	element* focus() const { return _focus; }
@@ -56,6 +56,8 @@ public:
 	point cursor_pos() const { return cur.pos(); }
 	font& get_font() const { return gui_font; }
 	sprite_system& get_sprite_system() { return sprite_sys; }
+	void font_height(unit height);
+	unit font_height() const;
 private:
 	void key_callback(const key_pair&);
 	void on_texture_not_present(const std::string& name);
@@ -79,6 +81,7 @@ private:
 	input_system_ptr        input_sys;
 	font&                   gui_font;
 	image_loader_ptr        il;
+	unit                    _font_height;
 	cursor                  cur;
 	point                   mouse_scale;
 	root_elem               _root;

@@ -23,11 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../manager.hpp"
 #include "../skin.hpp"
 
-sge::gui::list::list(manager& m, element* const parent, const point pos, const dim sz, const unit line_height, const color text_color, const bool visible, const bool enabled)
+sge::gui::list::list(manager& m, element* const parent, const point pos, const dim sz, const color text_color, const bool visible, const bool enabled)
 : rectangle(m,parent,pos,sz,skin::list_background_name,visible,enabled),
   my_font(m.get_font()),
   text_color(text_color),
-  line_height(line_height),
   vscrollbar(m,this,point(sz.w-0.02f,0),dim(0.02f,sz.h)),
   selected_(no_selection)
 {}
@@ -35,12 +34,12 @@ sge::gui::list::list(manager& m, element* const parent, const point pos, const d
 void sge::gui::list::on_draw(const draw_event& event)
 {
 	rectangle::on_draw(event);
-
+	
+	const unit line_height = m.get_font().height();
 	const size_type scroll_pos = vscrollbar.scroll_pos();
 	size_type max = size_type(height() / line_height) + scroll_pos;
 	max = std::min(max,elements.size());
 
-	my_font.height(line_height);
 	for(size_type i = scroll_pos; i < max; ++i)
 	{
 		// TODO: add selection highlighting
@@ -54,7 +53,7 @@ void sge::gui::list::on_draw(const draw_event& event)
 
 void sge::gui::list::on_click(const mouse_button_event& event)
 {
-	const size_type sel = vscrollbar.scroll_pos() + static_cast<size_type>(event.pos().y() / line_height);
+	const size_type sel = vscrollbar.scroll_pos() + static_cast<size_type>(event.pos().y() / m.get_font().height());
 	if(sel < elements.size())
 		selected_ = sel;
 }
@@ -121,6 +120,7 @@ const sge::string& sge::gui::list::selected() const
 
 void sge::gui::list::calc_scrollbar()
 {
+	const unit line_height = m.get_font().height();
 	vscrollbar.scroll_max(elements.size()*line_height > height() ? static_cast<size_type>(std::ceil((elements.size()*line_height-height())/line_height))+1 : 0);
 }
 

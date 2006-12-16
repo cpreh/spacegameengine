@@ -35,11 +35,8 @@ class manager;
 
 class static_text : public rectangle {
 public:
-	static_text(manager& m, element* parent, const string& text, point pos, dim sz, unit line_height, color text_color = colors::white, bool visible = true, bool enabled = true);
+	static_text(manager& m, element* parent, const string& text, point pos, dim sz, color text_color = colors::white, bool visible = true, bool enabled = true);
 
-	unit line_height() const;
-	void line_height(unit height);
-	
 	const string& text() const;
 	void text(const string&);
 	

@@ -37,7 +37,6 @@ void sge::gui::button::on_draw(const draw_event& event)
 	else
 		set_texture(skin::button_name);
 	rectangle::on_draw(event);
-	m.get_font().height(height());
 	m.get_font().draw_text(_text, event.pos(), size(), _text_color, FTF_AlignHCenter | FTF_AlignVCenter | FTF_NoMultiLine);
 }
 

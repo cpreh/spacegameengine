@@ -36,8 +36,6 @@ sge::gui::text_edit::text_edit(manager& m, element* const parent, const point po
 
 void sge::gui::text_edit::on_key_press(const keyboard_button_event& event)
 {
-	set_height();
-
 	const key_code key = event.code();
 	const char char_code = event.char_code();
 
@@ -79,7 +77,6 @@ void sge::gui::text_edit::on_key_press(const keyboard_button_event& event)
 
 void sge::gui::text_edit::on_click(const mouse_button_event& event)
 {
-	set_height();
 	const unit x = event.pos().x();
 	cursor_pos = text_start;
 	string::size_type& i = cursor_pos;
@@ -106,15 +103,9 @@ void sge::gui::text_edit::decrease_cursor_pos()
 		text_start = cursor_pos;
 }
 
-void sge::gui::text_edit::set_height()
-{
-	my_font.height(text_height());
-}
-
 void sge::gui::text_edit::on_draw(const draw_event& event)
 {
 	rectangle::on_draw(event);
-	set_height();
 	my_font.draw_text(_text.substr(text_start,_text.size()-text_start), event.pos(), size(), _text_color, flags);
 	if(m.focus() == this)
 	{

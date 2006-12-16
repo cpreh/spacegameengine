@@ -50,7 +50,6 @@ private:
 	void decrease_cursor_pos();
 	unit text_width() const;
 	unit text_height() const;
-	void set_height();
 	
 	font&                  my_font;
 	string                 _text;

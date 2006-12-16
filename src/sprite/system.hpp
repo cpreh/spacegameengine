@@ -37,10 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-//template<typename TextureMap, typename Clipper, typename Transformator>
 class sprite_system : public texture_map {
 public:
-//	typedef shared_ptr<TextureMap> texture_map_ptr;
 	sprite_system(renderer_ptr rend, handler_function not_found_handler = 0/*, texture_map_ptr texture_map = texture_map_ptr()*/);
 	void draw(vector2 translation = vector2());
 

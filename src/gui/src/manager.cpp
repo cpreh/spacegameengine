@@ -27,12 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/convenience.hpp>
 
-sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input_sys, font& gui_font, const image_loader_ptr il, const std::string& graphics_path)
+sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input_sys, font& gui_font, const image_loader_ptr il, const std::string& graphics_path, const unit _font_height)
 : graphics_path(graphics_path),
   sprite_sys(rend, image_loader_handler(graphics_path,il)),
   input_sys(input_sys),
   gui_font(gui_font),
   il(il),
+  _font_height(_font_height),
   cur(*this,point(0.5f,0.5f),dim(0.025f,0.025f)),
   mouse_scale(0.01f,0.01f), 
   _root(*this),
@@ -122,6 +123,7 @@ void sge::gui::manager::key_callback(const key_pair& input)
 
 void sge::gui::manager::process()
 {
+	get_font().height(font_height());
 	if(repeat_time.expired() && repeat_interval.update())
 	{
 		if(is_mouse_key(last_key.code))
@@ -143,4 +145,14 @@ void sge::gui::manager::move_mouse(const unit x, const unit y)
 	const mouse_move_event e(cur.pos(),key_mod);
 	_root.mouse_move(e);
 	_root.glob_mouse_move(e);
+}
+
+void sge::gui::manager::font_height(const unit h)
+{
+	_font_height = h;
+}
+
+sge::gui::unit sge::gui::manager::font_height() const
+{
+	return _font_height;
 }

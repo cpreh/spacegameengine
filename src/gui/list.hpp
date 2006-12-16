@@ -40,7 +40,7 @@ public:
 	typedef std::ptrdiff_t  difference_type;
 	static const difference_type no_selection = -1;
 
-	list(manager& m, element* parent, point pos, dim sz, unit line_height = 0.05, color text_color = colors::black, bool visible = true, bool enabled = true);
+	list(manager& m, element* parent, point pos, dim sz, color text_color = colors::black, bool visible = true, bool enabled = true);
 	void push_back(const string& str);
 	void pop_back();
 	void clear();
