@@ -119,7 +119,7 @@ void sge::gui::text_edit::on_draw(const draw_event& event)
 	if(m.focus() == this)
 	{
 		point pos = event.pos();
-		pos.x() += my_font.text_size(_text.begin() + text_start, _text.begin() + cursor_pos, width(), flags).w;
+		pos.x() += my_font.line_width(_text.begin() + text_start, _text.begin() + cursor_pos, width(), flags).get<0>();
 
 		pos.y() += height() / 2 - cur.height() / 2;
 		cur.pos(pos);

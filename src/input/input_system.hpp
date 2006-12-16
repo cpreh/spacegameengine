@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/signals/connection.hpp>
 #include "../shared_ptr.hpp"
 #include "./key_type.hpp"
-#include "./callback_handle.hpp"
 
 namespace sge
 {
@@ -36,7 +35,7 @@ public:
 	typedef boost::signal<void (const key_pair&)> signal_type;
 	typedef boost::function<void (const key_pair&)> callback;
 
-	virtual callback_handle register_callback(const callback& c) = 0;
+	virtual boost::signals::connection register_callback(const callback& c) = 0;
 	virtual void dispatch() = 0;
 	virtual ~input_system() {}
 };

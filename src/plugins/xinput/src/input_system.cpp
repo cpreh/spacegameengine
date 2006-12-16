@@ -84,9 +84,9 @@ sge::xinput::input_system::~input_system()
 	XUngrabPointer(wnd->get_display(),CurrentTime);
 }
 
-sge::callback_handle sge::xinput::input_system::register_callback(const callback& c)
+boost::signals::connection sge::xinput::input_system::register_callback(const callback& c)
 {
-	return callback_handle(new callback_handle_impl(sig.connect(c)));
+	return sig.connect(c);
 }
 
 void sge::xinput::input_system::grab()

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <map>
 #include <string>
 #include <boost/utility.hpp>
+#include <boost/signals/trackable.hpp>
 #include "./cursor.hpp"
 #include "../timer.hpp"
 #include "../renderer/renderer.hpp"
@@ -42,7 +43,7 @@ namespace sge
 namespace gui
 {
 
-class manager : boost::noncopyable {
+class manager : boost::noncopyable, public boost::signals::trackable {
 public:
 	friend class element;
 
@@ -91,7 +92,6 @@ private:
 	timer                   repeat_time;
 	key_type                last_key;
 	modifier_state          key_mod;
-	callback_handle         input_callback;
 };
 
 }

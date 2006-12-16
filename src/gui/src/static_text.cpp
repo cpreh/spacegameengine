@@ -22,15 +22,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../manager.hpp"
 #include "../skin.hpp"
 
-sge::gui::static_text::static_text(manager& m, element* const parent, const string& _text, const point pos, const dim sz, const color _text_color, const bool visible, const bool enabled)
+sge::gui::static_text::static_text(manager& m, element* const parent, const string& _text, const point pos, const dim sz, const unit _line_height, const color _text_color, const bool visible, const bool enabled)
 :  rectangle(m, parent, pos, sz, skin::statictext_name, visible, enabled),
    _text(_text),
-   _text_color(_text_color)
+   _text_color(_text_color),
+   _line_height(_line_height),
+   _style(FTF_Default)
 {}
 
 void sge::gui::static_text::on_draw(const draw_event& event)
 {
 	rectangle::on_draw(event);
-	m.get_font().height(height()/2); // FIXME
-	m.get_font().draw_text(_text, event.pos(), size(), _text_color);
+	m.get_font().height(line_height());
+	m.get_font().draw_text(text(), event.pos(), size(), text_color(), style());
+}
+
+
+void sge::gui::static_text::line_height(const unit u)
+{
+	_line_height = u;
+}
+
+sge::gui::unit sge::gui::static_text::line_height() const
+{
+	return _line_height;
+}
+
+const sge::string& sge::gui::static_text::text() const
+{
+	return _text;
+}
+
+void sge::gui::static_text::text(const string& t)
+{
+	_text = t;
+}
+
+sge::color sge::gui::static_text::text_color() const
+{
+	return _text_color;
+}
+
+void sge::gui::static_text::text_color(const color c)
+{
+	_text_color = c;
+}
+
+sge::font_flag_t sge::gui::static_text::style() const
+{
+	return _style;
+}
+
+void sge::gui::static_text::style(const font_flag_t s)
+{
+	_style = s;
 }

@@ -102,12 +102,13 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 	lock_ptr<vertex_buffer_ptr> _lock(vb,LF_Discard);
 	vertex_buffer::iterator vit = vb->begin();
 
-	while(sbeg != text.end() && sz.h + height() < max_sz.h)
+	while(sbeg != text.end() && sz.h + height() <= max_sz.h)
 	{
-		send = text.end();
-		const font_unit width = line_width(sbeg, send, max_sz.w, flags);
+		const line_size_t line_size = line_width(sbeg, text.end(), max_sz.w, flags);
+		const font_unit width = line_size.get<0>();
 		if(width == 0)
 			break;
+		send = line_size.get<1>();
 
 		pos.x() = start_pos.x();
 		if(flags & FTF_AlignHCenter)
@@ -165,35 +166,37 @@ sge::font_unit sge::font::char_space(const char_type ch) const
 	return height() * entity.x_advance;
 }
 
-sge::font_unit sge::font::text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator& send, const font_unit width) const
+sge::font::line_size_t sge::font::text_width_unformatted(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width) const
 {
 	font_unit w(0);
 	for(; sbeg != send; ++sbeg)
 	{
-		w += char_space(*sbeg);
-		if(w > width)
+		const font_unit delta = char_space(*sbeg);
+		if(delta + w > width)
 			break;
+		w += delta;
 	}
-	send = sbeg;
-	return w;
+	return line_size_t(w,sbeg);
 }
 
-sge::font_size sge::font::text_size(string_type::const_iterator sbeg, string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
+sge::font_size sge::font::text_size(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
 {
 	if(flags & FTF_NoMultiLine)
-		return font_size(line_width(sbeg, send, width, flags), height());
+		return font_size(text_width_unformatted(sbeg, send, width).get<0>(), height());
 
 	font_size sz;
 	while(sbeg != send)
 	{
-		sz.w += std::max(sz.w, line_width(sbeg, send, width, flags));
+		const line_size_t line_size = line_width(sbeg, send, width, flags);
+		const font_unit line_w = line_size.get<0>();
+		sz.w = std::max(sz.w, line_w);
 		sz.h += height();
-		sbeg = send;
+		sbeg = line_size.get<1>();
 	}
 	return sz;
 }
 
-sge::font_unit sge::font::line_width(string_type::const_iterator sbeg, string_type::const_iterator& send, const font_unit width, const font_flag_t flags) const
+sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
 {
 	if(flags & FTF_NoMultiLine)
 		return text_width_unformatted(sbeg, send, width);
@@ -212,16 +215,12 @@ sge::font_unit sge::font::line_width(string_type::const_iterator sbeg, string_ty
 		if(nw > width)
 		{
 			if(last_width > 0)
-			{
-				send = ++last_white;
-				return last_width;
-			}
-			send = sbeg;
-			return w;
+				return line_size_t(last_width, ++last_white);
+			return line_size_t(w,sbeg);
 		}
 		w = nw;
 	}
-	return w;
+	return line_size_t(w,send);
 }
 
 void sge::font::flush()

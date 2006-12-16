@@ -40,7 +40,7 @@ class input_system : public sge::input_system {
 public:
 	input_system(x_window_ptr wnd);
 	~input_system();
-	callback_handle register_callback(const callback& c);
+	boost::signals::connection register_callback(const callback& c);
 	void dispatch();
 private:
 	void grab();

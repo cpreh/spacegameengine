@@ -44,9 +44,10 @@ sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input
   double_click_time(200),
   repeat_interval(50),
   repeat_time(500),
-  last_key(""),
-  input_callback(input_sys->register_callback(boost::bind(&manager::key_callback, this, _1)))
-{}
+  last_key("") 
+{
+	input_sys->register_callback(boost::bind(&manager::key_callback, this, _1));
+}
 
 void sge::gui::manager::key_callback(const key_pair& input)
 {

@@ -27,12 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-class callback_handle_impl {
+class callback_handle {
 public:
-	callback_handle_impl(const boost::signals::connection& con)
+	callback_handle(const boost::signals::connection& con)
 		: con(con)
 	{}
-	~callback_handle_impl()
+	~callback_handle()
 	{
 		con.disconnect();
 	}
@@ -40,7 +40,7 @@ private:
 	boost::signals::connection con;
 };
 
-typedef shared_ptr<callback_handle_impl> callback_handle;
+typedef shared_ptr<callback_handle> shared_callback_handle;
 
 }
 

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_STATIC_TEXT_HPP_INCLUDED
 
 #include "../shared_ptr.hpp"
+#include "../renderer/font_types.hpp"
 #include "./types.hpp"
 #include "./rectangle.hpp"
 
@@ -34,14 +35,24 @@ class manager;
 
 class static_text : public rectangle {
 public:
-	static_text(manager& m, element* parent, const string& text, point pos, dim sz, color text_color = colors::black, bool visible = true, bool enabled = true);
-	const string& text() const { return _text; }
-	void text(const string& t) { _text = t; }
-	color text_color() const { return _text_color; }
-	void text_color(const color c) { _text_color = c; }
+	static_text(manager& m, element* parent, const string& text, point pos, dim sz, unit line_height, color text_color = colors::white, bool visible = true, bool enabled = true);
+
+	unit line_height() const;
+	void line_height(unit height);
+	
+	const string& text() const;
+	void text(const string&);
+	
+	color text_color() const;
+	void text_color(color);
+
+	font_flag_t style() const;
+	void style(font_flag_t);
 private:
-	string _text;
-	color _text_color;
+	string       _text;
+	color        _text_color;
+	unit         _line_height;
+	font_flag_t _style;
 	virtual void on_draw(const draw_event& event);
 };
 

@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/gui/list.hpp"
 #include "../src/gui/icon_button.hpp"
 #include "../src/gui/frame.hpp"
+#include "../src/gui/static_text.hpp"
 #include "../src/input/input_system.hpp"
 #include "../src/input/key_state_tracker.hpp"
 #include "../src/renderer/line_strip.hpp"
@@ -81,7 +82,7 @@ try
 	//spr2.visible(false);
 	sge::gui::manager man(rend,is,fn,pl,sge::media_path() + "/mainskin/");
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
-	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.3,0.3));
+	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.45,0.1));
 	sge::gui::list list1(man,&fr1,sge::point(0.5,0.1),sge::dim(0.2,0.8));
 	sge::gui::icon_button icbtn1(man,&fr1,sge::point(0,0.8),sge::dim(0.5,0.1),"newgame_0","newgame_1","newgame_2");
 	sge::gui::text_edit te1(man,&fr1,sge::point(0,0.5),sge::dim(0.7,0.3),"abc");
@@ -95,12 +96,14 @@ try
 		list1.push_back(os.str());
 	}
 
+	sge::gui::static_text st(man, &fr1, "hello there, i'm a multi lined static_text", sge::point(0.5,0.8), sge::dim(0.3,0.1), 0.05, sge::colors::red);
+
 	using boost::lambda::var;
 	using boost::lambda::bind;
 	using boost::lambda::_1;
 	using boost::lambda::if_;
 	
-	sge::callback_handle cbh = is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,_1)) == sge::KC_ESC)[var(running)=false]);
+	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,_1)) == sge::KC_ESC)[var(running)=false]));
 	btn1.click_signal.connect(var(running) = false);
 
 	sge::timer timer(30);
@@ -146,7 +149,8 @@ try
 		fn.draw_text("ßäöü 1234567890 abcdef ghij adsfasdf asf asdds klmn 1234567890 even more longer blablablablasd afdkasjkdasdj sdfads fdas fasd sadg sdg gsd",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;
-		fn.draw_text(os.str(),sge::point(0.1,0.1),sge::dim(1,1),sge::colors::purple);
+		fn.transform(sge::matrix4x4<sge::space_unit>());
+		fn.draw_text(os.str(),sge::point(0.1,0),sge::dim(1,1),sge::colors::purple);
 		ls.draw(true);
 		rend->end_rendering();
 		++fps;

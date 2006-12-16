@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <string>
 #include <vector>
+#include <boost/tuple/tuple.hpp>
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
 #include "./types.hpp"
@@ -54,7 +55,10 @@ public:
 
 	font_size draw_text(const string_type& text, font_pos pos, font_size max_size, color col, font_flag_t flags = FTF_Default);
 
-	font_unit text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator& send, const font_unit width) const;
+	typedef boost::tuple<font_unit, string_type::const_iterator> line_size_t;
+
+	line_size_t text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator send, const font_unit width) const;
+	line_size_t line_width(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t tflags) const;
 	font_unit char_width(char_type ch) const;
 	font_unit char_space(char_type ch) const;
 	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = FTF_Default) const;
@@ -62,7 +66,6 @@ public:
 	void transform(const matrix_type& mat);
 private:
 	void set_parameters();
-	font_unit line_width(string_type::const_iterator beg, string_type::const_iterator& end, font_unit width, font_flag_t tflags) const;
 	void add_job(size_type cur_index);
 	void flush();
 
