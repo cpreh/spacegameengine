@@ -189,7 +189,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
-	_caps.max_tex_size = 1024;
+	_caps.max_tex_size = 512;
 }
 
 sge::ogl::renderer::~renderer()

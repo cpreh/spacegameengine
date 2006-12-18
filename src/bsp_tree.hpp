@@ -29,33 +29,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-template<typename Size> class bsp_tree {
+class bsp_tree {
 public:
-	typedef Size size_type;
+	typedef std::size_t size_type;
 	typedef math::vector<size_type,2> point_type;
 	typedef basic_dim<size_type> dim_type;
 	typedef basic_rect<size_type> value_type;
 	typedef const value_type& const_reference;
 private:
 	struct node {
-		node(const value_type& rect, node* const parent, const bool final, node* const left = 0, node* const right = 0)
-			: rect(rect), parent(parent), left(left), right(right), final(final)
-		{}
-
-		~node()
-		{
-			if(parent)
-			{
-				if(parent->left == this)
-					parent->left = 0;
-				else
-					parent->right = 0;
-				if(parent->left == 0 && parent->right == 0 && parent->parent != 0)
-					delete parent;
-			}
-			delete left;
-			delete right;
-		}
+		node(const value_type& rect, node* const parent, const bool final, node* const left = 0, node* const right = 0);
+		~node();
 
 		friend bool operator==(const node& l, const node& r)
 		{
@@ -63,7 +47,7 @@ private:
 		}
 		friend bool operator!=(const node& l, const node& r)
 		{
-			return !(l == r);
+			return !(l==r);
 		}
 
 		value_type rect;

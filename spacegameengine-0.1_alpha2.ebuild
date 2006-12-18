@@ -14,7 +14,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE="opengl truetype devil xinput"
 
 DEPEND="${RDEPEND}
-        scons"
+        dev-util/scons"
 RDEPEND="!games-engines/spacegame
          dev-libs/boost
          x11-libs/libX11

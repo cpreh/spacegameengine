@@ -18,31 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
-#define SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
-
-#include <boost/noncopyable.hpp>
-#include "../renderer/texture.hpp"
-#include "../renderer/renderer.hpp"
-#include "../types.hpp"
 #include "../bsp_tree.hpp"
-#include "./virtual_texture.hpp"
 
-namespace sge
+sge::bsp_tree::node::node(const value_type& rect, node* const parent, const bool final, node* const left, node* const right)
+ : rect(rect), parent(parent), left(left), right(right), final(final)
+{}
+
+sge::bsp_tree::node::~node()
 {
-
-class fragmented_texture : boost::noncopyable {
-public:
-	fragmented_texture(renderer_ptr r, texture::size_type texsize);
-	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
-	void return_fragments(const virtual_texture&);
-	texture_ptr get_texture() const;
-private:
-	typedef bsp_tree bsp_type;
-	bsp_type bsp;
-	texture_ptr tex;
-};
-
+	if(parent)
+	{
+		if(parent->left == this)
+			parent->left = 0;
+		else
+			parent->right = 0;
+		if(parent->left == 0 && parent->right == 0 && parent->parent != 0)
+			delete parent;
+	}
+	delete left;
+	left = 0;
+	delete right;
+	right = 0;
 }
-
-#endif

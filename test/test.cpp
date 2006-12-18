@@ -96,15 +96,15 @@ try
 		list1.push_back(os.str());
 	}
 
-	sge::gui::static_text st(man, &fr1, "hello there, i'm a multi lined static_text", sge::point(0.5,0.8), sge::dim(0.3,0.1), sge::colors::red);
-
+	sge::gui::static_text st(man, &fr1, "hellothere,i'mamultiline dstatic_text", sge::point(0.5,0.8), sge::dim(0.3,0.1), sge::colors::red);
+	//sge::gui::static_text level_name(man, &fr1,"levelname",sge::point(0.5,0.29),sge::dim(1,1));
 	using boost::lambda::var;
 	using boost::lambda::bind;
 	using boost::lambda::_1;
 	using boost::lambda::if_;
 	
 	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,_1)) == sge::KC_ESC)[var(running)=false]));
-	btn1.click_signal.connect(var(running) = false);
+	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
 
 	sge::timer timer(30);
 	sge::timer frames(1000);
@@ -143,10 +143,10 @@ try
 		is->dispatch();
 		ss.draw(translation);
 		man.process();
-		fn.transform(sge::matrix_rotation_z(angle));
+//		fn.transform(sge::matrix_rotation_z(angle));
 		fn.height_pixel_scale(1);
 		fn.height(0.05);
-		fn.draw_text("ßäöü 1234567890 abcdef ghij adsfasdf asf asdds klmn 1234567890 even more longer blablablablasd afdkasjkdasdj sdfads fdas fasd sadg sdg gsd",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
+		fn.draw_text("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;
 		fn.transform(sge::matrix4x4<sge::space_unit>());

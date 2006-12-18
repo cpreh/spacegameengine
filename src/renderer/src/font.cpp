@@ -71,6 +71,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 	if(text.empty() || height() > max_sz.h)
 		return font_size();
 	last_index = 0;
+	last_texture = impl->load_char(text[0]).tex;
 
 	const vertex_buffer::size_type vbsize = text.size()*4;
 	const index_buffer::size_type ibsize = text.size()*6;
@@ -124,8 +125,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 
 			if(last_texture != reg.tex)
 			{
-				if(last_texture)
-					add_job(std::distance(text.begin(),sbeg));
+				add_job(std::distance(text.begin(),sbeg));
 				last_texture = reg.tex;
 			}
 
@@ -189,6 +189,8 @@ sge::font_size sge::font::text_size(string_type::const_iterator sbeg, const stri
 	{
 		const line_size_t line_size = line_width(sbeg, send, width, flags);
 		const font_unit line_w = line_size.get<0>();
+		if(line_w == 0)
+			break;
 		sz.w = std::max(sz.w, line_w);
 		sz.h += height();
 		sbeg = line_size.get<1>();
@@ -225,7 +227,7 @@ sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, c
 
 void sge::font::flush()
 {
-	std::sort(jobs.begin(),jobs.end(), boost::lambda::bind(&job::tex, boost::lambda::_1) < boost::lambda::bind(&job::tex, boost::lambda::_2));
+//	std::sort(jobs.begin(),jobs.end(), boost::lambda::bind(&job::tex, boost::lambda::_1) < boost::lambda::bind(&job::tex, boost::lambda::_2));
 	{
 		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
 		index_buffer::iterator iib = ib->begin();

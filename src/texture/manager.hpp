@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
-#include <list>
 #include <stdexcept>
+#include <boost/ptr_container/ptr_list.hpp>
 #include "../renderer/renderer.hpp"
 #include "../renderer/texture.hpp"
 #include "./fragmented_texture.hpp"
@@ -41,7 +41,7 @@ public:
 		image_too_big() : std::runtime_error("texture_manager::add_texture() image too big!") {}
 	};
 private:
-	typedef std::list<fragmented_texture_ptr> fragmented_texture_list;
+	typedef boost::ptr_list<fragmented_texture> fragmented_texture_list;
 	fragmented_texture_list fragmented_textures;
 	renderer_ptr rend;
 };

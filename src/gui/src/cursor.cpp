@@ -51,4 +51,3 @@ void sge::gui::cursor::draw()
 	set_texture(is_pressed ? skin::cursor_name : skin::cursor_pressed_name);
 	sprite::draw();
 }
-

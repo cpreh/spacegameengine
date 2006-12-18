@@ -36,6 +36,7 @@ public:
 	using sprite::width;
 	using sprite::height;
 	using sprite::pos;
+	using sprite::size;
 private:
 	timer  blink_timer;
 	bool   visible;

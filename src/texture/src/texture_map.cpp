@@ -55,8 +55,7 @@ bool sge::texture_map::add_texture(const image_ptr im, const std::string& name)
 	catch(const texture_manager::image_too_big&)
 	{
 		const texture::size_type max_size = rend->caps().max_tex_size;
-		const unsigned factor = std::max(im->width(),im->height()) / max_size + 1;
-
+		const unsigned factor = 1 + std::max(im->width(),im->height()) / unsigned(max_size);
 		im->resize(im->width() / factor, im->height() / factor);
 		return add_texture(im->data(),im->width(),im->height(),name);
 	}

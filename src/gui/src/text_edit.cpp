@@ -31,7 +31,7 @@ sge::gui::text_edit::text_edit(manager& m, element* const parent, const point po
   _text_color(_text_color),
   text_start(0),
   cursor_pos(0),
-  cur(m.get_sprite_system(),point(0,0),dim(height() / 10.f,height() * 0.9f), 500)
+  cur(m.get_sprite_system(),point(0,0),dim(0,0), 500)
 {}
 
 void sge::gui::text_edit::on_key_press(const keyboard_button_event& event)
@@ -105,6 +105,7 @@ void sge::gui::text_edit::decrease_cursor_pos()
 
 void sge::gui::text_edit::on_draw(const draw_event& event)
 {
+	cur.size(dim(my_font.char_space(' ') / 2, height()*0.9));
 	rectangle::on_draw(event);
 	my_font.draw_text(_text.substr(text_start,_text.size()-text_start), event.pos(), size(), _text_color, flags);
 	if(m.focus() == this)

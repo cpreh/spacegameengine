@@ -38,8 +38,15 @@ void sge::devil::image::bind_me() const
 	ilBindImage(*id);
 }
 
-sge::image::size_type sge::devil::image::width() const { return w; }
-sge::image::size_type sge::devil::image::height() const { return h; }
+sge::image::size_type sge::devil::image::width() const
+{
+	return w;
+}
+
+sge::image::size_type sge::devil::image::height() const
+{
+	return h;
+}
 
 sge::image::const_pointer sge::devil::image::data() const
 {

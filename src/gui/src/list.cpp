@@ -33,6 +33,7 @@ sge::gui::list::list(manager& m, element* const parent, const point pos, const d
 
 void sge::gui::list::on_draw(const draw_event& event)
 {
+	calc_scrollbar();
 	rectangle::on_draw(event);
 	
 	const unit line_height = m.get_font().height();
@@ -46,8 +47,8 @@ void sge::gui::list::on_draw(const draw_event& event)
 //		if(i == static_cast<size_type>(selected_))
 //			m.draw_selection(point(event.pos().x(),event.pos().y()+line_height*(i-scroll_pos)),
 //					 dim(width(),line_height));
-		my_font.draw_text(elements.at(i),point(event.pos().x(), event.pos().y() + line_height*(i-scroll_pos)),
-		                  dim(width(),line_height*2),text_color, FTF_Default | FTF_NoMultiLine);
+		my_font.draw_text(elements.at(i), point(event.pos().x(), event.pos().y() + line_height*(i-scroll_pos)),
+		                  dim(width(),line_height),text_color, FTF_Default | FTF_NoMultiLine);
 	}
 }
 
@@ -61,7 +62,6 @@ void sge::gui::list::on_click(const mouse_button_event& event)
 void sge::gui::list::push_back(const string& str)
 {
 	elements.push_back(str);
-	calc_scrollbar();
 }
 
 void sge::gui::list::pop_back()
@@ -71,7 +71,6 @@ void sge::gui::list::pop_back()
 	elements.pop_back();
 	if(static_cast<size_type>(selected_) == elements.size())
 		--selected_;
-	calc_scrollbar();
 }
 
 void sge::gui::list::delete_element(const size_type index)
@@ -81,14 +80,12 @@ void sge::gui::list::delete_element(const size_type index)
 	elements.erase(elements.begin()+index);
 	if(static_cast<size_type>(selected_) == elements.size())
 		--selected_;
-	calc_scrollbar();
 }
 
 void sge::gui::list::clear()
 {
 	elements.clear();
 	selected_ = no_selection;
-	calc_scrollbar();
 }
 
 sge::gui::list::size_type sge::gui::list::size() const
@@ -121,7 +118,7 @@ const sge::string& sge::gui::list::selected() const
 void sge::gui::list::calc_scrollbar()
 {
 	const unit line_height = m.get_font().height();
-	vscrollbar.scroll_max(elements.size()*line_height > height() ? static_cast<size_type>(std::ceil((elements.size()*line_height-height())/line_height))+1 : 0);
+	vscrollbar.scroll_max((elements.size() * line_height > height()) ? static_cast<vertical_scrollbar::size_type>(std::ceil(elements.size() - height() / line_height)) : 0);
 }
 
 const sge::gui::list::difference_type sge::gui::list::no_selection;

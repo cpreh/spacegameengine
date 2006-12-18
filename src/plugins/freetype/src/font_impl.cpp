@@ -30,11 +30,10 @@ namespace {
 	private:
 		FT_Glyph& g;
 	};
-	const sge::texture::size_type tex_size = 512; // TODO: let the driver determine the best texture size
 }
 
 sge::ft::font_impl::font_impl(library& lib, const renderer_ptr r, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
-: r(r), cur_tex(r->create_texture(0,tex_size,tex_size)), cur_x(0), cur_y(0)
+: r(r), cur_tex(r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size)), cur_x(0), cur_y(0)
 {
 	if(weight != FW_Normal)
 		std::cerr << "stub: font weight parameter currently not supported by the freetype font plugin\n";
@@ -78,10 +77,10 @@ const sge::font_entity& sge::ft::font_impl::load_char(const font_char c)
 		cur_x = 0;
 		cur_y += pixel_size + 1;
 	}
-	if(cur_y + pixel_size >= cur_tex->height())
+	if(cur_y + bitmap.rows >= cur_tex->height())
 	{
 		textures.push_back(cur_tex);
-		cur_tex = r->create_texture(0, tex_size, tex_size);
+		cur_tex = r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size);
 		cur_y = 0;
 		cur_x = 0;
 	}
