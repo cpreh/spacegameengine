@@ -34,7 +34,7 @@ namespace sge
 
 class texture_map : boost::noncopyable {
 public:
-	typedef boost::function<void (texture_map&,const std::string&)> handler_function;
+	typedef boost::function<bool (texture_map&,const std::string&)> handler_function;
 
 	texture_map(renderer_ptr rend, handler_function not_found_handler = 0);
 	bool add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const std::string& name);

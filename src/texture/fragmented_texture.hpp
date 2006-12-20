@@ -38,9 +38,9 @@ public:
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const;
 private:
+	texture_ptr tex;
 	typedef bsp_tree bsp_type;
 	bsp_type bsp;
-	texture_ptr tex;
 };
 
 }

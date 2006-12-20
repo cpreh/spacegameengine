@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texture_map.hpp"
+#include <cassert>
 
 namespace
 {
 
-void default_texture_not_present_handler(sge::texture_map&, const std::string& s)
+bool default_texture_not_present_handler(sge::texture_map&, const std::string&)
 {
-	throw std::runtime_error(std::string("texture \"") + s + "\" not present in sprite_system! (default handler)");
+	return false;
 }
 
 }
@@ -78,12 +79,11 @@ sge::virtual_texture_ptr sge::texture_map::vtexture(const std::string& name)
 	
 	virtual_texture_map::const_iterator it = virtual_textures.find(name);
 	if(it == virtual_textures.end())
-	{
-		texture_not_present_handler(*this,name);
-		it = virtual_textures.find(name);
-		if(it == virtual_textures.end())
+		if(texture_not_present_handler(*this,name) == false)
 			throw std::logic_error(std::string("texture_not_present_handler in texture_map failed for texture \"") += name + "\"!");
-	}
+		else
+			it = virtual_textures.find(name);
+	assert(it != virtual_textures.end());
 	return it->second;
 }
 
