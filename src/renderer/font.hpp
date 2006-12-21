@@ -62,6 +62,7 @@ public:
 	font_unit char_width(char_type ch) const;
 	font_unit char_space(char_type ch) const;
 	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = FTF_Default) const;
+	font_size text_size(const string_type& s, font_unit width, font_flag_t flags = FTF_Default) const;
 
 	void transform(const matrix_type& mat);
 private:

@@ -119,6 +119,8 @@ try
 	sge::line_strip<sge::point> ls(rend, sge::colors::red);
 	for(int i = 0; i < 5; ++i)
 		ls.add(rand_point());
+
+	const std::string some_text("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789");
 	while(running)
 	{
 		if(frames.update())
@@ -146,7 +148,7 @@ try
 //		fn.transform(sge::matrix_rotation_z(angle));
 		fn.height_pixel_scale(1);
 		fn.height(0.05);
-		fn.draw_text("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789",sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
+		fn.draw_text(some_text,sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;
 		fn.transform(sge::matrix4x4<sge::space_unit>());

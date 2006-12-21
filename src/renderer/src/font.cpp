@@ -198,6 +198,11 @@ sge::font_size sge::font::text_size(string_type::const_iterator sbeg, const stri
 	return sz;
 }
 
+sge::font_size sge::font::text_size(const string_type& s, const font_unit width, const font_flag_t flags) const
+{
+	return text_size(s.begin(),s.end(),width,flags);
+}
+
 sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
 {
 	if(flags & FTF_NoMultiLine)
