@@ -188,7 +188,7 @@ template<typename T> inline matrix4x4<T> inverse(const matrix4x4<T>& r)
 		throw std::runtime_error("inverse(matrix4x4): matrix does not have an inverse!");
 
 	const T inv_d = T(1) / d;
-	matrix4x4<T> ret(no_initialization_tag);
+	matrix4x4<T> ret = matrix4x4<T>(no_initialization_tag());
 	ret[0][0] =  inv_d * (r[1][1] * r[2][2] - r[1][2] * r[2][1]);
 	ret[0][1] = -inv_d * (r[0][1] * r[2][2] - r[0][2] * r[2][1]);
 	ret[0][2] =  inv_d * (r[0][1] * r[1][2] - r[0][2] * r[1][1]);

@@ -87,7 +87,7 @@ public:
 
 	vector operator+() const
 	{
-		vector ret(no_initialization_tag);
+		vector ret = vector(no_initialization_tag());
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = +data[i];
 		return ret;
@@ -95,7 +95,7 @@ public:
 
 	vector operator-() const
 	{
-		vector ret(no_initialization_tag);
+		vector ret = vector(no_initialization_tag());
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = -data[i];
 		return ret;
