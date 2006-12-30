@@ -18,35 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
-#define SGE_TEXTURE_MANAGER_HPP_INCLUDED
+#ifndef SGE_BSP_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#define SGE_BSP_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
-#include <stdexcept>
-#include <boost/ptr_container/ptr_list.hpp>
-#include <boost/scoped_ptr.hpp>
-#include "../renderer/renderer.hpp"
-#include "../renderer/texture.hpp"
+#include <boost/noncopyable.hpp>
 #include "./fragmented_texture.hpp"
+#include "../bsp_tree.hpp"
 
 namespace sge
 {
 
-class texture_manager {
+class bsp_fragmented_texture : public fragmented_texture, boost::noncopyable {
 public:
-	texture_manager(renderer_ptr rend, fragmented_texture* proto);
-	virtual_texture_ptr add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h);
-	renderer_ptr get_renderer() const;
-	void prototype(fragmented_texture*);
-
-	class image_too_big : public std::runtime_error {
-	public:
-		image_too_big() : std::runtime_error("texture_manager::add_texture() image too big!") {}
-	};
+	bsp_fragmented_texture(renderer_ptr rend);
+	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
+	void return_fragments(const virtual_texture&);
+	texture_ptr get_texture() const;
+	fragmented_texture* clone() const;
 private:
-	typedef boost::ptr_list<fragmented_texture> fragmented_texture_list;
-	fragmented_texture_list fragmented_textures;
 	renderer_ptr rend;
-	boost::scoped_ptr<fragmented_texture> _prototype;
+	typedef bsp_tree bsp_type;
+	bsp_type bsp;
+	texture_ptr tex;
 };
 
 }

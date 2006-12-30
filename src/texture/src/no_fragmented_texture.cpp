@@ -18,25 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
-#define SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#include "../no_fragmented_texture.hpp"
 
-#include "../renderer/texture.hpp"
-#include "./virtual_texture.hpp"
-#include "../renderer/renderer.hpp"
+sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend)
+ : rend(rend) 
+{}
 
-namespace sge
+sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
-
-class fragmented_texture {
-public:
-	virtual virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h) = 0;
-	virtual void return_fragments(const virtual_texture&) = 0;
-	virtual texture_ptr get_texture() const = 0;
-	virtual fragmented_texture* clone() const = 0;
-	virtual ~fragmented_texture(){}
-};
-
+	if(tex)
+		return virtual_texture_ptr();
+	tex = rend->create_texture(0,w,h);
+	return virtual_texture_ptr(new virtual_texture(lock_rect(0,0,w,h),this));
 }
 
-#endif
+void sge::no_fragmented_texture::return_fragments(const virtual_texture&)
+{
+	tex.reset();
+}
+
+sge::texture_ptr sge::no_fragmented_texture::get_texture() const
+{
+	return tex;
+}
+
+sge::fragmented_texture* sge::no_fragmented_texture::clone() const
+{
+	return new no_fragmented_texture(rend);
+}

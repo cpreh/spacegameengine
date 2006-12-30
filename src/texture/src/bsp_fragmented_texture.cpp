@@ -18,34 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../fragmented_texture.hpp"
+#include "../bsp_fragmented_texture.hpp"
 
-sge::fragmented_texture::fragmented_texture(const renderer_ptr r, const texture::size_type texsize/*, const texture_placement_system_ptr strategy*/)
- : tex(r->create_texture(0, texsize, texsize)),
-   bsp(bsp_tree::dim_type(r->caps().max_tex_size,r->caps().max_tex_size))
-//   strategy(strategy)
+sge::bsp_fragmented_texture::bsp_fragmented_texture(const renderer_ptr rend)
+ : rend(rend),
+   bsp(bsp_tree::dim_type(rend->caps().max_tex_size,rend->caps().max_tex_size))
 {}
 
-sge::virtual_texture_ptr sge::fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+sge::virtual_texture_ptr sge::bsp_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
-/*	const texture_placement_system::ret_type t = strategy->insert(texture_placement_system::dim_type(w,h));
-	if(t.second == false)
-		return virtual_texture_ptr();
-	return virtual_texture_ptr(new virtual_texture(t.first, this));*/
-
+	if(!tex)
+		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size);
 	bsp_tree::iterator it = bsp.insert(bsp_tree::dim_type(w,h));
 	if(it == bsp.end())
 		return virtual_texture_ptr();
 	return virtual_texture_ptr(new virtual_texture(*it, this));
 }
 
-void sge::fragmented_texture::return_fragments(const virtual_texture& t)
+void sge::bsp_fragmented_texture::return_fragments(const virtual_texture& t)
 {
-//	strategy->erase(t.area());
 	bsp.erase(bsp.find(t.area()));
 }
 
-sge::texture_ptr sge::fragmented_texture::get_texture() const
+sge::texture_ptr sge::bsp_fragmented_texture::get_texture() const
 {
 	return tex;
+}
+
+sge::fragmented_texture* sge::bsp_fragmented_texture::clone() const
+{
+	return new bsp_fragmented_texture(rend);
 }

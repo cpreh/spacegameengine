@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_map.hpp"
 #include <cassert>
 
+#include "../no_fragmented_texture.hpp" // TODO
+
 namespace
 {
 
@@ -35,7 +37,7 @@ bool default_texture_not_present_handler(sge::texture_map&, const std::string&)
 sge::texture_map::texture_map(const renderer_ptr rend, const handler_function handler)
  : rend(rend),
    texture_not_present_handler(handler == 0 ? default_texture_not_present_handler : handler),
-   tex_man(rend)
+   tex_man(rend, new no_fragmented_texture(rend)) // TODO
 {}
 
 bool sge::texture_map::add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h, const std::string& name)
