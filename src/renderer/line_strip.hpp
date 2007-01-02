@@ -69,7 +69,7 @@ public:
 		if(vertices.size() <= 1)
 			return;
 		rend->set_bool_state(BS_EnableAlphaBlending,false);
-		rend->set_transformation(matrix4x4<space_unit>());
+		rend->transform(math::matrix_identity());
 		rend->set_bool_state(BS_EnableLighting,true);
 		rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
 		rend->set_int_state(IS_AmbientLightColor, _col);

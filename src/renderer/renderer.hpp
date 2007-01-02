@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "./cube_texture.hpp"
 #include "./volume_texture.hpp"
 #include "./render_target.hpp"
-#include "../math/matrix4x4.hpp"
+#include "../math/matrix.hpp"
 #include "../window.hpp"
 
 namespace sge
@@ -50,7 +50,8 @@ public:
 	virtual void set_filter_state(stage_type stage, filter_arg type, filter_arg_value arg) = 0;
 	virtual void set_texture(stage_type stage, texture_base_ptr tex) = 0;
 	virtual void set_material(const material& mat) = 0;
-	virtual void set_transformation(const matrix4x4<space_unit>& mat) = 0;
+	virtual void transform(const math::space_matrix& mat) = 0;
+	virtual void projection(const math::space_matrix& mat) = 0;
 	virtual void projection_perspective(space_unit fov, space_unit near, space_unit far) = 0;
 	virtual void projection_orthogonal() = 0;
 	virtual void set_render_target(render_target_ptr target) = 0;

@@ -13,6 +13,7 @@
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include "../util.hpp"
 
 #ifndef SGE_VECTOR_MAX_SIZE
 #define SGE_VECTOR_MAX_SIZE 4
@@ -41,8 +42,6 @@ public:
 		for(size_type i = 0; i < Dim; ++i)
 			data[i] = 0;
 	}
-
-	struct no_initialization_tag {};
 
 	vector(no_initialization_tag)
 	{
@@ -176,6 +175,11 @@ public:
 		return *this;
 	}
 
+	value_type angle_to(const vector& r) const
+	{
+		return std::acos(dot(r)/(length()*r.length()));
+	}
+
 	reference x()
 	{
 		return (*this)[0];
@@ -229,6 +233,12 @@ template<typename T, std::size_t Dim>
 vector<T,Dim> normalize(vector<T,Dim> l)
 {
 	return l.normalize();
+}
+
+template<typename T, std::size_t Dim>
+typename vector<T,Dim>::value_type angle_to(const vector<T,Dim>& l, const vector<T,Dim>& r)
+{
+	return l.angle_to(r);
 }
 
 template<typename T, std::size_t Dim>

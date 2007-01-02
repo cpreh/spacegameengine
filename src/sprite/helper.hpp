@@ -25,16 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/transform.hpp"
-#include "../math/matrix2x2.hpp"
+#include "../math/matrix.hpp"
 #include "../math/rect.hpp"
 
 namespace sge
 {
 
-inline void fill_sprite_vertices(vertex_buffer::iterator& it, const rect& rsb, const rect& rt)
+inline void fill_sprite_vertices(vertex_buffer::iterator& it, const rect& rs, const rect& rt)
 {
-	const rect rs(space_rect_2d_to_3d(rsb));
-
 	(*it  ).pos()    = pos3(rs.left,rs.top,0);
 	(*it++).tex()[0] = tex_pos(rt.left,rt.top);
 
@@ -58,8 +56,8 @@ inline void fill_sprite_vertices_rotated(vertex_buffer::iterator& it, const rect
 	const space_unit sinx = std::sin(rot),
 	                 cosx = std::cos(rot);
 
-	const matrix2x2<space_unit> mat_rot(cosx, -sinx,
-	                                    sinx,  cosx);
+	const math::matrix<space_unit,2,2> mat_rot(cosx, -sinx,
+	                                           sinx,  cosx); 
 
 	one = mat_rot * one;
 	two = mat_rot * two;
@@ -71,16 +69,16 @@ inline void fill_sprite_vertices_rotated(vertex_buffer::iterator& it, const rect
 	three += center;
 	four += center;
 
-	(*it  ).pos()    = space_2d_to_3d(one);
+	(*it  ).pos()    = pos3(one.x(),one.y(),0);
 	(*it++).tex()[0] = tex_pos(rt.left, rt.top);
 
-	(*it  ).pos()    = space_2d_to_3d(two);
+	(*it  ).pos()    = pos3(two.x(),two.y(),0);
 	(*it++).tex()[0] = tex_pos(rt.right, rt.top);
 
-	(*it  ).pos()    = space_2d_to_3d(three);
+	(*it  ).pos()    = pos3(three.x(),three.y(),0);
 	(*it++).tex()[0] = tex_pos(rt.right, rt.bottom);
 
-	(*it  ).pos()    = space_2d_to_3d(four);
+	(*it  ).pos()    = pos3(four.x(),four.y(),0);
 	(*it++).tex()[0] = tex_pos(rt.left, rt.bottom);
 }
 

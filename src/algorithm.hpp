@@ -86,10 +86,6 @@ template<typename InputIterator, typename Size, typename UnaryPredicate>
 	return last;
 }
 
-template<typename T> struct bit_and_fun {
-	T operator()(const T& a, const T& b) const { return a&b; }
-};
-
 template<typename InputIterator, typename Size, typename BinaryPredicate>
 InputIterator first_mismatch_if(InputIterator first, InputIterator last, Size& cnt, BinaryPredicate pred)
 {
@@ -105,21 +101,6 @@ InputIterator first_mismatch_if(InputIterator first, InputIterator last, Size& c
 			return first;
 	}
 	return last;
-}
-
-template<typename Base, typename Exp> Base pow_int(const Base base, const Exp e)
-{
-	if(e == 0)
-		return 1;
-	Base ret = base;
-	for(Exp i = 1; i < e; ++i)
-		ret*=base;
-	return ret;
-}
-
-template<typename T> T round_div_int(const T  l, const T r)
-{
-	return l / r + ((l%r) ? 1 : 0);
 }
 
 }

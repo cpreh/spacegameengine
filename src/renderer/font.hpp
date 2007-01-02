@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "./renderer.hpp"
 #include "../font/font_system.hpp"
 #include "../font/font_impl.hpp"
-#include "../math/matrix4x4.hpp"
+#include "../math/matrix.hpp"
 
 namespace sge
 {
@@ -44,7 +44,6 @@ public:
 	typedef font_char char_type;
 	typedef font_string string_type;
 	typedef std::size_t size_type;
-	typedef matrix4x4<space_unit> matrix_type;
 
 	font(renderer_ptr r, font_system_ptr font_sys, const std::string& font_name, unsigned quality_in_pixel = 32, font_weight weight = FW_Normal);
 
@@ -64,7 +63,7 @@ public:
 	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = FTF_Default) const;
 	font_size text_size(const string_type& s, font_unit width, font_flag_t flags = FTF_Default) const;
 
-	void transform(const matrix_type& mat);
+	void transform(const math::space_matrix& mat);
 private:
 	void set_parameters();
 	void add_job(size_type cur_index);
@@ -86,7 +85,7 @@ private:
 	job_array              jobs;
 	texture_ptr            last_texture;
 	size_type              last_index;
-	matrix_type            trans;
+	math::space_matrix     trans;
 };
 
 typedef shared_ptr<font> font_ptr;

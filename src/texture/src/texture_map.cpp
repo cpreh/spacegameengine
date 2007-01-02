@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cassert>
 
 #include "../no_fragmented_texture.hpp" // TODO
+#include "../bsp_fragmented_texture.hpp" // TODO
 
 namespace
 {

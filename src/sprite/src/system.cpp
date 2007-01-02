@@ -33,7 +33,10 @@ sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_functio
  : texture_map(rend,handler),
    rend(rend),
    _clipping(true),
-   drawer(rend)
+   drawer(rend),
+   _internal_matrix(matrix_2d_to_3d()),
+   _transform(math::matrix_identity()),
+   _projection(math::matrix_orthogonal_xy())
 {
 	const unsigned init_sprites = 25;
 	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
@@ -72,11 +75,11 @@ void sge::sprite_system::detach(const sprite& s)
 	sprites.erase(s.my_place);
 }
 
-void sge::sprite_system::draw(const vector2 trans)
+void sge::sprite_system::draw()
 {
 	sprite_list to_draw;
 	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); ++it)
-		if((*it)->visible()  && (!_clipping || intersects(rect(0,0,1,1), (*it)->bounding_quad() + trans))) // FIXME: screen rect hard coded
+		if((*it)->visible()) //  && (!_clipping || intersects(rect(0,0,1,1), (*it)->bounding_quad() + trans))) // FIXME: screen rect hard coded
 			to_draw.push_back(*it);
 
 	to_draw.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
@@ -92,14 +95,18 @@ void sge::sprite_system::draw(const vector2 trans)
 		std::for_each(to_draw.begin(), to_draw.end(),std::mem_fun(&sprite::update));
 	}
 
-	rend->set_transformation(matrix_translation(trans_2d_to_3d(trans)));
-
+	set_parameters();
 	drawer.draw(to_draw, vb, ib);
 }
 
 void sge::sprite_system::set_parameters()
 {
-	drawer.set_parameters();
+	rend->set_bool_state(BS_EnableLighting,false);
+	rend->set_bool_state(BS_EnableAlphaBlending,true);
+	rend->set_filter_state(0,FARG_MinFilter,FARGV_Linear);
+	rend->set_filter_state(0,FARG_MagFilter,FARGV_Linear);
+	rend->transform(_internal_matrix * _transform);
+	rend->projection(_projection);
 }
 
 void sge::sprite_system::enable_clipping(const bool clipping)
@@ -112,3 +119,17 @@ sge::renderer_ptr sge::sprite_system::get_renderer() const
 	return rend;
 }
 
+void sge::sprite_system::internal_transformation(const math::space_matrix& m)
+{
+	_internal_matrix = m;
+}
+
+void sge::sprite_system::transform(const math::space_matrix& m)
+{
+	_transform = m;
+}
+
+void sge::sprite_system::projection(const math::space_matrix& m)
+{
+	_projection = m;
+}

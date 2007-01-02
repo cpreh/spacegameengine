@@ -33,7 +33,6 @@ class sprite_drawer {
 public:
 	sprite_drawer(renderer_ptr rend);
 	void draw(const sprite_list&, vertex_buffer_ptr, index_buffer_ptr);
-	void set_parameters();
 private:
 	renderer_ptr rend;
 };

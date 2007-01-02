@@ -29,7 +29,7 @@ sge::virtual_texture_ptr sge::bsp_fragmented_texture::consume_fragments(const te
 {
 	if(!tex)
 		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size);
-	bsp_tree::iterator it = bsp.insert(bsp_tree::dim_type(w,h));
+	const bsp_tree::iterator it = bsp.insert(bsp_tree::dim_type(w,h));
 	if(it == bsp.end())
 		return virtual_texture_ptr();
 	return virtual_texture_ptr(new virtual_texture(*it, this));

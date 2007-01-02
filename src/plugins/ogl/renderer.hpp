@@ -58,7 +58,8 @@ public:
 	void set_filter_state(stage_type stage, filter_arg type, filter_arg_value arg);
 	void set_texture(stage_type stage, texture_base_ptr tex);
 	void set_material(const material& mat);
-	void set_transformation(const matrix4x4<space_unit>& matrix);
+	void transform(const math::space_matrix& matrix);
+	void projection(const math::space_matrix& matrix);
 	void projection_perspective(space_unit fov, space_unit near, space_unit far);
 	void projection_orthogonal();
 	void set_render_target(render_target_ptr target);

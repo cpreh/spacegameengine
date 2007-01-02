@@ -25,9 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "./texture.hpp"
 #include "../math/vector2.hpp"
 #include "../math/rect.hpp"
+#include "../math/matrix.hpp"
 
 namespace sge
 {
+
+inline math::space_matrix matrix_2d_to_3d()
+{
+	return math::matrix_scaling(2,-2,0) * math::matrix_translation(-0.5,-0.5,0);
+}
 
 inline space_unit trans_x_2d_to_3d(const space_unit x)
 {
@@ -94,9 +100,9 @@ inline rect space_rect_2d_to_3d(const rect& r)
 	return rect(space_x_2d_to_3d(r.left), space_y_2d_to_3d(r.top), space_x_2d_to_3d(r.right), space_y_2d_to_3d(r.bottom));
 }
 
-inline rect tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height)
+inline rect tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height, const space_unit repeat = 1)
 {
-	return rect(space_unit(l.left) / width, space_unit(l.top) / height, space_unit(l.right) / width, space_unit(l.bottom) / height);
+	return rect(space_unit(l.left) / width, space_unit(l.top) / height, repeat * space_unit(l.right) / width, repeat * space_unit(l.bottom) / height);
 }
 
 }

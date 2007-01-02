@@ -28,8 +28,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <X11/X.h>
 #include <X11/extensions/xf86dga.h>
-
 #include <iostream>
+#include <signal.h>
+
+void unset_dga_handler(int)
+{
+	Display* dsp = XOpenDisplay(NULL);
+	if(!dsp)
+		return;
+	XF86DGADirectVideo(dsp, DefaultScreen(dsp), 0);
+	XCloseDisplay(dsp);
+}
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), colormap(DefaultColormap(wnd->get_display(),wnd->get_screen())), mmwidth(mmap->max_keypermod), last_mouse(0), _black(wnd->get_display(),colormap), _no_bmp(wnd->get_display()), _no_cursor(wnd->get_display()), dga_guard(wnd)
@@ -55,6 +64,9 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 		throw std::runtime_error("XCreatePixmapCursor() failed");
 
 	grab();
+//	signal(SIGABRT,unset_dga_handler);
+//	if(signal(SIGSEGV,unset_dga_handler) == SIG_ERR)
+//		std::cerr << "Warning: Failed to set signal handler!\n";
 	enable_dga(true);
 
 	x11tosge[NoSymbol] = KC_None;

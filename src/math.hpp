@@ -18,15 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../transform.hpp"
-#include "../../renderer/transform.hpp"
+#ifndef SGE_MATH_HPP_INCLUDED
+#define SGE_MATH_HPP_INCLUDED
 
-sge::pos3 sge::gui::gui_to_space(const point p)
+#include <cmath>
+
+namespace sge
 {
-	return space_2d_to_3d(p);
+
+template<typename Base, typename Exp> Base pow_int(const Base base, const Exp e)
+{
+	if(e == 0)
+		return 1;
+	Base ret = base;
+	for(Exp i = 1; i < e; ++i)
+		ret*=base;
+	return ret;
 }
 
-sge::pos3 sge::gui::gui_to_space(const unit x, const unit y)
+template<typename T> T round_div_int(const T  l, const T r)
 {
-	return gui_to_space(point(x,y));
+	return l / r + ((l%r) ? 1 : 0);
 }
+
+template<typename T> T next_pow_2(const T t)
+{
+	return static_cast<T>(std::pow(2,std::ceil(std::log(t)/std::log(2.0))));
+}
+
+}
+
+#endif

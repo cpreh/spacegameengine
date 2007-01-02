@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../../../ptr_cast.hpp"
 #include "../../../renderer/types.hpp"
-#include "../../../algorithm.hpp"
+#include "../../../math.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
 #include "../cube_texture.hpp"
@@ -388,24 +388,30 @@ void sge::ogl::renderer::set_material(const material& mat)
 	glMaterialf(face, GL_SHININESS, mat.power);
 }
 
-void sge::ogl::renderer::set_transformation(const matrix4x4<space_unit>& matrix)
+void sge::ogl::renderer::transform(const math::space_matrix& matrix)
 {
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(reinterpret_cast<const GLfloat*>(&matrix));
+	glLoadMatrixf(matrix.data());
+}
+
+void sge::ogl::renderer::projection(const math::space_matrix& matrix)
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(matrix.data());
 }
 
 void sge::ogl::renderer::projection_orthogonal()
 {
-	const matrix4x4<space_unit> matrix(matrix_orthogonal_xy<space_unit>());
+	const math::space_matrix matrix(math::matrix_orthogonal_xy());
 	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(reinterpret_cast<const GLfloat*>(&matrix));
+	glLoadMatrixf(matrix.data());
 }
 
 void sge::ogl::renderer::projection_perspective(const space_unit fov, const space_unit near, const space_unit far)
 {
-	const matrix4x4<space_unit> matrix(matrix_perspective<space_unit>(space_unit(screen_width())/screen_height(),fov,near,far));
+	const math::space_matrix matrix(math::matrix_perspective(space_unit(screen_width())/screen_height(),fov,near,far));
 	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(reinterpret_cast<const GLfloat*>(&matrix));
+	glLoadMatrixf(matrix.data());
 }
 
 void sge::ogl::renderer::set_render_target(const render_target_ptr target)

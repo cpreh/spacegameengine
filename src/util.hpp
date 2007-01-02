@@ -28,6 +28,8 @@ namespace sge
 
 void sleep(ulong milli_seconds);
 
+struct no_initialization_tag{};
+
 }
 
 #endif

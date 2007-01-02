@@ -24,18 +24,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../helper.hpp"
 #include <boost/array.hpp>
 #include <cmath>
+#include <iostream>
 
 sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const unsigned _z, const std::string& name, const space_unit _rotation, const bool vis)
- : p(p), sz(sz), _z(_z), _visible(vis), _rotation(_rotation), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this)), _use_rot_around(false)
+ : p(p), sz(sz), _z(_z), _visible(vis), _rotation(_rotation), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this)), _use_rot_around(false), _repeat(1)
 {}
 
 sge::sprite::sprite(const sprite& spr)
- : p(spr.p), sz(spr.sz), _z(spr._z), _visible(spr._visible), _rotation(spr._rotation), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this)), _use_rot_around(spr._use_rot_around), _rot_around(spr._rot_around)
+ : p(spr.p), sz(spr.sz), _z(spr._z), _visible(spr._visible), _rotation(spr._rotation), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this)), _use_rot_around(spr._use_rot_around), _rot_around(spr._rot_around), _repeat(spr._repeat)
 {}
+
+void sge::sprite::x(const space_unit nx)
+{
+	p.x() = nx;
+}
+
+void sge::sprite::y(const space_unit ny)
+{
+	p.y() = ny;
+}
+
+void sge::sprite::pos(const point np)
+{
+	p = np;
+}
+
+void sge::sprite::width(const space_unit w)
+{
+	sz.w = w;
+}
+
+void sge::sprite::height(const space_unit h)
+{
+	sz.h = h;
+}
+
+void sge::sprite::size(const dim nsz)
+{
+	sz = nsz;
+}
+
+void sge::sprite::z(const unsigned nz)
+{
+	_z = nz;
+}
+
+void sge::sprite::visible(const bool nvisible)
+{
+	_visible = nvisible;
+}
 
 void sge::sprite::set_texture(const std::string& name)
 {
 	tex = spr_sys.vtexture(name);
+}
+
+void sge::sprite::rotate(const space_unit rot)
+{
+	_rotation = rot;
 }
 
 void sge::sprite::rotate_around(const point p)
@@ -47,6 +93,66 @@ void sge::sprite::rotate_around(const point p)
 void sge::sprite::rotate_around()
 {
 	_use_rot_around = false;
+}
+
+void sge::sprite::repeat(const space_unit r)
+{
+	_repeat = r;
+}
+
+sge::space_unit sge::sprite::x() const
+{
+	return p.x();
+}
+
+sge::space_unit sge::sprite::y() const
+{
+	return p.y();
+}
+
+sge::point sge::sprite::pos() const
+{
+	return p;
+}
+
+sge::space_unit sge::sprite::width() const
+{
+	return sz.w;
+}
+
+sge::space_unit sge::sprite::height() const
+{
+	return sz.h;
+}
+
+sge::dim sge::sprite::size() const
+{
+	return sz;
+}
+
+unsigned sge::sprite::z() const
+{
+	return _z;
+}
+
+bool sge::sprite::visible() const
+{
+	return _visible;
+}
+
+sge::point sge::sprite::center() const
+{
+	return  point(x() + width() / 2, y() + height() / 2);
+}
+
+sge::space_unit sge::sprite::rotation() const
+{
+	return _rotation;
+}
+
+sge::space_unit sge::sprite::repeat() const
+{
+	return _repeat;
 }
 
 sge::sprite::~sprite()
@@ -61,7 +167,9 @@ void sge::sprite::update()
 
 void sge::sprite::update_where(vertex_buffer::iterator it)
 {
-	const rect tex_rect = get_texture() ? tex_size_to_space_rect(tex->area(), get_texture()->width(), get_texture()->height()) : rect();
+	if(repeat() != 1 && tex->repeatable() == false)
+		std::cerr << "Warning: texture not repeatable but sprite repetition is " << repeat() << "!\n";
+	const rect tex_rect = get_texture() ? tex_size_to_space_rect(tex->area(), get_texture()->width(), get_texture()->height(), repeat()) : rect();
 	if(rotation() == 0)
 		fill_sprite_vertices(it, get_rect(), tex_rect);
 	else

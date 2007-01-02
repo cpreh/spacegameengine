@@ -29,7 +29,6 @@ sge::sprite_drawer::sprite_drawer(const renderer_ptr rend)
 
 void sge::sprite_drawer::draw(const sprite_list& sprites, const vertex_buffer_ptr vb, const index_buffer_ptr ib)
 {
-	set_parameters();
 	unsigned first_index = 0;
 	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); )
 	{
@@ -43,13 +42,4 @@ void sge::sprite_drawer::draw(const sprite_list& sprites, const vertex_buffer_pt
 		first_index += num_objects * detail::indices_per_sprite;
 		it = next;
 	}
-}
-
-void sge::sprite_drawer::set_parameters()
-{
-	rend->set_bool_state(BS_EnableLighting,false);
-	rend->set_bool_state(BS_EnableAlphaBlending,true);
-	rend->projection_orthogonal();
-	rend->set_filter_state(0,FARG_MinFilter,FARGV_Linear);
-	rend->set_filter_state(0,FARG_MagFilter,FARGV_Linear);
 }

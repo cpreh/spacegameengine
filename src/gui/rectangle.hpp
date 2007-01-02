@@ -47,6 +47,7 @@ public:
 	using sprite::size;
 	using sprite::get_rect;
 	using sprite::center;
+	using sprite::repeat;
 	bool intersects(point p) const;
 protected:
 	virtual void on_draw(const draw_event& event);

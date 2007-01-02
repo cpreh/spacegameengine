@@ -32,14 +32,16 @@ class fragmented_texture;
 
 class virtual_texture : boost::noncopyable {
 public:
-	virtual_texture(const lock_rect&, fragmented_texture*);
+	virtual_texture(const lock_rect&, fragmented_texture*, bool repeatable = false);
 	~virtual_texture();
-	lock_rect area() const { return _area; }
+	lock_rect area() const;
 	texture_ptr my_texture() const;
+	bool repeatable() const;
 	void set_data(texture::const_pointer src);
 private:
 	lock_rect _area;
 	fragmented_texture* fragment;
+	bool _repeatable;
 };
 
 typedef shared_ptr<virtual_texture> virtual_texture_ptr;

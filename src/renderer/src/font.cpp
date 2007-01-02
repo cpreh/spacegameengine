@@ -36,7 +36,8 @@ sge::font::font(const renderer_ptr r, const font_system_ptr font_sys, const std:
  : r(r),
    impl(font_sys->create_font(r,font_name,quality_in_pixel,weight)),
    vb(r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),200)),
-   ib(r->create_index_buffer(vb->size()*3/2))
+   ib(r->create_index_buffer(vb->size()*3/2)),
+   trans(math::matrix_identity())
 {
 	height_pixel_scale(1);
 }
@@ -61,7 +62,7 @@ void sge::font::height(const space_unit h)
 	_height = h;
 }
 
-void sge::font::transform(const matrix_type& m)
+void sge::font::transform(const math::space_matrix& m)
 {
 	trans = m;
 }
@@ -232,6 +233,7 @@ sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, c
 
 void sge::font::flush()
 {
+	// FIXME
 //	std::sort(jobs.begin(),jobs.end(), boost::lambda::bind(&job::tex, boost::lambda::_1) < boost::lambda::bind(&job::tex, boost::lambda::_2));
 	{
 		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
@@ -257,7 +259,7 @@ void sge::font::flush()
 
 void sge::font::set_parameters()
 {
-	r->set_transformation(trans);
+	r->transform(matrix_2d_to_3d() * trans);
 	r->projection_orthogonal();
 	r->set_bool_state(BS_EnableAlphaBlending,true);
 	r->set_bool_state(BS_EnableLighting,true);

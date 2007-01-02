@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../input/key_type.hpp"
 #include "../manager.hpp"
 #include "../skin.hpp"
-#include "../../sprite/handler.hpp"
+#include "../../texture/handler.hpp"
 #include <boost/bind.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -133,8 +133,8 @@ void sge::gui::manager::process()
 	}
 
 	sprite_sys.set_parameters();
-	gui_font.transform(matrix4x4<space_unit>());
-	sprite_sys.get_renderer()->set_transformation(matrix4x4<space_unit>());
+	gui_font.transform(math::matrix_identity());
+	sprite_sys.get_renderer()->transform(math::matrix_identity());
 	_root.draw(draw_event(point(0,0)));
 	cur.draw();
 }

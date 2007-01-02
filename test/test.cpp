@@ -43,17 +43,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <sstream>
 #include <iostream>
-//#include "../src/math/matrix.hpp"
+#include "../src/math/matrix.hpp"
 
 sge::point rand_point() { return sge::point(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
 
 int main()
 try
 {
-//	sge::math::matrix<float,3,3> matr(0,1,2,3,4,5,6,7,8);
-//	matr[1] = sge::math::matrix<float,3,1>(20,20,20);
-//	std::cerr << matr << '\n';
-
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
@@ -89,6 +85,7 @@ try
 	list1.push_back("LOL");
 	list1.push_back("BAR");
 	list1.push_back("ROFL!");
+
 	for(int i = 0; i < 20; ++i)
 	{
 		std::ostringstream os;
@@ -114,7 +111,7 @@ try
 
 	sge::key_state_tracker ks(is);
 
-	sge::vector2 translation;
+	sge::vector3 translation;
 
 	sge::line_strip<sge::point> ls(rend, sge::colors::red);
 	for(int i = 0; i < 5; ++i)
@@ -143,15 +140,18 @@ try
 
 		rend->begin_rendering();
 		is->dispatch();
-		ss.draw(translation);
+		ss.transform(sge::math::matrix_translation(translation));
+//		ss.transform(sge::math::matrix_translation(0,0,-50));
+//		ss.projection(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),3.14,-10,100));
+		ss.draw();
 		man.process();
-//		fn.transform(sge::matrix_rotation_z(angle));
+		fn.transform(sge::math::matrix_rotation_z(angle));
 		fn.height_pixel_scale(1);
 		fn.height(0.05);
 		fn.draw_text(some_text,sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;
-		fn.transform(sge::matrix4x4<sge::space_unit>());
+		fn.transform(sge::math::matrix_identity());
 		fn.draw_text(os.str(),sge::point(0.1,0),sge::dim(1,1),sge::colors::purple);
 		ls.draw(true);
 		rend->end_rendering();

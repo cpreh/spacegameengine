@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
 #include "../math/circle.hpp"
-#include "../shared_ptr.hpp"
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/texture.hpp"
@@ -43,31 +42,33 @@ public:
 	sprite(sprite_system& s, point pos, dim sz, unsigned z, const std::string& tex, space_unit rotation = 0, bool visible = true);
 	sprite(const sprite& s);
 
-	void x(space_unit nx) { p.x() = nx; }
-	void y(space_unit ny) { p.y() = ny; }
-	void pos(point np) { p = np; }
-	void width(space_unit w) { sz.w = w; }
-	void height(space_unit h) { sz.h = h; }
-	void size(dim nsz) { sz = nsz; }
-	void z(unsigned nz) { _z = nz; }
-	void visible(bool nvisible) { _visible = nvisible; }
+	void x(space_unit x);
+	void y(space_unit y);
+	void pos(point p);
+	void width(space_unit w);
+	void height(space_unit h);
+	void size(dim sz);
+	void z(unsigned z);
+	void visible(bool visible);
 	void set_texture(const std::string& name);
-	void rotate(space_unit rot) { _rotation = rot; }
+	void rotate(space_unit rot);
 	void rotate_around(point p);
 	void rotate_around();
+	void repeat(space_unit);
 	
-	space_unit x() const { return p.x(); }
-	space_unit y() const { return p.y(); }
-	point pos() const { return p; }
-	space_unit width() const { return sz.w; }
-	space_unit height() const { return sz.h; }
-	dim size() const { return sz; }
-	unsigned z() const { return _z; }
-	bool visible() const { return _visible; }
+	space_unit x() const;
+	space_unit y() const;
+	point pos() const;
+	space_unit width() const;
+	space_unit height() const;
+	dim size() const;
+	unsigned z() const;
+	bool visible() const;
 	rect get_rect() const;
-	point center() const { return  point(x() + width() / 2, y() + height() / 2); }
-	space_unit rotation() const { return _rotation; }
+	point center() const;
+	space_unit rotation() const;
 	space_unit radius() const;
+	space_unit repeat() const;
 	rect bounding_quad() const;
 	circle bounding_circle() const;
 
@@ -96,9 +97,8 @@ private:
 	sprite_list::iterator my_place;
 	bool _use_rot_around;
 	point _rot_around;
+	space_unit _repeat;
 };
-
-typedef shared_ptr<sprite> sprite_ptr;
 
 }
 #endif
