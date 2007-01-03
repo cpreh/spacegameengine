@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-typedef vector<space_unit,4> vector4;
+typedef math::vector<space_unit,4> vector4;
 
 }
 
