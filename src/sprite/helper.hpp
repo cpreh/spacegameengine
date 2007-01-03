@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-inline void fill_sprite_vertices(vertex_buffer::iterator& it, const rect& rs, const rect& rt)
+inline vertex_buffer::iterator fill_sprite_vertices(vertex_buffer::iterator it, const rect& rs, const rect& rt)
 {
 	(*it  ).pos()    = pos3(rs.left,rs.top,0);
 	(*it++).tex()[0] = tex_pos(rt.left,rt.top);
@@ -44,9 +44,11 @@ inline void fill_sprite_vertices(vertex_buffer::iterator& it, const rect& rs, co
 
 	(*it  ).pos()    = pos3(rs.left,rs.bottom,0);
 	(*it++).tex()[0] = tex_pos(rt.left,rt.bottom);
+
+	return it;
 }
 
-inline void fill_sprite_vertices_rotated(vertex_buffer::iterator& it, const rect& rbs, const space_unit rot, const point center, const rect& rt)
+inline vertex_buffer::iterator fill_sprite_vertices_rotated(vertex_buffer::iterator it, const rect& rbs, const space_unit rot, const point center, const rect& rt)
 {
 	point one = point(rbs.left,rbs.top) - center,
 	      two = point(rbs.right,rbs.top) - center,
@@ -80,9 +82,18 @@ inline void fill_sprite_vertices_rotated(vertex_buffer::iterator& it, const rect
 
 	(*it  ).pos()    = pos3(four.x(),four.y(),0);
 	(*it++).tex()[0] = tex_pos(rt.left, rt.bottom);
+
+	return it;
 }
 
-inline void fill_sprite_indices(index_buffer::iterator& it, const index_buffer::value_type start)
+inline vertex_buffer::iterator fill_sprite_color(vertex_buffer::iterator it, const color col)
+{
+	for(unsigned i = 0; i < 4; ++i)
+		(*it++).diffuse() = col;
+	return it;
+}
+
+inline index_buffer::iterator fill_sprite_indices(index_buffer::iterator it, const index_buffer::value_type start)
 {
 	(*it++) = start + 0;
 	(*it++) = start + 1;
@@ -90,6 +101,8 @@ inline void fill_sprite_indices(index_buffer::iterator& it, const index_buffer::
 	(*it++) = start + 0;
 	(*it++) = start + 2;
 	(*it++) = start + 3;
+
+	return it;
 }
 
 }

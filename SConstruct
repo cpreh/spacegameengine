@@ -7,7 +7,7 @@ argflags = ARGUMENTS.get('flags', '')
 
 sandboxprefix = sandbox + prefix
 
-flags = '-Wall -Wextra -ansi -pedantic ' + argflags
+flags = '-Wall -Wextra -ansi -pedantic -g -ggdb ' + argflags
 lib_path = sandboxprefix + '/' + libdir
 plugin_path = lib_path + '/sge'
 bin_path = sandboxprefix + '/bin'

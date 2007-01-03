@@ -27,11 +27,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 
 sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const unsigned _z, const std::string& name, const space_unit _rotation, const bool vis)
- : p(p), sz(sz), _z(_z), _visible(vis), _rotation(_rotation), spr_sys(spr_sys), tex(spr_sys.vtexture(name)), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this)), _use_rot_around(false), _repeat(1)
+ : p(p),
+   sz(sz),
+   _z(_z),
+   _visible(vis),
+   _rotation(_rotation),
+   spr_sys(spr_sys),
+   tex(spr_sys.vtexture(name)),
+   vb_pos(spr_sys.free_vb_pos()),
+   my_place(spr_sys.attach(*this)),
+   _use_rot_around(false),
+   _repeat(1),
+   _color(rgba_to_abgr(colors::white))
 {}
 
 sge::sprite::sprite(const sprite& spr)
- : p(spr.p), sz(spr.sz), _z(spr._z), _visible(spr._visible), _rotation(spr._rotation), spr_sys(spr.spr_sys), tex(spr.tex), vb_pos(spr_sys.free_vb_pos()), my_place(spr_sys.attach(*this)), _use_rot_around(spr._use_rot_around), _rot_around(spr._rot_around), _repeat(spr._repeat)
+ : p(spr.p),
+   sz(spr.sz),
+   _z(spr._z),
+   _visible(spr._visible),
+   _rotation(spr._rotation),
+   spr_sys(spr.spr_sys),
+   tex(spr.tex),
+   vb_pos(spr_sys.free_vb_pos()),
+   my_place(spr_sys.attach(*this)),
+   _use_rot_around(spr._use_rot_around),
+   _rot_around(spr._rot_around),
+   _repeat(spr._repeat),
+   _color(spr._color)
 {}
 
 void sge::sprite::x(const space_unit nx)
@@ -100,6 +123,11 @@ void sge::sprite::repeat(const space_unit r)
 	_repeat = r;
 }
 
+void sge::sprite::set_color(const color c)
+{
+	_color = rgba_to_abgr(c);
+}
+
 sge::space_unit sge::sprite::x() const
 {
 	return p.x();
@@ -155,6 +183,11 @@ sge::space_unit sge::sprite::repeat() const
 	return _repeat;
 }
 
+sge::color sge::sprite::get_color() const
+{
+	return abgr_to_rgba(_color);
+}
+
 sge::sprite::~sprite()
 {
 	spr_sys.detach(*this);
@@ -165,7 +198,7 @@ void sge::sprite::update()
 	update_where(spr_sys.vb->begin()+vb_pos);
 }
 
-void sge::sprite::update_where(vertex_buffer::iterator it)
+void sge::sprite::update_where(const vertex_buffer::iterator it)
 {
 	if(repeat() != 1 && tex->repeatable() == false)
 		std::cerr << "Warning: texture not repeatable but sprite repetition is " << repeat() << "!\n";
@@ -174,12 +207,13 @@ void sge::sprite::update_where(vertex_buffer::iterator it)
 		fill_sprite_vertices(it, get_rect(), tex_rect);
 	else
 		fill_sprite_vertices_rotated(it, get_rect(), rotation(), _use_rot_around ? _rot_around : center(), tex_rect);
+
+	fill_sprite_color(it, _color);
 }
 
 sge::index_buffer::iterator sge::sprite::update_ib(index_buffer::iterator it)
 {
-	fill_sprite_indices(it,vb_pos);
-	return it;
+	return fill_sprite_indices(it,vb_pos);
 }
 
 void sge::sprite::draw()

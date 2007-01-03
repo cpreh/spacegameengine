@@ -23,10 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <cmath>
 
+#ifndef M_PI
+#define M_PI 3.14159265
+#endif
+
 namespace sge
 {
 
-const double PI = M_PI; // FIXME: not portable
+const double PI = M_PI;
 
 }
 

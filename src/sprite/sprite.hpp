@@ -55,6 +55,7 @@ public:
 	void rotate_around(point p);
 	void rotate_around();
 	void repeat(space_unit);
+	void set_color(color c);
 	
 	space_unit x() const;
 	space_unit y() const;
@@ -69,6 +70,7 @@ public:
 	space_unit rotation() const;
 	space_unit radius() const;
 	space_unit repeat() const;
+	color get_color() const;
 	rect bounding_quad() const;
 	circle bounding_circle() const;
 
@@ -98,6 +100,7 @@ private:
 	bool _use_rot_around;
 	point _rot_around;
 	space_unit _repeat;
+	color _color;
 };
 
 }

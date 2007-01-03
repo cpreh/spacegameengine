@@ -67,15 +67,16 @@ try
 
 	ss.add_texture(im,bender_name);
 
-	/*boost::ptr_vector<sge::sprite> sprites;
+	boost::ptr_vector<sge::sprite> sprites;
 	for(unsigned i = 0; i < 1009; ++i)
-		sprites.push_back(new sge::sprite(ss,sge::point(rand_point()),sge::dim(0.1,0.1),0,bender_name));*/
+		sprites.push_back(new sge::sprite(ss,sge::point(rand_point()),sge::dim(0.1,0.1),0,bender_name));
 
 	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,bender_name);
+	spr.set_color(sge::colors::yellow);
 	sge::sprite spr2(ss,sge::point(0.25,-0.25),sge::dim(0.25,3),0,bender_name);
+	spr2.set_color(sge::colors::red);
 
 	ss.enable_clipping(true);
-	//spr2.visible(false);
 	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "/mainskin/", 0.05);
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.45,0.1));
@@ -94,7 +95,7 @@ try
 	}
 
 	sge::gui::static_text st(man, &fr1, "hellothere,i'mamultiline dstatic_text", sge::point(0.5,0.8), sge::dim(0.3,0.1), sge::colors::red);
-	//sge::gui::static_text level_name(man, &fr1,"levelname",sge::point(0.5,0.29),sge::dim(1,1));
+	
 	using boost::lambda::var;
 	using boost::lambda::bind;
 	using boost::lambda::_1;
@@ -141,8 +142,6 @@ try
 		rend->begin_rendering();
 		is->dispatch();
 		ss.transform(sge::math::matrix_translation(translation));
-//		ss.transform(sge::math::matrix_translation(0,0,-50));
-//		ss.projection(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),3.14,-10,100));
 		ss.draw();
 		man.process();
 		fn.transform(sge::math::matrix_rotation_z(angle));

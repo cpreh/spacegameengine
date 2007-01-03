@@ -53,14 +53,14 @@ inline float  blue_part_rgba_f(const color c) { return ((c &     0xFF00) >>  8) 
 inline float alpha_part_rgba_f(const color c) { return  (c &       0xFF)        / 255.f; }
 
 namespace colors {
-	const color black  = static_rgb<  0,  0,  0>::value,
-	            white  = static_rgb<255,255,255>::value,
-	            red    = static_rgb<255,  0,  0>::value,
-	            green  = static_rgb<  0,255,  0>::value,
-	            blue   = static_rgb<  0,  0,255>::value,
-	            yellow = static_rgb<  0,255,255>::value,
-	            purple = static_rgb<255,  0,255>::value,
-	            orange = static_rgb<255,255,  0>::value,
+	const color black  = static_rgb<   0,   0,   0>::value,
+	            white  = static_rgb< 255, 255, 255>::value,
+	            red    = static_rgb< 255,   0,   0>::value,
+	            green  = static_rgb<   0, 255,   0>::value,
+	            blue   = static_rgb<   0,   0, 255>::value,
+	            yellow = static_rgb< 255, 255,   0>::value,
+	            purple = static_rgb<0xa0,0x20,0xf0>::value,
+	            orange = static_rgb<0xff,0xa5,   0>::value,
 	            transparent = static_rgba<0,0,0,0>::value;
 }
 
@@ -100,6 +100,19 @@ inline color rgba_to_argb(const color c)
 inline color argb_to_rgba(const color c)
 {
 	return (c << 8) | ((c & 0xFF000000) >> 24);
+}
+
+inline color rgba_to_abgr(const color c)
+{
+	return ((c & 0xFF000000) >> 24) |
+	       ((c & 0x00FF0000) >>  8) |
+	       ((c & 0x0000FF00) <<  8) |
+	       ((c & 0x000000FF) << 24);
+}
+
+inline color abgr_to_rgba(const color c)
+{
+	return rgba_to_abgr(c);
 }
 
 }

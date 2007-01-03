@@ -130,7 +130,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 				last_texture = reg.tex;
 			}
 
-			fill_sprite_vertices(vit, fp, reg.rect);
+			vit = fill_sprite_vertices(vit, fp, reg.rect);
 			pos.x() += char_space(*sbeg);
 		}
 
@@ -240,7 +240,7 @@ void sge::font::flush()
 		index_buffer::iterator iib = ib->begin();
 		for(job_array::const_iterator it = jobs.begin(); it != jobs.end(); ++it)
 			for(size_type i = it->first_index; i < it->end_index; ++i)
-				fill_sprite_indices(iib, i*4);
+				iib = fill_sprite_indices(iib, i*4);
 	}
 
 	set_parameters();

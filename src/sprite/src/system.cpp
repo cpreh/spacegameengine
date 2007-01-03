@@ -39,7 +39,7 @@ sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_functio
    _projection(math::matrix_orthogonal_xy())
 {
 	const unsigned init_sprites = 25;
-	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
+	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex).add(VU_Diffuse), init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
 	ib = rend->create_index_buffer(init_sprites * detail::indices_per_sprite);
 	free_pos.reserve(init_sprites);
 	for(unsigned i = 0; i < init_sprites; ++i)

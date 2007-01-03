@@ -63,6 +63,13 @@ private:
 
 		iterator_impl(typename Stored::pointer data, const size_type stride, const offset_info& oi)
 		 : data(data), stride(stride), oi(oi) {}
+
+		iterator_impl& operator=(const iterator_impl& r)
+		{
+			data = r.data;
+			assert(stride == r.stride);
+			return *this;
+		}
 	};
 
 public:
