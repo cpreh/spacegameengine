@@ -53,8 +53,8 @@ inline void fill_sprite_vertices_rotated(vertex_buffer::iterator& it, const rect
 	      three = point(rbs.right,rbs.bottom) - center,
 	      four = point(rbs.left,rbs.bottom) - center;
 
-	const space_unit sinx = std::sin(rot),
-	                 cosx = std::cos(rot);
+	const space_unit sinx = std::sin(-rot),
+	                 cosx = std::cos(-rot);
 
 	const math::matrix<space_unit,2,2> mat_rot(cosx, -sinx,
 	                                           sinx,  cosx); 
