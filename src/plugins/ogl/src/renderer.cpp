@@ -391,27 +391,13 @@ void sge::ogl::renderer::set_material(const material& mat)
 void sge::ogl::renderer::transform(const math::space_matrix& matrix)
 {
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(matrix.data());
+	glLoadMatrixf(math::transpose(matrix).data());
 }
 
 void sge::ogl::renderer::projection(const math::space_matrix& matrix)
 {
 	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(matrix.data());
-}
-
-void sge::ogl::renderer::projection_orthogonal()
-{
-	const math::space_matrix matrix(math::matrix_orthogonal_xy());
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(matrix.data());
-}
-
-void sge::ogl::renderer::projection_perspective(const space_unit fov, const space_unit near, const space_unit far)
-{
-	const math::space_matrix matrix(math::matrix_perspective(space_unit(screen_width())/screen_height(),fov,near,far));
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(matrix.data());
+	glLoadMatrixf(math::transpose(matrix).data());
 }
 
 void sge::ogl::renderer::set_render_target(const render_target_ptr target)

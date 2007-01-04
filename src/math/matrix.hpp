@@ -209,13 +209,24 @@ inline std::ostream& operator<< (std::ostream& s, const matrix<T,N,M>& m)
 	return s;
 }
 
+template<typename T, std::size_t N>
+inline matrix<T,N,N> transpose(const matrix<T,N,N>& m)
+{
+	matrix<T,N,N> ret = matrix<T,N,N>(no_initialization_tag());
+	for(typename matrix<T,N,N>::size_type j = 0; j < N; ++j)
+		for(typename matrix<T,N,N>::size_type i = 0; i < N; ++i)
+			ret[i][j] = m[j][i];
+	return ret;
+}
+
 inline space_matrix matrix_translation(const math::vector<space_unit,3>& v)
 {
 	return space_matrix
-	       (1, 0, 0, 0,
-	        0, 1, 0, 0,
-	        0, 0, 1, 0,
-	        v.x(), v.y(), v.z(), 1);
+	       (1, 0, 0, v.x(),
+	        0, 1, 0, v.y(),
+	        0, 0, 1, v.z(),
+	        0, 0, 0, 1);
+
 }
 
 inline space_matrix matrix_translation(const space_unit x, const space_unit y, const space_unit z)

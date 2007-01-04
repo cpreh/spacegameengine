@@ -52,8 +52,6 @@ public:
 	virtual void set_material(const material& mat) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;
 	virtual void projection(const math::space_matrix& mat) = 0;
-	virtual void projection_perspective(space_unit fov, space_unit near, space_unit far) = 0;
-	virtual void projection_orthogonal() = 0;
 	virtual void set_render_target(render_target_ptr target) = 0;
 
 	virtual texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels = 1, resource_flag_t flags = RF_Default) = 0;

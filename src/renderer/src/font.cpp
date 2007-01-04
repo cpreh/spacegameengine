@@ -259,8 +259,8 @@ void sge::font::flush()
 
 void sge::font::set_parameters()
 {
-	r->transform(matrix_2d_to_3d() * trans);
-	r->projection_orthogonal();
+	r->transform(trans * matrix_2d_to_3d());
+	r->projection(math::matrix_orthogonal_xy());
 	r->set_bool_state(BS_EnableAlphaBlending,true);
 	r->set_bool_state(BS_EnableLighting,true);
 	r->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));

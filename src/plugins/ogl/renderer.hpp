@@ -60,8 +60,6 @@ public:
 	void set_material(const material& mat);
 	void transform(const math::space_matrix& matrix);
 	void projection(const math::space_matrix& matrix);
-	void projection_perspective(space_unit fov, space_unit near, space_unit far);
-	void projection_orthogonal();
 	void set_render_target(render_target_ptr target);
 
 	texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels, resource_flag_t flags);

@@ -32,7 +32,7 @@ namespace sge
 
 inline math::space_matrix matrix_2d_to_3d()
 {
-	return math::matrix_scaling(2,-2,0) * math::matrix_translation(-0.5,-0.5,0);
+	return math::matrix_translation(-0.5,-0.5,0) * math::matrix_scaling(2,-2,0);
 }
 
 inline space_unit trans_x_2d_to_3d(const space_unit x)
