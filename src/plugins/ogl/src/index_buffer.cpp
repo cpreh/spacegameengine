@@ -18,25 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DRAWER_HPP_INCLUDED
-#define SGE_SPRITE_DRAWER_HPP_INCLUDED
+#include "../index_buffer.hpp"
 
-#include "../renderer/renderer.hpp"
-#include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
-#include "./sprite_fwd.hpp"
+sge::ogl::index_buffer::index_buffer(const size_type sz, const resource_flag_t flags, const const_pointer src)
+ : basic_arb_buffer<sge::index_buffer,GL_ELEMENT_ARRAY_BUFFER_ARB>(sz,sge::index_buffer::stride,flags,src)
+{}
 
-namespace sge
+sge::ogl::index_buffer::iterator sge::ogl::index_buffer::begin()
 {
-
-class sprite_drawer {
-public:
-	sprite_drawer(renderer_ptr rend);
-	void draw(const sprite_list&, vertex_buffer_ptr, index_buffer_ptr);
-private:
-	renderer_ptr rend;
-};
-
+	return data();
 }
 
-#endif
+sge::ogl::index_buffer::const_iterator sge::ogl::index_buffer::begin() const
+{
+	return data();
+}

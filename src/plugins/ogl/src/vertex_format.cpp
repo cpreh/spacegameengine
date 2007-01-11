@@ -18,9 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <stdexcept>
 #include "../vertex_format.hpp"
 #include "../error.hpp"
-#include <stdexcept>
+
+sge::ogl::actor_info::actor_info(const vertex_size _offset, const vertex_size stride, const vertex_size index)
+: offset(vbo_offset(_offset)),
+  stride(stride),
+  index(index)
+{}
 
 namespace {
 	using sge::ogl::is_error;
@@ -30,7 +36,7 @@ namespace {
 	class pos_actor : public actor_base {
 	public:
 		pos_actor(const actor_info& ai)
-			: actor_base(ai) {}
+		 : actor_base(ai) {}
 		void operator()() const
 		{
 			glVertexPointer(3,GL_FLOAT,ai.stride,ai.offset);
@@ -43,7 +49,7 @@ namespace {
 	class normal_actor : public actor_base {
 	public:
 		normal_actor(const actor_info& ai)
-			: actor_base(ai) {}
+		 : actor_base(ai) {}
 		void operator()() const
 		{
 			glNormalPointer(GL_FLOAT,ai.stride,ai.offset);
@@ -56,10 +62,10 @@ namespace {
 	class tex_actor : public actor_base {
 	public:
 		tex_actor(const actor_info& ai)
-			: actor_base(ai) {}
+		 : actor_base(ai) {}
 		void operator()() const
 		{
-			glClientActiveTextureARB(GL_TEXTURE0 + ai.index);
+			glClientActiveTextureARB(GL_TEXTURE0);
 			glTexCoordPointer(2,GL_FLOAT,ai.stride,ai.offset);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			if(is_error())
@@ -70,7 +76,7 @@ namespace {
 	class diffuse_actor : public actor_base {
 	public:
 		diffuse_actor(const actor_info& ai)
-			: actor_base(ai) {}
+		 : actor_base(ai) {}
 		void operator()() const
 		{
   			glColorPointer(4,GL_UNSIGNED_BYTE,ai.stride,ai.offset);
@@ -90,20 +96,19 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 	{
 		for(vertex_size count = 0; count < it->count(); ++count)
 		{
-			const vertex_size cur = offset + count*it->size();
-			const actor_info ai(cur, f.stride(), count);
+			const actor_info ai(offset + count*it->size(), f.stride(), count);
 			switch(it->usage()) {
 			case VU_Pos:
-				actors.push_back(actor_base_ptr(new pos_actor(ai)));
+				actors.push_back(new pos_actor(ai));
 				break;
 			case VU_Tex:
-				actors.push_back(actor_base_ptr(new tex_actor(ai)));
+				actors.push_back(new tex_actor(ai));
 				break;
 			case VU_Normal:
-				actors.push_back(actor_base_ptr(new normal_actor(ai)));
+				actors.push_back(new normal_actor(ai));
 				break;
 			case VU_Diffuse:
-				actors.push_back(actor_base_ptr(new diffuse_actor(ai)));
+				actors.push_back(new diffuse_actor(ai));
 				break;
 			default:
 				throw std::runtime_error("unsupported vertex_usage");
@@ -120,7 +125,8 @@ void sge::ogl::vertex_format::use_me()
 	glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_NORMAL_ARRAY);
         glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         glDisableClientState(GL_SECONDARY_COLOR_ARRAY);
 	for(actor_array::const_iterator it = actors.begin(); it != actors.end(); ++it)
-		(**it)();
+		(*it)();
 }

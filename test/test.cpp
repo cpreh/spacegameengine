@@ -62,21 +62,25 @@ try
 	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arialbd.ttf",32);
 	sge::sprite_system ss(rend);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "/mainskin/cancel_0.png");
+	sge::image_ptr im2 = pl->load_image(sge::media_path() + "/mainskin/button.png");
+	sge::image_ptr im3 = pl->load_image(sge::media_path() + "/mainskin/clickbox_quad_pressed.png");
 
-	const std::string bender_name("bender");
+	const std::string tex[] = { "bender", "tex2", "tex3" };
 
-	ss.add_texture(im,bender_name);
+	ss.add_texture(im,tex[0]);
+	ss.add_texture(im2,tex[1]);
+	ss.add_texture(im3,tex[2]);
 
 	boost::ptr_vector<sge::sprite> sprites;
-	for(unsigned i = 0; i < 1009; ++i)
-		sprites.push_back(new sge::sprite(ss,sge::point(rand_point()),sge::dim(0.1,0.1),0,bender_name));
+	for(unsigned i = 0; i < 4; ++i)
+		sprites.push_back(new sge::sprite(ss,sge::point(0,i*0.3),sge::dim(0.3,0.3),0,tex[i % 3]));
+	sprites.back().set_color(sge::colors::red);
 
-	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,bender_name);
+/*	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,tex[0]);
 	spr.set_color(sge::colors::yellow);
-	sge::sprite spr2(ss,sge::point(0.25,-0.25),sge::dim(0.25,3),0,bender_name);
-	spr2.set_color(sge::colors::red);
+	sge::sprite spr2(ss,sge::point(0.25,-0.25),sge::dim(0.25,3),0,tex[1]);
+	spr2.set_color(sge::colors::red);*/
 
-	ss.enable_clipping(true);
 	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "/mainskin/", 0.05);
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.45,0.1));
@@ -119,6 +123,7 @@ try
 		ls.add(rand_point());
 
 	const std::string some_text("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789");
+	
 	while(running)
 	{
 		if(frames.update())
@@ -137,22 +142,27 @@ try
 		if(timer.update())
 			angle += sge::PI*0.01;
 
-		spr.rotate(angle);
+//		spr.rotate(angle);
 
 		rend->begin_rendering();
 		is->dispatch();
 		ss.transform(sge::math::matrix_translation(translation));
+//		ss.projection(sge::math::matrix_perspective(0.75,sge::PI*3,-10,100));
+		rend->set_filter_state(0, sge::FARG_MinFilter, sge::FARGV_Linear);
+		rend->set_filter_state(0, sge::FARG_MagFilter, sge::FARGV_Linear);
+
 		ss.draw();
-		man.process();
-		fn.transform(sge::math::matrix_rotation_z(angle));
+	//	for(int i = 0; i < 3; ++i)
+	//		sprites[i].draw();
+//		fn.transform(sge::math::matrix_rotation_z(angle));
 		fn.height_pixel_scale(1);
 		fn.height(0.05);
 		fn.draw_text(some_text,sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;
-		fn.transform(sge::math::matrix_identity());
-		fn.draw_text(os.str(),sge::point(0.1,0),sge::dim(1,1),sge::colors::purple);
-		ls.draw(true);
+//		fn.transform(sge::math::matrix_identity());
+//		fn.draw_text(os.str(),sge::point(0.1,0),sge::dim(1,1),sge::colors::purple);
+//		ls.draw(true);
 		rend->end_rendering();
 		++fps;
 	}

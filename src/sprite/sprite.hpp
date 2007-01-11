@@ -77,7 +77,7 @@ public:
 	void draw();
 	~sprite();
 
-	static bool equal_texture(const sprite& l, const sprite& r);
+	static bool equal(const sprite& l, const sprite& r);
 	static bool less(const sprite& l, const sprite& r);
 private:
 	friend class sprite_system;

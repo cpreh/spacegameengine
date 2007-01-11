@@ -32,22 +32,16 @@ namespace ogl
 
 class vertex_buffer : public basic_arb_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER_ARB> {
 public:
-	vertex_buffer(const size_type size, const sge::vertex_format& format,
-		      const resource_flag_t flags, const const_pointer src)
-		: basic_arb_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER_ARB>(size,format.stride(),flags,src), format(format), ogl_format(format) {}
-		
-	size_type stride() const { return format.stride(); }
-	const sge::vertex_format& get_vertex_format() const { return format; }
-	iterator create_iterator(const pointer p) { return iterator(p,format.stride(),ogl_format.offsets()); }
-	const_iterator create_iterator(const const_pointer p) const { return const_iterator(p,stride(),ogl_format.offsets()); }
-	iterator begin() { return create_iterator(data()); }
-	const_iterator begin() const { return create_iterator(data()); }
+	vertex_buffer(size_type size, const sge::vertex_format& format, resource_flag_t flags, const_pointer src);
 
-	void set_format()
-	{
-		bind_me();
-		ogl_format.use_me();
-	}
+	size_type stride() const;
+	const sge::vertex_format& get_vertex_format() const;
+	iterator create_iterator(pointer p);
+	const_iterator create_iterator(const_pointer p) const;
+	iterator begin();
+	const_iterator begin() const;
+
+	void set_format();
 private:
 	sge::vertex_format format;
 	vertex_format ogl_format;

@@ -96,9 +96,9 @@ InputIterator first_mismatch_if(InputIterator first, InputIterator last, Size& c
 	const typename std::iterator_traits<InputIterator>::reference ref = *first;
 	for(;first != last; ++first)
 	{
-		++cnt;
 		if(!pred(*first,ref))
 			return first;
+		++cnt;
 	}
 	return last;
 }

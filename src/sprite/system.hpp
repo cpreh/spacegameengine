@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/matrix.hpp"
 #include "./sprite_fwd.hpp"
 #include "../texture/texture_map.hpp"
-#include "./sprite_drawer.hpp"
 
 namespace sge
 {
@@ -61,7 +60,6 @@ private:
 
 	renderer_ptr rend;
 	bool _clipping;
-	sprite_drawer drawer;
 	
 	math::space_matrix _internal_matrix,
 	                   _transform,

@@ -32,10 +32,9 @@ namespace ogl
 
 class index_buffer : public basic_arb_buffer<sge::index_buffer,GL_ELEMENT_ARRAY_BUFFER_ARB> {
 public:
-	index_buffer(const size_type sz, const resource_flag_t flags, const const_pointer src)
-		: basic_arb_buffer<sge::index_buffer,GL_ELEMENT_ARRAY_BUFFER_ARB>(sz,sge::index_buffer::stride,flags,src) {}
-	iterator begin() { return data(); }
-	const_iterator begin() const { return data(); }
+	index_buffer(size_type sz, resource_flag_t flags, const_pointer src);
+	iterator begin();
+	const_iterator begin() const;
 };
 
 }

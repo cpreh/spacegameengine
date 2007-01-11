@@ -29,7 +29,8 @@ RDEPEND="!games-engines/spacegame
 
 pkg_setup() {
 	if !(use opengl && use truetype && use devil && use xinput) ; then
-		eerror "For now you have to enable all useflags to get a working engine!\nPlease do: \"games-engines/spacegameengine opengl truetype devil xinput\" > /etc/portage/package.use"
+		eerror "For now you have to enable all useflags to get a working
+		engine!\nPlease do: \"games-engines/spacegameengine opengl truetype devil xinput\" >> /etc/portage/package.use"
 		die
 	fi
 }

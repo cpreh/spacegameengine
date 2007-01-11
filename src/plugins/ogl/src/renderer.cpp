@@ -183,9 +183,10 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	set_bool_state(BS_EnableAlphaBlending,true);
 	set_bool_state(BS_EnableZBuffer,false);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-
 //	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
 //	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
+//	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAX_LEVEL,0);
+//	glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_FALSE);
 
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
@@ -303,6 +304,8 @@ void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::inde
 		glDrawArrays(prim_type, first_vertex, num_vertices);
 		break;
 	}
+	if(is_error())
+		throw std::runtime_error("opengl error during rendering!");
 }
 
 void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type value)
@@ -407,17 +410,15 @@ void sge::ogl::renderer::set_render_target(const render_target_ptr target)
 
 void sge::ogl::renderer::set_texture(const stage_type stage, const texture_base_ptr tex)
 {
+	glDisable(GL_TEXTURE_1D);
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_3D);
 	if(!tex)
-	{
-		glDisable(GL_TEXTURE_1D);
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_TEXTURE_3D);
 		return;
-	}
-	glActiveTextureARB(GL_TEXTURE0 + stage);
+	//glActiveTextureARB(GL_TEXTURE0 + stage);
 	texture_base* const b = ptr_cast<texture_base*>(tex.get());
-	b->bind_me();
 	glEnable(b->get_type());
+	b->bind_me();
 }
 
 // TODO: stage engine?

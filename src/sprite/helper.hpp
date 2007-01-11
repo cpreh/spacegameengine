@@ -33,17 +33,17 @@ namespace sge
 
 inline vertex_buffer::iterator fill_sprite_vertices(vertex_buffer::iterator it, const rect& rs, const rect& rt)
 {
-	(*it  ).pos()    = pos3(rs.left,rs.top,0);
-	(*it++).tex()[0] = tex_pos(rt.left,rt.top);
+	(*it  ).pos() = pos3(rs.left,rs.top,0);
+	(*it++).tex() = tex_pos(rt.left,rt.top);
 
-	(*it  ).pos()    = pos3(rs.right,rs.top,0);
-	(*it++).tex()[0] = tex_pos(rt.right,rt.top);
+	(*it  ).pos() = pos3(rs.right,rs.top,0);
+	(*it++).tex() = tex_pos(rt.right,rt.top);
 
-	(*it  ).pos()    = pos3(rs.right,rs.bottom,0);
-	(*it++).tex()[0] = tex_pos(rt.right,rt.bottom);
+	(*it  ).pos() = pos3(rs.right,rs.bottom,0);
+	(*it++).tex() = tex_pos(rt.right,rt.bottom);
 
-	(*it  ).pos()    = pos3(rs.left,rs.bottom,0);
-	(*it++).tex()[0] = tex_pos(rt.left,rt.bottom);
+	(*it  ).pos() = pos3(rs.left,rs.bottom,0);
+	(*it++).tex() = tex_pos(rt.left,rt.bottom);
 
 	return it;
 }
@@ -71,17 +71,17 @@ inline vertex_buffer::iterator fill_sprite_vertices_rotated(vertex_buffer::itera
 	three += center;
 	four += center;
 
-	(*it  ).pos()    = pos3(one.x(),one.y(),0);
-	(*it++).tex()[0] = tex_pos(rt.left, rt.top);
+	(*it  ).pos() = pos3(one.x(),one.y(),0);
+	(*it++).tex() = tex_pos(rt.left, rt.top);
 
-	(*it  ).pos()    = pos3(two.x(),two.y(),0);
-	(*it++).tex()[0] = tex_pos(rt.right, rt.top);
+	(*it  ).pos() = pos3(two.x(),two.y(),0);
+	(*it++).tex() = tex_pos(rt.right, rt.top);
 
-	(*it  ).pos()    = pos3(three.x(),three.y(),0);
-	(*it++).tex()[0] = tex_pos(rt.right, rt.bottom);
+	(*it  ).pos() = pos3(three.x(),three.y(),0);
+	(*it++).tex() = tex_pos(rt.right, rt.bottom);
 
-	(*it  ).pos()    = pos3(four.x(),four.y(),0);
-	(*it++).tex()[0] = tex_pos(rt.left, rt.bottom);
+	(*it  ).pos() = pos3(four.x(),four.y(),0);
+	(*it++).tex() = tex_pos(rt.left, rt.bottom);
 
 	return it;
 }

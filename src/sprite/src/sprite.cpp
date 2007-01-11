@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/array.hpp>
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const unsigned _z, const std::string& name, const space_unit _rotation, const bool vis)
  : p(p),
@@ -211,24 +212,26 @@ void sge::sprite::update_where(const vertex_buffer::iterator it)
 	fill_sprite_color(it, _color);
 }
 
-sge::index_buffer::iterator sge::sprite::update_ib(index_buffer::iterator it)
+sge::index_buffer::iterator sge::sprite::update_ib(const index_buffer::iterator it)
 {
 	return fill_sprite_indices(it,vb_pos);
 }
 
 void sge::sprite::draw()
 {
-	if(!tex)
+	if(!tex || !visible())
 		return;
-	
-	boost::array<vertex_buffer::value_type,sizeof(space_unit)*5*4> buf; // FIXME: magic constants
-	update_where(spr_sys.vb->create_iterator(buf.c_array()));
-	spr_sys.vb->set_data(buf.data(),vb_pos,4);
+
+	{
+		std::vector<vertex_buffer::value_type> buf(spr_sys.vb->get_vertex_format().stride()*detail::vertices_per_sprite);
+		update_where(spr_sys.vb->create_iterator(&buf[0]));
+		spr_sys.vb->set_data(buf.data(), vb_pos, detail::vertices_per_sprite);
+	}
 	
 	{
-	boost::array<index_buffer::value_type, detail::indices_per_sprite> buf;
-	update_ib(buf.c_array());
-	spr_sys.ib->set_data(buf.data(), 0, detail::indices_per_sprite);
+		boost::array<index_buffer::value_type, detail::indices_per_sprite> buf;
+		update_ib(buf.c_array());
+		spr_sys.ib->set_data(buf.data(), 0, detail::indices_per_sprite);
 	}
 
 	spr_sys.set_parameters();
@@ -264,20 +267,25 @@ sge::circle sge::sprite::bounding_circle() const
 	return circle(center(),radius());
 }
 
-bool sge::sprite::equal_texture(const sprite& l, const sprite& r)
+bool sge::sprite::equal(const sprite& l, const sprite& r)
 {
-	return l.get_texture() == r.get_texture();
+	return l.visible() == r.visible() &&
+	       l.z() == r.z() &&
+	       l.get_texture() == r.get_texture();
 }
 
 bool sge::sprite::less(const sprite& l, const sprite& r)
 {
+	const bool lvis = l.visible(), rvis = r.visible();
 	const unsigned lz = l.z(), rz = r.z();
 	sge::texture_ptr ltex = l.get_texture(), rtex = r.get_texture();
 
-	return lz == rz ?
-	                ltex == rtex ? 
-	                             false
-	                : ltex < rtex
-	       : lz < rz;
+	return lvis == rvis ?
+			lz == rz ?
+	                	ltex == rtex ? 
+	                        	     false
+		                : ltex < rtex
+		       : lz > rz
+		: lvis > rvis;
 }
 

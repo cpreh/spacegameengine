@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <algorithm>
 #include <stdexcept>
+#include <functional>
 #include "../system.hpp"
 #include "../../renderer/vertex_format.hpp"
 #include "../../renderer/lock_ptr.hpp"
@@ -33,13 +34,12 @@ sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_functio
  : texture_map(rend,handler),
    rend(rend),
    _clipping(true),
-   drawer(rend),
    _internal_matrix(matrix_2d_to_3d()),
    _transform(math::matrix_identity()),
    _projection(math::matrix_orthogonal_xy())
 {
 	const unsigned init_sprites = 25;
-	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex).add(VU_Diffuse), init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
+	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Diffuse).add(VU_Tex), init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
 	ib = rend->create_index_buffer(init_sprites * detail::indices_per_sprite);
 	free_pos.reserve(init_sprites);
 	for(unsigned i = 0; i < init_sprites; ++i)
@@ -77,26 +77,38 @@ void sge::sprite_system::detach(const sprite& s)
 
 void sge::sprite_system::draw()
 {
-	sprite_list to_draw;
-	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); ++it)
-		if((*it)->visible()) //  && (!_clipping || intersects(rect(0,0,1,1), (*it)->bounding_quad() + trans))) // FIXME: screen rect hard coded
-			to_draw.push_back(*it);
-
-	to_draw.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
+	sprites.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
 	{
 		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
 		index_buffer::iterator it = ib->begin();
-		for(sprite_list::iterator sit = to_draw.begin(); sit != to_draw.end(); ++sit)
+		for(sprite_list::iterator sit = sprites.begin(); sit != sprites.end(); ++sit)
 			it = (*sit)->update_ib(it);
 	}
 
 	{
 		lock_ptr<vertex_buffer_ptr> _lock(vb,LF_Discard);
-		std::for_each(to_draw.begin(), to_draw.end(),std::mem_fun(&sprite::update));
+		std::for_each(sprites.begin(), sprites.end(), std::mem_fun(&sprite::update));
 	}
 
 	set_parameters();
-	drawer.draw(to_draw, vb, ib);
+	unsigned first_index = 0;
+	for(sprite_list::const_iterator it = sprites.begin(); it != sprites.end(); )
+	{
+		if(!(*it)->visible())
+			break;
+
+		unsigned num_objects;
+		const sprite_list::const_iterator next = first_mismatch_if(it, sprite_list::const_iterator(sprites.end()), num_objects, dereference_binder<const sprite*, const sprite*>(std::ptr_fun(sprite::equal)));
+
+		const texture_ptr tex = (*it)->get_texture();
+		if(tex)
+		{
+			rend->set_texture(0,tex);
+			rend->render(vb,ib,0,vb->size(),PT_Triangle,num_objects*2, first_index);
+		}
+		first_index += num_objects * detail::indices_per_sprite;
+		it = next;
+	}
 }
 
 void sge::sprite_system::set_parameters()

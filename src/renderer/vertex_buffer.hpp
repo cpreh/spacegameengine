@@ -46,15 +46,15 @@ private:
 
 		typename Stored::pointer data;
 		size_type stride;
-		const offset_info& oi;
+		const offset_info* oi;
 
 		friend class boost::iterator_core_access;
-		void advance(difference_type d) { data += stride * d; }
+		void advance(const difference_type d) { data += stride * d; }
 		void increment() { data += stride; }
 		void decrement() { data -= stride; }
 		bool equal(const iterator_impl& r) const { return data == r.data; }
 		difference_type distance_to(const iterator_impl& r) const { return (r.data - data) / difference_type(stride); }
-		Stored dereference() const { return Stored(data,stride,oi); }
+		Stored dereference() const { return Stored(data,stride,*oi); }
 		template<typename OtherStored> friend class iterator_impl;
 	public:
 		template<typename OtherStored>
@@ -62,14 +62,8 @@ private:
 		 : data(r.data), stride(r.stride), oi(r.oi) {}
 
 		iterator_impl(typename Stored::pointer data, const size_type stride, const offset_info& oi)
-		 : data(data), stride(stride), oi(oi) {}
-
-		iterator_impl& operator=(const iterator_impl& r)
-		{
-			data = r.data;
-			assert(stride == r.stride);
-			return *this;
-		}
+		 : data(data), stride(stride), oi(&oi)
+		{}
 	};
 
 public:

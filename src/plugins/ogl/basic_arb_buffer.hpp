@@ -43,7 +43,7 @@ public:
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
 			
 	basic_arb_buffer(const size_type sz, const size_type _stride, const resource_flag_t _flags, const const_pointer src)
-		: sz(sz), _stride(_stride), _flags(_flags), dest(0)
+	 : sz(sz), _stride(_stride), _flags(_flags), dest(0)
 	{
 		glGenBuffersARB(1,&id);
 		if(is_error())

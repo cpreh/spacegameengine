@@ -54,7 +54,7 @@ public:
 	virtual void projection(const math::space_matrix& mat) = 0;
 	virtual void set_render_target(render_target_ptr target) = 0;
 
-	virtual texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels = 1, resource_flag_t flags = RF_Default) = 0;
+	virtual texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels = 0, resource_flag_t flags = RF_Default) = 0;
 	virtual volume_texture_ptr create_volume_texture(volume_texture::const_pointer data, volume_texture::size_type width, volume_texture::size_type height, volume_texture::size_type depth, resource_flag_t flags = RF_Default) = 0;
 	virtual cube_texture_ptr create_cube_texture(const cube_side_array* data, cube_texture::size_type size, resource_flag_t flags = RF_Default) = 0;
 	virtual vertex_buffer_ptr create_vertex_buffer(const vertex_format& format, vertex_buffer::size_type size, resource_flag_t flags = RF_Default, vertex_buffer::const_pointer data = 0) = 0;
