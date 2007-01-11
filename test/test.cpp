@@ -76,10 +76,10 @@ try
 		sprites.push_back(new sge::sprite(ss,sge::point(0,i*0.3),sge::dim(0.3,0.3),0,tex[i % 3]));
 	sprites.back().set_color(sge::colors::red);
 
-/*	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,tex[0]);
+	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,tex[0]);
 	spr.set_color(sge::colors::yellow);
 	sge::sprite spr2(ss,sge::point(0.25,-0.25),sge::dim(0.25,3),0,tex[1]);
-	spr2.set_color(sge::colors::red);*/
+	spr2.set_color(sge::colors::red);
 
 	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "/mainskin/", 0.05);
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
@@ -142,7 +142,7 @@ try
 		if(timer.update())
 			angle += sge::PI*0.01;
 
-	//	spr.rotate(angle);
+		spr.rotate(angle);
 
 		rend->begin_rendering();
 		is->dispatch();
@@ -151,6 +151,7 @@ try
 		rend->set_filter_state(0, sge::FARG_MagFilter, sge::FARGV_Linear);
 
 		ss.draw();
+		man.process();
 		fn.transform(sge::math::matrix_rotation_z(angle));
 		fn.height_pixel_scale(1);
 		fn.height(0.05);

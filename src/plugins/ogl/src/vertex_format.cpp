@@ -65,7 +65,7 @@ namespace {
 		 : actor_base(ai) {}
 		void operator()() const
 		{
-			glClientActiveTextureARB(GL_TEXTURE0);
+//			glClientActiveTextureARB(GL_TEXTURE0);
 			glTexCoordPointer(2,GL_FLOAT,ai.stride,ai.offset);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			if(is_error())

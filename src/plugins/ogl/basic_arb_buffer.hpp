@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "./common.hpp"
 #include "./conversion.hpp"
 #include "./error.hpp"
+#include "./extension.hpp"
 
 namespace sge
 {
@@ -141,7 +142,7 @@ private:
 		init_guard()
 		{
 			if(!GLEW_ARB_vertex_buffer_object)
-				throw std::runtime_error("OpenGL extension not supported: ARB_vertex_buffer_object!");
+				throw std::runtime_error(extension_not_supported_string("ARB_vertex_buffer_object!"));
 		}
 	};
 	
