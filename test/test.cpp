@@ -142,27 +142,24 @@ try
 		if(timer.update())
 			angle += sge::PI*0.01;
 
-//		spr.rotate(angle);
+	//	spr.rotate(angle);
 
 		rend->begin_rendering();
 		is->dispatch();
 		ss.transform(sge::math::matrix_translation(translation));
-//		ss.projection(sge::math::matrix_perspective(0.75,sge::PI*3,-10,100));
 		rend->set_filter_state(0, sge::FARG_MinFilter, sge::FARGV_Linear);
 		rend->set_filter_state(0, sge::FARG_MagFilter, sge::FARGV_Linear);
 
 		ss.draw();
-	//	for(int i = 0; i < 3; ++i)
-	//		sprites[i].draw();
-//		fn.transform(sge::math::matrix_rotation_z(angle));
+		fn.transform(sge::math::matrix_rotation_z(angle));
 		fn.height_pixel_scale(1);
 		fn.height(0.05);
 		fn.draw_text(some_text,sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
 		std::ostringstream os;
 		os << cur_fps;
-//		fn.transform(sge::math::matrix_identity());
-//		fn.draw_text(os.str(),sge::point(0.1,0),sge::dim(1,1),sge::colors::purple);
-//		ls.draw(true);
+		fn.transform(sge::math::matrix_identity());
+		fn.draw_text(os.str(),sge::point(0.1,0),sge::dim(1,1),sge::colors::purple);
+		ls.draw(true);
 		rend->end_rendering();
 		++fps;
 	}
