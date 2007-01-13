@@ -18,27 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../image_loader.hpp"
-#include "../image.hpp"
+#include "../common.hpp"
+#include "../default_render_target.hpp"
 
-sge::devil::image_loader::image_loader()
+sge::ogl::default_render_target::default_render_target(const window_ptr wnd)
+ : wnd(wnd)
+{}
+
+sge::ogl::default_render_target::size_type sge::ogl::default_render_target::width() const
 {
-	ilEnable(IL_FORMAT_SET);
-	ilSetInteger(IL_FORMAT_MODE,IL_RGBA);
-	ilEnable(IL_FILE_OVERWRITE);
+	return wnd->width();
 }
 
-sge::image_ptr sge::devil::image_loader::load_image(const std::string& path, const image::size_type w, const image::size_type h)
+sge::ogl::default_render_target::size_type sge::ogl::default_render_target::height() const
 {
-	image_ptr im(new image(path));
-	
-	if(w && h)
-		im->resample(w,h);
-
-	return im;
+	return wnd->height();
 }
 
-sge::image_ptr sge::devil::image_loader::create_image(const image::const_pointer p, const image::size_type w, const image::size_type h)
+sge::ogl::default_render_target::size_type sge::ogl::default_render_target::size() const
 {
-	return image_ptr(new image(p,w,h));
+	return width()*height();
+}
+
+void sge::ogl::default_render_target::bind_me() const
+{
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 }

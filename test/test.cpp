@@ -38,12 +38,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/input/input_system.hpp"
 #include "../src/input/key_state_tracker.hpp"
 #include "../src/renderer/line_strip.hpp"
+#include "../src/renderer/screenshot.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <sstream>
 #include <iostream>
-#include "../src/math/matrix.hpp"
 
 sge::point rand_point() { return sge::point(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
 
@@ -123,7 +123,7 @@ try
 		ls.add(rand_point());
 
 	const std::string some_text("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789");
-	
+
 	while(running)
 	{
 		if(frames.update())
@@ -139,6 +139,8 @@ try
 			translation.y() -= 0.001;
 		if(ks[sge::KC_DOWN])
 			translation.y() += 0.001;
+		if(ks[sge::KC_RETURN])
+			sge::screenshot(rend,pl,"./shot.png");
 		if(timer.update())
 			angle += sge::PI*0.01;
 

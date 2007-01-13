@@ -52,7 +52,7 @@ public:
 	virtual void set_material(const material& mat) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;
 	virtual void projection(const math::space_matrix& mat) = 0;
-	virtual void set_render_target(texture_ptr target) = 0;
+	virtual void set_render_target(texture_ptr target = texture_ptr()) = 0;
 	virtual void set_viewport(const viewport&) = 0;
 
 	virtual render_target_ptr get_render_target() const = 0;
@@ -62,7 +62,6 @@ public:
 	virtual cube_texture_ptr create_cube_texture(const cube_side_array* data, cube_texture::size_type size, resource_flag_t flags = RF_Default) = 0;
 	virtual vertex_buffer_ptr create_vertex_buffer(const vertex_format& format, vertex_buffer::size_type size, resource_flag_t flags = RF_Default, vertex_buffer::const_pointer data = 0) = 0;
 	virtual index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags = RF_Default, index_buffer::const_pointer data = 0) = 0;
-//	virtual render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height) = 0;
 
 	virtual const renderer_caps& caps() const = 0;
 	virtual unsigned screen_width() const = 0;

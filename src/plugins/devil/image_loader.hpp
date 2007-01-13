@@ -36,7 +36,8 @@ namespace devil
 class image_loader : public sge::image_loader {
 public:
 	image_loader();
-	sge::image_ptr load_image(const std::string& path, unsigned w = 0, unsigned h = 0);
+	sge::image_ptr load_image(const std::string& path, image::size_type w = 0, image::size_type h = 0);
+	sge::image_ptr create_image(image::const_pointer src, image::size_type w, image::size_type h);
 private:
 	struct il_init_guard {
 		il_init_guard() { ilInit(); iluInit(); }

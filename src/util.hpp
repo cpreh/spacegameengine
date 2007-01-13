@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-void sleep(ulong milli_seconds);
+void sleep(unsigned long milli_seconds);
 
 struct no_initialization_tag{};
 

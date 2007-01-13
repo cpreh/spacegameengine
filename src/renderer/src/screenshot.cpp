@@ -18,27 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../image_loader.hpp"
-#include "../image.hpp"
+#include <vector>
+#include"../screenshot.hpp"
 
-sge::devil::image_loader::image_loader()
+void sge::screenshot(const renderer_ptr rend, const image_loader_ptr il, const std::string& filename)
 {
-	ilEnable(IL_FORMAT_SET);
-	ilSetInteger(IL_FORMAT_MODE,IL_RGBA);
-	ilEnable(IL_FILE_OVERWRITE);
+	const render_target_ptr target = rend->get_render_target();
+	std::vector<color> buf(target->width()*target->height());
+	target->copy_data(&buf[0]);
+	const sge::image_ptr shot = il->create_image(&buf[0],target->width(),target->height());
+	shot->save(filename);
 }
 
-sge::image_ptr sge::devil::image_loader::load_image(const std::string& path, const image::size_type w, const image::size_type h)
-{
-	image_ptr im(new image(path));
-	
-	if(w && h)
-		im->resample(w,h);
-
-	return im;
-}
-
-sge::image_ptr sge::devil::image_loader::create_image(const image::const_pointer p, const image::size_type w, const image::size_type h)
-{
-	return image_ptr(new image(p,w,h));
-}

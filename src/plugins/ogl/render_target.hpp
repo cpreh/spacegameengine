@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_RENDER_TARGET_HPP_INCLUDED
 #define SGE_OGL_RENDER_TARGET_HPP_INCLUDED
 
-#include "./common.hpp"
-#include "./texture_base.hpp"
+#include "../../shared_ptr.hpp"
 #include "../../renderer/render_target.hpp"
 
 namespace sge
@@ -30,24 +29,10 @@ namespace sge
 namespace ogl
 {
 
-class render_target : public sge::render_target, public texture_base {
+class render_target : public sge::render_target {
 public:
-	render_target(size_type width, size_type height);
-	~render_target();
-	size_type width() const;
-	size_type height() const;
-	size_type size() const;
-	resource_flag_t flags() const;
-
-	void bind_texture(texture_ptr);	
-	GLuint id() const;
-	void bind_me() const;
-private:
-	size_type _width,
-	          _height;
-
-	GLuint    fbo;
-	GLuint    depthbuffer;
+	void copy_data(pointer);
+	virtual void bind_me() const = 0;
 };
 
 typedef shared_ptr<render_target> render_target_ptr;

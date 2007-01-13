@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	#include <unistd.h>
 #endif
 
-void sge::sleep(const ulong milli_seconds)
+void sge::sleep(const unsigned long milli_seconds)
 {
 #ifdef SGE_WINDOWS_PLATFORM
 	::Sleep(milli_seconds);

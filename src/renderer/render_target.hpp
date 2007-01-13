@@ -21,21 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDER_TARGET_HPP_INCLUDED
 #define SGE_RENDER_TARGET_HPP_INCLUDED
 
+#include <cstddef>
 #include "../shared_ptr.hpp"
-#include "./texture.hpp"
+#include "./color.hpp"
 
 namespace sge
 {
 
 template<typename BitDepth>
-class basic_render_target : public basic_texture_base<BitDepth> {
+class basic_render_target {
 public:
-	typedef basic_texture_base<BitDepth> base;
-	typedef typename base::size_type size_type;
-	typedef typename base::pointer pointer;
+	typedef color value_type;
+	typedef std::size_t size_type;
+	typedef value_type* pointer;
+	typedef const value_type* const_pointer;
 	virtual size_type width() const = 0;
 	virtual size_type height() const = 0;
 	virtual size_type size() const = 0;
+	virtual void copy_data(pointer) = 0;
+	virtual ~basic_render_target(){}
 };
 
 typedef basic_render_target<BitDepth32> render_target;

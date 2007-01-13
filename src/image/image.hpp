@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_HPP_INCLUDED
 #define SGE_IMAGE_HPP_INCLUDED
 
+#include <cstddef>
 #include <boost/utility.hpp>
 #include "../shared_ptr.hpp"
 #include "../renderer/types.hpp"
@@ -30,14 +31,16 @@ namespace sge
 
 class image : boost::noncopyable {
 public:
-	typedef unsigned size_type;
+	typedef std::size_t size_type;
 	typedef color value_type;
 	typedef color* pointer;
 	typedef const color* const_pointer;
+	virtual void data(const_pointer) = 0;
 	virtual const_pointer data() const = 0;
 	virtual size_type width() const = 0;
 	virtual size_type height() const = 0;
-	virtual void resize(size_type width, size_type height) = 0;
+	virtual void resample(size_type width, size_type height) = 0;
+	virtual void save(const std::string& path) = 0;
 	virtual ~image(){}
 };
 typedef shared_ptr<image> image_ptr;

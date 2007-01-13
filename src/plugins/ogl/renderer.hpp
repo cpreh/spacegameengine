@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../window.hpp"
 #include "./common.hpp"
 #include "./render_target.hpp"
+#include "./fbo_render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../win32.hpp"
 #elif SGE_LINUX_PLATFORM
@@ -61,7 +62,7 @@ public:
 	void set_material(const material& mat);
 	void transform(const math::space_matrix& matrix);
 	void projection(const math::space_matrix& matrix);
-	void set_render_target(texture_ptr target);
+	void set_render_target(texture_ptr target = texture_ptr());
 	void set_viewport(const viewport&);
 
 	sge::render_target_ptr get_render_target() const;
@@ -71,16 +72,17 @@ public:
 	cube_texture_ptr create_cube_texture(const cube_side_array* data, cube_texture::size_type size, resource_flag_t flags = RF_Default);
 	vertex_buffer_ptr create_vertex_buffer(const sge::vertex_format& format, vertex_buffer::size_type size, resource_flag_t flags, vertex_buffer::const_pointer data);
 	index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags, index_buffer::const_pointer data);
-	render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height);
 
 	const renderer_caps& caps() const;
 	unsigned screen_width() const;
 	unsigned screen_height() const;
 	window_ptr get_window() const;
 private:
-	renderer_parameters param;
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);
+	fbo_render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height);
+
+	renderer_parameters param;
 	bool clear_zbuffer, clear_stencil, clear_back_buffer;
 	renderer_caps _caps;
 #ifdef SGE_WINDOWS_PLATFORM

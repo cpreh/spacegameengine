@@ -24,17 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include "../shared_ptr.hpp"
 #include "../math/rect.hpp"
+#include "./color.hpp"
 #include "./types.hpp"
-#include "../types.hpp"
 
 namespace sge
 {
-
-template<unsigned Depth> struct BitDepth;
-template<> struct BitDepth<16> { typedef int16 color; };
-template<> struct BitDepth<32> { typedef sge::color color; };
-typedef BitDepth<16> BitDepth16;
-typedef BitDepth<32> BitDepth32;
 
 template<typename BitDepth>
 class basic_texture_base {

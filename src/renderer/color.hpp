@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <ostream>
 
+#include "../types.hpp"
 #include "../typeswitch.hpp"
 
 namespace sge
@@ -30,17 +31,23 @@ namespace sge
 
 typedef uint32 color;
 
+template<unsigned Depth> struct BitDepth;
+template<> struct BitDepth<16> { typedef int16 color; };
+template<> struct BitDepth<32> { typedef sge::color color; };
+typedef BitDepth<16> BitDepth16;
+typedef BitDepth<32> BitDepth32;
+
 #define SGE_RGBA_MAKRO(r,g,b,a) color(color(r) << 24 | color(g) << 16 | color(b) << 8 | color(a))
 
-template<uchar r, uchar g, uchar b, uchar a> struct static_rgba {
+template<unsigned char r, unsigned char g, unsigned char b, unsigned char a> struct static_rgba {
 	static const color value = SGE_RGBA_MAKRO(r,g,b,a);
 };
 
-template<uchar r, uchar g, uchar b> struct static_rgb {
+template<unsigned char r, unsigned char g, unsigned char b> struct static_rgb {
 	static const color value = static_rgba<r,g,b,255>::value;
 };
 
-inline color rgba(const uchar r, const uchar g, const uchar b, const uchar a)
+inline color rgba(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a)
 {
 	return SGE_RGBA_MAKRO(r,g,b,a);
 }

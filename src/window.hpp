@@ -36,6 +36,8 @@ public:
 
 	virtual void title(const std::string& title) = 0;
 	virtual window_size size() const = 0;
+	size_type width() const { return size().w; }
+	size_type height() const { return size().h; }
 	virtual void size(window_size newsize) = 0;
 	virtual const std::string& title() const = 0;
 	virtual ~window(){}

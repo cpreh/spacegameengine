@@ -18,27 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../image_loader.hpp"
-#include "../image.hpp"
+#ifndef SGE_OGL_FBO_RENDER_TARGET_HPP_INCLUDED
+#define SGE_OGL_FBO_RENDER_TARGET_HPP_INCLUDED
 
-sge::devil::image_loader::image_loader()
+#include "../../shared_ptr.hpp"
+#include "./common.hpp"
+#include "../../renderer/texture.hpp"
+#include "./render_target.hpp"
+
+namespace sge
 {
-	ilEnable(IL_FORMAT_SET);
-	ilSetInteger(IL_FORMAT_MODE,IL_RGBA);
-	ilEnable(IL_FILE_OVERWRITE);
+namespace ogl
+{
+
+class fbo_render_target : public render_target {
+public:
+	fbo_render_target(size_type width, size_type height);
+	~fbo_render_target();
+	size_type width() const;
+	size_type height() const;
+	size_type size() const;
+
+	void bind_texture(texture_ptr);	
+	void bind_me() const;
+private:
+	size_type _width,
+	          _height;
+
+	GLuint    fbo;
+	GLuint    depthbuffer;
+};
+
+typedef shared_ptr<fbo_render_target> fbo_render_target_ptr;
+
+}
 }
 
-sge::image_ptr sge::devil::image_loader::load_image(const std::string& path, const image::size_type w, const image::size_type h)
-{
-	image_ptr im(new image(path));
-	
-	if(w && h)
-		im->resample(w,h);
-
-	return im;
-}
-
-sge::image_ptr sge::devil::image_loader::create_image(const image::const_pointer p, const image::size_type w, const image::size_type h)
-{
-	return image_ptr(new image(p,w,h));
-}
+#endif

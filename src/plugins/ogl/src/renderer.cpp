@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../cube_texture.hpp"
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"
-#include "../render_target.hpp"
+#include "../default_render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -192,6 +192,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
 	_caps.max_tex_size = 512;
+
+	set_render_target();
 }
 
 sge::ogl::renderer::~renderer()
@@ -220,10 +222,10 @@ sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(const index_buffer
 	return index_buffer_ptr(new index_buffer(size,flags,data));
 }
 
-sge::ogl::render_target_ptr sge::ogl::renderer::create_render_target(const render_target::size_type width,
-                                                                     const render_target::size_type height)
+sge::ogl::fbo_render_target_ptr sge::ogl::renderer::create_render_target(const render_target::size_type width,
+                                                                         const render_target::size_type height)
 {
-	return render_target_ptr(new render_target(width,height));
+	return fbo_render_target_ptr(new fbo_render_target(width,height));
 }
 
 sge::texture_ptr sge::ogl::renderer::create_texture(const texture::const_pointer src,
@@ -429,17 +431,16 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 {
 	if(!target)
 	{
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+		_render_target.reset(new default_render_target(wnd));
+		_render_target->bind_me();
 		set_viewport(viewport(0,0,wnd->width(),wnd->height()));
 		return;
 	}
-	const shared_ptr<texture> p(dynamic_pointer_cast<texture>(target));
 	
-	if(!_render_target || _render_target->width() != p->width() || _render_target->height() != p->height())
-		_render_target = create_render_target(p->width(),p->height());
-
-	_render_target->bind_texture(p);
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _render_target->id());
+	const shared_ptr<texture> p(dynamic_pointer_cast<texture>(target));
+	const fbo_render_target_ptr ntarget = create_render_target(p->width(),p->height());
+	_render_target = ntarget;
+	ntarget->bind_texture(p);
 	set_viewport(viewport(0,0,p->width(),p->height()));
 }
 

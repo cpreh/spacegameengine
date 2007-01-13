@@ -115,7 +115,7 @@ private:
 		~_dga_guard()
 		{
 			if(enabled)
-				XF86DGADirectVideo(wnd->get_display(),wnd->get_screen(),0);
+				XF86DGADirectVideo(wnd->display(),wnd->screen(),0);
 		}
 		bool enabled;
 		x_window_ptr wnd;

@@ -18,27 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../image_loader.hpp"
-#include "../image.hpp"
+#include <cassert>
+#include "../common.hpp"
+#include "../render_target.hpp"
 
-sge::devil::image_loader::image_loader()
+void sge::ogl::render_target::copy_data(const pointer p)
 {
-	ilEnable(IL_FORMAT_SET);
-	ilSetInteger(IL_FORMAT_MODE,IL_RGBA);
-	ilEnable(IL_FILE_OVERWRITE);
-}
-
-sge::image_ptr sge::devil::image_loader::load_image(const std::string& path, const image::size_type w, const image::size_type h)
-{
-	image_ptr im(new image(path));
-	
-	if(w && h)
-		im->resample(w,h);
-
-	return im;
-}
-
-sge::image_ptr sge::devil::image_loader::create_image(const image::const_pointer p, const image::size_type w, const image::size_type h)
-{
-	return image_ptr(new image(p,w,h));
+	assert(p != 0);
+	bind_me();
+	glReadPixels(0, 0, width(), height(), GL_RGBA, GL_UNSIGNED_BYTE, p);
 }

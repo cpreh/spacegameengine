@@ -41,25 +41,25 @@ void unset_dga_handler(int)
 }
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
-	: wnd(wnd), mmap(XGetModifierMapping(wnd->get_display())), colormap(DefaultColormap(wnd->get_display(),wnd->get_screen())), mmwidth(mmap->max_keypermod), last_mouse(0), _black(wnd->get_display(),colormap), _no_bmp(wnd->get_display()), _no_cursor(wnd->get_display()), dga_guard(wnd)
+	: wnd(wnd), mmap(XGetModifierMapping(wnd->display())), colormap(DefaultColormap(wnd->display(),wnd->screen())), mmwidth(mmap->max_keypermod), last_mouse(0), _black(wnd->display(),colormap), _no_bmp(wnd->display()), _no_cursor(wnd->display()), dga_guard(wnd)
 {
 	int flags;
-	if(XF86DGAQueryDirectVideo(wnd->get_display(),wnd->get_screen(),&flags)==false)
+	if(XF86DGAQueryDirectVideo(wnd->display(),wnd->screen(),&flags)==false)
 		throw std::runtime_error("XF86DGAQueryDirectVideo() failed");
 	if(flags & XF86DGADirectMouse)
 		throw std::runtime_error("DGA Mouse not supported! Non DGA implementation is not present yet!");
 
 	XColor black, dummy;
-	if(XAllocNamedColor(wnd->get_display(), colormap, "black", &black, &dummy ) == 0)
+	if(XAllocNamedColor(wnd->display(), colormap, "black", &black, &dummy ) == 0)
 		throw std::runtime_error("XAllocNamedColor() failed");
 	_black.color = black;
 	_black.dealloc = true;
 
 	const char bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
-	_no_bmp.pixmap = XCreateBitmapFromData(wnd->get_display(), wnd->get_window(), bm_no_data, 8, 8 );
+	_no_bmp.pixmap = XCreateBitmapFromData(wnd->display(), wnd->get_window(), bm_no_data, 8, 8 );
 	if(_no_bmp.pixmap == None)
 		throw std::runtime_error("XCreateBitmapFromData() failed");
-	_no_cursor.cursor = XCreatePixmapCursor(wnd->get_display(), _no_bmp.pixmap, _no_bmp.pixmap, &black, &black, 0, 0);
+	_no_cursor.cursor = XCreatePixmapCursor(wnd->display(), _no_bmp.pixmap, _no_bmp.pixmap, &black, &black, 0, 0);
 	if(_no_cursor.cursor == None)
 		throw std::runtime_error("XCreatePixmapCursor() failed");
 
@@ -93,7 +93,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 
 sge::xinput::input_system::~input_system()
 {
-	XUngrabPointer(wnd->get_display(),CurrentTime);
+	XUngrabPointer(wnd->display(),CurrentTime);
 }
 
 boost::signals::connection sge::xinput::input_system::register_callback(const callback& c)
@@ -105,7 +105,7 @@ void sge::xinput::input_system::grab()
 {
 	for(;;)
 	{
-		const int r = XGrabPointer(wnd->get_display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor, CurrentTime);
+		const int r = XGrabPointer(wnd->display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor, CurrentTime);
 		switch(r) {
 		case GrabSuccess:
 			return;
@@ -125,9 +125,9 @@ void sge::xinput::input_system::grab()
 void sge::xinput::input_system::dispatch()
 {
 	XEvent xev;
-	while(XPending(wnd->get_display()))
+	while(XPending(wnd->display()))
 	{
-		XNextEvent(wnd->get_display(),&xev);
+		XNextEvent(wnd->display(),&xev);
 		if(XFilterEvent(&xev,None))
 			continue;
 
@@ -135,14 +135,14 @@ void sge::xinput::input_system::dispatch()
 		case KeyPress:
 		case KeyRelease:
 			// check for repeated key
-			if(xev.type == KeyRelease && XPending(wnd->get_display()))
+			if(xev.type == KeyRelease && XPending(wnd->display()))
 			{
 				XEvent peek;
-				XPeekEvent(wnd->get_display(), &peek);
+				XPeekEvent(wnd->display(), &peek);
 				if(peek.type == KeyPress &&
 				   peek.xkey.keycode == xev.xkey.keycode)
 				{
-					XNextEvent(wnd->get_display(), &peek);
+					XNextEvent(wnd->display(), &peek);
 					continue;
 				}
 			}
@@ -161,7 +161,7 @@ void sge::xinput::input_system::dispatch()
 				continue;
 			}
 			
-			sig(key_pair(key_type(get_key_name(ks), modifiers, get_key_code(ks), static_cast<uchar>(code)), xev.type == KeyRelease ? 0 : 1));
+			sig(key_pair(key_type(get_key_name(ks), modifiers, get_key_code(ks), static_cast<unsigned char>(code)), xev.type == KeyRelease ? 0 : 1));
 			break;
 			}
 		case ButtonPress:
@@ -189,7 +189,7 @@ void sge::xinput::input_system::dispatch()
 
 void sge::xinput::input_system::enable_dga(const bool enable)
 {
-	XF86DGADirectVideo(wnd->get_display(), wnd->get_screen(), enable ? XF86DGADirectMouse : 0);
+	XF86DGADirectVideo(wnd->display(), wnd->screen(), enable ? XF86DGADirectMouse : 0);
 	dga_guard.enabled = enable;
 }
 

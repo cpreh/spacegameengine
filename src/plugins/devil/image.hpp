@@ -34,11 +34,15 @@ namespace devil
 class image : public sge::image {
 public:
 	image(const std::string& file);
+	image(const_pointer p, size_type w, size_type h);
 	const_pointer data() const;
+	void data(const_pointer);
 	size_type width() const;
 	size_type height() const;
-	void resize(size_type w, size_type h);
+	void resample(size_type w, size_type h);
+	void save(const std::string& path);
 private:
+	void init();
 	void bind_me() const;
 	struct im_guard {
 		im_guard(ILuint i) : i(i) {}
