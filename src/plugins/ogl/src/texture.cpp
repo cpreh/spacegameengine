@@ -47,7 +47,7 @@ void sge::ogl::texture::set_data(const const_pointer src, const lock_rect* const
 	bind_me();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 	if(!r)
-		glTexImage2D(GL_TEXTURE_2D,0,4,width(),height(),0,format,type,src);
+		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width(),height(),0,format,type,src);
 	else
 		glTexSubImage2D(GL_TEXTURE_2D,0,r->left,r->top,r->width(),r->height(),format,type,src);
 	if(is_error())

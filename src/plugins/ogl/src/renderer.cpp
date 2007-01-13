@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../cube_texture.hpp"
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"
+#include "../render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -219,11 +220,10 @@ sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(const index_buffer
 	return index_buffer_ptr(new index_buffer(size,flags,data));
 }
 
-sge::render_target_ptr sge::ogl::renderer::create_render_target(const render_target::size_type width,
-                                                                const render_target::size_type height)
+sge::ogl::render_target_ptr sge::ogl::renderer::create_render_target(const render_target::size_type width,
+                                                                     const render_target::size_type height)
 {
-	std::cerr << "stub: ogl::renderer::create_render_target\n";
-	return render_target_ptr(); // TODO: stub
+	return render_target_ptr(new render_target(width,height));
 }
 
 sge::texture_ptr sge::ogl::renderer::create_texture(const texture::const_pointer src,
@@ -329,7 +329,7 @@ void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type 
 	}
 }
 
-void sge::ogl::renderer::set_filter_state(const stage_type stage, const filter_arg type, const filter_arg_value arg)
+void sge::ogl::renderer::set_filter_state(const filter_arg type, const filter_arg_value arg, const stage_type stage)
 {
 	if(stage > 0)
 	{
@@ -363,6 +363,11 @@ void sge::ogl::renderer::set_float_state(const float_state state, const float_ty
 	case FS_ZBufferClearVal:
 		glClearDepth(value);
 		break;
+	case FS_FogStart:
+	case FS_FogEnd:
+	case FS_FogDensity:
+		glFogf(convert_fog_float_state(state),value);
+		break;
 	}
 }
 
@@ -372,12 +377,24 @@ void sge::ogl::renderer::set_int_state(const int_state state, const int_type val
 	case IS_ClearColor:
 		glClearColor(red_part_rgba_f(value),green_part_rgba_f(value),blue_part_rgba_f(value),alpha_part_rgba_f(value));
 		break;
+	case IS_StencilClearVal:
+		glClearStencil(value);
+		break;
+	case IS_DepthClearVal:
+		glClearDepth(value);
+		break;
 	case IS_AmbientLightColor:
 		{
 		const color4 fc = color_to_color4(value);
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, reinterpret_cast<const GLfloat*>(&fc));
 		}
 		break;
+	case IS_FogMode:
+		glFogi(GL_FOG_MODE, convert_fog_int_value(value));
+		break;
+	case IS_FogColor:
+		const color4 fc = color_to_color4(value);
+		glFogfv(GL_FOG_COLOR, reinterpret_cast<const GLfloat*>(&fc));
 	}
 }
 
@@ -389,6 +406,11 @@ void sge::ogl::renderer::set_material(const material& mat)
 	glMaterialfv(face, GL_SPECULAR, reinterpret_cast<const GLfloat*>(&mat.specular));
 	glMaterialfv(face, GL_EMISSION, reinterpret_cast<const GLfloat*>(&mat.emissive));
 	glMaterialf(face, GL_SHININESS, mat.power);
+}
+
+void sge::ogl::renderer::set_viewport(const viewport& v)
+{
+	glViewport(v.x, v.y, v.w, v.h);
 }
 
 void sge::ogl::renderer::transform(const math::space_matrix& matrix)
@@ -403,21 +425,40 @@ void sge::ogl::renderer::projection(const math::space_matrix& matrix)
 	glLoadMatrixf(math::transpose(matrix).data());
 }
 
-void sge::ogl::renderer::set_render_target(const render_target_ptr target)
+void sge::ogl::renderer::set_render_target(const texture_ptr target)
 {
-	std::cerr << "stub: ogl::renderer::set_render_target\n";
+	if(!target)
+	{
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+		set_viewport(viewport(0,0,wnd->width(),wnd->height()));
+		return;
+	}
+	const shared_ptr<texture> p(dynamic_pointer_cast<texture>(target));
+	
+	if(!_render_target || _render_target->width() != p->width() || _render_target->height() != p->height())
+		_render_target = create_render_target(p->width(),p->height());
+
+	_render_target->bind_texture(p);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _render_target->id());
+	set_viewport(viewport(0,0,p->width(),p->height()));
 }
 
-void sge::ogl::renderer::set_texture(const stage_type stage, const texture_base_ptr tex)
+sge::render_target_ptr sge::ogl::renderer::get_render_target() const
 {
+	return _render_target;
+}
+
+void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_type stage)
+{
+	if(stage > 0)
+		std::cerr << "stub: stage > 0 in ogl::renderer::set_texture\n";
 	glDisable(GL_TEXTURE_1D);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_TEXTURE_3D);
 	if(!tex)
 		return;
-	//glActiveTextureARB(GL_TEXTURE0 + stage);
 	texture_base* const b = ptr_cast<texture_base*>(tex.get());
-	glEnable(b->get_type());
+	glEnable(b->type());
 	b->bind_me();
 }
 

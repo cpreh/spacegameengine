@@ -41,9 +41,14 @@ protected:
 	}
 	void bind_me() const
 	{
-		glBindTexture(Type,id);
+		glBindTexture(Type,id());
 		if(is_error())
 			throw std::runtime_error("glBindTexture() failed!");
+	}
+
+	GLuint id() const
+	{
+		return _id;
 	}
 public:
 	typedef typename Base::value_type value_type;
@@ -57,7 +62,7 @@ public:
 	{
 		// FIXME: prevent mipmapping
 		tex_parameter_i(GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-		glGenTextures(1,&id);
+		glGenTextures(1,&_id);
 		if(is_error())
 			throw std::runtime_error("glGenTextures() failed!");
 		if(mipmaps > 0)
@@ -66,12 +71,13 @@ public:
 	virtual size_type size() const = 0;
 	~basic_texture()
 	{
-		glDeleteTextures(1,&id);
+		glDeleteTextures(1,&_id);
 	}
 	resource_flag_t flags() const { return _flags; }
 private:
 	unsigned mipmaps;
 	resource_flag_t _flags;
+	GLuint _id;
 };
 
 }

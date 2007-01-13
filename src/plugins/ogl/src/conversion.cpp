@@ -117,3 +117,31 @@ template<> GLenum sge::ogl::convert_cast(const cube_side& s)
 		throw std::logic_error("unsupported cube_side");
 	}
 }
+
+GLenum sge::ogl::convert_fog_float_state(const float_state& s)
+{
+	switch(s) {
+	case FS_FogStart:
+		return GL_FOG_START;
+	case FS_FogEnd:
+		return GL_FOG_END;
+	case FS_FogDensity:
+		return GL_FOG_DENSITY;
+	default:
+		throw std::logic_error("unsupported float_state");
+	}
+}
+
+GLint sge::ogl::convert_fog_int_value(const int_type& v)
+{
+	switch(v) {
+	case FM_Linear:
+		return GL_LINEAR;
+	case FM_Exp:
+		return GL_EXP;
+	case FM_Exp2:
+		return GL_EXP2;
+	default:
+		throw std::logic_error("int_value for IS_FogMode out of range");
+	}
+}

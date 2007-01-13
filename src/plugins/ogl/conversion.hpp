@@ -37,6 +37,8 @@ template<> GLenum convert_cast(const filter_arg_value& av);
 template<> GLenum convert_cast(const cube_side& s);
 GLuint convert_lock_flags(lock_flag_t f);
 GLuint convert_resource_flags(resource_flag_t t);
+GLenum convert_fog_float_state(const float_state& s);
+GLint convert_fog_int_value(const int_type& i);
 
 }
 }

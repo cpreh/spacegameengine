@@ -103,7 +103,7 @@ void sge::sprite_system::draw()
 		const texture_ptr tex = (*it)->get_texture();
 		if(tex)
 		{
-			rend->set_texture(0,tex);
+			rend->set_texture(tex);
 			rend->render(vb,ib,0,vb->size(),PT_Triangle,num_objects*2, first_index);
 		}
 		first_index += num_objects * detail::indices_per_sprite;
@@ -115,8 +115,8 @@ void sge::sprite_system::set_parameters()
 {
 	rend->set_bool_state(BS_EnableLighting,false);
 	rend->set_bool_state(BS_EnableAlphaBlending,true);
-	rend->set_filter_state(0,FARG_MinFilter,FARGV_Linear);
-	rend->set_filter_state(0,FARG_MagFilter,FARGV_Linear);
+	rend->set_filter_state(FARG_MinFilter,FARGV_Linear);
+	rend->set_filter_state(FARG_MagFilter,FARGV_Linear);
 	rend->transform(_internal_matrix * _transform);
 	rend->projection(_projection);
 }

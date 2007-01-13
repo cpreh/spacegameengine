@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../renderer/renderer.hpp"
 #include "../../window.hpp"
 #include "./common.hpp"
+#include "./render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../win32.hpp"
 #elif SGE_LINUX_PLATFORM
@@ -55,12 +56,15 @@ public:
 	void set_bool_state(bool_state state, bool_type value);
 	void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value);
 	void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value);
-	void set_filter_state(stage_type stage, filter_arg type, filter_arg_value arg);
-	void set_texture(stage_type stage, texture_base_ptr tex);
+	void set_filter_state(filter_arg type, filter_arg_value arg, stage_type stage);
+	void set_texture(texture_base_ptr tex, stage_type stage);
 	void set_material(const material& mat);
 	void transform(const math::space_matrix& matrix);
 	void projection(const math::space_matrix& matrix);
-	void set_render_target(render_target_ptr target);
+	void set_render_target(texture_ptr target);
+	void set_viewport(const viewport&);
+
+	sge::render_target_ptr get_render_target() const;
 
 	texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels, resource_flag_t flags);
 	volume_texture_ptr create_volume_texture(volume_texture::const_pointer data, volume_texture::size_type width, volume_texture::size_type height, volume_texture::size_type depth, resource_flag_t flags);
@@ -93,6 +97,7 @@ private:
 	x_resource<XF86VidModeModeInfo**> modes;
 	shared_ptr<xf86_resolution_guard> resolution_guard;
 #endif
+	render_target_ptr _render_target;
 };
 
 }

@@ -244,12 +244,12 @@ void sge::font::flush()
 	}
 
 	set_parameters();
-	r->set_texture(0,last_texture);
+	r->set_texture(last_texture);
 	for(job_array::const_iterator it = jobs.begin(); it != jobs.end(); ++it)
 	{
 		if(it->tex != last_texture)
 		{
-			r->set_texture(0,it->tex);
+			r->set_texture(it->tex);
 			last_texture = it->tex;
 		}
 		r->render(vb, ib, 0, vb->size(), PT_Triangle, (it->end_index-it->first_index)*2, it->first_index*6);
@@ -264,6 +264,6 @@ void sge::font::set_parameters()
 	r->set_bool_state(BS_EnableAlphaBlending,true);
 	r->set_bool_state(BS_EnableLighting,true);
 	r->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
-	r->set_filter_state(0,FARG_MinFilter,FARGV_Linear);
-	r->set_filter_state(0,FARG_MagFilter,FARGV_Linear);
+	r->set_filter_state(FARG_MinFilter,FARGV_Linear);
+	r->set_filter_state(FARG_MagFilter,FARGV_Linear);
 }

@@ -32,6 +32,7 @@ class basic_render_target : public basic_texture_base<BitDepth> {
 public:
 	typedef basic_texture_base<BitDepth> base;
 	typedef typename base::size_type size_type;
+	typedef typename base::pointer pointer;
 	virtual size_type width() const = 0;
 	virtual size_type height() const = 0;
 	virtual size_type size() const = 0;

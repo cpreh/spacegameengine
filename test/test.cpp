@@ -147,8 +147,8 @@ try
 		rend->begin_rendering();
 		is->dispatch();
 		ss.transform(sge::math::matrix_translation(translation));
-		rend->set_filter_state(0, sge::FARG_MinFilter, sge::FARGV_Linear);
-		rend->set_filter_state(0, sge::FARG_MagFilter, sge::FARGV_Linear);
+		rend->set_filter_state(sge::FARG_MinFilter, sge::FARGV_Linear);
+		rend->set_filter_state(sge::FARG_MagFilter, sge::FARGV_Linear);
 
 		ss.draw();
 		man.process();

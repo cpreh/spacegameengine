@@ -30,14 +30,14 @@ namespace ogl
 
 class texture_base {
 public:
-	GLenum get_type() const { return type; }
+	GLenum type() const;
 	virtual void bind_me() const = 0;
+	virtual GLuint id() const = 0;
 	virtual ~texture_base() {}
 protected:
-	texture_base(const GLenum type) : type(type) {}
-	GLuint id;
+	texture_base(const GLenum type);
 private:
-	GLenum type;
+	GLenum _type;
 };
 
 }

@@ -37,6 +37,8 @@ public:
 	void title(const std::string& title);
 	void size(window_size sz);
 	window_size size() const { return sz; }
+	unsigned width() { return sz.w; }
+	unsigned height() { return sz.h; }
 	const std::string& title() const { return _title; }
 	bool active() const { return _active; }
 

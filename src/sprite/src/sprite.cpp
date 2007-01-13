@@ -235,7 +235,7 @@ void sge::sprite::draw()
 	}
 
 	spr_sys.set_parameters();
-	spr_sys.get_renderer()->set_texture(0,get_texture());
+	spr_sys.get_renderer()->set_texture(get_texture());
 	spr_sys.get_renderer()->render(spr_sys.vb,spr_sys.ib,0,4,PT_Triangle,2);
 }
 

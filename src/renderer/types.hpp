@@ -120,10 +120,17 @@ enum primitive_type {
 
 enum int_state {
 	IS_ClearColor,
+	IS_StencilClearVal,
+	IS_DepthClearVal,
 	IS_AmbientLightColor,
 	IS_FogColor,
-	IS_StencilClearVal,
 	IS_FogMode
+};
+
+enum fog_mode {
+	FM_Linear,
+	FM_Exp,
+	FM_Exp2
 };
 
 enum float_state {
@@ -138,7 +145,6 @@ enum bool_state {
 	BS_ClearBackBuffer,
 	BS_ClearStencil,
 	BS_EnableFog,
-	BS_EnableRangeFog,
 	BS_EnableStencil,
 	BS_EnableAlphaBlending,
 	BS_EnableZBuffer,
@@ -229,14 +235,12 @@ private:
 	value_type stage;
 };
 
-struct view_port {
-	typedef vector2 pos_type;
-	pos_type     pos;
-	pos_type     sz;
-	space_unit   nearz;
-	space_unit   farz;
-	view_port(const space_unit x, const space_unit y, const space_unit w, const space_unit h, const space_unit nearz, const space_unit farz)
-	 : pos(x,y), sz(w,h), nearz(nearz), farz(farz) {}
+struct viewport {
+	unsigned x, y, w, h;
+
+	viewport(const unsigned x, const unsigned y, const unsigned w, const unsigned h)
+	 : x(x), y(y), w(w), h(h)
+	{}
 };
 
 struct material {
