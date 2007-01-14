@@ -11,7 +11,7 @@ SRC_URI="http://spacegameengine.sourceforge.net/${P}.tar.bz2"
 LICENSE="GPL"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="opengl truetype devil xinput"
+IUSE="opengl truetype devil xinput debug dga"
 
 DEPEND="${RDEPEND}
         dev-util/scons"
@@ -25,20 +25,28 @@ RDEPEND="!games-engines/spacegame
 			x11-libs/libXxf86vm )
          devil? ( media-libs/devil )
 		 truetype? ( media-libs/freetype )
-		 xinput? ( x11-libs/libXxf86dga )"
+		 xinput? (dga? ( x11-libs/libXxf86dga ))"
 
 pkg_setup() {
-	if !(use opengl && use truetype && use devil && use xinput) ; then
+	if !(use opengl && use truetype && use devil && use xinput && use dga) ; then
 		eerror "For now you have to enable all useflags to get a working
-		engine!\nPlease do: \"games-engines/spacegameengine opengl truetype devil xinput\" >> /etc/portage/package.use"
+		engine!\nPlease do: \"games-engines/spacegameengine opengl truetype devil xinput dga\" >> /etc/portage/package.use"
 		die
 	fi
 }
 
+scons_enable() {
+	if use $1; then
+		echo "enable-$1=1"
+	else
+		echo "enable-$1=0"
+	fi;
+}
+
 src_compile() {
-	scons sandbox=${D} prefix=/usr libdir=$(get_libdir) flags="${CXXFLAGS}" || die
+	scons destdir=${D} prefix=/usr libdir=$(get_libdir) cxxflags="${CXXFLAGS}" $(scons_enable debug) $(scons_enable dga) || die
 }
 
 src_install() {
-	scons install sandbox=${D} prefix=/usr libdir=$(get_libdir)	flags="${CXXFLAGS}" || die
+	scons install destdir=${D} prefix=/usr libdir=$(get_libdir) cxxflags="${CXXFLAGS}" || die
 }

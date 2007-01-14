@@ -1,19 +1,21 @@
 from glob import glob
 
-sandbox = ARGUMENTS.get('sandbox', '')
+destdir = ARGUMENTS.get('destdir', '')
 prefix = ARGUMENTS.get('prefix', '.')
 libdir = ARGUMENTS.get('libdir', 'lib')
-argflags = ARGUMENTS.get('flags', '')
+env_flags = ARGUMENTS.get('cxxflags', '')
 
-sandboxprefix = sandbox + prefix
+flags = '-Wall -Wextra -ansi -pedantic ' + env_flags
+if ARGUMENTS.get('enable-debug','0') == '1':
+	flags += ' -g -ggdb'
 
-flags = '-Wall -Wextra -ansi -pedantic -g -ggdb ' + argflags
-lib_path = sandboxprefix + '/' + libdir
+dest = destdir + prefix
+lib_path = dest + '/' + libdir
 plugin_path = lib_path + '/sge'
-bin_path = sandboxprefix + '/bin'
+bin_path = dest + '/bin'
 media = '/share/games/sge'
-media_path = sandboxprefix + media
-header_path = sandboxprefix + '/include/sge'
+media_path = dest + media
+header_path = dest + '/include/sge'
 
 core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/sge' + "\\\"", 'MEDIA_PATH':"\\\"" + prefix + media + "\\\""})
 libcore = core.SharedLibrary('sgecore', [glob('./src/src/*.cpp'),
@@ -36,6 +38,8 @@ freetype.Append(CCFLAGS = ' -I/usr/include/freetype2')
 libfreetype = freetype.SharedLibrary('sgefreetype', [glob('./src/plugins/freetype/src/*.cpp')])
 
 xinput = Environment(LIBS = ['X11', 'Xxf86dga'], CCFLAGS = flags)
+#if(ARGUMENTS.find('--enable-dga'))
+#	xinput.Append(CPPDEFINES = {'USE_DGA', 1})
 libxinput = xinput.SharedLibrary('sgexinput', [glob('./src/plugins/xinput/src/*.cpp')])
 
 #d3d = Environment(CPPPATH = ['/usr/include/wine/windows'], CCFLAGS = argflags + ' /usr/lib/wine/d3d9.dll.so')
