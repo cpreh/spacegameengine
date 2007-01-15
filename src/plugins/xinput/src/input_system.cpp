@@ -103,23 +103,41 @@ boost::signals::connection sge::xinput::input_system::register_callback(const ca
 
 void sge::xinput::input_system::grab()
 {
+	grab_pointer();
+	grab_keyboard();
+}
+
+void sge::xinput::input_system::grab_pointer()
+{
 	for(;;)
-	{
-		const int r = XGrabPointer(wnd->display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor, CurrentTime);
-		switch(r) {
-		case GrabSuccess:
+		if(handle_grab(XGrabPointer(wnd->display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor, CurrentTime)))
 			return;
-		case GrabFrozen:
-			throw std::runtime_error("x11: Grab frozen!");
-		case GrabNotViewable:
-			throw std::runtime_error("x11: GrabNotViewable");
-		case AlreadyGrabbed:
-			break;
-		case GrabInvalidTime:
-			throw std::runtime_error("x11: GrabInvalidTime");
-		}
-		sleep(10);
+}
+
+void sge::xinput::input_system::grab_keyboard()
+{
+	for(;;)
+		if(handle_grab(XGrabKeyboard(wnd->display(), wnd->get_window(), True, GrabModeAsync, GrabModeAsync, CurrentTime)))
+			return;
+}
+
+bool sge::xinput::input_system::handle_grab(const int r) const
+{
+	switch(r) {
+	case GrabSuccess:
+		return true;
+	case GrabFrozen:
+		throw std::runtime_error("x11: Grab frozen!");
+	case GrabNotViewable:
+		throw std::runtime_error("x11: GrabNotViewable");
+	case AlreadyGrabbed:
+		break;
+	case GrabInvalidTime:
+		throw std::runtime_error("x11: GrabInvalidTime");
 	}
+
+	sleep(100);
+	return false;
 }
 
 void sge::xinput::input_system::dispatch()

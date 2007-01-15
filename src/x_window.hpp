@@ -30,24 +30,20 @@ namespace sge
 
 class x_window : public window {
 public:
-	x_window(window_size sz, const std::string& title, Display* dsp, int screen, XVisualInfo* vi, Colormap& cmap);
+	x_window(window_pos pos, window_size sz, const std::string& title, Display* dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
 	~x_window();
 
 	void title(const std::string& title);
 	void size(window_size sz);
 	window_size size() const;
-	const std::string& title() const;
 
 	Window get_window() const;
 	int screen() const;
 	Display* display() const;
 private:
-	Window wnd;
-	window_size sz;
-	std::string _title;
 	Display* dsp;
 	int _screen;
-	Visual* vi;
+	Window wnd;
 };
 
 typedef shared_ptr<x_window> x_window_ptr;

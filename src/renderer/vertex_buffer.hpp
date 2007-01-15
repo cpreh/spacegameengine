@@ -65,7 +65,6 @@ private:
 		 : data(data), stride(stride), oi(&oi)
 		{}
 	};
-
 public:
 	typedef iterator_impl<vertex_pointer> iterator;
 	typedef iterator_impl<const_vertex_pointer> const_iterator;

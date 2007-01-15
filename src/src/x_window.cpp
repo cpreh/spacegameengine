@@ -22,17 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_LINUX_PLATFORM
 
 #include "../x_window.hpp"
-sge::x_window::x_window(const window_size sz, const std::string& _title, Display* const dsp, const int _screen, XVisualInfo* const vi, Colormap& cmap)
- : sz(sz), _title(_title), dsp(dsp), _screen(_screen)
+sge::x_window::x_window(const window_pos pos, const window_size sz, const std::string& t, Display* const dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
+ : dsp(dsp),
+   _screen(vi.screen),
+   wnd(XCreateWindow(dsp, RootWindow(dsp, screen()), pos.x(), pos.y(), sz.w, sz.h,0,vi.depth, InputOutput, vi.visual, CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask, const_cast<XSetWindowAttributes*>(&attr)))
 {
-	XSetWindowAttributes swa;
-	swa.colormap = cmap;
-	swa.border_pixel = 0;
-	swa.background_pixel = 0;
-//	swa.override_redirect = False;
-	swa.event_mask = FocusChangeMask | KeyPressMask | KeyReleaseMask | PropertyChangeMask | StructureNotifyMask | PointerMotionMask | EnterWindowMask | LeaveWindowMask;
-	wnd = XCreateWindow(dsp,RootWindow(dsp,vi->screen),0,0,sz.w,sz.h,0,vi->depth, InputOutput, vi->visual, CWColormap /*| CWOverrideRedirect*/ | CWBorderPixel | CWEventMask, &swa);
-	XStoreName(dsp,wnd,_title.c_str());
+	title(t);
 }
 
 sge::x_window::~x_window()
@@ -47,19 +42,21 @@ void sge::x_window::size(const window_size newsize)
 
 void sge::x_window::title(const std::string& t)
 {
-	_title = t;
-	XStoreName(dsp,wnd,_title.c_str());
+	XStoreName(dsp,wnd,t.c_str());
 }
 
-	
 sge::x_window::window_size sge::x_window::size() const
 {
-	return sz;
-}
+	Window root_return;
+	int x_return,
+	    y_return;
+	unsigned width_return,
+	         height_return,
+	         border_width_return,
+	         depth_return;
 
-const std::string& sge::x_window::title() const
-{
-	return _title;
+	XGetGeometry(display(), get_window(), &root_return, &x_return, &y_return, &width_return, &height_return, &border_width_return, &depth_return);
+	return window_size(width_return,height_return);
 }
 
 Window sge::x_window::get_window() const
