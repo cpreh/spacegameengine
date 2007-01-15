@@ -42,5 +42,6 @@ sge::ogl::default_render_target::size_type sge::ogl::default_render_target::size
 
 void sge::ogl::default_render_target::bind_me() const
 {
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	if(glBindFramebufferEXT)
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 }
