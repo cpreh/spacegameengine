@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <GL/glx.h>
 #include "../../x_window.hpp"
 #include "../../glx.hpp"
+#include "./xf86vidmode.hpp"
+#include <boost/scoped_ptr.hpp>
 #endif
 
 namespace sge
@@ -95,7 +97,8 @@ private:
 	shared_ptr<x_colormap> cm;
 	x_window_ptr wnd;
 	glx_current_guard cg;
-	shared_ptr<xf86_resolution_guard> resolution_guard;
+	boost::scoped_ptr<xf86_vidmode_array> modes;
+	boost::scoped_ptr<xf86_resolution_guard> resolution_guard;
 #endif
 	render_target_ptr _render_target;
 };

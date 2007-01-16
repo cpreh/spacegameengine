@@ -54,14 +54,14 @@ private:
 };
 
 struct glx_context : boost::noncopyable {
-	glx_context(GLXContext c = 0, Display* dsp = 0) : c(c), dsp(dsp) {}
+	glx_context(GLXContext c = 0, Display* const dsp = 0) : c(c), dsp(dsp) {}
 	~glx_context() { glXDestroyContext(dsp,c); }
 	GLXContext c;
 	Display* dsp;
 };
 
 struct x_colormap : boost::noncopyable {
-	x_colormap(Display* d, Colormap c) : d(d), c(c) {}
+	x_colormap(Display* const d, Colormap c) : d(d), c(c) {}
 	~x_colormap() { XFreeColormap(d,c); }
 	operator Colormap() { return c; }
 	Display* d;
@@ -69,19 +69,20 @@ struct x_colormap : boost::noncopyable {
 };
 
 struct glx_current_guard : boost::noncopyable {
-	glx_current_guard(Display* d = 0) : d(d) {}
+	glx_current_guard(Display* const d = 0) : d(d) {}
 	~glx_current_guard() { if(d) glXMakeCurrent(d,None,NULL); }
 	Display* d;
 };
 
 class xf86_resolution_guard : boost::noncopyable {
 public:
-	xf86_resolution_guard(Display* dsp, int screen, const XF86VidModeModeInfo& mode) : dsp(dsp), screen(screen), mode(mode) {}
-	~xf86_resolution_guard() { XF86VidModeSwitchToMode(dsp,screen,&mode); }
+	xf86_resolution_guard(Display* const dsp, const int screen, const XF86VidModeModeInfo& mode) : dsp(dsp), screen(screen), mode(mode) {}
+	~xf86_resolution_guard() { XF86VidModeSwitchToMode(dsp,screen,const_cast<XF86VidModeModeInfo*>(&mode)); 
+	}
 private:
 	Display* dsp;
 	int screen;
-	XF86VidModeModeInfo mode;
+	const XF86VidModeModeInfo& mode;
 };
 
 }

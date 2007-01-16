@@ -34,8 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include "../../../win32_window.hpp"
-#elif SGE_LINUX_PLATFORM
-#include "../xf86vidmode.hpp"
 #endif
 #include <GL/gl.h>
 
@@ -138,23 +136,22 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 
 	if(!param.windowed)
 	{
-		const xf86_vidmode_array modes(dsp,screen);
+		modes.reset(new xf86_vidmode_array(dsp,screen));
 
-		for(xf86_vidmode_array::size_type i = 1; i < modes.size(); ++i)
+		for(xf86_vidmode_array::size_type i = 1; i < modes->size(); ++i)
 		{
-			const XF86VidModeModeInfo& mode = modes[i];
-			
-
+			const XF86VidModeModeInfo& mode = (*modes)[i];
+		
 			if(mode.hdisplay == param.mode.width && mode.vdisplay == param.mode.height && xf86_vidmode_array::refresh_rate(mode) == param.mode.refresh_rate)
 			{
 				if(XF86VidModeSwitchToMode(dsp.get(), screen, const_cast<XF86VidModeModeInfo*>(&mode)) == False)
 					throw std::runtime_error("XF86VidModeSwitchToMode() failed");
-				resolution_guard.reset(new xf86_resolution_guard(dsp.get(),screen,mode));
+				resolution_guard.reset(new xf86_resolution_guard(dsp.get(),screen,(*modes)[0]));
 				XF86VidModeSetViewPort(dsp.get(),screen,0,0);
 				break;
 			}
 
-			if(i == modes.size() - 1)
+			if(i == modes->size() - 1)
 				std::cerr << "Warning: Specific resolution and refresh rate not found!\n";
 		}
 	}
