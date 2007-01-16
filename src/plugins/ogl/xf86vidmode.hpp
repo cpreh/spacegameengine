@@ -18,30 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDER_ERSYSTEM_HPP_INCLUDED
-#define SGE_RENDER_ERSYSTEM_HPP_INCLUDED
+#ifndef SGE_OGL_XF86VIDMODE_HPP_INCLUDED
+#define SGE_OGL_XF86VIDMODE_HPP_INCLUDED
 
-#include <vector>
-#include "../shared_ptr.hpp"
-#include "../types.hpp"
-#include "./types.hpp"
-#include "./renderer.hpp"
+#include <cstddef>
+#include "../../glx.hpp"
+#include <X11/extensions/xf86vmode.h>
 
 namespace sge
 {
+namespace ogl
+{
 
-typedef std::vector<renderer_caps> renderer_caps_array;
-
-class renderer_system {
+class xf86_vidmode_array {
 public:
-	virtual renderer_ptr create_renderer(const renderer_parameters& param,
-	                                     int adapter = 0) = 0;
-	virtual void caps(renderer_caps_array& v) const = 0;
-	virtual ~renderer_system(){}
+	typedef std::size_t size_type;
+	xf86_vidmode_array(const x_display& dsp, const int screen);
+	const XF86VidModeModeInfo& operator[](size_type index) const;
+	static unsigned refresh_rate(const XF86VidModeModeInfo&);
+	size_type size() const;
+private:
+	x_resource<XF86VidModeModeInfo**> modes;
+	size_type sz;
 };
 
-typedef shared_ptr<renderer_system> renderer_system_ptr;
-
+}
 }
 
 #endif

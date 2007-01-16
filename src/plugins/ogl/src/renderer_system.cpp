@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../renderer_system.hpp"
 #include "../renderer.hpp"
+#include "../xf86vidmode.hpp"
 
 sge::renderer_ptr sge::ogl::renderer_system::create_renderer(
 	const renderer_parameters& param, const int adapter)
@@ -27,6 +28,14 @@ sge::renderer_ptr sge::ogl::renderer_system::create_renderer(
 	return renderer_ptr(new renderer(param,adapter));
 }
 
-void sge::ogl::renderer_system::get_renderer_caps(renderer_caps_array& v) const
+void sge::ogl::renderer_system::caps(renderer_caps_array& v) const
 {
+	const x_display dsp;
+	const int screen = DefaultScreen(dsp.get());
+	const xf86_vidmode_array modes(dsp,screen);
+	
+	renderer_caps ret;
+	for(xf86_vidmode_array::size_type i = 0; i < modes.size(); ++i)
+		ret.display_modes.push_back(display_mode(modes[i].hdisplay, modes[i].vdisplay, BD_32, xf86_vidmode_array::refresh_rate(modes[i])));
+	v.push_back(ret);
 }

@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <GL/glx.h>
-#include <X11/extensions/xf86vmode.h>
 #include "../../x_window.hpp"
 #include "../../glx.hpp"
 #endif
@@ -96,7 +95,6 @@ private:
 	shared_ptr<x_colormap> cm;
 	x_window_ptr wnd;
 	glx_current_guard cg;
-	x_resource<XF86VidModeModeInfo**> modes;
 	shared_ptr<xf86_resolution_guard> resolution_guard;
 #endif
 	render_target_ptr _render_target;

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../../../ptr_cast.hpp"
 #include "../../../renderer/types.hpp"
-#include "../../../math.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
 #include "../cube_texture.hpp"
@@ -36,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <windows.h>
 #include "../../../win32_window.hpp"
 #elif SGE_LINUX_PLATFORM
-#include <cassert>
+#include "../xf86vidmode.hpp"
 #endif
 #include <GL/gl.h>
 
@@ -75,9 +74,11 @@ int handler(Display* const d, XErrorEvent* const e)
 #endif
 
 // TODO: maybe support different adapters?
-sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
+sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned adapter)
  : param(param), clear_zbuffer(false), clear_stencil(false), clear_back_buffer(true)
 {
+	if(adapter > 0)
+		std::cerr << "stub: adapter cannot be > 0 for opengl plugin (adapter was " << adapter << ")\n";
 #ifdef SGE_WINDOWS_PLATFORM
 	const unsigned color_depth = bit_depth_bit_count(param.mode.depth);
 	if(!param.windowed)
@@ -137,27 +138,24 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 
 	if(!param.windowed)
 	{
-		int event_base, error_base;
-		if(XF86VidModeQueryExtension(dsp.get(), &event_base, &error_base) == False)
-			std::cerr << "Warning: You have selected non windowed mode but you are lacking the xf86vidmode extension!";
+		const xf86_vidmode_array modes(dsp,screen);
 
-		int mode_count;
-
-		if(XF86VidModeGetAllModeLines(dsp.get(),screen,&mode_count,&modes) == False)
-			throw std::runtime_error("XF86VidModeGetAllModeLines() failed");
-
-		assert(mode_count >= 0);
-		for(std::size_t i = 1; i < static_cast<std::size_t>(mode_count); ++i)
+		for(xf86_vidmode_array::size_type i = 1; i < modes.size(); ++i)
 		{
-			const unsigned vrefresh = round_div_int(1000 * modes[i]->dotclock, unsigned(modes[i]->htotal * modes[i]->vtotal));
-			if(modes[i]->hdisplay == param.mode.width && modes[i]->vdisplay == param.mode.height && vrefresh == param.mode.refresh_rate)
+			const XF86VidModeModeInfo& mode = modes[i];
+			
+
+			if(mode.hdisplay == param.mode.width && mode.vdisplay == param.mode.height && xf86_vidmode_array::refresh_rate(mode) == param.mode.refresh_rate)
 			{
-				if(XF86VidModeSwitchToMode(dsp.get(),screen,&*modes[i]) == False)
+				if(XF86VidModeSwitchToMode(dsp.get(), screen, const_cast<XF86VidModeModeInfo*>(&mode)) == False)
 					throw std::runtime_error("XF86VidModeSwitchToMode() failed");
-				resolution_guard.reset(new xf86_resolution_guard(dsp.get(),screen,&*modes[0]));
+				resolution_guard.reset(new xf86_resolution_guard(dsp.get(),screen,mode));
 				XF86VidModeSetViewPort(dsp.get(),screen,0,0);
 				break;
 			}
+
+			if(i == modes.size() - 1)
+				std::cerr << "Warning: Specific resolution and refresh rate not found!\n";
 		}
 	}
 
@@ -165,7 +163,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	vi = glXChooseVisual(dsp.get(),screen,attributes);
 	if(vi == NULL)
 		throw std::runtime_error("glXChooseVisual() failed");
-	ct.c = glXCreateContext(dsp.get(), vi.t, None, GL_TRUE);
+	ct.c = glXCreateContext(dsp.get(), vi.get(), None, GL_TRUE);
 	ct.dsp = dsp.get();
 	if(ct.c == NULL)
 		throw std::runtime_error("glXCreateContext() failed");
@@ -178,7 +176,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, unsigned adapter)
 	swa.override_redirect = param.windowed ? False : True;
 	swa.event_mask = FocusChangeMask | KeyPressMask | KeyReleaseMask | PropertyChangeMask | StructureNotifyMask | PointerMotionMask | EnterWindowMask | LeaveWindowMask;
 
-	wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width, param.mode.height), "spacegameengine", dsp.get(), swa, *(vi.t)));
+	wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width, param.mode.height), "spacegameengine", dsp.get(), swa, *(vi.get())));
 
 	if(param.windowed)
 		XMapWindow(dsp.get(), wnd->get_window());

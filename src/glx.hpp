@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GLX_HPP_INCLUDED
 #define SGE_GLX_HPP_INCLUDED
 
+#include <boost/noncopyable.hpp>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <GL/glx.h>
@@ -29,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-struct x_display {
+struct x_display : boost::noncopyable {
 	x_display() : d(XOpenDisplay(NULL)) { if(!d) throw std::runtime_error("XOpenDisplay failed or dsp is 0"); }
 	~x_display() { XCloseDisplay(d); }
 	Display* get() const { return d; }
@@ -37,25 +38,29 @@ private:
 	Display* d;
 };
 	
-template<class T> struct x_resource {
+template<typename T> struct x_resource : boost::noncopyable {
 	x_resource() : t(0){}
-	x_resource(T t) : t(t) {}
+	x_resource(const T t) : t(t) {}
 	~x_resource() { if(t) XFree(t); }
-	operator T() { return t; }
 	x_resource& operator=(const T& _t) { t = _t; return *this; }
-	T& operator->() { return t; }
-	T* operator&() { return &t; }
+	bool operator==(const T r) const { return t == r; }
+	const T& operator->() const { return t; }
+	const T& operator*() const { return t; }
+	const T* pointer_to() const { return &t; }
+	T get() { return t; }
+	T* pointer_to() { return &t; }
+private:
 	T t;
 };
 
-struct glx_context {
+struct glx_context : boost::noncopyable {
 	glx_context(GLXContext c = 0, Display* dsp = 0) : c(c), dsp(dsp) {}
 	~glx_context() { glXDestroyContext(dsp,c); }
 	GLXContext c;
 	Display* dsp;
 };
 
-struct x_colormap {
+struct x_colormap : boost::noncopyable {
 	x_colormap(Display* d, Colormap c) : d(d), c(c) {}
 	~x_colormap() { XFreeColormap(d,c); }
 	operator Colormap() { return c; }
@@ -63,20 +68,20 @@ struct x_colormap {
 	Colormap c;
 };
 
-struct glx_current_guard {
+struct glx_current_guard : boost::noncopyable {
 	glx_current_guard(Display* d = 0) : d(d) {}
 	~glx_current_guard() { if(d) glXMakeCurrent(d,None,NULL); }
 	Display* d;
 };
 
-class xf86_resolution_guard {
+class xf86_resolution_guard : boost::noncopyable {
 public:
-	xf86_resolution_guard(Display* dsp, int screen, XF86VidModeModeInfo* mode) : dsp(dsp), screen(screen), mode(mode) {}
-	~xf86_resolution_guard() { XF86VidModeSwitchToMode(dsp,screen,mode); }
+	xf86_resolution_guard(Display* dsp, int screen, const XF86VidModeModeInfo& mode) : dsp(dsp), screen(screen), mode(mode) {}
+	~xf86_resolution_guard() { XF86VidModeSwitchToMode(dsp,screen,&mode); }
 private:
 	Display* dsp;
 	int screen;
-	XF86VidModeModeInfo* mode;
+	XF86VidModeModeInfo mode;
 };
 
 }
