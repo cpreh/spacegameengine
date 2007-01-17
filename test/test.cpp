@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sstream>
 #include <iostream>
 
-sge::point rand_point() { return sge::point(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
+sge::pos3 rand_point() { return sge::pos3(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX), 0); }
 
 int main()
 try
@@ -55,14 +55,14 @@ try
 	sge::plugin_manager pm;
 	sge::renderer_system_ptr rs = pm.get_plugin<sge::renderer_system>();
 
-	sge::renderer_caps_array caps;
+	/*sge::renderer_caps_array caps;
 	rs->caps(caps);
 
 	for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
 	{
 		const sge::display_mode& mode = caps.at(0).display_modes[i];
 		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
-	}
+	}*/
 
 	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100)/*, 1, true*/);
 	sge::renderer_ptr rend = rs->create_renderer(param);
@@ -128,7 +128,7 @@ try
 
 	sge::vector3 translation;
 
-	sge::line_strip<sge::point> ls(rend, sge::colors::red);
+	sge::line_strip ls(rend, sge::colors::red);
 	for(int i = 0; i < 5; ++i)
 		ls.add(rand_point());
 

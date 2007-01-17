@@ -36,10 +36,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../font/font_system.hpp"
 #include "../font/font_impl.hpp"
 #include "../math/matrix.hpp"
+#include "./transformable.hpp"
 
 namespace sge
 {
-class font {
+
+class font : public transformable {
 public:
 	typedef font_char char_type;
 	typedef font_string string_type;
@@ -62,8 +64,6 @@ public:
 	font_unit char_space(char_type ch) const;
 	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = FTF_Default) const;
 	font_size text_size(const string_type& s, font_unit width, font_flag_t flags = FTF_Default) const;
-
-	void transform(const math::space_matrix& mat);
 private:
 	void set_parameters();
 	void add_job(size_type cur_index);
@@ -77,7 +77,7 @@ private:
 	};
 	typedef std::vector<job> job_array;
 
-	renderer_ptr           r;
+	renderer_ptr           rend;
 	font_impl_ptr          impl;
 	font_unit              _height;
 	vertex_buffer_ptr      vb;
@@ -85,7 +85,6 @@ private:
 	job_array              jobs;
 	texture_ptr            last_texture;
 	size_type              last_index;
-	math::space_matrix     trans;
 };
 
 typedef shared_ptr<font> font_ptr;

@@ -18,37 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LINE_STRIP_HPP_INCLUDED
-#define SGE_LINE_STRIP_HPP_INCLUDED
+#include "../transformable.hpp"
 
-#include <boost/noncopyable.hpp>
-#include <vector>
-#include "./renderer.hpp"
-#include "./vertex_buffer.hpp"
-#include "./transformable.hpp"
+sge::transformable::transformable(const renderer_ptr rend, const math::space_matrix& internal, const math::space_matrix& _projection, const math::space_matrix& _transform)
+ : rend(rend),
+   _internal_matrix(internal),
+   _projection(_projection),
+   _transform(_transform)
+{}
 
-namespace sge
+void sge::transformable::internal_transformation(const math::space_matrix& m)
 {
-
-class line_strip : public transformable, boost::noncopyable {
-public:
-	typedef vertex_buffer::size_type size_type;
-
-	line_strip(renderer_ptr rend, color _col, size_type init_lines = 50);
-	line_strip& add(const pos3& a);
-	void set_color(color c);
-	void draw(bool loop = false);
-	pos3& operator[](size_type index);
-	const pos3& operator[](size_type index) const;
-	void clear();
-private:
-	typedef std::vector<pos3> pos_vector;
-	const renderer_ptr rend;
-	color _col;
-	vertex_buffer_ptr vb;
-	pos_vector vertices;
-};
-
+	_internal_matrix = m;
 }
 
-#endif
+void sge::transformable::transform(const math::space_matrix& m)
+{
+	_transform = m;
+}
+
+void sge::transformable::projection(const math::space_matrix& m)
+{
+	_projection = m;
+}
+
+void sge::transformable::set_matrices()
+{
+	rend->transform(_internal_matrix * _transform);
+	rend->projection(_projection);
+}
+

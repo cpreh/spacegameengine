@@ -32,23 +32,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/matrix.hpp"
 #include "./sprite_fwd.hpp"
 #include "../texture/texture_map.hpp"
+#include "../renderer/transformable.hpp"
 
 namespace sge
 {
 
-class sprite_system : public texture_map {
+class sprite_system : public texture_map, public transformable {
 public:
 	sprite_system(renderer_ptr rend, handler_function not_found_handler = 0/*, texture_map_ptr texture_map = texture_map_ptr()*/);
 	void draw();
 
 //	texture_map_ptr get_texture_map() const;
 
-	void enable_clipping(bool);
 	void set_parameters();
 	renderer_ptr get_renderer() const;
-	void internal_transformation(const math::space_matrix&);
-	void transform(const math::space_matrix&);
-	void projection(const math::space_matrix&);
 private:
 	sprite_list::iterator attach(sprite& s);
 	void detach(const sprite& s);
@@ -59,12 +56,6 @@ private:
 	sprite_list sprites;
 
 	renderer_ptr rend;
-	bool _clipping;
-	
-	math::space_matrix _internal_matrix,
-	                   _transform,
-			   _projection;
-
 	vertex_buffer_ptr vb;
 	index_buffer_ptr ib;
 	typedef std::vector<vertex_buffer::size_type> free_pos_vector;

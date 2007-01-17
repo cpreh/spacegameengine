@@ -31,12 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //TODO: maybe exchange dereference_binder with something of boost::lambda
 
 sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_function handler)
- : texture_map(rend,handler),
-   rend(rend),
-   _clipping(true),
-   _internal_matrix(matrix_2d_to_3d()),
-   _transform(math::matrix_identity()),
-   _projection(math::matrix_orthogonal_xy())
+ : texture_map(rend, handler),
+   transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+   rend(rend)
 {
 	const unsigned init_sprites = 25;
 	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Diffuse).add(VU_Tex), init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
@@ -117,31 +114,10 @@ void sge::sprite_system::set_parameters()
 	rend->set_bool_state(BS_EnableAlphaBlending,true);
 	rend->set_filter_state(FARG_MinFilter,FARGV_Linear);
 	rend->set_filter_state(FARG_MagFilter,FARGV_Linear);
-	rend->transform(_internal_matrix * _transform);
-	rend->projection(_projection);
-}
-
-void sge::sprite_system::enable_clipping(const bool clipping)
-{
-	_clipping = clipping;
+	set_matrices();
 }
 
 sge::renderer_ptr sge::sprite_system::get_renderer() const
 {
 	return rend;
-}
-
-void sge::sprite_system::internal_transformation(const math::space_matrix& m)
-{
-	_internal_matrix = m;
-}
-
-void sge::sprite_system::transform(const math::space_matrix& m)
-{
-	_transform = m;
-}
-
-void sge::sprite_system::projection(const math::space_matrix& m)
-{
-	_projection = m;
 }

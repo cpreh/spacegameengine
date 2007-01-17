@@ -32,19 +32,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 
-sge::font::font(const renderer_ptr r, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
- : r(r),
-   impl(font_sys->create_font(r,font_name,quality_in_pixel,weight)),
-   vb(r->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex),200)),
-   ib(r->create_index_buffer(vb->size()*3/2)),
-   trans(math::matrix_identity())
+sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
+ : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+   rend(rend),
+   impl(font_sys->create_font(rend, font_name, quality_in_pixel ,weight)),
+   vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex), 200)),
+   ib(rend->create_index_buffer(vb->size()*3/2))
 {
 	height_pixel_scale(1);
 }
 
 void sge::font::height_pixel_scale(const unsigned scale)
 {
-	height(font_unit(impl->optimal_height_base()*scale) / r->screen_height());
+	height(font_unit(impl->optimal_height_base()*scale) / rend->screen_height());
 }
 
 sge::font_unit sge::font::height() const
@@ -54,17 +54,12 @@ sge::font_unit sge::font::height() const
 
 sge::font_unit sge::font::optimal_height_base() const
 {
-	return font_unit(impl->optimal_height_base()) / r->screen_height();
+	return font_unit(impl->optimal_height_base()) / rend->screen_height();
 }
 
 void sge::font::height(const space_unit h)
 {
 	_height = h;
-}
-
-void sge::font::transform(const math::space_matrix& m)
-{
-	trans = m;
 }
 
 sge::font_size sge::font::draw_text(const string_type& text, const font_pos start_pos, const font_size max_sz, const color col, const font_flag_t flags)
@@ -95,7 +90,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 			pos.y() = start_pos.y();
 	}
 
-	r->set_int_state(IS_AmbientLightColor,col);
+	rend->set_int_state(IS_AmbientLightColor,col);
 
 	font_size sz;
 	string_type::const_iterator sbeg(text.begin()),
@@ -244,26 +239,25 @@ void sge::font::flush()
 	}
 
 	set_parameters();
-	r->set_texture(last_texture);
+	rend->set_texture(last_texture);
 	for(job_array::const_iterator it = jobs.begin(); it != jobs.end(); ++it)
 	{
 		if(it->tex != last_texture)
 		{
-			r->set_texture(it->tex);
+			rend->set_texture(it->tex);
 			last_texture = it->tex;
 		}
-		r->render(vb, ib, 0, vb->size(), PT_Triangle, (it->end_index-it->first_index)*2, it->first_index*6);
+		rend->render(vb, ib, 0, vb->size(), PT_Triangle, (it->end_index-it->first_index)*2, it->first_index*6);
 	}
 	jobs.clear();
 }
 
 void sge::font::set_parameters()
 {
-	r->transform(trans * matrix_2d_to_3d());
-	r->projection(math::matrix_orthogonal_xy());
-	r->set_bool_state(BS_EnableAlphaBlending,true);
-	r->set_bool_state(BS_EnableLighting,true);
-	r->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
-	r->set_filter_state(FARG_MinFilter,FARGV_Linear);
-	r->set_filter_state(FARG_MagFilter,FARGV_Linear);
+	set_matrices();
+	rend->set_bool_state(BS_EnableAlphaBlending,true);
+	rend->set_bool_state(BS_EnableLighting,true);
+	rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
+	rend->set_filter_state(FARG_MinFilter,FARGV_Linear);
+	rend->set_filter_state(FARG_MagFilter,FARGV_Linear);
 }
