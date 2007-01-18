@@ -27,28 +27,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/keysym.h>
 #include <X11/Xlib.h>
 #include <X11/X.h>
+#ifdef USE_DGA
 #include <X11/extensions/xf86dga.h>
+#endif
 #include <iostream>
-#include <signal.h>
-
-void unset_dga_handler(int)
-{
-	Display* dsp = XOpenDisplay(NULL);
-	if(!dsp)
-		return;
-	XF86DGADirectVideo(dsp, DefaultScreen(dsp), 0);
-	XCloseDisplay(dsp);
-}
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
-	: wnd(wnd), mmap(XGetModifierMapping(wnd->display())), colormap(DefaultColormap(wnd->display(),wnd->screen())), mmwidth(mmap->max_keypermod), last_mouse(0), _black(wnd->display(),colormap), _no_bmp(wnd->display()), _no_cursor(wnd->display()), dga_guard(wnd)
+ : wnd(wnd),
+   mmap(XGetModifierMapping(wnd->display())),
+   colormap(DefaultColormap(wnd->display(),wnd->screen())),
+   mmwidth(mmap->max_keypermod),
+   mouse_last(),
+   _black(wnd->display(),colormap),
+   _no_bmp(wnd->display()),
+   _no_cursor(wnd->display()),
+#ifdef USE_DGA
+   dga_guard(wnd),
+   use_dga(true)
+#else
+   use_dga(false)
+#endif
 {
+#ifdef USE_DGA
 	int flags;
 	if(XF86DGAQueryDirectVideo(wnd->display(),wnd->screen(),&flags)==false)
 		throw std::runtime_error("XF86DGAQueryDirectVideo() failed");
 	if(flags & XF86DGADirectMouse)
-		throw std::runtime_error("DGA Mouse not supported! Non DGA implementation is not present yet!");
+	{
+		std::cerr << "You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system! Disabling dga.";
+		use_dga = false;
+	}
+#endif
+	if(!use_dga)
+	{
+		Window root_return,
+		       child_return;
+		int root_x_return,
+		    root_y_return,
+		    win_x_return,
+		    win_y_return;
+		unsigned mask_return;
 
+		XQueryPointer(wnd->display(), wnd->get_window(), &root_return, &child_return, &root_x_return, &root_y_return, &win_x_return, &win_y_return, &mask_return);
+		mouse_last.x() = win_x_return;
+		mouse_last.y() = win_y_return;
+	}
+	
 	XColor black, dummy;
 	if(XAllocNamedColor(wnd->display(), colormap, "black", &black, &dummy ) == 0)
 		throw std::runtime_error("XAllocNamedColor() failed");
@@ -56,7 +80,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	_black.dealloc = true;
 
 	const char bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
-	_no_bmp.pixmap = XCreateBitmapFromData(wnd->display(), wnd->get_window(), bm_no_data, 8, 8 );
+	_no_bmp.pixmap = XCreateBitmapFromData(wnd->display(), wnd->get_window(), bm_no_data, 8, 8);
 	if(_no_bmp.pixmap == None)
 		throw std::runtime_error("XCreateBitmapFromData() failed");
 	_no_cursor.cursor = XCreatePixmapCursor(wnd->display(), _no_bmp.pixmap, _no_bmp.pixmap, &black, &black, 0, 0);
@@ -64,9 +88,6 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 		throw std::runtime_error("XCreatePixmapCursor() failed");
 
 	grab();
-//	signal(SIGABRT,unset_dga_handler);
-//	if(signal(SIGSEGV,unset_dga_handler) == SIG_ERR)
-//		std::cerr << "Warning: Failed to set signal handler!\n";
 	enable_dga(true);
 
 	x11tosge[NoSymbol] = KC_None;
@@ -152,7 +173,7 @@ void sge::xinput::input_system::dispatch()
 		switch(xev.type) {
 		case KeyPress:
 		case KeyRelease:
-			// check for repeated key
+			// check for repeated key (thanks to SDL)
 			if(xev.type == KeyRelease && XPending(wnd->display()))
 			{
 				XEvent peek;
@@ -187,10 +208,10 @@ void sge::xinput::input_system::dispatch()
 			sig(key_pair(mouse_key(xev.xbutton.button), xev.type == ButtonRelease ? 0 : 1));
 			break;
 		case MotionNotify:
-			if(xev.xmotion.x_root)
-				sig(key_pair(key_type("MouseX", modifiers, KC_MOUSEX, 0), space_unit(xev.xmotion.x_root) / wnd->size().w));
-			if(xev.xmotion.y_root)
-				sig(key_pair(key_type("MouseY", modifiers, KC_MOUSEY, 0), space_unit(xev.xmotion.y_root) / wnd->size().h));
+			if(use_dga)
+				private_mouse_motion(xev.xmotion.x_root, xev.xmotion.y_root);
+			else
+				warped_motion(xev);
 			break;
 		case LeaveNotify:
 			enable_dga(false);
@@ -205,10 +226,18 @@ void sge::xinput::input_system::dispatch()
 	}
 }
 
-void sge::xinput::input_system::enable_dga(const bool enable)
+void sge::xinput::input_system::enable_dga(const bool 
+#ifdef USE_DGA
+		enable
+#endif
+)
 {
+#ifdef USE_DGA
+	if(!use_dga)
+		return;
 	XF86DGADirectVideo(wnd->display(), wnd->screen(), enable ? XF86DGADirectMouse : 0);
 	dga_guard.enabled = enable;
+#endif
 }
 
 sge::key_type sge::xinput::input_system::mouse_key(const unsigned x11code) const
@@ -254,4 +283,62 @@ void sge::xinput::input_system::update_modifiers(const key_value_array& keys)
 //		if(code && 0!=bit(keys, code))
 //			{return LOCK_DOWN;}
   	}
+}
+
+void sge::xinput::input_system::private_mouse_motion(const mouse_coordinate_t deltax, const mouse_coordinate_t deltay)
+{
+	if(deltax)
+		sig(key_pair(key_type("MouseX", modifiers, KC_MOUSEX, 0), space_unit(deltax) / wnd->size().w));
+	if(deltay)
+		sig(key_pair(key_type("MouseY", modifiers, KC_MOUSEY, 0), space_unit(deltay) / wnd->size().h));
+}
+
+// thanks to SDL
+void sge::xinput::input_system::warped_motion(XEvent& xevent)
+{
+	const mouse_coordinate_t MOUSE_FUDGE_FACTOR = 8;
+
+	const mouse_coordinate_t w = wnd->width(),
+	                         h = wnd->height();
+	mouse_coordinate_t deltax = xevent.xmotion.x - mouse_last.x(),
+	                   deltay = xevent.xmotion.y - mouse_last.y();
+	
+	mouse_last.x() = xevent.xmotion.x;
+	mouse_last.y() = xevent.xmotion.y;
+
+	private_mouse_motion(deltax, deltay);
+
+	if ( !((xevent.xmotion.x < MOUSE_FUDGE_FACTOR) ||
+	     (xevent.xmotion.x > (w-MOUSE_FUDGE_FACTOR)) ||
+	     (xevent.xmotion.y < MOUSE_FUDGE_FACTOR) ||
+	     (xevent.xmotion.y > (h-MOUSE_FUDGE_FACTOR)) ))
+		return;
+	
+	while ( XCheckTypedEvent(wnd->display(), MotionNotify, &xevent) )
+	{
+		deltax = xevent.xmotion.x - mouse_last.x();
+		deltay = xevent.xmotion.y - mouse_last.y();
+
+		mouse_last.x() = xevent.xmotion.x;
+		mouse_last.y() = xevent.xmotion.y;
+
+		private_mouse_motion(deltax, deltay);
+	}
+	mouse_last.x() = w/2;
+	mouse_last.y() = h/2;
+	XWarpPointer(wnd->display(), None, wnd->get_window(), 0, 0, 0, 0, mouse_last.x(), mouse_last.y());
+
+	const unsigned max_loops = 10;
+	for(unsigned i = 0; i < max_loops; ++i )
+	{
+		XMaskEvent(wnd->display(), PointerMotionMask, &xevent);
+		if ( (xevent.xmotion.x > mouse_last.x() - MOUSE_FUDGE_FACTOR) &&
+		     (xevent.xmotion.x < mouse_last.x() + MOUSE_FUDGE_FACTOR) &&
+		     (xevent.xmotion.y > mouse_last.y() - MOUSE_FUDGE_FACTOR) &&
+		     (xevent.xmotion.y < mouse_last.y() + MOUSE_FUDGE_FACTOR) )
+			break;
+
+		if(i == max_loops - 1)
+			std::cerr << "warning: didn't detect mouse warp motion! Try to enable dga mouse instead.\n";
+	}
 }

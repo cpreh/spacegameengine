@@ -38,8 +38,8 @@ freetype.Append(CCFLAGS = ' -I/usr/include/freetype2')
 libfreetype = freetype.SharedLibrary('sgefreetype', [glob('./src/plugins/freetype/src/*.cpp')])
 
 xinput = Environment(LIBS = ['X11', 'Xxf86dga'], CCFLAGS = flags)
-#if(ARGUMENTS.find('--enable-dga'))
-#	xinput.Append(CPPDEFINES = {'USE_DGA', 1})
+if ARGUMENTS.get('enable-dga','0') == '1':
+	xinput.Append(CPPDEFINES = {'USE_DGA': 1 })
 libxinput = xinput.SharedLibrary('sgexinput', [glob('./src/plugins/xinput/src/*.cpp')])
 
 #d3d = Environment(CPPPATH = ['/usr/include/wine/windows'], CCFLAGS = argflags + ' /usr/lib/wine/d3d9.dll.so')

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <map>
 #include "../../input/input_system.hpp"
 #include "../../x_window.hpp"
+#include "../../math/vector.hpp"
 #include <boost/array.hpp>
 #include <X11/extensions/xf86dga.h>
 
@@ -43,12 +44,15 @@ public:
 	boost::signals::connection register_callback(const callback& c);
 	void dispatch();
 private:
+	typedef int mouse_coordinate_t;
 	void grab();
 	void grab_pointer();
 	void grab_keyboard();
 	bool handle_grab(int return_value) const;
 	void enable_dga(bool);
 	key_type mouse_key(unsigned x11code) const;
+	void warped_motion(XEvent&);
+	void private_mouse_motion(mouse_coordinate_t deltax, mouse_coordinate_t deltay);
 
 	signal_type sig;
 
@@ -66,7 +70,8 @@ private:
 
 	key_value_array last_keys;
 	modifier_state modifiers;
-	unsigned last_mouse;
+
+	math::vector<mouse_coordinate_t,2> mouse_last;
 
 	typedef std::map<unsigned,key_code> x11_to_sge_array;
 	x11_to_sge_array x11tosge;
@@ -113,6 +118,7 @@ private:
 	_x_pixmap _no_bmp;
 	_x_cursor _no_cursor;
 
+#ifdef USE_DGA
 	struct _dga_guard {
 		_dga_guard(const x_window_ptr wnd) : enabled(false), wnd(wnd) {}
 		~_dga_guard()
@@ -124,6 +130,8 @@ private:
 		x_window_ptr wnd;
 	};
 	_dga_guard dga_guard;
+#endif
+	bool use_dga;
 };
 
 }

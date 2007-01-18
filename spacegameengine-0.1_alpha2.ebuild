@@ -28,9 +28,9 @@ RDEPEND="!games-engines/spacegame
 		 xinput? (dga? ( x11-libs/libXxf86dga ))"
 
 pkg_setup() {
-	if !(use opengl && use truetype && use devil && use xinput && use dga) ; then
+	if !(use opengl && use truetype && use devil && use xinput) ; then
 		eerror "For now you have to enable all useflags to get a working
-		engine!\nPlease do: \"games-engines/spacegameengine opengl truetype devil xinput dga\" >> /etc/portage/package.use"
+		engine!\nPlease do: \"games-engines/spacegameengine opengl truetype devil xinput\" >> /etc/portage/package.use"
 		die
 	fi
 }
@@ -48,5 +48,5 @@ src_compile() {
 }
 
 src_install() {
-	scons install destdir=${D} prefix=/usr libdir=$(get_libdir) cxxflags="${CXXFLAGS}" || die
+	scons install destdir=${D} prefix=/usr libdir=$(get_libdir) cxxflags="${CXXFLAGS}" $(scons_enable debug) $(scons_enable dga) || die
 }
