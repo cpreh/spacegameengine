@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <vector>
 #include <stdexcept>
+#include <ostream>
 #include "../types.hpp"
 #include "../math/vector2.hpp"
 #include "../math/vector3.hpp"
@@ -45,6 +46,11 @@ struct display_mode {
 	bit_depth depth;
 	unsigned  refresh_rate;
 };
+
+inline std::ostream& operator<< (std::ostream& s, const display_mode& mode)
+{
+	return s << '(' << mode.width << 'x' << mode.height << 'x' << bit_depth_bit_count(mode.depth) << '@' << mode.refresh_rate << ')';
+}
 
 inline bool operator== (const display_mode& l, const display_mode& r)
 {

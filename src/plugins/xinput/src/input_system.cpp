@@ -200,7 +200,7 @@ void sge::xinput::input_system::dispatch()
 				continue;
 			}
 			
-			sig(key_pair(key_type(get_key_name(ks), modifiers, get_key_code(ks), static_cast<unsigned char>(code)), xev.type == KeyRelease ? 0 : 1));
+			sig(key_pair(key_type(get_key_name(ks), get_key_code(ks), static_cast<unsigned char>(code)), xev.type == KeyRelease ? 0 : 1));
 			break;
 			}
 		case ButtonPress:
@@ -244,11 +244,11 @@ sge::key_type sge::xinput::input_system::mouse_key(const unsigned x11code) const
 {
 	switch(x11code) {
 	case 1:
-		return key_type("Mouse1",modifiers,KC_MOUSEL,0);
+		return key_type("Mouse1",KC_MOUSEL,0);
 	case 3:
-		return key_type("Mouse2",modifiers,KC_MOUSER,0);
+		return key_type("Mouse2",KC_MOUSER,0);
 	default:
-		return key_type("Undefined mouse key",modifiers,KC_None,0);
+		return key_type("Undefined mouse key",KC_None,0);
 	}
 }
 
@@ -265,8 +265,7 @@ sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const
 	return it->second;
 }
 
-// FIXME: modifiers should be updated
-void sge::xinput::input_system::update_modifiers(const key_value_array& keys)
+/*void sge::xinput::input_system::update_modifiers(const key_value_array& keys)
 {
 	for (unsigned i = 0; i < mmwidth; ++i)
 	{
@@ -283,14 +282,14 @@ void sge::xinput::input_system::update_modifiers(const key_value_array& keys)
 //		if(code && 0!=bit(keys, code))
 //			{return LOCK_DOWN;}
   	}
-}
+}*/
 
 void sge::xinput::input_system::private_mouse_motion(const mouse_coordinate_t deltax, const mouse_coordinate_t deltay)
 {
 	if(deltax)
-		sig(key_pair(key_type("MouseX", modifiers, KC_MOUSEX, 0), space_unit(deltax) / wnd->size().w));
+		sig(key_pair(key_type("MouseX", KC_MOUSEX, 0), space_unit(deltax) / wnd->size().w));
 	if(deltay)
-		sig(key_pair(key_type("MouseY", modifiers, KC_MOUSEY, 0), space_unit(deltay) / wnd->size().h));
+		sig(key_pair(key_type("MouseY", KC_MOUSEY, 0), space_unit(deltay) / wnd->size().h));
 }
 
 // thanks to SDL

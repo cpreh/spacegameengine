@@ -29,7 +29,7 @@ namespace sge
 
 struct modifier_state {
 	modifier_state(bool shift_down = false, bool ctrl_down = false, bool alt_down = false)
-		: shift_down(shift_down), ctrl_down(ctrl_down), alt_down(alt_down) {}
+	 : shift_down(shift_down), ctrl_down(ctrl_down), alt_down(alt_down) {}
 	bool shift_down;
 	bool ctrl_down;
 	bool alt_down;
@@ -144,44 +144,22 @@ enum key_code {
 	KC_MINUS,
 	KC_MULTIPLY,
 	KC_DIVIDE,
-	KC_ABNT_C1,
-	KC_ABNT_C2,
 	KC_APPS,
 	KC_AT,
 	KC_AX,
-	KC_CALC,
 	KC_EQUALS,
 	KC_KANA,
 	KC_KANJI,
-	KC_MAIL,
-	KC_MEDIASELECT,
-	KC_MEDIASTOP,
-	KC_MUTE,
-	KC_MYCOMPUTER,
 	KC_NEXT,
-	KC_NEXTTRACK,
 	KC_NOCONVERT,
 	KC_NUMEQUALS,
-	KC_OEM_102,
 	KC_PERIOD,
-	KC_PLAYPAUSE,
 	KC_POWER,
-	KC_PREVTRACK,
 	KC_PRIOR,
 	KC_SLEEP,
 	KC_STOP,
 	KC_SYSRQ,
 	KC_UNLABELED,
-	KC_VOLUMEDOWN,
-	KC_VOLUMEUP,
-	KC_WAKE,
-	KC_WEBBACK,
-	KC_WEBFAVORTIES,
-	KC_WEBFORWARD,
-	KC_WEBHOME,
-	KC_WEBREFRESH,
-	KC_WEBSEARCH,
-	KC_WEBSTOP,
 	KC_YEN,
 	KC_MOUSEL,
 	KC_MOUSER,
@@ -199,10 +177,9 @@ enum key_code {
 
 struct key_type {
 	typedef uchar_t char_type;
-	key_type(const std::string& name, const modifier_state& state = modifier_state(), const key_code code = KC_None, const char_type char_code = 0)
-		: name(name), state(state), code(code), char_code(char_code) {}
+	key_type(const std::string& name = "KC_None", const key_code code = KC_None, const char_type char_code = 0)
+		: name(name), code(code), char_code(char_code) {}
 	std::string name;
-	modifier_state state;
 	key_code code;
 	char_type char_code;
 };

@@ -20,18 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <stdexcept>
 #include "../../../ptr_cast.hpp"
-#include "../../../win32_window.hpp"
 #include "../input_system.hpp"
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
+#include "../../../win32_window.hpp"
 
 sge::dinput::input_system::input_system(const win32_window_ptr wnd)
-: wnd(wnd), keyboards(0), mice(0), joysticks(0)
+ : wnd(wnd)
 {
-	IDirectInput8* d;
+	direct_input* d;
 	if(DirectInput8Create(GetModuleHandle(0),
 	                      DIRECTINPUT_VERSION,
-	                      IID_IDirectInput8,
+	                      IID_IDirectInput8A,
 	                      reinterpret_cast<LPVOID*>(&d),
 	                      0) != DI_OK)
 		throw std::runtime_error("Cannot create direct input");
@@ -44,21 +44,21 @@ sge::dinput::input_system::input_system(const win32_window_ptr wnd)
 		throw std::runtime_error("DirectInput Enumeration failed");
 }
 
-sge::callback_handle sge::dinput::input_system::register_callback(const callback& c)
+boost::signals::connection sge::dinput::input_system::register_callback(const callback& c)
 {
-	return callback_handle(new callback_handle_impl(sig.connect(c)));
+	return sig.connect(c);
 }
 
 void sge::dinput::input_system::dispatch()
 {
 	for(device_array::iterator it = devices.begin(); it != devices.end(); ++it)
-		(*it)->dispatch(sig);
+		it->dispatch(sig);
 }
 
-char sge::dinput::input_system::keycode_to_char(const key_code key, const modifier_state& mod_state) const
+/*char sge::dinput::input_system::keycode_to_char(const key_code key, const modifier_state& mod_state) const
 {
-	static const HKL layout = GetKeyboardLayout(0);
-	static boost::array<BYTE,256> state;
+	const HKL layout = GetKeyboardLayout(0);
+	boost::array<BYTE,256> state;
 	const BYTE key_up = 0, key_down = 0x80;
 	state[VK_SHIFT] = mod_state.shift_down ? key_down : key_up;
 	state[VK_MENU] = mod_state.alt_down ? key_down : key_up;
@@ -70,8 +70,9 @@ char sge::dinput::input_system::keycode_to_char(const key_code key, const modifi
 	WORD result;
 	if(ToAsciiEx(vk,dik,state.c_array(),&result,0,layout) == 1)
 		return *reinterpret_cast<char*>(&result);
-	return 0; // not supported
-}
+	std::cerr << "stub: Keys names with more than one char are not supported.\n"
+	return 0;
+}*/
 
 BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi, LPVOID s)
 {
@@ -80,12 +81,10 @@ BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi
 
 	switch(dev_type) {
 	case DI8DEVTYPE_KEYBOARD:
-		sys.devices.push_back(new keyboard(sys.di,ddi.tszProductName,ddi.guidInstance,sys.keyboards,sys.wnd->hwnd(),&sys.key_conv));
-		++sys.keyboards;
+		sys.devices.push_back(new keyboard(sys.di, ddi->tszProductName, ddi->guidInstance, sys.wnd->hwnd(), sys.key_conv));
 		break;
 	case DI8DEVTYPE_MOUSE:
-		sys.devices.push_back(new mouse(sys.di,ddi.tszProductName,ddi.guidInstance,sys.mice,sys.hwnd));
-		++sys.mice;
+		sys.devices.push_back(new mouse(sys.di, ddi->tszProductName, ddi->guidInstance, sys.wnd->hwnd()));
 		break;
 	/*
 	case DI8DEVTYPE_JOYSTICK:

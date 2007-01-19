@@ -61,7 +61,6 @@ private:
 
 	key_code get_key_code(KeySym ks) const;
 	std::string get_key_name(KeySym ks) const;
-	void update_modifiers(const key_value_array& keys);
 
 	x_window_ptr wnd;
 	XModifierKeymap* mmap;
@@ -69,7 +68,6 @@ private:
 	unsigned mmwidth;
 
 	key_value_array last_keys;
-	modifier_state modifiers;
 
 	math::vector<mouse_coordinate_t,2> mouse_last;
 

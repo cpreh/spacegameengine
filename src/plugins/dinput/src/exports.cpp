@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../plugin.hpp"
 #include "../input_system.hpp"
+#include "../../../win32_window.hpp"
 
 extern "C"
 {
@@ -36,8 +37,7 @@ extern "C"
 
 	sge::input_system* create_input_system(const sge::window_ptr w)
 	{
-		ptr_cast<win32_window*>(w.get());
-		sge::win32_window_ptr ww = boost::dynamic_pointer_cast<win32_window_ptr>(w);
-		return new sge::dinput::input_system(w);
+		const sge::win32_window_ptr ww = sge::dynamic_pointer_cast<sge::win32_window>(w);
+		return new sge::dinput::input_system(ww);
 	}
 }

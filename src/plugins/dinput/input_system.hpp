@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_INPUT_SYSTEM_HPP_INCLUDED
 
 #include <map>
-#include <vector>
-#include "../../window.hpp"
+#include <boost/ptr_container/ptr_vector.hpp>
 #include "../../input/input_system.hpp"
-#include "./input_device.hpp"
 #include "./key_converter.hpp"
+#include "./input_device.hpp"
 #include "./di.hpp"
+#include "../../win32_window.hpp"
 
 namespace sge
 {
@@ -36,8 +36,8 @@ namespace dinput
 
 class input_system : public sge::input_system {
 public:
-	input_system(window_ptr w);
-	callback_handle register_callback(const callback& c);
+	input_system(win32_window_ptr w);
+	boost::signals::connection register_callback(const callback& c);
 	void dispatch();
 private:
 	signal_type sig;
@@ -45,18 +45,14 @@ private:
 	typedef std::map<std::string,key_map> key_mapper_u;
 	typedef std::multimap<std::string,key_map> key_mapper_m;
 	typedef std::pair<std::string,key_map> key_map_pair;
-	typedef std::vector<input_device_ptr> device_array;
+	typedef boost::ptr_vector<input_device> device_array;
 	typedef std::map<key_code,bool> key_code_press_map;
 	key_mapper_u       map_u;
 	key_mapper_m       map_m;
 	key_code_press_map key_codes_pressed;
 	device_array       devices;
-	key_array          keys;
 	dinput_ptr         di;
 	win32_window_ptr   wnd;
-	unsigned           keyboards;
-	unsigned           mice;
-	unsigned           joysticks;
 	key_converter      key_conv;
 
 	static BOOL CALLBACK di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi, LPVOID s);

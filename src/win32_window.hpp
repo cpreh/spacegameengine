@@ -38,7 +38,7 @@ public:
 	void size(window_size newsize);
 	window_size size() const { return sz; }
 	const std::string& title() const { return _title; }
-	HWND get_hwnd() const { return handle; }
+	HWND hwnd() const { return handle; }
 private:
 	HWND        handle;
 	window_size sz;

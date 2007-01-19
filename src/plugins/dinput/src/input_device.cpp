@@ -32,12 +32,12 @@ const DIPROPDWORD sge::dinput::input_device::buffer_settings = {
 };
 const std::size_t sge::dinput::input_device::buffer_size;
 
-sge::dinput::input_device::input_device(const dinput_ptr di, const std::string& name, const GUID guid, const unsigned index, const HWND wnd)
-: index(index), name(name)
+sge::dinput::input_device::input_device(const dinput_ptr di, const std::string& _name, const GUID guid, const HWND wnd)
+: _name(_name)
 {
-	IDirectInputDevice8* d;
+	direct_input_device* d;
 	if(di->CreateDevice(guid,&d,0) != DI_OK)
-		throw std::runtime_error("cannot create input device");
+		throw std::runtime_error("dinput: cannot create input device");
 	device.reset(d);
 	set_cooperative_level(wnd,coop_level);
 	set_property(DIPROP_BUFFERSIZE,&buffer_settings.diph);
@@ -55,7 +55,7 @@ void sge::dinput::input_device::set_data_format(const LPCDIDATAFORMAT df)
 		throw std::runtime_error("SetDataFormat() failed");
 }
 
-void sge::dinput::input_device::set_property(const REFGUID guid, const LPCDIPROPHEADER diph)
+void sge::dinput::input_device::set_property(REFGUID guid, LPCDIPROPHEADER diph)
 {
 	if(device->SetProperty(guid,diph) != DI_OK)
 		throw std::runtime_error("SetProperty() failed");
@@ -74,7 +74,7 @@ void sge::dinput::input_device::acquire()
 		throw std::runtime_error("Acquire() failed");
 	}
 	while(device->Acquire() == DIERR_OTHERAPPHASPRIO)
-		sge::sleep(10);
+		sge::sleep(100);
 }
 
 void sge::dinput::input_device::poll()

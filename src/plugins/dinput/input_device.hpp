@@ -37,7 +37,7 @@ public:
 	virtual void dispatch(input_system::signal_type&) = 0;
 	virtual ~input_device(){}
 protected:
-	input_device(dinput_ptr di, const std::string& name, GUID Guid, unsigned device_index, HWND wnd);
+	input_device(dinput_ptr di, const std::string& name, GUID Guid, HWND wnd);
 	void acquire();
 	void poll();
 	void set_data_format(LPCDIDATAFORMAT lpdf);
@@ -47,16 +47,14 @@ protected:
 	typedef DIDEVICEOBJECTDATA input_buffer[buffer_size];
 
 	bool _get_input(input_buffer buf, DWORD& elements);
-	unsigned get_index() const { return index; }
 	void enum_objects(LPDIENUMDEVICEOBJECTSCALLBACK fun);
-	const std::string& get_name() const { return name; }
+	const std::string& name() const { return _name; }
 private:
 	void set_cooperative_level(HWND hwnd, DWORD flags);
 	static const DIPROPDWORD  buffer_settings;
 	static const DWORD        coop_level;
 	dinput_device_ptr         device;
-	unsigned                  index;
-	std::string               name;
+	std::string               _name;
 };
 
 typedef shared_ptr<input_device> input_device_ptr;

@@ -49,8 +49,8 @@ namespace
 	}
 }
 
-sge::dinput::mouse::mouse(const dinput_ptr di, const std::string& name, const GUID guid, const unsigned index, const win32_window_ptr wnd)
-: input_device(di,name,guid,index,wnd)
+sge::dinput::mouse::mouse(const dinput_ptr di, const std::string& name, const GUID guid, const HWND wnd)
+: input_device(di,name,guid,wnd)
 {
 	set_data_format(&c_dfDIMouse2);
 	enum_objects(enum_mouse_keys);
@@ -90,13 +90,13 @@ BOOL sge::dinput::mouse::enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID 
 	if(is_di_mouse_axis(ddoi->dwOfs))
 	{
 		std::ostringstream ss;
-		ss << ddoi->tszName << " neg";
-		m.l_keys[ddoi->dwOfs] = key_type(ss.str(),m.get_name(),m.get_index(),create_axis_neg_mouse_code(ddoi->dwOfs));
+		ss << ddoi->tszName << "_neg";
+		m.l_keys[ddoi->dwOfs] = key_type(ss.str() + '_' + m.name(), create_axis_neg_mouse_code(ddoi->dwOfs));
 		ss.str("");
-		ss << ddoi->tszName << " pos";
-		m.r_keys[ddoi->dwOfs] = key_type(ss.str(),m.get_name(),m.get_index(),create_axis_pos_mouse_code(ddoi->dwOfs));
+		ss << ddoi->tszName << "_pos";
+		m.r_keys[ddoi->dwOfs] = key_type(ss.str() + '_' + m.name(), create_axis_pos_mouse_code(ddoi->dwOfs));
 	}
-	m.keys[ddoi->dwOfs] = key_type(ddoi->tszName,m.get_name(),m.get_index(),create_mouse_code(ddoi->dwOfs));
+	m.keys[ddoi->dwOfs] = key_type(std::string(ddoi->tszName) + '_' + m.name(),create_mouse_code(ddoi->dwOfs));
 	return DIENUM_CONTINUE;
 }
 

@@ -138,22 +138,31 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	{
 		modes.reset(new xf86_vidmode_array(dsp,screen));
 
+		int best = -1;
 		for(xf86_vidmode_array::size_type i = 1; i < modes->size(); ++i)
 		{
 			const XF86VidModeModeInfo& mode = (*modes)[i];
-		
-			if(mode.hdisplay == param.mode.width && mode.vdisplay == param.mode.height && xf86_vidmode_array::refresh_rate(mode) == param.mode.refresh_rate)
-			{
-				if(XF86VidModeSwitchToMode(dsp.get(), screen, const_cast<XF86VidModeModeInfo*>(&mode)) == False)
-					throw std::runtime_error("XF86VidModeSwitchToMode() failed");
-				resolution_guard.reset(new xf86_resolution_guard(dsp.get(),screen,(*modes)[0]));
-				XF86VidModeSetViewPort(dsp.get(),screen,0,0);
-				break;
-			}
 
-			if(i == modes->size() - 1)
-				std::cerr << "Warning: Specific resolution and refresh rate not found!\n";
+			const unsigned refresh_rate = xf86_vidmode_array::refresh_rate(mode);
+		
+			if(mode.hdisplay == param.mode.width &&
+			   mode.vdisplay == param.mode.height &&
+			   refresh_rate  > param.mode.refresh_rate &&
+			   (best == -1 || refresh_rate >= xf86_vidmode_array::refresh_rate((*modes)[best])))
+			
+				best = static_cast<int>(i);
 		}
+	
+		if(best != -1)
+		{
+			const XF86VidModeModeInfo& mode = (*modes)[best];
+			if(XF86VidModeSwitchToMode(dsp.get(), screen, const_cast<XF86VidModeModeInfo*>(&mode)) == False)
+				throw std::runtime_error("XF86VidModeSwitchToMode() failed");
+			resolution_guard.reset(new xf86_resolution_guard(dsp.get(),screen,(*modes)[0]));
+			XF86VidModeSetViewPort(dsp.get(),screen,0,0);
+		}
+		else
+			std::cerr << "Warning: No resolution matches against " << param.mode << "! Falling back to window mode!\n";
 	}
 
 	int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 16, None};

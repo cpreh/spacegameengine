@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <vector>
+#include <iostream>
 #include "../keyboard.hpp"
 
-sge::dinput::keyboard::keyboard(const dinput_ptr di, const std::string& name, const GUID guid, const unsigned index, const win32_window_ptr wnd, const key_converter& conv)
-: input_device(di,name,guid,index,wnd), conv(conv)
+sge::dinput::keyboard::keyboard(const dinput_ptr di, const std::string& name, const GUID guid, const HWND wnd, const key_converter& conv)
+: input_device(di,name,guid,wnd), conv(conv)
 {
 	set_data_format(&c_dfDIKeyboard);
 	enum_objects(enum_keyboard_keys);
@@ -36,12 +36,21 @@ void sge::dinput::keyboard::dispatch(input_system::signal_type& sig)
 	if(!_get_input(data,elements))
 		return;
 	for(unsigned i = 0; i < elements; ++i)
-		sig(key_pair(keys[data[i].dwOfs],data[i].dwData & 0x80 ? 1.f : 0));
+	{
+		const key_map::const_iterator it = keys.find(data[i].dwOfs);
+		if(it == keys.end())
+		{
+			std::cerr << "Missing key in keyboard. Not dispatching.\n";
+			continue;
+		}
+		sig(key_pair(it->second, data[i].dwData & 0x80 ? 1.f : 0));
+	}
 }
 
 BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)
 {
 	keyboard& k = *static_cast<keyboard*>(s);
-	k.keys[ddoi->dwOfs] = key_type(ddoi->tszName,k.get_name(),k.get_index(),k.conv.create_key_code(ddoi->dwOfs));
+	const std::string key_name(ddoi->tszName);
+	k.keys[ddoi->dwOfs] = key_type(k.name() + '_' + ddoi->tszName, k.conv.create_key_code(ddoi->dwOfs), key_name.size() == 1 ? key_name[0] : 0);
 	return DIENUM_CONTINUE;
 }

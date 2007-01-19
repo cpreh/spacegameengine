@@ -32,8 +32,10 @@ namespace sge
 namespace dinput
 {
 
-typedef shared_ptr<IDirectInput8,com_deleter> dinput_ptr;
-typedef shared_ptr<IDirectInputDevice8,com_deleter> dinput_device_ptr;
+typedef IDirectInput8A       direct_input;
+typedef IDirectInputDevice8A direct_input_device;
+typedef shared_ptr<direct_input,com_deleter> dinput_ptr;
+typedef shared_ptr<direct_input_device,com_deleter> dinput_device_ptr;
 
 }
 }

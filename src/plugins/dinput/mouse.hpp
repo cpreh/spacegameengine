@@ -32,7 +32,7 @@ namespace dinput
 
 class mouse : public input_device {
 public:
-	mouse(dinput_ptr di, const std::string& name, GUID guid, unsigned index, HWND wnd);
+	mouse(dinput_ptr di, const std::string& name, GUID guid, HWND wnd);
 	void dispatch(input_system::signal_type&);
 private:
 	static BOOL CALLBACK enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);

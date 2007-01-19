@@ -42,8 +42,11 @@ if ARGUMENTS.get('enable-dga','0') == '1':
 	xinput.Append(CPPDEFINES = {'USE_DGA': 1 })
 libxinput = xinput.SharedLibrary('sgexinput', [glob('./src/plugins/xinput/src/*.cpp')])
 
-#d3d = Environment(CPPPATH = ['/usr/include/wine/windows'], CCFLAGS = argflags + ' /usr/lib/wine/d3d9.dll.so')
+#d3d = Environment(CPPPATH = ['/usr/include/wine/windows'], CCFLAGS = env_flags)
 #libd3d = d3d.SharedLibrary('sged3d', [glob('./src/plugins/d3d/src/*.cpp')])
+
+#dinput = Environment(CPPPATH = ['/usr/include/wine/windows'], CCFLAGS = env_flags)
+#libdinput = dinput.SharedLibrary('sgedinput', [glob('./src/plugins/dinput/src/*.cpp')])
 
 test = Environment(LIBPATH = ['.'], LIBS = ['sgecore','sgegui'], CCFLAGS = flags)
 testapp = test.Program('sgetest', ['./test/test.cpp'])

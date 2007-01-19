@@ -33,7 +33,7 @@ namespace dinput
 
 class keyboard : public input_device {
 public:
-	keyboard(dinput_ptr, const std::string& name, GUID guid, unsigned index, HWND wnd, const key_converter& conv);
+	keyboard(dinput_ptr, const std::string& name, GUID guid, HWND wnd, const key_converter& conv);
 	void dispatch(input_system::signal_type&);
 	key_state query_key(const std::string& name);
 private:
