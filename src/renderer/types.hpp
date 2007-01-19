@@ -39,7 +39,7 @@ enum bit_depth {
 inline unsigned bit_depth_bit_count(const bit_depth d) { return d == BD_32 ? 32 : 16; }
 
 struct display_mode {
-	display_mode(const unsigned width, const unsigned height, const bit_depth depth, const unsigned refresh_rate)
+	display_mode(const unsigned width, const unsigned height, const bit_depth depth, const unsigned refresh_rate = 0)
 	 : width(width), height(height), depth(depth), refresh_rate(refresh_rate) {}
 	unsigned  width;
 	unsigned  height;

@@ -37,10 +37,12 @@ public:
 	void dispatch(input_system::signal_type&);
 	key_state query_key(const std::string& name);
 private:
+	uchar_t keycode_to_char(const key_code key) const;
 	static BOOL CALLBACK enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
 	typedef std::map<unsigned,key_type> key_map;
 	key_map keys;
 	const key_converter& conv;
+	HKL kblayout;
 };
 
 }

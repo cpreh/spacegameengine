@@ -1,0 +1,189 @@
+\documentclass{article}
+\usepackage{listings}
+
+\begin{document}
+\title{Spacegameengine Tutorial}
+\author{Philipp Reh}
+\maketitle
+
+\lstset{language=C++}
+
+\section{Introduction}
+This tutorial shall provide an introduction to \emph{spacegameengine} that enables you to actually program with it.
+\emph{spacegameengine} has been designed to layer on different levels.
+That means it doesn't want to take any functionality away from you if it is possible.
+On the other hand \emph{spacegameengine} doesn't use any API directly so the only restrictions it has arise from that.
+
+\section{A Basic Program}
+\emph{spacegameengine's} heart is the so called \emph{plugin\_manager}. It handles plugin creation and obtaining interfaces from them.
+The very basic thing we probably need is a \emph{renderer} interface so we can render something.
+\emph{renderer} cannot be obtained directly. First you need to create a \emph{renderer\_system} which is a class representing a renderer plugin.
+Why does \emph{spacegameengine} discriminate those interfaces?
+First it is because APIs like Direct3D can create multiple interfaces.
+Second you sometimes need to obtain information about available renderer, resolutions and other capabilities.
+Let's create a \emph{renderer\_system} and a \emph{renderer}.
+
+\begin{lstlisting}
+#include <iostream>
+#include <exception>
+
+#include <sge/plugin_manager.hpp>
+#include <sge/renderer/renderer_system.hpp>
+#include <sge/renderer/renderer.hpp>
+#include <sge/renderer/types.hpp>
+
+int main()
+try
+{
+  sge::plugin_manager manager;
+  sge::renderer_system_ptr rs = 
+      manager.get_plugin<sge::renderer_system>();
+  const sge::renderer_parameters param(
+      sge::display_mode(1024,768,sge::BD_32)
+		                      );
+  sge::renderer_ptr rend = rs->create_renderer(param);
+}
+catch(const std::exception& e)
+{
+  std::cerr << e.what() << '\n';
+  return 1;
+}
+\end{lstlisting}
+
+Note that we don't free anything. The engine's basic design concept is to use RAII everywhere.
+You will never need to free anything explicitly.
+All the so called \emph{"T\_ptr"} are \emph{sge::shared\_ptr$<$T$>$}. That means you can copy them.
+
+\section{We need input}
+The next thing we will do is to let the program run in a loop until the user presses any key.
+\emph{spacegameengines's} \emph{input\_system} uses a callback system so multiple classes can receive the same information.
+First we need to load an input plugin.
+
+\begin{lstlisting}
+#include <boost/lambda/lambda.hpp>
+#include <boost/signals/connection.hpp>
+#include <sge/input/input_system.hpp>
+
+/* snip */
+  sge::input_system_ptr is =
+      manager.get_plugin<sge::input_system>(
+          rend->get_window());
+  
+  bool running = true;
+
+  boost::signals::scoped_connection con(
+     is->register_callback(
+         boost::lambda::var(running)
+         = false)
+  );
+
+  while(running)
+  {
+    is->dispatch();
+  }
+\end{lstlisting}
+
+The input plugin needs the window which the renderer created internally.
+\emph{input\_system::register\_callback} returns a \emph{boost::signals::connection}.
+That means you have to track that connection.
+We use \emph{boost::signals::scoped\_connection} for that purpose.
+\emph{input\_system::dispatch} must be called each frame to process the new input.
+
+\section{Rendering something}
+\emph{spacegameengine} supports rendering using a
+\emph{vertex\_buffer} and an optional \emph{index\_buffer}.
+These two classes are the lowest layers the engine provides that allow you to specify geometry.
+The functions \emph{vertex\_buffer::data} and \emph{index\_buffer::data} are by far the most low level functions to do so.
+Setting indices through a raw pointer often is acceptable but for vertices it is not as vertices are more complex data structures that depend on a variety of settings.
+Making it easier for the user, \emph{spacegameengine} provides a wrapper around a \emph{vertex} and \emph{vertex\_formats} which is called \emph{vertex\_pointer}.
+It is accessible through \emph{vertex\_buffer's} iterator interface. Of course \emph{index\_buffer} has an interator interface too.
+Now we want to draw a rectangle using two triangles with colors.
+
+\begin{lstlisting}
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/vertex_format.hpp>
+#include <sge/renderer/lock_ptr.hpp>
+#include <sge/renderer/color.hpp>
+
+/* snip */
+  sge::vertex_buffer_ptr vb =
+      rend->create_vertex_buffer(
+          sge::vertex_format().add(sge::VU_Pos)
+                              .add(sge::VU_Diffuse),
+          4);
+  {
+    sge::lock_ptr<sge::vertex_buffer_ptr> _lock(vb);
+    sge::vertex_buffer::iterator it = vb->begin();
+
+    // top left
+    it->pos() = sge::pos3(-1,1,0);
+    it->diffuse() = sge::colors::red;
+    ++it;
+
+    // top right
+    it->pos() = sge::pos3(1,1,0);
+    it->diffuse() = sge::colors::blue;
+    ++it;
+
+    // bottom left
+    it->pos() = sge::pos3(-1,-1,0);
+    it->diffuse() = sge::colors::yellow;
+    ++it;
+
+    // bottom right
+    it->pos() = sge::pos3(1,-1,0);
+    it->diffuse() = sge::colors::green;
+  }
+
+  const sge::index_buffer::value_type indices[] =
+    { 0, 1, 2,
+      1, 2, 3 };
+
+  sge::index_buffer_ptr ib =
+    rend->create_index_buffer(
+      6, sge::RF_Default, indices);
+
+  while(running)
+  {
+    is->dispatch();
+
+    rend->begin_rendering();
+    rend->render(vb, ib, 0, vb->size(),
+                 sge::PT_Triangle, 2);
+    rend->end_rendering();
+  }
+
+\end{lstlisting}
+
+First of all we create a \emph{vertex\_buffer}.
+The first parameter specifies the \emph{vertex\_format} we are using.
+The second parameter is the number of vertices that shall fit in the buffer.
+There are two further parameters that are optional: The resource type and an initial source pointer.
+We don't use an initial source\_pointer (but we could have done so).
+The \emph{vertex\_buffer's} data is initialized "on the fly".
+We use \emph{lock\_ptr} to lock the \emph{vertex\_buffer's} content and use an iterator to set all the vertices.
+
+Next we create an \emph{index\_buffer} and initialize it directly.
+
+To draw anything we need to be in a block enclosed by \emph{renderer::begin\_rendering} and \emph{renderer::end\_rendering}.
+\emph{renderer::render} is declared as follows:
+\begin{lstlisting}
+void renderer::render(vertex_buffer_ptr vb,
+                     index_buffer_ptr ib,
+		     unsigned first_vertex,
+		     unsigned num_vertices,
+		     primitive_type ptype,
+		     unsigned primitive_count,
+		     unsigned first_index = 0);
+\end{lstlisting}
+
+\emph{first\_vertex} and \emph{num\_vertices} specify a "lock range" in the \emph{vertex\_buffer} that is used.
+Hence we use \emph{ 0, 4} which means "starting at the 0th vertex in the \emph{vertex\_buffer} and using four vertices which is the \emph{vertex\_buffer's} size from there on".
+\emph{primitve\_count} is the number of primitives to draw. In our case it is two triangles.
+The optional parameter \emph{first\_index} is the first index in the \emph{index\_buffer}.
+Actually opengl doesn't care about \emph{first\_vertex} and \emph{num\_vertices} when rendering with an \emph{index\_buffer} but Direct3D does.
+Those paramters are always needed when rendering a non indexed format such as a triangle fan.
+If you specify a non indexed format the parameters \emph{ib} and \emph{first\_index} are ignored.
+
+\end{document}

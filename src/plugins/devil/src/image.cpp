@@ -45,7 +45,7 @@ void sge::devil::image::init()
 {
 	ILuint temp;
 	ilGenImages(1,&temp);
-	id = new im_guard(temp);
+	id.reset(new im_guard(temp));
 	bind_me();
 }
 

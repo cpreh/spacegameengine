@@ -225,7 +225,7 @@ void sge::sprite::draw()
 	{
 		std::vector<vertex_buffer::value_type> buf(spr_sys.vb->get_vertex_format().stride()*detail::vertices_per_sprite);
 		update_where(spr_sys.vb->create_iterator(&buf[0]));
-		spr_sys.vb->set_data(buf.data(), vb_pos, detail::vertices_per_sprite);
+		spr_sys.vb->set_data(&buf[0], vb_pos, detail::vertices_per_sprite);
 	}
 	
 	{

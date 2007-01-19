@@ -78,14 +78,14 @@ sge::win32_window::~win32_window()
 
 void sge::win32_window::size(const window_size nsz)
 {
-	if(SetWindowPos(get_hwnd(),HWND_TOP,0,0,nsz.w,nsz.h,SWP_SHOWWINDOW) == 0)
+	if(SetWindowPos(hwnd(),HWND_TOP,0,0,nsz.w,nsz.h,SWP_SHOWWINDOW) == 0)
 		throw std::runtime_error("SetWindowPos() failed");
 }
 
 void sge::win32_window::title(const std::string& ntitle)
 {
 	_title = ntitle;
-	if(SetWindowText(get_hwnd(),_title.c_str()) == 0)
+	if(SetWindowText(hwnd(),_title.c_str()) == 0)
 		throw std::runtime_error("SetWindowText() failed");
 }
 
@@ -110,7 +110,7 @@ namespace
 			const bool active = wparam != 0 ? true : false;
 			//wnd->set_active(active); // FIXME
 			if(!active)
-				ShowWindow(wnd->get_hwnd(),SW_MINIMIZE);
+				ShowWindow(wnd->hwnd(),SW_MINIMIZE);
 		}
 		return 0;
 		default:
@@ -119,16 +119,5 @@ namespace
 		return TRUE;
 	}
 }
-
-// FIXME
-/*void sge::process_window_msgs()
-{
-	MSG msg;
-	while(PeekMessage(&msg,0,0,0,PM_REMOVE))
-	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
-}*/
 
 #endif

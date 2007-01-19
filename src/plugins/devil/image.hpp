@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_IMAGE_HPP_INCLUDED
 #define SGE_DEVIL_IMAGE_HPP_INCLUDED
 
+#include <boost/scoped_ptr.hpp>
 #include "../../image/image.hpp"
 #include "../../shared_ptr.hpp"
-#include "../../auto_ptr.hpp"
 #include <IL/il.h>
 
 namespace sge
@@ -51,7 +51,7 @@ private:
 	private:
 		ILuint i;
 	};
-	typedef auto_ptr<im_guard> im_guard_ptr;
+	typedef boost::scoped_ptr<im_guard> im_guard_ptr;
 	im_guard_ptr id;
 	size_type w, h;
 };

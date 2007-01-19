@@ -55,25 +55,6 @@ void sge::dinput::input_system::dispatch()
 		it->dispatch(sig);
 }
 
-/*char sge::dinput::input_system::keycode_to_char(const key_code key, const modifier_state& mod_state) const
-{
-	const HKL layout = GetKeyboardLayout(0);
-	boost::array<BYTE,256> state;
-	const BYTE key_up = 0, key_down = 0x80;
-	state[VK_SHIFT] = mod_state.shift_down ? key_down : key_up;
-	state[VK_MENU] = mod_state.alt_down ? key_down : key_up;
-	state[VK_CONTROL] = mod_state.ctrl_down ? key_down : key_up;
-
-	const unsigned dik = key_conv.create_dik(key);
-	const unsigned vk = MapVirtualKeyEx(dik,1,layout);
-
-	WORD result;
-	if(ToAsciiEx(vk,dik,state.c_array(),&result,0,layout) == 1)
-		return *reinterpret_cast<char*>(&result);
-	std::cerr << "stub: Keys names with more than one char are not supported.\n"
-	return 0;
-}*/
-
 BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi, LPVOID s)
 {
 	input_system& sys = *static_cast<input_system*>(s);
