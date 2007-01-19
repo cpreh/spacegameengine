@@ -43,7 +43,7 @@ template<typename T> T round_div_int(const T  l, const T r)
 
 template<typename T> T next_pow_2(const T t)
 {
-	return static_cast<T>(std::pow(2,std::ceil(std::log(t)/std::log(2.0))));
+	return static_cast<T>(std::pow(2.0,std::ceil(std::log(static_cast<double>(t))/std::log(2.0))));
 }
 
 }
