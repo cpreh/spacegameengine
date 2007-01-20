@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <vector>
-#include"../screenshot.hpp"
+#include "../screenshot.hpp"
+#include "../../raw_vector.hpp"
 
 void sge::screenshot(const renderer_ptr rend, const image_loader_ptr il, const std::string& filename)
 {
 	const render_target_ptr target = rend->get_render_target();
-	std::vector<color> buf(target->width()*target->height());
-	target->copy_data(&buf[0]);
-	const sge::image_ptr shot = il->create_image(&buf[0],target->width(),target->height());
+	raw_vector<color> buf(target->width()*target->height());
+	target->copy_data(buf.data());
+	const sge::image_ptr shot = il->create_image(buf.data(),target->width(),target->height());
 	shot->save(filename);
 }
 

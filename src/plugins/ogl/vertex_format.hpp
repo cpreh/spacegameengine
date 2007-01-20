@@ -59,7 +59,7 @@ class vertex_format {
 public:
 	vertex_format(const sge::vertex_format& f);
 	const offset_info& offsets() const { return oi; }
-	void use_me();
+	void use_me() const;
 private:
 	offset_info oi;
 	typedef boost::ptr_vector<actor_base> actor_array;

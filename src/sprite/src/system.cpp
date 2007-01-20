@@ -30,14 +30,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 //TODO: maybe exchange dereference_binder with something of boost::lambda
 
-sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_function handler)
+const unsigned init_sprites = 25;
+
+sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_function handler, const stage_type _max_tex)
  : texture_map(rend, handler),
    transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
-   rend(rend)
+   rend(rend),
+   _max_tex(_max_tex),
+   vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Diffuse).add(VU_Tex, _max_tex), init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic)),
+   ib(rend->create_index_buffer(init_sprites * detail::indices_per_sprite)),
+   _sprite_vb_buf(vb->get_vertex_format().stride()*detail::vertices_per_sprite)
 {
-	const unsigned init_sprites = 25;
-	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Diffuse).add(VU_Tex), init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
-	ib = rend->create_index_buffer(init_sprites * detail::indices_per_sprite);
 	free_pos.reserve(init_sprites);
 	for(unsigned i = 0; i < init_sprites; ++i)
 		free_pos.push_back(i * detail::vertices_per_sprite);
@@ -97,15 +100,18 @@ void sge::sprite_system::draw()
 		unsigned num_objects;
 		const sprite_list::const_iterator next = first_mismatch_if(it, sprite_list::const_iterator(sprites.end()), num_objects, dereference_binder<const sprite*, const sprite*>(std::ptr_fun(sprite::equal)));
 
-		const texture_ptr tex = (*it)->get_texture();
-		if(tex)
+		if((*it)->get_texture(0))
 		{
-			rend->set_texture(tex);
+			for(stage_type stage = 0; stage < max_tex_level() && (*it)->get_texture(stage); ++stage)
+				rend->set_texture((*it)->get_texture(stage), stage);
 			rend->render(vb,ib,0,vb->size(),PT_Triangle,num_objects*2, first_index);
 		}
 		first_index += num_objects * detail::indices_per_sprite;
 		it = next;
 	}
+
+	for(stage_type stage = 1; stage < max_tex_level(); ++stage)
+		rend->set_texture(texture_ptr(),stage);
 }
 
 void sge::sprite_system::set_parameters()
@@ -120,4 +126,9 @@ void sge::sprite_system::set_parameters()
 sge::renderer_ptr sge::sprite_system::get_renderer() const
 {
 	return rend;
+}
+
+sge::stage_type sge::sprite_system::max_tex_level() const
+{
+	return _max_tex;
 }

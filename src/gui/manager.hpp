@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <map>
 #include <string>
-#include <boost/utility.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/signals/trackable.hpp>
 #include "./cursor.hpp"
 #include "../timer.hpp"

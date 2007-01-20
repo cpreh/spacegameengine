@@ -18,34 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_KEY_STATE_TRACKER_HPP_INCLUDED
-#define SGE_KEY_STATE_TRACKER_HPP_INCLUDED
+#ifndef SGE_VECTOR_HPP_INCLUDED_ASDASD
+#define SGE_VECTOR_HPP_INCLUDED_ASDASD
 
-#include <map>
-#include <boost/noncopyable.hpp>
-#include <boost/signals/trackable.hpp>
-#include "./input_system.hpp"
-#include "./key_type.hpp"
+#include <vector>
 
 namespace sge
 {
 
-class key_state_tracker : boost::noncopyable, public boost::signals::trackable {
-public:
-	key_state_tracker(input_system_ptr);
-	key_state operator[](const key_code&);
-	key_state operator[](const key_type&);
-	key_state operator[](const key_type::char_type&);
-private:
-	void event_handler(const key_pair& key);
+template<typename T, typename A>
+inline typename std::vector<T,A>::pointer data(std::vector<T,A>& v)
+{
+	return v.empty() ? 0 : &v[0];
+}
 
-	typedef std::map<key_code, key_state> key_code_map;
-	typedef std::map<key_type, key_state> key_type_map;
-	typedef std::map<key_type::char_type, key_state> key_char_map;
-	key_code_map key_codes;
-	key_type_map key_types;
-	key_char_map key_chars;
-};
+template<typename T, typename A>
+inline typename std::vector<T,A>::const_pointer data(const std::vector<T,A>& v)
+{
+	return v.empty() ? 0 : &v[0];
+}
 
 }
 

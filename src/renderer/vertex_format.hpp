@@ -140,20 +140,19 @@ public:
 	typedef char               value_type;
 	typedef vertex_difference  difference_type;
 	typedef vertex_size        size_type;
-//	typedef typename boost::mpl::if_c<IsConst, typename boost::add_const<value_type*>::type, value_type*>::type pointer;
-	typedef value_type* pointer; // FIXME
+	typedef typename boost::mpl::if_c<IsConst, typename boost::add_const<value_type>::type, value_type>::type* pointer;
 
 	template<vertex_usage U>
 		typename detail::return_type<IsConst, typename vertex_traits<U>::packed_type>::type
-	element() const
+	element(const vertex_size index = 0) const
 	{
 		typedef typename detail::return_type<IsConst, typename vertex_traits<U>::packed_type>::type type_to_cast;
-		return reinterpret_cast<type_to_cast>(*(data + oi[U]));
+		return reinterpret_cast<type_to_cast>(*(data + oi[U] + vertex_element_size[U] * index));
 	}
 
 	typename detail::return_type<IsConst, vertex_traits<VU_Pos    >::packed_type>::type pos() const { return element<VU_Pos>(); }
 	typename detail::return_type<IsConst, vertex_traits<VU_Normal >::packed_type>::type normal() const { return element<VU_Normal>(); }
-	typename detail::return_type<IsConst, vertex_traits<VU_Tex    >::packed_type>::type tex() const { return element<VU_Tex>(); }
+	typename detail::return_type<IsConst, vertex_traits<VU_Tex    >::packed_type>::type tex(const vertex_size index = 0) const { return element<VU_Tex>(index); }
 	typename detail::return_type<IsConst, vertex_traits<VU_Diffuse>::packed_type>::type diffuse() const { return element<VU_Diffuse>(); }
 
 	vertex_pointer_impl(const pointer data, const size_type stride, const offset_info& oi)

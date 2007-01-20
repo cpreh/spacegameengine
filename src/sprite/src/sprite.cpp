@@ -22,19 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include "../../renderer/lock_ptr.hpp"
 #include "../helper.hpp"
-#include <boost/array.hpp>
 #include <cmath>
-#include <iostream>
-#include <vector>
 
-sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const unsigned _z, const std::string& name, const space_unit _rotation, const bool vis)
+sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const space_unit _z, const std::string& name, const space_unit _rotation, const bool vis)
  : p(p),
    sz(sz),
    _z(_z),
    _visible(vis),
    _rotation(_rotation),
    spr_sys(spr_sys),
-   tex(spr_sys.vtexture(name)),
+   tex(1,spr_sys.vtexture(name)),
    vb_pos(spr_sys.free_vb_pos()),
    my_place(spr_sys.attach(*this)),
    _use_rot_around(false),
@@ -88,7 +85,7 @@ void sge::sprite::size(const dim nsz)
 	sz = nsz;
 }
 
-void sge::sprite::z(const unsigned nz)
+void sge::sprite::z(const space_unit nz)
 {
 	_z = nz;
 }
@@ -98,9 +95,13 @@ void sge::sprite::visible(const bool nvisible)
 	_visible = nvisible;
 }
 
-void sge::sprite::set_texture(const std::string& name)
+void sge::sprite::set_texture(const std::string& name, const stage_type stage)
 {
-	tex = spr_sys.vtexture(name);
+	if(stage >= spr_sys.max_tex_level())
+		throw std::runtime_error("max_tex_level surpassed in sprite::set_texture");
+	if(stage >= tex.size())
+		tex.resize(stage+1);
+	tex[stage] = spr_sys.vtexture(name);
 }
 
 void sge::sprite::rotate(const space_unit rot)
@@ -159,7 +160,7 @@ sge::dim sge::sprite::size() const
 	return sz;
 }
 
-unsigned sge::sprite::z() const
+sge::space_unit sge::sprite::z() const
 {
 	return _z;
 }
@@ -201,13 +202,13 @@ void sge::sprite::update()
 
 void sge::sprite::update_where(const vertex_buffer::iterator it)
 {
-	if(repeat() != 1 && tex->repeatable() == false)
-		std::cerr << "Warning: texture not repeatable but sprite repetition is " << repeat() << "!\n";
-	const rect tex_rect = get_texture() ? tex_size_to_space_rect(tex->area(), get_texture()->width(), get_texture()->height(), repeat()) : rect();
 	if(rotation() == 0)
-		fill_sprite_vertices(it, get_rect(), tex_rect);
+		fill_sprite_position(it, get_rect(), z());
 	else
-		fill_sprite_vertices_rotated(it, get_rect(), rotation(), _use_rot_around ? _rot_around : center(), tex_rect);
+		fill_sprite_position_rotated(it, get_rect(), rotation(), _use_rot_around ? _rot_around : center(), z());
+
+	for(tex_array::size_type i = 0; i < tex.size() && tex[i]; ++i)
+		fill_sprite_tex_coordinates(it, tex[i]->area_texc(repeat()), i);
 
 	fill_sprite_color(it, _color);
 }
@@ -219,29 +220,33 @@ sge::index_buffer::iterator sge::sprite::update_ib(const index_buffer::iterator 
 
 void sge::sprite::draw()
 {
-	if(!tex || !visible())
+	if(!tex[0] || !visible())
 		return;
 
 	{
-		std::vector<vertex_buffer::value_type> buf(spr_sys.vb->get_vertex_format().stride()*detail::vertices_per_sprite);
-		update_where(spr_sys.vb->create_iterator(&buf[0]));
-		spr_sys.vb->set_data(&buf[0], vb_pos, detail::vertices_per_sprite);
+		sprite_system::vb_buf_type& buf = spr_sys._sprite_vb_buf;
+		update_where(spr_sys.vb->create_iterator(buf.data()));
+		spr_sys.vb->set_data(buf.data(), vb_pos, detail::vertices_per_sprite);
 	}
 	
 	{
-		boost::array<index_buffer::value_type, detail::indices_per_sprite> buf;
+		sprite_system::ib_buf_type& buf = spr_sys._sprite_ib_buf;
 		update_ib(buf.c_array());
 		spr_sys.ib->set_data(buf.data(), 0, detail::indices_per_sprite);
 	}
 
 	spr_sys.set_parameters();
-	spr_sys.get_renderer()->set_texture(get_texture());
+	for(tex_array::size_type i = 0; i < tex.size(); ++i)
+		spr_sys.get_renderer()->set_texture(get_texture(i),i);
 	spr_sys.get_renderer()->render(spr_sys.vb,spr_sys.ib,0,4,PT_Triangle,2);
 }
 
-sge::texture_ptr sge::sprite::get_texture() const
+sge::texture_ptr sge::sprite::get_texture(const stage_type stage) const
 {
-	return tex ? tex->my_texture() : texture_ptr();
+	if(stage >= tex.size())
+		return texture_ptr();
+	const const_virtual_texture_ptr p = tex[stage];
+	return p ? p->my_texture() : texture_ptr();
 }
 
 sge::space_unit sge::sprite::radius() const
@@ -271,14 +276,14 @@ bool sge::sprite::equal(const sprite& l, const sprite& r)
 {
 	return l.visible() == r.visible() &&
 	       l.z() == r.z() &&
-	       l.get_texture() == r.get_texture();
+	       l.tex == r.tex;
 }
 
 bool sge::sprite::less(const sprite& l, const sprite& r)
 {
 	const bool lvis = l.visible(), rvis = r.visible();
-	const unsigned lz = l.z(), rz = r.z();
-	sge::texture_ptr ltex = l.get_texture(), rtex = r.get_texture();
+	const space_unit lz = l.z(), rz = r.z();
+	const tex_array& ltex = l.tex, &rtex = r.tex;
 
 	return lvis == rvis ?
 			lz == rz ?
@@ -288,4 +293,3 @@ bool sge::sprite::less(const sprite& l, const sprite& r)
 		       : lz > rz
 		: lvis > rvis;
 }
-

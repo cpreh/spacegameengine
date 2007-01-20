@@ -220,26 +220,7 @@ enum filter_arg_value {
 	FARGV_Anisotropic
 };
 
-class stage_type {
-public:
-	typedef unsigned value_type;
-	static value_type max_stage() { return 4; }
-	stage_type(const value_type i) : stage(i) { check(); }
-	stage_type& operator=(const value_type& v)
-	{
-		stage = v;
-		check();
-		return *this;
-	}
-	operator value_type() const { return stage; }
-private:
-	void check() const
-	{
-		if(stage >= max_stage())
-			throw std::range_error("stage_type must be in [0;MAX_STAGE)!");
-	}
-	value_type stage;
-};
+typedef unsigned stage_type;
 
 struct viewport {
 	unsigned x, y, w, h;

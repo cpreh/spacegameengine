@@ -1,7 +1,7 @@
 #include <cerrno>
 #include <locale>
-#include <algorithm>
 #include <cassert>
+#include <boost/array.hpp>
 #include "../iconv.hpp"
 #include "../types.hpp"
 #include "../ucs4.hpp"
@@ -65,14 +65,14 @@ To _iconv(const From& input, const sge::encoding from, const sge::encoding to, c
 	To output(alloc);
 	
 	const std::size_t buf_size = 512;
-	char arr[buf_size];
+	boost::array<char,buf_size> arr;
 
 	const char *ib = reinterpret_cast<const char*>(input.c_str());
 	std::size_t in_size  = sizeof(typename From::value_type) * input.size();
 	while(in_size)
 	{
 		std::size_t out_size = buf_size;
-		char *ob = arr;
+		char *ob = arr.c_array();
 		ic.convert(&ib, &in_size, &ob, &out_size);
 
 		const std::size_t bytes_written = buf_size - out_size;
@@ -80,10 +80,10 @@ To _iconv(const From& input, const sge::encoding from, const sge::encoding to, c
 		// FIXME why do we have to reverse the byteorder here?
 		const std::size_t ucs4_bytes = sizeof(sge::uchar_t);
 		assert(buf_size % ucs4_bytes == 0);
-		for(char* p = arr; p < &arr[bytes_written]; p += ucs4_bytes)
+		for(char* p = arr.c_array(); p < &arr[bytes_written]; p += ucs4_bytes)
 			std::reverse(p, p + ucs4_bytes);
 
-		output += To(reinterpret_cast<typename To::const_pointer>(&arr[0]), (bytes_written) / sizeof(typename To::value_type));
+		output += To(reinterpret_cast<typename To::const_pointer>(arr.data()), (bytes_written) / sizeof(typename To::value_type));
 	}
 	return output;
 }

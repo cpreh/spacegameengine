@@ -70,7 +70,7 @@ try
 	sge::font_system_ptr fs = pm.get_plugin<sge::font_system>();
 	sge::input_system_ptr is = pm.get_plugin<sge::input_system>(rend->get_window());
 	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arialbd.ttf",32);
-	sge::sprite_system ss(rend);
+	sge::sprite_system ss(rend, 0, 2);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "/mainskin/cancel_0.png");
 	sge::image_ptr im2 = pl->load_image(sge::media_path() + "/mainskin/button.png");
 	sge::image_ptr im3 = pl->load_image(sge::media_path() + "/mainskin/clickbox_quad_pressed.png");
@@ -81,15 +81,17 @@ try
 	ss.add_texture(im2,tex[1]);
 	ss.add_texture(im3,tex[2]);
 
-	boost::ptr_vector<sge::sprite> sprites;
-	for(unsigned i = 0; i < 4; ++i)
-		sprites.push_back(new sge::sprite(ss,sge::point(0,i*0.3),sge::dim(0.3,0.3),0,tex[i % 3]));
-	sprites.back().set_color(sge::colors::red);
+//	boost::ptr_vector<sge::sprite> sprites;
+//	for(unsigned i = 0; i < 4; ++i)
+//		sprites.push_back(new sge::sprite(ss,sge::point(0,i*0.3),sge::dim(0.3,0.3),0,tex[i % 3]));
+//	sprites.back().set_color(sge::colors::red);
 
 	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,tex[0]);
 	spr.set_color(sge::colors::yellow);
+	spr.set_texture(tex[1],1);
 	sge::sprite spr2(ss,sge::point(0.25,-0.25),sge::dim(0.25,3),0,tex[1]);
 	spr2.set_color(sge::colors::red);
+	spr2.set_texture(tex[2],1);
 
 	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "/mainskin/", 0.05);
 	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
@@ -159,9 +161,6 @@ try
 		rend->begin_rendering();
 		is->dispatch();
 		ss.transform(sge::math::matrix_translation(translation));
-		rend->set_filter_state(sge::FARG_MinFilter, sge::FARGV_Linear);
-		rend->set_filter_state(sge::FARG_MagFilter, sge::FARGV_Linear);
-
 		ss.draw();
 		man.process();
 		fn.transform(sge::math::matrix_rotation_z(angle));

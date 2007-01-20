@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../line_strip.hpp"
 #include "../transform.hpp"
+#include "../../vector.hpp"
 
 sge::line_strip::line_strip(const renderer_ptr rend, const color _col, const size_type init_lines)
  : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
@@ -56,7 +57,7 @@ void sge::line_strip::draw(const bool loop)
 
 	if(vb->size() < vertices.size())
 		vb->resize(vertices.size());
-	vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(&vertices[0]),0,vertices.size());
+	vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(sge::data(vertices)),0,vertices.size());
 	rend->render(vb, index_buffer_ptr(), 0, vertices.size(), loop ? PT_LineLoop : PT_LineStrip, vertices.size()-1);
 }
 

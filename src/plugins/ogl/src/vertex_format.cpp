@@ -39,7 +39,7 @@ namespace {
 		 : actor_base(ai) {}
 		void operator()() const
 		{
-			glVertexPointer(3,GL_FLOAT,ai.stride,ai.offset);
+			glVertexPointer(3, GL_FLOAT, ai.stride, ai.offset);
 	                glEnableClientState(GL_VERTEX_ARRAY);
 			if(is_error())
 				throw std::runtime_error("Enabling positions on ogl stream failed!");
@@ -52,7 +52,7 @@ namespace {
 		 : actor_base(ai) {}
 		void operator()() const
 		{
-			glNormalPointer(GL_FLOAT,ai.stride,ai.offset);
+			glNormalPointer(GL_FLOAT, ai.stride, ai.offset);
 			glEnableClientState(GL_NORMAL_ARRAY);
 			if(is_error())
 				throw std::runtime_error("Enabling normals on ogl stream failed!");
@@ -65,8 +65,8 @@ namespace {
 		 : actor_base(ai) {}
 		void operator()() const
 		{
-//			glClientActiveTextureARB(GL_TEXTURE0);
-			glTexCoordPointer(2,GL_FLOAT,ai.stride,ai.offset);
+			glClientActiveTextureARB(GL_TEXTURE0 + ai.index);
+			glTexCoordPointer(2, GL_FLOAT, ai.stride, ai.offset);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			if(is_error())
 				throw std::runtime_error("Enabling texture coordinates on ogl stream failed!");
@@ -79,7 +79,7 @@ namespace {
 		 : actor_base(ai) {}
 		void operator()() const
 		{
-  			glColorPointer(4,GL_UNSIGNED_BYTE,ai.stride,ai.offset);
+  			glColorPointer(4, GL_UNSIGNED_BYTE, ai.stride, ai.offset);
         	        glEnableClientState(GL_COLOR_ARRAY);
 			if(is_error())
 				throw std::runtime_error("Enabling diffuse colors on ogl stream failed!");
@@ -120,7 +120,7 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 	}
 }
 
-void sge::ogl::vertex_format::use_me()
+void sge::ogl::vertex_format::use_me() const
 {
 	glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_NORMAL_ARRAY);

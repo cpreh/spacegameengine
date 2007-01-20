@@ -125,7 +125,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 				last_texture = reg.tex;
 			}
 
-			vit = fill_sprite_vertices(vit, fp, reg.rect);
+			vit = fill_sprite_vertices(vit, fp, reg.rect, 0);
 			pos.x() += char_space(*sbeg);
 		}
 

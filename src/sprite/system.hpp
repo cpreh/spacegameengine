@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <list>
 #include <string>
-#include <vector>
+#include <boost/array.hpp>
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
 #include "../renderer/vertex_buffer.hpp"
@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/renderer.hpp"
 #include "../math/matrix.hpp"
 #include "./sprite_fwd.hpp"
+#include "../raw_vector.hpp"
 #include "../texture/texture_map.hpp"
 #include "../renderer/transformable.hpp"
 
@@ -39,13 +40,11 @@ namespace sge
 
 class sprite_system : public texture_map, public transformable {
 public:
-	sprite_system(renderer_ptr rend, handler_function not_found_handler = 0/*, texture_map_ptr texture_map = texture_map_ptr()*/);
+	sprite_system(renderer_ptr rend, handler_function not_found_handler = 0, const stage_type max_texture_level = 1);
 	void draw();
-
-//	texture_map_ptr get_texture_map() const;
-
 	void set_parameters();
 	renderer_ptr get_renderer() const;
+	stage_type max_tex_level() const;
 private:
 	sprite_list::iterator attach(sprite& s);
 	void detach(const sprite& s);
@@ -56,10 +55,16 @@ private:
 	sprite_list sprites;
 
 	renderer_ptr rend;
+	stage_type _max_tex;
 	vertex_buffer_ptr vb;
 	index_buffer_ptr ib;
 	typedef std::vector<vertex_buffer::size_type> free_pos_vector;
 	free_pos_vector free_pos;
+	
+	typedef raw_vector<vertex_buffer::value_type> vb_buf_type;
+	vb_buf_type _sprite_vb_buf;
+	typedef boost::array<index_buffer::value_type, detail::indices_per_sprite> ib_buf_type;
+	ib_buf_type _sprite_ib_buf;
 };
 
 }

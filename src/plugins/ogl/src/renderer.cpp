@@ -468,8 +468,15 @@ sge::render_target_ptr sge::ogl::renderer::get_render_target() const
 
 void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_type stage)
 {
-	if(stage > 0)
-		std::cerr << "stub: stage > 0 in ogl::renderer::set_texture\n";
+	if(!glActiveTextureARB)
+		throw std::runtime_error(extension_not_supported_string("ARB_multitexture"));
+	if(stage >= GL_MAX_TEXTURE_UNITS_ARB)
+	{
+		std::cerr << "GL_MAX_TEXTURE_UNITS_ARB is " << GL_MAX_TEXTURE_UNITS_ARB << ". Setting texture stage " << stage << " ignored!\n";
+		return;
+	}
+
+	glActiveTextureARB(GL_TEXTURE0_ARB + stage);
 	glDisable(GL_TEXTURE_1D);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_TEXTURE_3D);

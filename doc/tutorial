@@ -40,7 +40,7 @@ try
       manager.get_plugin<sge::renderer_system>();
   const sge::renderer_parameters param(
       sge::display_mode(1024,768,sge::BD_32)
-		                      );
+                                      );
   sge::renderer_ptr rend = rs->create_renderer(param);
 }
 catch(const std::exception& e)
@@ -88,6 +88,7 @@ The input plugin needs the window which the renderer created internally.
 That means you have to track that connection.
 We use \emph{boost::signals::scoped\_connection} for that purpose.
 \emph{input\_system::dispatch} must be called each frame to process the new input.
+The boost::lambda construct is a functor that assigns false to \emph{running} when invoked by the \emph{input\_system}.
 
 \section{Rendering something}
 \emph{spacegameengine} supports rendering using a
@@ -171,19 +172,54 @@ To draw anything we need to be in a block enclosed by \emph{renderer::begin\_ren
 \begin{lstlisting}
 void renderer::render(vertex_buffer_ptr vb,
                      index_buffer_ptr ib,
-		     unsigned first_vertex,
-		     unsigned num_vertices,
-		     primitive_type ptype,
-		     unsigned primitive_count,
-		     unsigned first_index = 0);
+                     unsigned first_vertex,
+                     unsigned num_vertices,
+                     primitive_type ptype,
+                     unsigned primitive_count,
+                     unsigned first_index = 0);
 \end{lstlisting}
 
 \emph{first\_vertex} and \emph{num\_vertices} specify a "lock range" in the \emph{vertex\_buffer} that is used.
-Hence we use \emph{ 0, 4} which means "starting at the 0th vertex in the \emph{vertex\_buffer} and using four vertices which is the \emph{vertex\_buffer's} size from there on".
+Hence we use \emph{ 0, 4} which means "starting at the 0th vertex in the \emph{vertex\_buffer} and using four vertices (which is the \emph{vertex\_buffer's} size) from there on".
 \emph{primitve\_count} is the number of primitives to draw. In our case it is two triangles.
 The optional parameter \emph{first\_index} is the first index in the \emph{index\_buffer}.
 Actually opengl doesn't care about \emph{first\_vertex} and \emph{num\_vertices} when rendering with an \emph{index\_buffer} but Direct3D does.
 Those paramters are always needed when rendering a non indexed format such as a triangle fan.
 If you specify a non indexed format the parameters \emph{ib} and \emph{first\_index} are ignored.
+
+\section{More on input}
+Now we want to do something with the input except exiting the program. First of all we change the program so that it will only exit on escape.
+
+\begin{lstlisting}
+#include <sge/input/key_state_tracker.hpp>
+  /* snip */
+  sge::key_state_tracker tracker(is);
+
+  while(running)
+  {
+    is->dispatch();
+
+    if(ks[sge::KC_ESC])
+      running = false;
+
+    /* snip */
+  }
+\end{lstlisting}
+
+To understand why we use \emph{key\_state\_tracker} here let's examine the structure of the input callback.
+
+\begin{lstlisting}
+
+struct key_type {
+	typedef uchar_t char_type;
+	key_type(const std::string& name = "KC_None",
+	         const key_code code = KC_None,
+		 const char_type char_code = 0);
+	std::string name;
+	key_code code;
+	char_type char_code;
+};
+
+\end{lstlisting}
 
 \end{document}

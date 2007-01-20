@@ -31,24 +31,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-inline vertex_buffer::iterator fill_sprite_vertices(vertex_buffer::iterator it, const rect& rs, const rect& rt)
+inline vertex_buffer::iterator fill_sprite_position(vertex_buffer::iterator it, const rect& rs, const space_unit z)
 {
-	(*it  ).pos() = pos3(rs.left,rs.top,0);
-	(*it++).tex() = tex_pos(rt.left,rt.top);
-
-	(*it  ).pos() = pos3(rs.right,rs.top,0);
-	(*it++).tex() = tex_pos(rt.right,rt.top);
-
-	(*it  ).pos() = pos3(rs.right,rs.bottom,0);
-	(*it++).tex() = tex_pos(rt.right,rt.bottom);
-
-	(*it  ).pos() = pos3(rs.left,rs.bottom,0);
-	(*it++).tex() = tex_pos(rt.left,rt.bottom);
+	(*it++).pos() = pos3(rs.left,rs.top,z);
+	(*it++).pos() = pos3(rs.right,rs.top,z);
+	(*it++).pos() = pos3(rs.right,rs.bottom,z);
+	(*it++).pos() = pos3(rs.left,rs.bottom,z);
 
 	return it;
 }
 
-inline vertex_buffer::iterator fill_sprite_vertices_rotated(vertex_buffer::iterator it, const rect& rbs, const space_unit rot, const point center, const rect& rt)
+inline vertex_buffer::iterator fill_sprite_tex_coordinates(vertex_buffer::iterator it, const rect& rt, const stage_type stage)
+{
+	(*it++).tex(stage) = tex_pos(rt.left,rt.top);
+	(*it++).tex(stage) = tex_pos(rt.right,rt.top);
+	(*it++).tex(stage) = tex_pos(rt.right,rt.bottom);
+	(*it++).tex(stage) = tex_pos(rt.left,rt.bottom);
+
+	return it;
+}
+
+inline vertex_buffer::iterator fill_sprite_vertices(const vertex_buffer::iterator it, const rect& rs, const rect& rt, const space_unit z, const stage_type stage = 0)
+{
+	fill_sprite_position(it, rs, z);
+	return fill_sprite_tex_coordinates(it, rt, stage);
+}
+
+inline vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::iterator it, const rect& rbs, const space_unit rot, const point center, const space_unit z)
 {
 	point one = point(rbs.left,rbs.top) - center,
 	      two = point(rbs.right,rbs.top) - center,
@@ -71,17 +80,10 @@ inline vertex_buffer::iterator fill_sprite_vertices_rotated(vertex_buffer::itera
 	three += center;
 	four += center;
 
-	(*it  ).pos() = pos3(one.x(),one.y(),0);
-	(*it++).tex() = tex_pos(rt.left, rt.top);
-
-	(*it  ).pos() = pos3(two.x(),two.y(),0);
-	(*it++).tex() = tex_pos(rt.right, rt.top);
-
-	(*it  ).pos() = pos3(three.x(),three.y(),0);
-	(*it++).tex() = tex_pos(rt.right, rt.bottom);
-
-	(*it  ).pos() = pos3(four.x(),four.y(),0);
-	(*it++).tex() = tex_pos(rt.left, rt.bottom);
+	(*it++).pos() = pos3(one.x(),one.y(),z);
+	(*it++).pos() = pos3(two.x(),two.y(),z);
+	(*it++).pos() = pos3(three.x(),three.y(),z);
+	(*it++).pos() = pos3(four.x(),four.y(),z);
 
 	return it;
 }
