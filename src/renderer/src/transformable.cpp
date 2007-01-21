@@ -44,7 +44,7 @@ void sge::transformable::projection(const math::space_matrix& m)
 
 void sge::transformable::set_matrices()
 {
-	rend->transform(_internal_matrix * _transform);
+	rend->transform(_transform * _internal_matrix);
 	rend->projection(_projection);
 }
 
