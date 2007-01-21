@@ -47,6 +47,14 @@ public:
 	{
 	}
 
+	template<std::size_t U>
+	vector(const vector<T,U>& v, const_reference n = 0, typename boost::enable_if_c<U == Dim-1>::type* =0)
+	{
+		for(size_type i = 0; i < U; ++i)
+			data[i] = v[i];
+		data[U] = n;
+	}
+
 	vector(const vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
