@@ -176,11 +176,14 @@ public:
 		return std::sqrt(length_quad());
 	}
 
+	vector unit() const
+	{
+		return (*this) * (T(1) / length());
+	}
+
 	vector& normalize()
 	{
-		const value_type l = length();
-		(*this) *= T(1) / l;
-		return *this;
+		return *this = unit();
 	}
 
 	value_type angle_to(const vector& r) const
@@ -227,9 +230,25 @@ public:
 		              z()*r.x() - x()*r.z(),
 			      x()*r.y() - y()*r.x());
 	}
+
+	bool is_null() const
+	{
+		return *this == vector();
+	}
+
+	void swap(vector& r)
+	{
+		std::swap(*this,r);
+	}
 private:
 	T data[Dim];
 };
+
+template<typename T, std::size_t Dim>
+void swap(vector<T,Dim>& a, vector<T,Dim>& b)
+{
+	a.swap(b);
+}
 
 template<typename T, std::size_t Dim>
 vector<T,Dim> cross(const vector<T,Dim>& l, const vector<T,Dim>& r)
@@ -256,7 +275,7 @@ typename vector<T,Dim>::value_type dot(const vector<T,Dim>& l, const vector<T,Di
 }
 
 template<typename T, std::size_t Dim>
-std::ostream& operator << (std::ostream& s, const vector<T,Dim>& v)
+std::ostream& operator<< (std::ostream& s, const vector<T,Dim>& v)
 {
 	s << '(';
 	for(typename vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
