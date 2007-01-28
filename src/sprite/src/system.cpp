@@ -100,12 +100,10 @@ void sge::sprite_system::draw()
 		unsigned num_objects;
 		const sprite_list::const_iterator next = first_mismatch_if(it, sprite_list::const_iterator(sprites.end()), num_objects, dereference_binder<const sprite*, const sprite*>(std::ptr_fun(sprite::equal)));
 
-		if((*it)->get_texture(0))
-		{
-			for(stage_type stage = 0; stage < max_tex_level() && (*it)->get_texture(stage); ++stage)
-				rend->set_texture((*it)->get_texture(stage), stage);
-			rend->render(vb,ib,0,vb->size(),PT_Triangle,num_objects*2, first_index);
-		}
+		for(stage_type stage = 0; stage < max_tex_level() && (*it)->get_texture(stage); ++stage)
+			rend->set_texture((*it)->get_texture(stage), stage);
+
+		rend->render(vb,ib,0,vb->size(),PT_Triangle,num_objects*2, first_index);
 		first_index += num_objects * detail::indices_per_sprite;
 		it = next;
 	}

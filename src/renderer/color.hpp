@@ -61,10 +61,10 @@ inline float green_part_rgba_f(const color c) { return ((c &   0xFF0000) >> 16) 
 inline float  blue_part_rgba_f(const color c) { return ((c &     0xFF00) >>  8) / 255.f; }
 inline float alpha_part_rgba_f(const color c) { return  (c &       0xFF)        / 255.f; }
 
-inline unsigned   red_part_rgba_u(const color c) { return ((c & 0xFF000000) >> 24); }
-inline unsigned green_part_rgba_u(const color c) { return ((c &   0xFF0000) >> 16); }
-inline unsigned  blue_part_rgba_u(const color c) { return ((c &     0xFF00) >>  8); }
-inline unsigned alpha_part_rgba_u(const color c) { return  (c &       0xFF)       ; }
+inline color_element   rgba_red(const color c) { return ((c & 0xFF000000) >> 24); }
+inline color_element rgba_green(const color c) { return ((c &   0xFF0000) >> 16); }
+inline color_element  rgba_blue(const color c) { return ((c &     0xFF00) >>  8); }
+inline color_element rgba_alpha(const color c) { return  (c &       0xFF)       ; }
 
 namespace colors {
 	const color aliceblue           = static_rgb<240, 248, 255>::value,
@@ -267,14 +267,6 @@ inline color abgr_to_rgba(const color c)
 {
 	return rgba_to_abgr(c);
 }
-
-const color_element hsl_max = 240;
-const color_element rgb_max = 255;
-const color_element hue_undefined = hsl_max * 2 / 3;
-
-color rgba_to_hsla(color_channel r, color_channel g, color_channel b, color_channel a);
-color_element hue_to_tridant(color_element n1, color_element n2, color_element hue);
-color hsla_to_color(color_channel hue, color_channel lum, color_channel sat, color_channel a);
 
 }
 

@@ -81,12 +81,12 @@ public:
 
 	void reset(const pointer p = 0)
 	{
-		if(p != get())
-		{
-			_release();
-			ptr = p;
-			counter = new counter_type(1);
-		}
+		if(p == get())
+			return;
+		
+		_release();
+		ptr = p;
+		counter = new counter_type(1);
 	}
 private:
 	struct _dummy {

@@ -220,7 +220,7 @@ sge::index_buffer::iterator sge::sprite::update_ib(const index_buffer::iterator 
 
 void sge::sprite::draw()
 {
-	if(!tex[0] || !visible())
+	if(!visible())
 		return;
 
 	{
@@ -236,9 +236,14 @@ void sge::sprite::draw()
 	}
 
 	spr_sys.set_parameters();
+	
 	for(tex_array::size_type i = 0; i < tex.size(); ++i)
 		spr_sys.get_renderer()->set_texture(get_texture(i),i);
+
 	spr_sys.get_renderer()->render(spr_sys.vb,spr_sys.ib,0,4,PT_Triangle,2);
+	
+	for(tex_array::size_type i = 1; i < tex.size(); ++i)
+		spr_sys.get_renderer()->set_texture(texture_ptr(),i);
 }
 
 sge::texture_ptr sge::sprite::get_texture(const stage_type stage) const
