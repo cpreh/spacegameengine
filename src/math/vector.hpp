@@ -228,7 +228,7 @@ public:
 	{
 		return vector(y()*r.z() - z()*r.y(),
 		              z()*r.x() - x()*r.z(),
-			      x()*r.y() - y()*r.x());
+		              x()*r.y() - y()*r.x());
 	}
 
 	bool is_null() const
@@ -240,9 +240,29 @@ public:
 	{
 		std::swap(*this,r);
 	}
+
+#define SGE_MATH_VECTOR_SET(z, n, text) void set(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
+BOOST_PP_REPEAT(SGE_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_SET, void)
+
+	bool nearly_equals(const vector& r, const value_type& radius) const
+	{
+		const vector tmp(*this - r);
+		return dot(tmp,tmp) < radius * radius;
+	}
 private:
 	T data[Dim];
 };
+
+template<typename T, std::size_t Dim>
+void place(vector<T,Dim>& v,
+           const typename vector<T,Dim>::const_reference radius,
+           const typename vector<T,Dim>::const_reference high_angle,
+           const typename vector<T,Dim>::const_reference plane_angle,
+           typename boost::enable_if_c<Dim==3,T>::type* = 0)
+{
+	v.z() = v.x() = radius * std::sin(high_angle) * std::cos(plane_angle);
+	v.y() = radius * std::cos(high_angle);
+}
 
 template<typename T, std::size_t Dim>
 void swap(vector<T,Dim>& a, vector<T,Dim>& b)

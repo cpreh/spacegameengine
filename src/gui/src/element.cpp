@@ -284,3 +284,7 @@ bool sge::gui::element::is_root() const
 	return this == m.root();
 }
 
+unsigned sge::gui::element::z() const
+{
+	return _z;
+}

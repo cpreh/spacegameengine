@@ -57,7 +57,7 @@ public:
 	void to_front();
 	bool pressed() const;
 	virtual bool intersects(point p) const = 0;
-	unsigned z() const { return _z; }
+	unsigned z() const;
 
 	typedef boost::signal<void ()> signal_type;
 	signal_type mouse_move_signal,
