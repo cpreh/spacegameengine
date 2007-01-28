@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../helper.hpp"
 #include <cmath>
 
-sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const space_unit _z, const std::string& name, const space_unit _rotation, const bool vis)
+sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const std::string& name, const color col, const space_unit _z, const space_unit _rotation, const bool vis)
  : p(p),
    sz(sz),
    _z(_z),
@@ -36,7 +36,7 @@ sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const s
    my_place(spr_sys.attach(*this)),
    _use_rot_around(false),
    _repeat(1),
-   _color(rgba_to_abgr(colors::white))
+   _color(rgba_to_abgr(col))
 {}
 
 sge::sprite::sprite(const sprite& spr)

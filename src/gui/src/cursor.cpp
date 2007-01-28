@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../skin.hpp"
 
 sge::gui::cursor::cursor(manager& m, const point start, const dim sz)
-: sprite(m.get_sprite_system(), start, sz, 0, skin::cursor_name),
+: sprite(m.get_sprite_system(), start, sz, skin::cursor_name),
   mouse_min(0,0),
   mouse_max(1,1),
   is_pressed(false)

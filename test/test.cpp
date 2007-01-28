@@ -86,11 +86,9 @@ try
 //		sprites.push_back(new sge::sprite(ss,sge::point(0,i*0.3),sge::dim(0.3,0.3),0,tex[i % 3]));
 //	sprites.back().set_color(sge::colors::red);
 
-	sge::sprite spr(ss,sge::point(0.25,0.25),sge::dim(0.5,0.5),0,/*tex[0]*/sge::texture_map::no_texture);
-	spr.set_color(sge::colors::yellow);
+	sge::sprite spr(ss, sge::point(0.25,0.25), sge::dim(0.5,0.5), /*tex[0]*/sge::texture_map::no_texture, sge::colors::yellow);
 	spr.set_texture(tex[1],1);
-	sge::sprite spr2(ss,sge::point(0.25,-0.25),sge::dim(0.25,3),0,tex[1]);
-	spr2.set_color(sge::colors::red);
+	sge::sprite spr2(ss, sge::point(0.25,-0.25), sge::dim(0.25,3), tex[1], sge::colors::red);
 	spr2.set_texture(tex[2],1);
 
 	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "/mainskin/", 0.05);

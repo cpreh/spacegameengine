@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::gui::rectangle::rectangle(manager& m, element* const parent, const point pos, const dim sz, const std::string& tex, const bool visible, const bool enabled)
 : element(m,parent,visible,enabled),
-  sprite(m.get_sprite_system(),point(),sz,0,tex),
+  sprite(m.get_sprite_system(),point(),sz,tex),
   rel_pos(pos)
 {}
 

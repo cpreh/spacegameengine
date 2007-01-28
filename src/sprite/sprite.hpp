@@ -40,7 +40,7 @@ namespace sge
 
 class sprite {
 public:
-	sprite(sprite_system& s, point pos, dim sz, space_unit z, const std::string& tex, space_unit rotation = 0, bool visible = true);
+	sprite(sprite_system& s, point pos, dim sz, const std::string& tex, color c = colors::white, space_unit z = 0, space_unit rotation = 0, bool visible = true);
 	sprite(const sprite& s);
 
 	void x(space_unit x);

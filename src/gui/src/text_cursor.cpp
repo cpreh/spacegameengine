@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../skin.hpp"
 
 sge::gui::text_cursor::text_cursor(sprite_system& s, const point pos, const dim sz, timer::interval_type blink_time)
-: sprite(s,pos,sz,0,skin::textcursor_name),
+: sprite(s, pos, sz, skin::textcursor_name),
   blink_timer(blink_time),
   visible(false)
 {}
