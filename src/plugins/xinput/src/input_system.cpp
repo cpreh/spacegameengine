@@ -114,6 +114,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 
 sge::xinput::input_system::~input_system()
 {
+	XUngrabKeyboard(wnd->display(),CurrentTime);
 	XUngrabPointer(wnd->display(),CurrentTime);
 }
 
@@ -254,7 +255,8 @@ sge::key_type sge::xinput::input_system::mouse_key(const unsigned x11code) const
 
 std::string sge::xinput::input_system::get_key_name(const KeySym ks) const
 {
-	return XKeysymToString(ks);
+	const char* const name = XKeysymToString(ks);
+	return name ? name : "unknown";
 }
 
 sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const

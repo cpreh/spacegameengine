@@ -65,7 +65,7 @@ inline bool operator!= (const display_mode& l, const display_mode& r)
 typedef unsigned multi_sample_type;
 
 struct renderer_parameters {
-	renderer_parameters(const display_mode& mode, const multi_sample_type samples = 1, const bool windowed = false, const bool vsync = true)
+	renderer_parameters(const display_mode& mode, const bool windowed = false, const multi_sample_type samples = 1, const bool vsync = true)
 	: mode(mode), samples(samples), windowed(windowed), vsync(vsync) {}
 
 	display_mode      mode;

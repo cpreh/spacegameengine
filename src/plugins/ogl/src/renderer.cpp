@@ -77,9 +77,11 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 {
 	if(adapter > 0)
 		std::cerr << "stub: adapter cannot be > 0 for opengl plugin (adapter was " << adapter << ")\n";
+
+	bool windowed = param.windowed;
 #ifdef SGE_WINDOWS_PLATFORM
 	const unsigned color_depth = bit_depth_bit_count(param.mode.depth);
-	if(!param.windowed)
+	if(!windowed)
 	{
 		DEVMODE settings;
 		memset(&settings,0,sizeof(DEVMODE));
@@ -90,7 +92,10 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 		settings.dmDisplayFrequency = param.mode.refresh_rate;
 		settings.dmFields = DM_BITSPERPEL|DM_PELSWIDTH|DM_PELSHEIGHT|DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN)!=DISP_CHANGE_SUCCESSFUL)
-			throw std::runtime_error("ChangeDisplaySettings() failed");
+		{
+			std::cerr << "Cannot change resolution to " << param.mode << "! Reverting to window mode!\n";
+			windowed = false;
+		}
 	}
 
 	PIXELFORMATDESCRIPTOR pfd = {
@@ -134,7 +139,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	XSetErrorHandler(handler);
 	const int screen = DefaultScreen(dsp.get());
 
-	if(!param.windowed)
+	if(!windowed)
 	{
 		modes.reset(new xf86_vidmode_array(dsp,screen));
 
@@ -162,7 +167,10 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 			XF86VidModeSetViewPort(dsp.get(),screen,0,0);
 		}
 		else
+		{
 			std::cerr << "Warning: No resolution matches against " << param.mode << "! Falling back to window mode!\n";
+			windowed = false;
+		}
 	}
 
 	int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 16, None};
@@ -179,12 +187,12 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	swa.colormap = (*cm).c;
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
-	swa.override_redirect = param.windowed ? False : True;
+	swa.override_redirect = windowed ? False : True;
 	swa.event_mask = FocusChangeMask | KeyPressMask | KeyReleaseMask | PropertyChangeMask | StructureNotifyMask | PointerMotionMask | EnterWindowMask | LeaveWindowMask;
 
 	wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width, param.mode.height), "spacegameengine", dsp.get(), swa, *(vi.get())));
 
-	if(param.windowed)
+	if(windowed)
 		XMapWindow(dsp.get(), wnd->get_window());
 	else
 		XMapRaised(dsp.get(), wnd->get_window());
