@@ -87,7 +87,7 @@ try
 //	sprites.back().set_color(sge::colors::red);
 
 	sge::sprite spr(ss, sge::point(0.25,0.25), sge::dim(0.5,0.5), /*tex[0]*/sge::texture_map::no_texture, sge::colors::yellow);
-	spr.set_texture(tex[1],1);
+//	spr.set_texture(tex[1],1);
 	sge::sprite spr2(ss, sge::point(0.25,-0.25), sge::dim(0.25,3), tex[1], sge::colors::red);
 	spr2.set_texture(tex[2],1);
 

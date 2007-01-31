@@ -127,6 +127,7 @@ void sge::xinput::input_system::grab()
 {
 	grab_pointer();
 	grab_keyboard();
+	XSync(wnd->display(), False);
 }
 
 void sge::xinput::input_system::grab_pointer()

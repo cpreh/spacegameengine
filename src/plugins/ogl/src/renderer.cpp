@@ -192,7 +192,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 
 	wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width, param.mode.height), "spacegameengine", dsp.get(), swa, *(vi.get())));
 
-	if(windowed)
+	if(!windowed)
 		XMapWindow(dsp.get(), wnd->get_window());
 	else
 		XMapRaised(dsp.get(), wnd->get_window());
@@ -305,12 +305,12 @@ sge::window_ptr sge::ogl::renderer::get_window() const
 
 unsigned sge::ogl::renderer::screen_height() const
 {
-	return param.mode.width;
+	return param.mode.height;
 }
 
 unsigned sge::ogl::renderer::screen_width() const
 {
-	return param.mode.height;
+	return param.mode.width;
 }
 
 void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
