@@ -260,7 +260,8 @@ void place(vector<T,Dim>& v,
            const typename vector<T,Dim>::const_reference plane_angle,
            typename boost::enable_if_c<Dim==3,T>::type* = 0)
 {
-	v.z() = v.x() = radius * std::sin(high_angle) * std::cos(plane_angle);
+	v.x() = radius * std::sin(high_angle) * std::cos(plane_angle);
+	v.z() = radius * std::sin(high_angle) * std::sin(plane_angle);
 	v.y() = radius * std::cos(high_angle);
 }
 

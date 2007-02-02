@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_HPP_INCLUDED
 #define SGE_MATH_MATRIX_HPP_INCLUDED
 
+#include <cassert>
 #include <cstddef>
 #include <ostream>
 #include <boost/static_assert.hpp>
@@ -290,6 +291,19 @@ inline space_matrix matrix_identity()
 	        0,1,0,0,
 	        0,0,1,0,
 	        0,0,0,1);
+}
+
+inline space_matrix matrix_orthogonal_xy(const space_unit left, const space_unit right, const space_unit top, const space_unit bottom, const space_unit near, const space_unit far)
+{
+	assert(left != right &&
+	       top != bottom &&
+	       far != near);
+
+	return space_matrix
+	       (2/(right - left), 0, 0, -(right+left)/(right-left),
+	        0, 2/(top - bottom), 0, -(top+bottom)/(top-bottom),
+	        0, 0, (-2)/(far - near),-(far+near)/(far-near),
+	        0, 0, 0, 1);
 }
 
 template<typename T, std::size_t NV, std::size_t N, std::size_t M>
