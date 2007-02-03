@@ -18,45 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_HPP_INCLUDED
-#define SGE_LIBRARY_HPP_INCLUDED
+#ifndef SGE_LANGUAGE_HPP_INCLUDED
+#define SGE_LANGUAGE_HPP_INCLUDED
 
 #include <string>
-#include "./types.hpp"
-
-#ifdef SGE_WINDOWS_PLATFORM
-	#define WIN32_LEAN_AND_MEAN
-	#include <Windows.h>
-#elif SGE_LINUX_PLATFORM
-	#include<dlfcn.h>
-#endif
 
 namespace sge
 {
 
-class library {
-private:
-#ifdef SGE_WINDOWS_PLATFORM
-	HMODULE handle;
-#elif SGE_LINUX_PLATFORM
-	void* handle;
-#endif
-public:
-	library(const std::string& n);
-	~library();
-
-	template<typename Fun>
-	Fun load_function(const std::string& fun);
-
-	const std::string& name() const;
-private:
-	std::string liberror() const;
-
-	std::string n;
-};
+std::string language();
 
 }
-
-#include "./detail/library_impl.hpp"
 
 #endif

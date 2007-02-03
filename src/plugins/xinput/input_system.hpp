@@ -51,6 +51,7 @@ private:
 	bool handle_grab(int return_value) const;
 	void enable_dga(bool);
 	key_type mouse_key(unsigned x11code) const;
+	void dga_motion(XEvent&);
 	void warped_motion(XEvent&);
 	void private_mouse_motion(mouse_coordinate_t deltax, mouse_coordinate_t deltay);
 

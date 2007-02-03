@@ -18,45 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_HPP_INCLUDED
-#define SGE_LIBRARY_HPP_INCLUDED
+#include "../funptr_cast.hpp"
+#include <stdexcept>
 
-#include <string>
-#include "./types.hpp"
-
-#ifdef SGE_WINDOWS_PLATFORM
-	#define WIN32_LEAN_AND_MEAN
-	#include <Windows.h>
-#elif SGE_LINUX_PLATFORM
-	#include<dlfcn.h>
-#endif
-
-namespace sge
+template<typename Fun>
+Fun sge::library::load_function(const std::string& fun)
 {
-
-class library {
-private:
 #ifdef SGE_WINDOWS_PLATFORM
-	HMODULE handle;
+	Fun ptr = reinterpret_cast<Fun>(GetProcAddress(handle,fun.c_str()));
 #elif SGE_LINUX_PLATFORM
-	void* handle;
+	Fun ptr = funptr_cast<Fun>(dlsym(handle,fun.c_str()));
 #endif
-public:
-	library(const std::string& n);
-	~library();
-
-	template<typename Fun>
-	Fun load_function(const std::string& fun);
-
-	const std::string& name() const;
-private:
-	std::string liberror() const;
-
-	std::string n;
-};
-
+	if(!ptr)
+		throw std::runtime_error(std::string("failed to load function ") + fun + " from library " + name() + " : " + liberror());
+	return ptr;
 }
-
-#include "./detail/library_impl.hpp"
-
-#endif

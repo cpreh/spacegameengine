@@ -18,45 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_HPP_INCLUDED
-#define SGE_LIBRARY_HPP_INCLUDED
+#include "../language.hpp"
+#include "../types.hpp"
+#include <stdexcept>
+#include <cstdlib>
 
-#include <string>
-#include "./types.hpp"
-
-#ifdef SGE_WINDOWS_PLATFORM
-	#define WIN32_LEAN_AND_MEAN
-	#include <Windows.h>
-#elif SGE_LINUX_PLATFORM
-	#include<dlfcn.h>
-#endif
-
-namespace sge
+std::string sge::language()
 {
-
-class library {
-private:
-#ifdef SGE_WINDOWS_PLATFORM
-	HMODULE handle;
-#elif SGE_LINUX_PLATFORM
-	void* handle;
+#ifdef SGE_LINUX_PLATFORM
+	const char* const p = std::getenv("LANG");
+	if(!p)
+		throw std::runtime_error("LANG not set! Unable to detect OS language!");
+	return p;
+#else
+#error "Implement me!"
 #endif
-public:
-	library(const std::string& n);
-	~library();
-
-	template<typename Fun>
-	Fun load_function(const std::string& fun);
-
-	const std::string& name() const;
-private:
-	std::string liberror() const;
-
-	std::string n;
-};
-
 }
-
-#include "./detail/library_impl.hpp"
-
-#endif

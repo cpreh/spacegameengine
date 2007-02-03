@@ -211,7 +211,7 @@ void sge::xinput::input_system::dispatch()
 			break;
 		case MotionNotify:
 			if(use_dga)
-				private_mouse_motion(xev.xmotion.x_root, xev.xmotion.y_root);
+				dga_motion(xev);
 			else
 				warped_motion(xev);
 			break;
@@ -293,6 +293,20 @@ void sge::xinput::input_system::private_mouse_motion(const mouse_coordinate_t de
 		sig(key_pair(key_type("MouseX", KC_MOUSEX, 0), space_unit(deltax) / wnd->size().w));
 	if(deltay)
 		sig(key_pair(key_type("MouseY", KC_MOUSEY, 0), space_unit(deltay) / wnd->size().h));
+}
+
+void sge::xinput::input_system::dga_motion(XEvent& xevent)
+{
+	mouse_coordinate_t dx = xevent.xmotion.x_root,
+	                   dy = xevent.xmotion.y_root;
+
+	while(XCheckTypedEvent(wnd->display(), MotionNotify, &xevent))
+	{
+		dx += xevent.xmotion.x_root;
+		dy += xevent.xmotion.y_root;
+	}
+
+	private_mouse_motion(dx, dy);
 }
 
 // thanks to SDL
