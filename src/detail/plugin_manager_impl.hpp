@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-namespace sge
-{
-
 template<typename T>
-typename boost::enable_if_c<detail::plugin_traits<T>::needs_window == false, shared_ptr<T> >::type plugin_manager::get_plugin(const unsigned index)
+typename boost::enable_if_c<sge::detail::plugin_traits<T>::needs_window == false, sge::shared_ptr<T> >::type sge::plugin_manager::get_plugin(const unsigned index)
 {
 	typedef typename detail::plugin_traits<T>::plugin_function plugin_function;
 	return shared_ptr<T>(_get_plugin<T,plugin_function>(index)());
 }
 
 template<typename T>
-typename boost::enable_if_c<detail::plugin_traits<T>::needs_window == true, shared_ptr<T> >::type plugin_manager::get_plugin(const window_ptr w, const unsigned index)
+typename boost::enable_if_c<sge::detail::plugin_traits<T>::needs_window == true, sge::shared_ptr<T> >::type sge::plugin_manager::get_plugin(const window_ptr w, const unsigned index)
 {
 	typedef typename detail::plugin_traits<T>::plugin_function plugin_function;
 	return shared_ptr<T>(_get_plugin<T,plugin_function>(index)(w));
 }
 
-template<typename T, typename Fun> Fun plugin_manager::_get_plugin(const unsigned index)
+template<typename T, typename Fun> Fun sge::plugin_manager::_get_plugin(const unsigned index)
 {
 	const plugin_type type = detail::plugin_traits<T>::get_plugin_type();
 	library_array::iterator it = find_nth_if(loaded_plugins.begin(),loaded_plugins.end(),index,std::bind2nd(detail::plugin_has_flag(),type));
@@ -45,6 +42,4 @@ template<typename T, typename Fun> Fun plugin_manager::_get_plugin(const unsigne
 		it = --loaded_plugins.end();
 	}
 	return it->lib->load_function<Fun>(detail::plugin_traits<T>::plugin_loader_name());
-}
-
 }
