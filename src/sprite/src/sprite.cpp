@@ -55,39 +55,39 @@ sge::sprite::sprite(const sprite& spr)
    _color(spr._color)
 {}
 
-void sge::sprite::x(const space_unit nx)
+sge::space_unit& sge::sprite::x()
 {
-	p.x() = nx;
+	return p.x();
 }
 
-void sge::sprite::y(const space_unit ny)
+sge::space_unit& sge::sprite::y()
 {
-	p.y() = ny;
+	return p.y();
 }
 
-void sge::sprite::pos(const point np)
+sge::point& sge::sprite::pos()
 {
-	p = np;
+	return p;
 }
 
-void sge::sprite::width(const space_unit w)
+sge::space_unit& sge::sprite::width()
 {
-	sz.w = w;
+	return sz.w;
 }
 
-void sge::sprite::height(const space_unit h)
+sge::space_unit& sge::sprite::height()
 {
-	sz.h = h;
+	return sz.h;
 }
 
-void sge::sprite::size(const dim nsz)
+sge::dim& sge::sprite::size()
 {
-	sz = nsz;
+	return sz;
 }
 
-void sge::sprite::z(const space_unit nz)
+sge::space_unit& sge::sprite::z()
 {
-	_z = nz;
+	return _z;
 }
 
 void sge::sprite::visible(const bool nvisible)
@@ -130,37 +130,37 @@ void sge::sprite::set_color(const color c)
 	_color = rgba_to_abgr(c);
 }
 
-sge::space_unit sge::sprite::x() const
+const sge::space_unit& sge::sprite::x() const
 {
 	return p.x();
 }
 
-sge::space_unit sge::sprite::y() const
+const sge::space_unit& sge::sprite::y() const
 {
 	return p.y();
 }
 
-sge::point sge::sprite::pos() const
+const sge::point& sge::sprite::pos() const
 {
 	return p;
 }
 
-sge::space_unit sge::sprite::width() const
+const sge::space_unit& sge::sprite::width() const
 {
 	return sz.w;
 }
 
-sge::space_unit sge::sprite::height() const
+const sge::space_unit& sge::sprite::height() const
 {
 	return sz.h;
 }
 
-sge::dim sge::sprite::size() const
+const sge::dim& sge::sprite::size() const
 {
 	return sz;
 }
 
-sge::space_unit sge::sprite::z() const
+const sge::space_unit& sge::sprite::z() const
 {
 	return _z;
 }

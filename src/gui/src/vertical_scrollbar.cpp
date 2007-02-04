@@ -35,7 +35,7 @@ sge::gui::vertical_scrollbar::vertical_scrollbar(manager& m, element* const pare
 void sge::gui::vertical_scrollbar::scroll_max(const size_type max)
 {
 	s_max = max; 
-	scrollbar.height(scroll_max_h()/(s_max+1));
+	scrollbar.height() = scroll_max_h()/(s_max+1);
 	s_pos = std::min(s_pos,s_max);
 	recalc_pos();
 }
@@ -66,13 +66,13 @@ void sge::gui::vertical_scrollbar::on_glob_mouse_move(const mouse_move_event& ev
 	   p.x() < -distx || p.x() > width() + distx)
 		return;
 
-	scrollbar.y(p.y());
+	scrollbar.y() = p.y();
 
 	const unit miny = up_scroll_button.height();
-	scrollbar.y(std::max(scrollbar.y(),miny));
+	scrollbar.y() = std::max(scrollbar.y(),miny);
 
 	const unit maxy = down_scroll_button.y() - scrollbar.height();
-	scrollbar.y(std::min(scrollbar.y(),maxy));
+	scrollbar.y() = std::min(scrollbar.y(),maxy);
 
 	s_pos = static_cast<size_type>((scrollbar.y() - miny) / (maxy-miny) * s_max);
 }
@@ -119,7 +119,7 @@ void sge::gui::vertical_scrollbar::move_scrollbar(const point click_pos)
 
 void sge::gui::vertical_scrollbar::recalc_pos()
 {
-	scrollbar.y(scroll_max_h()*(static_cast<unit>(s_pos)/(s_max+1)) + up_scroll_button.height());
+	scrollbar.y() = scroll_max_h()*(static_cast<unit>(s_pos)/(s_max+1)) + up_scroll_button.height();
 }
 
 sge::gui::unit sge::gui::vertical_scrollbar::scroll_max_h() const

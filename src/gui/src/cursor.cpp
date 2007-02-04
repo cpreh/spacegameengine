@@ -36,14 +36,13 @@ void sge::gui::cursor::pressed(const bool p)
 
 void sge::gui::cursor::move(const unit dx, const unit dy)
 {
-	point p = sprite::pos();
+	point& p = sprite::pos();
 	p.x() += dx;
 	p.y() += dy;
 	p.x() = std::min(p.x(), mouse_max.x());
 	p.x() = std::max(p.x(), mouse_min.x());
 	p.y() = std::min(p.y(), mouse_max.y());
 	p.y() = std::max(p.y(), mouse_min.y());
-	sprite::pos(p);
 }
 
 void sge::gui::cursor::draw()

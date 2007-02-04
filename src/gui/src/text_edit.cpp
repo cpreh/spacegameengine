@@ -104,7 +104,7 @@ void sge::gui::text_edit::decrease_cursor_pos()
 
 void sge::gui::text_edit::on_draw(const draw_event& event)
 {
-	cur.size(dim(my_font.char_space(' ') / 2, height()*0.9));
+	cur.size() = dim(my_font.char_space(' ') / 2, height()*0.9);
 	rectangle::on_draw(event);
 	my_font.draw_text(_text.substr(text_start,_text.size()-text_start), event.pos(), size(), _text_color, flags);
 	if(m.focus() == this)
@@ -113,7 +113,7 @@ void sge::gui::text_edit::on_draw(const draw_event& event)
 		pos.x() += my_font.line_width(_text.begin() + text_start, _text.begin() + cursor_pos, width(), flags).get<0>();
 
 		pos.y() += height() / 2 - cur.height() / 2;
-		cur.pos(pos);
+		cur.pos() = pos;
 		cur.draw();
 	}
 }

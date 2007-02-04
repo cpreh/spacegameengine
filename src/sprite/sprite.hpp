@@ -43,13 +43,13 @@ public:
 	sprite(sprite_system& s, point pos, dim sz, const std::string& tex, color c = colors::white, space_unit z = 0, space_unit rotation = 0, bool visible = true);
 	sprite(const sprite& s);
 
-	void x(space_unit x);
-	void y(space_unit y);
-	void pos(point p);
-	void width(space_unit w);
-	void height(space_unit h);
-	void size(dim sz);
-	void z(space_unit z);
+	space_unit& x();
+	space_unit& y();
+	point& pos();
+	space_unit& width();
+	space_unit& height();
+	dim& size();
+	space_unit& z();
 	void visible(bool visible);
 	void set_texture(const std::string& name, stage_type stage = 0);
 	void rotate(space_unit rot);
@@ -58,13 +58,13 @@ public:
 	void repeat(space_unit);
 	void set_color(color c);
 	
-	space_unit x() const;
-	space_unit y() const;
-	space_unit z() const;
-	point pos() const;
-	space_unit width() const;
-	space_unit height() const;
-	dim size() const;
+	const space_unit& x() const;
+	const space_unit& y() const;
+	const space_unit& z() const;
+	const point& pos() const;
+	const space_unit& width() const;
+	const space_unit& height() const;
+	const dim& size() const;
 	bool visible() const;
 	rect get_rect() const;
 	point center() const;

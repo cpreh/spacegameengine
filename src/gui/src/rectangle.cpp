@@ -34,6 +34,37 @@ bool sge::gui::rectangle::intersects(const point p) const
 
 void sge::gui::rectangle::on_draw(const draw_event& e)
 {
-	sprite::pos(e.pos());
+	sprite::pos() = e.pos();
 	sprite::draw();
+}
+
+
+const sge::gui::unit& sge::gui::rectangle::x() const
+{
+	return rel_pos.x();
+}
+
+sge::gui::unit& sge::gui::rectangle::x()
+{
+	return rel_pos.x();
+}
+
+const sge::gui::unit& sge::gui::rectangle::y() const
+{
+	return rel_pos.y();
+}
+
+sge::gui::unit& sge::gui::rectangle::y()
+{
+	return rel_pos.y();
+}
+
+const sge::gui::point& sge::gui::rectangle::pos() const
+{
+	return rel_pos;
+}
+
+sge::gui::point& sge::gui::rectangle::pos()
+{
+	return rel_pos;
 }
