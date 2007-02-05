@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <ostream>
 #include <cmath>
+#include <iterator>
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -28,10 +29,17 @@ template<typename T, std::size_t Dim>
 class vector {
 	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_VECTOR_MAX_SIZE);
 public:
-	typedef T           value_type;
-	typedef T&          reference;
-	typedef const T&    const_reference;
-	typedef std::size_t size_type;
+	typedef T              value_type;
+	typedef T&             reference;
+	typedef const T&       const_reference;
+	typedef std::ptrdiff_t difference_type;
+	typedef std::size_t    size_type;
+	typedef T*             pointer;
+	typedef const T*       const_pointer;
+	typedef pointer        iterator;
+	typedef const_pointer  const_iterator;
+	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
 #define SGE_MATH_VECTOR_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
 #define SGE_MATH_VECTOR_CTOR(z, n, text) vector(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
@@ -248,6 +256,51 @@ BOOST_PP_REPEAT(SGE_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_SET, void)
 	{
 		const vector tmp(*this - r);
 		return dot(tmp,tmp) < radius * radius;
+	}
+
+	size_type size() const
+	{
+		return Dim;
+	}
+
+	iterator begin()
+	{
+		return data;
+	}
+
+	iterator end()
+	{
+		return &data[Dim];
+	}
+
+	const_iterator begin() const
+	{
+		return data;
+	}
+
+	const_iterator end() const
+	{
+		return &data[Dim];
+	}
+
+	reverse_iterator rbegin()
+	{
+		return reverse_iterator(end());
+	}
+
+	reverse_iterator rend()
+	{
+		return reverse_iterator(begin());
+	}
+
+	const_reverse_iterator rbegin() const
+	{
+		return reverse_iterator(end());
+	}
+
+	const_reverse_iterator rend() const
+	{
+		return reverse_iterator(begin());
 	}
 private:
 	T data[Dim];
