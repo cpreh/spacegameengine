@@ -115,6 +115,8 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 
 		for(;sbeg != send; ++sbeg)
 		{
+			if(*sbeg == '\n')
+				continue;
 			const font_entity&   reg = impl->load_char(*sbeg);
 			const font_size      sz(char_width(*sbeg), height() * reg.v_scale);
 			const font_rect      fp(font_pos(pos.x() + height() * reg.left, pos.y() + height() * reg.top), sz);
@@ -167,6 +169,8 @@ sge::font::line_size_t sge::font::text_width_unformatted(string_type::const_iter
 	font_unit w(0);
 	for(; sbeg != send; ++sbeg)
 	{
+		if(*sbeg == '\n')
+			continue;
 		const font_unit delta = char_space(*sbeg);
 		if(delta + w > width)
 			break;
@@ -221,6 +225,8 @@ sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, c
 				return line_size_t(last_width, ++last_white);
 			return line_size_t(w,sbeg);
 		}
+		if(*sbeg == '\n')
+			return line_size_t(w,++sbeg);
 		w = nw;
 	}
 	return line_size_t(w,send);

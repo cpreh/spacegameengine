@@ -365,7 +365,7 @@ void sge::ogl::renderer::set_filter_state(const filter_arg type, const filter_ar
 	}
 	if(arg == FARGV_Anisotropic)
 	{
-		std::cerr << "sub: FARG_Anisotropic not supported in ogl::renderer::set_filter_state\n";
+		std::cerr << "stub: FARG_Anisotropic not supported in ogl::renderer::set_filter_state\n";
 		return;
 	}
 
