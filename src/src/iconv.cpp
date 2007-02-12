@@ -80,7 +80,7 @@ To _iconv(const From& input, const sge::encoding from, const sge::encoding to, c
 		// FIXME why do we have to reverse the byteorder here?
 		const std::size_t ucs4_bytes = sizeof(sge::uchar_t);
 		assert(buf_size % ucs4_bytes == 0);
-		for(char* p = arr.c_array(); p < &arr[bytes_written]; p += ucs4_bytes)
+		for(char* p = arr.c_array(); p < arr.data() + bytes_written; p += ucs4_bytes)
 			std::reverse(p, p + ucs4_bytes);
 
 		output += To(reinterpret_cast<typename To::const_pointer>(arr.data()), (bytes_written) / sizeof(typename To::value_type));
