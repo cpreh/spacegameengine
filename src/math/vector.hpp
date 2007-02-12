@@ -4,6 +4,7 @@
 #include <cassert>
 #include <cstddef>
 #include <ostream>
+#include <istream>
 #include <cmath>
 #include <iterator>
 #include <boost/static_assert.hpp>
@@ -355,6 +356,25 @@ std::ostream& operator<< (std::ostream& s, const vector<T,Dim>& v)
 	for(typename vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 		s << v[i] << ',';
 	s << v[Dim-1] << ')';
+	return s;
+}
+
+template<typename T, std::size_t Dim>
+std::istream& operator>> (std::istream& s, vector<T,Dim>& v)
+{
+	char c;
+	s >> c;
+	if(c != '(')
+		s.setstate(std::ios_base::failbit);
+	for(typename vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	{
+		s >> v[i] >> c;
+		if(c != ',')
+			s.setstate(std::ios_base::failbit);
+	}
+	s >> v[Dim-1] >> c;
+	if(c != ')')
+		s.setstate(std::ios_base::failbit);
 	return s;
 }
 
