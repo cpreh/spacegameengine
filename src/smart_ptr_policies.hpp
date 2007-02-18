@@ -25,13 +25,13 @@ namespace sge
 {
 
 template<typename T> struct heap_deleter {
-	void delete_(T* t) { delete t; }
+	void delete_(T* const t) { delete t; }
 protected:
 	~heap_deleter(){}
 };
 
 template<typename T> struct com_deleter {
-	void delete_(T* t) { t->Release(); }
+	void delete_(T* const t) { t->Release(); }
 protected:
 	~com_deleter(){}
 };

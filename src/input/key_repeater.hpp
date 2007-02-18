@@ -18,45 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TYPES_HPP_INCLUDED
-#define SGE_FONT_TYPES_HPP_INCLUDED
+#ifndef SGE_KEY_REPEATER_HPP_INCLUDED
+#define SGE_KEY_REPEATER_HPP_INCLUDED
 
-#include <string>
-#include "../math/vector2.hpp"
-#include "../math/dim.hpp"
-#include "../math/rect.hpp"
-#include "../string.hpp"
-#include "../typeswitch.hpp"
+#include <boost/signals/trackable.hpp>
+#include "../timer.hpp"
+#include "./key_type.hpp"
+#include "./input_system.hpp"
 
 namespace sge
 {
 
-enum font_weight {
-	FW_Thin, 
-	FW_Normal,
-	FW_Bold,
-	FW_Heavy
-};
+class key_repeater : boost::signals::trackable {
+public:
+	key_repeater(input_system_ptr is, timer::interval_type interval, timer::interval_type repeat_time);
+	key_type repeated_key();
+	static const key_type no_key;
+	timer& interval_timer();
+	timer& repeat_timer();
+private:
+	void key_callback(const key_pair&);
 
-enum font_flags {
-	FTF_AlignLeft    = 1,
-	FTF_AlignRight   = 1 << 1,
-	FTF_AlignHCenter = 1 << 2,
-	FTF_AlignTop     = 1 << 3,
-	FTF_AlignVCenter = 1 << 4,
-	FTF_AlignBottom  = 1 << 5,
-	FTF_NoMultiLine  = 1 << 6,
-	FTF_NoLineWrap   = 1 << 7,
-	FTF_Default      = FTF_AlignLeft | FTF_AlignTop
+	key_type last_key;
+	timer interval_t,
+	      repeat_t;
 };
-typedef unsigned font_flag_t;
-
-typedef space_unit  font_unit;
-typedef point       font_pos;
-typedef dim         font_size;
-typedef rect        font_rect;
-typedef uint32      font_char;
-typedef string      font_string;
 
 }
 

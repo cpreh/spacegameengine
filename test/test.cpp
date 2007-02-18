@@ -133,7 +133,7 @@ try
 	for(int i = 0; i < 5; ++i)
 		ls.add(rand_point());
 
-	const std::string some_text("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789");
+	const std::string some_text("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest");
 
 	while(running)
 	{
@@ -162,10 +162,12 @@ try
 		ss.transform(sge::math::matrix_translation(translation));
 		ss.draw();
 		man.process();
-//		fn.transform(sge::math::matrix_rotation_z(angle));
+//		fn.transform(sge::math::matrix_rotation_x(angle));
+//		fn.projection(sge::math::transpose(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),sge::PI,0,1)));
+//		fn.internal_transformation(sge::math::matrix_identity());
 		fn.height_pixel_scale(1);
 		fn.height(0.05);
-		fn.draw_text(some_text,sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green);
+		fn.draw_text(some_text,sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
 		std::ostringstream os;
 		os << cur_fps;
 		fn.transform(sge::math::matrix_identity());

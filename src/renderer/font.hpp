@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <string>
 #include <vector>
-#include <boost/tuple/tuple.hpp>
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
 #include "./types.hpp"
@@ -56,7 +55,14 @@ public:
 
 	font_size draw_text(const string_type& text, font_pos pos, font_size max_size, color col, font_flag_t flags = FTF_Default);
 
-	typedef boost::tuple<font_unit, string_type::const_iterator> line_size_t;
+	struct line_size_t {
+		font_unit width;
+		string_type::const_iterator end,
+		                            next_begin;
+
+		line_size_t(font_unit width, string_type::const_iterator end, string_type::const_iterator next_begin);
+		line_size_t(font_unit width, string_type::const_iterator end);
+	};
 
 	line_size_t text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator send, const font_unit width) const;
 	line_size_t line_width(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t tflags) const;

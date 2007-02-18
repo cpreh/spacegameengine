@@ -284,6 +284,17 @@ inline space_matrix matrix_rotation_z(const space_unit angle)
 	        0,     0,    0, 1);
 }
 
+inline space_matrix matrix_rotation_x(const space_unit angle)
+{
+	const space_unit sinx = std::sin(angle),
+	                 cosx = std::cos(angle);
+	return space_matrix
+	       (1,      0,    0, 0,
+	        0,  cosx, -sinx, 0,
+	        0,  sinx,  cosx, 0,
+	        0,     0,     0, 1);
+}
+
 inline space_matrix matrix_identity()
 {
 	return space_matrix

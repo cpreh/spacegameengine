@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../image/image_loader.hpp"
 #include "../renderer/font.hpp"
 #include "../input/input_system.hpp"
+#include "../input/key_repeater.hpp"
 #include "./types.hpp"
 #include "./element.hpp"
 #include "./events.hpp"
@@ -76,6 +77,7 @@ private:
 			point relative_pos() const { return point(); }
 	};
 
+	key_repeater            repeater;
 	std::string             graphics_path;
 	sprite_system           sprite_sys;
 	input_system_ptr        input_sys;
@@ -91,9 +93,6 @@ private:
 	element*                _pressed;
 	element*                _last_clicked;
 	timer                   double_click_time;
-	timer                   repeat_interval;
-	timer                   repeat_time;
-	key_type                last_key;
 	modifier_state          key_mod;
 };
 

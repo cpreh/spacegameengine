@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/convenience.hpp>
 
 sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input_sys, font& gui_font, const image_loader_ptr il, const std::string& graphics_path, const unit _font_height)
-: graphics_path(graphics_path),
+: repeater(input_sys, 50, 500),
+  graphics_path(graphics_path),
   sprite_sys(rend, image_loader_handler(graphics_path,il)),
   input_sys(input_sys),
   gui_font(gui_font),
@@ -42,10 +43,7 @@ sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input
   _hover(0),
   _pressed(0),
   _last_clicked(0),
-  double_click_time(200),
-  repeat_interval(50),
-  repeat_time(500),
-  last_key("") 
+  double_click_time(200)
 {
 	input_sys->register_callback(boost::bind(&manager::key_callback, this, _1));
 }
@@ -109,14 +107,9 @@ void sge::gui::manager::key_callback(const key_pair& input)
 				focus()->key_up(e);
 		}
 
-		if(val == false)
-			repeat_time.deactivate();
-		else
-			repeat_time.activate();
-		if(key != last_key || _last_focus != focus())
-			repeat_time.reset();
-		
-		last_key = key;
+		if(_last_focus != focus())
+			repeater.repeat_timer().reset();
+
 		_last_focus = focus();
 	}
 }
@@ -124,12 +117,13 @@ void sge::gui::manager::key_callback(const key_pair& input)
 void sge::gui::manager::process()
 {
 	get_font().height(font_height());
-	if(repeat_time.expired() && repeat_interval.update())
+	const key_type key = repeater.repeated_key();
+	if(key != key_repeater::no_key)
 	{
-		if(is_mouse_key(last_key.code))
-			_root.mouse_press(mouse_button_event(cur.pos(),last_key.code,key_mod,true,last_key.char_code));
-		else if(is_keyboard_key(last_key.code))
-			focus()->key_press(keyboard_button_event(last_key.code,key_mod,true,last_key.char_code));
+		if(is_mouse_key(key.code))
+			_root.mouse_press(mouse_button_event(cur.pos(),key.code,key_mod,true,key.char_code));
+		else if(is_keyboard_key(key.code))
+			focus()->key_press(keyboard_button_event(key.code,key_mod,true,key.char_code));
 	}
 
 	sprite_sys.set_parameters();

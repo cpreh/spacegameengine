@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../sprite/helper.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
+#include <boost/next_prior.hpp>
 
 sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
  : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
@@ -93,27 +94,25 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 	rend->set_int_state(IS_AmbientLightColor,col);
 
 	font_size sz;
-	string_type::const_iterator sbeg(text.begin()),
-	                            send(text.end());
+	string_type::const_iterator sbeg(text.begin());
 
 	lock_ptr<vertex_buffer_ptr> _lock(vb,LF_Discard);
 	vertex_buffer::iterator vit = vb->begin();
 
+	std::size_t chars_to_draw = 0;
 	while(sbeg != text.end() && sz.h + height() <= max_sz.h)
 	{
 		const line_size_t line_size = line_width(sbeg, text.end(), max_sz.w, flags);
-		const font_unit width = line_size.get<0>();
-		if(width == 0)
+		if(line_size.width == 0)
 			break;
-		send = line_size.get<1>();
 
 		pos.x() = start_pos.x();
 		if(flags & FTF_AlignHCenter)
-			pos.x() += (max_sz.w - width) / 2;
+			pos.x() += (max_sz.w - line_size.width) / 2;
 		else if(flags & FTF_AlignRight)
-			pos.x() += max_sz.w - width;
+			pos.x() += max_sz.w - line_size.width;
 
-		for(;sbeg != send; ++sbeg)
+		for(;sbeg != line_size.end; ++sbeg)
 		{
 			if(*sbeg == '\n')
 				continue;
@@ -123,25 +122,28 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 
 			if(last_texture != reg.tex)
 			{
-				add_job(std::distance(text.begin(),sbeg));
+				add_job(chars_to_draw);
 				last_texture = reg.tex;
 			}
 
 			vit = fill_sprite_vertices(vit, fp, reg.rect, 0);
 			pos.x() += char_space(*sbeg);
+
+			++chars_to_draw;
 		}
 
-		sbeg = send;
-		sz.w = std::max(sz.w, width);
+		sz.w = std::max(sz.w, line_size.width);
 		sz.h += height();
 
 		if(flags & FTF_NoMultiLine)
 			break;
 
+		sbeg = line_size.next_begin;
+
 		pos.y() += height();
 	}
 	_lock.unlock();
-	add_job(std::distance(text.begin(),send));
+	add_job(chars_to_draw);
 	flush();
 	return sz;
 }
@@ -182,18 +184,18 @@ sge::font::line_size_t sge::font::text_width_unformatted(string_type::const_iter
 sge::font_size sge::font::text_size(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
 {
 	if(flags & FTF_NoMultiLine)
-		return font_size(text_width_unformatted(sbeg, send, width).get<0>(), height());
+		return font_size(text_width_unformatted(sbeg, send, width).width, height());
 
 	font_size sz;
 	while(sbeg != send)
 	{
 		const line_size_t line_size = line_width(sbeg, send, width, flags);
-		const font_unit line_w = line_size.get<0>();
+		const font_unit line_w = line_size.width;
 		if(line_w == 0)
 			break;
 		sz.w = std::max(sz.w, line_w);
 		sz.h += height();
-		sbeg = line_size.get<1>();
+		sbeg = line_size.end;
 	}
 	return sz;
 }
@@ -213,6 +215,8 @@ sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, c
 
 	for(; sbeg != send; ++sbeg)
 	{
+		if(*sbeg == '\n')
+			return line_size_t(w, ++sbeg);
 		if(isspace_ucs4(*sbeg))
 		{
 			last_white = sbeg;
@@ -221,21 +225,24 @@ sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, c
 		const font_unit nw = w + char_space(*sbeg);
 		if(nw > width)
 		{
-			if(last_width > 0)
-				return line_size_t(last_width, ++last_white);
-			return line_size_t(w,sbeg);
+			const font_unit ret_width =  last_width == 0 ? w : last_width;
+			if(flags & FTF_NoLineWrap)
+			{
+				const string_type::const_iterator next_nl = std::find(sbeg, send, uchar_t('\n')),
+				                                  next_begin = next_nl == send ? send : boost::next(next_nl);
+				return line_size_t(ret_width, sbeg, next_begin);
+			}
+			return line_size_t(ret_width, last_width > 0 ? ++last_white : sbeg);
 		}
-		if(*sbeg == '\n')
-			return line_size_t(w,++sbeg);
 		w = nw;
 	}
-	return line_size_t(w,send);
+	return line_size_t(w, send);
 }
 
 void sge::font::flush()
 {
 	// FIXME
-//	std::sort(jobs.begin(),jobs.end(), boost::lambda::bind(&job::tex, boost::lambda::_1) < boost::lambda::bind(&job::tex, boost::lambda::_2));
+//	std::sort(jobs.begin(), jobs.end(), boost::lambda::bind(&job::tex, boost::lambda::_1) < boost::lambda::bind(&job::tex, boost::lambda::_2));
 	{
 		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
 		index_buffer::iterator iib = ib->begin();
@@ -253,7 +260,7 @@ void sge::font::flush()
 			rend->set_texture(it->tex);
 			last_texture = it->tex;
 		}
-		rend->render(vb, ib, 0, vb->size(), PT_Triangle, (it->end_index-it->first_index)*2, it->first_index*6);
+		rend->render(vb, ib, 0, vb->size(), PT_Triangle, (it->end_index - it->first_index)*2, it->first_index*6);
 	}
 	jobs.clear();
 }
@@ -267,3 +274,15 @@ void sge::font::set_parameters()
 	rend->set_filter_state(FARG_MinFilter,FARGV_Linear);
 	rend->set_filter_state(FARG_MagFilter,FARGV_Linear);
 }
+
+sge::font::line_size_t::line_size_t(const font_unit width, const string_type::const_iterator end, const string_type::const_iterator next_begin)
+ : width(width),
+   end(end),
+   next_begin(next_begin)
+{}
+	
+sge::font::line_size_t::line_size_t(const font_unit width, const string_type::const_iterator end)
+ : width(width),
+   end(end),
+   next_begin(end)
+{}
