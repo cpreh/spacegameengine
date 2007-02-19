@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VECTOR_HPP_INCLUDED_ASDASD
-#define SGE_VECTOR_HPP_INCLUDED_ASDASD
+#ifndef SGE_VECTOR_HPP_INCLUDED
+#define SGE_VECTOR_HPP_INCLUDED
 
 #include <vector>
 

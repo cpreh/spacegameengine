@@ -195,7 +195,7 @@ sge::font_size sge::font::text_size(string_type::const_iterator sbeg, const stri
 			break;
 		sz.w = std::max(sz.w, line_w);
 		sz.h += height();
-		sbeg = line_size.end;
+		sbeg = line_size.next_begin;
 	}
 	return sz;
 }
