@@ -67,3 +67,24 @@ void sge::timer::deactivate()
 {
 	_active = false;
 }
+
+sge::timer::interval_type sge::timer::interval() const
+{
+	return _interval;
+}
+
+sge::timer::interval_type sge::timer::last_time() const
+{
+	return _last_time;
+}
+
+bool sge::timer::active() const
+{
+	return _active;
+}
+
+void sge::timer::interval(const interval_type i)
+{
+	_interval = i;
+	reset();
+}
