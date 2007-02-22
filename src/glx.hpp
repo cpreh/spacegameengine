@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <GL/glx.h>
 #include <X11/extensions/xf86vmode.h>
 
+// TODO: divide this file in at least two (X and glx)
+
 namespace sge
 {
 

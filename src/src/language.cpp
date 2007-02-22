@@ -23,6 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <stdexcept>
 #include <cstdlib>
 
+#ifdef SGE_WINDOWS_PLATFORM
+#include <boost/array.hpp>
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#endif
+
 std::string sge::language()
 {
 #ifdef SGE_LINUX_PLATFORM
@@ -30,7 +36,10 @@ std::string sge::language()
 	if(!p)
 		throw std::runtime_error("LANG not set! Unable to detect OS language!");
 	return p;
-#else
-#error "Implement me!"
+#elif SGE_WINDOWS_PLATFORM
+	boost::array<char, 128> buf;
+	if(GetLocaleInfo(GetSystemDefaultLCID(), LOCALE_SLANGUAGE, buf.c_array(), buf.size()) == 0)
+		throw std::runtime_error("GetLocaleInfo() failed!");
+	return std::string(buf.data());
 #endif
 }

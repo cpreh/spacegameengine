@@ -45,7 +45,7 @@ sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const s
 
 void sge::font::height_pixel_scale(const unsigned scale)
 {
-	height(font_unit(impl->optimal_height_base()*scale) / rend->screen_height());
+	height(font_unit(impl->optimal_height_base()*scale) / rend->screen_size().h);
 }
 
 sge::font_unit sge::font::height() const
@@ -55,7 +55,7 @@ sge::font_unit sge::font::height() const
 
 sge::font_unit sge::font::optimal_height_base() const
 {
-	return font_unit(impl->optimal_height_base()) / rend->screen_height();
+	return font_unit(impl->optimal_height_base()) / rend->screen_size().h;
 }
 
 void sge::font::height(const space_unit h)

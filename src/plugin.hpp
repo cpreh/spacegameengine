@@ -38,8 +38,9 @@ enum plugin_type {
 
 struct plugin_info {
 	plugin_info()
-		: name(0), description(0), plugin_version(0), 
-		  min_core_version(0), type(PT_Nothing) {}
+	 : name(0), description(0), plugin_version(0), min_core_version(0), type(PT_Nothing)
+	{}
+
 	const char*  name;
 	const char*  description;
 	unsigned     plugin_version;

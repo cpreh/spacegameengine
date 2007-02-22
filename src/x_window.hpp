@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X_WINDOW_HPP_INCLUDED
 #define SGE_X_WINDOW_HPP_INCLUDED
 
-#include "./window.hpp"
+#include "window.hpp"
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 

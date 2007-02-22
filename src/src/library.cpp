@@ -54,7 +54,6 @@ std::string sge::library::liberror() const
 #ifdef SGE_LINUX_PLATFORM
 	return dlerror();
 #else
-#error "Implement me!"
 	return "";
 #endif
 }

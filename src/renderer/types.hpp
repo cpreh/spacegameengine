@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #include "../math/vector2.hpp"
 #include "../math/vector3.hpp"
+#include "../math/dim.hpp"
 #include "./color.hpp"
 
 namespace sge
@@ -36,25 +37,43 @@ enum bit_depth {
 	BD_16,
 	BD_32
 };
-inline unsigned bit_depth_bit_count(const bit_depth d) { return d == BD_32 ? 32 : 16; }
+
+inline unsigned bit_depth_bit_count(const bit_depth d)
+{
+	return d == BD_32 ? 32 : 16;
+}
+
+typedef int pixel_unit;
+typedef unsigned screen_unit;
+typedef math::vector<pixel_unit,2> pixel_pos_t;
+typedef basic_dim<screen_unit> screen_size_t;
 
 struct display_mode {
 	display_mode(const unsigned width, const unsigned height, const bit_depth depth, const unsigned refresh_rate = 0)
-	 : width(width), height(height), depth(depth), refresh_rate(refresh_rate) {}
-	unsigned  width;
-	unsigned  height;
+	 : size(width,height), depth(depth), refresh_rate(refresh_rate) {}
+	screen_size_t size;
 	bit_depth depth;
 	unsigned  refresh_rate;
+
+	screen_unit width() const
+	{
+		return size.w;
+	}
+
+	space_unit height() const
+	{
+		return size.h;
+	}
 };
 
 inline std::ostream& operator<< (std::ostream& s, const display_mode& mode)
 {
-	return s << '(' << mode.width << 'x' << mode.height << 'x' << bit_depth_bit_count(mode.depth) << '@' << mode.refresh_rate << ')';
+	return s << '(' << mode.size.w << 'x' << mode.size.h << 'x' << bit_depth_bit_count(mode.depth) << '@' << mode.refresh_rate << ')';
 }
 
 inline bool operator== (const display_mode& l, const display_mode& r)
 {
-	return l.depth == r.depth && l.width == r.width && l.height == r.height && l.refresh_rate == r.refresh_rate;
+	return l.depth == r.depth && l.size == r.size && l.refresh_rate == r.refresh_rate;
 }
 
 inline bool operator!= (const display_mode& l, const display_mode& r)

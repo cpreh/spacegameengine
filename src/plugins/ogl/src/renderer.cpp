@@ -86,8 +86,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 		DEVMODE settings;
 		memset(&settings,0,sizeof(DEVMODE));
 		settings.dmSize=sizeof(DEVMODE);
-		settings.dmPelsWidth    = param.mode.width;
-		settings.dmPelsHeight   = param.mode.height;
+		settings.dmPelsWidth    = param.mode.width();
+		settings.dmPelsHeight   = param.mode.height();
 		settings.dmBitsPerPel   = color_depth;
 		settings.dmDisplayFrequency = param.mode.refresh_rate;
 		settings.dmFields = DM_BITSPERPEL|DM_PELSWIDTH|DM_PELSHEIGHT|DM_DISPLAYFREQUENCY;
@@ -119,7 +119,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 			0, 0, 0                 // Layer Masks Ignored
 	};
 
-	wnd.reset(new win32_window(window::window_size(param.mode.width,param.mode.height),""));
+	wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),""));
 	win32_window* ww = ptr_cast<win32_window*>(wnd.get());
 	HWND hwnd = ww->get_hwnd();
 	hdc = GetDC(hwnd);
@@ -150,8 +150,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 
 			const unsigned refresh_rate = xf86_vidmode_array::refresh_rate(mode);
 		
-			if(mode.hdisplay == param.mode.width &&
-			   mode.vdisplay == param.mode.height &&
+			if(mode.hdisplay == param.mode.width() &&
+			   mode.vdisplay == param.mode.height() &&
 			   refresh_rate  > param.mode.refresh_rate &&
 			   (best == -1 || refresh_rate >= xf86_vidmode_array::refresh_rate((*modes)[best])))
 			
@@ -190,7 +190,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	swa.override_redirect = windowed ? False : True;
 	swa.event_mask = FocusChangeMask | KeyPressMask | KeyReleaseMask | PropertyChangeMask | StructureNotifyMask | PointerMotionMask | EnterWindowMask | LeaveWindowMask;
 
-	wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width, param.mode.height), "spacegameengine", dsp.get(), swa, *(vi.get())));
+	wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width(), param.mode.height()), "spacegameengine", dsp.get(), swa, *(vi.get())));
 
 	if(!windowed)
 		XMapWindow(dsp.get(), wnd->get_window());
@@ -303,14 +303,9 @@ sge::window_ptr sge::ogl::renderer::get_window() const
 	return wnd;
 }
 
-unsigned sge::ogl::renderer::screen_height() const
+sge::screen_size_t sge::ogl::renderer::screen_size() const
 {
-	return param.mode.height;
-}
-
-unsigned sge::ogl::renderer::screen_width() const
-{
-	return param.mode.width;
+	return param.mode.size;
 }
 
 void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)

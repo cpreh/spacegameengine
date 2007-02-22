@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_STRING_HPP_INCLUDED
 #define SGE_STRING_HPP_INCLUDED
 
-#include "./typeswitch.hpp"
-#include "./ucs4.hpp"
+#include "typeswitch.hpp"
+#include "ucs4.hpp"
 #include <string>
 
 namespace sge

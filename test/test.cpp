@@ -48,6 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::pos3 rand_point() { return sge::pos3(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX), 0); }
 
+sge::point rand_point2() { return sge::point(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
+
 int main()
 try
 {
@@ -86,6 +88,14 @@ try
 //	for(unsigned i = 0; i < 4; ++i)
 //		sprites.push_back(new sge::sprite(ss,sge::point(0,i*0.3),sge::dim(0.3,0.3),0,tex[i % 3]));
 //	sprites.back().set_color(sge::colors::red);
+	
+	std::vector<sge::sprite> sprites;
+	for(unsigned i = 0; i < 100; ++i)
+		sprites.push_back(sge::sprite(ss,rand_point2(),sge::dim(0.3,0.3),tex[i % 3], sge::colors::white));
+
+	for(unsigned i = 0; i < 100; ++i)
+		sprites[i] = sge::sprite(ss,rand_point2(),sge::dim(0.3,0.3),tex[i % 3], sge::colors::white);
+
 
 	sge::sprite spr(ss, sge::point(0.25,0.25), sge::dim(0.5,0.5), /*tex[0]*/sge::texture_map::no_texture, sge::colors::yellow);
 //	spr.set_texture(tex[1],1);

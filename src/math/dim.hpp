@@ -37,6 +37,16 @@ struct basic_dim {
 	value_type w,h;
 };
 
+template<typename T> bool operator==(const basic_dim<T>& l, const basic_dim<T>& r)
+{
+	return l.w == r.w && l.h == r.h;
+}
+
+template<typename T> bool operator!=(const basic_dim<T>& l, const basic_dim<T>& r)
+{
+	return !(l==r);
+}
+
 template<typename T> basic_dim<T> operator+(const basic_dim<T>& l, const basic_dim<T>& r)
 {
 	return basic_dim<T>(l.w + r.w, l.h + r.h);

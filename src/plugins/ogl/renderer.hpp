@@ -75,8 +75,7 @@ public:
 	index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags, index_buffer::const_pointer data);
 
 	const renderer_caps& caps() const;
-	unsigned screen_width() const;
-	unsigned screen_height() const;
+	screen_size_t screen_size() const;
 	window_ptr get_window() const;
 private:
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);

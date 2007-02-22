@@ -24,16 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../helper.hpp"
 #include <cmath>
 
-sge::sprite::sprite(sprite_system& spr_sys, const point p, const dim sz, const std::string& name, const color col, const space_unit _z, const space_unit _rotation, const bool vis)
+sge::sprite::sprite(sprite_system& _spr_sys, const point p, const dim sz, const std::string& name, const color col, const space_unit _z, const space_unit _rotation, const bool vis)
  : p(p),
    sz(sz),
    _z(_z),
    _visible(vis),
    _rotation(_rotation),
-   spr_sys(spr_sys),
-   tex(1,spr_sys.vtexture(name)),
-   vb_pos(spr_sys.free_vb_pos()),
-   my_place(spr_sys.attach(*this)),
+   spr_sys(&_spr_sys),
+   tex(1,spr_sys->vtexture(name)),
+   vb_pos(spr_sys->free_vb_pos()),
+   my_place(spr_sys->attach(*this)),
    _use_rot_around(false),
    _repeat(1),
    _color(rgba_to_abgr(col))
@@ -47,13 +47,38 @@ sge::sprite::sprite(const sprite& spr)
    _rotation(spr._rotation),
    spr_sys(spr.spr_sys),
    tex(spr.tex),
-   vb_pos(spr_sys.free_vb_pos()),
-   my_place(spr_sys.attach(*this)),
+   vb_pos(spr_sys->free_vb_pos()),
+   my_place(spr_sys->attach(*this)),
    _use_rot_around(spr._use_rot_around),
    _rot_around(spr._rot_around),
    _repeat(spr._repeat),
    _color(spr._color)
 {}
+
+sge::sprite& sge::sprite::operator=(const sge::sprite& spr)
+{
+	if(spr_sys != spr.spr_sys)
+	{
+		spr_sys->detach(*this);
+		spr_sys = spr.spr_sys;
+		my_place = spr_sys->attach(*this);
+		vb_pos = spr_sys->free_vb_pos();
+	}
+
+	p = spr.p;
+	sz = spr.sz;
+	_z = spr._z;
+	_visible = spr._visible;
+   	_rotation = spr._rotation;
+	
+	tex = spr.tex;
+	_use_rot_around = spr._use_rot_around;
+	_rot_around = spr._rot_around;
+	_repeat = spr._repeat;
+	_color = spr._color;
+
+	return *this;
+}
 
 sge::space_unit& sge::sprite::x()
 {
@@ -97,11 +122,11 @@ void sge::sprite::visible(const bool nvisible)
 
 void sge::sprite::set_texture(const std::string& name, const stage_type stage)
 {
-	if(stage >= spr_sys.max_tex_level())
+	if(stage >= spr_sys->max_tex_level())
 		throw std::runtime_error("max_tex_level surpassed in sprite::set_texture");
 	if(stage >= tex.size())
 		tex.resize(stage+1);
-	tex[stage] = spr_sys.vtexture(name);
+	tex[stage] = spr_sys->vtexture(name);
 }
 
 void sge::sprite::rotate(const space_unit rot)
@@ -192,12 +217,12 @@ sge::color sge::sprite::get_color() const
 
 sge::sprite::~sprite()
 {
-	spr_sys.detach(*this);
+	spr_sys->detach(*this);
 }
 
 void sge::sprite::update()
 {
-	update_where(spr_sys.vb->begin()+vb_pos);
+	update_where(spr_sys->vb->begin()+vb_pos);
 }
 
 void sge::sprite::update_where(const vertex_buffer::iterator it)
@@ -224,26 +249,26 @@ void sge::sprite::draw()
 		return;
 
 	{
-		sprite_system::vb_buf_type& buf = spr_sys._sprite_vb_buf;
-		update_where(spr_sys.vb->create_iterator(buf.data()));
-		spr_sys.vb->set_data(buf.data(), vb_pos, detail::vertices_per_sprite);
+		sprite_system::vb_buf_type& buf = spr_sys->_sprite_vb_buf;
+		update_where(spr_sys->vb->create_iterator(buf.data()));
+		spr_sys->vb->set_data(buf.data(), vb_pos, detail::vertices_per_sprite);
 	}
 	
 	{
-		sprite_system::ib_buf_type& buf = spr_sys._sprite_ib_buf;
+		sprite_system::ib_buf_type& buf = spr_sys->_sprite_ib_buf;
 		update_ib(buf.c_array());
-		spr_sys.ib->set_data(buf.data(), 0, detail::indices_per_sprite);
+		spr_sys->ib->set_data(buf.data(), 0, detail::indices_per_sprite);
 	}
 
-	spr_sys.set_parameters();
+	spr_sys->set_parameters();
 	
 	for(tex_array::size_type i = 0; i < tex.size(); ++i)
-		spr_sys.get_renderer()->set_texture(get_texture(i),i);
+		spr_sys->get_renderer()->set_texture(get_texture(i),i);
 
-	spr_sys.get_renderer()->render(spr_sys.vb,spr_sys.ib,0,4,PT_Triangle,2);
+	spr_sys->get_renderer()->render(spr_sys->vb,spr_sys->ib,0,4,PT_Triangle,2);
 	
 	for(tex_array::size_type i = 1; i < tex.size(); ++i)
-		spr_sys.get_renderer()->set_texture(texture_ptr(),i);
+		spr_sys->get_renderer()->set_texture(texture_ptr(),i);
 }
 
 sge::texture_ptr sge::sprite::get_texture(const stage_type stage) const

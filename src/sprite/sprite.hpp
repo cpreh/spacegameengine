@@ -42,6 +42,7 @@ class sprite {
 public:
 	sprite(sprite_system& s, point pos, dim sz, const std::string& tex, color c = colors::white, space_unit z = 0, space_unit rotation = 0, bool visible = true);
 	sprite(const sprite& s);
+	sprite& operator=(const sprite&);
 
 	space_unit& x();
 	space_unit& y();
@@ -94,7 +95,7 @@ private:
 	space_unit _z;
 	bool _visible;
 	space_unit _rotation;
-	sprite_system& spr_sys;
+	sprite_system* spr_sys;
 	typedef std::vector<const_virtual_texture_ptr> tex_array;
 	tex_array tex;
 	vertex_buffer::size_type vb_pos;

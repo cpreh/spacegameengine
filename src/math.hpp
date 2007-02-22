@@ -36,6 +36,7 @@ template<typename Base, typename Exp> Base pow_int(const Base base, const Exp e)
 	return ret;
 }
 
+// FIXME: may overflow too easily
 template<typename T> T round_div_int(const T  l, const T r)
 {
 	return ((l * 10 / r) + 5) / 10;

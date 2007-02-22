@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <memory>
 #include <iterator>
 #include <stdexcept>
-#include "./algorithm.hpp"
+#include "algorithm.hpp"
 
 namespace sge
 {

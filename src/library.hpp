@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LIBRARY_HPP_INCLUDED
 
 #include <string>
-#include "./types.hpp"
+#include "types.hpp"
 
 #ifdef SGE_WINDOWS_PLATFORM
 	#define WIN32_LEAN_AND_MEAN

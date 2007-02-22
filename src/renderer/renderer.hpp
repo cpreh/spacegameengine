@@ -64,8 +64,9 @@ public:
 	virtual index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags = RF_Default, index_buffer::const_pointer data = 0) = 0;
 
 	virtual const renderer_caps& caps() const = 0;
-	virtual unsigned screen_width() const = 0;
-	virtual unsigned screen_height() const = 0;
+	virtual screen_size_t screen_size() const = 0;
+	screen_unit screen_width() const;
+	screen_unit screen_height() const;
 	virtual window_ptr get_window() const = 0;
 
 	virtual ~renderer(){}

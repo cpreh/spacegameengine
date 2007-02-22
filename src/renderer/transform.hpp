@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "./types.hpp"
 #include "./texture.hpp"
-#include "../math/vector2.hpp"
 #include "../math/rect.hpp"
 #include "../math/matrix.hpp"
 
@@ -80,17 +79,17 @@ inline pos3 text_to_space(const point pos)
 	return space_2d_to_3d(pos);
 }
 
-inline math::vector<unsigned,2> space_pos_to_pixel(const point a, const unsigned screen_width, const unsigned screen_height)
+inline pixel_pos_t space_pos_to_pixel(const point a, const screen_size_t sz)
 {
-	return math::vector<unsigned,2>(unsigned((a.x() + 1.0) / 2.0 * screen_width), unsigned((-a.y() + 1.0) / 2.0 * screen_height));
+	return pixel_pos_t(static_cast<pixel_unit>((a.x() + 1.0) / 2.0 * sz.w), static_cast<pixel_unit>((-a.y() + 1.0) / 2.0 * sz.h));
 }
 
-inline unsigned space_size_to_pixel(const space_unit s, const unsigned screen_size)
+inline pixel_unit space_size_to_pixel(const space_unit s, const screen_unit screen_size)
 {
-	return unsigned((s / space_unit(2))) * screen_size;
+	return static_cast<pixel_unit>((s / space_unit(2))) * screen_size;
 }
 
-inline space_unit pixel_size_to_space(const unsigned v, const unsigned screen_size)
+inline space_unit pixel_size_to_space(const pixel_unit v, const screen_unit screen_size)
 {
 	return space_unit(v * space_unit(2) / screen_size);
 }

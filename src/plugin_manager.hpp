@@ -26,16 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <functional>
 #include <boost/filesystem/path.hpp>
 #include <boost/utility/enable_if.hpp>
-#include "./algorithm.hpp"
-#include "./library.hpp"
-#include "./window.hpp"
-#include "./plugin.hpp"
-#include "./renderer/renderer_system.hpp"
-#include "./input/input_system.hpp"
-#include "./image/image_loader.hpp"
-#include "./audio/audio_system.hpp"
-#include "./font/font_system.hpp"
-#include "./detail/plugin_manager_detail.hpp"
+#include "algorithm.hpp"
+#include "library.hpp"
+#include "window.hpp"
+#include "plugin.hpp"
+#include "renderer/renderer_system.hpp"
+#include "input/input_system.hpp"
+#include "image/image_loader.hpp"
+#include "audio/audio_system.hpp"
+#include "font/font_system.hpp"
+#include "detail/plugin_manager_detail.hpp"
 
 namespace sge
 {
