@@ -73,6 +73,10 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 		mouse_last.y() = win_y_return;
 	}
 	
+	XSetWindowAttributes swa;
+	swa.event_mask = KeyPressMask | KeyReleaseMask | PointerMotionMask | EnterWindowMask | LeaveWindowMask;
+	XChangeWindowAttributes(wnd->display(), wnd->get_window(), CWEventMask, &swa);
+
 	XColor black, dummy;
 	if(XAllocNamedColor(wnd->display(), colormap, "black", &black, &dummy ) == 0)
 		throw std::runtime_error("XAllocNamedColor() failed");
@@ -126,7 +130,7 @@ boost::signals::connection sge::xinput::input_system::register_callback(const ca
 void sge::xinput::input_system::grab()
 {
 	grab_pointer();
-	grab_keyboard();
+	grab_keyboard(); // TODO: only grab in fullscreen
 	XSync(wnd->display(), False);
 }
 

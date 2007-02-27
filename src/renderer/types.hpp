@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/vector2.hpp"
 #include "../math/vector3.hpp"
 #include "../math/dim.hpp"
-#include "./color.hpp"
+#include "color.hpp"
 
 namespace sge
 {
@@ -49,18 +49,18 @@ typedef math::vector<pixel_unit,2> pixel_pos_t;
 typedef basic_dim<screen_unit> screen_size_t;
 
 struct display_mode {
-	display_mode(const unsigned width, const unsigned height, const bit_depth depth, const unsigned refresh_rate = 0)
+	display_mode(const screen_unit width, const screen_unit height, const bit_depth depth, const unsigned refresh_rate = 0)
 	 : size(width,height), depth(depth), refresh_rate(refresh_rate) {}
 	screen_size_t size;
 	bit_depth depth;
-	unsigned  refresh_rate;
+	unsigned refresh_rate;
 
 	screen_unit width() const
 	{
 		return size.w;
 	}
 
-	space_unit height() const
+	screen_unit height() const
 	{
 		return size.h;
 	}
@@ -226,25 +226,31 @@ enum stage_arg_value {
 	SARGV_Texture
 };
 
-enum filter_arg {
-	FARG_MinFilter,
-	FARG_MagFilter,
-	FARG_MipFilter
+enum filter_value {
+	FV_Point,
+	FV_Linear,
+	FV_Anisotropic
 };
 
-enum filter_arg_value {
-	FARGV_None,
-	FARGV_Point,
-	FARGV_Linear,
-	FARGV_Anisotropic
+struct filter_args {
+	filter_args(const filter_value min_filter, const filter_value mag_filter)
+	 : min_filter(min_filter),
+	   mag_filter(mag_filter)
+	{}
+
+	filter_value min_filter,
+	             mag_filter;
 };
+
+const filter_args linear_filter(FV_Linear, FV_Linear),
+                  point_filter(FV_Point, FV_Point);
 
 typedef unsigned stage_type;
 
 struct viewport {
-	unsigned x, y, w, h;
+	screen_unit x, y, w, h;
 
-	viewport(const unsigned x, const unsigned y, const unsigned w, const unsigned h)
+	viewport(const screen_unit x, const screen_unit y, const screen_unit w, const screen_unit h)
 	 : x(x), y(y), w(w), h(h)
 	{}
 };

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CUBE_TEXTURE_HPP_INCLUDED
 
 #include <boost/array.hpp>
-#include "./texture_base.hpp"
-#include "./types.hpp"
+#include "texture_base.hpp"
+#include "types.hpp"
 
 namespace sge
 {

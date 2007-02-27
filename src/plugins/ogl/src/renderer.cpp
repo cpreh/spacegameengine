@@ -43,18 +43,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-	inline unsigned num_indices(sge::primitive_type type, unsigned count)
-	{
-		using namespace sge;
-		switch(type) {
-		case PT_Triangle:
-			return count*3;
-		case PT_Line:
-			return count*2;
-		default:
-			throw std::logic_error("num_indices doesn't make any sense for primitves without inidces");
-		}
+
+inline unsigned num_indices(const sge::primitive_type type, const unsigned count)
+{
+	switch(type) {
+	case sge::PT_Triangle:
+		return count*3;
+	case sge::PT_Line:
+		return count*2;
+	default:
+		throw std::logic_error("num_indices doesn't make any sense for primitves without inidces");
 	}
+}
+
 }
 
 
@@ -175,11 +176,11 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 
 	int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 16, None};
 	vi = glXChooseVisual(dsp.get(),screen,attributes);
-	if(vi == NULL)
+	if(vi == 0)
 		throw std::runtime_error("glXChooseVisual() failed");
 	ct.c = glXCreateContext(dsp.get(), vi.get(), None, GL_TRUE);
 	ct.dsp = dsp.get();
-	if(ct.c == NULL)
+	if(ct.c == 0)
 		throw std::runtime_error("glXCreateContext() failed");
 	cm.reset(new x_colormap(dsp.get(), XCreateColormap(dsp.get(), RootWindow(dsp.get(),vi->screen),vi->visual,AllocNone)));
 
@@ -188,7 +189,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
 	swa.override_redirect = windowed ? False : True;
-	swa.event_mask = FocusChangeMask | KeyPressMask | KeyReleaseMask | PropertyChangeMask | StructureNotifyMask | PointerMotionMask | EnterWindowMask | LeaveWindowMask;
+	swa.event_mask = 0;
 
 	wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width(), param.mode.height()), "spacegameengine", dsp.get(), swa, *(vi.get())));
 
@@ -211,8 +212,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP_TO_EDGE);
-//	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAX_LEVEL,0);
-//	glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_FALSE);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAX_LEVEL,0);
+	glTexParameteri(GL_TEXTURE_2D,GL_GENERATE_MIPMAP,GL_FALSE);
 
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
@@ -256,10 +257,10 @@ sge::ogl::fbo_render_target_ptr sge::ogl::renderer::create_render_target(const r
 sge::texture_ptr sge::ogl::renderer::create_texture(const texture::const_pointer src,
                                                     const texture::size_type width,
                                                     const texture::size_type height,
-                                                    const unsigned mip_levels,
+                                                    const filter_args& filter,
                                                     const resource_flag_t flags)
 {
-	return texture_ptr(new texture(src,width,height,mip_levels,flags));
+	return texture_ptr(new texture(src, width, height, filter, flags));
 }
 
 sge::vertex_buffer_ptr sge::ogl::renderer::create_vertex_buffer(const sge::vertex_format& format,
@@ -274,16 +275,18 @@ sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_t
                                                                   const volume_texture::size_type width,
                                                                   const volume_texture::size_type height,
                                                                   const volume_texture::size_type depth,
+                                                                  const filter_args& filter,
                                                                   const resource_flag_t flags)
 {
-	return volume_texture_ptr(new volume_texture(src, width, height, depth, flags));
+	return volume_texture_ptr(new volume_texture(src, width, height, depth, filter, flags));
 }
 
 sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_array* const src,
                                                               const cube_texture::size_type sz,
+                                                              const filter_args& filter,
                                                               const resource_flag_t flags)
 {
-	return cube_texture_ptr(new cube_texture(src,sz,flags));
+	return cube_texture_ptr(new cube_texture(src, sz, filter, flags));
 }
 
 void sge::ogl::renderer::end_rendering()
@@ -348,34 +351,6 @@ void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type 
 			glEnable(glstate);
 		else
 			glDisable(glstate);
-	}
-}
-
-void sge::ogl::renderer::set_filter_state(const filter_arg type, const filter_arg_value arg, const stage_type stage)
-{
-	if(stage > 0)
-	{
-		std::cerr << "stub: stage not supported in ogl::renderer::set_filter_state\n";
-		return;
-	}
-	if(arg == FARGV_Anisotropic)
-	{
-		std::cerr << "stub: FARG_Anisotropic not supported in ogl::renderer::set_filter_state\n";
-		return;
-	}
-
-	const GLenum tex_type = GL_TEXTURE_2D;
-	const GLenum filter_arg = convert_cast<GLenum>(arg);
-
-	if(type == FARG_MipFilter)
-	{
-		glTexParameteri(tex_type, GL_TEXTURE_MIN_FILTER, filter_arg);
-		glTexParameteri(tex_type, GL_TEXTURE_MAG_FILTER, filter_arg);
-	}
-	else
-	{
-	        const GLenum filter_type = convert_cast<GLenum>(type);
-		glTexParameteri(tex_type, filter_type, filter_arg);
 	}
 }
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_ERROR_HPP_INCLUDED
 
 #include <iostream>
-#include "./common.hpp"
+#include "common.hpp"
 
 namespace sge
 {

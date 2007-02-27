@@ -51,8 +51,6 @@ void sge::line_strip::draw(const bool loop)
 	rend->set_bool_state(BS_EnableLighting,true);
 	rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
 	rend->set_int_state(IS_AmbientLightColor, _col);
-	rend->set_filter_state(FARG_MinFilter,FARGV_Point);
-	rend->set_filter_state(FARG_MagFilter,FARGV_Point);
 	rend->set_texture(texture_ptr());
 
 	if(vb->size() < vertices.size())

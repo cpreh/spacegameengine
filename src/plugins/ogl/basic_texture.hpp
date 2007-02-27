@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 #define SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 
-#include "./common.hpp"
-#include "./texture_base.hpp"
-#include "./error.hpp"
+#include "common.hpp"
+#include "conversion.hpp"
+#include "texture_base.hpp"
+#include "error.hpp"
 #include <stdexcept>
 
 namespace sge
@@ -32,18 +33,25 @@ namespace ogl
 {
 
 template<typename Base, GLenum Type> class basic_texture : public Base, public texture_base {
-protected:
+private:
 	static void tex_parameter_i(const GLenum name, const GLint param)
 	{
 		glTexParameteri(Type,name,param);
 		if(is_error())
 			throw std::runtime_error("glTexParamteri() failed!");
 	}
+protected:
 	void bind_me() const
 	{
 		glBindTexture(Type,id());
 		if(is_error())
 			throw std::runtime_error("glBindTexture() failed!");
+	}
+
+	void set_my_filter() const
+	{
+		tex_parameter_i(GL_TEXTURE_MIN_FILTER, convert_cast<GLenum>(filter.min_filter));
+		tex_parameter_i(GL_TEXTURE_MAG_FILTER, convert_cast<GLenum>(filter.mag_filter));
 	}
 
 	GLuint id() const
@@ -57,25 +65,27 @@ public:
 	typedef typename Base::pointer pointer;
 	typedef typename Base::const_pointer const_pointer;
 
-	basic_texture(const unsigned mipmaps, const resource_flag_t _flags)
-	 : texture_base(Type), mipmaps(mipmaps), _flags(_flags)
+	basic_texture(const filter_args& filter, const resource_flag_t _flags)
+	 : texture_base(Type), filter(filter), _flags(_flags)
 	{
-		// FIXME: prevent mipmapping
-		tex_parameter_i(GL_TEXTURE_MIN_FILTER,GL_LINEAR);
 		glGenTextures(1,&_id);
 		if(is_error())
 			throw std::runtime_error("glGenTextures() failed!");
-		if(mipmaps > 0)
-			std::cerr << "stub: mipmaps not implemented yet\n";
 	}
+	
 	virtual size_type size() const = 0;
+	
 	~basic_texture()
 	{
 		glDeleteTextures(1,&_id);
 	}
-	resource_flag_t flags() const { return _flags; }
+
+	resource_flag_t flags() const
+	{
+		return _flags;
+	}
 private:
-	unsigned mipmaps;
+	filter_args filter;
 	resource_flag_t _flags;
 	GLuint _id;
 };

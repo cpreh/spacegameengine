@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/noncopyable.hpp>
 #include <vector>
-#include "./renderer.hpp"
-#include "./vertex_buffer.hpp"
-#include "./transformable.hpp"
+#include "renderer.hpp"
+#include "vertex_buffer.hpp"
+#include "transformable.hpp"
 
 namespace sge
 {
@@ -34,7 +34,7 @@ class line_strip : public transformable, boost::noncopyable {
 public:
 	typedef vertex_buffer::size_type size_type;
 
-	line_strip(renderer_ptr rend, color _col, size_type init_lines = 50);
+	line_strip(renderer_ptr rend, color _col, size_type init_lines = 1);
 	line_strip& add(const pos3& a);
 	void set_color(color c);
 	void draw(bool loop = false);

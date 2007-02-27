@@ -26,16 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
-#include "./types.hpp"
-#include "./index_buffer.hpp"
-#include "./vertex_buffer.hpp"
-#include "./texture.hpp"
-#include "./font_types.hpp"
-#include "./renderer.hpp"
+#include "types.hpp"
+#include "index_buffer.hpp"
+#include "vertex_buffer.hpp"
+#include "texture.hpp"
+#include "font_types.hpp"
+#include "renderer.hpp"
 #include "../font/font_system.hpp"
 #include "../font/font_impl.hpp"
 #include "../math/matrix.hpp"
-#include "./transformable.hpp"
+#include "transformable.hpp"
 
 namespace sge
 {

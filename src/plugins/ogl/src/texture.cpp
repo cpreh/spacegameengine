@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../error.hpp"
 
-sge::ogl::texture::texture(const const_pointer src, const size_type nwidth, const size_type nheight, const unsigned mipmaps, const resource_flag_t flags)
- : basic_texture<sge::texture,GL_TEXTURE_2D>(mipmaps,flags),
+sge::ogl::texture::texture(const const_pointer src, const size_type nwidth, const size_type nheight, const filter_args& filter, const resource_flag_t flags)
+ : basic_texture<sge::texture,GL_TEXTURE_2D>(filter,flags),
    _width(nwidth), _height(nheight)
 {
 	set_data(src);
@@ -45,6 +45,7 @@ sge::ogl::texture::size_type sge::ogl::texture::size() const
 void sge::ogl::texture::set_data(const const_pointer src, const lock_rect* const r)
 {
 	bind_me();
+	set_my_filter();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 	if(!r)
 		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width(),height(),0,format,type,src);

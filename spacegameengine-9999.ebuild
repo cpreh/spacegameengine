@@ -6,10 +6,9 @@ inherit games subversion
 
 DESCRIPTION="A portable easy to use engine written in C++"
 HOMEPAGE="http://spacegameengine.sourceforge.net/"
-#SRC_URI="http://spacegameengine.sourceforge.net/${P}.tar.bz2"
 ESVN_REPO_URI="https://spacegameengine.svn.sourceforge.net/svnroot/spacegameengine"
 
-LICENSE="GPL"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="opengl truetype devil xinput debug dga"

@@ -114,11 +114,9 @@ void sge::sprite_system::draw()
 
 void sge::sprite_system::set_parameters()
 {
+	set_matrices();
 	rend->set_bool_state(BS_EnableLighting,false);
 	rend->set_bool_state(BS_EnableAlphaBlending,true);
-	rend->set_filter_state(FARG_MinFilter,FARGV_Linear);
-	rend->set_filter_state(FARG_MagFilter,FARGV_Linear);
-	set_matrices();
 }
 
 sge::renderer_ptr sge::sprite_system::get_renderer() const

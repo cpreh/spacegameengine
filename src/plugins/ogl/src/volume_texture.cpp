@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../volume_texture.hpp"
 #include "../error.hpp"
 
-sge::ogl::volume_texture::volume_texture(const const_pointer src, const size_type _width, const size_type _height, const size_type _depth, const resource_flag_t flags)
- : basic_texture<sge::volume_texture,GL_TEXTURE_3D>(0,flags), _width(_width), _height(_height), _depth(_depth)
+sge::ogl::volume_texture::volume_texture(const const_pointer src, const size_type _width, const size_type _height, const size_type _depth, const filter_args& filter, const resource_flag_t flags)
+ : basic_texture<sge::volume_texture,GL_TEXTURE_3D>(filter,flags),
+   _width(_width),
+   _height(_height),
+   _depth(_depth)
 {
 	set_data(src);
 }
@@ -50,6 +53,7 @@ sge::ogl::volume_texture::size_type sge::ogl::volume_texture::depth() const
 void sge::ogl::volume_texture::set_data(const const_pointer src, const lock_box* const b)
 {
 	bind_me();
+	set_my_filter();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 	if(!b)
 		glTexImage3D(GL_TEXTURE_3D,0,4,width(),height(),depth(),0,format,type,src);

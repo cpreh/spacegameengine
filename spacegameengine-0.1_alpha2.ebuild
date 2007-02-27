@@ -8,7 +8,7 @@ DESCRIPTION="A portable easy to use engine written in C++"
 HOMEPAGE="http://spacegameengine.sourceforge.net/"
 SRC_URI="http://spacegameengine.sourceforge.net/${P}.tar.bz2"
 
-LICENSE="GPL"
+LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="opengl truetype devil xinput debug dga"

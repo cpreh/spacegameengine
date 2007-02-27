@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_BASIC_ARB_BUFFER_HPP_INCLUDED
 #define SGE_OGL_BASIC_ARB_BUFFER_HPP_INCLUDED
 
-#include "./common.hpp"
-#include "./conversion.hpp"
-#include "./error.hpp"
-#include "./extension.hpp"
+#include "common.hpp"
+#include "conversion.hpp"
+#include "error.hpp"
+#include "extension.hpp"
 
 namespace sge
 {

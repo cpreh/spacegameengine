@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOCK_PTR_HPP_INCLUDED
 #define SGE_LOCK_PTR_HPP_INCLUDED
 
-#include "./types.hpp"
-#include "./texture_base.hpp"
-#include "./volume_texture.hpp"
+#include "types.hpp"
+#include "texture_base.hpp"
+#include "volume_texture.hpp"
 
 namespace sge
 {

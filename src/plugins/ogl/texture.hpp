@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_TEXTURE_HPP_INCLUDED
 
 #include "../../renderer/texture.hpp"
-#include "./common.hpp"
-#include "./basic_texture.hpp"
+#include "common.hpp"
+#include "basic_texture.hpp"
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace ogl
 
 class texture : public basic_texture<sge::texture,GL_TEXTURE_2D> {
 public:
-	texture(const_pointer src, size_type width, size_type height, unsigned mipmaps, resource_flag_t flags);
+	texture(const_pointer src, size_type width, size_type height, const filter_args& filter, resource_flag_t flags);
 
 	size_type width() const;
 	size_type height() const;

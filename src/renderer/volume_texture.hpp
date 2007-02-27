@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_VOLUME_TEXTURE_HPP_INCLUDED
 
 #include "../math/box.hpp"
-#include "./texture_base.hpp"
+#include "texture_base.hpp"
 
 namespace sge
 {

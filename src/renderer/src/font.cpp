@@ -268,11 +268,9 @@ void sge::font::flush()
 void sge::font::set_parameters()
 {
 	set_matrices();
-	rend->set_bool_state(BS_EnableAlphaBlending,true);
 	rend->set_bool_state(BS_EnableLighting,true);
+	rend->set_bool_state(BS_EnableAlphaBlending,true);
 	rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
-	rend->set_filter_state(FARG_MinFilter,FARGV_Linear);
-	rend->set_filter_state(FARG_MagFilter,FARGV_Linear);
 }
 
 sge::font::line_size_t::line_size_t(const font_unit width, const string_type::const_iterator end, const string_type::const_iterator next_begin)

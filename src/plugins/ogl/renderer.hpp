@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../types.hpp"
 #include "../../renderer/renderer.hpp"
 #include "../../window.hpp"
-#include "./common.hpp"
-#include "./render_target.hpp"
-#include "./fbo_render_target.hpp"
+#include "common.hpp"
+#include "render_target.hpp"
+#include "fbo_render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../win32.hpp"
 #elif SGE_LINUX_PLATFORM
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <GL/glx.h>
 #include "../../x_window.hpp"
 #include "../../glx.hpp"
-#include "./xf86vidmode.hpp"
+#include "xf86vidmode.hpp"
 #include <boost/scoped_ptr.hpp>
 #endif
 
@@ -58,7 +58,6 @@ public:
 	void set_bool_state(bool_state state, bool_type value);
 	void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value);
 	void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value);
-	void set_filter_state(filter_arg type, filter_arg_value arg, stage_type stage);
 	void set_texture(texture_base_ptr tex, stage_type stage);
 	void set_material(const material& mat);
 	void transform(const math::space_matrix& matrix);
@@ -68,9 +67,24 @@ public:
 
 	sge::render_target_ptr get_render_target() const;
 
-	texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels, resource_flag_t flags);
-	volume_texture_ptr create_volume_texture(volume_texture::const_pointer data, volume_texture::size_type width, volume_texture::size_type height, volume_texture::size_type depth, resource_flag_t flags);
-	cube_texture_ptr create_cube_texture(const cube_side_array* data, cube_texture::size_type size, resource_flag_t flags = RF_Default);
+	texture_ptr create_texture(texture::const_pointer data,
+	                           texture::size_type width,
+	                           texture::size_type height,
+	                           const filter_args& filter,
+	                           resource_flag_t flags);
+
+	volume_texture_ptr create_volume_texture(volume_texture::const_pointer data,
+	                                         volume_texture::size_type width,
+	                                         volume_texture::size_type height,
+	                                         volume_texture::size_type depth,
+	                                         const filter_args& filter,
+	                                         resource_flag_t flags);
+
+	cube_texture_ptr create_cube_texture(const cube_side_array* data,
+	                                     cube_texture::size_type size,
+	                                     const filter_args& filter,
+	                                     resource_flag_t flags);
+
 	vertex_buffer_ptr create_vertex_buffer(const sge::vertex_format& format, vertex_buffer::size_type size, resource_flag_t flags, vertex_buffer::const_pointer data);
 	index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags, index_buffer::const_pointer data);
 

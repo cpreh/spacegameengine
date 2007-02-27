@@ -74,25 +74,15 @@ template<> GLenum sge::ogl::convert_cast(const bool_state& state)
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const filter_arg& arg)
+template<> GLenum sge::ogl::convert_cast(const filter_value& arg)
 {
 	switch(arg) {
-	case FARG_MinFilter:
-		return GL_TEXTURE_MIN_FILTER;
-	case FARG_MagFilter:
-		return GL_TEXTURE_MAG_FILTER;
-	default:
-		throw std::logic_error("unsupported filter_arg");
-	}
-}
-
-template<> GLenum sge::ogl::convert_cast(const filter_arg_value& arg)
-{
-	switch(arg) {
-	case FARGV_Point:
+	case FV_Point:
 		return GL_NEAREST;
-	case FARGV_Linear:
+	case FV_Linear:
 		return GL_LINEAR;
+//	case FV_Anisotropic:
+//		return GL_ANISOTROPIC;
 	default:
 		throw std::logic_error("unsupported filter_arg_value");
 	}

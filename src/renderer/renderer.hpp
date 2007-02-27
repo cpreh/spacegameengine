@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_HPP_INCLUDED
 
 #include "../shared_ptr.hpp"
-#include "./types.hpp"
-#include "./vertex_buffer.hpp"
-#include "./index_buffer.hpp"
-#include "./texture_base.hpp"
-#include "./texture.hpp"
-#include "./cube_texture.hpp"
-#include "./volume_texture.hpp"
-#include "./render_target.hpp"
+#include "types.hpp"
+#include "vertex_buffer.hpp"
+#include "index_buffer.hpp"
+#include "texture_base.hpp"
+#include "texture.hpp"
+#include "cube_texture.hpp"
+#include "volume_texture.hpp"
+#include "render_target.hpp"
 #include "../math/matrix.hpp"
 #include "../window.hpp"
 
@@ -47,7 +47,6 @@ public:
 	virtual void set_bool_state(bool_state _state, bool_type value) = 0;
 	virtual void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value) = 0;
 	virtual void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value) = 0;
-	virtual void set_filter_state(filter_arg type, filter_arg_value arg, stage_type stage = 0) = 0;
 	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;
 	virtual void set_material(const material& mat) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;
@@ -57,9 +56,24 @@ public:
 
 	virtual render_target_ptr get_render_target() const = 0;
 
-	virtual texture_ptr create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, unsigned mip_levels = 0, resource_flag_t flags = RF_Default) = 0;
-	virtual volume_texture_ptr create_volume_texture(volume_texture::const_pointer data, volume_texture::size_type width, volume_texture::size_type height, volume_texture::size_type depth, resource_flag_t flags = RF_Default) = 0;
-	virtual cube_texture_ptr create_cube_texture(const cube_side_array* data, cube_texture::size_type size, resource_flag_t flags = RF_Default) = 0;
+	virtual texture_ptr create_texture(texture::const_pointer data,
+	                                   texture::size_type width,
+	                                   texture::size_type height,
+	                                   const filter_args& filter = linear_filter, // TODO
+	                                   resource_flag_t flags = RF_Default) = 0;
+
+	virtual volume_texture_ptr create_volume_texture(volume_texture::const_pointer data,
+	                                                 volume_texture::size_type width,
+	                                                 volume_texture::size_type height,
+	                                                 volume_texture::size_type depth,
+	                                                 const filter_args& filter,
+	                                                 resource_flag_t flags = RF_Default) = 0;
+
+	virtual cube_texture_ptr create_cube_texture(const cube_side_array* data,
+	                                             cube_texture::size_type size,
+	                                             const filter_args& filter,
+	                                             resource_flag_t flags = RF_Default) = 0;
+
 	virtual vertex_buffer_ptr create_vertex_buffer(const vertex_format& format, vertex_buffer::size_type size, resource_flag_t flags = RF_Default, vertex_buffer::const_pointer data = 0) = 0;
 	virtual index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags = RF_Default, index_buffer::const_pointer data = 0) = 0;
 

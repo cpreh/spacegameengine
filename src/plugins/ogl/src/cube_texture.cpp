@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../error.hpp"
 
-sge::ogl::cube_texture::cube_texture(const cube_side_array* const src, const size_type sz, const resource_flag_t flags)
- : basic_texture<sge::cube_texture,GL_TEXTURE_CUBE_MAP_ARB>(0,flags),
+sge::ogl::cube_texture::cube_texture(const cube_side_array* const src, const size_type sz, const filter_args& filter, const resource_flag_t flags)
+ : basic_texture<sge::cube_texture,GL_TEXTURE_CUBE_MAP_ARB>(filter,flags),
   sz(sz)
 {
 	if(src)
@@ -39,6 +39,7 @@ sge::ogl::cube_texture::size_type sge::ogl::cube_texture::size() const
 void sge::ogl::cube_texture::set_data(const cube_side side, const const_pointer src, const lock_rect* const r)
 {
 	bind_me();
+	set_my_filter();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 	if(!r)
 		glTexImage2D(convert_cast<GLenum>(side),0,4,size(),size(),0,format,type,src);
