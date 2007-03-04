@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
 #include "../renderer/texture.hpp"
-#include "./virtual_texture.hpp"
 #include "../renderer/renderer.hpp"
+#include "virtual_texture.hpp"
 
 namespace sge
 {

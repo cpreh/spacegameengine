@@ -42,6 +42,7 @@ public:
 	size_type width() const { return size().w; }
 	size_type height() const { return size().h; }
 	virtual void size(window_size newsize) = 0;
+	virtual bool fullscreen() const = 0;
 	virtual ~window(){}
 };
 

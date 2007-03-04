@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <memory>
 #include <iterator>
 #include <stdexcept>
+#include <algorithm>
 #include "algorithm.hpp"
 
 namespace sge
@@ -136,6 +137,11 @@ public:
 		std::swap(cap,x.cap);
 	}
 
+	void resize(const size_type sz)
+	{
+		_grow(sz);
+	}
+
 	allocator_type get_allocator() const { return a; }
 private:
 	void deallocate()
@@ -151,7 +157,7 @@ private:
 			return;
 		}
 		const size_type grow_min = _capacity()*2;
-		const size_type grow_size = sz > grow_min ? sz : grow_min;
+		const size_type grow_size = std::max(sz, grow_min);
 		a.deallocate(first,_capacity());
 		first = a.allocate(grow_size);
 		cap = last = first + grow_size;

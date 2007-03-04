@@ -21,29 +21,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <stdexcept>
 #include <functional>
+#include <boost/lambda/bind.hpp>
 #include "../system.hpp"
+#include "../sprite.hpp"
 #include "../../renderer/vertex_format.hpp"
 #include "../../renderer/lock_ptr.hpp"
-#include "../../functional.hpp"
-#include "../sprite.hpp"
 #include "../../renderer/transform.hpp"
 
-//TODO: maybe exchange dereference_binder with something of boost::lambda
+#include "../../texture/no_fragmented_texture.hpp" // TODO: remove later
 
 const unsigned init_sprites = 25;
 
-sge::sprite_system::sprite_system(const renderer_ptr rend, const handler_function handler, const stage_type _max_tex)
- : texture_map(rend, handler),
-   transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+// convenience function, remove later
+sge::sprite_system::sprite_system(const renderer_ptr rend, const texture_map::handler_function handler, const stage_type _max_tex)
+ : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+   tex_map(new texture_map(rend, new no_fragmented_texture(rend), handler)),
    rend(rend),
-   _max_tex(_max_tex),
-   vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Diffuse).add(VU_Tex, _max_tex), init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic)),
-   ib(rend->create_index_buffer(init_sprites * detail::indices_per_sprite)),
-   _sprite_vb_buf(vb->get_vertex_format().stride()*detail::vertices_per_sprite)
+   _max_tex(_max_tex)
 {
+	init();
+}
+
+sge::sprite_system::sprite_system(const renderer_ptr rend, const texture_map_ptr tex_map, const stage_type _max_tex)
+ : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+   tex_map(tex_map),
+   rend(rend),
+   _max_tex(_max_tex)
+{
+	init();
+}
+
+void sge::sprite_system::init()
+{
+	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Diffuse).add(VU_Tex, _max_tex), init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
+	ib = rend->create_index_buffer(init_sprites * detail::indices_per_sprite);
+	_sprite_vb_buf.resize(vb->get_vertex_format().stride() * detail::vertices_per_sprite);
 	free_pos.reserve(init_sprites);
 	for(unsigned i = 0; i < init_sprites; ++i)
 		free_pos.push_back(i * detail::vertices_per_sprite);
+}
+
+sge::texture_map_ptr sge::sprite_system::get_texture_map() const
+{
+	return tex_map;
 }
 
 sge::vertex_buffer::size_type sge::sprite_system::free_vb_pos()
@@ -75,9 +95,9 @@ void sge::sprite_system::detach(const sprite& s)
 	sprites.erase(s.my_place);
 }
 
-void sge::sprite_system::draw()
+void sge::sprite_system::render()
 {
-	sprites.sort(dereference_binder<const sprite*,const sprite*>(std::ptr_fun(sprite::less)));
+	sprites.sort(boost::lambda::bind(&sprite::less, *boost::lambda::_1, *boost::lambda::_2));
 	{
 		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
 		index_buffer::iterator it = ib->begin();
@@ -98,7 +118,7 @@ void sge::sprite_system::draw()
 			break;
 
 		unsigned num_objects;
-		const sprite_list::const_iterator next = first_mismatch_if(it, sprite_list::const_iterator(sprites.end()), num_objects, dereference_binder<const sprite*, const sprite*>(std::ptr_fun(sprite::equal)));
+		const sprite_list::const_iterator next = first_mismatch_if(it, sprite_list::const_iterator(sprites.end()), num_objects, boost::lambda::bind(&sprite::equal, *boost::lambda::_1, *boost::lambda::_2));
 
 		for(stage_type stage = 0; stage < max_tex_level(); ++stage)
 			rend->set_texture((*it)->get_texture(stage), stage);

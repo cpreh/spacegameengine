@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture.hpp"
 #include "../math/circle.hpp"
 #include "../texture/virtual_texture.hpp"
-#include "./sprite_fwd.hpp"
+#include "sprite_fwd.hpp"
 
 namespace sge
 {

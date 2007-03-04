@@ -27,12 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-struct modifier_state {
-	modifier_state(bool shift_down = false, bool ctrl_down = false, bool alt_down = false)
-	 : shift_down(shift_down), ctrl_down(ctrl_down), alt_down(alt_down) {}
-	bool shift_down;
-	bool ctrl_down;
-	bool alt_down;
+struct mod_state {
+	mod_state(bool shift, bool ctrl, bool alt)
+	 : shift(shift),
+	   ctrl(ctrl),
+	   alt(alt)
+	{}
+
+	bool shift,
+	     ctrl,
+	     alt;
 };
 
 enum key_code {
@@ -191,7 +195,7 @@ inline bool operator<(const key_type& l, const key_type& r)
 	
 inline bool operator==(const key_type& l, const key_type& r)
 {
-	return l.name == r.name;
+	return l.name == r.name && l.char_code == r.char_code;
 }
 	
 inline bool operator!=(const key_type& l, const key_type& r)
@@ -228,6 +232,40 @@ inline bool is_mouse_axis(const key_code key)
 inline bool is_keyboard_key(const key_code key)
 {
 	return !(is_mouse_key(key) || is_mouse_axis(key));
+}
+
+inline bool is_shift(const key_code key)
+{
+	switch(key) {
+	case KC_LSHIFT:
+	case KC_RSHIFT:
+	      return true;
+	default:
+	      return false;
+	}
+}
+
+inline bool is_ctrl(const key_code key)
+{
+	switch(key) {
+	case KC_LCTRL:
+	case KC_RCTRL:
+	case KC_ALTGR:
+		return true;
+	default:
+		return false;
+	}
+}
+
+inline bool is_alt(const key_code key)
+{
+	switch(key) {
+	case KC_ALT:
+	case KC_ALTGR:
+		return true;
+	default:
+		return false;
+	}
 }
 
 typedef float key_state;

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <stdexcept>
 #include <iostream>
-#include "../xf86vidmode.hpp"
 #include "../../../math.hpp"
+#include "../xf86vidmode.hpp"
 
 sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display& dsp, const int screen)
 {

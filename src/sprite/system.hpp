@@ -29,23 +29,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/renderer.hpp"
-#include "../math/matrix.hpp"
-#include "./sprite_fwd.hpp"
+#include "../renderer/renderable.hpp"
+#include "../renderer/transformable.hpp"
 #include "../raw_vector.hpp"
 #include "../texture/texture_map.hpp"
-#include "../renderer/transformable.hpp"
+#include "sprite_fwd.hpp"
 
 namespace sge
 {
 
-class sprite_system : public texture_map, public transformable {
+class sprite_system : public transformable, boost::noncopyable, public renderable {
 public:
-	sprite_system(renderer_ptr rend, handler_function not_found_handler = 0, const stage_type max_texture_level = 1);
-	void draw();
+	sprite_system(renderer_ptr rend, texture_map::handler_function handler, stage_type max_texture_level = 1);
+	sprite_system(renderer_ptr rend, texture_map_ptr map, stage_type max_texture_level = 1);
+	void render();
 	void set_parameters();
 	renderer_ptr get_renderer() const;
 	stage_type max_tex_level() const;
+	texture_map_ptr get_texture_map() const;
 private:
+	void init();
 	sprite_list::iterator attach(sprite& s);
 	void detach(const sprite& s);
 	vertex_buffer::size_type free_vb_pos();
@@ -54,6 +57,7 @@ private:
 
 	sprite_list sprites;
 
+	texture_map_ptr tex_map;
 	renderer_ptr rend;
 	stage_type _max_tex;
 	vertex_buffer_ptr vb;

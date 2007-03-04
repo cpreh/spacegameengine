@@ -129,7 +129,7 @@ void sge::gui::element::mouse_move(const mouse_move_event& event)
 		return;
 
 	const point loc_pos = event.pos() - relative_pos();
-	const mouse_move_event e(loc_pos,event.mod_state());
+	const mouse_move_event e(loc_pos,event.state());
 
 	bool processed = false;
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
@@ -150,7 +150,7 @@ void sge::gui::element::glob_mouse_move(const mouse_move_event& event)
 		return;
 
 	const point loc_pos = event.pos() - relative_pos();
-	const mouse_move_event e(loc_pos,event.mod_state());
+	const mouse_move_event e(loc_pos,event.state());
 
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
 		if((*it)->is_visible())
@@ -198,7 +198,7 @@ void sge::gui::element::mouse_down(const mouse_button_event& event)
 		return;
 
 	const point loc_pos = event.pos()-relative_pos();
-	const mouse_button_event e(loc_pos,event.code(),event.mod_state(),true,event.char_code());
+	const mouse_button_event e(loc_pos,event.code(),event.state(),true,event.char_code());
 
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
 		if((*it)->intersects(loc_pos))
@@ -219,7 +219,7 @@ void sge::gui::element::mouse_up(const mouse_button_event& event)
 		return;
 
 	const point loc_pos = event.pos()-relative_pos();
-	const mouse_button_event e(loc_pos,event.code(),event.mod_state(),false,event.char_code());
+	const mouse_button_event e(loc_pos,event.code(),event.state(),false,event.char_code());
 
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
 		if((*it)->intersects(loc_pos))
@@ -239,7 +239,7 @@ void sge::gui::element::mouse_press(const mouse_button_event& event)
 		return;
 
 	const point loc_pos = event.pos()-relative_pos();
-	const mouse_button_event e(loc_pos,event.code(), event.mod_state(), event.value(), event.char_code());
+	const mouse_button_event e(loc_pos,event.code(), event.state(), event.value(), event.char_code());
 
 	for(children_z_sorted_list::iterator it = children_z_sorted.begin(); it != children_z_sorted.end(); ++it)
 		if((*it)->intersects(loc_pos))

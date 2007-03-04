@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../manager.hpp"
 
-sge::texture_manager::texture_manager(const renderer_ptr rend, fragmented_texture* const nproto)
+sge::texture_manager::texture_manager(const renderer_ptr rend, const fragmented_texture* const nproto)
  : rend(rend),
    _prototype(nproto)
 {}
@@ -41,6 +41,21 @@ sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_
 		return p;
 	}
 	throw image_too_big();
+}
+
+sge::virtual_texture_ptr sge::texture_manager::add_texture(const image_ptr im)
+{
+	try
+	{
+		return add_texture(im->data(),im->width(),im->height());
+	}
+	catch(const texture_manager::image_too_big&)
+	{
+		const texture::size_type max_size = rend->caps().max_tex_size;
+		const unsigned factor = 1 + std::max(im->width(),im->height()) / unsigned(max_size);
+		im->resample(im->width() / factor, im->height() / factor);
+		return add_texture(im->data(),im->width(),im->height());
+	}
 }
 
 sge::renderer_ptr sge::texture_manager::get_renderer() const

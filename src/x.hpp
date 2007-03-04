@@ -18,37 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X_WINDOW_HPP_INCLUDED
-#define SGE_X_WINDOW_HPP_INCLUDED
+#ifndef SGE_X_HPP_INCLUDED
+#define SGE_X_HPP_INCLUDED
 
-#include "window.hpp"
+#include <stdexcept>
+#include <boost/noncopyable.hpp>
 #include <X11/Xlib.h>
-#include <GL/glx.h>
 
 namespace sge
 {
 
-class x_window : public window {
-public:
-	x_window(window_pos pos, window_size sz, const std::string& title, Display* dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
-	~x_window();
-
-	void title(const std::string& title);
-	void size(window_size sz);
-	window_size size() const;
-	bool fullscreen() const;
-
-	Window get_window() const;
-	int screen() const;
-	Display* display() const;
+struct x_display : boost::noncopyable {
+	x_display() : d(XOpenDisplay(0)) { if(!d) throw std::runtime_error("XOpenDisplay failed or dsp is 0"); }
+	~x_display() { XCloseDisplay(d); }
+	Display* get() const { return d; }
 private:
-	Display* dsp;
-	int _screen;
-	Window wnd;
-	bool _fullscreen;
+	Display* d;
 };
-
-typedef shared_ptr<x_window> x_window_ptr;
+	
+template<typename T> struct x_resource : boost::noncopyable {
+	x_resource() : t(0){}
+	x_resource(const T t) : t(t) {}
+	~x_resource() { if(t) XFree(t); }
+	x_resource& operator=(const T& _t) { t = _t; return *this; }
+	bool operator==(const T r) const { return t == r; }
+	const T& operator->() const { return t; }
+	const T& operator*() const { return t; }
+	const T* pointer_to() const { return &t; }
+	T get() { return t; }
+	T* pointer_to() { return &t; }
+private:
+	T t;
+};
 
 }
 

@@ -25,20 +25,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <map>
 #include <boost/noncopyable.hpp>
 #include <boost/function.hpp>
-#include "./manager.hpp"
+#include "manager.hpp"
 #include "../renderer/renderer.hpp"
 #include "../image/image.hpp"
+#include "../shared_ptr.hpp"
 
 namespace sge
 {
+
+class fragmented_texture;
 
 class texture_map : boost::noncopyable {
 public:
 	typedef boost::function<bool (texture_map&,const std::string&)> handler_function;
 
-	texture_map(renderer_ptr rend, handler_function not_found_handler = 0);
+	texture_map(renderer_ptr rend, const fragmented_texture* proto, handler_function not_found_handler = 0);
 	bool add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const std::string& name);
-	bool add_texture(image_ptr im, const std::string& name); // TODO: move this helper function somewhere else
+	bool add_texture(image_ptr im, const std::string& name);
 	bool remove_texture(const std::string& name);
 	
 	virtual_texture_ptr vtexture(const std::string&);
@@ -52,6 +55,8 @@ private:
 	typedef std::map<std::string, virtual_texture_ptr> virtual_texture_map;
 	virtual_texture_map virtual_textures;
 };
+
+typedef shared_ptr<texture_map> texture_map_ptr;
 
 }
 

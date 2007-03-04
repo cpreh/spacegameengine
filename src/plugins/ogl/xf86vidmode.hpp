@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_XF86VIDMODE_HPP_INCLUDED
 
 #include <cstddef>
-#include "../../glx.hpp"
+#include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
+#include "../../x.hpp"
+#include "glx.hpp"
 
 namespace sge
 {
+
 namespace ogl
 {
 

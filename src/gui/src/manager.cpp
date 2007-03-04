@@ -19,9 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../input/key_type.hpp"
-#include "../manager.hpp"
-#include "../skin.hpp"
 #include "../../texture/handler.hpp"
+#include "../manager.hpp"
 #include <boost/bind.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -29,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input_sys, font& gui_font, const image_loader_ptr il, const std::string& graphics_path, const unit _font_height)
 : repeater(input_sys, 50, 500),
+  mod_tracker(input_sys),
   graphics_path(graphics_path),
   sprite_sys(rend, image_loader_handler(graphics_path,il)),
   input_sys(input_sys),
@@ -58,20 +58,6 @@ void sge::gui::manager::key_callback(const key_pair& input)
 	const bool val = input.second != 0 ? true : false;
 
 	switch(code) {
-	case KC_LCTRL:
-	case KC_RCTRL:
-		key_mod.ctrl_down = val;
-		break;
-	case KC_LSHIFT:
-	case KC_RSHIFT:
-		key_mod.shift_down = val;
-		break;
-	case KC_ALT:
-		key_mod.alt_down = val;
-		break;
-	case KC_ALTGR:
-		key_mod.alt_down = key_mod.ctrl_down = val;
-		break;
 	case KC_MOUSEX:
 		move_mouse(input.second * cursor_speed,0);
 		break;
@@ -83,7 +69,7 @@ void sge::gui::manager::key_callback(const key_pair& input)
 	default:
 		if(is_mouse_key(code))
 		{
-			const mouse_button_event e(cur.pos(),code,key_mod,val,key.char_code);
+			const mouse_button_event e(cur.pos(),code,mod_tracker.state(),val,key.char_code);
 			if(val)
 			{
 				_root.mouse_down(e);
@@ -97,7 +83,7 @@ void sge::gui::manager::key_callback(const key_pair& input)
 		}
 		else if(is_keyboard_key(code))
 		{
-			const keyboard_button_event e(code,key_mod,val,key.char_code);
+			const keyboard_button_event e(code,mod_tracker.state(),val,key.char_code);
 			if(val)
 			{
 				focus()->key_down(e);
@@ -121,9 +107,9 @@ void sge::gui::manager::process()
 	if(key != key_repeater::no_key)
 	{
 		if(is_mouse_key(key.code))
-			_root.mouse_press(mouse_button_event(cur.pos(),key.code,key_mod,true,key.char_code));
+			_root.mouse_press(mouse_button_event(cur.pos(),key.code,mod_tracker.state(),true,key.char_code));
 		else if(is_keyboard_key(key.code))
-			focus()->key_press(keyboard_button_event(key.code,key_mod,true,key.char_code));
+			focus()->key_press(keyboard_button_event(key.code,mod_tracker.state(),true,key.char_code));
 	}
 
 	sprite_sys.set_parameters();
@@ -136,7 +122,7 @@ void sge::gui::manager::process()
 void sge::gui::manager::move_mouse(const unit x, const unit y)
 {
 	cur.move(x,y);
-	const mouse_move_event e(cur.pos(),key_mod);
+	const mouse_move_event e(cur.pos(),mod_tracker.state());
 	_root.mouse_move(e);
 	_root.glob_mouse_move(e);
 }

@@ -108,17 +108,136 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	x11tosge[XK_Up]   = KC_UP;
 	x11tosge[XK_Right] = KC_RIGHT;
 	x11tosge[XK_Down] = KC_DOWN;
-	//XK_Prior                0xFF55  /* Prior, previous */
+	//XK_Prior
 	x11tosge[XK_Page_Up] = KC_PGUP;
-	//XK_Next                 0xFF56  /* Next */
+	//XK_Next
 	x11tosge[XK_Page_Down] = KC_PGDN;
 	x11tosge[XK_End] = KC_END;
 	x11tosge[XK_Begin] = KC_HOME;
+
+/*	x11tosge[XK_KP_Space];
+	x11tosge[XK_KP_Tab];
+	x11tosge[XK_KP_Enter] = KC_ENTER;
+	x11tosge[XK_KP_F1];
+	x11tosge[XK_KP_F2];
+	x11tosge[XK_KP_F3];
+	x11tosge[XK_KP_F4];
+	x11tosge[XK_KP_Home] = KC_NUM_HOME;
+	x11tosge[XK_KP_Left] = KC_NUM_LEFT;
+	x11tosge[XK_KP_Up] = KC_NUM_UP;
+#define XK_KP_Right                      0xff98
+#define XK_KP_Down                       0xff99
+#define XK_KP_Prior                      0xff9a
+#define XK_KP_Page_Up                    0xff9a
+#define XK_KP_Next                       0xff9b
+#define XK_KP_Page_Down                  0xff9b
+#define XK_KP_End                        0xff9c
+#define XK_KP_Begin                      0xff9d
+#define XK_KP_Insert                     0xff9e
+#define XK_KP_Delete                     0xff9f
+#define XK_KP_Equal                      0xffbd/
+#define XK_KP_Multiply                   0xffaa
+#define XK_KP_Add                        0xffab
+#define XK_KP_Separator                  0xffac
+#define XK_KP_Subtract                   0xffad
+#define XK_KP_Decimal                    0xffae
+#define XK_KP_Divide                     0xffaf
+
+#define XK_KP_0                          0xffb0
+#define XK_KP_1                          0xffb1
+#define XK_KP_2                          0xffb2
+#define XK_KP_3                          0xffb3
+#define XK_KP_4                          0xffb4
+#define XK_KP_5                          0xffb5
+#define XK_KP_6                          0xffb6
+#define XK_KP_7                          0xffb7
+#define XK_KP_8                          0xffb8
+#define XK_KP_9                          0xffb9*/
+
+/*#define XK_F1                            0xffbe
+#define XK_F2                            0xffbf
+#define XK_F3                            0xffc0
+#define XK_F4                            0xffc1
+#define XK_F5                            0xffc2
+#define XK_F6                            0xffc3
+#define XK_F7                            0xffc4
+#define XK_F8                            0xffc5
+#define XK_F9                            0xffc6
+#define XK_F10                           0xffc7
+#define XK_F11                           0xffc8
+#define XK_L1                            0xffc8
+#define XK_F12                           0xffc9
+#define XK_L2                            0xffc9
+#define XK_F13                           0xffca
+#define XK_L3                            0xffca
+#define XK_F14                           0xffcb
+#define XK_L4                            0xffcb
+#define XK_F15                           0xffcc
+#define XK_L5                            0xffcc
+#define XK_F16                           0xffcd
+#define XK_L6                            0xffcd
+#define XK_F17                           0xffce
+#define XK_L7                            0xffce
+#define XK_F18                           0xffcf
+#define XK_L8                            0xffcf
+#define XK_F19                           0xffd0
+#define XK_L9                            0xffd0
+#define XK_F20                           0xffd1
+#define XK_L10                           0xffd1
+#define XK_F21                           0xffd2
+#define XK_R1                            0xffd2
+#define XK_F22                           0xffd3
+#define XK_R2                            0xffd3
+#define XK_F23                           0xffd4
+#define XK_R3                            0xffd4
+#define XK_F24                           0xffd5
+#define XK_R4                            0xffd5
+#define XK_F25                           0xffd6
+#define XK_R5                            0xffd6
+#define XK_F26                           0xffd7
+#define XK_R6                            0xffd7
+#define XK_F27                           0xffd8
+#define XK_R7                            0xffd8
+#define XK_F28                           0xffd9
+#define XK_R8                            0xffd9
+#define XK_F29                           0xffda
+#define XK_R9                            0xffda
+#define XK_F30                           0xffdb
+#define XK_R10                           0xffdb
+#define XK_F31                           0xffdc
+#define XK_R11                           0xffdc
+#define XK_F32                           0xffdd
+#define XK_R12                           0xffdd
+#define XK_F33                           0xffde
+#define XK_R13                           0xffde
+#define XK_F34                           0xffdf
+#define XK_R14                           0xffdf
+#define XK_F35                           0xffe0
+#define XK_R15                           0xffe0
+*/
+
+
+	x11tosge[XK_Shift_L] = KC_LSHIFT;
+	x11tosge[XK_Shift_R] = KC_RSHIFT;
+	x11tosge[XK_Control_L] = KC_LCTRL;
+	x11tosge[XK_Control_R] = KC_RCTRL;
+	//XK_Caps_Lock
+	x11tosge[XK_Shift_Lock] = KC_LSHIFT; // ???
+
+//#define XK_Meta_L                        0xffe7  /* Left meta */
+//#define XK_Meta_R                        0xffe8  /* Right meta */
+//#define XK_Alt_L                         0xffe9  /* Left alt */
+//#define XK_Alt_R                         0xffea  /* Right alt */
+//#define XK_Super_L                       0xffeb  /* Left super */
+//#define XK_Super_R                       0xffec  /* Right super */
+//#define XK_Hyper_L                       0xffed  /* Left hyper */
+//#define XK_Hyper_R                       0xffee  /* Right hyper */
 }
 
 sge::xinput::input_system::~input_system()
 {
-	XUngrabKeyboard(wnd->display(),CurrentTime);
+	if(wnd->fullscreen())
+		XUngrabKeyboard(wnd->display(),CurrentTime);
 	XUngrabPointer(wnd->display(),CurrentTime);
 }
 
@@ -130,7 +249,8 @@ boost::signals::connection sge::xinput::input_system::register_callback(const ca
 void sge::xinput::input_system::grab()
 {
 	grab_pointer();
-	grab_keyboard(); // TODO: only grab in fullscreen
+	if(wnd->fullscreen())
+		grab_keyboard();
 	XSync(wnd->display(), False);
 }
 
@@ -177,7 +297,6 @@ void sge::xinput::input_system::dispatch()
 			continue;
 
 		switch(xev.type) {
-		case KeyPress:
 		case KeyRelease:
 			// check for repeated key (thanks to SDL)
 			if(xev.type == KeyRelease && XPending(wnd->display()))
@@ -185,13 +304,14 @@ void sge::xinput::input_system::dispatch()
 				XEvent peek;
 				XPeekEvent(wnd->display(), &peek);
 				if(peek.type == KeyPress &&
-				   peek.xkey.keycode == xev.xkey.keycode)
+				   peek.xkey.keycode == xev.xkey.keycode &&
+				   (peek.xkey.time - xev.xkey.time) < 2)
 				{
 					XNextEvent(wnd->display(), &peek);
 					continue;
 				}
 			}
-
+		case KeyPress:
 			{
 			XComposeStatus state;
 			KeySym ks;

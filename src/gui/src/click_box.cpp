@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../skin.hpp"
 
 sge::gui::click_box::click_box(manager& man, element* const parent, const point p, const style s, const bool v, const bool visible, const bool enabled)
-: rectangle(man,parent,p,sz,sprite_system::no_texture,visible,enabled),
+: rectangle(man,parent,p,sz,texture_map::no_texture,visible,enabled),
   s(s), v(v)
 {}
 

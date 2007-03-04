@@ -31,7 +31,11 @@ sge::key_repeater::key_repeater(const input_system_ptr is, const timer::interval
 
 void sge::key_repeater::key_callback(const key_pair& p)
 {
-	if(bool(p.second) == false)
+	if(!is_keyboard_key(p.first.code)
+	   || is_shift(p.first.code))
+		return;
+
+	if(static_cast<bool>(p.second) == false)
 	{
 		if(p.first == last_key)
 			repeat_timer().deactivate();

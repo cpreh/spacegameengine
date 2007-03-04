@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_BSP_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
-#include "./fragmented_texture.hpp"
-#include "./bsp_tree.hpp"
+#include "fragmented_texture.hpp"
+#include "bsp_tree.hpp"
 
 namespace sge
 {

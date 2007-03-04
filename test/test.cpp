@@ -80,9 +80,10 @@ try
 
 	const std::string tex[] = { "bender", "tex2", "tex3" };
 
-	ss.add_texture(im,tex[0]);
-	ss.add_texture(im2,tex[1]);
-	ss.add_texture(im3,tex[2]);
+	sge::texture_map_ptr tex_map = ss.get_texture_map();
+	tex_map->add_texture(im,tex[0]);
+	tex_map->add_texture(im2,tex[1]);
+	tex_map->add_texture(im3,tex[2]);
 
 //	boost::ptr_vector<sge::sprite> sprites;
 //	for(unsigned i = 0; i < 4; ++i)
@@ -170,7 +171,7 @@ try
 		rend->begin_rendering();
 		is->dispatch();
 		ss.transform(sge::math::matrix_translation(translation));
-		ss.draw();
+		ss.render();
 		man.process();
 //		fn.transform(sge::math::matrix_rotation_x(angle));
 //		fn.projection(sge::math::transpose(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),sge::PI,0,1)));

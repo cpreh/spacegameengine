@@ -27,33 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <GL/glx.h>
 #include <X11/extensions/xf86vmode.h>
 
-// TODO: divide this file in at least two (X and glx)
-
 namespace sge
 {
-
-struct x_display : boost::noncopyable {
-	x_display() : d(XOpenDisplay(NULL)) { if(!d) throw std::runtime_error("XOpenDisplay failed or dsp is 0"); }
-	~x_display() { XCloseDisplay(d); }
-	Display* get() const { return d; }
-private:
-	Display* d;
-};
-	
-template<typename T> struct x_resource : boost::noncopyable {
-	x_resource() : t(0){}
-	x_resource(const T t) : t(t) {}
-	~x_resource() { if(t) XFree(t); }
-	x_resource& operator=(const T& _t) { t = _t; return *this; }
-	bool operator==(const T r) const { return t == r; }
-	const T& operator->() const { return t; }
-	const T& operator*() const { return t; }
-	const T* pointer_to() const { return &t; }
-	T get() { return t; }
-	T* pointer_to() { return &t; }
-private:
-	T t;
-};
 
 struct glx_context : boost::noncopyable {
 	glx_context(GLXContext c = 0, Display* const dsp = 0) : c(c), dsp(dsp) {}

@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../types.hpp"
+#include "../../../ptr_cast.hpp"
+#include "../../../renderer/types.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
-#include "../../../ptr_cast.hpp"
-#include "../../../renderer/types.hpp"
 #include "../vertex_buffer.hpp"
 #include "../texture.hpp"
 #include "../cube_texture.hpp"

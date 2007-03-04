@@ -18,38 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X_WINDOW_HPP_INCLUDED
-#define SGE_X_WINDOW_HPP_INCLUDED
-
-#include "window.hpp"
-#include <X11/Xlib.h>
-#include <GL/glx.h>
+#include <boost/signals/trackable.hpp>
+#include "key_type.hpp"
+#include "input_system.hpp"
 
 namespace sge
 {
 
-class x_window : public window {
+class key_mod_tracker : boost::signals::trackable {
 public:
-	x_window(window_pos pos, window_size sz, const std::string& title, Display* dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
-	~x_window();
-
-	void title(const std::string& title);
-	void size(window_size sz);
-	window_size size() const;
-	bool fullscreen() const;
-
-	Window get_window() const;
-	int screen() const;
-	Display* display() const;
+	key_mod_tracker(input_system_ptr is);
+	const mod_state& state() const;
 private:
-	Display* dsp;
-	int _screen;
-	Window wnd;
-	bool _fullscreen;
+	void key_callback(const key_pair&);
+
+	mod_state _state;
 };
 
-typedef shared_ptr<x_window> x_window_ptr;
-
 }
-
-#endif

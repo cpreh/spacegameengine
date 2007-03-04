@@ -21,23 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_MANAGER_HPP_INCLUDED
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
-#include <map>
 #include <string>
 #include <boost/noncopyable.hpp>
 #include <boost/signals/trackable.hpp>
-#include "./cursor.hpp"
 #include "../timer.hpp"
+#include "../renderer/font.hpp"
 #include "../renderer/renderer.hpp"
 #include "../sprite/sprite.hpp"
 #include "../sprite/system.hpp"
 #include "../image/image_loader.hpp"
-#include "../renderer/font.hpp"
 #include "../input/input_system.hpp"
 #include "../input/key_repeater.hpp"
-#include "./types.hpp"
-#include "./element.hpp"
-#include "./events.hpp"
-#include "./skin.hpp"
+#include "../input/key_mod_tracker.hpp"
+#include "types.hpp"
+#include "cursor.hpp"
+#include "element.hpp"
+#include "events.hpp"
 
 namespace sge
 {
@@ -72,12 +71,13 @@ private:
 
 	struct root_elem : public element {
 		root_elem(manager& m)
-			: element(m,0) {}
-			bool intersects(point) const { return true; }
-			point relative_pos() const { return point(); }
+		  : element(m,0) {}
+		bool intersects(point) const { return true; }
+		point relative_pos() const { return point(); }
 	};
 
 	key_repeater            repeater;
+	key_mod_tracker         mod_tracker;
 	std::string             graphics_path;
 	sprite_system           sprite_sys;
 	input_system_ptr        input_sys;
@@ -93,7 +93,6 @@ private:
 	element*                _pressed;
 	element*                _last_clicked;
 	timer                   double_click_time;
-	modifier_state          key_mod;
 };
 
 }

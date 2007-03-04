@@ -29,30 +29,23 @@ namespace sge
 namespace gui
 {
 
-class input_event {
+class mouse_move_event {
 public:
-	input_event(const modifier_state& state)
-		: state(state) {}
-	bool shift_down() const { return state.shift_down; }
-	bool ctrl_down() const { return state.ctrl_down; }
-	bool alt_down() const { return state.alt_down; }
-	const modifier_state& mod_state() const { return state; }
-private:
-	modifier_state state;
-};
+	mouse_move_event(const point p, const mod_state& _state)
+	 : p(p),
+	   _state(_state)
+	{}
 
-class mouse_move_event : public input_event {
-public:
-	mouse_move_event(const point p, const modifier_state& mod_state)
-		: input_event(mod_state), p(p) {}
 	point pos() const { return p; }
+	const mod_state& state() const { return _state; }
 private:
 	point p;
+	mod_state _state;
 };
 
 class mouse_button_event : public mouse_move_event {
 public:
-	mouse_button_event(const point pos, const key_code key, const modifier_state& mod_state, const bool v, const char c)
+	mouse_button_event(const point pos, const key_code key, const mod_state& mod_state, const bool v, const char c)
 		: mouse_move_event(pos,mod_state), key(key), v(v), c(c) {}
 	key_code code() const { return key; }
 	bool value() const { return v; }
@@ -63,23 +56,29 @@ private:
 	char      c;
 };
 
-class keyboard_button_event : public input_event {
+class keyboard_button_event {
 public:
-	keyboard_button_event(const key_code key, const modifier_state& mod_state, const bool v, const char c)
-		: input_event(mod_state), key(key), v(v), c(c) {}
+	keyboard_button_event(const key_code key, const mod_state& _state, const bool v, const char c)
+	 : key(key),
+	   v(v),
+	   c(c),
+	   _state(_state)
+	{}
 	key_code code() const { return key; }
 	bool value() const { return v; }
 	char char_code() const { return c; }
+	const mod_state& state() const { return _state; }
 private:
-	key_code key;
-	bool     v;
-	char     c;
+	key_code  key;
+	bool      v;
+	char      c;
+	mod_state _state;
 };
 
 class draw_event {
 public:
 	draw_event(const point p)
-		: p(p) {}
+	 : p(p) {}
 	point pos() const { return p; }
 private:
 	point p;

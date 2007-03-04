@@ -31,7 +31,7 @@ sge::sprite::sprite(sprite_system& _spr_sys, const point p, const dim sz, const 
    _visible(vis),
    _rotation(_rotation),
    spr_sys(&_spr_sys),
-   tex(1,spr_sys->vtexture(name)),
+   tex(1,spr_sys->get_texture_map()->vtexture(name)),
    vb_pos(spr_sys->free_vb_pos()),
    my_place(spr_sys->attach(*this)),
    _use_rot_around(false),
@@ -126,7 +126,7 @@ void sge::sprite::set_texture(const std::string& name, const stage_type stage)
 		throw std::runtime_error("max_tex_level surpassed in sprite::set_texture");
 	if(stage >= tex.size())
 		tex.resize(stage+1);
-	tex[stage] = spr_sys->vtexture(name);
+	tex[stage] = spr_sys->get_texture_map()->vtexture(name);
 }
 
 void sge::sprite::rotate(const space_unit rot)

@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../texture_map.hpp"
 #include <cassert>
-
-#include "../no_fragmented_texture.hpp" // TODO
-#include "../bsp_fragmented_texture.hpp" // TODO
+#include "../texture_map.hpp"
 
 namespace
 {
@@ -34,11 +31,10 @@ bool default_texture_not_present_handler(sge::texture_map&, const std::string&)
 
 }
 
-
-sge::texture_map::texture_map(const renderer_ptr rend, const handler_function handler)
+sge::texture_map::texture_map(const renderer_ptr rend, const fragmented_texture* const proto, const handler_function handler)
  : rend(rend),
    texture_not_present_handler(handler == 0 ? default_texture_not_present_handler : handler),
-   tex_man(rend, new no_fragmented_texture(rend)) // TODO
+   tex_man(rend, proto)
 {}
 
 bool sge::texture_map::add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h, const std::string& name)
@@ -52,18 +48,11 @@ bool sge::texture_map::add_texture(const texture::const_pointer src, const textu
 
 bool sge::texture_map::add_texture(const image_ptr im, const std::string& name)
 {
-	try
-	{
-		return add_texture(im->data(),im->width(),im->height(),name);
-	}
-	catch(const texture_manager::image_too_big&)
-	{
-		const texture::size_type max_size = rend->caps().max_tex_size;
-		const unsigned factor = 1 + std::max(im->width(),im->height()) / unsigned(max_size);
-		im->resample(im->width() / factor, im->height() / factor);
-		return add_texture(im->data(),im->width(),im->height(),name);
-	}
-	return false;
+	if(virtual_textures.find(name) != virtual_textures.end())
+		return false;
+
+	virtual_textures[name] = tex_man.add_texture(im);
+	return true;
 }
 
 bool sge::texture_map::remove_texture(const std::string& name)

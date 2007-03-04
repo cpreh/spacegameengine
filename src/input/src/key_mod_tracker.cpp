@@ -18,38 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X_WINDOW_HPP_INCLUDED
-#define SGE_X_WINDOW_HPP_INCLUDED
+#include "../key_mod_tracker.hpp"
+#include <boost/bind.hpp>
 
-#include "window.hpp"
-#include <X11/Xlib.h>
-#include <GL/glx.h>
-
-namespace sge
+sge::key_mod_tracker::key_mod_tracker(const input_system_ptr is)
+ : _state(false, false, false)
 {
-
-class x_window : public window {
-public:
-	x_window(window_pos pos, window_size sz, const std::string& title, Display* dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
-	~x_window();
-
-	void title(const std::string& title);
-	void size(window_size sz);
-	window_size size() const;
-	bool fullscreen() const;
-
-	Window get_window() const;
-	int screen() const;
-	Display* display() const;
-private:
-	Display* dsp;
-	int _screen;
-	Window wnd;
-	bool _fullscreen;
-};
-
-typedef shared_ptr<x_window> x_window_ptr;
-
+	is->register_callback(boost::bind(&key_mod_tracker::key_callback, this, _1));
 }
 
-#endif
+void sge::key_mod_tracker::key_callback(const key_pair& p)
+{
+	const key_code c = p.first.code;
+	if(is_shift(c))
+		_state.shift = p.second;
+
+	if(is_ctrl(c))
+		_state.ctrl = p.second;
+
+	if(is_alt(c))
+		_state.alt = p.second;
+}
+
+const sge::mod_state& sge::key_mod_tracker::state() const
+{
+	return _state;
+}

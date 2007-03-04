@@ -30,13 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../win32.hpp"
 #elif SGE_LINUX_PLATFORM
+#include <boost/scoped_ptr.hpp>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <GL/glx.h>
 #include "../../x_window.hpp"
-#include "../../glx.hpp"
+#include "glx.hpp"
 #include "xf86vidmode.hpp"
-#include <boost/scoped_ptr.hpp>
 #endif
 
 namespace sge
