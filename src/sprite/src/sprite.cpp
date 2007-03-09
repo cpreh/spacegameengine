@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../helper.hpp"
 #include <cmath>
 
-sge::sprite::sprite(sprite_system& _spr_sys, const point p, const dim sz, const std::string& name, const color col, const space_unit _z, const space_unit _rotation, const bool vis)
+sge::sprite::sprite(sprite_system& _spr_sys, const math::vector2 p, const math::dim2 sz, const std::string& name, const color col, const space_unit _z, const space_unit _rotation, const bool vis)
  : p(p),
    sz(sz),
    _z(_z),
@@ -90,22 +90,22 @@ sge::space_unit& sge::sprite::y()
 	return p.y();
 }
 
-sge::point& sge::sprite::pos()
+sge::math::vector2& sge::sprite::pos()
 {
 	return p;
 }
 
 sge::space_unit& sge::sprite::width()
 {
-	return sz.w;
+	return sz.w();
 }
 
 sge::space_unit& sge::sprite::height()
 {
-	return sz.h;
+	return sz.h();
 }
 
-sge::dim& sge::sprite::size()
+sge::math::dim2& sge::sprite::size()
 {
 	return sz;
 }
@@ -134,7 +134,7 @@ void sge::sprite::rotate(const space_unit rot)
 	_rotation = rot;
 }
 
-void sge::sprite::rotate_around(const point p)
+void sge::sprite::rotate_around(const math::vector2 p)
 {
 	_use_rot_around = true;
 	_rot_around = p;
@@ -165,22 +165,22 @@ const sge::space_unit& sge::sprite::y() const
 	return p.y();
 }
 
-const sge::point& sge::sprite::pos() const
+const sge::math::vector2& sge::sprite::pos() const
 {
 	return p;
 }
 
 const sge::space_unit& sge::sprite::width() const
 {
-	return sz.w;
+	return sz.w();
 }
 
 const sge::space_unit& sge::sprite::height() const
 {
-	return sz.h;
+	return sz.h();
 }
 
-const sge::dim& sge::sprite::size() const
+const sge::math::dim2& sge::sprite::size() const
 {
 	return sz;
 }
@@ -195,9 +195,9 @@ bool sge::sprite::visible() const
 	return _visible;
 }
 
-sge::point sge::sprite::center() const
+sge::math::vector2 sge::sprite::center() const
 {
-	return  point(x() + width() / 2, y() + height() / 2);
+	return  math::vector2(x() + width() / 2, y() + height() / 2);
 }
 
 sge::space_unit sge::sprite::rotation() const

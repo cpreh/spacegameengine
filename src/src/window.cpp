@@ -18,17 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VECTOR3_HPP_INCLUDED
-#define SGE_VECTOR3_HPP_INCLUDED
+#include "../window.hpp"
 
-#include "../types.hpp"
-#include "./vector.hpp"
-
-namespace sge
+sge::window::size_type sge::window::width() const
 {
-
-typedef math::vector<space_unit,3> vector3;
-
+	return size().w();
 }
 
-#endif
+sge::window::size_type sge::window::height() const
+{
+	return size().h();
+}

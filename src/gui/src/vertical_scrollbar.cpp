@@ -27,9 +27,9 @@ sge::gui::vertical_scrollbar::vertical_scrollbar(manager& m, element* const pare
 : rectangle(m,parent,pos,sz,skin::scrollbar_name,visible,enabled),
   s_pos(0),
   s_max(0),
-  scrollbar(m,this,point(0,sz.w),dim(sz.w,sz.h-2*sz.w)),
-  up_scroll_button(m,this,point(0,0),dim(sz.w,sz.w),scroll_button::up_scroll,boost::bind(&vertical_scrollbar::up_scroll_action,this)),
-  down_scroll_button(m,this,point(0,sz.h-sz.w),dim(sz.w,sz.w),scroll_button::down_scroll,boost::bind(&vertical_scrollbar::down_scroll_action,this))
+  scrollbar(m, this, point(0, sz.w()), dim(sz.w(), sz.h() - 2*sz.w())),
+  up_scroll_button(m, this, point(0,0), dim(sz.w(), sz.w()), scroll_button::up_scroll, boost::bind(&vertical_scrollbar::up_scroll_action, this)),
+  down_scroll_button(m, this, point(0, sz.h() - sz.w()), dim(sz.w(), sz.w()), scroll_button::down_scroll,boost::bind(&vertical_scrollbar::down_scroll_action, this))
 {}
 
 void sge::gui::vertical_scrollbar::scroll_max(const size_type max)

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LINE_SEG2_HPP_INCLUDED
 #define SGE_LINE_SEG2_HPP_INCLUDED
 
-#include "./vector2.hpp"
-#include "./solve2.hpp"
+#include "vector.hpp"
+#include "solve2.hpp"
 
 namespace sge
 {

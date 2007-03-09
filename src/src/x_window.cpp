@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x_window::x_window(const window_pos pos, const window_size sz, const std::string& t, Display* const dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
  : dsp(dsp),
    _screen(vi.screen),
-   wnd(XCreateWindow(dsp, RootWindow(dsp, screen()), pos.x(), pos.y(), sz.w, sz.h,0,vi.depth, InputOutput, vi.visual, CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask, const_cast<XSetWindowAttributes*>(&attr))),
+   wnd(XCreateWindow(dsp, RootWindow(dsp, screen()), pos.x(), pos.y(), sz.w(), sz.h(), 0, vi.depth, InputOutput, vi.visual, CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask, const_cast<XSetWindowAttributes*>(&attr))),
    _fullscreen(attr.override_redirect)
 {
 	title(t);
@@ -38,7 +38,7 @@ sge::x_window::~x_window()
 
 void sge::x_window::size(const window_size newsize)
 {
-	XResizeWindow(dsp,wnd,newsize.w,newsize.h);
+	XResizeWindow(dsp, wnd, newsize.w(), newsize.h());
 }
 
 void sge::x_window::title(const std::string& t)

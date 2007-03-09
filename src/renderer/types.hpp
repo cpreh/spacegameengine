@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <stdexcept>
 #include <ostream>
 #include "../types.hpp"
-#include "../math/vector2.hpp"
-#include "../math/vector3.hpp"
+#include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "color.hpp"
 
@@ -46,30 +45,20 @@ inline unsigned bit_depth_bit_count(const bit_depth d)
 typedef int pixel_unit;
 typedef unsigned screen_unit;
 typedef math::vector<pixel_unit,2> pixel_pos_t;
-typedef basic_dim<screen_unit> screen_size_t;
+typedef math::dim<screen_unit,2> screen_size_t;
 
 struct display_mode {
-	display_mode(const screen_unit width, const screen_unit height, const bit_depth depth, const unsigned refresh_rate = 0)
-	 : size(width,height), depth(depth), refresh_rate(refresh_rate) {}
+	display_mode(const screen_unit width, const screen_unit height, const bit_depth depth, const unsigned refresh_rate = 0);
+	
 	screen_size_t size;
 	bit_depth depth;
 	unsigned refresh_rate;
 
-	screen_unit width() const
-	{
-		return size.w;
-	}
-
-	screen_unit height() const
-	{
-		return size.h;
-	}
+	screen_unit width() const;
+	screen_unit height() const;
 };
 
-inline std::ostream& operator<< (std::ostream& s, const display_mode& mode)
-{
-	return s << '(' << mode.size.w << 'x' << mode.size.h << 'x' << bit_depth_bit_count(mode.depth) << '@' << mode.refresh_rate << ')';
-}
+std::ostream& operator<< (std::ostream& s, const display_mode& mode);
 
 inline bool operator== (const display_mode& l, const display_mode& r)
 {
@@ -127,11 +116,11 @@ enum lock_flags {
 };
 typedef unsigned lock_flag_t;
 
-typedef vector2     tex_pos;
-typedef vector3     pos3;
-typedef uint32      int_type;
-typedef space_unit  float_type;
-typedef bool        bool_type;
+typedef math::vector2  tex_pos;
+typedef math::vector3  pos3;
+typedef uint32         int_type;
+typedef space_unit     float_type;
+typedef bool           bool_type;
 
 enum primitive_type {
 	PT_Point,

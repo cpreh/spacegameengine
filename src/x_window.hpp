@@ -30,6 +30,7 @@ namespace sge
 
 class x_window : public window {
 public:
+	x_window(Display* dsp, int screen, Window wnd);
 	x_window(window_pos pos, window_size sz, const std::string& title, Display* dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
 	~x_window();
 

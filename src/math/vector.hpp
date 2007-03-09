@@ -17,8 +17,8 @@
 #include <boost/type_traits/is_same.hpp>
 #include "../util.hpp"
 
-#ifndef SGE_VECTOR_MAX_SIZE
-#define SGE_VECTOR_MAX_SIZE 4
+#ifndef SGE_MATH_VECTOR_MAX_SIZE
+#define SGE_MATH_VECTOR_MAX_SIZE 4
 #endif
 
 namespace sge
@@ -28,7 +28,7 @@ namespace math
 
 template<typename T, std::size_t Dim>
 class vector {
-	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_VECTOR_MAX_SIZE);
+	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_MATH_VECTOR_MAX_SIZE);
 public:
 	typedef T              value_type;
 	typedef T&             reference;
@@ -44,7 +44,7 @@ public:
 
 #define SGE_MATH_VECTOR_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
 #define SGE_MATH_VECTOR_CTOR(z, n, text) vector(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
-	BOOST_PP_REPEAT(SGE_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_CTOR, void)
+	BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_CTOR, void)
 
 	vector()
 	{
@@ -220,16 +220,28 @@ public:
 		return (*this)[1];
 	}
 
-	//template<typename OtherT>
-	reference z(/*typename boost::enable_if<boost::mpl::and_<boost::is_same<T,OtherT>, boost::mpl::bool_<(Dim > 2)> > >::type* = 0*/)
+	reference z()
 	{
+		assert(Dim > 2);
 		return (*this)[2];
 	}
 	
-//	template<typename OtherT>
-	const_reference z(/*typename boost::enable_if<boost::mpl::and_<boost::is_same<T,OtherT>, boost::mpl::bool_<(Dim > 2)> > >::type* = 0*/) const
+	const_reference z() const
 	{
+		assert(Dim > 2);
 		return (*this)[2];
+	}
+
+	reference w()
+	{
+		assert(Dim > 3);
+		return (*this)[3];
+	}
+
+	const_reference w() const
+	{
+		assert(Dim > 3);
+		return (*this)[3];
 	}
 
 	template<typename OtherT>
@@ -251,7 +263,7 @@ public:
 	}
 
 #define SGE_MATH_VECTOR_SET(z, n, text) void set(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
-BOOST_PP_REPEAT(SGE_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_SET, void)
+BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_SET, void)
 
 	bool nearly_equals(const vector& r, const value_type& radius) const
 	{
@@ -377,6 +389,10 @@ std::istream& operator>> (std::istream& s, vector<T,Dim>& v)
 		s.setstate(std::ios_base::failbit);
 	return s;
 }
+
+typedef vector<space_unit,2> vector2;
+typedef vector<space_unit,3> vector3;
+typedef vector<space_unit,4> vector4;
 
 }
 }

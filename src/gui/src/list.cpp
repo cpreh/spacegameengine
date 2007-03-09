@@ -27,7 +27,7 @@ sge::gui::list::list(manager& m, element* const parent, const point pos, const d
 : rectangle(m,parent,pos,sz,skin::list_background_name,visible,enabled),
   my_font(m.get_font()),
   text_color(text_color),
-  vscrollbar(m,this,point(sz.w-0.02f,0),dim(0.02f,sz.h)),
+  vscrollbar(m,this,point(sz.w()-0.02f,0),dim(0.02f,sz.h())), // FIXME
   selected_(no_selection)
 {}
 

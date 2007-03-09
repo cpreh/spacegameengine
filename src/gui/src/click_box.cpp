@@ -50,4 +50,4 @@ bool sge::gui::click_box::value() const
 	return v;
 }
 
-const sge::dim sge::gui::click_box::sz(0.03f,0.03f);
+const sge::gui::dim sge::gui::click_box::sz(0.03f,0.03f);

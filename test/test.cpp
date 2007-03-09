@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::pos3 rand_point() { return sge::pos3(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX), 0); }
 
-sge::point rand_point2() { return sge::point(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
+sge::math::vector2 rand_point2() { return sge::math::vector2(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
 
 int main()
 try
@@ -92,23 +92,23 @@ try
 	
 	std::vector<sge::sprite> sprites;
 	for(unsigned i = 0; i < 100; ++i)
-		sprites.push_back(sge::sprite(ss,rand_point2(),sge::dim(0.3,0.3),tex[i % 3], sge::colors::white));
+		sprites.push_back(sge::sprite(ss,rand_point2(),sge::math::dim2(0.3,0.3),tex[i % 3], sge::colors::white));
 
 	for(unsigned i = 0; i < 100; ++i)
-		sprites[i] = sge::sprite(ss,rand_point2(),sge::dim(0.3,0.3),tex[i % 3], sge::colors::white);
+		sprites[i] = sge::sprite(ss,rand_point2(),sge::math::dim2(0.3,0.3),tex[i % 3], sge::colors::white);
 
 
-	sge::sprite spr(ss, sge::point(0.25,0.25), sge::dim(0.5,0.5), /*tex[0]*/sge::texture_map::no_texture, sge::colors::yellow);
+	sge::sprite spr(ss, sge::math::vector2(0.25,0.25), sge::math::dim2(0.5,0.5), /*tex[0]*/sge::texture_map::no_texture, sge::colors::yellow);
 //	spr.set_texture(tex[1],1);
-	sge::sprite spr2(ss, sge::point(0.25,-0.25), sge::dim(0.25,3), tex[1], sge::colors::red);
+	sge::sprite spr2(ss, sge::math::vector2(0.25,-0.25), sge::math::dim2(0.25,3), tex[1], sge::colors::red);
 	spr2.set_texture(tex[2],1);
 
 	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "/mainskin/", 0.05);
-	sge::gui::frame fr1(man,0,sge::point(0,0),sge::dim(1,1),"cancel_0");
-	sge::gui::button btn1(man,&fr1,"Beenden!",sge::point(0,0.1),sge::dim(0.45,0.1));
-	sge::gui::list list1(man,&fr1,sge::point(0.5,0.1),sge::dim(0.2,0.8));
-	sge::gui::icon_button icbtn1(man,&fr1,sge::point(0,0.8),sge::dim(0.5,0.1),"newgame_0","newgame_1","newgame_2");
-	sge::gui::text_edit te1(man,&fr1,sge::point(0,0.5),sge::dim(0.7,0.3),"abc");
+	sge::gui::frame fr1(man,0,sge::gui::point(0,0),sge::gui::dim(1,1),"cancel_0");
+	sge::gui::button btn1(man,&fr1,"Beenden!",sge::gui::point(0,0.1),sge::gui::dim(0.45,0.1));
+	sge::gui::list list1(man,&fr1,sge::gui::point(0.5,0.1),sge::gui::dim(0.2,0.8));
+	sge::gui::icon_button icbtn1(man,&fr1,sge::gui::point(0,0.8),sge::gui::dim(0.5,0.1),"newgame_0","newgame_1","newgame_2");
+	sge::gui::text_edit te1(man,&fr1,sge::gui::point(0,0.5),sge::gui::dim(0.7,0.3),"abc");
 	list1.push_back("LOL");
 	list1.push_back("BAR");
 	list1.push_back("ROFL!");
@@ -120,7 +120,7 @@ try
 		list1.push_back(os.str());
 	}
 
-	sge::gui::static_text st(man, &fr1, "hellothere,i'mamultiline dstatic_text", sge::point(0.5,0.8), sge::dim(0.3,0.1), sge::colors::red);
+	sge::gui::static_text st(man, &fr1, "hellothere,i'mamultiline dstatic_text", sge::gui::point(0.5,0.8), sge::gui::dim(0.3,0.1), sge::colors::red);
 	
 	using boost::lambda::var;
 	using boost::lambda::bind;
@@ -138,7 +138,7 @@ try
 
 	sge::key_state_tracker ks(is);
 
-	sge::vector3 translation;
+	sge::math::vector3 translation;
 
 	sge::line_strip ls(rend, sge::colors::red);
 	for(int i = 0; i < 5; ++i)
@@ -178,11 +178,11 @@ try
 //		fn.internal_transformation(sge::math::matrix_identity());
 		fn.height_pixel_scale(1);
 		fn.height(0.05);
-		fn.draw_text(some_text,sge::point(0.2,0.2),sge::dim(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
+		fn.draw_text(some_text,sge::font_pos(0.2,0.2),sge::font_size(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
 		std::ostringstream os;
 		os << cur_fps;
 		fn.transform(sge::math::matrix_identity());
-		fn.draw_text(os.str(),sge::point(0.1,0),sge::dim(1,1),sge::colors::purple);
+		fn.draw_text(os.str(),sge::font_pos(0.1,0),sge::font_size(1,1),sge::colors::purple);
 		ls.draw(true);
 		rend->end_rendering();
 		++fps;

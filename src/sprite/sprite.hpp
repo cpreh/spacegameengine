@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 #include <vector>
 #include "../math/rect.hpp"
-#include "../math/vector2.hpp"
+#include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
 #include "../math/circle.hpp"
@@ -40,21 +40,21 @@ namespace sge
 
 class sprite {
 public:
-	sprite(sprite_system& s, point pos, dim sz, const std::string& tex, color c = colors::white, space_unit z = 0, space_unit rotation = 0, bool visible = true);
+	sprite(sprite_system& s, math::vector2 pos, math::dim2 sz, const std::string& tex, color c = colors::white, space_unit z = 0, space_unit rotation = 0, bool visible = true);
 	sprite(const sprite& s);
 	sprite& operator=(const sprite&);
 
 	space_unit& x();
 	space_unit& y();
-	point& pos();
+	math::vector2& pos();
 	space_unit& width();
 	space_unit& height();
-	dim& size();
+	math::dim2& size();
 	space_unit& z();
 	void visible(bool visible);
 	void set_texture(const std::string& name, stage_type stage = 0);
 	void rotate(space_unit rot);
-	void rotate_around(point p);
+	void rotate_around(math::vector2 p);
 	void rotate_around();
 	void repeat(space_unit);
 	void set_color(color c);
@@ -62,13 +62,13 @@ public:
 	const space_unit& x() const;
 	const space_unit& y() const;
 	const space_unit& z() const;
-	const point& pos() const;
+	const math::vector2& pos() const;
 	const space_unit& width() const;
 	const space_unit& height() const;
-	const dim& size() const;
+	const math::dim2& size() const;
 	bool visible() const;
 	rect get_rect() const;
-	point center() const;
+	math::vector2 center() const;
 	space_unit rotation() const;
 	space_unit radius() const;
 	space_unit repeat() const;
@@ -90,8 +90,8 @@ private:
 	void update();
 	index_buffer::iterator update_ib(index_buffer::iterator where);
 
-	point p;
-	dim sz;
+	math::vector2 p;
+	math::dim2 sz;
 	space_unit _z;
 	bool _visible;
 	space_unit _rotation;
@@ -101,7 +101,7 @@ private:
 	vertex_buffer::size_type vb_pos;
 	sprite_list::iterator my_place;
 	bool _use_rot_around;
-	point _rot_around;
+	math::vector2 _rot_around;
 	space_unit _repeat;
 	color _color;
 };

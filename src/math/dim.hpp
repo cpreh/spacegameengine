@@ -18,82 +18,191 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DIM_HPP_INCLUDED
-#define SGE_DIM_HPP_INCLUDED
+#ifndef SGE_MATH_DIM_HPP_INCLUDED
+#define SGE_MATH_DIM_HPP_INCLUDED
 
+#include <cstddef>
+#include <iterator>
+#include <ostream>
+#include <cassert>
+#include <boost/static_assert.hpp>
+#include <boost/preprocessor/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/arithmetic/add.hpp>
 #include "../types.hpp"
-#include "./vector2.hpp"
+
+#ifndef SGE_MATH_DIM_MAX_SIZE
+#define SGE_MATH_DIM_MAX_SIZE 3
+#endif
 
 namespace sge
 {
+namespace math
+{
 
-template<typename T>
-struct basic_dim {
+template<typename T, std::size_t Dim>
+class dim {
+public:
 	typedef T value_type;
-	basic_dim(const value_type& w = value_type(), const value_type& h = value_type())
-		: w(w), h(h) {}
-	explicit basic_dim(const math::vector<T,2>& v)
-		: w(v.x), h(v.y) {}
-	value_type w,h;
+	typedef T&             reference;
+	typedef const T&       const_reference;
+	typedef std::ptrdiff_t difference_type;
+	typedef std::size_t    size_type;
+	typedef T*             pointer;
+	typedef const T*       const_pointer;
+	typedef pointer        iterator;
+	typedef const_pointer  const_iterator;
+	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+#define SGE_MATH_DIM_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
+#define SGE_MATH_DIM_CTOR(z, n, text) dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
+	BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_CTOR, void)
+
+	reference operator[](const size_type pos)
+	{
+		assert(pos < Dim);
+		return data[pos];
+	}
+
+	const_reference operator[](const size_type pos) const
+	{
+		assert(pos < Dim);
+		return data[pos];
+	}
+	
+	bool operator==(const dim& r) const
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			if(data[i] != r[i])
+				return false;
+		return true;
+	}
+
+	bool operator!=(const dim& r) const
+	{
+		return !((*this)==r);
+	}
+
+	dim& operator+=(const dim& r)
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			data[i] += r[i];
+		return *this;
+	}
+
+	dim& operator-=(const dim& r)
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			data[i] -= r[i];
+		return *this;
+	}
+
+	reference w()
+	{
+		return (*this)[0];
+	}
+
+	const_reference w() const
+	{
+		return (*this)[0];
+	}
+
+	reference h()
+	{
+		return (*this)[1];
+	}
+	
+	const_reference h() const
+	{
+		return (*this)[1];
+	}
+
+	reference d()
+	{
+		assert(Dim > 2);
+		return (*this)[2];
+	}
+	
+	const_reference d() const
+	{
+		assert(Dim > 2);
+		return (*this)[2];
+	}
+
+	size_type size() const
+	{
+		return Dim;
+	}
+
+	iterator begin()
+	{
+		return data;
+	}
+
+	iterator end()
+	{
+		return &data[Dim];
+	}
+
+	const_iterator begin() const
+	{
+		return data;
+	}
+
+	const_iterator end() const
+	{
+		return &data[Dim];
+	}
+
+	reverse_iterator rbegin()
+	{
+		return reverse_iterator(end());
+	}
+
+	reverse_iterator rend()
+	{
+		return reverse_iterator(begin());
+	}
+
+	const_reverse_iterator rbegin() const
+	{
+		return reverse_iterator(end());
+	}
+
+	const_reverse_iterator rend() const
+	{
+		return reverse_iterator(begin());
+	}
+private:
+	T data[Dim];
 };
 
-template<typename T> bool operator==(const basic_dim<T>& l, const basic_dim<T>& r)
+template<typename T, std::size_t Dim> dim<T,Dim> operator+(const dim<T,Dim>& l, const dim<T,Dim>& r)
 {
-	return l.w == r.w && l.h == r.h;
+	return dim<T,Dim>(l) += r;
 }
 
-template<typename T> bool operator!=(const basic_dim<T>& l, const basic_dim<T>& r)
+
+template<typename T, std::size_t Dim> dim<T,Dim> operator-(const dim<T,Dim>& l, const dim<T,Dim>& r)
 {
-	return !(l==r);
+	return dim<T,Dim>(l) -= r;
 }
 
-template<typename T> basic_dim<T> operator+(const basic_dim<T>& l, const basic_dim<T>& r)
+template<typename T, std::size_t Dim>
+std::ostream& operator<< (std::ostream& s, const dim<T,Dim>& v)
 {
-	return basic_dim<T>(l.w + r.w, l.h + r.h);
+	s << '(';
+	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+		s << v[i] << ',';
+	s << v[Dim-1] << ')';
+	return s;
 }
 
-template<typename T> basic_dim<T> operator-(const basic_dim<T>& l, const basic_dim<T>& r)
-{
-	return basic_dim<T>(l.w - r.w, l.h - r.h);
+typedef dim<space_unit,2> dim2;
+typedef dim<space_unit,3> dim3;
+
 }
-
-template<typename T> basic_dim<T> operator*(const basic_dim<T>& l, const basic_dim<T>& r)
-{
-	return basic_dim<T>(l.w * r.w, l.h * r.h);
-}
-
-template<typename T> basic_dim<T> operator/(const basic_dim<T>& l, const basic_dim<T>& r)
-{
-	return basic_dim<T>(l.w / r.w, l.h / r.h);
-}
-
-template<typename T> basic_dim<T> operator+(const T& l, const basic_dim<T>& r)
-{
-	return basic_dim<T>(l + r.w, l + r.h);
-}
-
-template<typename T> basic_dim<T> operator-(const T& l, const basic_dim<T>& r)
-{
-	return basic_dim<T>(l - r.w, l - r.h);
-}
-
-template<typename T> basic_dim<T> operator*(const T& l, const basic_dim<T>& r)
-{
-	return basic_dim<T>(l * r.w, l * r.h);
-}
-
-template<typename T> basic_dim<T> operator/(const basic_dim<T>& l, const T& r)
-{
-	return basic_dim<T>(l.w / r, l.h / r);
-}
-
-template<typename T, typename Ch, typename Traits> std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& os, const basic_dim<T>& d)
-{
-	return os << '(' << d.w << ',' << d.h << ')';
-}
-
-typedef basic_dim<space_unit> dim;
-
 }
 
 #endif

@@ -67,7 +67,7 @@ sge::bsp_tree::iterator sge::bsp_tree::end()
 
 sge::bsp_tree::iterator sge::bsp_tree::insert_recursive(const dim_type dim, node& n)
 {
-	if(n.final || dim.w > n.rect.width() || dim.h > n.rect.height())
+	if(n.final || dim.w() > n.rect.width() || dim.h() > n.rect.height())
 		return end();
 
 	// case 1: left and right are absent -> always put in the left node
@@ -102,14 +102,14 @@ sge::bsp_tree::iterator sge::bsp_tree::insert_case_2(const dim_type dim, node& r
 	const value_type& rr = ref.rect,
 	                  er = exist.rect;
 	// case 1: width and height are too big
-	if(dim.w > free_w && dim.h > free_h)
+	if(dim.w() > free_w && dim.h() > free_h)
 		return end();
 
 	// case 2: left is the existing node so existing rect is at left-top
 	if(ref.left == &exist)
 	{
 		// case 2.1: insert at bottom
-		if(dim.h <= free_h)
+		if(dim.h() <= free_h)
 			return insert_two(dim, ref, empty, value_type(rr.left, er.bottom, rr.right, rr.bottom));
 		// case 2.2: insert at right
 		else // if(dim.w <= free_w)

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RECT_HPP_INCLUDED
 #define SGE_RECT_HPP_INCLUDED
 
-#include "./line_seg2.hpp"
-#include "./dim.hpp"
-#include "./vector2.hpp"
+#include "line_seg2.hpp"
+#include "dim.hpp"
+#include "vector.hpp"
 
 namespace sge
 {
@@ -31,14 +31,14 @@ namespace sge
 template<typename T> struct basic_rect {
 	typedef T value_type;
 	typedef math::vector<T,2> point_type;
-	typedef basic_dim<T> dim_type;
+	typedef math::dim<T,2> dim_type;
 
 	basic_rect(const value_type& left  = value_type(), const value_type& top    = value_type(),
 	           const value_type& right = value_type(), const value_type& bottom = value_type())
 		: left(left), top(top), right(right), bottom(bottom) {}
 
 	basic_rect(const point_type& pos, const dim_type& sz)
-		: left(pos.x()), top(pos.y()), right(pos.x() + sz.w), bottom(pos.y() + sz.h) {}
+		: left(pos.x()), top(pos.y()), right(pos.x() + sz.w()), bottom(pos.y() + sz.h()) {}
 
 	value_type width() const { return right - left; }
 	value_type height() const { return bottom - top; }

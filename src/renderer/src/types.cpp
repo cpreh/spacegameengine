@@ -18,18 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VECTOR2_HPP_INCLUDED
-#define SGE_VECTOR2_HPP_INCLUDED
-
 #include "../types.hpp"
-#include "./vector.hpp"
 
-namespace sge
+sge::display_mode::display_mode(const screen_unit width, const screen_unit height, const bit_depth depth, const unsigned refresh_rate)
+ : size(width,height), depth(depth), refresh_rate(refresh_rate)
+{}
+
+sge::screen_unit sge::display_mode::width() const
 {
-
-typedef math::vector<space_unit,2> vector2;
-typedef vector2 point;
-
+	return size.w();
 }
 
-#endif
+sge::screen_unit sge::display_mode::height() const
+{
+	return size.h();
+}
+
+std::ostream& sge::operator<< (std::ostream& s, const display_mode& mode)
+{
+	return s << '(' << mode.width() << 'x' << mode.height() << 'x' << bit_depth_bit_count(mode.depth) << '@' << mode.refresh_rate << ')';
+}

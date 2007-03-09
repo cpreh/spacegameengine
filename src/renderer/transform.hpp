@@ -44,7 +44,7 @@ inline space_unit trans_y_2d_to_3d(const space_unit y)
 	return -y*2;
 }
 
-inline pos3 trans_2d_to_3d(const point pos)
+inline pos3 trans_2d_to_3d(const math::vector2 pos)
 {
 	return pos3(trans_x_2d_to_3d(pos.x()), trans_y_2d_to_3d(pos.y()), 0);
 }
@@ -64,7 +64,7 @@ inline pos3 space_2d_to_3d(const space_unit x, const space_unit y)
 	return pos3(space_x_2d_to_3d(x),space_y_2d_to_3d(y),0);
 }
 
-inline pos3 space_2d_to_3d(const point pos)
+inline pos3 space_2d_to_3d(const math::vector2 pos)
 {
 	return space_2d_to_3d(pos.x(), pos.y());
 }
@@ -74,14 +74,14 @@ inline pos3 text_to_space(const space_unit x, const space_unit y)
 	return space_2d_to_3d(x,y);
 }
 
-inline pos3 text_to_space(const point pos)
+inline pos3 text_to_space(const math::vector2 pos)
 {
 	return space_2d_to_3d(pos);
 }
 
-inline pixel_pos_t space_pos_to_pixel(const point a, const screen_size_t sz)
+inline pixel_pos_t space_pos_to_pixel(const math::vector2 a, const screen_size_t sz)
 {
-	return pixel_pos_t(static_cast<pixel_unit>((a.x() + 1.0) / 2.0 * sz.w), static_cast<pixel_unit>((-a.y() + 1.0) / 2.0 * sz.h));
+	return pixel_pos_t(static_cast<pixel_unit>((a.x() + 1.0) / 2.0 * sz.w()), static_cast<pixel_unit>((-a.y() + 1.0) / 2.0 * sz.h()));
 }
 
 inline pixel_unit space_size_to_pixel(const space_unit s, const screen_unit screen_size)

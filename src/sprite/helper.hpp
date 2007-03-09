@@ -57,12 +57,12 @@ inline vertex_buffer::iterator fill_sprite_vertices(const vertex_buffer::iterato
 	return fill_sprite_tex_coordinates(it, rt, stage);
 }
 
-inline vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::iterator it, const rect& rbs, const space_unit rot, const point center, const space_unit z)
+inline vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::iterator it, const rect& rbs, const space_unit rot, const math::vector2 center, const space_unit z)
 {
-	point one = point(rbs.left,rbs.top) - center,
-	      two = point(rbs.right,rbs.top) - center,
-	      three = point(rbs.right,rbs.bottom) - center,
-	      four = point(rbs.left,rbs.bottom) - center;
+	math::vector2 one = math::vector2(rbs.left,rbs.top) - center,
+	              two = math::vector2(rbs.right,rbs.top) - center,
+	              three = math::vector2(rbs.right,rbs.bottom) - center,
+	              four = math::vector2(rbs.left,rbs.bottom) - center;
 
 	const space_unit sinx = std::sin(-rot),
 	                 cosx = std::cos(-rot);

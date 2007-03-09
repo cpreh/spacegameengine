@@ -45,7 +45,7 @@ sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const s
 
 void sge::font::height_pixel_scale(const unsigned scale)
 {
-	height(font_unit(impl->optimal_height_base()*scale) / rend->screen_size().h);
+	height(font_unit(impl->optimal_height_base()*scale) / rend->screen_size().h());
 }
 
 sge::font_unit sge::font::height() const
@@ -55,7 +55,7 @@ sge::font_unit sge::font::height() const
 
 sge::font_unit sge::font::optimal_height_base() const
 {
-	return font_unit(impl->optimal_height_base()) / rend->screen_size().h;
+	return font_unit(impl->optimal_height_base()) / rend->screen_size().h();
 }
 
 void sge::font::height(const space_unit h)
@@ -65,8 +65,8 @@ void sge::font::height(const space_unit h)
 
 sge::font_size sge::font::draw_text(const string_type& text, const font_pos start_pos, const font_size max_sz, const color col, const font_flag_t flags)
 {
-	if(text.empty() || height() > max_sz.h)
-		return font_size();
+	if(text.empty() || height() > max_sz.h())
+		return font_size(0,0);
 	last_index = 0;
 	last_texture = impl->load_char(text[0]).tex;
 
@@ -82,35 +82,35 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 	font_pos pos = start_pos;
 	if(flags & FTF_AlignVCenter || flags & FTF_AlignBottom)
 	{
-		const font_unit text_height = text_size(text.begin(), text.end(), max_sz.w, flags).h;
+		const font_unit text_height = text_size(text.begin(), text.end(), max_sz.w(), flags).h();
 		if(flags & FTF_AlignVCenter)
-			pos.y() += (max_sz.h - text_height) / 2.f;
+			pos.y() += (max_sz.h() - text_height) / 2.f;
 		else if(flags & FTF_AlignBottom)
-			pos.y() += max_sz.h - text_height;
+			pos.y() += max_sz.h() - text_height;
 		if(pos.y() < start_pos.y())
 			pos.y() = start_pos.y();
 	}
 
 	rend->set_int_state(IS_AmbientLightColor,col);
 
-	font_size sz;
+	font_size sz(0,0);
 	string_type::const_iterator sbeg(text.begin());
 
 	lock_ptr<vertex_buffer_ptr> _lock(vb,LF_Discard);
 	vertex_buffer::iterator vit = vb->begin();
 
 	std::size_t chars_to_draw = 0;
-	while(sbeg != text.end() && sz.h + height() <= max_sz.h)
+	while(sbeg != text.end() && sz.h() + height() <= max_sz.h())
 	{
-		const line_size_t line_size = line_width(sbeg, text.end(), max_sz.w, flags);
+		const line_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
 		if(line_size.width == 0)
 			break;
 
 		pos.x() = start_pos.x();
 		if(flags & FTF_AlignHCenter)
-			pos.x() += (max_sz.w - line_size.width) / 2;
+			pos.x() += (max_sz.w() - line_size.width) / 2;
 		else if(flags & FTF_AlignRight)
-			pos.x() += max_sz.w - line_size.width;
+			pos.x() += max_sz.w() - line_size.width;
 
 		for(;sbeg != line_size.end; ++sbeg)
 		{
@@ -132,8 +132,8 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 			++chars_to_draw;
 		}
 
-		sz.w = std::max(sz.w, line_size.width);
-		sz.h += height();
+		sz.w() = std::max(sz.w(), line_size.width);
+		sz.h() += height();
 
 		if(flags & FTF_NoMultiLine)
 			break;
@@ -186,15 +186,15 @@ sge::font_size sge::font::text_size(string_type::const_iterator sbeg, const stri
 	if(flags & FTF_NoMultiLine)
 		return font_size(text_width_unformatted(sbeg, send, width).width, height());
 
-	font_size sz;
+	font_size sz(0,0);
 	while(sbeg != send)
 	{
 		const line_size_t line_size = line_width(sbeg, send, width, flags);
 		const font_unit line_w = line_size.width;
 		if(line_w == 0)
 			break;
-		sz.w = std::max(sz.w, line_w);
-		sz.h += height();
+		sz.w() = std::max(sz.w(), line_w);
+		sz.h() += height();
 		sbeg = line_size.next_begin;
 	}
 	return sz;

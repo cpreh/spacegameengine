@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <stdexcept>
 #include "../math/rect.hpp"
 #include "../math/dim.hpp"
-#include "../math/vector2.hpp"
+#include "../math/vector.hpp"
 
 namespace sge
 {
@@ -33,7 +33,7 @@ class bsp_tree {
 public:
 	typedef std::size_t size_type;
 	typedef math::vector<size_type,2> point_type;
-	typedef basic_dim<size_type> dim_type;
+	typedef math::dim<size_type,2> dim_type;
 	typedef basic_rect<size_type> value_type;
 	typedef const value_type& const_reference;
 private:

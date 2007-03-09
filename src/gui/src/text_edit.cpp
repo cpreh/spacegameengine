@@ -91,7 +91,7 @@ void sge::gui::text_edit::on_click(const mouse_button_event& event)
 void sge::gui::text_edit::increase_cursor_pos()
 {
 	++cursor_pos;
-	while(text_start < text().size() && my_font.text_size(_text.begin() + text_start, _text.begin() + cursor_pos, std::numeric_limits<unit>::max(), flags).w > text_width())
+	while(text_start < text().size() && my_font.text_size(_text.begin() + text_start, _text.begin() + cursor_pos, std::numeric_limits<unit>::max(), flags).w() > text_width())
 		++text_start;
 }
 

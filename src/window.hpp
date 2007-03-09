@@ -35,12 +35,12 @@ public:
 	typedef int pos_type;
 	typedef unsigned size_type;
 	typedef math::vector<pos_type,2> window_pos;
-	typedef basic_dim<size_type> window_size;
+	typedef math::dim<size_type,2> window_size;
 
 	virtual void title(const std::string& title) = 0;
 	virtual window_size size() const = 0;
-	size_type width() const { return size().w; }
-	size_type height() const { return size().h; }
+	size_type width() const;
+	size_type height() const;
 	virtual void size(window_size newsize) = 0;
 	virtual bool fullscreen() const = 0;
 	virtual ~window(){}
