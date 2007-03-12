@@ -46,7 +46,7 @@ namespace ogl
 
 class renderer : public sge::renderer {
 public:
-	renderer(const renderer_parameters& param, unsigned adapter);
+	renderer(const renderer_parameters& param, unsigned adapter, window_ptr wnd);
 	~renderer();
 
 	void begin_rendering();

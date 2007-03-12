@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::gui::button::button(manager& m, element* const parent, const string& _text,
                          const point pos, const dim sz, const color _text_color, const bool visible, const bool enabled)
-: rectangle(m,parent,pos,sz,skin::button_name,visible,enabled),
+: rectangle(m, parent, pos, sz,skin::button_name, visible, enabled),
   _text(_text), _text_color(_text_color)
 {}
 
@@ -40,3 +40,22 @@ void sge::gui::button::on_draw(const draw_event& event)
 	m.get_font().draw_text(_text, event.pos(), size(), _text_color, FTF_AlignHCenter | FTF_AlignVCenter | FTF_NoMultiLine);
 }
 
+void sge::gui::button::text(const string& t)
+{
+	_text = t;
+}
+
+const sge::string& sge::gui::button::text() const
+{
+	return _text;
+}
+
+void sge::gui::button::text_color(const color c)
+{
+	_text_color = c;
+}
+
+sge::color sge::gui::button::text_color() const
+{
+	return _text_color;
+}

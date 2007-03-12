@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_TEXT_EDIT_HPP_INCLUDED
 #define SGE_GUI_TEXT_EDIT_HPP_INCLUDED
 
-#include "./types.hpp"
-#include "./rectangle.hpp"
-#include "./text_cursor.hpp"
+#include "types.hpp"
+#include "rectangle.hpp"
+#include "text_cursor.hpp"
 #include "../renderer/font_types.hpp"
 
 namespace sge
 {
+
 class font;
 
 namespace gui
@@ -38,10 +39,10 @@ class manager;
 class text_edit : public rectangle {
 public:
 	text_edit(manager& m, element* parent, point pos, dim sz, const string& text = "", color text_color = colors::white, bool visible = true, bool enabled = true);
-	const string& text() const { return _text; }
+	const string& text() const;
 	void text(const string& text);
-	color text_color() const { return _text_color; }
-	void text_color(const color c) { _text_color = c; }
+	color text_color() const;
+	void text_color(const color c);
 private:
 	virtual void on_key_press(const keyboard_button_event& event);
 	virtual void on_click(const mouse_button_event& event);

@@ -39,3 +39,23 @@ bool sge::gui::check_box::value() const
 {
 	return box.value();
 }
+
+void sge::gui::check_box::text(const string& t)
+{
+	_text = t;
+}
+
+const sge::string& sge::gui::check_box::text() const
+{
+	return _text;
+}
+
+void sge::gui::check_box::text_color(const color c)
+{
+	_text_color = c;
+}
+
+sge::color sge::gui::check_box::text_color() const
+{
+	return _text_color;
+}

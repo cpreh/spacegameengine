@@ -126,3 +126,8 @@ sge::gui::unit sge::gui::vertical_scrollbar::scroll_max_h() const
 {
 	return height()-2*up_scroll_button.height();
 }
+
+sge::gui::vertical_scrollbar::size_type sge::gui::vertical_scrollbar::scroll_pos() const
+{
+	return s_pos;
+}

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_VERTICAL_SCROLLBAR_HPP_INCLUDED
 
 #include <cstddef>
-#include "./rectangle.hpp"
-#include "./scrollbar.hpp"
+#include "rectangle.hpp"
+#include "scrollbar.hpp"
 
 namespace sge
 {
@@ -37,7 +37,7 @@ public:
 	typedef std::size_t size_type;
 	vertical_scrollbar(manager& m, element* parent, point pos, dim sz, bool visible = true, bool enabled = true);
 	void scroll_max(size_type max);
-	size_type scroll_pos() const { return s_pos; }
+	size_type scroll_pos() const;
 protected:
 	void up_scroll_action();
 	void down_scroll_action();

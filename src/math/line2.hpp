@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LINE2_HPP_INCLUDED
 #define SGE_LINE2_HPP_INCLUDED
 
-#include "./vector2.hpp"
+#include "vector.hpp"
 
 namespace sge
 {
 
 template<typename T> class line2 {
 public:
-	typedef vector2<T> point;
+	typedef math::vector<T,2> point;
 	line2(const point o, point d) : o(o), d(d) {}
 	bool intersects(const line2& r) const
 	{

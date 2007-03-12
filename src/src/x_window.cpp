@@ -22,6 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_LINUX_PLATFORM
 
 #include "../x_window.hpp"
+	
+sge::x_window::x_window(Display* const dsp, const int _screen, const Window wnd)
+ : dsp(dsp),
+   _screen(_screen),
+   wnd(wnd)
+{}
+
 sge::x_window::x_window(const window_pos pos, const window_size sz, const std::string& t, Display* const dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
  : dsp(dsp),
    _screen(vi.screen),

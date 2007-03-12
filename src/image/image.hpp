@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_HPP_INCLUDED
 
 #include <cstddef>
-#include <boost/utility.hpp>
+#include <boost/noncopyable.hpp>
 #include "../shared_ptr.hpp"
 #include "../renderer/types.hpp"
 

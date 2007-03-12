@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_SCROLLBAR_HPP_INCLUDED
 #define SGE_GUI_SCROLLBAR_HPP_INCLUDED
 
-#include "./rectangle.hpp"
+#include "rectangle.hpp"
 #include <boost/function.hpp>
 
 namespace sge

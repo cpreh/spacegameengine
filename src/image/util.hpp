@@ -24,20 +24,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/types.hpp"
 #include "../renderer/renderer.hpp"
 #include "../renderer/texture.hpp"
-#include "./image_loader.hpp"
+#include "image_loader.hpp"
 
 namespace sge
 {
 
-inline texture_ptr create_texture(renderer_ptr r, image_ptr p, unsigned mip_levels = 1, resource_flag_t flags = RF_Default)
-{
-	return r->create_texture(p->data(),p->width(),p->height(),mip_levels,flags);
-}
+texture_ptr create_texture(renderer_ptr r,
+                           image_ptr p,
+                           const filter_args& filter = linear_filter,
+                           resource_flag_t flags = RF_Default);
 
-inline texture_ptr create_texture(const std::string& path, renderer_ptr r, image_loader_ptr p, image::size_type w = 0, image::size_type h = 0, unsigned mip_levels = 1, resource_flag_t flags = RF_Default)
-{
-	return create_texture(r,p->load_image(path,w,h),mip_levels,flags);
-}
+texture_ptr create_texture(const std::string& path,
+                           renderer_ptr r,
+                           image_loader_ptr p,
+                           image::size_type w = 0,
+                           image::size_type h = 0,
+                           const filter_args& filter = linear_filter,
+                           resource_flag_t flags = RF_Default);
 
 }
 

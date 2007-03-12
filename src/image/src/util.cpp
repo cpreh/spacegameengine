@@ -18,22 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INIT_PTR_HPP_INCLUDED
-#define SGE_INIT_PTR_HPP_INCLUDED
+#include "../util.hpp"
 
-namespace sge
+sge::texture_ptr sge::create_texture(const renderer_ptr r, const image_ptr p, const filter_args& filter, const resource_flag_t flags)
 {
-
-template<typename T> class init_ptr {
-public:
-	init_ptr(T* t = 0) : t(0) {}
-	init_ptr& operator=(const init_ptr& p) { t = p.t; return *this; }
-	init_ptr& operator=(T* _t) { t = _t; return *this; }
-	operator T*() const { return t; }
-private:
-	T* t;
-};
-
+	return r->create_texture(p->data(), p->width(), p->height(), filter, flags);
 }
 
-#endif
+sge::texture_ptr sge::create_texture(const std::string& path, const renderer_ptr r, const image_loader_ptr p, const image::size_type w, const image::size_type h, const filter_args& filter, const resource_flag_t flags)
+{
+	return create_texture(r, p->load_image(path,w,h), filter, flags);
+}
+

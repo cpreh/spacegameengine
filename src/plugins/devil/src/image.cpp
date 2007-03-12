@@ -82,8 +82,8 @@ void sge::devil::image::resample(const size_type _w, const size_type _h)
 	if(_w == w && _h == h)
 		return;
 	bind_me();
-	if(iluScale(_w,_h,32) == IL_FALSE)
-		throw std::runtime_error("iluScale() failed!");
+	iluScale(_w,_h,32);
+	check_errors();
 	w = _w;
 	h = _h;
 }

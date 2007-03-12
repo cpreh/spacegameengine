@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_BSP_TREE_HPP_INCLUDED
 #define SGE_BSP_TREE_HPP_INCLUDED
 
-#include <stdexcept>
+#include <cstddef>
 #include "../math/rect.hpp"
 #include "../math/dim.hpp"
 #include "../math/vector.hpp"

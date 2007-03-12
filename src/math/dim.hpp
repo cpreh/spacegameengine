@@ -42,6 +42,7 @@ namespace math
 
 template<typename T, std::size_t Dim>
 class dim {
+	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_MATH_DIM_MAX_SIZE);
 public:
 	typedef T value_type;
 	typedef T&             reference;
@@ -58,6 +59,12 @@ public:
 #define SGE_MATH_DIM_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
 #define SGE_MATH_DIM_CTOR(z, n, text) dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_CTOR, void)
+
+	dim()
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			data[i] = 0;
+	}
 
 	reference operator[](const size_type pos)
 	{

@@ -73,7 +73,7 @@ int handler(Display* const d, XErrorEvent* const e)
 #endif
 
 // TODO: maybe support different adapters?
-sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned adapter)
+sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned adapter, const window_ptr wnd_param)
  : param(param), clear_zbuffer(false), clear_stencil(false), clear_back_buffer(true)
 {
 	if(adapter > 0)
@@ -191,7 +191,10 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	swa.override_redirect = windowed ? False : True;
 	swa.event_mask = 0;
 
-	wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width(), param.mode.height()), "spacegameengine", dsp.get(), swa, *(vi.get())));
+	if(wnd_param)
+		wnd = dynamic_pointer_cast<x_window>(wnd_param);
+	else
+		wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width(), param.mode.height()), "spacegameengine", dsp.get(), swa, *(vi.get())));
 
 	if(!windowed)
 		XMapWindow(dsp.get(), wnd->get_window());

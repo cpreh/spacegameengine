@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RAY2_HPP_INCLUDED
 #define SGE_RAY2_HPP_INCLUDED
 
-#include "./vector2.hpp"
-#include "./solve2.hpp"
-#include "./line_seg2.hpp"
+#include "vector2.hpp"
+#include "solve2.hpp"
+#include "line_seg2.hpp"
 
 namespace sge
 {
+
 template<typename T> class ray2 {
 public:
-	typedef vector<T,2> vec;
+	typedef math::vector<T,2> vec;
 	ray2(vec o, vec d) : o(o), d(d) {}
 	bool intersection(const line_seg2<T>& r, vec& v) const 
 	{

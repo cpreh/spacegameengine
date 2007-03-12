@@ -67,7 +67,7 @@ try
 		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
 	}*/
 
-	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), false);
+	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), true);
 	sge::renderer_ptr rend = rs->create_renderer(param);
 	sge::image_loader_ptr pl = pm.get_plugin<sge::image_loader>();
 	sge::font_system_ptr fs = pm.get_plugin<sge::font_system>();

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_FRAME_HPP_INCLUDED
 #define SGE_GUI_FRAME_HPP_INCLUDED
 
-#include "./types.hpp"
-#include "./rectangle.hpp"
-#include "./element.hpp"
+#include "types.hpp"
+#include "rectangle.hpp"
+#include "element.hpp"
 
 namespace sge
 {

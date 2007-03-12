@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_BUTTON_HPP_INCLUDED
 
 #include "../string.hpp"
-#include "./rectangle.hpp"
-#include "./types.hpp"
+#include "rectangle.hpp"
+#include "types.hpp"
 
 namespace sge
 {
@@ -35,10 +35,10 @@ class manager;
 class button : public rectangle {
 public:
 	button(manager& m, element* parent, const string& text, point pos, dim sz, color text_color = colors::white, bool visible = true, bool enabled = true);
-	void text(const string& t) { _text = t; }
-	const string& text() const { return _text; }
-	void text_color(color c) { _text_color = c; }
-	color text_color() const { return _text_color; }
+	void text(const string& t);
+	const string& text() const;
+	void text_color(color c);
+	color text_color() const;
 private:
 	string  _text;
 	color   _text_color;

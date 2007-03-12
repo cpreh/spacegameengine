@@ -68,3 +68,8 @@ sge::gui::point& sge::gui::rectangle::pos()
 {
 	return rel_pos;
 }
+	
+sge::gui::point sge::gui::rectangle::relative_pos() const
+{
+	return pos();
+}

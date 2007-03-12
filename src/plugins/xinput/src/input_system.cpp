@@ -74,7 +74,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	}
 	
 	XSetWindowAttributes swa;
-	swa.event_mask = KeyPressMask | KeyReleaseMask | PointerMotionMask | EnterWindowMask | LeaveWindowMask;
+	swa.event_mask = KeyPressMask | KeyReleaseMask | PointerMotionMask | EnterWindowMask | LeaveWindowMask | ResizeRedirectMask;
 	XChangeWindowAttributes(wnd->display(), wnd->get_window(), CWEventMask, &swa);
 
 	XColor black, dummy;
@@ -115,10 +115,10 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	x11tosge[XK_End] = KC_END;
 	x11tosge[XK_Begin] = KC_HOME;
 
-/*	x11tosge[XK_KP_Space];
-	x11tosge[XK_KP_Tab];
-	x11tosge[XK_KP_Enter] = KC_ENTER;
-	x11tosge[XK_KP_F1];
+//	x11tosge[XK_KP_Space];
+//	x11tosge[XK_KP_Tab];
+//	x11tosge[XK_KP_Enter] = KC_ENTER;
+/*	x11tosge[XK_KP_F1];
 	x11tosge[XK_KP_F2];
 	x11tosge[XK_KP_F3];
 	x11tosge[XK_KP_F4];
@@ -341,12 +341,13 @@ void sge::xinput::input_system::dispatch()
 			break;
 		case LeaveNotify:
 			enable_dga(false);
+			XUngrabPointer(wnd->display(), CurrentTime);
 			break;
 		case EnterNotify:
+			grab_pointer();
 			enable_dga(true);
 			break;
-		case MapNotify:
-			grab();
+		case ResizeRequest:
 			break;
 		}
 	}
@@ -391,25 +392,6 @@ sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const
 		return KC_None;
 	return it->second;
 }
-
-/*void sge::xinput::input_system::update_modifiers(const key_value_array& keys)
-{
-	for (unsigned i = 0; i < mmwidth; ++i)
-	{
-		KeyCode code;
-		code = mmap->modifiermap[ControlMapIndex*mmwidth + i];
-		if(code)
-			modifiers.ctrl_down = bit_a(keys,code);
-
-		code = mmap->modifiermap[ShiftMapIndex*mmwidth + i];
-		if(code)
-			modifiers.shift_down = bit_a(keys,code);
-
-//		code = mmap->modifiermap[LockMapIndex*width + i];
-//		if(code && 0!=bit(keys, code))
-//			{return LOCK_DOWN;}
-  	}
-}*/
 
 void sge::xinput::input_system::private_mouse_motion(const mouse_coordinate_t deltax, const mouse_coordinate_t deltay)
 {

@@ -23,16 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <set>
 #include <list>
-#include <string>
 #include <boost/signal.hpp>
-#include <boost/utility.hpp>
-#include "../types.hpp"
-#include "../shared_ptr.hpp"
-#include "../renderer/renderer.hpp"
-#include "../input/key_type.hpp"
-#include "../math/rect.hpp"
-#include "./events.hpp"
-#include "./types.hpp"
+#include <boost/noncopyable.hpp>
+#include "events.hpp"
+#include "types.hpp"
 
 namespace sge
 {
@@ -114,8 +108,6 @@ private:
 
 	friend class manager;
 };
-
-typedef shared_ptr<element> element_ptr;
 
 }
 }

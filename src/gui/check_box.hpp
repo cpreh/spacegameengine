@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_CHECK_BOX_HPP_INCLUDED
 #define SGE_GUI_CHECK_BOX_HPP_INCLUDED
 
-#include "./types.hpp"
-#include "./rectangle.hpp"
-#include "./click_box.hpp"
+#include "types.hpp"
+#include "rectangle.hpp"
+#include "click_box.hpp"
 
 namespace sge
 {
@@ -36,10 +36,10 @@ class check_box : public rectangle {
 public:
 	check_box(manager& man, element* parent, const string& text, point pos, dim size, color text_color = colors::white, bool value = false, bool visible = true, bool enabled = true);
 	bool value() const;
-	void text(const string& t) { _text = t; }
-	const string& text() const { return _text; }
-	void text_color(const color c) { _text_color = c; }
-	color text_color() const { return _text_color; }
+	void text(const string& t);
+	const string& text() const;
+	void text_color(const color c);
+	color text_color() const;
 private:
 	virtual void on_draw(const draw_event& event);
 	string    _text;

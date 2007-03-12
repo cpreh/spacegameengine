@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_RECTANGLE_HPP_INCLUDED
 #define SGE_GUI_RECTANGLE_HPP_INCLUDED
 
-#include "./types.hpp"
-#include "./element.hpp"
+#include "types.hpp"
+#include "element.hpp"
 #include "../sprite/sprite.hpp"
 
 namespace sge
@@ -42,6 +42,8 @@ public:
 	const point& pos() const;
 	point& pos();
 
+	using sprite::point;
+	using sprite::dim;
 	using sprite::width;
 	using sprite::height;
 	using sprite::size;
@@ -53,7 +55,7 @@ protected:
 	virtual void on_draw(const draw_event& event);
 	using sprite::set_texture;
 private:
-	point relative_pos() const { return rel_pos; }
+	point relative_pos() const;
 	point rel_pos;
 };
 

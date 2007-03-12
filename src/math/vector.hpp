@@ -220,13 +220,15 @@ public:
 		return (*this)[1];
 	}
 
-	reference z()
+//	template<typename Dummy>
+	reference z(/*typename boost::enable_if_c<(Dim > 2), Dummy>* = 0*/)
 	{
 		assert(Dim > 2);
 		return (*this)[2];
 	}
 	
-	const_reference z() const
+//	template<typename Dummy>
+	const_reference z(/*typename boost::enable_if_c<(Dim > 2), Dummy>* = 0*/) const
 	{
 		assert(Dim > 2);
 		return (*this)[2];
@@ -244,13 +246,13 @@ public:
 		return (*this)[3];
 	}
 
-	template<typename OtherT>
+/*	template<typename OtherT>
 	vector cross(const vector& r, typename boost::enable_if<boost::mpl::and_<boost::is_same<T,OtherT>, boost::mpl::bool_<Dim == 3> > >::type* = 0) const
 	{
 		return vector(y()*r.z() - z()*r.y(),
 		              z()*r.x() - x()*r.z(),
 		              x()*r.y() - y()*r.x());
-	}
+	}*/
 
 	bool is_null() const
 	{

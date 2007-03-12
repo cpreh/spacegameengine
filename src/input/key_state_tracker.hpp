@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <map>
 #include <boost/noncopyable.hpp>
 #include <boost/signals/trackable.hpp>
-#include "./input_system.hpp"
-#include "./key_type.hpp"
+#include "input_system.hpp"
+#include "key_type.hpp"
 
 namespace sge
 {

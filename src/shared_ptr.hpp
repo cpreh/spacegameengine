@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <ostream>
 #include <cstddef>
+#include <functional>
 #include "smart_ptr_policies.hpp"
 #include "ptr_cast.hpp"
 
@@ -30,35 +31,38 @@ namespace sge
 {
 
 namespace detail {
+
 struct static_cast_tag{};
 struct dynamic_cast_tag{};
+
+typedef std::size_t shared_counter_type;
+
 }
 	
 template<typename T, template <typename> class Deleter = heap_deleter> class shared_ptr : Deleter<T> {
-	typedef std::size_t counter_type;
 public:
-	typedef T     value_type;
-	typedef T&    reference;
-	typedef T*    pointer;
+	typedef T        value_type;
+	typedef T&       reference;
+	typedef const T& const_reference;
+	typedef T*       pointer;
+	typedef const T* const_pointer;
 	
 	shared_ptr()
-	 : ptr(0), counter(new counter_type(1)) {}
+	 : ptr(0), counter(new detail::shared_counter_type(1)) {}
 
 	explicit shared_ptr(const pointer p)
-	 : ptr(p), counter(new counter_type(1)) {}
+	 : ptr(p), counter(new detail::shared_counter_type(1)) {}
 
 	shared_ptr(const shared_ptr& r) { _assign(r); }
 	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r) { _assign(r); }
 	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r, detail::dynamic_cast_tag)
 	{
-		counter = r.counter;
-		++(*counter);
+		_copy_counter(r.counter);
 		ptr = ptr_cast<pointer>(r.get());
 	}
 	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r, detail::static_cast_tag)
 	{
-		counter = r.counter;
-		++(*counter);
+		_copy_counter(r.counter);
 		ptr = static_cast<pointer>(r.get());
 	}
 
@@ -86,7 +90,7 @@ public:
 		
 		_release();
 		ptr = p;
-		counter = new counter_type(1);
+		counter = new detail::shared_counter_type(1);
 	}
 private:
 	struct _dummy {
@@ -102,6 +106,12 @@ public:
 private:
 	template<typename Other, template<typename> class OtherDeleter> friend class shared_ptr;
 
+	void _copy_counter(detail::shared_counter_type* const c)
+	{
+		counter = c;
+		++(*counter);
+	}
+
 	void _release()
 	{
 		if(--(*counter) == 0)
@@ -113,21 +123,14 @@ private:
 		}
 	}
 
-	void _assign(const shared_ptr& r)
-	{
-		counter = r.counter;
-		ptr = r.get();
-		++(*counter);
-	}
 	template<typename Other> void _assign(const shared_ptr<Other,Deleter>& r)
 	{
-		counter = r.counter;
-		ptr = r.get();
-		++(*counter);
+		_copy_counter(r.counter);
+		ptr = r.ptr;
 	}
 private:
-	pointer        ptr;
-	counter_type*  counter;
+	pointer                       ptr;
+	detail::shared_counter_type*  counter;
 };
 
 template<typename T, template<typename> class D> bool operator! (const shared_ptr<T,D>& s)
@@ -137,7 +140,7 @@ template<typename T, template<typename> class D> bool operator! (const shared_pt
 
 template<typename T, template<typename> class D> bool operator< (const shared_ptr<T,D>& l, const shared_ptr<T,D>& r)
 {
-	return l.get() < r.get();
+	return std::less<typename shared_ptr<T,D>::const_pointer>()(l.get(), r.get());
 }
 
 template<typename T, template<typename> class D> bool operator== (const shared_ptr<T,D>& l, const shared_ptr<T,D>& r)

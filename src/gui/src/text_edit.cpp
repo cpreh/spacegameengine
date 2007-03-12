@@ -134,4 +134,19 @@ sge::gui::unit sge::gui::text_edit::text_width() const
 	return width()-0.01f;
 }
 
+const sge::string& sge::gui::text_edit::text() const
+{
+	return _text;
+}
+
+sge::color sge::gui::text_edit::text_color() const
+{
+	return _text_color;
+}
+
+void sge::gui::text_edit::text_color(const color c)
+{
+	_text_color = c;
+}
+
 const sge::font_flag_t sge::gui::text_edit::flags;

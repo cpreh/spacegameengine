@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
 #define SGE_INPUT_SYSTEM_HPP_INCLUDED
 
-#include <boost/utility.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/signal.hpp>
 #include <boost/signals/connection.hpp>
+#include <boost/function.hpp>
 #include "../shared_ptr.hpp"
-#include "./key_type.hpp"
+#include "key_type.hpp"
 
 namespace sge
 {

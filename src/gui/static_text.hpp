@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_STATIC_TEXT_HPP_INCLUDED
 #define SGE_GUI_STATIC_TEXT_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
 #include "../renderer/font_types.hpp"
-#include "./types.hpp"
-#include "./rectangle.hpp"
+#include "types.hpp"
+#include "rectangle.hpp"
 
 namespace sge
 {
@@ -52,8 +51,6 @@ private:
 	font_flag_t _style;
 	virtual void on_draw(const draw_event& event);
 };
-
-typedef shared_ptr<static_text> static_text_ptr;
 
 }
 }
