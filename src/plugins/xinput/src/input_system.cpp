@@ -154,19 +154,20 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 #define XK_KP_8                          0xffb8
 #define XK_KP_9                          0xffb9*/
 
-/*#define XK_F1                            0xffbe
-#define XK_F2                            0xffbf
-#define XK_F3                            0xffc0
-#define XK_F4                            0xffc1
-#define XK_F5                            0xffc2
-#define XK_F6                            0xffc3
-#define XK_F7                            0xffc4
-#define XK_F8                            0xffc5
-#define XK_F9                            0xffc6
-#define XK_F10                           0xffc7
-#define XK_F11                           0xffc8
-#define XK_L1                            0xffc8
-#define XK_F12                           0xffc9
+	x11tosge[XK_F1] = KC_F1;
+	x11tosge[XK_F2] = KC_F2;
+	x11tosge[XK_F3] = KC_F3;
+	x11tosge[XK_F4] = KC_F4;
+	x11tosge[XK_F5] = KC_F5;
+	x11tosge[XK_F6] = KC_F6;
+	x11tosge[XK_F7] = KC_F7;
+	x11tosge[XK_F8] = KC_F8;
+	x11tosge[XK_F9] = KC_F9;
+	x11tosge[XK_F10] = KC_F10;
+	x11tosge[XK_F11] = KC_F11;
+	x11tosge[XK_F12] = KC_F12;
+//#define XK_L1                            0xffc8
+/*
 #define XK_L2                            0xffc9
 #define XK_F13                           0xffca
 #define XK_L3                            0xffca
