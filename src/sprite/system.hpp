@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-class sprite_system : public transformable, boost::noncopyable, public renderable {
+class sprite_system : public transformable, public renderable, boost::noncopyable {
 public:
 	sprite_system(renderer_ptr rend, texture_map::handler_function handler, stage_type max_texture_level = 1);
 	sprite_system(renderer_ptr rend, texture_map_ptr map, stage_type max_texture_level = 1);

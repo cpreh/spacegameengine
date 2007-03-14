@@ -117,7 +117,6 @@ public:
 		_set_size(src);
 	}
 
-	void restore() {}
 	pointer data() { return dest; }
 	const_pointer data() const { return dest; }
 

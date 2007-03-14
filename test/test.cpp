@@ -143,6 +143,7 @@ try
 	sge::line_strip ls(rend, sge::colors::red);
 	for(int i = 0; i < 5; ++i)
 		ls.add(rand_point());
+	ls.loop(true);
 
 	const std::string some_text("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest");
 
@@ -183,7 +184,7 @@ try
 		os << cur_fps;
 		fn.transform(sge::math::matrix_identity());
 		fn.draw_text(os.str(),sge::font_pos(0.1,0),sge::font_size(1,1),sge::colors::purple);
-		ls.draw(true);
+		ls.render();
 		rend->end_rendering();
 		++fps;
 	}

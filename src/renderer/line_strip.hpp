@@ -26,27 +26,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "renderer.hpp"
 #include "vertex_buffer.hpp"
 #include "transformable.hpp"
+#include "renderable.hpp"
 
 namespace sge
 {
 
-class line_strip : public transformable, boost::noncopyable {
+class line_strip : public transformable, public renderable, boost::noncopyable {
 public:
 	typedef vertex_buffer::size_type size_type;
 
 	line_strip(renderer_ptr rend, color _col, size_type init_lines = 1);
 	line_strip& add(const pos3& a);
 	void set_color(color c);
-	void draw(bool loop = false);
+	void render();
 	pos3& operator[](size_type index);
 	const pos3& operator[](size_type index) const;
 	void clear();
+	void loop(bool);
+	void set_parameters();
 private:
 	typedef std::vector<pos3> pos_vector;
 	const renderer_ptr rend;
 	color _col;
 	vertex_buffer_ptr vb;
 	pos_vector vertices;
+	bool _loop;
 };
 
 }

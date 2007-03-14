@@ -26,7 +26,8 @@ sge::line_strip::line_strip(const renderer_ptr rend, const color _col, const siz
  : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    rend(rend),
    _col(_col),
-   vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos),init_lines+1))
+   vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos),init_lines+1)),
+   _loop(false)
 {
 	vertices.reserve(init_lines+1);
 }
@@ -42,7 +43,7 @@ void sge::line_strip::set_color(const color c)
 	_col = c;
 }
 
-void sge::line_strip::draw(const bool loop)
+void sge::line_strip::render()
 {
 	if(vertices.size() <= 1)
 		return;
@@ -56,7 +57,7 @@ void sge::line_strip::draw(const bool loop)
 	if(vb->size() < vertices.size())
 		vb->resize(vertices.size());
 	vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(sge::data(vertices)),0,vertices.size());
-	rend->render(vb, index_buffer_ptr(), 0, vertices.size(), loop ? PT_LineLoop : PT_LineStrip, vertices.size()-1);
+	rend->render(vb, index_buffer_ptr(), 0, vertices.size(), _loop ? PT_LineLoop : PT_LineStrip, vertices.size()-1);
 }
 
 sge::pos3& sge::line_strip::operator[](const size_type index)
@@ -72,4 +73,13 @@ const sge::pos3& sge::line_strip::operator[](const size_type index) const
 void sge::line_strip::clear()
 {
 	vertices.clear();
+}
+
+void sge::line_strip::set_parameters()
+{
+}
+
+void sge::line_strip::loop(const bool b)
+{
+	_loop = b;
 }
