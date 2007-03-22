@@ -167,7 +167,7 @@ try
 		if(timer.update())
 			angle += sge::PI*0.01;
 
-		spr.rotate(angle);
+		spr.rotation(angle);
 
 		rend->begin_rendering();
 		is->dispatch();

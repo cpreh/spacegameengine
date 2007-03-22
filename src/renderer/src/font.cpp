@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/next_prior.hpp>
 
 sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
- : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+ : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    rend(rend),
    impl(font_sys->create_font(rend, font_name, quality_in_pixel ,weight)),
    vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex), 200)),

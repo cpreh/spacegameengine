@@ -29,16 +29,11 @@ namespace sge
 
 class transformable {
 public:
-	transformable(const renderer_ptr rend, const math::space_matrix& internal, const math::space_matrix& projection, const math::space_matrix& transform = math::matrix_identity());
-	void internal_transformation(const math::space_matrix&);
-	void transform(const math::space_matrix&);
-	void projection(const math::space_matrix&);
-	void set_matrices();
-private:
-	renderer_ptr rend;
-	math::space_matrix _internal_matrix,
-			   _projection,
-	                   _transform;
+	virtual void internal_transformation(const math::space_matrix&) = 0;
+	virtual void transform(const math::space_matrix&) = 0;
+	virtual void projection(const math::space_matrix&) = 0;
+	virtual void set_matrices() = 0;
+	virtual ~transformable(){}
 };
 
 }

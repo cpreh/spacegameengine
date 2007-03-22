@@ -34,7 +34,7 @@ const unsigned init_sprites = 25;
 
 // convenience function, remove later
 sge::sprite_system::sprite_system(const renderer_ptr rend, const texture_map::handler_function handler, const stage_type _max_tex)
- : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+ : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    tex_map(new texture_map(rend, new no_fragmented_texture(rend), handler)),
    rend(rend),
    _max_tex(_max_tex)
@@ -43,7 +43,7 @@ sge::sprite_system::sprite_system(const renderer_ptr rend, const texture_map::ha
 }
 
 sge::sprite_system::sprite_system(const renderer_ptr rend, const texture_map_ptr tex_map, const stage_type _max_tex)
- : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+ : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    tex_map(tex_map),
    rend(rend),
    _max_tex(_max_tex)

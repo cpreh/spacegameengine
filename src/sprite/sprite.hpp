@@ -57,7 +57,7 @@ public:
 	space_unit& z();
 	void visible(bool visible);
 	void set_texture(const std::string& name, stage_type stage = 0);
-	void rotate(space_unit rot);
+	void rotation(space_unit rot);
 	void rotate_around(point p);
 	void rotate_around();
 	void repeat(space_unit);

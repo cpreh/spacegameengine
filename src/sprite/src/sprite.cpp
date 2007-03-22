@@ -129,7 +129,7 @@ void sge::sprite::set_texture(const std::string& name, const stage_type stage)
 	tex[stage] = spr_sys->get_texture_map()->vtexture(name);
 }
 
-void sge::sprite::rotate(const space_unit rot)
+void sge::sprite::rotation(const space_unit rot)
 {
 	_rotation = rot;
 }

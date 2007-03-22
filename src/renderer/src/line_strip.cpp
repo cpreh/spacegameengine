@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../vector.hpp"
 
 sge::line_strip::line_strip(const renderer_ptr rend, const color _col, const size_type init_lines)
- : transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+ : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    rend(rend),
    _col(_col),
    vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos),init_lines+1)),

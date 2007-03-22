@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/renderer.hpp"
 #include "../renderer/renderable.hpp"
-#include "../renderer/transformable.hpp"
+#include "../renderer/default_transformable.hpp"
 #include "../raw_vector.hpp"
 #include "../texture/texture_map.hpp"
 #include "sprite_fwd.hpp"
@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-class sprite_system : public transformable, public renderable, boost::noncopyable {
+class sprite_system : public default_transformable, public renderable, boost::noncopyable {
 public:
 	sprite_system(renderer_ptr rend, texture_map::handler_function handler, stage_type max_texture_level = 1);
 	sprite_system(renderer_ptr rend, texture_map_ptr map, stage_type max_texture_level = 1);

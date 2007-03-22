@@ -18,10 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <cstddef>
-#include "../../../bit.hpp"
 #include "../../../input/key_type.hpp"
-#include "../../../input/callback_handle.hpp"
 #include "../../../util.hpp"
 #include "../input_system.hpp"
 #include <X11/keysym.h>

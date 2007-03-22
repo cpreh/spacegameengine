@@ -18,31 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../transformable.hpp"
+#include "../default_transformable.hpp"
 
-sge::transformable::transformable(const renderer_ptr rend, const math::space_matrix& internal, const math::space_matrix& _projection, const math::space_matrix& _transform)
+sge::default_transformable::default_transformable(const renderer_ptr rend, const math::space_matrix& internal, const math::space_matrix& _projection, const math::space_matrix& _transform)
  : rend(rend),
    _internal_matrix(internal),
    _projection(_projection),
    _transform(_transform)
 {}
 
-void sge::transformable::internal_transformation(const math::space_matrix& m)
+void sge::default_transformable::internal_transformation(const math::space_matrix& m)
 {
 	_internal_matrix = m;
 }
 
-void sge::transformable::transform(const math::space_matrix& m)
+void sge::default_transformable::transform(const math::space_matrix& m)
 {
 	_transform = m;
 }
 
-void sge::transformable::projection(const math::space_matrix& m)
+void sge::default_transformable::projection(const math::space_matrix& m)
 {
 	_projection = m;
 }
 
-void sge::transformable::set_matrices()
+void sge::default_transformable::set_matrices()
 {
 	rend->transform(_transform * _internal_matrix);
 	rend->projection(_projection);

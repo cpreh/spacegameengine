@@ -18,39 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LINE_STRIP_HPP_INCLUDED
-#define SGE_LINE_STRIP_HPP_INCLUDED
+#ifndef SGE_RENDERER_DEFAULT_TRANSFORMABLE_HPP_INCLUDED
+#define SGE_RENDERER_DEFAULT_TRANSFORMABLE_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include <vector>
-#include "renderer.hpp"
-#include "vertex_buffer.hpp"
-#include "default_transformable.hpp"
-#include "renderable.hpp"
+#include "transformable.hpp"
 
 namespace sge
 {
 
-class line_strip : public default_transformable, public renderable, boost::noncopyable {
+class default_transformable {
 public:
-	typedef vertex_buffer::size_type size_type;
-
-	line_strip(renderer_ptr rend, color _col, size_type init_lines = 1);
-	line_strip& add(const pos3& a);
-	void set_color(color c);
-	void render();
-	pos3& operator[](size_type index);
-	const pos3& operator[](size_type index) const;
-	void clear();
-	void loop(bool);
-	void set_parameters();
+	default_transformable(const renderer_ptr rend, const math::space_matrix& internal, const math::space_matrix& projection, const math::space_matrix& transform = math::matrix_identity());
+	void internal_transformation(const math::space_matrix&);
+	void transform(const math::space_matrix&);
+	void projection(const math::space_matrix&);
+	void set_matrices();
 private:
-	typedef std::vector<pos3> pos_vector;
-	const renderer_ptr rend;
-	color _col;
-	vertex_buffer_ptr vb;
-	pos_vector vertices;
-	bool _loop;
+	renderer_ptr rend;
+	math::space_matrix _internal_matrix,
+			   _projection,
+	                   _transform;
 };
 
 }

@@ -113,10 +113,30 @@ void sge::gui::manager::process()
 	}
 
 	sprite_sys.set_parameters();
-	gui_font.transform(math::matrix_identity());
-	sprite_sys.get_renderer()->transform(math::matrix_identity());
 	_root.draw(draw_event(point(0,0)));
 	cur.draw();
+}
+
+void sge::gui::manager::transform(const math::space_matrix& m)
+{
+	gui_font.transform(m);
+	sprite_sys.transform(m);
+}
+
+void sge::gui::manager::projection(const math::space_matrix& m)
+{
+	gui_font.projection(m);
+	sprite_sys.projection(m);
+}
+
+void sge::gui::manager::internal_transformation(const math::space_matrix& m)
+{
+	gui_font.transform(m);
+	sprite_sys.transform(m);
+}
+
+void sge::gui::manager::set_matrices()
+{
 }
 
 void sge::gui::manager::move_mouse(const unit x, const unit y)
@@ -127,6 +147,41 @@ void sge::gui::manager::move_mouse(const unit x, const unit y)
 	_root.glob_mouse_move(e);
 }
 
+void sge::gui::manager::focus(element* const e)
+{
+	_focus = e;
+}
+
+sge::gui::element* sge::gui::manager::focus() const
+{
+	return _focus;
+}
+
+sge::gui::element* sge::gui::manager::hover() const
+{
+	return _hover;
+}
+
+sge::gui::element* sge::gui::manager::pressed() const
+{
+	return _pressed;
+}
+
+sge::gui::point sge::gui::manager::cursor_pos() const
+{
+	return cur.pos();
+}
+
+sge::font& sge::gui::manager::get_font() const
+{
+	return gui_font;
+}
+
+sge::sprite_system& sge::gui::manager::get_sprite_system()
+{
+	return sprite_sys;
+}
+
 void sge::gui::manager::font_height(const unit h)
 {
 	_font_height = h;
@@ -135,4 +190,43 @@ void sge::gui::manager::font_height(const unit h)
 sge::gui::unit sge::gui::manager::font_height() const
 {
 	return _font_height;
+}
+
+sge::gui::element* sge::gui::manager::root()
+{
+	return &_root;
+}
+
+sge::gui::element* sge::gui::manager::last_clicked() const
+{
+	return _last_clicked;
+}
+
+void sge::gui::manager::hover(element* const e)
+{
+	_hover = e;
+}
+
+void sge::gui::manager::pressed(element* const e)
+{
+	_pressed = e;
+}
+
+void sge::gui::manager::last_clicked(element* const e)
+{
+	_last_clicked = e;
+}
+
+sge::gui::manager::root_elem::root_elem(manager& m)
+ : element(m,0)
+{}
+
+bool sge::gui::manager::root_elem::intersects(point) const
+{
+	return true;
+}
+
+sge::gui::point sge::gui::manager::root_elem::relative_pos() const
+{
+	return point(0,0);
 }

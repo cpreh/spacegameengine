@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../timer.hpp"
 #include "../renderer/font.hpp"
 #include "../renderer/renderer.hpp"
+#include "../renderer/transformable.hpp"
 #include "../sprite/sprite.hpp"
 #include "../sprite/system.hpp"
 #include "../image/image_loader.hpp"
@@ -43,19 +44,19 @@ namespace sge
 namespace gui
 {
 
-class manager : boost::noncopyable, public boost::signals::trackable {
+class manager : public transformable, public boost::signals::trackable, boost::noncopyable {
 public:
 	friend class element;
 
 	manager(renderer_ptr rend, input_system_ptr input_sys, font& f, image_loader_ptr il, const std::string& graphics_path, const unit font_height);
 	void process();
-	void focus(element* const e) { _focus = e; }
-	element* focus() const { return _focus; }
-	element* hover() const { return _hover; }
-	element* pressed() const { return _pressed; }
-	point cursor_pos() const { return cur.pos(); }
-	font& get_font() const { return gui_font; }
-	sprite_system& get_sprite_system() { return sprite_sys; }
+	void focus(element* e);
+	element* focus() const;
+	element* hover() const;
+	element* pressed() const;
+	point cursor_pos() const;
+	font& get_font() const;
+	sprite_system& get_sprite_system();
 	void font_height(unit height);
 	unit font_height() const;
 private:
@@ -63,17 +64,21 @@ private:
 	void on_texture_not_present(const std::string& name);
 	void move_mouse(unit x, unit y);
 
-	element* root() { return &_root; }
-	element* last_clicked() const { return _last_clicked; }
-	void hover(element* const e) { _hover = e; }
-	void pressed(element* const e) { _pressed = e; }
-	void last_clicked(element* e) { _last_clicked = e; }
+	void internal_transformation(const math::space_matrix&);
+	void transform(const math::space_matrix&);
+	void projection(const math::space_matrix&);
+	void set_matrices();
+
+	element* root();
+	element* last_clicked() const;
+	void hover(element* e);
+	void pressed(element* e);
+	void last_clicked(element* e);
 
 	struct root_elem : public element {
-		root_elem(manager& m)
-		  : element(m,0) {}
-		bool intersects(point) const { return true; }
-		point relative_pos() const { return point(); }
+		root_elem(manager& m);
+		bool intersects(point) const;
+		point relative_pos() const;
 	};
 
 	key_repeater            repeater;

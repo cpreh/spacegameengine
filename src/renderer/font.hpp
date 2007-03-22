@@ -35,12 +35,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../font/font_system.hpp"
 #include "../font/font_impl.hpp"
 #include "../math/matrix.hpp"
-#include "transformable.hpp"
+#include "default_transformable.hpp"
 
 namespace sge
 {
 
-class font : public transformable {
+class font : public default_transformable {
 public:
 	typedef font_char char_type;
 	typedef font_string string_type;
