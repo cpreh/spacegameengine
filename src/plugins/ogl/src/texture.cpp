@@ -48,9 +48,9 @@ void sge::ogl::texture::set_data(const const_pointer src, const lock_rect* const
 	set_my_filter();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 	if(!r)
-		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width(),height(),0,format,type,src);
+		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,static_cast<GLsizei>(width()),static_cast<GLsizei>(height()),0,format,type,src);
 	else
-		glTexSubImage2D(GL_TEXTURE_2D,0,r->left,r->top,r->width(),r->height(),format,type,src);
+		glTexSubImage2D(GL_TEXTURE_2D,0,static_cast<GLint>(r->left),static_cast<GLint>(r->top),static_cast<GLsizei>(r->width()),static_cast<GLsizei>(r->height()),format,type,src);
 	if(is_error())
 		throw std::runtime_error("glTex(Sub)Image2D() failed!");
 }

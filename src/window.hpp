@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "shared_ptr.hpp"
 #include "math/dim.hpp"
 #include "math/vector.hpp"
-#include "shared_ptr.hpp"
+#include "string.hpp"
 
 namespace sge
 {
@@ -37,7 +37,7 @@ public:
 	typedef math::vector<pos_type,2> window_pos;
 	typedef math::dim<size_type,2> window_size;
 
-	virtual void title(const std::string& title) = 0;
+	virtual void title(const string& title) = 0;
 	virtual window_size size() const = 0;
 	size_type width() const;
 	size_type height() const;

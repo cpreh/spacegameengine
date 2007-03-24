@@ -22,29 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_ICONV_HPP_INCLUDED
 
 #include <string>
-#include <stdexcept>
 #include "string.hpp"
+#include "iconv_types.hpp"
 
 namespace sge
 {
-
-enum encoding {
-	enc_char_locale,
-	enc_utf8,
-	enc_ucs_4_internal
-};
-
-class invalid_conversion : public std::runtime_error {
-public:
-	invalid_conversion(const std::string& from, const std::string& to)
-	: std::runtime_error(std::string("Unsupported conversion from ") += from + " to " + to + "!" ) {}
-};
-
-class conversion_failed : public std::runtime_error {
-public:
-	conversion_failed()
-	: std::runtime_error("An iconv conversion failed!") {}
-};
 
 ustring  iconv(const std::string& input, encoding from = enc_char_locale, const ustring::allocator_type& alloc = ustring::allocator_type());
 std::string iconv(const ustring& input, encoding to = enc_char_locale, const std::string::allocator_type& alloc = std::string::allocator_type());

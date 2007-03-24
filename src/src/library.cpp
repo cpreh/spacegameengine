@@ -18,20 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
 #include <stdexcept>
-	
-sge::library::library(const std::string& n)
+#include "../library.hpp"
+#include "../iconv.hpp"
+#include "../win32_conv.hpp"
+
+sge::library::library(const string& n)
  :
 #ifdef SGE_WINDOWS_PLATFORM
-   handle(LoadLibrary(n.c_str()))
+   handle(LoadLibrary(sge_str_to_win(n).c_str()))
 #elif SGE_LINUX_PLATFORM
    handle(dlopen(n.c_str(),RTLD_NOW | RTLD_GLOBAL))
 #endif
    , n(n)
 {
 	if(!handle)
-		throw std::runtime_error(std::string("failed to load library: ") + name() + " : " + liberror());
+		throw std::runtime_error(std::string("failed to load library: ") + iconv(name()) + " : " + iconv(liberror()));
 }
 
 sge::library::~library()
@@ -44,16 +46,16 @@ sge::library::~library()
 #endif
 }
 
-const std::string& sge::library::name() const
+const sge::string& sge::library::name() const
 {
 	return n;
 }
 
-std::string sge::library::liberror() const
+sge::string sge::library::liberror() const
 {
 #ifdef SGE_LINUX_PLATFORM
 	return dlerror();
 #else
-	return "";
+	return "stub: Windows DLL error not implemented!";
 #endif
 }

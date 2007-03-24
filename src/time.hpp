@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_LINUX_PLATFORM
 #include <sys/time.h>
 #elif SGE_WINDOWS_PLATFORM
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#include "windows.hpp"
 #endif
 
 namespace sge

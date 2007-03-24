@@ -17,29 +17,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#ifndef SGE_WINDOWS_HPP_INCLUDED
+#define SGE_WINDOWS_HPP_INCLUDED
 
-#include "../language.hpp"
-#include "../types.hpp"
-#include <stdexcept>
-#include <cstdlib>
+// TODO: some more macros for windows
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef min
+#undef max
 
-#ifdef SGE_WINDOWS_PLATFORM
-#include <boost/array.hpp>
-#include "../win32_conv.hpp"
-#include "../windows.hpp"
 #endif
-
-sge::string sge::language()
-{
-#ifdef SGE_LINUX_PLATFORM
-	const char* const p = std::getenv("LANG");
-	if(!p)
-		throw std::runtime_error("LANG not set! Unable to detect OS language!");
-	return p;
-#elif SGE_WINDOWS_PLATFORM
-	boost::array<TCHAR, 128> buf;
-	if(GetLocaleInfo(GetSystemDefaultLCID(), LOCALE_SLANGUAGE, buf.c_array(), static_cast<int>(buf.size())) == 0)
-		throw std::runtime_error("GetLocaleInfo() failed!");
-	return win_str_to_sge(buf.data());
-#endif
-}

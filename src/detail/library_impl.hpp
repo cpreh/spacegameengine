@@ -18,18 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../funptr_cast.hpp"
 #include <stdexcept>
+#include "../funptr_cast.hpp"
+#include "../iconv.hpp"
 
 template<typename Fun>
-Fun sge::library::load_function(const std::string& fun)
+Fun sge::library::load_function(const string& fun)
 {
 #ifdef SGE_WINDOWS_PLATFORM
-	Fun ptr = reinterpret_cast<Fun>(GetProcAddress(handle,fun.c_str()));
+	Fun ptr = reinterpret_cast<Fun>(GetProcAddress(handle, iconv(fun).c_str()));
 #elif SGE_LINUX_PLATFORM
 	Fun ptr = funptr_cast<Fun>(dlsym(handle,fun.c_str()));
 #endif
 	if(!ptr)
-		throw std::runtime_error(std::string("failed to load function ") + fun + " from library " + name() + " : " + liberror());
+		throw std::runtime_error(std::string("failed to load function ") + iconv(fun) + " from library " + iconv(name()) + " : " + iconv(liberror()));
 	return ptr;
 }

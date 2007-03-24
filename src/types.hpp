@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TYPES_HPP_INCLUDED
 
 #ifdef _WIN32
-	#define SGE_WINDOWS_PLATFORM 1
+#define SGE_WINDOWS_PLATFORM 1
 #elif __linux__
-	#define SGE_LINUX_PLATFORM 1
+#define SGE_LINUX_PLATFORM 1
 #endif
 
 namespace sge

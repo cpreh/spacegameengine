@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LANGUAGE_HPP_INCLUDED
 #define SGE_LANGUAGE_HPP_INCLUDED
 
-#include <string>
+#include "string.hpp"
 
 namespace sge
 {
 
-std::string language();
+string language();
 
 }
 

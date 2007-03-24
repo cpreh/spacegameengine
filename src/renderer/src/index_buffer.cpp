@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef _MSC_VER // M$ developers can't read the standard right
 #include "../index_buffer.hpp"
 
 const sge::index_buffer::size_type sge::index_buffer::stride;
+#endif

@@ -240,7 +240,7 @@ void sge::sprite::update_where(const vertex_buffer::iterator it)
 
 sge::index_buffer::iterator sge::sprite::update_ib(const index_buffer::iterator it)
 {
-	return fill_sprite_indices(it,vb_pos);
+	return fill_sprite_indices(it, static_cast<index_buffer::value_type>(vb_pos));
 }
 
 void sge::sprite::draw()

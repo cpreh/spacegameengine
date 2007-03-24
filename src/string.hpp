@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_STRING_HPP_INCLUDED
 #define SGE_STRING_HPP_INCLUDED
 
+#include <string>
 #include "typeswitch.hpp"
 #include "ucs4.hpp"
-#include <string>
 
 namespace sge
 {
@@ -47,13 +47,10 @@ public:
 	string(const_pointer p, const allocator_type& alloc = allocator_type());
 	string(size_type n, value_type c, const allocator_type& alloc = allocator_type());
 
-	string(const ustring& s)
-	 : ustring(s) {}
+	string(const ustring& s);
+	string substr(size_type first, size_type count = npos);
 
-	string substr(size_type first, size_type count = npos)
-	{
-		return string(ustring::substr(first,count));
-	}
+	// TODO: add the whole string interface and stop inheriting from ustring
 };
 
 }

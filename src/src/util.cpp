@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../util.hpp"
 
 #ifdef SGE_WINDOWS_PLATFORM
-	#define WIN32_LEAN_AND_MEAN
-	#include <Windows.h>
+#include "../windows.hpp"
 #elif SGE_LINUX_PLATFORM
-	#include <unistd.h>
+#include <unistd.h>
 #endif
 
 void sge::sleep(const unsigned long milli_seconds)

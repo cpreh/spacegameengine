@@ -18,28 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../language.hpp"
-#include "../types.hpp"
-#include <stdexcept>
-#include <cstdlib>
+#ifndef SGE_WIN32_CONV_HPP_INCLUDED
+#define SGE_WIN32_CONV_HPP_INCLUDED
 
-#ifdef SGE_WINDOWS_PLATFORM
-#include <boost/array.hpp>
-#include "../win32_conv.hpp"
-#include "../windows.hpp"
-#endif
+#include <string>
+#include "windows.hpp"
+#include "string.hpp"
 
-sge::string sge::language()
+namespace sge
 {
-#ifdef SGE_LINUX_PLATFORM
-	const char* const p = std::getenv("LANG");
-	if(!p)
-		throw std::runtime_error("LANG not set! Unable to detect OS language!");
-	return p;
-#elif SGE_WINDOWS_PLATFORM
-	boost::array<TCHAR, 128> buf;
-	if(GetLocaleInfo(GetSystemDefaultLCID(), LOCALE_SLANGUAGE, buf.c_array(), static_cast<int>(buf.size())) == 0)
-		throw std::runtime_error("GetLocaleInfo() failed!");
-	return win_str_to_sge(buf.data());
-#endif
+
+class string;
+
+typedef std::basic_string<TCHAR> win_string;
+
+win_string sge_str_to_win(const string&);
+string win_str_to_sge(const win_string&);
+
 }
+
+#endif

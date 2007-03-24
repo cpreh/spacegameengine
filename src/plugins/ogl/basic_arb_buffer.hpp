@@ -57,7 +57,7 @@ public:
 		glDeleteBuffersARB(1,&id);
 	}
 
-	void lock(const lock_flag_t lockflags)
+	void lock(/*const*/ lock_flag_t lockflags)
 	{
 		if(dest)
 			throw std::logic_error("ogl_buffer::lock(), you have to unlock before locking!");
@@ -84,7 +84,7 @@ public:
 			throw std::runtime_error("glUnmapBufferARB() failed!");
 	}
 
-	void set_data(const const_pointer data, const size_type first, const size_type count)
+	void set_data(/*const*/ const_pointer data, /*const*/ size_type first, /*const*/ size_type count)
 	{
 		if(first + count > size())
 			throw std::length_error("ogl_buffer::set_data(), first + count out of range!");
@@ -107,7 +107,7 @@ public:
 	size_type size() const { return sz; }
 	resource_flag_t flags() const { return _flags; }
 	
-	void resize(const size_type newsize, const const_pointer src)
+	void resize(/*const*/ size_type newsize, /*const*/ const_pointer src)
 	{
 		if(newsize <= size())
 			return;

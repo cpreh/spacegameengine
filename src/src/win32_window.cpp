@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../win32_window.hpp"
+#include "../win32_conv.hpp"
 #include <stdexcept>
 
 namespace
@@ -28,10 +29,11 @@ namespace
 	LRESULT CALLBACK wnd_proc(HWND,unsigned,WPARAM,LPARAM);
 }
 
-sge::win32_window::win32_window(const window_size sz, const std::string& _title)
-: sz(sz), _title(_title)
+sge::win32_window::win32_window(const window_size sz, const bool _fullscreen, const string& _title)
+: _title(_title),
+  _fullscreen(_fullscreen)
 {
-	const char* const window_classname = "SpacegameWindow";
+	const TCHAR* const window_classname = TEXT("SpacegameWindow");
 
 	HINSTANCE instance = GetModuleHandle(0);
 
@@ -56,13 +58,13 @@ sge::win32_window::win32_window(const window_size sz, const std::string& _title)
 		wndclass_created = true;
 	}
 
-	handle = CreateWindowA(window_classname,
-		_title.c_str(),
+	handle = CreateWindow(window_classname,
+		sge_str_to_win(_title).c_str(),
 		WS_VISIBLE | WS_OVERLAPPEDWINDOW,
 		0,
 		0,
-		sz.w,
-		sz.h,
+		sz.w(),
+		sz.h(),
 		0,
 		0,
 		instance,
@@ -78,15 +80,38 @@ sge::win32_window::~win32_window()
 
 void sge::win32_window::size(const window_size nsz)
 {
-	if(SetWindowPos(hwnd(),HWND_TOP,0,0,nsz.w,nsz.h,SWP_SHOWWINDOW) == 0)
+	if(SetWindowPos(hwnd(),HWND_TOP,0,0,nsz.w(),nsz.h(),SWP_SHOWWINDOW) == 0)
 		throw std::runtime_error("SetWindowPos() failed");
 }
 
-void sge::win32_window::title(const std::string& ntitle)
+void sge::win32_window::title(const string& ntitle)
 {
 	_title = ntitle;
-	if(SetWindowText(hwnd(),_title.c_str()) == 0)
+	if(SetWindowText(hwnd(),sge_str_to_win(_title).c_str()) == 0)
 		throw std::runtime_error("SetWindowText() failed");
+}
+
+sge::win32_window::window_size sge::win32_window::size() const
+{
+	RECT rect;
+	if(GetWindowRect(handle, &rect) == FALSE)
+		throw std::runtime_error("GetWindowRect() failed");
+	return window_size(rect.right - rect.left, rect.bottom - rect.top);
+}
+
+const sge::string& sge::win32_window::title() const
+{
+	return _title;
+}
+
+bool sge::win32_window::fullscreen() const
+{
+	return _fullscreen;
+}
+
+HWND sge::win32_window::hwnd() const
+{
+	return handle;
 }
 
 bool sge::win32_window::wndclass_created(false);
@@ -100,13 +125,13 @@ namespace
 			return 0;
 		case WM_CREATE:
 		{
-			CREATESTRUCT* s = reinterpret_cast<CREATESTRUCT*>(lparam);
-			SetWindowLong(hwnd,GWL_USERDATA,reinterpret_cast<LONG>(s->lpCreateParams));
+			CREATESTRUCT* const s = reinterpret_cast<CREATESTRUCT*>(lparam);
+			SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(s->lpCreateParams));
 		}
 		break;
 		case WM_ACTIVATE:
 		{
-			sge::win32_window* wnd = reinterpret_cast<sge::win32_window*>(GetWindowLong(hwnd,GWL_USERDATA));
+			sge::win32_window* const wnd = reinterpret_cast<sge::win32_window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 			const bool active = wparam != 0 ? true : false;
 			//wnd->set_active(active); // FIXME
 			if(!active)

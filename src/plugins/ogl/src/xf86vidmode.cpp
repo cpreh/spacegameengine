@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../types.hpp"
+#ifdef SGE_LINUX_PLATFORM
 #include <cstddef>
 #include <stdexcept>
 #include <iostream>
@@ -54,3 +56,4 @@ sge::ogl::xf86_vidmode_array::size_type sge::ogl::xf86_vidmode_array::size() con
 {
 	return sz;
 }
+#endif

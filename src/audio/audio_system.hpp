@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SYSTEM_HPP_INCLUDED
 #define SGE_AUDIO_SYSTEM_HPP_INCLUDED
 
-#include <string>
 #include <vector>
 #include "../shared_ptr.hpp"
 #include "../window.hpp"
-#include "./audio_device.hpp"
+#include "../string.hpp"
+#include "audio_device.hpp"
 
 namespace sge
 {
 
 struct driver_info {
-	std::string name;
+	string name;
 };
 
 typedef std::vector<driver_info> driver_info_array;

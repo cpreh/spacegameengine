@@ -58,3 +58,11 @@ sge::string::string(const size_type n, const value_type c, const allocator_type&
  : ustring(n,c,alloc)
 {}
 
+sge::string::string(const ustring& s)
+: ustring(s)
+{}
+
+sge::string sge::string::substr(const size_type first, const size_type count)
+{
+	return string(ustring::substr(first,count));
+}

@@ -34,6 +34,9 @@ class manager;
 
 class rectangle : public element, private sprite {
 public:
+	typedef sprite::point point;
+	typedef sprite::dim   dim;
+
 	rectangle(manager& m, element* parent, point pos, dim sz, const std::string& texture_name, bool visible = true, bool enabled = true);
 	const unit& x() const;
 	unit& x();
@@ -42,8 +45,6 @@ public:
 	const point& pos() const;
 	point& pos();
 
-	using sprite::point;
-	using sprite::dim;
 	using sprite::width;
 	using sprite::height;
 	using sprite::size;

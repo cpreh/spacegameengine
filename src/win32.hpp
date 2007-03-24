@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WIN32_HPP_INCLUDED
 #define SGE_WIN32_HPP_INCLUDED
 
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+#include "windows.hpp"
 
 namespace sge
 {

@@ -40,7 +40,13 @@ class renderer {
 public:
 	virtual void begin_rendering() = 0;
 	virtual void end_rendering() = 0;
-	virtual void render(vertex_buffer_ptr vb, index_buffer_ptr ib, unsigned first_vertex, unsigned num_vertices, primitive_type ptype, unsigned primitive_count, unsigned first_index = 0) = 0;
+	virtual void render(vertex_buffer_ptr vb,
+	                    index_buffer_ptr ib,
+	                    vertex_buffer::size_type first_vertex,
+	                    vertex_buffer::size_type num_vertices,
+	                    primitive_type ptype,
+	                    index_buffer::size_type primitive_count,
+	                    index_buffer::size_type first_index = 0) = 0;
 
 	virtual void set_int_state(int_state _state, int_type value) = 0;
 	virtual void set_float_state(float_state _state, float_type value) = 0;

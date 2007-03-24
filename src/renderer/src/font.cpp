@@ -248,7 +248,7 @@ void sge::font::flush()
 		index_buffer::iterator iib = ib->begin();
 		for(job_array::const_iterator it = jobs.begin(); it != jobs.end(); ++it)
 			for(size_type i = it->first_index; i < it->end_index; ++i)
-				iib = fill_sprite_indices(iib, i*4);
+				iib = fill_sprite_indices(iib, static_cast<index_buffer::value_type>(i*4));
 	}
 
 	set_parameters();

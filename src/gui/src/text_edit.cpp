@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <limits>
+#include <locale>
 #include "../text_edit.hpp"
 #include "../manager.hpp"
 #include "../skin.hpp"
-#include <limits>
 
 sge::gui::text_edit::text_edit(manager& m, element* const parent, const point pos, const dim sz, const string& _text, const color _text_color, const bool visible, const bool enabled)
 : rectangle(m, parent, pos, sz, skin::textedit_name, visible, enabled),
@@ -36,7 +37,7 @@ sge::gui::text_edit::text_edit(manager& m, element* const parent, const point po
 void sge::gui::text_edit::on_key_press(const keyboard_button_event& event)
 {
 	const key_code key = event.code();
-	const char char_code = event.char_code();
+	const key_type::char_type char_code = event.char_code();
 
 	switch(key) {
 	case KC_LEFT:
@@ -104,7 +105,7 @@ void sge::gui::text_edit::decrease_cursor_pos()
 
 void sge::gui::text_edit::on_draw(const draw_event& event)
 {
-	cur.size() = dim(my_font.char_space(' ') / 2, height()*0.9);
+	cur.size() = dim(my_font.char_space(' ') / 2, height() * unit(0.9));
 	rectangle::on_draw(event);
 	my_font.draw_text(_text.substr(text_start,_text.size()-text_start), event.pos(), size(), _text_color, flags);
 	if(m.focus() == this)

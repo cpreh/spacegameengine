@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <functional>
 #include <boost/filesystem/path.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 #include "algorithm.hpp"
 #include "library.hpp"
 #include "window.hpp"
@@ -49,9 +50,9 @@ public:
 	void load_plugin(const std::string& filename);
 	void get_plugin_info(plugin_type mask, plugin_info_array& v);
 	template<typename T> 
-		typename boost::enable_if_c<detail::plugin_traits<T>::needs_window == false, shared_ptr<T> >::type get_plugin(const unsigned index = 0);
+		typename boost::enable_if<detail::plugin_traits<T>, shared_ptr<T> >::type get_plugin(const unsigned index = 0);
 	template<typename T> 
-		typename boost::enable_if_c<detail::plugin_traits<T>::needs_window == true, shared_ptr<T> >::type get_plugin(const window_ptr w, const unsigned index = 0);
+		typename boost::enable_if<detail::plugin_traits<T>, shared_ptr<T> >::type get_plugin(const window_ptr w, const unsigned index = 0);
 private:
 	template<typename T, typename Fun> Fun _get_plugin(const unsigned index);
 

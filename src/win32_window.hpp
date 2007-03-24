@@ -21,29 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WIN32_WINDOW_HPP_INCLUDED
 #define SGE_WIN32_WINDOW_HPP_INCLUDED
 
+#include "string.hpp"
 #include "window.hpp"
-
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#include "windows.hpp"
 
 namespace sge
 {
 
 class win32_window : public window {
 public:
-	win32_window(window_size sz, const std::string& title = "");
+	win32_window(window_size sz, bool fullscreen, const string& title = "");
 	~win32_window();
 
-	void title(const std::string& t);
+	void title(const string& t);
 	void size(window_size newsize);
-	window_size size() const { return sz; }
-	const std::string& title() const { return _title; }
-	HWND hwnd() const { return handle; }
+	window_size size() const;
+	const string& title() const;
+	HWND hwnd() const;
+	bool fullscreen() const;
 private:
-	HWND        handle;
-	window_size sz;
-	std::string _title;
+	string      _title;
+	bool        _fullscreen;
 	bool        active;
+	HWND        handle;
 	static bool wndclass_created;
 };
 

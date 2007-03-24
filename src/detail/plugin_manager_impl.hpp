@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 template<typename T>
-typename boost::enable_if_c<sge::detail::plugin_traits<T>::needs_window == false, sge::shared_ptr<T> >::type sge::plugin_manager::get_plugin(const unsigned index)
+typename boost::enable_if<sge::detail::plugin_traits<T>, sge::shared_ptr<T> >::type sge::plugin_manager::get_plugin(const unsigned index)
 {
 	typedef typename detail::plugin_traits<T>::plugin_function plugin_function;
 	return shared_ptr<T>(_get_plugin<T,plugin_function>(index)());
 }
 
 template<typename T>
-typename boost::enable_if_c<sge::detail::plugin_traits<T>::needs_window == true, sge::shared_ptr<T> >::type sge::plugin_manager::get_plugin(const window_ptr w, const unsigned index)
+typename boost::enable_if<sge::detail::plugin_traits<T>, sge::shared_ptr<T> >::type sge::plugin_manager::get_plugin(const window_ptr w, const unsigned index)
 {
 	typedef typename detail::plugin_traits<T>::plugin_function plugin_function;
 	return shared_ptr<T>(_get_plugin<T,plugin_function>(index)(w));

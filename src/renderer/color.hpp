@@ -61,10 +61,10 @@ inline float green_part_rgba_f(const color c) { return ((c &   0xFF0000) >> 16) 
 inline float  blue_part_rgba_f(const color c) { return ((c &     0xFF00) >>  8) / 255.f; }
 inline float alpha_part_rgba_f(const color c) { return  (c &       0xFF)        / 255.f; }
 
-inline color_element   rgba_red(const color c) { return ((c & 0xFF000000) >> 24); }
-inline color_element rgba_green(const color c) { return ((c &   0xFF0000) >> 16); }
-inline color_element  rgba_blue(const color c) { return ((c &     0xFF00) >>  8); }
-inline color_element rgba_alpha(const color c) { return  (c &       0xFF)       ; }
+inline color_element   rgba_red(const color c) { return static_cast<color_element>((c & 0xFF000000) >> 24); }
+inline color_element rgba_green(const color c) { return static_cast<color_element>((c &   0xFF0000) >> 16); }
+inline color_element  rgba_blue(const color c) { return static_cast<color_element>((c &     0xFF00) >>  8); }
+inline color_element rgba_alpha(const color c) { return static_cast<color_element> (c &       0xFF)       ; }
 
 namespace colors {
 	const color aliceblue           = static_rgb<240, 248, 255>::value,

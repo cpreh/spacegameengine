@@ -57,7 +57,7 @@ void sge::line_strip::render()
 	if(vb->size() < vertices.size())
 		vb->resize(vertices.size());
 	vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(sge::data(vertices)),0,vertices.size());
-	rend->render(vb, index_buffer_ptr(), 0, vertices.size(), _loop ? PT_LineLoop : PT_LineStrip, vertices.size()-1);
+	rend->render(vb, index_buffer_ptr(), 0, static_cast<index_buffer::size_type>(vertices.size()), _loop ? PT_LineLoop : PT_LineStrip, static_cast<index_buffer::size_type>(vertices.size()-1));
 }
 
 sge::pos3& sge::line_strip::operator[](const size_type index)

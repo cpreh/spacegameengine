@@ -31,11 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../default_render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
 #endif
-#include <GL/gl.h>
+#include "../common.hpp"
 
 // TODO: consistent error checking
 
@@ -121,8 +120,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	};
 
 	wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),""));
-	win32_window* ww = ptr_cast<win32_window*>(wnd.get());
-	HWND hwnd = ww->get_hwnd();
+	win32_window* const ww = ptr_cast<win32_window*>(wnd.get());
+	HWND hwnd = ww->hwnd();
 	hdc = GetDC(hwnd);
 	if(!hdc)
 		throw std::runtime_error("Cannot get hdc for opengl");
@@ -439,7 +438,7 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 	const fbo_render_target_ptr ntarget = create_render_target(p->width(),p->height());
 	_render_target = ntarget;
 	ntarget->bind_texture(p);
-	set_viewport(viewport(0,0,p->width(),p->height()));
+	set_viewport(viewport(0,0,static_cast<screen_unit>(p->width()),static_cast<screen_height>(p->height())));
 }
 
 sge::render_target_ptr sge::ogl::renderer::get_render_target() const
@@ -457,7 +456,7 @@ void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_typ
 		return;
 	}
 
-	glActiveTextureARB(GL_TEXTURE0_ARB + stage);
+	glActiveTextureARB(static_cast<GLenum>(GL_TEXTURE0_ARB + stage));
 	glDisable(GL_TEXTURE_1D);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_TEXTURE_3D);

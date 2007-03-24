@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TYPES_HPP_INCLUDED
 #define SGE_RENDERER_TYPES_HPP_INCLUDED
 
+#include <cstddef>
 #include <vector>
 #include <stdexcept>
 #include <ostream>
@@ -234,7 +235,7 @@ struct filter_args {
 const filter_args linear_filter(FV_Linear, FV_Linear),
                   point_filter(FV_Point, FV_Point);
 
-typedef unsigned stage_type;
+typedef std::size_t stage_type;
 
 struct viewport {
 	screen_unit x, y, w, h;

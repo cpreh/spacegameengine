@@ -45,20 +45,20 @@ private:
 
 class mouse_button_event : public mouse_move_event {
 public:
-	mouse_button_event(const point pos, const key_code key, const mod_state& mod_state, const bool v, const char c)
+	mouse_button_event(const point pos, const key_code key, const mod_state& mod_state, const bool v, const key_type::char_type c)
 		: mouse_move_event(pos,mod_state), key(key), v(v), c(c) {}
 	key_code code() const { return key; }
 	bool value() const { return v; }
-	char char_code() const { return c; }
+	key_type::char_type char_code() const { return c; }
 private:
 	key_code  key;
 	bool      v;
-	char      c;
+	uchar_t   c;
 };
 
 class keyboard_button_event {
 public:
-	keyboard_button_event(const key_code key, const mod_state& _state, const bool v, const char c)
+	keyboard_button_event(const key_code key, const mod_state& _state, const bool v, const key_type::char_type c)
 	 : key(key),
 	   v(v),
 	   c(c),
@@ -66,12 +66,12 @@ public:
 	{}
 	key_code code() const { return key; }
 	bool value() const { return v; }
-	char char_code() const { return c; }
+	key_type::char_type char_code() const { return c; }
 	const mod_state& state() const { return _state; }
 private:
 	key_code  key;
 	bool      v;
-	char      c;
+	key_type::char_type   c;
 	mod_state _state;
 };
 

@@ -56,9 +56,28 @@ void sge::ogl::volume_texture::set_data(const const_pointer src, const lock_box*
 	set_my_filter();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 	if(!b)
-		glTexImage3D(GL_TEXTURE_3D,0,4,width(),height(),depth(),0,format,type,src);
+		glTexImage3D(GL_TEXTURE_3D,
+		             0,
+		             4,
+		             static_cast<GLsizei>(width()),
+		             static_cast<GLsizei>(height()),
+		             static_cast<GLsizei>(depth()),
+		             0,
+		             format,
+		             type,
+		             src);
 	else
-		glTexSubImage3D(GL_TEXTURE_3D,0,b->left,b->top,b->front,b->width(),b->height(),b->depth(),format,type,src);
+		glTexSubImage3D(GL_TEXTURE_3D,
+		                0,
+		                static_cast<GLint>(b->left),
+		                static_cast<GLint>(b->top),
+		                static_cast<GLint>(b->front),
+		                static_cast<GLsizei>(b->width()),
+		                static_cast<GLsizei>(b->height()),
+		                static_cast<GLsizei>(b->depth()),
+		                format,
+		                type,
+		                src);
 	if(is_error())
 		throw std::runtime_error("glTex(Sub)Image3D failed!");
 }

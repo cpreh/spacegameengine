@@ -18,28 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../language.hpp"
-#include "../types.hpp"
-#include <stdexcept>
-#include <cstdlib>
-
-#ifdef SGE_WINDOWS_PLATFORM
-#include <boost/array.hpp>
 #include "../win32_conv.hpp"
-#include "../windows.hpp"
-#endif
+#include "../detail/iconv_detail.hpp"
+#include "../iconv_types.hpp"
 
-sge::string sge::language()
-{
-#ifdef SGE_LINUX_PLATFORM
-	const char* const p = std::getenv("LANG");
-	if(!p)
-		throw std::runtime_error("LANG not set! Unable to detect OS language!");
-	return p;
-#elif SGE_WINDOWS_PLATFORM
-	boost::array<TCHAR, 128> buf;
-	if(GetLocaleInfo(GetSystemDefaultLCID(), LOCALE_SLANGUAGE, buf.c_array(), static_cast<int>(buf.size())) == 0)
-		throw std::runtime_error("GetLocaleInfo() failed!");
-	return win_str_to_sge(buf.data());
+const sge::encoding enc_win = 
+#ifdef UNICODE
+sge::enc_utf16
+#else
+sge::enc_ascii
 #endif
+;
+
+sge::win_string sge::sge_str_to_win(const string& in)
+{
+	return _iconv<win_string>(in, enc_ucs_4_internal, enc_win, in.get_allocator());
+}
+
+sge::string sge::win_str_to_sge(const win_string& in)
+{
+	return _iconv<string>(in, enc_win, enc_ucs_4_internal, in.get_allocator());
 }

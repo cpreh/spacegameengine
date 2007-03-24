@@ -26,5 +26,5 @@ void sge::ogl::render_target::copy_data(const pointer p)
 {
 	assert(p != 0);
 	bind_me();
-	glReadPixels(0, 0, width(), height(), GL_RGBA, GL_UNSIGNED_BYTE, p);
+	glReadPixels(0, 0, static_cast<GLsizei>(width()), static_cast<GLsizei>(height()), GL_RGBA, GL_UNSIGNED_BYTE, p);
 }

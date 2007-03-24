@@ -51,12 +51,12 @@ inline pos3 trans_2d_to_3d(const math::vector2 pos)
 
 inline space_unit space_x_2d_to_3d(const space_unit x)
 {
-	return (x-0.5)*2;
+	return (x - space_unit(0.5))*2;
 }
 
 inline space_unit space_y_2d_to_3d(const space_unit y)
 {
-	return (-y+0.5)*2;
+	return (-y + space_unit(0.5))*2;
 }
 
 inline pos3 space_2d_to_3d(const space_unit x, const space_unit y)

@@ -105,14 +105,14 @@ sge::color sge::hsla::to_color() const
 	// chromatic case
 	const color_element temp2 = (lum() <= (hsl_max / 2)) ?
 	                            (lum() * (hsl_max + sat()) + (hsl_max / 2)) / hsl_max :
-	                            lum() + sat() - ((lum() * sat()) + (hsl_max / 2)) / hsl_max;
+	                             lum() + sat() - ((lum() * sat()) + (hsl_max / 2)) / hsl_max;
 
 	const color_element temp1 = 2 * lum() - temp2;
 
-	return rgba((hue_to_tridant(temp1, temp2, (unsigned)(hue() + (hsl_max / 3))) * rgb_max + (hsl_max / 2)) / hsl_max,
-	            (hue_to_tridant(temp1, temp2, hue()) * rgb_max + (hsl_max / 2)) / hsl_max,
-	            (hue_to_tridant(temp1, temp2, (unsigned)(hue() - (hsl_max / 3))) * rgb_max + (hsl_max / 2)) / hsl_max,
-		    a());
+	return rgba((hue_to_tridant(temp1, temp2, hue() + (hsl_max / 3)) * rgb_max + (hsl_max / 2)) / hsl_max,
+	            (hue_to_tridant(temp1, temp2, hue())                 * rgb_max + (hsl_max / 2)) / hsl_max,
+	            (hue_to_tridant(temp1, temp2, hue() - (hsl_max / 3)) * rgb_max + (hsl_max / 2)) / hsl_max,
+	             a());
 }
 
 void sge::hsla::hue(const color_element e)
@@ -159,4 +159,3 @@ sge::color_element sge::hsla::a() const
 const sge::color_element sge::hsla::hsl_max;
 const sge::color_element sge::hsla::rgb_max;
 const sge::color_element sge::hsla::hue_undefined;
-

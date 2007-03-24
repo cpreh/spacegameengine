@@ -36,7 +36,7 @@ sge::ogl::fbo_render_target::fbo_render_target(const size_type _width, const siz
 		throw std::runtime_error(extension_not_supported_string("render_buffer_ext"));
 	glGenRenderbuffersEXT(1, &depthbuffer);
 	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthbuffer);
-	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, width(), height());
+	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, static_cast<GLsizei>(width()), static_cast<GLsizei>(height()));
 	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, depthbuffer);
 }
 

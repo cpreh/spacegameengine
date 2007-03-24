@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../plugin_manager.hpp"
-#include "../library.hpp"
+#include <iostream>
 #include <boost/filesystem/convenience.hpp>
 #include <boost/filesystem/operations.hpp>
-#include <iostream>
+#include "../plugin_manager.hpp"
+#include "../library.hpp"
 
 typedef void (*version_function)(sge::plugin_info*);
 inline version_function get_version_function(sge::library& lib)
@@ -71,7 +71,7 @@ void sge::plugin_manager::load_plugin(const plugin_type mask, const unsigned num
 	get_plugin_info(mask,v);
 	try
 	{
-		const plugin_info_array::const_reference i = v.at(number);
+		plugin_info_array::const_reference i = v.at(number);
 		load_plugin(i.path);
 	}
 	catch(const std::exception&)

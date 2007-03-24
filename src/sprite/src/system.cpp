@@ -70,10 +70,10 @@ sge::vertex_buffer::size_type sge::sprite_system::free_vb_pos()
 {
 	if(free_pos.empty())
 	{
-		const unsigned grow_factor = 2;
+		const free_pos_vector::size_type grow_factor = 2;
 		const vertex_buffer::size_type new_size = vb->size() * grow_factor;
 		free_pos.reserve(new_size / detail::vertices_per_sprite);
-		for(unsigned i = vb->size(); i < new_size; i += detail::vertices_per_sprite)
+		for(free_pos_vector::size_type i = vb->size(); i < new_size; i += detail::vertices_per_sprite)
 			free_pos.push_back(i);
 		vb->resize(new_size);
 		ib->resize(ib->size() * grow_factor);
