@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-ustring  iconv(const std::string& input, encoding from = enc_char_locale, const ustring::allocator_type& alloc = ustring::allocator_type());
-std::string iconv(const ustring& input, encoding to = enc_char_locale, const std::string::allocator_type& alloc = std::string::allocator_type());
+ustring  iconv(const std::string& input, encoding from = enc_string_literal, const ustring::allocator_type& alloc = ustring::allocator_type());
+std::string iconv(const ustring& input, encoding to = enc_string_literal, const std::string::allocator_type& alloc = std::string::allocator_type());
 
 }
 

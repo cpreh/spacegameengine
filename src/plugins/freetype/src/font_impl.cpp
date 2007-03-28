@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <algorithm>
 #include "../../../raw_vector.hpp"
 #include "../../../renderer/transform.hpp"
+#include "../../../endianness.hpp"
 #include "../font_impl.hpp"
 #include FT_GLYPH_H
 
@@ -52,8 +54,10 @@ sge::ft::font_impl::font_impl(library& lib, const renderer_ptr r, const std::str
 	pixel_size =  (face->ascender >> 6) - (face->descender >> 6);
 }
 
-const sge::font_entity& sge::ft::font_impl::load_char(const font_char c)
+const sge::font_entity& sge::ft::font_impl::load_char(const font_char arg)
 {
+	const font_char c = convert_endianness(arg);
+
 	font_entity& entity = buffer[c];
 	if(entity.tex)
 		return entity;

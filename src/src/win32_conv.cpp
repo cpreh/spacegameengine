@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../types.hpp"
+#ifdef SGE_WINDOWS_PLATFORM
 #include "../win32_conv.hpp"
 #include "../detail/iconv_detail.hpp"
 #include "../iconv_types.hpp"
@@ -39,3 +41,4 @@ sge::string sge::win_str_to_sge(const win_string& in)
 {
 	return _iconv<string>(in, enc_win, enc_ucs_4_internal, in.get_allocator());
 }
+#endif

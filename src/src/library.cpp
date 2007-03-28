@@ -19,19 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <stdexcept>
+#include "../types.hpp"
 #include "../library.hpp"
 #include "../iconv.hpp"
+#ifdef SGE_WINDOWS_PLATFORM
 #include "../win32_conv.hpp"
+#endif
+
+#include <iostream>
 
 sge::library::library(const string& n)
  :
 #ifdef SGE_WINDOWS_PLATFORM
    handle(LoadLibrary(sge_str_to_win(n).c_str()))
 #elif SGE_LINUX_PLATFORM
-   handle(dlopen(n.c_str(),RTLD_NOW | RTLD_GLOBAL))
+   handle(dlopen(iconv(n).c_str(),RTLD_NOW | RTLD_GLOBAL))
 #endif
-   , n(n)
+  , n(n)
 {
+	handle = dlopen(iconv(n).c_str(), RTLD_NOW | RTLD_GLOBAL);
 	if(!handle)
 		throw std::runtime_error(std::string("failed to load library: ") + iconv(name()) + " : " + iconv(liberror()));
 }

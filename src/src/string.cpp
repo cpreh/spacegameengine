@@ -22,19 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../iconv.hpp"
 
 sge::string::string(const std::string& s, const std::string::size_type pos, const std::string::size_type n, const allocator_type& alloc)
- : ustring(iconv(s.substr(pos,n), enc_char_locale, alloc))
+ : ustring(iconv(s.substr(pos,n), enc_string_literal, alloc))
 {}
 
 sge::string::string(const std::string::const_pointer p, const std::string::size_type n, const allocator_type& alloc)
- : ustring(iconv(std::string(p,n), enc_char_locale, alloc))
+ : ustring(iconv(std::string(p,n), enc_string_literal, alloc))
 {}
 
 sge::string::string(const std::string::const_pointer p, const allocator_type& alloc)
- : ustring(iconv(std::string(p), enc_char_locale, alloc))
+ : ustring(iconv(std::string(p), enc_string_literal, alloc))
 {}
 
 sge::string::string(const std::string::size_type n, const std::string::value_type c, const allocator_type& alloc)
- : ustring(iconv(std::string(n,c), enc_char_locale, alloc))
+ : ustring(iconv(std::string(n,c), enc_string_literal, alloc))
 {}
 
 

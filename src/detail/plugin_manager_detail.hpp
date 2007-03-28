@@ -32,7 +32,7 @@ template<typename T> struct window_plugin : boost::true_type {
 };
 
 template<typename T> struct plugin_traits;
-template<> struct plugin_traits<renderer_system> : no_window_plugin<renderer_system> { 
+template<> struct plugin_traits<renderer_system> : no_window_plugin<renderer_system> {
 	static const char* plugin_loader_name() { return "create_renderer_system"; }
 	static plugin_type get_plugin_type() { return PT_Renderer; }
 };

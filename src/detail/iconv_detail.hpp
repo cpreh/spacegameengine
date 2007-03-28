@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <cerrno>
 #include <string>
-#include <cassert>
 #include <boost/array.hpp>
 #include "../ucs4.hpp"
 #include "../iconv_types.hpp"
@@ -39,6 +38,8 @@ struct iconv_instance {
 	iconv_instance(const std::string &from, const std::string &to);
 	~iconv_instance();
 	std::size_t convert(const char **inbuf, std::size_t *inbytes, char **outbuf, std::size_t *outbytes);
+private:
+	std::string from, to;
 };
 
 const encoding internal_encoding = sge::enc_ucs_4_internal;
@@ -63,13 +64,6 @@ To _iconv(const From& input, const sge::encoding from, const sge::encoding to, c
 		ic.convert(&ib, &in_size, &ob, &out_size);
 
 		const std::size_t bytes_written = buf_size - out_size;
-
-		// FIXME why do we have to reverse the byteorder here?
-		const std::size_t ucs4_bytes = sizeof(sge::uchar_t);
-		assert(buf_size % ucs4_bytes == 0);
-		for(char* p = arr.c_array(); p < arr.data() + bytes_written; p += ucs4_bytes)
-			std::reverse(p, p + ucs4_bytes);
-
 		output += To(reinterpret_cast<typename To::const_pointer>(arr.data()), (bytes_written) / sizeof(typename To::value_type));
 	}
 	return output;

@@ -29,7 +29,8 @@ namespace sge
 
 enum encoding {
 	enc_ascii,
-	enc_char_locale,
+	enc_string_literal,
+	enc_wstring_literal,
 	enc_utf8,
 	enc_utf16,
 	enc_ucs_4_internal
@@ -43,8 +44,8 @@ public:
 
 class conversion_failed : public std::runtime_error {
 public:
-	conversion_failed()
-	: std::runtime_error("An iconv conversion failed!") {}
+	conversion_failed(const std::string& from, const std::string& to)
+	: std::runtime_error(std::string("An iconv conversion from ") += from + " to " + to + " failed!") {}
 };
 
 }

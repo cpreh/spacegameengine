@@ -54,7 +54,7 @@ sge::plugin_manager::plugin_manager()
 		plugin_infos.push_back(plugin_info());
 		plugin_info& i = plugin_infos.back();
 		vf(&i);
-		i.path = it->string();
+		i.path = iconv(it->string());
 	}	
 }
 
@@ -81,7 +81,7 @@ void sge::plugin_manager::load_plugin(const plugin_type mask, const unsigned num
 	}
 }
 
-void sge::plugin_manager::load_plugin(const std::string& file)
+void sge::plugin_manager::load_plugin(const string& file)
 {
 	const detail::plugin::library_ptr l(new library(file));
 	version_function vf = get_version_function(*l);

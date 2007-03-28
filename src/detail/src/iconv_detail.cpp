@@ -19,11 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <stdexcept>
-#include "../../detail/iconv_detail.hpp"
+#include "../iconv_detail.hpp"
 #include "../../iconv_types.hpp"
 
 sge::iconv_instance::iconv_instance(const std::string &from, const std::string &to) 
-: conv(iconv_open(to.c_str(), from.c_str()))
+: conv(iconv_open(to.c_str(), from.c_str())),
+  from(from),
+  to(to)
 {
 	if(conv == reinterpret_cast<iconv_t>(-1))
 		throw sge::invalid_conversion(from,to);
@@ -37,14 +39,14 @@ sge::iconv_instance::~iconv_instance()
 std::size_t sge::iconv_instance::convert(const char **inbuf, std::size_t *inbytes, char **outbuf, std::size_t *outbytes)
 {
 	std::size_t bytesread = *inbytes;
-	const std::size_t result = iconv(conv, const_cast<const char**>(inbuf), inbytes, outbuf, outbytes);
+	const std::size_t result = iconv(conv, const_cast<char**>(inbuf), inbytes, outbuf, outbytes);
 	if(result == static_cast<std::size_t>(-1))
 	{
 		switch(errno) {
 		case E2BIG:
 			break;
 		default:
-			throw sge::conversion_failed();
+			throw sge::conversion_failed(from,to);
 		}
 	}
 	return bytesread - *inbytes;
@@ -52,10 +54,23 @@ std::size_t sge::iconv_instance::convert(const char **inbuf, std::size_t *inbyte
 
 std::string sge::encoding_to_string(const sge::encoding& to)
 {
-	using namespace sge;
 	switch(to) {
-	case enc_char_locale:
-		return "UTF-8"; //FIXME
+	case enc_string_literal:
+#ifdef _MSC_VER
+		return "CP1252";
+#elif __GNUC__
+		return "UTF-8";
+#else
+#error "implement me!"
+#endif
+	case enc_wstring_literal:
+#ifdef _MSC_VER
+		return "UTF-16";
+#elif __GNUC__
+		return "UTF-32";
+#else
+#error "implement me!"
+#endif
 	case enc_utf8:
 		return "UTF-8";
 	case enc_ucs_4_internal:

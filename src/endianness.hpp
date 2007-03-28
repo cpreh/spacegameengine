@@ -18,19 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
-#include "../funptr_cast.hpp"
-#include "../iconv.hpp"
+#ifndef SGE_ENDIANNESS_HPP_INCLUDED
+#define SGE_ENDIANNESS_HPP_INCLUDED
 
-template<typename Fun>
-Fun sge::library::load_function(const string& fun)
+#include <algorithm>
+
+namespace sge
 {
-#ifdef SGE_WINDOWS_PLATFORM
-	Fun ptr = reinterpret_cast<Fun>(GetProcAddress(handle, iconv(fun).c_str()));
-#elif SGE_LINUX_PLATFORM
-	Fun ptr = funptr_cast<Fun>(dlsym(handle,iconv(fun).c_str()));
-#endif
-	if(!ptr)
-		throw std::runtime_error(std::string("failed to load function ") + iconv(fun) + " from library " + iconv(name()) + " : " + iconv(liberror()));
-	return ptr;
+
+template<typename T>
+T convert_endianness(const T& t)
+{
+	T dest;
+	typedef unsigned char temp_type;
+	std::reverse_copy(reinterpret_cast<const temp_type*>(&t), reinterpret_cast<const temp_type*>(&t) + sizeof(T), reinterpret_cast<temp_type*>(&dest));
+	return dest;
 }
+
+}
+
+#endif

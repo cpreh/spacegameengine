@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_MANAGER_HPP_INCLUDED
 #define SGE_PLUGIN_MANAGER_HPP_INCLUDED
 
-#include <string>
 #include <list>
 #include <functional>
 #include <boost/filesystem/path.hpp>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "library.hpp"
 #include "window.hpp"
 #include "plugin.hpp"
+#include "string.hpp"
 #include "renderer/renderer_system.hpp"
 #include "input/input_system.hpp"
 #include "image/image_loader.hpp"
@@ -47,10 +47,10 @@ public:
 
 	plugin_manager();
 	void load_plugin(plugin_type mask, unsigned number = 0);
-	void load_plugin(const std::string& filename);
+	void load_plugin(const string& filename);
 	void get_plugin_info(plugin_type mask, plugin_info_array& v);
 	template<typename T> 
-		typename boost::enable_if<detail::plugin_traits<T>, shared_ptr<T> >::type get_plugin(const unsigned index = 0);
+		typename boost::disable_if<detail::plugin_traits<T>, shared_ptr<T> >::type get_plugin(const unsigned index = 0);
 	template<typename T> 
 		typename boost::enable_if<detail::plugin_traits<T>, shared_ptr<T> >::type get_plugin(const window_ptr w, const unsigned index = 0);
 private:

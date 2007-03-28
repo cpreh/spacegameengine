@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
 
+#include "../iconv.hpp"
 #include "../x_window.hpp"
-	
+
 sge::x_window::x_window(Display* const dsp, const int _screen, const Window wnd)
  : dsp(dsp),
    _screen(_screen),
    wnd(wnd)
 {}
 
-sge::x_window::x_window(const window_pos pos, const window_size sz, const std::string& t, Display* const dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
+sge::x_window::x_window(const window_pos pos, const window_size sz, const string& t, Display* const dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
  : dsp(dsp),
    _screen(vi.screen),
    wnd(XCreateWindow(dsp, RootWindow(dsp, screen()), pos.x(), pos.y(), sz.w(), sz.h(), 0, vi.depth, InputOutput, vi.visual, CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask, const_cast<XSetWindowAttributes*>(&attr))),
@@ -48,9 +49,9 @@ void sge::x_window::size(const window_size newsize)
 	XResizeWindow(dsp, wnd, newsize.w(), newsize.h());
 }
 
-void sge::x_window::title(const std::string& t)
+void sge::x_window::title(const string& t)
 {
-	XStoreName(dsp,wnd,t.c_str());
+	XStoreName(dsp, wnd, iconv(t).c_str());
 }
 
 sge::x_window::window_size sge::x_window::size() const

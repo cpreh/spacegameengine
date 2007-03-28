@@ -313,7 +313,13 @@ sge::screen_size_t sge::ogl::renderer::screen_size() const
 	return param.mode.size;
 }
 
-void sge::ogl::renderer::render(const sge::vertex_buffer_ptr vb, const sge::index_buffer_ptr ib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
+void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
+                                const index_buffer_ptr ib,
+                                const sge::vertex_buffer::size_type first_vertex,
+                                const sge::vertex_buffer::size_type num_vertices,
+                                const primitive_type ptype,
+                                const sge::index_buffer::size_type pcount,
+                                const sge::index_buffer::size_type first_index)
 {
 	set_vertex_buffer(vb);
 	const GLenum prim_type = convert_cast<GLenum>(ptype);
@@ -438,7 +444,7 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 	const fbo_render_target_ptr ntarget = create_render_target(p->width(),p->height());
 	_render_target = ntarget;
 	ntarget->bind_texture(p);
-	set_viewport(viewport(0,0,static_cast<screen_unit>(p->width()),static_cast<screen_height>(p->height())));
+	set_viewport(viewport(0,0,static_cast<screen_unit>(p->width()),static_cast<screen_unit>(p->height())));
 }
 
 sge::render_target_ptr sge::ogl::renderer::get_render_target() const

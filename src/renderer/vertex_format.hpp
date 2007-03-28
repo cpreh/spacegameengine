@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <stdexcept>
 #include <algorithm>
-#include <boost/noncopyable.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
@@ -133,7 +132,7 @@ public:
 
 }
 
-template<bool IsConst> class vertex_pointer_impl : boost::noncopyable {
+template<bool IsConst> class vertex_pointer_impl {
 public:
 	typedef char               value_type;
 	typedef vertex_difference  difference_type;

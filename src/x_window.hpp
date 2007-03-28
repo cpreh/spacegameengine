@@ -31,10 +31,10 @@ namespace sge
 class x_window : public window {
 public:
 	x_window(Display* dsp, int screen, Window wnd);
-	x_window(window_pos pos, window_size sz, const std::string& title, Display* dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
+	x_window(window_pos pos, window_size sz, const string& title, Display* dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
 	~x_window();
 
-	void title(const std::string& title);
+	void title(const string& title);
 	void size(window_size sz);
 	window_size size() const;
 	bool fullscreen() const;

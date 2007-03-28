@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_HPP_INCLUDED
 #define SGE_PLUGIN_HPP_INCLUDED
 
-#include <string>
+#include "string.hpp"
 
 namespace sge
 {
@@ -46,7 +46,7 @@ struct plugin_info {
 	unsigned     plugin_version;
 	unsigned     min_core_version;
 	plugin_type  type;
-	std::string  path;
+	string       path;
 };
 
 }
