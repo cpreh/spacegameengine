@@ -165,7 +165,7 @@ try
 		if(ks[sge::KC_RETURN])
 			sge::screenshot(rend,pl,"./shot.png");
 		if(timer.update())
-			angle += sge::PI*0.01;
+			angle += sge::math::PI*0.01;
 
 		spr.rotation(angle);
 
@@ -175,7 +175,7 @@ try
 		ss.render();
 		man.process();
 //		fn.transform(sge::math::matrix_rotation_x(angle));
-//		fn.projection(sge::math::transpose(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),sge::PI,0,1)));
+//		fn.projection(sge::math::transpose(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),sge::math::PI,0,1)));
 //		fn.internal_transformation(sge::math::matrix_identity());
 		fn.height_pixel_scale(1);
 		fn.height(0.05);
