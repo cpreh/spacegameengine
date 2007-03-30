@@ -28,7 +28,8 @@ namespace sge
 
 typedef uint32 uchar_t;
 
-bool isspace_ucs4(uchar_t);
+bool isspace(uchar_t);
+bool isprint(uchar_t);
 
 }
 

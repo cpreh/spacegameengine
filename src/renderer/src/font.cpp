@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../transform.hpp"
 #include "../lock_ptr.hpp"
 #include "../font.hpp"
-#include "../../ucs4.hpp"
+#include "../../unicode.hpp"
 #include "../../sprite/helper.hpp"
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
@@ -217,7 +217,7 @@ sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, c
 	{
 		if(*sbeg == '\n')
 			return line_size_t(w, ++sbeg);
-		if(isspace_ucs4(*sbeg))
+		if(isspace(*sbeg))
 		{
 			last_white = sbeg;
 			last_width = w;

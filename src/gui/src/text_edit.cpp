@@ -23,8 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../text_edit.hpp"
 #include "../manager.hpp"
 #include "../skin.hpp"
-
-#include "../../endianness.hpp"
+#include "../../unicode.hpp"
 
 sge::gui::text_edit::text_edit(manager& m, element* const parent, const point pos, const dim sz, const string& _text, const color _text_color, const bool visible, const bool enabled)
 : rectangle(m, parent, pos, sz, skin::textedit_name, visible, enabled),
@@ -68,10 +67,9 @@ void sge::gui::text_edit::on_key_press(const keyboard_button_event& event)
 			_text.erase(cursor_pos,1);
 		break;
 	default:
-//		if(std::isprint(char_code,std::locale()))
+		if(isprint(char_code))
 		{
-			// FIXME
-			_text.insert(cursor_pos,1,convert_endianness(char_code));
+			_text.insert(cursor_pos,1,char_code);
 			increase_cursor_pos();
 		}
 		break;
