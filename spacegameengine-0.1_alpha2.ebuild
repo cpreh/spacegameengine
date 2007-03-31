@@ -15,17 +15,17 @@ IUSE="opengl truetype devil xinput debug dga"
 
 DEPEND="${RDEPEND}
         dev-util/scons"
-RDEPEND="!games-engines/spacegame
-         dev-libs/boost
+RDEPEND="dev-libs/boost
          x11-libs/libX11
-		 virtual/libc
-		 media-fonts/corefonts
-		 opengl? (
-		 	media-libs/glew
-			x11-libs/libXxf86vm )
+         virtual/libc
+         virtual/libiconv
+         media-fonts/corefonts
+         opengl? (
+             media-libs/glew
+             x11-libs/libXxf86vm )
          devil? ( media-libs/devil )
-		 truetype? ( media-libs/freetype )
-		 xinput? (dga? ( x11-libs/libXxf86dga ))"
+         truetype? ( media-libs/freetype )
+         xinput? (dga? ( x11-libs/libXxf86dga ))"
 
 pkg_setup() {
 	if !(use opengl && use truetype && use devil && use xinput) ; then

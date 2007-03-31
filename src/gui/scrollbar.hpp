@@ -34,8 +34,6 @@ class manager;
 class inner_scrollbar : public rectangle {
 public:
 	inner_scrollbar(manager& m, element* parent, point pos, dim sz);
-private:
-	virtual void on_draw(const draw_event& event);
 };
 
 class scroll_button : public rectangle {

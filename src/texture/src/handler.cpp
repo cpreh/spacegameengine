@@ -28,14 +28,17 @@ sge::image_loader_handler::image_loader_handler(const std::string& path, const i
  : path(path), il(il)
 {}
 
-bool sge::image_loader_handler::operator()(texture_map& ss, const std::string& name) const
+bool sge::image_loader_handler::operator()(sge::texture_map& ss, const std::string& name) const
 {
-	const boost::filesystem::directory_iterator end;
-	for(boost::filesystem::directory_iterator it(path); it != end; ++it)
-		if(boost::filesystem::basename(*it) == name)
+	const std::string bn = boost::filesystem::basename(name);
+	const boost::filesystem::path branch = (boost::filesystem::path(path) / name).branch_path();
+	for(boost::filesystem::directory_iterator it(branch), end; it != end; ++it)
+	{
+		if(boost::filesystem::basename(*it) == bn)
 		{
 			ss.add_texture(il->load_image(it->string()),name);
 			return true;
-		}                                                         
-	return false;                                                 
+		}
+	}
+	return false;
 }

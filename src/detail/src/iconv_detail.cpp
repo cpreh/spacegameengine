@@ -74,7 +74,6 @@ std::string sge::encoding_to_string(const sge::encoding& to)
 	case enc_utf8:
 		return "UTF-8";
 	case enc_ucs_4_internal:
-//		return "UCS-4";
 		return "UTF32LE";
 	case enc_utf16:
 		return "UTF-16";
