@@ -37,7 +37,6 @@ sge::library::library(const string& n)
 #endif
   , n(n)
 {
-	handle = dlopen(iconv(n).c_str(), RTLD_NOW | RTLD_GLOBAL);
 	if(!handle)
 		throw std::runtime_error(std::string("failed to load library: ") + iconv(name()) + " : " + iconv(liberror()));
 }
