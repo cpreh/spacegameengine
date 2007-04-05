@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_KEYBOARD_HPP_INCLUDED
 
 #include <map>
-#include "./input_device.hpp"
-#include "./key_converter.hpp"
-#include "./di.hpp"
+#include "input_device.hpp"
+#include "key_converter.hpp"
+#include "di.hpp"
 
 namespace sge
 {
@@ -33,9 +33,9 @@ namespace dinput
 
 class keyboard : public input_device {
 public:
-	keyboard(dinput_ptr, const std::string& name, GUID guid, HWND wnd, const key_converter& conv);
+	keyboard(dinput_ptr, const string& name, GUID guid, HWND wnd, const key_converter& conv);
 	void dispatch(input_system::signal_type&);
-	key_state query_key(const std::string& name);
+	key_state query_key(const string& name);
 private:
 	uchar_t keycode_to_char(const key_code key) const;
 	static BOOL CALLBACK enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);

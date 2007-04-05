@@ -22,10 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D_VOLUME_TEXTURE_HPP_INCLUDED
 
 #include "../../renderer/volume_texture.hpp"
-#include "./resource.hpp"
-#include "./texture_base.hpp"
-
-#include "./d3dinclude.hpp"
+#include "resource.hpp"
+#include "texture_base.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {

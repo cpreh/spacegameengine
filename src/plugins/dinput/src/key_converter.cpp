@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
 #include "../key_converter.hpp"
 
 sge::dinput::key_converter::key_converter()
@@ -151,7 +150,7 @@ sge::dinput::key_converter::key_converter()
 	v[DIK_YEN] = KC_YEN;
 	v[DIK_Z] = KC_Z;
 
-	for(unsigned i = 0; i < v.size(); ++i)
+	for(key_vector::size_type i = 0; i < v.size(); ++i)
 		vr[v[i]] = i;
 }
 

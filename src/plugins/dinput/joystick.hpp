@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_JOYSTICK_HPP_INCLUDED
 
 #include <map>
-#include "./input_device.hpp"
-#include "./di.hpp"
+#include "input_device.hpp"
+#include "di.hpp"
 
 namespace sge
 {

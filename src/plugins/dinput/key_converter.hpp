@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <map>
 #include "../../input/key_type.hpp"
-#include "./di.hpp"
+#include "di.hpp"
 
 namespace sge
 {
@@ -37,7 +37,8 @@ public:
 	key_code create_key_code(DWORD ofs) const;
 	DWORD   create_dik(key_code key) const;
 private:
-	std::vector<key_code> v;
+	typedef std::vector<key_code> key_vector;
+	key_vector v;
 	std::map<key_code, DWORD> vr;
 };
 

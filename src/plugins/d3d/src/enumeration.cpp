@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 
 #include <iostream>
+#include <algorithm>
 
 void sge::d3d::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, renderer_caps& c)
 {
@@ -41,7 +42,7 @@ void sge::d3d::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, r
 	c.max_tex_size = caps.MaxTextureWidth;
 	if(caps.MaxTextureWidth != caps.MaxTextureHeight)
 		std::cerr << "Warning: MaxTextureWidth != MaxTextureHeight (case not handled)\n";
-//	c.max_tex_height = caps.MaxTextureHeight;
+	c.max_tex_height = std::min(caps.MaxTextureHeight, caps.MaxTextureWidth);
 	c.driver_name = &identifier.Driver[0];
 	c.description = &identifier.Description[0];
 
@@ -109,12 +110,12 @@ D3DPRESENT_PARAMETERS sge::d3d::create_present_parameters(const renderer_paramet
 	pp.AutoDepthStencilFormat = search_stencil_format(adapter,format,sys);
 	pp.BackBufferCount = constants::back_buffer_count;
 	pp.BackBufferFormat = format;
-	pp.BackBufferHeight = param.mode.height;
-	pp.BackBufferWidth = param.mode.width;
+	pp.BackBufferHeight = param.mode.height();
+	pp.BackBufferWidth = param.mode.width();
 	pp.EnableAutoDepthStencil = constants::enable_auto_depth_stencil;
 	pp.Flags = constants::flags;
 	pp.FullScreen_RefreshRateInHz = param.windowed ? 0 : param.mode.refresh_rate;
-	pp.hDeviceWindow = wnd->get_hwnd();
+	pp.hDeviceWindow = wnd->hwnd();
 	pp.MultiSampleQuality = 0;
 	pp.MultiSampleType = convert_cast<D3DMULTISAMPLE_TYPE>(param.samples);
 	pp.PresentationInterval = param.vsync ? D3DPRESENT_INTERVAL_ONE : D3DPRESENT_INTERVAL_IMMEDIATE;

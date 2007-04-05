@@ -39,7 +39,7 @@ public:
 	lock_ptr(const T t, const cube_side side, const lock_flag_t flags = LF_Default)
 	 : t(t)
 	{
-		t->lock(side);
+		t->lock(side,flags);
 	}
 
 	lock_ptr(const T t, const lock_rect* const l)

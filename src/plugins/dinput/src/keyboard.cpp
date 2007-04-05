@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <boost/array.hpp>
 #include "../keyboard.hpp"
+#include "../../../win32_conv.hpp"
 
-sge::dinput::keyboard::keyboard(const dinput_ptr di, const std::string& name, const GUID guid, const HWND wnd, const key_converter& conv)
+sge::dinput::keyboard::keyboard(const dinput_ptr di, const string& name, const GUID guid, const HWND wnd, const key_converter& conv)
 : input_device(di,name,guid,wnd),
   conv(conv),
   kblayout(GetKeyboardLayout(0))
@@ -49,8 +50,8 @@ void sge::dinput::keyboard::dispatch(input_system::signal_type& sig)
 BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)
 {
 	keyboard& k = *static_cast<keyboard*>(s);
-	const std::string key_name(ddoi->tszName);
-	k.keys[ddoi->dwOfs] = key_type(k.name() + '_' + ddoi->tszName, k.conv.create_key_code(ddoi->dwOfs), key_name.size() == 1 ? key_name[0] : 0);
+	const string key_name(win_str_to_sge(ddoi->tszName));
+	k.keys[ddoi->dwOfs] = key_type(k.name() + key_name, k.conv.create_key_code(ddoi->dwOfs), key_name.size() == 1 ? key_name[0] : 0);
 	return DIENUM_CONTINUE;
 }
 
@@ -71,4 +72,3 @@ sge::uchar_t sge::dinput::keyboard::keycode_to_char(const key_code key) const
 	std::cerr << "stub: Keys names with more than one char are not supported.\n";
 	return 0;
 }
-

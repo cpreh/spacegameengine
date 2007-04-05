@@ -22,10 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D_TEXTURE_HPP_INCLUDED
 
 #include "../../renderer/texture.hpp"
-#include "./texture_base.hpp"
-#include "./resource.hpp"
-
-#include "./d3dinclude.hpp"
+#include "texture_base.hpp"
+#include "resource.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {
@@ -37,7 +36,7 @@ class renderer;
 class texture : public d3d::texture_base, public sge::texture, public resource {
 	friend class renderer;
 private:
-	texture(renderer* r, d3d_device_ptr device, const_pointer data, size_type width, size_type height, unsigned mip_levels, resource_flag_t flags);
+	texture(renderer* r, d3d_device_ptr device, const_pointer data, size_type width, size_type height, const filter_args& filter, resource_flag_t flags);
 public:
 	size_type width() const;
 	size_type height() const;
@@ -61,7 +60,7 @@ private:
 	resource_flag_t  _flags;
 	size_type        _width;
 	size_type        _height;
-	unsigned         mip_levels;
+	filter_args      filter;
 	pointer          lock_dest;
 };
 

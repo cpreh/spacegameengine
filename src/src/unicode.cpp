@@ -35,5 +35,5 @@ bool sge::isspace(const uchar_t c)
 bool sge::isprint(const uchar_t c)
 {
 	// FIXME:
-	return std::isprint(wchar_t(c));
+	return std::isprint(wchar_t(c),std::locale());
 }

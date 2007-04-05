@@ -39,7 +39,11 @@ sge::iconv_instance::~iconv_instance()
 std::size_t sge::iconv_instance::convert(const char **inbuf, std::size_t *inbytes, char **outbuf, std::size_t *outbytes)
 {
 	std::size_t bytesread = *inbytes;
+#ifdef _LIBICONV_VERSION
+	const std::size_t result = iconv(conv, inbuf, inbytes, outbuf, outbytes);
+#else
 	const std::size_t result = iconv(conv, const_cast<char**>(inbuf), inbytes, outbuf, outbytes);
+#endif
 	if(result == static_cast<std::size_t>(-1))
 	{
 		switch(errno) {

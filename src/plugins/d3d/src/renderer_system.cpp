@@ -34,7 +34,7 @@ sge::d3d::renderer_system::renderer_system()
 		throw std::runtime_error("Initialization of d3d failed");
 }
 
-void sge::d3d::renderer_system::get_renderer_caps(renderer_caps_array& v) const
+void sge::d3d::renderer_system::caps(renderer_caps_array& v) const
 {
 	const unsigned adapter_count = sys->GetAdapterCount();
 	for(unsigned ad = 0; ad < adapter_count; ++ad)
@@ -45,22 +45,16 @@ void sge::d3d::renderer_system::get_renderer_caps(renderer_caps_array& v) const
 	}
 }
 
-sge::renderer_ptr sge::d3d::renderer_system::create_renderer(const renderer_parameters& param, int adapter)
+sge::renderer_ptr sge::d3d::renderer_system::create_renderer(const renderer_parameters& param, const int adapter, const window_ptr wnd_param)
 {
-	if(adapter == use_best_renderer)
-	{
-		// TODO: search for best renderer
-		adapter = 0;
-	}
-
-	const win32_window_ptr wnd(new win32_window(window::window_size(param.mode.width,param.mode.height)));
+	const win32_window_ptr wnd(wnd_param ? dynamic_pointer_cast<win32_window>(wnd_param) : win32_window_ptr(new win32_window(param.mode.size, !param.windowed)));
 	const DWORD tnl_flags = get_tnl_caps(adapter,sys);
 	D3DPRESENT_PARAMETERS pp = create_present_parameters(param,adapter,wnd,sys);
 
 	ShowCursor(FALSE);
 
 	IDirect3DDevice9* device;
-	if(sys->CreateDevice(adapter,D3DDEVTYPE_HAL,wnd->get_hwnd(),tnl_flags,&pp,&device) != D3D_OK)
+	if(sys->CreateDevice(adapter,D3DDEVTYPE_HAL,wnd->hwnd(),tnl_flags,&pp,&device) != D3D_OK)
 		throw std::runtime_error("Failed to initialize the renderer");
 
 	const d3d_device_ptr device_p(device);

@@ -103,7 +103,7 @@ void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags, const size_type fir
 		throw std::logic_error("d3d::vertex_buffer::lock() you have to unlock first!");
 	void* p = 0;
 	const DWORD d3dlflags = convert_lock_flags(flags(),lflags);
-	if(buffer->Lock(first * stride(), count * stride(), &p, d3dlflags) != D3D_OK)
+	if(buffer->Lock(static_cast<UINT>(first * stride()), static_cast<UINT>(count * stride()), &p, d3dlflags) != D3D_OK)
 		throw std::runtime_error("Cannot lock d3d vertex buffer!");
 	lock_dest = static_cast<pointer>(p);
 #ifndef SGE_USE_ARGB

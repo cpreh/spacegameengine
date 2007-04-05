@@ -24,8 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include "../../input/input_system.hpp"
 #include "../../input/key_type.hpp"
-
-#include "./di.hpp"
+#include "di.hpp"
 
 namespace sge
 {
@@ -37,7 +36,7 @@ public:
 	virtual void dispatch(input_system::signal_type&) = 0;
 	virtual ~input_device(){}
 protected:
-	input_device(dinput_ptr di, const std::string& name, GUID Guid, HWND wnd);
+	input_device(dinput_ptr di, const string& name, GUID Guid, HWND wnd);
 	void acquire();
 	void poll();
 	void set_data_format(LPCDIDATAFORMAT lpdf);
@@ -48,13 +47,13 @@ protected:
 
 	bool _get_input(input_buffer buf, DWORD& elements);
 	void enum_objects(LPDIENUMDEVICEOBJECTSCALLBACK fun);
-	const std::string& name() const { return _name; }
+	const string& name() const;
 private:
 	void set_cooperative_level(HWND hwnd, DWORD flags);
 	static const DIPROPDWORD  buffer_settings;
 	static const DWORD        coop_level;
 	dinput_device_ptr         device;
-	std::string               _name;
+	string                    _name;
 };
 
 typedef shared_ptr<input_device> input_device_ptr;

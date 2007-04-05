@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D_RENDERER_SYSTEM_HPP_INCLUDED
 
 #include "../../renderer/renderer_system.hpp"
-#include "./d3dinclude.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {
@@ -32,8 +32,8 @@ namespace d3d
 class renderer_system : public sge::renderer_system {
 public:
 	renderer_system();
-	renderer_ptr create_renderer(const renderer_parameters& param, int adapter);
-	void get_renderer_caps(renderer_caps_array& v) const;
+	renderer_ptr create_renderer(const renderer_parameters& param, int adapter, window_ptr);
+	void caps(renderer_caps_array& v) const;
 private:
 	d3d_ptr sys;
 };

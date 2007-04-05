@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D_TEXTURE_BASE_HPP_INCLUDED
 #define SGE_D3D_TEXTURE_BASE_HPP_INCLUDED
 
-#include "./d3dinclude.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {

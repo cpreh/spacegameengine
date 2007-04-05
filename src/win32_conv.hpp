@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WIN32_CONV_HPP_INCLUDED
 
 #include <string>
+#include <sstream>
 #include "windows.hpp"
 #include "string.hpp"
 
@@ -31,6 +32,9 @@ namespace sge
 class string;
 
 typedef std::basic_string<TCHAR> win_string;
+typedef std::basic_stringstream<TCHAR> win_stringstream;
+typedef std::basic_ostringstream<TCHAR> win_ostringstream;
+typedef std::basic_istringstream<TCHAR> win_istringstream;
 
 win_string sge_str_to_win(const string&);
 string win_str_to_sge(const win_string&);

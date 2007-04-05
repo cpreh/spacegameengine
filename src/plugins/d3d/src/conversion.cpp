@@ -222,7 +222,7 @@ template<> DWORD sge::d3d::convert_cast (const stage_arg_value& r)
 	}
 }
 
-template<> D3DSAMPLERSTATETYPE sge::d3d::convert_cast (const filter_arg& r)
+/*template<> D3DSAMPLERSTATETYPE sge::d3d::convert_cast (const filter_arg& r)
 {
 	switch(r) {
 	case FARG_MinFilter:
@@ -234,18 +234,18 @@ template<> D3DSAMPLERSTATETYPE sge::d3d::convert_cast (const filter_arg& r)
 	default:
 		throw std::logic_error("invalid filter_arg");
 	}
-}
+}*/
 
-template<> D3DTEXTUREFILTERTYPE sge::d3d::convert_cast (const filter_arg_value& r)
+template<> D3DTEXTUREFILTERTYPE sge::d3d::convert_cast (const filter_value& r)
 {
 	switch(r) {
-	case FARGV_None:
-		return D3DTEXF_NONE;
-	case FARGV_Point:
+	//case FARGV_None:
+	//	return D3DTEXF_NONE;
+	case FV_Point:
 		return D3DTEXF_POINT;
-	case FARGV_Linear:
+	case FV_Linear:
 		return D3DTEXF_LINEAR;
-	case FARGV_Anisotropic:
+	case FV_Anisotropic:
 		return D3DTEXF_ANISOTROPIC;
 	default:
 		throw std::logic_error("invalid filter_arg_value");

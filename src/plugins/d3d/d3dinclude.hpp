@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../shared_ptr.hpp"
 
-#define WIN32_LEAN_AND_MEAN
+#include "../../windows.hpp"
 #include <d3d9.h>
 
 namespace sge

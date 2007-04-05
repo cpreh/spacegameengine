@@ -30,9 +30,8 @@ const DIPROPDWORD sge::dinput::input_device::buffer_settings = {
 	DIPH_DEVICE,
 	buffer_size
 };
-const std::size_t sge::dinput::input_device::buffer_size;
 
-sge::dinput::input_device::input_device(const dinput_ptr di, const std::string& _name, const GUID guid, const HWND wnd)
+sge::dinput::input_device::input_device(const dinput_ptr di, const string& _name, const GUID guid, const HWND wnd)
 : _name(_name)
 {
 	direct_input_device* d;
@@ -107,3 +106,12 @@ void sge::dinput::input_device::enum_objects(LPDIENUMDEVICEOBJECTSCALLBACK fun)
 	if(device->EnumObjects(fun,this,DIDFT_ALL) != DI_OK)
 		throw std::runtime_error("enumerating objects failed");
 }
+
+const sge::string& sge::dinput::input_device::name() const
+{
+	return _name;
+}
+
+#ifndef _MSC_VER
+const std::size_t sge::dinput::input_device::buffer_size;
+#endif

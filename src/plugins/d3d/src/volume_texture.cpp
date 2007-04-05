@@ -38,7 +38,7 @@ void sge::d3d::volume_texture::init()
 	const D3DFORMAT format = D3DFMT_A8R8G8B8;
 
 	IDirect3DVolumeTexture9* ptex;
-	if(device->CreateVolumeTexture(width(),height(),depth(),1,usage,format,pool,&ptex,0) != D3D_OK)
+	if(device->CreateVolumeTexture(static_cast<UINT>(width()),static_cast<UINT>(height()),static_cast<UINT>(depth()),1,usage,format,pool,&ptex,0) != D3D_OK)
 		throw std::runtime_error("failed to create texture");
 	tex.reset(ptex);
 	set_base(tex.get());
@@ -59,7 +59,7 @@ void sge::d3d::volume_texture::lock(const lock_box* const b)
 	else
 	{
 		IDirect3DVolumeTexture9* temp;
-		if(device->CreateVolumeTexture(width(),height(),depth(),1,0,D3DFMT_A8R8G8B8,D3DPOOL_SYSTEMMEM,&temp,0) != D3D_OK)
+		if(device->CreateVolumeTexture(static_cast<UINT>(width()),static_cast<UINT>(height()),static_cast<UINT>(depth()),1,0,D3DFMT_A8R8G8B8,D3DPOOL_SYSTEMMEM,&temp,0) != D3D_OK)
 			throw std::runtime_error("creating temp texture failed");
 		temp_tex.reset(temp);
 		D3DLOCKED_BOX lb;

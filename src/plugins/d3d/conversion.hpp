@@ -23,8 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../renderer/types.hpp"
 #include "../../renderer/renderer_system.hpp"
-
-#include "./d3dinclude.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {
@@ -41,8 +40,8 @@ template<> D3DTEXTURESTAGESTATETYPE convert_cast (const stage_op& r);
 template<> D3DTEXTURESTAGESTATETYPE convert_cast (const stage_arg& r);
 template<> DWORD convert_cast (const stage_op_value& r);
 template<> DWORD convert_cast (const stage_arg_value& r);
-template<> D3DSAMPLERSTATETYPE convert_cast (const filter_arg& r);
-template<> D3DTEXTUREFILTERTYPE convert_cast (const filter_arg_value& r);
+//template<> D3DSAMPLERSTATETYPE convert_cast (const filter_arg& r);
+template<> D3DTEXTUREFILTERTYPE convert_cast (const filter_value& r);
 DWORD convert_lock_flags(lock_flag_t LF, resource_flag_t RF);
 
 }

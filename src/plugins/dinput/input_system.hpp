@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <map>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include "../../input/input_system.hpp"
-#include "./key_converter.hpp"
-#include "./input_device.hpp"
-#include "./di.hpp"
 #include "../../win32_window.hpp"
+#include "key_converter.hpp"
+#include "input_device.hpp"
+#include "di.hpp"
 
 namespace sge
 {

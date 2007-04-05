@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D_RENDER_TARGET_HPP_INCLUDED
 
 #include "../../renderer/render_target.hpp"
-#include "./resource.hpp"
-
-#include "./d3dinclude.hpp"
+#include "resource.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {
@@ -40,7 +39,7 @@ public:
 	size_type width() const;
 	size_type height() const;
 	size_type size() const;
-	resource_flag_t flags() const;
+	void copy_data(pointer);
 private:
 	void on_loss();
 	void on_reset();

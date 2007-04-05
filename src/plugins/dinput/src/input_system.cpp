@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <stdexcept>
-#include "../../../ptr_cast.hpp"
 #include "../input_system.hpp"
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
 #include "../../../win32_window.hpp"
+#include "../../../win32_conv.hpp"
 
 sge::dinput::input_system::input_system(const win32_window_ptr wnd)
  : wnd(wnd)
@@ -60,12 +60,14 @@ BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi
 	input_system& sys = *static_cast<input_system*>(s);
 	const unsigned char dev_type = static_cast<unsigned char>(ddi->dwDevType & 0xFF);
 
+	const string product_name = win_str_to_sge(ddi->tszProductName);
+
 	switch(dev_type) {
 	case DI8DEVTYPE_KEYBOARD:
-		sys.devices.push_back(new keyboard(sys.di, ddi->tszProductName, ddi->guidInstance, sys.wnd->hwnd(), sys.key_conv));
+		sys.devices.push_back(new keyboard(sys.di, product_name, ddi->guidInstance, sys.wnd->hwnd(), sys.key_conv));
 		break;
 	case DI8DEVTYPE_MOUSE:
-		sys.devices.push_back(new mouse(sys.di, ddi->tszProductName, ddi->guidInstance, sys.wnd->hwnd()));
+		sys.devices.push_back(new mouse(sys.di, product_name, ddi->guidInstance, sys.wnd->hwnd()));
 		break;
 	/*
 	case DI8DEVTYPE_JOYSTICK:
