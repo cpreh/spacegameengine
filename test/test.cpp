@@ -170,7 +170,7 @@ try
 		spr.rotation(angle);
 
 		rend->begin_rendering();
-		is->dispatch();
+		rend->get_window()->dispatch();
 		ss.transform(sge::math::matrix_translation(translation));
 		ss.render();
 		man.process();
@@ -188,14 +188,15 @@ try
 		rend->end_rendering();
 		++fps;
 	}
+	return EXIT_SUCCESS;
 }
 catch(const std::exception& e)
 {
 	std::cerr << "Program terminated (std::exception caught): " << e.what() << '\n';
-	return -1;
+	return EXIT_FAILURE;
 }
 catch(...)
 {
 	std::cerr << "Program terminated (unknown exception caught)!\n";
-	return -1;
+	return EXIT_FAILURE;
 }

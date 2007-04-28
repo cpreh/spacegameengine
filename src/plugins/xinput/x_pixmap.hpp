@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
-#define SGE_INPUT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_XINPUT_X_PIXMAP_HPP_INCLUDED
+#define SGE_XINPUT_X_PIXMAP_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
-#include <boost/signals/connection.hpp>
-#include <boost/function.hpp>
-#include "../shared_ptr.hpp"
-#include "key_type.hpp"
+#include <X11/Xlib.h>
 
 namespace sge
 {
+namespace xinput
+{
 
-class input_system : boost::noncopyable {
+class x_pixmap : boost::noncopyable {
 public:
-	typedef boost::signal<void (const key_pair&)> signal_type;
-	typedef boost::function<void (const key_pair&)> callback;
-
-	virtual boost::signals::connection register_callback(const callback& c) = 0;
-	virtual ~input_system() {}
+	x_pixmap(Display* dsp, Window wnd);
+	~x_pixmap();
+	Pixmap pixmap() const;
+private:
+	Display* dsp;
+	Pixmap _pixmap;
 };
-typedef shared_ptr<input_system> input_system_ptr;
 
+}
 }
 
 #endif

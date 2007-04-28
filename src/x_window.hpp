@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X_WINDOW_HPP_INCLUDED
 #define SGE_X_WINDOW_HPP_INCLUDED
 
+#include <boost/function.hpp>
+#include <boost/signals.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 #include "window.hpp"
 #include <X11/Xlib.h>
 #include <GL/glx.h>
@@ -30,7 +33,12 @@ namespace sge
 
 class x_window : public window {
 public:
-	x_window(Display* dsp, int screen, Window wnd);
+	typedef int x11_event_type;
+	typedef long x11_event_mask_type;
+	typedef boost::function<void(const XEvent&)> x11_callback_type;
+	typedef boost::signal<void(const XEvent&)> x11_signal_type;
+
+	//x_window(Display* dsp, int screen, Window wnd);
 	x_window(window_pos pos, window_size sz, const string& title, Display* dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
 	~x_window();
 
@@ -42,11 +50,20 @@ public:
 	Window get_window() const;
 	int screen() const;
 	Display* display() const;
+
+	boost::signals::connection register_callback(x11_event_type, x11_callback_type);
+	void dispatch(); // FIXME: make this global
 private:
+	void add_event_mask(x11_event_type);
+
 	Display* dsp;
 	int _screen;
 	Window wnd;
 	bool _fullscreen;
+	x11_event_mask_type event_mask;
+
+	typedef boost::ptr_map<x11_event_type, x11_signal_type> signal_map;
+	signal_map signals;
 };
 
 typedef shared_ptr<x_window> x_window_ptr;

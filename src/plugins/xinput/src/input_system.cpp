@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <boost/array.hpp>
+#include <boost/bind.hpp>
 #include "../../../input/key_type.hpp"
 #include "../../../util.hpp"
 #include "../input_system.hpp"
@@ -31,13 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
  : wnd(wnd),
-   mmap(XGetModifierMapping(wnd->display())),
-   colormap(DefaultColormap(wnd->display(),wnd->screen())),
-   mmwidth(mmap->max_keypermod),
+   colormap(DefaultColormap(wnd->display(), wnd->screen())),
    mouse_last(),
-   _black(wnd->display(),colormap),
-   _no_bmp(wnd->display()),
-   _no_cursor(wnd->display()),
+   _black(wnd->display(), colormap),
+   _no_bmp(wnd->display(), wnd->get_window()),
+   _no_cursor(wnd->display(), _no_bmp.pixmap(), _black.color()),
 #ifdef USE_DGA
    dga_guard(wnd),
    use_dga(true)
@@ -51,7 +51,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 		throw std::runtime_error("XF86DGAQueryDirectVideo() failed");
 	if(flags & XF86DGADirectMouse)
 	{
-		std::cerr << "You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system! Disabling dga.";
+		std::cerr << "You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system! Maybe you are missing libXxf86dga or a proper video driver? Disabling dga.";
 		use_dga = false;
 	}
 #endif
@@ -70,26 +70,13 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 		mouse_last.y() = win_y_return;
 	}
 	
-	XSetWindowAttributes swa;
-	swa.event_mask = KeyPressMask | KeyReleaseMask | PointerMotionMask | EnterWindowMask | LeaveWindowMask | ResizeRedirectMask;
-	XChangeWindowAttributes(wnd->display(), wnd->get_window(), CWEventMask, &swa);
-
-	XColor black, dummy;
-	if(XAllocNamedColor(wnd->display(), colormap, "black", &black, &dummy ) == 0)
-		throw std::runtime_error("XAllocNamedColor() failed");
-	_black.color = black;
-	_black.dealloc = true;
-
-	const char bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
-	_no_bmp.pixmap = XCreateBitmapFromData(wnd->display(), wnd->get_window(), bm_no_data, 8, 8);
-	if(_no_bmp.pixmap == None)
-		throw std::runtime_error("XCreateBitmapFromData() failed");
-	_no_cursor.cursor = XCreatePixmapCursor(wnd->display(), _no_bmp.pixmap, _no_bmp.pixmap, &black, &black, 0, 0);
-	if(_no_cursor.cursor == None)
-		throw std::runtime_error("XCreatePixmapCursor() failed");
-
-	grab();
-	enable_dga(true);
+	wnd->register_callback(KeyPress, boost::bind(&input_system::on_key_event, this, _1));
+	wnd->register_callback(KeyRelease, boost::bind(&input_system::on_key_event, this, _1));
+	wnd->register_callback(ButtonPress, boost::bind(&input_system::on_button_event, this, _1));
+	wnd->register_callback(ButtonRelease, boost::bind(&input_system::on_button_event, this, _1));
+	wnd->register_callback(MotionNotify, boost::bind(&input_system::on_motion_event, this, _1));
+	wnd->register_callback(EnterNotify, boost::bind(&input_system::on_acquire, this, _1));
+	wnd->register_callback(LeaveNotify, boost::bind(&input_system::on_release, this, _1));
 
 	x11tosge[NoSymbol] = KC_None;
 	x11tosge[XK_BackSpace] = KC_BACK;
@@ -255,7 +242,7 @@ void sge::xinput::input_system::grab()
 void sge::xinput::input_system::grab_pointer()
 {
 	for(;;)
-		if(handle_grab(XGrabPointer(wnd->display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor, CurrentTime)))
+		if(handle_grab(XGrabPointer(wnd->display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor(), CurrentTime)))
 			return;
 }
 
@@ -285,70 +272,62 @@ bool sge::xinput::input_system::handle_grab(const int r) const
 	return false;
 }
 
-void sge::xinput::input_system::dispatch()
+void sge::xinput::input_system::on_motion_event(const XEvent& xev)
 {
-	XEvent xev;
-	while(XPending(wnd->display()))
+	if(use_dga)
+		dga_motion(xev);
+	else
+		warped_motion(xev);
+}
+
+void sge::xinput::input_system::on_key_event(const XEvent& xev)
+{
+	// check for repeated key (thanks to SDL)
+	if(xev.type == KeyRelease
+	   && xev.type == KeyRelease && XPending(wnd->display()))
 	{
-		XNextEvent(wnd->display(),&xev);
-		if(XFilterEvent(&xev,None))
-			continue;
-
-		switch(xev.type) {
-		case KeyRelease:
-			// check for repeated key (thanks to SDL)
-			if(xev.type == KeyRelease && XPending(wnd->display()))
-			{
-				XEvent peek;
-				XPeekEvent(wnd->display(), &peek);
-				if(peek.type == KeyPress &&
-				   peek.xkey.keycode == xev.xkey.keycode &&
-				   (peek.xkey.time - xev.xkey.time) < 2)
-				{
-					XNextEvent(wnd->display(), &peek);
-					continue;
-				}
-			}
-		case KeyPress:
-			{
-			XComposeStatus state;
-			KeySym ks;
-			char keybuf[32];
-
-			const int num_chars = XLookupString(reinterpret_cast<XKeyEvent*>(&xev),keybuf,sizeof(keybuf),&ks,&state);
-			const char code = keybuf[0];
-
-			if(num_chars > 1)
-			{
-				std::cerr << "stub: character '" << keybuf << "' in XLookupString has " << num_chars << " bytes!\n";
-				continue;
-			}
-			
-			sig(key_pair(key_type(get_key_name(ks), get_key_code(ks), static_cast<unsigned char>(code)), xev.type == KeyRelease ? 0 : 1));
-			break;
-			}
-		case ButtonPress:
-		case ButtonRelease:
-			sig(key_pair(mouse_key(xev.xbutton.button), xev.type == ButtonRelease ? 0 : 1));
-			break;
-		case MotionNotify:
-			if(use_dga)
-				dga_motion(xev);
-			else
-				warped_motion(xev);
-			break;
-		case LeaveNotify:
-			enable_dga(false);
-			XUngrabPointer(wnd->display(), CurrentTime);
-			break;
-		case EnterNotify:
-			grab_pointer();
-			enable_dga(true);
-			break;
-		case ResizeRequest:
-			break;
+		XEvent peek;
+		XPeekEvent(wnd->display(), &peek);
+		if(peek.type == KeyPress &&
+		   peek.xkey.keycode == xev.xkey.keycode &&
+		   (peek.xkey.time - xev.xkey.time) < 2)
+		{
+			XNextEvent(wnd->display(), &peek);
+			return;
 		}
 	}
+	
+	XComposeStatus state;
+	KeySym ks;
+	boost::array<char,32> keybuf;
+
+	const int num_chars = XLookupString(const_cast<XKeyEvent*>(reinterpret_cast<const XKeyEvent*>(&xev)), keybuf.c_array(), keybuf.size(), &ks, &state);
+	const char code = keybuf[0];
+
+	if(num_chars > 1)
+	{
+		std::cerr << "stub: character '" << code << "' in XLookupString has " << num_chars << " bytes!\n";
+		return;
+	}
+
+	sig(key_pair(key_type(get_key_name(ks), get_key_code(ks), static_cast<unsigned char>(code)), xev.type == KeyRelease ? 0 : 1));
+}
+
+void sge::xinput::input_system::on_button_event(const XEvent& xev)
+{
+	sig(key_pair(mouse_key(xev.xbutton.button), xev.type == ButtonRelease ? 0 : 1));
+}
+
+void sge::xinput::input_system::on_release(const XEvent&)
+{
+	enable_dga(false);
+	XUngrabPointer(wnd->display(), CurrentTime);
+}
+
+void sge::xinput::input_system::on_acquire(const XEvent&)
+{
+	grab_pointer();
+	enable_dga(true);
 }
 
 void sge::xinput::input_system::enable_dga(const bool 
@@ -360,8 +339,7 @@ void sge::xinput::input_system::enable_dga(const bool
 #ifdef USE_DGA
 	if(!use_dga)
 		return;
-	XF86DGADirectVideo(wnd->display(), wnd->screen(), enable ? XF86DGADirectMouse : 0);
-	dga_guard.enabled = enable;
+	_dga_guard.enable(enable);
 #endif
 }
 
@@ -399,7 +377,7 @@ void sge::xinput::input_system::private_mouse_motion(const mouse_coordinate_t de
 		sig(key_pair(key_type("MouseY", KC_MOUSEY, 0), space_unit(deltay) / wnd->height()));
 }
 
-void sge::xinput::input_system::dga_motion(XEvent& xevent)
+void sge::xinput::input_system::dga_motion(XEvent xevent)
 {
 	mouse_coordinate_t dx = xevent.xmotion.x_root,
 	                   dy = xevent.xmotion.y_root;
@@ -414,7 +392,7 @@ void sge::xinput::input_system::dga_motion(XEvent& xevent)
 }
 
 // thanks to SDL
-void sge::xinput::input_system::warped_motion(XEvent& xevent)
+void sge::xinput::input_system::warped_motion(XEvent xevent)
 {
 	const mouse_coordinate_t MOUSE_FUDGE_FACTOR = 8;
 

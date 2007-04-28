@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
-#define SGE_INPUT_SYSTEM_HPP_INCLUDED
+#include "../dga.hpp"
+#include <X11/extensions/xf86dga.h>
 
-#include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
-#include <boost/signals/connection.hpp>
-#include <boost/function.hpp>
-#include "../shared_ptr.hpp"
-#include "key_type.hpp"
-
-namespace sge
+sge::xinput::dga_guard::dga_guard(Display* const dsp, const int screen)
+ : dsp(dsp),
+   screen(screen),
+   enabled(false)
 {
-
-class input_system : boost::noncopyable {
-public:
-	typedef boost::signal<void (const key_pair&)> signal_type;
-	typedef boost::function<void (const key_pair&)> callback;
-
-	virtual boost::signals::connection register_callback(const callback& c) = 0;
-	virtual ~input_system() {}
-};
-typedef shared_ptr<input_system> input_system_ptr;
-
+	enable(true);
 }
 
-#endif
+sge::xinput::dga_guard::~dga_guard()
+{
+	enable(false);
+}
+
+void sge::xinput::dga_guard::enable(const bool b)
+{
+	if(enabled == b)
+		return;
+
+	XF86DGADirectVideo(dsp, screen, b ? XF86DGADirectMouse : 0);
+
+	enabled = b;
+}

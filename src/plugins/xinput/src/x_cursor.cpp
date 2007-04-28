@@ -18,29 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
-#define SGE_INPUT_SYSTEM_HPP_INCLUDED
+#include <stdexcept>
+#include "../x_cursor.hpp"
 
-#include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
-#include <boost/signals/connection.hpp>
-#include <boost/function.hpp>
-#include "../shared_ptr.hpp"
-#include "key_type.hpp"
-
-namespace sge
+sge::xinput::x_cursor::x_cursor(Display* const dsp, Pixmap pixmap, XColor color)
+ : dsp(dsp),
+   _cursor(XCreatePixmapCursor(dsp, pixmap, pixmap, &color, &color, 0, 0))
 {
-
-class input_system : boost::noncopyable {
-public:
-	typedef boost::signal<void (const key_pair&)> signal_type;
-	typedef boost::function<void (const key_pair&)> callback;
-
-	virtual boost::signals::connection register_callback(const callback& c) = 0;
-	virtual ~input_system() {}
-};
-typedef shared_ptr<input_system> input_system_ptr;
-
+	if(cursor() == None)
+		throw std::runtime_error("XCreatePixmapCursor() failed");
 }
 
-#endif
+sge::xinput::x_cursor::~x_cursor()
+{
+	XFreeCursor(dsp, cursor());
+}
+
+Cursor sge::xinput::x_cursor::cursor() const
+{
+	return _cursor;
+}

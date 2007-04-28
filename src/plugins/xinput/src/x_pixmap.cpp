@@ -18,29 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
-#define SGE_INPUT_SYSTEM_HPP_INCLUDED
+#include <stdexcept>
+#include "../x_pixmap.hpp"
 
-#include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
-#include <boost/signals/connection.hpp>
-#include <boost/function.hpp>
-#include "../shared_ptr.hpp"
-#include "key_type.hpp"
+const char bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
 
-namespace sge
+sge::xinput::x_pixmap::x_pixmap(Display* const dsp, const Window wnd)
+ : dsp(dsp),
+   _pixmap(XCreateBitmapFromData(dsp, wnd, bm_no_data, 8, 8))
 {
-
-class input_system : boost::noncopyable {
-public:
-	typedef boost::signal<void (const key_pair&)> signal_type;
-	typedef boost::function<void (const key_pair&)> callback;
-
-	virtual boost::signals::connection register_callback(const callback& c) = 0;
-	virtual ~input_system() {}
-};
-typedef shared_ptr<input_system> input_system_ptr;
-
+	if(pixmap() == None)
+		throw std::runtime_error("XCreateBitmapFromData() failed");
 }
 
-#endif
+sge::xinput::x_pixmap::~x_pixmap()
+{
+	XFreePixmap(dsp, pixmap());
+}
+
+Pixmap sge::xinput::x_pixmap::pixmap() const
+{
+	return _pixmap;
+}

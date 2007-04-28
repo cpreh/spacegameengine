@@ -21,20 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
 
+#include <stdexcept>
+#include <boost/assign.hpp>
 #include "../iconv.hpp"
 #include "../x_window.hpp"
 
-sge::x_window::x_window(Display* const dsp, const int _screen, const Window wnd)
+/*sge::x_window::x_window(Display* const dsp, const int _screen, const Window wnd)
  : dsp(dsp),
    _screen(_screen),
    wnd(wnd)
-{}
+{}*/
 
 sge::x_window::x_window(const window_pos pos, const window_size sz, const string& t, Display* const dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
  : dsp(dsp),
    _screen(vi.screen),
    wnd(XCreateWindow(dsp, RootWindow(dsp, screen()), pos.x(), pos.y(), sz.w(), sz.h(), 0, vi.depth, InputOutput, vi.visual, CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask, const_cast<XSetWindowAttributes*>(&attr))),
-   _fullscreen(attr.override_redirect)
+   _fullscreen(attr.override_redirect),
+   event_mask(0)
 {
 	title(t);
 }
@@ -86,6 +89,51 @@ int sge::x_window::screen() const
 Display* sge::x_window::display() const
 {
 	return dsp;
+}
+
+boost::signals::connection sge::x_window::register_callback(const x11_event_type event, const x11_callback_type callback)
+{
+	add_event_mask(event);
+	return signals[event].connect(callback);
+}
+
+void sge::x_window::dispatch()
+{
+	XEvent xev;
+	while(XPending(display()))
+	{
+		XNextEvent(display(), &xev);
+		if(XFilterEvent(&xev, None))
+			continue;
+		signals[xev.type](xev);
+	}
+}
+
+typedef std::map<sge::x_window::x11_event_type, sge::x_window::x11_event_mask_type> mask_map;
+
+const mask_map masks =
+boost::assign::map_list_of(KeyPress, KeyPressMask)
+                          (KeyRelease, KeyReleaseMask)
+                          (ButtonPress, KeyPressMask)
+                          (ButtonRelease, KeyReleaseMask)
+                          (MotionNotify, PointerMotionMask)
+                          (EnterNotify, EnterWindowMask)
+                          (LeaveNotify, LeaveWindowMask);
+
+void sge::x_window::add_event_mask(const x11_event_type event)
+{
+	const mask_map::const_iterator it = masks.find(event);
+	if(it == masks.end())
+		throw std::logic_error("X11 event mask mapping is missing!");
+
+	const x11_event_mask_type mask = it->second;
+	if(!(event_mask & mask))
+	{
+		event_mask |= mask;
+		XSetWindowAttributes swa;
+		swa.event_mask = event_mask;
+		XChangeWindowAttributes(dsp, wnd, CWEventMask, &swa);
+	}
 }
 
 #endif

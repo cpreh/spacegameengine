@@ -43,6 +43,7 @@ public:
 	size_type height() const;
 	virtual void size(window_size newsize) = 0;
 	virtual bool fullscreen() const = 0;
+	virtual void dispatch() = 0; // TODO: make global
 	virtual ~window(){}
 };
 

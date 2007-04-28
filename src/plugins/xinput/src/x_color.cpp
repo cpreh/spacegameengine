@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
-#define SGE_INPUT_SYSTEM_HPP_INCLUDED
-
-#include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
-#include <boost/signals/connection.hpp>
-#include <boost/function.hpp>
-#include "../shared_ptr.hpp"
-#include "key_type.hpp"
-
-namespace sge
+#include <stdexcept>
+#include "../x_color.hpp"
+	
+sge::xinput::x_color::x_color(Display* const dsp, Colormap colormap)
+ : dsp(dsp),
+   colormap(colormap)
 {
-
-class input_system : boost::noncopyable {
-public:
-	typedef boost::signal<void (const key_pair&)> signal_type;
-	typedef boost::function<void (const key_pair&)> callback;
-
-	virtual boost::signals::connection register_callback(const callback& c) = 0;
-	virtual ~input_system() {}
-};
-typedef shared_ptr<input_system> input_system_ptr;
-
+	XColor dummy;
+	if(XAllocNamedColor(dsp, colormap, "black", &_color, &dummy ) == 0)
+		throw std::runtime_error("XAllocNamedColor() failed");
 }
 
-#endif
+sge::xinput::x_color::~x_color()
+{
+	XFreeColors(dsp, colormap, &_color.pixel, 1, 0);
+}
+
+XColor sge::xinput::x_color::color() const
+{
+	return _color;
+}

@@ -24,25 +24,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <string>
 #include <map>
+#include <boost/signals/trackable.hpp>
 #include "../../input/input_system.hpp"
 #include "../../x_window.hpp"
 #include "../../math/vector.hpp"
-#include <boost/array.hpp>
-#include <X11/extensions/xf86dga.h>
-
-struct XModifierKeyMap;
+#include "x_color.hpp"
+#include "x_pixmap.hpp"
+#include "x_cursor.hpp"
+#include "dga.hpp"
 
 namespace sge
 {
 namespace xinput
 {
 
-class input_system : public sge::input_system {
+class input_system : public sge::input_system, boost::signals::trackable {
 public:
 	input_system(x_window_ptr wnd);
 	~input_system();
 	boost::signals::connection register_callback(const callback& c);
-	void dispatch();
 private:
 	typedef int mouse_coordinate_t;
 	void grab();
@@ -51,84 +51,36 @@ private:
 	bool handle_grab(int return_value) const;
 	void enable_dga(bool);
 	key_type mouse_key(unsigned x11code) const;
-	void dga_motion(XEvent&);
-	void warped_motion(XEvent&);
+	void dga_motion(XEvent);
+	void warped_motion(XEvent);
 	void private_mouse_motion(mouse_coordinate_t deltax, mouse_coordinate_t deltay);
 
-	signal_type sig;
+	void on_motion_event(const XEvent&);
+	void on_key_event(const XEvent&);
+	void on_button_event(const XEvent&);
+	void on_acquire(const XEvent&);
+	void on_release(const XEvent&);
 
-	static const std::size_t key_array_size = 32;
-	typedef boost::array<char,key_array_size> key_value_array;
+	signal_type sig;
 
 	key_code get_key_code(KeySym ks) const;
 	std::string get_key_name(KeySym ks) const;
 
 	x_window_ptr wnd;
-	XModifierKeymap* mmap;
 	Colormap colormap;
 	unsigned mmwidth;
-
-	key_value_array last_keys;
 
 	math::vector<mouse_coordinate_t,2> mouse_last;
 
 	typedef std::map<unsigned,key_code> x11_to_sge_array;
 	x11_to_sge_array x11tosge;
 
-	struct _x_color {
-		_x_color(Display* dsp, Colormap colormap)
-		 : dsp(dsp), colormap(colormap), dealloc(false) {}
-		~_x_color()
-		{
-			if(dealloc)
-				XFreeColors(dsp, colormap, &color.pixel, 1, 0);
-		}
-		Display* dsp;
-		Colormap colormap;
-		bool dealloc;
-		XColor color;
-	};
-
-	struct _x_pixmap {
-		_x_pixmap(Display* dsp)
-		 : dsp(dsp), pixmap(None) {}
-		~_x_pixmap()
-		{
-			if(pixmap != None)
-				XFreePixmap(dsp, pixmap);
-		}
-		Display* dsp;
-		Pixmap pixmap;
-	};
-
-	struct _x_cursor {
-		_x_cursor(Display* dsp)
-		 : dsp(dsp), cursor(None) {}
-		~_x_cursor()
-		{
-			if(cursor != None)
-				XFreeCursor(dsp, cursor);
-		}
-		Display* dsp;
-		Cursor cursor;
-	};
-
-	_x_color _black;
-	_x_pixmap _no_bmp;
-	_x_cursor _no_cursor;
+	x_color _black;
+	x_pixmap _no_bmp;
+	x_cursor _no_cursor;
 
 #ifdef USE_DGA
-	struct _dga_guard {
-		_dga_guard(const x_window_ptr wnd) : enabled(false), wnd(wnd) {}
-		~_dga_guard()
-		{
-			if(enabled)
-				XF86DGADirectVideo(wnd->display(),wnd->screen(),0);
-		}
-		bool enabled;
-		x_window_ptr wnd;
-	};
-	_dga_guard dga_guard;
+	dga_guard _dga_guard;
 #endif
 	bool use_dga;
 };
