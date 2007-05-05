@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <cstddef>
 #include <functional>
-#include "smart_ptr_policies.hpp"
+#include "heap_deleter.hpp"
 #include "ptr_cast.hpp"
 
 namespace sge

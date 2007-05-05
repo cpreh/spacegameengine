@@ -33,22 +33,17 @@ namespace math
 {
 
 const double PI = M_PI;
-//const double PI_2 = PI / 2;
-//const double PI_3 = PI / 3;
 
-//#define PI_2II6.28318530717958647692
-//#define PI_OVER_2I1.57079632679489661923
-//#define DTORII0.01745329251994329576
 template<typename T>
 inline T deg_to_rad(const T deg)
 {
-	return deg * PI / T(180);
+	return deg * PI / static_cast<T>(180);
 }
 
 template<typename T>
 inline T rad_to_deg(const T rad)
 {
-	return rad * T(180) / PI;
+	return rad * static_cast<T>(180) / PI;
 }
 
 }

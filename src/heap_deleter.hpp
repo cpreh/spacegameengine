@@ -18,37 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_HPP_INCLUDED
-#define SGE_MATH_HPP_INCLUDED
-
-#include <cmath>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/utility/enable_if.hpp>
+#ifndef SGE_HEAP_DELETER_HPP_INCLUDED
+#define SGE_HEAP_DELETER_HPP_INCLUDED
 
 namespace sge
 {
 
-template<typename Base, typename Exp> Base pow_int(const Base base, const Exp e)
-{
-	if(e == 0)
-		return 1;
-	Base ret = base;
-	for(Exp i = 1; i < e; ++i)
-		ret*=base;
-	return ret;
-}
-
-// FIXME: may overflow too easily
-template<typename T>
-typename boost::enable_if<boost::is_integral<T>, T>::type round_div_int(const T  l, const T r)
-{
-	return ((l * 10 / r) + 5) / 10;
-}
-
-template<typename T> T next_pow_2(const T t)
-{
-	return static_cast<T>(std::pow(static_cast<T>(2),std::ceil(std::log(static_cast<double>(t))/std::log(static_cast<T>(2)))));
-}
+template<typename T> struct heap_deleter {
+	void delete_(T* const t)
+	{
+		delete t;
+	}
+protected:
+	~heap_deleter(){}
+};
 
 }
 

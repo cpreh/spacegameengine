@@ -187,7 +187,7 @@ public:
 
 	vector unit() const
 	{
-		return (*this) * (T(1) / length());
+		return (*this) * (static_cast<T>(1) / length());
 	}
 
 	vector& normalize()

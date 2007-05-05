@@ -77,6 +77,8 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	wnd->register_callback(MotionNotify, boost::bind(&input_system::on_motion_event, this, _1));
 	wnd->register_callback(EnterNotify, boost::bind(&input_system::on_acquire, this, _1));
 	wnd->register_callback(LeaveNotify, boost::bind(&input_system::on_release, this, _1));
+	wnd->register_callback(FocusIn, boost::bind(&input_system::on_acquire, this, _1));
+	wnd->register_callback(FocusOut, boost::bind(&input_system::on_release, this, _1));
 
 	x11tosge[NoSymbol] = KC_None;
 	x11tosge[XK_BackSpace] = KC_BACK;
@@ -261,7 +263,6 @@ bool sge::xinput::input_system::handle_grab(const int r) const
 	case GrabFrozen:
 		throw std::runtime_error("x11: Grab frozen!");
 	case GrabNotViewable:
-		throw std::runtime_error("x11: GrabNotViewable");
 	case AlreadyGrabbed:
 		break;
 	case GrabInvalidTime:
@@ -326,7 +327,7 @@ void sge::xinput::input_system::on_release(const XEvent&)
 
 void sge::xinput::input_system::on_acquire(const XEvent&)
 {
-	grab_pointer();
+	grab();
 	enable_dga(true);
 }
 

@@ -118,7 +118,9 @@ boost::assign::map_list_of(KeyPress, KeyPressMask)
                           (ButtonRelease, KeyReleaseMask)
                           (MotionNotify, PointerMotionMask)
                           (EnterNotify, EnterWindowMask)
-                          (LeaveNotify, LeaveWindowMask);
+                          (LeaveNotify, LeaveWindowMask)
+                          (FocusIn, FocusChangeMask)
+                          (FocusOut, FocusChangeMask);
 
 void sge::x_window::add_event_mask(const x11_event_type event)
 {

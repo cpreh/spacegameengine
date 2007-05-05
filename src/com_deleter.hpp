@@ -18,20 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SMART_PTR_POLICIES_HPP_INCLUDED
-#define SGE_SMART_PTR_POLICIES_HPP_INCLUDED
+#ifndef SGE_COM_DELETER_HPP_INCLUDED
+#define SGE_COM_DELETER_HPP_INCLUDED
 
 namespace sge
 {
 
-template<typename T> struct heap_deleter {
-	void delete_(T* const t) { delete t; }
-protected:
-	~heap_deleter(){}
-};
-
 template<typename T> struct com_deleter {
-	void delete_(T* const t) { t->Release(); }
+	void delete_(T* const t)
+	{
+		t->Release();
+	}
 protected:
 	~com_deleter(){}
 };
