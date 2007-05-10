@@ -233,6 +233,10 @@ boost::signals::connection sge::xinput::input_system::register_callback(const ca
 	return sig.connect(c);
 }
 
+void sge::xinput::input_system::dispatch()
+{
+}
+
 void sge::xinput::input_system::grab()
 {
 	grab_pointer();

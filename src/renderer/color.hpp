@@ -230,7 +230,7 @@ inline std::ostream& operator<< (std::ostream& os, const color4& col)
 	return os << '(' << col.r << ',' << col.g << ',' << col.b << ',' << col.a << ')';
 }
 
-inline bool operator==(const color4& l, const color4& r)
+/*inline bool operator==(const color4& l, const color4& r)
 {
 	return l.a == r.a && l.r == r.r && l.g == r.g && l.b == r.b;
 }
@@ -238,7 +238,7 @@ inline bool operator==(const color4& l, const color4& r)
 inline bool operator!=(const color4& l, const color4& r)
 {
 	return !(l==r);
-}
+}*/
 
 inline color4 color_to_color4(const color c)
 {

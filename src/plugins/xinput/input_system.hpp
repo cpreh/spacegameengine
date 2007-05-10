@@ -43,6 +43,7 @@ public:
 	input_system(x_window_ptr wnd);
 	~input_system();
 	boost::signals::connection register_callback(const callback& c);
+	void dispatch();
 private:
 	typedef int mouse_coordinate_t;
 	void grab();

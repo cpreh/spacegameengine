@@ -174,7 +174,7 @@ inline typename boost::enable_if_c<N1==M2, matrix<T,N1,M2> >::type operator* (co
 	return ret;
 }
 
-template<typename T, std::size_t N, std::size_t M>
+/*template<typename T, std::size_t N, std::size_t M>
 inline bool operator== (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
 {
 	for(typename matrix<T,N,M>::size_type x = 0; x < matrix<T,N,M>::Dim; ++x)
@@ -187,7 +187,7 @@ template<typename T, std::size_t N, std::size_t M>
 inline bool operator!= (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
 {
 	return !(l==r);
-}
+}*/
 
 template<typename T, std::size_t N, std::size_t M>
 inline std::ostream& operator<< (std::ostream& s, const matrix<T,N,M>& m)
@@ -306,10 +306,6 @@ inline space_matrix matrix_identity()
 
 inline space_matrix matrix_orthogonal_xy(const space_unit left, const space_unit right, const space_unit top, const space_unit bottom, const space_unit near, const space_unit far)
 {
-	assert(left != right &&
-	       top != bottom &&
-	       far != near);
-
 	return space_matrix
 	       (2/(right - left), 0, 0, -(right+left)/(right-left),
 	        0, 2/(top - bottom), 0, -(top+bottom)/(top-bottom),

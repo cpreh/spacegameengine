@@ -18,6 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sstream>
+#include <cstdlib>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/if.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/lexical_cast.hpp>
 #include "../src/math/constants.hpp"
 #include "../src/plugin_manager.hpp"
 #include "../src/renderer/lock_ptr.hpp"
@@ -40,15 +46,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/line_strip.hpp"
 #include "../src/renderer/screenshot.hpp"
 #include "../src/language.hpp"
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/if.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <sstream>
-#include <iostream>
 
+namespace
+{
 sge::pos3 rand_point() { return sge::pos3(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX), 0); }
 
 sge::math::vector2 rand_point2() { return sge::math::vector2(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
+}
 
 int main()
 try
@@ -67,7 +71,7 @@ try
 		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
 	}*/
 
-	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), true);
+	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), false);
 	sge::renderer_ptr rend = rs->create_renderer(param);
 	sge::image_loader_ptr pl = pm.get_plugin<sge::image_loader>();
 	sge::font_system_ptr fs = pm.get_plugin<sge::font_system>();
@@ -113,12 +117,8 @@ try
 	list1.push_back("BAR");
 	list1.push_back("ROFL!");
 
-	for(int i = 0; i < 20; ++i)
-	{
-		std::ostringstream os;
-		os << "jgAB" << i;
-		list1.push_back(os.str());
-	}
+	for(unsigned i = 0; i < 20; ++i)
+		list1.push_back(std::string("jgAB") + boost::lexical_cast<std::string>(i));
 
 	sge::gui::static_text st(man, &fr1, "hellothere,i'mamultiline dstatic_text", sge::gui::point(0.5,0.8), sge::gui::dim(0.3,0.1), sge::colors::red);
 	
@@ -154,14 +154,10 @@ try
 			cur_fps = fps;
 			fps = 0;
 		}
-		if(ks[sge::KC_LEFT])
-			translation.x() -= 0.001;
-		if(ks[sge::KC_RIGHT])
-			translation.x() += 0.001;
-		if(ks[sge::KC_UP])
-			translation.y() -= 0.001;
-		if(ks[sge::KC_DOWN])
-			translation.y() += 0.001;
+		translation.x() -= ks[sge::KC_LEFT] * 0.001;
+		translation.x() += ks[sge::KC_RIGHT] * 0.001;
+		translation.y() -= ks[sge::KC_UP] * 0.001;
+		translation.y() += ks[sge::KC_DOWN] * 0.001;
 		if(ks[sge::KC_RETURN])
 			sge::screenshot(rend,pl,"./shot.png");
 		if(timer.update())
@@ -171,6 +167,7 @@ try
 
 		rend->begin_rendering();
 		rend->get_window()->dispatch();
+		is->dispatch();
 		ss.transform(sge::math::matrix_translation(translation));
 		ss.render();
 		man.process();
@@ -180,10 +177,8 @@ try
 		fn.height_pixel_scale(1);
 		fn.height(0.05);
 		fn.draw_text(some_text,sge::font_pos(0.2,0.2),sge::font_size(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
-		std::ostringstream os;
-		os << cur_fps;
 		fn.transform(sge::math::matrix_identity());
-		fn.draw_text(os.str(),sge::font_pos(0.1,0),sge::font_size(1,1),sge::colors::purple);
+		fn.draw_text(boost::lexical_cast<std::string>(cur_fps),sge::font_pos(0.1,0),sge::font_size(1,1),sge::colors::purple);
 		ls.render();
 		rend->end_rendering();
 		++fps;

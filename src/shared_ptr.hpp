@@ -48,22 +48,24 @@ public:
 	typedef const T* const_pointer;
 	
 	shared_ptr()
-	 : ptr(0), counter(new detail::shared_counter_type(1)) {}
+	 : ptr(0),
+	   counter(new detail::shared_counter_type(1)) {}
 
 	explicit shared_ptr(const pointer p)
-	 : ptr(p), counter(new detail::shared_counter_type(1)) {}
+	 : ptr(p),
+	   counter(new detail::shared_counter_type(1)) {}
 
 	shared_ptr(const shared_ptr& r) { _assign(r); }
 	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r) { _assign(r); }
 	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r, detail::dynamic_cast_tag)
+	 : ptr(ptr_cast<pointer>(r.get()))
 	{
 		_copy_counter(r.counter);
-		ptr = ptr_cast<pointer>(r.get());
 	}
 	template<typename Other> shared_ptr(const shared_ptr<Other,Deleter>& r, detail::static_cast_tag)
+	 : ptr(static_cast<pointer>(r.get()))
 	{
 		_copy_counter(r.counter);
-		ptr = static_cast<pointer>(r.get());
 	}
 
 		

@@ -5,7 +5,7 @@ prefix = ARGUMENTS.get('prefix', '.')
 libdir = ARGUMENTS.get('libdir', 'lib')
 env_flags = ARGUMENTS.get('cxxflags', '')
 
-flags = '-Wall -Wextra -ansi -pedantic ' + env_flags
+flags = '-Wall -Wextra -Wconversion -ansi -pedantic ' + env_flags
 if ARGUMENTS.get('enable-debug','0') == '1':
 	flags += ' -g -ggdb'
 

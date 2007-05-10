@@ -24,11 +24,9 @@ namespace detail {
 
 template<typename T> struct no_window_plugin : boost::false_type {
 	typedef T* (*plugin_function)();
-	//enum { needs_window = false };
 };
 template<typename T> struct window_plugin : boost::true_type {
 	typedef T* (*plugin_function)(window_ptr);
-	//enum { needs_window = true };
 };
 
 template<typename T> struct plugin_traits;

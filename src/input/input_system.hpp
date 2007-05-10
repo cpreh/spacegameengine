@@ -37,6 +37,7 @@ public:
 	typedef boost::function<void (const key_pair&)> callback;
 
 	virtual boost::signals::connection register_callback(const callback& c) = 0;
+	virtual void dispatch() = 0;
 	virtual ~input_system() {}
 };
 typedef shared_ptr<input_system> input_system_ptr;

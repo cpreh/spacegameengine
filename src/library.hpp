@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBRARY_HPP_INCLUDED
 #define SGE_LIBRARY_HPP_INCLUDED
 
+#include <boost/noncopyable.hpp>
 #include "string.hpp"
 #include "types.hpp"
 
@@ -33,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-class library {
+class library : boost::noncopyable {
 private:
 #ifdef SGE_WINDOWS_PLATFORM
 	HMODULE handle;

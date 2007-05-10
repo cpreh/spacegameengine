@@ -155,7 +155,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 			   refresh_rate  > param.mode.refresh_rate &&
 			   (best == -1 || refresh_rate >= xf86_vidmode_array::refresh_rate((*modes)[best])))
 			
-				best = static_cast<int>(i);
+			best = static_cast<int>(i);
 		}
 	
 		if(best != -1)
@@ -169,7 +169,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 		else
 		{
 			std::cerr << "Warning: No resolution matches against " << param.mode << "! Falling back to window mode!\n";
-			windowed = false;
+			windowed = true;
 		}
 	}
 
