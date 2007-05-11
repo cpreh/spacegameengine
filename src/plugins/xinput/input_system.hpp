@@ -31,7 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "x_color.hpp"
 #include "x_pixmap.hpp"
 #include "x_cursor.hpp"
+#ifdef USE_DGA
 #include "dga.hpp"
+#endif
 
 namespace sge
 {

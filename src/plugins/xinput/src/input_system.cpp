@@ -39,7 +39,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
    _no_bmp(wnd->display(), wnd->get_window()),
    _no_cursor(wnd->display(), _no_bmp.pixmap(), _black.color()),
 #ifdef USE_DGA
-   dga_guard(wnd),
+   _dga_guard(wnd->display(), wnd->screen()),
    use_dga(true)
 #else
    use_dga(false)
