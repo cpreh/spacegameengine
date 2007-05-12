@@ -327,14 +327,19 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	case PT_Line:
 	case PT_Triangle:
 		set_index_buffer(ib);
-		glDrawElements(prim_type, num_indices(ptype,pcount), GL_UNSIGNED_SHORT, vbo_offset(first_index*2));
+		glDrawElements(prim_type,
+		               num_indices(ptype, static_cast<unsigned>(pcount)),
+		               GL_UNSIGNED_SHORT,
+		               vbo_offset(first_index*2));
 		break;
 	case PT_Point:
 	case PT_LineStrip:
 	case PT_TriangleStrip:
 	case PT_TriangleFan:
 	case PT_LineLoop:
-		glDrawArrays(prim_type, first_vertex, num_vertices);
+		glDrawArrays(prim_type,
+		             static_cast<GLsizei>(first_vertex),
+		             static_cast<GLint>(num_vertices));
 		break;
 	}
 	if(is_error())

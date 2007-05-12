@@ -49,6 +49,8 @@ public:
 
 typedef shared_ptr<window> window_ptr;
 
+//void dispatch_events();
+
 }
 
 #endif

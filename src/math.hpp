@@ -47,7 +47,7 @@ typename boost::enable_if<boost::is_integral<T>, T>::type round_div_int(const T 
 
 template<typename T> T next_pow_2(const T t)
 {
-	return static_cast<T>(std::pow(static_cast<T>(2),std::ceil(std::log(static_cast<double>(t))/std::log(static_cast<T>(2)))));
+	return static_cast<T>(std::pow(static_cast<T>(2),std::ceil(std::log(static_cast<double>(t))/std::log(static_cast<double>(2)))));
 }
 
 }

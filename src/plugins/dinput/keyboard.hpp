@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_KEYBOARD_HPP_INCLUDED
 
 #include <map>
+#include "../../input/key_type.hpp"
 #include "input_device.hpp"
 #include "key_converter.hpp"
 #include "di.hpp"
@@ -39,10 +40,12 @@ public:
 private:
 	uchar_t keycode_to_char(const key_code key) const;
 	static BOOL CALLBACK enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
-	typedef std::map<unsigned,key_type> key_map;
-	key_map keys;
+
+	mod_state modifiers;
 	const key_converter& conv;
 	HKL kblayout;
+	typedef std::map<unsigned,key_type> key_map;
+	key_map keys;
 };
 
 }

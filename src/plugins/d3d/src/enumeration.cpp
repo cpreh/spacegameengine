@@ -42,7 +42,7 @@ void sge::d3d::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, r
 	c.max_tex_size = caps.MaxTextureWidth;
 	if(caps.MaxTextureWidth != caps.MaxTextureHeight)
 		std::cerr << "Warning: MaxTextureWidth != MaxTextureHeight (case not handled)\n";
-	c.max_tex_height = std::min(caps.MaxTextureHeight, caps.MaxTextureWidth);
+	c.max_tex_size = std::min(caps.MaxTextureHeight, caps.MaxTextureWidth);
 	c.driver_name = &identifier.Driver[0];
 	c.description = &identifier.Description[0];
 

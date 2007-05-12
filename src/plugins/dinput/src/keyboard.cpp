@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::dinput::keyboard::keyboard(const dinput_ptr di, const string& name, const GUID guid, const HWND wnd, const key_converter& conv)
 : input_device(di,name,guid,wnd),
+  modifiers(false,false,false),
   conv(conv),
   kblayout(GetKeyboardLayout(0))
 {
@@ -42,8 +43,22 @@ void sge::dinput::keyboard::dispatch(input_system::signal_type& sig)
 	for(unsigned i = 0; i < elements; ++i)
 	{
 		key_type key = keys[data[i].dwOfs];
+
+		const bool key_value = static_cast<bool>(data[i].dwData & 0x80);
+		switch(data[i].dwOfs) {
+		case VK_CONTROL:
+			modifiers.ctrl = key_value;
+			break;
+		case VK_MENU:
+			modifiers.alt = key_value;
+			break;
+		case VK_SHIFT:
+			modifiers.shift = key_value;
+			break;
+		}
+
 		key.char_code = keycode_to_char(key.code);
-		sig(key_pair(key, data[i].dwData & 0x80 ? 1.f : 0));
+		sig(key_pair(key, key_value ? 1.f : 0));
 	}
 }
 
@@ -59,9 +74,9 @@ sge::uchar_t sge::dinput::keyboard::keycode_to_char(const key_code key) const
 {
 	boost::array<BYTE,256> state;
 	const BYTE key_up = 0, key_down = 0x80;
-//	state[VK_SHIFT] = mod_state.shift_down ? key_down : key_up;
-//	state[VK_MENU] = mod_state.alt_down ? key_down : key_up;
-//	state[VK_CONTROL] = mod_state.ctrl_down ? key_down : key_up;
+	state[VK_SHIFT] = modifiers.shift ? key_down : key_up;
+	state[VK_MENU] = modifiers.alt ? key_down : key_up;
+	state[VK_CONTROL] = modifiers.ctrl ? key_down : key_up;
 
 	const unsigned dik = conv.create_dik(key);
 	const unsigned vk = MapVirtualKeyEx(dik, 1, kblayout);

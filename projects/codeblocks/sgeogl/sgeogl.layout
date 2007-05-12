@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="..\..\..\src\plugins\ogl\common.hpp" open="0" top="0" tabpos="1">
+		<Cursor position="840" topLine="11" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\cube_texture.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="1414" topLine="34" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\default_render_target.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1067" topLine="15" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\renderer.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="4372" topLine="113" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\renderer_system.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1438" topLine="25" />
+	</File>
+</CodeBlocks_layout_file>

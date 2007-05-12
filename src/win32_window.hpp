@@ -39,6 +39,7 @@ public:
 	const string& title() const;
 	HWND hwnd() const;
 	bool fullscreen() const;
+	void dispatch();
 private:
 	string      _title;
 	bool        _fullscreen;

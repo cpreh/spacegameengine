@@ -151,7 +151,7 @@ sge::dinput::key_converter::key_converter()
 	v[DIK_Z] = KC_Z;
 
 	for(key_vector::size_type i = 0; i < v.size(); ++i)
-		vr[v[i]] = i;
+		vr[v[i]] = static_cast<DWORD>(i);
 }
 
 sge::key_code sge::dinput::key_converter::create_key_code(const DWORD ofs) const

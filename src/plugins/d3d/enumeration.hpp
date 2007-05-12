@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D_ENUMERATION_HPP_INCLUDED
 
 #include <vector>
-#include "./renderer_system.hpp"
+#include "renderer_system.hpp"
 #include "../../win32_window.hpp"
 
-#include "./d3dinclude.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {

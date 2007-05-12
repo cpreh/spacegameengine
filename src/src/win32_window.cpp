@@ -39,11 +39,10 @@ sge::win32_window::win32_window(const window_size sz, const bool _fullscreen, co
 
 	if(!wndclass_created)
 	{
-		const COLORREF bgcolor = RGB(255,255,255);
 		WNDCLASSEX wndclass;
 		wndclass.cbClsExtra = 0;
 		wndclass.cbWndExtra = 0;
-		wndclass.hbrBackground = CreateSolidBrush(bgcolor);
+		wndclass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW+1);
 		wndclass.hCursor = 0;
 		wndclass.hIcon = 0;
 		wndclass.hIconSm = 0;
@@ -112,6 +111,10 @@ bool sge::win32_window::fullscreen() const
 HWND sge::win32_window::hwnd() const
 {
 	return handle;
+}
+
+void sge::win32_window::dispatch()
+{
 }
 
 bool sge::win32_window::wndclass_created(false);

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="sgegui" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output=".\sgegui.dll" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="sgecore" />
+					<Add library="boost_signals" />
+					<Add directory="..\sgecore" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output=".\sgegui.dll" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="..\..\..\src\gui\button.hpp" />
+		<Unit filename="..\..\..\src\gui\check_box.hpp" />
+		<Unit filename="..\..\..\src\gui\click_box.hpp" />
+		<Unit filename="..\..\..\src\gui\cursor.hpp" />
+		<Unit filename="..\..\..\src\gui\element.hpp" />
+		<Unit filename="..\..\..\src\gui\events.hpp" />
+		<Unit filename="..\..\..\src\gui\frame.hpp" />
+		<Unit filename="..\..\..\src\gui\icon_button.hpp" />
+		<Unit filename="..\..\..\src\gui\list.hpp" />
+		<Unit filename="..\..\..\src\gui\manager.hpp" />
+		<Unit filename="..\..\..\src\gui\rectangle.hpp" />
+		<Unit filename="..\..\..\src\gui\scrollbar.hpp" />
+		<Unit filename="..\..\..\src\gui\skin.hpp" />
+		<Unit filename="..\..\..\src\gui\src\button.cpp" />
+		<Unit filename="..\..\..\src\gui\src\check_box.cpp" />
+		<Unit filename="..\..\..\src\gui\src\click_box.cpp" />
+		<Unit filename="..\..\..\src\gui\src\cursor.cpp" />
+		<Unit filename="..\..\..\src\gui\src\element.cpp" />
+		<Unit filename="..\..\..\src\gui\src\frame.cpp" />
+		<Unit filename="..\..\..\src\gui\src\icon_button.cpp" />
+		<Unit filename="..\..\..\src\gui\src\list.cpp" />
+		<Unit filename="..\..\..\src\gui\src\manager.cpp" />
+		<Unit filename="..\..\..\src\gui\src\rectangle.cpp" />
+		<Unit filename="..\..\..\src\gui\src\scrollbar.cpp" />
+		<Unit filename="..\..\..\src\gui\src\skin.cpp" />
+		<Unit filename="..\..\..\src\gui\src\static_text.cpp" />
+		<Unit filename="..\..\..\src\gui\src\text_cursor.cpp" />
+		<Unit filename="..\..\..\src\gui\src\text_edit.cpp" />
+		<Unit filename="..\..\..\src\gui\src\vertical_scrollbar.cpp" />
+		<Unit filename="..\..\..\src\gui\static_text.hpp" />
+		<Unit filename="..\..\..\src\gui\text_cursor.hpp" />
+		<Unit filename="..\..\..\src\gui\text_edit.hpp" />
+		<Unit filename="..\..\..\src\gui\types.hpp" />
+		<Unit filename="..\..\..\src\gui\vertical_scrollbar.hpp" />
+		<Extensions>
+			<code_completion />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
