@@ -188,7 +188,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
 	swa.override_redirect = windowed ? False : True;
-	swa.event_mask = 0;
+	swa.event_mask = StructureNotifyMask;
 
 	if(wnd_param)
 		wnd = dynamic_pointer_cast<x_window>(wnd_param);
@@ -204,7 +204,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 		throw std::runtime_error("glXMakeCurrent() failed");
 	cg.d = dsp.get();
 
-	XFlush(dsp.get());
+	XSync(dsp.get(),False);
 #endif
 	if(glewInit() != GLEW_OK)
 		throw std::runtime_error("glewInit() failed");
