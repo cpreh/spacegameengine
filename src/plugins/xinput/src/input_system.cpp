@@ -235,6 +235,11 @@ boost::signals::connection sge::xinput::input_system::register_callback(const ca
 	return sig.connect(c);
 }
 
+boost::signals::connection sge::xinput::input_system::register_repeat_callback(const repeat_callback& c)
+{
+	return repeat_sig.connect(c);
+}
+
 void sge::xinput::input_system::dispatch()
 {
 }
@@ -300,10 +305,16 @@ void sge::xinput::input_system::on_key_event(const XEvent& xev)
 		   (peek.xkey.time - xev.xkey.time) < 2)
 		{
 			XNextEvent(wnd->display(), &peek);
+			repeat_sig(create_key_type(xev));
 			return;
 		}
 	}
 	
+	sig(key_pair(create_key_type(xev), xev.type == KeyRelease ? 0 : 1));
+}
+
+sge::key_type sge::xinput::input_system::create_key_type(const XEvent& xev)
+{
 	XComposeStatus state;
 	KeySym ks;
 	boost::array<char,32> keybuf;
@@ -314,10 +325,10 @@ void sge::xinput::input_system::on_key_event(const XEvent& xev)
 	if(num_chars > 1)
 	{
 		std::cerr << "stub: character '" << code << "' in XLookupString has " << num_chars << " bytes!\n";
-		return;
+		return key_type();
 	}
 
-	sig(key_pair(key_type(get_key_name(ks), get_key_code(ks), static_cast<unsigned char>(code)), xev.type == KeyRelease ? 0 : 1));
+	return key_type(get_key_name(ks), get_key_code(ks), static_cast<unsigned char>(code));
 }
 
 void sge::xinput::input_system::on_button_event(const XEvent& xev)

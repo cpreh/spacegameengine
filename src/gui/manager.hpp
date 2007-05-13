@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../sprite/system.hpp"
 #include "../image/image_loader.hpp"
 #include "../input/input_system.hpp"
-#include "../input/key_repeater.hpp"
 #include "../input/key_mod_tracker.hpp"
 #include "types.hpp"
 #include "cursor.hpp"
@@ -61,6 +60,7 @@ public:
 	unit font_height() const;
 private:
 	void key_callback(const key_pair&);
+	void repeat_callback(const key_type&);
 	void on_texture_not_present(const std::string& name);
 	void move_mouse(unit x, unit y);
 
@@ -81,7 +81,6 @@ private:
 		point relative_pos() const;
 	};
 
-	key_repeater            repeater;
 	key_mod_tracker         mod_tracker;
 	std::string             graphics_path;
 	sprite_system           sprite_sys;

@@ -36,7 +36,11 @@ public:
 	typedef boost::signal<void (const key_pair&)> signal_type;
 	typedef boost::function<void (const key_pair&)> callback;
 
+	typedef boost::signal<void (const key_type&)> repeat_signal_type;
+	typedef boost::function<void (const key_type&)> repeat_callback;
+
 	virtual boost::signals::connection register_callback(const callback& c) = 0;
+	virtual boost::signals::connection register_repeat_callback(const repeat_callback& c) = 0;
 	virtual void dispatch() = 0;
 	virtual ~input_system() {}
 };

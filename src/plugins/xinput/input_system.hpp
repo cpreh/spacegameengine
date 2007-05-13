@@ -45,6 +45,7 @@ public:
 	input_system(x_window_ptr wnd);
 	~input_system();
 	boost::signals::connection register_callback(const callback& c);
+	boost::signals::connection register_repeat_callback(const repeat_callback& c);
 	void dispatch();
 private:
 	typedef int mouse_coordinate_t;
@@ -57,6 +58,7 @@ private:
 	void dga_motion(XEvent);
 	void warped_motion(XEvent);
 	void private_mouse_motion(mouse_coordinate_t deltax, mouse_coordinate_t deltay);
+	key_type create_key_type(const XEvent&);
 
 	void on_motion_event(const XEvent&);
 	void on_key_event(const XEvent&);
@@ -65,6 +67,7 @@ private:
 	void on_release(const XEvent&);
 
 	signal_type sig;
+	repeat_signal_type repeat_sig;
 
 	key_code get_key_code(KeySym ks) const;
 	std::string get_key_name(KeySym ks) const;

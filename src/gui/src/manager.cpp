@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/convenience.hpp>
 
 sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input_sys, font& gui_font, const image_loader_ptr il, const std::string& graphics_path, const unit _font_height)
-: repeater(input_sys, 50, 500),
-  mod_tracker(input_sys),
+: mod_tracker(input_sys),
   graphics_path(graphics_path),
   sprite_sys(rend, image_loader_handler(graphics_path,il)),
   input_sys(input_sys),
@@ -46,6 +45,7 @@ sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input
   double_click_time(200)
 {
 	input_sys->register_callback(boost::bind(&manager::key_callback, this, _1));
+	input_sys->register_repeat_callback(boost::bind(&manager::repeat_callback, this, _1));
 }
 
 void sge::gui::manager::key_callback(const key_pair& input)
@@ -93,25 +93,21 @@ void sge::gui::manager::key_callback(const key_pair& input)
 				focus()->key_up(e);
 		}
 
-		if(_last_focus != focus())
-			repeater.repeat_timer().reset();
-
 		_last_focus = focus();
 	}
+}
+
+void sge::gui::manager::repeat_callback(const key_type& key)
+{
+	if(is_mouse_key(key.code))
+		_root.mouse_press(mouse_button_event(cur.pos(),key.code,mod_tracker.state(),true,key.char_code));
+	else if(focus() && is_keyboard_key(key.code))
+		focus()->key_press(keyboard_button_event(key.code,mod_tracker.state(),true,key.char_code));
 }
 
 void sge::gui::manager::process()
 {
 	get_font().height(font_height());
-	const key_type key = repeater.repeated_key();
-	if(key != key_repeater::no_key)
-	{
-		if(is_mouse_key(key.code))
-			_root.mouse_press(mouse_button_event(cur.pos(),key.code,mod_tracker.state(),true,key.char_code));
-		else if(is_keyboard_key(key.code))
-			focus()->key_press(keyboard_button_event(key.code,mod_tracker.state(),true,key.char_code));
-	}
-
 	sprite_sys.set_parameters();
 	_root.draw(draw_event(point(0,0)));
 	cur.draw();
