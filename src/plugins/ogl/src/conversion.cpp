@@ -81,6 +81,8 @@ template<> GLenum sge::ogl::convert_cast(const filter_value& arg)
 		return GL_NEAREST;
 	case FV_Linear:
 		return GL_LINEAR;
+	case FV_MipMap:
+		return GL_LINEAR_MIPMAP_NEAREST; // FIXME
 //	case FV_Anisotropic:
 //		return GL_ANISOTROPIC;
 	default:

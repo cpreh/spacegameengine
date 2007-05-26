@@ -219,6 +219,7 @@ enum stage_arg_value {
 enum filter_value {
 	FV_Point,
 	FV_Linear,
+	FV_MipMap,
 	FV_Anisotropic
 };
 
