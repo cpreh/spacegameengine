@@ -205,13 +205,6 @@ sge::ogl::renderer::~renderer()
 
 void sge::ogl::renderer::begin_rendering()
 {
-/*	GLbitfield flags = 0;
-	if(clear_zbuffer)
-		flags |= GL_DEPTH_BUFFER_BIT;
-	if(clear_back_buffer)
-		flags |= GL_COLOR_BUFFER_BIT;
-	if(clear_stencil)
-		flags |= GL_STENCIL_BUFFER_BIT;*/
 	glClear(clearflags);
 }
 

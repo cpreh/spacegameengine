@@ -42,8 +42,8 @@ void sge::ogl::renderer_system::caps(renderer_caps_array& v) const
 {
 #ifdef SGE_LINUX_PLATFORM
 	const x_display_ptr dsp(new x_display());
-	const int screen = DefaultScreen(dsp.get());
-	const xf86_vidmode_array modes(dsp,screen);
+	const int screen = DefaultScreen(dsp->get());
+	const xf86_vidmode_array modes(dsp, screen);
 	
 	renderer_caps ret;
 	for(xf86_vidmode_array::size_type i = 0; i < modes.size(); ++i)
