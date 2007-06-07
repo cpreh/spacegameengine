@@ -52,10 +52,6 @@ protected:
 	{
 		tex_parameter_i(GL_TEXTURE_MIN_FILTER, convert_cast<GLenum>(filter.min_filter));
 		tex_parameter_i(GL_TEXTURE_MAG_FILTER, convert_cast<GLenum>(filter.mag_filter));
-		tex_parameter_i(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		tex_parameter_i(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		tex_parameter_i(GL_GENERATE_MIPMAP, GL_FALSE);
-		tex_parameter_i(GL_TEXTURE_MAX_LEVEL, 0);
 	}
 
 	GLuint id() const
