@@ -20,16 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
-#include <cstddef>
 #include <stdexcept>
 #include <iostream>
 #include "../../../math.hpp"
+#include "../../../renderer/types.hpp"
 #include "../xf86vidmode.hpp"
 
-sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display& dsp, const int screen)
+sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display_ptr dsp, const int screen)
+: dsp(dsp),
+  screen(screen)
 {
 	int event_base, error_base;
-	if(XF86VidModeQueryExtension(dsp.get(), &event_base, &error_base) == False)
+	if(XF86VidModeQueryExtension(dsp->get(), &event_base, &error_base) == False)
 	{
 		std::cerr << "Warning: xf86 video modes queried but extension is not present!\n";
 		sz = 0;
@@ -37,14 +39,16 @@ sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display& dsp, const int
 	}
 
 	int mode_count;
-	if(XF86VidModeGetAllModeLines(dsp.get(),screen,&mode_count,modes.pointer_to()) == False)
+	XF86VidModeModeInfo** ret;	
+	if(XF86VidModeGetAllModeLines(dsp->get(), screen, &mode_count, &ret) == False)
 		throw std::runtime_error("XF86VidModeGetAllModeLines() failed");
+	modes.reset(ret);
 	sz = mode_count >= 0 ? mode_count : 0;
 }
 
 const XF86VidModeModeInfo& sge::ogl::xf86_vidmode_array::operator[](const size_type index) const
 {
-	return *(*modes)[index];
+	return (*modes)[index];
 }
 
 unsigned sge::ogl::xf86_vidmode_array::refresh_rate(const XF86VidModeModeInfo& mode)
@@ -56,4 +60,25 @@ sge::ogl::xf86_vidmode_array::size_type sge::ogl::xf86_vidmode_array::size() con
 {
 	return sz;
 }
+
+sge::ogl::xf86_resolution_ptr sge::ogl::xf86_vidmode_array::switch_to_mode(const display_mode& pmode) const
+{
+	int best = -1;
+	for(xf86_vidmode_array::size_type i = 1; i < size(); ++i)
+	{
+		const XF86VidModeModeInfo& mode = (*this)[i];
+		const unsigned rate = refresh_rate(mode);
+
+		if(mode.hdisplay == pmode.width() &&
+		   mode.vdisplay == pmode.height() &&
+		   rate  > pmode.refresh_rate &&
+		   (best == -1 || rate >= refresh_rate((*this)[best])))
+			best = static_cast<int>(i);
+	}
+	
+	if(best != -1)
+		return xf86_resolution_ptr(new xf86_resolution(dsp, screen, (*this)[best], (*this)[0]));
+	return xf86_resolution_ptr();
+}
+
 #endif

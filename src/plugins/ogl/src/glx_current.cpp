@@ -18,40 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BIT_HPP_INCLUDED
-#define SGE_BIT_HPP_INCLUDED
+#include "../../../x_window.hpp"
+#include "../glx_current.hpp"
+#include "../glx_context.hpp"
+#include <GL/glx.h>
 
-#include <cstddef>
-#include <climits>
-#include <boost/array.hpp>
-
-namespace sge
+sge::ogl::glx_current::glx_current(const x_display_ptr dsp, const x_window& wnd, const glx_context_ptr context)
+: dsp(dsp),
+  context(context)
 {
-
-inline bool bit(const char c, const unsigned bit)
-{
-	return c & (1<<bit);
+	if(glXMakeCurrent(dsp->get(), wnd.get_window(), context->context()) == false)
+		throw std::runtime_error("glXMakeCurrent() failed");
 }
 
-inline bool bit_a(const char c[], const unsigned bit)
+sge::ogl::glx_current::~glx_current()
 {
-	return c[bit/CHAR_BIT]&(1<<(bit%CHAR_BIT));
+	glXMakeCurrent(dsp->get(), None, NULL);
 }
-
-template<std::size_t sz> inline bool bit_a(const boost::array<char,sz>& c, const unsigned bit)
-{
-	return bit_a(c.data(),bit);
-}
-
-template<typename Mask, typename Bitfield>
-inline void set_bit(const Mask& mask, Bitfield& t, const bool value)
-{
-	if(value)
-		t |= mask;
-	else
-		t &= ~mask;
-}
-
-}
-
-#endif

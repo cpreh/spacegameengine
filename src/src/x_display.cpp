@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <stdexcept>
 #include "../x_display.hpp"
-#include <X11/Xlib.h>
 	
 sge::x_display::x_display()
 : d(XOpenDisplay(0))

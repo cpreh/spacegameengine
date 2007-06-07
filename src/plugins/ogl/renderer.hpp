@@ -32,11 +32,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif SGE_LINUX_PLATFORM
 #include <boost/scoped_ptr.hpp>
 #include <X11/Xlib.h>
-#include <X11/Xutil.h>
+//#include <X11/Xutil.h>
 #include <GL/glx.h>
 #include "../../x_window.hpp"
-#include "glx.hpp"
 #include "xf86vidmode.hpp"
+#include "xf86_resolution.hpp"
+#include "glx_visual.hpp"
+#include "glx_current.hpp"
+#include "glx_context.hpp"
+#include "x_colormap.hpp"
 #endif
 
 namespace sge
@@ -103,23 +107,24 @@ private:
 	fbo_render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height);
 
 	renderer_parameters param;
-	bool clear_zbuffer, clear_stencil, clear_back_buffer;
-	renderer_caps _caps;
+	GLbitfield clearflags;
+	//bool clear_zbuffer, clear_stencil, clear_back_buffer;
 #ifdef SGE_WINDOWS_PLATFORM
 	win_hdc    hdc;
 	win_hglrc  hglrc;
 	window_ptr wnd;
 #elif SGE_LINUX_PLATFORM
-	x_display dsp;
-	x_resource<XVisualInfo*> vi;
-	glx_context ct;
-	shared_ptr<x_colormap> cm;
+	x_display_ptr dsp;
+	boost::scoped_ptr<glx_visual> visual;
+	glx_context_ptr context;
+	boost::scoped_ptr<x_colormap> colormap;
 	x_window_ptr wnd;
-	glx_current_guard cg;
+	boost::scoped_ptr<glx_current> current;
 	boost::scoped_ptr<xf86_vidmode_array> modes;
-	boost::scoped_ptr<xf86_resolution_guard> resolution_guard;
+	xf86_resolution_ptr resolution;
 #endif
 	render_target_ptr _render_target;
+	renderer_caps _caps;
 };
 
 }

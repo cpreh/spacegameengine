@@ -22,26 +22,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_XF86VIDMODE_HPP_INCLUDED
 
 #include <cstddef>
+#include <boost/noncopyable.hpp>
+#include "../../shared_ptr.hpp"
+#include "../../x_deleter.hpp"
+#include "../../x_display.hpp"
+#include "../../renderer/types.hpp"
+#include "xf86_resolution.hpp"
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include "../../x.hpp"
-#include "glx.hpp"
 
 namespace sge
 {
-
+struct display_mode;
 namespace ogl
 {
 
-class xf86_vidmode_array {
+class xf86_vidmode_array : boost::noncopyable {
 public:
 	typedef std::size_t size_type;
-	xf86_vidmode_array(const x_display& dsp, const int screen);
+
+	xf86_vidmode_array(x_display_ptr dsp, const int screen);
 	const XF86VidModeModeInfo& operator[](size_type index) const;
 	static unsigned refresh_rate(const XF86VidModeModeInfo&);
 	size_type size() const;
+	xf86_resolution_ptr switch_to_mode(const display_mode&) const;
 private:
-	x_resource<XF86VidModeModeInfo**> modes;
+	const x_display_ptr dsp;
+	const int screen;
+	typedef shared_ptr<XF86VidModeModeInfo*, x_deleter> x_vidmode_ptr;
+	x_vidmode_ptr modes;
 	size_type sz;
 };
 

@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/noncopyable.hpp>
 #include "shared_ptr.hpp"
-
-struct Display;
+#include <X11/Xlib.h>
 
 namespace sge
 {
 
-struct x_display : boost::noncopyable {
+class x_display : boost::noncopyable {
+public:
 	x_display();
 	~x_display();
 	Display* get() const;

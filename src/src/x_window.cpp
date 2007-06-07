@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
    wnd(wnd)
 {}*/
 
-sge::x_window::x_window(const window_pos pos, const window_size sz, const string& t, Display* const dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
+sge::x_window::x_window(const window_pos pos, const window_size sz, const string& t, const x_display_ptr dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
  : dsp(dsp),
    _screen(vi.screen),
-   wnd(XCreateWindow(dsp, RootWindow(dsp, screen()), pos.x(), pos.y(), sz.w(), sz.h(), 0, vi.depth, InputOutput, vi.visual, CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask, const_cast<XSetWindowAttributes*>(&attr))),
+   wnd(XCreateWindow(dsp->get(), RootWindow(dsp->get(), screen()), pos.x(), pos.y(), sz.w(), sz.h(), 0, vi.depth, InputOutput, vi.visual, CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask, const_cast<XSetWindowAttributes*>(&attr))),
    _fullscreen(attr.override_redirect),
    event_mask(0)
 {
@@ -44,17 +44,17 @@ sge::x_window::x_window(const window_pos pos, const window_size sz, const string
 
 sge::x_window::~x_window()
 {
-	XDestroyWindow(dsp,wnd);
+	XDestroyWindow(display(), wnd);
 }
 
 void sge::x_window::size(const window_size newsize)
 {
-	XResizeWindow(dsp, wnd, newsize.w(), newsize.h());
+	XResizeWindow(display(), wnd, newsize.w(), newsize.h());
 }
 
 void sge::x_window::title(const string& t)
 {
-	XStoreName(dsp, wnd, iconv(t).c_str());
+	XStoreName(display(), wnd, iconv(t).c_str());
 }
 
 sge::x_window::window_size sge::x_window::size() const
@@ -88,7 +88,7 @@ int sge::x_window::screen() const
 
 Display* sge::x_window::display() const
 {
-	return dsp;
+	return dsp->get();
 }
 
 boost::signals::connection sge::x_window::register_callback(const x11_event_type event, const x11_callback_type callback)
@@ -136,7 +136,7 @@ void sge::x_window::add_event_mask(const x11_event_type event)
 		event_mask |= mask;
 		XSetWindowAttributes swa;
 		swa.event_mask = event_mask;
-		XChangeWindowAttributes(dsp, wnd, CWEventMask, &swa);
+		XChangeWindowAttributes(display(), wnd, CWEventMask, &swa);
 	}
 }
 

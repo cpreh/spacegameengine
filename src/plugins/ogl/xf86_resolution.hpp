@@ -18,19 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../glx_context.hpp"
+#ifndef SGE_OGL_XF86_RESOLUTION_HPP_INCLUDED
+#define SGE_OGL_XF86_RESOLUTION_HPP_INCLUDED
 
-sge::ogl::glx_context::glx_context(const GLXContext c, Display* const dsp)
-: c(c),
-  dsp(dsp)
-{}
+#include "../../shared_ptr.hpp"
+#include "../../x_display.hpp"
+#include <X11/extensions/xf86vmode.h>
 
-sge::ogl::glx_context::~glx_context()
+namespace sge
 {
-	glXDestroyContext(dsp,c);
+namespace ogl
+{
+
+class xf86_resolution : boost::noncopyable {
+public:
+	xf86_resolution(x_display_ptr, const int screen, const XF86VidModeModeInfo& new_mode, const XF86VidModeModeInfo& old_mode);
+	~xf86_resolution(); 
+private:
+	const x_display_ptr dsp;
+	const int screen;
+	const XF86VidModeModeInfo& old_mode;
+};
+
+typedef shared_ptr<xf86_resolution> xf86_resolution_ptr;
+
+}
 }
 
-GLXContext& sge::ogl::glx_context::context()
-{
-	return c;
-}
+#endif

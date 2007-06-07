@@ -18,37 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GLX_HPP_INCLUDED
-#define SGE_GLX_HPP_INCLUDED
-
-#include <boost/noncopyable.hpp>
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
+#include <stdexcept>
+#include "../glx_visual.hpp"
 #include <GL/glx.h>
-#include <X11/extensions/xf86vmode.h>
 
-namespace sge
+sge::ogl::glx_visual::glx_visual(const x_display_ptr dsp, const int screen, const int* const attributes)
+: vi(glXChooseVisual(dsp->get(), screen, const_cast<int*>(attributes)))
 {
-
-
-
-struct glx_current_guard : boost::noncopyable {
-	glx_current_guard(Display* const d = 0) : d(d) {}
-	~glx_current_guard() { if(d) glXMakeCurrent(d,None,NULL); }
-	Display* d;
-};
-
-class xf86_resolution_guard : boost::noncopyable {
-public:
-	xf86_resolution_guard(Display* const dsp, const int screen, const XF86VidModeModeInfo& mode) : dsp(dsp), screen(screen), mode(mode) {}
-	~xf86_resolution_guard() { XF86VidModeSwitchToMode(dsp,screen,const_cast<XF86VidModeModeInfo*>(&mode)); 
-	}
-private:
-	Display* dsp;
-	int screen;
-	const XF86VidModeModeInfo& mode;
-};
-
+	if(!vi.get())
+		throw std::runtime_error("glXChooseVisual() failed");
 }
 
-#endif
+const XVisualInfo& sge::ogl::glx_visual::visual_info() const
+{
+	return *vi.get();
+}

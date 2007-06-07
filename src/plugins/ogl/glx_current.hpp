@@ -18,47 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X_RESOURCE_HPP_INCLUDED
-#define SGE_X_RESOURCE_HPP_INCLUDED
+#ifndef SGE_GLX_CURRENT_HPP_INCLUDED
+#define SGE_GLX_CURRENT_HPP_INCLUDED
 
-#include <stdexcept>
-#include <boost/noncopyable.hpp>
-#include <X11/Xlib.h>
+#include "../../x_display.hpp"
+#include "glx_context.hpp"
 
 namespace sge
 {
 
-template<typename T>
-struct x_resource : boost::noncopyable {
-	x_resource()
-	: t(0)
-	{}
-	
-	x_resource(const T t)
-	: t(t)
-	{}
+class x_window;
 
-	~x_resource()
-	{
-		if(t)
-			XFree(t);
-	}
-	
-	x_resource& operator=(const T& _t)
-	{
-		t = _t;
-		return *this;
-	}
+namespace ogl
+{
 
-	const T& operator->() const { return t; }
-	const T& operator*() const { return t; }
-	const T* pointer_to() const { return &t; }
-	T get() { return t; }
-	T* pointer_to() { return &t; }
+class glx_current : boost::noncopyable {
+public:
+	glx_current(x_display_ptr, const x_window&, glx_context_ptr);
+	~glx_current();
 private:
-	T t;
+	const x_display_ptr dsp;
+	const glx_context_ptr context;
 };
 
+
+}
 }
 
 #endif

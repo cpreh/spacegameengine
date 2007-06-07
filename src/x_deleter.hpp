@@ -18,39 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BIT_HPP_INCLUDED
-#define SGE_BIT_HPP_INCLUDED
+#ifndef SGE_X_DELETER_HPP_INCLUDED
+#define SGE_X_DELETER_HPP_INCLUDED
 
-#include <cstddef>
-#include <climits>
-#include <boost/array.hpp>
+#include <X11/Xlib.h>
 
 namespace sge
 {
 
-inline bool bit(const char c, const unsigned bit)
-{
-	return c & (1<<bit);
-}
-
-inline bool bit_a(const char c[], const unsigned bit)
-{
-	return c[bit/CHAR_BIT]&(1<<(bit%CHAR_BIT));
-}
-
-template<std::size_t sz> inline bool bit_a(const boost::array<char,sz>& c, const unsigned bit)
-{
-	return bit_a(c.data(),bit);
-}
-
-template<typename Mask, typename Bitfield>
-inline void set_bit(const Mask& mask, Bitfield& t, const bool value)
-{
-	if(value)
-		t |= mask;
-	else
-		t &= ~mask;
-}
+template<typename T>
+struct x_deleter {
+	void delete_(T* const t)
+	{
+		XFree(t);
+	}
+protected:
+	~x_deleter(){}
+};
 
 }
 

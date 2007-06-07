@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../types.hpp"
 #include "../../../ptr_cast.hpp"
+#include "../../../bit.hpp"
 #include "../../../renderer/types.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
@@ -73,7 +74,9 @@ int handler(Display* const d, XErrorEvent* const e)
 
 // TODO: maybe support different adapters?
 sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned adapter, const window_ptr wnd_param)
- : param(param), clear_zbuffer(false), clear_stencil(false), clear_back_buffer(true)
+ : param(param),
+   clearflags(0),
+   dsp(new x_display())
 {
 	if(adapter > 0)
 		std::cerr << "stub: adapter cannot be > 0 for opengl plugin (adapter was " << adapter << ")\n";
@@ -137,54 +140,28 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 		throw std::runtime_error("wglMakeCurrent() failed");
 #elif SGE_LINUX_PLATFORM
 	XSetErrorHandler(handler);
-	const int screen = DefaultScreen(dsp.get());
+	const int screen = DefaultScreen(dsp->get());
 
 	if(!windowed)
 	{
-		modes.reset(new xf86_vidmode_array(dsp,screen));
-
-		int best = -1;
-		for(xf86_vidmode_array::size_type i = 1; i < modes->size(); ++i)
-		{
-			const XF86VidModeModeInfo& mode = (*modes)[i];
-
-			const unsigned refresh_rate = xf86_vidmode_array::refresh_rate(mode);
-		
-			if(mode.hdisplay == param.mode.width() &&
-			   mode.vdisplay == param.mode.height() &&
-			   refresh_rate  > param.mode.refresh_rate &&
-			   (best == -1 || refresh_rate >= xf86_vidmode_array::refresh_rate((*modes)[best])))
-			
-			best = static_cast<int>(i);
-		}
-	
-		if(best != -1)
-		{
-			const XF86VidModeModeInfo& mode = (*modes)[best];
-			if(XF86VidModeSwitchToMode(dsp.get(), screen, const_cast<XF86VidModeModeInfo*>(&mode)) == False)
-				throw std::runtime_error("XF86VidModeSwitchToMode() failed");
-			resolution_guard.reset(new xf86_resolution_guard(dsp.get(),screen,(*modes)[0]));
-			XF86VidModeSetViewPort(dsp.get(),screen,0,0);
-		}
-		else
+		modes.reset(new xf86_vidmode_array(dsp, screen));
+		resolution = modes->switch_to_mode(param.mode);
+		if(!resolution)
 		{
 			std::cerr << "Warning: No resolution matches against " << param.mode << "! Falling back to window mode!\n";
 			windowed = true;
 		}
 	}
 
-	int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 16, None};
-	vi = glXChooseVisual(dsp.get(),screen,attributes);
-	if(vi == 0)
-		throw std::runtime_error("glXChooseVisual() failed");
-	ct.c = glXCreateContext(dsp.get(), vi.get(), None, GL_TRUE);
-	ct.dsp = dsp.get();
-	if(ct.c == 0)
-		throw std::runtime_error("glXCreateContext() failed");
-	cm.reset(new x_colormap(dsp.get(), XCreateColormap(dsp.get(), RootWindow(dsp.get(),vi->screen),vi->visual,AllocNone)));
+	const int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 16, None};
+	visual.reset(new glx_visual(dsp, screen, attributes));
+
+	context.reset(new glx_context(dsp, visual->visual_info()));
+
+	colormap.reset(new x_colormap(dsp, visual->visual_info()));
 
 	XSetWindowAttributes swa;
-	swa.colormap = (*cm).c;
+	swa.colormap = colormap->colormap();
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
 	swa.override_redirect = windowed ? False : True;
@@ -193,18 +170,16 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	if(wnd_param)
 		wnd = dynamic_pointer_cast<x_window>(wnd_param);
 	else
-		wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width(), param.mode.height()), "spacegameengine", dsp.get(), swa, *(vi.get())));
+		wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width(), param.mode.height()), "spacegameengine", dsp, swa, visual->visual_info()));
 
 	if(!windowed)
-		XMapWindow(dsp.get(), wnd->get_window());
+		XMapWindow(dsp->get(), wnd->get_window());
 	else
-		XMapRaised(dsp.get(), wnd->get_window());
+		XMapRaised(dsp->get(), wnd->get_window());
 
-	if(glXMakeCurrent(dsp.get(), wnd->get_window(), ct.c) == false)
-		throw std::runtime_error("glXMakeCurrent() failed");
-	cg.d = dsp.get();
+	current.reset(new glx_current(dsp, *wnd, context));
 
-	XSync(dsp.get(),False);
+	XSync(dsp->get(),False);
 #endif
 	if(glewInit() != GLEW_OK)
 		throw std::runtime_error("glewInit() failed");
@@ -233,14 +208,14 @@ sge::ogl::renderer::~renderer()
 
 void sge::ogl::renderer::begin_rendering()
 {
-	GLbitfield flags = 0;
+/*	GLbitfield flags = 0;
 	if(clear_zbuffer)
 		flags |= GL_DEPTH_BUFFER_BIT;
 	if(clear_back_buffer)
 		flags |= GL_COLOR_BUFFER_BIT;
 	if(clear_stencil)
-		flags |= GL_STENCIL_BUFFER_BIT;
-	glClear(flags);
+		flags |= GL_STENCIL_BUFFER_BIT;*/
+	glClear(clearflags);
 }
 
 sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(const index_buffer::size_type size,
@@ -294,7 +269,7 @@ sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_ar
 void sge::ogl::renderer::end_rendering()
 {
 #ifdef SGE_LINUX_PLATFORM
-	glXSwapBuffers(dsp.get(), wnd->get_window());
+	glXSwapBuffers(dsp->get(), wnd->get_window());
 #endif
 }
 
@@ -350,13 +325,13 @@ void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type 
 {
 	switch(state) {
 	case BS_ClearBackBuffer:
-		clear_back_buffer = value;
+		set_bit(GL_COLOR_BUFFER_BIT, clearflags, value);
 		break;
 	case BS_ClearZBuffer:
-		clear_zbuffer = value;
+		set_bit(GL_DEPTH_BUFFER_BIT, clearflags, value);
 		break;
 	case BS_ClearStencil:
-		clear_stencil = value;
+		set_bit(GL_STENCIL_BUFFER_BIT, clearflags, value);
 		break;
 	default:
 		const GLenum glstate = convert_cast<GLenum>(state);

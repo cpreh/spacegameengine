@@ -22,18 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_X_COLORMAP_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
+#include "../../x_display.hpp"
+#include <X11/Xutil.h>
 
 namespace sge
 {
 namespace ogl
 {
 
-struct x_colormap : boost::noncopyable {
-	x_colormap(Display* const d, Colormap c);
+class x_colormap : boost::noncopyable {
+public:
+	x_colormap(x_display_ptr, const XVisualInfo&);
 	~x_colormap();
 	Colormap& colormap();
 private:
-	Display* d;
+	const x_display_ptr dsp;
 	Colormap c;
 };
 

@@ -18,40 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BIT_HPP_INCLUDED
-#define SGE_BIT_HPP_INCLUDED
+#include <stdexcept>
+#include "../xf86_resolution.hpp"
 
-#include <cstddef>
-#include <climits>
-#include <boost/array.hpp>
-
-namespace sge
+sge::ogl::xf86_resolution::xf86_resolution(const x_display_ptr dsp, const int screen, const XF86VidModeModeInfo& new_mode, const XF86VidModeModeInfo& old_mode)
+: dsp(dsp),
+  screen(screen),
+  old_mode(old_mode)
 {
-
-inline bool bit(const char c, const unsigned bit)
-{
-	return c & (1<<bit);
+	if(XF86VidModeSwitchToMode(dsp->get(), screen, const_cast<XF86VidModeModeInfo*>(&new_mode)) == False)
+		throw std::runtime_error("XF86VidModeSwitchToMode() failed");
+	XF86VidModeSetViewPort(dsp->get(),screen,0,0);
 }
 
-inline bool bit_a(const char c[], const unsigned bit)
+sge::ogl::xf86_resolution::~xf86_resolution()
 {
-	return c[bit/CHAR_BIT]&(1<<(bit%CHAR_BIT));
+	XF86VidModeSwitchToMode(dsp->get(), screen, const_cast<XF86VidModeModeInfo*>(&old_mode));
 }
-
-template<std::size_t sz> inline bool bit_a(const boost::array<char,sz>& c, const unsigned bit)
-{
-	return bit_a(c.data(),bit);
-}
-
-template<typename Mask, typename Bitfield>
-inline void set_bit(const Mask& mask, Bitfield& t, const bool value)
-{
-	if(value)
-		t |= mask;
-	else
-		t &= ~mask;
-}
-
-}
-
-#endif

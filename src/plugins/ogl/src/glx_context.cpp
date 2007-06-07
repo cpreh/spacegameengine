@@ -18,40 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BIT_HPP_INCLUDED
-#define SGE_BIT_HPP_INCLUDED
+#include <stdexcept>
+#include "../glx_context.hpp"
 
-#include <cstddef>
-#include <climits>
-#include <boost/array.hpp>
-
-namespace sge
+sge::ogl::glx_context::glx_context(const x_display_ptr dsp, const XVisualInfo& vi)
+: dsp(dsp),
+  c(glXCreateContext(dsp->get(), const_cast<XVisualInfo*>(&vi), NULL, True))
 {
-
-inline bool bit(const char c, const unsigned bit)
-{
-	return c & (1<<bit);
+	if(c == 0)
+		throw std::runtime_error("glXCreateContext() failed");
 }
 
-inline bool bit_a(const char c[], const unsigned bit)
+sge::ogl::glx_context::~glx_context()
 {
-	return c[bit/CHAR_BIT]&(1<<(bit%CHAR_BIT));
+	glXDestroyContext(dsp->get(), context());
 }
 
-template<std::size_t sz> inline bool bit_a(const boost::array<char,sz>& c, const unsigned bit)
+GLXContext& sge::ogl::glx_context::context()
 {
-	return bit_a(c.data(),bit);
+	return c;
 }
-
-template<typename Mask, typename Bitfield>
-inline void set_bit(const Mask& mask, Bitfield& t, const bool value)
-{
-	if(value)
-		t |= mask;
-	else
-		t &= ~mask;
-}
-
-}
-
-#endif

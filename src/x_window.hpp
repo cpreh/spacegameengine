@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/signals.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include "window.hpp"
+#include "x_display.hpp"
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 
@@ -39,7 +40,7 @@ public:
 	typedef boost::signal<void(const XEvent&)> x11_signal_type;
 
 	//x_window(Display* dsp, int screen, Window wnd);
-	x_window(window_pos pos, window_size sz, const string& title, Display* dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
+	x_window(window_pos pos, window_size sz, const string& title, x_display_ptr dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
 	~x_window();
 
 	void title(const string& title);
@@ -56,7 +57,7 @@ public:
 private:
 	void add_event_mask(x11_event_type);
 
-	Display* dsp;
+	x_display_ptr dsp;
 	int _screen;
 	Window wnd;
 	bool _fullscreen;
