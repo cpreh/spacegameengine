@@ -18,37 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GLX_HPP_INCLUDED
-#define SGE_GLX_HPP_INCLUDED
-
-#include <boost/noncopyable.hpp>
+#include <stdexcept>
+#include "../x_display.hpp"
 #include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <GL/glx.h>
-#include <X11/extensions/xf86vmode.h>
-
-namespace sge
+	
+sge::x_display::x_display()
+: d(XOpenDisplay(0))
 {
-
-
-
-struct glx_current_guard : boost::noncopyable {
-	glx_current_guard(Display* const d = 0) : d(d) {}
-	~glx_current_guard() { if(d) glXMakeCurrent(d,None,NULL); }
-	Display* d;
-};
-
-class xf86_resolution_guard : boost::noncopyable {
-public:
-	xf86_resolution_guard(Display* const dsp, const int screen, const XF86VidModeModeInfo& mode) : dsp(dsp), screen(screen), mode(mode) {}
-	~xf86_resolution_guard() { XF86VidModeSwitchToMode(dsp,screen,const_cast<XF86VidModeModeInfo*>(&mode)); 
-	}
-private:
-	Display* dsp;
-	int screen;
-	const XF86VidModeModeInfo& mode;
-};
-
+	if(!d)
+		throw std::runtime_error("XOpenDisplay failed or dsp is 0");
 }
 
-#endif
+sge::x_display::~x_display()
+{
+	XCloseDisplay(d);
+}
+
+Display* sge::x_display::get() const
+{
+	return d;
+}

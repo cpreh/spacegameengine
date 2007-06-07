@@ -18,35 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GLX_HPP_INCLUDED
-#define SGE_GLX_HPP_INCLUDED
+#ifndef SGE_X_RESOURCE_HPP_INCLUDED
+#define SGE_X_RESOURCE_HPP_INCLUDED
 
+#include <stdexcept>
 #include <boost/noncopyable.hpp>
 #include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <GL/glx.h>
-#include <X11/extensions/xf86vmode.h>
 
 namespace sge
 {
 
+template<typename T>
+struct x_resource : boost::noncopyable {
+	x_resource()
+	: t(0)
+	{}
+	
+	x_resource(const T t)
+	: t(t)
+	{}
 
-
-struct glx_current_guard : boost::noncopyable {
-	glx_current_guard(Display* const d = 0) : d(d) {}
-	~glx_current_guard() { if(d) glXMakeCurrent(d,None,NULL); }
-	Display* d;
-};
-
-class xf86_resolution_guard : boost::noncopyable {
-public:
-	xf86_resolution_guard(Display* const dsp, const int screen, const XF86VidModeModeInfo& mode) : dsp(dsp), screen(screen), mode(mode) {}
-	~xf86_resolution_guard() { XF86VidModeSwitchToMode(dsp,screen,const_cast<XF86VidModeModeInfo*>(&mode)); 
+	~x_resource()
+	{
+		if(t)
+			XFree(t);
 	}
+	
+	x_resource& operator=(const T& _t)
+	{
+		t = _t;
+		return *this;
+	}
+
+	const T& operator->() const { return t; }
+	const T& operator*() const { return t; }
+	const T* pointer_to() const { return &t; }
+	T get() { return t; }
+	T* pointer_to() { return &t; }
 private:
-	Display* dsp;
-	int screen;
-	const XF86VidModeModeInfo& mode;
+	T t;
 };
 
 }

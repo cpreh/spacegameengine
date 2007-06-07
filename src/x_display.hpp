@@ -18,36 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GLX_HPP_INCLUDED
-#define SGE_GLX_HPP_INCLUDED
+#ifndef SGE_X_DISPLAY_HPP_INCLUDED
+#define SGE_X_DISPLAY_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <GL/glx.h>
-#include <X11/extensions/xf86vmode.h>
+#include "shared_ptr.hpp"
+
+struct Display;
 
 namespace sge
 {
 
-
-
-struct glx_current_guard : boost::noncopyable {
-	glx_current_guard(Display* const d = 0) : d(d) {}
-	~glx_current_guard() { if(d) glXMakeCurrent(d,None,NULL); }
+struct x_display : boost::noncopyable {
+	x_display();
+	~x_display();
+	Display* get() const;
+private:
 	Display* d;
 };
 
-class xf86_resolution_guard : boost::noncopyable {
-public:
-	xf86_resolution_guard(Display* const dsp, const int screen, const XF86VidModeModeInfo& mode) : dsp(dsp), screen(screen), mode(mode) {}
-	~xf86_resolution_guard() { XF86VidModeSwitchToMode(dsp,screen,const_cast<XF86VidModeModeInfo*>(&mode)); 
-	}
-private:
-	Display* dsp;
-	int screen;
-	const XF86VidModeModeInfo& mode;
-};
+typedef shared_ptr<x_display> x_display_ptr;
 
 }
 
