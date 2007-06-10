@@ -28,6 +28,10 @@ sge::ogl::actor_info::actor_info(const vertex_size _offset, const vertex_size st
   index(index)
 {}
 
+sge::ogl::actor_base::actor_base(const actor_info& ai)
+: ai(ai)
+{}
+
 namespace {
 	using sge::ogl::is_error;
 	typedef sge::ogl::actor_base actor_base;
@@ -118,6 +122,11 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 		oi[it->usage()] = offset;
 		offset += it->stride();
 	}
+}
+
+const sge::offset_info& sge::ogl::vertex_format::offsets() const
+{
+	return oi;
 }
 
 void sge::ogl::vertex_format::use_me() const

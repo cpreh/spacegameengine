@@ -47,8 +47,7 @@ struct actor_info {
 
 class actor_base {
 public:
-	actor_base(const actor_info& ai)
-	 : ai(ai) {}
+	actor_base(const actor_info& ai);
 	virtual ~actor_base(){}
 	virtual void operator()() const = 0;
 protected:
@@ -58,7 +57,7 @@ protected:
 class vertex_format {
 public:
 	vertex_format(const sge::vertex_format& f);
-	const offset_info& offsets() const { return oi; }
+	const offset_info& offsets() const;
 	void use_me() const;
 private:
 	offset_info oi;

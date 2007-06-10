@@ -84,7 +84,7 @@ public:
 			throw std::runtime_error("glUnmapBufferARB() failed!");
 	}
 
-	void set_data(/*const*/ const_pointer data, /*const*/ size_type first, /*const*/ size_type count)
+	void set_data(const const_pointer data, const size_type first, const size_type count)
 	{
 		if(first + count > size())
 			throw std::length_error("ogl_buffer::set_data(), first + count out of range!");
@@ -97,17 +97,50 @@ public:
 	}
 
 	virtual iterator begin() = 0;
-	virtual const_iterator begin() const = 0;
-	iterator end() { return begin() + size() * _stride; }
-	const_iterator end() const { return begin() + size() * _stride; }
-	reverse_iterator rbegin() { return reverse_iterator(end()); }
-	const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
-	reverse_iterator rend() { return reverse_iterator(begin()); }
-	const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
-	size_type size() const { return sz; }
-	resource_flag_t flags() const { return _flags; }
 	
-	void resize(/*const*/ size_type newsize, /*const*/ const_pointer src)
+	virtual const_iterator begin() const = 0;
+
+	iterator end()
+	{
+		return begin() + size() * _stride;
+	}
+
+	const_iterator end() const
+	{
+		return begin() + size() * _stride;
+	}
+	
+	reverse_iterator rbegin()
+	{
+		return reverse_iterator(end());
+	}
+
+	const_reverse_iterator rbegin() const
+	{
+		return const_reverse_iterator(end());
+	}
+	
+	reverse_iterator rend()
+	{
+		return reverse_iterator(begin());
+	}
+	
+	const_reverse_iterator rend() const
+	{
+		return const_reverse_iterator(begin());
+	}
+	
+	size_type size() const
+	{
+		return sz;
+	}
+	
+	resource_flag_t flags() const
+	{
+		return _flags;
+	}
+	
+	void resize(const size_type newsize, const const_pointer src)
 	{
 		if(newsize <= size())
 			return;
@@ -117,8 +150,15 @@ public:
 		_set_size(src);
 	}
 
-	pointer data() { return dest; }
-	const_pointer data() const { return dest; }
+	pointer data()
+	{
+		return dest;
+	}
+	
+	const_pointer data() const
+	{
+		return dest;
+	}
 
 	void bind_me() const
 	{

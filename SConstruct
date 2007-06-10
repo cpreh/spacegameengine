@@ -17,7 +17,7 @@ media = '/share/games/sge'
 media_path = dest + media
 header_path = dest + '/include/sge'
 
-core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/sge' + "\\\"", 'MEDIA_PATH':"\\\"" + prefix + media + "\\\""})
+core = Environment(LIBS = ['boost_filesystem', 'boost_signals', 'boost_regex', 'X11', 'dl'], CCFLAGS = flags, CPPDEFINES = {'PLUGIN_PATH':"\\\"" + prefix + '/' + libdir + '/sge' + "\\\"", 'MEDIA_PATH':"\\\"" + prefix + media + "\\\""})
 libcore = core.SharedLibrary('sgecore', [glob('src/src/*.cpp'),
                                          glob('src/detail/src/*.cpp'),
                                          glob('src/renderer/src/*.cpp'),

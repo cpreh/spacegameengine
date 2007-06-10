@@ -25,7 +25,7 @@ RDEPEND="dev-libs/boost
              x11-libs/libXxf86vm )
          devil? ( media-libs/devil )
          truetype? ( media-libs/freetype )
-         xinput? (dga? ( x11-libs/libXxf86dga ))"
+         xinput? ( dga? ( x11-libs/libXxf86dga ) )"
 
 pkg_setup() {
 	if !(use opengl && use truetype && use devil && use xinput) ; then
