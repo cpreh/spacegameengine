@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void sge::swap_endianness(unsigned char* const t, std::size_t len)
 {
-	typedef unsigned char temp_type;
-	std::reverse_copy(reinterpret_cast<const temp_type*>(t), reinterpret_cast<const temp_type*>(t) + len, reinterpret_cast<temp_type*>(t));
+	for(std::size_t i = 0; i < len/2; ++i)
+		std::swap(t[i], t[len-i-1]);
 }
 
 void sge::from_to_big_endianness(unsigned char* const t, std::size_t len)
