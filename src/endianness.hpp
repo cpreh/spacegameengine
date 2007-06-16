@@ -27,12 +27,38 @@ namespace sge
 {
 
 template<typename T>
-T convert_endianness(const T& t)
+T swap_endianness(const T& t)
 {
 	T dest;
 	typedef unsigned char temp_type;
 	std::reverse_copy(reinterpret_cast<const temp_type*>(&t), reinterpret_cast<const temp_type*>(&t) + sizeof(T), reinterpret_cast<temp_type*>(&dest));
 	return dest;
+}
+
+bool is_little_endian()
+{
+	typedef int type;
+	union {
+		type t;
+		char c[sizeof(type)];
+	} u;
+	u.t = 1;
+
+	return u.c[0] == u.t;
+}
+
+template<typename T>
+T from_big_endianness(const T& t)
+{
+	if(is_little_endian())
+		return swap_endianness(t);
+	return t;
+}
+
+template<typename T>
+T to_big_endianness(const T& t)
+{
+	return from_big_endianness(t);
 }
 
 }
