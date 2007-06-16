@@ -61,6 +61,19 @@ T to_big_endianness(const T& t)
 	return from_big_endianness(t);
 }
 
+template<typename T>
+T from_little_endianness(const T& t)
+{
+	if(!is_little_endian())
+		return swap_endianness(t);
+}
+
+template<typename T>
+T to_little_endianness(const T& t)
+{
+	return from_little_endianness(t);
+}
+
 }
 
 #endif

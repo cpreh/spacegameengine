@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/line_strip.hpp"
 #include "../src/renderer/screenshot.hpp"
 #include "../src/language.hpp"
+#include "../src/endianness.hpp"
 
 namespace
 {
