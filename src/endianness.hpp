@@ -35,7 +35,7 @@ T swap_endianness(const T& t)
 	return dest;
 }
 
-bool is_little_endian()
+inline bool is_little_endian()
 {
 	typedef int type;
 	union {
