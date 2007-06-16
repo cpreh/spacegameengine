@@ -18,55 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ENDIANNESS_HPP_INCLUDED
-#define SGE_ENDIANNESS_HPP_INCLUDED
+#include <algorithm>
+#include "../endianness.hpp"
 
-#include <cstddef>
-
-namespace sge
+void sge::swap_endianness(unsigned char* const t, std::size_t len)
 {
-
-void swap_endianness(unsigned char*, std::size_t len);
-
-void from_to_big_endianness(unsigned char*, std::size_t len);
-
-void from_to_little_endianness(unsigned char*, std::size_t len);
-
-template<typename T>
-T swap_endianness(T t)
-{
-	swap_endianness(reinterpret_cast<unsigned char*>(&t), sizeof(T));
-	return t;
+	typedef unsigned char temp_type;
+	std::reverse_copy(reinterpret_cast<const temp_type*>(t), reinterpret_cast<const temp_type*>(t) + len, reinterpret_cast<temp_type*>(t));
 }
 
-inline bool is_little_endian()
-{
-	typedef int type;
-	union {
-		type t;
-		char c[sizeof(type)];
-	} u;
-	u.t = 1;
-
-	return u.c[0] == u.t;
-}
-
-template<typename T>
-T from_to_big_endianness(const T& t)
+void sge::from_to_big_endianness(unsigned char* const t, std::size_t len)
 {
 	if(is_little_endian())
-		return swap_endianness(t);
-	return t;
+		swap_endianness(t, len);
 }
 
-template<typename T>
-T from_to_little_endianness(const T& t)
+void sge::from_to_little_endianness(unsigned char* const t, std::size_t len)
 {
 	if(!is_little_endian())
-		return swap_endianness(t);
-	return t;
+		swap_endianness(t, len);
 }
 
-}
-
-#endif
