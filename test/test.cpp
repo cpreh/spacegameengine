@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/screenshot.hpp"
 #include "../src/language.hpp"
 #include "../src/endianness.hpp"
+#include "../src/exception.hpp"
 
 namespace
 {
@@ -58,6 +59,7 @@ sge::math::vector2 rand_point2() { return sge::math::vector2(double(std::rand())
 int main()
 try
 {
+	sge::exception e("foo");
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
