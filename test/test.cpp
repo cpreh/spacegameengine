@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sstream>
 #include <cstdlib>
+#include <iostream>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -33,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/font.hpp"
 #include "../src/renderer/renderer.hpp"
 #include "../src/renderer/types.hpp"
+#include "../src/renderer/renderer_system.hpp"
 #include "../src/media.hpp"
 #include "../src/gui/manager.hpp"
 #include "../src/gui/button.hpp"
@@ -63,7 +65,8 @@ try
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
-	sge::renderer_system_ptr rs = pm.get_plugin<sge::renderer_system>();
+	const sge::plugin<sge::renderer_system>::ptr_type rp = *pm.begin<sge::renderer_system>();
+	sge::renderer_system_ptr rs = rp->load();
 
 	/*sge::renderer_caps_array caps;
 	rs->caps(caps);
@@ -73,7 +76,7 @@ try
 		const sge::display_mode& mode = caps.at(0).display_modes[i];
 		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
 	}*/
-
+#if 0
 	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), false);
 	sge::renderer_ptr rend = rs->create_renderer(param);
 	sge::image_loader_ptr pl = pm.get_plugin<sge::image_loader>();
@@ -186,6 +189,7 @@ try
 		rend->end_rendering();
 		++fps;
 	}
+#endif
 	return EXIT_SUCCESS;
 }
 catch(const std::exception& e)

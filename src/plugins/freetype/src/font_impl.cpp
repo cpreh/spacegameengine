@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <algorithm>
+#include <iostream>
 #include "../../../raw_vector.hpp"
 #include "../../../renderer/transform.hpp"
 #include "../font_impl.hpp"
