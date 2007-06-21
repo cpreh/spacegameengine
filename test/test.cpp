@@ -65,18 +65,19 @@ try
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
-	const sge::plugin<sge::renderer_system>::ptr_type rp = *pm.begin<sge::renderer_system>();
-	sge::renderer_system_ptr rs = rp->load();
+	sge::renderer_system_ptr rs = pm.get_plugin<sge::renderer_system>();
+	//const sge::plugin<sge::renderer_system>::ptr_type rp = *pm.begin<sge::renderer_system>();
+	//sge::renderer_system_ptr rs = rp->load();
 
-	/*sge::renderer_caps_array caps;
+	sge::renderer_caps_array caps;
 	rs->caps(caps);
 
-	for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
+	/*for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
 	{
 		const sge::display_mode& mode = caps.at(0).display_modes[i];
 		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
 	}*/
-#if 0
+//#if 0
 	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), false);
 	sge::renderer_ptr rend = rs->create_renderer(param);
 	sge::image_loader_ptr pl = pm.get_plugin<sge::image_loader>();
@@ -189,7 +190,7 @@ try
 		rend->end_rendering();
 		++fps;
 	}
-#endif
+//#endif
 	return EXIT_SUCCESS;
 }
 catch(const std::exception& e)
