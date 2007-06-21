@@ -28,12 +28,10 @@ namespace sge
 
 template<typename T>
 struct x_deleter {
-	void delete_(T* const t)
+	void operator()(T* const t) const
 	{
 		XFree(t);
 	}
-protected:
-	~x_deleter(){}
 };
 
 }

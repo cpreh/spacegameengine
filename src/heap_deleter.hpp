@@ -25,12 +25,10 @@ namespace sge
 {
 
 template<typename T> struct heap_deleter {
-	void delete_(T* const t)
+	void operator()(T* const t) const
 	{
 		delete t;
 	}
-protected:
-	~heap_deleter(){}
 };
 
 }

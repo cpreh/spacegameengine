@@ -25,12 +25,10 @@ namespace sge
 {
 
 template<typename T> struct com_deleter {
-	void delete_(T* const t)
+	void operator()(T* const t) const
 	{
 		t->Release();
 	}
-protected:
-	~com_deleter(){}
 };
 
 }
