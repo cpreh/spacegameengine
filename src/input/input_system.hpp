@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/signals/connection.hpp>
 #include <boost/function.hpp>
 #include "../shared_ptr.hpp"
+#include "../window.hpp"
+#include "../plugin_traits.hpp"
 #include "key_type.hpp"
 
 namespace sge
@@ -45,6 +47,17 @@ public:
 	virtual ~input_system() {}
 };
 typedef shared_ptr<input_system> input_system_ptr;
+
+namespace detail
+{
+
+template<> struct plugin_traits<input_system> {
+	static const char* plugin_loader_name() { return "create_input_system"; }
+	static plugin_type get_plugin_type() { return PT_Input; }
+	typedef input_system* (*loader_fun)(window_ptr);
+};
+
+}
 
 }
 

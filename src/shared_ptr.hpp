@@ -41,6 +41,12 @@ public:
 	shared_ptr()
 	{}
 
+	// FIXME: dangerous
+	template<typename U>
+	explicit shared_ptr(const boost::shared_ptr<U>& p)
+	: impl(p)
+	{}
+
 	template<class Y>
 	explicit shared_ptr( Y *const p )
 	: impl(p, deleter())
@@ -226,6 +232,11 @@ template<class T, class U> shared_ptr<T> const_pointer_cast(shared_ptr<U> const 
 template<class T, class U> shared_ptr<T> dynamic_pointer_cast(shared_ptr<U> const & r)
 {
 	return shared_ptr<T>(r, boost::detail::dynamic_cast_tag());
+}
+
+template<typename T, typename U> shared_ptr<T> polymorphic_pointer_cast(const shared_ptr<U>& r)
+{
+	return shared_ptr<T>(r, boost::detail::polymorphic_cast_tag());
 }
 
 template<class T> inline T * get_pointer(shared_ptr<T> const & p)

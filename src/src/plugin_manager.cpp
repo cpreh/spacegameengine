@@ -18,17 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iostream>
+#include <boost/filesystem/path.hpp>
 #include <boost/filesystem/convenience.hpp>
 #include <boost/filesystem/operations.hpp>
 #include "../plugin_manager.hpp"
-#include "../library.hpp"
 
 typedef void (*version_function)(sge::plugin_info*);
-inline version_function get_version_function(sge::library& lib)
-{
-	return lib.load_function<version_function>("plugin_version_info");
-}
 
 const char* const plugin_path = PLUGIN_PATH;
 const char* const plugin_extension =
@@ -40,53 +35,61 @@ const char* const plugin_extension =
 	;
 
 sge::plugin_manager::plugin_manager()
- : mypath(plugin_path)
 {
+	boost::filesystem::path plugin_dir(plugin_path);
+
 	boost::filesystem::directory_iterator end;
-	for(boost::filesystem::directory_iterator it(mypath); it != end; ++it)
+	for(boost::filesystem::directory_iterator it(plugin_dir); it != end; ++it)
 	{
-		if(boost::filesystem::is_directory(*it))
+		if(boost::filesystem::is_directory(*it) || boost::filesystem::extension(*it)!=plugin_extension)
 			continue;
-		if(boost::filesystem::extension(*it)!=plugin_extension)
-			continue;
-		library lib(it->string());
-		version_function vf = get_version_function(lib);
-		plugin_infos.push_back(plugin_info());
-		plugin_info& i = plugin_infos.back();
-		vf(&i);
-		i.path = iconv(it->string());
-	}	
-}
-
-void sge::plugin_manager::get_plugin_info(const plugin_type mask, plugin_info_array& v)
-{
-	for(plugin_info_array::const_iterator it = plugin_infos.begin(); it != plugin_infos.end(); ++it)
-		if(it->type & mask)
-			v.push_back(*it);
-}
-
-void sge::plugin_manager::load_plugin(const plugin_type mask, const unsigned number)
-{
-	plugin_info_array v;
-	get_plugin_info(mask,v);
-	try
-	{
-		plugin_info_array::const_reference i = v.at(number);
-		load_plugin(i.path);
+	
+		plugins.push_back(plugin_context_base(it->string()));
 	}
-	catch(const std::exception&)
-	{
-		std::cerr << "No plugin found with mask = " << mask << " and number = " << number << "!\n";
-		throw;
-	}
+	
+	for(plugin_array::iterator it = plugins.begin(); it != plugins.end(); ++it)
+		for(unsigned i = 1; i < PT_Last_Guard; i <<= 1)
+		{
+			const unsigned type = it->type();
+			if(type & i)
+				categories[static_cast<plugin_type>(i)].push_back(&*it);
+		}
 }
 
-void sge::plugin_manager::load_plugin(const string& file)
+sge::plugin_manager::plugin_context_base::plugin_context_base(const string& _path)
+: _path(_path)
 {
-	const detail::plugin::library_ptr l(new library(file));
-	version_function vf = get_version_function(*l);
-	plugin_info i;
-	vf(&i);
-	detail::plugin p(l,i.type);
-	loaded_plugins.push_back(p);
+	library lib(path());
+	version_function vf = lib.load_function<version_function>("plugin_version_info");
+	plugin_info info;
+	vf(&info);
+	_name = info.name;
+	_description = info.description;
+	_version = info.plugin_version;
+	_type = info.type;
+}
+
+const sge::string& sge::plugin_manager::plugin_context_base::name() const
+{
+	return _name;
+}
+
+const sge::string& sge::plugin_manager::plugin_context_base::description() const
+{
+	return _description;
+}
+
+unsigned sge::plugin_manager::plugin_context_base::version() const
+{
+	return _version;
+}
+
+sge::plugin_type sge::plugin_manager::plugin_context_base::type() const
+{
+	return _type;
+}
+
+const sge::string& sge::plugin_manager::plugin_context_base::path() const
+{
+	return _path;
 }

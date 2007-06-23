@@ -42,6 +42,7 @@ public:
 private:
 	template<typename Stored>
 	class iterator_impl : public boost::iterator_facade<iterator_impl<Stored>,Stored,std::random_access_iterator_tag,Stored,difference_type> {
+		// FIXME: bring typedefs required by iterator in scope
 		friend class vertex_buffer;
 
 		typename Stored::pointer data;

@@ -66,3 +66,8 @@ sge::string sge::string::substr(const size_type first, const size_type count)
 {
 	return string(ustring::substr(first,count));
 }
+
+std::ostream& sge::operator<<(std::ostream& s, const string& str)
+{
+	return s << iconv(str);
+}

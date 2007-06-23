@@ -20,47 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace detail {
-
-template<typename T> struct no_window_plugin : boost::false_type {
-	typedef T* (*plugin_function)();
-};
-template<typename T> struct window_plugin : boost::true_type {
-	typedef T* (*plugin_function)(window_ptr);
-};
-
-template<typename T> struct plugin_traits;
-template<> struct plugin_traits<renderer_system> : no_window_plugin<renderer_system> {
-	static const char* plugin_loader_name() { return "create_renderer_system"; }
-	static plugin_type get_plugin_type() { return PT_Renderer; }
-};
-template<> struct plugin_traits<input_system> : window_plugin<input_system> {
-	static const char* plugin_loader_name() { return "create_input_system"; }
-	static plugin_type get_plugin_type() { return PT_Input; }
-};
-template<> struct plugin_traits<image_loader> : no_window_plugin<image_loader> {
-	static const char* plugin_loader_name() { return "create_image_loader"; }
-	static plugin_type get_plugin_type() { return PT_ImageLoader; }
-};
-template<> struct plugin_traits<audio_system> : window_plugin<audio_system> {
-	static const char* plugin_loader_name() { return "create_audio_system"; }
-	static plugin_type get_plugin_type() { return PT_Audio; }
-};
-template<> struct plugin_traits<font_system> : no_window_plugin<font_system> {
-	static const char* plugin_loader_name() { return "create_font_system"; }
-	static plugin_type get_plugin_type() { return PT_Font; }
-};
-
-struct plugin {
-	typedef shared_ptr<library> library_ptr;
-
-	plugin(library_ptr lib, plugin_type type)
-	 : lib(lib), type(type)
-	{}
-
-	library_ptr lib;
-	plugin_type type;
-};
 
 struct plugin_has_flag : public std::binary_function<plugin,plugin_type,bool> {
 	result_type operator()(const first_argument_type& p, const second_argument_type& t) const

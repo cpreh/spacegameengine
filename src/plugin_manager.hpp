@@ -21,49 +21,145 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_MANAGER_HPP_INCLUDED
 #define SGE_PLUGIN_MANAGER_HPP_INCLUDED
 
-#include <list>
-#include <functional>
-#include <boost/filesystem/path.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/integral_constant.hpp>
-#include "algorithm.hpp"
-#include "library.hpp"
-#include "window.hpp"
+#include <cstddef>
+#include <vector>
+#include <map>
+#include <iterator>
+#include <boost/weak_ptr.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include "shared_ptr.hpp"
 #include "plugin.hpp"
 #include "string.hpp"
-#include "renderer/renderer_system.hpp"
-#include "input/input_system.hpp"
-#include "image/image_loader.hpp"
-#include "audio/audio_system.hpp"
-#include "font/font_system.hpp"
-#include "detail/plugin_manager_detail.hpp"
+#include "exception.hpp"
 
 namespace sge
 {
 
 class plugin_manager {
 public:
-	typedef std::vector<plugin_info> plugin_info_array;
+	template<typename T> class plugin_context;
 
-	plugin_manager();
-	void load_plugin(plugin_type mask, unsigned number = 0);
-	void load_plugin(const string& filename);
-	void get_plugin_info(plugin_type mask, plugin_info_array& v);
-	template<typename T> 
-		typename boost::disable_if<detail::plugin_traits<T>, shared_ptr<T> >::type get_plugin(const unsigned index = 0);
-	template<typename T> 
-		typename boost::enable_if<detail::plugin_traits<T>, shared_ptr<T> >::type get_plugin(const window_ptr w, const unsigned index = 0);
+	class plugin_context_base {
+	public:
+		plugin_context_base(const string& path);
+		
+		const string& name() const;
+		const string& description() const;
+		unsigned version() const;
+		plugin_type type() const;
+		const string& path() const;
+	private:
+		template<typename T> friend class plugin_context;
+		boost::weak_ptr<plugin_base> ref;
+		string _path;
+		string _name;
+		string _description;
+		unsigned _version;
+		plugin_type _type;
+	};
+
+	template<typename T>
+	class plugin_context {
+	public:	
+		plugin_context(plugin_context_base& base)
+		: base(base)
+		{}
+
+		typedef shared_ptr<plugin<T> > ptr_type;
+		
+		ptr_type load()
+		{
+			const shared_ptr<plugin_base> ptr_base(base.ref.lock());
+			if(!ptr_base)
+			{
+				const shared_ptr<plugin<T> > new_ptr(new plugin<T>(base.path()));
+				base.ref = new_ptr.get_boost_ptr();
+				return new_ptr;
+			}
+			return polymorphic_pointer_cast<plugin<T> >(ptr_base);
+		}
+	private:
+		plugin_context_base& base;
+	};
+
 private:
-	template<typename T, typename Fun> Fun _get_plugin(const unsigned index);
+	typedef std::vector<plugin_context_base> plugin_array;
+	typedef std::vector<plugin_context_base*> plugin_category_array;
+	typedef std::map<plugin_type, plugin_category_array> plugin_map;
+public:
+	plugin_manager();
+	
+	template<typename T>
+		class iterator : public boost::iterator_facade<iterator<T>, plugin_context<T>, std::random_access_iterator_tag, plugin_context<T> > {
+	public:
+		typedef boost::iterator_facade<iterator<T>, plugin_context<T>, std::random_access_iterator_tag, plugin_context<T> > base_type;
 
-	plugin_info_array plugin_infos;
-	typedef std::list<detail::plugin> library_array;
-	library_array loaded_plugins;
-	boost::filesystem::path mypath;
+		typedef typename base_type::value_type value_type;
+		typedef typename base_type::reference reference;
+		typedef typename base_type::pointer pointer;
+		typedef typename base_type::difference_type difference_type;
+
+		iterator(const plugin_category_array::iterator it)
+		: it(it)
+		{}
+
+		void advance(const difference_type diff)
+		{
+			it+=diff;
+		}
+
+		void increment()
+		{
+			++it;
+		}
+
+		void decrement()
+		{
+			--it;
+		}
+
+		bool equal(const iterator& r) const
+		{
+			return it == r.it;
+		}
+
+		reference dereference() const
+		{
+			return plugin_context<T>(**it);
+		}
+
+		difference_type distance_to(const iterator& r) const
+		{
+			return r.it - it;
+		}
+	private:
+		plugin_category_array::iterator it;
+	};
+
+	template<typename T>
+		iterator<T> begin()
+	{
+		return iterator<T>(categories[detail::plugin_traits<T>::get_plugin_type()].begin());
+	}
+
+	template<typename T>
+		iterator<T> end()
+	{
+		return iterator<T>(categories[detail::plugin_traits<T>::get_plugin_type()].end());
+	}
+
+	template<typename T>
+		typename iterator<T>::reference get_plugin(const unsigned index = 0)
+	{
+		if(index >= categories[detail::plugin_traits<T>::get_plugin_type()].size())
+			throw exception("get_plugin(): out of range!");
+		return *(begin<T>()+index);
+	}
+private:
+	plugin_array plugins;
+	plugin_map categories;
 };
 
 }
-
-#include "./detail/plugin_manager_impl.hpp"
 
 #endif

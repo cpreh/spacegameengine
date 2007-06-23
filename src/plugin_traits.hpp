@@ -18,45 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_HPP_INCLUDED
-#define SGE_LIBRARY_HPP_INCLUDED
-
-#include <boost/noncopyable.hpp>
-#include "string.hpp"
-#include "types.hpp"
-
-#ifdef SGE_WINDOWS_PLATFORM
-#include "windows.hpp"
-#elif SGE_LINUX_PLATFORM
-#include<dlfcn.h>
-#endif
+#ifndef SGE_PLUGIN_TRAITS_HPP_INCLUDED
+#define SGE_PLUGIN_TRAITS_HPP_INCLUDED
 
 namespace sge
 {
 
-class library : boost::noncopyable {
-private:
-#ifdef SGE_WINDOWS_PLATFORM
-	HMODULE handle;
-#elif SGE_LINUX_PLATFORM
-	void* handle;
-#endif
-public:
-	library(const string& path);
-	~library();
-
-	template<typename Fun>
-	Fun load_function(const string& fun);
-
-	const string& name() const;
-private:
-	string liberror() const;
-
-	string n;
+enum plugin_type {
+	PT_Nothing          = 0,
+	PT_Renderer         = 1,
+	PT_Input            = 1 << 1,
+	PT_ImageLoader      = 1 << 2,
+	PT_Audio            = 1 << 3,
+	PT_Font             = 1 << 4,
+	PT_AudioLoader      = 1 << 5,
+	PT_Last_Guard       = 1 << 6
 };
 
-}
+namespace detail
+{
 
-#include "detail/library_impl.hpp"
+template<typename T> struct plugin_traits;
+
+}
+}
 
 #endif

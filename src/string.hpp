@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_STRING_HPP_INCLUDED
 
 #include <string>
+#include <ostream>
 #include "typeswitch.hpp"
 #include "unicode.hpp"
 
@@ -52,6 +53,8 @@ public:
 
 	// TODO: add the whole string interface and stop inheriting from ustring
 };
+
+std::ostream& operator<<(std::ostream&, const string&);
 
 }
 

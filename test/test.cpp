@@ -61,14 +61,14 @@ sge::math::vector2 rand_point2() { return sge::math::vector2(double(std::rand())
 int main()
 try
 {
-	sge::exception e("foo");
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
-	sge::renderer_system_ptr rs = pm.get_plugin<sge::renderer_system>();
-	//const sge::plugin<sge::renderer_system>::ptr_type rp = *pm.begin<sge::renderer_system>();
-	//sge::renderer_system_ptr rs = rp->load();
 
+	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
+	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
+
+	const sge::renderer_system_ptr rs(renderer_plugin->get()());
 	sge::renderer_caps_array caps;
 	rs->caps(caps);
 
@@ -77,12 +77,18 @@ try
 		const sge::display_mode& mode = caps.at(0).display_modes[i];
 		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
 	}*/
-//#if 0
-	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), false);
-	sge::renderer_ptr rend = rs->create_renderer(param);
-	sge::image_loader_ptr pl = pm.get_plugin<sge::image_loader>();
-	sge::font_system_ptr fs = pm.get_plugin<sge::font_system>();
-	sge::input_system_ptr is = pm.get_plugin<sge::input_system>(rend->get_window());
+	
+	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), true);
+	const sge::renderer_ptr rend = rs->create_renderer(param);
+	
+	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
+	
+	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
+	const sge::image_loader_ptr pl(image_loader_plugin->get()());
+
+	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
+	const sge::font_system_ptr fs(font_plugin->get()());
+
 	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arialbd.ttf",32);
 	sge::sprite_system ss(rend, 0, 2);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "/mainskin/cancel_0.png");
@@ -190,7 +196,6 @@ try
 		rend->end_rendering();
 		++fps;
 	}
-//#endif
 	return EXIT_SUCCESS;
 }
 catch(const std::exception& e)

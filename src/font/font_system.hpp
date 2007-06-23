@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <string>
 #include "../shared_ptr.hpp"
+#include "../plugin_traits.hpp"
 #include "../renderer/font_types.hpp"
 #include "../renderer/renderer.hpp"
 #include "font_impl.hpp"
@@ -37,6 +38,17 @@ public:
 };
 
 typedef shared_ptr<font_system> font_system_ptr;
+
+namespace detail
+{
+
+template<> struct plugin_traits<font_system> {
+	static const char* plugin_loader_name() { return "create_font_system"; }
+	static plugin_type get_plugin_type() { return PT_Font; }
+	typedef font_system* (*loader_fun)();
+};
+
+}
 
 }
 

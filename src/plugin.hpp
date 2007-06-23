@@ -21,20 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_HPP_INCLUDED
 #define SGE_PLUGIN_HPP_INCLUDED
 
+#include <boost/noncopyable.hpp>
 #include "string.hpp"
+#include "shared_ptr.hpp"
+#include "plugin_traits.hpp"
+#include "library.hpp"
 
 namespace sge
 {
-
-enum plugin_type {
-	PT_Nothing          = 0,
-	PT_Renderer         = 1,
-	PT_Input            = 1 << 1,
-	PT_ImageLoader      = 1 << 2,
-	PT_Audio            = 1 << 3,
-	PT_Font             = 1 << 4,
-	PT_Last_Guard       = 1 << 5
-};
 
 struct plugin_info {
 	plugin_info()
@@ -46,7 +40,30 @@ struct plugin_info {
 	unsigned     plugin_version;
 	unsigned     min_core_version;
 	plugin_type  type;
-	string       path;
+};
+
+struct plugin_base {
+	virtual ~plugin_base(){}
+};
+
+template<typename T>
+class plugin : boost::noncopyable, public plugin_base {
+public:
+	typedef typename detail::plugin_traits<T>::loader_fun loader_fun;
+	typedef shared_ptr<plugin<T> > ptr_type;
+
+	plugin(const string& path)
+	: lib(path),
+	  loader(lib.load_function<loader_fun>(detail::plugin_traits<T>::plugin_loader_name()))
+	{}
+
+	loader_fun get() const
+	{
+		return loader;
+	}
+private:
+	library lib;
+	const loader_fun loader;
 };
 
 }
