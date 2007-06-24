@@ -51,7 +51,7 @@ libwave = wave.SharedLibrary('sgewave', [glob('src/plugins/wave/src/*.cpp')])
 
 vorbis = Environment(CCFLAGS = flags)
 vorbis.ParseConfig('pkg-config --libs vorbis')
-libvorbis = wave.SharedLibrary('sgevorbis', [glob('src/plugins/vorbis/src/*.cpp')])
+libvorbis = vorbis.SharedLibrary('sgevorbis', [glob('src/plugins/vorbis/src/*.cpp')])
 
 openal = Environment(LIBS = ['openal', 'alut'], CCFLAGS = flags)
 libopenal = openal.SharedLibrary('sgeopenal', [glob('src/plugins/openal_player/src/*.cpp')])
@@ -80,6 +80,8 @@ installer.Alias(target = "install", source = [core.Install(lib_path,libcore),
                                               installer.Install(header_path,[glob('src/*.hpp')]),
                                               installer.Install(header_path + '/detail',[glob('src/detail/*.hpp')]),
                                               installer.Install(header_path + '/audio',[glob('src/audio/*.hpp')]),
+                                              installer.Install(header_path + '/audio/audio_player',[glob('src/audio/audio_player/*.hpp')]),
+                                              installer.Install(header_path + '/audio/audio_loader',[glob('src/audio/audio_loader/*.hpp')]),
                                               installer.Install(header_path + '/font',[glob('src/font/*.hpp')]),
                                               installer.Install(header_path + '/gui',[glob('src/gui/*.hpp')]),
                                               installer.Install(header_path + '/image',[glob('src/image/*.hpp')]),

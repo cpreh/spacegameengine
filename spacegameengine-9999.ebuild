@@ -48,20 +48,21 @@ scons_enable() {
 	fi;
 }
 
-SCONS_ARGUMENTS="destdir=${D} prefix=/usr libdir=$(get_libdir) \
-	cxxflags=\"${CXXFLAGS}\" \
-	$(scons_enable debug) $(scons_enable dga) $(scons_enable vorbis) \
-	$(scons_enable wave) $(scons_enable openal)"
-
 src_unpack() {
 	subversion_src_unpack
 	cd ${S}
 }
 
 src_compile() {
-	scons ${scons_arguments} || die
+	scons destdir=${D} prefix=/usr libdir=$(get_libdir) \
+	cxxflags="${CXXFLAGS}" \
+	$(scons_enable debug) $(scons_enable dga) $(scons_enable vorbis) \
+	$(scons_enable wave) $(scons_enable openal) || die
 }
 
 src_install() {
-	scons install ${scons_arguments} || die
+	scons install destdir=${D} prefix=/usr libdir=$(get_libdir) \
+	cxxflags="${CXXFLAGS}" \
+	$(scons_enable debug) $(scons_enable dga) $(scons_enable vorbis) \
+	$(scons_enable wave) $(scons_enable openal) || die
 }
