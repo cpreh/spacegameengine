@@ -1,5 +1,5 @@
-#include "vorbis_loader.hpp"
-#include "../../plugin.hpp"
+#include "../vorbis_loader.hpp"
+#include "../../../plugin.hpp"
 
 extern "C"
 {
@@ -17,7 +17,7 @@ void plugin_version_info(sge::plugin_info* const p)
 
 sge::audio_loader* create_audio_loader()
 {
-	return new vorbis_loader(16);
+	return new sge::vorbis_loader();
 }
 
 }

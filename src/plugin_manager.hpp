@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <map>
 #include <iterator>
+#include <boost/noncopyable.hpp>
 #include <boost/weak_ptr.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include "shared_ptr.hpp"
@@ -35,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-class plugin_manager {
+class plugin_manager : boost::noncopyable {
 public:
 	template<typename T> class plugin_context;
 

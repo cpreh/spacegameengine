@@ -29,7 +29,7 @@ enum plugin_type {
 	PT_Renderer         = 1,
 	PT_Input            = 1 << 1,
 	PT_ImageLoader      = 1 << 2,
-	PT_Audio            = 1 << 3,
+	PT_AudioPlayer      = 1 << 3,
 	PT_Font             = 1 << 4,
 	PT_AudioLoader      = 1 << 5,
 	PT_Last_Guard       = 1 << 6

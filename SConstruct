@@ -24,7 +24,8 @@ libcore = core.SharedLibrary('sgecore', [glob('src/src/*.cpp'),
                                          glob('src/sprite/src/*.cpp'),
                                          glob('src/texture/src/*.cpp'),
                                          glob('src/input/src/*.cpp'),
-                                         glob('src/image/src/*.cpp')])
+                                         glob('src/image/src/*.cpp'),
+                                         glob('src/console/src/*.cpp')])
 
 gui = Environment(LIBPATH = ['.'], LIBS = ['boost_filesystem', 'boost_signals', 'sgecore'], CCFLAGS = flags)
 libgui = gui.SharedLibrary('sgegui', [glob('src/gui/src/*.cpp')])
@@ -44,6 +45,16 @@ if ARGUMENTS.get('enable-dga','0') == '1':
 	xinput.Append(CPPDEFINES = {'USE_DGA': 1 })
 libxinput = xinput.SharedLibrary('sgexinput', [glob('src/plugins/xinput/src/*.cpp')])
 
+wave = Environment(CCFLAGS = flags)
+libwave = wave.SharedLibrary('sgewave', [glob('src/plugins/wave/src/*.cpp')])
+
+vorbis = Environment(CCFLAGS = flags)
+vorbis.ParseConfig('pkg-config --libs vorbis')
+libvorbis = wave.SharedLibrary('sgevorbis', [glob('src/plugins/vorbis/src/*.cpp')])
+
+openal = Environment(LIBS = ['openal', 'alut'], CCFLAGS = flags)
+libopenal = openal.SharedLibrary('sgeopenal', [glob('src/plugins/openal_player/src/*.cpp')])
+
 #d3d = Environment(CPPPATH = ['/usr/include/wine/windows'], CCFLAGS = env_flags)
 #libd3d = d3d.SharedLibrary('sged3d', [glob('src/plugins/d3d/src/*.cpp')])
 
@@ -60,6 +71,9 @@ installer.Alias(target = "install", source = [core.Install(lib_path,libcore),
                                               devil.Install(plugin_path,libdevil),
                                               freetype.Install(plugin_path,libfreetype),
                                               xinput.Install(plugin_path,libxinput),
+                                              wave.Install(plugin_path,libwave),
+                                              vorbis.Install(plugin_path,libvorbis),
+                                              openal.Install(plugin_path,libopenal),
                                            #  d3d.Install(plugin_path,libd3d),
                                               test.Install(bin_path,testapp),
                                               installer.Install(header_path,[glob('src/*.hpp')]),

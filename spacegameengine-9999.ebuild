@@ -11,9 +11,10 @@ ESVN_REPO_URI="https://spacegameengine.svn.sourceforge.net/svnroot/spacegameengi
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="opengl truetype devil xinput debug dga"
+IUSE="opengl truetype devil xinput debug dga vorbis wave openal"
 
 DEPEND="${RDEPEND}
+        dev-util/pkgconfig
         dev-util/scons"
 RDEPEND="dev-libs/boost
          x11-libs/libX11
@@ -25,11 +26,15 @@ RDEPEND="dev-libs/boost
              x11-libs/libXxf86vm )
          devil? ( media-libs/devil )
          truetype? ( media-libs/freetype )
-         xinput? ( dga? ( x11-libs/libXxf86dga ) )"
+         xinput? ( dga? ( x11-libs/libXxf86dga ) )
+         vorbis? ( media-libs/libvorbis )
+         openal? ( 
+             media-libs/openal
+             media-libs/freealut )"
 
 pkg_setup() {
 	if !(use opengl && use truetype && use devil && use xinput) ; then
-		eerror "For now you have to enable all useflags to get a working
+		eerror "For now you have to enable at least some basic useflags to get a working
 		engine!\nPlease do: \"games-engines/spacegameengine opengl truetype devil xinput\" >> /etc/portage/package.use"
 		die
 	fi
@@ -43,15 +48,21 @@ scons_enable() {
 	fi;
 }
 
+scons_arguments() {
+	echo destdir=${D} prefix=/usr libdir=$(get_libdir) cxxflags="${CXXFLAGS}" \
+	$(scons_enable debug) $(scons_enable dga) $(scons_enable vorbis) \
+	$(scons_enable wave) $(scons_enable openal)
+}
+
 src_unpack() {
 	subversion_src_unpack
 	cd ${S}
 }
 
 src_compile() {
-	scons destdir=${D} prefix=/usr libdir=$(get_libdir) cxxflags="${CXXFLAGS}" $(scons_enable debug) $(scons_enable dga) || die
+	scons $(scons_arguments) || die
 }
 
 src_install() {
-	scons install destdir=${D} prefix=/usr libdir=$(get_libdir) cxxflags="${CXXFLAGS}" $(scons_enable debug) $(scons_enable dga) || die
+	scons install $(scons_arguments) || die
 }

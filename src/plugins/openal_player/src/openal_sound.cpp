@@ -2,11 +2,11 @@
 #include <boost/lexical_cast.hpp>
 #include <AL/al.h>
 #include <AL/alut.h>
-#include "../../audio/audio_player/sound.hpp"
-#include "../../audio/audio_exception.hpp"
-#include "openal_player.hpp"
-#include "openal_nonstream_sound.hpp"
-#include "openal_stream_sound.hpp"
+#include "../../../audio/audio_player/sound.hpp"
+#include "../../../audio/audio_exception.hpp"
+#include "../openal_player.hpp"
+#include "../openal_nonstream_sound.hpp"
+#include "../openal_stream_sound.hpp"
 
 sge::openal_player::openal_player() 
 {

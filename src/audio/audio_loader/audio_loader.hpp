@@ -5,8 +5,8 @@
 #include <vector>
 #include <string>
 // sge
-#include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
+#include "../../shared_ptr.hpp"
+#include "../../plugin_traits.hpp"
 // Own stuff
 #include "audio_file.hpp"
 

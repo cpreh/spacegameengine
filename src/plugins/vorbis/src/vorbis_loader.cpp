@@ -1,7 +1,7 @@
 // Own stuff
-#include "../../audio/audio_exception.hpp"
-#include "vorbis_file.hpp"
-#include "vorbis_loader.hpp"
+#include "../../../audio/audio_exception.hpp"
+#include "../vorbis_file.hpp"
+#include "../vorbis_loader.hpp"
 
 sge::shared_ptr<sge::audio_file> sge::vorbis_loader::load(const std::string &filename)
 {

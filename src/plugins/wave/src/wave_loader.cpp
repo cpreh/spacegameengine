@@ -1,6 +1,6 @@
 // Own stuff
-#include "wave_file.hpp"
-#include "wave_loader.hpp"
+#include "../wave_file.hpp"
+#include "../wave_loader.hpp"
 
 sge::shared_ptr<sge::audio_file> sge::wave_loader::load(const std::string &filename)
 {

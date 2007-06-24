@@ -2,9 +2,11 @@
 #define SGE_PLAYER_HPP_INCLUDED
 
 // sge
-#include "../shared_ptr.hpp"
+#include "../../shared_ptr.hpp"
+#include "../../plugin_traits.hpp"
+
 // Own stuff
-#include "../audio_file.hpp"
+#include "../audio_loader/audio_file.hpp"
 
 namespace sge
 {

@@ -1,7 +1,7 @@
 // Boost
 #include <boost/cstdint.hpp>
 // Own stuff
-#include "wave_file.hpp"
+#include "../wave_file.hpp"
 
 sge::wave_file::wave_file(const std::string &filename) : filename_(filename),swap_(boost::logic::indeterminate),loaded_(false)
 {

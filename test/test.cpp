@@ -50,6 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/language.hpp"
 #include "../src/endianness.hpp"
 #include "../src/exception.hpp"
+#include "../src/console/console_gfx.hpp"
+#include "../src/console/console.hpp"
 
 namespace
 {
@@ -160,6 +162,8 @@ try
 
 	const std::string some_text("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest");
 
+	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
+
 	while(running)
 	{
 		if(frames.update())
@@ -193,6 +197,8 @@ try
 		fn.transform(sge::math::matrix_identity());
 		fn.draw_text(boost::lexical_cast<std::string>(cur_fps),sge::font_pos(0.1,0),sge::font_size(1,1),sge::colors::purple);
 		ls.render();
+		con.draw();
+		con.tick();
 		rend->end_rendering();
 		++fps;
 	}

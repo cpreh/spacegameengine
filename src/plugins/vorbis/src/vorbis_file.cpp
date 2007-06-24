@@ -5,8 +5,8 @@
 // C++
 #include <algorithm>
 // Own stuff
-#include "vorbis_file.hpp"
-#include "../../audio/audio_exception.hpp"
+#include "../vorbis_file.hpp"
+#include "../../../audio/audio_exception.hpp"
 
 sge::vorbis_file::vorbis_file(const std::string &_filename,int _bits_per_sample)
 {

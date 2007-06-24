@@ -1,5 +1,5 @@
-#include "wave_loader.hpp"
-#include "../../sge/plugin.hpp"
+#include "../wave_loader.hpp"
+#include "../../../plugin.hpp"
 
 extern "C"
 {
@@ -17,7 +17,7 @@ void plugin_version_info(sge::plugin_info* const p)
 
 sge::audio_loader* create_audio_loader()
 {
-	return new wave_loader;
+	return new sge::wave_loader();
 }
 
 }
