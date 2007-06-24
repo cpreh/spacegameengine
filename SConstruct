@@ -49,7 +49,7 @@ libxinput = xinput.SharedLibrary('sgexinput', [glob('src/plugins/xinput/src/*.cp
 wave = Environment(CCFLAGS = flags)
 libwave = wave.SharedLibrary('sgewave', [glob('src/plugins/wave/src/*.cpp')])
 
-vorbis = Environment(CCFLAGS = flags)
+vorbis = Environment(LIBS = ['vorbisfile'], CCFLAGS = flags)
 vorbis.ParseConfig('pkg-config --libs vorbis')
 libvorbis = vorbis.SharedLibrary('sgevorbis', [glob('src/plugins/vorbis/src/*.cpp')])
 
