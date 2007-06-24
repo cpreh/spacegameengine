@@ -25,7 +25,8 @@ libcore = core.SharedLibrary('sgecore', [glob('src/src/*.cpp'),
                                          glob('src/texture/src/*.cpp'),
                                          glob('src/input/src/*.cpp'),
                                          glob('src/image/src/*.cpp'),
-                                         glob('src/console/src/*.cpp')])
+#                                         glob('src/console/src/*.cpp')
+                                        ])
 
 gui = Environment(LIBPATH = ['.'], LIBS = ['boost_filesystem', 'boost_signals', 'sgecore'], CCFLAGS = flags)
 libgui = gui.SharedLibrary('sgegui', [glob('src/gui/src/*.cpp')])

@@ -48,11 +48,10 @@ scons_enable() {
 	fi;
 }
 
-scons_arguments() {
-	echo destdir=${D} prefix=/usr libdir=$(get_libdir) cxxflags="${CXXFLAGS}" \
+SCONS_ARGUMENTS="destdir=${D} prefix=/usr libdir=$(get_libdir) \
+	cxxflags=\"${CXXFLAGS}\" \
 	$(scons_enable debug) $(scons_enable dga) $(scons_enable vorbis) \
-	$(scons_enable wave) $(scons_enable openal)
-}
+	$(scons_enable wave) $(scons_enable openal)"
 
 src_unpack() {
 	subversion_src_unpack
@@ -60,9 +59,9 @@ src_unpack() {
 }
 
 src_compile() {
-	scons $(scons_arguments) || die
+	scons ${scons_arguments} || die
 }
 
 src_install() {
-	scons install $(scons_arguments) || die
+	scons install ${scons_arguments} || die
 }
