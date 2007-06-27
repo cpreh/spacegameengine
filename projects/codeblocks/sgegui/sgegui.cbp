@@ -17,8 +17,8 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="sgecore" />
 					<Add library="boost_signals" />
+					<Add library="sgecore" />
 					<Add directory="..\sgecore" />
 				</Linker>
 			</Target>

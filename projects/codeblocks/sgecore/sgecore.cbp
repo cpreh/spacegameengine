@@ -69,11 +69,9 @@
 		<Unit filename="..\..\..\src\input\callback_handle.hpp" />
 		<Unit filename="..\..\..\src\input\input_system.hpp" />
 		<Unit filename="..\..\..\src\input\key_mod_tracker.hpp" />
-		<Unit filename="..\..\..\src\input\key_repeater.hpp" />
 		<Unit filename="..\..\..\src\input\key_state_tracker.hpp" />
 		<Unit filename="..\..\..\src\input\key_type.hpp" />
 		<Unit filename="..\..\..\src\input\src\key_mod_tracker.cpp" />
-		<Unit filename="..\..\..\src\input\src\key_repeater.cpp" />
 		<Unit filename="..\..\..\src\input\src\key_state_tracker.cpp" />
 		<Unit filename="..\..\..\src\language.hpp" />
 		<Unit filename="..\..\..\src\library.hpp" />
