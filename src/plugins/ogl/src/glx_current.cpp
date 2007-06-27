@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../types.hpp"
+#ifdef SGE_LINUX_PLATFORM
 #include "../../../x_window.hpp"
 #include "../glx_current.hpp"
 #include "../glx_context.hpp"
@@ -35,3 +37,5 @@ sge::ogl::glx_current::~glx_current()
 {
 	glXMakeCurrent(dsp->get(), None, NULL);
 }
+
+#endif

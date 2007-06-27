@@ -42,6 +42,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Linker>
+			<Add option="-shared" />
+		</Linker>
 		<Unit filename="..\..\..\src\plugins\dinput\di.hpp" />
 		<Unit filename="..\..\..\src\plugins\dinput\input_device.hpp" />
 		<Unit filename="..\..\..\src\plugins\dinput\input_system.hpp" />
@@ -58,6 +61,7 @@
 		<Unit filename="..\..\..\src\plugins\dinput\src\mouse.cpp" />
 		<Extensions>
 			<code_completion />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -33,12 +33,17 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
+					<Add library="sgecore" />
+					<Add library="boost_signals-mgw34-mt-s-1_34" />
+					<Add directory="..\sgecore" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-pedantic" />
+			<Add option="-W" />
 			<Add option="-Wall" />
+			<Add option="-ansi" />
 		</Compiler>
 		<Unit filename="..\..\..\src\gui\button.hpp" />
 		<Unit filename="..\..\..\src\gui\check_box.hpp" />
@@ -76,6 +81,7 @@
 		<Unit filename="..\..\..\src\gui\vertical_scrollbar.hpp" />
 		<Extensions>
 			<code_completion />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

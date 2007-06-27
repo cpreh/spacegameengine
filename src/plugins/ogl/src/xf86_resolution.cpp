@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../types.hpp"
+#ifdef SGE_LINUX_PLATFORM
 #include <stdexcept>
 #include "../xf86_resolution.hpp"
 
@@ -35,3 +37,5 @@ sge::ogl::xf86_resolution::~xf86_resolution()
 {
 	XF86VidModeSwitchToMode(dsp->get(), screen, const_cast<XF86VidModeModeInfo*>(&old_mode));
 }
+
+#endif

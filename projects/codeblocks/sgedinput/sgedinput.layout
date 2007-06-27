@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="" />
-	<File name="..\..\..\src\plugins\dinput\di.hpp" open="1" top="0" tabpos="1">
+	<ActiveTarget name="Debug" />
+	<File name="..\..\..\src\plugins\dinput\di.hpp" open="0" top="0" tabpos="1">
 		<Cursor position="909" topLine="16" />
 	</File>
-	<File name="..\..\..\src\plugins\dinput\src\input_device.cpp" open="1" top="0" tabpos="2">
+	<File name="..\..\..\src\plugins\dinput\src\input_device.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="1260" topLine="24" />
 	</File>
-	<File name="..\..\..\src\plugins\dinput\src\input_system.cpp" open="1" top="0" tabpos="3">
+	<File name="..\..\..\src\plugins\dinput\src\input_system.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="1092" topLine="20" />
 	</File>
 </CodeBlocks_layout_file>

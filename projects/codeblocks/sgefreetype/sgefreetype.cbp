@@ -48,6 +48,7 @@
 		<Unit filename="..\..\..\src\plugins\freetype\src\font_system.cpp" />
 		<Extensions>
 			<code_completion />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
-	<File name="..\..\..\src\input\input_system.hpp" open="1" top="0" tabpos="7">
+	<ActiveTarget name="Release" />
+	<File name="..\..\..\src\detail\iconv_detail.hpp" open="0" top="0" tabpos="8">
+		<Cursor position="1050" topLine="18" />
+	</File>
+	<File name="..\..\..\src\input\input_system.hpp" open="0" top="0" tabpos="7">
 		<Cursor position="1446" topLine="19" />
 	</File>
-	<File name="..\..\..\src\src\media.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="813" topLine="0" />
+	<File name="..\..\..\src\input\key_type.hpp" open="0" top="0" tabpos="9">
+		<Cursor position="3185" topLine="203" />
+	</File>
+	<File name="..\..\..\src\math\vector.hpp" open="1" top="0" tabpos="1">
+		<Cursor position="247" topLine="0" />
+	</File>
+	<File name="..\..\..\src\src\media.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="839" topLine="6" />
 	</File>
 	<File name="..\..\..\src\src\plugin_manager.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="1173" topLine="24" />
+		<Cursor position="1333" topLine="33" />
 	</File>
-	<File name="..\..\..\src\src\win32_window.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="3125" topLine="107" />
+	<File name="..\..\..\src\src\win32_window.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="3422" topLine="126" />
 	</File>
-	<File name="..\..\..\src\win32_window.hpp" open="1" top="0" tabpos="5">
+	<File name="..\..\..\src\texture\src\handler.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="841" topLine="6" />
+	</File>
+	<File name="..\..\..\src\win32_window.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="1340" topLine="27" />
 	</File>
-	<File name="..\..\..\src\window.hpp" open="1" top="0" tabpos="4">
-		<Cursor position="1576" topLine="28" />
+	<File name="..\..\..\src\window.hpp" open="0" top="0" tabpos="4">
+		<Cursor position="1560" topLine="28" />
 	</File>
-	<File name="..\..\..\src\x_window.hpp" open="1" top="0" tabpos="6">
-		<Cursor position="1932" topLine="46" />
+	<File name="..\..\..\src\x_window.hpp" open="0" top="0" tabpos="6">
+		<Cursor position="1932" topLine="40" />
 	</File>
 </CodeBlocks_layout_file>

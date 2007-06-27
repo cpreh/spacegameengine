@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../types.hpp"
+#ifdef SGE_LINUX_PLATFORM
 #include <stdexcept>
 #include "../glx_context.hpp"
 
@@ -38,3 +40,5 @@ GLXContext& sge::ogl::glx_context::context()
 {
 	return c;
 }
+
+#endif

@@ -7,13 +7,31 @@
 	<File name="..\..\..\src\plugins\ogl\src\cube_texture.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="1414" topLine="34" />
 	</File>
-	<File name="..\..\..\src\plugins\ogl\src\default_render_target.cpp" open="1" top="0" tabpos="3">
+	<File name="..\..\..\src\plugins\ogl\src\default_render_target.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="1067" topLine="15" />
 	</File>
-	<File name="..\..\..\src\plugins\ogl\src\renderer.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="4372" topLine="113" />
+	<File name="..\..\..\src\plugins\ogl\src\glx_context.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="1368" topLine="24" />
 	</File>
-	<File name="..\..\..\src\plugins\ogl\src\renderer_system.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="1438" topLine="25" />
+	<File name="..\..\..\src\plugins\ogl\src\glx_current.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="1400" topLine="21" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\glx_visual.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="1327" topLine="19" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\renderer.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="5041" topLine="81" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\renderer_system.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="0" topLine="21" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\x_colormap.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="1379" topLine="24" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\xf86_resolution.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="1310" topLine="21" />
+	</File>
+	<File name="..\..\..\src\plugins\ogl\src\xf86vidmode.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="815" topLine="6" />
 	</File>
 </CodeBlocks_layout_file>

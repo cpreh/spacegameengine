@@ -75,8 +75,11 @@ int handler(Display* const d, XErrorEvent* const e)
 // TODO: maybe support different adapters?
 sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned adapter, const window_ptr wnd_param)
  : param(param),
-   clearflags(0),
+   clearflags(0)
+   #ifdef SGE_LINUX_PLATFORM
+   ,
    dsp(new x_display())
+#endif
 {
 	if(adapter > 0)
 		std::cerr << "stub: adapter cannot be > 0 for opengl plugin (adapter was " << adapter << ")\n";
@@ -409,7 +412,7 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 		set_viewport(viewport(0,0,wnd->width(),wnd->height()));
 		return;
 	}
-	
+
 	const shared_ptr<texture> p(dynamic_pointer_cast<texture>(target));
 	const fbo_render_target_ptr ntarget = create_render_target(p->width(),p->height());
 	_render_target = ntarget;
