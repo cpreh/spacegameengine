@@ -76,7 +76,7 @@ int handler(Display* const d, XErrorEvent* const e)
 sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned adapter, const window_ptr wnd_param)
  : param(param),
    clearflags(0)
-   #ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_LINUX_PLATFORM
    ,
    dsp(new x_display())
 #endif
@@ -171,7 +171,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	swa.event_mask = StructureNotifyMask;
 
 	if(wnd_param)
-		wnd = dynamic_pointer_cast<x_window>(wnd_param);
+		wnd = polymorphic_pointer_cast<x_window>(wnd_param);
 	else
 		wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width(), param.mode.height()), "spacegameengine", dsp, swa, visual->visual_info()));
 

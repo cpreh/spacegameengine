@@ -36,10 +36,8 @@ const char* const plugin_extension =
 
 sge::plugin_manager::plugin_manager()
 {
-	boost::filesystem::path plugin_dir(plugin_path);
-
 	boost::filesystem::directory_iterator end;
-	for(boost::filesystem::directory_iterator it(plugin_dir); it != end; ++it)
+	for(boost::filesystem::directory_iterator it(plugin_path); it != end; ++it)
 	{
 		if(boost::filesystem::is_directory(*it) || boost::filesystem::extension(*it)!=plugin_extension)
 			continue;

@@ -170,6 +170,9 @@ DEBUG(E)
 
 	while(running)
 	{
+//		if (sound.status() != sge::sound::status_stopped)
+//			sound->update();
+
 		if(frames.update())
 		{
 			cur_fps = fps;
