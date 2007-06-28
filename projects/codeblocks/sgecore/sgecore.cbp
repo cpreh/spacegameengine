@@ -57,6 +57,7 @@
 		<Unit filename="..\..\..\src\c_cast.hpp" />
 		<Unit filename="..\..\..\src\com_deleter.hpp" />
 		<Unit filename="..\..\..\src\detail\iconv_detail.hpp" />
+		<Unit filename="..\..\..\src\detail\iconv_encoding_list.hpp" />
 		<Unit filename="..\..\..\src\detail\library_impl.hpp" />
 		<Unit filename="..\..\..\src\detail\plugin_manager_detail.hpp" />
 		<Unit filename="..\..\..\src\detail\plugin_manager_impl.hpp" />

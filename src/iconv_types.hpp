@@ -27,14 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+#define SGE_ICONV_ENCODING2(x, y) x
+#define SGE_ICONV_ENCODING3(x, y, z) x
 enum encoding {
-	enc_ascii,
-	enc_string_literal,
-	enc_wstring_literal,
-	enc_utf8,
-	enc_utf16,
-	enc_ucs_4_internal
+#include "detail/iconv_encoding_list.hpp"
 };
+#undef SGE_ICONV_ENCODING2
+#undef SGE_ICONV_ENCODING3
 
 class invalid_conversion : public std::runtime_error {
 public:

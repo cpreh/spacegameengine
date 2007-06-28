@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <stdexcept>
 #include "../iconv_detail.hpp"
 #include "../../iconv_types.hpp"
+#include "../../types.hpp"
 
-sge::iconv_instance::iconv_instance(const std::string &from, const std::string &to) 
+sge::iconv_instance::iconv_instance(const std::string &from, const std::string &to)
 : conv(iconv_open(to.c_str(), from.c_str())),
   from(from),
   to(to)
@@ -56,34 +57,29 @@ std::size_t sge::iconv_instance::convert(const char **inbuf, std::size_t *inbyte
 	return bytesread - *inbytes;
 }
 
+namespace {
+#define SGE_ICONV_ENCODING2(name, general) #general
+#ifdef SGE_WINDOWS_PLATFORM
+#   define SGE_ICONV_ENCODING3(name, win, linux) #win
+#elif SGE_LINUX_PLATFORM
+#   define SGE_ICONV_ENCODING3(name, win, linux) #linux
+#else
+#error "implement me!"
+#endif
+
+const char *ENCODINGS[] = {
+#include "../iconv_encoding_list.hpp"
+};
+
+#undef SGE_ICONV_ENCODING2
+#undef SGE_ICONV_ENCODING3
+}
+
+
 std::string sge::encoding_to_string(const sge::encoding& to)
 {
-	switch(to) {
-	case enc_string_literal:
-#ifdef _MSC_VER
-		return "CP1252";
-#elif __GNUC__
-		return "UTF-8";
-#else
-#error "implement me!"
-#endif
-	case enc_wstring_literal:
-#ifdef _MSC_VER
-		return "UTF-16";
-#elif __GNUC__
-		return "UTF-32";
-#else
-#error "implement me!"
-#endif
-	case enc_utf8:
-		return "UTF-8";
-	case enc_ucs_4_internal:
-		return "UTF32LE";
-	case enc_utf16:
-		return "UTF-16";
-	case enc_ascii:
-		return "ASCII";
-	default:
-		throw std::logic_error("Invalid encoding!");
-	}
+    if(static_cast<unsigned>(to) < sizeof(ENCODINGS)/sizeof(ENCODINGS[0]))
+        return ENCODINGS[to];
+    else
+        throw std::logic_error("Invalid encoding!");
 }
