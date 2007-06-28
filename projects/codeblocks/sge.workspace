@@ -5,7 +5,7 @@
 		<Project filename="sgecore\sgecore.cbp" />
 		<Project filename="sgefreetype\sgefreetype.cbp" />
 		<Project filename="sgegui\sgegui.cbp" />
-		<Project filename="sgedinput\sgedinput.cbp" />
-		<Project filename="sgedevil\sgedevil.cbp" active="1" />
+		<Project filename="sgedinput\sgedinput.cbp" active="1" />
+		<Project filename="sgedevil\sgedevil.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

@@ -18,7 +18,7 @@
 				</Compiler>
 				<Linker>
 					<Add library="sgecore" />
-					<Add library="dinput" />
+					<Add library="dinput8" />
 					<Add library="boost_signals" />
 					<Add library="dxguid" />
 					<Add directory="..\sgecore" />
