@@ -125,7 +125,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 			0, 0, 0                 // Layer Masks Ignored
 	};
 
-	if(wnd_param)
+	if(!wnd_param)
 		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),""));
 	else
 		wnd = polymorphic_pointer_cast<win32_window>(wnd_param);
