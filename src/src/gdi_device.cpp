@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../exception.hpp"
 #include "../gdi_device.hpp"
 
-sge::gdi_device::gdi_device(HWND hwnd, copy_tag)
+sge::gdi_device::gdi_device(HWND hwnd, get_tag)
 : hwnd(hwnd),
   dc(GetDC(hwnd))
 {

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_RENDERER_HPP_INCLUDED
 #define SGE_OGL_RENDERER_HPP_INCLUDED
 
+#include <boost/scoped_ptr.hpp>
 #include "../../types.hpp"
 #include "../../renderer/renderer.hpp"
 #include "../../window.hpp"
@@ -28,12 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "render_target.hpp"
 #include "fbo_render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
-#include "../../win32.hpp"
+#include "../../gdi_device.hpp"
+#include "wgl_context.hpp"
+#include "wgl_current.hpp"
+#include "../../win32_window.hpp"
+#include "../../windows.hpp"
 #elif SGE_LINUX_PLATFORM
-#include <boost/scoped_ptr.hpp>
-#include <X11/Xlib.h>
-//#include <X11/Xutil.h>
-#include <GL/glx.h>
 #include "../../x_window.hpp"
 #include "xf86vidmode.hpp"
 #include "xf86_resolution.hpp"
@@ -41,6 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glx_current.hpp"
 #include "glx_context.hpp"
 #include "x_colormap.hpp"
+#include <X11/Xlib.h>
+#include <GL/glx.h>
 #endif
 
 namespace sge
@@ -51,7 +54,6 @@ namespace ogl
 class renderer : public sge::renderer {
 public:
 	renderer(const renderer_parameters& param, unsigned adapter, window_ptr wnd);
-	~renderer();
 
 	void begin_rendering();
 	void end_rendering();
@@ -108,11 +110,11 @@ private:
 
 	renderer_parameters param;
 	GLbitfield clearflags;
-	//bool clear_zbuffer, clear_stencil, clear_back_buffer;
 #ifdef SGE_WINDOWS_PLATFORM
-	win_hdc    hdc;
-	win_hglrc  hglrc;
-	window_ptr wnd;
+	win32_window_ptr wnd;
+	boost::scoped_ptr<gdi_device> hdc;
+	boost::scoped_ptr<wgl_context> context;
+	boost::scoped_ptr<wgl_current> current;
 #elif SGE_LINUX_PLATFORM
 	x_display_ptr dsp;
 	boost::scoped_ptr<glx_visual> visual;

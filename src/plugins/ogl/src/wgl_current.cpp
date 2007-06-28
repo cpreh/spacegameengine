@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../types.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../exception.hpp"
+#include "../../../gdi_device.hpp"
 #include "../wgl_current.hpp"
+#include "../wgl_context.hpp"
 
 sge::ogl::wgl_current::wgl_current(const gdi_device& dev, const wgl_context& ctx)
 {

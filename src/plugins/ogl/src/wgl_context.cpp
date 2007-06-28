@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../types.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../exception.hpp"
+#include "../../../gdi_device.hpp"
 #include "../wgl_context.hpp"
 
 sge::ogl::wgl_context::wgl_context(const gdi_device& dc)
@@ -33,6 +34,11 @@ sge::ogl::wgl_context::wgl_context(const gdi_device& dc)
 sge::ogl::wgl_context::~wgl_context()
 {
 	wglDeleteContext(hglrc());
+}
+
+HGLRC sge::ogl::wgl_context::hglrc() const
+{
+	return glrc;
 }
 
 #endif

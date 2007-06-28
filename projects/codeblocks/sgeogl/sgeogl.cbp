@@ -82,6 +82,8 @@
 		<Unit filename="..\..\..\src\plugins\ogl\src\vertex_buffer.cpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\src\vertex_format.cpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\src\volume_texture.cpp" />
+		<Unit filename="..\..\..\src\plugins\ogl\src\wgl_context.cpp" />
+		<Unit filename="..\..\..\src\plugins\ogl\src\wgl_current.cpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\src\x_colormap.cpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\src\xf86_resolution.cpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\src\xf86vidmode.cpp" />
@@ -90,11 +92,14 @@
 		<Unit filename="..\..\..\src\plugins\ogl\vertex_buffer.hpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\vertex_format.hpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\volume_texture.hpp" />
+		<Unit filename="..\..\..\src\plugins\ogl\wgl_context.hpp" />
+		<Unit filename="..\..\..\src\plugins\ogl\wgl_current.hpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\x_colormap.hpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\xf86_resolution.hpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\xf86vidmode.hpp" />
 		<Extensions>
 			<code_completion />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

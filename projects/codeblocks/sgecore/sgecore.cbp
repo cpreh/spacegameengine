@@ -67,6 +67,7 @@
 		<Unit filename="..\..\..\src\font\font_system.hpp" />
 		<Unit filename="..\..\..\src\frames_counter.hpp" />
 		<Unit filename="..\..\..\src\funptr_cast.hpp" />
+		<Unit filename="..\..\..\src\gdi_device.hpp" />
 		<Unit filename="..\..\..\src\heap_deleter.hpp" />
 		<Unit filename="..\..\..\src\iconv.hpp" />
 		<Unit filename="..\..\..\src\iconv_types.hpp" />
@@ -140,6 +141,7 @@
 		<Unit filename="..\..\..\src\sprite\system.hpp" />
 		<Unit filename="..\..\..\src\sprite\types.hpp" />
 		<Unit filename="..\..\..\src\src\frames_counter.cpp" />
+		<Unit filename="..\..\..\src\src\gdi_device.cpp" />
 		<Unit filename="..\..\..\src\src\iconv.cpp" />
 		<Unit filename="..\..\..\src\src\language.cpp" />
 		<Unit filename="..\..\..\src\src\library.cpp" />
@@ -187,6 +189,7 @@
 		<Unit filename="..\..\..\src\x_window.hpp" />
 		<Extensions>
 			<code_completion />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

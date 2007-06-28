@@ -125,22 +125,23 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 			0, 0, 0                 // Layer Masks Ignored
 	};
 
-	wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),""));
-	win32_window* const ww = ptr_cast<win32_window*>(wnd.get());
-	HWND hwnd = ww->hwnd();
-	hdc = GetDC(hwnd);
-	if(!hdc)
-		throw std::runtime_error("Cannot get hdc for opengl");
-	const int pixel_format = ChoosePixelFormat(hdc,&pfd);
+	if(wnd_param)
+		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),""));
+	else
+		wnd = polymorphic_pointer_cast<win32_window>(wnd_param);
+
+	hdc.reset(new gdi_device(wnd->hwnd(), gdi_device::get_tag()));
+
+	const int pixel_format = ChoosePixelFormat(hdc->hdc(), &pfd);
 	if(pixel_format == 0)
 		throw std::runtime_error("ChoosePixelFormat() failed");
-	if(SetPixelFormat(hdc,pixel_format,&pfd) == FALSE)
+	if(SetPixelFormat(hdc->hdc(), pixel_format, &pfd) == FALSE)
 		throw std::runtime_error("SetPixelFormat() failed");
-	hglrc = wglCreateContext(hdc);
-	if(!hglrc)
-		throw std::runtime_error("wglCreateContext() failed");
-	if(!wglMakeCurrent(hdc,hglrc))
-		throw std::runtime_error("wglMakeCurrent() failed");
+
+	context.reset(new wgl_context(*hdc));
+
+	current.reset(new wgl_current(*hdc, *context));
+
 #elif SGE_LINUX_PLATFORM
 	XSetErrorHandler(handler);
 	const int screen = DefaultScreen(dsp->get());
@@ -197,13 +198,6 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	_caps.max_tex_size = 512;
 
 	set_render_target();
-}
-
-sge::ogl::renderer::~renderer()
-{
-#ifdef SGE_WINDOWS_PLATFORM
-	wglMakeCurrent(NULL,NULL);
-#endif
 }
 
 void sge::ogl::renderer::begin_rendering()
