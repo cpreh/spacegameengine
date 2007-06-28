@@ -4,6 +4,9 @@
 	<File name="..\..\..\src\plugins\dinput\di.hpp" open="0" top="0" tabpos="1">
 		<Cursor position="909" topLine="16" />
 	</File>
+	<File name="..\..\..\src\plugins\dinput\src\exports.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1302" topLine="23" />
+	</File>
 	<File name="..\..\..\src\plugins\dinput\src\input_device.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="1260" topLine="24" />
 	</File>

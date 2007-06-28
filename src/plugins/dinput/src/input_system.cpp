@@ -49,10 +49,16 @@ boost::signals::connection sge::dinput::input_system::register_callback(const ca
 	return sig.connect(c);
 }
 
+boost::signals::connection sge::dinput::input_system::register_repeat_callback(const repeat_callback& c)
+{
+	return repeat_sig.connect(c);
+}
+
 void sge::dinput::input_system::dispatch()
 {
 	for(device_array::iterator it = devices.begin(); it != devices.end(); ++it)
 		it->dispatch(sig);
+	// FIXME: dispatch repeated signals as well
 }
 
 BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi, LPVOID s)

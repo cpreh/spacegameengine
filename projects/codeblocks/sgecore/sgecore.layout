@@ -4,8 +4,8 @@
 	<File name="..\..\..\src\detail\iconv_detail.hpp" open="0" top="0" tabpos="8">
 		<Cursor position="1050" topLine="18" />
 	</File>
-	<File name="..\..\..\src\input\input_system.hpp" open="0" top="0" tabpos="7">
-		<Cursor position="1446" topLine="19" />
+	<File name="..\..\..\src\input\input_system.hpp" open="1" top="0" tabpos="8">
+		<Cursor position="1534" topLine="34" />
 	</File>
 	<File name="..\..\..\src\input\key_type.hpp" open="0" top="0" tabpos="9">
 		<Cursor position="3185" topLine="203" />

@@ -38,9 +38,12 @@ class input_system : public sge::input_system {
 public:
 	input_system(win32_window_ptr w);
 	boost::signals::connection register_callback(const callback& c);
+	boost::signals::connection register_repeat_callback(const repeat_callback& c);
 	void dispatch();
 private:
 	signal_type sig;
+	repeat_signal_type repeat_sig;
+
 	typedef dinput_device_ptr key_map;
 	typedef std::map<std::string,key_map> key_mapper_u;
 	typedef std::multimap<std::string,key_map> key_mapper_m;
