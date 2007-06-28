@@ -1,0 +1,574 @@
+# depslib dependency file v1.0
+1183034376 source:d:\dev\sge\test\test.cpp
+	<sstream>
+	<cstdlib>
+	<iostream>
+	<boost/lambda/lambda.hpp>
+	<boost/lambda/if.hpp>
+	<boost/ptr_container/ptr_vector.hpp>
+	<boost/lexical_cast.hpp>
+	"../src/math/constants.hpp"
+	"../src/plugin_manager.hpp"
+	"../src/renderer/lock_ptr.hpp"
+	"../src/util.hpp"
+	"../src/sprite/system.hpp"
+	"../src/sprite/sprite.hpp"
+	"../src/renderer/font.hpp"
+	"../src/renderer/renderer.hpp"
+	"../src/renderer/types.hpp"
+	"../src/renderer/renderer_system.hpp"
+	"../src/media.hpp"
+	"../src/gui/manager.hpp"
+	"../src/gui/button.hpp"
+	"../src/gui/text_edit.hpp"
+	"../src/gui/list.hpp"
+	"../src/gui/icon_button.hpp"
+	"../src/gui/frame.hpp"
+	"../src/gui/static_text.hpp"
+	"../src/input/input_system.hpp"
+	"../src/input/key_state_tracker.hpp"
+	"../src/renderer/line_strip.hpp"
+	"../src/renderer/screenshot.hpp"
+	"../src/language.hpp"
+	"../src/endianness.hpp"
+	"../src/exception.hpp"
+
+1182956692 d:\dev\sge\src\math\constants.hpp
+	<cmath>
+
+1182956698 d:\dev\sge\src\plugin_manager.hpp
+	<cstddef>
+	<vector>
+	<map>
+	<iterator>
+	<boost/noncopyable.hpp>
+	<boost/weak_ptr.hpp>
+	<boost/iterator/iterator_facade.hpp>
+	"shared_ptr.hpp"
+	"plugin.hpp"
+	"string.hpp"
+	"exception.hpp"
+
+1182956698 d:\dev\sge\src\shared_ptr.hpp
+	<boost/shared_ptr.hpp>
+	"heap_deleter.hpp"
+
+1182956698 d:\dev\sge\src\heap_deleter.hpp
+
+1182956698 d:\dev\sge\src\plugin.hpp
+	<boost/noncopyable.hpp>
+	"string.hpp"
+	"shared_ptr.hpp"
+	"plugin_traits.hpp"
+	"library.hpp"
+
+1182956698 d:\dev\sge\src\string.hpp
+	<string>
+	<ostream>
+	"typeswitch.hpp"
+	"unicode.hpp"
+
+1182956698 d:\dev\sge\src\typeswitch.hpp
+	<boost/cstdint.hpp>
+
+1182956698 d:\dev\sge\src\unicode.hpp
+	"typeswitch.hpp"
+
+1182956698 d:\dev\sge\src\plugin_traits.hpp
+
+1182956698 d:\dev\sge\src\library.hpp
+	<boost/noncopyable.hpp>
+	"string.hpp"
+	"types.hpp"
+	"windows.hpp"
+	<dlfcn.h>
+	"detail/library_impl.hpp"
+
+1182956698 d:\dev\sge\src\types.hpp
+
+1182956698 d:\dev\sge\src\windows.hpp
+	<windows.h>
+
+1182956692 d:\dev\sge\src\detail\library_impl.hpp
+	<stdexcept>
+	"../funptr_cast.hpp"
+	"../iconv.hpp"
+
+1182956698 d:\dev\sge\src\funptr_cast.hpp
+
+1182956698 d:\dev\sge\src\iconv.hpp
+	<string>
+	"string.hpp"
+	"iconv_types.hpp"
+
+1183039116 d:\dev\sge\src\iconv_types.hpp
+	<stdexcept>
+	<string>
+	"detail/iconv_encoding_list.hpp"
+
+1182956698 d:\dev\sge\src\exception.hpp
+	<exception>
+	<string>
+
+1182956692 d:\dev\sge\src\renderer\lock_ptr.hpp
+	"types.hpp"
+	"texture_base.hpp"
+	"volume_texture.hpp"
+
+1182956692 d:\dev\sge\src\renderer\types.hpp
+	<cstddef>
+	<vector>
+	<stdexcept>
+	<ostream>
+	"../types.hpp"
+	"../math/vector.hpp"
+	"../math/dim.hpp"
+	"color.hpp"
+
+1182956692 d:\dev\sge\src\math\vector.hpp
+	<cassert>
+	<cstddef>
+	<ostream>
+	<istream>
+	<cmath>
+	<iterator>
+	<boost/static_assert.hpp>
+	<boost/preprocessor/enum_params.hpp>
+	<boost/preprocessor/repetition/repeat.hpp>
+	<boost/preprocessor/arithmetic/add.hpp>
+	<boost/utility/enable_if.hpp>
+	<boost/mpl/and.hpp>
+	<boost/mpl/bool.hpp>
+	<boost/type_traits/is_same.hpp>
+	"../util.hpp"
+
+1182956698 d:\dev\sge\src\util.hpp
+	"types.hpp"
+
+1182956692 d:\dev\sge\src\math\dim.hpp
+	<cstddef>
+	<iterator>
+	<ostream>
+	<cassert>
+	<boost/static_assert.hpp>
+	<boost/preprocessor/enum_params.hpp>
+	<boost/preprocessor/repetition/repeat.hpp>
+	<boost/preprocessor/arithmetic/add.hpp>
+	"../types.hpp"
+
+1182956692 d:\dev\sge\src\renderer\color.hpp
+	<ostream>
+	"../types.hpp"
+	"../typeswitch.hpp"
+
+1182956692 d:\dev\sge\src\renderer\texture_base.hpp
+	<cstddef>
+	"../shared_ptr.hpp"
+	"../math/rect.hpp"
+	"color.hpp"
+	"types.hpp"
+
+1182956692 d:\dev\sge\src\math\rect.hpp
+	"line_seg2.hpp"
+	"dim.hpp"
+	"vector.hpp"
+
+1182956692 d:\dev\sge\src\math\line_seg2.hpp
+	"vector.hpp"
+	"solve2.hpp"
+
+1182956692 d:\dev\sge\src\math\solve2.hpp
+
+1182956692 d:\dev\sge\src\renderer\volume_texture.hpp
+	"../math/box.hpp"
+	"texture_base.hpp"
+
+1182956692 d:\dev\sge\src\math\box.hpp
+	"vector.hpp"
+
+1182956698 d:\dev\sge\src\sprite\system.hpp
+	<list>
+	<string>
+	<boost/array.hpp>
+	<boost/function.hpp>
+	<boost/noncopyable.hpp>
+	"../renderer/vertex_buffer.hpp"
+	"../renderer/index_buffer.hpp"
+	"../renderer/renderer.hpp"
+	"../renderer/renderable.hpp"
+	"../renderer/default_transformable.hpp"
+	"../raw_vector.hpp"
+	"../texture/texture_map.hpp"
+	"sprite_fwd.hpp"
+
+1182956692 d:\dev\sge\src\renderer\vertex_buffer.hpp
+	<iterator>
+	<cstddef>
+	<boost/iterator/iterator_facade.hpp>
+	"../shared_ptr.hpp"
+	"../types.hpp"
+	"../algorithm.hpp"
+	"vertex_format.hpp"
+	"types.hpp"
+
+1182956698 d:\dev\sge\src\algorithm.hpp
+	<cstring>
+	<algorithm>
+	<iterator>
+	<boost/type_traits/is_pod.hpp>
+
+1182956692 d:\dev\sge\src\renderer\vertex_format.hpp
+	<cstddef>
+	<vector>
+	<stdexcept>
+	<algorithm>
+	<boost/type_traits/add_const.hpp>
+	<boost/type_traits/is_const.hpp>
+	<boost/type_traits/add_reference.hpp>
+	<boost/mpl/if.hpp>
+	<boost/mpl/not.hpp>
+	<boost/lambda/bind.hpp>
+	<boost/lambda/lambda.hpp>
+	"../types.hpp"
+	"types.hpp"
+
+1182956692 d:\dev\sge\src\renderer\index_buffer.hpp
+	<cstddef>
+	<iterator>
+	"../shared_ptr.hpp"
+	"../types.hpp"
+	"types.hpp"
+
+1182956692 d:\dev\sge\src\renderer\renderer.hpp
+	"../shared_ptr.hpp"
+	"types.hpp"
+	"vertex_buffer.hpp"
+	"index_buffer.hpp"
+	"texture_base.hpp"
+	"texture.hpp"
+	"cube_texture.hpp"
+	"volume_texture.hpp"
+	"render_target.hpp"
+	"../math/matrix.hpp"
+	"../window.hpp"
+
+1182956692 d:\dev\sge\src\renderer\texture.hpp
+	"texture_base.hpp"
+
+1182956692 d:\dev\sge\src\renderer\cube_texture.hpp
+	<boost/array.hpp>
+	"texture_base.hpp"
+	"types.hpp"
+
+1182956692 d:\dev\sge\src\renderer\render_target.hpp
+	<cstddef>
+	"../shared_ptr.hpp"
+	"color.hpp"
+
+1182956692 d:\dev\sge\src\math\matrix.hpp
+	<cassert>
+	<cstddef>
+	<ostream>
+	<boost/static_assert.hpp>
+	<boost/preprocessor/enum_params.hpp>
+	<boost/preprocessor/repetition/repeat.hpp>
+	<boost/preprocessor/arithmetic/add.hpp>
+	<boost/utility/enable_if.hpp>
+	<boost/type_traits/is_same.hpp>
+	"../types.hpp"
+	"../algorithm.hpp"
+	"../util.hpp"
+	"matrix_proxy.hpp"
+	"vector.hpp"
+
+1182956692 d:\dev\sge\src\math\matrix_proxy.hpp
+	<cstddef>
+
+1182956698 d:\dev\sge\src\window.hpp
+	"types.hpp"
+	"shared_ptr.hpp"
+	"math/dim.hpp"
+	"math/vector.hpp"
+	"string.hpp"
+
+1182956692 d:\dev\sge\src\renderer\renderable.hpp
+
+1182956692 d:\dev\sge\src\renderer\default_transformable.hpp
+	"transformable.hpp"
+
+1182956692 d:\dev\sge\src\renderer\transformable.hpp
+	"../math/matrix.hpp"
+	"renderer.hpp"
+
+1182956698 d:\dev\sge\src\raw_vector.hpp
+	<memory>
+	<iterator>
+	<stdexcept>
+	<algorithm>
+	"algorithm.hpp"
+
+1182956698 d:\dev\sge\src\texture\texture_map.hpp
+	<string>
+	<map>
+	<boost/noncopyable.hpp>
+	<boost/function.hpp>
+	"manager.hpp"
+	"../renderer/renderer.hpp"
+	"../image/image.hpp"
+	"../shared_ptr.hpp"
+
+1182956698 d:\dev\sge\src\texture\manager.hpp
+	<stdexcept>
+	<boost/ptr_container/ptr_list.hpp>
+	<boost/scoped_ptr.hpp>
+	"../renderer/renderer.hpp"
+	"../renderer/texture.hpp"
+	"../image/image.hpp"
+	"fragmented_texture.hpp"
+
+1182956690 d:\dev\sge\src\image\image.hpp
+	<cstddef>
+	<boost/noncopyable.hpp>
+	"../shared_ptr.hpp"
+	"../renderer/types.hpp"
+
+1182956698 d:\dev\sge\src\texture\fragmented_texture.hpp
+	"../renderer/texture.hpp"
+	"../renderer/renderer.hpp"
+	"virtual_texture.hpp"
+
+1182956698 d:\dev\sge\src\texture\virtual_texture.hpp
+	<boost/noncopyable.hpp>
+	"../renderer/texture.hpp"
+	"../shared_ptr.hpp"
+
+1182956698 d:\dev\sge\src\sprite\sprite_fwd.hpp
+	<list>
+	"../renderer/vertex_buffer.hpp"
+	"../renderer/index_buffer.hpp"
+
+1182956698 d:\dev\sge\src\sprite\sprite.hpp
+	<string>
+	<vector>
+	"../math/rect.hpp"
+	"../math/vector.hpp"
+	"../math/dim.hpp"
+	"../math/rect.hpp"
+	"../math/circle.hpp"
+	"../renderer/vertex_buffer.hpp"
+	"../renderer/index_buffer.hpp"
+	"../renderer/texture.hpp"
+	"../math/circle.hpp"
+	"../texture/virtual_texture.hpp"
+	"sprite_fwd.hpp"
+	"types.hpp"
+
+1182956692 d:\dev\sge\src\math\circle.hpp
+	"../types.hpp"
+	"vector.hpp"
+
+1182956698 d:\dev\sge\src\sprite\types.hpp
+	"../types.hpp"
+	"../math/vector.hpp"
+	"../math/dim.hpp"
+
+1182956692 d:\dev\sge\src\renderer\font.hpp
+	<cstddef>
+	<string>
+	<vector>
+	"../shared_ptr.hpp"
+	"../types.hpp"
+	"types.hpp"
+	"index_buffer.hpp"
+	"vertex_buffer.hpp"
+	"texture.hpp"
+	"font_types.hpp"
+	"renderer.hpp"
+	"../font/font_system.hpp"
+	"../font/font_impl.hpp"
+	"../math/matrix.hpp"
+	"default_transformable.hpp"
+
+1182956692 d:\dev\sge\src\renderer\font_types.hpp
+	<string>
+	"../math/vector.hpp"
+	"../math/dim.hpp"
+	"../math/rect.hpp"
+	"../string.hpp"
+	"../typeswitch.hpp"
+
+1182956698 d:\dev\sge\src\font\font_system.hpp
+	<string>
+	"../shared_ptr.hpp"
+	"../plugin_traits.hpp"
+	"../renderer/font_types.hpp"
+	"../renderer/renderer.hpp"
+	"font_impl.hpp"
+
+1182956698 d:\dev\sge\src\font\font_impl.hpp
+	"../shared_ptr.hpp"
+	"../renderer/font_types.hpp"
+	"../renderer/texture.hpp"
+
+1182956692 d:\dev\sge\src\renderer\renderer_system.hpp
+	<vector>
+	"../shared_ptr.hpp"
+	"../types.hpp"
+	"../plugin_traits.hpp"
+	"types.hpp"
+	"renderer.hpp"
+
+1182956698 d:\dev\sge\src\media.hpp
+	<string>
+
+1182956698 d:\dev\sge\src\gui\manager.hpp
+	<string>
+	<boost/noncopyable.hpp>
+	<boost/signals/trackable.hpp>
+	"../timer.hpp"
+	"../renderer/font.hpp"
+	"../renderer/renderer.hpp"
+	"../renderer/transformable.hpp"
+	"../sprite/sprite.hpp"
+	"../sprite/system.hpp"
+	"../image/image_loader.hpp"
+	"../input/input_system.hpp"
+	"../input/key_mod_tracker.hpp"
+	"types.hpp"
+	"cursor.hpp"
+	"element.hpp"
+	"events.hpp"
+
+1182956698 d:\dev\sge\src\timer.hpp
+	"time.hpp"
+
+1182956698 d:\dev\sge\src\time.hpp
+	"types.hpp"
+	<sys/time.h>
+	"windows.hpp"
+
+1182956690 d:\dev\sge\src\image\image_loader.hpp
+	<string>
+	"../shared_ptr.hpp"
+	"../plugin_traits.hpp"
+	"image.hpp"
+
+1182956692 d:\dev\sge\src\input\input_system.hpp
+	<boost/noncopyable.hpp>
+	<boost/signal.hpp>
+	<boost/signals/connection.hpp>
+	<boost/function.hpp>
+	"../shared_ptr.hpp"
+	"../window.hpp"
+	"../plugin_traits.hpp"
+	"key_type.hpp"
+
+1182956692 d:\dev\sge\src\input\key_type.hpp
+	<utility>
+	"../string.hpp"
+
+1182956692 d:\dev\sge\src\input\key_mod_tracker.hpp
+	<boost/signals/trackable.hpp>
+	"key_type.hpp"
+	"input_system.hpp"
+
+1182956698 d:\dev\sge\src\gui\types.hpp
+	"../types.hpp"
+	"../math/vector.hpp"
+	"../math/dim.hpp"
+	"../math/rect.hpp"
+
+1182956698 d:\dev\sge\src\gui\cursor.hpp
+	"types.hpp"
+	"../sprite/sprite.hpp"
+
+1182956698 d:\dev\sge\src\gui\element.hpp
+	<set>
+	<list>
+	<boost/signal.hpp>
+	<boost/noncopyable.hpp>
+	"events.hpp"
+	"types.hpp"
+
+1182956698 d:\dev\sge\src\gui\events.hpp
+	"types.hpp"
+	"../input/key_type.hpp"
+
+1182956698 d:\dev\sge\src\gui\button.hpp
+	"../string.hpp"
+	"rectangle.hpp"
+	"types.hpp"
+
+1182956698 d:\dev\sge\src\gui\rectangle.hpp
+	"types.hpp"
+	"element.hpp"
+	"../sprite/sprite.hpp"
+
+1182956698 d:\dev\sge\src\gui\text_edit.hpp
+	"types.hpp"
+	"rectangle.hpp"
+	"text_cursor.hpp"
+	"../renderer/font_types.hpp"
+
+1182956698 d:\dev\sge\src\gui\text_cursor.hpp
+	"../timer.hpp"
+	"../sprite/sprite.hpp"
+	"types.hpp"
+
+1182956698 d:\dev\sge\src\gui\list.hpp
+	<cstddef>
+	<deque>
+	"rectangle.hpp"
+	"vertical_scrollbar.hpp"
+
+1182956698 d:\dev\sge\src\gui\vertical_scrollbar.hpp
+	<cstddef>
+	"rectangle.hpp"
+	"scrollbar.hpp"
+
+1182956698 d:\dev\sge\src\gui\scrollbar.hpp
+	"rectangle.hpp"
+	<boost/function.hpp>
+
+1182956698 d:\dev\sge\src\gui\icon_button.hpp
+	"types.hpp"
+	"rectangle.hpp"
+
+1182956698 d:\dev\sge\src\gui\frame.hpp
+	"types.hpp"
+	"rectangle.hpp"
+	"element.hpp"
+
+1182956698 d:\dev\sge\src\gui\static_text.hpp
+	"../renderer/font_types.hpp"
+	"types.hpp"
+	"rectangle.hpp"
+
+1182956692 d:\dev\sge\src\input\key_state_tracker.hpp
+	<map>
+	<boost/noncopyable.hpp>
+	<boost/signals/trackable.hpp>
+	"input_system.hpp"
+	"key_type.hpp"
+
+1182956692 d:\dev\sge\src\renderer\line_strip.hpp
+	<boost/noncopyable.hpp>
+	<vector>
+	"renderer.hpp"
+	"vertex_buffer.hpp"
+	"default_transformable.hpp"
+	"renderable.hpp"
+
+1182956692 d:\dev\sge\src\renderer\screenshot.hpp
+	<string>
+	"renderer.hpp"
+	"../image/image_loader.hpp"
+
+1182956698 d:\dev\sge\src\language.hpp
+	"string.hpp"
+
+1182956698 d:\dev\sge\src\endianness.hpp
+	<cstddef>
+
+1183039632 d:\dev\sge\src\detail\iconv_encoding_list.hpp
+
