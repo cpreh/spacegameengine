@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output=".\sgedinput.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\sgedinput.dll" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -17,10 +17,10 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="sgecore" />
 					<Add library="dinput8" />
 					<Add library="boost_signals" />
 					<Add library="dxguid" />
+					<Add library="sgecore" />
 					<Add directory="..\sgecore" />
 				</Linker>
 			</Target>
@@ -61,7 +61,6 @@
 		<Unit filename="..\..\..\src\plugins\dinput\src\mouse.cpp" />
 		<Extensions>
 			<code_completion />
-			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

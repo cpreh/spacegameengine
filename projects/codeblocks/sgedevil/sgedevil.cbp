@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output=".\sgedevil.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\sgedevil.dll" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -15,9 +15,13 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="C:\Programme\CodeBlocks\DevIL\include" />
 				</Compiler>
 				<Linker>
 					<Add library="DevIL" />
+					<Add library="ILU" />
+					<Add library="ILUT" />
+					<Add directory="C:\Programme\CodeBlocks\DevIL\lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -47,7 +51,6 @@
 		<Unit filename="..\..\..\src\plugins\devil\src\image_loader.cpp" />
 		<Extensions>
 			<code_completion />
-			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

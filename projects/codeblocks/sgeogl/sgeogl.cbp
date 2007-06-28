@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output=".\sgeogl.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\sgeogl.dll" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -18,10 +18,10 @@
 					<Add option="-Wno-long-long" />
 				</Compiler>
 				<Linker>
-					<Add library="opengl32" />
 					<Add library="glew32" />
-					<Add library="sgecore" />
+					<Add library="opengl32" />
 					<Add library="gdi32" />
+					<Add library="sgecore" />
 					<Add directory="..\sgecore" />
 				</Linker>
 			</Target>
@@ -45,6 +45,7 @@
 			<Add directory="C:\Programme\CodeBlocks\glew\include" />
 		</Compiler>
 		<Linker>
+			<Add directory="C:\Programme\CodeBlocks\glew\bin" />
 			<Add directory="C:\Programme\CodeBlocks\glew\lib" />
 		</Linker>
 		<Unit filename="..\..\..\src\plugins\ogl\basic_arb_buffer.hpp" />
@@ -94,7 +95,6 @@
 		<Unit filename="..\..\..\src\plugins\ogl\xf86vidmode.hpp" />
 		<Extensions>
 			<code_completion />
-			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

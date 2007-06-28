@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="sge">
-		<Project filename="sgeogl\sgeogl.cbp" />
 		<Project filename="sgecore\sgecore.cbp" />
+		<Project filename="sgeogl\sgeogl.cbp" active="1" />
 		<Project filename="sgefreetype\sgefreetype.cbp" />
 		<Project filename="sgegui\sgegui.cbp" />
-		<Project filename="sgedinput\sgedinput.cbp" active="1" />
 		<Project filename="sgedevil\sgedevil.cbp" />
+		<Project filename="sgedinput\sgedinput.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
