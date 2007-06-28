@@ -44,8 +44,8 @@
 			<Add option="-W" />
 			<Add option="-Wall" />
 			<Add option="-ansi" />
-			<Add option='-DMEDIA_PATH=\&quot;../../media\&quot;' />
-			<Add option='-DPLUGIN_PATH=\&quot;../../lib\&quot;' />
+			<Add option='-DMEDIA_PATH=\&quot;../media\&quot;' />
+			<Add option='-DPLUGIN_PATH=\&quot;plugins\&quot;' />
 		</Compiler>
 		<Unit filename="..\..\..\src\algorithm.hpp" />
 		<Unit filename="..\..\..\src\audio\audio_device.hpp" />

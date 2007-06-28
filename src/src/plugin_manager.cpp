@@ -43,10 +43,10 @@ sge::plugin_manager::plugin_manager()
 	{
 		if(boost::filesystem::is_directory(*it) || boost::filesystem::extension(*it)!=plugin_extension)
 			continue;
-	
+
 		plugins.push_back(plugin_context_base(it->string()));
 	}
-	
+
 	for(plugin_array::iterator it = plugins.begin(); it != plugins.end(); ++it)
 		for(unsigned i = 1; i < PT_Last_Guard; i <<= 1)
 		{

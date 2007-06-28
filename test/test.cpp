@@ -60,55 +60,59 @@ sge::pos3 rand_point() { return sge::pos3(double(std::rand())/RAND_MAX,double(st
 sge::math::vector2 rand_point2() { return sge::math::vector2(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
 }
 
+#define DEBUG(x) std::cout << "Debug mark " << #x << std::endl;
+
 int main()
 try
 {
+DEBUG(-)
 	std::srand(std::time(0));
 	bool running = true;
+DEBUG(--)
 	sge::plugin_manager pm;
-
+DEBUG(A)
 	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
 	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
 
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
 	sge::renderer_caps_array caps;
 	rs->caps(caps);
-
+DEBUG(B)
 	/*for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
 	{
 		const sge::display_mode& mode = caps.at(0).display_modes[i];
 		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
 	}*/
-	
+
 	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
-	
+
 	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
-	
+
 	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
 	const sge::image_loader_ptr pl(image_loader_plugin->get()());
 
 	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
 	const sge::font_system_ptr fs(font_plugin->get()());
-
+DEBUG(C)
 	sge::font fn(rend,fs,"/usr/share/fonts/corefonts/arialbd.ttf",32);
 	sge::sprite_system ss(rend, 0, 2);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "/mainskin/cancel_0.png");
 	sge::image_ptr im2 = pl->load_image(sge::media_path() + "/mainskin/button.png");
 	sge::image_ptr im3 = pl->load_image(sge::media_path() + "/mainskin/clickbox_quad_pressed.png");
-
+DEBUG(D)
 	const std::string tex[] = { "bender", "tex2", "tex3" };
 
 	sge::texture_map_ptr tex_map = ss.get_texture_map();
 	tex_map->add_texture(im,tex[0]);
 	tex_map->add_texture(im2,tex[1]);
 	tex_map->add_texture(im3,tex[2]);
-
+DEBUG(E)
 //	boost::ptr_vector<sge::sprite> sprites;
 //	for(unsigned i = 0; i < 4; ++i)
 //		sprites.push_back(new sge::sprite(ss,sge::point(0,i*0.3),sge::dim(0.3,0.3),0,tex[i % 3]));
 //	sprites.back().set_color(sge::colors::red);
-	
+
 	std::vector<sge::sprite> sprites;
 	for(unsigned i = 0; i < 100; ++i)
 		sprites.push_back(sge::sprite(ss,rand_point2(),sge::math::dim2(0.3,0.3),tex[i % 3], sge::colors::white));
@@ -136,12 +140,12 @@ try
 		list1.push_back(std::string("jgAB") + boost::lexical_cast<std::string>(i));
 
 	sge::gui::static_text st(man, &fr1, "hellothere,i'mamultiline dstatic_text", sge::gui::point(0.5,0.8), sge::gui::dim(0.3,0.1), sge::colors::red);
-	
+
 	using boost::lambda::var;
 	using boost::lambda::bind;
 	using boost::lambda::_1;
 	using boost::lambda::if_;
-	
+
 	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,_1)) == sge::KC_ESC)[var(running)=false]));
 	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
 
