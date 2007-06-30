@@ -1,5 +1,5 @@
-#ifndef WAVE_FILE_HPP
-#define WAVE_FILE_HPP
+#ifndef SGE_WAVE_FILE_HPP_INCLUDED
+#define SGE_WAVE_FILE_HPP_INCLUDED
 
 // C
 #include <cassert>

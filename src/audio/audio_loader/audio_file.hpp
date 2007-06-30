@@ -1,5 +1,5 @@
-#ifndef AUDIO_FILE_HPP
-#define AUDIO_FILE_HPP
+#ifndef SGE_AUDIO_FILE_HPP_INCLUDED
+#define SGE_AUDIO_FILE_HPP_INCLUDED
 
 // C++
 #include <vector>
@@ -15,6 +15,7 @@ class audio_file
 	virtual int sample_rate() const = 0;
 	virtual int bits_per_sample() const = 0;
 	virtual void reset() = 0;
+	virtual ~audio_file() {}
 };
 }
 

@@ -15,6 +15,7 @@ struct audio_player
 {
 	virtual shared_ptr<sound> create_nonstream_sound(shared_ptr<audio_file>) = 0;
 	virtual void update() = 0;
+	virtual ~audio_player() {}
 };
 
 namespace detail

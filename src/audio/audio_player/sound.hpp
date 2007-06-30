@@ -12,6 +12,7 @@ struct sound
 	virtual sound_status status() const = 0;
 	virtual void stop() = 0;
 	virtual void update() = 0;
+	virtual ~sound() {}
 };
 }
 

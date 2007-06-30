@@ -1,5 +1,5 @@
-#ifndef AUDIO_HPP
-#define AUDIO_HPP
+#ifndef SGE_AUDIO_HPP_INCLUDED
+#define SGE_AUDIO_HPP_INCLUDED
 
 // C++
 #include <vector>
@@ -17,6 +17,7 @@ class audio_loader
 	public:
 	virtual shared_ptr<audio_file> load(const std::string &filename) = 0;
 	virtual bool is_valid_file(const std::string &filename) const = 0;
+	virtual audio_loader() {}
 };
 
 namespace detail
