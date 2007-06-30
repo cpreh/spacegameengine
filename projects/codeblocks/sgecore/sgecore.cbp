@@ -179,7 +179,6 @@
 		<Unit filename="..\..\..\src\unicode.hpp" />
 		<Unit filename="..\..\..\src\util.hpp" />
 		<Unit filename="..\..\..\src\vector.hpp" />
-		<Unit filename="..\..\..\src\win32.hpp" />
 		<Unit filename="..\..\..\src\win32_conv.hpp" />
 		<Unit filename="..\..\..\src\win32_window.hpp" />
 		<Unit filename="..\..\..\src\window.hpp" />

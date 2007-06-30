@@ -18,9 +18,6 @@
 					<Add directory="C:\Programme\CodeBlocks\DevIL\include" />
 				</Compiler>
 				<Linker>
-					<Add library="DevIL" />
-					<Add library="ILU" />
-					<Add library="ILUT" />
 					<Add directory="C:\Programme\CodeBlocks\DevIL\lib" />
 				</Linker>
 			</Target>
@@ -42,6 +39,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Linker>
+			<Add library="DevIL" />
+			<Add library="ILU" />
+			<Add library="ILUT" />
+		</Linker>
 		<Unit filename="..\..\..\src\plugins\devil\error.hpp" />
 		<Unit filename="..\..\..\src\plugins\devil\image.hpp" />
 		<Unit filename="..\..\..\src\plugins\devil\image_loader.hpp" />
@@ -51,6 +53,7 @@
 		<Unit filename="..\..\..\src\plugins\devil\src\image_loader.cpp" />
 		<Extensions>
 			<code_completion />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

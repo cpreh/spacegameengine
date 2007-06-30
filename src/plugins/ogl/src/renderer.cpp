@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../ptr_cast.hpp"
 #include "../../../bit.hpp"
 #include "../../../renderer/types.hpp"
+#include "../../../exception.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
@@ -255,10 +256,11 @@ sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_ar
 
 void sge::ogl::renderer::end_rendering()
 {
-#ifdef SGE_WINDOWS_PLATFORM
-	wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE);
-#elif SGE_LINUX_PLATFORM
+#ifdef SGE_LINUX_PLATFORM
 	glXSwapBuffers(dsp->get(), wnd->get_window());
+#elif SGE_WINDOWS_PLATFORM
+	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
+		throw exception("wglSwapLayerBuffers() failed!");
 #endif
 }
 
