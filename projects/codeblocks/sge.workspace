@@ -3,10 +3,10 @@
 	<Workspace title="sge">
 		<Project filename="sgecore\sgecore.cbp" />
 		<Project filename="sgegui\sgegui.cbp" />
+		<Project filename="sgedinput\sgedinput.cbp" />
 		<Project filename="sgedevil\sgedevil.cbp" />
 		<Project filename="sgefreetype\sgefreetype.cbp" />
-		<Project filename="sgedinput\sgedinput.cbp" />
-		<Project filename="sgeogl\sgeogl.cbp" active="1" />
-		<Project filename="sgetest\sgetest.cbp" />
+		<Project filename="sgeogl\sgeogl.cbp" />
+		<Project filename="sgetest\sgetest.cbp" active="1" />
 	</Workspace>
 </CodeBlocks_workspace_file>

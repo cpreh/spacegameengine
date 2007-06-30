@@ -60,7 +60,7 @@ sge::pos3 rand_point() { return sge::pos3(double(std::rand())/RAND_MAX,double(st
 sge::math::vector2 rand_point2() { return sge::math::vector2(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
 }
 
-#define DEBUG(x) std::cout << "Debug mark " << #x << std::endl;
+#define DEBUG std::cout << "Debug mark " << __LINE__ << std::endl;
 
 int main()
 try
@@ -90,7 +90,7 @@ try
 
 	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
 	const sge::font_system_ptr fs(font_plugin->get()());
-	sge::font fn(rend, fs, sge::media_path() + "/fonts/FreeSans.ttf", 32);
+	sge::font fn(rend, fs, sge::media_path() + "/fonts/default.ttf", 32);
 	sge::sprite_system ss(rend, 0, 2);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "/mainskin/cancel_0.png");
 	sge::image_ptr im2 = pl->load_image(sge::media_path() + "/mainskin/button.png");
@@ -163,44 +163,63 @@ try
 
 	while(running)
 	{
-DEBUG(LOOP)
+DEBUG
 //		if (sound.status() != sge::sound::status_stopped)
 //			sound->update();
 
 		if(frames.update())
 		{
+DEBUG
 			cur_fps = fps;
 			fps = 0;
 		}
+DEBUG
 		translation.x() -= ks[sge::KC_LEFT] * 0.001;
 		translation.x() += ks[sge::KC_RIGHT] * 0.001;
 		translation.y() -= ks[sge::KC_UP] * 0.001;
 		translation.y() += ks[sge::KC_DOWN] * 0.001;
+DEBUG
 		if(ks[sge::KC_RETURN])
 			sge::screenshot(rend,pl,"./shot.png");
+DEBUG
 		if(timer.update())
 			angle += sge::math::PI*0.01;
 
+DEBUG
 		spr.rotation(angle);
 
+DEBUG
 		rend->begin_rendering();
+DEBUG
 		rend->get_window()->dispatch();
+DEBUG
 		is->dispatch();
+DEBUG
 		ss.transform(sge::math::matrix_translation(translation));
+DEBUG
 		ss.render();
+DEBUG
 		man.process();
+DEBUG
 //		fn.transform(sge::math::matrix_rotation_x(angle));
 //		fn.projection(sge::math::transpose(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),sge::math::PI,0,1)));
 //		fn.internal_transformation(sge::math::matrix_identity());
 		fn.height_pixel_scale(1);
+DEBUG
 		fn.height(0.05);
+DEBUG
 		fn.draw_text(some_text,sge::font_pos(0.2,0.2),sge::font_size(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
+DEBUG
 		fn.transform(sge::math::matrix_identity());
+DEBUG
 		fn.draw_text(boost::lexical_cast<std::string>(cur_fps),sge::font_pos(0.1,0),sge::font_size(1,1),sge::colors::purple);
+DEBUG
 		ls.render();
 //		con.draw();
 //		con.tick();
+DEBUG
 		rend->end_rendering();
+DEBUG
 		++fps;
 	}
 	return EXIT_SUCCESS;

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cmath>
 
 #ifndef M_PI
-#define M_PI 3.14159265
+#define M_PI 3.1415926535897932384626433832795028841971693993751058
 #endif
 
 namespace sge
@@ -33,6 +33,12 @@ namespace math
 {
 
 const double PI = M_PI;
+const long double PI_L =
+	3.1415926535897932384626433832795028841971693993751058L;
+const double DEGREE =
+	0.0174532925199432957692369076848861271344287188854172;
+const long double DEGREE_L =
+	0.0174532925199432957692369076848861271344287188854172L;
 
 template<typename T>
 inline T deg_to_rad(const T deg)

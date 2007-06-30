@@ -188,7 +188,6 @@
 		<Unit filename="..\..\..\src\x_window.hpp" />
 		<Extensions>
 			<code_completion />
-			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

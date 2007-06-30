@@ -62,7 +62,9 @@ void sge::dinput::input_device::set_property(REFGUID guid, LPCDIPROPHEADER diph)
 
 void sge::dinput::input_device::acquire()
 {
-	const HRESULT res = device->Acquire();
+	HRESULT res;
+	while((res = device->Acquire()) == DIERR_OTHERAPPHASPRIO)
+		sge::sleep(100);
 	switch(res) {
 	case S_FALSE:
 	case DI_OK:
@@ -72,8 +74,6 @@ void sge::dinput::input_device::acquire()
 	default:
 		throw std::runtime_error("Acquire() failed");
 	}
-	while(device->Acquire() == DIERR_OTHERAPPHASPRIO)
-		sge::sleep(100);
 }
 
 void sge::dinput::input_device::poll()
