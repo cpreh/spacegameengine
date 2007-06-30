@@ -255,7 +255,9 @@ sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_ar
 
 void sge::ogl::renderer::end_rendering()
 {
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_WINDOWS_PLATFORM
+	wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE);
+#elif SGE_LINUX_PLATFORM
 	glXSwapBuffers(dsp->get(), wnd->get_window());
 #endif
 }
