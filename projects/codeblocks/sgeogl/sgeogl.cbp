@@ -18,9 +18,9 @@
 					<Add option="-Wno-long-long" />
 				</Compiler>
 				<Linker>
+					<Add library="gdi32" />
 					<Add library="glew32" />
 					<Add library="opengl32" />
-					<Add library="gdi32" />
 					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
@@ -99,7 +99,6 @@
 		<Unit filename="..\..\..\src\plugins\ogl\xf86vidmode.hpp" />
 		<Extensions>
 			<code_completion />
-			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
