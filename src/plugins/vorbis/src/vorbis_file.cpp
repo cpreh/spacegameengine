@@ -1,4 +1,5 @@
 // C
+#include <cstddef>
 #include <cstring>
 #include <cerrno>
 #include <cassert>
@@ -34,7 +35,7 @@ std::size_t sge::vorbis_file::read(std::size_t _sample_count,std::vector<unsigne
 	std::size_t bytes_to_read = _sample_count * channels_ * 2;
 	_data.resize(bytes_to_read);
 
-	long bytes_read = 0;
+	std::size_t bytes_read = 0;
 	while (bytes_read < bytes_to_read)
 	{
 		int bitstream;

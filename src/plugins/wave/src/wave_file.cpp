@@ -1,3 +1,8 @@
+// C
+#include <cstddef>
+#include <cassert>
+// C++
+#include <algorithm>
 // Boost
 #include <boost/cstdint.hpp>
 // Own stuff
