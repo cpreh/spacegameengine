@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 #include <exception>
 #include <iostream>
+#include <utility>
+#include <vector>
+#include <algorithm>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -51,8 +54,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/screenshot.hpp"
 #include "../src/language.hpp"
 #include "../src/endianness.hpp"
-#include "../src/exception.hpp"
 #include "../src/audio/audio_loader/audio_loader.hpp"
+#include "../src/audio/audio_player/audio_player.hpp"
+#include "../src/audio/audio_player/sound.hpp"
+#include "../src/exception.hpp"
 //#include "../src/console/console_gfx.hpp"
 //#include "../src/console/console.hpp"
 
@@ -61,26 +66,51 @@ namespace
 sge::pos3 rand_point() { return sge::pos3(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX), 0); }
 
 sge::math::vector2 rand_point2() { return sge::math::vector2(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
+
+struct smallplayer
+{
+	sge::shared_ptr<sge::sound> sound;
+	smallplayer(sge::shared_ptr<sge::sound> sound) : sound(sound) {}
+	void operator()() { sound->play(false); } 
+};
 }
 
-#define DEBUG std::cout << "Debug mark " << __LINE__ << std::endl;
+//#define DEBUG std::cout << "Debug mark " << __LINE__ << std::endl;
+#define DEBUG
 
 int main()
 try
 {
-
-
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
+	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
 
-  std::vector< sge::plugin_manager::plugin_context<sge::audio_loader> > audio_plugins;
+	sge::shared_ptr<sge::audio_player> audio_player(audio_player_plugin->get()());
+
+	typedef std::vector< sge::plugin_manager::plugin_context<sge::audio_loader> > plugin_vector;
+  plugin_vector audio_plugins;
   std::copy(pm.begin<sge::audio_loader>(),pm.end<sge::audio_loader>(),
                     std::back_inserter(audio_plugins));
 
-	sge::plugin_manager::plugin_context<sge::audio_loader> ctx = *pm.begin<sge::audio_loader>();
-	sge::plugin_manager::plugin_context<sge::audio_loader> ctx2 = ctx;
-ctx2 = ctx;
+	typedef std::vector<sge::plugin_manager::plugin_context<sge::audio_loader>::ptr_type> loaded_plugins_vector;
+	loaded_plugins_vector loaded;
+
+	typedef std::vector< sge::shared_ptr<sge::audio_loader> > audio_loader_vector;
+	audio_loader_vector loaders;
+	
+	sge::shared_ptr<sge::audio_file> soundfile;
+	for (plugin_vector::iterator i = audio_plugins.begin(); i != audio_plugins.end(); ++i)
+	{
+		sge::plugin_manager::plugin_context<sge::audio_loader>::ptr_type np = i->load();
+		loaded.push_back(np);
+		sge::shared_ptr<sge::audio_loader> j(np->get()());
+		loaders.push_back(j);
+		if (j->is_valid_file(sge::media_path()+"ding.wav"))
+			soundfile = j->load(sge::media_path()+"ding.wav");
+	}
+
+	sge::shared_ptr<sge::sound> sound = audio_player->create_nonstream_sound(soundfile);
 
 	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
 	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
@@ -136,6 +166,7 @@ ctx2 = ctx;
 	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "/mainskin/", 0.05);
 	sge::gui::frame fr1(man,0,sge::gui::point(0,0),sge::gui::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::gui::point(0,0.1),sge::gui::dim(0.45,0.1));
+	sge::gui::button btn2(man,&fr1,"Abspielen!",sge::gui::point(0,0.3),sge::gui::dim(0.45,0.1));
 	sge::gui::list list1(man,&fr1,sge::gui::point(0.5,0.1),sge::gui::dim(0.2,0.8));
 	sge::gui::icon_button icbtn1(man,&fr1,sge::gui::point(0,0.8),sge::gui::dim(0.5,0.1),"newgame_0","newgame_1","newgame_2");
 	sge::gui::text_edit te1(man,&fr1,sge::gui::point(0,0.5),sge::gui::dim(0.7,0.3),"abc");
@@ -155,6 +186,7 @@ ctx2 = ctx;
 
 	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,_1)) == sge::KC_ESC)[var(running)=false]));
 	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
+	boost::signals::scoped_connection cb3(btn2.click_signal.connect(smallplayer(sound)));
 
 	sge::timer timer(30);
 	sge::timer frames(1000);
@@ -178,8 +210,8 @@ ctx2 = ctx;
 	while(running)
 	{
 DEBUG
-//		if (sound.status() != sge::sound::status_stopped)
-//			sound->update();
+		if (sound->status() != sge::sound::status_stopped)
+			sound->update();
 
 		if(frames.update())
 		{
