@@ -50,7 +50,7 @@ public:
 
 	const string& name() const;
 private:
-	string liberror() const;
+	static string liberror();
 
 	string n;
 };

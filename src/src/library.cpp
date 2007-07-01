@@ -56,7 +56,7 @@ const sge::string& sge::library::name() const
 	return n;
 }
 
-sge::string sge::library::liberror() const
+sge::string sge::library::liberror()
 {
 #ifdef SGE_LINUX_PLATFORM
 	return dlerror();

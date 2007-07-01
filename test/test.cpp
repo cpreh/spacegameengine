@@ -18,8 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sstream>
+#include <ctime>
 #include <cstdlib>
+#include <string>
+#include <exception>
 #include <iostream>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
