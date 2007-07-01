@@ -106,10 +106,12 @@ try
 		loaded.push_back(np);
 		sge::shared_ptr<sge::audio_loader> j(np->get()());
 		loaders.push_back(j);
-		if (j->is_valid_file(sge::media_path()+"ding.wav"))
-			soundfile = j->load(sge::media_path()+"ding.wav");
+		const std::string path = sge::media_path()+"/ding.wav";
+		if (j->is_valid_file(path))
+			soundfile = j->load(path);
 	}
-
+	if(!soundfile)
+		throw std::runtime_error("ding.wav not found!");
 	sge::shared_ptr<sge::sound> sound = audio_player->create_nonstream_sound(soundfile);
 
 	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
