@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/language.hpp"
 #include "../src/endianness.hpp"
 #include "../src/exception.hpp"
+#include "../src/audio/audio_loader/audio_loader.hpp"
 //#include "../src/console/console_gfx.hpp"
 //#include "../src/console/console.hpp"
 
@@ -67,9 +68,20 @@ sge::math::vector2 rand_point2() { return sge::math::vector2(double(std::rand())
 int main()
 try
 {
+
+
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
+
+  std::vector< sge::plugin_manager::plugin_context<sge::audio_loader> > audio_plugins;
+  std::copy(pm.begin<sge::audio_loader>(),pm.end<sge::audio_loader>(),
+                    std::back_inserter(audio_plugins));
+
+	sge::plugin_manager::plugin_context<sge::audio_loader> ctx = *pm.begin<sge::audio_loader>();
+	sge::plugin_manager::plugin_context<sge::audio_loader> ctx2 = ctx;
+ctx2 = ctx;
+
 	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
 	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
 

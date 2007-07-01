@@ -163,8 +163,8 @@ public:
 
 	void clear() { array.assign(0); }
 
-	bool operator==(const bitfield& r) { return std::equal(begin(),end(),r.begin()); }
-	bool operator!=(const bitfield& r) { return !((*this)==r); }
+	bool operator==(const bitfield& r) const { return std::equal(begin(),end(),r.begin()); }
+	bool operator!=(const bitfield& r) const { return !((*this)==r); }
 };
 
 }

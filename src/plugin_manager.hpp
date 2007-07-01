@@ -62,25 +62,25 @@ public:
 	template<typename T>
 	class plugin_context {
 	public:	
-		plugin_context(plugin_context_base& base)
-		: base(base)
+		plugin_context(plugin_context_base& base_)
+		: base(&base_)
 		{}
 
 		typedef shared_ptr<plugin<T> > ptr_type;
 		
 		ptr_type load()
 		{
-			const shared_ptr<plugin_base> ptr_base(base.ref.lock());
+			const shared_ptr<plugin_base> ptr_base(base->ref.lock());
 			if(!ptr_base)
 			{
-				const shared_ptr<plugin<T> > new_ptr(new plugin<T>(base.path()));
-				base.ref = new_ptr.get_boost_ptr();
+				const shared_ptr<plugin<T> > new_ptr(new plugin<T>(base->path()));
+				base->ref = new_ptr.get_boost_ptr();
 				return new_ptr;
 			}
 			return polymorphic_pointer_cast<plugin<T> >(ptr_base);
 		}
 	private:
-		plugin_context_base& base;
+		plugin_context_base* base;
 	};
 
 private:
@@ -88,6 +88,8 @@ private:
 	typedef std::vector<plugin_context_base*> plugin_category_array;
 	typedef std::map<plugin_type, plugin_category_array> plugin_map;
 public:
+	typedef std::size_t size_type;
+
 	plugin_manager();
 	
 	template<typename T>
@@ -150,11 +152,20 @@ public:
 	}
 
 	template<typename T>
-		typename iterator<T>::reference get_plugin(const unsigned index = 0)
+		typename iterator<T>::reference get_plugin(const size_type index = 0)
 	{
-		if(index >= categories[detail::plugin_traits<T>::get_plugin_type()].size())
+		if(index >= size<T>())
 			throw exception("get_plugin(): out of range!");
 		return *(begin<T>()+index);
+	}
+
+	template<typename T>
+		size_type size() const
+	{
+		const plugin_map::const_iterator it = categories.find(detail::plugin_traits<T>::get_plugin_type());
+		if(it == categories.end())
+			return 0;
+		return it->second.size();
 	}
 private:
 	plugin_array plugins;
