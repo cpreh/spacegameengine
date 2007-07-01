@@ -33,10 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/bind.hpp>
 #include <boost/next_prior.hpp>
 
-sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
+sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel)
  : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    rend(rend),
-   impl(font_sys->create_font(rend, font_name, quality_in_pixel ,weight)),
+   impl(font_sys->create_font(rend, font_name, quality_in_pixel)),
    vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex), 200)),
    ib(rend->create_index_buffer(vb->size()*3/2))
 {
@@ -271,6 +271,11 @@ void sge::font::set_parameters()
 	rend->set_bool_state(BS_EnableLighting,true);
 	rend->set_bool_state(BS_EnableAlphaBlending,true);
 	rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
+}
+
+sge::font_metrics_ptr sge::font::metrics() const
+{
+	return impl;
 }
 
 sge::font::line_size_t::line_size_t(const font_unit width, const string_type::const_iterator end, const string_type::const_iterator next_begin)

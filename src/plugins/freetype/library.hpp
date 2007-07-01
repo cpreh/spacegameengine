@@ -21,26 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FT_LIBRARY_HPP_INCLUDED
 #define SGE_FT_LIBRARY_HPP_INCLUDED
 
-#include "../../shared_ptr.hpp"
-#include <ft2build.h>
-#include FT_FREETYPE_H
+#include <boost/noncopyable.hpp>
+#include "freetype.hpp"
 
 namespace sge
 {
 namespace ft
 {
 
-struct library {
-	library()
-	{
-		if(FT_Init_FreeType(&impl))
-			throw std::runtime_error("FT_Init_FreeType() failed");
-	}
-	~library()
-	{
-		FT_Done_FreeType(impl);
-	}
-
+class library : boost::noncopyable {
+public:
+	library();
+	~library();
+	FT_Library lib() const;
+private:
 	FT_Library impl;
 };
 

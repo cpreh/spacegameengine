@@ -18,27 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FT_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FT_FONT_SYSTEM_HPP_INCLUDED
+#include "../../exception.hpp"
+#include "../static_texture.hpp"
 
-#include "../../font/font_system.hpp"
-#include "../../font/font_metrics.hpp"
-#include "library.hpp"
+sge::static_texture::static_texture(const renderer_ptr rend, const texture_ptr tex)
+: rend(rend),
+  tex(tex),
+  claimed(false)
+{}
 
-namespace sge
+sge::virtual_texture_ptr sge::static_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
-namespace ft
-{
+	if(claimed)
+		return virtual_texture_ptr();
 
-class font_system : public sge::font_system {
-public:
-	font_metrics_ptr create_font(renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel);
-private:
-	library _library;
-};
-
-}
+	if(w > tex->width() || h > tex->height())
+		throw exception("static_texture::consume_fragments(): size out of range.");
+	claimed = true;
+	return virtual_texture_ptr(new virtual_texture(lock_rect(0,0,w,h), this));
 }
 
-#endif
+void sge::static_texture::return_fragments(const virtual_texture&)
+{
+	claimed = false;
+}
 
+sge::texture_ptr sge::static_texture::get_texture() const
+{
+	return tex;
+}
+
+sge::fragmented_texture* sge::static_texture::clone() const
+{
+	return 0; // FIXME
+}

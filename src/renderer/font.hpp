@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "font_types.hpp"
 #include "renderer.hpp"
 #include "../font/font_system.hpp"
-#include "../font/font_impl.hpp"
+#include "../font/font_metrics.hpp"
 #include "../math/matrix.hpp"
 #include "default_transformable.hpp"
 
@@ -46,7 +46,7 @@ public:
 	typedef font_string string_type;
 	typedef index_buffer::size_type size_type;
 
-	font(renderer_ptr r, font_system_ptr font_sys, const std::string& font_name, unsigned quality_in_pixel = 32, font_weight weight = FW_Normal);
+	font(renderer_ptr r, font_system_ptr font_sys, const std::string& font_name, unsigned quality_in_pixel = 32);
 
 	void height(space_unit _height);
 	void height_pixel_scale(unsigned scale);
@@ -70,6 +70,7 @@ public:
 	font_unit char_space(char_type ch) const;
 	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = FTF_Default) const;
 	font_size text_size(const string_type& s, font_unit width, font_flag_t flags = FTF_Default) const;
+	font_metrics_ptr metrics() const;
 private:
 	void set_parameters();
 	void add_job(size_type cur_index);
@@ -84,7 +85,7 @@ private:
 	typedef std::vector<job> job_array;
 
 	renderer_ptr           rend;
-	font_impl_ptr          impl;
+	font_metrics_ptr       impl;
 	font_unit              _height;
 	vertex_buffer_ptr      vb;
 	index_buffer_ptr       ib;

@@ -18,27 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FT_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FT_FONT_SYSTEM_HPP_INCLUDED
+#include "../../../exception.hpp"
+#include "../face.hpp"
+#include "../glyph.hpp"
 
-#include "../../font/font_system.hpp"
-#include "../../font/font_metrics.hpp"
-#include "library.hpp"
-
-namespace sge
+sge::ft::glyph::glyph(const face& f)
 {
-namespace ft
-{
+	if(FT_Get_Glyph(f->glyph, &_glyph))
+		throw exception("FT_Get_Glyph() failed");
 
-class font_system : public sge::font_system {
-public:
-	font_metrics_ptr create_font(renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel);
-private:
-	library _library;
-};
-
-}
+	if(FT_Glyph_To_Bitmap(&_glyph, FT_RENDER_MODE_NORMAL, 0, true))
+		throw exception("FT_Glyph_To_Bitmap() failed");
 }
 
-#endif
+sge::ft::glyph::~glyph()
+{
+	FT_Done_Glyph(_glyph);
+}
 
+FT_BitmapGlyph sge::ft::glyph::bitmap_glyph() const
+{
+	return reinterpret_cast<FT_BitmapGlyph>(_glyph);
+}

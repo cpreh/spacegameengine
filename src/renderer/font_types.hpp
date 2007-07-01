@@ -31,13 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-enum font_weight {
-	FW_Thin, 
-	FW_Normal,
-	FW_Bold,
-	FW_Heavy
-};
-
 enum font_flags {
 	FTF_AlignLeft    = 1,
 	FTF_AlignRight   = 1 << 1,

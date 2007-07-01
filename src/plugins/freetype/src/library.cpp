@@ -18,27 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FT_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FT_FONT_SYSTEM_HPP_INCLUDED
+#include "../../../exception.hpp"
+#include "../library.hpp"
 
-#include "../../font/font_system.hpp"
-#include "../../font/font_metrics.hpp"
-#include "library.hpp"
-
-namespace sge
+sge::ft::library::library()
 {
-namespace ft
-{
-
-class font_system : public sge::font_system {
-public:
-	font_metrics_ptr create_font(renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel);
-private:
-	library _library;
-};
-
-}
+	if(FT_Init_FreeType(&impl))
+		throw exception("FT_Init_FreeType() failed");
 }
 
-#endif
+sge::ft::library::~library()
+{
+	FT_Done_FreeType(impl);
+}
 
+FT_Library sge::ft::library::lib() const
+{
+	return impl;
+}

@@ -18,27 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FT_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FT_FONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_STATIC_TEXTURE_HPP_INCLUDED
+#define SGE_STATIC_TEXTURE_HPP_INCLUDED
 
-#include "../../font/font_system.hpp"
-#include "../../font/font_metrics.hpp"
-#include "library.hpp"
+#include <boost/noncopyable.hpp>
+#include "fragmented_texture.hpp"
 
 namespace sge
 {
-namespace ft
-{
 
-class font_system : public sge::font_system {
+class static_texture : public fragmented_texture, boost::noncopyable {
 public:
-	font_metrics_ptr create_font(renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel);
+	static_texture(renderer_ptr rend, texture_ptr tex);
+	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
+	void return_fragments(const virtual_texture&);
+	texture_ptr get_texture() const;
+	fragmented_texture* clone() const;
 private:
-	library _library;
+	renderer_ptr rend;
+	texture_ptr tex;
+	bool claimed;
 };
 
 }
-}
 
 #endif
-

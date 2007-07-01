@@ -37,6 +37,7 @@ public:
 	texture_manager(renderer_ptr rend, const fragmented_texture* proto);
 	virtual_texture_ptr add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h);
 	virtual_texture_ptr add_texture(image_ptr im);
+	virtual_texture_ptr add_texture(texture_ptr tex);
 	renderer_ptr get_renderer() const;
 	void prototype(fragmented_texture*);
 

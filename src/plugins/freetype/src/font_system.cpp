@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../font_system.hpp"
-#include "../font_impl.hpp"
+#include "../font_metrics.hpp"
 
-sge::font_impl_ptr sge::ft::font_system::create_font(const renderer_ptr r, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
+sge::font_metrics_ptr sge::ft::font_system::create_font(const renderer_ptr r, const std::string& font_name, const unsigned quality_in_pixel)
 {
-	return font_impl_ptr(new font_impl(_library, r, font_name, quality_in_pixel, weight));
+	return font_metrics_ptr(new font_metrics(_library, r, font_name, quality_in_pixel));
 }

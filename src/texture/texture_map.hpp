@@ -42,6 +42,7 @@ public:
 	texture_map(renderer_ptr rend, const fragmented_texture* proto, handler_function not_found_handler = 0);
 	bool add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const std::string& name);
 	bool add_texture(image_ptr im, const std::string& name);
+	bool add_texture(texture_ptr tex, const std::string& name);
 	bool remove_texture(const std::string& name);
 	
 	virtual_texture_ptr vtexture(const std::string&);

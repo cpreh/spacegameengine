@@ -18,61 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
 #include <iostream>
 #include "../../../raw_vector.hpp"
 #include "../../../renderer/transform.hpp"
-#include "../font_impl.hpp"
-#include FT_GLYPH_H
+#include "../font_metrics.hpp"
+#include "../glyph.hpp"
 
-namespace {
-	struct glyph_ptr {
-		glyph_ptr(FT_Glyph& g) : g(g) {}
-		~glyph_ptr() { FT_Done_Glyph(g); }
-	private:
-		FT_Glyph& g;
-	};
-}
-
-sge::ft::font_impl::font_impl(library& lib, const renderer_ptr r, const std::string& font_name, const unsigned quality_in_pixel, const font_weight weight)
-: r(r), cur_tex(r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size)), cur_x(0), cur_y(0)
+sge::ft::font_metrics::font_metrics(library& lib, const renderer_ptr r, const std::string& font_name, const unsigned quality_in_pixel)
+: r(r),
+  cur_tex(r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size)),
+  cur_x(0),
+  cur_y(0),
+  _face(lib, font_name)
 {
-	if(weight != FW_Normal)
-		std::cerr << "stub: font weight parameter currently not supported by the freetype font plugin\n";
-
-	FT_Face face;
-	if(FT_New_Face(lib.impl, font_name.c_str(), 0, &face))
-		throw std::runtime_error(std::string("FT_New_Face() failed for font: ") += font_name);
-	_face.reset(new face_guard(face));
-
-	if(FT_Select_Charmap(face, FT_ENCODING_UNICODE) != 0)
+	if(FT_Select_Charmap(_face.get(), FT_ENCODING_UNICODE) != 0)
 		throw std::runtime_error("No Unicode code map found!");
 
-	if(FT_Set_Pixel_Sizes(face,0,quality_in_pixel))
+	if(FT_Set_Pixel_Sizes(_face.get(), 0, quality_in_pixel))
 		throw std::runtime_error("FT_Set_Pixel_Sizes() failed");
 
-	pixel_size =  (face->ascender >> 6) - (face->descender >> 6);
+//	std::cout << face->ascender << '\n';
+//	std::cout << descender << '\n';
+	pixel_size =  _face->ascender / 64 - _face->descender / 64;
 }
 
-const sge::font_entity& sge::ft::font_impl::load_char(const font_char c)
+const sge::font_entity& sge::ft::font_metrics::load_char(const font_char c)
 {
 	font_entity& entity = buffer[c];
 	if(entity.tex)
 		return entity;
 
-	if(FT_Load_Char(_face->impl, c, FT_LOAD_DEFAULT))
+	if(FT_Load_Char(_face.get(), c, FT_LOAD_DEFAULT))
 		throw std::runtime_error("FT_Load_Glyph() failed");
 
-	FT_Glyph glyph;
-	if(FT_Get_Glyph((*_face.get())->glyph,&glyph))
-		throw std::runtime_error("FT_Get_Glyph() failed");
-	glyph_ptr _glyph_gurad(glyph);
+	glyph _glyph(_face);
+	FT_BitmapGlyph bmp_glyph = _glyph.bitmap_glyph();
 
-	if(FT_Glyph_To_Bitmap(&glyph,FT_RENDER_MODE_NORMAL,0,true))
-		throw std::runtime_error("FT_Glyph_To_Bitmap() failed");
-		
-	FT_BitmapGlyph bitmap_glyph = reinterpret_cast<FT_BitmapGlyph>(glyph);
-	FT_Bitmap& bitmap = bitmap_glyph->bitmap;
+	FT_Bitmap& bitmap = bmp_glyph->bitmap;
 
 	if(cur_x + bitmap.width >= cur_tex->width())
 	{
@@ -91,9 +73,9 @@ const sge::font_entity& sge::ft::font_impl::load_char(const font_char c)
 
 	entity.rect = tex_size_to_space_rect(lrect, cur_tex->width(), cur_tex->height());
 	entity.tex = cur_tex;
-	entity.left = font_unit(bitmap_glyph->left) / pixel_size;
-	entity.top = font_unit(pixel_size - bitmap_glyph->top + ((*_face.get())->descender >> 6)) / pixel_size;
-	entity.x_advance = font_unit((*_face.get())->glyph->advance.x >> 6) / pixel_size;
+	entity.left = font_unit(bmp_glyph->left) / pixel_size;
+	entity.top = font_unit(static_cast<int>(pixel_size) - bmp_glyph->top + (_face->descender / 64)) / pixel_size;
+	entity.x_advance = font_unit(_face->glyph->advance.x >> 6) / pixel_size;
 	entity.v_scale = font_unit(bitmap.rows) / pixel_size;
 	entity.h_scale = font_unit(bitmap.width) / pixel_size;
 
@@ -112,7 +94,7 @@ const sge::font_entity& sge::ft::font_impl::load_char(const font_char c)
 	return entity;
 }
 
-unsigned sge::ft::font_impl::optimal_height_base() const
+unsigned sge::ft::font_metrics::optimal_height_base() const
 {
 	return pixel_size;
 }

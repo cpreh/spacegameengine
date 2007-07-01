@@ -68,7 +68,7 @@ void sge::dinput::input_device::acquire()
 	switch(res) {
 	case S_FALSE:
 	case DI_OK:
-		break;
+		return;
 	case DIERR_OTHERAPPHASPRIO:
 		break;
 	default:

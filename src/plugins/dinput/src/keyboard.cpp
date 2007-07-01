@@ -84,6 +84,6 @@ sge::uchar_t sge::dinput::keyboard::keycode_to_char(const key_code key) const
 	WORD result;
 	if(ToAsciiEx(vk, dik, state.c_array(), &result, 0, kblayout) == 1)
 		return *reinterpret_cast<char*>(&result);
-	std::cerr << "stub: Keys names with more than one char are not supported.\n";
+	std::cerr << "stub: Key names with more than one char are not supported.\n";
 	return 0;
 }

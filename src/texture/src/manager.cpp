@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../manager.hpp"
+#include "../static_texture.hpp"
 
 sge::texture_manager::texture_manager(const renderer_ptr rend, const fragmented_texture* const nproto)
  : rend(rend),
@@ -56,6 +57,12 @@ sge::virtual_texture_ptr sge::texture_manager::add_texture(const image_ptr im)
 		im->resample(im->width() / factor, im->height() / factor);
 		return add_texture(im->data(),im->width(),im->height());
 	}
+}
+
+sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture_ptr tex)
+{
+	fragmented_textures.push_back(new static_texture(rend, tex));
+	return fragmented_textures.back().consume_fragments(tex->width(), tex->height());
 }
 
 sge::renderer_ptr sge::texture_manager::get_renderer() const

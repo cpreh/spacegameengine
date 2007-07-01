@@ -18,27 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FT_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FT_FONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_FT_GLYPH_HPP_INCLUDED
+#define SGE_FT_GYLPH_HPP_INCLUDED
 
-#include "../../font/font_system.hpp"
-#include "../../font/font_metrics.hpp"
-#include "library.hpp"
+#include <boost/noncopyable.hpp>
+#include "freetype.hpp"
+#include FT_GLYPH_H
 
 namespace sge
 {
 namespace ft
 {
 
-class font_system : public sge::font_system {
+class face;
+
+class glyph : boost::noncopyable {
 public:
-	font_metrics_ptr create_font(renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel);
+	glyph(const face&);
+	~glyph();
+	FT_BitmapGlyph bitmap_glyph() const;
 private:
-	library _library;
+	FT_Glyph _glyph;
 };
 
 }
 }
 
 #endif
-

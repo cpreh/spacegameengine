@@ -90,5 +90,6 @@ installer.Alias(target = "install", source = [core.Install(lib_path,libcore),
                                               installer.Install(header_path + '/renderer',[glob('src/renderer/*.hpp')]),
                                               installer.Install(header_path + '/sprite',[glob('src/sprite/*.hpp')]),
                                               installer.Install(header_path + '/texture',[glob('src/texture/*.hpp')]),
-                                              installer.Install(media_path + '/mainskin',[glob('media/mainskin/*')])
+                                              installer.Install(media_path + '/mainskin',[glob('media/mainskin/*')]),
+                                              installer.Install(media_path + '/fonts',[glob('media/fonts/*')])
                                               ])

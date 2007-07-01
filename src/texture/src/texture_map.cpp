@@ -55,11 +55,21 @@ bool sge::texture_map::add_texture(const image_ptr im, const std::string& name)
 	return true;
 }
 
+bool sge::texture_map::add_texture(const texture_ptr tex, const std::string& name)
+{
+	if(virtual_textures.find(name) != virtual_textures.end())
+		return false;
+
+	virtual_textures[name] = tex_man.add_texture(tex);
+	return true;
+}
+
 bool sge::texture_map::remove_texture(const std::string& name)
 {
 	virtual_texture_map::iterator it = virtual_textures.find(name);
 	if(it == virtual_textures.end())
 		return false;
+
 	virtual_textures.erase(it);
 	return true;
 }
