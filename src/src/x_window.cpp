@@ -130,4 +130,25 @@ void sge::x_window::add_event_mask(const x11_event_type event)
 	}
 }
 
+void sge::window::dispatch()
+{
+	XEvent xev;
+	x_window::instance_map::iterator b = sge::x_window::instances.begin();
+	const x_window::instance_map::iterator e = sge::x_window::instances.end();
+	while (b != e)
+	{
+		while(XPending((*b)->display()))
+		{
+			XNextEvent((*b)->display(), &xev);
+			if(XFilterEvent(&xev, None))
+				continue;
+			(*b)->signals[xev.type](xev);
+		}
+		++b;
+	}
+
+}
+
+sge::x_window::instance_map sge::x_window::instances;
+
 #endif

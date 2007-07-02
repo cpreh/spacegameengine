@@ -71,7 +71,8 @@ private:
 	typedef boost::ptr_map<x11_event_type, x11_signal_type> signal_map;
 	signal_map signals;
 
-	static std::set<x_window*> instances;
+	typedef std::set<x_window*> instance_map;
+	static instance_map instances;
 };
 
 typedef shared_ptr<x_window> x_window_ptr;

@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../types.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
+#include <stdexcept>
 #include "../win32_window.hpp"
 #include "../win32_conv.hpp"
-#include <stdexcept>
 
 #include <iostream> // DEBUG
 
@@ -128,6 +128,16 @@ sge::win32_window::win32_callback_return_type sge::win32_window::execute_callbac
 		return (*(it->second))(*this, msg, wparam, lparam);
 	else
 		return sge::win32_window::win32_callback_return_type();
+}
+
+void sge::window::dispatch()
+{
+	MSG msg;
+	while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
 }
 
 bool sge::win32_window::wndclass_created(false);
