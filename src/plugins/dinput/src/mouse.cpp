@@ -52,8 +52,8 @@ inline bool is_di_mouse_axis(const DWORD di_mouse)
 
 }
 
-sge::dinput::mouse::mouse(const dinput_ptr di, const string& name, const GUID guid, const HWND wnd)
-: input_device(di,name,guid,wnd)
+sge::dinput::mouse::mouse(const dinput_ptr di, const string& name, const GUID guid, sge::win32_window_ptr window)
+: input_device(di,name,guid,window)
 {
 	set_data_format(&c_dfDIMouse2);
 	enum_objects(enum_mouse_keys);

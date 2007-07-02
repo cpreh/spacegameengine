@@ -32,7 +32,7 @@ namespace dinput
 
 class joystick : public input_device {
 public:
-	joystick(dinput_ptr di, GUID guid, unsigned index, HWND wnd);
+	joystick(dinput_ptr di, GUID guid, unsigned index, sge::win32_window_ptr window);
 	void dispatch(input_system::signal_type&);
 private:
 	static BOOL CALLBACK enum_joystick_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);

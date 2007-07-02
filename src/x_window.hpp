@@ -21,18 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X_WINDOW_HPP_INCLUDED
 #define SGE_X_WINDOW_HPP_INCLUDED
 
-#include <boost/function.hpp>
-#include <boost/signals.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
-#include "window.hpp"
-#include "x_display.hpp"
+
 #include <X11/Xlib.h>
 #include <GL/glx.h>
+
+#include <set>
+
+#include <boost/function.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
+#include <boost/signals.hpp>
+
+#include "window.hpp"
+#include "x_display.hpp"
 
 namespace sge
 {
 
 class x_window : public window {
+	friend class window;
 public:
 	typedef int x11_event_type;
 	typedef long x11_event_mask_type;
@@ -53,7 +59,6 @@ public:
 	Display* display() const;
 
 	boost::signals::connection register_callback(x11_event_type, x11_callback_type);
-	void dispatch(); // FIXME: make this global
 private:
 	void add_event_mask(x11_event_type);
 
@@ -65,6 +70,8 @@ private:
 
 	typedef boost::ptr_map<x11_event_type, x11_signal_type> signal_map;
 	signal_map signals;
+
+	static std::set<x_window*> instances;
 };
 
 typedef shared_ptr<x_window> x_window_ptr;

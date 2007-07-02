@@ -70,10 +70,10 @@ BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi
 
 	switch(dev_type) {
 	case DI8DEVTYPE_KEYBOARD:
-		sys.devices.push_back(new keyboard(sys.di, product_name, ddi->guidInstance, sys.wnd->hwnd(), sys.key_conv));
+		sys.devices.push_back(new keyboard(sys.di, product_name, ddi->guidInstance, sys.wnd, sys.key_conv));
 		break;
 	case DI8DEVTYPE_MOUSE:
-		sys.devices.push_back(new mouse(sys.di, product_name, ddi->guidInstance, sys.wnd->hwnd()));
+		sys.devices.push_back(new mouse(sys.di, product_name, ddi->guidInstance, sys.wnd));
 		break;
 	/*
 	case DI8DEVTYPE_JOYSTICK:

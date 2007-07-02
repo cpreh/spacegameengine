@@ -19,6 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../window.hpp"
+#if   defined(SGE_WINDOWS_PLATFORM)
+#	include "../win32_window.hpp"
+#elif defined(SGE_LINUX_PLATFORM)
+#	include "../x_window.hpp"
+#else
+#	error implement
+#endif
 
 sge::window::size_type sge::window::width() const
 {
@@ -28,4 +35,32 @@ sge::window::size_type sge::window::width() const
 sge::window::size_type sge::window::height() const
 {
 	return size().h();
+}
+
+void sge::window::dispatch()
+{
+#if   defined(SGE_WINDOWS_PLATFORM)
+	MSG msg;
+	while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+#elif defined(SGE_LINUX_PLATFORM)
+	XEvent xev;
+	std::set<sge::x_window*>::iterator
+		b = sge::x_window::instances.begin(),
+		e = sge::x_window::instances.end();
+	while (b != e)
+	{
+		while(XPending((*b)->display()))
+		{
+			XNextEvent((*b)->display(), &xev);
+			if(XFilterEvent(&xev, None))
+				continue;
+			signals[xev.type](xev);
+		}
+		++b;
+	}
+#endif
 }

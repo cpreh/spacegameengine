@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../../../win32_conv.hpp"
 
-sge::dinput::keyboard::keyboard(const dinput_ptr di, const string& name, const GUID guid, const HWND wnd, const key_converter& conv)
-: input_device(di,name,guid,wnd),
+sge::dinput::keyboard::keyboard(const dinput_ptr di, const string& name, const GUID guid, sge::win32_window_ptr window, const key_converter& conv)
+: input_device(di,name,guid,window),
   modifiers(false,false,false),
   conv(conv),
   kblayout(GetKeyboardLayout(0))

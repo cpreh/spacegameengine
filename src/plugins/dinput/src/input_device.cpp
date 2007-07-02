@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../util.hpp"
 #include "../input_device.hpp"
 
+#include <iostream>
+
 const DWORD sge::dinput::input_device::coop_level(DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 const DIPROPDWORD sge::dinput::input_device::buffer_settings = {
 	sizeof(DIPROPDWORD),
@@ -31,15 +33,17 @@ const DIPROPDWORD sge::dinput::input_device::buffer_settings = {
 	buffer_size
 };
 
-sge::dinput::input_device::input_device(const dinput_ptr di, const string& _name, const GUID guid, const HWND wnd)
+sge::dinput::input_device::input_device(const dinput_ptr di, const string& _name, const GUID guid, sge::win32_window_ptr window)
 : _name(_name)
 {
 	direct_input_device* d;
 	if(di->CreateDevice(guid,&d,0) != DI_OK)
 		throw std::runtime_error("dinput: cannot create input device");
 	device.reset(d);
-	set_cooperative_level(wnd,coop_level);
+	set_cooperative_level(window->hwnd(),coop_level);
 	set_property(DIPROP_BUFFERSIZE,&buffer_settings.diph);
+
+	window->register_callback(WM_ACTIVATE, lost_focus_unacquire_handler(*this));
 }
 
 void sge::dinput::input_device::set_cooperative_level(const HWND hwnd, const DWORD flags)
@@ -65,6 +69,7 @@ void sge::dinput::input_device::acquire()
 	HRESULT res;
 	while((res = device->Acquire()) == DIERR_OTHERAPPHASPRIO)
 		sge::sleep(100);
+	std::cout << "aq" << res << std::endl;
 	switch(res) {
 	case S_FALSE:
 	case DI_OK:
@@ -76,14 +81,21 @@ void sge::dinput::input_device::acquire()
 	}
 }
 
+void sge::dinput::input_device::unacquire()
+{
+	std::cout << "unaq" << device->Unacquire() << std::endl;
+	std::cout << "unaq" << device->Unacquire() << std::endl;
+}
+
 void sge::dinput::input_device::poll()
 {
 	if(device->Poll() != DI_OK)
 		throw std::runtime_error("Poll() failed");
 }
 
-bool sge::dinput::input_device::_get_input(input_buffer data, DWORD& elements)
+bool sge::dinput::input_device::_get_input(input_buffer data, DWORD& elements, unsigned d)
 {
+	std::cout << "foo" << d << std::endl;
 	elements = sizeof(input_buffer) / sizeof(DIDEVICEOBJECTDATA);
 	const HRESULT res = device->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), data, &elements, 0);
 	switch(res) {
@@ -92,7 +104,7 @@ bool sge::dinput::input_device::_get_input(input_buffer data, DWORD& elements)
 		return true;
 	case DIERR_INPUTLOST:
 		acquire();
-		return _get_input(data,elements);
+		return _get_input(data,elements,d+1);
 	case DIERR_NOTACQUIRED:
 		acquire();
 		return false;
@@ -110,6 +122,19 @@ void sge::dinput::input_device::enum_objects(LPDIENUMDEVICEOBJECTSCALLBACK fun)
 const sge::string& sge::dinput::input_device::name() const
 {
 	return _name;
+}
+
+sge::win32_window::win32_callback_return_type sge::dinput::input_device::lost_focus_unacquire_handler::operator()(sge::win32_window&, sge::win32_window::win32_event_type, WPARAM wparam, LPARAM lparam)
+{
+	const bool active = wparam != 0 ? true : false;
+	//wnd->set_active(active); // FIXME
+	std::cout << "Handler called" << std::endl;
+	if(active)
+		device.unacquire();
+	else
+		device.acquire();
+
+	return sge::win32_window::win32_callback_return_type();
 }
 
 #ifndef _MSC_VER

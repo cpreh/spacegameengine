@@ -34,7 +34,7 @@ namespace dinput
 
 class keyboard : public input_device {
 public:
-	keyboard(dinput_ptr, const string& name, GUID guid, HWND wnd, const key_converter& conv);
+	keyboard(dinput_ptr, const string& name, GUID guid, sge::win32_window_ptr window, const key_converter& conv);
 	void dispatch(input_system::signal_type&);
 	key_state query_key(const string& name);
 private:

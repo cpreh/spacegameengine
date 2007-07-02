@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_INPUT_DEVICE_HPP_INCLUDED
 
 #include <cstddef>
+#include "../../win32_window.hpp"
 #include "../../input/input_system.hpp"
 #include "../../input/key_type.hpp"
 #include "di.hpp"
@@ -36,8 +37,9 @@ public:
 	virtual void dispatch(input_system::signal_type&) = 0;
 	virtual ~input_device(){}
 protected:
-	input_device(dinput_ptr di, const string& name, GUID Guid, HWND wnd);
+	input_device(dinput_ptr di, const string& name, GUID Guid, sge::win32_window_ptr window);
 	void acquire();
+	void unacquire();
 	void poll();
 	void set_data_format(LPCDIDATAFORMAT lpdf);
 	void set_property(REFGUID rguidProp, LPCDIPROPHEADER pdiph);
@@ -45,7 +47,7 @@ protected:
 	static const std::size_t buffer_size = 1024;
 	typedef DIDEVICEOBJECTDATA input_buffer[buffer_size];
 
-	bool _get_input(input_buffer buf, DWORD& elements);
+	bool _get_input(input_buffer buf, DWORD& elements, unsigned d=0);
 	void enum_objects(LPDIENUMDEVICEOBJECTSCALLBACK fun);
 	const string& name() const;
 private:
@@ -54,10 +56,17 @@ private:
 	static const DWORD        coop_level;
 	dinput_device_ptr         device;
 	string                    _name;
+
+	struct lost_focus_unacquire_handler
+	{
+		input_device &device;
+		lost_focus_unacquire_handler(input_device &dev) : device(dev) {}
+		sge::win32_window::win32_callback_return_type operator()(sge::win32_window&, sge::win32_window::win32_event_type, WPARAM wparam, LPARAM lparam);
+	};
 };
 
 typedef shared_ptr<input_device> input_device_ptr;
- 
+
 }
 }
 

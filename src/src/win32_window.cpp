@@ -24,14 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../win32_conv.hpp"
 #include <stdexcept>
 
+#include <iostream> // DEBUG
+
 namespace
 {
 	LRESULT CALLBACK wnd_proc(HWND,unsigned,WPARAM,LPARAM);
 }
 
-sge::win32_window::win32_window(const window_size sz, const bool _fullscreen, const string& _title)
-: _title(_title),
-  _fullscreen(_fullscreen)
+sge::win32_window::win32_window(const window_size sz, const bool fullscreen, const string& title)
+: _title(title),
+  _fullscreen(fullscreen)
 {
 	const TCHAR* const window_classname = TEXT("SpacegameWindow");
 
@@ -113,8 +115,19 @@ HWND sge::win32_window::hwnd() const
 	return handle;
 }
 
-void sge::win32_window::dispatch()
+boost::signals::connection sge::win32_window::register_callback(win32_event_type msg, win32_callback_type func)
 {
+	return signals[msg].connect(func);
+}
+
+sge::win32_window::win32_callback_return_type sge::win32_window::execute_callback(sge::win32_window::win32_event_type msg, WPARAM wparam, LPARAM lparam)
+{
+	std::cout << "called:" << msg << "--" << WM_ACTIVATE << std::endl;
+	sge::win32_window::win32_signal_map::iterator it = signals.find(msg);
+	if (it != signals.end())
+		return (*(it->second))(*this, msg, wparam, lparam);
+	else
+		return sge::win32_window::win32_callback_return_type();
 }
 
 bool sge::win32_window::wndclass_created(false);
@@ -123,15 +136,28 @@ namespace
 {
 	LRESULT CALLBACK wnd_proc(HWND hwnd, unsigned msg, WPARAM wparam, LPARAM lparam)
 	{
-		switch(msg) {
-		case WM_CLOSE:
-			return 0;
-		case WM_CREATE:
+		std::cout << "Got message: " << msg << std::endl;
+		if (msg == WM_CREATE)
 		{
 			CREATESTRUCT* const s = reinterpret_cast<CREATESTRUCT*>(lparam);
 			SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(s->lpCreateParams));
 		}
-		break;
+
+		sge::win32_window *wnd = reinterpret_cast<sge::win32_window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		if (wnd)
+		{
+			sge::win32_window::win32_callback_return_type ret =
+				wnd->execute_callback(msg, wparam, lparam);
+			if (ret)
+				return *ret;
+		}
+
+		LRESULT returnvalue = TRUE;
+		switch(msg) {
+		case WM_CLOSE:
+			return 0;
+		case WM_CREATE:
+			break;
 		case WM_ACTIVATE:
 		{
 			sge::win32_window* const wnd = reinterpret_cast<sge::win32_window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
@@ -141,10 +167,12 @@ namespace
 				ShowWindow(wnd->hwnd(),SW_MINIMIZE);
 		}
 		return 0;
+		break;
 		default:
 			return DefWindowProc(hwnd,msg,wparam,lparam);
 		}
-		return TRUE;
+
+		return returnvalue;
 	}
 }
 

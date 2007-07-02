@@ -40,10 +40,12 @@ sge::x_window::x_window(const window_pos pos, const window_size sz, const string
    event_mask(0)
 {
 	title(t);
+	instances.insert(this);
 }
 
 sge::x_window::~x_window()
 {
+	instances.erase(this);
 	XDestroyWindow(display(), wnd);
 }
 
@@ -95,18 +97,6 @@ boost::signals::connection sge::x_window::register_callback(const x11_event_type
 {
 	add_event_mask(event);
 	return signals[event].connect(callback);
-}
-
-void sge::x_window::dispatch()
-{
-	XEvent xev;
-	while(XPending(display()))
-	{
-		XNextEvent(display(), &xev);
-		if(XFilterEvent(&xev, None))
-			continue;
-		signals[xev.type](xev);
-	}
 }
 
 typedef std::map<sge::x_window::x11_event_type, sge::x_window::x11_event_mask_type> mask_map;
