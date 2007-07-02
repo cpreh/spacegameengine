@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="sge">
-		<Project filename="sgecore\sgecore.cbp" active="1" />
+		<Project filename="sgecore\sgecore.cbp" />
 		<Project filename="sgegui\sgegui.cbp" />
 		<Project filename="sgedinput\sgedinput.cbp" />
 		<Project filename="sgedevil\sgedevil.cbp" />
@@ -9,7 +9,7 @@
 		<Project filename="sgeogl\sgeogl.cbp" />
 		<Project filename="sgeopenal\sgeopenal.cbp" />
 		<Project filename="sgevorbis\sgevorbis.cbp" />
-		<Project filename="sgewave\sgewave.cbp" />
+		<Project filename="sgewave\sgewave.cbp" active="1" />
 		<Project filename="sgetest\sgetest.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

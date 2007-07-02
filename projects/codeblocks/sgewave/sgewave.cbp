@@ -40,6 +40,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="..\..\..\src\plugins\wave\src\exports.cpp" />
 		<Unit filename="..\..\..\src\plugins\wave\src\wave_file.cpp" />
 		<Unit filename="..\..\..\src\plugins\wave\src\wave_loader.cpp" />
 		<Unit filename="..\..\..\src\plugins\wave\wave_file.hpp" />
