@@ -63,6 +63,7 @@
 		<Unit filename="..\..\..\src\detail\plugin_manager_impl.hpp" />
 		<Unit filename="..\..\..\src\detail\src\iconv_detail.cpp" />
 		<Unit filename="..\..\..\src\endianness.hpp" />
+		<Unit filename="..\..\..\src\exception.hpp" />
 		<Unit filename="..\..\..\src\font\font_impl.hpp" />
 		<Unit filename="..\..\..\src\font\font_system.hpp" />
 		<Unit filename="..\..\..\src\frames_counter.hpp" />
@@ -98,8 +99,10 @@
 		<Unit filename="..\..\..\src\math\solve2.hpp" />
 		<Unit filename="..\..\..\src\math\vector.hpp" />
 		<Unit filename="..\..\..\src\media.hpp" />
+		<Unit filename="..\..\..\src\multitree.hpp" />
 		<Unit filename="..\..\..\src\plugin.hpp" />
 		<Unit filename="..\..\..\src\plugin_manager.hpp" />
+		<Unit filename="..\..\..\src\plugin_traits.hpp" />
 		<Unit filename="..\..\..\src\ptr_cast.hpp" />
 		<Unit filename="..\..\..\src\raw_vector.hpp" />
 		<Unit filename="..\..\..\src\renderer\color.hpp" />
@@ -140,6 +143,7 @@
 		<Unit filename="..\..\..\src\sprite\src\system.cpp" />
 		<Unit filename="..\..\..\src\sprite\system.hpp" />
 		<Unit filename="..\..\..\src\sprite\types.hpp" />
+		<Unit filename="..\..\..\src\src\endianness.cpp" />
 		<Unit filename="..\..\..\src\src\frames_counter.cpp" />
 		<Unit filename="..\..\..\src\src\gdi_device.cpp" />
 		<Unit filename="..\..\..\src\src\iconv.cpp" />
@@ -168,8 +172,10 @@
 		<Unit filename="..\..\..\src\texture\src\handler.cpp" />
 		<Unit filename="..\..\..\src\texture\src\manager.cpp" />
 		<Unit filename="..\..\..\src\texture\src\no_fragmented_texture.cpp" />
+		<Unit filename="..\..\..\src\texture\src\static_texture.cpp" />
 		<Unit filename="..\..\..\src\texture\src\texture_map.cpp" />
 		<Unit filename="..\..\..\src\texture\src\virtual_texture.cpp" />
+		<Unit filename="..\..\..\src\texture\static_texture.hpp" />
 		<Unit filename="..\..\..\src\texture\texture_map.hpp" />
 		<Unit filename="..\..\..\src\texture\virtual_texture.hpp" />
 		<Unit filename="..\..\..\src\time.hpp" />

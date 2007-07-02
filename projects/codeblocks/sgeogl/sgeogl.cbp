@@ -42,12 +42,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:\Programme\CodeBlocks\glew\include" />
 		</Compiler>
-		<Linker>
-			<Add directory="C:\Programme\CodeBlocks\glew\bin" />
-			<Add directory="C:\Programme\CodeBlocks\glew\lib" />
-		</Linker>
 		<Unit filename="..\..\..\src\plugins\ogl\basic_arb_buffer.hpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\basic_texture.hpp" />
 		<Unit filename="..\..\..\src\plugins\ogl\common.hpp" />

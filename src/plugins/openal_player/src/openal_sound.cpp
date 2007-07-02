@@ -1,5 +1,6 @@
 #include <string>
 #include <boost/lexical_cast.hpp>
+// FIXME: No AL/ in OpenAL SDK for Windows.
 #include <AL/al.h>
 #include <AL/alut.h>
 #include "../../../audio/audio_player/sound.hpp"
@@ -8,7 +9,7 @@
 #include "../openal_nonstream_sound.hpp"
 #include "../openal_stream_sound.hpp"
 
-sge::openal_player::openal_player() 
+sge::openal_player::openal_player()
 {
 	alutInit(0, 0); check("alutInit");
 }
@@ -65,7 +66,7 @@ sge::openal_nonstream_sound::openal_nonstream_sound(sge::shared_ptr<sge::audio_f
 		format = AL_FORMAT_MONO16;
 	else if (_audio_file->bits_per_sample() == 16 && _audio_file->channels() == 2)
 		format = AL_FORMAT_STEREO16;
-	else 
+	else
 		throw sge::audio_exception("OpenAL error: Format not supported: "+boost::lexical_cast<std::string>(_audio_file->bits_per_sample())+" bps, "+boost::lexical_cast<std::string>(_audio_file->channels())+" channels");
 
 	std::vector<unsigned char> data;
@@ -101,7 +102,7 @@ void sge::openal_nonstream_sound::stop()
 	// Wenn nicht gestoppt werden muss
 	if (status_ == status_stopped)
 		return;
-	
+
 	alSourceStop(al_source_);
 	status_ = status_stopped;
 }
@@ -128,7 +129,7 @@ sge::openal_nonstream_sound::~openal_nonstream_sound()
 	player_.unregister_sound(this);
 }
 
-sge::openal_stream_sound::openal_stream_sound(sge::shared_ptr<sge::audio_file> _audio_file,sge::openal_player &_player) 
+sge::openal_stream_sound::openal_stream_sound(sge::shared_ptr<sge::audio_file> _audio_file,sge::openal_player &_player)
 	: player_(_player),audio_file_(_audio_file)
 {
 	_player.register_sound(this);
@@ -143,12 +144,12 @@ sge::openal_stream_sound::openal_stream_sound(sge::shared_ptr<sge::audio_file> _
 		format_ = AL_FORMAT_MONO16;
 	else if (_audio_file->bits_per_sample() == 16 && _audio_file->channels() == 2)
 		format_ = AL_FORMAT_STEREO16;
-	else 
+	else
 		throw sge::audio_exception("OpenAL error: Format not supported: "+boost::lexical_cast<std::string>(_audio_file->bits_per_sample())+" bps, "+boost::lexical_cast<std::string>(_audio_file->channels())+" channels");
 
 	// Immer 2 Sekunden im Cache haben
 	buffer_samples_ = 2*_audio_file->sample_rate();
-	
+
 	// Source erstellen
 	alGenSources(1,&al_source_); check("alGenSources");
 
@@ -235,7 +236,7 @@ void sge::openal_stream_sound::stop()
 	// Wenn nicht gestoppt werden muss
 	if (status_ == status_stopped)
 		return;
-	
+
 	alSourceStop(al_source_);
 	status_ = status_stopped;
 }

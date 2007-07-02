@@ -41,6 +41,11 @@ T swap_endianness(T t)
 
 inline bool is_little_endian()
 {
+#if   defined(SGE_LITTLE_ENDIAN)
+	return true;
+#elif defined(SGE_BIG_ENDIAN)
+	return false;
+#else
 	typedef int type;
 	union {
 		type t;
@@ -49,6 +54,7 @@ inline bool is_little_endian()
 	u.t = 1;
 
 	return u.c[0] == u.t;
+#endif
 }
 
 template<typename T>
