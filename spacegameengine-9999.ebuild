@@ -11,11 +11,11 @@ ESVN_REPO_URI="https://spacegameengine.svn.sourceforge.net/svnroot/spacegameengi
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="opengl truetype devil xinput debug dga vorbis wave openal"
+IUSE="debug dga devil gui openal opengl test truetype vorbis wave xinput"
 
 DEPEND="${RDEPEND}
         dev-util/pkgconfig
-        dev-util/scons"
+        dev-util/cmake"
 RDEPEND="dev-libs/boost
          x11-libs/libX11
          virtual/libc
@@ -31,14 +31,6 @@ RDEPEND="dev-libs/boost
              media-libs/openal
              media-libs/freealut )"
 
-pkg_setup() {
-	if !(use opengl && use truetype && use devil && use xinput) ; then
-		eerror "For now you have to enable at least some basic useflags to get a working
-		engine!\nPlease do: \"games-engines/spacegameengine opengl truetype devil xinput\" >> /etc/portage/package.use"
-		die
-	fi
-}
-
 scons_enable() {
 	if use $1; then
 		echo "enable-$1=1"
@@ -53,15 +45,16 @@ src_unpack() {
 }
 
 src_compile() {
-	scons destdir=${D} prefix=/usr libdir=$(get_libdir) \
-	cxxflags="${CXXFLAGS}" \
-	$(scons_enable debug) $(scons_enable dga) $(scons_enable vorbis) \
-	$(scons_enable wave) $(scons_enable openal) || die
+	local myconf=""
+	cmake ${myconf} \
+		-DCMAKE_C_FLAGS="${CFLAGS}" \
+		-DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		|| die "cmake failed"
+
+	emake || die "emake failed"
 }
 
 src_install() {
-	scons install destdir=${D} prefix=/usr libdir=$(get_libdir) \
-	cxxflags="${CXXFLAGS}" \
-	$(scons_enable debug) $(scons_enable dga) $(scons_enable vorbis) \
-	$(scons_enable wave) $(scons_enable openal) || die
+	emake DESTDIR=${D} install || die "emake install failed"
 }

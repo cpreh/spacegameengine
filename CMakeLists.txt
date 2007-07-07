@@ -1,0 +1,22 @@
+SET (CMAKE_VERBOSE_MAKEFILE ON)
+SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
+PROJECT (spacegameengine)
+
+SET (pluginpath /usr/lib/sge)
+SET (include_dest /usr/include/sge/)
+SET (media_dest /usr/share/games/sge/media/)
+
+ADD_SUBDIRECTORY (src)
+
+IF (NOT DEFINED {DISABLE_TEST})
+	ADD_SUBDIRECTORY (test)
+ENDIF ()
+
+MACRO (INSTALL_MEDIA subpath)
+	FILE (GLOB sgemedia media/${subpath}/*?.*)
+	INSTALL (FILES ${sgemedia} DESTINATION ${media_dest}${subpath})
+ENDMACRO ()
+
+INSTALL_MEDIA (./)
+INSTALL_MEDIA (fonts)
+INSTALL_MEDIA (mainskin)

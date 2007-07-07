@@ -21,19 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include "../endianness.hpp"
 
-void sge::swap_endianness(unsigned char* const t, std::size_t len)
+void sge::swap_endianness(unsigned char* const t, const std::size_t len)
 {
 	for(std::size_t i = 0; i < len/2; ++i)
 		std::swap(t[i], t[len-i-1]);
 }
 
-void sge::from_to_big_endianness(unsigned char* const t, std::size_t len)
+void sge::from_to_big_endianness(unsigned char* const t, const std::size_t len)
 {
 	if(is_little_endian())
 		swap_endianness(t, len);
 }
 
-void sge::from_to_little_endianness(unsigned char* const t, std::size_t len)
+void sge::from_to_little_endianness(unsigned char* const t, const std::size_t len)
 {
 	if(!is_little_endian())
 		swap_endianness(t, len);
