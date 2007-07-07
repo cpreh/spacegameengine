@@ -46,6 +46,47 @@ src_unpack() {
 
 src_compile() {
 	local myconf=""
+
+	if use debug; then
+		${myconf}="${myconf} -DENABLE_DEBUG=1"
+	fi
+
+	if use dga; then
+		${myconf}="${myconf} -DENABLE_DGA=1"
+	fi
+
+	if ! use devil; then
+		${myconf}="${myconf} -DDISABLE_DEVIL=1"
+	fi
+
+	if ! use gui; then
+		${myconf}="${myconf} -DDISABLE_GUI=1"
+	fi
+
+	if ! use opengl; then
+		${myconf}="${myconf} -DDISABLE_OPENGL=1"
+	fi
+
+	if ! use openal; then
+		${myconf}="${myconf} -DDISABLE_OPENAL=1"
+	fi
+
+	if ! use test; then
+		${myconf}="${myconf} -DDISABLE_TEST=1"
+	fi
+
+	if ! use truetype; then
+		${myconf}="${myconf} -DDISABLE_FREETYPE=1"
+	fi
+
+	if ! use vorbis; then
+		${myconf}="${myconf} -DDISABLE_VORBIS=1"
+	fi
+
+	if ! use wave; then
+		${myconf}="${myconf} -DDISABLE_WAVE=1"
+	fi
+
 	cmake ${myconf} \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
