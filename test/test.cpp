@@ -63,9 +63,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::pos3 rand_point() { return sge::pos3(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX), 0); }
 
-sge::math::vector2 rand_point2() { return sge::math::vector2(double(std::rand())/RAND_MAX,double(std::rand())/(RAND_MAX)); }
+sge::space_unit randf() { return double(std::rand())/RAND_MAX; }
+
+sge::math::vector2 rand_point2() { return sge::math::vector2(randf(),randf()); }
+
+sge::pos3 rand_point() { return sge::pos3(rand_point2(), 0); }
 
 struct smallplayer
 {
@@ -106,7 +109,7 @@ try
 		loaded.push_back(np);
 		sge::shared_ptr<sge::audio_loader> j(np->get()());
 		loaders.push_back(j);
-		const std::string path = sge::media_path()+"/ding.wav";
+		const std::string path = sge::media_path()+"ding.wav";
 		if (j->is_valid_file(path))
 			soundfile = j->load(path);
 	}
@@ -136,11 +139,11 @@ try
 
 	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
 	const sge::font_system_ptr fs(font_plugin->get()());
-	sge::font fn(rend, fs, sge::media_path() + "/fonts/default.ttf", 32);
+	sge::font fn(rend, fs, sge::media_path() + "fonts/default.ttf", 32);
 	sge::sprite_system ss(rend, 0, 2);
-	sge::image_ptr im = pl->load_image(sge::media_path() + "/mainskin/cancel_0.png");
-	sge::image_ptr im2 = pl->load_image(sge::media_path() + "/mainskin/button.png");
-	sge::image_ptr im3 = pl->load_image(sge::media_path() + "/mainskin/clickbox_quad_pressed.png");
+	sge::image_ptr im = pl->load_image(sge::media_path() + "mainskin/cancel_0.png");
+	sge::image_ptr im2 = pl->load_image(sge::media_path() + "mainskin/button.png");
+	sge::image_ptr im3 = pl->load_image(sge::media_path() + "mainskin/clickbox_quad_pressed.png");
 	const std::string tex[] = { "bender", "tex2", "tex3" };
 
 	sge::texture_map_ptr tex_map = ss.get_texture_map();
@@ -165,7 +168,7 @@ try
 	sge::sprite spr2(ss, sge::math::vector2(0.25,-0.25), sge::math::dim2(0.25,3), tex[1], sge::colors::red);
 	spr2.set_texture(tex[2],1);
 
-	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "/mainskin/", 0.05);
+	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "mainskin/", 0.05);
 	sge::gui::frame fr1(man,0,sge::gui::point(0,0),sge::gui::dim(1,1),"cancel_0");
 	sge::gui::button btn1(man,&fr1,"Beenden!",sge::gui::point(0,0.1),sge::gui::dim(0.45,0.1));
 	sge::gui::button btn2(man,&fr1,"Abspielen!",sge::gui::point(0,0.3),sge::gui::dim(0.45,0.1));
