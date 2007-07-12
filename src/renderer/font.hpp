@@ -43,7 +43,7 @@ namespace sge
 class font : public default_transformable {
 public:
 	typedef font_char char_type;
-	typedef font_string string_type;
+	typedef string string_type;
 	typedef index_buffer::size_type size_type;
 
 	font(renderer_ptr r, font_system_ptr font_sys, const std::string& font_name, unsigned quality_in_pixel = 32);

@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #undef iconv
 #include "../iconv.hpp"
 
-sge::ustring sge::iconv(const std::string& input, const encoding from, const ustring::allocator_type& alloc)
+sge::string sge::iconv(const std::string& input, const encoding from, const string::allocator_type& alloc)
 {
-	return _iconv<ustring>(input, from, internal_encoding, alloc);
+	return _iconv<string>(input, from, internal_encoding, alloc);
 }
 
-std::string sge::iconv(const ustring& input, const encoding to, const std::string::allocator_type& alloc)
+std::string sge::iconv(const string& input, const encoding to, const std::string::allocator_type& alloc)
 {
 	return _iconv<std::string>(input, internal_encoding, to, alloc);
 }

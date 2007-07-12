@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/bind.hpp>
 #include "../../../input/key_type.hpp"
 #include "../../../util.hpp"
+#include "../../../iconv.hpp"
 #include "../input_system.hpp"
 #include <X11/keysym.h>
 #include <X11/Xlib.h>
@@ -328,7 +329,7 @@ sge::key_type sge::xinput::input_system::create_key_type(const XEvent& xev)
 		return key_type();
 	}
 
-	return key_type(get_key_name(ks), get_key_code(ks), static_cast<unsigned char>(code));
+	return key_type(get_key_name(ks), get_key_code(ks), code);
 }
 
 void sge::xinput::input_system::on_button_event(const XEvent& xev)
@@ -365,23 +366,23 @@ sge::key_type sge::xinput::input_system::mouse_key(const unsigned x11code) const
 {
 	switch(x11code) {
 	case 1:
-		return key_type("Mouse1",KC_MOUSEL,0);
+		return mouse1;
 	case 3:
-		return key_type("Mouse2",KC_MOUSER,0);
+		return mouse2;
 	default:
-		return key_type("Undefined mouse key",KC_None,0);
+		return undefined_mouse_key;
 	}
 }
 
-std::string sge::xinput::input_system::get_key_name(const KeySym ks) const
+sge::string sge::xinput::input_system::get_key_name(const KeySym ks) const
 {
 	const char* const name = XKeysymToString(ks);
-	return name ? name : "unknown";
+	return name ? iconv(name) : iconv("unknown");
 }
 
 sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const
 {
-	x11_to_sge_array::const_iterator it = x11tosge.find(ks);
+	const x11_to_sge_array::const_iterator it = x11tosge.find(ks);
 	if(it == x11tosge.end())
 		return KC_None;
 	return it->second;
@@ -390,9 +391,9 @@ sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const
 void sge::xinput::input_system::private_mouse_motion(const mouse_coordinate_t deltax, const mouse_coordinate_t deltay)
 {
 	if(deltax)
-		sig(key_pair(key_type("MouseX", KC_MOUSEX, 0), space_unit(deltax) / wnd->width()));
+		sig(key_pair(mouse_x, space_unit(deltax) / wnd->width()));
 	if(deltay)
-		sig(key_pair(key_type("MouseY", KC_MOUSEY, 0), space_unit(deltay) / wnd->height()));
+		sig(key_pair(mouse_y, space_unit(deltay) / wnd->height()));
 }
 
 void sge::xinput::input_system::dga_motion(XEvent xevent)
@@ -458,3 +459,9 @@ void sge::xinput::input_system::warped_motion(XEvent xevent)
 			std::cerr << "warning: didn't detect mouse warp motion! Try to enable dga mouse instead.\n";
 	}
 }
+
+const sge::key_type sge::xinput::input_system::mouse_x(sge::iconv("mouse_x"), KC_MOUSEX);
+const sge::key_type sge::xinput::input_system::mouse_y(sge::iconv("mouse_y"), KC_MOUSEY);
+const sge::key_type sge::xinput::input_system::undefined_mouse_key(sge::iconv("undefined mouse key"));
+const sge::key_type sge::xinput::input_system::mouse1(sge::iconv("mouse_L"), KC_MOUSEL);
+const sge::key_type sge::xinput::input_system::mouse2(sge::iconv("mouse_R"), KC_MOUSER);

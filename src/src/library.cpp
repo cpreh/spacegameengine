@@ -28,17 +28,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <iostream>
 
-sge::library::library(const string& n)
+sge::library::library(const std::string& n)
  :
 #ifdef SGE_WINDOWS_PLATFORM
-   handle(LoadLibrary(sge_str_to_win(n).c_str()))
+//   handle(LoadLibrary(sge_str_to_win(n).c_str()))
+  handle(LoadLibraryA(n)) // FIXME: what to do about this?
 #elif SGE_LINUX_PLATFORM
-   handle(dlopen(iconv(n).c_str(),RTLD_NOW | RTLD_GLOBAL))
+   handle(dlopen(n.c_str(), RTLD_NOW | RTLD_GLOBAL))
 #endif
   , n(n)
 {
 	if(!handle)
-		throw std::runtime_error(std::string("failed to load library: ") + iconv(name()) + " : " + iconv(liberror()));
+		throw std::runtime_error(std::string("failed to load library: ") + name() + " : " + liberror());
 }
 
 sge::library::~library()
@@ -51,12 +52,12 @@ sge::library::~library()
 #endif
 }
 
-const sge::string& sge::library::name() const
+const std::string& sge::library::name() const
 {
 	return n;
 }
 
-sge::string sge::library::liberror()
+std::string sge::library::liberror()
 {
 #ifdef SGE_LINUX_PLATFORM
 	return dlerror();

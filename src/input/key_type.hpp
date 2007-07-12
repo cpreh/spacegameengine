@@ -181,7 +181,7 @@ enum key_code {
 
 struct key_type {
 	typedef uchar_t char_type;
-	key_type(const string& name = "KC_None", const key_code code = KC_None, const char_type char_code = 0)
+	key_type(const string& name = string(), const key_code code = KC_None, const char_type char_code = 0)
 		: name(name), code(code), char_code(char_code) {}
 	string name;
 	key_code code;

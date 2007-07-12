@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/array.hpp>
 #include "../win32_conv.hpp"
 #include "../windows.hpp"
+#else
+#include "../iconv.hpp"
 #endif
 
 sge::string sge::language()
@@ -35,7 +37,7 @@ sge::string sge::language()
 	const char* const p = std::getenv("LANG");
 	if(!p)
 		throw std::runtime_error("LANG not set! Unable to detect OS language!");
-	return p;
+	return iconv(p);
 #elif SGE_WINDOWS_PLATFORM
 	boost::array<TCHAR, 128> buf;
 	if(GetLocaleInfo(GetSystemDefaultLCID(), LOCALE_SLANGUAGE, buf.c_array(), static_cast<int>(buf.size())) == 0)

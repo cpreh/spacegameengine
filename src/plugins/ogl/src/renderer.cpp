@@ -175,7 +175,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	if(wnd_param)
 		wnd = polymorphic_pointer_cast<x_window>(wnd_param);
 	else
-		wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width(), param.mode.height()), "spacegameengine", dsp, swa, visual->visual_info()));
+		wnd.reset(new x_window(window::window_pos(0,0), window::window_size(param.mode.width(), param.mode.height()), string(), dsp, swa, visual->visual_info()));
 
 	if(!windowed)
 		XMapWindow(dsp->get(), wnd->get_window());

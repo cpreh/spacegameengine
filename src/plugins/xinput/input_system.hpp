@@ -70,7 +70,7 @@ private:
 	repeat_signal_type repeat_sig;
 
 	key_code get_key_code(KeySym ks) const;
-	std::string get_key_name(KeySym ks) const;
+	string get_key_name(KeySym ks) const;
 
 	x_window_ptr wnd;
 	Colormap colormap;
@@ -85,6 +85,11 @@ private:
 	x_pixmap _no_bmp;
 	x_cursor _no_cursor;
 
+	static const key_type mouse_x,
+	                      mouse_y,
+	                      undefined_mouse_key,
+	                      mouse1,
+	                      mouse2;
 #ifdef USE_DGA
 	dga_guard _dga_guard;
 #endif

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/if.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/lexical_cast.hpp>
+#include "../src/iconv.hpp"
 #include "../src/math/constants.hpp"
 #include "../src/plugin_manager.hpp"
 #include "../src/renderer/lock_ptr.hpp"
@@ -58,8 +59,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/audio/audio_player/audio_player.hpp"
 #include "../src/audio/audio_player/sound.hpp"
 #include "../src/exception.hpp"
-//#include "../src/console/console_gfx.hpp"
-//#include "../src/console/console.hpp"
+#include "../src/console/console_gfx.hpp"
+#include "../src/console/console.hpp"
 
 namespace
 {
@@ -169,20 +170,20 @@ try
 	spr2.set_texture(tex[2],1);
 
 	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "mainskin/", 0.05);
-	sge::gui::frame fr1(man,0,sge::gui::point(0,0),sge::gui::dim(1,1),"cancel_0");
-	sge::gui::button btn1(man,&fr1,"Beenden!",sge::gui::point(0,0.1),sge::gui::dim(0.45,0.1));
-	sge::gui::button btn2(man,&fr1,"Abspielen!",sge::gui::point(0,0.3),sge::gui::dim(0.45,0.1));
-	sge::gui::list list1(man,&fr1,sge::gui::point(0.5,0.1),sge::gui::dim(0.2,0.8));
-	sge::gui::icon_button icbtn1(man,&fr1,sge::gui::point(0,0.8),sge::gui::dim(0.5,0.1),"newgame_0","newgame_1","newgame_2");
-	sge::gui::text_edit te1(man,&fr1,sge::gui::point(0,0.5),sge::gui::dim(0.7,0.3),"abc");
-	list1.push_back("LOL");
-	list1.push_back("BAR");
-	list1.push_back("ROFL!");
+	sge::gui::frame fr1(man,0,sge::gui::point(0,0), sge::gui::dim(1,1), "cancel_0");
+	sge::gui::button btn1(man, &fr1, sge::iconv("Quit!"), sge::gui::point(0,0.1), sge::gui::dim(0.45,0.1));
+	sge::gui::button btn2(man, &fr1, sge::iconv("Play!"), sge::gui::point(0,0.3), sge::gui::dim(0.45,0.1));
+	sge::gui::list list1(man, &fr1, sge::gui::point(0.5,0.1), sge::gui::dim(0.2,0.8));
+	sge::gui::icon_button icbtn1(man, &fr1,sge::gui::point(0,0.8), sge::gui::dim(0.5,0.1), "newgame_0", "newgame_1", "newgame_2");
+	sge::gui::text_edit te1(man, &fr1, sge::gui::point(0,0.5), sge::gui::dim(0.7,0.3), sge::iconv("abc"));
+	list1.push_back(sge::iconv("LOL"));
+	list1.push_back(sge::iconv("BAR"));
+	list1.push_back(sge::iconv("ROFL!"));
 
 	for(unsigned i = 0; i < 20; ++i)
-		list1.push_back(std::string("jgAB") + boost::lexical_cast<std::string>(i));
+		list1.push_back(sge::iconv("jgAB" + boost::lexical_cast<std::string>(i)));
 
-	sge::gui::static_text st(man, &fr1, "hellothere,i'mamultiline dstatic_text", sge::gui::point(0.5,0.8), sge::gui::dim(0.3,0.1), sge::colors::red);
+	sge::gui::static_text st(man, &fr1, sge::iconv("hellothere,i'mamultiline dstatic_text"), sge::gui::point(0.5,0.8), sge::gui::dim(0.3,0.1), sge::colors::red);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
@@ -208,9 +209,9 @@ try
 		ls.add(rand_point());
 	ls.loop(true);
 
-	const std::string some_text("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest");
+	const sge::string some_text(sge::iconv("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
 
-//	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
+	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
 
 	while(running)
 	{
@@ -227,7 +228,7 @@ try
 		translation.y() -= ks[sge::KC_UP] * 0.001;
 		translation.y() += ks[sge::KC_DOWN] * 0.001;
 		if(ks[sge::KC_RETURN])
-			sge::screenshot(rend,pl,"./shot.png");
+			sge::screenshot(rend,pl,"shot.png");
 		if(timer.update())
 			angle += sge::math::PI*0.01;
 
@@ -247,9 +248,9 @@ try
 		fn.height(0.05);
 		fn.draw_text(some_text,sge::font_pos(0.2,0.2),sge::font_size(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
 		fn.transform(sge::math::matrix_identity());
-		fn.draw_text(boost::lexical_cast<std::string>(cur_fps),sge::font_pos(0.1,0),sge::font_size(1,1),sge::colors::purple);
+		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0.1,0),sge::font_size(1,1),sge::colors::purple);
 		ls.render();
-//		con.draw();
+		//con.draw();
 //		con.tick();
 		rend->end_rendering();
 		++fps;

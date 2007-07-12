@@ -38,7 +38,7 @@ class manager;
 
 class text_edit : public rectangle {
 public:
-	text_edit(manager& m, element* parent, point pos, dim sz, const string& text = "", color text_color = colors::white, bool visible = true, bool enabled = true);
+	text_edit(manager& m, element* parent, point pos, dim sz, const string& text = string(), color text_color = colors::white, bool visible = true, bool enabled = true);
 	const string& text() const;
 	void text(const string& text);
 	color text_color() const;

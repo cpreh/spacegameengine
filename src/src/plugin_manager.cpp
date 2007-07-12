@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/convenience.hpp>
 #include <boost/filesystem/operations.hpp>
 #include "../plugin_manager.hpp"
+#include "../iconv.hpp"
 
 typedef void (*version_function)(sge::plugin_info*);
 
@@ -54,7 +55,7 @@ sge::plugin_manager::plugin_manager()
 		}
 }
 
-sge::plugin_manager::plugin_context_base::plugin_context_base(const string& _path)
+sge::plugin_manager::plugin_context_base::plugin_context_base(const std::string& _path)
 : _path(_path)
 {
 	library lib(path());
@@ -67,12 +68,12 @@ sge::plugin_manager::plugin_context_base::plugin_context_base(const string& _pat
 	_type = info.type;
 }
 
-const sge::string& sge::plugin_manager::plugin_context_base::name() const
+const std::string& sge::plugin_manager::plugin_context_base::name() const
 {
 	return _name;
 }
 
-const sge::string& sge::plugin_manager::plugin_context_base::description() const
+const std::string& sge::plugin_manager::plugin_context_base::description() const
 {
 	return _description;
 }
@@ -87,7 +88,7 @@ sge::plugin_type sge::plugin_manager::plugin_context_base::type() const
 	return _type;
 }
 
-const sge::string& sge::plugin_manager::plugin_context_base::path() const
+const std::string& sge::plugin_manager::plugin_context_base::path() const
 {
 	return _path;
 }

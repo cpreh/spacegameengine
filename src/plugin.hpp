@@ -52,7 +52,7 @@ public:
 	typedef typename detail::plugin_traits<T>::loader_fun loader_fun;
 	typedef shared_ptr<plugin<T> > ptr_type;
 
-	plugin(const string& path)
+	plugin(const std::string& path)
 	: lib(path),
 	  loader(lib.load_function<loader_fun>(detail::plugin_traits<T>::plugin_loader_name()))
 	{}

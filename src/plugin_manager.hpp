@@ -42,19 +42,19 @@ public:
 
 	class plugin_context_base {
 	public:
-		plugin_context_base(const string& path);
+		plugin_context_base(const std::string& path);
 		
-		const string& name() const;
-		const string& description() const;
+		const std::string& name() const;
+		const std::string& description() const;
 		unsigned version() const;
 		plugin_type type() const;
-		const string& path() const;
+		const std::string& path() const;
 	private:
 		template<typename T> friend class plugin_context;
 		boost::weak_ptr<plugin_base> ref;
-		string _path;
-		string _name;
-		string _description;
+		std::string _path;
+		std::string _name;
+		std::string _description;
 		unsigned _version;
 		plugin_type _type;
 	};

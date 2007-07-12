@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBRARY_HPP_INCLUDED
 #define SGE_LIBRARY_HPP_INCLUDED
 
+#include <string>
 #include <boost/noncopyable.hpp>
-#include "string.hpp"
 #include "types.hpp"
 
 #ifdef SGE_WINDOWS_PLATFORM
@@ -42,17 +42,17 @@ private:
 	void* handle;
 #endif
 public:
-	library(const string& path);
+	library(const std::string& path);
 	~library();
 
 	template<typename Fun>
-	Fun load_function(const string& fun);
+	Fun load_function(const std::string& fun);
 
-	const string& name() const;
+	const std::string& name() const;
 private:
-	static string liberror();
+	static std::string liberror();
 
-	string n;
+	std::string n;
 };
 
 }

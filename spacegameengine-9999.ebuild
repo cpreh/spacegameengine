@@ -31,14 +31,6 @@ RDEPEND="dev-libs/boost
              media-libs/openal
              media-libs/freealut )"
 
-scons_enable() {
-	if use $1; then
-		echo "enable-$1=1"
-	else
-		echo "enable-$1=0"
-	fi;
-}
-
 src_unpack() {
 	subversion_src_unpack
 	cd ${S}
@@ -48,43 +40,43 @@ src_compile() {
 	local myconf=""
 
 	if use debug; then
-		${myconf}="${myconf} -DENABLE_DEBUG=1"
+		${myconf}="${myconf} -D ENABLE_DEBUG=1"
 	fi
 
 	if use dga; then
-		${myconf}="${myconf} -DENABLE_DGA=1"
+		${myconf}="${myconf} -D ENABLE_DGA=1"
 	fi
 
 	if ! use devil; then
-		${myconf}="${myconf} -DDISABLE_DEVIL=1"
+		${myconf}="${myconf} -D DISABLE_DEVIL=1"
 	fi
 
 	if ! use gui; then
-		${myconf}="${myconf} -DDISABLE_GUI=1"
+		${myconf}="${myconf} -D DISABLE_GUI=1"
 	fi
 
 	if ! use opengl; then
-		${myconf}="${myconf} -DDISABLE_OPENGL=1"
+		${myconf}="${myconf} -D DISABLE_OPENGL=1"
 	fi
 
 	if ! use openal; then
-		${myconf}="${myconf} -DDISABLE_OPENAL=1"
+		${myconf}="${myconf} -D DISABLE_OPENAL=1"
 	fi
 
 	if ! use test; then
-		${myconf}="${myconf} -DDISABLE_TEST=1"
+		${myconf}="${myconf} -D DISABLE_TEST=1"
 	fi
 
 	if ! use truetype; then
-		${myconf}="${myconf} -DDISABLE_FREETYPE=1"
+		${myconf}="${myconf} -D DISABLE_FREETYPE=1"
 	fi
 
 	if ! use vorbis; then
-		${myconf}="${myconf} -DDISABLE_VORBIS=1"
+		${myconf}="${myconf} -D DISABLE_VORBIS=1"
 	fi
 
 	if ! use wave; then
-		${myconf}="${myconf} -DDISABLE_WAVE=1"
+		${myconf}="${myconf} -D DISABLE_WAVE=1"
 	fi
 
 	cmake ${myconf} \

@@ -49,7 +49,6 @@ typedef math::vector2  font_pos;
 typedef math::dim2     font_size;
 typedef rect           font_rect;
 typedef uchar_t        font_char;
-typedef string         font_string;
 
 }
 
