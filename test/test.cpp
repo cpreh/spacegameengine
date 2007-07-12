@@ -248,10 +248,9 @@ try
 		fn.height(0.05);
 		fn.draw_text(some_text,sge::font_pos(0.2,0.2),sge::font_size(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
 		fn.transform(sge::math::matrix_identity());
-		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0.1,0),sge::font_size(1,1),sge::colors::purple);
+		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0.1,0.9),sge::font_size(1,1),sge::colors::purple);
 		ls.render();
-		//con.draw();
-//		con.tick();
+		con.draw();
 		rend->end_rendering();
 		++fps;
 	}
