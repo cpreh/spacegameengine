@@ -84,10 +84,18 @@ public:
 
 		struct vertex {
 			vertex(std::istream& is);
+
 			s16 x,
 			    y,
 			    z,
 			    normal;
+		};
+
+		struct transformed_vertex {
+			transformed_vertex(const vertex&);
+
+			vec3 pos,
+			     normal;
 		};
 
 		string_type name;
@@ -111,6 +119,8 @@ private:
 
 	template<std::size_t Max>
 		static string_type read_string(std::istream&);
+
+	static vec3 convert_normal(s16);
 
 	string_type name_;
 

@@ -19,13 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <cstddef>
+#include <cmath>
 #include <algorithm>
 #include <iostream>
 #include "../md3.hpp"
+#include "../../math/constants.hpp"
 #include "../../exception.hpp"
 #include "../../istream.hpp"
 
 const std::size_t max_qpath = 64;
+
+const double MD3_XYZ_SCALE = 1.0/64;
 
 sge::md3_model::md3_model(std::istream& is)
 {
@@ -84,6 +88,19 @@ inline sge::md3_model::string_type sge::md3_model::read_string(std::istream& is)
 		throw exception("String in md3 file not ended with a 0!");
 
 	return tmp_name.data();
+}
+
+inline sge::md3_model::vec3 sge::md3_model::convert_normal(const s16 normal)
+{
+	using std::sin;
+	using std::cos;
+
+	const space_unit lat = ((normal >> 8) & 255) * (2 * math::PI) / 255,
+	                 lng = (normal & 255) * (2 * math::PI) / 255;
+
+	return vec3(cos(lat) * sin(lng),
+	            sin(lat) * sin(lng),
+	            cos(lng));
 }
 
 inline sge::md3_model::vec3 sge::md3_model::read_vec3(std::istream& is)
@@ -172,4 +189,11 @@ sge::md3_model::surface::vertex::vertex(std::istream& is)
   y(read<s16>(is)),
   z(read<s16>(is)),
   normal(read<s16>(is))
+{}
+
+sge::md3_model::surface::transformed_vertex::transformed_vertex(const vertex& v)
+: pos(v.x * MD3_XYZ_SCALE,
+      v.y * MD3_XYZ_SCALE,
+      v.z * MD3_XYZ_SCALE),
+  normal(convert_normal(v.normal))
 {}
