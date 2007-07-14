@@ -1,4 +1,6 @@
-FILE (GLOB sgecorefiles src/*.cpp console/src/*.cpp detail/src/*.cpp image/src/*.cpp input/src/*.cpp renderer/src/*.cpp sprite/src/*.cpp texture/src/*.cpp)
+FILE (GLOB sgecorefiles src/*.cpp console/src/*.cpp detail/src/*.cpp
+	image/src/*.cpp input/src/*.cpp renderer/src/*.cpp sprite/src/*.cpp
+	texture/src/*.cpp model/src/*.cpp)
 ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})

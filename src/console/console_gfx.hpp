@@ -70,7 +70,7 @@ public:
 	console_gfx(renderer_ptr,
 	            input_system_ptr,
 	            font &,
-                    const image_loader_handler &,
+	            const image_loader_handler &,
 	            const color = colors::black,
 	            const std::string & background_texture = texture_map::no_texture);
 

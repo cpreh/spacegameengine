@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <fstream>
 #include <algorithm>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
@@ -61,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/exception.hpp"
 #include "../src/console/console_gfx.hpp"
 #include "../src/console/console.hpp"
+#include "../src/model/md3.hpp"
 
 namespace
 {
@@ -212,7 +214,10 @@ try
 	const sge::string some_text(sge::iconv("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
 
 	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
-
+#if 0
+	std::ifstream ifs("/home/sefi/models/models/mapobjects/kt_kubalwagon/european_fnt_v2.md3", std::ios_base::binary);
+	sge::md3_model model(ifs);
+#endif
 	while(running)
 	{
 		if (sound->status() != sge::sound::status_stopped)
