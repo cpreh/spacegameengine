@@ -73,12 +73,12 @@ sge::math::vector2 rand_point2() { return sge::math::vector2(randf(),randf()); }
 
 sge::pos3 rand_point() { return sge::pos3(rand_point2(), 0); }
 
-struct smallplayer
+/*struct smallplayer
 {
 	sge::shared_ptr<sge::sound> sound;
 	smallplayer(sge::shared_ptr<sge::sound> sound) : sound(sound) {}
 	void operator()() { sound->play(false); } 
-};
+};*/
 }
 
 //#define DEBUG std::cout << "Debug mark " << __LINE__ << std::endl;
@@ -90,22 +90,22 @@ try
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
+	
 	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
 
 	sge::shared_ptr<sge::audio_player> audio_player(audio_player_plugin->get()());
 
-	typedef std::vector< sge::plugin_manager::plugin_context<sge::audio_loader> > plugin_vector;
-  plugin_vector audio_plugins;
-  std::copy(pm.begin<sge::audio_loader>(),pm.end<sge::audio_loader>(),
-                    std::back_inserter(audio_plugins));
+/*	typedef std::vector< sge::plugin_manager::plugin_context<sge::audio_loader> > plugin_vector;
+	plugin_vector audio_plugins;
+	std::copy(pm.begin<sge::audio_loader>(),pm.end<sge::audio_loader>(),std::back_inserter(audio_plugins));
 
 	typedef std::vector<sge::plugin_manager::plugin_context<sge::audio_loader>::ptr_type> loaded_plugins_vector;
 	loaded_plugins_vector loaded;
 
 	typedef std::vector< sge::shared_ptr<sge::audio_loader> > audio_loader_vector;
-	audio_loader_vector loaders;
+	audio_loader_vector loaders;*/
 	
-	sge::shared_ptr<sge::audio_file> soundfile;
+/*	sge::shared_ptr<sge::audio_file> soundfile;
 	for (plugin_vector::iterator i = audio_plugins.begin(); i != audio_plugins.end(); ++i)
 	{
 		sge::plugin_manager::plugin_context<sge::audio_loader>::ptr_type np = i->load();
@@ -118,14 +118,14 @@ try
 	}
 	if(!soundfile)
 		throw std::runtime_error("ding.wav not found!");
-	sge::shared_ptr<sge::sound> sound = audio_player->create_nonstream_sound(soundfile);
+	sge::shared_ptr<sge::sound> sound = audio_player->create_nonstream_sound(soundfile);*/
 
 	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
 	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
 
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
-	sge::renderer_caps_array caps;
-	rs->caps(caps);
+	/*sge::renderer_caps_array caps;
+	rs->caps(caps);*/
 	/*for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
 	{
 		const sge::display_mode& mode = caps.at(0).display_modes[i];
@@ -137,12 +137,13 @@ try
 
 	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
 
-	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
-	const sge::image_loader_ptr pl(image_loader_plugin->get()());
+	//const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
+	//const sge::image_loader_ptr pl(image_loader_plugin->get()());
 
-	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
-	const sge::font_system_ptr fs(font_plugin->get()());
-	sge::font fn(rend, fs, sge::media_path() + "fonts/default.ttf", 32);
+	//const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
+	//const sge::font_system_ptr fs(font_plugin->get()());
+
+/*	sge::font fn(rend, fs, sge::media_path() + "fonts/default.ttf", 32);
 	sge::sprite_system ss(rend, 0, 2);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "mainskin/cancel_0.png");
 	sge::image_ptr im2 = pl->load_image(sge::media_path() + "mainskin/button.png");
@@ -152,23 +153,23 @@ try
 	sge::texture_map_ptr tex_map = ss.get_texture_map();
 	tex_map->add_texture(im,tex[0]);
 	tex_map->add_texture(im2,tex[1]);
-	tex_map->add_texture(im3,tex[2]);
+	tex_map->add_texture(im3,tex[2]);*/
 //	boost::ptr_vector<sge::sprite> sprites;
 //	for(unsigned i = 0; i < 4; ++i)
 //		sprites.push_back(new sge::sprite(ss,sge::point(0,i*0.3),sge::dim(0.3,0.3),0,tex[i % 3]));
 //	sprites.back().set_color(sge::colors::red);
 
-	std::vector<sge::sprite> sprites;
+/*	std::vector<sge::sprite> sprites;
 	for(unsigned i = 0; i < 100; ++i)
 		sprites.push_back(sge::sprite(ss,rand_point2(),sge::math::dim2(0.3,0.3),tex[i % 3], sge::colors::white));
 
 	for(unsigned i = 0; i < 100; ++i)
-		sprites[i] = sge::sprite(ss,rand_point2(),sge::math::dim2(0.3,0.3),tex[i % 3], sge::colors::white);
+		sprites[i] = sge::sprite(ss,rand_point2(),sge::math::dim2(0.3,0.3),tex[i % 3], sge::colors::white);*/
 
 
-	sge::sprite spr(ss, sge::math::vector2(0.25,0.25), sge::math::dim2(0.5,0.5), /*tex[0]*/sge::texture_map::no_texture, sge::colors::yellow);
+//	sge::sprite spr(ss, sge::math::vector2(0.25,0.25), sge::math::dim2(0.5,0.5), /*tex[0]*/sge::texture_map::no_texture, sge::colors::yellow);
 //	spr.set_texture(tex[1],1);
-	sge::sprite spr2(ss, sge::math::vector2(0.25,-0.25), sge::math::dim2(0.25,3), tex[1], sge::colors::red);
+/*	sge::sprite spr2(ss, sge::math::vector2(0.25,-0.25), sge::math::dim2(0.25,3), tex[1], sge::colors::red);
 	spr2.set_texture(tex[2],1);
 
 	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "mainskin/", 0.05);
@@ -185,79 +186,112 @@ try
 	for(unsigned i = 0; i < 20; ++i)
 		list1.push_back(sge::iconv("jgAB" + boost::lexical_cast<std::string>(i)));
 
-	sge::gui::static_text st(man, &fr1, sge::iconv("hellothere,i'mamultiline dstatic_text"), sge::gui::point(0.5,0.8), sge::gui::dim(0.3,0.1), sge::colors::red);
+	sge::gui::static_text st(man, &fr1, sge::iconv("hellothere,i'mamultiline dstatic_text"), sge::gui::point(0.5,0.8), sge::gui::dim(0.3,0.1), sge::colors::red);*/
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
-	using boost::lambda::_1;
+//	using boost::lambda::_1;
 	using boost::lambda::if_;
 
-	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,_1)) == sge::KC_ESC)[var(running)=false]));
-	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
-	boost::signals::scoped_connection cb3(btn2.click_signal.connect(smallplayer(sound)));
+	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::KC_ESC)[var(running)=false]));
+//	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
+//	boost::signals::scoped_connection cb3(btn2.click_signal.connect(smallplayer(sound)));
 
-	sge::timer timer(30);
+/*	sge::timer timer(30);
 	sge::timer frames(1000);
 
 	unsigned fps = 0, cur_fps = 0;
-	sge::space_unit angle = 0;
+	sge::space_unit angle = 0;*/
 
 	sge::key_state_tracker ks(is);
 
-	sge::math::vector3 translation;
-
-	sge::line_strip ls(rend, sge::colors::red);
+/*	sge::line_strip ls(rend, sge::colors::red);
 	for(int i = 0; i < 5; ++i)
 		ls.add(rand_point());
-	ls.loop(true);
+	ls.loop(true);*/
 
-	const sge::string some_text(sge::iconv("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
+/*	const sge::string some_text(sge::iconv("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
 
-	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
-#if 0
-	std::ifstream ifs("/home/sefi/models/models/mapobjects/kt_kubalwagon/european_fnt_v2.md3", std::ios_base::binary);
+	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));*/
+
+	std::ifstream ifs((sge::media_path() + "european_fnt_v2.md3").c_str(), std::ios_base::binary);
 	sge::md3_model model(ifs);
-#endif
+
+	const sge::md3_model::surface& surf = model.surfaces.at(2);
+
+	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::VU_Pos), surf.transformed_vertices.size());
+	const sge::index_buffer_ptr model_ib = rend->create_index_buffer(surf.triangles.size() * 3);
+
+//	std::cout << model_vb->size() << ' ' << model_ib->size() << '\n';
+
+	{
+		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(model_vb);
+		sge::vertex_buffer::iterator vbit = model_vb->begin();
+		for(sge::md3_model::surface::transformed_vertex_vector::const_iterator it = surf.transformed_vertices.begin(); it != surf.transformed_vertices.end(); ++it)
+			(vbit++)->pos() = it->pos;
+
+	}
+
+	{
+		sge::lock_ptr<sge::index_buffer_ptr> _lock(model_ib);
+		sge::index_buffer::iterator ibit = model_ib->begin();
+		for(sge::md3_model::surface::triangle_vector::const_iterator it = surf.triangles.begin(); it != surf.triangles.end(); ++it)
+		{
+			*ibit++ = it->indices[0];
+			*ibit++ = it->indices[1];
+			*ibit++ = it->indices[2];
+		}
+	}
+
+	sge::math::vector3 translation(0, 0, -30);
 	while(running)
 	{
-		if (sound->status() != sge::sound::status_stopped)
+	/*	if (sound->status() != sge::sound::status_stopped)
 			sound->update();
 
 		if(frames.update())
 		{
 			cur_fps = fps;
 			fps = 0;
-		}
+		}*/
 		translation.x() -= ks[sge::KC_LEFT] * 0.001;
 		translation.x() += ks[sge::KC_RIGHT] * 0.001;
-		translation.y() -= ks[sge::KC_UP] * 0.001;
-		translation.y() += ks[sge::KC_DOWN] * 0.001;
-		if(ks[sge::KC_RETURN])
-			sge::screenshot(rend,pl,"shot.png");
-		if(timer.update())
-			angle += sge::math::PI*0.01;
+		translation.z() -= ks[sge::KC_UP] * 0.01;
+		translation.z() += ks[sge::KC_DOWN] * 0.01;
+//		if(ks[sge::KC_RETURN])
+//			sge::screenshot(rend,pl,"shot.png");
+	//	if(timer.update())
+	//		angle += sge::math::PI*0.01;
 
-		spr.rotation(angle);
+		//spr.rotation(angle);
+
+		rend->transform(sge::math::matrix_translation(translation));
+////		rend->projection(sge::math::matrix_perspective(1, 0.8, 0, 1000));
+//		rend->projection(sge::math::matrix_orthogonal_xy(-100,100,-100,100,-10,200));
+		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
 
 		rend->begin_rendering();
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
 		is->dispatch();
-		ss.transform(sge::math::matrix_translation(translation));
-		ss.render();
-		man.process();
+		//ss.transform(sge::math::matrix_translation(translation));
+		//ss.render();
+		//man.process();
 //		fn.transform(sge::math::matrix_rotation_x(angle));
 //		fn.projection(sge::math::transpose(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),sge::math::PI,0,1)));
 //		fn.internal_transformation(sge::math::matrix_identity());
-		fn.height_pixel_scale(1);
-		fn.height(0.05);
-		fn.draw_text(some_text,sge::font_pos(0.2,0.2),sge::font_size(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
-		fn.transform(sge::math::matrix_identity());
-		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0.1,0.9),sge::font_size(1,1),sge::colors::purple);
-		ls.render();
-		con.draw();
+		//fn.height_pixel_scale(1);
+		//fn.height(0.05);
+		//fn.draw_text(some_text,sge::font_pos(0.2,0.2),sge::font_size(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
+		//fn.transform(sge::math::matrix_identity());
+		//fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0.1,0.9),sge::font_size(1,1),sge::colors::purple);
+		//ls.render();
+
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::PT_Triangle, surf.triangles.size());
+
+//		con.draw();
 		rend->end_rendering();
-		++fps;
+		//++fps;
 	}
 	return EXIT_SUCCESS;
 }

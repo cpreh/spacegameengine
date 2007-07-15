@@ -164,6 +164,10 @@ inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_h
 	for(s32 i = 0; i < num_verts; ++i)
 		vertices.push_back(vertex(is));
 
+	// TODO:?
+	for(vertex_vector::size_type sz = 0; sz < vertices.size(); ++sz)
+		transformed_vertices.push_back(vertices[sz]);
+
 	is.seekg(start + ofs_end);
 }
 

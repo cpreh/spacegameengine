@@ -194,9 +194,16 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	set_bool_state(BS_ClearBackBuffer,true);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
+	glDisable(GL_CULL_FACE);
+
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
 	_caps.max_tex_size = 512;
+	
+	glMatrixMode(GL_PROJECTION);
+	glFrustum(-100,100,-100,100,1,200);
+	if(is_error())
+		throw exception(":(");
 
 	set_render_target();
 }

@@ -111,7 +111,11 @@ public:
 
 		typedef std::vector<vertex>   vertex_vector;
 		vertex_vector                 vertices;
+
+		typedef std::vector<transformed_vertex> transformed_vertex_vector;
+		transformed_vertex_vector               transformed_vertices;
 	};
+
 private:
 	static bool read_and_check_id3p(std::istream&);
 
@@ -124,6 +128,7 @@ private:
 
 	string_type name_;
 
+public: // TMP HACK
 	typedef std::vector<frame>   frames_vector;
 	frames_vector                frames;
 
