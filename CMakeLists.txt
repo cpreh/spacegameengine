@@ -9,7 +9,7 @@ SET (media_dest /usr/share/games/sge/media/)
 
 ADD_SUBDIRECTORY (src)
 
-IF (NOT DEFINED {DISABLE_TEST})
+IF (NOT ${DISABLE_TEST})
 	ADD_SUBDIRECTORY (test)
 ENDIF ()
 
