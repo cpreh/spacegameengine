@@ -40,43 +40,43 @@ src_compile() {
 	local myconf=""
 
 	if use debug; then
-		${myconf}="${myconf} -D ENABLE_DEBUG=1"
+		${myconf}="${myconf} -D ENABLE_DEBUG:BOOL=1"
 	fi
 
 	if use dga; then
-		${myconf}="${myconf} -D ENABLE_DGA=1"
+		${myconf}="${myconf} -D ENABLE_DGA:BOOL=1"
 	fi
 
 	if ! use devil; then
-		${myconf}="${myconf} -D DISABLE_DEVIL=1"
+		${myconf}="${myconf} -D DISABLE_DEVIL:BOOL=1"
 	fi
 
 	if ! use gui; then
-		${myconf}="${myconf} -D DISABLE_GUI=1"
+		${myconf}="${myconf} -D DISABLE_GUI:BOOL=1"
 	fi
 
 	if ! use opengl; then
-		${myconf}="${myconf} -D DISABLE_OPENGL=1"
+		${myconf}="${myconf} -D DISABLE_OPENGL:BOOL=1"
 	fi
 
 	if ! use openal; then
-		${myconf}="${myconf} -D DISABLE_OPENAL=1"
+		${myconf}="${myconf} -D DISABLE_OPENAL:BOOL=1"
 	fi
 
 	if ! use test; then
-		${myconf}="${myconf} -D DISABLE_TEST=1"
+		${myconf}="${myconf} -D DISABLE_TEST:BOOL=1"
 	fi
 
 	if ! use truetype; then
-		${myconf}="${myconf} -D DISABLE_FREETYPE=1"
+		${myconf}="${myconf} -D DISABLE_FREETYPE:BOOL=1"
 	fi
 
 	if ! use vorbis; then
-		${myconf}="${myconf} -D DISABLE_VORBIS=1"
+		${myconf}="${myconf} -D DISABLE_VORBIS:BOOL=1"
 	fi
 
 	if ! use wave; then
-		${myconf}="${myconf} -D DISABLE_WAVE=1"
+		${myconf}="${myconf} -D DISABLE_WAVE:BOOL=1"
 	fi
 
 	cmake ${myconf} \
