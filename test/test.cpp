@@ -84,6 +84,29 @@ sge::pos3 rand_point() { return sge::pos3(rand_point2(), 0); }
 //#define DEBUG std::cout << "Debug mark " << __LINE__ << std::endl;
 #define DEBUG
 
+using sge::space_unit;
+sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit right, const space_unit bottom, const space_unit top, const space_unit near, const space_unit far)
+{
+	return sge::math::space_matrix(
+		2*near/(right-left),0,(right+left)/(right-left),0,
+		0,2*near/(top-bottom),(top+bottom)/(top-bottom),0,
+		0,0,(far+near)/(far-near),2*far*near/(far-near),
+		0,0,-1,0
+	);
+}
+
+inline sge::math::space_matrix matrix_perspective(const space_unit aspect, const space_unit fov, const space_unit near, const space_unit far)
+{
+	const space_unit h = space_unit(1) / std::tan(fov / space_unit(2)),
+	                 w = h / aspect,
+	                 q = (far + near) / (far - near);
+	return sge::math::space_matrix
+	       (w, 0,       0, 0,
+	        0, h,       0, 0,
+	        0, 0,       q, 1,
+	        0, 0, (2*far*near)/(near-far), 0);
+}
+
 int main()
 try
 {
@@ -243,7 +266,9 @@ try
 		}
 	}
 
-	sge::math::vector3 translation(0, 0, -30);
+	sge::math::vector3 translation(0, 0, -200);
+	float angle(0);
+	sge::timer frame_timer(1000);
 	while(running)
 	{
 	/*	if (sound->status() != sge::sound::status_stopped)
@@ -265,10 +290,12 @@ try
 
 		//spr.rotation(angle);
 
-		rend->transform(sge::math::matrix_translation(translation));
-////		rend->projection(sge::math::matrix_perspective(1, 0.8, 0, 1000));
+		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
+		angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
+//		rend->projection(frustum_matrix(-100,100,-100,100,-100,100));
+		rend->projection(matrix_perspective(640.0/480.0, 90, 1, 10));
 //		rend->projection(sge::math::matrix_orthogonal_xy(-100,100,-100,100,-10,200));
-		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
+//		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
 
 		rend->begin_rendering();
 		rend->get_window()->dispatch();
