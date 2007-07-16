@@ -47,36 +47,36 @@ src_compile() {
 		myconf="${myconf} -D ENABLE_DGA:=1"
 	fi
 
-	if ! use devil; then
-		myconf="${myconf} -D DISABLE_DEVIL:=1"
+	if use devil; then
+		myconf="${myconf} -D ENABLE_DEVIL:=1"
 	fi
 
-	if ! use gui; then
-		myconf="${myconf} -D DISABLE_GUI:=1"
+	if use gui; then
+		myconf="${myconf} -D ENABLE_GUI:=1"
 	fi
 
-	if ! use opengl; then
-		myconf="${myconf} -D DISABLE_OPENGL:=1"
+	if use opengl; then
+		myconf="${myconf} -D ENABLE_OPENGL:=1"
 	fi
 
-	if ! use openal; then
-		myconf="${myconf} -D DISABLE_OPENAL:=1"
+	if use openal; then
+		myconf="${myconf} -D ENABLE_OPENAL:=1"
 	fi
 
-	if ! use test; then
-		myconf="${myconf} -D DISABLE_TEST:=1"
+	if use test; then
+		myconf="${myconf} -D ENABLE_TEST:=1"
 	fi
 
-	if ! use truetype; then
-		myconf="${myconf} -D DISABLE_FREETYPE:=1"
+	if use truetype; then
+		myconf="${myconf} -D ENABLE_FREETYPE:=1"
 	fi
 
-	if ! use vorbis; then
-		myconf="${myconf} -D DISABLE_VORBIS:=1"
+	if use vorbis; then
+		myconf="${myconf} -D ENABLE_VORBIS:=1"
 	fi
 
-	if ! use wave; then
-		myconf="${myconf} -D DISABLE_WAVE:=1"
+	if use wave; then
+		myconf="${myconf} -D ENABLE_WAVE:=1"
 	fi
 
 	echo cmake ${myconf}
