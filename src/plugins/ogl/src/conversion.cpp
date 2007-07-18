@@ -38,7 +38,7 @@ template<> GLenum sge::ogl::convert_cast(const primitive_type& t)
 {
 	switch(t) {
 	case PT_Point:
-		return GL_POINT;
+		return GL_POINTS;
 	case PT_Line:
 		return GL_LINES;
 	case PT_LineStrip:
