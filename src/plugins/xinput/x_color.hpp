@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_XINPUT_X_COLOR_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
+#include "../../x_display.hpp"
 #include <X11/Xlib.h>
 
 namespace sge
@@ -31,11 +32,11 @@ namespace xinput
 	
 class x_color : boost::noncopyable {
 public:
-	x_color(Display* dsp, Colormap colormap);
+	x_color(x_display_ptr, Colormap colormap);
 	~x_color();
 	XColor color() const;
 private:
-	Display* dsp;
+	x_display_ptr dsp;
 	Colormap colormap;
 	XColor _color;
 };

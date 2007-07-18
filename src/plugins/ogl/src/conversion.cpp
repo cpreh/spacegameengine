@@ -34,17 +34,13 @@ GLuint sge::ogl::convert_resource_flags(const resource_flag_t f)
 	return GL_STATIC_DRAW_ARB;
 }
 
-template<> GLenum sge::ogl::convert_cast(const primitive_type& t)
+template<> GLenum sge::ogl::convert_cast(const nonindexed_primitive_type& t)
 {
 	switch(t) {
 	case PT_Point:
 		return GL_POINTS;
-	case PT_Line:
-		return GL_LINES;
 	case PT_LineStrip:
 		return GL_LINE_STRIP;
-	case PT_Triangle:
-		return GL_TRIANGLES;
 	case PT_TriangleStrip:
 		return GL_TRIANGLE_STRIP;
 	case PT_TriangleFan:
@@ -52,7 +48,19 @@ template<> GLenum sge::ogl::convert_cast(const primitive_type& t)
 	case PT_LineLoop:
 		return GL_LINE_LOOP;
 	default:
-		throw std::logic_error("unsupported primitive_type");
+		throw std::logic_error("unsupported indexed_primitive_type");
+	}
+}
+
+template<> GLenum sge::ogl::convert_cast(const indexed_primitive_type& t)
+{
+	switch(t) {
+	case PT_Line:
+		return GL_LINES;
+	case PT_Triangle:
+		return GL_TRIANGLES;
+	default:
+		throw std::logic_error("unsupported nonindexed_primitive_type");
 	}
 }
 

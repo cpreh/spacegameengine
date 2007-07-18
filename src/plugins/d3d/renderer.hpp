@@ -65,9 +65,14 @@ public:
 	            index_buffer_ptr ib,
 	            vertex_buffer::size_type first_vertex,
 	            vertex_buffer::size_type num_vertices,
-	            primitive_type ptype,
+	            indexed_primitive_type ptype,
 	            index_buffer::size_type pcount,
-	            index_buffer::size_type first_index = 0);
+	            index_buffer::size_type first_index);
+	void render(vertex_buffer_ptr vb,
+	            vertex_buffer::size_type first_vertex,
+	            vertex_buffer::size_type num_vertices,
+	            nonindexed_primitive_type ptype);
+
 	void reset(const renderer_parameters* param);
 	void set_render_target(texture_ptr target);
 	void setviewport(const viewport&);

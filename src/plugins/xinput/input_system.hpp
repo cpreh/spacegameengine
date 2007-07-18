@@ -47,6 +47,7 @@ public:
 	boost::signals::connection register_callback(const callback& c);
 	boost::signals::connection register_repeat_callback(const repeat_callback& c);
 	void dispatch();
+	window_ptr get_window() const;
 private:
 	typedef int mouse_coordinate_t;
 	void grab();

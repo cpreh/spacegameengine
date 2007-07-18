@@ -30,7 +30,8 @@ namespace ogl
 {
 
 template<typename D, typename S> D convert_cast(const S&);
-template<> GLenum convert_cast(const primitive_type& t);
+template<> GLenum convert_cast(const indexed_primitive_type& t);
+template<> GLenum convert_cast(const nonindexed_primitive_type& t);
 template<> GLenum convert_cast(const bool_state& b);
 template<> GLenum convert_cast(const filter_value& av);
 template<> GLenum convert_cast(const cube_side& s);

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
  : wnd(wnd),
-   colormap(DefaultColormap(wnd->display(), wnd->screen())),
+   colormap(DefaultColormap(wnd->display()->get(), wnd->screen())),
    mouse_last(),
    _black(wnd->display(), colormap),
    _no_bmp(wnd->display(), wnd->get_window()),
@@ -48,7 +48,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 {
 #ifdef USE_DGA
 	int flags;
-	if(XF86DGAQueryDirectVideo(wnd->display(),wnd->screen(),&flags)==false)
+	if(XF86DGAQueryDirectVideo(wnd->display()->get(),wnd->screen(),&flags)==false)
 		throw std::runtime_error("XF86DGAQueryDirectVideo() failed");
 	if(flags & XF86DGADirectMouse)
 	{
@@ -66,7 +66,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 		    win_y_return;
 		unsigned mask_return;
 
-		XQueryPointer(wnd->display(), wnd->get_window(), &root_return, &child_return, &root_x_return, &root_y_return, &win_x_return, &win_y_return, &mask_return);
+		XQueryPointer(wnd->display()->get(), wnd->get_window(), &root_return, &child_return, &root_x_return, &root_y_return, &win_x_return, &win_y_return, &mask_return);
 		mouse_last.x() = win_x_return;
 		mouse_last.y() = win_y_return;
 	}
@@ -227,8 +227,8 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 sge::xinput::input_system::~input_system()
 {
 	if(wnd->fullscreen())
-		XUngrabKeyboard(wnd->display(),CurrentTime);
-	XUngrabPointer(wnd->display(),CurrentTime);
+		XUngrabKeyboard(wnd->display()->get(), CurrentTime);
+	XUngrabPointer(wnd->display()->get(), CurrentTime);
 }
 
 boost::signals::connection sge::xinput::input_system::register_callback(const callback& c)
@@ -245,25 +245,30 @@ void sge::xinput::input_system::dispatch()
 {
 }
 
+sge::window_ptr sge::xinput::input_system::get_window() const
+{
+	return wnd;
+}
+
 void sge::xinput::input_system::grab()
 {
 	grab_pointer();
 	if(wnd->fullscreen())
 		grab_keyboard();
-	XSync(wnd->display(), False);
+	XSync(wnd->display()->get(), False);
 }
 
 void sge::xinput::input_system::grab_pointer()
 {
 	for(;;)
-		if(handle_grab(XGrabPointer(wnd->display(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor(), CurrentTime)))
+		if(handle_grab(XGrabPointer(wnd->display()->get(), wnd->get_window(), True, PointerMotionMask | ButtonPressMask | ButtonReleaseMask, GrabModeAsync, GrabModeAsync, wnd->get_window(), _no_cursor.cursor(), CurrentTime)))
 			return;
 }
 
 void sge::xinput::input_system::grab_keyboard()
 {
 	for(;;)
-		if(handle_grab(XGrabKeyboard(wnd->display(), wnd->get_window(), True, GrabModeAsync, GrabModeAsync, CurrentTime)))
+		if(handle_grab(XGrabKeyboard(wnd->display()->get(), wnd->get_window(), True, GrabModeAsync, GrabModeAsync, CurrentTime)))
 			return;
 }
 
@@ -297,15 +302,15 @@ void sge::xinput::input_system::on_key_event(const XEvent& xev)
 {
 	// check for repeated key (thanks to SDL)
 	if(xev.type == KeyRelease
-	   && xev.type == KeyRelease && XPending(wnd->display()))
+	   && xev.type == KeyRelease && XPending(wnd->display()->get()))
 	{
 		XEvent peek;
-		XPeekEvent(wnd->display(), &peek);
+		XPeekEvent(wnd->display()->get(), &peek);
 		if(peek.type == KeyPress &&
 		   peek.xkey.keycode == xev.xkey.keycode &&
 		   (peek.xkey.time - xev.xkey.time) < 2)
 		{
-			XNextEvent(wnd->display(), &peek);
+			XNextEvent(wnd->display()->get(), &peek);
 			repeat_sig(create_key_type(xev));
 			return;
 		}
@@ -340,7 +345,7 @@ void sge::xinput::input_system::on_button_event(const XEvent& xev)
 void sge::xinput::input_system::on_release(const XEvent&)
 {
 	enable_dga(false);
-	XUngrabPointer(wnd->display(), CurrentTime);
+	XUngrabPointer(wnd->display()->get(), CurrentTime);
 }
 
 void sge::xinput::input_system::on_acquire(const XEvent&)
@@ -401,7 +406,7 @@ void sge::xinput::input_system::dga_motion(XEvent xevent)
 	mouse_coordinate_t dx = xevent.xmotion.x_root,
 	                   dy = xevent.xmotion.y_root;
 
-	while(XCheckTypedEvent(wnd->display(), MotionNotify, &xevent))
+	while(XCheckTypedEvent(wnd->display()->get(), MotionNotify, &xevent))
 	{
 		dx += xevent.xmotion.x_root;
 		dy += xevent.xmotion.y_root;
@@ -431,7 +436,7 @@ void sge::xinput::input_system::warped_motion(XEvent xevent)
 	     (xevent.xmotion.y > (h-MOUSE_FUDGE_FACTOR)) ))
 		return;
 	
-	while ( XCheckTypedEvent(wnd->display(), MotionNotify, &xevent) )
+	while ( XCheckTypedEvent(wnd->display()->get(), MotionNotify, &xevent) )
 	{
 		deltax = xevent.xmotion.x - mouse_last.x();
 		deltay = xevent.xmotion.y - mouse_last.y();
@@ -443,12 +448,12 @@ void sge::xinput::input_system::warped_motion(XEvent xevent)
 	}
 	mouse_last.x() = w/2;
 	mouse_last.y() = h/2;
-	XWarpPointer(wnd->display(), None, wnd->get_window(), 0, 0, 0, 0, mouse_last.x(), mouse_last.y());
+	XWarpPointer(wnd->display()->get(), None, wnd->get_window(), 0, 0, 0, 0, mouse_last.x(), mouse_last.y());
 
 	const unsigned max_loops = 10;
 	for(unsigned i = 0; i < max_loops; ++i )
 	{
-		XMaskEvent(wnd->display(), PointerMotionMask, &xevent);
+		XMaskEvent(wnd->display()->get(), PointerMotionMask, &xevent);
 		if ( (xevent.xmotion.x > mouse_last.x() - MOUSE_FUDGE_FACTOR) &&
 		     (xevent.xmotion.x < mouse_last.x() + MOUSE_FUDGE_FACTOR) &&
 		     (xevent.xmotion.y > mouse_last.y() - MOUSE_FUDGE_FACTOR) &&

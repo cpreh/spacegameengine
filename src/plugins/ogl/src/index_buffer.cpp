@@ -33,3 +33,8 @@ sge::ogl::index_buffer::const_iterator sge::ogl::index_buffer::begin() const
 {
 	return data();
 }
+
+void sge::ogl::index_buffer::unbind()
+{
+	base::unbind();			
+}

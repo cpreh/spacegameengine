@@ -314,7 +314,7 @@ try
 		//fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0.1,0.9),sge::font_size(1,1),sge::colors::purple);
 		//ls.render();
 
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::PT_Triangle, surf.triangles.size());
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::PT_Triangle, surf.triangles.size(), 0);
 
 //		con.draw();
 		rend->end_rendering();

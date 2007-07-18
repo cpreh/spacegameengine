@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_XINPUT_DGA_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
+#include "../../x_display.hpp"
 #include <X11/Xlib.h>
 
 namespace sge
@@ -31,11 +32,11 @@ namespace xinput
 
 class dga_guard : boost::noncopyable {
 public:
-	dga_guard(Display* dsp, int screen);
+	dga_guard(x_display_ptr, int screen);
 	~dga_guard();
 	void enable(bool);
 private:
-	Display* dsp;
+	x_display_ptr dsp;
 	int screen;
 	bool enabled;
 };

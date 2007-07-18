@@ -265,7 +265,7 @@ void sge::sprite::draw()
 	for(tex_array::size_type i = 0; i < tex.size(); ++i)
 		spr_sys->get_renderer()->set_texture(get_texture(i),i);
 
-	spr_sys->get_renderer()->render(spr_sys->vb,spr_sys->ib,0,4,PT_Triangle,2);
+	spr_sys->get_renderer()->render(spr_sys->vb,spr_sys->ib,0,4,PT_Triangle,2,0);
 	
 	for(tex_array::size_type i = 1; i < tex.size(); ++i)
 		spr_sys->get_renderer()->set_texture(texture_ptr(),i);

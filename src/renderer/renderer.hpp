@@ -44,9 +44,13 @@ public:
 	                    index_buffer_ptr ib,
 	                    vertex_buffer::size_type first_vertex,
 	                    vertex_buffer::size_type num_vertices,
-	                    primitive_type ptype,
+	                    indexed_primitive_type ptype,
 	                    index_buffer::size_type primitive_count,
-	                    index_buffer::size_type first_index = 0) = 0;
+	                    index_buffer::size_type first_index) = 0;
+	virtual void render(vertex_buffer_ptr vb,
+	                    vertex_buffer::size_type first_vertex,
+	                    vertex_buffer::size_type num_vertices,
+	                    nonindexed_primitive_type ptype) = 0;
 
 	virtual void set_int_state(int_state _state, int_type value) = 0;
 	virtual void set_float_state(float_state _state, float_type value) = 0;

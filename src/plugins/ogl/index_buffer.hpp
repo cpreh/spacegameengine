@@ -31,10 +31,12 @@ namespace ogl
 {
 
 class index_buffer : public basic_arb_buffer<sge::index_buffer,GL_ELEMENT_ARRAY_BUFFER_ARB> {
+	typedef basic_arb_buffer<sge::index_buffer,GL_ELEMENT_ARRAY_BUFFER_ARB> base;
 public:
 	index_buffer(size_type sz, resource_flag_t flags, const_pointer src);
 	iterator begin();
 	const_iterator begin() const;
+	static void unbind();
 };
 
 }

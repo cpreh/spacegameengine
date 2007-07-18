@@ -46,17 +46,17 @@ sge::x_window::x_window(const window_pos pos, const window_size sz, const string
 sge::x_window::~x_window()
 {
 	instances.erase(this);
-	XDestroyWindow(display(), wnd);
+	XDestroyWindow(dsp_(), wnd);
 }
 
 void sge::x_window::size(const window_size newsize)
 {
-	XResizeWindow(display(), wnd, newsize.w(), newsize.h());
+	XResizeWindow(dsp_(), wnd, newsize.w(), newsize.h());
 }
 
 void sge::x_window::title(const string& t)
 {
-	XStoreName(display(), wnd, iconv(t).c_str());
+	XStoreName(dsp_(), wnd, iconv(t).c_str());
 }
 
 sge::x_window::window_size sge::x_window::size() const
@@ -69,7 +69,7 @@ sge::x_window::window_size sge::x_window::size() const
 	         border_width_return,
 	         depth_return;
 
-	XGetGeometry(display(), get_window(), &root_return, &x_return, &y_return, &width_return, &height_return, &border_width_return, &depth_return);
+	XGetGeometry(dsp_(), get_window(), &root_return, &x_return, &y_return, &width_return, &height_return, &border_width_return, &depth_return);
 	return window_size(width_return,height_return);
 }
 
@@ -88,9 +88,14 @@ int sge::x_window::screen() const
 	return _screen;
 }
 
-Display* sge::x_window::display() const
+sge::x_display_ptr sge::x_window::display() const
 {
-	return dsp->get();
+	return dsp;
+}
+
+Display* sge::x_window::dsp_() const
+{
+	return display()->get();
 }
 
 boost::signals::connection sge::x_window::register_callback(const x11_event_type event, const x11_callback_type callback)
@@ -126,7 +131,7 @@ void sge::x_window::add_event_mask(const x11_event_type event)
 		event_mask |= mask;
 		XSetWindowAttributes swa;
 		swa.event_mask = event_mask;
-		XChangeWindowAttributes(display(), wnd, CWEventMask, &swa);
+		XChangeWindowAttributes(dsp_(), wnd, CWEventMask, &swa);
 	}
 }
 
@@ -137,9 +142,9 @@ void sge::window::dispatch()
 	const x_window::instance_map::iterator e = sge::x_window::instances.end();
 	while (b != e)
 	{
-		while(XPending((*b)->display()))
+		while(XPending((*b)->dsp_()))
 		{
-			XNextEvent((*b)->display(), &xev);
+			XNextEvent((*b)->dsp_(), &xev);
 			if(XFilterEvent(&xev, None))
 				continue;
 			(*b)->signals[xev.type](xev);

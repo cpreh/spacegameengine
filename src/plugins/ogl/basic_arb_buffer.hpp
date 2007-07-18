@@ -57,7 +57,7 @@ public:
 		glDeleteBuffersARB(1,&id);
 	}
 
-	void lock(/*const*/ lock_flag_t lockflags)
+	void lock(const lock_flag_t lockflags)
 	{
 		if(dest)
 			throw std::logic_error("ogl_buffer::lock(), you have to unlock before locking!");
@@ -160,11 +160,21 @@ public:
 		return dest;
 	}
 
-	void bind_me() const
+	static void bind(const GLuint id)
 	{
 		glBindBufferARB(Type,id);
 		if(is_error())
 			throw std::runtime_error("glBindBufferARB() failed!");
+	}
+
+	static void unbind()
+	{
+		bind(0);
+	}
+
+	void bind_me() const
+	{
+		bind(id);
 	}
 private:
 	void _set_size(const const_pointer src)

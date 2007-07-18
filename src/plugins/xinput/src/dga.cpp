@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../dga.hpp"
 #include <X11/extensions/xf86dga.h>
 
-sge::xinput::dga_guard::dga_guard(Display* const dsp, const int screen)
+sge::xinput::dga_guard::dga_guard(const x_display_ptr dsp, const int screen)
  : dsp(dsp),
    screen(screen),
    enabled(false)
@@ -39,7 +39,7 @@ void sge::xinput::dga_guard::enable(const bool b)
 	if(enabled == b)
 		return;
 
-	XF86DGADirectVideo(dsp, screen, b ? XF86DGADirectMouse : 0);
+	XF86DGADirectVideo(dsp->get(), screen, b ? XF86DGADirectMouse : 0);
 
 	enabled = b;
 }

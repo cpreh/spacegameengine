@@ -123,12 +123,15 @@ typedef uint32         int_type;
 typedef space_unit     float_type;
 typedef bool           bool_type;
 
-enum primitive_type {
-	PT_Point,
+enum indexed_primitive_type {
 	PT_Line,
+	PT_Triangle
+};
+
+enum nonindexed_primitive_type {
+	PT_Point,
 	PT_LineStrip,
 	PT_LineLoop,
-	PT_Triangle,
 	PT_TriangleStrip,
 	PT_TriangleFan
 };

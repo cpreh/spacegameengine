@@ -44,6 +44,9 @@ public:
 	virtual boost::signals::connection register_callback(const callback& c) = 0;
 	virtual boost::signals::connection register_repeat_callback(const repeat_callback& c) = 0;
 	virtual void dispatch() = 0;
+
+	virtual window_ptr get_window() const = 0;
+
 	virtual ~input_system() {}
 };
 typedef shared_ptr<input_system> input_system_ptr;

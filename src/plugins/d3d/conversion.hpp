@@ -33,7 +33,8 @@ namespace d3d
 template<typename L, typename R> L convert_cast (const R&);
 template<> DWORD convert_cast (const resource_flag_t& r);
 template<> D3DPOOL convert_cast (const resource_flag_t& r);
-template<> D3DPRIMITIVETYPE convert_cast (const primitive_type& r);
+template<> D3DPRIMITIVETYPE convert_cast (const indexed_primitive_type& r);
+template<> D3DPRIMITIVETYPE convert_cast (const nonindexed_primitive_type& r);
 template<> D3DMULTISAMPLE_TYPE convert_cast (const multi_sample_type& r);
 template<> D3DDECLUSAGE convert_cast (const vertex_usage& r);
 template<> D3DTEXTURESTAGESTATETYPE convert_cast (const stage_op& r);

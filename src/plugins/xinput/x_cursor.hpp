@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_XINPUT_X_CURSOR_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
+#include "../../x_display.hpp"
 #include <X11/Xlib.h>
 
 namespace sge
@@ -31,11 +32,11 @@ namespace xinput
 
 class x_cursor : boost::noncopyable {
 public:
-	x_cursor(Display* dsp, Pixmap pixmap, XColor color);
+	x_cursor(x_display_ptr, Pixmap pixmap, XColor color);
 	~x_cursor();
 	Cursor cursor() const;
 private:
-	Display* dsp;
+	x_display_ptr dsp;
 	Cursor _cursor;
 };
 

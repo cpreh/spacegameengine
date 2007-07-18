@@ -56,10 +56,12 @@ public:
 
 	Window get_window() const;
 	int screen() const;
-	Display* display() const;
+	x_display_ptr display() const;
 
 	boost::signals::connection register_callback(x11_event_type, x11_callback_type);
 private:
+	Display* dsp_() const;
+
 	void add_event_mask(x11_event_type);
 
 	x_display_ptr dsp;

@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-inline unsigned num_indices(const sge::primitive_type type, const unsigned count)
+inline unsigned num_indices(const sge::indexed_primitive_type type, const unsigned count)
 {
 	switch(type) {
 	case sge::PT_Triangle:
@@ -53,7 +53,7 @@ inline unsigned num_indices(const sge::primitive_type type, const unsigned count
 	case sge::PT_Line:
 		return count*2;
 	default:
-		throw std::logic_error("num_indices doesn't make any sense for primitves without inidces");
+		throw std::logic_error("num_indices: unsupported indexed_primitive_format!");
 	}
 }
 
@@ -290,35 +290,50 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
                                 const index_buffer_ptr ib,
                                 const sge::vertex_buffer::size_type first_vertex,
                                 const sge::vertex_buffer::size_type num_vertices,
-                                const primitive_type ptype,
+                                const indexed_primitive_type ptype,
                                 const sge::index_buffer::size_type pcount,
                                 const sge::index_buffer::size_type first_index)
 {
+	if(!vb)
+		throw exception("vb may not be 0 for renderer::render!");
+	if(!ib)
+		throw exception("ib may not be 0 for renderer::render for indexed primitives!");
+
 	set_vertex_buffer(vb);
+	set_index_buffer(ib);
+
 	const GLenum prim_type = convert_cast<GLenum>(ptype);
-	switch(ptype) {
-	case PT_Line:
-	case PT_Triangle:
-		set_index_buffer(ib);
-		glDrawElements(prim_type,
-		               num_indices(ptype, static_cast<unsigned>(pcount)),
-		               GL_UNSIGNED_SHORT,
-		               vbo_offset(first_index*2));
-		break;
-	case PT_Point:
-	case PT_LineStrip:
-	case PT_TriangleStrip:
-	case PT_TriangleFan:
-	case PT_LineLoop:
-		set_index_buffer(ib);
-		glDrawArrays(prim_type,
-		             static_cast<GLsizei>(first_vertex),
-		             static_cast<GLint>(num_vertices));
-		break;
-	}
+	
+	glDrawElements(prim_type,
+	               num_indices(ptype, static_cast<unsigned>(pcount)),
+	               GL_UNSIGNED_SHORT,
+	               vbo_offset(first_index * sge::index_buffer::stride));
+	
 	if(is_error())
-		throw std::runtime_error("opengl error during rendering!");
+		throw std::runtime_error("opengl error during rendering an indexed array!");
 }
+
+void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
+                                const vertex_buffer::size_type first_vertex,
+                                const vertex_buffer::size_type num_vertices,
+                                const nonindexed_primitive_type ptype)
+{
+	if(!vb)
+		throw exception("vb may not be 0 for renderer::render!");
+	
+	set_vertex_buffer(vb);
+	set_index_buffer(index_buffer_ptr());
+
+	const GLenum prim_type = convert_cast<GLenum>(ptype);
+	
+	glDrawArrays(prim_type,
+	             static_cast<GLsizei>(first_vertex),
+	             static_cast<GLint>(num_vertices));
+	if(is_error())
+		throw std::runtime_error("opengl error during rendering an non indexed array!");
+
+}
+
 
 void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type value)
 {
@@ -466,12 +481,22 @@ void sge::ogl::renderer::set_texture_stage_op(const stage_type stage, const stag
 
 void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)
 {
+	if(!vb)
+	{
+		vertex_buffer::unbind();
+		return;
+	}
 	vertex_buffer* const ovb = ptr_cast<vertex_buffer*>(vb.get());
 	ovb->set_format();
 }
 
 void sge::ogl::renderer::set_index_buffer(const sge::index_buffer_ptr ib)
 {
+	if(!ib)
+	{
+		index_buffer::unbind();
+		return;
+	}
 	index_buffer* const oib = ptr_cast<index_buffer*>(ib.get());
 	oib->bind_me();
 }

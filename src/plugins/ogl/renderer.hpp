@@ -61,9 +61,14 @@ public:
 	            index_buffer_ptr ib,
 	            sge::vertex_buffer::size_type first_vertex,
 	            sge::vertex_buffer::size_type num_vertices,
-	            primitive_type ptype,
+	            indexed_primitive_type ptype,
 	            sge::index_buffer::size_type pcount,
-	            sge::index_buffer::size_type first_index = 0);
+	            sge::index_buffer::size_type first_index);
+	void render(vertex_buffer_ptr vb,
+	            vertex_buffer::size_type first_vertex,
+	            vertex_buffer::size_type num_vertices,
+	            nonindexed_primitive_type ptype);
+
 
 	void set_int_state(int_state state, int_type value);
 	void set_float_state(float_state state, float_type value);

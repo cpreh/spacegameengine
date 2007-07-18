@@ -60,3 +60,8 @@ void sge::ogl::vertex_buffer::set_format()
 	bind_me();
 	ogl_format.use_me();
 }
+
+void sge::ogl::vertex_buffer::unbind()
+{
+	base::unbind();
+}

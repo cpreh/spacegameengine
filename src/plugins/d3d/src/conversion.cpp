@@ -37,24 +37,33 @@ template<> D3DPOOL sge::d3d::convert_cast (const resource_flag_t& r)
 	return r & RF_Dynamic ? D3DPOOL_DEFAULT : D3DPOOL_MANAGED;
 }
 
-template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const primitive_type& r)
+template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const indexed_primitive_type& r)
+{
+	switch(r) {
+	case PT_Line:
+		return D3DPT_LINELIST;
+	case PT_Triangle:
+		return D3DPT_TRIANGLELIST;
+	default:
+		throw std::logic_error("Invalid indexed primitive type!");
+	}
+}
+
+template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const nonindexed_primitive_type& r)
 {
 	switch(r) {
 	case PT_Point:
 		return D3DPT_POINTLIST;
-	case PT_Line:
-		return D3DPT_LINELIST;
 	case PT_LineStrip:
 		return D3DPT_LINESTRIP;
-	case PT_Triangle:
-		return D3DPT_TRIANGLELIST;
 	case PT_TriangleStrip:
 		return D3DPT_TRIANGLESTRIP;
 	case PT_TriangleFan:
 		return D3DPT_TRIANGLEFAN;
 	default:
-		throw std::logic_error("invalid primtype");
+		throw std::logic_error("Invalid non indexed primitive type!");
 	}
+
 }
 
 template<> D3DMULTISAMPLE_TYPE sge::d3d::convert_cast (const multi_sample_type& r)

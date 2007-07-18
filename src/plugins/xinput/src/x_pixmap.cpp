@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 const char bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
 
-sge::xinput::x_pixmap::x_pixmap(Display* const dsp, const Window wnd)
+sge::xinput::x_pixmap::x_pixmap(const x_display_ptr dsp, const Window wnd)
  : dsp(dsp),
-   _pixmap(XCreateBitmapFromData(dsp, wnd, bm_no_data, 8, 8))
+   _pixmap(XCreateBitmapFromData(dsp->get(), wnd, bm_no_data, 8, 8))
 {
 	if(pixmap() == None)
 		throw std::runtime_error("XCreateBitmapFromData() failed");
@@ -33,7 +33,7 @@ sge::xinput::x_pixmap::x_pixmap(Display* const dsp, const Window wnd)
 
 sge::xinput::x_pixmap::~x_pixmap()
 {
-	XFreePixmap(dsp, pixmap());
+	XFreePixmap(dsp->get(), pixmap());
 }
 
 Pixmap sge::xinput::x_pixmap::pixmap() const

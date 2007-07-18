@@ -30,7 +30,8 @@ namespace sge
 namespace ogl
 {
 
-class vertex_buffer : public basic_arb_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER_ARB> {
+class vertex_buffer : public basic_arb_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER_ARB> {	
+	typedef basic_arb_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER_ARB> base;
 public:
 	vertex_buffer(size_type size, const sge::vertex_format& format, resource_flag_t flags, const_pointer src);
 
@@ -42,6 +43,8 @@ public:
 	const_iterator begin() const;
 
 	void set_format();
+
+	static void unbind();
 private:
 	sge::vertex_format format;
 	vertex_format ogl_format;

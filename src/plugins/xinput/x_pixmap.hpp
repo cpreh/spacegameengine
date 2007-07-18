@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_XINPUT_X_PIXMAP_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
+#include "../../x_display.hpp"
 #include <X11/Xlib.h>
 
 namespace sge
@@ -31,11 +32,11 @@ namespace xinput
 
 class x_pixmap : boost::noncopyable {
 public:
-	x_pixmap(Display* dsp, Window wnd);
+	x_pixmap(x_display_ptr, Window wnd);
 	~x_pixmap();
 	Pixmap pixmap() const;
 private:
-	Display* dsp;
+	x_display_ptr dsp;
 	Pixmap _pixmap;
 };
 

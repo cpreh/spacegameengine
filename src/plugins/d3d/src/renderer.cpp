@@ -123,7 +123,7 @@ sge::window_ptr sge::d3d::renderer::get_window() const
 void sge::d3d::renderer::set_vertex_buffer(const vertex_buffer_ptr buffer)
 {
 	if(!buffer)
-		return;
+		return; //FIXME
 
 	d3d::vertex_buffer* const d3d_buffer = ptr_cast<d3d::vertex_buffer*>(buffer.get());
 	const d3d_vertex_declaration_ptr decl = d3d_buffer->d3d_format.vertex_declaration();
@@ -140,7 +140,7 @@ void sge::d3d::renderer::set_vertex_buffer(const vertex_buffer_ptr buffer)
 void sge::d3d::renderer::set_index_buffer(const index_buffer_ptr buffer)
 {
 	if(!buffer)
-		return;
+		return; //FIXME
 
 	d3d::index_buffer* const d3d_buffer = ptr_cast<d3d::index_buffer*>(buffer.get());
 	if(device->SetIndices(d3d_buffer->buffer.get()) != D3D_OK)
@@ -239,28 +239,35 @@ void sge::d3d::renderer::set_texture_stage_arg(const stage_type stage, const sta
 	set_sampler_state(device,stage,d3d_type,d3d_value);
 }*/
 
-void sge::d3d::renderer::render(const vertex_buffer_ptr nvb, const index_buffer_ptr nib, const unsigned first_vertex, const unsigned num_vertices, const primitive_type ptype, const unsigned pcount, const unsigned first_index)
+void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
+                                const index_buffer_ptr nib,
+                                const unsigned first_vertex,
+                                const unsigned num_vertices,
+                                const primitive_type ptype,
+                                const unsigned pcount,
+                                const unsigned first_index)
 {
 	const D3DPRIMITIVETYPE prim_type = convert_cast<D3DPRIMITIVETYPE>(ptype);
 	if(vb != nvb)
 		set_vertex_buffer(nvb);
 
-	switch(ptype) {
-	case PT_Line:
-	case PT_Triangle:
-		if(ib != nib)
-			set_index_buffer(nib);
-		if(device->DrawIndexedPrimitive(prim_type,0,first_vertex,num_vertices,first_index,pcount) != D3D_OK)
-			throw std::runtime_error("DrawIndexedPrimitive() failed");
-		break;
-	case PT_Point:
-	case PT_LineStrip:
-	case PT_TriangleStrip:
-	case PT_TriangleFan:
-		if(device->DrawPrimitive(prim_type,first_vertex,pcount) != D3D_OK)
-			throw std::runtime_error("DrawPrimitive() failed");
-		break;
-	}
+	if(ib != nib)
+		set_index_buffer(nib);
+	if(device->DrawIndexedPrimitive(prim_type,0,first_vertex,num_vertices,first_index,pcount) != D3D_OK)
+		throw std::runtime_error("DrawIndexedPrimitive() failed");
+}
+
+void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
+                                const unsigned first_vertex,
+                                const unsigned num_vertices,
+                                const nonindexed_primitive_type ptype)
+{
+	const D3DPRIMITIVETYPE prim_type = convert_cast<D3DPRIMITIVETYPE>(ptype);
+	if(vb != nvb)
+		set_vertex_buffer(nvb);
+
+	if(device->DrawPrimitive(prim_type,first_vertex,pcount) != D3D_OK)
+		throw std::runtime_error("DrawPrimitive() failed");
 }
 
 void sge::d3d::renderer::begin_rendering()

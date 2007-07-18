@@ -21,18 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <stdexcept>
 #include "../x_color.hpp"
 	
-sge::xinput::x_color::x_color(Display* const dsp, Colormap colormap)
+sge::xinput::x_color::x_color(const x_display_ptr dsp, Colormap colormap)
  : dsp(dsp),
    colormap(colormap)
 {
 	XColor dummy;
-	if(XAllocNamedColor(dsp, colormap, "black", &_color, &dummy ) == 0)
+	if(XAllocNamedColor(dsp->get(), colormap, "black", &_color, &dummy ) == 0)
 		throw std::runtime_error("XAllocNamedColor() failed");
 }
 
 sge::xinput::x_color::~x_color()
 {
-	XFreeColors(dsp, colormap, &_color.pixel, 1, 0);
+	XFreeColors(dsp->get(), colormap, &_color.pixel, 1, 0);
 }
 
 XColor sge::xinput::x_color::color() const
