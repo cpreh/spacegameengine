@@ -310,6 +310,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	case PT_TriangleStrip:
 	case PT_TriangleFan:
 	case PT_LineLoop:
+		set_index_buffer(ib);
 		glDrawArrays(prim_type,
 		             static_cast<GLsizei>(first_vertex),
 		             static_cast<GLint>(num_vertices));
