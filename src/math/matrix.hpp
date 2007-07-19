@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_HPP_INCLUDED
 #define SGE_MATH_MATRIX_HPP_INCLUDED
 
+#include <algorithm>
 #include <cassert>
 #include <cstddef>
 #include <ostream>
@@ -29,9 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include "../types.hpp"
-#include "../algorithm.hpp"
 #include "../util.hpp"
 #include "matrix_proxy.hpp"
 #include "vector.hpp"
@@ -67,12 +66,12 @@ public:
 
 	matrix(const matrix& r)
 	{
-		sge::copy(r._data,&r._data[Dim],_data);
+		std::copy(r._data,&r._data[Dim],_data);
 	}
 
 	matrix& operator=(const matrix& r)
 	{
-		sge::copy(r._data,&r._data[Dim],_data);
+		std::copy(r._data,&r._data[Dim],_data);
 		return *this;
 	}
 

@@ -12,9 +12,9 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/type_traits/is_same.hpp>
+//#include <boost/mpl/and.hpp>
+//#include <boost/mpl/bool.hpp>
+//#include <tr1/type_traits/is_same.hpp>
 #include "../util.hpp"
 
 #ifndef SGE_MATH_VECTOR_MAX_SIZE

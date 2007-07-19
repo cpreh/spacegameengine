@@ -20,6 +20,7 @@ RDEPEND="dev-libs/boost
          x11-libs/libX11
          virtual/libc
          virtual/libiconv
+         virtual/c++-tr1-type-traits
          opengl? (
              media-libs/glew
              x11-libs/libXxf86vm )
@@ -82,8 +83,6 @@ src_compile() {
 	if use xinput; then
 		myconf="${myconf} -D ENABLE_XINPUT:=1"
 	fi
-
-	echo cmake ${myconf}
 
 	cmake ${myconf} \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \

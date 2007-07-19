@@ -21,38 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ALGORITHM_HPP_INCLUDED
 #define SGE_ALGORITHM_HPP_INCLUDED
 
-#include <cstring>
-#include <algorithm>
 #include <iterator>
-#include <boost/type_traits/is_pod.hpp>
 
 namespace sge
 {
-
-template<typename In, typename Out> inline
-	Out* memcpy(const In* first, const In* last, Out* dest)
-{
-	std::memcpy(dest,first,(last-first)*sizeof(In));
-	return dest + (last - first);
-}
-
-template<typename In, typename Out> inline
-	Out* _copy(In* first, In* last, Out* dest, boost::true_type)
-{
-	return sge::memcpy(first,last,dest);
-}
-
-template<typename In, typename Out> inline
-	Out* _copy(In* first, In* last, Out* dest, boost::false_type)
-{
-	return std::copy(first,last,dest);
-}
-
-template<typename In, typename Out> inline
-	Out* copy(In* first, In* last, Out* dest)
-{
-	return _copy(first,last,dest, typename boost::is_pod<In>::type());
-}
 
 template<typename InputIterator, typename Size, typename T>
 	InputIterator find_nth(InputIterator first, InputIterator last, Size count, const T& t)
