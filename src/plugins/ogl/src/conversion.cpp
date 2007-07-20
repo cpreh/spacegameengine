@@ -77,6 +77,8 @@ template<> GLenum sge::ogl::convert_cast(const bool_state& state)
 		return GL_FOG;
 	case BS_EnableLighting:
 		return GL_LIGHTING;
+	case BS_EnableCulling:
+		return GL_CULL_FACE;
 	default:
 		throw std::logic_error("unsupported bool_state");
 	}
@@ -115,6 +117,18 @@ template<> GLenum sge::ogl::convert_cast(const cube_side& s)
 		return GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB;
 	default:
 		throw std::logic_error("unsupported cube_side");
+	}
+}
+
+template<> GLenum sge::ogl::convert_cast(const cull_mode& m)
+{
+	switch(m) {
+	case CM_Back:
+		return GL_BACK;
+	case CM_Front:
+		return GL_FRONT;
+	default:
+		throw std::logic_error("unsupported cull:mode");
 	}
 }
 

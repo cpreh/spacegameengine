@@ -200,10 +200,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	_caps.adapter_number = adapter;
 	_caps.max_tex_size = 512;
 	
-	glMatrixMode(GL_PROJECTION);
-	glFrustum(-100,100,-100,100,1,200);
-	if(is_error())
-		throw exception(":(");
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 5);
 
 	set_render_target();
 }
@@ -330,7 +327,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	             static_cast<GLsizei>(first_vertex),
 	             static_cast<GLint>(num_vertices));
 	if(is_error())
-		throw std::runtime_error("opengl error during rendering an non indexed array!");
+		throw exception("opengl error during rendering an non indexed array!");
 
 }
 
@@ -354,6 +351,8 @@ void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type 
 		else
 			glDisable(glstate);
 	}
+	if(is_error())
+		throw exception("set_bool_state() failed!");
 }
 
 void sge::ogl::renderer::set_float_state(const float_state state, const float_type value)
@@ -395,6 +394,15 @@ void sge::ogl::renderer::set_int_state(const int_state state, const int_type val
 		const color4 fc = color_to_color4(value);
 		glFogfv(GL_FOG_COLOR, reinterpret_cast<const GLfloat*>(&fc));
 	}
+}
+
+void sge::ogl::renderer::set_cull_mode(const cull_mode mode)
+{
+	const GLenum glmode = convert_cast<GLenum>(mode);
+	glCullFace(glmode);
+
+	if(is_error())
+		throw exception("glCullMode() failed!");
 }
 
 void sge::ogl::renderer::set_material(const material& mat)

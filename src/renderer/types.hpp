@@ -166,12 +166,18 @@ enum bool_state {
 	BS_EnableStencil,
 	BS_EnableAlphaBlending,
 	BS_EnableZBuffer,
-	BS_EnableLighting
+	BS_EnableLighting,
+	BS_EnableCulling
 };
 
 enum stage_op {
 	SOP_Color,
 	SOP_Alpha
+};
+
+enum cull_mode {
+	CM_Back,
+	CM_Front
 };
 
 enum stage_op_value {
