@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../common.hpp"
-#include <GL/glu.h>
 #include "../texture.hpp"
 #include "../error.hpp"
+#include "../texture_functions.hpp"
 
 sge::ogl::texture::texture(const const_pointer src, const size_type nwidth, const size_type nheight, const filter_args& filter, const resource_flag_t flags)
  : basic_texture<sge::texture,GL_TEXTURE_2D>(filter,flags),
@@ -49,25 +49,5 @@ void sge::ogl::texture::set_data(const const_pointer src, const lock_rect* const
 {
 	bind_me();
 	set_my_filter();
-	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
-
-	if(filter().min_filter != FVMin_MipMap)
-	{
-		if(!r)
-			glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,static_cast<GLsizei>(width()),static_cast<GLsizei>(height()),0,format,type,src);
-		else
-			glTexSubImage2D(GL_TEXTURE_2D,0,static_cast<GLint>(r->left),static_cast<GLint>(r->top),static_cast<GLsizei>(r->width()),static_cast<GLsizei>(r->height()),format,type,src);
-	}
-	else
-	{
-		if(r)
-		{
-			std::cerr << "stub: You can't specify and update rect while using mipmaps. Ignored.\n";
-			return;
-		}
-		gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, static_cast<GLsizei>(width()), static_cast<GLsizei>(height()), format, type, src);
-	}
-
-	if(is_error())
-		throw exception("glTex(Sub)Image2D() or gluBuild2DMipmaps() failed!");
+	set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), r, src);
 }

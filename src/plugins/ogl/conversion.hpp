@@ -37,6 +37,8 @@ template<> GLenum convert_cast(const min_filter_value&);
 template<> GLenum convert_cast(const mag_filter_value&);
 template<> GLenum convert_cast(const cube_side&);
 template<> GLenum convert_cast(const cull_mode&);
+template<> GLenum convert_cast(const depth_func&);
+
 GLuint convert_lock_flags(lock_flag_t);
 GLuint convert_resource_flags(resource_flag_t);
 GLenum convert_fog_float_state(const float_state&);

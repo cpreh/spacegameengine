@@ -74,6 +74,7 @@ public:
 	void set_float_state(float_state state, float_type value);
 	void set_bool_state(bool_state state, bool_type value);
 	void set_cull_mode(cull_mode mode);
+	void set_depth_func(depth_func func);
 	void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value);
 	void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value);
 	void set_texture(texture_base_ptr tex, stage_type stage);

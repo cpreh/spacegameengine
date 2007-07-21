@@ -158,7 +158,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 		}
 	}
 
-	const int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 16, None};
+	const int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 24, None};
 	visual.reset(new glx_visual(dsp, screen, attributes));
 
 	context.reset(new glx_context(dsp, visual->visual_info()));
@@ -404,6 +404,15 @@ void sge::ogl::renderer::set_cull_mode(const cull_mode mode)
 
 	if(is_error())
 		throw exception("glCullMode() failed!");
+}
+
+void sge::ogl::renderer::set_depth_func(const depth_func func)
+{
+	const GLenum glfunc = convert_cast<GLenum>(func);
+	glDepthFunc(glfunc);
+
+	if(is_error())
+		throw exception("glDepthFunc() failed!");
 }
 
 void sge::ogl::renderer::set_material(const material& mat)

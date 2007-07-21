@@ -56,6 +56,7 @@ public:
 	virtual void set_float_state(float_state _state, float_type value) = 0;
 	virtual void set_bool_state(bool_state _state, bool_type value) = 0;
 	virtual void set_cull_mode(cull_mode mode) = 0;
+	virtual void set_depth_func(depth_func func) = 0;
 	virtual void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value) = 0;
 	virtual void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value) = 0;
 	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;

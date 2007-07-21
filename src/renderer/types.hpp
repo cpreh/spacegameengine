@@ -181,6 +181,12 @@ enum cull_mode {
 	CM_Front
 };
 
+enum depth_func {
+	DF_Greater,
+	DF_LessEqual,
+	DF_Never
+};
+
 enum stage_op_value {
 	SOPV_Disable,
 	SOPV_SelectArg1,

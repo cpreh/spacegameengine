@@ -33,7 +33,10 @@ class basic_cube_texture : public basic_texture_base<BitDepth> {
 public:
 	typedef basic_texture_base<BitDepth> base;
 	typedef typename base::const_pointer const_pointer;
+	typedef typename base::size_type size_type;
+
 	virtual void set_data(cube_side side, const_pointer p, const lock_rect* r = 0) = 0;
+	virtual size_type border_size() const = 0;
 };
 
 typedef basic_cube_texture<BitDepth32> cube_texture;

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RECT_HPP_INCLUDED
 #define SGE_RECT_HPP_INCLUDED
 
+#include "../exception.hpp"
 #include "line_seg2.hpp"
 #include "dim.hpp"
 #include "vector.hpp"
@@ -35,7 +36,11 @@ template<typename T> struct basic_rect {
 
 	basic_rect(const value_type& left  = value_type(), const value_type& top    = value_type(),
 	           const value_type& right = value_type(), const value_type& bottom = value_type())
-		: left(left), top(top), right(right), bottom(bottom) {}
+		: left(left), top(top), right(right), bottom(bottom)
+	{
+		if(left > right || top > bottom)
+			throw exception("rect::rect() invalid rect!");
+	}
 
 	basic_rect(const point_type& pos, const dim_type& sz)
 		: left(pos.x()), top(pos.y()), right(pos.x() + sz.w()), bottom(pos.y() + sz.h()) {}

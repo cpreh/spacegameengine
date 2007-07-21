@@ -139,7 +139,21 @@ template<> GLenum sge::ogl::convert_cast(const cull_mode& m)
 	case CM_Front:
 		return GL_FRONT;
 	default:
-		throw std::logic_error("unsupported cull:mode");
+		throw std::logic_error("unsupported cull_mode");
+	}
+}
+
+template<> GLenum sge::ogl::convert_cast(const depth_func& f)
+{
+	switch(f) {
+	case DF_Greater:
+		return GL_GREATER;
+	case DF_LessEqual:
+		return GL_LEQUAL;
+	case DF_Never:
+		return GL_NEVER;
+	default:
+		throw std::logic_error("unsupported depth_func");
 	}
 }
 
