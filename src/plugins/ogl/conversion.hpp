@@ -30,16 +30,17 @@ namespace ogl
 {
 
 template<typename D, typename S> D convert_cast(const S&);
-template<> GLenum convert_cast(const indexed_primitive_type& t);
-template<> GLenum convert_cast(const nonindexed_primitive_type& t);
-template<> GLenum convert_cast(const bool_state& b);
-template<> GLenum convert_cast(const filter_value& av);
-template<> GLenum convert_cast(const cube_side& s);
+template<> GLenum convert_cast(const indexed_primitive_type&);
+template<> GLenum convert_cast(const nonindexed_primitive_type&);
+template<> GLenum convert_cast(const bool_state&);
+template<> GLenum convert_cast(const min_filter_value&);
+template<> GLenum convert_cast(const mag_filter_value&);
+template<> GLenum convert_cast(const cube_side&);
 template<> GLenum convert_cast(const cull_mode&);
-GLuint convert_lock_flags(lock_flag_t f);
-GLuint convert_resource_flags(resource_flag_t t);
-GLenum convert_fog_float_state(const float_state& s);
-GLint convert_fog_int_value(const int_type& i);
+GLuint convert_lock_flags(lock_flag_t);
+GLuint convert_resource_flags(resource_flag_t);
+GLenum convert_fog_float_state(const float_state&);
+GLint convert_fog_int_value(const int_type&);
 
 }
 }

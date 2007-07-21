@@ -84,22 +84,33 @@ template<> GLenum sge::ogl::convert_cast(const bool_state& state)
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const filter_value& arg)
+template<> GLenum sge::ogl::convert_cast(const min_filter_value& arg)
 {
 	switch(arg) {
-	case FV_Point:
+	case FVMin_Point:
 		return GL_NEAREST;
-	case FV_Linear:
+	case FVMin_Linear:
 		return GL_LINEAR;
-	case FV_MipMap:
+	case FVMin_MipMap:
 		return GL_LINEAR_MIPMAP_NEAREST;
-	case FV_Trilinear:
+	case FVMin_Trilinear:
 		return GL_LINEAR_MIPMAP_LINEAR;
 	default:
-		throw std::logic_error("unsupported filter_arg_value");
+		throw std::logic_error("unsupported min_filter_arg_value");
 	}
 }
 
+template<> GLenum sge::ogl::convert_cast(const mag_filter_value& arg)
+{
+	switch(arg) {
+	case FVMin_Point:
+		return GL_NEAREST;
+	case FVMin_Linear:
+		return GL_LINEAR;
+	default:
+		throw std::logic_error("unsupported mag_filter_arg_value");
+	}
+}
 template<> GLenum sge::ogl::convert_cast(const cube_side& s)
 {
 	switch(s) {

@@ -226,34 +226,38 @@ enum stage_arg_value {
 	SARGV_Texture
 };
 
-enum filter_value {
-	FV_Point,
-	FV_Linear,
-	FV_MipMap,
-	FV_Trilinear
+enum min_filter_value {
+	FVMin_Point,
+	FVMin_Linear,
+	FVMin_MipMap,
+	FVMin_Trilinear
+};
+
+enum mag_filter_value {
+	FVMag_Point,
+	FVMag_Linear
 };
 
 struct filter_args {
 	typedef unsigned anisotropy_level_type;
 
-	filter_args(const filter_value min_filter,
-	            const filter_value mag_filter,
-	            const anisotropy_level_type anisotropy_level = 0,
-	            const unsigned mip_levels = 0)
+	filter_args(const min_filter_value min_filter,
+	            const mag_filter_value mag_filter,
+	            const anisotropy_level_type anisotropy_level = 0)
 	 : min_filter(min_filter),
 	   mag_filter(mag_filter),
-	   anisotropy_level(anisotropy_level),
-	   mip_levels(mip_levels)
+	   anisotropy_level(anisotropy_level)
 	{}
 
-	filter_value          min_filter,
-	                      mag_filter;
+	min_filter_value      min_filter;
+	mag_filter_value      mag_filter;
 	anisotropy_level_type anisotropy_level;
-	unsigned              mip_levels;
 };
 
-const filter_args linear_filter(FV_Linear, FV_Linear),
-                  point_filter(FV_Point, FV_Point);
+const filter_args linear_filter(FVMin_Linear, FVMag_Linear),
+                  point_filter(FVMin_Point, FVMag_Point),
+                  mip_filter(FVMin_MipMap, FVMag_Linear),
+                  trilinear_filter(FVMin_Trilinear, FVMag_Linear);
 
 typedef std::size_t stage_type;
 
