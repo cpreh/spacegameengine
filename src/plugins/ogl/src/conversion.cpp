@@ -92,9 +92,9 @@ template<> GLenum sge::ogl::convert_cast(const filter_value& arg)
 	case FV_Linear:
 		return GL_LINEAR;
 	case FV_MipMap:
-		return GL_LINEAR_MIPMAP_NEAREST; // FIXME
-//	case FV_Anisotropic:
-//		return GL_ANISOTROPIC;
+		return GL_LINEAR_MIPMAP_NEAREST;
+	case FV_Trilinear:
+		return GL_LINEAR_MIPMAP_LINEAR;
 	default:
 		throw std::logic_error("unsupported filter_arg_value");
 	}

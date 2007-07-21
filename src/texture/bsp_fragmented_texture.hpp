@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/noncopyable.hpp>
 #include "fragmented_texture.hpp"
-#include "bsp_tree.hpp"
+#include "rect_bsp_tree.hpp"
 
 namespace sge
 {
@@ -37,7 +37,7 @@ public:
 	fragmented_texture* clone() const;
 private:
 	renderer_ptr rend;
-	typedef bsp_tree bsp_type;
+	typedef rect_bsp_tree bsp_type;
 	bsp_type bsp;
 	texture_ptr tex;
 };

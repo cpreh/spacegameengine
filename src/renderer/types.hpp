@@ -100,6 +100,7 @@ struct renderer_caps {
 	std::string description;
 	display_mode_array display_modes;
 	unsigned max_tex_size;
+	unsigned max_anisotropy_level;
 };
 
 enum resource_flags {
@@ -229,17 +230,26 @@ enum filter_value {
 	FV_Point,
 	FV_Linear,
 	FV_MipMap,
-	FV_Anisotropic
+	FV_Trilinear
 };
 
 struct filter_args {
-	filter_args(const filter_value min_filter, const filter_value mag_filter)
+	typedef unsigned anisotropy_level_type;
+
+	filter_args(const filter_value min_filter,
+	            const filter_value mag_filter,
+	            const anisotropy_level_type anisotropy_level = 0,
+	            const unsigned mip_levels = 0)
 	 : min_filter(min_filter),
-	   mag_filter(mag_filter)
+	   mag_filter(mag_filter),
+	   anisotropy_level(anisotropy_level),
+	   mip_levels(mip_levels)
 	{}
 
-	filter_value min_filter,
-	             mag_filter;
+	filter_value          min_filter,
+	                      mag_filter;
+	anisotropy_level_type anisotropy_level;
+	unsigned              mip_levels;
 };
 
 const filter_args linear_filter(FV_Linear, FV_Linear),

@@ -38,7 +38,7 @@ public:
 	virtual renderer_ptr create_renderer(const renderer_parameters& param,
 	                                     int adapter = 0,
 	                                     window_ptr wnd = window_ptr()) = 0;
-	virtual void caps(renderer_caps_array& v) const = 0;
+	virtual renderer_caps_array caps() const = 0;
 	virtual ~renderer_system(){}
 };
 

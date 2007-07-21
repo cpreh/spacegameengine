@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BSP_TREE_HPP_INCLUDED
-#define SGE_BSP_TREE_HPP_INCLUDED
+#ifndef SGE_RECT_BSP_TREE_HPP_INCLUDED
+#define SGE_RECT_BSP_TREE_HPP_INCLUDED
 
 #include <cstddef>
 #include "../math/rect.hpp"
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-class bsp_tree {
+class rect_bsp_tree {
 public:
 	typedef std::size_t size_type;
 	typedef math::vector<size_type,2> point_type;
@@ -41,14 +41,8 @@ private:
 		node(const value_type& rect, node* const parent, const bool final, node* const left = 0, node* const right = 0);
 		~node();
 
-		friend bool operator==(const node& l, const node& r)
-		{
-			return l.rect == r.rect;
-		}
-		friend bool operator!=(const node& l, const node& r)
-		{
-			return !(l==r);
-		}
+		bool operator==(const node&) const;
+		bool operator!=(const node&) const;
 
 		value_type rect;
 		node* parent;
@@ -58,25 +52,17 @@ private:
 	};
 public:
 	class iterator {
-		friend class bsp_tree;
-		iterator(node* ref)
-			: ref(ref) {}
+		friend class rect_bsp_tree;
+		iterator(node* ref);
 	public:
-		const_reference operator*() const { return ref->rect; }
-
-		friend bool operator== (const iterator& l, const iterator& r)
-		{
-			return l.ref == r.ref;
-		}
-		friend bool operator!= (const iterator& l, const iterator& r)
-		{
-			return !(l==r);
-		}
+		const_reference operator*() const;
+		bool operator==(const iterator&) const;
+		bool operator!=(const iterator&) const;
 	private:
 		node* ref;
 	};
 
-	bsp_tree(const dim_type dim);
+	rect_bsp_tree(const dim_type dim);
 
 	iterator insert(const dim_type dim);
 	void erase(iterator it);

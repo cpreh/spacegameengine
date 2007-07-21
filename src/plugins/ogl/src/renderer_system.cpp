@@ -38,8 +38,9 @@ sge::renderer_ptr sge::ogl::renderer_system::create_renderer(const renderer_para
 	return r;
 }
 
-void sge::ogl::renderer_system::caps(renderer_caps_array& v) const
+sge::renderer_caps_array sge::ogl::renderer_system::caps() const
 {
+	renderer_caps_array v;
 #ifdef SGE_LINUX_PLATFORM
 	const x_display_ptr dsp(new x_display());
 	const int screen = DefaultScreen(dsp->get());
@@ -50,4 +51,5 @@ void sge::ogl::renderer_system::caps(renderer_caps_array& v) const
 		ret.display_modes.push_back(display_mode(modes[i].hdisplay, modes[i].vdisplay, BD_32, xf86_vidmode_array::refresh_rate(modes[i])));
 	v.push_back(ret);
 #endif
+	return v;
 }

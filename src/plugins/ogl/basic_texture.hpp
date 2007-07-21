@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 #define SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 
+#include <iostream>
+#include "../../exception.hpp"
 #include "common.hpp"
 #include "conversion.hpp"
 #include "texture_base.hpp"
 #include "error.hpp"
-#include <stdexcept>
 
 namespace sge
 {
@@ -38,25 +39,42 @@ private:
 	{
 		glTexParameteri(Type,name,param);
 		if(is_error())
-			throw std::runtime_error("glTexParamteri() failed!");
+			throw exception("glTexParamteri() failed!");
 	}
 protected:
 	void bind_me() const
 	{
 		glBindTexture(Type,id());
 		if(is_error())
-			throw std::runtime_error("glBindTexture() failed!");
+			throw exception("glBindTexture() failed!");
 	}
 
 	void set_my_filter() const
 	{
-		tex_parameter_i(GL_TEXTURE_MIN_FILTER, convert_cast<GLenum>(filter.min_filter));
-		tex_parameter_i(GL_TEXTURE_MAG_FILTER, convert_cast<GLenum>(filter.mag_filter));
+		tex_parameter_i(GL_TEXTURE_MIN_FILTER, convert_cast<GLenum>(filter().min_filter));
+		tex_parameter_i(GL_TEXTURE_MAG_FILTER, convert_cast<GLenum>(filter().mag_filter));
+		if(filter().anisotropy_level != 0)
+		{
+			try
+			{
+				if(GL_EXT_texture_filter_anisotropic)
+					tex_parameter_i(GL_TEXTURE_MAX_ANISOTROPY_EXT, filter().anisotropy_level);
+			}
+			catch(const exception& e)
+			{
+				std::cerr << "Warning: anisotropy level " << filter().anisotropy_level << " not supported!\n";
+			}
+		}
 	}
 
 	GLuint id() const
 	{
 		return _id;
+	}
+
+	const filter_args& filter() const
+	{
+		return _filter;
 	}
 public:
 	typedef typename Base::value_type value_type;
@@ -65,12 +83,12 @@ public:
 	typedef typename Base::pointer pointer;
 	typedef typename Base::const_pointer const_pointer;
 
-	basic_texture(const filter_args& filter, const resource_flag_t _flags)
-	 : texture_base(Type), filter(filter), _flags(_flags)
+	basic_texture(const filter_args& _filter, const resource_flag_t _flags)
+	 : texture_base(Type), _filter(_filter), _flags(_flags)
 	{
 		glGenTextures(1,&_id);
 		if(is_error())
-			throw std::runtime_error("glGenTextures() failed!");
+			throw exception("glGenTextures() failed!");
 	}
 	
 	virtual size_type size() const = 0;
@@ -85,7 +103,7 @@ public:
 		return _flags;
 	}
 private:
-	filter_args filter;
+	filter_args _filter;
 	resource_flag_t _flags;
 	GLuint _id;
 };

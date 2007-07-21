@@ -95,7 +95,7 @@ sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit r
 	);
 }
 
-inline sge::math::space_matrix matrix_perspective(const space_unit aspect, const space_unit fov, const space_unit near, const space_unit far)
+/*inline sge::math::space_matrix matrix_perspective(const space_unit aspect, const space_unit fov, const space_unit near, const space_unit far)
 {
 	const space_unit h = space_unit(1) / std::tan(fov / space_unit(2)),
 	                 w = h / aspect,
@@ -105,7 +105,7 @@ inline sge::math::space_matrix matrix_perspective(const space_unit aspect, const
 	        0, h,       0, 0,
 	        0, 0,       q, 1,
 	        0, 0, (2*far*near)/(near-far), 0);
-}
+}*/
 
 int main()
 try
@@ -147,13 +147,13 @@ try
 	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
 
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
-	/*sge::renderer_caps_array caps;
-	rs->caps(caps);*/
-	/*for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
+	const sge::renderer_caps_array caps(rs->caps());
+/*	for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
 	{
 		const sge::display_mode& mode = caps.at(0).display_modes[i];
 		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
 	}*/
+	std::cout << caps.at(0).max_anisotropy_level << '\n';
 
 	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
@@ -238,6 +238,11 @@ try
 	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));*/
 
 	std::ifstream ifs((sge::media_path() + "european_fnt_v2.md3").c_str(), std::ios_base::binary);
+	if(!ifs.is_open())
+	{
+		std::cerr << "Can't load the model.\n";
+		return EXIT_FAILURE;
+	}
 	sge::md3_model model(ifs);
 
 	const sge::md3_model::surface& surf = model.surfaces.at(2);
@@ -293,7 +298,7 @@ try
 		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
 		angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
 //		rend->projection(frustum_matrix(-100,100,-100,100,-100,100));
-		rend->projection(matrix_perspective(640.0/480.0, 90, 1, 10));
+		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
 //		rend->projection(sge::math::matrix_orthogonal_xy(-100,100,-100,100,-10,200));
 //		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
 

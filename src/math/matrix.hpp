@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/utility/enable_if.hpp>
 #include "../types.hpp"
 #include "../util.hpp"
+#include "../exception.hpp"
 #include "matrix_proxy.hpp"
 #include "vector.hpp"
 
@@ -253,14 +254,16 @@ inline space_matrix matrix_scaling(const space_unit x, const space_unit y, const
 
 inline space_matrix matrix_perspective(const space_unit aspect, const space_unit fov, const space_unit near, const space_unit far)
 {
-	const space_unit h = space_unit(1) / std::tan(fov / space_unit(2)),
-	                 w = h * aspect,
-	                 q = far / (far - near);
+	if(far == near)
+		throw exception("matrix_perspective(): far may not be near!");
+	const space_unit h = static_cast<space_unit>(1) / std::tan(fov / static_cast<space_unit>(2)),
+	                 w = h / aspect,
+	                 q = (far + near) / (far - near);
 	return space_matrix
-	       (w, 0,       0, 0,
-	        0, h,       0, 0,
-	        0, 0,       q, 1,
-	        0, 0, -q*near, 0);
+	       (w, 0,                     0, 0,
+	        0, h,                     0, 0,
+	        0, 0,                     q, 1,
+	        0, 0, 2*far*near/(near-far), 0);
 }
 
 inline space_matrix matrix_orthogonal_xy()

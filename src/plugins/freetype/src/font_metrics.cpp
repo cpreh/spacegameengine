@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::ft::font_metrics::font_metrics(library& lib, const renderer_ptr r, const std::string& font_name, const unsigned quality_in_pixel)
 : r(r),
-  cur_tex(r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size)),
+  cur_tex(r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size, linear_filter)), // TODO
   cur_x(0),
   cur_y(0),
   _face(lib, font_name)
@@ -37,8 +37,6 @@ sge::ft::font_metrics::font_metrics(library& lib, const renderer_ptr r, const st
 	if(FT_Set_Pixel_Sizes(_face.get(), 0, quality_in_pixel))
 		throw std::runtime_error("FT_Set_Pixel_Sizes() failed");
 
-//	std::cout << face->ascender << '\n';
-//	std::cout << descender << '\n';
 	pixel_size =  _face->ascender / 64 - _face->descender / 64;
 }
 
@@ -64,7 +62,7 @@ const sge::font_entity& sge::ft::font_metrics::load_char(const font_char c)
 	if(cur_y + bitmap.rows >= cur_tex->height())
 	{
 		textures.push_back(cur_tex);
-		cur_tex = r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size);
+		cur_tex = r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size, linear_filter); // TODO
 		cur_y = 0;
 		cur_x = 0;
 	}

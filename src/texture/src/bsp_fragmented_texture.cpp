@@ -22,14 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::bsp_fragmented_texture::bsp_fragmented_texture(const renderer_ptr rend)
  : rend(rend),
-   bsp(bsp_tree::dim_type(rend->caps().max_tex_size,rend->caps().max_tex_size))
+   bsp(bsp_type::dim_type(rend->caps().max_tex_size,rend->caps().max_tex_size))
 {}
 
 sge::virtual_texture_ptr sge::bsp_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	if(!tex)
-		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size);
-	const bsp_tree::iterator it = bsp.insert(bsp_tree::dim_type(w,h));
+		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, linear_filter); // TODO:
+	const bsp_type::iterator it = bsp.insert(bsp_type::dim_type(w,h));
 	if(it == bsp.end())
 		return virtual_texture_ptr();
 	return virtual_texture_ptr(new virtual_texture(*it, this));

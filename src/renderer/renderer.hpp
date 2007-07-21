@@ -70,7 +70,7 @@ public:
 	virtual texture_ptr create_texture(texture::const_pointer data,
 	                                   texture::size_type width,
 	                                   texture::size_type height,
-	                                   const filter_args& filter = linear_filter, // TODO
+	                                   const filter_args& filter,
 	                                   resource_flag_t flags = RF_Default) = 0;
 
 	virtual volume_texture_ptr create_volume_texture(volume_texture::const_pointer data,

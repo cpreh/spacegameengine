@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_BASIC_ARB_BUFFER_HPP_INCLUDED
 #define SGE_OGL_BASIC_ARB_BUFFER_HPP_INCLUDED
 
+#include "../../exception.hpp"
 #include "common.hpp"
 #include "conversion.hpp"
 #include "error.hpp"
@@ -48,7 +49,7 @@ public:
 	{
 		glGenBuffersARB(1,&id);
 		if(is_error())
-			throw std::runtime_error("glGenBuffersARB() failed!");
+			throw exception("glGenBuffersARB() failed!");
 		_set_size(src);
 	}
 
@@ -60,7 +61,7 @@ public:
 	void lock(const lock_flag_t lockflags)
 	{
 		if(dest)
-			throw std::logic_error("ogl_buffer::lock(), you have to unlock before locking!");
+			throw exception("ogl_buffer::lock(), you have to unlock before locking!");
 		
 		const GLuint glflags = convert_lock_flags(lockflags);
 		bind_me();
@@ -68,32 +69,32 @@ public:
 		if(is_error())
 		{
 			dest = 0;
-			throw std::runtime_error("glMapBufferARB() failed!");
+			throw exception("glMapBufferARB() failed!");
 		}
 	}
 
 	void unlock()
 	{
 		if(!dest)
-			throw std::logic_error("ogl_buffer::unlock(), buffer is not locked! cannot unlock!");
+			throw exception("ogl_buffer::unlock(), buffer is not locked! cannot unlock!");
 		bind_me();
 		glUnmapBufferARB(Type);
 		dest = 0;
 
 		if(is_error())
-			throw std::runtime_error("glUnmapBufferARB() failed!");
+			throw exception("glUnmapBufferARB() failed!");
 	}
 
 	void set_data(const const_pointer data, const size_type first, const size_type count)
 	{
 		if(first + count > size())
-			throw std::length_error("ogl_buffer::set_data(), first + count out of range!");
+			throw exception("ogl_buffer::set_data(), first + count out of range!");
 		if(dest)
-			throw std::logic_error("ogl_buffer::set_data(), buffer must not be locked!");
+			throw exception("ogl_buffer::set_data(), buffer must not be locked!");
 		bind_me();
 		glBufferSubDataARB(Type, first * _stride, count * _stride, data);
 		if(is_error())
-			throw std::runtime_error("glBufferSubDataARB() failed!");
+			throw exception("glBufferSubDataARB() failed!");
 	}
 
 	virtual iterator begin() = 0;
@@ -145,7 +146,7 @@ public:
 		if(newsize <= size())
 			return;
 		if(dest)
-			throw std::logic_error("ogl_buffer::resize(), buffer must be unlocked!");
+			throw exception("ogl_buffer::resize(), buffer must be unlocked!");
 		sz = newsize;
 		_set_size(src);
 	}
@@ -164,7 +165,7 @@ public:
 	{
 		glBindBufferARB(Type,id);
 		if(is_error())
-			throw std::runtime_error("glBindBufferARB() failed!");
+			throw exception("glBindBufferARB() failed!");
 	}
 
 	static void unbind()
@@ -184,14 +185,14 @@ private:
 		bind_me();
 		glBufferDataARB(Type,nsz,src,glflags);
 		if(is_error())
-			throw std::runtime_error("glBufferDataARB() failed!");
+			throw exception("glBufferDataARB() failed!");
 	}
 			
 	struct init_guard {
 		init_guard()
 		{
 			if(!GLEW_ARB_vertex_buffer_object)
-				throw std::runtime_error(extension_not_supported_string("ARB_vertex_buffer_object!"));
+				throw exception(extension_not_supported_string("ARB_vertex_buffer_object!"));
 		}
 	};
 	

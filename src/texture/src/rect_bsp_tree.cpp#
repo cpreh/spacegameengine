@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../bsp_tree.hpp"
+#include "../rect_bsp_tree.hpp"
 
-sge::bsp_tree::node::node(const value_type& rect, node* const parent, const bool final, node* const left, node* const right)
+sge::rect_bsp_tree::node::node(const value_type& rect, node* const parent, const bool final, node* const left, node* const right)
  : rect(rect), parent(parent), left(left), right(right), final(final)
 {}
 
-sge::bsp_tree::node::~node()
+sge::rect_bsp_tree::node::~node()
 {
 	if(parent)
 	{
@@ -41,31 +41,62 @@ sge::bsp_tree::node::~node()
 	right = 0;
 }
 
-sge::bsp_tree::bsp_tree(const dim_type dim)
+bool sge::rect_bsp_tree::node::operator==(const node& r) const
+{
+	return rect == r.rect;
+}
+
+bool sge::rect_bsp_tree::node::operator!=(const node& r) const
+{
+	return !(*this==r);
+}
+
+
+sge::rect_bsp_tree::iterator::iterator(node* const ref)
+: ref(ref)
+{}
+
+sge::rect_bsp_tree::const_reference sge::rect_bsp_tree::iterator::operator*() const 
+{
+	return ref->rect;
+}
+
+bool sge::rect_bsp_tree::iterator::operator==(const iterator& r) const
+{
+	return ref == r.ref;
+}
+
+bool sge::rect_bsp_tree::iterator::operator!=(const iterator& r) const
+{
+	return !(*this==r);
+}
+
+
+sge::rect_bsp_tree::rect_bsp_tree(const dim_type dim)
  : head(value_type(point_type(0,0),dim), 0, false)
 {}
 
-sge::bsp_tree::iterator sge::bsp_tree::insert(const dim_type dim)
+sge::rect_bsp_tree::iterator sge::rect_bsp_tree::insert(const dim_type dim)
 {
 	return insert_recursive(dim, head);
 }
 
-void sge::bsp_tree::erase(const iterator it)
+void sge::rect_bsp_tree::erase(const iterator it)
 {
 	delete it.ref;
 }
 
-sge::bsp_tree::iterator sge::bsp_tree::find(const value_type& t)
+sge::rect_bsp_tree::iterator sge::rect_bsp_tree::find(const value_type& t)
 {
 	return find_recursive(t, head);
 }
 
-sge::bsp_tree::iterator sge::bsp_tree::end()
+sge::rect_bsp_tree::iterator sge::rect_bsp_tree::end()
 {
 	return iterator(0);
 }
 
-sge::bsp_tree::iterator sge::bsp_tree::insert_recursive(const dim_type dim, node& n)
+sge::rect_bsp_tree::iterator sge::rect_bsp_tree::insert_recursive(const dim_type dim, node& n)
 {
 	if(n.final || dim.w() > n.rect.width() || dim.h() > n.rect.height())
 		return end();
@@ -89,7 +120,7 @@ sge::bsp_tree::iterator sge::bsp_tree::insert_recursive(const dim_type dim, node
 	return ret;
 }
 
-sge::bsp_tree::iterator sge::bsp_tree::insert_case_2(const dim_type dim, node& ref, node& exist, node*& empty)
+sge::rect_bsp_tree::iterator sge::rect_bsp_tree::insert_case_2(const dim_type dim, node& ref, node& exist, node*& empty)
 {
 	// first look if we can put the new rect in somewhere down the existing node
 	iterator ret = insert_recursive(dim, exist);
@@ -125,18 +156,18 @@ sge::bsp_tree::iterator sge::bsp_tree::insert_case_2(const dim_type dim, node& r
 		return insert_two(dim, ref, empty, value_type(rr.left, rr.top, er.left, rr.bottom));
 }
 
-sge::bsp_tree::iterator sge::bsp_tree::insert_node(node& ref, node*& n, const bool final, const value_type& rect)
+sge::rect_bsp_tree::iterator sge::rect_bsp_tree::insert_node(node& ref, node*& n, const bool final, const value_type& rect)
 {
 	n = new node(rect, &ref, final);
 	return iterator(n);
 }
 
-sge::bsp_tree::iterator sge::bsp_tree::insert_two(const dim_type dim, node& ref, node*& n, const value_type& rect)
+sge::rect_bsp_tree::iterator sge::rect_bsp_tree::insert_two(const dim_type dim, node& ref, node*& n, const value_type& rect)
 {
 	return insert_recursive(dim, *insert_node(ref, n, false, rect).ref);
 }
 
-sge::bsp_tree::iterator sge::bsp_tree::find_recursive(const value_type& t, node& n)
+sge::rect_bsp_tree::iterator sge::rect_bsp_tree::find_recursive(const value_type& t, node& n)
 {
 	if(n.rect == t)
 		return iterator(&n);

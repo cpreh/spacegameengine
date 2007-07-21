@@ -17,6 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
+#include "../common.hpp"
+#include <GL/glu.h>
 #include "../texture.hpp"
 #include "../error.hpp"
 
@@ -51,6 +54,10 @@ void sge::ogl::texture::set_data(const const_pointer src, const lock_rect* const
 		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,static_cast<GLsizei>(width()),static_cast<GLsizei>(height()),0,format,type,src);
 	else
 		glTexSubImage2D(GL_TEXTURE_2D,0,static_cast<GLint>(r->left),static_cast<GLint>(r->top),static_cast<GLsizei>(r->width()),static_cast<GLsizei>(r->height()),format,type,src);
+
+	if(this->filter().mip_levels != 1 && !r) // FIXME: don't know what to do if only a portion is updated
+		gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, static_cast<GLsizei>(width()), static_cast<GLsizei>(height()), format, type, src);
+
 	if(is_error())
-		throw std::runtime_error("glTex(Sub)Image2D() failed!");
+		throw exception("glTex(Sub)Image2D() failed!");
 }
