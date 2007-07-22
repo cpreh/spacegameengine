@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\..\..\bin\plugins\sgefreetype.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\plugin\sgefreetype.dll" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -15,18 +15,15 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="C:\Programme\CodeBlocks\Freetype\include" />
-					<Add directory="C:\Programme\CodeBlocks\Freetype\include\freetype2" />
 				</Compiler>
 				<Linker>
-					<Add library="libfreetype" />
-					<Add library="sgecore" />
-					<Add directory="C:\Programme\CodeBlocks\Freetype\lib" />
+					<Add library='libfreetype' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output=".\sgefreetype.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\plugin\sgefreetype.dll" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -36,19 +33,31 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
+					<Add library='libfreetype' />
+					<Add library='sgecore' />
+					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-W" />
 			<Add option="-Wall" />
+			<Add option="-pedantic" />
+			<Add option="-ansi" />
+			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\src\plugins\freetype\font_impl.hpp" />
-		<Unit filename="..\..\..\src\plugins\freetype\font_system.hpp" />
-		<Unit filename="..\..\..\src\plugins\freetype\library.hpp" />
-		<Unit filename="..\..\..\src\plugins\freetype\src\exports.cpp" />
-		<Unit filename="..\..\..\src\plugins\freetype\src\font_impl.cpp" />
-		<Unit filename="..\..\..\src\plugins\freetype\src\font_system.cpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/face.hpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/font_metrics.hpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/font_system.hpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/freetype.hpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/glyph.hpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/library.hpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/src/exports.cpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/src/face.cpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/src/font_metrics.cpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/src/font_system.cpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/src/glyph.cpp" />
+		<Unit filename="..\..\..\src/plugins/freetype/src/library.cpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

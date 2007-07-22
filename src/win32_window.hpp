@@ -57,7 +57,7 @@ public:
 	typedef boost::function<win32_callback_signature_type> win32_callback_type;
 	typedef boost::signal<win32_callback_signature_type, win32_signal_combiner> win32_signal_type;
 
-	win32_window(window_size sz, bool fullscreen, const string& title = "");
+	win32_window(window_size sz, bool fullscreen, const string& title = string());
 	~win32_window();
 
 	void title(const string& t);

@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\..\..\bin\plugins\sgewave.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\plugin\sgewave.dll" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -15,15 +15,14 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-Wno-long-long" />
 				</Compiler>
 				<Linker>
-					<Add library="sgecore" />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output=".\sgewave.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\plugin\sgewave.dll" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -33,18 +32,23 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
+					<Add library='sgecore' />
+					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-W" />
 			<Add option="-Wall" />
+			<Add option="-pedantic" />
+			<Add option="-ansi" />
+			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\src\plugins\wave\src\exports.cpp" />
-		<Unit filename="..\..\..\src\plugins\wave\src\wave_file.cpp" />
-		<Unit filename="..\..\..\src\plugins\wave\src\wave_loader.cpp" />
-		<Unit filename="..\..\..\src\plugins\wave\wave_file.hpp" />
-		<Unit filename="..\..\..\src\plugins\wave\wave_loader.hpp" />
+		<Unit filename="..\..\..\src/plugins/wave/src/exports.cpp" />
+		<Unit filename="..\..\..\src/plugins/wave/src/wave_file.cpp" />
+		<Unit filename="..\..\..\src/plugins/wave/src/wave_loader.cpp" />
+		<Unit filename="..\..\..\src/plugins/wave/wave_file.hpp" />
+		<Unit filename="..\..\..\src/plugins/wave/wave_loader.hpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

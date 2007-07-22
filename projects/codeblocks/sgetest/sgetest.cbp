@@ -15,15 +15,13 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add option="-Wl,-R,." />
-					<Add library="boost_signals" />
-					<Add library="sgecore" />
-					<Add library="sgegui" />
+					<Add library='boost_signals' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output=".\sgetest.exe" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\sgetest.exe" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -31,14 +29,20 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
+					<Add library='boost_signals' />
+					<Add library='sgecore' />
+					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-W" />
 			<Add option="-Wall" />
+			<Add option="-pedantic" />
+			<Add option="-ansi" />
+			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\test\test.cpp" />
+		<Unit filename="..\..\..\test/test.cpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

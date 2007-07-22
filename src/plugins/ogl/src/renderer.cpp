@@ -127,7 +127,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	};
 
 	if(!wnd_param)
-		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),""));
+// FIXME: Fullscreen default? True? False? -_-
+//		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),sge::string()));
+		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),false));
 	else
 		wnd = polymorphic_pointer_cast<win32_window>(wnd_param);
 
@@ -202,7 +204,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	GLint max_anisotropy;
 	glGetIntegerv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropy);
 	_caps.max_anisotropy_level = max_anisotropy;
-	
+
 	set_render_target();
 }
 
@@ -301,12 +303,12 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	set_index_buffer(ib);
 
 	const GLenum prim_type = convert_cast<GLenum>(ptype);
-	
+
 	glDrawElements(prim_type,
 	               num_indices(ptype, static_cast<unsigned>(pcount)),
 	               GL_UNSIGNED_SHORT,
 	               vbo_offset(first_index * sge::index_buffer::stride));
-	
+
 	if(is_error())
 		throw std::runtime_error("opengl error during rendering an indexed array!");
 }
@@ -318,12 +320,12 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 {
 	if(!vb)
 		throw exception("vb may not be 0 for renderer::render!");
-	
+
 	set_vertex_buffer(vb);
 	set_index_buffer(index_buffer_ptr());
 
 	const GLenum prim_type = convert_cast<GLenum>(ptype);
-	
+
 	glDrawArrays(prim_type,
 	             static_cast<GLsizei>(first_vertex),
 	             static_cast<GLint>(num_vertices));

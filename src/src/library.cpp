@@ -32,7 +32,7 @@ sge::library::library(const std::string& n)
  :
 #ifdef SGE_WINDOWS_PLATFORM
 //   handle(LoadLibrary(sge_str_to_win(n).c_str()))
-  handle(LoadLibraryA(n)) // FIXME: what to do about this?
+  handle(LoadLibraryA(n.c_str())) // FIXME: what to do about this?
 #elif SGE_LINUX_PLATFORM
    handle(dlopen(n.c_str(), RTLD_NOW | RTLD_GLOBAL))
 #endif

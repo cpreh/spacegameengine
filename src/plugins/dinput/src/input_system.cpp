@@ -108,3 +108,8 @@ BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi
 	}
 	return DIENUM_CONTINUE;
 }
+
+sge::window_ptr sge::dinput::input_system::get_window() const
+{
+	return sge::static_pointer_cast<sge::window>(wnd);
+}

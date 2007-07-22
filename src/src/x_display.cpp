@@ -17,12 +17,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 #include "../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
+
 #include "../exception.hpp"
 #include "../x_display.hpp"
-	
+
 sge::x_display::x_display()
 : d(XOpenDisplay(0))
 {
@@ -39,4 +39,4 @@ Display* sge::x_display::get() const
 {
 	return d;
 }
-#endif
+#endif // SGE_LINUX_PLATFORM
