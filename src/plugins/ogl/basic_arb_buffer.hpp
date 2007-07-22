@@ -37,6 +37,8 @@ public:
 	typedef typename Base::value_type value_type;
 	typedef typename Base::size_type size_type;
 	typedef typename Base::difference_type difference_type;
+	typedef typename Base::reference reference;
+	typedef typename Base::const_reference const_reference;
 	typedef typename Base::pointer pointer;
 	typedef typename Base::const_pointer const_pointer;
 	typedef typename Base::iterator iterator;
@@ -97,6 +99,12 @@ public:
 			throw exception("glBufferSubDataARB() failed!");
 	}
 
+	void check_lock() const
+	{
+		if(!dest)
+			throw exception("ogl_buffer used but the buffer has not been locked!");
+	}
+
 	virtual iterator begin() = 0;
 	
 	virtual const_iterator begin() const = 0;
@@ -140,7 +148,17 @@ public:
 	{
 		return _flags;
 	}
+
+	reference operator[](const size_type i)
+	{
+		return *(begin() + i);
+	}
 	
+	const_reference operator[](const size_type i) const
+	{
+		return *(begin() + i);
+	}
+
 	void resize(const size_type newsize, const const_pointer src)
 	{
 		if(newsize <= size())
@@ -153,11 +171,13 @@ public:
 
 	pointer data()
 	{
+		check_lock();
 		return dest;
 	}
 	
 	const_pointer data() const
 	{
+		check_lock();
 		return dest;
 	}
 

@@ -37,6 +37,8 @@ public:
 	typedef vertex_pointer::value_type      value_type;
 	typedef vertex_pointer::size_type       size_type;
 	typedef vertex_pointer::difference_type difference_type;
+	typedef vertex_pointer                  reference;
+	typedef const_vertex_pointer            const_reference;
 	typedef vertex_pointer::pointer         pointer;
 	typedef const_vertex_pointer::pointer   const_pointer;
 private:
@@ -83,6 +85,8 @@ public:
 	virtual const_reverse_iterator rend() const = 0;
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
+	virtual reference operator[](size_type) = 0;
+	virtual const_reference operator[](size_type) const = 0;
 	virtual void lock(lock_flag_t flags = LF_Default) = 0;
 	virtual void unlock() = 0;
 	virtual void set_data(const_pointer data, size_type first, size_type count) = 0;
@@ -92,6 +96,7 @@ public:
 	virtual const_iterator create_iterator(const_pointer data) const = 0;
 	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;
+
 	virtual const vertex_format& get_vertex_format() const = 0;
 	virtual ~vertex_buffer(){}
 };

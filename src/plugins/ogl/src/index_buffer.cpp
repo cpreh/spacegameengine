@@ -26,11 +26,13 @@ sge::ogl::index_buffer::index_buffer(const size_type sz, const resource_flag_t f
 
 sge::ogl::index_buffer::iterator sge::ogl::index_buffer::begin()
 {
+	check_lock();
 	return data();
 }
 
 sge::ogl::index_buffer::const_iterator sge::ogl::index_buffer::begin() const
 {
+	check_lock();
 	return data();
 }
 

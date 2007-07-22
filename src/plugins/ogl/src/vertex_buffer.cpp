@@ -47,11 +47,13 @@ sge::ogl::vertex_buffer::const_iterator sge::ogl::vertex_buffer::create_iterator
 
 sge::ogl::vertex_buffer::iterator sge::ogl::vertex_buffer::begin()
 {
+	this->check_lock();
 	return create_iterator(data());
 }
 
 sge::ogl::vertex_buffer::const_iterator sge::ogl::vertex_buffer::begin() const
 {
+	this->check_lock();
 	return create_iterator(data());
 }
 

@@ -153,7 +153,7 @@ try
 		const sge::display_mode& mode = caps.at(0).display_modes[i];
 		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
 	}*/
-	std::cout << caps.at(0).max_anisotropy_level << '\n';
+	//std::cout << caps.at(0).max_anisotropy_level << '\n';
 
 	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
@@ -250,13 +250,13 @@ try
 	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::VU_Pos), surf.transformed_vertices.size());
 	const sge::index_buffer_ptr model_ib = rend->create_index_buffer(surf.triangles.size() * 3);
 
-//	std::cout << model_vb->size() << ' ' << model_ib->size() << '\n';
-
 	{
 		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(model_vb);
 		sge::vertex_buffer::iterator vbit = model_vb->begin();
 		for(sge::md3_model::surface::transformed_vertex_vector::const_iterator it = surf.transformed_vertices.begin(); it != surf.transformed_vertices.end(); ++it)
 			(vbit++)->pos() = it->pos;
+//		for(unsigned i = 0; i < surf.transformed_vertices.size(); ++i)
+//			(*model_vb)[i].pos() = surf.transformed_vertices[i].pos;
 
 	}
 

@@ -32,9 +32,9 @@ namespace sge
 
 class index_buffer {
 public:
-	typedef std::size_t      size_type;
-	typedef std::ptrdiff_t   difference_type;
-	typedef uint16           value_type;
+	typedef std::size_t        size_type;
+	typedef std::ptrdiff_t     difference_type;
+	typedef uint16             value_type;
 
 	typedef value_type&        reference;
 	typedef const value_type&  const_reference;
@@ -59,6 +59,9 @@ public:
 	virtual const_reverse_iterator rend() const = 0;
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
+	virtual reference operator[](size_type) = 0;
+	virtual const_reference operator[](size_type) const = 0;
+
 	virtual void resize(size_type newsize, const_pointer data = 0) = 0;
 	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;
