@@ -110,6 +110,15 @@ sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit r
 int main()
 try
 {
+/*	typedef multi_tree<int> tree;
+	tree t;
+	tree::list l(t.children(t.begin()));
+	l.push_back(10);
+	tree::list l2(t.children(l.begin()));
+	l2.push_back(20);
+	tree::iterator it = t.begin();
+	std::cout << *(++it) << '\n';*/
+
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;

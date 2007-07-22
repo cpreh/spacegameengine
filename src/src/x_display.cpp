@@ -18,14 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../types.hpp"
+#ifdef SGE_LINUX_PLATFORM
+#include "../exception.hpp"
 #include "../x_display.hpp"
 	
 sge::x_display::x_display()
 : d(XOpenDisplay(0))
 {
 	if(!d)
-		throw std::runtime_error("XOpenDisplay failed or dsp is 0");
+		throw exception("XOpenDisplay failed or dsp is 0");
 }
 
 sge::x_display::~x_display()
@@ -37,3 +39,4 @@ Display* sge::x_display::get() const
 {
 	return d;
 }
+#endif

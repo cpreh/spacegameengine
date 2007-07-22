@@ -1,7 +1,33 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006  Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+#ifndef SGE_MULTI_TREE_HPP_INCLUDED
+#define SGE_MULTI_TREE_HPP_INCLUDED
+
 #include <iterator>
 #include <memory>
 #include <utility>
 #include <stack>
+
+namespace sge
+{
 
 template<typename T, typename A = std::allocator<T> > class multi_tree {
 public:
@@ -220,8 +246,7 @@ public:
 		{
 			// if there are childrens fall into the first one
 			list l(static_cast<node*>(n));
-			//if(!l.empty())
-			if(l.begin()==l.end())
+			if(!l.empty())
 			{
 				level.push(std::make_pair(l, l.begin()));
 				n = l.begin().n;
@@ -377,18 +402,6 @@ private:
 	tree_impl impl;
 };
 
-// TODO: remove me
-
-#include <iostream>
-
-int main()
-{
-	typedef multi_tree<int> tree;
-	tree t;
-	tree::list l(t.children(t.begin()));
-	l.push_back(10);
-	tree::list l2(t.children(l.begin()));
-	l2.push_back(20);
-	tree::iterator it = t.begin();
-	std::cout << *(++it) << '\n';
 }
+
+#endif
