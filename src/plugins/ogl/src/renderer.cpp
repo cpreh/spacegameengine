@@ -98,7 +98,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 #ifdef SGE_LINUX_PLATFORM
    , dsp(new x_display())
 #endif
-	, current_viewport(0,0,0,0)
+   , current_viewport(0,0,0,0)
 {
 	if(adapter > 0)
 		std::cerr << "stub: adapter cannot be > 0 for opengl plugin (adapter was " << adapter << ")\n";
@@ -145,9 +145,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	};
 
 	if(!wnd_param)
-// FIXME: Fullscreen default? True? False? -_-
-//		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),sge::string()));
-		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),false));
+		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height())));
 	else
 		wnd = polymorphic_pointer_cast<win32_window>(wnd_param);
 
@@ -228,24 +226,10 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	set_render_target();
 
 #ifdef SGE_WINDOWS_PLATFORM
-	try {
-		win32window_WM_ACTIVATE_handler = wnd->register_callback(
-			WM_ACTIVATE, win32_window_ogl_renderer_reactivate_t(*this));
-		win32window_WM_ACTIVATEAPP_handler = wnd->register_callback(
-			WM_ACTIVATEAPP, win32_window_ogl_renderer_reactivate_t(*this));
-	} catch(...) {
-		win32window_WM_ACTIVATE_handler.disconnect();
-		win32window_WM_ACTIVATEAPP_handler.disconnect();
-		throw;
-	}
-#endif
-}
-
-sge::ogl::renderer::~renderer()
-{
-#ifdef SGE_WINDOWS_PLATFORM
-	win32window_WM_ACTIVATE_handler.disconnect();
-	win32window_WM_ACTIVATEAPP_handler.disconnect();
+	win32window_WM_ACTIVATE_handler = wnd->register_callback(
+		WM_ACTIVATE, win32_window_ogl_renderer_reactivate_t(*this));
+	win32window_WM_ACTIVATEAPP_handler = wnd->register_callback(
+		WM_ACTIVATEAPP, win32_window_ogl_renderer_reactivate_t(*this));
 #endif
 }
 

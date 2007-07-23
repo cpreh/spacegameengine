@@ -29,9 +29,8 @@ namespace
 	LRESULT CALLBACK wnd_proc(HWND,unsigned,WPARAM,LPARAM);
 }
 
-sge::win32_window::win32_window(const window_size sz, const bool fullscreen, const string& title)
-: _title(title),
-  _fullscreen(fullscreen)
+sge::win32_window::win32_window(const window_size sz, const string& title)
+: _title(title)
 {
 	const TCHAR* const window_classname = TEXT("SpacegameWindow");
 
@@ -103,11 +102,6 @@ const sge::string& sge::win32_window::title() const
 	return _title;
 }
 
-bool sge::win32_window::fullscreen() const
-{
-	return _fullscreen;
-}
-
 HWND sge::win32_window::hwnd() const
 {
 	return handle;
@@ -173,7 +167,6 @@ namespace
 				ShowWindow(wnd->hwnd(),SW_MINIMIZE);
 		}
 		return 0;
-		break;
 		default:
 			return DefWindowProc(hwnd,msg,wparam,lparam);
 		}

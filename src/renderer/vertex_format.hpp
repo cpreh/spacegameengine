@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <stdexcept>
 #include <algorithm>
-#include <boost/tr1/type_traits.hpp>
+#include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/add_reference.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/lambda/bind.hpp>

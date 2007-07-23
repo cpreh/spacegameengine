@@ -20,7 +20,6 @@ RDEPEND="dev-libs/boost
          x11-libs/libX11
          virtual/libc
          virtual/libiconv
-         virtual/c++-tr1-type-traits
          opengl? (
              media-libs/glew
              x11-libs/libXxf86vm )

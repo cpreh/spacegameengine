@@ -57,7 +57,7 @@ public:
 	typedef boost::function<win32_callback_signature_type> win32_callback_type;
 	typedef boost::signal<win32_callback_signature_type, win32_signal_combiner> win32_signal_type;
 
-	win32_window(window_size sz, bool fullscreen, const string& title = string());
+	win32_window(window_size sz, const string& title = string());
 	~win32_window();
 
 	void title(const string& t);
@@ -65,12 +65,10 @@ public:
 	window_size size() const;
 	const string& title() const;
 	HWND hwnd() const;
-	bool fullscreen() const;
 	boost::signals::connection register_callback(win32_event_type, win32_callback_type);
 	win32_callback_return_type execute_callback(win32_event_type msg, WPARAM wparam, LPARAM lparam);
 private:
 	string      _title;
-	bool        _fullscreen;
 	HWND        handle;
 	static bool wndclass_created;
 

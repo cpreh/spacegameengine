@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "render_target.hpp"
 #include "fbo_render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
+#include <boost/signals/connection.hpp>
 #include "../../gdi_device.hpp"
 #include "wgl_context.hpp"
 #include "wgl_current.hpp"
@@ -54,7 +55,6 @@ namespace ogl
 class renderer : public sge::renderer {
 public:
 	renderer(const renderer_parameters& param, unsigned adapter, window_ptr wnd);
-	~renderer();
 
 	void begin_rendering();
 	void end_rendering();
