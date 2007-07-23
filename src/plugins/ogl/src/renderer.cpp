@@ -57,24 +57,6 @@ inline unsigned num_indices(const sge::indexed_primitive_type type, const unsign
 	}
 }
 
-#ifdef SGE_WINDOWS_PLATFORM
-struct win32_window_ogl_renderer_reactivate_t
-{
-	mutable sge::ogl::renderer &renderer;
-	win32_window_ogl_renderer_reactivate_t(sge::ogl::renderer &renderer)
-	: renderer(renderer) {}
-	sge::win32_window::win32_callback_return_type operator()(
-		sge::win32_window &wnd,
-		sge::win32_window::win32_event_type type,
-		WPARAM wparam,
-		LPARAM lparam
-	){
-		renderer.reset_viewport();
-		return sge::win32_window::win32_callback_return_type();
-	}
-};
-#endif
-
 }
 
 
@@ -224,13 +206,6 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	_caps.max_anisotropy_level = max_anisotropy;
 
 	set_render_target();
-
-#ifdef SGE_WINDOWS_PLATFORM
-	win32window_WM_ACTIVATE_handler = wnd->register_callback(
-		WM_ACTIVATE, win32_window_ogl_renderer_reactivate_t(*this));
-	win32window_WM_ACTIVATEAPP_handler = wnd->register_callback(
-		WM_ACTIVATEAPP, win32_window_ogl_renderer_reactivate_t(*this));
-#endif
 }
 
 void sge::ogl::renderer::begin_rendering()

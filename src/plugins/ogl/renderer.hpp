@@ -125,9 +125,6 @@ private:
 	boost::scoped_ptr<gdi_device> hdc;
 	boost::scoped_ptr<wgl_context> context;
 	boost::scoped_ptr<wgl_current> current;
-
-	boost::signals::connection win32window_WM_ACTIVATE_handler;
-	boost::signals::connection win32window_WM_ACTIVATEAPP_handler;
 #elif SGE_LINUX_PLATFORM
 	x_display_ptr dsp;
 	boost::scoped_ptr<glx_visual> visual;
