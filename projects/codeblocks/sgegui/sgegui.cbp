@@ -17,7 +17,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library='boost_signals' />
+					<Add library='boost_signals-mgw34-1_34' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
@@ -33,7 +33,7 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library='boost_signals' />
+					<Add library='boost_signals-mgw34-1_34' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>

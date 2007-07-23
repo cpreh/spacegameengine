@@ -18,7 +18,7 @@
 				</Compiler>
 				<Linker>
 					<Add library='dinput8' />
-					<Add library='boost_signals' />
+					<Add library='boost_signals-mgw34-1_34' />
 					<Add library='dxguid' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
@@ -36,7 +36,7 @@
 				</Compiler>
 				<Linker>
 					<Add library='dinput8' />
-					<Add library='boost_signals' />
+					<Add library='boost_signals-mgw34-1_34' />
 					<Add library='dxguid' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />

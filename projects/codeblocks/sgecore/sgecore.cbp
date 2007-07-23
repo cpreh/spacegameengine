@@ -18,9 +18,9 @@
 				</Compiler>
 				<Linker>
 					<Add library='iconv' />
-					<Add library='boost_filesystem' />
-					<Add library='boost_regex' />
-					<Add library='boost_signals' />
+					<Add library='boost_filesystem-mgw34-1_34' />
+					<Add library='boost_regex-mgw34-1_34' />
+					<Add library='boost_signals-mgw34-1_34' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -36,9 +36,9 @@
 				</Compiler>
 				<Linker>
 					<Add library='iconv' />
-					<Add library='boost_filesystem' />
-					<Add library='boost_regex' />
-					<Add library='boost_signals' />
+					<Add library='boost_filesystem-mgw34-1_34' />
+					<Add library='boost_regex-mgw34-1_34' />
+					<Add library='boost_signals-mgw34-1_34' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -85,7 +85,6 @@
 		<Unit filename="..\..\..\src/image/image_loader.hpp" />
 		<Unit filename="..\..\..\src/image/src/util.cpp" />
 		<Unit filename="..\..\..\src/image/util.hpp" />
-		<Unit filename="..\..\..\src/input/callback_handle.hpp" />
 		<Unit filename="..\..\..\src/input/input_system.hpp" />
 		<Unit filename="..\..\..\src/input/key_mod_tracker.hpp" />
 		<Unit filename="..\..\..\src/input/key_state_tracker.hpp" />
