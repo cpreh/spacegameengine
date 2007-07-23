@@ -54,6 +54,7 @@ namespace ogl
 class renderer : public sge::renderer {
 public:
 	renderer(const renderer_parameters& param, unsigned adapter, window_ptr wnd);
+	~renderer();
 
 	void begin_rendering();
 	void end_rendering();
@@ -83,6 +84,8 @@ public:
 	void projection(const math::space_matrix& matrix);
 	void set_render_target(texture_ptr target = texture_ptr());
 	void set_viewport(const viewport&);
+	const viewport &get_viewport() const;
+	void reset_viewport();
 
 	sge::render_target_ptr get_render_target() const;
 
@@ -122,6 +125,9 @@ private:
 	boost::scoped_ptr<gdi_device> hdc;
 	boost::scoped_ptr<wgl_context> context;
 	boost::scoped_ptr<wgl_current> current;
+
+	boost::signals::connection win32window_WM_ACTIVATE_handler;
+	boost::signals::connection win32window_WM_ACTIVATEAPP_handler;
 #elif SGE_LINUX_PLATFORM
 	x_display_ptr dsp;
 	boost::scoped_ptr<glx_visual> visual;
@@ -134,6 +140,7 @@ private:
 #endif
 	render_target_ptr _render_target;
 	renderer_caps _caps;
+	viewport current_viewport;
 };
 
 }

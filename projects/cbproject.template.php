@@ -18,7 +18,7 @@ ob_start(); ?>
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\..\..\bin\<?php echo (($data['type']=='plugin')?'plugin\\':'').htmlspecialchars($data['target']); ?>" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\<?php echo (($data['type']=='plugin')?'plugins\\':'').htmlspecialchars($data['target']); ?>" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="<?php echo $type[$data['type']]; ?>" />
 				<Option compiler="gcc" />
@@ -37,7 +37,7 @@ ob_start(); ?>
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\..\..\bin\<?php echo (($data['type']=='plugin')?'plugin\\':'').htmlspecialchars($data['target']); ?>" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\<?php echo (($data['type']=='plugin')?'plugins\\':'').htmlspecialchars($data['target']); ?>" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="<?php echo $type[$data['type']]; ?>" />
 				<Option compiler="gcc" />

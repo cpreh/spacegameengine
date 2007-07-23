@@ -38,6 +38,9 @@ sge::library::library(const std::string& n)
 #endif
   , n(n)
 {
+#ifdef SGE_WINDOWS_PLATFORM
+	lasterror = GetLastError();
+#endif
 	if(!handle)
 		throw std::runtime_error(std::string("failed to load library: ") + name() + " : " + liberror());
 }
@@ -45,11 +48,14 @@ sge::library::library(const std::string& n)
 sge::library::~library()
 {
 	if(handle)
+	{
 #ifdef SGE_WINDOWS_PLATFORM
 		FreeLibrary(handle);
+		lasterror = GetLastError();
 #elif SGE_LINUX_PLATFORM
 		dlclose(handle);
 #endif
+	}
 }
 
 const std::string& sge::library::name() const
@@ -62,6 +68,20 @@ std::string sge::library::liberror()
 #ifdef SGE_LINUX_PLATFORM
 	return dlerror();
 #else
-	return "stub: Windows DLL error not implemented!";
+	char errmsg[256];
+	FormatMessageA(
+		FORMAT_MESSAGE_FROM_SYSTEM,
+		0, // ignored
+		lasterror, // message id
+		0, // language id
+		errmsg, // buffer
+		255, // buffer length
+		0
+	);
+	return errmsg;
 #endif
 }
+
+#ifdef SGE_WINDOWS_PLATFORM
+DWORD sge::library::lasterror = 0;
+#endif

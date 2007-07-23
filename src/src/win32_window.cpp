@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../win32_window.hpp"
 #include "../win32_conv.hpp"
 
-#include <iostream> // DEBUG
-
 namespace
 {
 	LRESULT CALLBACK wnd_proc(HWND,unsigned,WPARAM,LPARAM);
@@ -122,7 +120,6 @@ boost::signals::connection sge::win32_window::register_callback(win32_event_type
 
 sge::win32_window::win32_callback_return_type sge::win32_window::execute_callback(sge::win32_window::win32_event_type msg, WPARAM wparam, LPARAM lparam)
 {
-	std::cout << "called:" << msg << "--" << WM_ACTIVATE << std::endl;
 	sge::win32_window::win32_signal_map::iterator it = signals.find(msg);
 	if (it != signals.end())
 		return (*(it->second))(*this, msg, wparam, lparam);
@@ -146,7 +143,6 @@ namespace
 {
 	LRESULT CALLBACK wnd_proc(HWND hwnd, unsigned msg, WPARAM wparam, LPARAM lparam)
 	{
-		std::cout << "Got message: " << msg << std::endl;
 		if (msg == WM_CREATE)
 		{
 			CREATESTRUCT* const s = reinterpret_cast<CREATESTRUCT*>(lparam);

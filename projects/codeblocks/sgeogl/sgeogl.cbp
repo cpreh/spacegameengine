@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\..\..\bin\plugin\sgeogl.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\plugins\sgeogl.dll" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -18,15 +18,15 @@
 				</Compiler>
 				<Linker>
 					<Add library='gdi32' />
+					<Add library='glu32' />
 					<Add library='glew32' />
 					<Add library='opengl32' />
-					<Add library='glu32' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\..\..\bin\plugin\sgeogl.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\plugins\sgeogl.dll" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -37,9 +37,9 @@
 				</Compiler>
 				<Linker>
 					<Add library='gdi32' />
+					<Add library='glu32' />
 					<Add library='glew32' />
 					<Add library='opengl32' />
-					<Add library='glu32' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>

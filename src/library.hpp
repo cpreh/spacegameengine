@@ -50,6 +50,9 @@ public:
 
 	const std::string& name() const;
 private:
+#ifdef SGE_WINDOWS_PLATFORM
+	static DWORD lasterror;
+#endif
 	static std::string liberror();
 
 	std::string n;

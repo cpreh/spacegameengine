@@ -77,12 +77,9 @@ sge::pos3 rand_point() { return sge::pos3(rand_point2(), 0); }
 {
 	sge::shared_ptr<sge::sound> sound;
 	smallplayer(sge::shared_ptr<sge::sound> sound) : sound(sound) {}
-	void operator()() { sound->play(false); } 
+	void operator()() { sound->play(false); }
 };*/
 }
-
-//#define DEBUG std::cout << "Debug mark " << __LINE__ << std::endl;
-#define DEBUG
 
 using sge::space_unit;
 sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit right, const space_unit bottom, const space_unit top, const space_unit near, const space_unit far)
@@ -122,7 +119,7 @@ try
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
-	
+
 	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
 
 	sge::shared_ptr<sge::audio_player> audio_player(audio_player_plugin->get()());
@@ -136,7 +133,7 @@ try
 
 	typedef std::vector< sge::shared_ptr<sge::audio_loader> > audio_loader_vector;
 	audio_loader_vector loaders;*/
-	
+
 /*	sge::shared_ptr<sge::audio_file> soundfile;
 	for (plugin_vector::iterator i = audio_plugins.begin(); i != audio_plugins.end(); ++i)
 	{

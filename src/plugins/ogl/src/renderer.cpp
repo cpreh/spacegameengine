@@ -57,6 +57,24 @@ inline unsigned num_indices(const sge::indexed_primitive_type type, const unsign
 	}
 }
 
+#ifdef SGE_WINDOWS_PLATFORM
+struct win32_window_ogl_renderer_reactivate_t
+{
+	mutable sge::ogl::renderer &renderer;
+	win32_window_ogl_renderer_reactivate_t(sge::ogl::renderer &renderer)
+	: renderer(renderer) {}
+	sge::win32_window::win32_callback_return_type operator()(
+		sge::win32_window &wnd,
+		sge::win32_window::win32_event_type type,
+		WPARAM wparam,
+		LPARAM lparam
+	){
+		renderer.reset_viewport();
+		return sge::win32_window::win32_callback_return_type();
+	}
+};
+#endif
+
 }
 
 
@@ -78,9 +96,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
  : param(param),
    clearflags(0)
 #ifdef SGE_LINUX_PLATFORM
-   ,
-   dsp(new x_display())
+   , dsp(new x_display())
 #endif
+	, current_viewport(0,0,0,0)
 {
 	if(adapter > 0)
 		std::cerr << "stub: adapter cannot be > 0 for opengl plugin (adapter was " << adapter << ")\n";
@@ -132,6 +150,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height()),false));
 	else
 		wnd = polymorphic_pointer_cast<win32_window>(wnd_param);
+
+	;
 
 	hdc.reset(new gdi_device(wnd->hwnd(), gdi_device::get_tag()));
 
@@ -206,6 +226,27 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	_caps.max_anisotropy_level = max_anisotropy;
 
 	set_render_target();
+
+#ifdef SGE_WINDOWS_PLATFORM
+	try {
+		win32window_WM_ACTIVATE_handler = wnd->register_callback(
+			WM_ACTIVATE, win32_window_ogl_renderer_reactivate_t(*this));
+		win32window_WM_ACTIVATEAPP_handler = wnd->register_callback(
+			WM_ACTIVATEAPP, win32_window_ogl_renderer_reactivate_t(*this));
+	} catch(...) {
+		win32window_WM_ACTIVATE_handler.disconnect();
+		win32window_WM_ACTIVATEAPP_handler.disconnect();
+		throw;
+	}
+#endif
+}
+
+sge::ogl::renderer::~renderer()
+{
+#ifdef SGE_WINDOWS_PLATFORM
+	win32window_WM_ACTIVATE_handler.disconnect();
+	win32window_WM_ACTIVATEAPP_handler.disconnect();
+#endif
 }
 
 void sge::ogl::renderer::begin_rendering()
@@ -429,7 +470,18 @@ void sge::ogl::renderer::set_material(const material& mat)
 
 void sge::ogl::renderer::set_viewport(const viewport& v)
 {
+	current_viewport = v;
 	glViewport(v.x, v.y, v.w, v.h);
+}
+
+void sge::ogl::renderer::reset_viewport()
+{
+	set_viewport(current_viewport);
+}
+
+const sge::viewport &sge::ogl::renderer::get_viewport() const
+{
+	return current_viewport;
 }
 
 void sge::ogl::renderer::transform(const math::space_matrix& matrix)

@@ -1,12 +1,19 @@
 # depslib dependency file v1.0
-1183402076 source:d:\dev\sge\test\test.cpp
-	<sstream>
+1185123988 source:d:\dev\sge\test\test.cpp
+	<ctime>
 	<cstdlib>
+	<string>
+	<exception>
 	<iostream>
+	<utility>
+	<vector>
+	<fstream>
+	<algorithm>
 	<boost/lambda/lambda.hpp>
 	<boost/lambda/if.hpp>
 	<boost/ptr_container/ptr_vector.hpp>
 	<boost/lexical_cast.hpp>
+	"../src/iconv.hpp"
 	"../src/math/constants.hpp"
 	"../src/plugin_manager.hpp"
 	"../src/renderer/lock_ptr.hpp"
@@ -31,12 +38,18 @@
 	"../src/renderer/screenshot.hpp"
 	"../src/language.hpp"
 	"../src/endianness.hpp"
+	"../src/audio/audio_loader/audio_loader.hpp"
+	"../src/audio/audio_player/audio_player.hpp"
+	"../src/audio/audio_player/sound.hpp"
 	"../src/exception.hpp"
+	"../src/console/console_gfx.hpp"
+	"../src/console/console.hpp"
+	"../src/model/md3.hpp"
 
 1183214966 d:\dev\sge\src\math\constants.hpp
 	<cmath>
 
-1182956698 d:\dev\sge\src\plugin_manager.hpp
+1185110428 d:\dev\sge\src\plugin_manager.hpp
 	<cstddef>
 	<vector>
 	<map>
@@ -55,17 +68,16 @@
 
 1182956698 d:\dev\sge\src\heap_deleter.hpp
 
-1182956698 d:\dev\sge\src\plugin.hpp
+1185110428 d:\dev\sge\src\plugin.hpp
 	<boost/noncopyable.hpp>
 	"string.hpp"
 	"shared_ptr.hpp"
 	"plugin_traits.hpp"
 	"library.hpp"
 
-1182956698 d:\dev\sge\src\string.hpp
+1185110428 d:\dev\sge\src\string.hpp
+	<memory>
 	<string>
-	<ostream>
-	"typeswitch.hpp"
 	"unicode.hpp"
 
 1182956698 d:\dev\sge\src\typeswitch.hpp
@@ -76,9 +88,9 @@
 
 1182956698 d:\dev\sge\src\plugin_traits.hpp
 
-1182956698 d:\dev\sge\src\library.hpp
+1185110428 d:\dev\sge\src\library.hpp
+	<string>
 	<boost/noncopyable.hpp>
-	"string.hpp"
 	"types.hpp"
 	"windows.hpp"
 	<dlfcn.h>
@@ -89,14 +101,13 @@
 1182956698 d:\dev\sge\src\windows.hpp
 	<windows.h>
 
-1182956692 d:\dev\sge\src\detail\library_impl.hpp
-	<stdexcept>
+1185110426 d:\dev\sge\src\detail\library_impl.hpp
 	"../funptr_cast.hpp"
-	"../iconv.hpp"
+	"../exception.hpp"
 
 1182956698 d:\dev\sge\src\funptr_cast.hpp
 
-1182956698 d:\dev\sge\src\iconv.hpp
+1185110428 d:\dev\sge\src\iconv.hpp
 	<string>
 	"string.hpp"
 	"iconv_types.hpp"
@@ -115,7 +126,7 @@
 	"texture_base.hpp"
 	"volume_texture.hpp"
 
-1182956692 d:\dev\sge\src\renderer\types.hpp
+1185110426 d:\dev\sge\src\renderer\types.hpp
 	<cstddef>
 	<vector>
 	<stdexcept>
@@ -125,7 +136,7 @@
 	"../math/dim.hpp"
 	"color.hpp"
 
-1182956692 d:\dev\sge\src\math\vector.hpp
+1185110426 d:\dev\sge\src\math\vector.hpp
 	<cassert>
 	<cstddef>
 	<ostream>
@@ -137,9 +148,6 @@
 	<boost/preprocessor/repetition/repeat.hpp>
 	<boost/preprocessor/arithmetic/add.hpp>
 	<boost/utility/enable_if.hpp>
-	<boost/mpl/and.hpp>
-	<boost/mpl/bool.hpp>
-	<boost/type_traits/is_same.hpp>
 	"../util.hpp"
 
 1182956698 d:\dev\sge\src\util.hpp
@@ -168,7 +176,8 @@
 	"color.hpp"
 	"types.hpp"
 
-1182956692 d:\dev\sge\src\math\rect.hpp
+1185110426 d:\dev\sge\src\math\rect.hpp
+	"../exception.hpp"
 	"line_seg2.hpp"
 	"dim.hpp"
 	"vector.hpp"
@@ -201,7 +210,7 @@
 	"../texture/texture_map.hpp"
 	"sprite_fwd.hpp"
 
-1182956692 d:\dev\sge\src\renderer\vertex_buffer.hpp
+1185110426 d:\dev\sge\src\renderer\vertex_buffer.hpp
 	<iterator>
 	<cstddef>
 	<boost/iterator/iterator_facade.hpp>
@@ -211,20 +220,15 @@
 	"vertex_format.hpp"
 	"types.hpp"
 
-1182956698 d:\dev\sge\src\algorithm.hpp
-	<cstring>
-	<algorithm>
+1185110428 d:\dev\sge\src\algorithm.hpp
 	<iterator>
-	<boost/type_traits/is_pod.hpp>
 
-1182956692 d:\dev\sge\src\renderer\vertex_format.hpp
+1185117084 d:\dev\sge\src\renderer\vertex_format.hpp
 	<cstddef>
 	<vector>
 	<stdexcept>
 	<algorithm>
-	<boost/type_traits/add_const.hpp>
-	<boost/type_traits/is_const.hpp>
-	<boost/type_traits/add_reference.hpp>
+	<boost/tr1/type_traits.hpp>
 	<boost/mpl/if.hpp>
 	<boost/mpl/not.hpp>
 	<boost/lambda/bind.hpp>
@@ -232,14 +236,14 @@
 	"../types.hpp"
 	"types.hpp"
 
-1182956692 d:\dev\sge\src\renderer\index_buffer.hpp
+1185110426 d:\dev\sge\src\renderer\index_buffer.hpp
 	<cstddef>
 	<iterator>
 	"../shared_ptr.hpp"
 	"../types.hpp"
 	"types.hpp"
 
-1182956692 d:\dev\sge\src\renderer\renderer.hpp
+1185110426 d:\dev\sge\src\renderer\renderer.hpp
 	"../shared_ptr.hpp"
 	"types.hpp"
 	"vertex_buffer.hpp"
@@ -255,7 +259,7 @@
 1182956692 d:\dev\sge\src\renderer\texture.hpp
 	"texture_base.hpp"
 
-1182956692 d:\dev\sge\src\renderer\cube_texture.hpp
+1185110426 d:\dev\sge\src\renderer\cube_texture.hpp
 	<boost/array.hpp>
 	"texture_base.hpp"
 	"types.hpp"
@@ -265,7 +269,8 @@
 	"../shared_ptr.hpp"
 	"color.hpp"
 
-1182956692 d:\dev\sge\src\math\matrix.hpp
+1185110426 d:\dev\sge\src\math\matrix.hpp
+	<algorithm>
 	<cassert>
 	<cstddef>
 	<ostream>
@@ -274,17 +279,16 @@
 	<boost/preprocessor/repetition/repeat.hpp>
 	<boost/preprocessor/arithmetic/add.hpp>
 	<boost/utility/enable_if.hpp>
-	<boost/type_traits/is_same.hpp>
 	"../types.hpp"
-	"../algorithm.hpp"
 	"../util.hpp"
+	"../exception.hpp"
 	"matrix_proxy.hpp"
 	"vector.hpp"
 
 1182956692 d:\dev\sge\src\math\matrix_proxy.hpp
 	<cstddef>
 
-1183400664 d:\dev\sge\src\window.hpp
+1183402592 d:\dev\sge\src\window.hpp
 	"types.hpp"
 	"shared_ptr.hpp"
 	"math/dim.hpp"
@@ -307,7 +311,7 @@
 	<algorithm>
 	"algorithm.hpp"
 
-1182956698 d:\dev\sge\src\texture\texture_map.hpp
+1183405540 d:\dev\sge\src\texture\texture_map.hpp
 	<string>
 	<map>
 	<boost/noncopyable.hpp>
@@ -317,7 +321,7 @@
 	"../image/image.hpp"
 	"../shared_ptr.hpp"
 
-1182956698 d:\dev\sge\src\texture\manager.hpp
+1183405540 d:\dev\sge\src\texture\manager.hpp
 	<stdexcept>
 	<boost/ptr_container/ptr_list.hpp>
 	<boost/scoped_ptr.hpp>
@@ -372,7 +376,7 @@
 	"../math/vector.hpp"
 	"../math/dim.hpp"
 
-1182956692 d:\dev\sge\src\renderer\font.hpp
+1185110426 d:\dev\sge\src\renderer\font.hpp
 	<cstddef>
 	<string>
 	<vector>
@@ -385,11 +389,11 @@
 	"font_types.hpp"
 	"renderer.hpp"
 	"../font/font_system.hpp"
-	"../font/font_impl.hpp"
+	"../font/font_metrics.hpp"
 	"../math/matrix.hpp"
 	"default_transformable.hpp"
 
-1182956692 d:\dev\sge\src\renderer\font_types.hpp
+1185110426 d:\dev\sge\src\renderer\font_types.hpp
 	<string>
 	"../math/vector.hpp"
 	"../math/dim.hpp"
@@ -397,20 +401,20 @@
 	"../string.hpp"
 	"../typeswitch.hpp"
 
-1182956698 d:\dev\sge\src\font\font_system.hpp
+1183405540 d:\dev\sge\src\font\font_system.hpp
 	<string>
 	"../shared_ptr.hpp"
 	"../plugin_traits.hpp"
 	"../renderer/font_types.hpp"
 	"../renderer/renderer.hpp"
-	"font_impl.hpp"
+	"font_metrics.hpp"
 
 1182956698 d:\dev\sge\src\font\font_impl.hpp
 	"../shared_ptr.hpp"
 	"../renderer/font_types.hpp"
 	"../renderer/texture.hpp"
 
-1182956692 d:\dev\sge\src\renderer\renderer_system.hpp
+1185110426 d:\dev\sge\src\renderer\renderer_system.hpp
 	<vector>
 	"../shared_ptr.hpp"
 	"../types.hpp"
@@ -453,7 +457,7 @@
 	"../plugin_traits.hpp"
 	"image.hpp"
 
-1182956692 d:\dev\sge\src\input\input_system.hpp
+1185110426 d:\dev\sge\src\input\input_system.hpp
 	<boost/noncopyable.hpp>
 	<boost/signal.hpp>
 	<boost/signals/connection.hpp>
@@ -463,7 +467,7 @@
 	"../plugin_traits.hpp"
 	"key_type.hpp"
 
-1182956692 d:\dev\sge\src\input\key_type.hpp
+1185110426 d:\dev\sge\src\input\key_type.hpp
 	<utility>
 	"../string.hpp"
 
@@ -504,7 +508,7 @@
 	"element.hpp"
 	"../sprite/sprite.hpp"
 
-1182956698 d:\dev\sge\src\gui\text_edit.hpp
+1185110426 d:\dev\sge\src\gui\text_edit.hpp
 	"types.hpp"
 	"rectangle.hpp"
 	"text_cursor.hpp"
@@ -567,7 +571,7 @@
 1182956698 d:\dev\sge\src\language.hpp
 	"string.hpp"
 
-1182956698 d:\dev\sge\src\endianness.hpp
+1183409614 d:\dev\sge\src\endianness.hpp
 	<cstddef>
 
 1183053700 d:\dev\sge\src\detail\iconv_encoding_list.hpp
@@ -1144,4 +1148,66 @@
 
 1182437624 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\endianness.hpp
 	<cstddef>
+
+1183405540 d:\dev\sge\src\font\font_metrics.hpp
+	"../shared_ptr.hpp"
+	"../renderer/font_types.hpp"
+	"../renderer/texture.hpp"
+
+1183405540 d:\dev\sge\src\audio\audio_loader\audio_loader.hpp
+	<vector>
+	<string>
+	"../../shared_ptr.hpp"
+	"../../plugin_traits.hpp"
+	"audio_file.hpp"
+
+1183405540 d:\dev\sge\src\audio\audio_loader\audio_file.hpp
+	<vector>
+
+1183405540 d:\dev\sge\src\audio\audio_player\audio_player.hpp
+	"../../shared_ptr.hpp"
+	"../../plugin_traits.hpp"
+	"../audio_loader/audio_file.hpp"
+
+1183405540 d:\dev\sge\src\audio\audio_player\sound.hpp
+
+1185110428 d:\dev\sge\src\console\console_gfx.hpp
+	<list>
+	<boost/noncopyable.hpp>
+	<boost/signals/connection.hpp>
+	"../string.hpp"
+	"../math/dim.hpp"
+	"../plugin_manager.hpp"
+	"../renderer/renderer.hpp"
+	"../font/font_system.hpp"
+	"../renderer/font.hpp"
+	"../texture/handler.hpp"
+	"../timer.hpp"
+	"../sprite/system.hpp"
+	"../sprite/sprite.hpp"
+	"../input/key_state_tracker.hpp"
+	"console.hpp"
+
+1182956698 d:\dev\sge\src\texture\handler.hpp
+	<string>
+	"../image/image_loader.hpp"
+
+1185110428 d:\dev\sge\src\console\console.hpp
+	<string>
+	<vector>
+	<stdexcept>
+	<map>
+	<boost/function.hpp>
+	<boost/lexical_cast.hpp>
+	"../string.hpp"
+	"../exception.hpp"
+	"../iconv.hpp"
+
+1185110426 d:\dev\sge\src\model\md3.hpp
+	<istream>
+	<string>
+	<vector>
+	<boost/cstdint.hpp>
+	<boost/array.hpp>
+	"../math/vector.hpp"
 
