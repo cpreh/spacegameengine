@@ -67,11 +67,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::space_unit randf() { return double(std::rand())/RAND_MAX; }
+/*sge::space_unit randf() { return double(std::rand())/RAND_MAX; }
 
 sge::math::vector2 rand_point2() { return sge::math::vector2(randf(),randf()); }
 
-sge::pos3 rand_point() { return sge::pos3(rand_point2(), 0); }
+sge::pos3 rand_point() { return sge::pos3(rand_point2(), 0); }*/
 
 /*struct smallplayer
 {
@@ -81,7 +81,7 @@ sge::pos3 rand_point() { return sge::pos3(rand_point2(), 0); }
 };*/
 }
 
-using sge::space_unit;
+/*using sge::space_unit;
 sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit right, const space_unit bottom, const space_unit top, const space_unit near, const space_unit far)
 {
 	return sge::math::space_matrix(
@@ -90,7 +90,7 @@ sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit r
 		0,0,(far+near)/(far-near),2*far*near/(far-near),
 		0,0,-1,0
 	);
-}
+}*/
 
 /*inline sge::math::space_matrix matrix_perspective(const space_unit aspect, const space_unit fov, const space_unit near, const space_unit far)
 {
@@ -251,29 +251,45 @@ try
 	}
 	sge::md3_model model(ifs);
 
-	const sge::md3_model::surface& surf = model.surfaces.at(2);
+	sge::vertex_buffer::size_type vb_sz = 0;
+	for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
+		vb_sz += surf_it->transformed_vertices.size();
+	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::VU_Pos), vb_sz);
 
-	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::VU_Pos), surf.transformed_vertices.size());
-	const sge::index_buffer_ptr model_ib = rend->create_index_buffer(surf.triangles.size() * 3);
 
+	sge::index_buffer::size_type ib_sz = 0;
+	for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
+		ib_sz += surf_it->triangles.size();
+	const sge::index_buffer_ptr model_ib = rend->create_index_buffer(ib_sz * 3);
+
+	std::vector<sge::index_buffer::size_type> offsets;
+	offsets.push_back(0);
 	{
 		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(model_vb);
 		sge::vertex_buffer::iterator vbit = model_vb->begin();
-		for(sge::md3_model::surface::transformed_vertex_vector::const_iterator it = surf.transformed_vertices.begin(); it != surf.transformed_vertices.end(); ++it)
-			(vbit++)->pos() = it->pos;
-//		for(unsigned i = 0; i < surf.transformed_vertices.size(); ++i)
-//			(*model_vb)[i].pos() = surf.transformed_vertices[i].pos;
+		for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
+		{
+			const sge::md3_model::surface& surf = *surf_it;
+			for(sge::md3_model::surface::transformed_vertex_vector::const_iterator it = surf.transformed_vertices.begin(); it != surf.transformed_vertices.end(); ++it)
+				(vbit++)->pos() = it->pos;
+			offsets.push_back(offsets.back() + surf.transformed_vertices.size());
+		}
 
 	}
 
 	{
 		sge::lock_ptr<sge::index_buffer_ptr> _lock(model_ib);
 		sge::index_buffer::iterator ibit = model_ib->begin();
-		for(sge::md3_model::surface::triangle_vector::const_iterator it = surf.triangles.begin(); it != surf.triangles.end(); ++it)
+		for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
 		{
-			*ibit++ = it->indices[0];
-			*ibit++ = it->indices[1];
-			*ibit++ = it->indices[2];
+			const sge::md3_model::surface& surf = *surf_it;
+			for(sge::md3_model::surface::triangle_vector::const_iterator it = surf.triangles.begin(); it != surf.triangles.end(); ++it)
+			{
+				const sge::index_buffer::value_type offset = offsets[surf_it - model.surfaces.begin()];
+				*ibit++ = it->indices[0] + offset;
+				*ibit++ = it->indices[1] + offset;
+				*ibit++ = it->indices[2] + offset;
+			}
 		}
 	}
 
@@ -292,8 +308,8 @@ try
 		}*/
 		translation.x() -= ks[sge::KC_LEFT] * 0.001;
 		translation.x() += ks[sge::KC_RIGHT] * 0.001;
-		translation.z() -= ks[sge::KC_UP] * 0.01;
-		translation.z() += ks[sge::KC_DOWN] * 0.01;
+		translation.z() -= ks[sge::KC_UP] * 0.1;
+		translation.z() += ks[sge::KC_DOWN] * 0.1;
 //		if(ks[sge::KC_RETURN])
 //			sge::screenshot(rend,pl,"shot.png");
 	//	if(timer.update())
@@ -325,7 +341,7 @@ try
 		//fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0.1,0.9),sge::font_size(1,1),sge::colors::purple);
 		//ls.render();
 
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::PT_Triangle, surf.triangles.size(), 0);
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::PT_Triangle, ib_sz, 0);
 
 //		con.draw();
 		rend->end_rendering();
