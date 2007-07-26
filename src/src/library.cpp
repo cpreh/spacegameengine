@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../exception.hpp"
 #include "../types.hpp"
 #include "../library.hpp"
 #include "../iconv.hpp"
@@ -42,7 +42,7 @@ sge::library::library(const std::string& n)
 	lasterror = GetLastError();
 #endif
 	if(!handle)
-		throw std::runtime_error(std::string("failed to load library: ") + name() + " : " + liberror());
+		throw sge::runtime_error(std::string("failed to load library: ") + name() + " : " + liberror());
 }
 
 sge::library::~library()

@@ -17,8 +17,8 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library='boost_signals-mgw34-1_34' />
-					<Add library='sgecore' />
+					<Add library="boost_signals-mgw34-1_34" />
+					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -33,8 +33,8 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library='boost_signals-mgw34-1_34' />
-					<Add library='sgecore' />
+					<Add library="boost_signals-mgw34-1_34" />
+					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -44,42 +44,10 @@
 			<Add option="-Wall" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option='-Wno-long-long' />
+			<Add option="-Wno-long-long" />
 		</Compiler>
-		<Unit filename="..\..\..\src/gui/button.hpp" />
-		<Unit filename="..\..\..\src/gui/check_box.hpp" />
-		<Unit filename="..\..\..\src/gui/click_box.hpp" />
-		<Unit filename="..\..\..\src/gui/cursor.hpp" />
-		<Unit filename="..\..\..\src/gui/element.hpp" />
-		<Unit filename="..\..\..\src/gui/events.hpp" />
-		<Unit filename="..\..\..\src/gui/frame.hpp" />
-		<Unit filename="..\..\..\src/gui/icon_button.hpp" />
-		<Unit filename="..\..\..\src/gui/list.hpp" />
-		<Unit filename="..\..\..\src/gui/manager.hpp" />
-		<Unit filename="..\..\..\src/gui/rectangle.hpp" />
-		<Unit filename="..\..\..\src/gui/scrollbar.hpp" />
-		<Unit filename="..\..\..\src/gui/skin.hpp" />
-		<Unit filename="..\..\..\src/gui/src/button.cpp" />
-		<Unit filename="..\..\..\src/gui/src/check_box.cpp" />
-		<Unit filename="..\..\..\src/gui/src/click_box.cpp" />
-		<Unit filename="..\..\..\src/gui/src/cursor.cpp" />
-		<Unit filename="..\..\..\src/gui/src/element.cpp" />
-		<Unit filename="..\..\..\src/gui/src/frame.cpp" />
-		<Unit filename="..\..\..\src/gui/src/icon_button.cpp" />
-		<Unit filename="..\..\..\src/gui/src/list.cpp" />
-		<Unit filename="..\..\..\src/gui/src/manager.cpp" />
-		<Unit filename="..\..\..\src/gui/src/rectangle.cpp" />
-		<Unit filename="..\..\..\src/gui/src/scrollbar.cpp" />
-		<Unit filename="..\..\..\src/gui/src/skin.cpp" />
-		<Unit filename="..\..\..\src/gui/src/static_text.cpp" />
-		<Unit filename="..\..\..\src/gui/src/text_cursor.cpp" />
-		<Unit filename="..\..\..\src/gui/src/text_edit.cpp" />
-		<Unit filename="..\..\..\src/gui/src/vertical_scrollbar.cpp" />
-		<Unit filename="..\..\..\src/gui/static_text.hpp" />
-		<Unit filename="..\..\..\src/gui/text_cursor.hpp" />
-		<Unit filename="..\..\..\src/gui/text_edit.hpp" />
-		<Unit filename="..\..\..\src/gui/types.hpp" />
-		<Unit filename="..\..\..\src/gui/vertical_scrollbar.hpp" />
+		<Unit filename="..\..\..\src\gui\manager.hpp" />
+		<Unit filename="..\..\..\src\gui\skin.hpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

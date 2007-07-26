@@ -70,7 +70,7 @@ sge::sprite& sge::sprite::operator=(const sge::sprite& spr)
 	_z = spr._z;
 	_visible = spr._visible;
    	_rotation = spr._rotation;
-	
+
 	tex = spr.tex;
 	_use_rot_around = spr._use_rot_around;
 	_rot_around = spr._rot_around;
@@ -123,7 +123,7 @@ void sge::sprite::visible(const bool nvisible)
 void sge::sprite::set_texture(const std::string& name, const stage_type stage)
 {
 	if(stage >= spr_sys->max_tex_level())
-		throw std::runtime_error("max_tex_level surpassed in sprite::set_texture");
+		throw sge::runtime_error("max_tex_level surpassed in sprite::set_texture");
 	if(stage >= tex.size())
 		tex.resize(stage+1);
 	tex[stage] = spr_sys->get_texture_map()->vtexture(name);
@@ -253,7 +253,7 @@ void sge::sprite::draw()
 		update_where(spr_sys->vb->create_iterator(buf.data()));
 		spr_sys->vb->set_data(buf.data(), vb_pos, detail::vertices_per_sprite);
 	}
-	
+
 	{
 		sprite_system::ib_buf_type& buf = spr_sys->_sprite_ib_buf;
 		update_ib(buf.c_array());
@@ -261,12 +261,12 @@ void sge::sprite::draw()
 	}
 
 	spr_sys->set_parameters();
-	
+
 	for(tex_array::size_type i = 0; i < tex.size(); ++i)
 		spr_sys->get_renderer()->set_texture(get_texture(i),i);
 
 	spr_sys->get_renderer()->render(spr_sys->vb,spr_sys->ib,0,4,PT_Triangle,2,0);
-	
+
 	for(tex_array::size_type i = 1; i < tex.size(); ++i)
 		spr_sys->get_renderer()->set_texture(texture_ptr(),i);
 }
@@ -317,7 +317,7 @@ bool sge::sprite::less(const sprite& l, const sprite& r)
 
 	return lvis == rvis ?
 			lz == rz ?
-	                	ltex == rtex ? 
+	                	ltex == rtex ?
 	                        	     false
 		                : ltex < rtex
 		       : lz > rz

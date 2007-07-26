@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ICONV_TYPES_HPP_INCLUDED
 #define SGE_ICONV_TYPES_HPP_INCLUDED
 
-#include <stdexcept>
+#include "exception.hpp"
 #include <string>
 
 namespace sge
@@ -35,16 +35,16 @@ enum encoding {
 #undef SGE_ICONV_ENCODING2
 #undef SGE_ICONV_ENCODING3
 
-class invalid_conversion : public std::runtime_error {
+class invalid_conversion : public sge::runtime_error {
 public:
 	invalid_conversion(const std::string& from, const std::string& to)
-	: std::runtime_error(std::string("Unsupported conversion from ") += from + " to " + to + "!" ) {}
+	: sge::runtime_error(std::string("Unsupported conversion from ") += from + " to " + to + "!" ) {}
 };
 
-class conversion_failed : public std::runtime_error {
+class conversion_failed : public sge::runtime_error {
 public:
 	conversion_failed(const std::string& from, const std::string& to)
-	: std::runtime_error(std::string("An iconv conversion from ") += from + " to " + to + " failed!") {}
+	: sge::runtime_error(std::string("An iconv conversion from ") += from + " to " + to + " failed!") {}
 };
 
 }

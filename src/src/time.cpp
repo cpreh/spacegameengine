@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../exception.hpp"
 #include "../time.hpp"
 
 sge::time_type sge::time()
@@ -27,7 +27,7 @@ sge::time_type sge::time()
 	struct timeval tv;
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
-		throw std::runtime_error("gettimeofday() failed");
+		throw sge::runtime_error("gettimeofday() failed");
 	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
 #elif SGE_WINDOWS_PLATFORM
 	return GetTickCount();
