@@ -35,11 +35,13 @@ namespace sge
 
 class input_system : boost::noncopyable {
 public:
-	typedef boost::signal<void (const key_pair&)> signal_type;
-	typedef boost::function<void (const key_pair&)> callback;
+	typedef void key_pair_fun (const key_pair&);
+	typedef boost::signal<key_pair_fun> signal_type;
+	typedef boost::function<key_pair_fun> callback;
 
-	typedef boost::signal<void (const key_type&)> repeat_signal_type;
-	typedef boost::function<void (const key_type&)> repeat_callback;
+	typedef void key_type_fun (const key_type&);
+	typedef boost::signal<key_type_fun> repeat_signal_type;
+	typedef boost::function<key_type_fun> repeat_callback;
 
 	virtual boost::signals::connection register_callback(const callback& c) = 0;
 	virtual boost::signals::connection register_repeat_callback(const repeat_callback& c) = 0;

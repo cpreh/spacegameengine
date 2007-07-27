@@ -36,7 +36,7 @@ bool sge::image_loader_handler::operator()(sge::texture_map& ss, const std::stri
 	{
 		if(boost::filesystem::basename(*it) == bn)
 		{
-			ss.add_texture(il->load_image(it->string()),name);
+			ss.add_texture(il->load_image(it->string()),name,true);
 			return true;
 		}
 	}

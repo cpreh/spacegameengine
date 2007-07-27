@@ -46,12 +46,12 @@ bool sge::texture_map::add_texture(const texture::const_pointer src, const textu
 	return true;
 }
 
-bool sge::texture_map::add_texture(const image_ptr im, const std::string& name)
+bool sge::texture_map::add_texture(const image_ptr im, const std::string& name, const bool scale)
 {
 	if(virtual_textures.find(name) != virtual_textures.end())
 		return false;
 
-	virtual_textures[name] = tex_man.add_texture(im);
+	virtual_textures[name] = tex_man.add_texture(im, scale);
 	return true;
 }
 

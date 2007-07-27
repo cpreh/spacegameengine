@@ -1,0 +1,47 @@
+<html>
+	<head>
+	</head>
+	<body>
+	input/key_type.hpp
+	<pre>
+struct key_type {
+	typedef uchar_t char_type;
+	<em>unspecific</em> name;
+	key_code code;
+	char_type char_code;
+};
+
+typedef float key_state;
+typedef std::pair&lt;key_type,key_state&gt; key_pair;
+	</pre>
+<p>
+key_type is used to obtain information about a key.
+name must be something convertible to sge::string.
+A key's name is implementation defined so you should not use it to save key bindings.
+</p>
+<p>
+key_code is a collection of fixed codes which can be used to look up specific keys.
+An implementation may not be able to produce every single key code.
+</p>
+<p>
+char_code is an utf-32 char that can be used to display text.
+It may be 0 for keys that don't represent characters.
+</p>
+<p>
+key_state is used to represent the position of any key or axis.
+0 means that the key or axis has not been moved.
+For example binary keys are 0 if not pressed and 1 if pressed.
+Mice axis can produce positive or negative values.
+</p>
+
+<pre>
+inline bool is_mouse_key(const key_code key);
+inline bool is_mouse_axis(const key_code key);
+inline bool is_keyboard_key(const key_code key);
+inline bool is_shift(const key_code key);
+inline bool is_ctrl(const key_code key);
+inline bool is_alt(const key_code key);
+</pre>
+	</body>
+</html>
+

@@ -44,7 +44,7 @@ sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_
 	throw image_too_big();
 }
 
-sge::virtual_texture_ptr sge::texture_manager::add_texture(const image_ptr im)
+sge::virtual_texture_ptr sge::texture_manager::add_texture(const image_ptr im, const bool scale)
 {
 	try
 	{
@@ -52,6 +52,8 @@ sge::virtual_texture_ptr sge::texture_manager::add_texture(const image_ptr im)
 	}
 	catch(const texture_manager::image_too_big&)
 	{
+		if(!scale)
+			throw;
 		const texture::size_type max_size = rend->caps().max_tex_size,
 		                         factor = 1 + std::max(im->width(),im->height()) / max_size;
 		im->resample(im->width() / factor, im->height() / factor);

@@ -1,0 +1,30 @@
+<html>
+	<head>
+	</head>
+	<body>
+	input/input_system.hpp
+	<pre>
+class input_system : boost::noncopyable {
+public:
+	typedef void key_pair_fun (const <a href="key_type.html">key_pair</a>&amp;);
+	typedef boost::signal&lt;key_pair_fun&gt; signal_type;
+	typedef boost::function&lt;key_pair_fun&gt; callback;
+
+	typedef void key_type_fun (const <a href="key_type.html">key_type</a>&amp;);
+	typedef boost::signal&lt;key_type_fun&gt; repeat_signal_type;
+	typedef boost::function&lt;key_type_fun&gt; repeat_callback;
+
+	virtual void dispatch() = 0;
+
+	virtual window_ptr get_window() const = 0;
+
+	virtual ~input_system() {}
+};
+	</pre>
+	This class is the basic interface for callback driven input.
+	register_callback() can be used to get any event where a key changes its state.
+	register_repeat_callback() reports repeated keys only.
+	dispatch() must be called to process input and fire the callbacks. This should be done each frame.
+	get_window() returns the window associated with this input_system.
+	</body>
+</html>
