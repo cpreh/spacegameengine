@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-
+namespace math 
+{
 template<typename T> struct basic_rect {
 	typedef T value_type;
 	typedef math::vector<T,2> point_type;
@@ -38,8 +39,9 @@ template<typename T> struct basic_rect {
 	           const value_type& right = value_type(), const value_type& bottom = value_type())
 		: left(left), top(top), right(right), bottom(bottom)
 	{
-		if(left > right || top > bottom)
-			throw exception("rect::rect() invalid rect!");
+		// Das oktroyiert dem Benutzer ein bestimmtes Koordinatensystem auf
+		//if(left > right || top > bottom)
+		//	throw exception("rect::rect() invalid rect!");
 	}
 
 	basic_rect(const point_type& pos, const dim_type& sz)
@@ -114,6 +116,7 @@ template<typename T, typename Ch, typename Traits> std::basic_ostream<Ch,Traits>
 
 typedef basic_rect<space_unit> rect;
 
+}
 }
 
 #endif
