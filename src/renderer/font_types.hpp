@@ -47,7 +47,7 @@ typedef unsigned font_flag_t;
 typedef space_unit     font_unit;
 typedef math::vector2  font_pos;
 typedef math::dim2     font_size;
-typedef rect           font_rect;
+typedef math::rect     font_rect;
 typedef uchar_t        font_char;
 
 }

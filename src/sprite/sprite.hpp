@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/rect.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
-#include "../math/rect.hpp"
 #include "../math/circle.hpp"
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
@@ -71,13 +70,13 @@ public:
 	const space_unit& height() const;
 	const dim& size() const;
 	bool visible() const;
-	rect get_rect() const;
+	math::rect get_rect() const;
 	point center() const;
 	space_unit rotation() const;
 	space_unit radius() const;
 	space_unit repeat() const;
 	color get_color() const;
-	rect bounding_quad() const;
+	math::rect bounding_quad() const;
 	circle bounding_circle() const;
 
 	void draw();

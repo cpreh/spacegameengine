@@ -35,7 +35,7 @@ public:
 	virtual_texture(const lock_rect&, fragmented_texture*, bool repeatable = false);
 	~virtual_texture();
 	lock_rect area() const;
-	rect area_texc(space_unit repeat = 1) const;
+	math::rect area_texc(space_unit repeat = 1) const;
 	texture_ptr my_texture() const;
 	bool repeatable() const;
 	void set_data(texture::const_pointer src);

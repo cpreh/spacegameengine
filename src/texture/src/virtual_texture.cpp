@@ -38,13 +38,13 @@ sge::lock_rect sge::virtual_texture::area() const
 	return _area;
 }
 
-sge::rect sge::virtual_texture::area_texc(const space_unit repeat) const
+sge::math::rect sge::virtual_texture::area_texc(const space_unit repeat) const
 {
 	if(repeat != 1 && repeatable() == false)
 		std::cerr << "Warning: texture not repeatable but sprite repetition is " << repeat << "!\n";
 	
 	const texture_ptr tex = my_texture();
-	return tex ? tex_size_to_space_rect(area(), tex->width(), tex->height(), repeat) : rect();
+	return tex ? tex_size_to_space_rect(area(), tex->width(), tex->height(), repeat) : math::rect();
 }
 
 sge::texture_ptr sge::virtual_texture::my_texture() const

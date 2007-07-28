@@ -45,7 +45,7 @@ public:
 
 typedef basic_texture_base<BitDepth32> texture_base;
 typedef shared_ptr<texture_base> texture_base_ptr;
-typedef basic_rect<texture_base::size_type> lock_rect;
+typedef math::basic_rect<texture_base::size_type> lock_rect;
 
 }
 

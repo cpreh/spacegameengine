@@ -94,14 +94,14 @@ inline space_unit pixel_size_to_space(const pixel_unit v, const screen_unit scre
 	return space_unit(v * space_unit(2) / screen_size);
 }
 
-inline rect space_rect_2d_to_3d(const rect& r)
+inline math::rect space_rect_2d_to_3d(const math::rect& r)
 {
-	return rect(space_x_2d_to_3d(r.left), space_y_2d_to_3d(r.top), space_x_2d_to_3d(r.right), space_y_2d_to_3d(r.bottom));
+	return math::rect(space_x_2d_to_3d(r.left), space_y_2d_to_3d(r.top), space_x_2d_to_3d(r.right), space_y_2d_to_3d(r.bottom));
 }
 
-inline rect tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height, const space_unit repeat = 1)
+inline math::rect tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height, const space_unit repeat = 1)
 {
-	return rect(space_unit(l.left) / width, space_unit(l.top) / height, repeat * space_unit(l.right) / width, repeat * space_unit(l.bottom) / height);
+	return math::rect(space_unit(l.left) / width, space_unit(l.top) / height, repeat * space_unit(l.right) / width, repeat * space_unit(l.bottom) / height);
 }
 
 }

@@ -284,17 +284,17 @@ sge::space_unit sge::sprite::radius() const
 	return std::max(std::sqrt(center().x() * center().x() + x()*x()), std::sqrt(center().y() * center().y() + y()*y()));
 }
 
-sge::rect sge::sprite::get_rect() const
+sge::math::rect sge::sprite::get_rect() const
 {
-	return rect(pos(),size());
+	return math::rect(pos(),size());
 }
 
-sge::rect sge::sprite::bounding_quad() const
+sge::math::rect sge::sprite::bounding_quad() const
 {
 	if(rotation() == 0)
 		return get_rect();
 	const space_unit rad = radius();
-	return rect(center().x() - rad, center().y() - rad, center().x() + rad, center().y() + rad);
+	return math::rect(center().x() - rad, center().y() - rad, center().x() + rad, center().y() + rad);
 }
 
 sge::circle sge::sprite::bounding_circle() const

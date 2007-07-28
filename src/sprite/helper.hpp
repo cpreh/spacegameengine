@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-inline vertex_buffer::iterator fill_sprite_position(vertex_buffer::iterator it, const rect& rs, const space_unit z)
+inline vertex_buffer::iterator fill_sprite_position(vertex_buffer::iterator it, const math::rect& rs, const space_unit z)
 {
 	(*it++).pos() = pos3(rs.left,rs.top,z);
 	(*it++).pos() = pos3(rs.right,rs.top,z);
@@ -41,7 +41,7 @@ inline vertex_buffer::iterator fill_sprite_position(vertex_buffer::iterator it, 
 	return it;
 }
 
-inline vertex_buffer::iterator fill_sprite_tex_coordinates(vertex_buffer::iterator it, const rect& rt, const stage_type stage)
+inline vertex_buffer::iterator fill_sprite_tex_coordinates(vertex_buffer::iterator it, const math::rect& rt, const stage_type stage)
 {
 	(*it++).tex(stage) = tex_pos(rt.left,rt.top);
 	(*it++).tex(stage) = tex_pos(rt.right,rt.top);
@@ -51,13 +51,13 @@ inline vertex_buffer::iterator fill_sprite_tex_coordinates(vertex_buffer::iterat
 	return it;
 }
 
-inline vertex_buffer::iterator fill_sprite_vertices(const vertex_buffer::iterator it, const rect& rs, const rect& rt, const space_unit z, const stage_type stage = 0)
+inline vertex_buffer::iterator fill_sprite_vertices(const vertex_buffer::iterator it, const math::rect& rs, const math::rect& rt, const space_unit z, const stage_type stage = 0)
 {
 	fill_sprite_position(it, rs, z);
 	return fill_sprite_tex_coordinates(it, rt, stage);
 }
 
-inline vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::iterator it, const rect& rbs, const space_unit rot, const math::vector2 center, const space_unit z)
+inline vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::iterator it, const math::rect& rbs, const space_unit rot, const math::vector2 center, const space_unit z)
 {
 	math::vector2 one = math::vector2(rbs.left,rbs.top) - center,
 	              two = math::vector2(rbs.right,rbs.top) - center,
