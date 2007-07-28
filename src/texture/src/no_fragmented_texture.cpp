@@ -17,7 +17,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 #include "../no_fragmented_texture.hpp"
 #include "../../math.hpp"
 
@@ -31,6 +30,7 @@ sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const tex
 		return virtual_texture_ptr();
 	const texture::size_type next_w = next_pow_2(w),
 	                         next_h = next_pow_2(h);
+
 	tex = rend->create_texture(0, next_w, next_h, linear_filter); // TODO
 	return virtual_texture_ptr(new virtual_texture(lock_rect(0,0,w,h), this, next_w == w && next_h == h));
 }

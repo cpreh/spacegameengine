@@ -63,8 +63,8 @@ template<> struct next_pow_2_implementation<true> {
 		if (t & (t-1)) {
 			register unsigned char c = t & 0x3f;
 			register T t_copy = t, ret=2;
-			while (t_copy >>= 6) { ret <<= 6; c = t & 0x3f; }
-			return ret <<= (c & 0x20) ? 5 : (c & 0x10) ? 4 : (c & 0x08) ? 3 : (c & 0x08) ? 2 : (c & 0x08) ? 1 : 0;
+			while (t_copy >>= 6) { ret <<= 6; c = t_copy & 0x3f; }
+			return ret <<= (c & 0x20) ? 5 : (c & 0x10) ? 4 : (c & 0x08) ? 3 : (c & 0x04) ? 2 : (c & 0x02) ? 1 : 0;
 		} else return t;
 	}
 };
