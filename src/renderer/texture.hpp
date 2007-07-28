@@ -37,7 +37,7 @@ public:
 	virtual void set_data(const_pointer p, const lock_rect* r = 0) = 0;
 };
 
-typedef basic_texture<BitDepth32> texture;
+typedef basic_texture<bit_depth32> texture;
 typedef shared_ptr<texture> texture_ptr;
 
 }

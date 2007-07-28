@@ -48,7 +48,7 @@ sge::renderer_caps_array sge::ogl::renderer_system::caps() const
 	
 	renderer_caps ret;
 	for(xf86_vidmode_array::size_type i = 0; i < modes.size(); ++i)
-		ret.display_modes.push_back(display_mode(modes[i].hdisplay, modes[i].vdisplay, BD_32, xf86_vidmode_array::refresh_rate(modes[i])));
+		ret.display_modes.push_back(display_mode(modes[i].hdisplay, modes[i].vdisplay, bit_depth::depth32, xf86_vidmode_array::refresh_rate(modes[i])));
 	v.push_back(ret);
 #endif
 	return v;

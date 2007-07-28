@@ -36,7 +36,7 @@ sge::sprite::sprite(sprite_system& _spr_sys, const point p, const dim sz, const 
    my_place(spr_sys->attach(*this)),
    _use_rot_around(false),
    _repeat(1),
-   _color(rgba_to_abgr(col))
+   _color(col)
 {}
 
 sge::sprite::sprite(const sprite& spr)
@@ -152,7 +152,7 @@ void sge::sprite::repeat(const space_unit r)
 
 void sge::sprite::set_color(const color c)
 {
-	_color = rgba_to_abgr(c);
+	_color = c;
 }
 
 const sge::space_unit& sge::sprite::x() const
@@ -212,7 +212,7 @@ sge::space_unit sge::sprite::repeat() const
 
 sge::color sge::sprite::get_color() const
 {
-	return abgr_to_rgba(_color);
+	return _color;
 }
 
 sge::sprite::~sprite()

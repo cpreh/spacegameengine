@@ -30,9 +30,9 @@ namespace sge
 typedef box<texture_base::size_type> lock_box;
 
 template<typename BitDepth>
-class basic_volume_texture : public basic_texture_base<BitDepth32> {
+class basic_volume_texture : public basic_texture_base<BitDepth> {
 public:
-	typedef basic_texture_base<BitDepth32> base;
+	typedef basic_texture_base<BitDepth> base;
 	typedef typename base::size_type size_type;
 	typedef typename base::const_pointer const_pointer;
 	virtual size_type width() const = 0;
@@ -41,7 +41,7 @@ public:
 	virtual void set_data(const_pointer p, const lock_box* b = 0) = 0;
 };
 
-typedef basic_volume_texture<BitDepth32> volume_texture;
+typedef basic_volume_texture<bit_depth32> volume_texture;
 typedef shared_ptr<volume_texture> volume_texture_ptr;
 
 }

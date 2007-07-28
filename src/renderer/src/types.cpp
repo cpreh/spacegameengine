@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../types.hpp"
 
-sge::display_mode::display_mode(const screen_unit width, const screen_unit height, const bit_depth depth, const unsigned refresh_rate)
+sge::display_mode::display_mode(const screen_unit width, const screen_unit height, const bit_depth::type depth, const unsigned refresh_rate)
  : size(width,height), depth(depth), refresh_rate(refresh_rate)
 {}
 

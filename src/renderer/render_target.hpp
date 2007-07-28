@@ -42,7 +42,7 @@ public:
 	virtual ~basic_render_target(){}
 };
 
-typedef basic_render_target<BitDepth32> render_target;
+typedef basic_render_target<bit_depth32> render_target;
 typedef shared_ptr<render_target> render_target_ptr;
 
 }

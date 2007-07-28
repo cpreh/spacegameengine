@@ -38,14 +38,11 @@ template<typename T> struct basic_rect {
 	basic_rect(const value_type& left  = value_type(), const value_type& top    = value_type(),
 	           const value_type& right = value_type(), const value_type& bottom = value_type())
 		: left(left), top(top), right(right), bottom(bottom)
-	{
-		// Das oktroyiert dem Benutzer ein bestimmtes Koordinatensystem auf
-		//if(left > right || top > bottom)
-		//	throw exception("rect::rect() invalid rect!");
-	}
+	{}
 
 	basic_rect(const point_type& pos, const dim_type& sz)
-		: left(pos.x()), top(pos.y()), right(pos.x() + sz.w()), bottom(pos.y() + sz.h()) {}
+		: left(pos.x()), top(pos.y()), right(pos.x() + sz.w()), bottom(pos.y() + sz.h())
+	{}
 
 	value_type width() const { return right - left; }
 	value_type height() const { return bottom - top; }

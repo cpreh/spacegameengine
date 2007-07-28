@@ -39,7 +39,7 @@ public:
 	virtual size_type border_size() const = 0;
 };
 
-typedef basic_cube_texture<BitDepth32> cube_texture;
+typedef basic_cube_texture<bit_depth32> cube_texture;
 typedef shared_ptr<cube_texture> cube_texture_ptr;
 typedef boost::array<cube_texture::const_pointer,CS_num_elements> cube_side_array;
 

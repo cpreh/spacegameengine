@@ -33,14 +33,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-enum bit_depth {
-	BD_16,
-	BD_32
-};
-
-inline unsigned bit_depth_bit_count(const bit_depth d)
+namespace bit_depth
 {
-	return d == BD_32 ? 32 : 16;
+	enum type {
+		depth16,
+		depth32
+	};
+}
+
+inline unsigned bit_depth_bit_count(const bit_depth::type d)
+{
+	return d == bit_depth::depth32 ? 32 : 16;
 }
 
 typedef int pixel_unit;
@@ -49,11 +52,11 @@ typedef math::vector<pixel_unit,2> pixel_pos_t;
 typedef math::dim<screen_unit,2> screen_size_t;
 
 struct display_mode {
-	display_mode(const screen_unit width, const screen_unit height, const bit_depth depth, const unsigned refresh_rate = 0);
+	display_mode(const screen_unit width, const screen_unit height, const bit_depth::type depth, const unsigned refresh_rate = 0);
 	
-	screen_size_t size;
-	bit_depth depth;
-	unsigned refresh_rate;
+	screen_size_t   size;
+	bit_depth::type depth;
+	unsigned        refresh_rate;
 
 	screen_unit width() const;
 	screen_unit height() const;

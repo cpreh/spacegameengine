@@ -83,7 +83,7 @@ const sge::font_entity& sge::ft::font_metrics::load_char(const font_char c)
 		for(int x = 0; x < bitmap.width; ++x)
 		{
 			const unsigned char code = *(data + x);
-			expanded.at(y*bitmap.width+x) = code ? rgba(code,code,code,255) : colors::transparent;
+			expanded.at(y*bitmap.width+x) = code ? make_color(code,code,code,255) : colors::transparent;
 		}
 
 	cur_tex->set_data(expanded.data(),&lrect);
