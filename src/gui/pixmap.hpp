@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/smart_ptr.hpp>
 
-#include "../renderer/renderer.hpp"
-#include "../renderer/texture.hpp"
+#include "../texture/manager.hpp"
 
 #include "types.hpp"
 #include "color.hpp"
@@ -92,7 +91,7 @@ public:
 		draw_arc(&MixingPolicy::mixin, &GradientPolicy::mix, boundary, arcfrom, arcto, colfrom, colto);
 	}
 
-	sge::texture_ptr to_texture(sge::renderer_ptr renderer, sge::texture_ptr texture = sge::texture_ptr()) const;
+	sge::virtual_texture_ptr to_texture(sge::texture_manager &texmgr, sge::virtual_texture_ptr texture = sge::virtual_texture_ptr()) const;
 
 public: // static members
 //	static pixmap from_texture(const sge::texture &texture); // TODO

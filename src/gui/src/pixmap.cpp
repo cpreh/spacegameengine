@@ -244,7 +244,7 @@ void sge::gui::pixmap::draw_line(color::mixing_policy_t policy, const point &fro
 //void sge::gui::pixmap::draw_arc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &col);
 //void sge::gui::pixmap::draw_arc(color::mixing_policy_t policy, color::gradient_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto);
 
-sge::texture_ptr sge::gui::pixmap::to_texture(sge::renderer_ptr renderer, sge::texture_ptr texture) const {
+sge::virtual_texture_ptr sge::gui::pixmap::to_texture(sge::texture_manager &texmgr, sge::virtual_texture_ptr texture) const {
 	sge::gui::color *fromb = data.get(), *frome = fromb + (size_.w * size_.h);
 	boost::scoped_array<sge::color> texdata(new sge::color[size_.w * size_.h]);
 	sge::color *to = texdata.get();
@@ -254,11 +254,11 @@ sge::texture_ptr sge::gui::pixmap::to_texture(sge::renderer_ptr renderer, sge::t
 	}
 
 	if (texture &&
-	    static_cast<sge::gui::unit>(texture->width()) == size_.w &&
-	    static_cast<sge::gui::unit>(texture->height()) == size_.h) {
+	    static_cast<sge::gui::unit>(texture->area().width()) == size_.w &&
+	    static_cast<sge::gui::unit>(texture->area().height()) == size_.h) {
 		texture->set_data(texdata.get());
 		return texture;
 	} else {
-		return renderer->create_texture(texdata.get(), size_.w, size_.h, sge::point_filter, sge::resource_flags::write_only | sge::resource_flags::dynamic);
+		return texmgr.add_texture(texdata.get(), size_.w, size_.h);
 	}
 }

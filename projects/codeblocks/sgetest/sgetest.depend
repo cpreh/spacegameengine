@@ -477,11 +477,7 @@
 	"key_type.hpp"
 	"input_system.hpp"
 
-1182956698 d:\dev\sge\src\gui\types.hpp
-	"../types.hpp"
-	"../math/vector.hpp"
-	"../math/dim.hpp"
-	"../math/rect.hpp"
+1185643684 d:\dev\sge\src\gui\types.hpp
 
 1182956698 d:\dev\sge\src\gui\cursor.hpp
 	"types.hpp"
@@ -1212,52 +1208,23 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1185641710 source:d:\dev\sge\test\guitest.cpp
+1185655332 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
 	<exception>
 	<iostream>
-	<utility>
-	<vector>
-	<fstream>
-	<algorithm>
 	<boost/lambda/lambda.hpp>
 	<boost/lambda/if.hpp>
-	<boost/ptr_container/ptr_vector.hpp>
-	<boost/lexical_cast.hpp>
-	"../src/iconv.hpp"
-	"../src/math/constants.hpp"
 	"../src/plugin_manager.hpp"
-	"../src/renderer/lock_ptr.hpp"
-	"../src/util.hpp"
 	"../src/sprite/system.hpp"
 	"../src/sprite/sprite.hpp"
-	"../src/renderer/font.hpp"
-	"../src/renderer/renderer.hpp"
-	"../src/renderer/types.hpp"
+	"../src/texture/no_fragmented_texture.hpp"
+	"../src/renderer/lock_ptr.hpp"
 	"../src/renderer/renderer_system.hpp"
-	"../src/media.hpp"
-	"../src/old_gui/manager.hpp"
-	"../src/old_gui/button.hpp"
-	"../src/old_gui/text_edit.hpp"
-	"../src/old_gui/list.hpp"
-	"../src/old_gui/icon_button.hpp"
-	"../src/old_gui/frame.hpp"
-	"../src/old_gui/static_text.hpp"
 	"../src/input/input_system.hpp"
 	"../src/input/key_state_tracker.hpp"
-	"../src/renderer/line_strip.hpp"
-	"../src/renderer/screenshot.hpp"
-	"../src/language.hpp"
-	"../src/endianness.hpp"
-	"../src/audio/audio_loader/audio_loader.hpp"
-	"../src/audio/audio_player/audio_player.hpp"
-	"../src/audio/audio_player/sound.hpp"
-	"../src/exception.hpp"
-	"../src/console/console_gfx.hpp"
-	"../src/console/console.hpp"
-	"../src/model/md3.hpp"
+	"../src/gui/pixmap.hpp"
 
 1185456458 d:\dev\sge\src\old_gui\manager.hpp
 	<string>
@@ -1349,4 +1316,32 @@
 	"../renderer/font.hpp"
 	"types.hpp"
 	"rectangle.hpp"
+
+1182956698 d:\dev\sge\src\texture\no_fragmented_texture.hpp
+	<boost/noncopyable.hpp>
+	"fragmented_texture.hpp"
+
+1185652906 d:\dev\sge\src\gui\pixmap.hpp
+	<string>
+	<boost/smart_ptr.hpp>
+	"../texture/manager.hpp"
+	"types.hpp"
+	"color.hpp"
+	"exception.hpp"
+	"mixing_policies.hpp"
+	"gradient_policies.hpp"
+
+1185648192 d:\dev\sge\src\gui\color.hpp
+	<boost/function.hpp>
+	"../renderer/color.hpp"
+	"mixing_policies.hpp"
+
+1185647770 d:\dev\sge\src\gui\mixing_policies.hpp
+	"color.hpp"
+
+1185551552 d:\dev\sge\src\gui\exception.hpp
+	"../exception.hpp"
+
+1185647972 d:\dev\sge\src\gui\gradient_policies.hpp
+	"color.hpp"
 

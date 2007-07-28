@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math.hpp"
 
 sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend)
- : rend(rend) 
+ : rend(rend)
 {}
 
 sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/plugin_manager.hpp"
 #include "../src/sprite/system.hpp"
 #include "../src/sprite/sprite.hpp"
+#include "../src/texture/no_fragmented_texture.hpp"
 #include "../src/renderer/lock_ptr.hpp"
 #include "../src/renderer/renderer_system.hpp"
 #include "../src/input/input_system.hpp"
@@ -82,19 +83,19 @@ try
 		sge::vertex_buffer::iterator it = vb->begin();
 
 		// top left
-		it->pos() = at_pixel(600, 200);
+		it->pos() = at_pixel(500, 200);
 		++it;
 
 		// top right
-		it->pos() = at_pixel(900, 200);
+		it->pos() = at_pixel(800, 200);
 		++it;
 
 		// bottom left
-		it->pos() = at_pixel(600, 400);
+		it->pos() = at_pixel(500, 400);
 		++it;
 
 		// bottom right
-		it->pos() = at_pixel(900, 400);
+		it->pos() = at_pixel(800, 400);
 	}
 
 	{
@@ -106,12 +107,14 @@ try
 		ib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
 	}
 
-	sge::gui::pixmap pixmap(sge::gui::dim2(300, 200));
+	sge::no_fragmented_texture mytex(rend);
+	sge::texture_manager texmgr(rend, &mytex);
+	sge::gui::pixmap pixmap(sge::gui::dim2(256, 256));
 
 	using sge::gui::color;
-	pixmap.fill(sge::colors::mintcream);
+	pixmap.fill(color(0x7f007f7f));
 
-//	sge::texture_ptr pixmaptex(pixmap.to_texture(rend));
+	sge::virtual_texture_ptr pixmaptex(pixmap.to_texture(texmgr));
 
 	while(running)
 	{
@@ -120,7 +123,7 @@ try
 		sge::window::dispatch();
 		is->dispatch();
 
-//		rend->set_texture(pixmaptex);
+		rend->set_texture(pixmaptex->my_texture());
 		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
 
 		rend->end_rendering();
