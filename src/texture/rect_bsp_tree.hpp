@@ -34,7 +34,7 @@ public:
 	typedef std::size_t size_type;
 	typedef math::vector<size_type,2> point_type;
 	typedef math::dim<size_type,2> dim_type;
-	typedef basic_rect<size_type> value_type;
+	typedef math::basic_rect<size_type> value_type;
 	typedef const value_type& const_reference;
 private:
 	struct node {
