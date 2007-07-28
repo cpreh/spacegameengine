@@ -29,7 +29,7 @@ sge::gui::rectangle::rectangle(manager& m, element* const parent, const point po
 
 bool sge::gui::rectangle::intersects(const point p) const
 {
-	return sge::intersects(rect(x(),y(),x()+width(),y()+height()),p);
+	return math::intersects(rect(x(),y(),x()+width(),y()+height()),p);
 }
 
 void sge::gui::rectangle::on_draw(const draw_event& e)

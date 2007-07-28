@@ -34,7 +34,7 @@ namespace gui
 typedef sge::space_unit     unit;
 typedef sge::math::vector2  point;
 typedef sge::math::dim2     dim;
-typedef sge::rect           rect;
+typedef sge::math::rect     rect;
 
 }
 }
