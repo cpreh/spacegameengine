@@ -53,7 +53,9 @@ sge::sprite_system::sprite_system(const renderer_ptr rend, const texture_map_ptr
 
 void sge::sprite_system::init()
 {
-	vb = rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Diffuse).add(VU_Tex, _max_tex), init_sprites * detail::vertices_per_sprite, RF_WriteOnly | RF_Dynamic);
+	vb = rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::diffuse).add(vertex_usage::tex, _max_tex),
+	                                init_sprites * detail::vertices_per_sprite,
+	                                resource_flags::write_only | resource_flags::dynamic);
 	ib = rend->create_index_buffer(init_sprites * detail::indices_per_sprite);
 	_sprite_vb_buf.resize(vb->get_vertex_format().stride() * detail::vertices_per_sprite);
 	free_pos.reserve(init_sprites);
@@ -99,14 +101,14 @@ void sge::sprite_system::render()
 {
 	sprites.sort(boost::lambda::bind(&sprite::less, *boost::lambda::_1, *boost::lambda::_2));
 	{
-		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
+		lock_ptr<index_buffer_ptr> _lock(ib);
 		index_buffer::iterator it = ib->begin();
 		for(sprite_list::iterator sit = sprites.begin(); sit != sprites.end(); ++sit)
 			it = (*sit)->update_ib(it);
 	}
 
 	{
-		lock_ptr<vertex_buffer_ptr> _lock(vb,LF_Discard);
+		lock_ptr<vertex_buffer_ptr> _lock(vb);
 		std::for_each(sprites.begin(), sprites.end(), std::mem_fun(&sprite::update));
 	}
 
@@ -123,20 +125,20 @@ void sge::sprite_system::render()
 		for(stage_type stage = 0; stage < max_tex_level(); ++stage)
 			rend->set_texture((*it)->get_texture(stage), stage);
 
-		rend->render(vb,ib,0,vb->size(),PT_Triangle,num_objects*2, first_index);
+		rend->render(vb, ib, 0, vb->size(), indexed_primitive_type::triangle, num_objects*2, first_index);
 		first_index += num_objects * detail::indices_per_sprite;
 		it = next;
 	}
 
 	for(stage_type stage = 1; stage < max_tex_level(); ++stage)
-		rend->set_texture(texture_ptr(),stage);
+		rend->set_texture(texture_ptr(), stage);
 }
 
 void sge::sprite_system::set_parameters()
 {
 	set_matrices();
-	rend->set_bool_state(BS_EnableLighting,false);
-	rend->set_bool_state(BS_EnableAlphaBlending,true);
+	rend->set_bool_state(bool_state::enable_lighting, false);
+	rend->set_bool_state(bool_state::enable_alpha_blending, true);
 }
 
 sge::renderer_ptr sge::sprite_system::get_renderer() const

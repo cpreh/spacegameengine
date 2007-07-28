@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../ptr_cast.hpp"
 #include "../../../bit.hpp"
 #include "../../../renderer/types.hpp"
+#include "../../../renderer/renderer_system.hpp"
 #include "../../../exception.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
@@ -45,15 +46,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-inline unsigned num_indices(const sge::indexed_primitive_type type, const unsigned count)
+inline unsigned num_indices(const sge::indexed_primitive_type::type type, const unsigned count)
 {
 	switch(type) {
-	case sge::PT_Triangle:
+	case sge::indexed_primitive_type::triangle:
 		return count*3;
-	case sge::PT_Line:
+	case sge::indexed_primitive_type::line:
 		return count*2;
 	default:
-		throw std::logic_error("num_indices: unsupported indexed_primitive_format!");
+		throw sge::exception("num_indices: unsupported indexed_primitive_format!");
 	}
 }
 
@@ -189,14 +190,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	XSync(dsp->get(),False);
 #endif
 	if(glewInit() != GLEW_OK)
-		throw std::runtime_error("glewInit() failed");
+		throw runtime_error("glewInit() failed");
 
-	set_bool_state(BS_EnableAlphaBlending,true);
-	set_bool_state(BS_EnableZBuffer,false);
-	set_bool_state(BS_ClearBackBuffer,true);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-
-	glDisable(GL_CULL_FACE);
 
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
@@ -290,7 +286,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
                                 const index_buffer_ptr ib,
                                 const sge::vertex_buffer::size_type first_vertex,
                                 const sge::vertex_buffer::size_type num_vertices,
-                                const indexed_primitive_type ptype,
+                                const indexed_primitive_type::type ptype,
                                 const sge::index_buffer::size_type pcount,
                                 const sge::index_buffer::size_type first_index)
 {
@@ -316,7 +312,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
                                 const vertex_buffer::size_type first_vertex,
                                 const vertex_buffer::size_type num_vertices,
-                                const nonindexed_primitive_type ptype)
+                                const nonindexed_primitive_type::type ptype)
 {
 	if(!vb)
 		throw exception("vb may not be 0 for renderer::render!");
@@ -334,17 +330,16 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 
 }
 
-
-void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type value)
+void sge::ogl::renderer::set_bool_state(const bool_state::type state, const bool_type value)
 {
 	switch(state) {
-	case BS_ClearBackBuffer:
+	case bool_state::clear_backbuffer:
 		set_bit(GL_COLOR_BUFFER_BIT, clearflags, value);
 		break;
-	case BS_ClearZBuffer:
+	case bool_state::clear_zbuffer:
 		set_bit(GL_DEPTH_BUFFER_BIT, clearflags, value);
 		break;
-	case BS_ClearStencil:
+	case bool_state::clear_stencil:
 		set_bit(GL_STENCIL_BUFFER_BIT, clearflags, value);
 		break;
 	default:
@@ -358,48 +353,67 @@ void sge::ogl::renderer::set_bool_state(const bool_state state, const bool_type 
 		throw exception("set_bool_state() failed!");
 }
 
-void sge::ogl::renderer::set_float_state(const float_state state, const float_type value)
+void sge::ogl::renderer::set_float_state(const float_state::type state, const float_type value)
 {
 	switch(state) {
-	case FS_ZBufferClearVal:
+	case float_state::zbuffer_clear_val:
 		glClearDepth(value);
 		break;
-	case FS_FogStart:
-	case FS_FogEnd:
-	case FS_FogDensity:
-		glFogf(convert_fog_float_state(state),value);
+	case float_state::fog_start:
+	case float_state::fog_end:
+	case float_state::fog_density:
+		glFogf(convert_fog_float_state(state), value);
 		break;
 	}
+	if(is_error())
+		throw exception("set_float_state() failed!");
 }
 
-void sge::ogl::renderer::set_int_state(const int_state state, const int_type value)
+void sge::ogl::renderer::set_color_state(const color_state::type state, const color value)
 {
 	switch(state) {
-	case IS_ClearColor:
+	case color_state::clear_color:
 		glClearColor(red_part_rgba_f(value),green_part_rgba_f(value),blue_part_rgba_f(value),alpha_part_rgba_f(value));
 		break;
-	case IS_StencilClearVal:
-		glClearStencil(value);
-		break;
-	case IS_DepthClearVal:
-		glClearDepth(value);
-		break;
-	case IS_AmbientLightColor:
+	case color_state::ambient_light_color:
 		{
-		const color4 fc = color_to_color4(value);
-		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, reinterpret_cast<const GLfloat*>(&fc));
+			const color4 fc = color_to_color4(value);
+			glLightModelfv(GL_LIGHT_MODEL_AMBIENT, reinterpret_cast<const GLfloat*>(&fc));
 		}
 		break;
-	case IS_FogMode:
-		glFogi(GL_FOG_MODE, convert_fog_int_value(value));
+	case color_state::fog_color:
+		{
+			const color4 fc = color_to_color4(value);
+			glFogfv(GL_FOG_COLOR, reinterpret_cast<const GLfloat*>(&fc));
+		}
 		break;
-	case IS_FogColor:
-		const color4 fc = color_to_color4(value);
-		glFogfv(GL_FOG_COLOR, reinterpret_cast<const GLfloat*>(&fc));
 	}
+	if(is_error())
+		throw exception("set_color_state() failed!");
 }
 
-void sge::ogl::renderer::set_cull_mode(const cull_mode mode)
+void sge::ogl::renderer::set_int_state(const int_state::type state, const int_type value)
+{
+	switch(state) {
+	case int_state::stencil_clear_val:
+		glClearStencil(value);
+		break;
+	default:
+		throw exception("Invalid int_state!");
+	}
+	if(is_error())
+		throw exception("set_int_state() failed!");
+
+}
+
+void sge::ogl::renderer::set_fog_mode(const fog_mode::type mode)
+{
+	glFogi(GL_FOG_MODE, convert_cast<GLenum>(mode));
+	if(is_error())
+		throw exception("set_fog_mode() failed!");
+}
+
+void sge::ogl::renderer::set_cull_mode(const cull_mode::type mode)
 {
 	const GLenum glmode = convert_cast<GLenum>(mode);
 	glCullFace(glmode);
@@ -408,7 +422,7 @@ void sge::ogl::renderer::set_cull_mode(const cull_mode mode)
 		throw exception("glCullMode() failed!");
 }
 
-void sge::ogl::renderer::set_depth_func(const depth_func func)
+void sge::ogl::renderer::set_depth_func(const depth_func::type func)
 {
 	const GLenum glfunc = convert_cast<GLenum>(func);
 	glDepthFunc(glfunc);
@@ -496,18 +510,6 @@ void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_typ
 	texture_base* const b = ptr_cast<texture_base*>(tex.get());
 	glEnable(b->type());
 	b->bind_me();
-}
-
-// TODO: stage engine?
-
-void sge::ogl::renderer::set_texture_stage_arg(const stage_type stage, const stage_arg type, const stage_arg_value value)
-{
-	std::cerr << "stub: ogl::renderer::set_texture_stage_arg\n";
-}
-
-void sge::ogl::renderer::set_texture_stage_op(const stage_type stage, const stage_op type, const stage_op_value value)
-{
-	std::cerr << "stub: ogl::renderer::set_texture_stage_op\n";
 }
 
 void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)

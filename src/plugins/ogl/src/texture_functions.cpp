@@ -32,15 +32,15 @@ void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
 	switch(filter.min_filter) {
-	case FVMin_Point:
-	case FVMin_Linear:
+	case min_filter::point:
+	case min_filter::linear:
 		if(!r)
 			glTexImage2D(tex_type, 0, GL_RGBA, static_cast<GLsizei>(width),static_cast<GLsizei>(height), 0, format, type, src);
 		else
 			glTexSubImage2D(tex_type, 0, static_cast<GLint>(r->left), static_cast<GLint>(r->top), static_cast<GLsizei>(r->width()), static_cast<GLsizei>(r->height()), format, type, src);
 		break;
-	case FVMin_MipMap:
-	case FVMin_Trilinear:
+	case min_filter::mipmap:
+	case min_filter::trilinear:
 		if(r)
 		{
 			std::cerr << "stub: You can't specify an update rect while using mipmaps. Ignored.\n";

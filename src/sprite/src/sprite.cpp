@@ -123,7 +123,7 @@ void sge::sprite::visible(const bool nvisible)
 void sge::sprite::set_texture(const std::string& name, const stage_type stage)
 {
 	if(stage >= spr_sys->max_tex_level())
-		throw sge::runtime_error("max_tex_level surpassed in sprite::set_texture");
+		throw runtime_error("max_tex_level surpassed in sprite::set_texture");
 	if(stage >= tex.size())
 		tex.resize(stage+1);
 	tex[stage] = spr_sys->get_texture_map()->vtexture(name);
@@ -265,7 +265,8 @@ void sge::sprite::draw()
 	for(tex_array::size_type i = 0; i < tex.size(); ++i)
 		spr_sys->get_renderer()->set_texture(get_texture(i),i);
 
-	spr_sys->get_renderer()->render(spr_sys->vb,spr_sys->ib,0,4,PT_Triangle,2,0);
+	// TODO: replace with a triangle strip
+	spr_sys->get_renderer()->render(spr_sys->vb,spr_sys->ib,0,detail::vertices_per_sprite,indexed_primitive_type::triangle,detail::indices_per_sprite/3,0);
 
 	for(tex_array::size_type i = 1; i < tex.size(); ++i)
 		spr_sys->get_renderer()->set_texture(texture_ptr(),i);

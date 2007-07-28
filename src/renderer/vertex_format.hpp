@@ -37,28 +37,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-enum vertex_usage {
-	VU_Pos,
-	VU_Normal,
-	VU_Tex,
-	VU_Diffuse,
-	VU_num_elements
-};
+namespace vertex_usage
+{
+	enum type {
+		pos,
+		normal,
+		tex,
+		diffuse,
+		num_elements
+	};
+}
 
-template<vertex_usage u> struct vertex_traits;
-template<> struct vertex_traits<VU_Pos> {
+template<vertex_usage::type u> struct vertex_traits;
+template<> struct vertex_traits<vertex_usage::pos> {
 	typedef space_unit                   element_type;
 	typedef math::vector<element_type,3> packed_type;
 };
-template<> struct vertex_traits<VU_Normal> {
+template<> struct vertex_traits<vertex_usage::normal> {
 	typedef space_unit                   element_type;
 	typedef math::vector<element_type,3> packed_type;
 };
-template<> struct vertex_traits<VU_Tex> {
+template<> struct vertex_traits<vertex_usage::tex> {
 	typedef space_unit                   element_type;
 	typedef math::vector<element_type,2> packed_type;
 };
-template<> struct vertex_traits<VU_Diffuse> {
+template<> struct vertex_traits<vertex_usage::diffuse> {
 	typedef int          element_type;
 	typedef element_type packed_type;
 };
@@ -67,26 +70,28 @@ typedef std::size_t vertex_size;
 typedef std::ptrdiff_t vertex_difference;
 
 const vertex_size vertex_element_size[] = {
-	3*sizeof(vertex_traits<VU_Pos>::element_type),
-	3*sizeof(vertex_traits<VU_Normal>::element_type),
-	2*sizeof(vertex_traits<VU_Tex>::element_type),
-	1*sizeof(vertex_traits<VU_Diffuse>::element_type)
+	3*sizeof(vertex_traits<vertex_usage::pos>::element_type),
+	3*sizeof(vertex_traits<vertex_usage::normal>::element_type),
+	2*sizeof(vertex_traits<vertex_usage::tex>::element_type),
+	1*sizeof(vertex_traits<vertex_usage::diffuse>::element_type)
 };
 
-typedef vertex_size offset_info[VU_num_elements];
+typedef vertex_size offset_info[vertex_usage::num_elements];
 
 class vertex_element {
 public:
-	vertex_element(const vertex_usage _usage, const vertex_size _count)
-	 : _usage(_usage), _count(_count), _size(vertex_element_size[_usage]) {}
-	vertex_usage usage() const { return _usage; }
-	vertex_size  size() const { return _size; }
-	vertex_size  count() const { return _count; }
-	vertex_size  stride() const { return size()*count(); }
+	vertex_element(const vertex_usage::type _usage, const vertex_size _count)
+	 : _usage(_usage), _count(_count), _size(vertex_element_size[_usage])
+	{}
+
+	vertex_usage::type usage() const { return _usage; }
+	vertex_size size() const { return _size; }
+	vertex_size count() const { return _count; }
+	vertex_size stride() const { return size()*count(); }
 private:
-	vertex_usage  _usage;
-	vertex_size   _count;
-	vertex_size   _size;
+	vertex_usage::type _usage;
+	vertex_size        _count;
+	vertex_size        _size;
 };
 
 class vertex_format {
@@ -99,7 +104,7 @@ public:
 
 	vertex_size stride() const { return _stride; }
 
-	vertex_format& add(const vertex_usage u, const vertex_size count = 1)
+	vertex_format& add(const vertex_usage::type u, const vertex_size count = 1)
 	{
 		oi[u] = _stride;
 		ulist.push_back(vertex_element(u,count));
@@ -109,7 +114,7 @@ public:
 
 	const offset_info& offsets() const { return oi; }
 
-	bool uses(const vertex_usage e) const
+	bool uses(const vertex_usage::type e) const
 	{
 		return std::find_if(ulist.begin(),ulist.end(),boost::lambda::bind(&vertex_element::usage,boost::lambda::_1) == e) != ulist.end();
 	}
@@ -138,7 +143,7 @@ public:
 	typedef vertex_size        size_type;
 	typedef typename boost::mpl::if_c<IsConst, typename boost::add_const<value_type>::type, value_type>::type* pointer;
 
-	template<vertex_usage U>
+	template<vertex_usage::type U>
 		typename detail::return_type<IsConst, typename vertex_traits<U>::packed_type>::type
 	element(const vertex_size index = 0) const
 	{
@@ -146,10 +151,25 @@ public:
 		return reinterpret_cast<type_to_cast>(*(data + oi[U] + vertex_element_size[U] * index));
 	}
 
-	typename detail::return_type<IsConst, vertex_traits<VU_Pos    >::packed_type>::type pos() const { return element<VU_Pos>(); }
-	typename detail::return_type<IsConst, vertex_traits<VU_Normal >::packed_type>::type normal() const { return element<VU_Normal>(); }
-	typename detail::return_type<IsConst, vertex_traits<VU_Tex    >::packed_type>::type tex(const vertex_size index = 0) const { return element<VU_Tex>(index); }
-	typename detail::return_type<IsConst, vertex_traits<VU_Diffuse>::packed_type>::type diffuse() const { return element<VU_Diffuse>(); }
+	typename detail::return_type<IsConst, vertex_traits<vertex_usage::pos>::packed_type>::type pos() const
+	{
+		return element<vertex_usage::pos>();
+	}
+
+	typename detail::return_type<IsConst, vertex_traits<vertex_usage::normal>::packed_type>::type normal() const
+	{
+		return element<vertex_usage::normal>();
+	}
+
+	typename detail::return_type<IsConst, vertex_traits<vertex_usage::tex>::packed_type>::type tex(const vertex_size index = 0) const
+	{
+		return element<vertex_usage::tex>(index);
+	}
+	
+	typename detail::return_type<IsConst, vertex_traits<vertex_usage::diffuse>::packed_type>::type diffuse() const
+	{
+		return element<vertex_usage::diffuse>();
+	}
 
 	vertex_pointer_impl(const pointer data, const size_type stride, const offset_info& oi)
 	 : data(data), stride(stride), oi(oi) {}

@@ -19,6 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../types.hpp"
+#include "../../exception.hpp"
+
+unsigned sge::bit_depth_bit_count(const bit_depth::type d)
+{
+	switch(d) {
+	case bit_depth::depth16:
+		return 16;
+	case bit_depth::depth32:
+		return 32;
+	}
+	throw exception("Invalid bit_depth!");
+}
 
 sge::display_mode::display_mode(const screen_unit width, const screen_unit height, const bit_depth::type depth, const unsigned refresh_rate)
  : size(width,height), depth(depth), refresh_rate(refresh_rate)

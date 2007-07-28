@@ -26,7 +26,7 @@ sge::line_strip::line_strip(const renderer_ptr rend, const color _col, const siz
  : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    rend(rend),
    _col(_col),
-   vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos),init_lines+1)),
+   vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos),init_lines+1)),
    _loop(false)
 {
 	vertices.reserve(init_lines+1);
@@ -47,17 +47,17 @@ void sge::line_strip::render()
 {
 	if(vertices.size() <= 1)
 		return;
-	rend->set_bool_state(BS_EnableAlphaBlending,false);
+	rend->set_bool_state(bool_state::enable_alpha_blending, false);
 	set_matrices();
-	rend->set_bool_state(BS_EnableLighting,true);
+	rend->set_bool_state(bool_state::enable_lighting, true);
 	rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
-	rend->set_int_state(IS_AmbientLightColor, _col);
+	rend->set_color_state(color_state::ambient_light_color, _col);
 	rend->set_texture(texture_ptr());
 
 	if(vb->size() < vertices.size())
 		vb->resize(vertices.size());
 	vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(sge::data(vertices)),0,vertices.size());
-	rend->render(vb, 0, static_cast<index_buffer::size_type>(vertices.size()), _loop ? PT_LineLoop : PT_LineStrip);
+	rend->render(vb, 0, static_cast<index_buffer::size_type>(vertices.size()), _loop ? nonindexed_primitive_type::line_loop : nonindexed_primitive_type::line_strip);
 }
 
 sge::pos3& sge::line_strip::operator[](const size_type index)

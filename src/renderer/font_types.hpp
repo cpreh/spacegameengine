@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TYPES_HPP_INCLUDED
 #define SGE_FONT_TYPES_HPP_INCLUDED
 
-#include <string>
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
@@ -30,19 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-
-enum font_flags {
-	FTF_AlignLeft    = 1,
-	FTF_AlignRight   = 1 << 1,
-	FTF_AlignHCenter = 1 << 2,
-	FTF_AlignTop     = 1 << 3,
-	FTF_AlignVCenter = 1 << 4,
-	FTF_AlignBottom  = 1 << 5,
-	FTF_NoMultiLine  = 1 << 6,
-	FTF_NoLineWrap   = 1 << 7,
-	FTF_Default      = FTF_AlignLeft | FTF_AlignTop
-};
-typedef unsigned font_flag_t;
 
 typedef space_unit     font_unit;
 typedef math::vector2  font_pos;

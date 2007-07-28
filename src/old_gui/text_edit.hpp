@@ -58,7 +58,6 @@ private:
 	string::size_type      text_start,
 	                       cursor_pos;
 	text_cursor            cur;
-	static const font_flag_t flags = FTF_AlignLeft | FTF_AlignVCenter | FTF_NoMultiLine;
 };
 
 typedef shared_ptr<text_edit> text_edit_ptr;

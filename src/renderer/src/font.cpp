@@ -37,7 +37,7 @@ sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const s
  : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    rend(rend),
    impl(font_sys->create_font(rend, font_name, quality_in_pixel)),
-   vb(rend->create_vertex_buffer(vertex_format().add(VU_Pos).add(VU_Tex), 200)),
+   vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::tex), 200)),
    ib(rend->create_index_buffer(vb->size()*3/2))
 {
 	height_pixel_scale(1);
@@ -80,23 +80,23 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 		ib->resize(ibsize);
 
 	font_pos pos = start_pos;
-	if(flags & FTF_AlignVCenter || flags & FTF_AlignBottom)
+	if(flags & font_flags::align_vcenter || flags & font_flags::align_bottom)
 	{
 		const font_unit text_height = text_size(text.begin(), text.end(), max_sz.w(), flags).h();
-		if(flags & FTF_AlignVCenter)
+		if(flags & font_flags::align_vcenter)
 			pos.y() += (max_sz.h() - text_height) / 2.f;
-		else if(flags & FTF_AlignBottom)
+		else if(flags & font_flags::align_bottom)
 			pos.y() += max_sz.h() - text_height;
 		if(pos.y() < start_pos.y())
 			pos.y() = start_pos.y();
 	}
 
-	rend->set_int_state(IS_AmbientLightColor,col);
+	rend->set_color_state(color_state::ambient_light_color,col);
 
 	font_size sz(0,0);
 	string_type::const_iterator sbeg(text.begin());
 
-	lock_ptr<vertex_buffer_ptr> _lock(vb,LF_Discard);
+	lock_ptr<vertex_buffer_ptr> _lock(vb);
 	vertex_buffer::iterator vit = vb->begin();
 
 	std::size_t chars_to_draw = 0;
@@ -107,9 +107,9 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 			break;
 
 		pos.x() = start_pos.x();
-		if(flags & FTF_AlignHCenter)
+		if(flags & font_flags::align_hcenter)
 			pos.x() += (max_sz.w() - line_size.width) / 2;
-		else if(flags & FTF_AlignRight)
+		else if(flags & font_flags::align_right)
 			pos.x() += max_sz.w() - line_size.width;
 
 		for(;sbeg != line_size.end; ++sbeg)
@@ -135,7 +135,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 		sz.w() = std::max(sz.w(), line_size.width);
 		sz.h() += height();
 
-		if(flags & FTF_NoMultiLine)
+		if(flags & font_flags::no_multi_line)
 			break;
 
 		sbeg = line_size.next_begin;
@@ -183,7 +183,7 @@ sge::font::line_size_t sge::font::text_width_unformatted(string_type::const_iter
 
 sge::font_size sge::font::text_size(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
 {
-	if(flags & FTF_NoMultiLine)
+	if(flags & font_flags::no_multi_line)
 		return font_size(text_width_unformatted(sbeg, send, width).width, height());
 
 	font_size sz(0,0);
@@ -207,7 +207,7 @@ sge::font_size sge::font::text_size(const string_type& s, const font_unit width,
 
 sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
 {
-	if(flags & FTF_NoMultiLine)
+	if(flags & font_flags::no_multi_line)
 		return text_width_unformatted(sbeg, send, width);
 
 	font_unit w(0), last_width(0);
@@ -226,7 +226,7 @@ sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, c
 		if(nw > width)
 		{
 			const font_unit ret_width =  last_width == 0 ? w : last_width;
-			if(flags & FTF_NoLineWrap)
+			if(flags & font_flags::no_line_wrap)
 			{
 				const string_type::const_iterator next_nl = std::find(sbeg, send, uchar_t('\n')),
 				                                  next_begin = next_nl == send ? send : boost::next(next_nl);
@@ -244,7 +244,7 @@ void sge::font::flush()
 	// FIXME
 //	std::sort(jobs.begin(), jobs.end(), boost::lambda::bind(&job::tex, boost::lambda::_1) < boost::lambda::bind(&job::tex, boost::lambda::_2));
 	{
-		lock_ptr<index_buffer_ptr> _lock(ib,LF_Discard);
+		lock_ptr<index_buffer_ptr> _lock(ib);
 		index_buffer::iterator iib = ib->begin();
 		for(job_array::const_iterator it = jobs.begin(); it != jobs.end(); ++it)
 			for(size_type i = it->first_index; i < it->end_index; ++i)
@@ -260,7 +260,7 @@ void sge::font::flush()
 			rend->set_texture(it->tex);
 			last_texture = it->tex;
 		}
-		rend->render(vb, ib, 0, vb->size(), PT_Triangle, (it->end_index - it->first_index)*2, it->first_index*6);
+		rend->render(vb, ib, 0, vb->size(), indexed_primitive_type::triangle, (it->end_index - it->first_index)*2, it->first_index*6);
 	}
 	jobs.clear();
 }
@@ -268,8 +268,8 @@ void sge::font::flush()
 void sge::font::set_parameters()
 {
 	set_matrices();
-	rend->set_bool_state(BS_EnableLighting,true);
-	rend->set_bool_state(BS_EnableAlphaBlending,true);
+	rend->set_bool_state(bool_state::enable_lighting,true);
+	rend->set_bool_state(bool_state::enable_alpha_blending,true);
 	rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
 }
 

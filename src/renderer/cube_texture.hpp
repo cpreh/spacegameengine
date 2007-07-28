@@ -28,6 +28,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+namespace cube_side
+{
+	enum type {
+		front,
+		back,
+		left,
+		right,
+		top,
+		bottom,
+		num_elements
+	};
+}
+
 template<typename BitDepth>
 class basic_cube_texture : public basic_texture_base<BitDepth> {
 public:
@@ -35,18 +48,19 @@ public:
 	typedef typename base::const_pointer const_pointer;
 	typedef typename base::size_type size_type;
 
-	virtual void set_data(cube_side side, const_pointer p, const lock_rect* r = 0) = 0;
+	virtual void set_data(cube_side::type side, const_pointer p, const lock_rect* r = 0) = 0;
 	virtual size_type border_size() const = 0;
 };
 
 typedef basic_cube_texture<bit_depth32> cube_texture;
 typedef shared_ptr<cube_texture> cube_texture_ptr;
-typedef boost::array<cube_texture::const_pointer,CS_num_elements> cube_side_array;
+typedef boost::array<cube_texture::const_pointer, cube_side::num_elements> cube_side_array;
 
-template<typename BitDepth> void set_cube_texture_data(basic_cube_texture<BitDepth>& t, const cube_side_array& src)
+template<typename BitDepth>
+void set_cube_texture_data(basic_cube_texture<BitDepth>& t, const cube_side_array& src)
 {
-	for(unsigned i = 0; i < CS_num_elements; ++i)
-		t.set_data(static_cast<cube_side>(i),src[i]);
+	for(unsigned i = 0; i < cube_side::num_elements; ++i)
+		t.set_data(static_cast<cube_side::type>(i), src[i]);
 }
 
 }

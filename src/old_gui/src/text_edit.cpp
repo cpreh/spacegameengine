@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../manager.hpp"
 #include "../skin.hpp"
 #include "../../unicode.hpp"
+#include "../../renderer/font.hpp"
+
+const sge::font_flag_t flags = sge::font_flags::align_left | sge::font_flags::align_vcenter | sge::font_flags::no_multi_line;
 
 sge::gui::text_edit::text_edit(manager& m, element* const parent, const point pos, const dim sz, const string& _text, const color _text_color, const bool visible, const bool enabled)
 : rectangle(m, parent, pos, sz, skin::textedit_name, visible, enabled),
@@ -150,5 +153,3 @@ void sge::gui::text_edit::text_color(const color c)
 {
 	_text_color = c;
 }
-
-const sge::font_flag_t sge::gui::text_edit::flags;

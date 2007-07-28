@@ -48,7 +48,7 @@ void sge::gui::list::on_draw(const draw_event& event)
 //			m.draw_selection(point(event.pos().x(),event.pos().y()+line_height*(i-scroll_pos)),
 //					 dim(width(),line_height));
 		my_font.draw_text(elements.at(i), point(event.pos().x(), event.pos().y() + line_height*(i-scroll_pos)),
-		                  dim(width(),line_height),text_color, FTF_Default | FTF_NoMultiLine);
+		                  dim(width(),line_height),text_color, font_flags::default_ | font_flags::no_multi_line);
 	}
 }
 

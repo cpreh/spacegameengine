@@ -62,22 +62,21 @@ public:
 	            index_buffer_ptr ib,
 	            sge::vertex_buffer::size_type first_vertex,
 	            sge::vertex_buffer::size_type num_vertices,
-	            indexed_primitive_type ptype,
+	            indexed_primitive_type::type ptype,
 	            sge::index_buffer::size_type pcount,
 	            sge::index_buffer::size_type first_index);
 	void render(vertex_buffer_ptr vb,
 	            vertex_buffer::size_type first_vertex,
 	            vertex_buffer::size_type num_vertices,
-	            nonindexed_primitive_type ptype);
+	            nonindexed_primitive_type::type ptype);
 
-
-	void set_int_state(int_state state, int_type value);
-	void set_float_state(float_state state, float_type value);
-	void set_bool_state(bool_state state, bool_type value);
-	void set_cull_mode(cull_mode mode);
-	void set_depth_func(depth_func func);
-	void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value);
-	void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value);
+	void set_int_state(int_state::type, int_type value);
+	void set_float_state(float_state::type, float_type value);
+	void set_bool_state(bool_state::type, bool_type value);
+	void set_color_state(color_state::type, color value);
+	void set_cull_mode(cull_mode::type);
+	void set_depth_func(depth_func::type);
+	void set_fog_mode(fog_mode::type);
 	void set_texture(texture_base_ptr tex, stage_type stage);
 	void set_material(const material& mat);
 	void transform(const math::space_matrix& matrix);

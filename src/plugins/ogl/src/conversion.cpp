@@ -18,169 +18,172 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../exception.hpp"
 #include "../conversion.hpp"
 
 GLuint sge::ogl::convert_lock_flags(const lock_flag_t f)
 {
-	if(f & LF_Discard)
+	if(f & lock_flags::discard)
 		return GL_WRITE_ONLY_ARB;
 	return GL_READ_WRITE_ARB;
 }
 
 GLuint sge::ogl::convert_resource_flags(const resource_flag_t f)
 {
-	if(f & RF_Dynamic)
+	if(f & resource_flags::dynamic)
 		return GL_DYNAMIC_DRAW_ARB;
 	return GL_STATIC_DRAW_ARB;
 }
 
-template<> GLenum sge::ogl::convert_cast(const nonindexed_primitive_type& t)
+template<> GLenum sge::ogl::convert_cast(const nonindexed_primitive_type::type& t)
 {
 	switch(t) {
-	case PT_Point:
+	case nonindexed_primitive_type::point:
 		return GL_POINTS;
-	case PT_LineStrip:
+	case nonindexed_primitive_type::line_strip:
 		return GL_LINE_STRIP;
-	case PT_TriangleStrip:
+	case nonindexed_primitive_type::triangle_strip:
 		return GL_TRIANGLE_STRIP;
-	case PT_TriangleFan:
+	case nonindexed_primitive_type::triangle_fan:
 		return GL_TRIANGLE_FAN;
-	case PT_LineLoop:
+	case nonindexed_primitive_type::line_loop:
 		return GL_LINE_LOOP;
 	default:
-		throw std::logic_error("unsupported indexed_primitive_type");
+		throw exception("Invalid indexed_primitive_type!");
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const indexed_primitive_type& t)
+template<> GLenum sge::ogl::convert_cast(const indexed_primitive_type::type& t)
 {
 	switch(t) {
-	case PT_Line:
+	case indexed_primitive_type::line:
 		return GL_LINES;
-	case PT_Triangle:
+	case indexed_primitive_type::triangle:
 		return GL_TRIANGLES;
 	default:
-		throw std::logic_error("unsupported nonindexed_primitive_type");
+		throw exception("Invalid nonindexed_primitive_type!");
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const bool_state& state)
+template<> GLenum sge::ogl::convert_cast(const bool_state::type& state)
 {
 	switch(state) {
-	case BS_EnableAlphaBlending:
+	case bool_state::enable_alpha_blending:
 		return GL_BLEND;
-	case BS_EnableZBuffer:
+	case bool_state::enable_zbuffer:
 		return GL_DEPTH_TEST;
-	case BS_EnableStencil:
+	case bool_state::enable_stencil:
 		return GL_STENCIL_TEST;
-	case BS_EnableFog:
+	case bool_state::enable_fog:
 		return GL_FOG;
-	case BS_EnableLighting:
+	case bool_state::enable_lighting:
 		return GL_LIGHTING;
-	case BS_EnableCulling:
+	case bool_state::enable_culling:
 		return GL_CULL_FACE;
 	default:
-		throw std::logic_error("unsupported bool_state");
+		throw exception("Invalid bool_state!");
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const min_filter_value& arg)
+template<> GLenum sge::ogl::convert_cast(const min_filter::type& arg)
 {
 	switch(arg) {
-	case FVMin_Point:
+	case min_filter::point:
 		return GL_NEAREST;
-	case FVMin_Linear:
+	case min_filter::linear:
 		return GL_LINEAR;
-	case FVMin_MipMap:
+	case min_filter::mipmap:
 		return GL_LINEAR_MIPMAP_NEAREST;
-	case FVMin_Trilinear:
+	case min_filter::trilinear:
 		return GL_LINEAR_MIPMAP_LINEAR;
 	default:
-		throw std::logic_error("unsupported min_filter_arg_value");
+		throw exception("Invalid min_filter!");
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const mag_filter_value& arg)
+template<> GLenum sge::ogl::convert_cast(const mag_filter::type& arg)
 {
 	switch(arg) {
-	case FVMin_Point:
+	case mag_filter::point:
 		return GL_NEAREST;
-	case FVMin_Linear:
+	case mag_filter::linear:
 		return GL_LINEAR;
 	default:
-		throw std::logic_error("unsupported mag_filter_arg_value");
+		throw exception("Invalid mag_filter!");
 	}
 }
-template<> GLenum sge::ogl::convert_cast(const cube_side& s)
+template<> GLenum sge::ogl::convert_cast(const cube_side::type& s)
 {
 	switch(s) {
-	case CS_Left:
+	case cube_side::left:
 		return GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB;
-	case CS_Right:
+	case cube_side::right:
 		return GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB;
-	case CS_Front:
+	case cube_side::front:
 		return GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB;
-	case CS_Back:
+	case cube_side::back:
 		return GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB;
-	case CS_Top:
+	case cube_side::top:
 		return GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB;
-	case CS_Bottom:
+	case cube_side::bottom:
 		return GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB;
 	default:
-		throw std::logic_error("unsupported cube_side");
+		throw exception("Invalid cube_side!");
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const cull_mode& m)
+template<> GLenum sge::ogl::convert_cast(const cull_mode::type& m)
 {
 	switch(m) {
-	case CM_Back:
+	case cull_mode::back:
 		return GL_BACK;
-	case CM_Front:
+	case cull_mode::front:
 		return GL_FRONT;
 	default:
-		throw std::logic_error("unsupported cull_mode");
+		throw exception("Invalid cull_mode!");
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const depth_func& f)
+template<> GLenum sge::ogl::convert_cast(const depth_func::type& f)
 {
 	switch(f) {
-	case DF_Greater:
+	case depth_func::greater:
 		return GL_GREATER;
-	case DF_LessEqual:
+	case depth_func::less_equal:
 		return GL_LEQUAL;
-	case DF_Never:
+	case depth_func::never:
 		return GL_NEVER;
+	case depth_func::always:
+		return GL_ALWAYS;
 	default:
-		throw std::logic_error("unsupported depth_func");
+		throw exception("Invalid depth_func!");
 	}
 }
 
-GLenum sge::ogl::convert_fog_float_state(const float_state& s)
+template<> GLenum sge::ogl::convert_cast(const fog_mode::type& m)
 {
-	switch(s) {
-	case FS_FogStart:
-		return GL_FOG_START;
-	case FS_FogEnd:
-		return GL_FOG_END;
-	case FS_FogDensity:
-		return GL_FOG_DENSITY;
-	default:
-		throw std::logic_error("unsupported float_state");
-	}
-}
-
-GLint sge::ogl::convert_fog_int_value(const int_type& v)
-{
-	switch(v) {
-	case FM_Linear:
+	switch(m) {
+	case fog_mode::linear:
 		return GL_LINEAR;
-	case FM_Exp:
+	case fog_mode::exp:
 		return GL_EXP;
-	case FM_Exp2:
+	case fog_mode::exp2:
 		return GL_EXP2;
 	default:
-		throw std::logic_error("int_value for IS_FogMode out of range");
+		throw exception("Invalid fog_mode!");
+	}
+}
+
+GLenum sge::ogl::convert_fog_float_state(const float_state::type& s)
+{
+	switch(s) {
+	case float_state::fog_start:
+		return GL_FOG_START;
+	case float_state::fog_end:
+		return GL_FOG_END;
+	case float_state::fog_density:
+		return GL_FOG_DENSITY;
+	default:
+		throw exception("Invalid fog float_state!");
 	}
 }

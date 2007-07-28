@@ -40,6 +40,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+namespace font_flags
+{
+	enum type {
+		align_left     = 1,
+		align_right    = 1 << 1,
+		align_hcenter  = 1 << 2,
+		align_top      = 1 << 3,
+		align_vcenter  = 1 << 4,
+		align_bottom   = 1 << 5,
+		no_multi_line  = 1 << 6,
+		no_line_wrap   = 1 << 7,
+		default_       = align_left | align_top
+	};
+}
+typedef unsigned font_flag_t; // FIXME
+
 class font : public default_transformable {
 public:
 	typedef font_char char_type;
@@ -53,7 +69,7 @@ public:
 	font_unit height() const;
 	font_unit optimal_height_base() const;
 
-	font_size draw_text(const string_type& text, font_pos pos, font_size max_size, color col, font_flag_t flags = FTF_Default);
+	font_size draw_text(const string_type& text, font_pos pos, font_size max_size, color col, font_flag_t flags = font_flags::default_);
 
 	struct line_size_t {
 		font_unit width;
@@ -68,8 +84,8 @@ public:
 	line_size_t line_width(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t tflags) const;
 	font_unit char_width(char_type ch) const;
 	font_unit char_space(char_type ch) const;
-	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = FTF_Default) const;
-	font_size text_size(const string_type& s, font_unit width, font_flag_t flags = FTF_Default) const;
+	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = font_flags::default_) const;
+	font_size text_size(const string_type& s, font_unit width, font_flag_t flags = font_flags::default_) const;
 	font_metrics_ptr metrics() const;
 private:
 	void set_parameters();

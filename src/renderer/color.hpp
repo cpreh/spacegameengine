@@ -291,6 +291,22 @@ inline color4 color_to_color4(const color c)
 	return color4(red_part_rgba_f(c), green_part_rgba_f(c), blue_part_rgba_f(c), alpha_part_rgba_f(c));
 }
 
+// TODO
+inline color sge_to_rgba(const color c)
+{
+	return c;
+}
+
+inline color sge_to_argb(const color c)
+{
+	return c;
+}
+
+inline color sge_to_bgra(const color c)
+{
+	return c;
+}
+
 /*inline color rgba_to_sge(const color c)
 {
 	return (c >> 8) | ((c & 0xFF) << 24);

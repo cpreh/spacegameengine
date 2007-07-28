@@ -254,7 +254,7 @@ try
 	sge::vertex_buffer::size_type vb_sz = 0;
 	for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
 		vb_sz += surf_it->transformed_vertices.size();
-	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::VU_Pos), vb_sz);
+	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos), vb_sz);
 
 
 	sge::index_buffer::size_type ib_sz = 0;
@@ -292,6 +292,8 @@ try
 			}
 		}
 	}
+
+	rend->set_bool_state(sge::bool_state::clear_backbuffer, true);
 
 	sge::math::vector3 translation(0, 0, -200);
 	float angle(0);
@@ -341,7 +343,7 @@ try
 		//fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0.1,0.9),sge::font_size(1,1),sge::colors::purple);
 		//ls.render();
 
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::PT_Triangle, ib_sz, 0);
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
 //		con.draw();
 		rend->end_rendering();

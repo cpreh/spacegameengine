@@ -26,7 +26,7 @@ sge::gui::static_text::static_text(manager& m, element* const parent, const stri
 :  rectangle(m, parent, pos, sz, texture_map::no_texture, visible, enabled),
    _text(_text),
    _text_color(_text_color),
-   _style(FTF_Default)
+   _style(font_flags::default_)
 {}
 
 void sge::gui::static_text::on_draw(const draw_event& event)

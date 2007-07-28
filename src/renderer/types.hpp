@@ -41,18 +41,15 @@ namespace bit_depth
 	};
 }
 
-inline unsigned bit_depth_bit_count(const bit_depth::type d)
-{
-	return d == bit_depth::depth32 ? 32 : 16;
-}
+unsigned bit_depth_bit_count(const bit_depth::type d);
 
-typedef int pixel_unit;
-typedef unsigned screen_unit;
+typedef int                        pixel_unit;
+typedef unsigned                   screen_unit;
 typedef math::vector<pixel_unit,2> pixel_pos_t;
-typedef math::dim<screen_unit,2> screen_size_t;
+typedef math::dim<screen_unit,2>   screen_size_t;
 
 struct display_mode {
-	display_mode(const screen_unit width, const screen_unit height, const bit_depth::type depth, const unsigned refresh_rate = 0);
+	display_mode(screen_unit width, screen_unit height, bit_depth::type depth, unsigned refresh_rate = 0);
 	
 	screen_size_t   size;
 	bit_depth::type depth;
@@ -76,25 +73,6 @@ inline bool operator!= (const display_mode& l, const display_mode& r)
 
 typedef unsigned multi_sample_type;
 
-struct renderer_parameters {
-	renderer_parameters(const display_mode& mode, const bool windowed = false, const multi_sample_type samples = 1, const bool vsync = true)
-	: mode(mode), samples(samples), windowed(windowed), vsync(vsync) {}
-
-	display_mode      mode;
-	multi_sample_type samples;
-	bool              windowed;
-	bool              vsync;
-};
-
-inline bool operator== (const renderer_parameters& l, const renderer_parameters& r)
-{
-	return l.mode == r.mode && l.samples == r.samples && l.windowed == r.windowed && l.vsync == r.vsync;
-}
-
-inline bool operator!= (const renderer_parameters& l, const renderer_parameters& r)
-{
-	return !(l==r);
-}
 
 typedef std::vector<display_mode> display_mode_array;
 struct renderer_caps {
@@ -106,167 +84,68 @@ struct renderer_caps {
 	unsigned max_anisotropy_level;
 };
 
-enum resource_flags {
-	RF_None,
-	RF_Dynamic     = 1,
-	RF_WriteOnly   = 1 << 1,
-	RF_Default     = RF_WriteOnly,
-	RF_num_elements
-};
-typedef unsigned resource_flag_t;
+namespace resource_flags
+{
+	enum type {
+		none,
+		dynamic     = 1,
+		write_only  = 1 << 1,
+		default_    = write_only
+	};
+}
+typedef unsigned resource_flag_t; // FIXME
 
-enum lock_flags {
-	LF_Default,
-	LF_Discard
-};
-typedef unsigned lock_flag_t;
+namespace lock_flags
+{
+	enum type {
+		none,
+		discard,
+		default_ = discard
+	};
+}
+typedef unsigned lock_flag_t; // FIXME
 
 typedef math::vector2  tex_pos;
 typedef math::vector3  pos3;
-typedef uint32         int_type;
-typedef space_unit     float_type;
-typedef bool           bool_type;
 
-enum indexed_primitive_type {
-	PT_Line,
-	PT_Triangle
-};
+namespace min_filter
+{
+	enum type {
+		point,
+		linear,
+		mipmap,
+		trilinear
+	};
+}
 
-enum nonindexed_primitive_type {
-	PT_Point,
-	PT_LineStrip,
-	PT_LineLoop,
-	PT_TriangleStrip,
-	PT_TriangleFan
-};
-
-enum int_state {
-	IS_ClearColor,
-	IS_StencilClearVal,
-	IS_DepthClearVal,
-	IS_AmbientLightColor,
-	IS_FogColor,
-	IS_FogMode
-};
-
-enum fog_mode {
-	FM_Linear,
-	FM_Exp,
-	FM_Exp2
-};
-
-enum float_state {
-	FS_ZBufferClearVal,
-	FS_FogStart,
-	FS_FogEnd,
-	FS_FogDensity
-};
-
-enum bool_state {
-	BS_ClearZBuffer,
-	BS_ClearBackBuffer,
-	BS_ClearStencil,
-	BS_EnableFog,
-	BS_EnableStencil,
-	BS_EnableAlphaBlending,
-	BS_EnableZBuffer,
-	BS_EnableLighting,
-	BS_EnableCulling
-};
-
-enum stage_op {
-	SOP_Color,
-	SOP_Alpha
-};
-
-enum cull_mode {
-	CM_Back,
-	CM_Front
-};
-
-enum depth_func {
-	DF_Greater,
-	DF_LessEqual,
-	DF_Never
-};
-
-enum stage_op_value {
-	SOPV_Disable,
-	SOPV_SelectArg1,
-	SOPV_SelectArg2,
-	SOPV_Modulate,
-	SOPV_Modulate2X,
-	SOPV_Modulate4X,
-	SOPV_Add,
-	SOPV_AddSigned,
-	SOPV_AddSigned2X,
-	SOPV_Subtract,
-	SOPV_AddSmooth,
-	SOPV_BlendDiffuseAlpha,
-	SOPV_BlendTextureAlpha,
-	SOPV_BlendFactorAlpha,
-	SOPV_BlendTextureAlphaPM,
-	SOPV_BlendCurrentAlpha,
-	SOPV_PreModulate,
-	SOPV_ModulateAlphaAddColor,
-	SOPV_ModulateColorAddAlpha,
-	SOPV_ModulateInvAlphaAddColor,
-	SOPV_ModulateInvColorAddAlpha,
-	SOPV_BumpenvMap,
-	SOPV_BumpenvMapLuminance,
-	SOPV_DotProduct3,
-	SOPV_MultiplyAdd,
-	SOPV_Lerp
-};
-
-enum stage_arg {
-	SARG_Color1,
-	SARG_Color2,
-	SARG_Alpha1,
-	SARG_Alpha2
-};
-
-enum stage_arg_value {
-	SARGV_Constant,
-	SARGV_Current,
-	SARGV_Diffuse,
-	SARGV_Specular,
-	SARGV_Temp,
-	SARGV_Texture
-};
-
-enum min_filter_value {
-	FVMin_Point,
-	FVMin_Linear,
-	FVMin_MipMap,
-	FVMin_Trilinear
-};
-
-enum mag_filter_value {
-	FVMag_Point,
-	FVMag_Linear
-};
+namespace mag_filter
+{
+	enum type {
+		point,
+		linear
+	};
+}
 
 struct filter_args {
 	typedef unsigned anisotropy_level_type;
 
-	filter_args(const min_filter_value min_filter,
-	            const mag_filter_value mag_filter,
+	filter_args(const min_filter::type min_filter,
+	            const mag_filter::type mag_filter,
 	            const anisotropy_level_type anisotropy_level = 0)
 	 : min_filter(min_filter),
 	   mag_filter(mag_filter),
 	   anisotropy_level(anisotropy_level)
 	{}
 
-	min_filter_value      min_filter;
-	mag_filter_value      mag_filter;
+	min_filter::type      min_filter;
+	mag_filter::type      mag_filter;
 	anisotropy_level_type anisotropy_level;
 };
 
-const filter_args linear_filter(FVMin_Linear, FVMag_Linear),
-                  point_filter(FVMin_Point, FVMag_Point),
-                  mip_filter(FVMin_MipMap, FVMag_Linear),
-                  trilinear_filter(FVMin_Trilinear, FVMag_Linear);
+const filter_args linear_filter(min_filter::linear, mag_filter::linear),
+                  point_filter(min_filter::point, mag_filter::point),
+                  mip_filter(min_filter::mipmap, mag_filter::linear),
+                  trilinear_filter(min_filter::trilinear, mag_filter::linear);
 
 typedef std::size_t stage_type;
 
@@ -290,15 +169,7 @@ struct material {
 	space_unit power; 
 };
 
-enum cube_side {
-	CS_Front,
-	CS_Back,
-	CS_Left,
-	CS_Right,
-	CS_Top,
-	CS_Bottom,
-	CS_num_elements
-};
+
 
 }
 

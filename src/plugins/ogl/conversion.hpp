@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_CONVERSION_HPP_INCLUDED
 
 #include "../../renderer/types.hpp"
+#include "../../renderer/renderer.hpp"
+#include "../../renderer/cube_texture.hpp"
 #include "common.hpp"
 
 namespace sge
@@ -30,19 +32,19 @@ namespace ogl
 {
 
 template<typename D, typename S> D convert_cast(const S&);
-template<> GLenum convert_cast(const indexed_primitive_type&);
-template<> GLenum convert_cast(const nonindexed_primitive_type&);
-template<> GLenum convert_cast(const bool_state&);
-template<> GLenum convert_cast(const min_filter_value&);
-template<> GLenum convert_cast(const mag_filter_value&);
-template<> GLenum convert_cast(const cube_side&);
-template<> GLenum convert_cast(const cull_mode&);
-template<> GLenum convert_cast(const depth_func&);
+template<> GLenum convert_cast(const indexed_primitive_type::type&);
+template<> GLenum convert_cast(const nonindexed_primitive_type::type&);
+template<> GLenum convert_cast(const bool_state::type&);
+template<> GLenum convert_cast(const min_filter::type&);
+template<> GLenum convert_cast(const mag_filter::type&);
+template<> GLenum convert_cast(const cube_side::type&);
+template<> GLenum convert_cast(const cull_mode::type&);
+template<> GLenum convert_cast(const depth_func::type&);
+template<> GLenum convert_cast(const fog_mode::type&);
 
 GLuint convert_lock_flags(lock_flag_t);
 GLuint convert_resource_flags(resource_flag_t);
-GLenum convert_fog_float_state(const float_state&);
-GLint convert_fog_int_value(const int_type&);
+GLenum convert_fog_float_state(const float_state::type&);
 
 }
 }

@@ -24,19 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "types.hpp"
 #include "texture_base.hpp"
 #include "volume_texture.hpp"
+#include "cube_texture.hpp"
 
 namespace sge
 {
 
 template<typename T> class lock_ptr {
 public:
-	lock_ptr(const T t, const lock_flag_t flags = LF_Default)
+	lock_ptr(const T t, const lock_flag_t flags = resource_flags::default_)
 	 : t(t)
 	{
 		t->lock(flags);
 	}
 
-	lock_ptr(const T t, const cube_side side, const lock_flag_t flags = LF_Default)
+	lock_ptr(const T t, const cube_side::type side, const lock_flag_t flags = resource_flags::default_)
 	 : t(t)
 	{
 		t->lock(side,flags);

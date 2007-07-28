@@ -32,7 +32,7 @@ namespace sge
 texture_ptr create_texture(renderer_ptr r,
                            image_ptr p,
                            const filter_args& filter = linear_filter,
-                           resource_flag_t flags = RF_Default);
+                           resource_flag_t flags = resource_flags::default_);
 
 texture_ptr create_texture(const std::string& path,
                            renderer_ptr r,
@@ -40,7 +40,7 @@ texture_ptr create_texture(const std::string& path,
                            image::size_type w = 0,
                            image::size_type h = 0,
                            const filter_args& filter = linear_filter,
-                           resource_flag_t flags = RF_Default);
+                           resource_flag_t flags = resource_flags::default_);
 
 }
 

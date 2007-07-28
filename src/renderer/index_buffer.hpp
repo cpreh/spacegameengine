@@ -46,7 +46,7 @@ public:
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 	static const size_type stride = sizeof(value_type);
 	
-	virtual void lock(lock_flag_t flags = LF_Default) = 0;
+	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;
 	virtual void unlock() = 0;
 	virtual void set_data(const_pointer data, size_type first, size_type count) = 0;
 	virtual iterator begin() = 0;

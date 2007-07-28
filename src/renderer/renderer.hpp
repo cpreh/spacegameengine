@@ -36,29 +36,120 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+namespace int_state
+{
+	enum type {
+		stencil_clear_val
+	};
+}
+
+namespace float_state
+{
+	enum type {
+		zbuffer_clear_val,
+		fog_start,
+		fog_end,
+		fog_density
+	};
+}
+
+namespace bool_state
+{
+	enum type {
+		clear_zbuffer,
+		clear_backbuffer,
+		clear_stencil,
+		enable_fog,
+		enable_stencil,
+		enable_alpha_blending,
+		enable_zbuffer,
+		enable_lighting,
+		enable_culling
+	};
+}
+
+namespace color_state
+{
+	enum type {
+		clear_color,
+		ambient_light_color,
+		fog_color
+	};
+}
+
+namespace cull_mode
+{
+	enum type {
+		back,
+		front
+	};
+}
+
+namespace depth_func
+{
+	enum type {
+		greater,
+		less_equal,
+		never,
+		always
+	};
+}
+
+namespace fog_mode
+{
+	enum type {
+		linear,
+		exp,
+		exp2
+	};
+}
+
+namespace indexed_primitive_type
+{
+	enum type {
+		line,
+		triangle
+	};
+}
+
+namespace nonindexed_primitive_type
+{
+	enum type {
+		point,
+		line_strip,
+		line_loop,
+		triangle_strip,
+		triangle_fan
+	};
+}
+
 class renderer {
 public:
+	typedef uint32         int_type;
+	typedef space_unit     float_type;
+	typedef bool           bool_type;
+
 	virtual void begin_rendering() = 0;
 	virtual void end_rendering() = 0;
 	virtual void render(vertex_buffer_ptr vb,
 	                    index_buffer_ptr ib,
 	                    vertex_buffer::size_type first_vertex,
 	                    vertex_buffer::size_type num_vertices,
-	                    indexed_primitive_type ptype,
+	                    indexed_primitive_type::type ptype,
 	                    index_buffer::size_type primitive_count,
 	                    index_buffer::size_type first_index) = 0;
 	virtual void render(vertex_buffer_ptr vb,
 	                    vertex_buffer::size_type first_vertex,
 	                    vertex_buffer::size_type num_vertices,
-	                    nonindexed_primitive_type ptype) = 0;
+	                    nonindexed_primitive_type::type ptype) = 0;
 
-	virtual void set_int_state(int_state _state, int_type value) = 0;
-	virtual void set_float_state(float_state _state, float_type value) = 0;
-	virtual void set_bool_state(bool_state _state, bool_type value) = 0;
-	virtual void set_cull_mode(cull_mode mode) = 0;
-	virtual void set_depth_func(depth_func func) = 0;
-	virtual void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value) = 0;
-	virtual void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value) = 0;
+	virtual void set_int_state(int_state::type, int_type value) = 0;
+	virtual void set_float_state(float_state::type, float_type value) = 0;
+	virtual void set_bool_state(bool_state::type, bool_type value) = 0;
+	virtual void set_color_state(color_state::type, color value) = 0;
+	virtual void set_cull_mode(cull_mode::type) = 0;
+	virtual void set_depth_func(depth_func::type) = 0;
+	virtual void set_fog_mode(fog_mode::type) = 0;
 	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;
 	virtual void set_material(const material& mat) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;
@@ -72,22 +163,28 @@ public:
 	                                   texture::size_type width,
 	                                   texture::size_type height,
 	                                   const filter_args& filter,
-	                                   resource_flag_t flags = RF_Default) = 0;
+	                                   resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual volume_texture_ptr create_volume_texture(volume_texture::const_pointer data,
 	                                                 volume_texture::size_type width,
 	                                                 volume_texture::size_type height,
 	                                                 volume_texture::size_type depth,
 	                                                 const filter_args& filter,
-	                                                 resource_flag_t flags = RF_Default) = 0;
+	                                                 resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual cube_texture_ptr create_cube_texture(const cube_side_array* data,
 	                                             cube_texture::size_type size,
 	                                             const filter_args& filter,
-	                                             resource_flag_t flags = RF_Default) = 0;
+	                                             resource_flag_t flags = resource_flags::default_) = 0;
 
-	virtual vertex_buffer_ptr create_vertex_buffer(const vertex_format& format, vertex_buffer::size_type size, resource_flag_t flags = RF_Default, vertex_buffer::const_pointer data = 0) = 0;
-	virtual index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags = RF_Default, index_buffer::const_pointer data = 0) = 0;
+	virtual vertex_buffer_ptr create_vertex_buffer(const vertex_format& format,
+	                                               vertex_buffer::size_type size,
+	                                               resource_flag_t flags = resource_flags::default_,
+	                                               vertex_buffer::const_pointer data = 0) = 0;
+
+	virtual index_buffer_ptr create_index_buffer(index_buffer::size_type size,
+	                                             resource_flag_t flags = resource_flags::default_,
+	                                             index_buffer::const_pointer data = 0) = 0;
 
 	virtual const renderer_caps& caps() const = 0;
 	virtual screen_size_t screen_size() const = 0;

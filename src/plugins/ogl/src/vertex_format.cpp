@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../vertex_format.hpp"
 #include "../error.hpp"
 
@@ -33,6 +33,7 @@ sge::ogl::actor_base::actor_base(const actor_info& ai)
 {}
 
 namespace {
+	using sge::runtime_error;
 	using sge::ogl::is_error;
 	typedef sge::ogl::actor_base actor_base;
 	typedef sge::ogl::actor_info actor_info;
@@ -46,7 +47,7 @@ namespace {
 			glVertexPointer(3, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_VERTEX_ARRAY);
 			if(is_error())
-				throw std::runtime_error("Enabling positions on ogl stream failed!");
+				throw runtime_error("Enabling positions on ogl stream failed!");
 		}
 	};
 
@@ -59,7 +60,7 @@ namespace {
 			glNormalPointer(GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_NORMAL_ARRAY);
 			if(is_error())
-				throw std::runtime_error("Enabling normals on ogl stream failed!");
+				throw runtime_error("Enabling normals on ogl stream failed!");
 		}
 	};
 
@@ -73,7 +74,7 @@ namespace {
 			glTexCoordPointer(2, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			if(is_error())
-				throw std::runtime_error("Enabling texture coordinates on ogl stream failed!");
+				throw runtime_error("Enabling texture coordinates on ogl stream failed!");
 		}
 	};
 
@@ -86,7 +87,7 @@ namespace {
   			glColorPointer(4, GL_UNSIGNED_BYTE, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_COLOR_ARRAY);
 			if(is_error())
-				throw std::runtime_error("Enabling diffuse colors on ogl stream failed!");
+				throw runtime_error("Enabling diffuse colors on ogl stream failed!");
 		}
 	};
 }
@@ -102,20 +103,20 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 		{
 			const actor_info ai(offset + count*it->size(), f.stride(), count);
 			switch(it->usage()) {
-			case VU_Pos:
+			case vertex_usage::pos:
 				actors.push_back(new pos_actor(ai));
 				break;
-			case VU_Tex:
+			case vertex_usage::tex:
 				actors.push_back(new tex_actor(ai));
 				break;
-			case VU_Normal:
+			case vertex_usage::normal:
 				actors.push_back(new normal_actor(ai));
 				break;
-			case VU_Diffuse:
+			case vertex_usage::diffuse:
 				actors.push_back(new diffuse_actor(ai));
 				break;
 			default:
-				throw std::runtime_error("unsupported vertex_usage");
+				throw runtime_error("unsupported vertex_usage");
 			}
 		}
 		

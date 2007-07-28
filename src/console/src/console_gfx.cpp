@@ -284,7 +284,7 @@ void sge::con::console_gfx::draw()
 		edit_input_line[cursor_position] = '\r';
 
 	// Eingabezeile ganz unten zeichnen
-	fn.draw_text(edit_input_line, math::vector2(0,console_size.h() - fn.height()), math::dim2(console_size.w(), fn.height()), font_color,FTF_NoMultiLine | FTF_AlignLeft | FTF_AlignTop);
+	fn.draw_text(edit_input_line, math::vector2(0,console_size.h() - fn.height()), math::dim2(console_size.w(), fn.height()), font_color, font_flags::no_multi_line | font_flags::align_left | font_flags::align_top);
 
 	// History-Ausschnitt berechnen
 	const int history_lines = int(std::min(lines_per_screen, history.size()));
@@ -294,7 +294,7 @@ void sge::con::console_gfx::draw()
 
 	const string history_string = join<string>(cutout_it, cutout_end);
 
-	fn.draw_text(history_string, math::vector2(0,0), math::dim2(console_size.w(), console_size.h() - fn.height()), font_color, FTF_AlignLeft | FTF_AlignBottom | FTF_NoLineWrap);
+	fn.draw_text(history_string, math::vector2(0,0), math::dim2(console_size.w(), console_size.h() - fn.height()), font_color, font_flags::align_left | font_flags::align_bottom | font_flags::no_line_wrap);
 }
 
 void sge::con::console_gfx::set_texture(const std::string &t)
