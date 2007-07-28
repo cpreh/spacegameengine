@@ -17,7 +17,7 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library='sgecore' />
+					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -32,7 +32,7 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library='sgecore' />
+					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -42,13 +42,13 @@
 			<Add option="-Wall" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option='-Wno-long-long' />
+			<Add option="-Wno-long-long" />
 		</Compiler>
-		<Unit filename="..\..\..\src/plugins/wave/src/exports.cpp" />
-		<Unit filename="..\..\..\src/plugins/wave/src/wave_file.cpp" />
-		<Unit filename="..\..\..\src/plugins/wave/src/wave_loader.cpp" />
-		<Unit filename="..\..\..\src/plugins/wave/wave_file.hpp" />
-		<Unit filename="..\..\..\src/plugins/wave/wave_loader.hpp" />
+		<Unit filename="..\..\..\src\plugins\wave\src\exports.cpp" />
+		<Unit filename="..\..\..\src\plugins\wave\src\wave_file.cpp" />
+		<Unit filename="..\..\..\src\plugins\wave\src\wave_loader.cpp" />
+		<Unit filename="..\..\..\src\plugins\wave\wave_file.hpp" />
+		<Unit filename="..\..\..\src\plugins\wave\wave_loader.hpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

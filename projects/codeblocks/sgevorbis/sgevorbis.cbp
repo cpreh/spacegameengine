@@ -17,9 +17,9 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library='vorbis' />
-					<Add library='ogg' />
-					<Add library='sgecore' />
+					<Add library="vorbis" />
+					<Add library="ogg" />
+					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -34,9 +34,9 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library='vorbis' />
-					<Add library='ogg' />
-					<Add library='sgecore' />
+					<Add library="vorbis" />
+					<Add library="ogg" />
+					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -46,13 +46,13 @@
 			<Add option="-Wall" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option='-Wno-long-long' />
+			<Add option="-Wno-long-long" />
 		</Compiler>
-		<Unit filename="..\..\..\src/plugins/vorbis/src/exports.cpp" />
-		<Unit filename="..\..\..\src/plugins/vorbis/src/vorbis_file.cpp" />
-		<Unit filename="..\..\..\src/plugins/vorbis/src/vorbis_loader.cpp" />
-		<Unit filename="..\..\..\src/plugins/vorbis/vorbis_file.hpp" />
-		<Unit filename="..\..\..\src/plugins/vorbis/vorbis_loader.hpp" />
+		<Unit filename="..\..\..\src\plugins\vorbis\src\exports.cpp" />
+		<Unit filename="..\..\..\src\plugins\vorbis\src\vorbis_file.cpp" />
+		<Unit filename="..\..\..\src\plugins\vorbis\src\vorbis_loader.cpp" />
+		<Unit filename="..\..\..\src\plugins\vorbis\vorbis_file.hpp" />
+		<Unit filename="..\..\..\src\plugins\vorbis\vorbis_loader.hpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

@@ -26,16 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge {
 namespace gui {
 
-class exception : public sge::exception {
+class exception : public ::sge::exception {
 public:
 	exception(const std::string &s)
-	: sge::exception(s) {}
+	: ::sge::exception(s) {}
 };
 
-class runtime_error : virtual public sge::gui::exception, virtual public sge::runtime_error {
+class runtime_error : public ::sge::gui::exception, public ::sge::runtime_error {
 public:
 	runtime_error(const std::string &s)
-	: sge::gui::exception(s), sge::runtime_error(s) {}
+	: ::sge::gui::exception(s), ::sge::runtime_error(s) {}
 };
 
 }

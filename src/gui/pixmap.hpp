@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/smart_ptr.hpp>
 
+#include "../renderer/renderer.hpp"
+#include "../renderer/texture.hpp"
+
 #include "types.hpp"
 #include "color.hpp"
 #include "exception.hpp"
@@ -35,65 +38,65 @@ namespace sge {
 namespace gui {
 
 class pixmap {
+private:
+	dim2 size_;
+	boost::scoped_array<color> data;
+
 public:
 	pixmap();
 	pixmap(const pixmap &);
-	pixmap(unit width, unit height);
-	~pixmap();
+	pixmap(dim2 size_);
+	pixmap(dim2 size_, const color &fillcolor);
 
-	void resize(const sge::gui::size &newsize, bool keepcontent=false);
-	inline const sge::gui::size &size() const { return size_; }
+	void resize(const dim2 &newsize, bool keepcontent=false);
+	inline const dim2 &size() const { return size_; }
 
 	class invalid_coords : public runtime_error {
 	public:
 		invalid_coords() : runtime_error("Invalid coordinates.") {}
-	}
+	};
 
-	void pixel(const point &coords, const color &);
+	void pixel(const point &coords, const color &newcol);
 	color &pixel(const point &coords);
 	inline const color &pixel(const point &coords) const {
 		return const_cast<pixmap&>(*this).pixel(coords);
 	}
 
-	void blit(color::mixing_policy_t policy, const pixmap &source, const rect &srccoord, const point &dest);
-	template<typename MixingPolicy = mixing_policy::normal> inline void blit(const pixmap &source, const rect &srccoord, const point &dest) {
+	void blit(color::mixing_policy_t policy, const pixmap &source, rect srccoord, point dest);
+	template<typename MixingPolicy> inline void blit(const pixmap &source, const rect &srccoord, const point &dest) {
 		blit(&MixingPolicy::mixin, source, srccoord, dest);
 	}
-	void blit(color::mixing_policy_t policy, const pixmap &source, const rect &srccoord, const point &dest, float alpha);
-	template<typename MixingPolicy = mixing_policy::normal> inline void blit(const pixmap &source, const rect &srccoord, const point &dest, float alpha) {
+	void blit(color::mixing_policy_t policy, const pixmap &source, rect srccoord, point dest, float alpha);
+	template<typename MixingPolicy> inline void blit(const pixmap &source, const rect &srccoord, const point &dest, float alpha) {
 		blit(&MixingPolicy::mixin, source, srccoord, dest, alpha);
 	}
 
-	void fillRect(const rect &area, const color &col);
-	inline void fill(const color &col) { fillRect(rect(point(0,0), size_), col); }
+	void fill_rect(rect area, const color &col);
+	inline void fill(const color &col) { fill_rect(rect(point(0,0), size_), col); }
 
-	void drawLine(color::mixing_policy_t policy, const point &from, const point &to, const color &col, bool antialiased=false);
-	template<typename MixingPolicy = mixing_policy::normal> inline void drawLine(const point &from, const point &to, const color &col, bool antialiased=false)
-		drawLine(&MixingPolicy::mixin, from, to, col, antialiased);
+	void draw_line(color::mixing_policy_t policy, const point &from, const point &to, const color &col);
+	template<typename MixingPolicy> inline void draw_line(const point &from, const point &to, const color &col) {
+		draw_line(&MixingPolicy::mixin, from, to, col);
 	}
-	void drawLine(color::mixing_policy_t policy, color::gradient_policy_t policy, const point &from, const point &to, const color &colfrom, const color &colto, bool antialiased=false);
-	template<typename MixingPolicy = mixing_policy::normal, typename GradientPolicy = gradient_policy::normal> inline void drawLine(const point &from, const point &to, const color &colfrom, const color &colto, bool antialiased=false)
-		drawLine(&MixingPolicy::mixin, &GradientPolicy::mix, from, to, colfrom, colto, antialiased);
-	}
-
-	void drawArc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &col, bool antialiased=false);
-	template<typename MixingPolicy = mixing_policy::normal> inline void drawArc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &col, bool antialiased=false)
-		void drawArc(&MixingPolicy::mixin, const boundary, arcfrom, arcto, col, antialiased);
-	}
-	void drawArc(color::mixing_policy_t policy, color::gradient_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto, bool antialiased=false);
-	template<typename MixingPolicy = mixing_policy::normal> inline void drawArc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto, bool antialiased=false)
-		void drawArc(&MixingPolicy::mixin, &GradientPolicy::mix, const boundary, arcfrom, arcto, colfrom, colto, antialiased);
+	void draw_line(color::mixing_policy_t policy, color::gradient_policy_t policy, const point &from, const point &to, const color &colfrom, const color &colto);
+	template<typename MixingPolicy, typename GradientPolicy> inline void draw_line(const point &from, const point &to, const color &colfrom, const color &colto) {
+		draw_line(&MixingPolicy::mixin, &GradientPolicy::mix, from, to, colfrom, colto);
 	}
 
-//	sge::texture toTexture() const;
+	void draw_arc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &col);
+	template<typename MixingPolicy> inline void draw_arc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &col) {
+		draw_arc(&MixingPolicy::mixin, boundary, arcfrom, arcto, col);
+	}
+	void draw_arc(color::mixing_policy_t policy, color::gradient_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto);
+	template<typename MixingPolicy, typename GradientPolicy> inline void draw_arc(const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto) {
+		draw_arc(&MixingPolicy::mixin, &GradientPolicy::mix, boundary, arcfrom, arcto, colfrom, colto);
+	}
 
-private:
-	sge::gui::size size_;
-	boost::scoped_array<color> data;
+	sge::texture_ptr to_texture(sge::renderer_ptr renderer, sge::texture_ptr texture = sge::texture_ptr()) const;
 
 public: // static members
-//	static pixmap fromTexture(const sge::texture &texture); // TODO
-//	static pixmap fromImage(const std::string &path); // TODO
+//	static pixmap from_texture(const sge::texture &texture); // TODO
+//	static pixmap from_image(const std::string &path); // TODO
 };
 
 }

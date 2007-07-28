@@ -25,54 +25,68 @@ namespace sge {
 namespace gui {
 
 typedef int unit;
-typedef int funit;
+typedef float funit;
 
 struct point {
 	unit x, y;
 	point() : x(0), y(0) {}
 	point(const unit x, const unit y) : x(x), y(y) {}
+	inline bool operator==(const point &other) const { return x == other.x && y == other.y; }
+	inline bool operator!=(const point &other) const { return !operator==(other); }
 };
 
-struct size {
+struct dim2 {
 	unit w, h;
-	size() : w(0), h(0) {}
-	size(const unit w, const unit h) : w(w), h(h) {}
+	dim2() : w(0), h(0) {}
+	dim2(const unit w, const unit h) : w(w), h(h) {}
+	inline bool operator==(const dim2 &other) const { return w == other.w && h == other.h; }
+	inline bool operator!=(const dim2 &other) const { return !operator==(other); }
 };
 
 struct rect {
 	unit x, y, w, h;
 	rect() : x(0), y(0), w(0), h(0) {}
 	rect(const unit x, const unit y, const unit w, const unit h) : x(x), y(y), w(w), h(h) {}
-	rect(const point &p, const size &s) : x(p.x), y(p.y), w(s.w), h(s.h) {}
+	rect(const point &p, const dim2 &s) : x(p.x), y(p.y), w(s.w), h(s.h) {}
 
 	inline void position(const point &p) { x=p.x; y=p.y; }
 	inline point position() const { return point(x, y); }
-	inline void size(const size &s) { w=s.w; h=s.h; }
-	inline size() const { return size(w, h); }
+	inline void size(const dim2 &s) { w=s.w; h=s.h; }
+	inline dim2 size() const { return dim2(w, h); }
+
+	inline bool operator==(const rect &other) const { return x == other.x && y == other.y && w == other.w && h == other.h; }
+	inline bool operator!=(const rect &other) const { return !operator==(other); }
 };
 
 struct fpoint {
 	funit x, y;
-	point() : x(0), y(0) {}
-	point(const funit x, const funit y) : x(x), y(y) {}
+	fpoint() : x(0), y(0) {}
+	fpoint(const funit x, const funit y) : x(x), y(y) {}
+	inline bool operator==(const fpoint &other) const { return x == other.x && y == other.y; }
+	inline bool operator!=(const fpoint &other) const { return !operator==(other); }
 };
 
-struct size {
+struct fdim2 {
 	funit w, h;
-	size() : w(0), h(0) {}
-	size(const funit w, const funit h) : w(w), h(h) {}
+	fdim2() : w(0), h(0) {}
+	fdim2(const funit w, const funit h) : w(w), h(h) {}
+	inline bool operator==(const fdim2 &other) const { return w == other.w && h == other.h; }
+	inline bool operator!=(const fdim2 &other) const { return !operator==(other); }
 };
 
-struct rect {
+struct frect {
 	funit x, y, w, h;
-	rect() : x(0), y(0), w(0), h(0) {}
-	rect(const funit x, const funit y, const funit w, const funit h) : x(x), y(y), w(w), h(h) {}
-	rect(const point &p, const size &s) : x(p.x), y(p.y), w(s.w), h(s.h) {}
+	frect() : x(0), y(0), w(0), h(0) {}
+	frect(const funit x, const funit y, const funit w, const funit h) : x(x), y(y), w(w), h(h) {}
+	frect(const fpoint &p, const fdim2 &s) : x(p.x), y(p.y), w(s.w), h(s.h) {}
 
-	inline void position(const point &p) { x=p.x; y=p.y; }
-	inline point position() const { return point(x, y); }
-	inline void size(const size &s) { w=s.w; h=s.h; }
-	inline size() const { return size(w, h); }
+	inline void position(const fpoint &p) { x=p.x; y=p.y; }
+	inline fpoint position() const { return fpoint(x, y); }
+	inline void size(const fdim2 &s) { w=s.w; h=s.h; }
+	inline fdim2 size() const { return fdim2(w, h); }
+
+	inline bool operator==(const frect &other) const { return x == other.x && y == other.y && w == other.w && h == other.h; }
+	inline bool operator!=(const frect &other) const { return !operator==(other); }
 };
 
 }

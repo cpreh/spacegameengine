@@ -17,10 +17,10 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library='DevIL' />
-					<Add library='ILU' />
-					<Add library='ILUT' />
-					<Add library='sgecore' />
+					<Add library="DevIL" />
+					<Add library="ILU" />
+					<Add library="ILUT" />
+					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -35,10 +35,10 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library='DevIL' />
-					<Add library='ILU' />
-					<Add library='ILUT' />
-					<Add library='sgecore' />
+					<Add library="DevIL" />
+					<Add library="ILU" />
+					<Add library="ILUT" />
+					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -48,15 +48,15 @@
 			<Add option="-Wall" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option='-Wno-long-long' />
+			<Add option="-Wno-long-long" />
 		</Compiler>
-		<Unit filename="..\..\..\src/plugins/devil/error.hpp" />
-		<Unit filename="..\..\..\src/plugins/devil/image.hpp" />
-		<Unit filename="..\..\..\src/plugins/devil/image_loader.hpp" />
-		<Unit filename="..\..\..\src/plugins/devil/src/error.cpp" />
-		<Unit filename="..\..\..\src/plugins/devil/src/exports.cpp" />
-		<Unit filename="..\..\..\src/plugins/devil/src/image.cpp" />
-		<Unit filename="..\..\..\src/plugins/devil/src/image_loader.cpp" />
+		<Unit filename="..\..\..\src\plugins\devil\error.hpp" />
+		<Unit filename="..\..\..\src\plugins\devil\image.hpp" />
+		<Unit filename="..\..\..\src\plugins\devil\image_loader.hpp" />
+		<Unit filename="..\..\..\src\plugins\devil\src\error.cpp" />
+		<Unit filename="..\..\..\src\plugins\devil\src\exports.cpp" />
+		<Unit filename="..\..\..\src\plugins\devil\src\image.cpp" />
+		<Unit filename="..\..\..\src\plugins\devil\src\image_loader.cpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

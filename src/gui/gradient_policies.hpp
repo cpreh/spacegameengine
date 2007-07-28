@@ -27,13 +27,13 @@ namespace sge {
 namespace gui {
 namespace gradient_policy {
 
-class normal {
+struct normal {
 	static color mix(const color &col1, const color &col2, float percentage) {
 		return color(
-			(1-percentage) * col1.r + percentage * col2.r,
-			(1-percentage) * col1.g + percentage * col2.g,
-			(1-percentage) * col1.b + percentage * col2.b,
-			(1-percentage) * col1.a + percentage * col2.a
+			static_cast<color::channel_t>((1-percentage) * col1.r + percentage * col2.r + 0.5),
+			static_cast<color::channel_t>((1-percentage) * col1.g + percentage * col2.g + 0.5),
+			static_cast<color::channel_t>((1-percentage) * col1.b + percentage * col2.b + 0.5),
+			static_cast<color::channel_t>((1-percentage) * col1.a + percentage * col2.a + 0.5)
 		);
 	}
 };

@@ -23,12 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/function.hpp>
 
+#include "../renderer/color.hpp"
+
 namespace sge {
 namespace gui {
 
 namespace mixing_policy { class normal; }
 
-class color {
+struct color {
 	typedef unsigned char channel_t;
 	static const unsigned int FIELD_BITS = 8;
 	static const unsigned int FIELD_MASK = (1U << FIELD_BITS) - 1;
@@ -37,23 +39,21 @@ class color {
 	typedef boost::function<color(const color &col1, const color &col2, float percentage)> gradient_policy_t;
 	channel_t r, g, b, a;
 
-// TODO: uncomment or delete?
-//	color() : r(0), g(0), b(0), a(255) {}
-//	color(channel_t r, channel_t g, channel_t b, channel_t a = MAX_VALUE)
-//		: r(r), g(g), b(b), a(a) {}
-//	color(float r, float g, float b, float a = 1.0)
-//		: r(r*MAX_VALUE), g(g*MAX_VALUE), b(b*MAX_VALUE), a(a*MAX_VALUE) {}
+	color() : r(0), g(0), b(0), a(255) {}
+	color(channel_t r, channel_t g, channel_t b, channel_t a = MAX_VALUE)
+		: r(r), g(g), b(b), a(a) {}
+	color(sge::color c) { rgba(c); }
 
 	inline void mix(mixing_policy_t policy, const color &other) {
 		policy(*this, other);
 	}
 
-	template <typename MixingPolicy = mixing_policy::normal> inline void mix(const color &other) {
+	template <typename MixingPolicy> inline void mix(const color &other) {
 		mix(&MixingPolicy::mixin, other);
 	}
 
-	template <typename MixingPolicy = mixing_policy::normal> inline void mix(color other, float opacity) {
-		color.a = (MAX_VALUE * opacity) + .5;
+	template <typename MixingPolicy> inline void mix(color other, float opacity) {
+		other.a = (MAX_VALUE * opacity) + .5;
 		mix<MixingPolicy>(other);
 	}
 
@@ -76,11 +76,21 @@ class color {
 		b = c & FIELD_MASK; g = (c >>= FIELD_BITS) & FIELD_MASK;
 		r = (c >>= FIELD_BITS) & FIELD_MASK; a = c >>= FIELD_BITS;
 	}
+
+	inline static color from_float(float r, float g, float b, float a = 1.0) {
+		return color(
+			static_cast<channel_t>(r*MAX_VALUE),
+			static_cast<channel_t>(g*MAX_VALUE),
+			static_cast<channel_t>(b*MAX_VALUE),
+			static_cast<channel_t>(a*MAX_VALUE)
+		);
+	}
+
 };
 
-#include "mixing_policies.hpp"
+}
+}
 
-}
-}
+#include "mixing_policies.hpp"
 
 #endif // SGE_GUI_COLOR_HPP_INCLUDED

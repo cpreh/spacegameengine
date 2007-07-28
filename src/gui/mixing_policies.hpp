@@ -29,8 +29,6 @@ namespace mixing_policy {
 
 class normal {
 	static color mix(const color &col1, const color &col2) {
-		unsigned long r, g, b;
-
 		if (col2.a == 0) return col1;
 		if (col2.a == color::MAX_VALUE) return col2;
 
@@ -38,17 +36,26 @@ class normal {
 		const unsigned int factor2 = col2.a * 255;
 		const unsigned int factorsum = factor1 + factor2;
 
-		color ret = { //                           v-int division w/ round()-v
+		return color( //                           v-int division w/ round()-v
 			(factor1 * col1.r + factor2 * col2.r + factorsum / 2) / factorsum,
 			(factor1 * col1.g + factor2 * col2.g + factorsum / 2) / factorsum,
 			(factor1 * col1.b + factor2 * col2.b + factorsum / 2) / factorsum,
 			col1.a + ((color::MAX_VALUE - col1.a) * col2.a + color::MAX_VALUE / 2) / color::MAX_VALUE
-		};
-		return ret;
+		);
 	}
 
 	static inline void mixin(color &col1, const color &col2) {
 		col1 = mix(col1, col2);
+	}
+};
+
+class replace {
+	static color mix(const color &, const color &col2) {
+		return col2;
+	}
+
+	static inline void mixin(color &col1, const color &col2) {
+		col1 = col2;
 	}
 };
 
