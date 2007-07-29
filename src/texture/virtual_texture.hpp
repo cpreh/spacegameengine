@@ -36,6 +36,8 @@ public:
 	~virtual_texture();
 	lock_rect area() const;
 	math::rect area_texc(space_unit repeat = 1) const;
+	sge::tex_pos translate(const sge::tex_pos &local_coords, space_unit repeat = 1) const;
+	inline sge::tex_pos translate(const sge::tex_pos::value_type x, const sge::tex_pos::value_type y, space_unit repeat = 1) const { return translate(sge::tex_pos(x, y), repeat); }
 	texture_ptr my_texture() const;
 	bool repeatable() const;
 	void set_data(texture::const_pointer src);

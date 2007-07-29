@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
 
+#include "../src/math.hpp"
 #include "../src/plugin_manager.hpp"
 #include "../src/sprite/system.hpp"
 #include "../src/sprite/sprite.hpp"
@@ -41,8 +42,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 inline sge::pos3 at_pixel(int x, int y) {
 	return sge::pos3(
 		(x-512) / 512.0,
-		(y-384) / 384.0,
+		-(y-384) / 384.0,
 		0
+	);
+}
+
+inline sge::tex_pos tex_at_pixel(int x, int y) {
+	return sge::tex_pos(
+		x / 1024.0,
+		y / 768.0
 	);
 }
 
@@ -72,6 +80,27 @@ try
 
 	sge::key_state_tracker ks(is);
 
+
+
+	sge::no_fragmented_texture mytex(rend);
+	sge::texture_manager texmgr(rend, &mytex);
+	sge::gui::pixmap pixmap(sge::gui::dim2(300, 200));
+
+	using sge::gui::color;
+	pixmap.fill(0x000088ff);
+	pixmap.fill_rect(sge::gui::rect(0, 0, 300, 100), 0x880000ff);
+
+	for (int i=-10; i<=10; i++)
+		pixmap.draw_line<sge::gui::mixing_policy::normal>(
+			sge::gui::point(150 + 20*i, -10),
+			sge::gui::point(150 - 20*i, 210),
+			sge::gui::color(255, 255, 255, 255 - ((i<0) ? -i : i) * 20)
+		);
+
+	sge::virtual_texture_ptr pixmaptex(pixmap.to_texture(texmgr));
+
+
+
 	sge::index_buffer_ptr ib;
 	sge::vertex_buffer_ptr vb =
 		rend->create_vertex_buffer(
@@ -84,18 +113,22 @@ try
 
 		// top left
 		it->pos() = at_pixel(500, 200);
+		it->tex() = pixmaptex->translate(0, 0);
 		++it;
 
 		// top right
 		it->pos() = at_pixel(800, 200);
+		it->tex() = pixmaptex->translate(1, 0);
 		++it;
 
 		// bottom left
 		it->pos() = at_pixel(500, 400);
+		it->tex() = pixmaptex->translate(0, 1);
 		++it;
 
 		// bottom right
 		it->pos() = at_pixel(800, 400);
+		it->tex() = pixmaptex->translate(1, 1);
 	}
 
 	{
@@ -106,15 +139,6 @@ try
 
 		ib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
 	}
-
-	sge::no_fragmented_texture mytex(rend);
-	sge::texture_manager texmgr(rend, &mytex);
-	sge::gui::pixmap pixmap(sge::gui::dim2(256, 256));
-
-	using sge::gui::color;
-	pixmap.fill(sge::colors::cornflowerblue);
-
-	sge::virtual_texture_ptr pixmaptex(pixmap.to_texture(texmgr));
 
 	while(running)
 	{

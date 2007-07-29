@@ -141,8 +141,8 @@ void sge::gui::pixmap::fill_rect(rect area, const color &col) {
 	sge::gui::color *lineb = data.get() + get_index_from_coords(area.x, area.y, size_),
 	                *linee = lineb + area.h * size_.w,
 	                *pixb, *pixe;
-	for (; lineb != linee; lineb += size_.w)
-		for (pixb = lineb, pixe = pixb + area.w; pixb != pixe; ++pixb)
+	for (int i=0, j; lineb != linee; lineb += size_.w, ++i)
+		for (j=0, pixb = lineb, pixe = pixb + area.w; pixb != pixe; ++pixb, ++j)
 			*pixb = col;
 }
 
@@ -209,15 +209,15 @@ void sge::gui::pixmap::draw_line(color::mixing_policy_t policy, const point &fro
 		if (smallstep > 0) {
 			const int fullsteps = static_cast<sge::gui::unit>(-smallunit/smallstep);
 			numsteps -= fullsteps;
-			coord.largeunit += fullsteps;
+			coord.largeunit += fullsteps * largestep;
 			smallunit += fullsteps * smallstep;
 		} else
 			return; // no part of the line hits the rect
 	} else if (smallunit > size.smallunit) {
 		if (smallstep < 0) {
-			const int fullsteps = static_cast<sge::gui::unit>(-smallunit/smallstep);
+			const int fullsteps = static_cast<sge::gui::unit>((size.smallunit - smallunit)/smallstep);
 			numsteps -= fullsteps;
-			coord.largeunit += fullsteps;
+			coord.largeunit += fullsteps * largestep;
 			smallunit += fullsteps * smallstep;
 		} else
 			return; // no part of the line hits the rect

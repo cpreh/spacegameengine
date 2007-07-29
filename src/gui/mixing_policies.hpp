@@ -28,6 +28,7 @@ namespace gui {
 namespace mixing_policy {
 
 class normal {
+public:
 	static color mix(const color &col1, const color &col2) {
 		if (col2.a == 0) return col1;
 		if (col2.a == color::MAX_VALUE) return col2;
@@ -50,6 +51,7 @@ class normal {
 };
 
 class replace {
+public:
 	static color mix(const color &, const color &col2) {
 		return col2;
 	}

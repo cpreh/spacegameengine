@@ -166,7 +166,7 @@
 	<boost/preprocessor/arithmetic/add.hpp>
 	"../types.hpp"
 
-1185668704 d:\dev\sge\src\renderer\color.hpp
+1185668986 d:\dev\sge\src\renderer\color.hpp
 	<ostream>
 	"../types.hpp"
 	"../typeswitch.hpp"
@@ -344,7 +344,7 @@
 	"../renderer/renderer.hpp"
 	"virtual_texture.hpp"
 
-1185641244 d:\dev\sge\src\texture\virtual_texture.hpp
+1185713124 d:\dev\sge\src\texture\virtual_texture.hpp
 	<boost/noncopyable.hpp>
 	"../renderer/texture.hpp"
 	"../shared_ptr.hpp"
@@ -1208,7 +1208,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1185668650 source:d:\dev\sge\test\guitest.cpp
+1185713962 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1216,6 +1216,7 @@
 	<iostream>
 	<boost/lambda/lambda.hpp>
 	<boost/lambda/if.hpp>
+	"../src/math.hpp"
 	"../src/plugin_manager.hpp"
 	"../src/sprite/system.hpp"
 	"../src/sprite/sprite.hpp"
@@ -1336,7 +1337,7 @@
 	"../renderer/color.hpp"
 	"mixing_policies.hpp"
 
-1185647770 d:\dev\sge\src\gui\mixing_policies.hpp
+1185669698 d:\dev\sge\src\gui\mixing_policies.hpp
 	"color.hpp"
 
 1185551552 d:\dev\sge\src\gui\exception.hpp
@@ -1344,4 +1345,9 @@
 
 1185647972 d:\dev\sge\src\gui\gradient_policies.hpp
 	"color.hpp"
+
+1185666630 d:\dev\sge\src\math.hpp
+	<cmath>
+	<boost/type_traits/is_integral.hpp>
+	<boost/utility/enable_if.hpp>
 
