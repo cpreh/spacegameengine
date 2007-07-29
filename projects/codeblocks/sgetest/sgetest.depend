@@ -166,7 +166,7 @@
 	<boost/preprocessor/arithmetic/add.hpp>
 	"../types.hpp"
 
-1185641242 d:\dev\sge\src\renderer\color.hpp
+1185668704 d:\dev\sge\src\renderer\color.hpp
 	<ostream>
 	"../types.hpp"
 	"../typeswitch.hpp"
@@ -1208,7 +1208,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1185655332 source:d:\dev\sge\test\guitest.cpp
+1185668650 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>

@@ -63,7 +63,7 @@ struct color_traits<color_scheme::rgba> {
 		b_pos = 2,
 		a_pos = 3
 	};
-	
+
 	template<unsigned Pos>
 	struct shift_count {
 		enum {
@@ -81,6 +81,7 @@ struct color_traits<color_scheme::rgba> {
 };
 
 // TODO: is this an endianness problem?
+// CHECK: endiness issue resolved by using UINT_8_8_8_8 in renderer instead of UBYTE?
 #define SGE_MAKE_COLOR(r,g,b,a) static_cast<color>(r) << color_traits<current_color_scheme>::r_shift \
                               | static_cast<color>(g) << color_traits<current_color_scheme>::g_shift \
                               | static_cast<color>(b) << color_traits<current_color_scheme>::b_shift \

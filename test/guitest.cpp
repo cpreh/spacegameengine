@@ -112,7 +112,7 @@ try
 	sge::gui::pixmap pixmap(sge::gui::dim2(256, 256));
 
 	using sge::gui::color;
-	pixmap.fill(color(0x7f007f7f));
+	pixmap.fill(sge::colors::cornflowerblue);
 
 	sge::virtual_texture_ptr pixmaptex(pixmap.to_texture(texmgr));
 

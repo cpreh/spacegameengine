@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdio.h>
 #include <iostream>
 #include "../../../exception.hpp"
 #include "../texture_functions.hpp"
@@ -30,15 +29,7 @@ void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter
 	if(r && (r->right > width || r->bottom > height))
 		throw exception("rect for setting a texture is out of range!");
 
-	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
-
-	if (src) {
-		sge::texture_base::const_pointer src2 = src;
-		printf("0x%08x      ", *(src2++));
-		printf("0x%08x      ", *(src2++));
-		printf("0x%08x      ", *(src2++));
-		printf("0x%08x      ", *(src2++));
-	}
+	const GLenum format = GL_RGBA, type = GL_UNSIGNED_INT_8_8_8_8;
 
 	switch(filter.min_filter) {
 	case min_filter::point:
