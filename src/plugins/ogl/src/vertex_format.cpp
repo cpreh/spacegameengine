@@ -37,7 +37,7 @@ namespace {
 	using sge::ogl::is_error;
 	typedef sge::ogl::actor_base actor_base;
 	typedef sge::ogl::actor_info actor_info;
-	
+
 	class pos_actor : public actor_base {
 	public:
 		pos_actor(const actor_info& ai)
@@ -119,7 +119,7 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 				throw runtime_error("unsupported vertex_usage");
 			}
 		}
-		
+
 		oi[it->usage()] = offset;
 		offset += it->stride();
 	}

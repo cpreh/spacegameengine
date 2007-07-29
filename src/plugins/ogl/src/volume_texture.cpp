@@ -37,7 +37,7 @@ sge::ogl::volume_texture::size_type sge::ogl::volume_texture::size() const
 
 sge::ogl::volume_texture::size_type sge::ogl::volume_texture::width() const
 {
-	return _width; 
+	return _width;
 }
 
 sge::ogl::volume_texture::size_type sge::ogl::volume_texture::height() const

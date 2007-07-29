@@ -249,7 +249,7 @@ sge::virtual_texture_ptr sge::gui::pixmap::to_texture(sge::texture_manager &texm
 	boost::scoped_array<sge::color> texdata(new sge::color[size_.w * size_.h]);
 	sge::color *to = texdata.get();
 	while (fromb != frome) {
-		*to = fromb->rgba();
+		*to = *fromb;
 		++to; ++fromb;
 	}
 

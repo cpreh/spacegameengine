@@ -67,7 +67,7 @@ struct color_traits<color_scheme::rgba> {
 	template<unsigned Pos>
 	struct shift_count {
 		enum {
-			value = (color_bytes - Pos - 1) * color_bits_per_byte
+			value = Pos * color_bits_per_byte
 		};
 	};
 
@@ -80,21 +80,19 @@ struct color_traits<color_scheme::rgba> {
 	};
 };
 
-// TODO: is this an endianness problem?
-// CHECK: endiness issue resolved by using UINT_8_8_8_8 in renderer instead of UBYTE?
 #define SGE_MAKE_COLOR(r,g,b,a) static_cast<color>(r) << color_traits<current_color_scheme>::r_shift \
                               | static_cast<color>(g) << color_traits<current_color_scheme>::g_shift \
                               | static_cast<color>(b) << color_traits<current_color_scheme>::b_shift \
                               | static_cast<color>(a) << color_traits<current_color_scheme>::a_shift
 
-template<color_element r, color_element g, color_element b, color_element a>
-struct static_color_a {
-	static const color value = SGE_MAKE_COLOR(r,g,b,a);
-};
+//template<color_element r, color_element g, color_element b, color_element a>
+//struct static_color_a {
+//	return SGE_MAKE_COLOR(r,g,b,a);
+//};
 
-template<color_element r, color_element g, color_element b>
+template<color_element r, color_element g, color_element b, color_element a=255>
 struct static_color {
-	static const color value = static_color_a<r,g,b,255>::value;
+	static const color value = SGE_MAKE_COLOR(r,g,b,a);
 };
 
 inline color make_color(const color_element r, const color_element g, const color_element b, const color_element a)
@@ -263,7 +261,7 @@ namespace colors {
 	            whitesmoke          = static_color<245, 245, 245>::value,
 	            yellow              = static_color<255, 255,   0>::value,
 	            yellowgreen         = static_color<154, 205,  50>::value,
-	            transparent         = static_color_a<0,0,0,0>::value;
+	            transparent         = static_color<  0,   0,   0, 0>::value;
 }
 
 struct color4 {

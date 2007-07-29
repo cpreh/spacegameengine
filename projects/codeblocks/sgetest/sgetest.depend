@@ -166,7 +166,7 @@
 	<boost/preprocessor/arithmetic/add.hpp>
 	"../types.hpp"
 
-1185668986 d:\dev\sge\src\renderer\color.hpp
+1185725946 d:\dev\sge\src\renderer\color.hpp
 	<ostream>
 	"../types.hpp"
 	"../typeswitch.hpp"
@@ -1208,23 +1208,25 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1185713962 source:d:\dev\sge\test\guitest.cpp
+1185726062 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
 	<exception>
 	<iostream>
+	<boost/bind.hpp>
 	<boost/lambda/lambda.hpp>
 	<boost/lambda/if.hpp>
-	"../src/math.hpp"
-	"../src/plugin_manager.hpp"
-	"../src/sprite/system.hpp"
-	"../src/sprite/sprite.hpp"
-	"../src/texture/no_fragmented_texture.hpp"
-	"../src/renderer/lock_ptr.hpp"
-	"../src/renderer/renderer_system.hpp"
 	"../src/input/input_system.hpp"
 	"../src/input/key_state_tracker.hpp"
+	"../src/math.hpp"
+	"../src/renderer/lock_ptr.hpp"
+	"../src/renderer/renderer_system.hpp"
+	"../src/renderer/screenshot.hpp"
+	"../src/plugin_manager.hpp"
+	"../src/sprite/sprite.hpp"
+	"../src/sprite/system.hpp"
+	"../src/texture/no_fragmented_texture.hpp"
 	"../src/gui/pixmap.hpp"
 
 1185456458 d:\dev\sge\src\old_gui\manager.hpp
@@ -1332,7 +1334,7 @@
 	"mixing_policies.hpp"
 	"gradient_policies.hpp"
 
-1185648192 d:\dev\sge\src\gui\color.hpp
+1185726366 d:\dev\sge\src\gui\color.hpp
 	<boost/function.hpp>
 	"../renderer/color.hpp"
 	"mixing_policies.hpp"

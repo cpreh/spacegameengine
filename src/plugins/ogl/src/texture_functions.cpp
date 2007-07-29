@@ -29,7 +29,7 @@ void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter
 	if(r && (r->right > width || r->bottom > height))
 		throw exception("rect for setting a texture is out of range!");
 
-	const GLenum format = GL_RGBA, type = GL_UNSIGNED_INT_8_8_8_8;
+	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
 	switch(filter.min_filter) {
 	case min_filter::point:

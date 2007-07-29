@@ -24,18 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <exception>
 #include <iostream>
 
+#include <boost/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
 
-#include "../src/math.hpp"
-#include "../src/plugin_manager.hpp"
-#include "../src/sprite/system.hpp"
-#include "../src/sprite/sprite.hpp"
-#include "../src/texture/no_fragmented_texture.hpp"
-#include "../src/renderer/lock_ptr.hpp"
-#include "../src/renderer/renderer_system.hpp"
 #include "../src/input/input_system.hpp"
 #include "../src/input/key_state_tracker.hpp"
+#include "../src/math.hpp"
+#include "../src/renderer/lock_ptr.hpp"
+#include "../src/renderer/renderer_system.hpp"
+#include "../src/renderer/screenshot.hpp"
+#include "../src/plugin_manager.hpp"
+#include "../src/sprite/sprite.hpp"
+#include "../src/sprite/system.hpp"
+#include "../src/texture/no_fragmented_texture.hpp"
 
 #include "../src/gui/pixmap.hpp"
 
@@ -72,11 +74,17 @@ try
 
 	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
 
+	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
+	const sge::image_loader_ptr pl(image_loader_plugin->get()());
+
 	using boost::lambda::var;
 	using boost::lambda::bind;
 	using boost::lambda::if_;
 
-	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::KC_ESC)[var(running)=false]));
+	boost::signals::scoped_connection cb(is->register_callback(
+		if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::KC_ESC)
+			[var(running)=false])
+	);
 
 	sge::key_state_tracker ks(is);
 
@@ -87,8 +95,8 @@ try
 	sge::gui::pixmap pixmap(sge::gui::dim2(300, 200));
 
 	using sge::gui::color;
-	pixmap.fill(0x000088ff);
-	pixmap.fill_rect(sge::gui::rect(0, 0, 300, 100), 0x880000ff);
+	pixmap.fill(sge::gui::color(0,0,0xcc,255));
+	pixmap.fill_rect(sge::gui::rect(0, 0, 300, 100), sge::gui::color(0xcc,0,0,255));
 
 	for (int i=-10; i<=10; i++)
 		pixmap.draw_line<sge::gui::mixing_policy::normal>(
@@ -101,7 +109,15 @@ try
 
 
 
-	sge::index_buffer_ptr ib;
+	sge::index_buffer_ptr ib; {
+		const sge::index_buffer::value_type indices[] = {
+			0, 1, 2,
+			1, 2, 3
+		};
+
+		ib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
+	}
+
 	sge::vertex_buffer_ptr vb =
 		rend->create_vertex_buffer(
 		sge::vertex_format().add(sge::vertex_usage::pos)
@@ -131,24 +147,50 @@ try
 		it->tex() = pixmaptex->translate(1, 1);
 	}
 
+	sge::vertex_buffer_ptr vb2 =
+		rend->create_vertex_buffer(
+		sge::vertex_format().add(sge::vertex_usage::pos)
+		                    .add(sge::vertex_usage::diffuse),
+		4);
 	{
-		const sge::index_buffer::value_type indices[] = {
-			0, 1, 2,
-			1, 2, 3
-		};
+		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(vb2);
+		sge::vertex_buffer::iterator it = vb2->begin();
 
-		ib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
+		// top left
+		it->pos() = sge::pos3(-1, 1, 0);
+		it->diffuse() = sge::colors::blue;
+		++it;
+
+		// top right
+		it->pos() = sge::pos3(1, 1, 0);
+		it->diffuse() = sge::colors::yellow;
+		++it;
+
+		// bottom left
+		it->pos() = sge::pos3(-1, -1, 0);
+		it->diffuse() = sge::colors::red;
+		++it;
+
+		// bottom right
+		it->pos() = sge::pos3(1, -1, 0);
+		it->diffuse() = sge::colors::white;
 	}
+
 
 	while(running)
 	{
+		if(ks[sge::KC_RETURN])
+			sge::screenshot(rend,pl,"shot.png");
+
 		rend->begin_rendering();
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
 		is->dispatch();
 
-		rend->set_texture(pixmaptex->my_texture());
-		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
+	rend->set_texture(sge::texture_base_ptr());
+	rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
+	rend->set_texture(pixmaptex->my_texture());
+	rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
 
 		rend->end_rendering();
 	}

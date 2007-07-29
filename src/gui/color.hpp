@@ -42,7 +42,7 @@ struct color {
 	color() : r(0), g(0), b(0), a(255) {}
 	color(channel_t r, channel_t g, channel_t b, channel_t a = MAX_VALUE)
 		: r(r), g(g), b(b), a(a) {}
-	color(sge::color c) { rgba(c); }
+	color(const sge::color c) : r(sge::color_red(c)), g(sge::color_green(c)), b(sge::color_blue(c)), a(sge::color_alpha(c)) {}
 
 	inline void mix(mixing_policy_t policy, const color &other) {
 		policy(*this, other);
@@ -57,24 +57,8 @@ struct color {
 		mix<MixingPolicy>(other);
 	}
 
-	inline sge::color rgba() const {
-		return (r << 3*FIELD_BITS) | (g << 2*FIELD_BITS) |
-		       (b <<   FIELD_BITS) | a;
-	}
-
-	inline sge::color argb() const {
-		return (a << 3*FIELD_BITS) | (r << 2*FIELD_BITS) |
-		       (g <<   FIELD_BITS) | b;
-	}
-
-	inline void rgba(sge::color c) {
-		a = c & FIELD_MASK; b = (c >>= FIELD_BITS) & FIELD_MASK;
-		g = (c >>= FIELD_BITS) & FIELD_MASK; r = c >>= FIELD_BITS;
-	}
-
-	inline void argb(sge::color c) {
-		b = c & FIELD_MASK; g = (c >>= FIELD_BITS) & FIELD_MASK;
-		r = (c >>= FIELD_BITS) & FIELD_MASK; a = c >>= FIELD_BITS;
+	inline operator sge::color() const {
+		return sge::make_color(r, g, b, a);
 	}
 
 	inline static color from_float(float r, float g, float b, float a = 1.0) {
