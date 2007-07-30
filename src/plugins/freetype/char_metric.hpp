@@ -18,39 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_FT_CHAR_METRIC_HPP_INCLUDED
+#define SGE_FT_CHAR_METRIC_HPP_INCLUDED
 
-#include <string>
-#include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
-#include "../renderer/font_types.hpp"
-#include "../renderer/renderer.hpp"
-#include "font_metrics.hpp"
+#include "../../raw_vector.hpp"
+#include "../../renderer/font_types.hpp"
+#include "../../font/char_metric.hpp"
 
 namespace sge
 {
-
-class font_system {
-public:
-	virtual ~font_system(){}
-	virtual font_metrics_ptr create_font(const std::string& font_path, unsigned quality_in_pixel) = 0;
-};
-
-typedef shared_ptr<font_system> font_system_ptr;
-
-namespace detail
+namespace ft
 {
 
-template<> struct plugin_traits<font_system> {
-	static const char* plugin_loader_name() { return "create_font_system"; }
-	static plugin_type get_plugin_type() { return PT_Font; }
-	typedef font_system* (*loader_fun)();
+class face;
+
+class char_metric : public sge::char_metric {
+public:
+	char_metric(face&, font_char, font_unit pixel_size);
+
+	const color* pixmap() const;
+	font_unit width() const;
+	font_unit height() const;
+	font_unit left() const;
+	font_unit top() const;
+	font_unit x_advance() const;
+private:
+	raw_vector<color> expanded_data;
+	font_unit width_,
+	          height_,
+	          left_,
+	          top_,
+	          x_advance_;
 };
 
 }
-
 }
 
 #endif
-

@@ -18,39 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_FONT_DRAWER_HPP_INCLUDED
+#define SGE_FONT_DRAWER_HPP_INCLUDED
 
-#include <string>
 #include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
-#include "../renderer/font_types.hpp"
-#include "../renderer/renderer.hpp"
-#include "font_metrics.hpp"
+#include "../font/char_metric.hpp"
+#include "font_types.hpp"
 
 namespace sge
 {
 
-class font_system {
+class font_drawer {
 public:
-	virtual ~font_system(){}
-	virtual font_metrics_ptr create_font(const std::string& font_path, unsigned quality_in_pixel) = 0;
+	virtual void draw_char(char_metric_ptr metric, font_pos pos, font_unit font_height, color col) = 0;
+	virtual void flush() = 0;
+	virtual ~font_drawer() {}
 };
 
-typedef shared_ptr<font_system> font_system_ptr;
-
-namespace detail
-{
-
-template<> struct plugin_traits<font_system> {
-	static const char* plugin_loader_name() { return "create_font_system"; }
-	static plugin_type get_plugin_type() { return PT_Font; }
-	typedef font_system* (*loader_fun)();
-};
-
-}
+typedef shared_ptr<font_drawer> font_drawer_ptr;
 
 }
 
 #endif
-

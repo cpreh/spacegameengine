@@ -86,12 +86,12 @@ inline pixel_pos_t space_pos_to_pixel(const math::vector2 a, const screen_size_t
 
 inline pixel_unit space_size_to_pixel(const space_unit s, const screen_unit screen_size)
 {
-	return static_cast<pixel_unit>((s / space_unit(2))) * screen_size;
+	return static_cast<pixel_unit>(s / static_cast<space_unit>(2)) * screen_size;
 }
 
 inline space_unit pixel_size_to_space(const pixel_unit v, const screen_unit screen_size)
 {
-	return space_unit(v * space_unit(2) / screen_size);
+	return static_cast<space_unit>(v * space_unit(2) / screen_size);
 }
 
 inline math::rect space_rect_2d_to_3d(const math::rect& r)
@@ -101,7 +101,10 @@ inline math::rect space_rect_2d_to_3d(const math::rect& r)
 
 inline math::rect tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height, const space_unit repeat = 1)
 {
-	return math::rect(space_unit(l.left) / width, space_unit(l.top) / height, repeat * space_unit(l.right) / width, repeat * space_unit(l.bottom) / height);
+	return math::rect(static_cast<space_unit>(l.left) / width,
+	                  static_cast<space_unit>(l.top) / height,
+	                  repeat * static_cast<space_unit>(l.right) / width,
+	                  repeat * static_cast<space_unit>(l.bottom) / height);
 }
 
 }

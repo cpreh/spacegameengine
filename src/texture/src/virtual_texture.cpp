@@ -41,7 +41,7 @@ sge::lock_rect sge::virtual_texture::area() const
 sge::math::rect sge::virtual_texture::area_texc(const space_unit repeat) const
 {
 	if(repeat != 1 && repeatable() == false)
-		std::cerr << "Warning: texture not repeatable but sprite repetition is " << repeat << "!\n";
+		std::cerr << "Warning: texture not repeatable but repetition is " << repeat << "!\n";
 
 	const texture_ptr tex = my_texture();
 	return tex ? tex_size_to_space_rect(area(), tex->width(), tex->height(), repeat) : math::rect();
@@ -49,7 +49,7 @@ sge::math::rect sge::virtual_texture::area_texc(const space_unit repeat) const
 
 sge::tex_pos sge::virtual_texture::translate(const sge::tex_pos &local_coords, const space_unit repeat) const
 {
-	sge::math::rect texc = area_texc(repeat);
+	const sge::math::rect texc = area_texc(repeat);
 	return sge::tex_pos(
 		(1 - local_coords[0]) * texc.left + local_coords[0] * texc.right,
 		(1 - local_coords[1]) * texc.top + local_coords[1] * texc.bottom

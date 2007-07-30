@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/bind.hpp>
 #include <boost/next_prior.hpp>
 
-sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel)
+/*sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const std::string& font_name, const unsigned quality_in_pixel)
  : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    rend(rend),
    impl(font_sys->create_font(rend, font_name, quality_in_pixel)),
@@ -41,33 +41,23 @@ sge::font::font(const renderer_ptr rend, const font_system_ptr font_sys, const s
    ib(rend->create_index_buffer(vb->size()*3/2))
 {
 	height_pixel_scale(1);
-}
+}*/
 
-void sge::font::height_pixel_scale(const unsigned scale)
-{
-	height(font_unit(impl->optimal_height_base()*scale) / rend->screen_size().h());
-}
+sge::font::font(const font_metrics_ptr metrics_, const font_drawer_ptr drawer_)
+: metrics_(metrics_),
+  drawer_(drawer_)
+{}
 
 sge::font_unit sge::font::height() const
 {
-	return _height;
-}
-
-sge::font_unit sge::font::optimal_height_base() const
-{
-	return font_unit(impl->optimal_height_base()) / rend->screen_size().h();
-}
-
-void sge::font::height(const space_unit h)
-{
-	_height = h;
+	return metrics()->line_height();
 }
 
 sge::font_size sge::font::draw_text(const string_type& text, const font_pos start_pos, const font_size max_sz, const color col, const font_flag_t flags)
 {
 	if(text.empty() || height() > max_sz.h())
 		return font_size(0,0);
-	last_index = 0;
+/*	last_index = 0;
 	last_texture = impl->load_char(text[0]).tex;
 
 	const vertex_buffer::size_type vbsize = text.size()*4;
@@ -77,7 +67,7 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 		vb->resize(vbsize);
 
 	if(ib->size() < ibsize)
-		ib->resize(ibsize);
+		ib->resize(ibsize);*/
 
 	font_pos pos = start_pos;
 	if(flags & font_flags::align_vcenter || flags & font_flags::align_bottom)
@@ -91,15 +81,15 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 			pos.y() = start_pos.y();
 	}
 
-	rend->set_color_state(color_state::ambient_light_color,col);
+//	rend->set_color_state(color_state::ambient_light_color,col);
 
 	font_size sz(0,0);
 	string_type::const_iterator sbeg(text.begin());
 
-	lock_ptr<vertex_buffer_ptr> _lock(vb);
-	vertex_buffer::iterator vit = vb->begin();
+//	lock_ptr<vertex_buffer_ptr> _lock(vb);
+//	vertex_buffer::iterator vit = vb->begin();
 
-	std::size_t chars_to_draw = 0;
+//	std::size_t chars_to_draw = 0;
 	while(sbeg != text.end() && sz.h() + height() <= max_sz.h())
 	{
 		const line_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
@@ -116,20 +106,24 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 		{
 			if(*sbeg == '\n')
 				continue;
-			const font_entity&   reg = impl->load_char(*sbeg);
-			const font_size      sz(char_width(*sbeg), height() * reg.v_scale);
-			const font_rect      fp(font_pos(pos.x() + height() * reg.left, pos.y() + height() * reg.top), sz);
+			const char_metric_ptr metric = metrics()->load_char(*sbeg);
+//			const font_entity&   reg = impl->load_char(*sbeg);
+//			const font_size      sz(char_width(*sbeg), height() * reg.v_scale);
+//			const font_rect      fp(font_pos(pos.x() + height() * reg.left, pos.y() + height() * reg.top), sz);
 
-			if(last_texture != reg.tex)
+/*			if(last_texture != reg.tex)
 			{
 				add_job(chars_to_draw);
 				last_texture = reg.tex;
 			}
 
-			vit = fill_sprite_vertices(vit, fp, reg.rect, 0);
+			vit = fill_sprite_vertices(vit, fp, reg.rect, 0);*/
+
+			drawer()->draw_char(metric, pos, height(), col);
+
 			pos.x() += char_space(*sbeg);
 
-			++chars_to_draw;
+		//	++chars_to_draw;
 		}
 
 		sz.w() = std::max(sz.w(), line_size.width);
@@ -142,28 +136,27 @@ sge::font_size sge::font::draw_text(const string_type& text, const font_pos star
 
 		pos.y() += height();
 	}
-	_lock.unlock();
-	add_job(chars_to_draw);
-	flush();
+//	_lock.unlock();
+//	add_job(chars_to_draw);
+//	flush();
 	return sz;
 }
 
-void sge::font::add_job(const size_type cur_index)
+/*void sge::font::add_job(const size_type cur_index)
 {
 	jobs.push_back(job(last_texture, last_index, cur_index));
 	last_index = cur_index;
-}
+}*/
 
-sge::font_unit sge::font::char_width(const char_type ch) const
+/*sge::font_unit sge::font::char_width(const char_type ch) const
 {
 	const font_entity& entity = impl->load_char(ch);
 	return height() * entity.h_scale;
-}
+}*/
 
 sge::font_unit sge::font::char_space(const char_type ch) const
 {
-	const font_entity& entity = impl->load_char(ch);
-	return height() * entity.x_advance;
+	return metrics()->load_char(ch)->x_advance();
 }
 
 sge::font::line_size_t sge::font::text_width_unformatted(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width) const
@@ -239,7 +232,7 @@ sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, c
 	return line_size_t(w, send);
 }
 
-void sge::font::flush()
+/*void sge::font::flush()
 {
 	// FIXME
 //	std::sort(jobs.begin(), jobs.end(), boost::lambda::bind(&job::tex, boost::lambda::_1) < boost::lambda::bind(&job::tex, boost::lambda::_2));
@@ -271,11 +264,16 @@ void sge::font::set_parameters()
 	rend->set_bool_state(bool_state::enable_lighting,true);
 	rend->set_bool_state(bool_state::enable_alpha_blending,true);
 	rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
-}
+}*/
 
 sge::font_metrics_ptr sge::font::metrics() const
 {
-	return impl;
+	return metrics_;
+}
+
+sge::font_drawer_ptr sge::font::drawer() const
+{
+	return drawer_;
 }
 
 sge::font::line_size_t::line_size_t(const font_unit width, const string_type::const_iterator end, const string_type::const_iterator next_begin)

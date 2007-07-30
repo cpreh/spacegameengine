@@ -41,6 +41,7 @@ public:
 	virtual ~basic_texture_base() {}
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
+	virtual void filter(const filter_args&) = 0;
 };
 
 typedef basic_texture_base<bit_depth32> texture_base;

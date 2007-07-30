@@ -28,7 +28,7 @@ sge::bsp_fragmented_texture::bsp_fragmented_texture(const renderer_ptr rend)
 sge::virtual_texture_ptr sge::bsp_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	if(!tex)
-		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, linear_filter); // TODO:
+		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, linear_filter);
 	const bsp_type::iterator it = bsp.insert(bsp_type::dim_type(w,h));
 	if(it == bsp.end())
 		return virtual_texture_ptr();

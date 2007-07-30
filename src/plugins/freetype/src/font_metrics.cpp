@@ -18,81 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iostream>
+#include <utility>
 #include "../../../raw_vector.hpp"
 #include "../../../renderer/transform.hpp"
 #include "../font_metrics.hpp"
 #include "../glyph.hpp"
+#include "../char_metric.hpp"
 
-sge::ft::font_metrics::font_metrics(library& lib, const renderer_ptr r, const std::string& font_name, const unsigned quality_in_pixel)
-: r(r),
-  cur_tex(r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size, linear_filter)), // TODO
-  cur_x(0),
-  cur_y(0),
-  _face(lib, font_name)
+sge::ft::font_metrics::font_metrics(library& lib, const std::string& font_path, const unsigned font_size)
+: _face(lib, font_path)
 {
 	if(FT_Select_Charmap(_face.get(), FT_ENCODING_UNICODE) != 0)
-		throw std::runtime_error("No Unicode code map found!");
+		throw exception("No Unicode code map found!");
 
-	if(FT_Set_Pixel_Sizes(_face.get(), 0, quality_in_pixel))
-		throw std::runtime_error("FT_Set_Pixel_Sizes() failed");
+	if(FT_Set_Pixel_Sizes(_face.get(), 0, font_size))
+		throw exception("FT_Set_Pixel_Sizes() failed");
 
 	pixel_size =  _face->ascender / 64 - _face->descender / 64;
 }
 
-const sge::font_entity& sge::ft::font_metrics::load_char(const font_char c)
+const sge::char_metric_ptr sge::ft::font_metrics::load_char(const font_char c)
 {
-	font_entity& entity = buffer[c];
-	if(entity.tex)
-		return entity;
-
-	if(FT_Load_Char(_face.get(), c, FT_LOAD_DEFAULT))
-		throw std::runtime_error("FT_Load_Glyph() failed");
-
-	glyph _glyph(_face);
-	FT_BitmapGlyph bmp_glyph = _glyph.bitmap_glyph();
-
-	FT_Bitmap& bitmap = bmp_glyph->bitmap;
-
-	if(cur_x + bitmap.width >= cur_tex->width())
 	{
-		cur_x = 0;
-		cur_y += pixel_size + 1;
-	}
-	if(cur_y + bitmap.rows >= cur_tex->height())
-	{
-		textures.push_back(cur_tex);
-		cur_tex = r->create_texture(0, r->caps().max_tex_size, r->caps().max_tex_size, linear_filter); // TODO
-		cur_y = 0;
-		cur_x = 0;
+		const buffer_type::const_iterator it = buffer.find(c);
+		if(it != buffer.end())
+			return it->second;
 	}
 
-	const lock_rect lrect(lock_rect::point_type(cur_x, cur_y), lock_rect::dim_type(bitmap.width, bitmap.rows));
-
-	entity.rect = tex_size_to_space_rect(lrect, cur_tex->width(), cur_tex->height());
-	entity.tex = cur_tex;
-	entity.left = font_unit(bmp_glyph->left) / pixel_size;
-	entity.top = font_unit(static_cast<int>(pixel_size) - bmp_glyph->top + (_face->descender / 64)) / pixel_size;
-	entity.x_advance = font_unit(_face->glyph->advance.x >> 6) / pixel_size;
-	entity.v_scale = font_unit(bitmap.rows) / pixel_size;
-	entity.h_scale = font_unit(bitmap.width) / pixel_size;
-
-	raw_vector<color> expanded(bitmap.width * bitmap.rows);
-	const unsigned char* data = bitmap.buffer;
-	for(int y = 0; y < bitmap.rows; ++y, data += bitmap.pitch)
-		for(int x = 0; x < bitmap.width; ++x)
-		{
-			const unsigned char code = *(data + x);
-			expanded.at(y*bitmap.width+x) = code ? make_color(code,code,code,255) : colors::transparent;
-		}
-
-	cur_tex->set_data(expanded.data(),&lrect);
-	cur_x += bitmap.width + 1;
-
-	return entity;
+	const char_metric_ptr metric(new char_metric(_face, c, line_height()));
+	buffer.insert(std::make_pair(c, metric));
+	return metric;
 }
 
-unsigned sge::ft::font_metrics::optimal_height_base() const
+
+
+sge::font_unit sge::ft::font_metrics::line_height() const
 {
 	return pixel_size;
 }

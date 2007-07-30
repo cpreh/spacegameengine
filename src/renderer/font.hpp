@@ -24,18 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <string>
 #include <vector>
+#include <boost/noncopyable.hpp>
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
-#include "types.hpp"
-#include "index_buffer.hpp"
-#include "vertex_buffer.hpp"
-#include "texture.hpp"
+//#include "types.hpp"
+//#include "index_buffer.hpp"
+//#include "vertex_buffer.hpp"
+//#include "texture.hpp"
 #include "font_types.hpp"
-#include "renderer.hpp"
+#include "font_drawer.hpp"
+//#include "renderer.hpp"
 #include "../font/font_system.hpp"
 #include "../font/font_metrics.hpp"
-#include "../math/matrix.hpp"
-#include "default_transformable.hpp"
+//#include "../math/matrix.hpp"
 
 namespace sge
 {
@@ -56,18 +57,15 @@ namespace font_flags
 }
 typedef unsigned font_flag_t; // FIXME
 
-class font : public default_transformable {
+class font : boost::noncopyable {
 public:
 	typedef font_char char_type;
 	typedef string string_type;
 	typedef index_buffer::size_type size_type;
 
-	font(renderer_ptr r, font_system_ptr font_sys, const std::string& font_name, unsigned quality_in_pixel = 32);
+	font(font_metrics_ptr metrics, font_drawer_ptr drawer);
 
-	void height(space_unit _height);
-	void height_pixel_scale(unsigned scale);
 	font_unit height() const;
-	font_unit optimal_height_base() const;
 
 	font_size draw_text(const string_type& text, font_pos pos, font_size max_size, color col, font_flag_t flags = font_flags::default_);
 
@@ -82,13 +80,14 @@ public:
 
 	line_size_t text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator send, const font_unit width) const;
 	line_size_t line_width(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t tflags) const;
-	font_unit char_width(char_type ch) const;
+	//font_unit char_width(char_type ch) const;
 	font_unit char_space(char_type ch) const;
 	font_size text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = font_flags::default_) const;
 	font_size text_size(const string_type& s, font_unit width, font_flag_t flags = font_flags::default_) const;
 	font_metrics_ptr metrics() const;
+	font_drawer_ptr drawer() const;
 private:
-	void set_parameters();
+/*	void set_parameters();
 	void add_job(size_type cur_index);
 	void flush();
 
@@ -98,16 +97,17 @@ private:
 		texture_ptr tex;
 		size_type first_index, end_index;
 	};
-	typedef std::vector<job> job_array;
+	typedef std::vector<job> job_array;*/
 
-	renderer_ptr           rend;
-	font_metrics_ptr       impl;
-	font_unit              _height;
-	vertex_buffer_ptr      vb;
-	index_buffer_ptr       ib;
-	job_array              jobs;
-	texture_ptr            last_texture;
-	size_type              last_index;
+//	renderer_ptr           rend;
+	font_metrics_ptr       metrics_;
+	font_drawer_ptr        drawer_;
+//	font_unit              _height;
+//	vertex_buffer_ptr      vb;
+//	index_buffer_ptr       ib;
+//	job_array              jobs;
+//	texture_ptr            last_texture;
+//	size_type              last_index;
 };
 
 typedef shared_ptr<font> font_ptr;

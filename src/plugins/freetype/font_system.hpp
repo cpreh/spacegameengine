@@ -32,7 +32,7 @@ namespace ft
 
 class font_system : public sge::font_system {
 public:
-	font_metrics_ptr create_font(renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel);
+	font_metrics_ptr create_font(const std::string& font_name, unsigned font_size);
 private:
 	library _library;
 };

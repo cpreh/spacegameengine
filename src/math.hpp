@@ -41,8 +41,7 @@ template<typename Base, typename Exp> Base pow_int(const Base base, const Exp e)
 template<typename T>
 typename boost::enable_if<boost::is_integral<T>, T>::type round_div_int(const T  l, const T r)
 {
-//	return ((l * 10 / r) + 5) / 10;
-	return (r & 1)
+	return (r % 2)
 		? ((l * 2 / r) + 1) / 2 // for odd numbers up to half the types capacity
 		: (l + (r / 2)) / r;   // for even numbers at least up to half till up
 		                        // to 100% of the types capacity, depending on r

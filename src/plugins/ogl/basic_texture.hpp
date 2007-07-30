@@ -102,6 +102,14 @@ public:
 	{
 		return _flags;
 	}
+
+	void filter(const filter_args& nfilter)
+	{
+		// TODO: what we do with mipmapping here?
+		_filter = nfilter;
+		bind_me();
+		set_my_filter();
+	}
 private:
 	filter_args _filter;
 	resource_flag_t _flags;

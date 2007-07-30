@@ -18,39 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_RECT_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#define SGE_RECT_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
-#include <string>
-#include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
-#include "../renderer/font_types.hpp"
-#include "../renderer/renderer.hpp"
-#include "font_metrics.hpp"
+#include <boost/noncopyable.hpp>
+#include "fragmented_texture.hpp"
 
 namespace sge
 {
 
-class font_system {
+// this is just a temporary hack
+class rect_fragmented_texture : public fragmented_texture {
 public:
-	virtual ~font_system(){}
-	virtual font_metrics_ptr create_font(const std::string& font_path, unsigned quality_in_pixel) = 0;
+	rect_fragmented_texture(renderer_ptr rend);
+	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
+	void return_fragments(const virtual_texture&);
+	texture_ptr get_texture() const;
+	fragmented_texture* clone() const;
+private:
+	renderer_ptr       rend;
+	texture::size_type cur_x,
+	                   cur_y,
+	                   cur_height;
+	texture_ptr        tex;
 };
-
-typedef shared_ptr<font_system> font_system_ptr;
-
-namespace detail
-{
-
-template<> struct plugin_traits<font_system> {
-	static const char* plugin_loader_name() { return "create_font_system"; }
-	static plugin_type get_plugin_type() { return PT_Font; }
-	typedef font_system* (*loader_fun)();
-};
-
-}
 
 }
 
 #endif
-

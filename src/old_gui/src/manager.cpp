@@ -26,14 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/convenience.hpp>
 
-sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input_sys, font& gui_font, const image_loader_ptr il, const std::string& graphics_path, const unit _font_height)
+sge::gui::manager::manager(const renderer_ptr rend, const input_system_ptr input_sys, font& gui_font, const image_loader_ptr il, const std::string& graphics_path)
 : mod_tracker(input_sys),
   graphics_path(graphics_path),
   sprite_sys(rend, image_loader_handler(graphics_path,il)),
   input_sys(input_sys),
   gui_font(gui_font),
   il(il),
-  _font_height(_font_height),
   cur(*this,point(0.5f,0.5f),dim(0.025f,0.025f)),
   mouse_scale(0.01f,0.01f), 
   _root(*this),
@@ -107,7 +106,6 @@ void sge::gui::manager::repeat_callback(const key_type& key)
 
 void sge::gui::manager::process()
 {
-	get_font().height(font_height());
 	sprite_sys.set_parameters();
 	_root.draw(draw_event(point(0,0)));
 	cur.draw();
@@ -115,19 +113,19 @@ void sge::gui::manager::process()
 
 void sge::gui::manager::transform(const math::space_matrix& m)
 {
-	gui_font.transform(m);
+//	gui_font.transform(m);
 	sprite_sys.transform(m);
 }
 
 void sge::gui::manager::projection(const math::space_matrix& m)
 {
-	gui_font.projection(m);
+//	gui_font.projection(m);
 	sprite_sys.projection(m);
 }
 
 void sge::gui::manager::internal_transformation(const math::space_matrix& m)
 {
-	gui_font.transform(m);
+//	gui_font.transform(m);
 	sprite_sys.transform(m);
 }
 
@@ -176,16 +174,6 @@ sge::font& sge::gui::manager::get_font() const
 sge::sprite_system& sge::gui::manager::get_sprite_system()
 {
 	return sprite_sys;
-}
-
-void sge::gui::manager::font_height(const unit h)
-{
-	_font_height = h;
-}
-
-sge::gui::unit sge::gui::manager::font_height() const
-{
-	return _font_height;
 }
 
 sge::gui::element* sge::gui::manager::root()

@@ -47,7 +47,7 @@ class manager : public transformable, public boost::signals::trackable, boost::n
 public:
 	friend class element;
 
-	manager(renderer_ptr rend, input_system_ptr input_sys, font& f, image_loader_ptr il, const std::string& graphics_path, const unit font_height);
+	manager(renderer_ptr rend, input_system_ptr input_sys, font& f, image_loader_ptr il, const std::string& graphics_path);
 	void process();
 	void focus(element* e);
 	element* focus() const;
@@ -56,8 +56,6 @@ public:
 	point cursor_pos() const;
 	font& get_font() const;
 	sprite_system& get_sprite_system();
-	void font_height(unit height);
-	unit font_height() const;
 private:
 	void key_callback(const key_pair&);
 	void repeat_callback(const key_type&);
@@ -87,7 +85,6 @@ private:
 	input_system_ptr        input_sys;
 	font&                   gui_font;
 	image_loader_ptr        il;
-	unit                    _font_height;
 	cursor                  cur;
 	point                   mouse_scale;
 	root_elem               _root;

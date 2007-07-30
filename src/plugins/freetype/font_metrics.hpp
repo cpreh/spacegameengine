@@ -37,20 +37,15 @@ namespace ft
 
 class font_metrics : public sge::font_metrics {
 public:
-	font_metrics(library& lib, renderer_ptr r, const std::string& font_name, unsigned quality_in_pixel);
-	const font_entity& load_char(font_char c);
-	unsigned optimal_height_base() const;
+	font_metrics(library& lib, const std::string& font_path, unsigned font_size);
+	const char_metric_ptr load_char(font_char c);
+	font_unit line_height() const;
 private:
-	renderer_ptr r;
-	texture_ptr cur_tex;
-	texture::size_type cur_x, cur_y;
 	face _face;
 
-	unsigned pixel_size;
-	typedef std::map<font_char, font_entity> buffer_type;
+	font_unit pixel_size;
+	typedef std::map<font_char, char_metric_ptr> buffer_type;
 	buffer_type buffer;
-	typedef std::vector<texture_ptr> texture_array;
-	texture_array textures;
 };
 
 }
