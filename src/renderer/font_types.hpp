@@ -21,19 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TYPES_HPP_INCLUDED
 #define SGE_FONT_TYPES_HPP_INCLUDED
 
-#include "../math/vector.hpp"
-#include "../math/dim.hpp"
-#include "../math/rect.hpp"
+#include "types.hpp"
+//#include "../math/vector.hpp"
+//#include "../math/dim.hpp"
+//#include "../math/rect.hpp"
 #include "../string.hpp"
-#include "../typeswitch.hpp"
+//#include "../typeswitch.hpp"
 
 namespace sge
 {
 
-typedef space_unit     font_unit;
-typedef math::vector2  font_pos;
-typedef math::dim2     font_size;
-typedef math::rect     font_rect;
+typedef unsigned       font_unit;
+//typedef pixel_unit     font_unit;
+typedef pixel_pos_t    font_pos;
+typedef screen_size_t  font_size;
+//typedef space_unit     font_unit;
+//typedef math::vector2  font_pos;
+//typedef math::dim2     font_size;
+//typedef math::rect     font_rect;
 typedef uchar_t        font_char;
 
 }

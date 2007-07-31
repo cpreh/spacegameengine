@@ -26,9 +26,9 @@ INSTALL_HEADERS (renderer)
 INSTALL_HEADERS (sprite)
 INSTALL_HEADERS (texture)
 
-IF (${ENABLE_GUI})
-	ADD_SUBDIRECTORY (old_gui)
-	INSTALL_HEADERS (old_gui)
-ENDIF ()
+#IF (${ENABLE_GUI})
+#	ADD_SUBDIRECTORY (old_gui)
+#	INSTALL_HEADERS (old_gui)
+#ENDIF ()
 
 ADD_SUBDIRECTORY (plugins)

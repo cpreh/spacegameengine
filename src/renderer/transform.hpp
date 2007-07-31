@@ -89,6 +89,11 @@ inline pixel_unit space_size_to_pixel(const space_unit s, const screen_unit scre
 	return static_cast<pixel_unit>(s / static_cast<space_unit>(2)) * screen_size;
 }
 
+inline screen_size_t space_size_to_pixel(const math::dim2 sz, const screen_size_t screen_sz)
+{
+	return screen_size_t(space_size_to_pixel(sz.w(), screen_sz.w()), space_size_to_pixel(sz.h(), screen_sz.h()));
+}
+
 inline space_unit pixel_size_to_space(const pixel_unit v, const screen_unit screen_size)
 {
 	return static_cast<space_unit>(v * space_unit(2) / screen_size);
