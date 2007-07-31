@@ -256,6 +256,8 @@ inline space_matrix matrix_perspective(const space_unit aspect, const space_unit
 {
 	if(far == near)
 		throw exception("matrix_perspective(): far may not be near!");
+	if(near == 0)
+		throw exception("matrix_perspective(): near must not be 0!");
 	const space_unit h = static_cast<space_unit>(1) / std::tan(fov / static_cast<space_unit>(2)),
 	                 w = h / aspect,
 	                 q = (far + near) / (far - near);
