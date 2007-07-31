@@ -155,7 +155,7 @@ public:
 		typename iterator<T>::reference get_plugin(const size_type index = 0)
 	{
 		if(index >= size<T>())
-			throw exception("get_plugin(): out of range!");
+			throw exception("get_plugin(): out of range! Requested type: \"" + std::string(typeid(T).name()) + "\"!");
 		return *(begin<T>()+index);
 	}
 

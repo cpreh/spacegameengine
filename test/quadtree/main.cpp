@@ -10,21 +10,36 @@
 // C++
 #include <iostream>
 // sge
-#include <sge/math/matrix.hpp>
-#include <sge/plugin_manager.hpp>
-#include <sge/plugin.hpp>
-#include <sge/renderer/renderer.hpp>
-#include <sge/renderer/renderer_system.hpp>
-#include <sge/input/input_system.hpp>
-#include <sge/input/key_state_tracker.hpp>
-#include <sge/timer.hpp>
-#include <sge/image/image_loader.hpp>
-#include <sge/image/image.hpp>
-#include <sge/renderer/color.hpp>
-#include <sge/renderer/lock_ptr.hpp>
-#include <sge/math/constants.hpp>
-#include <sge/math/rect.hpp>
+/*#include ../../src/math/matrix.hpp>
+#include ../../src/plugin_manager.hpp>
+#include ../../src/plugin.hpp>
+#include ../../src/renderer/renderer.hpp>
+#include ../../src/renderer/renderer_system.hpp>
+#include ../../src/input/input_system.hpp>
+#include ../../src/input/key_state_tracker.hpp>
+#include ../../src/timer.hpp>
+#include ../../src/image/image_loader.hpp>
+#include ../../src/image/image.hpp>
+#include ../../src/renderer/color.hpp>
+#include ../../src/renderer/lock_ptr.hpp>
+#include ../../src/math/constants.hpp>
+#include ../../src/math/rect.hpp>*/
 
+#include "../../src/math/matrix.hpp"
+#include "../../src/plugin_manager.hpp"
+#include "../../src/plugin.hpp"
+#include "../../src/renderer/renderer.hpp"
+#include "../../src/renderer/renderer_system.hpp"
+#include "../../src/input/input_system.hpp"
+#include "../../src/input/key_state_tracker.hpp"
+#include "../../src/timer.hpp"
+#include "../../src/image/image_loader.hpp"
+#include "../../src/image/image.hpp"
+#include "../../src/renderer/color.hpp"
+#include "../../src/renderer/lock_ptr.hpp"
+#include "../../src/math/constants.hpp"
+#include "../../src/math/rect.hpp"
+#include "../../src/media.hpp"
 #include "mathstuff.hpp"
 
 inline sge::math::space_matrix matrix_perspective(const sge::space_unit aspect, const sge::space_unit fov, const sge::space_unit near, const sge::space_unit far)
@@ -207,7 +222,7 @@ int main()
 
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
 
-	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::BD_32,100), true);
+	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::bit_depth::depth32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
 
 	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
@@ -218,25 +233,25 @@ int main()
 	// Heigghtmap einlesen
 	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
 	const sge::image_loader_ptr pl(image_loader_plugin->get()());
-	const sge::image_ptr heightmap = pl->load_image("newheightmap.bmp");
+	const sge::image_ptr heightmap = pl->load_image(sge::media_path() + "newheightmap.bmp");
 
 	const sge::math::dim2 field_dim(1,1);
 
-	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::VU_Pos).add(sge::VU_Tex), heightmap->height() * heightmap->width());
+	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), heightmap->height() * heightmap->width());
 
 	quadtree tree(2);
 
 	// Model daraus generieren
 	float texture_granularity = 4;
 	{
-		sge::image::const_pointer pp = heightmap->data();
+		//sge::image::const_pointer pp = heightmap->data();
 		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(model_vb);
 		sge::vertex_buffer::iterator vbit = model_vb->begin();
 		// Fuer den Tree
 		std::vector<sge::math::vector3> vertices;
-		for (int y = 0; y < heightmap->height(); ++y)
+		for (sge::image::size_type y = 0; y < heightmap->height(); ++y)
 		{
-			for (int x = 0; x < heightmap->width(); ++x)
+			for (sge::image::size_type x = 0; x < heightmap->width(); ++x)
 			{
 				//sge::math::vector3 pos = sge::math::vector3(x * field_dim.w(),30*sge::green_part_rgba_f(*pp++),-y * field_dim.h());
 				sge::math::vector3 pos = sge::math::vector3(x * field_dim.w(),0,-y * field_dim.h());
@@ -251,9 +266,9 @@ int main()
 
 	// Fuer den Tree
 	std::vector<quadtree::indexed_triangle> triangles;
-	for (int y = 0; y < (heightmap->height()-1); ++y)
+	for (sge::image::size_type y = 0; y < (heightmap->height()-1); ++y)
 	{
-		for (int x = 0; x < (heightmap->width()-1); ++x)
+		for (sge::image::size_type x = 0; x < (heightmap->width()-1); ++x)
 		{
 			quadtree::indexed_triangle right;
 			right.vertices[0] = y * heightmap->width() + x;
@@ -270,7 +285,7 @@ int main()
 	tree.add_triangles(triangles);
 	tree.pack();
 
-	const sge::image_ptr grass_image = pl->load_image("grass.png");
+	const sge::image_ptr grass_image = pl->load_image(sge::media_path() + "grass.png");
 
 	const sge::texture_ptr textures[] = {
 		rend->create_texture(grass_image->data(), grass_image->width(), grass_image->height(), sge::point_filter),
@@ -286,12 +301,13 @@ int main()
 	unsigned selected_texture = 0;
 
 	rend->set_texture(textures[selected_texture]);
-	rend->set_bool_state(sge::BS_EnableZBuffer,true);
-	rend->set_bool_state(sge::BS_ClearZBuffer,true);
-	rend->set_bool_state(sge::BS_EnableCulling,true);
-	rend->set_cull_mode(sge::CM_Back);
-	rend->set_int_state(sge::IS_DepthClearVal,0);
-	rend->set_depth_func(sge::DF_Greater);
+	rend->set_bool_state(sge::bool_state::enable_zbuffer,true);
+	rend->set_bool_state(sge::bool_state::clear_zbuffer,true);
+	rend->set_bool_state(sge::bool_state::enable_culling,true);
+	rend->set_bool_state(sge::bool_state::clear_backbuffer,true);
+	rend->set_cull_mode(sge::cull_mode::back);
+	rend->set_float_state(sge::float_state::zbuffer_clear_val,0);
+	rend->set_depth_func(sge::depth_func::greater);
 
 	sge::math::vector3 translation(-32,-3,-100);
 	sge::space_unit fovy_deg = 90,near = 1,far = 100,rot = 0;
@@ -321,11 +337,11 @@ int main()
 
 		rend->transform(sge::math::matrix_translation(translation));
 		// Projektionsmatrix setzen
-	//	rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
+	//	rend->projection(sge::math::matrix_perspective(static_cast../../src::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 		rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 
 	//	sge::math::space_matrix perspect = 
-	//				sge::math::transpose(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
+	//				sge::math::transpose(sge::math::matrix_perspective(static_cast../../src::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 
 	//	sge::math::vector3 nl(perspect[0][3]+perspect[0][0],perspect[1][3]+perspect[1][0],perspect[2][3]+perspect[2][0]);
 	//	std::cout << "left normal: " << nl.normalize() << "\n";
@@ -339,7 +355,7 @@ int main()
 				sge::lock_ptr<sge::index_buffer_ptr> _lock(model_ib);
 				std::copy(indices.begin(),indices.end(),model_ib->begin());
 			}
-			rend->render(model_vb,model_ib,0,model_vb->size(),sge::PT_Triangle,indices.size()/3,0);
+			rend->render(model_vb,model_ib,0,model_vb->size(),sge::indexed_primitive_type::triangle,indices.size()/3,0);
 		}
 
 		// Hier Programmlogik

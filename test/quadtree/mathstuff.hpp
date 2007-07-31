@@ -7,12 +7,12 @@
 
 struct plane
 {
-	accessor<sge::math::vector3> normal,point;
+	accessor<sge::math::vector3> point,normal;
 
 	plane() {}
 	plane(const sge::math::vector3 &point,const sge::math::vector3 &normal) : point(point),normal(normal) {}
 };
-inline std::ostream &operator<<(std::ostream &stream,const plane &t) { stream << "(" << t.normal() << "," << t.point() << ")"; }
+inline std::ostream &operator<<(std::ostream &stream,const plane &t) { return stream << "(" << t.normal() << "," << t.point() << ")"; }
 
 struct triangle
 {
@@ -21,7 +21,7 @@ struct triangle
 	triangle() {}
 	triangle(const sge::math::vector3 &a,const sge::math::vector3 &b,const sge::math::vector3 &c) : a(a),b(b),c(c) {}
 };
-inline std::ostream &operator<<(std::ostream &stream,const triangle &t) { stream << "(" << t.a() << "," << t.b() << "," << t.c() << ")"; }
+inline std::ostream &operator<<(std::ostream &stream,const triangle &t) { return stream << "(" << t.a() << "," << t.b() << "," << t.c() << ")"; }
 
 struct line
 {
@@ -30,7 +30,7 @@ struct line
 	line() {}
 	line(const sge::math::vector3 &point,const sge::math::vector3 &direction) : point(point),direction(direction) {}
 };
-inline std::ostream &operator<<(std::ostream &stream,const line &t) { stream << "(" << t.point() << "," << t.direction() << ")"; }
+inline std::ostream &operator<<(std::ostream &stream,const line &t) { return stream << "(" << t.point() << "," << t.direction() << ")"; }
 
 inline sge::math::vector2 normal(const sge::math::vector2 &a)
 {
@@ -53,7 +53,7 @@ struct frustum_info
 	frustum_info(const sge::math::vector3 &,const sge::space_unit fov,const sge::space_unit rot);
 	void fill(const sge::math::vector3 &,const sge::space_unit,const sge::space_unit);
 };
-inline std::ostream &operator<<(std::ostream &stream,const frustum_info &t) { stream << "(pos=" << t.pos() << ",rot=" << t.rot() << ",fov=" << t.fov() << ",left_dir=" << t.left_dir() << ",right_dir=" << t.right_dir() << ")"; }
+inline std::ostream &operator<<(std::ostream &stream,const frustum_info &t) { return stream << "(pos=" << t.pos() << ",rot=" << t.rot() << ",fov=" << t.fov() << ",left_dir=" << t.left_dir() << ",right_dir=" << t.right_dir() << ")"; }
 
 // Gibt zurueck, ob ein Punkt in 'nem Rect ist
 inline bool point_inside_2d(const sge::math::vector2 &v,const sge::math::rect &rect)
