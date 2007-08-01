@@ -32,9 +32,7 @@ namespace mixing_policy { class normal; }
 
 struct color {
 	typedef unsigned char channel_t;
-	static const unsigned int FIELD_BITS = 8;
-	static const unsigned int FIELD_MASK = (1U << FIELD_BITS) - 1;
-	static const unsigned int MAX_VALUE = FIELD_MASK;
+	static const channel_t MAX_VALUE = (1 << sge::color_bits_per_byte) - 1;
 	typedef boost::function<void(color&, const color&)> mixing_policy_t;
 	typedef boost::function<color(const color &col1, const color &col2, float percentage)> gradient_policy_t;
 	channel_t r, g, b, a;
@@ -49,10 +47,11 @@ struct color {
 	}
 
 	template <typename MixingPolicy> inline void mix(const color &other) {
-		mix(&MixingPolicy::mixin, other);
+		mix(MixingPolicy(), other);
 	}
 
 	template <typename MixingPolicy> inline void mix(color other, float opacity) {
+		// TODO: Change: first mix, then change opacity
 		other.a = (MAX_VALUE * opacity) + .5;
 		mix<MixingPolicy>(other);
 	}

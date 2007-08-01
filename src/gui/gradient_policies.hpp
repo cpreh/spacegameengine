@@ -36,6 +36,10 @@ struct normal {
 			static_cast<color::channel_t>((1-percentage) * col1.a + percentage * col2.a + 0.5)
 		);
 	}
+
+	color operator()(const color &col1, const color &col2, float percentage) {
+		return mix(col1, col2, percentage);
+	}
 };
 
 // TODO: HSL CW, HSL CCW, ...

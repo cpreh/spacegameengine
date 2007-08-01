@@ -32,6 +32,7 @@ class horizontal {
 public:
 	color col1, col2;
 	horizontal(color col1, color col2) : col1(col1), col2(col2) {}
+
 	color operator(float x_offs, float y_offs) const {
 		color ret = {
 			(1.0-x_offs) * col1.r + x_offs * col2.r + 0.5,
@@ -47,7 +48,8 @@ class vertical {
 public:
 	color col1, col2;
 	horizontal(color col1, color col2) : col1(col1), col2(col2) {}
-	color operator(float x_offs, float y_offs) const {
+
+	color operator()(float x_offs, float y_offs) const {
 		color ret = {
 			(1.0-y_offs) * col1.r + y_offs * col2.r + 0.5,
 			(1.0-y_offs) * col1.g + y_offs * col2.g + 0.5,
