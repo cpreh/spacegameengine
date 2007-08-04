@@ -138,9 +138,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 
 	const int pixel_format = ChoosePixelFormat(hdc->hdc(), &pfd);
 	if(pixel_format == 0)
-		throw std::runtime_error("ChoosePixelFormat() failed");
+		throw exception("ChoosePixelFormat() failed");
 	if(SetPixelFormat(hdc->hdc(), pixel_format, &pfd) == FALSE)
-		throw std::runtime_error("SetPixelFormat() failed");
+		throw exception("SetPixelFormat() failed");
 
 	context.reset(new wgl_context(*hdc));
 
@@ -190,7 +190,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	XSync(dsp->get(),False);
 #endif
 	if(glewInit() != GLEW_OK)
-		throw runtime_error("glewInit() failed");
+		throw exception("glewInit() failed");
 
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
@@ -306,7 +306,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	               vbo_offset(first_index * sge::index_buffer::stride));
 
 	if(is_error())
-		throw std::runtime_error("opengl error during rendering an indexed array!");
+		throw exception("opengl error during rendering an indexed array!");
 }
 
 void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
@@ -494,7 +494,7 @@ sge::render_target_ptr sge::ogl::renderer::get_render_target() const
 void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_type stage)
 {
 	if(!glActiveTextureARB)
-		throw std::runtime_error(extension_not_supported_string("ARB_multitexture"));
+		throw exception(extension_not_supported_string("ARB_multitexture"));
 	if(stage >= GL_MAX_TEXTURE_UNITS_ARB)
 	{
 		std::cerr << "GL_MAX_TEXTURE_UNITS_ARB is " << GL_MAX_TEXTURE_UNITS_ARB << ". Setting texture stage " << stage << " ignored!\n";

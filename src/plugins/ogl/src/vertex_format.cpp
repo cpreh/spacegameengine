@@ -33,7 +33,6 @@ sge::ogl::actor_base::actor_base(const actor_info& ai)
 {}
 
 namespace {
-	using sge::exception;
 	using sge::ogl::is_error;
 	typedef sge::ogl::actor_base actor_base;
 	typedef sge::ogl::actor_info actor_info;
@@ -47,7 +46,7 @@ namespace {
 			glVertexPointer(3, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_VERTEX_ARRAY);
 			if(is_error())
-				throw runtime_error("Enabling positions on ogl stream failed!");
+				throw sge::exception("Enabling positions on ogl stream failed!");
 		}
 	};
 
@@ -60,7 +59,7 @@ namespace {
 			glNormalPointer(GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_NORMAL_ARRAY);
 			if(is_error())
-				throw runtime_error("Enabling normals on ogl stream failed!");
+				throw sge::exception("Enabling normals on ogl stream failed!");
 		}
 	};
 
@@ -74,7 +73,7 @@ namespace {
 			glTexCoordPointer(2, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			if(is_error())
-				throw runtime_error("Enabling texture coordinates on ogl stream failed!");
+				throw sge::exception("Enabling texture coordinates on ogl stream failed!");
 		}
 	};
 
@@ -87,7 +86,7 @@ namespace {
   			glColorPointer(4, GL_UNSIGNED_BYTE, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_COLOR_ARRAY);
 			if(is_error())
-				throw runtime_error("Enabling diffuse colors on ogl stream failed!");
+				throw sge::exception("Enabling diffuse colors on ogl stream failed!");
 		}
 	};
 }
@@ -116,7 +115,7 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 				actors.push_back(new diffuse_actor(ai));
 				break;
 			default:
-				throw runtime_error("unsupported vertex_usage");
+				throw sge::exception("unsupported vertex_usage");
 			}
 		}
 
