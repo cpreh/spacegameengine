@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <cstring>
 #include "../../../exception.hpp"
 #include "../freetype.hpp"
 #include "../face.hpp"
@@ -40,19 +41,20 @@ sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_un
 	top_ = static_cast<int>(pixel_size) - bmp_glyph->top + _face->descender / 64;
 	x_advance_ = _face->glyph->advance.x / 64;
 	
-	expanded_data.resize(bitmap.width * bitmap.rows);
+	buffer.resize(bitmap.width * bitmap.rows);
 	const unsigned char* data = bitmap.buffer;
 	for(int y = 0; y < bitmap.rows; ++y, data += bitmap.pitch)
-		for(int x = 0; x < bitmap.width; ++x)
-		{
-			const unsigned char code = *(data + x);
-			expanded_data.at(y*bitmap.width+x) = code ? make_color(code,code,code,255) : colors::transparent;
-		}
+		std::memcpy(buffer.data() + y * width(), data, width());
+		//for(int x = 0; x < bitmap.width; ++x)
+		//{
+		//	const unsigned char code = *(data + x);
+	//		data.at(y*bitmap.width+x) = code ? make_color(code,code,code,255) : colors::transparent;
+	//	}
 }
 
-const sge::color* sge::ft::char_metric::pixmap() const
+const sge::color_element* sge::ft::char_metric::pixmap() const
 {
-	return expanded_data.data();
+	return buffer.data();
 }
 
 sge::font_unit sge::ft::char_metric::width() const

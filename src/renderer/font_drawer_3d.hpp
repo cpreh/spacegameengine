@@ -18,25 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TYPES_HPP_INCLUDED
-#define SGE_FONT_TYPES_HPP_INCLUDED
+#ifndef SGE_FONT_DRAWER_3D_HPP_INCLUDED
+#define SGE_FONT_DRAWER_3D_HPP_INCLUDED
 
-#include "color.hpp"
-#include "../math/vector.hpp"
-#include "../math/dim.hpp"
-#include "../math/rect.hpp"
-#include "../string.hpp"
+#include <vector>
+#include "font_drawer.hpp"
+#include "renderer.hpp"
+#include "vertex_buffer.hpp"
+#include "index_buffer.hpp"
+#include "font_types.hpp"
+#include "../texture/texture_map.hpp"
+#include "../sprite/system.hpp"
+#include "../sprite/sprite.hpp"
 
 namespace sge
 {
 
-typedef int                         font_unit;
-typedef font_unit                   font_size;
-typedef math::vector<font_unit,2>   font_pos;
-typedef math::dim<font_size,2>      font_dim;
-typedef color_element               font_color;
-typedef math::basic_rect<font_unit> font_rect;
-typedef uchar_t                     font_char;
+class font_drawer_3d : public font_drawer {
+public:
+	font_drawer_3d(renderer_ptr rend);
+	void begin_rendering(size_type buffer_chars);
+	void draw_char(font_char, font_rect, const font_color* data);
+	void end_rendering();
+private:
+	renderer_ptr                             rend;
+	texture_map_ptr                          tex_map;
+	sprite_system                            sys;
+	typedef std::vector<sprite>              sprite_vector;
+	sprite_vector                            sprites;
+};
 
 }
 

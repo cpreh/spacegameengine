@@ -36,14 +36,14 @@ class char_metric : public sge::char_metric {
 public:
 	char_metric(face&, font_char, font_unit pixel_size);
 
-	const color* pixmap() const;
+	const color_element* pixmap() const;
 	font_unit width() const;
 	font_unit height() const;
 	font_unit left() const;
 	font_unit top() const;
 	font_unit x_advance() const;
 private:
-	raw_vector<color> expanded_data;
+	raw_vector<color_element> buffer;
 	font_unit width_,
 	          height_,
 	          left_,

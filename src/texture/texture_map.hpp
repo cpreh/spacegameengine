@@ -40,10 +40,11 @@ public:
 	typedef boost::function<bool (texture_map&,const std::string&)> handler_function;
 
 	texture_map(renderer_ptr rend, const fragmented_texture* proto, handler_function not_found_handler = 0);
-	bool add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const std::string& name);
-	bool add_texture(image_ptr im, const std::string& name, bool scale);
-	bool add_texture(texture_ptr tex, const std::string& name);
-	bool remove_texture(const std::string& name);
+	void add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const std::string& name);
+	void add_texture(image_ptr im, const std::string& name, bool scale);
+	void add_texture(texture_ptr tex, const std::string& name);
+	void remove_texture(const std::string& name);
+	bool has_texture(const std::string& name) const;
 	
 	virtual_texture_ptr vtexture(const std::string&);
 

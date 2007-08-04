@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_DRAWER_HPP_INCLUDED
 #define SGE_FONT_DRAWER_HPP_INCLUDED
 
+#include <cstddef>
 #include "../shared_ptr.hpp"
 #include "../font/char_metric.hpp"
 #include "font_types.hpp"
@@ -30,8 +31,10 @@ namespace sge
 
 class font_drawer {
 public:
-	virtual void draw_char(char_metric_ptr metric, font_pos pos, font_unit font_height, color col) = 0;
-	virtual void flush() = 0;
+	typedef std::size_t size_type;
+	virtual void begin_rendering(size_type buffer_chars) = 0;
+	virtual void draw_char(font_char, font_rect rect, const font_color* data) = 0;
+	virtual void end_rendering() = 0;
 	virtual ~font_drawer() {}
 };
 

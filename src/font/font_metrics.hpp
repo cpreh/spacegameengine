@@ -23,21 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../shared_ptr.hpp"
 #include "../renderer/font_types.hpp"
-#include "../renderer/texture.hpp"
 #include "char_metric.hpp"
 
 namespace sge
 {
-
-/*struct font_entity {
-	font_rect rect;
-	texture_ptr tex;
-	font_unit left;
-	font_unit top;
-	font_unit x_advance;
-	font_unit v_scale;
-	font_unit h_scale;
-};*/
 
 class font_metrics {
 public:

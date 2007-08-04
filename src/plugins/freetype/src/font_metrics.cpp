@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
 
-sge::ft::font_metrics::font_metrics(library& lib, const std::string& font_path, const unsigned font_size)
+sge::ft::font_metrics::font_metrics(library& lib, const std::string& font_path, const unsigned font_height)
 : _face(lib, font_path)
 {
 	if(FT_Select_Charmap(_face.get(), FT_ENCODING_UNICODE) != 0)
 		throw exception("No Unicode code map found!");
 
-	if(FT_Set_Pixel_Sizes(_face.get(), 0, font_size))
+	if(FT_Set_Pixel_Sizes(_face.get(), 0, font_height))
 		throw exception("FT_Set_Pixel_Sizes() failed");
 
 	pixel_size =  _face->ascender / 64 - _face->descender / 64;

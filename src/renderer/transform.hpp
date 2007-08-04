@@ -79,7 +79,7 @@ inline pos3 text_to_space(const math::vector2 pos)
 	return space_2d_to_3d(pos);
 }
 
-inline pixel_pos_t space_pos_to_pixel(const math::vector2 a, const screen_size_t sz)
+inline pixel_pos_t space_pos_to_pixel(const pos2 a, const screen_size_t sz)
 {
 	return pixel_pos_t(static_cast<pixel_unit>((a.x() + 1.0) / 2.0 * sz.w()), static_cast<pixel_unit>((-a.y() + 1.0) / 2.0 * sz.h()));
 }
@@ -89,14 +89,22 @@ inline pixel_unit space_size_to_pixel(const space_unit s, const screen_unit scre
 	return static_cast<pixel_unit>(s / static_cast<space_unit>(2)) * screen_size;
 }
 
-inline screen_size_t space_size_to_pixel(const math::dim2 sz, const screen_size_t screen_sz)
+template<typename Ret>
+inline Ret space_size_to_pixel(const math::dim2 sz, const screen_size_t screen_sz)
 {
-	return screen_size_t(space_size_to_pixel(sz.w(), screen_sz.w()), space_size_to_pixel(sz.h(), screen_sz.h()));
+	return Ret(space_size_to_pixel(sz.w(), screen_sz.w()), space_size_to_pixel(sz.h(), screen_sz.h()));
 }
 
 inline space_unit pixel_size_to_space(const pixel_unit v, const screen_unit screen_size)
 {
 	return static_cast<space_unit>(v * space_unit(2) / screen_size);
+}
+
+template<typename Ret>
+inline Ret pixel_pos_to_2d(const pixel_pos_t pos, const screen_size_t screen_sz)
+{
+	return Ret(static_cast<space_unit>(pos.x()) / screen_sz.w(),
+	           static_cast<space_unit>(pos.y()) / screen_sz.h());
 }
 
 inline math::rect space_rect_2d_to_3d(const math::rect& r)

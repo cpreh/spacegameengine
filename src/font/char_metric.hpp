@@ -30,7 +30,7 @@ namespace sge
 
 class char_metric {
 public:
-	virtual const color* pixmap() const = 0;
+	virtual const color_element* pixmap() const = 0;
 	virtual font_unit width() const = 0;
 	virtual font_unit height() const = 0;
 	virtual font_unit left() const = 0;

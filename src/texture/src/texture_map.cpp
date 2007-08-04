@@ -37,41 +37,41 @@ sge::texture_map::texture_map(const renderer_ptr rend, const fragmented_texture*
    tex_man(rend, proto)
 {}
 
-bool sge::texture_map::add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h, const std::string& name)
+bool sge::texture_map::has_texture(const std::string& name) const
 {
-	if(virtual_textures.find(name) != virtual_textures.end())
-		return false;
+	return virtual_textures.find(name) != virtual_textures.end();
+}
+
+void sge::texture_map::add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h, const std::string& name)
+{
+	if(has_texture(name))
+		return;
 
 	virtual_textures[name] = tex_man.add_texture(src,w,h);
-	return true;
 }
 
-bool sge::texture_map::add_texture(const image_ptr im, const std::string& name, const bool scale)
+void sge::texture_map::add_texture(const image_ptr im, const std::string& name, const bool scale)
 {
-	if(virtual_textures.find(name) != virtual_textures.end())
-		return false;
+	if(has_texture(name))
+		return;
 
 	virtual_textures[name] = tex_man.add_texture(im, scale);
-	return true;
 }
 
-bool sge::texture_map::add_texture(const texture_ptr tex, const std::string& name)
+void sge::texture_map::add_texture(const texture_ptr tex, const std::string& name)
 {
-	if(virtual_textures.find(name) != virtual_textures.end())
-		return false;
+	if(has_texture(name))
+		return;
 
 	virtual_textures[name] = tex_man.add_texture(tex);
-	return true;
 }
 
-bool sge::texture_map::remove_texture(const std::string& name)
+void sge::texture_map::remove_texture(const std::string& name)
 {
-	virtual_texture_map::iterator it = virtual_textures.find(name);
-	if(it == virtual_textures.end())
-		return false;
+	if(!has_texture(name))
+		return;
 
-	virtual_textures.erase(it);
-	return true;
+	virtual_textures.erase(virtual_textures.find(name));
 }
 
 sge::virtual_texture_ptr sge::texture_map::vtexture(const std::string& name)

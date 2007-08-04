@@ -47,6 +47,16 @@ template<typename T> struct basic_rect {
 	value_type width() const { return right - left; }
 	value_type height() const { return bottom - top; }
 
+	point_type pos() const
+	{
+		return point_type(left, top);
+	}
+
+	dim_type size() const
+	{
+		return dim_type(width(),height());
+	}
+
 	value_type left, top, right, bottom;
 };
 

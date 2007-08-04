@@ -106,6 +106,7 @@ namespace lock_flags
 typedef unsigned lock_flag_t; // FIXME
 
 typedef math::vector2  tex_pos;
+typedef math::vector2  pos2;
 typedef math::vector3  pos3;
 
 namespace min_filter

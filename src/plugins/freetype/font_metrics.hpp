@@ -21,12 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FT_FONT_METRICS_HPP_INCLUDED
 #define SGE_FT_FONT_METRICS_HPP_INCLUDED
 
-#include <vector>
 #include <map>
 #include "../../font/font_metrics.hpp"
-#include "../../renderer/renderer.hpp"
-#include "../../renderer/texture.hpp"
-#include "./library.hpp"
+#include "library.hpp"
 #include "face.hpp"
 #include "freetype.hpp"
 
@@ -37,7 +34,7 @@ namespace ft
 
 class font_metrics : public sge::font_metrics {
 public:
-	font_metrics(library& lib, const std::string& font_path, unsigned font_size);
+	font_metrics(library& lib, const std::string& font_path, unsigned font_height);
 	const char_metric_ptr load_char(font_char c);
 	font_unit line_height() const;
 private:
