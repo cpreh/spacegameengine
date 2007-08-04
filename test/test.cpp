@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/input/key_state_tracker.hpp"
 #include "../src/renderer/line_strip.hpp"
 #include "../src/renderer/screenshot.hpp"
+#include "../src/renderer/font_drawer_3d.hpp"
 #include "../src/language.hpp"
 #include "../src/endianness.hpp"
 #include "../src/audio/audio_loader/audio_loader.hpp"
@@ -169,8 +170,13 @@ try
 	//const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
 	//const sge::image_loader_ptr pl(image_loader_plugin->get()());
 
-	//const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
-	//const sge::font_system_ptr fs(font_plugin->get()());
+	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
+	const sge::font_system_ptr fs(font_plugin->get()());
+
+	const sge::font_metrics_ptr metrics = fs->create_font(sge::media_path() + "fonts/default.ttf", 14);
+	const sge::font_drawer_ptr fn_drawer(new sge::font_drawer_3d(rend));
+
+	sge::font fn(metrics, fn_drawer);
 
 /*	sge::font fn(rend, fs, sge::media_path() + "fonts/default.ttf", 32);
 	sge::sprite_system ss(rend, 0, 2);
@@ -226,11 +232,11 @@ try
 //	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
 //	boost::signals::scoped_connection cb3(btn2.click_signal.connect(smallplayer(sound)));
 
-/*	sge::timer timer(30);
+//	sge::timer timer(30);
 	sge::timer frames(1000);
 
 	unsigned fps = 0, cur_fps = 0;
-	sge::space_unit angle = 0;*/
+//	sge::space_unit angle = 0;
 
 	sge::key_state_tracker ks(is);
 
@@ -239,9 +245,9 @@ try
 		ls.add(rand_point());
 	ls.loop(true);*/
 
-/*	const sge::string some_text(sge::iconv("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
+	const sge::string some_text(sge::iconv("abcdefgh\ni\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
 
-	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));*/
+//	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
 
 	std::ifstream ifs((sge::media_path() + "european_fnt_v2.md3").c_str(), std::ios_base::binary);
 	if(!ifs.is_open())
@@ -300,14 +306,14 @@ try
 	sge::timer frame_timer(1000);
 	while(running)
 	{
-	/*	if (sound->status() != sge::sound::status_stopped)
-			sound->update();
+	//	if (sound->status() != sge::sound::status_stopped)
+	//		sound->update();
 
 		if(frames.update())
 		{
 			cur_fps = fps;
 			fps = 0;
-		}*/
+		}
 		translation.x() -= ks[sge::KC_LEFT] * 0.001;
 		translation.x() += ks[sge::KC_RIGHT] * 0.001;
 		translation.z() -= ks[sge::KC_UP] * 0.1;
@@ -336,18 +342,16 @@ try
 //		fn.transform(sge::math::matrix_rotation_x(angle));
 //		fn.projection(sge::math::transpose(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),sge::math::PI,0,1)));
 //		fn.internal_transformation(sge::math::matrix_identity());
-		//fn.height_pixel_scale(1);
-		//fn.height(0.05);
-		//fn.draw_text(some_text,sge::font_pos(0.2,0.2),sge::font_size(0.8,0.8),sge::colors::green/*, sge::FTF_NoLineWrap*/);
+		fn.draw_text(some_text, sge::font_pos(0,0), sge::font_dim(1000,1000));
 		//fn.transform(sge::math::matrix_identity());
-		//fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0.1,0.9),sge::font_size(1,1),sge::colors::purple);
+		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0,400),sge::font_dim(1000,1000),sge::colors::purple);
 		//ls.render();
 
 		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
 //		con.draw();
 		rend->end_rendering();
-		//++fps;
+		++fps;
 	}
 	return EXIT_SUCCESS;
 }

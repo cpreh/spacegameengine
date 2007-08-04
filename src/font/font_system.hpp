@@ -34,7 +34,7 @@ namespace sge
 class font_system {
 public:
 	virtual ~font_system(){}
-	virtual font_metrics_ptr create_font(const std::string& font_path, unsigned quality_in_pixel) = 0;
+	virtual font_metrics_ptr create_font(const std::string& font_path, unsigned font_height) = 0;
 };
 
 typedef shared_ptr<font_system> font_system_ptr;

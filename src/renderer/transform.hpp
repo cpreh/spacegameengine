@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TRANSFORM_HPP_INCLUDED
 #define SGE_TRANSFORM_HPP_INCLUDED
 
+#include <cassert>
 #include "types.hpp"
 #include "texture.hpp"
 #include "../math/rect.hpp"
@@ -103,6 +104,7 @@ inline space_unit pixel_size_to_space(const pixel_unit v, const screen_unit scre
 template<typename Ret>
 inline Ret pixel_pos_to_2d(const pixel_pos_t pos, const screen_size_t screen_sz)
 {
+	assert(screen_sz.w() && screen_sz.h());
 	return Ret(static_cast<space_unit>(pos.x()) / screen_sz.w(),
 	           static_cast<space_unit>(pos.y()) / screen_sz.h());
 }

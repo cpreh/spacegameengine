@@ -18,18 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <boost/array.hpp>
 #include "../../raw_vector.hpp"
 #include "../../texture/rect_fragmented_texture.hpp"
 #include "../../renderer/transform.hpp"
 #include "../font_drawer_3d.hpp"
 
+#include <iostream>
+
 sge::font_drawer_3d::font_drawer_3d(const renderer_ptr rend)
-: tex_map(new texture_map(rend, new rect_fragmented_texture(rend))),
+: rend(rend),
+  tex_map(new texture_map(rend, new rect_fragmented_texture(rend))),
   sys(rend, tex_map)
 {}
 
 void sge::font_drawer_3d::begin_rendering(const size_type buffer_chars)
 {
+	sprites.clear();
 	sprites.reserve(buffer_chars);
 }
 
@@ -52,7 +57,7 @@ void sge::font_drawer_3d::draw_char(const font_char ch, const font_rect fr, cons
 		}
 		tex_map->add_texture(expanded.data(), fr.width(), fr.height(), tex_name);
 	}
-	
+
 	const sprite::point sprite_pos = pixel_pos_to_2d<sprite::point>(fr.pos(), rend->screen_size());
 	const sprite::dim sprite_sz = pixel_pos_to_2d<sprite::dim>(pixel_pos_t(fr.width(), fr.height()), rend->screen_size());
 	sprites.push_back(sprite(sys, sprite_pos, sprite_sz, tex_name, colors::white));
