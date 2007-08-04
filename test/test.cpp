@@ -325,10 +325,10 @@ try
 
 		//spr.rotation(angle);
 
-		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
-		angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
+	//	rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
+	//	angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
 //		rend->projection(frustum_matrix(-100,100,-100,100,-100,100));
-		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
+	//	rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
 //		rend->projection(sge::math::matrix_orthogonal_xy(-100,100,-100,100,-10,200));
 //		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
 
@@ -347,7 +347,7 @@ try
 		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0,400),sge::font_dim(1000,1000),sge::colors::purple);
 		//ls.render();
 
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
+	//	rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
 //		con.draw();
 		rend->end_rendering();

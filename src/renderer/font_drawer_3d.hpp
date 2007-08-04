@@ -22,12 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_DRAWER_3D_HPP_INCLUDED
 
 #include <vector>
+#include <map>
 #include "font_drawer.hpp"
 #include "renderer.hpp"
-#include "vertex_buffer.hpp"
-#include "index_buffer.hpp"
 #include "font_types.hpp"
-#include "../texture/texture_map.hpp"
+#include "../texture/manager.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/sprite.hpp"
 
@@ -41,11 +40,13 @@ public:
 	void draw_char(font_char, font_rect, const font_color* data);
 	void end_rendering();
 private:
-	renderer_ptr                             rend;
-	texture_map_ptr                          tex_map;
-	sprite_system                            sys;
-	typedef std::vector<sprite>              sprite_vector;
-	sprite_vector                            sprites;
+	renderer_ptr                                     rend;
+	texture_manager                                  texman;
+	typedef std::map<font_char, virtual_texture_ptr> texture_map;
+	texture_map                                      textures;
+	sprite_system                                    sys;
+	typedef std::vector<sprite>                      sprite_vector;
+	sprite_vector                                    sprites;
 };
 
 }

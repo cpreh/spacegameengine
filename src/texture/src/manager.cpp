@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../manager.hpp"
 #include "../static_texture.hpp"
 
-sge::texture_manager::texture_manager(const renderer_ptr rend, const fragmented_texture* const nproto)
+sge::texture_manager::texture_manager(const renderer_ptr rend, const fragmented_texture_ptr nproto)
  : rend(rend),
    _prototype(nproto)
 {}
@@ -44,23 +44,6 @@ sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_
 	throw image_too_big();
 }
 
-sge::virtual_texture_ptr sge::texture_manager::add_texture(const image_ptr im, const bool scale)
-{
-	try
-	{
-		return add_texture(im->data(),im->width(),im->height());
-	}
-	catch(const texture_manager::image_too_big&)
-	{
-		if(!scale)
-			throw;
-		const texture::size_type max_size = rend->caps().max_tex_size,
-		                         factor = 1 + std::max(im->width(),im->height()) / max_size;
-		im->resample(im->width() / factor, im->height() / factor);
-		return add_texture(im->data(),im->width(),im->height());
-	}
-}
-
 sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture_ptr tex)
 {
 	fragmented_textures.push_back(new static_texture(rend, tex));
@@ -72,7 +55,11 @@ sge::renderer_ptr sge::texture_manager::get_renderer() const
 	return rend;
 }
 
-void sge::texture_manager::prototype(fragmented_texture* const p)
+void sge::texture_manager::prototype(const fragmented_texture_ptr p)
 {
-	_prototype.reset(p);
+	_prototype = p;
 }
+		
+sge::texture_manager::image_too_big::image_too_big()
+: sge::exception("texture_manager::add_texture() image too big!")
+{}

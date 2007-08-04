@@ -21,18 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_HPP_INCLUDED
 #define SGE_SPRITE_HPP_INCLUDED
 
-#include <string>
 #include <vector>
 #include "../math/rect.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "../math/circle.hpp"
-#include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
-#include "../renderer/texture.hpp"
-#include "../math/circle.hpp"
 #include "../texture/virtual_texture.hpp"
-#include "sprite_fwd.hpp"
 #include "types.hpp"
 
 namespace sge
@@ -43,9 +37,7 @@ public:
 	typedef sprite_point point;
 	typedef sprite_dim   dim;
 
-	sprite(sprite_system& s, point pos, dim sz, const std::string& tex, color c = colors::white, space_unit z = 0, space_unit rotation = 0, bool visible = true);
-	sprite(const sprite& s);
-	sprite& operator=(const sprite&);
+	sprite(point pos, dim sz, virtual_texture_ptr tex, color c = colors::white, space_unit z = 0, space_unit rotation = 0, bool visible = true);
 
 	space_unit& x();
 	space_unit& y();
@@ -55,7 +47,7 @@ public:
 	dim& size();
 	space_unit& z();
 	void visible(bool visible);
-	void set_texture(const std::string& name, stage_type stage = 0);
+	void set_texture(virtual_texture_ptr, stage_type stage = 0);
 	void rotation(space_unit rot);
 	void rotate_around(point p);
 	void rotate_around();
@@ -78,36 +70,30 @@ public:
 	color get_color() const;
 	math::rect bounding_quad() const;
 	circle bounding_circle() const;
-
-	void draw();
-	~sprite();
+	const point rotation_center() const;
+	const virtual_texture_ptr get_texture(stage_type stage) const;
 
 	static bool equal(const sprite& l, const sprite& r);
 	static bool less(const sprite& l, const sprite& r);
 private:
-	friend class sprite_system;
-	friend class sprite_drawer;
-
-	texture_ptr get_texture(stage_type stage) const;
-	void update_where(vertex_buffer::iterator where);
-	void update();
-	index_buffer::iterator update_ib(index_buffer::iterator where);
-
 	point p;
 	dim sz;
 	space_unit _z;
 	bool _visible;
 	space_unit _rotation;
-	sprite_system* spr_sys;
-	typedef std::vector<const_virtual_texture_ptr> tex_array;
+	typedef std::vector<virtual_texture_ptr> tex_array;
 	tex_array tex;
-	vertex_buffer::size_type vb_pos;
-	sprite_list::iterator my_place;
-	bool _use_rot_around;
+	bool use_rot_around;
 	point _rot_around;
 	space_unit _repeat;
 	color _color;
 };
+
+namespace detail
+{
+	const unsigned indices_per_sprite = 6,
+	               vertices_per_sprite = 4;
+}
 
 }
 #endif

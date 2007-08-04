@@ -19,66 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../sprite.hpp"
-#include "../system.hpp"
-#include "../../renderer/lock_ptr.hpp"
 #include "../helper.hpp"
 #include <cmath>
 
-sge::sprite::sprite(sprite_system& _spr_sys, const point p, const dim sz, const std::string& name, const color col, const space_unit _z, const space_unit _rotation, const bool vis)
+sge::sprite::sprite(const point p, const dim sz, const virtual_texture_ptr vtex, const color col, const space_unit _z, const space_unit _rotation, const bool vis)
  : p(p),
    sz(sz),
    _z(_z),
    _visible(vis),
    _rotation(_rotation),
-   spr_sys(&_spr_sys),
-   tex(1,spr_sys->get_texture_map()->vtexture(name)),
-   vb_pos(spr_sys->free_vb_pos()),
-   my_place(spr_sys->attach(*this)),
-   _use_rot_around(false),
+   tex(1, vtex),
+   use_rot_around(false),
    _repeat(1),
    _color(col)
 {}
-
-sge::sprite::sprite(const sprite& spr)
- : p(spr.p),
-   sz(spr.sz),
-   _z(spr._z),
-   _visible(spr._visible),
-   _rotation(spr._rotation),
-   spr_sys(spr.spr_sys),
-   tex(spr.tex),
-   vb_pos(spr_sys->free_vb_pos()),
-   my_place(spr_sys->attach(*this)),
-   _use_rot_around(spr._use_rot_around),
-   _rot_around(spr._rot_around),
-   _repeat(spr._repeat),
-   _color(spr._color)
-{}
-
-sge::sprite& sge::sprite::operator=(const sge::sprite& spr)
-{
-	if(spr_sys != spr.spr_sys)
-	{
-		spr_sys->detach(*this);
-		spr_sys = spr.spr_sys;
-		my_place = spr_sys->attach(*this);
-		vb_pos = spr_sys->free_vb_pos();
-	}
-
-	p = spr.p;
-	sz = spr.sz;
-	_z = spr._z;
-	_visible = spr._visible;
-   	_rotation = spr._rotation;
-
-	tex = spr.tex;
-	_use_rot_around = spr._use_rot_around;
-	_rot_around = spr._rot_around;
-	_repeat = spr._repeat;
-	_color = spr._color;
-
-	return *this;
-}
 
 sge::space_unit& sge::sprite::x()
 {
@@ -120,13 +74,13 @@ void sge::sprite::visible(const bool nvisible)
 	_visible = nvisible;
 }
 
-void sge::sprite::set_texture(const std::string& name, const stage_type stage)
+void sge::sprite::set_texture(const virtual_texture_ptr vtex, const stage_type stage)
 {
-	if(stage >= spr_sys->max_tex_level())
-		throw exception("max_tex_level surpassed in sprite::set_texture");
+//	if(stage >= spr_sys->max_tex_level())
+//		throw exception("max_tex_level surpassed in sprite::set_texture");
 	if(stage >= tex.size())
 		tex.resize(stage+1);
-	tex[stage] = spr_sys->get_texture_map()->vtexture(name);
+	tex[stage] = vtex;
 }
 
 void sge::sprite::rotation(const space_unit rot)
@@ -136,13 +90,13 @@ void sge::sprite::rotation(const space_unit rot)
 
 void sge::sprite::rotate_around(const point p)
 {
-	_use_rot_around = true;
+	use_rot_around = true;
 	_rot_around = p;
 }
 
 void sge::sprite::rotate_around()
 {
-	_use_rot_around = false;
+	use_rot_around = false;
 }
 
 void sge::sprite::repeat(const space_unit r)
@@ -215,69 +169,11 @@ sge::color sge::sprite::get_color() const
 	return _color;
 }
 
-sge::sprite::~sprite()
-{
-	spr_sys->detach(*this);
-}
-
-void sge::sprite::update()
-{
-	update_where(spr_sys->vb->begin()+vb_pos);
-}
-
-void sge::sprite::update_where(const vertex_buffer::iterator it)
-{
-	if(rotation() == 0)
-		fill_sprite_position(it, get_rect(), z());
-	else
-		fill_sprite_position_rotated(it, get_rect(), rotation(), _use_rot_around ? _rot_around : center(), z());
-
-	for(tex_array::size_type i = 0; i < tex.size() && tex[i]; ++i)
-		fill_sprite_tex_coordinates(it, tex[i]->area_texc(repeat()), i);
-
-	fill_sprite_color(it, _color);
-}
-
-sge::index_buffer::iterator sge::sprite::update_ib(const index_buffer::iterator it)
-{
-	return fill_sprite_indices(it, static_cast<index_buffer::value_type>(vb_pos));
-}
-
-void sge::sprite::draw()
-{
-	if(!visible())
-		return;
-
-	{
-		sprite_system::vb_buf_type& buf = spr_sys->_sprite_vb_buf;
-		update_where(spr_sys->vb->create_iterator(buf.data()));
-		spr_sys->vb->set_data(buf.data(), vb_pos, detail::vertices_per_sprite);
-	}
-
-	{
-		sprite_system::ib_buf_type& buf = spr_sys->_sprite_ib_buf;
-		update_ib(buf.c_array());
-		spr_sys->ib->set_data(buf.data(), 0, detail::indices_per_sprite);
-	}
-
-	spr_sys->set_parameters();
-
-	for(tex_array::size_type i = 0; i < tex.size(); ++i)
-		spr_sys->get_renderer()->set_texture(get_texture(i),i);
-
-	// TODO: replace with a triangle strip
-	spr_sys->get_renderer()->render(spr_sys->vb,spr_sys->ib,0,detail::vertices_per_sprite,indexed_primitive_type::triangle,detail::indices_per_sprite/3,0);
-
-	for(tex_array::size_type i = 1; i < tex.size(); ++i)
-		spr_sys->get_renderer()->set_texture(texture_ptr(),i);
-}
-
-sge::texture_ptr sge::sprite::get_texture(const stage_type stage) const
+const sge::virtual_texture_ptr sge::sprite::get_texture(const stage_type stage) const
 {
 	if(stage >= tex.size())
-		return texture_ptr();
-	const const_virtual_texture_ptr p = tex[stage];
-	return p ? p->my_texture() : texture_ptr();
+		return virtual_texture_ptr();
+	return tex[stage];
 }
 
 sge::space_unit sge::sprite::radius() const
@@ -301,6 +197,13 @@ sge::math::rect sge::sprite::bounding_quad() const
 sge::circle sge::sprite::bounding_circle() const
 {
 	return circle(center(),radius());
+}
+
+const sge::sprite::point sge::sprite::rotation_center() const
+{
+	if(!use_rot_around)
+		return center();
+	return _rot_around;
 }
 
 bool sge::sprite::equal(const sprite& l, const sprite& r)

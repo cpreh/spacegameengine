@@ -13,9 +13,7 @@
 #include "../math/dim.hpp"
 #include "../plugin_manager.hpp"
 #include "../renderer/renderer.hpp"
-#include "../font/font_system.hpp"
 #include "../renderer/font.hpp"
-#include "../texture/handler.hpp"
 #include "../timer.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/sprite.hpp"
@@ -70,13 +68,12 @@ public:
 	console_gfx(renderer_ptr,
 	            input_system_ptr,
 	            font &,
-	            const image_loader_handler &,
 	            const color = colors::black,
-	            const std::string & background_texture = texture_map::no_texture);
+	            const virtual_texture_ptr &background_texture = virtual_texture_ptr());
 
 	void output_line(const string &s);
 	void draw();
-	void set_texture(const std::string &t);
+	void set_texture(virtual_texture_ptr t);
 };
 
 }

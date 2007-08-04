@@ -22,11 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
 #include <boost/ptr_container/ptr_list.hpp>
-#include <boost/scoped_ptr.hpp>
 #include "../exception.hpp"
 #include "../renderer/renderer.hpp"
 #include "../renderer/texture.hpp"
-#include "../image/image.hpp"
 #include "fragmented_texture.hpp"
 
 namespace sge
@@ -34,22 +32,21 @@ namespace sge
 
 class texture_manager {
 public:
-	texture_manager(renderer_ptr rend, const fragmented_texture* proto);
+	texture_manager(renderer_ptr rend, fragmented_texture_ptr proto);
 	virtual_texture_ptr add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h);
-	virtual_texture_ptr add_texture(image_ptr im, bool scale);
 	virtual_texture_ptr add_texture(texture_ptr tex);
 	renderer_ptr get_renderer() const;
-	void prototype(fragmented_texture*);
+	void prototype(fragmented_texture_ptr);
 
 	class image_too_big : public sge::exception {
 	public:
-		image_too_big() : sge::exception("texture_manager::add_texture() image too big!") {}
+		image_too_big();
 	};
 private:
 	typedef boost::ptr_list<fragmented_texture> fragmented_texture_list;
 	fragmented_texture_list fragmented_textures;
 	renderer_ptr rend;
-	boost::scoped_ptr<const fragmented_texture> _prototype;
+	fragmented_texture_ptr _prototype;
 };
 
 }

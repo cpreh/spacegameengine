@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#if 0
 #include "../handler.hpp"
 #include "../../texture/texture_map.hpp"
 #include <boost/filesystem/convenience.hpp>
@@ -42,3 +43,4 @@ bool sge::image_loader_handler::operator()(sge::texture_map& ss, const std::stri
 	}
 	return false;
 }
+#endif

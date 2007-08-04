@@ -21,54 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
 #define SGE_SPRITE_SYSTEM_HPP_INCLUDED
 
-#include <list>
-#include <string>
-#include <boost/array.hpp>
-#include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/renderer.hpp"
 #include "../renderer/renderable.hpp"
 #include "../renderer/default_transformable.hpp"
-#include "../raw_vector.hpp"
-#include "../texture/texture_map.hpp"
-#include "sprite_fwd.hpp"
 
 namespace sge
 {
 
 class sprite_system : public default_transformable, public renderable, boost::noncopyable {
 public:
-	sprite_system(renderer_ptr rend, texture_map::handler_function handler, stage_type max_texture_level = 1);
-	sprite_system(renderer_ptr rend, texture_map_ptr map, stage_type max_texture_level = 1);
-	void render();
+	sprite_system(renderer_ptr rend, stage_type max_texture_level = 1);
+	template<typename In>
+		void render(In beg, In end);
 	void set_parameters();
 	renderer_ptr get_renderer() const;
 	stage_type max_tex_level() const;
-	texture_map_ptr get_texture_map() const;
 private:
-	void init();
-	sprite_list::iterator attach(sprite& s);
-	void detach(const sprite& s);
-	vertex_buffer::size_type free_vb_pos();
-
-	friend class sprite;
-
-	sprite_list sprites;
-
-	texture_map_ptr tex_map;
 	renderer_ptr rend;
 	stage_type _max_tex;
 	vertex_buffer_ptr vb;
 	index_buffer_ptr ib;
-	typedef std::vector<vertex_buffer::size_type> free_pos_vector;
-	free_pos_vector free_pos;
-	
-	typedef raw_vector<vertex_buffer::value_type> vb_buf_type;
-	vb_buf_type _sprite_vb_buf;
-	typedef boost::array<index_buffer::value_type, detail::indices_per_sprite> ib_buf_type;
-	ib_buf_type _sprite_ib_buf;
 };
 
 }

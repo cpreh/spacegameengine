@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
 #define SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
+#include "../shared_ptr.hpp"
 #include "../renderer/texture.hpp"
 #include "../renderer/renderer.hpp"
 #include "virtual_texture.hpp"
@@ -36,6 +37,8 @@ public:
 	virtual fragmented_texture* clone() const = 0;
 	virtual ~fragmented_texture(){}
 };
+
+typedef shared_ptr<fragmented_texture> fragmented_texture_ptr;
 
 }
 

@@ -12,6 +12,7 @@
 // SGE
 #include "../../texture/handler.hpp"
 #include "../../renderer/transform.hpp"
+#include "../../sprite/system_impl.hpp"
 #include "../console_gfx.hpp"
 
 namespace
@@ -274,7 +275,7 @@ void sge::con::console_gfx::draw()
 	if (cursor_blink.update())
 		cursor_active = !cursor_active;
 
-	ss.render();
+	ss.render(&background, &background + 1);
 
 	// input_line und ein Dummy, wo evtl. der Cursor hinkommt
 	string edit_input_line = input_line + iconv(" ");
@@ -298,7 +299,7 @@ void sge::con::console_gfx::draw()
 	fn.draw_text(history_string, pos2(0,0), math::dim2(console_size.w(), console_size.h() - fn.height()), rend->screen_size(), font_flags::align_left | font_flags::align_bottom | font_flags::no_line_wrap);
 }
 
-void sge::con::console_gfx::set_texture(const std::string &t)
+void sge::con::console_gfx::set_texture(const virtual_texture_ptr t)
 {
 	background.set_texture(t);
 }
@@ -306,9 +307,8 @@ void sge::con::console_gfx::set_texture(const std::string &t)
 sge::con::console_gfx::console_gfx(const renderer_ptr rend,
                                    const input_system_ptr input_system,
                                    font& fn,
-                                   const image_loader_handler& loader_handler,
                                    const color font_color,
-                                   const std::string &background_texture) 
+                                   const virtual_texture_ptr &background_texture) 
 : rend(rend),
   console_size(1, 0.5),
   fn(fn),
@@ -317,8 +317,8 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
   input_connection(input_system->register_callback(boost::bind(&console_gfx::key_callback, this, _1))),
   input_repeat_connection(input_system->register_repeat_callback(boost::bind(&console_gfx::key_action, this, _1))),
   keys(input_system),
-  ss(rend,loader_handler),
-  background(ss,math::vector2(0,0),console_size,background_texture),
+  ss(rend),
+  background(math::vector2(0,0), console_size, background_texture),
   font_color(font_color),
   cursor_active(true),
   cursor_position(0),

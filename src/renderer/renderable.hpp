@@ -26,7 +26,6 @@ namespace sge
 
 class renderable {
 public:
-	virtual void render() = 0;
 	virtual void set_parameters() = 0;
 protected:
 	virtual ~renderable() {}
