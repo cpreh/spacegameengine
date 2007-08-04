@@ -53,9 +53,6 @@ inline sge::pos3 at_pixel(int x, int y) {
 int main()
 try
 {
-	sge::range_error foo("bar");
-	std::exception &e = foo;
-
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;

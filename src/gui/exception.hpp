@@ -32,12 +32,6 @@ public:
 	: ::sge::exception(s) {}
 };
 
-class runtime_error : public ::sge::gui::exception, public ::sge::exception {
-public:
-	runtime_error(const std::string &s)
-	: ::sge::gui::exception(s), ::sge::exception(s) {}
-};
-
 }
 }
 

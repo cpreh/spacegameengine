@@ -16,6 +16,7 @@
 				</Compiler>
 				<Linker>
 					<Add library="boost_signals-mgw34-1_34" />
+					<Add library="sgegui" />
 					<Add library="sgecore" />
 					<Add directory="..\..\..\bin" />
 				</Linker>
