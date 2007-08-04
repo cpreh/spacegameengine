@@ -46,13 +46,13 @@
 			<Add option="-ansi" />
 			<Add option="-Wno-long-long" />
 		</Compiler>
+		<Unit filename="..\..\..\src\gui\canvas.hpp" />
 		<Unit filename="..\..\..\src\gui\color.hpp" />
 		<Unit filename="..\..\..\src\gui\exception.hpp" />
 		<Unit filename="..\..\..\src\gui\gradient2_policies.hpp" />
 		<Unit filename="..\..\..\src\gui\gradient_policies.hpp" />
 		<Unit filename="..\..\..\src\gui\mixing_policies.hpp" />
-		<Unit filename="..\..\..\src\gui\pixmap.hpp" />
-		<Unit filename="..\..\..\src\gui\src\pixmap.cpp" />
+		<Unit filename="..\..\..\src\gui\src\canvas.cpp" />
 		<Unit filename="..\..\..\src\gui\types.hpp" />
 		<Extensions>
 			<code_completion />

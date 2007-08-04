@@ -41,9 +41,9 @@ public:
 	renderer_ptr get_renderer() const;
 	void prototype(fragmented_texture*);
 
-	class image_too_big : public sge::runtime_error {
+	class image_too_big : public sge::exception {
 	public:
-		image_too_big() : sge::runtime_error("texture_manager::add_texture() image too big!") {}
+		image_too_big() : sge::exception("texture_manager::add_texture() image too big!") {}
 	};
 private:
 	typedef boost::ptr_list<fragmented_texture> fragmented_texture_list;

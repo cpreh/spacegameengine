@@ -36,12 +36,12 @@ sge::string sge::language()
 #ifdef SGE_LINUX_PLATFORM
 	const char* const p = std::getenv("LANG");
 	if(!p)
-		throw sge::runtime_error("LANG not set! Unable to detect OS language!");
+		throw sge::exception("LANG not set! Unable to detect OS language!");
 	return iconv(p);
 #elif SGE_WINDOWS_PLATFORM
 	boost::array<TCHAR, 128> buf;
 	if(GetLocaleInfo(GetSystemDefaultLCID(), LOCALE_SLANGUAGE, buf.c_array(), static_cast<int>(buf.size())) == 0)
-		throw sge::runtime_error("GetLocaleInfo() failed!");
+		throw sge::exception("GetLocaleInfo() failed!");
 	return win_str_to_sge(buf.data());
 #endif
 }

@@ -52,7 +52,7 @@ sge::win32_window::win32_window(const window_size sz, const string& title)
 		wndclass.cbSize = sizeof(WNDCLASSEX);
 		wndclass.style = 0;
 		if(!RegisterClassEx(&wndclass))
-			throw sge::runtime_error("RegisterClassEx() failed");
+			throw sge::exception("RegisterClassEx() failed");
 		wndclass_created = true;
 	}
 
@@ -68,7 +68,7 @@ sge::win32_window::win32_window(const window_size sz, const string& title)
 		instance,
 		this);
 	if(!handle)
-		throw sge::runtime_error("CreateWindow() failed");
+		throw sge::exception("CreateWindow() failed");
 }
 
 sge::win32_window::~win32_window()
@@ -79,21 +79,21 @@ sge::win32_window::~win32_window()
 void sge::win32_window::size(const window_size nsz)
 {
 	if(SetWindowPos(hwnd(),HWND_TOP,0,0,nsz.w(),nsz.h(),SWP_SHOWWINDOW) == 0)
-		throw sge::runtime_error("SetWindowPos() failed");
+		throw sge::exception("SetWindowPos() failed");
 }
 
 void sge::win32_window::title(const string& ntitle)
 {
 	_title = ntitle;
 	if(SetWindowText(hwnd(),sge_str_to_win(_title).c_str()) == 0)
-		throw sge::runtime_error("SetWindowText() failed");
+		throw sge::exception("SetWindowText() failed");
 }
 
 sge::win32_window::window_size sge::win32_window::size() const
 {
 	RECT rect;
 	if(GetWindowRect(handle, &rect) == FALSE)
-		throw sge::runtime_error("GetWindowRect() failed");
+		throw sge::exception("GetWindowRect() failed");
 	return window_size(rect.right - rect.left, rect.bottom - rect.top);
 }
 

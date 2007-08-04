@@ -123,7 +123,7 @@ void sge::sprite::visible(const bool nvisible)
 void sge::sprite::set_texture(const std::string& name, const stage_type stage)
 {
 	if(stage >= spr_sys->max_tex_level())
-		throw runtime_error("max_tex_level surpassed in sprite::set_texture");
+		throw exception("max_tex_level surpassed in sprite::set_texture");
 	if(stage >= tex.size())
 		tex.resize(stage+1);
 	tex[stage] = spr_sys->get_texture_map()->vtexture(name);

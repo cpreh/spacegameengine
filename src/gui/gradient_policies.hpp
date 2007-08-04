@@ -37,10 +37,25 @@ struct normal {
 		);
 	}
 
-	color operator()(const color &col1, const color &col2, float percentage) {
+	color operator()(const color &col1, const color &col2, float percentage) const {
 		return mix(col1, col2, percentage);
 	}
 };
+
+template<typename T=normal> struct there_and_back_again {
+	T gradpol;
+	there_and_back_again(const T &gradpol = T()) : gradpol(gradpol) {}
+
+	static color mix(const T &gradpol, const color &col1, const color &col2, float percentage) {
+		return gradpol(col1, col2, 2 * ((percentage > 0.5) ? 1-percentage : percentage));
+	}
+
+	color operator()(const color &col1, const color &col2, float percentage) const {
+		return mix(gradpol, col1, col2, percentage);
+	}
+};
+
+
 
 // TODO: HSL CW, HSL CCW, ...
 

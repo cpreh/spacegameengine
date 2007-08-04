@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <exception>
 #include <iostream>
 
+#include <boost/any.hpp>
 #include <boost/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
@@ -39,26 +40,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/sprite/system.hpp"
 #include "../src/texture/no_fragmented_texture.hpp"
 
-#include "../src/gui/pixmap.hpp"
+#include "../src/gui/canvas.hpp"
 
 inline sge::pos3 at_pixel(int x, int y) {
 	return sge::pos3(
-		(x-512) / 512.0,
-		-(y-384) / 384.0,
+		(x-400) / 400.0,
+		-(y-300) / 300.0,
 		0
-	);
-}
-
-inline sge::tex_pos tex_at_pixel(int x, int y) {
-	return sge::tex_pos(
-		x / 1024.0,
-		y / 768.0
 	);
 }
 
 int main()
 try
 {
+	sge::range_error foo("bar");
+	std::exception &e = foo;
+
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
@@ -69,7 +66,7 @@ try
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
 	const sge::renderer_caps_array caps(rs->caps());
 
-	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::bit_depth::depth32,100), true);
+	const sge::renderer_parameters param(sge::display_mode(800,600,sge::bit_depth::depth32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
 
 	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
@@ -92,20 +89,29 @@ try
 
 	sge::no_fragmented_texture mytex(rend);
 	sge::texture_manager texmgr(rend, &mytex);
-	sge::gui::pixmap pixmap(sge::gui::dim2(300, 200));
+	sge::gui::canvas canvas(sge::gui::dim2(300, 200));
 
 	using sge::gui::color;
-	pixmap.fill(sge::gui::color(0,0,0xcc,255));
-	pixmap.fill_rect(sge::gui::rect(0, 0, 300, 100), sge::gui::color(0xcc,0,0,255));
+	using sge::gui::point;
+	canvas.fill(sge::colors::transparent);
 
-	for (int i=-10; i<=10; i++)
-		pixmap.draw_line<sge::gui::mixing_policy::normal>(
-			sge::gui::point(150 + 20*i, -10),
-			sge::gui::point(150 - 20*i, 210),
-			sge::gui::color(255, 255, 255, 255 - ((i<0) ? -i : i) * 20)
+	sge::color colors[] = {
+		sge::colors::black,
+		sge::colors::white,
+		sge::colors::red,
+		sge::colors::green,
+		sge::colors::blue
+	};
+	for (int i=0; i<5; ++i)
+		canvas.draw_line<sge::gui::mixing_policy::normal, sge::gui::gradient_policy::there_and_back_again<> >(
+			point(10+20*i,  10),
+			point(10+20*i, 190),
+			sge::colors::transparent,
+			colors[i]
 		);
 
-	sge::virtual_texture_ptr pixmaptex(pixmap.to_texture(texmgr));
+
+	sge::virtual_texture_ptr canvastex(canvas.to_texture(texmgr));
 
 
 
@@ -128,23 +134,23 @@ try
 		sge::vertex_buffer::iterator it = vb->begin();
 
 		// top left
-		it->pos() = at_pixel(500, 200);
-		it->tex() = pixmaptex->translate(0, 0);
+		it->pos() = at_pixel(250, 200);
+		it->tex() = canvastex->translate(0, 0);
 		++it;
 
 		// top right
-		it->pos() = at_pixel(800, 200);
-		it->tex() = pixmaptex->translate(1, 0);
+		it->pos() = at_pixel(550, 200);
+		it->tex() = canvastex->translate(1, 0);
 		++it;
 
 		// bottom left
-		it->pos() = at_pixel(500, 400);
-		it->tex() = pixmaptex->translate(0, 1);
+		it->pos() = at_pixel(250, 400);
+		it->tex() = canvastex->translate(0, 1);
 		++it;
 
 		// bottom right
-		it->pos() = at_pixel(800, 400);
-		it->tex() = pixmaptex->translate(1, 1);
+		it->pos() = at_pixel(550, 400);
+		it->tex() = canvastex->translate(1, 1);
 	}
 
 	sge::vertex_buffer_ptr vb2 =
@@ -176,6 +182,7 @@ try
 		it->diffuse() = sge::colors::white;
 	}
 
+	rend->set_bool_state(sge::bool_state::enable_alpha_blending, true);
 
 	while(running)
 	{
@@ -189,7 +196,7 @@ try
 
 	rend->set_texture(sge::texture_base_ptr());
 	rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
-	rend->set_texture(pixmaptex->my_texture());
+	rend->set_texture(canvastex->my_texture());
 	rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
 
 		rend->end_rendering();
@@ -201,6 +208,8 @@ catch(const std::exception& e)
 	std::cerr << "Program terminated (std::exception caught): " << e.what() << '\n';
 	return EXIT_FAILURE;
 }
+#define CATCH(t) catch(t x) { std::cout << "Program terminated, caught " #t ": " << std::endl; return 0; }
+CATCH(boost::any)
 catch(...)
 {
 	std::cerr << "Program terminated (unknown exception caught)!\n";

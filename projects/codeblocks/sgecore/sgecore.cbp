@@ -73,6 +73,7 @@
 		<Unit filename="..\..\..\src\detail\src\iconv_detail.cpp" />
 		<Unit filename="..\..\..\src\endianness.hpp" />
 		<Unit filename="..\..\..\src\exception.hpp" />
+		<Unit filename="..\..\..\src\font\char_metric.hpp" />
 		<Unit filename="..\..\..\src\font\font_metrics.hpp" />
 		<Unit filename="..\..\..\src\font\font_system.hpp" />
 		<Unit filename="..\..\..\src\frames_counter.hpp" />
@@ -120,6 +121,7 @@
 		<Unit filename="..\..\..\src\renderer\cube_texture.hpp" />
 		<Unit filename="..\..\..\src\renderer\default_transformable.hpp" />
 		<Unit filename="..\..\..\src\renderer\font.hpp" />
+		<Unit filename="..\..\..\src\renderer\font_drawer.hpp" />
 		<Unit filename="..\..\..\src\renderer\font_types.hpp" />
 		<Unit filename="..\..\..\src\renderer\hsla.hpp" />
 		<Unit filename="..\..\..\src\renderer\index_buffer.hpp" />
@@ -179,11 +181,13 @@
 		<Unit filename="..\..\..\src\texture\manager.hpp" />
 		<Unit filename="..\..\..\src\texture\no_fragmented_texture.hpp" />
 		<Unit filename="..\..\..\src\texture\rect_bsp_tree.hpp" />
+		<Unit filename="..\..\..\src\texture\rect_fragmented_texture.hpp" />
 		<Unit filename="..\..\..\src\texture\src\bsp_fragmented_texture.cpp" />
 		<Unit filename="..\..\..\src\texture\src\handler.cpp" />
 		<Unit filename="..\..\..\src\texture\src\manager.cpp" />
 		<Unit filename="..\..\..\src\texture\src\no_fragmented_texture.cpp" />
 		<Unit filename="..\..\..\src\texture\src\rect_bsp_tree.cpp" />
+		<Unit filename="..\..\..\src\texture\src\rect_fragmented_texture.cpp" />
 		<Unit filename="..\..\..\src\texture\src\static_texture.cpp" />
 		<Unit filename="..\..\..\src\texture\src\texture_map.cpp" />
 		<Unit filename="..\..\..\src\texture\src\virtual_texture.cpp" />

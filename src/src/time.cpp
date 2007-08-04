@@ -27,7 +27,7 @@ sge::time_type sge::time()
 	struct timeval tv;
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
-		throw sge::runtime_error("gettimeofday() failed");
+		throw sge::exception("gettimeofday() failed");
 	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
 #elif SGE_WINDOWS_PLATFORM
 	return GetTickCount();

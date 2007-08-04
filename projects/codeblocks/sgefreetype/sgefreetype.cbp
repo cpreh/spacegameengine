@@ -46,12 +46,14 @@
 			<Add option="-ansi" />
 			<Add option="-Wno-long-long" />
 		</Compiler>
+		<Unit filename="..\..\..\src\plugins\freetype\char_metric.hpp" />
 		<Unit filename="..\..\..\src\plugins\freetype\face.hpp" />
 		<Unit filename="..\..\..\src\plugins\freetype\font_metrics.hpp" />
 		<Unit filename="..\..\..\src\plugins\freetype\font_system.hpp" />
 		<Unit filename="..\..\..\src\plugins\freetype\freetype.hpp" />
 		<Unit filename="..\..\..\src\plugins\freetype\glyph.hpp" />
 		<Unit filename="..\..\..\src\plugins\freetype\library.hpp" />
+		<Unit filename="..\..\..\src\plugins\freetype\src\char_metric.cpp" />
 		<Unit filename="..\..\..\src\plugins\freetype\src\exports.cpp" />
 		<Unit filename="..\..\..\src\plugins\freetype\src\face.cpp" />
 		<Unit filename="..\..\..\src\plugins\freetype\src\font_metrics.cpp" />

@@ -35,16 +35,16 @@ enum encoding {
 #undef SGE_ICONV_ENCODING2
 #undef SGE_ICONV_ENCODING3
 
-class invalid_conversion : public sge::runtime_error {
+class invalid_conversion : public sge::exception {
 public:
 	invalid_conversion(const std::string& from, const std::string& to)
-	: sge::runtime_error(std::string("Unsupported conversion from ") += from + " to " + to + "!" ) {}
+	: sge::exception(std::string("Unsupported conversion from ") += from + " to " + to + "!" ) {}
 };
 
-class conversion_failed : public sge::runtime_error {
+class conversion_failed : public sge::exception {
 public:
 	conversion_failed(const std::string& from, const std::string& to)
-	: sge::runtime_error(std::string("An iconv conversion from ") += from + " to " + to + " failed!") {}
+	: sge::exception(std::string("An iconv conversion from ") += from + " to " + to + " failed!") {}
 };
 
 }

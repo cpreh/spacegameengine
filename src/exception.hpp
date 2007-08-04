@@ -28,10 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-class exception : public std::exception {
+class exception : public std::runtime_error{
 public:
 	explicit exception(const std::string& s)
-	: s(s)
+	: std::runtime_error(s)
+	, s(s)
 	{}
 
 	virtual const char* what() const throw()
@@ -42,14 +43,6 @@ public:
 	virtual ~exception() throw() {}
 private:
 	std::string s;
-};
-
-class runtime_error : public sge::exception, public std::runtime_error {
-public:
-	explicit runtime_error(const std::string& s)
-	: sge::exception(s)
-	, std::runtime_error(s)
-	{}
 };
 
 }

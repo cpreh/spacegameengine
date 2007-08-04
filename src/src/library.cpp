@@ -42,7 +42,7 @@ sge::library::library(const std::string& n)
 	lasterror = GetLastError();
 #endif
 	if(!handle)
-		throw sge::runtime_error(std::string("failed to load library: ") + name() + " : " + liberror());
+		throw sge::exception(std::string("failed to load library: ") + name() + " : " + liberror());
 }
 
 sge::library::~library()
