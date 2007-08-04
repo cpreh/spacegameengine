@@ -33,7 +33,7 @@ sge::ogl::actor_base::actor_base(const actor_info& ai)
 {}
 
 namespace {
-	using sge::runtime_error;
+	using sge::exception;
 	using sge::ogl::is_error;
 	typedef sge::ogl::actor_base actor_base;
 	typedef sge::ogl::actor_info actor_info;
