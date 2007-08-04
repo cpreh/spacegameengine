@@ -19,21 +19,21 @@ void frustum_info::fill(const sge::math::vector3 &_pos,const sge::space_unit _fo
 
 	//std::cout << "angle_right=" << angle_right << ", angle_left=" << angle_left << "\n";
 	
-	right_dir(sge::math::vector2(std::sin(angle_right),-std::cos(angle_right)));
-	left_dir(sge::math::vector2(std::sin(angle_left),-std::cos(angle_left)));
+	right_dir(sge::math::vector3(std::sin(angle_right),0,-std::cos(angle_right)));
+	left_dir(sge::math::vector3(std::sin(angle_left),0,-std::cos(angle_left)));
 
 	//std::cout << "rightdirection=" << rightdirection << ", leftdirection=" << leftdirection << "\n";
 
 	// Normale der rechten Clipping Plane. Diese muss, da es im Uhrzeigersinn ist, invnormal sein.
-	sge::math::vector2 rightnormal = invnormal(right_dir());
+	sge::math::vector2 rightnormal = invnormal(sge::math::vector2(right_dir().x(),right_dir().z()));
 	// Hier allerdings normal, da gegen den Uhrzeigersinn
-	sge::math::vector2 leftnormal = normal(left_dir());
+	sge::math::vector2 leftnormal = normal(sge::math::vector2(left_dir().x(),left_dir().z()));
 
 	//std::cout << "rightnormal=" << rightnormal << ", leftnormal=" << leftnormal << "\n";
 
 	// Und die beiden Planes zusammensetzen
-	left(plane(pos(),leftnormal));
-	right(plane(pos(),rightnormal));
+	left(plane(pos(),sge::math::vector3(leftnormal.x(),0,leftnormal.y())));
+	right(plane(pos(),sge::math::vector3(rightnormal.x(),0,rightnormal.y())));
 }
 
 // See http://local.wasp.uwa.edu.au/~pbourke/geometry/lineline2d/
@@ -122,7 +122,7 @@ bool completely_inside(const sge::math::rect &rect,const frustum_info &frustum)
 	// und gleichzeitig links von oder auf der rechten Clipping Plane sind
 	
 	// Eckpunkte des Rects
-	sge::math::vector3 lt(rect.left,rect.top,0),rt(rect.right,rect.top,0),lb(rect.left,rect.bottom,0),rb(rect.right,rect.bottom,0);
+	sge::math::vector3 lt(rect.left,0,rect.top),rt(rect.right,0,rect.top),lb(rect.left,0,rect.bottom),rb(rect.right,0,rect.bottom);
 	return !in_front(frustum.left(),lt) && !in_front(frustum.left(),rt) && !in_front(frustum.left(),lb) && !in_front(frustum.left(),rb) && 
 				 !in_front(frustum.right(),lt) && !in_front(frustum.right(),rt) && !in_front(frustum.right(),lb) && !in_front(frustum.right(),rb);
 }

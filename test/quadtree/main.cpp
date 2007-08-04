@@ -42,17 +42,35 @@
 #include "../../src/media.hpp"
 #include "mathstuff.hpp"
 
+inline sge::math::space_matrix matrix_frustum(const sge::space_unit left, const sge::space_unit right, const sge::space_unit bottom, const sge::space_unit top,const sge::space_unit near, const sge::space_unit far)
+{
+	return sge::math::space_matrix
+	       (2*near/(right-left), 0,                   (right+left)/(right-left), 0,
+	        0,                   2*near/(top-bottom), (top+bottom)/(top-bottom), 0,
+	        0,                   0,                   -(far+near)/(far-near),    -1,
+	        0,                   0,                   -2*far*near/(far-near),    0);
+}
+
 inline sge::math::space_matrix matrix_perspective(const sge::space_unit aspect, const sge::space_unit fov, const sge::space_unit near, const sge::space_unit far)
 {
-	const sge::space_unit h = static_cast<sge::space_unit>(1) / std::tan(fov / static_cast<sge::space_unit>(2)),
-	                 w = h / aspect,
+	const sge::space_unit f = static_cast<sge::space_unit>(1) / std::tan(fov / static_cast<sge::space_unit>(2)),
+	//const sge::space_unit f = std::cos(fov/2)/std::sin(fov/2),
 	                 q = -(far+near)/(far-near);
 	return sge::math::space_matrix
-	       (w, 0,                     0, 0,
-	        0, h,                     0, 0,
-	        0, 0,                     q, -1,
-	        0, 0, -2*far*near/(far-near), 0);
+	       (f / aspect, 0, 0,                      0,
+	        0,          f, 0,                      0,
+	        0,          0, q,                     -1,
+	        0,          0, -2*far*near/(far-near), 0);
+	/*
+	sge::space_unit ymax,ymin,xmin,xmax;
+	ymax = near * std::tan(fov * sge::math::PI / 360);
+	ymin = -ymax;
+	xmin = ymin * aspect;
+	xmax = ymax * aspect;
+	return matrix_frustum(xmin,xmax,ymin,ymax,near,far);
+	*/
 }
+
 
 class quadtree
 {
@@ -204,7 +222,7 @@ class quadtree
 		tree_root.reset(tree_depth,vertices,triangles);
 	}
 
-	void get_visible(const sge::math::vector2 pos,const sge::space_unit rotation,const sge::space_unit fov,index_container_type &indices)
+	void get_visible(const sge::math::vector3 &pos,const sge::space_unit rotation,const sge::space_unit fov,index_container_type &indices)
 	{
 		tree_root.get_visible(frustum_info(pos,fov,rotation),indices);
 	}
@@ -309,7 +327,7 @@ int main()
 	rend->set_float_state(sge::float_state::zbuffer_clear_val,0);
 	rend->set_depth_func(sge::depth_func::greater);
 
-	sge::math::vector3 translation(-32,-3,-100);
+	sge::math::vector3 translation(-31.5,-3,-30);
 	sge::space_unit fovy_deg = 90,near = 1,far = 100,rot = 0;
 
 	sge::timer press_timer(500);
@@ -333,11 +351,13 @@ int main()
 		}
 
 		sge::space_unit aspect = static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height();
-		sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
+		//sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
+		sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = 2 * hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
 
 		rend->transform(sge::math::matrix_translation(translation));
 		// Projektionsmatrix setzen
 	//	rend->projection(sge::math::matrix_perspective(static_cast../../src::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
+	//	rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 		rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 
 	//	sge::math::space_matrix perspect = 
@@ -347,7 +367,7 @@ int main()
 	//	std::cout << "left normal: " << nl.normalize() << "\n";
 
 		quadtree::index_container_type indices;
-		tree.get_visible(sge::math::vector2(-translation.x(),-translation.z()),rot,fovx_rad,indices);
+		tree.get_visible(-translation,rot,fovx_rad,indices);
 		if (indices.size() > 0)
 		{
 			const sge::index_buffer_ptr model_ib = rend->create_index_buffer(indices.size());

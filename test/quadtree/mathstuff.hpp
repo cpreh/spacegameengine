@@ -46,7 +46,7 @@ struct frustum_info
 {
 	accessor<sge::math::vector3> pos;
 	accessor<sge::space_unit> rot,fov;
-	accessor<sge::math::vector2> left_dir,right_dir;
+	accessor<sge::math::vector3> left_dir,right_dir;
 	accessor<plane> left,right;
 	
 	frustum_info() {}
