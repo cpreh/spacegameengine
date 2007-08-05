@@ -10,7 +10,6 @@
 #include <boost/utility.hpp>
 
 // SGE
-#include "../../texture/handler.hpp"
 #include "../../renderer/transform.hpp"
 #include "../../sprite/system_impl.hpp"
 #include "../console_gfx.hpp"
