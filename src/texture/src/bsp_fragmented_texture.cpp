@@ -20,15 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../bsp_fragmented_texture.hpp"
 
-sge::bsp_fragmented_texture::bsp_fragmented_texture(const renderer_ptr rend)
+sge::bsp_fragmented_texture::bsp_fragmented_texture(const renderer_ptr rend, const filter_args& my_filter)
  : rend(rend),
+   my_filter(my_filter),
    bsp(bsp_type::dim_type(rend->caps().max_tex_size,rend->caps().max_tex_size))
 {}
 
 sge::virtual_texture_ptr sge::bsp_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	if(!tex)
-		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, linear_filter);
+		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, my_filter);
 	const bsp_type::iterator it = bsp.insert(bsp_type::dim_type(w,h));
 	if(it == bsp.end())
 		return virtual_texture_ptr();
@@ -47,5 +48,5 @@ sge::texture_ptr sge::bsp_fragmented_texture::get_texture() const
 
 sge::fragmented_texture* sge::bsp_fragmented_texture::clone() const
 {
-	return new bsp_fragmented_texture(rend);
+	return new bsp_fragmented_texture(rend, my_filter);
 }

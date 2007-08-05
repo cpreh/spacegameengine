@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../exception.hpp"
 #include "../static_texture.hpp"
 
-sge::static_texture::static_texture(const renderer_ptr rend, const texture_ptr tex)
-: rend(rend),
-  tex(tex),
+sge::static_texture::static_texture(const texture_ptr tex)
+: tex(tex),
   claimed(false)
 {}
 

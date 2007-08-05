@@ -29,8 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../algorithm.hpp"
 #include "../renderer/lock_ptr.hpp"
 
-#include <iostream>
-
 template<typename In>
 void sge::sprite_system::render(const In beg, const In end)
 {

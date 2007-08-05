@@ -29,14 +29,15 @@ namespace sge
 
 class no_fragmented_texture : public fragmented_texture, boost::noncopyable {
 public:
-	no_fragmented_texture(renderer_ptr rend);
+	no_fragmented_texture(renderer_ptr rend, const filter_args& filter);
 	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const;
 	fragmented_texture* clone() const;
 private:
-	renderer_ptr rend;
-	texture_ptr tex;
+	const renderer_ptr rend;
+	const filter_args  my_filter;
+	texture_ptr        tex;
 };
 
 }

@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../no_fragmented_texture.hpp"
 #include "../../math.hpp"
 
-sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend)
- : rend(rend)
+sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend, const filter_args& my_filter)
+ : rend(rend),
+   my_filter(my_filter)
 {}
 
 sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
@@ -32,7 +33,7 @@ sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const tex
 	const texture::size_type next_w = next_pow_2(w),
 	                         next_h = next_pow_2(h);
 
-	tex = rend->create_texture(0, next_w, next_h, linear_filter); // TODO
+	tex = rend->create_texture(0, next_w, next_h, my_filter);
 	return virtual_texture_ptr(new virtual_texture(lock_rect(0,0,w,h), this, next_w == w && next_h == h));
 }
 
@@ -48,5 +49,5 @@ sge::texture_ptr sge::no_fragmented_texture::get_texture() const
 
 sge::fragmented_texture* sge::no_fragmented_texture::clone() const
 {
-	return new no_fragmented_texture(rend);
+	return new no_fragmented_texture(rend, my_filter);
 }

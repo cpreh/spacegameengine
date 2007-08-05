@@ -1,5 +1,4 @@
 provide a factory for creating windows and decouple the window from the renderer as much as possible
-choosing a sprite's texture should not be hard coded to std::string
 add a safer weak_ptr for Deleter template parameter
 integrate Phillemann's console
 better support for windowed mode in X (set view port on resize)

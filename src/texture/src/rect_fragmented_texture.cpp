@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../rect_fragmented_texture.hpp"
 
-sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend)
+sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend, const filter_args& my_filter)
 : rend(rend),
+  my_filter(my_filter),
   cur_x(0),
   cur_y(0),
   cur_height(0)
@@ -30,7 +31,7 @@ sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend)
 sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	if(!tex)
-		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, linear_filter);
+		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, my_filter);
 
 	// if there is no space left for the requested height
 	if(cur_y + h >= tex->height())
@@ -44,12 +45,12 @@ sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const t
 		cur_height = 0;
 	}
 
-	if(cur_y + h>= tex->height())
+	if(cur_y + h >= tex->height())
 		return virtual_texture_ptr();
 
 	const virtual_texture_ptr ret(new virtual_texture(lock_rect(lock_rect::point_type(cur_x, cur_y), lock_rect::dim_type(w, h)), this));
 
-	cur_x += w;
+	cur_x += w + 1;
 	cur_height = std::max(cur_height, h);
 
 	return ret;
@@ -67,5 +68,5 @@ sge::texture_ptr sge::rect_fragmented_texture::get_texture() const
 
 sge::fragmented_texture* sge::rect_fragmented_texture::clone() const
 {
-	return new rect_fragmented_texture(rend);
+	return new rect_fragmented_texture(rend, my_filter);
 }

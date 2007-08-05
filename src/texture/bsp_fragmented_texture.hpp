@@ -30,16 +30,17 @@ namespace sge
 
 class bsp_fragmented_texture : public fragmented_texture, boost::noncopyable {
 public:
-	bsp_fragmented_texture(renderer_ptr rend);
+	bsp_fragmented_texture(renderer_ptr rend, const filter_args& filter);
 	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const;
 	fragmented_texture* clone() const;
 private:
-	renderer_ptr rend;
+	const renderer_ptr    rend;
+	const filter_args     my_filter;
 	typedef rect_bsp_tree bsp_type;
-	bsp_type bsp;
-	texture_ptr tex;
+	bsp_type              bsp;
+	texture_ptr           tex;
 };
 
 }

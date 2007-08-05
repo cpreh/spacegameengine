@@ -29,15 +29,14 @@ namespace sge
 
 class static_texture : public fragmented_texture, boost::noncopyable {
 public:
-	static_texture(renderer_ptr rend, texture_ptr tex);
+	static_texture(texture_ptr tex);
 	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const;
 	fragmented_texture* clone() const;
 private:
-	renderer_ptr rend;
-	texture_ptr tex;
-	bool claimed;
+	const texture_ptr  tex;
+	bool               claimed;
 };
 
 }

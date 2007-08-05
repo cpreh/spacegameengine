@@ -36,6 +36,7 @@ sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_
 		}
 
 	fragmented_textures.push_back(_prototype->clone());
+
 	if(virtual_texture_ptr p = fragmented_textures.back().consume_fragments(w,h))
 	{
 		p->set_data(src);
@@ -46,7 +47,7 @@ sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_
 
 sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture_ptr tex)
 {
-	fragmented_textures.push_back(new static_texture(rend, tex));
+	fragmented_textures.push_back(new static_texture(tex));
 	return fragmented_textures.back().consume_fragments(tex->width(), tex->height());
 }
 
