@@ -43,7 +43,7 @@ public:
 	class plugin_context_base {
 	public:
 		plugin_context_base(const std::string& path);
-		
+
 		const std::string& name() const;
 		const std::string& description() const;
 		unsigned version() const;
@@ -61,13 +61,13 @@ public:
 
 	template<typename T>
 	class plugin_context {
-	public:	
+	public:
 		plugin_context(plugin_context_base& base_)
 		: base(&base_)
 		{}
 
 		typedef shared_ptr<plugin<T> > ptr_type;
-		
+
 		ptr_type load()
 		{
 			const shared_ptr<plugin_base> ptr_base(base->ref.lock());
@@ -91,7 +91,7 @@ public:
 	typedef std::size_t size_type;
 
 	plugin_manager();
-	
+
 	template<typename T>
 		class iterator : public boost::iterator_facade<iterator<T>, plugin_context<T>, std::random_access_iterator_tag, plugin_context<T> > {
 	public:
@@ -155,7 +155,7 @@ public:
 		typename iterator<T>::reference get_plugin(const size_type index = 0)
 	{
 		if(index >= size<T>())
-			throw exception("get_plugin(): out of range! Requested type: \"" + std::string(typeid(T).name()) + "\"!");
+			throw exception("get_plugin(): No plugins found of type: \"" + std::string(typeid(T).name()) + "\"!");
 		return *(begin<T>()+index);
 	}
 

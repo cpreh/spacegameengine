@@ -50,7 +50,7 @@
 1185928670 d:\dev\sge\src\math\constants.hpp
 	<cmath>
 
-1185928678 d:\dev\sge\src\plugin_manager.hpp
+1186336268 d:\dev\sge\src\plugin_manager.hpp
 	<cstddef>
 	<vector>
 	<map>
@@ -1202,7 +1202,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1186235048 source:d:\dev\sge\test\guitest.cpp
+1186405352 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>

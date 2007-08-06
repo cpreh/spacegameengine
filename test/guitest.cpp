@@ -90,22 +90,22 @@ try
 
 	using sge::gui::color;
 	using sge::gui::point;
-	canvas.fill(sge::colors::transparent);
+	canvas.fill(sge::colors::gray);
 
-	sge::color colors[] = {
-		sge::colors::black,
-		sge::colors::white,
-		sge::colors::red,
-		sge::colors::green,
-		sge::colors::blue
-	};
-	for (int i=0; i<5; ++i)
-		canvas.draw_line<sge::gui::mixing_policy::normal, sge::gui::gradient_policy::there_and_back_again<> >(
-			point(10+20*i,  10),
-			point(10+20*i, 190),
-			sge::colors::transparent,
-			colors[i]
-		);
+	canvas.draw_arc(
+		sge::gui::mixing_policy::normal(),
+		sge::gui::rect(sge::gui::point(0,0), canvas.size()),
+		0.125,
+		0.625,
+		sge::colors::white
+	);
+	canvas.draw_arc(
+		sge::gui::mixing_policy::normal(),
+		sge::gui::rect(sge::gui::point(0,0), canvas.size()),
+		0.625,
+		1.125,
+		sge::colors::black
+	);
 
 
 	sge::virtual_texture_ptr canvastex(canvas.to_texture(texmgr));
