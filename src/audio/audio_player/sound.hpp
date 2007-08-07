@@ -20,8 +20,8 @@ struct sound
 	virtual void stop() = 0;
 	virtual math::vector3 pos() const = 0;
 	virtual void pos(const math::vector3 &) = 0;
-	virtual bool positional() const;
-	virtual void positional(const bool);
+	virtual bool positional() const = 0;
+	virtual void positional(const bool) = 0;
 	virtual void update() {}
 	virtual ~sound() {}
 };
