@@ -3,14 +3,17 @@
 
 // C++
 #include <list>
+// OpenAL
+#include <AL/al.h>
 // Own stuff
 #include "../../audio/audio_player/audio_player.hpp"
-#incldue "../../audio/audio_player/sound_angle.hpp"
+#include "../../audio/audio_player/sound_angle.hpp"
 
 namespace sge
 {
 namespace openal
 {
+class stream_sound;
 class player : public audio_player
 {
 	struct buffer_map

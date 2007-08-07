@@ -28,10 +28,10 @@ void sge::openal::stream_sound::sync()
 		status_ = status_playing;
 }
 
-sge::openal::stream_sound::openal_stream_sound(sge::shared_ptr<sge::audio_file> _audio_file,sge::openal::player &_player)
+sge::openal::stream_sound::stream_sound(sge::shared_ptr<sge::audio_file> _audio_file,sge::openal::player &_player)
 	: player_(_player),audio_file_(_audio_file)
 {
-	_player.register_sound(this);
+	_player.register_stream_sound(this);
 	alGenBuffers(2, al_buffers_); check("alGenBuffers");
 
 	// Buffer erstellen
@@ -55,9 +55,9 @@ sge::openal::stream_sound::openal_stream_sound(sge::shared_ptr<sge::audio_file> 
 	status_ = status_stopped;
 }
 
-sge::openal::stream_sound::~openal_stream_sound()
+sge::openal::stream_sound::~stream_sound()
 {
-	player_.unregister_sound(this);
+	player_.unregister_stream_sound(this);
 }
 
 bool sge::openal::stream_sound::fill_buffer(ALuint buffer)

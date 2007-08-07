@@ -71,7 +71,7 @@ void sge::openal::nonstream_sound::toggle_pause()
 	}
 }
 
-sge::openal::nonstream_sound::~openal_nonstream_sound()
+sge::openal::nonstream_sound::~nonstream_sound()
 {
 	player_.unregister_nonstream_sound(al_buffer_);
 }

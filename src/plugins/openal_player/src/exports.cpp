@@ -17,7 +17,7 @@ void plugin_version_info(sge::plugin_info* const p)
 
 sge::audio_player* create_audio_player()
 {
-	return new sge::openal_player();
+	return new sge::openal::player();
 }
 
 }

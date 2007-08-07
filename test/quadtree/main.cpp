@@ -10,21 +10,6 @@
 // C++
 #include <iostream>
 // sge
-/*#include ../../src/math/matrix.hpp>
-#include ../../src/plugin_manager.hpp>
-#include ../../src/plugin.hpp>
-#include ../../src/renderer/renderer.hpp>
-#include ../../src/renderer/renderer_system.hpp>
-#include ../../src/input/input_system.hpp>
-#include ../../src/input/key_state_tracker.hpp>
-#include ../../src/timer.hpp>
-#include ../../src/image/image_loader.hpp>
-#include ../../src/image/image.hpp>
-#include ../../src/renderer/color.hpp>
-#include ../../src/renderer/lock_ptr.hpp>
-#include ../../src/math/constants.hpp>
-#include ../../src/math/rect.hpp>*/
-
 #include "../../src/math/matrix.hpp"
 #include "../../src/plugin_manager.hpp"
 #include "../../src/plugin.hpp"
@@ -40,8 +25,10 @@
 #include "../../src/math/constants.hpp"
 #include "../../src/math/rect.hpp"
 #include "../../src/media.hpp"
+#include "../src/accessor.hpp"
 #include "mathstuff.hpp"
 
+#if 0
 inline sge::math::space_matrix matrix_frustum(const sge::space_unit left, const sge::space_unit right, const sge::space_unit bottom, const sge::space_unit top,const sge::space_unit near, const sge::space_unit far)
 {
 	return sge::math::space_matrix
@@ -70,21 +57,30 @@ inline sge::math::space_matrix matrix_perspective(const sge::space_unit aspect, 
 	return matrix_frustum(xmin,xmax,ymin,ymax,near,far);
 	*/
 }
+#endif
 
 
 class quadtree
 {
 	public:
 	typedef long index_type;
-	typedef std::vector<index_type> index_container_type;
 	struct indexed_triangle { index_type vertices[3]; };
-
-	protected:
+	typedef std::vector<index_type>         index_container_type;
 	typedef std::vector<indexed_triangle>   triangle_container_type;
 	typedef std::vector<sge::math::vector3> vertex_container_type;
 
-	triangle_container_type triangles;
-	vertex_container_type   vertices;
+	// FIXME!
+	bool locked_;
+
+	class lock_ptr
+	{
+		tree &t;
+		public:
+		lock_ptr(quadtree &tree) : t(tree) { if (tree.locked_) throw sge::exception("tree locked doubly"); tree.lock(); }
+		~lock_ptr() { if(!locked) throw sge::exception("logic error: tree already unlocked"); locked = false; }
+	};
+
+	protected:
 	int                     tree_depth;
 
 	class subtree
@@ -203,24 +199,15 @@ class quadtree
 	subtree tree_root;
 	
 	public:
-	quadtree(int tree_depth) : tree_depth(tree_depth) {}
+	quadtree(int tree_depth) : tree_depth(tree_depth),locked(false) {}
 	
-	template<typename T>
-	void add_triangles(const T &t) { std::copy(t.begin(),t.end(),std::back_inserter(triangles)); }
+	void pack() { assert(locked()); tree_root.reset(tree_depth,vertices_,triangles_); }
 
-	// set_vertices, nicht add_vertices, weil es bei Vertizes auf die korrekten Indizes ankommt und man nicht "wild" neue hinzufuegen soll
-	// TODO: Das hier nochmal ueberdenken
-	template<typename T>
-	void set_vertices(const T &t) 
-	{ 
-		vertices.clear(); 
-		std::copy(t.begin(),t.end(),std::back_inserter(vertices));
-	}
+	void lock() { locked(true); }
+	void unlock() { pack(); locked(false); }
 
-	void pack()
-	{
-		tree_root.reset(tree_depth,vertices,triangles);
-	}
+	triangle_container_type &triangles() { if (!locked()) throw sge::exception("object is not locked, cannot add triangles!"); return triangles_; }
+	vertex_container_type &vertices() { return vertices_; }
 
 	void get_visible(const sge::math::vector3 &pos,const sge::space_unit rotation,const sge::space_unit fov,index_container_type &indices)
 	{
@@ -266,7 +253,8 @@ int main()
 		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(model_vb);
 		sge::vertex_buffer::iterator vbit = model_vb->begin();
 		// Fuer den Tree
-		std::vector<sge::math::vector3> vertices;
+		//std::vector<sge::math::vector3> vertices;
+		quadtree::vertex_container_type &vertices = tree.vertices();
 		for (sge::image::size_type y = 0; y < heightmap->height(); ++y)
 		{
 			for (sge::image::size_type x = 0; x < heightmap->width(); ++x)
@@ -279,29 +267,30 @@ int main()
 				vbit++;
 			}
 		}
-		tree.set_vertices(vertices);
 	}
 
 	// Fuer den Tree
-	std::vector<quadtree::indexed_triangle> triangles;
-	for (sge::image::size_type y = 0; y < (heightmap->height()-1); ++y)
+	//std::vector<quadtree::indexed_triangle> triangles;
 	{
-		for (sge::image::size_type x = 0; x < (heightmap->width()-1); ++x)
+		quadtree::lock_ptr lock(tree);
+		quadtree::triangle_container_type &triangles = tree.triangles();
+		for (sge::image::size_type y = 0; y < (heightmap->height()-1); ++y)
 		{
-			quadtree::indexed_triangle right;
-			right.vertices[0] = y * heightmap->width() + x;
-			right.vertices[1] = y * heightmap->width() + x + 1;
-			right.vertices[2] = (y + 1) * heightmap->width() + x + 1;
-			quadtree::indexed_triangle left;
-			left.vertices[0] = y * heightmap->width() + x;
-			left.vertices[1] = (y + 1) * heightmap->width() + x + 1;
-			left.vertices[2] = (y + 1) * heightmap->width() + x;
-			triangles.push_back(right);
-			triangles.push_back(left);
+			for (sge::image::size_type x = 0; x < (heightmap->width()-1); ++x)
+			{
+				quadtree::indexed_triangle right;
+				right.vertices[0] = y * heightmap->width() + x;
+				right.vertices[1] = y * heightmap->width() + x + 1;
+				right.vertices[2] = (y + 1) * heightmap->width() + x + 1;
+				quadtree::indexed_triangle left;
+				left.vertices[0] = y * heightmap->width() + x;
+				left.vertices[1] = (y + 1) * heightmap->width() + x + 1;
+				left.vertices[2] = (y + 1) * heightmap->width() + x;
+				triangles.push_back(right);
+				triangles.push_back(left);
+			}
 		}
 	}
-	tree.add_triangles(triangles);
-	tree.pack();
 
 	const sge::image_ptr grass_image = pl->load_image(sge::media_path() + "grass.png");
 
@@ -351,14 +340,15 @@ int main()
 		}
 
 		sge::space_unit aspect = static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height();
+		// Alte Formel ohne 2* (anscheinend falsch)
 		//sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
 		sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = 2 * hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
 
 		rend->transform(sge::math::matrix_translation(translation));
 		// Projektionsmatrix setzen
-	//	rend->projection(sge::math::matrix_perspective(static_cast../../src::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
+		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 	//	rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
-		rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
+//		rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 
 	//	sge::math::space_matrix perspect = 
 	//				sge::math::transpose(sge::math::matrix_perspective(static_cast../../src::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));

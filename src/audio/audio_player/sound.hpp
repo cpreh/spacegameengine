@@ -1,6 +1,8 @@
 #ifndef SGE_SOUND_HPP_INCLUDED
 #define SGE_SOUND_HPP_INCLUDED
 
+#include "../../math/vector.hpp"
+
 namespace sge
 {
 struct sound

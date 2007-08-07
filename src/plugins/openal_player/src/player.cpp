@@ -54,11 +54,11 @@ void sge::openal::player::listener_angle(const sge::sound_angle &n)
 	alListenerfv(AL_POSITION, vec);
 }
 
-ALuint sge::openal::player::register_nonstream_sound(sge::shared_ptr<sge::audio_file> af)
+ALuint sge::openal::player::register_nonstream_sound(sge::shared_ptr<sge::audio_file> _audio_file)
 {
  	for (buffer_map_container_type::iterator i = buffer_map_.begin(); i != buffer_map_.end(); ++i)
 	{
-		if (i->file == &(*af))
+		if (i->file == &(*_audio_file))
 		{
 			(i->refcount)++;
 			return i->buffer;
@@ -66,7 +66,7 @@ ALuint sge::openal::player::register_nonstream_sound(sge::shared_ptr<sge::audio_
 	}
 
 	buffer_map n;
-	n.file = &(*af);
+	n.file = &(*_audio_file);
 
 	// Buffer erstellen
 	alGenBuffers(1, &n.buffer); check("alGenBuffers");
