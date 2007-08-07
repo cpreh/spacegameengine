@@ -5,6 +5,7 @@
 #include <list>
 // OpenAL
 #include <AL/al.h>
+#include <AL/alc.h>
 // Own stuff
 #include "../../audio/audio_player/audio_player.hpp"
 #include "../../audio/audio_player/sound_angle.hpp"
@@ -22,6 +23,47 @@ class player : public audio_player
 		ALuint       buffer;
 		unsigned     refcount;
 	};
+
+	struct device_wrapper
+	{
+		ALCdevice *device;
+
+		device_wrapper() : device(0) {}
+		void reset(ALCdevice *n)
+		{
+			if (device != 0)
+				alcCloseDevice(device);
+
+			device = n;
+		}
+
+		~device_wrapper()
+		{
+			if (device != 0)
+				alcCloseDevice(device);
+		}
+	};
+
+	struct context_wrapper
+	{
+		ALCcontext *context;
+
+		context_wrapper() : context(0) {}
+		void reset(ALCcontext *n)
+		{
+			if (context != 0)
+				alcDestroyContext(context);
+
+			context = n;
+		}
+
+		~context_wrapper()
+		{
+			if (context != 0)
+				alcDestroyContext(context);
+		}
+	};
+
 	typedef std::vector<buffer_map>   buffer_map_container_type;
 	typedef std::list<stream_sound *> stream_sound_container_type;
 
@@ -29,6 +71,8 @@ class player : public audio_player
 	math::vector3               listener_pos_;
 	sound_angle                 listener_angle_;
 	buffer_map_container_type   buffer_map_;
+	device_wrapper              device;
+	context_wrapper             context;
 
 	void check(const std::string &);
 	public:

@@ -2,7 +2,6 @@
 #include <boost/lexical_cast.hpp>
 // FIXME: No AL/ in OpenAL SDK for Windows.
 #include <AL/al.h>
-#include <AL/alut.h>
 #include "../../../audio/audio_player/sound.hpp"
 #include "../../../audio/audio_exception.hpp"
 #include "../openal_player.hpp"
@@ -11,8 +10,16 @@
 
 sge::openal::player::player()
 {
-	// FIXME!
-	alutInit(0, 0); check("alutInit");
+	device.reset(alcOpenDevice(0));
+	if (device.device == 0)
+		throw sge::audio_exception("Error opening audio device!");
+
+	context.reset(alcCreateContext(device.device,0));
+	if (context.context == 0)
+		throw sge::audio_exception("Error creating audio context!");
+	
+	if (!alcMakeContextCurrent(context.context))
+		throw sge::audio_exception("Error selecting context");
 }
 
 void sge::openal::player::update()
