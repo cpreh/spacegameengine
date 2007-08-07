@@ -176,3 +176,9 @@ void sge::openal::stream_sound::pos(const sge::math::vector3 &n)
 	float vec[3] = { n.x(),n.y(),n.z() };
 	alSourcefv(al_source_,AL_POSITION,vec);
 }
+
+sge::sound::sound_status sge::openal::stream_sound::status() const
+{
+	sync();
+	return status_;
+}
