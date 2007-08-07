@@ -14,15 +14,15 @@ namespace openal
 class nonstream_sound : public sound
 {
 	player &      player_;
-	sound_status  status_;
+	mutable sound_status  status_;
 	bool          loop_,positional_;
 	math::vector3 pos_;
 
 	ALuint al_buffer_;
-	ALuint al_source_;
+	mutable ALuint al_source_;
 
 	void check(const std::string &);
-	void sync();
+	void sync() const;
 	public:
 	nonstream_sound(shared_ptr<audio_file>,player &);
 	~nonstream_sound();

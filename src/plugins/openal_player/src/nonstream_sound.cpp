@@ -76,7 +76,7 @@ sge::openal::nonstream_sound::~nonstream_sound()
 	player_.unregister_nonstream_sound(al_buffer_);
 }
 
-void sge::openal::nonstream_sound::sync()
+void sge::openal::nonstream_sound::sync() const
 {
 	ALint play;
 	alGetSourcei(al_source_, AL_SOURCE_STATE, &play);

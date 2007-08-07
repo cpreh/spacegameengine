@@ -16,7 +16,7 @@ void sge::openal::stream_sound::check(const std::string &_desc)
 		throw sge::audio_exception("OpenAL error ("+_desc+"): "+boost::lexical_cast<std::string>(error));
 }
 
-void sge::openal::stream_sound::sync()
+void sge::openal::stream_sound::sync() const
 {
 	ALint play;
 	alGetSourcei(al_source_, AL_SOURCE_STATE, &play);

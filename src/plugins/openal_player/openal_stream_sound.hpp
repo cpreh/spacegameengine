@@ -16,16 +16,16 @@ class stream_sound : public sound
 	std::size_t                      buffer_samples_;
 	math::vector3                    pos_;
 	bool                             loop_,positional_;
-	sound_status                     status_;
+	mutable sound_status             status_;
 
 	// OpenAL-Zeugs
 	ALenum format_;
 	ALuint al_buffers_[2];
-	ALuint al_source_;
+	mutable ALuint al_source_;
 
 	bool fill_buffer(ALuint);
 	void check(const std::string &);
-	void sync();
+	void sync() const;
 	public:
 	stream_sound(shared_ptr<audio_file>,player &);
 	~stream_sound();
