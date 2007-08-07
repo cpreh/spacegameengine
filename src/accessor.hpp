@@ -1,6 +1,8 @@
 #ifndef ACCESSOR_HPP_INCLUDED
 #define ACCESSOR_HPP_INCLUDED
 
+namespace sge
+{
 template<typename T>
 class accessor
 {
@@ -11,6 +13,6 @@ class accessor
 		void operator()(const T &_a) { a_ = _a; }
 		const T &operator()() const { return a_; }
 };
-
+}
 
 #endif
