@@ -9,24 +9,33 @@
 
 namespace sge
 {
-class openal_nonstream_sound : public sound
+namespace openal
 {
-	openal_player &player_;
+class nonstream_sound : public sound
+{
+	player &      player_;
+	sound_status  status_;
+	bool          loop_,positional_;
+	math::vector3 pos_;
+
 	ALuint al_buffer_;
 	ALuint al_source_;
-	sound_status status_;
-	bool loop_;
 
 	void check(const std::string &);
+	void sync();
 	public:
-	openal_nonstream_sound(shared_ptr<audio_file>,openal_player &);
-	~openal_nonstream_sound();
+	nonstream_sound(shared_ptr<audio_file>,player &);
+	~nonstream_sound();
 	void play(const bool);
 	void toggle_pause();
-	sound_status status() const { return status_; };
+	sound_status status() const;
 	void stop();
-	void update();
+	bool positional() const { return positional_; }
+	void positional(const bool);
+	math::vector3 pos() const { return pos_; }
+	void pos(const math::vector3 &);
 };
+}
 }
 
 #endif
