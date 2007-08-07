@@ -27,9 +27,7 @@ RDEPEND="dev-libs/boost
          truetype? ( media-libs/freetype )
          xinput? ( dga? ( x11-libs/libXxf86dga ) )
          vorbis? ( media-libs/libvorbis )
-         openal? ( 
-             media-libs/openal
-             media-libs/freealut )"
+         openal? ( media-libs/openal )"
 
 src_unpack() {
 	subversion_src_unpack
