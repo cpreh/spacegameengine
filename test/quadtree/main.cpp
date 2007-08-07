@@ -25,7 +25,7 @@
 #include "../../src/math/constants.hpp"
 #include "../../src/math/rect.hpp"
 #include "../../src/media.hpp"
-#include "../src/accessor.hpp"
+#include "../../src/accessor.hpp"
 #include "mathstuff.hpp"
 
 #if 0
