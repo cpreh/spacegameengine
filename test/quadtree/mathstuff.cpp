@@ -3,52 +3,41 @@
 #include <sge/math/constants.hpp>
 #include "mathstuff.hpp"
 
-frustum_info::frustum_info(const sge::math::vector3 &_pos,const sge::space_unit _fov,const sge::space_unit _rot)
+sge::frustum_info::frustum_info(const sge::math::vector3 &_pos,const sge::space_unit _fovy,const sge::space_unit _rot,const sge::space_unit near,const sge::space_unit far,const sge::space_unit aspect)
+	: pos(_pos),rot(_rot),fovy(_fovy),near(near),far(far),aspect(aspect)
 {
-	fill(_pos,_fov,_rot);
-}
+	space_unit hnear = 2*std::tan(fovy()/2)*near,wnear = 2 * hnear * aspect;
+	fovx(2*std::atan((wnear/2)/near));
 
-void frustum_info::fill(const sge::math::vector3 &_pos,const sge::space_unit _fov,const sge::space_unit _rot)
-{
-	pos(_pos);
-	fov(_fov);
-	rot(_rot);
-	
 	// Richtung der rechten Clipping Plane.
-	sge::space_unit angle_right = rot()+fov()/2,angle_left = rot()-fov()/2;
-
-	//std::cout << "angle_right=" << angle_right << ", angle_left=" << angle_left << "\n";
+	space_unit angle_right = rot()+fovx()/2,angle_left = rot()-fovx()/2;
 	
-	right_dir(sge::math::vector3(std::sin(angle_right),0,-std::cos(angle_right)));
-	left_dir(sge::math::vector3(std::sin(angle_left),0,-std::cos(angle_left)));
-
-	//std::cout << "rightdirection=" << rightdirection << ", leftdirection=" << leftdirection << "\n";
+	right_dir(math::vector3(std::sin(angle_right),0,-std::cos(angle_right)));
+	left_dir(math::vector3(std::sin(angle_left),0,-std::cos(angle_left)));
 
 	// Normale der rechten Clipping Plane. Diese muss, da es im Uhrzeigersinn ist, invnormal sein.
-	sge::math::vector2 rightnormal = invnormal(sge::math::vector2(right_dir().x(),right_dir().z()));
+	math::vector2 rightnormal = invnormal(math::vector2(right_dir().x(),right_dir().z()));
 	// Hier allerdings normal, da gegen den Uhrzeigersinn
-	sge::math::vector2 leftnormal = normal(sge::math::vector2(left_dir().x(),left_dir().z()));
-
-	//std::cout << "rightnormal=" << rightnormal << ", leftnormal=" << leftnormal << "\n";
+	math::vector2 leftnormal = normal(math::vector2(left_dir().x(),left_dir().z()));
 
 	// Und die beiden Planes zusammensetzen
-	left(plane(pos(),sge::math::vector3(leftnormal.x(),0,leftnormal.y())));
-	right(plane(pos(),sge::math::vector3(rightnormal.x(),0,rightnormal.y())));
+	left(plane(pos(),math::normalize(math::vector3(leftnormal.x(),0,leftnormal.y()))));
+	right(plane(pos(),math::normalize(math::vector3(rightnormal.x(),0,rightnormal.y()))));
 }
 
 // See http://local.wasp.uwa.edu.au/~pbourke/geometry/lineline2d/
-bool line_intersection_2d(const line &a,const line &b,sge::space_unit &a_mult,sge::space_unit &b_mult)
+bool sge::line_intersection_2d(const line &a,const line &b,sge::space_unit &a_mult,sge::space_unit &b_mult)
 {
 	// The demoninators for both equations are equal
-	sge::space_unit denominator = b.direction().y()*a.direction().x()-b.direction().x()*a.direction().y();
+	space_unit denominator = b.direction().y()*a.direction().x()-b.direction().x()*a.direction().y();
 	
 	// If the denominator is 0 the lines are parallel => no point of
 	// intersection
 	if (almost_zero(denominator))
 		return false;
 	
-	sge::space_unit a_numerator = b.direction().x()*(a.point().y()-b.point().y())-b.direction().y()*(a.point().x()-b.point().x());
-	sge::space_unit b_numerator = a.direction().x()*(a.point().y()-b.point().y())-a.direction().y()*(a.point().x()-b.point().x());
+	space_unit a_numerator = b.direction().x()*(a.point().y()-b.point().y())-b.direction().y()*(a.point().x()-b.point().x());
+	space_unit b_numerator = a.direction().x()*(a.point().y()-b.point().y())-a.direction().y()*(a.point().x()-b.point().x());
 	a_mult = a_numerator / denominator;
 	b_mult = b_numerator / denominator;
 
@@ -56,9 +45,9 @@ bool line_intersection_2d(const line &a,const line &b,sge::space_unit &a_mult,sg
 }
 
 // Gibt zurueck, ob sich zwei Geradenabschnitte ueberschneiden
-bool line_segments_intersect_2d(const line &a,const line &b)
+bool sge::line_segments_intersect_2d(const line &a,const line &b)
 {
-	sge::space_unit a_mult,b_mult;
+	space_unit a_mult,b_mult;
 
 	if (!line_intersection_2d(a,b,a_mult,b_mult))
 		return false;
@@ -67,12 +56,12 @@ bool line_segments_intersect_2d(const line &a,const line &b)
 }
 
 // Gibt zurueck, ob ein Dreieck sich mit einem Rect ueberschneidet
-bool triangle_inside_2d(const triangle &t,const sge::math::rect &rect)
+bool sge::triangle_inside_2d(const triangle &t,const sge::math::rect &rect)
 {
 	// Punkte des Dreiecks, zweidimensional
-	sge::math::vector2 A = sge::math::vector2(t.a().x(),t.a().y()),
-										 B = sge::math::vector2(t.b().x(),t.b().y()),
-										 C = sge::math::vector2(t.c().x(),t.c().y());
+	math::vector2 A = math::vector2(t.a().x(),t.a().y()),
+										 B = math::vector2(t.b().x(),t.b().y()),
+										 C = math::vector2(t.c().x(),t.c().y());
 	
 	// 1. Fall: Mindestens ein Punkt des Dreiecks im Quadrat
 	if (point_inside_2d(A,rect) || 
@@ -81,13 +70,13 @@ bool triangle_inside_2d(const triangle &t,const sge::math::rect &rect)
 		return true;
 
 	// 2. Fall: Mindestens ein Punkt des Quadrats ist im Rechteck
-	sge::math::vector2 lefttop(rect.left,rect.top);
-	sge::math::vector2 righttop(rect.right,rect.top);
-	sge::math::vector2 leftbottom(rect.left,rect.bottom);
-	sge::math::vector2 rightbottom(rect.right,rect.bottom);
+	math::vector2 lefttop(rect.left,rect.top);
+	math::vector2 righttop(rect.right,rect.top);
+	math::vector2 leftbottom(rect.left,rect.bottom);
+	math::vector2 rightbottom(rect.right,rect.bottom);
 	
 	// Seiten des Dreiecks
-	sge::math::vector2 a = B - A,b = C - B,c = A - C;
+	math::vector2 a = B - A,b = C - B,c = A - C;
 
 	// Ebenen der Seiten
 	plane pa(t.a(),normal(a));
@@ -116,18 +105,47 @@ bool triangle_inside_2d(const triangle &t,const sge::math::rect &rect)
 }
 
 // Gibt zurueck, ob ein Rechteck komplett im Frustum ist
-bool completely_inside(const sge::math::rect &rect,const frustum_info &frustum)
+bool sge::completely_inside(const sge::math::rect &rect,const sge::frustum_info &frustum)
 {
 	// Ein Rechteck ist komplett drin, wenn alle Vertizes rechts von oder auf der linken Clipping Plane
 	// und gleichzeitig links von oder auf der rechten Clipping Plane sind
 	
 	// Eckpunkte des Rects
-	sge::math::vector3 lt(rect.left,0,rect.top),rt(rect.right,0,rect.top),lb(rect.left,0,rect.bottom),rb(rect.right,0,rect.bottom);
+	math::vector3 lt(rect.left,0,rect.top),rt(rect.right,0,rect.top),lb(rect.left,0,rect.bottom),rb(rect.right,0,rect.bottom);
 	return !in_front(frustum.left(),lt) && !in_front(frustum.left(),rt) && !in_front(frustum.left(),lb) && !in_front(frustum.left(),rb) && 
 				 !in_front(frustum.right(),lt) && !in_front(frustum.right(),rt) && !in_front(frustum.right(),lb) && !in_front(frustum.right(),rb);
 }
 
-bool partially_inside(const sge::math::rect &rect,const frustum_info &frustum)
+bool sge::possibly_inside(const sge::math::rect &rect,const sge::frustum_info &frustum)
+{
+	const math::vector3 center = math::vector3(rect.left + rect.width()/2,0,rect.top + rect.height()/2);
+	const space_unit radius(std::sqrt(rect.width()*rect.width()/4+rect.height()*rect.height()/4));
+
+	const math::vector3 forward_dir = math::normalize(math::vector3(std::sin(frustum.rot()),0,-std::cos(frustum.rot())));
+	const space_unit df = math::dot(forward_dir,frustum.pos());
+	if (math::dot(forward_dir,center) - df < -radius)
+		return false;
+
+	const math::vector3 nl = math::normalize(frustum.left().normal());
+	const space_unit dl = math::dot(nl,frustum.left().point());
+
+	if (math::dot(nl,center) - dl > radius)
+		return false;
+	//if (std::fabs(math::dot(nl,center) - dl) <= radius)
+	//	return true;
+
+	const math::vector3 nr = math::normalize(frustum.right().normal());
+	const space_unit dr = math::dot(nr,frustum.right().point());
+
+	if (math::dot(nr,center) - dr > radius)
+		return false;
+	//if (std::fabs(math::dot(nr,center) - dr) <= radius)
+	//	return true;
+
+	return true;
+}
+
+bool sge::partially_inside(const sge::math::rect &rect,const sge::frustum_info &frustum)
 {
 	// Wenn etwas nur teilweise im Frustum ist, schneiden sich die Frustumseiten mit den Rectseiten "vor"
 	// dem Beobachtungspunkt
@@ -137,13 +155,13 @@ bool partially_inside(const sge::math::rect &rect,const frustum_info &frustum)
 	line frustum_right(frustum.pos(),frustum.right_dir());
 
 	// Eckpunkte des Rects
-	sge::math::vector3 lt(rect.left,rect.top,0),rt(rect.right,rect.top,0),lb(rect.left,rect.bottom,0),rb(rect.right,rect.bottom,0);
+	math::vector3 lt(rect.left,rect.top,0),rt(rect.right,rect.top,0),lb(rect.left,rect.bottom,0),rb(rect.right,rect.bottom,0);
 
 	// Geraden des Rects (Richtung ist hier ja egal)
 	line rect_top(lt,rt - lt),rect_bottom(lb,rb-lb),rect_left(lb,lb-lt),rect_right(rb,rb-rt);
 
 	// Koeffizienten
-	sge::space_unit frustum_mult,rect_mult;
+	space_unit frustum_mult,rect_mult;
 
 	if (line_intersection_2d(frustum_right,rect_top,frustum_mult,rect_mult))
 		if (frustum_mult > 0 && rect_mult <= 1 && rect_mult >= 0)
