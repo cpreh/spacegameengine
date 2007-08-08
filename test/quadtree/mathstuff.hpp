@@ -1,7 +1,7 @@
 #ifndef MATHSTUFF_HPP_INCLUDED
 #define MATHSTUFF_HPP_INCLUDED
 
-#include <iostream>
+#include <ostream>
 #include "../../src/math/vector.hpp"
 #include "../../src/math/rect.hpp"
 #include "../../src/accessor.hpp"

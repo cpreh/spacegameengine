@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include <sge/math/constants.hpp>
+#include "../../src/math/constants.hpp"
 #include "mathstuff.hpp"
 
 sge::frustum_info::frustum_info(const sge::math::vector3 &_pos,const sge::space_unit _fovy,const sge::space_unit _rot,const sge::space_unit near,const sge::space_unit far,const sge::space_unit aspect)

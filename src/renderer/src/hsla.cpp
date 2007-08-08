@@ -104,9 +104,9 @@ sge::color sge::hsla::to_color() const
 	const color_element temp1 = 2 * lum() - temp2;
 
 	return make_color((hue_to_tridant(temp1, temp2, hue() + (hsl_max / 3)) * rgb_max + (hsl_max / 2)) / hsl_max,
-	            (hue_to_tridant(temp1, temp2, hue())                 * rgb_max + (hsl_max / 2)) / hsl_max,
-	            (hue_to_tridant(temp1, temp2, hue() - (hsl_max / 3)) * rgb_max + (hsl_max / 2)) / hsl_max,
-	             a());
+	                  (hue_to_tridant(temp1, temp2, hue())                 * rgb_max + (hsl_max / 2)) / hsl_max,
+	                  (hue_to_tridant(temp1, temp2, hue() - (hsl_max / 3)) * rgb_max + (hsl_max / 2)) / hsl_max,
+	                   a());
 }
 
 void sge::hsla::hue(const color_element e)
