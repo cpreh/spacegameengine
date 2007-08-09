@@ -1,198 +1,142 @@
 // C
-// std::tan,std::sin,std::cos
 #include <cmath>
-// std::time
 #include <ctime>
-// std::srand
 #include <cstdlib>
-// assert
 #include <cassert>
 // C++
 #include <iostream>
+#include <boost/shared_array.hpp>
 // sge
-#include "../../src/math/matrix.hpp"
-#include "../../src/plugin_manager.hpp"
-#include "../../src/plugin.hpp"
-#include "../../src/renderer/renderer.hpp"
-#include "../../src/renderer/renderer_system.hpp"
-#include "../../src/input/input_system.hpp"
-#include "../../src/input/key_state_tracker.hpp"
-#include "../../src/timer.hpp"
-#include "../../src/image/image_loader.hpp"
-#include "../../src/image/image.hpp"
-#include "../../src/renderer/color.hpp"
-#include "../../src/renderer/lock_ptr.hpp"
-#include "../../src/math/constants.hpp"
-#include "../../src/math/rect.hpp"
-#include "../../src/media.hpp"
-#include "../../src/accessor.hpp"
-#include "quadtree.hpp"
+#include <sge/math/matrix.hpp>
+#include <sge/plugin_manager.hpp>
+#include <sge/plugin.hpp>
+#include <sge/renderer/renderer.hpp>
+#include <sge/renderer/renderer_system.hpp>
+#include <sge/input/input_system.hpp>
+#include <sge/input/key_state_tracker.hpp>
+#include <sge/timer.hpp>
+#include <sge/image/image_loader.hpp>
+#include <sge/image/image.hpp>
+#include <sge/renderer/color.hpp>
+#include <sge/renderer/lock_ptr.hpp>
+#include <sge/math/constants.hpp>
+#include <sge/math/rect.hpp>
+#include <sge/media.hpp>
+#include <sge/accessor.hpp>
+//#include "quadtree.hpp"
 
-#if 0
-inline sge::math::space_matrix matrix_frustum(const sge::space_unit left, const sge::space_unit right, const sge::space_unit bottom, const sge::space_unit top,const sge::space_unit near, const sge::space_unit far)
+template<typename FLOAT>
+struct linear_interpolation
 {
-	return sge::math::space_matrix
-	       (2*near/(right-left), 0,                   (right+left)/(right-left), 0,
-	        0,                   2*near/(top-bottom), (top+bottom)/(top-bottom), 0,
-	        0,                   0,                   -(far+near)/(far-near),    -1,
-	        0,                   0,                   -2*far*near/(far-near),    0);
-}
+	FLOAT operator()(const FLOAT a,const FLOAT b, const FLOAT x) const
+	{
+		return a*(FLOAT(1)-x)+x*b;
+	}
+};
 
-inline sge::math::space_matrix matrix_perspective(const sge::space_unit aspect, const sge::space_unit fov, const sge::space_unit near, const sge::space_unit far)
+template<typename FLOAT,typename COORD>
+struct standard_noise_generation
 {
-	const sge::space_unit f = static_cast<sge::space_unit>(1) / std::tan(fov / static_cast<sge::space_unit>(2)),
-	//const sge::space_unit f = std::cos(fov/2)/std::sin(fov/2),
-	                 q = -(far+near)/(far-near);
-	return sge::math::space_matrix
-	       (f / aspect, 0, 0,                      0,
-	        0,          f, 0,                      0,
-	        0,          0, q,                     -1,
-	        0,          0, -2*far*near/(far-near), 0);
-	/*
-	sge::space_unit ymax,ymin,xmin,xmax;
-	ymax = near * std::tan(fov * sge::math::PI / 360);
-	ymin = -ymax;
-	xmin = ymin * aspect;
-	xmax = ymax * aspect;
-	return matrix_frustum(xmin,xmax,ymin,ymax,near,far);
-	*/
-}
-
-
-class quadtree
-{
-	public:
-	typedef long index_type;
-	struct indexed_triangle { index_type vertices[3]; };
-	typedef std::vector<index_type>         index_container_type;
-	typedef std::vector<indexed_triangle>   triangle_container_type;
-	typedef std::vector<sge::math::vector3> vertex_container_type;
-
-	bool locked_;
-
-	class lock_ptr
+	FLOAT abs(const FLOAT a) const
 	{
-		quadtree &t;
-		public:
-		lock_ptr(quadtree &tree) : t(tree) { if (tree.locked_) throw sge::exception("tree locked more than once"); tree.lock(); }
-		~lock_ptr() { if(!t.locked_) throw sge::exception("logic error: tree already unlocked"); t.unlock(); }
-	};
-
-	protected:
-	unsigned                tree_depth;
-	vertex_container_type   vertices_;
-	triangle_container_type triangles_;
-
-	class subtree
-	{
-		boost::scoped_ptr<subtree> lefttop,righttop,leftbottom,rightbottom;
-		triangle_container_type    acquired_triangles;
-		sge::math::rect            rect;
-		bool                       leaf;
-
-		public:
-		subtree() : leaf(false) {}
-		subtree(const vertex_container_type &vertices,const triangle_container_type &triangles,sge::math::rect _rect,unsigned tree_depth) : rect(_rect),leaf(tree_depth == 0)
-		{
-			for (triangle_container_type::const_iterator i = triangles.begin(); i != triangles.end(); ++i)
-			{
-				sge::math::vector3 a = vertices[i->vertices[0]],b = vertices[i->vertices[1]],c = vertices[i->vertices[2]];
-				triangle t(sge::math::vector2(a.x(),a.z()),sge::math::vector2(b.x(),b.z()),sge::math::vector2(c.x(),c.z()));
-				if (triangle_inside_2d(t,rect))
-					acquired_triangles.push_back(*i);
-			}
-
-			if (tree_depth != 0)
-				create_children(vertices,tree_depth);
-		}
-
-		void create_children(const vertex_container_type &vertices,const unsigned tree_depth)
-		{
-			const sge::space_unit left = rect.left,right = rect.right,top = rect.top,bottom = rect.bottom,
-													         vertical_center = (top+bottom)/2,horizontal_center = (left+right)/2;
-			lefttop.reset(new subtree(vertices,acquired_triangles,sge::math::rect(left,top,horizontal_center,vertical_center),tree_depth-1));
-			righttop.reset(new subtree(vertices,acquired_triangles,sge::math::rect(horizontal_center,top,right,vertical_center),tree_depth-1));
-			leftbottom.reset(new subtree(vertices,acquired_triangles,sge::math::rect(left,vertical_center,horizontal_center,bottom),tree_depth-1));
-			rightbottom.reset(new subtree(vertices,acquired_triangles,sge::math::rect(horizontal_center,vertical_center,right,bottom),tree_depth-1));
-		}
-		
-		sge::math::rect determine_bounds(const vertex_container_type &vertices) const
-		{
-			sge::math::rect bounds;
-			for (vertex_container_type::const_iterator i = vertices.begin(); i != vertices.end(); ++i)
-			{
-				if (i->x() > bounds.right)
-					bounds.right = i->x();
-				if (i->x() < bounds.left)
-					bounds.left = i->x();
-				if (i->z() < bounds.top)
-					bounds.top = i->z();
-				if (i->z() > bounds.bottom)
-					bounds.bottom = i->z();
-			}
-			return bounds;
-		}
-
-		void add_all(index_container_type &indices) const
-		{
-			for (triangle_container_type::const_iterator i = acquired_triangles.begin(); i != acquired_triangles.end(); ++i)
-			{
-				indices.push_back(i->vertices[0]);
-				indices.push_back(i->vertices[1]);
-				indices.push_back(i->vertices[2]);
-			}
-		}
-
-		void get_visible(const frustum_info &frustum,index_container_type &indices) const
-		{
-			if (leaf)
-			{
-				add_all(indices);
-			}
-			else
-			{
-				if (possibly_inside(lefttop->rect,frustum))
-					lefttop->get_visible(frustum,indices);
-				if (possibly_inside(righttop->rect,frustum))
-					righttop->get_visible(frustum,indices);
-				if (possibly_inside(rightbottom->rect,frustum))
-					rightbottom->get_visible(frustum,indices);
-				if (possibly_inside(leftbottom->rect,frustum))
-					leftbottom->get_visible(frustum,indices);
-			}
-		}
-
-		void reset(const unsigned tree_depth,const vertex_container_type &vertices,const triangle_container_type &triangles)
-		{
-			rect = determine_bounds(vertices);
-			acquired_triangles = triangles;
-			create_children(vertices,tree_depth);
-		}
-	};
-	subtree tree_root;
-	
-	public:
-	quadtree(unsigned tree_depth) : tree_depth(tree_depth),locked_(false) {}
-	
-	void pack() { assert(locked_); tree_root.reset(tree_depth,vertices_,triangles_); }
-
-	void lock() { locked_ = true; }
-	void unlock() { pack(); locked_ = false; }
-
-	triangle_container_type &triangles() { if (!locked_) throw sge::exception("object is not locked, cannot add triangles!"); return triangles_; }
-	vertex_container_type &vertices() { return vertices_; }
-
-	void get_visible(const frustum_info &frustum,index_container_type &indices)
-	{
-		tree_root.get_visible(frustum,indices);
+		if (a == FLOAT(0)) 
+			return a;
+		return a > 0 ? a : -a;
 	}
 
-	virtual ~quadtree() {}
+	FLOAT operator()(COORD x,COORD y) const 
+	{
+		COORD n = x + y * COORD(57); n = (n<<13) ^ n;
+		return abs((FLOAT(1.0) - ((n * (n * n * COORD(15731) + COORD(789221)) + COORD(1376312589)) & COORD(0x7fffffff)) / FLOAT(1073741824.0)));
+	}
 };
-#endif
+
+template< typename FLOAT,template<typename> class interpolation, template<typename,typename> class noise_generation >
+struct island_generator
+{
+	typedef FLOAT                                  value_type;
+	typedef sge::math::dim<unsigned,2>             dim_type;
+	typedef boost::shared_array<value_type>        array_type;
+	typedef unsigned                               coord_type;
+
+	const dim_type                           dim;
+	const interpolation<value_type>          interpolator;
+	const unsigned                           octaves;
+	const value_type                         persistence;
+	noise_generation<value_type,coord_type>  noise_generator;
+
+	island_generator(const dim_type &dim,const unsigned octaves,const value_type persistence) 
+			: dim(dim),interpolator(),octaves(octaves),persistence(persistence) {}
+	dim_type::value_type height() const { return dim.h(); }
+	dim_type::value_type width() const { return dim.w(); }
+
+	value_type value(const coord_type x,const coord_type y)
+	{
+		unsigned freq = 2;
+		value_type    amplitude = persistence;
+		value_type    value;
+		for (unsigned i = 0; i < octaves; ++i)
+		{
+			// Position im Raster, das durch die Frequenz aufgespannt wird
+			const sge::math::vector<coord_type,2> ipos(x*freq/width(),y*freq/height());
+			// Noise-Wert an der momentan und naechsten Rasterposition
+			const value_type noise_cur = noise_generator(ipos.x(),ipos.y());
+			const value_type noise_xn = noise_generator(ipos.x()+coord_type(1),ipos.y());
+			const value_type noise_yn = noise_generator(ipos.x(),ipos.y()+coord_type(1));
+			const value_type noise_xnyn = noise_generator(ipos.x()+coord_type(1),ipos.y()+coord_type(1));
+
+			const value_type fractional_x = (x % (width()/freq)) / value_type(width()/freq);
+			const value_type fractional_y = (y % (height()/freq)) / value_type(height()/freq);
+
+			const value_type interpolated_x = interpolator(noise_cur,noise_xn,fractional_x);
+			const value_type interpolated_xn = interpolator(noise_yn,noise_xnyn,fractional_x);
+
+			value += interpolator(interpolated_x,interpolated_xn,fractional_y) * amplitude;
+
+			// Werte updaten
+			freq *= 2;
+			amplitude *= persistence;
+		}
+
+		return std::min(value,value_type(1));
+	}
+
+	array_type generate()
+	{
+		// Erstmal Array neu setzen
+		array_type array(new value_type[width()*height()]);
+
+		// Jeden Pixel durchgehen und Oktaven addieren
+		for (coord_type i = coord_type(0); i < width()*height(); ++i)
+		{
+			array[i] = value(i % width(),i / width());
+		}
+
+		return array;
+	}
+};
 
 int main()
 {
+	sge::plugin_manager pm;
+	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
+	const sge::image_loader_ptr image_loader(image_loader_plugin->get()());
+
+	typedef island_generator<float,linear_interpolation,standard_noise_generation> generator_type;
+	generator_type::dim_type dimension(256,256);
+	generator_type generator(dimension,8,0.6f);
+	generator_type::array_type array = generator.generate();
+
+	boost::shared_array<sge::color> image(new sge::color[dimension.w()*dimension.h()]);
+	for (unsigned i = 0; i < dimension.w()*dimension.h(); ++i)
+	{
+		sge::color_element n = static_cast<sge::color_element>(array[i] * std::numeric_limits<sge::color_element>::max());
+		image[i] = sge::make_color(n,n,n,1);
+	}
+
+	image_loader->create_image(image.get(), dimension.w(), dimension.h())->save("test.bmp");
+
+	#if 0
 	std::srand(std::time(0));
 
 	sge::plugin_manager pm;
@@ -212,13 +156,12 @@ int main()
 	// Heigghtmap einlesen
 	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
 	const sge::image_loader_ptr pl(image_loader_plugin->get()());
-	const sge::image_ptr heightmap = pl->load_image(sge::media_path() + "newheightmap.bmp");
+	
 
 	const sge::math::dim2 field_dim(1,1);
-
 	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), heightmap->height() * heightmap->width());
 
-	sge::quadtree tree(4);
+	sge::quadtree tree(2);
 
 	// Model daraus generieren
 	float texture_granularity = 4;
@@ -348,4 +291,5 @@ int main()
 
 		rend->end_rendering();
 	}
+	#endif
 }

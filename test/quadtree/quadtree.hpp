@@ -14,10 +14,16 @@ class quadtree
 {
 	public:
 	typedef long index_type;
-	struct indexed_triangle { index_type vertices[3]; };
+
+	struct indexed_triangle 
+	{ 	
+		index_type vertices[3]; 
+	};
+
 	typedef std::vector<index_type>         index_container_type;
 	typedef std::vector<indexed_triangle>   triangle_container_type;
-	typedef std::vector<math::vector3> vertex_container_type;
+	typedef std::vector<math::vector3>      vertex_container_type;
+
 	class lock_ptr
 	{
 		quadtree &t;
