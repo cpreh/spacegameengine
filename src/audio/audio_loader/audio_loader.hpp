@@ -1,5 +1,5 @@
-#ifndef SGE_AUDIO_HPP_INCLUDED
-#define SGE_AUDIO_HPP_INCLUDED
+#ifndef SGE_AUDIO_LOADER_HPP_INCLUDED
+#define SGE_AUDIO_LOADER_HPP_INCLUDED
 
 // C++
 #include <vector>
@@ -14,7 +14,7 @@ namespace sge
 {
 class audio_loader
 {
-	public:
+public:
 	virtual shared_ptr<audio_file> load(const std::string &filename) = 0;
 	virtual bool is_valid_file(const std::string &filename) const = 0;
 	virtual ~audio_loader() {}
@@ -25,7 +25,7 @@ namespace detail
 
 template<> struct plugin_traits<audio_loader> {
 	static const char* plugin_loader_name() { return "create_audio_loader"; }
-	static plugin_type get_plugin_type() { return PT_AudioLoader; }
+	static plugin_type::type get_plugin_type() { return plugin_type::audio_loader; }
 	typedef audio_loader* (*loader_fun)();
 };
 

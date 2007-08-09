@@ -43,7 +43,7 @@ namespace detail
 
 template<> struct plugin_traits<image_loader> {
 	static const char* plugin_loader_name() { return "create_image_loader"; }
-	static plugin_type get_plugin_type() { return PT_ImageLoader; }
+	static plugin_type::type get_plugin_type() { return plugin_type::image_loader; }
 	typedef image_loader* (*loader_fun)();
 };
 

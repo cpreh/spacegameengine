@@ -12,7 +12,7 @@ void plugin_version_info(sge::plugin_info* const p)
 	p->description = "";
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
-	p->type = sge::PT_AudioPlayer;
+	p->type = sge::plugin_type::audio_player;
 }
 
 sge::audio_player* create_audio_player()

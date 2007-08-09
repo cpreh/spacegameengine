@@ -1,0 +1,3 @@
+IF (${ENABLE_ZLIB})
+	ADD_SUBDIRECTORY (minizip)
+ENDIF ()

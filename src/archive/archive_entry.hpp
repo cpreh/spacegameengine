@@ -18,39 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_ARCHIVE_ENTRY_HPP_INCLUDED
+#define SGE_ARCHIVE_ENTRY_HPP_INCLUDED
 
+#include <cstddef>
 #include <string>
 #include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
-#include "../renderer/font_types.hpp"
-#include "../renderer/renderer.hpp"
-#include "font_metrics.hpp"
 
 namespace sge
 {
 
-class font_system {
+class archive_entry {
 public:
-	virtual ~font_system(){}
-	virtual font_metrics_ptr create_font(const std::string& font_path, unsigned font_height) = 0;
+	typedef unsigned char value_type;
+	typedef value_type*   pointer;
+	typedef std::size_t   size_type;
+
+	virtual const std::string& name() const = 0;
+	virtual size_type uncompressed_size() const = 0;
+	virtual void uncompress(pointer data) = 0;
+	virtual ~archive_entry() {}
 };
 
-typedef shared_ptr<font_system> font_system_ptr;
-
-namespace detail
-{
-
-template<> struct plugin_traits<font_system> {
-	static const char* plugin_loader_name() { return "create_font_system"; }
-	static plugin_type::type get_plugin_type() { return plugin_type::font; }
-	typedef font_system* (*loader_fun)();
-};
-
-}
+typedef shared_ptr<archive_entry> archive_entry_ptr;
 
 }
 
 #endif
-

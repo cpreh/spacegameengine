@@ -11,7 +11,7 @@ ESVN_REPO_URI="https://spacegameengine.svn.sourceforge.net/svnroot/spacegameengi
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug devil dga gui openal opengl test truetype vorbis wave xinput"
+IUSE="debug devil dga gui openal opengl test truetype vorbis wave xinput zlib"
 
 DEPEND="${RDEPEND}
         dev-util/pkgconfig
@@ -27,7 +27,8 @@ RDEPEND="dev-libs/boost
          truetype? ( media-libs/freetype )
          xinput? ( dga? ( x11-libs/libXxf86dga ) )
          vorbis? ( media-libs/libvorbis )
-         openal? ( media-libs/openal )"
+         openal? ( media-libs/openal )
+         zlib? ( media-libs/zlib )"
 
 src_unpack() {
 	subversion_src_unpack

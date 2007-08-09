@@ -32,7 +32,7 @@ void plugin_version_info(sge::plugin_info* i)
 		return;
 	i->name = "X input plugin";
 	i->description = "";
-	i->type = sge::PT_Input;
+	i->type = sge::plugin_type::input;
 	i->plugin_version = 0x1;
 	i->min_core_version = 0x1;
 }

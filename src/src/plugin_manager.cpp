@@ -47,11 +47,11 @@ sge::plugin_manager::plugin_manager()
 	}
 
 	for(plugin_array::iterator it = plugins.begin(); it != plugins.end(); ++it)
-		for(unsigned i = 1; i < PT_Last_Guard; i <<= 1)
+		for(unsigned i = 1; i < plugin_type::_last_guard; i <<= 1)
 		{
 			const unsigned type = it->type();
 			if(type & i)
-				categories[static_cast<plugin_type>(i)].push_back(&*it);
+				categories[static_cast<plugin_type::type>(i)].push_back(&*it);
 		}
 }
 
@@ -83,7 +83,7 @@ unsigned sge::plugin_manager::plugin_context_base::version() const
 	return _version;
 }
 
-sge::plugin_type sge::plugin_manager::plugin_context_base::type() const
+sge::plugin_type::type sge::plugin_manager::plugin_context_base::type() const
 {
 	return _type;
 }

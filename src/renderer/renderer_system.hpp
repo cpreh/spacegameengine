@@ -58,7 +58,7 @@ namespace detail
 
 template<> struct plugin_traits<renderer_system> {
 	static const char* plugin_loader_name() { return "create_renderer_system"; }
-	static plugin_type get_plugin_type() { return PT_Renderer; }
+	static plugin_type::type get_plugin_type() { return plugin_type::renderer; }
 	typedef renderer_system* (*loader_fun)();
 };
 

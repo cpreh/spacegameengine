@@ -18,39 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FONT_SYSTEM_HPP_INCLUDED
+#include "../../../plugin.hpp"
+#include "../archive_loader.hpp"
 
-#include <string>
-#include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
-#include "../renderer/font_types.hpp"
-#include "../renderer/renderer.hpp"
-#include "font_metrics.hpp"
-
-namespace sge
+extern "C"
 {
 
-class font_system {
-public:
-	virtual ~font_system(){}
-	virtual font_metrics_ptr create_font(const std::string& font_path, unsigned font_height) = 0;
-};
-
-typedef shared_ptr<font_system> font_system_ptr;
-
-namespace detail
+void plugin_version_info(sge::plugin_info* const p)
 {
+	if(!p)
+		return;
+	p->name = "minizip (zlib) archive loader plugin";
+	p->description = "";
+	p->plugin_version = 0x1;
+	p->min_core_version = 0x1;
+	p->type = sge::plugin_type::archive;
+}
 
-template<> struct plugin_traits<font_system> {
-	static const char* plugin_loader_name() { return "create_font_system"; }
-	static plugin_type::type get_plugin_type() { return plugin_type::font; }
-	typedef font_system* (*loader_fun)();
-};
-
+sge::archive_loader* create_archive_loader()
+{
+	return new sge::zlib::archive_loader();
 }
 
 }
-
-#endif
-

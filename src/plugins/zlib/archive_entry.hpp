@@ -18,39 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_ZLIB_ARCHIVE_ENTRY_HPP_INCLUDED
+#define SGE_ZLIB_ARCHIVE_ENTRY_HPP_INCLUDED
 
-#include <string>
-#include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
-#include "../renderer/font_types.hpp"
-#include "../renderer/renderer.hpp"
-#include "font_metrics.hpp"
+#include "../../archive/archive_entry.hpp"
+#include "current_handle.hpp"
+#include "../../../3rdparty/minizip/unzip.h"
 
 namespace sge
 {
-
-class font_system {
-public:
-	virtual ~font_system(){}
-	virtual font_metrics_ptr create_font(const std::string& font_path, unsigned font_height) = 0;
-};
-
-typedef shared_ptr<font_system> font_system_ptr;
-
-namespace detail
+namespace zlib
 {
 
-template<> struct plugin_traits<font_system> {
-	static const char* plugin_loader_name() { return "create_font_system"; }
-	static plugin_type::type get_plugin_type() { return plugin_type::font; }
-	typedef font_system* (*loader_fun)();
+class zip_file;
+
+class archive_entry : public sge::archive_entry {
+public:
+	archive_entry(zip_file& file);
+	const std::string& name() const;
+	size_type uncompressed_size() const;
+	void uncompress(pointer dest);
+private:
+	zip_file& file;
+	current_handle open_handle;
+	unz_file_info info;
+	std::string name_;
 };
 
 }
-
 }
 
 #endif
-

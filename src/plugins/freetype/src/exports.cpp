@@ -32,7 +32,7 @@ void plugin_version_info(sge::plugin_info* const p)
 	p->description = "";
 	p->min_core_version = 0x1;
 	p->plugin_version = 0x1;
-	p->type = sge::PT_Font;
+	p->type = sge::plugin_type::font;
 }
 
 sge::font_system* create_font_system()

@@ -47,7 +47,7 @@ public:
 		const std::string& name() const;
 		const std::string& description() const;
 		unsigned version() const;
-		plugin_type type() const;
+		plugin_type::type type() const;
 		const std::string& path() const;
 	private:
 		template<typename T> friend class plugin_context;
@@ -56,7 +56,7 @@ public:
 		std::string _name;
 		std::string _description;
 		unsigned _version;
-		plugin_type _type;
+		plugin_type::type _type;
 	};
 
 	template<typename T>
@@ -86,7 +86,7 @@ public:
 private:
 	typedef std::vector<plugin_context_base> plugin_array;
 	typedef std::vector<plugin_context_base*> plugin_category_array;
-	typedef std::map<plugin_type, plugin_category_array> plugin_map;
+	typedef std::map<plugin_type::type, plugin_category_array> plugin_map;
 public:
 	typedef std::size_t size_type;
 

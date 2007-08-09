@@ -14,6 +14,7 @@ MACRO (INSTALL_HEADERS subpath)
 ENDMACRO ()
 
 INSTALL_HEADERS (./)
+INSTALL_HEADERS (archive)
 INSTALL_HEADERS (audio)
 INSTALL_HEADERS (audio/audio_loader)
 INSTALL_HEADERS (audio/audio_player)

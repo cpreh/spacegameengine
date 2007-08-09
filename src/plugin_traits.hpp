@@ -24,16 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-enum plugin_type {
-	PT_Nothing          = 0,
-	PT_Renderer         = 1,
-	PT_Input            = 1 << 1,
-	PT_ImageLoader      = 1 << 2,
-	PT_AudioPlayer      = 1 << 3,
-	PT_Font             = 1 << 4,
-	PT_AudioLoader      = 1 << 5,
-	PT_Last_Guard       = 1 << 6
-};
+namespace plugin_type
+{
+	enum type {
+		nothing          = 0,
+		renderer         = 1,
+		input            = 1 << 1,
+		image_loader     = 1 << 2,
+		audio_player     = 1 << 3,
+		font             = 1 << 4,
+		audio_loader     = 1 << 5,
+		archive          = 1 << 6,
+		_last_guard      = 1 << 7
+	};
+}
 
 namespace detail
 {
