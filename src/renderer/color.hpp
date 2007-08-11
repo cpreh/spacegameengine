@@ -85,11 +85,6 @@ struct color_traits<color_scheme::rgba> {
                               | static_cast<color>(b) << color_traits<current_color_scheme>::b_shift \
                               | static_cast<color>(a) << color_traits<current_color_scheme>::a_shift
 
-//template<color_element r, color_element g, color_element b, color_element a>
-//struct static_color_a {
-//	return SGE_MAKE_COLOR(r,g,b,a);
-//};
-
 template<color_element r, color_element g, color_element b, color_element a=255>
 struct static_color {
 	static const color value = SGE_MAKE_COLOR(r,g,b,a);

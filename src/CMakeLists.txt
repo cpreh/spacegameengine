@@ -6,7 +6,7 @@ ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex X11 dl)
 
-INSTALL (TARGETS sgecore DESTINATION /usr/lib)
+INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
 MACRO (INSTALL_HEADERS subpath)
 	FILE (GLOB sgeheaders ${subpath}/*.hpp)

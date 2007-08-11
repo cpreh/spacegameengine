@@ -1,5 +1,5 @@
-#ifndef SOUND_ANGLE_HPP_INCLUDED
-#define SOUND_ANGLE_HPP_INCLUDED
+#ifndef SGE_SOUND_ANGLE_HPP_INCLUDED
+#define SGE_SOUND_ANGLE_HPP_INCLUDED
 
 #include "../../math/vector.hpp"
 

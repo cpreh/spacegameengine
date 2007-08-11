@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <vector>
+#include <boost/next_prior.hpp>
 #include "../../types.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
@@ -29,9 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../font.hpp"
 #include "../../unicode.hpp"
 #include "../../sprite/helper.hpp"
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/next_prior.hpp>
 
 sge::font::font(const font_metrics_ptr metrics_, const font_drawer_ptr drawer_)
 : metrics_(metrics_),
