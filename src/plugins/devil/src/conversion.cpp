@@ -18,29 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEVIL_IMAGE_LOADER_HPP_INCLUDED
-#define SGE_DEVIL_IMAGE_LOADER_HPP_INCLUDED
+#include "../../../exception.hpp"
+#include "../conversion.hpp"
 
-#include "../../image/image_loader.hpp"
-#include "image.hpp"
-#include "library.hpp"
-
-namespace sge
+template<> ILuint sge::devil::convert_cast(const image_format::type& t)
 {
-namespace devil
-{
-
-class image_loader : public sge::image_loader {
-public:
-	image_loader();
-	sge::image_ptr load_image(const std::string& path, image::size_type w = 0, image::size_type h = 0);
-	sge::image_ptr load_image(image_format::type type, image::const_pointer format_data, image::size_type size);
-	sge::image_ptr create_image(image::const_pointer src, image::size_type w, image::size_type h);
-private:
-	library _lib;
-};
-
+	switch(t) {
+	case image_format::bmp:
+		return IL_BMP;
+	case image_format::jpeg:
+		return IL_JPG;
+	case image_format::png:
+		return IL_PNG;
+	case image_format::tiff:
+		return IL_TIF;
+	case image_format::tga:
+		return IL_TGA;
+	default:
+		throw exception("Invalid image_format!");
+	}
 }
-}
-
-#endif

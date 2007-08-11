@@ -40,6 +40,11 @@ sge::image_ptr sge::devil::image_loader::load_image(const std::string& path, con
 	return im;
 }
 
+sge::image_ptr sge::devil::image_loader::load_image(const image_format::type type, const image::const_pointer format_data, const image::size_type size)
+{
+	return image_ptr(new image(type, format_data, size));
+}
+
 sge::image_ptr sge::devil::image_loader::create_image(const image::const_pointer p, const image::size_type w, const image::size_type h)
 {
 	return image_ptr(new image(p,w,h));

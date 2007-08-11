@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 +*/
 
 
-#include <stdexcept>
 #include <string>
+#include "../../../exception.hpp"
 #include "../error.hpp"
 #include <IL/il.h>
 #include <IL/ilu.h>
@@ -37,5 +37,5 @@ void sge::devil::check_errors()
 		error_message += '\n';
 	}
 	while((e = ilGetError()) != IL_NO_ERROR);
-	throw std::runtime_error(error_message);
+	throw exception(error_message);
 }

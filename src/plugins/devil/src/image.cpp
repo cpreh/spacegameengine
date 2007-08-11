@@ -18,40 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../exception.hpp"
 #include "../image.hpp"
 #include "../error.hpp"
+#include "../conversion.hpp"
 #include <IL/ilu.h>
 
 sge::devil::image::image(const std::string& file)
 {
-	init();
+	bind_me();
 	if(ilLoadImage(const_cast<char*>(file.c_str())) == IL_FALSE)
-		throw std::runtime_error(std::string("ilLoadImage() failed! Could not load '") += file + "'!");
+		throw exception(std::string("ilLoadImage() failed! Could not load '") += file + "'!");
 	w = ilGetInteger(IL_IMAGE_WIDTH);
 	h = ilGetInteger(IL_IMAGE_HEIGHT);
 	check_errors();
 }
 
+sge::devil::image::image(const image_format::type type, const const_pointer format_data, const size_type size)
+{
+	if(!format_data || size == 0)
+		throw exception("load_image(): format_data or size is 0!");
+	bind_me();
+	if(ilLoadL(convert_cast<ILenum>(type), const_cast<pointer>(format_data), size) == IL_FALSE)
+		throw exception("ilLoadL() failed!");
+}
+
 sge::devil::image::image(const const_pointer p, const size_type w, const size_type h)
  : w(w), h(h)
 {
-	init();
-	check_errors();
+	bind_me();
 	if(p)
 		data(p);
 }
 
-void sge::devil::image::init()
-{
-	ILuint temp;
-	ilGenImages(1,&temp);
-	id.reset(new im_guard(temp));
-	bind_me();
-}
-
 void sge::devil::image::bind_me() const
 {
-	ilBindImage(*id);
+	ilBindImage(impl.id());
+	check_errors();
 }
 
 sge::image::size_type sge::devil::image::width() const
@@ -79,7 +82,7 @@ sge::image::const_pointer sge::devil::image::data() const
 
 void sge::devil::image::resample(const size_type _w, const size_type _h)
 {
-	if(_w == w && _h == h)
+	if(width() == _w && height() == _h)
 		return;
 	bind_me();
 	iluScale(_w,_h,32);

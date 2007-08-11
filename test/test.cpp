@@ -312,12 +312,13 @@ try
 
 	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
 	kubal->goto_begin();
-	while(kubal->next())
+	do
 	{
 		sge::archive_entry_ptr entry;
 		kubal->open(entry);
 		std::cout << entry->name() << '\n';
 	}
+	while(kubal->next());
 
 	char testdata[100];
 	std::istream stream(new sge::memory_buf(testdata, 100));

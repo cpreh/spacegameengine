@@ -18,29 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEVIL_IMAGE_LOADER_HPP_INCLUDED
-#define SGE_DEVIL_IMAGE_LOADER_HPP_INCLUDED
-
-#include "../../image/image_loader.hpp"
-#include "image.hpp"
-#include "library.hpp"
+#ifndef SGE_IMAGE_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_FORMAT_HPP_INCLUDED
 
 namespace sge
 {
-namespace devil
+
+namespace image_format
 {
-
-class image_loader : public sge::image_loader {
-public:
-	image_loader();
-	sge::image_ptr load_image(const std::string& path, image::size_type w = 0, image::size_type h = 0);
-	sge::image_ptr load_image(image_format::type type, image::const_pointer format_data, image::size_type size);
-	sge::image_ptr create_image(image::const_pointer src, image::size_type w, image::size_type h);
-private:
-	library _lib;
-};
-
+	enum type {
+		bmp,
+		jpeg,
+		png,
+		tiff,
+		tga
+	};
 }
+
 }
 
 #endif

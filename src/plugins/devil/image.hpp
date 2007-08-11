@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_IMAGE_HPP_INCLUDED
 #define SGE_DEVIL_IMAGE_HPP_INCLUDED
 
-#include <boost/scoped_ptr.hpp>
 #include "../../image/image.hpp"
-#include "../../shared_ptr.hpp"
-#include <IL/il.h>
+#include "../../image/image_format.hpp"
+#include "image_impl.hpp"
 
 namespace sge
 {
@@ -34,6 +33,7 @@ namespace devil
 class image : public sge::image {
 public:
 	image(const std::string& file);
+	image(image_format::type type, const_pointer format_data, size_type size);
 	image(const_pointer p, size_type w, size_type h);
 	const_pointer data() const;
 	void data(const_pointer);
@@ -42,21 +42,11 @@ public:
 	void resample(size_type w, size_type h);
 	void save(const std::string& path);
 private:
-	void init();
 	void bind_me() const;
-	struct im_guard {
-		im_guard(ILuint i) : i(i) {}
-		~im_guard() { ilDeleteImages(1,&i); }
-		operator ILuint() const { return i; }
-	private:
-		ILuint i;
-	};
-	typedef boost::scoped_ptr<im_guard> im_guard_ptr;
-	im_guard_ptr id;
-	size_type w, h;
+	image_impl impl;
+	size_type  w,
+		   h;
 };
-
-typedef shared_ptr<image> image_ptr;
 
 }
 }
