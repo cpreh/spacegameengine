@@ -28,6 +28,13 @@
 #include <ctime>
 #include <cstdlib>
 
+sge::math::vector3 cross(const sge::math::vector3 &a,const sge::math::vector3 &b)
+{
+	return sge::math::vector3(a.y()*b.z() - a.z()*b.y(),
+                            a.z()*b.x() - a.x()*b.z(),
+                            a.x()*b.y() - a.y()*b.x());
+}
+
 int main()
 {
 	std::srand(std::time(0));
@@ -54,7 +61,7 @@ int main()
 	unsigned y_reps = 32,z_reps = 8;
 	sge::space_unit r = 3;
 
-	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), y_reps * z_reps);
+	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex).add(sge::vertex_usage::normal), y_reps * z_reps);
 	{
 		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(model_vb);
 		sge::vertex_buffer::iterator vbit = model_vb->begin();
@@ -66,11 +73,98 @@ int main()
 				sge::space_unit z_angle = sge::space_unit(z)/sge::space_unit(z_reps)*sge::math::PI*0.5;
 				sge::space_unit y_angle = sge::space_unit(y)/sge::space_unit(y_reps)*sge::math::PI*2;
 				vbit->pos() = sge::math::vector3(r * std::sin(z_angle) * std::cos(y_angle),r * std::cos(z_angle),r * std::sin(z_angle) * std::sin(y_angle));
-				vbit->tex() = (sge::math::vector2(vbit->pos().x(),vbit->pos().z()) - sge::math::vector2(-r,-r)) * (sge::space_unit(1)/(2*r));
 				vbit++;
+				//vbit->tex() = (sge::math::vector2(vbit->pos().x(),vbit->pos().z()) - sge::math::vector2(-r,-r)) * (sge::space_unit(1)/(2*r));
+
+
+				/*
+				vbit->tex().y() = std::acos(vbit->pos().z()/r) / sge::math::PI;
+				if (vbit->pos().y() >= 0)
+					vbit->tex().x() = std::acos(vbit->pos().x()/(r * std::sin(sge::math::PI*(vbit->tex().y())))) / 2*sge::math::PI;
+				else
+					vbit->tex().x() = (sge::math::PI + std::acos(vbit->pos().x()/(r * std::sin(sge::math::PI*vbit->tex().y())))) / 2*sge::math::PI;
+				vbit++;
+				*/
 			}
 		}
+
+		vbit = model_vb->begin();
+		for (unsigned cur = 0; cur < model_vb->size(); ++cur)
+		{
+			// Ganz oben? Dann trivial
+			if (cur % z_reps == 0)
+			{
+				vbit->normal() = sge::math::vector3(0,1,0);
+				vbit++;
+				continue;
+			}
+
+			// Ganz unten?
+			if (cur % z_reps == z_reps - 1)
+			{
+				sge::math::vector3 self(0,-1,0),
+												   right = (*model_vb)[(cur+z_reps) % model_vb->size()].pos() - vbit->pos(),
+												   left = (*model_vb)[(cur-z_reps) % model_vb->size()].pos() - vbit->pos();
+
+				//std::cout << "Ganz unten. self" << self << ",left" << left << ",n" << cross(self,left) << "\n";
+
+				vbit->normal() = sge::math::normalize(cross(self,left) + cross(right,self));
+				vbit++;
+				continue;
+			}
+
+			assert(cur > 0);
+
+			// Mittendrin?
+			sge::math::vector3 before = (*model_vb)[cur-1].pos() - vbit->pos(),
+			                   after = (*model_vb)[cur+1].pos() - vbit->pos(),
+												 left = (*model_vb)[(cur-z_reps) % model_vb->size()].pos() - vbit->pos(),
+												 right = (*model_vb)[(cur+z_reps) % model_vb->size()].pos() - vbit->pos();
+
+			sge::math::vector3 n0 = cross(left,before),n1 = cross(after,left),n2 = cross(right,after),n3 = cross(before,right);
+			n0.normalize(),n1.normalize(),n2.normalize(),n3.normalize();
+			vbit->normal() = sge::math::normalize(n0 + n1 + n2 + n3);
+			vbit++;
+		}
+
+		vbit = model_vb->begin();
+		// Jetzt Texturkoordinaten
+		for (unsigned cur = 0; cur < model_vb->size(); ++cur)
+		{
+			vbit->tex() = sge::math::vector2((vbit->normal().x()+1)/2,(vbit->normal().z()+1)/2);
+			vbit++;
+
+			/*
+			sge::math::vector3 a,b;
+
+			
+
+			// Vorletzter Vertex, dann den naechsten so mitnehmen
+			if (cur % z_reps == z_reps - 1)
+			{
+				a = sge::math::vector3(0,-1,0);
+				b = sge::math::vector3((*model_vb)[(cur + z_reps) % model_vb->size()].pos() - (*model_vb)[cur].pos());
+			}
+			else
+			{
+				a = sge::math::vector3((*model_vb)[cur+1].pos() - (*model_vb)[cur].pos());
+				b = sge::math::vector3((*model_vb)[(cur+1+z_reps) % model_vb->size()].pos() - (*model_vb)[cur].pos());
+			}
+
+			sge::math::vector3 n = sge::math::normalize(cross(a,b));
+			//std::cout << "a: " << a << ", b: " << b << "\n";
+
+			vbit->tex() = sge::math::vector2((n.x()+1)/2,(n.z()+1)/2);
+			//vbit->tex() = sge::math::vector2(std::asin(n.x())/sge::math::PI*0.5,std::asin(n.y())/sge::math::PI*0.5);
+
+			if ((cur % z_reps) <= 1)
+				//std::cout << "cur(" << cur << "),pos("<< (*model_vb)[cur].pos() <<"),n(" << n << "),cur+1("<<(*model_vb)[cur+1].pos()<<"),cur+1+z_reps("<<(*model_vb)[(cur+1+z_reps)%model_vb->size()].pos()<<")\n";
+				std::cout << "cur=" << cur << ",a" << a << ",b" << b << ",n" << n << ",vbit->tex()" << vbit->tex() << "\n";
+			vbit++;
+		*/
+		}
 	}
+
 
 	const unsigned triangle_count = ((z_reps-1) * 2 - 1) * y_reps;
 	const sge::index_buffer_ptr model_ib = rend->create_index_buffer(triangle_count * 3);
