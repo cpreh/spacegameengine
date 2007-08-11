@@ -9,7 +9,7 @@
 #include <boost/shared_array.hpp>
 #include <boost/lexical_cast.hpp>
 // sge
-#include <sge/math/matrix.hpp>
+#include "../../src/math/matrix.hpp"
 #include <sge/plugin_manager.hpp>
 #include <sge/plugin.hpp>
 #include <sge/renderer/renderer.hpp>

@@ -64,6 +64,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/console/console_gfx.hpp"
 #include "../src/console/console.hpp"
 #include "../src/model/md3.hpp"
+#include "../src/archive/archive_loader.hpp"
+#include "../src/memory_buf.hpp"
 
 namespace
 {
@@ -304,6 +306,22 @@ try
 	sge::math::vector3 translation(0, 0, -200);
 	float angle(0);
 	sge::timer frame_timer(1000);
+
+	const sge::plugin<sge::archive_loader>::ptr_type archive_plugin(pm.get_plugin<sge::archive_loader>().load());
+	const sge::archive_loader_ptr zip_archiver(archive_plugin->get()());
+
+	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
+	kubal->goto_begin();
+	while(kubal->next())
+	{
+		sge::archive_entry_ptr entry;
+		kubal->open(entry);
+		std::cout << entry->name() << '\n';
+	}
+
+	char testdata[100];
+	std::istream stream(new sge::memory_buf(testdata, 100));
+
 	while(running)
 	{
 	//	if (sound->status() != sge::sound::status_stopped)

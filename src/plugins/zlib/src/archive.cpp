@@ -60,7 +60,7 @@ bool sge::zlib::archive::goto_entry(const std::string& name)
 
 void sge::zlib::archive::open(archive_entry_ptr& ptr)
 {
-	if(ptr.use_count() != 1)
-		throw exception("The shared_ptr passed to archive::open() has to have its usecount set to 1!");
+	if(ptr.use_count() > 1)
+		throw exception("The shared_ptr passed to archive::open() has to have its usecount set to <= 1!");
 	ptr.reset(new archive_entry(file));
 }

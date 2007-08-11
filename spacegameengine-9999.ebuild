@@ -11,7 +11,7 @@ ESVN_REPO_URI="https://spacegameengine.svn.sourceforge.net/svnroot/spacegameengi
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="debug devil dga gui openal opengl test truetype vorbis wave xinput zlib"
+IUSE="debug devil dga openal opengl test truetype vorbis wave xinput zlib"
 
 DEPEND="${RDEPEND}
         dev-util/pkgconfig
@@ -48,10 +48,6 @@ src_compile() {
 
 	if use dga; then
 		myconf="${myconf} -D ENABLE_DGA:=1"
-	fi
-
-	if use gui; then
-		myconf="${myconf} -D ENABLE_GUI:=1"
 	fi
 
 	if use opengl; then
