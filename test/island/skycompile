@@ -1,0 +1,3 @@
+#!/bin/sh
+
+g++ skydome.cpp -lsgecore -Wall -Wextra -ansi -pedantic -ggdb
