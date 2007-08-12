@@ -82,13 +82,11 @@ void sge::quadtree::subtree::reset(const unsigned tree_depth,const sge::quadtree
 	create_children(vertices,tree_depth);
 }
 
-sge::quadtree::quadtree() : locked_(false) {}
+sge::quadtree::quadtree(const unsigned tree_depth) : tree_depth(tree_depth),locked_(false) {}
 
-void sge::quadtree::pack(unsigned _tree_depth) 
+void sge::quadtree::pack() 
 { 
 	assert(locked_); 
-	assert(_tree_depth == 0);
-	tree_depth = _tree_depth;
 	tree_root.reset(tree_depth,vertices_,triangles_); 
 }
 

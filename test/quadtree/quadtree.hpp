@@ -33,8 +33,8 @@ class quadtree : boost::noncopyable
 		~lock_ptr() { if(!t.locked_) throw exception("logic error: tree already unlocked"); t.unlock(); }
 	};
 
-	quadtree();
-	void pack(unsigned tree_depth);
+	quadtree(const unsigned tree_depth);
+	void pack();
 	void lock();
 	void unlock();
 	triangle_container_type &triangles();
