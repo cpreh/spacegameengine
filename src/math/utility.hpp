@@ -38,7 +38,7 @@ T abs(const T &t)
 
 inline unsigned unsigned_diff(const unsigned a,const unsigned b)
 {
-	return a > b ? b - a : a - b;
+	return a > b ? a - b : b - a;
 }
 
 }

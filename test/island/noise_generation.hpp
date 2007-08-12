@@ -26,17 +26,18 @@ struct stdlib_noise_generation
 {
 	typedef std::vector<FLOAT> inner_type;
 	typedef std::vector<inner_type> outer_type;
+	// FIXME
+	static const bool inited = false;
 	outer_type pairs;
 
-	// FIXME: time(0) ist scheisse wenn mehrmals in der Sekunde reset aufgerufen wird
 	stdlib_noise_generation() 
 	{
-		std::srand(std::time(0));
+		//std::srand(std::time(0));
 	}
 
 	stdlib_noise_generation(const COORD w,const COORD h) 
 	{ 
-		std::srand(std::time(0));
+		//std::srand(std::time(0));
 		reset(w,h);
 	}
 

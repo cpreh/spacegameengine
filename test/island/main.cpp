@@ -141,9 +141,6 @@ struct island_generator
 		island_extractor extractor(cloudy_image);
 		extractor.extract_list(islands);
 
-	//	if (islands.size() == 0)
-	//		throw sge::exception("no islands could be extracted!");
-
 		island_extractor::field_list_type::const_iterator nearest = islands.begin();
 		for (island_extractor::field_list_type::const_iterator i = islands.begin(); i != islands.end(); ++i)
 		{
@@ -164,7 +161,7 @@ struct island_generator
 		selected_island.blur();
 	}
 
-	void autogen(sge::image_loader_ptr pl)
+	void autogen()
 	{
 		island_extractor::dim_type resulting_dim;
 		unsigned counter = 0;
@@ -173,13 +170,8 @@ struct island_generator
 			current_stage = stage_none;
 			generate_noise_field();
 			apply_cloud_filter();
-
-			write_image(pl,cloudy_image,"cloud"+boost::lexical_cast<std::string>(counter)+".jpg");
-
 			extract_island();
 			resulting_dim = selected_island.dim();
-
-			write_image(pl,selected_island,"file"+boost::lexical_cast<std::string>(counter++)+".jpg");
 		}
 		blur_island();
 	}
@@ -309,12 +301,6 @@ int main()
 	const sge::image_loader_ptr pl(image_loader_plugin->get()());
 
 	island_generator generator;
-	generator.autogen(pl);
-	write_image(pl,generator.selected(),"test.bmp");
-
-	#if 0
-	
-	island_generator generator;
 	generator.autogen();
 
 	//color_image &extracted = generator.extracted_island;
@@ -322,6 +308,8 @@ int main()
 	
 	heightmap m(generator.selected().dim());
 	generate_heightmap_hills(m,generator.selected());
+
+	write_image(pl,m,"feld.bmp");
 
 	const sge::math::dim2 field_dim(2,2);
 	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), m.width()*m.height());
@@ -456,5 +444,4 @@ int main()
 
 		rend->end_rendering();
 	}
-	#endif
 }
