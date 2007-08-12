@@ -41,7 +41,7 @@ class console_gfx : boost::noncopyable
 	vertex_buffer_ptr                 vb;
 	index_buffer_ptr                  ib;
 	color                             font_color;
-	const texture_ptr                 background_texture;
+	texture_ptr                 background_texture;
 
 	bool                        cursor_active;
 	string::size_type           cursor_position;
@@ -69,11 +69,11 @@ public:
 	            input_system_ptr,
 	            font &,
 	            const color,
-	            const texture_ptr background_texture);
+	            texture_ptr background_texture);
 
 	void output_line(const string &s);
 	void draw();
-	void set_texture(virtual_texture_ptr t);
+	void set_texture(texture_ptr t);
 };
 
 }

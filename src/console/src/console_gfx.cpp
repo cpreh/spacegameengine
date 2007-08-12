@@ -274,7 +274,7 @@ void sge::con::console_gfx::draw()
 	if (cursor_blink.update())
 		cursor_active = !cursor_active;
 
-	rend->projection(matrix_orthogonal_xy());
+	rend->projection(math::matrix_orthogonal_xy());
 	rend->transform(matrix_2d_to_3d());
 	rend->set_texture(background_texture);
 	rend->render(vb,ib,0,vb->size(),indexed_primitive_type::triangle,2,0);
@@ -300,19 +300,19 @@ void sge::con::console_gfx::draw()
 
 	const string history_string = join<string>(cutout_it, cutout_end);
 
-	fn.draw_text(history_string, font_pos(0,0), font_dim(console_size.w(), console_size.h() - fn.height()), rend->screen_size(), font_flags::align_left | font_flags::align_bottom | font_flags::no_line_wrap);
+	fn.draw_text(history_string, pos2(0,0), math::dim2(console_size.w(), console_size.h() - fn.height()), rend->screen_size(), font_flags::align_left | font_flags::align_bottom | font_flags::no_line_wrap);
 }
 
-void sge::con::console_gfx::set_texture(const virtual_texture_ptr t)
+void sge::con::console_gfx::set_texture(texture_ptr t)
 {
-	background.set_texture(t);
+	background_texture = t;
 }
 
 sge::con::console_gfx::console_gfx(const renderer_ptr rend,
                                    const input_system_ptr input_system,
                                    font& fn,
                                    const color font_color,
-                                   const texture_ptr background_texture) 
+                                   texture_ptr background_texture) 
 : rend(rend),
   console_size(1, 0.5),
   fn(fn),
@@ -331,7 +331,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
   command_history_pos(-1)
 {
 	vb = rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::tex), 4);
-	lock_ptr<sge::vertex_buffer_ptr> _lock(vb);
+	lock_ptr<sge::vertex_buffer_ptr> _vblock(vb);
 	vertex_buffer::iterator vbit = vb->begin();
 	
 	vbit->pos() = sge::math::vector3(0,0,0);
@@ -346,11 +346,11 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
 	vbit->tex() = sge::math::vector2(1,1);
 	vbit++;
 
-	vbit->pos() = sge::math::vector3(0,1);
+	vbit->pos() = sge::math::vector3(0,1,0);
 	vbit->tex() = sge::math::vector2(0,1);
 
 	const sge::index_buffer_ptr ib = rend->create_index_buffer(6);
-	sge::lock_ptr<sge::index_buffer_ptr> _lock(ib);
+	sge::lock_ptr<sge::index_buffer_ptr> _iblock(ib);
 
 	sge::index_buffer::iterator ibit = ib->begin();
 	*ibit++ = 0;
