@@ -8,7 +8,7 @@ SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/sge/)
 SET (media_dest ${CMAKE_INSTALL_PREFIX}/share/games/sge/media/)
 
 IF (${ENABLE_DEBUG})
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -g3 -ggdb")
 ENDIF ()
 
 ADD_SUBDIRECTORY (src)

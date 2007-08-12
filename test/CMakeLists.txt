@@ -1,12 +1,12 @@
 ADD_EXECUTABLE (sgetest test.cpp)
-TARGET_LINK_LIBRARIES (sgetest sgecore boost_signals)
+TARGET_LINK_LIBRARIES (sgetest sgecore boost_signals boost_iostreams)
 INSTALL (TARGETS sgetest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 ADD_EXECUTABLE (soundtest soundtest.cpp)
 TARGET_LINK_LIBRARIES (soundtest sgecore)
 INSTALL (TARGETS soundtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
-ADD_EXECUTABLE (islandtest island/main.cpp)
+ADD_EXECUTABLE (islandtest island/main.cpp quadtree/quadtree.cpp quadtree/mathstuff.cpp island/island_extractor.cpp)
 TARGET_LINK_LIBRARIES (islandtest sgecore)
 INSTALL (TARGETS islandtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
