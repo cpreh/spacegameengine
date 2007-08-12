@@ -33,6 +33,7 @@
 #include "noise_generation.hpp"
 #include "noise_field_generator.hpp"
 #include "island_extractor.hpp"
+#include "skydome.hpp"
 
 typedef field<sge::space_unit> heightmap;
 
@@ -164,7 +165,6 @@ struct island_generator
 	void autogen()
 	{
 		island_extractor::dim_type resulting_dim;
-		unsigned counter = 0;
 		while (sge::math::unsigned_diff(resulting_dim.w(),desired_dim.w()) > 10 && sge::math::unsigned_diff(resulting_dim.h(),desired_dim.h()) > 10)
 		{
 			current_stage = stage_none;
@@ -361,7 +361,53 @@ int main()
 		}
 	}
 
+	// FIXME: Die ist bei nicht-quadratischen Feldern nicht symmetrisch
+	const float water_granularity = 150;
+	const sge::math::dim2 water_dim(field_dim.w() * m.width() * 10,field_dim.h() * m.height() * 10);
+	const sge::space_unit water_height = 0.5;
+	const sge::math::vector3 water_pos(field_dim.w() * m.width() / 2 - water_dim.w()/2,water_height,-field_dim.h() * m.height() / 2 + water_dim.h()/2);
+	const sge::vertex_buffer_ptr water_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), 4);
+	{
+		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(water_vb);
+		sge::vertex_buffer::iterator vbit = water_vb->begin();
+
+		std::cout << "Creating water of size " << water_dim << " and starting at " << water_pos << "\n";
+		
+		vbit->pos() = sge::math::vector3(water_pos.x(),water_pos.y(),water_pos.z() - water_dim.h());
+		vbit->tex() = sge::math::vector2(0,0);
+		vbit++;
+
+		vbit->pos() = water_pos;
+		vbit->tex() = sge::math::vector2(0,water_granularity);
+		vbit++;
+
+		vbit->pos() = sge::math::vector3(water_pos.x() + water_dim.w(),water_pos.y(),water_pos.z());
+		vbit->tex() = sge::math::vector2(water_granularity,water_granularity);
+		vbit++;
+
+		vbit->pos() = sge::math::vector3(water_pos.x() + water_dim.w(),water_pos.y(),water_pos.z() - water_dim.h());
+		vbit->tex() = sge::math::vector2(water_granularity,0);
+	}
+
+	const sge::index_buffer_ptr water_ib = rend->create_index_buffer(6);
+	{
+		sge::lock_ptr<sge::index_buffer_ptr> _lock(water_ib);
+
+		sge::index_buffer::iterator ibit = water_ib->begin();
+		*ibit++ = 0;
+		*ibit++ = 1;
+		*ibit++ = 2;
+		*ibit++ = 2;
+		*ibit++ = 3;
+		*ibit++ = 0;
+	}
+
+
 	const sge::image_ptr grass_image = pl->load_image(sge::media_path() + "grass.png");
+	const sge::image_ptr water_image = pl->load_image(sge::media_path() + "water_texture.jpg");
+	const sge::image_ptr cloud_image = pl->load_image(sge::media_path() + "cloudsquare.jpg");
+	const sge::texture_ptr water_texture = rend->create_texture(water_image->data(), water_image->width(), water_image->height(), sge::mip_filter);
+	const sge::texture_ptr cloud_texture = rend->create_texture(cloud_image->data(), cloud_image->width(), cloud_image->height(), sge::mip_filter);
 
 	const sge::texture_ptr textures[] = {
 		rend->create_texture(grass_image->data(), grass_image->width(), grass_image->height(), sge::point_filter),
@@ -369,6 +415,8 @@ int main()
 		rend->create_texture(grass_image->data(), grass_image->width(), grass_image->height(), sge::mip_filter),
 		rend->create_texture(grass_image->data(), grass_image->width(), grass_image->height(), sge::trilinear_filter)
 	};
+
+	skydome sky(3,16,8,rend,cloud_texture);
 
 //	const sge::texture_ptr grass_texture = rend->create_texture(grass_image->data(), grass_image->width(), grass_image->height(), sge::linear_filter);
 
@@ -381,6 +429,14 @@ int main()
 	rend->set_bool_state(sge::bool_state::clear_zbuffer,true);
 	rend->set_bool_state(sge::bool_state::enable_culling,true);
 	rend->set_bool_state(sge::bool_state::clear_backbuffer,true);
+	// *****************FOG
+	rend->set_bool_state(sge::bool_state::enable_fog,true);
+	rend->set_fog_mode(sge::fog_mode::exp);
+	rend->set_float_state(sge::float_state::fog_start,std::max(water_dim.w(),water_dim.h())/3);
+	rend->set_float_state(sge::float_state::fog_end,std::max(water_dim.w(),water_dim.h()));
+	rend->set_float_state(sge::float_state::fog_density,0.01);
+	rend->set_color_state(sge::color_state::fog_color,sge::make_color(73,117,162,1));
+	// *****************FOG
 	rend->set_cull_mode(sge::cull_mode::back);
 	rend->set_float_state(sge::float_state::zbuffer_clear_val,0);
 	rend->set_depth_func(sge::depth_func::greater);
@@ -413,10 +469,12 @@ int main()
 		// Alte Formel ohne 2* (anscheinend falsch)
 		//sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
 		//sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = 2 * hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
+		rend->projection(sge::math::matrix_perspective(aspect,fovy_rad,near,far));
+
+		sky.draw();
 
 		rend->transform(sge::math::matrix_translation(translation));
 		// Projektionsmatrix setzen
-		rend->projection(sge::math::matrix_perspective(aspect,fovy_rad,near,far));
 	//	rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 //		rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 
@@ -426,6 +484,7 @@ int main()
 	//	sge::math::vector3 nl(perspect[0][3]+perspect[0][0],perspect[1][3]+perspect[1][0],perspect[2][3]+perspect[2][0]);
 	//	std::cout << "left normal: " << nl.normalize() << "\n";
 
+		rend->set_texture(textures[selected_texture]);
 		sge::quadtree::index_container_type indices;
 		tree.get_visible(sge::frustum_info(-translation,fovy_rad,rot,near,far,aspect),indices);
 		if (indices.size() > 0)
@@ -437,6 +496,9 @@ int main()
 			}
 			rend->render(model_vb,model_ib,0,model_vb->size(),sge::indexed_primitive_type::triangle,indices.size()/3,0);
 		}
+
+		rend->set_texture(water_texture);
+		rend->render(water_vb,water_ib,0,water_vb->size(),sge::indexed_primitive_type::triangle,water_ib->size()/3,0);
 
 		// Hier Programmlogik
 		if (ks[sge::KC_ESC])

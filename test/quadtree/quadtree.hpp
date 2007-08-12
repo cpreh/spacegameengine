@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <boost/scoped_ptr.hpp>
+#include <boost/noncopyable.hpp>
 #include "../../src/math/vector.hpp"
 #include "../../src/math/rect.hpp"
 #include "../../src/exception.hpp"
@@ -10,7 +11,7 @@
 
 namespace sge
 {
-class quadtree
+class quadtree : boost::noncopyable
 {
 	public:
 	typedef long index_type;
@@ -32,8 +33,8 @@ class quadtree
 		~lock_ptr() { if(!t.locked_) throw exception("logic error: tree already unlocked"); t.unlock(); }
 	};
 
-	quadtree(unsigned tree_depth);
-	void pack();
+	quadtree();
+	void pack(unsigned tree_depth);
 	void lock();
 	void unlock();
 	triangle_container_type &triangles();

@@ -274,7 +274,12 @@ void sge::con::console_gfx::draw()
 	if (cursor_blink.update())
 		cursor_active = !cursor_active;
 
-	ss.render(&background, &background + 1);
+	rend->projection(matrix_orthogonal_xy());
+	rend->transform(matrix_2d_to_3d());
+	rend->set_texture(background_texture);
+	rend->render(vb,ib,0,vb->size(),indexed_primitive_type::triangle,2,0);
+
+	//ss.render(&background, &background + 1);
 
 	// input_line und ein Dummy, wo evtl. der Cursor hinkommt
 	string edit_input_line = input_line + iconv(" ");
@@ -295,7 +300,7 @@ void sge::con::console_gfx::draw()
 
 	const string history_string = join<string>(cutout_it, cutout_end);
 
-	fn.draw_text(history_string, pos2(0,0), math::dim2(console_size.w(), console_size.h() - fn.height()), rend->screen_size(), font_flags::align_left | font_flags::align_bottom | font_flags::no_line_wrap);
+	fn.draw_text(history_string, font_pos(0,0), font_dim(console_size.w(), console_size.h() - fn.height()), rend->screen_size(), font_flags::align_left | font_flags::align_bottom | font_flags::no_line_wrap);
 }
 
 void sge::con::console_gfx::set_texture(const virtual_texture_ptr t)
@@ -307,7 +312,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
                                    const input_system_ptr input_system,
                                    font& fn,
                                    const color font_color,
-                                   const virtual_texture_ptr &background_texture) 
+                                   const texture_ptr background_texture) 
 : rend(rend),
   console_size(1, 0.5),
   fn(fn),
@@ -316,9 +321,8 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
   input_connection(input_system->register_callback(boost::bind(&console_gfx::key_callback, this, _1))),
   input_repeat_connection(input_system->register_repeat_callback(boost::bind(&console_gfx::key_action, this, _1))),
   keys(input_system),
-  ss(rend),
-  background(math::vector2(0,0), console_size, background_texture),
   font_color(font_color),
+	background_texture(background_texture),
   cursor_active(true),
   cursor_position(0),
   cursor_blink(300),
@@ -326,7 +330,36 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
   command_history_limit(500),
   command_history_pos(-1)
 {
-	background.repeat(4);
+	vb = rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::tex), 4);
+	lock_ptr<sge::vertex_buffer_ptr> _lock(vb);
+	vertex_buffer::iterator vbit = vb->begin();
+	
+	vbit->pos() = sge::math::vector3(0,0,0);
+	vbit->tex() = sge::math::vector2(0,0);
+	vbit++;
+
+	vbit->pos() = sge::math::vector3(1,0,0);
+	vbit->tex() = sge::math::vector2(1,0);
+	vbit++;
+
+	vbit->pos() = sge::math::vector3(1,1,0);
+	vbit->tex() = sge::math::vector2(1,1);
+	vbit++;
+
+	vbit->pos() = sge::math::vector3(0,1);
+	vbit->tex() = sge::math::vector2(0,1);
+
+	const sge::index_buffer_ptr ib = rend->create_index_buffer(6);
+	sge::lock_ptr<sge::index_buffer_ptr> _lock(ib);
+
+	sge::index_buffer::iterator ibit = ib->begin();
+	*ibit++ = 0;
+	*ibit++ = 1;
+	*ibit++ = 2;
+	*ibit++ = 2;
+	*ibit++ = 3;
+	*ibit++ = 0;
+	
 	instance().add(iconv("get"),boost::bind(&console_gfx::fn_get,this,_1));
 	instance().add(iconv("set"),boost::bind(&console_gfx::fn_set,this,_1));
 	instance().add(iconv("clear"),boost::bind(&console_gfx::fn_clear,this,_1));
