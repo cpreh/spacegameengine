@@ -277,7 +277,9 @@ void sge::con::console_gfx::draw()
 	rend->projection(math::matrix_orthogonal_xy());
 	rend->transform(matrix_2d_to_3d());
 	rend->set_texture(background_texture);
+	rend->set_bool_state(sge::bool_state::enable_zbuffer,false);
 	rend->render(vb,ib,0,vb->size(),indexed_primitive_type::triangle,2,0);
+	rend->set_bool_state(sge::bool_state::enable_zbuffer,true);
 
 	//ss.render(&background, &background + 1);
 
@@ -349,7 +351,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
 	vbit->pos() = sge::math::vector3(0,1,0);
 	vbit->tex() = sge::math::vector2(0,1);
 
-	const sge::index_buffer_ptr ib = rend->create_index_buffer(6);
+	ib = rend->create_index_buffer(6);
 	sge::lock_ptr<sge::index_buffer_ptr> _iblock(ib);
 
 	sge::index_buffer::iterator ibit = ib->begin();
@@ -358,7 +360,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
 	*ibit++ = 2;
 	*ibit++ = 2;
 	*ibit++ = 3;
-	*ibit++ = 0;
+	*ibit = 0;
 	
 	instance().add(iconv("get"),boost::bind(&console_gfx::fn_get,this,_1));
 	instance().add(iconv("set"),boost::bind(&console_gfx::fn_set,this,_1));
