@@ -304,12 +304,12 @@ int main()
 	generator.autogen();
 
 	//color_image &extracted = generator.extracted_island;
-	write_image(pl,generator.selected(),"form.bmp");
+	//write_image(pl,generator.selected(),"form.bmp");
 	
 	heightmap m(generator.selected().dim());
 	generate_heightmap_hills(m,generator.selected());
 
-	write_image(pl,m,"feld.bmp");
+	//write_image(pl,m,"feld.bmp");
 
 	const sge::math::dim2 field_dim(2,2);
 	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), m.width()*m.height());
@@ -471,7 +471,11 @@ int main()
 		//sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = 2 * hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
 		rend->projection(sge::math::matrix_perspective(aspect,fovy_rad,near,far));
 
+		rend->transform(sge::math::matrix_translation(sge::math::vector3(0,-1.5,0)));
+
+		rend->set_bool_state(sge::bool_state::enable_zbuffer,false);
 		sky.draw();
+		rend->set_bool_state(sge::bool_state::enable_zbuffer,true);
 
 		rend->transform(sge::math::matrix_translation(translation));
 		// Projektionsmatrix setzen
