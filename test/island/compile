@@ -1,3 +1,3 @@
 #!/bin/sh
 
-g++ main.cpp -lsgecore -Wall -Wextra -ansi -pedantic -ggdb
+g++ main.cpp ../quadtree/quadtree.cpp ../quadtree/mathstuff.cpp island_extractor.cpp -lsgecore -Wall -Wextra -ansi -pedantic -ggdb
