@@ -17,11 +17,11 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="gdi32" />
-					<Add library="glu32" />
-					<Add library="glew32" />
-					<Add library="opengl32" />
-					<Add library="sgecore" />
+					<Add library='gdi32' />
+					<Add library='glu32' />
+					<Add library='glew32' />
+					<Add library='opengl32' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -36,11 +36,11 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library="gdi32" />
-					<Add library="glu32" />
-					<Add library="glew32" />
-					<Add library="opengl32" />
-					<Add library="sgecore" />
+					<Add library='gdi32' />
+					<Add library='glu32' />
+					<Add library='glew32' />
+					<Add library='opengl32' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -50,59 +50,59 @@
 			<Add option="-Wall" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option="-Wno-long-long" />
+			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\src\plugins\ogl\basic_arb_buffer.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\basic_texture.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\common.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\conversion.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\cube_texture.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\default_render_target.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\error.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\extension.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\fbo_render_target.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\glx_context.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\glx_current.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\glx_visual.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\index_buffer.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\render_target.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\renderer.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\renderer_system.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\conversion.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\cube_texture.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\default_render_target.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\exports.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\extension.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\fbo_render_target.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\glx_context.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\glx_current.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\glx_visual.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\index_buffer.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\render_target.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\renderer.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\renderer_system.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\texture.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\texture_base.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\texture_functions.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\vertex_buffer.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\vertex_format.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\volume_texture.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\wgl_context.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\wgl_current.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\x_colormap.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\xf86_resolution.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\src\xf86vidmode.cpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\texture.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\texture_base.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\texture_functions.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\vertex_buffer.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\vertex_format.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\volume_texture.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\wgl_context.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\wgl_current.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\x_colormap.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\xf86_resolution.hpp" />
-		<Unit filename="..\..\..\src\plugins\ogl\xf86vidmode.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/basic_arb_buffer.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/basic_texture.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/common.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/conversion.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/cube_texture.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/default_render_target.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/error.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/extension.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/fbo_render_target.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/glx_context.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/glx_current.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/glx_visual.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/index_buffer.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/render_target.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/renderer.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/renderer_system.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/conversion.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/cube_texture.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/default_render_target.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/exports.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/extension.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/fbo_render_target.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/glx_context.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/glx_current.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/glx_visual.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/index_buffer.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/render_target.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/renderer.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/renderer_system.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/texture.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/texture_base.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/texture_functions.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/vertex_buffer.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/vertex_format.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/volume_texture.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/wgl_context.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/wgl_current.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/x_colormap.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/xf86_resolution.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/xf86vidmode.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/texture.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/texture_base.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/texture_functions.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/vertex_buffer.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/vertex_format.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/volume_texture.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/wgl_context.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/wgl_current.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/x_colormap.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/xf86_resolution.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/xf86vidmode.hpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

@@ -15,9 +15,9 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="boost_signals-mgw34-1_34" />
-					<Add library="sgegui" />
-					<Add library="sgecore" />
+					<Add library='boost_signals-mgw34-1_34' />
+					<Add library='sgegui' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -30,8 +30,9 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library="boost_signals-mgw34-1_34" />
-					<Add library="sgecore" />
+					<Add library='boost_signals-mgw34-1_34' />
+					<Add library='sgegui' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -41,10 +42,9 @@
 			<Add option="-Wall" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option="-Wno-long-long" />
+			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\test\guitest.cpp" />
-		<Unit filename="..\..\..\test\test.cpp" />
+		<Unit filename="..\..\..\test/guitest.cpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

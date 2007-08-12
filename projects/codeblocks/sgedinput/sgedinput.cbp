@@ -17,10 +17,10 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="dinput8" />
-					<Add library="boost_signals-mgw34-1_34" />
-					<Add library="dxguid" />
-					<Add library="sgecore" />
+					<Add library='dinput8' />
+					<Add library='boost_signals-mgw34-1_34' />
+					<Add library='dxguid' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -35,10 +35,10 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library="dinput8" />
-					<Add library="boost_signals-mgw34-1_34" />
-					<Add library="dxguid" />
-					<Add library="sgecore" />
+					<Add library='dinput8' />
+					<Add library='boost_signals-mgw34-1_34' />
+					<Add library='dxguid' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -46,22 +46,22 @@
 		<Compiler>
 			<Add option="-W" />
 			<Add option="-Wall" />
-			<Add option="-Wno-long-long" />
+			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\src\plugins\dinput\di.hpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\input_device.hpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\input_system.hpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\joystick.hpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\key_converter.hpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\keyboard.hpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\mouse.hpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\src\exports.cpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\src\input_device.cpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\src\input_system.cpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\src\joystick.cpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\src\key_converter.cpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\src\keyboard.cpp" />
-		<Unit filename="..\..\..\src\plugins\dinput\src\mouse.cpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/di.hpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/input_device.hpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/input_system.hpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/joystick.hpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/key_converter.hpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/keyboard.hpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/mouse.hpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/src/exports.cpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/src/input_device.cpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/src/input_system.cpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/src/joystick.cpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/src/key_converter.cpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/src/keyboard.cpp" />
+		<Unit filename="..\..\..\src/plugins/dinput/src/mouse.cpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

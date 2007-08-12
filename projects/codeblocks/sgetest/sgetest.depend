@@ -198,20 +198,13 @@
 1185928670 d:\dev\sge\src\math\box.hpp
 	"vector.hpp"
 
-1185928678 d:\dev\sge\src\sprite\system.hpp
-	<list>
-	<string>
-	<boost/array.hpp>
-	<boost/function.hpp>
+1186405714 d:\dev\sge\src\sprite\system.hpp
 	<boost/noncopyable.hpp>
 	"../renderer/vertex_buffer.hpp"
 	"../renderer/index_buffer.hpp"
 	"../renderer/renderer.hpp"
 	"../renderer/renderable.hpp"
 	"../renderer/default_transformable.hpp"
-	"../raw_vector.hpp"
-	"../texture/texture_map.hpp"
-	"sprite_fwd.hpp"
 
 1185928672 d:\dev\sge\src\renderer\vertex_buffer.hpp
 	<iterator>
@@ -299,7 +292,7 @@
 	"math/vector.hpp"
 	"string.hpp"
 
-1185928672 d:\dev\sge\src\renderer\renderable.hpp
+1186405714 d:\dev\sge\src\renderer\renderable.hpp
 
 1185928672 d:\dev\sge\src\renderer\default_transformable.hpp
 	"transformable.hpp"
@@ -325,13 +318,11 @@
 	"../image/image.hpp"
 	"../shared_ptr.hpp"
 
-1186230044 d:\dev\sge\src\texture\manager.hpp
+1186405714 d:\dev\sge\src\texture\manager.hpp
 	<boost/ptr_container/ptr_list.hpp>
-	<boost/scoped_ptr.hpp>
 	"../exception.hpp"
 	"../renderer/renderer.hpp"
 	"../renderer/texture.hpp"
-	"../image/image.hpp"
 	"fragmented_texture.hpp"
 
 1185928668 d:\dev\sge\src\image\image.hpp
@@ -340,7 +331,8 @@
 	"../shared_ptr.hpp"
 	"../renderer/types.hpp"
 
-1185928676 d:\dev\sge\src\texture\fragmented_texture.hpp
+1186405714 d:\dev\sge\src\texture\fragmented_texture.hpp
+	"../shared_ptr.hpp"
 	"../renderer/texture.hpp"
 	"../renderer/renderer.hpp"
 	"virtual_texture.hpp"
@@ -355,19 +347,13 @@
 	"../renderer/vertex_buffer.hpp"
 	"../renderer/index_buffer.hpp"
 
-1185928678 d:\dev\sge\src\sprite\sprite.hpp
-	<string>
+1186405714 d:\dev\sge\src\sprite\sprite.hpp
 	<vector>
 	"../math/rect.hpp"
 	"../math/vector.hpp"
 	"../math/dim.hpp"
 	"../math/circle.hpp"
-	"../renderer/vertex_buffer.hpp"
-	"../renderer/index_buffer.hpp"
-	"../renderer/texture.hpp"
-	"../math/circle.hpp"
 	"../texture/virtual_texture.hpp"
-	"sprite_fwd.hpp"
 	"types.hpp"
 
 1185928670 d:\dev\sge\src\math\circle.hpp
@@ -1202,7 +1188,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1186405352 source:d:\dev\sge\test\guitest.cpp
+1186406712 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1315,7 +1301,7 @@
 	"types.hpp"
 	"rectangle.hpp"
 
-1185928676 d:\dev\sge\src\texture\no_fragmented_texture.hpp
+1186405714 d:\dev\sge\src\texture\no_fragmented_texture.hpp
 	<boost/noncopyable.hpp>
 	"fragmented_texture.hpp"
 
@@ -1340,7 +1326,7 @@
 1186234828 d:\dev\sge\src\gui\exception.hpp
 	"../exception.hpp"
 
-1186054152 d:\dev\sge\src\gui\gradient_policies.hpp
+1186407458 d:\dev\sge\src\gui\gradient_policies.hpp
 	"color.hpp"
 
 1185928678 d:\dev\sge\src\math.hpp

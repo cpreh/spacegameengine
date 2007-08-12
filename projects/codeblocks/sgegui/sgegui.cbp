@@ -17,8 +17,8 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="boost_signals-mgw34-1_34" />
-					<Add library="sgecore" />
+					<Add library='boost_signals-mgw34-1_34' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -33,8 +33,8 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library="boost_signals-mgw34-1_34" />
-					<Add library="sgecore" />
+					<Add library='boost_signals-mgw34-1_34' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -44,16 +44,27 @@
 			<Add option="-Wall" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option="-Wno-long-long" />
+			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\src\gui\canvas.hpp" />
-		<Unit filename="..\..\..\src\gui\color.hpp" />
-		<Unit filename="..\..\..\src\gui\exception.hpp" />
-		<Unit filename="..\..\..\src\gui\gradient2_policies.hpp" />
-		<Unit filename="..\..\..\src\gui\gradient_policies.hpp" />
-		<Unit filename="..\..\..\src\gui\mixing_policies.hpp" />
-		<Unit filename="..\..\..\src\gui\src\canvas.cpp" />
-		<Unit filename="..\..\..\src\gui\types.hpp" />
+		<Unit filename="..\..\..\src/gui/button.hpp" />
+		<Unit filename="..\..\..\src/gui/canvas.hpp" />
+		<Unit filename="..\..\..\src/gui/color.hpp" />
+		<Unit filename="..\..\..\src/gui/events.hpp" />
+		<Unit filename="..\..\..\src/gui/exception.hpp" />
+		<Unit filename="..\..\..\src/gui/gradient2_policies.hpp" />
+		<Unit filename="..\..\..\src/gui/gradient_policies.hpp" />
+		<Unit filename="..\..\..\src/gui/gridlayout.hpp" />
+		<Unit filename="..\..\..\src/gui/layout.hpp" />
+		<Unit filename="..\..\..\src/gui/manager.hpp" />
+		<Unit filename="..\..\..\src/gui/mixing_policies.hpp" />
+		<Unit filename="..\..\..\src/gui/src/button.cpp" />
+		<Unit filename="..\..\..\src/gui/src/canvas.cpp" />
+		<Unit filename="..\..\..\src/gui/src/gridlayout.cpp" />
+		<Unit filename="..\..\..\src/gui/src/layout.cpp" />
+		<Unit filename="..\..\..\src/gui/src/manager.cpp" />
+		<Unit filename="..\..\..\src/gui/src/widget.cpp" />
+		<Unit filename="..\..\..\src/gui/types.hpp" />
+		<Unit filename="..\..\..\src/gui/widget.hpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

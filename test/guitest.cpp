@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/input/input_system.hpp"
 #include "../src/input/key_state_tracker.hpp"
 #include "../src/math.hpp"
+#include "../src/math/constants.hpp"
 #include "../src/renderer/lock_ptr.hpp"
 #include "../src/renderer/renderer_system.hpp"
 #include "../src/renderer/screenshot.hpp"
@@ -84,26 +85,22 @@ try
 
 
 
-	sge::no_fragmented_texture mytex(rend);
-	sge::texture_manager texmgr(rend, &mytex);
+	sge::fragmented_texture_ptr mytex(new sge::no_fragmented_texture(rend, sge::point_filter));
+	sge::texture_manager texmgr(rend, mytex);
 	sge::gui::canvas canvas(sge::gui::dim2(300, 200));
 
 	using sge::gui::color;
 	using sge::gui::point;
+	using sge::math::DEGREE;
 	canvas.fill(sge::colors::gray);
 
 	canvas.draw_arc(
 		sge::gui::mixing_policy::normal(),
+		sge::gui::gradient_policy::there_and_back_again<>(),
 		sge::gui::rect(sge::gui::point(0,0), canvas.size()),
-		0.125,
-		0.625,
-		sge::colors::white
-	);
-	canvas.draw_arc(
-		sge::gui::mixing_policy::normal(),
-		sge::gui::rect(sge::gui::point(0,0), canvas.size()),
-		0.625,
-		1.125,
+		135 * DEGREE,
+		(135 + 360) * DEGREE,
+		sge::colors::white,
 		sge::colors::black
 	);
 

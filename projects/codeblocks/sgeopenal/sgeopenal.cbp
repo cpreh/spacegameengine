@@ -17,9 +17,9 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="alut" />
-					<Add library="openal32" />
-					<Add library="sgecore" />
+					<Add library='alut' />
+					<Add library='openal32' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -34,9 +34,9 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library="alut" />
-					<Add library="openal32" />
-					<Add library="sgecore" />
+					<Add library='alut' />
+					<Add library='openal32' />
+					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -46,13 +46,13 @@
 			<Add option="-Wall" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option="-Wno-long-long" />
+			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\src\plugins\openal_player\openal_nonstream_sound.hpp" />
-		<Unit filename="..\..\..\src\plugins\openal_player\openal_player.hpp" />
-		<Unit filename="..\..\..\src\plugins\openal_player\openal_stream_sound.hpp" />
-		<Unit filename="..\..\..\src\plugins\openal_player\src\exports.cpp" />
-		<Unit filename="..\..\..\src\plugins\openal_player\src\openal_sound.cpp" />
+		<Unit filename="..\..\..\src/plugins/openal_player/openal_nonstream_sound.hpp" />
+		<Unit filename="..\..\..\src/plugins/openal_player/openal_player.hpp" />
+		<Unit filename="..\..\..\src/plugins/openal_player/openal_stream_sound.hpp" />
+		<Unit filename="..\..\..\src/plugins/openal_player/src/exports.cpp" />
+		<Unit filename="..\..\..\src/plugins/openal_player/src/openal_sound.cpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>
