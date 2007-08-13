@@ -452,12 +452,12 @@ int main()
 		sge::window::dispatch();
 		is->dispatch();
 
-		translation.x() += ks[sge::KC_LEFT] * 0.01;
-		translation.x() -= ks[sge::KC_RIGHT] * 0.01;
-		translation.y() -= ks[sge::KC_UP] * 0.01;
-		translation.y() += ks[sge::KC_DOWN] * 0.01;
-		translation.z() += ks['w'] * 0.01;
-		translation.z() -= ks['s'] * 0.01;
+		translation.x() += ks[sge::KC_LEFT] * 0.1;
+		translation.x() -= ks[sge::KC_RIGHT] * 0.1;
+		translation.y() -= ks[sge::KC_UP] * 0.1;
+		translation.y() += ks[sge::KC_DOWN] * 0.1;
+		translation.z() += ks['w'] * 0.1;
+		translation.z() -= ks['s'] * 0.1;
 
 		if(ks['x'] && press_timer.update())
 		{

@@ -11,8 +11,10 @@
 
 // SGE
 #include "../../renderer/transform.hpp"
-#include "../../sprite/system_impl.hpp"
+#include "../../renderer/lock_ptr.hpp"
+#include "../../sprite/helper.hpp"
 #include "../console_gfx.hpp"
+#include "../../iconv.hpp"
 
 namespace
 {
@@ -281,8 +283,6 @@ void sge::con::console_gfx::draw()
 	rend->render(vb,ib,0,vb->size(),indexed_primitive_type::triangle,2,0);
 	rend->set_bool_state(sge::bool_state::enable_zbuffer,true);
 
-	//ss.render(&background, &background + 1);
-
 	// input_line und ein Dummy, wo evtl. der Cursor hinkommt
 	string edit_input_line = input_line + iconv(" ");
 
@@ -314,7 +314,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
                                    const input_system_ptr input_system,
                                    font& fn,
                                    const color font_color,
-                                   texture_ptr background_texture) 
+                                   const texture_ptr background_texture) 
 : rend(rend),
   console_size(1, 0.5),
   fn(fn),
@@ -324,19 +324,20 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
   input_repeat_connection(input_system->register_repeat_callback(boost::bind(&console_gfx::key_action, this, _1))),
   keys(input_system),
   font_color(font_color),
-	background_texture(background_texture),
+  background_texture(background_texture),
   cursor_active(true),
   cursor_position(0),
   cursor_blink(300),
   history_limit(500),
   command_history_limit(500),
-  command_history_pos(-1)
+  command_history_pos(-1),
+  vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::tex), 4)),
+  ib(rend->create_index_buffer(6))
 {
-	vb = rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::tex), 4);
 	lock_ptr<sge::vertex_buffer_ptr> _vblock(vb);
 	vertex_buffer::iterator vbit = vb->begin();
 	
-	vbit->pos() = sge::math::vector3(0,0,0);
+	/*vbit->pos() = sge::math::vector3(0,0,0);
 	vbit->tex() = sge::math::vector2(0,0);
 	vbit++;
 
@@ -349,18 +350,21 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
 	vbit++;
 
 	vbit->pos() = sge::math::vector3(0,1,0);
-	vbit->tex() = sge::math::vector2(0,1);
+	vbit->tex() = sge::math::vector2(0,1);*/
 
-	ib = rend->create_index_buffer(6);
+	fill_sprite_vertices(vbit, math::rect(0, 0, console_size.w(), console_size.h()), math::rect(0, 0, 1, 1), 0);
+
 	sge::lock_ptr<sge::index_buffer_ptr> _iblock(ib);
 
 	sge::index_buffer::iterator ibit = ib->begin();
-	*ibit++ = 0;
+
+	fill_sprite_indices(ibit, 0);
+	/**ibit++ = 0;
 	*ibit++ = 1;
 	*ibit++ = 2;
 	*ibit++ = 2;
 	*ibit++ = 3;
-	*ibit = 0;
+	*ibit = 0;*/
 	
 	instance().add(iconv("get"),boost::bind(&console_gfx::fn_get,this,_1));
 	instance().add(iconv("set"),boost::bind(&console_gfx::fn_set,this,_1));

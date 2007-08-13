@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <streambuf>
 #include <algorithm>
 
+#include <iostream>
+
 namespace sge
 {
 
@@ -44,23 +46,72 @@ public:
 	}
 private:
 	typedef std::basic_streambuf<Elem, Traits> base_type;
+	using base_type::eback;
 	using base_type::gptr;
 	using base_type::egptr;
+	using base_type::gbump;
 
 	std::basic_streambuf<Elem, Traits>* setbuf(char_type* p, std::streamsize n)
 	{
-		setp(p, p + n);
+		setg(p, p, p + n);
 		return this;
 	}
 
 	std::streamsize xsgetn(char_type* ptr, const std::streamsize count)
 	{
-		const std::streamsize to_extract = std::max(egptr() - gptr(), count);
+		const std::streamsize to_extract = std::min(egptr() - gptr(), count);
 		if(to_extract == 0)
 			return 0;
 		std::memcpy(ptr, gptr(), to_extract * sizeof(Elem));
-		setp(gptr() + to_extract, egptr());
+		gbump(to_extract);
 		return to_extract;
+	}
+
+	pos_type seekoff(off_type off, std::ios_base::seekdir way, std::ios_base::openmode which)
+	{
+		std::cout << "seekoff: " << off << ", pos_before " << gptr() - eback();
+	//	if(which & std::ios_base::out)
+	//		return pos_type(-1);
+		if(gptr() - eback() == off)
+		{
+			std::cout << '\n';
+			return gptr() - eback();
+		}
+
+		switch(way) {
+		case std::ios_base::beg:
+	//		if(off > egptr() - eback())
+	//			return pos_type(-1);
+			setg(eback(), eback() + off, egptr());
+			break;
+		case std::ios_base::cur:
+			if(off == 0)
+				return gptr() - eback();
+			return seekpos(off, which);
+		case std::ios_base::end:
+	//		if(off < eback() - egptr())
+	//			return pos_type(-1);
+			setg(eback(), egptr() + off, egptr());
+			break;
+		default:
+			std::cout << "dammit!\n";
+			return pos_type(-1);
+		}
+		std::cout << ", pos_after: " << gptr() - eback() << '\n';
+		return gptr() - eback();
+	}
+
+	pos_type seekpos(off_type off, std::ios_base::openmode which)
+	{
+		std::cout << "HMM\n";
+/*		if(which & std::ios_base::out)
+			return pos_type(-1);
+
+		if(off > egptr() - gptr()
+		|| off < eback() - gptr())
+			return pos_type(-1);
+		setg(eback(), gptr() + off, egptr());*/
+		return gptr() - eback();
 	}
 
 	int_type underflow()

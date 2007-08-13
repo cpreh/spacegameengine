@@ -14,6 +14,8 @@
 #include "../plugin_manager.hpp"
 #include "../renderer/renderer.hpp"
 #include "../renderer/font.hpp"
+#include "../renderer/vertex_buffer.hpp"
+#include "../renderer/index_buffer.hpp"
 #include "../timer.hpp"
 #include "../input/key_state_tracker.hpp"
 
@@ -28,7 +30,6 @@ namespace con
 // TODO: Die Konsole langsam heruntergleitend machen
 class console_gfx : boost::noncopyable
 {
-	// TODO: Hier alles noetige const machen
 	typedef std::size_t               size_type;
 	renderer_ptr                      rend;
 	math::dim2                        console_size;
@@ -38,10 +39,8 @@ class console_gfx : boost::noncopyable
 	boost::signals::scoped_connection input_connection;
 	boost::signals::scoped_connection input_repeat_connection;
 	key_state_tracker                 keys;
-	vertex_buffer_ptr                 vb;
-	index_buffer_ptr                  ib;
 	color                             font_color;
-	texture_ptr                 background_texture;
+	texture_ptr                       background_texture;
 
 	bool                        cursor_active;
 	string::size_type           cursor_position;
@@ -53,6 +52,8 @@ class console_gfx : boost::noncopyable
 	size_type                   history_limit;
 	size_type                   command_history_limit;
 	int                         command_history_pos;
+	vertex_buffer_ptr           vb;
+	index_buffer_ptr            ib;
 
 	void fn_get(const arg_list &);
 	void fn_set(const arg_list &);

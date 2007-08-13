@@ -66,6 +66,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/model/md3.hpp"
 #include "../src/archive/archive_loader.hpp"
 #include "../src/memory_buf.hpp"
+#include "../src/vector.hpp"
+
+#include <hamigaki/archivers/zip_file.hpp>
 
 namespace
 {
@@ -108,7 +111,7 @@ sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit r
 }*/
 
 int main()
-try
+//try
 {
 /*	typedef multi_tree<int> tree;
 	tree t;
@@ -251,12 +254,47 @@ try
 
 //	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
 
-	std::ifstream ifs((sge::media_path() + "european_fnt_v2.md3").c_str(), std::ios_base::binary);
+/*	const sge::plugin<sge::archive_loader>::ptr_type archive_plugin(pm.get_plugin<sge::archive_loader>().load());
+	const sge::archive_loader_ptr zip_archiver(archive_plugin->get()());
+
+	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
+	kubal->goto_begin();
+
+	std::vector<unsigned char> uncompress_data;
+	//do
+	{
+		sge::archive_entry_ptr entry;
+		kubal->open(entry);
+		std::cout << entry->name() << ' ' << entry->uncompressed_size() << '\n';
+		uncompress_data.resize(entry->uncompressed_size());
+		entry->uncompress(sge::data(uncompress_data));
+	}
+	//while(kubal->next());*/
+
+	//std::istream ifs(new sge::memory_buf(reinterpret_cast<char*>(sge::data(uncompress_data)), uncompress_data.size()));
+
+	hamigaki::archivers::zip_file_source archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
+	archive.next_entry();
+	std::vector<char> uncompress_data(30000);
+	std::streamsize already_read = 0;
+	while(const std::streamsize sz = archive.read(sge::data(uncompress_data) + already_read, uncompress_data.size() - already_read))
+	{
+		if(sz == -1)
+			break;
+
+		already_read += sz;
+		if(already_read == uncompress_data.size())
+			uncompress_data.resize(uncompress_data.size()*2);
+	}
+	std::istream ifs(new sge::memory_buf(sge::data(uncompress_data), already_read));
+	std::noskipws(ifs);
+//	ifs.exceptions(std::ios_base::failbit | std::ios_base::badbit | std::ios_base::eofbit);
+/*	std::ifstream ifs((sge::media_path() + "european_fnt_v2.md3").c_str(), std::ios_base::binary);
 	if(!ifs.is_open())
 	{
 		std::cerr << "Can't load the model.\n";
 		return EXIT_FAILURE;
-	}
+	}*/
 	sge::md3_model model(ifs);
 
 	sge::vertex_buffer::size_type vb_sz = 0;
@@ -307,21 +345,6 @@ try
 	float angle(0);
 	sge::timer frame_timer(1000);
 
-	const sge::plugin<sge::archive_loader>::ptr_type archive_plugin(pm.get_plugin<sge::archive_loader>().load());
-	const sge::archive_loader_ptr zip_archiver(archive_plugin->get()());
-
-	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
-	kubal->goto_begin();
-	do
-	{
-		sge::archive_entry_ptr entry;
-		kubal->open(entry);
-		std::cout << entry->name() << '\n';
-	}
-	while(kubal->next());
-
-	char testdata[100];
-	std::istream stream(new sge::memory_buf(testdata, 100));
 
 	while(running)
 	{
@@ -374,7 +397,7 @@ try
 	}
 	return EXIT_SUCCESS;
 }
-catch(const std::exception& e)
+/*catch(const std::exception& e)
 {
 	std::cerr << "Program terminated (std::exception caught): " << e.what() << '\n';
 	return EXIT_FAILURE;
@@ -383,4 +406,4 @@ catch(...)
 {
 	std::cerr << "Program terminated (unknown exception caught)!\n";
 	return EXIT_FAILURE;
-}
+}*/

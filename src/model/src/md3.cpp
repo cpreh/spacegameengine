@@ -74,7 +74,10 @@ bool sge::md3_model::read_and_check_id3p(std::istream& is)
 {
 	boost::array<u8, 4> id3p;
 	for(unsigned i = 0; i < id3p.size(); ++i)
+	{
 		id3p[i] = read<u8>(is);
+		std::cout << std::hex << static_cast<int>(id3p[i]) << '\n';
+	}
 	return id3p[0] == 0x49 && id3p[1] == 0x44 && id3p[2] == 0x50 && id3p[3] == 0x33;
 }
 
@@ -128,6 +131,8 @@ inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_h
 {
 	const std::istream::off_type start = is.tellg();
 
+	std::cout << std::hex << "start: " << start << '\n';
+
 	if(!read_and_check_id3p(is))
 		throw exception("Invalid md3 surface!");
 
@@ -169,6 +174,15 @@ inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_h
 		transformed_vertices.push_back(vertices[sz]);
 
 	is.seekg(start + ofs_end);
+	if(is.fail())
+		std::cout << "fail\n";
+	if(is.bad())
+		std::cout << "bad\n";
+	if(is.eof())
+		std::cout << "eof\n";
+	if(!is.rdbuf())
+		std::cout << "!rdbuf\n";
+
 }
 
 sge::md3_model::surface::shader::shader(std::istream& is)
