@@ -67,6 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/archive/archive_loader.hpp"
 #include "../src/memory_buf.hpp"
 #include "../src/vector.hpp"
+#include "../src/codecvt.hpp"
 
 #include <hamigaki/archivers/zip_file.hpp>
 
@@ -125,6 +126,10 @@ int main()
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
+
+	const std::string s = "blubbbbbäüöß";
+	const std::wstring ws = sge::widen(s);
+	std::wcout << ws << L'\n';
 
 	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
 
