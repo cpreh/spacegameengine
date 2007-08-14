@@ -9,7 +9,7 @@
 // Eigenes
 #include "../console.hpp"
 
-void sge::con::singleton::read_config_file(const std::string &filename)
+void sge::con::singleton::read_config_file(const string &filename)
 {
 	std::ifstream stream(filename.c_str());
 	if (!stream.is_open())
@@ -74,12 +74,12 @@ sge::con::singleton &sge::con::instance()
 	return c;
 }
 
-sge::con::var_base::var_base(const sge::con::string &name_) : name_(name_) 
+sge::con::var_base::var_base(const string &name_) : name_(name_) 
 {
 	instance().add(name_,*this);
 }
 
-const sge::con::string &sge::con::var_base::name() const
+const sge::string &sge::con::var_base::name() const
 {
 	return name_;
 }
@@ -88,10 +88,6 @@ sge::con::var_base::~var_base()
 {
 	instance().remove(name_);
 }
-
-sge::con::exception::exception(const std::string& s)
-: sge::exception(s)
-{}
 
 sge::con::singleton::singleton()
 : prefix_('/')
@@ -127,11 +123,6 @@ sge::con::singleton::var_container &sge::con::singleton::vars()
 sge::con::singleton::func_container &sge::con::singleton::funcs()
 {
 	return funcs_;
-}
-
-sge::con::string::value_type sge::con::singleton::prefix() const
-{
-	return prefix_;
 }
 
 void sge::con::singleton::prefix(const string::value_type n)

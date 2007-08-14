@@ -18,14 +18,13 @@ namespace sge
 {
 namespace con
 {
-	typedef sge::string                                string;
 	typedef std::vector<string>                        arg_list;
 	typedef boost::function<void (const arg_list &)>   function;
 
 	class exception : public sge::exception
 	{
 	public:
-		exception(const std::string &s);
+		exception(const std::string &s) : sge::exception(s) {};
 	};
 
 	class var_base
@@ -91,6 +90,7 @@ namespace con
 	public:
 		typedef std::map<string,var_base *> var_container;
 		typedef std::map<string,function> func_container;
+		typedef boost::function<void (const string &)> chat_callback_type;
 
 		singleton();
 
@@ -110,22 +110,16 @@ namespace con
 			return static_cast<var<T> *>(vars_[var_name])->value();
 		}
 
+		var_container &vars();
+		func_container &funcs();
+		string::value_type prefix() const { return prefix_; }
+
 		void add(const string &function_name,function fn);
 		void add(const string &var_name,var_base &var);
 		void remove(const string &var_name);
-
-		var_container &vars();
-		func_container &funcs();
-
 		void read_config_file(const std::string &);
-
-		string::value_type prefix() const;
-		void prefix(string::value_type n);
-
+		void prefix(const string::value_type n);
 		void eval(const string &);
-
-		typedef boost::function<void (const string &)> chat_callback_type;
-
 		void chat_callback(const chat_callback_type&);
 	private:
 		func_container funcs_;
