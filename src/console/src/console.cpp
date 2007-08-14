@@ -9,7 +9,7 @@
 // Eigenes
 #include "../console.hpp"
 
-void sge::con::singleton::read_config_file(const string &filename)
+void sge::con::singleton::read_config_file(const std::string &filename)
 {
 	std::ifstream stream(filename.c_str());
 	if (!stream.is_open())

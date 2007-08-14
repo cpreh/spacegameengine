@@ -168,9 +168,7 @@ inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_h
 	for(vertex_vector::size_type sz = 0; sz < vertices.size(); ++sz)
 		transformed_vertices.push_back(vertices[sz]);
 
-	is.seekg(start + ofs_end);
-
-	is.clear(); // FIXME: big hack
+	is.seekg(start + ofs_end, std::ios_base::beg);
 }
 
 sge::md3_model::surface::shader::shader(std::istream& is)
