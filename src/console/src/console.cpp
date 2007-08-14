@@ -9,7 +9,7 @@
 // Eigenes
 #include "../console.hpp"
 
-void sge::con::singleton::read_config_file(const sge::con::string &filename)
+void sge::con::singleton::read_config_file(const std::string &filename)
 {
 	std::ifstream stream(filename.c_str());
 	if (!stream.is_open())
@@ -18,23 +18,23 @@ void sge::con::singleton::read_config_file(const sge::con::string &filename)
 	boost::regex expression("^([^=]+)=(.*)$", boost::regex::perl);
 	while (!stream.eof())
 	{
-		sge::con::string line;
+		std::string line;
 		std::getline(stream,line);
 
 		boost::smatch results;
 		if (!boost::regex_match(line,results,expression))
 			continue;
 
-		const string result1 = results[1];
+		const string result1 = iconv(results[1]);
 
 		if (vars_.find(result1) == vars_.end())
 			throw exception("Console variable \"" + results[1] + "\" not found!");
 
-		vars_[result1]->set_string(results[2]);
+		vars_[result1]->set_string(iconv(results[2]));
 	}
 }
 
-void sge::con::singleton::eval(const sge::con::string &line)
+void sge::con::singleton::eval(const string &line)
 {
 	using namespace boost::spirit;
 
@@ -51,7 +51,7 @@ void sge::con::singleton::eval(const sge::con::string &line)
 	rule<> chat_line = ~ch_p(prefix_) >> (*anychar_p);
 	rule<> r = chat_line[assign_a(chat_str)] | command;
 
-	parse(line.c_str(),r);
+	parse(iconv(line).c_str(),r);
 
 	if (chat_str.length() > 0)
 	{
@@ -62,7 +62,7 @@ void sge::con::singleton::eval(const sge::con::string &line)
 
 	args.insert(args.begin(),command_str);
 	if (funcs_.find(command_str) == funcs_.end())
-		throw exception("Couldn't find function \"" + command_str + "\"!");
+		throw exception("Couldn't find function \"" + iconv(command_str) + "\"!");
 
 	funcs_[command_str](args);
 }
@@ -89,7 +89,7 @@ sge::con::var_base::~var_base()
 	instance().remove(name_);
 }
 
-sge::con::exception::exception(const sge::con::string& s)
+sge::con::exception::exception(const std::string& s)
 : sge::exception(s)
 {}
 
@@ -100,21 +100,21 @@ sge::con::singleton::singleton()
 void sge::con::singleton::add(const string &function_name,function fn)
 {
 	if (funcs_.find(function_name) != funcs_.end())
-		throw exception("A function with name \"" + function_name + "\" already exists!");
+		throw exception("A function with name \"" + iconv(function_name) + "\" already exists!");
 	funcs_[function_name] = fn;
 }
 
 void sge::con::singleton::add(const string &var_name,var_base &var) 
 { 
 	if (vars_.find(var_name) != vars_.end())
-		throw exception("A variable with name \"" + var_name + "\" already exists!");
+		throw exception("A variable with name \"" + iconv(var_name) + "\" already exists!");
 	vars_[var_name] = &var; 
 }
 
 void sge::con::singleton::remove(const string &var_name)
 {
 	if (vars_.find(var_name) == vars_.end())
-		throw exception("A variable with name \"" + var_name + "\" does not exist and thus cannot be removed!");
+		throw exception("A variable with name \"" + iconv(var_name) + "\" does not exist and thus cannot be removed!");
 	vars_.erase(var_name);
 }
 

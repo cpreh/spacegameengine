@@ -13,8 +13,8 @@
 #include "../../renderer/transform.hpp"
 #include "../../renderer/lock_ptr.hpp"
 #include "../../sprite/helper.hpp"
-#include "../console_gfx.hpp"
 #include "../../iconv.hpp"
+#include "../console_gfx.hpp"
 
 namespace
 {
@@ -46,7 +46,7 @@ void sge::con::console_gfx::fn_get(const arg_list &args)
 	singleton::var_container &vars = instance().vars();
 	if (vars.find(args[1]) == vars.end())
 	{
-		output_line(iconv("Error: Couldn't find variable \"") +args[1] + iconv("\"!"));
+		output_line(iconv("Error: Couldn't find variable \"") + args[1] + iconv("\"!"));
 		return;
 	}
 

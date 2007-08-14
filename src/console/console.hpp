@@ -2,7 +2,6 @@
 #define SGE_CONSOLE_HPP_INCLUDED
 
 // C++
-#include <string>
 #include <vector>
 #include <stdexcept>
 #include <map>
@@ -11,20 +10,22 @@
 #include <boost/function.hpp>
 #include <boost/lexical_cast.hpp>
 
+#include "../string.hpp"
 #include "../exception.hpp"
+#include "../iconv.hpp"
 
 namespace sge
 {
 namespace con
 {
-	typedef std::string                                string;
+	typedef sge::string                                string;
 	typedef std::vector<string>                        arg_list;
 	typedef boost::function<void (const arg_list &)>   function;
 
 	class exception : public sge::exception
 	{
 	public:
-		exception(const string &s);
+		exception(const std::string &s);
 	};
 
 	class var_base
@@ -55,7 +56,7 @@ namespace con
 			try {
 				value_ = boost::lexical_cast<T>(n);
 			} catch (const boost::bad_lexical_cast &e) {
-				throw exception("Couldn't convert string \"" + n + "\" to console variable!");
+				throw exception("Couldn't convert string \"" + iconv(n) + "\" to console variable!");
 			}
 		}
 
@@ -78,7 +79,7 @@ namespace con
 			try {
 				value_ = action(boost::lexical_cast<T>(n));
 			} catch (const boost::bad_lexical_cast &e) {
-				throw exception("Couldn't convert string \"" + n + "\" to console variable!");
+				throw exception("Couldn't convert string \"" + iconv(n) + "\" to console variable!");
 			}
 		}
 
@@ -97,7 +98,7 @@ namespace con
 		var<T> &get_var(const string &var_name)
 		{
 			if (vars_.find(var_name) == vars_.end())
-				throw exception("A variable with name \"" + var_name + "\" does not exist!");
+				throw exception("A variable with name \"" + iconv(var_name) + "\" does not exist!");
 			return *static_cast<var<T> *>(vars_[var_name]);
 		}
 
@@ -105,7 +106,7 @@ namespace con
 		T &get_value(const string &var_name)
 		{
 			if (vars_.find(var_name) == vars_.end())
-				throw exception("A variable with name \"" + var_name + "\" does not exist!");
+				throw exception("A variable with name \"" + iconv(var_name) + "\" does not exist!");
 			return static_cast<var<T> *>(vars_[var_name])->value();
 		}
 
@@ -116,7 +117,7 @@ namespace con
 		var_container &vars();
 		func_container &funcs();
 
-		void read_config_file(const string &);
+		void read_config_file(const std::string &);
 
 		string::value_type prefix() const;
 		void prefix(string::value_type n);
