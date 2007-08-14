@@ -36,7 +36,7 @@ typedef math::vector<font_unit,2>   font_pos;
 typedef math::dim<font_size,2>      font_dim;
 typedef color_element               font_color;
 typedef math::basic_rect<font_unit> font_rect;
-typedef uchar_t                     font_char;
+typedef string::value_type          font_char;
 
 }
 

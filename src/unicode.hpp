@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_UNICODE_HPP_INCLUDED
 #define SGE_UNICODE_HPP_INCLUDED
 
-#include "typeswitch.hpp"
+//#include "typeswitch.hpp"
 
 namespace sge
 {
 
-typedef uint32 uchar_t;
+/*typedef uint32 uchar_t;
 
 bool isspace(uchar_t);
-bool isprint(uchar_t);
+bool isprint(uchar_t);*/
 
 }
 

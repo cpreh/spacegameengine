@@ -26,13 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //#include <ostream>
 //#include <istream>
 //#include "typeswitch.hpp"
-#include "unicode.hpp"
+//#include "unicode.hpp"
 
 namespace sge
 {
 
 
-typedef std::basic_string<uchar_t> string;
+typedef std::wstring string;
+//typedef std::basic_string<uchar_t> string;
 
 /*template<typename Alloc = std::allocator<uchar_t> >
 class string {

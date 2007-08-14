@@ -42,7 +42,8 @@ private:
 	std::string from, to;
 };
 
-const encoding internal_encoding = sge::enc_ucs_4_internal;
+//const encoding internal_encoding = sge::enc_ucs_4_internal;
+const encoding internal_encoding = enc_wstring_literal;
 
 std::string encoding_to_string(const sge::encoding& to);
 

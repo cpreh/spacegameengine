@@ -1,13 +1,13 @@
 #include <cmath>
 #include <iostream>
 #include <stdexcept>
-#include <sge/audio/audio_loader/audio_loader.hpp>
-#include <sge/audio/audio_player/audio_player.hpp>
-#include <sge/audio/audio_player/sound.hpp>
-#include <sge/plugin_manager.hpp>
-#include <sge/media.hpp>
-#include <sge/timer.hpp>
-#include <sge/math/constants.hpp>
+#include "../src/audio/audio_loader/audio_loader.hpp"
+#include "../src/audio/audio_player/audio_player.hpp"
+#include "../src/audio/audio_player/sound.hpp"
+#include "../src/plugin_manager.hpp"
+#include "../src/media.hpp"
+#include "../src/timer.hpp"
+#include "../src/math/constants.hpp"
 
 int main()
 try
@@ -50,8 +50,7 @@ try
 	soundleft->pos(sge::math::vector3(1,0,0));
 	soundleft->play(true);
 	sleep(1);
-	soundright->play(true);
-	
+	soundright->play(true);	
 
 	sleep(20);
 

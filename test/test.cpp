@@ -43,13 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/types.hpp"
 #include "../src/renderer/renderer_system.hpp"
 #include "../src/media.hpp"
-#include "../src/old_gui/manager.hpp"
-#include "../src/old_gui/button.hpp"
-#include "../src/old_gui/text_edit.hpp"
-#include "../src/old_gui/list.hpp"
-#include "../src/old_gui/icon_button.hpp"
-#include "../src/old_gui/frame.hpp"
-#include "../src/old_gui/static_text.hpp"
 #include "../src/input/input_system.hpp"
 #include "../src/input/key_state_tracker.hpp"
 #include "../src/renderer/line_strip.hpp"
@@ -378,6 +371,7 @@ int main()
 		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
 //		rend->projection(sge::math::matrix_orthogonal_xy(-100,100,-100,100,-10,200));
 //		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
 		rend->begin_rendering();
 		rend->get_window()->dispatch();
@@ -386,15 +380,13 @@ int main()
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-//		fn.transform(sge::math::matrix_rotation_x(angle));
-//		fn.projection(sge::math::transpose(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),sge::math::PI,0,1)));
-//		fn.internal_transformation(sge::math::matrix_identity());
-//		fn.draw_text(some_text, sge::font_pos(0,0), sge::font_dim(1000,1000));
+		rend->transform(sge::math::matrix_identity());
+		rend->projection(sge::math::matrix_orthogonal_xy());
+		fn.draw_text(some_text, sge::font_pos(0,0), sge::font_dim(1000,1000));
 		//fn.transform(sge::math::matrix_identity());
 //		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0,400),sge::font_dim(1000,1000),sge::colors::purple);
 		//ls.render();
 
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
 //		con.draw();
 		rend->end_rendering();

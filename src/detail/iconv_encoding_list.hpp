@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 //                  encoding enum         windows          linux
-SGE_ICONV_ENCODING3( enc_ascii,           ISO-8859-1,ASCII                      ),
+SGE_ICONV_ENCODING3( enc_ascii,           ISO-8859-1,      ASCII     ),
 SGE_ICONV_ENCODING3( enc_string_literal,  CP1252,          UTF-8     ),
 SGE_ICONV_ENCODING3( enc_wstring_literal, UTF-16,          UTF-32    ),
 SGE_ICONV_ENCODING2( enc_utf8,            UTF-8                      ),

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <locale>
+/*#include <locale>
 #include "../unicode.hpp"
 
 bool sge::isspace(const uchar_t c)
@@ -36,4 +36,4 @@ bool sge::isprint(const uchar_t c)
 {
 	// FIXME:
 	return std::isprint(wchar_t(c),std::locale());
-}
+}*/

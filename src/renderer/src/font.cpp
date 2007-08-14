@@ -171,7 +171,7 @@ sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, c
 			const font_unit ret_width =  last_width == 0 ? w : last_width;
 			if(flags & font_flags::no_line_wrap)
 			{
-				const string_type::const_iterator next_nl = std::find(sbeg, send, uchar_t('\n')),
+				const string_type::const_iterator next_nl = std::find(sbeg, send, static_cast<string::value_type>('\n')),
 				                                  next_begin = next_nl == send ? send : boost::next(next_nl);
 				return line_size_t(ret_width, sbeg, next_begin);
 			}

@@ -1,8 +1,8 @@
 #ifndef SKYDOME_HPP_INCLUDED
 #define SKYDOME_HPP_INCLUDED
 
-#include <sge/renderer/renderer.hpp>
-#include <sge/math/vector.hpp>
+#include "../../src/renderer/renderer.hpp"
+#include "../../src/math/vector.hpp"
 
 class skydome
 {
