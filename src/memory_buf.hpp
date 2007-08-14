@@ -69,19 +69,13 @@ private:
 
 	pos_type seekoff(off_type off, std::ios_base::seekdir way, std::ios_base::openmode which)
 	{
-		std::cout << "seekoff: " << off << ", pos_before " << gptr() - eback();
-	//	if(which & std::ios_base::out)
-	//		return pos_type(-1);
-		if(gptr() - eback() == off)
-		{
-			std::cout << '\n';
-			return gptr() - eback();
-		}
+		if(which & std::ios_base::out)
+			return pos_type(-1);
 
 		switch(way) {
 		case std::ios_base::beg:
-	//		if(off > egptr() - eback())
-	//			return pos_type(-1);
+			if(off > egptr() - eback())
+				return pos_type(-1);
 			setg(eback(), eback() + off, egptr());
 			break;
 		case std::ios_base::cur:
@@ -89,28 +83,25 @@ private:
 				return gptr() - eback();
 			return seekpos(off, which);
 		case std::ios_base::end:
-	//		if(off < eback() - egptr())
-	//			return pos_type(-1);
+			if(off < eback() - egptr())
+				return pos_type(-1);
 			setg(eback(), egptr() + off, egptr());
 			break;
 		default:
-			std::cout << "dammit!\n";
 			return pos_type(-1);
 		}
-		std::cout << ", pos_after: " << gptr() - eback() << '\n';
 		return gptr() - eback();
 	}
 
 	pos_type seekpos(off_type off, std::ios_base::openmode which)
 	{
-		std::cout << "HMM\n";
-/*		if(which & std::ios_base::out)
+		if(which & std::ios_base::out)
 			return pos_type(-1);
 
 		if(off > egptr() - gptr()
 		|| off < eback() - gptr())
 			return pos_type(-1);
-		setg(eback(), gptr() + off, egptr());*/
+		setg(eback(), gptr() + off, egptr());
 		return gptr() - eback();
 	}
 

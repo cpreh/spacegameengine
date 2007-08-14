@@ -1,5 +1,6 @@
 ADD_EXECUTABLE (sgetest test.cpp)
-TARGET_LINK_LIBRARIES (sgetest sgecore boost_signals boost_iostreams)
+#TARGET_LINK_LIBRARIES (sgetest sgecore boost_signals boost_iostreams)
+TARGET_LINK_LIBRARIES (sgetest sgecore boost_signals)
 INSTALL (TARGETS sgetest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 ADD_EXECUTABLE (soundtest soundtest.cpp)

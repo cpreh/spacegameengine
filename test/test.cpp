@@ -69,7 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/vector.hpp"
 #include "../src/codecvt.hpp"
 
-#include <hamigaki/archivers/zip_file.hpp>
+//#include <hamigaki/archivers/zip_file.hpp>
 
 namespace
 {
@@ -127,9 +127,9 @@ int main()
 	bool running = true;
 	sge::plugin_manager pm;
 
-	const std::string s = "blubbbbbäüöß";
+/*	const std::string s = "blubbbbbäüöß";
 	const std::wstring ws = sge::widen(s);
-	std::wcout << ws << L'\n';
+	std::wcout << ws << L'\n';*/
 
 	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
 
@@ -259,7 +259,7 @@ int main()
 
 //	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
 
-/*	const sge::plugin<sge::archive_loader>::ptr_type archive_plugin(pm.get_plugin<sge::archive_loader>().load());
+	const sge::plugin<sge::archive_loader>::ptr_type archive_plugin(pm.get_plugin<sge::archive_loader>().load());
 	const sge::archive_loader_ptr zip_archiver(archive_plugin->get()());
 
 	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
@@ -274,11 +274,11 @@ int main()
 		uncompress_data.resize(entry->uncompressed_size());
 		entry->uncompress(sge::data(uncompress_data));
 	}
-	//while(kubal->next());*/
+	//while(kubal->next());
 
-	//std::istream ifs(new sge::memory_buf(reinterpret_cast<char*>(sge::data(uncompress_data)), uncompress_data.size()));
+	std::istream ifs(new sge::memory_buf(reinterpret_cast<char*>(sge::data(uncompress_data)), uncompress_data.size()));
 
-	hamigaki::archivers::zip_file_source archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
+	/*hamigaki::archivers::zip_file_source archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
 	archive.next_entry();
 	std::vector<char> uncompress_data(30000);
 	std::streamsize already_read = 0;
@@ -290,8 +290,8 @@ int main()
 		already_read += sz;
 		if(already_read == uncompress_data.size())
 			uncompress_data.resize(uncompress_data.size()*2);
-	}
-	std::istream ifs(new sge::memory_buf(sge::data(uncompress_data), already_read));
+	}*/
+	//std::istream ifs(new sge::memory_buf(sge::data(uncompress_data), already_read));
 	std::noskipws(ifs);
 //	ifs.exceptions(std::ios_base::failbit | std::ios_base::badbit | std::ios_base::eofbit);
 /*	std::ifstream ifs((sge::media_path() + "european_fnt_v2.md3").c_str(), std::ios_base::binary);
@@ -367,15 +367,15 @@ int main()
 		translation.z() += ks[sge::KC_DOWN] * 0.1;
 //		if(ks[sge::KC_RETURN])
 //			sge::screenshot(rend,pl,"shot.png");
-	//	if(timer.update())
-	//		angle += sge::math::PI*0.01;
+		//if(timer.update())
+		//	angle += sge::math::PI*0.01;
 
 		//spr.rotation(angle);
 
-	//	rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
+		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
 	//	angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
 //		rend->projection(frustum_matrix(-100,100,-100,100,-100,100));
-	//	rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
+		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
 //		rend->projection(sge::math::matrix_orthogonal_xy(-100,100,-100,100,-10,200));
 //		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
 
@@ -389,12 +389,12 @@ int main()
 //		fn.transform(sge::math::matrix_rotation_x(angle));
 //		fn.projection(sge::math::transpose(sge::math::matrix_perspective(sge::space_unit(rend->screen_height())/rend->screen_width(),sge::math::PI,0,1)));
 //		fn.internal_transformation(sge::math::matrix_identity());
-		fn.draw_text(some_text, sge::font_pos(0,0), sge::font_dim(1000,1000));
+//		fn.draw_text(some_text, sge::font_pos(0,0), sge::font_dim(1000,1000));
 		//fn.transform(sge::math::matrix_identity());
-		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0,400),sge::font_dim(1000,1000),sge::colors::purple);
+//		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0,400),sge::font_dim(1000,1000),sge::colors::purple);
 		//ls.render();
 
-	//	rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
 //		con.draw();
 		rend->end_rendering();
