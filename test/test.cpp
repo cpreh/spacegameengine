@@ -170,8 +170,8 @@ int main()
 
 	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
 
-	//const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
-	//const sge::image_loader_ptr pl(image_loader_plugin->get()());
+	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
+	const sge::image_loader_ptr pl(image_loader_plugin->get()());
 
 	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
 	const sge::font_system_ptr fs(font_plugin->get()());
@@ -180,6 +180,10 @@ int main()
 	const sge::font_drawer_ptr fn_drawer(new sge::font_drawer_3d(rend));
 
 	sge::font fn(metrics, fn_drawer);
+
+	sge::image_ptr im = pl->load_image(sge::media_path() + "cloudsquare.jpg");
+	sge::texture_ptr con_tex = rend->create_texture(im->data(),im->width(),im->height(),sge::linear_filter);
+	sge::con::console_gfx console(rend,is,fn,sge::colors::black,con_tex);
 
 /*	sge::font fn(rend, fs, sge::media_path() + "fonts/default.ttf", 32);
 	sge::sprite_system ss(rend, 0, 2);
@@ -388,7 +392,7 @@ int main()
 		//ls.render();
 
 
-//		con.draw();
+		console.draw();
 		rend->end_rendering();
 		++fps;
 	}
