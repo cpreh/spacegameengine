@@ -25,21 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cerrno>
 #include <string>
 #include <boost/array.hpp>
-#include "../unicode.hpp"
+#include <boost/noncopyable.hpp>
 #include "../iconv_types.hpp"
 #include <iconv.h>
 
 namespace sge
 {
 
-struct iconv_instance {
-	iconv_t conv;
-
+struct iconv_instance : boost::noncopyable {
 	iconv_instance(const std::string &from, const std::string &to);
 	~iconv_instance();
-	std::size_t convert(const char **inbuf, std::size_t *inbytes, char **outbuf, std::size_t *outbytes);
+	std::size_t convert(const char **inbuf, std::size_t *inbytes, char **outbuf, std::size_t *outbytes) const;
 private:
-	std::string from, to;
+	iconv_t conv;
+	const std::string from,
+	                    to;
 };
 
 const encoding internal_encoding = enc_wstring_literal;
@@ -49,13 +49,13 @@ std::string encoding_to_string(const sge::encoding& to);
 template<typename To, typename From>
 To _iconv(const From& input, const sge::encoding from, const sge::encoding to, const typename To::allocator_type& alloc = typename To::allocator_type())
 {
-	iconv_instance ic(encoding_to_string(from), encoding_to_string(to));
+	const iconv_instance ic(encoding_to_string(from), encoding_to_string(to));
 	To output(alloc);
 	
 	const std::size_t buf_size = 512;
 	boost::array<char,buf_size> arr;
 
-	const char *ib = reinterpret_cast<const char*>(input.c_str());
+	const char *ib = reinterpret_cast<const char*>(input.data());
 	std::size_t in_size  = sizeof(typename From::value_type) * input.size();
 	while(in_size)
 	{
@@ -64,7 +64,9 @@ To _iconv(const From& input, const sge::encoding from, const sge::encoding to, c
 		ic.convert(&ib, &in_size, &ob, &out_size);
 
 		const std::size_t bytes_written = buf_size - out_size;
-		output += To(reinterpret_cast<typename To::const_pointer>(arr.data()), (bytes_written) / sizeof(typename To::value_type));
+
+		const typename To::const_pointer dest(reinterpret_cast<typename To::const_pointer>(arr.data()));
+		output += To(dest, dest + bytes_written / sizeof(typename To::value_type));
 	}
 
 	return output;

@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/bind.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/iostreams/device/array.hpp>
+#include <boost/iostreams/stream_buffer.hpp>
+#include <boost/iostreams/stream.hpp>
 #include "../src/iconv.hpp"
 #include "../src/math/constants.hpp"
 #include "../src/plugin_manager.hpp"
@@ -59,7 +62,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/console/console.hpp"
 #include "../src/model/md3.hpp"
 #include "../src/archive/archive_loader.hpp"
-#include "../src/memory_buf.hpp"
 #include "../src/vector.hpp"
 #include "../src/codecvt.hpp"
 
@@ -134,9 +136,13 @@ int main()
 	bool running = true;
 	sge::plugin_manager pm;
 
-/*	const std::string s = "blubbbbbäüöß";
-	const std::wstring ws = sge::widen(s);
-	std::wcout << ws << L'\n';*/
+	const std::string s = "blubbbbbäüöß";
+	const std::wstring ws = sge::iconv(s);
+//	std::wcout << ws << L'\n';
+//	const std::wstring ws = L"äöüßblublblbu";
+//	const std::string s = sge::iconv(ws);
+//	std::wcout << ws << " ws: " << ws.size() << ", s: " << s.size() << '\n';
+	//std::wcout << L"äöüß\n";
 
 	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
 
@@ -290,7 +296,8 @@ int main()
 	}
 	//while(kubal->next());
 
-	std::istream ifs(new sge::memory_buf(reinterpret_cast<char*>(sge::data(uncompress_data)), uncompress_data.size()));
+	//std::istream ifs(new sge::memory_buf(reinterpret_cast<char*>(sge::data(uncompress_data)), uncompress_data.size()));
+	std::istream ifs(new boost::iostreams::stream_buffer<boost::iostreams::array_source>(boost::iostreams::array_source(reinterpret_cast<char*>(sge::data(uncompress_data)), uncompress_data.size())));
 
 	/*hamigaki::archivers::zip_file_source archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
 	archive.next_entry();
@@ -386,31 +393,30 @@ int main()
 
 		//spr.rotation(angle);
 
-		//rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
+		rend->begin_rendering();
+//		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
 	//	angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
-//		rend->projection(frustum_matrix(-100,100,-100,100,-100,100));
-		//rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
+///		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
 //		rend->projection(sge::math::matrix_orthogonal_xy(-100,100,-100,100,-10,200));
 //		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
-		//rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
+//		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
-		rend->begin_rendering();
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
 		is->dispatch();
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		//rend->transform(sge::math::matrix_identity());
-		//rend->projection(sge::math::matrix_orthogonal_xy());
-		//fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(1000,1000));
-		//fn.draw_text(sge::iconv("ab")/*sge::string('\n') + sge::iconv(boost::lexical_cast<std::string>(cur_fps))*/,sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
+		rend->transform(sge::math::matrix_identity());
+		rend->projection(sge::math::matrix_orthogonal_xy());
+		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(1000,1000));
+		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
 		//ls.render();
 
 
 		//rend->set_bool_state(sge::bool_state::enable_culling,false);
-		if (console.active())
-			console.draw();
+		//if (console.active())
+		//	console.draw();
 		rend->end_rendering();
 		++fps;
 	}
