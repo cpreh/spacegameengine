@@ -34,11 +34,11 @@ sge::enc_ascii
 
 sge::win_string sge::sge_str_to_win(const string& in)
 {
-	return _iconv<win_string>(in, enc_ucs_4_internal, enc_win, in.get_allocator());
+	return _iconv<win_string>(in, internal_encoding, enc_win, in.get_allocator());
 }
 
 sge::string sge::win_str_to_sge(const win_string& in)
 {
-	return _iconv<string>(in, enc_win, enc_ucs_4_internal, in.get_allocator());
+	return _iconv<string>(in, enc_win, internal_encoding, in.get_allocator());
 }
 #endif

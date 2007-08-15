@@ -78,7 +78,6 @@ sge::font_dim sge::font::draw_text(const string_type& text, const font_pos start
 			if(*sbeg == '\n')
 				continue;
 			const char_metric_ptr metric = metrics()->load_char(*sbeg);
-
 			const font_rect fp(font_pos(pos.x() + metric->left(), pos.y() + metric->top()), font_dim(metric->width(), metric->height()));
 			drawer()->draw_char(*sbeg, fp, metric->pixmap());
 

@@ -267,7 +267,7 @@ int main()
 	{
 		sge::archive_entry_ptr entry;
 		kubal->open(entry);
-		std::cout << entry->name() << ' ' << entry->uncompressed_size() << '\n';
+	//	std::cout << entry->name() << ' ' << entry->uncompressed_size() << '\n';
 		uncompress_data.resize(entry->uncompressed_size());
 		entry->uncompress(sge::data(uncompress_data));
 	}
@@ -386,9 +386,8 @@ int main()
 		//man.process();
 		rend->transform(sge::math::matrix_identity());
 		rend->projection(sge::math::matrix_orthogonal_xy());
-		fn.draw_text(some_text, sge::font_pos(0,0), sge::font_dim(1000,1000));
-		//fn.transform(sge::math::matrix_identity());
-//		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(0,400),sge::font_dim(1000,1000),sge::colors::purple);
+		//fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(1000,1000));
+		fn.draw_text(sge::iconv("ab")/*sge::string('\n') + sge::iconv(boost::lexical_cast<std::string>(cur_fps))*/,sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
 		//ls.render();
 
 

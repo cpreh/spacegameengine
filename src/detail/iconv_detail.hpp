@@ -42,7 +42,6 @@ private:
 	std::string from, to;
 };
 
-//const encoding internal_encoding = sge::enc_ucs_4_internal;
 const encoding internal_encoding = enc_wstring_literal;
 
 std::string encoding_to_string(const sge::encoding& to);
@@ -67,6 +66,7 @@ To _iconv(const From& input, const sge::encoding from, const sge::encoding to, c
 		const std::size_t bytes_written = buf_size - out_size;
 		output += To(reinterpret_cast<typename To::const_pointer>(arr.data()), (bytes_written) / sizeof(typename To::value_type));
 	}
+
 	return output;
 }
 
