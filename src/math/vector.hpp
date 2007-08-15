@@ -392,6 +392,25 @@ std::istream& operator>> (std::istream& s, vector<T,Dim>& v)
 	return s;
 }
 
+template<typename T, std::size_t Dim>
+std::wistream& operator>> (std::wistream& s, vector<T,Dim>& v)
+{
+	wchar_t c;
+	s >> c;
+	if(c != L'(')
+		s.setstate(std::ios_base::failbit);
+	for(typename vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	{
+		s >> v[i] >> c;
+		if(c != L',')
+			s.setstate(std::ios_base::failbit);
+	}
+	s >> v[Dim-1] >> c;
+	if(c != L')')
+		s.setstate(std::ios_base::failbit);
+	return s;
+}
+
 typedef vector<space_unit,2> vector2;
 typedef vector<space_unit,3> vector3;
 typedef vector<space_unit,4> vector4;

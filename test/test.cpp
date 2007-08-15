@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/if.hpp>
+#include <boost/bind.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/lexical_cast.hpp>
 #include "../src/iconv.hpp"
@@ -79,6 +80,19 @@ sge::pos3 rand_point() { return sge::pos3(rand_point2(), 0); }*/
 	smallplayer(sge::shared_ptr<sge::sound> sound) : sound(sound) {}
 	void operator()() { sound->play(false); }
 };*/
+
+struct console_activator
+{
+	sge::con::console_gfx &con;
+
+	console_activator(sge::con::console_gfx &con) : con(con) {}
+
+	void callback(const sge::key_pair &pair)
+	{
+		if (pair.first.code == sge::KC_TAB && pair.second)
+			con.active(!con.active());
+	}
+};
 }
 
 /*using sge::space_unit;
@@ -181,9 +195,9 @@ int main()
 
 	sge::font fn(metrics, fn_drawer);
 
-	sge::image_ptr im = pl->load_image(sge::media_path() + "cloudsquare.jpg");
+	sge::image_ptr im = pl->load_image(sge::media_path() + "black.jpg");
 	sge::texture_ptr con_tex = rend->create_texture(im->data(),im->width(),im->height(),sge::linear_filter);
-	sge::con::console_gfx console(rend,is,fn,sge::colors::black,con_tex);
+	sge::con::console_gfx console(rend,is,fn,sge::colors::white,con_tex);
 
 /*	sge::font fn(rend, fs, sge::media_path() + "fonts/default.ttf", 32);
 	sge::sprite_system ss(rend, 0, 2);
@@ -235,7 +249,10 @@ int main()
 //	using boost::lambda::_1;
 	using boost::lambda::if_;
 
+	console_activator activator(console);
+
 	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::KC_ESC)[var(running)=false]));
+	boost::signals::scoped_connection cb2(is->register_callback(boost::bind(&console_activator::callback,&activator,_1)));
 //	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
 //	boost::signals::scoped_connection cb3(btn2.click_signal.connect(smallplayer(sound)));
 
@@ -369,13 +386,13 @@ int main()
 
 		//spr.rotation(angle);
 
-		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
+		//rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
 	//	angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
 //		rend->projection(frustum_matrix(-100,100,-100,100,-100,100));
-		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
+		//rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
 //		rend->projection(sge::math::matrix_orthogonal_xy(-100,100,-100,100,-10,200));
 //		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
+		//rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
 		rend->begin_rendering();
 		rend->get_window()->dispatch();
@@ -384,14 +401,16 @@ int main()
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		rend->transform(sge::math::matrix_identity());
-		rend->projection(sge::math::matrix_orthogonal_xy());
+		//rend->transform(sge::math::matrix_identity());
+		//rend->projection(sge::math::matrix_orthogonal_xy());
 		//fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(1000,1000));
-		fn.draw_text(sge::iconv("ab")/*sge::string('\n') + sge::iconv(boost::lexical_cast<std::string>(cur_fps))*/,sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
+		//fn.draw_text(sge::iconv("ab")/*sge::string('\n') + sge::iconv(boost::lexical_cast<std::string>(cur_fps))*/,sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
 		//ls.render();
 
 
-		console.draw();
+		//rend->set_bool_state(sge::bool_state::enable_culling,false);
+		if (console.active())
+			console.draw();
 		rend->end_rendering();
 		++fps;
 	}

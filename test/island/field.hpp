@@ -38,6 +38,12 @@ class field
 		std::fill(begin(),end(),value_type(0));
 	}
 
+	void resize(const dim_type &n)
+	{
+		dim_ = n;
+		array.resize(field_count());
+	}
+
 	value_type &pos(const coord_vector_type &p)
 	{
 		return array[p.y() * dim_.w() + p.x()];
@@ -129,5 +135,6 @@ class field
 	dim_type::value_type field_count() const { return dim_.w()*dim_.h(); }
 	dim_type dim() const { return dim_; }
 };
+typedef field<sge::space_unit> space_field;
 
 #endif

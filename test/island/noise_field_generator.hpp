@@ -15,10 +15,10 @@ class noise_field_generator
 	typedef typename field_type::coord_type        coord_type;
 
 	private:
-	const interpolation<value_type>          interpolator;
+	interpolation<value_type>                interpolator;
+	noise_generation<value_type,coord_type>  noise_generator;
 	unsigned                                 octaves,frequency;
 	value_type                               persistence;
-	noise_generation<value_type,coord_type>  noise_generator;
 	dim_type                                 dim;
 
 	value_type value(const coord_type x,const coord_type y)

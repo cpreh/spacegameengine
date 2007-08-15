@@ -60,6 +60,7 @@ struct display_mode {
 };
 
 std::ostream& operator<< (std::ostream& s, const display_mode& mode);
+std::wostream& operator<< (std::wostream& s, const display_mode& mode);
 
 inline bool operator== (const display_mode& l, const display_mode& r)
 {

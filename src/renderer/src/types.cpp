@@ -50,3 +50,8 @@ std::ostream& sge::operator<< (std::ostream& s, const display_mode& mode)
 {
 	return s << '(' << mode.width() << 'x' << mode.height() << 'x' << bit_depth_bit_count(mode.depth) << '@' << mode.refresh_rate << ')';
 }
+
+std::wostream& sge::operator<< (std::wostream& s, const display_mode& mode)
+{
+	return s << L'(' << mode.width() << L'x' << mode.height() << L'x' << bit_depth_bit_count(mode.depth) << L'@' << mode.refresh_rate << L')';
+}

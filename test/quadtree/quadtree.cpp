@@ -4,8 +4,8 @@
 
 sge::quadtree::subtree::subtree() : leaf(false) {}
 
-sge::quadtree::subtree::subtree(const sge::quadtree::vertex_container_type &vertices,const sge::quadtree::triangle_container_type &triangles,sge::math::rect _rect,unsigned tree_depth) 
-	: rect(_rect),leaf(tree_depth == 0)
+sge::quadtree::subtree::subtree(const sge::quadtree::vertex_container_type &vertices,const sge::quadtree::triangle_container_type &triangles,sge::math::rect _rect,unsigned tree_depth_) 
+	: rect(_rect),leaf(tree_depth_ == 0)
 {
 	for (triangle_container_type::const_iterator i = triangles.begin(); i != triangles.end(); ++i)
 	{
@@ -15,18 +15,18 @@ sge::quadtree::subtree::subtree(const sge::quadtree::vertex_container_type &vert
 			acquired_triangles.push_back(*i);
 	}
 
-	if (tree_depth != 0)
-		create_children(vertices,tree_depth);
+	if (tree_depth_ != 0)
+		create_children(vertices,tree_depth_);
 }
 
-void sge::quadtree::subtree::create_children(const sge::quadtree::vertex_container_type &vertices,const unsigned tree_depth)
+void sge::quadtree::subtree::create_children(const sge::quadtree::vertex_container_type &vertices,const unsigned tree_depth_)
 {
 	const space_unit left = rect.left,right = rect.right,top = rect.top,bottom = rect.bottom,
 													vertical_center = (top+bottom)/2,horizontal_center = (left+right)/2;
-	lefttop.reset(new subtree(vertices,acquired_triangles,math::rect(left,top,horizontal_center,vertical_center),tree_depth-1));
-	righttop.reset(new subtree(vertices,acquired_triangles,math::rect(horizontal_center,top,right,vertical_center),tree_depth-1));
-	leftbottom.reset(new subtree(vertices,acquired_triangles,math::rect(left,vertical_center,horizontal_center,bottom),tree_depth-1));
-	rightbottom.reset(new subtree(vertices,acquired_triangles,math::rect(horizontal_center,vertical_center,right,bottom),tree_depth-1));
+	lefttop.reset(new subtree(vertices,acquired_triangles,math::rect(left,top,horizontal_center,vertical_center),tree_depth_-1));
+	righttop.reset(new subtree(vertices,acquired_triangles,math::rect(horizontal_center,top,right,vertical_center),tree_depth_-1));
+	leftbottom.reset(new subtree(vertices,acquired_triangles,math::rect(left,vertical_center,horizontal_center,bottom),tree_depth_-1));
+	rightbottom.reset(new subtree(vertices,acquired_triangles,math::rect(horizontal_center,vertical_center,right,bottom),tree_depth_-1));
 }
 
 sge::math::rect sge::quadtree::subtree::determine_bounds(const sge::quadtree::vertex_container_type &vertices) const
@@ -75,19 +75,26 @@ void sge::quadtree::subtree::get_visible(const sge::frustum_info &frustum,sge::q
 	}
 }
 
-void sge::quadtree::subtree::reset(const unsigned tree_depth,const sge::quadtree::vertex_container_type &vertices,const sge::quadtree::triangle_container_type &triangles)
+void sge::quadtree::subtree::reset(const unsigned tree_depth_,const sge::quadtree::vertex_container_type &vertices,const sge::quadtree::triangle_container_type &triangles)
 {
 	rect = determine_bounds(vertices);
 	acquired_triangles = triangles;
-	create_children(vertices,tree_depth);
+	create_children(vertices,tree_depth_);
 }
 
-sge::quadtree::quadtree(const unsigned tree_depth) : tree_depth(tree_depth),locked_(false) {}
+sge::quadtree::quadtree(const unsigned tree_depth_) : tree_depth_(tree_depth_),locked_(false) {}
 
 void sge::quadtree::pack() 
 { 
 	assert(locked_); 
-	tree_root.reset(tree_depth,vertices_,triangles_); 
+	tree_root.reset(tree_depth_,vertices_,triangles_); 
+}
+
+void sge::quadtree::tree_depth(const unsigned n)
+{
+	if (!locked_) 
+		throw exception("object is not locked, cannot change tree depth!"); 
+	tree_depth_ = n;
 }
 
 void sge::quadtree::lock() { locked_ = true; }

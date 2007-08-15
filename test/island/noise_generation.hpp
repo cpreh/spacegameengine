@@ -26,33 +26,24 @@ struct stdlib_noise_generation
 {
 	typedef std::vector<FLOAT> inner_type;
 	typedef std::vector<inner_type> outer_type;
-	// FIXME
-	static const bool inited = false;
 	outer_type pairs;
 
-	stdlib_noise_generation() 
-	{
-		//std::srand(std::time(0));
-	}
-
-	stdlib_noise_generation(const COORD w,const COORD h) 
-	{ 
-		//std::srand(std::time(0));
-		reset(w,h);
-	}
+	stdlib_noise_generation() {}
+	stdlib_noise_generation(const COORD w,const COORD h) { reset(w,h); }
 
 	void reset(const COORD w,const COORD h)
 	{
-		pairs.resize(w+1);
+		pairs.resize(w);
 		for (typename outer_type::iterator i = pairs.begin(); i != pairs.end(); ++i)
 		{
-			i->resize(h+1);
+			i->resize(h);
 			std::fill(i->begin(),i->end(),FLOAT(-1));
 		}
 	}
 	
 	FLOAT operator()(const COORD x,const COORD y)
 	{
+		assert(x > 0 && y > 0);
 		assert(x < pairs.size() || y < pairs[x].size());
 
 		if (pairs[x][y] != FLOAT(-1))

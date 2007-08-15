@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <iterator>
 #include <ostream>
+#include <istream>
 #include <cassert>
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
@@ -203,6 +204,54 @@ std::ostream& operator<< (std::ostream& s, const dim<T,Dim>& v)
 	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 		s << v[i] << ',';
 	s << v[Dim-1] << ')';
+	return s;
+}
+
+template<typename T, std::size_t Dim>
+std::wostream& operator<< (std::wostream& s, const dim<T,Dim>& v)
+{
+	s << L'(';
+	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+		s << v[i] << L',';
+	s << v[Dim-1] << L')';
+	return s;
+}
+
+template<typename T, std::size_t Dim>
+std::istream& operator>> (std::istream& s, dim<T,Dim>& v)
+{
+	char c;
+	s >> c;
+	if(c != '(')
+		s.setstate(std::ios_base::failbit);
+	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	{
+		s >> v[i] >> c;
+		if (c != ',')
+			s.setstate(std::ios_base::failbit);
+	}
+	s >> v[Dim-1] >> c;
+	if (c != ')')
+		s.setstate(std::ios_base::failbit);
+	return s;
+}
+
+template<typename T, std::size_t Dim>
+std::wistream& operator>> (std::wistream& s, dim<T,Dim>& v)
+{
+	wchar_t c;
+	s >> c;
+	if(c != L'(')
+		s.setstate(std::ios_base::failbit);
+	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	{
+		s >> v[i] >> c;
+		if (c != L',')
+			s.setstate(std::ios_base::failbit);
+	}
+	s >> v[Dim-1] >> c;
+	if (c != L')')
+		s.setstate(std::ios_base::failbit);
 	return s;
 }
 

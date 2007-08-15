@@ -33,9 +33,11 @@ class quadtree : boost::noncopyable
 		~lock_ptr() { if(!t.locked_) throw exception("logic error: tree already unlocked"); t.unlock(); }
 	};
 
-	quadtree(const unsigned tree_depth);
+	quadtree(const unsigned tree_depth_);
 	void pack();
 	void lock();
+	void tree_depth(const unsigned);
+	unsigned tree_depth() const { return tree_depth_; }
 	void unlock();
 	triangle_container_type &triangles();
 	vertex_container_type &vertices();
@@ -50,17 +52,17 @@ class quadtree : boost::noncopyable
 		math::rect                 rect;
 		bool                       leaf;
 
-		void create_children(const vertex_container_type &vertices,const unsigned tree_depth);
+		void create_children(const vertex_container_type &vertices,const unsigned tree_depth_);
 		math::rect determine_bounds(const vertex_container_type &vertices) const;
 		void add_all(index_container_type &indices) const;
 		public:
 		subtree();
-		subtree(const vertex_container_type &vertices,const triangle_container_type &triangles,math::rect _rect,unsigned tree_depth);
+		subtree(const vertex_container_type &vertices,const triangle_container_type &triangles,math::rect _rect,unsigned tree_depth_);
 		void get_visible(const frustum_info &frustum,index_container_type &indices) const;
-		void reset(const unsigned tree_depth,const vertex_container_type &vertices,const triangle_container_type &triangles);
+		void reset(const unsigned tree_depth_,const vertex_container_type &vertices,const triangle_container_type &triangles);
 	};
 	subtree                 tree_root;
-	unsigned                tree_depth;
+	unsigned                tree_depth_;
 	vertex_container_type   vertices_;
 	triangle_container_type triangles_;
 	bool                    locked_;

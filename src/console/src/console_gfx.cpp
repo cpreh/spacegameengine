@@ -163,6 +163,9 @@ void sge::con::console_gfx::output_line(const string &s)
 
 void sge::con::console_gfx::key_callback(const key_pair &k)
 {
+	if (!active_)
+		return;
+
 	if (keys[KC_LCTRL])
 		output_line(iconv("char_code = ") + k.first.char_code);
 
@@ -281,18 +284,23 @@ void sge::con::console_gfx::draw()
 	rend->set_texture(background_texture);
 	rend->set_bool_state(sge::bool_state::enable_zbuffer,false);
 	rend->render(vb,ib,0,vb->size(),indexed_primitive_type::triangle,2,0);
-	rend->set_bool_state(sge::bool_state::enable_zbuffer,true);
+	rend->set_bool_state(sge::bool_state::enable_zbuffer,false);
+	rend->set_bool_state(sge::bool_state::enable_culling,false);
+	rend->set_bool_state(sge::bool_state::enable_alpha_blending,true);
 
 	// input_line und ein Dummy, wo evtl. der Cursor hinkommt
-	string edit_input_line = input_line + iconv(" ");
+	string edit_input_line = input_line + L" ";
 
 	// \r erstmal als Dummy
 	// TODO: Hier was ordentliches machen
 	if (cursor_active)
-		edit_input_line[cursor_position] = '\r';
+	//	edit_input_line[cursor_position] = L'\r';
+		edit_input_line[cursor_position] = cursor_char_;
 
 	// Eingabezeile ganz unten zeichnen
-	fn.draw_text(edit_input_line, pos2(0, console_size.h() - fn.height()), console_size, rend->screen_size(), font_flags::no_multi_line | font_flags::align_left | font_flags::align_top);
+	//fn.draw_text(L"hallo", pos2(0, 0), console_size, rend->screen_size(), font_flags::no_multi_line | font_flags::align_left | font_flags::align_top);
+	//fn.draw_text(L"Hallo",sge::font_pos(0,10),sge::font_dim(rend->screen_width(),rend->screen_height()/2),font_flags::align_bottom | font_flags::align_left);
+	fn.draw_text(edit_input_line,sge::font_pos(0,0),sge::font_dim(sge::font_unit(rend->screen_width() * console_size.w()),sge::font_unit(rend->screen_height() * console_size.h())),font_flags::align_bottom | font_flags::align_left | font_flags::no_line_wrap);
 
 	// History-Ausschnitt berechnen
 	const size_type history_lines = std::min(lines_per_screen, history.size());
@@ -302,7 +310,8 @@ void sge::con::console_gfx::draw()
 
 	const string history_string = join<string>(cutout_it, cutout_end);
 
-	fn.draw_text(history_string, pos2(0,0), math::dim2(console_size.w(), console_size.h() - fn.height()), rend->screen_size(), font_flags::align_left | font_flags::align_bottom | font_flags::no_line_wrap);
+	//fn.draw_text(history_string, pos2(0,0), math::dim2(console_size.w(), console_size.h() - fn.height()), rend->screen_size(), font_flags::align_left | font_flags::align_bottom | font_flags::no_line_wrap);
+	fn.draw_text(history_string,sge::font_pos(0,0),sge::font_dim(sge::font_unit(rend->screen_width() * console_size.w()),sge::font_unit(rend->screen_height() * console_size.h() - fn.height())),font_flags::align_bottom | font_flags::align_left | font_flags::no_line_wrap);
 }
 
 void sge::con::console_gfx::set_texture(texture_ptr t)
@@ -318,7 +327,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
 : rend(rend),
   console_size(1, 0.5),
   fn(fn),
-  lines_per_screen(static_cast<size_type>(console_size.h() / fn.height())-1),
+  lines_per_screen(static_cast<size_type>(console_size.h() * rend->screen_height() / fn.height())-1),
   input_system(input_system),
   input_connection(input_system->register_callback(boost::bind(&console_gfx::key_callback, this, _1))),
   input_repeat_connection(input_system->register_repeat_callback(boost::bind(&console_gfx::key_action, this, _1))),
@@ -328,6 +337,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
   cursor_active(true),
   cursor_position(0),
   cursor_blink(300),
+	cursor_char_(L'|'),
   history_limit(500),
   command_history_limit(500),
   command_history_pos(-1),

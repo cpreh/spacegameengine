@@ -210,6 +210,27 @@ inline std::ostream& operator<< (std::ostream& s, const matrix<T,N,M>& m)
 	return s;
 }
 
+template<typename T, std::size_t N, std::size_t M>
+inline std::wostream& operator<< (std::wostream& s, const matrix<T,N,M>& m)
+{
+	s << L'(';
+	for(typename matrix<T,N,M>::size_type j = 0; j < N; ++j)
+	{
+		s << L'(';
+		for(typename matrix<T,N,M>::size_type i = 0; i < M; ++i)
+		{
+			s << m[j][i];
+			if(i != M-1)
+				s << L',';
+		}
+		s << L')';
+		if(j != N-1)
+			s << L',';
+	}
+	s << L')';
+	return s;
+}
+
 template<typename T, std::size_t N>
 inline matrix<T,N,N> transpose(const matrix<T,N,N>& m)
 {

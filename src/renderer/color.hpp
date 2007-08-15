@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_COLOR_HPP_INCLUDED
 
 #include <ostream>
+#include <istream>
 
 #include "../types.hpp"
 #include "../typeswitch.hpp"
@@ -280,9 +281,71 @@ inline std::ostream& operator<< (std::ostream& os, const color4& col)
 	return os << '(' << col.r << ',' << col.g << ',' << col.b << ',' << col.a << ')';
 }
 
+inline std::wostream& operator<< (std::wostream& os, const color4& col)
+{
+	return os << L'(' << col.r << L',' << col.g << L',' << col.b << L',' << col.a << L')';
+}
+
+inline std::istream& operator>> (std::istream& s, color4& col)
+{
+	char c;
+	s >> c;
+	if(c != '(')
+		s.setstate(std::ios_base::failbit);
+
+	color4::value_type r,g,b,a;
+	s >> r >> c;
+	if (c != ',')
+		s.setstate(std::ios_base::failbit);
+	s >> g >> c;
+	if (c != ',')
+		s.setstate(std::ios_base::failbit);
+	s >> b >> c;
+	if (c != ',')
+		s.setstate(std::ios_base::failbit);
+	s >> a >> c;
+	if (c != ')')
+		s.setstate(std::ios_base::failbit);
+	
+	col = color4(r,g,b,a);
+
+	return s;
+}
+
+inline std::wistream& operator>> (std::wistream& s, color4& col)
+{
+	wchar_t c;
+	s >> c;
+	if(c != L'(')
+		s.setstate(std::ios_base::failbit);
+
+	color4::value_type r,g,b,a;
+	s >> r >> c;
+	if (c != L',')
+		s.setstate(std::ios_base::failbit);
+	s >> g >> c;
+	if (c != L',')
+		s.setstate(std::ios_base::failbit);
+	s >> b >> c;
+	if (c != L',')
+		s.setstate(std::ios_base::failbit);
+	s >> a >> c;
+	if (c != L')')
+		s.setstate(std::ios_base::failbit);
+	
+	col = color4(r,g,b,a);
+
+	return s;
+}
+
 inline color4 color_to_color4(const color c)
 {
 	return color4(red_part_rgba_f(c), green_part_rgba_f(c), blue_part_rgba_f(c), alpha_part_rgba_f(c));
+}
+
+inline color color4_to_color(const color4 c)
+{
+	return make_color(color_element(c.r * color_to_color4_factor),color_element(c.g * color_to_color4_factor),color_element(c.b * color_to_color4_factor),color_element(c.a * color_to_color4_factor));
 }
 
 // TODO

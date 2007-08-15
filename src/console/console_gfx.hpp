@@ -45,6 +45,7 @@ class console_gfx : boost::noncopyable
 	bool                        cursor_active;
 	string::size_type           cursor_position;
 	timer                       cursor_blink;
+	wchar_t                     cursor_char_;
 	string                      input_line;
 	typedef std::list<string>   history_container;
 	history_container           history;
@@ -54,6 +55,7 @@ class console_gfx : boost::noncopyable
 	int                         command_history_pos;
 	vertex_buffer_ptr           vb;
 	index_buffer_ptr            ib;
+	bool                        active_;
 
 	void fn_get(const arg_list &);
 	void fn_set(const arg_list &);
@@ -75,6 +77,12 @@ public:
 	void output_line(const string &s);
 	void draw();
 	void set_texture(texture_ptr t);
+
+	bool active() const { return active_; }
+	void active(const bool a) { active_ = a; }
+
+	wchar_t cursor_char() const { return cursor_char_; }
+	void cursor_char(const wchar_t &n) { cursor_char_ = n; }
 };
 
 }
