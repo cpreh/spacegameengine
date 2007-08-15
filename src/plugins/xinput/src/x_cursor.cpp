@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../x_cursor.hpp"
 
 sge::xinput::x_cursor::x_cursor(const x_display_ptr dsp, Pixmap pixmap, XColor color)
@@ -26,7 +26,7 @@ sge::xinput::x_cursor::x_cursor(const x_display_ptr dsp, Pixmap pixmap, XColor c
    _cursor(XCreatePixmapCursor(dsp->get(), pixmap, pixmap, &color, &color, 0, 0))
 {
 	if(cursor() == None)
-		throw std::runtime_error("XCreatePixmapCursor() failed");
+		throw exception("XCreatePixmapCursor() failed");
 }
 
 sge::xinput::x_cursor::~x_cursor()

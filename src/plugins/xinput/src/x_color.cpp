@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../x_color.hpp"
 	
 sge::xinput::x_color::x_color(const x_display_ptr dsp, Colormap colormap)
@@ -27,7 +27,7 @@ sge::xinput::x_color::x_color(const x_display_ptr dsp, Colormap colormap)
 {
 	XColor dummy;
 	if(XAllocNamedColor(dsp->get(), colormap, "black", &_color, &dummy ) == 0)
-		throw std::runtime_error("XAllocNamedColor() failed");
+		throw exception("XAllocNamedColor() failed");
 }
 
 sge::xinput::x_color::~x_color()

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/array.hpp>
 #include <boost/bind.hpp>
+#include "../../../exception.hpp"
 #include "../../../input/key_type.hpp"
 #include "../../../util.hpp"
 #include "../../../iconv.hpp"
@@ -49,7 +50,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 #ifdef USE_DGA
 	int flags;
 	if(XF86DGAQueryDirectVideo(wnd->display()->get(),wnd->screen(),&flags)==false)
-		throw std::runtime_error("XF86DGAQueryDirectVideo() failed");
+		throw exception("XF86DGAQueryDirectVideo() failed");
 	if(flags & XF86DGADirectMouse)
 	{
 		std::cerr << "You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system! Maybe you are missing libXxf86dga or a proper video driver? Disabling dga.";
@@ -278,12 +279,12 @@ bool sge::xinput::input_system::handle_grab(const int r) const
 	case GrabSuccess:
 		return true;
 	case GrabFrozen:
-		throw std::runtime_error("x11: Grab frozen!");
+		throw exception("x11: Grab frozen!");
 	case GrabNotViewable:
 	case AlreadyGrabbed:
 		break;
 	case GrabInvalidTime:
-		throw std::runtime_error("x11: GrabInvalidTime");
+		throw exception("x11: GrabInvalidTime");
 	}
 
 	sleep(100);

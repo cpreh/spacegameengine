@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../glx_visual.hpp"
 #include <GL/glx.h>
 
@@ -28,7 +28,7 @@ sge::ogl::glx_visual::glx_visual(const x_display_ptr dsp, const int screen, cons
 : vi(glXChooseVisual(dsp->get(), screen, const_cast<int*>(attributes)))
 {
 	if(!vi.get())
-		throw std::runtime_error("glXChooseVisual() failed");
+		throw exception("glXChooseVisual() failed");
 }
 
 const XVisualInfo& sge::ogl::glx_visual::visual_info() const

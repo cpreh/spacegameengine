@@ -21,28 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EXCEPTION_HPP_INCLUDED
 #define SGE_EXCEPTION_HPP_INCLUDED
 
-#include <exception>
 #include <stdexcept>
 #include <string>
 
 namespace sge
 {
 
-class exception : public std::runtime_error{
+class exception : public std::runtime_error {
 public:
 	explicit exception(const std::string& s)
 	: std::runtime_error(s)
-	, s(s)
 	{}
-
-	virtual const char* what() const throw()
-	{
-		return s.c_str();
-	}
-
-	virtual ~exception() throw() {}
-private:
-	std::string s;
 };
 
 }

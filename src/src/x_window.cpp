@@ -21,16 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
 
-#include <stdexcept>
 #include <boost/assign.hpp>
+#include "../exception.hpp"
 #include "../iconv.hpp"
 #include "../x_window.hpp"
-
-/*sge::x_window::x_window(Display* const dsp, const int _screen, const Window wnd)
- : dsp(dsp),
-   _screen(_screen),
-   wnd(wnd)
-{}*/
 
 sge::x_window::x_window(const window_pos pos, const window_size sz, const string& t, const x_display_ptr dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
  : dsp(dsp),
@@ -123,7 +117,7 @@ void sge::x_window::add_event_mask(const x11_event_type event)
 {
 	const mask_map::const_iterator it = masks.find(event);
 	if(it == masks.end())
-		throw std::logic_error("X11 event mask mapping is missing!");
+		throw exception("X11 event mask mapping is missing!");
 
 	const x11_event_mask_type mask = it->second;
 	if(!(event_mask & mask))

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../input_system.hpp"
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
@@ -34,14 +34,14 @@ sge::dinput::input_system::input_system(const win32_window_ptr wnd)
 	                      IID_IDirectInput8A,
 	                      reinterpret_cast<LPVOID*>(&d),
 	                      0) != DI_OK)
-		throw std::runtime_error("Cannot create direct input");
+		throw exception("Cannot create direct input");
 	di.reset(d);
 
 	if(di->EnumDevices(DI8DEVCLASS_ALL,
 	                   di_enum_devices_callback,
 	                   this,
 	                   DIEDFL_ATTACHEDONLY) != DI_OK)
-		throw std::runtime_error("DirectInput Enumeration failed");
+		throw exception("DirectInput Enumeration failed");
 }
 
 boost::signals::connection sge::dinput::input_system::register_callback(const callback& c)

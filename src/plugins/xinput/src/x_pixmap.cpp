@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../x_pixmap.hpp"
 
 const char bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
@@ -28,7 +28,7 @@ sge::xinput::x_pixmap::x_pixmap(const x_display_ptr dsp, const Window wnd)
    _pixmap(XCreateBitmapFromData(dsp->get(), wnd, bm_no_data, 8, 8))
 {
 	if(pixmap() == None)
-		throw std::runtime_error("XCreateBitmapFromData() failed");
+		throw exception("XCreateBitmapFromData() failed");
 }
 
 sge::xinput::x_pixmap::~x_pixmap()

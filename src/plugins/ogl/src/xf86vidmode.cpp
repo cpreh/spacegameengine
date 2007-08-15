@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
-#include <stdexcept>
 #include <iostream>
+#include "../../../exception.hpp"
 #include "../../../math.hpp"
 #include "../../../renderer/types.hpp"
 #include "../xf86vidmode.hpp"
@@ -41,7 +41,7 @@ sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display_ptr dsp, const 
 	int mode_count;
 	XF86VidModeModeInfo** ret;	
 	if(XF86VidModeGetAllModeLines(dsp->get(), screen, &mode_count, &ret) == False)
-		throw std::runtime_error("XF86VidModeGetAllModeLines() failed");
+		throw exception("XF86VidModeGetAllModeLines() failed");
 	modes.reset(ret);
 	sz = mode_count >= 0 ? mode_count : 0;
 }

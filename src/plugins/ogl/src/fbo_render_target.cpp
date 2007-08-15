@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../fbo_render_target.hpp"
 #include "../extension.hpp"
 #include "../texture_base.hpp"
@@ -28,12 +28,12 @@ sge::ogl::fbo_render_target::fbo_render_target(const size_type _width, const siz
    _height(_height)
 {
 	if(!glGenFramebuffersEXT)
-		throw std::runtime_error(extension_not_supported_string("frame_buffer_ext"));
+		throw exception(extension_not_supported_string("frame_buffer_ext"));
 	glGenFramebuffersEXT(1, &fbo);
 	bind_me();
 
 	if(!glGenRenderbuffersEXT)
-		throw std::runtime_error(extension_not_supported_string("render_buffer_ext"));
+		throw exception(extension_not_supported_string("render_buffer_ext"));
 	glGenRenderbuffersEXT(1, &depthbuffer);
 	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthbuffer);
 	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, static_cast<GLsizei>(width()), static_cast<GLsizei>(height()));
@@ -72,6 +72,6 @@ void sge::ogl::fbo_render_target::bind_texture(const texture_ptr t)
 	const shared_ptr<texture_base> p(dynamic_pointer_cast<texture_base>(t));
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, p->id(), 0);
 	const GLenum status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
-	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
-		throw std::runtime_error("glCheckFramebufferStatusEXT: fbo incomplete");
+if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
+		throw exception("glCheckFramebufferStatusEXT: fbo incomplete");
 }

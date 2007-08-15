@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../exception.hpp"
 #include "../volume_texture.hpp"
 #include "../error.hpp"
 
@@ -79,6 +80,6 @@ void sge::ogl::volume_texture::set_data(const const_pointer src, const lock_box*
 		                type,
 		                src);
 	if(is_error())
-		throw std::runtime_error("glTex(Sub)Image3D failed!");
+		throw exception("glTex(Sub)Image3D failed!");
 }
 

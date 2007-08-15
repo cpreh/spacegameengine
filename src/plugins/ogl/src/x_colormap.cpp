@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../x_colormap.hpp"
 
 sge::ogl::x_colormap::x_colormap(const x_display_ptr dsp, const XVisualInfo& vi)
@@ -28,7 +28,7 @@ sge::ogl::x_colormap::x_colormap(const x_display_ptr dsp, const XVisualInfo& vi)
   c(XCreateColormap(dsp->get(), RootWindow(dsp->get(), vi.screen), vi.visual, AllocNone))
 {
 	if(colormap() == 0)
-		throw std::runtime_error("XCreateColormap() failed");
+		throw exception("XCreateColormap() failed");
 }
 
 sge::ogl::x_colormap::~x_colormap()

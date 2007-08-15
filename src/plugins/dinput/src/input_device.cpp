@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../../../util.hpp"
 #include "../input_device.hpp"
 
@@ -36,7 +36,7 @@ sge::dinput::input_device::input_device(const dinput_ptr di, const string& _name
 {
 	direct_input_device* d;
 	if(di->CreateDevice(guid,&d,0) != DI_OK)
-		throw std::runtime_error("dinput: cannot create input device");
+		throw exception("dinput: cannot create input device");
 	device.reset(d);
 	set_cooperative_level(window->hwnd(),coop_level);
 	set_property(DIPROP_BUFFERSIZE,&buffer_settings.diph);
@@ -47,34 +47,31 @@ sge::dinput::input_device::input_device(const dinput_ptr di, const string& _name
 void sge::dinput::input_device::set_cooperative_level(const HWND hwnd, const DWORD flags)
 {
 	if(device->SetCooperativeLevel(hwnd,flags) != DI_OK)
-		throw std::runtime_error("SetCooperativeLevel() failed");
+		throw exception("SetCooperativeLevel() failed");
 }
 
 void sge::dinput::input_device::set_data_format(const LPCDIDATAFORMAT df)
 {
 	if(device->SetDataFormat(df) != DI_OK)
-		throw std::runtime_error("SetDataFormat() failed");
+		throw exception("SetDataFormat() failed");
 }
 
 void sge::dinput::input_device::set_property(REFGUID guid, LPCDIPROPHEADER diph)
 {
 	if(device->SetProperty(guid,diph) != DI_OK)
-		throw std::runtime_error("SetProperty() failed");
+		throw exception("SetProperty() failed");
 }
 
 void sge::dinput::input_device::acquire()
 {
-	HRESULT res;
-//	while((res = device->Acquire()) == DIERR_OTHERAPPHASPRIO) sge::sleep(100);
-
-	switch(res = device->Acquire()) {
+	switch(device->Acquire()) {
 	case S_FALSE:
 	case DI_OK:
 		return;
 	case DIERR_OTHERAPPHASPRIO:
 		break;
 	default:
-		throw std::runtime_error("Acquire() failed");
+		throw exception("Acquire() failed");
 	}
 }
 
@@ -85,7 +82,7 @@ void sge::dinput::input_device::unacquire()
 void sge::dinput::input_device::poll()
 {
 	if(device->Poll() != DI_OK)
-		throw std::runtime_error("Poll() failed");
+		throw exception("Poll() failed");
 }
 
 bool sge::dinput::input_device::_get_input(input_buffer data, DWORD& elements, unsigned d)
@@ -103,14 +100,14 @@ bool sge::dinput::input_device::_get_input(input_buffer data, DWORD& elements, u
 		acquire();
 		return false;
 	default:
-		throw std::runtime_error("GetDeviceData() failed");
+		throw exception("GetDeviceData() failed");
 	}
 }
 
 void sge::dinput::input_device::enum_objects(LPDIENUMDEVICEOBJECTSCALLBACK fun)
 {
 	if(device->EnumObjects(fun,this,DIDFT_ALL) != DI_OK)
-		throw std::runtime_error("enumerating objects failed");
+		throw exception("enumerating objects failed");
 }
 
 const sge::string& sge::dinput::input_device::name() const

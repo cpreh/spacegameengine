@@ -188,10 +188,10 @@ try
 		sge::window::dispatch();
 		is->dispatch();
 
-	rend->set_texture(sge::texture_base_ptr());
-	rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
-	rend->set_texture(canvastex->my_texture());
-	rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
+		rend->set_texture(sge::texture_base_ptr());
+		rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
+		rend->set_texture(canvastex->my_texture());
+		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
 
 		rend->end_rendering();
 	}

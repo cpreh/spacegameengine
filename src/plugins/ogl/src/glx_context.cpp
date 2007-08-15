@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../glx_context.hpp"
 
 sge::ogl::glx_context::glx_context(const x_display_ptr dsp, const XVisualInfo& vi)
@@ -28,7 +28,7 @@ sge::ogl::glx_context::glx_context(const x_display_ptr dsp, const XVisualInfo& v
   c(glXCreateContext(dsp->get(), const_cast<XVisualInfo*>(&vi), NULL, True))
 {
 	if(c == 0)
-		throw std::runtime_error("glXCreateContext() failed");
+		throw exception("glXCreateContext() failed");
 }
 
 sge::ogl::glx_context::~glx_context()

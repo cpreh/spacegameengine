@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
-#include <stdexcept>
+#include "../../../exception.hpp"
 #include "../xf86_resolution.hpp"
 
 sge::ogl::xf86_resolution::xf86_resolution(const x_display_ptr dsp, const int screen, const XF86VidModeModeInfo& new_mode, const XF86VidModeModeInfo& old_mode)
@@ -29,7 +29,7 @@ sge::ogl::xf86_resolution::xf86_resolution(const x_display_ptr dsp, const int sc
   old_mode(old_mode)
 {
 	if(XF86VidModeSwitchToMode(dsp->get(), screen, const_cast<XF86VidModeModeInfo*>(&new_mode)) == False)
-		throw std::runtime_error("XF86VidModeSwitchToMode() failed");
+		throw exception("XF86VidModeSwitchToMode() failed");
 	XF86VidModeSetViewPort(dsp->get(),screen,0,0);
 }
 

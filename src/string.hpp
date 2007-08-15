@@ -237,6 +237,4 @@ std::wistream& getlien(std::wistream&, string&, wchar_t delim = L'\n');
 */
 }
 
-//#include "detail/string_impl.hpp"
-
 #endif

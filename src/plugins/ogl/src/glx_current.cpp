@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
+#include "../../../exception.hpp"
 #include "../../../x_window.hpp"
 #include "../glx_current.hpp"
 #include "../glx_context.hpp"
@@ -30,7 +31,7 @@ sge::ogl::glx_current::glx_current(const x_display_ptr dsp, const x_window& wnd,
   context(context)
 {
 	if(glXMakeCurrent(dsp->get(), wnd.get_window(), context->context()) == false)
-		throw std::runtime_error("glXMakeCurrent() failed");
+		throw exception("glXMakeCurrent() failed");
 }
 
 sge::ogl::glx_current::~glx_current()
