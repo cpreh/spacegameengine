@@ -33,20 +33,20 @@ namespace sge
 class texture_manager {
 public:
 	texture_manager(renderer_ptr rend, fragmented_texture_ptr proto);
-	virtual_texture_ptr add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h);
-	virtual_texture_ptr add_texture(texture_ptr tex);
-	renderer_ptr get_renderer() const;
+	const virtual_texture_ptr add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h);
+	const virtual_texture_ptr add_texture(texture_ptr tex);
+	const renderer_ptr get_renderer() const;
 	void prototype(fragmented_texture_ptr);
 
-	class image_too_big : public sge::exception {
+	class image_too_big : public exception {
 	public:
 		image_too_big();
 	};
 private:
+	const renderer_ptr                          rend;
+	fragmented_texture_ptr                      _prototype;
 	typedef boost::ptr_list<fragmented_texture> fragmented_texture_list;
-	fragmented_texture_list fragmented_textures;
-	renderer_ptr rend;
-	fragmented_texture_ptr _prototype;
+	fragmented_texture_list                     fragmented_textures;
 };
 
 }
