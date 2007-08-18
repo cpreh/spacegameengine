@@ -37,7 +37,7 @@ public:
 	template<typename In>
 		void render(In beg, In end);
 	void set_parameters();
-	renderer_ptr get_renderer() const;
+	const renderer_ptr get_renderer() const;
 	stage_type max_tex_level() const;
 private:
 	renderer_ptr rend;

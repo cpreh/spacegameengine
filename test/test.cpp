@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/renderer.hpp"
 #include "../src/renderer/types.hpp"
 #include "../src/renderer/renderer_system.hpp"
+#include "../src/renderer/transform.hpp"
 #include "../src/media.hpp"
 #include "../src/input/input_system.hpp"
 #include "../src/input/key_state_tracker.hpp"
@@ -394,7 +395,6 @@ int main()
 	sge::math::vector3 translation(0, 0, -200);
 	float angle(0);
 	sge::timer frame_timer(1000);
-
 
 	while(running)
 	{

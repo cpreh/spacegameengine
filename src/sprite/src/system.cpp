@@ -40,7 +40,7 @@ void sge::sprite_system::set_parameters()
 	rend->set_bool_state(bool_state::enable_alpha_blending, true);
 }
 
-sge::renderer_ptr sge::sprite_system::get_renderer() const
+const sge::renderer_ptr sge::sprite_system::get_renderer() const
 {
 	return rend;
 }

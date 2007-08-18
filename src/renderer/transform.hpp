@@ -80,14 +80,14 @@ inline pos3 text_to_space(const math::vector2 pos)
 	return space_2d_to_3d(pos);
 }
 
-inline pixel_pos_t space_pos_to_pixel(const pos2 a, const screen_size_t sz)
-{
-	return pixel_pos_t(static_cast<pixel_unit>((a.x() + 1.0) / 2.0 * sz.w()), static_cast<pixel_unit>((-a.y() + 1.0) / 2.0 * sz.h()));
-}
-
 inline pixel_unit space_size_to_pixel(const space_unit s, const screen_unit screen_size)
 {
-	return static_cast<pixel_unit>(s / static_cast<space_unit>(2)) * screen_size;
+	return static_cast<pixel_unit>(s * screen_size);
+}
+
+inline pixel_pos_t space_pos_to_pixel(const pos2 a, const screen_size_t sz)
+{
+	return pixel_pos_t(static_cast<pixel_unit>(a.x() * sz.w()), static_cast<pixel_unit>(a.y() * sz.h()));
 }
 
 template<typename Ret>
