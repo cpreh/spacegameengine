@@ -196,7 +196,11 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
-	_caps.max_tex_size = 512;
+
+	GLint max_tex_size;
+	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_tex_size);
+	_caps.max_tex_size = max_tex_size;
+
 	GLint max_anisotropy;
 	glGetIntegerv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropy);
 	_caps.max_anisotropy_level = max_anisotropy;

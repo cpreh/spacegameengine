@@ -29,12 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../algorithm.hpp"
 #include "../renderer/lock_ptr.hpp"
 
-template<typename In>
-void sge::sprite_system::render(const In beg, const In end)
+template<typename RanIt>
+void sge::sprite_system::render(const RanIt beg, const RanIt end)
 {
 	std::sort(beg, end, &sprite::less);
 	
-	const typename std::iterator_traits<In>::difference_type range_len = std::distance(beg,end);
+	const typename std::iterator_traits<RanIt>::difference_type range_len = std::distance(beg,end);
 
 	if(vb->size() < static_cast<vertex_buffer::size_type>(range_len) * detail::vertices_per_sprite)
 	{
@@ -48,7 +48,7 @@ void sge::sprite_system::render(const In beg, const In end)
 		index_buffer::iterator ib_it = ib->begin();
 		vertex_buffer::iterator vb_it = vb->begin();
 
-		for(In cur = beg; cur != end; ++cur)
+		for(RanIt cur = beg; cur != end; ++cur)
 		{
 			sprite& spr = *cur;
 			
@@ -68,13 +68,13 @@ void sge::sprite_system::render(const In beg, const In end)
 
 	set_parameters();
 	unsigned first_index = 0;
-	for(In cur = beg; cur != end; )
+	for(RanIt cur = beg; cur != end; )
 	{
 		if(!cur->visible())
 			break;
 
 		unsigned num_objects;
-		const In next = first_mismatch_if(cur, end, num_objects, &sprite::equal);
+		const RanIt next = first_mismatch_if(cur, end, num_objects, &sprite::equal);
 
 		for(stage_type stage = 0; stage < max_tex_level(); ++stage)
 		{

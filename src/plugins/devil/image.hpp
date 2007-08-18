@@ -44,6 +44,7 @@ public:
 private:
 	void bind_me() const;
 	image_impl impl;
+	// TODO: do something better than save w and h
 	size_type  w,
 		   h;
 };

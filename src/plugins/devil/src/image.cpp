@@ -41,6 +41,9 @@ sge::devil::image::image(const image_format::type type, const const_pointer form
 	bind_me();
 	if(ilLoadL(convert_cast<ILenum>(type), const_cast<pointer>(format_data), size) == IL_FALSE)
 		throw exception("ilLoadL() failed!");
+	w = ilGetInteger(IL_IMAGE_WIDTH);
+	h = ilGetInteger(IL_IMAGE_HEIGHT);
+
 }
 
 sge::devil::image::image(const const_pointer p, const size_type w, const size_type h)
