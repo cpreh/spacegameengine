@@ -71,7 +71,7 @@ private:
 	repeat_signal_type repeat_sig;
 
 	key_code get_key_code(KeySym ks) const;
-	string get_key_name(KeySym ks) const;
+	key_type::string get_key_name(KeySym ks) const;
 
 	x_window_ptr wnd;
 	Colormap colormap;

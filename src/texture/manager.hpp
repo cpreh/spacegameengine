@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
+#include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
+#include "../shared_ptr.hpp"
 #include "../exception.hpp"
 #include "../renderer/renderer.hpp"
 #include "../renderer/texture.hpp"
@@ -30,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-class texture_manager {
+class texture_manager : boost::noncopyable {
 public:
 	texture_manager(renderer_ptr rend, fragmented_texture_ptr proto);
 	const virtual_texture_ptr add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h);
@@ -48,6 +50,8 @@ private:
 	typedef boost::ptr_list<fragmented_texture> fragmented_texture_list;
 	fragmented_texture_list                     fragmented_textures;
 };
+
+typedef shared_ptr<texture_manager> texture_manager_ptr;
 
 }
 

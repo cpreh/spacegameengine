@@ -174,18 +174,19 @@ public:
 		return data[pos];
 	}
 
-/*	bool operator==(const vector& r) const
+	// TODO: do something different for float here
+	bool operator==(const vector& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			if(data[i] != r[i])
 				return false;
 		return true;
-	}*/
+	}
 
-/*	bool operator!=(const vector& r) const
+	bool operator!=(const vector& r) const
 	{
 		return !((*this)==r);
-	}*/
+	}
 
 	value_type length_quad() const
 	{

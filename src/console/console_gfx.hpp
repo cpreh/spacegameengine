@@ -66,14 +66,14 @@ class console_gfx : boost::noncopyable
 	void fn_chat(const string &);
 
 	void key_action(const key_type &k);
-	void key_callback(const key_pair &);
 public:
 	console_gfx(renderer_ptr,
 	            input_system_ptr,
 	            font &,
 	            const color,
 	            texture_ptr background_texture);
-
+	
+	void key_callback(const key_pair &);
 	void output_line(const string &s);
 	void draw();
 	void set_texture(texture_ptr t);

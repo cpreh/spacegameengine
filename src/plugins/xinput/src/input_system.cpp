@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../../../input/key_type.hpp"
 #include "../../../util.hpp"
-#include "../../../iconv.hpp"
 #include "../input_system.hpp"
 #include <X11/keysym.h>
 #include <X11/Xlib.h>
@@ -640,10 +639,10 @@ sge::key_type sge::xinput::input_system::mouse_key(const unsigned x11code) const
 	}
 }
 
-sge::string sge::xinput::input_system::get_key_name(const KeySym ks) const
+sge::key_type::string sge::xinput::input_system::get_key_name(const KeySym ks) const
 {
 	const char* const name = XKeysymToString(ks);
-	return name ? iconv(name) : iconv("unknown");
+	return name ? name : "unknown";
 }
 
 sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const
@@ -726,8 +725,8 @@ void sge::xinput::input_system::warped_motion(XEvent xevent)
 	}
 }
 
-const sge::key_type sge::xinput::input_system::mouse_x(sge::iconv("mouse_x"), KC_MOUSEX);
-const sge::key_type sge::xinput::input_system::mouse_y(sge::iconv("mouse_y"), KC_MOUSEY);
-const sge::key_type sge::xinput::input_system::undefined_mouse_key(sge::iconv("undefined mouse key"));
-const sge::key_type sge::xinput::input_system::mouse1(sge::iconv("mouse_L"), KC_MOUSEL);
-const sge::key_type sge::xinput::input_system::mouse2(sge::iconv("mouse_R"), KC_MOUSER);
+const sge::key_type sge::xinput::input_system::mouse_x("mouse_x", KC_MOUSEX);
+const sge::key_type sge::xinput::input_system::mouse_y("mouse_y", KC_MOUSEY);
+const sge::key_type sge::xinput::input_system::undefined_mouse_key("undefined mouse key");
+const sge::key_type sge::xinput::input_system::mouse1("mouse_L", KC_MOUSEL);
+const sge::key_type sge::xinput::input_system::mouse2("mouse_R", KC_MOUSER);

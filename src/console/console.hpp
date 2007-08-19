@@ -98,16 +98,6 @@ namespace con
 
 		singleton();
 
-		/*
-		template<typename T>
-		var<T> &get_var(const string &var_name)
-		{
-			if (vars_.find(var_name) == vars_.end())
-				throw exception("A variable with name \"" + iconv(var_name) + "\" does not exist!");
-			return *static_cast<var<T> *>(vars_[var_name]);
-		}
-		*/
-
 		template<typename T>
 		T get_value(const string &var_name)
 		{
