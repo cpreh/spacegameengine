@@ -162,14 +162,14 @@ public:
 
 	reference at(const size_type pos)
 	{
-		if(pos < Dim)
+		if(pos >= Dim)
 			throw exception("vector<T, N>::at(): out of range!");
 		return data[pos];
 	}
 
 	const_reference at(const size_type pos) const
 	{
-		if(pos < Dim)
+		if(pos >= Dim)
 			throw exception("vector<T, N>::at(): out of range!");
 		return data[pos];
 	}
