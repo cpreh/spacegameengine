@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
 #include "../types.hpp"
+#include "../exception.hpp"
 
 #ifndef SGE_MATH_DIM_MAX_SIZE
 #define SGE_MATH_DIM_MAX_SIZE 3
@@ -79,6 +80,20 @@ public:
 		return data[pos];
 	}
 	
+	reference at(const size_type pos)
+	{
+		if(pos < Dim)
+			throw exception("dim<T, N>::at(): out of range!");
+		return data[pos];
+	}
+
+	const_reference at(const size_type pos) const
+	{
+		if(pos < Dim)
+			throw exception("dim<T, N>::at(): out of range!");
+		return data[pos];
+	}
+
 	bool operator==(const dim& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)

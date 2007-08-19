@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../types.hpp"
+#include "../../../exception.hpp"
 #include "../renderer_system.hpp"
 #include "../renderer.hpp"
 #ifdef SGE_LINUX_PLATFORM
@@ -32,7 +33,7 @@ sge::ogl::renderer_system::renderer_system()
 sge::renderer_ptr sge::ogl::renderer_system::create_renderer(const renderer_parameters& param, const int adapter, const window_ptr wnd)
 {
 	if(created)
-		throw std::logic_error("The opengl plugin may only be used once for creating a renderer.");
+		throw exception("The opengl plugin may only be used once for creating a renderer.");
 	const renderer_ptr r(new renderer(param, adapter, wnd));
 	created = true;
 	return r;

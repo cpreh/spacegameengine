@@ -80,20 +80,18 @@ inline pos3 text_to_space(const math::vector2 pos)
 	return space_2d_to_3d(pos);
 }
 
-inline pixel_unit space_size_to_pixel(const space_unit s, const screen_unit screen_size)
-{
-	return static_cast<pixel_unit>(s * screen_size);
-}
-
-inline pixel_pos_t space_pos_to_pixel(const pos2 a, const screen_size_t sz)
-{
-	return pixel_pos_t(static_cast<pixel_unit>(a.x() * sz.w()), static_cast<pixel_unit>(a.y() * sz.h()));
-}
-
 template<typename Ret>
-inline Ret space_size_to_pixel(const math::dim2 sz, const screen_size_t screen_sz)
+inline Ret space_size_to_pixel(const space_unit s, const screen_unit screen_size)
 {
-	return Ret(space_size_to_pixel(sz.w(), screen_sz.w()), space_size_to_pixel(sz.h(), screen_sz.h()));
+	return static_cast<Ret>(s * screen_size);
+}
+
+template<typename Ret, typename T>
+inline Ret space_size_to_pixel(const T t, const screen_size_t screen_sz)
+{
+	typedef typename Ret::value_type value_type;
+	return Ret(space_size_to_pixel<value_type>(t.at(0), screen_sz.w()),
+	           space_size_to_pixel<value_type>(t.at(1), screen_sz.h()));
 }
 
 inline space_unit pixel_size_to_space(const pixel_unit v, const screen_unit screen_size)

@@ -51,8 +51,6 @@ sge::font_dim sge::font::draw_text(const string_type& text, const font_pos start
 			pos.y() += (max_sz.h() - text_height) / 2;
 		else if(flags & font_flags::align_bottom)
 			pos.y() += max_sz.h() - text_height;
-		if(pos.y() < start_pos.y())
-			pos.y() = start_pos.y();
 	}
 
 	font_dim sz(0,0);
@@ -62,8 +60,6 @@ sge::font_dim sge::font::draw_text(const string_type& text, const font_pos start
 	while(sbeg != text.end() && sz.h() + height() <= max_sz.h())
 	{
 		const line_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
-		if(line_size.width == 0)
-			break;
 
 		pos.x() = start_pos.x();
 		if(flags & font_flags::align_hcenter)
@@ -74,7 +70,7 @@ sge::font_dim sge::font::draw_text(const string_type& text, const font_pos start
 		for(;sbeg != line_size.end; ++sbeg)
 		{
 			if(*sbeg == '\n')
-				continue;
+				break;
 			const char_metric_ptr metric = metrics()->load_char(*sbeg);
 			const font_rect fp(font_pos(pos.x() + metric->left(), pos.y() + metric->top()), font_dim(metric->width(), metric->height()));
 			drawer()->draw_char(*sbeg, fp, metric->pixmap());
@@ -98,7 +94,7 @@ sge::font_dim sge::font::draw_text(const string_type& text, const font_pos start
 
 sge::font_dim sge::font::draw_text(const string_type& text, const pos2 pos, const math::dim2 max_size, const screen_size_t screen_size, const font_flag_t flags)
 {
-	return draw_text(text, space_pos_to_pixel(pos, screen_size), space_size_to_pixel<font_dim>(max_size, screen_size), flags);
+	return draw_text(text, space_size_to_pixel<font_pos>(pos, screen_size), space_size_to_pixel<font_dim>(max_size, screen_size), flags);
 }
 
 sge::font_unit sge::font::char_space(const char_type ch) const

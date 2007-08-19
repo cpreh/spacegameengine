@@ -16,6 +16,7 @@
 //#include <boost/mpl/bool.hpp>
 //#include <boost/type_traits/is_same.hpp>
 #include "../util.hpp"
+#include "../exception.hpp"
 
 #ifndef SGE_MATH_VECTOR_MAX_SIZE
 #define SGE_MATH_VECTOR_MAX_SIZE 4
@@ -156,6 +157,20 @@ public:
 	const_reference operator[](const size_type pos) const
 	{
 		assert(pos < Dim);
+		return data[pos];
+	}
+
+	reference at(const size_type pos)
+	{
+		if(pos < Dim)
+			throw exception("vector<T, N>::at(): out of range!");
+		return data[pos];
+	}
+
+	const_reference at(const size_type pos) const
+	{
+		if(pos < Dim)
+			throw exception("vector<T, N>::at(): out of range!");
 		return data[pos];
 	}
 
