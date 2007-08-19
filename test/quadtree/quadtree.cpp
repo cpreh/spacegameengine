@@ -4,7 +4,7 @@
 
 sge::quadtree::subtree::subtree() : leaf(false) {}
 
-sge::quadtree::subtree::subtree(const sge::quadtree::vertex_container_type &vertices,const sge::quadtree::triangle_container_type &triangles,sge::math::rect _rect,unsigned tree_depth_) 
+sge::quadtree::subtree::subtree(const vertex_container_type &vertices,const triangle_container_type &triangles,math::rect _rect,unsigned tree_depth_) 
 	: rect(_rect),leaf(tree_depth_ == 0)
 {
 	for (triangle_container_type::const_iterator i = triangles.begin(); i != triangles.end(); ++i)
@@ -19,7 +19,7 @@ sge::quadtree::subtree::subtree(const sge::quadtree::vertex_container_type &vert
 		create_children(vertices,tree_depth_);
 }
 
-void sge::quadtree::subtree::create_children(const sge::quadtree::vertex_container_type &vertices,const unsigned tree_depth_)
+void sge::quadtree::subtree::create_children(const vertex_container_type &vertices,const unsigned tree_depth_)
 {
 	const space_unit left = rect.left,right = rect.right,top = rect.top,bottom = rect.bottom,
 													vertical_center = (top+bottom)/2,horizontal_center = (left+right)/2;
@@ -29,7 +29,7 @@ void sge::quadtree::subtree::create_children(const sge::quadtree::vertex_contain
 	rightbottom.reset(new subtree(vertices,acquired_triangles,math::rect(horizontal_center,vertical_center,right,bottom),tree_depth_-1));
 }
 
-sge::math::rect sge::quadtree::subtree::determine_bounds(const sge::quadtree::vertex_container_type &vertices) const
+sge::math::rect sge::quadtree::subtree::determine_bounds(const vertex_container_type &vertices) const
 {
 	math::rect bounds;
 	for (vertex_container_type::const_iterator i = vertices.begin(); i != vertices.end(); ++i)
@@ -46,7 +46,7 @@ sge::math::rect sge::quadtree::subtree::determine_bounds(const sge::quadtree::ve
 	return bounds;
 }
 
-void sge::quadtree::subtree::add_all(sge::quadtree::index_container_type &indices) const
+void sge::quadtree::subtree::add_all(index_container_type &indices) const
 {
 	for (triangle_container_type::const_iterator i = acquired_triangles.begin(); i != acquired_triangles.end(); ++i)
 	{
@@ -56,7 +56,7 @@ void sge::quadtree::subtree::add_all(sge::quadtree::index_container_type &indice
 	}
 }
 
-void sge::quadtree::subtree::get_visible(const sge::frustum_info &frustum,sge::quadtree::index_container_type &indices) const
+void sge::quadtree::subtree::get_visible(const frustum_info &frustum,index_container_type &indices) const
 {
 	if (leaf)
 	{
@@ -75,7 +75,7 @@ void sge::quadtree::subtree::get_visible(const sge::frustum_info &frustum,sge::q
 	}
 }
 
-void sge::quadtree::subtree::reset(const unsigned tree_depth_,const sge::quadtree::vertex_container_type &vertices,const sge::quadtree::triangle_container_type &triangles)
+void sge::quadtree::subtree::reset(const unsigned tree_depth_,const vertex_container_type &vertices,const triangle_container_type &triangles)
 {
 	rect = determine_bounds(vertices);
 	acquired_triangles = triangles;
@@ -110,4 +110,4 @@ sge::quadtree::triangle_container_type &sge::quadtree::triangles()
 
 sge::quadtree::vertex_container_type &sge::quadtree::vertices() { return vertices_; }
 
-void sge::quadtree::get_visible(const sge::frustum_info &frustum,sge::quadtree::index_container_type &indices) { tree_root.get_visible(frustum,indices); }
+void sge::quadtree::get_visible(const frustum_info &frustum,quadtree::index_container_type &indices) { tree_root.get_visible(frustum,indices); }

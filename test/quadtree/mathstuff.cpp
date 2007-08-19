@@ -3,28 +3,32 @@
 #include "../../src/math/constants.hpp"
 #include "mathstuff.hpp"
 
-sge::frustum_info::frustum_info(const sge::math::vector3 &_pos,const sge::space_unit _fovy,const sge::space_unit _rot,const sge::space_unit near,const sge::space_unit far,const sge::space_unit aspect)
-	: pos(_pos),rot(_rot),fovy(_fovy),near(near),far(far),aspect(aspect)
+sge::frustum_info::frustum_info(math::space_matrix projection)
 {
-	space_unit hnear = 2*std::tan(fovy()/2)*near,wnear = 2 * hnear * aspect;
-	fovx(2*std::atan((wnear/2)/near));
+	projection = transpose(projection);
+	math::space_matrix::const_pointer ptr = projection.data();
+	left =   plane(math::vector3(ptr[3]+ptr[0],ptr[7]+ptr[4],ptr[11]+ptr[8]),ptr[15]+ptr[12]);
+	right =  plane(math::vector3(ptr[3]-ptr[0],ptr[7]-ptr[4],ptr[11]-ptr[8]),ptr[15]-ptr[12]);
+	top =    plane(math::vector3(ptr[3]-ptr[1],ptr[7]-ptr[5],ptr[11]-ptr[9]),ptr[15]-ptr[13]);
+	bottom = plane(math::vector3(ptr[3]+ptr[1],ptr[7]+ptr[5],ptr[11]+ptr[9]),ptr[15]+ptr[13]);
+	// Die Normalen zeigen nach _innen_!
+	/*
+	left =   plane(math::vector3(ptr[12]+ptr[0],ptr[13]+ptr[1],ptr[14]+ptr[2]),ptr[15]+ptr[3]);
+	right =  plane(math::vector3(ptr[12]-ptr[0],ptr[13]-ptr[1],ptr[14]-ptr[2]),ptr[15]-ptr[3]);
+	top =    plane(math::vector3(ptr[12]-ptr[4],ptr[13]-ptr[5],ptr[14]-ptr[6]),ptr[15]-ptr[7]);
+	bottom = plane(math::vector3(ptr[12]+ptr[4],ptr[13]+ptr[5],ptr[14]+ptr[6]),ptr[15]+ptr[7]);
+	*/
 
-	// Richtung der rechten Clipping Plane.
-	space_unit angle_right = rot()+fovx()/2,angle_left = rot()-fovx()/2;
-	
-	right_dir(math::vector3(std::sin(angle_right),0,-std::cos(angle_right)));
-	left_dir(math::vector3(std::sin(angle_left),0,-std::cos(angle_left)));
-
-	// Normale der rechten Clipping Plane. Diese muss, da es im Uhrzeigersinn ist, invnormal sein.
-	math::vector2 rightnormal = invnormal(math::vector2(right_dir().x(),right_dir().z()));
-	// Hier allerdings normal, da gegen den Uhrzeigersinn
-	math::vector2 leftnormal = normal(math::vector2(left_dir().x(),left_dir().z()));
-
-	std::wcout << L"rightnormal=" << rightnormal << L"\n";
-
-	// Und die beiden Planes zusammensetzen
-	left(plane(pos(),math::normalize(math::vector3(leftnormal.x(),0,leftnormal.y()))));
-	right(plane(pos(),math::normalize(math::vector3(rightnormal.x(),0,rightnormal.y()))));
+	left.n =    math::normalize(left.n);
+	//left.d =    left.d/left.n.length();
+	right.n =   math::normalize(right.n);
+	//right.d =   right.d/right.n.length();
+	top.n =     math::normalize(top.n);
+	//top.d =     top.d/top.n.length();
+	bottom.n =  math::normalize(bottom.n);
+	//bottom.d =  bottom.d/bottom.n.length();
+	//std::wcout << L"left.n=" << left.n << L"\n";
+	//std::wcout << L"right.n=" << right.n << L"\n";
 }
 
 // See http://local.wasp.uwa.edu.au/~pbourke/geometry/lineline2d/
@@ -85,7 +89,7 @@ bool sge::triangle_inside_2d(const triangle &t,const sge::math::rect &rect)
 	plane pb(t.b(),normal(b));
 	plane pc(t.c(),normal(c));
 
-	if (point_inside_2d(lefttop,pa,pb,pc) || point_inside_2d(righttop,pa,pb,pc) || point_inside_2d(leftbottom,pa,pb,pc) || point_inside_2d(rightbottom,pa,pb,pc))
+	if (point_inside_2d(math::vector3(lefttop),pa,pb,pc) || point_inside_2d(math::vector3(righttop),pa,pb,pc) || point_inside_2d(math::vector3(leftbottom),pa,pb,pc) || point_inside_2d(math::vector3(rightbottom),pa,pb,pc))
 		return true;
 	
 	// 3. Fall: Die Strukturen schneiden sich, enthalten aber gegenseitig keine Punkte
@@ -106,6 +110,7 @@ bool sge::triangle_inside_2d(const triangle &t,const sge::math::rect &rect)
 	return false;
 }
 
+#if 0
 // Gibt zurueck, ob ein Rechteck komplett im Frustum ist
 bool sge::completely_inside(const sge::math::rect &rect,const sge::frustum_info &frustum)
 {
@@ -117,9 +122,42 @@ bool sge::completely_inside(const sge::math::rect &rect,const sge::frustum_info 
 	return !in_front(frustum.left(),lt) && !in_front(frustum.left(),rt) && !in_front(frustum.left(),lb) && !in_front(frustum.left(),rb) && 
 				 !in_front(frustum.right(),lt) && !in_front(frustum.right(),rt) && !in_front(frustum.right(),lb) && !in_front(frustum.right(),rb);
 }
+#endif
 
 bool sge::possibly_inside(const sge::math::rect &rect,const sge::frustum_info &frustum)
 {
+	const math::vector3 center = math::vector3(rect.left + rect.width()/2,0,rect.top + rect.height()/2);
+	const space_unit radius(std::sqrt(rect.width()*rect.width()/4+rect.height()*rect.height()/4));
+
+	//const math::vector3 forward_dir = math::normalize(math::vector3(std::sin(frustum.rot()),0,-std::cos(frustum.rot())));
+	//const space_unit df = math::dot(-forward_dir,frustum.pos());
+
+	// Man spannt von der Spielerposition aus eine Ebene mit Normalenvektor in Blickrichtung auf und guckt,
+	// ob das Objekt weiter als -radius von der Ebene entfernt ist. Ist dem so, ist das Objekt zu weit hinter dem Spieler
+	//if (math::dot(forward_dir,center) + df < -radius)
+	//	return false;
+
+	//const math::vector3 nl = math::normalize(frustum.left().normal());
+	//const space_unit dl = math::dot(-nl,frustum.left().point());
+
+	//if (math::dot(nl,center) + dl > radius)
+	//	return false;
+	//if (std::fabs(math::dot(nl,center) - dl) <= radius)
+	//	return true;
+
+	//const math::vector3 nr = math::normalize(frustum.right().normal());
+	//const space_unit dr = math::dot(-nr,frustum.right().point());
+
+	if (math::dot(frustum.right.n,center) + frustum.right.d < -radius)
+		return false;
+
+	if (math::dot(frustum.left.n,center) + frustum.left.d < -radius)
+		return false;
+	//if (std::fabs(math::dot(nr,center) - dr) <= radius)
+	//	return true;
+
+	return true;
+	/*
 	const math::vector3 center = math::vector3(rect.left + rect.width()/2,0,rect.top + rect.height()/2);
 	const space_unit radius(std::sqrt(rect.width()*rect.width()/4+rect.height()*rect.height()/4));
 
@@ -129,10 +167,7 @@ bool sge::possibly_inside(const sge::math::rect &rect,const sge::frustum_info &f
 	// Man spannt von der Spielerposition aus eine Ebene mit Normalenvektor in Blickrichtung auf und guckt,
 	// ob das Objekt weiter als -radius von der Ebene entfernt ist. Ist dem so, ist das Objekt zu weit hinter dem Spieler
 	if (math::dot(forward_dir,center) - df < -radius)
-	{
-		std::cout << "Komplett hinter dem Spieler.\n";
 		return false;
-	}
 
 	const math::vector3 nl = math::normalize(frustum.left().normal());
 	const space_unit dl = math::dot(nl,frustum.left().point());
@@ -151,8 +186,10 @@ bool sge::possibly_inside(const sge::math::rect &rect,const sge::frustum_info &f
 	//	return true;
 
 	return true;
+	*/
 }
 
+#if 0
 bool sge::partially_inside(const sge::math::rect &rect,const sge::frustum_info &frustum)
 {
 	// Wenn etwas nur teilweise im Frustum ist, schneiden sich die Frustumseiten mit den Rectseiten "vor"
@@ -198,3 +235,4 @@ bool sge::partially_inside(const sge::math::rect &rect,const sge::frustum_info &
 
 	return false;
 }
+#endif

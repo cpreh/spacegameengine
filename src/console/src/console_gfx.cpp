@@ -181,6 +181,9 @@ void sge::con::console_gfx::key_callback(const key_pair &k)
 // input_line verzichten
 void sge::con::console_gfx::key_action(const key_type &k)
 {
+	if (!active_)
+		return;
+
 	switch(k.code) 
 	{
 		case KC_BACK:

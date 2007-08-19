@@ -3,19 +3,28 @@
 
 #include <ostream>
 #include "../../src/math/vector.hpp"
+#include "../../src/math/matrix.hpp"
 #include "../../src/math/rect.hpp"
 #include "../../src/accessor.hpp"
 
+// FIXME: Accessor wegnehmen
 namespace sge
 {
 struct plane
 {
-	accessor<math::vector3> point,normal;
+	math::vector3 n;
+	space_unit d;
 
 	plane() {}
-	plane(const math::vector3 &point,const math::vector3 &normal) : point(point),normal(normal) {}
+	plane(const math::vector3 &n,const space_unit d) : n(n),d(d) {}
+	plane(const math::vector3 &r,const math::vector3 &_n) : n(_n) 
+	{
+		n = math::normalize(n);
+		//d = math::dot(-n,r);
+	//	d = (-math::dot(n,r))/n.length();
+		d = -math::dot(n,r);
+	}
 };
-inline std::ostream &operator<<(std::ostream &stream,const plane &t) { return stream << "(" << t.normal() << "," << t.point() << ")"; }
 
 struct triangle
 {
@@ -24,7 +33,6 @@ struct triangle
 	triangle() {}
 	triangle(const math::vector3 &a,const math::vector3 &b,const math::vector3 &c) : a(a),b(b),c(c) {}
 };
-inline std::ostream &operator<<(std::ostream &stream,const triangle &t) { return stream << "(" << t.a() << "," << t.b() << "," << t.c() << ")"; }
 
 struct line
 {
@@ -33,7 +41,6 @@ struct line
 	line() {}
 	line(const math::vector3 &point,const math::vector3 &direction) : point(point),direction(direction) {}
 };
-inline std::ostream &operator<<(std::ostream &stream,const line &t) { return stream << "(" << t.point() << "," << t.direction() << ")"; }
 
 inline math::vector2 normal(const math::vector2 &a)
 {
@@ -47,15 +54,11 @@ inline math::vector2 invnormal(const math::vector2 &a)
 
 struct frustum_info
 {
-	accessor<math::vector3> pos;
-	accessor<space_unit> rot,fovx,fovy,near,far,aspect;
-	accessor<math::vector3> left_dir,right_dir;
-	accessor<plane> left,right;
+	plane left,right,top,bottom;
 	
 	frustum_info() {}
-	frustum_info(const math::vector3 &pos,const space_unit fovy,const space_unit rot,const space_unit near,const space_unit far,const space_unit aspect);
+	frustum_info(math::space_matrix projection);
 };
-inline std::ostream &operator<<(std::ostream &stream,const frustum_info &t) { return stream << "(pos=" << t.pos() << ",rot=" << t.rot() << ",fovx=" << t.fovx() << ",left_dir=" << t.left_dir() << ",right_dir=" << t.right_dir() << ")"; }
 
 // Gibt zurueck, ob ein Punkt in 'nem Rect ist
 inline bool point_inside_2d(const math::vector2 &v,const math::rect &rect)
@@ -67,13 +70,13 @@ inline bool point_inside_2d(const math::vector2 &v,const math::rect &rect)
 }
 
 // Gibt zurueck, ob ein Punkt in einem Dreieck ist
-inline bool point_inside_2d(const math::vector2 &point,const plane &pa,const plane &pb,const plane &pc)
+inline bool point_inside_2d(const math::vector3 &point,const plane &pa,const plane &pb,const plane &pc)
 {
-	if (math::dot(math::vector3(point) - pa.point(),pa.normal()) > 0)
+	if (math::dot(pa.n,point) + pa.d > 0)
 		return false;
-	if (math::dot(math::vector3(point) - pb.point(),pb.normal()) > 0)
+	if (math::dot(pb.n,point) + pb.d > 0)
 		return false;
-	if (math::dot(math::vector3(point) - pc.point(),pc.normal()) > 0)
+	if (math::dot(pc.n,point) + pc.d > 0)
 		return false;
 	return true;
 }
@@ -95,7 +98,8 @@ bool triangle_inside_2d(const triangle &,const math::rect &);
 // Gibt zurueck, ob ein Punkt _vor_ der Ebene ist (also der Normalenvektor darauf zeigt)
 inline bool in_front(const plane &p,const math::vector3 &a)
 {
-	return math::dot(a - p.point(),p.normal()) > 0;
+	//return math::dot(a - p.point(),p.normal()) > 0;
+	return math::dot(p.n,a) + p.d > 0;
 }
 
 // Gibt zurueck, ob ein Rechteck komplett im Frustum ist
