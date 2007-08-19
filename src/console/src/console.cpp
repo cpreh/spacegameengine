@@ -9,30 +9,34 @@
 // Eigenes
 #include "../console.hpp"
 
-void sge::con::singleton::read_config_file(const std::string &filename)
+#if 0
+void sge::con::singleton::read_config_file(const string &filename)
 {
-	std::ifstream stream(filename.c_str());
+	std::wifstream stream(filename.c_str());
 	if (!stream.is_open())
-		throw exception("Couldn't read config file \"" + filename + "\".\n");
+	// FIXME
+	//	throw exception("Couldn't read config file \"" + filename + "\".");
+	throw exception("couldn't read config file.");
 
 	boost::regex expression("^([^=]+)=(.*)$", boost::regex::perl);
 	while (!stream.eof())
 	{
-		std::string line;
+		string line;
 		std::getline(stream,line);
 
 		boost::smatch results;
 		if (!boost::regex_match(line,results,expression))
 			continue;
 
-		const string result1 = iconv(results[1]);
+		const string result1 = results[1];
 
 		if (vars_.find(result1) == vars_.end())
 			throw exception("Console variable \"" + results[1] + "\" not found!");
 
-		vars_[result1]->set_string(iconv(results[2]));
+		vars_[result1]->set_string(results[2]);
 	}
 }
+#endif
 
 void sge::con::singleton::eval(const string &line)
 {

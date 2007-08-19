@@ -42,6 +42,8 @@ namespace con
 	template<typename T>
 	struct var : public var_base
 	{
+		typedef T value_type;
+
 		T value_;
 
 		var(const string &name,const T &value_ = T()) : var_base(name),value_(value_) {}
@@ -65,6 +67,8 @@ namespace con
 	template<typename T,typename A>
 	struct action_var : public var_base
 	{
+		typedef T value_type;
+
 		T value_;
 		A action;
 		
@@ -94,6 +98,7 @@ namespace con
 
 		singleton();
 
+		/*
 		template<typename T>
 		var<T> &get_var(const string &var_name)
 		{
@@ -101,13 +106,21 @@ namespace con
 				throw exception("A variable with name \"" + iconv(var_name) + "\" does not exist!");
 			return *static_cast<var<T> *>(vars_[var_name]);
 		}
+		*/
 
 		template<typename T>
-		T &get_value(const string &var_name)
+		T get_value(const string &var_name)
 		{
 			if (vars_.find(var_name) == vars_.end())
 				throw exception("A variable with name \"" + iconv(var_name) + "\" does not exist!");
-			return static_cast<var<T> *>(vars_[var_name])->value();
+			return boost::lexical_cast<T>(vars_[var_name]->get_string());
+		}
+
+		void set_value(const string &var_name,const string &t)
+		{
+			if (vars_.find(var_name) == vars_.end())
+				throw exception("A variable with name \"" + iconv(var_name) + "\" does not exist!");
+			vars_[var_name]->set_string(t);
 		}
 
 		var_container &vars();
@@ -117,7 +130,7 @@ namespace con
 		void add(const string &function_name,function fn);
 		void add(const string &var_name,var_base &var);
 		void remove(const string &var_name);
-		void read_config_file(const std::string &);
+//		void read_config_file(const sge::string &);
 		void prefix(const string::value_type n);
 		void eval(const string &);
 		void chat_callback(const chat_callback_type&);

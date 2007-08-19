@@ -20,6 +20,8 @@ sge::frustum_info::frustum_info(const sge::math::vector3 &_pos,const sge::space_
 	// Hier allerdings normal, da gegen den Uhrzeigersinn
 	math::vector2 leftnormal = normal(math::vector2(left_dir().x(),left_dir().z()));
 
+	std::wcout << L"rightnormal=" << rightnormal << L"\n";
+
 	// Und die beiden Planes zusammensetzen
 	left(plane(pos(),math::normalize(math::vector3(leftnormal.x(),0,leftnormal.y()))));
 	right(plane(pos(),math::normalize(math::vector3(rightnormal.x(),0,rightnormal.y()))));
@@ -123,8 +125,14 @@ bool sge::possibly_inside(const sge::math::rect &rect,const sge::frustum_info &f
 
 	const math::vector3 forward_dir = math::normalize(math::vector3(std::sin(frustum.rot()),0,-std::cos(frustum.rot())));
 	const space_unit df = math::dot(forward_dir,frustum.pos());
+
+	// Man spannt von der Spielerposition aus eine Ebene mit Normalenvektor in Blickrichtung auf und guckt,
+	// ob das Objekt weiter als -radius von der Ebene entfernt ist. Ist dem so, ist das Objekt zu weit hinter dem Spieler
 	if (math::dot(forward_dir,center) - df < -radius)
+	{
+		std::cout << "Komplett hinter dem Spieler.\n";
 		return false;
+	}
 
 	const math::vector3 nl = math::normalize(frustum.left().normal());
 	const space_unit dl = math::dot(nl,frustum.left().point());

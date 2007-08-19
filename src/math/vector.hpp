@@ -389,6 +389,16 @@ std::ostream& operator<< (std::ostream& s, const vector<T,Dim>& v)
 }
 
 template<typename T, std::size_t Dim>
+std::wostream& operator<< (std::wostream& s, const vector<T,Dim>& v)
+{
+	s << L'(';
+	for(typename vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+		s << v[i] << L',';
+	s << v[Dim-1] << L')';
+	return s;
+}
+
+template<typename T, std::size_t Dim>
 std::istream& operator>> (std::istream& s, vector<T,Dim>& v)
 {
 	char c;

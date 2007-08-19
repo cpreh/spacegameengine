@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_UTILITY_HPP_INCLUDED
 #define SGE_UTILITY_HPP_INCLUDED
 
+#include <cstdlib>
+
 namespace sge
 {
 namespace math
@@ -39,6 +41,12 @@ T abs(const T &t)
 inline unsigned unsigned_diff(const unsigned a,const unsigned b)
 {
 	return a > b ? a - b : b - a;
+}
+
+template<typename T>
+T random(const T &begin,const T &end)
+{
+	return begin + T(std::rand() / (RAND_MAX + 1.0) * (end - begin));
 }
 
 }
