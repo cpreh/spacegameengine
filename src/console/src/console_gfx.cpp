@@ -207,7 +207,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 			cursor_position = std::min(std::size_t(cursor_position + 1),input_line.size());
 		break;
 		case KC_LEFT:
-			cursor_position = std::max(string::size_type(0),cursor_position - 1);
+			if (cursor_position > 0) --cursor_position;
 		break;
 		case KC_UP:
 			if (command_history.size() == 0)
