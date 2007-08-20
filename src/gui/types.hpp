@@ -17,7 +17,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 #ifndef SGE_GUI_TYPES_HPP_INCLUDED
 #define SGE_GUI_TYPES_HPP_INCLUDED
 
@@ -27,12 +26,20 @@ namespace gui {
 typedef int unit;
 typedef float funit;
 
+struct rect;
 struct point {
 	unit x, y;
 	point() : x(0), y(0) {}
 	point(const unit x, const unit y) : x(x), y(y) {}
 	inline bool operator==(const point &other) const { return x == other.x && y == other.y; }
 	inline bool operator!=(const point &other) const { return !operator==(other); }
+	inline point &operator+=(const point &other) { x+=other.x; y+=other.y; return *this; }
+	inline point operator+(const point &other) const { point t=*this; return t+=other; }
+	inline point operator-() const { return point(-x, -y); }
+	inline point &operator-=(const point &other) { return (*this)+=-other; }
+	inline point operator-(const point &other) const { point t=*this; return t-=other; }
+	point normalize(const rect &area) const;
+	inline bool within(const rect &area) const { return operator==(normalize(area)); }
 };
 
 struct dim2 {
@@ -58,12 +65,20 @@ struct rect {
 	inline bool operator!=(const rect &other) const { return !operator==(other); }
 };
 
+struct frect;
 struct fpoint {
 	funit x, y;
 	fpoint() : x(0), y(0) {}
 	fpoint(const funit x, const funit y) : x(x), y(y) {}
 	inline bool operator==(const fpoint &other) const { return x == other.x && y == other.y; }
 	inline bool operator!=(const fpoint &other) const { return !operator==(other); }
+	inline fpoint &operator+=(const fpoint &other) { x+=other.x; y+=other.y; return *this; }
+	inline fpoint operator+(const fpoint &other) const { fpoint t=*this; return t+=other; }
+	inline fpoint operator-() const { return fpoint(-x, -y); }
+	inline fpoint &operator-=(const fpoint &other) { return (*this)+=-other; }
+	inline fpoint operator-(const fpoint &other) const { fpoint t=*this; return t-=other; }
+	fpoint normalize(const frect &area) const;
+	inline bool within(const frect &area) const { return operator==(normalize(area)); }
 };
 
 struct fdim2 {

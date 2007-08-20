@@ -42,7 +42,9 @@ struct normal {
 	}
 };
 
-template<typename T=normal> struct there_and_back_again {
+template<typename T=normal> struct
+	there_and_back_again // a hobbits tale
+{
 	T gradpol;
 	there_and_back_again(const T &gradpol = T()) : gradpol(gradpol) {}
 

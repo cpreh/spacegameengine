@@ -21,17 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_MANAGER_HPP_INCLUDED
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
+#include "canvas.hpp"
 #include "widget.hpp"
 
 namespace sge {
 namespace gui {
 
-class manager : private widget {
+class manager : public widget {
 public:
 	manager();
+	manager(sge::gui::dim2);
 	~manager();
 
-	widget *
+	manager *top_level_widget() const;
+
+private:
+	canvas framebuffer;
+	sge::virtual_texture_ptr last_texture;
+public:
+	sge::virtual_texture_ptr to_texture(sge::texture_manager &texmgr);
 };
 
 }

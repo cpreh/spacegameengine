@@ -54,6 +54,7 @@ struct keyboard_event {
 struct mouse_event {
 	typedef unsigned button;
 	enum buttons {
+		NONE,
 		LEFT,
 		RIGHT,
 		MIDDLE
@@ -61,10 +62,12 @@ struct mouse_event {
 	button pressed;
 	std::set<button> pressstate;
 	point position;
+	point oldposition;
 	point globalposition;
+	point oldglobalposition;
 };
 
-struct mouse_wheel_event {
+struct mouse_wheel_event : public mouse_event {
 	enum direction_e {
 		UP,
 		DOWN,

@@ -37,6 +37,8 @@ protected:
 	widget *parent_;
 	const std::string name_;
 	std::list<widget *> children;
+	point position_;
+	dim2 size_;
 	virtual void reparent(widget *);
 	virtual void focus(widget*);
 	virtual void blur(widget*);
@@ -51,9 +53,15 @@ public:
 	virtual void focus();
 	virtual void blur();
 
+	virtual void move(point newpos);
+	inline point position() const { return position_; }
+	point global_position() const;
+	virtual void resize(dim2 newsize);
+	inline dim2 size() const { return size_; }
+
 	inline void parent(widget *p) { reparent(p); parent_ = p; }
 	inline widget *parent() const { return parent_; }
-	virtual manager *root() const;
+	virtual manager *top_level_widget() const;
 	inline const std::string &name() { return name_; }
 
 protected:
@@ -75,16 +83,12 @@ public:
 	virtual bool on_mouse_dblclick(const events::mouse_event &);
 	virtual bool on_mouse_down    (const events::mouse_event &);
 	virtual bool on_mouse_up      (const events::mouse_event &);
-	virtual bool on_mouse_wheel   (const events::mouse_event &);
+	virtual bool on_mouse_wheel   (const events::mouse_wheel_event &);
 
 	// keyboard events
 	virtual bool on_key_down (const events::keyboard_event &);
 	virtual bool on_key_up   (const events::keyboard_event &);
 	virtual bool on_key_press(const events::keyboard_event &);
-
-	// focus events
-	virtual void on_focus(const events::focus_event &);
-	virtual void on_blur (const events::focus_event &);
 
 	// drag&drop events
 	//virtual bool on_drag_over(const events::drag_drop_event &);
@@ -92,12 +96,17 @@ public:
 	//virtual bool on_drag_drop(const events::drag_drop_event &);
 
 protected:
+	// focus events
+	virtual void on_focus(const events::focus_event &);
+	virtual void on_blur (const events::focus_event &);
+
 	// child events
 	virtual void on_child_add   (const events::child_event &);
 	virtual void on_child_remove(const events::child_event &);
 	virtual void on_child_show  (const events::child_event &);
 	virtual void on_child_hide  (const events::child_event &);
 	virtual void on_child_change(const events::child_event &);
+	virtual void on_child_geom  (const events::child_event &);
 
 	// parent events
 	virtual void on_parent_destroy(const events::parent_event &);

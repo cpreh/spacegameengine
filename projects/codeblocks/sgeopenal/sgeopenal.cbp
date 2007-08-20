@@ -17,7 +17,6 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library='alut' />
 					<Add library='openal32' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
@@ -34,7 +33,6 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library='alut' />
 					<Add library='openal32' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
@@ -52,7 +50,9 @@
 		<Unit filename="..\..\..\src/plugins/openal_player/openal_player.hpp" />
 		<Unit filename="..\..\..\src/plugins/openal_player/openal_stream_sound.hpp" />
 		<Unit filename="..\..\..\src/plugins/openal_player/src/exports.cpp" />
-		<Unit filename="..\..\..\src/plugins/openal_player/src/openal_sound.cpp" />
+		<Unit filename="..\..\..\src/plugins/openal_player/src/nonstream_sound.cpp" />
+		<Unit filename="..\..\..\src/plugins/openal_player/src/player.cpp" />
+		<Unit filename="..\..\..\src/plugins/openal_player/src/stream_sound.cpp" />
 		<Extensions>
 			<code_completion />
 		</Extensions>

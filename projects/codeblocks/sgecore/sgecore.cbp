@@ -52,15 +52,21 @@
 			<Add option='-DPLUGIN_PATH=\&quot;plugins\&quot;' />
 			<Add option='-Wno-long-long' />
 		</Compiler>
+		<Unit filename="..\..\..\src/accessor.hpp" />
 		<Unit filename="..\..\..\src/algorithm.hpp" />
+		<Unit filename="..\..\..\src/archive/archive.hpp" />
+		<Unit filename="..\..\..\src/archive/archive_entry.hpp" />
+		<Unit filename="..\..\..\src/archive/archive_loader.hpp" />
 		<Unit filename="..\..\..\src/audio/audio_exception.hpp" />
 		<Unit filename="..\..\..\src/audio/audio_loader/audio_file.hpp" />
 		<Unit filename="..\..\..\src/audio/audio_loader/audio_loader.hpp" />
 		<Unit filename="..\..\..\src/audio/audio_player/audio_player.hpp" />
 		<Unit filename="..\..\..\src/audio/audio_player/sound.hpp" />
+		<Unit filename="..\..\..\src/audio/audio_player/sound_angle.hpp" />
 		<Unit filename="..\..\..\src/bit.hpp" />
 		<Unit filename="..\..\..\src/bitfield.hpp" />
 		<Unit filename="..\..\..\src/bitwise_cast.hpp" />
+		<Unit filename="..\..\..\src/codecvt.hpp" />
 		<Unit filename="..\..\..\src/com_deleter.hpp" />
 		<Unit filename="..\..\..\src/console/console.hpp" />
 		<Unit filename="..\..\..\src/console/console_gfx.hpp" />
@@ -83,6 +89,7 @@
 		<Unit filename="..\..\..\src/iconv.hpp" />
 		<Unit filename="..\..\..\src/iconv_types.hpp" />
 		<Unit filename="..\..\..\src/image/image.hpp" />
+		<Unit filename="..\..\..\src/image/image_format.hpp" />
 		<Unit filename="..\..\..\src/image/image_loader.hpp" />
 		<Unit filename="..\..\..\src/image/src/util.cpp" />
 		<Unit filename="..\..\..\src/image/util.hpp" />
@@ -107,6 +114,7 @@
 		<Unit filename="..\..\..\src/math/ray2.hpp" />
 		<Unit filename="..\..\..\src/math/rect.hpp" />
 		<Unit filename="..\..\..\src/math/solve2.hpp" />
+		<Unit filename="..\..\..\src/math/utility.hpp" />
 		<Unit filename="..\..\..\src/math/vector.hpp" />
 		<Unit filename="..\..\..\src/media.hpp" />
 		<Unit filename="..\..\..\src/model/md3.hpp" />
@@ -159,6 +167,7 @@
 		<Unit filename="..\..\..\src/sprite/system.hpp" />
 		<Unit filename="..\..\..\src/sprite/system_impl.hpp" />
 		<Unit filename="..\..\..\src/sprite/types.hpp" />
+		<Unit filename="..\..\..\src/src/codecvt.cpp" />
 		<Unit filename="..\..\..\src/src/endianness.cpp" />
 		<Unit filename="..\..\..\src/src/frames_counter.cpp" />
 		<Unit filename="..\..\..\src/src/gdi_device.cpp" />
@@ -169,7 +178,6 @@
 		<Unit filename="..\..\..\src/src/plugin_manager.cpp" />
 		<Unit filename="..\..\..\src/src/time.cpp" />
 		<Unit filename="..\..\..\src/src/timer.cpp" />
-		<Unit filename="..\..\..\src/src/unicode.cpp" />
 		<Unit filename="..\..\..\src/src/util.cpp" />
 		<Unit filename="..\..\..\src/src/win32_conv.cpp" />
 		<Unit filename="..\..\..\src/src/win32_window.cpp" />
@@ -196,7 +204,6 @@
 		<Unit filename="..\..\..\src/timer.hpp" />
 		<Unit filename="..\..\..\src/types.hpp" />
 		<Unit filename="..\..\..\src/typeswitch.hpp" />
-		<Unit filename="..\..\..\src/unicode.hpp" />
 		<Unit filename="..\..\..\src/util.hpp" />
 		<Unit filename="..\..\..\src/vector.hpp" />
 		<Unit filename="..\..\..\src/win32_conv.hpp" />

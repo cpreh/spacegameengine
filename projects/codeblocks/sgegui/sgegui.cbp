@@ -62,6 +62,7 @@
 		<Unit filename="..\..\..\src/gui/src/gridlayout.cpp" />
 		<Unit filename="..\..\..\src/gui/src/layout.cpp" />
 		<Unit filename="..\..\..\src/gui/src/manager.cpp" />
+		<Unit filename="..\..\..\src/gui/src/types.cpp" />
 		<Unit filename="..\..\..\src/gui/src/widget.cpp" />
 		<Unit filename="..\..\..\src/gui/types.hpp" />
 		<Unit filename="..\..\..\src/gui/widget.hpp" />

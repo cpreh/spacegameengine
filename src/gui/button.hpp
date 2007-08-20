@@ -26,6 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge {
 namespace gui {
 
+class button : public widget {
+public:
+	button(widget *parent, color bg, std::string name="");
+
+protected:
+	color bg;
+	void on_paint(const events::paint_event &);
+};
+
 }
 }
 
