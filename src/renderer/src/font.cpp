@@ -39,18 +39,30 @@ sge::font_unit sge::font::height() const
 	return metrics()->line_height();
 }
 
-sge::font_dim sge::font::draw_text(const string_type& text, const font_pos start_pos, const font_dim max_sz, const font_flag_t flags)
+sge::font_dim sge::font::draw_text(const string_type& text,
+                                   const font_pos start_pos,
+                                   const font_dim max_sz,
+                                   const font_align_h::type align_h,
+                                   const font_align_v::type align_v,
+                                   const font_flag_t flags)
 {
 	if(text.empty() || height() > max_sz.h())
 		return font_dim(0,0);
+
 	font_pos pos = start_pos;
-	if(flags & font_flags::align_vcenter || flags & font_flags::align_bottom)
+	if(align_v == font_align_v::center || align_v == font_align_v::bottom)
 	{
 		const font_unit text_height = text_size(text.begin(), text.end(), max_sz.w(), flags).h();
-		if(flags & font_flags::align_vcenter)
+		switch(align_v) {
+		case font_align_v::center:
 			pos.y() += (max_sz.h() - text_height) / 2;
-		else if(flags & font_flags::align_bottom)
+			break;
+		case font_align_v::bottom:
 			pos.y() += max_sz.h() - text_height;
+			break;
+		default:
+			throw exception("font_align_v is top, so don't align it!");
+		}
 	}
 
 	font_dim sz(0,0);
@@ -62,10 +74,19 @@ sge::font_dim sge::font::draw_text(const string_type& text, const font_pos start
 		const line_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
 
 		pos.x() = start_pos.x();
-		if(flags & font_flags::align_hcenter)
+		
+		switch(align_h) {
+		case font_align_h::center:
 			pos.x() += (max_sz.w() - line_size.width) / 2;
-		else if(flags & font_flags::align_right)
+			break;
+		case font_align_h::right:
 			pos.x() += max_sz.w() - line_size.width;
+			break;
+		case font_align_h::left:
+			break;
+		default:
+			throw exception("Invalid font_align_h!");
+		}
 
 		for(;sbeg != line_size.end; ++sbeg)
 		{
@@ -92,9 +113,9 @@ sge::font_dim sge::font::draw_text(const string_type& text, const font_pos start
 	return sz;
 }
 
-sge::font_dim sge::font::draw_text(const string_type& text, const pos2 pos, const math::dim2 max_size, const screen_size_t screen_size, const font_flag_t flags)
+sge::font_dim sge::font::draw_text(const string_type& text, const pos2 pos, const math::dim2 max_size, const screen_size_t screen_size, const font_align_h::type align_h, const font_align_v::type align_v, const font_flag_t flags)
 {
-	return draw_text(text, space_size_to_pixel<font_pos>(pos, screen_size), space_size_to_pixel<font_dim>(max_size, screen_size), flags);
+	return draw_text(text, space_size_to_pixel<font_pos>(pos, screen_size), space_size_to_pixel<font_dim>(max_size, screen_size), align_h, align_v, flags);
 }
 
 sge::font_unit sge::font::char_space(const char_type ch) const

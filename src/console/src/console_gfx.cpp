@@ -305,9 +305,7 @@ void sge::con::console_gfx::draw()
 		edit_input_line[cursor_position] = cursor_char_;
 
 	// Eingabezeile ganz unten zeichnen
-	//fn.draw_text(L"hallo", pos2(0, 0), console_size, rend->screen_size(), font_flags::no_multi_line | font_flags::align_left | font_flags::align_top);
-	//fn.draw_text(L"Hallo",sge::font_pos(0,10),sge::font_dim(rend->screen_width(),rend->screen_height()/2),font_flags::align_bottom | font_flags::align_left);
-	fn.draw_text(edit_input_line,sge::font_pos(0,0),sge::font_dim(sge::font_unit(rend->screen_width() * console_size.w()),sge::font_unit(rend->screen_height() * console_size.h())),font_flags::align_bottom | font_flags::align_left | font_flags::no_line_wrap);
+	fn.draw_text(edit_input_line,sge::font_pos(0,0),sge::font_dim(sge::font_unit(rend->screen_width() * console_size.w()),sge::font_unit(rend->screen_height() * console_size.h())), font_align_h::left, font_align_v::bottom, font_flags::no_line_wrap);
 
 	// History-Ausschnitt berechnen
 	const size_type history_lines = std::min(lines_per_screen, history.size());
@@ -317,8 +315,7 @@ void sge::con::console_gfx::draw()
 
 	const string history_string = join<string>(cutout_it, cutout_end);
 
-	//fn.draw_text(history_string, pos2(0,0), math::dim2(console_size.w(), console_size.h() - fn.height()), rend->screen_size(), font_flags::align_left | font_flags::align_bottom | font_flags::no_line_wrap);
-	fn.draw_text(history_string,sge::font_pos(0,0),sge::font_dim(sge::font_unit(rend->screen_width() * console_size.w()),sge::font_unit(rend->screen_height() * console_size.h() - fn.height())),font_flags::align_bottom | font_flags::align_left | font_flags::no_line_wrap);
+	fn.draw_text(history_string,sge::font_pos(0,0),sge::font_dim(sge::font_unit(rend->screen_width() * console_size.w()),sge::font_unit(rend->screen_height() * console_size.h() - fn.height())), font_align_h::left, font_align_v::bottom, font_flags::no_line_wrap);
 }
 
 void sge::con::console_gfx::set_texture(texture_ptr t)

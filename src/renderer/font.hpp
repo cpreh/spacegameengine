@@ -33,21 +33,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+namespace font_align_h
+{
+	enum type {
+		left,
+		right,
+		center
+	};
+}
+
+namespace font_align_v
+{
+	enum type {
+		top,
+		bottom,
+		center
+	};
+}
+
 namespace font_flags
 {
 	enum type {
-		align_left     = 1,
-		align_right    = 1 << 1,
-		align_hcenter  = 1 << 2,
-		align_top      = 1 << 3,
-		align_vcenter  = 1 << 4,
-		align_bottom   = 1 << 5,
-		no_multi_line  = 1 << 6,
-		no_line_wrap   = 1 << 7,
-		default_       = align_left | align_top
+		none           = 0,
+		no_multi_line  = 1 << 0,
+		no_line_wrap   = 1 << 1,
+		default_       = none
 	};
 }
-typedef unsigned font_flag_t; // FIXME
+typedef unsigned font_flag_t;
 
 class font : boost::noncopyable {
 public:
@@ -59,8 +72,8 @@ public:
 
 	font_unit height() const;
 
-	font_dim draw_text(const string_type& text, font_pos pos, font_dim max_size, font_flag_t flags = font_flags::default_);
-	font_dim draw_text(const string_type& text, pos2 pos, math::dim2 max_size, screen_size_t screen_size, font_flag_t flags = font_flags::default_);
+	font_dim draw_text(const string_type& text, font_pos pos, font_dim max_size, font_align_h::type = font_align_h::left, font_align_v::type = font_align_v::top, font_flag_t flags = font_flags::default_);
+	font_dim draw_text(const string_type& text, pos2 pos, math::dim2 max_size, screen_size_t screen_size, font_align_h::type = font_align_h::left, font_align_v::type = font_align_v::top, font_flag_t flags = font_flags::default_);
 
 	struct line_size_t {
 		font_unit width;
