@@ -278,7 +278,7 @@ int main()
 	ls.loop(true);*/
 
 	//const sge::string some_text(sge::iconv("abcdefgh\ni\n\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
-	const sge::string some_text(sge::iconv("\n\na\n\nb"));
+	const sge::string some_text(sge::iconv("\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 
 //	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
 
@@ -418,10 +418,10 @@ int main()
 			angle += sge::math::PI*0.01;
 
 		rend->begin_rendering();
-		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
+		/*rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
 		angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
 		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);*/
 
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
@@ -429,9 +429,7 @@ int main()
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		//rend->transform(sge::math::matrix_identity());
-		//rend->projection(sge::math::matrix_orthogonal_xy());
-		//fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(1000,1000));
+		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(924,500), sge::font_align_h::right, sge::font_align_v::bottom);
 //		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
 		//ls.render();
 
