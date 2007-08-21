@@ -51,15 +51,15 @@ namespace vertex_usage
 template<vertex_usage::type u> struct vertex_traits;
 template<> struct vertex_traits<vertex_usage::pos> {
 	typedef space_unit                   element_type;
-	typedef math::vector<element_type,3> packed_type;
+	typedef math::basic_vector<element_type,3> packed_type;
 };
 template<> struct vertex_traits<vertex_usage::normal> {
 	typedef space_unit                   element_type;
-	typedef math::vector<element_type,3> packed_type;
+	typedef math::basic_vector<element_type,3> packed_type;
 };
 template<> struct vertex_traits<vertex_usage::tex> {
 	typedef space_unit                   element_type;
-	typedef math::vector<element_type,2> packed_type;
+	typedef math::basic_vector<element_type,2> packed_type;
 };
 template<> struct vertex_traits<vertex_usage::diffuse> {
 	typedef int          element_type;

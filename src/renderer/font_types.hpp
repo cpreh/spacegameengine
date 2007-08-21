@@ -30,13 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-typedef int                         font_unit;
-typedef font_unit                   font_size;
-typedef math::vector<font_unit,2>   font_pos;
-typedef math::dim<font_size,2>      font_dim;
-typedef color_element               font_color;
-typedef math::basic_rect<font_unit> font_rect;
-typedef string::value_type          font_char;
+typedef int                             font_unit;
+typedef font_unit                       font_size;
+typedef math::basic_vector<font_unit,2> font_pos;
+typedef math::basic_dim<font_size,2>    font_dim;
+typedef color_element                   font_color;
+typedef math::basic_rect<font_unit>     font_rect;
+typedef string::value_type              font_char;
 
 }
 

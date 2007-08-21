@@ -77,7 +77,7 @@ private:
 	Colormap colormap;
 	unsigned mmwidth;
 
-	math::vector<mouse_coordinate_t,2> mouse_last;
+	math::basic_vector<mouse_coordinate_t,2> mouse_last;
 
 	typedef std::map<unsigned,key_code> x11_to_sge_array;
 	x11_to_sge_array x11tosge;

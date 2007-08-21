@@ -43,7 +43,7 @@ namespace math
 {
 
 template<typename T, std::size_t Dim>
-class dim {
+class basic_dim {
 	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_MATH_DIM_MAX_SIZE);
 public:
 	typedef T value_type;
@@ -59,10 +59,10 @@ public:
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
 #define SGE_MATH_DIM_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
-#define SGE_MATH_DIM_CTOR(z, n, text) dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
+#define SGE_MATH_DIM_CTOR(z, n, text) basic_dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_CTOR, void)
 
-	dim()
+	basic_dim()
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data[i] = 0;
@@ -83,18 +83,18 @@ public:
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
-			throw exception("dim<T, N>::at(): out of range!");
+			throw exception("basic_dim<T, N>::at(): out of range!");
 		return data[pos];
 	}
 
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
-			throw exception("dim<T, N>::at(): out of range!");
+			throw exception("basic_dim<T, N>::at(): out of range!");
 		return data[pos];
 	}
 
-	bool operator==(const dim& r) const
+	bool operator==(const basic_dim& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			if(data[i] != r[i])
@@ -102,19 +102,19 @@ public:
 		return true;
 	}
 
-	bool operator!=(const dim& r) const
+	bool operator!=(const basic_dim& r) const
 	{
 		return !((*this)==r);
 	}
 
-	dim& operator+=(const dim& r)
+	basic_dim& operator+=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data[i] += r[i];
 		return *this;
 	}
 
-	dim& operator-=(const dim& r)
+	basic_dim& operator-=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data[i] -= r[i];
@@ -201,45 +201,45 @@ private:
 	T data[Dim];
 };
 
-template<typename T, std::size_t Dim> dim<T,Dim> operator+(const dim<T,Dim>& l, const dim<T,Dim>& r)
+template<typename T, std::size_t Dim> basic_dim<T,Dim> operator+(const basic_dim<T,Dim>& l, const basic_dim<T,Dim>& r)
 {
-	return dim<T,Dim>(l) += r;
+	return basic_dim<T,Dim>(l) += r;
 }
 
 
-template<typename T, std::size_t Dim> dim<T,Dim> operator-(const dim<T,Dim>& l, const dim<T,Dim>& r)
+template<typename T, std::size_t Dim> basic_dim<T,Dim> operator-(const basic_dim<T,Dim>& l, const basic_dim<T,Dim>& r)
 {
-	return dim<T,Dim>(l) -= r;
+	return basic_dim<T,Dim>(l) -= r;
 }
 
 template<typename T, std::size_t Dim>
-std::ostream& operator<< (std::ostream& s, const dim<T,Dim>& v)
+std::ostream& operator<< (std::ostream& s, const basic_dim<T,Dim>& v)
 {
 	s << '(';
-	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	for(typename basic_dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 		s << v[i] << ',';
 	s << v[Dim-1] << ')';
 	return s;
 }
 
 template<typename T, std::size_t Dim>
-std::wostream& operator<< (std::wostream& s, const dim<T,Dim>& v)
+std::wostream& operator<< (std::wostream& s, const basic_dim<T,Dim>& v)
 {
 	s << L'(';
-	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	for(typename basic_dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 		s << v[i] << L',';
 	s << v[Dim-1] << L')';
 	return s;
 }
 
 template<typename T, std::size_t Dim>
-std::istream& operator>> (std::istream& s, dim<T,Dim>& v)
+std::istream& operator>> (std::istream& s, basic_dim<T,Dim>& v)
 {
 	char c;
 	s >> c;
 	if(c != '(')
 		s.setstate(std::ios_base::failbit);
-	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	for(typename basic_dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 	{
 		s >> v[i] >> c;
 		if (c != ',')
@@ -252,13 +252,13 @@ std::istream& operator>> (std::istream& s, dim<T,Dim>& v)
 }
 
 template<typename T, std::size_t Dim>
-std::wistream& operator>> (std::wistream& s, dim<T,Dim>& v)
+std::wistream& operator>> (std::wistream& s, basic_dim<T,Dim>& v)
 {
 	wchar_t c;
 	s >> c;
 	if(c != L'(')
 		s.setstate(std::ios_base::failbit);
-	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	for(typename basic_dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 	{
 		s >> v[i] >> c;
 		if (c != L',')
@@ -270,8 +270,8 @@ std::wistream& operator>> (std::wistream& s, dim<T,Dim>& v)
 	return s;
 }
 
-typedef dim<space_unit,2> dim2;
-typedef dim<space_unit,3> dim3;
+typedef basic_dim<space_unit,2> dim2;
+typedef basic_dim<space_unit,3> dim3;
 
 }
 }

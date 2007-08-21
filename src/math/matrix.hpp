@@ -46,7 +46,7 @@ namespace sge
 namespace math
 {
 
-template<typename T, std::size_t N, std::size_t M> class matrix {
+template<typename T, std::size_t N, std::size_t M> class basic_matrix {
 	enum { Dim = N*M };
 	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_MATH_MATRIX_MAX_SIZE);
 public:
@@ -58,39 +58,39 @@ public:
 	typedef detail::matrix_proxy_impl<const value_type&, const value_type*, N> const_proxy;
 
 #define SGE_MATH_MATRIX_CTOR_ASSIGN_N(z, n, text) _data[n] = text##n;
-#define SGE_MATH_MATRIX_CTOR(z, n, text) matrix(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_MATRIX_CTOR_ASSIGN_N, param) }
+#define SGE_MATH_MATRIX_CTOR(z, n, text) basic_matrix(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_MATRIX_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_MATRIX_MAX_SIZE, SGE_MATH_MATRIX_CTOR, void)
 
-	matrix(no_initialization_tag)
+	basic_matrix(no_initialization_tag)
 	{
 	}
 
-	matrix(const matrix& r)
+	basic_matrix(const basic_matrix& r)
 	{
 		std::copy(r._data,&r._data[Dim],_data);
 	}
 
-	matrix& operator=(const matrix& r)
+	basic_matrix& operator=(const basic_matrix& r)
 	{
 		std::copy(r._data,&r._data[Dim],_data);
 		return *this;
 	}
 
-	matrix& operator+=(const matrix& r)
+	basic_matrix& operator+=(const basic_matrix& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			_data[i] += r._data[i];
 		return *this;
 	}
 
-	matrix& operator-=(const matrix& r)
+	basic_matrix& operator-=(const basic_matrix& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			_data[i] -= r._data[i];
 		return *this;
 	}
 
-	matrix& operator*=(const value_type& v)
+	basic_matrix& operator*=(const value_type& v)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			_data[i] *= v;
@@ -120,54 +120,54 @@ private:
 	value_type _data[Dim];
 };
 
-typedef matrix<space_unit,4,4> space_matrix;
+typedef basic_matrix<space_unit,4,4> space_matrix;
 
 template<typename T, std::size_t N, std::size_t M>
-inline matrix<T,N,M> operator+ (const matrix<T,N,M>& r)
+inline basic_matrix<T,N,M> operator+ (const basic_matrix<T,N,M>& r)
 {
-	matrix<T,N,M> ret;
-	for(typename matrix<T,N,M>::size_type i = 0; i < matrix<T,N,M>::Dim; ++i)
+	basic_matrix<T,N,M> ret;
+	for(typename basic_matrix<T,N,M>::size_type i = 0; i < basic_matrix<T,N,M>::Dim; ++i)
 		ret[i] = +ret[i];
 	return ret;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline matrix<T,N,M> operator- (const matrix<T,N,M>& r)
+inline basic_matrix<T,N,M> operator- (const basic_matrix<T,N,M>& r)
 {
-	matrix<T,N,M> ret;
-	for(typename matrix<T,N,M>::size_type i = 0; i < matrix<T,N,M>::Dim; ++i)
+	basic_matrix<T,N,M> ret;
+	for(typename basic_matrix<T,N,M>::size_type i = 0; i < basic_matrix<T,N,M>::Dim; ++i)
 		ret[i] = -ret[i];
 	return ret;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline matrix<T,N,M> operator+ (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
+inline basic_matrix<T,N,M> operator+ (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r)
 {
-	return matrix<T,N,M>(l) += r;
+	return basic_matrix<T,N,M>(l) += r;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline matrix<T,N,M> operator- (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
+inline basic_matrix<T,N,M> operator- (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r)
 {
-	return matrix<T,N,M>(l) -= r;
+	return basic_matrix<T,N,M>(l) -= r;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline matrix<T,N,M> operator* (const typename matrix<T,N,M>::value_type& l, const matrix<T,N,M>& r)
+inline basic_matrix<T,N,M> operator* (const typename basic_matrix<T,N,M>::value_type& l, const basic_matrix<T,N,M>& r)
 {
-	return matrix<T,N,M>(r) *= l;
+	return basic_matrix<T,N,M>(r) *= l;
 }
 
 template<typename T, std::size_t N1, std::size_t M1, std::size_t N2, std::size_t M2>
-inline typename boost::enable_if_c<N1==M2, matrix<T,N1,M2> >::type operator* (const matrix<T,N1,M1>& a, const matrix<T,N2,M2>& b)
+inline typename boost::enable_if_c<N1==M2, basic_matrix<T,N1,M2> >::type operator* (const basic_matrix<T,N1,M1>& a, const basic_matrix<T,N2,M2>& b)
 {
-//	matrix<T,N1,M2> ret(no_initialization_tag());
-	matrix<T,N1,M2> ret = matrix<T,N1,M2>(no_initialization_tag());
-	for(typename matrix<T,N1,M1>::size_type i = 0; i < M1; ++i)
-		for(typename matrix<T,N2,M2>::size_type j = 0; j < N2; ++j)
+//	basic_matrix<T,N1,M2> ret(no_initialization_tag());
+	basic_matrix<T,N1,M2> ret = basic_matrix<T,N1,M2>(no_initialization_tag());
+	for(typename basic_matrix<T,N1,M1>::size_type i = 0; i < M1; ++i)
+		for(typename basic_matrix<T,N2,M2>::size_type j = 0; j < N2; ++j)
 		{
-			typename matrix<T,N1,M2>::value_type v(0);
-			for(typename matrix<T,N1,M2>::size_type r = 0; r < N1; ++r)
+			typename basic_matrix<T,N1,M2>::value_type v(0);
+			for(typename basic_matrix<T,N1,M2>::size_type r = 0; r < N1; ++r)
 				v += a[i][r] * b[r][j];
 			ret[i][j] = v;
 		}
@@ -175,28 +175,28 @@ inline typename boost::enable_if_c<N1==M2, matrix<T,N1,M2> >::type operator* (co
 }
 
 /*template<typename T, std::size_t N, std::size_t M>
-inline bool operator== (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
+inline bool operator== (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r)
 {
-	for(typename matrix<T,N,M>::size_type x = 0; x < matrix<T,N,M>::Dim; ++x)
+	for(typename basic_matrix<T,N,M>::size_type x = 0; x < basic_matrix<T,N,M>::Dim; ++x)
 		if(l.data[x] != r.data[x])
 			return false;
 	return true;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline bool operator!= (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
+inline bool operator!= (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r)
 {
 	return !(l==r);
 }*/
 
 template<typename T, std::size_t N, std::size_t M>
-inline std::ostream& operator<< (std::ostream& s, const matrix<T,N,M>& m)
+inline std::ostream& operator<< (std::ostream& s, const basic_matrix<T,N,M>& m)
 {
 	s << '(';
-	for(typename matrix<T,N,M>::size_type j = 0; j < N; ++j)
+	for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
 	{
 		s << '(';
-		for(typename matrix<T,N,M>::size_type i = 0; i < M; ++i)
+		for(typename basic_matrix<T,N,M>::size_type i = 0; i < M; ++i)
 		{
 			s << m[j][i];
 			if(i != M-1)
@@ -211,13 +211,13 @@ inline std::ostream& operator<< (std::ostream& s, const matrix<T,N,M>& m)
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline std::wostream& operator<< (std::wostream& s, const matrix<T,N,M>& m)
+inline std::wostream& operator<< (std::wostream& s, const basic_matrix<T,N,M>& m)
 {
 	s << L'(';
-	for(typename matrix<T,N,M>::size_type j = 0; j < N; ++j)
+	for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
 	{
 		s << L'(';
-		for(typename matrix<T,N,M>::size_type i = 0; i < M; ++i)
+		for(typename basic_matrix<T,N,M>::size_type i = 0; i < M; ++i)
 		{
 			s << m[j][i];
 			if(i != M-1)
@@ -232,16 +232,16 @@ inline std::wostream& operator<< (std::wostream& s, const matrix<T,N,M>& m)
 }
 
 template<typename T, std::size_t N>
-inline matrix<T,N,N> transpose(const matrix<T,N,N>& m)
+inline basic_matrix<T,N,N> transpose(const basic_matrix<T,N,N>& m)
 {
-	matrix<T,N,N> ret = matrix<T,N,N>(no_initialization_tag());
-	for(typename matrix<T,N,N>::size_type j = 0; j < N; ++j)
-		for(typename matrix<T,N,N>::size_type i = 0; i < N; ++i)
+	basic_matrix<T,N,N> ret = basic_matrix<T,N,N>(no_initialization_tag());
+	for(typename basic_matrix<T,N,N>::size_type j = 0; j < N; ++j)
+		for(typename basic_matrix<T,N,N>::size_type i = 0; i < N; ++i)
 			ret[i][j] = m[j][i];
 	return ret;
 }
 
-inline space_matrix matrix_translation(const math::vector<space_unit,3>& v)
+inline space_matrix matrix_translation(const math::basic_vector<space_unit,3>& v)
 {
 	return space_matrix
 	       (1, 0, 0, v.x(),
@@ -253,10 +253,10 @@ inline space_matrix matrix_translation(const math::vector<space_unit,3>& v)
 
 inline space_matrix matrix_translation(const space_unit x, const space_unit y, const space_unit z)
 {
-	return matrix_translation(math::vector<space_unit,3>(x,y,z));
+	return matrix_translation(math::basic_vector<space_unit,3>(x,y,z));
 }
 
-inline space_matrix matrix_scaling(const math::vector<space_unit,3>& v)
+inline space_matrix matrix_scaling(const math::basic_vector<space_unit,3>& v)
 {
 	return space_matrix
 	       (v.x(),     0,     0, 0,
@@ -267,7 +267,7 @@ inline space_matrix matrix_scaling(const math::vector<space_unit,3>& v)
 
 inline space_matrix matrix_scaling(const space_unit x, const space_unit y, const space_unit z)
 {
-	return matrix_scaling(math::vector<space_unit,3>(x,y,z));
+	return matrix_scaling(math::basic_vector<space_unit,3>(x,y,z));
 }
 
 #undef near
@@ -350,11 +350,11 @@ inline space_matrix matrix_orthogonal_xy(const space_unit left, const space_unit
 }
 
 template<typename T, std::size_t NV, std::size_t N, std::size_t M>
-inline typename boost::enable_if_c<NV==M, vector<T,NV> >::type operator* (const matrix<T,N,M>& m, const vector<T,NV>& v)
+inline typename boost::enable_if_c<NV==M, basic_vector<T,NV> >::type operator* (const basic_matrix<T,N,M>& m, const basic_vector<T,NV>& v)
 {
-	vector<T,NV> ret;
-	for(typename vector<T,NV>::size_type i = 0; i < NV; ++i)
-		for(typename matrix<T,N,M>::size_type j = 0; j < M; ++j)
+	basic_vector<T,NV> ret;
+	for(typename basic_vector<T,NV>::size_type i = 0; i < NV; ++i)
+		for(typename basic_matrix<T,N,M>::size_type j = 0; j < M; ++j)
 			ret[i] += v[j] * m[j][i];
 	return ret;
 }

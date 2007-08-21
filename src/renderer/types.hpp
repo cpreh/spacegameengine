@@ -43,10 +43,10 @@ namespace bit_depth
 
 unsigned bit_depth_bit_count(const bit_depth::type d);
 
-typedef int                        pixel_unit;
-typedef unsigned                   screen_unit;
-typedef math::vector<pixel_unit,2> pixel_pos_t;
-typedef math::dim<screen_unit,2>   screen_size_t;
+typedef int                              pixel_unit;
+typedef unsigned                         screen_unit;
+typedef math::basic_vector<pixel_unit,2> pixel_pos_t;
+typedef math::basic_dim<screen_unit,2>   screen_size_t;
 
 struct display_mode {
 	display_mode(screen_unit width, screen_unit height, bit_depth::type depth, unsigned refresh_rate = 0);

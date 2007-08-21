@@ -67,8 +67,8 @@ inline vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::itera
 	const space_unit sinx = std::sin(-rot),
 	                 cosx = std::cos(-rot);
 
-	const math::matrix<space_unit,2,2> mat_rot(cosx, -sinx,
-	                                           sinx,  cosx); 
+	const math::basic_matrix<space_unit,2,2> mat_rot(cosx, -sinx,
+	                                                 sinx,  cosx); 
 
 	one = mat_rot * one;
 	two = mat_rot * two;

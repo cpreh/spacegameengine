@@ -74,13 +74,13 @@ namespace con
 		
 		action_var(const string &name,A action,const T &value_ = T()) : var_base(name),value_(value_),action(action) {}
 		const T &value() const { return value_; }
-		void value(const T &t) { t = action(t); }
-		action_var<T,A> &operator=(const T &r) { value_ = action(r); return *this; }
+		void value(const T &t) { t = action(t,value_); }
+		action_var<T,A> &operator=(const T &r) { value_ = action(r,value_); return *this; }
 
 		void set_string(const string &n) 
 		{
 			try {
-				value_ = action(boost::lexical_cast<T>(n));
+				value_ = action(boost::lexical_cast<T>(n),value_);
 			} catch (const boost::bad_lexical_cast &e) {
 				throw exception("Couldn't convert string \"" + iconv(n) + "\" to console variable!");
 			}

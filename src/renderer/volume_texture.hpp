@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-typedef box<texture_base::size_type> lock_box;
+typedef math::basic_box<texture_base::size_type> lock_box;
 
 template<typename BitDepth>
 class basic_volume_texture : public basic_texture_base<BitDepth> {
