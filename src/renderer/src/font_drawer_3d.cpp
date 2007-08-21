@@ -30,7 +30,7 @@ sge::font_drawer_3d::font_drawer_3d(const renderer_ptr rend)
   sys(rend)
 {}
 
-void sge::font_drawer_3d::begin_rendering(const size_type buffer_chars)
+void sge::font_drawer_3d::begin_rendering(const size_type buffer_chars, const font_dim)
 {
 	sprites.clear();
 	sprites.reserve(buffer_chars);

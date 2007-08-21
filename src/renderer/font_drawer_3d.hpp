@@ -36,7 +36,7 @@ namespace sge
 class font_drawer_3d : public font_drawer {
 public:
 	font_drawer_3d(renderer_ptr rend);
-	void begin_rendering(size_type buffer_chars);
+	void begin_rendering(size_type buffer_chars, font_dim size);
 	void draw_char(font_char, font_rect, const font_color* data);
 	void end_rendering();
 private:

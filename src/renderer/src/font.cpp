@@ -49,27 +49,27 @@ sge::font_dim sge::font::draw_text(const string_type& text,
 	if(text.empty() || height() > max_sz.h())
 		return font_dim(0,0);
 
+	const font_dim total_size = text_size(text.begin(), text.end(), max_sz, flags);
+
 	font_pos pos = start_pos;
-	if(align_v == font_align_v::center || align_v == font_align_v::bottom)
-	{
-		const font_unit text_height = text_size(text.begin(), text.end(), max_sz.w(), flags).h();
-		switch(align_v) {
-		case font_align_v::center:
-			pos.y() += (max_sz.h() - text_height) / 2;
-			break;
-		case font_align_v::bottom:
-			pos.y() += max_sz.h() - text_height;
-			break;
-		default:
-			throw exception("font_align_v is top, so don't align it!");
-		}
+	switch(align_v) {
+	case font_align_v::center:
+		pos.y() += (max_sz.h() - total_size.h()) / 2;
+		break;
+	case font_align_v::bottom:
+		pos.y() += max_sz.h() - total_size.h();
+		break;
+	case font_align_v::top:
+		break;
+	default:
+		throw exception("Invalid font_align_v!");
 	}
 
-	font_dim sz(0,0);
+	font_unit cur_height = 0;
 	string_type::const_iterator sbeg(text.begin());
 
-	drawer()->begin_rendering(text.size());
-	while(sbeg != text.end() && sz.h() + height() <= max_sz.h())
+	drawer()->begin_rendering(text.size(), total_size);
+	while(sbeg != text.end() && cur_height + height() <= max_sz.h())
 	{
 		const line_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
 
@@ -99,18 +99,17 @@ sge::font_dim sge::font::draw_text(const string_type& text,
 			pos.x() += char_space(*sbeg);
 		}
 
-		sz.w() = std::max(sz.w(), line_size.width);
-		sz.h() += height();
-
 		if(flags & font_flags::no_multi_line)
 			break;
 
+		cur_height += height();
 		sbeg = line_size.next_begin;
 
 		pos.y() += height();
 	}
 	drawer()->end_rendering();
-	return sz;
+
+	return total_size;
 }
 
 sge::font_dim sge::font::draw_text(const string_type& text, const pos2 pos, const math::dim2 max_size, const screen_size_t screen_size, const font_align_h::type align_h, const font_align_v::type align_v, const font_flag_t flags)
@@ -138,18 +137,16 @@ sge::font::line_size_t sge::font::text_width_unformatted(string_type::const_iter
 	return line_size_t(w,sbeg);
 }
 
-sge::font_dim sge::font::text_size(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
+sge::font_dim sge::font::text_size(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_dim max_sz, const font_flag_t flags) const
 {
 	if(flags & font_flags::no_multi_line)
-		return font_dim(text_width_unformatted(sbeg, send, width).width, height());
+		return font_dim(text_width_unformatted(sbeg, send, max_sz.w()).width, height());
 
 	font_dim sz(0,0);
-	while(sbeg != send)
+	while(sbeg != send && sz.h() + height() <= max_sz.h())
 	{
-		const line_size_t line_size = line_width(sbeg, send, width, flags);
+		const line_size_t line_size = line_width(sbeg, send, max_sz.w(), flags);
 		const font_unit line_w = line_size.width;
-		if(line_w == 0)
-			break;
 		sz.w() = std::max(sz.w(), line_w);
 		sz.h() += height();
 		sbeg = line_size.next_begin;
@@ -157,9 +154,9 @@ sge::font_dim sge::font::text_size(string_type::const_iterator sbeg, const strin
 	return sz;
 }
 
-sge::font_dim sge::font::text_size(const string_type& s, const font_unit width, const font_flag_t flags) const
+sge::font_dim sge::font::text_size(const string_type& s, const font_dim max_sz, const font_flag_t flags) const
 {
-	return text_size(s.begin(),s.end(),width,flags);
+	return text_size(s.begin(),s.end(),max_sz,flags);
 }
 
 sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const

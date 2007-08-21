@@ -87,8 +87,8 @@ public:
 	line_size_t text_width_unformatted(string_type::const_iterator sbeg, string_type::const_iterator send, const font_unit width) const;
 	line_size_t line_width(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t tflags) const;
 	font_unit char_space(char_type ch) const;
-	font_dim text_size(string_type::const_iterator beg, string_type::const_iterator end, font_unit width, font_flag_t flags = font_flags::default_) const;
-	font_dim text_size(const string_type& s, font_unit width, font_flag_t flags = font_flags::default_) const;
+	font_dim text_size(string_type::const_iterator beg, string_type::const_iterator end, font_dim max_size, font_flag_t flags = font_flags::default_) const;
+	font_dim text_size(const string_type& s, font_dim max_size, font_flag_t flags = font_flags::default_) const;
 	font_metrics_ptr metrics() const;
 	font_drawer_ptr drawer() const;
 private:

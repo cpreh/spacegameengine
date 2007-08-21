@@ -31,7 +31,7 @@ namespace sge
 class font_drawer {
 public:
 	typedef std::size_t size_type;
-	virtual void begin_rendering(size_type buffer_chars) = 0;
+	virtual void begin_rendering(size_type buffer_chars, font_dim size) = 0;
 	virtual void draw_char(font_char, font_rect rect, const font_color* data) = 0;
 	virtual void end_rendering() = 0;
 	virtual ~font_drawer() {}
