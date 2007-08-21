@@ -60,6 +60,7 @@ sge::gui::canvas::canvas(sge::gui::dim2 size_, const sge::gui::color &fillcolor)
 }
 
 void sge::gui::canvas::resize(const sge::gui::dim2 &newsize, bool keepcontent) {
+	if (newsize == size_) return;
 	boost::scoped_array<sge::gui::color> temp(new sge::gui::color[newsize.w * newsize.h]);
 	if (keepcontent) {
 		sge::gui::dim2 tocopy;
@@ -75,6 +76,7 @@ void sge::gui::canvas::resize(const sge::gui::dim2 &newsize, bool keepcontent) {
 			for (fpixb = flineb, fpixe = fpixb + tocopy.w, tpix = tline; fpixb != fpixe; ++fpixb, ++tpix)
 				*tpix = *fpixb;
 	}
+	size_ = newsize;
 	data.swap(temp);
 }
 

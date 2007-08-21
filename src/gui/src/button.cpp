@@ -30,55 +30,31 @@ void sge::gui::button::on_paint(const events::paint_event &pe) {
 
 	dest.fill_rect(rect(origin, size_), bg);
 
-	pe.dest.draw_line(
-		mixing_policy::normal(),
-		origin + point(size_.w-1, 0),
-		origin + point(size_.w-1, size_.h-1),
-		color(0,0,0, 128)
-	);
-	pe.dest.draw_line(
-		mixing_policy::normal(),
-		origin + point(0        , size_.h-1),
-		origin + point(size_.w-2, size_.h-1),
-		color(0,0,0, 128)
-	);
-	pe.dest.draw_line(
-		mixing_policy::normal(),
-		origin + point(size_.w-2, 1),
-		origin + point(size_.w-2, size_.h-2),
-		color(0,0,0, 192)
-	);
-	pe.dest.draw_line(
-		mixing_policy::normal(),
-		origin + point(1        , size_.h-2),
-		origin + point(size_.w-3, size_.h-2),
-		color(0,0,0, 192)
-	);
+	point
+		tl = origin,
+		tr = origin + point(size_.w-1, 0),
+		bl = origin + point(0, size_.h-1),
+		br = point(tr.x, bl.y);
 
-	pe.dest.draw_line(
-		mixing_policy::normal(),
-		origin + point(0, 0),
-		origin + point(0, size_.h-1),
-		color(255,255,255, 128)
-	);
-	pe.dest.draw_line(
-		mixing_policy::normal(),
-		origin + point(1        , size_.h-1),
-		origin + point(size_.w-1, size_.h-1),
-		color(255,255,255, 128)
-	);
-	pe.dest.draw_line(
-		mixing_policy::normal(),
-		origin + point(1, 1),
-		origin + point(1, size_.h-2),
-		color(255,255,255, 192)
-	);
-	pe.dest.draw_line(
-		mixing_policy::normal(),
-		origin + point(2        , size_.h-2),
-		origin + point(size_.w-3, size_.h-2),
-		color(255,255,255, 192)
-	);
+	dest.draw_line(mixing_policy::normal(),
+		bl, br, color(0, 0, 0, 128));
+	dest.draw_line(mixing_policy::normal(),
+		br+point(0,-1), tr, color(0, 0, 0, 128));
+
+	dest.draw_line(mixing_policy::normal(),
+		bl+point(1,-1), br+point(-1,-1), color(0, 0, 0, 64));
+	dest.draw_line(mixing_policy::normal(),
+		br+point(-1,-2), tr+point(-1,1), color(0, 0, 0, 64));
+
+	dest.draw_line(mixing_policy::normal(),
+		tl, tr, color(255, 255, 255, 128));
+	dest.draw_line(mixing_policy::normal(),
+		tl+point(0,1), bl, color(255, 255, 255, 128));
+
+	dest.draw_line(mixing_policy::normal(),
+		tl+point(1,1), tr+point(-1,1), color(255, 255, 255, 64));
+	dest.draw_line(mixing_policy::normal(),
+		tl+point(1,2), bl+point(1,-1), color(255, 255, 255, 64));
 
 	widget::on_paint(pe);
 }

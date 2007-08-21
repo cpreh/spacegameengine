@@ -41,7 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/sprite/system.hpp"
 #include "../src/texture/no_fragmented_texture.hpp"
 
-#include "../src/gui/canvas.hpp"
+#include "../src/gui/color.hpp"
+#include "../src/gui/manager.hpp"
+#include "../src/gui/button.hpp"
 
 inline sge::pos3 at_pixel(int x, int y) {
 	return sge::pos3(
@@ -85,29 +87,28 @@ try
 
 
 
-	sge::fragmented_texture_ptr mytex(new sge::no_fragmented_texture(rend, sge::point_filter));
-	sge::texture_manager texmgr(rend, mytex);
-	sge::gui::canvas canvas(sge::gui::dim2(300, 200));
-
+	using sge::gui::manager;
+	using sge::gui::canvas;
+	using sge::gui::button;
 	using sge::gui::color;
 	using sge::gui::point;
-	using sge::math::DEGREE;
-	canvas.fill(sge::colors::gray);
+	using sge::gui::dim2;
 
-	canvas.draw_arc(
-		sge::gui::mixing_policy::normal(),
-		sge::gui::gradient_policy::there_and_back_again<>(),
-		sge::gui::rect(sge::gui::point(0,0), canvas.size()),
-		135 * DEGREE,
-		(135 + 360) * DEGREE,
-		sge::colors::white,
-		sge::colors::black
-	);
+	sge::fragmented_texture_ptr mytex(new sge::no_fragmented_texture(rend, sge::point_filter));
+	sge::texture_manager texmgr(rend, mytex);
 
+	manager guimgr(dim2(800, 600));
 
-	sge::virtual_texture_ptr canvastex(canvas.to_texture(texmgr));
+	button b1(&guimgr, sge::colors::green),
+	       b2(&guimgr, sge::colors::goldenrod),
+	       b3(&guimgr, sge::colors::cornflowerblue);
+	b1.resize(dim2(40, 40));
+	b2.resize(dim2(50, 30));
+	b3.resize(dim2(60, 20));
 
-
+	b1.move(point( 40, 80));
+	b2.move(point( 80,160));
+	b3.move(point(160,320));
 
 	sge::index_buffer_ptr ib; {
 		const sge::index_buffer::value_type indices[] = {
@@ -124,26 +125,28 @@ try
 		                    .add(sge::vertex_usage::tex),
 		4);
 	{
+		sge::virtual_texture_ptr canvastex = guimgr.to_texture(texmgr);
+
 		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(vb);
 		sge::vertex_buffer::iterator it = vb->begin();
 
 		// top left
-		it->pos() = at_pixel(250, 200);
+		it->pos() = sge::pos3(-1, 1, 0);
 		it->tex() = canvastex->translate(0, 0);
 		++it;
 
 		// top right
-		it->pos() = at_pixel(550, 200);
+		it->pos() = sge::pos3(1, 1, 0);
 		it->tex() = canvastex->translate(1, 0);
 		++it;
 
 		// bottom left
-		it->pos() = at_pixel(250, 400);
+		it->pos() = sge::pos3(-1, -1, 0);
 		it->tex() = canvastex->translate(0, 1);
 		++it;
 
 		// bottom right
-		it->pos() = at_pixel(550, 400);
+		it->pos() = sge::pos3(1, -1, 0);
 		it->tex() = canvastex->translate(1, 1);
 	}
 
@@ -190,7 +193,7 @@ try
 
 		rend->set_texture(sge::texture_base_ptr());
 		rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
-		rend->set_texture(canvastex->my_texture());
+		rend->set_texture(guimgr.to_texture(texmgr)->my_texture());
 		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
 
 		rend->end_rendering();
@@ -202,8 +205,6 @@ catch(const std::exception& e)
 	std::cerr << "Program terminated (std::exception caught): " << e.what() << '\n';
 	return EXIT_FAILURE;
 }
-#define CATCH(t) catch(t x) { std::cout << "Program terminated, caught " #t ": " << std::endl; return 0; }
-CATCH(boost::any)
 catch(...)
 {
 	std::cerr << "Program terminated (unknown exception caught)!\n";

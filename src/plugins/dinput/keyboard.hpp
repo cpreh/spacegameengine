@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <map>
 #include "../../input/key_type.hpp"
+#include "../../string.hpp"
 #include "input_device.hpp"
 #include "key_converter.hpp"
 #include "di.hpp"
@@ -38,7 +39,7 @@ public:
 	void dispatch(input_system::signal_type&);
 	key_state query_key(const string& name);
 private:
-	uchar_t keycode_to_char(const key_code key) const;
+	sge::string::value_type keycode_to_char(const key_code key) const;
 	static BOOL CALLBACK enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
 
 	mod_state modifiers;

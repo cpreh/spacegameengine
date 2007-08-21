@@ -3,8 +3,7 @@
 
 #include <cassert>
 #include <cstddef>
-#include <ostream>
-#include <istream>
+#include <iostream>
 #include <cmath>
 #include <iterator>
 #include <boost/static_assert.hpp>
@@ -230,7 +229,7 @@ public:
 	{
 		return (*this)[1];
 	}
-	
+
 	const_reference y() const
 	{
 		return (*this)[1];
@@ -242,7 +241,7 @@ public:
 		assert(Dim > 2);
 		return (*this)[2];
 	}
-	
+
 //	template<typename Dummy>
 	const_reference z(/*typename boost::enable_if_c<(Dim > 2), Dummy>* = 0*/) const
 	{

@@ -50,7 +50,7 @@
 1185928670 d:\dev\sge\src\math\constants.hpp
 	<cmath>
 
-1186336268 d:\dev\sge\src\plugin_manager.hpp
+1186877904 d:\dev\sge\src\plugin_manager.hpp
 	<cstddef>
 	<vector>
 	<map>
@@ -69,17 +69,16 @@
 
 1185928678 d:\dev\sge\src\heap_deleter.hpp
 
-1185928678 d:\dev\sge\src\plugin.hpp
+1186877904 d:\dev\sge\src\plugin.hpp
 	<boost/noncopyable.hpp>
 	"string.hpp"
 	"shared_ptr.hpp"
 	"plugin_traits.hpp"
 	"library.hpp"
 
-1185928678 d:\dev\sge\src\string.hpp
+1187642206 d:\dev\sge\src\string.hpp
 	<memory>
 	<string>
-	"unicode.hpp"
 
 1185928678 d:\dev\sge\src\typeswitch.hpp
 	<boost/cstdint.hpp>
@@ -87,7 +86,7 @@
 1185928678 d:\dev\sge\src\unicode.hpp
 	"typeswitch.hpp"
 
-1185928678 d:\dev\sge\src\plugin_traits.hpp
+1186877904 d:\dev\sge\src\plugin_traits.hpp
 
 1185928678 d:\dev\sge\src\library.hpp
 	<string>
@@ -113,13 +112,12 @@
 	"string.hpp"
 	"iconv_types.hpp"
 
-1186230046 d:\dev\sge\src\iconv_types.hpp
-	"exception.hpp"
+1187642206 d:\dev\sge\src\iconv_types.hpp
 	<string>
+	"exception.hpp"
 	"detail/iconv_encoding_list.hpp"
 
-1186229780 d:\dev\sge\src\exception.hpp
-	<exception>
+1187642206 d:\dev\sge\src\exception.hpp
 	<stdexcept>
 	<string>
 
@@ -129,7 +127,7 @@
 	"volume_texture.hpp"
 	"cube_texture.hpp"
 
-1186230192 d:\dev\sge\src\renderer\types.hpp
+1187642192 d:\dev\sge\src\renderer\types.hpp
 	<cstddef>
 	<vector>
 	<stdexcept>
@@ -139,11 +137,10 @@
 	"../math/dim.hpp"
 	"color.hpp"
 
-1185928670 d:\dev\sge\src\math\vector.hpp
+1187646628 d:\dev\sge\src\math\vector.hpp
 	<cassert>
 	<cstddef>
-	<ostream>
-	<istream>
+	<iostream>
 	<cmath>
 	<iterator>
 	<boost/static_assert.hpp>
@@ -152,23 +149,27 @@
 	<boost/preprocessor/arithmetic/add.hpp>
 	<boost/utility/enable_if.hpp>
 	"../util.hpp"
+	"../exception.hpp"
 
 1185928678 d:\dev\sge\src\util.hpp
 	"types.hpp"
 
-1185928670 d:\dev\sge\src\math\dim.hpp
+1187642188 d:\dev\sge\src\math\dim.hpp
 	<cstddef>
 	<iterator>
 	<ostream>
+	<istream>
 	<cassert>
 	<boost/static_assert.hpp>
 	<boost/preprocessor/enum_params.hpp>
 	<boost/preprocessor/repetition/repeat.hpp>
 	<boost/preprocessor/arithmetic/add.hpp>
 	"../types.hpp"
+	"../exception.hpp"
 
-1185928672 d:\dev\sge\src\renderer\color.hpp
+1187642192 d:\dev\sge\src\renderer\color.hpp
 	<ostream>
+	<istream>
 	"../types.hpp"
 	"../typeswitch.hpp"
 
@@ -198,7 +199,7 @@
 1185928670 d:\dev\sge\src\math\box.hpp
 	"vector.hpp"
 
-1186405714 d:\dev\sge\src\sprite\system.hpp
+1187642206 d:\dev\sge\src\sprite\system.hpp
 	<boost/noncopyable.hpp>
 	"../renderer/vertex_buffer.hpp"
 	"../renderer/index_buffer.hpp"
@@ -266,7 +267,7 @@
 	"../shared_ptr.hpp"
 	"color.hpp"
 
-1185928670 d:\dev\sge\src\math\matrix.hpp
+1187642188 d:\dev\sge\src\math\matrix.hpp
 	<algorithm>
 	<cassert>
 	<cstddef>
@@ -318,8 +319,10 @@
 	"../image/image.hpp"
 	"../shared_ptr.hpp"
 
-1186405714 d:\dev\sge\src\texture\manager.hpp
+1187642202 d:\dev\sge\src\texture\manager.hpp
+	<boost/noncopyable.hpp>
 	<boost/ptr_container/ptr_list.hpp>
+	"../shared_ptr.hpp"
 	"../exception.hpp"
 	"../renderer/renderer.hpp"
 	"../renderer/texture.hpp"
@@ -395,7 +398,7 @@
 	"../renderer/font_types.hpp"
 	"../renderer/texture.hpp"
 
-1185928672 d:\dev\sge\src\renderer\renderer_system.hpp
+1186877904 d:\dev\sge\src\renderer\renderer_system.hpp
 	<vector>
 	"../shared_ptr.hpp"
 	"../types.hpp"
@@ -406,23 +409,9 @@
 1185928678 d:\dev\sge\src\media.hpp
 	<string>
 
-1182956698 d:\dev\sge\src\gui\manager.hpp
-	<string>
-	<boost/noncopyable.hpp>
-	<boost/signals/trackable.hpp>
-	"../timer.hpp"
-	"../renderer/font.hpp"
-	"../renderer/renderer.hpp"
-	"../renderer/transformable.hpp"
-	"../sprite/sprite.hpp"
-	"../sprite/system.hpp"
-	"../image/image_loader.hpp"
-	"../input/input_system.hpp"
-	"../input/key_mod_tracker.hpp"
-	"types.hpp"
-	"cursor.hpp"
-	"element.hpp"
-	"events.hpp"
+1187651886 d:\dev\sge\src\gui\manager.hpp
+	"canvas.hpp"
+	"widget.hpp"
 
 1185928678 d:\dev\sge\src\timer.hpp
 	"time.hpp"
@@ -432,13 +421,14 @@
 	<sys/time.h>
 	"windows.hpp"
 
-1185928668 d:\dev\sge\src\image\image_loader.hpp
+1186877904 d:\dev\sge\src\image\image_loader.hpp
 	<string>
 	"../shared_ptr.hpp"
 	"../plugin_traits.hpp"
 	"image.hpp"
+	"image_format.hpp"
 
-1185928670 d:\dev\sge\src\input\input_system.hpp
+1186877904 d:\dev\sge\src\input\input_system.hpp
 	<boost/noncopyable.hpp>
 	<boost/signal.hpp>
 	<boost/signals/connection.hpp>
@@ -448,7 +438,7 @@
 	"../plugin_traits.hpp"
 	"key_type.hpp"
 
-1185928670 d:\dev\sge\src\input\key_type.hpp
+1187649700 d:\dev\sge\src\input\key_type.hpp
 	<utility>
 	"../string.hpp"
 
@@ -457,7 +447,7 @@
 	"key_type.hpp"
 	"input_system.hpp"
 
-1185839102 d:\dev\sge\src\gui\types.hpp
+1187631386 d:\dev\sge\src\gui\types.hpp
 
 1182956698 d:\dev\sge\src\gui\cursor.hpp
 	"types.hpp"
@@ -471,14 +461,13 @@
 	"events.hpp"
 	"types.hpp"
 
-1182956698 d:\dev\sge\src\gui\events.hpp
+1187564814 d:\dev\sge\src\gui\events.hpp
+	<set>
+	"canvas.hpp"
 	"types.hpp"
-	"../input/key_type.hpp"
 
-1182956698 d:\dev\sge\src\gui\button.hpp
-	"../string.hpp"
-	"rectangle.hpp"
-	"types.hpp"
+1187565868 d:\dev\sge\src\gui\button.hpp
+	"widget.hpp"
 
 1182956698 d:\dev\sge\src\gui\rectangle.hpp
 	"types.hpp"
@@ -551,7 +540,7 @@
 1185928678 d:\dev\sge\src\endianness.hpp
 	<cstddef>
 
-1185928670 d:\dev\sge\src\detail\iconv_encoding_list.hpp
+1187642190 d:\dev\sge\src\detail\iconv_encoding_list.hpp
 
 1183048798 source:c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\test\test.cpp
 	<sstream>
@@ -1188,7 +1177,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1186406712 source:d:\dev\sge\test\guitest.cpp
+1187652240 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1201,6 +1190,7 @@
 	"../src/input/input_system.hpp"
 	"../src/input/key_state_tracker.hpp"
 	"../src/math.hpp"
+	"../src/math/constants.hpp"
 	"../src/renderer/lock_ptr.hpp"
 	"../src/renderer/renderer_system.hpp"
 	"../src/renderer/screenshot.hpp"
@@ -1208,7 +1198,9 @@
 	"../src/sprite/sprite.hpp"
 	"../src/sprite/system.hpp"
 	"../src/texture/no_fragmented_texture.hpp"
-	"../src/gui/canvas.hpp"
+	"../src/gui/color.hpp"
+	"../src/gui/manager.hpp"
+	"../src/gui/button.hpp"
 
 1185928676 d:\dev\sge\src\old_gui\manager.hpp
 	<string>
@@ -1326,7 +1318,7 @@
 1186234828 d:\dev\sge\src\gui\exception.hpp
 	"../exception.hpp"
 
-1186407458 d:\dev\sge\src\gui\gradient_policies.hpp
+1187521602 d:\dev\sge\src\gui\gradient_policies.hpp
 	"color.hpp"
 
 1185928678 d:\dev\sge\src\math.hpp
@@ -1365,4 +1357,12 @@
 	"../texture/texture_map.hpp"
 	"../sprite/system.hpp"
 	"../sprite/sprite.hpp"
+
+1186877904 d:\dev\sge\src\image\image_format.hpp
+
+1187631092 d:\dev\sge\src\gui\widget.hpp
+	<list>
+	<string>
+	"events.hpp"
+	"../iconv.hpp"
 

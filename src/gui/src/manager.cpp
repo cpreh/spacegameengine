@@ -34,8 +34,14 @@ sge::gui::manager *sge::gui::manager::top_level_widget() const {
 	return const_cast<manager*>(this);
 }
 
+void sge::gui::manager::resize(sge::gui::dim2 newsize) {
+	widget::resize(newsize);
+	framebuffer.resize(newsize, false);
+}
+
 sge::virtual_texture_ptr sge::gui::manager::to_texture(sge::texture_manager &texmgr) {
 	if (flags.changed) {
+		framebuffer.fill(sge::colors::transparent);
 		events::paint_event pe = { framebuffer, point(0,0) };
 		on_paint(pe);
 		last_texture = framebuffer.to_texture(texmgr, last_texture);

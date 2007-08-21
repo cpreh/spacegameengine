@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_KEY_TYPE_HPP_INCLUDED
 
 #include <utility>
-#include <string>
+#include "../string.hpp"
 
 namespace sge
 {
@@ -180,7 +180,7 @@ enum key_code {
 };
 
 struct key_type {
-	typedef std::string string;
+	typedef sge::string string;
 	typedef string::value_type char_type;
 	key_type(const string& name = string(), const key_code code = KC_None, const char_type char_code = 0)
 		: name(name), code(code), char_code(char_code) {}
@@ -188,17 +188,17 @@ struct key_type {
 	key_code code;
 	char_type char_code;
 };
-	
+
 inline bool operator<(const key_type& l, const key_type& r)
 {
 	return l.name < r.name;
 }
-	
+
 inline bool operator==(const key_type& l, const key_type& r)
 {
 	return l.name == r.name && l.char_code == r.char_code;
 }
-	
+
 inline bool operator!=(const key_type& l, const key_type& r)
 {
 	return !(l==r);
@@ -214,7 +214,7 @@ inline bool is_mouse_key(const key_code key)
 		return false;
 	}
 }
-	
+
 inline bool is_mouse_axis(const key_code key)
 {
 	switch(key) {
@@ -229,7 +229,7 @@ inline bool is_mouse_axis(const key_code key)
 		return false;
 	}
 }
-	
+
 inline bool is_keyboard_key(const key_code key)
 {
 	return !(is_mouse_key(key) || is_mouse_axis(key));

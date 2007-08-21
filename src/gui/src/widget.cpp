@@ -19,13 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../widget.hpp"
 
-sge::gui::widget::widget(widget *parent_, std::string)
+sge::gui::widget::widget(widget *parent_, std::string name_)
 : parent_(parent_), name_(name_) {
 	if (parent_) {
 		events::child_event ce;
 			ce.child = this;
 		parent_->on_child_add(ce);
 	}
+	change();
+	show();
 }
 
 sge::gui::widget::~widget() {
@@ -34,6 +36,8 @@ sge::gui::widget::~widget() {
 			ce.child = this;
 		parent_->on_child_remove(ce);
 	}
+	change();
+	show();
 }
 
 void sge::gui::widget::reparent(widget *p) {

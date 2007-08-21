@@ -64,12 +64,12 @@ void sge::dinput::keyboard::dispatch(input_system::signal_type& sig)
 BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)
 {
 	keyboard& k = *static_cast<keyboard*>(s);
-	const string key_name(win_str_to_sge(ddoi->tszName));
+	const key_type::string key_name(win_str_to_sge(ddoi->tszName));
 	k.keys[ddoi->dwOfs] = key_type(k.name() + key_name, k.conv.create_key_code(ddoi->dwOfs), key_name.size() == 1 ? key_name[0] : 0);
 	return DIENUM_CONTINUE;
 }
 
-sge::uchar_t sge::dinput::keyboard::keycode_to_char(const key_code key) const
+sge::string::value_type sge::dinput::keyboard::keycode_to_char(const key_code key) const
 {
 	boost::array<BYTE,256> state;
 	const BYTE key_up = 0, key_down = 0x80;

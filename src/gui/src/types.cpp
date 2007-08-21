@@ -17,33 +17,18 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "../types.hpp"
 
-#ifndef SGE_GUI_MANAGER_HPP_INCLUDED
-#define SGE_GUI_MANAGER_HPP_INCLUDED
-
-#include "canvas.hpp"
-#include "widget.hpp"
-
-namespace sge {
-namespace gui {
-
-class manager : public widget {
-public:
-	manager();
-	manager(sge::gui::dim2);
-	~manager();
-
-	manager *top_level_widget() const;
-	void resize(dim2 newsize);
-
-private:
-	canvas framebuffer;
-	sge::virtual_texture_ptr last_texture;
-public:
-	sge::virtual_texture_ptr to_texture(sge::texture_manager &texmgr);
-};
-
-}
+sge::gui::point sge::gui::point::normalize(const sge::gui::rect &area) const {
+	return point(
+		(x < area.x) ? 0 : (x >= area.x + area.w) ? area.x + area.w - 1 : x,
+		(y < area.y) ? 0 : (y >= area.y + area.h) ? area.y + area.y - 1 : y
+	);
 }
 
-#endif // SGE_GUI_MANAGER_HPP_INCLUDED
+inline sge::gui::fpoint sge::gui::fpoint::normalize(const sge::gui::frect &area) const {
+	return fpoint(
+		(x < area.x) ? 0 : (x > area.x + area.w) ? area.x + area.w : x,
+		(y < area.y) ? 0 : (y > area.y + area.h) ? area.y + area.y : y
+	);
+}
