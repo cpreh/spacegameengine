@@ -179,10 +179,8 @@ sge::md3_model::surface::triangle::triangle(std::istream& is)
 }
 
 sge::md3_model::surface::texcoord::texcoord(std::istream& is)
-{
-	for(unsigned i = 0; i < st.size(); ++i)
-		st[i] = read<f32>(is);
-}
+: tex(read<f32>(is), read<f32>(is))
+{}
 
 sge::md3_model::surface::vertex::vertex(std::istream& is)
 : x(read<s16>(is)),

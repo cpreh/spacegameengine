@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/cstdint.hpp>
 #include <boost/array.hpp>
 #include "../math/vector.hpp"
+#include "../renderer/types.hpp"
 
 namespace sge
 {
@@ -78,8 +79,8 @@ public:
 
 		struct texcoord {
 			texcoord(std::istream& is);
-
-			boost::array<f32, 2> st;
+			
+			tex_pos tex;
 		};
 
 		struct vertex {

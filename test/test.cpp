@@ -300,14 +300,15 @@ int main()
 		entry.reset();
 
 		kubal->next();
-		kubal->next();
+	//	kubal->next();
 		kubal->open(entry);
 		image_data.resize(entry->uncompressed_size());
 		entry->uncompress(sge::data(image_data));
 	}
 	//while(kubal->next());
 
-	const sge::image_ptr tga = pl->load_image(sge::image_format::tga, reinterpret_cast<const sge::color*>(sge::data(image_data)), image_data.size());
+	const sge::image_ptr tga = pl->load_image(sge::media_path() + "euro_frnt_2.tga");
+	//const sge::image_ptr tga = pl->load_image(sge::image_format::tga, reinterpret_cast<const sge::color*>(sge::data(image_data)), image_data.size());
 	const sge::texture_ptr tex = sge::create_texture(rend, tga);
 
 	rend->set_texture(tex);
@@ -357,13 +358,13 @@ int main()
 		for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
 		{
 			const sge::md3_model::surface& surf = *surf_it;
+
 			const sge::vertex_buffer::iterator vbold = vbit;
-			for(sge::md3_model::surface::transformed_vertex_vector::const_iterator it = surf.transformed_vertices.begin(); it != surf.transformed_vertices.end(); ++it)
-				(vbit++)->pos() = it->pos;
-			vbit = vbold;
-			for(sge::md3_model::surface::texcoord_vector::const_iterator it = surf.st.begin(); it != surf.st.end(); ++it)
-				(vbit++)->tex() = sge::tex_pos(it->st[0], it->st[1]);
-				
+			for(sge::md3_model::surface::transformed_vertex_vector::size_type sz = 0; sz < surf.transformed_vertices.size(); ++sz)
+			{
+				(vbit  )->pos() = surf.transformed_vertices.at(sz).pos;
+				(vbit++)->tex() = surf.st.at(sz).tex;
+			}	
 			offsets.push_back(offsets.back() + surf.transformed_vertices.size());
 		}
 
@@ -417,11 +418,10 @@ int main()
 			angle += sge::math::PI*0.01;
 
 		rend->begin_rendering();
-		//rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
-	//	angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
-		//rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
-//		rend->set_int_state(sge::IS_AmbientLightColor, sge::colors::yellow);
-		//rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
+		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
+		angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
+		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
@@ -429,9 +429,9 @@ int main()
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		rend->transform(sge::math::matrix_identity());
-		rend->projection(sge::math::matrix_orthogonal_xy());
-		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(1000,1000));
+		//rend->transform(sge::math::matrix_identity());
+		//rend->projection(sge::math::matrix_orthogonal_xy());
+		//fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(1000,1000));
 //		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
 		//ls.render();
 
