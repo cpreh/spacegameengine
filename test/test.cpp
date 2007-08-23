@@ -278,7 +278,6 @@ int main()
 	ls.loop(true);*/
 
 	//const sge::string some_text(sge::iconv("abcdefgh\ni\n\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
-	const sge::string some_text(sge::iconv("\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 
 //	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
 
@@ -398,6 +397,7 @@ int main()
 	float angle(0);
 	sge::timer frame_timer(1000);
 
+	const sge::string some_text(sge::iconv("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	while(running)
 	{
 	//	if (sound->status() != sge::sound::status_stopped)
@@ -429,7 +429,7 @@ int main()
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(924,500), sge::font_align_h::right, sge::font_align_v::bottom);
+		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
 //		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
 		//ls.render();
 

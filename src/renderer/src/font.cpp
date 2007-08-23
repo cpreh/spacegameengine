@@ -39,25 +39,25 @@ sge::font_unit sge::font::height() const
 	return metrics()->line_height();
 }
 
-sge::font_dim sge::font::draw_text(const string_type& text,
-                                   const font_pos start_pos,
-                                   const font_dim max_sz,
-                                   const font_align_h::type align_h,
-                                   const font_align_v::type align_v,
-                                   const font_flag_t flags)
+const sge::font::text_size_t sge::font::draw_text(const string_type& text,
+                                                  const font_pos start_pos,
+                                                  const font_dim max_sz,
+                                                  const font_align_h::type align_h,
+                                                  const font_align_v::type align_v,
+                                                  const font_flag_t flags) const
 {
 	if(text.empty() || height() > max_sz.h())
-		return font_dim(0,0);
+		return text_size_t(font_dim(0,0), text.begin(), text.begin());
 
-	const font_dim total_size = text_size(text.begin(), text.end(), max_sz, flags);
+	const text_size_t total_size = text_size(text.begin(), text.end(), max_sz, flags);
 
 	font_pos pos = start_pos;
 	switch(align_v) {
 	case font_align_v::center:
-		pos.y() += (max_sz.h() - total_size.h()) / 2;
+		pos.y() += (max_sz.h() - total_size.size().h()) / 2;
 		break;
 	case font_align_v::bottom:
-		pos.y() += max_sz.h() - total_size.h();
+		pos.y() += max_sz.h() - total_size.size().h();
 		break;
 	case font_align_v::top:
 		break;
@@ -65,22 +65,21 @@ sge::font_dim sge::font::draw_text(const string_type& text,
 		throw exception("Invalid font_align_v!");
 	}
 
-	font_unit cur_height = 0;
 	string_type::const_iterator sbeg(text.begin());
 
-	drawer()->begin_rendering(text.size(), total_size);
-	while(sbeg != text.end() && cur_height + height() <= max_sz.h())
+	drawer()->begin_rendering(text.size(), total_size.size());
+	while(sbeg != total_size.next_begin())
 	{
-		const line_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
+		const text_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
 
 		pos.x() = start_pos.x();
 		
 		switch(align_h) {
 		case font_align_h::center:
-			pos.x() += (max_sz.w() - line_size.width) / 2;
+			pos.x() += (max_sz.w() - line_size.size().w()) / 2;
 			break;
 		case font_align_h::right:
-			pos.x() += max_sz.w() - line_size.width;
+			pos.x() += max_sz.w() - line_size.size().w();
 			break;
 		case font_align_h::left:
 			break;
@@ -88,10 +87,8 @@ sge::font_dim sge::font::draw_text(const string_type& text,
 			throw exception("Invalid font_align_h!");
 		}
 
-		for(;sbeg != line_size.end; ++sbeg)
+		for(;sbeg != line_size.end(); ++sbeg)
 		{
-			if(*sbeg == '\n')
-				break;
 			const char_metric_ptr metric = metrics()->load_char(*sbeg);
 			const font_rect fp(font_pos(pos.x() + metric->left(), pos.y() + metric->top()), font_dim(metric->width(), metric->height()));
 			drawer()->draw_char(*sbeg, fp, metric->pixmap());
@@ -99,11 +96,7 @@ sge::font_dim sge::font::draw_text(const string_type& text,
 			pos.x() += char_space(*sbeg);
 		}
 
-		if(flags & font_flags::no_multi_line)
-			break;
-
-		cur_height += height();
-		sbeg = line_size.next_begin;
+		sbeg = line_size.next_begin();
 
 		pos.y() += height();
 	}
@@ -112,7 +105,7 @@ sge::font_dim sge::font::draw_text(const string_type& text,
 	return total_size;
 }
 
-sge::font_dim sge::font::draw_text(const string_type& text, const pos2 pos, const math::dim2 max_size, const screen_size_t screen_size, const font_align_h::type align_h, const font_align_v::type align_v, const font_flag_t flags)
+const sge::font::text_size_t sge::font::draw_text(const string_type& text, const pos2 pos, const math::dim2 max_size, const screen_size_t screen_size, const font_align_h::type align_h, const font_align_v::type align_v, const font_flag_t flags) const
 {
 	return draw_text(text, space_size_to_pixel<font_pos>(pos, screen_size), space_size_to_pixel<font_dim>(max_size, screen_size), align_h, align_v, flags);
 }
@@ -122,95 +115,83 @@ sge::font_unit sge::font::char_space(const char_type ch) const
 	return metrics()->load_char(ch)->x_advance();
 }
 
-sge::font::line_size_t sge::font::text_width_unformatted(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width) const
+const sge::font::text_size_t sge::font::text_size(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_dim max_sz, const font_flag_t flags) const
 {
-	font_unit w(0);
-	for(; sbeg != send; ++sbeg)
-	{
-		if(*sbeg == '\n')
-			continue;
-		const font_unit delta = char_space(*sbeg);
-		if(delta + w > width)
-			break;
-		w += delta;
-	}
-	return line_size_t(w,sbeg);
-}
-
-sge::font_dim sge::font::text_size(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_dim max_sz, const font_flag_t flags) const
-{
-	if(flags & font_flags::no_multi_line)
-		return font_dim(text_width_unformatted(sbeg, send, max_sz.w()).width, height());
-
 	font_dim sz(0,0);
 	while(sbeg != send && sz.h() + height() <= max_sz.h())
 	{
-		const line_size_t line_size = line_width(sbeg, send, max_sz.w(), flags);
-		const font_unit line_w = line_size.width;
+		const text_size_t line_size = line_width(sbeg, send, max_sz.w(), flags);
+		const font_unit line_w = line_size.size().w();
 		sz.w() = std::max(sz.w(), line_w);
 		sz.h() += height();
-		sbeg = line_size.next_begin;
+		sbeg = line_size.next_begin();
+
+		if(flags & font_flags::no_multi_line)
+			break;
 	}
-	return sz;
+	return text_size_t(sz, sbeg, sbeg);
 }
 
-sge::font_dim sge::font::text_size(const string_type& s, const font_dim max_sz, const font_flag_t flags) const
+const sge::font::text_size_t sge::font::text_size(const string_type& s, const font_dim max_sz, const font_flag_t flags) const
 {
 	return text_size(s.begin(),s.end(),max_sz,flags);
 }
 
-sge::font::line_size_t sge::font::line_width(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
+const sge::font::text_size_t sge::font::line_width(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
 {
-	if(flags & font_flags::no_multi_line)
-		return text_width_unformatted(sbeg, send, width);
-
 	font_unit w(0), last_width(0);
 	string_type::const_iterator last_white = sbeg;
 
 	for(; sbeg != send; ++sbeg)
 	{
 		if(*sbeg == '\n')
-			return line_size_t(w, ++sbeg);
-		if(isspace(*sbeg))
+			return text_size_t(font_dim(w, height()), sbeg, boost::next(sbeg));
+
+		if(std::isspace(*sbeg, std::locale()))
 		{
 			last_white = sbeg;
 			last_width = w;
 		}
+
 		const font_unit nw = w + char_space(*sbeg);
 		if(nw > width)
 		{
-			const font_unit ret_width =  last_width == 0 ? w : last_width;
-			if(flags & font_flags::no_line_wrap)
-			{
-				const string_type::const_iterator next_nl = std::find(sbeg, send, static_cast<string::value_type>('\n')),
-				                                  next_begin = next_nl == send ? send : boost::next(next_nl);
-				return line_size_t(ret_width, sbeg, next_begin);
-			}
-			return line_size_t(ret_width, last_width > 0 ? ++last_white : sbeg);
+			if(last_width && !(flags & font_flags::no_line_wrap))
+				return text_size_t(font_dim(last_width, height()), last_white, boost::next(last_white));
+			return text_size_t(font_dim(w, height()), sbeg, sbeg);
 		}
 		w = nw;
 	}
-	return line_size_t(w, send);
+	return text_size_t(font_dim(w, height()), send, send);
 }
 
-sge::font_metrics_ptr sge::font::metrics() const
+const sge::font_metrics_ptr sge::font::metrics() const
 {
 	return metrics_;
 }
 
-sge::font_drawer_ptr sge::font::drawer() const
+const sge::font_drawer_ptr sge::font::drawer() const
 {
 	return drawer_;
 }
 
-sge::font::line_size_t::line_size_t(const font_unit width, const string_type::const_iterator end, const string_type::const_iterator next_begin)
- : width(width),
-   end(end),
-   next_begin(next_begin)
+sge::font::text_size_t::text_size_t(const font_dim size_, const string_type::const_iterator end_, const string_type::const_iterator next_begin_)
+ : size_(size_),
+   end_(end_),
+   next_begin_(next_begin_)
 {}
 	
-sge::font::line_size_t::line_size_t(const font_unit width, const string_type::const_iterator end)
- : width(width),
-   end(end),
-   next_begin(end)
-{}
+sge::font_dim sge::font::text_size_t::size() const
+{
+	return size_;
+}
+
+sge::font::text_size_t::const_iterator sge::font::text_size_t::end() const
+{
+	return end_;
+}
+
+sge::font::text_size_t::const_iterator sge::font::text_size_t::next_begin() const
+{
+	return next_begin_;
+}
