@@ -36,7 +36,8 @@ class widget {
 protected:
 	widget *parent_;
 	const std::string name_;
-	std::list<widget *> children;
+	typedef std::list<widget*> child_widget_list;
+	child_widget_list children;
 	point position_;
 	dim2 size_;
 	virtual void reparent(widget *);

@@ -127,7 +127,7 @@
 	"volume_texture.hpp"
 	"cube_texture.hpp"
 
-1187642192 d:\dev\sge\src\renderer\types.hpp
+1187734242 d:\dev\sge\src\renderer\types.hpp
 	<cstddef>
 	<vector>
 	<stdexcept>
@@ -137,7 +137,7 @@
 	"../math/dim.hpp"
 	"color.hpp"
 
-1187646628 d:\dev\sge\src\math\vector.hpp
+1187734242 d:\dev\sge\src\math\vector.hpp
 	<cassert>
 	<cstddef>
 	<iostream>
@@ -154,7 +154,7 @@
 1185928678 d:\dev\sge\src\util.hpp
 	"types.hpp"
 
-1187642188 d:\dev\sge\src\math\dim.hpp
+1187734242 d:\dev\sge\src\math\dim.hpp
 	<cstddef>
 	<iterator>
 	<ostream>
@@ -180,23 +180,23 @@
 	"color.hpp"
 	"types.hpp"
 
-1186230192 d:\dev\sge\src\math\rect.hpp
+1187734242 d:\dev\sge\src\math\rect.hpp
 	"../exception.hpp"
 	"line_seg2.hpp"
 	"dim.hpp"
 	"vector.hpp"
 
-1185928670 d:\dev\sge\src\math\line_seg2.hpp
+1187734242 d:\dev\sge\src\math\line_seg2.hpp
 	"vector.hpp"
 	"solve2.hpp"
 
 1185928670 d:\dev\sge\src\math\solve2.hpp
 
-1185928672 d:\dev\sge\src\renderer\volume_texture.hpp
+1187734242 d:\dev\sge\src\renderer\volume_texture.hpp
 	"../math/box.hpp"
 	"texture_base.hpp"
 
-1185928670 d:\dev\sge\src\math\box.hpp
+1187734242 d:\dev\sge\src\math\box.hpp
 	"vector.hpp"
 
 1187642206 d:\dev\sge\src\sprite\system.hpp
@@ -220,7 +220,7 @@
 1185928678 d:\dev\sge\src\algorithm.hpp
 	<iterator>
 
-1185928672 d:\dev\sge\src\renderer\vertex_format.hpp
+1187734242 d:\dev\sge\src\renderer\vertex_format.hpp
 	<cstddef>
 	<vector>
 	<stdexcept>
@@ -267,7 +267,7 @@
 	"../shared_ptr.hpp"
 	"color.hpp"
 
-1187642188 d:\dev\sge\src\math\matrix.hpp
+1187734242 d:\dev\sge\src\math\matrix.hpp
 	<algorithm>
 	<cassert>
 	<cstddef>
@@ -286,7 +286,7 @@
 1185928670 d:\dev\sge\src\math\matrix_proxy.hpp
 	<cstddef>
 
-1185928678 d:\dev\sge\src\window.hpp
+1187734244 d:\dev\sge\src\window.hpp
 	"types.hpp"
 	"shared_ptr.hpp"
 	"math/dim.hpp"
@@ -359,7 +359,7 @@
 	"../texture/virtual_texture.hpp"
 	"types.hpp"
 
-1185928670 d:\dev\sge\src\math\circle.hpp
+1187734242 d:\dev\sge\src\math\circle.hpp
 	"../types.hpp"
 	"vector.hpp"
 
@@ -1177,7 +1177,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1187652240 source:d:\dev\sge\test\guitest.cpp
+1187730110 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1360,7 +1360,7 @@
 
 1186877904 d:\dev\sge\src\image\image_format.hpp
 
-1187631092 d:\dev\sge\src\gui\widget.hpp
+1187730914 d:\dev\sge\src\gui\widget.hpp
 	<list>
 	<string>
 	"events.hpp"

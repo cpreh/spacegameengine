@@ -87,7 +87,7 @@ try
 
 
 
-	using sge::gui::manager;
+/*	using sge::gui::manager;
 	using sge::gui::canvas;
 	using sge::gui::button;
 	using sge::gui::color;
@@ -108,7 +108,7 @@ try
 
 	b1.move(point( 40, 80));
 	b2.move(point( 80,160));
-	b3.move(point(160,320));
+	b3.move(point(160,320)); */
 
 	sge::index_buffer_ptr ib; {
 		const sge::index_buffer::value_type indices[] = {
@@ -119,7 +119,7 @@ try
 		ib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
 	}
 
-	sge::vertex_buffer_ptr vb =
+/*	sge::vertex_buffer_ptr vb =
 		rend->create_vertex_buffer(
 		sge::vertex_format().add(sge::vertex_usage::pos)
 		                    .add(sge::vertex_usage::tex),
@@ -148,7 +148,7 @@ try
 		// bottom right
 		it->pos() = sge::pos3(1, -1, 0);
 		it->tex() = canvastex->translate(1, 1);
-	}
+	} */
 
 	sge::vertex_buffer_ptr vb2 =
 		rend->create_vertex_buffer(
@@ -193,8 +193,8 @@ try
 
 		rend->set_texture(sge::texture_base_ptr());
 		rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
-		rend->set_texture(guimgr.to_texture(texmgr)->my_texture());
-		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
+//		rend->set_texture(guimgr.to_texture(texmgr)->my_texture());
+//		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
 
 		rend->end_rendering();
 	}

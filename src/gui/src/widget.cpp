@@ -106,7 +106,7 @@ bool sge::gui::widget::update() { return on_update(); }
 #define MOUSE_EVENT_IMPL(EVENT_TYPE, EVENT_NAME) \
 	bool sge::gui::widget::EVENT_NAME(const events::EVENT_TYPE &me) { \
 		events::EVENT_TYPE me_ = me; \
-		for (std::list<widget*>::iterator b=children.begin(), e=children.end(); b != e; ++b) { \
+		for (child_widget_list::iterator b=children.begin(), e=children.end(); b != e; ++b) { \
 			if (!(*b)->flags.shown) continue; \
 			if (!me.position.within(rect((*b)->position(), (*b)->size()))) continue; \
 			me_.position    = me.position    - (*b)->position_; \
@@ -127,7 +127,7 @@ bool sge::gui::widget::on_mouse_out  (const events::mouse_event &) { return fals
 bool sge::gui::widget::on_mouse_move (const events::mouse_event &me) {
 	bool now=false, old=false, retval=false, now_, old_;
 	events::mouse_event me_ = me;
-	for (std::list<widget*>::iterator b=children.begin(), e=children.end(); b != e && !(now && old); ++b) {
+	for (child_widget_list::iterator b=children.begin(), e=children.end(); b != e && !(now && old); ++b) {
 		if (!(*b)->flags.shown) continue;
 		rect boundary((*b)->position(), (*b)->size());
 		now_ = me.position   .within(boundary);
@@ -165,7 +165,7 @@ void sge::gui::widget::on_parent_destroy(const events::parent_event &) { reparen
 bool sge::gui::widget::on_update() {
 	if (!flags.changed) return false;
 	if (!flags.shown)   return false;
-	for (std::list<widget*>::iterator b=children.begin(), e=children.end(); b != e; ++b)
+	for (child_widget_list::iterator b=children.begin(), e=children.end(); b != e; ++b)
 		(*b)->update();
 	return true;
 }
@@ -173,7 +173,7 @@ bool sge::gui::widget::on_update() {
 void sge::gui::widget::on_paint (const events::paint_event &pe_) {
 	update();
 	events::paint_event pe = pe_;
-	for (std::list<widget*>::iterator b=children.begin(), e=children.end(); b != e; ++b) {
+	for (child_widget_list::iterator b=children.begin(), e=children.end(); b != e; ++b) {
 		pe.position.x = pe_.position.x + (*b)->position().x;
 		pe.position.y = pe_.position.y + (*b)->position().y;
 		(*b)->on_paint(pe);

@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007  Simon Stienen (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -17,35 +17,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "../text.hpp"
 
-#ifndef SGE_FT_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FT_FONT_SYSTEM_HPP_INCLUDED
-
-#include <map>
-#include <string>
-
-#include <boost/smart_ptr.hpp>
-
-#include "../../font/font_system.hpp"
-#include "../../font/font_metrics.hpp"
-#include "library.hpp"
-
-namespace sge
-{
-namespace ft
-{
-
-class font_system : public sge::font_system {
-public:
-	font_metrics_ptr create_font(const std::string& font_name, unsigned font_size);
-private:
-	library _library;
-	typedef std::map<std::pair<unsigned, std::string>, boost::weak_ptr<font_metrics> > loaded_fonts_list;
-	loaded_fonts_list loaded_fonts;
-};
-
-}
-}
-
-#endif
 
