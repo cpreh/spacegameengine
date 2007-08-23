@@ -44,7 +44,6 @@ private:
 
 public:
 	text();
-sge::font
 	void resize(const dim2 &newsize, bool keepcontent=false);
 	inline const dim2 &size() const { return size_; }
 

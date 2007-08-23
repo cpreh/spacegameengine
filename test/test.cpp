@@ -299,15 +299,15 @@ int main()
 		entry.reset();
 
 		kubal->next();
-	//	kubal->next();
+		kubal->next();
 		kubal->open(entry);
 		image_data.resize(entry->uncompressed_size());
 		entry->uncompress(sge::data(image_data));
 	}
 	//while(kubal->next());
 
-	const sge::image_ptr tga = pl->load_image(sge::media_path() + "euro_frnt_2.tga");
-	//const sge::image_ptr tga = pl->load_image(sge::image_format::tga, reinterpret_cast<const sge::color*>(sge::data(image_data)), image_data.size());
+	//const sge::image_ptr tga = pl->load_image(sge::media_path() + "euro_frnt_2.tga");
+	const sge::image_ptr tga = pl->load_image(sge::image_format::tga, reinterpret_cast<const sge::color*>(sge::data(image_data)), image_data.size());
 	const sge::texture_ptr tex = sge::create_texture(rend, tga);
 
 	rend->set_texture(tex);
@@ -418,10 +418,10 @@ int main()
 			angle += sge::math::PI*0.01;
 
 		rend->begin_rendering();
-		/*rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
+		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
 		angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
 		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);*/
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
@@ -429,7 +429,7 @@ int main()
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
+		//fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
 //		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
 		//ls.render();
 
