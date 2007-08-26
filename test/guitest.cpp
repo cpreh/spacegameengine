@@ -79,7 +79,7 @@ try
 	using boost::lambda::if_;
 
 	boost::signals::scoped_connection cb(is->register_callback(
-		if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::KC_ESC)
+		if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::kc::key_escape)
 			[var(running)=false])
 	);
 
@@ -183,7 +183,7 @@ try
 
 	while(running)
 	{
-		if(ks[sge::KC_RETURN])
+		if(ks[sge::kc::key_return])
 			sge::screenshot(rend,pl,"shot.png");
 
 		rend->begin_rendering();

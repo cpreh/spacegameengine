@@ -169,7 +169,7 @@ void sge::con::console_gfx::key_callback(const key_pair &k)
 		return;
 
 	/*
-	if (keys[KC_LCTRL])
+	if (keys[kc::key_lctrl])
 		output_line(L"char_code = " + k.first.char_code);
 	*/
 
@@ -186,30 +186,30 @@ void sge::con::console_gfx::key_action(const key_type &k)
 
 	switch(k.code) 
 	{
-		case KC_BACK:
+		case kc::key_backspace:
 			if (cursor_position > 0)
 			{
 				input_line.erase(input_line.begin() + cursor_position - 1);
 				cursor_position--;
 			}
 		break;
-		case KC_DEL:
+		case kc::key_delete:
 			if (input_line.length() > 0 && cursor_position < input_line.size())
 				input_line.erase(input_line.begin() + cursor_position);
 		break;
-		case KC_HOME:
+		case kc::key_home:
 			cursor_position = 0;
 		break;
-		case KC_END:
+		case kc::key_end:
 			cursor_position = input_line.size();
 		break;
-		case KC_RIGHT:
+		case kc::key_right:
 			cursor_position = std::min(std::size_t(cursor_position + 1),input_line.size());
 		break;
-		case KC_LEFT:
+		case kc::key_left:
 			if (cursor_position > 0) --cursor_position;
 		break;
-		case KC_UP:
+		case kc::key_up:
 			if (command_history.size() == 0)
 				break;
 	
@@ -219,7 +219,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 			input_line = *boost::next(command_history.begin(),++command_history_pos);
 			cursor_position = input_line.size();
 		break;
-		case KC_DOWN:
+		case kc::key_down:
 			if (command_history.size() == 0 || command_history_pos < 0)
 				break;
 	
@@ -235,7 +235,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 			input_line = *boost::prior(command_history.begin(),--command_history_pos);
 			cursor_position = input_line.size();
 		break;
-		case KC_RETURN:
+		case kc::key_return:
 			if (input_line.length() <= 0)
 				break;
 	
@@ -253,7 +253,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 			cursor_position = 0;
 		break;
 		default:
-			if(std::isprint(k.char_code) && keys[KC_LCTRL] == 0)
+			if(std::isprint(k.char_code) && keys[kc::key_lctrl] == 0)
 			{
 				input_line.insert(input_line.begin() + cursor_position, k.char_code);
 				++cursor_position;
@@ -262,7 +262,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 	}
 
 
-	if (k.char_code == 'w' && keys[KC_LCTRL])
+	if (k.char_code == 'w' && keys[kc::key_lctrl])
 	{
 		output_line(L"w entered!");
 		if (input_line.size() != 0)

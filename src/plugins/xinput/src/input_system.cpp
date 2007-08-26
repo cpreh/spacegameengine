@@ -84,31 +84,31 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	wnd->register_callback(MapNotify, boost::bind(&input_system::on_acquire, this, _1));
 	wnd->register_callback(UnmapNotify, boost::bind(&input_system::on_release, this, _1));
 
-	x11tosge[NoSymbol] = KC_None;
-	x11tosge[XK_BackSpace] = KC_BACK;
-	x11tosge[XK_Tab] = KC_TAB;
-	x11tosge[XK_Return] = KC_RETURN;
-	x11tosge[XK_Pause] = KC_PAUSE;
-	x11tosge[XK_Scroll_Lock] = KC_SCROLL;
-	x11tosge[XK_Escape] = KC_ESC;
-	x11tosge[XK_Delete] = KC_DEL;
+	x11tosge[NoSymbol] = kc::none;
+	x11tosge[XK_BackSpace] = kc::key_backspace;
+	x11tosge[XK_Tab] = kc::key_tab;
+	x11tosge[XK_Return] = kc::key_return;
+	x11tosge[XK_Pause] = kc::key_pause;
+	x11tosge[XK_Scroll_Lock] = kc::key_scroll;
+	x11tosge[XK_Escape] = kc::key_escape;
+	x11tosge[XK_Delete] = kc::key_delete;
 
-	x11tosge[XK_Home] = KC_HOME;
-	x11tosge[XK_Left] = KC_LEFT;
-	x11tosge[XK_Up]   = KC_UP;
-	x11tosge[XK_Right] = KC_RIGHT;
-	x11tosge[XK_Down] = KC_DOWN;
+	x11tosge[XK_Home] = kc::key_home;
+	x11tosge[XK_Left] = kc::key_left;
+	x11tosge[XK_Up]   = kc::key_up;
+	x11tosge[XK_Right] = kc::key_right;
+	x11tosge[XK_Down] = kc::key_down;
 	//XK_Prior
-	x11tosge[XK_Page_Up] = KC_PGUP;
+	x11tosge[XK_Page_Up] = kc::key_pageup;
 	//XK_Next
-	x11tosge[XK_Page_Down] = KC_PGDN;
-	x11tosge[XK_End] = KC_END;
-	x11tosge[XK_Begin] = KC_HOME;
+	x11tosge[XK_Page_Down] = kc::key_pagedown;
+	x11tosge[XK_End] = kc::key_end;
+//	x11tosge[XK_Begin] = kc::key_home;
 
 	//#define XK_Select                        0xff60  /* Select, mark */
 	//#define XK_Print                         0xff61
 	//#define XK_Execute                       0xff62  /* Execute, run, do */
-	x11tosge[XK_Insert] = KC_INS;
+	x11tosge[XK_Insert] = kc::key_insert;
 //#define XK_Undo                          0xff65
 //#define XK_Redo                          0xff66  /* Redo, again */
 //#define XK_Menu                          0xff67
@@ -120,16 +120,16 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 //#define XK_script_switch                 0xff7e  /* Alias for mode_switch */
 //#define XK_Num_Lock                      0xff7f
 
-//	x11tosge[XK_KP_Space] = KC_SPACE;
+//	x11tosge[XK_KP_Space] = kc::key_SPACE;
 //	x11tosge[XK_KP_Tab];
-//	x11tosge[XK_KP_Enter] = KC_ENTER;
+//	x11tosge[XK_KP_Enter] = kc::key_ENTER;
 /*	x11tosge[XK_KP_F1];
 	x11tosge[XK_KP_F2];
 	x11tosge[XK_KP_F3];
 	x11tosge[XK_KP_F4];
-	x11tosge[XK_KP_Home] = KC_NUM_HOME;
-	x11tosge[XK_KP_Left] = KC_NUM_LEFT;
-	x11tosge[XK_KP_Up] = KC_NUM_UP;
+	x11tosge[XK_KP_Home] = kc::key_NUM_HOME;
+	x11tosge[XK_KP_Left] = kc::key_NUM_LEFT;
+	x11tosge[XK_KP_Up] = kc::key_NUM_UP;
 #define XK_KP_Right                      0xff98
 #define XK_KP_Down                       0xff99
 #define XK_KP_Prior                      0xff9a
@@ -159,18 +159,18 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 #define XK_KP_8                          0xffb8
 #define XK_KP_9                          0xffb9*/
 
-	x11tosge[XK_F1] = KC_F1;
-	x11tosge[XK_F2] = KC_F2;
-	x11tosge[XK_F3] = KC_F3;
-	x11tosge[XK_F4] = KC_F4;
-	x11tosge[XK_F5] = KC_F5;
-	x11tosge[XK_F6] = KC_F6;
-	x11tosge[XK_F7] = KC_F7;
-	x11tosge[XK_F8] = KC_F8;
-	x11tosge[XK_F9] = KC_F9;
-	x11tosge[XK_F10] = KC_F10;
-	x11tosge[XK_F11] = KC_F11;
-	x11tosge[XK_F12] = KC_F12;
+	x11tosge[XK_F1] = kc::key_f1;
+	x11tosge[XK_F2] = kc::key_f2;
+	x11tosge[XK_F3] = kc::key_f3;
+	x11tosge[XK_F4] = kc::key_f4;
+	x11tosge[XK_F5] = kc::key_f5;
+	x11tosge[XK_F6] = kc::key_f6;
+	x11tosge[XK_F7] = kc::key_f7;
+	x11tosge[XK_F8] = kc::key_f8;
+	x11tosge[XK_F9] = kc::key_f9;
+	x11tosge[XK_F10] = kc::key_f10;
+	x11tosge[XK_F11] = kc::key_f11;
+	x11tosge[XK_F12] = kc::key_f12;
 //#define XK_L1                            0xffc8
 /*
 #define XK_L2                            0xffc9
@@ -223,12 +223,12 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 */
 
 
-	x11tosge[XK_Shift_L] = KC_LSHIFT;
-	x11tosge[XK_Shift_R] = KC_RSHIFT;
-	x11tosge[XK_Control_L] = KC_LCTRL;
-	x11tosge[XK_Control_R] = KC_RCTRL;
+	x11tosge[XK_Shift_L] = kc::key_lshift;
+	x11tosge[XK_Shift_R] = kc::key_rshift;
+	x11tosge[XK_Control_L] = kc::key_lctrl;
+	x11tosge[XK_Control_R] = kc::key_rctrl;
 	//XK_Caps_Lock
-	x11tosge[XK_Shift_Lock] = KC_LSHIFT; // ???
+//	x11tosge[XK_Shift_Lock] = kc::key_LSHIFT; // ???
 
 //#define XK_Meta_L                        0xffe7  /* Left meta */
 //#define XK_Meta_R                        0xffe8  /* Right meta */
@@ -384,7 +384,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 #define XK_3270_Enter                    0xfd1e
 #endif
 
-	x11tosge[XK_space] = KC_SPACE;
+	x11tosge[XK_space] = kc::key_space;
 #if 0
 #define XK_exclam                        0x0021  /* U+0021 EXCLAMATION MARK */
 #define XK_quotedbl                      0x0022  /* U+0022 QUOTATION MARK */
@@ -650,7 +650,7 @@ sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const
 {
 	const x11_to_sge_array::const_iterator it = x11tosge.find(ks);
 	if(it == x11tosge.end())
-		return KC_None;
+		return kc::none;
 	return it->second;
 }
 
@@ -726,8 +726,8 @@ void sge::xinput::input_system::warped_motion(XEvent xevent)
 	}
 }
 
-const sge::key_type sge::xinput::input_system::mouse_x(iconv("mouse_x"), KC_MOUSEX);
-const sge::key_type sge::xinput::input_system::mouse_y(iconv("mouse_y"), KC_MOUSEY);
+const sge::key_type sge::xinput::input_system::mouse_x(iconv("mouse_x"), kc::mouse_axis_x);
+const sge::key_type sge::xinput::input_system::mouse_y(iconv("mouse_y"), kc::mouse_axis_y);
 const sge::key_type sge::xinput::input_system::undefined_mouse_key(iconv("undefined mouse key"));
-const sge::key_type sge::xinput::input_system::mouse1(iconv("mouse_L"), KC_MOUSEL);
-const sge::key_type sge::xinput::input_system::mouse2(iconv("mouse_R"), KC_MOUSER);
+const sge::key_type sge::xinput::input_system::mouse1(iconv("mouse_L"), kc::mouse_l);
+const sge::key_type sge::xinput::input_system::mouse2(iconv("mouse_R"), kc::mouse_r);

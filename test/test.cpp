@@ -93,7 +93,7 @@ struct console_activator
 
 	void callback(const sge::key_pair &pair)
 	{
-		if (pair.first.code == sge::KC_TAB && pair.second)
+		if (pair.first.code == sge::kc::key_tab && pair.second)
 			con.active(!con.active());
 	}
 };
@@ -259,7 +259,7 @@ int main()
 
 	console_activator activator(console);
 
-	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::KC_ESC)[var(running)=false]));
+	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::kc::key_escape)[var(running)=false]));
 	boost::signals::scoped_connection cb2(is->register_callback(boost::bind(&console_activator::callback,&activator,_1)));
 //	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
 //	boost::signals::scoped_connection cb3(btn2.click_signal.connect(smallplayer(sound)));
@@ -408,11 +408,11 @@ int main()
 			cur_fps = fps;
 			fps = 0;
 		}
-		translation.x() -= ks[sge::KC_LEFT] * 0.001;
-		translation.x() += ks[sge::KC_RIGHT] * 0.001;
-		translation.z() -= ks[sge::KC_UP] * 0.3;
-		translation.z() += ks[sge::KC_DOWN] * 0.3;
-//		if(ks[sge::KC_RETURN])
+		translation.x() -= ks[sge::kc::key_left] * 0.001;
+		translation.x() += ks[sge::kc::key_right] * 0.001;
+		translation.z() -= ks[sge::kc::key_up] * 0.3;
+		translation.z() += ks[sge::kc::key_down] * 0.3;
+//		if(ks[sge::kc::key_return])
 //			sge::screenshot(rend,pl,"shot.png");
 		if(timer.update())
 			angle += sge::math::PI*0.01;

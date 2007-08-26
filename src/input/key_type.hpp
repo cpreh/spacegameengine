@@ -39,150 +39,155 @@ struct mod_state {
 	     alt;
 };
 
-enum key_code {
-	KC_None,
-	KC_DEFAULT,
-	KC_ESC,
-	KC_RETURN,
-	KC_LSHIFT,
-	KC_RSHIFT,
-	KC_TAB,
-	KC_BACK,
-	KC_CAPITAL,
-	KC_LCTRL,
-	KC_RCTRL,
-	KC_ALT,
-	KC_ALTGR,
-	KC_SPACE,
-	KC_INS,
-	KC_HOME,
-	KC_PGUP,
-	KC_DEL,
-	KC_END,
-	KC_PGDN,
-	KC_LEFT,
-	KC_RIGHT,
-	KC_UP,
-	KC_DOWN,
-	KC_A,
-	KC_B,
-	KC_C,
-	KC_D,
-	KC_E,
-	KC_F,
-	KC_G,
-	KC_H,
-	KC_I,
-	KC_J,
-	KC_K,
-	KC_L,
-	KC_M,
-	KC_N,
-	KC_O,
-	KC_P,
-	KC_Q,
-	KC_R,
-	KC_S,
-	KC_T,
-	KC_U,
-	KC_V,
-	KC_W,
-	KC_X,
-	KC_Y,
-	KC_Z,
-	KC_0,
-	KC_1,
-	KC_2,
-	KC_3,
-	KC_4,
-	KC_5,
-	KC_6,
-	KC_7,
-	KC_8,
-	KC_9,
-	KC_F1,
-	KC_F2,
-	KC_F3,
-	KC_F4,
-	KC_F5,
-	KC_F6,
-	KC_F7,
-	KC_F8,
-	KC_F9,
-	KC_F10,
-	KC_F11,
-	KC_F12,
-	KC_F13,
-	KC_F14,
-	KC_F15,
-	KC_COMMA,
-	KC_COLON,
-	KC_DECIMAL,
-	KC_APOSTROPHE,
-	KC_BACKSLASH,
-	KC_GRAVE,
-	KC_SUBSTRACT,
-	KC_LBRACKET,
-	KC_RBRACKET,
-	KC_SEMICOLON,
-	KC_SLASH,
-	KC_UNDERLINE,
-	KC_SCROLL,
-	KC_PAUSE,
-	KC_LWIN,
-	KC_RWIN,
-	KC_NUM0,
-	KC_NUM1,
-	KC_NUM2,
-	KC_NUM3,
-	KC_NUM4,
-	KC_NUM5,
-	KC_NUM6,
-	KC_NUM7,
-	KC_NUM8,
-	KC_NUM9,
-	KC_NUMCOMMA,
-	KC_NUMENTER,
-	KC_NUMLOCK,
-	KC_ADD,
-	KC_MINUS,
-	KC_MULTIPLY,
-	KC_DIVIDE,
-	KC_APPS,
-	KC_AT,
-	KC_AX,
-	KC_EQUALS,
-	KC_KANA,
-	KC_KANJI,
-	KC_NEXT,
-	KC_NOCONVERT,
-	KC_NUMEQUALS,
-	KC_PERIOD,
-	KC_POWER,
-	KC_PRIOR,
-	KC_SLEEP,
-	KC_STOP,
-	KC_SYSRQ,
-	KC_UNLABELED,
-	KC_YEN,
-	KC_MOUSEL,
-	KC_MOUSER,
-	KC_MOUSEX,
-	KC_MOUSEXNEG,
-	KC_MOUSEXPOS,
-	KC_MOUSEY,
-	KC_MOUSEYNEG,
-	KC_MOUSEYPOS,
-	KC_MOUSEZ,
-	KC_MOUSEZNEG,
-	KC_MOUSEZPOS,
-	KC_num_keys
+namespace kc
+{
+
+enum type {
+	none,
+	key_escape,
+	key_return,
+	key_lshift,
+	key_rshift,
+	key_tab,
+	key_backspace,
+	key_lctrl,
+	key_rctrl,
+	key_alt,
+	key_altgr,
+	key_space,
+	key_insert,
+	key_home,
+	key_pageup,
+	key_delete,
+	key_end,
+	key_pagedown,
+	key_left,
+	key_right,
+	key_up,
+	key_down,
+	key_a,
+	key_b,
+	key_c,
+	key_d,
+	key_e,
+	key_f,
+	key_g,
+	key_h,
+	key_i,
+	key_j,
+	key_k,
+	key_l,
+	key_m,
+	key_n,
+	key_o,
+	key_p,
+	key_q,
+	key_r,
+	key_s,
+	key_t,
+	key_u,
+	key_v,
+	key_w,
+	key_x,
+	key_y,
+	key_z,
+	key_0,
+	key_1,
+	key_2,
+	key_3,
+	key_4,
+	key_5,
+	key_6,
+	key_7,
+	key_8,
+	key_9,
+	key_f1,
+	key_f2,
+	key_f3,
+	key_f4,
+	key_f5,
+	key_f6,
+	key_f7,
+	key_f8,
+	key_f9,
+	key_f10,
+	key_f11,
+	key_f12,
+	key_f13,
+	key_f14,
+	key_f15,
+	key_comma,
+	key_colon,
+//	key_DECIMAL,
+	key_apostrophe,
+//	key_BACKSLASH,
+//	key_GRAVE,
+	key_substract,
+	key_lbracket,
+	key_rbracket,
+	key_semicolon,
+	key_slash,
+	key_underline,
+	key_scroll,
+	key_pause,
+	key_lwin,
+	key_rwin,
+	key_num0,
+	key_num1,
+	key_num2,
+	key_num3,
+	key_num4,
+	key_num5,
+	key_num6,
+	key_num7,
+	key_num8,
+	key_num9,
+	key_numcomma,
+	key_numenter,
+	key_numlock,
+	key_add,
+	key_minus,
+	key_multiply,
+	key_divide,
+//	key_apps,
+//	key_at,
+//	key_ax,
+	key_equals,
+	key_kana,
+	key_kanji,
+	key_next,
+//	key_noconvert,
+	key_numequals,
+	key_period,
+//	key_power,
+//	key_prior,
+//	key_sleep,
+//	key_stop,
+//	key_sysrq,
+//	key_unlabeled,
+	key_yen,
+	mouse_l,
+	mouse_r,
+	mouse_axis_x,
+//	mouse_x_neg,
+//	mouse_x_pos,
+	mouse_axis_y,
+//	mouse_y_neg,
+//	mouse_y_pos,
+	mouse_axis_z
+//	mouse_z_neg,
+//	mouse_z_pos
+	//key_num_keys
 };
+
+}
+
+typedef kc::type key_code;
 
 struct key_type {
 	typedef sge::string string;
 	typedef string::value_type char_type;
-	key_type(const string& name = string(), const key_code code = KC_None, const char_type char_code = 0)
+	key_type(const string& name = string(), const key_code code = kc::none, const char_type char_code = 0)
 		: name(name), code(code), char_code(char_code) {}
 	string name;
 	key_code code;
@@ -207,8 +212,8 @@ inline bool operator!=(const key_type& l, const key_type& r)
 inline bool is_mouse_key(const key_code key)
 {
 	switch(key) {
-	case KC_MOUSEL:
-	case KC_MOUSER:
+	case kc::mouse_l:
+	case kc::mouse_r:
 		return true;
 	default:
 		return false;
@@ -218,12 +223,14 @@ inline bool is_mouse_key(const key_code key)
 inline bool is_mouse_axis(const key_code key)
 {
 	switch(key) {
-	case KC_MOUSEX:
-	case KC_MOUSEY:
-	case KC_MOUSEXNEG:
-	case KC_MOUSEXPOS:
-	case KC_MOUSEYNEG:
-	case KC_MOUSEYPOS:
+	case kc::mouse_axis_x:
+	case kc::mouse_axis_y:
+/*	case kc::mouse_x_neg:
+	case kc::mouse_x_pos:
+	case kc::mouse_y_neg:
+	case kc::mouse_y_pos:
+	case kc::mouse_z_neg:
+	case kc::mouse_z_pos:*/
 		return true;
 	default:
 		return false;
@@ -238,8 +245,8 @@ inline bool is_keyboard_key(const key_code key)
 inline bool is_shift(const key_code key)
 {
 	switch(key) {
-	case KC_LSHIFT:
-	case KC_RSHIFT:
+	case kc::key_lshift:
+	case kc::key_rshift:
 	      return true;
 	default:
 	      return false;
@@ -249,9 +256,9 @@ inline bool is_shift(const key_code key)
 inline bool is_ctrl(const key_code key)
 {
 	switch(key) {
-	case KC_LCTRL:
-	case KC_RCTRL:
-	case KC_ALTGR:
+	case kc::key_lctrl:
+	case kc::key_rctrl:
+	case kc::key_altgr:
 		return true;
 	default:
 		return false;
@@ -261,8 +268,8 @@ inline bool is_ctrl(const key_code key)
 inline bool is_alt(const key_code key)
 {
 	switch(key) {
-	case KC_ALT:
-	case KC_ALTGR:
+	case kc::key_alt:
+	case kc::key_altgr:
 		return true;
 	default:
 		return false;

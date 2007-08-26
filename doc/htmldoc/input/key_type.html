@@ -3,25 +3,26 @@
 	</head>
 	<body>
 	input/key_type.hpp
-	<pre>
+<pre>
 struct key_type {
-	typedef uchar_t char_type;
-	<em>unspecific</em> name;
+	typedef sge::string string;
+	typedef string::value_type char_type;	
+	string name;
 	key_code code;
 	char_type char_code;
 };
 
 typedef float key_state;
 typedef std::pair&lt;key_type,key_state&gt; key_pair;
-	</pre>
+</pre>
 <p>
 key_type is used to obtain information about a key.
-name must be something convertible to sge::string.
 A key's name is implementation defined so you should not use it to save key bindings.
 </p>
 <p>
 key_code is a collection of fixed codes which can be used to look up specific keys.
 An implementation may not be able to produce every single key code.
+For a list of key codes look up the header file.
 </p>
 <p>
 char_code is an utf-32 char that can be used to display text.
