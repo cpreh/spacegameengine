@@ -19,4 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../text.hpp"
 
+namespace {
+	class gui_text_drawer {
+		sge::gui::text &text_;
+	public:
+		gui_text_drawer(sge::gui:text &text_)
+		: text_(text_) {}
+
+		void begin_rendering(const size_type numglyphs, const font_dim dimensions) {
+			text_.resize(sge::gui::dim2(dimensions[0], dimensions[1]));
+			text_.glyphpositions.clear();
+			text_.glyphpositions.reserve(numglyphs);
+		}
+
+		void draw_char(const font_char ch, const font_rect fr, const font_color* const data) {
+
+			for (const font_color *b = data, e = b + (fr.right-fr.left) * (fr.top-fr.bottom)
+		}
+
+		void end_rendering() {}
+	};
+}
+
 

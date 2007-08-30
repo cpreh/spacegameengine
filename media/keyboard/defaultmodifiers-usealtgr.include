@@ -1,0 +1,31 @@
+{mapping
+	{modifiers
+		// left alt
+		{+lalt
+			+lalt
+			+alt
+		}
+		{-lalt +ralt
+			-lalt
+			-alt
+		}
+		{-lalt -ralt
+			-lalt
+			-alt
+		}
+
+		// right alt = altgr
+		{+ralt
+			+ralt
+			+altgr
+		}
+		{-ralt +lalt
+			-ralt
+			-altgr
+		}
+		{-ralt -lalt
+			-ralt
+			-altgr
+		}
+	}
+}

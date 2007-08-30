@@ -44,6 +44,8 @@ protected:
 	virtual void focus(widget*);
 	virtual void blur(widget*);
 public:
+	typedef boost::optional<widget*> event_return_type;
+
 	widget(widget *parent_ = 0, std::string name_ = "");
 	virtual ~widget();
 
@@ -77,24 +79,24 @@ protected:
 // events
 public:
 	// mouse events
-	virtual bool on_mouse_over    (const events::mouse_event &);
-	virtual bool on_mouse_out     (const events::mouse_event &);
-	virtual bool on_mouse_move    (const events::mouse_event &);
-	virtual bool on_mouse_click   (const events::mouse_event &);
-	virtual bool on_mouse_dblclick(const events::mouse_event &);
-	virtual bool on_mouse_down    (const events::mouse_event &);
-	virtual bool on_mouse_up      (const events::mouse_event &);
-	virtual bool on_mouse_wheel   (const events::mouse_wheel_event &);
+	virtual event_return_type on_mouse_over    (const events::mouse_event &);
+	virtual event_return_type on_mouse_out     (const events::mouse_event &);
+	virtual event_return_type on_mouse_move    (const events::mouse_event &);
+	virtual event_return_type on_mouse_click   (const events::mouse_event &);
+	virtual event_return_type on_mouse_dblclick(const events::mouse_event &);
+	virtual event_return_type on_mouse_down    (const events::mouse_event &);
+	virtual event_return_type on_mouse_up      (const events::mouse_event &);
+	virtual event_return_type on_mouse_wheel   (const events::mouse_wheel_event &);
 
 	// keyboard events
-	virtual bool on_key_down (const events::keyboard_event &);
-	virtual bool on_key_up   (const events::keyboard_event &);
-	virtual bool on_key_press(const events::keyboard_event &);
+	virtual event_return_type on_key_down (const events::keyboard_event &);
+	virtual event_return_type on_key_up   (const events::keyboard_event &);
+	virtual event_return_type on_key_press(const events::keyboard_event &);
 
 	// drag&drop events
-	//virtual bool on_drag_over(const events::drag_drop_event &);
-	//virtual bool on_drag_out (const events::drag_drop_event &);
-	//virtual bool on_drag_drop(const events::drag_drop_event &);
+	//virtual event_return_type on_drag_over(const events::drag_drop_event &);
+	//virtual event_return_type on_drag_out (const events::drag_drop_event &);
+	//virtual event_return_type on_drag_drop(const events::drag_drop_event &);
 
 protected:
 	// focus events

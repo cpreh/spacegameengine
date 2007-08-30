@@ -104,47 +104,31 @@ bool sge::gui::widget::update() { return on_update(); }
 
 #undef MOUSE_EVENT_IMPL
 #define MOUSE_EVENT_IMPL(EVENT_TYPE, EVENT_NAME) \
-	bool sge::gui::widget::EVENT_NAME(const events::EVENT_TYPE &me) { \
+	widget::event_return_type sge::gui::widget::EVENT_NAME(const events::EVENT_TYPE &me) { \
+		event_return_type retval; \
 		events::EVENT_TYPE me_ = me; \
 		for (child_widget_list::iterator b=children.begin(), e=children.end(); b != e; ++b) { \
 			if (!(*b)->flags.shown) continue; \
 			if (!me.position.within(rect((*b)->position(), (*b)->size()))) continue; \
 			me_.position    = me.position    - (*b)->position_; \
-			me_.oldposition = me.oldposition - (*b)->position_; \
-			if ((*b)->EVENT_NAME(me_)) return true; \
+			if (retval = (*b)->EVENT_NAME(me_)) \
+				return retval; \
 		} \
-		return false; \
+		return widget::event_return_type(); \
 	}
 MOUSE_EVENT_IMPL(mouse_event,       on_mouse_click)
 MOUSE_EVENT_IMPL(mouse_event,       on_mouse_dblclick)
 MOUSE_EVENT_IMPL(mouse_event,       on_mouse_down)
 MOUSE_EVENT_IMPL(mouse_event,       on_mouse_up)
+MOUSE_EVENT_IMPL(mouse_event,       on_mouse_move)
 MOUSE_EVENT_IMPL(mouse_wheel_event, on_mouse_wheel)
 
-bool sge::gui::widget::on_mouse_over (const events::mouse_event &) { return false; }
-bool sge::gui::widget::on_mouse_out  (const events::mouse_event &) { return false; }
+widget::event_return_type sge::gui::widget::on_mouse_over (const events::mouse_event &) { return widget::event_return_type(); }
+widget::event_return_type sge::gui::widget::on_mouse_out  (const events::mouse_event &) { return widget::event_return_type; }
 
-bool sge::gui::widget::on_mouse_move (const events::mouse_event &me) {
-	bool now=false, old=false, retval=false, now_, old_;
-	events::mouse_event me_ = me;
-	for (child_widget_list::iterator b=children.begin(), e=children.end(); b != e && !(now && old); ++b) {
-		if (!(*b)->flags.shown) continue;
-		rect boundary((*b)->position(), (*b)->size());
-		now_ = me.position   .within(boundary);
-		old_ = me.oldposition.within(boundary);
-		if ((now_  && !now) || (old_ && !old)) {
-			me_.position    = me.position    - (*b)->position_; \
-			me_.oldposition = me.oldposition - (*b)->position_; \
-			now |= now_; old |= old_;
-			if ((*b)->on_mouse_move(me_) && now_) retval = true;
-		}
-	}
-	return retval;
-}
-
-bool sge::gui::widget::on_key_down (const events::keyboard_event &) { return false; }
-bool sge::gui::widget::on_key_up   (const events::keyboard_event &) { return false; }
-bool sge::gui::widget::on_key_press(const events::keyboard_event &) { return false; }
+widget::event_return_type sge::gui::widget::on_key_down (const events::keyboard_event &) { return widget::event_return_type(); }
+widget::event_return_type sge::gui::widget::on_key_up   (const events::keyboard_event &) { return widget::event_return_type(); }
+widget::event_return_type sge::gui::widget::on_key_press(const events::keyboard_event &) { return widget::event_return_type(); }
 
 void sge::gui::widget::on_focus(const events::focus_event &) {}
 void sge::gui::widget::on_blur (const events::focus_event &) {}

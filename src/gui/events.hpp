@@ -62,9 +62,7 @@ struct mouse_event {
 	button pressed;
 	std::set<button> pressstate;
 	point position;
-	point oldposition;
 	point globalposition;
-	point oldglobalposition;
 };
 
 struct mouse_wheel_event : public mouse_event {

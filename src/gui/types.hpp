@@ -61,6 +61,11 @@ struct rect {
 	inline void size(const dim2 &s) { w=s.w; h=s.h; }
 	inline dim2 size() const { return dim2(w, h); }
 
+	inline unit left() const { return x; }
+	inline unit right() const { return x+w-1; }
+	inline unit top() const { return y; }
+	inline unit bottom() const { return y+h-1; }
+
 	inline bool operator==(const rect &other) const { return x == other.x && y == other.y && w == other.w && h == other.h; }
 	inline bool operator!=(const rect &other) const { return !operator==(other); }
 };
@@ -99,6 +104,11 @@ struct frect {
 	inline fpoint position() const { return fpoint(x, y); }
 	inline void size(const fdim2 &s) { w=s.w; h=s.h; }
 	inline fdim2 size() const { return fdim2(w, h); }
+
+	inline funit left() const { return x; }
+	inline funit right() const { return x+w; }
+	inline funit top() const { return y; }
+	inline funit bottom() const { return y+h; }
 
 	inline bool operator==(const frect &other) const { return x == other.x && y == other.y && w == other.w && h == other.h; }
 	inline bool operator!=(const frect &other) const { return !operator==(other); }

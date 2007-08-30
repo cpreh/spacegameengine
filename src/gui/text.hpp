@@ -27,11 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texture/manager.hpp"
 
-#include "types.hpp"
 #include "color.hpp"
-#include "exception.hpp"
-#include "mixing_policies.hpp"
-#include "gradient_policies.hpp"
 
 namespace sge {
 namespace gui {
@@ -40,13 +36,15 @@ class text {
 	friend class gui_text_drawer;
 private:
 	dim2 size_;
-	boost::scoped_array<color> data;
+	boost::scoped_array<color::channel_t> data;
+	std::vector<sge::gui::rect> glyphpositions;
 
 public:
 	text();
-	void resize(const dim2 &newsize, bool keepcontent=false);
-	inline const dim2 &size() const { return size_; }
+	inline const dim2 &size() { return size_; }
 
+private:
+	void resize(const dim2 &newsize);
 };
 
 }
