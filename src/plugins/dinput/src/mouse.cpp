@@ -45,9 +45,16 @@ sge::key_code create_mouse_code(DWORD ofs);
 sge::key_code create_axis_neg_mouse_code(DWORD ofs);
 sge::key_code create_axis_pos_mouse_code(DWORD ofs);
 
+inline DWORD cast_key(const LONG key)
+{
+	return static_cast<DWORD>(key);
+}
+
 inline bool is_di_mouse_axis(const DWORD di_mouse)
 {
-	return di_mouse == DIMOFS_X || di_mouse == DIMOFS_Y || di_mouse == DIMOFS_Z;
+	return di_mouse == cast_key(DIMOFS_X)
+		|| di_mouse == cast_key(DIMOFS_Y)
+	    || di_mouse == cast_key(DIMOFS_Z);
 }
 
 }
@@ -108,37 +115,37 @@ namespace
 
 sge::key_code create_axis_neg_mouse_code(const DWORD ofs)
 {
-	if(ofs == DIMOFS_X)
+	if(ofs == cast_key(DIMOFS_X))
 		return sge::kc::mouse_axis_x_neg;
-	else if(ofs == DIMOFS_Y)
+	if(ofs == cast_key(DIMOFS_Y))
 		return sge::kc::mouse_axis_y_neg;
-	else if(ofs == DIMOFS_Z)
+	if(ofs == cast_key(DIMOFS_Z))
 		return sge::kc::mouse_axis_z_neg;
 	return sge::kc::none;
 }
 
 sge::key_code create_axis_pos_mouse_code(const DWORD ofs)
 {
-	if(ofs == DIMOFS_X)
+	if(ofs == cast_key(DIMOFS_X))
 		return sge::kc::mouse_axis_x_pos;
-	else if(ofs == DIMOFS_Y)
+	else if(ofs == cast_key(DIMOFS_Y))
 		return sge::kc::mouse_axis_y_pos;
-	else if(ofs == DIMOFS_Z)
+	else if(ofs == cast_key(DIMOFS_Z))
 		return sge::kc::mouse_axis_z_pos;
 	return sge::kc::none;
 }
 
 sge::key_code create_mouse_code(const DWORD ofs)
 {
-	if(ofs == DIMOFS_BUTTON0)
+	if(ofs == cast_key(DIMOFS_BUTTON0))
 		return sge::kc::mouse_l;
-	else if(ofs == DIMOFS_BUTTON1)
+	else if(ofs == cast_key(DIMOFS_BUTTON1))
 		return sge::kc::mouse_r;
-	else if(ofs == DIMOFS_X)
+	else if(ofs == cast_key(DIMOFS_X))
 		return sge::kc::mouse_axis_x;
-	else if(ofs == DIMOFS_Y)
+	else if(ofs == cast_key(DIMOFS_Y))
 		return sge::kc::mouse_axis_y;
-	else if(ofs == DIMOFS_Z)
+	else if(ofs == cast_key(DIMOFS_Z))
 		return sge::kc::mouse_axis_z;
 	return sge::kc::none;
 }

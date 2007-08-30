@@ -24,10 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 const DWORD sge::dinput::input_device::coop_level(DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 const DIPROPDWORD sge::dinput::input_device::buffer_settings = {
-	sizeof(DIPROPDWORD),
-	sizeof(DIPROPHEADER),
-	0,
-	DIPH_DEVICE,
+	{ sizeof(DIPROPDWORD),
+	  sizeof(DIPROPHEADER),
+	  0,
+	  DIPH_DEVICE,
+	},
 	buffer_size
 };
 
