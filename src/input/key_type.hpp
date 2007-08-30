@@ -169,14 +169,14 @@ enum type {
 	mouse_l,
 	mouse_r,
 	mouse_axis_x,
-//	mouse_x_neg,
-//	mouse_x_pos,
+	mouse_axis_x_neg,
+	mouse_axis_x_pos,
 	mouse_axis_y,
-//	mouse_y_neg,
-//	mouse_y_pos,
-	mouse_axis_z
-//	mouse_z_neg,
-//	mouse_z_pos
+	mouse_axis_y_neg,
+	mouse_axis_y_pos,
+	mouse_axis_z,
+	mouse_axis_z_neg,
+	mouse_axis_z_pos
 	//key_num_keys
 };
 
@@ -225,12 +225,12 @@ inline bool is_mouse_axis(const key_code key)
 	switch(key) {
 	case kc::mouse_axis_x:
 	case kc::mouse_axis_y:
-/*	case kc::mouse_x_neg:
-	case kc::mouse_x_pos:
-	case kc::mouse_y_neg:
-	case kc::mouse_y_pos:
-	case kc::mouse_z_neg:
-	case kc::mouse_z_pos:*/
+	case kc::mouse_axis_x_neg:
+	case kc::mouse_axis_x_pos:
+	case kc::mouse_axis_y_neg:
+	case kc::mouse_axis_y_pos:
+	case kc::mouse_axis_z_neg:
+	case kc::mouse_axis_z_pos:
 		return true;
 	default:
 		return false;

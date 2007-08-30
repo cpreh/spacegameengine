@@ -115,10 +115,9 @@ const sge::string& sge::dinput::input_device::name() const
 	return _name;
 }
 
-sge::win32_window::win32_callback_return_type sge::dinput::input_device::lost_focus_unacquire_handler::operator()(sge::win32_window&, sge::win32_window::win32_event_type, WPARAM wparam, LPARAM lparam)
+sge::win32_window::win32_callback_return_type sge::dinput::input_device::lost_focus_unacquire_handler::operator()(sge::win32_window&, sge::win32_window::win32_event_type, WPARAM wparam, LPARAM)
 {
 	const bool active = wparam != 0 ? true : false;
-	//wnd->set_active(active); // FIXME
 	if(active)
 		device.unacquire();
 	else

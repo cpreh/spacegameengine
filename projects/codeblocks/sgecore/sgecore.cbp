@@ -18,9 +18,9 @@
 				</Compiler>
 				<Linker>
 					<Add library='iconv' />
-					<Add library='boost_filesystem-mgw34-1_34' />
-					<Add library='boost_regex-mgw34-1_34' />
-					<Add library='boost_signals-mgw34-1_34' />
+					<Add library='boost_filesystem' />
+					<Add library='boost_regex' />
+					<Add library='boost_signals' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
@@ -36,9 +36,9 @@
 				</Compiler>
 				<Linker>
 					<Add library='iconv' />
-					<Add library='boost_filesystem-mgw34-1_34' />
-					<Add library='boost_regex-mgw34-1_34' />
-					<Add library='boost_signals-mgw34-1_34' />
+					<Add library='boost_filesystem' />
+					<Add library='boost_regex' />
+					<Add library='boost_signals' />
 					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>

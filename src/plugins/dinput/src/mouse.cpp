@@ -109,37 +109,37 @@ namespace
 sge::key_code create_axis_neg_mouse_code(const DWORD ofs)
 {
 	if(ofs == DIMOFS_X)
-		return sge::KC_MOUSEXNEG;
+		return sge::kc::mouse_axis_x_neg;
 	else if(ofs == DIMOFS_Y)
-		return sge::KC_MOUSEYNEG;
+		return sge::kc::mouse_axis_y_neg;
 	else if(ofs == DIMOFS_Z)
-		return sge::KC_MOUSEZNEG;
-	return sge::KC_None;
+		return sge::kc::mouse_axis_z_neg;
+	return sge::kc::none;
 }
 
 sge::key_code create_axis_pos_mouse_code(const DWORD ofs)
 {
 	if(ofs == DIMOFS_X)
-		return sge::KC_MOUSEXPOS;
+		return sge::kc::mouse_axis_x_pos;
 	else if(ofs == DIMOFS_Y)
-		return sge::KC_MOUSEYPOS;
+		return sge::kc::mouse_axis_y_pos;
 	else if(ofs == DIMOFS_Z)
-		return sge::KC_MOUSEZPOS;
-	return sge::KC_None;
+		return sge::kc::mouse_axis_z_pos;
+	return sge::kc::none;
 }
 
 sge::key_code create_mouse_code(const DWORD ofs)
 {
 	if(ofs == DIMOFS_BUTTON0)
-		return sge::KC_MOUSEL;
+		return sge::kc::mouse_l;
 	else if(ofs == DIMOFS_BUTTON1)
-		return sge::KC_MOUSER;
+		return sge::kc::mouse_r;
 	else if(ofs == DIMOFS_X)
-		return sge::KC_MOUSEX;
+		return sge::kc::mouse_axis_x;
 	else if(ofs == DIMOFS_Y)
-		return sge::KC_MOUSEY;
+		return sge::kc::mouse_axis_y;
 	else if(ofs == DIMOFS_Z)
-		return sge::KC_MOUSEZ;
-	return sge::KC_None;
+		return sge::kc::mouse_axis_z;
+	return sge::kc::none;
 }
 }
