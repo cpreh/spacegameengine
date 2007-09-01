@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <list>
 #include <string>
 
+#include <boost/optional.hpp>
+
 #include "events.hpp"
 #include "../iconv.hpp"
 

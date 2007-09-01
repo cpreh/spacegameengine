@@ -104,7 +104,7 @@ bool sge::gui::widget::update() { return on_update(); }
 
 #undef MOUSE_EVENT_IMPL
 #define MOUSE_EVENT_IMPL(EVENT_TYPE, EVENT_NAME) \
-	widget::event_return_type sge::gui::widget::EVENT_NAME(const events::EVENT_TYPE &me) { \
+	sge::gui::widget::event_return_type sge::gui::widget::EVENT_NAME(const events::EVENT_TYPE &me) { \
 		event_return_type retval; \
 		events::EVENT_TYPE me_ = me; \
 		for (child_widget_list::iterator b=children.begin(), e=children.end(); b != e; ++b) { \
@@ -123,12 +123,12 @@ MOUSE_EVENT_IMPL(mouse_event,       on_mouse_up)
 MOUSE_EVENT_IMPL(mouse_event,       on_mouse_move)
 MOUSE_EVENT_IMPL(mouse_wheel_event, on_mouse_wheel)
 
-widget::event_return_type sge::gui::widget::on_mouse_over (const events::mouse_event &) { return widget::event_return_type(); }
-widget::event_return_type sge::gui::widget::on_mouse_out  (const events::mouse_event &) { return widget::event_return_type; }
+sge::gui::widget::event_return_type sge::gui::widget::on_mouse_over (const events::mouse_event &) { return event_return_type(); }
+sge::gui::widget::event_return_type sge::gui::widget::on_mouse_out  (const events::mouse_event &) { return event_return_type(); }
 
-widget::event_return_type sge::gui::widget::on_key_down (const events::keyboard_event &) { return widget::event_return_type(); }
-widget::event_return_type sge::gui::widget::on_key_up   (const events::keyboard_event &) { return widget::event_return_type(); }
-widget::event_return_type sge::gui::widget::on_key_press(const events::keyboard_event &) { return widget::event_return_type(); }
+sge::gui::widget::event_return_type sge::gui::widget::on_key_down (const events::keyboard_event &) { return event_return_type(); }
+sge::gui::widget::event_return_type sge::gui::widget::on_key_up   (const events::keyboard_event &) { return event_return_type(); }
+sge::gui::widget::event_return_type sge::gui::widget::on_key_press(const events::keyboard_event &) { return event_return_type(); }
 
 void sge::gui::widget::on_focus(const events::focus_event &) {}
 void sge::gui::widget::on_blur (const events::focus_event &) {}

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/manager.hpp"
 
 #include "color.hpp"
+#include "types.hpp"
 
 namespace sge {
 namespace gui {
@@ -37,6 +38,7 @@ class text {
 private:
 	dim2 size_;
 	boost::scoped_array<color::channel_t> data;
+	sge::string                 glyphs;
 	std::vector<sge::gui::rect> glyphpositions;
 
 public:

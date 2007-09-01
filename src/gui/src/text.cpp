@@ -17,28 +17,50 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include <cassert>
+#include <cstring>
+
+#include "../../renderer/font_drawer.hpp"
+#include "../../renderer/font.hpp"
 #include "../text.hpp"
 
-namespace {
-	class gui_text_drawer {
+namespace sge {
+namespace gui {
+	class gui_text_drawer : public sge::font_drawer {
 		sge::gui::text &text_;
 	public:
-		gui_text_drawer(sge::gui:text &text_)
+		gui_text_drawer(sge::gui::text &text_)
 		: text_(text_) {}
 
-		void begin_rendering(const size_type numglyphs, const font_dim dimensions) {
+		void begin_rendering(const sge::font::size_type numglyphs, const sge::font_dim dimensions) {
 			text_.resize(sge::gui::dim2(dimensions[0], dimensions[1]));
+
 			text_.glyphpositions.clear();
 			text_.glyphpositions.reserve(numglyphs);
+
+			text_.glyphs.clear();
+			text_.glyphs.reserve(numglyphs);
 		}
 
-		void draw_char(const font_char ch, const font_rect fr, const font_color* const data) {
+		void draw_char(const sge::font_char ch, const sge::font_rect fr, const sge::font_color* const data) {
+			assert(fr.right >= fr.left);
+			assert(fr.top >= fr.bottom);
+			sge::gui::rect rect(fr.left, fr.top, fr.right-fr.left, fr.bottom-fr.top);
+			unsigned int y = 0;
+			for (const font_color *b = data, *e = b + rect.w * rect.h; b != e; b += rect.w) {
+				std::memcpy(
+					text_.data.get() + (y++ + rect.y) * text_.size().w + rect.x,
+					b,
+					rect.w
+				);
 
-			for (const font_color *b = data, e = b + (fr.right-fr.left) * (fr.top-fr.bottom)
+				text_.glyphs        .push_back(ch);
+				text_.glyphpositions.push_back(rect);
+			}
 		}
 
 		void end_rendering() {}
 	};
 }
-
+}
 

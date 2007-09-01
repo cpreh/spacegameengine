@@ -1,9 +1,13 @@
 include defaultkeynames.include
 include defaultmodifiers.include
 include defaultmodifiers-usealtgr.include
+include defaultcharactermapping.include
 
 {keynames
-	console = ^
+	console    = ^
+	return     = Eingabe
+	numreturn  = Eingabe (Num)
+	numdecimal = , (Num)
 }
 
 {modifiers
@@ -18,10 +22,10 @@ include defaultmodifiers-usealtgr.include
         	rctrl    = Strg (Rechts)
 		lwin     = Win (Links)
 		rwin     = Win (Rechts)
-		num      = Num Lock
 		scroll   = Rollen
 	}
 }
 
-mapping {
+{mapping
+
 }

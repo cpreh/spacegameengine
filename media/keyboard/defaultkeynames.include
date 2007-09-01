@@ -89,21 +89,22 @@ keynames {
 	y      = Y
 	z      = Z
 
-	return = Return
-	tab    = Tab
-	menu   = Menu
-	ins    = Insert
-	del    = Delete
-	home   = Home
-	end    = End
-	pgup   = Page Up
-	pgdown = Page Down
-	break  = Break
-	prtscr = PrtScr
-	left   = Left
-	right  = Right
-	up     = Up
-	down   = Down
+	return    = Return
+	tab       = Tab
+	backspace = Backspace
+	menu      = Menu
+	ins       = Insert
+	del       = Delete
+	home      = Home
+	end       = End
+	pgup      = Page Up
+	pgdown    = Page Down
+	break     = Break
+	prtscr    = PrtScr
+	left      = Left
+	right     = Right
+	up        = Up
+	down      = Down
 
 	lshift =
 	rshift =
