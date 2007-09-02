@@ -518,6 +518,8 @@ sge::render_target_ptr sge::ogl::renderer::get_render_target() const
 
 void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_type stage)
 {
+	set_texture_level(stage);
+
 	glDisable(GL_TEXTURE_1D);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_TEXTURE_3D);
@@ -558,6 +560,7 @@ void sge::ogl::renderer::set_light(const light_index index, const light& l)
 void sge::ogl::renderer::set_texture_stage_op(const stage_type stage, const texture_stage_op::type op, const texture_stage_op_value::type value)
 {
 	set_texture_stage(stage, op, value);
+	set_texture_stage_scale(value);
 }
 
 void sge::ogl::renderer::set_texture_stage_arg(const stage_type stage, const texture_stage_arg::type arg, const texture_stage_arg_value::type value)

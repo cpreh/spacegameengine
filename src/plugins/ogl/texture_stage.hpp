@@ -32,6 +32,8 @@ namespace ogl
 
 void tex_envf_ext(GLenum arg, GLenum value);
 
+void set_texture_stage_scale(texture_stage_op_value::type value);
+
 template<typename Arg, typename Value>
 void set_texture_stage(const stage_type stage, const Arg arg, const Value value)
 {
