@@ -85,7 +85,8 @@ public:
 	void set_render_target(texture_ptr target = texture_ptr());
 	void set_viewport(const viewport&);
 	const viewport &get_viewport() const;
-	void reset_viewport();
+	void enable_light(light_index index, bool enable);
+	void set_light(light_index index, const light&);
 
 	sge::render_target_ptr get_render_target() const;
 
@@ -113,6 +114,8 @@ public:
 	const renderer_caps& caps() const;
 	screen_size_t screen_size() const;
 	window_ptr get_window() const;
+	
+	void reset_viewport();
 private:
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);

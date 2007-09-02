@@ -49,7 +49,7 @@ public:
 	basic_vector()
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] = 0;
+			data_[i] = 0;
 	}
 
 	basic_vector(no_initialization_tag)
@@ -60,34 +60,34 @@ public:
 	basic_vector(const basic_vector<T,U>& v, const_reference n = 0, typename boost::enable_if_c<U == Dim-1>::type* =0)
 	{
 		for(size_type i = 0; i < U; ++i)
-			data[i] = v[i];
-		data[U] = n;
+			data_[i] = v[i];
+		data_[U] = n;
 	}
 
 	basic_vector(const basic_vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] = r[i];
+			data_[i] = r[i];
 	}
 
 	basic_vector& operator=(const basic_vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] = r[i];
+			data_[i] = r[i];
 		return *this;
 	}
 
 	basic_vector& operator+=(const basic_vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] += r[i];
+			data_[i] += r[i];
 		return *this;
 	}
 
 	basic_vector& operator-=(const basic_vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] -= r[i];
+			data_[i] -= r[i];
 		return *this;
 	}
 
@@ -105,7 +105,7 @@ public:
 	{
 		basic_vector ret = basic_vector(no_initialization_tag());
 		for(size_type i = 0; i < Dim; ++i)
-			ret[i] = +data[i];
+			ret[i] = +data_[i];
 		return ret;
 	}
 
@@ -113,7 +113,7 @@ public:
 	{
 		basic_vector ret = basic_vector(no_initialization_tag());
 		for(size_type i = 0; i < Dim; ++i)
-			ret[i] = -data[i];
+			ret[i] = -data_[i];
 		return ret;
 	}
 
@@ -150,34 +150,34 @@ public:
 	reference operator[](const size_type pos)
 	{
 		assert(pos < Dim);
-		return data[pos];
+		return data_[pos];
 	}
 
 	const_reference operator[](const size_type pos) const
 	{
 		assert(pos < Dim);
-		return data[pos];
+		return data_[pos];
 	}
 
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
 			throw exception("basic_vector<T, N>::at(): out of range!");
-		return data[pos];
+		return data_[pos];
 	}
 
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
 			throw exception("basic_vector<T, N>::at(): out of range!");
-		return data[pos];
+		return data_[pos];
 	}
 
 	// TODO: do something different for float here
 	bool operator==(const basic_vector& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			if(data[i] != r[i])
+			if(data_[i] != r[i])
 				return false;
 		return true;
 	}
@@ -191,7 +191,7 @@ public:
 	{
 		value_type ret(0);
 		for(size_type i = 0; i < Dim; ++i)
-			ret += data[i]*data[i];
+			ret += data_[i]*data[i];
 		return ret;
 	}
 
@@ -295,22 +295,22 @@ BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_SET, void)
 
 	iterator begin()
 	{
-		return data;
+		return data_;
 	}
 
 	iterator end()
 	{
-		return &data[Dim];
+		return &data_[Dim];
 	}
 
 	const_iterator begin() const
 	{
-		return data;
+		return data_;
 	}
 
 	const_iterator end() const
 	{
-		return &data[Dim];
+		return &data_[Dim];
 	}
 
 	reverse_iterator rbegin()
@@ -332,8 +332,18 @@ BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_SET, void)
 	{
 		return reverse_iterator(begin());
 	}
+
+	pointer data()
+	{
+		return data_;
+	}
+
+	const_pointer data() const
+	{
+		return data_;
+	}
 private:
-	T data[Dim];
+	T data_[Dim];
 };
 
 template<typename T, std::size_t Dim>

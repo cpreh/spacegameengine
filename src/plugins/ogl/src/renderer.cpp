@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"
 #include "../default_render_target.hpp"
+#include "../light.hpp"
+#include "../enable.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
@@ -348,10 +350,7 @@ void sge::ogl::renderer::set_bool_state(const bool_state::type state, const bool
 		break;
 	default:
 		const GLenum glstate = convert_cast<GLenum>(state);
-		if(value)
-			glEnable(glstate);
-		else
-			glDisable(glstate);
+		enable(glstate, value);
 	}
 	if(is_error())
 		throw exception("set_bool_state() failed!");
@@ -525,6 +524,33 @@ void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_typ
 	texture_base* const b = ptr_cast<texture_base*>(tex.get());
 	glEnable(b->type());
 	b->bind_me();
+}
+
+void sge::ogl::renderer::enable_light(const light_index index, const bool enable_)
+{
+	const GLenum glindex = convert_light_index(index);
+	enable(glindex, enable_);
+}
+
+void sge::ogl::renderer::set_light(const light_index index, const light& l)
+{
+	const GLenum glindex = convert_light_index(index);
+
+	set_light_color4(glindex, GL_AMBIENT, l.ambient);
+	set_light_color4(glindex, GL_DIFFUSE, l.diffuse);
+	set_light_color4(glindex, GL_SPECULAR, l.specular);
+
+	const math::vector4 pos(l.pos, 1);
+	set_light_pos(glindex, pos);
+
+	set_light_dir(glindex, l.dir);
+	
+	set_light_float(glindex, GL_CONSTANT_ATTENUATION, l.const_attenuation);
+	set_light_float(glindex, GL_LINEAR_ATTENUATION, l.linear_attenuation);
+	set_light_float(glindex, GL_QUADRATIC_ATTENUATION, l.quadratic_attenuation);
+
+	set_light_float(glindex, GL_SPOT_EXPONENT, l.distribution_exponent);
+	set_light_float(glindex, GL_SPOT_CUTOFF, l.cutoff_angle);
 }
 
 void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)

@@ -57,7 +57,7 @@ public:
 	typedef detail::matrix_proxy_impl<value_type&, value_type*, N> proxy;
 	typedef detail::matrix_proxy_impl<const value_type&, const value_type*, N> const_proxy;
 
-#define SGE_MATH_MATRIX_CTOR_ASSIGN_N(z, n, text) _data[n] = text##n;
+#define SGE_MATH_MATRIX_CTOR_ASSIGN_N(z, n, text) data_[n] = text##n;
 #define SGE_MATH_MATRIX_CTOR(z, n, text) basic_matrix(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_MATRIX_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_MATRIX_MAX_SIZE, SGE_MATH_MATRIX_CTOR, void)
 
@@ -67,33 +67,33 @@ public:
 
 	basic_matrix(const basic_matrix& r)
 	{
-		std::copy(r._data,&r._data[Dim],_data);
+		std::copy(r.data_,&r.data_[Dim],data_);
 	}
 
 	basic_matrix& operator=(const basic_matrix& r)
 	{
-		std::copy(r._data,&r._data[Dim],_data);
+		std::copy(r.data_,&r.data_[Dim],data_);
 		return *this;
 	}
 
 	basic_matrix& operator+=(const basic_matrix& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			_data[i] += r._data[i];
+			data_[i] += r.data_[i];
 		return *this;
 	}
 
 	basic_matrix& operator-=(const basic_matrix& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			_data[i] -= r._data[i];
+			data_[i] -= r.data_[i];
 		return *this;
 	}
 
 	basic_matrix& operator*=(const value_type& v)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			_data[i] *= v;
+			data_[i] *= v;
 		return *this;
 	}
 
@@ -109,15 +109,15 @@ public:
 
 	pointer data()
 	{
-		return _data;
+		return data_;
 	}
 
 	const_pointer data() const
 	{
-		return _data;
+		return data_;
 	}
 private:
-	value_type _data[Dim];
+	value_type data_[Dim];
 };
 
 typedef basic_matrix<space_unit,4,4> space_matrix;

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "cube_texture.hpp"
 #include "volume_texture.hpp"
 #include "render_target.hpp"
+#include "light.hpp"
 #include "../math/matrix.hpp"
 #include "../window.hpp"
 
@@ -190,6 +191,8 @@ public:
 	virtual void projection(const math::space_matrix& mat) = 0;
 	virtual void set_render_target(texture_ptr target = texture_ptr()) = 0;
 	virtual void set_viewport(const viewport&) = 0;
+	virtual void enable_light(light_index index, bool enable) = 0;
+	virtual void set_light(light_index index, const light&) = 0;
 
 	virtual render_target_ptr get_render_target() const = 0;
 
