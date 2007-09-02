@@ -88,9 +88,13 @@ namespace cull_mode
 namespace depth_func
 {
 	enum type {
-		greater,
-		less_equal,
 		never,
+		less,
+		equal,
+		less_equal,
+		greater,
+		not_equal,
+		greater_equal,
 		always
 	};
 }
@@ -123,6 +127,35 @@ namespace nonindexed_primitive_type
 	};
 }
 
+namespace source_blend_func
+{
+	enum type {
+		zero,
+		one,
+		dest_color,
+		inv_dest_color,
+		src_alpha,
+		inv_src_alpha,
+		dest_alpha,
+		inv_dest_alpha,
+		src_alpha_sat
+	};
+}
+
+namespace dest_blend_func
+{
+	enum type {
+		zero,
+		one,
+		src_color,
+		inv_src_color,
+		src_alpha,
+		inv_src_alpha,
+		dest_alpha,
+		inv_dest_alpha
+	};
+}
+
 class renderer {
 public:
 	typedef uint32         int_type;
@@ -150,6 +183,7 @@ public:
 	virtual void set_cull_mode(cull_mode::type) = 0;
 	virtual void set_depth_func(depth_func::type) = 0;
 	virtual void set_fog_mode(fog_mode::type) = 0;
+	virtual void set_blend_func(source_blend_func::type, dest_blend_func::type) = 0;
 	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;
 	virtual void set_material(const material& mat) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;

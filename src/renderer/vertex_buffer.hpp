@@ -44,7 +44,15 @@ public:
 private:
 	template<typename Stored>
 	class iterator_impl : public boost::iterator_facade<iterator_impl<Stored>,Stored,std::random_access_iterator_tag,Stored,difference_type> {
-		// FIXME: bring typedefs required by iterator in scope
+	// FIXME
+	/*	typedef boost::iterator_facade<iterator_impl<Stored>,Stored,std::random_access_iterator_tag,Stored,difference_type> base_type;
+	public:
+		typedef typename base_type::difference_type difference_type;
+		typedef typename base_type::value_type value_type;
+		typedef typename base_type::reference reference;
+		typedef typename base_type::pointer pointer;
+		typedef typename base_type::iterator_category iterator_category;
+	private:*/
 		friend class vertex_buffer;
 
 		typename Stored::pointer data;
@@ -59,6 +67,7 @@ private:
 		difference_type distance_to(const iterator_impl& r) const { return (r.data - data) / difference_type(stride); }
 		Stored dereference() const { return Stored(data,stride,*oi); }
 		template<typename OtherStored> friend class iterator_impl;
+
 	public:
 		template<typename OtherStored>
 		iterator_impl(const iterator_impl<OtherStored>& r)

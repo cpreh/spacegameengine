@@ -147,12 +147,20 @@ template<> GLenum sge::ogl::convert_cast(const cull_mode::type& m)
 template<> GLenum sge::ogl::convert_cast(const depth_func::type& f)
 {
 	switch(f) {
-	case depth_func::greater:
-		return GL_GREATER;
-	case depth_func::less_equal:
-		return GL_LEQUAL;
 	case depth_func::never:
 		return GL_NEVER;
+	case depth_func::less:
+		return GL_LESS;
+	case depth_func::equal:
+		return GL_EQUAL;
+	case depth_func::less_equal:
+		return GL_LEQUAL;
+	case depth_func::greater:
+		return GL_GREATER;
+	case depth_func::not_equal:
+		return GL_NOTEQUAL;
+	case depth_func::greater_equal:
+		return GL_GEQUAL;
 	case depth_func::always:
 		return GL_ALWAYS;
 	default:
@@ -171,6 +179,56 @@ template<> GLenum sge::ogl::convert_cast(const fog_mode::type& m)
 		return GL_EXP2;
 	default:
 		throw exception("Invalid fog_mode!");
+	}
+}
+
+template<> GLenum sge::ogl::convert_cast(const source_blend_func::type& f)
+{
+	switch(f) {
+	case source_blend_func::zero:
+		return GL_ZERO;
+	case source_blend_func::one:
+		return GL_ONE;
+	case source_blend_func::dest_color:
+		return GL_DST_COLOR;
+	case source_blend_func::inv_dest_color:
+		return GL_ONE_MINUS_DST_COLOR;
+	case source_blend_func::src_alpha:
+		return GL_SRC_ALPHA;
+	case source_blend_func::inv_src_alpha:
+		return GL_ONE_MINUS_SRC_ALPHA;
+	case source_blend_func::dest_alpha:
+		return GL_DST_ALPHA;
+	case source_blend_func::inv_dest_alpha:
+		return GL_ONE_MINUS_DST_ALPHA;
+	case source_blend_func::src_alpha_sat:
+		return GL_SRC_ALPHA_SATURATE;
+	default:
+		throw exception("Invalid source_blend_func!");
+	}
+}
+
+template<> GLenum sge::ogl::convert_cast(const dest_blend_func::type& f)
+{
+	switch(f) {
+	case dest_blend_func::zero:
+		return GL_ZERO;
+	case dest_blend_func::one:
+		return GL_ONE;
+	case dest_blend_func::src_color:
+		return GL_SRC_COLOR;
+	case dest_blend_func::inv_src_color:
+		return GL_ONE_MINUS_SRC_COLOR;
+	case dest_blend_func::src_alpha:
+		return GL_SRC_ALPHA;
+	case dest_blend_func::inv_src_alpha:
+		return GL_ONE_MINUS_SRC_ALPHA;
+	case dest_blend_func::dest_alpha:
+		return GL_DST_ALPHA;
+	case dest_blend_func::inv_dest_alpha:
+		return GL_ONE_MINUS_DST_ALPHA;
+	default:
+		throw exception("Invalid dest_blend_func!");
 	}
 }
 

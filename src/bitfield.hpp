@@ -60,14 +60,14 @@ private:
 		proxy_impl(StoredType array, size_type pos)
 			: array(array), pos(pos) {}
 		StoredType array;
-		size_type pos;
+		const size_type pos;
 		template<typename, typename> friend class iterator_impl;
 		static size_type bit_offset(size_type p) { return p % element_bits; }
 		static size_type array_offset(size_type p) { return p / element_bits; }
 	public:
 		proxy_impl& operator=(value_type b)
 		{
-			size_type index = array_offset(pos), bit = bit_offset(pos);
+			const size_type index = array_offset(pos), bit = bit_offset(pos);
 			if(b) set_bit(array[index],bit);
 		        else clear_bit(array[index],bit);
 			return *this;
@@ -91,7 +91,7 @@ private:
 public:
 	typedef proxy reference;
 	typedef const value_type const_reference;
-private:
+private
 	template<typename StoredType, typename Reference>
 	class iterator_impl : public boost::iterator_facade<iterator_impl<StoredType,Reference>,value_type,std::random_access_iterator_tag,Reference,difference_type> {
 		friend class bitfield;
@@ -119,12 +119,12 @@ public:
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 	
-	friend bitfield operator| (Enum a, Enum b) { return bitfield(a) | b; }
+	friend bitfield operator| (const Enum a, const Enum b) { return bitfield(a) | b; }
 	
 	bitfield() : array() {}
 	bitfield(Enum e) : array() { set(e,true); }
 	
-	bitfield& operator=(Enum e)
+	bitfield& operator=(const Enum e)
 	{
 		clear();
 		set(e,true);
@@ -141,25 +141,25 @@ public:
 	
 	size_type size() const { return Size; }
 
-	const_reference operator[](Enum index) const { return *(begin()+index); }
-	reference operator[](Enum index) { return *(begin()+index); }
+	const_reference operator[](const Enum index) const { return *(begin()+index); }
+	reference operator[](const Enum index) { return *(begin()+index); }
 	
-	bitfield& operator|=(Enum e) { set(e,true); return *this; }
+	bitfield& operator|=(const Enum e) { set(e,true); return *this; }
 	bitfield& operator|=(const bitfield& r) { std::transform(array.begin(),array.end(),r.array.begin(),array.begin(),bit_or<internal_type>()); return *this; }
-	bitfield operator|(Enum r) const { bitfield ret(*this); ret.set(r,true); return ret; }
+	bitfield operator|(const Enum r) const { bitfield ret(*this); ret.set(r,true); return ret; }
 	bitfield operator|(const bitfield& r) const { bitfield ret(*this); ret |= r; return ret; }
 
 	bitfield& operator&=(const bitfield& r) { std::transform(array.begin(),array.end(),r.array.begin(),array.begin(),bit_and<internal_type>()); return *this; }
 	bitfield operator& (const bitfield& r) const { bitfield ret(*this); ret &= r; return ret; }
-	value_type operator& (Enum where) const { return get(where); }
+	value_type operator& (const Enum where) const { return get(where); }
 
 	bitfield& operator^=(const bitfield& r) { std::transform(array.begin(),array.end(),r.array.begin(),array.begin(),bit_xor<internal_type>()); return *this; }
 	bitfield operator^(const bitfield& r) const { bitfield ret(*this); ret ^= r; return ret; }
 
 	bitfield operator~() const { bitfield ret(*this); std::transform(ret.array.begin(),ret.array.end(),ret.array.begin(),bit_not<internal_type>()); return ret; }
 	
-	void set(Enum where, value_type value) { *(begin()+where) = value; }
-	value_type get(Enum where) const { return *(begin()+where); }
+	void set(const Enum where, const value_type value) { *(begin()+where) = value; }
+	value_type get(const Enum where) const { return *(begin()+where); }
 
 	void clear() { array.assign(0); }
 

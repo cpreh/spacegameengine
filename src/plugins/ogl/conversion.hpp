@@ -41,6 +41,8 @@ template<> GLenum convert_cast(const cube_side::type&);
 template<> GLenum convert_cast(const cull_mode::type&);
 template<> GLenum convert_cast(const depth_func::type&);
 template<> GLenum convert_cast(const fog_mode::type&);
+template<> GLenum convert_cast(const source_blend_func::type&);
+template<> GLenum convert_cast(const dest_blend_func::type&);
 
 GLuint convert_lock_flags(lock_flag_t);
 GLuint convert_resource_flags(resource_flag_t);

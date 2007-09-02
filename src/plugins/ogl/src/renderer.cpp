@@ -192,7 +192,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	if(glewInit() != GLEW_OK)
 		throw exception("glewInit() failed");
 
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+	set_blend_func(source_blend_func::src_alpha, dest_blend_func::inv_src_alpha);
 
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
@@ -433,6 +433,17 @@ void sge::ogl::renderer::set_depth_func(const depth_func::type func)
 
 	if(is_error())
 		throw exception("glDepthFunc() failed!");
+}
+
+void sge::ogl::renderer::set_blend_func(const source_blend_func::type source, const dest_blend_func::type dest)
+{
+	const GLenum glsource = convert_cast<GLenum>(source),
+	             gldest   = convert_cast<GLenum>(dest);
+
+	glBlendFunc(glsource, gldest);
+
+	if(is_error())
+		throw exception("glBlendFunc() failed!");
 }
 
 void sge::ogl::renderer::set_material(const material& mat)

@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X_WINDOW_HPP_INCLUDED
 #define SGE_X_WINDOW_HPP_INCLUDED
 
-#include <X11/Xlib.h>
-#include <GL/glx.h>
-
 #include <set>
 
 #include <boost/function.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/signals.hpp>
+
+#include <X11/Xlib.h>
+#include <GL/glx.h>
 
 #include "window.hpp"
 #include "x_display.hpp"

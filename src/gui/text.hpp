@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_TEXT_HPP_INCLUDED
 
 #include <string>
+#include <vector>
 
 #include <boost/smart_ptr.hpp>
 
@@ -40,7 +41,6 @@ private:
 	boost::scoped_array<color::channel_t> data;
 	sge::string                 glyphs;
 	std::vector<sge::gui::rect> glyphpositions;
-
 public:
 	text();
 	inline const dim2 &size() { return size_; }
