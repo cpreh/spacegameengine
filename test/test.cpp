@@ -385,6 +385,7 @@ int main()
 		}
 	}
 
+	rend->set_bool_state(sge::bool_state::enable_lighting, true);
 	rend->set_bool_state(sge::bool_state::enable_zbuffer, true);
 	rend->set_bool_state(sge::bool_state::enable_culling, true);
 	rend->set_bool_state(sge::bool_state::clear_zbuffer, true);
@@ -392,6 +393,9 @@ int main()
 	rend->set_cull_mode(sge::cull_mode::front);
 	rend->set_float_state(sge::float_state::zbuffer_clear_val, 0);
 	rend->set_depth_func(sge::depth_func::greater);
+
+	rend->set_light(0, sge::light(sge::color4(1, 0.5, 0, 0), sge::color4(1, 0.5, 0, 0), sge::color4(1, 0, 0, 0), sge::light::position_type(0, 0, 0), sge::light::direction_type(0, 0, -1), 0.5, 0, 0, 1, 90));
+	rend->enable_light(0, true);
 
 	sge::math::vector3 translation(0, 0, -200);
 	float angle(0);

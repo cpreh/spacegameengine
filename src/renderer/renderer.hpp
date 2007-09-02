@@ -86,7 +86,7 @@ namespace cull_mode
 	};
 }
 
-namespace depth_func
+namespace compare_func
 {
 	enum type {
 		never,
@@ -99,6 +99,10 @@ namespace depth_func
 		always
 	};
 }
+
+namespace depth_func = compare_func;
+
+namespace stencil_func = compare_func;
 
 namespace fog_mode
 {
@@ -160,6 +164,8 @@ namespace dest_blend_func
 class renderer {
 public:
 	typedef uint32         int_type;
+	typedef int32          signed_type;
+	typedef uint32         unsigned_type;
 	typedef space_unit     float_type;
 	typedef bool           bool_type;
 
@@ -183,6 +189,7 @@ public:
 	virtual void set_color_state(color_state::type, color value) = 0;
 	virtual void set_cull_mode(cull_mode::type) = 0;
 	virtual void set_depth_func(depth_func::type) = 0;
+	virtual void set_stencil_func(stencil_func::type, signed_type value, unsigned_type mask) = 0;
 	virtual void set_fog_mode(fog_mode::type) = 0;
 	virtual void set_blend_func(source_blend_func::type, dest_blend_func::type) = 0;
 	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;

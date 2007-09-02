@@ -434,6 +434,15 @@ void sge::ogl::renderer::set_depth_func(const depth_func::type func)
 		throw exception("glDepthFunc() failed!");
 }
 
+void sge::ogl::renderer::set_stencil_func(const stencil_func::type func, const signed_type value, const unsigned_type mask)
+{
+	const GLenum glfunc = convert_cast<GLenum>(func);
+	glStencilFunc(glfunc, value, mask);
+
+	if(is_error())
+		throw exception("glStencilFunc() failed!");
+}
+
 void sge::ogl::renderer::set_blend_func(const source_blend_func::type source, const dest_blend_func::type dest)
 {
 	const GLenum glsource = convert_cast<GLenum>(source),

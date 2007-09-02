@@ -144,27 +144,27 @@ template<> GLenum sge::ogl::convert_cast(const cull_mode::type& m)
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const depth_func::type& f)
+template<> GLenum sge::ogl::convert_cast(const compare_func::type& f)
 {
 	switch(f) {
-	case depth_func::never:
+	case compare_func::never:
 		return GL_NEVER;
-	case depth_func::less:
+	case compare_func::less:
 		return GL_LESS;
-	case depth_func::equal:
+	case compare_func::equal:
 		return GL_EQUAL;
-	case depth_func::less_equal:
+	case compare_func::less_equal:
 		return GL_LEQUAL;
-	case depth_func::greater:
+	case compare_func::greater:
 		return GL_GREATER;
-	case depth_func::not_equal:
+	case compare_func::not_equal:
 		return GL_NOTEQUAL;
-	case depth_func::greater_equal:
+	case compare_func::greater_equal:
 		return GL_GEQUAL;
-	case depth_func::always:
+	case compare_func::always:
 		return GL_ALWAYS;
 	default:
-		throw exception("Invalid depth_func!");
+		throw exception("Invalid compare_func!");
 	}
 }
 
