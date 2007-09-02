@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../default_render_target.hpp"
 #include "../light.hpp"
 #include "../enable.hpp"
+#include "../multi_texture.hpp"
+#include "../texture_stage.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
@@ -516,15 +518,6 @@ sge::render_target_ptr sge::ogl::renderer::get_render_target() const
 
 void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_type stage)
 {
-	if(!glActiveTextureARB)
-		throw exception(extension_not_supported_string("ARB_multitexture"));
-	if(stage >= GL_MAX_TEXTURE_UNITS_ARB)
-	{
-		std::cerr << "GL_MAX_TEXTURE_UNITS_ARB is " << GL_MAX_TEXTURE_UNITS_ARB << ". Setting texture stage " << stage << " ignored!\n";
-		return;
-	}
-
-	glActiveTextureARB(static_cast<GLenum>(GL_TEXTURE0_ARB + stage));
 	glDisable(GL_TEXTURE_1D);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_TEXTURE_3D);
@@ -560,6 +553,16 @@ void sge::ogl::renderer::set_light(const light_index index, const light& l)
 
 	set_light_float(glindex, GL_SPOT_EXPONENT, l.distribution_exponent);
 	set_light_float(glindex, GL_SPOT_CUTOFF, l.cutoff_angle);
+}
+
+void sge::ogl::renderer::set_texture_stage_op(const stage_type stage, const texture_stage_op::type op, const texture_stage_op_value::type value)
+{
+	set_texture_stage(stage, op, value);
+}
+
+void sge::ogl::renderer::set_texture_stage_arg(const stage_type stage, const texture_stage_arg::type arg, const texture_stage_arg_value::type value)
+{
+	set_texture_stage(stage, arg, value);
 }
 
 void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)

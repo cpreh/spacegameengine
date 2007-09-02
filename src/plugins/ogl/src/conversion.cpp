@@ -232,6 +232,77 @@ template<> GLenum sge::ogl::convert_cast(const dest_blend_func::type& f)
 	}
 }
 
+template<> GLenum sge::ogl::convert_cast(const texture_stage_op::type& op)
+{
+	switch(op) {
+	case texture_stage_op::color:
+		return GL_COMBINE_RGB_ARB;
+	case texture_stage_op::alpha:
+		return GL_COMBINE_ALPHA_ARB;
+	default:
+		throw exception("Invalid texture_stage_op!");
+	}
+}
+
+template<> GLenum sge::ogl::convert_cast(const texture_stage_op_value::type& value)
+{
+	switch(value) {
+	case texture_stage_op_value::arg0:
+		return GL_REPLACE;
+	case texture_stage_op_value::modulate:
+	case texture_stage_op_value::modulate2x:
+	case texture_stage_op_value::modulate4x:
+		return GL_MODULATE;
+	case texture_stage_op_value::add:
+	case texture_stage_op_value::add2x:
+	case texture_stage_op_value::add4x:
+		return GL_ADD;
+	case texture_stage_op_value::substract:
+		return GL_SUBTRACT_ARB;
+	case texture_stage_op_value::add_signed:
+	case texture_stage_op_value::add_signed2x:
+		return GL_ADD_SIGNED_ARB;
+	case texture_stage_op_value::interpolate:
+		return GL_INTERPOLATE_ARB;
+	default:
+		throw exception("Invalid texture_stage_op_value!");
+	}
+}
+
+template<> GLenum sge::ogl::convert_cast(const texture_stage_arg::type& arg)
+{
+	switch(arg) {
+	case texture_stage_arg::rgb0:
+		return GL_SOURCE0_RGB_ARB;
+	case texture_stage_arg::rgb1:
+		return GL_SOURCE1_RGB_ARB;
+	case texture_stage_arg::rgb2:
+		return GL_SOURCE2_RGB_ARB;
+	case texture_stage_arg::alpha0:
+		return GL_SOURCE0_ALPHA_ARB;
+	case texture_stage_arg::alpha1:
+		return GL_SOURCE1_ALPHA_ARB;
+	case texture_stage_arg::alpha2:
+		return GL_SOURCE2_ALPHA_ARB;
+	default:
+		throw exception("Invalid texture_stage_arg!");
+	}
+}
+
+template<> GLenum sge::ogl::convert_cast(const texture_stage_arg_value::type& value)
+{
+	switch(value) {
+	case texture_stage_arg_value::current:
+		return GL_PRIMARY_COLOR_ARB;
+	case texture_stage_arg_value::texture:
+		return GL_TEXTURE;
+	case texture_stage_arg_value::constant:
+		return GL_CONSTANT_ARB;
+	default:
+		throw exception("Invalid texture_stage_arg_value!");
+	}
+}
+
 GLenum sge::ogl::convert_fog_float_state(const float_state::type& s)
 {
 	switch(s) {

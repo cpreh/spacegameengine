@@ -161,6 +161,53 @@ namespace dest_blend_func
 	};
 }
 
+namespace texture_stage_op
+{
+	enum type {
+		color,
+		alpha
+	};
+}
+
+namespace texture_stage_op_value
+{
+	enum type {
+		arg0,
+		modulate,
+		modulate2x,
+		modulate4x,
+		add,
+		add2x,
+		add4x,
+		substract,
+		add_signed,
+		add_signed2x,
+		interpolate
+	};
+}
+
+namespace texture_stage_arg
+{
+	enum type {
+		rgb0,
+		rgb1,
+		rgb2,
+		alpha0,
+		alpha1,
+		alpha2
+	};
+}
+
+namespace texture_stage_arg_value
+{
+	enum type {
+		current,
+		texture,
+		constant
+
+	};
+}
+
 class renderer {
 public:
 	typedef uint32         int_type;
@@ -200,6 +247,8 @@ public:
 	virtual void set_viewport(const viewport&) = 0;
 	virtual void enable_light(light_index index, bool enable) = 0;
 	virtual void set_light(light_index index, const light&) = 0;
+	virtual void set_texture_stage_op(stage_type stage, texture_stage_op::type, texture_stage_op_value::type) = 0;
+	virtual void set_texture_stage_arg(stage_type stage, texture_stage_arg::type, texture_stage_arg_value::type) = 0;
 
 	virtual render_target_ptr get_render_target() const = 0;
 

@@ -88,6 +88,9 @@ public:
 	const viewport &get_viewport() const;
 	void enable_light(light_index index, bool enable);
 	void set_light(light_index index, const light&);
+	void set_texture_stage_op(stage_type stage, texture_stage_op::type, texture_stage_op_value::type);
+	void set_texture_stage_arg(stage_type stage, texture_stage_arg::type, texture_stage_arg_value::type);
+
 
 	sge::render_target_ptr get_render_target() const;
 
