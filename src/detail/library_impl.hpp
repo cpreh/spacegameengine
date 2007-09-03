@@ -18,17 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../funptr_cast.hpp"
 #include "../exception.hpp"
 
 template<typename Fun>
 Fun sge::library::load_function(const std::string& fun)
 {
-#ifdef SGE_WINDOWS_PLATFORM
-	Fun ptr = reinterpret_cast<Fun>(GetProcAddress(handle, fun.c_str()));
-#elif SGE_LINUX_PLATFORM
-	Fun ptr = funptr_cast<Fun>(dlsym(handle, fun.c_str()));
-#endif
+	const Fun ptr = reinterpret_cast<Fun>(load_adress_base(fun));
 	if(!ptr)
 		throw exception("failed to load function " + fun + " from library " + name() + " : " + liberror());
 	return ptr;

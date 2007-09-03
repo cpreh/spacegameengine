@@ -23,24 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <string>
 #include <boost/noncopyable.hpp>
-#include "types.hpp"
-
-#ifdef SGE_WINDOWS_PLATFORM
-#include "windows.hpp"
-#elif SGE_LINUX_PLATFORM
-#include<dlfcn.h>
-#endif
 
 namespace sge
 {
 
 class library : boost::noncopyable {
 private:
-#ifdef SGE_WINDOWS_PLATFORM
-	HMODULE handle;
-#elif SGE_LINUX_PLATFORM
 	void* handle;
-#endif
 public:
 	library(const std::string& path);
 	~library();
@@ -50,9 +39,9 @@ public:
 
 	const std::string& name() const;
 private:
-#ifdef SGE_WINDOWS_PLATFORM
-	static DWORD lasterror;
-#endif
+	typedef void*(*base_fun)();
+	base_fun load_adress_base(const std::string& fun);
+
 	static std::string liberror();
 
 	std::string n;
