@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #include "../library.hpp"
 #include "../iconv.hpp"
+#include "../funptr_cast.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include <boost/array.hpp>
 #include "../win32_conv.hpp"
-#include "windows.hpp"
+#include "../windows.hpp"
 #elif SGE_LINUX_PLATFORM
 #include <dlfcn.h>
-#include "../funptr_cast.hpp"
 #endif
 
 sge::library::library(const std::string& n)
@@ -49,7 +49,7 @@ sge::library::~library()
 	if(handle)
 	{
 #ifdef SGE_WINDOWS_PLATFORM
-		FreeLibrary(handle);
+		FreeLibrary(static_cast<HINSTANCE__*>(handle));
 #elif SGE_LINUX_PLATFORM
 		dlclose(handle);
 #endif
@@ -63,11 +63,13 @@ const std::string& sge::library::name() const
 
 sge::library::base_fun sge::library::load_adress_base(const std::string& fun)
 {
+	return funptr_cast<base_fun>(
 #ifdef SGE_WINDOWS_PLATFORM
-	return GetProcAdress(reinterpret_cast<HANDLE>(handle), fun.c_str());
+		GetProcAddress(static_cast<HINSTANCE__*>(handle), fun.c_str())
 #elif SGE_LINUX_PLATFORM
-	return funptr_cast<base_fun>(dlsym(handle, fun.c_str()));
+		dlsym(handle, fun.c_str())
 #endif
+	);
 }
 
 std::string sge::library::liberror()
@@ -90,6 +92,6 @@ std::string sge::library::liberror()
 #endif
 }
 
-#ifdef SGE_WINDOWS_PLATFORM
-DWORD sge::library::lasterror = 0;
-#endif
+//#ifdef SGE_WINDOWS_PLATFORM
+//DWORD sge::library::lasterror = 0;
+//#endif

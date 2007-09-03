@@ -88,12 +88,9 @@
 
 1186877904 d:\dev\sge\src\plugin_traits.hpp
 
-1185928678 d:\dev\sge\src\library.hpp
+1188851688 d:\dev\sge\src\library.hpp
 	<string>
 	<boost/noncopyable.hpp>
-	"types.hpp"
-	"windows.hpp"
-	<dlfcn.h>
 	"detail/library_impl.hpp"
 
 1185928678 d:\dev\sge\src\types.hpp
@@ -101,8 +98,7 @@
 1185928678 d:\dev\sge\src\windows.hpp
 	<windows.h>
 
-1185928670 d:\dev\sge\src\detail\library_impl.hpp
-	"../funptr_cast.hpp"
+1188851688 d:\dev\sge\src\detail\library_impl.hpp
 	"../exception.hpp"
 
 1185928678 d:\dev\sge\src\funptr_cast.hpp
@@ -137,7 +133,7 @@
 	"../math/dim.hpp"
 	"color.hpp"
 
-1187734242 d:\dev\sge\src\math\vector.hpp
+1188851688 d:\dev\sge\src\math\vector.hpp
 	<cassert>
 	<cstddef>
 	<iostream>
@@ -207,7 +203,7 @@
 	"../renderer/renderable.hpp"
 	"../renderer/default_transformable.hpp"
 
-1185928672 d:\dev\sge\src\renderer\vertex_buffer.hpp
+1188851688 d:\dev\sge\src\renderer\vertex_buffer.hpp
 	<iterator>
 	<cstddef>
 	<boost/iterator/iterator_facade.hpp>
@@ -220,7 +216,7 @@
 1185928678 d:\dev\sge\src\algorithm.hpp
 	<iterator>
 
-1187734242 d:\dev\sge\src\renderer\vertex_format.hpp
+1188851688 d:\dev\sge\src\renderer\vertex_format.hpp
 	<cstddef>
 	<vector>
 	<stdexcept>
@@ -241,7 +237,7 @@
 	"../types.hpp"
 	"types.hpp"
 
-1185928672 d:\dev\sge\src\renderer\renderer.hpp
+1188851688 d:\dev\sge\src\renderer\renderer.hpp
 	"../shared_ptr.hpp"
 	"types.hpp"
 	"vertex_buffer.hpp"
@@ -251,6 +247,7 @@
 	"cube_texture.hpp"
 	"volume_texture.hpp"
 	"render_target.hpp"
+	"light.hpp"
 	"../math/matrix.hpp"
 	"../window.hpp"
 
@@ -267,7 +264,7 @@
 	"../shared_ptr.hpp"
 	"color.hpp"
 
-1187734242 d:\dev\sge\src\math\matrix.hpp
+1188851688 d:\dev\sge\src\math\matrix.hpp
 	<algorithm>
 	<cassert>
 	<cstddef>
@@ -438,7 +435,7 @@
 	"../plugin_traits.hpp"
 	"key_type.hpp"
 
-1187649700 d:\dev\sge\src\input\key_type.hpp
+1188657612 d:\dev\sge\src\input\key_type.hpp
 	<utility>
 	"../string.hpp"
 
@@ -447,7 +444,7 @@
 	"key_type.hpp"
 	"input_system.hpp"
 
-1187631386 d:\dev\sge\src\gui\types.hpp
+1188144648 d:\dev\sge\src\gui\types.hpp
 
 1182956698 d:\dev\sge\src\gui\cursor.hpp
 	"types.hpp"
@@ -461,7 +458,7 @@
 	"events.hpp"
 	"types.hpp"
 
-1187564814 d:\dev\sge\src\gui\events.hpp
+1188416874 d:\dev\sge\src\gui\events.hpp
 	<set>
 	"canvas.hpp"
 	"types.hpp"
@@ -1177,7 +1174,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1187730110 source:d:\dev\sge\test\guitest.cpp
+1188466116 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1360,9 +1357,14 @@
 
 1186877904 d:\dev\sge\src\image\image_format.hpp
 
-1187730914 d:\dev\sge\src\gui\widget.hpp
+1188654798 d:\dev\sge\src\gui\widget.hpp
 	<list>
 	<string>
+	<boost/optional.hpp>
 	"events.hpp"
 	"../iconv.hpp"
+
+1188851688 d:\dev\sge\src\renderer\light.hpp
+	"color.hpp"
+	"../math/vector.hpp"
 

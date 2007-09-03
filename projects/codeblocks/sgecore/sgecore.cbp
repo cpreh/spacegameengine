@@ -134,6 +134,7 @@
 		<Unit filename="..\..\..\src/renderer/font_types.hpp" />
 		<Unit filename="..\..\..\src/renderer/hsla.hpp" />
 		<Unit filename="..\..\..\src/renderer/index_buffer.hpp" />
+		<Unit filename="..\..\..\src/renderer/light.hpp" />
 		<Unit filename="..\..\..\src/renderer/line_strip.hpp" />
 		<Unit filename="..\..\..\src/renderer/lock_ptr.hpp" />
 		<Unit filename="..\..\..\src/renderer/render_target.hpp" />
@@ -146,6 +147,7 @@
 		<Unit filename="..\..\..\src/renderer/src/font_drawer_3d.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/hsla.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/index_buffer.cpp" />
+		<Unit filename="..\..\..\src/renderer/src/light.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/line_strip.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/renderer.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/renderer_system.cpp" />
