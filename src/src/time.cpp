@@ -18,8 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../types.hpp"
 #include "../exception.hpp"
 #include "../time.hpp"
+
+#ifdef SGE_LINUX_PLATFORM
+#include <sys/time.h>
+#elif SGE_WINDOWS_PLATFORM
+#include "../windows.hpp"
+#endif
 
 sge::time_type sge::time()
 {
@@ -28,8 +35,8 @@ sge::time_type sge::time()
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
 		throw sge::exception("gettimeofday() failed");
-	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return static_cast<time_type>(tv.tv_sec * 1000 + tv.tv_usec / 1000);
 #elif SGE_WINDOWS_PLATFORM
-	return GetTickCount();
+	return static_cast<time_type>(GetTickCount());
 #endif
 }

@@ -21,21 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_HPP_INCLUDED
 #define SGE_TIME_HPP_INCLUDED
 
-#include "types.hpp"
-
-#ifdef SGE_LINUX_PLATFORM
-#include <sys/time.h>
-#elif SGE_WINDOWS_PLATFORM
-#include "windows.hpp"
-#endif
-
 namespace sge
 {
-#ifdef SGE_LINUX_PLATFORM
-	typedef suseconds_t time_type;
-#elif SGE_WINDOWS_PLATFORM
-	typedef DWORD time_type;
-#endif
+
+typedef unsigned long time_type;
 
 time_type time();
 
