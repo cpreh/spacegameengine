@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_VERTEX_BUFFER_HPP_INCLUDED
 
 #include "../../renderer/vertex_buffer.hpp"
-#include "basic_arb_buffer.hpp"
+#include "basic_buffer.hpp"
 #include "vertex_format.hpp"
 
 namespace sge
@@ -30,8 +30,8 @@ namespace sge
 namespace ogl
 {
 
-class vertex_buffer : public basic_arb_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER_ARB> {	
-	typedef basic_arb_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER_ARB> base;
+class vertex_buffer : public basic_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER> {	
+	typedef basic_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER> base;
 public:
 	vertex_buffer(size_type size, const sge::vertex_format& format, resource_flag_t flags, const_pointer src);
 

@@ -18,21 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_BASIC_ARB_BUFFER_HPP_INCLUDED
-#define SGE_OGL_BASIC_ARB_BUFFER_HPP_INCLUDED
+#ifndef SGE_OGL_BASIC_BUFFER_HPP_INCLUDED
+#define SGE_OGL_BASIC_BUFFER_HPP_INCLUDED
 
 #include "../../exception.hpp"
 #include "common.hpp"
 #include "conversion.hpp"
 #include "error.hpp"
-#include "extension.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-template<typename Base, GLenum Type> class basic_arb_buffer : public Base {
+template<typename Base, GLenum Type> class basic_buffer : public Base {
 public:
 	typedef typename Base::value_type value_type;
 	typedef typename Base::size_type size_type;
@@ -46,18 +45,18 @@ public:
 	typedef typename Base::reverse_iterator reverse_iterator;
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
 			
-	basic_arb_buffer(const size_type sz, const size_type _stride, const resource_flag_t _flags, const const_pointer src)
+	basic_buffer(const size_type sz, const size_type _stride, const resource_flag_t _flags, const const_pointer src)
 	 : sz(sz), _stride(_stride), _flags(_flags), dest(0)
 	{
-		glGenBuffersARB(1,&id);
+		glGenBuffers(1,&id);
 		if(is_error())
-			throw exception("glGenBuffersARB() failed!");
+			throw exception("glGenBuffers() failed!");
 		_set_size(src);
 	}
 
-	~basic_arb_buffer()
+	~basic_buffer()
 	{
-		glDeleteBuffersARB(1,&id);
+		glDeleteBuffers(1,&id);
 	}
 
 	void lock(const lock_flag_t lockflags)
@@ -67,11 +66,11 @@ public:
 		
 		const GLuint glflags = convert_lock_flags(lockflags);
 		bind_me();
-		dest = static_cast<pointer>(glMapBufferARB(Type,glflags));
+		dest = static_cast<pointer>(glMapBuffer(Type,glflags));
 		if(is_error())
 		{
 			dest = 0;
-			throw exception("glMapBufferARB() failed!");
+			throw exception("glMapBuffer() failed!");
 		}
 	}
 
@@ -80,11 +79,11 @@ public:
 		if(!dest)
 			throw exception("ogl_buffer::unlock(), buffer is not locked! cannot unlock!");
 		bind_me();
-		glUnmapBufferARB(Type);
+		glUnmapBuffer(Type);
 		dest = 0;
 
 		if(is_error())
-			throw exception("glUnmapBufferARB() failed!");
+			throw exception("glUnmapBuffer() failed!");
 	}
 
 	void set_data(const const_pointer data, const size_type first, const size_type count)
@@ -94,9 +93,9 @@ public:
 		if(dest)
 			throw exception("ogl_buffer::set_data(), buffer must not be locked!");
 		bind_me();
-		glBufferSubDataARB(Type, first * _stride, count * _stride, data);
+		glBufferSubData(Type, first * _stride, count * _stride, data);
 		if(is_error())
-			throw exception("glBufferSubDataARB() failed!");
+			throw exception("glBufferSubData() failed!");
 	}
 
 	void check_lock() const
@@ -183,9 +182,9 @@ public:
 
 	static void bind(const GLuint id)
 	{
-		glBindBufferARB(Type,id);
+		glBindBuffer(Type,id);
 		if(is_error())
-			throw exception("glBindBufferARB() failed!");
+			throw exception("glBindBuffer() failed!");
 	}
 
 	static void unbind()
@@ -203,20 +202,11 @@ private:
 		const GLuint glflags = convert_resource_flags(_flags);
 		const size_type nsz = size()*_stride;
 		bind_me();
-		glBufferDataARB(Type,nsz,src,glflags);
+		glBufferData(Type,nsz,src,glflags);
 		if(is_error())
-			throw exception("glBufferDataARB() failed!");
+			throw exception("glBufferData() failed!");
 	}
 			
-	struct init_guard {
-		init_guard()
-		{
-			if(!GLEW_ARB_vertex_buffer_object)
-				throw exception(extension_not_supported_string("ARB_vertex_buffer_object!"));
-		}
-	};
-	
-	init_guard _guard;
 	size_type sz;
 	size_type _stride;
 	resource_flag_t _flags;

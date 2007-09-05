@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../renderer/index_buffer.hpp"
 #include "common.hpp"
-#include "basic_arb_buffer.hpp"
+#include "basic_buffer.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-class index_buffer : public basic_arb_buffer<sge::index_buffer,GL_ELEMENT_ARRAY_BUFFER_ARB> {
-	typedef basic_arb_buffer<sge::index_buffer,GL_ELEMENT_ARRAY_BUFFER_ARB> base;
+class index_buffer : public basic_buffer<sge::index_buffer,GL_ELEMENT_ARRAY_BUFFER> {
+	typedef basic_buffer<sge::index_buffer,GL_ELEMENT_ARRAY_BUFFER> base;
 public:
 	index_buffer(size_type sz, resource_flag_t flags, const_pointer src);
 	iterator begin();

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_buffer.hpp"
 
 sge::ogl::vertex_buffer::vertex_buffer(const size_type size, const sge::vertex_format& format, const resource_flag_t flags, const const_pointer src)
- : basic_arb_buffer<sge::vertex_buffer,GL_ARRAY_BUFFER_ARB>(size,format.stride(),flags,src),
+ : base(size,format.stride(),flags,src),
    format(format),
    ogl_format(format)
 {}
