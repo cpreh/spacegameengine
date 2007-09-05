@@ -71,7 +71,7 @@ sge::ogl::xf86_resolution_ptr sge::ogl::xf86_vidmode_array::switch_to_mode(const
 
 		if(mode.hdisplay == pmode.width() &&
 		   mode.vdisplay == pmode.height() &&
-		   rate  > pmode.refresh_rate &&
+		   rate  >= pmode.refresh_rate &&
 		   (best == -1 || rate >= refresh_rate((*this)[best])))
 			best = static_cast<int>(i);
 	}

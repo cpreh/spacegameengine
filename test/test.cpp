@@ -180,14 +180,11 @@ int main()
 
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
 	const sge::renderer_caps_array caps(rs->caps());
-/*	for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
-	{
-		const sge::display_mode& mode = caps.at(0).display_modes[i];
-		std::cerr << mode.width << ' ' << mode.height << ' ' << sge::bit_depth_bit_count(mode.depth) << ' ' << mode.refresh_rate << '\n';
-	}*/
+	for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
+		std::cout << caps.at(0).display_modes[i] << '\n';
 	//std::cout << caps.at(0).max_anisotropy_level << '\n';
 
-	const sge::renderer_parameters param(sge::display_mode(1024,768,sge::bit_depth::depth32,100), true);
+	const sge::renderer_parameters param(sge::display_mode(1280,1024,sge::bit_depth::depth32,100), false);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
 
 	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
