@@ -22,17 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../multi_texture.hpp"
 #include "../common.hpp"
-#include "../extension.hpp"
 
 void sge::ogl::set_texture_level(const stage_type stage)
 {
-	if(!glActiveTextureARB)
-		throw exception(extension_not_supported_string("ARB_multitexture"));
-	if(stage >= GL_MAX_TEXTURE_UNITS_ARB)
+	if(stage >= std::max(GL_MAX_TEXTURE_COORDS, GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS))
 	{
-		std::cerr << "GL_MAX_TEXTURE_UNITS_ARB is " << GL_MAX_TEXTURE_UNITS_ARB << ". Setting texture stage " << stage << " ignored!\n";
+		std::cerr << "GL_MAX_COMBINED_TEXTURE_UNITS is " << GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS << ". Setting texture stage " << stage << " ignored!\n";
 		return;
 	}
 
-	glActiveTextureARB(static_cast<GLenum>(GL_TEXTURE0_ARB + stage));
+	glActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + stage));
 }
