@@ -24,15 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 GLuint sge::ogl::convert_lock_flags(const lock_flag_t f)
 {
 	if(f & lock_flags::discard)
-		return GL_WRITE_ONLY_ARB;
-	return GL_READ_WRITE_ARB;
+		return GL_WRITE_ONLY;
+	return GL_READ_WRITE;
 }
 
 GLuint sge::ogl::convert_resource_flags(const resource_flag_t f)
 {
 	if(f & resource_flags::dynamic)
-		return GL_DYNAMIC_DRAW_ARB;
-	return GL_STATIC_DRAW_ARB;
+		return GL_DYNAMIC_DRAW;
+	return GL_STATIC_DRAW;
 }
 
 template<> GLenum sge::ogl::convert_cast(const nonindexed_primitive_type::type& t)
@@ -116,17 +116,17 @@ template<> GLenum sge::ogl::convert_cast(const cube_side::type& s)
 {
 	switch(s) {
 	case cube_side::left:
-		return GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB;
+		return GL_TEXTURE_CUBE_MAP_NEGATIVE_X;
 	case cube_side::right:
-		return GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB;
+		return GL_TEXTURE_CUBE_MAP_POSITIVE_X;
 	case cube_side::front:
-		return GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB;
+		return GL_TEXTURE_CUBE_MAP_POSITIVE_Z;
 	case cube_side::back:
-		return GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB;
+		return GL_TEXTURE_CUBE_MAP_NEGATIVE_Z;
 	case cube_side::top:
-		return GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB;
+		return GL_TEXTURE_CUBE_MAP_POSITIVE_Y;
 	case cube_side::bottom:
-		return GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB;
+		return GL_TEXTURE_CUBE_MAP_NEGATIVE_Y;
 	default:
 		throw exception("Invalid cube_side!");
 	}
@@ -236,9 +236,9 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_op::type& op)
 {
 	switch(op) {
 	case texture_stage_op::color:
-		return GL_COMBINE_RGB_ARB;
+		return GL_COMBINE_RGB;
 	case texture_stage_op::alpha:
-		return GL_COMBINE_ALPHA_ARB;
+		return GL_COMBINE_ALPHA;
 	default:
 		throw exception("Invalid texture_stage_op!");
 	}
@@ -258,12 +258,12 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_op_value::type& val
 	case texture_stage_op_value::add4x:
 		return GL_ADD;
 	case texture_stage_op_value::substract:
-		return GL_SUBTRACT_ARB;
+		return GL_SUBTRACT;
 	case texture_stage_op_value::add_signed:
 	case texture_stage_op_value::add_signed2x:
-		return GL_ADD_SIGNED_ARB;
+		return GL_ADD_SIGNED;
 	case texture_stage_op_value::interpolate:
-		return GL_INTERPOLATE_ARB;
+		return GL_INTERPOLATE;
 	default:
 		throw exception("Invalid texture_stage_op_value!");
 	}
@@ -273,17 +273,17 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_arg::type& arg)
 {
 	switch(arg) {
 	case texture_stage_arg::rgb0:
-		return GL_SOURCE0_RGB_ARB;
+		return GL_SOURCE0_RGB;
 	case texture_stage_arg::rgb1:
-		return GL_SOURCE1_RGB_ARB;
+		return GL_SOURCE1_RGB;
 	case texture_stage_arg::rgb2:
-		return GL_SOURCE2_RGB_ARB;
+		return GL_SOURCE2_RGB;
 	case texture_stage_arg::alpha0:
-		return GL_SOURCE0_ALPHA_ARB;
+		return GL_SOURCE0_ALPHA;
 	case texture_stage_arg::alpha1:
-		return GL_SOURCE1_ALPHA_ARB;
+		return GL_SOURCE1_ALPHA;
 	case texture_stage_arg::alpha2:
-		return GL_SOURCE2_ALPHA_ARB;
+		return GL_SOURCE2_ALPHA;
 	default:
 		throw exception("Invalid texture_stage_arg!");
 	}
@@ -293,11 +293,11 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_arg_value::type& va
 {
 	switch(value) {
 	case texture_stage_arg_value::current:
-		return GL_PRIMARY_COLOR_ARB;
+		return GL_PRIMARY_COLOR;
 	case texture_stage_arg_value::texture:
 		return GL_TEXTURE;
 	case texture_stage_arg_value::constant:
-		return GL_CONSTANT_ARB;
+		return GL_CONSTANT;
 	default:
 		throw exception("Invalid texture_stage_arg_value!");
 	}

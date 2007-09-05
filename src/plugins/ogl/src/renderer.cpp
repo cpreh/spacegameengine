@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <iostream>
 #include "../../../types.hpp"
 #include "../../../ptr_cast.hpp"
 #include "../../../bit.hpp"
@@ -44,8 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 
 // TODO: consistent error checking
-
-#include <iostream> // TODO: remove when stub messages are gone
 
 namespace
 {

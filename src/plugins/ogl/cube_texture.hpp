@@ -30,7 +30,7 @@ namespace sge
 namespace ogl
 {
 
-class cube_texture : public basic_texture<sge::cube_texture,GL_TEXTURE_CUBE_MAP_ARB> { 
+class cube_texture : public basic_texture<sge::cube_texture,GL_TEXTURE_CUBE_MAP> { 
 public:
 	cube_texture(const cube_side_array* src, size_type sz, const filter_args& filter, resource_flag_t flags);
 	size_type size() const;

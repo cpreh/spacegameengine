@@ -51,7 +51,7 @@ GLenum stage_value_scale(const sge::texture_stage_op_value::type value)
 
 void sge::ogl::tex_envf_ext(const GLenum arg, const GLenum value)
 {
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_EXT);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
 	glTexEnvf(GL_TEXTURE_ENV, arg, value);
 
 	if(is_error())
@@ -61,6 +61,6 @@ void sge::ogl::tex_envf_ext(const GLenum arg, const GLenum value)
 void sge::ogl::set_texture_stage_scale(const texture_stage_op_value::type value)
 {
 	const GLenum scale = stage_value_scale(value);
-	tex_envf_ext(GL_RGB_SCALE_ARB, scale);
+	tex_envf_ext(GL_RGB_SCALE, scale);
 	tex_envf_ext(GL_ALPHA_SCALE, scale);
 }
