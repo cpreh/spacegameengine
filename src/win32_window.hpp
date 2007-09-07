@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/optional.hpp>
 #include <boost/signals.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
-#include <boost/shared_ptr.hpp>
 
+#include "shared_ptr.hpp"
 #include "string.hpp"
 #include "window.hpp"
 #include "windows.hpp"

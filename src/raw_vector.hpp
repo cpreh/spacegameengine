@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RAW_VECTOR_HPP_INCLUDED
 
 #include <memory>
-#include <iterator>
-#include <stdexcept>
 #include <algorithm>
+#include "exception.hpp"
 
 namespace sge
 {
@@ -170,7 +169,7 @@ private:
 	void range_check(size_type n) const
 	{
 		if(n >= size())
-			throw std::range_error("raw_vector::at() out of range!");
+			throw exception("raw_vector::at() out of range!");
 	}
 
 	A a;

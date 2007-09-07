@@ -43,4 +43,8 @@ std::string sge::frames_counter::frames_str() const
 	oss << frames();
 	return oss.str();
 }
-unsigned sge::frames_counter::frames() const { return display_frames; }
+
+sge::time_type sge::frames_counter::frames() const
+{
+	return display_frames;
+}

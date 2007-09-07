@@ -3,17 +3,16 @@
 
 #include <cassert>
 #include <cstddef>
-#include <iostream>
 #include <cmath>
 #include <iterator>
+#include <istream>
+#include <ostream>
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
 #include <boost/utility/enable_if.hpp>
-//#include <boost/mpl/and.hpp>
-//#include <boost/mpl/bool.hpp>
-//#include <boost/type_traits/is_same.hpp>
+#include "../types.hpp"
 #include "../util.hpp"
 #include "../exception.hpp"
 

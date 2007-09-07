@@ -18,27 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FRAMES_COUNTER_HPP_INCLUDED
-#define SGE_FRAMES_COUNTER_HPP_INCLUDED
+#include "../plugin.hpp"
 
-#include <string>
-#include "timer.hpp"
-
-namespace sge
-{
-
-class frames_counter {
-private:
-	timer t;
-	time_type current_frames,
-	          display_frames;
-public:
-	frames_counter();
-	void update();
-	std::string frames_str() const;
-	time_type frames() const;
-};
-
-}
-
-#endif
+sge::plugin_info::plugin_info()
+ : name(0),
+   description(0),
+   plugin_version(0),
+   min_core_version(0),
+   type(plugin_type::nothing)
+{}
