@@ -18,27 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_DRAWER_HPP_INCLUDED
-#define SGE_FONT_DRAWER_HPP_INCLUDED
+#ifndef SGE_OGL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
+#define SGE_OGL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
 
-#include <cstddef>
-#include "../shared_ptr.hpp"
-#include "font_types.hpp"
+#include <string>
+#include "../../math/vector.hpp"
+#include "../../math/matrix.hpp"
+#include "../../renderer/vertex_buffer.hpp"
+#include "common.hpp"
 
 namespace sge
 {
+namespace ogl
+{
 
-class font_drawer {
+class attribute_variable {
 public:
-	typedef std::size_t size_type;
-	virtual void begin_rendering(size_type buffer_chars, font_dim size) = 0;
-	virtual void draw_char(font_char, font_rect rect, const font_color* data) = 0;
-	virtual void end_rendering() = 0;
-	virtual ~font_drawer() {}
+	attribute_variable(GLuint program, const std::string& name);
+	
+	void set(space_unit);
+	void set(const math::vector2&);
+	void set(const math::vector3&);
+	void set(const math::vector4&);
+
+	void set(vertex_buffer_ptr);
+private:
+	GLint location() const;
+	GLint ref;
 };
 
-typedef shared_ptr<font_drawer> font_drawer_ptr;
-
+}
 }
 
 #endif
