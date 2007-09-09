@@ -18,33 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_OGL_INDEX_BUFFER_HPP_INCLUDED
+#include "../version.hpp"
 
-#include "../../renderer/index_buffer.hpp"
-#include "common.hpp"
-#include "basic_buffer.hpp"
-
-namespace sge
+std::string sge::ogl::version_not_supported_string(const std::string& function, const std::string& min_version)
 {
-namespace ogl
-{
-
-namespace detail
-{
-typedef basic_buffer<sge::index_buffer, index_buffer_type> index_buffer_base;
+	return "Your opengl version does not implement the following function: \"" + function + "\". The minimal opengl version must be " + min_version + "! Please make sure you run the latest driver for your video hardware.";
 }
-
-class index_buffer : public detail::index_buffer_base {
-public:
-	index_buffer(size_type sz, resource_flag_t flags, const_pointer src);
-	iterator begin();
-	const_iterator begin() const;
-	static void unbind();
-};
-
-}
-}
-
-#endif
-

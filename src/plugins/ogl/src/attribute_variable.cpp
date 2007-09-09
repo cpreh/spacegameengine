@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../ptr_cast.hpp"
 #include "../attribute_variable.hpp"
 
 sge::ogl::attribute_variable::attribute_variable(GLuint program, const std::string& name)
@@ -46,7 +47,11 @@ void sge::ogl::attribute_variable::set(const math::vector4& v)
 
 void sge::ogl::attribute_variable::set(const vertex_buffer_ptr vb)
 {
-	
+	vertex_buffer* const ogl_buffer = ptr_cast<vertex_buffer*>(vb.get());
+
+	glEnableVertexAttribArray(location());
+
+//	glVertexAttribPointer(location(), GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
 }
 
 GLint sge::ogl::attribute_variable::location() const

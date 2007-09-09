@@ -18,33 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_OGL_INDEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_OGL_VBO_HPP_INCLUDED
+#define SGE_OGL_VBO_HPP_INCLUDED
 
-#include "../../renderer/index_buffer.hpp"
 #include "common.hpp"
-#include "basic_buffer.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-namespace detail
-{
-typedef basic_buffer<sge::index_buffer, index_buffer_type> index_buffer_base;
-}
+void check_vbo_extension();
+GLuint gen_buffer();
+void delete_buffer(GLuint);
+void bind_buffer(GLenum type, GLuint);
+void* map_buffer(GLenum type, GLenum flags);
+void unmap_buffer(GLenum type);
+void buffer_data(GLenum type, GLsizei size, const void* data, GLenum flags);
+void buffer_sub_data(GLenum type, GLsizei first, GLsizei size, const void* data);
 
-class index_buffer : public detail::index_buffer_base {
-public:
-	index_buffer(size_type sz, resource_flag_t flags, const_pointer src);
-	iterator begin();
-	const_iterator begin() const;
-	static void unbind();
-};
+const GLenum index_buffer_type = GL_ELEMENT_ARRAY_BUFFER;
+const GLenum vertex_buffer_type = GL_ARRAY_BUFFER;
 
 }
 }
 
 #endif
-

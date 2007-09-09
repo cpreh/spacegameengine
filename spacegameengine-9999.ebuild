@@ -8,7 +8,7 @@ DESCRIPTION="A portable easy to use engine written in C++"
 HOMEPAGE="http://spacegameengine.sourceforge.net/"
 ESVN_REPO_URI="https://spacegameengine.svn.sourceforge.net/svnroot/spacegameengine"
 
-LICENSE="GPL-2"
+LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="debug devil dga openal opengl test truetype vorbis wave xinput zlib"

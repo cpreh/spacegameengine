@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../exception.hpp"
 #include "common.hpp"
 #include "conversion.hpp"
-#include "error.hpp"
+#include "vbo.hpp"
 
 namespace sge
 {
@@ -48,15 +48,14 @@ public:
 	basic_buffer(const size_type sz, const size_type _stride, const resource_flag_t _flags, const const_pointer src)
 	 : sz(sz), _stride(_stride), _flags(_flags), dest(0)
 	{
-		glGenBuffers(1,&id);
-		if(is_error())
-			throw exception("glGenBuffers() failed!");
+		check_vbo_extension();
+		id = gen_buffer();
 		_set_size(src);
 	}
 
 	~basic_buffer()
 	{
-		glDeleteBuffers(1,&id);
+		delete_buffer(id);
 	}
 
 	void lock(const lock_flag_t lockflags)
@@ -66,11 +65,13 @@ public:
 		
 		const GLuint glflags = convert_lock_flags(lockflags);
 		bind_me();
-		dest = static_cast<pointer>(glMapBuffer(Type,glflags));
-		if(is_error())
+		try
+		{
+			dest = static_cast<pointer>(map_buffer(Type, glflags));
+		}
+		catch(const exception&)
 		{
 			dest = 0;
-			throw exception("glMapBuffer() failed!");
 		}
 	}
 
@@ -79,11 +80,8 @@ public:
 		if(!dest)
 			throw exception("ogl_buffer::unlock(), buffer is not locked! cannot unlock!");
 		bind_me();
-		glUnmapBuffer(Type);
+		unmap_buffer(Type);
 		dest = 0;
-
-		if(is_error())
-			throw exception("glUnmapBuffer() failed!");
 	}
 
 	void set_data(const const_pointer data, const size_type first, const size_type count)
@@ -93,9 +91,7 @@ public:
 		if(dest)
 			throw exception("ogl_buffer::set_data(), buffer must not be locked!");
 		bind_me();
-		glBufferSubData(Type, first * _stride, count * _stride, data);
-		if(is_error())
-			throw exception("glBufferSubData() failed!");
+		buffer_sub_data(Type, first * _stride, count * _stride, data);
 	}
 
 	void check_lock() const
@@ -182,9 +178,7 @@ public:
 
 	static void bind(const GLuint id)
 	{
-		glBindBuffer(Type,id);
-		if(is_error())
-			throw exception("glBindBuffer() failed!");
+		bind_buffer(Type, id);
 	}
 
 	static void unbind()
@@ -200,11 +194,9 @@ private:
 	void _set_size(const const_pointer src)
 	{
 		const GLuint glflags = convert_resource_flags(_flags);
-		const size_type nsz = size()*_stride;
+		const size_type nsz = size() * _stride;
 		bind_me();
-		glBufferData(Type,nsz,src,glflags);
-		if(is_error())
-			throw exception("glBufferData() failed!");
+		buffer_data(Type, nsz, src, glflags);
 	}
 			
 	size_type sz;

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 
 sge::ogl::index_buffer::index_buffer(const size_type sz, const resource_flag_t flags, const const_pointer src)
- : base(sz,sge::index_buffer::stride,flags,src)
+ : detail::index_buffer_base(sz,sge::index_buffer::stride,flags,src)
 {}
 
 sge::ogl::index_buffer::iterator sge::ogl::index_buffer::begin()
@@ -38,5 +38,5 @@ sge::ogl::index_buffer::const_iterator sge::ogl::index_buffer::begin() const
 
 void sge::ogl::index_buffer::unbind()
 {
-	base::unbind();			
+	detail::index_buffer_base::unbind();
 }
