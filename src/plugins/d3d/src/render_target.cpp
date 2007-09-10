@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../exception.hpp"
 #include "../render_target.hpp"
 
 sge::d3d::render_target::render_target(renderer* const r, const d3d_device_ptr device, const size_type _width, const size_type _height)
@@ -31,11 +32,11 @@ void sge::d3d::render_target::init()
 {
 	IDirect3DTexture9* t;
 	if(device->CreateTexture(static_cast<UINT>(width()),static_cast<UINT>(height()),1,D3DUSAGE_RENDERTARGET,D3DFMT_A8R8G8B8,D3DPOOL_DEFAULT,&t,0) != D3D_OK)
-		throw std::runtime_error("creating render target failed");
+		throw exception("creating render target failed");
 	tex.reset(t);
 	IDirect3DSurface9* s;
 	if(tex->GetSurfaceLevel(0,&s) != D3D_OK)
-		throw std::runtime_error("getting surface for render target failed");
+		throw exception("getting surface for render target failed");
 	surface.reset(s);
 }
 

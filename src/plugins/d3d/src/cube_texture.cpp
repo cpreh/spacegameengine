@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d::cube_texture::cube_texture(renderer* const r, d3d_device_ptr device, const cube_side_array* data, const size_type sz, const resource_flag_t nflags)
 :  d3d::texture_base(0),
-   resource(r, nflags & RF_Dynamic),
+   resource(r, nflags),// & RF_Dynamic),
    device(device), _flags(nflags), sz(sz), lock_dest(0)
 {
 	init(data);
@@ -44,7 +44,7 @@ void sge::d3d::cube_texture::init(const cube_side_array* const src)
 	}*/
 }
 
-void sge::d3d::cube_texture::lock(const cube_side side, const lock_rect* const r)
+void sge::d3d::cube_texture::lock(const cube_side::type side, const lock_rect* const r)
 {
 	std::cerr << "stub: d3d::cube_texture::lock\n";
 }
@@ -54,7 +54,7 @@ void sge::d3d::cube_texture::unlock()
 	std::cerr << "stub: d3d::cube_texture::unlock\n";
 }
 
-void sge::d3d::cube_texture::set_data(const cube_side side, const const_pointer data, const lock_rect* const r)
+void sge::d3d::cube_texture::set_data(const cube_side::type side, const const_pointer data, const lock_rect* const r)
 {
 	std::cerr << "stub: d3d::cube_texture::set_data";
 }

@@ -573,10 +573,10 @@
 	"../src/endianness.hpp"
 	"../src/exception.hpp"
 
-1178548353 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\constants.hpp
+1185189227 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\constants.hpp
 	<cmath>
 
-1182973722 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\plugin_manager.hpp
+1188480633 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\plugin_manager.hpp
 	<cstddef>
 	<vector>
 	<map>
@@ -595,18 +595,16 @@
 
 1182973722 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\heap_deleter.hpp
 
-1182973722 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\plugin.hpp
+1188480633 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\plugin.hpp
 	<boost/noncopyable.hpp>
 	"string.hpp"
 	"shared_ptr.hpp"
 	"plugin_traits.hpp"
 	"library.hpp"
 
-1182973722 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\string.hpp
+1188480633 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\string.hpp
+	<memory>
 	<string>
-	<ostream>
-	"typeswitch.hpp"
-	"unicode.hpp"
 
 1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\typeswitch.hpp
 	<boost/cstdint.hpp>
@@ -614,14 +612,11 @@
 1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\unicode.hpp
 	"typeswitch.hpp"
 
-1182973722 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\plugin_traits.hpp
+1188480633 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\plugin_traits.hpp
 
-1182973722 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\library.hpp
+1188900578 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\library.hpp
+	<string>
 	<boost/noncopyable.hpp>
-	"string.hpp"
-	"types.hpp"
-	"windows.hpp"
-	<dlfcn.h>
 	"detail/library_impl.hpp"
 
 1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\types.hpp
@@ -629,35 +624,34 @@
 1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\windows.hpp
 	<windows.h>
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\detail\library_impl.hpp
-	<stdexcept>
-	"../funptr_cast.hpp"
-	"../iconv.hpp"
+1188900577 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\detail\library_impl.hpp
+	"../exception.hpp"
 
 1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\funptr_cast.hpp
 
-1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\iconv.hpp
+1185189234 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\iconv.hpp
 	<string>
 	"string.hpp"
 	"iconv_types.hpp"
 
-1183048798 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\iconv_types.hpp
-	<stdexcept>
+1188480633 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\iconv_types.hpp
 	<string>
+	"exception.hpp"
 	"detail/iconv_encoding_list.hpp"
 
-1183055624 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\detail\iconv_encoding_list.hpp
+1188480622 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\detail\iconv_encoding_list.hpp
 
-1182437624 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\exception.hpp
-	<exception>
+1188480633 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\exception.hpp
+	<stdexcept>
 	<string>
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\lock_ptr.hpp
+1186060134 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\lock_ptr.hpp
 	"types.hpp"
 	"texture_base.hpp"
 	"volume_texture.hpp"
+	"cube_texture.hpp"
 
-1180812154 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\types.hpp
+1188480623 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\types.hpp
 	<cstddef>
 	<vector>
 	<stdexcept>
@@ -667,11 +661,10 @@
 	"../math/dim.hpp"
 	"color.hpp"
 
-1178913298 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\vector.hpp
+1188900576 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\vector.hpp
 	<cassert>
 	<cstddef>
-	<ostream>
-	<istream>
+	<iostream>
 	<cmath>
 	<iterator>
 	<boost/static_assert.hpp>
@@ -679,71 +672,66 @@
 	<boost/preprocessor/repetition/repeat.hpp>
 	<boost/preprocessor/arithmetic/add.hpp>
 	<boost/utility/enable_if.hpp>
-	<boost/mpl/and.hpp>
-	<boost/mpl/bool.hpp>
-	<boost/type_traits/is_same.hpp>
 	"../util.hpp"
+	"../exception.hpp"
 
 1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\util.hpp
 	"types.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\dim.hpp
+1188480621 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\dim.hpp
 	<cstddef>
 	<iterator>
 	<ostream>
+	<istream>
 	<cassert>
 	<boost/static_assert.hpp>
 	<boost/preprocessor/enum_params.hpp>
 	<boost/preprocessor/repetition/repeat.hpp>
 	<boost/preprocessor/arithmetic/add.hpp>
 	"../types.hpp"
+	"../exception.hpp"
 
-1178913299 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\color.hpp
+1188480623 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\color.hpp
 	<ostream>
+	<istream>
 	"../types.hpp"
 	"../typeswitch.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\texture_base.hpp
+1186060134 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\texture_base.hpp
 	<cstddef>
 	"../shared_ptr.hpp"
 	"../math/rect.hpp"
 	"color.hpp"
 	"types.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\rect.hpp
+1188480621 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\rect.hpp
+	"../exception.hpp"
 	"line_seg2.hpp"
 	"dim.hpp"
 	"vector.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\line_seg2.hpp
+1188480621 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\line_seg2.hpp
 	"vector.hpp"
 	"solve2.hpp"
 
 1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\solve2.hpp
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\volume_texture.hpp
+1188480623 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\volume_texture.hpp
 	"../math/box.hpp"
 	"texture_base.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\box.hpp
+1188480621 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\box.hpp
 	"vector.hpp"
 
-1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\sprite\system.hpp
-	<list>
-	<string>
-	<boost/array.hpp>
-	<boost/function.hpp>
+1188480633 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\sprite\system.hpp
 	<boost/noncopyable.hpp>
 	"../renderer/vertex_buffer.hpp"
 	"../renderer/index_buffer.hpp"
 	"../renderer/renderer.hpp"
 	"../renderer/renderable.hpp"
 	"../renderer/default_transformable.hpp"
-	"../raw_vector.hpp"
-	"../texture/texture_map.hpp"
-	"sprite_fwd.hpp"
 
-1182973721 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\vertex_buffer.hpp
+1188900577 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\vertex_buffer.hpp
 	<iterator>
 	<cstddef>
 	<boost/iterator/iterator_facade.hpp>
@@ -753,19 +741,15 @@
 	"vertex_format.hpp"
 	"types.hpp"
 
-1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\algorithm.hpp
-	<cstring>
-	<algorithm>
+1185189234 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\algorithm.hpp
 	<iterator>
-	<boost/type_traits/is_pod.hpp>
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\vertex_format.hpp
+1188900577 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\vertex_format.hpp
 	<cstddef>
 	<vector>
 	<stdexcept>
 	<algorithm>
 	<boost/type_traits/add_const.hpp>
-	<boost/type_traits/is_const.hpp>
 	<boost/type_traits/add_reference.hpp>
 	<boost/mpl/if.hpp>
 	<boost/mpl/not.hpp>
@@ -774,14 +758,14 @@
 	"../types.hpp"
 	"types.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\index_buffer.hpp
+1186060134 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\index_buffer.hpp
 	<cstddef>
 	<iterator>
 	"../shared_ptr.hpp"
 	"../types.hpp"
 	"types.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\renderer.hpp
+1188900577 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\renderer.hpp
 	"../shared_ptr.hpp"
 	"types.hpp"
 	"vertex_buffer.hpp"
@@ -791,23 +775,25 @@
 	"cube_texture.hpp"
 	"volume_texture.hpp"
 	"render_target.hpp"
+	"light.hpp"
 	"../math/matrix.hpp"
 	"../window.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\texture.hpp
+1186060134 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\texture.hpp
 	"texture_base.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\cube_texture.hpp
+1186060134 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\cube_texture.hpp
 	<boost/array.hpp>
 	"texture_base.hpp"
 	"types.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\render_target.hpp
+1186060134 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\render_target.hpp
 	<cstddef>
 	"../shared_ptr.hpp"
 	"color.hpp"
 
-1178913298 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\matrix.hpp
+1188900576 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\matrix.hpp
+	<algorithm>
 	<cassert>
 	<cstddef>
 	<ostream>
@@ -816,24 +802,23 @@
 	<boost/preprocessor/repetition/repeat.hpp>
 	<boost/preprocessor/arithmetic/add.hpp>
 	<boost/utility/enable_if.hpp>
-	<boost/type_traits/is_same.hpp>
 	"../types.hpp"
-	"../algorithm.hpp"
 	"../util.hpp"
+	"../exception.hpp"
 	"matrix_proxy.hpp"
 	"vector.hpp"
 
 1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\matrix_proxy.hpp
 	<cstddef>
 
-1179000706 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\window.hpp
+1188480633 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\window.hpp
 	"types.hpp"
 	"shared_ptr.hpp"
 	"math/dim.hpp"
 	"math/vector.hpp"
 	"string.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\renderable.hpp
+1188480623 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\renderable.hpp
 
 1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\default_transformable.hpp
 	"transformable.hpp"
@@ -859,13 +844,13 @@
 	"../image/image.hpp"
 	"../shared_ptr.hpp"
 
-1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\texture\manager.hpp
-	<stdexcept>
+1188480632 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\texture\manager.hpp
+	<boost/noncopyable.hpp>
 	<boost/ptr_container/ptr_list.hpp>
-	<boost/scoped_ptr.hpp>
+	"../shared_ptr.hpp"
+	"../exception.hpp"
 	"../renderer/renderer.hpp"
 	"../renderer/texture.hpp"
-	"../image/image.hpp"
 	"fragmented_texture.hpp"
 
 1175939040 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\image\image.hpp
@@ -874,12 +859,13 @@
 	"../shared_ptr.hpp"
 	"../renderer/types.hpp"
 
-1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\texture\fragmented_texture.hpp
+1188480632 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\texture\fragmented_texture.hpp
+	"../shared_ptr.hpp"
 	"../renderer/texture.hpp"
 	"../renderer/renderer.hpp"
 	"virtual_texture.hpp"
 
-1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\texture\virtual_texture.hpp
+1186060225 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\texture\virtual_texture.hpp
 	<boost/noncopyable.hpp>
 	"../renderer/texture.hpp"
 	"../shared_ptr.hpp"
@@ -889,23 +875,16 @@
 	"../renderer/vertex_buffer.hpp"
 	"../renderer/index_buffer.hpp"
 
-1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\sprite\sprite.hpp
-	<string>
+1188480633 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\sprite\sprite.hpp
 	<vector>
 	"../math/rect.hpp"
 	"../math/vector.hpp"
 	"../math/dim.hpp"
-	"../math/rect.hpp"
-	"../math/circle.hpp"
-	"../renderer/vertex_buffer.hpp"
-	"../renderer/index_buffer.hpp"
-	"../renderer/texture.hpp"
 	"../math/circle.hpp"
 	"../texture/virtual_texture.hpp"
-	"sprite_fwd.hpp"
 	"types.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\circle.hpp
+1188480621 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math\circle.hpp
 	"../types.hpp"
 	"vector.hpp"
 
@@ -952,7 +931,7 @@
 	"../renderer/font_types.hpp"
 	"../renderer/texture.hpp"
 
-1182973721 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\renderer_system.hpp
+1188480623 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\renderer_system.hpp
 	<vector>
 	"../shared_ptr.hpp"
 	"../types.hpp"
@@ -963,23 +942,9 @@
 1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\media.hpp
 	<string>
 
-1180812154 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\manager.hpp
-	<string>
-	<boost/noncopyable.hpp>
-	<boost/signals/trackable.hpp>
-	"../timer.hpp"
-	"../renderer/font.hpp"
-	"../renderer/renderer.hpp"
-	"../renderer/transformable.hpp"
-	"../sprite/sprite.hpp"
-	"../sprite/system.hpp"
-	"../image/image_loader.hpp"
-	"../input/input_system.hpp"
-	"../input/key_mod_tracker.hpp"
-	"types.hpp"
-	"cursor.hpp"
-	"element.hpp"
-	"events.hpp"
+1188480631 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\manager.hpp
+	"canvas.hpp"
+	"widget.hpp"
 
 1175939045 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\timer.hpp
 	"time.hpp"
@@ -989,13 +954,14 @@
 	<sys/time.h>
 	"windows.hpp"
 
-1182973720 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\image\image_loader.hpp
+1188480620 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\image\image_loader.hpp
 	<string>
 	"../shared_ptr.hpp"
 	"../plugin_traits.hpp"
 	"image.hpp"
+	"image_format.hpp"
 
-1182973720 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\input\input_system.hpp
+1188480621 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\input\input_system.hpp
 	<boost/noncopyable.hpp>
 	<boost/signal.hpp>
 	<boost/signals/connection.hpp>
@@ -1005,7 +971,7 @@
 	"../plugin_traits.hpp"
 	"key_type.hpp"
 
-1175939041 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\input\key_type.hpp
+1188505274 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\input\key_type.hpp
 	<utility>
 	"../string.hpp"
 
@@ -1014,11 +980,7 @@
 	"key_type.hpp"
 	"input_system.hpp"
 
-1175939044 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\types.hpp
-	"../types.hpp"
-	"../math/vector.hpp"
-	"../math/dim.hpp"
-	"../math/rect.hpp"
+1188480631 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\types.hpp
 
 1175939044 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\cursor.hpp
 	"types.hpp"
@@ -1032,14 +994,13 @@
 	"events.hpp"
 	"types.hpp"
 
-1175939044 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\events.hpp
+1188480631 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\events.hpp
+	<set>
+	"canvas.hpp"
 	"types.hpp"
-	"../input/key_type.hpp"
 
-1175939044 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\button.hpp
-	"../string.hpp"
-	"rectangle.hpp"
-	"types.hpp"
+1188480631 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\button.hpp
+	"widget.hpp"
 
 1175939044 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\rectangle.hpp
 	"types.hpp"
@@ -1367,4 +1328,75 @@
 1188851688 d:\dev\sge\src\renderer\light.hpp
 	"color.hpp"
 	"../math/vector.hpp"
+
+1188480619 source:c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\test\guitest.cpp
+	<ctime>
+	<cstdlib>
+	<string>
+	<exception>
+	<iostream>
+	<boost/any.hpp>
+	<boost/bind.hpp>
+	<boost/lambda/lambda.hpp>
+	<boost/lambda/if.hpp>
+	"../src/input/input_system.hpp"
+	"../src/input/key_state_tracker.hpp"
+	"../src/math.hpp"
+	"../src/math/constants.hpp"
+	"../src/renderer/lock_ptr.hpp"
+	"../src/renderer/renderer_system.hpp"
+	"../src/renderer/screenshot.hpp"
+	"../src/plugin_manager.hpp"
+	"../src/sprite/sprite.hpp"
+	"../src/sprite/system.hpp"
+	"../src/texture/no_fragmented_texture.hpp"
+	"../src/gui/color.hpp"
+	"../src/gui/manager.hpp"
+	"../src/gui/button.hpp"
+
+1186060136 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\math.hpp
+	<cmath>
+	<boost/type_traits/is_integral.hpp>
+	<boost/utility/enable_if.hpp>
+
+1188900577 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\renderer\light.hpp
+	"color.hpp"
+	"../math/vector.hpp"
+
+1188480620 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\image\image_format.hpp
+
+1188480632 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\texture\no_fragmented_texture.hpp
+	<boost/noncopyable.hpp>
+	"fragmented_texture.hpp"
+
+1186060226 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\color.hpp
+	<boost/function.hpp>
+	"../renderer/color.hpp"
+	"mixing_policies.hpp"
+
+1186060226 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\mixing_policies.hpp
+	"color.hpp"
+
+1188480631 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\canvas.hpp
+	<string>
+	<boost/smart_ptr.hpp>
+	"../texture/manager.hpp"
+	"types.hpp"
+	"color.hpp"
+	"exception.hpp"
+	"mixing_policies.hpp"
+	"gradient_policies.hpp"
+
+1188480631 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\exception.hpp
+	"../exception.hpp"
+
+1188480631 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\gradient_policies.hpp
+	"color.hpp"
+
+1188900578 c:\dokumente und einstellungen\sefi\eigene dateien\build\spacegameengine\src\gui\widget.hpp
+	<list>
+	<string>
+	<boost/optional.hpp>
+	"events.hpp"
+	"../iconv.hpp"
 

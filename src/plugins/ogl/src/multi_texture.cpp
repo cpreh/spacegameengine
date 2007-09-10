@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void sge::ogl::set_texture_level(const stage_type stage)
 {
-	if(stage >= std::max(GL_MAX_TEXTURE_COORDS, GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS))
+	if(stage >= static_cast<stage_type>(std::max(GL_MAX_TEXTURE_COORDS, GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS)))
 	{
 		std::cerr << "GL_MAX_COMBINED_TEXTURE_UNITS is " << GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS << ". Setting texture stage " << stage << " ignored!\n";
 		return;

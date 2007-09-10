@@ -18,50 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <stdexcept>
-#include "../conversion.hpp"
+#include "../../../exception.hpp"
 #include "../../../renderer/types.hpp"
+#include "../conversion.hpp"
 
 template<> DWORD sge::d3d::convert_cast (const resource_flag_t& r)
 {
 	DWORD l = 0;
-	if(r & RF_Dynamic)
+	if(r & resource_flags::dynamic)
 		l |= D3DUSAGE_DYNAMIC;
-	if(r & RF_WriteOnly)
+	if(r & resource_flags::write_only)
 		l |= D3DUSAGE_WRITEONLY;
     return l;
 }
 
 template<> D3DPOOL sge::d3d::convert_cast (const resource_flag_t& r)
 {
-	return r & RF_Dynamic ? D3DPOOL_DEFAULT : D3DPOOL_MANAGED;
+	return r & resource_flags::dynamic ? D3DPOOL_DEFAULT : D3DPOOL_MANAGED;
 }
 
-template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const indexed_primitive_type& r)
+template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const indexed_primitive_type::type& r)
 {
 	switch(r) {
-	case PT_Line:
+	case indexed_primitive_type::line:
 		return D3DPT_LINELIST;
-	case PT_Triangle:
+	case indexed_primitive_type::triangle:
 		return D3DPT_TRIANGLELIST;
 	default:
-		throw std::logic_error("Invalid indexed primitive type!");
+		throw exception("Invalid indexed primitive type!");
 	}
 }
 
-template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const nonindexed_primitive_type& r)
+template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const nonindexed_primitive_type::type& r)
 {
 	switch(r) {
-	case PT_Point:
+	case nonindexed_primitive_type::point:
 		return D3DPT_POINTLIST;
-	case PT_LineStrip:
+	case nonindexed_primitive_type::line_strip:
 		return D3DPT_LINESTRIP;
-	case PT_TriangleStrip:
+	case nonindexed_primitive_type::triangle_strip:
 		return D3DPT_TRIANGLESTRIP;
-	case PT_TriangleFan:
+	case nonindexed_primitive_type::triangle_fan:
 		return D3DPT_TRIANGLEFAN;
 	default:
-		throw std::logic_error("Invalid non indexed primitive type!");
+		throw exception("Invalid non indexed primitive type!");
 	}
 
 }
@@ -107,23 +107,23 @@ template<> D3DMULTISAMPLE_TYPE sge::d3d::convert_cast (const multi_sample_type& 
 	}
 }
 
-template<> D3DDECLUSAGE sge::d3d::convert_cast (const vertex_usage& r)
+template<> D3DDECLUSAGE sge::d3d::convert_cast (const vertex_usage::type& r)
 {
 	switch(r) {
-	case VU_Pos:
+	case vertex_usage::pos:
 		return D3DDECLUSAGE_POSITION;
-	case VU_Normal:
+	case vertex_usage::normal:
 		return D3DDECLUSAGE_NORMAL;
-	case VU_Tex:
+	case vertex_usage::tex:
 		return D3DDECLUSAGE_TEXCOORD;
-	case VU_Diffuse:
+	case vertex_usage::diffuse:
 		return D3DDECLUSAGE_COLOR;
 	default:
-		throw std::logic_error("invalid vertex_usage");
+		throw exception("invalid vertex_usage");
 	}
 }
 
-template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const stage_op& r)
+/*template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const stage_op& r)
 {
 	switch(r) {
 	case SOP_Color:
@@ -133,9 +133,9 @@ template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const stage_op& r)
 	default:
 		throw std::logic_error("invalid stage_op");
 	}
-}
+}*/
 
-template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const stage_arg& r)
+/*template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const stage_arg& r)
 {
 	switch(r) {
 	case SARG_Color1:
@@ -149,9 +149,9 @@ template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const stage_arg& r)
 	default:
 		throw std::logic_error("invalid stage_arg");
 	}
-}
+}*/
 
-template<> DWORD sge::d3d::convert_cast (const stage_op_value& r)
+/*template<> DWORD sge::d3d::convert_cast (const stage_op_value& r)
 {
 	switch(r) {
 	case SOPV_Disable:
@@ -209,9 +209,9 @@ template<> DWORD sge::d3d::convert_cast (const stage_op_value& r)
 	default:
 		throw std::logic_error("invalid stage_op_value");
 	}
-}
+}*/
 
-template<> DWORD sge::d3d::convert_cast (const stage_arg_value& r)
+/*template<> DWORD sge::d3d::convert_cast (const stage_arg_value& r)
 {
 	switch(r) {
 	case SARGV_Constant:
@@ -230,7 +230,7 @@ template<> DWORD sge::d3d::convert_cast (const stage_arg_value& r)
 		throw std::logic_error("invalid stage_arg_value");
 	}
 }
-
+*/
 /*template<> D3DSAMPLERSTATETYPE sge::d3d::convert_cast (const filter_arg& r)
 {
 	switch(r) {
@@ -245,7 +245,7 @@ template<> DWORD sge::d3d::convert_cast (const stage_arg_value& r)
 	}
 }*/
 
-template<> D3DTEXTUREFILTERTYPE sge::d3d::convert_cast (const filter_value& r)
+/*template<> D3DTEXTUREFILTERTYPE sge::d3d::convert_cast (const filter_value& r)
 {
 	switch(r) {
 	//case FARGV_None:
@@ -259,12 +259,12 @@ template<> D3DTEXTUREFILTERTYPE sge::d3d::convert_cast (const filter_value& r)
 	default:
 		throw std::logic_error("invalid filter_arg_value");
 	}
-}
+}*/
 
 DWORD sge::d3d::convert_lock_flags (const lock_flag_t lf, const resource_flag_t rf)
 {
 	DWORD l = 0;
-	if(lf & LF_Discard && rf & RF_Dynamic)
+	if(lf & lock_flags::discard && rf & resource_flags::dynamic)
 		l |= D3DLOCK_DISCARD;
 	return l;
 }

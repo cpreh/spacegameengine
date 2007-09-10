@@ -31,7 +31,7 @@ extern "C"
 		p->description = "";
 		p->plugin_version = 0x1;
 		p->min_core_version = 0x1;
-		p->type = sge::PT_Renderer;
+		p->type = sge::plugin_type::renderer;
 	}
 
 	sge::renderer_system* create_rend_system()

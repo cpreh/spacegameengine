@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D_INDEX_BUFFER_HPP_INCLUDED
 
 #include "../../renderer/index_buffer.hpp"
-#include "./resource.hpp"
-
-#include "./d3dinclude.hpp"
+#include "resource.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {
@@ -53,7 +52,9 @@ public:
 	resource_flag_t flags() const;
 	pointer data();
 	const_pointer data() const;
-	
+	reference operator[](size_type);
+	const_reference operator[](size_type) const;
+
 	void lock(lock_flag_t lflags, size_type first, size_type count);
 private:
 	void on_loss();

@@ -39,14 +39,14 @@ sge::renderer_ptr sge::ogl::renderer_system::create_renderer(const renderer_para
 	return r;
 }
 
-sge::renderer_caps_array sge::ogl::renderer_system::caps() const
+const sge::renderer_caps_array sge::ogl::renderer_system::caps() const
 {
 	renderer_caps_array v;
 #ifdef SGE_LINUX_PLATFORM
 	const x_display_ptr dsp(new x_display());
 	const int screen = DefaultScreen(dsp->get());
 	const xf86_vidmode_array modes(dsp, screen);
-	
+
 	renderer_caps ret;
 	for(xf86_vidmode_array::size_type i = 0; i < modes.size(); ++i)
 		ret.display_modes.push_back(display_mode(modes[i].hdisplay, modes[i].vdisplay, bit_depth::depth32, xf86_vidmode_array::refresh_rate(modes[i])));

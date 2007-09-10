@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D_CUBE_TEXTURE_HPP_INCLUDED
 
 #include "../../renderer/cube_texture.hpp"
-#include "./resource.hpp"
-#include "./texture_base.hpp"
+#include "resource.hpp"
+#include "texture_base.hpp"
 
-#include "./d3dinclude.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {
@@ -39,8 +39,8 @@ private:
 public:
 	size_type size() const;
 	resource_flag_t flags() const;
-	void set_data(cube_side side, const_pointer p, const lock_rect* r = 0);
-	void lock(cube_side side, const lock_rect* r = 0);
+	void set_data(cube_side::type side, const_pointer p, const lock_rect* r = 0);
+	void lock(cube_side::type side, const lock_rect* r = 0);
 	void unlock();
 private:
 	void on_loss();

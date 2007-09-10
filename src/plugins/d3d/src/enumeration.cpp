@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <iostream>
+#include <algorithm>
+#include "../../../exception.hpp"
 #include "../../../ptr_cast.hpp"
 #include "../../../renderer/types.hpp"
 #include "../../../win32_window.hpp"
@@ -25,18 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../constants.hpp"
 #include "../conversion.hpp"
 
-#include <iostream>
-#include <algorithm>
-
 void sge::d3d::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, renderer_caps& c)
 {
 	D3DCAPS9 caps;
 	if(sys->GetDeviceCaps(adapter,D3DDEVTYPE_HAL,&caps) != D3D_OK)
-		throw std::runtime_error("GetDeviceCaps failed");
+		throw exception("GetDeviceCaps failed");
 
 	D3DADAPTER_IDENTIFIER9 identifier;
 	if(sys->GetAdapterIdentifier(adapter,0,&identifier) != D3D_OK)
-		throw std::runtime_error("GetAdapterIdentifier failed");
+		throw exception("GetAdapterIdentifier failed");
 
 	c.adapter_number = adapter;
 	c.max_tex_size = caps.MaxTextureWidth;
@@ -46,14 +46,14 @@ void sge::d3d::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, r
 	c.driver_name = &identifier.Driver[0];
 	c.description = &identifier.Description[0];
 
-	add_display_modes(c.display_modes, adapter, BD_16, D3DFMT_A1R5G5B5, sys);
-	add_display_modes(c.display_modes, adapter, BD_16, D3DFMT_X1R5G5B5, sys);
-	add_display_modes(c.display_modes, adapter, BD_16, D3DFMT_R5G6B5,   sys);
-	add_display_modes(c.display_modes, adapter, BD_32, D3DFMT_A8R8G8B8, sys);
-	add_display_modes(c.display_modes, adapter, BD_32, D3DFMT_X8R8G8B8, sys);
+	add_display_modes(c.display_modes, adapter, bit_depth::depth16, D3DFMT_A1R5G5B5, sys);
+	add_display_modes(c.display_modes, adapter, bit_depth::depth16, D3DFMT_X1R5G5B5, sys);
+	add_display_modes(c.display_modes, adapter, bit_depth::depth16, D3DFMT_R5G6B5,   sys);
+	add_display_modes(c.display_modes, adapter, bit_depth::depth32, D3DFMT_A8R8G8B8, sys);
+	add_display_modes(c.display_modes, adapter, bit_depth::depth32, D3DFMT_X8R8G8B8, sys);
 }
 
-void sge::d3d::add_display_modes(display_mode_array& v, const unsigned adapter, const bit_depth depth, const D3DFORMAT format, const d3d_ptr sys)
+void sge::d3d::add_display_modes(display_mode_array& v, const unsigned adapter, const bit_depth::type depth, const D3DFORMAT format, const d3d_ptr sys)
 {
 	const unsigned modes = sys->GetAdapterModeCount(adapter,format);
 	for(unsigned i = 0; i < modes; ++i)
@@ -68,12 +68,12 @@ void sge::d3d::add_display_modes(display_mode_array& v, const unsigned adapter, 
 D3DFORMAT sge::d3d::search_format(const display_mode& mode, const d3d_ptr sys)
 {
 	switch(mode.depth) {
-	case BD_16:
+	case bit_depth::depth16:
 		return D3DFMT_R5G6B5;
-	case BD_32:
+	case bit_depth::depth32:
 		return D3DFMT_X8R8G8B8;
 	default:
-		throw std::logic_error("You may only pass valid bit_depths");
+		throw exception("You may only pass valid bit_depths");
 	}
 }
 

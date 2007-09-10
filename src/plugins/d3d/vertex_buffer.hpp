@@ -53,15 +53,17 @@ public:
 	size_type stride() const;
 	iterator create_iterator(pointer data);
 	const_iterator create_iterator(const_pointer data) const;
+	reference operator[](size_type);
+	const_reference operator[](size_type) const;
 	void lock(lock_flag_t flags);
 	void unlock();
 	void set_data(const_pointer data, size_type first, size_type count);
-	
+
 	resource_flag_t flags() const;
 	const sge::vertex_format& get_vertex_format() const;
 	pointer data();
 	const_pointer data() const;
-	
+
 	void lock(lock_flag_t lflags, size_type first, size_type count);
 private:
 	void on_loss();

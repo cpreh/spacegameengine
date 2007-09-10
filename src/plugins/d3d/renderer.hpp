@@ -50,14 +50,14 @@ public:
 	index_buffer_ptr   create_index_buffer(index_buffer::size_type size, resource_flag_t flags, index_buffer::const_pointer data);
 
 	render_target_ptr  create_render_target(render_target::size_type width, render_target::size_type height);
-	
-	void set_int_state(int_state, int_type);
-	void set_float_state(float_state, float_type);
-	void set_bool_state(bool_state, bool_type);
+
+	void set_int_state(int_state::type, int_type);
+	void set_float_state(float_state::type, float_type);
+	void set_bool_state(bool_state::type, bool_type);
 	void set_texture(texture_base_ptr tex, stage_type stage);
 	void set_material(const material& m);
-	void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value);
-	void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value);
+	//void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value);
+	//void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value);
 
 	void begin_rendering();
 	void end_rendering();
@@ -65,13 +65,13 @@ public:
 	            index_buffer_ptr ib,
 	            vertex_buffer::size_type first_vertex,
 	            vertex_buffer::size_type num_vertices,
-	            indexed_primitive_type ptype,
+	            indexed_primitive_type::type ptype,
 	            index_buffer::size_type pcount,
 	            index_buffer::size_type first_index);
 	void render(vertex_buffer_ptr vb,
 	            vertex_buffer::size_type first_vertex,
 	            vertex_buffer::size_type num_vertices,
-	            nonindexed_primitive_type ptype);
+	            nonindexed_primitive_type::type ptype);
 
 	void reset(const renderer_parameters* param);
 	void set_render_target(texture_ptr target);
@@ -84,20 +84,21 @@ public:
 	screen_size_t screen_size() const;
 	const renderer_caps& caps() const;
 private:
-	d3d_ptr                  sys;
-	d3d_device_ptr           device;
-	d3d_surface_ptr          default_render_target;
-	int                      adapter;
-	renderer_parameters      parameters;
-	win32_window_ptr         render_window;
-	resource_list            resources;
+	d3d_ptr                     sys;
+	d3d_device_ptr              device;
+	d3d_surface_ptr             default_render_target;
+	int                         adapter;
+	renderer_parameters         parameters;
+	win32_window_ptr            render_window;
+	resource_list               resources;
 	d3d_vertex_declaration_ptr  vertex_declaration;
-	bool_type          clear_zbuffer, clear_stencil, clear_back_buffer;
-	int_type           clear_color, stencil_clear_val;
-	float_type         zbuffer_clear_val;
-	renderer_caps      _caps;
-	vertex_buffer_ptr  vb;
-	index_buffer_ptr   ib;
+	DWORD                       clear_flags;
+	int_type                    clear_color,
+	                            stencil_clear_val;
+	float_type                  zbuffer_clear_val;
+	renderer_caps               _caps;
+	vertex_buffer_ptr           vb;
+	index_buffer_ptr            ib;
 private:
 	void init();
 	void release_resources();

@@ -52,7 +52,8 @@
 			<Add option="-ansi" />
 			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\src/plugins/ogl/basic_arb_buffer.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/attribute_variable.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/basic_buffer.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/basic_texture.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/common.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/conversion.hpp" />
@@ -73,6 +74,7 @@
 		<Unit filename="..\..\..\src/plugins/ogl/renderer.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/renderer_system.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/shader.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/attribute_variable.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/conversion.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/cube_texture.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/default_render_target.cpp" />
@@ -95,6 +97,9 @@
 		<Unit filename="..\..\..\src/plugins/ogl/src/texture_base.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/texture_functions.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/texture_stage.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/uniform_variable.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/vbo.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/version.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/vertex_buffer.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/vertex_format.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/volume_texture.cpp" />
@@ -107,6 +112,9 @@
 		<Unit filename="..\..\..\src/plugins/ogl/texture_base.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/texture_functions.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/texture_stage.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/uniform_variable.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/vbo.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/version.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/vertex_buffer.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/vertex_format.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/volume_texture.hpp" />

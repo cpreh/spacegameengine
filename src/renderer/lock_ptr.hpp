@@ -44,16 +44,19 @@ public:
 	}
 
 	lock_ptr(const T t, const lock_rect* const l)
+	 : t(t)
 	{
 		t->lock(l);
 	}
 
 	lock_ptr(const T t, const lock_box* const l)
+	 : t(t)
 	{
 		t->lock(l);
 	}
 
 	lock_ptr(const T t, const lock_flag_t flags, const std::size_t first, const std::size_t count)
+	 : t(t)
 	{
 		t->lock(flags,first,count);
 	}

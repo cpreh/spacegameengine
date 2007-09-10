@@ -76,6 +76,7 @@
 		<Unit filename="..\..\..\src/detail/iconv_encoding_list.hpp" />
 		<Unit filename="..\..\..\src/detail/istream_impl.hpp" />
 		<Unit filename="..\..\..\src/detail/library_impl.hpp" />
+		<Unit filename="..\..\..\src/detail/plugin_impl.hpp" />
 		<Unit filename="..\..\..\src/detail/src/iconv_detail.cpp" />
 		<Unit filename="..\..\..\src/endianness.hpp" />
 		<Unit filename="..\..\..\src/exception.hpp" />
@@ -177,6 +178,7 @@
 		<Unit filename="..\..\..\src/src/language.cpp" />
 		<Unit filename="..\..\..\src/src/library.cpp" />
 		<Unit filename="..\..\..\src/src/media.cpp" />
+		<Unit filename="..\..\..\src/src/plugin.cpp" />
 		<Unit filename="..\..\..\src/src/plugin_manager.cpp" />
 		<Unit filename="..\..\..\src/src/time.cpp" />
 		<Unit filename="..\..\..\src/src/timer.cpp" />

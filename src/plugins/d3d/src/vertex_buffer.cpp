@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../exception.hpp"
 #include "../../../renderer/lock_ptr.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_format.hpp"
@@ -37,8 +38,8 @@ void sge::d3d::vertex_buffer::init(const const_pointer src)
 	const D3DPOOL pool = convert_cast<D3DPOOL>(flags());
 
 	IDirect3DVertexBuffer9* p;
-	if(device->CreateVertexBuffer(unsigned(stride() * size()),usage,fvf,pool,&p,0) != D3D_OK)
-		throw std::runtime_error("cannot create vertex buffer");
+	if(device->CreateVertexBuffer(static_cast<UINT>(stride() * size()),usage,fvf,pool,&p,0) != D3D_OK)
+		throw exception("Cannot create vertex buffer!");
 	buffer.reset(p);
 	if(src)
 	{
@@ -104,7 +105,7 @@ void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags, const size_type fir
 	void* p = 0;
 	const DWORD d3dlflags = convert_lock_flags(flags(),lflags);
 	if(buffer->Lock(static_cast<UINT>(first * stride()), static_cast<UINT>(count * stride()), &p, d3dlflags) != D3D_OK)
-		throw std::runtime_error("Cannot lock d3d vertex buffer!");
+		throw exception("Cannot lock d3d vertex buffer!");
 	lock_dest = static_cast<pointer>(p);
 #ifndef SGE_USE_ARGB
 	if(get_vertex_format().uses(VU_Diffuse))
@@ -120,14 +121,14 @@ void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags)
 
 void sge::d3d::vertex_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
 {
-	lock_ptr<vertex_buffer*> _l(this,LF_Discard,first,count);
+	lock_ptr<vertex_buffer*> _l(this, lock_flags::discard, first, count);
 	copy(src + first*stride(), src + (first+count)*stride(), data());
 }
 
 void sge::d3d::vertex_buffer::unlock()
 {
 	if(!lock_dest)
-		throw std::logic_error("d3d::vertex_buffer::unlock() you have to lock first!");
+		throw exception("d3d::vertex_buffer::unlock() you have to lock first!");
 
 #ifndef SGE_USE_ARGB
 	if(get_vertex_format().uses(VU_Diffuse))
@@ -135,14 +136,14 @@ void sge::d3d::vertex_buffer::unlock()
 			it->diffuse() = rgba_to_argb(it->diffuse());
 #endif
 	if(buffer->Unlock() != D3D_OK)
-		throw std::runtime_error("Cannot unlock d3d vertex buffer!");
+		throw exception("Cannot unlock d3d vertex buffer!");
 	lock_dest = 0;
 }
 
 void sge::d3d::vertex_buffer::resize(const size_type newsize, const const_pointer new_data)
 {
 	if(lock_dest)
-		throw std::logic_error("d3d::vertex_buffer::resize() you have to unlock before resizing!");
+		throw exception("d3d::vertex_buffer::resize() you have to unlock before resizing!");
 
 	sz = newsize;
 	init(new_data);
@@ -186,4 +187,14 @@ sge::d3d::vertex_buffer::const_pointer sge::d3d::vertex_buffer::data() const
 const sge::vertex_format& sge::d3d::vertex_buffer::get_vertex_format() const
 {
 	return format;
+}
+
+sge::vertex_buffer::reference sge::d3d::vertex_buffer::operator[](const size_type sz)
+{
+	return *(begin() + sz);
+}
+
+sge::vertex_buffer::const_reference sge::d3d::vertex_buffer::operator[](const size_type sz) const
+{
+	return *(begin() + sz);
 }
