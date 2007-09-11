@@ -184,7 +184,7 @@ int main()
 		std::cout << caps.at(0).display_modes[i] << '\n';
 	//std::cout << caps.at(0).max_anisotropy_level << '\n';
 
-	const sge::renderer_parameters param(sge::display_mode(1280,1024,sge::bit_depth::depth32,100), false);
+	const sge::renderer_parameters param(sge::display_mode(1280,1024,sge::bit_depth::depth32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
 
 	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
