@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "system.hpp"
 #include "../algorithm.hpp"
 #include "../renderer/lock_ptr.hpp"
+#include "../math/utility.hpp"
 
 template<typename RanIt>
 void sge::sprite_system::render(const RanIt beg, const RanIt end)
@@ -54,7 +55,7 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 			
 			ib_it = fill_sprite_indices(ib_it, static_cast<index_buffer::value_type>(vb_it - vb->begin()));
 
-			if(spr.rotation() == 0)
+			if(math::almost_zero(spr.rotation()))
 				fill_sprite_position(vb_it, spr.get_rect(), spr.z());
 			else
 				fill_sprite_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());

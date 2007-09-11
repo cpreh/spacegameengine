@@ -18,33 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sstream>
-#include "../frames_counter.hpp"
+#include "../../math/utility.hpp"
+#include "../key_type.hpp"
 
-sge::frames_counter::frames_counter()
-: t(1000),
-  current_frames(0),
-  display_frames(0)
+sge::key_type::key_type(const string& name_, const key_code code_, const char_type char_code_)
+ : name_(name_),
+   code_(code_),
+   char_code_(char_code_)
 {}
 
-void sge::frames_counter::update()
+const sge::key_type::string& sge::key_type::name() const
 {
-	++current_frames;
-	if(t.update() > 0)
-	{
-		display_frames = current_frames;
-		current_frames = 0;
-	}
+	return name_;
 }
 
-std::string sge::frames_counter::frames_str() const
+sge::key_code sge::key_type::code() const
 {
-	std::ostringstream oss;
-	oss << frames();
-	return oss.str();
+	return code_;
 }
 
-sge::time_type sge::frames_counter::frames() const
+sge::key_type::char_type sge::key_type::char_code() const
 {
-	return display_frames;
+	return char_code_;
+}
+
+
+sge::key_pair::key_pair(const key_type& key_, const key_state value_)
+: key_(key_),
+  value_(value_)
+{}
+
+const sge::key_type& sge::key_pair::key() const
+{
+	return key_;
+}
+
+sge::key_state sge::key_pair::value() const
+{
+	return value_;
+}
+
+bool sge::key_pair::zero() const
+{
+	return math::almost_zero(value());
 }

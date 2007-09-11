@@ -173,8 +173,8 @@ void sge::con::console_gfx::key_callback(const key_pair &k)
 		output_line(L"char_code = " + k.first.char_code);
 	*/
 
-	if (k.second)
-		key_action(k.first);
+	if (!k.zero())
+		key_action(k.key());
 }
 
 // TODO: Die Kommandohistorie etwas schöner machen, vielleicht auf
@@ -184,7 +184,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 	if (!active_)
 		return;
 
-	switch(k.code) 
+	switch(k.code()) 
 	{
 		case kc::key_backspace:
 			if (cursor_position > 0)
@@ -253,16 +253,16 @@ void sge::con::console_gfx::key_action(const key_type &k)
 			cursor_position = 0;
 		break;
 		default:
-			if(std::isprint(k.char_code) && keys[kc::key_lctrl] == 0)
+			if(std::isprint(k.char_code()) && math::almost_zero(keys[kc::key_lctrl]))
 			{
-				input_line.insert(input_line.begin() + cursor_position, k.char_code);
+				input_line.insert(input_line.begin() + cursor_position, k.char_code());
 				++cursor_position;
 			}
 		break;
 	}
 
 
-	if (k.char_code == 'w' && keys[kc::key_lctrl])
+	if (k.char_code() == 'w' && !math::almost_zero(keys[kc::key_lctrl]))
 	{
 		output_line(L"w entered!");
 		if (input_line.size() != 0)
@@ -283,7 +283,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 
 void sge::con::console_gfx::draw()
 {
-	if (cursor_blink.update())
+	if (cursor_blink.update() > 0)
 		cursor_active = !cursor_active;
 
 	rend->projection(math::matrix_orthogonal_xy());

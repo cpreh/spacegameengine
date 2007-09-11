@@ -79,7 +79,7 @@ try
 	using boost::lambda::if_;
 
 	boost::signals::scoped_connection cb(is->register_callback(
-		if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::kc::key_escape)
+		if_(bind(&sge::key_type::code, bind(&sge::key_pair::key, boost::lambda::_1)) == sge::kc::key_escape)
 			[var(running)=false])
 	);
 

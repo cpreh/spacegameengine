@@ -15,6 +15,7 @@
 #include "../types.hpp"
 #include "../util.hpp"
 #include "../exception.hpp"
+#include "utility.hpp"
 
 #ifndef SGE_MATH_VECTOR_MAX_SIZE
 #define SGE_MATH_VECTOR_MAX_SIZE 4
@@ -188,7 +189,7 @@ public:
 	bool operator==(const basic_vector& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			if(data_[i] != r[i])
+			if(!compare(data_[i], r[i]))
 				return false;
 		return true;
 	}

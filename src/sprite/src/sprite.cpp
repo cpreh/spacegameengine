@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <cmath>
+#include "../../math/utility.hpp"
 #include "../sprite.hpp"
 #include "../helper.hpp"
-#include <cmath>
 
 sge::sprite::sprite(const point p, const dim sz, const virtual_texture_ptr vtex, const color col, const space_unit _z, const space_unit _rotation, const bool vis)
  : p(p),
@@ -188,7 +189,7 @@ sge::math::rect sge::sprite::get_rect() const
 
 sge::math::rect sge::sprite::bounding_quad() const
 {
-	if(rotation() == 0)
+	if(math::almost_zero(rotation()))
 		return get_rect();
 	const space_unit rad = radius();
 	return math::rect(center().x() - rad, center().y() - rad, center().x() + rad, center().y() + rad);
@@ -209,7 +210,7 @@ const sge::sprite::point sge::sprite::rotation_center() const
 bool sge::sprite::equal(const sprite& l, const sprite& r)
 {
 	return l.visible() == r.visible() &&
-	       l.z() == r.z() &&
+	       math::compare(l.z(), r.z()) &&
 	       l.tex == r.tex;
 }
 
@@ -220,7 +221,7 @@ bool sge::sprite::less(const sprite& l, const sprite& r)
 	const tex_array& ltex = l.tex, &rtex = r.tex;
 
 	return lvis == rvis ?
-			lz == rz ?
+			math::compare(lz, rz) ?
 	                	ltex == rtex ?
 	                        	     false
 		                : ltex < rtex

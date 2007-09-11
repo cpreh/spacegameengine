@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_KEY_TYPE_HPP_INCLUDED
 #define SGE_KEY_TYPE_HPP_INCLUDED
 
-#include <utility>
 #include "../string.hpp"
 
 namespace sge
@@ -184,24 +183,30 @@ enum type {
 
 typedef kc::type key_code;
 
-struct key_type {
-	typedef sge::string string;
+class key_type {
+public:
+	typedef sge::string        string;
 	typedef string::value_type char_type;
-	key_type(const string& name = string(), const key_code code = kc::none, const char_type char_code = 0)
-		: name(name), code(code), char_code(char_code) {}
-	string name;
-	key_code code;
-	char_type char_code;
+	
+	key_type(const string& name = string(), key_code code = kc::none, char_type char_code = 0);
+	
+	const string& name() const;
+	key_code code() const;
+	char_type char_code() const;
+private:
+	string    name_;
+	key_code  code_;
+	char_type char_code_;
 };
 
 inline bool operator<(const key_type& l, const key_type& r)
 {
-	return l.name < r.name;
+	return l.name() < r.name();
 }
 
 inline bool operator==(const key_type& l, const key_type& r)
 {
-	return l.name == r.name && l.char_code == r.char_code;
+	return l.name() == r.name() && l.char_code() == r.char_code();
 }
 
 inline bool operator!=(const key_type& l, const key_type& r)
@@ -277,7 +282,18 @@ inline bool is_alt(const key_code key)
 }
 
 typedef float key_state;
-typedef std::pair<key_type,key_state> key_pair;
+
+class key_pair {
+public:
+	key_pair(const key_type& key, key_state value);
+
+	const key_type& key() const;
+	key_state value() const;
+	bool zero() const;
+private:
+	key_type  key_;
+	key_state value_;
+};
 
 }
 

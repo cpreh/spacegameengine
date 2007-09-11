@@ -93,7 +93,7 @@ struct console_activator
 
 	void callback(const sge::key_pair &pair)
 	{
-		if (pair.first.code == sge::kc::key_tab && pair.second)
+		if (pair.key().code() == sge::kc::key_tab && !pair.zero())
 			con.active(!con.active());
 	}
 };
@@ -256,7 +256,7 @@ int main()
 
 	console_activator activator(console);
 
-	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::first,boost::lambda::_1)) == sge::kc::key_escape)[var(running)=false]));
+	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::key,boost::lambda::_1)) == sge::kc::key_escape)[var(running)=false]));
 	boost::signals::scoped_connection cb2(is->register_callback(boost::bind(&console_activator::callback,&activator,_1)));
 //	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
 //	boost::signals::scoped_connection cb3(btn2.click_signal.connect(smallplayer(sound)));
@@ -404,7 +404,7 @@ int main()
 	//	if (sound->status() != sge::sound::status_stopped)
 	//		sound->update();
 
-		if(frames.update())
+		if(frames.update() > 0)
 		{
 			cur_fps = fps;
 			fps = 0;
@@ -415,7 +415,7 @@ int main()
 		translation.z() += ks[sge::kc::key_down] * 0.3;
 //		if(ks[sge::kc::key_return])
 //			sge::screenshot(rend,pl,"shot.png");
-		if(timer.update())
+		if(timer.update() > 0)
 			angle += sge::math::PI*0.01;
 
 		rend->begin_rendering();

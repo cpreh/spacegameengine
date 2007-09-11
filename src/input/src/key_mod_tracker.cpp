@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../key_mod_tracker.hpp"
 #include <boost/bind.hpp>
+#include "../key_mod_tracker.hpp"
+#include "../../math/utility.hpp"
 
 sge::key_mod_tracker::key_mod_tracker(const input_system_ptr is)
  : _state(false, false, false)
@@ -29,15 +30,17 @@ sge::key_mod_tracker::key_mod_tracker(const input_system_ptr is)
 
 void sge::key_mod_tracker::key_callback(const key_pair& p)
 {
-	const key_code c = p.first.code;
+	const key_code c = p.key().code();
+	const bool value = !p.zero();
+
 	if(is_shift(c))
-		_state.shift = p.second;
+		_state.shift = value;
 
 	if(is_ctrl(c))
-		_state.ctrl = p.second;
+		_state.ctrl = value;
 
 	if(is_alt(c))
-		_state.alt = p.second;
+		_state.alt = value;
 }
 
 const sge::mod_state& sge::key_mod_tracker::state() const
