@@ -180,8 +180,8 @@ int main()
 
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
 	const sge::renderer_caps_array caps(rs->caps());
-	for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
-		std::cout << caps.at(0).display_modes[i] << '\n';
+	//for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
+//		std::cout << caps.at(0).display_modes[i] << '\n';
 	//std::cout << caps.at(0).max_anisotropy_level << '\n';
 
 	const sge::renderer_parameters param(sge::display_mode(1280,1024,sge::bit_depth::depth32,100), true);

@@ -1,7 +1,6 @@
 provide a factory for creating windows and decouple the window from the renderer as much as possible
-finish multi_tree
+finish multi_tree or replace it with an existing class
 add a safer weak_ptr for Deleter template parameter
-better support for windowed mode in X (set view port on resize)
 breakpoints for the font
 other font formatting like bold, italic, underline
 implement atlasing correctly

@@ -190,7 +190,7 @@ public:
 	{
 		value_type ret(0);
 		for(size_type i = 0; i < Dim; ++i)
-			ret += data_[i]*data[i];
+			ret += data_[i] * data_[i];
 		return ret;
 	}
 

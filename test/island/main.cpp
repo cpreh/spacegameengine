@@ -452,10 +452,10 @@ int main()
 		sge::window::dispatch();
 		is->dispatch();
 
-		translation.x() += ks[sge::KC_LEFT] * 0.1;
-		translation.x() -= ks[sge::KC_RIGHT] * 0.1;
-		translation.y() -= ks[sge::KC_UP] * 0.1;
-		translation.y() += ks[sge::KC_DOWN] * 0.1;
+		translation.x() += ks[sge::kc::key_left] * 0.1;
+		translation.x() -= ks[sge::kc::key_right] * 0.1;
+		translation.y() -= ks[sge::kc::key_up] * 0.1;
+		translation.y() += ks[sge::kc::key_down] * 0.1;
 		translation.z() += ks['w'] * 0.1;
 		translation.z() -= ks['s'] * 0.1;
 
@@ -469,7 +469,8 @@ int main()
 		// Alte Formel ohne 2* (anscheinend falsch)
 		//sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
 		//sge::space_unit fovy_rad = fovy_deg*sge::math::PI/180,hnear = 2*std::tan(fovy_rad/2)*near,wnear = 2 * hnear * aspect,fovx_rad = 2*std::atan((wnear/2)/near);
-		rend->projection(sge::math::matrix_perspective(aspect,fovy_rad,near,far));
+		const sge::math::space_matrix projection(sge::math::matrix_perspective(aspect,fovy_rad,near,far));
+		rend->projection(projection);
 
 		rend->transform(sge::math::matrix_translation(sge::math::vector3(0,-1.5,0)));
 
@@ -477,7 +478,9 @@ int main()
 		sky.draw();
 		rend->set_bool_state(sge::bool_state::enable_zbuffer,true);
 
-		rend->transform(sge::math::matrix_translation(translation));
+		const sge::math::space_matrix modelview(sge::math::matrix_translation(translation));
+
+		rend->transform(modelview);
 		// Projektionsmatrix setzen
 	//	rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
 //		rend->projection(matrix_perspective(static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height(),fovy_rad,near,far));
@@ -490,7 +493,7 @@ int main()
 
 		rend->set_texture(textures[selected_texture]);
 		sge::quadtree::index_container_type indices;
-		tree.get_visible(sge::frustum_info(-translation,fovy_rad,rot,near,far,aspect),indices);
+		tree.get_visible(sge::frustum_info(modelview * projection), indices);
 		if (indices.size() > 0)
 		{
 			const sge::index_buffer_ptr model_ib = rend->create_index_buffer(indices.size());
@@ -505,7 +508,7 @@ int main()
 		rend->render(water_vb,water_ib,0,water_vb->size(),sge::indexed_primitive_type::triangle,water_ib->size()/3,0);
 
 		// Hier Programmlogik
-		if (ks[sge::KC_ESC])
+		if (ks[sge::kc::key_escape])
 			running = false;
 
 		rend->end_rendering();
