@@ -136,14 +136,26 @@ public:
 		return *this;
 	}
 
-	friend basic_vector operator*(const_reference l, const basic_vector& r)
+	friend basic_vector operator*(const_reference l, basic_vector r)
 	{
-		return basic_vector(r) *= l;
+		return r *= l;
 	}
 
 	friend basic_vector operator*(const basic_vector& l, const_reference r)
 	{
 		return r * l;
+	}
+
+	basic_vector& operator/=(const_reference r)
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			(*this)[i] /= r;
+		return *this;
+	}
+
+	friend basic_vector operator/(basic_vector l, const_reference r)
+	{
+		return l /= r;
 	}
 
 	reference operator[](const size_type pos)
@@ -196,7 +208,7 @@ public:
 
 	value_type length() const
 	{
-		return std::sqrt(length_quad());
+		return static_cast<value_type>(std::sqrt(length_quad()));
 	}
 
 	basic_vector unit() const
