@@ -72,10 +72,11 @@ namespace con
 		T value_;
 		A action;
 		
-		action_var(const string &name,A action,const T &value_ = T()) : var_base(name),value_(value_),action(action) {}
+		action_var(const string &name,A _action,const T &_value = T()) : var_base(name),value_(_action(_value,_value)),action(_action) {}
 		const T &value() const { return value_; }
 		void value(const T &t) { t = action(t,value_); }
 		action_var<T,A> &operator=(const T &r) { value_ = action(r,value_); return *this; }
+		action_var<T,A> &operator=(const action_var<T,A> &r) { value_ = action(r.value_,value_); return *this; }
 
 		void set_string(const string &n) 
 		{
