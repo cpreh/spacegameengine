@@ -30,18 +30,8 @@
 #ifndef tree_header_file
 #define tree_header_file
 
-#ifndef NULL
-#define NULL 0
-#endif
-
-#if WIN32
-#pragma warning( push )
-// Disable warning for multiple operator= defines
-#pragma warning( disable : 4522 )
-#pragma warning( disable : 4786 )
-#endif // WIN32
-
-namespace core {
+namespace sge 
+{
 
 /////////////////////////////////////////////////////////////////////////////
 // tree_iterator forward declaration
@@ -81,19 +71,18 @@ private:
 	void disconnect_()
 	{
 		// unlink this from the master node
-		if (this->out_ != NULL) {
+		if (this->out_ != 0) {
 
-			// this->out_ is going to be called alot in succession "register" it
-			register tree *out = this->out_;
+			tree *out = this->out_;
 
 			// Decrement the size of the outter level
 			--(out->size_);
 
 			if (out->in_ == this) {
-				if (NULL == this->next_) {
+				if (0 == this->next_) {
 					// If this is the last node of this level, zap the hidden node
 					delete this->prev_;
-					out->in_ = NULL;
+					out->in_ = 0;
 				}
 				else {
 					// Otherwise, just reattatch the head node to the next node
@@ -105,17 +94,17 @@ private:
 			else {
 				// We should be able to do this absolutely.
 				this->prev_->next_ = this->next_;
-				if (NULL != this->next_) this->next_->prev_ = this->prev_;
+				if (0 != this->next_) this->next_->prev_ = this->prev_;
 			}
 		}
 		// Point to nothing
-		this->next_ = this->prev_ = NULL;
+		this->next_ = this->prev_ = 0;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
 	// End of the tree list, private only
 	//////////////////////////////////////////////////////////////////////////
-	const tree* end_() const { return (NULL); }
+	const tree* end_() const { return (0); }
 
 	//////////////////////////////////////////////////////////////////////////
 	// Does the actual insert into the tree
@@ -124,28 +113,26 @@ private:
 	{
 		// Do NOT move this line beyond this point. The reason is because we must
 		// check to see if the node exists here because we may be removing the ONLY
-		// node in the tree. If it is then NULL == level->in_. DO NOT REMOVE THIS
+		// node in the tree. If it is then 0 == level->in_. DO NOT REMOVE THIS
 		//if (false == level->mDuplicates) 
 
 		// never allow duplicate keys
 		level->remove(inTree->data());
 
 		// if there's no inner tree, make it
-		if (NULL == level->in_) {
-			// Dummy node, create it -- if good memory do stuff, if NULL throw
-			if (tree *temp = new tree) {
-				temp->next_ = inTree;
-				inTree->prev_ = temp;
-				level->in_ = inTree;
-			}
-			else throw "allocation failed";
+		if (0 == level->in_) {
+			// Dummy node, create it
+			tree *temp = new tree;
+			temp->next_ = inTree;
+			inTree->prev_ = temp;
+			level->in_ = inTree;
 		}
 		else {
 
 			tree *temp = level->in_->prev_;
 
 			while (true) {
-				if (NULL == temp->next_) {
+				if (0 == temp->next_) {
 					temp->next_ = inTree;
 					inTree->prev_ = temp;
 					break;
@@ -182,7 +169,6 @@ private:
 	iterator push_back_no_remove(const T &inT)
 	{
 		tree *createdTree = new tree(inT);
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_push_back_no_remove(createdTree, this));
 	}
 
@@ -190,22 +176,20 @@ private:
 	tree& i_push_back_no_remove(tree *inTree, tree *level)
 	{
 		// if there's no inner tree, make it
-		if (NULL == level->in_) 
+		if (0 == level->in_) 
       {
-			// Dummy node, create it -- if good memory do stuff, if NULL throw
-			if (tree *temp = new tree) {
-				temp->next_ = inTree;
-				inTree->prev_ = temp;
-				level->in_ = inTree;
-			}
-			else throw "allocation failed";
+			// Dummy node, create it
+			tree *temp = new tree;
+			temp->next_ = inTree;
+			inTree->prev_ = temp;
+			level->in_ = inTree;
 		}
 		else 
       {
 			tree *temp = level->in_->prev_;
 
 			while (true) {
-				if (NULL == temp->next_) {
+				if (0 == temp->next_) {
 					temp->next_ = inTree;
 					inTree->prev_ = temp;
 					break;
@@ -227,22 +211,20 @@ private:
 		level->remove(inTree->data());
 
 		// if there's no inner tree, make it
-		if (NULL == level->in_) 
+		if (0 == level->in_) 
       {
-			// Dummy node, create it -- if good memory do stuff, if NULL throw
-			if (tree *temp = new tree) {
-				temp->next_ = inTree;
-				inTree->prev_ = temp;
-				level->in_ = inTree;
-			}
-			else throw "allocation failed";
+			// Dummy node, create it
+			tree *temp = new tree;
+			temp->next_ = inTree;
+			inTree->prev_ = temp;
+			level->in_ = inTree;
 		}
 		else 
       {
 			tree *temp = level->in_->prev_;
 
 			while (true) {
-				if (NULL == temp->next_) {
+				if (0 == temp->next_) {
 					temp->next_ = inTree;
 					inTree->prev_ = temp;
 					break;
@@ -264,15 +246,13 @@ private:
 		level->remove(inTree->data());
 
 		// if there's no inner tree, make it
-		if (NULL == level->in_) 
+		if (0 == level->in_) 
       {
-			// Dummy node, create it -- if good memory do stuff, if NULL throw
-			if (tree *temp = new tree) {
-				temp->next_ = inTree;
-				inTree->prev_ = temp;
-				level->in_ = inTree;
-			}
-			else throw "allocation failed";
+			// Dummy node, create it
+			tree *temp = new tree;
+			temp->next_ = inTree;
+			inTree->prev_ = temp;
+			level->in_ = inTree;
 		}
 		else 
       {
@@ -304,26 +284,24 @@ private:
 	{
 		// Do NOT move this line beyond this point. The reason is because we must
 		// check to see if the node exists here because we may be removing the ONLY
-		// node in the tree. If it is then NULL == level->in_. DO NOT REMOVE THIS
+		// node in the tree. If it is then 0 == level->in_. DO NOT REMOVE THIS
 		//if (false == level->mDuplicates) 
 		level->remove(inTree->data());
 
 		// if there's no inner tree, make it
-		if (NULL == level->in_) {
-			// Dummy node, create it -- if good memory do stuff, if NULL throw
-			if (tree *temp = new tree) {
-				temp->next_ = inTree;
-				inTree->prev_ = temp;
-				level->in_ = inTree;
-			}
-			else throw "allocation failed";
+		if (0 == level->in_) {
+			// Dummy node, create it
+			tree *temp = new tree;
+			temp->next_ = inTree;
+			inTree->prev_ = temp;
+			level->in_ = inTree;
 		}
 		else {
 
 			tree *temp = level->in_->prev_;
 
 			while (true) {
-				if (NULL == temp->next_) {
+				if (0 == temp->next_) {
 					temp->next_ = inTree;
 					inTree->prev_ = temp;
 					break;
@@ -459,14 +437,14 @@ public:
 		this->disconnect_();
 
 		// Now get rid of our children -- but be smart about it,
-		// right before we destroy it set it's out_ to NULL
+		// right before we destroy it set it's out_ to 0
 		// that way Disconnect fails immediately -- much faster
 
 		if (this->size() > 0) {
-			register tree *cur = this->in_, *prev = this->in_->prev_;
+			tree *cur = this->in_, *prev = this->in_->prev_;
 
 			// Delete the head node
-			prev->out_ = NULL;
+			prev->out_ = 0;
 			delete prev;
 
 			for (; this->size_ > 0; --this->size_) {
@@ -474,7 +452,7 @@ public:
 				prev = cur;
 				cur = cur->next_;
 
-				prev->out_ = NULL;
+				prev->out_ = 0;
 				delete prev;
 			}
 		}
@@ -523,13 +501,13 @@ public:
 	void clear()
 	{
 		// Now get rid of our children -- but be smart about it,
-		// right before we destroy it set it's out_ to NULL
+		// right before we destroy it set it's out_ to 0
 		// that way disconnect_ fails immediately, much faster
 		if (this->size() > 0) {
-			register tree *cur = this->in_, *prev = this->in_->prev_;
+			tree *cur = this->in_, *prev = this->in_->prev_;
 
 			// Delete the head node
-			prev->out_ = NULL;
+			prev->out_ = 0;
 			delete prev;
 
 			for (; this->size_ > 0; --this->size_) {
@@ -537,12 +515,12 @@ public:
 				prev = cur;
 				cur = cur->next_;
 
-				prev->out_ = NULL;
+				prev->out_ = 0;
 				delete prev;
 			}
 
 			// Set our inner pointer and our size to 0
-			this->in_ = NULL;
+			this->in_ = 0;
 			this->size_ = 0;
 		}
 	}
@@ -570,7 +548,6 @@ public:
 	iterator push_front(const T &inT)
 	{
 		tree *createdTree = new tree(inT);
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_push_front(createdTree, this));
 	}
 
@@ -578,7 +555,6 @@ public:
 	iterator push_back(const T &inT)
 	{
 		tree *createdTree = new tree(inT);
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_push_back(createdTree, this));
 	}
 
@@ -589,7 +565,6 @@ public:
 	iterator insert(const T &inT, bool (*pObj)(const T&, const T&))
 	{
 		tree *createdTree = new tree(inT);
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_insert(createdTree, this, pObj));
 	}
 
@@ -598,7 +573,6 @@ public:
 	iterator insert(const iterator &i)
 	{
 		tree *createdTree = new tree(i.data());
-		if (NULL == createdTree) throw "allocation failed";
 		
 		return iterator(i_insert(createdTree, this));
 	}
@@ -609,7 +583,6 @@ public:
 	iterator insert(const T &inT)
 	{
 		tree *createdTree = new tree(inT);
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_insert(createdTree, this));
 	}
 
@@ -644,7 +617,7 @@ public:
 					delete temp;
 					return true;
 				}
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return false;
 	}
@@ -658,7 +631,7 @@ public:
 					delete temp;
 					return true;
 				}
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return false;
 	}
@@ -712,7 +685,7 @@ public:
 		if (tree *temp = iter.tree_ptr()) {
 			do {
 				if (inT == temp->data_) return iterator(*temp);
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return tree::iterator::end_iterator();
 	}
@@ -723,7 +696,7 @@ public:
 		if (tree *temp = iter.tree_ptr()) {
 			do {
 				if ( obj(inT, temp->data_) ) return ( iterator(*temp) );
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return tree::iterator::end_iterator();
 	}
@@ -737,7 +710,7 @@ public:
             // do a depth search, search it for inT
             iterator i = temp->tree_find_depth(inT);
             if (i != tree::iterator::end_iterator()) return i;
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return tree::iterator::end_iterator();
 	}
@@ -751,7 +724,7 @@ public:
             // do a depth search, search it for inT
             iterator i = temp->tree_find_depth(inT, obj);
             if (i != tree::iterator::end_iterator()) return i;
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return tree::iterator::end_iterator();
 	}
@@ -763,14 +736,14 @@ public:
 		if (tree *temp = iter.tree_ptr()) {
 			do {
 				if (inT == temp->data_) return iterator(*temp);
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 
          // now search each branch for the find within it
          temp = iter.tree_ptr();
 			do {
             iterator i = temp->tree_find_breadth(inT);
             if (i != tree::iterator::end_iterator()) return i;
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return tree::iterator::end_iterator();
    }
@@ -782,14 +755,14 @@ public:
 		if (tree *temp = iter.tree_ptr()) {
 			do {
 				if ( obj(inT, temp->data_) ) return iterator(*temp);
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 
          // now search each branch for the find within it
          temp = iter.tree_ptr();
 			do {
             iterator i = temp->tree_find_breadth(inT, obj);
             if (i != tree::iterator::end_iterator()) return i;
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return tree::iterator::end_iterator();
    }
@@ -839,7 +812,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Default constructor
 	//////////////////////////////////////////////////////////////////////////
-	tree_iterator() : current_(NULL) {}
+	tree_iterator() : current_(0) {}
 	
 	//////////////////////////////////////////////////////////////////////////
 	// Copy constructors for iterators
@@ -1072,7 +1045,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Empty this entire tree
 	//////////////////////////////////////////////////////////////////////////
-	void clear_tree() { delete this->current_; this->current_ = NULL; }
+	void clear_tree() { delete this->current_; this->current_ = 0; }
 
 	//////////////////////////////////////////////////////////////////////////
 	// Empty this tree's children
@@ -1087,9 +1060,5 @@ template <typename T>
 tree_iterator<T> tree_iterator<T>::end_of_iterator;
 
 };
-
-#if WIN32
-#pragma warning( pop )
-#endif // WIN32
 
 #endif // tree_header_file

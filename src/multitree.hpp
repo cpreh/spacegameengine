@@ -16,18 +16,8 @@
 #ifndef multitree_header_file
 #define multitree_header_file
 
-#ifndef NULL
-#define NULL 0
-#endif
-
-#if WIN32
-#pragma warning( push )
-// Disable warning for multiple operator= defines
-#pragma warning( disable : 4522 )
-#pragma warning( disable : 4786 )
-#endif // WIN32
-
-namespace core {
+namespace sge 
+{
 
 /////////////////////////////////////////////////////////////////////////////
 // multitree_iterator forward declaration
@@ -50,8 +40,8 @@ private:
 	mutable T data_;
 
 	// What level are we on?
-	mutable size_t level_;
-	mutable size_t size_;
+	mutable std::size_t level_;
+	mutable std::size_t size_;
 
 	// Nobody gets any access to this
 	mutable multitree *next_;
@@ -67,19 +57,18 @@ private:
 	void disconnect_()
 	{
 		// unlink this from the master node
-		if (this->out_ != NULL) {
+		if (this->out_ != 0) {
 
-			// this->out_ is going to be called alot in succession "register" it
-			register multitree *out = this->out_;
+			multitree *out = this->out_;
 
 			// Decrement the size of the outter level
 			--(out->size_);
 
 			if (out->in_ == this) {
-				if (NULL == this->next_) {
+				if (0 == this->next_) {
 					// If this is the last node of this level, zap the hidden node
 					delete this->prev_;
-					out->in_ = NULL;
+					out->in_ = 0;
 				}
 				else {
 					// Otherwise, just reattatch the head node to the next node
@@ -91,17 +80,17 @@ private:
 			else {
 				// We should be able to do this absolutely.
 				this->prev_->next_ = this->next_;
-				if (NULL != this->next_) this->next_->prev_ = this->prev_;
+				if (0 != this->next_) this->next_->prev_ = this->prev_;
 			}
 		}
 		// Point to nothing
-		this->next_ = this->prev_ = NULL;
+		this->next_ = this->prev_ = 0;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
 	// End of the multitree list, private only
 	//////////////////////////////////////////////////////////////////////////
-	const multitree* end_() const { return (NULL); }
+	const multitree* end_() const { return 0; }
 
 	//////////////////////////////////////////////////////////////////////////
 	// Does the actual insert into the multitree
@@ -110,25 +99,23 @@ private:
 	{
 		// Do NOT move this line beyond this point. The reason is because we must
 		// check to see if the node exists here because we may be removing the ONLY
-		// node in the multitree. If it is then NULL == level->in_. DO NOT REMOVE THIS
+		// node in the multitree. If it is then 0 == level->in_. DO NOT REMOVE THIS
 		//if (false == level->mDuplicates) 
 
 		// if there's no inner multitree, make it
-		if (NULL == level->in_) {
-			// Dummy node, create it -- if good memory do stuff, if NULL throw
-			if (multitree *temp = new multitree) {
-				temp->next_ = inTree;
-				inTree->prev_ = temp;
-				level->in_ = inTree;
-			}
-			else throw "allocation failed";
+		if (0 == level->in_) {
+			// Dummy node, create it
+			multitree *temp = new multitree;
+			temp->next_ = inTree;
+			inTree->prev_ = temp;
+			level->in_ = inTree;
 		}
 		else {
 
 			multitree *temp = level->in_->prev_;
 
 			while (true) {
-				if (NULL == temp->next_) {
+				if (0 == temp->next_) {
 					temp->next_ = inTree;
 					inTree->prev_ = temp;
 					break;
@@ -165,22 +152,20 @@ private:
 	multitree& i_push_back(multitree *inTree, multitree *level)
 	{
 		// if there's no inner tree, make it
-		if (NULL == level->in_) 
+		if (0 == level->in_) 
       {
-			// Dummy node, create it -- if good memory do stuff, if NULL throw
-			if (multitree *temp = new multitree) {
-				temp->next_ = inTree;
-				inTree->prev_ = temp;
-				level->in_ = inTree;
-			}
-			else throw "allocation failed";
+			// Dummy node, create it
+			multitree *temp = new multitree;
+			temp->next_ = inTree;
+			inTree->prev_ = temp;
+			level->in_ = inTree;
 		}
 		else 
       {
 			multitree *temp = level->in_->prev_;
 
 			while (true) {
-				if (NULL == temp->next_) {
+				if (0 == temp->next_) {
 					temp->next_ = inTree;
 					inTree->prev_ = temp;
 					break;
@@ -200,15 +185,13 @@ private:
 	multitree& i_push_front(multitree *inTree, multitree *level)
 	{
 		// if there's no inner multitree, make it
-		if (NULL == level->in_) 
+		if (0 == level->in_) 
       {
-			// Dummy node, create it -- if good memory do stuff, if NULL throw
-			if (multitree *temp = new multitree) {
-				temp->next_ = inTree;
-				inTree->prev_ = temp;
-				level->in_ = inTree;
-			}
-			else throw "allocation failed";
+			// Dummy node, create it
+			multitree *temp = new multitree;
+			temp->next_ = inTree;
+			inTree->prev_ = temp;
+			level->in_ = inTree;
 		}
 		else 
       {
@@ -240,24 +223,22 @@ private:
 	{
 		// Do NOT move this line beyond this point. The reason is because we must
 		// check to see if the node exists here because we may be removing the ONLY
-		// node in the multitree. If it is then NULL == level->in_. DO NOT REMOVE THIS
+		// node in the multitree. If it is then 0 == level->in_. DO NOT REMOVE THIS
 
 		// if there's no inner multitree, make it
-		if (NULL == level->in_) {
-			// Dummy node, create it -- if good memory do stuff, if NULL throw
-			if (multitree *temp = new multitree) {
-				temp->next_ = inTree;
-				inTree->prev_ = temp;
-				level->in_ = inTree;
-			}
-			else throw "allocation failed";
+		if (0 == level->in_) {
+			// Dummy node, create it
+			multitree *temp = new multitree;
+			temp->next_ = inTree;
+			inTree->prev_ = temp;
+			level->in_ = inTree;
 		}
 		else {
 
 			multitree *temp = level->in_->prev_;
 
 			while (true) {
-				if (NULL == temp->next_) {
+				if (0 == temp->next_) {
 					temp->next_ = inTree;
 					inTree->prev_ = temp;
 					break;
@@ -294,8 +275,8 @@ protected:
 
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	size_t size(const multitree& in) const { return in.size(); }
-	size_t level(const multitree& in) const { return in.level(); }
+	std::size_t size(const multitree& in) const { return in.size(); }
+	std::size_t level(const multitree& in) const { return in.level(); }
 
 	//////////////////////////////////////////////////////////////////////////
 	// Points to the beginning of the list and sets the current
@@ -384,14 +365,14 @@ public:
 		this->disconnect_();
 
 		// Now get rid of our children -- but be smart about it,
-		// right before we destroy it set it's out_ to NULL
+		// right before we destroy it set it's out_ to 0
 		// that way Disconnect fails immediately -- much faster
 
 		if (this->size() > 0) {
-			register multitree *cur = this->in_, *prev = this->in_->prev_;
+			multitree *cur = this->in_, *prev = this->in_->prev_;
 
 			// Delete the head node
-			prev->out_ = NULL;
+			prev->out_ = 0;
 			delete prev;
 
 			for (; this->size_ > 0; --this->size_) {
@@ -399,7 +380,7 @@ public:
 				prev = cur;
 				cur = cur->next_;
 
-				prev->out_ = NULL;
+				prev->out_ = 0;
 				delete prev;
 			}
 		}
@@ -448,13 +429,13 @@ public:
 	void clear()
 	{
 		// Now get rid of our children -- but be smart about it,
-		// right before we destroy it set it's out_ to NULL
+		// right before we destroy it set it's out_ to 0
 		// that way disconnect_ fails immediately, much faster
 		if (this->size() > 0) {
-			register multitree *cur = this->in_, *prev = this->in_->prev_;
+			multitree *cur = this->in_, *prev = this->in_->prev_;
 
 			// Delete the head node
-			prev->out_ = NULL;
+			prev->out_ = 0;
 			delete prev;
 
 			for (; this->size_ > 0; --this->size_) {
@@ -462,12 +443,12 @@ public:
 				prev = cur;
 				cur = cur->next_;
 
-				prev->out_ = NULL;
+				prev->out_ = 0;
 				delete prev;
 			}
 
 			// Set our inner pointer and our size to 0
-			this->in_ = NULL;
+			this->in_ = 0;
 			this->size_ = 0;
 		}
 	}
@@ -480,16 +461,15 @@ public:
 	const T& data(const T &inData) { return (this->data_ = inData); }
 
 	//////////////////////////////////////////////////////////////////////////
-	size_t level() const { return (this->level_); }
+	std::size_t level() const { return (this->level_); }
 
 	//////////////////////////////////////////////////////////////////////////
-	size_t size() const { return this->size_; }
+	std::size_t size() const { return this->size_; }
 
 	//////////////////////////////////////////////////////////////////////////
 	iterator push_front(const T &inT)
 	{
 		multitree *createdTree = new multitree(inT);
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_push_front(createdTree, this));
 	}
 
@@ -497,7 +477,6 @@ public:
 	iterator push_back(const T &inT)
 	{
 		multitree *createdTree = new multitree(inT);
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_push_back(createdTree, this));
 	}
 
@@ -508,7 +487,6 @@ public:
 	iterator insert(const T &inT, bool (*pObj)(const T&, const T&))
 	{
 		multitree *createdTree = new multitree(inT);
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_insert(createdTree, this, pObj));
 	}
 
@@ -516,7 +494,6 @@ public:
 	iterator insert(const iterator &i)
 	{
 		multitree *createdTree = new multitree(i.data());
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_insert(createdTree, this));
 	}
 
@@ -526,7 +503,6 @@ public:
 	iterator insert(const T &inT)
 	{
 		multitree *createdTree = new multitree(inT);
-		if (NULL == createdTree) throw "allocation failed";
 		return iterator(i_insert(createdTree, this));
 	}
 
@@ -561,7 +537,7 @@ public:
 					delete temp;
 					return true;
 				}
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return false;
 	}
@@ -575,13 +551,13 @@ public:
 					delete temp;
 					return true;
 				}
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return false;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	iterator operator[](size_t loc) const
+	iterator operator[](std::size_t loc) const
 	{
       multitree *temp;
 		for (temp = this->in_; loc > 0; --loc) temp = temp->next_;
@@ -589,7 +565,7 @@ public:
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	iterator operator[](size_t loc)
+	iterator operator[](std::size_t loc)
 	{
       multitree *temp;
 		for (temp = this->in_; loc > 0; --loc) temp = temp->next_;
@@ -629,7 +605,7 @@ public:
 		if (multitree *temp = iter.tree_ptr()) {
 			do {
 				if (inT == temp->data_) return ( iterator(*temp) );
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
 	}
@@ -640,7 +616,7 @@ public:
 		if (multitree *temp = iter.tree_ptr()) {
 			do {
 				if ( obj(inT, temp->data_) ) return ( iterator(*temp) );
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
 	}
@@ -654,7 +630,7 @@ public:
             // do a depth search, search it for inT
             iterator i = temp->tree_find_depth(inT);
             if (i != multitree::iterator::end_iterator()) return i;
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
 	}
@@ -668,7 +644,7 @@ public:
             // do a depth search, search it for inT
             iterator i = temp->tree_find_depth(inT, obj);
             if (i != multitree::iterator::end_iterator()) return i;
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
 	}
@@ -680,14 +656,14 @@ public:
 		if (multitree *temp = iter.tree_ptr()) {
 			do {
 				if (inT == temp->data_) return iterator(*temp);
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 
          // now search each branch for the find within it
          temp = iter.tree_ptr();
 			do {
             iterator i = temp->tree_find_breadth(inT);
             if (i != multitree::iterator::end_iterator()) return i;
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
    }
@@ -699,14 +675,14 @@ public:
 		if (multitree *temp = iter.tree_ptr()) {
 			do {
 				if ( obj(inT, temp->data_) ) return iterator(*temp);
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 
          // now search each branch for the find within it
          temp = iter.tree_ptr();
 			do {
             iterator i = temp->tree_find_breadth(inT, obj);
             if (i != multitree::iterator::end_iterator()) return i;
-			} while (NULL != (temp = temp->next_) );
+			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
    }
@@ -756,7 +732,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Default constructor
 	//////////////////////////////////////////////////////////////////////////
-	multitree_iterator() : current_(NULL) {}
+	multitree_iterator() : current_(0) {}
 	
 	//////////////////////////////////////////////////////////////////////////
 	// Copy constructors for iterators
@@ -788,12 +764,12 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	iterator operator[](size_t loc) const
+	iterator operator[](std::size_t loc) const
 	{ return (*this->current_)[loc]; }
 
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	iterator operator[](size_t loc)
+	iterator operator[](std::size_t loc)
 	{ return (*this->current_)[loc]; }
 
 	//////////////////////////////////////////////////////////////////////////
@@ -934,10 +910,10 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Get the size of the current tree_iter
 	//////////////////////////////////////////////////////////////////////////
-	size_t size() const { return this->TreeType::size( *current_ ); }
+	std::size_t size() const { return this->TreeType::size( *current_ ); }
 
 	//////////////////////////////////////////////////////////////////////////
-	size_t level() const { return this->TreeType::level( *current_ ); }
+	std::size_t level() const { return this->TreeType::level( *current_ ); }
 
 	//////////////////////////////////////////////////////////////////////////
 	// Removes the first instance of T in the multitree
@@ -986,7 +962,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Empty this entire multitree
 	//////////////////////////////////////////////////////////////////////////
-	void clear_tree() { delete this->current_; this->current_ = NULL; }
+	void clear_tree() { delete this->current_; this->current_ = 0; }
 
 	//////////////////////////////////////////////////////////////////////////
 	// Empty this multitree's children
@@ -1001,9 +977,5 @@ template <typename T>
 multitree_iterator<T> multitree_iterator<T>::end_of_iterator;
 
 };
-
-#if WIN32
-#pragma warning( pop )
-#endif // WINOS
 
 #endif // tree_header_file
