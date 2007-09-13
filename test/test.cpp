@@ -66,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/vector.hpp"
 #include "../src/codecvt.hpp"
 #include "../src/image/util.hpp"
+#include "../src/multitree.hpp"
 
 //#include <hamigaki/archivers/zip_file.hpp>
 
@@ -125,6 +126,7 @@ sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit r
 int main()
 //try
 {
+	sge::multitree<int> test;
 /*	typedef multi_tree<int> tree;
 	tree t;
 	tree::list l(t.children(t.begin()));

@@ -153,7 +153,7 @@ private:
 	{
 		// if there's no inner tree, make it
 		if (0 == level->in_) 
-      {
+		{
 			// Dummy node, create it
 			multitree *temp = new multitree;
 			temp->next_ = inTree;
@@ -161,7 +161,7 @@ private:
 			level->in_ = inTree;
 		}
 		else 
-      {
+		{
 			multitree *temp = level->in_->prev_;
 
 			while (true) {
@@ -186,7 +186,7 @@ private:
 	{
 		// if there's no inner multitree, make it
 		if (0 == level->in_) 
-      {
+		{
 			// Dummy node, create it
 			multitree *temp = new multitree;
 			temp->next_ = inTree;
@@ -194,7 +194,7 @@ private:
 			level->in_ = inTree;
 		}
 		else 
-      {
+		{
 			multitree *temp = level->in_->prev_;
 
 			multitree *hold = temp->next_;
@@ -559,7 +559,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	iterator operator[](std::size_t loc) const
 	{
-      multitree *temp;
+		multitree *temp;
 		for (temp = this->in_; loc > 0; --loc) temp = temp->next_;
 		return iterator(*temp);
 	}
@@ -567,34 +567,34 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	iterator operator[](std::size_t loc)
 	{
-      multitree *temp;
+		multitree *temp;
 		for (temp = this->in_; loc > 0; --loc) temp = temp->next_;
 		return iterator(*temp);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
 	iterator find(const T &inT) const
-   { return find(inT, iterator(*this->in_)); }
+	{ return find(inT, iterator(*this->in_)); }
 
 	//////////////////////////////////////////////////////////////////////////
 	iterator find(const T &inT, bool (*obj)(const T&, const T&)) const
-   { return find(inT, iterator(*this->in_), obj); }
+	{ return find(inT, iterator(*this->in_), obj); }
 
 	//////////////////////////////////////////////////////////////////////////
-   iterator tree_find_depth(const T &inT) const 
-   { return tree_find_depth(inT, iterator(*this->in_)); }
+	iterator tree_find_depth(const T &inT) const 
+	{ return tree_find_depth(inT, iterator(*this->in_)); }
 
 	//////////////////////////////////////////////////////////////////////////
 	iterator tree_find_depth(const T &inT, bool (*obj)(const T&, const T&)) const
-   { return tree_find_depth(inT, iterator(*this->in_), obj); }
+	{ return tree_find_depth(inT, iterator(*this->in_), obj); }
 
 	//////////////////////////////////////////////////////////////////////////
-   iterator tree_find_breadth(const T &inT) const
-   { return tree_find_breadth(in, iterator(*this->in_)); }
+	iterator tree_find_breadth(const T &inT) const
+	{ return tree_find_breadth(in, iterator(*this->in_)); }
 
 	//////////////////////////////////////////////////////////////////////////
-   iterator tree_find_breadth(const T &inT, bool (*obj)(const T&, const T&)) const
-   { return tree_find_breadth(inT, iterator(*this->in_), obj); }
+	iterator tree_find_breadth(const T &inT, bool (*obj)(const T&, const T&)) const
+	{ return tree_find_breadth(inT, iterator(*this->in_), obj); }
 
 	//////////////////////////////////////////////////////////////////////////
 	// internal_only interface, can't be called even with derived objects due
@@ -627,9 +627,9 @@ public:
 		if (multitree *temp = iter.tree_ptr()) {
 			do {
 				if (inT == temp->data_) return iterator(*temp);
-            // do a depth search, search it for inT
-            iterator i = temp->tree_find_depth(inT);
-            if (i != multitree::iterator::end_iterator()) return i;
+				// do a depth search, search it for inT
+				iterator i = temp->tree_find_depth(inT);
+				if (i != multitree::iterator::end_iterator()) return i;
 			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
@@ -641,32 +641,32 @@ public:
 		if (multitree *temp = iter.tree_ptr()) {
 			do {
 				if ( obj(inT, temp->data_) ) return ( iterator(*temp) );
-            // do a depth search, search it for inT
-            iterator i = temp->tree_find_depth(inT, obj);
-            if (i != multitree::iterator::end_iterator()) return i;
+				// do a depth search, search it for inT
+				iterator i = temp->tree_find_depth(inT, obj);
+				if (i != multitree::iterator::end_iterator()) return i;
 			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-   iterator tree_find_breadth(const T &inT, const iterator &iter) const
-   {
-      // search the entire level for a find first
+	iterator tree_find_breadth(const T &inT, const iterator &iter) const
+	{
+		// search the entire level for a find first
 		if (multitree *temp = iter.tree_ptr()) {
 			do {
 				if (inT == temp->data_) return iterator(*temp);
 			} while (0 != (temp = temp->next_) );
 
-         // now search each branch for the find within it
-         temp = iter.tree_ptr();
+			// now search each branch for the find within it
+			temp = iter.tree_ptr();
 			do {
-            iterator i = temp->tree_find_breadth(inT);
-            if (i != multitree::iterator::end_iterator()) return i;
+				iterator i = temp->tree_find_breadth(inT);
+				if (i != multitree::iterator::end_iterator()) return i;
 			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
-   }
+	}
 
 	//////////////////////////////////////////////////////////////////////////
    iterator tree_find_breadth(const T &inT, const iterator &iter, bool (*obj)(const T&, const T&)) const
@@ -719,6 +719,8 @@ private:
 	const TreeType* operator&() const;
 
 public:
+
+	typedef typename multitree<T>::iterator iterator;
 
 	TreeType* tree_ptr() const { return current_; }
 	TreeType& tree_ref() const { return *current_; }
@@ -791,8 +793,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	bool operator==(const multitree_iterator& rhs) const
 	{
-		if (this->current_ == rhs.current_) return true;
-		return false;
+		return this->current_ == rhs.current_;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -976,6 +977,6 @@ public:
 template <typename T>
 multitree_iterator<T> multitree_iterator<T>::end_of_iterator;
 
-};
+}
 
 #endif // tree_header_file
