@@ -2,6 +2,8 @@
 #include <memory>
 #include <utility>
 #include <stack>
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/next_prior.hpp>
 
 template<typename T, typename A = std::allocator<T> > class multi_tree {
 public:
@@ -58,76 +60,64 @@ public:
 		typedef typename multi_tree::pointer pointer;
 		typedef typename multi_tree::const_pointer const_pointer;
 		
-		class iterator : public std::iterator<std::bidirectional_iterator_tag, difference_type, pointer, reference> {
+		template<typename ValueType, typename Reference>
+			class iterator_impl : public boost::iterator_facade<iterator_impl<ValueType, Reference>, ValueType, std::bidirectional_iterator_tag, Reference, difference_type> {
+			friend class boost::iterator_core_access;
 		public:
-			iterator& operator++()
-			{
-				n = n->next;
-				return *this;
-			}
-
-			iterator operator++(int)
-			{
-				const iterator tmp(*this);
-				++(*this);
-				return tmp;
-			}
-
-			iterator& operator--()
-			{
-				n = n->prev;
-				return *this;
-			}
-
-			iterator operator--(int)
-			{
-				const iterator tmp(*this);
-				--(*this);
-				return tmp;
-			}
-
-			bool operator==(const iterator& r) const
-			{
-				return n == r.n;
-			}
-
-			bool operator!=(const iterator& r) const
-			{
-				return !(*this == r);
-			}
-
-			reference operator*() const
+			reference dereference() const
 			{
 				return static_cast<node*>(n).value;
 			}
 
-			pointer operator->() const
+			void increment()
 			{
-				return &static_cast<node*>(n).value;
+				n = n->next;
+			}
+
+			void decrement()
+			{
+				n = n->prev;
+			}
+
+			bool equal(const iterator_impl& r) const
+			{
+				return n == r.n;
 			}
 		private:
 			friend class list;
 			friend class multi_tree;
 
-			iterator(node_base* const n)
+			iterator_impl(node_base* const n)
 			: n(n)
 			{}
 
 			node_base* n;
 		};
 
-		typedef std::reverse_iterator<iterator> reverse_iterator;
-		
-		// TODO: const versions
+		typedef iterator_impl<value_type, reference> iterator;
+		typedef iterator_impl<const value_type, const_reference> const_iterator;
 
+		typedef std::reverse_iterator<iterator> reverse_iterator;
+		typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+		
 		iterator begin()
 		{
-			return iterator(parent->children_head.next);
+			return iterator(head->next);
 		}
 
 		iterator end()
 		{
-			return iterator(&parent->children_head);
+			return iterator(head);
+		}
+
+		const_iterator begin() const
+		{
+			return const_iterator(head->next);
+		}
+
+		const_iterator end() const
+		{
+			return const_iterator(head);
 		}
 
 		reverse_iterator rbegin()
@@ -139,13 +129,23 @@ public:
 		{
 			return reverse_iterator(begin());
 		}
+	
+		const_reverse_iterator rbegin() const
+		{
+			return const_reverse_iterator(end());
+		}
+
+		const_reverse_iterator rend() const
+		{
+			return const_reverse_iterator(begin());
+		}
 
 		iterator insert(const iterator it, const_reference val)
 		{
 			node_base* const n = it.n;
 
 			node* const new_node = a->allocate(1);
-			a->construct(new_node, node(parent, n->prev, n, val));
+			a->construct(new_node, node(head->parent, n->prev, n, val));
 			
 			n->prev->next = new_node;
 			n->prev = new_node;
@@ -154,15 +154,15 @@ public:
 
 		iterator erase(const iterator it)
 		{
-			node_base* const n = it.n;
+			node* const n = static_cast<node*>(it.n);
 
 			n->next->prev = n->prev;
 			n->prev->next = n->next;
 
-			node* const nnext = n->next;
+			node_base* const nnext = n->next;
 
 			a->destroy(n);
-			a->deallocate(n);
+			a->deallocate(n, 1);
 			return iterator(nnext);
 		}
 
@@ -191,6 +191,26 @@ public:
 			erase(--end());
 		}
 
+		reference front()
+		{
+			return *begin();
+		}
+
+		const_reference front() const
+		{
+			return *begin();
+		}
+
+		reference back()
+		{
+			return *--end();
+		}
+
+		const_reference back() const
+		{
+			return *--end();
+		}
+
 		size_type size() const
 		{
 			return std::distance(begin(),end());
@@ -201,31 +221,37 @@ public:
 			return size()==0;
 		}
 	private:
-		list(node* const parent, node_allocator_type* a = 0)
-		 : parent(parent),
+		list(node_base* const head, node_allocator_type* const a = 0)
+		 : head(head),
 		   a(a)
 		{}
 
 		friend class multi_tree;
 
-		node* parent;
+		node_base* head;
 		node_allocator_type* a;
 	};
 
 	// TODO: + const list
 
-	class iterator : public std::iterator<std::bidirectional_iterator_tag, difference_type, pointer, reference> {
+	template<typename ValueType, typename Reference>
+		class iterator_impl : public boost::iterator_facade<iterator_impl<ValueType, Reference>, ValueType, std::bidirectional_iterator_tag, Reference, difference_type> {
+		friend class boost::iterator_core_access;
 	public:
-		iterator& operator++()
+		reference dereference() const
+		{
+			return static_cast<node*>(n)->value;
+		}
+
+		void increment()
 		{
 			// if there are childrens fall into the first one
-			list l(static_cast<node*>(n));
-			//if(!l.empty())
-			if(l.begin()==l.end())
+			list l(&static_cast<node*>(n)->children_head);
+			if(!l.empty())
 			{
 				level.push(std::make_pair(l, l.begin()));
 				n = l.begin().n;
-				return *this;
+				return;
 			}
 			
 			// else roll the stack back until a node is found which has an unvisited child left
@@ -237,56 +263,28 @@ public:
 				if(p.second != p.first.end())
 				{
 					n = p.second.n;
-					return *this;
+					return;
 				}
 			}
 			
 			// else there was probably an iteration not starting from begin() so just climb further up
 			n = n->parent;
-			list cl(static_cast<node*>(n));
+			list cl(&static_cast<node*>(n)->children_head);
 			level.push(std::make_pair(cl, cl.begin()));
-			return *this;
 		}
 
-		iterator operator++(int)
+		void decrement()
 		{
-			const iterator tmp(*this);
-			++(*this);
-			return tmp;
 		}
-
-		iterator& operator--();
-
-		iterator operator--(int)
+		
+		bool equal(const iterator_impl& impl) const
 		{
-			const iterator tmp(*this);
-			--(*this);
-			return tmp;
-		}
-
-		reference operator*() const
-		{
-			return static_cast<node*>(n)->value;
-		}
-
-		pointer operator->() const
-		{
-			return &static_cast<node*>(n)->value;
-		}
-
-		bool operator==(const iterator& r) const
-		{
-			return n == r.n;
-		}
-
-		bool operator!=(const iterator& r) const
-		{
-			return !(*this == r);
+			return n == impl.n;
 		}
 	private:
 		friend class multi_tree;
 
-		iterator(node_base* const n)
+		iterator_impl(node_base* const n)
 		: n(n)
 		{}
 
@@ -297,22 +295,40 @@ public:
 		node_stack level;
 	};
 
-	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef iterator_impl<value_type, reference> iterator;
+	typedef iterator_impl<const value_type, const_reference> const_iterator;
 
-	// TODO: const iterators
+	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
 
 	multi_tree(const allocator_type& a = allocator_type())
 	: impl(a)
 	{}
 
+	~multi_tree()
+	{
+//		clear();
+	}
+
 	iterator begin()
 	{
-		return iterator(impl.head);
+		return iterator(impl.head.next);
 	}
 
 	iterator end()
 	{
-		return iterator(impl.head->next);
+		return iterator(&impl.head);
+	}
+
+	const_iterator begin() const
+	{
+		return const_iterator(impl.head.next);
+	}
+
+	const_iterator end() const
+	{
+		return const_iterator(&impl.head);
 	}
 
 	reverse_iterator rbegin()
@@ -325,7 +341,15 @@ public:
 		return reverse_iterator(begin());
 	}
 
-	// TODO: + const-versions
+	const_reverse_iterator rbegin() const
+	{
+		return const_reverse_iterator(end());
+	}
+
+	const_reverse_iterator rend() const
+	{
+		return const_reverse_iterator(begin());
+	}
 
 	size_type size() const
 	{
@@ -342,36 +366,43 @@ public:
 		return impl.a.max_size();
 	}
 
-	void clear()
+	iterator erase(iterator it)
 	{
-		children(iterator(impl.head)).clear();
+		const iterator ret = boost::next(it);
+		list l(it.n);
+		l.clear();;
+		return ret;
 	}
 
-	list children(const iterator it)
+	void erase(iterator beg, const iterator end)
 	{
-		return list(static_cast<node*>(it.n), &impl.a);
+		while(beg != end)
+			beg = erase(beg);
+	}
+
+	void clear()
+	{
+		erase(begin(), end());
 	}
 
 	list children(const typename list::iterator it)
 	{
-		return list(static_cast<node*>(it.n), &impl.a);
+		return list(&static_cast<node*>(it.n)->children_head, &impl.a);
+	}
+
+	list head()
+	{
+		return list(begin().n, &impl.a);
 	}
 private:
 	struct tree_impl {
 		tree_impl(const allocator_type& na)
 		: a(na),
-		  head(a.allocate(1))
-		{
-			head->parent = 0;
-			head->children_head.parent = head;
-			head->children_head.next = &head->children_head;
-			head->children_head.prev = &head->children_head;
-			head->prev = head;
-			head->next = head;
-		}
+		  head(0, &head, &head)
+		{}
 
 		node_allocator_type a;
-		node* head;
+		node_base head;
 	};
 
 	tree_impl impl;
@@ -385,10 +416,17 @@ int main()
 {
 	typedef multi_tree<int> tree;
 	tree t;
-	tree::list l(t.children(t.begin()));
+	tree::list l(t.head());
 	l.push_back(10);
-	tree::list l2(t.children(l.begin()));
-	l2.push_back(20);
+	l.push_back(11);
 	tree::iterator it = t.begin();
-	std::cout << *(++it) << '\n';
+	t.erase(++it);
+//	l.erase(l.begin());
+//	l.pop_front();
+//	l.pop_back();
+/*	tree::list l2(t.children(l.begin()));
+	l2.push_back(20);
+	l2.pop_back();*/
+	for(tree::iterator it = t.begin(); it != t.end(); ++it)
+		std::cout << *it << std::endl;
 }
