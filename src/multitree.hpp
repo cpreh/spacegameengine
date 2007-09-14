@@ -13,8 +13,12 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#ifndef multitree_header_file
-#define multitree_header_file
+#ifndef SGE_MULTITREE_HPP_INCLUDED
+#define SGE_MULTITREE_HPP_INCLUDED
+
+#include <cstddef>
+#include <memory>
+#include <iterator>
 
 namespace sge 
 {
@@ -22,17 +26,17 @@ namespace sge
 /////////////////////////////////////////////////////////////////////////////
 // multitree_iterator forward declaration
 /////////////////////////////////////////////////////////////////////////////
-template <typename T> class multitree_iterator;
+template <typename T, typename A> class multitree_iterator;
 
 /////////////////////////////////////////////////////////////////////////////
 // multitree pair object definition
 /////////////////////////////////////////////////////////////////////////////
-template <typename T> class multitree
+template <typename T, typename A = std::allocator<T> > class multitree
 {
 public:
 
-	typedef multitree_iterator<T> iterator;
-	typedef const multitree_iterator<T> const_iterator;
+	typedef multitree_iterator<T,A> iterator;
+	typedef const multitree_iterator<T,A> const_iterator;
 
 private:
 
@@ -669,23 +673,23 @@ public:
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-   iterator tree_find_breadth(const T &inT, const iterator &iter, bool (*obj)(const T&, const T&)) const
-   {
-      // search the entire level for a find first
+	iterator tree_find_breadth(const T &inT, const iterator &iter, bool (*obj)(const T&, const T&)) const
+	{
+		// search the entire level for a find first
 		if (multitree *temp = iter.tree_ptr()) {
 			do {
 				if ( obj(inT, temp->data_) ) return iterator(*temp);
 			} while (0 != (temp = temp->next_) );
 
-         // now search each branch for the find within it
-         temp = iter.tree_ptr();
+			// now search each branch for the find within it
+			temp = iter.tree_ptr();
 			do {
-            iterator i = temp->tree_find_breadth(inT, obj);
-            if (i != multitree::iterator::end_iterator()) return i;
+				iterator i = temp->tree_find_breadth(inT, obj);
+				if (i != multitree::iterator::end_iterator()) return i;
 			} while (0 != (temp = temp->next_) );
 		}
 		return multitree::iterator::end_iterator();
-   }
+	}
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -702,11 +706,11 @@ public:
 // template types defined on the fly for the iterator based specifically on
 // the multitree types which are being created.
 /////////////////////////////////////////////////////////////////////////////
-template <typename T>
-class multitree_iterator : private multitree<T>
+template <typename T, typename A>
+class multitree_iterator : private multitree<T,A>
 {
 private:
-	typedef multitree<T> TreeType;
+	typedef multitree<T,A> TreeType;
 
 	mutable TreeType *current_;
 
@@ -720,7 +724,7 @@ private:
 
 public:
 
-	typedef typename multitree<T>::iterator iterator;
+	typedef typename TreeType::iterator iterator;
 
 	TreeType* tree_ptr() const { return current_; }
 	TreeType& tree_ref() const { return *current_; }
@@ -934,7 +938,7 @@ public:
 	iterator tree_find_depth(const T &inT, bool (*obj)(const T&, const T&)) const
 	{ return current_->tree_find_depth(inT, obj); }
 
-   iterator tree_find_breadth(const T &inT) const { return current_->tree_find_breadth(inT); }
+	iterator tree_find_breadth(const T &inT) const { return current_->tree_find_breadth(inT); }
 
 	iterator tree_find_breadth(const T &inT, bool (*obj)(const T&, const T&)) const
 	{ return current_->tree_find_breadth(inT, obj); }
@@ -942,7 +946,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Finds the next instance of T based on the iterator passed in
 	//////////////////////////////////////////////////////////////////////////
-   iterator find(const T &inT, const iterator &iter) const
+	iterator find(const T &inT, const iterator &iter) const
 	{ return current_->find(inT, iter); }
 
 	iterator find(const T &inT, const iterator &iter, bool (*obj)(const T&, const T&)) const
@@ -974,8 +978,8 @@ public:
 //////////////////////////////////////////////////////////////////////////
 // Static iterator initialization
 //////////////////////////////////////////////////////////////////////////
-template <typename T>
-multitree_iterator<T> multitree_iterator<T>::end_of_iterator;
+template <typename T, typename A>
+multitree_iterator<T,A> multitree_iterator<T,A>::end_of_iterator;
 
 }
 

@@ -122,11 +122,19 @@ sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit r
 	        0, 0,       q, 1,
 	        0, 0, (2*far*near)/(near-far), 0);
 }*/
+struct nondefctor
+{
+  int *a;
+
+  nondefctor() : a(0) {}
+  nondefctor(int &a) : a(&a) {}
+};
+
 
 int main()
 //try
 {
-	sge::multitree<int> test;
+//	sge::multitree<int> test;
 /*	typedef multi_tree<int> tree;
 	tree t;
 	tree::list l(t.children(t.begin()));
@@ -136,6 +144,17 @@ int main()
 	tree::iterator it = t.begin();
 	std::cout << *(++it) << '\n';*/
 
+	int a = 10;
+	sge::multitree<nondefctor> tree(nondefctor(a));
+	tree.push_back();
+//	tree.push_back(nondefctor());
+
+/*	int a = 10;
+	nondefctor tmp;//(a);
+	sge::multitree<nondefctor> tree(tmp);
+	tree.push_back(nondefctor());
+	tree.push_back(nondefctor());
+*/
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
