@@ -116,9 +116,11 @@ template<typename T> inline bool intersects(const basic_rect<T>& r, const basic_
 	       intersects(basic_line_seg2<T>(vec(r.right, r.top),    vec(r.left,  r.top)),    l);
 }
 
-template<typename T, typename Ch, typename Traits> std::basic_ostream<Ch,Traits>& operator<<(std::basic_ostream<Ch,Traits>& s, const basic_rect<T>& r)
+template<typename T, typename Ch, typename Traits>
+inline std::basic_ostream<Ch,Traits>& operator<<(std::basic_ostream<Ch,Traits>& s, const basic_rect<T>& r)
 {
-	return s << "((" << r.left << ',' << r.top << "),(" << r.right << ',' << r.bottom << "))";
+	return s << s.widen('(') << s.widen('(') << r.left << s.widen(',') << r.top << s.widen(')') << s.widen(',')
+	         << s.widen('(') << r.right << s.widen(',') << r.bottom << s.widen(')') << s.widen(')');
 }
 
 typedef basic_rect<space_unit> rect;

@@ -320,12 +320,12 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Default constructor
 	//////////////////////////////////////////////////////////////////////////
-	multitree() : next_(0), prev_(0), in_(0), out_(0), level_(0), size_(0) {}
+	multitree() : level_(0), size_(0),next_(0), prev_(0), out_(0), in_(0)  {}
 
 	//////////////////////////////////////////////////////////////////////////
 	// Paired <T> constructor
 	//////////////////////////////////////////////////////////////////////////
-	multitree(const T &inT) : data_(inT), next_(0), prev_(0), in_(0), out_(0), level_(0), size_(0) {}
+	multitree(const T &inT) : data_(inT),level_(0), size_(0),  next_(0), prev_(0), out_(0),in_(0)   {}
 
 	//////////////////////////////////////////////////////////////////////////
 	// operator==, expects operator== has been written for both t and u
@@ -356,8 +356,8 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// copy constructor - now visible
 	//////////////////////////////////////////////////////////////////////////
-	multitree(const multitree &in) : data_(in.data_), next_(0), prev_(0), in_(0), out_(0), 
-		level_(0), size_(0) { *this = in; }
+	multitree(const multitree &in) : data_(in.data_),level_(0), size_(0), next_(0), prev_(0), out_(0),in_(0)
+		 { *this = in; }
 
 	//////////////////////////////////////////////////////////////////////////
 	// destructor -- cleans out all branches, destroyed entire multitree
@@ -390,6 +390,7 @@ public:
 		}
 	}
 
+
 	//////////////////////////////////////////////////////////////////////////
 	void copy_tree(const multitree& in)
 	{
@@ -400,6 +401,13 @@ public:
 			// for each node, see if there are inners - if so, copy those too
 			if (i.size() != 0) inserted.tree_ptr()->copy_tree(*i.tree_ptr());
 		}
+	}
+
+	iterator append_subtree(const multitree &in)
+	{
+		iterator root = push_back(in.data());
+		root.tree_ptr()->copy_tree(in);
+		return root;
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -482,6 +490,11 @@ public:
 	{
 		multitree *createdTree = new multitree(inT);
 		return iterator(i_push_back(createdTree, this));
+	}
+
+	iterator push_back(const multitree &inT)
+	{
+		return append_subtree(inT);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -743,7 +756,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// Copy constructors for iterators
 	//////////////////////////////////////////////////////////////////////////
-	multitree_iterator(const multitree_iterator& i) : current_(i.current_) {}
+	multitree_iterator(const multitree_iterator& i) : TreeType(),current_(i.current_) {}
 
 	//////////////////////////////////////////////////////////////////////////
 	// Copy constructor for trees

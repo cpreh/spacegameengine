@@ -275,62 +275,32 @@ inline color4::value_type green_part_rgba_f(const color c) { return color_green(
 inline color4::value_type  blue_part_rgba_f(const color c) { return color_blue(c)  / color_to_color4_factor; }
 inline color4::value_type alpha_part_rgba_f(const color c) { return color_alpha(c) / color_to_color4_factor; }
 
-
-inline std::ostream& operator<< (std::ostream& os, const color4& col)
+template<typename Ch,typename Traits>
+inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s, const color4 &col)
 {
-	return os << '(' << col.r << ',' << col.g << ',' << col.b << ',' << col.a << ')';
+	return s << s.widen('(') << col.r << s.widen(',') << col.g << s.widen(',') << col.b << s.widen(',') << col.a << s.widen(')');
 }
 
-inline std::wostream& operator<< (std::wostream& os, const color4& col)
+template<typename Ch,typename Traits>
+inline std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, color4& col)
 {
-	return os << L'(' << col.r << L',' << col.g << L',' << col.b << L',' << col.a << L')';
-}
-
-inline std::istream& operator>> (std::istream& s, color4& col)
-{
-	char c;
+	Ch c;
 	s >> c;
-	if(c != '(')
+	if(c != s.widen('('))
 		s.setstate(std::ios_base::failbit);
 
 	color4::value_type r,g,b,a;
 	s >> r >> c;
-	if (c != ',')
+	if (c != s.widen(','))
 		s.setstate(std::ios_base::failbit);
 	s >> g >> c;
-	if (c != ',')
+	if (c != s.widen(','))
 		s.setstate(std::ios_base::failbit);
 	s >> b >> c;
-	if (c != ',')
+	if (c != s.widen(','))
 		s.setstate(std::ios_base::failbit);
 	s >> a >> c;
-	if (c != ')')
-		s.setstate(std::ios_base::failbit);
-	
-	col = color4(r,g,b,a);
-
-	return s;
-}
-
-inline std::wistream& operator>> (std::wistream& s, color4& col)
-{
-	wchar_t c;
-	s >> c;
-	if(c != L'(')
-		s.setstate(std::ios_base::failbit);
-
-	color4::value_type r,g,b,a;
-	s >> r >> c;
-	if (c != L',')
-		s.setstate(std::ios_base::failbit);
-	s >> g >> c;
-	if (c != L',')
-		s.setstate(std::ios_base::failbit);
-	s >> b >> c;
-	if (c != L',')
-		s.setstate(std::ios_base::failbit);
-	s >> a >> c;
-	if (c != L')')
+	if (c != s.widen(')'))
 		s.setstate(std::ios_base::failbit);
 	
 	col = color4(r,g,b,a);

@@ -59,8 +59,11 @@ struct display_mode {
 	screen_unit height() const;
 };
 
-std::ostream& operator<< (std::ostream& s, const display_mode& mode);
-std::wostream& operator<< (std::wostream& s, const display_mode& mode);
+template<class Ch,class Traits>
+std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s,const display_mode &mode)
+{
+	return s << s.widen('(') << mode.width() << s.widen('x') << mode.height() << s.widen('x') << bit_depth_bit_count(mode.depth) << s.widen('@') << mode.refresh_rate << s.widen(')');
+}
 
 inline bool operator== (const display_mode& l, const display_mode& r)
 {

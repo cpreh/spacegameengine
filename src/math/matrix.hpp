@@ -195,46 +195,24 @@ inline bool operator!= (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>&
 	return !(l==r);
 }
 
-template<typename T, std::size_t N, std::size_t M>
-inline std::ostream& operator<< (std::ostream& s, const basic_matrix<T,N,M>& m)
+template<typename T, std::size_t N, std::size_t M,typename Ch, typename Traits>
+inline std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& s, const basic_matrix<T,N,M>& m)
 {
-	s << '(';
+	s << s.widen('(');
 	for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
 	{
-		s << '(';
+		s << s.widen('(');
 		for(typename basic_matrix<T,N,M>::size_type i = 0; i < M; ++i)
 		{
 			s << m[j][i];
 			if(i != M-1)
-				s << ',';
+				s << s.widen(',');
 		}
-		s << ')';
+		s << s.widen(')');
 		if(j != N-1)
-			s << ',';
+			s << s.widen(',');
 	}
-	s << ')';
-	return s;
-}
-
-template<typename T, std::size_t N, std::size_t M>
-inline std::wostream& operator<< (std::wostream& s, const basic_matrix<T,N,M>& m)
-{
-	s << L'(';
-	for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
-	{
-		s << L'(';
-		for(typename basic_matrix<T,N,M>::size_type i = 0; i < M; ++i)
-		{
-			s << m[j][i];
-			if(i != M-1)
-				s << L',';
-		}
-		s << L')';
-		if(j != N-1)
-			s << L',';
-	}
-	s << L')';
-	return s;
+	return s << s.widen(')');
 }
 
 template<typename T, std::size_t N>

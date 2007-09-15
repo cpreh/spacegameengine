@@ -400,60 +400,30 @@ typename basic_vector<T,Dim>::value_type dot(const basic_vector<T,Dim>& l, const
 	return l.dot(r);
 }
 
-template<typename T, std::size_t Dim>
-std::ostream& operator<< (std::ostream& s, const basic_vector<T,Dim>& v)
+template<typename T, std::size_t Dim,typename Ch, typename Traits>
+inline std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& s, const basic_vector<T,Dim>& v)
 {
-	s << '(';
+	s << s.widen('(');
 	for(typename basic_vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
-		s << v[i] << ',';
-	s << v[Dim-1] << ')';
-	return s;
+		s << v[i] << s.widen(',');
+	return s << v[Dim-1] << s.widen(')');
 }
 
-template<typename T, std::size_t Dim>
-std::wostream& operator<< (std::wostream& s, const basic_vector<T,Dim>& v)
+template<typename T, std::size_t Dim,typename Ch, typename Traits>
+std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, basic_vector<T,Dim>& v)
 {
-	s << L'(';
-	for(typename basic_vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
-		s << v[i] << L',';
-	s << v[Dim-1] << L')';
-	return s;
-}
-
-template<typename T, std::size_t Dim>
-std::istream& operator>> (std::istream& s, basic_vector<T,Dim>& v)
-{
-	char c;
+	Ch c;
 	s >> c;
-	if(c != '(')
+	if(c != s.widen('('))
 		s.setstate(std::ios_base::failbit);
 	for(typename basic_vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 	{
 		s >> v[i] >> c;
-		if(c != ',')
+		if(c != s.widen(','))
 			s.setstate(std::ios_base::failbit);
 	}
 	s >> v[Dim-1] >> c;
-	if(c != ')')
-		s.setstate(std::ios_base::failbit);
-	return s;
-}
-
-template<typename T, std::size_t Dim>
-std::wistream& operator>> (std::wistream& s, basic_vector<T,Dim>& v)
-{
-	wchar_t c;
-	s >> c;
-	if(c != L'(')
-		s.setstate(std::ios_base::failbit);
-	for(typename basic_vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
-	{
-		s >> v[i] >> c;
-		if(c != L',')
-			s.setstate(std::ios_base::failbit);
-	}
-	s >> v[Dim-1] >> c;
-	if(c != L')')
+	if(c != s.widen(')'))
 		s.setstate(std::ios_base::failbit);
 	return s;
 }
