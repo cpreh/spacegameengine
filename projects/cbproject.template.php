@@ -8,6 +8,8 @@ $type = array(
 	'plugin' => 3
 );
 
+@mkdir('projects/codeblocks/'.$data['name'].'/');
+
 ob_start(); ?>
 <<?php echo '?'; ?>xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_project_file>
@@ -77,7 +79,6 @@ ob_start(); ?>
 </CodeBlocks_project_file>
 <?php
 
-mkdir('projects/codeblocks/'.$data['name'].'/');
 file_put_contents('projects/codeblocks/'.$data['name'].'/'.$data['name'].'.cbp', ob_get_contents());
 ob_end_clean();
 
