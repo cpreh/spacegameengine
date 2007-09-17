@@ -77,6 +77,7 @@ ob_start(); ?>
 </CodeBlocks_project_file>
 <?php
 
+mkdir('projects/codeblocks/'.$data['name'].'/');
 file_put_contents('projects/codeblocks/'.$data['name'].'/'.$data['name'].'.cbp', ob_get_contents());
 ob_end_clean();
 
