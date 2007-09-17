@@ -100,6 +100,7 @@
 		<Unit filename="..\..\..\src/input/key_type.hpp" />
 		<Unit filename="..\..\..\src/input/src/key_mod_tracker.cpp" />
 		<Unit filename="..\..\..\src/input/src/key_state_tracker.cpp" />
+		<Unit filename="..\..\..\src/input/src/key_type.cpp" />
 		<Unit filename="..\..\..\src/istream.hpp" />
 		<Unit filename="..\..\..\src/language.hpp" />
 		<Unit filename="..\..\..\src/library.hpp" />
@@ -121,6 +122,7 @@
 		<Unit filename="..\..\..\src/model/md3.hpp" />
 		<Unit filename="..\..\..\src/model/src/md3.cpp" />
 		<Unit filename="..\..\..\src/multitree.hpp" />
+		<Unit filename="..\..\..\src/multitree.old.hpp" />
 		<Unit filename="..\..\..\src/plugin.hpp" />
 		<Unit filename="..\..\..\src/plugin_manager.hpp" />
 		<Unit filename="..\..\..\src/plugin_traits.hpp" />
@@ -206,6 +208,7 @@
 		<Unit filename="..\..\..\src/texture/virtual_texture.hpp" />
 		<Unit filename="..\..\..\src/time.hpp" />
 		<Unit filename="..\..\..\src/timer.hpp" />
+		<Unit filename="..\..\..\src/tree.hpp" />
 		<Unit filename="..\..\..\src/types.hpp" />
 		<Unit filename="..\..\..\src/typeswitch.hpp" />
 		<Unit filename="..\..\..\src/util.hpp" />

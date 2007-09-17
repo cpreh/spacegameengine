@@ -370,7 +370,7 @@ public:
 	{
 		const iterator ret = boost::next(it);
 		list l(it.n);
-		l.clear();;
+		l.clear();
 		return ret;
 	}
 

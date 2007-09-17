@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../virtual_texture.hpp"
 #include "../fragmented_texture.hpp"
 #include "../../renderer/transform.hpp"
+#include "../../math/utility.hpp"
 #include <iostream>
 
 sge::virtual_texture::virtual_texture(const lock_rect& _area, fragmented_texture* const fragment, const bool _repeatable)
@@ -40,7 +41,7 @@ sge::lock_rect sge::virtual_texture::area() const
 
 sge::math::rect sge::virtual_texture::area_texc(const space_unit repeat) const
 {
-	if(repeat != 1 && repeatable() == false)
+	if(!math::compare(repeat, static_cast<space_unit>(1)) && repeatable() == false)
 		std::cerr << "Warning: texture not repeatable but repetition is " << repeat << "!\n";
 
 	const texture_ptr tex = my_texture();

@@ -144,9 +144,9 @@ int main()
 	tree::iterator it = t.begin();
 	std::cout << *(++it) << '\n';*/
 
-	int a = 10;
-	sge::multitree<nondefctor> tree(nondefctor(a));
-	tree.push_back();
+//	int a = 10;
+//	sge::multitree<nondefctor> tree(nondefctor(a));
+//	tree.push_back();
 //	tree.push_back(nondefctor());
 
 /*	int a = 10;
