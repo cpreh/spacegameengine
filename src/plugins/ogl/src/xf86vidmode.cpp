@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_LINUX_PLATFORM
 #include <iostream>
 #include "../../../exception.hpp"
-#include "../../../math.hpp"
+#include "../../../math/utility.hpp"
 #include "../../../renderer/types.hpp"
 #include "../xf86vidmode.hpp"
 
@@ -53,7 +53,7 @@ const XF86VidModeModeInfo& sge::ogl::xf86_vidmode_array::operator[](const size_t
 
 unsigned sge::ogl::xf86_vidmode_array::refresh_rate(const XF86VidModeModeInfo& mode)
 {
-	return round_div_int(1000 * mode.dotclock, unsigned(mode.htotal * mode.vtotal));
+	return math::round_div_int(1000 * mode.dotclock, unsigned(mode.htotal * mode.vtotal));
 }
 
 sge::ogl::xf86_vidmode_array::size_type sge::ogl::xf86_vidmode_array::size() const

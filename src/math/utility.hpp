@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_UTILITY_HPP_INCLUDED
 
 #include <cstdlib>
+#include <cmath>
 #include <limits>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -33,7 +34,7 @@ namespace math
 {
 
 template<typename T>
-T abs(const T &t) 
+inline T abs(const T &t) 
 { 
 	return t >= T(0) ? t : -t; 
 }
@@ -44,44 +45,44 @@ inline unsigned unsigned_diff(const unsigned a,const unsigned b)
 }
 
 template<typename T>
-T random(const T &begin,const T &end)
+inline T random(const T &begin,const T &end)
 {
 	return begin + T(std::rand() / (RAND_MAX + 1.0) * (end - begin));
 }
 
 template<typename T>
-bool nearly_equals(const T& a, const T& b)
+inline bool nearly_equals(const T& a, const T& b)
 {
 	return abs(a - b) < std::numeric_limits<T>::epsilon();
 }
 
 template<typename T>
-typename boost::disable_if<boost::is_floating_point<T>, bool>::type compare(const T& a, const T& b)
+inline typename boost::disable_if<boost::is_floating_point<T>, bool>::type compare(const T& a, const T& b)
 {
 	return a == b;
 }
 
 template<typename T>
-typename boost::enable_if<boost::is_floating_point<T>, bool>::type compare(const T& a, const T& b)
+inline typename boost::enable_if<boost::is_floating_point<T>, bool>::type compare(const T& a, const T& b)
 {
 	return nearly_equals(a, b);
 }
 
 template<typename T>
-bool almost_zero(const T t)
+inline bool almost_zero(const T t)
 {
 	return compare(t, static_cast<T>(0));
 }
 
-unsigned log2(const unsigned x)
+inline unsigned log2(const unsigned x)
 {
-  unsigned r = 0;
-  while((x >> r) != 0)
-    r++;
-  return --r;
+	unsigned r = 0;
+	while((x >> r) != 0)
+		r++;
+	return --r;
 }
 
-bool is_int_log2(const unsigned x)
+inline bool is_int_log2(const unsigned x)
 {
 	return !(x & (x-1));
 }
