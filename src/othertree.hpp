@@ -1,8 +1,11 @@
-#ifndef TREE_HPP_INCLUDED
-#define TREE_HPP_INCLUDED
+#ifndef SGE_TREE_HPP_INCLUDED
+#define SGE_TREE_HPP_INCLUDED
 
 #include <ostream>
 #include <boost/ptr_container/ptr_list.hpp>
+
+namespace sge
+{
 
 template<typename T>
 class tree
@@ -108,4 +111,6 @@ inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &
 	return b.output(stream,0);
 }
 
-#endif // TREE_HPP_INCLUDED
+}
+
+#endif // SGE_TREE_HPP_INCLUDED
