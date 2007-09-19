@@ -1,4 +1,5 @@
 #include <cassert>
+#include <algorithm>
 #include <iterator>
 #include <memory>
 #include <boost/iterator/iterator_facade.hpp>
@@ -194,6 +195,19 @@ public:
 			return iterator(new_node);
 		}
 
+		void insert(const iterator it, const size_type n, const_reference val)
+		{
+			for(size_type i = 0; i < n; ++i)
+				it = insert(it, val);
+		}
+
+		template<typename In>
+		void insert(iterator pos, In beg, const In end)
+		{
+			while(beg != end)
+				pos = insert(pos, *beg++);
+		}
+
 		iterator erase(const iterator it)
 		{
 			assert(a != 0);
@@ -273,6 +287,11 @@ public:
 		{
 			return size()==0;
 		}
+
+		allocator_type get_allocator() const
+		{
+			return *a;
+		}
 	private:
 		explicit list(node_base *const parent, node_allocator_type *const a)
 		 : parent(parent),
@@ -308,9 +327,12 @@ public:
 				return;
 			}
 
-			// as long as this node is the rightmost leaf, climb up
+			assert(mine()->parent);
+
+			// as long as this node is the rightmost leaf and we don't reach the dummy node, climb up
 			while(mine()->parent->parent != 0 && --list(mine()->parent, 0).end() == *this)
 			{
+				assert(mine()->parent);
 				std::cout << "climbing\n";
 				mine() = mine()->parent;
 			}
@@ -322,6 +344,7 @@ public:
 
 		void decrement()
 		{
+			// TODO:
 		}
 	
 		template<typename OtherBase, typename OtherValueType, typename OtherReference>
@@ -349,9 +372,23 @@ public:
 	: impl(a)
 	{}
 
+	multi_tree& operator=(const multi_tree& r)
+	{
+		if(this == &r)
+			return *this;
+		clear();
+		impl = r.impl;
+		return *this;
+	}
+
 	~multi_tree()
 	{
 		clear();
+	}
+
+	iterator insert(iterator pos, const_reference value)
+	{
+		return list(pos.mine()->parent, &impl.a).insert(typename list::iterator(pos.mine()), value);
 	}
 
 	iterator begin()
@@ -425,6 +462,49 @@ public:
 		erase(begin(), end());
 	}
 
+	bool operator==(const multi_tree& r) const
+	{
+		// TODO: maybe optimize me
+		return size() == r.size() && std::equal(begin(), end(), r.begin());
+	}
+
+	bool operator!=(const multi_tree& r) const
+	{
+		return *this != r;
+	}
+
+	bool operator<(const multi_tree& r) const
+	{
+		return std::lexicographical_compare(begin(), end(), r.begin(), r.end());
+	}
+
+	bool operator>(const multi_tree& r) const
+	{
+		return r < *this;
+	}
+
+	bool operator<=(const multi_tree& r) const
+	{
+		return !(*this > r);
+	}
+
+	bool operator>=(const multi_tree& r) const
+	{
+		return !(*this < r);
+	}
+
+	void swap(multi_tree &r)
+	{
+		std::swap(impl.head, r.impl.head);
+	}
+
+	allocator_type get_allocator() const
+	{
+		return impl.a;
+	}
+
+	// TODO; + const versions of those below
+
 	template<typename Derived, typename ValueType, typename Reference>
 	list children(iterator_base<Derived, ValueType, Reference> const& it)
 	{
@@ -454,6 +534,20 @@ private:
 			a.deallocate(head, 1);
 		}
 
+		tree_impl(const tree_impl& r)
+		: a(r.a)
+		{
+		}
+
+		tree_impl& operator=(const tree_impl& r)
+		{
+			return *this;
+		}
+
+		node *clone() const
+		{
+		}
+
 		node_allocator_type a;
 		node *head;
 	};
@@ -472,14 +566,15 @@ int main()
 	tree::list l(t.head());
 	l.push_back(10);
 	l.push_back(11);
+
 //	tree::iterator it = t.begin();
 //	t.erase(++it);
 //	l.erase(l.begin());
 //	l.pop_front();
 //	l.pop_back();
-/*	tree::list l2(t.children(l.begin()));
+	tree::list l2(t.children(l.begin()));
 	l2.push_back(20);
-	l2.pop_back();*/
+//	l2.pop_back();
 //	for(tree::iterator it = t.begin(); it != t.end(); ++it)
 	for(tree::iterator it = t.begin(); it != t.end(); ++it)
 		std::cout << *it << std::endl;
