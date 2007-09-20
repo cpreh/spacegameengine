@@ -309,7 +309,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 
 	glDrawElements(prim_type,
 	               num_indices(ptype, static_cast<unsigned>(pcount)),
-	               GL_UNSIGNED_SHORT,
+	               GL_UNSIGNED_INT,
 	               vbo_offset(first_index * sge::index_buffer::stride));
 
 	if(is_error())

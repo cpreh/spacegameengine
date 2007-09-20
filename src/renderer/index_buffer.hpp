@@ -34,7 +34,7 @@ class index_buffer {
 public:
 	typedef std::size_t        size_type;
 	typedef std::ptrdiff_t     difference_type;
-	typedef uint16             value_type;
+	typedef uint32             value_type;
 
 	typedef value_type&        reference;
 	typedef const value_type&  const_reference;
