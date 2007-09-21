@@ -67,6 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/codecvt.hpp"
 #include "../src/image/util.hpp"
 #include "../src/multitree.hpp"
+#include "../src/field.hpp"
 
 //#include <hamigaki/archivers/zip_file.hpp>
 
@@ -158,6 +159,9 @@ int main()
 	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
+
+	sge::field<int> testfield;
+	int tmp = testfield.x(testfield.begin());
 
 	const std::string s = "blubbbbbäüöß";
 	const std::wstring ws = sge::iconv(s);

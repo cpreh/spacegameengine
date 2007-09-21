@@ -21,6 +21,7 @@ class field
 
 	// container requirements
 	typedef T                                     value_type;
+	typedef Alloc                                 allocator_type;
 	typedef T&                                    reference;
 	typedef const T&                              const_reference;
 	typedef typename array_type::iterator         iterator;
@@ -56,19 +57,19 @@ class field
 	};
 
 	// standard-ctor
-	field() {}
+	field(const allocator_type& alloc = allocator_type()) : array(alloc) {}
 	// copy-ctor
 	field(const field &r) : dim_(r.dim_),array(r.array) {}
 	// initializes and resizes the field (does not, however, zero it; you can use zero() for that purpose)
-	field(const dim_type &dim) : dim_(dim) { array.resize(field_count()); }
+	field(const dim_type &dim, const allocator_type& alloc = allocator_type()) : array(alloc), dim_(dim) { array.resize(field_count()); }
 	// same as above just without the dim type
-	field(const coord_type &x,const coord_type &y) : dim_(x,y) { array.resize(field_count()); }
+	field(const coord_type &x,const coord_type &y, const allocator_type& alloc = allocator_type()) : array(alloc), dim_(x,y) { array.resize(field_count()); }
 
 	// again, container requirements
 	bool operator==(const field &r) const { return dim_ == r.dim_ && std::equal(begin(),end(),r.begin()); }
 	bool operator!=(const field &r) const { return !(*this == *r); }
 	void swap(field &r) { std::swap(dim_,r.dim_); array.swap(r.array); }
-	field &operator=(const field &r) { dim_ = r.dim_; array = r.array;  }
+	field &operator=(const field &r) { if(&r != this) { dim_ = r.dim_; array = r.array; } return *this; }
 	size_type size() const { return array.size();  }
 	size_type max_size() const { return array.max_size(); }
 	bool empty() const { return array.empty(); }
@@ -78,22 +79,18 @@ class field
 	const_iterator end() const { return array.end(); }
 	reverse_iterator rbegin() { return array.rbegin(); }
 	reverse_iterator rend() { return array.rend(); }
-	reverse_iterator rbegin() const { return array.rbegin(); }
-	reverse_iterator rend() const { return array.rend(); }
+	const_reverse_iterator rbegin() const { return array.rbegin(); }
+	const_reverse_iterator rend() const { return array.rend(); }
 	position_iterator pbegin() { return position_iterator(array.begin(),*this); }
 	position_iterator pend() { return position_iterator(array.end(),*this); }
 
 	void zero() { std::fill(begin(),end(),value_type(0)); }
-	void resize(const coord_type &x,const coord_type &y) { resize(dim_type(x,y)); }
-	void resize(const dim_type &n) { if (dim_ == n) return; dim_ = n; array.resize(field_count()); }
+	void resize(const coord_type &x,const coord_type &y, const_reference value = value_type()) { resize(dim_type(x,y), value); }
+	void resize(const dim_type &n, const_reference value = value_type()) { if (dim_ == n) return; dim_ = n; array.resize(field_count(), value); }
 	value_type pos(const coord_type &x,const coord_type &y) { return array.at(y * dim_.w() + x); }
 	value_type pos(const coord_type &x,const coord_type &y) const { return array.at(y * dim_.w() + x); }
 	value_type pos(const coord_vector_type &p) { return pos(p.x(),p.y()); }
 	value_type pos(const coord_vector_type &p) const { return pos(p.x(),p.y()); }
-
-	value_type x(const iterator &p) { return std::distance(begin(),p) % w(); }
-	value_type y(const iterator &p) { return std::distance(begin(),p) / w(); }
-	coord_vector_type pos(const iterator &p) { return coord_vector_type(x(p),y(p)); }
 
 	value_type x(const const_iterator &p) const { return std::distance(begin(),p) % w(); }
 	value_type y(const const_iterator &p) const { return std::distance(begin(),p) / w(); }
