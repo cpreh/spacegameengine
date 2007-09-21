@@ -84,6 +84,8 @@ class field
 	position_iterator pbegin() { return position_iterator(array.begin(),*this); }
 	position_iterator pend() { return position_iterator(array.end(),*this); }
 
+	allocator_type get_allocator() const { return array.get_allocator(); }
+
 	void zero() { std::fill(begin(),end(),value_type(0)); }
 	void resize(const coord_type &x,const coord_type &y, const_reference value = value_type()) { resize(dim_type(x,y), value); }
 	void resize(const dim_type &n, const_reference value = value_type()) { if (dim_ == n) return; dim_ = n; array.resize(field_count(), value); }

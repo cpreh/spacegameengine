@@ -455,6 +455,16 @@ void sge::ogl::renderer::set_blend_func(const source_blend_func::type source, co
 		throw exception("glBlendFunc() failed!");
 }
 
+void sge::ogl::renderer::set_draw_mode(const draw_mode::type mode)
+{
+	const GLenum glmode = convert_cast<GLenum>(mode);
+
+	glPolygonMode(GL_FRONT_AND_BACK, glmode);
+
+	if(is_error())
+		throw exception("glPolygonMode() failed!");
+}
+
 void sge::ogl::renderer::set_material(const material& mat)
 {
 	const GLenum face = GL_FRONT_AND_BACK;

@@ -303,6 +303,20 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_arg_value::type& va
 	}
 }
 
+template<> GLenum sge::ogl::convert_cast(const draw_mode::type& mode)
+{
+	switch(mode) {
+	case draw_mode::point:
+		return GL_POINT;
+	case draw_mode::line:
+		return GL_LINE;
+	case draw_mode::fill:
+		return GL_FILL;
+	default:
+		throw exception("Invalid draw_mode!");
+	}
+}
+
 GLenum sge::ogl::convert_fog_float_state(const float_state::type& s)
 {
 	switch(s) {

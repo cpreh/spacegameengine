@@ -160,9 +160,6 @@ int main()
 	bool running = true;
 	sge::plugin_manager pm;
 
-	sge::field<int> testfield;
-	int tmp = testfield.x(testfield.begin());
-
 	const std::string s = "blubbbbbäüöß";
 	const std::wstring ws = sge::iconv(s);
 //	std::wcout << ws << L'\n';
@@ -422,6 +419,8 @@ int main()
 	sge::math::vector3 translation(0, 0, -200);
 	float angle(0);
 	sge::timer frame_timer(1000);
+
+	rend->set_draw_mode(sge::draw_mode::line);
 
 	const sge::string some_text(sge::iconv("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	while(running)

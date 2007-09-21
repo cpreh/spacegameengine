@@ -208,6 +208,15 @@ namespace texture_stage_arg_value
 	};
 }
 
+namespace draw_mode
+{
+	enum type {
+		point,
+		line,
+		fill
+	};
+}
+
 class renderer {
 public:
 	typedef uint32         int_type;
@@ -239,6 +248,7 @@ public:
 	virtual void set_stencil_func(stencil_func::type, signed_type value, unsigned_type mask) = 0;
 	virtual void set_fog_mode(fog_mode::type) = 0;
 	virtual void set_blend_func(source_blend_func::type, dest_blend_func::type) = 0;
+	virtual void set_draw_mode(draw_mode::type) = 0;
 	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;
 	virtual void set_material(const material& mat) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;

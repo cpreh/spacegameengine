@@ -79,6 +79,7 @@ public:
 	void set_stencil_func(stencil_func::type, signed_type value, unsigned_type mask);
 	void set_fog_mode(fog_mode::type);
 	void set_blend_func(source_blend_func::type, dest_blend_func::type);
+	void set_draw_mode(draw_mode::type);
 	void set_texture(texture_base_ptr tex, stage_type stage);
 	void set_material(const material& mat);
 	void transform(const math::space_matrix& matrix);

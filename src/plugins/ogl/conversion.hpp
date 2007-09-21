@@ -47,6 +47,7 @@ template<> GLenum convert_cast(const texture_stage_op::type&);
 template<> GLenum convert_cast(const texture_stage_op_value::type&);
 template<> GLenum convert_cast(const texture_stage_arg::type&);
 template<> GLenum convert_cast(const texture_stage_arg_value::type&);
+template<> GLenum convert_cast(const draw_mode::type&);
 
 GLuint convert_lock_flags(lock_flag_t);
 GLuint convert_resource_flags(resource_flag_t);

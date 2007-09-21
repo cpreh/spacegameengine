@@ -79,6 +79,8 @@ private:
 		{
 			return equal(iterator_base(other.mine()));
 		}
+
+		// TODO: operator!=
 	private:
 		bool equal(const iterator_base& r) const
 		{
