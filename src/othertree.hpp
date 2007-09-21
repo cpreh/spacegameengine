@@ -1,20 +1,21 @@
 #ifndef SGE_TREE_HPP_INCLUDED
 #define SGE_TREE_HPP_INCLUDED
 
+#include <string>
 #include <ostream>
 #include <boost/ptr_container/ptr_list.hpp>
 
 namespace sge
 {
 
-template<typename T>
+template<typename T,typename Alloc = std::allocator<void *>, typename CloneAlloc = boost::heap_clone_allocator >
 class tree
 {
 	public:
 	typedef T value_type;
 	typedef T& reference; 
 	typedef const T& const_reference; 
-	typedef boost::ptr_list<tree> subtree_list;
+	typedef boost::ptr_list<tree,Alloc,CloneAlloc> subtree_list;
 	typedef typename subtree_list::iterator iterator;
 	typedef typename subtree_list::const_iterator const_iterator;
 	typedef typename subtree_list::difference_type difference_type;
