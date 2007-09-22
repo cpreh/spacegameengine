@@ -33,17 +33,17 @@ struct stdlib_noise_generation
 
 	void reset(const COORD w,const COORD h)
 	{
-		pairs.resize(w);
+		pairs.resize(w+1);
 		for (typename outer_type::iterator i = pairs.begin(); i != pairs.end(); ++i)
 		{
-			i->resize(h);
+			i->resize(h+1);
 			std::fill(i->begin(),i->end(),FLOAT(-1));
 		}
 	}
 	
 	FLOAT operator()(const COORD x,const COORD y)
 	{
-		assert(x > 0 && y > 0);
+		assert(x >= 0 && y >= 0);
 		assert(x < pairs.size() || y < pairs[x].size());
 
 		if (pairs[x][y] != FLOAT(-1))

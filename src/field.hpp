@@ -6,6 +6,7 @@
 #include <vector>
 #include <iterator>
 #include <memory>
+#include <stdexcept>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include "math/vector.hpp"
 #include "math/dim.hpp"
@@ -61,9 +62,25 @@ class field
 	// copy-ctor
 	field(const field &r) : dim_(r.dim_),array(r.array) {}
 	// initializes and resizes the field (does not, however, zero it; you can use zero() for that purpose)
-	field(const dim_type &dim, const allocator_type& alloc = allocator_type()) : array(alloc), dim_(dim) { array.resize(field_count()); }
+	field(const dim_type &dim, const allocator_type& alloc = allocator_type()) : dim_(dim),array(alloc) { array.resize(field_count()); }
 	// same as above just without the dim type
-	field(const coord_type &x,const coord_type &y, const allocator_type& alloc = allocator_type()) : array(alloc), dim_(x,y) { array.resize(field_count()); }
+	field(const coord_type &x,const coord_type &y, const allocator_type& alloc = allocator_type()) : dim_(x,y),array(alloc) { array.resize(field_count()); }
+
+	template<typename Iterator>
+	field(const coord_type &x,const coord_type &y,Iterator b,Iterator e,const allocator_type &alloc = allocator_type()) 
+		: dim_(x,y),array(alloc) 
+	{ 
+		array.resize(field_count());
+		std::copy(b,e,begin()); 
+	}
+
+	template<typename Iterator>
+	field(const dim_type &dim_,Iterator b,Iterator e,const allocator_type &alloc = allocator_type()) 
+		: dim_(dim_),array(alloc) 
+	{ 
+		array.resize(field_count());
+		std::copy(b,e,begin()); 
+	}
 
 	// again, container requirements
 	bool operator==(const field &r) const { return dim_ == r.dim_ && std::equal(begin(),end(),r.begin()); }
@@ -94,9 +111,9 @@ class field
 	value_type pos(const coord_vector_type &p) { return pos(p.x(),p.y()); }
 	value_type pos(const coord_vector_type &p) const { return pos(p.x(),p.y()); }
 
-	value_type x(const const_iterator &p) const { return std::distance(begin(),p) % w(); }
-	value_type y(const const_iterator &p) const { return std::distance(begin(),p) / w(); }
-	coord_vector_type pos(const const_iterator &p) const { return coord_vector_type(x(p),y(p)); }
+	value_type x(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute x()"); return std::distance(begin(),p) % w(); }
+	value_type y(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute y()"); return std::distance(begin(),p) / w(); }
+	coord_vector_type pos(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute pos()"); return coord_vector_type(x(p),y(p)); }
 
 	void blur()
 	{
@@ -179,6 +196,9 @@ class field
 
 	void crop(const coord_vector_type &start,const dim_type &new_dim)
 	{
+		if (w() == 0 && h() == 0)
+			throw std::range_error("width and height are zero, cannot crop");
+
 		// save old array
 		array_type old = array;
 

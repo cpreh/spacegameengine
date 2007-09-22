@@ -27,7 +27,7 @@ class noise_field_generator
 		value_type    amplitude = persistence;
 		value_type    value = value_type(0);
 
-		dim_type ndim = dim;
+		const dim_type ndim = dim;
 
 		for (unsigned i = 0; i < octaves; ++i)
 		{
@@ -48,6 +48,8 @@ class noise_field_generator
 
 			// Position im Raster, das durch die Frequenz aufgespannt wird
 			const sge::math::basic_vector<coord_type,2> ipos(x*freq/ndim.w(),y*freq/ndim.h());
+
+			std::wcout << L"ipos=" << ipos << std::endl;
 			// Noise-Wert an der momentan und naechsten Rasterposition
 			const value_type noise_cur = noise_generator(ipos.x(),ipos.y());
 			const value_type noise_xn = noise_generator(ipos.x()+coord_type(1),ipos.y());
@@ -79,6 +81,7 @@ class noise_field_generator
 		octaves = _octaves,frequency = _frequency;
 		persistence = _persistence;
 
+		std::wcout << L"Resetting dimension to " << array.dim() << std::endl;
 		noise_generator.reset(array.width(),array.height());
 
 		// Maximalwert zum spaeteren Skalieren
