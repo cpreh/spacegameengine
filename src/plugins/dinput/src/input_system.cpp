@@ -44,12 +44,12 @@ sge::dinput::input_system::input_system(const win32_window_ptr wnd)
 		throw exception("DirectInput Enumeration failed");
 }
 
-boost::signals::connection sge::dinput::input_system::register_callback(const callback& c)
+sge::callback_connection sge::dinput::input_system::register_callback(const callback& c)
 {
 	return sig.connect(c);
 }
 
-boost::signals::connection sge::dinput::input_system::register_repeat_callback(const repeat_callback& c)
+sge::callback_connection sge::dinput::input_system::register_repeat_callback(const repeat_callback& c)
 {
 	return repeat_sig.connect(c);
 }

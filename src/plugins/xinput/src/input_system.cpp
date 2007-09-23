@@ -492,12 +492,12 @@ sge::xinput::input_system::~input_system()
 	XUngrabPointer(wnd->display()->get(), CurrentTime);
 }
 
-boost::signals::connection sge::xinput::input_system::register_callback(const callback& c)
+sge::callback_connection sge::xinput::input_system::register_callback(const callback& c)
 {
 	return sig.connect(c);
 }
 
-boost::signals::connection sge::xinput::input_system::register_repeat_callback(const repeat_callback& c)
+sge::callback_connection sge::xinput::input_system::register_repeat_callback(const repeat_callback& c)
 {
 	return repeat_sig.connect(c);
 }

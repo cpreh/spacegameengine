@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/function.hpp>
 #include "../shared_ptr.hpp"
 #include "../window.hpp"
+#include "../callback_connection.hpp"
 #include "../plugin_traits.hpp"
 #include "key_type.hpp"
 
@@ -43,8 +44,8 @@ public:
 	typedef boost::signal<key_type_fun> repeat_signal_type;
 	typedef boost::function<key_type_fun> repeat_callback;
 
-	virtual boost::signals::connection register_callback(const callback& c) = 0;
-	virtual boost::signals::connection register_repeat_callback(const repeat_callback& c) = 0;
+	virtual callback_connection register_callback(const callback& c) = 0;
+	virtual callback_connection register_repeat_callback(const repeat_callback& c) = 0;
 	virtual void dispatch() = 0;
 
 	virtual window_ptr get_window() const = 0;

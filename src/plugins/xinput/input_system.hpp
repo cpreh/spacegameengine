@@ -44,8 +44,8 @@ class input_system : public sge::input_system, boost::signals::trackable {
 public:
 	input_system(x_window_ptr wnd);
 	~input_system();
-	boost::signals::connection register_callback(const callback& c);
-	boost::signals::connection register_repeat_callback(const repeat_callback& c);
+	callback_connection register_callback(const callback& c);
+	callback_connection register_repeat_callback(const repeat_callback& c);
 	void dispatch();
 	window_ptr get_window() const;
 private:

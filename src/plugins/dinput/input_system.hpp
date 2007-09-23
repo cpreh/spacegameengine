@@ -37,11 +37,10 @@ namespace dinput
 class input_system : public sge::input_system {
 public:
 	input_system(win32_window_ptr w);
-	boost::signals::connection register_callback(const callback& c);
-	boost::signals::connection register_repeat_callback(const repeat_callback& c);
+	callback_connection register_callback(const callback& c);
+	callback_connection register_repeat_callback(const repeat_callback& c);
 	void dispatch();
 	sge::window_ptr get_window() const;
-
 private:
 	signal_type sig;
 	repeat_signal_type repeat_sig;
