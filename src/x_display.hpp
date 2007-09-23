@@ -30,11 +30,14 @@ namespace sge
 
 class x_display : boost::noncopyable {
 public:
+	struct wrap_tag {};
 	x_display();
+	x_display(Display* dsp, wrap_tag);
 	~x_display();
 	Display* get() const;
 private:
 	Display* d;
+	bool     wrapped;
 };
 
 typedef shared_ptr<x_display> x_display_ptr;

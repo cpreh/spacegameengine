@@ -37,6 +37,18 @@ sge::x_window::x_window(const window_pos pos, const window_size sz, const string
 	instances.insert(this);
 }
 
+sge::x_window::x_window(Display *const dsp, const int screen_, Window wnd)
+ : dsp(new x_display(dsp, x_display::wrap_tag())),
+   _screen(screen_),
+   wnd(wnd)
+{}
+
+/*sge::x_window::x_window()
+ : dsp(new x_display()),
+   _screen(DefaultScreen(dsp->get())),
+   wnd(XCreateSimpleWindow())
+{}*/
+
 sge::x_window::~x_window()
 {
 	instances.erase(this);
@@ -147,6 +159,11 @@ void sge::window::dispatch()
 	}
 
 }
+
+/*sge::window_ptr sge::create_window()
+{
+	return window_ptr(new x_window());
+}*/
 
 sge::x_window::instance_map sge::x_window::instances;
 

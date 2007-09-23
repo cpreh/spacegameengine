@@ -24,15 +24,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../x_display.hpp"
 
 sge::x_display::x_display()
-: d(XOpenDisplay(0))
+: d(XOpenDisplay(0)),
+  wrapped(false)
 {
 	if(!d)
 		throw exception("XOpenDisplay failed or dsp is 0");
 }
 
+sge::x_display::x_display(Display* dsp, wrap_tag)
+: d(dsp),
+  wrapped(true)
+{}
+
 sge::x_display::~x_display()
 {
-	XCloseDisplay(d);
+	if(!wrapped)
+		XCloseDisplay(d);
 }
 
 Display* sge::x_display::get() const

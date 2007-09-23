@@ -18,38 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_HPP_INCLUDED
-#define SGE_WINDOW_HPP_INCLUDED
+#ifndef SGE_SCOPED_CONNECTION_HPP_INCLUDED
+#define SGE_SCOPED_CONNECTION_HPP_INCLUDED
 
-#include "types.hpp"
-#include "shared_ptr.hpp"
-#include "math/dim.hpp"
-#include "math/vector.hpp"
-#include "string.hpp"
+#include <boost/signals/connection.hpp>
 
 namespace sge
 {
 
-class window {
-public:
-	typedef int pos_type;
-	typedef unsigned size_type;
-	typedef math::basic_vector<pos_type,2> window_pos;
-	typedef math::basic_dim<size_type,2> window_size;
-
-	virtual void title(const string& title) = 0;
-	virtual window_size size() const = 0;
-	size_type width() const;
-	size_type height() const;
-	virtual void size(window_size newsize) = 0;
-	virtual ~window(){}
-
-	static void dispatch();
-};
-
-typedef shared_ptr<window> window_ptr;
-
-//window_ptr create_window();
+typedef boost::signals::scoped_connection scoped_connection;
 
 }
 

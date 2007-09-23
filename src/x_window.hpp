@@ -44,7 +44,7 @@ public:
 	typedef boost::function<void(const XEvent&)> x11_callback_type;
 	typedef boost::signal<void(const XEvent&)> x11_signal_type;
 
-	//x_window(Display* dsp, int screen, Window wnd);
+	x_window(Display *dsp, int screen, Window wnd);
 	x_window(window_pos pos, window_size sz, const string& title, x_display_ptr dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
 	~x_window();
 

@@ -17,6 +17,7 @@
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../timer.hpp"
+#include "../scoped_connection.hpp"
 #include "../input/key_state_tracker.hpp"
 
 // Eigenes
@@ -30,17 +31,17 @@ namespace con
 // TODO: Die Konsole langsam heruntergleitend machen
 class console_gfx : boost::noncopyable
 {
-	typedef std::size_t               size_type;
-	renderer_ptr                      rend;
-	math::dim2                        console_size;
-	font&                             fn;
-	size_type                         lines_per_screen;
-	input_system_ptr                  input_system;
-	boost::signals::scoped_connection input_connection;
-	boost::signals::scoped_connection input_repeat_connection;
-	key_state_tracker                 keys;
-	color                             font_color;
-	texture_ptr                       background_texture;
+	typedef std::size_t         size_type;
+	renderer_ptr                rend;
+	math::dim2                  console_size;
+	font&                       fn;
+	size_type                   lines_per_screen;
+	input_system_ptr            input_system;
+	scoped_connection           input_connection;
+	scoped_connection           input_repeat_connection;
+	key_state_tracker           keys;
+	color                       font_color;
+	texture_ptr                 background_texture;
 
 	bool                        cursor_active;
 	string::size_type           cursor_position;

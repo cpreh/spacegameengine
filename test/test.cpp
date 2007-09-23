@@ -68,6 +68,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/image/util.hpp"
 #include "../src/multitree.hpp"
 #include "../src/field.hpp"
+#include "../src/language.hpp"
+#include "../src/scoped_connection.hpp"
 
 //#include <hamigaki/archivers/zip_file.hpp>
 
@@ -278,10 +280,8 @@ int main()
 
 	console_activator activator(console);
 
-	boost::signals::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::key,boost::lambda::_1)) == sge::kc::key_escape)[var(running)=false]));
-	boost::signals::scoped_connection cb2(is->register_callback(boost::bind(&console_activator::callback,&activator,_1)));
-//	boost::signals::scoped_connection cb2(btn1.click_signal.connect(var(running) = false));
-//	boost::signals::scoped_connection cb3(btn2.click_signal.connect(smallplayer(sound)));
+	const sge::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::key,boost::lambda::_1)) == sge::kc::key_escape)[var(running)=false]));
+	const sge::scoped_connection cb2(is->register_callback(boost::bind(&console_activator::callback,&activator,_1)));
 
 	sge::timer timer(30);
 	sge::timer frames(1000);
