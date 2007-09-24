@@ -106,10 +106,10 @@ class field
 	void zero() { std::fill(begin(),end(),value_type(0)); }
 	void resize(const coord_type &x,const coord_type &y, const_reference value = value_type()) { resize(dim_type(x,y), value); }
 	void resize(const dim_type &n, const_reference value = value_type()) { if (dim_ == n) return; dim_ = n; array.resize(field_count(), value); }
-	value_type pos(const coord_type &x,const coord_type &y) { return array.at(y * dim_.w() + x); }
-	value_type pos(const coord_type &x,const coord_type &y) const { return array.at(y * dim_.w() + x); }
-	value_type pos(const coord_vector_type &p) { return pos(p.x(),p.y()); }
-	value_type pos(const coord_vector_type &p) const { return pos(p.x(),p.y()); }
+	value_type &pos(const coord_type &x,const coord_type &y) { return array.at(y * dim_.w() + x); }
+	const value_type &pos(const coord_type &x,const coord_type &y) const { return array.at(y * dim_.w() + x); }
+	value_type &pos(const coord_vector_type &p) { return pos(p.x(),p.y()); }
+	const value_type &pos(const coord_vector_type &p) const { return pos(p.x(),p.y()); }
 
 	value_type x(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute x()"); return std::distance(begin(),p) % w(); }
 	value_type y(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute y()"); return std::distance(begin(),p) / w(); }

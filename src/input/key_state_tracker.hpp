@@ -36,6 +36,9 @@ public:
 	key_state operator[](const key_code&);
 	key_state operator[](const key_type&);
 	key_state operator[](const key_type::char_type&);
+	bool zero(const key_code&);
+	bool zero(const key_type&);
+	bool zero(const key_type::char_type&);
 private:
 	void event_handler(const key_pair& key);
 

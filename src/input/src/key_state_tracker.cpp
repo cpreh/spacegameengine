@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/bind.hpp>
 #include "../key_state_tracker.hpp"
+#include "../../math/utility.hpp"
 
 sge::key_state_tracker::key_state_tracker(const input_system_ptr is)
 {
@@ -39,6 +40,21 @@ sge::key_state sge::key_state_tracker::operator[](const key_type& c)
 sge::key_state sge::key_state_tracker::operator[](const key_type::char_type& c)
 {
 	return key_chars[c];
+}
+
+bool sge::key_state_tracker::zero(const key_code& c)
+{
+	return math::almost_zero(key_codes[c]);
+}
+
+bool sge::key_state_tracker::zero(const key_type& c)
+{
+	return math::almost_zero(key_types[c]);
+}
+
+bool sge::key_state_tracker::zero(const key_type::char_type& c)
+{
+	return math::almost_zero(key_chars[c]);
 }
 
 void sge::key_state_tracker::event_handler(const key_pair& pair)
