@@ -402,16 +402,18 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 #define XK_minus                         0x002d  /* U+002D HYPHEN-MINUS */
 #define XK_period                        0x002e  /* U+002E FULL STOP */
 #define XK_slash                         0x002f  /* U+002F SOLIDUS */
-#define XK_0                             0x0030  /* U+0030 DIGIT ZERO */
-#define XK_1                             0x0031  /* U+0031 DIGIT ONE */
-#define XK_2                             0x0032  /* U+0032 DIGIT TWO */
-#define XK_3                             0x0033  /* U+0033 DIGIT THREE */
-#define XK_4                             0x0034  /* U+0034 DIGIT FOUR */
-#define XK_5                             0x0035  /* U+0035 DIGIT FIVE */
-#define XK_6                             0x0036  /* U+0036 DIGIT SIX */
-#define XK_7                             0x0037  /* U+0037 DIGIT SEVEN */
-#define XK_8                             0x0038  /* U+0038 DIGIT EIGHT */
-#define XK_9                             0x0039  /* U+0039 DIGIT NINE */
+#endif
+	x11tosge[XK_0] = kc::key_0;
+	x11tosge[XK_1] = kc::key_1;
+	x11tosge[XK_2] = kc::key_2;
+	x11tosge[XK_3] = kc::key_3;
+	x11tosge[XK_4] = kc::key_4;
+	x11tosge[XK_5] = kc::key_5;
+	x11tosge[XK_6] = kc::key_6;
+	x11tosge[XK_7] = kc::key_7;
+	x11tosge[XK_8] = kc::key_8;
+	x11tosge[XK_9] = kc::key_9;
+#if 0
 #define XK_colon                         0x003a  /* U+003A COLON */
 #define XK_semicolon                     0x003b  /* U+003B SEMICOLON */
 #define XK_less                          0x003c  /* U+003C LESS-THAN SIGN */
@@ -419,32 +421,34 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 #define XK_greater                       0x003e  /* U+003E GREATER-THAN SIGN */
 #define XK_question                      0x003f  /* U+003F QUESTION MARK */
 #define XK_at                            0x0040  /* U+0040 COMMERCIAL AT */
-#define XK_A                             0x0041  /* U+0041 LATIN CAPITAL LETTER A */
-#define XK_B                             0x0042  /* U+0042 LATIN CAPITAL LETTER B */
-#define XK_C                             0x0043  /* U+0043 LATIN CAPITAL LETTER C */
-#define XK_D                             0x0044  /* U+0044 LATIN CAPITAL LETTER D */
-#define XK_E                             0x0045  /* U+0045 LATIN CAPITAL LETTER E */
-#define XK_F                             0x0046  /* U+0046 LATIN CAPITAL LETTER F */
-#define XK_G                             0x0047  /* U+0047 LATIN CAPITAL LETTER G */
-#define XK_H                             0x0048  /* U+0048 LATIN CAPITAL LETTER H */
-#define XK_I                             0x0049  /* U+0049 LATIN CAPITAL LETTER I */
-#define XK_J                             0x004a  /* U+004A LATIN CAPITAL LETTER J */
-#define XK_K                             0x004b  /* U+004B LATIN CAPITAL LETTER K */
-#define XK_L                             0x004c  /* U+004C LATIN CAPITAL LETTER L */
-#define XK_M                             0x004d  /* U+004D LATIN CAPITAL LETTER M */
-#define XK_N                             0x004e  /* U+004E LATIN CAPITAL LETTER N */
-#define XK_O                             0x004f  /* U+004F LATIN CAPITAL LETTER O */
-#define XK_P                             0x0050  /* U+0050 LATIN CAPITAL LETTER P */
-#define XK_Q                             0x0051  /* U+0051 LATIN CAPITAL LETTER Q */
-#define XK_R                             0x0052  /* U+0052 LATIN CAPITAL LETTER R */
-#define XK_S                             0x0053  /* U+0053 LATIN CAPITAL LETTER S */
-#define XK_T                             0x0054  /* U+0054 LATIN CAPITAL LETTER T */
-#define XK_U                             0x0055  /* U+0055 LATIN CAPITAL LETTER U */
-#define XK_V                             0x0056  /* U+0056 LATIN CAPITAL LETTER V */
-#define XK_W                             0x0057  /* U+0057 LATIN CAPITAL LETTER W */
-#define XK_X                             0x0058  /* U+0058 LATIN CAPITAL LETTER X */
-#define XK_Y                             0x0059  /* U+0059 LATIN CAPITAL LETTER Y */
-#define XK_Z                             0x005a  /* U+005A LATIN CAPITAL LETTER Z */
+#endif
+	x11tosge[XK_A] = kc::key_a;
+	x11tosge[XK_B] = kc::key_b;
+	x11tosge[XK_C] = kc::key_c;
+	x11tosge[XK_D] = kc::key_d;
+	x11tosge[XK_E] = kc::key_e;
+	x11tosge[XK_F] = kc::key_f;
+	x11tosge[XK_G] = kc::key_g;
+	x11tosge[XK_H] = kc::key_h;
+	x11tosge[XK_I] = kc::key_i;
+	x11tosge[XK_J] = kc::key_j;
+	x11tosge[XK_K] = kc::key_k;
+	x11tosge[XK_L] = kc::key_l;
+	x11tosge[XK_M] = kc::key_m;
+	x11tosge[XK_N] = kc::key_n;
+	x11tosge[XK_O] = kc::key_o;
+	x11tosge[XK_P] = kc::key_p;
+	x11tosge[XK_Q] = kc::key_q;
+	x11tosge[XK_R] = kc::key_r;
+	x11tosge[XK_S] = kc::key_s;
+	x11tosge[XK_T] = kc::key_t;
+	x11tosge[XK_U] = kc::key_u;
+	x11tosge[XK_V] = kc::key_v;
+	x11tosge[XK_W] = kc::key_w;
+	x11tosge[XK_X] = kc::key_x;
+	x11tosge[XK_Y] = kc::key_y;
+	x11tosge[XK_Z] = kc::key_z;
+#if 0
 #define XK_bracketleft                   0x005b  /* U+005B LEFT SQUARE BRACKET */
 #define XK_backslash                     0x005c  /* U+005C REVERSE SOLIDUS */
 #define XK_bracketright                  0x005d  /* U+005D RIGHT SQUARE BRACKET */
@@ -452,32 +456,35 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 #define XK_underscore                    0x005f  /* U+005F LOW LINE */
 #define XK_grave                         0x0060  /* U+0060 GRAVE ACCENT */
 #define XK_quoteleft                     0x0060  /* deprecated */
-#define XK_a                             0x0061  /* U+0061 LATIN SMALL LETTER A */
-#define XK_b                             0x0062  /* U+0062 LATIN SMALL LETTER B */
-#define XK_c                             0x0063  /* U+0063 LATIN SMALL LETTER C */
-#define XK_d                             0x0064  /* U+0064 LATIN SMALL LETTER D */
-#define XK_e                             0x0065  /* U+0065 LATIN SMALL LETTER E */
-#define XK_f                             0x0066  /* U+0066 LATIN SMALL LETTER F */
-#define XK_g                             0x0067  /* U+0067 LATIN SMALL LETTER G */
-#define XK_h                             0x0068  /* U+0068 LATIN SMALL LETTER H */
-#define XK_i                             0x0069  /* U+0069 LATIN SMALL LETTER I */
-#define XK_j                             0x006a  /* U+006A LATIN SMALL LETTER J */
-#define XK_k                             0x006b  /* U+006B LATIN SMALL LETTER K */
-#define XK_l                             0x006c  /* U+006C LATIN SMALL LETTER L */
-#define XK_m                             0x006d  /* U+006D LATIN SMALL LETTER M */
-#define XK_n                             0x006e  /* U+006E LATIN SMALL LETTER N */
-#define XK_o                             0x006f  /* U+006F LATIN SMALL LETTER O */
-#define XK_p                             0x0070  /* U+0070 LATIN SMALL LETTER P */
-#define XK_q                             0x0071  /* U+0071 LATIN SMALL LETTER Q */
-#define XK_r                             0x0072  /* U+0072 LATIN SMALL LETTER R */
-#define XK_s                             0x0073  /* U+0073 LATIN SMALL LETTER S */
-#define XK_t                             0x0074  /* U+0074 LATIN SMALL LETTER T */
-#define XK_u                             0x0075  /* U+0075 LATIN SMALL LETTER U */
-#define XK_v                             0x0076  /* U+0076 LATIN SMALL LETTER V */
-#define XK_w                             0x0077  /* U+0077 LATIN SMALL LETTER W */
-#define XK_x                             0x0078  /* U+0078 LATIN SMALL LETTER X */
-#define XK_y                             0x0079  /* U+0079 LATIN SMALL LETTER Y */
-#define XK_z                             0x007a  /* U+007A LATIN SMALL LETTER Z */
+#endif
+	x11tosge[XK_a] = kc::key_a;
+	x11tosge[XK_b] = kc::key_b;
+	x11tosge[XK_c] = kc::key_c;
+	x11tosge[XK_d] = kc::key_d;
+	x11tosge[XK_e] = kc::key_e;
+	x11tosge[XK_f] = kc::key_f;
+	x11tosge[XK_g] = kc::key_g;
+	x11tosge[XK_h] = kc::key_h;
+	x11tosge[XK_i] = kc::key_i;
+	x11tosge[XK_j] = kc::key_j;
+	x11tosge[XK_k] = kc::key_k;
+	x11tosge[XK_l] = kc::key_l;
+	x11tosge[XK_m] = kc::key_m;
+	x11tosge[XK_n] = kc::key_n;
+	x11tosge[XK_o] = kc::key_o;
+	x11tosge[XK_p] = kc::key_p;
+	x11tosge[XK_q] = kc::key_q;
+	x11tosge[XK_r] = kc::key_r;
+	x11tosge[XK_s] = kc::key_s;
+	x11tosge[XK_t] = kc::key_t;
+	x11tosge[XK_u] = kc::key_u;
+	x11tosge[XK_v] = kc::key_v;
+	x11tosge[XK_w] = kc::key_w;
+	x11tosge[XK_x] = kc::key_x;
+	x11tosge[XK_y] = kc::key_y;
+	x11tosge[XK_z] = kc::key_z;
+
+#if 0
 #define XK_braceleft                     0x007b  /* U+007B LEFT CURLY BRACKET */
 #define XK_bar                           0x007c  /* U+007C VERTICAL LINE */
 #define XK_braceright                    0x007d  /* U+007D RIGHT CURLY BRACKET */
