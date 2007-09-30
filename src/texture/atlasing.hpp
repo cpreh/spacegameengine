@@ -18,28 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
-#define SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#ifndef SGE_ATLASING_HPP_INCLUDED
+#define SGE_ATLASING_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
 #include "../renderer/texture.hpp"
 #include "../renderer/renderer.hpp"
-#include "virtual_texture.hpp"
 
 namespace sge
 {
 
-class fragmented_texture {
-public:
-	virtual virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h) = 0;
-	virtual void return_fragments(const virtual_texture&) = 0;
-	virtual texture_ptr get_texture() const = 0;
-	virtual bool repeatable() const = 0;
-	virtual fragmented_texture* clone() const = 0;
-	virtual ~fragmented_texture(){}
-};
-
-typedef shared_ptr<fragmented_texture> fragmented_texture_ptr;
+texture::size_type atlased_gap();
+const texture::dim_type atlased_size(texture::size_type w, texture::size_type h);
+const texture_ptr atlased_texture(renderer_ptr rend, const filter_args& filter);
+const lock_rect inner_atlased_rect(const lock_rect&);
 
 }
 

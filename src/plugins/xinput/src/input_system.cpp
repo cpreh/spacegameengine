@@ -448,15 +448,15 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	x11tosge[XK_X] = kc::key_x;
 	x11tosge[XK_Y] = kc::key_y;
 	x11tosge[XK_Z] = kc::key_z;
-#if 0
-#define XK_bracketleft                   0x005b  /* U+005B LEFT SQUARE BRACKET */
-#define XK_backslash                     0x005c  /* U+005C REVERSE SOLIDUS */
-#define XK_bracketright                  0x005d  /* U+005D RIGHT SQUARE BRACKET */
-#define XK_asciicircum                   0x005e  /* U+005E CIRCUMFLEX ACCENT */
-#define XK_underscore                    0x005f  /* U+005F LOW LINE */
-#define XK_grave                         0x0060  /* U+0060 GRAVE ACCENT */
-#define XK_quoteleft                     0x0060  /* deprecated */
-#endif
+
+	x11tosge[XK_bracketleft] = kc::key_lbracket;
+	x11tosge[XK_backslash] = kc::key_backslash;
+	x11tosge[XK_bracketright] = kc::key_rbracket;
+//#define XK_asciicircum                   0x005e  /* U+005E CIRCUMFLEX ACCENT */
+	x11tosge[XK_underscore] = kc::key_underline;
+	x11tosge[XK_grave] = kc::key_grave;
+//#define XK_quoteleft                     0x0060  /* deprecated */
+	
 	x11tosge[XK_a] = kc::key_a;
 	x11tosge[XK_b] = kc::key_b;
 	x11tosge[XK_c] = kc::key_c;

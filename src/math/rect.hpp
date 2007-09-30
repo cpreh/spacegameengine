@@ -116,6 +116,11 @@ template<typename T> inline bool intersects(const basic_rect<T>& r, const basic_
 	       intersects(basic_line_seg2<T>(vec(r.right, r.top),    vec(r.left,  r.top)),    l);
 }
 
+template<typename T> basic_rect<T> resize_borders(const basic_rect<T>& r, const T diff)
+{
+	return basic_rect<T>(r.left + diff, r.top + diff, r.right - diff, r.bottom - diff);
+}
+
 template<typename T, typename Ch, typename Traits>
 inline std::basic_ostream<Ch,Traits>& operator<<(std::basic_ostream<Ch,Traits>& s, const basic_rect<T>& r)
 {

@@ -45,9 +45,16 @@ sge::ogl::texture::size_type sge::ogl::texture::size() const
 	return width()*height();
 }
 
-void sge::ogl::texture::set_data(const const_pointer src, const lock_rect* const r)
+void sge::ogl::texture::set_data(const const_pointer src, const lock_rect& r)
 {
 	bind_me();
 	set_my_filter();
 	set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), r, src);
+}
+
+void sge::ogl::texture::set_data(const const_pointer src)
+{
+	bind_me();
+	set_my_filter();
+	set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), src);
 }

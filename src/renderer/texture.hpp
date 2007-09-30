@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_HPP_INCLUDED
 #define SGE_TEXTURE_HPP_INCLUDED
 
+#include "../math/dim.hpp"
 #include "texture_base.hpp"
 
 namespace sge
@@ -32,9 +33,13 @@ public:
 	typedef basic_texture_base<BitDepth> base;
 	typedef typename base::size_type size_type;
 	typedef typename base::const_pointer const_pointer;
+	typedef math::basic_dim<size_type, 2> dim_type;
+
+//	virtual dim_type dim() const = 0;
 	virtual size_type width() const = 0;
 	virtual size_type height() const = 0;
-	virtual void set_data(const_pointer p, const lock_rect* r = 0) = 0;
+	virtual void set_data(const_pointer p, const lock_rect& r) = 0;
+	virtual void set_data(const_pointer p) = 0;
 };
 
 typedef basic_texture<bit_depth32> texture;

@@ -48,7 +48,8 @@ public:
 	typedef typename base::const_pointer const_pointer;
 	typedef typename base::size_type size_type;
 
-	virtual void set_data(cube_side::type side, const_pointer p, const lock_rect* r = 0) = 0;
+	virtual void set_data(cube_side::type side, const_pointer p, const lock_rect& r) = 0;
+	virtual void set_data(cube_side::type side, const_pointer p) = 0;
 	virtual size_type border_size() const = 0;
 };
 

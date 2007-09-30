@@ -38,7 +38,8 @@ public:
 	size_type height() const;
 	size_type size() const;
 
-	void set_data(const_pointer src, const lock_rect* r = 0);
+	void set_data(const_pointer src, const lock_rect& r);
+	void set_data(const_pointer src);
 private:
 	const size_type _width, _height;
 };

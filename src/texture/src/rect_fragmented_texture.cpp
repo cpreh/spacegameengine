@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../rect_fragmented_texture.hpp"
+#include "../atlasing.hpp"
 
 sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend, const filter_args& my_filter)
 : rend(rend),
@@ -30,8 +31,10 @@ sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend, c
 
 sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
+	const texture::dim_type atlased_dim(atlased_size(w,h));
+
 	if(!tex)
-		tex = rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, my_filter);
+		tex = atlased_texture(rend, my_filter);
 
 	// if there is no space left for the requested height
 	if(cur_y + h >= tex->height())
@@ -41,14 +44,14 @@ sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const t
 	if(cur_x + w >= tex->width())
 	{
 		cur_x = 0;
-		cur_y += cur_height + 1;
+		cur_y += cur_height;
 		cur_height = 0;
 	}
 
 	if(cur_y + h >= tex->height())
 		return virtual_texture_ptr();
 
-	const virtual_texture_ptr ret(new virtual_texture(lock_rect(lock_rect::point_type(cur_x, cur_y), lock_rect::dim_type(w, h)), this));
+	const virtual_texture_ptr ret(new virtual_texture(lock_rect(lock_rect::point_type(cur_x, cur_y), atlased_dim), this));
 
 	cur_x += w + 1;
 	cur_height = std::max(cur_height, h);
@@ -64,6 +67,11 @@ void sge::rect_fragmented_texture::return_fragments(const virtual_texture&)
 sge::texture_ptr sge::rect_fragmented_texture::get_texture() const
 {
 	return tex;
+}
+
+bool sge::rect_fragmented_texture::repeatable() const
+{
+	return false;
 }
 
 sge::fragmented_texture* sge::rect_fragmented_texture::clone() const

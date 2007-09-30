@@ -43,9 +43,16 @@ sge::ogl::cube_texture::size_type sge::ogl::cube_texture::border_size() const
 	return sz;
 }
 
-void sge::ogl::cube_texture::set_data(const cube_side::type side, const const_pointer src, const lock_rect* const r)
+void sge::ogl::cube_texture::set_data(const cube_side::type side, const const_pointer src, const lock_rect& r)
 {
 	bind_me();
 	set_my_filter();
 	set_texture_rect(convert_cast<GLenum>(side), filter(), border_size(), border_size(), r, src);
+}
+
+void sge::ogl::cube_texture::set_data(const cube_side::type side, const const_pointer src)
+{
+	bind_me();
+	set_my_filter();
+	set_texture_rect(convert_cast<GLenum>(side), filter(), border_size(), border_size(), src);
 }

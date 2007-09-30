@@ -33,6 +33,7 @@ public:
 	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const;
+	bool repeatable() const;
 	fragmented_texture* clone() const;
 private:
 	const texture_ptr  tex;

@@ -18,29 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
-#define SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#include "../atlasing.hpp"
 
-#include "../shared_ptr.hpp"
-#include "../renderer/texture.hpp"
-#include "../renderer/renderer.hpp"
-#include "virtual_texture.hpp"
-
-namespace sge
+sge::texture::size_type sge::atlased_gap()
 {
-
-class fragmented_texture {
-public:
-	virtual virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h) = 0;
-	virtual void return_fragments(const virtual_texture&) = 0;
-	virtual texture_ptr get_texture() const = 0;
-	virtual bool repeatable() const = 0;
-	virtual fragmented_texture* clone() const = 0;
-	virtual ~fragmented_texture(){}
-};
-
-typedef shared_ptr<fragmented_texture> fragmented_texture_ptr;
-
+	return 1;
 }
 
-#endif
+const sge::texture::dim_type sge::atlased_size(const texture::size_type w, const texture::size_type h)
+{
+	const texture::size_type gap = 2 * atlased_gap();
+	return texture::dim_type(w + gap, h + gap);
+}
+
+const sge::texture_ptr sge::atlased_texture(const renderer_ptr rend, const filter_args& filter)
+{
+	return rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, filter);
+}
+
+const sge::lock_rect sge::inner_atlased_rect(const lock_rect& outer)
+{
+	return resize_borders(outer, atlased_gap());
+}

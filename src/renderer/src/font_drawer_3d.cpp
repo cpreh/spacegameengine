@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font_drawer_3d::font_drawer_3d(const renderer_ptr rend)
 : rend(rend),
-  texman(rend, fragmented_texture_ptr(new rect_fragmented_texture(rend, point_filter))),
+  texman(rend, fragmented_texture_ptr(new rect_fragmented_texture(rend, linear_filter))),
   sys(rend)
 {}
 

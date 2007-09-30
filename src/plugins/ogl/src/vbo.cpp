@@ -79,6 +79,8 @@ void* sge::ogl::map_buffer(const GLenum type, const GLenum flags)
 #else
 	glMapBuffer(type, flags);
 #endif
+	if(ret == 0)
+		throw exception("glMapBuffer() returned 0!");
 	if(is_error())
 		throw exception("glMapBuffer() failed!");
 	return ret;

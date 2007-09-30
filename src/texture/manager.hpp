@@ -35,7 +35,7 @@ namespace sge
 class texture_manager : boost::noncopyable {
 public:
 	texture_manager(renderer_ptr rend, fragmented_texture_ptr proto);
-	const virtual_texture_ptr add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h);
+	const virtual_texture_ptr add_texture(texture::const_pointer src, texture::size_type w, texture::size_type h, const fragmented_texture* proto = 0);
 	const virtual_texture_ptr add_texture(texture_ptr tex);
 	const renderer_ptr get_renderer() const;
 	void prototype(fragmented_texture_ptr);
@@ -45,6 +45,8 @@ public:
 		image_too_big();
 	};
 private:
+	const virtual_texture_ptr init_texture(fragmented_texture&, texture::const_pointer src, texture::size_type w, texture::size_type h) const;
+
 	const renderer_ptr                          rend;
 	fragmented_texture_ptr                      _prototype;
 	typedef boost::ptr_list<fragmented_texture> fragmented_texture_list;

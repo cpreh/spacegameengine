@@ -219,14 +219,19 @@ int main()
 	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
 	const sge::font_system_ptr fs(font_plugin->get()());
 
-	const sge::font_metrics_ptr metrics = fs->create_font(sge::media_path() + "fonts/default.ttf", 14);
+	const sge::font_metrics_ptr metrics = fs->create_font(sge::media_path() + "fonts/default.ttf", 15);
 	const sge::font_drawer_ptr fn_drawer(new sge::font_drawer_3d(rend));
 
 	sge::font fn(metrics, fn_drawer);
 
-	sge::image_ptr im = pl->load_image(sge::media_path() + "black.jpg");
-	sge::texture_ptr con_tex = rend->create_texture(im->data(),im->width(),im->height(),sge::linear_filter);
+	const sge::image_ptr im = pl->load_image(sge::media_path() + "black.jpg");
+	const sge::texture_ptr con_tex = rend->create_texture(im->data(),im->width(),im->height(),sge::linear_filter);
 	sge::con::console_gfx console(rend,is,fn,sge::colors::white,con_tex);
+
+/*	std::vector<sge::index_buffer::value_type> indices;
+	const sge::index_buffer_ptr ib = rend->create_index_buffer(indices.size());
+	sge::lock_ptr<sge::index_buffer_ptr> lock_(ib);
+	std::copy(indices.begin(), indices.end(), ib->begin());*/
 
 /*	sge::font fn(rend, fs, sge::media_path() + "fonts/default.ttf", 32);
 	sge::sprite_system ss(rend, 0, 2);
@@ -420,7 +425,7 @@ int main()
 	float angle(0);
 	sge::timer frame_timer(1000);
 
-	rend->set_draw_mode(sge::draw_mode::line);
+//	rend->set_draw_mode(sge::draw_mode::line);
 
 	const sge::string some_text(sge::iconv("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	while(running)
@@ -454,7 +459,7 @@ int main()
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		//fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
+		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
 //		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
 		//ls.render();
 

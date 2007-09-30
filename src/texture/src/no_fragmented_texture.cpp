@@ -46,6 +46,11 @@ sge::texture_ptr sge::no_fragmented_texture::get_texture() const
 	return tex;
 }
 
+bool sge::no_fragmented_texture::repeatable() const
+{
+	return true;
+}
+
 sge::fragmented_texture* sge::no_fragmented_texture::clone() const
 {
 	return new no_fragmented_texture(rend, my_filter);

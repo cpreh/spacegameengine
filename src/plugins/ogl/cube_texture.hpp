@@ -34,7 +34,8 @@ class cube_texture : public basic_texture<sge::cube_texture,GL_TEXTURE_CUBE_MAP>
 public:
 	cube_texture(const cube_side_array* src, size_type sz, const filter_args& filter, resource_flag_t flags);
 	size_type size() const;
-	void set_data(cube_side::type side, const_pointer src, const lock_rect* r);
+	void set_data(cube_side::type side, const_pointer src, const lock_rect& r);
+	void set_data(cube_side::type side, const_pointer src);
 	size_type border_size() const;
 private:
 	const size_type sz;

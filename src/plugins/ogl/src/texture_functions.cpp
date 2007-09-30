@@ -24,32 +24,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include <GL/glu.h>
 
-void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter, const sge::texture_base::size_type width, const sge::texture_base::size_type height, const lock_rect* const r, const sge::texture_base::const_pointer src)
+namespace
 {
-	if(r && (r->right > width || r->bottom > height))
+
+bool need_mipmap(const sge::min_filter::type filter)
+{
+	switch(filter) {
+	case sge::min_filter::mipmap:
+	case sge::min_filter::trilinear:
+		return true;
+	default:
+		return false;
+	}
+}
+
+}
+
+void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter, const sge::texture_base::size_type width, const sge::texture_base::size_type height, const sge::texture_base::const_pointer src)
+{
+	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
+
+	glTexImage2D(tex_type, 0, GL_RGBA, static_cast<GLsizei>(width),static_cast<GLsizei>(height), 0, format, type, src);
+	
+	if(need_mipmap(filter.min_filter))
+		gluBuild2DMipmaps(tex_type, GL_RGBA, static_cast<GLsizei>(width), static_cast<GLsizei>(height), format, type, src);
+
+	if(is_error())
+		throw exception("glTexImage2D() or gluBuild2DMipmaps() failed!");
+}
+
+void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter, const sge::texture_base::size_type width, const sge::texture_base::size_type height, const lock_rect& r, const sge::texture_base::const_pointer src)
+{
+	if(r.right > width || r.bottom > height)
 		throw exception("rect for setting a texture is out of range!");
+
+	if(need_mipmap(filter.min_filter))
+	{
+		std::cerr << "stub: You can't specify an update rect while using mipmaps. Ignored.\n";
+		return;
+	}
 
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
-	switch(filter.min_filter) {
-	case min_filter::point:
-	case min_filter::linear:
-		if(!r)
-			glTexImage2D(tex_type, 0, GL_RGBA, static_cast<GLsizei>(width),static_cast<GLsizei>(height), 0, format, type, src);
-		else
-			glTexSubImage2D(tex_type, 0, static_cast<GLint>(r->left), static_cast<GLint>(r->top), static_cast<GLsizei>(r->width()), static_cast<GLsizei>(r->height()), format, type, src);
-		break;
-	case min_filter::mipmap:
-	case min_filter::trilinear:
-		if(r)
-		{
-			std::cerr << "stub: You can't specify an update rect while using mipmaps. Ignored.\n";
-			return;
-		}
-		gluBuild2DMipmaps(tex_type, GL_RGBA, static_cast<GLsizei>(width), static_cast<GLsizei>(height), format, type, src);
-		break;
-	}
+	glTexSubImage2D(tex_type, 0, static_cast<GLint>(r.left), static_cast<GLint>(r.top), static_cast<GLsizei>(r.width()), static_cast<GLsizei>(r.height()), format, type, src);
 
 	if(is_error())
-		throw exception("glTex(Sub)Image2D() or gluBuild2DMipmaps() failed!");
+		throw exception("glTexSubImage2D() or gluBuild2DMipmaps() failed!");
 }

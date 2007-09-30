@@ -26,23 +26,26 @@ sge::texture_manager::texture_manager(const renderer_ptr rend, const fragmented_
    _prototype(nproto)
 {}
 
-const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h, const fragmented_texture *const proto)
 {
 	for(fragmented_texture_list::iterator it = fragmented_textures.begin(); it != fragmented_textures.end(); ++it)
-		if(const virtual_texture_ptr p = it->consume_fragments(w,h))
-		{
-			p->set_data(src);
-			return p;
-		}
+		if(!proto || typeid(*proto) == typeid(*it))
+			if(const virtual_texture_ptr p = init_texture(*it, src, w, h))
+				return p;
 
-	fragmented_textures.push_back(_prototype->clone());
+	fragmented_textures.push_back(proto ? proto->clone() : _prototype->clone());
 
-	if(const virtual_texture_ptr p = fragmented_textures.back().consume_fragments(w,h))
-	{
-		p->set_data(src);
+	if(const virtual_texture_ptr p = init_texture(fragmented_textures.back(), src, w, h))
 		return p;
-	}
 	throw image_too_big();
+}
+
+const sge::virtual_texture_ptr sge::texture_manager::init_texture(fragmented_texture& tex, const texture::const_pointer src, texture::size_type w, texture::size_type h) const
+{
+	const virtual_texture_ptr p = tex.consume_fragments(w, h);
+	if(p)
+		p->set_data(src);
+	return p;
 }
 
 const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture_ptr tex)

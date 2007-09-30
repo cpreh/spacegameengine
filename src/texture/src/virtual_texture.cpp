@@ -19,14 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../virtual_texture.hpp"
 #include "../fragmented_texture.hpp"
+#include "../atlasing.hpp"
 #include "../../renderer/transform.hpp"
 #include "../../math/utility.hpp"
 #include <iostream>
 
-sge::virtual_texture::virtual_texture(const lock_rect& _area, fragmented_texture* const fragment, const bool _repeatable)
- : _area(_area),
+sge::virtual_texture::virtual_texture(const lock_rect& outer_area_, fragmented_texture* const fragment, const bool repeatable_)
+: outer_area_(outer_area_),
    fragment(fragment),
-   _repeatable(_repeatable)
+   repeatable_(repeatable_),
+   inner_area_(repeatable_ ? outer_area_ : inner_atlased_rect(outer_area()))
 {}
 
 sge::virtual_texture::~virtual_texture()
@@ -34,12 +36,17 @@ sge::virtual_texture::~virtual_texture()
 	fragment->return_fragments(*this);
 }
 
-sge::lock_rect sge::virtual_texture::area() const
+const sge::lock_rect& sge::virtual_texture::area() const
 {
-	return _area;
+	return inner_area_;
 }
 
-sge::math::rect sge::virtual_texture::area_texc(const space_unit repeat) const
+const sge::lock_rect& sge::virtual_texture::outer_area() const
+{
+	return outer_area_;
+}
+
+const sge::math::rect sge::virtual_texture::area_texc(const space_unit repeat) const
 {
 	if(!math::compare(repeat, static_cast<space_unit>(1)) && repeatable() == false)
 		std::cerr << "Warning: texture not repeatable but repetition is " << repeat << "!\n";
@@ -48,7 +55,7 @@ sge::math::rect sge::virtual_texture::area_texc(const space_unit repeat) const
 	return tex ? tex_size_to_space_rect(area(), tex->width(), tex->height(), repeat) : math::rect();
 }
 
-sge::tex_pos sge::virtual_texture::translate(const sge::tex_pos &local_coords, const space_unit repeat) const
+const sge::tex_pos sge::virtual_texture::translate(const tex_pos &local_coords, const space_unit repeat) const
 {
 	const sge::math::rect texc = area_texc(repeat);
 	return sge::tex_pos(
@@ -57,18 +64,29 @@ sge::tex_pos sge::virtual_texture::translate(const sge::tex_pos &local_coords, c
 	);
 }
 
-sge::texture_ptr sge::virtual_texture::my_texture() const
+const sge::tex_pos sge::virtual_texture::translate(const tex_pos::value_type x, const tex_pos::value_type y, const space_unit repeat) const
+{
+	return translate(sge::tex_pos(x, y), repeat);
+}
+
+const sge::texture_ptr sge::virtual_texture::my_texture() const
 {
 	return fragment->get_texture();
 }
 
 bool sge::virtual_texture::repeatable() const
 {
-	return _repeatable;
+	return repeatable_;
 }
 
 void sge::virtual_texture::set_data(const texture::const_pointer src)
 {
-	my_texture()->set_data(src,&_area);
-}
+	my_texture()->set_data(src, inner_area_);
 
+	// apply atlasing fix
+	if(!repeatable())
+	{
+//		my_texture()->set_data(src, lock_rect(outer_area().left, outer_area().top, outer_area().right, outer_area().top + 1));
+//		my_texture()->set_data(src + width(area()) * (height(area()) - 1), lock_rect(outer_area().left, outer_area().top, outer_area().right, outer_area().top + 1));
+	}
+}

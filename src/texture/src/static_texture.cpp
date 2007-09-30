@@ -47,6 +47,11 @@ sge::texture_ptr sge::static_texture::get_texture() const
 	return tex;
 }
 
+bool sge::static_texture::repeatable() const
+{
+	return true;
+}
+
 sge::fragmented_texture* sge::static_texture::clone() const
 {
 	return 0; // FIXME
