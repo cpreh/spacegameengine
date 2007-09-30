@@ -312,7 +312,7 @@ void sge::con::console_gfx::draw()
 	const size_type history_lines = std::min(lines_per_screen, history.size());
 
 	history_container::const_iterator cutout_it = history.end(),cutout_end = history.end();
-	std::advance(cutout_it,-history_lines);
+	std::advance(cutout_it,-static_cast<difference_type>(history_lines));
 
 	const string history_string = join<string>(cutout_it, cutout_end);
 

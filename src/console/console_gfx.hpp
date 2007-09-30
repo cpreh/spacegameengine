@@ -32,6 +32,7 @@ namespace con
 class console_gfx : boost::noncopyable
 {
 	typedef std::size_t         size_type;
+	typedef std::ptrdiff_t      difference_type;
 	renderer_ptr                rend;
 	math::dim2                  console_size;
 	font&                       fn;
