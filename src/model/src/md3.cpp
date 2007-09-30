@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 const std::size_t max_qpath = 64;
 
-const double MD3_XYZ_SCALE = 1.0/64;
+const sge::space_unit MD3_XYZ_SCALE = 1.0/64;
 
 sge::md3_model::md3_model(std::istream& is)
 {
@@ -95,8 +95,8 @@ inline sge::md3_model::vec3 sge::md3_model::convert_normal(const s16 normal)
 	using std::sin;
 	using std::cos;
 
-	const space_unit lat = ((normal >> 8) & 255) * (2 * math::PI) / 255,
-	                 lng = (normal & 255) * (2 * math::PI) / 255;
+	const space_unit lat = ((normal >> 8) & 255) * (2 * math::pi<space_unit>()) / 255,
+	                 lng = (normal & 255) * (2 * math::pi<space_unit>()) / 255;
 
 	return vec3(cos(lat) * sin(lng),
 	            sin(lat) * sin(lng),

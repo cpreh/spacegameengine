@@ -41,6 +41,12 @@ const long double DEGREE_L =
 	0.0174532925199432957692369076848861271344287188854172L;
 
 template<typename T>
+inline T pi()
+{
+	return static_cast<T>(PI_L);
+}
+
+template<typename T>
 inline T deg_to_rad(const T deg)
 {
 	return deg * PI / static_cast<T>(180);
