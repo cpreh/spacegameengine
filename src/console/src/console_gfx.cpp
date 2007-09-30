@@ -4,6 +4,7 @@
 // C++
 #include <iostream>
 #include <fstream>
+#include <locale>
 
 // Boost
 #include <boost/bind.hpp>
@@ -253,7 +254,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 			cursor_position = 0;
 		break;
 		default:
-			if(std::isprint(k.char_code()) && math::almost_zero(keys[kc::key_lctrl]))
+			if(std::isprint(k.char_code(), std::locale()) && math::almost_zero(keys[kc::key_lctrl]))
 			{
 				input_line.insert(input_line.begin() + cursor_position, k.char_code());
 				++cursor_position;
