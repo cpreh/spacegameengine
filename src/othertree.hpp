@@ -1,6 +1,7 @@
 #ifndef SGE_TREE_HPP_INCLUDED
 #define SGE_TREE_HPP_INCLUDED
 
+#include <stdexcept>
 #include <string>
 #include <ostream>
 #include <boost/ptr_container/ptr_list.hpp>
@@ -65,13 +66,13 @@ class tree
 	}
 
 	const_reference data() const { return data_; }
-	void data(const_reference t) { data_ = t; }
+	reference data() { return data_; }
 
-	tree &front() { return subtrees.front(); }
-	tree &back() { return subtrees.back(); }
+	tree &front() { /*if (empty()) throw std::range_error("front on an empty tree");*/ return subtrees.front(); }
+	tree &back() { /*if (empty()) throw std::range_error("back on an empty tree");*/ return subtrees.back(); }
 
-	const tree &front() const { return subtrees.front(); }
-	const tree &back() const { return subtrees.back(); }
+	const tree &front() const { /*if (empty()) throw std::range_error("front on an empty tree");*/ return subtrees.front(); }
+	const tree &back() const { /*if (empty()) throw std::range_error("back on an empty tree");*/ return subtrees.back(); }
 
 	iterator begin() { return subtrees.begin(); }
 	iterator end() { return subtrees.end(); }
