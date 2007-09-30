@@ -60,7 +60,7 @@ protected:
 				if(GL_EXT_texture_filter_anisotropic)
 					tex_parameter_i(GL_TEXTURE_MAX_ANISOTROPY_EXT, filter().anisotropy_level);
 			}
-			catch(const exception& e)
+			catch(const exception&)
 			{
 				std::cerr << "Warning: anisotropy level " << filter().anisotropy_level << " not supported!\n";
 			}

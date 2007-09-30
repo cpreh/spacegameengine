@@ -2,12 +2,19 @@ PROJECT (spacegameengine)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
-SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic -Wall -Wextra -Wconversion -Wfloat-equal")
+
+IF (${CMAKE_COMPILER_IS_GNUCXX})
+	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic -Wall -Wextra -Wconversion -Wfloat-equal")
+ELSEIF (${MSVC})
+	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /wd4512 /wd4355")
+ENDIF ()
+
+
 SET (pluginpath ${CMAKE_INSTALL_PREFIX}/lib/sge)
 SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/sge/)
 SET (media_dest ${CMAKE_INSTALL_PREFIX}/share/games/sge/media/)
 
-IF (${ENABLE_DEBUG})
+IF (${ENABLE_DEBUG} AND ${CMAKE_COMPILER_IS_GNUCXX})
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -g3 -ggdb")
 ENDIF ()
 
