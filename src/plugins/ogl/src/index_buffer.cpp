@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../index_buffer.hpp"
+#include "../basic_buffer_impl.hpp"
 
 sge::ogl::index_buffer::index_buffer(const size_type sz, const resource_flag_t flags, const const_pointer src)
  : detail::index_buffer_base(sz,sge::index_buffer::stride,flags,src)

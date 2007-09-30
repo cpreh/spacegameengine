@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../exception.hpp"
 #include "common.hpp"
-#include "conversion.hpp"
-#include "vbo.hpp"
 
 namespace sge
 {
@@ -45,165 +43,46 @@ public:
 	typedef typename Base::reverse_iterator reverse_iterator;
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
 			
-	basic_buffer(const size_type sz, const size_type _stride, const resource_flag_t _flags, const const_pointer src)
-	 : sz(sz), _stride(_stride), _flags(_flags), dest(0)
-	{
-		check_vbo_extension();
-		id = gen_buffer();
-		_set_size(src);
-	}
+	basic_buffer(size_type sz, size_type stride, resource_flag_t flags, const_pointer src);
+	~basic_buffer();
 
-	~basic_buffer()
-	{
-		delete_buffer(id);
-	}
-
-	void lock(const lock_flag_t lockflags)
-	{
-		if(dest)
-			throw exception("ogl_buffer::lock(), you have to unlock before locking!");
-		
-		const GLuint glflags = convert_lock_flags(lockflags);
-		bind_me();
-		try
-		{
-			dest = static_cast<pointer>(map_buffer(Type, glflags));
-		}
-		catch(const exception&)
-		{
-			dest = 0;
-		}
-	}
-
-	void unlock()
-	{
-		if(!dest)
-			throw exception("ogl_buffer::unlock(), buffer is not locked! cannot unlock!");
-		bind_me();
-		unmap_buffer(Type);
-		dest = 0;
-	}
-
-	void set_data(const const_pointer data, const size_type first, const size_type count)
-	{
-		if(first + count > size())
-			throw exception("ogl_buffer::set_data(), first + count out of range!");
-		if(dest)
-			throw exception("ogl_buffer::set_data(), buffer must not be locked!");
-		bind_me();
-		buffer_sub_data(Type, first * _stride, count * _stride, data);
-	}
-
-	void check_lock() const
-	{
-		if(!dest)
-			throw exception("ogl_buffer used but the buffer has not been locked!");
-	}
+	void lock(lock_flag_t lockflags);
+	void unlock();
+	void set_data(const_pointer data, size_type first, size_type count);
 
 	virtual iterator begin() = 0;
-	
 	virtual const_iterator begin() const = 0;
 
-	iterator end()
-	{
-		return begin() + size() * _stride;
-	}
-
-	const_iterator end() const
-	{
-		return begin() + size() * _stride;
-	}
+	iterator end();
+	const_iterator end() const;
+	reverse_iterator rbegin();
+	const_reverse_iterator rbegin() const;
+	reverse_iterator rend();
+	const_reverse_iterator rend() const;
 	
-	reverse_iterator rbegin()
-	{
-		return reverse_iterator(end());
-	}
+	size_type size() const;
+	resource_flag_t flags() const;
 
-	const_reverse_iterator rbegin() const
-	{
-		return const_reverse_iterator(end());
-	}
-	
-	reverse_iterator rend()
-	{
-		return reverse_iterator(begin());
-	}
-	
-	const_reverse_iterator rend() const
-	{
-		return const_reverse_iterator(begin());
-	}
-	
-	size_type size() const
-	{
-		return sz;
-	}
-	
-	resource_flag_t flags() const
-	{
-		return _flags;
-	}
+	reference operator[](size_type i);
+	const_reference operator[](size_type i) const;
+	void resize(size_type newsize, const_pointer src);
 
-	reference operator[](const size_type i)
-	{
-		return *(begin() + i);
-	}
-	
-	const_reference operator[](const size_type i) const
-	{
-		return *(begin() + i);
-	}
+	pointer data();
+	const_pointer data() const;
 
-	void resize(const size_type newsize, const const_pointer src)
-	{
-		if(newsize <= size())
-			return;
-		if(dest)
-			throw exception("ogl_buffer::resize(), buffer must be unlocked!");
-		sz = newsize;
-		_set_size(src);
-	}
-
-	pointer data()
-	{
-		check_lock();
-		return dest;
-	}
-	
-	const_pointer data() const
-	{
-		check_lock();
-		return dest;
-	}
-
-	static void bind(const GLuint id)
-	{
-		bind_buffer(Type, id);
-	}
-
-	static void unbind()
-	{
-		bind(0);
-	}
-
-	void bind_me() const
-	{
-		bind(id);
-	}
+	static void bind(GLuint id);
+	static void unbind();
+	void bind_me() const;
+protected:
+	void check_lock() const;
 private:
-	void _set_size(const const_pointer src)
-	{
-		const GLuint glflags = convert_resource_flags(_flags);
-		const size_type nsz = size() * _stride;
-		bind_me();
-		buffer_data(Type, nsz, src, glflags);
-	}
-			
-	size_type sz;
-	size_type _stride;
-	resource_flag_t _flags;
-	pointer dest;
-	GLuint id;
+	void set_size(const_pointer src);
+
+	size_type        sz;
+	size_type        stride_;
+	resource_flag_t  flags_;
+	pointer          dest;
+	GLuint           id;
 };
 
 }

@@ -17,7 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include "../vertex_buffer.hpp"
+#include "../basic_buffer_impl.hpp"
 
 sge::ogl::vertex_buffer::vertex_buffer(const size_type size, const sge::vertex_format& format, const resource_flag_t flags, const const_pointer src)
  : detail::vertex_buffer_base(size, format.stride(), flags, src),
