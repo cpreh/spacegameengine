@@ -55,15 +55,18 @@ protected:
 		tex_parameter_i(GL_TEXTURE_MAG_FILTER, convert_cast<GLenum>(filter().mag_filter));
 		if(filter().anisotropy_level != 0)
 		{
+#if GL_EXT_texture_filter_anisotropic
 			try
 			{
-				if(GL_EXT_texture_filter_anisotropic)
 					tex_parameter_i(GL_TEXTURE_MAX_ANISOTROPY_EXT, filter().anisotropy_level);
 			}
 			catch(const exception&)
 			{
 				std::cerr << "Warning: anisotropy level " << filter().anisotropy_level << " not supported!\n";
 			}
+#else
+			std::cerr << "Warning: anisotropic filtering is not supported!\n";
+#endif
 		}
 	}
 

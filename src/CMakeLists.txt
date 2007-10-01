@@ -4,12 +4,14 @@ FILE (GLOB sgecorefiles src/*.cpp console/src/*.cpp detail/src/*.cpp
 ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
-TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex)
+IF (NOT ${MSVC})
+	TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex)
+ENDIF ()
 
 IF (${UNIX})
 	TARGET_LINK_LIBRARIES (sgecore X11 dl)
 ELSEIF (${WIN32})
-	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
+	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32 iconv)
 ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)

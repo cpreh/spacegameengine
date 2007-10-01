@@ -42,6 +42,11 @@ sge::key_type::char_type sge::key_type::char_code() const
 	return char_code_;
 }
 
+void sge::key_type::char_code(const char_type ch)
+{
+	char_code_ = ch;
+}
+
 
 sge::key_pair::key_pair(const key_type& key_, const key_state value_)
 : key_(key_),

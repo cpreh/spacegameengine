@@ -193,6 +193,8 @@ public:
 	const string& name() const;
 	key_code code() const;
 	char_type char_code() const;
+
+	void char_code(char_type);
 private:
 	string    name_;
 	key_code  code_;

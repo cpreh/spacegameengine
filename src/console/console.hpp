@@ -3,7 +3,6 @@
 
 // C++
 #include <vector>
-#include <stdexcept>
 #include <map>
 
 // Boost
@@ -32,8 +31,9 @@ namespace con
 	public:
 		var_base(const string&);
 		const string &name() const;
-		virtual void set_string(const string &) = 0;
-		virtual string get_string() const = 0;
+		// FIXME: temporary hack for VC++ to work
+		virtual void set_string(const string &) {}// = 0;
+		virtual string get_string() const { throw exception("Abstract function var_base::get_string() called!"); }// = 0;
 		virtual ~var_base();
 	private:
 		string name_;

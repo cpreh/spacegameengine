@@ -56,8 +56,8 @@ void sge::dinput::keyboard::dispatch(input_system::signal_type& sig)
 			break;
 		}
 
-		key.char_code = keycode_to_char(key.code);
-		sig(key_pair(key, key_value ? 1.f : 0));
+		key.char_code(keycode_to_char(key.code()));
+		sig(key_pair(key, key_value ? static_cast<key_state>(1) : 0));
 	}
 }
 
