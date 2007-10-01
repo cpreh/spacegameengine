@@ -4,7 +4,7 @@ FILE (GLOB sgecorefiles src/*.cpp console/src/*.cpp detail/src/*.cpp
 ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
-IF (NOT ${MSVC})
+IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex)
 ENDIF ()
 
