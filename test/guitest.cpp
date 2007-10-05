@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/input/input_system.hpp"
 #include "../src/input/key_state_tracker.hpp"
 #include "../src/math/constants.hpp"
-#include "../src/renderer/lock_ptr.hpp"
+#include "../src/renderer/scoped_lock.hpp"
 #include "../src/renderer/renderer_system.hpp"
 #include "../src/renderer/screenshot.hpp"
 #include "../src/plugin_manager.hpp"
@@ -126,7 +126,7 @@ try
 	{
 		sge::virtual_texture_ptr canvastex = guimgr.to_texture(texmgr);
 
-		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(vb);
+		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(vb);
 		sge::vertex_buffer::iterator it = vb->begin();
 
 		// top left
@@ -155,7 +155,7 @@ try
 		                    .add(sge::vertex_usage::diffuse),
 		4);
 	{
-		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(vb2);
+		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(vb2);
 		sge::vertex_buffer::iterator it = vb2->begin();
 
 		// top left

@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "sprite.hpp"
 #include "system.hpp"
 #include "../algorithm.hpp"
-#include "../renderer/lock_ptr.hpp"
+#include "../renderer/scoped_lock.hpp"
+#include "../renderer/scoped_state.hpp"
 #include "../math/utility.hpp"
 
 template<typename RanIt>
@@ -44,8 +45,8 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 	}
 
 	{
-		lock_ptr<index_buffer_ptr> iblock(ib);
-		lock_ptr<vertex_buffer_ptr> vblock(vb);
+		scoped_lock<index_buffer_ptr> iblock(ib);
+		scoped_lock<vertex_buffer_ptr> vblock(vb);
 		index_buffer::iterator ib_it = ib->begin();
 		vertex_buffer::iterator vb_it = vb->begin();
 
@@ -66,6 +67,8 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 			vb_it = fill_sprite_color(vb_it, spr.get_color());
 		}
 	}
+
+	scoped_state state(rend);
 
 	set_parameters();
 	unsigned first_index = 0;

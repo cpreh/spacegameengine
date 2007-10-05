@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/iconv.hpp"
 #include "../src/math/constants.hpp"
 #include "../src/plugin_manager.hpp"
-#include "../src/renderer/lock_ptr.hpp"
+#include "../src/renderer/scoped_lock.hpp"
 #include "../src/util.hpp"
 #include "../src/sprite/system.hpp"
 #include "../src/sprite/sprite.hpp"
@@ -197,11 +197,6 @@ int main()
 	const sge::texture_ptr con_tex = rend->create_texture(im->data(),im->width(),im->height(),sge::linear_filter);
 	sge::con::console_gfx console(rend,is,fn,sge::colors::white,con_tex);
 
-/*	std::vector<sge::index_buffer::value_type> indices;
-	const sge::index_buffer_ptr ib = rend->create_index_buffer(indices.size());
-	sge::lock_ptr<sge::index_buffer_ptr> lock_(ib);
-	std::copy(indices.begin(), indices.end(), ib->begin());*/
-
 /*	sge::font fn(rend, fs, sge::media_path() + "fonts/default.ttf", 32);
 	sge::sprite_system ss(rend, 0, 2);
 	sge::image_ptr im = pl->load_image(sge::media_path() + "mainskin/cancel_0.png");
@@ -343,7 +338,7 @@ int main()
 	std::vector<sge::index_buffer::size_type> offsets;
 	offsets.push_back(0);
 	{
-		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(model_vb);
+		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(model_vb);
 		sge::vertex_buffer::iterator vbit = model_vb->begin();
 		for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
 		{
@@ -361,7 +356,7 @@ int main()
 	}
 
 	{
-		sge::lock_ptr<sge::index_buffer_ptr> _lock(model_ib);
+		sge::scoped_lock<sge::index_buffer_ptr> _lock(model_ib);
 		sge::index_buffer::iterator ibit = model_ib->begin();
 		for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
 		{

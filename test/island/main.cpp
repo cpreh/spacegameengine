@@ -21,7 +21,7 @@
 #include "../../src/image/image_loader.hpp"
 #include "../../src/image/image.hpp"
 #include "../../src/renderer/color.hpp"
-#include "../../src/renderer/lock_ptr.hpp"
+#include "../../src/renderer/scoped_lock.hpp"
 #include "../../src/math/constants.hpp"
 #include "../../src/math/rect.hpp"
 #include "../../src/media.hpp"
@@ -320,7 +320,7 @@ int main()
 	float texture_granularity = 16;
 	{
 		space_field::iterator pp = m.begin();
-		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(model_vb);
+		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(model_vb);
 		sge::vertex_buffer::iterator vbit = model_vb->begin();
 		// Fuer den Tree
 		sge::quadtree::vertex_container_type &vertices = tree.vertices();
@@ -368,7 +368,7 @@ int main()
 	const sge::math::vector3 water_pos(field_dim.w() * m.width() / 2 - water_dim.w()/2,water_height,-field_dim.h() * m.height() / 2 + water_dim.h()/2);
 	const sge::vertex_buffer_ptr water_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), 4);
 	{
-		sge::lock_ptr<sge::vertex_buffer_ptr> _lock(water_vb);
+		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(water_vb);
 		sge::vertex_buffer::iterator vbit = water_vb->begin();
 
 		std::cout << "Creating water of size " << water_dim << " and starting at " << water_pos << "\n";
@@ -391,7 +391,7 @@ int main()
 
 	const sge::index_buffer_ptr water_ib = rend->create_index_buffer(6);
 	{
-		sge::lock_ptr<sge::index_buffer_ptr> _lock(water_ib);
+		sge::scoped_lock<sge::index_buffer_ptr> _lock(water_ib);
 
 		sge::index_buffer::iterator ibit = water_ib->begin();
 		*ibit++ = 0;
@@ -498,7 +498,7 @@ int main()
 		{
 			const sge::index_buffer_ptr model_ib = rend->create_index_buffer(indices.size());
 			{
-				sge::lock_ptr<sge::index_buffer_ptr> _lock(model_ib);
+				sge::scoped_lock<sge::index_buffer_ptr> _lock(model_ib);
 				std::copy(indices.begin(),indices.end(),model_ib->begin());
 			}
 			rend->render(model_vb,model_ib,0,model_vb->size(),sge::indexed_primitive_type::triangle,indices.size()/3,0);

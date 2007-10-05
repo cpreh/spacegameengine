@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOCK_PTR_HPP_INCLUDED
-#define SGE_LOCK_PTR_HPP_INCLUDED
+#ifndef SGE_SCOPED_LOCK_HPP_INCLUDED
+#define SGE_SCOPED_LOCK_HPP_INCLUDED
 
+#include <cstddef>
 #include "types.hpp"
 #include "texture_base.hpp"
 #include "volume_texture.hpp"
@@ -29,36 +30,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-template<typename T> class lock_ptr {
+template<typename T> class scoped_lock {
 public:
-	lock_ptr(const T t, const lock_flag_t flags = resource_flags::default_)
+	scoped_lock(const T t, const lock_flag_t flags = resource_flags::default_)
 	 : t(t)
 	{
 		t->lock(flags);
 	}
 
-	lock_ptr(const T t, const cube_side::type side, const lock_flag_t flags = resource_flags::default_)
+	scoped_lock(const T t, const cube_side::type side, const lock_flag_t flags = resource_flags::default_)
 	 : t(t)
 	{
-		t->lock(side,flags);
+		t->lock(side, flags);
 	}
 
-	lock_ptr(const T t, const lock_rect* const l)
+	scoped_lock(const T t, const lock_flag_t flags, const std::size_t first, const std::size_t count)
 	 : t(t)
 	{
-		t->lock(l);
-	}
-
-	lock_ptr(const T t, const lock_box* const l)
-	 : t(t)
-	{
-		t->lock(l);
-	}
-
-	lock_ptr(const T t, const lock_flag_t flags, const std::size_t first, const std::size_t count)
-	 : t(t)
-	{
-		t->lock(flags,first,count);
+		t->lock(flags, first, count);
 	}
 
 	void unlock()
@@ -70,7 +59,7 @@ public:
 		}
 	}
 
-	~lock_ptr()
+	~scoped_lock()
 	{
 		unlock();
 	}

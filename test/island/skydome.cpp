@@ -1,4 +1,4 @@
-#include "../../src/renderer/lock_ptr.hpp"
+#include "../../src/renderer/scoped_lock.hpp"
 #include "../../src/math/constants.hpp"
 #include "../../src/exception.hpp"
 #include "skydome.hpp"
@@ -43,7 +43,7 @@ sge::math::vector3 skydome::point(skydome::rep_type y,skydome::rep_type z) const
 void skydome::generate_index_buffer()
 {
 	ib = rend->create_index_buffer(triangle_count * 3);
-	sge::lock_ptr<sge::index_buffer_ptr> _lock(ib);
+	sge::scoped_lock<sge::index_buffer_ptr> _lock(ib);
 
 
 	const rep_type vertex_count = vb->size();
@@ -81,7 +81,7 @@ void skydome::generate_index_buffer()
 void skydome::generate_vertex_buffer()
 {
 	vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex).add(sge::vertex_usage::normal), y_reps * z_reps);
-	sge::lock_ptr<sge::vertex_buffer_ptr> _lock(vb);
+	sge::scoped_lock<sge::vertex_buffer_ptr> _lock(vb);
 
 	sge::vertex_buffer::iterator vbit = vb->begin();
 	for (rep_type y = 0; y < y_reps; ++y)

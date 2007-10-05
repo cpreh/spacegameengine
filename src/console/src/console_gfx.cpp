@@ -12,7 +12,7 @@
 
 // SGE
 #include "../../renderer/transform.hpp"
-#include "../../renderer/lock_ptr.hpp"
+#include "../../renderer/scoped_lock.hpp"
 #include "../../sprite/helper.hpp"
 #include "../../iconv.hpp"
 #include "../console_gfx.hpp"
@@ -350,31 +350,17 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
   ib(rend->create_index_buffer(6)),
   active_(false)
 {
-	lock_ptr<sge::vertex_buffer_ptr> _vblock(vb);
-	vertex_buffer::iterator vbit = vb->begin();
-	
-	/*vbit->pos() = sge::math::vector3(0,0,0);
-	vbit->tex() = sge::math::vector2(0,0);
-	vbit++;
+	{
+		scoped_lock<vertex_buffer_ptr> _vblock(vb);
+		vertex_buffer::iterator vbit = vb->begin();
+		fill_sprite_vertices(vbit, math::rect(0, 0, console_size.w(), console_size.h()), math::rect(0, 0, 1, 1), 0);
+	}
 
-	vbit->pos() = sge::math::vector3(1,0,0);
-	vbit->tex() = sge::math::vector2(1,0);
-	vbit++;
-
-	vbit->pos() = sge::math::vector3(1,1,0);
-	vbit->tex() = sge::math::vector2(1,1);
-	vbit++;
-
-	vbit->pos() = sge::math::vector3(0,1,0);
-	vbit->tex() = sge::math::vector2(0,1);*/
-
-	fill_sprite_vertices(vbit, math::rect(0, 0, console_size.w(), console_size.h()), math::rect(0, 0, 1, 1), 0);
-
-	sge::lock_ptr<sge::index_buffer_ptr> _iblock(ib);
-
-	sge::index_buffer::iterator ibit = ib->begin();
-
-	fill_sprite_indices(ibit, 0);
+	{
+		scoped_lock<index_buffer_ptr> _iblock(ib);
+		index_buffer::iterator ibit = ib->begin();
+		fill_sprite_indices(ibit, 0);
+	}
 	
 	instance().add(L"get",boost::bind(&console_gfx::fn_get,this,_1));
 	instance().add(L"set",boost::bind(&console_gfx::fn_set,this,_1));
