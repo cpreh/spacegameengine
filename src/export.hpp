@@ -1,4 +1,4 @@
-/*
+﻿/*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
@@ -17,13 +17,16 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 #ifdef SGE_SYMBOL
 #undef SGE_SYMBOL
 #endif
 
+#ifdef _MSC_VER
 #ifdef SGE_EXPORTS
 #define SGE_SYMBOL __declspec(dllexport)
 #else
 #define SGE_SYMBOL __declspec(dllimport)
 #endif // SGE_EXPORTS
+#else
+#define SGE_SYMBOL
+#endif // _MSC_VER
