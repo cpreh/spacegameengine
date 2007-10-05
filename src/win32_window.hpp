@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "shared_ptr.hpp"
 #include "string.hpp"
 #include "window.hpp"
+#include "export.hpp"
 #include "windows.hpp"
 
 namespace sge

@@ -20,14 +20,14 @@ RDEPEND="dev-libs/boost
          x11-libs/libX11
          virtual/libc
          virtual/libiconv
+         devil? ( media-libs/devil )
+         openal? ( media-libs/openal )
          opengl? (
              media-libs/glew
              x11-libs/libXxf86vm )
-         devil? ( media-libs/devil )
          truetype? ( media-libs/freetype )
          xinput? ( dga? ( x11-libs/libXxf86dga ) )
          vorbis? ( media-libs/libvorbis )
-         openal? ( media-libs/openal )
          zlib? ( sys-libs/zlib )"
 
 src_unpack() {
@@ -48,6 +48,7 @@ src_compile() {
 	use vorbis && myconf="${myconf} -D ENABLE_VORBIS:=1"
 	use wave && myconf="${myconf} -D ENABLE_WAVE:=1"
 	use xinput && myconf="${myconf} -D ENABLE_XINPUT:=1"
+	use zlib && myconf="${myconf} -D ENABLE_ZLIB:=1"
 
 	cmake ${myconf} \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \

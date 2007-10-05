@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDER_ERSYSTEM_HPP_INCLUDED
-#define SGE_RENDER_ERSYSTEM_HPP_INCLUDED
+#ifndef SGE_RENDERER_SYSTEM_HPP_INCLUDED
+#define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
 #include <vector>
 #include "../shared_ptr.hpp"
