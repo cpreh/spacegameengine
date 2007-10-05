@@ -30,9 +30,9 @@ namespace sge
 class gdi_device : boost::noncopyable {
 public:
 	struct get_tag{};
-	gdi_device(HWND, get_tag);
-	~gdi_device();
-	HDC hdc() const;
+	SGE_SYMBOL gdi_device(HWND, get_tag);
+	SGE_SYMBOL ~gdi_device();
+	SGE_SYMBOL HDC hdc() const;
 private:
 	HWND hwnd;
 	HDC dc;

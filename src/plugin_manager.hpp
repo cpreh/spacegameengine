@@ -42,13 +42,13 @@ public:
 
 	class plugin_context_base {
 	public:
-		plugin_context_base(const std::string& path);
+		SGE_SYMBOL plugin_context_base(const std::string& path);
 
-		const std::string& name() const;
-		const std::string& description() const;
-		unsigned version() const;
-		plugin_type::type type() const;
-		const std::string& path() const;
+		SGE_SYMBOL const std::string& name() const;
+		SGE_SYMBOL const std::string& description() const;
+		SGE_SYMBOL unsigned version() const;
+		SGE_SYMBOL plugin_type::type type() const;
+		SGE_SYMBOL const std::string& path() const;
 	private:
 		template<typename T> friend class plugin_context;
 		boost::weak_ptr<plugin_base> ref;
@@ -90,7 +90,7 @@ private:
 public:
 	typedef std::size_t size_type;
 
-	plugin_manager();
+	SGE_SYMBOL plugin_manager();
 
 	template<typename T>
 		class iterator : public boost::iterator_facade<iterator<T>, plugin_context<T>, std::random_access_iterator_tag, plugin_context<T> > {

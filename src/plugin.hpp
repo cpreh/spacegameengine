@@ -31,7 +31,7 @@ namespace sge
 {
 
 struct plugin_info {
-	plugin_info();
+	SGE_SYMBOL plugin_info();
 
 	const char*       name;
 	const char*       description;

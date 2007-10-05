@@ -33,10 +33,10 @@ private:
 	time_type current_frames,
 	          display_frames;
 public:
-	frames_counter();
-	void update();
-	std::string frames_str() const;
-	time_type frames() const;
+	SGE_SYMBOL frames_counter();
+	SGE_SYMBOL void update();
+	SGE_SYMBOL std::string frames_str() const;
+	SGE_SYMBOL time_type frames() const;
 };
 
 }

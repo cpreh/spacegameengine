@@ -31,13 +31,13 @@ class library : boost::noncopyable {
 private:
 	void* handle;
 public:
-	library(const std::string& path);
-	~library();
+	SGE_SYMBOL library(const std::string& path);
+	SGE_SYMBOL ~library();
 
 	template<typename Fun>
 	Fun load_function(const std::string& fun);
 
-	const std::string& name() const;
+	SGE_SYMBOL const std::string& name() const;
 private:
 	typedef void*(*base_fun)();
 	base_fun load_adress_base(const std::string& fun);
