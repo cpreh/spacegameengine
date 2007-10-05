@@ -31,8 +31,9 @@ class scoped_state : boost::noncopyable {
 public:
 	scoped_state(renderer_ptr rend);
 	~scoped_state();
+	void release();
 private:
-	const renderer_ptr rend;
+	renderer_ptr rend;
 };
 
 }

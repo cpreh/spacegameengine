@@ -55,8 +55,13 @@ public:
 		if(t)
 		{
 			t->unlock();
-			_reset<T>::reset_ptr(t);
+			release();
 		}
+	}
+
+	void release()
+	{
+		_reset<T>::reset_ptr(t);
 	}
 
 	~scoped_lock()

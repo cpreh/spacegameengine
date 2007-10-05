@@ -1,3 +1,23 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <string>
 #include <boost/lexical_cast.hpp>
 // FIXME: No AL/ in OpenAL SDK for Windows.
@@ -28,7 +48,7 @@ void sge::openal::stream_sound::sync() const
 		status_ = status_playing;
 }
 
-sge::openal::stream_sound::stream_sound(sge::shared_ptr<sge::audio_file> _audio_file,sge::openal::player &_player)
+sge::openal::stream_sound::stream_sound(const shared_ptr<audio_file> _audio_file,openal::player &_player)
 	: player_(_player),audio_file_(_audio_file)
 {
 	_player.register_stream_sound(this);
@@ -60,7 +80,7 @@ sge::openal::stream_sound::~stream_sound()
 	player_.unregister_stream_sound(this);
 }
 
-bool sge::openal::stream_sound::fill_buffer(ALuint buffer)
+bool sge::openal::stream_sound::fill_buffer(const ALuint buffer)
 {
 	std::vector<unsigned char> data;
 	std::size_t samples_read = audio_file_->read(buffer_samples_,data);

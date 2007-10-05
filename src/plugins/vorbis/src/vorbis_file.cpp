@@ -1,17 +1,40 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 // C
+#include <cstdio>
 #include <cstddef>
 #include <cstring>
 #include <cerrno>
 #include <cassert>
 // C++
 #include <algorithm>
+#include <string>
 // Own stuff
 #include "../vorbis_file.hpp"
 #include "../../../audio/audio_exception.hpp"
 
-sge::vorbis_file::vorbis_file(const std::string &_filename,int _bits_per_sample)
+sge::vorbis_file::vorbis_file(const std::string &_filename, const int _bits_per_sample)
+: bits_per_sample_(_bits_per_sample)
 {
-	assert(_bits_per_sample == 8 || _bits_per_sample == 16);
+	assert(bits_per_sample_ == 8 || bits_per_sample_ == 16);
 
 	if((ogg_file_.file_ = std::fopen(_filename.c_str(), "rb")) == 0)
 		throw audio_exception("Couldn't open ogg file \""+_filename+"\": "+std::string(std::strerror(errno)));
@@ -27,7 +50,6 @@ sge::vorbis_file::vorbis_file(const std::string &_filename,int _bits_per_sample)
 
 	channels_ = vorbis_info->channels;
 	sample_rate_ = vorbis_info->rate;
-	bits_per_sample_ = _bits_per_sample;
 }
 
 std::size_t sge::vorbis_file::read(std::size_t _sample_count,std::vector<unsigned char> &_data)

@@ -36,7 +36,7 @@ class sound;
 struct audio_player
 {
 	virtual math::vector3 listener_pos() const = 0;
-	virtual void listener_pos(const sge::math::vector3 &) = 0;
+	virtual void listener_pos(const math::vector3 &) = 0;
 	virtual sound_angle listener_angle() const = 0;
 	virtual void listener_angle(const sound_angle &) = 0;
 	virtual shared_ptr<sound> create_nonstream_sound(shared_ptr<audio_file>) = 0;

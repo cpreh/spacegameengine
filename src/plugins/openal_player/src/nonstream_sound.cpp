@@ -1,3 +1,23 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <string>
 #include <boost/lexical_cast.hpp>
 // FIXME: No AL/ in OpenAL SDK for Windows.
@@ -16,7 +36,7 @@ void sge::openal::nonstream_sound::check(const std::string &_desc)
 		throw sge::audio_exception("OpenAL error ("+_desc+"): "+boost::lexical_cast<std::string>(error));
 }
 
-sge::openal::nonstream_sound::nonstream_sound(sge::shared_ptr<sge::audio_file> _audio_file,sge::openal::player &_player) : player_(_player)
+sge::openal::nonstream_sound::nonstream_sound(const shared_ptr<sge::audio_file> _audio_file,openal::player &_player) : player_(_player)
 {
 	al_buffer_ = _player.register_nonstream_sound(_audio_file);
 

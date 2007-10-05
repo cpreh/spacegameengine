@@ -28,5 +28,11 @@ sge::scoped_state::scoped_state(const renderer_ptr rend)
 
 sge::scoped_state::~scoped_state()
 {
-	rend->pop();
+	if(rend)
+		rend->pop();
+}
+
+void sge::scoped_state::release()
+{
+	rend.reset();
 }
