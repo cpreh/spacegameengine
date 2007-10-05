@@ -36,8 +36,8 @@ typedef std::basic_stringstream<TCHAR> win_stringstream;
 typedef std::basic_ostringstream<TCHAR> win_ostringstream;
 typedef std::basic_istringstream<TCHAR> win_istringstream;
 
-win_string sge_str_to_win(const string&);
-string win_str_to_sge(const win_string&);
+SGE_SYMBOL win_string sge_str_to_win(const string&);
+SGE_SYMBOL string win_str_to_sge(const win_string&);
 
 }
 

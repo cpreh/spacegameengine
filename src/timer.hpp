@@ -31,17 +31,17 @@ public:
 	typedef float frames_type;
 	typedef time_type interval_type;
 
-	timer(interval_type interval);
-	frames_type update();
-	frames_type elapsed_frames() const;
-	void reset();
-	bool expired() const;
-	interval_type interval() const;
-	interval_type last_time() const;
-	void interval(interval_type);
-	void activate();
-	void deactivate();
-	bool active() const;
+	SGE_SYMBOL timer(interval_type interval);
+	SGE_SYMBOL frames_type update();
+	SGE_SYMBOL frames_type elapsed_frames() const;
+	SGE_SYMBOL void reset();
+	SGE_SYMBOL bool expired() const;
+	SGE_SYMBOL interval_type interval() const;
+	SGE_SYMBOL interval_type last_time() const;
+	SGE_SYMBOL void interval(interval_type);
+	SGE_SYMBOL void activate();
+	SGE_SYMBOL void deactivate();
+	SGE_SYMBOL bool active() const;
 private:
 	interval_type _interval,
 	              _last_time;

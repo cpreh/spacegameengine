@@ -39,8 +39,8 @@ public:
 
 	virtual void title(const string& title) = 0;
 	virtual window_size size() const = 0;
-	size_type width() const;
-	size_type height() const;
+	SGE_SYMBOL size_type width() const;
+	SGE_SYMBOL size_type height() const;
 	virtual void size(window_size newsize) = 0;
 	virtual ~window(){}
 
