@@ -33,15 +33,13 @@ namespace sge
 
 class sprite_system : public default_transformable, public renderable, boost::noncopyable {
 public:
-	sprite_system(renderer_ptr rend, stage_type max_texture_level = 1);
+	sprite_system(renderer_ptr rend);
 	template<typename In>
 		void render(In beg, In end);
 	void set_parameters();
 	const renderer_ptr get_renderer() const;
-	stage_type max_tex_level() const;
 private:
 	renderer_ptr rend;
-	stage_type _max_tex;
 	vertex_buffer_ptr vb;
 	index_buffer_ptr ib;
 };

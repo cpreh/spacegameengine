@@ -25,11 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 const unsigned init_sprites = 25;
 
-sge::sprite_system::sprite_system(const renderer_ptr rend, const stage_type _max_tex)
+sge::sprite_system::sprite_system(const renderer_ptr rend)
  : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
    rend(rend),
-   _max_tex(_max_tex),
-   vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::diffuse).add(vertex_usage::tex, _max_tex), init_sprites * detail::vertices_per_sprite, resource_flags::write_only | resource_flags::dynamic)),
+   vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::diffuse).add(vertex_usage::tex), init_sprites * detail::vertices_per_sprite, resource_flags::write_only | resource_flags::dynamic)),
    ib(rend->create_index_buffer(init_sprites * detail::indices_per_sprite))
 {}
 
@@ -44,9 +43,4 @@ void sge::sprite_system::set_parameters()
 const sge::renderer_ptr sge::sprite_system::get_renderer() const
 {
 	return rend;
-}
-
-sge::stage_type sge::sprite_system::max_tex_level() const
-{
-	return _max_tex;
 }

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCOPED_LOCK_HPP_INCLUDED
 
 #include <cstddef>
+#include <boost/noncopyable.hpp>
 #include "types.hpp"
 #include "texture_base.hpp"
 #include "volume_texture.hpp"
@@ -30,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-template<typename T> class scoped_lock {
+template<typename T> class scoped_lock : boost::noncopyable {
 public:
 	scoped_lock(const T t, const lock_flag_t flags = resource_flags::default_)
 	 : t(t)

@@ -14,7 +14,7 @@ SET (pluginpath ${CMAKE_INSTALL_PREFIX}/lib/sge)
 SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/sge/)
 SET (media_dest ${CMAKE_INSTALL_PREFIX}/share/games/sge/media/)
 
-IF (${ENABLE_DEBUG} AND ${CMAKE_COMPILER_IS_GNUCXX})
+IF (ENABLE_DEBUG AND ${CMAKE_COMPILER_IS_GNUCXX})
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -g3 -ggdb")
 ENDIF ()
 

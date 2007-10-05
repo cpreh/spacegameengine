@@ -295,6 +295,7 @@ void sge::con::console_gfx::draw()
 	rend->set_bool_state(sge::bool_state::enable_zbuffer,false);
 	rend->set_bool_state(sge::bool_state::enable_culling,false);
 	rend->set_bool_state(sge::bool_state::enable_alpha_blending,true);
+	rend->set_draw_mode(draw_mode::fill);
 
 	// input_line und ein Dummy, wo evtl. der Cursor hinkommt
 	string edit_input_line = input_line + L" ";

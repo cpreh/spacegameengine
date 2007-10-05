@@ -29,7 +29,7 @@ sge::sprite::sprite(const point p, const dim sz, const virtual_texture_ptr vtex,
    _z(_z),
    _visible(vis),
    _rotation(_rotation),
-   tex(1, vtex),
+   tex(vtex),
    use_rot_around(false),
    _repeat(1),
    _color(col)
@@ -75,13 +75,9 @@ void sge::sprite::visible(const bool nvisible)
 	_visible = nvisible;
 }
 
-void sge::sprite::set_texture(const virtual_texture_ptr vtex, const stage_type stage)
+void sge::sprite::set_texture(const virtual_texture_ptr vtex)
 {
-//	if(stage >= spr_sys->max_tex_level())
-//		throw exception("max_tex_level surpassed in sprite::set_texture");
-	if(stage >= tex.size())
-		tex.resize(stage+1);
-	tex[stage] = vtex;
+	tex = vtex;
 }
 
 void sge::sprite::rotation(const space_unit rot)
@@ -170,11 +166,9 @@ sge::color sge::sprite::get_color() const
 	return _color;
 }
 
-const sge::virtual_texture_ptr sge::sprite::get_texture(const stage_type stage) const
+const sge::virtual_texture_ptr sge::sprite::get_texture() const
 {
-	if(stage >= tex.size())
-		return virtual_texture_ptr();
-	return tex[stage];
+	return tex;
 }
 
 sge::space_unit sge::sprite::radius() const
@@ -218,7 +212,7 @@ bool sge::sprite::less(const sprite& l, const sprite& r)
 {
 	const bool lvis = l.visible(), rvis = r.visible();
 	const space_unit lz = l.z(), rz = r.z();
-	const tex_array& ltex = l.tex, &rtex = r.tex;
+	const virtual_texture_ptr ltex = l.tex, &rtex = r.tex;
 
 	return lvis == rvis ?
 			math::compare(lz, rz) ?

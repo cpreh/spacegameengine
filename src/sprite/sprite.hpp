@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_HPP_INCLUDED
 #define SGE_SPRITE_HPP_INCLUDED
 
-#include <vector>
 #include "../math/rect.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
@@ -47,7 +46,7 @@ public:
 	dim& size();
 	space_unit& z();
 	void visible(bool visible);
-	void set_texture(virtual_texture_ptr, stage_type stage = 0);
+	void set_texture(virtual_texture_ptr);
 	void rotation(space_unit rot);
 	void rotate_around(point p);
 	void rotate_around();
@@ -71,22 +70,21 @@ public:
 	math::rect bounding_quad() const;
 	circle bounding_circle() const;
 	const point rotation_center() const;
-	const virtual_texture_ptr get_texture(stage_type stage) const;
+	const virtual_texture_ptr get_texture() const;
 
 	static bool equal(const sprite& l, const sprite& r);
 	static bool less(const sprite& l, const sprite& r);
 private:
-	point p;
-	dim sz;
-	space_unit _z;
-	bool _visible;
-	space_unit _rotation;
-	typedef std::vector<virtual_texture_ptr> tex_array;
-	tex_array tex;
-	bool use_rot_around;
-	point _rot_around;
-	space_unit _repeat;
-	color _color;
+	point               p;
+	dim                 sz;
+	space_unit          _z;
+	bool                _visible;
+	space_unit          _rotation;
+	virtual_texture_ptr tex;
+	bool                use_rot_around;
+	point               _rot_around;
+	space_unit          _repeat;
+	color               _color;
 };
 
 namespace detail

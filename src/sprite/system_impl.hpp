@@ -61,8 +61,7 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 			else
 				fill_sprite_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
-			for(stage_type i = 0; i < max_tex_level() && spr.get_texture(i); ++i)
-				fill_sprite_tex_coordinates(vb_it, spr.get_texture(i)->area_texc(spr.repeat()), i);
+			fill_sprite_tex_coordinates(vb_it, spr.get_texture()->area_texc(spr.repeat()));
 
 			vb_it = fill_sprite_color(vb_it, spr.get_color());
 		}
@@ -80,18 +79,15 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 		unsigned num_objects;
 		const RanIt next = first_mismatch_if(cur, end, num_objects, &sprite::equal);
 
-		for(stage_type stage = 0; stage < max_tex_level(); ++stage)
-		{
-			const virtual_texture_ptr vtex = cur->get_texture(stage);
-			rend->set_texture(vtex ? vtex->my_texture() : texture_ptr(), stage);
-		}
+		const virtual_texture_ptr vtex = cur->get_texture();
+		rend->set_texture(vtex ? vtex->my_texture() : texture_ptr());
+
 		rend->render(vb, ib, (cur - beg) * detail::vertices_per_sprite, (next - beg) * detail::vertices_per_sprite, indexed_primitive_type::triangle, num_objects*2, first_index);
 		first_index += num_objects * detail::indices_per_sprite;
 		cur = next;
 	}
 
-	for(stage_type stage = 1; stage < max_tex_level(); ++stage)
-		rend->set_texture(texture_ptr(), stage);
+	rend->set_texture(texture_ptr());
 }
 
 #endif
