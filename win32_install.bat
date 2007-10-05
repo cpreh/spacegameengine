@@ -15,25 +15,25 @@
 @rem along with this program; if not, write to the Free Software
 @rem Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-@set param=%1
 @set target="null"
 
 @if "%1" == "VC7" set target="Visual Studio 7 .NET 2003"
+@if "%1" == "vc7" set target="Visual Studio 7 .NET 2003"
 @if "%1" == "VC8" set target="Visual Studio 8 2005"
+@if "%1" == "vc8" set target="Visual Studio 8 2005"
 
-@if "%1" == "help" goto help
-@if "%1" == "--help" goto help
-@if "%1" == "-h" goto help
+@if "%1" == "help" goto Help
+@if "%1" == "-h" goto Help
 
 @if %target% == "null" goto UsageFailure
 @goto Config
 
 :UsageFailure
-@echo Usage failure: Type 'winstall help' for help.
-goto Exit
+@echo Usage failure: Type 'win32_install help' for more information.
+@goto Exit
 
 :Config
-@call cmake -G "%target%" -D ENABLE_DEVIL:=1 -D ENABLE_TEST:=1 -D ENABLE_OPENGL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_OPENAL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TRUETYPE:=1 -ENABLE_ZLIB:=1 .
+@call cmake -G %target% -D ENABLE_DEVIL:=1 -D ENABLE_TEST:=1 -D ENABLE_OPENGL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_OPENAL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TRUETYPE:=1 -ENABLE_ZLIB:=1 .
 
 :Extract
 @rem call "project/windows/bin/lzma.exe d /project/windows/libs.lzma /project/windows/extern/"
@@ -43,5 +43,3 @@ goto Exit
 @echo "Call 'win32_install [target|option]"
 
 :Exit
-@echo Ready.
-
