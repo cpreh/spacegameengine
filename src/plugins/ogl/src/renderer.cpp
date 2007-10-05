@@ -39,9 +39,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../multi_texture.hpp"
 #include "../texture_stage.hpp"
 #include "../basic_buffer_impl.hpp"
+#include "../get.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
+#elif SGE_LINUX_PLATFORM
+#include "../../../x_window.hpp"
 #endif
 #include "../common.hpp"
 
@@ -97,13 +100,13 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	{
 		DEVMODE settings;
 		memset(&settings,0,sizeof(DEVMODE));
-		settings.dmSize=sizeof(DEVMODE);
+		settings.dmSize = sizeof(DEVMODE);
 		settings.dmPelsWidth    = param.mode.width();
 		settings.dmPelsHeight   = param.mode.height();
 		settings.dmBitsPerPel   = color_depth;
 		settings.dmDisplayFrequency = param.mode.refresh_rate;
-		settings.dmFields = DM_BITSPERPEL|DM_PELSWIDTH|DM_PELSHEIGHT|DM_DISPLAYFREQUENCY;
-		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN)!=DISP_CHANGE_SUCCESSFUL)
+		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
+		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
 		{
 			std::cerr << "Cannot change resolution to " << param.mode << "! Reverting to window mode!\n";
 			windowed = false;
@@ -200,14 +203,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
-
-	GLint max_tex_size;
-	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_tex_size);
-	_caps.max_tex_size = max_tex_size;
-
-	GLint max_anisotropy;
-	glGetIntegerv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropy);
-	_caps.max_anisotropy_level = max_anisotropy;
+	_caps.max_tex_size = get_int(GL_MAX_TEXTURE_SIZE);
+	_caps.max_anisotropy_level = get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
 
 	set_render_target();
 }
@@ -269,6 +266,8 @@ void sge::ogl::renderer::end_rendering()
 {
 #ifdef SGE_LINUX_PLATFORM
 	glXSwapBuffers(dsp->get(), wnd->get_window());
+	if(is_error())
+		throw exception("glXSwapBuffers() failed!");
 #elif SGE_WINDOWS_PLATFORM
 	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception("wglSwapLayerBuffers() failed!");
@@ -576,6 +575,25 @@ void sge::ogl::renderer::set_texture_stage_op(const stage_type stage, const text
 void sge::ogl::renderer::set_texture_stage_arg(const stage_type stage, const texture_stage_arg::type arg, const texture_stage_arg_value::type value)
 {
 	set_texture_stage(stage, arg, value);
+}
+
+void sge::ogl::renderer::push()
+{
+	if(get_int(GL_ATTRIB_STACK_DEPTH) > 16)
+		std::cerr << "Warning: glPush() stack level is greater than 16 which is the greater than the minimal supported level!\n";
+
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
+	if(is_error())
+		throw exception("glPushAttrib() failed!");
+}
+
+void sge::ogl::renderer::pop()
+{
+	glPopAttrib();
+
+	if(is_error())
+		throw exception("glPopAttrib() failed!");
 }
 
 void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)

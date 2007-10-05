@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_HPP_INCLUDED
 #define SGE_FONT_HPP_INCLUDED
 
-#include <cstddef>
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
 #include "font_types.hpp"
 #include "font_drawer.hpp"
+#include "index_buffer.hpp"
 #include "../font/font_system.hpp"
 #include "../font/font_metrics.hpp"
 

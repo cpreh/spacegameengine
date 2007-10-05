@@ -103,37 +103,6 @@ struct console_activator
 };
 }
 
-/*using sge::space_unit;
-sge::math::space_matrix frustum_matrix(const space_unit left, const space_unit right, const space_unit bottom, const space_unit top, const space_unit near, const space_unit far)
-{
-	return sge::math::space_matrix(
-		2*near/(right-left),0,(right+left)/(right-left),0,
-		0,2*near/(top-bottom),(top+bottom)/(top-bottom),0,
-		0,0,(far+near)/(far-near),2*far*near/(far-near),
-		0,0,-1,0
-	);
-}*/
-
-/*inline sge::math::space_matrix matrix_perspective(const space_unit aspect, const space_unit fov, const space_unit near, const space_unit far)
-{
-	const space_unit h = space_unit(1) / std::tan(fov / space_unit(2)),
-	                 w = h / aspect,
-	                 q = (far + near) / (far - near);
-	return sge::math::space_matrix
-	       (w, 0,       0, 0,
-	        0, h,       0, 0,
-	        0, 0,       q, 1,
-	        0, 0, (2*far*near)/(near-far), 0);
-}*/
-struct nondefctor
-{
-  int *a;
-
-  nondefctor() : a(0) {}
-  nondefctor(int &a) : a(&a) {}
-};
-
-
 int main()
 //try
 {
@@ -303,8 +272,6 @@ int main()
 
 	//const sge::string some_text(sge::iconv("abcdefgh\ni\n\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
 
-//	sge::con::console_gfx con(rend, is, fn, sge::image_loader_handler(sge::media_path(), pl));
-
 	const sge::plugin<sge::archive_loader>::ptr_type archive_plugin(pm.get_plugin<sge::archive_loader>().load());
 	const sge::archive_loader_ptr zip_archiver(archive_plugin->get()());
 
@@ -465,8 +432,8 @@ int main()
 
 
 		//rend->set_bool_state(sge::bool_state::enable_culling,false);
-		//if (console.active())
-		//	console.draw();
+		if (console.active())
+			console.draw();
 		rend->end_rendering();
 		++fps;
 	}

@@ -342,13 +342,13 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
   cursor_active(true),
   cursor_position(0),
   cursor_blink(300),
-	cursor_char_(L'|'),
+  cursor_char_(L'|'),
   history_limit(500),
   command_history_limit(500),
   command_history_pos(-1),
   vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::tex), 4)),
   ib(rend->create_index_buffer(6)),
-	active_(false)
+  active_(false)
 {
 	lock_ptr<sge::vertex_buffer_ptr> _vblock(vb);
 	vertex_buffer::iterator vbit = vb->begin();
@@ -375,12 +375,6 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
 	sge::index_buffer::iterator ibit = ib->begin();
 
 	fill_sprite_indices(ibit, 0);
-	/**ibit++ = 0;
-	*ibit++ = 1;
-	*ibit++ = 2;
-	*ibit++ = 2;
-	*ibit++ = 3;
-	*ibit = 0;*/
 	
 	instance().add(L"get",boost::bind(&console_gfx::fn_get,this,_1));
 	instance().add(L"set",boost::bind(&console_gfx::fn_set,this,_1));

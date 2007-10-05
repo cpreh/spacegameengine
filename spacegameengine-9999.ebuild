@@ -14,8 +14,8 @@ KEYWORDS="~x86 ~amd64"
 IUSE="debug devil dga openal opengl test truetype vorbis wave xinput zlib"
 
 DEPEND="${RDEPEND}
-        dev-util/pkgconfig
-        dev-util/cmake"
+        dev-util/cmake
+        dev-util/pkgconfig"
 RDEPEND="dev-libs/boost
          x11-libs/libX11
          virtual/libc
@@ -28,7 +28,7 @@ RDEPEND="dev-libs/boost
          xinput? ( dga? ( x11-libs/libXxf86dga ) )
          vorbis? ( media-libs/libvorbis )
          openal? ( media-libs/openal )
-         zlib? ( media-libs/zlib )"
+         zlib? ( sys-libs/zlib )"
 
 src_unpack() {
 	subversion_src_unpack
@@ -38,45 +38,16 @@ src_unpack() {
 src_compile() {
 	local myconf=""
 
-	if use debug; then
-		myconf="${myconf} -D ENABLE_DEBUG:=1"
-	fi
-
-	if use devil; then
-		myconf="${myconf} -D ENABLE_DEVIL:=1"
-	fi
-
-	if use dga; then
-		myconf="${myconf} -D ENABLE_DGA:=1"
-	fi
-
-	if use opengl; then
-		myconf="${myconf} -D ENABLE_OPENGL:=1"
-	fi
-
-	if use openal; then
-		myconf="${myconf} -D ENABLE_OPENAL:=1"
-	fi
-
-	if use test; then
-		myconf="${myconf} -D ENABLE_TEST:=1"
-	fi
-
-	if use truetype; then
-		myconf="${myconf} -D ENABLE_FREETYPE:=1"
-	fi
-
-	if use vorbis; then
-		myconf="${myconf} -D ENABLE_VORBIS:=1"
-	fi
-
-	if use wave; then
-		myconf="${myconf} -D ENABLE_WAVE:=1"
-	fi
-
-	if use xinput; then
-		myconf="${myconf} -D ENABLE_XINPUT:=1"
-	fi
+	use debug && myconf="${myconf} -D ENABLE_DEBUG:=1"
+	use devil && myconf="${myconf} -D ENABLE_DEVIL:=1"
+	use dga && myconf="${myconf} -D ENABLE_DGA:=1"
+	use opengl && myconf="${myconf} -D ENABLE_OPENGL:=1"
+	use openal && myconf="${myconf} -D ENABLE_OPENAL:=1"
+	use test && myconf="${myconf} -D ENABLE_TEST:=1"
+	use truetype && myconf="${myconf} -D ENABLE_FREETYPE:=1"
+	use vorbis && myconf="${myconf} -D ENABLE_VORBIS:=1"
+	use wave && myconf="${myconf} -D ENABLE_WAVE:=1"
+	use xinput && myconf="${myconf} -D ENABLE_XINPUT:=1"
 
 	cmake ${myconf} \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \

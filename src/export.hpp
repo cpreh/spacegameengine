@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #ifdef SGE_SYMBOL
 #undef SGE_SYMBOL
 #endif
@@ -26,4 +27,3 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #else
 #define SGE_SYMBOL __declspec(dllimport)
 #endif // SGE_EXPORTS
-

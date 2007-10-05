@@ -92,6 +92,8 @@ public:
 	void set_texture_stage_op(stage_type stage, texture_stage_op::type, texture_stage_op_value::type);
 	void set_texture_stage_arg(stage_type stage, texture_stage_arg::type, texture_stage_arg_value::type);
 
+	void push();
+	void pop();
 
 	sge::render_target_ptr get_render_target() const;
 

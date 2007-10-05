@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../sprite/system_impl.hpp"
 #include "../font_drawer_3d.hpp"
 
-sge::font_drawer_3d::font_drawer_3d(const renderer_ptr rend)
+sge::font_drawer_3d::font_drawer_3d(const renderer_ptr rend, const color col)
 : rend(rend),
+  col(col),
   texman(rend, fragmented_texture_ptr(new rect_fragmented_texture(rend, linear_filter))),
   sys(rend)
 {}
@@ -54,10 +55,15 @@ void sge::font_drawer_3d::draw_char(const font_char ch, const font_rect fr, cons
 
 	const sprite::point sprite_pos = pixel_pos_to_2d<sprite::point>(fr.pos(), rend->screen_size());
 	const sprite::dim sprite_sz = pixel_pos_to_2d<sprite::dim>(pixel_pos_t(fr.width(), fr.height()), rend->screen_size());
-	sprites.push_back(sprite(sprite_pos, sprite_sz, it->second, colors::white));
+	sprites.push_back(sprite(sprite_pos, sprite_sz, it->second, col));
 }
 
 void sge::font_drawer_3d::end_rendering()
 {
 	sys.render(sprites.begin(), sprites.end());
+}
+
+void sge::font_drawer_3d::set_color(const color new_color)
+{
+	col = new_color;
 }
