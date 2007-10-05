@@ -104,11 +104,11 @@ void sge::con::singleton::add(const string &function_name,function fn)
 	funcs_[function_name] = fn;
 }
 
-void sge::con::singleton::add(const string &var_name,var_base &var) 
+void sge::con::singleton::add(const string &var_name,var_base &var_) 
 { 
 	if (vars_.find(var_name) != vars_.end())
 		throw exception("A variable with name \"" + iconv(var_name) + "\" already exists!");
-	vars_[var_name] = &var; 
+	vars_[var_name] = &var_; 
 }
 
 void sge::con::singleton::remove(const string &var_name)

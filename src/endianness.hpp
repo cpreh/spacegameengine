@@ -26,11 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-void swap_endianness(unsigned char*, std::size_t len);
+SGE_SYMBOL void swap_endianness(unsigned char*, std::size_t len);
 
-void from_to_big_endianness(unsigned char*, std::size_t len);
+SGE_SYMBOL void from_to_big_endianness(unsigned char*, std::size_t len);
 
-void from_to_little_endianness(unsigned char*, std::size_t len);
+SGE_SYMBOL void from_to_little_endianness(unsigned char*, std::size_t len);
 
 template<typename T>
 T swap_endianness(T t)
