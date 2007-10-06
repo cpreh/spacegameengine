@@ -119,8 +119,8 @@ template<> struct next_pow_2_implementation<true> {
 	{
 		if (t <= 0) std::log(static_cast<double>(-1)); // throw same exception as general template
 		if (t & (t-1)) {
-			register unsigned char c = t & 0x3f;
-			register T t_copy = t, ret=2;
+			register T c = t & 0x3f,
+			           t_copy = t, ret=2;
 			while (t_copy >>= 6) { ret <<= 6; c = t_copy & 0x3f; }
 			return ret <<= (c & 0x20) ? 5 : (c & 0x10) ? 4 : (c & 0x08) ? 3 : (c & 0x04) ? 2 : (c & 0x02) ? 1 : 0;
 		} else return t;
