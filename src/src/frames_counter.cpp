@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sstream>
+#include <boost/lexical_cast.hpp>
 #include "../frames_counter.hpp"
 
 sge::frames_counter::frames_counter()
@@ -37,11 +37,9 @@ void sge::frames_counter::update()
 	}
 }
 
-std::string sge::frames_counter::frames_str() const
+sge::string sge::frames_counter::frames_str() const
 {
-	std::ostringstream oss;
-	oss << frames();
-	return oss.str();
+	return boost::lexical_cast<string>(frames());
 }
 
 sge::time_type sge::frames_counter::frames() const
