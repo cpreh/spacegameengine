@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shared_ptr.hpp"
 #include "../math/vector.hpp"
 #include "../math/matrix.hpp"
-#include "vertex_buffer.hpp"
 
 namespace sge
 {
@@ -38,8 +37,6 @@ public:
 	virtual void set(const math::vector2&) = 0;
 	virtual void set(const math::vector3&) = 0;
 	virtual void set(const math::vector4&) = 0;
-
-	virtual void set(vertex_buffer_ptr) = 0;
 
 	virtual ~attribute_variable() {}
 };

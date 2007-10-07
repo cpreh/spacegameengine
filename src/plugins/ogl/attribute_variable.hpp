@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 #include "../../math/vector.hpp"
 #include "../../math/matrix.hpp"
-#include "../../renderer/vertex_buffer.hpp"
 #include "../../renderer/glsl_attribute_variable.hpp"
 #include "common.hpp"
 
@@ -41,8 +40,6 @@ public:
 	void set(const math::vector2&);
 	void set(const math::vector3&);
 	void set(const math::vector4&);
-
-	void set(vertex_buffer_ptr);
 private:
 	GLint location() const;
 	GLint ref;

@@ -45,15 +45,6 @@ void sge::ogl::attribute_variable::set(const math::vector4& v)
 	glVertexAttrib4fv(location(), v.data());
 }
 
-void sge::ogl::attribute_variable::set(const vertex_buffer_ptr vb)
-{
-	vertex_buffer* const ogl_buffer = ptr_cast<vertex_buffer*>(vb.get());
-
-	glEnableVertexAttribArray(location());
-
-//	glVertexAttribPointer(location(), GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
-}
-
 GLint sge::ogl::attribute_variable::location() const
 {
 	return ref;
