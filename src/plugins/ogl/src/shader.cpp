@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#if 0
 #include "../../../exception.hpp"
 #include "../shader.hpp"
 
@@ -46,4 +45,3 @@ GLuint sge::ogl::shader::id() const
 {
 	return id_;
 }
-#endif

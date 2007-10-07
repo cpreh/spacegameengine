@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#if 0
 #include "../../../exception.hpp"
 #include "../program.hpp"
 
@@ -54,8 +53,22 @@ void sge::ogl::program::use()
 	glUseProgram(id());
 }
 
+sge::glsl::uniform_variable_ptr sge::ogl::program::uniform(const std::string& name)
+{
+	return glsl::uniform_variable_ptr(new uniform_variable(id(), name));
+}
+
+sge::glsl::attribute_variable_ptr sge::ogl::program::attribute(const std::string& name)
+{
+	return glsl::attribute_variable_ptr(new attribute_variable(id(), name));
+}
+
+void sge::ogl::program::use_ffp()
+{
+	glUseProgram(0);
+}
+
 GLuint sge::ogl::program::id() const
 {
 	return id_;
 }
-#endif

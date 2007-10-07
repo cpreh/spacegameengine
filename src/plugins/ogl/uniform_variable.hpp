@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 #include "../../math/vector.hpp"
 #include "../../math/matrix.hpp"
+#include "../../renderer/glsl_uniform_variable.hpp"
 #include "common.hpp"
 
 namespace sge
@@ -31,7 +32,7 @@ namespace sge
 namespace ogl
 {
 
-class uniform_variable {
+class uniform_variable : public glsl::uniform_variable {
 public:
 	uniform_variable(GLuint program, const std::string& name);
 

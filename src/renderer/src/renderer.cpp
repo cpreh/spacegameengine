@@ -29,3 +29,5 @@ sge::screen_unit sge::renderer::screen_height() const
 {
 	return screen_size().h();
 }
+
+const std::string sge::renderer::no_shader;

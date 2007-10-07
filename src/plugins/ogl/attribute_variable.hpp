@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/vector.hpp"
 #include "../../math/matrix.hpp"
 #include "../../renderer/vertex_buffer.hpp"
+#include "../../renderer/glsl_attribute_variable.hpp"
 #include "common.hpp"
 
 namespace sge
@@ -32,7 +33,7 @@ namespace sge
 namespace ogl
 {
 
-class attribute_variable {
+class attribute_variable : public glsl::attribute_variable {
 public:
 	attribute_variable(GLuint program, const std::string& name);
 	

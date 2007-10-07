@@ -18,40 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_PROGRAM_HPP_INCLUDED
-#define SGE_OGL_PROGRAM_HPP_INCLUDED
+#ifndef SGE_GLSL_PROGRAM_HPP_INCLUDED
+#define SGE_GLSL_PROGRAM_HPP_INCLUDED
 
-#include <vector>
-#include <boost/noncopyable.hpp>
-#include "../../shared_ptr.hpp"
-#include "../../renderer/glsl_program.hpp"
-#include "common.hpp"
-#include "shader.hpp"
-#include "uniform_variable.hpp"
-#include "attribute_variable.hpp"
+#include <string>
+#include "../shared_ptr.hpp"
+#include "glsl_uniform_variable.hpp"
+#include "glsl_attribute_variable.hpp"
 
 namespace sge
 {
-namespace ogl
+namespace glsl
 {
 
-class program : public glsl::program, boost::noncopyable {
+class program {
 public:
-	program();
-	~program();
-	void attach_shader(shader_ptr shader);
-	void link();
-	void use();
-	glsl::uniform_variable_ptr uniform(const std::string&);
-	glsl::attribute_variable_ptr attribute(const std::string&);
-
-	static void use_ffp();
-private:
-	GLuint id() const;
-
-	typedef std::vector<shader_ptr> shader_vector;
-	shader_vector                   shaders;
-	GLuint                          id_;
+	virtual uniform_variable_ptr uniform(const std::string&) = 0;
+	virtual attribute_variable_ptr attribute(const std::string&) = 0;
+	virtual ~program() {}
 };
 
 typedef shared_ptr<program> program_ptr;

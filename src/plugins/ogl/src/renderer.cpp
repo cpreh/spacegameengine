@@ -40,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_stage.hpp"
 #include "../basic_buffer_impl.hpp"
 #include "../get.hpp"
+#include "../shader.hpp"
+#include "../program.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
@@ -594,6 +596,31 @@ void sge::ogl::renderer::pop()
 
 	if(is_error())
 		throw exception("glPopAttrib() failed!");
+}
+
+sge::glsl::program_ptr sge::ogl::renderer::create_glsl_program(const std::string& vs_source, const std::string& ps_source)
+{
+	const shader_ptr vs(vs_source == no_shader ? 0 : new shader(GL_VERTEX_SHADER, vs_source)),
+	                 ps(ps_source == no_shader ? 0 : new shader(GL_FRAGMENT_SHADER, ps_source));
+	const program_ptr prog(new program());
+	if(vs)
+		prog->attach_shader(vs);
+	if(ps)
+		prog->attach_shader(ps);
+	prog->link();
+
+	return prog;
+}
+
+void sge::ogl::renderer::set_glsl_shader(const glsl::program_ptr prog)
+{
+	if(!prog)
+	{
+		program::use_ffp();
+		return;
+	}
+	const program_ptr gl_prog(dynamic_pointer_cast<program>(prog));
+	gl_prog->use();
 }
 
 void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)

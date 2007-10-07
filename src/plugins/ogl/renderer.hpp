@@ -95,6 +95,9 @@ public:
 	void push();
 	void pop();
 
+	glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader, const std::string& pixel_shader_source = no_shader);
+	void set_glsl_shader(glsl::program_ptr);
+
 	sge::render_target_ptr get_render_target() const;
 
 	texture_ptr create_texture(texture::const_pointer data,

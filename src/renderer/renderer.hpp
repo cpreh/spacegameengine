@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "volume_texture.hpp"
 #include "render_target.hpp"
 #include "light.hpp"
+#include "glsl_program.hpp"
 #include "../math/matrix.hpp"
 #include "../window.hpp"
 
@@ -262,6 +263,10 @@ public:
 
 	virtual void push() = 0;
 	virtual void pop() = 0;
+
+	static const std::string no_shader;
+	virtual glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader, const std::string& pixel_shader_source = no_shader) = 0;
+	virtual void set_glsl_shader(glsl::program_ptr) = 0;
 
 	virtual render_target_ptr get_render_target() const = 0;
 

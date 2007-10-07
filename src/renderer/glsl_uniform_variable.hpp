@@ -18,43 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_PROGRAM_HPP_INCLUDED
-#define SGE_OGL_PROGRAM_HPP_INCLUDED
+#ifndef SGE_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#define SGE_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
 
-#include <vector>
-#include <boost/noncopyable.hpp>
-#include "../../shared_ptr.hpp"
-#include "../../renderer/glsl_program.hpp"
-#include "common.hpp"
-#include "shader.hpp"
-#include "uniform_variable.hpp"
-#include "attribute_variable.hpp"
+#include "../types.hpp"
+#include "../shared_ptr.hpp"
+#include "../math/vector.hpp"
+#include "../math/matrix.hpp"
 
 namespace sge
 {
-namespace ogl
+namespace glsl
 {
 
-class program : public glsl::program, boost::noncopyable {
+class uniform_variable {
 public:
-	program();
-	~program();
-	void attach_shader(shader_ptr shader);
-	void link();
-	void use();
-	glsl::uniform_variable_ptr uniform(const std::string&);
-	glsl::attribute_variable_ptr attribute(const std::string&);
+	virtual void set(space_unit) = 0;
+	virtual void set(const math::vector2&) = 0;
+	virtual void set(const math::vector3&) = 0;
+	virtual void set(const math::vector4&) = 0;
 
-	static void use_ffp();
-private:
-	GLuint id() const;
+	virtual void set(const math::space_matrix&) = 0;
 
-	typedef std::vector<shader_ptr> shader_vector;
-	shader_vector                   shaders;
-	GLuint                          id_;
+	virtual ~uniform_variable() {}
 };
 
-typedef shared_ptr<program> program_ptr;
+typedef shared_ptr<uniform_variable> uniform_variable_ptr;
 
 }
 }
