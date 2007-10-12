@@ -505,8 +505,8 @@ sge::virtual_texture_ptr sge::gui::canvas::to_texture(sge::texture_manager &texm
 	}
 
 	if (texture &&
-	    static_cast<sge::gui::unit>(texture->area().width()) == size_.w &&
-	    static_cast<sge::gui::unit>(texture->area().height()) == size_.h) {
+	    static_cast<sge::gui::unit>(texture->area().w()) == size_.w &&
+	    static_cast<sge::gui::unit>(texture->area().h()) == size_.h) {
 		texture->set_data(texdata.get());
 		return texture;
 	} else {

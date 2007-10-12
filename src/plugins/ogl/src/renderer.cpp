@@ -141,8 +141,6 @@ sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned ad
 	else
 		wnd = polymorphic_pointer_cast<win32_window>(wnd_param);
 
-	;
-
 	hdc.reset(new gdi_device(wnd->hwnd(), gdi_device::get_tag()));
 
 	const int pixel_format = ChoosePixelFormat(hdc->hdc(), &pfd);
