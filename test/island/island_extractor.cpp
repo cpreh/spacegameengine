@@ -146,7 +146,7 @@ bool island_extractor::extract(island_extractor::field_type &target)
 	const rect_type r = bounding_rect(pixel_list);
 
 	// Und in einzelnes Bild umwandeln
-	target = field_type(field_type::dim_type(r.width(),r.height()));
+	target = field_type(field_type::dim_type(r.w(),r.h()));
 	target.zero();
 
 	const pos_type lefttop = pos_type(r.left,r.top);

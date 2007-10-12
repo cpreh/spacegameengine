@@ -126,8 +126,8 @@ bool sge::completely_inside(const sge::math::rect &rect,const sge::frustum_info 
 
 bool sge::possibly_inside(const sge::math::rect &rect,const sge::frustum_info &frustum)
 {
-	const math::vector3 center = math::vector3(rect.left + rect.width()/2,0,rect.top + rect.height()/2);
-	const space_unit radius(std::sqrt(rect.width()*rect.width()/4+rect.height()*rect.height()/4));
+	const math::vector3 center = math::vector3(rect.left + rect.w()/2,0,rect.top + rect.h()/2);
+	const space_unit radius(std::sqrt(rect.w()*rect.w()/4+rect.h()*rect.h()/4));
 
 	//const math::vector3 forward_dir = math::normalize(math::vector3(std::sin(frustum.rot()),0,-std::cos(frustum.rot())));
 	//const space_unit df = math::dot(-forward_dir,frustum.pos());

@@ -44,8 +44,8 @@ template<typename T> struct basic_rect {
 		: left(pos.x()), top(pos.y()), right(pos.x() + sz.w()), bottom(pos.y() + sz.h())
 	{}
 
-	value_type width() const { return right - left; }
-	value_type height() const { return bottom - top; }
+	value_type w() const { return right - left; }
+	value_type h() const { return bottom - top; }
 
 	point_type pos() const
 	{
@@ -54,7 +54,7 @@ template<typename T> struct basic_rect {
 
 	dim_type size() const
 	{
-		return dim_type(width(),height());
+		return dim_type(w(),h());
 	}
 
 	value_type left, top, right, bottom;
@@ -72,12 +72,12 @@ template<typename T> inline basic_rect<T> operator-(const basic_rect<T>& l, cons
 
 template<typename T> inline T width(const basic_rect<T>& r)
 {
-	return r.width();
+	return r.w();
 }
 
 template<typename T> inline T height(const basic_rect<T>& r)
 {
-	return r.height();
+	return r.h();
 }
 
 template<typename T> inline bool operator==(const basic_rect<T>& l, const basic_rect<T>& r)

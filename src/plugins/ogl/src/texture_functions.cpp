@@ -66,7 +66,7 @@ void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter
 
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
-	glTexSubImage2D(tex_type, 0, static_cast<GLint>(r.left), static_cast<GLint>(r.top), static_cast<GLsizei>(r.width()), static_cast<GLsizei>(r.height()), format, type, src);
+	glTexSubImage2D(tex_type, 0, static_cast<GLint>(r.left), static_cast<GLint>(r.top), static_cast<GLsizei>(r.w()), static_cast<GLsizei>(r.h()), format, type, src);
 
 	if(is_error())
 		throw exception("glTexSubImage2D() or gluBuild2DMipmaps() failed!");

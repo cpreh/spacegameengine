@@ -42,19 +42,19 @@ void sge::font_drawer_3d::draw_char(const font_char ch, const font_rect fr, cons
 	texture_map::const_iterator it = textures.find(ch);
 	if(it == textures.end())
 	{
-		const texture::size_type raw_size = fr.width() * fr.height();
+		const texture::size_type raw_size = fr.w() * fr.h();
 		raw_vector<color> expanded(raw_size);
 		for(texture::size_type i = 0; i < raw_size; ++i)
 		{
 			const color_element elem = data[i];
 			expanded[i] = elem ? make_color(elem, elem, elem, 255) : 0;
 		}
-		textures.insert(std::make_pair(ch, texman.add_texture(expanded.data(), fr.width(), fr.height())));
+		textures.insert(std::make_pair(ch, texman.add_texture(expanded.data(), fr.w(), fr.h())));
 		it = textures.find(ch);
 	}
 
 	const sprite::point sprite_pos = pixel_pos_to_2d<sprite::point>(fr.pos(), rend->screen_size());
-	const sprite::dim sprite_sz = pixel_pos_to_2d<sprite::dim>(pixel_pos_t(fr.width(), fr.height()), rend->screen_size());
+	const sprite::dim sprite_sz = pixel_pos_to_2d<sprite::dim>(pixel_pos_t(fr.w(), fr.h()), rend->screen_size());
 	sprites.push_back(sprite(sprite_pos, sprite_sz, it->second, col));
 }
 

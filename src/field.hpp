@@ -32,8 +32,8 @@ class field
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	// this guarantees that dim_type::value_type and coord_type are the same so we save a few nagging conversions
-	typedef unsigned                              coord_type;
+	// this guarantees that dim_type::value_type, coord_type and size_type are the same so we save a few nagging conversions
+	typedef size_type                             coord_type;
 	typedef math::basic_vector<coord_type,2>      coord_vector_type;
 	typedef math::basic_dim<coord_type,2>         dim_type;
 
@@ -106,10 +106,15 @@ class field
 	void zero() { std::fill(begin(),end(),value_type(0)); }
 	void resize(const coord_type &x,const coord_type &y, const_reference value = value_type()) { resize(dim_type(x,y), value); }
 	void resize(const dim_type &n, const_reference value = value_type()) { if (dim_ == n) return; dim_ = n; array.resize(field_count(), value); }
-	value_type &pos(const coord_type &x,const coord_type &y) { return array.at(y * dim_.w() + x); }
-	const value_type &pos(const coord_type &x,const coord_type &y) const { return array.at(y * dim_.w() + x); }
+	value_type &pos(const coord_type &x,const coord_type &y) { return array[y * dim_.w() + x]; }
+	const value_type &pos(const coord_type &x,const coord_type &y) const { return array[y * dim_.w() + x]; }
 	value_type &pos(const coord_vector_type &p) { return pos(p.x(),p.y()); }
 	const value_type &pos(const coord_vector_type &p) const { return pos(p.x(),p.y()); }
+
+	reference front() { return array.front(); }
+	const_reference front() const { return array.front(); }
+	reference back() { return array.back(); }
+	const_reference back() const { return array.back(); }
 
 	value_type x(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute x()"); return std::distance(begin(),p) % w(); }
 	value_type y(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute y()"); return std::distance(begin(),p) / w(); }
@@ -238,6 +243,18 @@ class field
 	dim_type dim() const { return dim_; }
 };
 typedef field<space_unit> space_field;
+}
+
+template<typename T,typename Ch,typename Traits>
+std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,const sge::field<T> &field)
+{
+	for (sge::space_field::size_type y = 0; y < field.h(); ++y)
+	{
+		for (sge::space_field::size_type x = 0; x < field.w(); ++x)
+			stream << field.pos(x,y) << stream.widen(' ');
+		stream << stream.widen('\n');
+	}
+	return stream;
 }
 
 #endif
