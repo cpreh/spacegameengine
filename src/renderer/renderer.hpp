@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "render_target.hpp"
 #include "light.hpp"
 #include "glsl_program.hpp"
+#include "primitive.hpp"
 #include "../math/matrix.hpp"
 #include "../window.hpp"
 
@@ -111,25 +112,6 @@ namespace fog_mode
 		linear,
 		exp,
 		exp2
-	};
-}
-
-namespace indexed_primitive_type
-{
-	enum type {
-		line,
-		triangle
-	};
-}
-
-namespace nonindexed_primitive_type
-{
-	enum type {
-		point,
-		line_strip,
-		line_loop,
-		triangle_strip,
-		triangle_fan
 	};
 }
 

@@ -17,16 +17,15 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
+#include <algorithm>
 #include "../cube_texture.hpp"
-#include "../../../renderer/lock_ptr.hpp"
-#include "../../../algorithm.hpp"
+#include "../../../renderer/scoped_lock.hpp"
 
 #include <iostream>
 
-sge::d3d::cube_texture::cube_texture(renderer* const r, d3d_device_ptr device, const cube_side_array* data, const size_type sz, const resource_flag_t nflags)
+sge::d3d::cube_texture::cube_texture(renderer* const r, const d3d_device_ptr device, const cube_side_array* data, const size_type sz, const resource_flag_t nflags)
 :  d3d::texture_base(0),
-   resource(r, nflags),// & RF_Dynamic),
+   resource(r, nflags & resource_flags::dynamic),
    device(device), _flags(nflags), sz(sz), lock_dest(0)
 {
 	init(data);

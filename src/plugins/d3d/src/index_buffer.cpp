@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <algorithm>
 #include "../../../exception.hpp"
-#include "../../../renderer/lock_ptr.hpp"
+#include "../../../renderer/scoped_lock.hpp"
 #include "../index_buffer.hpp"
 #include "../conversion.hpp"
 
-sge::d3d::index_buffer::index_buffer(renderer* const r, d3d_device_ptr device, const size_type sz, const resource_flag_t nflags, const const_pointer src)
-: resource(r, nflags), // & RF_Dynamic),
+sge::d3d::index_buffer::index_buffer(renderer* const r, const d3d_device_ptr device, const size_type sz, const resource_flag_t nflags, const const_pointer src)
+: resource(r, nflags & resource_flags::dynamic),
   device(device),
   buffer(),
   _flags(nflags),
@@ -48,7 +48,7 @@ void sge::d3d::index_buffer::init(const const_pointer src)
 
 	if(src)
 	{
-		lock_ptr<index_buffer*> l(this);
+		scoped_lock<index_buffer*> l(this);
 		std::copy(src,src+size(),lock_dest);
 	}
 }
@@ -139,7 +139,7 @@ void sge::d3d::index_buffer::resize(const size_type newsize, const const_pointer
 
 void sge::d3d::index_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
 {
-	lock_ptr<index_buffer*> _l(this, lock_flags::discard, first, count);
+	scoped_lock<index_buffer*> _l(this, lock_flags::discard, first, count);
 	std::copy(src + first, src + first+count, data());
 }
 

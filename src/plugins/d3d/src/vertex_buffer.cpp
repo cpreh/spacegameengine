@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <algorithm>
 #include "../../../exception.hpp"
-#include "../../../renderer/lock_ptr.hpp"
+#include "../../../renderer/scoped_lock.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
 
 sge::d3d::vertex_buffer::vertex_buffer(renderer* const r, const d3d_device_ptr device, const sge::vertex_format& format, const size_type sz, const resource_flag_t nflags, const const_pointer src)
-: resource(r, nflags & RF_Dynamic),
+: resource(r, nflags & resource_flags::dynamic),
   device(device), lock_dest(0), _flags(nflags), sz(sz), format(format), d3d_format(device,format)
 {
 	init(src);
@@ -43,8 +44,8 @@ void sge::d3d::vertex_buffer::init(const const_pointer src)
 	buffer.reset(p);
 	if(src)
 	{
-		lock_ptr<vertex_buffer*> l(this);
-		copy(src,src+sz*stride(),lock_dest);
+		scoped_lock<vertex_buffer*> l(this);
+		std::copy(src,src+sz*stride(),lock_dest);
 	}
 }
 
@@ -101,17 +102,17 @@ sge::d3d::vertex_buffer::const_iterator sge::d3d::vertex_buffer::create_iterator
 void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags, const size_type first, const size_type count)
 {
 	if(lock_dest)
-		throw std::logic_error("d3d::vertex_buffer::lock() you have to unlock first!");
+		throw exception("d3d::vertex_buffer::lock() you have to unlock first!");
 	void* p = 0;
 	const DWORD d3dlflags = convert_lock_flags(flags(),lflags);
 	if(buffer->Lock(static_cast<UINT>(first * stride()), static_cast<UINT>(count * stride()), &p, d3dlflags) != D3D_OK)
 		throw exception("Cannot lock d3d vertex buffer!");
 	lock_dest = static_cast<pointer>(p);
-#ifndef SGE_USE_ARGB
-	if(get_vertex_format().uses(VU_Diffuse))
+/*#ifndef SGE_USE_ARGB
+	if(get_vertex_format().uses(vertex_usage::diffuse))
 		for(iterator it = begin(); it != end(); ++it)
 			it->diffuse() = argb_to_rgba(it->diffuse());
-#endif
+#endif*/
 }
 
 void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags)
@@ -121,8 +122,8 @@ void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags)
 
 void sge::d3d::vertex_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
 {
-	lock_ptr<vertex_buffer*> _l(this, lock_flags::discard, first, count);
-	copy(src + first*stride(), src + (first+count)*stride(), data());
+	scoped_lock<vertex_buffer*> _l(this, lock_flags::discard, first, count);
+	std::copy(src + first*stride(), src + (first+count)*stride(), data());
 }
 
 void sge::d3d::vertex_buffer::unlock()
@@ -130,11 +131,11 @@ void sge::d3d::vertex_buffer::unlock()
 	if(!lock_dest)
 		throw exception("d3d::vertex_buffer::unlock() you have to lock first!");
 
-#ifndef SGE_USE_ARGB
-	if(get_vertex_format().uses(VU_Diffuse))
+/*#ifndef SGE_USE_ARGB
+	if(get_vertex_format().uses(vertex_usage::diffuse))
 		for(iterator it = begin(); it != end(); ++it)
 			it->diffuse() = rgba_to_argb(it->diffuse());
-#endif
+#endif*/
 	if(buffer->Unlock() != D3D_OK)
 		throw exception("Cannot unlock d3d vertex buffer!");
 	lock_dest = 0;

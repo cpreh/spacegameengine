@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iterator>
 #include <algorithm>
 #include <functional>
+#include "../../../bit.hpp"
 #include "../../../exception.hpp"
 #include "../../../ptr_cast.hpp"
 #include "../../../raw_vector.hpp"
@@ -53,15 +54,16 @@ void set_transform(sge::d3d::d3d_device_ptr device, D3DTRANSFORMSTATETYPE, const
 
 }
 
-sge::d3d::renderer::renderer(const d3d_device_ptr device, const renderer_parameters& param, const int adapter, const win32_window_ptr wnd, const d3d_ptr sys)
+sge::d3d::renderer::renderer(const d3d_device_ptr device,
+                             const renderer_parameters& param,
+                             const int adapter,
+                             const win32_window_ptr wnd,
+                             const d3d_ptr sys)
 : sys(sys),
   device(device),
   adapter(adapter),
   parameters(param),
   render_window(wnd),
-  clear_zbuffer(true),
-  clear_stencil(false),
-  clear_back_buffer(true),
   clear_color(colors::white), // FIXME (should be argb)
   stencil_clear_val(0),
   zbuffer_clear_val(1.f)
@@ -207,7 +209,7 @@ void sge::d3d::renderer::reset(const renderer_parameters* const param)
 	}
 }
 
-void sge::d3d::renderer::set_texture(const stage_type stage, const texture_base_ptr p)
+void sge::d3d::renderer::set_texture(const texture_base_ptr p, const stage_type stage)
 {
 	if(!p)
 		return ::set_texture(device,stage,0);
@@ -241,7 +243,7 @@ void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
                                 const index_buffer_ptr nib,
                                 const unsigned first_vertex,
                                 const unsigned num_vertices,
-                                const primitive_type ptype,
+								const indexed_primitive_type::type ptype,
                                 const unsigned pcount,
                                 const unsigned first_index)
 {
@@ -252,32 +254,24 @@ void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
 	if(ib != nib)
 		set_index_buffer(nib);
 	if(device->DrawIndexedPrimitive(prim_type,0,first_vertex,num_vertices,first_index,pcount) != D3D_OK)
-		throw std::runtime_error("DrawIndexedPrimitive() failed");
+		throw exception("DrawIndexedPrimitive() failed");
 }
 
 void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
                                 const unsigned first_vertex,
                                 const unsigned num_vertices,
-                                const nonindexed_primitive_type ptype)
+								const nonindexed_primitive_type::type ptype)
 {
 	const D3DPRIMITIVETYPE prim_type = convert_cast<D3DPRIMITIVETYPE>(ptype);
 	if(vb != nvb)
 		set_vertex_buffer(nvb);
 
-	if(device->DrawPrimitive(prim_type,first_vertex,pcount) != D3D_OK)
-		throw std::runtime_error("DrawPrimitive() failed");
+	if(device->DrawPrimitive(prim_type,first_vertex,primitive_count(num_vertices, ptype)) != D3D_OK)
+		throw exception("DrawPrimitive() failed");
 }
 
 void sge::d3d::renderer::begin_rendering()
 {
-	/*DWORD clear_flags = 0;
-	if(clear_zbuffer)
-		clear_flags |= D3DCLEAR_ZBUFFER;
-	if(clear_back_buffer)
-		clear_flags |= D3DCLEAR_TARGET;
-	if(clear_stencil)
-		clear_flags |= D3DCLEAR_STENCIL;*/
-
 	if(device->Clear(0,0,clear_flags,clear_color,zbuffer_clear_val,stencil_clear_val) != D3D_OK)
 		throw exception("Clear() failed");
 	if(device->BeginScene() != D3D_OK)
@@ -300,17 +294,17 @@ void sge::d3d::renderer::end_rendering()
 	}
 }
 
-void sge::d3d::renderer::set_bool_state(const bool_state state, const bool_type value)
+void sge::d3d::renderer::set_bool_state(const bool_state::type state, const bool_type value)
 {
 	switch(state) {
 	case bool_state::clear_zbuffer:
-		set_bit(clear_flags, D3DCLEAR_ZBUFFER, value);
+		set_bit(D3DCLEAR_ZBUFFER, clear_flags, value);
 		break;
 	case bool_state::clear_stencil:
-		set_bit(clear_falgs, D3DCLEAR_STENCIL, value);
+		set_bit(D3DCLEAR_STENCIL, clear_flags, value);
 		break;
 	case bool_state::clear_backbuffer:
-		set_bit(clear_flags, D3DCLEAR_TARGET, value);
+		set_bit(D3DCLEAR_TARGET, clear_flags, value);
 		break;
 	case bool_state::enable_fog:
 		set_render_state(device,D3DRS_FOGENABLE,value);
@@ -318,10 +312,10 @@ void sge::d3d::renderer::set_bool_state(const bool_state state, const bool_type 
 /*	case BS_EnableRangeFog:
 		set_render_state(device,D3DRS_RANGEFOGENABLE,value);
 		break;*/
-	case BS_EnableStencil:
+	case bool_state::enable_stencil:
 		set_render_state(device,D3DRS_STENCILENABLE,value);
 		break;
-	case BS_EnableAlphaBlending:
+	case bool_state::enable_alpha_blending:
 		set_render_state(device,D3DRS_ALPHABLENDENABLE,value);
 		if(value)
 		{
@@ -334,47 +328,55 @@ void sge::d3d::renderer::set_bool_state(const bool_state state, const bool_type 
 			set_render_state(device,D3DRS_DESTBLEND, int_type(D3DBLEND_ZERO) );
 		}
 		break;
-	case BS_EnableZBuffer:
+	case bool_state::enable_zbuffer:
 		set_render_state(device,D3DRS_ZENABLE,value);
 		break;
 	}
 }
 
-void sge::d3d::renderer::set_float_state(const float_state state, const float_type value)
+void sge::d3d::renderer::set_float_state(const float_state::type state, const float_type value)
 {
 	switch(state) {
-	case FS_ZBufferClearVal:
+	case float_state::zbuffer_clear_val:
 		zbuffer_clear_val = value;
 		break;
-	case FS_FogStart:
+	case float_state::fog_start:
 		set_render_state(device,D3DRS_FOGSTART,value);
 		break;
-	case FS_FogEnd:
+	case float_state::fog_end:
 		set_render_state(device,D3DRS_FOGEND,value);
 		break;
-	case FS_FogDensity:
+	case float_state::fog_density:
 		set_render_state(device,D3DRS_FOGDENSITY,value);
 		break;
 	}
 }
 
-void sge::d3d::renderer::set_int_state(const int_state state, const int_type value)
+void sge::d3d::renderer::set_int_state(const int_state::type state, const int_type value)
 {
 	switch(state) {
-	case IS_AmbientLightColor:
-		set_render_state(device,D3DRS_AMBIENT,value);
-		break;
-	case IS_FogColor:
-		set_render_state(device,D3DRS_FOGCOLOR,value);
-		break;
+	/*
 	case IS_FogMode:
 		set_render_state(device,D3DRS_FOGTABLEMODE,value);
 		break;
-	case IS_ClearColor:
-		clear_color = value;
-		break;
-	case IS_StencilClearVal:
+*/
+	case int_state::stencil_clear_val:
 		stencil_clear_val = value;
+		break;
+	}
+}
+
+void sge::d3d::renderer::set_color_state(const color_state::type state, const color value)
+{
+	switch(state) {
+	case color_state::ambient_light_color:
+		set_render_state(device,D3DRS_AMBIENT,value);
+		break;
+	case color_state::fog_color:
+		set_render_state(device,D3DRS_FOGCOLOR,value);
+		break;
+	case color_state::clear_color:
+		clear_color = value;
 		break;
 	}
 }
@@ -402,31 +404,31 @@ sge::screen_size_t sge::d3d::renderer::screen_size() const
 namespace
 {
 
-void set_render_state(const sge::d3d::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::bool_type value)
+void set_render_state(const sge::d3d::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::bool_type value)
 {
 	if(device->SetRenderState(state,value) != D3D_OK)
 		throw sge::exception("SetRenderState() failed");
 }
 
-void set_render_state(const sge::d3d::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::int_type value)
+void set_render_state(const sge::d3d::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetRenderState(state,value) != D3D_OK)
 		throw sge::exception("SetRenderState() failed");
 }
 
-void set_render_state(const sge::d3d::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::float_type value)
+void set_render_state(const sge::d3d::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::float_type value)
 {
 	if(device->SetRenderState(state,reinterpret_cast<const DWORD&>(value)) != D3D_OK)
 		throw sge::exception("SetRenderState() failed");
 }
 
-void set_texture_stage_state(const sge::d3d::d3d_device_ptr device, const sge::stage_type stage, const D3DTEXTURESTAGESTATETYPE state, const sge::int_type value)
+void set_texture_stage_state(const sge::d3d::d3d_device_ptr device, const sge::stage_type stage, const D3DTEXTURESTAGESTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetTextureStageState(static_cast<DWORD>(stage),state,value) != D3D_OK)
 		throw sge::exception("SetTextureStageState() failed");
 }
 
-void set_sampler_state(const sge::d3d::d3d_device_ptr device, const sge::stage_type stage, const D3DSAMPLERSTATETYPE state, const sge::int_type value)
+void set_sampler_state(const sge::d3d::d3d_device_ptr device, const sge::stage_type stage, const D3DSAMPLERSTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetSamplerState(static_cast<DWORD>(stage),state,value) != D3D_OK)
 		throw sge::exception("SetSamplerState() failed");
@@ -443,6 +445,5 @@ void set_transform(const sge::d3d::d3d_device_ptr device, const D3DTRANSFORMSTAT
 	if(device->SetTransform(type, reinterpret_cast<const D3DMATRIX*>(m.data())) != D3D_OK)
 		throw sge::exception("SetTransform() failed");
 }
-
 
 }

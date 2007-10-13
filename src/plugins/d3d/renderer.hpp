@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/matrix.hpp"
 #include "../../math/vector.hpp"
 #include "../../renderer/renderer.hpp"
+#include "../../renderer/renderer_system.hpp"
 #include "../../win32_window.hpp"
 #include "vertex_format.hpp"
 #include "resource.hpp"
@@ -54,6 +55,7 @@ public:
 	void set_int_state(int_state::type, int_type);
 	void set_float_state(float_state::type, float_type);
 	void set_bool_state(bool_state::type, bool_type);
+	void set_color_state(color_state::type, color);
 	void set_texture(texture_base_ptr tex, stage_type stage);
 	void set_material(const material& m);
 	//void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value);

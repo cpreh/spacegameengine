@@ -51,6 +51,18 @@ public:
 		t->lock(flags, first, count);
 	}
 
+	scoped_lock(const T t, const lock_rect& r)
+	 : t(t)
+	{
+		t->lock(r);
+	}
+
+	scoped_lock(const T t, const lock_box& box)
+	 : t(t)
+	{
+		t->lock(box);
+	}
+
 	void unlock()
 	{
 		if(t)

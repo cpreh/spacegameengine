@@ -52,24 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 // TODO: consistent error checking
 
-namespace
-{
-
-inline unsigned num_indices(const sge::indexed_primitive_type::type type, const unsigned count)
-{
-	switch(type) {
-	case sge::indexed_primitive_type::triangle:
-		return count*3;
-	case sge::indexed_primitive_type::line:
-		return count*2;
-	default:
-		throw sge::exception("num_indices: unsupported indexed_primitive_format!");
-	}
-}
-
-}
-
-
 // TODO: move the Xerror code somewhere more appropriate
 
 #ifdef SGE_LINUX_PLATFORM
@@ -308,7 +290,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	const GLenum prim_type = convert_cast<GLenum>(ptype);
 
 	glDrawElements(prim_type,
-	               num_indices(ptype, static_cast<unsigned>(pcount)),
+	               indices_count(pcount, type),
 	               GL_UNSIGNED_INT,
 	               vbo_offset(first_index * sge::index_buffer::stride));
 

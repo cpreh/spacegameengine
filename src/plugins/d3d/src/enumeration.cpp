@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../../../ptr_cast.hpp"
 #include "../../../renderer/types.hpp"
-#include "../../../win32_window.hpp"
 #include "../enumeration.hpp"
 #include "../constants.hpp"
 #include "../conversion.hpp"
+#include "../../../win32_window.hpp"
 
 void sge::d3d::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, renderer_caps& c)
 {

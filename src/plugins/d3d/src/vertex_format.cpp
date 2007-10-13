@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
 #include "../../../raw_vector.hpp"
+#include "../../../exception.hpp"
 
 namespace
 {
-	void fill_offset_info(sge::offset_info&, sge::vertex_size offset, sge::vertex_usage u);
-	BYTE get_vertex_type(sge::vertex_usage u);
+	void fill_offset_info(sge::offset_info&, sge::vertex_size offset, sge::vertex_usage::type u);
+	BYTE get_vertex_type(sge::vertex_usage::type u);
 }
 
 sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_format& f)
@@ -36,7 +37,7 @@ sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_
 	const sge::vertex_format::usage_list& l = f.elements();
 	for(sge::vertex_format::usage_list::const_iterator it = l.begin(); it != l.end(); ++it)
 	{
-		const vertex_usage usage = it->usage();
+		const vertex_usage::type usage = it->usage();
 		D3DVERTEXELEMENT9 elem;
 		elem.Stream = 0;
 		elem.Method = D3DDECLMETHOD_DEFAULT;
@@ -55,7 +56,7 @@ sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_
 
 	IDirect3DVertexDeclaration9* decl;
 	if(device->CreateVertexDeclaration(&vertex_elements.front(),&decl) != D3D_OK)
-		throw std::runtime_error("CreateVertexDeclaration)= failed");
+		throw exception("CreateVertexDeclaration() failed!");
 	_vertex_declaration.reset(decl);
 
 	//if(D3DXFVFFromDeclarator(&vertex_elements.front(),&fvf) != D3D_OK)
@@ -65,19 +66,18 @@ sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_
 
 namespace
 {
-	BYTE get_vertex_type(const sge::vertex_usage u)
+	BYTE get_vertex_type(const sge::vertex_usage::type u)
 	{
-		using namespace sge;
 		switch(u) {
-		case VU_Pos:
-		case VU_Normal:
+		case sge::vertex_usage::pos:
+		case sge::vertex_usage::normal:
 			return D3DDECLTYPE_FLOAT3;
-		case VU_Tex:
+		case sge::vertex_usage::tex:
 			return D3DDECLTYPE_FLOAT2;
-		case VU_Diffuse:
+		case sge::vertex_usage::diffuse:
 			return D3DDECLTYPE_D3DCOLOR;
 		default:
-			throw std::runtime_error("wrong vertex_usage");
+			throw sge::exception("Invalid vertex_usage!");
 		}
 	}
 }

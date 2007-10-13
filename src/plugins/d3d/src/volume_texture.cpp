@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../algorithm.hpp"
-#include "../../../renderer/lock_ptr.hpp"
+#include "../../../renderer/scoped_lock.hpp"
+#include "../../../exception.hpp"
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"
 
 sge::d3d::volume_texture::volume_texture(renderer* const r, d3d_device_ptr device, const const_pointer src, const size_type _width, const size_type _height, const size_type _depth, const resource_flag_t nflags)
-: d3d::texture_base(0), resource(r, nflags & RF_Dynamic),
+: d3d::texture_base(0), resource(r, nflags & resource_flags::dynamic),
   device(device), lock_dest(0), _flags(nflags),
   _width(_width), _height(_height), _depth(_depth)
 {
@@ -39,50 +39,50 @@ void sge::d3d::volume_texture::init()
 
 	IDirect3DVolumeTexture9* ptex;
 	if(device->CreateVolumeTexture(static_cast<UINT>(width()),static_cast<UINT>(height()),static_cast<UINT>(depth()),1,usage,format,pool,&ptex,0) != D3D_OK)
-		throw std::runtime_error("failed to create texture");
+		throw exception("CreateVolumeTexture() failed!");
 	tex.reset(ptex);
 	set_base(tex.get());
 }
 
 void sge::d3d::volume_texture::lock(const lock_box* const b)
 {
-	const lock_flag_t _lflags = LF_Discard;
+	const lock_flag_t _lflags = lock_flags::discard;
 
 	const DWORD lflags = convert_lock_flags(_lflags, flags());
-	if(flags() & RF_Dynamic)
+	if(flags() & resource_flags::dynamic)
 	{
 		D3DLOCKED_BOX lb;
 		if(tex->LockBox(0,&lb,0,lflags) != D3D_OK)
-			throw std::runtime_error("lock texture failed");
+			throw exception("LockBox() failed!");
 		lock_dest = static_cast<pointer>(lb.pBits);
 	}
 	else
 	{
 		IDirect3DVolumeTexture9* temp;
 		if(device->CreateVolumeTexture(static_cast<UINT>(width()),static_cast<UINT>(height()),static_cast<UINT>(depth()),1,0,D3DFMT_A8R8G8B8,D3DPOOL_SYSTEMMEM,&temp,0) != D3D_OK)
-			throw std::runtime_error("creating temp texture failed");
+			throw exception("Creating temp volume texture failed!");
 		temp_tex.reset(temp);
 		D3DLOCKED_BOX lb;
 		if(temp_tex->LockBox(0,&lb,0,lflags) != D3D_OK)
-			throw std::runtime_error("lock texture failed");
+			throw exception("LockBox() failed!");
 		lock_dest = static_cast<pointer>(lb.pBits);
 	}
 }
 
 void sge::d3d::volume_texture::unlock()
 {
-	if(flags() & RF_Dynamic)
+	if(flags() & resource_flags::dynamic)
 	{
 		if(tex->UnlockBox(0) != D3D_OK)
-			throw std::runtime_error("unlock texture failed");
+			throw exception("unlock texture failed");
 	}
 	else
 	{
 		if(temp_tex->UnlockBox(0) != D3D_OK)
-			throw std::runtime_error("unlock texture failed");
+			throw exception("unlock texture failed");
 		if(device->UpdateTexture(temp_tex.get(),tex.get()) != D3D_OK)
-			throw std::runtime_error("update texture failed");
-		temp_tex.reset(0);
+			throw exception("update texture failed");
+		temp_tex.reset();
 	}
 	lock_dest = 0;
 }
@@ -99,9 +99,9 @@ void sge::d3d::volume_texture::on_reset()
 
 void sge::d3d::volume_texture::set_data(const const_pointer data, const lock_box* const b)
 {
-	lock_ptr<volume_texture*> l(this,b);
+	scoped_lock<volume_texture*> l(this,b);
 	const size_type s = b ? b->width() * b->height() * b->depth() : size();
-	copy(data,data+s,lock_dest);
+	std::copy(data,data+s,lock_dest);
 }
 
 sge::d3d::volume_texture::size_type sge::d3d::volume_texture::width() const
