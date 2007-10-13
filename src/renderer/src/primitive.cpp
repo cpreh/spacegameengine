@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../primitive.hpp"
+#include "../../exception.hpp"
 
 std::size_t sge::indices_per_primitive(const indexed_primitive_type::type prim)
 {
 	switch(prim) {
 	case indexed_primitive_type::triangle:
-		return count*3;
+		return 3;
 	case indexed_primitive_type::line:
-		return count*2;
+		return 2;
 	default:
 		throw exception("indices_per_primitive: Invalid indexed_primitive_format!");
 	}

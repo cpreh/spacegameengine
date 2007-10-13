@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../bit.hpp"
 #include "../../../renderer/types.hpp"
 #include "../../../renderer/renderer_system.hpp"
+#include "../../../renderer/primitive.hpp"
 #include "../../../exception.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
@@ -290,7 +291,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	const GLenum prim_type = convert_cast<GLenum>(ptype);
 
 	glDrawElements(prim_type,
-	               indices_count(pcount, type),
+	               indices_per_primitive(ptype) * pcount,
 	               GL_UNSIGNED_INT,
 	               vbo_offset(first_index * sge::index_buffer::stride));
 
