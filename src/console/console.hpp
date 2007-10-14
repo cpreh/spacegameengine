@@ -32,8 +32,13 @@ namespace con
 		var_base(const string&);
 		const string &name() const;
 		// FIXME: temporary hack for VC++ to work
-		virtual void set_string(const string &) {}// = 0;
-		virtual string get_string() const { throw exception("Abstract function var_base::get_string() called!"); }// = 0;
+#ifdef _MSC_VER
+		virtual void set_string(const string &);
+		virtual string get_string() const;
+#else
+		virtual void set_string(const string &) = 0;
+		virtual string get_string() const = 0;
+#endif
 		virtual ~var_base();
 	private:
 		string name_;

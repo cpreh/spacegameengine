@@ -41,6 +41,8 @@ sge::d3d::texture::texture(renderer* const r,
   lock_dest(0)
 {
 	init();
+	if(data)
+		set_data(data);
 }
 
 void sge::d3d::texture::init()
@@ -108,11 +110,16 @@ void sge::d3d::texture::on_reset()
 	init();
 }
 
-void sge::d3d::texture::set_data(const const_pointer data, const lock_rect* const r)
+void sge::d3d::texture::set_data(const const_pointer data)
 {
-	scoped_lock<texture*> l(this,r);
-	const size_type s = r ? r->w() * r->h() : size();
-	std::copy(data,data+s,lock_dest);
+	const scoped_lock<texture*> l(this);
+	std::copy(data, data + size(), lock_dest);
+}
+
+void sge::d3d::texture::set_data(const const_pointer data, const lock_rect& r)
+{
+	const scoped_lock<texture*> l(this, r);
+	std::copy(data, data + r.w() * r.h(), lock_dest);
 }
 
 sge::d3d::texture::size_type sge::d3d::texture::width() const

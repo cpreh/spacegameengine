@@ -25,8 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-	void fill_offset_info(sge::offset_info&, sge::vertex_size offset, sge::vertex_usage::type u);
-	BYTE get_vertex_type(sge::vertex_usage::type u);
+
+void fill_offset_info(sge::offset_info&, sge::vertex_size offset, sge::vertex_usage::type u);
+BYTE get_vertex_type(sge::vertex_usage::type u);
+
 }
 
 sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_format& f)
@@ -66,18 +68,20 @@ sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_
 
 namespace
 {
-	BYTE get_vertex_type(const sge::vertex_usage::type u)
-	{
-		switch(u) {
-		case sge::vertex_usage::pos:
-		case sge::vertex_usage::normal:
-			return D3DDECLTYPE_FLOAT3;
-		case sge::vertex_usage::tex:
-			return D3DDECLTYPE_FLOAT2;
-		case sge::vertex_usage::diffuse:
-			return D3DDECLTYPE_D3DCOLOR;
-		default:
-			throw sge::exception("Invalid vertex_usage!");
-		}
+	
+BYTE get_vertex_type(const sge::vertex_usage::type u)
+{
+	switch(u) {
+	case sge::vertex_usage::pos:
+	case sge::vertex_usage::normal:
+		return D3DDECLTYPE_FLOAT3;
+	case sge::vertex_usage::tex:
+		return D3DDECLTYPE_FLOAT2;
+	case sge::vertex_usage::diffuse:
+		return D3DDECLTYPE_D3DCOLOR;
+	default:
+		throw sge::exception("Invalid vertex_usage!");
 	}
+}
+
 }

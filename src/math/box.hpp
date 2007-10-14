@@ -51,6 +51,11 @@ template<typename T> struct basic_box {
 	{
 		return back - front;
 	}
+
+	value_type size() const
+	{
+		return width() * height() * depth();
+	}
 };
 
 template<typename T> inline bool operator==(const basic_box<T>& l, const basic_box<T>& r)

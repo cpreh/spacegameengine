@@ -41,8 +41,9 @@ public:
 	size_type width() const;
 	size_type height() const;
 	size_type size() const;
-			
-	void set_data(const_pointer data, const lock_rect* r);
+	
+	void set_data(const_pointer data);	
+	void set_data(const_pointer data, const lock_rect& r);
 	
 	resource_flag_t flags() const;
 			

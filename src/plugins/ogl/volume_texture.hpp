@@ -39,7 +39,8 @@ public:
 	size_type height() const;
 	size_type depth() const;
 
-	void set_data(const_pointer src, const lock_box* b = 0);
+	void set_data(const_pointer src);
+	void set_data(const_pointer src, const lock_box& b);
 private:
 	const size_type _width, _height, _depth;
 };

@@ -39,8 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resource.hpp"
 #include "../render_target.hpp"
 
-#include <iostream>
-
 namespace
 {
 
@@ -76,7 +74,7 @@ void sge::d3d::renderer::init()
 {
 	IDirect3DSurface9* surface;
 	if(device->GetRenderTarget(0,&surface) != D3D_OK)
-		throw sge::exception("d3d: cannot obtain default render target!");
+		throw exception("d3d: cannot obtain default render target!");
 	default_render_target.reset(surface);
 	std::for_each(resources.begin(),resources.end(),std::mem_fun(&resource::on_reset));
 }
@@ -133,11 +131,11 @@ void sge::d3d::renderer::set_vertex_buffer(const vertex_buffer_ptr buffer)
 	if(decl != vertex_declaration)
 	{
 		if(device->SetVertexDeclaration(decl.get()) != D3D_OK)
-			throw sge::exception("set_vertex_declaration() failed");
+			throw exception("set_vertex_declaration() failed");
 		vertex_declaration = decl;
 	}
-	if(device->SetStreamSource(0,d3d_buffer->buffer.get(),0,unsigned(buffer->stride())) != D3D_OK)
-		throw sge::exception("set_vertex_buffer() failed");
+	if(device->SetStreamSource(0,d3d_buffer->buffer.get(),0,static_cast<UINT>(buffer->stride())) != D3D_OK)
+		throw exception("set_vertex_buffer() failed");
 }
 
 void sge::d3d::renderer::set_index_buffer(const index_buffer_ptr buffer)
@@ -147,7 +145,7 @@ void sge::d3d::renderer::set_index_buffer(const index_buffer_ptr buffer)
 
 	d3d::index_buffer* const d3d_buffer = ptr_cast<d3d::index_buffer*>(buffer.get());
 	if(device->SetIndices(d3d_buffer->buffer.get()) != D3D_OK)
-		throw sge::exception("set_index_buffer() failed");
+		throw exception("set_index_buffer() failed");
 }
 
 void sge::d3d::renderer::set_render_target(const texture_ptr target)
@@ -155,20 +153,20 @@ void sge::d3d::renderer::set_render_target(const texture_ptr target)
 	if(!target)
 	{
 		if(device->SetRenderTarget(0,default_render_target.get()) != D3D_OK)
-			throw sge::exception("cannot set default render target");
+			throw exception("cannot set default render target");
 		return;
 	}
 
 	render_target* const d3d_target = ptr_cast<render_target*>(target.get());
 
 	if(device->SetRenderTarget(0,d3d_target->surface.get()) != D3D_OK)
-		throw sge::exception("cannot set texture as render target");
+		throw exception("cannot set texture as render target");
 }
 
 void sge::d3d::renderer::set_material(const material& m)
 {
 	if(device->SetMaterial(reinterpret_cast<const D3DMATERIAL9*>(&m)) != D3D_OK)
-		throw sge::exception("set_material() failed");
+		throw exception("set_material() failed");
 }
 
 void sge::d3d::renderer::reset(const renderer_parameters* const param)
@@ -199,13 +197,13 @@ void sge::d3d::renderer::reset(const renderer_parameters* const param)
 		init();
 		break;
 	case D3DERR_DEVICELOST:
-		throw sge::exception("d3d device still lost");
+		throw exception("d3d device still lost");
 	case D3DERR_DRIVERINTERNALERROR:
-		throw sge::exception("d3d driver internal error");
+		throw exception("d3d driver internal error");
 	case D3DERR_INVALIDCALL:
-		throw sge::exception("d3d invalid call to reset");
+		throw exception("d3d invalid call to reset");
 	default:
-		throw sge::exception("d3d reset failed");
+		throw exception("d3d reset failed");
 	}
 }
 
@@ -218,18 +216,22 @@ void sge::d3d::renderer::set_texture(const texture_base_ptr p, const stage_type 
 	::set_texture(device,stage,tex_base->base);
 }
 
-/*void sge::d3d::renderer::set_texture_stage_op(const stage_type stage, const stage_op type, const stage_op_value value)
+void sge::d3d::renderer::set_texture_stage_op(const stage_type stage,
+											  const texture_stage_op::type type,
+                                              const texture_stage_op_value::type value)
 {
 	const D3DTEXTURESTAGESTATETYPE d3d_type = convert_cast<D3DTEXTURESTAGESTATETYPE>(type);
 	const DWORD d3d_value = convert_cast<DWORD>(value);
-	set_texture_stage_state(device,stage,d3d_type,d3d_value);
+	set_texture_stage_state(device, stage, d3d_type, d3d_value);
 }
 
-void sge::d3d::renderer::set_texture_stage_arg(const stage_type stage, const stage_arg type, const stage_arg_value value)
+void sge::d3d::renderer::set_texture_stage_arg(const stage_type stage,
+											   const texture_stage_arg::type type,
+											   const texture_stage_arg_value::type value)
 {
 	const D3DTEXTURESTAGESTATETYPE d3d_type = convert_cast<D3DTEXTURESTAGESTATETYPE>(type);
 	const DWORD d3d_value = convert_cast<DWORD>(value);
-	set_texture_stage_state(device,stage,d3d_type,d3d_value);
+	set_texture_stage_state(device, stage, d3d_type, d3d_value);
 }
 
 /*void sge::d3d::renderer::set_filter_state(const stage_type stage, const filter_arg type, const filter_arg_value value)
@@ -241,11 +243,11 @@ void sge::d3d::renderer::set_texture_stage_arg(const stage_type stage, const sta
 
 void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
                                 const index_buffer_ptr nib,
-                                const unsigned first_vertex,
-                                const unsigned num_vertices,
-								const indexed_primitive_type::type ptype,
-                                const unsigned pcount,
-                                const unsigned first_index)
+								const sge::vertex_buffer::size_type first_vertex,
+								const sge::vertex_buffer::size_type num_vertices,
+                                const indexed_primitive_type::type ptype,
+								const sge::index_buffer::size_type pcount,
+								const sge::index_buffer::size_type first_index)
 {
 	const D3DPRIMITIVETYPE prim_type = convert_cast<D3DPRIMITIVETYPE>(ptype);
 	if(vb != nvb)
@@ -253,20 +255,29 @@ void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
 
 	if(ib != nib)
 		set_index_buffer(nib);
-	if(device->DrawIndexedPrimitive(prim_type,0,first_vertex,num_vertices,first_index,pcount) != D3D_OK)
+	if(device->DrawIndexedPrimitive(prim_type,
+	                                0,
+	                                static_cast<UINT>(first_vertex),
+	                                static_cast<UINT>(num_vertices),
+	                                static_cast<UINT>(first_index),
+	                                static_cast<UINT>(pcount)
+	)!= D3D_OK)
 		throw exception("DrawIndexedPrimitive() failed");
 }
 
 void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
-                                const unsigned first_vertex,
-                                const unsigned num_vertices,
+								const sge::vertex_buffer::size_type first_vertex,
+								const sge::vertex_buffer::size_type num_vertices,
 								const nonindexed_primitive_type::type ptype)
 {
 	const D3DPRIMITIVETYPE prim_type = convert_cast<D3DPRIMITIVETYPE>(ptype);
 	if(vb != nvb)
 		set_vertex_buffer(nvb);
 
-	if(device->DrawPrimitive(prim_type,first_vertex,primitive_count(num_vertices, ptype)) != D3D_OK)
+	if(device->DrawPrimitive(prim_type,
+	                         static_cast<UINT>(first_vertex),
+	                         static_cast<UINT>(primitive_count(num_vertices, ptype))
+	) != D3D_OK)
 		throw exception("DrawPrimitive() failed");
 }
 
@@ -379,6 +390,11 @@ void sge::d3d::renderer::set_color_state(const color_state::type state, const co
 		clear_color = value;
 		break;
 	}
+}
+
+sge::render_target_ptr sge::d3d::renderer::get_render_target() const
+{
+	return default_render_target;
 }
 
 void sge::d3d::renderer::transform(const math::space_matrix& m)

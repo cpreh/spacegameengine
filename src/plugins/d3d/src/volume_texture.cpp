@@ -23,12 +23,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"
 
-sge::d3d::volume_texture::volume_texture(renderer* const r, d3d_device_ptr device, const const_pointer src, const size_type _width, const size_type _height, const size_type _depth, const resource_flag_t nflags)
-: d3d::texture_base(0), resource(r, nflags & resource_flags::dynamic),
-  device(device), lock_dest(0), _flags(nflags),
-  _width(_width), _height(_height), _depth(_depth)
+sge::d3d::volume_texture::volume_texture(renderer* const r,
+                                         const d3d_device_ptr device,
+                                         const const_pointer src,
+                                         const size_type _width,
+                                         const size_type _height,
+                                         const size_type _depth,
+                                         const resource_flag_t nflags)
+: d3d::texture_base(0),
+  resource(r, nflags & resource_flags::dynamic),
+  device(device),
+  lock_dest(0),
+  _flags(nflags),
+  _width(_width),
+  _height(_height),
+  _depth(_depth)
 {
 	init();
+	if(src)
+		set_data(src);
 }
 
 void sge::d3d::volume_texture::init()
@@ -52,7 +65,7 @@ void sge::d3d::volume_texture::lock(const lock_box* const b)
 	if(flags() & resource_flags::dynamic)
 	{
 		D3DLOCKED_BOX lb;
-		if(tex->LockBox(0,&lb,0,lflags) != D3D_OK)
+		if(tex->LockBox(0, &lb, 0, lflags) != D3D_OK)
 			throw exception("LockBox() failed!");
 		lock_dest = static_cast<pointer>(lb.pBits);
 	}
@@ -80,6 +93,7 @@ void sge::d3d::volume_texture::unlock()
 	{
 		if(temp_tex->UnlockBox(0) != D3D_OK)
 			throw exception("unlock texture failed");
+
 		if(device->UpdateTexture(temp_tex.get(),tex.get()) != D3D_OK)
 			throw exception("update texture failed");
 		temp_tex.reset();
@@ -97,11 +111,16 @@ void sge::d3d::volume_texture::on_reset()
 	init();
 }
 
-void sge::d3d::volume_texture::set_data(const const_pointer data, const lock_box* const b)
+void sge::d3d::volume_texture::set_data(const const_pointer data)
 {
-	scoped_lock<volume_texture*> l(this,b);
-	const size_type s = b ? b->width() * b->height() * b->depth() : size();
-	std::copy(data,data+s,lock_dest);
+	scoped_lock<volume_texture*> l(this);
+	std::copy(data, data + size(), lock_dest);
+}
+
+void sge::d3d::volume_texture::set_data(const const_pointer data, const lock_box& b)
+{
+	scoped_lock<volume_texture*> l(this, b);
+	std::copy(data, data + b.size(),lock_dest);
 }
 
 sge::d3d::volume_texture::size_type sge::d3d::volume_texture::width() const

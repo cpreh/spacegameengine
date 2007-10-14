@@ -103,7 +103,7 @@ template<> D3DMULTISAMPLE_TYPE sge::d3d::convert_cast (const multi_sample_type& 
 	case 16:
 		return D3DMULTISAMPLE_16_SAMPLES;
 	default:
-		throw std::logic_error("invalid multi_sample_type value (must be <= 16)");
+		throw exception("Invalid multi_sample_type value (must be <= 16)!");
 	}
 }
 
@@ -119,118 +119,103 @@ template<> D3DDECLUSAGE sge::d3d::convert_cast (const vertex_usage::type& r)
 	case vertex_usage::diffuse:
 		return D3DDECLUSAGE_COLOR;
 	default:
-		throw exception("invalid vertex_usage");
+		throw exception("Invalid vertex_usage!");
 	}
 }
 
-/*template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const stage_op& r)
+template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const texture_stage_op::type& r)
 {
 	switch(r) {
-	case SOP_Color:
+	case texture_stage_op::color:
 		return D3DTSS_COLOROP;
-	case SOP_Alpha:
+	case texture_stage_op::alpha:
 		return D3DTSS_ALPHAOP;
 	default:
-		throw std::logic_error("invalid stage_op");
-	}
-}*/
-
-/*template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const stage_arg& r)
-{
-	switch(r) {
-	case SARG_Color1:
-		return D3DTSS_COLORARG1;
-	case SARG_Color2:
-		return D3DTSS_COLORARG2;
-	case SARG_Alpha1:
-		return D3DTSS_ALPHAARG1;
-	case SARG_Alpha2:
-		return D3DTSS_ALPHAARG2;
-	default:
-		throw std::logic_error("invalid stage_arg");
-	}
-}*/
-
-/*template<> DWORD sge::d3d::convert_cast (const stage_op_value& r)
-{
-	switch(r) {
-	case SOPV_Disable:
-		return D3DTOP_DISABLE;
-	case SOPV_SelectArg1:
-		return D3DTOP_SELECTARG1;
-	case SOPV_SelectArg2:
-		return D3DTOP_SELECTARG2;
-	case SOPV_Modulate:
-		return D3DTOP_MODULATE;
-	case SOPV_Modulate2X:
-		return D3DTOP_MODULATE2X;
-	case SOPV_Modulate4X:
-		return D3DTOP_MODULATE4X;
-	case SOPV_Add:
-		return D3DTOP_ADD;
-	case SOPV_AddSigned:
-		return D3DTOP_ADDSIGNED;
-	case SOPV_AddSigned2X:
-		return D3DTOP_ADDSIGNED2X;
-	case SOPV_Subtract:
-		return D3DTOP_SUBTRACT;
-	case SOPV_AddSmooth:
-		return D3DTOP_ADDSMOOTH;
-	case SOPV_BlendDiffuseAlpha:
-		return D3DTOP_BLENDDIFFUSEALPHA;
-	case SOPV_BlendTextureAlpha:
-		return D3DTOP_BLENDTEXTUREALPHA;
-	case SOPV_BlendFactorAlpha:
-		return D3DTOP_BLENDFACTORALPHA;
-	case SOPV_BlendTextureAlphaPM:
-		return D3DTOP_BLENDTEXTUREALPHAPM;
-	case SOPV_BlendCurrentAlpha:
-		return D3DTOP_BLENDCURRENTALPHA;
-	case SOPV_PreModulate:
-		return D3DTOP_PREMODULATE;
-	case SOPV_ModulateAlphaAddColor:
-		return D3DTOP_MODULATEALPHA_ADDCOLOR;
-	case SOPV_ModulateColorAddAlpha:
-		return D3DTOP_MODULATECOLOR_ADDALPHA;
-	case SOPV_ModulateInvAlphaAddColor:
-		return D3DTOP_MODULATEINVALPHA_ADDCOLOR;
-	case SOPV_ModulateInvColorAddAlpha:
-		return D3DTOP_MODULATEINVCOLOR_ADDALPHA;
-	case SOPV_BumpenvMap:
-		return D3DTOP_BUMPENVMAP;
-	case SOPV_BumpenvMapLuminance:
-		return D3DTOP_BUMPENVMAPLUMINANCE;
-	case SOPV_DotProduct3:
-		return D3DTOP_DOTPRODUCT3;
-	case SOPV_MultiplyAdd:
-		return D3DTOP_MULTIPLYADD;
-	case SOPV_Lerp:
-		return D3DTOP_LERP;
-	default:
-		throw std::logic_error("invalid stage_op_value");
-	}
-}*/
-
-/*template<> DWORD sge::d3d::convert_cast (const stage_arg_value& r)
-{
-	switch(r) {
-	case SARGV_Constant:
-		return D3DTA_CONSTANT;
-	case SARGV_Current:
-		return D3DTA_CURRENT;
-	case SARGV_Diffuse:
-		return D3DTA_DIFFUSE;
-	case SARGV_Specular:
-		return D3DTA_SPECULAR;
-	case SARGV_Temp:
-		return D3DTA_TEMP;
-	case SARGV_Texture:
-		return D3DTA_TEXTURE;
-	default:
-		throw std::logic_error("invalid stage_arg_value");
+		throw exception("Invalid texture_stage_op!");
 	}
 }
-*/
+
+template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const texture_stage_arg::type& r)
+{
+	// TODO: maybe we have to swap numbers here
+	switch(r) {
+	case texture_stage_arg::rgb0:
+		return D3DTSS_COLORARG0;
+	case texture_stage_arg::rgb1:
+		return D3DTSS_COLORARG1;
+	case texture_stage_arg::rgb2:
+		return D3DTSS_COLORARG2;
+	case texture_stage_arg::alpha0:
+		return D3DTSS_ALPHAARG0;
+	case texture_stage_arg::alpha1:
+		return D3DTSS_ALPHAARG1;
+	case texture_stage_arg::alpha2:
+		return D3DTSS_ALPHAARG2;
+	default:
+		throw exception("Invalid texture_stage_arg!");
+	}
+}
+
+template<> DWORD sge::d3d::convert_cast (const texture_stage_op_value::type& r)
+{
+	switch(r) {
+	//	return D3DTOP_DISABLE;
+	//	return D3DTOP_SELECTARG1;
+	//	return D3DTOP_SELECTARG2;
+	//case texture_stage_op_value::arg0:
+	//	return D3DTOP_SELECTARG0; // TODO: maybe we have to use a different arg number here
+	case texture_stage_op_value::modulate:
+		return D3DTOP_MODULATE;
+	case texture_stage_op_value::modulate2x:
+		return D3DTOP_MODULATE2X;
+	case texture_stage_op_value::modulate4x:
+		return D3DTOP_MODULATE4X;
+	case texture_stage_op_value::add:
+		return D3DTOP_ADD;
+	case texture_stage_op_value::add_signed:
+		return D3DTOP_ADDSIGNED;
+	case texture_stage_op_value::add_signed2x:
+		return D3DTOP_ADDSIGNED2X;
+	case texture_stage_op_value::substract:
+		return D3DTOP_SUBTRACT;
+	//	return D3DTOP_ADDSMOOTH;
+	//	return D3DTOP_BLENDDIFFUSEALPHA;
+//		return D3DTOP_BLENDTEXTUREALPHA;
+//		return D3DTOP_BLENDFACTORALPHA;
+//		return D3DTOP_BLENDTEXTUREALPHAPM;
+//		return D3DTOP_BLENDCURRENTALPHA;
+//		return D3DTOP_PREMODULATE;
+//		return D3DTOP_MODULATEALPHA_ADDCOLOR;
+//		return D3DTOP_MODULATECOLOR_ADDALPHA;
+//		return D3DTOP_MODULATEINVALPHA_ADDCOLOR;
+//		return D3DTOP_MODULATEINVCOLOR_ADDALPHA;
+//		return D3DTOP_BUMPENVMAP;
+//		return D3DTOP_BUMPENVMAPLUMINANCE;
+//		return D3DTOP_DOTPRODUCT3;
+//		return D3DTOP_MULTIPLYADD;
+//		return D3DTOP_LERP;
+	default:
+		throw exception("Invalid texture_stage_op_value!");
+	}
+}
+
+template<> DWORD sge::d3d::convert_cast (const texture_stage_arg_value::type& r)
+{
+	switch(r) {
+	case texture_stage_arg_value::constant:
+		return D3DTA_CONSTANT;
+	case texture_stage_arg_value::current:
+		return D3DTA_CURRENT;
+//		return D3DTA_DIFFUSE;
+//		return D3DTA_SPECULAR;
+//		return D3DTA_TEMP;
+	case texture_stage_arg_value::texture:
+		return D3DTA_TEXTURE;
+	default:
+		throw exception("Invalid texture_stage_arg_value!");
+	}
+}
+
 /*template<> D3DSAMPLERSTATETYPE sge::d3d::convert_cast (const filter_arg& r)
 {
 	switch(r) {

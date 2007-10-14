@@ -6,8 +6,9 @@
 #include <boost/spirit.hpp>
 #include <boost/bind.hpp>
 
-// Eigenes
+// sge
 #include "../console.hpp"
+#include "../../exception.hpp"
 
 #if 0
 void sge::con::singleton::read_config_file(const string &filename)
@@ -92,6 +93,20 @@ sge::con::var_base::~var_base()
 {
 	instance().remove(name_);
 }
+
+#ifdef _MSC_VER
+
+void sge::con::var_base::set_string(const string&)
+{
+	throw exception("Abstract hacked function var_base::set_string() called!");
+}
+
+sge::string sge::con::var_base::get_string() const
+{
+	throw exception("Abstract hacked function var_base::get_string() called!");
+}
+
+#endif
 
 sge::con::singleton::singleton()
 : prefix_('/')

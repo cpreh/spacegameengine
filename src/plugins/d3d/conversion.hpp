@@ -38,10 +38,10 @@ template<> D3DPRIMITIVETYPE convert_cast (const indexed_primitive_type::type& r)
 template<> D3DPRIMITIVETYPE convert_cast (const nonindexed_primitive_type::type& r);
 template<> D3DMULTISAMPLE_TYPE convert_cast (const multi_sample_type& r);
 template<> D3DDECLUSAGE convert_cast (const vertex_usage::type& r);
-//template<> D3DTEXTURESTAGESTATETYPE convert_cast (const stage_op& r);
-//template<> D3DTEXTURESTAGESTATETYPE convert_cast (const stage_arg& r);
-//template<> DWORD convert_cast (const stage_op_value& r);
-//template<> DWORD convert_cast (const stage_arg_value& r);
+template<> D3DTEXTURESTAGESTATETYPE convert_cast (const texture_stage_op::type& r);
+template<> D3DTEXTURESTAGESTATETYPE convert_cast (const texture_stage_arg::type& r);
+template<> DWORD convert_cast (const texture_stage_op_value::type& r);
+template<> DWORD convert_cast (const texture_stage_arg_value::type& r);
 //template<> D3DSAMPLERSTATETYPE convert_cast (const filter_arg& r);
 //template<> D3DTEXTUREFILTERTYPE convert_cast (const filter_value& r);
 DWORD convert_lock_flags(lock_flag_t LF, resource_flag_t RF);

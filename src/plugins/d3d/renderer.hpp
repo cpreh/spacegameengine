@@ -56,23 +56,41 @@ public:
 	void set_float_state(float_state::type, float_type);
 	void set_bool_state(bool_state::type, bool_type);
 	void set_color_state(color_state::type, color);
+	void set_cull_mode(cull_mode::type);
+	void set_depth_func(depth_func::type);
+	void set_stencil_func(stencil_func::type, signed_type value, unsigned_type mask);
+	void set_fog_mode(fog_mode::type);
+	void set_blend_func(source_blend_func::type, dest_blend_func::type);
+	void set_draw_mode(draw_mode::type);
+
 	void set_texture(texture_base_ptr tex, stage_type stage);
 	void set_material(const material& m);
-	//void set_texture_stage_op(stage_type stage, stage_op type, stage_op_value value);
-	//void set_texture_stage_arg(stage_type stage, stage_arg type, stage_arg_value value);
+	void set_texture_stage_op(stage_type stage, texture_stage_op::type type, texture_stage_op_value::type value);
+	void set_texture_stage_arg(stage_type stage, texture_stage_arg::type type, texture_stage_arg_value::type value);
+	void set_viewport(const viewport&);
+	void enable_light(light_index index, bool enable);
+	void set_light(light_index index, const light&);
+
+	void push();
+	void pop();
+
+	glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader, const std::string& pixel_shader_source = no_shader);
+	void set_glsl_shader(glsl::program_ptr);
+
+	render_target_ptr get_render_target() const;
 
 	void begin_rendering();
 	void end_rendering();
 	void render(vertex_buffer_ptr vb,
 	            index_buffer_ptr ib,
-	            vertex_buffer::size_type first_vertex,
-	            vertex_buffer::size_type num_vertices,
+	            sge::vertex_buffer::size_type first_vertex,
+	            sge::vertex_buffer::size_type num_vertices,
 	            indexed_primitive_type::type ptype,
-	            index_buffer::size_type pcount,
-	            index_buffer::size_type first_index);
+	            sge::index_buffer::size_type pcount,
+	            sge::index_buffer::size_type first_index);
 	void render(vertex_buffer_ptr vb,
-	            vertex_buffer::size_type first_vertex,
-	            vertex_buffer::size_type num_vertices,
+	            sge::vertex_buffer::size_type first_vertex,
+	            sge::vertex_buffer::size_type num_vertices,
 	            nonindexed_primitive_type::type ptype);
 
 	void reset(const renderer_parameters* param);

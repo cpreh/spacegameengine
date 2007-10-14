@@ -43,7 +43,8 @@ public:
 	size_type depth() const;
 
 	size_type size() const;
-	void set_data(const_pointer src, const lock_box* b);
+	void set_data(const_pointer src);
+	void set_data(const_pointer src, const lock_box& b);
 
 	resource_flag_t flags() const;
 
