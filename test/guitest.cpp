@@ -60,33 +60,38 @@ try
 	sge::plugin_manager pm;
 
 	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
-	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
 
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
-	const sge::renderer_caps_array caps(rs->caps());
+//	const sge::renderer_caps_array caps(rs->caps());
 
 	const sge::renderer_parameters param(sge::display_mode(800,600,sge::bit_depth::depth32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
 
-	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
+	std::cout << "A" << std::endl;
+	{
+		const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
+		const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
+	}
+	std::cout << "B" << std::endl;
 
-	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
+#if 0
+	const sge::plugin<sged::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
 	const sge::image_loader_ptr pl(image_loader_plugin->get()());
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
 	using boost::lambda::if_;
 
-	boost::signals::scoped_connection cb(is->register_callback(
-		if_(bind(&sge::key_type::code, bind(&sge::key_pair::key, boost::lambda::_1)) == sge::kc::key_escape)
-			[var(running)=false])
-	);
+//	boost::signals::scoped_connection cb(is->register_callback(
+//		if_(bind(&sge::key_type::code, bind(&sge::key_pair::key, boost::lambda::_1)) == sge::kc::key_escape)
+//			[var(running)=false])
+//	);
+//
+//	sge::key_state_tracker ks(is);
 
-	sge::key_state_tracker ks(is);
 
 
-
-/*	using sge::gui::manager;
+	using sge::gui::manager;
 	using sge::gui::canvas;
 	using sge::gui::button;
 	using sge::gui::color;
@@ -107,7 +112,7 @@ try
 
 	b1.move(point( 40, 80));
 	b2.move(point( 80,160));
-	b3.move(point(160,320)); */
+	b3.move(point(160,320));
 
 	sge::index_buffer_ptr ib; {
 		const sge::index_buffer::value_type indices[] = {
@@ -118,7 +123,7 @@ try
 		ib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
 	}
 
-/*	sge::vertex_buffer_ptr vb =
+	sge::vertex_buffer_ptr vb =
 		rend->create_vertex_buffer(
 		sge::vertex_format().add(sge::vertex_usage::pos)
 		                    .add(sge::vertex_usage::tex),
@@ -147,7 +152,7 @@ try
 		// bottom right
 		it->pos() = sge::pos3(1, -1, 0);
 		it->tex() = canvastex->translate(1, 1);
-	} */
+	}
 
 	sge::vertex_buffer_ptr vb2 =
 		rend->create_vertex_buffer(
@@ -182,21 +187,23 @@ try
 
 	while(running)
 	{
-		if(ks[sge::kc::key_return])
-			sge::screenshot(rend,pl,"shot.png");
+//		if(ks[sge::kc::key_return])
+//			sge::screenshot(rend,pl,"shot.png");
 
 		rend->begin_rendering();
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
-		is->dispatch();
+//		is->dispatch();
 
 		rend->set_texture(sge::texture_base_ptr());
 		rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
-//		rend->set_texture(guimgr.to_texture(texmgr)->my_texture());
-//		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
+		rend->set_texture(guimgr.to_texture(texmgr)->my_texture());
+		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
 
 		rend->end_rendering();
 	}
+#endif
+	std::cout << "x";
 	return EXIT_SUCCESS;
 }
 catch(const std::exception& e)

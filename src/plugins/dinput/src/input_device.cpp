@@ -42,7 +42,7 @@ sge::dinput::input_device::input_device(const dinput_ptr di, const string& _name
 	set_cooperative_level(window->hwnd(),coop_level);
 	set_property(DIPROP_BUFFERSIZE,&buffer_settings.diph);
 
-	window->register_callback(WM_ACTIVATE, lost_focus_unacquire_handler(*this));
+//	window->register_callback(WM_ACTIVATE, lost_focus_unacquire_handler(*this));
 }
 
 void sge::dinput::input_device::set_cooperative_level(const HWND hwnd, const DWORD flags)

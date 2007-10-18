@@ -54,6 +54,7 @@
 		</Compiler>
 		<Unit filename="..\..\..\src/plugins/ogl/attribute_variable.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/basic_buffer.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/basic_buffer_impl.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/basic_texture.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/common.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/conversion.hpp" />
@@ -63,6 +64,7 @@
 		<Unit filename="..\..\..\src/plugins/ogl/error.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/extension.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/fbo_render_target.hpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/get.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/glx_context.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/glx_current.hpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/glx_visual.hpp" />
@@ -82,6 +84,7 @@
 		<Unit filename="..\..\..\src/plugins/ogl/src/exports.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/extension.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/fbo_render_target.cpp" />
+		<Unit filename="..\..\..\src/plugins/ogl/src/get.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/glx_context.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/glx_current.cpp" />
 		<Unit filename="..\..\..\src/plugins/ogl/src/glx_visual.cpp" />
