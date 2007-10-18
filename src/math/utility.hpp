@@ -47,7 +47,7 @@ inline unsigned unsigned_diff(const unsigned a,const unsigned b)
 template<typename T>
 inline T random(const T &begin,const T &end)
 {
-	return begin + T(std::rand() / (RAND_MAX + 1.0) * (end - begin));
+	return begin + static_cast<T>(std::rand() / (RAND_MAX + 1.0) * (end - begin));
 }
 
 template<typename T>
@@ -102,7 +102,7 @@ typename boost::enable_if<boost::is_integral<T>, T>::type round_div_int(const T 
 {
 	return (r % 2)
 		? ((l * 2 / r) + 1) / 2 // for odd numbers up to half the types capacity
-		: (l + (r / 2)) / r;   // for even numbers at least up to half till up
+		: (l + (r / 2)) / r;    // for even numbers at least up to half till up
 		                        // to 100% of the types capacity, depending on r
 		                        // greater r -> less max l
 }

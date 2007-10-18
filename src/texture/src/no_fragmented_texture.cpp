@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "../no_fragmented_texture.hpp"
+#include "../atlasing.hpp"
 #include "../../math/utility.hpp"
 
 sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend, const filter_args& my_filter)
@@ -33,7 +34,9 @@ sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const tex
 	                         next_h = math::next_pow_2(h);
 
 	tex = rend->create_texture(0, next_w, next_h, my_filter);
-	return virtual_texture_ptr(new virtual_texture(lock_rect(0,0,w,h), this, next_w == w && next_h == h));
+
+	const bool no_atlasing = next_w == w && next_h == h;
+	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0,0), no_atlasing ? lock_rect::dim_type(w,h) : atlased_size(w,h)), this, no_atlasing));
 }
 
 void sge::no_fragmented_texture::return_fragments(const virtual_texture&)
