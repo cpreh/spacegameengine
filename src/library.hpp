@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <string>
 #include <boost/noncopyable.hpp>
+#include "exception.hpp"
 #include "export.hpp"
 
 namespace sge
@@ -39,6 +40,7 @@ public:
 	Fun load_function(const std::string& fun);
 
 	SGE_SYMBOL const std::string& name() const;
+
 private:
 	typedef void*(*base_fun)();
 	base_fun load_adress_base(const std::string& fun);
@@ -46,6 +48,16 @@ private:
 	static std::string liberror();
 
 	std::string n;
+
+public:
+	struct load_function_exception : public exception {
+		std::string lib, func;
+		load_function_exception(const std::string &lib, const std::string &fun)
+		: exception("failed to load function " + fun + " from library " + lib + " : " + liberror())
+		, lib(lib)
+		, func(fun) {}
+		~load_function_exception() throw() {}
+	};
 };
 
 }

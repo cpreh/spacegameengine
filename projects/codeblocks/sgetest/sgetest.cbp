@@ -19,6 +19,8 @@
 					<Add library='sgegui' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
+					<Add option="-Wl,-R,." />
+					<Add option="-Wl,-R,plugins" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -34,6 +36,8 @@
 					<Add library='sgegui' />
 					<Add library='sgecore' />
 					<Add directory="..\..\..\bin" />
+					<Add option="-Wl,-R,." />
+					<Add option="-Wl,-R,plugins" />
 				</Linker>
 			</Target>
 		</Build>

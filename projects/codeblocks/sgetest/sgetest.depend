@@ -91,9 +91,10 @@
 
 1192729362 d:\dev\sge\src\plugin_traits.hpp
 
-1192729362 d:\dev\sge\src\library.hpp
+1192801979 d:\dev\sge\src\library.hpp
 	<string>
 	<boost/noncopyable.hpp>
+	"exception.hpp"
 	"export.hpp"
 	"detail/library_impl.hpp"
 
@@ -102,8 +103,7 @@
 1185928678 d:\dev\sge\src\windows.hpp
 	<windows.h>
 
-1192729360 d:\dev\sge\src\detail\library_impl.hpp
-	"../exception.hpp"
+1192801954 d:\dev\sge\src\detail\library_impl.hpp
 
 1185928678 d:\dev\sge\src\funptr_cast.hpp
 
@@ -1146,7 +1146,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1192736276 source:d:\dev\sge\test\guitest.cpp
+1192738867 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1412,7 +1412,7 @@
 
 1192729362 d:\dev\sge\src\export.hpp
 
-1192729360 d:\dev\sge\src\math\utility.hpp
+1192744016 d:\dev\sge\src\math\utility.hpp
 	<cstdlib>
 	<cmath>
 	<limits>

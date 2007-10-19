@@ -67,27 +67,22 @@ try
 	const sge::renderer_parameters param(sge::display_mode(800,600,sge::bit_depth::depth32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
 
-	std::cout << "A" << std::endl;
-	{
-		const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
-		const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
-	}
-	std::cout << "B" << std::endl;
+	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
+	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
 
-#if 0
-	const sge::plugin<sged::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
+	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
 	const sge::image_loader_ptr pl(image_loader_plugin->get()());
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
 	using boost::lambda::if_;
 
-//	boost::signals::scoped_connection cb(is->register_callback(
-//		if_(bind(&sge::key_type::code, bind(&sge::key_pair::key, boost::lambda::_1)) == sge::kc::key_escape)
-//			[var(running)=false])
-//	);
-//
-//	sge::key_state_tracker ks(is);
+	boost::signals::scoped_connection cb(is->register_callback(
+		if_(bind(&sge::key_type::code, bind(&sge::key_pair::key, boost::lambda::_1)) == sge::kc::key_escape)
+			[var(running)=false])
+	);
+
+	sge::key_state_tracker ks(is);
 
 
 
@@ -187,13 +182,13 @@ try
 
 	while(running)
 	{
-//		if(ks[sge::kc::key_return])
-//			sge::screenshot(rend,pl,"shot.png");
+		if(ks[sge::kc::key_return])
+			sge::screenshot(rend,pl,"shot.png");
 
 		rend->begin_rendering();
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
-//		is->dispatch();
+		is->dispatch();
 
 		rend->set_texture(sge::texture_base_ptr());
 		rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
@@ -202,8 +197,6 @@ try
 
 		rend->end_rendering();
 	}
-#endif
-	std::cout << "x";
 	return EXIT_SUCCESS;
 }
 catch(const std::exception& e)

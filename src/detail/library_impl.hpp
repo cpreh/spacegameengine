@@ -17,14 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
-#include "../exception.hpp"
-
 template<typename Fun>
 Fun sge::library::load_function(const std::string& fun)
 {
 	const Fun ptr = reinterpret_cast<Fun>(load_adress_base(fun));
 	if(!ptr)
-		throw exception("failed to load function " + fun + " from library " + name() + " : " + liberror());
+		throw sge::library::load_function_exception(name(), fun);
 	return ptr;
 }

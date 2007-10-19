@@ -45,7 +45,14 @@ sge::plugin_manager::plugin_manager()
 		if(boost::filesystem::is_directory(*it) || boost::filesystem::extension(*it)!=plugin_extension)
 			continue;
 
-		plugins.push_back(plugin_context_base(it->string()));
+		try {
+			plugins.push_back(plugin_context_base(it->string()));
+		} catch(library::load_function_exception &e) {
+			// ignore info loading error - it's just a DLL, not a plugin...
+			// nothing to worry about (and especially nothing that justifies
+			// aborting the program ...)
+			if (e.func != "plugin_version_info") throw;
+		}
 	}
 
 	for(plugin_array::iterator it = plugins.begin(); it != plugins.end(); ++it)
