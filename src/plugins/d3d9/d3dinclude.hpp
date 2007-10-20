@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace d3d
+namespace d3d9
 {
 
 typedef shared_ptr<IDirect3D9,com_deleter>                  d3d_ptr;

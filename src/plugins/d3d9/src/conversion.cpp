@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../renderer/types.hpp"
 #include "../conversion.hpp"
 
-template<> DWORD sge::d3d::convert_cast (const resource_flag_t& r)
+template<> DWORD sge::d3d9::convert_cast (const resource_flag_t& r)
 {
 	DWORD l = 0;
 	if(r & resource_flags::dynamic)
@@ -32,12 +32,12 @@ template<> DWORD sge::d3d::convert_cast (const resource_flag_t& r)
     return l;
 }
 
-template<> D3DPOOL sge::d3d::convert_cast (const resource_flag_t& r)
+template<> D3DPOOL sge::d3d9::convert_cast (const resource_flag_t& r)
 {
 	return r & resource_flags::dynamic ? D3DPOOL_DEFAULT : D3DPOOL_MANAGED;
 }
 
-template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const indexed_primitive_type::type& r)
+template<> D3DPRIMITIVETYPE sge::d3d9::convert_cast (const indexed_primitive_type::type& r)
 {
 	switch(r) {
 	case indexed_primitive_type::line:
@@ -49,7 +49,7 @@ template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const indexed_primitive_type
 	}
 }
 
-template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const nonindexed_primitive_type::type& r)
+template<> D3DPRIMITIVETYPE sge::d3d9::convert_cast (const nonindexed_primitive_type::type& r)
 {
 	switch(r) {
 	case nonindexed_primitive_type::point:
@@ -66,7 +66,7 @@ template<> D3DPRIMITIVETYPE sge::d3d::convert_cast (const nonindexed_primitive_t
 
 }
 
-template<> D3DMULTISAMPLE_TYPE sge::d3d::convert_cast (const multi_sample_type& r)
+template<> D3DMULTISAMPLE_TYPE sge::d3d9::convert_cast (const multi_sample_type& r)
 {
 	switch(r) {
 	case 0:
@@ -107,7 +107,7 @@ template<> D3DMULTISAMPLE_TYPE sge::d3d::convert_cast (const multi_sample_type& 
 	}
 }
 
-template<> D3DDECLUSAGE sge::d3d::convert_cast (const vertex_usage::type& r)
+template<> D3DDECLUSAGE sge::d3d9::convert_cast (const vertex_usage::type& r)
 {
 	switch(r) {
 	case vertex_usage::pos:
@@ -123,7 +123,7 @@ template<> D3DDECLUSAGE sge::d3d::convert_cast (const vertex_usage::type& r)
 	}
 }
 
-template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const texture_stage_op::type& r)
+template<> D3DTEXTURESTAGESTATETYPE sge::d3d9::convert_cast (const texture_stage_op::type& r)
 {
 	switch(r) {
 	case texture_stage_op::color:
@@ -135,7 +135,7 @@ template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const texture_stage_
 	}
 }
 
-template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const texture_stage_arg::type& r)
+template<> D3DTEXTURESTAGESTATETYPE sge::d3d9::convert_cast (const texture_stage_arg::type& r)
 {
 	// TODO: maybe we have to swap numbers here
 	switch(r) {
@@ -156,7 +156,7 @@ template<> D3DTEXTURESTAGESTATETYPE sge::d3d::convert_cast (const texture_stage_
 	}
 }
 
-template<> DWORD sge::d3d::convert_cast (const texture_stage_op_value::type& r)
+template<> DWORD sge::d3d9::convert_cast (const texture_stage_op_value::type& r)
 {
 	switch(r) {
 	//	return D3DTOP_DISABLE;
@@ -199,7 +199,7 @@ template<> DWORD sge::d3d::convert_cast (const texture_stage_op_value::type& r)
 	}
 }
 
-template<> DWORD sge::d3d::convert_cast (const texture_stage_arg_value::type& r)
+template<> DWORD sge::d3d9::convert_cast (const texture_stage_arg_value::type& r)
 {
 	switch(r) {
 	case texture_stage_arg_value::constant:
@@ -216,7 +216,7 @@ template<> DWORD sge::d3d::convert_cast (const texture_stage_arg_value::type& r)
 	}
 }
 
-/*template<> D3DSAMPLERSTATETYPE sge::d3d::convert_cast (const filter_arg& r)
+/*template<> D3DSAMPLERSTATETYPE sge::d3d9::convert_cast (const filter_arg& r)
 {
 	switch(r) {
 	case FARG_MinFilter:
@@ -230,7 +230,7 @@ template<> DWORD sge::d3d::convert_cast (const texture_stage_arg_value::type& r)
 	}
 }*/
 
-/*template<> D3DTEXTUREFILTERTYPE sge::d3d::convert_cast (const filter_value& r)
+/*template<> D3DTEXTUREFILTERTYPE sge::d3d9::convert_cast (const filter_value& r)
 {
 	switch(r) {
 	//case FARGV_None:
@@ -246,7 +246,7 @@ template<> DWORD sge::d3d::convert_cast (const texture_stage_arg_value::type& r)
 	}
 }*/
 
-DWORD sge::d3d::convert_lock_flags (const lock_flag_t lf, const resource_flag_t rf)
+DWORD sge::d3d9::convert_lock_flags (const lock_flag_t lf, const resource_flag_t rf)
 {
 	DWORD l = 0;
 	if((lf & lock_flags::discard) && (rf & resource_flags::dynamic))

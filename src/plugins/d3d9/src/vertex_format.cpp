@@ -31,7 +31,7 @@ BYTE get_vertex_type(sge::vertex_usage::type u);
 
 }
 
-sge::d3d::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_format& f)
+sge::d3d9::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_format& f)
 {
 	raw_vector<D3DVERTEXELEMENT9> vertex_elements;
 

@@ -36,6 +36,6 @@ extern "C"
 
 	sge::renderer_system* create_rend_system()
 	{
-		return new sge::d3d::renderer_system();
+		return new sge::d3d9::renderer_system();
 	}
 }

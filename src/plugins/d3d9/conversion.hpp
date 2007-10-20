@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace d3d
+namespace d3d9
 {
 
 template<typename L, typename R> L convert_cast (const R&);

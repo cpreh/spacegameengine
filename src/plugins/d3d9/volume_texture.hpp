@@ -28,16 +28,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace d3d
+namespace d3d9
 {
+
+namespace detail
+{
+
+typedef basic_texture<sge::volume_texture> volume_texture_base_type;
+
+}
 
 class renderer;
 
-class volume_texture : public d3d::texture_base, public sge::volume_texture, public resource {
-	friend class renderer;
-private:
-	volume_texture(renderer* r, d3d_device_ptr device, const_pointer src, size_type width, size_type height, size_type depth, resource_flag_t flags);
+class volume_texture : public volume_texture_base_type {
 public:
+	volume_texture(renderer& r,
+                       d3d_device_ptr device,
+	               const_pointer src,
+	               size_type width,
+	               size_type height,
+	               size_type depth,
+	               resource_flag_t flags);
+	
 	size_type width() const;
 	size_type height() const;
 	size_type depth() const;
@@ -46,21 +58,18 @@ public:
 	void set_data(const_pointer src);
 	void set_data(const_pointer src, const lock_box& b);
 
-	resource_flag_t flags() const;
-
-	void lock(const lock_box* b);
+	void lock();
+	void lock(const lock_box&);
 	void unlock();
 private:
-	void on_loss();
-	void on_reset();
-
-	void init();
+	void lock(const lock_box* b);
+	IDirect3DBaseTexture9* do_loss();
+	void do_reset();
 
 	d3d_device_ptr          device;
 	d3d_volume_texture_ptr  tex;
 	d3d_volume_texture_ptr  temp_tex;
 	pointer                 lock_dest;
-	resource_flag_t         _flags;
 	size_type               _width;
 	size_type               _height;
 	size_type               _depth;

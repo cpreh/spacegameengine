@@ -25,10 +25,11 @@ IDirect3DBaseTexture9* sge::d3d9::create_texture(const d3d_device_ptr device,
                                                  const texture::size_type width,
                                                  const texture::size_type height,
                                                  const filter_args& filter,
-                                                 const resource_flag_t flags)
+                                                 const resource_flag_t flags,
+                                                 const bool system_mem)
 {
 	const DWORD usage = convert_cast<DWORD>(flags);
-	const D3DPOOL pool = convert_cast<D3DPOOL>(flags);
+	const D3DPOOL pool = system_mem ? D3DPOOL_SYSTEMMEM : convert_cast<D3DPOOL>(flags);
 	const D3DFORMAT format = D3DFMT_A8R8G8B8;
 
 	IDirect3DTexture9* ptex = 0;
@@ -55,4 +56,19 @@ sge::texture::pointer sge::d3d9::lock_texture(const d3d_texture_ptr tex,
 	if(tex->LockRect(0, &lr, reinterpret_cast<const RECT*>(r), lflags) != D3D_OK) // FIXME: reinterpret_cast is wrong here and may not work
 		throw exception("LockRect() failed!");
 	return static_cast<sge::texture::pointer>(lr.pBits);
+}
+
+void sge::d3d9::unlock_texture(const d3d_texture_ptr tex)
+{
+	if(tex->UnlockRect(0) != D3D_OK)
+		throw exception("UnlockRect() failed!");
+}
+
+void sge::d3d9::update_texture(const d3d_renderer_ptr rend,
+                               IDirect3DBaseTexture9* const src,
+                               IDirect3DBaseTexture9* const dest)
+{
+	if(device->UpdateTexture(temp_tex.get(), tex.get()) != D3D_OK)
+		throw exception("UpdateTexture() failed!");
+
 }

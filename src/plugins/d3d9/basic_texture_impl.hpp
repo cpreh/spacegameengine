@@ -17,44 +17,48 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
-#ifndef SGE_D3D9_BASIC_TEXTURE_HPP_INCLUDED
-#define SGE_D3D9_BASIC_TEXTURE_HPP_INCLUDED
-
-#include "../../renderer/types.hpp"
-#include "texture_base.hpp"
-#include "resource.hpp"
-#include "d3dinclude.hpp"
-
-namespace sge
-{
-namespace d3d9
-{
-
-class renderer;
+#ifndef SGE_D3D9_BASIC_TEXTURE_IMPL_HPP_INCLUDED
+#define SGE_D3D9_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 
 template<typename Base>
-class basic_texture : public Base, public texture_base, public resource {
-public:
-	basic_texture(IDirect3DBaseTexture9*, renderer&, const filter_args& filter, resource_flag_t flags);
-protected:
-	const filter_args& filter() const;
-	void on_reset();
-	void on_loss();
-private:
-	void filter(const filter_args&);
-	resource_flag_t flags() const;
+sge::d3d9::basic_texture::basic_texture(const filter_args& filter_, const resource_flag_t flags_)
+ : texture_base(0),
+   filter_(filter_),
+   flags_(flags_)
+{}
 
-	virtual IDirect3DBaseTexture9* do_reset() = 0;
-	virtual void do_loss() = 0;
-
-	filter_args     filter_;
-	resource_flag_t flags_;
-};
-
-}
+template<typename Base>
+const sge::filter_args& sge::d3d9::basic_texture::filter() const
+{
+	return filter_;
 }
 
-#include "basic_texture_impl.hpp"
+template<typename Base>
+void sge::d3d9::basic_texture::on_reset()
+{
+	set_base(do_reset());
+}
+
+template<typename Base>
+void sge::d3d9::basic_texture::on_loss()
+{
+	do_loss();
+	set_base(0);
+}
+
+template<typename Base>
+void sge::d3d9::basic_texture::filter(const filter_args& nfilter)
+{
+	// be sure to reinitialize the texture (only needed if we change the mip levels)
+	on_loss();
+	filter_ = nfilter;
+	on_reset();
+}
+
+template<typename Base>
+sge::resource_flag_t sge::d3d9::basic_texture::flags() const
+{
+	return flags_;
+}
 
 #endif

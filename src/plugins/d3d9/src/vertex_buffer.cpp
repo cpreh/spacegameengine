@@ -25,14 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
 
-sge::d3d::vertex_buffer::vertex_buffer(renderer* const r, const d3d_device_ptr device, const sge::vertex_format& format, const size_type sz, const resource_flag_t nflags, const const_pointer src)
+sge::d3d9::vertex_buffer::vertex_buffer(renderer& r, const d3d_device_ptr device, const sge::vertex_format& format, const size_type sz, const resource_flag_t nflags, const const_pointer src)
 : resource(r, nflags & resource_flags::dynamic),
   device(device), lock_dest(0), _flags(nflags), sz(sz), format(format), d3d_format(device,format)
 {
 	init(src);
 }
 
-void sge::d3d::vertex_buffer::init(const const_pointer src)
+void sge::d3d9::vertex_buffer::init(const const_pointer src)
 {
 	const DWORD fvf = d3d_format.fvf();
 	const DWORD usage = convert_cast<DWORD>(flags());
@@ -49,57 +49,57 @@ void sge::d3d::vertex_buffer::init(const const_pointer src)
 	}
 }
 
-sge::d3d::vertex_buffer::iterator sge::d3d::vertex_buffer::begin()
+sge::d3d9::vertex_buffer::iterator sge::d3d9::vertex_buffer::begin()
 {
 	return create_iterator(lock_dest);
 }
 
-sge::d3d::vertex_buffer::const_iterator sge::d3d::vertex_buffer::begin() const
+sge::d3d9::vertex_buffer::const_iterator sge::d3d9::vertex_buffer::begin() const
 {
 	return create_iterator(const_pointer(lock_dest));
 }
 
-sge::d3d::vertex_buffer::iterator sge::d3d::vertex_buffer::end()
+sge::d3d9::vertex_buffer::iterator sge::d3d9::vertex_buffer::end()
 {
 	return create_iterator(lock_dest + size());
 }
 
-sge::d3d::vertex_buffer::const_iterator sge::d3d::vertex_buffer::end() const
+sge::d3d9::vertex_buffer::const_iterator sge::d3d9::vertex_buffer::end() const
 {
 	return create_iterator(const_pointer(lock_dest + size()));
 }
 
-sge::d3d::vertex_buffer::reverse_iterator sge::d3d::vertex_buffer::rbegin()
+sge::d3d9::vertex_buffer::reverse_iterator sge::d3d9::vertex_buffer::rbegin()
 {
 	return reverse_iterator(end());
 }
 
-sge::d3d::vertex_buffer::const_reverse_iterator sge::d3d::vertex_buffer::rbegin() const
+sge::d3d9::vertex_buffer::const_reverse_iterator sge::d3d9::vertex_buffer::rbegin() const
 {
 	return const_reverse_iterator(end());
 }
 
-sge::d3d::vertex_buffer::reverse_iterator sge::d3d::vertex_buffer::rend()
+sge::d3d9::vertex_buffer::reverse_iterator sge::d3d9::vertex_buffer::rend()
 {
 	return reverse_iterator(begin());
 }
 
-sge::d3d::vertex_buffer::const_reverse_iterator sge::d3d::vertex_buffer::rend() const
+sge::d3d9::vertex_buffer::const_reverse_iterator sge::d3d9::vertex_buffer::rend() const
 {
 	return const_reverse_iterator(begin());
 }
 
-sge::d3d::vertex_buffer::iterator sge::d3d::vertex_buffer::create_iterator(const pointer data)
+sge::d3d9::vertex_buffer::iterator sge::d3d9::vertex_buffer::create_iterator(const pointer data)
 {
 	return iterator(data,d3d_format.stride(),d3d_format.get_offset_info());
 }
 
-sge::d3d::vertex_buffer::const_iterator sge::d3d::vertex_buffer::create_iterator(const const_pointer data) const
+sge::d3d9::vertex_buffer::const_iterator sge::d3d9::vertex_buffer::create_iterator(const const_pointer data) const
 {
 	return const_iterator(data,d3d_format.stride(),d3d_format.get_offset_info());
 }
 
-void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags, const size_type first, const size_type count)
+void sge::d3d9::vertex_buffer::lock(const lock_flag_t lflags, const size_type first, const size_type count)
 {
 	if(lock_dest)
 		throw exception("d3d::vertex_buffer::lock() you have to unlock first!");
@@ -115,18 +115,18 @@ void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags, const size_type fir
 #endif*/
 }
 
-void sge::d3d::vertex_buffer::lock(const lock_flag_t lflags)
+void sge::d3d9::vertex_buffer::lock(const lock_flag_t lflags)
 {
 	lock(lflags,0,size());
 }
 
-void sge::d3d::vertex_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
+void sge::d3d9::vertex_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
 {
 	scoped_lock<vertex_buffer*> _l(this, lock_flags::discard, first, count);
 	std::copy(src + first*stride(), src + (first+count)*stride(), data());
 }
 
-void sge::d3d::vertex_buffer::unlock()
+void sge::d3d9::vertex_buffer::unlock()
 {
 	if(!lock_dest)
 		throw exception("d3d::vertex_buffer::unlock() you have to lock first!");
@@ -141,7 +141,7 @@ void sge::d3d::vertex_buffer::unlock()
 	lock_dest = 0;
 }
 
-void sge::d3d::vertex_buffer::resize(const size_type newsize, const const_pointer new_data)
+void sge::d3d9::vertex_buffer::resize(const size_type newsize, const const_pointer new_data)
 {
 	if(lock_dest)
 		throw exception("d3d::vertex_buffer::resize() you have to unlock before resizing!");
@@ -150,52 +150,52 @@ void sge::d3d::vertex_buffer::resize(const size_type newsize, const const_pointe
 	init(new_data);
 }
 
-void sge::d3d::vertex_buffer::on_loss()
+void sge::d3d9::vertex_buffer::on_loss()
 {
 	buffer.reset();
 }
 
-void sge::d3d::vertex_buffer::on_reset()
+void sge::d3d9::vertex_buffer::on_reset()
 {
 	init();
 }
 
-sge::d3d::vertex_buffer::size_type sge::d3d::vertex_buffer::size() const
+sge::d3d9::vertex_buffer::size_type sge::d3d9::vertex_buffer::size() const
 {
 	return sz;
 }
 
-sge::vertex_size sge::d3d::vertex_buffer::stride() const
+sge::vertex_size sge::d3d9::vertex_buffer::stride() const
 {
 	return d3d_format.stride();
 }
 
-sge::resource_flag_t sge::d3d::vertex_buffer::flags() const
+sge::resource_flag_t sge::d3d9::vertex_buffer::flags() const
 {
 	return _flags;
 }
 
-sge::d3d::vertex_buffer::pointer sge::d3d::vertex_buffer::data()
+sge::d3d9::vertex_buffer::pointer sge::d3d9::vertex_buffer::data()
 {
 	return lock_dest;
 }
 
-sge::d3d::vertex_buffer::const_pointer sge::d3d::vertex_buffer::data() const
+sge::d3d9::vertex_buffer::const_pointer sge::d3d9::vertex_buffer::data() const
 {
 	return lock_dest;
 }
 
-const sge::vertex_format& sge::d3d::vertex_buffer::get_vertex_format() const
+const sge::vertex_format& sge::d3d9::vertex_buffer::get_vertex_format() const
 {
 	return format;
 }
 
-sge::vertex_buffer::reference sge::d3d::vertex_buffer::operator[](const size_type sz)
+sge::vertex_buffer::reference sge::d3d9::vertex_buffer::operator[](const size_type sz)
 {
 	return *(begin() + sz);
 }
 
-sge::vertex_buffer::const_reference sge::d3d::vertex_buffer::operator[](const size_type sz) const
+sge::vertex_buffer::const_reference sge::d3d9::vertex_buffer::operator[](const size_type sz) const
 {
 	return *(begin() + sz);
 }

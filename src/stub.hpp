@@ -18,43 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_BASIC_TEXTURE_HPP_INCLUDED
-#define SGE_D3D9_BASIC_TEXTURE_HPP_INCLUDED
+#ifndef SGE_STUB_HPP_INCLUDED
+#define SGE_STUB_HPP_INCLUDED
 
-#include "../../renderer/types.hpp"
-#include "texture_base.hpp"
-#include "resource.hpp"
-#include "d3dinclude.hpp"
+#include <iostream>
 
-namespace sge
-{
-namespace d3d9
-{
-
-class renderer;
-
-template<typename Base>
-class basic_texture : public Base, public texture_base, public resource {
-public:
-	basic_texture(IDirect3DBaseTexture9*, renderer&, const filter_args& filter, resource_flag_t flags);
-protected:
-	const filter_args& filter() const;
-	void on_reset();
-	void on_loss();
-private:
-	void filter(const filter_args&);
-	resource_flag_t flags() const;
-
-	virtual IDirect3DBaseTexture9* do_reset() = 0;
-	virtual void do_loss() = 0;
-
-	filter_args     filter_;
-	resource_flag_t flags_;
-};
-
-}
-}
-
-#include "basic_texture_impl.hpp"
+#define SGE_STUB_FUNCTION std::cerr << "stub: " << __FUNCTION__ << '\n';
 
 #endif

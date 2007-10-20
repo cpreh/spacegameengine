@@ -31,8 +31,14 @@ IDirect3DTexture9* create_texture(d3d_renderer_ptr,
                                   texture::size_type height,
                                   const filter_args& filter,
 				  resource_flag_t flags);
+
 sge::texture::pointer lock_texture(d3d_texture_ptr, const lock_rect* rect);
 
+void unlock_texture(d3d_texture_ptr);
+
+void update_texture(d3d_renderer_ptr,
+                    IDirect3DBaseTexture9* src,
+                    IDirect3DBaseTexture9* dest);
 }
 }
 

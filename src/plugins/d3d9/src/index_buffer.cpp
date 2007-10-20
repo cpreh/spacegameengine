@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../conversion.hpp"
 
-sge::d3d::index_buffer::index_buffer(renderer* const r, const d3d_device_ptr device, const size_type sz, const resource_flag_t nflags, const const_pointer src)
+sge::d3d9::index_buffer::index_buffer(renderer& r, const d3d_device_ptr device, const size_type sz, const resource_flag_t nflags, const const_pointer src)
 : resource(r, nflags & resource_flags::dynamic),
   device(device),
   buffer(),
@@ -35,7 +35,7 @@ sge::d3d::index_buffer::index_buffer(renderer* const r, const d3d_device_ptr dev
 	init(src);
 }
 
-void sge::d3d::index_buffer::init(const const_pointer src)
+void sge::d3d9::index_buffer::init(const const_pointer src)
 {
 	const D3DFORMAT format = D3DFMT_INDEX16;
 	const DWORD usage = convert_cast<DWORD>(flags());
@@ -53,47 +53,47 @@ void sge::d3d::index_buffer::init(const const_pointer src)
 	}
 }
 
-sge::d3d::index_buffer::iterator sge::d3d::index_buffer::begin()
+sge::d3d9::index_buffer::iterator sge::d3d9::index_buffer::begin()
 {
 	return iterator(lock_dest);
 }
 
-sge::d3d::index_buffer::const_iterator sge::d3d::index_buffer::begin() const
+sge::d3d9::index_buffer::const_iterator sge::d3d9::index_buffer::begin() const
 {
 	return const_iterator(lock_dest);
 }
 
-sge::d3d::index_buffer::iterator sge::d3d::index_buffer::end()
+sge::d3d9::index_buffer::iterator sge::d3d9::index_buffer::end()
 {
 	return iterator(lock_dest + size());
 }
 
-sge::d3d::index_buffer::const_iterator sge::d3d::index_buffer::end() const
+sge::d3d9::index_buffer::const_iterator sge::d3d9::index_buffer::end() const
 {
 	return const_iterator(lock_dest + size());
 }
 
-sge::d3d::index_buffer::reverse_iterator sge::d3d::index_buffer::rbegin()
+sge::d3d9::index_buffer::reverse_iterator sge::d3d9::index_buffer::rbegin()
 {
 	return reverse_iterator(end());
 }
 
-sge::d3d::index_buffer::const_reverse_iterator sge::d3d::index_buffer::rbegin() const
+sge::d3d9::index_buffer::const_reverse_iterator sge::d3d9::index_buffer::rbegin() const
 {
 	return const_reverse_iterator(end());
 }
 
-sge::d3d::index_buffer::reverse_iterator sge::d3d::index_buffer::rend()
+sge::d3d9::index_buffer::reverse_iterator sge::d3d9::index_buffer::rend()
 {
 	return reverse_iterator(begin());
 }
 
-sge::d3d::index_buffer::const_reverse_iterator sge::d3d::index_buffer::rend() const
+sge::d3d9::index_buffer::const_reverse_iterator sge::d3d9::index_buffer::rend() const
 {
 	return const_reverse_iterator(begin());
 }
 
-void sge::d3d::index_buffer::lock(const lock_flag_t lflags, const size_type first, const size_type count)
+void sge::d3d9::index_buffer::lock(const lock_flag_t lflags, const size_type first, const size_type count)
 {
 	if(lock_dest)
 		throw exception("d3d::index_buffer::lock() you have to unlock first!");
@@ -104,12 +104,12 @@ void sge::d3d::index_buffer::lock(const lock_flag_t lflags, const size_type firs
 	lock_dest = static_cast<pointer>(p);
 }
 
-void sge::d3d::index_buffer::lock(const lock_flag_t lflags)
+void sge::d3d9::index_buffer::lock(const lock_flag_t lflags)
 {
 	lock(lflags,0,size());
 }
 
-void sge::d3d::index_buffer::unlock()
+void sge::d3d9::index_buffer::unlock()
 {
 	if(!lock_dest)
 		throw exception("d3d::index_buffer::unlock() you have to lock first!");
@@ -118,17 +118,17 @@ void sge::d3d::index_buffer::unlock()
 	lock_dest = 0;
 }
 
-sge::d3d::index_buffer::size_type sge::d3d::index_buffer::size() const
+sge::d3d9::index_buffer::size_type sge::d3d9::index_buffer::size() const
 {
 	return sz;
 }
 
-sge::resource_flag_t sge::d3d::index_buffer::flags() const
+sge::resource_flag_t sge::d3d9::index_buffer::flags() const
 {
 	return _flags;
 }
 
-void sge::d3d::index_buffer::resize(const size_type newsize, const const_pointer new_data)
+void sge::d3d9::index_buffer::resize(const size_type newsize, const const_pointer new_data)
 {
 	if(lock_dest)
 		throw exception("d3d::index_buffer::resize() you have to unlock before resizing");
@@ -137,38 +137,38 @@ void sge::d3d::index_buffer::resize(const size_type newsize, const const_pointer
 	init(new_data);
 }
 
-void sge::d3d::index_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
+void sge::d3d9::index_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
 {
 	scoped_lock<index_buffer*> _l(this, lock_flags::discard, first, count);
 	std::copy(src + first, src + first+count, data());
 }
 
-void sge::d3d::index_buffer::on_loss()
+void sge::d3d9::index_buffer::on_loss()
 {
 	buffer.reset();
 }
 
-void sge::d3d::index_buffer::on_reset()
+void sge::d3d9::index_buffer::on_reset()
 {
 	init();
 }
 
-sge::d3d::index_buffer::pointer sge::d3d::index_buffer::data()
+sge::d3d9::index_buffer::pointer sge::d3d9::index_buffer::data()
 {
 	return lock_dest;
 }
 
-sge::d3d::index_buffer::const_pointer sge::d3d::index_buffer::data() const
+sge::d3d9::index_buffer::const_pointer sge::d3d9::index_buffer::data() const
 {
 	return lock_dest;
 }
 
-sge::d3d::index_buffer::reference sge::d3d::index_buffer::operator[](const size_type sz)
+sge::d3d9::index_buffer::reference sge::d3d9::index_buffer::operator[](const size_type sz)
 {
 	return *(data() + sz);
 }
 
-sge::d3d::index_buffer::const_reference sge::d3d::index_buffer::operator[](const size_type sz) const
+sge::d3d9::index_buffer::const_reference sge::d3d9::index_buffer::operator[](const size_type sz) const
 {
 	return *(data() + sz);
 }

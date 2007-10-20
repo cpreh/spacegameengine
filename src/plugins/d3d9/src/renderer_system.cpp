@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../constants.hpp"
 #include "../enumeration.hpp"
 
-sge::d3d::renderer_system::renderer_system()
+sge::d3d9::renderer_system::renderer_system()
  : sys(Direct3DCreate9(D3D_SDK_VERSION))
 {
 	if(!sys)
 		throw exception("Initialization of d3d failed");
 }
 
-const sge::renderer_caps_array sge::d3d::renderer_system::caps() const
+const sge::renderer_caps_array sge::d3d9::renderer_system::caps() const
 {
 	sge::renderer_caps_array v;
 	const UINT adapter_count = sys->GetAdapterCount();
@@ -46,7 +46,7 @@ const sge::renderer_caps_array sge::d3d::renderer_system::caps() const
 	return v;
 }
 
-sge::renderer_ptr sge::d3d::renderer_system::create_renderer(const renderer_parameters& param, const int adapter, const window_ptr wnd_param)
+sge::renderer_ptr sge::d3d9::renderer_system::create_renderer(const renderer_parameters& param, const int adapter, const window_ptr wnd_param)
 {
 	const win32_window_ptr wnd(wnd_param ? dynamic_pointer_cast<win32_window>(wnd_param) : win32_window_ptr(new win32_window(param.mode.size)));
 	const DWORD tnl_flags = get_tnl_caps(adapter,sys);

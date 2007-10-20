@@ -42,13 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-void set_render_state(sge::d3d::d3d_device_ptr device, D3DRENDERSTATETYPE state, sge::renderer::bool_type value);
-void set_render_state(sge::d3d::d3d_device_ptr Device, D3DRENDERSTATETYPE state, sge::renderer::int_type value);
-void set_render_state(sge::d3d::d3d_device_ptr device, D3DRENDERSTATETYPE state, sge::renderer::float_type value);
-void set_sampler_state(sge::d3d::d3d_device_ptr device, sge::stage_type stage, D3DSAMPLERSTATETYPE state, sge::renderer::int_type value);
-void set_texture(sge::d3d::d3d_device_ptr device, sge::stage_type stage, IDirect3DBaseTexture9* tex);
-void set_texture_stage_state(sge::d3d::d3d_device_ptr device, sge::stage_type stage, D3DTEXTURESTAGESTATETYPE state, sge::renderer::int_type value);
-void set_transform(sge::d3d::d3d_device_ptr device, D3DTRANSFORMSTATETYPE, const sge::math::space_matrix&);
+void set_render_state(sge::d3d9::d3d_device_ptr device, D3DRENDERSTATETYPE state, sge::renderer::bool_type value);
+void set_render_state(sge::d3d9::d3d_device_ptr Device, D3DRENDERSTATETYPE state, sge::renderer::int_type value);
+void set_render_state(sge::d3d9::d3d_device_ptr device, D3DRENDERSTATETYPE state, sge::renderer::float_type value);
+void set_sampler_state(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, D3DSAMPLERSTATETYPE state, sge::renderer::int_type value);
+void set_texture(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, IDirect3DBaseTexture9* tex);
+void set_texture_stage_state(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, D3DTEXTURESTAGESTATETYPE state, sge::renderer::int_type value);
+void set_transform(sge::d3d9::d3d_device_ptr device, D3DTRANSFORMSTATETYPE, const sge::math::space_matrix&);
 
 }
 
@@ -234,14 +234,14 @@ void sge::d3d9::renderer::set_texture_stage_arg(const stage_type stage,
 	set_texture_stage_state(device, stage, d3d_type, d3d_value);
 }
 
-/*void sge::d3d::renderer::set_filter_state(const stage_type stage, const filter_arg type, const filter_arg_value value)
+/*void sge::d3d9::renderer::set_filter_state(const stage_type stage, const filter_arg type, const filter_arg_value value)
 {
 	const D3DSAMPLERSTATETYPE d3d_type = convert_cast<D3DSAMPLERSTATETYPE>(type);
 	const D3DTEXTUREFILTERTYPE d3d_value = convert_cast<D3DTEXTUREFILTERTYPE>(value);
 	set_sampler_state(device,stage,d3d_type,d3d_value);
 }*/
 
-void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
+void sge::d3d9::renderer::render(const vertex_buffer_ptr nvb,
                                 const index_buffer_ptr nib,
 								const sge::vertex_buffer::size_type first_vertex,
 								const sge::vertex_buffer::size_type num_vertices,
@@ -265,7 +265,7 @@ void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
 		throw exception("DrawIndexedPrimitive() failed");
 }
 
-void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
+void sge::d3d9::renderer::render(const vertex_buffer_ptr nvb,
 								const sge::vertex_buffer::size_type first_vertex,
 								const sge::vertex_buffer::size_type num_vertices,
 								const nonindexed_primitive_type::type ptype)
@@ -281,7 +281,7 @@ void sge::d3d::renderer::render(const vertex_buffer_ptr nvb,
 		throw exception("DrawPrimitive() failed");
 }
 
-void sge::d3d::renderer::begin_rendering()
+void sge::d3d9::renderer::begin_rendering()
 {
 	if(device->Clear(0,0,clear_flags,clear_color,zbuffer_clear_val,stencil_clear_val) != D3D_OK)
 		throw exception("Clear() failed");
@@ -289,7 +289,7 @@ void sge::d3d::renderer::begin_rendering()
 		throw exception("BeginScene() failed");
 }
 
-void sge::d3d::renderer::end_rendering()
+void sge::d3d9::renderer::end_rendering()
 {
 	if(device->EndScene() != D3D_OK)
 		throw exception("EndScene() failed");
@@ -305,7 +305,7 @@ void sge::d3d::renderer::end_rendering()
 	}
 }
 
-void sge::d3d::renderer::set_bool_state(const bool_state::type state, const bool_type value)
+void sge::d3d9::renderer::set_bool_state(const bool_state::type state, const bool_type value)
 {
 	switch(state) {
 	case bool_state::clear_zbuffer:
@@ -345,7 +345,7 @@ void sge::d3d::renderer::set_bool_state(const bool_state::type state, const bool
 	}
 }
 
-void sge::d3d::renderer::set_float_state(const float_state::type state, const float_type value)
+void sge::d3d9::renderer::set_float_state(const float_state::type state, const float_type value)
 {
 	switch(state) {
 	case float_state::zbuffer_clear_val:
@@ -363,7 +363,7 @@ void sge::d3d::renderer::set_float_state(const float_state::type state, const fl
 	}
 }
 
-void sge::d3d::renderer::set_int_state(const int_state::type state, const int_type value)
+void sge::d3d9::renderer::set_int_state(const int_state::type state, const int_type value)
 {
 	switch(state) {
 	/*
@@ -377,7 +377,7 @@ void sge::d3d::renderer::set_int_state(const int_state::type state, const int_ty
 	}
 }
 
-void sge::d3d::renderer::set_color_state(const color_state::type state, const color value)
+void sge::d3d9::renderer::set_color_state(const color_state::type state, const color value)
 {
 	switch(state) {
 	case color_state::ambient_light_color:
@@ -392,27 +392,27 @@ void sge::d3d::renderer::set_color_state(const color_state::type state, const co
 	}
 }
 
-sge::render_target_ptr sge::d3d::renderer::get_render_target() const
+sge::render_target_ptr sge::d3d9::renderer::get_render_target() const
 {
 	return render_target_ptr(); //default_render_target; // FIXME
 }
 
-void sge::d3d::renderer::transform(const math::space_matrix& m)
+void sge::d3d9::renderer::transform(const math::space_matrix& m)
 {
 	set_transform(device, D3DTS_WORLD, m);
 }
 
-void sge::d3d::renderer::projection(const math::space_matrix& m)
+void sge::d3d9::renderer::projection(const math::space_matrix& m)
 {
 	set_transform(device, D3DTS_PROJECTION, m);
 }
 
-const sge::renderer_caps& sge::d3d::renderer::caps() const
+const sge::renderer_caps& sge::d3d9::renderer::caps() const
 {
 	return _caps;
 }
 
-sge::screen_size_t sge::d3d::renderer::screen_size() const
+sge::screen_size_t sge::d3d9::renderer::screen_size() const
 {
 	return parameters.mode.size;
 }
@@ -420,43 +420,43 @@ sge::screen_size_t sge::d3d::renderer::screen_size() const
 namespace
 {
 
-void set_render_state(const sge::d3d::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::bool_type value)
+void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::bool_type value)
 {
 	if(device->SetRenderState(state,value) != D3D_OK)
 		throw sge::exception("SetRenderState() failed");
 }
 
-void set_render_state(const sge::d3d::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::int_type value)
+void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetRenderState(state,value) != D3D_OK)
 		throw sge::exception("SetRenderState() failed");
 }
 
-void set_render_state(const sge::d3d::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::float_type value)
+void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::float_type value)
 {
 	if(device->SetRenderState(state,reinterpret_cast<const DWORD&>(value)) != D3D_OK)
 		throw sge::exception("SetRenderState() failed");
 }
 
-void set_texture_stage_state(const sge::d3d::d3d_device_ptr device, const sge::stage_type stage, const D3DTEXTURESTAGESTATETYPE state, const sge::renderer::int_type value)
+void set_texture_stage_state(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, const D3DTEXTURESTAGESTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetTextureStageState(static_cast<DWORD>(stage),state,value) != D3D_OK)
 		throw sge::exception("SetTextureStageState() failed");
 }
 
-void set_sampler_state(const sge::d3d::d3d_device_ptr device, const sge::stage_type stage, const D3DSAMPLERSTATETYPE state, const sge::renderer::int_type value)
+void set_sampler_state(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, const D3DSAMPLERSTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetSamplerState(static_cast<DWORD>(stage),state,value) != D3D_OK)
 		throw sge::exception("SetSamplerState() failed");
 }
 
-void set_texture(const sge::d3d::d3d_device_ptr device, const sge::stage_type stage, IDirect3DBaseTexture9* const tex)
+void set_texture(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, IDirect3DBaseTexture9* const tex)
 {
 	if(device->SetTexture(static_cast<DWORD>(stage),tex) != D3D_OK)
 		throw sge::exception("SetTexture() failed");
 }
 
-void set_transform(const sge::d3d::d3d_device_ptr device, const D3DTRANSFORMSTATETYPE type, const sge::math::space_matrix& m)
+void set_transform(const sge::d3d9::d3d_device_ptr device, const D3DTRANSFORMSTATETYPE type, const sge::math::space_matrix& m)
 {
 	if(device->SetTransform(type, reinterpret_cast<const D3DMATRIX*>(m.data())) != D3D_OK)
 		throw sge::exception("SetTransform() failed");

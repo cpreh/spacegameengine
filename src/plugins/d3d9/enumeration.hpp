@@ -23,12 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "renderer_system.hpp"
 #include "../../win32_window.hpp"
-
 #include "d3dinclude.hpp"
 
 namespace sge
 {
-namespace d3d
+namespace d3d9
 {
 
 void create_renderer_caps(unsigned adapter, d3d_ptr sys, renderer_caps& caps);

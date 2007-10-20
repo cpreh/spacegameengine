@@ -17,63 +17,55 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <algorithm>
 #include "../cube_texture.hpp"
+#include "../../../stub.hpp"
 #include "../../../renderer/scoped_lock.hpp"
 
-#include <iostream>
-
-sge::d3d::cube_texture::cube_texture(renderer* const r, const d3d_device_ptr device, const cube_side_array* data, const size_type sz, const resource_flag_t nflags)
-:  d3d::texture_base(0),
-   resource(r, nflags & resource_flags::dynamic),
-   device(device), _flags(nflags), sz(sz), lock_dest(0)
+sge::d3d9::cube_texture::cube_texture(renderer& r,
+                                      const d3d_device_ptr device,
+                                      const cube_side_array* const data,
+                                      const size_type sz,
+                                      const resource_flag_t flags)
+:  detail::cube_texture_base_type(r, filter, flags),
+   device(device),
+   sz(sz),
+   lock_dest(0)
 {
-	init(data);
+	do_reset();
+
+	if(data)
+		set_cube_texture_data(*this, *data);
 }
 
-void sge::d3d::cube_texture::init(const cube_side_array* const src)
+IDirect3DBaseTexture9* sge::d3d9::cube_texture::do_reset()
 {
-	/*if(!src)
-		return;
-	const cube_side_array& data = *src;
-	for(cube_side_array::size_type s = 0; s < data.size(); ++s)
-	{
-		lock_ptr<cube_texture*> l(this,cube_side(s));
-		copy(data[s],data[s]+size(),lock_dest);
-	}*/
+	SGE_STUB_FUNCTION
+	return 0;
 }
 
-void sge::d3d::cube_texture::lock(const cube_side::type side, const lock_rect* const r)
+void sge::d3d9::cube_texture::lock(const cube_side::type side, const lock_rect* const r)
 {
-	std::cerr << "stub: d3d::cube_texture::lock\n";
+	SGE_STUB_FUNCTION
 }
 
-void sge::d3d::cube_texture::unlock()
+void sge::d3d9::cube_texture::unlock()
 {
-	std::cerr << "stub: d3d::cube_texture::unlock\n";
+	SGE_STUB_FUNCTION
 }
 
-void sge::d3d::cube_texture::set_data(const cube_side::type side, const const_pointer data, const lock_rect* const r)
+void sge::d3d9::cube_texture::set_data(const cube_side::type side, const const_pointer data, const lock_rect* const r)
 {
-	std::cerr << "stub: d3d::cube_texture::set_data";
+	SGE_STUB_FUNCTION
 }
 
-sge::resource_flag_t sge::d3d::cube_texture::flags() const
-{
-	return _flags;
-}
-
-sge::cube_texture::size_type sge::d3d::cube_texture::size() const
+sge::cube_texture::size_type sge::d3d9::cube_texture::size() const
 {
 	return sz;
 }
 
-void sge::d3d::cube_texture::on_loss()
+void sge::d3d9::cube_texture::do_loss()
 {
 	tex.reset();
-}
-
-void sge::d3d::cube_texture::on_reset()
-{
-	init();
 }

@@ -32,11 +32,23 @@ namespace d3d9
 
 class renderer;
 
-class texture : public basic_texture<sge::texture> {
-	friend class renderer;
-private:
-	texture(renderer& r, d3d_device_ptr device, const_pointer data, size_type width, size_type height, const filter_args& filter, resource_flag_t flags);
+namespace detail
+{
+
+typedef basic_texture<sge::texture> texture_base_type;
+
+}
+
+class texture : public texture_base_type {
 public:
+	texture(renderer& r,
+	        d3d_device_ptr device,
+	        const_pointer data,
+	        size_type width,
+	        size_type height,
+	        const filter_args& filter,
+	        resource_flag_t flags);
+	
 	size_type width() const;
 	size_type height() const;
 	size_type size() const;
@@ -44,8 +56,6 @@ public:
 	void set_data(const_pointer data);	
 	void set_data(const_pointer data, const lock_rect& r);
 	
-	resource_flag_t flags() const;
-
 	void lock();
 	void lock(const lock_rect&);
 	void unlock();
@@ -54,8 +64,8 @@ public:
 private:
 	void lock(const lock_rect* r);
 
-	void on_loss();
-	IDirect3DBaseTexture9* on_reset();
+	void do_loss();
+	IDirect3DBaseTexture9* do_reset();
 
 	d3d_device_ptr   device;
 	d3d_texture_ptr  tex;
