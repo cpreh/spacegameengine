@@ -249,7 +249,7 @@ template<> DWORD sge::d3d::convert_cast (const texture_stage_arg_value::type& r)
 DWORD sge::d3d::convert_lock_flags (const lock_flag_t lf, const resource_flag_t rf)
 {
 	DWORD l = 0;
-	if(lf & lock_flags::discard && rf & resource_flags::dynamic)
+	if((lf & lock_flags::discard) && (rf & resource_flags::dynamic))
 		l |= D3DLOCK_DISCARD;
 	return l;
 }
