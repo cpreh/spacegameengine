@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D_VOLUME_TEXTURE_HPP_INCLUDED
-#define SGE_D3D_VOLUME_TEXTURE_HPP_INCLUDED
+#ifndef SGE_D3D9_VOLUME_TEXTURE_HPP_INCLUDED
+#define SGE_D3D9_VOLUME_TEXTURE_HPP_INCLUDED
 
 #include "../../renderer/volume_texture.hpp"
-#include "resource.hpp"
-#include "texture_base.hpp"
+#include "basic_texture.hpp"
 #include "d3dinclude.hpp"
 
 namespace sge
@@ -40,14 +39,15 @@ typedef basic_texture<sge::volume_texture> volume_texture_base_type;
 
 class renderer;
 
-class volume_texture : public volume_texture_base_type {
+class volume_texture : public detail::volume_texture_base_type {
 public:
 	volume_texture(renderer& r,
-                       d3d_device_ptr device,
+	               d3d_device_ptr device,
 	               const_pointer src,
 	               size_type width,
 	               size_type height,
 	               size_type depth,
+                   const filter_args& filter,
 	               resource_flag_t flags);
 	
 	size_type width() const;
@@ -63,8 +63,8 @@ public:
 	void unlock();
 private:
 	void lock(const lock_box* b);
-	IDirect3DBaseTexture9* do_loss();
-	void do_reset();
+	void do_loss();
+	IDirect3DBaseTexture9* do_reset();
 
 	d3d_device_ptr          device;
 	d3d_volume_texture_ptr  tex;

@@ -20,10 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../exception.hpp"
 #include "../render_target.hpp"
+#include "../../../stub.hpp"
 
-sge::d3d9::render_target::render_target(renderer& r, const d3d_device_ptr device, const size_type _width, const size_type _height)
-: resource(r, true),
-  device(device), _width(_width), _height(_height)
+sge::d3d9::render_target::render_target(renderer& r,
+                                        const d3d_device_ptr device,
+                                        const size_type _width,
+                                        const size_type _height)
+: resource(r, true), // FIXME
+  device(device),
+  _width(_width),
+  _height(_height)
 {
 	init();
 }
@@ -53,7 +59,7 @@ void sge::d3d9::render_target::on_reset()
 
 sge::d3d9::render_target::size_type sge::d3d9::render_target::size() const
 {
-	return width()*height();
+	return width() * height();
 }
 
 sge::d3d9::render_target::size_type sge::d3d9::render_target::width() const
@@ -64,4 +70,9 @@ sge::d3d9::render_target::size_type sge::d3d9::render_target::width() const
 sge::d3d9::render_target::size_type sge::d3d9::render_target::height() const
 {
 	return _height;
+}
+
+void sge::d3d9::render_target::copy_data(const pointer p)
+{
+	SGE_STUB_FUNCTION
 }

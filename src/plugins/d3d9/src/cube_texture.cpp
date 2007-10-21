@@ -27,8 +27,9 @@ sge::d3d9::cube_texture::cube_texture(renderer& r,
                                       const d3d_device_ptr device,
                                       const cube_side_array* const data,
                                       const size_type sz,
+                                      const filter_args& filter_,
                                       const resource_flag_t flags)
-:  detail::cube_texture_base_type(r, filter, flags),
+:  detail::cube_texture_base_type(r, filter_, flags),
    device(device),
    sz(sz),
    lock_dest(0)
@@ -55,14 +56,27 @@ void sge::d3d9::cube_texture::unlock()
 	SGE_STUB_FUNCTION
 }
 
-void sge::d3d9::cube_texture::set_data(const cube_side::type side, const const_pointer data, const lock_rect* const r)
+void sge::d3d9::cube_texture::set_data(const cube_side::type side,
+                                       const const_pointer data)
 {
 	SGE_STUB_FUNCTION
 }
 
-sge::cube_texture::size_type sge::d3d9::cube_texture::size() const
+void sge::d3d9::cube_texture::set_data(const cube_side::type side,
+                                       const const_pointer data,
+                                       const lock_rect& r)
+{
+	SGE_STUB_FUNCTION
+}
+
+sge::cube_texture::size_type sge::d3d9::cube_texture::border_size() const
 {
 	return sz;
+}
+
+sge::cube_texture::size_type sge::d3d9::cube_texture::size() const
+{
+	return border_size() * border_size();
 }
 
 void sge::d3d9::cube_texture::do_loss()

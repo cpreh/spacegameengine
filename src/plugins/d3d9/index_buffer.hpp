@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_D3D_INDEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_D3D9_INDEX_BUFFER_HPP_INCLUDED
+#define SGE_D3D9_INDEX_BUFFER_HPP_INCLUDED
 
 #include "../../renderer/index_buffer.hpp"
 #include "resource.hpp"
@@ -35,7 +35,12 @@ class renderer;
 class index_buffer : public sge::index_buffer, public resource {
 	friend class renderer;
 public:
-	index_buffer(renderer* r, d3d_device_ptr device, size_type size, resource_flag_t flags, const_pointer src);
+	index_buffer(renderer& r,
+	             d3d_device_ptr device,
+	             size_type size,
+	             resource_flag_t flags,
+	             const_pointer src);
+
 	iterator begin();
 	const_iterator begin() const;
 	iterator end();

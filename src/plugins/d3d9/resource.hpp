@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D_RESOURCE_HPP_INCLUDED
-#define SGE_D3D_RESOURCE_HPP_INCLUDED
+#ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
+#define SGE_D3D9_RESOURCE_HPP_INCLUDED
 
 #include <list>
+#include "../../renderer/types.hpp"
 
 namespace sge
 {
@@ -35,9 +36,9 @@ typedef std::list<resource*> resource_list;
 
 class resource {
 public:
-	resource(renderer* r, bool needs_restore);
-	virtual void on_loss() {}
-	virtual void on_reset() {}
+	resource(renderer& r, resource_flag_t flags);
+	virtual void on_loss();
+	virtual void on_reset();
 	virtual ~resource();
 private:
 	resource_list*          my_list;

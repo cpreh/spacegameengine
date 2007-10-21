@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D_RENDERER_HPP_INCLUDED
-#define SGE_D3D_RENDERER_HPP_INCLUDED
+#ifndef SGE_D3D9_RENDERER_HPP_INCLUDED
+#define SGE_D3D9_RENDERER_HPP_INCLUDED
 
 #include "../../math/matrix.hpp"
 #include "../../math/vector.hpp"
@@ -39,17 +39,35 @@ class renderer : public sge::renderer {
 public:
 	renderer(d3d_device_ptr device, const renderer_parameters& param, int adapter, win32_window_ptr wnd, d3d_ptr sys);
 
-	texture_ptr        create_texture(texture::const_pointer data, texture::size_type width, texture::size_type height, const filter_args& filter, resource_flag_t flags);
+	texture_ptr        create_texture(texture::const_pointer data,
+	                                  texture::size_type width,
+	                                  texture::size_type height,
+	                                  const filter_args& filter,
+	                                  resource_flag_t flags);
 
-	volume_texture_ptr create_volume_texture(volume_texture::const_pointer data, volume_texture::size_type width, volume_texture::size_type height,
-	                                         volume_texture::size_type depth, const filter_args& filter, resource_flag_t flags);
+	volume_texture_ptr create_volume_texture(volume_texture::const_pointer data,
+	                                         volume_texture::size_type width,
+	                                         volume_texture::size_type height,
+	                                         volume_texture::size_type depth,
+	                                         const filter_args& filter,
+	                                         resource_flag_t flags);
 
-	cube_texture_ptr   create_cube_texture(const cube_side_array* data, cube_texture::size_type size, const filter_args& filter, resource_flag_t flags);
+	cube_texture_ptr   create_cube_texture(const cube_side_array* data,
+	                                       cube_texture::size_type size,
+	                                       const filter_args& filter,
+	                                       resource_flag_t flags);
 
-	vertex_buffer_ptr  create_vertex_buffer(const sge::vertex_format& format, vertex_buffer::size_type size, resource_flag_t flags, vertex_buffer::const_pointer data);
-	index_buffer_ptr   create_index_buffer(index_buffer::size_type size, resource_flag_t flags, index_buffer::const_pointer data);
+	vertex_buffer_ptr  create_vertex_buffer(const sge::vertex_format& format,
+	                                        vertex_buffer::size_type size,
+	                                        resource_flag_t flags,
+	                                        vertex_buffer::const_pointer data);
 
-	render_target_ptr  create_render_target(render_target::size_type width, render_target::size_type height);
+	index_buffer_ptr   create_index_buffer(index_buffer::size_type size,
+	                                       resource_flag_t flags,
+	                                       index_buffer::const_pointer data);
+
+	render_target_ptr  create_render_target(render_target::size_type width,
+	                                        render_target::size_type height);
 
 	void set_int_state(int_state::type, int_type);
 	void set_float_state(float_state::type, float_type);

@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_D3D_VERTEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_D3D9_VERTEX_BUFFER_HPP_INCLUDED
+#define SGE_D3D9_VERTEX_BUFFER_HPP_INCLUDED
 
 #include "../../renderer/vertex_buffer.hpp"
-#include "./vertex_format.hpp"
-#include "./resource.hpp"
-
-#include "./d3dinclude.hpp"
+#include "vertex_format.hpp"
+#include "resource.hpp"
+#include "d3dinclude.hpp"
 
 namespace sge
 {
@@ -37,9 +36,12 @@ class renderer;
 class vertex_buffer : public sge::vertex_buffer, public resource {
 	friend class renderer;
 public:
-	vertex_buffer(renderer* r, d3d_device_ptr device,
-	              const sge::vertex_format& format, size_type size,
-	              resource_flag_t flags, const_pointer src);
+	vertex_buffer(renderer& r,
+	              d3d_device_ptr device,
+	              const sge::vertex_format& format,
+	              size_type size,
+	              resource_flag_t flags,
+	              const_pointer src);
 	iterator begin();
 	const_iterator begin() const;
 	iterator end();

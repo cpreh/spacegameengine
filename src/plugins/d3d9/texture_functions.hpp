@@ -21,24 +21,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
 
+#include "../../renderer/texture.hpp"
+#include "../../renderer/volume_texture.hpp"
+#include "d3dinclude.hpp"
+
 namespace sge
 {
 namespace d3d9
 {
 
-IDirect3DTexture9* create_texture(d3d_renderer_ptr,
+IDirect3DTexture9* create_texture(d3d_device_ptr,
                                   texture::size_type width,
                                   texture::size_type height,
                                   const filter_args& filter,
-				  resource_flag_t flags);
+                                  resource_flag_t flags,
+                                  bool system_mem);
 
-sge::texture::pointer lock_texture(d3d_texture_ptr, const lock_rect* rect);
+sge::texture::pointer lock_texture(d3d_texture_ptr,
+                                   const lock_rect* rect,
+                                   resource_flag_t rflags);
 
 void unlock_texture(d3d_texture_ptr);
 
-void update_texture(d3d_renderer_ptr,
+void update_texture(d3d_device_ptr,
                     IDirect3DBaseTexture9* src,
                     IDirect3DBaseTexture9* dest);
+
+IDirect3DVolumeTexture9* create_volume_texture(d3d_device_ptr,
+                                               volume_texture::size_type width,
+                                               volume_texture::size_type height,
+                                               volume_texture::size_type depth,
+                                               const filter_args& filter,
+                                               resource_flag_t flags,
+                                               bool system_mem);
+
+sge::volume_texture::pointer lock_volume_texture(d3d_volume_texture_ptr,
+                                                 const lock_box* box,
+                                                 resource_flag_t rflags);
+
+void unlock_volume_texture(d3d_volume_texture_ptr);
+
 }
 }
 

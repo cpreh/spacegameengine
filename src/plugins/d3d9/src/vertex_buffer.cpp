@@ -25,9 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
 
-sge::d3d9::vertex_buffer::vertex_buffer(renderer& r, const d3d_device_ptr device, const sge::vertex_format& format, const size_type sz, const resource_flag_t nflags, const const_pointer src)
-: resource(r, nflags & resource_flags::dynamic),
-  device(device), lock_dest(0), _flags(nflags), sz(sz), format(format), d3d_format(device,format)
+sge::d3d9::vertex_buffer::vertex_buffer(renderer& r,
+                                        const d3d_device_ptr device,
+                                        const sge::vertex_format& format,
+                                        const size_type sz,
+                                        const resource_flag_t nflags,
+                                        const const_pointer src)
+: resource(r, nflags),
+  device(device),
+  lock_dest(0),
+  _flags(nflags),
+  sz(sz),
+  format(format),
+  d3d_format(device, format)
 {
 	init(src);
 }

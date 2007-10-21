@@ -21,13 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resource.hpp"
 #include "../renderer.hpp"
 
-sge::d3d9::resource::resource(renderer* const r, const bool needs_restore)
-: my_list(needs_restore ? &(r->resources) : 0),
-  my_place(needs_restore ? my_list->insert(my_list->end(),this) : my_list->end())
+namespace
+{
+
+bool needs_restore(const sge::resource_flag_t flags)
+{
+	return flags & sge::resource_flags::dynamic;
+}
+
+}
+
+sge::d3d9::resource::resource(renderer& r, const resource_flag_t flags)
+: my_list(needs_restore(flags) ? &(r.resources) : 0),
+  my_place(needs_restore(flags) ? my_list->insert(my_list->end(),this) : my_list->end())
 {}
 
 sge::d3d9::resource::~resource()
 {
 	if(my_list)
 		my_list->erase(my_place);
+}
+
+void sge::d3d9::resource::on_loss()
+{
+}
+
+void sge::d3d9::resource::on_reset()
+{
 }

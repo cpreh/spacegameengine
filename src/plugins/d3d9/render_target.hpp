@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D_RENDER_TARGET_HPP_INCLUDED
-#define SGE_D3D_RENDER_TARGET_HPP_INCLUDED
+#ifndef SGE_D3D9_RENDER_TARGET_HPP_INCLUDED
+#define SGE_D3D9_RENDER_TARGET_HPP_INCLUDED
 
 #include "../../renderer/render_target.hpp"
 #include "resource.hpp"
@@ -35,7 +35,7 @@ class renderer;
 class render_target : public sge::render_target, public resource {
 	friend class renderer;
 public:
-	render_target(renderer* r, d3d_device_ptr device, size_type width, size_type height);
+	render_target(renderer& r, d3d_device_ptr device, size_type width, size_type height);
 	size_type width() const;
 	size_type height() const;
 	size_type size() const;

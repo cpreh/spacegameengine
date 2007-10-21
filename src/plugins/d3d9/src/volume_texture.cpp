@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"
+#include "../texture_functions.hpp"
 
 sge::d3d9::volume_texture::volume_texture(renderer& r,
                                           const d3d_device_ptr device,
@@ -29,8 +30,9 @@ sge::d3d9::volume_texture::volume_texture(renderer& r,
                                           const size_type _width,
                                           const size_type _height,
                                           const size_type _depth,
+                                          const filter_args& filter,
                                           const resource_flag_t flags)
-: base(r, filter, flags),
+: detail::volume_texture_base_type(r, filter, flags),
   device(device),
   lock_dest(0),
   _width(_width),
@@ -44,17 +46,7 @@ sge::d3d9::volume_texture::volume_texture(renderer& r,
 
 IDirect3DBaseTexture9* sge::d3d9::volume_texture::do_reset()
 {
-/*	const DWORD usage = convert_cast<DWORD>(flags());
-	const D3DPOOL pool = convert_cast<D3DPOOL>(flags());
-	const D3DFORMAT format = D3DFMT_A8R8G8B8;
-
-	IDirect3DVolumeTexture9* ptex;
-	if(device->CreateVolumeTexture(static_cast<UINT>(width()),static_cast<UINT>(height()),static_cast<UINT>(depth()),1,usage,format,pool,&ptex,0) != D3D_OK)
-		throw exception("CreateVolumeTexture() failed!");
-	tex.reset(ptex);
-	set_base(tex.get());*/
-
-	tex.reset(create_volume_texture(device, width(), height(), depth(), filter(), flags()));
+	tex.reset(create_volume_texture(device, width(), height(), depth(), filter(), flags(), false));
 	return tex.get();
 }
 
@@ -63,36 +55,19 @@ void sge::d3d9::volume_texture::lock()
 	lock(0);
 }
 
-void sge::d3d::volume_texture::lock(const lock_box& b)
+void sge::d3d9::volume_texture::lock(const lock_box& b)
 {
 	lock(&b);
 }
 
 void sge::d3d9::volume_texture::lock(const lock_box* const b)
 {
-//	const lock_flag_t _lflags = lock_flags::discard;
-
-//	const DWORD lflags = convert_lock_flags(_lflags, flags());
-
 	if(flags() & resource_flags::dynamic)
 		lock_dest = lock_volume_texture(tex, b, flags());
-	//	D3DLOCKED_BOX lb;
-	//	if(tex->LockBox(0, &lb, 0, lflags) != D3D_OK)
-	//		throw exception("LockBox() failed!");
-	//	lock_dest = static_cast<pointer>(lb.pBits);
-	
 	else
 	{
-		temp_tex.reset(create_volume_texture(device, width(), height(), depth(), filter(), flags()));
+		temp_tex.reset(create_volume_texture(device, width(), height(), depth(), filter(), flags(), true));
 		lock_dest = lock_volume_texture(tex, b, flags());
-/*		IDirect3DVolumeTexture9* temp;
-		if(device->CreateVolumeTexture(static_cast<UINT>(width()),static_cast<UINT>(height()),static_cast<UINT>(depth()),1,0,D3DFMT_A8R8G8B8,D3DPOOL_SYSTEMMEM,&temp,0) != D3D_OK)
-			throw exception("Creating temp volume texture failed!");
-		temp_tex.reset(temp);
-		D3DLOCKED_BOX lb;
-		if(temp_tex->LockBox(0,&lb,0,lflags) != D3D_OK)
-			throw exception("LockBox() failed!");
-		lock_dest = static_cast<pointer>(lb.pBits);*/
 	}
 }
 
@@ -100,26 +75,16 @@ void sge::d3d9::volume_texture::unlock()
 {
 	if(flags() & resource_flags::dynamic)
 		unlock_volume_texture(tex);
-//	{
-//		if(tex->UnlockBox(0) != D3D_OK)
-//			throw exception("unlock texture failed");
-//	}
 	else
 	{
 		unlock_volume_texture(temp_tex);
 		update_texture(device, temp_tex.get(), tex.get());
 		temp_tex.reset();
-/*		if(temp_tex->UnlockBox(0) != D3D_OK)
-			throw exception("unlock texture failed");
-
-		if(device->UpdateTexture(temp_tex.get(),tex.get()) != D3D_OK)
-			throw exception("update texture failed");
-		temp_tex.reset();*/
 	}
 	lock_dest = 0;
 }
 
-void sge::d3d9::volume_texture::on_loss()
+void sge::d3d9::volume_texture::do_loss()
 {
 	tex.reset();
 }

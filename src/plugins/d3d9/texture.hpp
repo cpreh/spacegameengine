@@ -39,7 +39,7 @@ typedef basic_texture<sge::texture> texture_base_type;
 
 }
 
-class texture : public texture_base_type {
+class texture : public detail::texture_base_type {
 public:
 	texture(renderer& r,
 	        d3d_device_ptr device,
@@ -59,8 +59,6 @@ public:
 	void lock();
 	void lock(const lock_rect&);
 	void unlock();
-
-	void filter(const filter_args&);
 private:
 	void lock(const lock_rect* r);
 

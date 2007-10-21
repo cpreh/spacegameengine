@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D_CUBE_TEXTURE_HPP_INCLUDED
-#define SGE_D3D_CUBE_TEXTURE_HPP_INCLUDED
+#ifndef SGE_D3D9_CUBE_TEXTURE_HPP_INCLUDED
+#define SGE_D3D9_CUBE_TEXTURE_HPP_INCLUDED
 
 #include "../../renderer/cube_texture.hpp"
 #include "basic_texture.hpp"
@@ -44,6 +44,7 @@ private:
 	             d3d_device_ptr device,
 	             const cube_side_array* data,
 	             size_type sz,
+	             const filter_args& filter,
 	             resource_flag_t flags);
 public:
 	size_type size() const;
@@ -53,12 +54,12 @@ public:
 	void set_data(cube_side::type side, const_pointer p, const lock_rect& r);
 
 	void lock(cube_side::type side);
-	void lock(cube_side::type side, const lock_rec&);
+	void lock(cube_side::type side, const lock_rect&);
 	void unlock();
 private:
 	void lock(cube_side::type side, const lock_rect* r);
-	IDirect3DBaseTexture* do_loss();
-	void do_reset();
+	void do_loss();
+	IDirect3DBaseTexture9* do_reset();
 
 	void init(const cube_side_array* data = 0);
 

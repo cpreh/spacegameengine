@@ -36,14 +36,14 @@ class renderer;
 template<typename Base>
 class basic_texture : public Base, public texture_base, public resource {
 public:
-	basic_texture(IDirect3DBaseTexture9*, renderer&, const filter_args& filter, resource_flag_t flags);
+	basic_texture(renderer&, const filter_args& filter, resource_flag_t flags);
 protected:
 	const filter_args& filter() const;
+	resource_flag_t flags() const;
 	void on_reset();
 	void on_loss();
 private:
 	void filter(const filter_args&);
-	resource_flag_t flags() const;
 
 	virtual IDirect3DBaseTexture9* do_reset() = 0;
 	virtual void do_loss() = 0;

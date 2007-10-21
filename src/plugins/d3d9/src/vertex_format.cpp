@@ -26,12 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-void fill_offset_info(sge::offset_info&, sge::vertex_size offset, sge::vertex_usage::type u);
 BYTE get_vertex_type(sge::vertex_usage::type u);
 
 }
 
-sge::d3d9::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex_format& f)
+sge::d3d9::vertex_format::vertex_format(const d3d_device_ptr device, const sge::vertex_format& f)
 {
 	raw_vector<D3DVERTEXELEMENT9> vertex_elements;
 
@@ -48,7 +47,7 @@ sge::d3d9::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex
 		elem.Usage = static_cast<BYTE>(convert_cast<D3DDECLUSAGE>(usage));
 		for(elem.UsageIndex = 0; elem.UsageIndex < it->count(); ++elem.UsageIndex)
 			vertex_elements.push_back(elem);
-		fill_offset_info(oi,offset,usage);
+		oi[usage] = offset;
 		offset += it->stride();
 	}
 	_stride = offset;
@@ -64,6 +63,26 @@ sge::d3d9::vertex_format::vertex_format(d3d_device_ptr device, const sge::vertex
 	//if(D3DXFVFFromDeclarator(&vertex_elements.front(),&fvf) != D3D_OK)
 	//	fvf = 0;
 	//	FIXME
+}
+
+const sge::d3d9::d3d_vertex_declaration_ptr sge::d3d9::vertex_format::vertex_declaration() const
+{
+	return _vertex_declaration;
+}
+
+const sge::offset_info& sge::d3d9::vertex_format::get_offset_info() const
+{
+	return oi;
+}
+
+DWORD sge::d3d9::vertex_format::fvf() const
+{
+	return _fvf;
+}
+
+sge::vertex_size sge::d3d9::vertex_format::stride() const
+{
+	return _stride;
 }
 
 namespace

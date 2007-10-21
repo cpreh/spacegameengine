@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../resource.hpp"
 #include "../render_target.hpp"
+#include "../../../stub.hpp"
 
 namespace
 {
@@ -126,7 +127,7 @@ void sge::d3d9::renderer::set_vertex_buffer(const vertex_buffer_ptr buffer)
 	if(!buffer)
 		return; //FIXME
 
-	d3d::vertex_buffer* const d3d_buffer = ptr_cast<d3d::vertex_buffer*>(buffer.get());
+	d3d9::vertex_buffer* const d3d_buffer = ptr_cast<d3d9::vertex_buffer*>(buffer.get());
 	const d3d_vertex_declaration_ptr decl = d3d_buffer->d3d_format.vertex_declaration();
 	if(decl != vertex_declaration)
 	{
@@ -143,7 +144,7 @@ void sge::d3d9::renderer::set_index_buffer(const index_buffer_ptr buffer)
 	if(!buffer)
 		return; //FIXME
 
-	d3d::index_buffer* const d3d_buffer = ptr_cast<d3d::index_buffer*>(buffer.get());
+	d3d9::index_buffer* const d3d_buffer = ptr_cast<d3d9::index_buffer*>(buffer.get());
 	if(device->SetIndices(d3d_buffer->buffer.get()) != D3D_OK)
 		throw exception("set_index_buffer() failed");
 }
@@ -242,12 +243,12 @@ void sge::d3d9::renderer::set_texture_stage_arg(const stage_type stage,
 }*/
 
 void sge::d3d9::renderer::render(const vertex_buffer_ptr nvb,
-                                const index_buffer_ptr nib,
-								const sge::vertex_buffer::size_type first_vertex,
-								const sge::vertex_buffer::size_type num_vertices,
-                                const indexed_primitive_type::type ptype,
-								const sge::index_buffer::size_type pcount,
-								const sge::index_buffer::size_type first_index)
+                                 const index_buffer_ptr nib,
+                                 const sge::vertex_buffer::size_type first_vertex,
+                                 const sge::vertex_buffer::size_type num_vertices,
+                                 const indexed_primitive_type::type ptype,
+                                 const sge::index_buffer::size_type pcount,
+                                 const sge::index_buffer::size_type first_index)
 {
 	const D3DPRIMITIVETYPE prim_type = convert_cast<D3DPRIMITIVETYPE>(ptype);
 	if(vb != nvb)
@@ -266,9 +267,9 @@ void sge::d3d9::renderer::render(const vertex_buffer_ptr nvb,
 }
 
 void sge::d3d9::renderer::render(const vertex_buffer_ptr nvb,
-								const sge::vertex_buffer::size_type first_vertex,
-								const sge::vertex_buffer::size_type num_vertices,
-								const nonindexed_primitive_type::type ptype)
+                                 const sge::vertex_buffer::size_type first_vertex,
+                                 const sge::vertex_buffer::size_type num_vertices,
+                                 const nonindexed_primitive_type::type ptype)
 {
 	const D3DPRIMITIVETYPE prim_type = convert_cast<D3DPRIMITIVETYPE>(ptype);
 	if(vb != nvb)
@@ -392,8 +393,80 @@ void sge::d3d9::renderer::set_color_state(const color_state::type state, const c
 	}
 }
 
+void sge::d3d9::renderer::set_cull_mode(const cull_mode::type mode)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::set_depth_func(const depth_func::type func)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::set_stencil_func(const stencil_func::type func,
+                                           const signed_type value,
+                                           const unsigned_type mask)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::set_fog_mode(const fog_mode::type mode)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::set_blend_func(const source_blend_func::type source,
+                                         const dest_blend_func::type dest)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::set_draw_mode(const draw_mode::type mode)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::set_viewport(const viewport& v)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::enable_light(const light_index index,
+                                       const bool enable)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::set_light(const light_index index,
+                                    const light& l)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::push()
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::d3d9::renderer::pop()
+{
+	SGE_STUB_FUNCTION
+}
+
+sge::glsl::program_ptr sge::d3d9::renderer::create_glsl_program(const std::string&,
+                                                                const std::string&)
+{
+	return glsl::program_ptr();
+}
+
+void sge::d3d9::renderer::set_glsl_shader(const glsl::program_ptr)
+{
+	throw exception("set_glsl_shader(): D3D9 does not support GLSL!");
+}
+
 sge::render_target_ptr sge::d3d9::renderer::get_render_target() const
 {
+	SGE_STUB_FUNCTION
 	return render_target_ptr(); //default_render_target; // FIXME
 }
 

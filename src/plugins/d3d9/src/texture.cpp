@@ -45,7 +45,7 @@ sge::d3d9::texture::texture(renderer& r,
 
 IDirect3DBaseTexture9* sge::d3d9::texture::do_reset()
 {
-	tex.reset(create_texture(device, width(), height(), filter(), flags()));
+	tex.reset(create_texture(device, width(), height(), filter(), flags(), false));
 	return tex.get();
 }
 
@@ -67,11 +67,11 @@ void sge::d3d9::texture::lock(const lock_rect& r)
 void sge::d3d9::texture::lock(const lock_rect* const r)
 {
 	if(flags() & resource_flags::dynamic)
-		lock_dest = lock_texture(tex, r);
+		lock_dest = lock_texture(tex, r, flags());
 	else
 	{
-		temp_tex.reset(create_texture(device, width(), height(), filter(), flags()));
-		lock_dest = lock_texture(temp_tex, r);
+		temp_tex.reset(create_texture(device, width(), height(), filter(), flags(), true));
+		lock_dest = lock_texture(temp_tex, r, flags());
 	}
 }
 
