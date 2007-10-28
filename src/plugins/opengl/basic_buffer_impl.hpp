@@ -84,12 +84,12 @@ void sge::ogl::basic_buffer<Base, Type>::set_data(const const_pointer data, cons
 template<typename Base, GLenum Type>
 typename sge::ogl::basic_buffer<Base, Type>::iterator sge::ogl::basic_buffer<Base, Type>::end()
 {
-	return begin() + size() * stride_;
+	return begin() + size();
 }
 template<typename Base, GLenum Type>
 typename sge::ogl::basic_buffer<Base, Type>::const_iterator sge::ogl::basic_buffer<Base, Type>::end() const
 {
-	return begin() + size() * stride_;
+	return begin() + size();
 }
 
 template<typename Base, GLenum Type>

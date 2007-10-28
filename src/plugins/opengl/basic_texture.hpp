@@ -108,7 +108,7 @@ public:
 
 	void filter(const filter_args& nfilter)
 	{
-		// TODO: what we do with mipmapping here?
+		// TODO: what to do with mipmapping here?
 		_filter = nfilter;
 		bind_me();
 		set_my_filter();

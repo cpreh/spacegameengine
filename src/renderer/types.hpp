@@ -104,10 +104,13 @@ namespace lock_flags
 	enum type {
 		none,
 		discard,
-		default_ = discard
+		readonly,
+		default_ = none
 	};
 }
-typedef unsigned lock_flag_t; // FIXME
+
+// all the values are currently mutually exclusive
+typedef lock_flags::type lock_flag_t;
 
 typedef math::vector2  tex_pos;
 typedef math::vector2  pos2;

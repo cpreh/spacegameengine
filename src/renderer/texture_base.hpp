@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_BASE_HPP_INCLUDED
 
 #include <cstddef>
+#include <iterator>
 #include "../shared_ptr.hpp"
 #include "../math/rect.hpp"
 #include "color.hpp"
@@ -33,15 +34,31 @@ namespace sge
 template<typename BitDepth>
 class basic_texture_base {
 public:
-	typedef std::size_t              size_type;
-	typedef std::ptrdiff_t           difference_type;
-	typedef typename BitDepth::color value_type;
-	typedef value_type*              pointer;
-	typedef const value_type*        const_pointer;
+	typedef std::size_t                           size_type;
+	typedef std::ptrdiff_t                        difference_type;
+	typedef typename BitDepth::color              value_type;
+	typedef value_type*                           pointer;
+	typedef const value_type*                     const_pointer;
+	typedef pointer                               iterator;
+	typedef const_pointer                         const_iterator;
+	typedef std::reverse_iterator<iterator>       reverse_iterator;
+	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
 	virtual ~basic_texture_base() {}
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
 	virtual void filter(const filter_args&) = 0;
+
+/*	virtual pointer data() = 0;
+	virtual const_pointer data() const = 0;
+	virtual iterator begin() = 0;
+	virtual const_iterator begin() const = 0;
+	virtual iterator end() = 0;
+	virtual const_iterator end() const = 0;
+	virtual reverse_iterator rbegin() = 0;
+	virtual const_reverse_iterator rbegin() const = 0;
+	virtual reverse_iterator rend() = 0;
+	virtual const_reverse_iterator rend() const = 0;*/
 };
 
 typedef basic_texture_base<bit_depth32> texture_base;

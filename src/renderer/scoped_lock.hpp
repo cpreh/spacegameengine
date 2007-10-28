@@ -33,13 +33,13 @@ namespace sge
 
 template<typename T> class scoped_lock : boost::noncopyable {
 public:
-	scoped_lock(const T t, const lock_flag_t flags = resource_flags::default_)
+	scoped_lock(const T t, const lock_flag_t flags = lock_flags::default_)
 	 : t(t)
 	{
 		t->lock(flags);
 	}
 
-	scoped_lock(const T t, const cube_side::type side, const lock_flag_t flags = resource_flags::default_)
+	scoped_lock(const T t, const cube_side::type side, const lock_flag_t flags = lock_flags::default_)
 	 : t(t)
 	{
 		t->lock(side, flags);

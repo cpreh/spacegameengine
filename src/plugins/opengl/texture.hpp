@@ -40,6 +40,10 @@ public:
 
 	void set_data(const_pointer src, const lock_rect& r);
 	void set_data(const_pointer src);
+
+	void lock(lock_flag_t flags);
+	void lock(const lock_rect&, lock_flag_t flags);
+	void unlock();
 private:
 	const size_type _width, _height;
 };

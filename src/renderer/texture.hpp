@@ -30,16 +30,26 @@ namespace sge
 template<typename BitDepth>
 class basic_texture : public basic_texture_base<BitDepth> {
 public:
-	typedef basic_texture_base<BitDepth> base;
-	typedef typename base::size_type size_type;
-	typedef typename base::const_pointer const_pointer;
-	typedef math::basic_dim<size_type, 2> dim_type;
+	typedef basic_texture_base<BitDepth>          base;
+	typedef typename base::size_type              size_type;
+	typedef typename base::difference_type        difference_type;
+	typedef typename base::value_type             value_type;
+	typedef typename base::pointer                pointer;
+	typedef typename base::const_pointer          const_pointer;
+	typedef typename base::iterator               iterator;
+	typedef typename base::const_iterator         const_iterator;
+	typedef typename base::reverse_iterator       reverse_iterator;
+	typedef typename base::const_reverse_iterator const_reverse_iterator;
+	typedef math::basic_dim<size_type, 2>         dim_type;
 
 //	virtual dim_type dim() const = 0;
 	virtual size_type width() const = 0;
 	virtual size_type height() const = 0;
 	virtual void set_data(const_pointer p, const lock_rect& r) = 0;
 	virtual void set_data(const_pointer p) = 0;
+	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;
+	virtual void lock(const lock_rect&, lock_flag_t flags = lock_flags::default_) = 0;
+	virtual void unlock() = 0;
 };
 
 typedef basic_texture<bit_depth32> texture;

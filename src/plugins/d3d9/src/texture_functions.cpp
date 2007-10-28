@@ -80,7 +80,7 @@ IDirect3DVolumeTexture9* sge::d3d9::create_volume_texture(const d3d_device_ptr d
 	IDirect3DVolumeTexture9* ptex = 0;
 	if(device->CreateVolumeTexture(static_cast<UINT>(width),
 	                               static_cast<UINT>(height),
-								   static_cast<UINT>(depth),
+	                               static_cast<UINT>(depth),
 	                               0, // FIXME
 	                               usage,
 	                               format,

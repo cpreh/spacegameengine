@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../error.hpp"
 #include "../texture_functions.hpp"
+#include "../../../stub.hpp"
 
 sge::ogl::texture::texture(const const_pointer src, const size_type nwidth, const size_type nheight, const filter_args& filter, const resource_flag_t flags)
  : basic_texture<sge::texture,GL_TEXTURE_2D>(filter,flags),
@@ -57,4 +58,28 @@ void sge::ogl::texture::set_data(const const_pointer src)
 	bind_me();
 	set_my_filter();
 	set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), src);
+}
+
+void sge::ogl::texture::lock(const lock_rect& r, const lock_flag_t lflags)
+{
+	SGE_STUB_FUNCTION
+//	glReadBuffer(attachmentpoints[readTex]);
+/*	glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, buf_id);
+	glBufferData(GL_PIXEL_PACK_BUFFER_ARB, texSize * texSize * sizeof(float), NULL, GL_STREAM_READ);
+	glReadPixels (0, 0, texSize, texSize, GL_LUMINANCE, GL_FLOAT, BUFFER_OFFSET(0));
+	void* mem = glMapBuffer(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY);*/
+	//assert(mem);
+	//copy(mem,data);
+	//glUnmapBuffer(GL_PIXEL_PACK_BUFFER_ARB);
+	//glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, 0); 
+}
+
+void sge::ogl::texture::lock(const lock_flag_t lflags)
+{
+	SGE_STUB_FUNCTION
+}
+
+void sge::ogl::texture::unlock()
+{
+	SGE_STUB_FUNCTION
 }

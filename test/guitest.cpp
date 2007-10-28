@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/any.hpp>
 #include <boost/bind.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
 
 #include "../src/input/input_system.hpp"
