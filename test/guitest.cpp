@@ -60,14 +60,13 @@ try
 	sge::plugin_manager pm;
 
 	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
+	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
 
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
-//	const sge::renderer_caps_array caps(rs->caps());
 
 	const sge::renderer_parameters param(sge::display_mode(800,600,sge::bit_depth::depth32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
 
-	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
 	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
 
 	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
