@@ -17,6 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include "../manager.hpp"
 #include "../types.hpp"
 
@@ -47,4 +48,8 @@ sge::virtual_texture_ptr sge::gui::manager::to_texture(sge::texture_manager &tex
 		last_texture = framebuffer.to_texture(texmgr, last_texture);
 	}
 	return last_texture;
+}
+
+void sge::gui::manager::input_callback()
+{
 }

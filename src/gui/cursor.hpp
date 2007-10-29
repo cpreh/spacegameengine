@@ -41,7 +41,7 @@ struct normal_cursor : public cursor_base {
 	void blit(canvas &dest, point position) const;
 };
 
-typedef boost::shared_ptr<cursor_base> cursor;
+typedef boost::shared_ptr<cursor_base> cursor_ptr;
 
 void cursor_from_bitmap();
 

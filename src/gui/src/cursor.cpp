@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "cursor.hpp"
+#include "../cursor.hpp"
 
 void sge::gui::normal_cursor::blit(canvas &dest, point position) const {
 	dest.blit<mixing_policy::normal>(
