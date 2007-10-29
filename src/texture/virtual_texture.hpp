@@ -32,7 +32,7 @@ class fragmented_texture;
 
 class virtual_texture : boost::noncopyable {
 public:
-	virtual_texture(const lock_rect&, fragmented_texture*, bool repeatable = false);
+	virtual_texture(const lock_rect&, fragmented_texture&, bool repeatable = false);
 	~virtual_texture();
 	const lock_rect& area() const;
 	const math::rect area_texc(space_unit repeat = 1) const;
@@ -44,7 +44,7 @@ public:
 private:
 	const lock_rect& outer_area() const;
 	lock_rect outer_area_;
-	fragmented_texture* fragment;
+	fragmented_texture& fragment;
 	bool repeatable_;
 	lock_rect inner_area_;
 };

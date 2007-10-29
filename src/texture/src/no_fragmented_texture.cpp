@@ -36,7 +36,7 @@ sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const tex
 	tex = rend->create_texture(0, next_w, next_h, my_filter);
 
 	const bool no_atlasing = next_w == w && next_h == h;
-	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0,0), no_atlasing ? lock_rect::dim_type(w,h) : atlased_size(w,h)), this, no_atlasing));
+	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0,0), no_atlasing ? lock_rect::dim_type(w,h) : atlased_size(w,h)), *this, no_atlasing));
 }
 
 void sge::no_fragmented_texture::return_fragments(const virtual_texture&)

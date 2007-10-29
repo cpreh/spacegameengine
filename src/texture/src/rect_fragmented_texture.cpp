@@ -51,7 +51,7 @@ sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const t
 	if(cur_y + h >= tex->height())
 		return virtual_texture_ptr();
 
-	const virtual_texture_ptr ret(new virtual_texture(lock_rect(lock_rect::point_type(cur_x, cur_y), atlased_dim), this));
+	const virtual_texture_ptr ret(new virtual_texture(lock_rect(lock_rect::point_type(cur_x, cur_y), atlased_dim), *this));
 
 	cur_x += w + 1;
 	cur_height = std::max(cur_height, h);

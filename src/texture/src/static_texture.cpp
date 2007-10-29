@@ -34,7 +34,7 @@ sge::virtual_texture_ptr sge::static_texture::consume_fragments(const texture::s
 	if(w > tex->width() || h > tex->height())
 		throw exception("static_texture::consume_fragments(): size out of range.");
 	claimed = true;
-	return virtual_texture_ptr(new virtual_texture(lock_rect(0,0,w,h), this));
+	return virtual_texture_ptr(new virtual_texture(lock_rect(0,0,w,h), *this));
 }
 
 void sge::static_texture::return_fragments(const virtual_texture&)

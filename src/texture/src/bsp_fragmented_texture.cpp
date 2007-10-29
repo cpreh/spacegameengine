@@ -36,7 +36,7 @@ sge::virtual_texture_ptr sge::bsp_fragmented_texture::consume_fragments(const te
 	const bsp_type::iterator it = bsp.insert(atlased_dim);
 	if(it == bsp.end())
 		return virtual_texture_ptr();
-	return virtual_texture_ptr(new virtual_texture(*it, this));
+	return virtual_texture_ptr(new virtual_texture(*it, *this));
 }
 
 void sge::bsp_fragmented_texture::return_fragments(const virtual_texture& t)

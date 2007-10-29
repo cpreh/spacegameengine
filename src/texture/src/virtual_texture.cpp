@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/utility.hpp"
 #include <iostream>
 
-sge::virtual_texture::virtual_texture(const lock_rect& outer_area_, fragmented_texture* const fragment, const bool repeatable_)
+sge::virtual_texture::virtual_texture(const lock_rect& outer_area_, fragmented_texture& fragment, const bool repeatable_)
 : outer_area_(outer_area_),
    fragment(fragment),
    repeatable_(repeatable_),
@@ -33,7 +33,7 @@ sge::virtual_texture::virtual_texture(const lock_rect& outer_area_, fragmented_t
 
 sge::virtual_texture::~virtual_texture()
 {
-	fragment->return_fragments(*this);
+	fragment.return_fragments(*this);
 }
 
 const sge::lock_rect& sge::virtual_texture::area() const
@@ -71,7 +71,7 @@ const sge::tex_pos sge::virtual_texture::translate(const tex_pos::value_type x, 
 
 const sge::texture_ptr sge::virtual_texture::my_texture() const
 {
-	return fragment->get_texture();
+	return fragment.get_texture();
 }
 
 bool sge::virtual_texture::repeatable() const
