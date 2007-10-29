@@ -190,10 +190,10 @@ enum type {
 	X_NUM_MOUSE_KEYS,
 	num_mouse_keys = X_NUM_MOUSE_KEYS & input_keyid_mask,
 
-	X_NUM_JOYSTICK_KEYS = input_type_joystick;
+	X_NUM_JOYSTICK_KEYS = input_type_joystick,
 	num_joystick_keys = X_NUM_JOYSTICK_KEYS & input_keyid_mask,
 
-	num_total_keys = num_key_keys + num_mouse_keys + num_joystick_keys;
+	num_total_keys = num_key_keys + num_mouse_keys + num_joystick_keys
 };
 
 }
