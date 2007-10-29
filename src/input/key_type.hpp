@@ -42,8 +42,16 @@ namespace kc
 {
 
 enum type {
-	none,
-	key_escape,
+	input_type_mask     = 0xf000U,
+	input_keyid_mask    = 0x0fffU,
+
+	input_type_keyboard = 0x1000U,
+	input_type_mouse    = 0x2000U,
+	input_type_joystick = 0x3000U,
+
+	none                = 0x0000U,
+
+	key_escape          = input_type_keyboard,
 	key_return,
 	key_lshift,
 	key_rshift,
@@ -165,7 +173,10 @@ enum type {
 //	key_sysrq,
 //	key_unlabeled,
 	key_yen,
-	mouse_l,
+	X_NUM_KEY_KEYS,
+	num_key_keys = X_NUM_KEY_KEYS & input_keyid_mask,
+
+	mouse_l             = input_type_mouse,
 	mouse_r,
 	mouse_axis_x,
 	mouse_axis_x_neg,
@@ -175,8 +186,14 @@ enum type {
 	mouse_axis_y_pos,
 	mouse_axis_z,
 	mouse_axis_z_neg,
-	mouse_axis_z_pos
-	//key_num_keys
+	mouse_axis_z_pos,
+	X_NUM_MOUSE_KEYS,
+	num_mouse_keys = X_NUM_MOUSE_KEYS & input_keyid_mask,
+
+	X_NUM_JOYSTICK_KEYS = input_type_joystick;
+	num_joystick_keys = X_NUM_JOYSTICK_KEYS & input_keyid_mask,
+
+	num_total_keys = num_key_keys + num_mouse_keys + num_joystick_keys;
 };
 
 }
@@ -187,9 +204,9 @@ class key_type {
 public:
 	typedef sge::string        string;
 	typedef string::value_type char_type;
-	
+
 	key_type(const string& name = string(), key_code code = kc::none, char_type char_code = 0);
-	
+
 	const string& name() const;
 	key_code code() const;
 	char_type char_code() const;

@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\..\..\bin\sgetest.exe" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\sgetest" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -15,16 +15,16 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library='boost_signals' />
-					<Add library='sgegui' />
-					<Add library='sgecore' />
-					<Add directory="..\..\..\bin" />
 					<Add option="-Wl,-R,." />
 					<Add option="-Wl,-R,plugins" />
+					<Add library="boost_signals" />
+					<Add library="sgegui" />
+					<Add library="sgecore" />
+					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\..\..\bin\sgetest.exe" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\sgetest" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -32,12 +32,12 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library='boost_signals' />
-					<Add library='sgegui' />
-					<Add library='sgecore' />
-					<Add directory="..\..\..\bin" />
 					<Add option="-Wl,-R,." />
 					<Add option="-Wl,-R,plugins" />
+					<Add library="boost_signals" />
+					<Add library="sgegui" />
+					<Add library="sgecore" />
+					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 		</Build>
@@ -46,11 +46,15 @@
 			<Add option="-Wall" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option='-Wno-long-long' />
+			<Add option="-Wno-long-long" />
 		</Compiler>
-		<Unit filename="..\..\..\test/guitest.cpp" />
+		<Unit filename="..\..\..\src\gui\cursor.cpp" />
+		<Unit filename="..\..\..\src\gui\cursor.hpp" />
+		<Unit filename="..\..\..\test\guitest.cpp" />
 		<Extensions>
 			<code_completion />
+			<envvars />
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

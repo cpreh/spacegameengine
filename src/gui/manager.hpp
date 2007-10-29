@@ -22,12 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
 #include "canvas.hpp"
+#include "cursor.hpp"
 #include "widget.hpp"
 
 namespace sge {
 namespace gui {
 
 class manager : public widget {
+	friend struct input_callback_functor;
 public:
 	manager();
 	manager(sge::gui::dim2);
@@ -36,9 +38,16 @@ public:
 	manager *top_level_widget() const;
 	void resize(dim2 newsize);
 
-private:
+	inline cursor_ptr cursor() const { return cursor_; }
+	void cursor(cursor_ptr);
+
+protected:
 	canvas framebuffer;
+	cursor_ptr cursor_;
 	sge::virtual_texture_ptr last_texture;
+
+	virtual void input_callback();
+
 public:
 	sge::virtual_texture_ptr to_texture(sge::texture_manager &texmgr);
 };

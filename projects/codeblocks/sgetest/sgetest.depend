@@ -415,20 +415,20 @@
 	"types.hpp"
 	"renderer.hpp"
 
-1185928678 d:\dev\sge\src\media.hpp
+1192729362 d:\dev\sge\src\media.hpp
 	<string>
+	"export.hpp"
 
 1192729358 d:\dev\sge\src\gui\manager.hpp
 	"canvas.hpp"
 	"widget.hpp"
 
-1185928678 d:\dev\sge\src\timer.hpp
+1192729362 d:\dev\sge\src\timer.hpp
 	"time.hpp"
+	"export.hpp"
 
-1185928678 d:\dev\sge\src\time.hpp
-	"types.hpp"
-	<sys/time.h>
-	"windows.hpp"
+1192729362 d:\dev\sge\src\time.hpp
+	"export.hpp"
 
 1192729349 d:\dev\sge\src\image\image_loader.hpp
 	<string>
@@ -1453,4 +1453,142 @@
 	<cstddef>
 
 1192729360 d:\dev\sge\src\detail\plugin_impl.hpp
+
+1192729348 source:d:\dev\sge\test\island\main.cpp
+	<cmath>
+	<ctime>
+	<cstdlib>
+	<cassert>
+	<iostream>
+	<map>
+	<boost/shared_array.hpp>
+	<boost/lexical_cast.hpp>
+	<boost/cstdint.hpp>
+	"../../src/math/matrix.hpp"
+	"../../src/plugin_manager.hpp"
+	"../../src/plugin.hpp"
+	"../../src/renderer/renderer.hpp"
+	"../../src/renderer/renderer_system.hpp"
+	"../../src/input/input_system.hpp"
+	"../../src/input/key_state_tracker.hpp"
+	"../../src/timer.hpp"
+	"../../src/image/image_loader.hpp"
+	"../../src/image/image.hpp"
+	"../../src/image/util.hpp"
+	"../../src/renderer/color.hpp"
+	"../../src/renderer/scoped_lock.hpp"
+	"../../src/math/constants.hpp"
+	"../../src/math/rect.hpp"
+	"../../src/media.hpp"
+	"../../src/accessor.hpp"
+	"../../src/math/utility.hpp"
+	"../quadtree/quadtree.hpp"
+	"field.hpp"
+	"interpolation.hpp"
+	"noise_generation.hpp"
+	"noise_field_generator.hpp"
+	"island_extractor.hpp"
+	"skydome.hpp"
+
+1192729349 d:\dev\sge\src\image\util.hpp
+	"../renderer/types.hpp"
+	"../renderer/renderer.hpp"
+	"../renderer/texture.hpp"
+	"image_loader.hpp"
+
+1192729362 d:\dev\sge\src\accessor.hpp
+
+1192729348 d:\dev\sge\test\quadtree\quadtree.hpp
+	<vector>
+	<boost/scoped_ptr.hpp>
+	<boost/noncopyable.hpp>
+	"../../src/math/vector.hpp"
+	"../../src/math/rect.hpp"
+	"../../src/exception.hpp"
+	"mathstuff.hpp"
+
+1192729348 d:\dev\sge\test\quadtree\mathstuff.hpp
+	<ostream>
+	"../../src/math/vector.hpp"
+	"../../src/math/matrix.hpp"
+	"../../src/math/rect.hpp"
+	"../../src/accessor.hpp"
+
+1192729348 d:\dev\sge\test\island\field.hpp
+	<vector>
+	<algorithm>
+	"../../src/math/vector.hpp"
+	"../../src/math/dim.hpp"
+
+1192729348 d:\dev\sge\test\island\interpolation.hpp
+
+1192729348 d:\dev\sge\test\island\noise_generation.hpp
+	<cassert>
+	<cstdlib>
+	<vector>
+	"../../src/math/utility.hpp"
+
+1192729348 d:\dev\sge\test\island\noise_field_generator.hpp
+	<iostream>
+	<algorithm>
+	"field.hpp"
+
+1192729348 d:\dev\sge\test\island\island_extractor.hpp
+	<list>
+	"../../src/math/rect.hpp"
+	"field.hpp"
+
+1192729348 d:\dev\sge\test\island\skydome.hpp
+	"../../src/renderer/renderer.hpp"
+	"../../src/math/vector.hpp"
+
+1192729348 source:d:\dev\sge\test\island\skydome.cpp
+	"../../src/renderer/scoped_lock.hpp"
+	"../../src/math/constants.hpp"
+	"../../src/exception.hpp"
+	"skydome.hpp"
+
+1192729348 source:d:\dev\sge\test\island\island_extractor.cpp
+	"../../src/math/utility.hpp"
+	"island_extractor.hpp"
+
+1192812870 source:d:\dev\sge\test\island\skydome_testcase.cpp
+	<cmath>
+	<ctime>
+	<cstdlib>
+	<cassert>
+	<ctime>
+	<iostream>
+	<map>
+	<boost/shared_array.hpp>
+	<boost/lexical_cast.hpp>
+	"../../src/math/matrix.hpp"
+	"../../src/plugin_manager.hpp"
+	"../../src/plugin.hpp"
+	"../../src/renderer/renderer.hpp"
+	"../../src/renderer/renderer_system.hpp"
+	"../../src/input/input_system.hpp"
+	"../../src/input/key_state_tracker.hpp"
+	"../../src/input/key_type.hpp"
+	"../../src/timer.hpp"
+	"../../src/image/image_loader.hpp"
+	"../../src/image/image.hpp"
+	"../../src/renderer/color.hpp"
+	"../../src/math/constants.hpp"
+	"../../src/math/rect.hpp"
+	"../../src/media.hpp"
+	"../../src/accessor.hpp"
+	"../../src/renderer/screenshot.hpp"
+	"skydome.hpp"
+
+1192729348 source:d:\dev\sge\test\quadtree\mathstuff.cpp
+	<iostream>
+	<cmath>
+	"../../src/math/constants.hpp"
+	"mathstuff.hpp"
+
+1192729348 source:d:\dev\sge\test\quadtree\quadtree.cpp
+	<cassert>
+	"mathstuff.hpp"
+	"quadtree.hpp"
 

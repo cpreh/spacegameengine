@@ -17,17 +17,39 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#ifndef SGE_EXPORT_HPP_INCLUDED
+#define SGE_EXPORT_HPP_INCLUDED
 
 #ifdef SGE_SYMBOL
-#undef SGE_SYMBOL
+#	undef SGE_SYMBOL
 #endif
 
+#ifdef SGE_EXPORT_SYMBOL
+#	undef SGE_EXPORT_SYMBOL
+#endif
+
+#ifdef SGE_IMPORT_SYMBOL
+#	undef SGE_IMPORT_SYMBOL
+#endif
+
+// ----- BEGIN COMPILER DISAMBIGUITION ----- //
+
 #ifdef _MSC_VER
+#	define SGE_EXPORT_SYMBOL __declspec(dllexport)
+#	define SGE_IMPORT_SYMBOL __declspec(dllimport)
+
+#else
+#	define SGE_EXPORT_SYMBOL
+#	define SGE_IMPORT_SYMBOL
+
+#endif
+
+// ------ END COMPILER DISAMBIGUITION ------ //
+
 #ifdef SGE_EXPORTS
-#define SGE_SYMBOL __declspec(dllexport)
+#	define SGE_SYMBOL SGE_EXPORT_SYMBOL
 #else
-#define SGE_SYMBOL __declspec(dllimport)
+#	define SGE_SYMBOL SGE_IMPORT_SYMBOL
 #endif // SGE_EXPORTS
-#else
-#define SGE_SYMBOL
-#endif // _MSC_VER
+
+#endif // SGE_EXPORT_HPP_INCLUDED
