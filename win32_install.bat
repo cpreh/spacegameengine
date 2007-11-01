@@ -33,7 +33,7 @@
 @goto Exit
 
 :Config
-@call cmake -G %target% -D ENABLE_DEVIL:=1 -D ENABLE_TEST:=1 -D ENABLE_OPENGL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_OPENAL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TRUETYPE:=1 -D ENABLE_ZLIB:=1 -D ENABLE_D3D9:=1 .
+@call cmake -G %target% -D CMAKE_LIBRARYPATH=./project/win32/lib/ -D ENABLE_DEVIL:=1 -D ENABLE_TEST:=1 -D ENABLE_OPENGL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_OPENAL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TRUETYPE:=1 -D ENABLE_ZLIB:=1 -D ENABLE_D3D9:=1 .
 
 :Extract
 @rem call "project/windows/bin/lzma.exe d /project/windows/libs.lzma /project/windows/extern/"
