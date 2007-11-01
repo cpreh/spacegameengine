@@ -21,12 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 #define SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 
-#include <iostream>
-#include "../../exception.hpp"
 #include "common.hpp"
-#include "conversion.hpp"
 #include "texture_base.hpp"
-#include "error.hpp"
 
 namespace sge
 {
@@ -35,50 +31,12 @@ namespace ogl
 
 template<typename Base, GLenum Type> class basic_texture : public Base, public texture_base {
 private:
-	static void tex_parameter_i(const GLenum name, const GLint param)
-	{
-		glTexParameteri(Type,name,param);
-		if(is_error())
-			throw exception("glTexParamteri() failed!");
-	}
+	static void tex_parameter_i(GLenum name, GLint param);
 protected:
-	void bind_me() const
-	{
-		glBindTexture(Type,id());
-		if(is_error())
-			throw exception("glBindTexture() failed!");
-	}
-
-	void set_my_filter() const
-	{
-		tex_parameter_i(GL_TEXTURE_MIN_FILTER, convert_cast<GLenum>(filter().min_filter));
-		tex_parameter_i(GL_TEXTURE_MAG_FILTER, convert_cast<GLenum>(filter().mag_filter));
-		if(filter().anisotropy_level != 0)
-		{
-#if GL_EXT_texture_filter_anisotropic
-			try
-			{
-					tex_parameter_i(GL_TEXTURE_MAX_ANISOTROPY_EXT, filter().anisotropy_level);
-			}
-			catch(const exception&)
-			{
-				std::cerr << "Warning: anisotropy level " << filter().anisotropy_level << " not supported!\n";
-			}
-#else
-			std::cerr << "Warning: anisotropic filtering is not supported!\n";
-#endif
-		}
-	}
-
-	GLuint id() const
-	{
-		return _id;
-	}
-
-	const filter_args& filter() const
-	{
-		return _filter;
-	}
+	void bind_me() const;
+	void set_my_filter() const;
+	GLuint id() const;
+	const filter_args& filter() const;
 public:
 	typedef typename Base::value_type value_type;
 	typedef typename Base::size_type size_type;
@@ -86,33 +44,11 @@ public:
 	typedef typename Base::pointer pointer;
 	typedef typename Base::const_pointer const_pointer;
 
-	basic_texture(const filter_args& _filter, const resource_flag_t _flags)
-	 : texture_base(Type), _filter(_filter), _flags(_flags)
-	{
-		glGenTextures(1,&_id);
-		if(is_error())
-			throw exception("glGenTextures() failed!");
-	}
-	
+	basic_texture(const filter_args& filter, resource_flag_t flags);
 	virtual size_type size() const = 0;
-	
-	~basic_texture()
-	{
-		glDeleteTextures(1,&_id);
-	}
-
-	resource_flag_t flags() const
-	{
-		return _flags;
-	}
-
-	void filter(const filter_args& nfilter)
-	{
-		// TODO: what to do with mipmapping here?
-		_filter = nfilter;
-		bind_me();
-		set_my_filter();
-	}
+	~basic_texture();
+	resource_flag_t flags() const;
+	void filter(const filter_args& nfilter);
 private:
 	filter_args _filter;
 	resource_flag_t _flags;
@@ -121,6 +57,8 @@ private:
 
 }
 }
+
+#include "basic_texture_impl.hpp"
 
 #endif
 

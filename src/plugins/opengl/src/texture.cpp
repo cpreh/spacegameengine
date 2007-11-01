@@ -24,9 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_functions.hpp"
 #include "../../../stub.hpp"
 
-sge::ogl::texture::texture(const const_pointer src, const size_type nwidth, const size_type nheight, const filter_args& filter, const resource_flag_t flags)
+sge::ogl::texture::texture(const const_pointer src,
+                           const size_type _width,
+                           const size_type _height,
+                           const filter_args& filter,
+                           const resource_flag_t flags)
  : basic_texture<sge::texture,GL_TEXTURE_2D>(filter,flags),
-   _width(nwidth), _height(nheight)
+   _width(_width),
+   _height(_height)
 {
 	set_data(src);
 }

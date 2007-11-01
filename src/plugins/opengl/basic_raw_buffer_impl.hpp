@@ -18,26 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../index_buffer.hpp"
-#include "../basic_buffer_impl.hpp"
+#ifndef SGE_OPENGL_BASIC_RAW_BUFFER_IMPL_HPP_INCLUDED
+#define SGE_OPENGL_BASIC_RAW_BUFFER_IMPL_HPP_INCLUDED
 
-sge::ogl::index_buffer::index_buffer(const size_type sz, const resource_flag_t flags, const const_pointer src)
- : detail::index_buffer_base(sz,sge::index_buffer::stride,flags,src)
+template<typename Base, GLenum Type>
+sge::ogl::basic_raw_buffer<Base, Type>::basic_raw_buffer(const size_type sz,
+                                                         const resource_flag_t flags,
+                                                         const const_pointer src)
+: base(sz, sizeof(value_type), flags, src)
 {}
 
-sge::ogl::index_buffer::iterator sge::ogl::index_buffer::begin()
+template<typename Base, GLenum Type>
+typename sge::ogl::basic_raw_buffer<Base, Type>::iterator sge::ogl::basic_raw_buffer<Base, Type>::create_iterator(const pointer src)
 {
-	check_lock();
-	return data();
+	return iterator(src);
 }
 
-sge::ogl::index_buffer::const_iterator sge::ogl::index_buffer::begin() const
+template<typename Base, GLenum Type>
+typename sge::ogl::basic_raw_buffer<Base, Type>::const_iterator sge::ogl::basic_raw_buffer<Base, Type>::create_iterator(const const_pointer src) const
 {
-	check_lock();
-	return data();
+	return iterator(src);
 }
 
-void sge::ogl::index_buffer::unbind()
-{
-	detail::index_buffer_base::unbind();
-}
+#endif

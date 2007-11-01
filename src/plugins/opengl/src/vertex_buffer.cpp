@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_buffer.hpp"
 #include "../basic_buffer_impl.hpp"
 
-sge::ogl::vertex_buffer::vertex_buffer(const size_type size, const sge::vertex_format& format, const resource_flag_t flags, const const_pointer src)
+sge::ogl::vertex_buffer::vertex_buffer(const size_type size,
+                                       const sge::vertex_format& format,
+                                       const resource_flag_t flags,
+                                       const const_pointer src)
  : detail::vertex_buffer_base(size, format.stride(), flags, src),
    format(format),
    ogl_format(format)
@@ -47,25 +50,8 @@ sge::ogl::vertex_buffer::const_iterator sge::ogl::vertex_buffer::create_iterator
 	return const_iterator(p,stride(),ogl_format.offsets());
 }
 
-sge::ogl::vertex_buffer::iterator sge::ogl::vertex_buffer::begin()
-{
-	this->check_lock();
-	return create_iterator(data());
-}
-
-sge::ogl::vertex_buffer::const_iterator sge::ogl::vertex_buffer::begin() const
-{
-	this->check_lock();
-	return create_iterator(data());
-}
-
 void sge::ogl::vertex_buffer::set_format()
 {
 	bind_me();
 	ogl_format.use_me();
-}
-
-void sge::ogl::vertex_buffer::unbind()
-{
-	detail::vertex_buffer_base::unbind();
 }

@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void sge::ogl::check_vbo_extension()
 {
-
 #ifdef SGE_OGL_VERTEX_BUFFER_OBJECT_ARB
 		if(!glGenBuffersARB)
 			throw exception(extension_not_supported_string("GL_ARB_vertex_buffer_object"));
@@ -34,11 +33,12 @@ void sge::ogl::check_vbo_extension()
 		if(!glGenBuffers)
 			throw exception(version_not_supported_string("glGenBuffers", "1.5"));
 #endif
-
 }
 
 GLuint sge::ogl::gen_buffer()
 {
+	check_vbo_extension();
+
 	GLuint id;
 #ifdef SGE_OGL_VERTEX_BUFFER_OBJECT_ARB
 	glGenBuffersARB(1, &id);

@@ -293,7 +293,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	glDrawElements(prim_type,
 	               indices_per_primitive(ptype) * pcount,
 	               GL_UNSIGNED_INT,
-	               vbo_offset(first_index * sge::index_buffer::stride));
+	               vbo_offset(first_index * sizeof(sge::index_buffer::value_type)));
 
 	if(is_error())
 		throw exception("opengl error during rendering an indexed array!");

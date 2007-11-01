@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_BASIC_BUFFER_HPP_INCLUDED
-#define SGE_OGL_BASIC_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_BASIC_RAW_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_BASIC_RAW_BUFFER_HPP_INCLUDED
 
-#include "../../exception.hpp"
+#include "../../renderer/types.hpp"
+#include "basic_buffer.hpp"
 #include "common.hpp"
 
 namespace sge
@@ -29,7 +30,8 @@ namespace sge
 namespace ogl
 {
 
-template<typename Base, GLenum Type> class basic_buffer : public Base {
+template<typename Base, GLenum Type>
+class basic_raw_buffer : public basic_buffer<Base, Type> {
 public:
 	typedef typename Base::value_type             value_type;
 	typedef typename Base::size_type              size_type;
@@ -42,51 +44,18 @@ public:
 	typedef typename Base::const_iterator         const_iterator;
 	typedef typename Base::reverse_iterator       reverse_iterator;
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
-			
-	basic_buffer(size_type sz, size_type stride, resource_flag_t flags, const_pointer src);
-	~basic_buffer();
 
-	void lock(lock_flag_t lockflags);
-	void unlock();
-	void set_data(const_pointer data, size_type first, size_type count);
-
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
-	reverse_iterator rbegin();
-	const_reverse_iterator rbegin() const;
-	reverse_iterator rend();
-	const_reverse_iterator rend() const;
-	
-	size_type size() const;
-	resource_flag_t flags() const;
-
-	reference operator[](size_type i);
-	const_reference operator[](size_type i) const;
-	void resize(size_type newsize, const_pointer src);
-
-	pointer data();
-	const_pointer data() const;
-
-	static void bind(GLuint id);
-	static void unbind();
-	void bind_me() const;
+	basic_raw_buffer(size_type, resource_flag_t, const_pointer src);
 private:
-	void check_lock() const;
-	void set_size(const_pointer src);
+	typedef basic_buffer<Base, Type> base;
 
-	virtual iterator create_iterator(pointer) = 0;
-	virtual const_iterator create_iterator(const_pointer) const = 0;
-
-	size_type        sz;
-	size_type        stride_;
-	resource_flag_t  flags_;
-	pointer          dest;
-	GLuint           id;
+	iterator create_iterator(pointer);
+	const_iterator create_iterator(const_pointer) const;
 };
 
 }
 }
+
+#include "basic_raw_buffer_impl.hpp"
 
 #endif

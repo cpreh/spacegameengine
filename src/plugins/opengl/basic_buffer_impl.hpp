@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_BASIC_BUFFER_IMPL_HPP_INCLUDED
-#define SGE_OGL_BASIC_BUFFER_IMPL_HPP_INCLUDED
+#ifndef SGE_OPENGL_BASIC_BUFFER_IMPL_HPP_INCLUDED
+#define SGE_OPENGL_BASIC_BUFFER_IMPL_HPP_INCLUDED
 
 #include "conversion.hpp"
 #include "vbo.hpp"
@@ -29,10 +29,9 @@ sge::ogl::basic_buffer<Base, Type>::basic_buffer(const size_type sz, const size_
  : sz(sz),
    stride_(stride_),
    flags_(flags_),
-   dest(0)
+   dest(0),
+   id(gen_buffer())
 {
-	check_vbo_extension();
-	id = gen_buffer();
 	set_size(src);
 }
 
@@ -79,6 +78,20 @@ void sge::ogl::basic_buffer<Base, Type>::set_data(const const_pointer data, cons
 		throw exception("ogl_buffer::set_data(), buffer must not be locked!");
 	bind_me();
 	buffer_sub_data(Type, first * stride_, count * stride_, data);
+}
+
+template<typename Base, GLenum Type>
+typename sge::ogl::basic_buffer<Base, Type>::iterator sge::ogl::basic_buffer<Base, Type>::begin()
+{
+	check_lock();
+	return create_iterator(data());
+}
+
+template<typename Base, GLenum Type>
+typename sge::ogl::basic_buffer<Base, Type>::const_iterator sge::ogl::basic_buffer<Base, Type>::begin() const
+{
+	check_lock();
+	return create_iterator(data());
 }
 
 template<typename Base, GLenum Type>
@@ -142,8 +155,8 @@ typename sge::ogl::basic_buffer<Base, Type>::const_reference sge::ogl::basic_buf
 template<typename Base, GLenum Type>
 void sge::ogl::basic_buffer<Base, Type>::resize(const size_type newsize, const const_pointer src)
 {
-	if(newsize <= size())
-		return;
+//	if(newsize <= size())
+//		return;
 	if(dest)
 		throw exception("ogl_buffer::resize(), buffer must be unlocked!");
 	sz = newsize;

@@ -18,22 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_OGL_INDEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_PBO_HPP_INCLUDED
+#define SGE_OPENGL_PBO_HPP_INCLUDED
 
-#include "../../renderer/index_buffer.hpp"
+#include "../../renderer/texture_base.hpp"
 #include "basic_raw_buffer.hpp"
-#include "vbo.hpp"
+#include "common.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-typedef basic_raw_buffer<sge::index_buffer, index_buffer_type> index_buffer;
+struct pbo_base {
+	typedef texture_base::size_type              size_type;
+	typedef texture_base::difference_type        difference_type;
+	typedef texture_base::value_type             value_type;
+	typedef texture_base::pointer                pointer;
+	typedef texture_base::const_pointer          const_pointer;
+	typedef texture_base::iterator               iterator;
+	typedef texture_base::const_iterator         const_iterator;
+	typedef texture_base::reverse_iterator       reverse_iterator;
+	typedef texture_base::const_reverse_iterator const_reverse_iterator;
+};
+
+typedef basic_raw_buffer<pbo_base, GL_PIXEL_PACK_BUFFER_ARB>   pixel_pack_buffer;
+typedef basic_raw_buffer<pbo_base, GL_PIXEL_UNPACK_BUFFER_ARB> pixel_unpack_buffer;
 
 }
 }
 
 #endif
-

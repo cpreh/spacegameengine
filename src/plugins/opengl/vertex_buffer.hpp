@@ -44,12 +44,8 @@ public:
 	const sge::vertex_format& get_vertex_format() const;
 	iterator create_iterator(pointer p);
 	const_iterator create_iterator(const_pointer p) const;
-	iterator begin();
-	const_iterator begin() const;
 
 	void set_format();
-
-	static void unbind();
 private:
 	sge::vertex_format format;
 	vertex_format ogl_format;
