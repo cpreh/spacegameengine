@@ -70,6 +70,56 @@ sge::md3_model::md3_model(std::istream& is)
 	is.seekg(start + ofs_eof);
 }
 
+sge::index_buffer::size_type sge::md3_model::indices() const
+{
+	index_buffer::size_type ib_size(0);
+	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
+		ib_size += surf_it->triangles.size();
+	return ib_size * 3;
+}
+
+sge::vertex_buffer::size_type sge::md3_model::vertices() const
+{
+	vertex_buffer::size_type vb_size(0);
+	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
+		vb_size += surf_it->transformed_vertices.size();
+	return vb_size;
+}
+
+void sge::md3_model::fill_indices(const index_buffer_ptr ib, const index_buffer::size_type offset)
+{
+	index_buffer::size_type ib_offset(0);
+	index_buffer::iterator ibit = ib->begin() + offset;
+	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
+	{
+		const surface& surf = *surf_it;
+		for(surface::triangle_vector::const_iterator it = surf.triangles.begin(); it != surf.triangles.end(); ++it)
+		{
+			*ibit++ = it->indices[0] + ib_offset;
+			*ibit++ = it->indices[1] + ib_offset;
+			*ibit++ = it->indices[2] + ib_offset;
+		}
+		ib_offset += surf.transformed_vertices.size();
+	}
+}
+
+void sge::md3_model::fill_vertices(const vertex_buffer_ptr vb, const vertex_buffer::size_type offset)
+{
+	vertex_buffer::iterator vbit = vb->begin() + offset;
+	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
+	{
+		const surface& surf = *surf_it;
+
+		const vertex_buffer::iterator vbold = vbit;
+		for(surface::transformed_vertex_vector::size_type sz = 0; sz < surf.transformed_vertices.size(); ++sz)
+		{
+			(vbit  )->pos() = surf.transformed_vertices.at(sz).pos;
+			(vbit++)->tex() = surf.st.at(sz).tex;
+		}	
+
+	}
+}
+
 bool sge::md3_model::read_and_check_id3p(std::istream& is)
 {
 	boost::array<u8, 4> id3p;

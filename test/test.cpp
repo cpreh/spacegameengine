@@ -297,51 +297,17 @@ try
 	std::noskipws(ifs);
 	sge::md3_model model(ifs);
 
-	sge::vertex_buffer::size_type vb_sz = 0;
-	for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
-		vb_sz += surf_it->transformed_vertices.size();
-	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), vb_sz);
+	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), model.vertices());
+	const sge::index_buffer_ptr model_ib = rend->create_index_buffer(model.indices());
 
-
-	sge::index_buffer::size_type ib_sz = 0;
-	for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
-		ib_sz += surf_it->triangles.size();
-	const sge::index_buffer_ptr model_ib = rend->create_index_buffer(ib_sz * 3);
-
-	std::vector<sge::index_buffer::size_type> offsets;
-	offsets.push_back(0);
 	{
 		const sge::scoped_lock<sge::vertex_buffer_ptr> _lock(model_vb);
-		sge::vertex_buffer::iterator vbit = model_vb->begin();
-		for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
-		{
-			const sge::md3_model::surface& surf = *surf_it;
-
-			const sge::vertex_buffer::iterator vbold = vbit;
-			for(sge::md3_model::surface::transformed_vertex_vector::size_type sz = 0; sz < surf.transformed_vertices.size(); ++sz)
-			{
-				(vbit  )->pos() = surf.transformed_vertices.at(sz).pos;
-				(vbit++)->tex() = surf.st.at(sz).tex;
-			}	
-			offsets.push_back(offsets.back() + surf.transformed_vertices.size());
-		}
-
+		model.fill_vertices(model_vb);
 	}
 
 	{
 		const sge::scoped_lock<sge::index_buffer_ptr> _lock(model_ib);
-		sge::index_buffer::iterator ibit = model_ib->begin();
-		for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
-		{
-			const sge::md3_model::surface& surf = *surf_it;
-			for(sge::md3_model::surface::triangle_vector::const_iterator it = surf.triangles.begin(); it != surf.triangles.end(); ++it)
-			{
-				const sge::index_buffer::value_type offset = offsets[surf_it - model.surfaces.begin()];
-				*ibit++ = it->indices[0] + offset;
-				*ibit++ = it->indices[1] + offset;
-				*ibit++ = it->indices[2] + offset;
-			}
-		}
+		model.fill_indices(model_ib);
 	}
 
 	rend->set_bool_state(sge::bool_state::enable_lighting, true);
@@ -385,7 +351,7 @@ try
 		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
 		angle = rotate_timer.elapsed_frames() * sge::math::PI*2;
 		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
+		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, model.indices() / 3, 0);
 
 		rend->get_window()->dispatch();
 		sge::window::dispatch();

@@ -24,10 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <istream>
 #include <string>
 #include <vector>
-#include <boost/cstdint.hpp>
 #include <boost/array.hpp>
+#include <boost/cstdint.hpp>
 #include "../math/vector.hpp"
+#include "../renderer/index_buffer.hpp"
 #include "../renderer/types.hpp"
+#include "../renderer/vertex_buffer.hpp"
 
 namespace sge
 {
@@ -35,7 +37,13 @@ namespace sge
 class md3_model {
 public:
 	md3_model(std::istream& data);
-	
+
+	sge::index_buffer::size_type indices() const;
+	sge::vertex_buffer::size_type vertices() const;
+
+	void fill_vertices(vertex_buffer_ptr, vertex_buffer::size_type offset = 0);
+	void fill_indices(index_buffer_ptr, index_buffer::size_type offset = 0);
+private:
 	typedef boost::int16_t s16;
 	typedef boost::int32_t s32;
 	typedef boost::uint8_t u8;
@@ -114,7 +122,6 @@ public:
 		transformed_vertex_vector               transformed_vertices;
 	};
 
-private:
 	static bool read_and_check_id3p(std::istream&);
 
 	static vec3 read_vec3(std::istream&);
@@ -126,7 +133,6 @@ private:
 
 	string_type name_;
 
-public: // TMP HACK
 	typedef std::vector<frame>   frames_vector;
 	frames_vector                frames;
 
