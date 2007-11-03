@@ -64,9 +64,10 @@ private:
 	struct tag {
 		tag(std::istream& is);
 		
-		string_type name;
-		vec3 origin;
-		boost::array<vec3, 3> axis;
+		string_type                   name;
+		vec3                          origin;
+		typedef boost::array<vec3, 3> axis_array;
+		axis_array                    axis;
 	};
 
 	struct surface {
@@ -81,8 +82,8 @@ private:
 
 		struct triangle {
 			triangle(std::istream& is);
-
-			boost::array<s32, 3> indices;
+			typedef boost::array<s32, 3> index_array;
+			index_array indices;
 		};
 
 		struct texcoord {
@@ -130,6 +131,9 @@ private:
 		static string_type read_string(std::istream&);
 
 	static vec3 convert_normal(s16);
+
+	index_buffer::size_type indices_;
+	vertex_buffer::size_type vertices_;
 
 	string_type name_;
 

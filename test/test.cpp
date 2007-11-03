@@ -274,7 +274,7 @@ try
 	rend->set_float_state(sge::float_state::zbuffer_clear_val, 0);
 	rend->set_depth_func(sge::depth_func::greater);
 
-	rend->set_light(0, sge::light(sge::color4(1, 0.5, 0, 0), sge::color4(1, 0.5, 0, 0), sge::color4(1, 0, 0, 0), sge::light::position_type(0, 0, 0), sge::light::direction_type(0, 0, -1), 0.5, 0, 0, 1, 90));
+	rend->set_light(0, sge::light(sge::color4(1, 0.5, 0, 0), sge::color4(1, 0.5, 0, 0), sge::color4(1, 0, 0, 0), sge::light::position_type(0, 0, 0), sge::light::direction_type(0, 0, -1), 0.2, 0, 0, 1, 90));
 	rend->enable_light(0, true);
 
 	sge::math::vector3 translation(0, 0, -200);

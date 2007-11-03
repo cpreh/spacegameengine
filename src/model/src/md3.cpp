@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <cstddef>
-#include <cmath>
 #include <algorithm>
+#include <cmath>
+#include <cstddef>
 #include <iostream>
+#include <ostream>
 #include "../md3.hpp"
 #include "../../math/constants.hpp"
 #include "../../exception.hpp"
@@ -29,9 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 const std::size_t max_qpath = 64;
 
-const sge::space_unit MD3_XYZ_SCALE = 1.0/64;
+const sge::space_unit MD3_XYZ_SCALE = static_cast<sge::space_unit>(1)/64;
 
 sge::md3_model::md3_model(std::istream& is)
+: indices_(0),
+  vertices_(0)
 {
 	const std::istream::off_type start = is.tellg();
 
@@ -65,29 +68,32 @@ sge::md3_model::md3_model(std::istream& is)
 
 	is.seekg(start + ofs_surfaces, std::ios_base::beg);
 	for(s32 i = 0; i < num_surfaces; ++i)
+	{
 		surfaces.push_back(surface(is, num_frames));
+		const surface& s = surfaces.back();
+		indices_ += s.triangles.size();
+		vertices_ += s.transformed_vertices.size();
+	}
+	indices_ *= 3;
 
 	is.seekg(start + ofs_eof);
 }
 
 sge::index_buffer::size_type sge::md3_model::indices() const
 {
-	index_buffer::size_type ib_size(0);
-	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
-		ib_size += surf_it->triangles.size();
-	return ib_size * 3;
+	return indices_;
 }
 
 sge::vertex_buffer::size_type sge::md3_model::vertices() const
 {
-	vertex_buffer::size_type vb_size(0);
-	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
-		vb_size += surf_it->transformed_vertices.size();
-	return vb_size;
+	return vertices_;
 }
 
 void sge::md3_model::fill_indices(const index_buffer_ptr ib, const index_buffer::size_type offset)
 {
+	if(offset + indices() > ib->size())
+		throw exception("md3_model::fill_indices(): index buffer out of range!");
+
 	index_buffer::size_type ib_offset(0);
 	index_buffer::iterator ibit = ib->begin() + offset;
 	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
@@ -105,6 +111,9 @@ void sge::md3_model::fill_indices(const index_buffer_ptr ib, const index_buffer:
 
 void sge::md3_model::fill_vertices(const vertex_buffer_ptr vb, const vertex_buffer::size_type offset)
 {
+	if(offset + vertices() > vb->size())
+		throw exception("md3_model::fill_vertices(): vertex buffer out of range!");
+
 	vertex_buffer::iterator vbit = vb->begin() + offset;
 	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
 	{
@@ -125,10 +134,12 @@ void sge::md3_model::fill_vertices(const vertex_buffer_ptr vb, const vertex_buff
 
 bool sge::md3_model::read_and_check_id3p(std::istream& is)
 {
-	boost::array<u8, 4> id3p;
-	for(unsigned i = 0; i < id3p.size(); ++i)
-		id3p[i] = read<u8>(is);
-	return id3p[0] == 0x49 && id3p[1] == 0x44 && id3p[2] == 0x50 && id3p[3] == 0x33;
+	typedef boost::array<u8, 4> id3p_array;
+	id3p_array id3p,
+	           to_check = { { 0x49, 0x44, 0x50, 0x33 } };
+	for(id3p_array::iterator i = id3p.begin(); i != id3p.end(); ++i)
+		*i = read<u8>(is);
+	return std::equal(id3p.begin(), id3p.end(), to_check.begin());
 }
 
 template<std::size_t Max>
@@ -173,8 +184,8 @@ inline sge::md3_model::tag::tag(std::istream& is)
 : name(read_string<max_qpath>(is)),
   origin(read_vec3(is))
 {
-	for(unsigned i = 0; i < axis.size(); ++i)
-		axis[i] = read_vec3(is);
+	for(axis_array::iterator i = axis.begin(); i != axis.end(); ++i)
+		*i = read_vec3(is);
 }
 
 inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_head)
@@ -227,8 +238,8 @@ sge::md3_model::surface::shader::shader(std::istream& is)
 
 sge::md3_model::surface::triangle::triangle(std::istream& is)
 {
-	for(unsigned i = 0; i < indices.size(); ++i)
-		indices[i] = read<s32>(is);
+	for(index_array::iterator i = indices.begin(); i != indices.end(); ++i)
+		*i = read<s32>(is);
 }
 
 sge::md3_model::surface::texcoord::texcoord(std::istream& is)
