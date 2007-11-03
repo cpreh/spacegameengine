@@ -252,7 +252,7 @@ try
 	std::noskipws(ifs);
 	sge::md3_model model(ifs);
 
-	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::tex), model.vertices());
+	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::normal).add(sge::vertex_usage::tex), model.vertices());
 	const sge::index_buffer_ptr model_ib = rend->create_index_buffer(model.indices());
 
 	{

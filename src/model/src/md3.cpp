@@ -113,8 +113,11 @@ void sge::md3_model::fill_vertices(const vertex_buffer_ptr vb, const vertex_buff
 		const vertex_buffer::iterator vbold = vbit;
 		for(surface::transformed_vertex_vector::size_type sz = 0; sz < surf.transformed_vertices.size(); ++sz)
 		{
-			(vbit  )->pos() = surf.transformed_vertices.at(sz).pos;
-			(vbit++)->tex() = surf.st.at(sz).tex;
+			const surface::transformed_vertex& v = surf.transformed_vertices.at(sz);
+
+			(vbit  )->pos()    = v.pos;
+			(vbit  )->normal() = v.normal;
+			(vbit++)->tex()    = surf.st.at(sz).tex;
 		}	
 
 	}
