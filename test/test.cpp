@@ -71,6 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/field.hpp"
 #include "../src/language.hpp"
 #include "../src/scoped_connection.hpp"
+#include "../src/frames_counter.hpp"
 
 //#include <hamigaki/archivers/zip_file.hpp>
 
@@ -105,7 +106,7 @@ struct console_activator
 }
 
 int main()
-//try
+try
 {
 //	sge::multitree<int> test;
 /*	typedef multi_tree<int> tree;
@@ -253,12 +254,6 @@ int main()
 	const sge::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::key,boost::lambda::_1)) == sge::kc::key_escape)[var(running)=false]));
 	const sge::scoped_connection cb2(is->register_callback(boost::bind(&console_activator::callback,&activator,_1)));
 
-	sge::timer timer(30);
-	sge::timer frames(1000);
-
-	unsigned fps = 0, cur_fps = 0;
-//	sge::space_unit angle = 0;
-
 	sge::key_state_tracker ks(is);
 
 /*	sge::line_strip ls(rend, sge::colors::red);
@@ -293,36 +288,13 @@ int main()
 	}
 	//while(kubal->next());
 
-	//const sge::image_ptr tga = pl->load_image(sge::media_path() + "euro_frnt_2.tga");
 	const sge::image_ptr tga = pl->load_image(sge::image_format::tga, reinterpret_cast<const sge::color*>(sge::data(image_data)), image_data.size());
 	const sge::texture_ptr tex = sge::create_texture(rend, tga);
 
 	rend->set_texture(tex);
-	//std::istream ifs(new sge::memory_buf(reinterpret_cast<char*>(sge::data(uncompress_data)), uncompress_data.size()));
 	std::istream ifs(new boost::iostreams::stream_buffer<boost::iostreams::array_source>(boost::iostreams::array_source(reinterpret_cast<char*>(sge::data(uncompress_data)), uncompress_data.size())));
 
-	/*hamigaki::archivers::zip_file_source archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
-	archive.next_entry();
-	std::vector<char> uncompress_data(30000);
-	std::streamsize already_read = 0;
-	while(const std::streamsize sz = archive.read(sge::data(uncompress_data) + already_read, uncompress_data.size() - already_read))
-	{
-		if(sz == -1)
-			break;
-
-		already_read += sz;
-		if(already_read == uncompress_data.size())
-			uncompress_data.resize(uncompress_data.size()*2);
-	}*/
-	//std::istream ifs(new sge::memory_buf(sge::data(uncompress_data), already_read));
 	std::noskipws(ifs);
-//	ifs.exceptions(std::ios_base::failbit | std::ios_base::badbit | std::ios_base::eofbit);
-/*	std::ifstream ifs((sge::media_path() + "european_fnt_v2.md3").c_str(), std::ios_base::binary);
-	if(!ifs.is_open())
-	{
-		std::cerr << "Can't load the model.\n";
-		return EXIT_FAILURE;
-	}*/
 	sge::md3_model model(ifs);
 
 	sge::vertex_buffer::size_type vb_sz = 0;
@@ -339,7 +311,7 @@ int main()
 	std::vector<sge::index_buffer::size_type> offsets;
 	offsets.push_back(0);
 	{
-		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(model_vb);
+		const sge::scoped_lock<sge::vertex_buffer_ptr> _lock(model_vb);
 		sge::vertex_buffer::iterator vbit = model_vb->begin();
 		for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
 		{
@@ -357,7 +329,7 @@ int main()
 	}
 
 	{
-		sge::scoped_lock<sge::index_buffer_ptr> _lock(model_ib);
+		const sge::scoped_lock<sge::index_buffer_ptr> _lock(model_ib);
 		sge::index_buffer::iterator ibit = model_ib->begin();
 		for(sge::md3_model::surface_vector::const_iterator surf_it = model.surfaces.begin(); surf_it != model.surfaces.end(); ++surf_it)
 		{
@@ -385,8 +357,10 @@ int main()
 	rend->enable_light(0, true);
 
 	sge::math::vector3 translation(0, 0, -200);
-	float angle(0);
-	sge::timer frame_timer(1000);
+	sge::space_unit angle(0);
+	sge::frames_counter frames;
+	sge::timer rotate_timer(5000);
+	sge::timer move_timer(5);
 
 //	rend->set_draw_mode(sge::draw_mode::line);
 
@@ -396,23 +370,20 @@ int main()
 	//	if (sound->status() != sge::sound::status_stopped)
 	//		sound->update();
 
-		if(frames.update() > 0)
-		{
-			cur_fps = fps;
-			fps = 0;
-		}
-		translation.x() -= ks[sge::kc::key_left] * 0.001;
-		translation.x() += ks[sge::kc::key_right] * 0.001;
-		translation.z() -= ks[sge::kc::key_up] * 0.3;
-		translation.z() += ks[sge::kc::key_down] * 0.3;
+		frames.update();
+		rotate_timer.update();
+		move_timer.update();
+		
+		translation.x() -= ks[sge::kc::key_left] * move_timer.elapsed_frames();
+		translation.x() += ks[sge::kc::key_right] * move_timer.elapsed_frames();
+		translation.z() -= ks[sge::kc::key_up] * move_timer.elapsed_frames();
+		translation.z() += ks[sge::kc::key_down] * move_timer.elapsed_frames();
 //		if(ks[sge::kc::key_return])
 //			sge::screenshot(rend,pl,"shot.png");
-		if(timer.update() > 0)
-			angle += sge::math::PI*0.01;
 
 		rend->begin_rendering();
 		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
-		angle = frame_timer.elapsed_frames() * sge::math::PI*2 * 0.1;
+		angle = rotate_timer.elapsed_frames() * sge::math::PI*2;
 		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
 		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, ib_sz, 0);
 
@@ -422,7 +393,7 @@ int main()
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
+		//fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
 //		fn.draw_text(sge::iconv(boost::lexical_cast<std::string>(cur_fps)),sge::font_pos(100,400),sge::font_dim(500,1000), sge::font_flags::align_left | sge::font_flags::align_top);
 		//ls.render();
 
@@ -431,11 +402,10 @@ int main()
 		if (console.active())
 			console.draw();
 		rend->end_rendering();
-		++fps;
 	}
 	return EXIT_SUCCESS;
 }
-/*catch(const std::exception& e)
+catch(const std::exception& e)
 {
 	std::cerr << "Program terminated (std::exception caught): " << e.what() << '\n';
 	return EXIT_FAILURE;
@@ -444,4 +414,4 @@ catch(...)
 {
 	std::cerr << "Program terminated (unknown exception caught)!\n";
 	return EXIT_FAILURE;
-}*/
+}
