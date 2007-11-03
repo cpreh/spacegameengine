@@ -199,51 +199,6 @@ try
 	const sge::texture_ptr con_tex = rend->create_texture(im->data(),im->width(),im->height(),sge::linear_filter);
 	sge::con::console_gfx console(rend,is,fn,sge::colors::white,con_tex);
 
-/*	sge::font fn(rend, fs, sge::media_path() + "fonts/default.ttf", 32);
-	sge::sprite_system ss(rend, 0, 2);
-	sge::image_ptr im = pl->load_image(sge::media_path() + "mainskin/cancel_0.png");
-	sge::image_ptr im2 = pl->load_image(sge::media_path() + "mainskin/button.png");
-	sge::image_ptr im3 = pl->load_image(sge::media_path() + "mainskin/clickbox_quad_pressed.png");
-	const std::string tex[] = { "bender", "tex2", "tex3" };
-
-	sge::texture_map_ptr tex_map = ss.get_texture_map();
-	tex_map->add_texture(im,tex[0]);
-	tex_map->add_texture(im2,tex[1]);
-	tex_map->add_texture(im3,tex[2]);*/
-//	boost::ptr_vector<sge::sprite> sprites;
-//	for(unsigned i = 0; i < 4; ++i)
-//		sprites.push_back(new sge::sprite(ss,sge::point(0,i*0.3),sge::dim(0.3,0.3),0,tex[i % 3]));
-//	sprites.back().set_color(sge::colors::red);
-
-/*	std::vector<sge::sprite> sprites;
-	for(unsigned i = 0; i < 100; ++i)
-		sprites.push_back(sge::sprite(ss,rand_point2(),sge::math::dim2(0.3,0.3),tex[i % 3], sge::colors::white));
-
-	for(unsigned i = 0; i < 100; ++i)
-		sprites[i] = sge::sprite(ss,rand_point2(),sge::math::dim2(0.3,0.3),tex[i % 3], sge::colors::white);*/
-
-
-//	sge::sprite spr(ss, sge::math::vector2(0.25,0.25), sge::math::dim2(0.5,0.5), /*tex[0]*/sge::texture_map::no_texture, sge::colors::yellow);
-//	spr.set_texture(tex[1],1);
-/*	sge::sprite spr2(ss, sge::math::vector2(0.25,-0.25), sge::math::dim2(0.25,3), tex[1], sge::colors::red);
-	spr2.set_texture(tex[2],1);
-
-	sge::gui::manager man(rend, is, fn, pl, sge::media_path() + "mainskin/", 0.05);
-	sge::gui::frame fr1(man,0,sge::gui::point(0,0), sge::gui::dim(1,1), "cancel_0");
-	sge::gui::button btn1(man, &fr1, sge::iconv("Quit!"), sge::gui::point(0,0.1), sge::gui::dim(0.45,0.1));
-	sge::gui::button btn2(man, &fr1, sge::iconv("Play!"), sge::gui::point(0,0.3), sge::gui::dim(0.45,0.1));
-	sge::gui::list list1(man, &fr1, sge::gui::point(0.5,0.1), sge::gui::dim(0.2,0.8));
-	sge::gui::icon_button icbtn1(man, &fr1,sge::gui::point(0,0.8), sge::gui::dim(0.5,0.1), "newgame_0", "newgame_1", "newgame_2");
-	sge::gui::text_edit te1(man, &fr1, sge::gui::point(0,0.5), sge::gui::dim(0.7,0.3), sge::iconv("abc"));
-	list1.push_back(sge::iconv("LOL"));
-	list1.push_back(sge::iconv("BAR"));
-	list1.push_back(sge::iconv("ROFL!"));
-
-	for(unsigned i = 0; i < 20; ++i)
-		list1.push_back(sge::iconv("jgAB" + boost::lexical_cast<std::string>(i)));
-
-	sge::gui::static_text st(man, &fr1, sge::iconv("hellothere,i'mamultiline dstatic_text"), sge::gui::point(0.5,0.8), sge::gui::dim(0.3,0.1), sge::colors::red);*/
-
 	using boost::lambda::var;
 	using boost::lambda::bind;
 //	using boost::lambda::_1;

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_TYPES_HPP_INCLUDED
 #define SGE_GUI_TYPES_HPP_INCLUDED
 
+#include "../math/utility.hpp"
+
 namespace sge {
 namespace gui {
 
@@ -76,7 +78,7 @@ struct fpoint {
 	funit x, y;
 	fpoint() : x(0), y(0) {}
 	fpoint(const funit x, const funit y) : x(x), y(y) {}
-	inline bool operator==(const fpoint &other) const { return x == other.x && y == other.y; }
+	inline bool operator==(const fpoint &other) const { return math::compare(x, other.x) && math::compare(y, other.y); }
 	inline bool operator!=(const fpoint &other) const { return !operator==(other); }
 	inline fpoint &operator+=(const fpoint &other) { x+=other.x; y+=other.y; return *this; }
 	inline fpoint operator+(const fpoint &other) const { fpoint t=*this; return t+=other; }
@@ -91,7 +93,7 @@ struct fdim2 {
 	funit w, h;
 	fdim2() : w(0), h(0) {}
 	fdim2(const funit w, const funit h) : w(w), h(h) {}
-	inline bool operator==(const fdim2 &other) const { return w == other.w && h == other.h; }
+	inline bool operator==(const fdim2 &other) const { return math::compare(w, other.w) && math::compare(h, other.h); }
 	inline bool operator!=(const fdim2 &other) const { return !operator==(other); }
 };
 
@@ -111,7 +113,7 @@ struct frect {
 	inline funit top() const { return y; }
 	inline funit bottom() const { return y+h; }
 
-	inline bool operator==(const frect &other) const { return x == other.x && y == other.y && w == other.w && h == other.h; }
+	inline bool operator==(const frect &other) const { return math::compare(x, other.x) && math::compare(y, other.y) && math::compare(w, other.w) && math::compare(h, other.h); }
 	inline bool operator!=(const frect &other) const { return !operator==(other); }
 };
 
