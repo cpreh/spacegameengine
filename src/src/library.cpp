@@ -61,7 +61,7 @@ const std::string& sge::library::name() const
 	return n;
 }
 
-sge::library::base_fun sge::library::load_adress_base(const std::string& fun)
+sge::library::base_fun sge::library::load_address_base(const std::string& fun)
 {
 	return funptr_cast<base_fun>(
 #ifdef SGE_WINDOWS_PLATFORM

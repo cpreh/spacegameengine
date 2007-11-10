@@ -43,12 +43,11 @@ public:
 
 private:
 	typedef void*(*base_fun)();
-	base_fun load_adress_base(const std::string& fun);
+	base_fun load_address_base(const std::string& fun);
 
 	static std::string liberror();
 
 	std::string n;
-
 public:
 	struct load_function_exception : public exception {
 		std::string lib, func;

@@ -304,8 +304,8 @@ try
 
 		rend->begin_rendering();
 		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
-		angle = rotate_timer.elapsed_frames() * sge::math::PI*2;
-		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 90, 1, 10));
+//		angle = rotate_timer.elapsed_frames() * sge::math::PI*2;
+		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 45, 1, 10));
 		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, model.indices() / 3, 0);
 
 		rend->get_window()->dispatch();

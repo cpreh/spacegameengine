@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<typename Fun>
 Fun sge::library::load_function(const std::string& fun)
 {
-	const Fun ptr = reinterpret_cast<Fun>(load_adress_base(fun));
+	const Fun ptr = reinterpret_cast<Fun>(load_address_base(fun));
 	if(!ptr)
 		throw sge::library::load_function_exception(name(), fun);
 	return ptr;

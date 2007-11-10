@@ -98,12 +98,12 @@ public:
 		return *this;
 	}
 
-	proxy operator[](const size_type j)
+	const proxy operator[](const size_type j)
 	{
 		return proxy(j,data());
 	}
 
-	const_proxy operator[](const size_type j) const
+	const const_proxy operator[](const size_type j) const
 	{
 		return const_proxy(j,data());
 	}
