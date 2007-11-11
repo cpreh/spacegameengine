@@ -30,9 +30,18 @@ namespace sge
 namespace ogl
 {
 
-class texture : public basic_texture<sge::texture,GL_TEXTURE_2D> {
+namespace detail
+{
+typedef basic_texture<sge::texture, GL_TEXTURE_2D> texture_base;
+}
+
+class texture : public detail::texture_base {
 public:
-	texture(const_pointer src, size_type width, size_type height, const filter_args& filter, resource_flag_t flags);
+	texture(const_pointer src,
+	        size_type width,
+	        size_type height,
+	        const filter_args& filter,
+	        resource_flag_t flags);
 
 	size_type width() const;
 	size_type height() const;
@@ -45,7 +54,8 @@ public:
 	void lock(const lock_rect&, lock_flag_t flags);
 	void unlock();
 private:
-	const size_type _width, _height;
+	const size_type _width,
+	                _height;
 };
 
 }

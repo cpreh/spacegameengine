@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_CONVERSION_HPP_INCLUDED
-#define SGE_OGL_CONVERSION_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERSION_HPP_INCLUDED
+#define SGE_OPENGL_CONVERSION_HPP_INCLUDED
 
 #include "../../renderer/types.hpp"
 #include "../../renderer/renderer.hpp"
@@ -32,6 +32,7 @@ namespace ogl
 {
 
 template<typename D, typename S> D convert_cast(const S&);
+template<> GLuint convert_cast(const lock_flag_t&);
 template<> GLenum convert_cast(const indexed_primitive_type::type&);
 template<> GLenum convert_cast(const nonindexed_primitive_type::type&);
 template<> GLenum convert_cast(const bool_state::type&);
@@ -49,7 +50,6 @@ template<> GLenum convert_cast(const texture_stage_arg::type&);
 template<> GLenum convert_cast(const texture_stage_arg_value::type&);
 template<> GLenum convert_cast(const draw_mode::type&);
 
-GLuint convert_lock_flags(lock_flag_t);
 GLuint convert_resource_flags(resource_flag_t);
 GLenum convert_fog_float_state(const float_state::type&);
 

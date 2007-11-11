@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 
+#include <algorithm>
 #include <iostream>
 #include <ostream>
 #include "../../exception.hpp"
@@ -35,7 +36,14 @@ void sge::ogl::basic_texture<Base, Type>::tex_parameter_i(const GLenum name, con
 	if(is_error())
 		throw exception("glTexParamteri() failed!");
 }
-	
+
+template<typename Base, GLenum Type>
+void sge::ogl::basic_texture<Base, Type>::check_lock() const
+{
+	if(!cur_buffer)
+		throw exception("ogl pbo used which is not locked!");
+}
+
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::bind_me() const
 {
@@ -54,7 +62,7 @@ void sge::ogl::basic_texture<Base, Type>::set_my_filter() const
 #if GL_EXT_texture_filter_anisotropic
 		try
 		{
-				tex_parameter_i(GL_TEXTURE_MAX_ANISOTROPY_EXT, filter().anisotropy_level);
+			tex_parameter_i(GL_TEXTURE_MAX_ANISOTROPY_EXT, filter().anisotropy_level);
 		}
 		catch(const exception&)
 		{
@@ -80,11 +88,52 @@ const sge::filter_args& sge::ogl::basic_texture<Base, Type>::filter() const
 }
 
 template<typename Base, GLenum Type>
+void sge::ogl::basic_texture<Base, Type>::do_lock(const lock_flag_t lmode)
+{
+	if(cur_buffer)
+		throw exception("ogl::basic_texture is already locked!");
+
+	if(lmode == lock_flags::writeonly || lmode == lock_flags::readwrite)
+	{
+		unpack_buffer.reset(new pixel_unpack_buffer(size(), flags(), 0));
+		unpack_buffer->lock(lmode);
+		cur_buffer = unpack_buffer.get();
+	}
+	else if(lmode == lock_flags::readonly || lmode == lock_flags::readwrite)
+	{
+		pack_buffer.reset(new pixel_pack_buffer(size(), flags(), 0));
+		pack_buffer->lock(lmode);
+		cur_buffer = pack_buffer.get();
+	}
+
+	if(lmode == lock_flags::readwrite)
+	{
+		std::copy(pack_buffer->begin(), pack_buffer->end(), unpack_buffer->data());
+		pack_buffer->unlock();
+		pack_buffer.reset();
+		cur_buffer = unpack_buffer.get();
+	}
+}
+
+template<typename Base, GLenum Type>
+void sge::ogl::basic_texture<Base, Type>::do_unlock()
+{
+	if(!cur_buffer)
+		throw exception("ogl::basic_texture is not locked!");
+
+	cur_buffer->unlock();
+	pack_buffer.reset();
+	unpack_buffer.reset();
+	cur_buffer = 0;
+}
+
+template<typename Base, GLenum Type>
 sge::ogl::basic_texture<Base, Type>::basic_texture(const filter_args& filter_,
-                                                  const resource_flag_t flags_)
+                                                   const resource_flag_t flags_)
  : texture_base(Type),
    filter_(filter_),
-   flags_(flags_)
+   flags_(flags_),
+   cur_buffer(0)
 {
 	glGenTextures(1, &id_);
 	if(is_error())
@@ -102,6 +151,20 @@ template<typename Base, GLenum Type>
 sge::resource_flag_t sge::ogl::basic_texture<Base, Type>::flags() const
 {
 	return flags_;
+}
+
+template<typename Base, GLenum Type>
+typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::data()
+{
+	check_lock();
+	return cur_buffer->data();
+}
+
+template<typename Base, GLenum Type>
+typename sge::ogl::basic_texture<Base, Type>::const_pointer sge::ogl::basic_texture<Base, Type>::data() const
+{
+	check_lock();
+	return cur_buffer->data();
 }
 
 #endif

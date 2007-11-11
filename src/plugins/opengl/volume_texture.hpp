@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_VOLUME_TEXTURE_HPP_INCLUDED
-#define SGE_OGL_VOLUME_TEXTURE_HPP_INCLUDED
+#ifndef SGE_OPENGL_VOLUME_TEXTURE_HPP_INCLUDED
+#define SGE_OPENGL_VOLUME_TEXTURE_HPP_INCLUDED
 
 #include "../../renderer/volume_texture.hpp"
 #include "common.hpp"
@@ -30,9 +30,19 @@ namespace sge
 namespace ogl
 {
 
-class volume_texture : public basic_texture<sge::volume_texture,GL_TEXTURE_3D> {
+namespace detail
+{
+typedef basic_texture<sge::volume_texture, GL_TEXTURE_3D> volume_texture_base;
+}
+
+class volume_texture : public detail::volume_texture_base {
 public:
-	volume_texture(const_pointer src, size_type _width, size_type _height, size_type _depth, const filter_args& filter, resource_flag_t flags);
+	volume_texture(const_pointer src,
+	               size_type width,
+	               size_type height,
+	               size_type depth,
+	               const filter_args& filter,
+	               resource_flag_t flags);
 
 	size_type size() const;
 	size_type width() const;

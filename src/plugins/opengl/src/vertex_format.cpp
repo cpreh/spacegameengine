@@ -19,11 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../exception.hpp"
-#include "../vertex_format.hpp"
 #include "../error.hpp"
+#include "../vbo.hpp"
+#include "../vertex_format.hpp"
 
-sge::ogl::actor_info::actor_info(const vertex_size _offset, const vertex_size stride, const vertex_size index)
-: offset(vbo_offset(_offset)),
+sge::ogl::actor_info::actor_info(const vertex_size offset_,
+                                 const vertex_size stride,
+                                 const vertex_size index)
+: offset(buffer_offset(offset_)),
   stride(stride),
   index(index)
 {}

@@ -102,10 +102,10 @@ typedef unsigned resource_flag_t; // FIXME
 namespace lock_flags
 {
 	enum type {
-		none,
-		discard,
 		readonly,
-		default_ = none
+		writeonly,
+		readwrite,
+		default_ = writeonly
 	};
 }
 

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_CUBE_TEXTURE_HPP_INCLUDED
-#define SGE_OGL_CUBE_TEXTURE_HPP_INCLUDED
+#ifndef SGE_OPENGL_CUBE_TEXTURE_HPP_INCLUDED
+#define SGE_OPENGL_CUBE_TEXTURE_HPP_INCLUDED
 
 #include "../../renderer/cube_texture.hpp"
 #include "common.hpp"
@@ -30,9 +30,17 @@ namespace sge
 namespace ogl
 {
 
-class cube_texture : public basic_texture<sge::cube_texture,GL_TEXTURE_CUBE_MAP> { 
+namespace detail
+{
+typedef basic_texture<sge::cube_texture, GL_TEXTURE_CUBE_MAP> cube_texture_base;
+}
+
+class cube_texture : public detail::cube_texture_base { 
 public:
-	cube_texture(const cube_side_array* src, size_type sz, const filter_args& filter, resource_flag_t flags);
+	cube_texture(const cube_side_array* src,
+	             size_type sz,
+	             const filter_args& filter,
+	             resource_flag_t flags);
 	size_type size() const;
 	void set_data(cube_side::type side, const_pointer src, const lock_rect& r);
 	void set_data(cube_side::type side, const_pointer src);

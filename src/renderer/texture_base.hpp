@@ -50,9 +50,9 @@ public:
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
 
-/*	virtual pointer data() = 0;
+	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;
-	virtual iterator begin() = 0;
+	/*virtual iterator begin() = 0;
 	virtual const_iterator begin() const = 0;
 	virtual iterator end() = 0;
 	virtual const_iterator end() const = 0;

@@ -31,7 +31,7 @@ sge::ogl::volume_texture::volume_texture(const const_pointer src,
                                          const size_type _depth,
                                          const filter_args& filter,
                                          const resource_flag_t flags)
- : basic_texture<sge::volume_texture,GL_TEXTURE_3D>(filter,flags),
+ : detail::volume_texture_base(filter,flags),
    _width(_width),
    _height(_height),
    _depth(_depth)

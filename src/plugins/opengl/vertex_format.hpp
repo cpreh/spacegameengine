@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_VERTEX_FORMAT_HPP_INCLUDED
-#define SGE_OGL_VERTEX_FORMAT_HPP_INCLUDED
+#ifndef SGE_OPENGL_VERTEX_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_VERTEX_FORMAT_HPP_INCLUDED
 
 #include <cstddef>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -32,11 +32,6 @@ namespace sge
 {
 namespace ogl
 {
-
-inline void* vbo_offset(const std::size_t sz)
-{
-	return reinterpret_cast<void*>(sz);
-}
 
 struct actor_info {
 	actor_info(vertex_size _offset, vertex_size stride, vertex_size index);

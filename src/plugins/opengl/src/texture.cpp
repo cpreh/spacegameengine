@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
+#include "../vbo.hpp"
 #include "../../../stub.hpp"
 
 template class sge::ogl::basic_texture<sge::texture, GL_TEXTURE_2D>;
@@ -32,7 +33,7 @@ sge::ogl::texture::texture(const const_pointer src,
                            const size_type _height,
                            const filter_args& filter,
                            const resource_flag_t flags)
- : basic_texture<sge::texture,GL_TEXTURE_2D>(filter,flags),
+ : detail::texture_base(filter,flags),
    _width(_width),
    _height(_height)
 {
@@ -71,6 +72,7 @@ void sge::ogl::texture::set_data(const const_pointer src)
 void sge::ogl::texture::lock(const lock_rect& r, const lock_flag_t lflags)
 {
 	SGE_STUB_FUNCTION
+//	lock(r.size(), lflags);
 //	glReadBuffer(attachmentpoints[readTex]);
 /*	glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, buf_id);
 	glBufferData(GL_PIXEL_PACK_BUFFER_ARB, texSize * texSize * sizeof(float), NULL, GL_STREAM_READ);
@@ -84,10 +86,11 @@ void sge::ogl::texture::lock(const lock_rect& r, const lock_flag_t lflags)
 
 void sge::ogl::texture::lock(const lock_flag_t lflags)
 {
-	SGE_STUB_FUNCTION
+	do_lock(lflags);
+	read_pixels(0, 0, width(), height(), static_cast<color*>(buffer_offset(0)));
 }
 
 void sge::ogl::texture::unlock()
 {
-	SGE_STUB_FUNCTION
+	do_unlock();
 }

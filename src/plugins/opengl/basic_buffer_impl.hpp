@@ -51,7 +51,7 @@ void sge::ogl::basic_buffer<Base, Type>::lock(const lock_flag_t lockflags)
 	if(dest)
 		throw exception("ogl_buffer::lock(), you have to unlock before locking!");
 		
-	const GLuint glflags = convert_lock_flags(lockflags);
+	const GLuint glflags = convert_cast<GLuint>(lockflags);
 	bind_me();
 	try
 	{

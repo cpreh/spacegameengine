@@ -27,8 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template class sge::ogl::basic_texture<sge::cube_texture, GL_TEXTURE_CUBE_MAP>;
 
-sge::ogl::cube_texture::cube_texture(const cube_side_array* const src, const size_type sz, const filter_args& filter, const resource_flag_t flags)
- : basic_texture<sge::cube_texture,GL_TEXTURE_CUBE_MAP>(filter,flags),
+sge::ogl::cube_texture::cube_texture(const cube_side_array* const src,
+                                     const size_type sz,
+                                     const filter_args& filter,
+                                     const resource_flag_t flags)
+ : detail::cube_texture_base(filter, flags),
   sz(sz)
 {
 	if(src)

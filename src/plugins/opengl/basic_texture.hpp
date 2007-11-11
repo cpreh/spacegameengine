@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
-#define SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
+#ifndef SGE_OPENGL_BASIC_TEXTURE_HPP_INCLUDED
+#define SGE_OPENGL_BASIC_TEXTURE_HPP_INCLUDED
 
 #include <boost/scoped_ptr.hpp>
 #include "common.hpp"
@@ -34,11 +34,14 @@ namespace ogl
 template<typename Base, GLenum Type> class basic_texture : public Base, public texture_base {
 private:
 	static void tex_parameter_i(GLenum name, GLint param);
+	void check_lock() const;
 protected:
 	void bind_me() const;
 	void set_my_filter() const;
 	GLuint id() const;
 	const filter_args& filter() const;
+	void do_lock(lock_flag_t flags);
+	void do_unlock();
 public:
 	typedef typename Base::value_type value_type;
 	typedef typename Base::size_type size_type;
@@ -47,14 +50,16 @@ public:
 	typedef typename Base::const_pointer const_pointer;
 
 	basic_texture(const filter_args& filter, resource_flag_t flags);
-	virtual size_type size() const = 0;
 	~basic_texture();
+	virtual size_type size() const = 0;
 	resource_flag_t flags() const;
-	void filter(const filter_args& nfilter);
+	pointer data();
+	const_pointer data() const;
 private:
 	filter_args                            filter_;
 	resource_flag_t                        flags_;
 	GLuint                                 id_;
+	pbo_base*                              cur_buffer;
 	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
 	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
 };

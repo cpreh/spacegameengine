@@ -31,19 +31,30 @@ namespace ogl
 {
 
 struct pbo_base {
-	typedef texture_base::size_type              size_type;
-	typedef texture_base::difference_type        difference_type;
-	typedef texture_base::value_type             value_type;
-	typedef texture_base::reference              reference;
-	typedef texture_base::const_reference        const_reference;
-	typedef texture_base::pointer                pointer;
-	typedef texture_base::const_pointer          const_pointer;
-	typedef texture_base::iterator               iterator;
-	typedef texture_base::const_iterator         const_iterator;
-	typedef texture_base::reverse_iterator       reverse_iterator;
-	typedef texture_base::const_reverse_iterator const_reverse_iterator;
+	typedef sge::texture_base::size_type              size_type;
+	typedef sge::texture_base::difference_type        difference_type;
+	typedef sge::texture_base::value_type             value_type;
+	typedef sge::texture_base::reference              reference;
+	typedef sge::texture_base::const_reference        const_reference;
+	typedef sge::texture_base::pointer                pointer;
+	typedef sge::texture_base::const_pointer          const_pointer;
+	typedef sge::texture_base::iterator               iterator;
+	typedef sge::texture_base::const_iterator         const_iterator;
+	typedef sge::texture_base::reverse_iterator       reverse_iterator;
+	typedef sge::texture_base::const_reverse_iterator const_reverse_iterator;
 
-	virtual ~pbo_base(){} // I really don't know why we need this
+	virtual void lock(lock_flag_t) = 0;
+	virtual void unlock() = 0;
+
+	virtual iterator begin() = 0;
+	virtual const_iterator begin() const = 0;
+	virtual iterator end() = 0;
+	virtual const_iterator end() const = 0;
+
+	virtual pointer data() = 0;
+	virtual const_pointer data() const = 0;
+
+	virtual ~pbo_base(){}
 };
 
 const GLenum pixel_pack_buffer_type = GL_PIXEL_PACK_BUFFER_ARB,

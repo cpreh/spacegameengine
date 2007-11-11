@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_VBO_HPP_INCLUDED
-#define SGE_OGL_VBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_VBO_HPP_INCLUDED
+#define SGE_OPENGL_VBO_HPP_INCLUDED
 
 #include "common.hpp"
 
@@ -36,6 +36,7 @@ void* map_buffer(GLenum type, GLenum flags);
 void unmap_buffer(GLenum type);
 void buffer_data(GLenum type, GLsizei size, const void* data, GLenum flags);
 void buffer_sub_data(GLenum type, GLsizei first, GLsizei size, const void* data);
+void* buffer_offset(GLsizei);
 
 const GLenum index_buffer_type = GL_ELEMENT_ARRAY_BUFFER;
 const GLenum vertex_buffer_type = GL_ARRAY_BUFFER;

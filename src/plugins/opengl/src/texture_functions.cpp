@@ -38,22 +38,32 @@ bool need_mipmap(const sge::min_filter::type filter)
 	}
 }
 
+const GLenum format = GL_RGBA,
+             type = GL_UNSIGNED_BYTE;
+
 }
 
-void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter, const sge::texture_base::size_type width, const sge::texture_base::size_type height, const sge::texture_base::const_pointer src)
+void sge::ogl::set_texture_rect(const GLenum tex_type,
+                                const filter_args& filter,
+                                const sge::texture_base::size_type width,
+                                const sge::texture_base::size_type height,
+                                const sge::texture_base::const_pointer src)
 {
-	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
-
-	glTexImage2D(tex_type, 0, GL_RGBA, static_cast<GLsizei>(width),static_cast<GLsizei>(height), 0, format, type, src);
+	glTexImage2D(tex_type, 0, format, static_cast<GLsizei>(width),static_cast<GLsizei>(height), 0, format, type, src);
 	
 	if(need_mipmap(filter.min_filter))
-		gluBuild2DMipmaps(tex_type, GL_RGBA, static_cast<GLsizei>(width), static_cast<GLsizei>(height), format, type, src);
+		gluBuild2DMipmaps(tex_type, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), format, type, src);
 
 	if(is_error())
 		throw exception("glTexImage2D() or gluBuild2DMipmaps() failed!");
 }
 
-void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter, const sge::texture_base::size_type width, const sge::texture_base::size_type height, const lock_rect& r, const sge::texture_base::const_pointer src)
+void sge::ogl::set_texture_rect(const GLenum tex_type,
+                                const filter_args& filter,
+                                const sge::texture_base::size_type width,
+                                const sge::texture_base::size_type height,
+                                const lock_rect& r,
+                                const sge::texture_base::const_pointer src)
 {
 	if(r.right > width || r.bottom > height)
 		throw exception("rect for setting a texture is out of range!");
@@ -64,10 +74,20 @@ void sge::ogl::set_texture_rect(const GLenum tex_type, const filter_args& filter
 		return;
 	}
 
-	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
-
 	glTexSubImage2D(tex_type, 0, static_cast<GLint>(r.left), static_cast<GLint>(r.top), static_cast<GLsizei>(r.w()), static_cast<GLsizei>(r.h()), format, type, src);
 
 	if(is_error())
-		throw exception("glTexSubImage2D() or gluBuild2DMipmaps() failed!");
+		throw exception("glTexSubImage2D() failed!");
+}
+
+void sge::ogl::read_pixels(const sge::texture_base::size_type x,
+                           const sge::texture_base::size_type y,
+                           const sge::texture_base::size_type width,
+                           const sge::texture_base::size_type height,
+                           const sge::texture_base::pointer dest)
+{
+	glReadPixels(x, y, width, height, format, type, dest);
+
+	if(is_error())
+		throw exception("glReadPixels() failed!");
 }

@@ -117,5 +117,9 @@ void sge::ogl::buffer_sub_data(const GLenum type, const GLsizei first, const GLs
 #endif
 	if(is_error())
 		throw exception("glBufferSubData() failed!");
+}
 
+void* sge::ogl::buffer_offset(const GLsizei offset)
+{
+	return reinterpret_cast<void*>(offset);
 }

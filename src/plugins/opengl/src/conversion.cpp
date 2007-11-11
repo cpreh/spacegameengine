@@ -21,18 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../conversion.hpp"
 
-GLuint sge::ogl::convert_lock_flags(const lock_flag_t f)
-{
-	if(f & lock_flags::discard)
-		return GL_WRITE_ONLY;
-	return GL_READ_WRITE;
-}
-
 GLuint sge::ogl::convert_resource_flags(const resource_flag_t f)
 {
 	if(f & resource_flags::dynamic)
 		return GL_DYNAMIC_DRAW;
 	return GL_STATIC_DRAW;
+}
+
+template<> GLuint sge::ogl::convert_cast(const lock_flag_t& f)
+{
+	switch(f) {
+	case lock_flags::readonly:
+		return GL_READ_ONLY;
+	case lock_flags::writeonly:
+		return GL_WRITE_ONLY;
+	case lock_flags::readwrite:
+		return GL_READ_WRITE;
+	default:
+		throw exception("Invalid lock_flags!");
+	}
 }
 
 template<> GLenum sge::ogl::convert_cast(const nonindexed_primitive_type::type& t)

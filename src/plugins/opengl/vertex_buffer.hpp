@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OGL_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_OGL_VERTEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 
 #include "../../renderer/vertex_buffer.hpp"
 #include "basic_buffer.hpp"
@@ -38,7 +38,10 @@ typedef basic_buffer<sge::vertex_buffer, vertex_buffer_type> vertex_buffer_base;
 
 class vertex_buffer : public detail::vertex_buffer_base {	
 public:
-	vertex_buffer(size_type size, const sge::vertex_format& format, resource_flag_t flags, const_pointer src);
+	vertex_buffer(size_type size,
+	              const sge::vertex_format& format,
+	              resource_flag_t flags,
+	              const_pointer src);
 
 	size_type stride() const;
 	const sge::vertex_format& get_vertex_format() const;
