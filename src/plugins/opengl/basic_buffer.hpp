@@ -73,10 +73,10 @@ public:
 	pointer data();
 	const_pointer data() const;
 
-	static void bind(GLuint id);
 	static void unbind();
 	void bind_me() const;
 private:
+	static void bind(GLuint id);
 	void check_lock() const;
 	void set_size(const_pointer src);
 

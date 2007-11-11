@@ -20,10 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../renderer_system.hpp"
 
-sge::renderer_parameters::renderer_parameters(const display_mode& mode, const bool windowed, const multi_sample_type samples, const bool vsync)
+sge::renderer_parameters::renderer_parameters(const display_mode& mode,
+                                              const bool windowed,
+                                              const multi_sample_type samples,
+                                              const bool vsync)
 : mode(mode),
-  samples(samples),
   windowed(windowed),
+  samples(samples),
   vsync(vsync)
 {}
 

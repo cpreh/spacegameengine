@@ -55,19 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 // TODO: consistent error checking
 
-// TODO: move the Xerror code somewhere more appropriate
-
-#ifdef SGE_LINUX_PLATFORM
-
-int handler(Display* const d, XErrorEvent* const e)
-{
-	boost::array<char,1024> buf;
-	XGetErrorText(d,e->error_code,buf.c_array(),buf.size());
-	std::cerr << "X Error: " << buf.data() << '\n';
-	return 0;
-}
-#endif
-
 // TODO: maybe support different adapters?
 sge::ogl::renderer::renderer(const renderer_parameters& param,
                              const unsigned adapter,
@@ -141,7 +128,6 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	current.reset(new wgl_current(*hdc, *context));
 
 #elif SGE_LINUX_PLATFORM
-	XSetErrorHandler(handler);
 	const int screen = DefaultScreen(dsp->get());
 
 	if(!windowed)

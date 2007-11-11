@@ -664,9 +664,9 @@ sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const
 void sge::xinput::input_system::private_mouse_motion(const mouse_coordinate_t deltax, const mouse_coordinate_t deltay)
 {
 	if(deltax)
-		sig(key_pair(mouse_x, space_unit(deltax) / wnd->width()));
+		sig(key_pair(mouse_x, static_cast<space_unit>(deltax) / wnd->width()));
 	if(deltay)
-		sig(key_pair(mouse_y, space_unit(deltay) / wnd->height()));
+		sig(key_pair(mouse_y, static_cast<space_unit>(deltay) / wnd->height()));
 }
 
 void sge::xinput::input_system::dga_motion(XEvent xevent)

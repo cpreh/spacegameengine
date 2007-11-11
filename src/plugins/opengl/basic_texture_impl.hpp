@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 
+#include <cassert>
 #include <algorithm>
 #include <iostream>
 #include <ostream>
@@ -91,27 +92,42 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::do_lock(const lock_flag_t lmode)
 {
 	if(cur_buffer)
-		throw exception("ogl::basic_texture is already locked!");
+		throw exception("ogl::basic_texture::do_lock(): texture is already locked!");
 
-	if(lmode == lock_flags::writeonly || lmode == lock_flags::readwrite)
+	lock_mode_ = lmode;
+
+	if(lock_flag_write(lmode))
 	{
 		unpack_buffer.reset(new pixel_unpack_buffer(size(), flags(), 0));
 		unpack_buffer->lock(lmode);
 		cur_buffer = unpack_buffer.get();
 	}
-	else if(lmode == lock_flags::readonly || lmode == lock_flags::readwrite)
+
+	if(lock_flag_read(lmode))
 	{
 		pack_buffer.reset(new pixel_pack_buffer(size(), flags(), 0));
 		pack_buffer->lock(lmode);
 		cur_buffer = pack_buffer.get();
 	}
 
-	if(lmode == lock_flags::readwrite)
+	assert(cur_buffer);
+}
+
+template<typename Base, GLenum Type>
+void sge::ogl::basic_texture<Base, Type>::pre_unlock()
+{
+	if(!cur_buffer)
+		throw exception("ogl::basic_texture::pre_unlock(): texture is not locked!");
+	if(lock_mode() == lock_flags::readwrite)
 	{
 		std::copy(pack_buffer->begin(), pack_buffer->end(), unpack_buffer->data());
 		pack_buffer->unlock();
 		pack_buffer.reset();
 		cur_buffer = unpack_buffer.get();
+
+		assert(cur_buffer);
+
+		cur_buffer->bind_me();
 	}
 }
 
@@ -119,12 +135,18 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::do_unlock()
 {
 	if(!cur_buffer)
-		throw exception("ogl::basic_texture is not locked!");
+		throw exception("ogl::basic_texture::do_unlock(): texture is not locked!");
 
 	cur_buffer->unlock();
 	pack_buffer.reset();
 	unpack_buffer.reset();
 	cur_buffer = 0;
+}
+
+template<typename Base, GLenum Type>
+sge::lock_flag_t sge::ogl::basic_texture<Base, Type>::lock_mode() const
+{
+	return lock_mode_;
 }
 
 template<typename Base, GLenum Type>

@@ -41,7 +41,9 @@ protected:
 	GLuint id() const;
 	const filter_args& filter() const;
 	void do_lock(lock_flag_t flags);
+	void pre_unlock();
 	void do_unlock();
+	lock_flag_t lock_mode() const;
 public:
 	typedef typename Base::value_type value_type;
 	typedef typename Base::size_type size_type;
@@ -60,6 +62,7 @@ private:
 	resource_flag_t                        flags_;
 	GLuint                                 id_;
 	pbo_base*                              cur_buffer;
+	lock_flag_t                            lock_mode_;
 	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
 	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
 };

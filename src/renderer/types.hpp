@@ -49,7 +49,10 @@ typedef math::basic_vector<pixel_unit,2> pixel_pos_t;
 typedef math::basic_dim<screen_unit,2>   screen_size_t;
 
 struct display_mode {
-	display_mode(screen_unit width, screen_unit height, bit_depth::type depth, unsigned refresh_rate = 0);
+	display_mode(screen_unit width,
+	             screen_unit height,
+	             bit_depth::type depth,
+	             unsigned refresh_rate = 0);
 	
 	screen_size_t   size;
 	bit_depth::type depth;
@@ -60,7 +63,7 @@ struct display_mode {
 };
 
 template<class Ch,class Traits>
-std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s,const display_mode &mode)
+inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s,const display_mode &mode)
 {
 	return s << s.widen('(') << mode.width() << s.widen('x') << mode.height() << s.widen('x') << bit_depth_bit_count(mode.depth) << s.widen('@') << mode.refresh_rate << s.widen(')');
 }
@@ -80,12 +83,12 @@ typedef unsigned multi_sample_type;
 
 typedef std::vector<display_mode> display_mode_array;
 struct renderer_caps {
-	unsigned adapter_number;
-	std::string driver_name;
-	std::string description;
+	unsigned           adapter_number;
+	std::string        driver_name;
+	std::string        description;
 	display_mode_array display_modes;
-	unsigned max_tex_size;
-	unsigned max_anisotropy_level;
+	unsigned           max_tex_size;
+	unsigned           max_anisotropy_level;
 };
 
 namespace resource_flags
@@ -97,7 +100,7 @@ namespace resource_flags
 		default_    = write_only
 	};
 }
-typedef unsigned resource_flag_t; // FIXME
+typedef unsigned resource_flag_t;
 
 namespace lock_flags
 {
@@ -109,8 +112,10 @@ namespace lock_flags
 	};
 }
 
-// all the values are currently mutually exclusive
 typedef lock_flags::type lock_flag_t;
+
+bool lock_flag_write(lock_flag_t mode);
+bool lock_flag_read(lock_flag_t mode);
 
 typedef math::vector2  tex_pos;
 typedef math::vector2  pos2;
@@ -176,8 +181,6 @@ struct material {
 	color4     emissive; 
 	space_unit power; 
 };
-
-
 
 }
 

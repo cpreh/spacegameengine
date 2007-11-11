@@ -48,7 +48,7 @@ public:
 	virtual void set_data(const_pointer p, const lock_rect& r) = 0;
 	virtual void set_data(const_pointer p) = 0;
 	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;
-	virtual void lock(const lock_rect&, lock_flag_t flags = lock_flags::default_) = 0;
+	//virtual void lock(const lock_rect&, lock_flag_t flags = lock_flags::default_) = 0;
 	virtual void unlock() = 0;
 };
 

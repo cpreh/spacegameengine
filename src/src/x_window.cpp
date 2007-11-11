@@ -21,10 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
 
+#include <iostream>
+#include <ostream>
+#include <boost/array.hpp>
 #include <boost/assign.hpp>
 #include "../exception.hpp"
 #include "../iconv.hpp"
 #include "../x_window.hpp"
+
+int handler(Display*, XErrorEvent*);
+
+namespace {
+struct init_error_handler {
+	init_error_handler()
+	{
+		XSetErrorHandler(handler);
+	}
+} instance;
+}
 
 sge::x_window::x_window(const window_pos pos, const window_size sz, const string& t, const x_display_ptr dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
  : dsp(dsp),
@@ -164,6 +178,14 @@ void sge::window::dispatch()
 {
 	return window_ptr(new x_window());
 }*/
+
+int handler(Display* const d, XErrorEvent* const e)
+{
+	boost::array<char,1024> buf;
+	XGetErrorText(d, e->error_code,buf.c_array(), buf.size());
+	std::cerr << "X Error: " << buf.data() << '\n';
+	return 0;
+}
 
 sge::x_window::instance_map sge::x_window::instances;
 

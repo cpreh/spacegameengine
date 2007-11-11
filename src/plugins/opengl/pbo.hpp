@@ -53,6 +53,8 @@ struct pbo_base {
 
 	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;
+	
+	virtual void bind_me() const = 0;
 
 	virtual ~pbo_base(){}
 };

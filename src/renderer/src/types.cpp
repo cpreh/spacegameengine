@@ -45,3 +45,23 @@ sge::screen_unit sge::display_mode::height() const
 {
 	return size.h();
 }
+
+bool sge::lock_flag_write(const lock_flag_t mode)
+{
+	switch(mode) {
+	case lock_flags::readonly:
+		return false;
+	default:
+		return true;
+	}
+}
+
+bool sge::lock_flag_read(const lock_flag_t mode)
+{
+	switch(mode) {
+	case lock_flags::writeonly:
+		return false;
+	default:
+		return true;
+	}
+}

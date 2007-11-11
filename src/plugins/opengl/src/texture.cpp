@@ -84,13 +84,17 @@ void sge::ogl::texture::lock(const lock_rect& r, const lock_flag_t lflags)
 	//glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, 0); 
 }
 
-void sge::ogl::texture::lock(const lock_flag_t lflags)
+void sge::ogl::texture::lock(const lock_flag_t lmode)
 {
-	do_lock(lflags);
-	read_pixels(0, 0, width(), height(), static_cast<color*>(buffer_offset(0)));
+	do_lock(lmode);
+	if(lock_flag_read(lock_mode()))
+		read_pixels(0, 0, width(), height(), static_cast<color*>(buffer_offset(0)));
 }
 
 void sge::ogl::texture::unlock()
 {
+	pre_unlock();
+	if(lock_flag_write(lock_mode()))
+		set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), static_cast<color*>(buffer_offset(0)));
 	do_unlock();
 }
