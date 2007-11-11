@@ -24,6 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include "export.hpp"
 
+#if defined(SGE_LITTLE_ENDIAN) && defined(SGE_BIG_ENDIAN)
+#error "SGE_LITTLE_ENDIAN and SGE_BIG_ENDIAN defined!"
+#endif
+
 namespace sge
 {
 

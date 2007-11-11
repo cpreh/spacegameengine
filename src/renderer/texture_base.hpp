@@ -47,7 +47,6 @@ public:
 	virtual ~basic_texture_base() {}
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
-	virtual void filter(const filter_args&) = 0;
 
 /*	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;

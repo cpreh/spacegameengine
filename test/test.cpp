@@ -236,7 +236,7 @@ try
 		entry.reset();
 
 		kubal->next();
-		kubal->next();
+//		kubal->next();
 		kubal->open(entry);
 		image_data.resize(entry->uncompressed_size());
 		entry->uncompress(sge::data(image_data));

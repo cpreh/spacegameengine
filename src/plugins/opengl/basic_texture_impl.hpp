@@ -102,13 +102,4 @@ sge::resource_flag_t sge::ogl::basic_texture<Base, Type>::flags() const
 	return _flags;
 }
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::filter(const filter_args& nfilter)
-{
-	// TODO: what to do with mipmapping here?
-	_filter = nfilter;
-	bind_me();
-	set_my_filter();
-}
-
 #endif

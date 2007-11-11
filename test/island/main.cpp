@@ -410,20 +410,18 @@ int main()
 	const sge::texture_ptr water_texture = rend->create_texture(water_image->data(), water_image->width(), water_image->height(), sge::mip_filter);
 	const sge::texture_ptr cloud_texture = rend->create_texture(cloud_image->data(), cloud_image->width(), cloud_image->height(), sge::mip_filter);
 
-	const sge::filter_args filters[] = {
-		sge::point_filter,
-		sge::linear_filter,
-		sge::mip_filter,
-		sge::trilinear_filter
+	const sge::texture_ptr textures[] = {
+		sge::create_texture(rend, grass_image, sge::point_filter),
+		sge::create_texture(rend, grass_image, sge::linear_filter),
+		sge::create_texture(rend, grass_image, sge::mip_filter),
+		sge::create_texture(rend, grass_image, sge::trilinear_filter)
 	};
-
-	const sge::texture_ptr grass_texture = sge::create_texture(rend, grass_image);
 
 	skydome sky(3,16,8,rend,cloud_texture);
 
 	bool running = true;
 
-	unsigned selected_filter = 2;
+	unsigned selected_texture = 2;
 
 	rend->set_bool_state(sge::bool_state::enable_zbuffer,true);
 	rend->set_bool_state(sge::bool_state::clear_zbuffer,true);
@@ -460,10 +458,7 @@ int main()
 		translation.z() -= ks['s'] * 0.1;
 
 		if(ks['x'] && press_timer.update())
-		{
-			selected_filter = (selected_filter+1) % (sizeof(filters)/sizeof(filters[0]));
-			grass_texture->filter(filters[selected_filter]);
-		}
+			selected_texture = (selected_texture+1) % (sizeof(textures)/sizeof(textures[0]));
 
 	//	sge::space_unit aspect = static_cast<sge::space_unit>(rend->screen_width()) / rend->screen_height();
 		// Alte Formel ohne 2* (anscheinend falsch)
@@ -491,7 +486,7 @@ int main()
 	//	sge::math::vector3 nl(perspect[0][3]+perspect[0][0],perspect[1][3]+perspect[1][0],perspect[2][3]+perspect[2][0]);
 	//	std::cout << "left normal: " << nl.normalize() << "\n";
 
-		rend->set_texture(grass_texture);
+		rend->set_texture(textures[selected_texture]);
 		sge::quadtree::index_container_type indices;
 		tree.get_visible(sge::frustum_info(modelview * projection), indices);
 		if (indices.size() > 0)

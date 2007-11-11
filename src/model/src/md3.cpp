@@ -128,7 +128,6 @@ void sge::md3_model::fill_vertices(const vertex_buffer_ptr vb, const vertex_buff
 			(vbit  )->normal() = v.normal;
 			(vbit++)->tex()    = surf.st.at(sz).tex;
 		}	
-
 	}
 }
 
