@@ -42,6 +42,8 @@ struct pbo_base {
 	typedef texture_base::const_iterator         const_iterator;
 	typedef texture_base::reverse_iterator       reverse_iterator;
 	typedef texture_base::const_reverse_iterator const_reverse_iterator;
+
+	virtual ~pbo_base(){} // I really don't know why we need this
 };
 
 const GLenum pixel_pack_buffer_type = GL_PIXEL_PACK_BUFFER_ARB,

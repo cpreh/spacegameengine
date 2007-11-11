@@ -55,8 +55,8 @@ private:
 	filter_args                            filter_;
 	resource_flag_t                        flags_;
 	GLuint                                 id_;
-//	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
-//	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
+	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
+	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
 };
 
 }
