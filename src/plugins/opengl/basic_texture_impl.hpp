@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 
 #include <iostream>
+#include <ostream>
 #include "../../exception.hpp"
 #include "common.hpp"
 #include "conversion.hpp"
@@ -30,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::tex_parameter_i(const GLenum name, const GLint param)
 {
-	glTexParameteri(Type,name,param);
+	glTexParameteri(Type, name, param);
 	if(is_error())
 		throw exception("glTexParamteri() failed!");
 }
@@ -69,22 +70,23 @@ void sge::ogl::basic_texture<Base, Type>::set_my_filter() const
 template<typename Base, GLenum Type>
 GLuint sge::ogl::basic_texture<Base, Type>::id() const
 {
-	return _id;
+	return id_;
 }
 
 template<typename Base, GLenum Type>
 const sge::filter_args& sge::ogl::basic_texture<Base, Type>::filter() const
 {
-	return _filter;
+	return filter_;
 }
 
 template<typename Base, GLenum Type>
-sge::ogl::basic_texture<Base, Type>::basic_texture(const filter_args& _filter, const resource_flag_t _flags)
+sge::ogl::basic_texture<Base, Type>::basic_texture(const filter_args& filter_,
+                                                  const resource_flag_t flags_)
  : texture_base(Type),
-   _filter(_filter),
-   _flags(_flags)
+   filter_(filter_),
+   flags_(flags_)
 {
-	glGenTextures(1,&_id);
+	glGenTextures(1, &id_);
 	if(is_error())
 		throw exception("glGenTextures() failed!");
 }
@@ -93,13 +95,13 @@ sge::ogl::basic_texture<Base, Type>::basic_texture(const filter_args& _filter, c
 template<typename Base, GLenum Type>
 sge::ogl::basic_texture<Base, Type>::~basic_texture()
 {
-	glDeleteTextures(1,&_id);
+	glDeleteTextures(1, &id_);
 }
 
 template<typename Base, GLenum Type>
 sge::resource_flag_t sge::ogl::basic_texture<Base, Type>::flags() const
 {
-	return _flags;
+	return flags_;
 }
 
 #endif

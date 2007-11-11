@@ -34,6 +34,8 @@ struct pbo_base {
 	typedef texture_base::size_type              size_type;
 	typedef texture_base::difference_type        difference_type;
 	typedef texture_base::value_type             value_type;
+	typedef texture_base::reference              reference;
+	typedef texture_base::const_reference        const_reference;
 	typedef texture_base::pointer                pointer;
 	typedef texture_base::const_pointer          const_pointer;
 	typedef texture_base::iterator               iterator;
@@ -42,8 +44,11 @@ struct pbo_base {
 	typedef texture_base::const_reverse_iterator const_reverse_iterator;
 };
 
-typedef basic_raw_buffer<pbo_base, GL_PIXEL_PACK_BUFFER_ARB>   pixel_pack_buffer;
-typedef basic_raw_buffer<pbo_base, GL_PIXEL_UNPACK_BUFFER_ARB> pixel_unpack_buffer;
+const GLenum pixel_pack_buffer_type = GL_PIXEL_PACK_BUFFER_ARB,
+             pixel_unpack_buffer_type = GL_PIXEL_UNPACK_BUFFER_ARB;
+
+typedef basic_raw_buffer<pbo_base, pixel_pack_buffer_type>   pixel_pack_buffer;
+typedef basic_raw_buffer<pbo_base, pixel_unpack_buffer_type> pixel_unpack_buffer;
 
 }
 }

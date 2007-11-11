@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <iostream>
-#include "../../../types.hpp"
-#include "../../../ptr_cast.hpp"
+#include <ostream>
 #include "../../../bit.hpp"
-#include "../../../renderer/types.hpp"
-#include "../../../renderer/renderer_system.hpp"
-#include "../../../renderer/primitive.hpp"
 #include "../../../exception.hpp"
+#include "../../../ptr_cast.hpp"
+#include "../../../types.hpp"
+#include "../../../renderer/primitive.hpp"
+#include "../../../renderer/renderer_system.hpp"
+#include "../../../renderer/types.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
@@ -43,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../get.hpp"
 #include "../shader.hpp"
 #include "../program.hpp"
+#include "../error.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
@@ -67,7 +69,9 @@ int handler(Display* const d, XErrorEvent* const e)
 #endif
 
 // TODO: maybe support different adapters?
-sge::ogl::renderer::renderer(const renderer_parameters& param, const unsigned adapter, const window_ptr wnd_param)
+sge::ogl::renderer::renderer(const renderer_parameters& param,
+                             const unsigned adapter,
+                             const window_ptr wnd_param)
  : param(param),
    clearflags(0)
 #ifdef SGE_LINUX_PLATFORM

@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../error.hpp"
 #include "../texture_functions.hpp"
+#include "../basic_texture_impl.hpp"
 #include "../../../stub.hpp"
+
+template class sge::ogl::basic_texture<sge::texture, GL_TEXTURE_2D>;
 
 sge::ogl::texture::texture(const const_pointer src,
                            const size_type _width,

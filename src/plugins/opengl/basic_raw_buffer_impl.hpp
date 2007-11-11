@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BASIC_RAW_BUFFER_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_BASIC_RAW_BUFFER_IMPL_HPP_INCLUDED
 
+#include "basic_raw_buffer.hpp"
+
 template<typename Base, GLenum Type>
 sge::ogl::basic_raw_buffer<Base, Type>::basic_raw_buffer(const size_type sz,
                                                          const resource_flag_t flags,

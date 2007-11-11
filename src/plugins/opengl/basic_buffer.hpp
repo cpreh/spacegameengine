@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OGL_BASIC_BUFFER_HPP_INCLUDED
 
 #include "../../exception.hpp"
+#include "../../renderer/types.hpp"
 #include "common.hpp"
 
 namespace sge
@@ -43,7 +44,10 @@ public:
 	typedef typename Base::reverse_iterator       reverse_iterator;
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
 			
-	basic_buffer(size_type sz, size_type stride, resource_flag_t flags, const_pointer src);
+	basic_buffer(size_type sz,
+	             size_type stride,
+	             resource_flag_t flags,
+	             const_pointer src);
 	~basic_buffer();
 
 	void lock(lock_flag_t lockflags);

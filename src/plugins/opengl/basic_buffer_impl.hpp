@@ -21,11 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BASIC_BUFFER_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_BASIC_BUFFER_IMPL_HPP_INCLUDED
 
+#include "basic_buffer.hpp"
 #include "conversion.hpp"
 #include "vbo.hpp"
 
 template<typename Base, GLenum Type>
-sge::ogl::basic_buffer<Base, Type>::basic_buffer(const size_type sz, const size_type stride_, const resource_flag_t flags_, const const_pointer src)
+sge::ogl::basic_buffer<Base, Type>::basic_buffer(const size_type sz,
+                                                 const size_type stride_,
+                                                 const resource_flag_t flags_,
+                                                 const const_pointer src)
  : sz(sz),
    stride_(stride_),
    flags_(flags_),

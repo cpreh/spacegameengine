@@ -21,8 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../volume_texture.hpp"
 #include "../error.hpp"
+#include "../basic_texture_impl.hpp"
 
-sge::ogl::volume_texture::volume_texture(const const_pointer src, const size_type _width, const size_type _height, const size_type _depth, const filter_args& filter, const resource_flag_t flags)
+template class sge::ogl::basic_texture<sge::volume_texture,GL_TEXTURE_3D>;
+
+sge::ogl::volume_texture::volume_texture(const const_pointer src,
+                                         const size_type _width,
+                                         const size_type _height,
+                                         const size_type _depth,
+                                         const filter_args& filter,
+                                         const resource_flag_t flags)
  : basic_texture<sge::volume_texture,GL_TEXTURE_3D>(filter,flags),
    _width(_width),
    _height(_height),

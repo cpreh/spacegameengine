@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 #define SGE_OGL_BASIC_TEXTURE_HPP_INCLUDED
 
+#include <boost/scoped_ptr.hpp>
 #include "common.hpp"
+#include "pbo.hpp"
 #include "texture_base.hpp"
 
 namespace sge
@@ -50,15 +52,15 @@ public:
 	resource_flag_t flags() const;
 	void filter(const filter_args& nfilter);
 private:
-	filter_args _filter;
-	resource_flag_t _flags;
-	GLuint _id;
+	filter_args                            filter_;
+	resource_flag_t                        flags_;
+	GLuint                                 id_;
+//	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
+//	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
 };
 
 }
 }
-
-#include "basic_texture_impl.hpp"
 
 #endif
 
