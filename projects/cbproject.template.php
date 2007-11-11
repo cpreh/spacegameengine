@@ -63,7 +63,6 @@ ob_start(); ?>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-W" />
 			<Add option="-Wall" />
 			<Add option="-Wextra" />
 			<Add option="-Wconversion" />

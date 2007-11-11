@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "../inputprocessor.hpp"
+#include "../../math/utility.hpp"
 
 #include <algorithm>
 #include <boost/bind.hpp>
@@ -124,7 +125,7 @@ void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pai
 		if (btn != events::mouse_event::NONE) {
 			events::mouse_event::button oldbutton = mouse_event.pressed;
 			mouse_event.pressed = btn;
-			if (value) {
+			if (!math::almost_zero(value)) {
 				// button pressed
 				pending_click.button   = btn;
 				pending_click.position = mouse_event.globalposition;
@@ -182,7 +183,7 @@ void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pai
 		    key == kc::mouse_axis_z_neg) {
 
 			// Z axis (mouse wheel)
-			if (key == kc::mouse_axis_z_neg || value == -1)
+			if (key == kc::mouse_axis_z_neg || math::compare(value, static_cast<key_state>(-1)))
 				dispatch_mouse_wheel_event(events::mouse_wheel_event::UP);
 			else
 				dispatch_mouse_wheel_event(events::mouse_wheel_event::DOWN);
