@@ -44,6 +44,7 @@ private:
 public:
 	canvas();
 	canvas(const canvas &);
+	canvas &operator=(const canvas &other);
 	canvas(dim2 size_);
 	canvas(dim2 size_, const color &fillcolor);
 
@@ -95,7 +96,7 @@ public:
 
 public: // static members
 //	static canvas from_texture(const sge::texture &texture); // TODO
-//	static canvas from_image(const std::string &path); // TODO
+	static canvas from_image(const std::string &path);
 };
 
 }

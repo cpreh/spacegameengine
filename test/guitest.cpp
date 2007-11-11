@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 #include <exception>
 #include <iostream>
+#include <iomanip>
 
 #include <boost/any.hpp>
 #include <boost/bind.hpp>
@@ -44,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/gui/color.hpp"
 #include "../src/gui/manager.hpp"
 #include "../src/gui/button.hpp"
+#include "../src/gui/inputprocessor.hpp"
 
 inline sge::pos3 at_pixel(int x, int y) {
 	return sge::pos3(
@@ -52,6 +54,35 @@ inline sge::pos3 at_pixel(int x, int y) {
 		0
 	);
 }
+
+struct myIA : public sge::gui::inputacceptor {
+	using sge::gui::inputacceptor::inputprocessor_attach;
+	using sge::gui::inputacceptor::inputprocessor_detach;
+
+	sge::gui::point inputprocessor_offset() const { return sge::gui::point(0,0); }
+
+	void dump(const sge::gui::events::mouse_event &me, std::string extra = "") const {
+		std::cout
+			<< "Mouse at "
+			<< std::setw(4) << me.globalposition.x << std::setw(0)
+			<< ","
+			<< std::setw(4) << me.globalposition.y << std::setw(0)
+			<< " ("
+			<< ((me.pressstate.find(sge::gui::events::mouse_event::LEFT  ) != me.pressstate.end()) ? "L" : "_")
+			<< " "
+			<< ((me.pressstate.find(sge::gui::events::mouse_event::MIDDLE) != me.pressstate.end()) ? "M" : "_")
+			<< " "
+			<< ((me.pressstate.find(sge::gui::events::mouse_event::RIGHT ) != me.pressstate.end()) ? "R" : "_")
+			<< ") "
+			<< extra
+			<< std::endl;
+	}
+
+	sge::gui::inputprocessor::response inject_mouse_move  (const sge::gui::events::mouse_event &me) { dump(me); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_down  (const sge::gui::events::mouse_event &me) { dump(me, "press"  ); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_up    (const sge::gui::events::mouse_event &me) { dump(me, "release"); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_wheel (const sge::gui::events::mouse_wheel_event &me) { dump(me, (me.direction == sge::gui::events::mouse_wheel_event::UP) ? "UP" : "DOWN"); return sge::gui::inputprocessor::response_continue; }
+};
 
 int main()
 try
@@ -83,9 +114,14 @@ try
 	);
 
 	sge::key_state_tracker ks(is);
+	sge::gui::inputprocessor ip(is);
+	std::cout << "created ip" << std::endl;
+	myIA ia;
+	std::cout << "created ia" << std::endl;
+	ia.inputprocessor_attach(ip);
+	std::cout << "attached ia" << std::endl;
 
-
-
+#if 0
 	using sge::gui::manager;
 	using sge::gui::canvas;
 	using sge::gui::button;
@@ -179,6 +215,7 @@ try
 	}
 
 	rend->set_bool_state(sge::bool_state::enable_alpha_blending, true);
+#endif
 
 	while(running)
 	{
@@ -190,10 +227,12 @@ try
 		sge::window::dispatch();
 		is->dispatch();
 
+#if 0
 		rend->set_texture(sge::texture_base_ptr());
 		rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
 		rend->set_texture(guimgr.to_texture(texmgr)->my_texture());
 		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
+#endif
 
 		rend->end_rendering();
 	}

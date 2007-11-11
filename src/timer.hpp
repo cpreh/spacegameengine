@@ -32,6 +32,7 @@ public:
 	typedef float frames_type;
 	typedef time_type interval_type;
 
+	SGE_SYMBOL timer();
 	SGE_SYMBOL timer(interval_type interval);
 	SGE_SYMBOL frames_type update();
 	SGE_SYMBOL frames_type elapsed_frames() const;

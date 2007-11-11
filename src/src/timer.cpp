@@ -20,6 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../timer.hpp"
 
+sge::timer::timer()
+: _interval(1000),
+  _last_time(time()),
+  _active(false)
+{}
+
 sge::timer::timer(const interval_type _interval)
 : _interval(_interval),
   _last_time(time()),

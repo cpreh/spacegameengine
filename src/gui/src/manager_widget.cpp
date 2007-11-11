@@ -17,18 +17,15 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
+#include "../manager.hpp"
 #include "../types.hpp"
 
-sge::gui::point sge::gui::point::normalize(const sge::gui::rect &area) const {
-	return point(
-		(x >= area.x + area.w) ? area.x + area.w - 1 : ((x < area.x) ? 0 : x),
-		(y >= area.y + area.h) ? area.y + area.h - 1 : ((y < area.y) ? 0 : y)
-	);
+sge::gui::manager *sge::gui::manager::top_level_widget() const {
+	return const_cast<manager*>(this);
 }
 
-inline sge::gui::fpoint sge::gui::fpoint::normalize(const sge::gui::frect &area) const {
-	return fpoint(
-		(x >= area.x + area.w) ? area.x + area.w : ((x < area.x) ? 0 : x),
-		(y >= area.y + area.h) ? area.y + area.h : ((y < area.y) ? 0 : y)
-	);
+void sge::gui::manager::resize(sge::gui::dim2 newsize) {
+	widget::resize(newsize);
+	framebuffer.resize(newsize, false);
 }

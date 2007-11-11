@@ -49,6 +49,20 @@ sge::gui::canvas::canvas(const sge::gui::canvas::canvas &other)
 	);
 }
 
+sge::gui::canvas::canvas &sge::gui::canvas::operator=(const sge::gui::canvas::canvas &other) {
+	if (size_ != other.size_) {
+		size_ = other.size_;
+		boost::scoped_array<sge::gui::color> dt(new sge::gui::color[size_.w * size_.h]);
+		data.swap(dt);
+	}
+	std::memcpy(
+		data.get(),
+		other.data.get(),
+		sizeof(sge::gui::color) * size_.w * size_.h
+	);
+	return *this;
+}
+
 sge::gui::canvas::canvas(sge::gui::dim2 size_)
 : size_(size_), data(new sge::gui::color[size_.w * size_.h]) {}
 

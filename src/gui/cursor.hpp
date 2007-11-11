@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_CURSOR_HPP_INCLUDED
 #define SGE_GUI_CURSOR_HPP_INCLUDED
 
+#include <string>
 #include <boost/shared_ptr.hpp>
 
 #include "canvas.hpp"
@@ -43,7 +44,19 @@ struct normal_cursor : public cursor_base {
 
 typedef boost::shared_ptr<cursor_base> cursor_ptr;
 
-void cursor_from_bitmap();
+namespace cursor {
+	inline cursor_ptr from_canvas(const canvas &image, point hotspot) {
+		normal_cursor *nc;
+		cursor_ptr cp(nc = new normal_cursor());
+		nc->bitmap  = image;
+		nc->hotspot = hotspot;
+		return cp;
+	}
+
+	inline cursor_ptr from_bitmap(const std::string &image, point hotspot) {
+		return from_canvas(canvas::from_image(image), hotspot);
+	}
+}
 
 }
 }

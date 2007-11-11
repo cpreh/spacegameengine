@@ -161,7 +161,6 @@
 		<Unit filename="..\..\..\src/renderer/src/font.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/font_drawer_3d.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/hsla.cpp" />
-		<Unit filename="..\..\..\src/renderer/src/index_buffer.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/light.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/line_strip.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/primitive.cpp" />
@@ -170,11 +169,13 @@
 		<Unit filename="..\..\..\src/renderer/src/scoped_state.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/screenshot.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/types.cpp" />
+		<Unit filename="..\..\..\src/renderer/src/vertex_format.cpp" />
 		<Unit filename="..\..\..\src/renderer/texture.hpp" />
 		<Unit filename="..\..\..\src/renderer/texture_base.hpp" />
 		<Unit filename="..\..\..\src/renderer/transform.hpp" />
 		<Unit filename="..\..\..\src/renderer/transformable.hpp" />
 		<Unit filename="..\..\..\src/renderer/types.hpp" />
+		<Unit filename="..\..\..\src/renderer/vertex.hpp" />
 		<Unit filename="..\..\..\src/renderer/vertex_buffer.hpp" />
 		<Unit filename="..\..\..\src/renderer/vertex_format.hpp" />
 		<Unit filename="..\..\..\src/renderer/volume_texture.hpp" />
@@ -206,6 +207,7 @@
 		<Unit filename="..\..\..\src/src/x_display.cpp" />
 		<Unit filename="..\..\..\src/src/x_window.cpp" />
 		<Unit filename="..\..\..\src/string.hpp" />
+		<Unit filename="..\..\..\src/stub.hpp" />
 		<Unit filename="..\..\..\src/texture/atlasing.hpp" />
 		<Unit filename="..\..\..\src/texture/bsp_fragmented_texture.hpp" />
 		<Unit filename="..\..\..\src/texture/fragmented_texture.hpp" />

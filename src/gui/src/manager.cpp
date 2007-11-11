@@ -31,15 +31,6 @@ sge::gui::manager::manager(sge::gui::dim2 size)
 
 sge::gui::manager::~manager() {}
 
-sge::gui::manager *sge::gui::manager::top_level_widget() const {
-	return const_cast<manager*>(this);
-}
-
-void sge::gui::manager::resize(sge::gui::dim2 newsize) {
-	widget::resize(newsize);
-	framebuffer.resize(newsize, false);
-}
-
 sge::virtual_texture_ptr sge::gui::manager::to_texture(sge::texture_manager &texmgr) {
 	if (flags.changed) {
 		framebuffer.fill(sge::colors::transparent);
@@ -50,6 +41,5 @@ sge::virtual_texture_ptr sge::gui::manager::to_texture(sge::texture_manager &tex
 	return last_texture;
 }
 
-void sge::gui::manager::input_callback()
-{
+void sge::gui::manager::input_callback() {
 }

@@ -41,6 +41,10 @@ struct point {
 	inline point operator-() const { return point(-x, -y); }
 	inline point &operator-=(const point &other) { return (*this)+=-other; }
 	inline point operator-(const point &other) const { point t=*this; return t-=other; }
+	inline point &operator/=(const unit m) { x/=m; y/=m; return *this; }
+	inline point operator/(const unit m) const { point t=*this; return t/=m; }
+	inline point &operator*=(const unit m) { x*=m; y*=m; return *this; }
+	inline point operator*(const unit m) const { point t=*this; return t*=m; }
 	point normalize(const rect &area) const;
 	inline bool within(const rect &area) const { return operator==(normalize(area)); }
 };
@@ -85,6 +89,10 @@ struct fpoint {
 	inline fpoint operator-() const { return fpoint(-x, -y); }
 	inline fpoint &operator-=(const fpoint &other) { return (*this)+=-other; }
 	inline fpoint operator-(const fpoint &other) const { fpoint t=*this; return t-=other; }
+	inline fpoint &operator/=(const funit m) { x/=m; y/=m; return *this; }
+	inline fpoint operator/(const funit m) const { fpoint t=*this; return t/=m; }
+	inline fpoint &operator*=(const funit m) { x*=m; y*=m; return *this; }
+	inline fpoint operator*(const funit m) const { fpoint t=*this; return t*=m; }
 	fpoint normalize(const frect &area) const;
 	inline bool within(const frect &area) const { return operator==(normalize(area)); }
 };

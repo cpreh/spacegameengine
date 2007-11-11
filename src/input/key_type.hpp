@@ -42,16 +42,24 @@ namespace kc
 {
 
 enum type {
-	input_type_mask     = 0xf000U,
-	input_keyid_mask    = 0x0fffU,
+	input_type_mask          = 0xf000U,
+	input_keyid_mask         = 0x0fffU,
 
-	input_type_keyboard = 0x1000U,
-	input_type_mouse    = 0x2000U,
-	input_type_joystick = 0x3000U,
+	input_type_keyboard      = 0x1000U,
+	input_type_mouse_key     = 0x2000U,
+	input_type_mouse_axis    = 0x3000U,
+	input_type_joystick_key  = 0x4000U,
+	input_type_joystick_axis = 0x5000U,
 
-	none                = 0x0000U,
+	none                     = 0x0000U,
 
-	key_escape          = input_type_keyboard,
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// Keyboard codes
+	//
+
+	key_escape               = input_type_keyboard,
 	key_return,
 	key_lshift,
 	key_rshift,
@@ -176,9 +184,24 @@ enum type {
 	X_NUM_KEY_KEYS,
 	num_key_keys = X_NUM_KEY_KEYS & input_keyid_mask,
 
-	mouse_l             = input_type_mouse,
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// Mouse button codes
+	//
+
+	mouse_l                  = input_type_mouse_key,
 	mouse_r,
-	mouse_axis_x,
+	X_NUM_MOUSE_KEYS,
+	num_mouse_keys = X_NUM_MOUSE_KEYS & input_keyid_mask,
+
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// Mouse axis codes
+	//
+
+	mouse_axis_x             = input_type_mouse_axis,
 	mouse_axis_x_neg,
 	mouse_axis_x_pos,
 	mouse_axis_y,
@@ -187,13 +210,28 @@ enum type {
 	mouse_axis_z,
 	mouse_axis_z_neg,
 	mouse_axis_z_pos,
-	X_NUM_MOUSE_KEYS,
-	num_mouse_keys = X_NUM_MOUSE_KEYS & input_keyid_mask,
+	X_NUM_MOUSE_AXIS,
+	num_mouse_axis = X_NUM_MOUSE_AXIS & input_keyid_mask,
 
-	X_NUM_JOYSTICK_KEYS = input_type_joystick,
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// Joystick button codes
+	//
+
+	X_NUM_JOYSTICK_KEYS      = input_type_joystick_key,
 	num_joystick_keys = X_NUM_JOYSTICK_KEYS & input_keyid_mask,
 
-	num_total_keys = num_key_keys + num_mouse_keys + num_joystick_keys
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// Joystick axis codes
+	//
+
+	X_NUM_JOYSTICK_AXIS      = input_type_joystick_axis,
+	num_joystick_axis = X_NUM_JOYSTICK_AXIS & input_keyid_mask,
+
+	num_total_keys = num_key_keys + num_mouse_keys + num_mouse_axis + num_joystick_keys + num_joystick_axis
 };
 
 }
@@ -233,71 +271,43 @@ inline bool operator!=(const key_type& l, const key_type& r)
 	return !(l==r);
 }
 
-inline bool is_mouse_key(const key_code key)
+inline bool is_mouse_button(const key_code key)
 {
-	switch(key) {
-	case kc::mouse_l:
-	case kc::mouse_r:
-		return true;
-	default:
-		return false;
-	}
+	return (key & kc::input_type_mask) == kc::input_type_mouse_key;
 }
 
 inline bool is_mouse_axis(const key_code key)
 {
-	switch(key) {
-	case kc::mouse_axis_x:
-	case kc::mouse_axis_y:
-	case kc::mouse_axis_x_neg:
-	case kc::mouse_axis_x_pos:
-	case kc::mouse_axis_y_neg:
-	case kc::mouse_axis_y_pos:
-	case kc::mouse_axis_z_neg:
-	case kc::mouse_axis_z_pos:
-		return true;
-	default:
-		return false;
-	}
+	return (key & kc::input_type_mask) == kc::input_type_mouse_axis;
 }
 
 inline bool is_keyboard_key(const key_code key)
 {
-	return !(is_mouse_key(key) || is_mouse_axis(key));
+	return (key & kc::input_type_mask) == kc::input_type_keyboard;
 }
 
 inline bool is_shift(const key_code key)
 {
-	switch(key) {
-	case kc::key_lshift:
-	case kc::key_rshift:
-	      return true;
-	default:
-	      return false;
-	}
+	return
+		(key == kc::key_lshift) ||
+		(key == kc::key_rshift);
 }
 
 inline bool is_ctrl(const key_code key)
 {
-	switch(key) {
-	case kc::key_lctrl:
-	case kc::key_rctrl:
-	case kc::key_altgr:
-		return true;
-	default:
-		return false;
-	}
+	// TODO: reevaluate role of altgr
+	return
+		(key == kc::key_lctrl) ||
+		(key == kc::key_rctrl) ||
+		(key == kc::key_altgr);
 }
 
 inline bool is_alt(const key_code key)
 {
-	switch(key) {
-	case kc::key_alt:
-	case kc::key_altgr:
-		return true;
-	default:
-		return false;
-	}
+	// TODO: reevaluate role of altgr
+	return
+		(key == kc::key_alt  ) ||
+		(key == kc::key_altgr);
 }
 
 typedef float key_state;
