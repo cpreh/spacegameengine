@@ -50,6 +50,9 @@
 		<Compiler>
 			<Add option="-W" />
 			<Add option="-Wall" />
+			<Add option="-Wextra" />
+			<Add option="-Wconversion" />
+			<Add option="-Wfloat-equal" />
 			<Add option='-Wno-long-long' />
 		</Compiler>
 		<Unit filename="..\..\..\src/plugins/dinput/di.hpp" />

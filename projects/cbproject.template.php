@@ -65,6 +65,9 @@ ob_start(); ?>
 		<Compiler>
 			<Add option="-W" />
 			<Add option="-Wall" />
+			<Add option="-Wextra" />
+			<Add option="-Wconversion" />
+			<Add option="-Wfloat-equal" />
 <?php if (!$data['flags']['unstrict']) { ?>
 			<Add option="-pedantic" />
 			<Add option="-ansi" />

@@ -50,6 +50,9 @@
 		<Compiler>
 			<Add option="-W" />
 			<Add option="-Wall" />
+			<Add option="-Wextra" />
+			<Add option="-Wconversion" />
+			<Add option="-Wfloat-equal" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
 			<Add option='-Wno-long-long' />
