@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::library::library(const std::string& n)
  :
 #ifdef SGE_WINDOWS_PLATFORM
-  handle(reinterpret_cast<void*>(LoadLibraryA(n.c_str()))) // FIXME: what to do about this?
+  handle(reinterpret_cast<void*>(LoadLibraryA(n.c_str())))
 #elif SGE_LINUX_PLATFORM
    handle(dlopen(n.c_str(), RTLD_NOW | RTLD_GLOBAL))
 #endif
@@ -79,19 +79,16 @@ std::string sge::library::liberror()
 #else
 	const DWORD lasterror = GetLastError();
 	boost::array<char, 256> errmsg;
-	FormatMessageA(
+	if(FormatMessageA(
 		FORMAT_MESSAGE_FROM_SYSTEM,
 		0, // ignored
 		lasterror, // message id
 		0, // language id
-		errmsg.c_array(), // buffer
-		errmsg.size()-1, // buffer length
+		errmsg.c_array(),
+		errmsg.size()-1,
 		0
-	);
+	) == 0)
+		return std::string("FormatMessage() failed!");
 	return std::string(errmsg.data());
 #endif
 }
-
-//#ifdef SGE_WINDOWS_PLATFORM
-//DWORD sge::library::lasterror = 0;
-//#endif

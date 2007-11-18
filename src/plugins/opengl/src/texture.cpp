@@ -32,13 +32,19 @@ template class sge::ogl::basic_texture<sge::texture, GL_TEXTURE_2D>;
 sge::ogl::texture::texture(const const_pointer src,
                            const size_type _width,
                            const size_type _height,
-                           const filter_args& filter,
+                           const filter_args& filter_,
                            const resource_flag_t flags)
- : detail::texture_base(filter, flags),
+ : detail::texture_base(filter_, flags),
    _width(_width),
    _height(_height)
 {
-	set_data(src);
+	if(src)
+		set_data(src);
+	else
+	{
+		pre_setdata();
+		set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), 0);
+	}
 }
 
 sge::ogl::texture::size_type sge::ogl::texture::width() const
