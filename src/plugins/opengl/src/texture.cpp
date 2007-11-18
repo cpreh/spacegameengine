@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <algorithm>
+#include "../../../renderer/scoped_lock.hpp"
 #include "../common.hpp"
 #include "../texture.hpp"
 #include "../error.hpp"
@@ -60,13 +62,17 @@ void sge::ogl::texture::set_data(const const_pointer src, const lock_rect& r)
 	bind_me();
 	set_my_filter();
 	set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), r, src);
+	// TODO: can we use PBO here too?
 }
 
 void sge::ogl::texture::set_data(const const_pointer src)
 {
 	bind_me();
 	set_my_filter();
-	set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), src);
+	scoped_lock<sge::texture*> lock_(this, lock_flags::writeonly);
+	std::copy(src, src + size(), data());
+
+//	set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), src);
 }
 
 void sge::ogl::texture::lock(const lock_rect& r, const lock_flag_t lflags)

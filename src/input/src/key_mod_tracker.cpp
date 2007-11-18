@@ -23,10 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/utility.hpp"
 
 sge::key_mod_tracker::key_mod_tracker(const input_system_ptr is)
- : _state(false, false, false)
-{
-	is->register_callback(boost::bind(&key_mod_tracker::key_callback, this, _1));
-}
+ : _state(false, false, false),
+   con(is->register_callback(boost::bind(&key_mod_tracker::key_callback, this, _1)))
+{}
 
 void sge::key_mod_tracker::key_callback(const key_pair& p)
 {

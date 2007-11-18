@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <map>
 #include <boost/noncopyable.hpp>
-#include <boost/signals/trackable.hpp>
+#include "../scoped_connection.hpp"
 #include "input_system.hpp"
 #include "key_type.hpp"
 
 namespace sge
 {
 
-class key_state_tracker : boost::noncopyable, public boost::signals::trackable {
+class key_state_tracker : boost::noncopyable {
 public:
 	key_state_tracker(input_system_ptr);
 	key_state operator[](const key_code&);
@@ -41,6 +41,7 @@ public:
 	bool zero(const key_type::char_type&);
 private:
 	void event_handler(const key_pair& key);
+	scoped_connection con;
 
 	typedef std::map<key_code, key_state> key_code_map;
 	typedef std::map<key_type, key_state> key_type_map;

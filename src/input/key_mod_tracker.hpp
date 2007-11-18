@@ -18,21 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <boost/signals/trackable.hpp>
-#include "key_type.hpp"
+#include <boost/noncopyable.hpp>
+#include "../scoped_connection.hpp"
 #include "input_system.hpp"
+#include "key_type.hpp"
 
 namespace sge
 {
 
-class key_mod_tracker : boost::signals::trackable {
+class key_mod_tracker : boost::noncopyable {
 public:
 	key_mod_tracker(input_system_ptr is);
 	const mod_state& state() const;
 private:
 	void key_callback(const key_pair&);
 
-	mod_state _state;
+	mod_state          _state;
+	scoped_connection  con;
 };
 
 }
