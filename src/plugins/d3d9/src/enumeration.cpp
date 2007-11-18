@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <algorithm>
 #include "../../../exception.hpp"
-#include "../../../ptr_cast.hpp"
 #include "../../../renderer/types.hpp"
 #include "../enumeration.hpp"
 #include "../constants.hpp"

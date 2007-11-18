@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iterator>
 #include <algorithm>
 #include <functional>
+#include <boost/cast.hpp>
 #include "../../../bit.hpp"
 #include "../../../exception.hpp"
-#include "../../../ptr_cast.hpp"
 #include "../../../raw_vector.hpp"
 #include "../../../util.hpp"
 #include "../../../renderer/transform.hpp"
@@ -127,7 +127,7 @@ void sge::d3d9::renderer::set_vertex_buffer(const vertex_buffer_ptr buffer)
 	if(!buffer)
 		return; //FIXME
 
-	d3d9::vertex_buffer* const d3d_buffer = ptr_cast<d3d9::vertex_buffer*>(buffer.get());
+	d3d9::vertex_buffer* const d3d_buffer = boost::polymorphic_cast<d3d9::vertex_buffer*>(buffer.get());
 	const d3d_vertex_declaration_ptr decl = d3d_buffer->d3d_format.vertex_declaration();
 	if(decl != vertex_declaration)
 	{
@@ -144,7 +144,7 @@ void sge::d3d9::renderer::set_index_buffer(const index_buffer_ptr buffer)
 	if(!buffer)
 		return; //FIXME
 
-	d3d9::index_buffer* const d3d_buffer = ptr_cast<d3d9::index_buffer*>(buffer.get());
+	d3d9::index_buffer* const d3d_buffer = boost::polymorphic_cast<d3d9::index_buffer*>(buffer.get());
 	if(device->SetIndices(d3d_buffer->buffer.get()) != D3D_OK)
 		throw exception("set_index_buffer() failed");
 }
@@ -158,7 +158,7 @@ void sge::d3d9::renderer::set_render_target(const texture_ptr target)
 		return;
 	}
 
-	render_target* const d3d_target = ptr_cast<render_target*>(target.get());
+	render_target* const d3d_target = boost::polymorphic_cast<render_target*>(target.get());
 
 	if(device->SetRenderTarget(0,d3d_target->surface.get()) != D3D_OK)
 		throw exception("cannot set texture as render target");
@@ -213,7 +213,7 @@ void sge::d3d9::renderer::set_texture(const texture_base_ptr p, const stage_type
 	if(!p)
 		return ::set_texture(device, stage, 0);
 
-	texture_base* const tex_base = ptr_cast<texture_base*>(p.get());
+	texture_base* const tex_base = boost::polymorphic_cast<texture_base*>(p.get());
 	::set_texture(device, stage, tex_base->base);
 }
 

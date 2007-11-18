@@ -44,6 +44,7 @@ protected:
 	void pre_unlock();
 	void do_unlock();
 	lock_flag_t lock_mode() const;
+	void pre_setdata() const;
 public:
 	typedef typename Base::value_type value_type;
 	typedef typename Base::size_type size_type;

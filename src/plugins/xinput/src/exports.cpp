@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../input_system.hpp"
+#include <boost/cast.hpp>
+#include "../../../exception.hpp"
 #include "../../../plugin.hpp"
 #include "../../../x_window.hpp"
-#include "../../../ptr_cast.hpp"
+#include "../input_system.hpp"
 
 extern "C"
 {
 
-void plugin_version_info(sge::plugin_info* i)
+void plugin_version_info(sge::plugin_info* const i)
 {
 	if(!i)
 		return;
@@ -37,11 +38,11 @@ void plugin_version_info(sge::plugin_info* i)
 	i->min_core_version = 0x1;
 }
 
-sge::input_system* create_input_system(sge::window_ptr w)
+sge::input_system* create_input_system(const sge::window_ptr w)
 {
 	if(!w)
-		throw std::logic_error("xinput plugin's window parameter may not be 0!");
-	sge::ptr_cast<sge::x_window*>(w.get());
+		throw sge::exception("xinput plugin's window parameter may not be 0!");
+	boost::polymorphic_cast<sge::x_window*>(w.get());
 	return new sge::xinput::input_system(sge::dynamic_pointer_cast<sge::x_window_ptr::value_type>(w));
 }
 

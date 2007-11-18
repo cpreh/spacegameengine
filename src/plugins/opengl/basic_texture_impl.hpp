@@ -150,6 +150,13 @@ sge::lock_flag_t sge::ogl::basic_texture<Base, Type>::lock_mode() const
 }
 
 template<typename Base, GLenum Type>
+void sge::ogl::basic_texture<Base, Type>::pre_setdata() const
+{
+	bind_me();
+	set_my_filter();
+}
+
+template<typename Base, GLenum Type>
 sge::ogl::basic_texture<Base, Type>::basic_texture(const filter_args& filter_,
                                                    const resource_flag_t flags_)
  : texture_base(Type),

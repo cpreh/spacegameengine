@@ -61,8 +61,7 @@ sge::ogl::volume_texture::size_type sge::ogl::volume_texture::depth() const
 
 void sge::ogl::volume_texture::set_data(const const_pointer src)
 {
-	bind_me();
-	set_my_filter();
+	pre_setdata();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
 	glTexImage3D(GL_TEXTURE_3D,
@@ -82,8 +81,7 @@ void sge::ogl::volume_texture::set_data(const const_pointer src)
 
 void sge::ogl::volume_texture::set_data(const const_pointer src, const lock_box& b)
 {
-	bind_me();
-	set_my_filter();
+	pre_setdata();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
 	glTexSubImage3D(GL_TEXTURE_3D,

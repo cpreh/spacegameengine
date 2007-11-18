@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <algorithm>
 #include <iostream>
 #include <ostream>
 #include "../md3.hpp"

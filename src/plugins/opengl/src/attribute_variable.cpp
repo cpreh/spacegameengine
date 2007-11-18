@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../ptr_cast.hpp"
 #include "../attribute_variable.hpp"
 
 sge::ogl::attribute_variable::attribute_variable(GLuint program, const std::string& name)
