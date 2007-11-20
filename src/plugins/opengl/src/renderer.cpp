@@ -180,6 +180,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	_caps.max_anisotropy_level = get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
 
 	set_render_target();
+
+	std::cout << "Maximum texture size is " << _caps.max_tex_size << ".\n";
 }
 
 void sge::ogl::renderer::begin_rendering()

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iostream>
 #include "../../../exception.hpp"
 #include "../texture_functions.hpp"
 #include "../error.hpp"
@@ -49,13 +48,12 @@ void sge::ogl::set_texture_rect(const GLenum tex_type,
                                 const sge::texture_base::size_type height,
                                 const sge::texture_base::const_pointer src)
 {
-	glTexImage2D(tex_type, 0, format, static_cast<GLsizei>(width),static_cast<GLsizei>(height), 0, format, type, src);
+	SGE_OPENGL_SENTRY
+	
+	glTexImage2D(tex_type, 0, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), 0, format, type, src);
 	
 	if(need_mipmap(filter.min_filter))
 		gluBuild2DMipmaps(tex_type, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), format, type, src);
-
-	if(is_error())
-		throw exception("glTexImage2D() or gluBuild2DMipmaps() failed!");
 }
 
 void sge::ogl::set_texture_rect(const GLenum tex_type,
@@ -65,19 +63,15 @@ void sge::ogl::set_texture_rect(const GLenum tex_type,
                                 const lock_rect& r,
                                 const sge::texture_base::const_pointer src)
 {
+	SGE_OPENGL_SENTRY
+	
 	if(r.right > width || r.bottom > height)
 		throw exception("rect for setting a texture is out of range!");
 
 	if(need_mipmap(filter.min_filter))
-	{
-		std::cerr << "stub: You can't specify an update rect while using mipmaps. Ignored.\n";
-		return;
-	}
+		throw exception("You can't specify an update rect while using mipmaps. Ignored.");
 
 	glTexSubImage2D(tex_type, 0, static_cast<GLint>(r.left), static_cast<GLint>(r.top), static_cast<GLsizei>(r.w()), static_cast<GLsizei>(r.h()), format, type, src);
-
-	if(is_error())
-		throw exception("glTexSubImage2D() failed!");
 }
 
 void sge::ogl::read_pixels(const sge::texture_base::size_type x,
@@ -86,8 +80,7 @@ void sge::ogl::read_pixels(const sge::texture_base::size_type x,
                            const sge::texture_base::size_type height,
                            const sge::texture_base::pointer dest)
 {
+	SGE_OPENGL_SENTRY
+	
 	glReadPixels(x, y, width, height, format, type, dest);
-
-	if(is_error())
-		throw exception("glReadPixels() failed!");
 }

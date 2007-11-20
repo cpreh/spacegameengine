@@ -21,23 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_ERROR_HPP_INCLUDED
 #define SGE_OPENGL_ERROR_HPP_INCLUDED
 
-#include <iostream>
-#include "common.hpp"
+#include <string>
 
 namespace sge
 {
 namespace ogl
 {
 
-inline bool is_error()
-{
-	const GLenum error = glGetError();
-	if(error!=GL_NO_ERROR)
-		std::cerr << "OpenGL errorcode: " << error << '\n';
-	return error!=GL_NO_ERROR;
-}
+bool is_error();
+
+class sentry {
+public:
+	sentry(const std::string& function_name,
+	       const std::string& file_name);
+	~sentry();
+private:
+	const std::string function_name,
+	                  file_name;
+};
 
 }
 }
+
+#define SGE_OPENGL_SENTRY sge::ogl::sentry sentry__(__FUNCTION__, __FILE__);
 
 #endif

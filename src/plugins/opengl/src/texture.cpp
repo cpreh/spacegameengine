@@ -66,11 +66,12 @@ void sge::ogl::texture::set_data(const const_pointer src, const lock_rect& r)
 {
 	pre_setdata();
 	set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), r, src);
-	// TODO: can we use PBO here too?
 }
 
 void sge::ogl::texture::set_data(const const_pointer src)
 {
+	if(!src)
+		throw exception("texture::set_data(): src may not be 0!");
 	pre_setdata();
 	scoped_lock<sge::texture*> lock_(this, lock_flags::writeonly);
 	std::copy(src, src + size(), data());
