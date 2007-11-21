@@ -43,7 +43,7 @@ sge::ogl::texture::texture(const const_pointer src,
 	else
 	{
 		pre_setdata();
-		set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), 0);
+		set_texture(GL_TEXTURE_2D, filter(), width(), height(), 0);
 	}
 }
 
@@ -88,6 +88,6 @@ void sge::ogl::texture::unlock()
 {
 	pre_unlock();
 	if(lock_flag_write(lock_mode()))
-		set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), static_cast<color*>(buffer_offset(0)));
+		set_texture(GL_TEXTURE_2D, filter(), width(), height(), static_cast<color*>(buffer_offset(0)));
 	do_unlock();
 }

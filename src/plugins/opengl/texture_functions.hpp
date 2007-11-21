@@ -30,11 +30,16 @@ namespace sge
 namespace ogl
 {
 
-void set_texture_rect(GLenum type,
-                      const filter_args& filter,
-                      sge::texture_base::size_type width,
-                      sge::texture_base::size_type height,
-                      sge::texture_base::const_pointer src);
+void set_texture(GLenum type,
+                 const filter_args& filter,
+                 sge::texture_base::size_type width,
+                 sge::texture_base::size_type height,
+                 sge::texture_base::const_pointer src);
+
+void build_mipmaps(GLenum type,
+                   sge::texture_base::size_type width,
+                   sge::texture_base::size_type height,
+                   sge::texture_base::const_pointer src);
 
 void set_texture_rect(GLenum type,
                       const filter_args& filter,

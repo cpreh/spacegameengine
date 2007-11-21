@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <iostream>
+#include <ostream>
 #include "../../../exception.hpp"
 #include "../texture_functions.hpp"
 #include "../error.hpp"
@@ -42,18 +44,32 @@ const GLenum format = GL_RGBA,
 
 }
 
-void sge::ogl::set_texture_rect(const GLenum tex_type,
-                                const filter_args& filter,
-                                const sge::texture_base::size_type width,
-                                const sge::texture_base::size_type height,
-                                const sge::texture_base::const_pointer src)
+void sge::ogl::set_texture(const GLenum tex_type,
+                           const filter_args& filter,
+                           const sge::texture_base::size_type width,
+                           const sge::texture_base::size_type height,
+                           const sge::texture_base::const_pointer src)
 {
 	SGE_OPENGL_SENTRY
 	
+	if(width < 64 || height < 64)
+		std::cerr << "warning: opengl implementations are not required to support textures smaller than 64x64."\
+		             " Specified texture size was " << width << 'x' << height << ".\n";
+
 	glTexImage2D(tex_type, 0, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), 0, format, type, src);
 	
 	if(need_mipmap(filter.min_filter))
-		gluBuild2DMipmaps(tex_type, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), format, type, src);
+		build_mipmaps(tex_type, width, height, src);
+}
+
+void sge::ogl::build_mipmaps(const GLenum tex_type,
+                             const sge::texture_base::size_type width,
+                             const sge::texture_base::size_type height,
+                             const sge::texture_base::const_pointer src)
+{
+	SGE_OPENGL_SENTRY
+	
+	gluBuild2DMipmaps(tex_type, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), format, type, src);
 }
 
 void sge::ogl::set_texture_rect(const GLenum tex_type,
