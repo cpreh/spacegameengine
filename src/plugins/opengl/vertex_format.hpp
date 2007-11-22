@@ -21,33 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERTEX_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_FORMAT_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include "../../shared_ptr.hpp"
+#include <vector>
+#include <boost/function.hpp>
 #include "../../renderer/types.hpp"
 #include "../../renderer/vertex_format.hpp"
-#include "../../renderer/vertex_buffer.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-struct actor_info {
-	actor_info(vertex_size _offset, vertex_size stride, vertex_size index);
-	void*       offset;
-	vertex_size stride;
-	vertex_size index;
-};
-
-class actor_base {
-public:
-	actor_base(const actor_info& ai);
-	virtual ~actor_base(){}
-	virtual void operator()() const = 0;
-protected:
-	actor_info ai;
-};
 
 class vertex_format {
 public:
@@ -56,7 +39,9 @@ public:
 	void use_me() const;
 private:
 	offset_info oi;
-	typedef boost::ptr_vector<actor_base> actor_array;
+
+	typedef boost::function<void ()> vertex_format_actor;
+	typedef std::vector<vertex_format_actor> actor_array;
 	actor_array actors;
 };
 

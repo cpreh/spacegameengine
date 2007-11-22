@@ -18,79 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <boost/bind.hpp>
 #include "../../../exception.hpp"
 #include "../error.hpp"
 #include "../vbo.hpp"
 #include "../vertex_format.hpp"
 
-sge::ogl::actor_info::actor_info(const vertex_size offset_,
-                                 const vertex_size stride,
-                                 const vertex_size index)
-: offset(buffer_offset(offset_)),
+namespace {
+
+using sge::vertex_size;
+
+struct vertex_actor_info {
+	vertex_actor_info(vertex_size offset,
+	                  vertex_size stride,
+	                  vertex_size index);
+	void*       offset;
+	vertex_size stride;
+	vertex_size index;
+};
+
+vertex_actor_info::vertex_actor_info(const vertex_size offset_,
+                                     const vertex_size stride,
+                                     const vertex_size index)
+: offset(sge::ogl::buffer_offset(offset_)),
   stride(stride),
   index(index)
 {}
 
-sge::ogl::actor_base::actor_base(const actor_info& ai)
-: ai(ai)
-{}
+void pos_actor(const vertex_actor_info& ai)
+{
+	SGE_OPENGL_SENTRY
 
-namespace {
-	typedef sge::ogl::actor_base actor_base;
-	typedef sge::ogl::actor_info actor_info;
+	glVertexPointer(3, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
+	glEnableClientState(GL_VERTEX_ARRAY);
+}
 
-	class pos_actor : public actor_base {
-	public:
-		pos_actor(const actor_info& ai)
-		 : actor_base(ai) {}
-		void operator()() const
-		{
-			SGE_OPENGL_SENTRY
+void normal_actor(const vertex_actor_info& ai)
+{
+	SGE_OPENGL_SENTRY
 
-			glVertexPointer(3, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
-			glEnableClientState(GL_VERTEX_ARRAY);
-		}
-	};
+	glNormalPointer(GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
+	glEnableClientState(GL_NORMAL_ARRAY);
+}
 
-	class normal_actor : public actor_base {
-	public:
-		normal_actor(const actor_info& ai)
-		 : actor_base(ai) {}
-		void operator()() const
-		{
-			SGE_OPENGL_SENTRY
+void tex_actor(const vertex_actor_info& ai)
+{
+	SGE_OPENGL_SENTRY
 
-			glNormalPointer(GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
-			glEnableClientState(GL_NORMAL_ARRAY);
-		}
-	};
+	glClientActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + ai.index));
+	glTexCoordPointer(2, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+}
 
-	class tex_actor : public actor_base {
-	public:
-		tex_actor(const actor_info& ai)
-		 : actor_base(ai) {}
-		void operator()() const
-		{
-			SGE_OPENGL_SENTRY
+void diffuse_actor(const vertex_actor_info& ai)
+{
+	SGE_OPENGL_SENTRY
 
-			glClientActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + ai.index));
-			glTexCoordPointer(2, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		}
-	};
+  	glColorPointer(4, GL_UNSIGNED_BYTE, static_cast<GLsizei>(ai.stride), ai.offset);
+	glEnableClientState(GL_COLOR_ARRAY);
+}
 
-	class diffuse_actor : public actor_base {
-	public:
-		diffuse_actor(const actor_info& ai)
-		 : actor_base(ai) {}
-		void operator()() const
-		{
-			SGE_OPENGL_SENTRY
-
-  			glColorPointer(4, GL_UNSIGNED_BYTE, static_cast<GLsizei>(ai.stride), ai.offset);
-			glEnableClientState(GL_COLOR_ARRAY);
-		}
-	};
 }
 
 sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
@@ -102,22 +89,22 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 	{
 		for(vertex_size count = 0; count < it->count(); ++count)
 		{
-			const actor_info ai(offset + count*it->size(), f.stride(), count);
+			const vertex_actor_info ai(offset + count*it->size(), f.stride(), count);
 			switch(it->usage()) {
 			case vertex_usage::pos:
-				actors.push_back(new pos_actor(ai));
+				actors.push_back(boost::bind(pos_actor, ai));
 				break;
 			case vertex_usage::tex:
-				actors.push_back(new tex_actor(ai));
+				actors.push_back(boost::bind(tex_actor, ai));
 				break;
 			case vertex_usage::normal:
-				actors.push_back(new normal_actor(ai));
+				actors.push_back(boost::bind(normal_actor, ai));
 				break;
 			case vertex_usage::diffuse:
-				actors.push_back(new diffuse_actor(ai));
+				actors.push_back(boost::bind(diffuse_actor, ai));
 				break;
 			default:
-				throw sge::exception("unsupported vertex_usage");
+				throw exception("Invalid vertex_usage!");
 			}
 		}
 
