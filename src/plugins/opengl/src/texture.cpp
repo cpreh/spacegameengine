@@ -72,6 +72,7 @@ void sge::ogl::texture::set_data(const const_pointer src)
 {
 	if(!src)
 		throw exception("texture::set_data(): src may not be 0!");
+	
 	pre_setdata();
 	scoped_lock<sge::texture*> lock_(this, lock_flags::writeonly);
 	std::copy(src, src + size(), data());

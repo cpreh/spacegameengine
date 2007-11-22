@@ -33,7 +33,6 @@ namespace ogl
 
 template<typename Base, GLenum Type> class basic_texture : public Base, public texture_base {
 private:
-	static void tex_parameter_i(GLenum name, GLint param);
 	void check_lock() const;
 protected:
 	void bind_me() const;

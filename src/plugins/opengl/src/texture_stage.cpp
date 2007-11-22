@@ -51,11 +51,10 @@ GLenum stage_value_scale(const sge::texture_stage_op_value::type value)
 
 void sge::ogl::tex_envf_ext(const GLenum arg, const GLenum value)
 {
+	SGE_OPENGL_SENTRY
+	
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
 	glTexEnvf(GL_TEXTURE_ENV, arg, value); // FIXME
-
-	if(is_error())
-		throw exception("glTexEnvf() failed!");
 }
 
 void sge::ogl::set_texture_stage_scale(const texture_stage_op_value::type value)

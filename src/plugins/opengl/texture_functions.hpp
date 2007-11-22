@@ -30,6 +30,9 @@ namespace sge
 namespace ogl
 {
 
+GLuint gen_texture();
+void delete_texture(GLuint id);
+
 void set_texture(GLenum type,
                  const filter_args& filter,
                  sge::texture_base::size_type width,
@@ -53,6 +56,16 @@ void read_pixels(sge::texture_base::size_type x,
                  sge::texture_base::size_type width,
                  sge::texture_base::size_type height,
                  sge::texture_base::pointer dest);
+
+void tex_parameter_i(GLenum type,
+                     GLenum name,
+                     GLint value);
+
+void bind_texture(GLenum type,
+                  GLuint value);
+
+void set_texture_filter(GLenum type,
+                        const filter_args& filter);
 
 }
 }

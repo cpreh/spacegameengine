@@ -36,7 +36,6 @@ sge::ogl::actor_base::actor_base(const actor_info& ai)
 {}
 
 namespace {
-	using sge::ogl::is_error;
 	typedef sge::ogl::actor_base actor_base;
 	typedef sge::ogl::actor_info actor_info;
 
@@ -46,10 +45,10 @@ namespace {
 		 : actor_base(ai) {}
 		void operator()() const
 		{
+			SGE_OPENGL_SENTRY
+
 			glVertexPointer(3, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_VERTEX_ARRAY);
-			if(is_error())
-				throw sge::exception("Enabling positions on ogl stream failed!");
 		}
 	};
 
@@ -59,10 +58,10 @@ namespace {
 		 : actor_base(ai) {}
 		void operator()() const
 		{
+			SGE_OPENGL_SENTRY
+
 			glNormalPointer(GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_NORMAL_ARRAY);
-			if(is_error())
-				throw sge::exception("Enabling normals on ogl stream failed!");
 		}
 	};
 
@@ -72,11 +71,11 @@ namespace {
 		 : actor_base(ai) {}
 		void operator()() const
 		{
+			SGE_OPENGL_SENTRY
+
 			glClientActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + ai.index));
 			glTexCoordPointer(2, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			if(is_error())
-				throw sge::exception("Enabling texture coordinates on ogl stream failed!");
 		}
 	};
 
@@ -86,10 +85,10 @@ namespace {
 		 : actor_base(ai) {}
 		void operator()() const
 		{
+			SGE_OPENGL_SENTRY
+
   			glColorPointer(4, GL_UNSIGNED_BYTE, static_cast<GLsizei>(ai.stride), ai.offset);
 			glEnableClientState(GL_COLOR_ARRAY);
-			if(is_error())
-				throw sge::exception("Enabling diffuse colors on ogl stream failed!");
 		}
 	};
 }

@@ -74,7 +74,6 @@ void sge::ogl::volume_texture::set_data(const const_pointer src)
 	             format,
 	             type,
 	             src);
-
 	if(is_error())
 		throw exception("glTexImage3D() failed!");
 }

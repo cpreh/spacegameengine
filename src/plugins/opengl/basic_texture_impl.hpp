@@ -23,20 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <cassert>
 #include <algorithm>
-#include <iostream>
-#include <ostream>
 #include "../../exception.hpp"
 #include "common.hpp"
-#include "conversion.hpp"
 #include "error.hpp"
-
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::tex_parameter_i(const GLenum name, const GLint param)
-{
-	glTexParameteri(Type, name, param);
-	if(is_error())
-		throw exception("glTexParamteri() failed!");
-}
+#include "texture_functions.hpp"
 
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::check_lock() const
@@ -48,33 +38,14 @@ void sge::ogl::basic_texture<Base, Type>::check_lock() const
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::bind_me() const
 {
-	glBindTexture(Type,id());
-	if(is_error())
-		throw exception("glBindTexture() failed!");
+	bind_texture(Type, id());
 }
 
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::set_my_filter() const
 {
-	tex_parameter_i(GL_TEXTURE_MIN_FILTER, convert_cast<GLenum>(filter().min_filter));
-	tex_parameter_i(GL_TEXTURE_MAG_FILTER, convert_cast<GLenum>(filter().mag_filter));
-	if(filter().anisotropy_level != 0)
-	{
-#if GL_EXT_texture_filter_anisotropic
-		try
-		{
-			tex_parameter_i(GL_TEXTURE_MAX_ANISOTROPY_EXT, filter().anisotropy_level);
-		}
-		catch(const exception&)
-		{
-			std::cerr << "Warning: anisotropy level " << filter().anisotropy_level << " not supported!\n";
-		}
-#else
-		std::cerr << "Warning: anisotropic filtering is not supported!\n";
-#endif
-	}
+	set_texture_filter(Type, filter());
 }
-
 
 template<typename Base, GLenum Type>
 GLuint sge::ogl::basic_texture<Base, Type>::id() const
@@ -162,18 +133,15 @@ sge::ogl::basic_texture<Base, Type>::basic_texture(const filter_args& filter_,
  : texture_base(Type),
    filter_(filter_),
    flags_(flags_),
+   id_(gen_texture()),
    cur_buffer(0)
-{
-	glGenTextures(1, &id_);
-	if(is_error())
-		throw exception("glGenTextures() failed!");
-}
+{}
 
 
 template<typename Base, GLenum Type>
 sge::ogl::basic_texture<Base, Type>::~basic_texture()
 {
-	glDeleteTextures(1, &id_);
+	delete_texture(id());
 }
 
 template<typename Base, GLenum Type>

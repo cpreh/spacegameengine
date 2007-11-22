@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <ostream>
 #include "../../../exception.hpp"
-#include "../texture_functions.hpp"
 #include "../error.hpp"
+#include "../conversion.hpp"
+#include "../texture_functions.hpp"
 #include <GL/glu.h>
 
 namespace
@@ -42,6 +43,20 @@ bool need_mipmap(const sge::min_filter::type filter)
 const GLenum format = GL_RGBA,
              type = GL_UNSIGNED_BYTE;
 
+}
+
+GLuint sge::ogl::gen_texture()
+{
+	SGE_OPENGL_SENTRY
+	
+	GLuint id;
+	glGenTextures(1, &id);
+	return id;
+}
+
+void sge::ogl::delete_texture(const GLuint id)
+{
+	glDeleteTextures(1, &id);
 }
 
 void sge::ogl::set_texture(const GLenum tex_type,
@@ -99,4 +114,43 @@ void sge::ogl::read_pixels(const sge::texture_base::size_type x,
 	SGE_OPENGL_SENTRY
 	
 	glReadPixels(x, y, width, height, format, type, dest);
+}
+
+void sge::ogl::tex_parameter_i(const GLenum type,
+                               const GLenum name,
+                               const GLint value)
+{
+	SGE_OPENGL_SENTRY
+	
+	glTexParameteri(type, name, value);
+}
+
+void sge::ogl::bind_texture(const GLenum type,
+                            const GLuint value)
+{
+	SGE_OPENGL_SENTRY
+	
+	glBindTexture(type, value);
+}
+
+void sge::ogl::set_texture_filter(const GLenum type,
+                                  const filter_args& filter)
+{
+	tex_parameter_i(type, GL_TEXTURE_MIN_FILTER, convert_cast<GLenum>(filter.min_filter));
+	tex_parameter_i(type, GL_TEXTURE_MAG_FILTER, convert_cast<GLenum>(filter.mag_filter));
+	if(filter.anisotropy_level)
+	{
+#if GL_EXT_texture_filter_anisotropic
+		try
+		{
+			tex_parameter_i(type, GL_TEXTURE_MAX_ANISOTROPY_EXT, filter.anisotropy_level);
+		}
+		catch(const exception&)
+		{
+			std::cerr << "Warning: anisotropy level " << filter.anisotropy_level << " not supported!\n";
+		}
+#else
+		std::cerr << "Warning: anisotropic filtering is not supported!\n";
+#endif
+	}
 }

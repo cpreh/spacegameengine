@@ -27,9 +27,9 @@ namespace
 
 void set_light_float_ptr(const GLenum index, const GLenum name, const GLfloat* const data)
 {
+	SGE_OPENGL_SENTRY
+	
 	glLightfv(index, name, data);
-	if(sge::ogl::is_error())
-		throw sge::exception("glLightfv() failed!");
 }
 
 }
@@ -51,10 +51,9 @@ void sge::ogl::set_light_dir(const GLenum index, const math::vector3& dir)
 
 void sge::ogl::set_light_float(const GLenum index, const GLenum name, const GLfloat value)
 {
+	SGE_OPENGL_SENTRY
+	
 	glLightf(index, name, value);
-	if(is_error())
-		throw exception("glLightf() failed!");
-
 }
 
 GLenum sge::ogl::convert_light_index(const light_index index)
