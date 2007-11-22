@@ -18,33 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_ERROR_HPP_INCLUDED
-#define SGE_OPENGL_ERROR_HPP_INCLUDED
+#ifndef SGE_XINPUT_POINTER_HPP_INCLUDED
+#define SGE_XINPUT_POINTER_HPP_INCLUDED
 
-#include <string>
+#include "../../math/vector.hpp"
+#include "../../x_display.hpp"
+#include "../../x_window.hpp"
 
 namespace sge
 {
-namespace ogl
+namespace xinput
 {
 
-bool is_error();
+typedef int mouse_coordinate_t;
+typedef math::basic_vector<mouse_coordinate_t,2> mouse_pos;
 
-class sentry {
-public:
-	sentry(const std::string& function_name,
-	       const std::string& file_name,
-	       int line);
-	~sentry();
-private:
-	const std::string function_name,
-	                  file_name;
-	int               line;
-};
+mouse_pos get_mouse_pos(x_display_ptr, x_window_ptr);
 
 }
 }
-
-#define SGE_OPENGL_SENTRY sge::ogl::sentry sentry__(__FUNCTION__, __FILE__, __LINE__);
 
 #endif

@@ -29,6 +29,8 @@ namespace ogl
 {
 
 void enable(GLenum what, bool enable);
+void enable(GLenum what);
+void disable(GLenum what);
 
 }
 }

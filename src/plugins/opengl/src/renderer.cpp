@@ -49,11 +49,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
 #elif SGE_LINUX_PLATFORM
+#include <boost/bind.hpp>
 #include "../../../x_window.hpp"
 #endif
 #include "../common.hpp"
-
-// TODO: consistent error checking
 
 // TODO: maybe support different adapters?
 sge::ogl::renderer::renderer(const renderer_parameters& param,
@@ -64,10 +63,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 #ifdef SGE_LINUX_PLATFORM
    , dsp(new x_display())
 #endif
-   , current_viewport(0,0,0,0)
 {
 	if(adapter > 0)
-		std::cerr << "stub: adapter cannot be > 0 for opengl plugin (adapter was " << adapter << ")\n";
+		std::cerr << "stub: adapter cannot be > 0 for opengl plugin (adapter was " << adapter << ").\n";
 
 	bool windowed = param.windowed;
 #ifdef SGE_WINDOWS_PLATFORM
@@ -167,21 +165,20 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 
 	current.reset(new glx_current(dsp, *wnd, context));
 
+	wnd->register_callback(ResizeRequest, boost::bind(&renderer::reset_viewport, this, _1));
+
 	XSync(dsp->get(),False);
 #endif
 	if(glewInit() != GLEW_OK)
 		throw exception("glewInit() failed");
 
 	set_blend_func(source_blend_func::src_alpha, dest_blend_func::inv_src_alpha);
-
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
 	_caps.max_tex_size = get_int(GL_MAX_TEXTURE_SIZE);
 	_caps.max_anisotropy_level = get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
 
 	set_render_target();
-
-	std::cout << "Maximum texture size is " << _caps.max_tex_size << ".\n";
 }
 
 void sge::ogl::renderer::begin_rendering()
@@ -240,9 +237,8 @@ sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_ar
 void sge::ogl::renderer::end_rendering()
 {
 #ifdef SGE_LINUX_PLATFORM
+	SGE_OPENGL_SENTRY
 	glXSwapBuffers(dsp->get(), wnd->get_window());
-	if(is_error())
-		throw exception("glXSwapBuffers() failed!");
 #elif SGE_WINDOWS_PLATFORM
 	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception("wglSwapLayerBuffers() failed!");
@@ -277,6 +273,8 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	if(!ib)
 		throw exception("ib may not be 0 for renderer::render for indexed primitives!");
 
+	SGE_OPENGL_SENTRY
+
 	set_vertex_buffer(vb);
 	set_index_buffer(ib);
 
@@ -286,9 +284,6 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	               indices_per_primitive(ptype) * pcount,
 	               GL_UNSIGNED_INT,
 	               buffer_offset(first_index * sizeof(sge::index_buffer::value_type)));
-
-	if(is_error())
-		throw exception("opengl error during rendering an indexed array!");
 }
 
 void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
@@ -299,6 +294,8 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	if(!vb)
 		throw exception("vb may not be 0 for renderer::render!");
 
+	SGE_OPENGL_SENTRY
+
 	set_vertex_buffer(vb);
 	set_index_buffer(index_buffer_ptr());
 
@@ -307,8 +304,6 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	glDrawArrays(prim_type,
 	             static_cast<GLsizei>(first_vertex),
 	             static_cast<GLint>(num_vertices));
-	if(is_error())
-		throw exception("opengl error during rendering an non indexed array!");
 
 }
 
@@ -328,12 +323,12 @@ void sge::ogl::renderer::set_bool_state(const bool_state::type state, const bool
 		const GLenum glstate = convert_cast<GLenum>(state);
 		enable(glstate, value);
 	}
-	if(is_error())
-		throw exception("set_bool_state() failed!");
 }
 
 void sge::ogl::renderer::set_float_state(const float_state::type state, const float_type value)
 {
+	SGE_OPENGL_SENTRY
+	
 	switch(state) {
 	case float_state::zbuffer_clear_val:
 		glClearDepth(value);
@@ -343,13 +338,15 @@ void sge::ogl::renderer::set_float_state(const float_state::type state, const fl
 	case float_state::fog_density:
 		glFogf(convert_fog_float_state(state), value);
 		break;
+	default:
+		throw exception("Invalid float_state!");
 	}
-	if(is_error())
-		throw exception("set_float_state() failed!");
 }
 
 void sge::ogl::renderer::set_color_state(const color_state::type state, const color value)
 {
+	SGE_OPENGL_SENTRY
+
 	switch(state) {
 	case color_state::clear_color:
 		glClearColor(red_part_rgba_f(value),green_part_rgba_f(value),blue_part_rgba_f(value),alpha_part_rgba_f(value));
@@ -366,13 +363,15 @@ void sge::ogl::renderer::set_color_state(const color_state::type state, const co
 			glFogfv(GL_FOG_COLOR, reinterpret_cast<const GLfloat*>(&fc));
 		}
 		break;
+	default:
+		throw exception("Invalid color_state!");
 	}
-	if(is_error())
-		throw exception("set_color_state() failed!");
 }
 
 void sge::ogl::renderer::set_int_state(const int_state::type state, const int_type value)
 {
+	SGE_OPENGL_SENTRY
+	
 	switch(state) {
 	case int_state::stencil_clear_val:
 		glClearStencil(value);
@@ -380,68 +379,59 @@ void sge::ogl::renderer::set_int_state(const int_state::type state, const int_ty
 	default:
 		throw exception("Invalid int_state!");
 	}
-	if(is_error())
-		throw exception("set_int_state() failed!");
-
 }
 
 void sge::ogl::renderer::set_fog_mode(const fog_mode::type mode)
 {
+	SGE_OPENGL_SENTRY
+	
 	glFogi(GL_FOG_MODE, convert_cast<GLenum>(mode));
-	if(is_error())
-		throw exception("set_fog_mode() failed!");
 }
 
 void sge::ogl::renderer::set_cull_mode(const cull_mode::type mode)
 {
-	const GLenum glmode = convert_cast<GLenum>(mode);
-	glCullFace(glmode);
-
-	if(is_error())
-		throw exception("glCullMode() failed!");
+	SGE_OPENGL_SENTRY
+	
+	glCullFace(convert_cast<GLenum>(mode));
 }
 
 void sge::ogl::renderer::set_depth_func(const depth_func::type func)
 {
-	const GLenum glfunc = convert_cast<GLenum>(func);
-	glDepthFunc(glfunc);
-
-	if(is_error())
-		throw exception("glDepthFunc() failed!");
+	SGE_OPENGL_SENTRY
+	
+	glDepthFunc(convert_cast<GLenum>(func));
 }
 
 void sge::ogl::renderer::set_stencil_func(const stencil_func::type func, const signed_type value, const unsigned_type mask)
 {
-	const GLenum glfunc = convert_cast<GLenum>(func);
-	glStencilFunc(glfunc, value, mask);
-
-	if(is_error())
-		throw exception("glStencilFunc() failed!");
+	SGE_OPENGL_SENTRY
+	
+	glStencilFunc(convert_cast<GLenum>(func), value, mask);
 }
 
 void sge::ogl::renderer::set_blend_func(const source_blend_func::type source, const dest_blend_func::type dest)
 {
+	SGE_OPENGL_SENTRY
+	
 	const GLenum glsource = convert_cast<GLenum>(source),
 	             gldest   = convert_cast<GLenum>(dest);
 
 	glBlendFunc(glsource, gldest);
-
-	if(is_error())
-		throw exception("glBlendFunc() failed!");
 }
 
 void sge::ogl::renderer::set_draw_mode(const draw_mode::type mode)
 {
+	SGE_OPENGL_SENTRY
+	
 	const GLenum glmode = convert_cast<GLenum>(mode);
 
 	glPolygonMode(GL_FRONT_AND_BACK, glmode);
-
-	if(is_error())
-		throw exception("glPolygonMode() failed!");
 }
 
 void sge::ogl::renderer::set_material(const material& mat)
 {
+	SGE_OPENGL_SENTRY
+	
 	const GLenum face = GL_FRONT_AND_BACK;
 	glMaterialfv(face, GL_AMBIENT, reinterpret_cast<const GLfloat*>(&mat.ambient));
 	glMaterialfv(face, GL_DIFFUSE, reinterpret_cast<const GLfloat*>(&mat.diffuse));
@@ -452,28 +442,29 @@ void sge::ogl::renderer::set_material(const material& mat)
 
 void sge::ogl::renderer::set_viewport(const viewport& v)
 {
-	current_viewport = v;
+	SGE_OPENGL_SENTRY
+	
 	glViewport(v.x, v.y, v.w, v.h);
 }
 
-void sge::ogl::renderer::reset_viewport()
+void sge::ogl::renderer::reset_viewport(const XEvent& ev)
 {
-	set_viewport(current_viewport);
-}
-
-const sge::viewport &sge::ogl::renderer::get_viewport() const
-{
-	return current_viewport;
+	const XResizeRequestEvent& resizeev = reinterpret_cast<const XResizeRequestEvent&>(ev);
+	set_viewport(viewport(0, 0, resizeev.width, resizeev.height));
 }
 
 void sge::ogl::renderer::transform(const math::space_matrix& matrix)
 {
+	SGE_OPENGL_SENTRY
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(math::transpose(matrix).data());
 }
 
 void sge::ogl::renderer::projection(const math::space_matrix& matrix)
 {
+	SGE_OPENGL_SENTRY
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(math::transpose(matrix).data());
 }
@@ -492,7 +483,7 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 	const fbo_render_target_ptr ntarget = create_render_target(p->width(),p->height());
 	_render_target = ntarget;
 	ntarget->bind_texture(p);
-	set_viewport(viewport(0,0,static_cast<screen_unit>(p->width()),static_cast<screen_unit>(p->height())));
+	set_viewport(viewport(0, 0, static_cast<screen_unit>(p->width()), static_cast<screen_unit>(p->height())));
 }
 
 sge::render_target_ptr sge::ogl::renderer::get_render_target() const
@@ -504,13 +495,13 @@ void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_typ
 {
 	set_texture_level(stage);
 
-	glDisable(GL_TEXTURE_1D);
-	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_TEXTURE_3D);
+	disable(GL_TEXTURE_1D);
+	disable(GL_TEXTURE_2D);
+	disable(GL_TEXTURE_3D);
 	if(!tex)
 		return;
 	texture_base* const b = boost::polymorphic_cast<texture_base*>(tex.get());
-	glEnable(b->type());
+	enable(b->type());
 	b->bind_me();
 }
 
@@ -554,21 +545,19 @@ void sge::ogl::renderer::set_texture_stage_arg(const stage_type stage, const tex
 
 void sge::ogl::renderer::push()
 {
+	SGE_OPENGL_SENTRY
+	
 	if(get_int(GL_ATTRIB_STACK_DEPTH) > 16)
 		std::cerr << "Warning: glPush() stack level is greater than 16 which is the greater than the minimal supported level!\n";
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
-
-	if(is_error())
-		throw exception("glPushAttrib() failed!");
 }
 
 void sge::ogl::renderer::pop()
 {
+	SGE_OPENGL_SENTRY
+	
 	glPopAttrib();
-
-	if(is_error())
-		throw exception("glPopAttrib() failed!");
 }
 
 sge::glsl::program_ptr sge::ogl::renderer::create_glsl_program(const std::string& vs_source, const std::string& ps_source)

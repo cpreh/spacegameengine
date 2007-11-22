@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "render_target.hpp"
 #include "fbo_render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
-#include <boost/signals/connection.hpp>
+#include <boost/signals/trackable.hpp>
 #include "../../gdi_device.hpp"
 #include "wgl_context.hpp"
 #include "wgl_current.hpp"
@@ -52,7 +52,7 @@ namespace sge
 namespace ogl
 {
 
-class renderer : public sge::renderer {
+class renderer : public sge::renderer, boost::signals::trackable {
 public:
 	renderer(const renderer_parameters& param, unsigned adapter, window_ptr wnd);
 
@@ -124,8 +124,6 @@ public:
 	const renderer_caps& caps() const;
 	screen_size_t screen_size() const;
 	window_ptr get_window() const;
-	
-	void reset_viewport();
 private:
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);
@@ -139,6 +137,8 @@ private:
 	boost::scoped_ptr<wgl_context> context;
 	boost::scoped_ptr<wgl_current> current;
 #elif SGE_LINUX_PLATFORM
+	void reset_viewport(const XEvent&);
+
 	x_display_ptr dsp;
 	boost::scoped_ptr<glx_visual> visual;
 	glx_context_ptr context;
@@ -150,7 +150,6 @@ private:
 #endif
 	render_target_ptr _render_target;
 	renderer_caps _caps;
-	viewport current_viewport;
 };
 
 }

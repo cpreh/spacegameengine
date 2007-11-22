@@ -40,10 +40,26 @@ struct init_error_handler {
 } instance;
 }
 
-sge::x_window::x_window(const window_pos pos, const window_size sz, const string& t, const x_display_ptr dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi)
+sge::x_window::x_window(const window_pos pos,
+                        const window_size sz,
+                        const string& t,
+                        const x_display_ptr dsp,
+                        const XSetWindowAttributes& attr,
+                        const XVisualInfo& vi)
  : dsp(dsp),
    _screen(vi.screen),
-   wnd(XCreateWindow(dsp->get(), RootWindow(dsp->get(), screen()), pos.x(), pos.y(), sz.w(), sz.h(), 0, vi.depth, InputOutput, vi.visual, CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask, const_cast<XSetWindowAttributes*>(&attr))),
+   wnd(XCreateWindow(dsp->get(),
+                     RootWindow(dsp->get(), screen()),
+                     pos.x(),
+                     pos.y(),
+                     sz.w(),
+                     sz.h(),
+                     0,
+                     vi.depth,
+                     InputOutput,
+                     vi.visual,
+                     CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
+                     const_cast<XSetWindowAttributes*>(&attr))),
    _fullscreen(attr.override_redirect),
    event_mask(0)
 {
@@ -137,7 +153,9 @@ boost::assign::map_list_of(KeyPress, KeyPressMask)
                           (FocusIn, FocusChangeMask)
                           (FocusOut, FocusChangeMask)
                           (MapNotify, StructureNotifyMask)
-                          (UnmapNotify, StructureNotifyMask);
+                          (UnmapNotify, StructureNotifyMask)
+                          (ResizeRequest, ResizeRedirectMask)
+                          (ConfigureRequest, SubstructureRedirectMask);
 
 void sge::x_window::add_event_mask(const x11_event_type event)
 {
@@ -158,20 +176,18 @@ void sge::x_window::add_event_mask(const x11_event_type event)
 void sge::window::dispatch()
 {
 	XEvent xev;
-	x_window::instance_map::iterator b = sge::x_window::instances.begin();
 	const x_window::instance_map::iterator e = sge::x_window::instances.end();
-	while (b != e)
+	for (x_window::instance_map::iterator b = sge::x_window::instances.begin(); b != e; ++b)
 	{
-		while(XPending((*b)->dsp_()))
+		x_window& wnd = **b;
+		while(XCheckWindowEvent(wnd.dsp_(), wnd.get_window(), wnd.event_mask, &xev)) 
 		{
-			XNextEvent((*b)->dsp_(), &xev);
 			if(XFilterEvent(&xev, None))
 				continue;
-			(*b)->signals[xev.type](xev);
-		}
-		++b;
-	}
 
+			wnd.signals[xev.type](xev);
+		}
+	}
 }
 
 /*sge::window_ptr sge::create_window()

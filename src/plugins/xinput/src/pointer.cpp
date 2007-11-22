@@ -18,33 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_ERROR_HPP_INCLUDED
-#define SGE_OPENGL_ERROR_HPP_INCLUDED
+#include "../pointer.hpp"
 
-#include <string>
-
-namespace sge
+sge::xinput::mouse_pos sge::xinput::get_mouse_pos(const x_display_ptr dsp,
+                                                  const x_window_ptr wnd)
 {
-namespace ogl
-{
+	Window root_return,
+	       child_return;
+	int root_x_return,
+	    root_y_return,
+	    win_x_return,
+	    win_y_return;
+	unsigned mask_return;
 
-bool is_error();
+	XQueryPointer(dsp->get(), wnd->get_window(), &root_return, &child_return, &root_x_return, &root_y_return, &win_x_return, &win_y_return, &mask_return);
 
-class sentry {
-public:
-	sentry(const std::string& function_name,
-	       const std::string& file_name,
-	       int line);
-	~sentry();
-private:
-	const std::string function_name,
-	                  file_name;
-	int               line;
-};
-
+	return mouse_pos(win_x_return, win_y_return);
 }
-}
-
-#define SGE_OPENGL_SENTRY sge::ogl::sentry sentry__(__FUNCTION__, __FILE__, __LINE__);
-
-#endif

@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_XINPUT_INPUT_SYSTEM_HPP
 #define SGE_XINPUT_INPUT_SYSTEM_HPP
 
-#include <cstddef>
-#include <string>
 #include <map>
 #include <boost/signals/trackable.hpp>
 #include "../../input/input_system.hpp"
 #include "../../x_window.hpp"
 #include "../../math/vector.hpp"
+#include "pointer.hpp"
 #include "x_color.hpp"
 #include "x_pixmap.hpp"
 #include "x_cursor.hpp"
@@ -49,7 +48,6 @@ public:
 	void dispatch();
 	window_ptr get_window() const;
 private:
-	typedef int mouse_coordinate_t;
 	void grab();
 	void grab_pointer();
 	void grab_keyboard();
@@ -77,9 +75,9 @@ private:
 	Colormap colormap;
 	unsigned mmwidth;
 
-	math::basic_vector<mouse_coordinate_t,2> mouse_last;
+	mouse_pos mouse_last;
 
-	typedef std::map<unsigned,key_code> x11_to_sge_array;
+	typedef std::map<unsigned, key_code> x11_to_sge_array;
 	x11_to_sge_array x11tosge;
 
 	x_color _black;

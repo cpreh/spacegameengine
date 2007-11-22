@@ -35,9 +35,11 @@ bool sge::ogl::is_error()
 }
 
 sge::ogl::sentry::sentry(const std::string& function_name,
-                         const std::string& file_name)
+                         const std::string& file_name,
+                         const int line)
 : function_name(function_name),
-  file_name(file_name)
+  file_name(file_name),
+  line(line)
 {}
 
 sge::ogl::sentry::~sentry()
@@ -47,6 +49,6 @@ sge::ogl::sentry::~sentry()
 
 	const GLenum error = glGetError();
 	if(error != GL_NO_ERROR)
-		throw exception((boost::format("opengl failed in the following function \"%1%\" in file \"%2%\". The error code was %3%.")
-		                               % function_name % file_name % error).str());
+		throw exception((boost::format("opengl failed in the following function \"%1%\" in file \"%2%\", line %3%. The error code was %4%.")
+		                               % function_name % file_name % line % error).str());
 }

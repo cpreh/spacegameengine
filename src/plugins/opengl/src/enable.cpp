@@ -18,17 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
 
 void sge::ogl::enable(const GLenum what, const bool enable_)
 {
 	if(enable_)
-		glEnable(what);
+		enable(what);
 	else
-		glDisable(what);
+		disable(what);
+}
 
-	if(is_error())
-		throw exception("glEnable() or glDisable() failed!");
+void sge::ogl::enable(const GLenum what)
+{
+	SGE_OPENGL_SENTRY
+
+	glEnable(what);
+}
+
+void sge::ogl::disable(const GLenum what)
+{
+	SGE_OPENGL_SENTRY
+	
+	glDisable(what);
 }

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../util.hpp"
 #include "../../../iconv.hpp"
 #include "../input_system.hpp"
+#include "../pointer.hpp"
 #include <X11/keysym.h>
 #include <X11/Xlib.h>
 #include <X11/X.h>
@@ -58,19 +59,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	}
 #endif
 	if(!use_dga)
-	{
-		Window root_return,
-		       child_return;
-		int root_x_return,
-		    root_y_return,
-		    win_x_return,
-		    win_y_return;
-		unsigned mask_return;
-
-		XQueryPointer(wnd->display()->get(), wnd->get_window(), &root_return, &child_return, &root_x_return, &root_y_return, &win_x_return, &win_y_return, &mask_return);
-		mouse_last.x() = win_x_return;
-		mouse_last.y() = win_y_return;
-	}
+		mouse_last = get_mouse_pos(wnd->display(), wnd);
 	
 	wnd->register_callback(KeyPress, boost::bind(&input_system::on_key_event, this, _1));
 	wnd->register_callback(KeyRelease, boost::bind(&input_system::on_key_event, this, _1));
