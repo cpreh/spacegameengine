@@ -31,6 +31,12 @@ sge::ogl::basic_raw_buffer<Base, Type>::basic_raw_buffer(const size_type sz,
 {}
 
 template<typename Base, GLenum Type>
+void sge::ogl::basic_raw_buffer<Base, Type>::unbind()
+{
+	base::unbind();
+}
+
+template<typename Base, GLenum Type>
 typename sge::ogl::basic_raw_buffer<Base, Type>::iterator sge::ogl::basic_raw_buffer<Base, Type>::create_iterator(const pointer src)
 {
 	return iterator(src);

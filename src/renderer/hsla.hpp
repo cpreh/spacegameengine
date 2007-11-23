@@ -29,10 +29,10 @@ namespace sge
 class hsla {
 public:
 	static const color_element hsl_max = 240;
-	static const color_element rgb_max = 255;
+	static const color_element rgb_max = color_element_max;
 	static const color_element hue_undefined = hsl_max * 2 / 3;
 
-	hsla(color c);
+	explicit hsla(color c);
 	hsla(color_element h, color_element s, color_element l, color_element a);
 	color to_color() const;
 

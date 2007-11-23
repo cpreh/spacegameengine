@@ -100,6 +100,8 @@ void sge::ogl::basic_texture<Base, Type>::pre_unlock()
 
 		cur_buffer->bind_me();
 	}
+	
+	cur_buffer->unlock();
 }
 
 template<typename Base, GLenum Type>
@@ -108,10 +110,12 @@ void sge::ogl::basic_texture<Base, Type>::do_unlock()
 	if(!cur_buffer)
 		throw exception("ogl::basic_texture::do_unlock(): texture is not locked!");
 
-	cur_buffer->unlock();
 	pack_buffer.reset();
 	unpack_buffer.reset();
 	cur_buffer = 0;
+
+	pixel_pack_buffer::unbind();
+	pixel_unpack_buffer::unbind();
 }
 
 template<typename Base, GLenum Type>

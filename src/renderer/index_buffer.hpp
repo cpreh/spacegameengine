@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <iterator>
 #include "../shared_ptr.hpp"
-#include "../types.hpp"
 #include "../typeswitch.hpp"
 #include "types.hpp"
 
@@ -33,17 +32,17 @@ namespace sge
 
 class index_buffer {
 public:
-	typedef std::size_t        size_type;
-	typedef std::ptrdiff_t     difference_type;
-	typedef uint32             value_type;
+	typedef std::size_t                           size_type;
+	typedef std::ptrdiff_t                        difference_type;
+	typedef uint32                                value_type;
 
-	typedef value_type&        reference;
-	typedef const value_type&  const_reference;
-	typedef value_type*        pointer;
-	typedef const value_type*  const_pointer;
-	typedef pointer            iterator;
-	typedef const_pointer      const_iterator;
-	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef value_type&                           reference;
+	typedef const value_type&                     const_reference;
+	typedef value_type*                           pointer;
+	typedef const value_type*                     const_pointer;
+	typedef pointer                               iterator;
+	typedef const_pointer                         const_iterator;
+	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 	
 	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;

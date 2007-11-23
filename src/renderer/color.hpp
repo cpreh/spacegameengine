@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../types.hpp"
 #include "../typeswitch.hpp"
+#include "../stub.hpp"
 
 namespace sge
 {
@@ -55,6 +56,7 @@ struct color_traits;
 
 const unsigned color_bytes = 4;
 const unsigned color_bits_per_byte = 8;
+const color_element color_element_max = 255;
 
 template<>
 struct color_traits<color_scheme::rgba> {
@@ -86,7 +88,7 @@ struct color_traits<color_scheme::rgba> {
                               | static_cast<color>(b) << color_traits<current_color_scheme>::b_shift \
                               | static_cast<color>(a) << color_traits<current_color_scheme>::a_shift
 
-template<color_element r, color_element g, color_element b, color_element a=255>
+template<color_element r, color_element g, color_element b, color_element a = color_element_max>
 struct static_color {
 	static const color value = SGE_MAKE_COLOR(r,g,b,a);
 };
@@ -318,19 +320,22 @@ inline color color4_to_color(const color4 c)
 	return make_color(color_element(c.r * color_to_color4_factor),color_element(c.g * color_to_color4_factor),color_element(c.b * color_to_color4_factor),color_element(c.a * color_to_color4_factor));
 }
 
-// TODO
+// FIXME
 inline color sge_to_rgba(const color c)
 {
+	SGE_STUB_FUNCTION
 	return c;
 }
 
 inline color sge_to_argb(const color c)
 {
+	SGE_STUB_FUNCTION
 	return c;
 }
 
 inline color sge_to_bgra(const color c)
 {
+	SGE_STUB_FUNCTION
 	return c;
 }
 

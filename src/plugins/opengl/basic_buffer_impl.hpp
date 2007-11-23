@@ -160,8 +160,6 @@ typename sge::ogl::basic_buffer<Base, Type>::const_reference sge::ogl::basic_buf
 template<typename Base, GLenum Type>
 void sge::ogl::basic_buffer<Base, Type>::resize(const size_type newsize, const const_pointer src)
 {
-//	if(newsize <= size())
-//		return;
 	if(dest)
 		throw exception("ogl_buffer::resize(), buffer must be unlocked!");
 	sz = newsize;

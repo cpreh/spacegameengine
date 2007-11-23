@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_STUB_HPP_INCLUDED
 
 #include <iostream>
+#include <iostream>
 
 #define SGE_STUB_FUNCTION std::cerr << "stub: " << __FUNCTION__ << '\n';
 

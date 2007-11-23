@@ -46,6 +46,7 @@ public:
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
 
 	basic_raw_buffer(size_type, resource_flag_t, const_pointer src);
+	static void unbind();
 private:
 	typedef basic_buffer<Base, Type> base;
 
