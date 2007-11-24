@@ -40,6 +40,7 @@ protected:
 	GLuint id() const;
 	const filter_args& filter() const;
 	void do_lock(lock_flag_t flags);
+	void post_lock();
 	void pre_unlock();
 	void do_unlock();
 	lock_flag_t lock_mode() const;

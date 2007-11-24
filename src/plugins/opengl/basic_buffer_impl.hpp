@@ -42,6 +42,8 @@ sge::ogl::basic_buffer<Base, Type>::basic_buffer(const size_type sz,
 template<typename Base, GLenum Type>
 sge::ogl::basic_buffer<Base, Type>::~basic_buffer()
 {
+	if(dest)
+		unlock();
 	unbind();
 	delete_buffer(id);
 }

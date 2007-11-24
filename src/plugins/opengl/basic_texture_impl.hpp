@@ -70,18 +70,25 @@ void sge::ogl::basic_texture<Base, Type>::do_lock(const lock_flag_t lmode)
 	if(lock_flag_write(lmode))
 	{
 		unpack_buffer.reset(new pixel_unpack_buffer(size(), flags(), 0));
-		unpack_buffer->lock(lmode);
 		cur_buffer = unpack_buffer.get();
 	}
 
 	if(lock_flag_read(lmode))
 	{
 		pack_buffer.reset(new pixel_pack_buffer(size(), flags(), 0));
-		pack_buffer->lock(lmode);
 		cur_buffer = pack_buffer.get();
 	}
 
 	assert(cur_buffer);
+}
+
+template<typename Base, GLenum Type>
+void sge::ogl::basic_texture<Base, Type>::post_lock()
+{
+	if(!cur_buffer)
+		throw exception("ogl::basic_texture::post_lock(): texture is not locked!");
+
+	cur_buffer->lock(lock_mode());
 }
 
 template<typename Base, GLenum Type>
@@ -91,14 +98,13 @@ void sge::ogl::basic_texture<Base, Type>::pre_unlock()
 		throw exception("ogl::basic_texture::pre_unlock(): texture is not locked!");
 	if(lock_mode() == lock_flags::readwrite)
 	{
+		assert(unpack_buffer);
+
+		unpack_buffer->lock(lock_mode());
 		std::copy(pack_buffer->begin(), pack_buffer->end(), unpack_buffer->data());
 		pack_buffer->unlock();
 		pack_buffer.reset();
 		cur_buffer = unpack_buffer.get();
-
-		assert(cur_buffer);
-
-		cur_buffer->bind_me();
 	}
 	
 	cur_buffer->unlock();
