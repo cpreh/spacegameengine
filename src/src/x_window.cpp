@@ -145,8 +145,8 @@ typedef std::map<sge::x_window::x11_event_type, sge::x_window::x11_event_mask_ty
 const mask_map masks =
 boost::assign::map_list_of(KeyPress, KeyPressMask)
                           (KeyRelease, KeyReleaseMask)
-                          (ButtonPress, KeyPressMask)
-                          (ButtonRelease, KeyReleaseMask)
+                          (ButtonPress, ButtonPressMask)
+                          (ButtonRelease, ButtonReleaseMask)
                           (MotionNotify, PointerMotionMask)
                           (EnterNotify, EnterWindowMask)
                           (LeaveNotify, LeaveWindowMask)

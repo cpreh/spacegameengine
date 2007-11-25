@@ -98,7 +98,7 @@ struct console_activator
 
 	void callback(const sge::key_pair &pair)
 	{
-		if (pair.key().code() == sge::kc::key_tab && !pair.zero())
+		if (pair.key().code() == sge::kc::key_tab && pair.value())
 			con.active(!con.active());
 	}
 };

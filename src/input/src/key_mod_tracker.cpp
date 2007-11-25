@@ -30,7 +30,7 @@ sge::key_mod_tracker::key_mod_tracker(const input_system_ptr is)
 void sge::key_mod_tracker::key_callback(const key_pair& p)
 {
 	const key_code c = p.key().code();
-	const bool value = !p.zero();
+	const bool value = p.value();
 
 	if(is_shift(c))
 		_state.shift = value;

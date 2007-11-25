@@ -319,7 +319,6 @@ public:
 
 	const key_type& key() const;
 	key_state value() const;
-	bool zero() const;
 private:
 	key_type  key_;
 	key_state value_;

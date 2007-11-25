@@ -62,8 +62,3 @@ sge::key_state sge::key_pair::value() const
 {
 	return value_;
 }
-
-bool sge::key_pair::zero() const
-{
-	return math::almost_zero(value());
-}

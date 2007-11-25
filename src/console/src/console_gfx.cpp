@@ -174,7 +174,7 @@ void sge::con::console_gfx::key_callback(const key_pair &k)
 		output_line(L"char_code = " + k.first.char_code);
 	*/
 
-	if (!k.zero())
+	if (k.value())
 		key_action(k.key());
 }
 
