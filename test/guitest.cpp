@@ -55,12 +55,12 @@ inline sge::pos3 at_pixel(int x, int y) {
 	);
 }
 
-sge::vertex_buffer_ptr bgvb, cuvb;
-sge::index_buffer_ptr  bgib, cuib;
-
 struct myIA : public sge::gui::inputacceptor {
 	using sge::gui::inputacceptor::inputprocessor_attach;
 	using sge::gui::inputacceptor::inputprocessor_detach;
+
+	sge::vertex_buffer_ptr cuvb;
+	myIA(sge::vertex_buffer_ptr cuvb) : cuvb(cuvb) {}
 
 	sge::gui::point inputprocessor_offset() const { return sge::gui::point(0,0); }
 
@@ -169,13 +169,8 @@ try
 			[var(running)=false])
 	);
 
-	sge::key_state_tracker ks(is);
-	sge::gui::inputprocessor ip(is);
-	std::cout << "created ip" << std::endl;
-	myIA ia;
-	std::cout << "created ia" << std::endl;
-	ia.inputprocessor_attach(ip);
-	std::cout << "attached ia" << std::endl;
+	sge::vertex_buffer_ptr bgvb, cuvb;
+	sge::index_buffer_ptr  bgib, cuib;
 
 	{
 		const sge::index_buffer::value_type indices[] = {
@@ -214,6 +209,14 @@ try
 		it->diffuse() = sge::colors::white; ++it;
 		it->diffuse() = sge::colors::white;
 	}
+
+	sge::key_state_tracker ks(is);
+	sge::gui::inputprocessor ip(is);
+	std::cout << "created ip" << std::endl;
+	myIA ia(cuvb);
+	std::cout << "created ia" << std::endl;
+	ia.inputprocessor_attach(ip);
+	std::cout << "attached ia" << std::endl;
 
 	while(running)
 	{
