@@ -328,7 +328,7 @@ void sge::ogl::renderer::set_bool_state(const bool_state::type state, const bool
 void sge::ogl::renderer::set_float_state(const float_state::type state, const float_type value)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	switch(state) {
 	case float_state::zbuffer_clear_val:
 		glClearDepth(value);
@@ -371,7 +371,7 @@ void sge::ogl::renderer::set_color_state(const color_state::type state, const co
 void sge::ogl::renderer::set_int_state(const int_state::type state, const int_type value)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	switch(state) {
 	case int_state::stencil_clear_val:
 		glClearStencil(value);
@@ -384,35 +384,35 @@ void sge::ogl::renderer::set_int_state(const int_state::type state, const int_ty
 void sge::ogl::renderer::set_fog_mode(const fog_mode::type mode)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	glFogi(GL_FOG_MODE, convert_cast<GLenum>(mode));
 }
 
 void sge::ogl::renderer::set_cull_mode(const cull_mode::type mode)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	glCullFace(convert_cast<GLenum>(mode));
 }
 
 void sge::ogl::renderer::set_depth_func(const depth_func::type func)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	glDepthFunc(convert_cast<GLenum>(func));
 }
 
 void sge::ogl::renderer::set_stencil_func(const stencil_func::type func, const signed_type value, const unsigned_type mask)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	glStencilFunc(convert_cast<GLenum>(func), value, mask);
 }
 
 void sge::ogl::renderer::set_blend_func(const source_blend_func::type source, const dest_blend_func::type dest)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	const GLenum glsource = convert_cast<GLenum>(source),
 	             gldest   = convert_cast<GLenum>(dest);
 
@@ -422,7 +422,7 @@ void sge::ogl::renderer::set_blend_func(const source_blend_func::type source, co
 void sge::ogl::renderer::set_draw_mode(const draw_mode::type mode)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	const GLenum glmode = convert_cast<GLenum>(mode);
 
 	glPolygonMode(GL_FRONT_AND_BACK, glmode);
@@ -431,7 +431,7 @@ void sge::ogl::renderer::set_draw_mode(const draw_mode::type mode)
 void sge::ogl::renderer::set_material(const material& mat)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	const GLenum face = GL_FRONT_AND_BACK;
 	glMaterialfv(face, GL_AMBIENT, reinterpret_cast<const GLfloat*>(&mat.ambient));
 	glMaterialfv(face, GL_DIFFUSE, reinterpret_cast<const GLfloat*>(&mat.diffuse));
@@ -443,20 +443,22 @@ void sge::ogl::renderer::set_material(const material& mat)
 void sge::ogl::renderer::set_viewport(const viewport& v)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	glViewport(v.x, v.y, v.w, v.h);
 }
 
+#ifdef SGE_LINUX_PLATFORM
 void sge::ogl::renderer::reset_viewport(const XEvent& ev)
 {
 	const XResizeRequestEvent& resizeev = reinterpret_cast<const XResizeRequestEvent&>(ev);
 	set_viewport(viewport(0, 0, resizeev.width, resizeev.height));
 }
+#endif
 
 void sge::ogl::renderer::transform(const math::space_matrix& matrix)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(math::transpose(matrix).data());
 }
@@ -464,7 +466,7 @@ void sge::ogl::renderer::transform(const math::space_matrix& matrix)
 void sge::ogl::renderer::projection(const math::space_matrix& matrix)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(math::transpose(matrix).data());
 }
@@ -523,7 +525,7 @@ void sge::ogl::renderer::set_light(const light_index index, const light& l)
 	set_light_pos(glindex, pos);
 
 	set_light_dir(glindex, l.dir);
-	
+
 	set_light_float(glindex, GL_CONSTANT_ATTENUATION, l.const_attenuation);
 	set_light_float(glindex, GL_LINEAR_ATTENUATION, l.linear_attenuation);
 	set_light_float(glindex, GL_QUADRATIC_ATTENUATION, l.quadratic_attenuation);
@@ -546,7 +548,7 @@ void sge::ogl::renderer::set_texture_stage_arg(const stage_type stage, const tex
 void sge::ogl::renderer::push()
 {
 	SGE_OPENGL_SENTRY
-	
+
 	if(get_int(GL_ATTRIB_STACK_DEPTH) > 16)
 		std::cerr << "Warning: glPush() stack level is greater than 16 which is the greater than the minimal supported level!\n";
 
@@ -556,7 +558,7 @@ void sge::ogl::renderer::push()
 void sge::ogl::renderer::pop()
 {
 	SGE_OPENGL_SENTRY
-	
+
 	glPopAttrib();
 }
 

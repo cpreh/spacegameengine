@@ -64,9 +64,9 @@ struct myIA : public sge::gui::inputacceptor {
 	void dump(const sge::gui::events::mouse_event &me, std::string extra = "") const {
 		std::cout
 			<< "Mouse at "
-			<< std::setw(4) << me.globalposition.x << std::setw(0)
+			<< std::setw(4) << me.global_position.x << std::setw(0)
 			<< ","
-			<< std::setw(4) << me.globalposition.y << std::setw(0)
+			<< std::setw(4) << me.global_position.y << std::setw(0)
 			<< " ("
 			<< ((me.pressstate.find(sge::gui::events::mouse_event::LEFT  ) != me.pressstate.end()) ? "L" : "_")
 			<< " "
@@ -78,10 +78,27 @@ struct myIA : public sge::gui::inputacceptor {
 			<< std::endl;
 	}
 
-	sge::gui::inputprocessor::response inject_mouse_move  (const sge::gui::events::mouse_event &me) { dump(me); return sge::gui::inputprocessor::response_continue; }
-	sge::gui::inputprocessor::response inject_mouse_down  (const sge::gui::events::mouse_event &me) { dump(me, "press"  ); return sge::gui::inputprocessor::response_continue; }
-	sge::gui::inputprocessor::response inject_mouse_up    (const sge::gui::events::mouse_event &me) { dump(me, "release"); return sge::gui::inputprocessor::response_continue; }
-	sge::gui::inputprocessor::response inject_mouse_wheel (const sge::gui::events::mouse_wheel_event &me) { dump(me, (me.direction == sge::gui::events::mouse_wheel_event::UP) ? "UP" : "DOWN"); return sge::gui::inputprocessor::response_continue; }
+	static std::string pressed_button(const sge::gui::events::mouse_event &me) {
+		switch(me.pressed) {
+			case sge::gui::events::mouse_event::NONE:
+				return "NONE";
+			case sge::gui::events::mouse_event::LEFT:
+				return "LEFT";
+			case sge::gui::events::mouse_event::RIGHT:
+				return "RGHT";
+			case sge::gui::events::mouse_event::MIDDLE:
+				return "MDDL";
+			default:
+				return "UNKN";
+		}
+	}
+
+	sge::gui::inputprocessor::response inject_mouse_move    (const sge::gui::events::mouse_event &me) { dump(me); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_down    (const sge::gui::events::mouse_event &me) { dump(me, "press"  ); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_up      (const sge::gui::events::mouse_event &me) { dump(me, "release"); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_wheel   (const sge::gui::events::mouse_wheel_event &me) { dump(me, (me.direction == sge::gui::events::mouse_wheel_event::UP) ? "UP" : "DOWN"); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_click   (const sge::gui::events::mouse_event &me) { dump(me, pressed_button(me)+" CLICK"); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_dblclick(const sge::gui::events::mouse_event &me) { dump(me, pressed_button(me)+" DOUBLE CLICK"); return sge::gui::inputprocessor::response_continue; }
 };
 
 int main()
@@ -226,6 +243,7 @@ try
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
 		is->dispatch();
+		ip.dispatch();
 
 #if 0
 		rend->set_texture(sge::texture_base_ptr());

@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\..\..\bin\plugins\sgewave.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\plugins\sgewave" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -24,7 +24,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\..\..\bin\plugins\sgewave.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\plugins\sgewave" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -35,14 +35,13 @@
 				</Compiler>
 				<Linker>
 					<Add library='sgecore' />
-					<Add directory="..\..\..\bin" />
+					<Add directory="../../../bin" />
 					<Add option="-Wl,-R,." />
 					<Add option="-Wl,-R,plugins" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-W" />
 			<Add option="-Wall" />
 			<Add option="-Wextra" />
 			<Add option="-Wconversion" />

@@ -38,9 +38,8 @@ class inputprocessor {
 public:
 	typedef long option_t;
 	enum option_name {
-		single_click_distance, // max. distance between button press and release
+		max_click_distance,    // max. distance between button press and release
 		double_click_duration, // in msec, 0 to turn off
-		double_click_distance, // in pixel, default = 2
 		movement_resolution,   // lesser value is higher mouse speed
 		NUM_OPTIONS
 	};
@@ -91,7 +90,9 @@ protected:
 private:
 	void init();
 	typedef response (inputacceptor::*inject_mouse_event_func)(const events::mouse_event &);
+	void dispatch_click(inject_mouse_event_func);
 	void dispatch_mouse_event(inject_mouse_event_func);
+	void dispatch_mouse_event(inject_mouse_event_func, events::mouse_event &);
 	void dispatch_mouse_wheel_event(events::mouse_wheel_event::direction_e);
 	void input_system_callback_function(const key_pair &);
 };

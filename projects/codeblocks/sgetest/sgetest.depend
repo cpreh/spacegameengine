@@ -128,7 +128,7 @@
 	"volume_texture.hpp"
 	"cube_texture.hpp"
 
-1194800668 d:\dev\sge\src\renderer\types.hpp
+1195371165 d:\dev\sge\src\renderer\types.hpp
 	<cstddef>
 	<vector>
 	<stdexcept>
@@ -171,11 +171,12 @@
 	"../types.hpp"
 	"../exception.hpp"
 
-1192725751 d:\dev\sge\src\renderer\color.hpp
+1195910419 d:\dev\sge\src\renderer\color.hpp
 	<ostream>
 	<istream>
 	"../types.hpp"
 	"../typeswitch.hpp"
+	"../stub.hpp"
 
 1194800668 d:\dev\sge\src\renderer\texture_base.hpp
 	<cstddef>
@@ -232,11 +233,10 @@
 	"types.hpp"
 	"color.hpp"
 
-1194725617 d:\dev\sge\src\renderer\index_buffer.hpp
+1195910419 d:\dev\sge\src\renderer\index_buffer.hpp
 	<cstddef>
 	<iterator>
 	"../shared_ptr.hpp"
-	"../types.hpp"
 	"../typeswitch.hpp"
 	"types.hpp"
 
@@ -256,7 +256,7 @@
 	"../math/matrix.hpp"
 	"../window.hpp"
 
-1193696893 d:\dev\sge\src\renderer\texture.hpp
+1195371165 d:\dev\sge\src\renderer\texture.hpp
 	"../math/dim.hpp"
 	"texture_base.hpp"
 
@@ -402,7 +402,7 @@
 	"../renderer/font_types.hpp"
 	"../renderer/texture.hpp"
 
-1192725751 d:\dev\sge\src\renderer\renderer_system.hpp
+1195371165 d:\dev\sge\src\renderer\renderer_system.hpp
 	<vector>
 	"../shared_ptr.hpp"
 	"../types.hpp"
@@ -443,7 +443,7 @@
 	"../plugin_traits.hpp"
 	"key_type.hpp"
 
-1194800165 d:\dev\sge\src\input\key_type.hpp
+1195910782 d:\dev\sge\src\input\key_type.hpp
 	"../string.hpp"
 
 1185928670 d:\dev\sge\src\input\key_mod_tracker.hpp
@@ -521,10 +521,10 @@
 	"types.hpp"
 	"rectangle.hpp"
 
-1192725749 d:\dev\sge\src\input\key_state_tracker.hpp
+1195910419 d:\dev\sge\src\input\key_state_tracker.hpp
 	<map>
 	<boost/noncopyable.hpp>
-	<boost/signals/trackable.hpp>
+	"../scoped_connection.hpp"
 	"input_system.hpp"
 	"key_type.hpp"
 
@@ -1145,7 +1145,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1194815422 source:d:\dev\sge\test\guitest.cpp
+1194815789 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1607,4 +1607,11 @@
 	"../../src/input/input_system.hpp"
 	"events.hpp"
 	"types.hpp"
+
+1192725762 d:\dev\sge\src\scoped_connection.hpp
+	<boost/signals/connection.hpp>
+
+1195910420 d:\dev\sge\src\stub.hpp
+	<iostream>
+	<iostream>
 

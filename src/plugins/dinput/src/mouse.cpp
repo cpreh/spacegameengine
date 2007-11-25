@@ -78,7 +78,7 @@ void sge::dinput::mouse::dispatch(input_system::signal_type& sig)
 	{
 		if(is_di_mouse_axis(data[i].dwOfs))
 		{
-			key_state m = reinterpret_cast<long&>(data[i].dwData) / 150.f;
+			key_state m = reinterpret_cast<long&>(data[i].dwData);// / 150.f;
 			key_state l = -m;
 			key_state r = m;
 			bound_pos(l);

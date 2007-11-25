@@ -56,7 +56,7 @@ ob_start(); ?>
 <?php foreach($data['libraries'] as $lib) { ?>
 					<Add library='<?php echo htmlspecialchars($lib); ?>' />
 <?php } ?>
-					<Add directory="..\..\..\bin" />
+					<Add directory="../../../bin" />
 					<Add option="-Wl,-R,." />
 					<Add option="-Wl,-R,plugins" />
 				</Linker>

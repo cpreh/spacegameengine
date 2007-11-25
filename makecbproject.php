@@ -1,9 +1,13 @@
-<?php
+<?php $dirs = array(
+	'3rdparty',
+	'src',
+	'test'
+);
 
 require_once('projects/cbproject.template.php');
 $projects = array(); $lineno = 0;
 
-$filelist = array(); $dirs = array('src','test');
+$filelist = array();
 while(sizeof($dirs)) {
   $cd = array_shift($dirs); $d = opendir($cd);
 	while (false !== ($cf = readdir($d))) {
@@ -31,6 +35,9 @@ function commit_workspace() {
 }
 
 foreach(file('projects.ini') as $line) { ++$lineno;
+  $fc = substr(trim($line), 0, 1);
+  if ($fc == '#' || $fc == ';' || $fc == "'") continue; // comments
+
   if (sizeof($line = explode('=', $line, 2)) == 2) switch(trim($line[0])) {
 	  case 'name':
 			if (isset($project)) commit_project();

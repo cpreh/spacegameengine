@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\..\..\bin\sgecore.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\sgecore" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -27,7 +27,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\..\..\bin\sgecore.dll" prefix_auto="1" extension_auto="1" />
+				<Option output="..\..\..\bin\sgecore" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
@@ -41,14 +41,13 @@
 					<Add library='boost_filesystem' />
 					<Add library='boost_regex' />
 					<Add library='boost_signals' />
-					<Add directory="..\..\..\bin" />
+					<Add directory="../../../bin" />
 					<Add option="-Wl,-R,." />
 					<Add option="-Wl,-R,plugins" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-W" />
 			<Add option="-Wall" />
 			<Add option="-Wextra" />
 			<Add option="-Wconversion" />
@@ -82,7 +81,6 @@
 		<Unit filename="..\..\..\src/console/src/console_gfx.cpp" />
 		<Unit filename="..\..\..\src/detail/iconv_detail.hpp" />
 		<Unit filename="..\..\..\src/detail/iconv_encoding_list.hpp" />
-		<Unit filename="..\..\..\src/detail/istream_impl.hpp" />
 		<Unit filename="..\..\..\src/detail/library_impl.hpp" />
 		<Unit filename="..\..\..\src/detail/plugin_impl.hpp" />
 		<Unit filename="..\..\..\src/detail/src/iconv_detail.cpp" />
@@ -112,6 +110,7 @@
 		<Unit filename="..\..\..\src/input/src/key_state_tracker.cpp" />
 		<Unit filename="..\..\..\src/input/src/key_type.cpp" />
 		<Unit filename="..\..\..\src/istream.hpp" />
+		<Unit filename="..\..\..\src/istream_impl.hpp" />
 		<Unit filename="..\..\..\src/language.hpp" />
 		<Unit filename="..\..\..\src/library.hpp" />
 		<Unit filename="..\..\..\src/math/box.hpp" />
@@ -136,7 +135,6 @@
 		<Unit filename="..\..\..\src/plugin.hpp" />
 		<Unit filename="..\..\..\src/plugin_manager.hpp" />
 		<Unit filename="..\..\..\src/plugin_traits.hpp" />
-		<Unit filename="..\..\..\src/ptr_cast.hpp" />
 		<Unit filename="..\..\..\src/raw_vector.hpp" />
 		<Unit filename="..\..\..\src/renderer/color.hpp" />
 		<Unit filename="..\..\..\src/renderer/cube_texture.hpp" />

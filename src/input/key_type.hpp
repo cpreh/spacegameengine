@@ -192,6 +192,7 @@ enum type {
 
 	mouse_l                  = input_type_mouse_key,
 	mouse_r,
+	mouse_m,
 	X_NUM_MOUSE_KEYS,
 	num_mouse_keys = X_NUM_MOUSE_KEYS & input_keyid_mask,
 

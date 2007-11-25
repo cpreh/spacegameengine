@@ -32,11 +32,10 @@ namespace kc = sge::kc;
 //
 
 void sge::gui::inputprocessor::init() {
-	options[single_click_distance] =   2;
+	options[max_click_distance   ] =   2;
 	options[double_click_duration] = 320;
-	options[double_click_distance] =   2;
 	options[movement_resolution  ] =   1;
-	mouse_event.globalposition = point(0, 0);
+	mouse_event.global_position    = point(0, 0);
 }
 
 sge::gui::inputprocessor::inputprocessor() { init(); }
@@ -76,6 +75,10 @@ void sge::gui::inputprocessor::attach(sge::input_system_ptr isp) {
 }
 
 void sge::gui::inputprocessor::detach() {
+	mouse_event.pressed =
+	pending_click.button = events::mouse_event::NONE; // reset click status
+	pending_click.dblclick.deactivate();
+
 	if (cc.connected())
 		cc.disconnect();
 	is = sge::input_system_ptr();
@@ -87,8 +90,6 @@ void sge::gui::inputprocessor::attach(inputacceptor *ac) {
 }
 
 void sge::gui::inputprocessor::detach(inputacceptor *ac) {
-	pending_click.button = events::mouse_event::NONE; // reset click status
-
 	inputacceptor_list::iterator it =
 		std::find(ia.begin(), ia.end(), ac);
 	if (it != ia.end()) {
@@ -98,16 +99,20 @@ void sge::gui::inputprocessor::detach(inputacceptor *ac) {
 }
 
 void sge::gui::inputprocessor::set_cursor_position(point pos) {
-	point oldpos = mouse_event.globalposition;
-	if (oldpos != (mouse_event.globalposition = pos.normalize(clipping)))
+	point oldpos = mouse_event.global_position;
+	if (oldpos != (mouse_event.global_position = pos.normalize(clipping)))
 		dispatch_mouse_event(&sge::gui::inputacceptor::inject_mouse_move);
 }
 
 void sge::gui::inputprocessor::set_clipping(rect clip) {
-	set_cursor_position(mouse_event.globalposition.normalize(clipping = clip));
+	set_cursor_position(mouse_event.global_position.normalize(clipping = clip));
 }
 
 void sge::gui::inputprocessor::dispatch() {
+	if (pending_click.dblclick.active() && pending_click.dblclick.expired())
+		// we've waited so long after the first click, that the next click can't
+		// trigger a double click anymore - it's time to broadcast the first click
+		dispatch_click(&inputacceptor::inject_mouse_click);
 }
 
 void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pair &kp) {
@@ -117,18 +122,29 @@ void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pai
 	if (sge::is_mouse_button(key)) {
 		events::mouse_event::button btn;
 		switch (key) {
-			case kc::mouse_l: btn = events::mouse_event::LEFT ; break;
-			case kc::mouse_r: btn = events::mouse_event::RIGHT; break;
-			default:          btn = events::mouse_event::NONE ; break;
+			case kc::mouse_l: btn = events::mouse_event::LEFT  ; break;
+			case kc::mouse_m: btn = events::mouse_event::MIDDLE; break;
+			case kc::mouse_r: btn = events::mouse_event::RIGHT ; break;
+			default:          btn = events::mouse_event::NONE  ; break;
 		}
 
 		if (btn != events::mouse_event::NONE) {
 			events::mouse_event::button oldbutton = mouse_event.pressed;
 			mouse_event.pressed = btn;
-			if (!math::almost_zero(value)) {
+			if (!kp.zero()) {
 				// button pressed
+
+				if (pending_click.button == events::mouse_event::NONE)
+					;
+				else if (pending_click.button != btn)
+					dispatch_click(&inputacceptor::inject_mouse_click);
+				else if (pending_click.dblclick.active() && pending_click.dblclick.expired())
+					dispatch_click(&inputacceptor::inject_mouse_click);
+				// else
+				//	; // we're preparing for a double click here.
+
 				pending_click.button   = btn;
-				pending_click.position = mouse_event.globalposition;
+				pending_click.position = mouse_event.global_position;
 
 				mouse_event.pressstate.insert(btn);
 
@@ -142,6 +158,36 @@ void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pai
 
 				if (btn == oldbutton)
 					mouse_event.pressed = events::mouse_event::NONE;
+
+				if (btn == pending_click.button) {
+					point diff = pending_click.position - mouse_event.global_position;
+					if (diff.x <=  options[max_click_distance] &&
+					    diff.x >= -options[max_click_distance] &&
+					    diff.y <=  options[max_click_distance] &&
+					    diff.y >= -options[max_click_distance]) {
+
+						if (pending_click.dblclick.active()) {
+							// yay! second hit within the clicking distance
+							// and within the set amount of time -- we've
+							// got a double click here!
+							dispatch_click(&inputacceptor::inject_mouse_dblclick);
+
+						} else {
+							if (options[double_click_duration]) {
+								// queue as waiting for a double click
+								pending_click.dblclick.interval(options[double_click_duration]);
+								pending_click.dblclick.activate();
+								pending_click.dblclick.reset();
+
+							} else
+								// double clicking is disabled, so we can send this click instantly
+								dispatch_click(&inputacceptor::inject_mouse_click);
+						}
+
+					} else // moved too far -> this is no click
+					if (pending_click.dblclick.active()) // but there's still a click queued
+						dispatch_click(&inputacceptor::inject_mouse_click);
+				}
 			}
 		}
 
@@ -189,34 +235,66 @@ void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pai
 				dispatch_mouse_wheel_event(events::mouse_wheel_event::DOWN);
 		}
 
-		if (pos.x || pos.y)
-			set_cursor_position(mouse_event.globalposition + pos);
+		if (pos.x || pos.y) {
+			set_cursor_position(mouse_event.global_position + pos);
+
+			if (pending_click.button != events::mouse_event::NONE) {
+				point diff = pending_click.position - mouse_event.global_position;
+				if (diff.x >  options[max_click_distance] ||
+				    diff.x < -options[max_click_distance] ||
+				    diff.y >  options[max_click_distance] ||
+				    diff.y < -options[max_click_distance]) {
+				    // moved outside
+				    if (pending_click.dblclick.active())
+						// broadcast the first click
+						dispatch_click(&inputacceptor::inject_mouse_click);
+
+					else
+						// stop click logging for this click
+						pending_click.button = events::mouse_event::NONE;
+				}
+			}
+		}
 	}
 }
 
+void sge::gui::inputprocessor::dispatch_click(inject_mouse_event_func f) {
+	events::mouse_event me = mouse_event;
+	me.global_position     = pending_click.position;
+	me.pressed             = pending_click.button;
+	pending_click.button   = events::mouse_event::NONE;
+	pending_click.dblclick.deactivate();
+
+	dispatch_mouse_event(f, me);
+}
+
 void sge::gui::inputprocessor::dispatch_mouse_event(inject_mouse_event_func fp) {
+	dispatch_mouse_event(fp, mouse_event);
+}
+
+void sge::gui::inputprocessor::dispatch_mouse_event(inject_mouse_event_func fp, events::mouse_event &mouse_event) {
 	response res = inputprocessor::response_continue;
 
 	for (inputacceptor_list::iterator t, b=ia.begin(), e=ia.end(); (b != e) && (res == inputprocessor::response_continue); ) {
 		t = b; ++b; // allow inputacceptors to detach themselves as response to events
 
-		mouse_event.position = mouse_event.globalposition - (*t)->inputprocessor_offset();
+		mouse_event.position = mouse_event.global_position - (*t)->inputprocessor_offset();
 		res = ((*t)->*fp)(mouse_event);
 	}
 }
 
 void sge::gui::inputprocessor::dispatch_mouse_wheel_event(events::mouse_wheel_event::direction_e dir) {
 	events::mouse_wheel_event mwe;
-	mwe.globalposition = mouse_event.globalposition;
-	mwe.pressed        = mouse_event.pressed;
-	mwe.pressstate     = mouse_event.pressstate;
-	mwe.direction      = dir;
+	mwe.global_position = mouse_event.global_position;
+	mwe.pressed         = mouse_event.pressed;
+	mwe.pressstate      = mouse_event.pressstate;
+	mwe.direction       = dir;
 
 	response res = inputprocessor::response_continue;
 	for (inputacceptor_list::iterator t, b=ia.begin(), e=ia.end(); (b != e) && (res == inputprocessor::response_continue); ) {
 		t = b; ++b; // allow inputacceptors to detach themselves as response to events
 
-		mwe.position = mwe.globalposition - (*t)->inputprocessor_offset();
+		mwe.position = mwe.global_position - (*t)->inputprocessor_offset();
 		res = (*t)->inject_mouse_wheel(mwe);
 	}
 }
