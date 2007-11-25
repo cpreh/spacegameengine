@@ -358,7 +358,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const In l, const In
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::erase(const iterator position)
 {
-	std::copy(position + 1, end(), position);
+	std::uninitialized_copy(position + 1, end(), position);
 	--last;
 	return position;
 }
@@ -366,7 +366,7 @@ typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::erase(const iter
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::erase(const iterator l, const iterator r)
 {
-	std::copy(r, end(), first);
+	std::uninitialized_copy(r, end(), first);
 	last -= r - l;
 	return r;
 }

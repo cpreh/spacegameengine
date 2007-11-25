@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <iterator>
 #include <memory>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_pod.hpp>
 #include "exception.hpp"
 
 namespace sge
@@ -30,6 +32,7 @@ namespace sge
 
 template<typename T, typename A = std::allocator<T> >
 class raw_vector {
+	BOOST_STATIC_ASSERT(boost::is_pod<T>::value);
 public:
 	typedef T                                     value_type;
 	typedef A                                     allocator_type;
