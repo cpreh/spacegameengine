@@ -63,6 +63,9 @@ struct mouse_event {
 	std::set<button> pressstate;
 	point position;
 	point global_position;
+	inline bool is_pressed(buttons btn) const {
+		return pressstate.find(btn) != pressstate.end();
+	}
 };
 
 struct mouse_wheel_event : public mouse_event {

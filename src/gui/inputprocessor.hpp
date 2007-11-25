@@ -68,7 +68,7 @@ public:
 	void set_clipping(rect);
 
 	inline const option_t option(option_name n) const { return options[n]; }
-	inline void option(option_name n, option_t);
+	inline void option(option_name n, option_t v) { options[n] = v; }
 
 protected:
 	option_t options[NUM_OPTIONS];

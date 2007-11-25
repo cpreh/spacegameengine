@@ -55,12 +55,25 @@ inline sge::pos3 at_pixel(int x, int y) {
 	);
 }
 
+sge::gui::canvas canvas;
+bool changed;
+
+sge::color colors[] = {
+	sge::colors::black,
+	sge::colors::coral,
+	sge::colors::gold,
+	sge::colors::skyblue,
+	sge::colors::limegreen,
+	sge::colors::papayawhip
+};
+
 struct myIA : public sge::gui::inputacceptor {
 	using sge::gui::inputacceptor::inputprocessor_attach;
 	using sge::gui::inputacceptor::inputprocessor_detach;
 
 	sge::vertex_buffer_ptr cuvb;
-	myIA(sge::vertex_buffer_ptr cuvb) : cuvb(cuvb) {}
+	int color;
+	myIA(sge::vertex_buffer_ptr cuvb) : cuvb(cuvb), color(0) {}
 
 	sge::gui::point inputprocessor_offset() const { return sge::gui::point(0,0); }
 
@@ -79,6 +92,11 @@ struct myIA : public sge::gui::inputacceptor {
 			<< ") "
 			<< extra
 			<< std::endl;
+	}
+
+	void paint(const sge::gui::events::mouse_event &me) {
+		canvas.pixel(me.global_position) = colors[color];
+		changed = true;
 	}
 
 	static std::string pressed_button(const sge::gui::events::mouse_event &me) {
@@ -104,39 +122,30 @@ struct myIA : public sge::gui::inputacceptor {
 			it->pos() = at_pixel(me.global_position.x + 16, me.global_position.y + 32); ++it;
 			it->pos() = at_pixel(me.global_position.x + 32, me.global_position.y + 16);
 		}
+		if (me.is_pressed(sge::gui::events::mouse_event::LEFT))
+			paint(me);
 		dump(me);
 		return sge::gui::inputprocessor::response_continue;
 	}
 	sge::gui::inputprocessor::response inject_mouse_down    (const sge::gui::events::mouse_event &me) {
 		dump(me, "press"  );
-		{
-			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
-			sge::vertex_buffer::iterator it = cuvb->begin();
-			switch (me.pressed) {
-				case sge::gui::events::mouse_event::LEFT:
-					(  ++it)->diffuse() = sge::static_color<160,160,255>::value; break;
-				case sge::gui::events::mouse_event::RIGHT:
-					(++++it)->diffuse() = sge::static_color<255,160,160>::value; break;
-			}
-		}
+		if (me.pressed == sge::gui::events::mouse_event::LEFT)
+			paint(me);
 		return sge::gui::inputprocessor::response_continue;
 	}
 	sge::gui::inputprocessor::response inject_mouse_up      (const sge::gui::events::mouse_event &me) {
 		dump(me, "release");
-		{
-			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
-			sge::vertex_buffer::iterator it = cuvb->begin();
-			switch (me.pressed) {
-				case sge::gui::events::mouse_event::RIGHT:
-					++it;
-				case sge::gui::events::mouse_event::LEFT:
-					(++it)->diffuse() = sge::colors::white;
-			}
-		}
 		return sge::gui::inputprocessor::response_continue;
 	}
 	sge::gui::inputprocessor::response inject_mouse_wheel   (const sge::gui::events::mouse_wheel_event &me) { dump(me, (me.direction == sge::gui::events::mouse_wheel_event::UP) ? "UP" : "DOWN"); return sge::gui::inputprocessor::response_continue; }
-	sge::gui::inputprocessor::response inject_mouse_click   (const sge::gui::events::mouse_event &me) { dump(me, pressed_button(me)+" CLICK"); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_click   (const sge::gui::events::mouse_event &me) {
+		dump(me, pressed_button(me)+" CLICK");
+		if (me.pressed == sge::gui::events::mouse_event::RIGHT) {
+			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
+			cuvb->begin()->diffuse() = colors[color = (color+1) % 6];
+		}
+		return sge::gui::inputprocessor::response_continue;
+	}
 	sge::gui::inputprocessor::response inject_mouse_dblclick(const sge::gui::events::mouse_event &me) { dump(me, pressed_button(me)+" DOUBLE CLICK"); return sge::gui::inputprocessor::response_continue; }
 };
 
@@ -169,8 +178,15 @@ try
 			[var(running)=false])
 	);
 
-	sge::vertex_buffer_ptr bgvb, cuvb;
-	sge::index_buffer_ptr  bgib, cuib;
+	sge::vertex_buffer_ptr bgvb, cuvb, fgvb;
+	sge::index_buffer_ptr  bgib, cuib, fgib;
+
+	sge::fragmented_texture_ptr mytex(new sge::no_fragmented_texture(rend, sge::point_filter));
+	sge::texture_manager texmgr(rend, mytex);
+
+	canvas.resize(sge::gui::dim2(800, 600));
+	canvas.fill(sge::colors::transparent);
+	sge::virtual_texture_ptr canvastex = canvas.to_texture(texmgr);
 
 	{
 		const sge::index_buffer::value_type indices[] = {
@@ -178,7 +194,7 @@ try
 			1, 2, 3
 		};
 
-		bgib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
+		fgib = bgib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
 		cuib = rend->create_index_buffer(3, sge::resource_flags::default_, indices);
 	}
 
@@ -205,10 +221,26 @@ try
 	{
 		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
 		sge::vertex_buffer::iterator it = cuvb->begin();
-		it->diffuse() = sge::colors::white; ++it;
+		it->diffuse() = colors[0]; ++it;
 		it->diffuse() = sge::colors::white; ++it;
 		it->diffuse() = sge::colors::white;
 	}
+
+	fgvb =
+		rend->create_vertex_buffer(
+		sge::vertex_format().add(sge::vertex_usage::pos)
+		                    .add(sge::vertex_usage::tex),
+		4);
+	{
+		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(fgvb);
+		sge::vertex_buffer::iterator it = fgvb->begin();
+
+		it->pos() = sge::pos3(-1,  1, 0); it->tex() = canvastex->translate(0, 0); ++it; // top left
+		it->pos() = sge::pos3( 1,  1, 0); it->tex() = canvastex->translate(1, 0); ++it; // top right
+		it->pos() = sge::pos3(-1, -1, 0); it->tex() = canvastex->translate(0, 1); ++it; // bottom left
+		it->pos() = sge::pos3( 1, -1, 0); it->tex() = canvastex->translate(1, 1); ++it; // bottom right
+	}
+
 
 	sge::key_state_tracker ks(is);
 	sge::gui::inputprocessor ip(is);
@@ -217,6 +249,10 @@ try
 	std::cout << "created ia" << std::endl;
 	ia.inputprocessor_attach(ip);
 	std::cout << "attached ia" << std::endl;
+
+	ip.option(sge::gui::inputprocessor::double_click_duration, 0); // disable double click
+
+	rend->set_bool_state(sge::bool_state::enable_alpha_blending, true);
 
 	while(running)
 	{
@@ -230,6 +266,16 @@ try
 		ip.dispatch();
 
 		rend->render(bgvb, bgib, 0, bgvb->size(), sge::indexed_primitive_type::triangle, 2, 0);
+
+		if (changed) {
+			canvastex = canvas.to_texture(texmgr, canvastex);
+			changed = false;
+		}
+
+		rend->set_texture(canvastex->my_texture());
+		rend->render(fgvb, fgib, 0, fgvb->size(), sge::indexed_primitive_type::triangle, 2, 0);
+
+		rend->set_texture(sge::texture_base_ptr());
 		rend->render(cuvb, cuib, 0, cuvb->size(), sge::indexed_primitive_type::triangle, 1, 0);
 
 		rend->end_rendering();
