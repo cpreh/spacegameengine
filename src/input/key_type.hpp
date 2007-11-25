@@ -311,7 +311,7 @@ inline bool is_alt(const key_code key)
 		(key == kc::key_altgr);
 }
 
-typedef float key_state;
+typedef int key_state;
 
 class key_pair {
 public:

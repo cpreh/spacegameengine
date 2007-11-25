@@ -21,26 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RAW_VECTOR_HPP_INCLUDED
 #define SGE_RAW_VECTOR_HPP_INCLUDED
 
-#include <memory>
 #include <algorithm>
+#include <iterator>
+#include <memory>
 #include "exception.hpp"
 
 namespace sge
 {
 
-template<typename T, typename A = std::allocator<T> > class raw_vector {
+template<typename T, typename A = std::allocator<T> >
+class raw_vector {
 public:
-	typedef T value_type;
-	typedef A allocator_type;
-	typedef typename A::size_type size_type;
-	typedef typename A::difference_type difference_type;
-	typedef typename A::pointer pointer;
-	typedef typename A::const_pointer const_pointer;
-	typedef typename A::reference reference;
-	typedef typename A::const_reference const_reference;
-	typedef pointer iterator;
-	typedef const_pointer const_iterator;
-	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef T                                     value_type;
+	typedef A                                     allocator_type;
+	typedef typename A::size_type                 size_type;
+	typedef typename A::difference_type           difference_type;
+	typedef typename A::pointer                   pointer;
+	typedef typename A::const_pointer             const_pointer;
+	typedef typename A::reference                 reference;
+	typedef typename A::const_reference           const_reference;
+	typedef pointer                               iterator;
+	typedef const_pointer                         const_iterator;
+	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
 	iterator begin() { return first; }
@@ -53,10 +55,10 @@ public:
 	reverse_iterator rend() { return reverse_iterator(first); }
 	const_reverse_iterator rend() const { return const_reverse_iterator(first); }
 
-	reference operator[] (size_type n) { return *(first+n); }
-	const_reference operator[] (size_type n) const { return *(first+n); }
-	reference at(size_type n) { range_check(n); return *(first+n); }
-	const_reference at(size_type n) const { range_check(n); return *(first+n); }
+	reference operator[] (const size_type n) { return *(begin() + n); }
+	const_reference operator[] (const size_type n) const { return *(begin() + n); }
+	reference at(const size_type n) { range_check(n); return (*this)[n]; }
+	const_reference at(const size_type n) const { range_check(n); return (*this)[n]; }
 	reference front() { return *first; }
 	const_reference front() const { return *first; }
 	reference back() { return *(last-1); }

@@ -220,7 +220,7 @@ try
 
 	while(running)
 	{
-		if(!ks.zero(sge::kc::key_return))
+		if(ks[sge::kc::key_return])
 			sge::screenshot(rend,pl,"shot.png");
 
 		rend->begin_rendering();

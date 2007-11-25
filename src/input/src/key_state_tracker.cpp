@@ -41,21 +41,6 @@ sge::key_state sge::key_state_tracker::operator[](const key_type::char_type& c)
 	return key_chars[c];
 }
 
-bool sge::key_state_tracker::zero(const key_code& c)
-{
-	return math::almost_zero(key_codes[c]);
-}
-
-bool sge::key_state_tracker::zero(const key_type& c)
-{
-	return math::almost_zero(key_types[c]);
-}
-
-bool sge::key_state_tracker::zero(const key_type::char_type& c)
-{
-	return math::almost_zero(key_chars[c]);
-}
-
 void sge::key_state_tracker::event_handler(const key_pair& pair)
 {
 	const key_type key = pair.key();
