@@ -27,8 +27,8 @@ namespace
 
 inline void bound_pos(sge::key_state& state)
 {
-//	if(state > 1.f)
-//		state = 1.f;
+//	if(state > 1)
+//		state = 1;
 //	else
 	if(state < 0)
 		state = 0;
@@ -79,7 +79,7 @@ void sge::dinput::mouse::dispatch(input_system::signal_type& sig)
 	{
 		if(is_di_mouse_axis(data[i].dwOfs))
 		{
-			key_state m = reinterpret_cast<long&>(data[i].dwData);// / 150.f;
+			key_state m = reinterpret_cast<long&>(data[i].dwData);// / 150;
 			key_state l = -m;
 			key_state r = m;
 			bound_pos(l);
@@ -91,7 +91,7 @@ void sge::dinput::mouse::dispatch(input_system::signal_type& sig)
 			sig(key_pair(r_keys[data[i].dwOfs],r));
 		}
 		else
-			sig(key_pair(keys[data[i].dwOfs],data[i].dwData & 0x80 ? 1.f : 0));
+			sig(key_pair(keys[data[i].dwOfs],(data[i].dwData & 0x80) ? static_cast<key_state>(1) : 0));
 	}
 }
 

@@ -73,9 +73,9 @@ sge::string::value_type sge::dinput::keyboard::keycode_to_char(const key_code ke
 {
 	boost::array<BYTE,256> state;
 	const BYTE key_up = 0, key_down = 0x80;
-	state[VK_SHIFT] = modifiers.shift ? key_down : key_up;
-	state[VK_MENU] = modifiers.alt ? key_down : key_up;
-	state[VK_CONTROL] = modifiers.ctrl ? key_down : key_up;
+	state[VK_SHIFT]   = modifiers.shift ? key_down : key_up;
+	state[VK_MENU]    = modifiers.alt   ? key_down : key_up;
+	state[VK_CONTROL] = modifiers.ctrl  ? key_down : key_up;
 
 	const unsigned dik = conv.create_dik(key);
 	const unsigned vk = MapVirtualKeyEx(dik, 1, kblayout);
