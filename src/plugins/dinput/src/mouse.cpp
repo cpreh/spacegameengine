@@ -29,8 +29,9 @@ inline void bound_pos(sge::key_state& state)
 {
 //	if(state > 1.f)
 //		state = 1.f;
-//	else if(state < 0)
-//		state = 0;
+//	else
+	if(state < 0)
+		state = 0;
 }
 
 inline void bound_pos_neg(sge::key_state& state)
