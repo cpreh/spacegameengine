@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <cstring>
 #include "../../../exception.hpp"
+#include "../../../raw_vector_impl.hpp"
 #include "../freetype.hpp"
 #include "../face.hpp"
 #include "../glyph.hpp"
@@ -45,11 +46,6 @@ sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_un
 	const unsigned char* data = bitmap.buffer;
 	for(int y = 0; y < bitmap.rows; ++y, data += bitmap.pitch)
 		std::memcpy(buffer.data() + y * width(), data, width());
-		//for(int x = 0; x < bitmap.width; ++x)
-		//{
-		//	const unsigned char code = *(data + x);
-	//		data.at(y*bitmap.width+x) = code ? make_color(code,code,code,255) : colors::transparent;
-	//	}
 }
 
 const sge::color_element* sge::ft::char_metric::pixmap() const

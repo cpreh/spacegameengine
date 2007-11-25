@@ -19,13 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <utility>
-#include "../../../raw_vector.hpp"
 #include "../../../renderer/transform.hpp"
 #include "../font_metrics.hpp"
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
-
-#include <iostream>
 
 sge::ft::font_metrics::font_metrics(library& lib, const std::string& font_path, const unsigned font_height)
 : _face(lib, font_path)

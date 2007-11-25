@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RAW_VECTOR_IMPL_HPP_INCLUDED
 #define SGE_RAW_VECTOR_IMPL_HPP_INCLUDED
 
+#include <algorithm>
 #include "raw_vector.hpp"
 
 template<typename T, typename A>
@@ -156,8 +157,7 @@ sge::raw_vector<T, A>::raw_vector(const size_type sz, const T& t, const A& a_)
   last(first + sz),
   cap(last)
 {
-	for(iterator it = begin(); it != end(); ++it)
-		*it = t;
+	assign(sz, t);
 }
 
 template<typename T, typename A>
@@ -165,9 +165,7 @@ template<typename In>
 sge::raw_vector<T, A>::raw_vector(const In beg, const In end, const A& a)
 : a(a)
 {
-	const difference_type len = std::distance(beg, end);
-	resize(len);
-	copy(beg, end, begin());
+	assign(beg, end);
 }
 	
 template<typename T, typename A>
@@ -177,13 +175,14 @@ sge::raw_vector<T, A>::raw_vector(const raw_vector& x)
   last(first + x.size()),
   cap(last)
 {
-	copy(x.begin(), x.end(), begin());
+	assign(x.begin(), x.end());
 }
 
 template<typename T, typename A>
 sge::raw_vector<T, A>::~raw_vector()
 {
-	a.deallocate(first, capacity());
+	if(first)
+		a.deallocate(first, capacity());
 }
 
 template<typename T, typename A>
@@ -198,16 +197,15 @@ template<typename T, typename A>
 template<typename In>
 void sge::raw_vector<T, A>::assign(const In beg, const In end)
 {
-	const difference_type len = std::distance(beg, end);
-	resize(len);
-	copy(beg, end, begin());
+	clear();
+	insert(begin(), beg, end);
 }
 
 template<typename T, typename A>
 void sge::raw_vector<T, A>::assign(const size_type n, const T& value)
 {
-	resize(n);
-	std::uninitialized_fill_n(first, n, value);
+	clear();
+	insert(begin(), n, value);
 }
 
 template<typename T, typename A>
@@ -247,6 +245,12 @@ typename sge::raw_vector<T, A>::size_type sge::raw_vector<T, A>::max_size() cons
 }
 
 template<typename T, typename A>
+typename sge::raw_vector<T, A>::size_type sge::raw_vector<T, A>::capacity() const
+{
+	return cap - first;
+}
+
+template<typename T, typename A>
 void sge::raw_vector<T, A>::swap(raw_vector& x)
 {
 	std::swap(first, x.first);
@@ -257,13 +261,177 @@ void sge::raw_vector<T, A>::swap(raw_vector& x)
 template<typename T, typename A>
 void sge::raw_vector<T, A>::resize(const size_type sz)
 {
-	_grow(sz);
+	if(sz > size())
+		reserve(sz);
+	else if(sz < size())
+		erase(begin() + sz, end());
+}
+
+template<typename T, typename A>
+void sge::raw_vector<T, A>::resize(const size_type sz, const T& value)
+{
+	if(sz > size())
+		insert(end(), sz - size(), value);
+	else if(sz < size())
+		erase(begin() + sz, end());
+}
+
+template<typename T, typename A>
+void sge::raw_vector<T, A>::reserve(const size_type sz)
+{
+	if(sz <= capacity())
+		return;
+
+	const size_type new_cap = new_capacity(sz),
+	                old_size = size();
+
+	const pointer new_memory = a.allocate(new_cap);
+
+	std::uninitialized_copy(begin(), end(), new_memory);
+
+	a.deallocate(first, capacity());
+	set_pointers(first, old_size, new_cap);
 }
 
 template <typename T, typename A>
 typename sge::raw_vector<T, A>::allocator_type sge::raw_vector<T, A>::get_allocator() const
 {
 	return a;
+}
+
+template<typename T, typename A>
+typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::insert(const iterator position, const T& x)
+{
+	const difference_type diff = position - begin();
+	insert(position, 1, x);
+	return begin() + diff;
+}
+	
+template<typename T, typename A>
+void sge::raw_vector<T, A>::insert(const iterator position, const size_type n, const T& x)
+{
+	const size_type new_size = size() + n;
+	if(new_size < capacity())
+	{
+		const difference_type insert_sz = position - begin();
+		const size_type new_cap = new_capacity(new_size);
+		const pointer new_memory = a.allocate(new_cap);
+		std::uninitialized_copy(begin(), position, new_memory);
+		std::uninitialized_fill(new_memory, new_memory + insert_sz, x);
+		std::uninitialized_copy(position, end(), new_memory + insert_sz + n);
+		a.deallocate(first, capacity());
+		set_pointers(first, new_size, new_cap);
+	}
+	else
+	{
+		std::copy_backward(position, end(), position + n);
+		std::uninitialized_fill(position, position + n, x);
+		last += n;
+	}
+}
+
+template<typename T, typename A>
+template<typename In>
+void sge::raw_vector<T, A>::insert(const iterator position, const In l, const In r)
+{
+	const difference_type distance = std::distance(l, r);
+	const size_type new_size = size() + distance;
+	if(new_size < capacity())
+	{
+		const difference_type insert_sz = position - begin();
+		const size_type new_cap = new_capacity(new_size);
+		const pointer new_memory = a.allocate(new_cap);
+		std::uninitialized_copy(begin(), position, new_memory);
+		std::uninitialized_copy(l, r, new_memory + insert_sz);
+		std::uninitialized_copy(position, end(), new_memory + insert_sz + distance);
+		a.deallocate(first, capacity());
+		set_pointers(first, new_size, new_cap);
+	}
+	else
+	{
+		std::copy_backward(position, end(), position + distance);
+		std::uninitialized_copy(l, r, position);
+		last += distance;
+	}
+}
+
+template<typename T, typename A>
+typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::erase(const iterator position)
+{
+	std::copy(position + 1, end(), position);
+	--last;
+	return position;
+}
+
+template<typename T, typename A>
+typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::erase(const iterator l, const iterator r)
+{
+	std::copy(r, end(), first);
+	last -= r - l;
+	return r;
+}
+
+template<typename T, typename A>
+void sge::raw_vector<T, A>::range_check(const size_type n) const
+{
+	if(n >= size())
+		throw exception("raw_vector::at() out of range!");
+}
+
+template<typename T, typename A>
+typename sge::raw_vector<T, A>::size_type sge::raw_vector<T, A>::new_capacity(const size_type new_size) const
+{
+	return std::max(new_size, capacity() * 2);
+}
+
+template<typename T, typename A>
+void sge::raw_vector<T, A>::set_pointers(const pointer src, const size_type sz, const size_type cap_)
+{
+	first = src;
+	last = first + sz;
+	cap = first + cap_;
+}
+
+template <typename T, typename A>
+bool sge::operator==(const raw_vector<T, A>& x, const raw_vector<T,A>& y)
+{
+	return x.size() == y.size() && std::equal(x.begin(), x.end(), y.begin());
+}
+
+template <typename T, typename A>
+bool sge::operator< (const raw_vector<T, A>& x, const raw_vector<T, A>& y)
+{
+	return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
+}
+
+template <typename T, typename A>
+bool sge::operator!=(const raw_vector<T, A>& x, const raw_vector<T, A>& y)
+{
+	return !(x == y);
+}
+
+template <typename T, typename A>
+bool sge::operator> (const raw_vector<T, A>& x, const raw_vector<T, A>& y)
+{
+	return y < x;
+}
+
+template <typename T, typename A>
+bool sge::operator>=(const raw_vector<T, A>& x, const raw_vector<T, A>& y)
+{
+	return !(x < y);
+}
+
+template <typename T, typename A>
+bool sge::operator<=(const raw_vector<T, A>& x, const raw_vector<T, A>& y)
+{
+	return !(x > y);
+}
+
+template <typename T, typename A>
+void sge::swap(raw_vector<T, A>& x, raw_vector<T, A>& y)
+{
+	x.swap(y);
 }
 
 #endif

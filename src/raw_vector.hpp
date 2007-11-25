@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RAW_VECTOR_HPP_INCLUDED
 #define SGE_RAW_VECTOR_HPP_INCLUDED
 
-#include <algorithm>
 #include <iterator>
 #include <memory>
 #include "exception.hpp"
@@ -45,138 +44,99 @@ public:
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	iterator begin() { return first; }
-	const_iterator begin() const { return first; }
-	iterator end() { return last; }
-	const_iterator end() const { return last; }
+	iterator begin();
+	const_iterator begin() const;
+	iterator end();
+	const_iterator end() const;
 
-	reverse_iterator rbegin() { return reverse_iterator(last); }
-	const_reverse_iterator rbegin() const { return const_reverse_iterator(last); }
-	reverse_iterator rend() { return reverse_iterator(first); }
-	const_reverse_iterator rend() const { return const_reverse_iterator(first); }
+	reverse_iterator rbegin();
+	const_reverse_iterator rbegin() const;
+	reverse_iterator rend();
+	const_reverse_iterator rend() const;
 
-	reference operator[] (const size_type n) { return *(begin() + n); }
-	const_reference operator[] (const size_type n) const { return *(begin() + n); }
-	reference at(const size_type n) { range_check(n); return (*this)[n]; }
-	const_reference at(const size_type n) const { range_check(n); return (*this)[n]; }
-	reference front() { return *first; }
-	const_reference front() const { return *first; }
-	reference back() { return *(last-1); }
-	const_reference back() const { return *(last-1); }
+	reference operator[] (size_type n);
+	const_reference operator[] (size_type n) const;
+	reference at(size_type n);
+	const_reference at(size_type n) const;
+	reference front();
+	const_reference front() const;
+	reference back();
+	const_reference back() const;
 
-	pointer data() { return first; }
-	const_pointer data() const { return first; }
+	pointer data();
+	const_pointer data() const;
 
-	explicit raw_vector(const A& a = A()) : a(a), first(0), last(0), cap(0) {}
+	explicit raw_vector(const A& a = A());
+	explicit raw_vector(size_type sz, const A& a = A()); // uninitialized vector
+	raw_vector(size_type sz, const T& t, const A& a = A());
 
-	explicit raw_vector(size_type sz, const A& _a = A())
-		: a(_a), first(a.allocate(sz)), last(first+sz), cap(last) {}
+	template <typename In>
+	raw_vector (In beg, In end, const A& a = A());
 
-	raw_vector(size_type sz, const T& t, const A& _a = A())
-		: a(_a), first(a.allocate(sz)), last(first+sz), cap(last)
-	{
-		for(iterator it = begin(); it != end(); ++it)
-			*it = t;
-	}
+	raw_vector (const raw_vector& x);
+	~raw_vector();
 
-	template <class In>
-		raw_vector (In beg, In end, const A& _a = A())
-		: a(_a)
-	{
-		const difference_type len = std::distance(beg,end);
-		_grow(len);
-		copy(beg,end,begin());
-	}
+	raw_vector& operator= (const raw_vector& x);
 	
-	raw_vector (const raw_vector& x)
-		: a(x.a), first(a.allocate(x.size())), last(first+x.size()), cap(last)
-	{
-		copy(x.begin(),x.end(),begin());
-	}
+	template <typename In>
+	void assign (In beg, In end);
+	void assign (size_type n, const T& value);
 
-	~raw_vector() { a.deallocate(first,_capacity()); }
-
-	raw_vector& operator= (const raw_vector& x)
-	{
-		if(&x==this) return;
-		_grow(x.size());
-		copy(x.begin(),x.end(),begin());
-	}
-	
-	template <class In>
-	void assign (In beg, In end)
-	{
-		const difference_type len = std::distance(beg,end);
-		_grow(len);
-		copy(beg,end,begin());
-	}
-
-	void assign (size_type n, const T& value)
-	{
-		_grow(n);
-		std::uninitialized_fill_n(first,n,value);
-	}
-
-	void push_back (const T& x)
-	{
-		_grow(size()+1);
-		back()=x;
-	}
-
-	void pop_back() { --last; }
-	void clear() { last=first; }
+	void push_back (const T& x);
+	void pop_back();
+	void clear();
 		
-	size_type size() const { return last-first; }
-	bool empty() const { return size()==0; }
-	size_type max_size() const { return a.max_size(); }
+	size_type size() const;
+	bool empty() const;
+	size_type max_size() const;
+	size_type capacity() const;
 
-	void swap (raw_vector& x)
-	{
-		std::swap(first,x.first);
-		std::swap(last,x.last);
-		std::swap(cap,x.cap);
-	}
+	void swap (raw_vector& x);
+	void resize(size_type sz); // uninitialized resize
+	void resize(size_type sz, const T& value);
+	void reserve(size_type sz);
 
-	void resize(const size_type sz)
-	{
-		_grow(sz);
-	}
+	allocator_type get_allocator() const;
 
-	allocator_type get_allocator() const { return a; }
+	iterator insert(iterator position, const T& x);
+	void insert(iterator position, size_type n, const T& x);
+	template <typename In>
+	void insert(iterator position, In first, In last);
+
+	iterator erase(iterator position);
+	iterator erase(iterator first, iterator last);
 private:
-	void deallocate()
-	{
-		a.deallocate(first,_capacity()); last=first=cap=0;
-	}
-	
-	void _grow(size_type sz)
-	{
-		if(sz <= _capacity())
-		{
-			last = first + sz;
-			return;
-		}
-		const size_type grow_min = _capacity()*2;
-		const size_type grow_size = std::max(sz, grow_min);
-		a.deallocate(first,_capacity());
-		first = a.allocate(grow_size);
-		cap = last = first + grow_size;
-	}
-
-	size_type _capacity() const
-	{
-		return cap-first;
-	}
-	
-	void range_check(size_type n) const
-	{
-		if(n >= size())
-			throw exception("raw_vector::at() out of range!");
-	}
+	void range_check(size_type n) const;
+	size_type new_capacity(size_type new_size) const;
+	void set_pointers(pointer src, size_type sz, size_type cap);
 
 	A a;
-	pointer first, last, cap;
+	pointer first,
+	        last,
+	        cap;
 };
+
+template <typename T, typename A>
+bool operator==(const raw_vector<T, A>& x, const raw_vector<T,A>& y);
+
+template <typename T, typename A>
+bool operator< (const raw_vector<T, A>& x, const raw_vector<T, A>& y);
+
+template <typename T, typename A>
+bool operator!=(const raw_vector<T, A>& x, const raw_vector<T, A>& y);
+
+template <typename T, typename A>
+bool operator> (const raw_vector<T, A>& x, const raw_vector<T, A>& y);
+
+template <typename T, typename A>
+bool operator>=(const raw_vector<T, A>& x, const raw_vector<T, A>& y);
+
+template <typename T, typename A>
+bool operator<=(const raw_vector<T, A>& x, const raw_vector<T, A>& y);
+
+template <typename T, typename A>
+void swap(raw_vector<T, A>& x, raw_vector<T, A>& y);
+
 
 }
 
