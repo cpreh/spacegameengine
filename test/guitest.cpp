@@ -55,6 +55,9 @@ inline sge::pos3 at_pixel(int x, int y) {
 	);
 }
 
+sge::vertex_buffer_ptr bgvb, cuvb;
+sge::index_buffer_ptr  bgib, cuib;
+
 struct myIA : public sge::gui::inputacceptor {
 	using sge::gui::inputacceptor::inputprocessor_attach;
 	using sge::gui::inputacceptor::inputprocessor_detach;
@@ -93,9 +96,45 @@ struct myIA : public sge::gui::inputacceptor {
 		}
 	}
 
-	sge::gui::inputprocessor::response inject_mouse_move    (const sge::gui::events::mouse_event &me) { dump(me); return sge::gui::inputprocessor::response_continue; }
-	sge::gui::inputprocessor::response inject_mouse_down    (const sge::gui::events::mouse_event &me) { dump(me, "press"  ); return sge::gui::inputprocessor::response_continue; }
-	sge::gui::inputprocessor::response inject_mouse_up      (const sge::gui::events::mouse_event &me) { dump(me, "release"); return sge::gui::inputprocessor::response_continue; }
+	sge::gui::inputprocessor::response inject_mouse_move    (const sge::gui::events::mouse_event &me) {
+		{
+			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
+			sge::vertex_buffer::iterator it = cuvb->begin();
+			it->pos() = at_pixel(me.global_position.x +  0, me.global_position.y +  0); ++it;
+			it->pos() = at_pixel(me.global_position.x + 16, me.global_position.y + 32); ++it;
+			it->pos() = at_pixel(me.global_position.x + 32, me.global_position.y + 16);
+		}
+		dump(me);
+		return sge::gui::inputprocessor::response_continue;
+	}
+	sge::gui::inputprocessor::response inject_mouse_down    (const sge::gui::events::mouse_event &me) {
+		dump(me, "press"  );
+		{
+			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
+			sge::vertex_buffer::iterator it = cuvb->begin();
+			switch (me.pressed) {
+				case sge::gui::events::mouse_event::LEFT:
+					(  ++it)->diffuse() = sge::static_color<160,160,255>::value; break;
+				case sge::gui::events::mouse_event::RIGHT:
+					(++++it)->diffuse() = sge::static_color<255,160,160>::value; break;
+			}
+		}
+		return sge::gui::inputprocessor::response_continue;
+	}
+	sge::gui::inputprocessor::response inject_mouse_up      (const sge::gui::events::mouse_event &me) {
+		dump(me, "release");
+		{
+			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
+			sge::vertex_buffer::iterator it = cuvb->begin();
+			switch (me.pressed) {
+				case sge::gui::events::mouse_event::RIGHT:
+					++it;
+				case sge::gui::events::mouse_event::LEFT:
+					(++it)->diffuse() = sge::colors::white;
+			}
+		}
+		return sge::gui::inputprocessor::response_continue;
+	}
 	sge::gui::inputprocessor::response inject_mouse_wheel   (const sge::gui::events::mouse_wheel_event &me) { dump(me, (me.direction == sge::gui::events::mouse_wheel_event::UP) ? "UP" : "DOWN"); return sge::gui::inputprocessor::response_continue; }
 	sge::gui::inputprocessor::response inject_mouse_click   (const sge::gui::events::mouse_event &me) { dump(me, pressed_button(me)+" CLICK"); return sge::gui::inputprocessor::response_continue; }
 	sge::gui::inputprocessor::response inject_mouse_dblclick(const sge::gui::events::mouse_event &me) { dump(me, pressed_button(me)+" DOUBLE CLICK"); return sge::gui::inputprocessor::response_continue; }
@@ -138,101 +177,43 @@ try
 	ia.inputprocessor_attach(ip);
 	std::cout << "attached ia" << std::endl;
 
-#if 0
-	using sge::gui::manager;
-	using sge::gui::canvas;
-	using sge::gui::button;
-	using sge::gui::color;
-	using sge::gui::point;
-	using sge::gui::dim2;
-
-	sge::fragmented_texture_ptr mytex(new sge::no_fragmented_texture(rend, sge::point_filter));
-	sge::texture_manager texmgr(rend, mytex);
-
-	manager guimgr(dim2(800, 600));
-
-	button b1(&guimgr, sge::colors::green),
-	       b2(&guimgr, sge::colors::goldenrod),
-	       b3(&guimgr, sge::colors::cornflowerblue);
-	b1.resize(dim2(40, 40));
-	b2.resize(dim2(50, 30));
-	b3.resize(dim2(60, 20));
-
-	b1.move(point( 40, 80));
-	b2.move(point( 80,160));
-	b3.move(point(160,320));
-
-	sge::index_buffer_ptr ib; {
+	{
 		const sge::index_buffer::value_type indices[] = {
 			0, 1, 2,
 			1, 2, 3
 		};
 
-		ib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
+		bgib = rend->create_index_buffer(6, sge::resource_flags::default_, indices);
+		cuib = rend->create_index_buffer(3, sge::resource_flags::default_, indices);
 	}
 
-	sge::vertex_buffer_ptr vb =
-		rend->create_vertex_buffer(
-		sge::vertex_format().add(sge::vertex_usage::pos)
-		                    .add(sge::vertex_usage::tex),
-		4);
-	{
-		sge::virtual_texture_ptr canvastex = guimgr.to_texture(texmgr);
-
-		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(vb);
-		sge::vertex_buffer::iterator it = vb->begin();
-
-		// top left
-		it->pos() = sge::pos3(-1, 1, 0);
-		it->tex() = canvastex->translate(0, 0);
-		++it;
-
-		// top right
-		it->pos() = sge::pos3(1, 1, 0);
-		it->tex() = canvastex->translate(1, 0);
-		++it;
-
-		// bottom left
-		it->pos() = sge::pos3(-1, -1, 0);
-		it->tex() = canvastex->translate(0, 1);
-		++it;
-
-		// bottom right
-		it->pos() = sge::pos3(1, -1, 0);
-		it->tex() = canvastex->translate(1, 1);
-	}
-
-	sge::vertex_buffer_ptr vb2 =
+	bgvb =
 		rend->create_vertex_buffer(
 		sge::vertex_format().add(sge::vertex_usage::pos)
 		                    .add(sge::vertex_usage::diffuse),
 		4);
 	{
-		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(vb2);
-		sge::vertex_buffer::iterator it = vb2->begin();
+		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(bgvb);
+		sge::vertex_buffer::iterator it = bgvb->begin();
 
-		// top left
-		it->pos() = sge::pos3(-1, 1, 0);
-		it->diffuse() = sge::colors::blue;
-		++it;
-
-		// top right
-		it->pos() = sge::pos3(1, 1, 0);
-		it->diffuse() = sge::colors::yellow;
-		++it;
-
-		// bottom left
-		it->pos() = sge::pos3(-1, -1, 0);
-		it->diffuse() = sge::colors::red;
-		++it;
-
-		// bottom right
-		it->pos() = sge::pos3(1, -1, 0);
-		it->diffuse() = sge::colors::white;
+		it->pos() = sge::pos3(-1,  1, 0); it->diffuse() = sge::colors::blue  ; ++it; // top left
+		it->pos() = sge::pos3( 1,  1, 0); it->diffuse() = sge::colors::yellow; ++it; // top right
+		it->pos() = sge::pos3(-1, -1, 0); it->diffuse() = sge::colors::red   ; ++it; // bottom left
+		it->pos() = sge::pos3( 1, -1, 0); it->diffuse() = sge::colors::green ;       // bottom right
 	}
 
-	rend->set_bool_state(sge::bool_state::enable_alpha_blending, true);
-#endif
+	cuvb =
+		rend->create_vertex_buffer(
+		sge::vertex_format().add(sge::vertex_usage::pos)
+		                    .add(sge::vertex_usage::diffuse),
+		3);
+	{
+		sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
+		sge::vertex_buffer::iterator it = cuvb->begin();
+		it->diffuse() = sge::colors::white; ++it;
+		it->diffuse() = sge::colors::white; ++it;
+		it->diffuse() = sge::colors::white;
+	}
 
 	while(running)
 	{
@@ -245,12 +226,8 @@ try
 		is->dispatch();
 		ip.dispatch();
 
-#if 0
-		rend->set_texture(sge::texture_base_ptr());
-		rend->render(vb2, ib, 0, vb2->size(), sge::indexed_primitive_type::triangle, 2, 0);
-		rend->set_texture(guimgr.to_texture(texmgr)->my_texture());
-		rend->render(vb, ib, 0, vb->size(), sge::indexed_primitive_type::triangle, 2, 0);
-#endif
+		rend->render(bgvb, bgib, 0, bgvb->size(), sge::indexed_primitive_type::triangle, 2, 0);
+		rend->render(cuvb, cuib, 0, cuvb->size(), sge::indexed_primitive_type::triangle, 1, 0);
 
 		rend->end_rendering();
 	}
