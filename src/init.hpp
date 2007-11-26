@@ -27,102 +27,56 @@ namespace sge {
 namespace init {
 
 struct core {
-	core(systems &) {
-		// doint nothing for the moment
-	}
-
-	operator bool() const {
-		return true;
-	}
+	core(systems &);
+	operator bool() const;
 };
 
 struct renderer {
 	systems &sys;
-	renderer(systems &sys, unsigned width, unsigned height) : sys(sys) {
-		if (!sys.renderer_plugin)
-			sys.renderer_plugin = sys.plugin_manager.get_plugin<sge::renderer_system>().load();;
-		if (!sys.renderer_system)
-			sys.renderer_system.reset(sys.renderer_plugin->get()());
-		sys.renderer_parameters =
-			sge::renderer_parameters(
-				sge::display_mode(
-					width,
-					height,
-					sge::bit_depth::depth32,
-					0
-				),
-				true // windowed
-			);
-		sys.renderer = sys.renderer_system->create_renderer(sys.renderer_parameters);
-	}
 
-	operator bool() const {
-		return sys.renderer;
-	}
+	renderer(systems &sys, unsigned width, unsigned height);
+	operator bool() const;
 };
 
 struct fullscreen_renderer {
 	systems &sys;
 
-	fullscreen_renderer(systems &sys, unsigned width, unsigned height, sge::bit_depth::type bdepth = sge::bit_depth::depth32, unsigned refresh_rate = 0, multi_sample_type multi=1, bool vsync=true) : sys(sys) {
-		init(width, height, refresh_rate, bdepth, multi, vsync);
-	}
-
-	fullscreen_renderer(systems &sys, unsigned width, unsigned height, unsigned refresh_rate = 0, sge::bit_depth::type bdepth = sge::bit_depth::depth32, multi_sample_type multi=1, bool vsync=true) : sys(sys) {
-		init(width, height, refresh_rate, bdepth, multi, vsync);
-	}
-
-	operator bool() const {
-		return sys.renderer;
-	}
-
+	fullscreen_renderer(systems &sys,
+	                    unsigned width,
+	                    unsigned height,
+	                    bit_depth::type bdepth = bit_depth::depth32,
+	                    unsigned refresh_rate = 0,
+	                    multi_sample_type multi = 1,
+	                    bool vsync = true);
+	fullscreen_renderer(systems &sys,
+	                    unsigned width,
+	                    unsigned height,
+	                    unsigned refresh_rate = 0, 
+	                    bit_depth::type bdepth = bit_depth::depth32,
+	                    multi_sample_type multi = 1,
+	                    bool vsync = true);
+	operator bool() const;
 private:
-	void init(unsigned width, unsigned height, unsigned refresh_rate, sge::bit_depth::type bdepth, multi_sample_type multi, bool vsync) {
-		if (!sys.renderer_plugin)
-			sys.renderer_plugin = sys.plugin_manager.get_plugin<sge::renderer_system>().load();;
-		if (!sys.renderer_system)
-			sys.renderer_system.reset(sys.renderer_plugin->get()());
-		sys.renderer_parameters =
-			sge::renderer_parameters(
-				sge::display_mode(
-					width,
-					height,
-					bdepth,
-					refresh_rate
-				),
-				false, // fullscreen
-				multi,
-				vsync
-			);
-		sys.renderer = sys.renderer_system->create_renderer(sys.renderer_parameters);
-	}
+	void init(unsigned width,
+	          unsigned height,
+	          unsigned refresh_rate,
+	          bit_depth::type bdepth,
+	          multi_sample_type multi,
+	          bool vsync);
 };
 
 struct input {
 	systems &sys;
 
-	input(systems &sys) : sys(sys) {
-		if (!sys.input_plugin)
-			sys.input_plugin = sys.plugin_manager.get_plugin<sge::input_system>().load();
-		sys.input_system.reset(sys.input_plugin->get()(sys.renderer->get_window()));
-	}
-
-	operator bool() const {
-		return sys.input_system;
-	}
+	input(systems &sys);
+	operator bool() const;
 };
 
 struct image_loader {
 	systems &sys;
-	image_loader(systems &sys) : sys(sys) {
-		if (!sys.image_loader_plugin)
-			sys.image_loader_plugin = sys.plugin_manager.get_plugin<sge::image_loader>().load();
-		sys.image_loader.reset(sys.image_loader_plugin->get()());
-	}
 
-	operator bool() const {
-		return sys.image_loader;
-	}
+	image_loader(systems &sys);
+	operator bool() const;
 };
 
 }
