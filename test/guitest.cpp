@@ -31,13 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
 
-#include "../src/input/input_system.hpp"
+#include "../src/init.hpp"
 #include "../src/input/key_state_tracker.hpp"
 #include "../src/math/constants.hpp"
 #include "../src/renderer/scoped_lock.hpp"
-#include "../src/renderer/renderer_system.hpp"
 #include "../src/renderer/screenshot.hpp"
-#include "../src/plugin_manager.hpp"
 #include "../src/sprite/sprite.hpp"
 #include "../src/sprite/system.hpp"
 #include "../src/texture/no_fragmented_texture.hpp"
@@ -154,24 +152,25 @@ try
 {
 	std::srand(std::time(0));
 	bool running = true;
-	sge::plugin_manager pm;
 
-	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
-	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
-
-	const sge::renderer_system_ptr rs(renderer_plugin->get()());
-
-	const sge::renderer_parameters param(sge::display_mode(800,600,sge::bit_depth::depth32,100), true);
-	const sge::renderer_ptr rend = rs->create_renderer(param);
-
-	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
-
-	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
-	const sge::image_loader_ptr pl(image_loader_plugin->get()());
+	sge::systems sys;
+	sys.init<sge::init::core>();
+	sys.init<sge::init::renderer>(800, 600);
+	//sys.input_plugin = sys.plugin_manager.get_plugin<sge::input_system>().load();
+	sys.init<sge::init::input>();
+	sys.init<sge::init::image_loader>();
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
 	using boost::lambda::if_;
+
+	sge::input_system_ptr is   = sys.input_system;
+	sge::renderer_ptr     rend = sys.renderer;
+	sge::image_loader_ptr pl   = sys.image_loader;
+
+	std::cout << is.get() << std::endl;
+	std::cout << rend.get() << std::endl;
+	std::cout << pl.get() << std::endl;
 
 	boost::signals::scoped_connection cb(is->register_callback(
 		if_(bind(&sge::key_type::code, bind(&sge::key_pair::key, boost::lambda::_1)) == sge::kc::key_escape)

@@ -443,7 +443,7 @@
 	"../plugin_traits.hpp"
 	"key_type.hpp"
 
-1196000310 d:\dev\sge\src\input\key_type.hpp
+1196063264 d:\dev\sge\src\input\key_type.hpp
 	"../string.hpp"
 
 1185928670 d:\dev\sge\src\input\key_mod_tracker.hpp
@@ -1145,7 +1145,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1196005021 source:d:\dev\sge\test\guitest.cpp
+1196079668 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1157,13 +1157,11 @@
 	<boost/lambda/lambda.hpp>
 	<boost/lambda/bind.hpp>
 	<boost/lambda/if.hpp>
-	"../src/input/input_system.hpp"
+	"../src/init.hpp"
 	"../src/input/key_state_tracker.hpp"
 	"../src/math/constants.hpp"
 	"../src/renderer/scoped_lock.hpp"
-	"../src/renderer/renderer_system.hpp"
 	"../src/renderer/screenshot.hpp"
-	"../src/plugin_manager.hpp"
 	"../src/sprite/sprite.hpp"
 	"../src/sprite/system.hpp"
 	"../src/texture/no_fragmented_texture.hpp"
@@ -1614,4 +1612,15 @@
 1195910420 d:\dev\sge\src\stub.hpp
 	<iostream>
 	<iostream>
+
+1196079796 d:\dev\sge\src\init.hpp
+	"systems.hpp"
+
+1196077783 d:\dev\sge\src\systems.hpp
+	"plugin_manager.hpp"
+	"plugin.hpp"
+	"renderer/renderer.hpp"
+	"renderer/renderer_system.hpp"
+	"input/input_system.hpp"
+	"image/image_loader.hpp"
 
