@@ -191,8 +191,8 @@ enum type {
 	//
 
 	mouse_l                  = input_type_mouse_key,
-	mouse_r,
 	mouse_m,
+	mouse_r,
 	X_NUM_MOUSE_KEYS,
 	num_mouse_keys = X_NUM_MOUSE_KEYS & input_keyid_mask,
 
@@ -202,15 +202,9 @@ enum type {
 	// Mouse axis codes
 	//
 
-	mouse_axis_x             = input_type_mouse_axis,
-	mouse_axis_x_neg,
-	mouse_axis_x_pos,
-	mouse_axis_y,
-	mouse_axis_y_neg,
-	mouse_axis_y_pos,
-	mouse_axis_z,
-	mouse_axis_z_neg,
-	mouse_axis_z_pos,
+	mouse_x_axis             = input_type_mouse_axis,
+	mouse_y_axis,
+	mouse_z_axis,
 	X_NUM_MOUSE_AXIS,
 	num_mouse_axis = X_NUM_MOUSE_AXIS & input_keyid_mask,
 

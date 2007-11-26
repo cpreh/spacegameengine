@@ -37,9 +37,7 @@ public:
 private:
 	static BOOL CALLBACK enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
 	typedef std::map<unsigned,key_type> key_map;
-	key_map  keys;
-	key_map  l_keys;
-	key_map  r_keys;
+	key_map keys;
 };
 
 }

@@ -194,12 +194,10 @@ void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pai
 	} else if (sge::is_mouse_axis(key)) {
 		point pos(0, 0);
 
-		if (key == kc::mouse_axis_x ||
-		    key == kc::mouse_axis_x_pos ||
-		    key == kc::mouse_axis_x_neg) {
+		if (key == kc::mouse_x_axis) {
 
 			// X axis
-			relative_position.x += (key == kc::mouse_axis_x_neg) ? -value : value;
+			relative_position.x += value;
 			if (relative_position.x >= options[movement_resolution])
 				do ++pos.x;
 				while ((relative_position.x -= options[movement_resolution]) >= options[movement_resolution]);
@@ -209,12 +207,10 @@ void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pai
 				while ((relative_position.x += options[movement_resolution]) <= -options[movement_resolution]);
 
 		} else
-		if (key == kc::mouse_axis_y ||
-		    key == kc::mouse_axis_y_pos ||
-		    key == kc::mouse_axis_y_neg) {
+		if (key == kc::mouse_y_axis) {
 
 			// Y axis
-			relative_position.y += (key == kc::mouse_axis_y_neg) ? -value : value;
+			relative_position.y += value;
 			if (relative_position.y >= options[movement_resolution])
 				do ++pos.y;
 				while ((relative_position.y -= options[movement_resolution]) >= options[movement_resolution]);
@@ -224,15 +220,13 @@ void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pai
 				while ((relative_position.y += options[movement_resolution]) <= -options[movement_resolution]);
 
 		} else
-		if (key == kc::mouse_axis_z ||
-		    key == kc::mouse_axis_z_pos ||
-		    key == kc::mouse_axis_z_neg) {
+		if (key == kc::mouse_z_axis) {
 
 			// Z axis (mouse wheel)
-			if (key == kc::mouse_axis_z_neg || value == -1)
-				dispatch_mouse_wheel_event(events::mouse_wheel_event::UP);
-			else
+			if (value < 0)
 				dispatch_mouse_wheel_event(events::mouse_wheel_event::DOWN);
+			else if (value > 0)
+				dispatch_mouse_wheel_event(events::mouse_wheel_event::UP);
 		}
 
 		if (pos.x || pos.y) {

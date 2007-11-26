@@ -87,8 +87,9 @@ private:
 	static const key_type mouse_x,
 	                      mouse_y,
 	                      undefined_mouse_key,
-	                      mouse1,
-	                      mouse2;
+	                      mouse_l,
+	                      mouse_r,
+	                      mouse_m;
 #ifdef USE_DGA
 	dga_guard _dga_guard;
 #endif

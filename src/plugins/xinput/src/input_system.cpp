@@ -60,7 +60,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 #endif
 	if(!use_dga)
 		mouse_last = get_mouse_pos(wnd->display(), wnd);
-	
+
 	wnd->register_callback(KeyPress, boost::bind(&input_system::on_key_event, this, _1));
 	wnd->register_callback(KeyRelease, boost::bind(&input_system::on_key_event, this, _1));
 	wnd->register_callback(ButtonPress, boost::bind(&input_system::on_button_event, this, _1));
@@ -445,7 +445,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	x11tosge[XK_underscore] = kc::key_underline;
 	x11tosge[XK_grave] = kc::key_grave;
 //#define XK_quoteleft                     0x0060  /* deprecated */
-	
+
 	x11tosge[XK_a] = kc::key_a;
 	x11tosge[XK_b] = kc::key_b;
 	x11tosge[XK_c] = kc::key_c;
@@ -572,7 +572,7 @@ void sge::xinput::input_system::on_key_event(const XEvent& xev)
 			return;
 		}
 	}
-	
+
 	sig(key_pair(create_key_type(xev), xev.type == KeyRelease ? 0 : 1));
 }
 
@@ -611,7 +611,7 @@ void sge::xinput::input_system::on_acquire(const XEvent&)
 	enable_dga(true);
 }
 
-void sge::xinput::input_system::enable_dga(const bool 
+void sge::xinput::input_system::enable_dga(const bool
 #ifdef USE_DGA
 		enable
 #endif
@@ -628,9 +628,11 @@ sge::key_type sge::xinput::input_system::mouse_key(const unsigned x11code) const
 {
 	switch(x11code) {
 	case 1:
-		return mouse1;
+		return mouse_l;
+	case 2:
+		return mouse_m;
 	case 3:
-		return mouse2;
+		return mouse_r;
 	default:
 		return undefined_mouse_key;
 	}
@@ -681,7 +683,7 @@ void sge::xinput::input_system::warped_motion(XEvent xevent)
 	                         h = wnd->height();
 	mouse_coordinate_t deltax = xevent.xmotion.x - mouse_last.x(),
 	                   deltay = xevent.xmotion.y - mouse_last.y();
-	
+
 	mouse_last.x() = xevent.xmotion.x;
 	mouse_last.y() = xevent.xmotion.y;
 
@@ -692,7 +694,7 @@ void sge::xinput::input_system::warped_motion(XEvent xevent)
 	     (xevent.xmotion.y < MOUSE_FUDGE_FACTOR) ||
 	     (xevent.xmotion.y > (h-MOUSE_FUDGE_FACTOR)) ))
 		return;
-	
+
 	while ( XCheckTypedEvent(wnd->display()->get(), MotionNotify, &xevent) )
 	{
 		deltax = xevent.xmotion.x - mouse_last.x();
@@ -722,8 +724,10 @@ void sge::xinput::input_system::warped_motion(XEvent xevent)
 	}
 }
 
-const sge::key_type sge::xinput::input_system::mouse_x(iconv("mouse_x"), kc::mouse_axis_x);
-const sge::key_type sge::xinput::input_system::mouse_y(iconv("mouse_y"), kc::mouse_axis_y);
+const sge::key_type sge::xinput::input_system::mouse_x(iconv("mouse_x"), kc::mouse_x_axis);
+const sge::key_type sge::xinput::input_system::mouse_y(iconv("mouse_y"), kc::mouse_y_axis);
 const sge::key_type sge::xinput::input_system::undefined_mouse_key(iconv("undefined mouse key"));
-const sge::key_type sge::xinput::input_system::mouse1(iconv("mouse_L"), kc::mouse_l);
-const sge::key_type sge::xinput::input_system::mouse2(iconv("mouse_R"), kc::mouse_r);
+const sge::key_type sge::xinput::input_system::mouse_l(iconv("mouse_L"), kc::mouse_l);
+const sge::key_type sge::xinput::input_system::mouse_r(iconv("mouse_R"), kc::mouse_r);
+const sge::key_type sge::xinput::input_system::mouse_m(iconv("mouse_M"), kc::mouse_m);
+
