@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_RENDERER_HPP_INCLUDED
 
 #include <boost/scoped_ptr.hpp>
+#include <boost/signals/trackable.hpp>
 #include "../../types.hpp"
 #include "../../renderer/renderer.hpp"
 #include "../../window.hpp"
@@ -29,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "render_target.hpp"
 #include "fbo_render_target.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
-#include <boost/signals/trackable.hpp>
 #include "../../gdi_device.hpp"
 #include "wgl_context.hpp"
 #include "wgl_current.hpp"
@@ -52,7 +52,7 @@ namespace sge
 namespace ogl
 {
 
-class renderer : public sge::renderer, boost::signals::trackable {
+class renderer : public sge::renderer, public boost::signals::trackable {
 public:
 	renderer(const renderer_parameters& param, unsigned adapter, window_ptr wnd);
 
@@ -95,7 +95,8 @@ public:
 	void push();
 	void pop();
 
-	glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader, const std::string& pixel_shader_source = no_shader);
+	glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader,
+	                                      const std::string& pixel_shader_source = no_shader);
 	void set_glsl_shader(glsl::program_ptr);
 
 	sge::render_target_ptr get_render_target() const;
@@ -118,8 +119,14 @@ public:
 	                                     const filter_args& filter,
 	                                     resource_flag_t flags);
 
-	vertex_buffer_ptr create_vertex_buffer(const sge::vertex_format& format, vertex_buffer::size_type size, resource_flag_t flags, vertex_buffer::const_pointer data);
-	index_buffer_ptr create_index_buffer(index_buffer::size_type size, resource_flag_t flags, index_buffer::const_pointer data);
+	vertex_buffer_ptr create_vertex_buffer(const sge::vertex_format& format,
+	                                       vertex_buffer::size_type size,
+	                                       resource_flag_t flags,
+	                                       vertex_buffer::const_pointer data);
+
+	index_buffer_ptr create_index_buffer(index_buffer::size_type size,
+	                                     resource_flag_t flags,
+	                                     index_buffer::const_pointer data);
 
 	const renderer_caps& caps() const;
 	screen_size_t screen_size() const;
@@ -130,26 +137,26 @@ private:
 	fbo_render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height);
 
 	renderer_parameters param;
-	GLbitfield clearflags;
+	GLbitfield          clearflags;
 #ifdef SGE_WINDOWS_PLATFORM
-	win32_window_ptr wnd;
-	boost::scoped_ptr<gdi_device> hdc;
+	win32_window_ptr               wnd;
+	boost::scoped_ptr<gdi_device>  hdc;
 	boost::scoped_ptr<wgl_context> context;
 	boost::scoped_ptr<wgl_current> current;
 #elif SGE_LINUX_PLATFORM
 	void reset_viewport(const XEvent&);
 
-	x_display_ptr dsp;
-	boost::scoped_ptr<glx_visual> visual;
-	glx_context_ptr context;
-	boost::scoped_ptr<x_colormap> colormap;
-	x_window_ptr wnd;
-	boost::scoped_ptr<glx_current> current;
+	x_display_ptr                         dsp;
+	boost::scoped_ptr<glx_visual>         visual;
+	glx_context_ptr                       context;
+	boost::scoped_ptr<x_colormap>         colormap;
+	x_window_ptr                          wnd;
+	boost::scoped_ptr<glx_current>        current;
 	boost::scoped_ptr<xf86_vidmode_array> modes;
-	xf86_resolution_ptr resolution;
+	xf86_resolution_ptr                   resolution;
 #endif
 	render_target_ptr _render_target;
-	renderer_caps _caps;
+	renderer_caps     _caps;
 };
 
 }

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_XINPUT_INPUT_SYSTEM_HPP
 
 #include <map>
-#include <boost/signals/trackable.hpp>
+#include <boost/signals/connection.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 #include "../../input/input_system.hpp"
 #include "../../x_window.hpp"
 #include "../../math/vector.hpp"
@@ -39,7 +40,7 @@ namespace sge
 namespace xinput
 {
 
-class input_system : public sge::input_system, boost::signals::trackable {
+class input_system : public sge::input_system {
 public:
 	input_system(x_window_ptr wnd);
 	~input_system();
@@ -48,6 +49,7 @@ public:
 	void dispatch();
 	window_ptr get_window() const;
 private:
+	void add_connection(boost::signals::connection);
 	void grab();
 	void grab_pointer();
 	void grab_keyboard();
@@ -65,35 +67,37 @@ private:
 	void on_acquire(const XEvent&);
 	void on_release(const XEvent&);
 
-	signal_type sig;
-	repeat_signal_type repeat_sig;
-
 	key_code get_key_code(KeySym ks) const;
 	key_type::string get_key_name(KeySym ks) const;
 
 	x_window_ptr wnd;
 	Colormap colormap;
-	unsigned mmwidth;
-
-	mouse_pos mouse_last;
-
-	typedef std::map<unsigned, key_code> x11_to_sge_array;
-	x11_to_sge_array x11tosge;
 
 	x_color _black;
 	x_pixmap _no_bmp;
 	x_cursor _no_cursor;
+#ifdef USE_DGA
+	dga_guard _dga_guard;
+#endif
+	bool use_dga;
+	
+	boost::ptr_vector<boost::signals::scoped_connection> connections;
 
+	typedef std::map<unsigned, key_code> x11_to_sge_array;
+	x11_to_sge_array   x11tosge;
+
+	mouse_pos          mouse_last;
+
+	signal_type        sig;
+	repeat_signal_type repeat_sig;
+	
 	static const key_type mouse_x,
 	                      mouse_y,
 	                      undefined_mouse_key,
 	                      mouse_l,
 	                      mouse_r,
 	                      mouse_m;
-#ifdef USE_DGA
-	dga_guard _dga_guard;
-#endif
-	bool use_dga;
+
 };
 
 }

@@ -33,11 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/extensions/xf86dga.h>
 #endif
 #include <iostream>
+#include <ostream>
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
  : wnd(wnd),
    colormap(DefaultColormap(wnd->display()->get(), wnd->screen())),
-   mouse_last(),
    _black(wnd->display(), colormap),
    _no_bmp(wnd->display(), wnd->get_window()),
    _no_cursor(wnd->display(), _no_bmp.pixmap(), _black.color()),
@@ -61,17 +61,17 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 	if(!use_dga)
 		mouse_last = get_mouse_pos(wnd->display(), wnd);
 
-	wnd->register_callback(KeyPress, boost::bind(&input_system::on_key_event, this, _1));
-	wnd->register_callback(KeyRelease, boost::bind(&input_system::on_key_event, this, _1));
-	wnd->register_callback(ButtonPress, boost::bind(&input_system::on_button_event, this, _1));
-	wnd->register_callback(ButtonRelease, boost::bind(&input_system::on_button_event, this, _1));
-	wnd->register_callback(MotionNotify, boost::bind(&input_system::on_motion_event, this, _1));
-	wnd->register_callback(EnterNotify, boost::bind(&input_system::on_acquire, this, _1));
-	wnd->register_callback(LeaveNotify, boost::bind(&input_system::on_release, this, _1));
-	wnd->register_callback(FocusIn, boost::bind(&input_system::on_acquire, this, _1));
-	wnd->register_callback(FocusOut, boost::bind(&input_system::on_release, this, _1));
-	wnd->register_callback(MapNotify, boost::bind(&input_system::on_acquire, this, _1));
-	wnd->register_callback(UnmapNotify, boost::bind(&input_system::on_release, this, _1));
+	add_connection(wnd->register_callback(KeyPress, boost::bind(&input_system::on_key_event, this, _1)));
+	add_connection(wnd->register_callback(KeyRelease, boost::bind(&input_system::on_key_event, this, _1)));
+	add_connection(wnd->register_callback(ButtonPress, boost::bind(&input_system::on_button_event, this, _1)));
+	add_connection(wnd->register_callback(ButtonRelease, boost::bind(&input_system::on_button_event, this, _1)));
+	add_connection(wnd->register_callback(MotionNotify, boost::bind(&input_system::on_motion_event, this, _1)));
+	add_connection(wnd->register_callback(EnterNotify, boost::bind(&input_system::on_acquire, this, _1)));
+	add_connection(wnd->register_callback(LeaveNotify, boost::bind(&input_system::on_release, this, _1)));
+	add_connection(wnd->register_callback(FocusIn, boost::bind(&input_system::on_acquire, this, _1)));
+	add_connection(wnd->register_callback(FocusOut, boost::bind(&input_system::on_release, this, _1)));
+	add_connection(wnd->register_callback(MapNotify, boost::bind(&input_system::on_acquire, this, _1)));
+	add_connection(wnd->register_callback(UnmapNotify, boost::bind(&input_system::on_release, this, _1)));
 
 	x11tosge[NoSymbol] = kc::none;
 	x11tosge[XK_BackSpace] = kc::key_backspace;
@@ -505,6 +505,11 @@ void sge::xinput::input_system::dispatch()
 sge::window_ptr sge::xinput::input_system::get_window() const
 {
 	return wnd;
+}
+
+void sge::xinput::input_system::add_connection(const boost::signals::connection con)
+{
+	connections.push_back(new boost::signals::scoped_connection(con));
 }
 
 void sge::xinput::input_system::grab()
