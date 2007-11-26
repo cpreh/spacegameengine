@@ -22,11 +22,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCOPED_CONNECTION_HPP_INCLUDED
 
 #include <boost/signals/connection.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
+
+#include "callback_connection.hpp"
 
 namespace sge
 {
 
 typedef boost::signals::scoped_connection scoped_connection;
+
+class scoped_connection_manager {
+public:
+	typedef std::string key_type;
+
+	scoped_connection_manager() {}
+	~scoped_connection_manager() {}
+
+	scoped_connection_manager(const scoped_connection_manager &) {} // NOOP
+	scoped_connection_manager &operator=(const scoped_connection_manager &) { return *this; } // NOOP
+	void scoped_connect(key_type, sge::callback_connection);
+	void scoped_disconnect(const key_type &);
+
+private:
+	typedef boost::ptr_map<key_type, scoped_connection> connection_map;
+	connection_map cons;
+};
 
 }
 

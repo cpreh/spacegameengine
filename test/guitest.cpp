@@ -156,7 +156,6 @@ try
 	sge::systems sys;
 	sys.init<sge::init::core>();
 	sys.init<sge::init::renderer>(800, 600);
-	//sys.input_plugin = sys.plugin_manager.get_plugin<sge::input_system>().load();
 	sys.init<sge::init::input>();
 	sys.init<sge::init::image_loader>();
 
@@ -168,11 +167,7 @@ try
 	sge::renderer_ptr     rend = sys.renderer;
 	sge::image_loader_ptr pl   = sys.image_loader;
 
-	std::cout << is.get() << std::endl;
-	std::cout << rend.get() << std::endl;
-	std::cout << pl.get() << std::endl;
-
-	boost::signals::scoped_connection cb(is->register_callback(
+	boost::signals::scoped_connection escape_handler(sys.input_system->register_callback(
 		if_(bind(&sge::key_type::code, bind(&sge::key_pair::key, boost::lambda::_1)) == sge::kc::key_escape)
 			[var(running)=false])
 	);
