@@ -35,17 +35,18 @@
 :Config
 @call cmake -G %target% -D CMAKE_LIBRARYPATH=./project/win32/lib/ -D ENABLE_DEVIL:=1 -D ENABLE_TEST:=1 -D ENABLE_OPENGL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_OPENAL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TRUETYPE:=1 -D ENABLE_ZLIB:=1 -D ENABLE_D3D9:=1 .
 
+:Cleanup
+@call rd /S /Q projects\windows\lib32
+
 :Extract
 @call projects\windows\lib32.exe
 @goto Exit
 
 :Help
-@echo "Call 'win32_install [target|option]"
-@echo "Target can be:"
-@echo "  vc7 - Visual Studio 7 (.NET 2003)"
-@echo "  vc8 - Visual Studio 8 (.NET 2005)"
-@echo "Option can be:"
-@echo "  help - Displays this help."
-@echo ""
+@echo "win32_install [option]"
+@echo Option can be:
+@echo   vc7  - Visual Studio 7 (.NET 2003)
+@echo   vc8  - Visual Studio 8 (.NET 2005)
+@echo   help - Displays this help.
 
 :Exit
