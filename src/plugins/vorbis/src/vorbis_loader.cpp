@@ -35,7 +35,7 @@ bool sge::vorbis_loader::is_valid_file(const std::string &filename) const
 {
 	try { 
 		vorbis_file file(filename,16);
-	} catch (const audio_exception &e) {
+	} catch (const audio_exception &) {
 		return false;
 	}
 	return true;

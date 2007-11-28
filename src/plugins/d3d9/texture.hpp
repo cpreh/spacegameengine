@@ -56,8 +56,8 @@ public:
 	void set_data(const_pointer data);	
 	void set_data(const_pointer data, const lock_rect& r);
 	
-	void lock();
-	void lock(const lock_rect&);
+	void lock(lock_flag_t);
+	void lock(const lock_rect&, lock_flag_t);
 	void unlock();
 private:
 	void lock(const lock_rect* r);

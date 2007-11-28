@@ -11,6 +11,11 @@ IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex)
 ENDIF ()
 
+IF (${MSVC})
+	INCLUDE_DIRECTORIES (${WINLIBS}/libiconv/include)
+	LINK_DIRECTORIES (${WINLIBS}/libiconv/lib)
+ENDIF ()
+
 IF (${UNIX})
 	TARGET_LINK_LIBRARIES (sgecore X11 dl)
 ELSEIF (${WIN32})

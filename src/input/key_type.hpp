@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_KEY_TYPE_HPP_INCLUDED
 #define SGE_KEY_TYPE_HPP_INCLUDED
 
+#include "../export.hpp"
 #include "../string.hpp"
 
 namespace sge
@@ -238,13 +239,13 @@ public:
 	typedef sge::string        string;
 	typedef string::value_type char_type;
 
-	key_type(const string& name = string(), key_code code = kc::none, char_type char_code = 0);
+	SGE_SYMBOL key_type(const string& name = string(), key_code code = kc::none, char_type char_code = 0);
 
-	const string& name() const;
-	key_code code() const;
-	char_type char_code() const;
+	SGE_SYMBOL const string& name() const;
+	SGE_SYMBOL key_code code() const;
+	SGE_SYMBOL char_type char_code() const;
 
-	void char_code(char_type);
+	SGE_SYMBOL void char_code(char_type);
 private:
 	string    name_;
 	key_code  code_;
@@ -309,10 +310,10 @@ typedef int key_state;
 
 class key_pair {
 public:
-	key_pair(const key_type& key, key_state value);
+	SGE_SYMBOL key_pair(const key_type& key, key_state value);
 
-	const key_type& key() const;
-	key_state value() const;
+	SGE_SYMBOL const key_type& key() const;
+	SGE_SYMBOL key_state value() const;
 private:
 	key_type  key_;
 	key_state value_;

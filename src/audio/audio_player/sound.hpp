@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-struct sound
+class sound
 {
+public:
 	enum sound_status 
 	{ 
 		status_stopped,

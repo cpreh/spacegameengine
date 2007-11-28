@@ -7,6 +7,7 @@ IF (${CMAKE_COMPILER_IS_GNUCXX})
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic -Wall -Wextra -Wconversion -Wfloat-equal")
 ELSEIF (${MSVC})
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /wd4512 /wd4355 /wd4800 /wd4996")
+	SET (WINLIBS ${CMAKE_SOURCE_DIR}/projects/windows/lib32)
 ENDIF ()
 
 

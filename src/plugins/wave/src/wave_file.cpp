@@ -121,7 +121,7 @@ void sge::wave_file::reset()
 	assert(loaded_);
 
 	// Dateipointer resetten
-	file_.seekg(-samples_ * (bits_per_sample_/8) * channels_,std::ios_base::end);
+	file_.seekg(-static_cast<std::streamsize>(samples_) * (bits_per_sample_/8) * channels_,std::ios_base::end);
 	samples_read_ = 0;
 }
 

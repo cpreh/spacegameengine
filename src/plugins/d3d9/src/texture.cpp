@@ -54,12 +54,12 @@ void sge::d3d9::texture::do_loss()
 	tex.reset();
 }
 
-void sge::d3d9::texture::lock()
+void sge::d3d9::texture::lock(const lock_flag_t flags)
 {
 	lock(0);
 }
 
-void sge::d3d9::texture::lock(const lock_rect& r)
+void sge::d3d9::texture::lock(const lock_rect& r, const lock_flag_t flags)
 {
 	lock(&r);
 }

@@ -123,5 +123,4 @@ std::string sge::vorbis_file::ogg_error(int code)
 		default:
 			return "Unknown Ogg error";
 	}
-	return "This shouldn't happen!";
 }

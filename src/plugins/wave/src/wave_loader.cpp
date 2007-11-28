@@ -31,7 +31,7 @@ bool sge::wave_loader::is_valid_file(const std::string &filename) const
 {
 	try {
 		wave_file file(filename);
-	} catch (const audio_exception &e) {
+	} catch (const audio_exception &) {
 		return false;
 	}
 	return true;

@@ -114,7 +114,7 @@ void sge::d3d9::vertex_buffer::lock(const lock_flag_t lflags, const size_type fi
 	if(lock_dest)
 		throw exception("d3d::vertex_buffer::lock() you have to unlock first!");
 	void* p = 0;
-	const DWORD d3dlflags = convert_lock_flags(flags(),lflags);
+	const DWORD d3dlflags = convert_lock_flags(lflags, flags());
 	if(buffer->Lock(static_cast<UINT>(first * stride()), static_cast<UINT>(count * stride()), &p, d3dlflags) != D3D_OK)
 		throw exception("Cannot lock d3d vertex buffer!");
 	lock_dest = static_cast<pointer>(p);
@@ -132,7 +132,7 @@ void sge::d3d9::vertex_buffer::lock(const lock_flag_t lflags)
 
 void sge::d3d9::vertex_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
 {
-	scoped_lock<vertex_buffer*> _l(this, lock_flags::discard, first, count);
+	scoped_lock<vertex_buffer*> _l(this, lock_flags::writeonly, first, count);
 	std::copy(src + first*stride(), src + (first+count)*stride(), data());
 }
 

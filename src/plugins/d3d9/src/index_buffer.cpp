@@ -24,6 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../conversion.hpp"
 
+namespace
+{
+const sge::d3d9::index_buffer::size_type stride = sizeof(sge::d3d9::index_buffer::value_type);
+}
+
 sge::d3d9::index_buffer::index_buffer(renderer& r, const d3d_device_ptr device, const size_type sz, const resource_flag_t nflags, const const_pointer src)
 : resource(r, nflags & resource_flags::dynamic),
   device(device),
@@ -37,7 +42,7 @@ sge::d3d9::index_buffer::index_buffer(renderer& r, const d3d_device_ptr device, 
 
 void sge::d3d9::index_buffer::init(const const_pointer src)
 {
-	const D3DFORMAT format = D3DFMT_INDEX16;
+	const D3DFORMAT format = D3DFMT_INDEX32;
 	const DWORD usage = convert_cast<DWORD>(flags());
 	const D3DPOOL pool = convert_cast<D3DPOOL>(flags());
 
@@ -98,7 +103,7 @@ void sge::d3d9::index_buffer::lock(const lock_flag_t lflags, const size_type fir
 	if(lock_dest)
 		throw exception("d3d::index_buffer::lock() you have to unlock first!");
 	void* p = 0;
-	const DWORD d3dlflags = convert_lock_flags(flags(),lflags);
+	const DWORD d3dlflags = convert_lock_flags(lflags, flags());
 	if(buffer->Lock(static_cast<UINT>(first * stride), static_cast<UINT>(count * stride), &p, d3dlflags) != D3D_OK)
 		throw exception("cannot lock index buffer");
 	lock_dest = static_cast<pointer>(p);
@@ -139,7 +144,7 @@ void sge::d3d9::index_buffer::resize(const size_type newsize, const const_pointe
 
 void sge::d3d9::index_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
 {
-	scoped_lock<index_buffer*> _l(this, lock_flags::discard, first, count);
+	scoped_lock<index_buffer*> _l(this, lock_flags::writeonly, first, count);
 	std::copy(src + first, src + first+count, data());
 }
 

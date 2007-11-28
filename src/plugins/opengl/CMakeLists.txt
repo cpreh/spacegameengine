@@ -8,6 +8,8 @@ TARGET_LINK_LIBRARIES (sgeopengl sgecore GLEW)
 IF (${UNIX})
 	TARGET_LINK_LIBRARIES (sgeopengl GL X11 Xxf86vm)
 ELSEIF (${WIN32})
+	INCLUDE_DIRECTORIES (${WINLIBS}/glew/include)
+	LINK_DIRECTORIES (${WINLIBS}/glew/lib)
 	TARGET_LINK_LIBRARIES (sgeopengl opengl32)
 ENDIF ()
 

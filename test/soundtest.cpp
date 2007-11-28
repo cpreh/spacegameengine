@@ -8,6 +8,7 @@
 #include "../src/media.hpp"
 #include "../src/timer.hpp"
 #include "../src/math/constants.hpp"
+#include "../src/util.hpp"
 
 int main()
 try
@@ -49,10 +50,10 @@ try
 	soundright->positional(true);
 	soundleft->pos(sge::math::vector3(1,0,0));
 	soundleft->play(true);
-	sleep(1);
+	sge::sleep(1);
 	soundright->play(true);	
 
-	sleep(20);
+	sge::sleep(20);
 
 	/*
 	sge::timer frame_timer(1000);

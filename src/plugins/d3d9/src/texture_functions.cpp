@@ -51,7 +51,7 @@ sge::texture::pointer sge::d3d9::lock_texture(const d3d_texture_ptr tex,
                                               const lock_rect* const rect,
                                               const resource_flag_t rflags)
 {
-	const DWORD lflags = convert_lock_flags(rflags, lock_flags::discard);
+	const DWORD lflags = convert_lock_flags(lock_flags::writeonly, rflags);
 
 	D3DLOCKED_RECT lr;
 	if(tex->LockRect(0, &lr, reinterpret_cast<const RECT*>(rect), lflags) != D3D_OK) // FIXME: reinterpret_cast is wrong here and may not work
@@ -96,7 +96,7 @@ sge::volume_texture::pointer sge::d3d9::lock_volume_texture(const d3d_volume_tex
                                                             const lock_box* const box,
                                                             const resource_flag_t rflags)
 {
-	const DWORD lflags = convert_lock_flags(rflags, lock_flags::discard);
+	const DWORD lflags = convert_lock_flags(lock_flags::writeonly, rflags);
 
 	D3DLOCKED_BOX lb;
 	if(tex->LockBox(0, &lb, reinterpret_cast<const D3DBOX*>(box), lflags) != D3D_OK) // FIXME: reinterpret_cast is wrong here and may not work
