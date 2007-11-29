@@ -41,7 +41,7 @@
 
 :Extract
 @call projects\windows\bin\7z.exe x -oprojects\windows projects\windows\lib32.7z > projects\windows\lib32.log
-@echo -- Extern SDK installation done.
+@echo -- Library extraction done.
 
 @goto ExitMessage
 
@@ -54,6 +54,6 @@
 goto Exit
 
 :ExitMessage
-@echo -- All done.
+@echo -- Done.
 
 :Exit
