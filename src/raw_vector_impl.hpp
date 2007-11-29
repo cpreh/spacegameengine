@@ -181,8 +181,7 @@ sge::raw_vector<T, A>::raw_vector(const raw_vector& x)
 template<typename T, typename A>
 sge::raw_vector<T, A>::~raw_vector()
 {
-	if(first)
-		a.deallocate(first, capacity());
+	deallocate();
 }
 
 template<typename T, typename A>
@@ -289,7 +288,7 @@ void sge::raw_vector<T, A>::reserve(const size_type sz)
 
 	std::uninitialized_copy(begin(), end(), new_memory);
 
-	a.deallocate(first, capacity());
+	deallocate();
 	set_pointers(first, old_size, new_cap);
 }
 
@@ -319,7 +318,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const size_type n, c
 		std::uninitialized_copy(begin(), position, new_memory);
 		std::uninitialized_fill(new_memory, new_memory + insert_sz, x);
 		std::uninitialized_copy(position, end(), new_memory + insert_sz + n);
-		a.deallocate(first, capacity());
+		deallocate();
 		set_pointers(first, new_size, new_cap);
 	}
 	else
@@ -344,7 +343,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const In l, const In
 		std::uninitialized_copy(begin(), position, new_memory);
 		std::uninitialized_copy(l, r, new_memory + insert_sz);
 		std::uninitialized_copy(position, end(), new_memory + insert_sz + distance);
-		a.deallocate(first, capacity());
+		deallocate();
 		set_pointers(first, new_size, new_cap);
 	}
 	else
@@ -390,6 +389,13 @@ void sge::raw_vector<T, A>::set_pointers(const pointer src, const size_type sz, 
 	first = src;
 	last = first + sz;
 	cap = first + cap_;
+}
+
+template<typename T, typename A>
+void sge::raw_vector<T, A>::deallocate()
+{
+	if(first)
+		a.deallocate(first, capacity());
 }
 
 template <typename T, typename A>

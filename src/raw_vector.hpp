@@ -112,6 +112,7 @@ private:
 	void range_check(size_type n) const;
 	size_type new_capacity(size_type new_size) const;
 	void set_pointers(pointer src, size_type sz, size_type cap);
+	void deallocate();
 
 	A a;
 	pointer first,

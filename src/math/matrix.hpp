@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
-#include <boost/utility/enable_if.hpp>
 #include "../types.hpp"
 #include "../util.hpp"
 #include "../exception.hpp"
@@ -164,16 +163,16 @@ inline basic_matrix<T,N,M> operator* (const typename basic_matrix<T,N,M>::value_
 	return basic_matrix<T,N,M>(r) *= l;
 }
 
-template<typename T, std::size_t N1, std::size_t M1, std::size_t N2, std::size_t M2>
-inline typename boost::enable_if_c<N1==M2, basic_matrix<T,N1,M2> >::type operator* (const basic_matrix<T,N1,M1>& a, const basic_matrix<T,N2,M2>& b)
+template<typename T, std::size_t N, std::size_t M1, std::size_t M2>
+inline basic_matrix<T,N,N> operator* (const basic_matrix<T,M1,N>& a, const basic_matrix<T,N,M2>& b)
 {
-//	basic_matrix<T,N1,M2> ret(no_initialization_tag());
-	basic_matrix<T,N1,M2> ret = basic_matrix<T,N1,M2>(no_initialization_tag());
-	for(typename basic_matrix<T,N1,M1>::size_type i = 0; i < M1; ++i)
-		for(typename basic_matrix<T,N2,M2>::size_type j = 0; j < N2; ++j)
+	typedef basic_matrix<T,M1,M2> result_type;
+	result_type ret = result_type(no_initialization_tag());
+	for(typename basic_matrix<T,M1,N>::size_type i = 0; i < M1; ++i)
+		for(typename basic_matrix<T,N,M2>::size_type j = 0; j < M2; ++j)
 		{
-			typename basic_matrix<T,N1,M2>::value_type v(0);
-			for(typename basic_matrix<T,N1,M2>::size_type r = 0; r < N1; ++r)
+			typename result_type::value_type v(0);
+			for(typename result_type::size_type r = 0; r < N; ++r)
 				v += a[i][r] * b[r][j];
 			ret[i][j] = v;
 		}
@@ -333,13 +332,14 @@ inline space_matrix matrix_orthogonal_xy(const space_unit left, const space_unit
 	        0, 0, 0, 1);
 }
 
-template<typename T, std::size_t NV, std::size_t N, std::size_t M>
-inline typename boost::enable_if_c<NV==M, basic_vector<T,NV> >::type operator* (const basic_matrix<T,N,M>& m, const basic_vector<T,NV>& v)
+template<typename T, std::size_t N, std::size_t M>
+inline basic_vector<T,N> operator* (const basic_matrix<T,N,M>& m, const basic_vector<T,N>& v)
 {
-	basic_vector<T,NV> ret;
-	for(typename basic_vector<T,NV>::size_type i = 0; i < NV; ++i)
-		for(typename basic_matrix<T,N,M>::size_type j = 0; j < M; ++j)
-			ret[i] += v[j] * m[j][i];
+	typedef basic_vector<T,N> result_type;
+	result_type ret;
+	for(typename result_type::size_type i = 0; i < M; ++i)
+		for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
+			ret[j] += v[j] * m[j][i];
 	return ret;
 }
 
