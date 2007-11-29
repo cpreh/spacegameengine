@@ -48,8 +48,8 @@ void sge::gui::button::on_paint(const events::paint_event &pe) {
 	c.mix<mixing_policy::normal>(sge::colors::white, hover ? .25 : 0);
 	pe.dest.fill_rect(rect(pe.position, size()), c);
 
-	color c1 = pushed ? sge::colors::black : sge::colors::white;
-	color c2 = pushed ? sge::colors::white : sge::colors::black;
+	color c1 = (pushed && hover) ? sge::colors::black : sge::colors::white;
+	color c2 = (pushed && hover) ? sge::colors::white : sge::colors::black;
 	mixing_policy::normal mix;
 
 	c1.a = c2.a = color::MAX_VALUE / 2;
