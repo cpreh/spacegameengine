@@ -36,13 +36,13 @@
 @call cmake -G %target% -D CMAKE_LIBRARYPATH=./project/win32/lib/ -D ENABLE_DEVIL:=1 -D ENABLE_TEST:=1 -D ENABLE_OPENGL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_OPENAL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TRUETYPE:=1 -D ENABLE_ZLIB:=1 -D ENABLE_D3D9:=1 .
 
 :Cleanup
-@call rd /S /Q projects\windows\lib32
+@IF EXIST projects\windows\lib32 call rd /S /Q projects\windows\lib32
 @echo -- Cleanup done.
 
 :Extract
-@call projects\windows\bin\7z.exe x -oprojects\windows projects\windows\lib32.7z > projects\windows\lib32.log
+@call projects\windows\bin\7z.exe x -oprojects\windows projects\windows\lib32.7z > projects\windows\lib32_install.log
 @echo -- Library extraction done.
-
+@echo -- Log file has been written to: spacegameengine\projects\windows\lib32_install.log
 @goto ExitMessage
 
 :Help
@@ -54,6 +54,6 @@
 goto Exit
 
 :ExitMessage
-@echo -- Done.
+@echo -- All done.
 
 :Exit
