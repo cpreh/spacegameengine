@@ -204,7 +204,7 @@ int handler(Display* const d, XErrorEvent* const e)
 	return 0;
 }
 
-sge::window_pos sge::x_window::viewport_offset() const {
+sge::window::window_pos sge::x_window::viewport_offset() const {
 	return window_pos(0, 0);
 }
 
