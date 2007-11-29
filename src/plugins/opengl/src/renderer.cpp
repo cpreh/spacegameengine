@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (simon.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -477,7 +478,7 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 	{
 		_render_target.reset(new default_render_target(wnd));
 		_render_target->bind_me();
-		set_viewport(viewport(0,0,wnd->width(),wnd->height()));
+		set_viewport(viewport(wnd->viewport_offset()[0], wnd->viewport_offset()[1], wnd->width(), wnd->height()));
 		return;
 	}
 

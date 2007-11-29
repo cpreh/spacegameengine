@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (simon.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -68,8 +69,12 @@ public:
 	SGE_SYMBOL HWND hwnd() const;
 	SGE_SYMBOL boost::signals::connection register_callback(win32_event_type, win32_callback_type);
 	SGE_SYMBOL win32_callback_return_type execute_callback(win32_event_type msg, WPARAM wparam, LPARAM lparam);
+	SGE_SYMBOL window_pos viewport_offset() const;
 private:
 	string      _title;
+	struct {
+		unsigned r, l, t, b;
+	} decoration_size;
 	HWND        handle;
 	static bool wndclass_created;
 

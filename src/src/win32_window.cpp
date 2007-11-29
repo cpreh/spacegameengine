@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (simon.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -17,6 +18,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include <iostream>
 
 #include "../types.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
@@ -56,13 +58,23 @@ sge::win32_window::win32_window(const window_size sz, const string& title)
 		wndclass_created = true;
 	}
 
+	DWORD flags = (WS_VISIBLE | WS_OVERLAPPEDWINDOW);
+	RECT r = { 0, 0, 0, 0 };
+	if (!AdjustWindowRect(&r, flags, false))
+		throw exception("AdjustWindowRect() failed");
+
+	decoration_size.l = static_cast<unsigned>(-r.left);
+	decoration_size.r = static_cast<unsigned>(r.right);
+	decoration_size.t = static_cast<unsigned>(-r.top);
+	decoration_size.b = static_cast<unsigned>(r.bottom);
+
 	handle = CreateWindow(window_classname,
 		sge_str_to_win(_title).c_str(),
-		WS_VISIBLE | WS_OVERLAPPEDWINDOW,
+		flags,
 		0,
 		0,
-		sz.w(),
-		sz.h(),
+		decoration_size.l + decoration_size.r + sz.w(),
+		decoration_size.b + decoration_size.t + sz.h(),
 		0,
 		0,
 		instance,
@@ -78,7 +90,15 @@ sge::win32_window::~win32_window()
 
 void sge::win32_window::size(const window_size nsz)
 {
-	if(SetWindowPos(hwnd(),HWND_TOP,0,0,nsz.w(),nsz.h(),SWP_SHOWWINDOW) == 0)
+	if(SetWindowPos(
+		hwnd(),
+		HWND_TOP,
+		0,
+		0,
+		decoration_size.l + decoration_size.r + nsz.w(),
+		decoration_size.t + decoration_size.b + nsz.h(),
+		SWP_SHOWWINDOW
+	) == 0)
 		throw exception("SetWindowPos() failed");
 }
 
@@ -94,7 +114,18 @@ sge::win32_window::window_size sge::win32_window::size() const
 	RECT rect;
 	if(GetWindowRect(handle, &rect) == FALSE)
 		throw exception("GetWindowRect() failed");
-	return window_size(rect.right - rect.left, rect.bottom - rect.top);
+	return window_size(
+		rect.right - rect.left - decoration_size.l - decoration_size.r,
+		rect.bottom - rect.top - decoration_size.t + decoration_size.b
+	);
+}
+
+sge::win32_window::window_pos sge::win32_window::viewport_offset() const
+{
+	return window_pos(
+		0,
+		-2*decoration_size.b
+	);
 }
 
 const sge::string& sge::win32_window::title() const

@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (simon.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -180,7 +181,7 @@ void sge::window::dispatch()
 	for (x_window::instance_map::iterator b = sge::x_window::instances.begin(); b != e; ++b)
 	{
 		x_window& wnd = **b;
-		while(XCheckWindowEvent(wnd.dsp_(), wnd.get_window(), wnd.event_mask, &xev)) 
+		while(XCheckWindowEvent(wnd.dsp_(), wnd.get_window(), wnd.event_mask, &xev))
 		{
 			if(XFilterEvent(&xev, None))
 				continue;
@@ -201,6 +202,10 @@ int handler(Display* const d, XErrorEvent* const e)
 	XGetErrorText(d, e->error_code,buf.c_array(), buf.size());
 	std::cerr << "X Error: " << buf.data() << '\n';
 	return 0;
+}
+
+sge::window_pos sge::x_window::viewport_offset() const {
+	return window_pos(0, 0);
 }
 
 sge::x_window::instance_map sge::x_window::instances;

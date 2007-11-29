@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (simon.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -40,6 +41,7 @@ public:
 
 	virtual void title(const string& title) = 0;
 	virtual window_size size() const = 0;
+	virtual window_pos viewport_offset() const = 0;
 	SGE_SYMBOL size_type width() const;
 	SGE_SYMBOL size_type height() const;
 	virtual void size(window_size newsize) = 0;

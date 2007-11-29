@@ -290,7 +290,7 @@
 1194725618 d:\dev\sge\src\math\matrix_proxy.hpp
 	<cstddef>
 
-1192725762 d:\dev\sge\src\window.hpp
+1196377178 d:\dev\sge\src\window.hpp
 	"types.hpp"
 	"shared_ptr.hpp"
 	"math/dim.hpp"
@@ -1146,7 +1146,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1196367212 source:d:\dev\sge\test\guitest.cpp
+1196367419 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
