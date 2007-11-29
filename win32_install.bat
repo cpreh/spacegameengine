@@ -37,10 +37,13 @@
 
 :Cleanup
 @call rd /S /Q projects\windows\lib32
+@echo -- Cleanup done.
 
 :Extract
-@call projects\windows\lib32.exe
-@goto Exit
+@call projects\windows\bin\7z.exe x -oprojects\windows projects\windows\lib32.7z > projects\windows\lib32.log
+@echo -- Extern SDK installation done.
+
+@goto ExitMessage
 
 :Help
 @echo "win32_install [option]"
@@ -48,5 +51,9 @@
 @echo   vc7  - Visual Studio 7 (.NET 2003)
 @echo   vc8  - Visual Studio 8 (.NET 2005)
 @echo   help - Displays this help.
+goto Exit
+
+:ExitMessage
+@echo -- All done.
 
 :Exit
