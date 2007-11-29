@@ -414,7 +414,7 @@
 	<string>
 	"export.hpp"
 
-1196354268 d:\dev\sge\src\gui\manager.hpp
+1196358163 d:\dev\sge\src\gui\manager.hpp
 	"canvas.hpp"
 	"inputprocessor.hpp"
 	"widget.hpp"
@@ -451,7 +451,7 @@
 	"key_type.hpp"
 	"input_system.hpp"
 
-1194808391 d:\dev\sge\src\gui\types.hpp
+1196366815 d:\dev\sge\src\gui\types.hpp
 	"../math/utility.hpp"
 
 1194730408 d:\dev\sge\src\gui\cursor.hpp
@@ -468,12 +468,12 @@
 	"events.hpp"
 	"types.hpp"
 
-1196004202 d:\dev\sge\src\gui\events.hpp
+1196359318 d:\dev\sge\src\gui\events.hpp
 	<set>
 	"canvas.hpp"
 	"types.hpp"
 
-1196351041 d:\dev\sge\src\gui\button.hpp
+1196359361 d:\dev\sge\src\gui\button.hpp
 	"widget.hpp"
 	<boost/signal.hpp>
 
@@ -1146,7 +1146,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1196354096 source:d:\dev\sge\test\guitest.cpp
+1196367212 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1329,7 +1329,7 @@
 
 1192725749 d:\dev\sge\src\image\image_format.hpp
 
-1196353272 d:\dev\sge\src\gui\widget.hpp
+1196367259 d:\dev\sge\src\gui\widget.hpp
 	<list>
 	<string>
 	<boost/optional.hpp>

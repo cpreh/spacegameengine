@@ -53,6 +53,20 @@ inline sge::pos3 at_pixel(int x, int y) {
 	);
 }
 
+struct bbox : public sge::gui::widget {
+	bbox(sge::gui::widget *w) : sge::gui::widget(w) { resize(35,35); }
+
+	void on_paint(const sge::gui::events::paint_event &pe) {
+		using sge::gui::point;
+		pe.dest.draw_line(sge::gui::mixing_policy::normal(), pe.position+point(0         , 0         ), pe.position+point(size().w-1, 0         ), sge::colors::white);
+		pe.dest.draw_line(sge::gui::mixing_policy::normal(), pe.position+point(0         , 0         ), pe.position+point(0         , size().h-1), sge::colors::white);
+		pe.dest.draw_line(sge::gui::mixing_policy::normal(), pe.position+point(0         , 0         ), pe.position+point(size().w-1, size().h-1), sge::colors::white);
+		pe.dest.draw_line(sge::gui::mixing_policy::normal(), pe.position+point(size().w-1, 0         ), pe.position+point(size().w-1, size().h-1), sge::colors::white);
+		pe.dest.draw_line(sge::gui::mixing_policy::normal(), pe.position+point(0         , size().h-1), pe.position+point(size().w-1, size().h-1), sge::colors::white);
+		pe.dest.draw_line(sge::gui::mixing_policy::normal(), pe.position+point(size().w-1, 0         ), pe.position+point(0         , size().h-1), sge::colors::white);
+	}
+};
+
 struct myIA : public sge::gui::inputacceptor {
 	using sge::gui::inputacceptor::inputprocessor_attach;
 	using sge::gui::inputacceptor::inputprocessor_detach;
@@ -112,7 +126,12 @@ try
 	sge::gui::button b2(&guimgr, sge::colors::gold     , "B2"); b2.resize(40, 40); b2.move(380, 280); b2.show();
 	sge::gui::button b3(&guimgr, sge::colors::indianred, "B3"); b3.resize(40, 40); b3.move(440, 280); b3.show();
 
-	boost::signals::scoped_connection escape_handler_2(
+	bbox bbTL(&guimgr), bbTR(&guimgr), bbBL(&guimgr), bbBR(&guimgr);
+	bbTL.move(0,0); bbTR.move(765,0);
+	bbBL.move(0,565); bbBR.move(765,565);
+	bbTL.show(); bbBR.show();
+
+	b3.scoped_connect(
 		b3.clicked.connect(var(running)=false)
 	);
 

@@ -54,13 +54,13 @@ protected:
 private:
 	inline void sge_gui_widget_data_init() {
 		sge_gui_widget_data.parent  = 0;
-		sge_gui_widget_data.visible = false;
+		sge_gui_widget_data.visible = true;
 		change();
 	}
 
 public:
 	widget();
-	widget(widget *parent_, std::string name_);
+	widget(widget *parent_, std::string name_="");
 	virtual ~widget();
 
 	inline const std::string &name() { return sge_gui_widget_data.name; }
