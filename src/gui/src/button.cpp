@@ -61,6 +61,6 @@ void sge::gui::button::on_paint(const events::paint_event &pe) {
 	c1.a /= 2; c2.a /= 2;
 	pe.dest.draw_line(mix, pe.position+point(1,1), pe.position+point(1, size().h-2), c1);
 	pe.dest.draw_line(mix, pe.position+point(2,1), pe.position+point(size().w-2, 1), c1);
-	pe.dest.draw_line(mix, pe.position+point(size().w-2, size().h-2), pe.position+point(size().w-1, 2), c2);
-	pe.dest.draw_line(mix, pe.position+point(size().w-3, size().h-2), pe.position+point(2, size().h-1), c2);
+	pe.dest.draw_line(mix, pe.position+point(size().w-2, size().h-2), pe.position+point(size().w-2, 2), c2);
+	pe.dest.draw_line(mix, pe.position+point(size().w-3, size().h-2), pe.position+point(2, size().h-2), c2);
 }
