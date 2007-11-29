@@ -41,6 +41,8 @@ protected:
 	widget::event_return_type on_mouse_out (const events::mouse_event &);
 	widget::event_return_type on_mouse_up  (const events::mouse_event &);
 	widget::event_return_type on_mouse_down(const events::mouse_event &);
+	void on_focus(const events::focus_event &);
+	void on_blur (const events::focus_event &);
 	void on_paint(const events::paint_event &);
 };
 

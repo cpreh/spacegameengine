@@ -98,6 +98,16 @@ void sge::gui::widget::move(sge::gui::point newpos) {
 		parent()->on_child_geom(sge_gui_widget_child_event());
 }
 
+sge::gui::point sge::gui::widget::child_position(const widget *w) const {
+	return w->position();
+}
+
+sge::gui::point sge::gui::widget::global_position() const {
+	return parent()
+		? parent()->child_position(this) + parent()->global_position()
+		: point(0,0);
+}
+
 void sge::gui::widget::focus() { focus(this); }
 void sge::gui::widget::blur () { blur (this); }
 

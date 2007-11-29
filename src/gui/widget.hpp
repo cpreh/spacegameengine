@@ -83,9 +83,16 @@ public:
 	inline  void resize(unit w, unit h) { resize(dim2(w, h)); }
 	inline dim2  size() const { return sge_gui_widget_data.size; }
 
-	virtual void move(point);
-	inline  void move(unit x, unit y) { move(point(x, y)); }
-	inline point position() const { return sge_gui_widget_data.position; }
+	virtual void  move(point);
+	inline  void  move(unit x, unit y) { move(point(x, y)); }
+	inline point  position() const { return sge_gui_widget_data.position; }
+	virtual point child_position(const widget *) const;
+	point         global_position() const;
+	inline point  relative_position() const {
+		return parent()
+			? parent()->child_position(this)
+			: point(0,0);
+	}
 
 	void focus();
 	void blur();

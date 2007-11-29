@@ -27,3 +27,22 @@ void sge::gui::manager::resize(dim2 newsize) {
 	widget::resize(newsize);
 	framebuffer.resize(newsize, false);
 }
+
+void sge::gui::manager::focus(widget *w) {
+	if (w == this) w = 0; // don't allow focusing of manager widget
+	if (w == currently_focused_widget)
+		return;
+	events::focus_event fe;
+		fe.lostfocus = currently_focused_widget;
+		fe.gotfocus  = currently_focused_widget = w;
+
+	if (fe.lostfocus)
+		fe.lostfocus->on_blur(fe);
+	if (fe.gotfocus)
+		fe.gotfocus->on_focus(fe);
+}
+
+void sge::gui::manager::blur (widget *w) {
+	if (w == currently_focused_widget)
+		focus(0);
+}

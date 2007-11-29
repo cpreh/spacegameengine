@@ -40,8 +40,8 @@ struct child_event {
 // TODO: drag_drop_event
 
 struct focus_event {
-	widget *losefocus,
-	       *getfocus;
+	widget *lostfocus,
+	       *gotfocus;
 };
 
 struct keyboard_event {
@@ -66,6 +66,8 @@ struct mouse_event {
 	inline bool is_pressed(buttons btn) const {
 		return pressstate.find(btn) != pressstate.end();
 	}
+	bool is_focus_injection;
+	mouse_event() : pressed(NONE), is_focus_injection(false) {}
 };
 
 struct mouse_wheel_event : public mouse_event {

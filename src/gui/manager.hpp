@@ -65,6 +65,8 @@ public:
 
 protected:
 	canvas framebuffer;
+	void focus(widget*);
+	void blur (widget*);
 
 private:
 	sge::virtual_texture_ptr last_texture;

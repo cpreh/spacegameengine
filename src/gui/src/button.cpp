@@ -28,19 +28,33 @@ sge::gui::widget::event_return_type sge::gui::button::on_mouse_out (const events
 
 sge::gui::widget::event_return_type sge::gui::button::on_mouse_up  (const events::mouse_event &me) {
 	if (pushed && me.pressed == events::mouse_event::LEFT) {
-		clicked();
+		if (hover) {
+			clicked();
+			change();
+		}
 		pushed = false;
-		change();
 	}
 	return this;
 }
 
 sge::gui::widget::event_return_type sge::gui::button::on_mouse_down(const events::mouse_event &me) {
+	if (me.is_focus_injection) return this;
 	if (me.pressed == events::mouse_event::LEFT) {
+		focus();
 		pushed = true;
 		change();
 	}
 	return this;
+}
+
+// we want to allow focussing, therefore we have to override the autoblur of widget
+void sge::gui::button::on_focus(const events::focus_event &) {}
+
+void sge::gui::button::on_blur(const events::focus_event &) {
+	if (pushed) {
+		pushed = false;
+		change();
+	}
 }
 
 void sge::gui::button::on_paint(const events::paint_event &pe) {
