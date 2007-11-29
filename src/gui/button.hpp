@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "widget.hpp"
 
+#include <boost/signal.hpp>
+
 namespace sge {
 namespace gui {
 
@@ -30,8 +32,15 @@ class button : public widget {
 public:
 	button(widget *parent, color bg, std::string name="");
 
+	boost::signal<void()> clicked;
 protected:
 	color bg;
+	bool hover, pushed;
+	widget::event_return_type on_mouse_move(const events::mouse_event &);
+	widget::event_return_type on_mouse_over(const events::mouse_event &);
+	widget::event_return_type on_mouse_out (const events::mouse_event &);
+	widget::event_return_type on_mouse_up  (const events::mouse_event &);
+	widget::event_return_type on_mouse_down(const events::mouse_event &);
 	void on_paint(const events::paint_event &);
 };
 

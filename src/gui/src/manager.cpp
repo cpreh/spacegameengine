@@ -22,24 +22,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 
 sge::gui::manager::manager()
-: sge::gui::widget() {}
+: sge::gui::widget() { init(); }
 
-sge::gui::manager::manager(sge::gui::dim2 size)
+sge::gui::manager::manager(const sge::gui::dim2 &size)
 : sge::gui::widget() {
 	resize(size);
+	init();
+}
+
+sge::gui::manager::manager(inputprocessor &ip)
+: sge::gui::widget()
+, inputacceptor(ip) {
+	resize(ip.get_clipping().size());
+	move  (ip.get_clipping().position());
+	init();
+}
+
+sge::gui::manager::manager(inputprocessor &ip, const point &p, const dim2 &s)
+: sge::gui::widget()
+, inputacceptor(ip) {
+	resize(s);
+	move  (p);
+	init();
+}
+
+sge::gui::manager::manager(inputprocessor &ip, const rect &r)
+: sge::gui::widget()
+, inputacceptor(ip) {
+	resize(r.size());
+	move  (r.position());
+	init();
 }
 
 sge::gui::manager::~manager() {}
 
 sge::virtual_texture_ptr sge::gui::manager::to_texture(sge::texture_manager &texmgr) {
-	if (flags.changed) {
+	if ((!last_texture) || changed()) {
 		framebuffer.fill(sge::colors::transparent);
 		events::paint_event pe = { framebuffer, point(0,0) };
-		on_paint(pe);
+		paint(pe);
 		last_texture = framebuffer.to_texture(texmgr, last_texture);
 	}
 	return last_texture;
 }
 
-void sge::gui::manager::input_callback() {
+void sge::gui::manager::free_texture() {
+	last_texture = sge::virtual_texture_ptr();
+}
+
+void sge::gui::manager::widget_removed(sge::gui::widget *w) {
+	if (previously_hovered_widget == w)
+		previously_hovered_widget = 0;
+	if (currently_focused_widget == w)
+		currently_focused_widget = 0;
 }

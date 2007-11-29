@@ -414,9 +414,9 @@
 	<string>
 	"export.hpp"
 
-1193697107 d:\dev\sge\src\gui\manager.hpp
+1196354268 d:\dev\sge\src\gui\manager.hpp
 	"canvas.hpp"
-	"cursor.hpp"
+	"inputprocessor.hpp"
 	"widget.hpp"
 
 1194732210 d:\dev\sge\src\timer.hpp
@@ -473,8 +473,9 @@
 	"canvas.hpp"
 	"types.hpp"
 
-1192725758 d:\dev\sge\src\gui\button.hpp
+1196351041 d:\dev\sge\src\gui\button.hpp
 	"widget.hpp"
+	<boost/signal.hpp>
 
 1182956698 d:\dev\sge\src\gui\rectangle.hpp
 	"types.hpp"
@@ -1145,7 +1146,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1196079668 source:d:\dev\sge\test\guitest.cpp
+1196354096 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1275,7 +1276,7 @@
 	"mixing_policies.hpp"
 	"gradient_policies.hpp"
 
-1192725758 d:\dev\sge\src\gui\color.hpp
+1196351294 d:\dev\sge\src\gui\color.hpp
 	<boost/function.hpp>
 	"../renderer/color.hpp"
 	"mixing_policies.hpp"
@@ -1328,12 +1329,14 @@
 
 1192725749 d:\dev\sge\src\image\image_format.hpp
 
-1192725758 d:\dev\sge\src\gui\widget.hpp
+1196353272 d:\dev\sge\src\gui\widget.hpp
 	<list>
 	<string>
 	<boost/optional.hpp>
+	<boost/utility.hpp>
 	"events.hpp"
 	"../iconv.hpp"
+	"../scoped_connection.hpp"
 
 1192725751 d:\dev\sge\src\renderer\light.hpp
 	"color.hpp"
@@ -1606,8 +1609,10 @@
 	"events.hpp"
 	"types.hpp"
 
-1192725762 d:\dev\sge\src\scoped_connection.hpp
+1196100276 d:\dev\sge\src\scoped_connection.hpp
 	<boost/signals/connection.hpp>
+	<boost/ptr_container/ptr_map.hpp>
+	"callback_connection.hpp"
 
 1195910420 d:\dev\sge\src\stub.hpp
 	<iostream>

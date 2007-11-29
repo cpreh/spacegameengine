@@ -28,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge {
 namespace gui {
 
-namespace mixing_policy { class normal; }
-
 struct color {
 	typedef unsigned char channel_t;
 	static const channel_t MAX_VALUE = (1 << sge::color_bits_per_byte) - 1;
@@ -37,7 +35,7 @@ struct color {
 	typedef boost::function<color(const color &col1, const color &col2, float percentage)> gradient_policy_t;
 	channel_t r, g, b, a;
 
-	color() : r(0), g(0), b(0), a(255) {}
+	color() : r(0), g(0), b(0), a(MAX_VALUE) {}
 	color(channel_t r, channel_t g, channel_t b, channel_t a = MAX_VALUE)
 		: r(r), g(g), b(b), a(a) {}
 	color(const sge::color c) : r(sge::color_red(c)), g(sge::color_green(c)), b(sge::color_blue(c)), a(sge::color_alpha(c)) {}
@@ -52,7 +50,7 @@ struct color {
 
 	template <typename MixingPolicy> inline void mix(color other, float opacity) {
 		// TODO: Change: first mix, then change opacity
-		other.a = (MAX_VALUE * opacity) + .5;
+		other.a = static_cast<channel_t>((static_cast<float>(MAX_VALUE) * opacity) + .5);
 		mix<MixingPolicy>(other);
 	}
 

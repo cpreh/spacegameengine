@@ -25,61 +25,98 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 
 #include <boost/optional.hpp>
+#include <boost/utility.hpp>
 
 #include "events.hpp"
 #include "../iconv.hpp"
+#include "../scoped_connection.hpp"
 
 namespace sge {
 namespace gui {
 
 class manager;
 
-class widget {
-protected:
-	widget *parent_;
-	const std::string name_;
-	typedef std::list<widget*> child_widget_list;
-	child_widget_list children;
-	point position_;
-	dim2 size_;
-	virtual void reparent(widget *);
-	virtual void focus(widget*);
-	virtual void blur(widget*);
-public:
-	typedef boost::optional<widget*> event_return_type;
+class widget : public sge::scoped_connection_manager, boost::noncopyable {
+	friend class manager; // needed so manager can access "foreign" event handlers
 
-	widget(widget *parent_ = 0, std::string name_ = "");
+protected:
+	typedef std::list<widget*> child_widget_list;
+	events::child_event sge_gui_widget_child_event() const;
+	struct {
+		widget            *parent;
+		std::string        name;
+		child_widget_list  children;
+		point              position;
+		dim2               size;
+		bool               visible;
+		bool               changed;
+	} sge_gui_widget_data;
+private:
+	inline void sge_gui_widget_data_init() {
+		sge_gui_widget_data.parent  = 0;
+		sge_gui_widget_data.visible = false;
+		change();
+	}
+
+public:
+	widget();
+	widget(widget *parent_, std::string name_);
 	virtual ~widget();
 
-	virtual bool show(bool display);
-	inline bool show() { return show(true ); }
-	inline bool hide() { return show(false); }
+	inline const std::string &name() { return sge_gui_widget_data.name; }
 
-	virtual void focus();
-	virtual void blur();
+	void change();
+	inline bool changed() const { return sge_gui_widget_data.changed; }
 
-	virtual void move(point newpos);
-	inline point position() const { return position_; }
-	point global_position() const;
-	virtual void resize(dim2 newsize);
-	inline dim2 size() const { return size_; }
+	void        show(bool show);
+	inline void show()                { show(true); }
+	inline void hide()                { show(false); }
+	inline bool visible()       const { return sge_gui_widget_data.visible; }
 
-	inline void parent(widget *p) { reparent(p); parent_ = p; }
-	inline widget *parent() const { return parent_; }
-	virtual manager *top_level_widget() const;
-	inline const std::string &name() { return name_; }
+	virtual void          reparent(widget*);
+	inline       widget  *parent()                 { return sge_gui_widget_data.parent; }
+	inline const widget  *parent()           const { return sge_gui_widget_data.parent; }
+	virtual      manager *top_level_widget();
+	inline const manager *top_level_widget() const { return const_cast<widget&>(*this).top_level_widget(); }
+
+	virtual void resize(dim2);
+	inline  void resize(unit w, unit h) { resize(dim2(w, h)); }
+	inline dim2  size() const { return sge_gui_widget_data.size; }
+
+	virtual void move(point);
+	inline  void move(unit x, unit y) { move(point(x, y)); }
+	inline point position() const { return sge_gui_widget_data.position; }
+
+	void focus();
+	void blur();
 
 protected:
-	struct {
-		unsigned changed : 1;
-		unsigned shown   : 1;
-	} flags;
-
-	bool update();
-	void change();
+	virtual void focus(widget*);
+	virtual void blur (widget*);
 
 // events
 public:
+	typedef boost::optional<widget*> event_return_type;
+
+	// mouse events
+	virtual event_return_type invoke_mouse_move    (const events::mouse_event &);
+	virtual event_return_type invoke_mouse_click   (const events::mouse_event &);
+	virtual event_return_type invoke_mouse_dblclick(const events::mouse_event &);
+	virtual event_return_type invoke_mouse_down    (const events::mouse_event &);
+	virtual event_return_type invoke_mouse_up      (const events::mouse_event &);
+	virtual event_return_type invoke_mouse_wheel   (const events::mouse_wheel_event &);
+
+	// keyboard events
+	virtual event_return_type on_key_down (const events::keyboard_event &);
+	virtual event_return_type on_key_up   (const events::keyboard_event &);
+	virtual event_return_type on_key_press(const events::keyboard_event &);
+
+	// drag&drop events
+	//virtual event_return_type invoke_drag_over(const events::drag_drop_event &);
+	//virtual event_return_type invoke_drag_out (const events::drag_drop_event &);
+	//virtual event_return_type invoke_drag_drop(const events::drag_drop_event &);
+
+protected:
 	// mouse events
 	virtual event_return_type on_mouse_over    (const events::mouse_event &);
 	virtual event_return_type on_mouse_out     (const events::mouse_event &);
@@ -90,17 +127,11 @@ public:
 	virtual event_return_type on_mouse_up      (const events::mouse_event &);
 	virtual event_return_type on_mouse_wheel   (const events::mouse_wheel_event &);
 
-	// keyboard events
-	virtual event_return_type on_key_down (const events::keyboard_event &);
-	virtual event_return_type on_key_up   (const events::keyboard_event &);
-	virtual event_return_type on_key_press(const events::keyboard_event &);
-
 	// drag&drop events
 	//virtual event_return_type on_drag_over(const events::drag_drop_event &);
 	//virtual event_return_type on_drag_out (const events::drag_drop_event &);
 	//virtual event_return_type on_drag_drop(const events::drag_drop_event &);
 
-protected:
 	// focus events
 	virtual void on_focus(const events::focus_event &);
 	virtual void on_blur (const events::focus_event &);
@@ -117,7 +148,8 @@ protected:
 	virtual void on_parent_destroy(const events::parent_event &);
 
 	// paint events
-	virtual bool on_update();
+	void paint(const events::paint_event &);
+	virtual void on_update();
 	virtual void on_paint (const events::paint_event &);
 };
 

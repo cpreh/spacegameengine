@@ -22,34 +22,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
 #include "canvas.hpp"
-#include "cursor.hpp"
+#include "inputprocessor.hpp"
 #include "widget.hpp"
 
 namespace sge {
 namespace gui {
 
-class manager : public widget {
-	friend struct input_callback_functor;
+class manager : public widget, public inputacceptor {
+	friend class widget;
+
 public:
 	manager();
-	manager(sge::gui::dim2);
+	manager(const dim2 &);
+	manager(inputprocessor &);
+	manager(inputprocessor &, const point &, const dim2 &);
+	manager(inputprocessor &, const rect &);
 	~manager();
 
-	manager *top_level_widget() const;
-	void resize(dim2 newsize);
+	manager *top_level_widget();
+	void resize(dim2);
 
-	inline cursor_ptr cursor() const { return cursor_; }
-	void cursor(cursor_ptr);
+	sge::virtual_texture_ptr to_texture(sge::texture_manager &texmgr);
+	void free_texture();
+
+public:
+	// inputacceptor api
+	using inputacceptor::inputprocessor_attach;
+	using inputacceptor::inputprocessor_detach;
+
+	point inputprocessor_offset() const;
+
+	inputprocessor::response inject_mouse_move    (const events::mouse_event       &);
+	inputprocessor::response inject_mouse_click   (const events::mouse_event       &);
+	inputprocessor::response inject_mouse_dblclick(const events::mouse_event       &);
+	inputprocessor::response inject_mouse_down    (const events::mouse_event       &);
+	inputprocessor::response inject_mouse_up      (const events::mouse_event       &);
+	inputprocessor::response inject_mouse_wheel   (const events::mouse_wheel_event &);
+
+//	inputprocessor::response inject_key_down      (const events::keyboard_event    &);
+//	inputprocessor::response inject_key_up        (const events::keyboard_event    &);
+//	inputprocessor::response inject_key_press     (const events::keyboard_event    &);
 
 protected:
 	canvas framebuffer;
-	cursor_ptr cursor_;
+
+private:
 	sge::virtual_texture_ptr last_texture;
-
-	virtual void input_callback();
-
-public:
-	sge::virtual_texture_ptr to_texture(sge::texture_manager &texmgr);
+	void widget_removed(widget*);
+	widget *previously_hovered_widget,
+	       *currently_focused_widget;
+	inline void init() {
+		previously_hovered_widget = 0;
+		currently_focused_widget  = 0;
+		show();
+	}
 };
 
 }

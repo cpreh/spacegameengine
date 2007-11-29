@@ -21,11 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../manager.hpp"
 #include "../types.hpp"
 
-sge::gui::manager *sge::gui::manager::top_level_widget() const {
-	return const_cast<manager*>(this);
-}
+sge::gui::manager *sge::gui::manager::top_level_widget() { return this; }
 
-void sge::gui::manager::resize(sge::gui::dim2 newsize) {
+void sge::gui::manager::resize(dim2 newsize) {
 	widget::resize(newsize);
 	framebuffer.resize(newsize, false);
 }
