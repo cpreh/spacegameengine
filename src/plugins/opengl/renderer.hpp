@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../types.hpp"
 #include "../../renderer/renderer.hpp"
 #include "../../window.hpp"
+#include "../../scoped_connection.hpp"
 #include "common.hpp"
 #include "render_target.hpp"
 #include "fbo_render_target.hpp"
@@ -147,6 +148,7 @@ private:
 	void reset_viewport(const XEvent&);
 
 	x_display_ptr                         dsp;
+	scoped_connection                     map_callback;
 	boost::scoped_ptr<glx_visual>         visual;
 	glx_context_ptr                       context;
 	boost::scoped_ptr<x_colormap>         colormap;
@@ -154,6 +156,7 @@ private:
 	boost::scoped_ptr<glx_current>        current;
 	boost::scoped_ptr<xf86_vidmode_array> modes;
 	xf86_resolution_ptr                   resolution;
+	scoped_connection_manager             con_manager;
 #endif
 	render_target_ptr _render_target;
 	renderer_caps     _caps;

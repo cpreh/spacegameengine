@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../renderer/primitive.hpp"
 #include "../../../renderer/renderer_system.hpp"
 #include "../../../renderer/types.hpp"
+#include "../../../renderer/viewport.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
@@ -166,8 +167,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 
 	current.reset(new glx_current(dsp, *wnd, context));
 
-	wnd->register_callback(ResizeRequest, boost::bind(&renderer::reset_viewport, this, _1));
-
+ 	con_manager.scoped_connect(wnd->register_callback(MapNotify, boost::bind(&renderer::reset_viewport, this, _1)));
+	
 	XSync(dsp->get(),False);
 #endif
 	if(glewInit() != GLEW_OK)
@@ -449,10 +450,9 @@ void sge::ogl::renderer::set_viewport(const viewport& v)
 }
 
 #ifdef SGE_LINUX_PLATFORM
-void sge::ogl::renderer::reset_viewport(const XEvent& ev)
+void sge::ogl::renderer::reset_viewport(const XEvent&)
 {
-	const XResizeRequestEvent& resizeev = reinterpret_cast<const XResizeRequestEvent&>(ev);
-	set_viewport(viewport(0, 0, resizeev.width, resizeev.height));
+	set_viewport(viewport(0, 0, wnd->width(), wnd->height()));
 }
 #endif
 
@@ -478,7 +478,8 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 	{
 		_render_target.reset(new default_render_target(wnd));
 		_render_target->bind_me();
-		set_viewport(viewport(wnd->viewport_offset()[0], wnd->viewport_offset()[1], wnd->width(), wnd->height()));
+		const window::window_pos offset = wnd->viewport_offset();
+		set_viewport(viewport(offset.x(), offset.y(), wnd->width(), wnd->height()));
 		return;
 	}
 

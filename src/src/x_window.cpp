@@ -107,7 +107,7 @@ sge::x_window::window_size sge::x_window::size() const
 	         depth_return;
 
 	XGetGeometry(dsp_(), get_window(), &root_return, &x_return, &y_return, &width_return, &height_return, &border_width_return, &depth_return);
-	return window_size(width_return,height_return);
+	return window_size(width_return, height_return);
 }
 
 bool sge::x_window::fullscreen() const
@@ -205,7 +205,7 @@ int handler(Display* const d, XErrorEvent* const e)
 }
 
 sge::window::window_pos sge::x_window::viewport_offset() const {
-	return window_pos(0, 0);
+	return window_pos(0,0);
 }
 
 sge::x_window::instance_map sge::x_window::instances;

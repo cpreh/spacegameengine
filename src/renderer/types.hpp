@@ -162,14 +162,6 @@ const filter_args linear_filter(min_filter::linear, mag_filter::linear),
 
 typedef std::size_t stage_type;
 
-struct viewport {
-	screen_unit x, y, w, h;
-
-	viewport(const screen_unit x, const screen_unit y, const screen_unit w, const screen_unit h)
-	 : x(x), y(y), w(w), h(h)
-	{}
-};
-
 struct material {
 	material(const color4 diffuse = color4(), const color4 ambient = color4(),
 	         const color4 specular = color4(), const color4 emissive = color4(),
