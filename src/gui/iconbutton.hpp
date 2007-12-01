@@ -18,37 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GUI_BUTTON_HPP_INCLUDED
-#define SGE_GUI_BUTTON_HPP_INCLUDED
+#ifndef SGE_GUI_ICONBUTTON_HPP_INCLUDED
+#define SGE_GUI_ICONBUTTON_HPP_INCLUDED
 
-#include "widget.hpp"
-
-#include <boost/signal.hpp>
+#include "button.hpp"
 
 namespace sge {
 namespace gui {
 
-class button : public widget {
+class iconbutton : public button {
 public:
-	button(widget *parent, std::string name="");
+	iconbutton(widget *parent=0, std::string name="");
+	iconbutton(widget *parent, skin::stock_icon::type, std::string name="");
+	inline skin::stock_icon::type icon() const { return stockicon; }
+	void icon(skin::stock_icon::type);
 
-	boost::signal<void()> clicked;
 protected:
-	void perform_resize(dim2);
-	canvas framebuffer;
-	bool hover, pushed;
-	widget::event_return_type on_mouse_move(const events::mouse_event &);
-	widget::event_return_type on_mouse_over(const events::mouse_event &);
-	widget::event_return_type on_mouse_out (const events::mouse_event &);
-	widget::event_return_type on_mouse_up  (const events::mouse_event &);
-	widget::event_return_type on_mouse_down(const events::mouse_event &);
-	void on_focus (const events::focus_event &);
-	void on_blur  (const events::focus_event &);
+	skin::stock_icon::type stockicon;
 	void on_update();
-	void on_paint (const events::paint_event &);
 };
 
 }
 }
 
-#endif // SGE_GUI_BUTTON_HPP_INCLUDED
+#endif // SGE_GUI_ICONBUTTON_HPP_INCLUDED

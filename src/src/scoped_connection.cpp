@@ -21,22 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../scoped_connection.hpp"
 
-void sge::scoped_connection_manager::scoped_connect(key_type k, sge::callback_connection v) {
-	scoped_disconnect(k);
-	cons.insert(k, new sge::scoped_connection(v));
-}
-
 sge::scoped_connection_manager::key_type sge::scoped_connection_manager::scoped_connect(sge::callback_connection v) {
-	key_type k;
-	{ std::stringstream ss;
-		ss << char(0) << anonymous_connections++;
-		k = ss.str();
-	}
-	scoped_connect(k, v);
-	return k;
+	while (cons.find(++anonymous_connections) != cons.end());
+	cons.insert(anonymous_connections, new sge::scoped_connection(v));
+	return anonymous_connections;
 }
 
-void sge::scoped_connection_manager::scoped_disconnect(const key_type &k) {
+void sge::scoped_connection_manager::scoped_disconnect(const key_type k) {
 	cons.erase(k);
 }
 

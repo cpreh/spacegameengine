@@ -18,37 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GUI_BUTTON_HPP_INCLUDED
-#define SGE_GUI_BUTTON_HPP_INCLUDED
+#ifndef SGE_GUI_DEFAULTSKIN_HPP_INCLUDED
+#define SGE_GUI_DEFAULTSKIN_HPP_INCLUDED
 
-#include "widget.hpp"
-
-#include <boost/signal.hpp>
+#include "skin.hpp"
 
 namespace sge {
 namespace gui {
 
-class button : public widget {
-public:
-	button(widget *parent, std::string name="");
-
-	boost::signal<void()> clicked;
+struct defaultskin : public skin {
 protected:
-	void perform_resize(dim2);
-	canvas framebuffer;
-	bool hover, pushed;
-	widget::event_return_type on_mouse_move(const events::mouse_event &);
-	widget::event_return_type on_mouse_over(const events::mouse_event &);
-	widget::event_return_type on_mouse_out (const events::mouse_event &);
-	widget::event_return_type on_mouse_up  (const events::mouse_event &);
-	widget::event_return_type on_mouse_down(const events::mouse_event &);
-	void on_focus (const events::focus_event &);
-	void on_blur  (const events::focus_event &);
-	void on_update();
-	void on_paint (const events::paint_event &);
+	defaultskin();
+
+public:
+	~defaultskin();
+
+	rect adjust_to_border(widget*, border_style::type, rect) const;
+	void draw_border     (widget*, border_style::type,      focus_modifier::type, rect, canvas &) const;
+	void draw_background (widget*, border_style::type,      focus_modifier::type, rect, canvas &) const;
+	void draw_icon       (widget*, stock_icon::type,       focus_modifier::type, rect, canvas &) const;
+	dim2 icon_size       () const;
+
+public:
+	static skin_ptr get();
+	static const unsigned icons[][11];
 };
 
 }
 }
 
-#endif // SGE_GUI_BUTTON_HPP_INCLUDED
+#endif // SGE_GUI_DEFAULTSKIN_HPP_INCLUDED

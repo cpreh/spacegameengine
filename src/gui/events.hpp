@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <set>
 
 #include "canvas.hpp"
+#include "skin.hpp"
 #include "types.hpp"
 
 namespace sge {
@@ -87,6 +88,10 @@ struct paint_event {
 
 struct parent_event {
 	widget *parent;
+};
+
+struct skin_event {
+	skin_ptr skin;
 };
 
 }

@@ -199,6 +199,7 @@
 		<Unit filename="..\..\..\src\src\media.cpp" />
 		<Unit filename="..\..\..\src\src\plugin.cpp" />
 		<Unit filename="..\..\..\src\src\plugin_manager.cpp" />
+		<Unit filename="..\..\..\src\src\scoped_connection.cpp" />
 		<Unit filename="..\..\..\src\src\time.cpp" />
 		<Unit filename="..\..\..\src\src\timer.cpp" />
 		<Unit filename="..\..\..\src\src\util.cpp" />

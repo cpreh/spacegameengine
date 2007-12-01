@@ -19,8 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../button.hpp"
 
-sge::gui::button::button(widget *parent, color bg, std::string name)
-: widget(parent, name), bg(bg), hover(false), pushed(false) {}
+sge::gui::button::button(widget *parent, std::string name)
+: widget(parent, name), hover(false), pushed(false) {}
+
+void sge::gui::button::perform_resize(dim2 newsize) {
+	framebuffer.resize(newsize, false);
+	widget::perform_resize(newsize);
+}
 
 sge::gui::widget::event_return_type sge::gui::button::on_mouse_move(const events::mouse_event &) { return this; }
 sge::gui::widget::event_return_type sge::gui::button::on_mouse_over(const events::mouse_event &) { hover = true ; change(); return this; }
@@ -58,23 +63,33 @@ void sge::gui::button::on_blur(const events::focus_event &) {
 }
 
 void sge::gui::button::on_paint(const events::paint_event &pe) {
-	color c = bg;
-	c.mix<mixing_policy::normal>(sge::colors::white, hover ? .25 : 0);
-	pe.dest.fill_rect(rect(pe.position, size()), c);
+	pe.dest.blit<mixing_policy::normal>(framebuffer, rect(point(0,0), size()), pe.position);
+}
 
-	color c1 = (pushed && hover) ? sge::colors::black : sge::colors::white;
-	color c2 = (pushed && hover) ? sge::colors::white : sge::colors::black;
-	mixing_policy::normal mix;
+void sge::gui::button::on_update() {
+	skin_ptr sty = drawskin();
 
-	c1.a = c2.a = color::MAX_VALUE / 2;
-	pe.dest.draw_line(mix, pe.position+point(0,0), pe.position+point(0, size().h-1), c1);
-	pe.dest.draw_line(mix, pe.position+point(1,0), pe.position+point(size().w-1, 0), c1);
-	pe.dest.draw_line(mix, pe.position+point(size().w-1, size().h-1), pe.position+point(size().w-1, 1), c2);
-	pe.dest.draw_line(mix, pe.position+point(size().w-2, size().h-1), pe.position+point(1, size().h-1), c2);
+	sty->draw_background(
+		this,
+		skin::border_style::button,
+		hover
+			? pushed
+				? skin::focus_modifier::hover_active
+				: skin::focus_modifier::hover
+			: skin::focus_modifier::none,
+		rect(point(0,0), size()),
+		framebuffer
+	);
 
-	c1.a /= 2; c2.a /= 2;
-	pe.dest.draw_line(mix, pe.position+point(1,1), pe.position+point(1, size().h-2), c1);
-	pe.dest.draw_line(mix, pe.position+point(2,1), pe.position+point(size().w-2, 1), c1);
-	pe.dest.draw_line(mix, pe.position+point(size().w-2, size().h-2), pe.position+point(size().w-2, 2), c2);
-	pe.dest.draw_line(mix, pe.position+point(size().w-3, size().h-2), pe.position+point(2, size().h-2), c2);
+	sty->draw_border(
+		this,
+		skin::border_style::button,
+		hover
+			? pushed
+				? skin::focus_modifier::hover_active
+				: skin::focus_modifier::hover
+			: skin::focus_modifier::none,
+		rect(point(0,0), size()),
+		framebuffer
+	);
 }

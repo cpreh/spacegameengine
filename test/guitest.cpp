@@ -42,7 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../src/gui/color.hpp"
 #include "../src/gui/manager.hpp"
+#include "../src/gui/defaultskin.hpp"
 #include "../src/gui/button.hpp"
+#include "../src/gui/iconbutton.hpp"
 #include "../src/gui/inputprocessor.hpp"
 
 inline sge::pos3 at_pixel(int x, int y) {
@@ -122,9 +124,11 @@ try
 	sge::key_state_tracker ks(is);
 	sge::gui::inputprocessor ip(is);
 	sge::gui::manager guimgr(ip);
-	sge::gui::button b1(&guimgr, sge::colors::green    , "B1"); b1.resize(40, 40); b1.move(320, 280); b1.show();
-	sge::gui::button b2(&guimgr, sge::colors::gold     , "B2"); b2.resize(40, 40); b2.move(380, 280); b2.show();
-	sge::gui::button b3(&guimgr, sge::colors::indianred, "B3"); b3.resize(40, 40); b3.move(440, 280); b3.show();
+	sge::gui::button b1(&guimgr, "B1"); b1.resize(40, 40); b1.move(320, 280);
+	sge::gui::button b2(&guimgr, "B2"); b2.resize(40, 40); b2.move(380, 280);
+	sge::gui::iconbutton b3(&guimgr, sge::gui::skin::stock_icon::close, "B3"); b3.move(440, 280);
+		b3.background_color(sge::gui::color(0xb2,0x22,0x22,255));
+		b3.foreground_color(static_cast<sge::gui::color>(sge::colors::papayawhip));
 
 	bbox bbTL(&guimgr), bbTR(&guimgr), bbBL(&guimgr), bbBR(&guimgr);
 	bbTL.move(0,0); bbTR.move(765,0);

@@ -414,7 +414,7 @@
 	<string>
 	"export.hpp"
 
-1196358163 d:\dev\sge\src\gui\manager.hpp
+1196546584 d:\dev\sge\src\gui\manager.hpp
 	"canvas.hpp"
 	"inputprocessor.hpp"
 	"widget.hpp"
@@ -468,12 +468,13 @@
 	"events.hpp"
 	"types.hpp"
 
-1196359318 d:\dev\sge\src\gui\events.hpp
+1196533203 d:\dev\sge\src\gui\events.hpp
 	<set>
 	"canvas.hpp"
+	"skin.hpp"
 	"types.hpp"
 
-1196359361 d:\dev\sge\src\gui\button.hpp
+1196546758 d:\dev\sge\src\gui\button.hpp
 	"widget.hpp"
 	<boost/signal.hpp>
 
@@ -1146,7 +1147,7 @@
 	<boost/array.hpp>
 	"../math/vector.hpp"
 
-1196367419 source:d:\dev\sge\test\guitest.cpp
+1196549647 source:d:\dev\sge\test\guitest.cpp
 	<ctime>
 	<cstdlib>
 	<string>
@@ -1168,7 +1169,9 @@
 	"../src/texture/no_fragmented_texture.hpp"
 	"../src/gui/color.hpp"
 	"../src/gui/manager.hpp"
+	"../src/gui/defaultskin.hpp"
 	"../src/gui/button.hpp"
+	"../src/gui/iconbutton.hpp"
 	"../src/gui/inputprocessor.hpp"
 
 1185928676 d:\dev\sge\src\old_gui\manager.hpp
@@ -1329,14 +1332,14 @@
 
 1192725749 d:\dev\sge\src\image\image_format.hpp
 
-1196367259 d:\dev\sge\src\gui\widget.hpp
+1196546928 d:\dev\sge\src\gui\widget.hpp
 	<list>
 	<string>
 	<boost/optional.hpp>
 	<boost/utility.hpp>
-	"events.hpp"
 	"../iconv.hpp"
 	"../scoped_connection.hpp"
+	"events.hpp"
 
 1192725751 d:\dev\sge\src\renderer\light.hpp
 	"color.hpp"
@@ -1609,7 +1612,7 @@
 	"events.hpp"
 	"types.hpp"
 
-1196100276 d:\dev\sge\src\scoped_connection.hpp
+1196543235 d:\dev\sge\src\scoped_connection.hpp
 	<boost/signals/connection.hpp>
 	<boost/ptr_container/ptr_map.hpp>
 	"callback_connection.hpp"
@@ -1618,7 +1621,7 @@
 	<iostream>
 	<iostream>
 
-1196079796 d:\dev\sge\src\init.hpp
+1196381586 d:\dev\sge\src\init.hpp
 	"systems.hpp"
 
 1196077783 d:\dev\sge\src\systems.hpp
@@ -1628,4 +1631,14 @@
 	"renderer/renderer_system.hpp"
 	"input/input_system.hpp"
 	"image/image_loader.hpp"
+
+1196546406 d:\dev\sge\src\gui\skin.hpp
+	<boost/shared_ptr.hpp>
+	"types.hpp"
+
+1196546511 d:\dev\sge\src\gui\iconbutton.hpp
+	"button.hpp"
+
+1196546392 d:\dev\sge\src\gui\defaultskin.hpp
+	"skin.hpp"
 

@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/optional.hpp>
 #include <boost/utility.hpp>
 
-#include "events.hpp"
 #include "../iconv.hpp"
 #include "../scoped_connection.hpp"
+#include "events.hpp"
 
 namespace sge {
 namespace gui {
@@ -43,14 +43,17 @@ protected:
 	typedef std::list<widget*> child_widget_list;
 	events::child_event sge_gui_widget_child_event() const;
 	struct {
-		widget            *parent;
-		std::string        name;
-		child_widget_list  children;
-		point              position;
-		dim2               size;
-		bool               visible;
-		bool               changed;
+		widget                *parent;
+		std::string            name;
+		child_widget_list      children;
+		point                  position;
+		dim2                   size;
+		bool                   visible;
+		bool                   changed;
+		boost::optional<color> fgcol, bgcol;
+		skin_ptr               skin;
 	} sge_gui_widget_data;
+
 private:
 	inline void sge_gui_widget_data_init() {
 		sge_gui_widget_data.parent  = 0;
@@ -79,13 +82,13 @@ public:
 	virtual      manager *top_level_widget();
 	inline const manager *top_level_widget() const { return const_cast<widget&>(*this).top_level_widget(); }
 
-	virtual void resize(dim2);
-	inline  void resize(unit w, unit h) { resize(dim2(w, h)); }
-	inline dim2  size() const { return sge_gui_widget_data.size; }
+	inline void resize(dim2 d) { perform_resize(d); }
+	inline void resize(unit w, unit h) { resize(dim2(w, h)); }
+	inline dim2 size() const { return sge_gui_widget_data.size; }
 
-	virtual void  move(point);
+	inline  void  move(point p) { perform_move(p); }
 	inline  void  move(unit x, unit y) { move(point(x, y)); }
-	inline point  position() const { return sge_gui_widget_data.position; }
+	inline  point position() const { return sge_gui_widget_data.position; }
 	virtual point child_position(const widget *) const;
 	point         global_position() const;
 	inline point  relative_position() const {
@@ -97,7 +100,18 @@ public:
 	void focus();
 	void blur();
 
+	inline boost::optional<color> background_color() const { return sge_gui_widget_data.bgcol; }
+	inline void background_color(boost::optional<color> newcol) { if (sge_gui_widget_data.bgcol != newcol) { sge_gui_widget_data.bgcol = newcol; change(); } }
+	inline boost::optional<color> foreground_color() const { return sge_gui_widget_data.fgcol; }
+	inline void foreground_color(boost::optional<color> newcol) { if (sge_gui_widget_data.fgcol != newcol) { sge_gui_widget_data.fgcol = newcol; change(); } }
+
+	inline skin_ptr skin() const { return sge_gui_widget_data.skin; }
+	void skin(skin_ptr newskin);
+	skin_ptr drawskin() const;
+
 protected:
+	virtual void perform_resize(dim2);
+	virtual void perform_move(point);
 	virtual void focus(widget*);
 	virtual void blur (widget*);
 
@@ -153,11 +167,17 @@ protected:
 
 	// parent events
 	virtual void on_parent_destroy(const events::parent_event &);
+	virtual void on_parent_skin_change(const events::skin_event &);
 
 	// paint events
 	void paint(const events::paint_event &);
 	virtual void on_update();
 	virtual void on_paint (const events::paint_event &);
+
+
+// statics
+	public:
+	static const boost::optional<color> default_color;
 };
 
 }

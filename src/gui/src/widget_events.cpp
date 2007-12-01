@@ -78,7 +78,12 @@ void sge::gui::widget::on_child_hide  (const events::child_event &ce) { if (visi
 void sge::gui::widget::on_child_change(const events::child_event &ce) { if (visible() && ce.child->visible()) change(); }
 void sge::gui::widget::on_child_geom  (const events::child_event &ce) { if (visible() && ce.child->visible()) change(); }
 
-void sge::gui::widget::on_parent_destroy(const events::parent_event &) { reparent(0); }
+void sge::gui::widget::on_parent_destroy    (const events::parent_event &) { reparent(0); }
+void sge::gui::widget::on_parent_skin_change(const events::skin_event &se) {
+	if (skin()) return;
+	for (child_widget_list::iterator b=sge_gui_widget_data.children.begin(), e=sge_gui_widget_data.children.end(); b != e; ++b)
+		(*b)->on_parent_skin_change(se);
+}
 
 void sge::gui::widget::on_update() {}
 void sge::gui::widget::on_paint(const events::paint_event &pe) {

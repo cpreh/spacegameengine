@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include "../widget.hpp"
+
+#include "../defaultskin.hpp"
 #include "../manager.hpp"
 
 sge::gui::events::child_event sge::gui::widget::sge_gui_widget_child_event() const {
@@ -84,14 +86,14 @@ sge::gui::manager *sge::gui::widget::top_level_widget() {
 		: 0;
 }
 
-void sge::gui::widget::resize(sge::gui::dim2 newsize) {
+void sge::gui::widget::perform_resize(sge::gui::dim2 newsize) {
 	if (sge_gui_widget_data.size == newsize) return;
 	sge_gui_widget_data.size = newsize;
 	if (parent())
 		parent()->on_child_geom(sge_gui_widget_child_event());
 }
 
-void sge::gui::widget::move(sge::gui::point newpos) {
+void sge::gui::widget::perform_move(sge::gui::point newpos) {
 	if (sge_gui_widget_data.position == newpos) return;
 	sge_gui_widget_data.position = newpos;
 	if (parent())
@@ -121,3 +123,32 @@ void sge::gui::widget::paint(const events::paint_event &pe) {
 	}
 	on_paint(pe);
 }
+
+void sge::gui::widget::skin(skin_ptr newskin) {
+	if (sge_gui_widget_data.skin != newskin) {
+		if ((newskin && newskin != drawskin()) ||
+		    ((parent() && !newskin) && newskin != parent()->drawskin())) {
+			events::skin_event se;
+				se.skin = newskin;
+			for (child_widget_list::iterator b=sge_gui_widget_data.children.begin(), e=sge_gui_widget_data.children.end(); b != e; ++b)
+				(*b)->on_parent_skin_change(se);
+			change();
+		}
+		sge_gui_widget_data.skin = newskin;
+	}
+}
+
+sge::gui::skin_ptr sge::gui::widget::drawskin() const {
+	return skin()
+		? skin()
+		: parent()
+			? parent()->drawskin()
+			: defaultskin::get();
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// statics
+
+const boost::optional<sge::gui::color> sge::gui::widget::default_color;

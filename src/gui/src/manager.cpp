@@ -19,7 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../manager.hpp"
+
+#include "../defaultskin.hpp"
 #include "../types.hpp"
+
+void sge::gui::manager::init() {
+	skin(defaultskin::get());
+	previously_hovered_widget = 0;
+	currently_focused_widget  = 0;
+	show();
+}
 
 sge::gui::manager::manager()
 : sge::gui::widget() { init(); }

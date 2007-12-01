@@ -73,11 +73,7 @@ private:
 	void widget_removed(widget*);
 	widget *previously_hovered_widget,
 	       *currently_focused_widget;
-	inline void init() {
-		previously_hovered_widget = 0;
-		currently_focused_widget  = 0;
-		show();
-	}
+	void init();
 };
 
 }

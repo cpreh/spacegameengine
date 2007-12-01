@@ -120,7 +120,7 @@ void sge::gui::canvas::blit(sge::gui::color::mixing_policy_t policy, const sge::
 	sge::gui::color // (_f_rom|_t_o) (_l_ine|_p_ixel) (_b_egin|_e_nd)
 		*flb = source.data.get() + get_index_from_coords(srccoord.x, srccoord.y, source.size_),
 		*fle = flb + srccoord.h * source.size_.w,
-		*tlb = data.get() + get_index_from_coords(srccoord.x, srccoord.y, size_),
+		*tlb = data.get() + get_index_from_coords(dest.x, dest.y, size_),
 		*fpb, *fpe, *tpb;
 
 	for (; flb != fle; flb += source.size_.w, tlb += size_.w)
@@ -144,7 +144,7 @@ void sge::gui::canvas::blit(color::mixing_policy_t policy, const canvas &source,
 	sge::gui::color // (_f_rom|_t_o) (_l_ine|_p_ixel) (_b_egin|_e_nd)
 		*flb = source.data.get() + get_index_from_coords(srccoord.x, srccoord.y, source.size_),
 		*fle = flb + srccoord.h * source.size_.w,
-		*tlb = data.get() + get_index_from_coords(srccoord.x, srccoord.y, size_),
+		*tlb = data.get() + get_index_from_coords(dest.x, dest.y, size_),
 		*fpb, *fpe, *tpb;
 
 	sge::gui::color current_pixel;

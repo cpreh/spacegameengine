@@ -33,21 +33,19 @@ typedef boost::signals::scoped_connection scoped_connection;
 
 class scoped_connection_manager {
 public:
-	typedef std::string key_type;
+	typedef unsigned key_type;
 
 	scoped_connection_manager() {}
 	~scoped_connection_manager() {}
 
 	scoped_connection_manager(const scoped_connection_manager &) {} // NOOP
 	scoped_connection_manager &operator=(const scoped_connection_manager &) { return *this; } // NOOP
-	void scoped_connect(key_type, sge::callback_connection);
 	key_type scoped_connect(sge::callback_connection);
-	void scoped_disconnect(const key_type &);
+	void scoped_disconnect(const key_type);
 
 private:
-	typedef boost::ptr_map<key_type, scoped_connection> connection_map;
 	unsigned anonymous_connections;
-	connection_map cons;
+	boost::ptr_map<key_type, scoped_connection> cons;
 };
 
 }

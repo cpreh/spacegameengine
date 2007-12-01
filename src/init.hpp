@@ -51,7 +51,7 @@ struct fullscreen_renderer {
 	fullscreen_renderer(systems &sys,
 	                    unsigned width,
 	                    unsigned height,
-	                    unsigned refresh_rate = 0, 
+	                    unsigned refresh_rate = 0,
 	                    bit_depth::type bdepth = bit_depth::depth32,
 	                    multi_sample_type multi = 1,
 	                    bool vsync = true);
