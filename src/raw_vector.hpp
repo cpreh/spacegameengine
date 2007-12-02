@@ -114,10 +114,17 @@ private:
 	void set_pointers(pointer src, size_type sz, size_type cap);
 	void deallocate();
 
-	A a;
-	pointer first,
-	        last,
-	        cap;
+	struct impl {
+		impl(const A&);
+		impl(const A&, size_type);
+
+		A a;
+		pointer first,
+	        	last,
+		        cap;
+	};
+
+	impl i;
 };
 
 template <typename T, typename A>

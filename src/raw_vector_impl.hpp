@@ -27,49 +27,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::begin()
 {
-	return first;
+	return data();
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::const_iterator sge::raw_vector<T, A>::begin() const
 {
-	return first;
+	return data();
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::end()
 {
-	return last;
+	return i.last;
 }
 	
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::const_iterator sge::raw_vector<T, A>::end() const
 {
-	return last;
+	return i.last;
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::reverse_iterator sge::raw_vector<T, A>::rbegin()
 {
-	return reverse_iterator(last);
+	return reverse_iterator(end());
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::const_reverse_iterator sge::raw_vector<T, A>::rbegin() const
 {
-	return const_reverse_iterator(last);
+	return const_reverse_iterator(end());
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::reverse_iterator sge::raw_vector<T, A>::rend()
 {
-	return reverse_iterator(first);
+	return reverse_iterator(begin());
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::const_reverse_iterator sge::raw_vector<T, A>::rend() const
 {
-	return const_reverse_iterator(first);
+	return const_reverse_iterator(begin());
 }
 
 template<typename T, typename A>
@@ -125,37 +125,28 @@ typename sge::raw_vector<T, A>::const_reference sge::raw_vector<T, A>::back() co
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::pointer sge::raw_vector<T, A>::data()
 {
-	return first;
+	return i.first;
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::const_pointer sge::raw_vector<T, A>::data() const
 {
-	return first;
+	return i.first;
 }
 
 template<typename T, typename A>
 sge::raw_vector<T, A>::raw_vector(const A& a)
-: a(a),
-  first(0),
-  last(0),
-  cap(0)
+: i(a)
 {}
 
 template<typename T, typename A>
-sge::raw_vector<T, A>::raw_vector(const size_type sz, const A& a_)
-: a(a_),
-  first(a.allocate(sz)),
-  last(first + sz),
-  cap(last)
+sge::raw_vector<T, A>::raw_vector(const size_type sz, const A& a)
+: i(a, sz)
 {}
 
 template<typename T, typename A>
-sge::raw_vector<T, A>::raw_vector(const size_type sz, const T& t, const A& a_)
-: a(a_),
-  first(a.allocate(sz)),
-  last(first + sz),
-  cap(last)
+sge::raw_vector<T, A>::raw_vector(const size_type sz, const T& t, const A& a)
+: i(a, sz)
 {
 	assign(sz, t);
 }
@@ -163,17 +154,14 @@ sge::raw_vector<T, A>::raw_vector(const size_type sz, const T& t, const A& a_)
 template<typename T, typename A>
 template<typename In>
 sge::raw_vector<T, A>::raw_vector(const In beg, const In end, const A& a)
-: a(a)
+: i(a)
 {
 	assign(beg, end);
 }
 	
 template<typename T, typename A>
 sge::raw_vector<T, A>::raw_vector(const raw_vector& x)
-: a(x.a),
-  first(a.allocate(x.size())),
-  last(first + x.size()),
-  cap(last)
+: i(x.a, x.size())
 {
 	assign(x.begin(), x.end());
 }
@@ -228,7 +216,7 @@ void sge::raw_vector<T, A>::clear()
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::size_type sge::raw_vector<T, A>::size() const
 {
-	return last - first;
+	return i.last - i.first;
 }
 
 template<typename T, typename A>
@@ -240,21 +228,21 @@ bool sge::raw_vector<T, A>::empty() const
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::size_type sge::raw_vector<T, A>::max_size() const
 {
-	return a.max_size();
+	return i.a.max_size();
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::size_type sge::raw_vector<T, A>::capacity() const
 {
-	return cap - first;
+	return i.cap - i.first;
 }
 
 template<typename T, typename A>
 void sge::raw_vector<T, A>::swap(raw_vector& x)
 {
-	std::swap(first, x.first);
-	std::swap(last, x.last);
-	std::swap(cap, x.cap);
+	std::swap(i.first, i.x.first);
+	std::swap(i.last, i.x.last);
+	std::swap(i.cap, i.x.cap);
 }
 
 template<typename T, typename A>
@@ -263,7 +251,7 @@ void sge::raw_vector<T, A>::resize_uninitialized(const size_type sz)
 	if(sz > size())
 	{
 		reserve(sz);
-		last = first + sz;
+		i.last = i.first + sz;
 	}
 	else if(sz < size())
 		erase(begin() + sz, end());
@@ -287,7 +275,7 @@ void sge::raw_vector<T, A>::reserve(const size_type sz)
 	const size_type new_cap = new_capacity(sz),
 	                old_size = size();
 
-	const pointer new_memory = a.allocate(new_cap);
+	const pointer new_memory = i.a.allocate(new_cap);
 
 	std::uninitialized_copy(begin(), end(), new_memory);
 
@@ -298,7 +286,7 @@ void sge::raw_vector<T, A>::reserve(const size_type sz)
 template <typename T, typename A>
 typename sge::raw_vector<T, A>::allocator_type sge::raw_vector<T, A>::get_allocator() const
 {
-	return a;
+	return i.a;
 }
 
 template<typename T, typename A>
@@ -317,7 +305,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const size_type n, c
 	{
 		const difference_type insert_sz = position - begin();
 		const size_type new_cap = new_capacity(new_size);
-		const pointer new_memory = a.allocate(new_cap);
+		const pointer new_memory = i.a.allocate(new_cap);
 		std::uninitialized_copy(begin(), position, new_memory);
 		std::uninitialized_fill(new_memory, new_memory + insert_sz, x);
 		std::uninitialized_copy(position, end(), new_memory + insert_sz + n);
@@ -328,7 +316,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const size_type n, c
 	{
 		std::copy_backward(position, end(), position + n);
 		std::uninitialized_fill(position, position + n, x);
-		last += n;
+		i.last += n;
 	}
 }
 
@@ -342,7 +330,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const In l, const In
 	{
 		const difference_type insert_sz = position - begin();
 		const size_type new_cap = new_capacity(new_size);
-		const pointer new_memory = a.allocate(new_cap);
+		const pointer new_memory = i.a.allocate(new_cap);
 		std::uninitialized_copy(begin(), position, new_memory);
 		std::uninitialized_copy(l, r, new_memory + insert_sz);
 		std::uninitialized_copy(position, end(), new_memory + insert_sz + distance);
@@ -353,7 +341,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const In l, const In
 	{
 		std::copy_backward(position, end(), position + distance);
 		std::uninitialized_copy(l, r, position);
-		last += distance;
+		i.last += distance;
 	}
 }
 
@@ -361,15 +349,15 @@ template<typename T, typename A>
 typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::erase(const iterator position)
 {
 	std::uninitialized_copy(position + 1, end(), position);
-	--last;
+	--i.last;
 	return position;
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::erase(const iterator l, const iterator r)
 {
-	std::uninitialized_copy(r, end(), first);
-	last -= r - l;
+	std::uninitialized_copy(r, end(), begin());
+	i.last -= r - l;
 	return r;
 }
 
@@ -389,17 +377,34 @@ typename sge::raw_vector<T, A>::size_type sge::raw_vector<T, A>::new_capacity(co
 template<typename T, typename A>
 void sge::raw_vector<T, A>::set_pointers(const pointer src, const size_type sz, const size_type cap_)
 {
-	first = src;
-	last = first + sz;
-	cap = first + cap_;
+	i.first = src;
+	i.last = i.first + sz;
+	i.cap = i.first + cap_;
 }
 
 template<typename T, typename A>
 void sge::raw_vector<T, A>::deallocate()
 {
-	if(first)
-		a.deallocate(first, capacity());
+	if(i.first)
+		i.a.deallocate(i.first, capacity());
 }
+
+template<typename T, typename A>
+sge::raw_vector<T,A>::impl::impl(const A& a)
+: a(a),
+  first(0),
+  last(0),
+  cap(0)
+{}
+
+template<typename T, typename A>
+sge::raw_vector<T,A>::impl::impl(const A& a_, const size_type sz)
+: a(a_),
+  first(a.allocate(sz)),
+  last(first + sz),
+  cap(last)
+{}
+
 
 template <typename T, typename A>
 bool sge::operator==(const raw_vector<T, A>& x, const raw_vector<T,A>& y)
