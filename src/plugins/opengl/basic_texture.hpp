@@ -32,18 +32,21 @@ namespace ogl
 {
 
 template<typename Base, GLenum Type> class basic_texture : public Base, public texture_base {
-private:
+#ifdef SGE_OPENGL_HAVE_PBO
 	void check_lock() const;
+#endif
 protected:
 	void bind_me() const;
 	void set_my_filter() const;
 	GLuint id() const;
 	const filter_args& filter() const;
+#ifdef SGE_OPENGL_HAVE_PBO
 	void do_lock(lock_flag_t flags);
 	void post_lock();
 	void pre_unlock();
 	void do_unlock();
 	lock_flag_t lock_mode() const;
+#endif
 	void pre_setdata() const;
 public:
 	typedef typename Base::value_type value_type;
@@ -62,10 +65,12 @@ private:
 	filter_args                            filter_;
 	resource_flag_t                        flags_;
 	GLuint                                 id_;
+#ifdef SGE_OPENGL_HAVE_PBO
 	pbo_base*                              cur_buffer;
 	lock_flag_t                            lock_mode_;
 	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
 	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
+#endif
 };
 
 }

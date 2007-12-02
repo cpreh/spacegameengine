@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../math/rect_impl.hpp"
 #include "../transform.hpp"
 
 sge::math::space_matrix sge::matrix_2d_to_3d()
@@ -52,7 +53,7 @@ sge::space_unit sge::space_y_2d_to_3d(const space_unit y)
 
 sge::pos3 sge::space_2d_to_3d(const space_unit x, const space_unit y)
 {
-	return pos3(space_x_2d_to_3d(x),space_y_2d_to_3d(y),0);
+	return pos3(space_x_2d_to_3d(x), space_y_2d_to_3d(y), 0);
 }
 
 sge::pos3 sge::space_2d_to_3d(const math::vector2 pos)
@@ -86,7 +87,7 @@ inline Ret space_size_to_pixel(const T t, const screen_size_t screen_sz)
 
 sge::space_unit sge::pixel_size_to_space(const pixel_unit v, const screen_unit screen_size)
 {
-	return static_cast<space_unit>(v * space_unit(2) / screen_size);
+	return static_cast<space_unit>(2) * static_cast<space_unit>(v / screen_size);
 }
 
 /*template<typename Ret>
@@ -99,14 +100,16 @@ inline Ret pixel_pos_to_2d(const pixel_pos_t pos, const screen_size_t screen_sz)
 
 sge::math::rect sge::space_rect_2d_to_3d(const math::rect& r)
 {
-	return math::rect(space_x_2d_to_3d(r.left), space_y_2d_to_3d(r.top), space_x_2d_to_3d(r.right), space_y_2d_to_3d(r.bottom));
+	return math::rect(space_x_2d_to_3d(r.left()),
+	                  space_y_2d_to_3d(r.top()),
+	                  space_x_2d_to_3d(r.right()),
+	                  space_y_2d_to_3d(r.bottom()));
 }
 
 sge::math::rect sge::tex_size_to_space_rect(const lock_rect& l, const texture::size_type width, const texture::size_type height, const space_unit repeat)
 {
-	return math::rect(static_cast<space_unit>(l.left) / width,
-	                  static_cast<space_unit>(l.top) / height,
-	                  repeat * static_cast<space_unit>(l.right) / width,
-	                  repeat * static_cast<space_unit>(l.bottom) / height);
+	return math::rect(static_cast<space_unit>(l.left()) / width,
+	                  static_cast<space_unit>(l.top()) / height,
+	                  repeat * static_cast<space_unit>(l.right()) / width,
+	                  repeat * static_cast<space_unit>(l.bottom()) / height);
 }
-

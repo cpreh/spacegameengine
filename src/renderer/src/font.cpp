@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../transform.hpp"
 #include "../font.hpp"
 #include "../../sprite/helper.hpp"
+#include "../../math/rect_impl.hpp"
 
 sge::font::font(const font_metrics_ptr metrics_, const font_drawer_ptr drawer_)
 : metrics_(metrics_),

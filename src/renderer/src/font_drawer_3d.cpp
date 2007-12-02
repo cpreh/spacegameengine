@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../texture/rect_fragmented_texture.hpp"
 #include "../../renderer/transform.hpp"
 #include "../../sprite/system_impl.hpp"
+#include "../../math/rect_impl.hpp"
 #include "../font_drawer_3d.hpp"
 
 sge::font_drawer_3d::font_drawer_3d(const renderer_ptr rend, const color col)

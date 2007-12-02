@@ -1,0 +1,69 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+#ifndef SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
+#define SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
+
+#include "rect_util.hpp"
+
+template<typename T>
+bool sge::math::intersects(const basic_rect<T>& r, 
+                           const basic_vector<T,2>& p)
+{
+	return p.x() >= r.left() && p.x() <= r.right() &&
+	       p.y() >= r.top()  && p.y() <= r.bottom();
+}
+
+template<typename T>
+bool sge::math::contains(const basic_rect<T>& outer,
+                         const basic_rect<T>& inner)
+{
+	return inner.left() >= outer.left() && inner.right() <= outer.right() &&
+	       inner.top() >= outer.top() && inner.bottom() <= outer.bottom();
+}
+
+template<typename T>
+bool sge::math::intersects(const basic_rect<T>& l, const basic_rect<T>& r)
+{
+	return !(l.bottom()   < r.top()
+	         || l.top()   > r.bottom()
+	         || l.right() < r.left()
+	         || l.left()  > r.right());
+}
+
+template<typename T>
+bool sge::math::intersects(const basic_rect<T>& r, const basic_line_seg2<T>& l)
+{
+	typedef typename basic_line_seg2<T>::vec vec;
+	return intersects(basic_line_seg2<T>(vec(r.left(), r.top()),
+	                                     vec(r.left(),  r.bottom())),
+	                  l)
+	   ||  intersects(basic_line_seg2<T>(vec(r.left(), r.bottom()), 
+	                                     vec(r.right(), r.bottom())),
+	                  l)
+	   ||  intersects(basic_line_seg2<T>(vec(r.right(), r.bottom()),
+	                                     vec(r.right(), r.top())),
+	                  l)
+	   ||  intersects(basic_line_seg2<T>(vec(r.right(), r.top()),
+	                                     vec(r.left,  r.top)),
+	                  l);
+}
+
+#endif

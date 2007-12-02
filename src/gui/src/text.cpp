@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cassert>
 #include <cstring>
 
+#include "../../math/rect_impl.hpp"
 #include "../../renderer/font_drawer.hpp"
 #include "../../renderer/font.hpp"
 #include "../text.hpp"
@@ -43,9 +44,9 @@ namespace gui {
 		}
 
 		void draw_char(const sge::font_char ch, const sge::font_rect fr, const sge::font_color* const data) {
-			assert(fr.right >= fr.left);
-			assert(fr.top >= fr.bottom);
-			sge::gui::rect rect(fr.left, fr.top, fr.right-fr.left, fr.bottom-fr.top);
+			assert(fr.right() >= fr.left());
+			assert(fr.top() >= fr.bottom());
+			sge::gui::rect rect(fr.left(), fr.top(), fr.w(), fr.h());
 			unsigned int y = 0;
 			for (const font_color *b = data, *e = b + rect.w * rect.h; b != e; b += rect.w) {
 				std::memcpy(

@@ -22,5 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_raw_buffer_impl.hpp"
 #include "../pbo.hpp"
 
+#ifdef SGE_OPENGL_HAVE_PBO
 template class sge::ogl::basic_raw_buffer<sge::ogl::pbo_base, sge::ogl::pixel_pack_buffer_type>;
 template class sge::ogl::basic_raw_buffer<sge::ogl::pbo_base, sge::ogl::pixel_unpack_buffer_type>;
+#endif

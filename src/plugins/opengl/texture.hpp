@@ -54,6 +54,8 @@ public:
 	void lock(const lock_rect&, lock_flag_t flags);
 	void unlock();
 private:
+	void set_texture(const_pointer src);
+
 	const size_type _width,
 	                _height;
 };

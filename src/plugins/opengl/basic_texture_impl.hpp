@@ -24,16 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cassert>
 #include <algorithm>
 #include "../../exception.hpp"
+#include "../../stub.hpp"
 #include "common.hpp"
 #include "error.hpp"
 #include "texture_functions.hpp"
 
+#ifdef SGE_OPENGL_HAVE_PBO
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::check_lock() const
 {
 	if(!cur_buffer)
 		throw exception("ogl pbo used which is not locked!");
 }
+#endif
 
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::bind_me() const
@@ -59,6 +62,7 @@ const sge::filter_args& sge::ogl::basic_texture<Base, Type>::filter() const
 	return filter_;
 }
 
+#ifdef SGE_OPENGL_HAVE_PBO
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::do_lock(const lock_flag_t lmode)
 {
@@ -129,6 +133,7 @@ sge::lock_flag_t sge::ogl::basic_texture<Base, Type>::lock_mode() const
 {
 	return lock_mode_;
 }
+#endif
 
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::pre_setdata() const
@@ -143,8 +148,10 @@ sge::ogl::basic_texture<Base, Type>::basic_texture(const filter_args& filter_,
  : texture_base(Type),
    filter_(filter_),
    flags_(flags_),
-   id_(gen_texture()),
-   cur_buffer(0)
+   id_(gen_texture())
+#ifdef SGE_OPENGL_HAVE_PBO
+   , cur_buffer(0)
+#endif
 {}
 
 
@@ -163,15 +170,25 @@ sge::resource_flag_t sge::ogl::basic_texture<Base, Type>::flags() const
 template<typename Base, GLenum Type>
 typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::data()
 {
+#ifdef SGE_OPENGL_HAVE_PBO
 	check_lock();
 	return cur_buffer->data();
+#else
+	SGE_STUB_FUNCTION
+	return 0; // FIXME
+#endif
 }
 
 template<typename Base, GLenum Type>
 typename sge::ogl::basic_texture<Base, Type>::const_pointer sge::ogl::basic_texture<Base, Type>::data() const
 {
+#ifdef SGE_OPENGL_HAVE_PBO
 	check_lock();
 	return cur_buffer->data();
+#else
+	SGE_STUB_FUNCTION
+	return 0; // FIXME
+#endif
 }
 
 #endif

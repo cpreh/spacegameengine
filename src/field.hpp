@@ -61,8 +61,7 @@ class field
 	field(const allocator_type& alloc = allocator_type()) : array(alloc) {}
 	// copy-ctor
 	field(const field &r) : dim_(r.dim_),array(r.array) {}
-	// initializes and resizes the field (does not, however, zero it; you can use zero() for that purpose)
-	field(const dim_type &dim, const allocator_type& alloc = allocator_type()) : dim_(dim),array(alloc) { array.resize(field_count()); }
+	field(const dim_type &dim, const value_type& t = value_type(), const allocator_type& alloc = allocator_type()) : dim_(dim), array(alloc, field_count(), t) {}
 	// same as above just without the dim type
 	field(const coord_type &x,const coord_type &y, const allocator_type& alloc = allocator_type()) : dim_(x,y),array(alloc) { array.resize(field_count()); }
 

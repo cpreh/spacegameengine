@@ -28,7 +28,9 @@ namespace sge
 {
 
 texture::size_type atlased_gap();
+texture::size_type atlased_size(texture::size_type);
 const texture::dim_type atlased_size(texture::size_type w, texture::size_type h);
+const texture::dim_type atlased_texture_dim(renderer_ptr rend);
 const texture_ptr atlased_texture(renderer_ptr rend, const filter_args& filter);
 const lock_rect inner_atlased_rect(const lock_rect&);
 

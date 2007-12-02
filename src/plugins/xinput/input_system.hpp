@@ -83,7 +83,7 @@ private:
 	
 	boost::ptr_vector<boost::signals::scoped_connection> connections;
 
-	typedef std::map<unsigned, key_code> x11_to_sge_array;
+	typedef std::map<KeySym, key_code> x11_to_sge_array;
 	x11_to_sge_array   x11tosge;
 
 	mouse_pos          mouse_last;

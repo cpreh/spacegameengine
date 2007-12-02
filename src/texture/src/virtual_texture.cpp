@@ -17,12 +17,15 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
+#include <iostream>
+#include <ostream>
 #include "../virtual_texture.hpp"
 #include "../fragmented_texture.hpp"
 #include "../atlasing.hpp"
 #include "../../renderer/transform.hpp"
 #include "../../math/utility.hpp"
-#include <iostream>
+#include "../../math/rect_impl.hpp"
 
 sge::virtual_texture::virtual_texture(const lock_rect& outer_area_, fragmented_texture& fragment, const bool repeatable_)
 : outer_area_(outer_area_),
@@ -59,8 +62,8 @@ const sge::tex_pos sge::virtual_texture::translate(const tex_pos &local_coords, 
 {
 	const sge::math::rect texc = area_texc(repeat);
 	return sge::tex_pos(
-		(1 - local_coords[0]) * texc.left + local_coords[0] * texc.right,
-		(1 - local_coords[1]) * texc.top + local_coords[1] * texc.bottom
+		(1 - local_coords[0]) * texc.left() + local_coords[0] * texc.right(),
+		(1 - local_coords[1]) * texc.top() + local_coords[1] * texc.bottom()
 	);
 }
 
@@ -83,6 +86,7 @@ void sge::virtual_texture::set_data(const texture::const_pointer src)
 {
 	my_texture()->set_data(src, inner_area_);
 
+	// FIXME
 	// apply atlasing fix
 	if(!repeatable())
 	{

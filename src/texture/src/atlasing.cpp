@@ -19,21 +19,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../atlasing.hpp"
+#include "../../math/rect_impl.hpp"
 
 sge::texture::size_type sge::atlased_gap()
 {
 	return 1;
 }
 
+sge::texture::size_type sge::atlased_size(const texture::size_type s)
+{
+	return s + 2 * atlased_gap();
+}
+
 const sge::texture::dim_type sge::atlased_size(const texture::size_type w, const texture::size_type h)
 {
-	const texture::size_type gap = 2 * atlased_gap();
-	return texture::dim_type(w + gap, h + gap);
+	return texture::dim_type(atlased_size(w), atlased_size(h));
+}
+
+const sge::texture::dim_type sge::atlased_texture_dim(const renderer_ptr rend)
+{
+	const texture::size_type max_size = rend->caps().max_tex_size;
+	return texture::dim_type(max_size, max_size);
 }
 
 const sge::texture_ptr sge::atlased_texture(const renderer_ptr rend, const filter_args& filter)
 {
-	return rend->create_texture(0, rend->caps().max_tex_size, rend->caps().max_tex_size, filter);
+	const texture::dim_type sz = atlased_texture_dim(rend);
+	return rend->create_texture(0, sz.w(), sz.h(), filter);
 }
 
 const sge::lock_rect sge::inner_atlased_rect(const lock_rect& outer)

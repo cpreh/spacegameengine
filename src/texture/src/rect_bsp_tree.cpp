@@ -19,6 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../rect_bsp_tree.hpp"
+#include "../../math/rect_impl.hpp"
+#include "../../math/rect_util.hpp"
+#include "../../math/rect_util_impl.hpp"
 
 sge::rect_bsp_tree::node::node(const value_type& rect, node* const parent, const bool final, node* const left, node* const right)
  : rect(rect), parent(parent), left(left), right(right), final(final)
@@ -103,7 +106,7 @@ sge::rect_bsp_tree::iterator sge::rect_bsp_tree::insert_recursive(const dim_type
 
 	// case 1: left and right are absent -> always put in the left node
 	if(!n.left && !n.right)
-		return insert_node(n, n.left, true, value_type(point_type(n.rect.left, n.rect.top), dim));
+		return insert_node(n, n.left, true, value_type(n.rect.pos(), dim));
 		
 	// case 2: right node is absent but left node is there
 	if(n.left && !n.right)
@@ -127,8 +130,8 @@ sge::rect_bsp_tree::iterator sge::rect_bsp_tree::insert_case_2(const dim_type di
 	if(ret != end())
 		return ret;
 
-	const size_type free_w = width(ref.rect) - width(exist.rect),
-	                free_h = height(ref.rect) - height(exist.rect);
+	const size_type free_w = ref.rect.w() - exist.rect.w(),
+	                free_h = ref.rect.h() - exist.rect.h();
 
 	const value_type& rr = ref.rect,
 	                  er = exist.rect;
@@ -141,19 +144,19 @@ sge::rect_bsp_tree::iterator sge::rect_bsp_tree::insert_case_2(const dim_type di
 	{
 		// case 2.1: insert at bottom
 		if(dim.h() <= free_h)
-			return insert_two(dim, ref, empty, value_type(rr.left, er.bottom, rr.right, rr.bottom));
+			return insert_two(dim, ref, empty, value_type(rr.left(), er.bottom(), rr.right(), rr.bottom()));
 		// case 2.2: insert at right
 		else // if(dim.w <= free_w)
-			return insert_two(dim, ref, empty, value_type(er.right, rr.top, rr.right, rr.bottom));
+			return insert_two(dim, ref, empty, value_type(er.right(), rr.top(), rr.right(), rr.bottom()));
 	}
 
 	// case 3: right is the existing node so occupy the rest
 	// case 3.1: existing node is at bottom
-	if(er.bottom == rr.bottom)
-		return insert_two(dim, ref, empty, value_type(rr.left, rr.top, rr.right, er.top));
+	if(er.bottom() == rr.bottom())
+		return insert_two(dim, ref, empty, value_type(rr.left(), rr.top(), rr.right(), er.top()));
 	// case 3.2: existing node is at right
 	else
-		return insert_two(dim, ref, empty, value_type(rr.left, rr.top, er.left, rr.bottom));
+		return insert_two(dim, ref, empty, value_type(rr.left(), rr.top(), er.left(), rr.bottom()));
 }
 
 sge::rect_bsp_tree::iterator sge::rect_bsp_tree::insert_node(node& ref, node*& n, const bool final, const value_type& rect)

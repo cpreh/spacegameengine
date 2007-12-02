@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../grid_fragmented_texture.hpp"
 #include "../atlasing.hpp"
 #include "../../math/utility.hpp"
+#include "../../math/rect_impl.hpp"
 
 #define MAX_TEX_SIZE 4096
 
@@ -56,7 +57,7 @@ sge::grid_fragmented_texture::grid_fragmented_texture(renderer_ptr rend, texture
 	reserved = new char[parts_total];
 	try {
 		for(unsigned i=0; i<parts_total; i++) reserved[i] = false;
-	} catch(..) {
+	} catch(...) {
 		delete[] reserved;
 		throw;
 	}
@@ -112,8 +113,8 @@ sge::virtual_texture_ptr sge::grid_fragmented_texture::consume_fragments(const t
 void sge::grid_fragmented_texture::return_fragments(const virtual_texture &t)
 {
 	unsigned index =
-		(t.area().left / part_width) +
-		(t.area().top / part_height) * parts_per_row;
+		(t.area().left() / part_width) +
+		(t.area().top() / part_height) * parts_per_row;
 	reserved[index] = false;
 	if (parts_total == ++parts_free)
 		tex.reset();

@@ -46,7 +46,8 @@ class wave_file : public audio_file
 	// Ob die Bytes geswappt werden muessen
 	boost::logic::tribool      swap_;
 	std::ifstream              file_;
-	std::size_t                samples_,samples_read_;
+	std::size_t                samples_,
+	                           samples_read_;
 	std::vector<unsigned char> buffer_;
 
 	// Ob das Ding geladen wurde

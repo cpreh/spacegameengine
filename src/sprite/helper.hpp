@@ -21,91 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_HELDER_HPP_INCLUDED
 #define SGE_SPRITE_HELDER_HPP_INCLUDED
 
-#include <cmath>
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
-#include "../renderer/transform.hpp"
-#include "../math/matrix.hpp"
 #include "../math/rect.hpp"
 
 namespace sge
 {
 
-inline vertex_buffer::iterator fill_sprite_position(vertex_buffer::iterator it, const math::rect& rs, const space_unit z)
-{
-	(*it++).pos() = pos3(rs.left,rs.top,z);
-	(*it++).pos() = pos3(rs.right,rs.top,z);
-	(*it++).pos() = pos3(rs.right,rs.bottom,z);
-	(*it++).pos() = pos3(rs.left,rs.bottom,z);
+vertex_buffer::iterator fill_sprite_position(vertex_buffer::iterator it, const math::rect& rs, space_unit z);
 
-	return it;
-}
+vertex_buffer::iterator fill_sprite_tex_coordinates(vertex_buffer::iterator it, const math::rect& rt);
 
-inline vertex_buffer::iterator fill_sprite_tex_coordinates(vertex_buffer::iterator it, const math::rect& rt)
-{
-	(*it++).tex() = tex_pos(rt.left,rt.top);
-	(*it++).tex() = tex_pos(rt.right,rt.top);
-	(*it++).tex() = tex_pos(rt.right,rt.bottom);
-	(*it++).tex() = tex_pos(rt.left,rt.bottom);
+vertex_buffer::iterator fill_sprite_vertices(vertex_buffer::iterator it, const math::rect& rs, const math::rect& rt, space_unit z);
 
-	return it;
-}
+vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::iterator it, const math::rect& rbs, space_unit rot, math::vector2 center, space_unit z);
 
-inline vertex_buffer::iterator fill_sprite_vertices(const vertex_buffer::iterator it, const math::rect& rs, const math::rect& rt, const space_unit z)
-{
-	fill_sprite_position(it, rs, z);
-	return fill_sprite_tex_coordinates(it, rt);
-}
+vertex_buffer::iterator fill_sprite_color(vertex_buffer::iterator it, color col);
 
-inline vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::iterator it, const math::rect& rbs, const space_unit rot, const math::vector2 center, const space_unit z)
-{
-	math::vector2 one = math::vector2(rbs.left,rbs.top) - center,
-	              two = math::vector2(rbs.right,rbs.top) - center,
-	              three = math::vector2(rbs.right,rbs.bottom) - center,
-	              four = math::vector2(rbs.left,rbs.bottom) - center;
-
-	const space_unit sinx = std::sin(-rot),
-	                 cosx = std::cos(-rot);
-
-	const math::basic_matrix<space_unit,2,2> mat_rot(cosx, -sinx,
-	                                                 sinx,  cosx); 
-
-	one = mat_rot * one;
-	two = mat_rot * two;
-	three = mat_rot * three;
-	four = mat_rot * four;
-
-	one += center;
-	two += center;
-	three += center;
-	four += center;
-
-	(*it++).pos() = pos3(one.x(),one.y(),z);
-	(*it++).pos() = pos3(two.x(),two.y(),z);
-	(*it++).pos() = pos3(three.x(),three.y(),z);
-	(*it++).pos() = pos3(four.x(),four.y(),z);
-
-	return it;
-}
-
-inline vertex_buffer::iterator fill_sprite_color(vertex_buffer::iterator it, const color col)
-{
-	for(unsigned i = 0; i < 4; ++i)
-		(*it++).diffuse() = col;
-	return it;
-}
-
-inline index_buffer::iterator fill_sprite_indices(index_buffer::iterator it, const index_buffer::value_type start)
-{
-	(*it++) = start + 0;
-	(*it++) = start + 1;
-	(*it++) = start + 2;
-	(*it++) = start + 0;
-	(*it++) = start + 2;
-	(*it++) = start + 3;
-
-	return it;
-}
+index_buffer::iterator fill_sprite_indices(index_buffer::iterator it, index_buffer::value_type start);
 
 }
 

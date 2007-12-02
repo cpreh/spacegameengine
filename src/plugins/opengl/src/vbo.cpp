@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../error.hpp"
 #include "../extension.hpp"
-#include "../version.hpp"
 
-#if !defined(GLEW_VERSION_1_4)
+#if !defined(GLEW_VERSION_1_5)
 #define SGE_OGL_VERTEX_BUFFER_OBJECT_ARB
 #endif
 
@@ -33,9 +32,6 @@ void sge::ogl::check_vbo_extension()
 #ifdef SGE_OGL_VERTEX_BUFFER_OBJECT_ARB
 		if(!glGenBuffersARB)
 			throw exception(extension_not_supported_string("GL_ARB_vertex_buffer_object"));
-#else
-		if(!glGenBuffers)
-			throw exception(version_not_supported_string("glGenBuffers", "1.5"));
 #endif
 }
 
@@ -51,7 +47,6 @@ GLuint sge::ogl::gen_buffer()
 #else
 	glGenBuffers(1, &id);
 #endif
-
 	return id;
 }
 

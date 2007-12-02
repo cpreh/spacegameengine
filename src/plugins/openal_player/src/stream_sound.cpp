@@ -101,7 +101,7 @@ bool sge::openal::stream_sound::fill_buffer(const ALuint buffer)
 			return false;
 		}
 	}
-	alBufferData(buffer,format_,&data[0],data.size(),audio_file_->sample_rate()); check("alBufferData");
+	alBufferData(buffer,format_,&data[0],static_cast<ALsizei>(data.size()),audio_file_->sample_rate()); check("alBufferData");
 	return true;
 }
 

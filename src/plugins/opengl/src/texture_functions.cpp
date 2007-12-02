@@ -96,13 +96,18 @@ void sge::ogl::set_texture_rect(const GLenum tex_type,
 {
 	SGE_OPENGL_SENTRY
 	
-	if(r.right > width || r.bottom > height)
+	if(r.right() > width || r.bottom() > height)
 		throw exception("rect for setting a texture is out of range!");
 
 	if(need_mipmap(filter.min_filter))
 		throw exception("You can't specify an update rect while using mipmaps. Ignored.");
 
-	glTexSubImage2D(tex_type, 0, static_cast<GLint>(r.left), static_cast<GLint>(r.top), static_cast<GLsizei>(r.w()), static_cast<GLsizei>(r.h()), format, type, src);
+	glTexSubImage2D(tex_type,
+	                0,
+	                static_cast<GLint>(r.left()),
+	                static_cast<GLint>(r.top()),
+	                static_cast<GLsizei>(r.w()),
+	                static_cast<GLsizei>(r.h()), format, type, src);
 }
 
 void sge::ogl::read_pixels(const sge::texture_base::size_type x,

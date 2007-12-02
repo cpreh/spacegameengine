@@ -11,6 +11,7 @@
 #include <boost/utility.hpp>
 
 // SGE
+#include "../../math/rect_impl.hpp"
 #include "../../renderer/transform.hpp"
 #include "../../renderer/scoped_lock.hpp"
 #include "../../sprite/helper.hpp"
@@ -307,7 +308,13 @@ void sge::con::console_gfx::draw()
 		edit_input_line[cursor_position] = cursor_char_;
 
 	// Eingabezeile ganz unten zeichnen
-	fn.draw_text(edit_input_line,sge::font_pos(0,0),sge::font_dim(sge::font_unit(rend->screen_width() * console_size.w()),sge::font_unit(rend->screen_height() * console_size.h())), font_align_h::left, font_align_v::bottom, font_flags::no_line_wrap);
+	fn.draw_text(edit_input_line,
+	             font_pos(0,0),
+	             font_dim(static_cast<sge::font_unit>(rend->screen_width() * console_size.w()),
+	                      static_cast<sge::font_unit>(rend->screen_height() * console_size.h())),
+	             font_align_h::left,
+	             font_align_v::bottom,
+	             font_flags::no_line_wrap);
 
 	// History-Ausschnitt berechnen
 	const size_type history_lines = std::min(lines_per_screen, history.size());
@@ -317,7 +324,13 @@ void sge::con::console_gfx::draw()
 
 	const string history_string = join<string>(cutout_it, cutout_end);
 
-	fn.draw_text(history_string,sge::font_pos(0,0),sge::font_dim(sge::font_unit(rend->screen_width() * console_size.w()),sge::font_unit(rend->screen_height() * console_size.h() - fn.height())), font_align_h::left, font_align_v::bottom, font_flags::no_line_wrap);
+	fn.draw_text(history_string,
+	             sge::font_pos(0,0),
+	             sge::font_dim(static_cast<sge::font_unit>(rend->screen_width() * console_size.w()),
+	                           static_cast<sge::font_unit>(rend->screen_height() * console_size.h() - fn.height())),
+	             font_align_h::left,
+	             font_align_v::bottom,
+	             font_flags::no_line_wrap);
 }
 
 void sge::con::console_gfx::set_texture(texture_ptr t)
@@ -333,7 +346,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
 : rend(rend),
   console_size(1, 0.5),
   fn(fn),
-  lines_per_screen(static_cast<size_type>(console_size.h() * rend->screen_height() / fn.height())-1),
+  lines_per_screen(static_cast<size_type>(console_size.h() * rend->screen_height() / fn.height()) - 1),
   input_system(input_system),
   input_connection(input_system->register_callback(boost::bind(&console_gfx::key_callback, this, _1))),
   input_repeat_connection(input_system->register_repeat_callback(boost::bind(&console_gfx::key_action, this, _1))),
