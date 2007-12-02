@@ -67,6 +67,8 @@ void sge::gui::button::on_paint(const events::paint_event &pe) {
 }
 
 void sge::gui::button::on_update() {
+	framebuffer.fill(sge::colors::transparent);
+
 	skin_ptr sty = drawskin();
 
 	sty->draw_background(

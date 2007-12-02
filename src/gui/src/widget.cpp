@@ -87,14 +87,12 @@ sge::gui::manager *sge::gui::widget::top_level_widget() {
 }
 
 void sge::gui::widget::perform_resize(sge::gui::dim2 newsize) {
-	if (sge_gui_widget_data.size == newsize) return;
 	sge_gui_widget_data.size = newsize;
 	if (parent())
 		parent()->on_child_geom(sge_gui_widget_child_event());
 }
 
 void sge::gui::widget::perform_move(sge::gui::point newpos) {
-	if (sge_gui_widget_data.position == newpos) return;
 	sge_gui_widget_data.position = newpos;
 	if (parent())
 		parent()->on_child_geom(sge_gui_widget_child_event());

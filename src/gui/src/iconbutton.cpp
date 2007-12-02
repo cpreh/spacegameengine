@@ -47,6 +47,8 @@ void sge::gui::iconbutton::icon(skin::stock_icon::type newicon) {
 }
 
 void sge::gui::iconbutton::on_update() {
+	framebuffer.fill(sge::colors::transparent);
+
 	skin_ptr sty = drawskin();
 
 	sty->draw_background(

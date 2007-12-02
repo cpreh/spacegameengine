@@ -107,10 +107,18 @@ void sge::gui::defaultskin::draw_border(widget*, border_style::type bt, focus_mo
 	}
 }
 
-void sge::gui::defaultskin::draw_background(widget *w, border_style::type, focus_modifier::type fm, rect r, canvas &dest) const {
-	color c = w->background_color()
-		? *(w->background_color())
-		: color(192, 192, 192, 255);
+void sge::gui::defaultskin::draw_background(widget *w, border_style::type bs, focus_modifier::type fm, rect r, canvas &dest) const {
+	color c;
+	if (w->background_color())
+		c = *(w->background_color());
+	else switch(bs) {
+	case skin::border_style::scrollbar:
+		c = color(128, 128, 128, 255);
+		break;
+	default:
+		c = color(192, 192, 192, 255);
+		break;
+	}
 
 	if (fm == focus_modifier::hover || fm == focus_modifier::hover_active)
 		c.mix<mixing_policy::normal>(color(255,255,255,64)); // brighten 25%
@@ -138,6 +146,8 @@ void sge::gui::defaultskin::draw_icon(widget *w, stock_icon::type it, focus_modi
 		}
 	}
 }
+
+sge::gui::dim2 sge::gui::defaultskin::scrollbar_drawer_sizes() const { return icon_size(); }
 
 sge::gui::skin_ptr sge::gui::defaultskin::get() {
 	skin_ptr sp = defaultskin_instance.lock();

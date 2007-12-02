@@ -38,6 +38,7 @@ public:
 	void draw_background (widget*, border_style::type,      focus_modifier::type, rect, canvas &) const;
 	void draw_icon       (widget*, stock_icon::type,       focus_modifier::type, rect, canvas &) const;
 	dim2 icon_size       () const;
+	dim2 scrollbar_drawer_sizes() const;
 
 public:
 	static skin_ptr get();

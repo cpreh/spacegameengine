@@ -17,11 +17,11 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
+					<Add library='boost_signals' />
+					<Add library='sgecore' />
+					<Add directory="..\..\..\bin" />
 					<Add option="-Wl,-R,." />
 					<Add option="-Wl,-R,plugins" />
-					<Add library="boost_signals" />
-					<Add library="sgecore" />
-					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -35,11 +35,11 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
+					<Add library='boost_signals' />
+					<Add library='sgecore' />
+					<Add directory="../../../bin" />
 					<Add option="-Wl,-R,." />
 					<Add option="-Wl,-R,plugins" />
-					<Add library="boost_signals" />
-					<Add library="sgecore" />
-					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 		</Build>
@@ -50,41 +50,46 @@
 			<Add option="-Wfloat-equal" />
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
-			<Add option="-Wno-long-long" />
+			<Add option='-Wno-long-long' />
 		</Compiler>
-		<Unit filename="..\..\..\src\gui\button.hpp" />
-		<Unit filename="..\..\..\src\gui\canvas.hpp" />
-		<Unit filename="..\..\..\src\gui\color.hpp" />
-		<Unit filename="..\..\..\src\gui\cursor.hpp" />
-		<Unit filename="..\..\..\src\gui\events.hpp" />
-		<Unit filename="..\..\..\src\gui\exception.hpp" />
-		<Unit filename="..\..\..\src\gui\gradient2_policies.hpp" />
-		<Unit filename="..\..\..\src\gui\gradient_policies.hpp" />
-		<Unit filename="..\..\..\src\gui\gridlayout.hpp" />
-		<Unit filename="..\..\..\src\gui\inputprocessor.hpp" />
-		<Unit filename="..\..\..\src\gui\layout.hpp" />
-		<Unit filename="..\..\..\src\gui\manager.hpp" />
-		<Unit filename="..\..\..\src\gui\mixing_policies.hpp" />
-		<Unit filename="..\..\..\src\gui\src\button.cpp" />
-		<Unit filename="..\..\..\src\gui\src\canvas.cpp" />
-		<Unit filename="..\..\..\src\gui\src\cursor.cpp" />
-		<Unit filename="..\..\..\src\gui\src\gridlayout.cpp" />
-		<Unit filename="..\..\..\src\gui\src\inputprocessor.cpp" />
-		<Unit filename="..\..\..\src\gui\src\layout.cpp" />
-		<Unit filename="..\..\..\src\gui\src\manager.cpp" />
-		<Unit filename="..\..\..\src\gui\src\manager_inputacceptor.cpp" />
-		<Unit filename="..\..\..\src\gui\src\manager_widget.cpp" />
-		<Unit filename="..\..\..\src\gui\src\text.cpp" />
-		<Unit filename="..\..\..\src\gui\src\types.cpp" />
-		<Unit filename="..\..\..\src\gui\src\widget.cpp" />
-		<Unit filename="..\..\..\src\gui\src\widget_events.cpp" />
-		<Unit filename="..\..\..\src\gui\text.hpp" />
-		<Unit filename="..\..\..\src\gui\types.hpp" />
-		<Unit filename="..\..\..\src\gui\widget.hpp" />
+		<Unit filename="..\..\..\src/gui/button.hpp" />
+		<Unit filename="..\..\..\src/gui/canvas.hpp" />
+		<Unit filename="..\..\..\src/gui/color.hpp" />
+		<Unit filename="..\..\..\src/gui/cursor.hpp" />
+		<Unit filename="..\..\..\src/gui/defaultskin.hpp" />
+		<Unit filename="..\..\..\src/gui/events.hpp" />
+		<Unit filename="..\..\..\src/gui/exception.hpp" />
+		<Unit filename="..\..\..\src/gui/gradient2_policies.hpp" />
+		<Unit filename="..\..\..\src/gui/gradient_policies.hpp" />
+		<Unit filename="..\..\..\src/gui/gridlayout.hpp" />
+		<Unit filename="..\..\..\src/gui/iconbutton.hpp" />
+		<Unit filename="..\..\..\src/gui/inputprocessor.hpp" />
+		<Unit filename="..\..\..\src/gui/layout.hpp" />
+		<Unit filename="..\..\..\src/gui/manager.hpp" />
+		<Unit filename="..\..\..\src/gui/mixing_policies.hpp" />
+		<Unit filename="..\..\..\src/gui/scrollbar.hpp" />
+		<Unit filename="..\..\..\src/gui/skin.hpp" />
+		<Unit filename="..\..\..\src/gui/src/button.cpp" />
+		<Unit filename="..\..\..\src/gui/src/canvas.cpp" />
+		<Unit filename="..\..\..\src/gui/src/cursor.cpp" />
+		<Unit filename="..\..\..\src/gui/src/defaultskin.cpp" />
+		<Unit filename="..\..\..\src/gui/src/defaultskin_icons.cpp" />
+		<Unit filename="..\..\..\src/gui/src/gridlayout.cpp" />
+		<Unit filename="..\..\..\src/gui/src/iconbutton.cpp" />
+		<Unit filename="..\..\..\src/gui/src/inputprocessor.cpp" />
+		<Unit filename="..\..\..\src/gui/src/layout.cpp" />
+		<Unit filename="..\..\..\src/gui/src/manager.cpp" />
+		<Unit filename="..\..\..\src/gui/src/manager_inputacceptor.cpp" />
+		<Unit filename="..\..\..\src/gui/src/manager_widget.cpp" />
+		<Unit filename="..\..\..\src/gui/src/text.cpp" />
+		<Unit filename="..\..\..\src/gui/src/types.cpp" />
+		<Unit filename="..\..\..\src/gui/src/widget.cpp" />
+		<Unit filename="..\..\..\src/gui/src/widget_events.cpp" />
+		<Unit filename="..\..\..\src/gui/text.hpp" />
+		<Unit filename="..\..\..\src/gui/types.hpp" />
+		<Unit filename="..\..\..\src/gui/widget.hpp" />
 		<Extensions>
 			<code_completion />
-			<envvars />
-			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

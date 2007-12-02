@@ -82,11 +82,11 @@ public:
 	virtual      manager *top_level_widget();
 	inline const manager *top_level_widget() const { return const_cast<widget&>(*this).top_level_widget(); }
 
-	inline void resize(dim2 d) { perform_resize(d); }
+	inline void resize(dim2 d) { if (d != sge_gui_widget_data.size) perform_resize(d); }
 	inline void resize(unit w, unit h) { resize(dim2(w, h)); }
 	inline dim2 size() const { return sge_gui_widget_data.size; }
 
-	inline  void  move(point p) { perform_move(p); }
+	inline  void  move(point p) { if (p != sge_gui_widget_data.position) perform_move(p); }
 	inline  void  move(unit x, unit y) { move(point(x, y)); }
 	inline  point position() const { return sge_gui_widget_data.position; }
 	virtual point child_position(const widget *) const;

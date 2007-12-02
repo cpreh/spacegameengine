@@ -49,20 +49,27 @@ struct skin {
 		ellipsis,
 		minimize, restore, maximize, close,
 
+		back, rewind,
+		stop, pause,
+		play, play_reversed, record,
+		fast_fwd, forward,
+
+		num_icons,
+
 		// aliases
 		downup = updown,
 		downupmost = updownmost,
 		rightleft = leftright,
-		rightleftmost = leftrightmost,
-
-		num_icons
+		rightleftmost = leftrightmost
 	}; };
 
 	struct border_style { enum type {
 		none,
 		frame,
 		button,
-		iconbutton
+		iconbutton,
+		scrollbar,
+		scrolldrawer
 	}; };
 
 	struct focus_modifier { enum type {
@@ -97,6 +104,9 @@ struct skin {
 
 	// returns icon size
 	virtual dim2 icon_size       () const = 0;
+
+	// returns minimal length of scroll bar drawer - width = length for horizontal scroll bar, height = length for vertical scroll bar
+	virtual dim2 scrollbar_drawer_sizes () const = 0;
 };
 
 typedef boost::shared_ptr<skin> skin_ptr;

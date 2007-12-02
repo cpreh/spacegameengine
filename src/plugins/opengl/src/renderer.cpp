@@ -1,7 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
-Copyright (C) 2007       Simon Stienen    (simon.stienen@slashlife.org)
+Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -168,7 +168,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	current.reset(new glx_current(dsp, *wnd, context));
 
  	con_manager.scoped_connect(wnd->register_callback(MapNotify, boost::bind(&renderer::reset_viewport, this, _1)));
-	
+
 	XSync(dsp->get(),False);
 #endif
 	if(glewInit() != GLEW_OK)
