@@ -50,7 +50,7 @@ sge::timer::frames_type sge::timer::elapsed_frames() const
 
 	const interval_type ntime = time(),
 	                    dif = ntime - last_time();
-	return frames_type(dif) / interval();
+	return static_cast<frames_type>(dif) / interval();
 }
 
 void sge::timer::reset()

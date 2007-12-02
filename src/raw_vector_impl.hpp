@@ -258,10 +258,13 @@ void sge::raw_vector<T, A>::swap(raw_vector& x)
 }
 
 template<typename T, typename A>
-void sge::raw_vector<T, A>::resize(const size_type sz)
+void sge::raw_vector<T, A>::resize_uninitialized(const size_type sz)
 {
 	if(sz > size())
+	{
 		reserve(sz);
+		last = first + sz;
+	}
 	else if(sz < size())
 		erase(begin() + sz, end());
 }
@@ -289,7 +292,7 @@ void sge::raw_vector<T, A>::reserve(const size_type sz)
 	std::uninitialized_copy(begin(), end(), new_memory);
 
 	deallocate();
-	set_pointers(first, old_size, new_cap);
+	set_pointers(new_memory, old_size, new_cap);
 }
 
 template <typename T, typename A>
@@ -310,7 +313,7 @@ template<typename T, typename A>
 void sge::raw_vector<T, A>::insert(const iterator position, const size_type n, const T& x)
 {
 	const size_type new_size = size() + n;
-	if(new_size < capacity())
+	if(new_size > capacity())
 	{
 		const difference_type insert_sz = position - begin();
 		const size_type new_cap = new_capacity(new_size);
@@ -319,7 +322,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const size_type n, c
 		std::uninitialized_fill(new_memory, new_memory + insert_sz, x);
 		std::uninitialized_copy(position, end(), new_memory + insert_sz + n);
 		deallocate();
-		set_pointers(first, new_size, new_cap);
+		set_pointers(new_memory, new_size, new_cap);
 	}
 	else
 	{
@@ -335,7 +338,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const In l, const In
 {
 	const difference_type distance = std::distance(l, r);
 	const size_type new_size = size() + distance;
-	if(new_size < capacity())
+	if(new_size > capacity())
 	{
 		const difference_type insert_sz = position - begin();
 		const size_type new_cap = new_capacity(new_size);
@@ -344,7 +347,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const In l, const In
 		std::uninitialized_copy(l, r, new_memory + insert_sz);
 		std::uninitialized_copy(position, end(), new_memory + insert_sz + distance);
 		deallocate();
-		set_pointers(first, new_size, new_cap);
+		set_pointers(new_memory, new_size, new_cap);
 	}
 	else
 	{

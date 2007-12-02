@@ -32,7 +32,7 @@ void sge::sleep(const unsigned long milli_seconds)
 #ifdef SGE_WINDOWS_PLATFORM
 	::Sleep(milli_seconds);
 #elif SGE_LINUX_PLATFORM
-	::usleep(milli_seconds*1000);
+	::usleep(static_cast<__useconds_t>(milli_seconds*1000));
 #endif
 }
 

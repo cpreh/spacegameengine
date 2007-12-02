@@ -272,10 +272,10 @@ struct color4 {
 
 const color4::value_type color_to_color4_factor = 255;
 
-inline color4::value_type   red_part_rgba_f(const color c) { return color_red(c)   / color_to_color4_factor; }
-inline color4::value_type green_part_rgba_f(const color c) { return color_green(c) / color_to_color4_factor; }
-inline color4::value_type  blue_part_rgba_f(const color c) { return color_blue(c)  / color_to_color4_factor; }
-inline color4::value_type alpha_part_rgba_f(const color c) { return color_alpha(c) / color_to_color4_factor; }
+inline color4::value_type   red_part_rgba_f(const color c) { return static_cast<color4::value_type>(color_red(c)   / color_to_color4_factor); }
+inline color4::value_type green_part_rgba_f(const color c) { return static_cast<color4::value_type>(color_green(c) / color_to_color4_factor); }
+inline color4::value_type  blue_part_rgba_f(const color c) { return static_cast<color4::value_type>(color_blue(c)  / color_to_color4_factor); }
+inline color4::value_type alpha_part_rgba_f(const color c) { return static_cast<color4::value_type>(color_alpha(c) / color_to_color4_factor); }
 
 template<typename Ch,typename Traits>
 inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s, const color4 &col)

@@ -95,8 +95,8 @@ public:
 	size_type capacity() const;
 
 	void swap (raw_vector& x);
-	void resize(size_type sz); // uninitialized resize
-	void resize(size_type sz, const T& value);
+	void resize_uninitialized(size_type sz);
+	void resize(size_type sz, const T& value = T());
 	void reserve(size_type sz);
 
 	allocator_type get_allocator() const;

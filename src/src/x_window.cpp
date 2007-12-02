@@ -199,7 +199,7 @@ void sge::window::dispatch()
 int handler(Display* const d, XErrorEvent* const e)
 {
 	boost::array<char,1024> buf;
-	XGetErrorText(d, e->error_code,buf.c_array(), buf.size());
+	XGetErrorText(d, e->error_code,buf.c_array(), static_cast<int>(buf.size()));
 	std::cerr << "X Error: " << buf.data() << '\n';
 	return 0;
 }

@@ -42,7 +42,7 @@ sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_un
 	top_ = static_cast<int>(pixel_size) - bmp_glyph->top + _face->descender / 64;
 	x_advance_ = _face->glyph->advance.x / 64;
 	
-	buffer.resize(bitmap.width * bitmap.rows);
+	buffer.resize_uninitialized(bitmap.width * bitmap.rows);
 	const unsigned char* data = bitmap.buffer;
 	for(int y = 0; y < bitmap.rows; ++y, data += bitmap.pitch)
 		std::memcpy(buffer.data() + y * width(), data, width());

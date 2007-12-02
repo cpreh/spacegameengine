@@ -313,7 +313,7 @@ try
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		//fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
+		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
 		//ls.render();
 
 
