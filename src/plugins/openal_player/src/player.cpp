@@ -112,7 +112,7 @@ ALuint sge::openal::player::register_nonstream_sound(const shared_ptr<sge::audio
 
 	std::vector<unsigned char> data;
 	_audio_file->read_all(data);
-	alBufferData(n.buffer,format,&data[0],data.size(),_audio_file->sample_rate()); check("alGetError");
+	alBufferData(n.buffer,format,&data[0],static_cast<ALsizei>(data.size()),_audio_file->sample_rate()); check("alGetError");
 
 	n.refcount = 1;
 

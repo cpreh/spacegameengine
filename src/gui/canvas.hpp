@@ -78,7 +78,7 @@ public:
 	template<typename MixingPolicy> inline void draw_line(const point &from, const point &to, const color &col) {
 		draw_line(MixingPolicy(), from, to, col);
 	}
-	void draw_line(color::mixing_policy_t policy, color::gradient_policy_t policy, const point &from, const point &to, const color &colfrom, const color &colto);
+	void draw_line(color::mixing_policy_t, color::gradient_policy_t, const point &from, const point &to, const color &colfrom, const color &colto);
 	template<typename MixingPolicy, typename GradientPolicy> inline void draw_line(const point &from, const point &to, const color &colfrom, const color &colto) {
 		draw_line(MixingPolicy(), GradientPolicy(), from, to, colfrom, colto);
 	}
@@ -87,7 +87,7 @@ public:
 	template<typename MixingPolicy> inline void draw_arc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &col) {
 		draw_arc(MixingPolicy(), boundary, arcfrom, arcto, col);
 	}
-	void draw_arc(color::mixing_policy_t policy, color::gradient_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto);
+	void draw_arc(color::mixing_policy_t, color::gradient_policy_t, const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto);
 	template<typename MixingPolicy, typename GradientPolicy> inline void draw_arc(const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto) {
 		draw_arc(MixingPolicy(), GradientPolicy(), boundary, arcfrom, arcto, colfrom, colto);
 	}

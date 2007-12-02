@@ -31,22 +31,22 @@ void sge::ogl::uniform_variable::set(const space_unit f)
 
 void sge::ogl::uniform_variable::set(const math::vector2& v)
 {
-	glUniform2fv(location(), v.size(), v.data());
+	glUniform2fv(location(), static_cast<GLsizei>(v.size()), v.data());
 }
 
 void sge::ogl::uniform_variable::set(const math::vector3& v)
 {
-	glUniform3fv(location(), v.size(), v.data());
+	glUniform3fv(location(), static_cast<GLsizei>(v.size()), v.data());
 }
 
 void sge::ogl::uniform_variable::set(const math::vector4& v)
 {
-	glUniform4fv(location(), v.size(), v.data());
+	glUniform4fv(location(), static_cast<GLsizei>(v.size()), v.data());
 }
 
 void sge::ogl::uniform_variable::set(const math::space_matrix& m)
 {
-	glUniformMatrix4fv(location(), m.size(), false, m.data());
+	glUniformMatrix4fv(location(), static_cast<GLsizei>(m.size()), false, m.data());
 }
 
 GLint sge::ogl::uniform_variable::location() const

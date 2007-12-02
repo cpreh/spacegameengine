@@ -283,9 +283,9 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	const GLenum prim_type = convert_cast<GLenum>(ptype);
 
 	glDrawElements(prim_type,
-	               indices_per_primitive(ptype) * pcount,
+	               static_cast<GLsizei>(indices_per_primitive(ptype) * pcount),
 	               GL_UNSIGNED_INT,
-	               buffer_offset(first_index * sizeof(sge::index_buffer::value_type)));
+	               buffer_offset(static_cast<GLsizei>(first_index * sizeof(sge::index_buffer::value_type))));
 }
 
 void sge::ogl::renderer::render(const vertex_buffer_ptr vb,

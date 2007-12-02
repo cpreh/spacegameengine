@@ -40,7 +40,7 @@ sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_un
 	height_ = bitmap.rows;
 	left_ = bmp_glyph->left;
 	top_ = static_cast<int>(pixel_size) - bmp_glyph->top + _face->descender / 64;
-	x_advance_ = _face->glyph->advance.x / 64;
+	x_advance_ = static_cast<font_unit>(_face->glyph->advance.x / 64);
 	
 	buffer.resize_uninitialized(bitmap.width * bitmap.rows);
 	const unsigned char* data = bitmap.buffer;

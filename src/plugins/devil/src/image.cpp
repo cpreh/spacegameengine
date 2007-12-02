@@ -39,7 +39,7 @@ sge::devil::image::image(const image_format::type type, const const_pointer form
 	if(!format_data || size == 0)
 		throw exception("load_image(): format_data or size is 0!");
 	bind_me();
-	if(ilLoadL(convert_cast<ILenum>(type), const_cast<pointer>(format_data), size) == IL_FALSE)
+	if(ilLoadL(convert_cast<ILenum>(type), const_cast<pointer>(format_data), static_cast<ILuint>(size)) == IL_FALSE)
 		throw exception("ilLoadL() failed!");
 	w = ilGetInteger(IL_IMAGE_WIDTH);
 	h = ilGetInteger(IL_IMAGE_HEIGHT);
@@ -73,7 +73,12 @@ sge::image::size_type sge::devil::image::height() const
 void sge::devil::image::data(const const_pointer p)
 {
 	bind_me();
-	ilTexImage(width(),height(),1,4,IL_RGBA,IL_UNSIGNED_BYTE,const_cast<pointer>(p));
+	ilTexImage(static_cast<ILuint>(width()),
+	           static_cast<ILuint>(height()),
+	           1,
+	           4,
+	           IL_RGBA,IL_UNSIGNED_BYTE,
+	           const_cast<pointer>(p));
 	check_errors();
 }
 
@@ -88,7 +93,7 @@ void sge::devil::image::resample(const size_type _w, const size_type _h)
 	if(width() == _w && height() == _h)
 		return;
 	bind_me();
-	iluScale(_w,_h,32);
+	iluScale(static_cast<ILuint>(_w), static_cast<ILuint>(_h), 32);
 	check_errors();
 	w = _w;
 	h = _h;

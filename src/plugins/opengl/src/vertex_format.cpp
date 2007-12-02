@@ -40,7 +40,7 @@ struct vertex_actor_info {
 vertex_actor_info::vertex_actor_info(const vertex_size offset_,
                                      const vertex_size stride,
                                      const vertex_size index)
-: offset(sge::ogl::buffer_offset(offset_)),
+: offset(sge::ogl::buffer_offset(static_cast<GLsizei>(offset_))),
   stride(stride),
   index(index)
 {}

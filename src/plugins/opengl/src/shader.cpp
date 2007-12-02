@@ -25,7 +25,7 @@ sge::ogl::shader::shader(const GLenum type, const std::string& source)
 : id_(glCreateShader(type))
 {
 	const char* const ptr = source.c_str();
-	const int len = source.size();
+	const int len = static_cast<int>(source.size());
 	glShaderSource(id(), 1, const_cast<const char**>(&ptr), &len);
 
 	glCompileShader(id());

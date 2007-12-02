@@ -24,6 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../extension.hpp"
 #include "../version.hpp"
 
+#if !defined(GLEW_VERSION_1_4)
+#define SGE_OGL_VERTEX_BUFFER_OBJECT_ARB
+#endif
+
 void sge::ogl::check_vbo_extension()
 {
 #ifdef SGE_OGL_VERTEX_BUFFER_OBJECT_ARB

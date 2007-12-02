@@ -113,7 +113,13 @@ void sge::ogl::read_pixels(const sge::texture_base::size_type x,
 {
 	SGE_OPENGL_SENTRY
 	
-	glReadPixels(x, y, width, height, format, type, dest);
+	glReadPixels(static_cast<GLint>(x),
+	             static_cast<GLint>(y),
+	             static_cast<GLsizei>(width),
+	             static_cast<GLsizei>(height),
+	             format,
+	             type,
+	             dest);
 }
 
 void sge::ogl::tex_parameter_i(const GLenum type,

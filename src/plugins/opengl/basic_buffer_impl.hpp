@@ -84,7 +84,7 @@ void sge::ogl::basic_buffer<Base, Type>::set_data(const const_pointer data, cons
 	if(dest)
 		throw exception("ogl_buffer::set_data(), buffer must not be locked!");
 	bind_me();
-	buffer_sub_data(Type, first * stride_, count * stride_, data);
+	buffer_sub_data(Type, static_cast<GLsizei>(first * stride_), static_cast<GLsizei>(count * stride_), data);
 }
 
 template<typename Base, GLenum Type>
@@ -213,7 +213,7 @@ void sge::ogl::basic_buffer<Base, Type>::set_size(const const_pointer src)
 	const GLuint glflags = convert_resource_flags(flags());
 	const size_type nsz = size() * stride_;
 	bind_me();
-	buffer_data(Type, nsz, src, glflags);
+	buffer_data(Type, static_cast<GLsizei>(nsz), src, glflags);
 }
 
 #endif

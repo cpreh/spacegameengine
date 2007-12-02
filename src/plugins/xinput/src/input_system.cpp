@@ -587,7 +587,11 @@ sge::key_type sge::xinput::input_system::create_key_type(const XEvent& xev)
 	KeySym ks;
 	boost::array<char,32> keybuf;
 
-	const int num_chars = XLookupString(const_cast<XKeyEvent*>(reinterpret_cast<const XKeyEvent*>(&xev)), keybuf.c_array(), keybuf.size(), &ks, &state);
+	const int num_chars = XLookupString(const_cast<XKeyEvent*>(reinterpret_cast<const XKeyEvent*>(&xev)),
+	                                    keybuf.c_array(),
+	                                    static_cast<int>(keybuf.size()),
+	                                    &ks,
+	                                    &state);
 	const char code = keybuf[0];
 
 	if(num_chars > 1)
