@@ -81,6 +81,7 @@
 		<Unit filename="..\..\..\src/gui/src/manager.cpp" />
 		<Unit filename="..\..\..\src/gui/src/manager_inputacceptor.cpp" />
 		<Unit filename="..\..\..\src/gui/src/manager_widget.cpp" />
+		<Unit filename="..\..\..\src/gui/src/scrollbar.cpp" />
 		<Unit filename="..\..\..\src/gui/src/text.cpp" />
 		<Unit filename="..\..\..\src/gui/src/types.cpp" />
 		<Unit filename="..\..\..\src/gui/src/widget.cpp" />

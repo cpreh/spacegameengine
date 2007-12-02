@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		events::EVENT_TYPE me_ = me; \
 		for (child_widget_list::iterator b=sge_gui_widget_data.children.begin(), e=sge_gui_widget_data.children.end(); b != e; ++b) { \
 			if (!(*b)->visible()) continue; \
-			if (!me.position.within(rect((*b)->position(), (*b)->size()))) continue; \
-			me_.position = me.position - (*b)->position(); \
+			if (!me.position.within(rect(child_position(*b), (*b)->size()))) continue; \
+			me_.position = me.position - child_position(*b); \
 			if (retval = (*b)->EVENT_INVOKE_NAME(me_)) \
 				return retval; \
 		} \
@@ -87,10 +87,5 @@ void sge::gui::widget::on_parent_skin_change(const events::skin_event &se) {
 
 void sge::gui::widget::on_update() {}
 void sge::gui::widget::on_paint(const events::paint_event &pe) {
-	events::paint_event pe_ = pe;
-	for (child_widget_list::iterator b=sge_gui_widget_data.children.begin(), e=sge_gui_widget_data.children.end(); b != e; ++b) {
-		if (!(*b)->visible()) continue;
-		pe_.position = pe.position + (*b)->position();
-		(*b)->paint(pe_);
-	}
+	paint_children(pe);
 }

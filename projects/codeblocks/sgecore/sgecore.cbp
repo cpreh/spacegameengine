@@ -170,6 +170,7 @@
 		<Unit filename="..\..\..\src/renderer/src/renderer_system.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/scoped_state.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/screenshot.cpp" />
+		<Unit filename="..\..\..\src/renderer/src/transform.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/types.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/vertex_format.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/viewport.cpp" />
@@ -218,12 +219,14 @@
 		<Unit filename="..\..\..\src/texture/atlasing.hpp" />
 		<Unit filename="..\..\..\src/texture/bsp_fragmented_texture.hpp" />
 		<Unit filename="..\..\..\src/texture/fragmented_texture.hpp" />
+		<Unit filename="..\..\..\src/texture/grid_fragmented_texture.hpp" />
 		<Unit filename="..\..\..\src/texture/manager.hpp" />
 		<Unit filename="..\..\..\src/texture/no_fragmented_texture.hpp" />
 		<Unit filename="..\..\..\src/texture/rect_bsp_tree.hpp" />
 		<Unit filename="..\..\..\src/texture/rect_fragmented_texture.hpp" />
 		<Unit filename="..\..\..\src/texture/src/atlasing.cpp" />
 		<Unit filename="..\..\..\src/texture/src/bsp_fragmented_texture.cpp" />
+		<Unit filename="..\..\..\src/texture/src/grid_fragmented_texture.cpp" />
 		<Unit filename="..\..\..\src/texture/src/manager.cpp" />
 		<Unit filename="..\..\..\src/texture/src/no_fragmented_texture.cpp" />
 		<Unit filename="..\..\..\src/texture/src/rect_bsp_tree.cpp" />

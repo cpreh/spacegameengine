@@ -171,6 +171,7 @@ protected:
 
 	// paint events
 	void paint(const events::paint_event &);
+	void paint_children(const events::paint_event &);
 	virtual void on_update();
 	virtual void on_paint (const events::paint_event &);
 

@@ -122,6 +122,15 @@ void sge::gui::widget::paint(const events::paint_event &pe) {
 	on_paint(pe);
 }
 
+void sge::gui::widget::paint_children(const events::paint_event &pe) {
+	events::paint_event pe_ = pe;
+	for (child_widget_list::iterator b=sge_gui_widget_data.children.begin(), e=sge_gui_widget_data.children.end(); b != e; ++b) {
+		if (!(*b)->visible()) continue;
+		pe_.position = pe.position + child_position(*b);
+		(*b)->paint(pe_);
+	}
+}
+
 void sge::gui::widget::skin(skin_ptr newskin) {
 	if (sge_gui_widget_data.skin != newskin) {
 		if ((newskin && newskin != drawskin()) ||

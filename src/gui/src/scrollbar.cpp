@@ -20,16 +20,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../scrollbar.hpp"
 
-sge::gui::scrollbar::drawer::drawer(widget *parent, std::string name);
-sge::gui::events::event_return_type sge::gui::scrollbar::drawer::on_mouse_move(const events::mouse_event &);
-void sge::gui::scrollbar::drawer::on_update();
+sge::gui::scrollbar::drawer::drawer(widget *parent, std::string name)
+: button(parent, name) {}
+sge::gui::widget::event_return_type sge::gui::scrollbar::drawer::on_mouse_move(const events::mouse_event &) { return this; }
+
+void sge::gui::scrollbar::drawer::on_update() {
+	skin_ptr sty = drawskin();
+	skin::focus_modifier::type fm = hover
+		? pushed
+			? skin::focus_modifier::hover
+			: skin::focus_modifier::hover_active
+		: skin::focus_modifier::none;
+
+	sty->draw_background(
+		this,
+		skin::border_style::scrolldrawer,
+		fm,
+		rect(point(0,0), size()),
+		framebuffer
+	);
+
+	{ events::paint_event pe = { framebuffer, point(0,0) };
+		paint_children(pe);
+	}
+
+	sty->draw_border(
+		this,
+		skin::border_style::scrolldrawer,
+		fm,
+		rect(point(0,0), size()),
+		framebuffer
+	);
+}
 
 
 sge::gui::scrollbar::scrollbar(widget *parent, skin::scroll_direction::type sdt, std::string name)
 : widget(parent, name)
 , direction(sdt)
-, upleft   (this, (sdt==skin::scroll_direction::vertical) ? skin::stock_icon::up   : sking::stock_icon::left , name.empty() ? name : name+":upleft")
-, downright(this, (sdt==skin::scroll_direction::vertical) ? skin::stock_icon::down : sking::stock_icon::right, name.empty() ? name : name+":downright")
+, draw     (this, name.empty() ? name : name+":drawer")
+, upleft   (this, (sdt==skin::scroll_direction::vertical) ? skin::stock_icon::up   : skin::stock_icon::left , name.empty() ? name : name+":upleft")
+, downright(this, (sdt==skin::scroll_direction::vertical) ? skin::stock_icon::down : skin::stock_icon::right, name.empty() ? name : name+":downright")
 {
 	resize(100, 100);
 }
@@ -37,15 +67,15 @@ sge::gui::scrollbar::scrollbar(widget *parent, skin::scroll_direction::type sdt,
 void sge::gui::scrollbar::min(value_type newmin) {
 	if (range.min == newmin) return;
 	range.min = newmin;
-	if (min < val) value(min);
-	else           value(1+--val);
+	if (range.min < val) value(range.min);
+	else                 value(1+--val);
 }
 
 void sge::gui::scrollbar::max(value_type newmax) {
 	if (range.max == newmax) return;
 	range.max = newmax;
-	if (max < val) value(max);
-	else           value(1+--val);
+	if (range.max < val) value(range.max);
+	else                 value(1+--val);
 }
 
 void sge::gui::scrollbar::value(value_type newval) {
@@ -71,7 +101,15 @@ void sge::gui::scrollbar::perform_resize(dim2 newsize) {
 void sge::gui::scrollbar::on_update() {
 	framebuffer.fill(sge::colors::transparent);
 
-	skin_ptr sty = drawskin();
+	drawskin()->draw_background(
+		this,
+		skin::border_style::scrollbar,
+		skin::focus_modifier::none,
+		rect(point(0,0), size()),
+		framebuffer
+	);
 
-	sty->
+	{ events::paint_event pe = { framebuffer, point(0,0) };
+		paint_children(pe);
+	}
 }

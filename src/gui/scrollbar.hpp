@@ -31,22 +31,25 @@ namespace gui {
 
 class scrollbar : public widget {
 public:
+	typedef signed   value_type;
+	typedef unsigned step_type;
+
 	scrollbar(widget *parent=0, skin::scroll_direction::type=skin::scroll_direction::vertical, std::string name="");
 
 	inline step_type  large_step() const { return step.large; }
 	inline void       large_step(step_type st) { step.large = st; }
 	inline step_type  small_step() const { return step.small; }
 	inline void       small_step(step_type st) { step.small = st; }
-	inline value_type min() const { return step.min; }
+	inline value_type min() const { return range.min; }
 	void              min(value_type);
-	inline value_type max() const { return step.max; }
+	inline value_type max() const { return range.max; }
 	void              max(value_type);
 
 	inline value_type value() const { return val; }
 	void              value(value_type);
 
-	boost::signal<value_type> modified;
-	boost::signal<value_type> modified_preview;
+	boost::signal<void(value_type)> modified;
+	boost::signal<void(value_type)> modified_preview;
 
 protected:
 	skin::scroll_direction::type direction;
