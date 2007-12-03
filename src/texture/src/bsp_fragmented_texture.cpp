@@ -24,15 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::bsp_fragmented_texture::bsp_fragmented_texture(const renderer_ptr rend, const filter_args& my_filter)
  : rend(rend),
    my_filter(my_filter),
-   bsp(bsp_type::dim_type(rend->caps().max_tex_size,rend->caps().max_tex_size))
+   bsp(bsp_type::dim_type(rend->caps().max_tex_size,rend->caps().max_tex_size)),
+   tex(atlased_texture(rend, my_filter))
 {}
 
 sge::virtual_texture_ptr sge::bsp_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	const texture::dim_type atlased_dim(atlased_size(w,h));
 
-	if(!tex)
-		tex = atlased_texture(rend, my_filter);
 	const bsp_type::iterator it = bsp.insert(atlased_dim);
 	if(it == bsp.end())
 		return virtual_texture_ptr();
@@ -52,9 +51,4 @@ sge::texture_ptr sge::bsp_fragmented_texture::get_texture() const
 bool sge::bsp_fragmented_texture::repeatable() const
 {
 	return false;
-}
-
-sge::fragmented_texture* sge::bsp_fragmented_texture::clone() const
-{
-	return new bsp_fragmented_texture(rend, my_filter);
 }

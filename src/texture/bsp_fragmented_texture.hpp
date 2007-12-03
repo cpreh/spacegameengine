@@ -35,7 +35,6 @@ public:
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const;
 	bool repeatable() const;
-	fragmented_texture* clone() const;
 private:
 	const renderer_ptr    rend;
 	const filter_args     my_filter;

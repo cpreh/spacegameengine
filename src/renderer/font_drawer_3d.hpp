@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+class fragmented_texture;
+
 class font_drawer_3d : public font_drawer {
 public:
 	font_drawer_3d(renderer_ptr rend, color col = colors::white);
@@ -42,6 +44,8 @@ public:
 	void end_rendering();
 	void set_color(color col);
 private:
+	fragmented_texture* create_fragmented_texture() const;
+
 	renderer_ptr                                     rend;
 	color                                            col;
 	texture_manager                                  texman;

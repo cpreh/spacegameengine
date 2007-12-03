@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <boost/bind.hpp>
 #include "../../raw_vector.hpp"
 #include "../../raw_vector_impl.hpp"
 #include "../../texture/rect_fragmented_texture.hpp"
@@ -29,9 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::font_drawer_3d::font_drawer_3d(const renderer_ptr rend, const color col)
 : rend(rend),
   col(col),
-  texman(rend, fragmented_texture_ptr(new rect_fragmented_texture(rend, linear_filter))),
+  texman(rend, boost::bind(&font_drawer_3d::create_fragmented_texture, this)),
   sys(rend)
 {}
+
+sge::fragmented_texture* sge::font_drawer_3d::create_fragmented_texture() const
+{
+	return new rect_fragmented_texture(rend, linear_filter);
+}
 
 void sge::font_drawer_3d::begin_rendering(const size_type buffer_chars, const font_dim)
 {

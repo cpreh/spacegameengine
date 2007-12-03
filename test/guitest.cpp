@@ -90,6 +90,18 @@ struct myIA : public sge::gui::inputacceptor {
 	}
 };
 
+struct create_my_texture {
+	create_my_texture(const sge::renderer_ptr rend)
+	: rend(rend)
+	{}
+	sge::fragmented_texture* operator()() const
+	{
+		return new sge::no_fragmented_texture(rend, sge::linear_filter);
+	}
+private:
+	const sge::renderer_ptr rend;
+};
+
 int main()
 try
 {
@@ -118,8 +130,8 @@ try
 	sge::vertex_buffer_ptr bgvb, cuvb, fgvb;
 	sge::index_buffer_ptr  bgib, cuib, fgib;
 
-	sge::fragmented_texture_ptr mytex(new sge::no_fragmented_texture(rend, sge::point_filter));
-	sge::texture_manager texmgr(rend, mytex);
+	const create_my_texture tex_creator(rend);
+	sge::texture_manager texmgr(rend, tex_creator);
 
 	sge::key_state_tracker ks(is);
 	sge::gui::inputprocessor ip(is);

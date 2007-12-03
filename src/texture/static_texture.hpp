@@ -34,7 +34,6 @@ public:
 	void return_fragments(const virtual_texture&);
 	texture_ptr get_texture() const;
 	bool repeatable() const;
-	fragmented_texture* clone() const;
 private:
 	const texture_ptr  tex;
 	bool               claimed;

@@ -30,10 +30,11 @@ sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const tex
 {
 	if(tex)
 		return virtual_texture_ptr();
+
 	const texture::size_type next_w = math::next_pow_2(w),
 	                         next_h = math::next_pow_2(h);
 
-	tex = rend->create_texture(0, next_w, next_h, my_filter);
+   	tex = rend->create_texture(0, next_w, next_h, my_filter);
 
 	const bool no_atlasing = next_w == w && next_h == h;
 	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0,0), no_atlasing ? lock_rect::dim_type(w,h) : atlased_size(w,h)), *this, no_atlasing));
@@ -52,9 +53,4 @@ sge::texture_ptr sge::no_fragmented_texture::get_texture() const
 bool sge::no_fragmented_texture::repeatable() const
 {
 	return true;
-}
-
-sge::fragmented_texture* sge::no_fragmented_texture::clone() const
-{
-	return new no_fragmented_texture(rend, my_filter);
 }

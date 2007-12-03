@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/utility.hpp"
 #include "../../math/rect_impl.hpp"
 
-#define MAX_TEX_SIZE 4096
-
 namespace {
 	inline void find_texture_size(
 		sge::texture::size_type &sizeref,
@@ -36,34 +34,32 @@ namespace {
 			remainder = (tex_t_size *= 2);
 		if (remainder <= halfpart)
 			sizeref = tex_t_size;
-		if ((sizeref < MAX_TEX_SIZE) && (((2*sizeref) % partsize) <= remainder)) // better or equally good
+		if ((sizeref < maxsize) && (((2*sizeref) % partsize) <= remainder)) // better or equally good
 			sizeref *= 2;
 	}
 }
 
-sge::grid_fragmented_texture::grid_fragmented_texture(renderer_ptr rend, texture::size_type width, texture::size_type height, const filter_args& filter, texture::size_type mintexsize)
+sge::grid_fragmented_texture::grid_fragmented_texture(const renderer_ptr rend, const texture::size_type width, const texture::size_type height, const filter_args& filter)
 : rend(rend)
 , my_filter(my_filter)
 , part_width(width)
 , part_height(height)
+, tex(atlased_texture(rend, filter))
 {
-	tex_x_size = tex_y_size = math::next_pow_2(mintexsize);
+	tex_x_size = atlased_texture_dim(rend).w();
+	tex_y_size = atlased_texture_dim(rend).h();
 	if (tex_x_size < part_width ) tex_x_size = math::next_pow_2(part_width );
 	if (tex_y_size < part_height) tex_y_size = math::next_pow_2(part_height);
-	find_texture_size(tex_x_size, MAX_TEX_SIZE, part_width );
-	find_texture_size(tex_y_size, MAX_TEX_SIZE, part_height);
+// FIXME
+//	find_texture_size(tex_x_size, MAX_TEX_SIZE, part_width );
+//	find_texture_size(tex_y_size, MAX_TEX_SIZE, part_height);
 	parts_per_row = tex_x_size / part_width;
 	parts_free = parts_total = parts_per_row * (tex_y_size / part_height);
-	reserved = new char[parts_total];
-	try {
-		for(unsigned i=0; i<parts_total; i++) reserved[i] = false;
-	} catch(...) {
-		delete[] reserved;
-		throw;
-	}
+	reserved.reset(new char[parts_total]);
+	for(unsigned i=0; i<parts_total; i++) reserved[i] = false;
 }
 
-sge::grid_fragmented_texture::grid_fragmented_texture(const grid_fragmented_texture &other)
+/*sge::grid_fragmented_texture::grid_fragmented_texture(const grid_fragmented_texture &other)
 : rend(other.rend)
 , my_filter(other.my_filter)
 , part_width(other.part_width)
@@ -75,11 +71,7 @@ sge::grid_fragmented_texture::grid_fragmented_texture(const grid_fragmented_text
 , parts_free(other.parts_total) {
 	reserved = new char[parts_total];
 	for(unsigned i=0; i<parts_total; i++) reserved[i] = false;
-}
-
-sge::grid_fragmented_texture::~grid_fragmented_texture() {
-	delete[] reserved;
-}
+}*/
 
 sge::virtual_texture_ptr sge::grid_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
@@ -91,9 +83,6 @@ sge::virtual_texture_ptr sge::grid_fragmented_texture::consume_fragments(const t
 	texture::size_type
 		next_w = math::next_pow_2(w),
 		next_h = math::next_pow_2(h);
-
-	if (!tex)
-		tex = rend->create_texture(0, tex_x_size, tex_y_size, my_filter);
 
 	const bool no_atlasing = math::is_int_log2(w) && math::is_int_log2(h);
 
@@ -127,10 +116,5 @@ sge::texture_ptr sge::grid_fragmented_texture::get_texture() const
 
 bool sge::grid_fragmented_texture::repeatable() const
 {
-	return true;
-}
-
-sge::fragmented_texture* sge::grid_fragmented_texture::clone() const
-{
-	return new grid_fragmented_texture(*this);
+	return false;
 }

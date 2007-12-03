@@ -35,7 +35,6 @@ public:
 	virtual void return_fragments(const virtual_texture&) = 0;
 	virtual texture_ptr get_texture() const = 0;
 	virtual bool repeatable() const = 0;
-	virtual fragmented_texture* clone() const = 0;
 	virtual ~fragmented_texture(){}
 };
 

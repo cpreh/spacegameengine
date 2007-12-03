@@ -26,15 +26,13 @@ sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend, c
   my_filter(my_filter),
   cur_x(0),
   cur_y(0),
-  cur_height(0)
+  cur_height(0),
+  tex(atlased_texture(rend, my_filter))
 {}
 
 sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	const texture::dim_type atlased_dim(atlased_size(w,h));
-
-	if(!tex)
-		tex = atlased_texture(rend, my_filter);
 
 	// if there is no space left for the requested height
 	if(cur_y + h >= tex->height())
@@ -72,9 +70,4 @@ sge::texture_ptr sge::rect_fragmented_texture::get_texture() const
 bool sge::rect_fragmented_texture::repeatable() const
 {
 	return false;
-}
-
-sge::fragmented_texture* sge::rect_fragmented_texture::clone() const
-{
-	return new rect_fragmented_texture(rend, my_filter);
 }

@@ -21,26 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../manager.hpp"
 #include "../static_texture.hpp"
 
-sge::texture_manager::texture_manager(const renderer_ptr rend, const fragmented_texture_ptr nproto)
+sge::texture_manager::texture_manager(const renderer_ptr rend, const onalloc_function& onalloc_)
  : rend(rend),
-   _prototype(nproto)
+   onalloc_(onalloc_)
 {}
 
-const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h, const fragmented_texture *const proto)
+const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h)
 {
 	for(fragmented_texture_list::iterator it = fragmented_textures.begin(); it != fragmented_textures.end(); ++it)
-		if(!proto || typeid(*proto) == typeid(*it))
-			if(const virtual_texture_ptr p = init_texture(*it, src, w, h))
-				return p;
+		if(const virtual_texture_ptr p = init_texture(*it, src, w, h))
+			return p;
 
-	fragmented_textures.push_back(proto ? proto->clone() : _prototype->clone());
+	fragmented_textures.push_back(onalloc_());
 
 	if(const virtual_texture_ptr p = init_texture(fragmented_textures.back(), src, w, h))
 		return p;
 	throw image_too_big();
 }
 
-const sge::virtual_texture_ptr sge::texture_manager::init_texture(fragmented_texture& tex, const texture::const_pointer src, texture::size_type w, texture::size_type h) const
+const sge::virtual_texture_ptr sge::texture_manager::init_texture(fragmented_texture& tex, const texture::const_pointer src, const texture::size_type w, const texture::size_type h) const
 {
 	const virtual_texture_ptr p = tex.consume_fragments(w, h);
 	if(p)
@@ -59,9 +58,9 @@ const sge::renderer_ptr sge::texture_manager::get_renderer() const
 	return rend;
 }
 
-void sge::texture_manager::prototype(const fragmented_texture_ptr p)
+void sge::texture_manager::onalloc(const onalloc_function& fun)
 {
-	_prototype = p;
+	onalloc_ = fun;
 }
 
 sge::texture_manager::image_too_big::image_too_big()
