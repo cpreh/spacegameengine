@@ -18,24 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../export.hpp"
 #include "../../../plugin.hpp"
 #include "../renderer_system.hpp"
 
 extern "C"
 {
-	void plugin_version_info(sge::plugin_info* const p)
-	{
-		if(!p)
-			return;
-		p->name = "Direct3D renderer plugin";
-		p->description = "";
-		p->plugin_version = 0x1;
-		p->min_core_version = 0x1;
-		p->type = sge::plugin_type::renderer;
-	}
 
-	sge::renderer_system* create_rend_system()
-	{
-		return new sge::d3d9::renderer_system();
-	}
+SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
+	
+	if(!p)
+		return;
+	p->name = "Direct3D renderer plugin";
+	p->description = "";
+	p->plugin_version = 0x1;
+	p->min_core_version = 0x1;
+	p->type = sge::plugin_type::renderer;
+}
+
+SGE_EXPORT_SYMBOL sge::renderer_system* create_rend_system()
+{
+	return new sge::d3d9::renderer_system();
+}
+
 }

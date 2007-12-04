@@ -1,14 +1,16 @@
 FILE (GLOB sgevorbisfiles src/*.cpp)
 
-INCLUDE (UsePkgConfig)
+IF (MSVC)
+	INCLUDE_DIRECTORIES (${WININCLUDES}/libvorbis/include)
+	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/libvorbis/lib)
+ENDIF ()
 
 ADD_LIBRARY (sgevorbis SHARED ${sgevorbisfiles})
 
 IF(${UNIX})
+	INCLUDE (UsePkgConfig)
+
 	PKGCONFIG (vorbis vorbisincludedir vorbislibdir vorbislinkflags vorbiscflags)
-ELSEIF (${WIN32})
-	INCLUDE_DIRECTORIES (${WINLIBS}/libvorbis/include)
-	LINK_DIRECTORIES (${WINLIBS}/libvorbis/lib)
 ENDIF ()
 
 TARGET_LINK_LIBRARIES (sgevorbis sgecore vorbisfile ${vorbislinkflags})
