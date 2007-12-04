@@ -67,10 +67,12 @@ private:
 };
 
 template<typename T>
-basic_rect<T> operator+(const basic_rect<T>& l, const math::basic_vector<T,2>& r);
+basic_rect<T> operator+(const basic_rect<T>& l,
+                        const typename basic_rect<T>::point_type& r);
 
 template<typename T>
-basic_rect<T> operator-(const basic_rect<T>& l, const math::basic_vector<T,2>& r);
+basic_rect<T> operator-(const basic_rect<T>& l,
+                        const typename basic_rect<T>::point_type& r);
 
 template<typename T>
 bool operator==(const basic_rect<T>& l, const basic_rect<T>& r);

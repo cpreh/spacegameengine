@@ -3,17 +3,17 @@ FILE (GLOB sgecorefiles src/*.cpp console/src/*.cpp detail/src/*.cpp
 	texture/src/*.cpp model/src/*.cpp)
 ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
 
+IF (MSVC)
+	INCLUDE_DIRECTORIES (${WINLIBS}/libiconv/include)
+	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/libiconv/lib)
+ENDIF ()
+
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
 SET_TARGET_PROPERTIES (sgecore PROPERTIES DEFINE_SYMBOL SGE_EXPORTS)
 
 IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex)
-ENDIF ()
-
-IF (${MSVC})
-	INCLUDE_DIRECTORIES (${WINLIBS}/libiconv/include)
-	LINK_DIRECTORIES (${WINLIBS}/libiconv/lib)
 ENDIF ()
 
 IF (${UNIX})
