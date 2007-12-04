@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_HPP_INCLUDED
 #define SGE_RENDERER_HPP_INCLUDED
 
+#include "../export.hpp"
+#include "../window.hpp"
 #include "../shared_ptr.hpp"
+#include "../math/matrix.hpp"
 #include "types.hpp"
 #include "vertex_buffer.hpp"
 #include "index_buffer.hpp"
@@ -33,13 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "light.hpp"
 #include "glsl_program.hpp"
 #include "primitive.hpp"
-#include "../math/matrix.hpp"
-#include "../window.hpp"
 
 namespace sge
 {
 
-class viewport;
+struct viewport;
 
 namespace int_state
 {
@@ -248,7 +249,7 @@ public:
 	virtual void push() = 0;
 	virtual void pop() = 0;
 
-	static const std::string no_shader;
+	SGE_SYMBOL static const std::string no_shader;
 	virtual glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader, const std::string& pixel_shader_source = no_shader) = 0;
 	virtual void set_glsl_shader(glsl::program_ptr) = 0;
 

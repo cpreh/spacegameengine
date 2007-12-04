@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VIEWPORT_HPP_INCLUDED
 #define SGE_VIEWPORT_HPP_INCLDUED
 
+#include "../export.hpp"
 #include "types.hpp"
 
 namespace sge
@@ -32,10 +33,10 @@ struct viewport {
 	screen_unit w,
 	            h;
 
-	viewport(pixel_unit x,
-	         pixel_unit y,
-	         screen_unit w,
-	         screen_unit h);
+	SGE_SYMBOL viewport(pixel_unit x,
+	                    pixel_unit y,
+	                    screen_unit w,
+	                    screen_unit h);
 };
 
 }

@@ -4,7 +4,7 @@ FILE (GLOB sgecorefiles src/*.cpp console/src/*.cpp detail/src/*.cpp
 ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
 
 IF (MSVC)
-	INCLUDE_DIRECTORIES (${WINLIBS}/libiconv/include)
+	INCLUDE_DIRECTORIES (${WININCLUDES}/libiconv/include)
 	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/libiconv/lib)
 ENDIF ()
 

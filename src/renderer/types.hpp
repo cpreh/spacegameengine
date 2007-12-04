@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <stdexcept>
 #include <ostream>
+#include "../export.hpp"
 #include "../types.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
@@ -41,7 +42,7 @@ namespace bit_depth
 	};
 }
 
-unsigned bit_depth_bit_count(const bit_depth::type d);
+SGE_SYMBOL unsigned bit_depth_bit_count(const bit_depth::type d);
 
 typedef int                              pixel_unit;
 typedef unsigned                         screen_unit;
@@ -49,17 +50,17 @@ typedef math::basic_vector<pixel_unit,2> pixel_pos_t;
 typedef math::basic_dim<screen_unit,2>   screen_size_t;
 
 struct display_mode {
-	display_mode(screen_unit width,
-	             screen_unit height,
-	             bit_depth::type depth,
-	             unsigned refresh_rate = 0);
+	SGE_SYMBOL display_mode(screen_unit width,
+	                        screen_unit height,
+	                        bit_depth::type depth,
+	                        unsigned refresh_rate = 0);
 	
 	screen_size_t   size;
 	bit_depth::type depth;
 	unsigned        refresh_rate;
 
-	screen_unit width() const;
-	screen_unit height() const;
+	SGE_SYMBOL screen_unit width() const;
+	SGE_SYMBOL screen_unit height() const;
 };
 
 template<class Ch,class Traits>
@@ -114,8 +115,8 @@ namespace lock_flags
 
 typedef lock_flags::type lock_flag_t;
 
-bool lock_flag_write(lock_flag_t mode);
-bool lock_flag_read(lock_flag_t mode);
+SGE_SYMBOL bool lock_flag_write(lock_flag_t mode);
+SGE_SYMBOL bool lock_flag_read(lock_flag_t mode);
 
 typedef math::vector2  tex_pos;
 typedef math::vector2  pos2;

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PRIMITIVE_HPP_INCLUDED
 
 #include <cstddef>
+#include "../export.hpp"
 
 namespace sge
 {
@@ -45,8 +46,8 @@ namespace nonindexed_primitive_type
 	};
 }
 
-std::size_t indices_per_primitive(indexed_primitive_type::type);
-std::size_t primitive_count(std::size_t vertex_count, nonindexed_primitive_type::type prim);
+SGE_SYMBOL std::size_t indices_per_primitive(indexed_primitive_type::type);
+SGE_SYMBOL std::size_t primitive_count(std::size_t vertex_count, nonindexed_primitive_type::type prim);
 
 }
 

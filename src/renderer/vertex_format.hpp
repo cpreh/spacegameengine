@@ -72,11 +72,11 @@ typedef vertex_size offset_info[vertex_usage::num_elements];
 
 class vertex_element {
 public:
-	vertex_element(vertex_usage::type usage, vertex_size count);
-	vertex_usage::type usage() const;
-	vertex_size size() const;
-	vertex_size count() const;
-	vertex_size stride() const;
+	SGE_SYMBOL vertex_element(vertex_usage::type usage, vertex_size count);
+	SGE_SYMBOL vertex_usage::type usage() const;
+	SGE_SYMBOL vertex_size size() const;
+	SGE_SYMBOL vertex_size count() const;
+	SGE_SYMBOL vertex_size stride() const;
 private:
 	vertex_usage::type _usage;
 	vertex_size        _count;
@@ -87,12 +87,12 @@ class vertex_format {
 public:
 	typedef std::vector<vertex_element> usage_list;
 
-	vertex_format();
-	const usage_list& elements() const;
-	vertex_size stride() const;
-	vertex_format& add(vertex_usage::type u, vertex_size count = 1);
-	const offset_info& offsets() const;
-	bool uses(vertex_usage::type e) const;
+	SGE_SYMBOL vertex_format();
+	SGE_SYMBOL const usage_list& elements() const;
+	SGE_SYMBOL vertex_size stride() const;
+	SGE_SYMBOL vertex_format& add(vertex_usage::type u, vertex_size count = 1);
+	SGE_SYMBOL const offset_info& offsets() const;
+	SGE_SYMBOL bool uses(vertex_usage::type e) const;
 private:
 	offset_info oi;
 	usage_list  ulist;
