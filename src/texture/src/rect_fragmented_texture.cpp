@@ -30,7 +30,7 @@ sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend, c
   tex(atlased_texture(rend, my_filter))
 {}
 
-sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	const texture::dim_type atlased_dim(atlased_size(w,h));
 
@@ -62,7 +62,7 @@ void sge::rect_fragmented_texture::return_fragments(const virtual_texture&)
 	// FIXME
 }
 
-sge::texture_ptr sge::rect_fragmented_texture::get_texture() const
+const sge::texture_ptr sge::rect_fragmented_texture::get_texture() const
 {
 	return tex;
 }

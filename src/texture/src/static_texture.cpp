@@ -26,7 +26,7 @@ sge::static_texture::static_texture(const texture_ptr tex)
   claimed(false)
 {}
 
-sge::virtual_texture_ptr sge::static_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::static_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	if(claimed)
 		return virtual_texture_ptr();
@@ -42,7 +42,7 @@ void sge::static_texture::return_fragments(const virtual_texture&)
 	claimed = false;
 }
 
-sge::texture_ptr sge::static_texture::get_texture() const
+const sge::texture_ptr sge::static_texture::get_texture() const
 {
 	return tex;
 }

@@ -18,29 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_NO_FRAGMENTED_TEXTURE_HPP_INCLUDED
-#define SGE_NO_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#ifndef SGE_CELL_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#define SGE_CELL_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
+#include "../raw_vector.hpp"
+#include "../field.hpp"
+#include "../renderer/texture.hpp"
 #include "fragmented_texture.hpp"
+#include "virtual_texture.hpp"
 
 namespace sge
 {
 
-class no_fragmented_texture : public fragmented_texture, boost::noncopyable {
+class cell_fragmented_texture : public fragmented_texture {
 public:
-	no_fragmented_texture(renderer_ptr rend, const filter_args& filter);
-	const virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
+	cell_fragmented_texture(renderer_ptr rend,
+	                        const filter_args& filter,
+	                        const texture::dim_type& cell_size);
+	const virtual_texture_ptr consume_fragments(texture::size_type w,
+	                                            texture::size_type h);
 	void return_fragments(const virtual_texture&);
 	const texture_ptr get_texture() const;
 	bool repeatable() const;
+	fragmented_texture* clone() const;
 private:
-	const renderer_ptr rend;
-	const filter_args  my_filter;
-	texture_ptr        tex;
+	typedef field<bool, raw_vector> field_type;
+	const renderer_ptr  rend;
+	const filter_args   my_filter;
+	texture::dim_type   cell_size;
+	field_type          cells;
+	texture_ptr         tex;
 };
 
 }
 
 #endif
-

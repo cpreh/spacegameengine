@@ -167,7 +167,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 
 	current.reset(new glx_current(dsp, *wnd, context));
 
- 	con_manager.scoped_connect(wnd->register_callback(MapNotify, boost::bind(&renderer::reset_viewport, this, _1)));
+ 	con_manager.scoped_connect(wnd->register_callback(MapNotify, boost::bind(&renderer::reset_viewport_on_map, this, _1)));
+	con_manager.scoped_connect(wnd->register_callback(ResizeRequest, boost::bind(&renderer::reset_viewport_on_resize, this, _1)));
 
 	XSync(dsp->get(),False);
 #endif
@@ -450,9 +451,15 @@ void sge::ogl::renderer::set_viewport(const viewport& v)
 }
 
 #ifdef SGE_LINUX_PLATFORM
-void sge::ogl::renderer::reset_viewport(const XEvent&)
+void sge::ogl::renderer::reset_viewport_on_map(const XEvent&)
 {
 	set_viewport(viewport(0, 0, wnd->width(), wnd->height()));
+}
+
+void sge::ogl::renderer::reset_viewport_on_resize(const XEvent& ev)
+{
+	const XResizeRequestEvent& rq(reinterpret_cast<const XResizeRequestEvent&>(ev));
+	set_viewport(viewport(0, 0, rq.width, rq.height));
 }
 #endif
 

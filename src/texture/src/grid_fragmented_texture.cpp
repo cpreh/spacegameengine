@@ -17,6 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
+#include <algorithm>
+#include <cstddef>
 #include "../grid_fragmented_texture.hpp"
 #include "../atlasing.hpp"
 #include "../../math/utility.hpp"
@@ -55,28 +58,14 @@ sge::grid_fragmented_texture::grid_fragmented_texture(const renderer_ptr rend, c
 //	find_texture_size(tex_y_size, MAX_TEX_SIZE, part_height);
 	parts_per_row = tex_x_size / part_width;
 	parts_free = parts_total = parts_per_row * (tex_y_size / part_height);
-	reserved.reset(new char[parts_total]);
-	for(unsigned i=0; i<parts_total; i++) reserved[i] = false;
+	reserved.reset(new bool[parts_total]);
+	std::fill_n(reserved.get(), parts_total, false);
 }
 
-/*sge::grid_fragmented_texture::grid_fragmented_texture(const grid_fragmented_texture &other)
-: rend(other.rend)
-, my_filter(other.my_filter)
-, part_width(other.part_width)
-, part_height(other.part_height)
-, tex_x_size(other.tex_x_size)
-, tex_y_size(other.tex_y_size)
-, parts_per_row(other.parts_per_row)
-, parts_total(other.parts_total)
-, parts_free(other.parts_total) {
-	reserved = new char[parts_total];
-	for(unsigned i=0; i<parts_total; i++) reserved[i] = false;
-}*/
-
-sge::virtual_texture_ptr sge::grid_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::grid_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	if (!parts_free)
-		return sge::virtual_texture_ptr();
+		return virtual_texture_ptr();
 
 	if ((w > part_width) || (h > part_height))
 		; // TODO: Error handling (throw exception?)
@@ -93,7 +82,7 @@ sge::virtual_texture_ptr sge::grid_fragmented_texture::consume_fragments(const t
 		y = (index / parts_per_row) * part_height;
 	}
 
-	virtual_texture_ptr vr(new virtual_texture(
+	const virtual_texture_ptr vr(new virtual_texture(
 		lock_rect(lock_rect::point_type(0,0), no_atlasing ? lock_rect::dim_type(w,h) : atlased_size(w,h)), *this, no_atlasing));
 	--parts_free;
 	return vr;
@@ -101,7 +90,7 @@ sge::virtual_texture_ptr sge::grid_fragmented_texture::consume_fragments(const t
 
 void sge::grid_fragmented_texture::return_fragments(const virtual_texture &t)
 {
-	unsigned index =
+	const std::size_t index =
 		(t.area().left() / part_width) +
 		(t.area().top() / part_height) * parts_per_row;
 	reserved[index] = false;
@@ -109,7 +98,7 @@ void sge::grid_fragmented_texture::return_fragments(const virtual_texture &t)
 		tex.reset();
 }
 
-sge::texture_ptr sge::grid_fragmented_texture::get_texture() const
+const sge::texture_ptr sge::grid_fragmented_texture::get_texture() const
 {
 	return tex;
 }

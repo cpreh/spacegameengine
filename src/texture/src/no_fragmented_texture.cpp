@@ -26,7 +26,7 @@ sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend, const
    my_filter(my_filter)
 {}
 
-sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
 {
 	if(tex)
 		return virtual_texture_ptr();
@@ -45,7 +45,7 @@ void sge::no_fragmented_texture::return_fragments(const virtual_texture&)
 	tex.reset();
 }
 
-sge::texture_ptr sge::no_fragmented_texture::get_texture() const
+const sge::texture_ptr sge::no_fragmented_texture::get_texture() const
 {
 	return tex;
 }

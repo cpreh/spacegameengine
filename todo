@@ -1,4 +1,5 @@
 provide a factory for creating windows and decouple the window from the renderer as much as possible
+add std::string support for older mingws
 finish multi_tree or replace it with an existing class
 add a safer weak_ptr for Deleter template parameter
 breakpoints for the font

@@ -31,10 +31,9 @@ namespace sge
 class grid_fragmented_texture : public fragmented_texture, boost::noncopyable {
 public:
 	grid_fragmented_texture(renderer_ptr rend, texture::size_type width, texture::size_type height, const filter_args& filter);
-	//grid_fragmented_texture(const grid_fragmented_texture &);
-	virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
+	const virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h);
 	void return_fragments(const virtual_texture&);
-	texture_ptr get_texture() const;
+	const texture_ptr get_texture() const;
 	bool repeatable() const;
 private:
 	const renderer_ptr rend;
@@ -43,7 +42,7 @@ private:
 	texture_ptr        tex;
 	texture::size_type tex_x_size, tex_y_size;
 	unsigned parts_per_row, parts_total, parts_free;
-	boost::scoped_array<char> reserved;
+	boost::scoped_array<bool> reserved;
 };
 
 }

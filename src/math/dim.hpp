@@ -121,6 +121,20 @@ public:
 		return *this;
 	}
 
+	basic_dim& operator*=(const basic_dim& r)
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			data[i] *= r[i];
+		return *this;
+	}
+
+	basic_dim& operator/=(const basic_dim& r)
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			data[i] /= r[i];
+		return *this;
+	}
+
 	reference w()
 	{
 		return (*this)[0];
@@ -201,15 +215,24 @@ private:
 	T data[Dim];
 };
 
-template<typename T, std::size_t Dim> basic_dim<T,Dim> operator+(const basic_dim<T,Dim>& l, const basic_dim<T,Dim>& r)
+template<typename T, std::size_t Dim> basic_dim<T,Dim> operator+(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
 {
-	return basic_dim<T,Dim>(l) += r;
+	return l += r;
 }
 
-
-template<typename T, std::size_t Dim> basic_dim<T,Dim> operator-(const basic_dim<T,Dim>& l, const basic_dim<T,Dim>& r)
+template<typename T, std::size_t Dim> basic_dim<T,Dim> operator-(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
 {
-	return basic_dim<T,Dim>(l) -= r;
+	return l -= r;
+}
+
+template<typename T, std::size_t Dim> basic_dim<T, Dim> operator*(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+{
+	return l *= r;
+}
+
+template<typename T, std::size_t Dim> basic_dim<T, Dim> operator/(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+{
+	return l /= r;
 }
 
 template<typename T, std::size_t Dim, typename Ch, typename Traits>

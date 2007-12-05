@@ -27,8 +27,8 @@ class field
 	typedef const T&                              const_reference;
 	typedef typename array_type::iterator         iterator;
 	typedef typename array_type::const_iterator   const_iterator;
-	typedef typename iterator::difference_type    difference_type;
 	typedef typename array_type::size_type        size_type;
+	typedef typename array_type::difference_type  difference_type;
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -42,20 +42,6 @@ class field
 	array_type array;
 
 	public:
-
-	class position_iterator : public boost::iterator_adaptor<position_iterator,iterator,T,boost::bidirectional_traversal_tag>
-	{
-		public:
-		position_iterator(iterator i,field &ref) : position_iterator::iterator_adaptor_(i),ref(ref) {}
-
-		coord_type x() const { return ref.x(this->base()); }
-		coord_type y() const { return ref.y(this->base()); }
-		coord_vector_type pos() const { return ref.pos(this->base()); }
-
-		private:
-		friend class boost::iterator_core_access;
-		field &ref;
-	};
 
 	// standard-ctor
 	field(const allocator_type& alloc = allocator_type()) : array(alloc) {}
@@ -97,12 +83,15 @@ class field
 	reverse_iterator rend() { return array.rend(); }
 	const_reverse_iterator rbegin() const { return array.rbegin(); }
 	const_reverse_iterator rend() const { return array.rend(); }
-	position_iterator pbegin() { return position_iterator(array.begin(),*this); }
-	position_iterator pend() { return position_iterator(array.end(),*this); }
+	const coord_vector_type position(const const_iterator it) const
+	{
+		const difference_type diff = std::distance(begin(), it);
+		return coord_vector_type(diff % w(), diff / w());
+	}
 
 	allocator_type get_allocator() const { return array.get_allocator(); }
 
-	void zero() { std::fill(begin(),end(),value_type(0)); }
+	void zero() { std::fill(begin(),end(),static_cast<value_type>(0)); }
 	void resize(const coord_type &x,const coord_type &y, const_reference value = value_type()) { resize(dim_type(x,y), value); }
 	void resize(const dim_type &n, const_reference value = value_type()) { if (dim_ == n) return; dim_ = n; array.resize(field_count(), value); }
 	value_type &pos(const coord_type &x,const coord_type &y) { return array[y * dim_.w() + x]; }
