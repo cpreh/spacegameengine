@@ -66,8 +66,3 @@ bool sge::cell_fragmented_texture::repeatable() const
 {
 	return false;
 }
-
-sge::fragmented_texture* sge::cell_fragmented_texture::clone() const
-{
-	return new cell_fragmented_texture(rend, my_filter, cell_size);
-}

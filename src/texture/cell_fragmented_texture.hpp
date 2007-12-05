@@ -40,7 +40,6 @@ public:
 	void return_fragments(const virtual_texture&);
 	const texture_ptr get_texture() const;
 	bool repeatable() const;
-	fragmented_texture* clone() const;
 private:
 	typedef field<bool, raw_vector> field_type;
 	const renderer_ptr  rend;
