@@ -18,30 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../shader.hpp"
+#ifndef SGE_SPRITE_ANIMATION_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATION_HPP_INCLUDED
 
-sge::ogl::shader::shader(const GLenum type, const std::string& source)
-: id_(glCreateShader(type))
+namespace sge
 {
-	const char* const ptr = source.c_str();
-	const GLint len = static_cast<GLint>(source.size());
-	glShaderSource(id(), 1, const_cast<const char**>(&ptr), &len);
 
-	glCompileShader(id());
-	
-	GLint compile_status;
-	glGetShaderiv(id(), GL_COMPILE_STATUS, &compile_status);
-	if(compile_status == GL_FALSE)
-		throw exception("Compiling a shader failed!");
+class sprite;
+
+class sprite_animation {
+public:
+	virtual bool process() = 0;
+	virtual void reset(const sprite&) = 0;
+	virtual ~sprite_animation(){}
+};
+
 }
 
-sge::ogl::shader::~shader()
-{
-	glDeleteShader(id());
-}
-
-GLuint sge::ogl::shader::id() const
-{
-	return id_;
-}
+#endif

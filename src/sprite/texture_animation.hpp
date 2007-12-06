@@ -18,30 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../shader.hpp"
+#ifndef SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
+#define SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
 
-sge::ogl::shader::shader(const GLenum type, const std::string& source)
-: id_(glCreateShader(type))
+#include <vector>
+#include "animation.hpp"
+#include "../time.hpp"
+#include "../timer.hpp"
+#include "../texture/virtual_texture.hpp"
+
+namespace sge
 {
-	const char* const ptr = source.c_str();
-	const GLint len = static_cast<GLint>(source.size());
-	glShaderSource(id(), 1, const_cast<const char**>(&ptr), &len);
 
-	glCompileShader(id());
-	
-	GLint compile_status;
-	glGetShaderiv(id(), GL_COMPILE_STATUS, &compile_status);
-	if(compile_status == GL_FALSE)
-		throw exception("Compiling a shader failed!");
+class sprite_texture_animation : public sprite_animation {
+public:
+	struct entity {
+		entity(time_type delay, virtual_texture_ptr tex);
+		const time_type           delay;
+		const virtual_texture_ptr tex;
+	};
+
+	typedef std::vector<entity> animation_series;
+	sprite_texture_animation(const animation_series&);
+
+	bool process();
+	void reset(sprite&);
+private:
+	void set_frame(animation_series::const_iterator);
+
+	animation_series                 series;
+	timer                            cur_timer;
+	sprite*                          s;
+	animation_series::const_iterator pos;
+};
+
 }
 
-sge::ogl::shader::~shader()
-{
-	glDeleteShader(id());
-}
-
-GLuint sge::ogl::shader::id() const
-{
-	return id_;
-}
+#endif

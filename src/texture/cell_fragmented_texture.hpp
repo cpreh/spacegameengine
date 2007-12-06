@@ -46,7 +46,7 @@ private:
 	const filter_args   my_filter;
 	texture::dim_type   cell_size;
 	field_type          cells;
-	texture_ptr         tex;
+	const texture_ptr   tex;
 };
 
 }

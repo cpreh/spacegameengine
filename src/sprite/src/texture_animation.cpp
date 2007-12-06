@@ -18,30 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../shader.hpp"
+#include "../texture_animation.hpp"
+#include "../sprite.hpp"
 
-sge::ogl::shader::shader(const GLenum type, const std::string& source)
-: id_(glCreateShader(type))
+sge::sprite_texture_animation::sprite_texture_animation(const animation_series& series)
+: series(series),
+  cur_timer(0),
+  s(0),
+  pos(series.end())
+{}
+
+bool sge::sprite_texture_animation::process()
 {
-	const char* const ptr = source.c_str();
-	const GLint len = static_cast<GLint>(source.size());
-	glShaderSource(id(), 1, const_cast<const char**>(&ptr), &len);
-
-	glCompileShader(id());
-	
-	GLint compile_status;
-	glGetShaderiv(id(), GL_COMPILE_STATUS, &compile_status);
-	if(compile_status == GL_FALSE)
-		throw exception("Compiling a shader failed!");
+	if(!s)
+		return false;
+	if(cur_timer.expired())
+	{
+		if(pos == series.end())
+			return false;
+		++pos;
+		set_frame(pos);
+	}
+	return true;
 }
 
-sge::ogl::shader::~shader()
+void sge::sprite_texture_animation::reset(sprite& nspr)
 {
-	glDeleteShader(id());
+	s = &nspr;
+	pos = series.begin();
+	set_frame(pos);
 }
 
-GLuint sge::ogl::shader::id() const
+void sge::sprite_texture_animation::set_frame(const animation_series::const_iterator it)
 {
-	return id_;
+	cur_timer.interval(it->delay);
+	s->set_texture(it->tex);
 }
+
+sge::sprite_texture_animation::entity::entity(const time_type delay,
+                                              const virtual_texture_ptr tex)
+: delay(delay),
+  tex(tex)
+{}
