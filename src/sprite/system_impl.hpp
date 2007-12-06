@@ -61,7 +61,8 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 			else
 				fill_sprite_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
-			fill_sprite_tex_coordinates(vb_it, spr.get_texture()->area_texc(spr.repeat()));
+			if(const virtual_texture_ptr tex = spr.get_texture())
+				fill_sprite_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
 
 			vb_it = fill_sprite_color(vb_it, spr.get_color());
 		}

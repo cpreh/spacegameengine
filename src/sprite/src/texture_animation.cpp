@@ -30,14 +30,15 @@ sge::sprite_texture_animation::sprite_texture_animation(const animation_series& 
 
 bool sge::sprite_texture_animation::process()
 {
-	if(!s || pos == series.end())
+	if(!s)
 		return false;
 	if(cur_timer.expired())
 	{
-		++pos;
 		if(pos == series.end())
 			return false;
-		set_frame(pos);
+		cur_timer.interval(pos->delay);
+		s->set_texture(pos->tex);
+		++pos;
 	}
 	return true;
 }
@@ -46,13 +47,7 @@ void sge::sprite_texture_animation::reset(sprite& nspr)
 {
 	s = &nspr;
 	pos = series.begin();
-	set_frame(pos);
-}
-
-void sge::sprite_texture_animation::set_frame(const animation_series::const_iterator it)
-{
-	cur_timer.interval(it->delay);
-	s->set_texture(it->tex);
+	cur_timer.interval(0);
 }
 
 sge::sprite_texture_animation::entity::entity(const time_type delay,

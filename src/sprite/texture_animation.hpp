@@ -44,8 +44,6 @@ public:
 	bool process();
 	void reset(sprite&);
 private:
-	void set_frame(animation_series::const_iterator);
-
 	animation_series                 series;
 	timer                            cur_timer;
 	sprite*                          s;
