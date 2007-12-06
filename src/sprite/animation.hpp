@@ -29,7 +29,7 @@ class sprite;
 class sprite_animation {
 public:
 	virtual bool process() = 0;
-	virtual void reset(const sprite&) = 0;
+	virtual void reset(sprite&) = 0;
 	virtual ~sprite_animation(){}
 };
 

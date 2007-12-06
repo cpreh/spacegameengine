@@ -18,18 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_HPP_INCLUDED
-#define SGE_MEDIA_HPP_INCLUDED
+#include "../scoped_renderblock.hpp"
 
-#include <string>
-#include "export.hpp"
-
-namespace sge
+sge::scoped_renderblock::scoped_renderblock(const renderer_ptr rend)
+: rend(rend)
 {
-
-SGE_SYMBOL std::string media_path();
-SGE_SYMBOL std::string media_path(const std::string& subpath);
-
+	if(rend)
+		rend->begin_rendering();
 }
 
-#endif
+sge::scoped_renderblock::~scoped_renderblock()
+{
+	if(rend)
+		rend->end_rendering();
+}
+
+void sge::scoped_renderblock::release()
+{
+	rend.reset();
+}

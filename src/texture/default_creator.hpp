@@ -18,17 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_HPP_INCLUDED
-#define SGE_MEDIA_HPP_INCLUDED
+#ifndef SGE_DEFAULT_TEXTURE_CREATOR_HPP_INCLUDED
+#define SGE_DEFAULT_TEXTURE_CREATOR_HPP_INCLUDED
 
-#include <string>
-#include "export.hpp"
+#include "../renderer/renderer.hpp"
+#include "../renderer/types.hpp"
 
 namespace sge
 {
 
-SGE_SYMBOL std::string media_path();
-SGE_SYMBOL std::string media_path(const std::string& subpath);
+class fragmented_texture;
+
+template<typename T>
+class default_texture_creator {
+public:
+	default_texture_creator(renderer_ptr rend, const filter_args& filter);
+	fragmented_texture* operator()() const;
+private:
+	const renderer_ptr rend;
+	const filter_args filter;
+};
 
 }
 

@@ -18,18 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_HPP_INCLUDED
-#define SGE_MEDIA_HPP_INCLUDED
+#include "../util.hpp"
+#include "../manager.hpp"
 
-#include <string>
-#include "export.hpp"
-
-namespace sge
+const sge::virtual_texture_ptr sge::add_texture(texture_manager& man,
+                                                const image_ptr img)
 {
-
-SGE_SYMBOL std::string media_path();
-SGE_SYMBOL std::string media_path(const std::string& subpath);
-
+	return man.add_texture(img->data(), img->width(), img->height());
 }
-
-#endif

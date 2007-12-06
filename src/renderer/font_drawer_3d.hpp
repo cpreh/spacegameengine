@@ -44,8 +44,6 @@ public:
 	void end_rendering();
 	void set_color(color col);
 private:
-	fragmented_texture* create_fragmented_texture() const;
-
 	renderer_ptr                                     rend;
 	color                                            col;
 	texture_manager                                  texman;

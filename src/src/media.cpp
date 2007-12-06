@@ -24,3 +24,8 @@ std::string sge::media_path()
 {
 	return MEDIA_PATH;
 }
+
+std::string sge::media_path(const std::string& subpath)
+{
+	return media_path() + subpath;
+}

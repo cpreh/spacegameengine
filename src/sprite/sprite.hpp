@@ -36,7 +36,13 @@ public:
 	typedef sprite_point point;
 	typedef sprite_dim   dim;
 
-	sprite(point pos, dim sz, virtual_texture_ptr tex, color c = colors::white, space_unit z = 0, space_unit rotation = 0, bool visible = true);
+	sprite(point pos,
+	       dim sz,
+	       virtual_texture_ptr tex,
+	       color c = colors::white,
+	       space_unit z = 0,
+	       space_unit rotation = 0,
+	       bool visible = true);
 
 	space_unit& x();
 	space_unit& y();

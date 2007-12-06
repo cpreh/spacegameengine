@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_animation.hpp"
 #include "../sprite.hpp"
 
-sge::sprite_texture_animation::sprite_texture_animation(const animation_series& series)
-: series(series),
+sge::sprite_texture_animation::sprite_texture_animation(const animation_series& series_)
+: series(series_),
   cur_timer(0),
   s(0),
   pos(series.end())
@@ -30,13 +30,13 @@ sge::sprite_texture_animation::sprite_texture_animation(const animation_series& 
 
 bool sge::sprite_texture_animation::process()
 {
-	if(!s)
+	if(!s || pos == series.end())
 		return false;
 	if(cur_timer.expired())
 	{
+		++pos;
 		if(pos == series.end())
 			return false;
-		++pos;
 		set_frame(pos);
 	}
 	return true;

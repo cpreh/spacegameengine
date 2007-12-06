@@ -18,17 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_HPP_INCLUDED
-#define SGE_MEDIA_HPP_INCLUDED
+#ifndef SGE_SCOPED_RENDERBLOCK_HPP_INCLUDED
+#define SGE_SCOPED_RENDERBLOCK_HPP_INCLUDED
 
-#include <string>
-#include "export.hpp"
+#include <boost/noncopyable.hpp>
+#include "renderer.hpp"
 
 namespace sge
 {
 
-SGE_SYMBOL std::string media_path();
-SGE_SYMBOL std::string media_path(const std::string& subpath);
+class scoped_renderblock : boost::noncopyable {
+public:
+	scoped_renderblock(renderer_ptr);
+	~scoped_renderblock();
+	void release();
+private:
+	renderer_ptr rend;
+};
 
 }
 
