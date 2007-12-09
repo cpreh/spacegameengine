@@ -72,6 +72,6 @@ void sge::ogl::fbo_render_target::bind_texture(const texture_ptr t)
 	const shared_ptr<texture_base> p(dynamic_pointer_cast<texture_base>(t));
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, p->id(), 0);
 	const GLenum status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
-if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
-		throw exception("glCheckFramebufferStatusEXT: fbo incomplete");
+	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
+		throw exception("glCheckFramebufferStatusEXT: fbo incomplete!");
 }

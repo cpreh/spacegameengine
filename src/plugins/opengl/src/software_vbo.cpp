@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <cassert>
 #include <map>
 #include <utility>
 #include "../../../algorithm_impl.hpp"
@@ -54,7 +53,6 @@ GLuint sge::ogl::vbo_impl<false>::gen_buffer()
 void sge::ogl::vbo_impl<false>::delete_buffer(const GLuint id)
 {
 	const buffer_map::iterator it = get_buffer_object(id);
-	assert(it->second);
 	delete[] it->second;
 	buffers.erase(it);
 }
