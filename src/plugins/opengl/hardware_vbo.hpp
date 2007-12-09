@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
-#define SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_HARDWARE_VBO_HPP_INCLUDED
+#define SGE_OPENGL_HARDWARE_VBO_HPP_INCLUDED
 
 #include "common.hpp"
 #include "vbo_common.hpp"
@@ -30,7 +30,7 @@ namespace ogl
 {
 
 template<>
-struct vbo_impl<false> {
+struct vbo_impl<true> {
 	static GLuint gen_buffer();
 	static void delete_buffer(GLuint);
 	static void bind_buffer(GLenum type, GLuint);

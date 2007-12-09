@@ -18,8 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
-#include "../../../stub.hpp"
+#include "../../../algorithm_impl.hpp"
 #include "../../../renderer/scoped_lock.hpp"
 #include "../common.hpp"
 #include "../texture.hpp"
@@ -27,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
 #include "../vbo.hpp"
+#include "../pbo.hpp"
 
 template class sge::ogl::basic_texture<sge::texture, GL_TEXTURE_2D>;
 
@@ -73,7 +73,7 @@ void sge::ogl::texture::set_data(const const_pointer src)
 	pre_setdata();
 #ifdef SGE_OPENGL_HAVE_PBO	
 	scoped_lock<sge::texture*> lock_(this, lock_flags::writeonly);
-	std::copy(src, src + size(), data());
+	copy_n(src, size(), data());
 #else
 	set_texture(src);
 #endif
@@ -81,29 +81,22 @@ void sge::ogl::texture::set_data(const const_pointer src)
 
 void sge::ogl::texture::lock(const lock_flag_t lmode)
 {
-#ifdef SGE_OPENGL_HAVE_PBO
 	do_lock(lmode);
 	if(lock_flag_read(lock_mode()))
 		read_pixels(0,
 		            0,
 		            width(),
-		            height(), static_cast<color*>(buffer_offset(pixel_unpack_buffer_type, 0)));
+		            height(),
+			    read_buffer());
 	post_lock();
-#else
-	SGE_STUB_FUNCTION
-#endif
 }
 
 void sge::ogl::texture::unlock()
 {
-#ifdef SGE_OPENGL_HAVE_PBO
 	pre_unlock();
 	if(lock_flag_write(lock_mode()))
-		set_texture(static_cast<color*>(buffer_offset(pixel_pack_buffer_type, 0)));
+		set_texture(write_buffer());
 	do_unlock();
-#else
-	SGE_STUB_FUNCTION
-#endif
 }
 
 void sge::ogl::texture::set_texture(const const_pointer src)

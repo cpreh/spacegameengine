@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../exception.hpp"
 #include "../../renderer/types.hpp"
 #include "common.hpp"
+#include "vbo_common.hpp"
 
 namespace sge
 {
@@ -31,7 +32,8 @@ namespace ogl
 {
 
 template<typename Base, GLenum Type>
-class basic_buffer : public Base {
+class basic_buffer : public Base,
+                     private select_vbo_impl<Type>::type {
 public:
 	typedef typename Base::value_type             value_type;
 	typedef typename Base::size_type              size_type;
@@ -76,7 +78,18 @@ public:
 
 	static void unbind();
 	void bind_me() const;
+	
+	static pointer buffer_offset(size_type offset);
 private:
+	typedef typename select_vbo_impl<Type>::type impl;
+	using impl::gen_buffer;
+	using impl::delete_buffer;
+	using impl::bind_buffer;
+	using impl::map_buffer;
+	using impl::unmap_buffer;
+	using impl::buffer_data;
+	using impl::buffer_sub_data;
+
 	static void bind(GLuint id);
 	void check_lock() const;
 	void set_size(const_pointer src);

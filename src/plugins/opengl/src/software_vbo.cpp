@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../algorithm_impl.hpp"
 #include "../../../exception.hpp"
 #include "../software_vbo.hpp"
+#include "../vbo.hpp"
+#include "../pbo.hpp"
 
 namespace
 {
@@ -62,7 +64,7 @@ void sge::ogl::vbo_impl<false>::bind_buffer(const GLenum type, const GLuint id)
 	get_bound_buffer(type) = id;
 }
 
-void* sge::ogl::vbo_impl<false>::map_buffer(const GLenum type, const GLenum flags)
+void* sge::ogl::vbo_impl<false>::map_buffer(const GLenum type, const GLenum)
 {
 	check_bound(type);
 	return get_buffer_object(get_bound_buffer(type))->second;
@@ -76,9 +78,13 @@ void sge::ogl::vbo_impl<false>::unmap_buffer(const GLenum type)
 void sge::ogl::vbo_impl<false>::buffer_data(const GLenum type,
                                             const GLsizei size,
                                             const void *const data,
-                                            const GLenum flags)
+                                            const GLenum)
 {
-	buffer_sub_data(type, 0, size, data);
+	const buffer_map::iterator it = get_buffer_object(get_bound_buffer(type));
+	delete[] it->second;
+	it->second = new unsigned char[size];
+	if(data)
+		buffer_sub_data(type, 0, size, data);
 }
 
 void sge::ogl::vbo_impl<false>::buffer_sub_data(const GLenum type,
@@ -86,6 +92,9 @@ void sge::ogl::vbo_impl<false>::buffer_sub_data(const GLenum type,
                                                 const GLsizei size,
                                                 const void *const data)
 {
+	if(!data)
+		throw exception("buffer_sub_data(): data may not be 0!");
+
 	copy_n(static_cast<const unsigned char*>(data) + first,
 	       size,
 	       get_buffer_object(get_bound_buffer(type))->second);
@@ -103,13 +112,13 @@ namespace
 GLuint& get_bound_buffer(const GLenum type)
 {
 	switch(type) {
-	case GL_ARRAY_BUFFER:
+	case sge::ogl::vertex_buffer_type:
 		return bound_vb;
-	case GL_ELEMENT_ARRAY_BUFFER:
+	case sge::ogl::index_buffer_type:
 		return bound_ib;
-	case GL_PIXEL_PACK_BUFFER:
+	case sge::ogl::pixel_pack_buffer_type:
 		return bound_pack;
-	case GL_PIXEL_UNPACK_BUFFER:
+	case sge::ogl::pixel_unpack_buffer_type:
 		return bound_unpack;
 	default:
 		throw sge::exception("get_bound_buffer(): invalid type!");

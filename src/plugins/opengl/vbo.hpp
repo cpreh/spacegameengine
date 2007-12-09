@@ -22,24 +22,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VBO_HPP_INCLUDED
 
 #include "common.hpp"
+#include "vbo_common.hpp"
+#include "hardware_vbo.hpp"
+#include "software_vbo.hpp"
+
+#if defined(GLEW_VERSION_1_5)
+#define SGE_OPENGL_VERTEX_BUFFER_OBJECT
+#elif defined(GL_VERTEX_BUFFER_OBJECT_ARB)
+#define SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
+#endif
+
+#if defined(SGE_OPENGL_VERTEX_BUFFER_OBJECT) || defined(SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB)
+#define SGE_OPENGL_HAVE_VBO
+#endif
 
 namespace sge
 {
 namespace ogl
 {
 
-void check_vbo_extension();
-GLuint gen_buffer();
-void delete_buffer(GLuint);
-void bind_buffer(GLenum type, GLuint);
-void* map_buffer(GLenum type, GLenum flags);
-void unmap_buffer(GLenum type);
-void buffer_data(GLenum type, GLsizei size, const void* data, GLenum flags);
-void buffer_sub_data(GLenum type, GLsizei first, GLsizei size, const void* data);
-void* buffer_offset(GLenum type, GLsizei offset);
-
+#ifdef SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
+const GLenum index_buffer_type = GL_ELEMENT_ARRAY_BUFFER_ARB;
+const GLenum vertex_buffer_type = GL_ARRAY_BUFFER_ARB;
+#else
 const GLenum index_buffer_type = GL_ELEMENT_ARRAY_BUFFER;
 const GLenum vertex_buffer_type = GL_ARRAY_BUFFER;
+#endif
+
+namespace detail
+{
+const bool hw_vbo = 
+#ifdef SGE_OPENGL_HAVE_VBO
+	true
+#else
+	false
+#endif
+	;
+}
+
+template<>
+struct select_vbo_impl<index_buffer_type> {
+	typedef vbo_impl<detail::hw_vbo> type;
+};
+
+template<>
+struct select_vbo_impl<vertex_buffer_type> {
+	typedef vbo_impl<detail::hw_vbo> type;
+};
+
+template<GLenum Type>
+void* buffer_offset(const GLsizei offset)
+{
+	return select_vbo_impl<Type>::type::buffer_offset(Type, offset);
+}
 
 }
 }

@@ -47,6 +47,9 @@ public:
 
 	basic_raw_buffer(size_type, resource_flag_t, const_pointer src);
 	static void unbind();
+
+	typedef basic_buffer<Base, Type> base_type;
+	using base_type::buffer_offset;
 private:
 	typedef basic_buffer<Base, Type> base;
 

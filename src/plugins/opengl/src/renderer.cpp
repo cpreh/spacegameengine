@@ -286,8 +286,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 	glDrawElements(prim_type,
 	               static_cast<GLsizei>(indices_per_primitive(ptype) * pcount),
 	               GL_UNSIGNED_INT,
-	               buffer_offset(index_buffer_type,
-	                             static_cast<GLsizei>(first_index * sizeof(sge::index_buffer::value_type))));
+	               index_buffer::buffer_offset(first_index * sizeof(sge::index_buffer::value_type)));
 }
 
 void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
@@ -560,7 +559,7 @@ void sge::ogl::renderer::push()
 	SGE_OPENGL_SENTRY
 
 	if(get_int(GL_ATTRIB_STACK_DEPTH) > 16)
-		std::cerr << "Warning: glPush() stack level is greater than 16 which is the greater than the minimal supported level!\n";
+		std::cerr << "Warning: glPush() stack level is greater than 16 which is greater than the minimal supported level!\n";
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 }

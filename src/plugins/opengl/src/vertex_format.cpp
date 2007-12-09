@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../vbo.hpp"
 #include "../vertex_format.hpp"
+#include "../vertex_buffer.hpp"
 
 namespace {
 
@@ -40,8 +41,7 @@ struct vertex_actor_info {
 vertex_actor_info::vertex_actor_info(const vertex_size offset_,
                                      const vertex_size stride,
                                      const vertex_size index)
-: offset(sge::ogl::buffer_offset(sge::ogl::vertex_buffer_type,
-                                 static_cast<GLsizei>(offset_))),
+: offset(sge::ogl::vertex_buffer::buffer_offset(offset_)),
   stride(stride),
   index(index)
 {}
