@@ -36,7 +36,7 @@ void* map_buffer(GLenum type, GLenum flags);
 void unmap_buffer(GLenum type);
 void buffer_data(GLenum type, GLsizei size, const void* data, GLenum flags);
 void buffer_sub_data(GLenum type, GLsizei first, GLsizei size, const void* data);
-void* buffer_offset(GLsizei);
+void* buffer_offset(GLenum type, GLsizei offset);
 
 const GLenum index_buffer_type = GL_ELEMENT_ARRAY_BUFFER;
 const GLenum vertex_buffer_type = GL_ARRAY_BUFFER;

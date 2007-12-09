@@ -18,24 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ALGORITHM_HPP_INCLUDED
-#define SGE_ALGORITHM_HPP_INCLUDED
+#ifndef SGE_OPENGL_VBO_COMMON_HPP_INCLUDED
+#define SGE_OPENGL_VBO_COMMON_HPP_INCLUDED
 
 namespace sge
 {
+namespace ogl
+{
 
-template<typename In, typename Size, typename T>
-In find_nth(In first, In last, Size count, const T& t);
+template<bool hw_supported>
+struct vbo_impl;
 
-template<typename In, typename Size, typename UnaryPredicate>
-In find_nth_if(In first, In last, Size count, UnaryPredicate pred);
-
-template<typename In, typename Size, typename BinaryPredicate>
-In first_mismatch_if(In first, In last, Size& cnt, BinaryPredicate pred);
-
-template<typename In, typename Out, typename Size>
-Out copy_n(In beg, Size sz, Out out);
-
+}
 }
 
 #endif

@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#if 0
 #include <cassert>
 #include <map>
 #include <utility>
+#include "../../../algorithm_impl.hpp"
+#include "../../../exception.hpp"
+#include "../software_vbo.hpp"
 
 namespace
 {
@@ -41,13 +43,13 @@ void check_bound(GLenum type);
 
 }
 
-GLuint sge::ogl::gen_buffer()
+GLuint sge::ogl::vbo_impl<false>::gen_buffer()
 {
-	buffers.insert(std::make_pair(nextid, 0));
+	buffers.insert(buffer_map::value_type(nextid, 0));
 	return nextid++;
 }
 
-void sge::ogl::delete_buffer(const GLuint id)
+void sge::ogl::vbo_impl<false>::delete_buffer(const GLuint id)
 {
 	const buffer_map::iterator it = get_buffer_object(id);
 	assert(it->second);
@@ -55,32 +57,42 @@ void sge::ogl::delete_buffer(const GLuint id)
 	buffers.erase(it);
 }
 
-void sge::ogl::bind_buffer(const GLenum type, const GLuint id)
+void sge::ogl::vbo_impl<false>::bind_buffer(const GLenum type, const GLuint id)
 {
 	get_bound_buffer(type) = id;
 }
 
-void* sge::ogl::map_buffer(const GLenum type, const GLenum flags)
+void* sge::ogl::vbo_impl<false>::map_buffer(const GLenum type, const GLenum flags)
+{
+	check_bound(type);
+	return get_buffer_object(get_bound_buffer(type))->second;
+}
+
+void sge::ogl::vbo_impl<false>::unmap_buffer(const GLenum type)
 {
 	check_bound(type);
 }
 
-void sge::ogl::unmap_buffer(const GLenum type)
-{
-	check_bound(type);
-}
-
-void sge::ogl::buffer_data(const GLenum type, const GLsizei size, const void *const data, const GLenum flags)
+void sge::ogl::vbo_impl<false>::buffer_data(const GLenum type,
+                                            const GLsizei size,
+                                            const void *const data,
+                                            const GLenum flags)
 {
 	buffer_sub_data(type, 0, size, data);
 }
 
-void sge::ogl::buffer_sub_data(const GLenum type, const GLsizei first, const GLsizei size, const void *const data)
+void sge::ogl::vbo_impl<false>::buffer_sub_data(const GLenum type,
+                                                const GLsizei first,
+                                                const GLsizei size,
+                                                const void *const data)
 {
-	std::copy_n(static_cast<const unsigned char*>(data) + first, size, get_buffer_object(get_bound_buffer(type))->second);
+	copy_n(static_cast<const unsigned char*>(data) + first,
+	       size,
+	       get_buffer_object(get_bound_buffer(type))->second);
 }
 
-void* sge::ogl::buffer_offset(const GLenum type, const GLsizei offset)
+void* sge::ogl::vbo_impl<false>::buffer_offset(const GLenum type,
+                                               const GLsizei offset)
 {
 	return get_buffer_object(get_bound_buffer(type))->second + offset;
 }
@@ -119,4 +131,3 @@ void check_bound(const GLenum type)
 }
 
 }
-#endif

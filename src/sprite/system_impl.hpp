@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "helper.hpp"
 #include "sprite.hpp"
 #include "system.hpp"
-#include "../algorithm.hpp"
+#include "../algorithm_impl.hpp"
 #include "../renderer/scoped_lock.hpp"
 #include "../renderer/scoped_state.hpp"
 #include "../math/utility.hpp"

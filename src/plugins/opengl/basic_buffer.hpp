@@ -30,7 +30,8 @@ namespace sge
 namespace ogl
 {
 
-template<typename Base, GLenum Type> class basic_buffer : public Base {
+template<typename Base, GLenum Type>
+class basic_buffer : public Base {
 public:
 	typedef typename Base::value_type             value_type;
 	typedef typename Base::size_type              size_type;

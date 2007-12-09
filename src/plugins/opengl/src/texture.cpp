@@ -84,7 +84,10 @@ void sge::ogl::texture::lock(const lock_flag_t lmode)
 #ifdef SGE_OPENGL_HAVE_PBO
 	do_lock(lmode);
 	if(lock_flag_read(lock_mode()))
-		read_pixels(0, 0, width(), height(), static_cast<color*>(buffer_offset(0)));
+		read_pixels(0,
+		            0,
+		            width(),
+		            height(), static_cast<color*>(buffer_offset(pixel_unpack_buffer_type, 0)));
 	post_lock();
 #else
 	SGE_STUB_FUNCTION
@@ -96,7 +99,7 @@ void sge::ogl::texture::unlock()
 #ifdef SGE_OPENGL_HAVE_PBO
 	pre_unlock();
 	if(lock_flag_write(lock_mode()))
-		set_texture(static_cast<color*>(buffer_offset(0)));
+		set_texture(static_cast<color*>(buffer_offset(pixel_pack_buffer_type, 0)));
 	do_unlock();
 #else
 	SGE_STUB_FUNCTION

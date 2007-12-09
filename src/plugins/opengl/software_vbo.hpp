@@ -18,24 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ALGORITHM_HPP_INCLUDED
-#define SGE_ALGORITHM_HPP_INCLUDED
+#ifndef SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
+#define SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
+
+#include "common.hpp"
+#include "vbo_common.hpp"
 
 namespace sge
 {
+namespace ogl
+{
 
-template<typename In, typename Size, typename T>
-In find_nth(In first, In last, Size count, const T& t);
+template<>
+struct vbo_impl<false> {
+	GLuint gen_buffer();
+	void delete_buffer(GLuint);
+	void bind_buffer(GLenum type, GLuint);
+	void* map_buffer(GLenum type, GLenum flags);
+	void unmap_buffer(GLenum type);
+	void buffer_data(GLenum type, GLsizei size, const void* data, GLenum flags);
+	void buffer_sub_data(GLenum type, GLsizei first, GLsizei size, const void* data);
+	void* buffer_offset(GLenum type, GLsizei offset);
+};
 
-template<typename In, typename Size, typename UnaryPredicate>
-In find_nth_if(In first, In last, Size count, UnaryPredicate pred);
-
-template<typename In, typename Size, typename BinaryPredicate>
-In first_mismatch_if(In first, In last, Size& cnt, BinaryPredicate pred);
-
-template<typename In, typename Out, typename Size>
-Out copy_n(In beg, Size sz, Out out);
-
+}
 }
 
 #endif

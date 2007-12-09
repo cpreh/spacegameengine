@@ -115,7 +115,7 @@ void sge::ogl::buffer_sub_data(const GLenum type, const GLsizei first, const GLs
 #endif
 }
 
-void* sge::ogl::buffer_offset(const GLsizei offset)
+void* sge::ogl::buffer_offset(const GLenum, const GLsizei offset)
 {
 	return reinterpret_cast<void*>(offset);
 }
