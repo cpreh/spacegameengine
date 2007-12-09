@@ -39,6 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/sprite/sprite.hpp"
 #include "../src/sprite/system.hpp"
 #include "../src/texture/no_fragmented_texture.hpp"
+#include "../src/texture/default_creator.hpp"
+#include "../src/texture/default_creator_impl.hpp"
 
 #include "../src/gui/color.hpp"
 #include "../src/gui/manager.hpp"
@@ -90,18 +92,6 @@ struct myIA : public sge::gui::inputacceptor {
 	}
 };
 
-struct create_my_texture {
-	create_my_texture(const sge::renderer_ptr rend)
-	: rend(rend)
-	{}
-	sge::fragmented_texture* operator()() const
-	{
-		return new sge::no_fragmented_texture(rend, sge::linear_filter);
-	}
-private:
-	const sge::renderer_ptr rend;
-};
-
 int main()
 try
 {
@@ -130,8 +120,7 @@ try
 	sge::vertex_buffer_ptr bgvb, cuvb, fgvb;
 	sge::index_buffer_ptr  bgib, cuib, fgib;
 
-	const create_my_texture tex_creator(rend);
-	sge::texture_manager texmgr(rend, tex_creator);
+	sge::texture_manager texmgr(rend, sge::default_texture_creator<sge::no_fragmented_texture>(rend, sge::linear_filter));
 
 	sge::key_state_tracker ks(is);
 	sge::gui::inputprocessor ip(is);

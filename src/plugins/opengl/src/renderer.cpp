@@ -453,7 +453,7 @@ void sge::ogl::renderer::set_viewport(const viewport& v)
 #ifdef SGE_LINUX_PLATFORM
 void sge::ogl::renderer::reset_viewport_on_map(const XEvent&)
 {
-	set_viewport(viewport(0, 0, wnd->width(), wnd->height()));
+	set_viewport(viewport(0, 0, screen_width(), screen_height()));
 }
 
 void sge::ogl::renderer::reset_viewport_on_resize(const XEvent& ev)
