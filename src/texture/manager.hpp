@@ -38,8 +38,7 @@ public:
 	typedef boost::function<fragmented_texture* ()> onalloc_function;
 	texture_manager(renderer_ptr rend, const onalloc_function&);
 	const virtual_texture_ptr add_texture(texture::const_pointer src,
-	                                      texture::size_type w,
-	                                      texture::size_type h);
+	                                      const texture::dim_type& dim);
 	const virtual_texture_ptr add_texture(texture_ptr tex);
 	const renderer_ptr get_renderer() const;
 	void onalloc(const onalloc_function&);
@@ -49,7 +48,9 @@ public:
 		image_too_big();
 	};
 private:
-	const virtual_texture_ptr init_texture(fragmented_texture&, texture::const_pointer src, texture::size_type w, texture::size_type h) const;
+	const virtual_texture_ptr init_texture(fragmented_texture&,
+	                                       texture::const_pointer src,
+	                                       const texture::dim_type& dim) const;
 
 	const renderer_ptr                          rend;
 	onalloc_function                            onalloc_;

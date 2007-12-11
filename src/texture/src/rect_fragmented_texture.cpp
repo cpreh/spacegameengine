@@ -30,29 +30,29 @@ sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend, c
   tex(atlased_texture(rend, my_filter))
 {}
 
-const sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const texture::dim_type& dim)
 {
-	const texture::dim_type atlased_dim(atlased_size(w,h));
+	const texture::dim_type atlased_dim(atlased_size(dim));
 
 	// if there is no space left for the requested height
-	if(cur_y + h >= tex->height())
+	if(cur_y + dim.h() >= tex->height())
 		return virtual_texture_ptr();
 
 	// if the current line is full advance to the next
-	if(cur_x + w >= tex->width())
+	if(cur_x + dim.w() >= tex->width())
 	{
 		cur_x = 0;
 		cur_y += cur_height;
 		cur_height = 0;
 	}
 
-	if(cur_y + h >= tex->height())
+	if(cur_y + dim.h() >= tex->height())
 		return virtual_texture_ptr();
 
 	const virtual_texture_ptr ret(new virtual_texture(lock_rect(lock_rect::point_type(cur_x, cur_y), atlased_dim), *this));
 
-	cur_x += w + 1;
-	cur_height = std::max(cur_height, h);
+	cur_x += dim.w() + 1;
+	cur_height = std::max(cur_height, dim.h());
 
 	return ret;
 }

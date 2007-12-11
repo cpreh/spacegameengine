@@ -29,9 +29,6 @@ sge::devil::image::image(const std::string& file)
 	bind_me();
 	if(ilLoadImage(const_cast<char*>(file.c_str())) == IL_FALSE)
 		throw exception(std::string("ilLoadImage() failed! Could not load '") += file + "'!");
-	w = ilGetInteger(IL_IMAGE_WIDTH);
-	h = ilGetInteger(IL_IMAGE_HEIGHT);
-	check_errors();
 }
 
 sge::devil::image::image(const image_format::type type, const const_pointer format_data, const size_type size)
@@ -41,17 +38,14 @@ sge::devil::image::image(const image_format::type type, const const_pointer form
 	bind_me();
 	if(ilLoadL(convert_cast<ILenum>(type), const_cast<pointer>(format_data), static_cast<ILuint>(size)) == IL_FALSE)
 		throw exception("ilLoadL() failed!");
-	w = ilGetInteger(IL_IMAGE_WIDTH);
-	h = ilGetInteger(IL_IMAGE_HEIGHT);
-
 }
 
-sge::devil::image::image(const const_pointer p, const size_type w, const size_type h)
- : w(w), h(h)
+sge::devil::image::image(const const_pointer p,
+                         const dim_type& dim_)
 {
-	bind_me();
-	if(p)
-		data(p);
+	if(!p)
+		throw exception("load_image(): ptr is 0!");
+	data(p, dim_);
 }
 
 void sge::devil::image::bind_me() const
@@ -60,24 +54,31 @@ void sge::devil::image::bind_me() const
 	check_errors();
 }
 
+sge::image::dim_type sge::devil::image::dim() const
+{
+	bind_me();
+	return dim_type(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
+}
+
 sge::image::size_type sge::devil::image::width() const
 {
-	return w;
+	return dim().w();
 }
 
 sge::image::size_type sge::devil::image::height() const
 {
-	return h;
+	return dim().h();
 }
 
-void sge::devil::image::data(const const_pointer p)
+void sge::devil::image::data(const const_pointer p, const dim_type& dim_)
 {
 	bind_me();
-	ilTexImage(static_cast<ILuint>(width()),
-	           static_cast<ILuint>(height()),
+	ilTexImage(static_cast<ILuint>(dim_.w()),
+	           static_cast<ILuint>(dim_.h()),
 	           1,
 	           4,
-	           IL_RGBA,IL_UNSIGNED_BYTE,
+	           IL_RGBA,
+	           IL_UNSIGNED_BYTE,
 	           const_cast<pointer>(p));
 	check_errors();
 }
@@ -88,19 +89,18 @@ sge::image::const_pointer sge::devil::image::data() const
 	return reinterpret_cast<const_pointer>(ilGetData());
 }
 
-void sge::devil::image::resample(const size_type _w, const size_type _h)
+void sge::devil::image::resample(const dim_type& dim_)
 {
-	if(width() == _w && height() == _h)
+	if(dim() == dim_)
 		return;
 	bind_me();
-	iluScale(static_cast<ILuint>(_w), static_cast<ILuint>(_h), 32);
+	iluScale(static_cast<ILuint>(dim_.w()), static_cast<ILuint>(dim_.h()), 32);
 	check_errors();
-	w = _w;
-	h = _h;
 }
 
 void sge::devil::image::save(const std::string& path)
 {
 	bind_me();
 	ilSaveImage(const_cast<char*>(path.c_str()));
+	check_errors();
 }

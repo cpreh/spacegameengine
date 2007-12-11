@@ -26,15 +26,15 @@ sge::static_texture::static_texture(const texture_ptr tex)
   claimed(false)
 {}
 
-const sge::virtual_texture_ptr sge::static_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::static_texture::consume_fragments(const texture::dim_type& dim)
 {
 	if(claimed)
 		return virtual_texture_ptr();
 
-	if(w > tex->width() || h > tex->height())
+	if(dim.w() > tex->width() || dim.h() > tex->height())
 		throw exception("static_texture::consume_fragments(): size out of range.");
 	claimed = true;
-	return virtual_texture_ptr(new virtual_texture(lock_rect(0,0,w,h), *this));
+	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0, 0), dim), *this));
 }
 
 void sge::static_texture::return_fragments(const virtual_texture&)

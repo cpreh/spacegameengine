@@ -195,7 +195,7 @@ try
 	sge::font fn(metrics, fn_drawer);
 
 	const sge::image_ptr im = pl->load_image(sge::media_path() + "black.jpg");
-	const sge::texture_ptr con_tex = rend->create_texture(im->data(),im->width(),im->height(),sge::linear_filter);
+	const sge::texture_ptr con_tex = rend->create_texture(im->data(), im->dim(), sge::linear_filter);
 	sge::con::console_gfx console(rend,is,fn,sge::colors::white,con_tex);
 
 	using boost::lambda::var;

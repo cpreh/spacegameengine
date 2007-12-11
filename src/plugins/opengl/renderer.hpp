@@ -103,8 +103,7 @@ public:
 	sge::render_target_ptr get_render_target() const;
 
 	texture_ptr create_texture(texture::const_pointer data,
-	                           texture::size_type width,
-	                           texture::size_type height,
+	                           const texture::dim_type& dim,
 	                           const filter_args& filter,
 	                           resource_flag_t flags);
 
@@ -135,7 +134,7 @@ public:
 private:
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);
-	fbo_render_target_ptr create_render_target(render_target::size_type width, render_target::size_type height);
+	fbo_render_target_ptr create_render_target(const render_target::dim_type&);
 
 	renderer_parameters param;
 	GLbitfield          clearflags;

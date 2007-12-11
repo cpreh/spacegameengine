@@ -33,9 +33,9 @@ namespace devil
 class image_loader : public sge::image_loader {
 public:
 	image_loader();
-	sge::image_ptr load_image(const std::string& path, image::size_type w = 0, image::size_type h = 0);
+	sge::image_ptr load_image(const std::string& path);
 	sge::image_ptr load_image(image_format::type type, image::const_pointer format_data, image::size_type size);
-	sge::image_ptr create_image(image::const_pointer src, image::size_type w, image::size_type h);
+	sge::image_ptr create_image(image::const_pointer src, const image::dim_type&);
 private:
 	library _lib;
 };

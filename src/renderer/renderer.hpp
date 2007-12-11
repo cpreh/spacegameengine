@@ -256,8 +256,7 @@ public:
 	virtual render_target_ptr get_render_target() const = 0;
 
 	virtual texture_ptr create_texture(texture::const_pointer data,
-	                                   texture::size_type width,
-	                                   texture::size_type height,
+	                                   const texture::dim_type& dim,
 	                                   const filter_args& filter,
 	                                   resource_flag_t flags = resource_flags::default_) = 0;
 

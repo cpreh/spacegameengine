@@ -38,11 +38,11 @@ typedef basic_texture<sge::texture, GL_TEXTURE_2D> texture_base;
 class texture : public detail::texture_base {
 public:
 	texture(const_pointer src,
-	        size_type width,
-	        size_type height,
+	        const dim_type& dim,
 	        const filter_args& filter,
 	        resource_flag_t flags);
 
+	dim_type dim() const;
 	size_type width() const;
 	size_type height() const;
 	size_type size() const;
@@ -56,8 +56,7 @@ public:
 private:
 	void set_texture(const_pointer src);
 
-	const size_type _width,
-	                _height;
+	const dim_type dim_;
 };
 
 }

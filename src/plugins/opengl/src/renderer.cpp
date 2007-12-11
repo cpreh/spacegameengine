@@ -170,7 +170,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
  	con_manager.scoped_connect(wnd->register_callback(MapNotify, boost::bind(&renderer::reset_viewport_on_map, this, _1)));
 	con_manager.scoped_connect(wnd->register_callback(ResizeRequest, boost::bind(&renderer::reset_viewport_on_resize, this, _1)));
 
-	XSync(dsp->get(),False);
+	XSync(dsp->get(), False);
 #endif
 	if(glewInit() != GLEW_OK)
 		throw exception("glewInit() failed");
@@ -186,6 +186,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 
 void sge::ogl::renderer::begin_rendering()
 {
+	SGE_OPENGL_SENTRY
+	
 	glClear(clearflags);
 }
 
@@ -193,22 +195,20 @@ sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(const index_buffer
                                                               const resource_flag_t flags,
                                                               const index_buffer::const_pointer data)
 {
-	return index_buffer_ptr(new index_buffer(size,flags,data));
+	return index_buffer_ptr(new index_buffer(size, flags, data));
 }
 
-sge::ogl::fbo_render_target_ptr sge::ogl::renderer::create_render_target(const render_target::size_type width,
-                                                                         const render_target::size_type height)
+sge::ogl::fbo_render_target_ptr sge::ogl::renderer::create_render_target(const render_target::dim_type& dim)
 {
-	return fbo_render_target_ptr(new fbo_render_target(width,height));
+	return fbo_render_target_ptr(new fbo_render_target(dim));
 }
 
 sge::texture_ptr sge::ogl::renderer::create_texture(const texture::const_pointer src,
-                                                    const texture::size_type width,
-                                                    const texture::size_type height,
+                                                    const texture::dim_type& dim,
                                                     const filter_args& filter,
                                                     const resource_flag_t flags)
 {
-	return texture_ptr(new texture(src, width, height, filter, flags));
+	return texture_ptr(new texture(src, dim, filter, flags));
 }
 
 sge::vertex_buffer_ptr sge::ogl::renderer::create_vertex_buffer(const sge::vertex_format& format,
@@ -491,7 +491,7 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 	}
 
 	const shared_ptr<texture> p(dynamic_pointer_cast<texture>(target));
-	const fbo_render_target_ptr ntarget = create_render_target(p->width(),p->height());
+	const fbo_render_target_ptr ntarget = create_render_target(p->dim());
 	_render_target = ntarget;
 	ntarget->bind_texture(p);
 	set_viewport(viewport(0, 0, static_cast<screen_unit>(p->width()), static_cast<screen_unit>(p->height())));

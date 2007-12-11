@@ -31,9 +31,9 @@ sge::texture::size_type sge::atlased_size(const texture::size_type s)
 	return s + 2 * atlased_gap();
 }
 
-const sge::texture::dim_type sge::atlased_size(const texture::size_type w, const texture::size_type h)
+const sge::texture::dim_type sge::atlased_size(const texture::dim_type& dim)
 {
-	return texture::dim_type(atlased_size(w), atlased_size(h));
+	return texture::dim_type(atlased_size(dim.w()), atlased_size(dim.h()));
 }
 
 const sge::texture::dim_type sge::atlased_texture_dim(const renderer_ptr rend)
@@ -44,8 +44,7 @@ const sge::texture::dim_type sge::atlased_texture_dim(const renderer_ptr rend)
 
 const sge::texture_ptr sge::atlased_texture(const renderer_ptr rend, const filter_args& filter)
 {
-	const texture::dim_type sz = atlased_texture_dim(rend);
-	return rend->create_texture(0, sz.w(), sz.h(), filter);
+	return rend->create_texture(0, atlased_texture_dim(rend), filter);
 }
 
 const sge::lock_rect sge::inner_atlased_rect(const lock_rect& outer)

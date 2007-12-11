@@ -32,9 +32,9 @@ namespace sge
 
 class image_loader {
 public:
-	virtual image_ptr load_image(const std::string& path, image::size_type w = 0, image::size_type h = 0) = 0;
+	virtual image_ptr load_image(const std::string& path) = 0;
 	virtual image_ptr load_image(image_format::type type, image::const_pointer format_data, image::size_type size) = 0;
-	virtual image_ptr create_image(image::const_pointer data, image::size_type w, image::size_type h) = 0;
+	virtual image_ptr create_image(image::const_pointer data, const image::dim_type&) = 0;
 	virtual ~image_loader(){}
 };
 

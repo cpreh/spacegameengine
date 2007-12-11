@@ -34,19 +34,17 @@ class image : public sge::image {
 public:
 	image(const std::string& file);
 	image(image_format::type type, const_pointer format_data, size_type size);
-	image(const_pointer p, size_type w, size_type h);
+	image(const_pointer p, const dim_type&);
 	const_pointer data() const;
-	void data(const_pointer);
+	void data(const_pointer, const dim_type&);
+	dim_type dim() const;
 	size_type width() const;
 	size_type height() const;
-	void resample(size_type w, size_type h);
+	void resample(const dim_type&);
 	void save(const std::string& path);
 private:
 	void bind_me() const;
 	image_impl impl;
-	// TODO: do something better than save w and h
-	size_type  w,
-		   h;
 };
 
 }

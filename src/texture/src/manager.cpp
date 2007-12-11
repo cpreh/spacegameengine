@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <boost/foreach.hpp>
 #include "../manager.hpp"
 #include "../static_texture.hpp"
 
@@ -26,22 +27,25 @@ sge::texture_manager::texture_manager(const renderer_ptr rend, const onalloc_fun
    onalloc_(onalloc_)
 {}
 
-const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_pointer src, const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_pointer src,
+                                                                 const texture::dim_type& dim)
 {
-	for(fragmented_texture_list::iterator it = fragmented_textures.begin(); it != fragmented_textures.end(); ++it)
-		if(const virtual_texture_ptr p = init_texture(*it, src, w, h))
+	BOOST_FOREACH(fragmented_texture& tex, fragmented_textures)
+		if(const virtual_texture_ptr p = init_texture(tex, src, dim))
 			return p;
 
 	fragmented_textures.push_back(onalloc_());
 
-	if(const virtual_texture_ptr p = init_texture(fragmented_textures.back(), src, w, h))
+	if(const virtual_texture_ptr p = init_texture(fragmented_textures.back(), src, dim))
 		return p;
 	throw image_too_big();
 }
 
-const sge::virtual_texture_ptr sge::texture_manager::init_texture(fragmented_texture& tex, const texture::const_pointer src, const texture::size_type w, const texture::size_type h) const
+const sge::virtual_texture_ptr sge::texture_manager::init_texture(fragmented_texture& tex,
+                                                                  const texture::const_pointer src,
+                                                                  const texture::dim_type& dim) const
 {
-	const virtual_texture_ptr p = tex.consume_fragments(w, h);
+	const virtual_texture_ptr p = tex.consume_fragments(dim);
 	if(p)
 		p->set_data(src);
 	return p;
@@ -50,7 +54,7 @@ const sge::virtual_texture_ptr sge::texture_manager::init_texture(fragmented_tex
 const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture_ptr tex)
 {
 	fragmented_textures.push_back(new static_texture(tex));
-	return fragmented_textures.back().consume_fragments(tex->width(), tex->height());
+	return fragmented_textures.back().consume_fragments(tex->dim());
 }
 
 const sge::renderer_ptr sge::texture_manager::get_renderer() const

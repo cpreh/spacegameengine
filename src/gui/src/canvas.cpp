@@ -524,6 +524,6 @@ sge::virtual_texture_ptr sge::gui::canvas::to_texture(sge::texture_manager &texm
 		texture->set_data(texdata.get());
 		return texture;
 	} else {
-		return texmgr.add_texture(texdata.get(), size_.w, size_.h);
+		return texmgr.add_texture(texdata.get(), texture::dim_type(size_.w, size_.h));
 	}
 }

@@ -53,7 +53,7 @@ void sge::font_drawer_3d::draw_char(const font_char ch, const font_rect fr, cons
 			const color_element elem = data[i];
 			expanded[i] = elem ? make_color(elem, elem, elem, 255) : 0;
 		}
-		textures.insert(std::make_pair(ch, texman.add_texture(expanded.data(), fr.w(), fr.h())));
+		textures.insert(std::make_pair(ch, texman.add_texture(expanded.data(), texture::dim_type(fr.w(), fr.h()))));
 		it = textures.find(ch);
 	}
 

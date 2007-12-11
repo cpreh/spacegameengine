@@ -42,7 +42,7 @@ public:
 	typedef typename base::const_reverse_iterator const_reverse_iterator;
 	typedef math::basic_dim<size_type, 2>         dim_type;
 
-//	virtual dim_type dim() const = 0;
+	virtual dim_type dim() const = 0;
 	virtual size_type width() const = 0;
 	virtual size_type height() const = 0;
 	virtual void set_data(const_pointer p, const lock_rect& r) = 0;

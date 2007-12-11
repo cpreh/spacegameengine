@@ -23,8 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/rect_util.hpp"
 #include "../../math/rect_util_impl.hpp"
 
-sge::rect_bsp_tree::node::node(const value_type& rect, node* const parent, const bool final, node* const left, node* const right)
- : rect(rect), parent(parent), left(left), right(right), final(final)
+sge::rect_bsp_tree::node::node(const value_type& rect,
+                               node* const parent,
+                               const bool final,
+                               node* const left,
+                               node* const right)
+ : rect(rect),
+   parent(parent),
+   left(left),
+   right(right),
+   final(final)
 {}
 
 sge::rect_bsp_tree::node::~node()

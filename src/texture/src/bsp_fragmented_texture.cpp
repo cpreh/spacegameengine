@@ -28,9 +28,9 @@ sge::bsp_fragmented_texture::bsp_fragmented_texture(const renderer_ptr rend, con
    tex(atlased_texture(rend, my_filter))
 {}
 
-const sge::virtual_texture_ptr sge::bsp_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::bsp_fragmented_texture::consume_fragments(const texture::dim_type& dim)
 {
-	const texture::dim_type atlased_dim(atlased_size(w,h));
+	const texture::dim_type atlased_dim(atlased_size(dim));
 
 	const bsp_type::iterator it = bsp.insert(atlased_dim);
 	if(it == bsp.end())

@@ -23,9 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../extension.hpp"
 #include "../texture_base.hpp"
 
-sge::ogl::fbo_render_target::fbo_render_target(const size_type _width, const size_type _height)
- : _width(_width),
-   _height(_height)
+sge::ogl::fbo_render_target::fbo_render_target(const dim_type& dim_)
+ : dim_(dim_)
 {
 	if(!glGenFramebuffersEXT)
 		throw exception(extension_not_supported_string("frame_buffer_ext"));
@@ -51,19 +50,24 @@ void sge::ogl::fbo_render_target::bind_me() const
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo);
 }
 
+sge::render_target::dim_type sge::ogl::fbo_render_target::dim() const
+{
+	return dim_;
+}
+
 sge::ogl::fbo_render_target::size_type sge::ogl::fbo_render_target::width() const
 {
-	return _width;
+	return dim().w();
 }
 
 sge::ogl::fbo_render_target::size_type sge::ogl::fbo_render_target::height() const
 {
-	return _height;
+	return dim().h();
 }
 
 sge::ogl::fbo_render_target::size_type sge::ogl::fbo_render_target::size() const
 {
-	return width()*height();
+	return width() * height();
 }
 
 void sge::ogl::fbo_render_target::bind_texture(const texture_ptr t)

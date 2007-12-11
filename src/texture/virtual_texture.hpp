@@ -43,13 +43,13 @@ public:
 	void set_data(texture::const_pointer src);
 private:
 	const lock_rect& outer_area() const;
-	lock_rect outer_area_;
+	lock_rect           outer_area_;
 	fragmented_texture& fragment;
-	bool repeatable_;
-	lock_rect inner_area_;
+	bool                repeatable_;
+	lock_rect           inner_area_;
 };
 
-typedef shared_ptr<virtual_texture> virtual_texture_ptr;
+typedef shared_ptr<virtual_texture>       virtual_texture_ptr;
 typedef shared_ptr<const virtual_texture> const_virtual_texture_ptr;
 
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <cstddef>
 #include "../shared_ptr.hpp"
+#include "../math/dim.hpp"
 #include "color.hpp"
 
 namespace sge
@@ -31,10 +32,13 @@ namespace sge
 template<typename BitDepth>
 class basic_render_target {
 public:
-	typedef color value_type;
-	typedef std::size_t size_type;
-	typedef value_type* pointer;
-	typedef const value_type* const_pointer;
+	typedef color                          value_type;
+	typedef std::size_t                    size_type;
+	typedef value_type*                    pointer;
+	typedef const value_type*              const_pointer;
+	typedef math::basic_dim<size_type, 2>  dim_type;
+
+	virtual dim_type dim() const = 0;
 	virtual size_type width() const = 0;
 	virtual size_type height() const = 0;
 	virtual size_type size() const = 0;

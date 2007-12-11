@@ -33,8 +33,10 @@ namespace ogl
 
 class fbo_render_target : public render_target {
 public:
-	fbo_render_target(size_type width, size_type height);
+	fbo_render_target(const dim_type& dim_);
 	~fbo_render_target();
+
+	dim_type dim() const;
 	size_type width() const;
 	size_type height() const;
 	size_type size() const;
@@ -42,8 +44,7 @@ public:
 	void bind_texture(texture_ptr);	
 	void bind_me() const;
 private:
-	size_type _width,
-	          _height;
+	dim_type  dim_;
 
 	GLuint    fbo;
 	GLuint    depthbuffer;

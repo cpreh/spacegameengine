@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#if 0
 #include <algorithm>
 #include <cstddef>
 #include "../grid_fragmented_texture.hpp"
@@ -42,7 +43,7 @@ namespace {
 	}
 }
 
-sge::grid_fragmented_texture::grid_fragmented_texture(const renderer_ptr rend, const texture::size_type width, const texture::size_type height, const filter_args& filter)
+sge::grid_fragmented_texture::grid_fragmented_texture(const renderer_ptr rend, const texture::dim_type& dim, const filter_args& filter)
 : rend(rend)
 , my_filter(my_filter)
 , part_width(width)
@@ -107,3 +108,4 @@ bool sge::grid_fragmented_texture::repeatable() const
 {
 	return false;
 }
+#endif

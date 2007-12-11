@@ -20,13 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../util.hpp"
 
-sge::texture_ptr sge::create_texture(const renderer_ptr r, const image_ptr p, const filter_args& filter, const resource_flag_t flags)
+const sge::texture_ptr sge::create_texture(const renderer_ptr r,
+                                           const image_ptr p,
+                                           const filter_args& filter,
+                                           const resource_flag_t flags)
 {
-	return r->create_texture(p->data(), p->width(), p->height(), filter, flags);
+	return r->create_texture(p->data(), p->dim(), filter, flags);
 }
 
-sge::texture_ptr sge::create_texture(const std::string& path, const renderer_ptr r, const image_loader_ptr p, const image::size_type w, const image::size_type h, const filter_args& filter, const resource_flag_t flags)
+const sge::texture_ptr sge::create_texture(const std::string& path,
+                                           const renderer_ptr r,
+                                           const image_loader_ptr p,
+                                           const filter_args& filter,
+                                           const resource_flag_t flags)
 {
-	return create_texture(r, p->load_image(path,w,h), filter, flags);
+	return create_texture(r, p->load_image(path), filter, flags);
 }
 

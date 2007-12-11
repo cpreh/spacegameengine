@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include "dim.hpp"
 
 namespace sge
 {
@@ -130,6 +131,11 @@ template<> struct next_pow_2_implementation<true> {
 template<typename T> inline T next_pow_2(const T t) {
 	typedef typename boost::is_integral<T> is_int;
 	return next_pow_2_implementation<is_int::value>::next_pow_2(t);
+}
+
+template<typename T> inline basic_dim<T, 2> next_pow_2(const basic_dim<T, 2>& r)
+{
+	return basic_dim<T, 2>(next_pow_2(r.w()), next_pow_2(r.h()));
 }
 
 }

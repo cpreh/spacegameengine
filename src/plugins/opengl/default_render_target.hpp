@@ -32,6 +32,7 @@ namespace ogl
 class default_render_target : public render_target {
 public:
 	default_render_target(const window_ptr wnd);
+	dim_type dim() const;
 	size_type width() const;
 	size_type height() const;
 	size_type size() const;

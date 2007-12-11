@@ -26,18 +26,17 @@ sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend, const
    my_filter(my_filter)
 {}
 
-const sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const texture::dim_type& dim)
 {
 	if(tex)
 		return virtual_texture_ptr();
 
-	const texture::size_type next_w = math::next_pow_2(w),
-	                         next_h = math::next_pow_2(h);
+	const texture::dim_type next_dim(math::next_pow_2(dim));
 
-   	tex = rend->create_texture(0, next_w, next_h, my_filter);
+   	tex = rend->create_texture(0, next_dim, my_filter);
 
-	const bool no_atlasing = next_w == w && next_h == h;
-	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0,0), no_atlasing ? lock_rect::dim_type(w,h) : atlased_size(w,h)), *this, no_atlasing));
+	const bool no_atlasing = next_dim == dim;
+	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0,0), no_atlasing ? dim : atlased_size(dim)), *this, no_atlasing));
 }
 
 void sge::no_fragmented_texture::return_fragments(const virtual_texture&)

@@ -35,9 +35,9 @@ sge::cell_fragmented_texture::cell_fragmented_texture(const renderer_ptr rend,
   tex(atlased_texture(rend, my_filter))
 {}
 
-const sge::virtual_texture_ptr sge::cell_fragmented_texture::consume_fragments(const texture::size_type w, const texture::size_type h)
+const sge::virtual_texture_ptr sge::cell_fragmented_texture::consume_fragments(const texture::dim_type& dim)
 {
-	if(w != cell_size.w() || h != cell_size.h())
+	if(dim != cell_size)
 		throw exception("Invalid request for consume_fragments in cell_fragmented_texture!");
 	// TODO maybe optimize this with a stack?
 	const field_type::iterator it = std::find(cells.begin(), cells.end(), false);

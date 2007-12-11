@@ -31,13 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template class sge::ogl::basic_texture<sge::texture, GL_TEXTURE_2D>;
 
 sge::ogl::texture::texture(const const_pointer src,
-                           const size_type _width,
-                           const size_type _height,
+                           const dim_type& dim_,
                            const filter_args& filter_,
                            const resource_flag_t flags)
  : detail::texture_base(filter_, flags),
-   _width(_width),
-   _height(_height)
+   dim_(dim_)
 {
 	if(src)
 		set_data(src);
@@ -45,14 +43,19 @@ sge::ogl::texture::texture(const const_pointer src,
 		set_texture(0);
 }
 
+sge::ogl::texture::dim_type sge::ogl::texture::dim() const
+{
+	return dim_;
+}
+
 sge::ogl::texture::size_type sge::ogl::texture::width() const
 {
-	return _width;
+	return dim_.w();
 }
 
 sge::ogl::texture::size_type sge::ogl::texture::height() const
 {
-	return _height;
+	return dim_.h();
 }
 
 sge::ogl::texture::size_type sge::ogl::texture::size() const

@@ -31,7 +31,7 @@ namespace sge
 
 class fragmented_texture {
 public:
-	virtual const virtual_texture_ptr consume_fragments(texture::size_type w, texture::size_type h) = 0;
+	virtual const virtual_texture_ptr consume_fragments(const texture::dim_type&) = 0;
 	virtual void return_fragments(const virtual_texture&) = 0;
 	virtual const texture_ptr get_texture() const = 0;
 	virtual bool repeatable() const = 0;
