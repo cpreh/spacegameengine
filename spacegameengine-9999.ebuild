@@ -16,7 +16,7 @@ IUSE="debug devil dga openal opengl test truetype vorbis wave xinput zlib"
 DEPEND="${RDEPEND}
         dev-util/cmake
         dev-util/pkgconfig"
-RDEPEND="dev-libs/boost
+RDEPEND=">=dev-libs/boost-1.34
          x11-libs/libX11
          virtual/libc
          virtual/libiconv
