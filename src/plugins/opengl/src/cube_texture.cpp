@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
-#include "../../../renderer/scoped_lock.hpp"
 #include "../common.hpp"
 #include "../cube_texture.hpp"
+#ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
+#include <algorithm>
+#include "../../../renderer/scoped_lock.hpp"
 #include "../conversion.hpp"
 #include "../error.hpp"
 #include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
 
-template class sge::ogl::basic_texture<sge::cube_texture, GL_TEXTURE_CUBE_MAP>;
+template class sge::ogl::basic_texture<sge::cube_texture, sge::ogl::detail::cube_texture_type>;
 
 sge::ogl::cube_texture::cube_texture(const cube_side_array* const src,
                                      const size_type sz,
@@ -69,3 +70,4 @@ void sge::ogl::cube_texture::set_data(const cube_side::type side, const const_po
 {
 	
 }*/
+#endif

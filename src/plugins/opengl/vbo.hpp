@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(GLEW_VERSION_1_5)
 #define SGE_OPENGL_VERTEX_BUFFER_OBJECT
-#elif defined(GL_VERTEX_BUFFER_OBJECT_ARB)
+#elif defined(GL_ARB_vertex_buffer_object)
 #define SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
 #endif
 

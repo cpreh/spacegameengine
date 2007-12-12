@@ -18,12 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
+#include "../common.hpp"
 #include "../volume_texture.hpp"
+#ifdef SGE_OPENGL_HAVE_VOLUME_TEXTURE
+#include "../../../stub.hpp"
+#include "../../../exception.hpp"
 #include "../error.hpp"
 #include "../basic_texture_impl.hpp"
 
-template class sge::ogl::basic_texture<sge::volume_texture,GL_TEXTURE_3D>;
+template class sge::ogl::basic_texture<sge::volume_texture, sge::ogl::detail::volume_texture_type>;
 
 sge::ogl::volume_texture::volume_texture(const const_pointer src,
                                          const size_type _width,
@@ -64,7 +67,12 @@ void sge::ogl::volume_texture::set_data(const const_pointer src)
 	pre_setdata();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
-	glTexImage3D(GL_TEXTURE_3D,
+#ifdef SGE_OPENGL_VOLUME_TEXTURE
+	glTexImage3D(
+#elif SGE_OPENGL_VOLUME_TEXTURE_EXT
+	glTexImage3DEXT(
+#endif
+	             detail::volume_texture_type,
 	             0,
 	             4,
 	             static_cast<GLsizei>(width()),
@@ -80,10 +88,11 @@ void sge::ogl::volume_texture::set_data(const const_pointer src)
 
 void sge::ogl::volume_texture::set_data(const const_pointer src, const lock_box& b)
 {
+#ifdef SGE_OPENGL_VOLUME_TEXTURE
 	pre_setdata();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
-	glTexSubImage3D(GL_TEXTURE_3D,
+	glTexSubImage3D(detail::volume_texture_type,
 	                0,
 	                static_cast<GLint>(b.left),
 	                static_cast<GLint>(b.top),
@@ -96,4 +105,9 @@ void sge::ogl::volume_texture::set_data(const const_pointer src, const lock_box&
 	                src);
 	if(is_error())
 		throw exception("glTexSubImage3D() failed!");
+#else
+	SGE_STUB_FUNCTION
+#endif
 }
+
+#endif

@@ -30,6 +30,10 @@ namespace ogl
 
 std::string version_not_supported_string(const std::string& function, const std::string& min_version);
 
+void on_not_supported(const std::string& function,
+                      const std::string& min_version,
+                      const std::string& possible_extension);
+
 }
 }
 

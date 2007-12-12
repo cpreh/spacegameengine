@@ -226,7 +226,13 @@ sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_t
                                                                   const filter_args& filter,
                                                                   const resource_flag_t flags)
 {
+#ifndef SGE_OPENGL_HAVE_VOLUME_TEXTURE
+	on_not_supported("volume_texture",
+	                 "1.2",
+	                 "gl_ext_texture3d");
+#else
 	return volume_texture_ptr(new volume_texture(src, width, height, depth, filter, flags));
+#endif
 }
 
 sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_array* const src,
@@ -234,7 +240,13 @@ sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_ar
                                                               const filter_args& filter,
                                                               const resource_flag_t flags)
 {
+#ifndef SGE_OPENGL_HAVE_CUBE_TEXTURE
+	on_not_supported("cube texture",
+	                 "1.3",
+	                 "gl_arb_cube_texture");
+#else
 	return cube_texture_ptr(new cube_texture(src, sz, filter, flags));
+#endif
 }
 
 void sge::ogl::renderer::end_rendering()
@@ -508,7 +520,12 @@ void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_typ
 
 	disable(GL_TEXTURE_1D);
 	disable(GL_TEXTURE_2D);
-	disable(GL_TEXTURE_3D);
+#ifdef SGE_OPENGL_HAVE_VOLUME_TEXTURE
+	disable(detail::volume_texture_type);
+#endif
+#ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
+	disable(detail::cube_texture_type);
+#endif
 	if(!tex)
 		return;
 	texture_base* const b = boost::polymorphic_cast<texture_base*>(tex.get());

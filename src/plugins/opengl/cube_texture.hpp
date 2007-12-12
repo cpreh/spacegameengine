@@ -25,6 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "basic_texture.hpp"
 
+#if defined(GLEW_VERSION_1_3)
+#define SGE_OPENGL_CUBE_TEXTURE
+#elif defined(GLEW_ARB_texture_cube_map)
+#define SGE_OPENGL_CUBE_TEXTURE_ARB
+#endif
+
+#if defined(SGE_OPENGL_CUBE_TEXTURE) || defined(SGE_OPENGL_CUBE_TEXTURE_ARB)
+#define SGE_OPENGL_HAVE_CUBE_TEXTURE
+#endif
+
+#ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
+
 namespace sge
 {
 namespace ogl
@@ -32,10 +44,16 @@ namespace ogl
 
 namespace detail
 {
-typedef basic_texture<sge::cube_texture, GL_TEXTURE_CUBE_MAP> cube_texture_base;
+#ifdef SGE_OPENGL_CUBE_TEXTURE
+const GLenum cube_texture_type = GL_TEXTURE_CUBE_MAP;
+#elif SGE_OPENGL_CUBE_TEXTURE_ARB
+const GLenum cube_texture_type = CL_TEXTURE_CUBE_MAP_ARB;
+#endif
+
+typedef basic_texture<sge::cube_texture, cube_texture_type> cube_texture_base;
 }
 
-class cube_texture : public detail::cube_texture_base { 
+class cube_texture : public detail::cube_texture_base {
 public:
 	cube_texture(const cube_side_array* src,
 	             size_type sz,
@@ -52,5 +70,7 @@ private:
 
 }
 }
+
+#endif
 
 #endif

@@ -25,11 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../renderer/renderer.hpp"
 #include "../../renderer/cube_texture.hpp"
 #include "common.hpp"
+#include "cube_texture.hpp"
 
 namespace sge
 {
 namespace ogl
 {
+
+// TODO: put these functions in their appropriate locations
 
 template<typename D, typename S> D convert_cast(const S&);
 template<> GLuint convert_cast(const lock_flag_t&);
@@ -38,7 +41,9 @@ template<> GLenum convert_cast(const nonindexed_primitive_type::type&);
 template<> GLenum convert_cast(const bool_state::type&);
 template<> GLenum convert_cast(const min_filter::type&);
 template<> GLenum convert_cast(const mag_filter::type&);
+#ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
 template<> GLenum convert_cast(const cube_side::type&);
+#endif
 template<> GLenum convert_cast(const cull_mode::type&);
 template<> GLenum convert_cast(const compare_func::type&);
 template<> GLenum convert_cast(const fog_mode::type&);

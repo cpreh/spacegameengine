@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(GLEW_VERSION_2_1)
 #define SGE_OPENGL_PIXEL_BUFFER_OBJECT
-#elif defined(GL_PIXEL_BUFFER_OBJECT_ARB)
+#elif defined(GLEW_ARB_pixel_buffer_object)
 #define SGE_OPENGL_PIXEL_BUFFER_OBJECT_ARB
 #endif
 
