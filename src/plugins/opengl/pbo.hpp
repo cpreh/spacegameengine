@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "hardware_vbo.hpp"
 #include "software_vbo.hpp"
+#include "vbo.hpp"
 
 #if defined(GLEW_VERSION_2_1)
 #define SGE_OPENGL_PIXEL_BUFFER_OBJECT

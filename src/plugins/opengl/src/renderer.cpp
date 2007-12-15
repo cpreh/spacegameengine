@@ -468,10 +468,9 @@ void sge::ogl::renderer::reset_viewport_on_map(const XEvent&)
 	set_viewport(viewport(0, 0, screen_width(), screen_height()));
 }
 
-void sge::ogl::renderer::reset_viewport_on_resize(const XEvent& ev)
+void sge::ogl::renderer::reset_viewport_on_resize(const XEvent&)
 {
-	const XResizeRequestEvent& rq(reinterpret_cast<const XResizeRequestEvent&>(ev));
-	set_viewport(viewport(0, 0, rq.width, rq.height));
+	set_viewport(viewport(0, 0, screen_width(), screen_height()));
 }
 #endif
 
