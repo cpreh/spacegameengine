@@ -133,13 +133,13 @@ sge::lock_flag_t sge::ogl::basic_texture<Base, Type>::lock_mode() const
 template<typename Base, GLenum Type>
 typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::read_buffer() const
 {
-	return pixel_unpack_buffer::buffer_offset(0);
+	return pixel_pack_buffer::buffer_offset(0);
 }
 
 template<typename Base, GLenum Type>
 typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::write_buffer() const
 {
-	return pixel_pack_buffer::buffer_offset(0);
+	return pixel_unpack_buffer::buffer_offset(0);
 }
 
 template<typename Base, GLenum Type>
