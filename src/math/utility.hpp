@@ -138,6 +138,12 @@ template<typename T> inline basic_dim<T, 2> next_pow_2(const basic_dim<T, 2>& r)
 	return basic_dim<T, 2>(next_pow_2(r.w()), next_pow_2(r.h()));
 }
 
+template<typename T>
+void clamp(T& value, const T& vmin, const T& vmax)
+{
+	value = std::max(std::min(value, vmax), vmin);
+}
+
 }
 }
 

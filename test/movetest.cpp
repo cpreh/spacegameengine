@@ -78,10 +78,9 @@ private:
 		default:
 			break;
 		}
-		mouse.x() = std::max(0.f, mouse.x());
-		mouse.x() = std::min(1.f, mouse.x());
-		mouse.y() = std::max(0.f, mouse.y());
-		mouse.y() = std::min(1.f, mouse.y());
+
+		sge::math::clamp(mouse.x(), 0.f, 1.f);
+		sge::math::clamp(mouse.y(), 0.f, 1.f);
 
 		const sge::sprite_point d = spr.center() - mouse.pos();
 		const sge::space_unit len = d.length();
