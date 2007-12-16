@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../scoped_connection.hpp"
 
 sge::scoped_connection_manager::key_type sge::scoped_connection_manager::scoped_connect(sge::callback_connection v) {
-	while (cons.find(++anonymous_connections) != cons.end());
+	while (cons.find(++anonymous_connections) != cons.end()) ;
 	cons.insert(anonymous_connections, new sge::scoped_connection(v));
 	return anonymous_connections;
 }

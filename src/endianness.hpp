@@ -63,7 +63,7 @@ inline bool is_little_endian()
 }
 
 template<typename T>
-T from_to_big_endianness(const T& t)
+inline T from_to_big_endianness(const T& t)
 {
 	if(is_little_endian())
 		return swap_endianness(t);
@@ -71,7 +71,7 @@ T from_to_big_endianness(const T& t)
 }
 
 template<typename T>
-T from_to_little_endianness(const T& t)
+inline T from_to_little_endianness(const T& t)
 {
 	if(!is_little_endian())
 		return swap_endianness(t);

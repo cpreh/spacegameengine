@@ -50,7 +50,7 @@ sge::zlib::archive_entry::size_type sge::zlib::archive_entry::uncompressed_size(
 
 void sge::zlib::archive_entry::uncompress(const pointer dest)
 {
-	const int ret = unzReadCurrentFile(file.handle(), dest, uncompressed_size());
+	const int ret = unzReadCurrentFile(file.handle(), dest, static_cast<unsigned>(uncompressed_size()));
 	if(ret >= 0)
 		return;
 /*	if(ret == 0)

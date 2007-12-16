@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <AL/al.h>
 #include "../../../audio/audio_player/sound.hpp"
 #include "../../../audio/audio_exception.hpp"
+#include "../../../raw_vector_impl.hpp"
 #include "../openal_player.hpp"
 #include "../openal_nonstream_sound.hpp"
 #include "../openal_stream_sound.hpp"
@@ -85,8 +86,8 @@ sge::openal::stream_sound::~stream_sound()
 
 bool sge::openal::stream_sound::fill_buffer(const ALuint buffer)
 {
-	std::vector<unsigned char> data;
-	std::size_t samples_read = audio_file_->read(buffer_samples_,data);
+	audio_file::raw_array_type data;
+	audio_file::sample_type samples_read = audio_file_->read(buffer_samples_, data);
 
 	if (samples_read == 0)
 	{
@@ -101,7 +102,7 @@ bool sge::openal::stream_sound::fill_buffer(const ALuint buffer)
 			return false;
 		}
 	}
-	alBufferData(buffer,format_,&data[0],static_cast<ALsizei>(data.size()),audio_file_->sample_rate()); check("alBufferData");
+	alBufferData(buffer, format_, data.data(), static_cast<ALsizei>(data.size()), static_cast<ALsizei>(audio_file_->sample_rate())); check("alBufferData");
 	return true;
 }
 

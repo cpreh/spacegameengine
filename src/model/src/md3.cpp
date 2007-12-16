@@ -95,7 +95,7 @@ void sge::md3_model::fill_indices(const index_buffer_ptr ib, const index_buffer:
 	if(offset + indices() > ib->size())
 		throw exception("md3_model::fill_indices(): index buffer out of range!");
 
-	index_buffer::size_type ib_offset(0);
+	index_buffer::value_type ib_offset(0);
 	index_buffer::iterator ibit = ib->begin() + offset;
 	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
 	{
@@ -106,7 +106,7 @@ void sge::md3_model::fill_indices(const index_buffer_ptr ib, const index_buffer:
 			*ibit++ = it->indices[1] + ib_offset;
 			*ibit++ = it->indices[2] + ib_offset;
 		}
-		ib_offset += surf.transformed_vertices.size();
+		ib_offset += static_cast<index_buffer::value_type>(surf.transformed_vertices.size());
 	}
 }
 
@@ -159,8 +159,8 @@ inline sge::md3_model::vec3 sge::md3_model::convert_normal(const s16 normal)
 	using std::sin;
 	using std::cos;
 
-	const space_unit lat = ((normal >> 8) & 255) * (2 * math::pi<space_unit>()) / 255,
-	                 lng = (normal & 255) * (2 * math::pi<space_unit>()) / 255;
+	const space_unit lat = static_cast<space_unit>((normal >> 8) & 255) * (2 * math::pi<space_unit>()) / 255,
+	                 lng = static_cast<space_unit>(normal & 255) * (2 * math::pi<space_unit>()) / 255;
 
 	return vec3(cos(lat) * sin(lng),
 	            sin(lat) * sin(lng),
@@ -254,8 +254,8 @@ sge::md3_model::surface::vertex::vertex(std::istream& is)
 {}
 
 sge::md3_model::surface::transformed_vertex::transformed_vertex(const vertex& v)
-: pos(v.x * MD3_XYZ_SCALE,
-      v.y * MD3_XYZ_SCALE,
-      v.z * MD3_XYZ_SCALE),
+: pos(static_cast<space_unit>(v.x) * MD3_XYZ_SCALE,
+      static_cast<space_unit>(v.y) * MD3_XYZ_SCALE,
+      static_cast<space_unit>(v.z) * MD3_XYZ_SCALE),
   normal(convert_normal(v.normal))
 {}

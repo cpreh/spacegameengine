@@ -24,20 +24,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // C
 #include <cstddef>
 
-// C++
-#include <vector>
-#include <memory>
+#include "../../raw_vector.hpp"
 
 namespace sge
 {
 class audio_file
 {
 	public:
-	virtual std::size_t read(std::size_t sample_count,std::vector<unsigned char> &) = 0;
-	virtual std::size_t read_all(std::vector<unsigned char> &) = 0;
-	virtual int channels() const = 0;
-	virtual int sample_rate() const = 0;
-	virtual int bits_per_sample() const = 0;
+	typedef unsigned channel_type;
+	typedef std::size_t sample_type;
+	typedef raw_vector<unsigned char> raw_array_type;
+
+	virtual sample_type read(sample_type samples, raw_array_type &) = 0;
+	virtual sample_type read_all(raw_array_type &) = 0;
+
+	virtual channel_type channels() const = 0;
+	virtual sample_type sample_rate() const = 0;
+	virtual sample_type bits_per_sample() const = 0;
 	virtual void reset() = 0;
 	virtual ~audio_file() {}
 };

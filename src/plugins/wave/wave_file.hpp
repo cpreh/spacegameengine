@@ -46,17 +46,17 @@ class wave_file : public audio_file
 	// Ob die Bytes geswappt werden muessen
 	boost::logic::tribool      swap_;
 	std::ifstream              file_;
-	std::size_t                samples_,
+	sample_type                samples_,
 	                           samples_read_;
-	std::vector<unsigned char> buffer_;
+	raw_array_type             buffer_;
 
 	// Ob das Ding geladen wurde
 	bool                       loaded_;
 
 	// "Pflichtfelder"
-	int                        channels_;
-	int                        sample_rate_;
-	int                        bits_per_sample_;
+	channel_type               channels_;
+	sample_type                sample_rate_;
+	sample_type                bits_per_sample_;
 
 	// Interne Funktionen
 	void read_riff();
@@ -104,14 +104,14 @@ class wave_file : public audio_file
 		return ss.str();
 	}
 
-	int bits_per_sample() const { assert(loaded_); return bits_per_sample_; }
-	int sample_rate() const { assert(loaded_); return sample_rate_; }
-	int channels() const { assert(loaded_); return channels_; }
-	int samples() const { assert(loaded_); return samples_; }
+	sample_type bits_per_sample() const;
+	sample_type sample_rate() const;
+	channel_type channels() const;
+	sample_type samples() const;
 	void reset();
 
-	std::size_t read(std::size_t,std::vector<unsigned char> &);
-	std::size_t read_all(std::vector<unsigned char> &);
+	sample_type read(sample_type, raw_array_type &);
+	sample_type read_all(raw_array_type &);
 };
 }
 

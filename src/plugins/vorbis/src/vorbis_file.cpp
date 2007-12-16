@@ -30,8 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // Own stuff
 #include "../vorbis_file.hpp"
 #include "../../../audio/audio_exception.hpp"
+#include "../../../raw_vector_impl.hpp"
 
-sge::vorbis_file::vorbis_file(const std::string &_filename, const int _bits_per_sample)
+sge::vorbis_file::vorbis_file(const std::string &_filename, const sample_type _bits_per_sample)
 : bits_per_sample_(_bits_per_sample)
 {
 	assert(bits_per_sample_ == 8 || bits_per_sample_ == 16);
@@ -52,16 +53,16 @@ sge::vorbis_file::vorbis_file(const std::string &_filename, const int _bits_per_
 	sample_rate_ = vorbis_info->rate;
 }
 
-std::size_t sge::vorbis_file::read(std::size_t _sample_count,std::vector<unsigned char> &_data)
+sge::audio_file::sample_type sge::vorbis_file::read(const sample_type _sample_count, raw_array_type &_data)
 {
-	std::size_t bytes_to_read = _sample_count * channels_ * 2;
-	_data.resize(bytes_to_read);
+	sample_type bytes_to_read = _sample_count * channels() * 2;
+	_data.resize_uninitialized(bytes_to_read);
 
-	std::size_t bytes_read = 0;
+	sample_type bytes_read = 0;
 	while (bytes_read < bytes_to_read)
 	{
 		int bitstream;
-		long result = ov_read(&ogg_stream_, reinterpret_cast<char *>(&_data[0]) + bytes_read, bytes_to_read - bytes_read, 0, (bits_per_sample_ == 8) ? 1 : 2, 1, &bitstream);
+		long result = ov_read(&ogg_stream_, reinterpret_cast<char *>(_data.data()) + bytes_read, static_cast<int>(bytes_to_read - bytes_read), 0, (bits_per_sample_ == 8) ? 1 : 2, 1, &bitstream);
 		if (result < 0)
 			throw audio_exception("Error reading ogg file: "+ogg_error(result));
 
@@ -75,7 +76,7 @@ std::size_t sge::vorbis_file::read(std::size_t _sample_count,std::vector<unsigne
 	return bytes_read;
 }
 
-std::size_t sge::vorbis_file::read_all(std::vector<unsigned char> &_data)
+sge::audio_file::sample_type sge::vorbis_file::read_all(raw_array_type &_data)
 {
 	// Wir wissen nicht, wie viele Samples wir kriegen, also lesen wir in diskreten Bloecken und fuegen die in _data ein.
 	// TODO: Das hier vielleicht optimieren.
@@ -104,7 +105,7 @@ void sge::vorbis_file::reset()
 		throw audio_exception("Error resetting ogg stream: "+ogg_error(result));
 }
 
-std::string sge::vorbis_file::ogg_error(int code)
+std::string sge::vorbis_file::ogg_error(const long code)
 {
 	switch(code)
 	{
@@ -123,4 +124,19 @@ std::string sge::vorbis_file::ogg_error(int code)
 		default:
 			return "Unknown Ogg error";
 	}
+}
+
+sge::audio_file::channel_type sge::vorbis_file::channels() const
+{
+	return channels_;
+}
+
+sge::audio_file::sample_type sge::vorbis_file::sample_rate() const
+{
+	return sample_rate_;
+}
+
+sge::audio_file::sample_type sge::vorbis_file::bits_per_sample() const
+{
+	return bits_per_sample_;
 }

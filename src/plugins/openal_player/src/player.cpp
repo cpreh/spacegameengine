@@ -108,11 +108,11 @@ ALuint sge::openal::player::register_nonstream_sound(const shared_ptr<sge::audio
 	else if (_audio_file->bits_per_sample() == 16 && _audio_file->channels() == 2)
 		format = AL_FORMAT_STEREO16;
 	else
-		throw sge::audio_exception("OpenAL error: Format not supported: "+boost::lexical_cast<std::string>(_audio_file->bits_per_sample())+" bps, "+boost::lexical_cast<std::string>(_audio_file->channels())+" channels");
+		throw audio_exception("OpenAL error: Format not supported: "+boost::lexical_cast<std::string>(_audio_file->bits_per_sample())+" bps, "+boost::lexical_cast<std::string>(_audio_file->channels())+" channels");
 
-	std::vector<unsigned char> data;
+	audio_file::raw_array_type data;
 	_audio_file->read_all(data);
-	alBufferData(n.buffer,format,&data[0],static_cast<ALsizei>(data.size()),_audio_file->sample_rate()); check("alGetError");
+	alBufferData(n.buffer, format, data.data(), static_cast<ALsizei>(data.size()), static_cast<ALsizei>(_audio_file->sample_rate())); check("alGetError");
 
 	n.refcount = 1;
 

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // Boost
 #include <boost/cstdint.hpp>
 // Own stuff
+#include "../../../raw_vector_impl.hpp"
 #include "../wave_file.hpp"
 
 sge::wave_file::wave_file(const std::string &filename) : filename_(filename),swap_(boost::logic::indeterminate),loaded_(false)
@@ -96,20 +97,20 @@ void sge::wave_file::read_data()
 	samples_read_ = 0;
 }
 
-std::size_t sge::wave_file::read(std::size_t _sample_count,std::vector<unsigned char> &_array) 
+sge::audio_file::sample_type sge::wave_file::read(const sample_type _sample_count, raw_array_type &_array) 
 {
 	assert(_array.size() == 0);
 
-	std::size_t samples_to_read = std::min(_sample_count,samples_ - samples_read_);
+	const sample_type samples_to_read = std::min(_sample_count,samples_ - samples_read_);
 	if (samples_to_read == 0)
 		return 0;
 
-	std::size_t bytes_to_read = samples_to_read * channels_ * (bits_per_sample_/8);
-	_array.resize(bytes_to_read);
-	file_.read(reinterpret_cast<char *>(&_array[0]),bytes_to_read);
+	sample_type bytes_to_read = samples_to_read * channels_ * (bits_per_sample_/8);
+	_array.resize_uninitialized(bytes_to_read);
+	file_.read(reinterpret_cast<char *>(_array.data()),bytes_to_read);
 
 	if (swap_ && bits_per_sample_ > 8)
-		for (std::size_t i = 0; i < bytes_to_read; i += (bits_per_sample_/8))
+		for (sample_type i = 0; i < bytes_to_read; i += (bits_per_sample_/8))
 			swap_endianness(&_array[i],bits_per_sample_/8);
 
 	samples_read_ += samples_to_read;
@@ -125,9 +126,33 @@ void sge::wave_file::reset()
 	samples_read_ = 0;
 }
 
-std::size_t sge::wave_file::read_all(std::vector<unsigned char> &_array) 
+sge::audio_file::sample_type sge::wave_file::read_all(raw_array_type &_array) 
 { 
 	assert(_array.size() == 0);
 
 	return read(samples_ - samples_read_,_array);
+}
+
+sge::audio_file::sample_type sge::wave_file::bits_per_sample() const
+{
+	assert(loaded_);
+	return bits_per_sample_;
+}
+	
+sge::audio_file::sample_type sge::wave_file::sample_rate() const
+{
+	assert(loaded_);
+	return sample_rate_;
+}
+
+sge::audio_file::channel_type sge::wave_file::channels() const
+{
+	assert(loaded_);
+	return channels_;
+}
+
+sge::audio_file::sample_type sge::wave_file::samples() const
+{
+	assert(loaded_);
+	return samples_;
 }
