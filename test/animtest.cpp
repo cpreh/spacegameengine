@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <cstdlib>
 #include <iostream>
 #include <ostream>
 #include <exception>
@@ -25,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/assign/list_of.hpp>
+#include "../src/systems.hpp"
 #include "../src/media.hpp"
 #include "../src/init.hpp"
 #include "../src/math/matrix.hpp"

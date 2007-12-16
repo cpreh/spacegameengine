@@ -333,13 +333,13 @@ inline space_matrix matrix_orthogonal_xy(const space_unit left, const space_unit
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline basic_vector<T,N> operator* (const basic_matrix<T,N,M>& m, const basic_vector<T,N>& v)
+inline basic_vector<T,M> operator* (const basic_matrix<T,N,M>& m, const basic_vector<T,N>& v)
 {
-	typedef basic_vector<T,N> result_type;
+	typedef basic_vector<T,M> result_type;
 	result_type ret;
 	for(typename result_type::size_type i = 0; i < M; ++i)
 		for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
-			ret[j] += v[j] * m[j][i];
+			ret[i] += v[j] * m[j][i];
 	return ret;
 }
 

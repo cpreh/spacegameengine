@@ -11,6 +11,10 @@ ADD_EXECUTABLE (animtest animtest.cpp)
 TARGET_LINK_LIBRARIES (animtest sgecore)
 INSTALL (TARGETS animtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
+ADD_EXECUTABLE (movetest movetest.cpp)
+TARGET_LINK_LIBRARIES (movetest sgecore)
+INSTALL (TARGETS movetest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
 IF (${ENABLE_GUI})
 	ADD_EXECUTABLE (sgeguitest guitest.cpp)
 	TARGET_LINK_LIBRARIES (sgeguitest sgecore sgegui boost_signals)

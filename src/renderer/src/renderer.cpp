@@ -30,4 +30,10 @@ sge::screen_unit sge::renderer::screen_height() const
 	return screen_size().h();
 }
 
+sge::space_unit sge::renderer::aspect() const
+{
+	return static_cast<space_unit>(screen_width())
+	     / static_cast<space_unit>(screen_height());
+}
+
 const std::string sge::renderer::no_shader;

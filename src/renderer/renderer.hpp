@@ -283,9 +283,11 @@ public:
 
 	virtual const renderer_caps& caps() const = 0;
 	virtual screen_size_t screen_size() const = 0;
-	screen_unit screen_width() const;
-	screen_unit screen_height() const;
 	virtual window_ptr get_window() const = 0;
+
+	SGE_SYMBOL screen_unit screen_width() const;
+	SGE_SYMBOL screen_unit screen_height() const;
+	SGE_SYMBOL space_unit aspect() const;
 
 	virtual ~renderer(){}
 };
