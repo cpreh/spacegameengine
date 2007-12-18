@@ -53,7 +53,7 @@ try
 	sge::sleep(1);
 	soundright->play(true);	
 
-	sge::sleep(20);
+	sge::sleep(20000);
 
 	/*
 	sge::timer frame_timer(1000);

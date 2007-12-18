@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
 #include "dim.hpp"
 
 namespace sge
@@ -40,7 +41,8 @@ inline T abs(const T &t)
 	return t >= T(0) ? t : -t; 
 }
 
-inline unsigned unsigned_diff(const unsigned a,const unsigned b)
+template<typename T>
+inline typename boost::is_unsigned<T>::type unsigned_diff(const T a, const T b)
 {
 	return a > b ? a - b : b - a;
 }
