@@ -5,6 +5,7 @@
 #include <string>
 #include <ostream>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <boost/next_prior.hpp>
 
 namespace sge
 {
@@ -136,6 +137,9 @@ class tree
 
 	tree &left_child() { return front(); }
 	tree &right_child() { return back(); }
+
+	tree &child(const typename subtree_list::size_type n) { return *boost::next(begin(),n); }
+	const tree &child(const typename subtree_list::size_type n) const { return *boost::next(begin(),n); }
 
 	const tree &left_child() const { return front(); }
 	const tree &right_child() const { return back(); }
