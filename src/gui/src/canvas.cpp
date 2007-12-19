@@ -17,9 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <cmath> // memcpy
 #include <cstring> // memcpy
 #include "../../math/constants.hpp"
+#include "../../math/rect_impl.hpp"
 #include "../canvas.hpp"
 
 namespace {
