@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <AL/al.h>
 #include "../../../audio/audio_player/sound.hpp"
 #include "../../../audio/audio_exception.hpp"
+#include "../../../raw_vector_impl.hpp"
 #include "../openal_player.hpp"
 #include "../openal_nonstream_sound.hpp"
 #include "../openal_stream_sound.hpp"

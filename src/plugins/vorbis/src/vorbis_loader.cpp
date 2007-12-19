@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 // Own stuff
 #include "../../../audio/audio_exception.hpp"
+#include "../../../raw_vector_impl.hpp"
 #include "../vorbis_file.hpp"
 #include "../vorbis_loader.hpp"
 
