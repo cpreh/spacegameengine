@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <cassert>
-#include "../src/texture/default_creator.hpp"
 #include "../../exception.hpp"
 #include "../../raw_vector_impl.hpp"
 #include "../../math/vec_dim.hpp"
