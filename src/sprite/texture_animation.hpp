@@ -34,8 +34,8 @@ class sprite_texture_animation : public sprite_animation {
 public:
 	struct entity {
 		entity(time_type delay, virtual_texture_ptr tex);
-		const time_type           delay;
-		const virtual_texture_ptr tex;
+		time_type           delay;
+		virtual_texture_ptr tex;
 	};
 
 	typedef std::vector<entity> animation_series;
