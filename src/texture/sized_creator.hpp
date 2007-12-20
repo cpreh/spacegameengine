@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SIZED_TEXTURE_CREATOR_HPP_INCLUDED
 #define SGE_SIZED_TEXTURE_CREATOR_HPP_INCLUDED
 
+#include "../renderer/texture_filter.hpp"
 #include "../renderer/renderer.hpp"
 #include "../renderer/types.hpp"
 

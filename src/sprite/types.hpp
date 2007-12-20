@@ -28,9 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-typedef space_unit    sprite_unit;
-typedef math::vector2 sprite_point;
-typedef math::dim2    sprite_dim;
+typedef space_unit                         sprite_unit;
+typedef math::basic_vector<sprite_unit, 2> sprite_point;
+typedef math::basic_dim<sprite_unit, 2>    sprite_dim;
+typedef math::basic_rect<sprite_unit>      sprite_rect;
+typedef space_unit                         sprite_depth_type;
+typedef space_unit                         sprite_rotation_type;
+typedef space_unit                         sprite_repetition_type;
 
 }
 

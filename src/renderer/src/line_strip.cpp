@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../line_strip.hpp"
 #include "../transform.hpp"
+#include "../material.hpp"
 #include "../../vector.hpp"
 
 sge::line_strip::line_strip(const renderer_ptr rend, const color _col, const size_type init_lines)

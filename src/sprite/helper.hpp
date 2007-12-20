@@ -24,21 +24,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../math/rect.hpp"
+#include "types.hpp"
 
 namespace sge
 {
 
-vertex_buffer::iterator fill_sprite_position(vertex_buffer::iterator it, const math::rect& rs, space_unit z);
+vertex_buffer::iterator fill_sprite_position(vertex_buffer::iterator it,
+                                             const sprite_rect& rs,
+                                             sprite_depth_type z);
 
-vertex_buffer::iterator fill_sprite_tex_coordinates(vertex_buffer::iterator it, const math::rect& rt);
+vertex_buffer::iterator fill_sprite_tex_coordinates(vertex_buffer::iterator it,
+                                                    const tex_rect& rt);
 
-vertex_buffer::iterator fill_sprite_vertices(vertex_buffer::iterator it, const math::rect& rs, const math::rect& rt, space_unit z);
+vertex_buffer::iterator fill_sprite_vertices(vertex_buffer::iterator it,
+                                             const sprite_rect& rs,
+                                             const tex_rect& rt,
+                                             sprite_depth_type z);
 
-vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::iterator it, const math::rect& rbs, space_unit rot, math::vector2 center, space_unit z);
+vertex_buffer::iterator fill_sprite_position_rotated(vertex_buffer::iterator it,
+                                                     const sprite_rect& rbs,
+                                                     sprite_rotation_type rot,
+                                                     const sprite_point& center,
+                                                     sprite_depth_type z);
 
-vertex_buffer::iterator fill_sprite_color(vertex_buffer::iterator it, color col);
+vertex_buffer::iterator fill_sprite_color(vertex_buffer::iterator it,
+                                          color col);
 
-index_buffer::iterator fill_sprite_indices(index_buffer::iterator it, index_buffer::value_type start);
+index_buffer::iterator fill_sprite_indices(index_buffer::iterator it,
+                                           index_buffer::value_type start);
 
 }
 

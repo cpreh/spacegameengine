@@ -18,27 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEFAULT_TEXTURE_CREATOR_HPP_INCLUDED
-#define SGE_DEFAULT_TEXTURE_CREATOR_HPP_INCLUDED
+#include "../display_mode.hpp"
+	
+sge::display_mode::display_mode(const screen_unit width,
+                                const screen_unit height,
+                                const bit_depth::type depth,
+                                const unsigned refresh_rate)
+ : size(width, height),
+   depth(depth),
+   refresh_rate(refresh_rate)
+{}
 
-#include "../renderer/texture_filter.hpp"
-#include "../renderer/renderer.hpp"
-
-namespace sge
+sge::screen_unit sge::display_mode::width() const
 {
-
-class fragmented_texture;
-
-template<typename T>
-class default_texture_creator {
-public:
-	default_texture_creator(renderer_ptr rend, const filter_args& filter);
-	fragmented_texture* operator()() const;
-private:
-	const renderer_ptr rend;
-	const filter_args filter;
-};
-
+	return size.w();
 }
 
-#endif
+sge::screen_unit sge::display_mode::height() const
+{
+	return size.h();
+}
+
+bool sge::operator== (const display_mode& l, const display_mode& r)
+{
+	return l.depth == r.depth && l.size == r.size && l.refresh_rate == r.refresh_rate;
+}
+
+bool sge::operator!= (const display_mode& l, const display_mode& r)
+{
+	return !(l==r);
+}

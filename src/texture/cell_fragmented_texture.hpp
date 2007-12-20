@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../raw_vector.hpp"
 #include "../field.hpp"
 #include "../renderer/texture.hpp"
+#include "../renderer/texture_filter.hpp"
 #include "fragmented_texture.hpp"
 #include "virtual_texture.hpp"
 

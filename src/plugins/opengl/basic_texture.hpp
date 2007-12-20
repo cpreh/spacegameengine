@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_TEXTURE_HPP_INCLUDED
 
 #include <boost/scoped_ptr.hpp>
+#include "../../renderer/texture_filter.hpp"
 #include "common.hpp"
 #include "pbo.hpp"
 #include "texture_base.hpp"

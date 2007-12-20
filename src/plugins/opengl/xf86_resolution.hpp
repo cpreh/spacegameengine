@@ -32,7 +32,10 @@ namespace ogl
 
 class xf86_resolution : boost::noncopyable {
 public:
-	xf86_resolution(x_display_ptr, int screen, const XF86VidModeModeInfo& new_mode, const XF86VidModeModeInfo& old_mode);
+	xf86_resolution(x_display_ptr,
+	                int screen,
+	                const XF86VidModeModeInfo& new_mode,
+	                const XF86VidModeModeInfo& old_mode);
 	~xf86_resolution(); 
 private:
 	const x_display_ptr dsp;

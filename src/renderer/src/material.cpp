@@ -18,27 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEFAULT_TEXTURE_CREATOR_HPP_INCLUDED
-#define SGE_DEFAULT_TEXTURE_CREATOR_HPP_INCLUDED
+#include "../material.hpp"
 
-#include "../renderer/texture_filter.hpp"
-#include "../renderer/renderer.hpp"
-
-namespace sge
-{
-
-class fragmented_texture;
-
-template<typename T>
-class default_texture_creator {
-public:
-	default_texture_creator(renderer_ptr rend, const filter_args& filter);
-	fragmented_texture* operator()() const;
-private:
-	const renderer_ptr rend;
-	const filter_args filter;
-};
-
-}
-
-#endif
+sge::material::material(const color4 diffuse,
+                        const color4 ambient,
+                        const color4 specular,
+                        const color4 emissive,
+                        const space_unit power)
+ : diffuse(diffuse),
+   ambient(ambient),
+   specular(specular),
+   emissive(emissive),
+   power(power)
+{}	

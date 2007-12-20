@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/rect_impl.hpp"
 #include "../helper.hpp"
 
-sge::vertex_buffer::iterator sge::fill_sprite_position(vertex_buffer::iterator it, const math::rect& rs, const space_unit z)
+sge::vertex_buffer::iterator
+	sge::fill_sprite_position(vertex_buffer::iterator it,
+                                  const sprite_rect& rs,
+                                  const sprite_depth_type z)
 {
 	(*it++).pos() = pos3(rs.left(), rs.top(), z);
 	(*it++).pos() = pos3(rs.right(), rs.top(), z);
@@ -34,7 +37,9 @@ sge::vertex_buffer::iterator sge::fill_sprite_position(vertex_buffer::iterator i
 	return it;
 }
 
-sge::vertex_buffer::iterator sge::fill_sprite_tex_coordinates(vertex_buffer::iterator it, const math::rect& rt)
+sge::vertex_buffer::iterator
+	sge::fill_sprite_tex_coordinates(vertex_buffer::iterator it,
+                                         const tex_rect& rt)
 {
 	(*it++).tex() = tex_pos(rt.left(), rt.top());
 	(*it++).tex() = tex_pos(rt.right(), rt.top());
@@ -44,13 +49,22 @@ sge::vertex_buffer::iterator sge::fill_sprite_tex_coordinates(vertex_buffer::ite
 	return it;
 }
 
-sge::vertex_buffer::iterator sge::fill_sprite_vertices(const vertex_buffer::iterator it, const math::rect& rs, const math::rect& rt, const space_unit z)
+sge::vertex_buffer::iterator
+	sge::fill_sprite_vertices(const vertex_buffer::iterator it,
+                                  const sprite_rect& rs,
+                                  const tex_rect& rt,
+                                  const sprite_depth_type z)
 {
 	fill_sprite_position(it, rs, z);
 	return fill_sprite_tex_coordinates(it, rt);
 }
 
-sge::vertex_buffer::iterator sge::fill_sprite_position_rotated(vertex_buffer::iterator it, const math::rect& rbs, const space_unit rot, const math::vector2 center, const space_unit z)
+sge::vertex_buffer::iterator
+	sge::fill_sprite_position_rotated(vertex_buffer::iterator it,
+	                                  const sprite_rect& rbs,
+                                          const space_unit rot,
+                                          const sprite_point& center,
+                                          const sprite_depth_type z)
 {
 	math::vector2 one = math::vector2(rbs.left(), rbs.top()) - center,
 	              two = math::vector2(rbs.right(), rbs.top()) - center,
@@ -81,14 +95,18 @@ sge::vertex_buffer::iterator sge::fill_sprite_position_rotated(vertex_buffer::it
 	return it;
 }
 
-sge::vertex_buffer::iterator sge::fill_sprite_color(vertex_buffer::iterator it, const color col)
+sge::vertex_buffer::iterator
+	sge::fill_sprite_color(vertex_buffer::iterator it,
+                               const color col)
 {
 	for(unsigned i = 0; i < 4; ++i)
 		(*it++).diffuse() = col;
 	return it;
 }
 
-sge::index_buffer::iterator sge::fill_sprite_indices(index_buffer::iterator it, const index_buffer::value_type start)
+sge::index_buffer::iterator
+	sge::fill_sprite_indices(index_buffer::iterator it,
+                                 const index_buffer::value_type start)
 {
 	(*it++) = start + 0;
 	(*it++) = start + 1;

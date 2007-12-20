@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+struct filter_args;
+
 texture::size_type atlased_gap();
 texture::size_type atlased_size(texture::size_type);
 const texture::dim_type atlased_size(const texture::dim_type&);

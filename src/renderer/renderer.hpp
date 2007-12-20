@@ -36,11 +36,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "light.hpp"
 #include "glsl_program.hpp"
 #include "primitive.hpp"
+#include "renderer_caps.hpp"
 
 namespace sge
 {
 
 struct viewport;
+struct filter_args;
+struct material;
 
 namespace int_state
 {
@@ -250,7 +253,8 @@ public:
 	virtual void pop() = 0;
 
 	SGE_SYMBOL static const std::string no_shader;
-	virtual glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader, const std::string& pixel_shader_source = no_shader) = 0;
+	virtual glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader,
+	                                              const std::string& pixel_shader_source = no_shader) = 0;
 	virtual void set_glsl_shader(glsl::program_ptr) = 0;
 
 	virtual render_target_ptr get_render_target() const = 0;

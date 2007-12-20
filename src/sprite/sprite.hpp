@@ -33,47 +33,51 @@ namespace sge
 
 class sprite {
 public:
-	typedef sprite_point point;
-	typedef sprite_dim   dim;
+	typedef sprite_point             point;
+	typedef sprite_dim               dim;
+	typedef sprite_rect              rect;
+	typedef sprite_depth_type        depth_type;
+	typedef sprite_rotation_type     rotation_type;
+	typedef sprite_repetition_type   repetition_type;
 
 	sprite(point pos,
 	       dim sz,
 	       virtual_texture_ptr tex,
 	       color c = colors::white,
-	       space_unit z = 0,
-	       space_unit rotation = 0,
+	       depth_type z = 0,
+	       rotation_type rotation = 0,
 	       bool visible = true);
 
-	space_unit& x();
-	space_unit& y();
+	sprite_unit& x();
+	sprite_unit& y();
 	point& pos();
-	space_unit& width();
-	space_unit& height();
+	sprite_unit& width();
+	sprite_unit& height();
 	dim& size();
-	space_unit& z();
+	depth_type& z();
 	void visible(bool visible);
 	void set_texture(virtual_texture_ptr);
-	void rotation(space_unit rot);
+	void rotation(rotation_type rot);
 	void rotate_around(point p);
 	void rotate_around();
-	void repeat(space_unit);
+	void repeat(repetition_type);
 	void set_color(color c);
 	
-	const space_unit& x() const;
-	const space_unit& y() const;
-	const space_unit& z() const;
+	const sprite_unit& x() const;
+	const sprite_unit& y() const;
+	const depth_type& z() const;
 	const point& pos() const;
-	const space_unit& width() const;
-	const space_unit& height() const;
+	const sprite_unit& width() const;
+	const sprite_unit& height() const;
 	const dim& size() const;
 	bool visible() const;
-	math::rect get_rect() const;
+	rect get_rect() const;
 	point center() const;
-	space_unit rotation() const;
+	rotation_type rotation() const;
 	space_unit radius() const;
-	space_unit repeat() const;
+	repetition_type repeat() const;
 	color get_color() const;
-	math::rect bounding_quad() const;
+	rect bounding_quad() const;
 	circle bounding_circle() const;
 	const point rotation_center() const;
 	const virtual_texture_ptr get_texture() const;
@@ -83,13 +87,13 @@ public:
 private:
 	point               p;
 	dim                 sz;
-	space_unit          _z;
+	depth_type          _z;
 	bool                _visible;
-	space_unit          _rotation;
+	rotation_type       _rotation;
 	virtual_texture_ptr tex;
 	bool                use_rot_around;
 	point               _rot_around;
-	space_unit          _repeat;
+	repetition_type     _repeat;
 	color               _color;
 };
 

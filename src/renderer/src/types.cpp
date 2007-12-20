@@ -32,19 +32,6 @@ unsigned sge::bit_depth_bit_count(const bit_depth::type d)
 	throw exception("Invalid bit_depth!");
 }
 
-sge::display_mode::display_mode(const screen_unit width, const screen_unit height, const bit_depth::type depth, const unsigned refresh_rate)
- : size(width,height), depth(depth), refresh_rate(refresh_rate)
-{}
-
-sge::screen_unit sge::display_mode::width() const
-{
-	return size.w();
-}
-
-sge::screen_unit sge::display_mode::height() const
-{
-	return size.h();
-}
 
 bool sge::lock_flag_write(const lock_flag_t mode)
 {

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_array.hpp>
+#include "../renderer/texture_filter.hpp"
 #include "fragmented_texture.hpp"
 
 namespace sge

@@ -22,13 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TYPES_HPP_INCLUDED
 
 #include <cstddef>
-#include <vector>
-#include <stdexcept>
-#include <ostream>
 #include "../export.hpp"
 #include "../types.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
+#include "../math/rect.hpp"
 #include "color.hpp"
 
 namespace sge
@@ -49,48 +47,7 @@ typedef unsigned                         screen_unit;
 typedef math::basic_vector<pixel_unit,2> pixel_pos_t;
 typedef math::basic_dim<screen_unit,2>   screen_size_t;
 
-struct display_mode {
-	SGE_SYMBOL display_mode(screen_unit width,
-	                        screen_unit height,
-	                        bit_depth::type depth,
-	                        unsigned refresh_rate = 0);
-	
-	screen_size_t   size;
-	bit_depth::type depth;
-	unsigned        refresh_rate;
-
-	SGE_SYMBOL screen_unit width() const;
-	SGE_SYMBOL screen_unit height() const;
-};
-
-template<class Ch,class Traits>
-inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s,const display_mode &mode)
-{
-	return s << s.widen('(') << mode.width() << s.widen('x') << mode.height() << s.widen('x') << bit_depth_bit_count(mode.depth) << s.widen('@') << mode.refresh_rate << s.widen(')');
-}
-
-inline bool operator== (const display_mode& l, const display_mode& r)
-{
-	return l.depth == r.depth && l.size == r.size && l.refresh_rate == r.refresh_rate;
-}
-
-inline bool operator!= (const display_mode& l, const display_mode& r)
-{
-	return !(l==r);
-}
-
 typedef unsigned multi_sample_type;
-
-
-typedef std::vector<display_mode> display_mode_array;
-struct renderer_caps {
-	unsigned           adapter_number;
-	std::string        driver_name;
-	std::string        description;
-	display_mode_array display_modes;
-	unsigned           max_tex_size;
-	unsigned           max_anisotropy_level;
-};
 
 namespace resource_flags
 {
@@ -119,61 +76,11 @@ SGE_SYMBOL bool lock_flag_write(lock_flag_t mode);
 SGE_SYMBOL bool lock_flag_read(lock_flag_t mode);
 
 typedef math::vector2  tex_pos;
+typedef math::rect     tex_rect;
 typedef math::vector2  pos2;
 typedef math::vector3  pos3;
 
-namespace min_filter
-{
-	enum type {
-		point,
-		linear,
-		mipmap,
-		trilinear
-	};
-}
-
-namespace mag_filter
-{
-	enum type {
-		point,
-		linear
-	};
-}
-
-struct filter_args {
-	typedef unsigned anisotropy_level_type;
-
-	filter_args(const min_filter::type min_filter,
-	            const mag_filter::type mag_filter,
-	            const anisotropy_level_type anisotropy_level = 0)
-	 : min_filter(min_filter),
-	   mag_filter(mag_filter),
-	   anisotropy_level(anisotropy_level)
-	{}
-
-	min_filter::type      min_filter;
-	mag_filter::type      mag_filter;
-	anisotropy_level_type anisotropy_level;
-};
-
-const filter_args linear_filter(min_filter::linear, mag_filter::linear),
-                  point_filter(min_filter::point, mag_filter::point),
-                  mip_filter(min_filter::mipmap, mag_filter::linear),
-                  trilinear_filter(min_filter::trilinear, mag_filter::linear);
-
 typedef std::size_t stage_type;
-
-struct material {
-	material(const color4 diffuse = color4(), const color4 ambient = color4(),
-	         const color4 specular = color4(), const color4 emissive = color4(),
-	         const space_unit power = 0)
-	 : diffuse(diffuse), ambient(ambient), specular(specular), emissive(emissive), power(power) {}
-	color4     diffuse;
-	color4     ambient; 
-	color4     specular; 
-	color4     emissive; 
-	space_unit power; 
-};
 
 }
 

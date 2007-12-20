@@ -24,7 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../sprite.hpp"
 #include "../helper.hpp"
 
-sge::sprite::sprite(const point p, const dim sz, const virtual_texture_ptr vtex, const color col, const space_unit _z, const space_unit _rotation, const bool vis)
+sge::sprite::sprite(const point p,
+                    const dim sz,
+                    const virtual_texture_ptr vtex,
+                    const color col,
+                    const depth_type _z,
+                    const rotation_type _rotation,
+                    const bool vis)
  : p(p),
    sz(sz),
    _z(_z),
@@ -36,12 +42,12 @@ sge::sprite::sprite(const point p, const dim sz, const virtual_texture_ptr vtex,
    _color(col)
 {}
 
-sge::space_unit& sge::sprite::x()
+sge::sprite_unit& sge::sprite::x()
 {
 	return p.x();
 }
 
-sge::space_unit& sge::sprite::y()
+sge::sprite_unit& sge::sprite::y()
 {
 	return p.y();
 }
@@ -51,12 +57,12 @@ sge::sprite::point& sge::sprite::pos()
 	return p;
 }
 
-sge::space_unit& sge::sprite::width()
+sge::sprite_unit& sge::sprite::width()
 {
 	return sz.w();
 }
 
-sge::space_unit& sge::sprite::height()
+sge::sprite_unit& sge::sprite::height()
 {
 	return sz.h();
 }
@@ -66,7 +72,7 @@ sge::sprite::dim& sge::sprite::size()
 	return sz;
 }
 
-sge::space_unit& sge::sprite::z()
+sge::sprite::depth_type& sge::sprite::z()
 {
 	return _z;
 }
@@ -81,7 +87,7 @@ void sge::sprite::set_texture(const virtual_texture_ptr vtex)
 	tex = vtex;
 }
 
-void sge::sprite::rotation(const space_unit rot)
+void sge::sprite::rotation(const rotation_type rot)
 {
 	_rotation = rot;
 }
@@ -97,7 +103,7 @@ void sge::sprite::rotate_around()
 	use_rot_around = false;
 }
 
-void sge::sprite::repeat(const space_unit r)
+void sge::sprite::repeat(const repetition_type r)
 {
 	_repeat = r;
 }
@@ -107,12 +113,12 @@ void sge::sprite::set_color(const color c)
 	_color = c;
 }
 
-const sge::space_unit& sge::sprite::x() const
+const sge::sprite_unit& sge::sprite::x() const
 {
 	return p.x();
 }
 
-const sge::space_unit& sge::sprite::y() const
+const sge::sprite_unit& sge::sprite::y() const
 {
 	return p.y();
 }
@@ -122,12 +128,12 @@ const sge::sprite::point& sge::sprite::pos() const
 	return p;
 }
 
-const sge::space_unit& sge::sprite::width() const
+const sge::sprite_unit& sge::sprite::width() const
 {
 	return sz.w();
 }
 
-const sge::space_unit& sge::sprite::height() const
+const sge::sprite_unit& sge::sprite::height() const
 {
 	return sz.h();
 }
@@ -137,7 +143,7 @@ const sge::sprite::dim& sge::sprite::size() const
 	return sz;
 }
 
-const sge::space_unit& sge::sprite::z() const
+const sge::sprite::depth_type& sge::sprite::z() const
 {
 	return _z;
 }
@@ -152,12 +158,12 @@ sge::sprite::point sge::sprite::center() const
 	return  point(x() + width() / 2, y() + height() / 2);
 }
 
-sge::space_unit sge::sprite::rotation() const
+sge::sprite::rotation_type sge::sprite::rotation() const
 {
 	return _rotation;
 }
 
-sge::space_unit sge::sprite::repeat() const
+sge::sprite::repetition_type sge::sprite::repeat() const
 {
 	return _repeat;
 }
@@ -177,17 +183,17 @@ sge::space_unit sge::sprite::radius() const
 	return std::max(std::sqrt(center().x() * center().x() + x()*x()), std::sqrt(center().y() * center().y() + y()*y()));
 }
 
-sge::math::rect sge::sprite::get_rect() const
+sge::sprite::rect sge::sprite::get_rect() const
 {
-	return math::rect(pos(),size());
+	return rect(pos(),size());
 }
 
-sge::math::rect sge::sprite::bounding_quad() const
+sge::sprite::rect sge::sprite::bounding_quad() const
 {
 	if(math::almost_zero(rotation()))
 		return get_rect();
 	const space_unit rad = radius();
-	return math::rect(center().x() - rad, center().y() - rad, center().x() + rad, center().y() + rad);
+	return rect(center().x() - rad, center().y() - rad, center().x() + rad, center().y() + rad);
 }
 
 sge::circle sge::sprite::bounding_circle() const
@@ -212,7 +218,7 @@ bool sge::sprite::equal(const sprite& l, const sprite& r)
 bool sge::sprite::less(const sprite& l, const sprite& r)
 {
 	const bool lvis = l.visible(), rvis = r.visible();
-	const space_unit lz = l.z(), rz = r.z();
+	const depth_type lz = l.z(), rz = r.z();
 	const virtual_texture_ptr ltex = l.tex, &rtex = r.tex;
 
 	return lvis == rvis ?

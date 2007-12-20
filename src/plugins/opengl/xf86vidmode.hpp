@@ -26,14 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../shared_ptr.hpp"
 #include "../../x_deleter.hpp"
 #include "../../x_display.hpp"
-#include "../../renderer/types.hpp"
 #include "xf86_resolution.hpp"
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
 
 namespace sge
 {
+
 struct display_mode;
+
 namespace ogl
 {
 
