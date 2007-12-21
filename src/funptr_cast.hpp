@@ -21,12 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FUNPTR_CAST_HPP_INCLUDED
 #define SGE_FUNPTR_CAST_HPP_INCLUDED
 
+#include <cstddef>
+#include <boost/static_assert.hpp>
+
 namespace sge
 {
 
-template<typename Dest, typename Source> Dest funptr_cast(const Source& s)
+template<typename Dest, typename Source>
+Dest funptr_cast(const Source& s)
 {
-	typedef unsigned long temp_type;
+	BOOST_STATIC_ASSERT(sizeof(std::size_t) == sizeof(void*));
+	typedef std::size_t temp_type;
 	return reinterpret_cast<Dest>(reinterpret_cast<temp_type>(s));
 }
 
