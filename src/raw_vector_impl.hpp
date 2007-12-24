@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RAW_VECTOR_IMPL_HPP_INCLUDED
 
 #include <algorithm>
+#include "exception.hpp"
 #include "raw_vector.hpp"
 
 template<typename T, typename A>
@@ -240,9 +241,9 @@ typename sge::raw_vector<T, A>::size_type sge::raw_vector<T, A>::capacity() cons
 template<typename T, typename A>
 void sge::raw_vector<T, A>::swap(raw_vector& x)
 {
-	std::swap(i.first, i.x.first);
-	std::swap(i.last, i.x.last);
-	std::swap(i.cap, i.x.cap);
+	std::swap(i.first, x.i.first);
+	std::swap(i.last, x.i.last);
+	std::swap(i.cap, x.i.cap);
 }
 
 template<typename T, typename A>

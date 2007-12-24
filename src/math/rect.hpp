@@ -87,6 +87,9 @@ template<typename T, typename Ch, typename Traits>
 std::basic_ostream<Ch,Traits>& operator<<(std::basic_ostream<Ch,Traits>& s,
                                           const basic_rect<T>& r);
 
+template<typename D, typename S>
+basic_rect<D> structure_cast(const basic_rect<S>& r);
+
 typedef basic_rect<space_unit> rect;
 
 }

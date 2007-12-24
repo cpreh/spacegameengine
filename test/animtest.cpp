@@ -77,7 +77,7 @@ try
 
 	sge::sprite_system ss(rend);
 	sge::sprite spr(sge::sprite::point(0,0),
-	                sge::sprite::dim(1.f,1.f),
+	                sge::sprite::dim(rend->screen_width(), rend->screen_height()),
 	                sge::virtual_texture_ptr());
 
 	using boost::lambda::var;

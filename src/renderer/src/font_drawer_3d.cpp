@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../texture/rect_fragmented_texture.hpp"
 #include "../../texture/default_creator.hpp"
 #include "../../texture/default_creator_impl.hpp"
-#include "../../renderer/transform.hpp"
 #include "../../sprite/system_impl.hpp"
 #include "../../math/rect_impl.hpp"
 #include "../font_drawer_3d.hpp"
@@ -57,9 +56,7 @@ void sge::font_drawer_3d::draw_char(const font_char ch, const font_rect fr, cons
 		it = textures.find(ch);
 	}
 
-	const sprite::point sprite_pos = pixel_pos_to_2d<sprite::point>(fr.pos(), rend->screen_size());
-	const sprite::dim sprite_sz = pixel_pos_to_2d<sprite::dim>(pixel_pos_t(fr.w(), fr.h()), rend->screen_size());
-	sprites.push_back(sprite(sprite_pos, sprite_sz, it->second, col));
+	sprites.push_back(sprite(fr.pos(), fr.size(), it->second, col));
 }
 
 void sge::font_drawer_3d::end_rendering()

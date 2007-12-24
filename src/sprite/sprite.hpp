@@ -97,12 +97,6 @@ private:
 	color               _color;
 };
 
-namespace detail
-{
-	const unsigned indices_per_sprite = 6,
-	               vertices_per_sprite = 4;
-}
-
 }
 #endif
 

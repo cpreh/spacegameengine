@@ -193,12 +193,15 @@ sge::sprite::rect sge::sprite::bounding_quad() const
 	if(math::almost_zero(rotation()))
 		return get_rect();
 	const space_unit rad = radius();
-	return rect(center().x() - rad, center().y() - rad, center().x() + rad, center().y() + rad);
+	return rect(static_cast<sprite_unit>(center().x() - rad),
+	            static_cast<sprite_unit>(center().y() - rad),
+	            static_cast<sprite_unit>(center().x() + rad),
+	            static_cast<sprite_unit>(center().y() + rad));
 }
 
 sge::circle sge::sprite::bounding_circle() const
 {
-	return circle(center(),radius());
+	return circle(static_cast<circle::value_type>(x()), static_cast<circle::value_type>(y()), radius());
 }
 
 const sge::sprite::point sge::sprite::rotation_center() const

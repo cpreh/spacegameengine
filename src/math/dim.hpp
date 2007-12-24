@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/arithmetic/add.hpp>
 #include "../types.hpp"
 #include "../exception.hpp"
+#include "../util.hpp"
 
 #ifndef SGE_MATH_DIM_MAX_SIZE
 #define SGE_MATH_DIM_MAX_SIZE 3
@@ -66,6 +67,10 @@ public:
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data[i] = 0;
+	}
+
+	basic_dim(no_initialization_tag)
+	{
 	}
 
 	reference operator[](const size_type pos)
@@ -261,6 +266,17 @@ std::basic_istream<Ch,Traits>& operator>>(std::basic_istream<Ch,Traits>& s, basi
 	if (c != s.widen(')'))
 		s.setstate(std::ios_base::failbit);
 	return s;
+}
+
+template<typename D, typename S, std::size_t Dim>
+basic_dim<D, Dim> structure_cast(const basic_dim<S, Dim>& r)
+{
+	typedef basic_dim<D, Dim> ret_type;
+
+	ret_type ret = ret_type(no_initialization_tag());
+	for(typename ret_type::size_type i = 0; i < Dim; ++i)
+		ret[i] = static_cast<D>(r[i]);
+	return ret;
 }
 
 typedef basic_dim<space_unit,2> dim2;

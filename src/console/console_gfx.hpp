@@ -19,6 +19,7 @@
 #include "../timer.hpp"
 #include "../scoped_connection.hpp"
 #include "../input/key_state_tracker.hpp"
+#include "../sprite/types.hpp"
 
 // Eigenes
 #include "console.hpp"
@@ -34,7 +35,7 @@ class console_gfx : boost::noncopyable
 	typedef std::size_t         size_type;
 	typedef std::ptrdiff_t      difference_type;
 	renderer_ptr                rend;
-	math::dim2                  console_size;
+	sprite_dim                  console_size;
 	font&                       fn;
 	size_type                   lines_per_screen;
 	input_system_ptr            input_system;

@@ -93,13 +93,13 @@ public:
 	                            font_align_v::type = font_align_v::top,
 	                            font_flag_t flags = font_flags::default_) const;
 
-	const text_size_t draw_text(const string_type& text,
+/*	const text_size_t draw_text(const string_type& text,
 	                            pos2 pos,
 	                            math::dim2 max_size,
 	                            screen_size_t screen_size,
 	                            font_align_h::type = font_align_h::left,
 	                            font_align_v::type = font_align_v::top,
-	                            font_flag_t flags = font_flags::default_) const;
+	                            font_flag_t flags = font_flags::default_) const;*/
 
 	const text_size_t line_width(string_type::const_iterator beg,
 	                             string_type::const_iterator end,

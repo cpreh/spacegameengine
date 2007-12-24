@@ -447,6 +447,17 @@ std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, bas
 	return s;
 }
 
+template<typename D, typename S, std::size_t Dim>
+basic_vector<D, Dim> structure_cast(const basic_vector<S, Dim>& s)
+{
+	typedef basic_vector<D, Dim> ret_type;
+	ret_type ret = ret_type(no_initialization_tag());
+	for(typename ret_type::size_type i = 0; i < Dim; ++i)
+		ret[i] = static_cast<D>(s[i]);
+	return ret;
+
+}
+
 typedef basic_vector<space_unit,2> vector2;
 typedef basic_vector<space_unit,3> vector3;
 typedef basic_vector<space_unit,4> vector4;

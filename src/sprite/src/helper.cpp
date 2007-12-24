@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <cmath>
+#include <boost/array.hpp>
+#include <boost/foreach.hpp>
 #include "../../renderer/transform.hpp"
 #include "../../math/matrix.hpp"
 #include "../../math/rect_impl.hpp"
@@ -29,10 +31,12 @@ sge::vertex_buffer::iterator
                                   const sprite_rect& rs,
                                   const sprite_depth_type z)
 {
-	(*it++).pos() = pos3(rs.left(), rs.top(), z);
-	(*it++).pos() = pos3(rs.right(), rs.top(), z);
-	(*it++).pos() = pos3(rs.right(), rs.bottom(), z);
-	(*it++).pos() = pos3(rs.left(), rs.bottom(), z);
+	const math::rect r = math::structure_cast<space_unit>(rs);
+
+	(*it++).pos() = pos3(r.left(), r.top(), z);
+	(*it++).pos() = pos3(r.right(), r.top(), z);
+	(*it++).pos() = pos3(r.right(), r.bottom(), z);
+	(*it++).pos() = pos3(r.left(), r.bottom(), z);
 
 	return it;
 }
@@ -62,14 +66,20 @@ sge::vertex_buffer::iterator
 sge::vertex_buffer::iterator
 	sge::fill_sprite_position_rotated(vertex_buffer::iterator it,
 	                                  const sprite_rect& rbs,
-                                          const space_unit rot,
+                                          const sprite_rotation_type rot,
                                           const sprite_point& center,
                                           const sprite_depth_type z)
 {
-	math::vector2 one = math::vector2(rbs.left(), rbs.top()) - center,
-	              two = math::vector2(rbs.right(), rbs.top()) - center,
-	              three = math::vector2(rbs.right(), rbs.bottom()) - center,
-	              four = math::vector2(rbs.left(), rbs.bottom()) - center;
+	const pos2 centerf(math::structure_cast<space_unit>(center));
+
+	typedef boost::array<pos2, detail::vertices_per_sprite> position_array;
+	const position_array positions = {
+		{ pos2(rbs.left(), rbs.top()) - centerf,
+		  pos2(rbs.right(), rbs.top()) - centerf,
+		  pos2(rbs.right(), rbs.bottom()) - centerf,
+		  pos2(rbs.left(), rbs.bottom()) - centerf
+		}
+	};
 
 	const space_unit sinx = std::sin(-rot),
 	                 cosx = std::cos(-rot);
@@ -77,20 +87,8 @@ sge::vertex_buffer::iterator
 	const math::basic_matrix<space_unit,2,2> mat_rot(cosx, -sinx,
 	                                                 sinx,  cosx); 
 
-	one = mat_rot * one;
-	two = mat_rot * two;
-	three = mat_rot * three;
-	four = mat_rot * four;
-
-	one += center;
-	two += center;
-	three += center;
-	four += center;
-
-	(*it++).pos() = pos3(one, z);
-	(*it++).pos() = pos3(two, z);
-	(*it++).pos() = pos3(three, z);
-	(*it++).pos() = pos3(four, z);
+	BOOST_FOREACH(position_array::const_reference p, positions)
+		(*it++).pos() = pos3((mat_rot * p) + centerf, z);
 
 	return it;
 }
@@ -99,7 +97,7 @@ sge::vertex_buffer::iterator
 	sge::fill_sprite_color(vertex_buffer::iterator it,
                                const color col)
 {
-	for(unsigned i = 0; i < 4; ++i)
+	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)
 		(*it++).diffuse() = col;
 	return it;
 }

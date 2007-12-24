@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <memory>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_pod.hpp>
-#include "exception.hpp"
 
 namespace sge
 {

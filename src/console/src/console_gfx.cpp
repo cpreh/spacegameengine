@@ -289,7 +289,8 @@ void sge::con::console_gfx::draw()
 		cursor_active = !cursor_active;
 
 	rend->projection(math::matrix_orthogonal_xy());
-	rend->transform(matrix_2d_to_3d());
+	// FIXME: replace this stuff with sge::sprite
+	rend->transform(matrix_pixel_to_space(rend->screen_size()));
 	rend->set_texture(background_texture);
 	rend->set_bool_state(sge::bool_state::enable_zbuffer,false);
 	rend->render(vb,ib,0,vb->size(),indexed_primitive_type::triangle,2,0);
@@ -344,9 +345,9 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
                                    const color font_color,
                                    const texture_ptr background_texture) 
 : rend(rend),
-  console_size(1, 0.5),
+  console_size(rend->screen_width(), rend->screen_height() / 2),
   fn(fn),
-  lines_per_screen(static_cast<size_type>(console_size.h() * rend->screen_height() / fn.height()) - 1),
+  lines_per_screen(console_size.h() * rend->screen_height() / fn.height() - 1),
   input_system(input_system),
   input_connection(input_system->register_callback(boost::bind(&console_gfx::key_callback, this, _1))),
   input_repeat_connection(input_system->register_repeat_callback(boost::bind(&console_gfx::key_action, this, _1))),
@@ -367,7 +368,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
 	{
 		scoped_lock<vertex_buffer_ptr> _vblock(vb);
 		vertex_buffer::iterator vbit = vb->begin();
-		fill_sprite_vertices(vbit, math::rect(0, 0, console_size.w(), console_size.h()), math::rect(0, 0, 1, 1), 0);
+		fill_sprite_vertices(vbit, sprite_rect(sprite_rect::point_type(0, 0), console_size), math::rect(0, 0, 1, 1), 0);
 	}
 
 	{

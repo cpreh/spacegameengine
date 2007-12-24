@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 const unsigned init_sprites = 25;
 
 sge::sprite_system::sprite_system(const renderer_ptr rend)
- : default_transformable(rend, matrix_2d_to_3d(), math::matrix_orthogonal_xy()),
+ : default_transformable(rend,
+                         matrix_pixel_to_space(rend->screen_size()),
+                         math::matrix_orthogonal_xy()),
    rend(rend),
    vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::diffuse).add(vertex_usage::tex), init_sprites * detail::vertices_per_sprite, resource_flags::write_only | resource_flags::dynamic)),
    ib(rend->create_index_buffer(init_sprites * detail::indices_per_sprite))

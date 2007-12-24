@@ -54,8 +54,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/texture/util.hpp"
 
 struct input_processor {
-	input_processor(const sge::input_system_ptr is, sge::sprite& spr, sge::sprite& mouse)
-	: cb(is->register_callback(boost::bind(&input_processor::process, this, _1))),
+	input_processor(const sge::renderer_ptr rend, const sge::input_system_ptr is, sge::sprite& spr, sge::sprite& mouse)
+	: rend(rend),
+	  cb(is->register_callback(boost::bind(&input_processor::process, this, _1))),
 	  spr(spr),
 	  mouse(mouse)
 	{}
@@ -65,32 +66,31 @@ private:
 		const sge::key_code code = pair.key().code();
 		const sge::key_state value = pair.value();
 
-		const sge::space_unit sensitivity = 0.001f;
-
 		if(!sge::is_mouse_axis(code))
 			return;
 		switch(code) {
 		case sge::kc::mouse_x_axis:
-			mouse.x() += static_cast<sge::space_unit>(value) * sensitivity;
+			mouse.x() += static_cast<sge::sprite_unit>(value);
 			break;
 		case sge::kc::mouse_y_axis:
-			mouse.y() += static_cast<sge::space_unit>(value) * sensitivity;
+			mouse.y() += static_cast<sge::sprite_unit>(value);
 			break;
 		default:
 			break;
 		}
 
-		sge::math::clamp(mouse.x(), 0.f, 1.f);
-		sge::math::clamp(mouse.y(), 0.f, 1.f);
+		sge::math::clamp(mouse.x(), 0, static_cast<sge::sprite_unit>(rend->screen_width()));
+		sge::math::clamp(mouse.y(), 0, static_cast<sge::sprite_unit>(rend->screen_height()));
 
 		const sge::sprite_point d = spr.center() - mouse.pos();
-		const sge::space_unit len = d.length();
+		const sge::space_unit len = sge::math::structure_cast<sge::space_unit>(d).length();
 		if(sge::math::almost_zero(len))
 			return;
 		const sge::space_unit rad = std::asin(d.x() / len);
 		spr.rotation(d.y() >= 0 ? rad : -rad + sge::math::pi<sge::space_unit>());
 	}
 
+	const sge::renderer_ptr rend;
 	const sge::scoped_connection cb;
 	sge::sprite& spr;
 	sge::sprite& mouse;
@@ -115,15 +115,15 @@ try
 	                               cursor_tex(sge::add_texture(tex_man, pl->load_image(sge::media_path("mainskin/cursor.png"))));
 
 	sge::sprite_system ss(rend);
-	const sge::space_unit spr_sz = 0.1f;
-	sge::sprite spr(sge::sprite::point(0.5f, 0.5f),
-	                sge::sprite::dim(spr_sz, spr_sz * rend->aspect()),
+	const sge::sprite_unit spr_sz = 50;
+	sge::sprite spr(sge::sprite::point(rend->screen_width() / 2, rend->screen_height() / 2),
+	                sge::sprite::dim(spr_sz, spr_sz),
 	                tex),
-	            cursor(sge::sprite::point(0.5f, 0.5f),
-	                   sge::sprite::dim(0.05f, 0.05f),
+	            cursor(sge::sprite::point(50, 50),
+	                   sge::sprite::dim(32, 32),
 	                   cursor_tex);
 	
-	const input_processor proc(is, spr, cursor);
+	const input_processor proc(rend, is, spr, cursor);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;

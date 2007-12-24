@@ -55,7 +55,7 @@ const sge::math::rect sge::virtual_texture::area_texc(const space_unit repeat) c
 		std::cerr << "Warning: texture not repeatable but repetition is " << repeat << "!\n";
 
 	const texture_ptr tex = my_texture();
-	return tex ? tex_size_to_space_rect(area(), tex->width(), tex->height(), repeat) : math::rect();
+	return tex ? tex_size_to_space_rect(area(), tex->dim(), repeat) : math::rect();
 }
 
 const sge::tex_pos sge::virtual_texture::translate(const tex_pos &local_coords, const space_unit repeat) const
