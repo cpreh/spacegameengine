@@ -20,14 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <locale>
 #include <boost/next_prior.hpp>
-#include "../../types.hpp"
-#include "../renderer.hpp"
-#include "../vertex_buffer.hpp"
-#include "../index_buffer.hpp"
-#include "../types.hpp"
-#include "../transform.hpp"
 #include "../font.hpp"
-#include "../../sprite/helper.hpp"
 #include "../../math/rect_impl.hpp"
 
 sge::font::font(const font_metrics_ptr metrics_, const font_drawer_ptr drawer_)
@@ -105,11 +98,6 @@ const sge::font::text_size_t sge::font::draw_text(const string_type& text,
 
 	return total_size;
 }
-
-/*const sge::font::text_size_t sge::font::draw_text(const string_type& text, const pos2 pos, const math::dim2 max_size, const screen_size_t screen_size, const font_align_h::type align_h, const font_align_v::type align_v, const font_flag_t flags) const
-{
-	return draw_text(text, space_size_to_pixel<font_pos>(pos, screen_size), space_size_to_pixel<font_dim>(max_size, screen_size), align_h, align_v, flags);
-}*/
 
 sge::font_unit sge::font::char_space(const char_type ch) const
 {
