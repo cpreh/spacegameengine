@@ -128,6 +128,17 @@ void sge::ogl::read_pixels(const sge::texture_base::size_type x,
 	             dest);
 }
 
+void sge::ogl::get_tex_image(const sge::texture::pointer dest)
+{
+	SGE_OPENGL_SENTRY
+	
+	glGetTexImage(GL_TEXTURE_2D,
+	              0,
+	              format,
+	              type,
+	              dest);
+}
+
 void sge::ogl::tex_parameter_i(const GLenum type,
                                const GLenum name,
                                const GLint value)

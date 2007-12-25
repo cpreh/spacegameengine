@@ -114,13 +114,13 @@ typename sge::raw_vector<T, A>::const_reference sge::raw_vector<T, A>::front() c
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::reference sge::raw_vector<T, A>::back()
 {
-	return *--end();
+	return *(end()-1);
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::const_reference sge::raw_vector<T, A>::back() const
 {
-	return *--end();
+	return *(end()-1);
 }
 
 template<typename T, typename A>

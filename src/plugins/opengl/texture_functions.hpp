@@ -57,6 +57,8 @@ void read_pixels(sge::texture_base::size_type x,
                  sge::texture_base::size_type height,
                  sge::texture_base::pointer dest);
 
+void get_tex_image(sge::texture_base::pointer dest);
+
 void tex_parameter_i(GLenum type,
                      GLenum name,
                      GLint value);

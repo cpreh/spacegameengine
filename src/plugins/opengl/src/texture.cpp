@@ -86,11 +86,7 @@ void sge::ogl::texture::lock(const lock_flag_t lmode)
 {
 	do_lock(lmode);
 	if(lock_flag_read(lock_mode()))
-		read_pixels(0,
-		            0,
-		            width(),
-		            height(),
-			    read_buffer());
+		get_tex_image(read_buffer());
 	post_lock();
 }
 
