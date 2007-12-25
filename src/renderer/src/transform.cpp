@@ -23,16 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::math::space_matrix sge::matrix_pixel_to_space(const screen_size_t& sz)
 {
-	return math::matrix_translation(-static_cast<int>(sz.w()) / 2, -static_cast<int>(sz.h()) / 2, 0)
-	     * math::matrix_scaling(static_cast<space_unit>(2) / sz.w(), static_cast<space_unit>(-2) / sz.h(), 0);
+	return math::matrix_translation(static_cast<space_unit>(-static_cast<int>(sz.w()) / 2),
+	                                static_cast<space_unit>(-static_cast<int>(sz.h()) / 2),
+	                                0)
+	     * math::matrix_scaling(static_cast<space_unit>(2) / static_cast<space_unit>(sz.w()),
+	                            static_cast<space_unit>(-2) / static_cast<space_unit>(sz.h()),
+	                            0);
 }
 
 sge::math::rect sge::tex_size_to_space_rect(const lock_rect& l,
                                             const texture::dim_type& dim,
                                             const space_unit repeat)
 {
-	return math::rect(static_cast<space_unit>(l.left()) / dim.w(),
-	                  static_cast<space_unit>(l.top()) / dim.h(),
-	                  repeat * static_cast<space_unit>(l.right()) / dim.w(),
-	                  repeat * static_cast<space_unit>(l.bottom()) / dim.h());
+	return math::rect(static_cast<space_unit>(l.left()) / static_cast<space_unit>(dim.w()),
+	                  static_cast<space_unit>(l.top()) / static_cast<space_unit>(dim.h()),
+	                  repeat * static_cast<space_unit>(l.right()) / static_cast<space_unit>(dim.w()),
+	                  repeat * static_cast<space_unit>(l.bottom()) / static_cast<space_unit>(dim.h()));
 }

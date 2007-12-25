@@ -86,7 +86,7 @@ private:
 		const sge::space_unit len = sge::math::structure_cast<sge::space_unit>(d).length();
 		if(sge::math::almost_zero(len))
 			return;
-		const sge::space_unit rad = std::asin(d.x() / len);
+		const sge::space_unit rad = std::asin(static_cast<sge::space_unit>(d.x()) / len);
 		spr.rotation(d.y() >= 0 ? rad : -rad + sge::math::pi<sge::space_unit>());
 	}
 

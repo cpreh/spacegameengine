@@ -180,7 +180,9 @@ const sge::virtual_texture_ptr sge::sprite::get_texture() const
 
 sge::space_unit sge::sprite::radius() const
 {
-	return std::max(std::sqrt(center().x() * center().x() + x()*x()), std::sqrt(center().y() * center().y() + y()*y()));
+	return std::max(std::sqrt(static_cast<space_unit>(center().x() * center().x() + x() * x())),
+	                std::sqrt(static_cast<space_unit>(center().y() * center().y() + y() * y()))
+	               );
 }
 
 sge::sprite::rect sge::sprite::get_rect() const
@@ -193,10 +195,10 @@ sge::sprite::rect sge::sprite::bounding_quad() const
 	if(math::almost_zero(rotation()))
 		return get_rect();
 	const space_unit rad = radius();
-	return rect(static_cast<sprite_unit>(center().x() - rad),
-	            static_cast<sprite_unit>(center().y() - rad),
-	            static_cast<sprite_unit>(center().x() + rad),
-	            static_cast<sprite_unit>(center().y() + rad));
+	return rect(static_cast<sprite_unit>(static_cast<space_unit>(center().x()) - rad),
+	            static_cast<sprite_unit>(static_cast<space_unit>(center().y()) - rad),
+	            static_cast<sprite_unit>(static_cast<space_unit>(center().x()) + rad),
+	            static_cast<sprite_unit>(static_cast<space_unit>(center().y()) + rad));
 }
 
 sge::circle sge::sprite::bounding_circle() const

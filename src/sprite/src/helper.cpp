@@ -74,10 +74,10 @@ sge::vertex_buffer::iterator
 
 	typedef boost::array<pos2, detail::vertices_per_sprite> position_array;
 	const position_array positions = {
-		{ pos2(rbs.left(), rbs.top()) - centerf,
-		  pos2(rbs.right(), rbs.top()) - centerf,
-		  pos2(rbs.right(), rbs.bottom()) - centerf,
-		  pos2(rbs.left(), rbs.bottom()) - centerf
+		{ pos2(static_cast<space_unit>(rbs.left()), static_cast<space_unit>(rbs.top())) - centerf,
+		  pos2(static_cast<space_unit>(rbs.right()), static_cast<space_unit>(rbs.top())) - centerf,
+		  pos2(static_cast<space_unit>(rbs.right()), static_cast<space_unit>(rbs.bottom())) - centerf,
+		  pos2(static_cast<space_unit>(rbs.left()), static_cast<space_unit>(rbs.bottom())) - centerf
 		}
 	};
 
