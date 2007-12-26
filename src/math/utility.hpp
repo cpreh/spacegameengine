@@ -36,6 +36,12 @@ namespace math
 {
 
 template<typename T>
+T atan2(const sge::math::basic_vector<T,2> &v)
+{
+	return std::atan2(v.y(),v.x());
+}
+
+template<typename T>
 inline T abs(const T &t) 
 { 
 	return t >= T(0) ? t : -t; 
