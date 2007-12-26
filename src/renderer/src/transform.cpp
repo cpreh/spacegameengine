@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../su.hpp"
 #include "../../math/rect_impl.hpp"
 #include "../transform.hpp"
 
@@ -26,8 +27,8 @@ sge::math::space_matrix sge::matrix_pixel_to_space(const screen_size_t& sz)
 	return math::matrix_translation(static_cast<space_unit>(-static_cast<int>(sz.w()) / 2),
 	                                static_cast<space_unit>(-static_cast<int>(sz.h()) / 2),
 	                                0)
-	     * math::matrix_scaling(static_cast<space_unit>(2) / static_cast<space_unit>(sz.w()),
-	                            static_cast<space_unit>(-2) / static_cast<space_unit>(sz.h()),
+	     * math::matrix_scaling(su(2) / static_cast<space_unit>(sz.w()),
+	                            su(-2) / static_cast<space_unit>(sz.h()),
 	                            0);
 }
 

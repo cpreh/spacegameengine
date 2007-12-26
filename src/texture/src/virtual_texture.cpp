@@ -96,7 +96,7 @@ void sge::virtual_texture::set_data(const texture::const_pointer src)
 	my_texture()->set_data(src,
 	                       lock_rect(outer_area().left() + 1, outer_area().top(), outer_area().right() - 1, outer_area().top() + 1));
 	my_texture()->set_data(src + area().w() * (area().h() - 1),
-	                      lock_rect(outer_area().left() + 1, outer_area().bottom() - 1, outer_area().right() - 1, outer_area().bottom()));
+	                       lock_rect(outer_area().left() + 1, outer_area().bottom() - 1, outer_area().right() - 1, outer_area().bottom()));
 
 	height_pixels.front() = *src;
 	for(pixel_vector::size_type h = 1; h < height_pixels.size() - 1; ++h)
@@ -108,7 +108,7 @@ void sge::virtual_texture::set_data(const texture::const_pointer src)
 
 	height_pixels.front() = *(src + area().w() - 1); 
 	for(pixel_vector::size_type h = 1; h < height_pixels.size() - 1; ++h)
-		height_pixels[h] = *(src + area().w() * (h+1) - 1);
+		height_pixels[h] = *(src + area().w() * (h + 1) - 1);
 	height_pixels.back() = *(src + area().w() * area().h() - 1);
 
 	my_texture()->set_data(height_pixels.data(),
