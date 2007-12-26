@@ -26,17 +26,17 @@ sge::key_state_tracker::key_state_tracker(const input_system_ptr is)
 : con(is->register_callback(boost::bind(&key_state_tracker::event_handler,this,_1)))
 {}
 
-sge::key_state sge::key_state_tracker::operator[](const key_code& c)
+sge::key_state sge::key_state_tracker::state(const key_code& c)
 {
 	return key_codes[c];
 }
 
-sge::key_state sge::key_state_tracker::operator[](const key_type& c)
+sge::key_state sge::key_state_tracker::state(const key_type& c)
 {
 	return key_types[c];
 }
 
-sge::key_state sge::key_state_tracker::operator[](const key_type::char_type& c)
+sge::key_state sge::key_state_tracker::state(const key_type::char_type& c)
 {
 	return key_chars[c];
 }

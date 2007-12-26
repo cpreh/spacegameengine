@@ -33,9 +33,12 @@ namespace sge
 class key_state_tracker : boost::noncopyable {
 public:
 	key_state_tracker(input_system_ptr);
-	key_state operator[](const key_code&);
-	key_state operator[](const key_type&);
-	key_state operator[](const key_type::char_type&);
+	key_state state(const key_code&);
+	key_state state(const key_type&);
+	key_state state(const key_type::char_type&);
+	key_state operator[](const key_code&k) { return state(k); }
+	key_state operator[](const key_type&k) { return state(k); }
+	key_state operator[](const key_type::char_type&k) { return state(k); }
 private:
 	void event_handler(const key_pair& key);
 	scoped_connection con;
