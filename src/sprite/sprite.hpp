@@ -87,14 +87,14 @@ public:
 private:
 	point               p;
 	dim                 sz;
-	depth_type          _z;
-	bool                _visible;
-	rotation_type       _rotation;
+	depth_type          z_;
+	rotation_type       rotation_;
 	virtual_texture_ptr tex;
+	point               rot_around_;
+	repetition_type     repeat_;
+	color               color_;
+	bool                visible_;
 	bool                use_rot_around;
-	point               _rot_around;
-	repetition_type     _repeat;
-	color               _color;
 };
 
 }

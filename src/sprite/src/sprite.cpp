@@ -27,19 +27,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::sprite::sprite(const point p,
                     const dim sz,
                     const virtual_texture_ptr vtex,
-                    const color col,
-                    const depth_type _z,
-                    const rotation_type _rotation,
-                    const bool vis)
+                    const color color_,
+                    const depth_type z_,
+                    const rotation_type rotation_,
+                    const bool visible_)
  : p(p),
    sz(sz),
-   _z(_z),
-   _visible(vis),
-   _rotation(_rotation),
+   z_(z_),
+   rotation_(rotation_),
    tex(vtex),
-   use_rot_around(false),
-   _repeat(1),
-   _color(col)
+   rot_around_(),
+   repeat_(1),
+   color_(color_),
+   visible_(visible_),
+   use_rot_around(false)
 {}
 
 sge::sprite_unit& sge::sprite::x()
@@ -74,12 +75,12 @@ sge::sprite::dim& sge::sprite::size()
 
 sge::sprite::depth_type& sge::sprite::z()
 {
-	return _z;
+	return z_;
 }
 
 void sge::sprite::visible(const bool nvisible)
 {
-	_visible = nvisible;
+	visible_ = nvisible;
 }
 
 void sge::sprite::set_texture(const virtual_texture_ptr vtex)
@@ -89,13 +90,13 @@ void sge::sprite::set_texture(const virtual_texture_ptr vtex)
 
 void sge::sprite::rotation(const rotation_type rot)
 {
-	_rotation = rot;
+	rotation_ = rot;
 }
 
 void sge::sprite::rotate_around(const point p)
 {
 	use_rot_around = true;
-	_rot_around = p;
+	rot_around_ = p;
 }
 
 void sge::sprite::rotate_around()
@@ -105,12 +106,12 @@ void sge::sprite::rotate_around()
 
 void sge::sprite::repeat(const repetition_type r)
 {
-	_repeat = r;
+	repeat_ = r;
 }
 
 void sge::sprite::set_color(const color c)
 {
-	_color = c;
+	color_ = c;
 }
 
 const sge::sprite_unit& sge::sprite::x() const
@@ -145,12 +146,12 @@ const sge::sprite::dim& sge::sprite::size() const
 
 const sge::sprite::depth_type& sge::sprite::z() const
 {
-	return _z;
+	return z_;
 }
 
 bool sge::sprite::visible() const
 {
-	return _visible;
+	return visible_;
 }
 
 sge::sprite::point sge::sprite::center() const
@@ -160,17 +161,17 @@ sge::sprite::point sge::sprite::center() const
 
 sge::sprite::rotation_type sge::sprite::rotation() const
 {
-	return _rotation;
+	return rotation_;
 }
 
 sge::sprite::repetition_type sge::sprite::repeat() const
 {
-	return _repeat;
+	return repeat_;
 }
 
 sge::color sge::sprite::get_color() const
 {
-	return _color;
+	return color_;
 }
 
 const sge::virtual_texture_ptr sge::sprite::get_texture() const
@@ -210,7 +211,7 @@ const sge::sprite::point sge::sprite::rotation_center() const
 {
 	if(!use_rot_around)
 		return center();
-	return _rot_around;
+	return rot_around_;
 }
 
 bool sge::sprite::equal(const sprite& l, const sprite& r)
@@ -224,7 +225,7 @@ bool sge::sprite::less(const sprite& l, const sprite& r)
 {
 	const bool lvis = l.visible(), rvis = r.visible();
 	const depth_type lz = l.z(), rz = r.z();
-	const virtual_texture_ptr ltex = l.tex, &rtex = r.tex;
+	const virtual_texture_ptr ltex = l.get_texture(), &rtex = r.get_texture();
 
 	return lvis == rvis ?
 			math::compare(lz, rz) ?
