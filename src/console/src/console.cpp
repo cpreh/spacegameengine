@@ -82,6 +82,7 @@ struct singleton
 	void read_config(const std::string &);
 	sge::string get_var(const sge::string &);
 	void set_var(const sge::string &,const sge::string &);
+	void latch(const sge::string &,const sge::string &);
 };
 
 singleton &instance()
@@ -96,6 +97,11 @@ sge::string singleton::get_var(const sge::string &name)
 	if (i == vars.end())
 		throw cs::exception(L"variable \""+name+L"\" not found");
 	return i->second->get();
+}
+
+void singleton::latch(const sge::string &name,const sge::string &value)
+{
+	config_vars[name] = value;
 }
 
 void singleton::set_var(const sge::string &name,const sge::string &value)
@@ -254,6 +260,11 @@ sge::string cs::get_var(const sge::string &name)
 void cs::set_var(const sge::string &name,const sge::string &value)
 {
 	instance().set_var(name,value);
+}
+
+void cs::latch(const sge::string &name,const sge::string &value)
+{
+	instance().latch(name,value);
 }
 
 cs::var_base::var_base(const string &name_)

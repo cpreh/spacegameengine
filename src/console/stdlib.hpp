@@ -19,6 +19,7 @@ struct stdlib
 	void get(const arg_list &);
 	void listvars(const arg_list &);
 	void listfuncs(const arg_list &);
+	void latch(const arg_list &);
 
 	stdlib(const callback_type &);
 };

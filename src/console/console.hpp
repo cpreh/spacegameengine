@@ -138,6 +138,7 @@ const var_map &vars();
 const callback_map &funcs();
 sge::string get_var(const sge::string &);
 void set_var(const sge::string &,const sge::string &);
+void latch(const sge::string &,const sge::string &);
 
 }
 }

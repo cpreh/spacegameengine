@@ -14,7 +14,7 @@
 #include <sge/sprite/sprite.hpp>
 #include <sge/string.hpp>
 #include <sge/timer.hpp>
-#include <sge/console/console.hpp>
+#include "console.hpp"
 
 namespace sge
 {

@@ -8,6 +8,7 @@ sge::con::stdlib::stdlib(const callback_type &print)
 	add(L"get",boost::bind(&stdlib::set,this,_1));
 	add(L"listvars",boost::bind(&stdlib::listvars,this,_1));
 	add(L"listfuncs",boost::bind(&stdlib::listfuncs,this,_1));
+	add(L"latch",boost::bind(&stdlib::latch,this,_1));
 }
 
 void sge::con::stdlib::get(const arg_list &args)
@@ -75,4 +76,16 @@ void sge::con::stdlib::listfuncs(const arg_list &args)
 		if (i->first.find(search_string) != string::npos)
 			print(i->first);
 	print(L"------------functions end--------------");
+}
+
+void sge::con::stdlib::latch(const arg_list &args)
+{
+	if (args.size() < 2)
+	{
+		print(L"error: syntax: "+sge::string(1,prefix())+args[0]+L" <variable name> <value>");
+		return;
+	}
+
+	sge::con::latch(args[1],args[2]);
+	print(L"latched \""+args[1]+L"\" to \""+args[2]+L"\"");
 }
