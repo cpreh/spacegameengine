@@ -5,8 +5,7 @@
 #include <boost/bind.hpp>
 #include <boost/array.hpp>
 // sge
-#include <sge/sprite/system_impl.hpp>
-// own
+#include "../../sprite/system_impl.hpp"
 #include "../console_gfx.hpp"
 
 namespace

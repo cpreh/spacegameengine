@@ -5,15 +5,15 @@
 #include <deque>
 
 // sge
-#include <sge/renderer/font.hpp>
-#include <sge/renderer/renderer.hpp>
-#include <sge/input/input_system.hpp>
-#include <sge/input/key_mod_tracker.hpp>
-#include <sge/scoped_connection.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/sprite.hpp>
-#include <sge/string.hpp>
-#include <sge/timer.hpp>
+#include "../renderer/font.hpp"
+#include "../renderer/renderer.hpp"
+#include "../input/input_system.hpp"
+#include "../input/key_mod_tracker.hpp"
+#include "../scoped_connection.hpp"
+#include "../sprite/system.hpp"
+#include "../sprite/sprite.hpp"
+#include "../string.hpp"
+#include "../timer.hpp"
 #include "console.hpp"
 
 namespace sge
