@@ -29,7 +29,6 @@ namespace sge
 namespace con
 {
 
-// TODO: Die Konsole langsam heruntergleitend machen
 class console_gfx : boost::noncopyable
 {
 	typedef std::size_t         size_type;
@@ -66,7 +65,7 @@ class console_gfx : boost::noncopyable
 	void fn_dump(const arg_list &);
 	void fn_list(const arg_list &);
 	void fn_funclist(const arg_list &);
-	void fn_chat(const string &);
+	void fn_chat(const arg_list &);
 
 	void key_action(const key_type &k);
 public:

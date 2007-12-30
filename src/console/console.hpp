@@ -1,144 +1,144 @@
-#ifndef SGE_CONSOLE_HPP_INCLUDED
-#define SGE_CONSOLE_HPP_INCLUDED
+#ifndef CONSOLE_HPP_INCLUDED
+#define CONSOLE_HPP_INCLUDED
 
-// C++
+// c++
+#include <iostream>
+#include <exception>
 #include <vector>
-#include <map>
-
-// Boost
-#include <boost/function.hpp>
+// boost
 #include <boost/lexical_cast.hpp>
-
-#include "../string.hpp"
-#include "../exception.hpp"
-#include "../iconv.hpp"
+#include <boost/function.hpp>
+// sge
+#include <sge/string.hpp>
 
 namespace sge
 {
 namespace con
 {
-	typedef std::vector<string>                        arg_list;
-	typedef boost::function<void (const arg_list &)>   function;
 
-	class exception : public sge::exception
-	{
-	public:
-		exception(const std::string &s) : sge::exception(s) {};
-	};
+struct exception : public std::runtime_error
+{
+	const sge::string wide;
 
-	class var_base
-	{
+	explicit exception(const sge::string &wide) 
+		: std::runtime_error(std::string(wide.begin(),wide.end())),wide(wide) {}
+	const sge::string &wide_what() const { return wide; }
+	~exception() throw() {}
+};
+
+struct var_base
+{
+	string name_;
+
+	var_base(const string &);
+	void late_construct();
+	string name() { return name_; }
+	virtual void set(const string &) = 0;
+	virtual string get() const = 0;
+	virtual ~var_base() {}
+};
+
+template<typename T>
+class var : public var_base
+{
 	public:
-		var_base(const string&);
-		const string &name() const;
-		// FIXME: temporary hack for VC++ to work
-#ifdef _MSC_VER
-		virtual void set_string(const string &);
-		virtual string get_string() const;
-#else
-		virtual void set_string(const string &) = 0;
-		virtual string get_string() const = 0;
+	typedef T value_type;
+
+	void set(const string &s) 
+	{ 
+		try
+		{
+			t = boost::lexical_cast<T>(s); 
+		} 
+		catch (const boost::bad_lexical_cast &c)
+		{
+			throw exception(L"couldn't parse variable \""+name_+L"\"");
+		}
+	}
+
+	string get() const { return boost::lexical_cast<string>(t); }
+
+	const T &value() const { return t; }
+	void value(const T &_t) { t = _t; }
+
+	var(const string &name,const value_type &t = value_type()) 
+		: var_base(name),t(t) { late_construct(); }
+
+	protected:
+	value_type t;
+};
+
+template<typename T,typename A>
+struct action_var_base : public var_base
+{
+	public:
+	typedef T value_type;
+	typedef A action_type;
+
+	void set(const string &s) 
+	{ 
+		try
+		{
+			value(boost::lexical_cast<T>(s));
+			//t = a(boost::lexical_cast<T>(s),t); 
+		} 
+		catch (const boost::bad_lexical_cast &c)
+		{
+			throw exception(L"couldn't parse variable \""+name()+L"\"");
+		}
+	}
+	string get() const { return boost::lexical_cast<string>(t); }
+
+	const T &value() const { return t; }
+
+	void value(const T &_t) 
+	{ 
+		t = _t;
+		t = a(_t,t); 
+	}
+
+	action_var_base(const string &name,A _a,const value_type &_t = value_type()) 
+		: var_base(name),a(_a),t(_t)
+	{
+		late_construct();
+	}
+
+	private:
+	action_type a;
+	value_type t;
+};
+
+// this constructs an action_var with boost::function as functor
+// which is an extremely convenient shortcut (you don't have to specify
+// action_var< T,boost::function<T (const T &,const T &)> >
+template<typename T>
+struct action_var
+{
+	typedef boost::function<T (const T &,const T &)> fn;
+	typedef action_var_base<T,fn> type;
+
+	private:
+	action_var() {}
+	action_var(const action_var &) {}
+};
+
+typedef std::vector<string> arg_list;
+typedef boost::function<void (const arg_list &)> callback;
+typedef std::map<string,var_base*> var_map;
+typedef std::map<string,callback> callback_map;
+
+void prefix(const string::value_type &);
+string::value_type prefix();
+void add(const string &,const callback &);
+void eval(const string &);
+void chat_callback(const callback &);
+void read_config(const std::string &);
+const var_map &vars();
+const callback_map &funcs();
+sge::string get_var(const sge::string &);
+void set_var(const sge::string &,const sge::string &);
+
+}
+}
+
 #endif
-		virtual ~var_base();
-	private:
-		string name_;
-	};
-
-	template<typename T>
-	struct var : public var_base
-	{
-		typedef T value_type;
-
-		T value_;
-
-		var(const string &name,const T &value_ = T()) : var_base(name),value_(value_) {}
-		void value(const T &_value) { value_ = _value; }
-		const T &value() const { return value_; }
-
-		var<T> &operator=(const T &r) { value_ = r; return *this; }
-
-		void set_string(const string &n) 
-		{
-			try {
-				value_ = boost::lexical_cast<T>(n);
-			} catch (const boost::bad_lexical_cast &e) {
-				throw exception("Couldn't convert string \"" + iconv(n) + "\" to console variable!");
-			}
-		}
-
-		string get_string() const { return boost::lexical_cast<string>(value_); }
-	};
-
-	template<typename T,typename A>
-	struct action_var : public var_base
-	{
-		typedef T value_type;
-
-		T value_;
-		A action;
-		
-		action_var(const string &name,A _action,const T &_value = T()) : var_base(name),value_(_action(_value,_value)),action(_action) {}
-		const T &value() const { return value_; }
-		void value(const T &t) { t = action(t,value_); }
-		action_var<T,A> &operator=(const T &r) { value_ = action(r,value_); return *this; }
-		action_var<T,A> &operator=(const action_var<T,A> &r) { value_ = action(r.value_,value_); return *this; }
-
-		void set_string(const string &n) 
-		{
-			try {
-				value_ = action(boost::lexical_cast<T>(n),value_);
-			} catch (const boost::bad_lexical_cast &e) {
-				throw exception("Couldn't convert string \"" + iconv(n) + "\" to console variable!");
-			}
-		}
-
-		string get_string() const { return boost::lexical_cast<string>(value_); }
-	};
-
-	class singleton
-	{
-	public:
-		typedef std::map<string,var_base *> var_container;
-		typedef std::map<string,function> func_container;
-		typedef boost::function<void (const string &)> chat_callback_type;
-
-		singleton();
-
-		template<typename T>
-		T get_value(const string &var_name)
-		{
-			if (vars_.find(var_name) == vars_.end())
-				throw exception("A variable with name \"" + iconv(var_name) + "\" does not exist!");
-			return boost::lexical_cast<T>(vars_[var_name]->get_string());
-		}
-
-		void set_value(const string &var_name,const string &t)
-		{
-			if (vars_.find(var_name) == vars_.end())
-				throw exception("A variable with name \"" + iconv(var_name) + "\" does not exist!");
-			vars_[var_name]->set_string(t);
-		}
-
-		var_container &vars();
-		func_container &funcs();
-		string::value_type prefix() const { return prefix_; }
-
-		void add(const string &function_name,function fn);
-		void add(const string &var_name,var_base &var);
-		void remove(const string &var_name);
-//		void read_config_file(const sge::string &);
-		void prefix(const string::value_type n);
-		void eval(const string &);
-		void chat_callback(const chat_callback_type&);
-	private:
-		func_container funcs_;
-		var_container  vars_;
-		chat_callback_type chat_callback_;
-		string::value_type prefix_;
-	};
-
-	singleton &instance();
-}
-}
-
-#endif // CONSOLE_HPP

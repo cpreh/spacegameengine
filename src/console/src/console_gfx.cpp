@@ -41,86 +41,70 @@ void sge::con::console_gfx::fn_get(const arg_list &args)
 {
 	if (args.size() < 2)
 	{
-		output_line(sge::string(L"Error: No variable given, use ") + instance().prefix() + args[0] + L" <variable name>");
+		output_line(L"error: no variable given, use "+prefix()+args[0]+L" <variable name>");
 		return;
 	}
 
-	singleton::var_container &vars = instance().vars();
-	if (vars.find(args[1]) == vars.end())
+	try
 	{
-		output_line(L"Error: Couldn't find variable \"" + args[1] + L"\"!");
-		return;
+		output_line(args[1] + L"=\"" + get_var(args[1]) + L"\"");
 	}
-
-	output_line(args[1] + L"=\"" + vars[args[1]]->get_string() + L"\"");
+	catch (const exception &e)
+	{
+		output_line(L"error: "+e.wide_what());
+	}
 }
 
 void sge::con::console_gfx::fn_set(const arg_list &args)
 {
 	if (args.size() < 3)
 	{
-		output_line(L"Error: No variable or value given, use " + instance().prefix() + args[0] + L" <variable name> <value>");
+		output_line(L"error: no variable or value given, use "+prefix()+args[0]+L" <variable name> <value>");
 		return;
 	}
 
-	singleton::var_container &vars = instance().vars();
-	if (vars.find(args[1]) == vars.end())
+	try
 	{
-		output_line(L"Error: Couldn't find variable \"" + args[1] + L"\"!");
-		return;
+		set_var(args[1],args[2]);
+		output_line(args[1] + L"=\"" + get_var(args[1]) + L"\"");
 	}
-
-	vars[args[1]]->set_string(args[2]);
-	output_line(args[1] + L"=\"" + vars[args[1]]->get_string() + L"\"");
+	catch (const exception &e)
+	{
+		output_line(L"error: "+e.wide_what());
+	}
 }
 
 void sge::con::console_gfx::fn_funclist(const arg_list &args)
 {
-	singleton::func_container &funcs = instance().funcs();
-
 	string search_string;
 	if (args.size() > 1)
 		search_string = args[1];
 
-	if (funcs.size() == 0)
-	{
-		output_line(L"No functions have been defined yet.");
-		return;
-	}
-
-	output_line(L"***Functions begin");
-	for (singleton::func_container::const_iterator i = funcs.begin(); i != funcs.end(); ++i)
-	{
+	output_line(L"------------functions begin------------");
+	const callback_map &f = funcs();
+	for (callback_map::const_iterator i = f.begin(); i != f.end(); ++i)
 		if (i->first.find(search_string) != string::npos)
 			output_line(i->first);
-	}
-	output_line(L"***Functions end");
+	output_line(L"------------functions end--------------");
 }
 
 void sge::con::console_gfx::fn_list(const arg_list &args)
 {
-	singleton::var_container &vars = instance().vars();
-
 	string search_string;
 	if (args.size() > 1)
 		search_string = args[1];
 
-	if (vars.size() == 0)
-	{
-		output_line(L"No console variables defined yet.");
-		return;
-	}
-
-	output_line(L"***Variables begin");
-	for (singleton::var_container::const_iterator i = vars.begin(); i != vars.end(); ++i)
+	output_line(L"------------variables begin------------");
+	const var_map &v = vars();
+	for (var_map::const_iterator i = v.begin(); i != v.end(); ++i)
 	{
 		if (i->first.find(search_string) != string::npos)
-			output_line(i->first + L"=\"" + i->second->get_string() + L"\"");
+			output_line(i->first + L"=\"" + i->second->get() + L"\"");
 	}
-	output_line(L"***Variables end");
+	output_line(L"------------variables end--------------");
 }
 
-void sge::con::console_gfx::fn_clear(const arg_list &/*args*/)
+void sge::con::console_gfx::fn_clear(const arg_list &)
 {
 	history.clear();
 }
@@ -129,7 +113,7 @@ void sge::con::console_gfx::fn_dump(const arg_list &args)
 {
 	if (args.size() < 2 || args[1].empty())
 	{
-		output_line(L"No file specified, use " + instance().prefix() + args[0] + L" <filename>");
+		output_line(L"No file specified, use "+prefix()+args[0]+L" <filename>");
 		return;
 	}
 
@@ -140,22 +124,20 @@ void sge::con::console_gfx::fn_dump(const arg_list &args)
 		return;
 	}
 
-	// FIXME: Hier ist sge::string -> std::string noetig
-	/*std::ofstream file(iconv(args[1]).c_str());
+	std::wofstream file(std::string(args[1].begin(),args[1].end()).c_str());
 	if (!file.is_open())
 	{
-		output_line(iconv("Couldn't open file \"") + args[1] + iconv("\" for writing"));
+		output_line(L"couldn't open file \""+args[1]+L"\" for writing");
 		return;
 	}
 
 	for (history_container::const_iterator i = history.begin(); i != history.end(); ++i)
-		file << iconv(*i) << "\n";
-	*/
+		file << *i << "\n";
 }
 
-void sge::con::console_gfx::fn_chat(const string &s)
+void sge::con::console_gfx::fn_chat(const arg_list &args)
 {
-	std::wcout << s << L"\n";
+	std::wcout << args[0] << L"\n";
 }
 
 void sge::con::console_gfx::output_line(const string &s)
@@ -242,10 +224,13 @@ void sge::con::console_gfx::key_action(const key_type &k)
 				break;
 	
 			output_line(input_line);
-			try {
-				instance().eval(input_line);
-			} catch (const exception &e) {
-				output_line(L"Error: " + iconv(e.what()));
+			try 
+			{
+				eval(input_line);
+			} 
+			catch (const exception &e) 
+			{
+				output_line(L"error: "+e.wide_what());
 			}
 			if (command_history.size() == command_history_limit)
 				command_history.pop_back();
@@ -311,8 +296,8 @@ void sge::con::console_gfx::draw()
 	// Eingabezeile ganz unten zeichnen
 	fn.draw_text(edit_input_line,
 	             font_pos(0,0),
-	             font_dim(static_cast<sge::font_unit>(rend->screen_width() * console_size.w()),
-	                      static_cast<sge::font_unit>(rend->screen_height() * console_size.h())),
+	             font_dim(static_cast<sge::font_unit>(console_size.w()),
+	                      static_cast<sge::font_unit>(console_size.h())),
 	             font_align_h::left,
 	             font_align_v::bottom,
 	             font_flags::no_line_wrap);
@@ -327,8 +312,8 @@ void sge::con::console_gfx::draw()
 
 	fn.draw_text(history_string,
 	             sge::font_pos(0,0),
-	             sge::font_dim(static_cast<sge::font_unit>(rend->screen_width() * console_size.w()),
-	                           static_cast<sge::font_unit>(rend->screen_height() * console_size.h() - fn.height())),
+	             sge::font_dim(static_cast<sge::font_unit>(console_size.w()),
+	                           static_cast<sge::font_unit>(console_size.h() - fn.height())),
 	             font_align_h::left,
 	             font_align_v::bottom,
 	             font_flags::no_line_wrap);
@@ -377,11 +362,11 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,
 		fill_sprite_indices(ibit, 0);
 	}
 	
-	instance().add(L"get",boost::bind(&console_gfx::fn_get,this,_1));
-	instance().add(L"set",boost::bind(&console_gfx::fn_set,this,_1));
-	instance().add(L"clear",boost::bind(&console_gfx::fn_clear,this,_1));
-	instance().add(L"dump",boost::bind(&console_gfx::fn_dump,this,_1));
-	instance().add(L"varlist",boost::bind(&console_gfx::fn_list,this,_1));
-	instance().add(L"funclist",boost::bind(&console_gfx::fn_funclist,this,_1));
-	instance().chat_callback(boost::bind(&console_gfx::fn_chat,this,_1));
+	add(L"get",boost::bind(&console_gfx::fn_get,this,_1));
+	add(L"set",boost::bind(&console_gfx::fn_set,this,_1));
+	add(L"clear",boost::bind(&console_gfx::fn_clear,this,_1));
+	add(L"dump",boost::bind(&console_gfx::fn_dump,this,_1));
+	add(L"listvars",boost::bind(&console_gfx::fn_list,this,_1));
+	add(L"listfuncs",boost::bind(&console_gfx::fn_funclist,this,_1));
+	chat_callback(boost::bind(&console_gfx::fn_chat,this,_1));
 }
