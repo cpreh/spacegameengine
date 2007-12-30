@@ -5,6 +5,7 @@
 #include <iostream>
 #include <exception>
 #include <vector>
+#include <map>
 // boost
 #include <boost/lexical_cast.hpp>
 #include <boost/function.hpp>

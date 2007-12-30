@@ -166,6 +166,8 @@ void sge::con::console_gfx::key_action(const key_type &k)
 
 	if (k.code() == kc::key_return && il.size())
 	{
+		print(il);
+
 		try
 		{
 			eval(il);
@@ -177,7 +179,6 @@ void sge::con::console_gfx::key_action(const key_type &k)
 
 		// add executed command to each history (at the front)...
 		input_history.push_front(il);
-		print(il);
 		// ...and clear front
 		input_history_pos = input_history.begin();
 		input_history.front().clear();
