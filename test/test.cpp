@@ -37,6 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/iostreams/stream.hpp>
 #include "../src/iconv.hpp"
 #include "../src/math/constants.hpp"
+#include "../src/texture/default_creator.hpp"
+#include "../src/texture/util.hpp"
+#include "../src/texture/default_creator_impl.hpp"
+#include "../src/texture/no_fragmented_texture.hpp"
 #include "../src/plugin_manager.hpp"
 #include "../src/renderer/scoped_lock.hpp"
 #include "../src/util.hpp"
@@ -61,6 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/exception.hpp"
 #include "../src/console/console_gfx.hpp"
 #include "../src/console/console.hpp"
+#include "../src/console/stdlib.hpp"
 #include "../src/model/md3.hpp"
 #include "../src/archive/archive_loader.hpp"
 #include "../src/vector.hpp"
@@ -99,7 +104,7 @@ struct console_activator
 	void callback(const sge::key_pair &pair)
 	{
 		if (pair.key().code() == sge::kc::key_tab && pair.value())
-			con.active(!con.active());
+			con.toggle();
 	}
 };
 }
@@ -192,11 +197,14 @@ try
 	const sge::font_metrics_ptr metrics = fs->create_font(sge::media_path() + "fonts/default.ttf", 15);
 	const sge::font_drawer_ptr fn_drawer(new sge::font_drawer_3d(rend));
 
-	sge::font fn(metrics, fn_drawer);
+	sge::font_ptr fn(new sge::font(metrics,fn_drawer));
 
-	const sge::image_ptr im = pl->load_image(sge::media_path() + "black.jpg");
-	const sge::texture_ptr con_tex = rend->create_texture(im->data(), im->dim(), sge::linear_filter);
-	sge::con::console_gfx console(rend,is,fn,sge::colors::white,con_tex);
+	sge::texture_manager texman(rend,sge::default_texture_creator<sge::no_fragmented_texture>(rend,sge::linear_filter));
+	const sge::image_ptr console_image = pl->load_image(sge::media_path()+"black.jpg");
+	const sge::virtual_texture_ptr console_texture = sge::add_texture(texman,console_image);
+	const sge::sprite_point pos(0,0);
+	const sge::sprite_dim console_size(rend->screen_width(),rend->screen_height()/2);
+	sge::con::console_gfx console(rend,console_texture,fn,is,pos,console_size);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
@@ -313,7 +321,7 @@ try
 		//ss.transform(sge::math::matrix_translation(translation));
 		//ss.render();
 		//man.process();
-		fn.draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
+		fn->draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
 		//ls.render();
 
 

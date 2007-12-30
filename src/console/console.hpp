@@ -9,7 +9,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/function.hpp>
 // sge
-#include <sge/string.hpp>
+#include "../string.hpp"
 
 namespace sge
 {

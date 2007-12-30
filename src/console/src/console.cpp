@@ -10,7 +10,6 @@
 #include <boost/bind.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 #include "../../string.hpp"
-
 #include "../console.hpp"
 
 namespace cs = sge::con;
