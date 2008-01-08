@@ -308,7 +308,7 @@ void sge::raw_vector<T, A>::insert(const iterator position, const size_type n, c
 		const size_type new_cap = new_capacity(new_size);
 		const pointer new_memory = i.a.allocate(new_cap);
 		std::uninitialized_copy(begin(), position, new_memory);
-		std::uninitialized_fill(new_memory, new_memory + insert_sz, x);
+		std::uninitialized_fill(new_memory + insert_sz, new_memory + insert_sz + n, x);
 		std::uninitialized_copy(position, end(), new_memory + insert_sz + n);
 		deallocate();
 		set_pointers(new_memory, new_size, new_cap);
