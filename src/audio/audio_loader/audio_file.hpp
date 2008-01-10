@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // C
 #include <cstddef>
 
+#include "../../shared_ptr.hpp"
 #include "../../raw_vector.hpp"
 
 namespace sge
@@ -44,6 +45,9 @@ class audio_file
 	virtual void reset() = 0;
 	virtual ~audio_file() {}
 };
+
+typedef shared_ptr<audio_file> audio_file_ptr;
+
 }
 
 #endif // AUDIO_FILE_HPP

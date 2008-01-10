@@ -24,25 +24,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // C++
 #include <algorithm>
 #include <string>
+#include <sstream>
 // Boost
 #include <boost/cstdint.hpp>
-// Own stuff
+// sge
+#include "../../../iconv.hpp"
+#include "../../../endianness.hpp"
 #include "../../../raw_vector_impl.hpp"
+// Own stuff
 #include "../wave_file.hpp"
 
-sge::wave_file::wave_file(const std::string &filename) : filename_(filename),swap_(boost::logic::indeterminate),loaded_(false)
+sge::wave_file::wave_file(const path &filename)
+: filename_(filename),
+  swap_(boost::logic::indeterminate),
+  loaded_(false)
 {
 	load();
+}
+
+std::string sge::wave_file::to_string() const
+{
+	std::ostringstream ss;
+	ss << "bits_per_sample: " << bits_per_sample_ << ", "
+	   << "sample_rate: " << sample_rate_ << ", "
+	   << "channels: " << channels_ << ", "
+	   << "samples: " << samples_;
+	return ss.str();
 }
 
 void sge::wave_file::load()
 {
 	assert(!loaded_);
 
-	file_.open(filename_.c_str());
+	// TODO: use filesystem streams
+	file_.open(iconv(filename_.string()).c_str());
 
 	if (!file_.is_open())
-		throw audio_exception("Couldn't open file \""+filename_+"\"");
+		throw audio_exception("Couldn't open file \""+iconv(filename_.string())+"\"");
 
 	read_riff();
 	read_wave();
@@ -95,6 +113,33 @@ void sge::wave_file::read_data()
 	//buffer_size_ = extract_primitive<boost::uint32_t>("data size");
 	samples_ = extract_primitive<boost::uint32_t>("data size") / channels_ / (bits_per_sample_/8);
 	samples_read_ = 0;
+}
+
+std::string sge::wave_file::extract_string(const std::size_t _bytes, const std::string &_desc)
+{
+	assert(_bytes < 32);
+
+	char array[32];
+	file_.read(array,_bytes);
+	if (file_.eof() || !file_)
+		throw audio_exception("Unexpected end of file or error while reading "+_desc+"!");
+
+	array[_bytes] = 0;
+	return std::string(array);
+}
+
+template<typename T>
+T sge::wave_file::extract_primitive(const std::string &_desc)
+{
+	assert(swap_ == true || swap_ == false);
+	assert(sizeof(T) < 64);
+
+	char array[64];
+	file_.read(array,sizeof(T));
+	if (file_.eof() || !file_)
+		throw audio_exception("Unexpected end of file or error while reading "+_desc+"!");
+	T v = *reinterpret_cast<T *>(array);
+	return swap_ ? swap_endianness(v) : v;
 }
 
 sge::audio_file::sample_type sge::wave_file::read(const sample_type _sample_count, raw_array_type &_array) 

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
 
-sge::ft::font_metrics::font_metrics(library& lib, const std::string& font_path, const unsigned font_height)
+sge::ft::font_metrics::font_metrics(library& lib, const path& font_path, const unsigned font_height)
 : _face(lib, font_path)
 {
 	if(FT_Select_Charmap(_face.get(), FT_ENCODING_UNICODE) != 0)

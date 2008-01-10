@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vorbis/vorbisenc.h>
 #include <vorbis/vorbisfile.h>
 // Own stuff
+#include "../../path.hpp"
 #include "../../audio/audio_loader/audio_file.hpp"
 
 namespace sge
@@ -61,7 +62,7 @@ class vorbis_file : public audio_file
 
 	std::string ogg_error(long);
 	public:
-	vorbis_file(const std::string &, sample_type);
+	vorbis_file(const path &, sample_type);
 	sample_type read(sample_type samples, raw_array_type &);
 	sample_type read_all(raw_array_type &);
 	channel_type channels() const;

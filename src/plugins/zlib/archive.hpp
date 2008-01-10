@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ZLIB_ARCHIVE_HPP_INCLUDED
 #define SGE_ZLIB_ARCHIVE_HPP_INCLUDED
 
+#include "../../path.hpp"
 #include "../../archive/archive.hpp"
 #include "zip_file.hpp"
 
@@ -31,7 +32,7 @@ namespace zlib
 
 class archive : public sge::archive {
 public:
-	archive(const std::string& path);
+	archive(const path&);
 	void goto_begin();
 	bool next();
 	bool goto_entry(const std::string&);

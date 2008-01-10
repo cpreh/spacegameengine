@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
 #define SGE_FONT_SYSTEM_HPP_INCLUDED
 
-#include <string>
+#include "../path.hpp"
 #include "../shared_ptr.hpp"
 #include "../plugin_traits.hpp"
 #include "../renderer/font_types.hpp"
@@ -33,7 +33,8 @@ namespace sge
 class font_system {
 public:
 	virtual ~font_system(){}
-	virtual font_metrics_ptr create_font(const std::string& font_path, unsigned font_height) = 0;
+	virtual const font_metrics_ptr create_font(const path& font_path,
+	                                           unsigned font_height) = 0;
 };
 
 typedef shared_ptr<font_system> font_system_ptr;

@@ -21,14 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCREENSHOT_HPP_INCLUDED
 #define SGE_SCREENSHOT_HPP_INCLUDED
 
-#include <string>
+#include "../path.hpp"
 #include "renderer.hpp"
 #include "../image/image_loader.hpp"
 
 namespace sge
 {
 
-void screenshot(renderer_ptr rend, image_loader_ptr il, const std::string& filename);
+void screenshot(renderer_ptr rend,
+                image_loader_ptr il,
+                const path&);
 
 }
 

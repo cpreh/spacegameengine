@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <boost/noncopyable.hpp>
 #include "../shared_ptr.hpp"
+#include "../path.hpp"
 #include "../renderer/types.hpp"
 #include "../math/dim.hpp"
 
@@ -44,7 +45,7 @@ public:
 	virtual size_type width() const = 0;
 	virtual size_type height() const = 0;
 	virtual void resample(const dim_type&) = 0;
-	virtual void save(const std::string& path) = 0;
+	virtual void save(const path&) = 0;
 	virtual ~image(){}
 };
 typedef shared_ptr<image> image_ptr;

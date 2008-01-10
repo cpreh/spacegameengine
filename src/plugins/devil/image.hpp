@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_IMAGE_HPP_INCLUDED
 #define SGE_DEVIL_IMAGE_HPP_INCLUDED
 
+#include "../../path.hpp"
 #include "../../image/image.hpp"
 #include "../../image/image_format.hpp"
 #include "image_impl.hpp"
@@ -32,7 +33,7 @@ namespace devil
 
 class image : public sge::image {
 public:
-	image(const std::string& file);
+	explicit image(const path&);
 	image(image_format::type type, const_pointer format_data, size_type size);
 	image(const_pointer p, const dim_type&);
 	const_pointer data() const;
@@ -41,7 +42,7 @@ public:
 	size_type width() const;
 	size_type height() const;
 	void resample(const dim_type&);
-	void save(const std::string& path);
+	void save(const path&);
 private:
 	void bind_me() const;
 	image_impl impl;

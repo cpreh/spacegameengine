@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WAVE_LOADER_HPP_INCLUDED
 #define SGE_WAVE_LOADER_HPP_INCLUDED
 
-#include <string>
 #include "../../shared_ptr.hpp"
+#include "../../path.hpp"
 #include "../../audio/audio_loader/audio_loader.hpp"
 
 namespace sge
@@ -30,8 +30,8 @@ namespace sge
 class wave_loader : public audio_loader
 {
 	public:
-	shared_ptr<audio_file> load(const std::string &);
-	bool is_valid_file(const std::string &) const;
+	const audio_file_ptr load(const path &);
+	bool is_valid_file(const path &) const;
 };
 }
 

@@ -28,12 +28,12 @@ const sge::texture_ptr sge::create_texture(const renderer_ptr r,
 	return r->create_texture(p->data(), p->dim(), filter, flags);
 }
 
-const sge::texture_ptr sge::create_texture(const std::string& path,
+const sge::texture_ptr sge::create_texture(const path& file,
                                            const renderer_ptr r,
                                            const image_loader_ptr p,
                                            const filter_args& filter,
                                            const resource_flag_t flags)
 {
-	return create_texture(r, p->load_image(path), filter, flags);
+	return create_texture(r, p->load_image(file), filter, flags);
 }
 

@@ -194,13 +194,13 @@ try
 	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
 	const sge::font_system_ptr fs(font_plugin->get()());
 
-	const sge::font_metrics_ptr metrics = fs->create_font(sge::media_path() + "fonts/default.ttf", 15);
+	const sge::font_metrics_ptr metrics = fs->create_font(sge::media_path() / sge::iconv("fonts/default.ttf"), 15);
 	const sge::font_drawer_ptr fn_drawer(new sge::font_drawer_3d(rend));
 
 	sge::font_ptr fn(new sge::font(metrics,fn_drawer));
 
 	sge::texture_manager texman(rend,sge::default_texture_creator<sge::no_fragmented_texture>(rend,sge::linear_filter));
-	const sge::image_ptr console_image = pl->load_image(sge::media_path()+"black.jpg");
+	const sge::image_ptr console_image = pl->load_image(sge::media_path() / sge::iconv("black.jpg"));
 	const sge::virtual_texture_ptr console_texture = sge::add_texture(texman,console_image);
 	const sge::sprite_point pos(0,0);
 	const sge::sprite_dim console_size(rend->screen_width(),rend->screen_height()/2);
@@ -228,7 +228,7 @@ try
 	const sge::plugin<sge::archive_loader>::ptr_type archive_plugin(pm.get_plugin<sge::archive_loader>().load());
 	const sge::archive_loader_ptr zip_archiver(archive_plugin->get()());
 
-	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() + "md3-kt_kubalwagon.pk3");
+	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() / sge::iconv("md3-kt_kubalwagon.pk3"));
 	kubal->goto_begin();
 
 	std::vector<unsigned char> uncompress_data;

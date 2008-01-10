@@ -9,6 +9,7 @@
 #include "../src/timer.hpp"
 #include "../src/math/constants.hpp"
 #include "../src/util.hpp"
+#include "../src/iconv.hpp"
 
 int main()
 try
@@ -34,7 +35,7 @@ try
 		loaded.push_back(np);
 		sge::shared_ptr<sge::audio_loader> j(np->get()());
 		loaders.push_back(j);
-		const std::string path = sge::media_path()+"ding.wav";
+		const sge::path path = sge::media_path() / sge::iconv("ding.wav");
 		//const std::string path = "/home/philipp/musik/queen_greatest_hits_iii/queen_you_dont_fool_me.ogg";
 		if (j->is_valid_file(path))
 			soundfile = j->load(path);

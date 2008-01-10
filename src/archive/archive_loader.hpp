@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ARCHIVE_LOADER_HPP_INCLUDED
 #define SGE_ARCHIVE_LOADER_HPP_INCLUDED
 
-#include <string>
+#include "../path.hpp"
 #include "../shared_ptr.hpp"
 #include "../plugin_traits.hpp"
 #include "archive.hpp"
@@ -31,7 +31,7 @@ namespace sge
 
 class archive_loader {
 public:
-	virtual archive_ptr load_archive(const std::string& path) = 0;
+	virtual const archive_ptr load_archive(const path&) = 0;
 	virtual ~archive_loader() {}
 };
 

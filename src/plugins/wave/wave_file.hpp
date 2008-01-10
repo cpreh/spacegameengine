@@ -22,19 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
 // C
-#include <cassert>
-#include <fstream>
+#include <cstddef>
 // C++
-#include <sstream>
-#include <vector>
-#include <memory>
+#include <fstream>
 #include <string>
-#include <sstream>
 // Boost
 #include <boost/logic/tribool.hpp>
 // sge
-#include "../../endianness.hpp"
-// Own stuff
+#include "../../path.hpp"
 #include "../../audio/audio_loader/audio_file.hpp"
 #include "../../audio/audio_exception.hpp"
 
@@ -42,7 +37,7 @@ namespace sge
 {
 class wave_file : public audio_file 
 {
-	const std::string          filename_;
+	const path                 filename_;
 	// Ob die Bytes geswappt werden muessen
 	boost::logic::tribool      swap_;
 	std::ifstream              file_;
@@ -59,50 +54,20 @@ class wave_file : public audio_file
 	sample_type                bits_per_sample_;
 
 	// Interne Funktionen
+	void load();
 	void read_riff();
 	void read_wave();
 	void read_data();
-	void load();
 
-	std::string extract_string(const std::size_t _bytes,const std::string &_desc)
-	{
-		assert(_bytes < 32);
-
-		char array[32];
-		file_.read(array,_bytes);
-		if (file_.eof() || !file_)
-			throw audio_exception("Unexpected end of file or error while reading "+_desc+"!");
-
-		array[_bytes] = 0;
-		return std::string(array);
-	}
-
+	std::string extract_string(std::size_t _bytes, const std::string &_desc);
+	
 	template<typename T>
-	T extract_primitive(const std::string &_desc)
-	{
-		assert(swap_ == true || swap_ == false);
-		assert(sizeof(T) < 64);
-
-		char array[64];
-		file_.read(array,sizeof(T));
-		if (file_.eof() || !file_)
-			throw audio_exception("Unexpected end of file or error while reading "+_desc+"!");
-		T v = *reinterpret_cast<T *>(array);
-		return swap_ ? swap_endianness(v) : v;
-	}
-
+	T extract_primitive(const std::string &_desc);
+	
 	public:
-	wave_file(const std::string &);
+	wave_file(const path &);
 
-	std::string to_string() const
-	{
-		std::ostringstream ss;
-		ss << "bits_per_sample: " << bits_per_sample_ << ", "
-		   << "sample_rate: " << sample_rate_ << ", "
-			 << "channels: " << channels_ << ", "
-			 << "samples: " << samples_;
-		return ss.str();
-	}
+	std::string to_string() const;
 
 	sample_type bits_per_sample() const;
 	sample_type sample_rate() const;

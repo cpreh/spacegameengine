@@ -18,24 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-// C++
-#include <string>
-
 // Own stuff
 #include "../../../audio/audio_exception.hpp"
 #include "../../../raw_vector_impl.hpp"
+#include "../../../path.hpp"
 #include "../vorbis_file.hpp"
 #include "../vorbis_loader.hpp"
 
-sge::shared_ptr<sge::audio_file> sge::vorbis_loader::load(const std::string &filename)
+const sge::audio_file_ptr sge::vorbis_loader::load(const path &filename)
 {
-	return shared_ptr<audio_file>(new vorbis_file(filename,16));
+	return audio_file_ptr(new vorbis_file(filename, 16));
 }
 
-bool sge::vorbis_loader::is_valid_file(const std::string &filename) const
+bool sge::vorbis_loader::is_valid_file(const path &filename) const
 {
 	try { 
-		vorbis_file file(filename,16);
+		const vorbis_file file(filename, 16);
 	} catch (const audio_exception &) {
 		return false;
 	}

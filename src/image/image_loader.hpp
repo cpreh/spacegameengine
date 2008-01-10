@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_LOADER_HPP_INCLUDED
 #define SGE_IMAGE_LOADER_HPP_INCLUDED
 
-#include <string>
 #include "../shared_ptr.hpp"
 #include "../plugin_traits.hpp"
+#include "../path.hpp"
 #include "image.hpp"
 #include "image_format.hpp"
 
@@ -32,7 +32,7 @@ namespace sge
 
 class image_loader {
 public:
-	virtual image_ptr load_image(const std::string& path) = 0;
+	virtual image_ptr load_image(const path&) = 0;
 	virtual image_ptr load_image(image_format::type type, image::const_pointer format_data, image::size_type size) = 0;
 	virtual image_ptr create_image(image::const_pointer data, const image::dim_type&) = 0;
 	virtual ~image_loader(){}

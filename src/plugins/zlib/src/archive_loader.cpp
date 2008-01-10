@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../archive_loader.hpp"
 #include "../archive.hpp"
 
-sge::archive_ptr sge::zlib::archive_loader::load_archive(const std::string& path)
+const sge::archive_ptr sge::zlib::archive_loader::load_archive(const path& p)
 {
-	return archive_ptr(new archive(path));
+	return archive_ptr(new archive(p));
 }

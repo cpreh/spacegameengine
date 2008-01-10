@@ -30,9 +30,9 @@ sge::devil::image_loader::image_loader()
 	check_errors();
 }
 
-sge::image_ptr sge::devil::image_loader::load_image(const std::string& path)
+sge::image_ptr sge::devil::image_loader::load_image(const path& p)
 {
-	return image_ptr(new image(path));
+	return image_ptr(new image(p));
 }
 
 sge::image_ptr sge::devil::image_loader::load_image(const image_format::type type, const image::const_pointer format_data, const image::size_type size)

@@ -30,7 +30,7 @@ namespace zlib
 
 class archive_loader : public sge::archive_loader {
 public:
-	archive_ptr load_archive(const std::string& path);
+	const archive_ptr load_archive(const path&);
 };
 
 }

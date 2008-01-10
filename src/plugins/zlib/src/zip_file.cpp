@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../exception.hpp"
+#include "../../../iconv.hpp"
 #include "../zip_file.hpp"
 
-sge::zlib::zip_file::zip_file(const std::string& path)
-: handle_(unzOpen(path.c_str()))
+sge::zlib::zip_file::zip_file(const path& p)
+: handle_(unzOpen(iconv(p.string()).c_str()))
 {
 	if(handle() == 0)
-		throw exception("unzOpen() failed for \"" + path + "\"!");
+		throw exception("unzOpen() failed for \"" + iconv(p.string()) + "\"!");
 }
 
 sge::zlib::zip_file::~zip_file()

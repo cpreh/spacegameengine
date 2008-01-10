@@ -19,16 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../exception.hpp"
+#include "../../../iconv.hpp"
 #include "../image.hpp"
 #include "../error.hpp"
 #include "../conversion.hpp"
 #include <IL/ilu.h>
 
-sge::devil::image::image(const std::string& file)
+sge::devil::image::image(const path& file)
 {
 	bind_me();
-	if(ilLoadImage(const_cast<char*>(file.c_str())) == IL_FALSE)
-		throw exception(std::string("ilLoadImage() failed! Could not load '") += file + "'!");
+	if(ilLoadImage(const_cast<char*>(iconv(file.string()).c_str())) == IL_FALSE)
+		throw exception(std::string("ilLoadImage() failed! Could not load '") += iconv(file.string()) + "'!");
 }
 
 sge::devil::image::image(const image_format::type type, const const_pointer format_data, const size_type size)
@@ -98,9 +99,9 @@ void sge::devil::image::resample(const dim_type& dim_)
 	check_errors();
 }
 
-void sge::devil::image::save(const std::string& path)
+void sge::devil::image::save(const path& file)
 {
 	bind_me();
-	ilSaveImage(const_cast<char*>(path.c_str()));
+	ilSaveImage(const_cast<char*>(iconv(file.string()).c_str()));
 	check_errors();
 }

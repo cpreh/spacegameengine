@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FT_FONT_SYSTEM_HPP_INCLUDED
 
 #include <map>
-#include <string>
 #include <utility>
 
 #include <boost/weak_ptr.hpp>
@@ -38,10 +37,11 @@ namespace ft
 
 class font_system : public sge::font_system {
 public:
-	font_metrics_ptr create_font(const std::string& font_name, unsigned font_size);
+	const font_metrics_ptr create_font(const path& font_name,
+	                                   unsigned font_size);
 private:
 	library _library;
-	typedef std::map<std::pair<unsigned, std::string>, boost::weak_ptr<font_metrics> > loaded_fonts_list;
+	typedef std::map<std::pair<unsigned, path>, boost::weak_ptr<font_metrics> > loaded_fonts_list;
 	loaded_fonts_list loaded_fonts;
 };
 

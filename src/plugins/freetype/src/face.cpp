@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../iconv.hpp"
 #include "../../../exception.hpp"
 #include "../library.hpp"
 #include "../face.hpp"
 
-sge::ft::face::face(library& lib, const std::string& name)
+sge::ft::face::face(library& lib, const path& name)
 {
-	if(FT_New_Face(lib.lib(), name.c_str(), 0, &impl))
-		throw exception(std::string("FT_New_Face() failed for font: ") += name);
+	if(FT_New_Face(lib.lib(), iconv(name.string()).c_str(), 0, &impl))
+		throw exception(std::string("FT_New_Face() failed for font: ") += iconv(name.string()));
 }
 
 sge::ft::face::~face()

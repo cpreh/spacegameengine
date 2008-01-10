@@ -23,15 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../wave_loader.hpp"
 #include "../../../raw_vector_impl.hpp"
 
-sge::shared_ptr<sge::audio_file> sge::wave_loader::load(const std::string &filename)
+const sge::audio_file_ptr sge::wave_loader::load(const path &filename)
 {
-	return sge::shared_ptr<sge::audio_file>(new wave_file(filename));
+	return audio_file_ptr(new wave_file(filename));
 }
 
-bool sge::wave_loader::is_valid_file(const std::string &filename) const
+bool sge::wave_loader::is_valid_file(const path &filename) const
 {
 	try {
-		wave_file file(filename);
+		const wave_file file(filename);
 	} catch (const audio_exception &) {
 		return false;
 	}

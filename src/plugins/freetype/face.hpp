@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <string>
 #include <boost/noncopyable.hpp>
+#include "../../path.hpp"
 #include "freetype.hpp"
 
 namespace sge
@@ -34,7 +35,7 @@ class library;
 
 class face : boost::noncopyable {
 public:
-	face(library&, const std::string& name);
+	face(library&, const path& name);
 	~face();
 	FT_Face get() const;
 	FT_Face operator->() const;

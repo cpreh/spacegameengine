@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
-// C++
-#include <string>
 // sge
+#include "../../path.hpp"
 #include "../../shared_ptr.hpp"
 #include "../../plugin_traits.hpp"
 // Own stuff
@@ -31,11 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+
 class audio_loader
 {
 public:
-	virtual shared_ptr<audio_file> load(const std::string &filename) = 0;
-	virtual bool is_valid_file(const std::string &filename) const = 0;
+	virtual const audio_file_ptr load(const path& file) = 0;
+	virtual bool is_valid_file(const path& file) const = 0;
 	virtual ~audio_loader() {}
 };
 

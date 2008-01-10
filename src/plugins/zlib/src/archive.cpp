@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../archive.hpp"
 #include "../archive_entry.hpp"
 
-sge::zlib::archive::archive(const std::string& path)
-: file(path)
+sge::zlib::archive::archive(const path& file)
+: file(file)
 {}
 
 void sge::zlib::archive::goto_begin()

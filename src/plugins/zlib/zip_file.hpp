@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ZLIB_ZIP_FILE_HPP_INCLUDED
 #define SGE_ZLIB_ZIP_FILE_HPP_INCLUDED
 
-#include <string>
 #include <boost/noncopyable.hpp>
+#include "../../path.hpp"
 #include "../../../3rdparty/minizip/unzip.h"
 
 namespace sge
@@ -32,7 +32,7 @@ namespace zlib
 
 class zip_file : boost::noncopyable {
 public:
-	zip_file(const std::string& path);
+	zip_file(const path&);
 	~zip_file();
 	unzFile handle() const;
 private:
