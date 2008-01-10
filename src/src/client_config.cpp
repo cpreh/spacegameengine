@@ -23,11 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstdlib>
 #endif
 #include "../client_config.hpp"
+#include "../exception.hpp"
 
 std::string sge::client_config_path()
 {
 #ifdef SGE_LINUX_PLATFORM
-	return getenv("HOME") + '/';
+	const char* const ret = std::getenv("HOME");
+	if(!ret)
+		throw exception("client_config_path(): Can't find \"HOME\"!");
+	return std::string(ret) + '/';
 #else
 	return ""; // FIXME
 #endif
