@@ -8,8 +8,10 @@
 #include <boost/function.hpp>
 #include <boost/spirit.hpp>
 #include <boost/bind.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 #include "../../string.hpp"
+#include "../../path.hpp"
 #include "../console.hpp"
 
 namespace cs = sge::con;
@@ -39,7 +41,7 @@ struct filtered_file
 	typedef T filter_type;
 	typedef typename filter_type::argument_type string_type;
 	typedef typename string_type::value_type char_type;
-	typedef std::string filename_type;
+	typedef sge::path filename_type;
 	typedef std::vector<string_type> line_vector;
 	typedef typename boost::filter_iterator<filter_type,typename line_vector::const_iterator> const_iterator;
 	typedef typename boost::filter_iterator<filter_type,typename line_vector::iterator> iterator;
@@ -49,7 +51,7 @@ struct filtered_file
 
 	filtered_file(const filename_type &fn) : fn(fn)
 	{
-		std::basic_ifstream<char_type> file(fn.c_str());
+		boost::filesystem::basic_ifstream<char_type> file(fn);
 		while (!file.eof() && !file.fail())
 		{
 			string_type line;
@@ -79,7 +81,7 @@ struct singleton
 	void add(const sge::string &,cs::var_base &);
 	void add(const sge::string &,const cs::callback &);
 	void eval(const sge::string &);
-	void read_config(const std::string &);
+	void read_config(const sge::path &);
 	sge::string get_var(const sge::string &);
 	void set_var(const sge::string &,const sge::string &);
 	void latch(const sge::string &,const sge::string &);
@@ -112,7 +114,7 @@ void singleton::set_var(const sge::string &name,const sge::string &value)
 	return i->second->set(value);
 }
 
-void singleton::read_config(const std::string &fn)
+void singleton::read_config(const sge::path &fn)
 {
 	typedef filtered_file<sge_whitespace_filter> file_type;
 
@@ -122,11 +124,11 @@ void singleton::read_config(const std::string &fn)
 	{
 		const sge::string::size_type equals = i->find(L'=');
 		if (equals == sge::string::npos)
-			throw cs::exception(L"error parsing \""+sge::string(fn.begin(),fn.end())+L"\": no '=' found");
+			throw cs::exception(L"error parsing \""+fn.string()+L"\": no '=' found");
 
 		const sge::string name = i->substr(0,equals),value = i->substr(equals+1);
 		if (name.empty())
-			throw cs::exception(L"error parsing \""+sge::string(fn.begin(),fn.end())+L"\": empty variable name");
+			throw cs::exception(L"error parsing \""+fn.string()+L"\": empty variable name");
 
 		// just a warning about multiply defined variables
 		if (config_vars.find(name) != config_vars.end())
@@ -232,7 +234,7 @@ sge::string::value_type cs::prefix()
 	return instance().prefix;
 }
 
-void cs::read_config(const std::string &s)
+void cs::read_config(const path &s)
 {
 	instance().read_config(s);
 }

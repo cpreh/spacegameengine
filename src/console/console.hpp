@@ -9,8 +9,10 @@
 // boost
 #include <boost/lexical_cast.hpp>
 #include <boost/function.hpp>
+#include <boost/filesystem.hpp>
 // sge
 #include "../string.hpp"
+#include "../path.hpp"
 
 namespace sge
 {
@@ -133,7 +135,7 @@ string::value_type prefix();
 void add(const string &,const callback &);
 void eval(const string &);
 void chat_callback(const callback &);
-void read_config(const std::string &);
+void read_config(const path &);
 const var_map &vars();
 const callback_map &funcs();
 sge::string get_var(const sge::string &);
