@@ -27,8 +27,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+#ifndef SGE_NARROW_STRING
 typedef std::wstring string;
+#else
+typedef std::string string;
+#endif
 
 }
+
+#ifndef SGE_NARROW_STRING
+#define SGE_TEXT(x) L ## x
+#else
+#define SGE_TEXT(x) x
+#endif
 
 #endif

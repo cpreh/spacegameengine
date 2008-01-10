@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/systems.hpp"
 #include "../src/media.hpp"
 #include "../src/init.hpp"
-#include "../src/iconv.hpp"
 #include "../src/math/matrix.hpp"
 #include "../src/scoped_connection.hpp"
 #include "../src/renderer/renderer.hpp"
@@ -59,8 +58,8 @@ try
 	const sge::renderer_ptr     rend = sys.renderer;
 	const sge::image_loader_ptr pl   = sys.image_loader;
 
-	const sge::image_ptr img1(pl->load_image(sge::media_path() / sge::iconv("cloudsquare.jpg"))),
-	                     img2(pl->load_image(sge::media_path() / sge::iconv("grass.png")));
+	const sge::image_ptr img1(pl->load_image(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
+	                     img2(pl->load_image(sge::media_path() / SGE_TEXT("grass.png")));
 
 	const sge::default_texture_creator<sge::no_fragmented_texture> creator(rend, sge::linear_filter);
 	sge::texture_manager tex_man(rend, creator);

@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/iostreams/device/array.hpp>
 #include <boost/iostreams/stream_buffer.hpp>
 #include <boost/iostreams/stream.hpp>
-#include "../src/iconv.hpp"
 #include "../src/math/constants.hpp"
 #include "../src/texture/default_creator.hpp"
 #include "../src/texture/util.hpp"
@@ -137,14 +136,6 @@ try
 	bool running = true;
 	sge::plugin_manager pm;
 
-	const std::string s = "blubbbbbäüöß";
-	const std::wstring ws = sge::iconv(s);
-//	std::wcout << ws << L'\n';
-//	const std::wstring ws = L"äöüßblublblbu";
-//	const std::string s = sge::iconv(ws);
-//	std::wcout << ws << " ws: " << ws.size() << ", s: " << s.size() << '\n';
-	//std::wcout << L"äöüß\n";
-
 	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
 
 	sge::shared_ptr<sge::audio_player> audio_player(audio_player_plugin->get()());
@@ -194,13 +185,13 @@ try
 	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
 	const sge::font_system_ptr fs(font_plugin->get()());
 
-	const sge::font_metrics_ptr metrics = fs->create_font(sge::media_path() / sge::iconv("fonts/default.ttf"), 15);
+	const sge::font_metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);
 	const sge::font_drawer_ptr fn_drawer(new sge::font_drawer_3d(rend));
 
 	sge::font_ptr fn(new sge::font(metrics,fn_drawer));
 
 	sge::texture_manager texman(rend,sge::default_texture_creator<sge::no_fragmented_texture>(rend,sge::linear_filter));
-	const sge::image_ptr console_image = pl->load_image(sge::media_path() / sge::iconv("black.jpg"));
+	const sge::image_ptr console_image = pl->load_image(sge::media_path() / SGE_TEXT("black.jpg"));
 	const sge::virtual_texture_ptr console_texture = sge::add_texture(texman,console_image);
 	const sge::sprite_point pos(0,0);
 	const sge::sprite_dim console_size(rend->screen_width(),rend->screen_height()/2);
@@ -218,17 +209,10 @@ try
 
 	sge::key_state_tracker ks(is);
 
-/*	sge::line_strip ls(rend, sge::colors::red);
-	for(int i = 0; i < 5; ++i)
-		ls.add(rand_point());
-	ls.loop(true);*/
-
-	//const sge::string some_text(sge::iconv("abcdefgh\ni\n\njklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789\ntesttest"));
-
 	const sge::plugin<sge::archive_loader>::ptr_type archive_plugin(pm.get_plugin<sge::archive_loader>().load());
 	const sge::archive_loader_ptr zip_archiver(archive_plugin->get()());
 
-	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() / sge::iconv("md3-kt_kubalwagon.pk3"));
+	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() / SGE_TEXT("md3-kt_kubalwagon.pk3"));
 	kubal->goto_begin();
 
 	std::vector<unsigned char> uncompress_data;
@@ -292,7 +276,7 @@ try
 
 //	rend->set_draw_mode(sge::draw_mode::line);
 
-	const sge::string some_text(sge::iconv("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
+	const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	while(running)
 	{
 	//	if (sound->status() != sge::sound::status_stopped)

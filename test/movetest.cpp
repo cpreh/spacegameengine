@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/init.hpp"
 #include "../src/media.hpp"
 #include "../src/scoped_connection.hpp"
-#include "../src/iconv.hpp"
 #include "../src/window.hpp"
 #include "../src/math/constants.hpp"
 #include "../src/math/utility.hpp"
@@ -112,8 +111,8 @@ try
 
 	sge::texture_manager tex_man(rend, sge::default_texture_creator<sge::no_fragmented_texture>(rend, sge::linear_filter));
 
-	const sge::virtual_texture_ptr tex(sge::add_texture(tex_man, pl->load_image(sge::media_path() / sge::iconv("cloudsquare.jpg")))),
-	                               cursor_tex(sge::add_texture(tex_man, pl->load_image(sge::media_path() / sge::iconv("mainskin/cursor.png"))));
+	const sge::virtual_texture_ptr tex(sge::add_texture(tex_man, pl->load_image(sge::media_path() / SGE_TEXT("cloudsquare.jpg")))),
+	                               cursor_tex(sge::add_texture(tex_man, pl->load_image(sge::media_path() / SGE_TEXT("mainskin/cursor.png"))));
 
 	sge::sprite_system ss(rend);
 	const sge::sprite_unit spr_sz = 50;
