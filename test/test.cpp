@@ -59,8 +59,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/language.hpp"
 #include "../src/endianness.hpp"
 #include "../src/audio/audio_loader/audio_loader.hpp"
-#include "../src/audio/audio_player/audio_player.hpp"
-#include "../src/audio/audio_player/sound.hpp"
+//#include "../src/audio/audio_player/audio_player.hpp"
+//#include "../src/audio/audio_player/sound.hpp"
 #include "../src/exception.hpp"
 #include "../src/console/console_gfx.hpp"
 #include "../src/console/console.hpp"
@@ -111,6 +111,10 @@ struct console_activator
 int main()
 try
 {
+	std::wstring ws = L"BLABLA";
+	std::string s = sge::narrow(ws);
+	std::wstring back = sge::widen(s);
+
 //	sge::multitree<int> test;
 /*	typedef multi_tree<int> tree;
 	tree t;
@@ -136,9 +140,9 @@ try
 	bool running = true;
 	sge::plugin_manager pm;
 
-	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
+//	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
 
-	sge::shared_ptr<sge::audio_player> audio_player(audio_player_plugin->get()());
+//	sge::shared_ptr<sge::audio_player> audio_player(audio_player_plugin->get()());
 
 /*	typedef std::vector< sge::plugin_manager::plugin_context<sge::audio_loader> > plugin_vector;
 	plugin_vector audio_plugins;
@@ -276,7 +280,8 @@ try
 
 //	rend->set_draw_mode(sge::draw_mode::line);
 
-	const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
+	//const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
+	const sge::string some_text(L"abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb");
 	while(running)
 	{
 	//	if (sound->status() != sge::sound::status_stopped)
