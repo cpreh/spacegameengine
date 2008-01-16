@@ -34,6 +34,6 @@ sge::path sge::client_config_path()
 		throw exception("client_config_path(): Can't find \"HOME\"!");
 	return path(iconv(ret));
 #else
-	return ""; // FIXME
+	return SGE_TEXT(""); // FIXME
 #endif
 }

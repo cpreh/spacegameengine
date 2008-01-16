@@ -14,8 +14,6 @@
 #include "../../path.hpp"
 #include "../console.hpp"
 
-namespace cs = sge::con;
-
 namespace
 {
 // helper class to sort out empty lines
@@ -70,16 +68,16 @@ struct singleton
 {
 	typedef std::map<sge::string,sge::string> config_map;
 
-	cs::var_map vars;
-	cs::callback_map funcs;
+	sge::con::var_map vars;
+	sge::con::callback_map funcs;
 	config_map config_vars;
-	cs::callback chat;
+	sge::con::callback chat;
 	sge::string::value_type prefix;
 
 	singleton() : prefix(L'/') {}
 
-	void add(const sge::string &,cs::var_base &);
-	void add(const sge::string &,const cs::callback &);
+	void add(const sge::string &,sge::con::var_base &);
+	void add(const sge::string &,const sge::con::callback &);
 	void eval(const sge::string &);
 	void read_config(const sge::path &);
 	sge::string get_var(const sge::string &);
@@ -95,9 +93,9 @@ singleton &instance()
 
 sge::string singleton::get_var(const sge::string &name)
 {
-	cs::var_map::const_iterator i = vars.find(name);
+	sge::con::var_map::const_iterator i = vars.find(name);
 	if (i == vars.end())
-		throw cs::exception(L"variable \""+name+L"\" not found");
+		throw sge::con::exception(L"variable \""+name+L"\" not found");
 	return i->second->get();
 }
 
@@ -108,9 +106,9 @@ void singleton::latch(const sge::string &name,const sge::string &value)
 
 void singleton::set_var(const sge::string &name,const sge::string &value)
 {
-	cs::var_map::const_iterator i = vars.find(name);
+	sge::con::var_map::const_iterator i = vars.find(name);
 	if (i == vars.end())
-		throw cs::exception(L"variable \""+name+L"\" not found");
+		throw sge::con::exception(L"variable \""+name+L"\" not found");
 	return i->second->set(value);
 }
 
@@ -124,11 +122,11 @@ void singleton::read_config(const sge::path &fn)
 	{
 		const sge::string::size_type equals = i->find(L'=');
 		if (equals == sge::string::npos)
-			throw cs::exception(L"error parsing \""+fn.string()+L"\": no '=' found");
+			throw sge::con::exception(L"error parsing \""+fn.string()+L"\": no '=' found");
 
 		const sge::string name = i->substr(0,equals),value = i->substr(equals+1);
 		if (name.empty())
-			throw cs::exception(L"error parsing \""+fn.string()+L"\": empty variable name");
+			throw sge::con::exception(L"error parsing \""+fn.string()+L"\": empty variable name");
 
 		// just a warning about multiply defined variables
 		if (config_vars.find(name) != config_vars.end())
@@ -140,7 +138,7 @@ void singleton::read_config(const sge::path &fn)
 
 void singleton::eval(const sge::string &line)
 {
-	cs::arg_list args;
+	sge::con::arg_list args;
 
 	sge::string command_str;
 	sge::string chat_str;
@@ -180,23 +178,23 @@ void singleton::eval(const sge::string &line)
 	{
 		args.insert(args.begin(),command_str);
 		if (funcs.find(command_str) == funcs.end())
-			throw cs::exception(L"couldn't find command \""+command_str+L"\"");
+			throw sge::con::exception(L"couldn't find command \""+command_str+L"\"");
 		funcs[command_str](args);
 	}
 }
 
-void singleton::add(const sge::string &name,const cs::callback &v)
+void singleton::add(const sge::string &name,const sge::con::callback &v)
 {
 	if (funcs.find(name) != funcs.end())
-		throw cs::exception(L"console function "+name+L" registered twice!");
+		throw sge::con::exception(L"console function "+name+L" registered twice!");
 
 	funcs[name] = v;
 }
 
-void singleton::add(const sge::string &name,cs::var_base &v)
+void singleton::add(const sge::string &name,sge::con::var_base &v)
 {
 	if (vars.find(name) != vars.end())
-		throw cs::exception(L"console variable "+name+L" registered twice!");
+		throw sge::con::exception(L"console variable "+name+L" registered twice!");
 
 	vars[name] = &v;
 
@@ -208,66 +206,78 @@ void singleton::add(const sge::string &name,cs::var_base &v)
 
 }
 
-void cs::eval(const string &s)
+void sge::con::eval(const string &s)
 {
 	instance().eval(s);
 }
 
 
-void cs::chat_callback(const callback &c)
+void sge::con::chat_callback(const callback &c)
 {
 	instance().chat = c;
 }
 
-void cs::add(const string &name,const callback &c)
+void sge::con::add(const string &name,const callback &c)
 {
 	instance().add(name,c);
 }
 
-void cs::prefix(const string::value_type &c)
+void sge::con::prefix(const string::value_type &c)
 {
 	instance().prefix = c;
 }
 
-sge::string::value_type cs::prefix()
+sge::string::value_type sge::con::prefix()
 {
 	return instance().prefix;
 }
 
-void cs::read_config(const path &s)
+void sge::con::read_config(const path &s)
 {
 	instance().read_config(s);
 }
 
-void cs::var_base::late_construct()
+void sge::con::var_base::late_construct()
 {
 	instance().add(name_,*this);
 }
 
-const cs::var_map &cs::vars()
+#ifdef _MSC_VER
+void sge::con::var_base::set(const string&)
+{
+	throw exception(SGE_TEXT("var_base::set() is abstract (dumb VC++ hack)!"));
+}
+
+sge::string sge::con::var_base::get() const
+{
+	throw exception(SGE_TEXT("var_base::get() is abstract (dumb VC++ hack)!"));
+}
+#endif
+
+const sge::con::var_map &sge::con::vars()
 {
 	return instance().vars;
 }
 
-const cs::callback_map &cs::funcs()
+const sge::con::callback_map &sge::con::funcs()
 {
 	return instance().funcs;
 }
 
-sge::string cs::get_var(const sge::string &name)
+sge::string sge::con::get_var(const sge::string &name)
 {
 	return instance().get_var(name);
 }
 
-void cs::set_var(const sge::string &name,const sge::string &value)
+void sge::con::set_var(const sge::string &name,const sge::string &value)
 {
 	instance().set_var(name,value);
 }
 
-void cs::latch(const sge::string &name,const sge::string &value)
+void sge::con::latch(const sge::string &name,const sge::string &value)
 {
 	instance().latch(name,value);
 }
 
-cs::var_base::var_base(const string &name_)
+sge::con::var_base::var_base(const string &name_)
 	: name_(name_) {}

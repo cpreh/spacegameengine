@@ -36,8 +36,15 @@ struct var_base
 	var_base(const string &);
 	void late_construct();
 	string name() { return name_; }
+#ifndef _MSC_VER
 	virtual void set(const string &) = 0;
 	virtual string get() const = 0;
+#else
+	// VC++ is so dumb that it wants to instantiate a class
+	// if you bind *this to a reference
+	virtual void set(const string&);
+	virtual string get() const;
+#endif
 	virtual ~var_base() {}
 };
 
