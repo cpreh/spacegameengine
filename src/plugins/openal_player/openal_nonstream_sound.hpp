@@ -22,10 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define OPENAL_NONSTREAM_SOUND_INCLUDED
 
 // Own stuff
+#include "../../types.hpp"
 #include "../../audio/audio_player/sound.hpp"
 #include "openal_player.hpp"
 // OpenAL
+#ifdef SGE_WINDOWS_PLATFORM
+#include <al.h>
+#else
 #include <AL/al.h>
+#endif
 
 namespace sge
 {

@@ -20,18 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <string>
 #include <boost/lexical_cast.hpp>
-// Attention: No AL/ in OpenAL SDK for Windows.
-// We had this fixed to al.h for Windows systems, just to get exactly the same
-// error again in alut.h on Windows/MinGW, since freealut checks for MSVC, not
-// for the OS.
-// Solution: Move all OpenAL headers from OpenAL/include to OpenAL/include/AL
-#include <AL/al.h>
+#include "../../../types.hpp"
 #include "../../../audio/audio_player/sound.hpp"
 #include "../../../audio/audio_exception.hpp"
 #include "../../../raw_vector_impl.hpp"
 #include "../openal_player.hpp"
 #include "../openal_nonstream_sound.hpp"
 #include "../openal_stream_sound.hpp"
+#ifdef SGE_WINDOWS_PLATFORM
+#include <al.h>
+#else
+#include <AL/al.h>
+#endif
 
 void sge::openal::stream_sound::check(const std::string &_desc)
 {

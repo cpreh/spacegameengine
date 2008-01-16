@@ -2,6 +2,7 @@ FILE (GLOB sgevorbisfiles src/*.cpp)
 
 IF (MSVC)
 	INCLUDE_DIRECTORIES (${WININCLUDES}/libvorbis/include)
+	INCLUDE_DIRECTORIES (${WININCLUDES}/libogg/include)
 	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/libvorbis/lib)
 ENDIF ()
 

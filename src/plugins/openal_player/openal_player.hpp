@@ -27,11 +27,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 // Own stuff
 #include "../../shared_ptr.hpp"
+#include "../../types.hpp"
 #include "../../audio/audio_player/audio_player.hpp"
 #include "../../audio/audio_player/sound_angle.hpp"
 // OpenAL
+#ifdef SGE_WINDOWS_PLATFORM
+#include <al.h>
+#include <alc.h>
+#else
 #include <AL/al.h>
 #include <AL/alc.h>
+#endif
 
 namespace sge
 {
