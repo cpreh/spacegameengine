@@ -75,6 +75,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/language.hpp"
 #include "../src/scoped_connection.hpp"
 #include "../src/frames_counter.hpp"
+#include "../src/fstream.hpp"
+#include "../src/sstream.hpp"
 
 //#include <hamigaki/archivers/zip_file.hpp>
 
@@ -111,10 +113,13 @@ struct console_activator
 int main()
 try
 {
-	std::wstring ws = L"BLABLA";
+	std::wstring ws = L"highscore";
 	std::string s = sge::narrow(ws);
 	std::wstring back = sge::widen(s);
 
+
+	sge::text_ifstream blubb(L"highscore");
+	sge::text_stringstream test_stream;
 //	sge::multitree<int> test;
 /*	typedef multi_tree<int> tree;
 	tree t;

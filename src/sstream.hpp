@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FSTREAM_HPP_INCLUDED
-#define SGE_FSTREAM_HPP_INCLUDED
+#ifndef SGE_SSTREAM_HPP_INCLUDED
+#define SGE_SSTREAM_HPP_INCLUDED
 
-#include <boost/filesystem/fstream.hpp>
+#include <sstream>
 
 namespace sge
 {
 
 #ifndef SGE_NARROW_STRING
-typedef boost::filesystem::wifstream text_ifstream;
-typedef boost::filesystem::wofstream text_ofstream;
-typedef boost::filesystem::wfstream  text_fstream;
+typedef std::wistringstream text_istringstream;
+typedef std::wostringstream text_ostringstream;
+typedef std::wstringstream  text_stringstream;
 #else
-typedef boost::filesystem::ifstream text_ifstream;
-typedef boost::filesystem::ofstream text_ofstream;
-typedef boost::filesystem::fstream  text_fstream;
+typedef std::istringstream text_istringstream;
+typedef std::ostringstream text_ostringstream;
+typedef std::stringstream  text_stringstream;
 #endif
 
 }
