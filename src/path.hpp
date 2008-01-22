@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PATH_HPP_INCLUDED
 #define SGE_PATH_HPP_INCLUDED
 
-#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
 #include "string.hpp"
 
 namespace sge
@@ -48,6 +48,7 @@ typedef string path_string;
 }
 
 typedef boost::filesystem::basic_path<detail::path_string, detail::choose_path_traits<detail::path_string::value_type>::type> path;
+typedef boost::filesystem::basic_directory_iterator<path> directory_iterator;
 
 }
 
