@@ -51,7 +51,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 #ifdef USE_DGA
 	int flags;
 	if(XF86DGAQueryDirectVideo(wnd->display()->get(),wnd->screen(),&flags)==false)
-		throw exception("XF86DGAQueryDirectVideo() failed");
+		throw exception(SGE_TEXT("XF86DGAQueryDirectVideo() failed!"));
 	if(flags & XF86DGADirectMouse)
 	{
 		std::cerr << "You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system! Maybe you are missing libXxf86dga or a proper video driver? Disabling dga.";
@@ -540,12 +540,12 @@ bool sge::xinput::input_system::handle_grab(const int r) const
 	case GrabSuccess:
 		return true;
 	case GrabFrozen:
-		throw exception("x11: Grab frozen!");
+		throw exception(SGE_TEXT("x11: Grab frozen!"));
 	case GrabNotViewable:
 	case AlreadyGrabbed:
 		break;
 	case GrabInvalidTime:
-		throw exception("x11: GrabInvalidTime");
+		throw exception(SGE_TEXT("x11: GrabInvalidTime!"));
 	}
 
 	sleep(100);

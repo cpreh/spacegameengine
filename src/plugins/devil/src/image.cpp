@@ -29,23 +29,23 @@ sge::devil::image::image(const path& file)
 {
 	bind_me();
 	if(ilLoadImage(const_cast<char*>(iconv(file.string()).c_str())) == IL_FALSE)
-		throw exception(std::string("ilLoadImage() failed! Could not load '") += iconv(file.string()) + "'!");
+		throw exception(string(SGE_TEXT("ilLoadImage() failed! Could not load '")) += file.string() + SGE_TEXT("'!"));
 }
 
 sge::devil::image::image(const image_format::type type, const const_pointer format_data, const size_type size)
 {
 	if(!format_data || size == 0)
-		throw exception("load_image(): format_data or size is 0!");
+		throw exception(SGE_TEXT("load_image(): format_data or size is 0!"));
 	bind_me();
 	if(ilLoadL(convert_cast<ILenum>(type), const_cast<pointer>(format_data), static_cast<ILuint>(size)) == IL_FALSE)
-		throw exception("ilLoadL() failed!");
+		throw exception(SGE_TEXT("ilLoadL() failed!"));
 }
 
 sge::devil::image::image(const const_pointer p,
                          const dim_type& dim_)
 {
 	if(!p)
-		throw exception("load_image(): ptr is 0!");
+		throw exception(SGE_TEXT("load_image(): ptr is 0!"));
 	data(p, dim_);
 }
 

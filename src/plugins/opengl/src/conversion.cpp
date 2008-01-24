@@ -38,7 +38,7 @@ template<> GLuint sge::ogl::convert_cast(const lock_flag_t& f)
 	case lock_flags::readwrite:
 		return GL_READ_WRITE;
 	default:
-		throw exception("Invalid lock_flags!");
+		throw exception(SGE_TEXT("Invalid lock_flags!"));
 	}
 }
 
@@ -56,7 +56,7 @@ template<> GLenum sge::ogl::convert_cast(const nonindexed_primitive_type::type& 
 	case nonindexed_primitive_type::line_loop:
 		return GL_LINE_LOOP;
 	default:
-		throw exception("Invalid indexed_primitive_type!");
+		throw exception(SGE_TEXT("Invalid indexed_primitive_type!"));
 	}
 }
 
@@ -68,7 +68,7 @@ template<> GLenum sge::ogl::convert_cast(const indexed_primitive_type::type& t)
 	case indexed_primitive_type::triangle:
 		return GL_TRIANGLES;
 	default:
-		throw exception("Invalid nonindexed_primitive_type!");
+		throw exception(SGE_TEXT("Invalid nonindexed_primitive_type!"));
 	}
 }
 
@@ -88,7 +88,7 @@ template<> GLenum sge::ogl::convert_cast(const bool_state::type& state)
 	case bool_state::enable_culling:
 		return GL_CULL_FACE;
 	default:
-		throw exception("Invalid bool_state!");
+		throw exception(SGE_TEXT("Invalid bool_state!"));
 	}
 }
 
@@ -104,7 +104,7 @@ template<> GLenum sge::ogl::convert_cast(const min_filter::type& arg)
 	case min_filter::trilinear:
 		return GL_LINEAR_MIPMAP_LINEAR;
 	default:
-		throw exception("Invalid min_filter!");
+		throw exception(SGE_TEXT("Invalid min_filter!"));
 	}
 }
 
@@ -116,7 +116,7 @@ template<> GLenum sge::ogl::convert_cast(const mag_filter::type& arg)
 	case mag_filter::linear:
 		return GL_LINEAR;
 	default:
-		throw exception("Invalid mag_filter!");
+		throw exception(SGE_TEXT("Invalid mag_filter!"));
 	}
 }
 
@@ -152,7 +152,7 @@ template<> GLenum sge::ogl::convert_cast(const cube_side::type& s)
 {
 	const cube_side_array::size_type pos = static_cast<cube_side_array::size_type>(s);
 	if(pos >= cube_sides.size())
-		throw exception("Invalid cube_side!");
+		throw exception(SGE_TEXT("Invalid cube_side!"));
 
 	return cube_sides[pos];
 }
@@ -166,7 +166,7 @@ template<> GLenum sge::ogl::convert_cast(const cull_mode::type& m)
 	case cull_mode::front:
 		return GL_FRONT;
 	default:
-		throw exception("Invalid cull_mode!");
+		throw exception(SGE_TEXT("Invalid cull_mode!"));
 	}
 }
 
@@ -190,7 +190,7 @@ template<> GLenum sge::ogl::convert_cast(const compare_func::type& f)
 	case compare_func::always:
 		return GL_ALWAYS;
 	default:
-		throw exception("Invalid compare_func!");
+		throw exception(SGE_TEXT("Invalid compare_func!"));
 	}
 }
 
@@ -204,7 +204,7 @@ template<> GLenum sge::ogl::convert_cast(const fog_mode::type& m)
 	case fog_mode::exp2:
 		return GL_EXP2;
 	default:
-		throw exception("Invalid fog_mode!");
+		throw exception(SGE_TEXT("Invalid fog_mode!"));
 	}
 }
 
@@ -230,7 +230,7 @@ template<> GLenum sge::ogl::convert_cast(const source_blend_func::type& f)
 	case source_blend_func::src_alpha_sat:
 		return GL_SRC_ALPHA_SATURATE;
 	default:
-		throw exception("Invalid source_blend_func!");
+		throw exception(SGE_TEXT("Invalid source_blend_func!"));
 	}
 }
 
@@ -254,7 +254,7 @@ template<> GLenum sge::ogl::convert_cast(const dest_blend_func::type& f)
 	case dest_blend_func::inv_dest_alpha:
 		return GL_ONE_MINUS_DST_ALPHA;
 	default:
-		throw exception("Invalid dest_blend_func!");
+		throw exception(SGE_TEXT("Invalid dest_blend_func!"));
 	}
 }
 
@@ -266,7 +266,7 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_op::type& op)
 	case texture_stage_op::alpha:
 		return GL_COMBINE_ALPHA;
 	default:
-		throw exception("Invalid texture_stage_op!");
+		throw exception(SGE_TEXT("Invalid texture_stage_op!"));
 	}
 }
 
@@ -291,7 +291,7 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_op_value::type& val
 	case texture_stage_op_value::interpolate:
 		return GL_INTERPOLATE;
 	default:
-		throw exception("Invalid texture_stage_op_value!");
+		throw exception(SGE_TEXT("Invalid texture_stage_op_value!"));
 	}
 }
 
@@ -311,7 +311,7 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_arg::type& arg)
 	case texture_stage_arg::alpha2:
 		return GL_SOURCE2_ALPHA;
 	default:
-		throw exception("Invalid texture_stage_arg!");
+		throw exception(SGE_TEXT("Invalid texture_stage_arg!"));
 	}
 }
 
@@ -325,7 +325,7 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_arg_value::type& va
 	case texture_stage_arg_value::constant:
 		return GL_CONSTANT;
 	default:
-		throw exception("Invalid texture_stage_arg_value!");
+		throw exception(SGE_TEXT("Invalid texture_stage_arg_value!"));
 	}
 }
 
@@ -339,7 +339,7 @@ template<> GLenum sge::ogl::convert_cast(const draw_mode::type& mode)
 	case draw_mode::fill:
 		return GL_FILL;
 	default:
-		throw exception("Invalid draw_mode!");
+		throw exception(SGE_TEXT("Invalid draw_mode!"));
 	}
 }
 
@@ -353,6 +353,6 @@ GLenum sge::ogl::convert_fog_float_state(const float_state::type& s)
 	case float_state::fog_density:
 		return GL_FOG_DENSITY;
 	default:
-		throw exception("Invalid fog float_state!");
+		throw exception(SGE_TEXT("Invalid fog float_state!"));
 	}
 }

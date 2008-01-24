@@ -29,12 +29,12 @@ sge::zlib::archive_entry::archive_entry(zip_file& file)
   open_handle(file)
 {
 	if(unzGetCurrentFileInfo(file.handle(), &info, 0, 0, 0, 0, 0, 0) != UNZ_OK)
-		throw exception("unzGetCurrentFileInfo() failed!");
+		throw exception(SGE_TEXT("unzGetCurrentFileInfo() failed!"));
 
 	std::vector<char> name_buffer(info.size_filename);
 
 	if(unzGetCurrentFileInfo(file.handle(), 0, data(name_buffer), name_buffer.size(), 0, 0, 0, 0) != UNZ_OK)
-		throw exception("unzGetCurrentFileInfo() failed!");
+		throw exception(SGE_TEXT("unzGetCurrentFileInfo() failed!"));
 	name_.assign(name_buffer.begin(), name_buffer.end());
 }
 
@@ -57,5 +57,5 @@ void sge::zlib::archive_entry::uncompress(const pointer dest)
 		return;
 	if(ret > 0)
 		throw exception("archive_entry::uncompress(): The end of file has not been reached (logic error)!");*/
-	throw exception("unzReadCurrentFile() failed!");
+	throw exception(SGE_TEXT("unzReadCurrentFile() failed!"));
 }

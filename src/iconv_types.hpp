@@ -37,14 +37,12 @@ enum encoding {
 
 class invalid_conversion : public sge::exception {
 public:
-	invalid_conversion(const std::string& from, const std::string& to)
-	: sge::exception(std::string("Unsupported conversion from ") += from + " to " + to + "!" ) {}
+	invalid_conversion(const string& from, const string& to);
 };
 
 class conversion_failed : public sge::exception {
 public:
-	conversion_failed(const std::string& from, const std::string& to)
-	: sge::exception(std::string("An iconv conversion from ") += from + " to " + to + " failed!") {}
+	conversion_failed(const string& from, const string& to);
 };
 
 }

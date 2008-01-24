@@ -43,7 +43,7 @@ GLenum stage_value_scale(const sge::texture_stage_op_value::type value)
 	case sge::texture_stage_op_value::add4x:
 		return 4;
 	default:
-		throw sge::exception("Invalid texture_stage_op_value!");
+		throw sge::exception(SGE_TEXT("Invalid texture_stage_op_value!"));
 	}
 }
 

@@ -39,7 +39,7 @@ sge::cell_fragmented_texture::cell_fragmented_texture(const renderer_ptr rend,
 const sge::virtual_texture_ptr sge::cell_fragmented_texture::consume_fragments(const texture::dim_type& dim)
 {
 	if(dim != cell_size)
-		throw exception("Invalid request for consume_fragments in cell_fragmented_texture!");
+		throw exception(SGE_TEXT("Invalid request for consume_fragments in cell_fragmented_texture!"));
 	// TODO maybe optimize this with a stack?
 	const field_type::iterator it = std::find(cells.begin(), cells.end(), false);
 	if(it == cells.end())

@@ -26,7 +26,7 @@ sge::zlib::current_handle::current_handle(zip_file& file)
 : file(file)
 {
 	if(unzOpenCurrentFile(file.handle()) != UNZ_OK)
-		throw exception("unzOpenCurrentFile() failed!");
+		throw exception(SGE_TEXT("unzOpenCurrentFile() failed!"));
 }
 
 sge::zlib::current_handle::~current_handle()

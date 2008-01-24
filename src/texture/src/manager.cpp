@@ -68,5 +68,5 @@ void sge::texture_manager::onalloc(const onalloc_function& fun)
 }
 
 sge::texture_manager::image_too_big::image_too_big()
-: exception("texture_manager::add_texture() image too big!")
+: exception(SGE_TEXT("texture_manager::add_texture() image too big!"))
 {}

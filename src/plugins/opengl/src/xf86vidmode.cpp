@@ -42,7 +42,7 @@ sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display_ptr dsp, const 
 	int mode_count;
 	XF86VidModeModeInfo** ret;	
 	if(XF86VidModeGetAllModeLines(dsp->get(), screen, &mode_count, &ret) == False)
-		throw exception("XF86VidModeGetAllModeLines() failed");
+		throw exception(SGE_TEXT("XF86VidModeGetAllModeLines() failed"));
 	modes.reset(ret);
 	sz = mode_count >= 0 ? mode_count : 0;
 }

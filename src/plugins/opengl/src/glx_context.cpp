@@ -28,7 +28,7 @@ sge::ogl::glx_context::glx_context(const x_display_ptr dsp, const XVisualInfo& v
   c(glXCreateContext(dsp->get(), const_cast<XVisualInfo*>(&vi), NULL, True))
 {
 	if(c == 0)
-		throw exception("glXCreateContext() failed");
+		throw exception(SGE_TEXT("glXCreateContext() failed!"));
 }
 
 sge::ogl::glx_context::~glx_context()

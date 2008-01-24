@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::ft::face::face(library& lib, const path& name)
 {
 	if(FT_New_Face(lib.lib(), iconv(name.string()).c_str(), 0, &impl))
-		throw exception(std::string("FT_New_Face() failed for font: ") += iconv(name.string()));
+		throw exception(string(SGE_TEXT("FT_New_Face() failed for font: ")) += name.string());
 }
 
 sge::ft::face::~face()

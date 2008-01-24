@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 +*/
 
 
-#include <string>
+#include "../../../string.hpp"
 #include "../../../exception.hpp"
+#include "../../../iconv.hpp"
 #include "../error.hpp"
 #include <IL/il.h>
 #include <IL/ilu.h>
@@ -30,11 +31,11 @@ void sge::devil::check_errors()
 	if(e == IL_NO_ERROR)
 		return;
 
-	std::string error_message("The following devil errors were detected:\n");
+	string error_message(SGE_TEXT("The following devil errors were detected:\n"));
 	do
 	{
-		error_message += iluErrorString(e);
-		error_message += '\n';
+		error_message += iconv(iluErrorString(e));
+		error_message += SGE_TEXT('\n');
 	}
 	while((e = ilGetError()) != IL_NO_ERROR);
 	throw exception(error_message);

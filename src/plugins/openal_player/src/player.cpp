@@ -37,14 +37,14 @@ sge::openal::player::player()
 {
 	device.reset(alcOpenDevice(0));
 	if (device.device == 0)
-		throw sge::audio_exception("Error opening audio device!");
+		throw sge::audio_exception(SGE_TEXT("Error opening audio device!"));
 
 	context.reset(alcCreateContext(device.device,0));
 	if (context.context == 0)
-		throw sge::audio_exception("Error creating audio context!");
+		throw sge::audio_exception(SGE_TEXT("Error creating audio context!"));
 	
 	if (!alcMakeContextCurrent(context.context))
-		throw sge::audio_exception("Error selecting context");
+		throw sge::audio_exception(SGE_TEXT("Error selecting context"));
 }
 
 void sge::openal::player::update()
@@ -63,11 +63,11 @@ sge::shared_ptr<sge::sound> sge::openal::player::create_stream_sound(const share
 	return shared_ptr<sound>(new stream_sound(_audio_file,*this));
 }
 
-void sge::openal::player::check(const std::string &_desc)
+void sge::openal::player::check(const string &_desc)
 {
 	ALint error;
 	if ((error = alGetError()) != AL_NO_ERROR)
-		throw sge::audio_exception("OpenAL error ("+_desc+"): "+boost::lexical_cast<std::string>(error));
+		throw sge::audio_exception(SGE_TEXT("OpenAL error (") + _desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
 }
 
 void sge::openal::player::listener_pos(const sge::math::vector3 &n)
@@ -101,7 +101,7 @@ ALuint sge::openal::player::register_nonstream_sound(const shared_ptr<sge::audio
 	n.file = &(*_audio_file);
 
 	// Buffer erstellen
-	alGenBuffers(1, &n.buffer); check("alGenBuffers");
+	alGenBuffers(1, &n.buffer); check(SGE_TEXT("alGenBuffers"));
 
 	ALenum format;
 	if (_audio_file->bits_per_sample() == 8 && _audio_file->channels() == 1)
@@ -113,11 +113,15 @@ ALuint sge::openal::player::register_nonstream_sound(const shared_ptr<sge::audio
 	else if (_audio_file->bits_per_sample() == 16 && _audio_file->channels() == 2)
 		format = AL_FORMAT_STEREO16;
 	else
-		throw audio_exception("OpenAL error: Format not supported: "+boost::lexical_cast<std::string>(_audio_file->bits_per_sample())+" bps, "+boost::lexical_cast<std::string>(_audio_file->channels())+" channels");
+		throw audio_exception(SGE_TEXT("OpenAL error: Format not supported: ")
+		                      + boost::lexical_cast<string>(_audio_file->bits_per_sample())
+		                      + SGE_TEXT(" bps, ")
+		                      + boost::lexical_cast<string>(_audio_file->channels())
+		                      + SGE_TEXT(" channels"));
 
 	audio_file::raw_array_type data;
 	_audio_file->read_all(data);
-	alBufferData(n.buffer, format, data.data(), static_cast<ALsizei>(data.size()), static_cast<ALsizei>(_audio_file->sample_rate())); check("alGetError");
+	alBufferData(n.buffer, format, data.data(), static_cast<ALsizei>(data.size()), static_cast<ALsizei>(_audio_file->sample_rate())); check(SGE_TEXT("alGetError"));
 
 	n.refcount = 1;
 

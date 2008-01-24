@@ -32,11 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <AL/al.h>
 #endif
 
-void sge::openal::nonstream_sound::check(const std::string &_desc)
+void sge::openal::nonstream_sound::check(const string &_desc)
 {
 	ALint error;
 	if ((error = alGetError()) != AL_NO_ERROR)
-		throw sge::audio_exception("OpenAL error ("+_desc+"): "+boost::lexical_cast<std::string>(error));
+		throw sge::audio_exception(SGE_TEXT("OpenAL error (") +_desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
 }
 
 sge::openal::nonstream_sound::nonstream_sound(const shared_ptr<sge::audio_file> _audio_file,openal::player &_player) : player_(_player)
@@ -44,8 +44,8 @@ sge::openal::nonstream_sound::nonstream_sound(const shared_ptr<sge::audio_file> 
 	al_buffer_ = _player.register_nonstream_sound(_audio_file);
 
 	// Source erstellen
-	alGenSources(1,&al_source_); check("alGenSources");
-	alSourcei(al_source_, AL_BUFFER, al_buffer_); check("alSourcei");
+	alGenSources(1,&al_source_); check(SGE_TEXT("alGenSources"));
+	alSourcei(al_source_, AL_BUFFER, al_buffer_); check(SGE_TEXT("alSourcei"));
 
 	status_ = status_stopped;
 }

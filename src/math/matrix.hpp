@@ -259,9 +259,9 @@ inline space_matrix matrix_scaling(const space_unit x, const space_unit y, const
 inline space_matrix matrix_perspective(const space_unit aspect, const space_unit fov, const space_unit near, const space_unit far)
 {
 	if(compare(far, near))
-		throw exception("matrix_perspective(): far may not be near!");
+		throw exception(SGE_TEXT("matrix_perspective(): far may not be near!"));
 	if(almost_zero(near))
-		throw exception("matrix_perspective(): near must not be 0!");
+		throw exception(SGE_TEXT("matrix_perspective(): near must not be 0!"));
 	const space_unit h = static_cast<space_unit>(1) / std::tan(fov / static_cast<space_unit>(2)),
 	                 w = h / aspect,
 	                 q = (far + near) / (far - near);

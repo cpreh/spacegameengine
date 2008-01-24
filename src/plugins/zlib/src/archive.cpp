@@ -29,7 +29,7 @@ sge::zlib::archive::archive(const path& file)
 void sge::zlib::archive::goto_begin()
 {
 	if(unzGoToFirstFile(file.handle()) != UNZ_OK)
-		throw exception("unzGoToFirstFile() failed!");
+		throw exception(SGE_TEXT("unzGoToFirstFile() failed!"));
 }
 
 bool sge::zlib::archive::next()
@@ -41,7 +41,7 @@ bool sge::zlib::archive::next()
 	case UNZ_END_OF_LIST_OF_FILE:
 		return false;
 	default:
-		throw exception("unzGoToNextFile() failed!");
+		throw exception(SGE_TEXT("unzGoToNextFile() failed!"));
 	}
 }
 
@@ -54,13 +54,13 @@ bool sge::zlib::archive::goto_entry(const std::string& name)
 	case UNZ_END_OF_LIST_OF_FILE:
 		return false;
 	default:
-		throw exception("unzLocalteFile() failed!");
+		throw exception(SGE_TEXT("unzLocalteFile() failed!"));
 	}
 }
 
 void sge::zlib::archive::open(archive_entry_ptr& ptr)
 {
 	if(ptr.use_count() > 1)
-		throw exception("The shared_ptr passed to archive::open() has to have its usecount set to <= 1!");
+		throw exception(SGE_TEXT("The shared_ptr passed to archive::open() has to have its usecount set to <= 1!"));
 	ptr.reset(new archive_entry(file));
 }

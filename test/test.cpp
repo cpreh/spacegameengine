@@ -113,13 +113,6 @@ struct console_activator
 int main()
 try
 {
-	std::wstring ws = L"highscore";
-	std::string s = sge::narrow(ws);
-	std::wstring back = sge::widen(s);
-
-
-	sge::text_ifstream blubb(L"highscore");
-	sge::text_stringstream test_stream;
 //	sge::multitree<int> test;
 /*	typedef multi_tree<int> tree;
 	tree t;
@@ -326,13 +319,18 @@ try
 	}
 	return EXIT_SUCCESS;
 }
+/*catch(const sge::exception& e)
+{
+	std::wcerr << "Program terminated (sge::exception caught): " << e.what() << '\n';
+	return EXIT_FAILURE;
+}*/
 catch(const std::exception& e)
 {
-	std::cerr << "Program terminated (std::exception caught): " << e.what() << '\n';
+	std::wcerr << "Program terminated (std::exception caught): " << e.what() << '\n';
 	return EXIT_FAILURE;
 }
-catch(...)
+/*catch(...)
 {
 	std::cerr << "Program terminated (unknown exception caught)!\n";
 	return EXIT_FAILURE;
-}
+}*/

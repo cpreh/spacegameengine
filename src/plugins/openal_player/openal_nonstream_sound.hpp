@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 // Own stuff
 #include "../../types.hpp"
+#include "../../string.hpp"
 #include "../../audio/audio_player/sound.hpp"
 #include "openal_player.hpp"
 // OpenAL
@@ -46,7 +47,7 @@ class nonstream_sound : public sound
 	ALuint al_buffer_;
 	mutable ALuint al_source_;
 
-	void check(const std::string &);
+	void check(const string &);
 	void sync() const;
 	public:
 	nonstream_sound(shared_ptr<audio_file>,player &);

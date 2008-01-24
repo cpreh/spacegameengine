@@ -56,7 +56,7 @@ const sge::font::text_size_t sge::font::draw_text(const string_type& text,
 	case font_align_v::top:
 		break;
 	default:
-		throw exception("Invalid font_align_v!");
+		throw exception(SGE_TEXT("Invalid font_align_v!"));
 	}
 
 	string_type::const_iterator sbeg(text.begin());
@@ -78,7 +78,7 @@ const sge::font::text_size_t sge::font::draw_text(const string_type& text,
 		case font_align_h::left:
 			break;
 		default:
-			throw exception("Invalid font_align_h!");
+			throw exception(SGE_TEXT("Invalid font_align_h!"));
 		}
 
 		for(;sbeg != line_size.end(); ++sbeg)

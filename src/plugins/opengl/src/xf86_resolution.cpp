@@ -29,7 +29,7 @@ sge::ogl::xf86_resolution::xf86_resolution(const x_display_ptr dsp, const int sc
   old_mode(old_mode)
 {
 	if(XF86VidModeSwitchToMode(dsp->get(), screen, const_cast<XF86VidModeModeInfo*>(&new_mode)) == False)
-		throw exception("XF86VidModeSwitchToMode() failed");
+		throw exception(SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
 	XF86VidModeSetViewPort(dsp->get(),screen,0,0);
 }
 

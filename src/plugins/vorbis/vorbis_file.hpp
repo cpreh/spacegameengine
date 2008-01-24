@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // C++
 #include <vector>
 #include <memory>
-#include <string>
 // boost
 #include <boost/noncopyable.hpp>
 // ogg/vorbis stuff
@@ -37,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vorbis/vorbisfile.h>
 // Own stuff
 #include "../../path.hpp"
+#include "../../string.hpp"
 #include "../../audio/audio_loader/audio_file.hpp"
 
 namespace sge
@@ -60,7 +60,7 @@ class vorbis_file : public audio_file
 	sample_type sample_rate_;
 	sample_type bits_per_sample_;
 
-	std::string ogg_error(long);
+	string ogg_error(long);
 	public:
 	vorbis_file(const path &, sample_type);
 	sample_type read(sample_type samples, raw_array_type &);

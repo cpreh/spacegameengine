@@ -28,7 +28,7 @@ sge::ogl::x_colormap::x_colormap(const x_display_ptr dsp, const XVisualInfo& vi)
   c(XCreateColormap(dsp->get(), RootWindow(dsp->get(), vi.screen), vi.visual, AllocNone))
 {
 	if(colormap() == 0)
-		throw exception("XCreateColormap() failed");
+		throw exception(SGE_TEXT("XCreateColormap() failed!"));
 }
 
 sge::ogl::x_colormap::~x_colormap()

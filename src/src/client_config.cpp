@@ -31,7 +31,7 @@ sge::path sge::client_config_path()
 #ifdef SGE_LINUX_PLATFORM
 	const char* const ret = std::getenv("HOME");
 	if(!ret)
-		throw exception("client_config_path(): Can't find \"HOME\"!");
+		throw exception(SGE_TEXT("client_config_path(): Can't find \"HOME\"!"));
 	return path(iconv(ret));
 #else
 	return SGE_TEXT(""); // FIXME

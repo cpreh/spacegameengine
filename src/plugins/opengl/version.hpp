@@ -21,18 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERSION_HPP_INCLUDED
 #define SGE_OPENGL_VERSION_HPP_INCLUDED
 
-#include <string>
+#include "../../string.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-std::string version_not_supported_string(const std::string& function, const std::string& min_version);
+string version_not_supported_string(const string& function, const string& min_version);
 
-void on_not_supported(const std::string& function,
-                      const std::string& min_version,
-                      const std::string& possible_extension);
+void on_not_supported(const string& function,
+                      const string& min_version,
+                      const string& possible_extension);
 
 }
 }

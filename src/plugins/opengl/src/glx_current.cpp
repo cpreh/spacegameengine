@@ -31,7 +31,7 @@ sge::ogl::glx_current::glx_current(const x_display_ptr dsp, const x_window& wnd,
   context(context)
 {
 	if(glXMakeCurrent(dsp->get(), wnd.get_window(), context->context()) == false)
-		throw exception("glXMakeCurrent() failed");
+		throw exception(SGE_TEXT("glXMakeCurrent() failed!"));
 }
 
 sge::ogl::glx_current::~glx_current()

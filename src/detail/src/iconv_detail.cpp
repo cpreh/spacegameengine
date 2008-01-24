@@ -29,7 +29,8 @@ sge::iconv_instance::iconv_instance(const std::string &from, const std::string &
   to(to)
 {
 	if(conv == reinterpret_cast<iconv_t>(-1))
-		throw sge::invalid_conversion(from,to);
+		//throw sge::invalid_conversion(from,to);
+		throw sge::invalid_conversion(SGE_TEXT(""),SGE_TEXT("")); // FIXME
 }
 
 sge::iconv_instance::~iconv_instance()
@@ -51,7 +52,8 @@ std::size_t sge::iconv_instance::convert(const char **inbuf, std::size_t *inbyte
 		case E2BIG:
 			break;
 		default:
-			throw sge::conversion_failed(from,to);
+			//throw sge::conversion_failed(from,to);
+			throw conversion_failed(SGE_TEXT(""),SGE_TEXT("")); // FIXME
 		}
 	}
 	return bytesread - *inbytes;
@@ -78,6 +80,6 @@ const char* const encodings[] = {
 std::string sge::encoding_to_string(const sge::encoding& to)
 {
 	if(static_cast<unsigned>(to) >= sizeof(encodings) / sizeof(encodings[0]))
-		throw exception("Invalid encoding!");
+		throw exception(SGE_TEXT("Invalid encoding!"));
 	return encodings[to];
 }

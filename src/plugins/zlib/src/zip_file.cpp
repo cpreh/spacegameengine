@@ -26,7 +26,7 @@ sge::zlib::zip_file::zip_file(const path& p)
 : handle_(unzOpen(iconv(p.string()).c_str()))
 {
 	if(handle() == 0)
-		throw exception("unzOpen() failed for \"" + iconv(p.string()) + "\"!");
+		throw exception(SGE_TEXT("unzOpen() failed for \"") + p.string() + SGE_TEXT("\"!"));
 }
 
 sge::zlib::zip_file::~zip_file()

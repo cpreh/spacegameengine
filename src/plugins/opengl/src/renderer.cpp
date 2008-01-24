@@ -120,9 +120,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 
 	const int pixel_format = ChoosePixelFormat(hdc->hdc(), &pfd);
 	if(pixel_format == 0)
-		throw exception("ChoosePixelFormat() failed");
+		throw exception(SGE_TEXT("ChoosePixelFormat() failed"));
 	if(SetPixelFormat(hdc->hdc(), pixel_format, &pfd) == FALSE)
-		throw exception("SetPixelFormat() failed");
+		throw exception(SGE_TEXT("SetPixelFormat() failed"));
 
 	context.reset(new wgl_context(*hdc));
 
@@ -174,7 +174,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	XSync(dsp->get(), False);
 #endif
 	if(glewInit() != GLEW_OK)
-		throw exception("glewInit() failed");
+		throw exception(SGE_TEXT("glewInit() failed!"));
 
 	set_blend_func(source_blend_func::src_alpha, dest_blend_func::inv_src_alpha);
 	// TODO: implement caps
@@ -228,9 +228,9 @@ sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_t
                                                                   const resource_flag_t flags)
 {
 #ifndef SGE_OPENGL_HAVE_VOLUME_TEXTURE
-	on_not_supported("volume_texture",
-	                 "1.2",
-	                 "gl_ext_texture3d");
+	on_not_supported(SGE_TEXT("volume_texture"),
+	                 SGE_TEXT("1.2"),
+	                 SGE_TEXT("gl_ext_texture3d"));
 #else
 	return volume_texture_ptr(new volume_texture(src, width, height, depth, filter, flags));
 #endif
@@ -242,9 +242,9 @@ sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_ar
                                                               const resource_flag_t flags)
 {
 #ifndef SGE_OPENGL_HAVE_CUBE_TEXTURE
-	on_not_supported("cube texture",
-	                 "1.3",
-	                 "gl_arb_cube_texture");
+	on_not_supported(SGE_TEXT("cube texture"),
+	                 SGE_TEXT("1.3"),
+	                 SGE_TEXT("gl_arb_cube_texture"));
 #else
 	return cube_texture_ptr(new cube_texture(src, sz, filter, flags));
 #endif
@@ -257,7 +257,7 @@ void sge::ogl::renderer::end_rendering()
 	glXSwapBuffers(dsp->get(), wnd->get_window());
 #elif SGE_WINDOWS_PLATFORM
 	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
-		throw exception("wglSwapLayerBuffers() failed!");
+		throw exception(SGE_TEXT("wglSwapLayerBuffers() failed!"));
 #endif
 }
 
@@ -285,9 +285,9 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
                                 const sge::index_buffer::size_type first_index)
 {
 	if(!vb)
-		throw exception("vb may not be 0 for renderer::render!");
+		throw exception(SGE_TEXT("vb may not be 0 for renderer::render!"));
 	if(!ib)
-		throw exception("ib may not be 0 for renderer::render for indexed primitives!");
+		throw exception(SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
 
 	SGE_OPENGL_SENTRY
 
@@ -308,7 +308,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
                                 const nonindexed_primitive_type::type ptype)
 {
 	if(!vb)
-		throw exception("vb may not be 0 for renderer::render!");
+		throw exception(SGE_TEXT("vb may not be 0 for renderer::render!"));
 
 	SGE_OPENGL_SENTRY
 
@@ -355,7 +355,7 @@ void sge::ogl::renderer::set_float_state(const float_state::type state, const fl
 		glFogf(convert_fog_float_state(state), value);
 		break;
 	default:
-		throw exception("Invalid float_state!");
+		throw exception(SGE_TEXT("Invalid float_state!"));
 	}
 }
 
@@ -380,7 +380,7 @@ void sge::ogl::renderer::set_color_state(const color_state::type state, const co
 		}
 		break;
 	default:
-		throw exception("Invalid color_state!");
+		throw exception(SGE_TEXT("Invalid color_state!"));
 	}
 }
 
@@ -393,7 +393,7 @@ void sge::ogl::renderer::set_int_state(const int_state::type state, const int_ty
 		glClearStencil(value);
 		break;
 	default:
-		throw exception("Invalid int_state!");
+		throw exception(SGE_TEXT("Invalid int_state!"));
 	}
 }
 

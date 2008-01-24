@@ -26,7 +26,7 @@ sge::xinput::x_cursor::x_cursor(const x_display_ptr dsp, Pixmap pixmap, XColor c
    _cursor(XCreatePixmapCursor(dsp->get(), pixmap, pixmap, &color, &color, 0, 0))
 {
 	if(cursor() == None)
-		throw exception("XCreatePixmapCursor() failed");
+		throw exception(SGE_TEXT("XCreatePixmapCursor() failed!"));
 }
 
 sge::xinput::x_cursor::~x_cursor()

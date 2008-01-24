@@ -91,7 +91,7 @@ void sge::ogl::vbo_impl<false>::buffer_sub_data(const GLenum type,
                                                 const void *const data)
 {
 	if(!data)
-		throw exception("buffer_sub_data(): data may not be 0!");
+		throw exception(SGE_TEXT("buffer_sub_data(): data may not be 0!"));
 
 	copy_n(static_cast<const unsigned char*>(data) + first,
 	       size,
@@ -119,7 +119,7 @@ GLuint& get_bound_buffer(const GLenum type)
 	case sge::ogl::pixel_unpack_buffer_type:
 		return bound_unpack;
 	default:
-		throw sge::exception("get_bound_buffer(): invalid type!");
+		throw sge::exception(SGE_TEXT("get_bound_buffer(): invalid type!"));
 	}
 }
 
@@ -127,14 +127,14 @@ buffer_map::iterator get_buffer_object(const GLuint id)
 {
 	const buffer_map::iterator it = buffers.find(id);
 	if(it == buffers.end())
-		throw sge::exception("get_buffer_object(): invalid id!");
+		throw sge::exception(SGE_TEXT("get_buffer_object(): invalid id!"));
 	return it;
 }
 
 void check_bound(const GLenum type)
 {
 	if(get_bound_buffer(type) == 0)
-		throw sge::exception("ogl soft buffer: no buffer bound!");
+		throw sge::exception(SGE_TEXT("ogl soft buffer: no buffer bound!"));
 }
 
 }

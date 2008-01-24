@@ -45,7 +45,7 @@ void sge::ogl::program::link()
 	int link_status;
 	glGetProgramiv(id(), GL_LINK_STATUS, &link_status);
 	if(link_status == GL_FALSE)
-		throw exception("Linking a program failed!");
+		throw exception(SGE_TEXT("Linking a program failed!"));
 }
 
 void sge::ogl::program::use()

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include "../../audio/audio_player/sound.hpp"
 #include "../../shared_ptr.hpp"
+#include "../../string.hpp"
 #include "../../math/vector.hpp"
 #include "openal_player.hpp"
 
@@ -46,7 +47,7 @@ class stream_sound : public sound
 	mutable ALuint al_source_;
 
 	bool fill_buffer(ALuint);
-	void check(const std::string &);
+	void check(const string &);
 	void sync() const;
 	public:
 	stream_sound(shared_ptr<audio_file>,player &);

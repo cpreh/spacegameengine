@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_EXTENSION_HPP_INCLUDED
 #define SGE_OPENGL_EXTENSION_HPP_INCLUDED
 
-#include <string>
+#include "../../string.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-std::string extension_not_supported_string(const std::string& extension);
+string extension_not_supported_string(const string& extension);
 
 }
 }

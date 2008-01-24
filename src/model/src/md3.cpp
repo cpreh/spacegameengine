@@ -40,7 +40,7 @@ sge::md3_model::md3_model(std::istream& is)
 	const std::istream::off_type start = is.tellg();
 
 	if(!read_and_check_id3p(is))
-		throw exception("Invalid md3 format!");
+		throw exception(SGE_TEXT("Invalid md3 format!"));
 
 	const s32 version = read<s32>(is);
 	if(version != 15)
@@ -93,7 +93,7 @@ sge::vertex_buffer::size_type sge::md3_model::vertices() const
 void sge::md3_model::fill_indices(const index_buffer_ptr ib, const index_buffer::size_type offset)
 {
 	if(offset + indices() > ib->size())
-		throw exception("md3_model::fill_indices(): index buffer out of range!");
+		throw exception(SGE_TEXT("md3_model::fill_indices(): index buffer out of range!"));
 
 	index_buffer::value_type ib_offset(0);
 	index_buffer::iterator ibit = ib->begin() + offset;
@@ -113,7 +113,7 @@ void sge::md3_model::fill_indices(const index_buffer_ptr ib, const index_buffer:
 void sge::md3_model::fill_vertices(const vertex_buffer_ptr vb, const vertex_buffer::size_type offset)
 {
 	if(offset + vertices() > vb->size())
-		throw exception("md3_model::fill_vertices(): vertex buffer out of range!");
+		throw exception(SGE_TEXT("md3_model::fill_vertices(): vertex buffer out of range!"));
 
 	vertex_buffer::iterator vbit = vb->begin() + offset;
 	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
@@ -149,7 +149,7 @@ inline sge::md3_model::string_type sge::md3_model::read_string(std::istream& is)
 	is.read(reinterpret_cast<char*>(tmp_name.c_array()), tmp_name.size());
 
 	if(!std::count(tmp_name.begin(), tmp_name.end(), 0))
-		throw exception("String in md3 file not ended with a 0!");
+		throw exception(SGE_TEXT("String in md3 file not ended with a 0!"));
 
 	return tmp_name.data();
 }
@@ -193,7 +193,7 @@ inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_h
 	const std::istream::off_type start = is.tellg();
 
 	if(!read_and_check_id3p(is))
-		throw exception("Invalid md3 surface!");
+		throw exception(SGE_TEXT("Invalid md3 surface!"));
 
 	name = read_string<max_qpath>(is);
 	read<s32>(is); // flags
@@ -201,7 +201,7 @@ inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_h
 	const s32 num_frames    = read<s32>(is);
 
 	if(num_frames != num_frames_head)
-		throw exception("num_frames mismatch in md3_model::surface!");
+		throw exception(SGE_TEXT("num_frames mismatch in md3_model::surface!"));
 
 	const s32 num_shaders   = read<s32>(is);
 	const s32 num_verts     = read<s32>(is);

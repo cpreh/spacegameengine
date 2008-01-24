@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../openal_player.hpp"
+#include "../../../export.hpp"
 #include "../../../plugin.hpp"
+#include "../../../string.hpp"
+#include "../openal_player.hpp"
 
 extern "C"
 {
 
-void plugin_version_info(sge::plugin_info* const p)
+SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
 {
 	if(!p)
 		return;
-	p->name = "openal audio player plugin";
-	p->description = "";
+	p->name = SGE_TEXT("openal audio player plugin");
+	p->description = SGE_TEXT("");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
 	p->type = sge::plugin_type::audio_player;
 }
 
-sge::audio_player* create_audio_player()
+SGE_EXPORT_SYMBOL sge::audio_player* create_audio_player()
 {
 	return new sge::openal::player();
 }

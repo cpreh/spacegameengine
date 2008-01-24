@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <utility>
+#include "../../../exception.hpp"
 #include "../../../renderer/transform.hpp"
 #include "../font_metrics.hpp"
 #include "../glyph.hpp"
@@ -28,10 +29,10 @@ sge::ft::font_metrics::font_metrics(library& lib, const path& font_path, const u
 : _face(lib, font_path)
 {
 	if(FT_Select_Charmap(_face.get(), FT_ENCODING_UNICODE) != 0)
-		throw exception("No Unicode code map found!");
+		throw exception(SGE_TEXT("No Unicode code map found!"));
 
 	if(FT_Set_Pixel_Sizes(_face.get(), 0, font_height))
-		throw exception("FT_Set_Pixel_Sizes() failed");
+		throw exception(SGE_TEXT("FT_Set_Pixel_Sizes() failed!"));
 
 	pixel_size = font_height;
 	//pixel_size =  _face->ascender / 64 - _face->descender / 64;

@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../export.hpp"
-#include "../wave_loader.hpp"
 #include "../../../plugin.hpp"
+#include "../../../export.hpp"
+#include "../wave_loader.hpp"
 
 extern "C"
 {
@@ -29,8 +30,8 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
 {
 	if(!p)
 		return;
-	p->name = "wave loader plugin";
-	p->description = "";
+	p->name = SGE_TEXT("wave loader plugin");
+	p->description = SGE_TEXT("");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
 	p->type = sge::plugin_type::audio_loader;

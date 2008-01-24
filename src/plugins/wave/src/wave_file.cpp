@@ -60,7 +60,7 @@ void sge::wave_file::load()
 	file_.open(iconv(filename_.string()).c_str());
 
 	if (!file_.is_open())
-		throw audio_exception("Couldn't open file \""+iconv(filename_.string())+"\"");
+		throw audio_exception(SGE_TEXT("Couldn't open file \"") + filename_.string() + SGE_TEXT("\""));
 
 	read_riff();
 	read_wave();
@@ -81,7 +81,7 @@ void sge::wave_file::read_riff()
 	else if (rifftype == "RIFX")
 		file_bigendian = true;
 	else
-		throw audio_exception("Not a valid riff file!");
+		throw audio_exception(SGE_TEXT("Not a valid riff file!"));
 	
 	swap_ = file_bigendian == is_little_endian();
 
@@ -93,11 +93,11 @@ void sge::wave_file::read_riff()
 void sge::wave_file::read_wave()
 {
 	if (extract_string(8,"wave header") != "WAVEfmt ")
-		throw audio_exception("Not a valid wave file!");
+		throw audio_exception(SGE_TEXT("Not a valid wave file!"));
 	if (extract_primitive<boost::uint32_t>("subchunksize") != 16)
-		throw audio_exception("File is not PCM!");
+		throw audio_exception(SGE_TEXT("File is not PCM!"));
 	if (extract_primitive<boost::uint16_t>("audio format") != 1)
-		throw audio_exception("File is not linear quantisized!");
+		throw audio_exception(SGE_TEXT("File is not linear quantisized!"));
 	channels_ = extract_primitive<boost::uint16_t>("channel count");
 	sample_rate_ = extract_primitive<boost::uint32_t>("sample rate");
 	extract_primitive<boost::uint32_t>("byte rate");
@@ -108,7 +108,7 @@ void sge::wave_file::read_wave()
 void sge::wave_file::read_data()
 {
 	if (extract_string(4,"data header") != "data")
-		throw audio_exception("File is not a valid wave file!");
+		throw audio_exception(SGE_TEXT("File is not a valid wave file!"));
 	
 	//buffer_size_ = extract_primitive<boost::uint32_t>("data size");
 	samples_ = extract_primitive<boost::uint32_t>("data size") / channels_ / (bits_per_sample_/8);
@@ -122,7 +122,7 @@ std::string sge::wave_file::extract_string(const std::size_t _bytes, const std::
 	char array[32];
 	file_.read(array,_bytes);
 	if (file_.eof() || !file_)
-		throw audio_exception("Unexpected end of file or error while reading "+_desc+"!");
+		throw audio_exception(SGE_TEXT("Unexpected end of file or error while reading ") + iconv(_desc) + SGE_TEXT("!"));
 
 	array[_bytes] = 0;
 	return std::string(array);
@@ -137,7 +137,7 @@ T sge::wave_file::extract_primitive(const std::string &_desc)
 	char array[64];
 	file_.read(array,sizeof(T));
 	if (file_.eof() || !file_)
-		throw audio_exception("Unexpected end of file or error while reading "+_desc+"!");
+		throw audio_exception(SGE_TEXT("Unexpected end of file or error while reading ") + iconv(_desc) + SGE_TEXT("!"));
 	T v = *reinterpret_cast<T *>(array);
 	return swap_ ? swap_endianness(v) : v;
 }

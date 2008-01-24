@@ -27,7 +27,7 @@ sge::xinput::x_color::x_color(const x_display_ptr dsp, Colormap colormap)
 {
 	XColor dummy;
 	if(XAllocNamedColor(dsp->get(), colormap, "black", &_color, &dummy ) == 0)
-		throw exception("XAllocNamedColor() failed");
+		throw exception(SGE_TEXT("XAllocNamedColor() failed!"));
 }
 
 sge::xinput::x_color::~x_color()

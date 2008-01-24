@@ -27,12 +27,12 @@ sge::ogl::fbo_render_target::fbo_render_target(const dim_type& dim_)
  : dim_(dim_)
 {
 	if(!glGenFramebuffersEXT)
-		throw exception(extension_not_supported_string("frame_buffer_ext"));
+		throw exception(extension_not_supported_string(SGE_TEXT("frame_buffer_ext")));
 	glGenFramebuffersEXT(1, &fbo);
 	bind_me();
 
 	if(!glGenRenderbuffersEXT)
-		throw exception(extension_not_supported_string("render_buffer_ext"));
+		throw exception(extension_not_supported_string(SGE_TEXT("render_buffer_ext")));
 	glGenRenderbuffersEXT(1, &depthbuffer);
 	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthbuffer);
 	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, static_cast<GLsizei>(width()), static_cast<GLsizei>(height()));
@@ -77,5 +77,5 @@ void sge::ogl::fbo_render_target::bind_texture(const texture_ptr t)
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, p->id(), 0);
 	const GLenum status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
 	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
-		throw exception("glCheckFramebufferStatusEXT: fbo incomplete!");
+		throw exception(SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
 }

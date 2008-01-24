@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <string>
 #include <boost/lexical_cast.hpp>
 #include "../../../types.hpp"
 #include "../../../audio/audio_player/sound.hpp"
@@ -33,11 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <AL/al.h>
 #endif
 
-void sge::openal::stream_sound::check(const std::string &_desc)
+void sge::openal::stream_sound::check(const string &_desc)
 {
 	ALint error;
 	if ((error = alGetError()) != AL_NO_ERROR)
-		throw sge::audio_exception("OpenAL error ("+_desc+"): "+boost::lexical_cast<std::string>(error));
+		throw sge::audio_exception(SGE_TEXT("OpenAL error (") +_desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
 }
 
 void sge::openal::stream_sound::sync() const
@@ -56,7 +55,7 @@ sge::openal::stream_sound::stream_sound(const shared_ptr<audio_file> _audio_file
 	: player_(_player),audio_file_(_audio_file)
 {
 	_player.register_stream_sound(this);
-	alGenBuffers(2, al_buffers_); check("alGenBuffers");
+	alGenBuffers(2, al_buffers_); check(SGE_TEXT("alGenBuffers"));
 
 	// Buffer erstellen
 	if (_audio_file->bits_per_sample() == 8 && _audio_file->channels() == 1)
@@ -68,13 +67,17 @@ sge::openal::stream_sound::stream_sound(const shared_ptr<audio_file> _audio_file
 	else if (_audio_file->bits_per_sample() == 16 && _audio_file->channels() == 2)
 		format_ = AL_FORMAT_STEREO16;
 	else
-		throw sge::audio_exception("OpenAL error: Format not supported: "+boost::lexical_cast<std::string>(_audio_file->bits_per_sample())+" bps, "+boost::lexical_cast<std::string>(_audio_file->channels())+" channels");
+		throw sge::audio_exception(SGE_TEXT("OpenAL error: Format not supported: ")
+		                           + boost::lexical_cast<string>(_audio_file->bits_per_sample())
+		                           + SGE_TEXT(" bps, ")
+		                           + boost::lexical_cast<string>(_audio_file->channels())
+		                           + SGE_TEXT(" channels"));
 
 	// Immer 2 Sekunden im Cache haben
 	buffer_samples_ = 2*_audio_file->sample_rate();
 
 	// Source erstellen
-	alGenSources(1,&al_source_); check("alGenSources");
+	alGenSources(1,&al_source_); check(SGE_TEXT("alGenSources"));
 
 	status_ = status_stopped;
 }
@@ -102,7 +105,7 @@ bool sge::openal::stream_sound::fill_buffer(const ALuint buffer)
 			return false;
 		}
 	}
-	alBufferData(buffer, format_, data.data(), static_cast<ALsizei>(data.size()), static_cast<ALsizei>(audio_file_->sample_rate())); check("alBufferData");
+	alBufferData(buffer, format_, data.data(), static_cast<ALsizei>(data.size()), static_cast<ALsizei>(audio_file_->sample_rate())); check(SGE_TEXT("alBufferData"));
 	return true;
 }
 
@@ -120,8 +123,8 @@ void sge::openal::stream_sound::play(const bool _loop)
 	fill_buffer(al_buffers_[0]);
 	fill_buffer(al_buffers_[1]);
 
-	alSourceQueueBuffers(al_source_,2,al_buffers_); check("alSourceQueueBuffers");
-	alSourcePlay(al_source_); check("alSourcePlay");
+	alSourceQueueBuffers(al_source_,2,al_buffers_); check(SGE_TEXT("alSourceQueueBuffers"));
+	alSourcePlay(al_source_); check(SGE_TEXT("alSourcePlay"));
 
 	status_ = status_playing;
 }
@@ -170,10 +173,10 @@ void sge::openal::stream_sound::update()
 	{
 		ALuint buffer;
 		// Unqueuen bewirkt, dass der Puffer von oben weggenommen wird...
-		alSourceUnqueueBuffers(al_source_, 1, &buffer); check("alSourceUnqueueBuffers");
+		alSourceUnqueueBuffers(al_source_, 1, &buffer); check(SGE_TEXT("alSourceUnqueueBuffers"));
 		// ...und Queue bewirkt, dass es hinten angefuegt wird. Genial!
 		if (fill_buffer(buffer))
-			alSourceQueueBuffers(al_source_, 1, &buffer); check("alSourceQueueBuffers");
+			alSourceQueueBuffers(al_source_, 1, &buffer); check(SGE_TEXT("alSourceQueueBuffers"));
 	}
 }
 

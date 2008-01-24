@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_IMPL_HPP_INCLUDED
 
 template<typename T>
-sge::plugin<T>::plugin(const std::string& path)
-: lib(path),
+sge::plugin<T>::plugin(const path& p)
+: lib(p),
   loader(lib.load_function<loader_fun>(detail::plugin_traits<T>::plugin_loader_name()))
 {}
 

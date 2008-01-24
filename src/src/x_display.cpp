@@ -28,7 +28,7 @@ sge::x_display::x_display()
   wrapped(false)
 {
 	if(!d)
-		throw exception("XOpenDisplay failed or dsp is 0");
+		throw exception(SGE_TEXT("XOpenDisplay failed or dsp is 0!"));
 }
 
 sge::x_display::x_display(Display* dsp, wrap_tag)

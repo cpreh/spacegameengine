@@ -98,10 +98,10 @@ void sge::ogl::set_texture_rect(const GLenum tex_type,
 	SGE_OPENGL_SENTRY
 	
 	if(r.right() > width || r.bottom() > height)
-		throw exception("rect for setting a texture is out of range!");
+		throw exception(SGE_TEXT("rect for setting a texture is out of range!"));
 
 	if(need_mipmap(filter.min_filter))
-		throw exception("You can't specify an update rect while using mipmaps. Ignored.");
+		throw exception(SGE_TEXT("You can't specify an update rect while using mipmaps. Ignored."));
 
 	glTexSubImage2D(tex_type,
 	                0,

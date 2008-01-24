@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // Own stuff
 #include "../../shared_ptr.hpp"
 #include "../../types.hpp"
+#include "../../string.hpp"
 #include "../../audio/audio_player/audio_player.hpp"
 #include "../../audio/audio_player/sound_angle.hpp"
 // OpenAL
@@ -103,7 +104,7 @@ class player : public audio_player
 	device_wrapper              device;
 	context_wrapper             context;
 
-	void check(const std::string &);
+	void check(const string &);
 	public:
 		player();
 

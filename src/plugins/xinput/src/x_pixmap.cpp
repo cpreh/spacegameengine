@@ -28,7 +28,7 @@ sge::xinput::x_pixmap::x_pixmap(const x_display_ptr dsp, const Window wnd)
    _pixmap(XCreateBitmapFromData(dsp->get(), wnd, bm_no_data, 8, 8))
 {
 	if(pixmap() == None)
-		throw exception("XCreateBitmapFromData() failed");
+		throw exception(SGE_TEXT("XCreateBitmapFromData() failed!"));
 }
 
 sge::xinput::x_pixmap::~x_pixmap()

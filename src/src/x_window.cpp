@@ -162,7 +162,7 @@ void sge::x_window::add_event_mask(const x11_event_type event)
 {
 	const mask_map::const_iterator it = masks.find(event);
 	if(it == masks.end())
-		throw exception("X11 event mask mapping is missing!");
+		throw exception(SGE_TEXT("X11 event mask mapping is missing!"));
 
 	const x11_event_mask_type mask = it->second;
 	if(!(event_mask & mask))

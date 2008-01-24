@@ -35,6 +35,6 @@ template<> ILuint sge::devil::convert_cast(const image_format::type& t)
 	case image_format::tga:
 		return IL_TGA;
 	default:
-		throw exception("Invalid image_format!");
+		throw exception(SGE_TEXT("Invalid image_format!"));
 	}
 }

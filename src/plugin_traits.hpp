@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_TRAITS_HPP_INCLUDED
 #define SGE_PLUGIN_TRAITS_HPP_INCLUDED
 
+#include <string>
+
 namespace sge
 {
 
@@ -44,7 +46,11 @@ namespace detail
 
 template<typename T> struct plugin_traits;
 
+typedef std::string::const_pointer address_name;
+
 }
 }
+
+#define SGE_ADDRESS_NAME(x) x
 
 #endif

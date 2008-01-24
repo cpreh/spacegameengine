@@ -18,36 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#define BOOST_FILESYSTEM_NARROW_ONLY
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/convenience.hpp>
 #include <boost/filesystem/operations.hpp>
 #include "../types.hpp"
 #include "../plugin_manager.hpp"
 #include "../iconv.hpp"
+#include "../path.hpp"
 
 typedef void (*version_function)(sge::plugin_info*);
 
 const char* const plugin_path = PLUGIN_PATH;
-const char* const plugin_extension =
+const sge::string::const_pointer plugin_extension =
 #ifdef SGE_LINUX_PLATFORM
-	".so"
+	SGE_TEXT(".so")
 #elif SGE_WINDOWS_PLATFORM
-	".dll"
+	SGE_TEXT(".dll")
 #endif
 	;
 
 sge::plugin_manager::plugin_manager()
 {
-	boost::filesystem::directory_iterator end;
-	for(boost::filesystem::directory_iterator it(plugin_path); it != end; ++it)
+	const directory_iterator end;
+	for(directory_iterator it(iconv(plugin_path)); it != end; ++it)
 	{
 		if(boost::filesystem::is_directory(*it) || boost::filesystem::extension(*it)!=plugin_extension)
 			continue;
 
 		try {
-			plugins.push_back(plugin_context_base(it->string()));
-		} catch(library::load_function_exception &e) {
+			plugins.push_back(plugin_context_base(*it));
+		} catch(const library::load_function_exception &e) {
 			// ignore info loading error - it's just a DLL, not a plugin...
 			// nothing to worry about (and especially nothing that justifies
 			// aborting the program ...)
@@ -64,40 +64,40 @@ sge::plugin_manager::plugin_manager()
 		}
 }
 
-sge::plugin_manager::plugin_context_base::plugin_context_base(const std::string& _path)
-: _path(_path)
+sge::plugin_manager::plugin_context_base::plugin_context_base(const path& path_)
+: path_(path_)
 {
-	library lib(path());
+	library lib(get_path());
 	version_function vf = lib.load_function<version_function>("plugin_version_info");
 	plugin_info info;
 	vf(&info);
-	_name = info.name;
-	_description = info.description;
-	_version = info.plugin_version;
-	_type = info.type;
+	name_ = info.name;
+	description_ = info.description;
+	version_ = info.plugin_version;
+	type_ = info.type;
 }
 
-const std::string& sge::plugin_manager::plugin_context_base::name() const
+const sge::string& sge::plugin_manager::plugin_context_base::name() const
 {
-	return _name;
+	return name_;
 }
 
-const std::string& sge::plugin_manager::plugin_context_base::description() const
+const sge::string& sge::plugin_manager::plugin_context_base::description() const
 {
-	return _description;
+	return description_;
 }
 
 unsigned sge::plugin_manager::plugin_context_base::version() const
 {
-	return _version;
+	return version_;
 }
 
 sge::plugin_type::type sge::plugin_manager::plugin_context_base::type() const
 {
-	return _type;
+	return type_;
 }
 
-const std::string& sge::plugin_manager::plugin_context_base::path() const
+const sge::path& sge::plugin_manager::plugin_context_base::get_path() const
 {
-	return _path;
+	return path_;
 }

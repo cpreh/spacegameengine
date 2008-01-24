@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
 #include "../plugin_traits.hpp"
+#include "../string.hpp"
 #include "types.hpp"
 #include "renderer.hpp"
 
@@ -60,8 +61,8 @@ namespace detail
 {
 
 template<> struct plugin_traits<renderer_system> {
-	static const char* plugin_loader_name() { return "create_renderer_system"; }
-	static plugin_type::type get_plugin_type() { return plugin_type::renderer; }
+	static address_name plugin_loader_name();
+	static plugin_type::type get_plugin_type();
 	typedef renderer_system* (*loader_fun)();
 };
 

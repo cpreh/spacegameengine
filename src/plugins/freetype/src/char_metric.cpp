@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_unit pixel_size)
 {
 	if(FT_Load_Char(_face.get(), ch, FT_LOAD_DEFAULT))
-		throw exception("FT_Load_Glyph() failed");
+		throw exception(SGE_TEXT("FT_Load_Glyph() failed!"));
 
 	glyph _glyph(_face);
 	FT_BitmapGlyph bmp_glyph = _glyph.bitmap_glyph();

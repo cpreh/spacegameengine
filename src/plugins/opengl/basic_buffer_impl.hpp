@@ -52,25 +52,18 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_buffer<Base, Type>::lock(const lock_flag_t lockflags)
 {
 	if(dest)
-		throw exception("ogl_buffer::lock(), you have to unlock before locking!");
+		throw exception(SGE_TEXT("ogl_buffer::lock(), you have to unlock before locking!"));
 		
 	const GLuint glflags = convert_cast<GLuint>(lockflags);
 	bind_me();
-	try
-	{
-		dest = static_cast<pointer>(map_buffer(Type, glflags));
-	}
-	catch(const exception&)
-	{
-		dest = 0;
-	}
+	dest = static_cast<pointer>(map_buffer(Type, glflags));
 }
 
 template<typename Base, GLenum Type>
 void sge::ogl::basic_buffer<Base, Type>::unlock()
 {
 	if(!dest)
-		throw exception("ogl_buffer::unlock(), buffer is not locked! cannot unlock!");
+		throw exception(SGE_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));
 	bind_me();
 	unmap_buffer(Type);
 	dest = 0;
@@ -80,9 +73,9 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_buffer<Base, Type>::set_data(const const_pointer data, const size_type first, const size_type count)
 {
 	if(first + count > size())
-		throw exception("ogl_buffer::set_data(), first + count out of range!");
+		throw exception(SGE_TEXT("ogl_buffer::set_data(), first + count out of range!"));
 	if(dest)
-		throw exception("ogl_buffer::set_data(), buffer must not be locked!");
+		throw exception(SGE_TEXT("ogl_buffer::set_data(), buffer must not be locked!"));
 	bind_me();
 	buffer_sub_data(Type,
 	                static_cast<GLsizei>(first * stride_),
@@ -166,7 +159,7 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_buffer<Base, Type>::resize(const size_type newsize, const const_pointer src)
 {
 	if(dest)
-		throw exception("ogl_buffer::resize(), buffer must be unlocked!");
+		throw exception(SGE_TEXT("ogl_buffer::resize(), buffer must be unlocked!"));
 	sz = newsize;
 	set_size(src);
 }
@@ -214,7 +207,7 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_buffer<Base, Type>::check_lock() const
 {
 	if(!dest)
-		throw exception("ogl_buffer used but the buffer has not been locked!");
+		throw exception(SGE_TEXT("ogl_buffer used but the buffer has not been locked!"));
 }
 
 template<typename Base, GLenum Type>

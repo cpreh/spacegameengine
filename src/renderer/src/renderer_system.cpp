@@ -30,3 +30,13 @@ sge::renderer_parameters::renderer_parameters(const display_mode& mode,
   vsync(vsync)
 {}
 
+sge::detail::address_name sge::detail::plugin_traits<sge::renderer_system>::plugin_loader_name()
+{
+	return SGE_ADDRESS_NAME("create_renderer_system");
+}
+
+sge::plugin_type::type sge::detail::plugin_traits<sge::renderer_system>::get_plugin_type()
+{
+	return plugin_type::renderer;
+}
+

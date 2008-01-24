@@ -31,17 +31,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <dlfcn.h>
 #endif
 
-sge::library::library(const std::string& n)
+sge::library::library(const path& nname)
  :
 #ifdef SGE_WINDOWS_PLATFORM
-  handle(reinterpret_cast<void*>(LoadLibraryA(n.c_str())))
+  handle(reinterpret_cast<void*>(LoadLibrary(n.string().c_str())))
 #elif SGE_LINUX_PLATFORM
-   handle(dlopen(n.c_str(), RTLD_NOW | RTLD_GLOBAL))
+   handle(dlopen(iconv(nname.string()).c_str(), RTLD_NOW | RTLD_GLOBAL))
 #endif
-  , n(n)
+  , name_(nname)
 {
 	if(!handle)
-		throw sge::exception(std::string("failed to load library: ") + name() + " : " + liberror());
+		throw exception(string(SGE_TEXT("failed to load library: ")) + name().string() + SGE_TEXT(" : ") + liberror());
 }
 
 sge::library::~library()
@@ -56,9 +56,9 @@ sge::library::~library()
 	}
 }
 
-const std::string& sge::library::name() const
+const sge::path& sge::library::name() const
 {
-	return n;
+	return name_;
 }
 
 sge::library::base_fun sge::library::load_address_base(const std::string& fun)
@@ -72,14 +72,14 @@ sge::library::base_fun sge::library::load_address_base(const std::string& fun)
 	);
 }
 
-std::string sge::library::liberror()
+sge::string sge::library::liberror()
 {
 #ifdef SGE_LINUX_PLATFORM
-	return dlerror();
+	return iconv(dlerror());
 #else
 	const DWORD lasterror = GetLastError();
-	boost::array<char, 256> errmsg;
-	if(FormatMessageA(
+	boost::array<string::value_type, 256> errmsg;
+	if(FormatMessage(
 		FORMAT_MESSAGE_FROM_SYSTEM,
 		0, // ignored
 		lasterror, // message id
@@ -88,7 +88,13 @@ std::string sge::library::liberror()
 		errmsg.size()-1,
 		0
 	) == 0)
-		return std::string("FormatMessage() failed!");
-	return std::string(errmsg.data());
+		return string(SGE_TEXT("FormatMessage() failed!"));
+	return string(errmsg.data());
 #endif
 }
+
+sge::library::load_function_exception::load_function_exception(const string &lib, const std::string &fun)
+: exception(SGE_TEXT("Failed to load function ") + iconv(fun) + SGE_TEXT(" from library ") + lib + SGE_TEXT(" : ") + liberror()),
+  lib(lib),
+  func(fun)
+{}

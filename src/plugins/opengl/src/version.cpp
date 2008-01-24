@@ -21,15 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../version.hpp"
 
-std::string sge::ogl::version_not_supported_string(const std::string& function, const std::string& min_version)
+sge::string sge::ogl::version_not_supported_string(const string& function, const string& min_version)
 {
-	return "Your opengl version does not implement the following function: \"" + function + "\". The minimal opengl version must be " + min_version + "! Please make sure you run the latest driver for your video hardware.";
+	return SGE_TEXT("Your opengl version does not implement the following function: \"")
+	     + function
+	     + SGE_TEXT("\". The minimal opengl version must be ")
+	     + min_version
+	     + SGE_TEXT("! Please make sure you run the latest driver for your video hardware.");
 }
 
-void sge::ogl::on_not_supported(const std::string& function,
-                                const std::string& min_version,
-                                const std::string& possible_extensions)
+void sge::ogl::on_not_supported(const string& function,
+                                const string& min_version,
+                                const string& possible_extensions)
 {
-	throw exception("You tried to use the following functionality: \""
-	               + function + "\" which is not supported by your implementation. opengl-" + min_version + " is at least required. The possible extensions sge can use are: \"" + possible_extensions + "\".");
+	throw exception(SGE_TEXT("You tried to use the following functionality: \"")
+	               + function
+	               + SGE_TEXT("\" which is not supported by your implementation. opengl-")
+	               + min_version
+	               + SGE_TEXT(" is at least required. The possible extensions sge can use are: \"")
+	               + possible_extensions
+	               + SGE_TEXT("\"."));
 }

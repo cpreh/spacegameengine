@@ -66,7 +66,7 @@ void* sge::ogl::vbo_impl<true>::map_buffer(const GLenum type, const GLenum flags
 	glMapBuffer(type, flags);
 #endif
 	if(ret == 0)
-		throw exception("glMapBuffer() returned 0!");
+		throw exception(SGE_TEXT("glMapBuffer() returned 0!"));
 	return ret;
 }
 

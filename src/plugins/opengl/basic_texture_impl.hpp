@@ -32,7 +32,7 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::check_lock() const
 {
 	if(!cur_buffer)
-		throw exception("ogl pbo used which is not locked!");
+		throw exception(SGE_TEXT("ogl pbo used which is not locked!"));
 }
 
 template<typename Base, GLenum Type>
@@ -63,7 +63,7 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::do_lock(const lock_flag_t lmode)
 {
 	if(cur_buffer)
-		throw exception("ogl::basic_texture::do_lock(): texture is already locked!");
+		throw exception(SGE_TEXT("ogl::basic_texture::do_lock(): texture is already locked!"));
 
 	lock_mode_ = lmode;
 
@@ -86,7 +86,7 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::post_lock()
 {
 	if(!cur_buffer)
-		throw exception("ogl::basic_texture::post_lock(): texture is not locked!");
+		throw exception(SGE_TEXT("ogl::basic_texture::post_lock(): texture is not locked!"));
 
 	cur_buffer->lock(lock_mode());
 }
@@ -95,7 +95,7 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::pre_unlock()
 {
 	if(!cur_buffer)
-		throw exception("ogl::basic_texture::pre_unlock(): texture is not locked!");
+		throw exception(SGE_TEXT("ogl::basic_texture::pre_unlock(): texture is not locked!"));
 	if(lock_mode() == lock_flags::readwrite)
 	{
 		assert(unpack_buffer);
@@ -114,7 +114,7 @@ template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::do_unlock()
 {
 	if(!cur_buffer)
-		throw exception("ogl::basic_texture::do_unlock(): texture is not locked!");
+		throw exception(SGE_TEXT("ogl::basic_texture::do_unlock(): texture is not locked!"));
 
 	pack_buffer.reset();
 	unpack_buffer.reset();

@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_HPP_INCLUDED
 #define SGE_PLUGIN_HPP_INCLUDED
 
-#include <string>
 #include <boost/noncopyable.hpp>
 #include "shared_ptr.hpp"
 #include "plugin_traits.hpp"
 #include "library.hpp"
 #include "export.hpp"
+#include "path.hpp"
 
 namespace sge
 {
@@ -34,11 +34,11 @@ namespace sge
 struct plugin_info {
 	SGE_SYMBOL plugin_info();
 
-	const char*       name;
-	const char*       description;
-	unsigned          plugin_version;
-	unsigned          min_core_version;
-	plugin_type::type type;
+	string::const_pointer name;
+	string::const_pointer description;
+	unsigned              plugin_version;
+	unsigned              min_core_version;
+	plugin_type::type     type;
 };
 
 struct plugin_base {
@@ -51,7 +51,7 @@ public:
 	typedef typename detail::plugin_traits<T>::loader_fun loader_fun;
 	typedef shared_ptr<plugin<T> > ptr_type;
 
-	plugin(const std::string& path);
+	plugin(const path&);
 	loader_fun get() const;
 private:
 	library lib;

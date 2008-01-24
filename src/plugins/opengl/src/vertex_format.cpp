@@ -105,7 +105,7 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 				actors.push_back(boost::bind(diffuse_actor, ai));
 				break;
 			default:
-				throw exception("Invalid vertex_usage!");
+				throw exception(SGE_TEXT("Invalid vertex_usage!"));
 			}
 		}
 

@@ -29,7 +29,7 @@ std::size_t sge::indices_per_primitive(const indexed_primitive_type::type prim)
 	case indexed_primitive_type::line:
 		return 2;
 	default:
-		throw exception("indices_per_primitive: Invalid indexed_primitive_format!");
+		throw exception(SGE_TEXT("indices_per_primitive: Invalid indexed_primitive_format!"));
 	}
 }
 
@@ -40,14 +40,14 @@ std::size_t sge::primitive_count(const std::size_t vertex_count, const nonindexe
 		return vertex_count;
 	case nonindexed_primitive_type::line_strip:
 		if(vertex_count <= 1)
-			throw exception("primitive_count(): line_strip needs at least two vertices!");
+			throw exception(SGE_TEXT("primitive_count(): line_strip needs at least two vertices!"));
 		return vertex_count - 1;
 	case nonindexed_primitive_type::triangle_strip:
 	case nonindexed_primitive_type::triangle_fan:
 		if(vertex_count <= 2)
-			throw exception("primitive_count(): triangles need at least three vertices!");
+			throw exception(SGE_TEXT("primitive_count(): triangles need at least three vertices!"));
 		return vertex_count - 2;
 	default:
-		throw exception("Invalid nonindexed_primitive_type!");
+		throw exception(SGE_TEXT("Invalid nonindexed_primitive_type!"));
 	}
 }

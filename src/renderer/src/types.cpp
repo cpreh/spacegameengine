@@ -29,7 +29,7 @@ unsigned sge::bit_depth_bit_count(const bit_depth::type d)
 	case bit_depth::depth32:
 		return 32;
 	}
-	throw exception("Invalid bit_depth!");
+	throw exception(SGE_TEXT("Invalid bit_depth!"));
 }
 
 

@@ -28,11 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/noncopyable.hpp>
 #include <boost/weak_ptr.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+#include "path.hpp"
 #include "shared_ptr.hpp"
 #include "plugin.hpp"
 #include "string.hpp"
 #include "exception.hpp"
 #include "export.hpp"
+#include "iconv.hpp"
 
 namespace sge
 {
@@ -43,21 +45,21 @@ public:
 
 	class plugin_context_base {
 	public:
-		SGE_SYMBOL plugin_context_base(const std::string& path);
+		SGE_SYMBOL plugin_context_base(const path& p);
 
-		SGE_SYMBOL const std::string& name() const;
-		SGE_SYMBOL const std::string& description() const;
+		SGE_SYMBOL const string& name() const;
+		SGE_SYMBOL const string& description() const;
 		SGE_SYMBOL unsigned version() const;
 		SGE_SYMBOL plugin_type::type type() const;
-		SGE_SYMBOL const std::string& path() const;
+		SGE_SYMBOL const path& get_path() const;
 	private:
 		template<typename T> friend class plugin_context;
 		boost::weak_ptr<plugin_base> ref;
-		std::string _path;
-		std::string _name;
-		std::string _description;
-		unsigned _version;
-		plugin_type::type _type;
+		path              path_;
+		string            name_;
+		string            description_;
+		unsigned          version_;
+		plugin_type::type type_;
 	};
 
 	template<typename T>
@@ -74,7 +76,7 @@ public:
 			const shared_ptr<plugin_base> ptr_base(base->ref.lock());
 			if(!ptr_base)
 			{
-				const shared_ptr<plugin<T> > new_ptr(new plugin<T>(base->path()));
+				const shared_ptr<plugin<T> > new_ptr(new plugin<T>(base->get_path()));
 				base->ref = new_ptr.get_boost_ptr();
 				return new_ptr;
 			}
@@ -156,7 +158,7 @@ public:
 		typename iterator<T>::reference get_plugin(const size_type index = 0)
 	{
 		if(index >= size<T>())
-			throw exception("get_plugin(): No plugins found of type: \"" + std::string(typeid(T).name()) + "\"!");
+			throw exception(SGE_TEXT("get_plugin(): No plugins found of type: \"") + iconv(typeid(T).name()) + SGE_TEXT("\"!"));
 		return *(begin<T>()+index);
 	}
 

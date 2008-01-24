@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::ft::glyph::glyph(const face& f)
 {
 	if(FT_Get_Glyph(f->glyph, &_glyph))
-		throw exception("FT_Get_Glyph() failed");
+		throw exception(SGE_TEXT("FT_Get_Glyph() failed!"));
 
 	if(FT_Glyph_To_Bitmap(&_glyph, FT_RENDER_MODE_NORMAL, 0, true))
-		throw exception("FT_Glyph_To_Bitmap() failed");
+		throw exception(SGE_TEXT("FT_Glyph_To_Bitmap() failed!"));
 }
 
 sge::ft::glyph::~glyph()

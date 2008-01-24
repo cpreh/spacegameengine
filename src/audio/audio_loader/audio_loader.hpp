@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
 // sge
+#include "../../string.hpp"
 #include "../../path.hpp"
 #include "../../shared_ptr.hpp"
 #include "../../plugin_traits.hpp"
@@ -43,8 +44,8 @@ namespace detail
 {
 
 template<> struct plugin_traits<audio_loader> {
-	static const char* plugin_loader_name() { return "create_audio_loader"; }
-	static plugin_type::type get_plugin_type() { return plugin_type::audio_loader; }
+	static address_name plugin_loader_name();
+	static plugin_type::type get_plugin_type();
 	typedef audio_loader* (*loader_fun)();
 };
 

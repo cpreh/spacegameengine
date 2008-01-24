@@ -33,7 +33,7 @@ sge::ogl::shader::shader(const GLenum type, const std::string& source)
 	GLint compile_status;
 	glGetShaderiv(id(), GL_COMPILE_STATUS, &compile_status);
 	if(compile_status == GL_FALSE)
-		throw exception("Compiling a shader failed!");
+		throw exception(SGE_TEXT("Compiling a shader failed!"));
 }
 
 sge::ogl::shader::~shader()

@@ -64,7 +64,7 @@ template<> struct call_traits<wchar_t> {
 template<typename Out, typename In>
 std::basic_string<Out> convert(const std::basic_string<In>& s)
 {
-	std::locale loc;
+	std::locale loc("");
 
 	const codecvt_t& conv(std::use_facet<codecvt_t>(loc));
 	typedef sge::raw_vector<Out> buffer_type;
@@ -85,9 +85,9 @@ std::basic_string<Out> convert(const std::basic_string<In>& s)
 		                                to, to + buffer.size(), to_next);
 		switch(result) {
 		case std::codecvt_base::noconv:
-			throw sge::exception("codecvt::in() noconv!");
+			throw sge::exception(SGE_TEXT("codecvt: noconv!"));
 		case std::codecvt_base::error:
-			throw sge::exception("codecvt::in() error!");
+			throw sge::exception(SGE_TEXT("codecvt: error!"));
 		case std::codecvt_base::partial:
 			if(too_little_space)
 			{

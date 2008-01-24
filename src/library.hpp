@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/noncopyable.hpp>
 #include "exception.hpp"
 #include "export.hpp"
+#include "path.hpp"
 
 namespace sge
 {
@@ -33,29 +34,25 @@ class library : boost::noncopyable {
 private:
 	void* handle;
 public:
-	SGE_SYMBOL library(const std::string& path);
+	SGE_SYMBOL library(const path&);
 	SGE_SYMBOL ~library();
 
 	template<typename Fun>
 	Fun load_function(const std::string& fun);
 
-	SGE_SYMBOL const std::string& name() const;
-
+	SGE_SYMBOL const path& name() const;
 private:
 	typedef void*(*base_fun)();
 	base_fun load_address_base(const std::string& fun);
 
-	static std::string liberror();
+	static string liberror();
 
-	std::string n;
+	path name_;
 public:
 	struct load_function_exception : public exception {
-		std::string lib, func;
-		load_function_exception(const std::string &lib, const std::string &fun)
-		: exception("failed to load function " + fun + " from library " + lib + " : " + liberror())
-		, lib(lib)
-		, func(fun) {}
-		~load_function_exception() throw() {}
+		string lib;
+		std::string func;
+		load_function_exception(const string &lib, const std::string &fun);
 	};
 };
 

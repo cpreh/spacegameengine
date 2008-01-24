@@ -28,7 +28,7 @@ sge::ogl::glx_visual::glx_visual(const x_display_ptr dsp, const int screen, cons
 : vi(glXChooseVisual(dsp->get(), screen, const_cast<int*>(attributes)))
 {
 	if(!vi.get())
-		throw exception("glXChooseVisual() failed");
+		throw exception(SGE_TEXT("glXChooseVisual() failed!"));
 }
 
 const XVisualInfo& sge::ogl::glx_visual::visual_info() const
