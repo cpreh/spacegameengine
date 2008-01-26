@@ -1,4 +1,4 @@
-FILE (GLOB sgecorefiles
+FILE (GLOB sgecorefiles 
 	src/*.cpp
 	archive/src/*.cpp
 	audio/src/*.cpp
@@ -13,7 +13,13 @@ FILE (GLOB sgecorefiles
 	renderer/src/*.cpp
 	sprite/src/*.cpp
 	texture/src/*.cpp)
+
 ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
+
+IF (MSVC)
+	INCLUDE_DIRECTORIES (${WININCLUDES}/libiconv/include)
+	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/libiconv/lib)
+ENDIF ()
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
@@ -26,7 +32,7 @@ ENDIF ()
 IF (${UNIX})
 	TARGET_LINK_LIBRARIES (sgecore X11 dl)
 ELSEIF (${WIN32})
-	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
+	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32 iconv)
 ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)

@@ -28,7 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::devil::image::image(const path& file)
 {
 	bind_me();
-	if(ilLoadImage(const_cast<char*>(iconv(file.string()).c_str())) == IL_FALSE)
+	if(ilLoadImage(
+#ifdef UNICODE
+		const_cast<wchar_t*>(file.string().c_str())
+#else
+		const_cast<char*>(iconv(file.string()).c_str())
+#endif
+		) == IL_FALSE)
 		throw exception(string(SGE_TEXT("ilLoadImage() failed! Could not load '")) += file.string() + SGE_TEXT("'!"));
 }
 
@@ -102,6 +108,12 @@ void sge::devil::image::resample(const dim_type& dim_)
 void sge::devil::image::save(const path& file)
 {
 	bind_me();
-	ilSaveImage(const_cast<char*>(iconv(file.string()).c_str()));
+	ilSaveImage(
+#ifdef UNICODE
+		const_cast<wchar_t*>(file.string().c_str())
+#else
+		const_cast<char*>(iconv(file.string()).c_str())
+#endif
+		);
 	check_errors();
 }

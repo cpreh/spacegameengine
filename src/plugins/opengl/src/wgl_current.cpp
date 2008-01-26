@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::ogl::wgl_current::wgl_current(const gdi_device& dev, const wgl_context& ctx)
 {
 	if(wglMakeCurrent(dev.hdc(), ctx.hglrc()) == FALSE)
-		throw exception("wglMakeCurrent() failed!");
+		throw exception(SGE_TEXT("wglMakeCurrent() failed!"));
 }
 
 sge::ogl::wgl_current::~wgl_current()

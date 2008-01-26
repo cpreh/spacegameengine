@@ -28,7 +28,7 @@ sge::ogl::wgl_context::wgl_context(const gdi_device& dc)
 : glrc(wglCreateContext(dc.hdc()))
 {
 	if(!hglrc())
-		throw exception("wglCreateContext() failed!");
+		throw exception(SGE_TEXT("wglCreateContext() failed!"));
 }
 
 sge::ogl::wgl_context::~wgl_context()

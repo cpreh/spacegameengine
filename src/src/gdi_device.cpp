@@ -28,7 +28,7 @@ sge::gdi_device::gdi_device(HWND hwnd, get_tag)
   dc(GetDC(hwnd))
 {
 	if(!dc)
-		throw exception("GetDC() failed!");
+		throw exception(SGE_TEXT("GetDC() failed!"));
 }
 
 sge::gdi_device::~gdi_device()

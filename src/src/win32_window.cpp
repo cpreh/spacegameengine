@@ -54,14 +54,14 @@ sge::win32_window::win32_window(const window_size sz, const string& title)
 		wndclass.cbSize = sizeof(WNDCLASSEX);
 		wndclass.style = 0;
 		if(!RegisterClassEx(&wndclass))
-			throw exception("RegisterClassEx() failed");
+			throw exception(SGE_TEXT("RegisterClassEx() failed!"));
 		wndclass_created = true;
 	}
 
 	DWORD flags = (WS_VISIBLE | WS_OVERLAPPEDWINDOW);
 	RECT r = { 0, 0, 0, 0 };
 	if (!AdjustWindowRect(&r, flags, false))
-		throw exception("AdjustWindowRect() failed");
+		throw exception(SGE_TEXT("AdjustWindowRect() failed!"));
 
 	decoration_size.l = static_cast<unsigned>(-r.left);
 	decoration_size.r = static_cast<unsigned>(r.right);
@@ -80,7 +80,7 @@ sge::win32_window::win32_window(const window_size sz, const string& title)
 		instance,
 		this);
 	if(!handle)
-		throw exception("CreateWindow() failed");
+		throw exception(SGE_TEXT("CreateWindow() failed!"));
 }
 
 sge::win32_window::~win32_window()
@@ -99,21 +99,21 @@ void sge::win32_window::size(const window_size nsz)
 		decoration_size.t + decoration_size.b + nsz.h(),
 		SWP_SHOWWINDOW
 	) == 0)
-		throw exception("SetWindowPos() failed");
+		throw exception(SGE_TEXT("SetWindowPos() failed!"));
 }
 
 void sge::win32_window::title(const string& ntitle)
 {
 	_title = ntitle;
 	if(SetWindowText(hwnd(),sge_str_to_win(_title).c_str()) == 0)
-		throw exception("SetWindowText() failed");
+		throw exception(SGE_TEXT("SetWindowText() failed!"));
 }
 
 sge::win32_window::window_size sge::win32_window::size() const
 {
 	RECT rect;
 	if(GetWindowRect(handle, &rect) == FALSE)
-		throw exception("GetWindowRect() failed");
+		throw exception(SGE_TEXT("GetWindowRect() failed!"));
 	return window_size(
 		rect.right - rect.left - decoration_size.l - decoration_size.r,
 		rect.bottom - rect.top - decoration_size.t + decoration_size.b

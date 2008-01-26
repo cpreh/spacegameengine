@@ -34,14 +34,14 @@ sge::dinput::input_system::input_system(const win32_window_ptr wnd)
 	                      IID_IDirectInput8A,
 	                      reinterpret_cast<LPVOID*>(&d),
 	                      0) != DI_OK)
-		throw exception("Cannot create direct input");
+		throw exception(SGE_TEXT("Cannot create direct input!"));
 	di.reset(d);
 
 	if(di->EnumDevices(DI8DEVCLASS_ALL,
 	                   di_enum_devices_callback,
 	                   this,
 	                   DIEDFL_ATTACHEDONLY) != DI_OK)
-		throw exception("DirectInput Enumeration failed");
+		throw exception(SGE_TEXT("DirectInput Enumeration failed!"));
 }
 
 sge::callback_connection sge::dinput::input_system::register_callback(const callback& c)

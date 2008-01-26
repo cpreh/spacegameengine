@@ -37,7 +37,7 @@ sge::dinput::input_device::input_device(const dinput_ptr di, const string& _name
 {
 	direct_input_device* d;
 	if(di->CreateDevice(guid,&d,0) != DI_OK)
-		throw exception("dinput: cannot create input device");
+		throw exception(SGE_TEXT("dinput: cannot create input device!"));
 	device.reset(d);
 	set_cooperative_level(window->hwnd(),coop_level);
 	set_property(DIPROP_BUFFERSIZE,&buffer_settings.diph);
@@ -48,19 +48,19 @@ sge::dinput::input_device::input_device(const dinput_ptr di, const string& _name
 void sge::dinput::input_device::set_cooperative_level(const HWND hwnd, const DWORD flags)
 {
 	if(device->SetCooperativeLevel(hwnd,flags) != DI_OK)
-		throw exception("SetCooperativeLevel() failed");
+		throw exception(SGE_TEXT("SetCooperativeLevel() failed!"));
 }
 
 void sge::dinput::input_device::set_data_format(const LPCDIDATAFORMAT df)
 {
 	if(device->SetDataFormat(df) != DI_OK)
-		throw exception("SetDataFormat() failed");
+		throw exception(SGE_TEXT("SetDataFormat() failed!"));
 }
 
 void sge::dinput::input_device::set_property(REFGUID guid, LPCDIPROPHEADER diph)
 {
 	if(device->SetProperty(guid,diph) != DI_OK)
-		throw exception("SetProperty() failed");
+		throw exception(SGE_TEXT("SetProperty() failed!"));
 }
 
 void sge::dinput::input_device::acquire()
@@ -72,7 +72,7 @@ void sge::dinput::input_device::acquire()
 	case DIERR_OTHERAPPHASPRIO:
 		break;
 	default:
-		throw exception("Acquire() failed");
+		throw exception(SGE_TEXT("Acquire() failed!"));
 	}
 }
 
@@ -83,7 +83,7 @@ void sge::dinput::input_device::unacquire()
 void sge::dinput::input_device::poll()
 {
 	if(device->Poll() != DI_OK)
-		throw exception("Poll() failed");
+		throw exception(SGE_TEXT("Poll() failed!"));
 }
 
 bool sge::dinput::input_device::_get_input(input_buffer data, DWORD& elements, unsigned d)
@@ -101,14 +101,14 @@ bool sge::dinput::input_device::_get_input(input_buffer data, DWORD& elements, u
 		acquire();
 		return false;
 	default:
-		throw exception("GetDeviceData() failed");
+		throw exception(SGE_TEXT("GetDeviceData() failed!"));
 	}
 }
 
 void sge::dinput::input_device::enum_objects(LPDIENUMDEVICEOBJECTSCALLBACK fun)
 {
 	if(device->EnumObjects(fun,this,DIDFT_ALL) != DI_OK)
-		throw exception("enumerating objects failed");
+		throw exception(SGE_TEXT("enumerating objects failed!"));
 }
 
 const sge::string& sge::dinput::input_device::name() const

@@ -34,7 +34,12 @@ void sge::devil::check_errors()
 	string error_message(SGE_TEXT("The following devil errors were detected:\n"));
 	do
 	{
-		error_message += iconv(iluErrorString(e));
+		error_message += 
+#ifdef UNICODE
+			iluErrorString(e);
+#else
+			iconv(iluErrorString(e));
+#endif
 		error_message += SGE_TEXT('\n');
 	}
 	while((e = ilGetError()) != IL_NO_ERROR);

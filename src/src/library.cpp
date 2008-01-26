@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::library::library(const path& nname)
  :
 #ifdef SGE_WINDOWS_PLATFORM
-  handle(reinterpret_cast<void*>(LoadLibrary(n.string().c_str())))
+  handle(reinterpret_cast<void*>(LoadLibrary(nname.string().c_str())))
 #elif SGE_LINUX_PLATFORM
    handle(dlopen(iconv(nname.string()).c_str(), RTLD_NOW | RTLD_GLOBAL))
 #endif
