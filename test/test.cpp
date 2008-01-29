@@ -113,6 +113,8 @@ struct console_activator
 int main()
 try
 {
+	std::wstring wstr(SGE_TEXT("/home/phil/local/lib/sge/libsgedevil.so"));
+	std::string nstr(sge::narrow(wstr));
 //	sge::multitree<int> test;
 /*	typedef multi_tree<int> tree;
 	tree t;

@@ -4,5 +4,4 @@ finish multi_tree or replace it with an existing class
 add a safer weak_ptr for Deleter template parameter
 breakpoints for the font
 other font formatting like bold, italic, underline
-implement atlasing correctly
 review sound system and decouple buffers from sources; add 3d capabilities (positions)

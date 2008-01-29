@@ -60,11 +60,16 @@ template<> struct call_traits<wchar_t> {
 	}
 };
 
+std::locale get_locale()
+{
+	static std::locale loc;
+	return loc;
+}
 
 template<typename Out, typename In>
 std::basic_string<Out> convert(const std::basic_string<In>& s)
 {
-	std::locale loc("");
+	std::locale loc(get_locale());
 
 	const codecvt_t& conv(std::use_facet<codecvt_t>(loc));
 	typedef sge::raw_vector<Out> buffer_type;

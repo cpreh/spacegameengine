@@ -80,11 +80,10 @@ private:
 	dga_guard _dga_guard;
 #endif
 	bool use_dga;
-	
-	boost::ptr_vector<boost::signals::scoped_connection> connections;
-
 	typedef std::map<KeySym, key_code> x11_to_sge_array;
 	x11_to_sge_array   x11tosge;
+
+	boost::ptr_vector<boost::signals::scoped_connection> connections;
 
 	mouse_pos          mouse_last;
 

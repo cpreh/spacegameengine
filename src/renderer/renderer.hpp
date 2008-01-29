@@ -228,6 +228,8 @@ public:
 	                    vertex_buffer::size_type num_vertices,
 	                    nonindexed_primitive_type::type ptype) = 0;
 
+	SGE_SYMBOL static const texture_ptr no_texture;
+
 	virtual void set_int_state(int_state::type, int_type value) = 0;
 	virtual void set_float_state(float_state::type, float_type value) = 0;
 	virtual void set_bool_state(bool_state::type, bool_type value) = 0;

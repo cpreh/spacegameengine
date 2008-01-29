@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <ostream>
 #include <boost/array.hpp>
-#include <boost/assign.hpp>
+#include <boost/assign/list_of.hpp>
 #include "../exception.hpp"
 #include "../iconv.hpp"
 #include "../x_window.hpp"
