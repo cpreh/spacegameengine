@@ -91,7 +91,7 @@ private:
 public:
 	typedef proxy reference;
 	typedef const value_type const_reference;
-private
+private:
 	template<typename StoredType, typename Reference>
 	class iterator_impl : public boost::iterator_facade<iterator_impl<StoredType,Reference>,value_type,std::random_access_iterator_tag,Reference,difference_type> {
 		friend class bitfield;

@@ -1,0 +1,178 @@
+\documentclass{article}
+\usepackage{listings}
+
+\begin{document}
+\lstset{language=C++}
+
+\section{$<$sge/renderer/renderer.hpp$>$}
+
+sge::renderer is a thin wrapper around the backend's functionality.
+It is provided to abstract different backends like opengl and direct3d.
+Renderer provides mechanisms for
+\begin{enumerate}
+\item{Creating other abstract interfaces like textures, buffers and shaders}
+\item{Customizing renderer settings}
+\item{Retrieving some values specific to the renderer like capabilities}
+\item{Rendering geometry}
+\end{enumerate}
+
+\begin{lstlisting}
+void begin_rendering();
+\end{lstlisting}
+Effects: Begins a rendering pass.
+This must be called before any rendering can be done.
+It also invokes the clearing mechanism.
+
+\begin{lstlisting}
+void end_rendering();
+\end{lstlisting}
+Effects: Ends a rendering pass.
+This must be called to present the scene to the chosen destination.
+
+\begin{lstlisting}
+void render(vertex_buffer_ptr vb,
+            index_buffer_ptr ib,
+            vertex_buffer::size_type first_vertex,
+            vertex_buffer::size_type num_vertices,
+            indexed_primitive_type::type ptype,
+            index_buffer::size_type primitive_count,
+            index_buffer::size_type first_index):
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item vertex\_buffer\_ptr vb: Pointer to a vertex buffer providing the geometry
+\item index\_buffer\_ptr ib: Pointer to an index buffer providing the indices for this call
+\item vertex\_buffer::size\_type first\_vertex: The index of the first vertex to use
+\item vertex\_buffer::size\_type num\_vertices: Number of vertices to use starting from first vertex
+\item indexed\_primitive\_type::type ptype: Indexed primitive type to render
+\item index\_buffer::size\_type primitive\_type: Number of primitves to draw
+\item index\_buffer::size\_type first\_index: Starting index to use in the index buffer
+\end{itemize}
+Effects: Renders a number of indexed primitives.
+Note: first\_vertex and num\_vertices are provided for compatibility to D3D9 and should be set to 0 and vb-$>$size() respectively if the caller is unsure.
+
+\begin{lstlisting}
+void render(vertex_buffer_ptr vb,
+            vertex_buffer::size_type first_vertex,
+            vertex_buffer::size_type num_vertices,
+            nonindexed_primitive_type::type ptype);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item vertex\_buffer\_ptr vb: Pointer to a vertex buffer providing the geometry
+\item vertex\_buffer::size\_type first\_vertex: The index of the first vertex to use
+\item vertex\_buffer::size\_type num\_vertices: The numer of vertices to use starting from first vertex
+\item nonindexed\_primitive\_type::type ptype: Nonindexed primitive type to render
+\end{itemize}
+Effects: Renders a number of nonindexed primitives.
+Note: The number of primitives is directly inferred from num\_vertices.
+
+\begin{lstlisting}
+void set_int_state(int_state::type state, int_type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item int\_state::type state: The int state to set
+  \begin{itemize}
+  \item int\_state::stencil\_clear\_val: Sets the value the stencil buffer will be cleared with
+  \end{itemize}
+\item int\_type value: The int value to set
+\end{itemize}
+Effects: Sets the int value denoted by state to value.
+
+\begin{lstlisting}
+void set_float_state(float_state::type state, float_type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item float\_state::type state: The float state to set
+  \begin{itemize}
+  \item float\_state::zbuffer\_clear\_val: Sets the value the z buffer will be cleared with
+  \item fog\_start: Sets the fog starting range
+  \item fog\_end: Sets the fog ending range
+  \item fog\_density: Sets the fog's density
+  \end{itemize}
+\item float\_type value: The float value to set
+\end{itemize}
+Effects: Sets the float value denoted by state to value.
+
+\begin{lstlisting}
+void set_bool_state(bool_state::type state, bool_type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item bool\_state::type state: The bool state to set
+  \begin{itemize}
+  \item bool\_state::clear\_zbuffer: Sets if the z buffer should be cleared
+  \item bool\_state::clear\_backbuffer: Sets if the back buffer should be cleared
+  \item bool\_state::clear\_stencil: Sets if the stencil buffer should be cleared
+  \item bool\_state::enable\_fog: Sets if fog should be enabled
+  \item bool\_state::enable\_stencil: Sets if the stencil buffer should be enabled
+  \item bool\_state::enable\_alpha\_blending: Sets if alpha blending should be enabled
+  \item bool\_state::enable\_zbuffer: Sets if the z buffer should be enabled
+  \item bool\_state::enable\_lighting: Sets if lighting should be enabled
+  \item bool\_state::enable\_culling: Sets if culling should be enabled
+  \end{itemize}
+\item bool\_type value: The bool value to set
+\end{itemize}
+Effects: Enables or disables specifc options.
+
+\begin{lstlisting}
+void set_color_state(color_state::type state, color value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item color\_state::type state: The color state to set
+  \begin{itemize}
+  \item color\_state::clear\_color: The back buffer's clear color
+  \item color\_state::ambient\_light\_color: The ambient light's color
+  \item color\_state::fog\_color: The fog's color
+  \end{itemize}
+\item color value: The color value to set
+\end{itemize}
+Effects: Sets a specific color denoted by state to value.
+	
+\begin{lstlisting}
+void set_cull_mode(cull_mode::type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item cull\_mode::type value: The cull mode to set
+  \begin{itemize}
+  \item cull\_mode::back: Cull the back faces
+  \item cull\_mode::front: Cull the front faces
+  \end{itemize}
+\end{itemize}
+Effects: Sets the cull mode to value
+
+\begin{lstlisting}
+void set_depth_func(depth_func::type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item depth\_func::type value: The z buffer comparison function.
+  Note: depth\_func is a namespace alias to compare\_func.
+  \begin{itemize}
+  \item depth\_func::never: Never let pixels pass
+  \item depth\_func::less: Only let pixels pass whose z value is less than the current pixel's z value
+  \item depth\_func::equal: Only let pixels pass whose z value is equal to the current pixel's z value
+  \item depth\_func::less\_equal: Only let pixels pass whose z value is less or equal to the current pixel's z value
+  \item depth\_func::greater: Only let pixels pass whose z value is greater than the current pixel's value
+  \item depth\_func::not\_equal: Only let pixels pass whose z value is not equal to the current pixel's value
+  \item depth\_func::greater\_equal: Only let pixels pass whose z value is greater or equal to the current pixel's value
+  \item depth\_func::always: Always let pixels pass
+  \end{itemize}
+\end{itemize}
+Effects: Sets the z buffer comparsion function to value.
+
+\begin{lstlisting}
+void set_stencil_func(stencil_func::type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item stencil\_func::type value: The stencil buffer comparsion function.
+  Note: stencil\_func is a namespace alias to compare\_func. See set\_depth\_func for possible values.
+\end{itemize}
+Effects: Sets the stencil buffer comparsion function to value.
+
+\end{document}
