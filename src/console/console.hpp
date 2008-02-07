@@ -62,7 +62,7 @@ class var : public var_base
 		} 
 		catch (const boost::bad_lexical_cast &c)
 		{
-			throw exception(L"couldn't parse variable \""+name_+L"\"");
+			throw exception(SGE_TEXT("couldn't parse variable \"")+name_+SGE_TEXT("\""));
 		}
 	}
 
@@ -94,7 +94,7 @@ struct action_var_base : public var_base
 		} 
 		catch (const boost::bad_lexical_cast &c)
 		{
-			throw exception(L"couldn't parse variable \""+name()+L"\"");
+			throw exception(SGE_TEXT("couldn't parse variable \"")+name()+SGE_TEXT("\""));
 		}
 	}
 	string get() const { return boost::lexical_cast<string>(t); }

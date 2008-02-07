@@ -113,8 +113,6 @@ struct console_activator
 int main()
 try
 {
-	std::wstring wstr(SGE_TEXT("/home/phil/local/lib/sge/libsgedevil.so"));
-	std::string nstr(sge::narrow(wstr));
 //	sge::multitree<int> test;
 /*	typedef multi_tree<int> tree;
 	tree t;
@@ -281,7 +279,7 @@ try
 //	rend->set_draw_mode(sge::draw_mode::line);
 
 	//const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
-	const sge::string some_text(L"abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb");
+	const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	while(running)
 	{
 	//	if (sound->status() != sge::sound::status_stopped)

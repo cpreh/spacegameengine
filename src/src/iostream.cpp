@@ -18,25 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../renderer.hpp"
+#include <iostream>
+#include "../iostream.hpp"
 
-const sge::texture_ptr sge::renderer::no_texture;
-const sge::texture_ptr sge::renderer::default_render_target;
-
-sge::screen_unit sge::renderer::screen_width() const
-{
-	return screen_size().w();
-}
-
-sge::screen_unit sge::renderer::screen_height() const
-{
-	return screen_size().h();
-}
-
-sge::space_unit sge::renderer::aspect() const
-{
-	return static_cast<space_unit>(screen_width())
-	     / static_cast<space_unit>(screen_height());
-}
-
-const std::string sge::renderer::no_shader;
+#ifndef SGE_NARROW_STRING
+sge::istream& sge::cin(std::wcin);
+sge::ostream& sge::cout(std::wcout);
+sge::ostream& sge::cerr(std::wcerr);
+sge::ostream& sge::clog(std::wclog);
+#else
+sge::istream& sge::cin(std::cin);
+sge::ostream& sge::cout(std::cout);
+sge::ostream& sge::cerr(std::cerr);
+sge::ostream& sge::clog(std::clog);
+#endif

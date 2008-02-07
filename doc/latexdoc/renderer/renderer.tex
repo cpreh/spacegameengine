@@ -30,13 +30,14 @@ Effects: Ends a rendering pass.
 This must be called to present the scene to the chosen destination.
 
 \begin{lstlisting}
-void render(vertex_buffer_ptr vb,
-            index_buffer_ptr ib,
-            vertex_buffer::size_type first_vertex,
-            vertex_buffer::size_type num_vertices,
-            indexed_primitive_type::type ptype,
-            index_buffer::size_type primitive_count,
-            index_buffer::size_type first_index):
+void render(
+	vertex_buffer_ptr vb,
+ 	index_buffer_ptr ib,
+ 	vertex_buffer::size_type first_vertex,
+ 	vertex_buffer::size_type num_vertices,
+ 	indexed_primitive_type::type ptype,
+ 	index_buffer::size_type primitive_count,
+ 	index_buffer::size_type first_index):
 \end{lstlisting}
 Parameters:
 \begin{itemize}
@@ -52,10 +53,11 @@ Effects: Renders a number of indexed primitives.
 Note: first\_vertex and num\_vertices are provided for compatibility to D3D9 and should be set to 0 and vb-$>$size() respectively if the caller is unsure.
 
 \begin{lstlisting}
-void render(vertex_buffer_ptr vb,
-            vertex_buffer::size_type first_vertex,
-            vertex_buffer::size_type num_vertices,
-            nonindexed_primitive_type::type ptype);
+void render(
+	vertex_buffer_ptr vb,
+	vertex_buffer::size_type first_vertex,
+	vertex_buffer::size_type num_vertices,
+ 	nonindexed_primitive_type::type ptype);
 \end{lstlisting}
 Parameters:
 \begin{itemize}
@@ -68,7 +70,9 @@ Effects: Renders a number of nonindexed primitives.
 Note: The number of primitives is directly inferred from num\_vertices.
 
 \begin{lstlisting}
-void set_int_state(int_state::type state, int_type value);
+void set_int_state(
+	int_state::type state,
+	int_type value);
 \end{lstlisting}
 Parameters:
 \begin{itemize}
@@ -81,7 +85,9 @@ Parameters:
 Effects: Sets the int value denoted by state to value.
 
 \begin{lstlisting}
-void set_float_state(float_state::type state, float_type value);
+void set_float_state(
+	float_state::type state,
+	float_type value);
 \end{lstlisting}
 Parameters:
 \begin{itemize}
@@ -97,7 +103,9 @@ Parameters:
 Effects: Sets the float value denoted by state to value.
 
 \begin{lstlisting}
-void set_bool_state(bool_state::type state, bool_type value);
+void set_bool_state(
+	bool_state::type state,
+	bool_type value);
 \end{lstlisting}
 Parameters:
 \begin{itemize}
@@ -118,7 +126,9 @@ Parameters:
 Effects: Enables or disables specifc options.
 
 \begin{lstlisting}
-void set_color_state(color_state::type state, color value);
+void set_color_state(
+	color_state::type state,
+	color value);
 \end{lstlisting}
 Parameters:
 \begin{itemize}
@@ -133,7 +143,8 @@ Parameters:
 Effects: Sets a specific color denoted by state to value.
 	
 \begin{lstlisting}
-void set_cull_mode(cull_mode::type value);
+void set_cull_mode(
+	cull_mode::type value);
 \end{lstlisting}
 Parameters:
 \begin{itemize}
@@ -146,7 +157,8 @@ Parameters:
 Effects: Sets the cull mode to value
 
 \begin{lstlisting}
-void set_depth_func(depth_func::type value);
+void set_depth_func(
+	depth_func::type value);
 \end{lstlisting}
 Parameters:
 \begin{itemize}
@@ -166,7 +178,8 @@ Parameters:
 Effects: Sets the z buffer comparsion function to value.
 
 \begin{lstlisting}
-void set_stencil_func(stencil_func::type value);
+void set_stencil_func(
+	stencil_func::type value);
 \end{lstlisting}
 Parameters:
 \begin{itemize}
@@ -175,4 +188,187 @@ Parameters:
 \end{itemize}
 Effects: Sets the stencil buffer comparsion function to value.
 
+\begin{lstlisting}
+void set_fog_mode(
+	fog_mode::type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item fog\_mode::type value: The fog mode.
+  \begin{itemize}
+  \item fog\_mode::linear: The fog increases linearly
+  \item fog\_mode::exp: The fog increases exponentially
+  \item fog\_mode::exp2: The fog increases exponentially square
+  \end{itemize}
+\end{itemize}
+Effects: Sets the fog mode to value.
+
+\begin{lstlisting}
+void set_blend_func(
+	source_blend_func::type src,
+	dest_blend_func::type dest);
+\end{lstlisting}
+\begin{itemize}
+\item source\_blend\_func::type src: The source blending function.
+  \begin{itemize}
+  \item source\_blend\_func::zero: Use zero
+  \item source\_blend\_func::one: Use one
+  \item source\_blend\_func::dest\_color: Use the destination color
+  \item source\_blend\_func::inv\_dest\_color: Use 1 - the destination color
+  \item source\_blend\_func::src\_alpha: Use the source's alpha value
+  \item source\_blend\_func::inv\_src\_alpha: Use 1 - the source's alpha value
+  \item source\_blend\_func::dest\_alpha: Use the destination's alpha value
+  \item source\_blend\_func::inv\_dest\_alpha: Use 1 - the destination's alpha value
+  \item source\_blend\_func::src\_alpha\_sat: TODO
+  \end{itemize}
+\item dest\_blend\_func::type dest: The destination blending function.
+  \begin{itemize}
+  \item dest\_blend\_func::zero: Use zero
+  \item dest\_blend\_func::one: Use one
+  \item dest\_blend\_func::src\_color: Use the source color
+  \item dest\_blend\_func::inv\_src\_color: Use 1 - the source color
+  \item dest\_blend\_func::src\_alpha: Use the source's alpha value
+  \item dest\_blend\_func::inv\_src\_alpha: Use 1 - the source's alpha value
+  \item dest\_blend\_func::dest\_alpha: Use the destination's alpha value
+  \item dest\_blend\_func::inv\_dest\_alpha: Use 1 - the destination's alpha value
+  \end{itemize}
+\end{itemize}
+Effects: Sets the source blend function to src and the destination blend function to dest.
+
+\begin{lstlisting}
+void set_draw_mode(
+	draw_mode::type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item draw\_mode::type value: The draw mode.
+  \begin{itemize}
+  \item draw\_mode::point: Draw only the primitives' points.
+  \item draw\_mode::line: Draw only the primitives' lines (same as wireframe mode).
+  \item draw\_mode::fill: Fill primitives (default).
+  \end{itemize}
+\end{itemize}
+Effects: Sets the draw mode to value.
+
+\begin{lstlisting}
+void set_texture(
+	texture_base_ptr tex,
+	stage_type stage = 0);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item texture\_base\_ptr tex: A pointer to a texture\_base object. May be a normal texture, a cube texture, a volume texture or a render target.
+The value \emph{no\_texture} can be used to disable this texture level.
+\item stage\_type stage: The texture stage to set.
+\end{itemize}
+Effects: Sets the texture stage denoted by stage to the texture denoted by tex or deactivates the texture stage if tex is \emph{no\_texture}.
+
+\begin{lstlisting}
+void set_material(
+	const material& mat);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item material mat: The material to use.
+\end{itemize}
+Effects: Sets the current material to mat.
+
+\begin{lstlisting}
+void transform(
+	const math::space_matrix& mat);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item space\_matrix mat: The matrix to use for transformation.
+\end{itemize}
+Effects: Sets the matrix to use for the world transformation step to mat.
+
+\begin{lstlisting}
+void projection(
+	const math::space_matrix& mat);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item space\_matrix mat: The matrix to use for projection.
+\end{itemize}
+Effects: Sets the matrix to ues for the projection transformation step to mat.
+
+\begin{lstlisting}
+void set_render_target(
+	texture_ptr target);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item texture\_ptr target: The render target to use. May be default\_render\_target.
+\end{itemize}
+Effects: Sets the current render target to use to target. If default\_render\_target is used the default render target is restored.
+
+\begin{lstlisting}
+void set_viewport(
+	const viewport& v);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item viewport v: The viewport to use.
+\end{itemize}
+Effects: Sets the current viewport to v.
+
+\begin{lstlisting}
+void enable_light(
+	light_index index,
+	bool enable);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item light\_index index: The light with index 'index' to enable or disable.
+\item bool enable: True enables the light and false disables it.
+\end{itemize}
+Effects: Enables or disables the light denoted by light\_index.
+
+\begin{lstlisting}	
+void set_light(
+	light_index index,
+	const light& l);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item light\_index index: The light index to set.
+\item light l: The light to use.
+\end{itemize}
+Effects: Sets the light denoted by index to l.
+Note: Setting a light does not enable or disable it. Disabling a light does not clear a light level.
+
+\begin{lstlisting}
+void set_texture_stage_op(
+	stage_type stage,
+	texture_stage_op::type op,
+	texture_stage_op_value::type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item stage\_type stage: The texture stage to set.
+\item texture\_stage\_op::type op: The operation to set.
+  \begin{itemize}
+  \item texture\_stage\_op::color: Set the color operation
+  \item texture\_state\_op::alpha: Set the alpha opreation
+  \end{itemize}
+\item texture\_stage\_op\_value::type value: The value to use.
+  \begin{itemize}
+  \item texture\_stage\_op\_value::arg0: Replace the result by arg0
+  \item texture\_stage\_op\_value::modulate: Multiply arg0 and arg1
+  \item texture\_stage\_op\_value::modulate2x: Multiply arg0 and arg1 and multiply that by 2
+  \item texture\_stage\_op\_value::modulate4x: Multiply arg0 and arg1 and multiply that by 4
+  \item texture\_stage\_op\_value::add: Add arg0 and arg1
+  \item texture\_stage\_op\_value::add2x: TODO
+  \item texture\_stage\_op\_value::add4x: TODO
+  \item texture\_stage\_op\_value::substract: Substract arg0 and arg1
+  \item texture\_stage\_op\_value::add\_signed: TODO
+  \item texture\_stage\_op\_value::add\_signed2x: TODO
+  \item texture\_stage\_op\_value::interpolate: TODO
+  \end{itemize}
+\end{itemize}
+Effects: Sets the texture stage operation denoted by stage and op to value.
+Note: This function is superseeded by shaders.
+
+%%virtual void set_texture_stage_arg(stage_type stage, texture_stage_arg::type, texture_stage_arg_value::type) = 0;
 \end{document}

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../md3.hpp"
 #include "../../math/constants.hpp"
 #include "../../exception.hpp"
-#include "../../istream.hpp"
-#include "../../istream_impl.hpp"
+#include "../../istream_util.hpp"
+#include "../../istream_util_impl.hpp"
 
 const std::size_t max_qpath = 64;
 

@@ -26,8 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-template<typename T> void read(std::istream&, T&);
-template<typename T> T read(std::istream&);
+#ifndef SGE_NARROW_STRING
+typedef std::basic_istream<wchar_t> istream;
+#else
+typedef std::basic_istream<char> istream;
+#endif
 
 }
 

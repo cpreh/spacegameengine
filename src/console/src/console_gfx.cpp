@@ -65,16 +65,16 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,const virtual_texture
 		mod(is),
 		ss(rend),bg(pos,size,texture),
 		active_(false),
-		cursor_rate(L"cursor_rate",boost::bind(&console_gfx::change_cursor_rate,this,_1,_2),timer::interval_type(300)),
+		cursor_rate(SGE_TEXT("cursor_rate"),boost::bind(&console_gfx::change_cursor_rate,this,_1,_2),timer::interval_type(300)),
 		cursor_timer(cursor_rate.value()),cursor_active(false),
-		cursor_char(L'_'),cursor_pos(0),history_size(0)
+		cursor_char(SGE_TEXT('_')),cursor_pos(0),history_size(0)
 {
-	input_history.push_front(L" ");
+	input_history.push_front(SGE_TEXT(" "));
 	input_history_pos = input_history.begin();
 	history_pos = history.begin();
 
-	add(L"clear",boost::bind(&console_gfx::clear,this,_1));
-	add(L"dump",boost::bind(&console_gfx::dump,this,_1));
+	add(SGE_TEXT("clear"),boost::bind(&console_gfx::clear,this,_1));
+	add(SGE_TEXT("dump"),boost::bind(&console_gfx::dump,this,_1));
 }
 
 void sge::con::console_gfx::clear(const arg_list &)
@@ -87,8 +87,8 @@ void sge::con::console_gfx::dump(const arg_list &args)
 {
 	if (args.size() == 1)
 	{
-		std::copy(history.begin(),history.end(),std::ostream_iterator<sge::string,sge::string::value_type>(stdouter<sge::string::value_type>::cout(),L"\n"));
-		print(L"dumped history to stdout");
+		std::copy(history.begin(),history.end(),std::ostream_iterator<sge::string,sge::string::value_type>(stdouter<sge::string::value_type>::cout(),SGE_TEXT("\n")));
+		print(SGE_TEXT(SGE_TEXT("dumped history to stdout")));
 	}
 	else
 	{
@@ -96,12 +96,12 @@ void sge::con::console_gfx::dump(const arg_list &args)
 		std::cout << std::string(args[1].begin(),args[1].end()).c_str() << "\n";
 		if (!file.is_open())
 		{
-			print(L"error: couldn't open file \""+args[1]+L"\"");
+			print(SGE_TEXT("error: couldn't open file \"") + args[1] + SGE_TEXT("\""));
 		}
 		else
 		{
-			std::copy(history.begin(),history.end(),std::ostream_iterator<sge::string,sge::string::value_type>(file,L"\n"));
-			print(L"dumped history to \""+args[1]+L"\"");
+			std::copy(history.begin(),history.end(),std::ostream_iterator<sge::string,sge::string::value_type>(file, SGE_TEXT("\n")));
+			print(SGE_TEXT("dumped history to \"")+args[1]+SGE_TEXT("\""));
 		}
 	}
 }
@@ -126,12 +126,12 @@ void sge::con::console_gfx::key_action(const key_type &k)
 	if(std::isprint(k.char_code(),std::locale()))
 	{
 		// FIXME: input system doesn't work!
-		if (mod.state().ctrl && k.char_code() == L'w' || k.char_code() == L'W')
+		if (mod.state().ctrl && k.char_code() == SGE_TEXT('w') || k.char_code() == SGE_TEXT('W'))
 		{
 			if (cursor_pos == 0)
 				return;
 
-			sge::string::size_type lastws = il.rfind(L' ',cursor_pos-1);
+			sge::string::size_type lastws = il.rfind(SGE_TEXT(' '),cursor_pos-1);
 			if (lastws == std::string::npos)
 				lastws = 0;
 			il.erase(lastws,cursor_pos-lastws);
@@ -173,7 +173,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 		}
 		catch (const exception &e)
 		{
-			print(L"console error: "+e.wide_what());
+			print(SGE_TEXT("console error: ")+e.wide_what());
 		}
 
 		// add executed command to each history (at the front)...
@@ -211,7 +211,7 @@ void sge::con::console_gfx::draw()
 	for (std::size_t i = 0; i < total_lines && history_it != history_end; ++i)
 		history_it--;
 	
-	const sge::string history_string = join(history_it,history_container::const_reverse_iterator(history_pos),L"\n");
+	const sge::string history_string = join(history_it,history_container::const_reverse_iterator(history_pos),SGE_TEXT("\n"));
 	// draw history lines
 	fn->draw_text(history_string,
 		math::structure_cast<font_unit>(bg.pos()),

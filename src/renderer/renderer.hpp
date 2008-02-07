@@ -229,6 +229,7 @@ public:
 	                    nonindexed_primitive_type::type ptype) = 0;
 
 	SGE_SYMBOL static const texture_ptr no_texture;
+	SGE_SYMBOL static const texture_ptr default_render_target;
 
 	virtual void set_int_state(int_state::type, int_type value) = 0;
 	virtual void set_float_state(float_state::type, float_type value) = 0;
@@ -244,7 +245,7 @@ public:
 	virtual void set_material(const material& mat) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;
 	virtual void projection(const math::space_matrix& mat) = 0;
-	virtual void set_render_target(texture_ptr target = texture_ptr()) = 0;
+	virtual void set_render_target(texture_ptr target) = 0;
 	virtual void set_viewport(const viewport&) = 0;
 	virtual void enable_light(light_index index, bool enable) = 0;
 	virtual void set_light(light_index index, const light&) = 0;

@@ -12,6 +12,7 @@
 #include <boost/iterator/filter_iterator.hpp>
 #include "../../string.hpp"
 #include "../../path.hpp"
+#include "../../iostream.hpp"
 #include "../console.hpp"
 
 namespace
@@ -74,7 +75,7 @@ struct singleton
 	sge::con::callback chat;
 	sge::string::value_type prefix;
 
-	singleton() : prefix(L'/') {}
+	singleton() : prefix(SGE_TEXT('/')) {}
 
 	void add(const sge::string &,sge::con::var_base &);
 	void add(const sge::string &,const sge::con::callback &);
@@ -95,7 +96,7 @@ sge::string singleton::get_var(const sge::string &name)
 {
 	sge::con::var_map::const_iterator i = vars.find(name);
 	if (i == vars.end())
-		throw sge::con::exception(L"variable \""+name+L"\" not found");
+		throw sge::con::exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
 	return i->second->get();
 }
 
@@ -108,7 +109,7 @@ void singleton::set_var(const sge::string &name,const sge::string &value)
 {
 	sge::con::var_map::const_iterator i = vars.find(name);
 	if (i == vars.end())
-		throw sge::con::exception(L"variable \""+name+L"\" not found");
+		throw sge::con::exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
 	return i->second->set(value);
 }
 
@@ -120,17 +121,17 @@ void singleton::read_config(const sge::path &fn)
 
 	for (file_type::const_iterator i = file.begin(); i != file.end(); ++i)
 	{
-		const sge::string::size_type equals = i->find(L'=');
+		const sge::string::size_type equals = i->find(SGE_TEXT('='));
 		if (equals == sge::string::npos)
-			throw sge::con::exception(L"error parsing \""+fn.string()+L"\": no '=' found");
+			throw sge::con::exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": no '=' found"));
 
 		const sge::string name = i->substr(0,equals),value = i->substr(equals+1);
 		if (name.empty())
-			throw sge::con::exception(L"error parsing \""+fn.string()+L"\": empty variable name");
+			throw sge::con::exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": empty variable name"));
 
 		// just a warning about multiply defined variables
 		if (config_vars.find(name) != config_vars.end())
-			std::wcerr << L"warning, console variable \"" << name << L"\" already registered from another file\n";
+			sge::cerr << SGE_TEXT("warning, console variable \"") << name << SGE_TEXT("\" already registered from another file\n");
 
 		config_vars[name] = value;
 	}
@@ -150,8 +151,8 @@ void singleton::eval(const sge::string &line)
 	typedef rule<scanner_type> rule_type;
 
 	// constants
-	const sge::string::value_type ws = L' ';
-	const sge::string::value_type sd = L'\'';
+	const sge::string::value_type ws = SGE_TEXT(' ');
+	const sge::string::value_type sd = SGE_TEXT('\'');
 
 	// grammar
 	// <sd>.*<sd> | \S*
@@ -178,7 +179,7 @@ void singleton::eval(const sge::string &line)
 	{
 		args.insert(args.begin(),command_str);
 		if (funcs.find(command_str) == funcs.end())
-			throw sge::con::exception(L"couldn't find command \""+command_str+L"\"");
+			throw sge::con::exception(SGE_TEXT("couldn't find command \"")+command_str+SGE_TEXT("\""));
 		funcs[command_str](args);
 	}
 }
@@ -186,7 +187,7 @@ void singleton::eval(const sge::string &line)
 void singleton::add(const sge::string &name,const sge::con::callback &v)
 {
 	if (funcs.find(name) != funcs.end())
-		throw sge::con::exception(L"console function "+name+L" registered twice!");
+		throw sge::con::exception(SGE_TEXT("console function ")+name+SGE_TEXT(" registered twice!"));
 
 	funcs[name] = v;
 }
@@ -194,7 +195,7 @@ void singleton::add(const sge::string &name,const sge::con::callback &v)
 void singleton::add(const sge::string &name,sge::con::var_base &v)
 {
 	if (vars.find(name) != vars.end())
-		throw sge::con::exception(L"console variable "+name+L" registered twice!");
+		throw sge::con::exception(SGE_TEXT("console variable ")+name+SGE_TEXT(" registered twice!"));
 
 	vars[name] = &v;
 

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
+#include "../string.hpp"
 #include "font_types.hpp"
 #include "font_drawer.hpp"
 #include "index_buffer.hpp"
@@ -75,7 +76,9 @@ public:
 	public:
 		typedef string_type::const_iterator const_iterator;
 
-		text_size_t(font_dim sz, string_type::const_iterator end, string_type::const_iterator next_begin);
+		text_size_t(font_dim sz,
+		            string_type::const_iterator end,
+		            string_type::const_iterator next_begin);
 
 		font_dim size() const;
 		const_iterator end() const;

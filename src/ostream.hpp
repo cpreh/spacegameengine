@@ -18,25 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../renderer.hpp"
+#ifndef SGE_OSTREAM_HPP_INCLUDED
+#define SGE_OSTREAM_HPP_INCLUDED
 
-const sge::texture_ptr sge::renderer::no_texture;
-const sge::texture_ptr sge::renderer::default_render_target;
+#include <iosfwd>
 
-sge::screen_unit sge::renderer::screen_width() const
+namespace sge
 {
-	return screen_size().w();
+
+#ifndef SGE_NARROW_STRING
+typedef std::basic_ostream<wchar_t> ostream;
+#else
+typedef std::basic_ostream<char> ostream;
+#endif
+
 }
 
-sge::screen_unit sge::renderer::screen_height() const
-{
-	return screen_size().h();
-}
-
-sge::space_unit sge::renderer::aspect() const
-{
-	return static_cast<space_unit>(screen_width())
-	     / static_cast<space_unit>(screen_height());
-}
-
-const std::string sge::renderer::no_shader;
+#endif

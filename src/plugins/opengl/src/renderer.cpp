@@ -495,7 +495,7 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 {
 	if(!target)
 	{
-		_render_target.reset(new default_render_target(wnd));
+		_render_target.reset(new ogl::default_render_target(wnd));
 		_render_target->bind_me();
 		const window::window_pos offset = wnd->viewport_offset();
 		set_viewport(viewport(offset.x(), offset.y(), wnd->width(), wnd->height()));
