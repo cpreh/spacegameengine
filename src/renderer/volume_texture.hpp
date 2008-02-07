@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VOLUME_TEXTURE_HPP_INCLUDED
 #define SGE_VOLUME_TEXTURE_HPP_INCLUDED
 
+#include "../math/dim.hpp"
 #include "../math/box.hpp"
 #include "texture_base.hpp"
 
@@ -32,9 +33,12 @@ typedef math::basic_box<texture_base::size_type> lock_box;
 template<typename BitDepth>
 class basic_volume_texture : public basic_texture_base<BitDepth> {
 public:
-	typedef basic_texture_base<BitDepth> base;
-	typedef typename base::size_type size_type;
-	typedef typename base::const_pointer const_pointer;
+	typedef basic_texture_base<BitDepth>  base;
+	typedef typename base::size_type      size_type;
+	typedef typename base::const_pointer  const_pointer;
+	typedef math::basic_dim<size_type, 3> box_type;
+
+	virtual box_type box() const = 0;
 	virtual size_type width() const = 0;
 	virtual size_type height() const = 0;
 	virtual size_type depth() const = 0;

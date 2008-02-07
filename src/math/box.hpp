@@ -18,62 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_BOX_HPP_INCLUDED
-#define SGE_BOX_HPP_INCLUDED
-
-#include "vector.hpp"
+#ifndef SGE_MATH_BOX_HPP_INCLUDED
+#define SGE_MATH_BOX_HPP_INCLUDED
 
 namespace sge
 {
-
 namespace math
 {
 
-template<typename T> struct basic_box {
-	typedef T value_type;
-	basic_box(const value_type& left = value_type(), const value_type& top = value_type(),
-	          const value_type& right = value_type(), const value_type& bottom = value_type(),
-	          const value_type& front = value_type(), const value_type& back = value_type())
-		: left(left), top(top), right(right), bottom(bottom), front(front), back(back) {}
-		value_type left, top, right, bottom, front, back;
+template<typename T> class basic_box {
+public:
+	typedef T        value_type;
+	typedef T&       reference;
+	typedef const T& const_reference;
 
-	value_type width() const
-	{
-		return right - left;
-	}
+	basic_box(const value_type& left,
+	          const value_type& top,
+	          const value_type& right,
+	          const value_type& bottom,
+	          const value_type& front,
+	          const value_type& back);
 
-	value_type height() const
-	{
-		return bottom - top;
-	}
+	value_type w() const;
+	value_type h() const;
+	value_type d() const;
+	value_type size() const;
 
-	value_type depth() const
-	{
-		return back - front;
-	}
+	const_reference left() const;
+	const_reference top() const;
+	const_reference right() const;
+	const_reference bottom() const;
+	const_reference front() const;
+	const_reference back() const;
 
-	value_type size() const
-	{
-		return width() * height() * depth();
-	}
+	reference left();
+	reference top();
+	reference right();
+	reference bottom();
+	reference front();
+	reference back();
+private:
+	value_type left_,
+	           top_,
+	           right_,
+	           bottom_,
+	           front_,
+	           back_;
 };
 
-template<typename T> inline bool operator==(const basic_box<T>& l, const basic_box<T>& r)
-{
-	return l.left == r.left && l.top == r.top && l.right == r.right && l.bottom == r.bottom && l.front == r.front && l.back == r.back;
-}
+template<typename T>
+bool operator==(const basic_box<T>& l, const basic_box<T>& r);
 
-template<typename T> inline bool operator!=(const basic_box<T>& l, const basic_box<T>& r)
-{
-	return !(l==r);
-}
-
-template<typename T> inline bool intersects(const basic_box<T>& r, const math::basic_vector<T,3>& p)
-{
-	return p.x() >= r.left  && p.x() <= r.right &&
-	       p.y() >= r.top   && p.y() <= r.bottom &&
-	       p.z() >= r.front && p.z() <= r.back;
-}
+template<typename T>
+bool operator!=(const basic_box<T>& l, const basic_box<T>& r);
 
 typedef basic_box<space_unit> space_box;
 

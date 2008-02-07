@@ -150,6 +150,15 @@ namespace dest_blend_func
 	};
 }
 
+namespace draw_mode
+{
+	enum type {
+		point,
+		line,
+		fill
+	};
+}
+
 namespace texture_stage_op
 {
 	enum type {
@@ -193,16 +202,6 @@ namespace texture_stage_arg_value
 		current,
 		texture,
 		constant
-
-	};
-}
-
-namespace draw_mode
-{
-	enum type {
-		point,
-		line,
-		fill
 	};
 }
 
@@ -228,9 +227,6 @@ public:
 	                    vertex_buffer::size_type num_vertices,
 	                    nonindexed_primitive_type::type ptype) = 0;
 
-	SGE_SYMBOL static const texture_ptr no_texture;
-	SGE_SYMBOL static const texture_ptr default_render_target;
-
 	virtual void set_int_state(int_state::type, int_type value) = 0;
 	virtual void set_float_state(float_state::type, float_type value) = 0;
 	virtual void set_bool_state(bool_state::type, bool_type value) = 0;
@@ -241,10 +237,14 @@ public:
 	virtual void set_fog_mode(fog_mode::type) = 0;
 	virtual void set_blend_func(source_blend_func::type, dest_blend_func::type) = 0;
 	virtual void set_draw_mode(draw_mode::type) = 0;
+	
+	SGE_SYMBOL static const texture_ptr no_texture;
 	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;
 	virtual void set_material(const material& mat) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;
 	virtual void projection(const math::space_matrix& mat) = 0;
+	
+	SGE_SYMBOL static const texture_ptr default_render_target;
 	virtual void set_render_target(texture_ptr target) = 0;
 	virtual void set_viewport(const viewport&) = 0;
 	virtual void enable_light(light_index index, bool enable) = 0;
@@ -258,6 +258,8 @@ public:
 	SGE_SYMBOL static const std::string no_shader;
 	virtual glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader,
 	                                              const std::string& pixel_shader_source = no_shader) = 0;
+
+	SGE_SYMBOL static const glsl::program_ptr no_program;
 	virtual void set_glsl_shader(glsl::program_ptr) = 0;
 
 	virtual render_target_ptr get_render_target() const = 0;
@@ -268,9 +270,7 @@ public:
 	                                   resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual volume_texture_ptr create_volume_texture(volume_texture::const_pointer data,
-	                                                 volume_texture::size_type width,
-	                                                 volume_texture::size_type height,
-	                                                 volume_texture::size_type depth,
+	                                                 const volume_texture::box_type& box,
 	                                                 const filter_args& filter,
 	                                                 resource_flag_t flags = resource_flags::default_) = 0;
 

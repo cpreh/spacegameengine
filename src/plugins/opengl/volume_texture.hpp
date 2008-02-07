@@ -55,12 +55,11 @@ typedef basic_texture<sge::volume_texture, volume_texture_type> volume_texture_b
 class volume_texture : public detail::volume_texture_base {
 public:
 	volume_texture(const_pointer src,
-	               size_type width,
-	               size_type height,
-	               size_type depth,
+	               const box_type& box,
 	               const filter_args& filter,
 	               resource_flag_t flags);
 
+	box_type box() const;
 	size_type size() const;
 	size_type width() const;
 	size_type height() const;
@@ -69,7 +68,7 @@ public:
 	void set_data(const_pointer src);
 	void set_data(const_pointer src, const lock_box& b);
 private:
-	const size_type _width, _height, _depth;
+	const box_type box_;
 };
 
 }

@@ -9,12 +9,12 @@
 sge::renderer is a thin wrapper around the backend's functionality.
 It is provided to abstract different backends like opengl and direct3d.
 Renderer provides mechanisms for
-\begin{enumerate}
+\begin{itemize}
 \item{Creating other abstract interfaces like textures, buffers and shaders}
 \item{Customizing renderer settings}
 \item{Retrieving some values specific to the renderer like capabilities}
 \item{Rendering geometry}
-\end{enumerate}
+\end{itemize}
 
 \begin{lstlisting}
 void begin_rendering();
@@ -370,5 +370,105 @@ Parameters:
 Effects: Sets the texture stage operation denoted by stage and op to value.
 Note: This function is superseeded by shaders.
 
-%%virtual void set_texture_stage_arg(stage_type stage, texture_stage_arg::type, texture_stage_arg_value::type) = 0;
+\begin{lstlisting}
+void set_texture_stage_arg(
+	stage_type stage,
+	texture_stage_arg::type arg,
+	texture_stage_arg_value::type value);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item stage\_type stage: The texture stage to set.
+\item texture\_stage\_arg::type arg: The argument to set.
+  \begin{itemize}
+  \item texture\_stage\_arg::rgb0: Set rgb0 argument
+  \item texture\_stage\_arg::rgb1: Set rgb1 argument
+  \item texture\_stage\_arg::rgb2: Set rgb2 argument
+  \item texture\_stage\_arg::alpha0: Set alpha0 argument
+  \item texture\_stage\_arg::alpha1: Set alpha1 argument
+  \item texture\_stage\_arg::alpha2: Set alpha2 argument
+  \end{itemize}
+\item texture\_stage\_arg\_value::type value: The value to use.
+  \begin{itemize}
+  \item texture\_stage\_arg\_value::current: Use the calculated value from the previous stage
+  \item texture\_stage\_arg\_value::texture: Use the texture's value from the current stage
+  \item texture\_stage\_arg\_value::constant: Use a set constant from arg2 (TODO)
+  \end{itemize}
+\end{itemize}
+Effects: Sets the texture stage argument denoted by stage and arg to value.
+Note: This function is superseeded by shaders.
+
+\begin{lstlisting}
+void push();
+\end{lstlisting}
+Effects: Pushes the current renderer settings except textures, shaders and buffers to the stack.
+
+\begin{lstlisting}
+void pop();
+\end{lstlisting}
+Effects: Pops the current renderer settings except textures, shaders and buffers from the stack.
+
+\begin{lstlisting}
+glsl::program_ptr create_glsl_program(
+	const std::string& vertex_shader_source
+		= no_shader,
+	const std::string& pixel_shader_source
+		= no_shader);
+\end{lstlisting}
+Paremeters:
+\begin{itemize}
+\item std::string vertex\_shader\_source: Use this string as the glsl vertex shader's source code.
+no\_shader can be used to create a shader that uses no vertex shader.
+\item std::string pixel\_shader\_source: Use this string as the glsl pixel shader's source code.
+no\_shader can be used to create a shader that uses no pixel shader.
+\end{itemize}
+Effects: Creates a glsl program that uses a pair of a vertex and a pixel shader.
+Either one of them can be specified with no\_shader in which case the shader is disabled.
+
+\begin{lstlisting}
+void set_glsl_shader(glsl::program_ptr prog);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item glsl::program\_ptr prog: The program to set. Can be no\_program to set disable shaders.
+\end{itemize}
+Returns: The created glsl program.
+Effects: Sets the current glsl program to use to prog. If no\_program is specified shaders will be disabled.
+
+\begin{lstlisting}
+render_target_ptr get_render_target() const;
+\end{lstlisting}
+Returns: The current active render target.
+
+\begin{lstlisting}
+texture_ptr create_texture(
+	texture::const_pointer data,
+	const texture::dim_type& dim,
+	const filter_args& filter,
+	resource_flag_t flags
+		= resource_flags::default_);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item texture::const\_pointer data: The data to fill the texture with.
+\item texture::dim\_type dim: The texture's dimension.
+\item filter\_args filter: The filter the texture uses.
+\item resource\_flag\_t flags: The resource flags.
+\end{itemize}
+Returns: The created texture.
+Effects: Creates a new texture with the specified parameters.
+
+\begin{lstlisting}
+volume_texture_ptr create_volume_texture(
+	volume_texture::const_pointer data,
+	const volume_texture::box_type& box,
+	const filter_args& filter,
+	resource_flag_t flags
+		= resource_flags::default_);
+\end{lstlisting}
+Paramters:
+\begin{itemize}
+\item volume\_texture::const\_pointer data: The data to fill the texture with.
+TODO
+\end{itemize}
 \end{document}

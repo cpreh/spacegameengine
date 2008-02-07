@@ -221,9 +221,7 @@ sge::vertex_buffer_ptr sge::ogl::renderer::create_vertex_buffer(const sge::verte
 }
 
 sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_texture::const_pointer src,
-                                                                  const volume_texture::size_type width,
-                                                                  const volume_texture::size_type height,
-                                                                  const volume_texture::size_type depth,
+                                                                  const volume_texture::box_type& box,
                                                                   const filter_args& filter,
                                                                   const resource_flag_t flags)
 {
@@ -232,7 +230,7 @@ sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_t
 	                 SGE_TEXT("1.2"),
 	                 SGE_TEXT("gl_ext_texture3d"));
 #else
-	return volume_texture_ptr(new volume_texture(src, width, height, depth, filter, flags));
+	return volume_texture_ptr(new volume_texture(src, box, filter, flags));
 #endif
 }
 

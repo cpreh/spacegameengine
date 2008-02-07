@@ -22,23 +22,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../volume_texture.hpp"
 #ifdef SGE_OPENGL_HAVE_VOLUME_TEXTURE
 #include "../../../stub.hpp"
+#include "../../../math/box_impl.hpp"
 #include "../error.hpp"
 #include "../basic_texture_impl.hpp"
 
 template class sge::ogl::basic_texture<sge::volume_texture, sge::ogl::detail::volume_texture_type>;
 
 sge::ogl::volume_texture::volume_texture(const const_pointer src,
-                                         const size_type _width,
-                                         const size_type _height,
-                                         const size_type _depth,
+                                         const box_type& box_,
                                          const filter_args& filter,
                                          const resource_flag_t flags)
- : detail::volume_texture_base(filter,flags),
-   _width(_width),
-   _height(_height),
-   _depth(_depth)
+ : detail::volume_texture_base(filter, flags),
+   box_(box_)
 {
 	set_data(src);
+}
+
+sge::ogl::volume_texture::box_type sge::ogl::volume_texture::box() const
+{
+	return box_;
 }
 
 sge::ogl::volume_texture::size_type sge::ogl::volume_texture::size() const
@@ -48,17 +50,17 @@ sge::ogl::volume_texture::size_type sge::ogl::volume_texture::size() const
 
 sge::ogl::volume_texture::size_type sge::ogl::volume_texture::width() const
 {
-	return _width;
+	return box().w();
 }
 
 sge::ogl::volume_texture::size_type sge::ogl::volume_texture::height() const
 {
-	return _height;
+	return box().h();
 }
 
 sge::ogl::volume_texture::size_type sge::ogl::volume_texture::depth() const
 {
-	return _depth;
+	return box().d();
 }
 
 void sge::ogl::volume_texture::set_data(const const_pointer src)
@@ -95,12 +97,12 @@ void sge::ogl::volume_texture::set_data(const const_pointer src, const lock_box&
 
 	glTexSubImage3D(detail::volume_texture_type,
 	                0,
-	                static_cast<GLint>(b.left),
-	                static_cast<GLint>(b.top),
-	                static_cast<GLint>(b.front),
-	                static_cast<GLsizei>(b.width()),
-	                static_cast<GLsizei>(b.height()),
-	                static_cast<GLsizei>(b.depth()),
+	                static_cast<GLint>(b.left()),
+	                static_cast<GLint>(b.top()),
+	                static_cast<GLint>(b.front()),
+	                static_cast<GLsizei>(b.w()),
+	                static_cast<GLsizei>(b.h()),
+	                static_cast<GLsizei>(b.d()),
 	                format,
 	                type,
 	                src);

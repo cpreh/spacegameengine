@@ -108,9 +108,7 @@ public:
 	                           resource_flag_t flags);
 
 	volume_texture_ptr create_volume_texture(volume_texture::const_pointer data,
-	                                         volume_texture::size_type width,
-	                                         volume_texture::size_type height,
-	                                         volume_texture::size_type depth,
+	                                         const volume_texture::box_type& box,
 	                                         const filter_args& filter,
 	                                         resource_flag_t flags);
 
