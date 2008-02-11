@@ -77,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/frames_counter.hpp"
 #include "../src/fstream.hpp"
 #include "../src/sstream.hpp"
+#include "../src/iostream.hpp"
 
 //#include <hamigaki/archivers/zip_file.hpp>
 
@@ -319,11 +320,11 @@ try
 	}
 	return EXIT_SUCCESS;
 }
-/*catch(const sge::exception& e)
+catch(const sge::exception& e)
 {
-	std::wcerr << "Program terminated (sge::exception caught): " << e.what() << '\n';
+	sge::cerr << "Program terminated (sge::exception caught): " << e.what() << '\n';
 	return EXIT_FAILURE;
-}*/
+}
 catch(const std::exception& e)
 {
 	std::wcerr << "Program terminated (std::exception caught): " << e.what() << '\n';

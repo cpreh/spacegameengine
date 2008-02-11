@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "box.hpp"
 
 template<typename T>
-sge::math::basic_box<T>::basic_box(const value_type& left_,
-                                   const value_type& top_,
-                                   const value_type& right_,
-                                   const value_type& bottom_,
-                                   const value_type& front_,
-                                   const value_type& back_)
+sge::math::basic_box<T>::basic_box(const_reference left_,
+                                   const_reference top_,
+                                   const_reference right_,
+                                   const_reference bottom_,
+                                   const_reference front_,
+                                   const_reference back_)
 : left_(left_),
   top_(top_),
   right_(right_),
@@ -48,6 +48,12 @@ template<typename T>
 typename sge::math::basic_box<T>::value_type sge::math::basic_box<T>::h() const
 {
 	return bottom() - top();
+}
+
+template<typename T>
+typename sge::math::basic_box<T>::value_type sge::math::basic_box<T>::d() const
+{
+	return back() - front();
 }
 
 template<typename T>

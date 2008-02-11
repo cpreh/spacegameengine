@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_BOX_HPP_INCLUDED
 #define SGE_MATH_BOX_HPP_INCLUDED
 
+#include "../types.hpp"
+
 namespace sge
 {
 namespace math
@@ -32,12 +34,12 @@ public:
 	typedef T&       reference;
 	typedef const T& const_reference;
 
-	basic_box(const value_type& left,
-	          const value_type& top,
-	          const value_type& right,
-	          const value_type& bottom,
-	          const value_type& front,
-	          const value_type& back);
+	basic_box(const_reference left,
+	          const_reference top,
+	          const_reference right,
+	          const_reference bottom,
+	          const_reference front,
+	          const_reference back);
 
 	value_type w() const;
 	value_type h() const;
