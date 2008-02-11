@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../dga.hpp"
+#ifdef USE_DGA
 #include <X11/extensions/xf86dga.h>
 
 sge::xinput::dga_guard::dga_guard(const x_display_ptr dsp, const int screen)
@@ -43,3 +44,4 @@ void sge::xinput::dga_guard::enable(const bool b)
 
 	enabled = b;
 }
+#endif
