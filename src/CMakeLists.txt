@@ -14,7 +14,7 @@ FILE (GLOB sgecorefiles
 	sprite/src/*.cpp
 	texture/src/*.cpp)
 
-ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
+ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"" -DSGE_NARROW_STRING)
 
 IF (MSVC)
 	INCLUDE_DIRECTORIES (${WININCLUDES}/libiconv/include)

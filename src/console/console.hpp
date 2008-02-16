@@ -108,7 +108,7 @@ struct action_var_base : public var_base
 	}
 
 	action_var_base(const string &name,A _a,const value_type &_t = value_type()) 
-		: var_base(name),a(_a),t(_t)
+		: var_base(name),a(_a),t(a(_t,_t))
 	{
 		late_construct();
 	}

@@ -5,7 +5,7 @@ sge::con::stdlib::stdlib(const callback_type &print)
 	: print(print) 
 {
 	add(SGE_TEXT("set"),boost::bind(&stdlib::set,this,_1));
-	add(SGE_TEXT("get"),boost::bind(&stdlib::set,this,_1));
+	add(SGE_TEXT("get"),boost::bind(&stdlib::get,this,_1));
 	add(SGE_TEXT("listvars"),boost::bind(&stdlib::listvars,this,_1));
 	add(SGE_TEXT("listfuncs"),boost::bind(&stdlib::listfuncs,this,_1));
 	add(SGE_TEXT("latch"),boost::bind(&stdlib::latch,this,_1));
