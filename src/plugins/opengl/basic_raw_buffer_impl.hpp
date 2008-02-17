@@ -23,27 +23,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_raw_buffer.hpp"
 
-template<typename Base, GLenum Type>
-sge::ogl::basic_raw_buffer<Base, Type>::basic_raw_buffer(const size_type sz,
-                                                         const resource_flag_t flags,
-                                                         const const_pointer src)
-: base(sz, sizeof(value_type), flags, src)
+template<typename Base, GLenum (*Type)(), sge::ogl::vbo_base& (*Impl)()>
+sge::ogl::basic_raw_buffer<Base, Type, Impl>::basic_raw_buffer(
+	const size_type sz,
+	const resource_flag_t flags,
+	const const_pointer src)
+:	base_type(
+		Type(),
+		Impl(),
+		sz,
+		sizeof(value_type),
+		flags,
+		src)
 {}
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_raw_buffer<Base, Type>::unbind()
-{
-	base::unbind();
-}
-
-template<typename Base, GLenum Type>
-typename sge::ogl::basic_raw_buffer<Base, Type>::iterator sge::ogl::basic_raw_buffer<Base, Type>::create_iterator(const pointer src)
+template<typename Base, GLenum (*Type)(), sge::ogl::vbo_base& (*Impl)()>
+typename sge::ogl::basic_raw_buffer<Base, Type, Impl>::iterator
+sge::ogl::basic_raw_buffer<Base, Type, Impl>::create_iterator(const pointer src)
 {
 	return iterator(src);
 }
 
-template<typename Base, GLenum Type>
-typename sge::ogl::basic_raw_buffer<Base, Type>::const_iterator sge::ogl::basic_raw_buffer<Base, Type>::create_iterator(const const_pointer src) const
+template<typename Base, GLenum (*Type)(), sge::ogl::vbo_base& (*Impl)()>
+typename sge::ogl::basic_raw_buffer<Base, Type, Impl>::const_iterator
+sge::ogl::basic_raw_buffer<Base, Type, Impl>::create_iterator(const const_pointer src) const
 {
 	return iterator(src);
 }

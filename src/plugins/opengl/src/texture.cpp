@@ -74,12 +74,14 @@ void sge::ogl::texture::set_data(const const_pointer src)
 	if(!src)
 		throw exception(SGE_TEXT("texture::set_data(): src may not be 0!"));
 	pre_setdata();
-#ifdef SGE_OPENGL_HAVE_PBO	
-	scoped_lock<sge::texture*> lock_(this, lock_flags::writeonly);
-	copy_n(src, size(), data());
-#else
-	set_texture(src);
-#endif
+
+	if(pbo_in_hardware())
+	{
+		scoped_lock<sge::texture*> lock_(this, lock_flags::writeonly);
+		copy_n(src, size(), data());
+	}
+	else
+		set_texture(src);
 }
 
 void sge::ogl::texture::lock(const lock_flag_t lmode)

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../renderer/vertex_buffer.hpp"
 #include "basic_buffer.hpp"
 #include "vertex_format.hpp"
-#include "vbo.hpp"
 
 namespace sge
 {
@@ -33,7 +32,7 @@ namespace ogl
 
 namespace detail
 {
-typedef basic_buffer<sge::vertex_buffer, vertex_buffer_type> vertex_buffer_base;
+typedef basic_buffer<sge::vertex_buffer> vertex_buffer_base;
 }
 
 class vertex_buffer : public detail::vertex_buffer_base {	

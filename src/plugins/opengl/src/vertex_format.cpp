@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../error.hpp"
 #include "../vbo.hpp"
+#include "../vbo_base.hpp"
 #include "../vertex_format.hpp"
-#include "../vertex_buffer.hpp"
 
 namespace {
 
@@ -41,9 +41,12 @@ struct vertex_actor_info {
 vertex_actor_info::vertex_actor_info(const vertex_size offset_,
                                      const vertex_size stride,
                                      const vertex_size index)
-: offset(sge::ogl::vertex_buffer::buffer_offset(offset_)),
-  stride(stride),
-  index(index)
+:	offset(
+		sge::ogl::vb_ib_vbo_impl().buffer_offset(
+			sge::ogl::vertex_buffer_type(),
+			offset_)),
+	stride(stride),
+	index(index)
 {}
 
 void pos_actor(const vertex_actor_info& ai)

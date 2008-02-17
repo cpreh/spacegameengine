@@ -22,28 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_PBO_HPP_INCLUDED
 
 #include "../../renderer/texture_base.hpp"
-#include "basic_raw_buffer.hpp"
 #include "common.hpp"
-#include "hardware_vbo.hpp"
-#include "software_vbo.hpp"
-#include "vbo.hpp"
-
-#if defined(GLEW_VERSION_2_1)
-#define SGE_OPENGL_PIXEL_BUFFER_OBJECT
-#elif defined(GLEW_ARB_pixel_buffer_object)
-#define SGE_OPENGL_PIXEL_BUFFER_OBJECT_ARB
-#endif
-
-//#if defined(SGE_OPENGL_PIXEL_BUFFER_OBJECT) || defined(SGE_OPENGL_PIXEL_BUFFER_OBJECT_ARB)
-//#define SGE_OPENGL_HAVE_PBO
-//#endif
 
 namespace sge
 {
 namespace ogl
 {
 
-struct pbo_base {
+class vbo_base;
+
+class pbo_base {
+public:
 	typedef sge::texture_base::size_type              size_type;
 	typedef sge::texture_base::difference_type        difference_type;
 	typedef sge::texture_base::value_type             value_type;
@@ -61,48 +50,27 @@ struct pbo_base {
 
 	virtual iterator begin() = 0;
 	virtual const_iterator begin() const = 0;
-	virtual iterator end() = 0;
-	virtual const_iterator end() const = 0;
+	iterator end();
+	const_iterator end() const;
+
+	virtual size_type size() const = 0;
 
 	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;
 	
 	virtual void bind_me() const = 0;
 
+	virtual pointer buffer_offset(size_type) const = 0;
+
 	virtual ~pbo_base(){}
 };
 
-#ifdef SGE_OPENGL_PIXEL_BUFFER_OBJECT_ARB
-const GLenum pixel_pack_buffer_type = GL_PIXEL_PACK_BUFFER_ARB,
-             pixel_unpack_buffer_type = GL_PIXEL_UNPACK_BUFFER_ARB;
-#else
-const GLenum pixel_pack_buffer_type = GL_PIXEL_PACK_BUFFER,
-             pixel_unpack_buffer_type = GL_PIXEL_UNPACK_BUFFER;
-#endif
+GLenum pixel_pack_buffer_type();
+GLenum pixel_unpack_buffer_type();
 
-typedef basic_raw_buffer<pbo_base, pixel_pack_buffer_type>   pixel_pack_buffer;
-typedef basic_raw_buffer<pbo_base, pixel_unpack_buffer_type> pixel_unpack_buffer;
-
-namespace detail
-{
-const bool hw_pbo =
-#if defined(SGE_OPENGL_HAVE_VBO) && defined(SGE_OPENGL_HAVE_PBO)
-	true
-#else
-	false
-#endif
-	;
-}
-
-template<>
-struct select_vbo_impl<pixel_pack_buffer_type> {
-	typedef vbo_impl<detail::hw_pbo> type;
-};
-
-template<>
-struct select_vbo_impl<pixel_unpack_buffer_type> {
-	typedef vbo_impl<detail::hw_pbo> type;
-};
+void initialize_pbo();
+vbo_base& pbo_impl();
+bool pbo_in_hardware();
 
 }
 }

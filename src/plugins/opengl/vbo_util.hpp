@@ -18,21 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VBO_COMMON_HPP_INCLUDED
-#define SGE_OPENGL_VBO_COMMON_HPP_INCLUDED
-
-#include "common.hpp"
+#ifndef SGE_OPENGL_VBO_UTIL_HPP_INCLUDED
+#define SGE_OPENGL_VBO_UTIL_HPP_INCLUDED
 
 namespace sge
 {
 namespace ogl
 {
 
-template<bool hw_supported>
-struct vbo_impl;
+class vbo_base;
 
-template<GLenum Type>
-struct select_vbo_impl;
+vbo_base* create_vbo_impl(bool hw_supported);
 
 }
 }

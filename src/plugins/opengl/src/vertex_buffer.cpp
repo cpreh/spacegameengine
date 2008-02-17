@@ -20,16 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../vertex_buffer.hpp"
 #include "../basic_buffer_impl.hpp"
+#include "../vbo.hpp"
 
-template class sge::ogl::basic_buffer<sge::vertex_buffer, sge::ogl::vertex_buffer_type>;
+template class sge::ogl::basic_buffer<sge::vertex_buffer>;
 
-sge::ogl::vertex_buffer::vertex_buffer(const size_type size,
-                                       const sge::vertex_format& format,
-                                       const resource_flag_t flags,
-                                       const const_pointer src)
- : detail::vertex_buffer_base(size, format.stride(), flags, src),
-   format(format),
-   ogl_format(format)
+sge::ogl::vertex_buffer::vertex_buffer(
+	const size_type size,
+	const sge::vertex_format& format,
+	const resource_flag_t flags,
+	const const_pointer src)
+ :	detail::vertex_buffer_base(
+ 		vertex_buffer_type(),
+		vb_ib_vbo_impl(),
+ 		size,
+		format.stride(),
+		flags,
+		src),
+	format(format),
+	ogl_format(format)
 {}
 		
 sge::ogl::vertex_buffer::size_type sge::ogl::vertex_buffer::stride() const
@@ -44,12 +52,18 @@ const sge::vertex_format& sge::ogl::vertex_buffer::get_vertex_format() const
 
 sge::ogl::vertex_buffer::iterator sge::ogl::vertex_buffer::create_iterator(const pointer p)
 {
-	return iterator(p,format.stride(),ogl_format.offsets());
+	return iterator(
+		p,
+		format.stride(),
+		ogl_format.offsets());
 }
 
 sge::ogl::vertex_buffer::const_iterator sge::ogl::vertex_buffer::create_iterator(const const_pointer p) const
 {
-	return const_iterator(p,stride(),ogl_format.offsets());
+	return const_iterator(
+		p,
+		stride(),
+		ogl_format.offsets());
 }
 
 void sge::ogl::vertex_buffer::set_format()

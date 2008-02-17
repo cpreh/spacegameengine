@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
 #include "../algorithm.hpp"
+#include "../export.hpp"
 #include "vertex_format.hpp"
 #include "vertex.hpp"
 #include "types.hpp"
@@ -94,21 +95,24 @@ public:
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	virtual iterator begin() = 0;
-	virtual const_iterator begin() const = 0;
-	virtual iterator end() = 0;
-	virtual const_iterator end() const = 0;
-	virtual reverse_iterator rbegin() = 0;
-	virtual const_reverse_iterator rbegin() const = 0;
-	virtual reverse_iterator rend() = 0;
-	virtual const_reverse_iterator rend() const = 0;
-	virtual size_type size() const = 0;
-	virtual resource_flag_t flags() const = 0;
-	virtual reference operator[](size_type) = 0;
-	virtual const_reference operator[](size_type) const = 0;
+	SGE_SYMBOL iterator end();
+	SGE_SYMBOL const_iterator end() const;
+	SGE_SYMBOL reverse_iterator rbegin();
+	SGE_SYMBOL const_reverse_iterator rbegin() const;
+	SGE_SYMBOL reverse_iterator rend();
+	SGE_SYMBOL const_reverse_iterator rend() const;
+	SGE_SYMBOL reference operator[](size_type);
+	SGE_SYMBOL const_reference operator[](size_type) const;
+
 	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;
 	virtual void unlock() = 0;
 	virtual void set_data(const_pointer data, size_type first, size_type count) = 0;
+
+	virtual iterator begin() = 0;
+	virtual const_iterator begin() const = 0;
+	virtual size_type size() const = 0;
+	virtual resource_flag_t flags() const = 0;
+
 	virtual void resize(size_type newsize, const_pointer new_data = 0) = 0;
 	virtual size_type stride() const = 0;
 	virtual iterator create_iterator(pointer data) = 0;
@@ -117,7 +121,7 @@ public:
 	virtual const_pointer data() const = 0;
 
 	virtual const vertex_format& get_vertex_format() const = 0;
-	virtual ~vertex_buffer(){}
+	virtual ~vertex_buffer();
 };
 
 typedef shared_ptr<vertex_buffer> vertex_buffer_ptr;

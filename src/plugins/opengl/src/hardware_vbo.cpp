@@ -22,91 +22,114 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../hardware_vbo.hpp"
 #include "../error.hpp"
 
-GLuint sge::ogl::vbo_impl<true>::gen_buffer()
+namespace
 {
+
+void (*gl_gen_buffers)(GLsizei, GLuint*);
+void (*gl_delete_buffers)(GLsizei, const GLuint*);
+void (*gl_bind_buffer)(GLenum, GLuint);
+void* (*gl_map_buffer)(GLenum, GLenum);
+GLboolean (*gl_unmap_buffer)(GLenum);
+void (*gl_buffer_data)(GLenum, GLsizeiptr, const GLvoid*, GLenum);
+void (*gl_buffer_sub_data)(GLenum, GLintptr, GLsizeiptr, const GLvoid*);
+
+void initialize_hardware_vbo()
+{
+	static bool initialized = false;
+	if(initialized)
+		return;
+	initialized = true;
+
+	if(GLEW_VERSION_1_5)
+	{
+		gl_gen_buffers = glGenBuffers;
+		gl_delete_buffers = glDeleteBuffers;
+		gl_bind_buffer = glBindBuffer;
+		gl_map_buffer = glMapBuffer;
+		gl_unmap_buffer = glUnmapBuffer;
+		gl_buffer_data = glBufferData;
+		gl_buffer_sub_data = glBufferSubData;
+	}
+	else if(GL_ARB_vertex_buffer_object)
+	{
+		gl_gen_buffers = glGenBuffersARB;
+		gl_delete_buffers = glDeleteBuffersARB;
+		gl_bind_buffer = glBindBufferARB;
+		gl_map_buffer = glMapBufferARB;
+		gl_unmap_buffer = glUnmapBufferARB;
+		gl_buffer_data = glBufferDataARB;
+		gl_buffer_sub_data = glBufferSubDataARB;
+	}	
+}
+
+}
+
+GLuint sge::ogl::hardware_vbo::gen_buffer()
+{
+	initialize_hardware_vbo();
+
 	SGE_OPENGL_SENTRY
 
 	GLuint id;
-#ifdef SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
-	glGenBuffersARB(1, &id);
-#else
-	glGenBuffers(1, &id);
-#endif
+	gl_gen_buffers(1, &id);
+
 	return id;
 }
 
-void sge::ogl::vbo_impl<true>::delete_buffer(const GLuint id)
+void sge::ogl::hardware_vbo::delete_buffer(const GLuint id)
 {
-#ifdef SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
-	glDeleteBuffersARB(1, &id);
-#else
-	glDeleteBuffers(1, &id);
-#endif
+	SGE_OPENGL_SENTRY
+
+	gl_delete_buffers(1, &id);
 }
 
-void sge::ogl::vbo_impl<true>::bind_buffer(const GLenum type, const GLuint id)
+void sge::ogl::hardware_vbo::bind_buffer(const GLenum type, const GLuint id)
+{
+	SGE_OPENGL_SENTRY
+
+	gl_bind_buffer(type, id);
+}
+
+void* sge::ogl::hardware_vbo::map_buffer(const GLenum type, const GLenum flags)
 {
 	SGE_OPENGL_SENTRY
 	
-#ifdef SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
-	glBindBufferARB(type, id);
-#else
-	glBindBuffer(type, id);
-#endif
-}
-
-void* sge::ogl::vbo_impl<true>::map_buffer(const GLenum type, const GLenum flags)
-{
-	SGE_OPENGL_SENTRY
+	void *const ret = gl_map_buffer(type, flags);
 	
-	void *const ret = 
-#ifdef SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
-	glMapBufferARB(type, flags);
-#else
-	glMapBuffer(type, flags);
-#endif
 	if(ret == 0)
 		throw exception(SGE_TEXT("glMapBuffer() returned 0!"));
 	return ret;
 }
 
-void sge::ogl::vbo_impl<true>::unmap_buffer(const GLenum type)
+void sge::ogl::hardware_vbo::unmap_buffer(const GLenum type)
 {
 	SGE_OPENGL_SENTRY
-#ifdef SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
-	glUnmapBufferARB(type);
-#else
-	glUnmapBuffer(type);
-#endif
+	
+	if(gl_unmap_buffer(type) == GL_FALSE)
+		throw exception("gl_unmap_buffer() returned false. The buffer corrupted during the lock time.");
 }
 
-void sge::ogl::vbo_impl<true>::buffer_data(const GLenum type,
-                                           const GLsizei size,
-                                           const void *const data,
-                                           const GLenum flags)
+void sge::ogl::hardware_vbo::buffer_data(const GLenum type,
+                                         const GLsizei size,
+                                         const void *const data,
+                                         const GLenum flags)
 {
 	SGE_OPENGL_SENTRY
-#ifdef SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
-	glBufferDataARB(type, size, data, flags);
-#else
-	glBufferData(type, size, data, flags);
-#endif
+	
+	gl_buffer_data(type, size, data, flags);
 }
 
-void sge::ogl::vbo_impl<true>::buffer_sub_data(const GLenum type,
-                                               const GLsizei first,
-                                               const GLsizei size,
-                                               const void *const data)
+void sge::ogl::hardware_vbo::buffer_sub_data(const GLenum type,
+                                             const GLsizei first,
+                                             const GLsizei size,
+                                             const void *const data)
 {
 	SGE_OPENGL_SENTRY
-#ifdef SGE_OPENGL_VERTEX_BUFFER_OBJECT_ARB
-	glBufferSubDataARB(type, first, size, data);
-#else
-	glBufferSubData(type, first, size, data);
-#endif
+	
+	gl_buffer_sub_data(type, first, size, data);
 }
 
-void* sge::ogl::vbo_impl<true>::buffer_offset(const GLenum, const GLsizei offset)
+void* sge::ogl::hardware_vbo::buffer_offset(const GLenum, const GLsizei offset)
 {
 	return reinterpret_cast<void*>(offset);
 }

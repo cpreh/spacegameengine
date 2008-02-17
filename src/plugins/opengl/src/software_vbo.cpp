@@ -44,39 +44,39 @@ void check_bound(GLenum type);
 
 }
 
-GLuint sge::ogl::vbo_impl<false>::gen_buffer()
+GLuint sge::ogl::software_vbo::gen_buffer()
 {
 	buffers.insert(buffer_map::value_type(nextid, 0));
 	return nextid++;
 }
 
-void sge::ogl::vbo_impl<false>::delete_buffer(const GLuint id)
+void sge::ogl::software_vbo::delete_buffer(const GLuint id)
 {
 	const buffer_map::iterator it = get_buffer_object(id);
 	delete[] it->second;
 	buffers.erase(it);
 }
 
-void sge::ogl::vbo_impl<false>::bind_buffer(const GLenum type, const GLuint id)
+void sge::ogl::software_vbo::bind_buffer(const GLenum type, const GLuint id)
 {
 	get_bound_buffer(type) = id;
 }
 
-void* sge::ogl::vbo_impl<false>::map_buffer(const GLenum type, const GLenum)
+void* sge::ogl::software_vbo::map_buffer(const GLenum type, const GLenum)
 {
 	check_bound(type);
 	return get_buffer_object(get_bound_buffer(type))->second;
 }
 
-void sge::ogl::vbo_impl<false>::unmap_buffer(const GLenum type)
+void sge::ogl::software_vbo::unmap_buffer(const GLenum type)
 {
 	check_bound(type);
 }
 
-void sge::ogl::vbo_impl<false>::buffer_data(const GLenum type,
-                                            const GLsizei size,
-                                            const void *const data,
-                                            const GLenum)
+void sge::ogl::software_vbo::buffer_data(const GLenum type,
+                                         const GLsizei size,
+                                         const void *const data,
+                                         const GLenum)
 {
 	const buffer_map::iterator it = get_buffer_object(get_bound_buffer(type));
 	delete[] it->second;
@@ -85,10 +85,10 @@ void sge::ogl::vbo_impl<false>::buffer_data(const GLenum type,
 		buffer_sub_data(type, 0, size, data);
 }
 
-void sge::ogl::vbo_impl<false>::buffer_sub_data(const GLenum type,
-                                                const GLsizei first,
-                                                const GLsizei size,
-                                                const void *const data)
+void sge::ogl::software_vbo::buffer_sub_data(const GLenum type,
+                                             const GLsizei first,
+                                             const GLsizei size,
+                                             const void *const data)
 {
 	if(!data)
 		throw exception(SGE_TEXT("buffer_sub_data(): data may not be 0!"));
@@ -98,10 +98,16 @@ void sge::ogl::vbo_impl<false>::buffer_sub_data(const GLenum type,
 	       get_buffer_object(get_bound_buffer(type))->second);
 }
 
-void* sge::ogl::vbo_impl<false>::buffer_offset(const GLenum type,
-                                               const GLsizei offset)
+void* sge::ogl::software_vbo::buffer_offset(const GLenum type,
+                                            const GLsizei offset)
 {
 	return get_buffer_object(get_bound_buffer(type))->second + offset;
+}
+
+GLenum sge::ogl::software_vbo::unique_id()
+{
+	static GLenum id = 0;
+	return id++;
 }
 
 namespace
@@ -109,18 +115,15 @@ namespace
 	
 GLuint& get_bound_buffer(const GLenum type)
 {
-	switch(type) {
-	case sge::ogl::vertex_buffer_type:
+	if(type == sge::ogl::vertex_buffer_type())
 		return bound_vb;
-	case sge::ogl::index_buffer_type:
+	if(type == sge::ogl::index_buffer_type())
 		return bound_ib;
-	case sge::ogl::pixel_pack_buffer_type:
+	if(type == sge::ogl::pixel_pack_buffer_type())
 		return bound_pack;
-	case sge::ogl::pixel_unpack_buffer_type:
+	if(type == sge::ogl::pixel_unpack_buffer_type())
 		return bound_unpack;
-	default:
-		throw sge::exception(SGE_TEXT("get_bound_buffer(): invalid type!"));
-	}
+	throw sge::exception(SGE_TEXT("get_bound_buffer(): invalid type!"));
 }
 
 buffer_map::iterator get_buffer_object(const GLuint id)

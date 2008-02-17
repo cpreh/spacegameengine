@@ -176,6 +176,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	if(glewInit() != GLEW_OK)
 		throw exception(SGE_TEXT("glewInit() failed!"));
 
+	initialize_vbo();
+	initialize_pbo();
+
 	set_blend_func(source_blend_func::src_alpha, dest_blend_func::inv_src_alpha);
 	// TODO: implement caps
 	_caps.adapter_number = adapter;
@@ -294,10 +297,14 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 
 	const GLenum prim_type = convert_cast<GLenum>(ptype);
 
-	glDrawElements(prim_type,
-	               static_cast<GLsizei>(indices_per_primitive(ptype) * pcount),
-	               GL_UNSIGNED_INT,
-	               index_buffer::buffer_offset(first_index * sizeof(sge::index_buffer::value_type)));
+	const index_buffer& gl_ib = dynamic_cast<const index_buffer&>(*ib);
+
+	glDrawElements(
+		prim_type,
+		static_cast<GLsizei>(indices_per_primitive(ptype) * pcount),
+		GL_UNSIGNED_INT,
+		gl_ib.buffer_offset(
+			first_index * sizeof(sge::index_buffer::value_type)));
 }
 
 void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
@@ -615,7 +622,8 @@ void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)
 {
 	if(!vb)
 	{
-		vertex_buffer::unbind();
+		// FIXME
+		//vertex_buffer::unbind();
 		return;
 	}
 	vertex_buffer* const ovb = boost::polymorphic_cast<vertex_buffer*>(vb.get());
@@ -626,7 +634,8 @@ void sge::ogl::renderer::set_index_buffer(const sge::index_buffer_ptr ib)
 {
 	if(!ib)
 	{
-		index_buffer::unbind();
+		// FIXME
+		//index_buffer::unbind();
 		return;
 	}
 	index_buffer* const oib = boost::polymorphic_cast<index_buffer*>(ib.get());

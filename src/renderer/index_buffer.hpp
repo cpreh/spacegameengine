@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iterator>
 #include "../shared_ptr.hpp"
 #include "../typeswitch.hpp"
+#include "../export.hpp"
 #include "types.hpp"
 
 namespace sge
@@ -45,26 +46,27 @@ public:
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 	
+	SGE_SYMBOL iterator end();
+	SGE_SYMBOL const_iterator end() const;
+	SGE_SYMBOL reverse_iterator rbegin();
+	SGE_SYMBOL const_reverse_iterator rbegin() const;
+	SGE_SYMBOL reverse_iterator rend();
+	SGE_SYMBOL const_reverse_iterator rend() const;
+	SGE_SYMBOL reference operator[](size_type);
+	SGE_SYMBOL const_reference operator[](size_type) const;
+
 	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;
 	virtual void unlock() = 0;
 	virtual void set_data(const_pointer data, size_type first, size_type count) = 0;
 	virtual iterator begin() = 0;
 	virtual const_iterator begin() const = 0;
-	virtual iterator end() = 0;
-	virtual const_iterator end() const = 0;
-	virtual reverse_iterator rbegin() = 0;
-	virtual const_reverse_iterator rbegin() const = 0;
-	virtual reverse_iterator rend() = 0;
-	virtual const_reverse_iterator rend() const = 0;
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
-	virtual reference operator[](size_type) = 0;
-	virtual const_reference operator[](size_type) const = 0;
 
 	virtual void resize(size_type newsize, const_pointer data = 0) = 0;
 	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;
-	virtual ~index_buffer(){}
+	virtual ~index_buffer();
 };
 
 typedef shared_ptr<index_buffer> index_buffer_ptr;

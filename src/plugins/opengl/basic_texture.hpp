@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/scoped_ptr.hpp>
 #include "../../renderer/texture_filter.hpp"
 #include "common.hpp"
-#include "pbo.hpp"
+#include "pixel_pack_buffer.hpp"
+#include "pixel_unpack_buffer.hpp"
 #include "texture_base.hpp"
 
 namespace sge
@@ -32,7 +33,8 @@ namespace sge
 namespace ogl
 {
 
-template<typename Base, GLenum Type> class basic_texture : public Base, public texture_base {
+template<typename Base, GLenum Type>
+class basic_texture : public Base, public texture_base {
 	void check_lock() const;
 public:
 	typedef typename Base::value_type value_type;

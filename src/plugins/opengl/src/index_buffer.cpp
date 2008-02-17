@@ -22,4 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_raw_buffer_impl.hpp"
 #include "../index_buffer.hpp"
 
-template class sge::ogl::basic_raw_buffer<sge::index_buffer, sge::ogl::index_buffer_type>;
+template class sge::ogl::basic_raw_buffer<
+	sge::index_buffer,
+	sge::ogl::index_buffer_type,
+	sge::ogl::vb_ib_vbo_impl>;

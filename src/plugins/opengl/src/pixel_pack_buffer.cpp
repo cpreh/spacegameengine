@@ -18,25 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VBO_HPP_INCLUDED
-#define SGE_OPENGL_VBO_HPP_INCLUDED
+#include "../basic_buffer_impl.hpp"
+#include "../basic_raw_buffer_impl.hpp"
+#include "../pixel_pack_buffer.hpp"
 
-#include "common.hpp"
-
-namespace sge
-{
-namespace ogl
-{
-
-class vbo_base;
-
-GLenum index_buffer_type();
-GLenum vertex_buffer_type();
-
-void initialize_vbo();
-vbo_base& vb_ib_vbo_impl();
-
-}
-}
-
-#endif
+template class sge::ogl::basic_raw_buffer<
+	sge::ogl::pbo_base,
+	sge::ogl::pixel_pack_buffer_type,
+	sge::ogl::pbo_impl>;

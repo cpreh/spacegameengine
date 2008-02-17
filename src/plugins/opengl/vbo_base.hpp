@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VBO_HPP_INCLUDED
-#define SGE_OPENGL_VBO_HPP_INCLUDED
+#ifndef SGE_OPENGL_VBO_BASE_HPP_INCLUDED
+#define SGE_OPENGL_VBO_BASE_HPP_INCLUDED
 
 #include "common.hpp"
 
@@ -28,13 +28,26 @@ namespace sge
 namespace ogl
 {
 
-class vbo_base;
+class vbo_base {
+public:
+	virtual GLuint gen_buffer() = 0;
+	virtual void delete_buffer(GLuint) = 0;
+	virtual void bind_buffer(GLenum type, GLuint) = 0;
+	virtual void* map_buffer(GLenum type, GLenum flags) = 0;
+	virtual void unmap_buffer(GLenum type) = 0;
+	virtual void buffer_data(GLenum type,
+	                         GLsizei size,
+	                         const void* data,
+	                         GLenum flags) = 0;
+	virtual void buffer_sub_data(GLenum type,
+	                             GLsizei first,
+	                             GLsizei size,
+	                             const void* data) = 0;
+	virtual void* buffer_offset(GLenum type, GLsizei offset) = 0;
 
-GLenum index_buffer_type();
-GLenum vertex_buffer_type();
+	virtual ~vbo_base() {}
+};
 
-void initialize_vbo();
-vbo_base& vb_ib_vbo_impl();
 
 }
 }

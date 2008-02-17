@@ -69,13 +69,21 @@ void sge::ogl::basic_texture<Base, Type>::do_lock(const lock_flag_t lmode)
 
 	if(lock_flag_write(lmode))
 	{
-		unpack_buffer.reset(new pixel_unpack_buffer(size(), flags(), 0));
+		unpack_buffer.reset(
+			new pixel_unpack_buffer(
+				size(),
+				flags(),
+				0));
 		cur_buffer = unpack_buffer.get();
 	}
 
 	if(lock_flag_read(lmode))
 	{
-		pack_buffer.reset(new pixel_pack_buffer(size(), flags(), 0));
+		pack_buffer.reset(
+			new pixel_pack_buffer(
+				size(),
+				flags(),
+				0));
 		cur_buffer = pack_buffer.get();
 	}
 
@@ -116,12 +124,14 @@ void sge::ogl::basic_texture<Base, Type>::do_unlock()
 	if(!cur_buffer)
 		throw exception(SGE_TEXT("ogl::basic_texture::do_unlock(): texture is not locked!"));
 
+	if(pack_buffer)
+		pack_buffer->unbind();
+	if(unpack_buffer)
+		unpack_buffer->unbind();
+
 	pack_buffer.reset();
 	unpack_buffer.reset();
 	cur_buffer = 0;
-
-	pixel_pack_buffer::unbind();
-	pixel_unpack_buffer::unbind();
 }
 
 template<typename Base, GLenum Type>
@@ -133,13 +143,18 @@ sge::lock_flag_t sge::ogl::basic_texture<Base, Type>::lock_mode() const
 template<typename Base, GLenum Type>
 typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::read_buffer() const
 {
-	return pixel_pack_buffer::buffer_offset(0);
+	if(!pack_buffer)
+		throw exception("pack_buffer not set in basic_texture::read_buffer()!");
+	return pack_buffer->buffer_offset(0);
 }
 
 template<typename Base, GLenum Type>
 typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::write_buffer() const
 {
-	return pixel_unpack_buffer::buffer_offset(0);
+	if(!unpack_buffer)
+		throw exception("unpack_buffer not set in basic_texture::write_buffer()!");
+
+	return unpack_buffer->buffer_offset(0);
 }
 
 template<typename Base, GLenum Type>

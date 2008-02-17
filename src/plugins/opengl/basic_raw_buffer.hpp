@@ -30,8 +30,13 @@ namespace sge
 namespace ogl
 {
 
-template<typename Base, GLenum Type>
-class basic_raw_buffer : public basic_buffer<Base, Type> {
+class vbo_base;
+
+template<
+	typename Base,
+	GLenum (*Type)(),
+	vbo_base& (*Impl)()>
+class basic_raw_buffer : public basic_buffer<Base> {
 public:
 	typedef typename Base::value_type             value_type;
 	typedef typename Base::size_type              size_type;
@@ -45,14 +50,14 @@ public:
 	typedef typename Base::reverse_iterator       reverse_iterator;
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
 
-	basic_raw_buffer(size_type, resource_flag_t, const_pointer src);
-	static void unbind();
+	basic_raw_buffer(
+		size_type,
+		resource_flag_t,
+		const_pointer src);
 
-	typedef basic_buffer<Base, Type> base_type;
+	typedef basic_buffer<Base> base_type;
 	using base_type::buffer_offset;
 private:
-	typedef basic_buffer<Base, Type> base;
-
 	iterator create_iterator(pointer);
 	const_iterator create_iterator(const_pointer) const;
 };

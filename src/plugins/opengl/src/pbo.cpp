@@ -18,15 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <boost/scoped_ptr.hpp>
 #include "../basic_buffer_impl.hpp"
-#include "../basic_raw_buffer_impl.hpp"
 #include "../pbo.hpp"
+#include "../software_vbo.hpp"
+#include "../vbo_util.hpp"
 
-template class sge::ogl::basic_raw_buffer<sge::ogl::pbo_base, sge::ogl::pixel_pack_buffer_type>;
-template class sge::ogl::basic_raw_buffer<sge::ogl::pbo_base, sge::ogl::pixel_unpack_buffer_type>;
+namespace
+{
 
-typedef sge::ogl::basic_buffer<sge::ogl::pbo_base, sge::ogl::pixel_pack_buffer_type> pack_base;
-template pack_base::pointer pack_base::buffer_offset(size_type);
+boost::scoped_ptr<sge::ogl::vbo_base> impl;
 
-typedef sge::ogl::basic_buffer<sge::ogl::pbo_base, sge::ogl::pixel_unpack_buffer_type> unpack_base;
-template unpack_base::pointer unpack_base::buffer_offset(size_type);
+}
+
+void sge::ogl::initialize_pbo()
+{
+	impl.reset(create_vbo_impl(sge::ogl::pbo_in_hardware()));
+}
+
+sge::ogl::pbo_base::iterator sge::ogl::pbo_base::end()
+{
+	return begin() + size();
+}
+
+sge::ogl::pbo_base::const_iterator sge::ogl::pbo_base::end() const
+{
+	return begin() + size();
+}
+
+GLenum sge::ogl::pixel_pack_buffer_type()
+{
+	if(GLEW_VERSION_2_1)
+		return GL_PIXEL_PACK_BUFFER;
+	if(GLEW_ARB_pixel_buffer_object)
+		return GL_PIXEL_PACK_BUFFER_ARB;
+	static GLenum software_id = software_vbo::unique_id();
+	return software_id;
+}
+
+GLenum sge::ogl::pixel_unpack_buffer_type()
+{
+	if(GLEW_VERSION_2_1)
+		return GL_PIXEL_UNPACK_BUFFER;
+	if(GLEW_ARB_pixel_buffer_object)
+		return GL_PIXEL_UNPACK_BUFFER_ARB;
+	static GLenum software_id = software_vbo::unique_id();
+	return software_id;
+}
+
+sge::ogl::vbo_base& sge::ogl::pbo_impl()
+{
+	return *impl;
+}
+
+bool sge::ogl::pbo_in_hardware()
+{
+	//return GLEW_VERSION_2_1 || GLEW_ARB_pixel_buffer_object;
+	return false; // FIXME
+}

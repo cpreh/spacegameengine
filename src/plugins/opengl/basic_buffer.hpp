@@ -21,19 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BASIC_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_BASIC_BUFFER_HPP_INCLUDED
 
-#include "../../exception.hpp"
 #include "../../renderer/types.hpp"
 #include "common.hpp"
-#include "vbo_common.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-template<typename Base, GLenum Type>
-class basic_buffer : public Base,
-                     private select_vbo_impl<Type>::type {
+class vbo_base;
+
+template<typename Base>
+class basic_buffer : public Base {
 public:
 	typedef typename Base::value_type             value_type;
 	typedef typename Base::size_type              size_type;
@@ -47,56 +46,43 @@ public:
 	typedef typename Base::reverse_iterator       reverse_iterator;
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
 			
-	basic_buffer(size_type sz,
-	             size_type stride,
-	             resource_flag_t flags,
-	             const_pointer src);
+	basic_buffer(
+		GLenum type,
+		vbo_base&,
+		size_type sz,
+		size_type stride,
+		resource_flag_t flags,
+		const_pointer src);
 	~basic_buffer();
 
 	void lock(lock_flag_t lockflags);
 	void unlock();
 	void set_data(const_pointer data, size_type first, size_type count);
 
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
-	reverse_iterator rbegin();
-	const_reverse_iterator rbegin() const;
-	reverse_iterator rend();
-	const_reverse_iterator rend() const;
-	
 	size_type size() const;
 	resource_flag_t flags() const;
 
-	reference operator[](size_type i);
-	const_reference operator[](size_type i) const;
 	void resize(size_type newsize, const_pointer src);
 
+	iterator begin();
+	const_iterator begin() const;
 	pointer data();
 	const_pointer data() const;
 
-	static void unbind();
+	void unbind() const;
 	void bind_me() const;
 	
-	static pointer buffer_offset(size_type offset);
+	pointer buffer_offset(size_type offset) const;
 private:
-	typedef typename select_vbo_impl<Type>::type impl;
-	using impl::gen_buffer;
-	using impl::delete_buffer;
-	using impl::bind_buffer;
-	using impl::map_buffer;
-	using impl::unmap_buffer;
-	using impl::buffer_data;
-	using impl::buffer_sub_data;
-
-	static void bind(GLuint id);
+	void bind(GLuint id) const;
 	void check_lock() const;
 	void set_size(const_pointer src);
 
 	virtual iterator create_iterator(pointer) = 0;
 	virtual const_iterator create_iterator(const_pointer) const = 0;
-
+	
+	GLenum           type;
+	vbo_base&        impl;
 	size_type        sz;
 	size_type        stride_;
 	resource_flag_t  flags_;

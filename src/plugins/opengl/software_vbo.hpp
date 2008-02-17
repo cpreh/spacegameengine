@@ -22,29 +22,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SOFTWARE_VBO_HPP_INCLUDED
 
 #include "common.hpp"
-#include "vbo_common.hpp"
+#include "vbo_base.hpp"
 
 namespace sge
 {
 namespace ogl
 {
 
-template<>
-struct vbo_impl<false> {
-	static GLuint gen_buffer();
-	static void delete_buffer(GLuint);
-	static void bind_buffer(GLenum type, GLuint);
-	static void* map_buffer(GLenum type, GLenum flags);
-	static void unmap_buffer(GLenum type);
-	static void buffer_data(GLenum type,
-	                        GLsizei size,
-	                        const void* data,
-	                        GLenum flags);
-	static void buffer_sub_data(GLenum type,
-	                            GLsizei first,
-	                            GLsizei size,
-	                            const void* data);
-	static void* buffer_offset(GLenum type, GLsizei offset);
+class software_vbo : public vbo_base {
+public:
+	GLuint gen_buffer();
+	void delete_buffer(GLuint);
+	void bind_buffer(GLenum type, GLuint);
+	void* map_buffer(GLenum type, GLenum flags);
+	void unmap_buffer(GLenum type);
+	void buffer_data(GLenum type,
+	                 GLsizei size,
+	                 const void* data,
+	                 GLenum flags);
+	void buffer_sub_data(GLenum type,
+	                     GLsizei first,
+	                     GLsizei size,
+	                     const void* data);
+	void* buffer_offset(GLenum type, GLsizei offset);
+
+	static GLenum unique_id();
 };
 
 }
