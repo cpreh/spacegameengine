@@ -73,7 +73,7 @@ void sge::ogl::set_texture(const GLenum tex_type,
 		             " Specified texture size was " << width << 'x' << height << ".\n";
 
 	glTexImage2D(tex_type, 0, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), 0, format, type, src);
-	
+
 	if(need_mipmap(filter.min_filter))
 		build_mipmaps(tex_type, width, height, src);
 }
@@ -83,6 +83,9 @@ void sge::ogl::build_mipmaps(const GLenum tex_type,
                              const sge::texture_base::size_type height,
                              const sge::texture_base::const_pointer src)
 {
+	if(!src)
+		throw exception(SGE_TEXT("ogl::build_mipmaps: src is 0!"));
+
 	SGE_OPENGL_SENTRY
 	
 	gluBuild2DMipmaps(tex_type, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), format, type, src);

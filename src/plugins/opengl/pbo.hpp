@@ -34,9 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_PIXEL_BUFFER_OBJECT_ARB
 #endif
 
-#if defined(SGE_OPENGL_PIXEL_BUFFER_OBJECT) || defined(SGE_OPENGL_PIXEL_BUFFER_OBJECT_ARB)
-#define SGE_OPENGL_HAVE_PBO
-#endif
+//#if defined(SGE_OPENGL_PIXEL_BUFFER_OBJECT) || defined(SGE_OPENGL_PIXEL_BUFFER_OBJECT_ARB)
+//#define SGE_OPENGL_HAVE_PBO
+//#endif
 
 namespace sge
 {
