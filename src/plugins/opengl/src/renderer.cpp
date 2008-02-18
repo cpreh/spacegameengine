@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <iostream>
 #include <ostream>
-#include <boost/cast.hpp>
 #include "../../../bit.hpp"
 #include "../../../exception.hpp"
 #include "../../../types.hpp"
@@ -533,9 +532,9 @@ void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_typ
 #endif
 	if(!tex)
 		return;
-	texture_base* const b = boost::polymorphic_cast<texture_base*>(tex.get());
-	enable(b->type());
-	b->bind_me();
+	texture_base& b = dynamic_cast<texture_base&>(*tex);
+	enable(b.type());
+	b.bind_me();
 }
 
 void sge::ogl::renderer::enable_light(const light_index index, const bool enable_)
@@ -626,8 +625,8 @@ void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)
 		//vertex_buffer::unbind();
 		return;
 	}
-	vertex_buffer* const ovb = boost::polymorphic_cast<vertex_buffer*>(vb.get());
-	ovb->set_format();
+	vertex_buffer& ovb = dynamic_cast<vertex_buffer&>(*vb);
+	ovb.set_format();
 }
 
 void sge::ogl::renderer::set_index_buffer(const sge::index_buffer_ptr ib)
@@ -638,6 +637,6 @@ void sge::ogl::renderer::set_index_buffer(const sge::index_buffer_ptr ib)
 		//index_buffer::unbind();
 		return;
 	}
-	index_buffer* const oib = boost::polymorphic_cast<index_buffer*>(ib.get());
-	oib->bind_me();
+	index_buffer& oib = dynamic_cast<index_buffer&>(*ib);
+	oib.bind_me();
 }

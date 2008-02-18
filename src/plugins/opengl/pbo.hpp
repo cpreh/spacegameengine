@@ -57,7 +57,8 @@ public:
 
 	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;
-	
+
+	virtual void unbind() const = 0;
 	virtual void bind_me() const = 0;
 
 	virtual pointer buffer_offset(size_type) const = 0;
