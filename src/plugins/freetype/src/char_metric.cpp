@@ -41,7 +41,13 @@ sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_un
 	left_ = bmp_glyph->left;
 	top_ = static_cast<int>(pixel_size) - bmp_glyph->top + _face->descender / 64;
 	x_advance_ = static_cast<font_unit>(_face->glyph->advance.x / 64);
-	
+
+	if(bitmap.width == 0 || bitmap.rows == 0)
+	{
+		std::cerr << "warning: freetype char with value " << static_cast<int>(ch) << " requested which freetype can't handle!\n";
+		return;
+	}
+
 	buffer.resize_uninitialized(bitmap.width * bitmap.rows);
 	const unsigned char* data = bitmap.buffer;
 	for(int y = 0; y < bitmap.rows; ++y, data += bitmap.pitch)

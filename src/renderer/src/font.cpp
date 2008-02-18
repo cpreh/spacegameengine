@@ -84,6 +84,9 @@ const sge::font::text_size_t sge::font::draw_text(const string_type& text,
 		for(;sbeg != line_size.end(); ++sbeg)
 		{
 			const char_metric_ptr metric = metrics()->load_char(*sbeg);
+			if(!metric->pixmap())
+				continue;
+
 			const font_rect fp(font_pos(pos.x() + metric->left(), pos.y() + metric->top()), font_dim(metric->width(), metric->height()));
 			drawer()->draw_char(*sbeg, fp, metric->pixmap());
 
