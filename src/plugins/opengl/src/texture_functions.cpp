@@ -100,6 +100,9 @@ void sge::ogl::set_texture_rect(const GLenum tex_type,
 {
 	SGE_OPENGL_SENTRY
 	
+	if(!src)
+		throw exception("ogl::set_texture_rect(): src is 0!");
+
 	if(r.right() > width || r.bottom() > height)
 		throw exception(SGE_TEXT("rect for setting a texture is out of range!"));
 
