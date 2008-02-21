@@ -9,6 +9,15 @@ sge::con::stdlib::stdlib(const callback_type &print)
 	add(SGE_TEXT("listvars"),boost::bind(&stdlib::listvars,this,_1));
 	add(SGE_TEXT("listfuncs"),boost::bind(&stdlib::listfuncs,this,_1));
 	add(SGE_TEXT("latch"),boost::bind(&stdlib::latch,this,_1));
+	add(SGE_TEXT("help"),boost::bind(&stdlib::help,this,_1));
+}
+
+void sge::con::stdlib::help(const arg_list &)
+{
+	print(SGE_TEXT("use /get <var name> to get the current value of a variable"));
+	print(SGE_TEXT("use /set <var name> <value> to set a variable"));
+	print(SGE_TEXT("use /listvars got get a list of available vars"));
+	print(SGE_TEXT("use /listfuncs to get a list of functions"));
 }
 
 void sge::con::stdlib::get(const arg_list &args)

@@ -17,6 +17,7 @@ struct stdlib
 
 	void set(const arg_list &);
 	void get(const arg_list &);
+	void help(const arg_list &);
 	void listvars(const arg_list &);
 	void listfuncs(const arg_list &);
 	void latch(const arg_list &);

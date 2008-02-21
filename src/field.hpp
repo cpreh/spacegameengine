@@ -32,10 +32,8 @@ class field
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	// this guarantees that dim_type::value_type, coord_type and size_type are the same so we save a few nagging conversions
-	typedef size_type                             coord_type;
-	typedef math::basic_vector<coord_type,2>      coord_vector_type;
-	typedef math::basic_dim<coord_type,2>         dim_type;
+	typedef math::basic_vector<size_type,2>      vector_type;
+	typedef math::basic_dim<size_type,2>         dim_type;
 
 	private:
 	dim_type   dim_;
@@ -49,10 +47,10 @@ class field
 	field(const field &r) : dim_(r.dim_),array(r.array) {}
 	field(const dim_type &dim, const value_type& t = value_type(), const allocator_type& alloc = allocator_type()) : dim_(dim), array(field_count(), t, alloc) {}
 	// same as above just without the dim type
-	field(const coord_type &x,const coord_type &y, const allocator_type& alloc = allocator_type()) : dim_(x,y),array(alloc) { array.resize(field_count()); }
+	field(const size_type &x,const size_type &y, const allocator_type& alloc = allocator_type()) : dim_(x,y),array(alloc) { array.resize(field_count()); }
 
 	template<typename Iterator>
-	field(const coord_type &x,const coord_type &y,Iterator b,Iterator e,const allocator_type &alloc = allocator_type()) 
+	field(const size_type &x,const size_type &y,Iterator b,Iterator e,const allocator_type &alloc = allocator_type()) 
 		: dim_(x,y),array(alloc) 
 	{ 
 		array.resize(field_count());
@@ -83,21 +81,21 @@ class field
 	reverse_iterator rend() { return array.rend(); }
 	const_reverse_iterator rbegin() const { return array.rbegin(); }
 	const_reverse_iterator rend() const { return array.rend(); }
-	const coord_vector_type position(const const_iterator it) const
+	const vector_type position(const const_iterator it) const
 	{
 		const difference_type diff = std::distance(begin(), it);
-		return coord_vector_type(diff % w(), diff / w());
+		return vector_type(diff % w(), diff / w());
 	}
 
 	allocator_type get_allocator() const { return array.get_allocator(); }
 
 	void zero() { std::fill(begin(),end(),static_cast<value_type>(0)); }
-	void resize(const coord_type &x,const coord_type &y, const_reference value = value_type()) { resize(dim_type(x,y), value); }
+	void resize(const size_type &x,const size_type &y, const_reference value = value_type()) { resize(dim_type(x,y), value); }
 	void resize(const dim_type &n, const_reference value = value_type()) { if (dim_ == n) return; dim_ = n; array.resize(field_count(), value); }
-	value_type &pos(const coord_type &x,const coord_type &y) { return array[y * dim_.w() + x]; }
-	const value_type &pos(const coord_type &x,const coord_type &y) const { return array[y * dim_.w() + x]; }
-	value_type &pos(const coord_vector_type &p) { return pos(p.x(),p.y()); }
-	const value_type &pos(const coord_vector_type &p) const { return pos(p.x(),p.y()); }
+	value_type &pos(const size_type &x,const size_type &y) { return array[y * dim_.w() + x]; }
+	const value_type &pos(const size_type &x,const size_type &y) const { return array[y * dim_.w() + x]; }
+	value_type &pos(const vector_type &p) { return pos(p.x(),p.y()); }
+	const value_type &pos(const vector_type &p) const { return pos(p.x(),p.y()); }
 
 	reference front() { return array.front(); }
 	const_reference front() const { return array.front(); }
@@ -106,54 +104,54 @@ class field
 
 	value_type x(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute x()"); return std::distance(begin(),p) % w(); }
 	value_type y(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute y()"); return std::distance(begin(),p) / w(); }
-	coord_vector_type pos(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute pos()"); return coord_vector_type(x(p),y(p)); }
+	vector_type pos(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute pos()"); return vector_type(x(p),y(p)); }
 
 	void blur()
 	{
-		for (coord_type y = coord_type(0); y < h(); ++y)
+		for (size_type y = size_type(0); y < h(); ++y)
 		{
-			for (coord_type x = coord_type(0); x < w(); ++x)
+			for (size_type x = size_type(0); x < w(); ++x)
 			{
 				unsigned adjacent = 9;
 				value_type sum = pos(x,y);
 				
-				if (x != coord_type(0))
-					sum += pos(x-coord_type(1),y);
+				if (x != size_type(0))
+					sum += pos(x-size_type(1),y);
 				else
 					--adjacent;
 
-				if (x < w()-coord_type(1))
-					sum += pos(x+coord_type(1),y);
+				if (x < w()-size_type(1))
+					sum += pos(x+size_type(1),y);
 				else
 					--adjacent;
 
-				if (y != coord_type(0))
-					sum += pos(x,y-coord_type(1));
+				if (y != size_type(0))
+					sum += pos(x,y-size_type(1));
 				else
 					--adjacent;
 
-				if (y < h()-coord_type(1))
-					sum += pos(x,y+coord_type(1));
+				if (y < h()-size_type(1))
+					sum += pos(x,y+size_type(1));
 				else
 					--adjacent;
 
-				if (x != coord_type(0) && y != coord_type(0))
-					sum += pos(x-coord_type(1),y-coord_type(1));
+				if (x != size_type(0) && y != size_type(0))
+					sum += pos(x-size_type(1),y-size_type(1));
 				else
 					--adjacent;
 
-				if (x < w()-coord_type(1) && y != coord_type(0))
-					sum += pos(x+coord_type(1),y-coord_type(1));
+				if (x < w()-size_type(1) && y != size_type(0))
+					sum += pos(x+size_type(1),y-size_type(1));
 				else
 					--adjacent;
 
-				if (y < h()-coord_type(1) && x != coord_type(0))
-					sum += pos(x-coord_type(1),y+coord_type(1));
+				if (y < h()-size_type(1) && x != size_type(0))
+					sum += pos(x-size_type(1),y+size_type(1));
 				else
 					--adjacent;
 
-				if (y < h()-coord_type(1) && x < w()-coord_type(1))
-					sum += pos(x+coord_type(1),y+coord_type(1));
+				if (y < h()-size_type(1) && x < w()-size_type(1))
+					sum += pos(x+size_type(1),y+size_type(1));
 				else
 					--adjacent;
 
@@ -162,22 +160,22 @@ class field
 		}
 	}
 
-	void add_border(const coord_type &halfsize)
+	void add_border(const size_type &halfsize)
 	{
-		if (halfsize == coord_type(0))
+		if (halfsize == size_type(0))
 			return;
 
 		// old array
 		array_type old = array;
 		// new dimension
-		dim_type new_dim(dim_.w()+coord_type(2)*halfsize,dim_.h()+coord_type(2)*halfsize);
+		dim_type new_dim(dim_.w()+size_type(2)*halfsize,dim_.h()+size_type(2)*halfsize);
 		
 		// change size and set to zero. here, zero() cannot be used because this uses a different array size
 		array.resize(new_dim.w()*new_dim.h());
 		std::fill(array.begin(),array.end(),value_type(0));
 
 		iterator i = array.begin() + halfsize * new_dim.w() + halfsize,j = old.begin();
-		for (coord_type y = coord_type(0); y < new_dim.h()-coord_type(2)*halfsize; ++y)
+		for (size_type y = size_type(0); y < new_dim.h()-size_type(2)*halfsize; ++y)
 		{
 			std::copy(j,j+dim_.w(),i);
 			i += new_dim.w();
@@ -187,7 +185,7 @@ class field
 		dim_ = new_dim;
 	}
 
-	void crop(const coord_vector_type &start,const dim_type &new_dim)
+	void crop(const vector_type &start,const dim_type &new_dim)
 	{
 		if (w() == 0 && h() == 0)
 			throw std::range_error("width and height are zero, cannot crop");
@@ -196,17 +194,17 @@ class field
 		array_type old = array;
 
 		// check for invalid values
-		if (start.x() + new_dim.w() > w() && start.y() + new_dim.h() > h() && new_dim.w() == coord_type(0) && new_dim.h() == coord_type(0))
+		if (start.x() + new_dim.w() > w() && start.y() + new_dim.h() > h() && new_dim.w() == size_type(0) && new_dim.h() == size_type(0))
 			throw std::invalid_argument("invalid arguments to crop function");
 
-		if (start == coord_vector_type(coord_type(0),coord_type(0)) && new_dim == dim_)
+		if (start == vector_type(size_type(0),size_type(0)) && new_dim == dim_)
 			return;
 
 		array.resize(new_dim.w()*new_dim.h());
 		const_iterator old_it = old.begin() + w()*start.y() + start.x();
 		iterator new_it = array.begin();
 
-		for (coord_type y = coord_type(0); y < new_dim.h(); ++y)
+		for (size_type y = size_type(0); y < new_dim.h(); ++y)
 		{
 			std::copy(old_it,old_it + new_dim.w(),new_it);
 			new_it += new_dim.w();
@@ -225,9 +223,9 @@ class field
 	}
 	*/
 
-	coord_type w() const { return dim_.w(); }
-	coord_type h() const { return dim_.h(); }
-	coord_type field_count() const { return dim_.w()*dim_.h(); }
+	size_type w() const { return dim_.w(); }
+	size_type h() const { return dim_.h(); }
+	size_type field_count() const { return dim_.w()*dim_.h(); }
 	dim_type dim() const { return dim_; }
 };
 typedef field<space_unit> space_field;

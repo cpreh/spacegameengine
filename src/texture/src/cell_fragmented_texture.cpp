@@ -46,13 +46,13 @@ const sge::virtual_texture_ptr sge::cell_fragmented_texture::consume_fragments(c
 		return virtual_texture_ptr();
 	*it = true;
 	
-	const field_type::coord_vector_type pos = cells.position(it);
+	const field_type::vector_type pos = cells.position(it);
 	return virtual_texture_ptr(new virtual_texture(lock_rect(pos + cell_size, cell_size), *this));
 }
 
 void sge::cell_fragmented_texture::return_fragments(const virtual_texture& t)
 {
-	const field_type::coord_vector_type pos = t.area().pos() * cell_size;
+	const field_type::vector_type pos = t.area().pos() * cell_size;
 	assert(cells.pos(pos));
 	cells.pos(pos) = false;
 }
