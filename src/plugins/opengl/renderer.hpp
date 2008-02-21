@@ -81,8 +81,24 @@ public:
 	void set_fog_mode(fog_mode::type);
 	void set_blend_func(source_blend_func::type, dest_blend_func::type);
 	void set_draw_mode(draw_mode::type);
+	
+	void push_level();
+	void push_int_state(int_state::type);
+	void push_float_state(float_state::type);
+	void push_bool_state(bool_state::type);
+	void push_color_state(color_state::type);
+	void push_cull_mode();
+	void push_depth_func();
+	void push_stencil_func();
+	void push_fog_mode();
+	void push_blend_func();
+	void push_draw_mode();
+
+	void pop_level();
+
 	void set_texture(texture_base_ptr tex, stage_type stage);
 	void set_material(const material& mat);
+
 	void transform(const math::space_matrix& matrix);
 	void projection(const math::space_matrix& matrix);
 	void set_render_target(texture_ptr target = texture_ptr());
@@ -133,9 +149,11 @@ private:
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);
 	fbo_render_target_ptr create_render_target(const render_target::dim_type&);
+	void add_push_state(GLbitfield);
 
 	renderer_parameters param;
 	GLbitfield          clearflags;
+	GLbitfield          accumulated_state;
 #ifdef SGE_WINDOWS_PLATFORM
 	win32_window_ptr               wnd;
 	boost::scoped_ptr<gdi_device>  hdc;
@@ -156,8 +174,8 @@ private:
 	xf86_resolution_ptr                   resolution;
 	scoped_connection_manager             con_manager;
 #endif
-	render_target_ptr _render_target;
-	renderer_caps     _caps;
+	render_target_ptr render_target_;
+	renderer_caps     caps_;
 };
 
 }

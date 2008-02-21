@@ -237,23 +237,35 @@ public:
 	virtual void set_fog_mode(fog_mode::type) = 0;
 	virtual void set_blend_func(source_blend_func::type, dest_blend_func::type) = 0;
 	virtual void set_draw_mode(draw_mode::type) = 0;
-	
+
+	virtual void push_level() = 0;
+	virtual void push_int_state(int_state::type) = 0;
+	virtual void push_float_state(float_state::type) = 0;
+	virtual void push_bool_state(bool_state::type) = 0;
+	virtual void push_color_state(color_state::type) = 0;
+	virtual void push_cull_mode() = 0;
+	virtual void push_depth_func() = 0;
+	virtual void push_stencil_func() = 0;
+	virtual void push_fog_mode() = 0;
+	virtual void push_blend_func() = 0;
+	virtual void push_draw_mode() = 0;
+
+	virtual void pop_level() = 0;
+
+	virtual void set_material(const material& mat) = 0;
+	virtual void enable_light(light_index index, bool enable) = 0;
+	virtual void set_light(light_index index, const light&) = 0;
+	virtual void set_texture_stage_op(stage_type stage, texture_stage_op::type, texture_stage_op_value::type) = 0;
+	virtual void set_texture_stage_arg(stage_type stage, texture_stage_arg::type, texture_stage_arg_value::type) = 0;
+
 	SGE_SYMBOL static const texture_ptr no_texture;
 	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;
-	virtual void set_material(const material& mat) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;
 	virtual void projection(const math::space_matrix& mat) = 0;
 	
 	SGE_SYMBOL static const texture_ptr default_render_target;
 	virtual void set_render_target(texture_ptr target) = 0;
 	virtual void set_viewport(const viewport&) = 0;
-	virtual void enable_light(light_index index, bool enable) = 0;
-	virtual void set_light(light_index index, const light&) = 0;
-	virtual void set_texture_stage_op(stage_type stage, texture_stage_op::type, texture_stage_op_value::type) = 0;
-	virtual void set_texture_stage_arg(stage_type stage, texture_stage_arg::type, texture_stage_arg_value::type) = 0;
-
-	virtual void push() = 0;
-	virtual void pop() = 0;
 
 	SGE_SYMBOL static const std::string no_shader;
 	virtual glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader,

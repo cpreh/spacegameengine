@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shader.hpp"
 #include "../program.hpp"
 #include "../error.hpp"
+#include "../state_conversion.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
@@ -61,7 +62,8 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
                              const unsigned adapter,
                              const window_ptr wnd_param)
  : param(param),
-   clearflags(0)
+   clearflags(0),
+   accumulated_state(0)
 #ifdef SGE_LINUX_PLATFORM
    , dsp(new x_display())
 #endif
@@ -180,9 +182,9 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 
 	set_blend_func(source_blend_func::src_alpha, dest_blend_func::inv_src_alpha);
 	// TODO: implement caps
-	_caps.adapter_number = adapter;
-	_caps.max_tex_size = get_int(GL_MAX_TEXTURE_SIZE);
-	_caps.max_anisotropy_level = get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
+	caps_.adapter_number = adapter;
+	caps_.max_tex_size = get_int(GL_MAX_TEXTURE_SIZE);
+	caps_.max_anisotropy_level = get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
 
 	set_render_target();
 }
@@ -263,7 +265,7 @@ void sge::ogl::renderer::end_rendering()
 
 const sge::renderer_caps& sge::ogl::renderer::caps() const
 {
-	return _caps;
+	return caps_;
 }
 
 sge::window_ptr sge::ogl::renderer::get_window() const
@@ -448,6 +450,61 @@ void sge::ogl::renderer::set_draw_mode(const draw_mode::type mode)
 	glPolygonMode(GL_FRONT_AND_BACK, glmode);
 }
 
+void sge::ogl::renderer::push_int_state(const int_state::type state)
+{
+	add_push_state(state_to_stack_type(state));
+}
+
+void sge::ogl::renderer::push_float_state(const float_state::type state)
+{
+	add_push_state(state_to_stack_type(state));
+}
+
+void sge::ogl::renderer::push_bool_state(const bool_state::type state)
+{
+	add_push_state(state_to_stack_type(state));
+}
+
+void sge::ogl::renderer::push_color_state(const color_state::type state)
+{
+	add_push_state(state_to_stack_type(state));
+}
+
+void sge::ogl::renderer::push_cull_mode()
+{
+	add_push_state(GL_POLYGON_BIT);
+}
+
+void sge::ogl::renderer::push_depth_func()
+{
+	add_push_state(GL_DEPTH_BUFFER_BIT);
+}
+
+void sge::ogl::renderer::push_stencil_func()
+{
+	add_push_state(GL_STENCIL_BUFFER_BIT);
+}
+
+void sge::ogl::renderer::push_fog_mode()
+{
+	add_push_state(GL_FOG_BIT);
+}
+
+void sge::ogl::renderer::push_blend_func()
+{
+	add_push_state(GL_COLOR_BUFFER_BIT);
+}
+
+void sge::ogl::renderer::push_draw_mode()
+{
+	add_push_state(GL_POLYGON_BIT);
+}
+
+void sge::ogl::renderer::add_push_state(const GLbitfield s)
+{
+	accumulated_state |= s;
+}
+
 void sge::ogl::renderer::set_material(const material& mat)
 {
 	SGE_OPENGL_SENTRY
@@ -499,8 +556,8 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 {
 	if(!target)
 	{
-		_render_target.reset(new ogl::default_render_target(wnd));
-		_render_target->bind_me();
+		render_target_.reset(new ogl::default_render_target(wnd));
+		render_target_->bind_me();
 		const window::window_pos offset = wnd->viewport_offset();
 		set_viewport(viewport(offset.x(), offset.y(), wnd->width(), wnd->height()));
 		return;
@@ -508,14 +565,14 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 
 	const shared_ptr<texture> p(dynamic_pointer_cast<texture>(target));
 	const fbo_render_target_ptr ntarget = create_render_target(p->dim());
-	_render_target = ntarget;
+	render_target_ = ntarget;
 	ntarget->bind_texture(p);
 	set_viewport(viewport(0, 0, static_cast<screen_unit>(p->width()), static_cast<screen_unit>(p->height())));
 }
 
 sge::render_target_ptr sge::ogl::renderer::get_render_target() const
 {
-	return _render_target;
+	return render_target_;
 }
 
 void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_type stage)
@@ -575,17 +632,19 @@ void sge::ogl::renderer::set_texture_stage_arg(const stage_type stage, const tex
 	set_texture_stage(stage, arg, value);
 }
 
-void sge::ogl::renderer::push()
+void sge::ogl::renderer::push_level()
 {
 	SGE_OPENGL_SENTRY
 
 	if(get_int(GL_ATTRIB_STACK_DEPTH) > 16)
 		std::cerr << "Warning: glPush() stack level is greater than 16 which is greater than the minimal supported level!\n";
 
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glPushAttrib(accumulated_state);
+
+	accumulated_state = 0;
 }
 
-void sge::ogl::renderer::pop()
+void sge::ogl::renderer::pop_level()
 {
 	SGE_OPENGL_SENTRY
 
