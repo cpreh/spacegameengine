@@ -399,16 +399,6 @@ Effects: Sets the texture stage argument denoted by stage and arg to value.
 Note: This function is superseeded by shaders.
 
 \begin{lstlisting}
-void push();
-\end{lstlisting}
-Effects: Pushes the current renderer settings except textures, shaders and buffers to the stack.
-
-\begin{lstlisting}
-void pop();
-\end{lstlisting}
-Effects: Pops the current renderer settings except textures, shaders and buffers from the stack.
-
-\begin{lstlisting}
 glsl::program_ptr create_glsl_program(
 	const std::string& vertex_shader_source
 		= no_shader,
@@ -450,7 +440,7 @@ texture_ptr create_texture(
 \end{lstlisting}
 Parameters:
 \begin{itemize}
-\item texture::const\_pointer data: The data to fill the texture with.
+\item texture::const\_pointer data: The data to fill the texture with. May be 0.
 \item texture::dim\_type dim: The texture's dimension.
 \item filter\_args filter: The filter the texture uses.
 \item resource\_flag\_t flags: The resource flags.
@@ -468,7 +458,105 @@ volume_texture_ptr create_volume_texture(
 \end{lstlisting}
 Paramters:
 \begin{itemize}
-\item volume\_texture::const\_pointer data: The data to fill the texture with.
-TODO
+\item volume\_texture::const\_pointer data: The data to fill the texture with. May be 0.
+\item voluem\_texture::box\_type box: The texture's dimension.
+\item filter\_args filter: The filter the texture uses.
+\item resource\_flag\_t flags: The resource flags:
 \end{itemize}
+Returns: The created texture.
+Effects: Creates a new volume texture with the specified paremeters.
+
+\begin{lstlisting}
+cube_texture_ptr create_cube_texture(
+	const cube_side_array* data,
+	cube_texture::size_type size,
+	const filter_args& filter,
+	resource_flag_t flags
+		= resource_flags::default_);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item cube\_side\_array* data: The data to fill the texture sides with. May be 0.
+\item cube\_texture::size\_type: The cube textures border size.
+\item filter\_args filter: The filter the texture uses.
+\item resource\_flag\_t flags: The resource flags:
+\end{itemize}
+Returns: The created cube texture.
+Effects: Creates a new cube texture with the specified parameters.
+
+\begin{lstlisting}
+vertex_buffer_ptr create_vertex_buffer(
+	const vertex_format& format,
+	vertex_buffer::size_type size,
+	resource_flag_t flags
+		= resource_flags::default_,
+	vertex_buffer::const_pointer data
+		= 0);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item vertex\_format format: The vertex format the vertex buffer will use.
+\item vertex\_buffer::size\_type: The number of vertices the vertex buffer will hold.
+\item resource\_flag\_t flags: The resource flags:
+\item vertex\_buffer::const\_pointer data: The data of vertices to fill the vertex buffer with. May be 0.
+\end{itemize}
+Returns: The created vertex buffer.
+Effects: Creates a new vertex buffer with the specified parameters.
+
+\begin{lstlisting}
+index_buffer_ptr create_index_buffer(
+	index_buffer::size_type size,
+	resource_flag_t flags = resource_flags::default_,
+	index_buffer::const_pointer data
+		= 0);
+\end{lstlisting}
+Parameters:
+\begin{itemize}
+\item index\_buffer::size\_type size: The number of indices the index buffer will hold.
+\item resource\_flag\_t flags: The resource flags:
+\item index\_buffer::const\_pointer data: The data of indices to fill the index buffer with. May be 0.
+\end{itemize}
+Returns: The created index buffer.
+Effects: Creates a new index buffer with the specified parameters.
+
+\begin{lstlisting}
+const renderer_caps& caps() const;
+\end{lstlisting}
+Returns: The renderer's capabilities.
+
+\begin{lstlisting}
+screen_size_t screen_size() const;
+\end{lstlisting}
+Returns: The virtual screen size.
+
+\begin{lstlisting}
+window_ptr get_window() const;
+\end{lstlisting}
+Returns: The associated window.
+
+\begin{lstlisting}
+screen_unit screen_width() const;
+\end{lstlisting}
+Returns:
+\begin{lstlisting}
+screen_size().w()
+\end{lstlisting}
+
+\begin{lstlisting}
+screen_unit screen_height() const;
+\end{lstlisting}
+Returns:
+\begin{lstlisting}
+screen_size().h()
+\end{lstlisting}
+
+\begin{lstlisting}
+space_unit aspect() const;
+\end{lstlisting}
+Returns:
+\begin{lstlisting}
+static_cast<space_unit>(screen_width())
+/ static_cast<space_unit>(screen_height())
+\end{lstlisting}
+
 \end{document}
