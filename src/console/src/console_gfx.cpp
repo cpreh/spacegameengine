@@ -88,7 +88,7 @@ void sge::con::console_gfx::dump(const arg_list &args)
 	if (args.size() == 1)
 	{
 		std::copy(history.begin(),history.end(),std::ostream_iterator<sge::string,sge::string::value_type>(stdouter<sge::string::value_type>::cout(),SGE_TEXT("\n")));
-		print(SGE_TEXT(SGE_TEXT("dumped history to stdout")));
+		print(SGE_TEXT("dumped history to stdout"));
 	}
 	else
 	{

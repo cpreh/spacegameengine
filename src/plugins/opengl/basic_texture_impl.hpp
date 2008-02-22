@@ -144,7 +144,7 @@ template<typename Base, GLenum Type>
 typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::read_buffer() const
 {
 	if(!pack_buffer)
-		throw exception("pack_buffer not set in basic_texture::read_buffer()!");
+		throw exception(SGE_TEXT("pack_buffer not set in basic_texture::read_buffer()!"));
 	return pack_buffer->buffer_offset(0);
 }
 
@@ -152,7 +152,7 @@ template<typename Base, GLenum Type>
 typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::write_buffer() const
 {
 	if(!unpack_buffer)
-		throw exception("unpack_buffer not set in basic_texture::write_buffer()!");
+		throw exception(SGE_TEXT("unpack_buffer not set in basic_texture::write_buffer()!"));
 
 	return unpack_buffer->buffer_offset(0);
 }

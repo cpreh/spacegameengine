@@ -106,7 +106,7 @@ void sge::ogl::hardware_vbo::unmap_buffer(const GLenum type)
 	SGE_OPENGL_SENTRY
 	
 	if(gl_unmap_buffer(type) == GL_FALSE)
-		throw exception("gl_unmap_buffer() returned false. The buffer corrupted during the lock time.");
+		throw exception(SGE_TEXT("gl_unmap_buffer() returned false. The buffer corrupted during the lock time."));
 }
 
 void sge::ogl::hardware_vbo::buffer_data(const GLenum type,
