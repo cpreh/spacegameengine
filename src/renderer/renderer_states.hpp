@@ -337,12 +337,12 @@ typedef boost::variant<
 
 typedef std::set<any_renderer_state> renderer_state_list;
 
-inline renderer_state_list operator,(const any_renderer_state &a, const any_renderer_state &b) {
-	renderer_state_list temp;
-		temp.insert(a);
-		temp.insert(b);
-	return temp;
-}
+//inline renderer_state_list operator,(const any_renderer_state &a, const any_renderer_state &b) {
+//	renderer_state_list temp;
+//		temp.insert(a);
+//		temp.insert(b);
+//	return temp;
+//}
 
 inline renderer_state_list operator,(const any_renderer_state &a, const renderer_state_list &b) {
 	if (b.find(a) == b.end()) {

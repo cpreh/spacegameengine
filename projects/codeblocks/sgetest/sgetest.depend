@@ -85,7 +85,7 @@
 	<memory>
 	<string>
 
-1192725762 d:\dev\sge\src\typeswitch.hpp
+1203761886 d:\dev\sge\src\typeswitch.hpp
 	<boost/cstdint.hpp>
 
 1185928678 d:\dev\sge\src\unicode.hpp
@@ -231,7 +231,7 @@
 
 1203615828 d:\dev\sge\src\algorithm.hpp
 
-1203615826 d:\dev\sge\src\renderer\vertex_format.hpp
+1203802328 d:\dev\sge\src\renderer\vertex_format.hpp
 	<cstddef>
 	<vector>
 	"types.hpp"
@@ -245,7 +245,7 @@
 	"../export.hpp"
 	"types.hpp"
 
-1203615826 d:\dev\sge\src\renderer\renderer.hpp
+1203764218 d:\dev\sge\src\renderer\renderer.hpp
 	"../export.hpp"
 	"../window.hpp"
 	"../shared_ptr.hpp"
@@ -262,6 +262,7 @@
 	"glsl_program.hpp"
 	"primitive.hpp"
 	"renderer_caps.hpp"
+	"renderer_states.hpp"
 
 1203615826 d:\dev\sge\src\renderer\texture.hpp
 	"../math/dim.hpp"
@@ -412,7 +413,7 @@
 	"../renderer/font_types.hpp"
 	"../renderer/texture.hpp"
 
-1203615826 d:\dev\sge\src\renderer\renderer_system.hpp
+1203802328 d:\dev\sge\src\renderer\renderer_system.hpp
 	<vector>
 	"../shared_ptr.hpp"
 	"../types.hpp"
@@ -1644,11 +1645,12 @@
 1196551830 d:\dev\sge\src\init.hpp
 	"systems.hpp"
 
-1196551825 d:\dev\sge\src\systems.hpp
+1203802329 d:\dev\sge\src\systems.hpp
 	"plugin_manager.hpp"
 	"plugin.hpp"
 	"renderer/renderer.hpp"
 	"renderer/renderer_system.hpp"
+	"renderer/renderer_parameters.hpp"
 	"input/input_system.hpp"
 	"image/image_loader.hpp"
 
@@ -1685,4 +1687,13 @@
 
 1203615823 d:\dev\sge\src\texture\default_creator_impl.hpp
 	"default_creator.hpp"
+
+1203802328 d:\dev\sge\src\renderer\renderer_states.hpp
+	<set>
+	<boost/variant.hpp>
+	"color.hpp"
+
+1203802328 d:\dev\sge\src\renderer\renderer_parameters.hpp
+	"display_mode.hpp"
+	"types.hpp"
 
