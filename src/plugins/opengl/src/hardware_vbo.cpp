@@ -28,7 +28,7 @@ namespace
 void (*gl_gen_buffers)(GLsizei, GLuint*);
 void (*gl_delete_buffers)(GLsizei, const GLuint*);
 void (*gl_bind_buffer)(GLenum, GLuint);
-void* (*gl_map_buffer)(GLenum, GLenum);
+GLvoid* (*gl_map_buffer)(GLenum, GLenum);
 GLboolean (*gl_unmap_buffer)(GLenum);
 void (*gl_buffer_data)(GLenum, GLsizeiptr, const GLvoid*, GLenum);
 void (*gl_buffer_sub_data)(GLenum, GLintptr, GLsizeiptr, const GLvoid*);
@@ -94,7 +94,7 @@ void* sge::ogl::hardware_vbo::map_buffer(const GLenum type, const GLenum flags)
 {
 	SGE_OPENGL_SENTRY
 	
-	void *const ret = gl_map_buffer(type, flags);
+	void *const ret = static_cast<void*>(gl_map_buffer(type, flags));
 	
 	if(ret == 0)
 		throw exception(SGE_TEXT("glMapBuffer() returned 0!"));
