@@ -191,9 +191,10 @@ struct renderer_state_var_traits<renderer_state_dest_blend_func_type::type> {
 template<typename T> struct renderer_state_var {
 	typedef T value_type;
 
-	inline renderer_state_var<T> &operator=(const T newval) {
-		val = newval;
-		return *this;
+	inline renderer_state_var<T> operator=(const T newval) {
+		renderer_state_var<T> cp(state_id, newval);
+		val = cp.val;
+		return cp;
 	}
 	inline T value() const { return val; }
 
@@ -376,6 +377,20 @@ template<typename T> inline renderer_state_list operator,(const renderer_state_v
 template<typename T> inline renderer_state_list operator,(const renderer_state_list &b, const renderer_state_var<T> &a) {
 	renderer_state_list temp = b;
 		temp.insert(a);
+	return temp;
+}
+
+template<typename T> inline renderer_state_list operator,(const renderer_state_var<T> &a, const any_renderer_state &b) {
+	renderer_state_list temp;
+		temp.insert(a);
+		temp.insert(b);
+	return temp;
+}
+
+template<typename T> inline renderer_state_list operator,(const any_renderer_state &a, const renderer_state_var<T> &b) {
+	renderer_state_list temp;
+		temp.insert(a);
+		temp.insert(b);
 	return temp;
 }
 
