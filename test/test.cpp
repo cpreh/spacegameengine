@@ -56,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/line_strip.hpp"
 #include "../src/renderer/screenshot.hpp"
 #include "../src/renderer/font_drawer_3d.hpp"
+#include "../src/renderer/renderer_parameters.hpp"
 #include "../src/language.hpp"
 #include "../src/endianness.hpp"
 #include "../src/audio/audio_loader/audio_loader.hpp"
@@ -259,14 +260,14 @@ try
 		model.fill_indices(model_ib);
 	}
 
-	rend->set_bool_state(sge::bool_state::enable_lighting, true);
-	rend->set_bool_state(sge::bool_state::enable_zbuffer, true);
-	rend->set_bool_state(sge::bool_state::enable_culling, true);
-	rend->set_bool_state(sge::bool_state::clear_zbuffer, true);
-	rend->set_bool_state(sge::bool_state::clear_backbuffer, true);
-	rend->set_cull_mode(sge::cull_mode::front);
-	rend->set_float_state(sge::float_state::zbuffer_clear_val, 0);
-	rend->set_depth_func(sge::depth_func::greater);
+	rend->set_state((
+		sge::bool_state::enable_lighting = true,
+		sge::cull_mode::off,
+		sge::bool_state::clear_zbuffer = true,
+		sge::bool_state::clear_backbuffer = true,
+		sge::cull_mode::front,
+		sge::float_state::zbuffer_clear_val = 0,
+		sge::depth_func::greater));
 
 	rend->set_light(0, sge::light(sge::color4(1, 0.5, 0, 0), sge::color4(1, 0.5, 0, 0), sge::color4(1, 0, 0, 0), sge::light::position_type(0, 0, 0), sge::light::direction_type(0, 0, -1), 0.2, 0, 0, 1, 90));
 	rend->enable_light(0, true);

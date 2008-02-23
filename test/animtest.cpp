@@ -94,9 +94,10 @@ try
 		[var(running)=false])
 	);
 
-	rend->set_bool_state(sge::bool_state::clear_backbuffer, true);
-	rend->set_bool_state(sge::bool_state::enable_zbuffer, false);
-	rend->set_bool_state(sge::bool_state::enable_culling, false);
+	rend->set_state((
+		sge::bool_state::clear_backbuffer = true,
+		sge::depth_func::off,
+		sge::cull_mode::off));
 	rend->projection(sge::math::matrix_orthogonal_xy());
 
 	while(running)
