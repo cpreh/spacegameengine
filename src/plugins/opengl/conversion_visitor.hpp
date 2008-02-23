@@ -18,15 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../renderer_system.hpp"
+#ifndef SGE_OPENGL_CONVERSION_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_CONVERSION_VISITOR_HPP_INCLUDED
 
-sge::detail::address_name sge::detail::plugin_traits<sge::renderer_system>::plugin_loader_name()
+#include <boost/variant/static_visitor.hpp>
+#include "../../renderer/renderer_states.hpp"
+#include "common.hpp"
+
+namespace sge
 {
-	return SGE_ADDRESS_NAME("create_renderer_system");
+namespace ogl
+{
+
+class conversion_visitor : public boost::static_visitor<GLenum> {
+public:
+	GLenum operator()(bool_state::type) const;
+	GLenum operator()(cull_mode::type) const;
+	GLenum operator()(depth_func::type) const;
+	GLenum operator()(stencil_func::type) const;
+	GLenum operator()(fog_mode::type) const;
+	GLenum operator()(source_blend_func::type) const;
+	GLenum operator()(dest_blend_func::type) const;
+	GLenum operator()(draw_mode::type) const;
+};
+
+}
 }
 
-sge::plugin_type::type sge::detail::plugin_traits<sge::renderer_system>::get_plugin_type()
-{
-	return plugin_type::renderer;
-}
-
+#endif

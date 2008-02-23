@@ -78,9 +78,9 @@ public:
 	SGE_SYMBOL vertex_size count() const;
 	SGE_SYMBOL vertex_size stride() const;
 private:
-	vertex_usage::type _usage;
-	vertex_size        _count;
-	vertex_size        _size;
+	vertex_usage::type usage_;
+	vertex_size        count_;
+	vertex_size        size_;
 };
 
 class vertex_format {
@@ -96,7 +96,7 @@ public:
 private:
 	offset_info oi;
 	usage_list  ulist;
-	vertex_size _stride;
+	vertex_size stride_;
 };
 
 }

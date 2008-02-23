@@ -34,17 +34,7 @@ namespace sge
 
 typedef std::vector<renderer_caps> renderer_caps_array;
 
-struct renderer_parameters {
-	renderer_parameters(const display_mode& mode,
-	                    bool windowed = false,
-	                    multi_sample_type samples = 1,
-	                    bool vsync = true);
-
-	display_mode      mode;
-	bool              windowed;
-	multi_sample_type samples;
-	bool              vsync;
-};
+struct renderer_parameters;
 
 class renderer_system {
 public:

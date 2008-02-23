@@ -23,25 +23,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/lambda.hpp>
 #include "../vertex_format.hpp"
 
-sge::vertex_element::vertex_element(const vertex_usage::type _usage, const vertex_size _count)
- : _usage(_usage),
-   _count(_count),
-  _size(vertex_element_size[_usage])
+sge::vertex_element::vertex_element(const vertex_usage::type usage_, const vertex_size count_)
+ : usage_(usage_),
+   count_(count_),
+  size_(vertex_element_size[usage_])
 {}
 
 sge::vertex_usage::type sge::vertex_element::usage() const
 {
-	return _usage;
+	return usage_;
 }
 
 sge::vertex_size sge::vertex_element::size() const
 {
-	return _size;
+	return size_;
 }
 
 sge::vertex_size sge::vertex_element::count() const
 {
-	return _count;
+	return count_;
 }
 
 sge::vertex_size sge::vertex_element::stride() const
@@ -51,7 +51,7 @@ sge::vertex_size sge::vertex_element::stride() const
 
 
 sge::vertex_format::vertex_format()
-: _stride(0)
+: stride_(0)
 {}
 
 const sge::vertex_format::usage_list& sge::vertex_format::elements() const
@@ -61,14 +61,14 @@ const sge::vertex_format::usage_list& sge::vertex_format::elements() const
 
 sge::vertex_size sge::vertex_format::stride() const
 {
-	return _stride;
+	return stride_;
 }
 
 sge::vertex_format& sge::vertex_format::add(const vertex_usage::type u, const vertex_size count)
 {
-	oi[u] = _stride;
-	ulist.push_back(vertex_element(u,count));
-	_stride += vertex_element_size[u] * count;
+	oi[u] = stride_;
+	ulist.push_back(vertex_element(u, count));
+	stride_ += vertex_element_size[u] * count;
 	return *this;
 }
 

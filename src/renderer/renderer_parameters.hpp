@@ -18,15 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../renderer_system.hpp"
+#ifndef SGE_RENDERER_PARAMETERS_HPP_INCLUDED
+#define SGE_RENDERER_PARAMETERS_HPP_INCLUDED
 
-sge::detail::address_name sge::detail::plugin_traits<sge::renderer_system>::plugin_loader_name()
+#include "display_mode.hpp"
+#include "types.hpp"
+
+namespace sge
 {
-	return SGE_ADDRESS_NAME("create_renderer_system");
+
+struct renderer_parameters {
+	renderer_parameters(const display_mode& mode,
+	                    bool windowed = false,
+	                    multi_sample_type samples = 1,
+	                    bool vsync = true);
+
+	display_mode      mode;
+	bool              windowed;
+	multi_sample_type samples;
+	bool              vsync;
+};
+
 }
 
-sge::plugin_type::type sge::detail::plugin_traits<sge::renderer_system>::get_plugin_type()
-{
-	return plugin_type::renderer;
-}
-
+#endif

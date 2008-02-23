@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/signals/trackable.hpp>
 #include "../../types.hpp"
 #include "../../renderer/renderer.hpp"
+#include "../../renderer/renderer_parameters.hpp"
 #include "../../window.hpp"
 #include "../../scoped_connection.hpp"
 #include "common.hpp"
