@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-/*#include "../vertex_buffer.hpp"
+#include "../vertex_buffer.hpp"
 #include "../basic_buffer_impl.hpp"
 #include "../vbo.hpp"
 
@@ -70,4 +70,4 @@ void sge::ogl::vertex_buffer::set_format()
 {
 	bind_me();
 	ogl_format.use_me();
-}*/
+}

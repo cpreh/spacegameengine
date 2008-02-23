@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../types.hpp"
+/*#include "../../../types.hpp"
 #include "../../../exception.hpp"
 #include "../renderer_system.hpp"
 #include "../renderer.hpp"
@@ -53,4 +53,4 @@ const sge::renderer_caps_array sge::ogl::renderer_system::caps() const
 	v.push_back(ret);
 #endif
 	return v;
-}
+}*/

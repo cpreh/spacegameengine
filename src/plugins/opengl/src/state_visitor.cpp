@@ -78,7 +78,7 @@ void sge::ogl::state_visitor::operator()(const bool_state::type s)
 		break;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
-		enable(boost::apply_visitor(conversion_visitor(), s), s.value());
+//		enable(boost::apply_visitor(conversion_visitor(), s), s.value());
 		break;
 	default:
 		throw exception(SGE_TEXT("Invalid bool_state!"));
@@ -126,7 +126,7 @@ void sge::ogl::state_visitor::operator()(const cull_mode::type m)
 	enable(GL_CULL_FACE);
 	
 	SGE_OPENGL_SENTRY
-	glCullFace(boost::apply_visitor(conversion_visitor(), m));
+//	glCullFace(boost::apply_visitor(conversion_visitor(), m));
 }
 
 void sge::ogl::state_visitor::operator()(const depth_func::type f)
@@ -140,7 +140,7 @@ void sge::ogl::state_visitor::operator()(const depth_func::type f)
 	enable(GL_DEPTH_TEST);
 
 	SGE_OPENGL_SENTRY
-	glDepthFunc(boost::apply_visitor(conversion_visitor(), f));
+//	glDepthFunc(boost::apply_visitor(conversion_visitor(), f));
 }
 
 void sge::ogl::state_visitor::operator()(const stencil_func::type f)
@@ -152,29 +152,29 @@ void sge::ogl::state_visitor::operator()(const stencil_func::type f)
 	}
 
 	enable(GL_STENCIL_TEST);
-	rend.set_stencil_func(boost::apply_visitor(conversion_visitor(), f));
+//	rend.set_stencil_func(boost::apply_visitor(conversion_visitor(), f));
 }
 
 void sge::ogl::state_visitor::operator()(const fog_mode::type m)
 {
 	SGE_OPENGL_SENTRY
-	glFogi(GL_FOG_MODE, boost::apply_visitor(conversion_visitor(), m));
+//	glFogi(GL_FOG_MODE, boost::apply_visitor(conversion_visitor(), m));
 }
 
 void sge::ogl::state_visitor::operator()(const draw_mode::type m)
 {
 	SGE_OPENGL_SENTRY
-	glPolygonMode(
-		GL_FRONT_AND_BACK,
-		boost::apply_visitor(conversion_visitor(), m));
+//	glPolygonMode(
+//		GL_FRONT_AND_BACK,
+//		boost::apply_visitor(conversion_visitor(), m));
 }
 
 void sge::ogl::state_visitor::operator()(const source_blend_func::type f)
 {
-	rend.set_source_blend_func(boost::apply_visitor(conversion_visitor(), f));
+//	rend.set_source_blend_func(boost::apply_visitor(conversion_visitor(), f));
 }
 
 void sge::ogl::state_visitor::operator()(const dest_blend_func::type f)
 {
-	rend.set_dest_blend_func(boost::apply_visitor(conversion_visitor(), f));
+//	rend.set_dest_blend_func(boost::apply_visitor(conversion_visitor(), f));
 }
