@@ -55,7 +55,10 @@ namespace ogl
 
 class renderer : public sge::renderer, public boost::signals::trackable {
 public:
-	renderer(const renderer_parameters& param, unsigned adapter, window_ptr wnd);
+	renderer(
+		const renderer_parameters& param,
+		unsigned adapter,
+		window_ptr wnd);
 
 	void begin_rendering();
 	void end_rendering();
@@ -71,28 +74,12 @@ public:
 	            vertex_buffer::size_type num_vertices,
 	            nonindexed_primitive_type::type ptype);
 
-	void set_int_state(int_state::type, int_type value);
-	void set_float_state(float_state::type, float_type value);
-	void set_bool_state(bool_state::type, bool_type value);
-	void set_color_state(color_state::type, color value);
-	void set_cull_mode(cull_mode::type);
-	void set_depth_func(depth_func::type);
-	void set_stencil_func(stencil_func::type, signed_type value, unsigned_type mask);
-	void set_fog_mode(fog_mode::type);
-	void set_blend_func(source_blend_func::type, dest_blend_func::type);
-	void set_draw_mode(draw_mode::type);
-	
+	void set_state(const any_renderer_state &);
+	void set_state(const renderer_state_list &);
+
 	void push_level();
-	void push_int_state(int_state::type);
-	void push_float_state(float_state::type);
-	void push_bool_state(bool_state::type);
-	void push_color_state(color_state::type);
-	void push_cull_mode();
-	void push_depth_func();
-	void push_stencil_func();
-	void push_fog_mode();
-	void push_blend_func();
-	void push_draw_mode();
+	void push_state(const any_renderer_state &);
+	void push_state(const renderer_state_list &);
 
 	void pop_level();
 
@@ -106,46 +93,64 @@ public:
 	const viewport &get_viewport() const;
 	void enable_light(light_index index, bool enable);
 	void set_light(light_index index, const light&);
-	void set_texture_stage_op(stage_type stage, texture_stage_op::type, texture_stage_op_value::type);
-	void set_texture_stage_arg(stage_type stage, texture_stage_arg::type, texture_stage_arg_value::type);
+	void set_texture_stage_op(
+		stage_type stage,
+		texture_stage_op::type,
+		texture_stage_op_value::type);
+	void set_texture_stage_arg(
+		stage_type stage,
+		texture_stage_arg::type,
+		texture_stage_arg_value::type);
 
 	void push();
 	void pop();
 
-	glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader,
-	                                      const std::string& pixel_shader_source = no_shader);
+	glsl::program_ptr create_glsl_program(
+		const std::string& vertex_shader_source = no_shader,
+		const std::string& pixel_shader_source = no_shader);
 	void set_glsl_shader(glsl::program_ptr);
 
 	sge::render_target_ptr get_render_target() const;
 
-	texture_ptr create_texture(texture::const_pointer data,
-	                           const texture::dim_type& dim,
-	                           const filter_args& filter,
-	                           resource_flag_t flags);
+	texture_ptr create_texture(
+		texture::const_pointer data,
+		const texture::dim_type& dim,
+		const filter_args& filter,
+		resource_flag_t flags);
 
-	volume_texture_ptr create_volume_texture(volume_texture::const_pointer data,
-	                                         const volume_texture::box_type& box,
-	                                         const filter_args& filter,
-	                                         resource_flag_t flags);
+	volume_texture_ptr create_volume_texture(
+		volume_texture::const_pointer data,
+		const volume_texture::box_type& box,
+		const filter_args& filter,
+		resource_flag_t flags);
 
-	cube_texture_ptr create_cube_texture(const cube_side_array* data,
-	                                     cube_texture::size_type size,
-	                                     const filter_args& filter,
-	                                     resource_flag_t flags);
+	cube_texture_ptr create_cube_texture(
+		const cube_side_array* data,
+		cube_texture::size_type size,
+		const filter_args& filter,
+		resource_flag_t flags);
 
-	vertex_buffer_ptr create_vertex_buffer(const sge::vertex_format& format,
-	                                       vertex_buffer::size_type size,
-	                                       resource_flag_t flags,
-	                                       vertex_buffer::const_pointer data);
+	vertex_buffer_ptr create_vertex_buffer(
+		const sge::vertex_format& format,
+		vertex_buffer::size_type size,
+		resource_flag_t flags,
+		vertex_buffer::const_pointer data);
 
-	index_buffer_ptr create_index_buffer(index_buffer::size_type size,
-	                                     resource_flag_t flags,
-	                                     index_buffer::const_pointer data);
+	index_buffer_ptr create_index_buffer(
+		index_buffer::size_type size,
+		resource_flag_t flags,
+		index_buffer::const_pointer data);
 
 	const renderer_caps& caps() const;
 	screen_size_t screen_size() const;
 	window_ptr get_window() const;
+
+	void set_clear_bit(GLenum bit, bool value);
+	void set_stencil_func(GLenum);
+	void set_source_blend_func(GLenum);
+	void set_dest_blend_func(GLenum);
 private:
+	void set_blend_func();
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);
 	fbo_render_target_ptr create_render_target(const render_target::dim_type&);
@@ -154,6 +159,10 @@ private:
 	renderer_parameters param;
 	GLbitfield          clearflags;
 	GLbitfield          accumulated_state;
+	GLint               stencil_value;
+	GLuint              stencil_mask;
+	GLenum              source_blend_func,
+	                    dest_blend_func;
 #ifdef SGE_WINDOWS_PLATFORM
 	win32_window_ptr               wnd;
 	boost::scoped_ptr<gdi_device>  hdc;

@@ -28,12 +28,12 @@ namespace sge
 {
 namespace ogl
 {
-
+/*
 GLbitfield state_to_stack_type(int_state::type);
 GLbitfield state_to_stack_type(float_state::type);
 GLbitfield state_to_stack_type(bool_state::type);
 GLbitfield state_to_stack_type(color_state::type);
-
+*/
 
 }
 }

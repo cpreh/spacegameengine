@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERSION_HPP_INCLUDED
 #define SGE_OPENGL_CONVERSION_HPP_INCLUDED
 
+#include <boost/variant/static_visitor.hpp>
 #include "../../renderer/types.hpp"
 #include "../../renderer/renderer.hpp"
 #include "../../renderer/cube_texture.hpp"
@@ -32,31 +33,25 @@ namespace sge
 namespace ogl
 {
 
-// TODO: put these functions in their appropriate locations
+// TODO: put some of them in their appropriate locations
 
 template<typename D, typename S> D convert_cast(const S&);
 template<> GLuint convert_cast(const lock_flag_t&);
 template<> GLenum convert_cast(const indexed_primitive_type::type&);
 template<> GLenum convert_cast(const nonindexed_primitive_type::type&);
-template<> GLenum convert_cast(const bool_state::type&);
 template<> GLenum convert_cast(const min_filter::type&);
 template<> GLenum convert_cast(const mag_filter::type&);
 #ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
 template<> GLenum convert_cast(const cube_side::type&);
 #endif
-template<> GLenum convert_cast(const cull_mode::type&);
-template<> GLenum convert_cast(const compare_func::type&);
-template<> GLenum convert_cast(const fog_mode::type&);
-template<> GLenum convert_cast(const source_blend_func::type&);
-template<> GLenum convert_cast(const dest_blend_func::type&);
 template<> GLenum convert_cast(const texture_stage_op::type&);
 template<> GLenum convert_cast(const texture_stage_op_value::type&);
 template<> GLenum convert_cast(const texture_stage_arg::type&);
 template<> GLenum convert_cast(const texture_stage_arg_value::type&);
-template<> GLenum convert_cast(const draw_mode::type&);
 
 GLuint convert_resource_flags(resource_flag_t);
-GLenum convert_fog_float_state(const float_state::type&);
+GLenum convert_fog_float_state(float_state::type);
+GLenum convert_clear_bit(bool_state::type);
 
 }
 }

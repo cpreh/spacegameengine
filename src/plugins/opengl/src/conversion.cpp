@@ -21,13 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../conversion.hpp"
 
-GLuint sge::ogl::convert_resource_flags(const resource_flag_t f)
-{
-	if(f & resource_flags::dynamic)
-		return GL_DYNAMIC_DRAW;
-	return GL_STATIC_DRAW;
-}
-
 template<> GLuint sge::ogl::convert_cast(const lock_flag_t& f)
 {
 	switch(f) {
@@ -69,26 +62,6 @@ template<> GLenum sge::ogl::convert_cast(const indexed_primitive_type::type& t)
 		return GL_TRIANGLES;
 	default:
 		throw exception(SGE_TEXT("Invalid nonindexed_primitive_type!"));
-	}
-}
-
-template<> GLenum sge::ogl::convert_cast(const bool_state::type& state)
-{
-	switch(state) {
-	case bool_state::enable_alpha_blending:
-		return GL_BLEND;
-	case bool_state::enable_zbuffer:
-		return GL_DEPTH_TEST;
-	case bool_state::enable_stencil:
-		return GL_STENCIL_TEST;
-	case bool_state::enable_fog:
-		return GL_FOG;
-	case bool_state::enable_lighting:
-		return GL_LIGHTING;
-	case bool_state::enable_culling:
-		return GL_CULL_FACE;
-	default:
-		throw exception(SGE_TEXT("Invalid bool_state!"));
 	}
 }
 
@@ -157,106 +130,6 @@ template<> GLenum sge::ogl::convert_cast(const cube_side::type& s)
 	return cube_sides[pos];
 }
 #endif
-
-template<> GLenum sge::ogl::convert_cast(const cull_mode::type& m)
-{
-	switch(m) {
-	case cull_mode::back:
-		return GL_BACK;
-	case cull_mode::front:
-		return GL_FRONT;
-	default:
-		throw exception(SGE_TEXT("Invalid cull_mode!"));
-	}
-}
-
-template<> GLenum sge::ogl::convert_cast(const compare_func::type& f)
-{
-	switch(f) {
-	case compare_func::never:
-		return GL_NEVER;
-	case compare_func::less:
-		return GL_LESS;
-	case compare_func::equal:
-		return GL_EQUAL;
-	case compare_func::less_equal:
-		return GL_LEQUAL;
-	case compare_func::greater:
-		return GL_GREATER;
-	case compare_func::not_equal:
-		return GL_NOTEQUAL;
-	case compare_func::greater_equal:
-		return GL_GEQUAL;
-	case compare_func::always:
-		return GL_ALWAYS;
-	default:
-		throw exception(SGE_TEXT("Invalid compare_func!"));
-	}
-}
-
-template<> GLenum sge::ogl::convert_cast(const fog_mode::type& m)
-{
-	switch(m) {
-	case fog_mode::linear:
-		return GL_LINEAR;
-	case fog_mode::exp:
-		return GL_EXP;
-	case fog_mode::exp2:
-		return GL_EXP2;
-	default:
-		throw exception(SGE_TEXT("Invalid fog_mode!"));
-	}
-}
-
-template<> GLenum sge::ogl::convert_cast(const source_blend_func::type& f)
-{
-	switch(f) {
-	case source_blend_func::zero:
-		return GL_ZERO;
-	case source_blend_func::one:
-		return GL_ONE;
-	case source_blend_func::dest_color:
-		return GL_DST_COLOR;
-	case source_blend_func::inv_dest_color:
-		return GL_ONE_MINUS_DST_COLOR;
-	case source_blend_func::src_alpha:
-		return GL_SRC_ALPHA;
-	case source_blend_func::inv_src_alpha:
-		return GL_ONE_MINUS_SRC_ALPHA;
-	case source_blend_func::dest_alpha:
-		return GL_DST_ALPHA;
-	case source_blend_func::inv_dest_alpha:
-		return GL_ONE_MINUS_DST_ALPHA;
-	case source_blend_func::src_alpha_sat:
-		return GL_SRC_ALPHA_SATURATE;
-	default:
-		throw exception(SGE_TEXT("Invalid source_blend_func!"));
-	}
-}
-
-template<> GLenum sge::ogl::convert_cast(const dest_blend_func::type& f)
-{
-	switch(f) {
-	case dest_blend_func::zero:
-		return GL_ZERO;
-	case dest_blend_func::one:
-		return GL_ONE;
-	case dest_blend_func::src_color:
-		return GL_SRC_COLOR;
-	case dest_blend_func::inv_src_color:
-		return GL_ONE_MINUS_SRC_COLOR;
-	case dest_blend_func::src_alpha:
-		return GL_SRC_ALPHA;
-	case dest_blend_func::inv_src_alpha:
-		return GL_ONE_MINUS_SRC_ALPHA;
-	case dest_blend_func::dest_alpha:
-		return GL_DST_ALPHA;
-	case dest_blend_func::inv_dest_alpha:
-		return GL_ONE_MINUS_DST_ALPHA;
-	default:
-		throw exception(SGE_TEXT("Invalid dest_blend_func!"));
-	}
-}
 
 template<> GLenum sge::ogl::convert_cast(const texture_stage_op::type& op)
 {
@@ -329,30 +202,39 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_arg_value::type& va
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const draw_mode::type& mode)
+GLuint sge::ogl::convert_resource_flags(const resource_flag_t f)
 {
-	switch(mode) {
-	case draw_mode::point:
-		return GL_POINT;
-	case draw_mode::line:
-		return GL_LINE;
-	case draw_mode::fill:
-		return GL_FILL;
-	default:
-		throw exception(SGE_TEXT("Invalid draw_mode!"));
-	}
+	return (f & resource_flags::dynamic)
+		? GL_DYNAMIC_DRAW
+		: GL_STATIC_DRAW;
 }
 
-GLenum sge::ogl::convert_fog_float_state(const float_state::type& s)
+GLenum sge::ogl::convert_fog_float_state(const float_state::type s)
 {
-	switch(s) {
-	case float_state::fog_start:
+	typedef renderer_state_var_traits<float> rs;
+	switch(s.state_id) {
+	case rs::fog_start:
 		return GL_FOG_START;
-	case float_state::fog_end:
+	case rs::fog_end:
 		return GL_FOG_END;
-	case float_state::fog_density:
+	case rs::fog_density:
 		return GL_FOG_DENSITY;
 	default:
 		throw exception(SGE_TEXT("Invalid fog float_state!"));
+	}
+}
+
+GLenum sge::ogl::convert_clear_bit(const bool_state::type s)
+{
+	typedef renderer_state_var_traits<bool> rs;
+	switch(s.state_id) {
+	case rs::clear_backbuffer:
+		return GL_COLOR_BUFFER_BIT;
+	case rs::clear_zbuffer:
+		return GL_DEPTH_BUFFER_BIT;
+	case rs::clear_stencil:
+		return GL_STENCIL_BUFFER_BIT;
+	default:
+		throw exception(SGE_TEXT("Invalid bool_state in convert_clear_bit()!"));
 	}
 }

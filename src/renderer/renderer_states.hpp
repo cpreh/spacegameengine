@@ -44,10 +44,7 @@ template<> struct renderer_state_var_traits<bool> { enum available_states {
 	clear_zbuffer,
 	clear_backbuffer,
 	clear_stencil,
-	enable_fog,
-	enable_stencil,
 	enable_alpha_blending,
-	enable_zbuffer,
 	enable_lighting
 }; };
 
@@ -57,26 +54,139 @@ template<> struct renderer_state_var_traits<color> { enum available_states {
 	fog_color
 }; };
 
-namespace renderer_state_cull_mode_type { enum type { off, back, front }; }
-template<> struct renderer_state_var_traits<renderer_state_cull_mode_type::type> { enum available_states { singular }; };
+namespace renderer_state_cull_mode_type {
+	enum type {
+		off,
+		back,
+		front
+	};
+}
 
-namespace renderer_state_depth_func_type { enum type { never, less, equal, less_equal, greater, not_equal, greater_equal, always }; }
-template<> struct renderer_state_var_traits<renderer_state_depth_func_type::type> { enum available_states { singular }; };
+template<>
+struct renderer_state_var_traits<renderer_state_cull_mode_type::type> {
+	enum available_states {
+		singular
+	};
+};
 
-namespace renderer_state_stencil_func_type { enum type { off, never, less, equal, less_equal, greater, not_equal, greater_equal, always }; }
-template<> struct renderer_state_var_traits<renderer_state_stencil_func_type::type> { enum available_states { singular }; };
+namespace renderer_state_depth_func_type
+{
+	enum type {
+		off,
+		never,
+		less,
+		equal,
+		less_equal,
+		greater,
+		not_equal,
+		greater_equal,
+		always
+	};
+}
 
-namespace renderer_state_fog_mode_type { enum type { off, linear, exp, exp2 }; }
-template<> struct renderer_state_var_traits<renderer_state_fog_mode_type::type> { enum available_states { singular }; };
+template<>
+struct renderer_state_var_traits<renderer_state_depth_func_type::type> {
+	enum available_states {
+		singular
+	};
+};
 
-namespace renderer_state_draw_mode_type { enum type { point, line, fill }; }
-template<> struct renderer_state_var_traits<renderer_state_draw_mode_type::type> { enum available_states { singular }; };
+namespace renderer_state_stencil_func_type
+{
+	enum type {
+		off,
+		never,
+		less,
+		equal,
+		less_equal,
+		greater,
+		not_equal,
+		greater_equal,
+		always
+	};
+}
 
-namespace renderer_state_source_blend_func_type { enum type { zero, one, dest_color, inv_dest_color, src_alpha, inv_src_alpha, dest_alpha, inv_dest_alpha, src_alpha_sat }; }
-template<> struct renderer_state_var_traits<renderer_state_source_blend_func_type::type> { enum available_states { singular }; };
+template<>
+struct renderer_state_var_traits<renderer_state_stencil_func_type::type> {
+	enum available_states {
+		singular
+	};
+};
 
-namespace renderer_state_dest_blend_func_type { enum type { zero, one, src_color, inv_src_color, src_alpha, inv_src_alpha, dest_alpha, inv_dest_alpha }; }
-template<> struct renderer_state_var_traits<renderer_state_dest_blend_func_type::type> { enum available_states { singular }; };
+namespace renderer_state_fog_mode_type {
+	enum type {
+		off,
+		linear,
+		exp,
+		exp2
+	};
+}
+
+template<>
+struct renderer_state_var_traits<renderer_state_fog_mode_type::type> {
+	enum available_states {
+		singular
+	};
+};
+
+namespace renderer_state_draw_mode_type
+{
+	enum type {
+		point,
+		line,
+		fill
+	};
+}
+
+template<>
+struct renderer_state_var_traits<renderer_state_draw_mode_type::type> {
+	enum available_states {
+		singular
+	};
+};
+
+namespace renderer_state_source_blend_func_type
+{
+	enum type {
+		zero,
+		one,
+		dest_color,
+		inv_dest_color,
+		src_alpha,
+		inv_src_alpha,
+		dest_alpha,
+		inv_dest_alpha,
+		src_alpha_sat
+	};
+}
+
+template<>
+struct renderer_state_var_traits<renderer_state_source_blend_func_type::type> {
+	enum available_states {
+		singular
+	};
+};
+
+namespace renderer_state_dest_blend_func_type
+{
+	enum type {
+		zero,
+		one,
+		src_color,
+		inv_src_color,
+		src_alpha,
+		inv_src_alpha,
+		dest_alpha,
+		inv_dest_alpha
+	};
+}
+
+template<>
+struct renderer_state_var_traits<renderer_state_dest_blend_func_type::type> {
+	enum available_states {
+		singular
+	};
+};
 
 template<typename T> struct renderer_state_var {
 	typedef T value_type;
@@ -120,7 +230,6 @@ namespace bool_state {
 		clear_backbuffer,
 		clear_stencil,
 		enable_alpha_blending,
-		enable_zbuffer,
 		enable_lighting;
 }
 
@@ -143,6 +252,7 @@ namespace cull_mode {
 namespace depth_func {
 	typedef renderer_state_var<renderer_state_depth_func_type::type> type;
 	extern const type
+		off,
 		never,
 		less,
 		equal,

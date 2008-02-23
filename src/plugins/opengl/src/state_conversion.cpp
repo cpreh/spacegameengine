@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../state_conversion.hpp"
 
 // TODO: make it more obvious what happens here
-
+/*
 GLbitfield sge::ogl::state_to_stack_type(const int_state::type state)
 {
 	return GL_STENCIL_BUFFER_BIT;
@@ -40,16 +40,16 @@ GLbitfield sge::ogl::state_to_stack_type(const bool_state::type state)
 
 GLbitfield sge::ogl::state_to_stack_type(const color_state::type state)
 {
-	switch(state) {
-	case color_state::clear_color:
+	
+	switch(state.state_id) {
+	case rs::clear_color:
 		return GL_DEPTH_BUFFER_BIT;
-	case color_state::ambient_light_color:
+	case rs::ambient_light_color:
 		return GL_LIGHTING_BIT;
-	case color_state::fog_color:
+	case rs::fog_color:
 		return GL_FOG_BIT;
 	default:
 		throw exception(SGE_TEXT("state_to_stack_type(color_state): invalid color_state!"));
 	}
 }
-
-
+*/

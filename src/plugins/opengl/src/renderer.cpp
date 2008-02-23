@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <iostream>
 #include <ostream>
+#include <boost/foreach.hpp>
+#include <boost/variant/apply_visitor.hpp>
 #include "../../../bit.hpp"
 #include "../../../exception.hpp"
 #include "../../../types.hpp"
@@ -47,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shader.hpp"
 #include "../program.hpp"
 #include "../error.hpp"
-#include "../state_conversion.hpp"
+#include "../state_visitor.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
@@ -180,7 +182,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	initialize_vbo();
 	initialize_pbo();
 
-	set_blend_func(source_blend_func::src_alpha, dest_blend_func::inv_src_alpha);
+	//set_blend_func(source_blend_func::src_alpha, dest_blend_func::inv_src_alpha);
 	// TODO: implement caps
 	caps_.adapter_number = adapter;
 	caps_.max_tex_size = get_int(GL_MAX_TEXTURE_SIZE);
@@ -196,38 +198,43 @@ void sge::ogl::renderer::begin_rendering()
 	glClear(clearflags);
 }
 
-sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(const index_buffer::size_type size,
-                                                              const resource_flag_t flags,
-                                                              const index_buffer::const_pointer data)
+sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(
+	const index_buffer::size_type size,
+	const resource_flag_t flags,
+	const index_buffer::const_pointer data)
 {
 	return index_buffer_ptr(new index_buffer(size, flags, data));
 }
 
-sge::ogl::fbo_render_target_ptr sge::ogl::renderer::create_render_target(const render_target::dim_type& dim)
+sge::ogl::fbo_render_target_ptr sge::ogl::renderer::create_render_target(
+	const render_target::dim_type& dim)
 {
 	return fbo_render_target_ptr(new fbo_render_target(dim));
 }
 
-sge::texture_ptr sge::ogl::renderer::create_texture(const texture::const_pointer src,
-                                                    const texture::dim_type& dim,
-                                                    const filter_args& filter,
-                                                    const resource_flag_t flags)
+sge::texture_ptr sge::ogl::renderer::create_texture(
+	const texture::const_pointer src,
+	const texture::dim_type& dim,
+	const filter_args& filter,
+	const resource_flag_t flags)
 {
 	return texture_ptr(new texture(src, dim, filter, flags));
 }
 
-sge::vertex_buffer_ptr sge::ogl::renderer::create_vertex_buffer(const sge::vertex_format& format,
-                                                                const vertex_buffer::size_type size,
-                                                                const resource_flag_t flags,
-                                                                const vertex_buffer::const_pointer src)
+sge::vertex_buffer_ptr sge::ogl::renderer::create_vertex_buffer(
+	const sge::vertex_format& format,
+	const vertex_buffer::size_type size,
+	const resource_flag_t flags,
+	const vertex_buffer::const_pointer src)
 {
 	return vertex_buffer_ptr(new vertex_buffer(size,format,flags,src));
 }
 
-sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_texture::const_pointer src,
-                                                                  const volume_texture::box_type& box,
-                                                                  const filter_args& filter,
-                                                                  const resource_flag_t flags)
+sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(
+	const volume_texture::const_pointer src,
+ 	const volume_texture::box_type& box,
+	const filter_args& filter,
+	const resource_flag_t flags)
 {
 #ifndef SGE_OPENGL_HAVE_VOLUME_TEXTURE
 	on_not_supported(SGE_TEXT("volume_texture"),
@@ -238,10 +245,11 @@ sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(const volume_t
 #endif
 }
 
-sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(const cube_side_array* const src,
-                                                              const cube_texture::size_type sz,
-                                                              const filter_args& filter,
-                                                              const resource_flag_t flags)
+sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(
+	const cube_side_array* const src,
+	const cube_texture::size_type sz,
+	const filter_args& filter,
+	const resource_flag_t flags)
 {
 #ifndef SGE_OPENGL_HAVE_CUBE_TEXTURE
 	on_not_supported(SGE_TEXT("cube texture"),
@@ -329,128 +337,46 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 
 }
 
-void sge::ogl::renderer::set_bool_state(const bool_state::type state, const bool_type value)
+void sge::ogl::renderer::set_state(const renderer_state_list &states)
 {
-	switch(state) {
-	case bool_state::clear_backbuffer:
-		set_bit(GL_COLOR_BUFFER_BIT, clearflags, value);
-		break;
-	case bool_state::clear_zbuffer:
-		set_bit(GL_DEPTH_BUFFER_BIT, clearflags, value);
-		break;
-	case bool_state::clear_stencil:
-		set_bit(GL_STENCIL_BUFFER_BIT, clearflags, value);
-		break;
-	default:
-		const GLenum glstate = convert_cast<GLenum>(state);
-		enable(glstate, value);
-	}
+	state_visitor visitor(*this);
+	for(renderer_state_list::const_iterator it = states.begin(); it != states.end(); ++it)
+		boost::apply_visitor(visitor, *it);
+//	BOOST_FOREACH(const any_renderer_state& s, states)
+//		boost::apply_visitor(visitor, s);
 }
 
-void sge::ogl::renderer::set_float_state(const float_state::type state, const float_type value)
+void sge::ogl::renderer::set_clear_bit(const GLenum bit, const bool value)
+{
+	set_bit(bit, clearflags, value);
+}
+
+void sge::ogl::renderer::set_stencil_func(const GLenum func)
+//, const signed_type value, const unsigned_type mask)
 {
 	SGE_OPENGL_SENTRY
-
-	switch(state) {
-	case float_state::zbuffer_clear_val:
-		glClearDepth(value);
-		break;
-	case float_state::fog_start:
-	case float_state::fog_end:
-	case float_state::fog_density:
-		glFogf(convert_fog_float_state(state), value);
-		break;
-	default:
-		throw exception(SGE_TEXT("Invalid float_state!"));
-	}
+	glStencilFunc(func, stencil_value, stencil_mask);
 }
 
-void sge::ogl::renderer::set_color_state(const color_state::type state, const color value)
+void sge::ogl::renderer::set_source_blend_func(const GLenum func)
+{
+	source_blend_func = func;
+	set_blend_func();
+}
+
+void sge::ogl::renderer::set_dest_blend_func(const GLenum func)
+{
+	dest_blend_func = func;
+	set_blend_func();
+}
+
+void sge::ogl::renderer::set_blend_func()
 {
 	SGE_OPENGL_SENTRY
-
-	switch(state) {
-	case color_state::clear_color:
-		glClearColor(red_part_rgba_f(value),green_part_rgba_f(value),blue_part_rgba_f(value),alpha_part_rgba_f(value));
-		break;
-	case color_state::ambient_light_color:
-		{
-			const color4 fc = color_to_color4(value);
-			glLightModelfv(GL_LIGHT_MODEL_AMBIENT, reinterpret_cast<const GLfloat*>(&fc));
-		}
-		break;
-	case color_state::fog_color:
-		{
-			const color4 fc = color_to_color4(value);
-			glFogfv(GL_FOG_COLOR, reinterpret_cast<const GLfloat*>(&fc));
-		}
-		break;
-	default:
-		throw exception(SGE_TEXT("Invalid color_state!"));
-	}
+	glBlendFunc(source_blend_func, dest_blend_func);
 }
 
-void sge::ogl::renderer::set_int_state(const int_state::type state, const int_type value)
-{
-	SGE_OPENGL_SENTRY
-
-	switch(state) {
-	case int_state::stencil_clear_val:
-		glClearStencil(value);
-		break;
-	default:
-		throw exception(SGE_TEXT("Invalid int_state!"));
-	}
-}
-
-void sge::ogl::renderer::set_fog_mode(const fog_mode::type mode)
-{
-	SGE_OPENGL_SENTRY
-
-	glFogi(GL_FOG_MODE, convert_cast<GLenum>(mode));
-}
-
-void sge::ogl::renderer::set_cull_mode(const cull_mode::type mode)
-{
-	SGE_OPENGL_SENTRY
-
-	glCullFace(convert_cast<GLenum>(mode));
-}
-
-void sge::ogl::renderer::set_depth_func(const depth_func::type func)
-{
-	SGE_OPENGL_SENTRY
-
-	glDepthFunc(convert_cast<GLenum>(func));
-}
-
-void sge::ogl::renderer::set_stencil_func(const stencil_func::type func, const signed_type value, const unsigned_type mask)
-{
-	SGE_OPENGL_SENTRY
-
-	glStencilFunc(convert_cast<GLenum>(func), value, mask);
-}
-
-void sge::ogl::renderer::set_blend_func(const source_blend_func::type source, const dest_blend_func::type dest)
-{
-	SGE_OPENGL_SENTRY
-
-	const GLenum glsource = convert_cast<GLenum>(source),
-	             gldest   = convert_cast<GLenum>(dest);
-
-	glBlendFunc(glsource, gldest);
-}
-
-void sge::ogl::renderer::set_draw_mode(const draw_mode::type mode)
-{
-	SGE_OPENGL_SENTRY
-
-	const GLenum glmode = convert_cast<GLenum>(mode);
-
-	glPolygonMode(GL_FRONT_AND_BACK, glmode);
-}
-
-void sge::ogl::renderer::push_int_state(const int_state::type state)
+/*void sge::ogl::renderer::push_int_state(const int_state::type state)
 {
 	add_push_state(state_to_stack_type(state));
 }
@@ -503,7 +429,7 @@ void sge::ogl::renderer::push_draw_mode()
 void sge::ogl::renderer::add_push_state(const GLbitfield s)
 {
 	accumulated_state |= s;
-}
+}*/
 
 void sge::ogl::renderer::set_material(const material& mat)
 {
@@ -520,7 +446,6 @@ void sge::ogl::renderer::set_material(const material& mat)
 void sge::ogl::renderer::set_viewport(const viewport& v)
 {
 	SGE_OPENGL_SENTRY
-
 	glViewport(v.x, v.y, v.w, v.h);
 }
 
@@ -575,7 +500,9 @@ sge::render_target_ptr sge::ogl::renderer::get_render_target() const
 	return render_target_;
 }
 
-void sge::ogl::renderer::set_texture(const texture_base_ptr tex, const stage_type stage)
+void sge::ogl::renderer::set_texture(
+	const texture_base_ptr tex,
+	const stage_type stage)
 {
 	set_texture_level(stage);
 
@@ -621,13 +548,19 @@ void sge::ogl::renderer::set_light(const light_index index, const light& l)
 	set_light_float(glindex, GL_SPOT_CUTOFF, l.cutoff_angle);
 }
 
-void sge::ogl::renderer::set_texture_stage_op(const stage_type stage, const texture_stage_op::type op, const texture_stage_op_value::type value)
+void sge::ogl::renderer::set_texture_stage_op(
+	const stage_type stage,
+	const texture_stage_op::type op,
+	const texture_stage_op_value::type value)
 {
 	set_texture_stage(stage, op, value);
 	set_texture_stage_scale(value);
 }
 
-void sge::ogl::renderer::set_texture_stage_arg(const stage_type stage, const texture_stage_arg::type arg, const texture_stage_arg_value::type value)
+void sge::ogl::renderer::set_texture_stage_arg(
+	const stage_type stage,
+	const texture_stage_arg::type arg,
+	const texture_stage_arg_value::type value)
 {
 	set_texture_stage(stage, arg, value);
 }
@@ -651,7 +584,9 @@ void sge::ogl::renderer::pop_level()
 	glPopAttrib();
 }
 
-sge::glsl::program_ptr sge::ogl::renderer::create_glsl_program(const std::string& vs_source, const std::string& ps_source)
+sge::glsl::program_ptr sge::ogl::renderer::create_glsl_program(
+	const std::string& vs_source,
+	const std::string& ps_source)
 {
 	const shader_ptr vs(vs_source == no_shader ? 0 : new shader(GL_VERTEX_SHADER, vs_source)),
 	                 ps(ps_source == no_shader ? 0 : new shader(GL_FRAGMENT_SHADER, ps_source));

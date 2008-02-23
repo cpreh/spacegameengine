@@ -69,9 +69,6 @@ sge::bool_state::type
 	sge::bool_state::enable_alpha_blending(
 		sge::renderer_state_var_traits<bool>::enable_alpha_blending
 	),
-	sge::bool_state::enable_zbuffer(
-		sge::renderer_state_var_traits<bool>::enable_zbuffer
-	),
 	sge::bool_state::enable_lighting(
 		sge::renderer_state_var_traits<bool>::enable_lighting
 	);
@@ -120,6 +117,10 @@ const sge::cull_mode::type
 //
 
 const sge::depth_func::type
+	sge::depth_func::off(
+		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
+		sge::renderer_state_depth_func_type::off
+	),
 	sge::depth_func::never(
 		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
 		sge::renderer_state_depth_func_type::never
