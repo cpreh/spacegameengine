@@ -19,6 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../renderer_states.hpp"
 
+#undef STATE
+#define STATE(STATE_, NAME_) \
+	sge::STATE_::NAME_( \
+		sge::renderer_state_var_traits<sge::STATE_::type::value_type>::NAME_\
+	)
+
+// singular states
+#define SGE_RS_NAMESPACE_cull_mode         renderer_state_cull_mode_type
+#define SGE_RS_NAMESPACE_depth_func        renderer_state_depth_func_type
+#define SGE_RS_NAMESPACE_stencil_func      renderer_state_stencil_func_type
+#define SGE_RS_NAMESPACE_fog_mode          renderer_state_fog_mode_type
+#define SGE_RS_NAMESPACE_draw_mode         renderer_state_draw_mode_type
+#define SGE_RS_NAMESPACE_source_blend_func renderer_state_source_blend_func_type
+#define SGE_RS_NAMESPACE_dest_blend_func   renderer_state_dest_blend_func_type
+
+#undef SSTATE
+#define SSTATE(STATE_, NAME_) \
+	sge::STATE_::NAME_( \
+		sge::renderer_state_var_traits<sge::STATE_::type::value_type>::singular, \
+		sge::SGE_RS_NAMESPACE_##STATE_::NAME_ \
+	)
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -26,9 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //
 
 sge::int_state::type
-	sge::int_state::stencil_clear_val(
-		sge::renderer_state_var_traits<int>::stencil_clear_val
-	);
+	STATE(int_state, stencil_clear_val);
 
 
 
@@ -37,18 +57,10 @@ sge::int_state::type
 //
 
 sge::float_state::type
-	sge::float_state::zbuffer_clear_val(
-		sge::renderer_state_var_traits<float>::zbuffer_clear_val
-	),
-	sge::float_state::fog_start(
-		sge::renderer_state_var_traits<float>::fog_start
-	),
-	sge::float_state::fog_end(
-		sge::renderer_state_var_traits<float>::fog_end
-	),
-	sge::float_state::fog_density(
-		sge::renderer_state_var_traits<float>::fog_density
-	);
+	STATE(float_state, zbuffer_clear_val),
+	STATE(float_state, fog_start),
+	STATE(float_state, fog_end),
+	STATE(float_state, fog_density);
 
 
 
@@ -57,21 +69,11 @@ sge::float_state::type
 //
 
 sge::bool_state::type
-	sge::bool_state::clear_zbuffer(
-		sge::renderer_state_var_traits<bool>::clear_zbuffer
-	),
-	sge::bool_state::clear_backbuffer(
-		sge::renderer_state_var_traits<bool>::clear_backbuffer
-	),
-	sge::bool_state::clear_stencil(
-		sge::renderer_state_var_traits<bool>::clear_stencil
-	),
-	sge::bool_state::enable_alpha_blending(
-		sge::renderer_state_var_traits<bool>::enable_alpha_blending
-	),
-	sge::bool_state::enable_lighting(
-		sge::renderer_state_var_traits<bool>::enable_lighting
-	);
+	STATE(bool_state, clear_zbuffer),
+	STATE(bool_state, clear_backbuffer),
+	STATE(bool_state, clear_stencil),
+	STATE(bool_state, enable_alpha_blending),
+	STATE(bool_state, enable_lighting);
 
 
 
@@ -80,15 +82,9 @@ sge::bool_state::type
 //
 
 sge::color_state::type
-	sge::color_state::clear_color(
-		sge::renderer_state_var_traits<sge::color>::clear_color
-	),
-	sge::color_state::ambient_light_color(
-		sge::renderer_state_var_traits<sge::color>::ambient_light_color
-	),
-	sge::color_state::fog_color(
-		sge::renderer_state_var_traits<sge::color>::fog_color
-	);
+	STATE(color_state, clear_color),
+	STATE(color_state, ambient_light_color),
+	STATE(color_state, fog_color);
 
 
 
@@ -97,18 +93,9 @@ sge::color_state::type
 //
 
 const sge::cull_mode::type
-	sge::cull_mode::off(
-		sge::renderer_state_var_traits<sge::renderer_state_cull_mode_type::type>::singular,
-		sge::renderer_state_cull_mode_type::off
-	),
-	sge::cull_mode::back(
-		sge::renderer_state_var_traits<sge::renderer_state_cull_mode_type::type>::singular,
-		sge::renderer_state_cull_mode_type::back
-	),
-	sge::cull_mode::front(
-		sge::renderer_state_var_traits<sge::renderer_state_cull_mode_type::type>::singular,
-		sge::renderer_state_cull_mode_type::front
-	);
+	SSTATE(cull_mode, off),
+	SSTATE(cull_mode, back),
+	SSTATE(cull_mode, front);
 
 
 
@@ -117,42 +104,15 @@ const sge::cull_mode::type
 //
 
 const sge::depth_func::type
-	sge::depth_func::off(
-		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
-		sge::renderer_state_depth_func_type::off
-	),
-	sge::depth_func::never(
-		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
-		sge::renderer_state_depth_func_type::never
-	),
-	sge::depth_func::less(
-		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
-		sge::renderer_state_depth_func_type::less
-	),
-	sge::depth_func::equal(
-		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
-		sge::renderer_state_depth_func_type::equal
-	),
-	sge::depth_func::less_equal(
-		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
-		sge::renderer_state_depth_func_type::less_equal
-	),
-	sge::depth_func::greater(
-		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
-		sge::renderer_state_depth_func_type::greater
-	),
-	sge::depth_func::not_equal(
-		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
-		sge::renderer_state_depth_func_type::not_equal
-	),
-	sge::depth_func::greater_equal(
-		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
-		sge::renderer_state_depth_func_type::greater_equal
-	),
-	sge::depth_func::always(
-		sge::renderer_state_var_traits<sge::renderer_state_depth_func_type::type>::singular,
-		sge::renderer_state_depth_func_type::always
-	);
+	SSTATE(depth_func, off),
+	SSTATE(depth_func, never),
+	SSTATE(depth_func, less),
+	SSTATE(depth_func, equal),
+	SSTATE(depth_func, less_equal),
+	SSTATE(depth_func, greater),
+	SSTATE(depth_func, not_equal),
+	SSTATE(depth_func, greater_equal),
+	SSTATE(depth_func, always);
 
 
 
@@ -161,42 +121,15 @@ const sge::depth_func::type
 //
 
 const sge::stencil_func::type
-	sge::stencil_func::off(
-		sge::renderer_state_var_traits<sge::renderer_state_stencil_func_type::type>::singular,
-		sge::renderer_state_stencil_func_type::off
-	),
-	sge::stencil_func::never(
-		sge::renderer_state_var_traits<sge::renderer_state_stencil_func_type::type>::singular,
-		sge::renderer_state_stencil_func_type::never
-	),
-	sge::stencil_func::less(
-		sge::renderer_state_var_traits<sge::renderer_state_stencil_func_type::type>::singular,
-		sge::renderer_state_stencil_func_type::less
-	),
-	sge::stencil_func::equal(
-		sge::renderer_state_var_traits<sge::renderer_state_stencil_func_type::type>::singular,
-		sge::renderer_state_stencil_func_type::equal
-	),
-	sge::stencil_func::less_equal(
-		sge::renderer_state_var_traits<sge::renderer_state_stencil_func_type::type>::singular,
-		sge::renderer_state_stencil_func_type::less_equal
-	),
-	sge::stencil_func::greater(
-		sge::renderer_state_var_traits<sge::renderer_state_stencil_func_type::type>::singular,
-		sge::renderer_state_stencil_func_type::greater
-	),
-	sge::stencil_func::not_equal(
-		sge::renderer_state_var_traits<sge::renderer_state_stencil_func_type::type>::singular,
-		sge::renderer_state_stencil_func_type::not_equal
-	),
-	sge::stencil_func::greater_equal(
-		sge::renderer_state_var_traits<sge::renderer_state_stencil_func_type::type>::singular,
-		sge::renderer_state_stencil_func_type::greater_equal
-	),
-	sge::stencil_func::always(
-		sge::renderer_state_var_traits<sge::renderer_state_stencil_func_type::type>::singular,
-		sge::renderer_state_stencil_func_type::always
-	);
+	SSTATE(stencil_func, off),
+	SSTATE(stencil_func, never),
+	SSTATE(stencil_func, less),
+	SSTATE(stencil_func, equal),
+	SSTATE(stencil_func, less_equal),
+	SSTATE(stencil_func, greater),
+	SSTATE(stencil_func, not_equal),
+	SSTATE(stencil_func, greater_equal),
+	SSTATE(stencil_func, always);
 
 
 
@@ -205,22 +138,10 @@ const sge::stencil_func::type
 //
 
 const sge::fog_mode::type
-	sge::fog_mode::off(
-		sge::renderer_state_var_traits<sge::renderer_state_fog_mode_type::type>::singular,
-		sge::renderer_state_fog_mode_type::off
-	),
-	sge::fog_mode::linear(
-		sge::renderer_state_var_traits<sge::renderer_state_fog_mode_type::type>::singular,
-		sge::renderer_state_fog_mode_type::linear
-	),
-	sge::fog_mode::exp(
-		sge::renderer_state_var_traits<sge::renderer_state_fog_mode_type::type>::singular,
-		sge::renderer_state_fog_mode_type::exp
-	),
-	sge::fog_mode::exp2(
-		sge::renderer_state_var_traits<sge::renderer_state_fog_mode_type::type>::singular,
-		sge::renderer_state_fog_mode_type::exp2
-	);
+	SSTATE(fog_mode, off),
+	SSTATE(fog_mode, linear),
+	SSTATE(fog_mode, exp),
+	SSTATE(fog_mode, exp2);
 
 
 
@@ -229,18 +150,9 @@ const sge::fog_mode::type
 //
 
 const sge::draw_mode::type
-	sge::draw_mode::point(
-		sge::renderer_state_var_traits<sge::renderer_state_draw_mode_type::type>::singular,
-		sge::renderer_state_draw_mode_type::point
-	),
-	sge::draw_mode::line(
-		sge::renderer_state_var_traits<sge::renderer_state_draw_mode_type::type>::singular,
-		sge::renderer_state_draw_mode_type::line
-	),
-	sge::draw_mode::fill(
-		sge::renderer_state_var_traits<sge::renderer_state_draw_mode_type::type>::singular,
-		sge::renderer_state_draw_mode_type::fill
-	);
+	SSTATE(draw_mode, point),
+	SSTATE(draw_mode, line),
+	SSTATE(draw_mode, fill);
 
 
 
@@ -249,42 +161,15 @@ const sge::draw_mode::type
 //
 
 const sge::source_blend_func::type
-	sge::source_blend_func::zero(
-		sge::renderer_state_var_traits<sge::renderer_state_source_blend_func_type::type>::singular,
-		sge::renderer_state_source_blend_func_type::zero
-	),
-	sge::source_blend_func::one(
-		sge::renderer_state_var_traits<sge::renderer_state_source_blend_func_type::type>::singular,
-		sge::renderer_state_source_blend_func_type::one
-	),
-	sge::source_blend_func::dest_color(
-		sge::renderer_state_var_traits<sge::renderer_state_source_blend_func_type::type>::singular,
-		sge::renderer_state_source_blend_func_type::dest_color
-	),
-	sge::source_blend_func::inv_dest_color(
-		sge::renderer_state_var_traits<sge::renderer_state_source_blend_func_type::type>::singular,
-		sge::renderer_state_source_blend_func_type::inv_dest_color
-	),
-	sge::source_blend_func::src_alpha(
-		sge::renderer_state_var_traits<sge::renderer_state_source_blend_func_type::type>::singular,
-		sge::renderer_state_source_blend_func_type::src_alpha
-	),
-	sge::source_blend_func::inv_src_alpha(
-		sge::renderer_state_var_traits<sge::renderer_state_source_blend_func_type::type>::singular,
-		sge::renderer_state_source_blend_func_type::inv_src_alpha
-	),
-	sge::source_blend_func::dest_alpha(
-		sge::renderer_state_var_traits<sge::renderer_state_source_blend_func_type::type>::singular,
-		sge::renderer_state_source_blend_func_type::dest_alpha
-	),
-	sge::source_blend_func::inv_dest_alpha(
-		sge::renderer_state_var_traits<sge::renderer_state_source_blend_func_type::type>::singular,
-		sge::renderer_state_source_blend_func_type::inv_dest_alpha
-	),
-	sge::source_blend_func::src_alpha_sat(
-		sge::renderer_state_var_traits<sge::renderer_state_source_blend_func_type::type>::singular,
-		sge::renderer_state_source_blend_func_type::src_alpha_sat
-	);
+	SSTATE(source_blend_func, zero),
+	SSTATE(source_blend_func, one),
+	SSTATE(source_blend_func, dest_color),
+	SSTATE(source_blend_func, inv_dest_color),
+	SSTATE(source_blend_func, src_alpha),
+	SSTATE(source_blend_func, inv_src_alpha),
+	SSTATE(source_blend_func, dest_alpha),
+	SSTATE(source_blend_func, inv_dest_alpha),
+	SSTATE(source_blend_func, src_alpha_sat);
 
 
 
@@ -293,35 +178,11 @@ const sge::source_blend_func::type
 //
 
 const sge::dest_blend_func::type
-	sge::dest_blend_func::zero(
-		sge::renderer_state_var_traits<sge::renderer_state_dest_blend_func_type::type>::singular,
-		sge::renderer_state_dest_blend_func_type::zero
-	),
-	sge::dest_blend_func::one(
-		sge::renderer_state_var_traits<sge::renderer_state_dest_blend_func_type::type>::singular,
-		sge::renderer_state_dest_blend_func_type::one
-	),
-	sge::dest_blend_func::src_color(
-		sge::renderer_state_var_traits<sge::renderer_state_dest_blend_func_type::type>::singular,
-		sge::renderer_state_dest_blend_func_type::src_color
-	),
-	sge::dest_blend_func::inv_src_color(
-		sge::renderer_state_var_traits<sge::renderer_state_dest_blend_func_type::type>::singular,
-		sge::renderer_state_dest_blend_func_type::inv_src_color
-	),
-	sge::dest_blend_func::src_alpha(
-		sge::renderer_state_var_traits<sge::renderer_state_dest_blend_func_type::type>::singular,
-		sge::renderer_state_dest_blend_func_type::src_alpha
-	),
-	sge::dest_blend_func::inv_src_alpha(
-		sge::renderer_state_var_traits<sge::renderer_state_dest_blend_func_type::type>::singular,
-		sge::renderer_state_dest_blend_func_type::inv_src_alpha
-	),
-	sge::dest_blend_func::dest_alpha(
-		sge::renderer_state_var_traits<sge::renderer_state_dest_blend_func_type::type>::singular,
-		sge::renderer_state_dest_blend_func_type::dest_alpha
-	),
-	sge::dest_blend_func::inv_dest_alpha(
-		sge::renderer_state_var_traits<sge::renderer_state_dest_blend_func_type::type>::singular,
-		sge::renderer_state_dest_blend_func_type::inv_dest_alpha
-	);
+	SSTATE(dest_blend_func, zero),
+	SSTATE(dest_blend_func, one),
+	SSTATE(dest_blend_func, src_color),
+	SSTATE(dest_blend_func, inv_src_color),
+	SSTATE(dest_blend_func, src_alpha),
+	SSTATE(dest_blend_func, inv_src_alpha),
+	SSTATE(dest_blend_func, dest_alpha),
+	SSTATE(dest_blend_func, inv_dest_alpha);
