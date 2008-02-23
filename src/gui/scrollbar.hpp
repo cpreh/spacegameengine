@@ -34,7 +34,7 @@ public:
 	typedef signed   value_type;
 	typedef unsigned step_type;
 
-	scrollbar(widget *parent=0, skin::scroll_direction::type=skin::scroll_direction::vertical, std::string name="");
+	scrollbar(widget * const parent=0, const skin::scroll_direction::type=skin::scroll_direction::vertical, const std::string &name="");
 
 	inline step_type  large_step() const { return step.large; }
 	inline void       large_step(step_type st) { step.large = st; }
@@ -58,7 +58,7 @@ protected:
 	value_type val;
 
 	struct drawer : public button {
-		drawer(widget *parent, std::string name);
+		drawer(widget * const parent, const std::string &name);
 	protected:
 		event_return_type on_mouse_move(const events::mouse_event &);
 		void on_update();

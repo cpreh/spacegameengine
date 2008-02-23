@@ -51,6 +51,7 @@
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
 			<Add option='-Wno-long-long' />
+			<Add option='-DSGE_NARROW_STRING' />
 		</Compiler>
 		<Unit filename="..\..\..\src/gui/button.hpp" />
 		<Unit filename="..\..\..\src/gui/canvas.hpp" />

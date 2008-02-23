@@ -23,17 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../iconv.hpp"
 
 #ifndef SGE_NARROW_STRING
-sge::string sge::iconv(const std::string& input, const encoding from, const string::allocator_type& alloc)
+SGE_SYMBOL sge::string sge::iconv(const std::string& input, const encoding from, const string::allocator_type& alloc)
 {
 	return _iconv<string>(input, from, internal_encoding, alloc);
 }
 
-std::string sge::iconv(const string& input, const encoding to, const std::string::allocator_type& alloc)
+SGE_SYMBOL std::string sge::iconv(const string& input, const encoding to, const std::string::allocator_type& alloc)
 {
 	return _iconv<std::string>(input, internal_encoding, to, alloc);
 }
 #else
-sge::string sge::iconv(const string& s)
+SGE_SYMBOL sge::string sge::iconv(const string& s)
 {
 	return s;
 }

@@ -53,6 +53,7 @@
 			<Add option="-Wconversion" />
 			<Add option="-Wfloat-equal" />
 			<Add option='-Wno-long-long' />
+			<Add option='-DSGE_NARROW_STRING' />
 		</Compiler>
 		<Unit filename="..\..\..\src/plugins/dinput/di.hpp" />
 		<Unit filename="..\..\..\src/plugins/dinput/input_device.hpp" />

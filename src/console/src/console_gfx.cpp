@@ -32,19 +32,19 @@ template<typename T>
 struct stdinner {};
 
 template<>
-struct stdinner<char> 
-{ 
-	static std::ostream &cout() { return std::cout; } 
-	static std::ostream &cerr() { return std::cerr; } 
-	static std::ostream &clog() { return std::clog; } 
+struct stdinner<char>
+{
+	static std::ostream &cout() { return std::cout; }
+	static std::ostream &cerr() { return std::cerr; }
+	static std::ostream &clog() { return std::clog; }
 };
 
 template<>
-struct stdinner<wchar_t> 
-{ 
-	static std::wostream &cout() { return std::wcout; } 
-	static std::wostream &cerr() { return std::wcerr; } 
-	static std::wostream &clog() { return std::wclog; } 
+struct stdinner<wchar_t>
+{
+	static std::wostream &cout() { return std::wcout; }
+	static std::wostream &cerr() { return std::wcerr; }
+	static std::wostream &clog() { return std::wclog; }
 };
 
 template<typename T>
@@ -110,7 +110,7 @@ void sge::con::console_gfx::key_callback(const key_pair &k)
 {
 	if (!active_)
 		return;
-	
+
 	if (k.value())
 		key_action(k.key());
 }
@@ -121,7 +121,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 		return;
 
 	sge::string &il = *input_history_pos;
-	
+
 	// is a printable character? then append to input
 	if(std::isprint(k.char_code(),std::locale()))
 	{
@@ -144,22 +144,22 @@ void sge::con::console_gfx::key_action(const key_type &k)
 
 	if (k.code() == kc::key_backspace && cursor_pos > 0)
 		il.erase(--cursor_pos,1);
-	
+
 	if (k.code() == kc::key_left && cursor_pos > 0)
 		--cursor_pos;
 
 	if (k.code() == kc::key_right && cursor_pos < il.size()-1)
 		++cursor_pos;
-	
+
 	if (k.code() == kc::key_up && input_history_pos != --input_history.end())
-		input_history_pos = input_history_pos+1,cursor_pos = 0;
-		
+		{ input_history_pos = input_history_pos+1; cursor_pos = 0; }
+
 	if (k.code() == kc::key_down && input_history_pos != input_history.begin())
-		input_history_pos = input_history_pos-1,cursor_pos = 0;
+		{ input_history_pos = input_history_pos-1; cursor_pos = 0; }
 
 	if (k.code() == kc::key_pageup && history_pos != --history.end())
 		++history_pos;
-		
+
 	if (k.code() == kc::key_pagedown && history_pos != history.begin())
 		--history_pos;
 
@@ -190,7 +190,7 @@ void sge::con::console_gfx::draw()
 	boost::array<sprite,1> v = { { bg } };
 	ss.render(v.begin(),v.end());
 
-	string iln = *input_history_pos; 
+	string iln = *input_history_pos;
 	if (cursor_active)
 		iln[cursor_pos] = cursor_char;
 
@@ -202,15 +202,15 @@ void sge::con::console_gfx::draw()
 		math::structure_cast<font_unit>(bg.pos()),
 		math::structure_cast<font_unit>(bg.size()),
 		font_align_h::left,font_align_v::bottom);
-	
+
 	// draw history
 	const std::size_t total_lines = bg.size().h()/fn->height();
-	
+
 	history_container::const_reverse_iterator history_it(history_pos),history_end(history.end());
 	// go from history_pos to history_pos+total_lines (or the end, if this comes before)
 	for (std::size_t i = 0; i < total_lines && history_it != history_end; ++i)
 		history_it--;
-	
+
 	const sge::string history_string = join(history_it,history_container::const_reverse_iterator(history_pos),SGE_TEXT("\n"));
 	// draw history lines
 	fn->draw_text(history_string,

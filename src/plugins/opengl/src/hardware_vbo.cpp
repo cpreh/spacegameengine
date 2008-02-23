@@ -25,13 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-void (*gl_gen_buffers)(GLsizei, GLuint*);
-void (*gl_delete_buffers)(GLsizei, const GLuint*);
-void (*gl_bind_buffer)(GLenum, GLuint);
-GLvoid* (*gl_map_buffer)(GLenum, GLenum);
-GLboolean (*gl_unmap_buffer)(GLenum);
-void (*gl_buffer_data)(GLenum, GLsizeiptr, const GLvoid*, GLenum);
-void (*gl_buffer_sub_data)(GLenum, GLintptr, GLsizeiptr, const GLvoid*);
+//void (GLAPIENTRY *gl_gen_buffers)(GLsizei, GLuint*);
+//void (GLAPIENTRY *gl_delete_buffers)(GLsizei, const GLuint*);
+//void (GLAPIENTRY *gl_bind_buffer)(GLenum, GLuint);
+//void* (GLAPIENTRY *gl_map_buffer)(GLenum, GLenum);
+//GLboolean (GLAPIENTRY *gl_unmap_buffer)(GLenum);
+//void (GLAPIENTRY *gl_buffer_data)(GLenum, GLsizeiptr, const GLvoid*, GLenum);
+//void (GLAPIENTRY *gl_buffer_sub_data)(GLenum, GLintptr, GLsizeiptr, const GLvoid*);
+
+PFNGLGENBUFFERSPROC gl_gen_buffers;
+PFNGLDELETEBUFFERSPROC gl_delete_buffers;
+PFNGLBINDBUFFERPROC gl_bind_buffer;
+PFNGLMAPBUFFERPROC gl_map_buffer;
+PFNGLUNMAPBUFFERPROC gl_unmap_buffer;
+PFNGLBUFFERDATAPROC gl_buffer_data;
+PFNGLBUFFERSUBDATAPROC gl_buffer_sub_data;
 
 void initialize_hardware_vbo()
 {
@@ -59,7 +67,7 @@ void initialize_hardware_vbo()
 		gl_unmap_buffer = glUnmapBufferARB;
 		gl_buffer_data = glBufferDataARB;
 		gl_buffer_sub_data = glBufferSubDataARB;
-	}	
+	}
 }
 
 }
@@ -93,9 +101,9 @@ void sge::ogl::hardware_vbo::bind_buffer(const GLenum type, const GLuint id)
 void* sge::ogl::hardware_vbo::map_buffer(const GLenum type, const GLenum flags)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	void *const ret = static_cast<void*>(gl_map_buffer(type, flags));
-	
+
 	if(ret == 0)
 		throw exception(SGE_TEXT("glMapBuffer() returned 0!"));
 	return ret;
@@ -104,7 +112,7 @@ void* sge::ogl::hardware_vbo::map_buffer(const GLenum type, const GLenum flags)
 void sge::ogl::hardware_vbo::unmap_buffer(const GLenum type)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	if(gl_unmap_buffer(type) == GL_FALSE)
 		throw exception(SGE_TEXT("gl_unmap_buffer() returned false. The buffer corrupted during the lock time."));
 }
@@ -115,7 +123,7 @@ void sge::ogl::hardware_vbo::buffer_data(const GLenum type,
                                          const GLenum flags)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	gl_buffer_data(type, size, data, flags);
 }
 
@@ -125,7 +133,7 @@ void sge::ogl::hardware_vbo::buffer_sub_data(const GLenum type,
                                              const void *const data)
 {
 	SGE_OPENGL_SENTRY
-	
+
 	gl_buffer_sub_data(type, first, size, data);
 }
 

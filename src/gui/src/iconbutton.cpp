@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../iconbutton.hpp"
 
-sge::gui::iconbutton::iconbutton(widget *parent, std::string name)
+sge::gui::iconbutton::iconbutton(widget * const parent, const std::string &name)
 : button(parent, name) {
 	skin_ptr sty = drawskin();
 	resize(sty->adjust_to_border(
@@ -29,7 +29,7 @@ sge::gui::iconbutton::iconbutton(widget *parent, std::string name)
 	);
 }
 
-sge::gui::iconbutton::iconbutton(widget *parent, skin::stock_icon::type ico, std::string name)
+sge::gui::iconbutton::iconbutton(widget * const parent, skin::stock_icon::type ico, std::string name)
 : button(parent, name) {
 	skin_ptr sty = drawskin();
 	resize(sty->adjust_to_border(

@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2008       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -48,11 +49,13 @@ void sge::line_strip::render()
 {
 	if(vertices.size() <= 1)
 		return;
-	rend->set_bool_state(bool_state::enable_alpha_blending, false);
+	rend->set_state((
+		bool_state::enable_alpha_blending = false,
+		bool_state::enable_lighting = true,
+		color_state::ambient_light_color = _col
+	));
 	set_matrices();
-	rend->set_bool_state(bool_state::enable_lighting, true);
 	rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
-	rend->set_color_state(color_state::ambient_light_color, _col);
 	rend->set_texture(texture_ptr());
 
 	if(vb->size() < vertices.size())

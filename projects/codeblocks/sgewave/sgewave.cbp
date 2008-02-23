@@ -17,10 +17,11 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library='sgecore' />
-					<Add directory="..\..\..\bin" />
 					<Add option="-Wl,-R,." />
 					<Add option="-Wl,-R,plugins" />
+					<Add library="sgecore" />
+					<Add library="sgeopenal" />
+					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -34,29 +35,37 @@
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
-					<Add library='sgecore' />
-					<Add directory="../../../bin" />
 					<Add option="-Wl,-R,." />
 					<Add option="-Wl,-R,plugins" />
+					<Add library="sgecore" />
+					<Add library="sgeopenal" />
+					<Add directory="..\..\..\bin" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-pedantic" />
 			<Add option="-Wall" />
+			<Add option="-ansi" />
 			<Add option="-Wextra" />
 			<Add option="-Wconversion" />
 			<Add option="-Wfloat-equal" />
-			<Add option="-pedantic" />
-			<Add option="-ansi" />
-			<Add option='-Wno-long-long' />
+			<Add option="-Wno-long-long" />
+			<Add option="-L../../../bin/plugins" />
+			<Add option="-DSGE_NARROW_STRING" />
 		</Compiler>
-		<Unit filename="..\..\..\src/plugins/wave/src/exports.cpp" />
-		<Unit filename="..\..\..\src/plugins/wave/src/wave_file.cpp" />
-		<Unit filename="..\..\..\src/plugins/wave/src/wave_loader.cpp" />
-		<Unit filename="..\..\..\src/plugins/wave/wave_file.hpp" />
-		<Unit filename="..\..\..\src/plugins/wave/wave_loader.hpp" />
+		<Linker>
+			<Add directory="..\..\..\bin\plugins" />
+		</Linker>
+		<Unit filename="..\..\..\src\plugins\wave\src\exports.cpp" />
+		<Unit filename="..\..\..\src\plugins\wave\src\wave_file.cpp" />
+		<Unit filename="..\..\..\src\plugins\wave\src\wave_loader.cpp" />
+		<Unit filename="..\..\..\src\plugins\wave\wave_file.hpp" />
+		<Unit filename="..\..\..\src\plugins\wave\wave_loader.hpp" />
 		<Extensions>
 			<code_completion />
+			<envvars />
+			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

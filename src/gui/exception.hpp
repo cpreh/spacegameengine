@@ -28,7 +28,7 @@ namespace gui {
 
 class exception : public ::sge::exception {
 public:
-	exception(const std::string &s)
+	exception(const string &s)
 	: ::sge::exception(s) {}
 };
 

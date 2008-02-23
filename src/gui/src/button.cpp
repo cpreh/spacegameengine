@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../button.hpp"
 
-sge::gui::button::button(widget *parent, std::string name)
+sge::gui::button::button(widget * const parent, const std::string &name)
 : widget(parent, name), hover(false), pushed(false) {}
 
 void sge::gui::button::perform_resize(dim2 newsize) {

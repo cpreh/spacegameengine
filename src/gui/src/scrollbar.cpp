@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../scrollbar.hpp"
 
-sge::gui::scrollbar::drawer::drawer(widget *parent, std::string name)
+sge::gui::scrollbar::drawer::drawer(widget * const parent, const std::string &name)
 : button(parent, name) {}
 sge::gui::widget::event_return_type sge::gui::scrollbar::drawer::on_mouse_move(const events::mouse_event &) { return this; }
 
@@ -54,13 +54,16 @@ void sge::gui::scrollbar::drawer::on_update() {
 }
 
 
-sge::gui::scrollbar::scrollbar(widget *parent, skin::scroll_direction::type sdt, std::string name)
+sge::gui::scrollbar::scrollbar(widget * const parent, const skin::scroll_direction::type sdt, const std::string &name)
 : widget(parent, name)
 , direction(sdt)
 , draw     (this, name.empty() ? name : name+":drawer")
 , upleft   (this, (sdt==skin::scroll_direction::vertical) ? skin::stock_icon::up   : skin::stock_icon::left , name.empty() ? name : name+":upleft")
-, downright(this, (sdt==skin::scroll_direction::vertical) ? skin::stock_icon::down : skin::stock_icon::right, name.empty() ? name : name+":downright")
-{
+, downright(this, (sdt==skin::scroll_direction::vertical) ? skin::stock_icon::down : skin::stock_icon::right, name.empty() ? name : name+":downright") {
+	step.small = 1;
+	step.large = 10;
+	range.min  = 0;
+	range.max  = 100;
 	resize(100, 100);
 }
 

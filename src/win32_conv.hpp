@@ -30,8 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-typedef std::wstring string;
-
 typedef std::basic_string<TCHAR> win_string;
 typedef std::basic_stringstream<TCHAR> win_stringstream;
 typedef std::basic_ostringstream<TCHAR> win_ostringstream;

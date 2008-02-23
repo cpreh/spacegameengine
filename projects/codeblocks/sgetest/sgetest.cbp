@@ -49,6 +49,7 @@
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
 			<Add option='-Wno-long-long' />
+			<Add option='-DSGE_NARROW_STRING' />
 		</Compiler>
 		<Unit filename="..\..\..\test/guitest.cpp" />
 		<Extensions>

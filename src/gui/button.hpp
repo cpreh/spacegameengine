@@ -30,7 +30,7 @@ namespace gui {
 
 class button : public widget {
 public:
-	button(widget *parent, std::string name="");
+	button(widget * const parent=0, const std::string &name="");
 
 	boost::signal<void()> clicked;
 protected:

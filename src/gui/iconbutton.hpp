@@ -28,8 +28,8 @@ namespace gui {
 
 class iconbutton : public button {
 public:
-	iconbutton(widget *parent=0, std::string name="");
-	iconbutton(widget *parent, skin::stock_icon::type, std::string name="");
+	iconbutton(widget * const parent=0, const std::string &name="");
+	iconbutton(widget * const parent, skin::stock_icon::type, std::string name="");
 	inline skin::stock_icon::type icon() const { return stockicon; }
 	void icon(skin::stock_icon::type);
 

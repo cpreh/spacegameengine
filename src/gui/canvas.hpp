@@ -53,7 +53,7 @@ public:
 
 	class invalid_coords : public exception {
 	public:
-		invalid_coords() : exception("Invalid coordinates.") {}
+		invalid_coords() : exception(SGE_TEXT("Invalid coordinates.")) {}
 	};
 
 	void pixel(const point &coords, const color &newcol);

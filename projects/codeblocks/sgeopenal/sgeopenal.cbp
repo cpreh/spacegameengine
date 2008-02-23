@@ -51,6 +51,7 @@
 			<Add option="-pedantic" />
 			<Add option="-ansi" />
 			<Add option='-Wno-long-long' />
+			<Add option='-DSGE_NARROW_STRING' />
 		</Compiler>
 		<Unit filename="..\..\..\src/plugins/openal_player/openal_nonstream_sound.hpp" />
 		<Unit filename="..\..\..\src/plugins/openal_player/openal_player.hpp" />

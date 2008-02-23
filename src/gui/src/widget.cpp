@@ -28,11 +28,7 @@ sge::gui::events::child_event sge::gui::widget::sge_gui_widget_child_event() con
 	return ce;
 }
 
-sge::gui::widget::widget() {
-	sge_gui_widget_data_init();
-}
-
-sge::gui::widget::widget(widget *parent_, std::string name_) {
+sge::gui::widget::widget(widget * const parent_, const std::string &name_) {
 	sge_gui_widget_data_init();
 	sge_gui_widget_data.name = name_;
 	reparent(parent_);

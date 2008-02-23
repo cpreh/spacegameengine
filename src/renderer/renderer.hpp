@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glsl_program.hpp"
 #include "primitive.hpp"
 #include "renderer_caps.hpp"
+#include "renderer_states.hpp"
 
 namespace sge
 {
@@ -44,120 +45,6 @@ namespace sge
 struct viewport;
 struct filter_args;
 struct material;
-
-namespace int_state
-{
-	enum type {
-		stencil_clear_val
-	};
-}
-
-namespace float_state
-{
-	enum type {
-		zbuffer_clear_val,
-		fog_start,
-		fog_end,
-		fog_density
-	};
-}
-
-namespace bool_state
-{
-	enum type {
-		clear_zbuffer,
-		clear_backbuffer,
-		clear_stencil,
-		enable_fog,
-		enable_stencil,
-		enable_alpha_blending,
-		enable_zbuffer,
-		enable_lighting,
-		enable_culling
-	};
-}
-
-namespace color_state
-{
-	enum type {
-		clear_color,
-		ambient_light_color,
-		fog_color
-	};
-}
-
-namespace cull_mode
-{
-	enum type {
-		back,
-		front
-	};
-}
-
-namespace compare_func
-{
-	enum type {
-		never,
-		less,
-		equal,
-		less_equal,
-		greater,
-		not_equal,
-		greater_equal,
-		always
-	};
-}
-
-namespace depth_func = compare_func;
-
-namespace stencil_func = compare_func;
-
-namespace fog_mode
-{
-	enum type {
-		linear,
-		exp,
-		exp2
-	};
-}
-
-namespace source_blend_func
-{
-	enum type {
-		zero,
-		one,
-		dest_color,
-		inv_dest_color,
-		src_alpha,
-		inv_src_alpha,
-		dest_alpha,
-		inv_dest_alpha,
-		src_alpha_sat
-	};
-}
-
-namespace dest_blend_func
-{
-	enum type {
-		zero,
-		one,
-		src_color,
-		inv_src_color,
-		src_alpha,
-		inv_src_alpha,
-		dest_alpha,
-		inv_dest_alpha
-	};
-}
-
-namespace draw_mode
-{
-	enum type {
-		point,
-		line,
-		fill
-	};
-}
 
 namespace texture_stage_op
 {
@@ -207,11 +94,11 @@ namespace texture_stage_arg_value
 
 class renderer {
 public:
-	typedef uint32         int_type;
-	typedef int32          signed_type;
-	typedef uint32         unsigned_type;
-	typedef space_unit     float_type;
-	typedef bool           bool_type;
+	typedef uint32     int_type;
+	typedef int32      signed_type;
+	typedef uint32     unsigned_type;
+	typedef space_unit float_type;
+	typedef bool       bool_type;
 
 	virtual void begin_rendering() = 0;
 	virtual void end_rendering() = 0;
@@ -227,28 +114,33 @@ public:
 	                    vertex_buffer::size_type num_vertices,
 	                    nonindexed_primitive_type::type ptype) = 0;
 
-	virtual void set_int_state(int_state::type, int_type value) = 0;
-	virtual void set_float_state(float_state::type, float_type value) = 0;
-	virtual void set_bool_state(bool_state::type, bool_type value) = 0;
-	virtual void set_color_state(color_state::type, color value) = 0;
-	virtual void set_cull_mode(cull_mode::type) = 0;
-	virtual void set_depth_func(depth_func::type) = 0;
-	virtual void set_stencil_func(stencil_func::type, signed_type value, unsigned_type mask) = 0;
-	virtual void set_fog_mode(fog_mode::type) = 0;
-	virtual void set_blend_func(source_blend_func::type, dest_blend_func::type) = 0;
-	virtual void set_draw_mode(draw_mode::type) = 0;
+	virtual void set_state(const any_renderer_state &) = 0;
+	virtual void set_state(const renderer_state_list &) = 0;
+
+//	virtual void set_int_state(int_state::type, int_type value) = 0;
+//	virtual void set_float_state(float_state::type, float_type value) = 0;
+//	virtual void set_bool_state(bool_state::type, bool_type value) = 0;
+//	virtual void set_color_state(color_state::type, color value) = 0;
+//	virtual void set_cull_mode(cull_mode::type) = 0;
+//	virtual void set_depth_func(depth_func::type) = 0;
+//	virtual void set_stencil_func(stencil_func::type, signed_type value, unsigned_type mask) = 0;
+//	virtual void set_fog_mode(fog_mode::type) = 0;
+//	virtual void set_blend_func(source_blend_func::type, dest_blend_func::type) = 0;
+//	virtual void set_draw_mode(draw_mode::type) = 0;
 
 	virtual void push_level() = 0;
-	virtual void push_int_state(int_state::type) = 0;
-	virtual void push_float_state(float_state::type) = 0;
-	virtual void push_bool_state(bool_state::type) = 0;
-	virtual void push_color_state(color_state::type) = 0;
-	virtual void push_cull_mode() = 0;
-	virtual void push_depth_func() = 0;
-	virtual void push_stencil_func() = 0;
-	virtual void push_fog_mode() = 0;
-	virtual void push_blend_func() = 0;
-	virtual void push_draw_mode() = 0;
+	virtual void push_state(const any_renderer_state &) = 0;
+	virtual void push_state(const renderer_state_list &) = 0;
+//	virtual void push_int_state(int_state::type) = 0;
+//	virtual void push_float_state(float_state::type) = 0;
+//	virtual void push_bool_state(bool_state::type) = 0;
+//	virtual void push_color_state(color_state::type) = 0;
+//	virtual void push_cull_mode() = 0;
+//	virtual void push_depth_func() = 0;
+//	virtual void push_stencil_func() = 0;
+//	virtual void push_fog_mode() = 0;
+//	virtual void push_blend_func() = 0;
+//	virtual void push_draw_mode() = 0;
 
 	virtual void pop_level() = 0;
 
@@ -262,7 +154,7 @@ public:
 	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;
 	virtual void transform(const math::space_matrix& mat) = 0;
 	virtual void projection(const math::space_matrix& mat) = 0;
-	
+
 	SGE_SYMBOL static const texture_ptr default_render_target;
 	virtual void set_render_target(texture_ptr target) = 0;
 	virtual void set_viewport(const viewport&) = 0;

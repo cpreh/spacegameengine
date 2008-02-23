@@ -62,8 +62,7 @@ private:
 	}
 
 public:
-	widget();
-	widget(widget *parent_, std::string name_="");
+	widget(widget * const parent_=0, const std::string &name_="");
 	virtual ~widget();
 
 	inline const std::string &name() { return sge_gui_widget_data.name; }
