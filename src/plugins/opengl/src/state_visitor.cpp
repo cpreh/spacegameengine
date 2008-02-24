@@ -31,7 +31,7 @@ sge::ogl::state_visitor::state_visitor(renderer& rend)
 : rend(rend)
 {}
 
-void sge::ogl::state_visitor::operator()(const int_state::type s)
+void sge::ogl::state_visitor::operator()(const int_state::type s) const
 {
 	SGE_OPENGL_SENTRY
 
@@ -46,7 +46,7 @@ void sge::ogl::state_visitor::operator()(const int_state::type s)
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const float_state::type s)
+void sge::ogl::state_visitor::operator()(const float_state::type s) const
 {
 	SGE_OPENGL_SENTRY
 
@@ -66,7 +66,7 @@ void sge::ogl::state_visitor::operator()(const float_state::type s)
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const bool_state::type s)
+void sge::ogl::state_visitor::operator()(const bool_state::type s) const
 {
 	typedef renderer_state_var_traits<bool> rs;
 
@@ -85,7 +85,7 @@ void sge::ogl::state_visitor::operator()(const bool_state::type s)
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const color_state::type s)
+void sge::ogl::state_visitor::operator()(const color_state::type s) const
 {
 	SGE_OPENGL_SENTRY
 
@@ -116,7 +116,7 @@ void sge::ogl::state_visitor::operator()(const color_state::type s)
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const cull_mode::type m)
+void sge::ogl::state_visitor::operator()(const cull_mode::type m) const
 {
 	if(m.value() == renderer_state_cull_mode_type::off)
 	{
@@ -129,7 +129,7 @@ void sge::ogl::state_visitor::operator()(const cull_mode::type m)
 	glCullFace(conversion_visitor()(m));
 }
 
-void sge::ogl::state_visitor::operator()(const depth_func::type f)
+void sge::ogl::state_visitor::operator()(const depth_func::type f) const
 {
 	if(f.value() == renderer_state_depth_func_type::off)
 	{
@@ -143,7 +143,7 @@ void sge::ogl::state_visitor::operator()(const depth_func::type f)
 	glDepthFunc(conversion_visitor()(f));
 }
 
-void sge::ogl::state_visitor::operator()(const stencil_func::type f)
+void sge::ogl::state_visitor::operator()(const stencil_func::type f) const
 {
 	if(f.value() == renderer_state_stencil_func_type::off)
 	{
@@ -155,13 +155,13 @@ void sge::ogl::state_visitor::operator()(const stencil_func::type f)
 	rend.set_stencil_func(conversion_visitor()(f));
 }
 
-void sge::ogl::state_visitor::operator()(const fog_mode::type m)
+void sge::ogl::state_visitor::operator()(const fog_mode::type m) const
 {
 	SGE_OPENGL_SENTRY
 	glFogi(GL_FOG_MODE, conversion_visitor()(m));
 }
 
-void sge::ogl::state_visitor::operator()(const draw_mode::type m)
+void sge::ogl::state_visitor::operator()(const draw_mode::type m) const
 {
 	SGE_OPENGL_SENTRY
 	glPolygonMode(
@@ -169,12 +169,12 @@ void sge::ogl::state_visitor::operator()(const draw_mode::type m)
 		conversion_visitor()(m));
 }
 
-void sge::ogl::state_visitor::operator()(const source_blend_func::type f)
+void sge::ogl::state_visitor::operator()(const source_blend_func::type f) const
 {
 	rend.set_source_blend_func(conversion_visitor()(f));
 }
 
-void sge::ogl::state_visitor::operator()(const dest_blend_func::type f)
+void sge::ogl::state_visitor::operator()(const dest_blend_func::type f) const
 {
 	rend.set_dest_blend_func(conversion_visitor()(f));
 }

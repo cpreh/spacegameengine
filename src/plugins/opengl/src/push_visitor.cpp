@@ -27,7 +27,7 @@ sge::ogl::push_visitor::push_visitor(renderer& rend)
 : rend(rend)
 {}
 
-void sge::ogl::push_visitor::operator()(const int_state::type s)
+void sge::ogl::push_visitor::operator()(const int_state::type s) const
 {
 	typedef renderer_state_var_traits<int> rs;
 
@@ -40,7 +40,7 @@ void sge::ogl::push_visitor::operator()(const int_state::type s)
 	}
 }
 
-void sge::ogl::push_visitor::operator()(const float_state::type s)
+void sge::ogl::push_visitor::operator()(const float_state::type s) const
 {
 	typedef renderer_state_var_traits<float> rs;
 
@@ -55,7 +55,7 @@ void sge::ogl::push_visitor::operator()(const float_state::type s)
 	}
 }
 
-void sge::ogl::push_visitor::operator()(const bool_state::type s)
+void sge::ogl::push_visitor::operator()(const bool_state::type s) const
 {
 	typedef renderer_state_var_traits<bool> rs;
 
@@ -69,7 +69,7 @@ void sge::ogl::push_visitor::operator()(const bool_state::type s)
 	}
 }
 
-void sge::ogl::push_visitor::operator()(const color_state::type s)
+void sge::ogl::push_visitor::operator()(const color_state::type s) const
 {
 	typedef renderer_state_var_traits<color> rs;
 
@@ -88,37 +88,37 @@ void sge::ogl::push_visitor::operator()(const color_state::type s)
 	}
 }
 
-void sge::ogl::push_visitor::operator()(const cull_mode::type)
+void sge::ogl::push_visitor::operator()(const cull_mode::type) const
 {
 	rend.add_push_bit(GL_POLYGON_BIT);
 }
 
-void sge::ogl::push_visitor::operator()(const depth_func::type)
+void sge::ogl::push_visitor::operator()(const depth_func::type) const
 {
 	rend.add_push_bit(GL_DEPTH_BUFFER_BIT);
 }
 
-void sge::ogl::push_visitor::operator()(const stencil_func::type)
+void sge::ogl::push_visitor::operator()(const stencil_func::type) const
 {
 	rend.add_push_bit(GL_STENCIL_BUFFER_BIT);
 }
 
-void sge::ogl::push_visitor::operator()(const fog_mode::type)
+void sge::ogl::push_visitor::operator()(const fog_mode::type) const
 {
 	rend.add_push_bit(GL_FOG_BIT);
 }
 
-void sge::ogl::push_visitor::operator()(const draw_mode::type)
+void sge::ogl::push_visitor::operator()(const draw_mode::type) const
 {
 	rend.add_push_bit(GL_POLYGON_BIT);
 }
 
-void sge::ogl::push_visitor::operator()(const source_blend_func::type)
+void sge::ogl::push_visitor::operator()(const source_blend_func::type) const
 {
 	rend.add_push_bit(GL_COLOR_BUFFER_BIT);
 }
 
-void sge::ogl::push_visitor::operator()(const dest_blend_func::type)
+void sge::ogl::push_visitor::operator()(const dest_blend_func::type) const
 {
 	rend.add_push_bit(GL_COLOR_BUFFER_BIT);
 }

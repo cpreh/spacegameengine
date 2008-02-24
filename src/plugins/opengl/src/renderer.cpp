@@ -351,7 +351,7 @@ void sge::ogl::renderer::set_state(const renderer_state_list &states)
 
 void sge::ogl::renderer::push_state(const any_renderer_state& state)
 {
-	//boost::apply_visitor(push_visitor(*this), state);	
+	boost::apply_visitor(push_visitor(*this), state);	
 }
 
 void sge::ogl::renderer::push_state(const renderer_state_list& states)

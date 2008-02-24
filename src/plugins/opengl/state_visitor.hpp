@@ -35,17 +35,17 @@ class state_visitor : public boost::static_visitor<> {
 public:
 	state_visitor(renderer& rend);
 
-	void operator()(int_state::type);
-	void operator()(float_state::type);
-	void operator()(bool_state::type);
-	void operator()(color_state::type);
-	void operator()(cull_mode::type);
-	void operator()(depth_func::type);
-	void operator()(stencil_func::type);
-	void operator()(fog_mode::type);
-	void operator()(draw_mode::type);
-	void operator()(source_blend_func::type);
-	void operator()(dest_blend_func::type);
+	void operator()(int_state::type) const;
+	void operator()(float_state::type) const;
+	void operator()(bool_state::type) const;
+	void operator()(color_state::type) const;
+	void operator()(cull_mode::type) const;
+	void operator()(depth_func::type) const;
+	void operator()(stencil_func::type) const;
+	void operator()(fog_mode::type) const;
+	void operator()(draw_mode::type) const;
+	void operator()(source_blend_func::type) const;
+	void operator()(dest_blend_func::type) const;
 private:
 	renderer& rend;
 };
