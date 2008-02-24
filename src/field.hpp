@@ -106,127 +106,13 @@ class field
 	value_type y(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute y()"); return std::distance(begin(),p) / w(); }
 	vector_type pos(const const_iterator &p) const { if (w() == 0) throw std::range_error("width is zero, cannot execute pos()"); return vector_type(x(p),y(p)); }
 
-	void blur()
-	{
-		for (size_type y = size_type(0); y < h(); ++y)
-		{
-			for (size_type x = size_type(0); x < w(); ++x)
-			{
-				unsigned adjacent = 9;
-				value_type sum = pos(x,y);
-				
-				if (x != size_type(0))
-					sum += pos(x-size_type(1),y);
-				else
-					--adjacent;
-
-				if (x < w()-size_type(1))
-					sum += pos(x+size_type(1),y);
-				else
-					--adjacent;
-
-				if (y != size_type(0))
-					sum += pos(x,y-size_type(1));
-				else
-					--adjacent;
-
-				if (y < h()-size_type(1))
-					sum += pos(x,y+size_type(1));
-				else
-					--adjacent;
-
-				if (x != size_type(0) && y != size_type(0))
-					sum += pos(x-size_type(1),y-size_type(1));
-				else
-					--adjacent;
-
-				if (x < w()-size_type(1) && y != size_type(0))
-					sum += pos(x+size_type(1),y-size_type(1));
-				else
-					--adjacent;
-
-				if (y < h()-size_type(1) && x != size_type(0))
-					sum += pos(x-size_type(1),y+size_type(1));
-				else
-					--adjacent;
-
-				if (y < h()-size_type(1) && x < w()-size_type(1))
-					sum += pos(x+size_type(1),y+size_type(1));
-				else
-					--adjacent;
-
-				pos(x,y) = sum / value_type(adjacent);
-			}
-		}
-	}
-
-	void add_border(const size_type &halfsize)
-	{
-		if (halfsize == size_type(0))
-			return;
-
-		// old array
-		array_type old = array;
-		// new dimension
-		dim_type new_dim(dim_.w()+size_type(2)*halfsize,dim_.h()+size_type(2)*halfsize);
-		
-		// change size and set to zero. here, zero() cannot be used because this uses a different array size
-		array.resize(new_dim.w()*new_dim.h());
-		std::fill(array.begin(),array.end(),value_type(0));
-
-		iterator i = array.begin() + halfsize * new_dim.w() + halfsize,j = old.begin();
-		for (size_type y = size_type(0); y < new_dim.h()-size_type(2)*halfsize; ++y)
-		{
-			std::copy(j,j+dim_.w(),i);
-			i += new_dim.w();
-			j += dim_.w();
-		}
-
-		dim_ = new_dim;
-	}
-
-	void crop(const vector_type &start,const dim_type &new_dim)
-	{
-		if (w() == 0 && h() == 0)
-			throw std::range_error("width and height are zero, cannot crop");
-
-		// save old array
-		array_type old = array;
-
-		// check for invalid values
-		if (start.x() + new_dim.w() > w() && start.y() + new_dim.h() > h() && new_dim.w() == size_type(0) && new_dim.h() == size_type(0))
-			throw std::invalid_argument("invalid arguments to crop function");
-
-		if (start == vector_type(size_type(0),size_type(0)) && new_dim == dim_)
-			return;
-
-		array.resize(new_dim.w()*new_dim.h());
-		const_iterator old_it = old.begin() + w()*start.y() + start.x();
-		iterator new_it = array.begin();
-
-		for (size_type y = size_type(0); y < new_dim.h(); ++y)
-		{
-			std::copy(old_it,old_it + new_dim.w(),new_it);
-			new_it += new_dim.w();
-			old_it += w();
-		}
-
-		dim_ = new_dim;
-	}
-
-	/*
-	template<typename Interpolator>
-	void resample(const dim_type &new_size)
-	{
-		// TODO: Das hier programmieren
-		Interpolator interpolator;
-	}
-	*/
-
 	size_type w() const { return dim_.w(); }
 	size_type h() const { return dim_.h(); }
 	size_type field_count() const { return dim_.w()*dim_.h(); }
 	dim_type dim() const { return dim_; }
+
+	//array_type container() { return array; }
+	//array_type container() const { return array; }
 };
 typedef field<space_unit> space_field;
 }
