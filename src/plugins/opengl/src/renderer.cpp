@@ -340,7 +340,7 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 
 void sge::ogl::renderer::set_state(const any_renderer_state& state)
 {
-	//boost::apply_visitor(state_visitor(*this), state);
+	boost::apply_visitor(state_visitor(*this), state);
 }
 
 void sge::ogl::renderer::set_state(const renderer_state_list &states)
