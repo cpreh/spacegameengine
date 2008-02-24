@@ -18,38 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../state_conversion.hpp"
+#ifndef SGE_OPENGL_PUSH_VISITOR_HPP_INCLUDED
+#define SGE_OPENGL_PUSH_VISITOR_HPP_INCLUDED
 
-// TODO: make it more obvious what happens here
-/*
-GLbitfield sge::ogl::state_to_stack_type(const int_state::type state)
+#include <boost/variant/static_visitor.hpp>
+#include "../../renderer/renderer_states.hpp"
+
+namespace sge
 {
-	return GL_STENCIL_BUFFER_BIT;
+namespace ogl
+{
+
+class renderer;
+
+class push_visitor : public boost::static_visitor<> {
+public:
+	push_visitor(renderer&);
+	void operator()(int_state::type);
+	void operator()(float_state::type);
+	void operator()(bool_state::type);
+	void operator()(color_state::type);
+	void operator()(cull_mode::type);
+	void operator()(depth_func::type);
+	void operator()(stencil_func::type);
+	void operator()(fog_mode::type);
+	void operator()(draw_mode::type);
+	void operator()(source_blend_func::type);
+	void operator()(dest_blend_func::type);
+private:
+	renderer& rend;
+};
+
+}
 }
 
-GLbitfield sge::ogl::state_to_stack_type(const float_state::type state)
-{
-	return GL_FOG_BIT;
-}
-
-GLbitfield sge::ogl::state_to_stack_type(const bool_state::type state)
-{
-	return GL_ENABLE_BIT;
-}
-
-GLbitfield sge::ogl::state_to_stack_type(const color_state::type state)
-{
-	
-	switch(state.state_id) {
-	case rs::clear_color:
-		return GL_DEPTH_BUFFER_BIT;
-	case rs::ambient_light_color:
-		return GL_LIGHTING_BIT;
-	case rs::fog_color:
-		return GL_FOG_BIT;
-	default:
-		throw exception(SGE_TEXT("state_to_stack_type(color_state): invalid color_state!"));
-	}
-}
-*/
+#endif

@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program.hpp"
 #include "../error.hpp"
 #include "../state_visitor.hpp"
+#include "../push_visitor.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
@@ -337,13 +338,26 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 
 }
 
+void sge::ogl::renderer::set_state(const any_renderer_state& state)
+{
+	//boost::apply_visitor(state_visitor(*this), state);
+}
+
 void sge::ogl::renderer::set_state(const renderer_state_list &states)
 {
-	state_visitor visitor(*this);
-	for(renderer_state_list::const_iterator it = states.begin(); it != states.end(); ++it)
-		boost::apply_visitor(visitor, *it);
-//	BOOST_FOREACH(const any_renderer_state& s, states)
-//		boost::apply_visitor(visitor, s);
+	BOOST_FOREACH(const any_renderer_state& s, states)
+		set_state(s);
+}
+
+void sge::ogl::renderer::push_state(const any_renderer_state& state)
+{
+	//boost::apply_visitor(push_visitor(*this), state);	
+}
+
+void sge::ogl::renderer::push_state(const renderer_state_list& states)
+{
+	BOOST_FOREACH(const any_renderer_state& s, states)
+		push_state(s);
 }
 
 void sge::ogl::renderer::set_clear_bit(const GLenum bit, const bool value)
@@ -376,60 +390,10 @@ void sge::ogl::renderer::set_blend_func()
 	glBlendFunc(source_blend_func, dest_blend_func);
 }
 
-/*void sge::ogl::renderer::push_int_state(const int_state::type state)
-{
-	add_push_state(state_to_stack_type(state));
-}
-
-void sge::ogl::renderer::push_float_state(const float_state::type state)
-{
-	add_push_state(state_to_stack_type(state));
-}
-
-void sge::ogl::renderer::push_bool_state(const bool_state::type state)
-{
-	add_push_state(state_to_stack_type(state));
-}
-
-void sge::ogl::renderer::push_color_state(const color_state::type state)
-{
-	add_push_state(state_to_stack_type(state));
-}
-
-void sge::ogl::renderer::push_cull_mode()
-{
-	add_push_state(GL_POLYGON_BIT);
-}
-
-void sge::ogl::renderer::push_depth_func()
-{
-	add_push_state(GL_DEPTH_BUFFER_BIT);
-}
-
-void sge::ogl::renderer::push_stencil_func()
-{
-	add_push_state(GL_STENCIL_BUFFER_BIT);
-}
-
-void sge::ogl::renderer::push_fog_mode()
-{
-	add_push_state(GL_FOG_BIT);
-}
-
-void sge::ogl::renderer::push_blend_func()
-{
-	add_push_state(GL_COLOR_BUFFER_BIT);
-}
-
-void sge::ogl::renderer::push_draw_mode()
-{
-	add_push_state(GL_POLYGON_BIT);
-}
-
-void sge::ogl::renderer::add_push_state(const GLbitfield s)
+void sge::ogl::renderer::add_push_bit(const GLbitfield s)
 {
 	accumulated_state |= s;
-}*/
+}
 
 void sge::ogl::renderer::set_material(const material& mat)
 {

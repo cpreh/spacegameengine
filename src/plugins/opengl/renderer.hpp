@@ -103,9 +103,6 @@ public:
 		texture_stage_arg::type,
 		texture_stage_arg_value::type);
 
-	void push();
-	void pop();
-
 	glsl::program_ptr create_glsl_program(
 		const std::string& vertex_shader_source = no_shader,
 		const std::string& pixel_shader_source = no_shader);
@@ -150,12 +147,12 @@ public:
 	void set_stencil_func(GLenum);
 	void set_source_blend_func(GLenum);
 	void set_dest_blend_func(GLenum);
+	void add_push_bit(GLbitfield);
 private:
 	void set_blend_func();
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);
 	fbo_render_target_ptr create_render_target(const render_target::dim_type&);
-	void add_push_state(GLbitfield);
 
 	renderer_parameters param;
 	GLbitfield          clearflags;
