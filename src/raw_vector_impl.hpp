@@ -177,8 +177,9 @@ template<typename T, typename A>
 sge::raw_vector<T, A>& sge::raw_vector<T, A>::operator= (const raw_vector& x)
 {
 	if(&x == this)
-		return;
+		return *this;
 	assign(x.begin(), x.end());
+	return *this;
 }
 
 template<typename T, typename A>
