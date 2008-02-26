@@ -71,7 +71,6 @@ try
 		boost::assign::list_of
 			(sge::sprite_texture_animation::entity(500, tex1))
 			(sge::sprite_texture_animation::entity(800, tex2))
-		.to_container(series)
 	);
 	sge::sprite_texture_animation anim(series);
 
