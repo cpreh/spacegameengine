@@ -131,7 +131,7 @@ std::string sge::wave_file::extract_string(const std::size_t _bytes, const std::
 template<typename T>
 T sge::wave_file::extract_primitive(const std::string &_desc)
 {
-	assert(swap_ != boost::logic::indeterminate);
+//	assert(swap_ != boost::logic::indeterminate);
 	assert(sizeof(T) < 64);
 
 	char array[64];

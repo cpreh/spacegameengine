@@ -121,7 +121,7 @@ public:
 	virtual const_pointer data() const = 0;
 
 	virtual const vertex_format& get_vertex_format() const = 0;
-	virtual ~vertex_buffer();
+	SGE_SYMBOL virtual ~vertex_buffer();
 };
 
 typedef shared_ptr<vertex_buffer> vertex_buffer_ptr;

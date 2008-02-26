@@ -66,7 +66,7 @@ public:
 	virtual void resize(size_type newsize, const_pointer data = 0) = 0;
 	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;
-	virtual ~index_buffer();
+	SGE_SYMBOL virtual ~index_buffer();
 };
 
 typedef shared_ptr<index_buffer> index_buffer_ptr;
