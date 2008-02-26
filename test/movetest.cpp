@@ -151,7 +151,7 @@ try
 		is->dispatch();
 
 		const sge::scoped_renderblock block_(rend);
-		std::vector<sge::sprite> sprites(boost::assign::list_of(spr)(cursor));
+		std::vector<sge::sprite> sprites(boost::assign::list_of(spr)(cursor).to_container(sprites));
 		ss.render(sprites.begin(), sprites.end());
 	}
 }
