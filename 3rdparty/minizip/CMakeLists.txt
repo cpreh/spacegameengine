@@ -6,5 +6,10 @@ IF (MSVC)
 ENDIF ()
 
 ADD_LIBRARY (miniunzip SHARED ${miniunzipfiles})
-TARGET_LINK_LIBRARIES (miniunzip z)
+IF (MSVC)
+	TARGET_LINK_LIBRARIES (miniunzip zdll.lib)
+ELSE ()
+	TARGET_LINK_LIBRARIES (miniunzip z)
+ENDIF ()
+
 INSTALL (TARGETS miniunzip DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
