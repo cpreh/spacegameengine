@@ -200,9 +200,7 @@ try
 	rend->enable_light(0, true);
 
 	sge::math::vector3 translation(0, 0, -200);
-	sge::space_unit angle(0);
 	sge::frames_counter frames;
-	sge::timer rotate_timer(5000);
 	sge::timer move_timer(5);
 
 	const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
@@ -212,7 +210,6 @@ try
 	//		sound->update();
 
 		frames.update();
-		rotate_timer.update();
 		move_timer.update();
 		
 		translation.x() -= ks[sge::kc::key_left] * move_timer.elapsed_frames();
