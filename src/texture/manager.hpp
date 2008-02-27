@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/renderer.hpp"
 #include "../renderer/texture.hpp"
 #include "fragmented_texture.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -36,21 +37,26 @@ namespace sge
 class texture_manager : boost::noncopyable {
 public:
 	typedef boost::function<fragmented_texture* ()> onalloc_function;
-	texture_manager(renderer_ptr rend, const onalloc_function&);
-	const virtual_texture_ptr add_texture(texture::const_pointer src,
-	                                      const texture::dim_type& dim);
-	const virtual_texture_ptr add_texture(texture_ptr tex);
-	const renderer_ptr get_renderer() const;
-	void onalloc(const onalloc_function&);
+	SGE_SYMBOL texture_manager(
+		renderer_ptr rend,
+		const onalloc_function&);
+	SGE_SYMBOL const virtual_texture_ptr add_texture(
+		texture::const_pointer src,
+		const texture::dim_type& dim);
+	SGE_SYMBOL const virtual_texture_ptr add_texture(
+		texture_ptr tex);
+	SGE_SYMBOL const renderer_ptr get_renderer() const;
+	SGE_SYMBOL void onalloc(const onalloc_function&);
 
 	class image_too_big : public exception {
 	public:
-		image_too_big();
+		SGE_SYMBOL image_too_big();
 	};
 private:
-	const virtual_texture_ptr init_texture(fragmented_texture&,
-	                                       texture::const_pointer src,
-	                                       const texture::dim_type& dim) const;
+	const virtual_texture_ptr init_texture(
+		fragmented_texture&,
+		texture::const_pointer src,
+		const texture::dim_type& dim) const;
 
 	const renderer_ptr                          rend;
 	onalloc_function                            onalloc_;

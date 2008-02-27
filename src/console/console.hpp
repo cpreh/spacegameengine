@@ -13,6 +13,7 @@
 // sge
 #include "../string.hpp"
 #include "../path.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -33,8 +34,8 @@ struct var_base
 {
 	string name_;
 
-	var_base(const string &);
-	void late_construct();
+	SGE_SYMBOL var_base(const string &);
+	SGE_SYMBOL void late_construct();
 	string name() { return name_; }
 #ifndef _MSC_VER
 	virtual void set(const string &) = 0;
@@ -42,8 +43,8 @@ struct var_base
 #else
 	// VC++ is so dumb that it wants to instantiate a class
 	// if you bind *this to a reference
-	virtual void set(const string&);
-	virtual string get() const;
+	SGE_SYMBOL virtual void set(const string&);
+	SGE_SYMBOL virtual string get() const;
 #endif
 	virtual ~var_base() {}
 };

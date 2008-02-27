@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/manager.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/sprite.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -38,11 +39,11 @@ class fragmented_texture;
 
 class font_drawer_3d : public font_drawer {
 public:
-	font_drawer_3d(renderer_ptr rend, color col = colors::white);
-	void begin_rendering(size_type buffer_chars, font_dim size);
-	void draw_char(font_char, font_rect, const font_color* data);
-	void end_rendering();
-	void set_color(color col);
+	SGE_SYMBOL font_drawer_3d(renderer_ptr rend, color col = colors::white);
+	SGE_SYMBOL void begin_rendering(size_type buffer_chars, font_dim size);
+	SGE_SYMBOL void draw_char(font_char, font_rect, const font_color* data);
+	SGE_SYMBOL void end_rendering();
+	SGE_SYMBOL void set_color(color col);
 private:
 	renderer_ptr                                     rend;
 	color                                            col;

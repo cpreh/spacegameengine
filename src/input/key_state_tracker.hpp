@@ -26,19 +26,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../scoped_connection.hpp"
 #include "input_system.hpp"
 #include "key_type.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 
 class key_state_tracker : boost::noncopyable {
 public:
-	key_state_tracker(input_system_ptr);
-	key_state state(const key_code&);
-	key_state state(const key_type&);
-	key_state state(const key_type::char_type&);
-	key_state operator[](const key_code&k) { return state(k); }
-	key_state operator[](const key_type&k) { return state(k); }
-	key_state operator[](const key_type::char_type&k) { return state(k); }
+	SGE_SYMBOL key_state_tracker(input_system_ptr);
+	SGE_SYMBOL key_state state(const key_code&);
+	SGE_SYMBOL key_state state(const key_type&);
+	SGE_SYMBOL key_state state(const key_type::char_type&);
+	SGE_SYMBOL key_state operator[](const key_code&k);
+	SGE_SYMBOL key_state operator[](const key_type&k);
+	SGE_SYMBOL key_state operator[](const key_type::char_type&k);
 private:
 	void event_handler(const key_pair& key);
 	scoped_connection con;

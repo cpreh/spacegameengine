@@ -219,6 +219,24 @@ void sge::con::console_gfx::draw()
 		font_align_h::left,font_align_v::bottom);
 }
 
+sge::timer::interval_type sge::con::console_gfx::change_cursor_rate(
+	const timer::interval_type &n,
+	const timer::interval_type &)
+{
+	cursor_timer.interval(n);
+	return n;	
+}
+
+void sge::con::console_gfx::toggle()
+{
+	active_ = !active_;
+}
+
+bool sge::con::console_gfx::active() const
+{
+	return active_;
+}
+
 void sge::con::console_gfx::print(const string_type &s)
 {
 	// if we are at the very bottom, then stay there

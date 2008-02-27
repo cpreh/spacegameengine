@@ -16,11 +16,6 @@ FILE (GLOB sgecorefiles
 
 ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
 
-IF (MSVC)
-	INCLUDE_DIRECTORIES (${WININCLUDES}/libiconv/include)
-	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/libiconv/lib)
-ENDIF ()
-
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
 SET_TARGET_PROPERTIES (sgecore PROPERTIES DEFINE_SYMBOL SGE_EXPORTS)

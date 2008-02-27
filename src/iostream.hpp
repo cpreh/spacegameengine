@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "istream.hpp"
 #include "ostream.hpp"
+#include "export.hpp"
 
 namespace sge
 {
 
-extern istream& cin;
-extern ostream& cout;
-extern ostream& cerr;
-extern ostream& clog;
+SGE_SYMBOL extern istream& cin;
+SGE_SYMBOL extern ostream& cout;
+SGE_SYMBOL extern ostream& cerr;
+SGE_SYMBOL extern ostream& clog;
 
 }
 

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../plugin_traits.hpp"
 #include "../string.hpp"
 #include "key_type.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -58,8 +59,8 @@ namespace detail
 {
 
 template<> struct plugin_traits<input_system> {
-	static address_name plugin_loader_name();
-	static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static plugin_type::type get_plugin_type();
 	typedef input_system* (*loader_fun)(window_ptr);
 };
 

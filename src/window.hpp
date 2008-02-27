@@ -47,7 +47,7 @@ public:
 	virtual void size(window_size newsize) = 0;
 	virtual ~window(){}
 
-	static void dispatch();
+	SGE_SYMBOL static void dispatch();
 };
 
 typedef shared_ptr<window> window_ptr;

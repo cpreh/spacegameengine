@@ -23,15 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "display_mode.hpp"
 #include "types.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 
 struct renderer_parameters {
-	renderer_parameters(const display_mode& mode,
-	                    bool windowed = false,
-	                    multi_sample_type samples = 1,
-	                    bool vsync = true);
+	SGE_SYMBOL renderer_parameters(
+		const display_mode& mode,
+		bool windowed = false,
+		multi_sample_type samples = 1,
+		bool vsync = true);
 
 	display_mode      mode;
 	bool              windowed;

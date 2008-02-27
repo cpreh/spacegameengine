@@ -43,7 +43,7 @@ public:
 	SGE_SYMBOL const path& name() const;
 private:
 	typedef void*(*base_fun)();
-	base_fun load_address_base(const std::string& fun);
+	SGE_SYMBOL base_fun load_address_base(const std::string& fun);
 
 	static string liberror();
 
@@ -52,7 +52,9 @@ public:
 	struct load_function_exception : public exception {
 		string lib;
 		std::string func;
-		load_function_exception(const string &lib, const std::string &fun);
+		SGE_SYMBOL load_function_exception(
+			const string &lib,
+			const std::string &fun);
 	};
 };
 

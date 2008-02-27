@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../string.hpp"
 #include "types.hpp"
 #include "renderer.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -38,9 +39,10 @@ struct renderer_parameters;
 
 class renderer_system {
 public:
-	virtual renderer_ptr create_renderer(const renderer_parameters& param,
-	                                     int adapter = 0,
-	                                     window_ptr wnd = window_ptr()) = 0;
+	virtual renderer_ptr create_renderer(
+		const renderer_parameters& param,
+		int adapter = 0,
+		window_ptr wnd = window_ptr()) = 0;
 	virtual const renderer_caps_array caps() const = 0;
 	virtual ~renderer_system(){}
 };
@@ -51,8 +53,8 @@ namespace detail
 {
 
 template<> struct plugin_traits<renderer_system> {
-	static address_name plugin_loader_name();
-	static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static plugin_type::type get_plugin_type();
 	typedef renderer_system* (*loader_fun)();
 };
 

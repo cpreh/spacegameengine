@@ -6,6 +6,14 @@ IF (MSVC)
 ENDIF ()
 
 ADD_LIBRARY (sgezlib SHARED ${sgezlibfiles})
-TARGET_LINK_LIBRARIES (sgezlib sgecore miniunzip)
+
+TARGET_LINK_LIBRARIES (sgezlib sgecore)
+IF (MSVC)
+	TARGET_LINK_LIBRARIES (sgezlib zlibwapi.lib)
+ELSE ()
+	TARGET_LINK_LIBRARIES (sgezlib miniunzip)
+ENDIF ()
+
+
 
 INSTALL (TARGETS sgezlib DESTINATION ${pluginpath})

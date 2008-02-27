@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../plugin_traits.hpp"
 #include "../renderer/font_types.hpp"
 #include "font_metrics.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -44,8 +45,8 @@ namespace detail
 {
 
 template<> struct plugin_traits<font_system> {
-	static address_name plugin_loader_name();
-	static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static plugin_type::type get_plugin_type();
 	typedef font_system* (*loader_fun)();
 };
 

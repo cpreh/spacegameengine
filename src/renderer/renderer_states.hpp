@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <set>
 #include <boost/variant.hpp>
 
+#include "../export.hpp"
 #include "color.hpp"
 
 namespace sge {
@@ -211,13 +212,13 @@ private:
 
 namespace int_state {
 	typedef renderer_state_var<int> type;
-	extern type
+	SGE_SYMBOL extern type
 		stencil_clear_val;
 }
 
 namespace float_state {
 	typedef renderer_state_var<float> type;
-	extern type
+	SGE_SYMBOL extern type
 		zbuffer_clear_val,
 		fog_start,
 		fog_end,
@@ -226,7 +227,7 @@ namespace float_state {
 
 namespace bool_state {
 	typedef renderer_state_var<bool> type;
-	extern type
+	SGE_SYMBOL extern type
 		clear_zbuffer,
 		clear_backbuffer,
 		clear_stencil,
@@ -236,7 +237,7 @@ namespace bool_state {
 
 namespace color_state {
 	typedef renderer_state_var<color> type;
-	extern type
+	SGE_SYMBOL extern type
 		clear_color,
 		ambient_light_color,
 		fog_color;
@@ -244,7 +245,7 @@ namespace color_state {
 
 namespace cull_mode {
 	typedef renderer_state_var<renderer_state_cull_mode_type::type> type;
-	extern const type
+	SGE_SYMBOL extern const type
 		off,
 		back,
 		front;
@@ -252,7 +253,7 @@ namespace cull_mode {
 
 namespace depth_func {
 	typedef renderer_state_var<renderer_state_depth_func_type::type> type;
-	extern const type
+	SGE_SYMBOL extern const type
 		off,
 		never,
 		less,
@@ -266,7 +267,7 @@ namespace depth_func {
 
 namespace stencil_func {
 	typedef renderer_state_var<renderer_state_stencil_func_type::type> type;
-	extern const type
+	SGE_SYMBOL extern const type
 		off,
 		never,
 		less,
@@ -280,7 +281,7 @@ namespace stencil_func {
 
 namespace fog_mode {
 	typedef renderer_state_var<renderer_state_fog_mode_type::type> type;
-	extern const type
+	SGE_SYMBOL extern const type
 		off,
 		linear,
 		exp,
@@ -289,7 +290,7 @@ namespace fog_mode {
 
 namespace draw_mode {
 	typedef renderer_state_var<renderer_state_draw_mode_type::type> type;
-	extern const type
+	SGE_SYMBOL extern const type
 		point,
 		line,
 		fill;
@@ -297,7 +298,7 @@ namespace draw_mode {
 
 namespace source_blend_func {
 	typedef renderer_state_var<renderer_state_source_blend_func_type::type> type;
-	extern const type
+	SGE_SYMBOL extern const type
 		zero,
 		one,
 		dest_color,
@@ -311,7 +312,7 @@ namespace source_blend_func {
 
 namespace dest_blend_func {
 	typedef renderer_state_var<renderer_state_dest_blend_func_type::type> type;
-	extern const type
+	SGE_SYMBOL extern const type
 		zero,
 		one,
 		src_color,

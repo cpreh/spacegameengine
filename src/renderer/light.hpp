@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "color.hpp"
 #include "../math/vector.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -33,16 +34,17 @@ public:
 	typedef math::vector3 direction_type;
 	typedef space_unit attenuation_type;
 
-	light(const color4& ambient,
-	      const color4& diffuse,
-	      const color4& specular,
-	      const position_type& pos,
-	      const direction_type& dir,
-	      attenuation_type const_attenuation,
-	      attenuation_type linear_attenuation,
-	      attenuation_type quadratic_attenuation,
-	      space_unit       distribution_exponent,
-	      space_unit       cutoff_angle);
+	SGE_SYMBOL light(
+		const color4& ambient,
+		const color4& diffuse,
+		const color4& specular,
+		const position_type& pos,
+		const direction_type& dir,
+		attenuation_type const_attenuation,
+		attenuation_type linear_attenuation,
+		attenuation_type quadratic_attenuation,
+		space_unit       distribution_exponent,
+		space_unit       cutoff_angle);
 
 	color4           ambient,
 	                 diffuse,

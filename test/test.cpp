@@ -66,8 +66,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/console/console_gfx.hpp"
 #include "../src/console/console.hpp"
 #include "../src/console/stdlib.hpp"
-#include "../src/model/md3.hpp"
-#include "../src/archive/archive_loader.hpp"
 #include "../src/vector.hpp"
 #include "../src/codecvt.hpp"
 #include "../src/image/util.hpp"
@@ -79,8 +77,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/fstream.hpp"
 #include "../src/sstream.hpp"
 #include "../src/iostream.hpp"
-
-//#include <hamigaki/archivers/zip_file.hpp>
 
 namespace
 {
@@ -115,28 +111,6 @@ struct console_activator
 int main()
 try
 {
-//	sge::multitree<int> test;
-/*	typedef multi_tree<int> tree;
-	tree t;
-	tree::list l(t.children(t.begin()));
-	l.push_back(10);
-	tree::list l2(t.children(l.begin()));
-	l2.push_back(20);
-	tree::iterator it = t.begin();
-	std::cout << *(++it) << '\n';*/
-
-//	int a = 10;
-//	sge::multitree<nondefctor> tree(nondefctor(a));
-//	tree.push_back();
-//	tree.push_back(nondefctor());
-
-/*	int a = 10;
-	nondefctor tmp;//(a);
-	sge::multitree<nondefctor> tree(tmp);
-	tree.push_back(nondefctor());
-	tree.push_back(nondefctor());
-*/
-	std::srand(std::time(0));
 	bool running = true;
 	sge::plugin_manager pm;
 
@@ -213,53 +187,6 @@ try
 
 	sge::key_state_tracker ks(is);
 
-	const sge::plugin<sge::archive_loader>::ptr_type archive_plugin(pm.get_plugin<sge::archive_loader>().load());
-	const sge::archive_loader_ptr zip_archiver(archive_plugin->get()());
-
-	const sge::archive_ptr kubal = zip_archiver->load_archive(sge::media_path() / SGE_TEXT("md3-kt_kubalwagon.pk3"));
-	kubal->goto_begin();
-
-	std::vector<unsigned char> uncompress_data;
-	std::vector<unsigned char> image_data;
-	//do
-	{
-		sge::archive_entry_ptr entry;
-		kubal->open(entry);
-	//	std::cout << entry->name() << ' ' << entry->uncompressed_size() << '\n';
-		uncompress_data.resize(entry->uncompressed_size());
-		entry->uncompress(sge::data(uncompress_data));
-		entry.reset();
-
-		kubal->next();
-//		kubal->next();
-		kubal->open(entry);
-		image_data.resize(entry->uncompressed_size());
-		entry->uncompress(sge::data(image_data));
-	}
-	//while(kubal->next());
-
-	const sge::image_ptr tga = pl->load_image(sge::image_format::tga, reinterpret_cast<const sge::color*>(sge::data(image_data)), image_data.size());
-	const sge::texture_ptr tex = sge::create_texture(rend, tga);
-
-	rend->set_texture(tex);
-	std::istream ifs(new boost::iostreams::stream_buffer<boost::iostreams::array_source>(boost::iostreams::array_source(reinterpret_cast<char*>(sge::data(uncompress_data)), uncompress_data.size())));
-
-	std::noskipws(ifs);
-	sge::md3_model model(ifs);
-
-	const sge::vertex_buffer_ptr model_vb = rend->create_vertex_buffer(sge::vertex_format().add(sge::vertex_usage::pos).add(sge::vertex_usage::normal).add(sge::vertex_usage::tex), model.vertices());
-	const sge::index_buffer_ptr model_ib = rend->create_index_buffer(model.indices());
-
-	{
-		const sge::scoped_lock<sge::vertex_buffer_ptr> _lock(model_vb);
-		model.fill_vertices(model_vb);
-	}
-
-	{
-		const sge::scoped_lock<sge::index_buffer_ptr> _lock(model_ib);
-		model.fill_indices(model_ib);
-	}
-
 	rend->set_state((
 		sge::bool_state::enable_lighting = true,
 		sge::cull_mode::off,
@@ -278,9 +205,6 @@ try
 	sge::timer rotate_timer(5000);
 	sge::timer move_timer(5);
 
-//	rend->set_draw_mode(sge::draw_mode::line);
-
-	//const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	while(running)
 	{
@@ -299,22 +223,12 @@ try
 //			sge::screenshot(rend,pl,"shot.png");
 
 		rend->begin_rendering();
-		rend->transform(sge::math::matrix_rotation_x(angle) * sge::math::matrix_translation(translation));
-//		angle = rotate_timer.elapsed_frames() * sge::math::PI*2;
-		rend->projection(sge::math::matrix_perspective(static_cast<sge::space_unit>(rend->screen_width())/rend->screen_height(), 45, 1, 10));
-		rend->render(model_vb, model_ib, 0, model_vb->size(), sge::indexed_primitive_type::triangle, model.indices() / 3, 0);
 
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
 		is->dispatch();
-		//ss.transform(sge::math::matrix_translation(translation));
-		//ss.render();
-		//man.process();
 		fn->draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
-		//ls.render();
-
-
-		//rend->set_bool_state(sge::bool_state::enable_culling,false);
+		
 		if (console.active())
 			console.draw();
 		rend->end_rendering();

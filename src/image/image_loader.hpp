@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../path.hpp"
 #include "image.hpp"
 #include "image_format.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -45,8 +46,8 @@ namespace detail
 {
 
 template<> struct plugin_traits<image_loader> {
-	static address_name plugin_loader_name();
-	static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static plugin_type::type get_plugin_type();
 	typedef image_loader* (*loader_fun)();
 };
 

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_UTIL_HPP_INCLUDED
 #define SGE_TEXTURE_UTIL_HPP_INCLUDED
 
+#include "../export.hpp"
 #include "../image/image.hpp"
 #include "virtual_texture.hpp"
 
@@ -29,7 +30,9 @@ namespace sge
 
 class texture_manager;
 
-const virtual_texture_ptr add_texture(texture_manager&, image_ptr);
+SGE_SYMBOL const virtual_texture_ptr add_texture(
+	texture_manager&,
+	image_ptr);
 
 }
 

@@ -7,7 +7,7 @@ ENDIF ()
 
 ADD_LIBRARY (miniunzip SHARED ${miniunzipfiles})
 IF (MSVC)
-	TARGET_LINK_LIBRARIES (miniunzip zdll.lib)
+	TARGET_LINK_LIBRARIES (miniunzip zdll.lib zlibwapi.lib)
 ELSE ()
 	TARGET_LINK_LIBRARIES (miniunzip z)
 ENDIF ()

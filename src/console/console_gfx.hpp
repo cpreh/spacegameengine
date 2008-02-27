@@ -15,6 +15,7 @@
 #include "../string.hpp"
 #include "../timer.hpp"
 #include "console.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -48,16 +49,24 @@ struct console_gfx
 	history_container::iterator input_history_pos;
 	std::size_t history_size;
 
-	console_gfx(const renderer_ptr,const virtual_texture_ptr,const font_ptr,const input_system_ptr,const sprite_point&,const sprite_dim&);
-	void key_callback(const key_pair &);
-	void key_action(const key_type &);
-	void draw();
-	timer::interval_type change_cursor_rate(const timer::interval_type &n,const timer::interval_type &) { cursor_timer.interval(n); return n; }
-	void toggle() { active_ = !active_; }
-	bool active() const { return active_; }
-	void print(const string_type &);
-	void clear(const arg_list &);
-	void dump(const arg_list &);
+	SGE_SYMBOL console_gfx(
+		const renderer_ptr,
+		const virtual_texture_ptr,
+		const font_ptr,
+		const input_system_ptr,
+		const sprite_point&,
+		const sprite_dim&);
+	SGE_SYMBOL void key_callback(const key_pair &);
+	SGE_SYMBOL void key_action(const key_type &);
+	SGE_SYMBOL void draw();
+	SGE_SYMBOL timer::interval_type change_cursor_rate(
+		const timer::interval_type &n,
+		const timer::interval_type &);
+	SGE_SYMBOL void toggle(); 
+	SGE_SYMBOL bool active() const;
+	SGE_SYMBOL void print(const string_type &);
+	SGE_SYMBOL void clear(const arg_list &);
+	SGE_SYMBOL void dump(const arg_list &);
 };
 
 }
