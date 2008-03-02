@@ -24,14 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../material.hpp"
 #include "../../vector.hpp"
 
-sge::line_strip::line_strip(const renderer_ptr rend, const color _col, const size_type init_lines)
+sge::line_strip::line_strip(
+	const renderer_ptr rend,
+	const color col_,
+	const size_type init_lines)
  : default_transformable(rend, math::matrix_identity(), math::matrix_orthogonal_xy()),
    rend(rend),
-   _col(_col),
-   vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos),init_lines+1)),
-   _loop(false)
+   col_(col_),
+   vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos), init_lines + 1)),
+   loop_(false)
 {
-	vertices.reserve(init_lines+1);
+	vertices.reserve(vb->size());
 }
 
 sge::line_strip& sge::line_strip::add(const pos3& a)
@@ -42,7 +45,7 @@ sge::line_strip& sge::line_strip::add(const pos3& a)
 
 void sge::line_strip::set_color(const color c)
 {
-	_col = c;
+	col_ = c;
 }
 
 void sge::line_strip::render()
@@ -52,16 +55,22 @@ void sge::line_strip::render()
 	rend->set_state((
 		bool_state::enable_alpha_blending = false,
 		bool_state::enable_lighting = true,
-		color_state::ambient_light_color = _col
+		color_state::ambient_light_color = col_
 	));
 	set_matrices();
-	rend->set_material(material(color4(1,1,1,1),color4(1,1,1,1)));
+	rend->set_material(material(color4(1,1,1,1), color4(1,1,1,1)));
 	rend->set_texture(texture_ptr());
 
 	if(vb->size() < vertices.size())
 		vb->resize(vertices.size());
-	vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(sge::data(vertices)),0,vertices.size());
-	rend->render(vb, 0, static_cast<index_buffer::size_type>(vertices.size()), _loop ? nonindexed_primitive_type::line_loop : nonindexed_primitive_type::line_strip);
+	vb->set_data(reinterpret_cast<vertex_buffer::const_pointer>(sge::data(vertices)), 0, vertices.size());
+	rend->render(
+		vb,
+		0,
+		static_cast<index_buffer::size_type>(vertices.size()),
+		loop_
+			? nonindexed_primitive_type::line_loop
+			: nonindexed_primitive_type::line_strip);
 }
 
 sge::pos3& sge::line_strip::operator[](const size_type index)
@@ -79,11 +88,7 @@ void sge::line_strip::clear()
 	vertices.clear();
 }
 
-void sge::line_strip::set_parameters()
-{
-}
-
 void sge::line_strip::loop(const bool b)
 {
-	_loop = b;
+	loop_ = b;
 }

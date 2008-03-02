@@ -35,16 +35,6 @@ sge::sprite_system::sprite_system(const renderer_ptr rend)
    ib(rend->create_index_buffer(init_sprites * detail::indices_per_sprite))
 {}
 
-void sge::sprite_system::set_parameters()
-{
-	set_matrices();
-	rend->set_state((
-		bool_state::enable_lighting = false,
-		bool_state::enable_alpha_blending = true,
-		cull_mode::off
-	));
-}
-
 const sge::renderer_ptr sge::sprite_system::get_renderer() const
 {
 	return rend;

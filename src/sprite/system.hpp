@@ -25,18 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/renderer.hpp"
-#include "../renderer/renderable.hpp"
 #include "../renderer/default_transformable.hpp"
 
 namespace sge
 {
 
-class sprite_system : public default_transformable, public renderable, boost::noncopyable {
+class sprite_system : public default_transformable, boost::noncopyable {
 public:
 	sprite_system(renderer_ptr rend);
 	template<typename In>
 		void render(In beg, In end);
-	void set_parameters();
 	const renderer_ptr get_renderer() const;
 private:
 	renderer_ptr rend;

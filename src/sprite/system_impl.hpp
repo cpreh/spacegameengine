@@ -68,9 +68,22 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 		}
 	}
 
-	scoped_state state(rend);
+	set_matrices();
 
-	set_parameters();
+	const scoped_state state_(
+		rend,
+		(
+			bool_state::enable_lighting = false,
+			bool_state::enable_alpha_blending = true,
+			source_blend_func::src_alpha,
+			dest_blend_func::inv_src_alpha,
+			cull_mode::off,
+			depth_func::off,
+			stencil_func::off
+		)
+	);
+
+
 	unsigned first_index = 0;
 	for(RanIt cur = beg; cur != end; )
 	{

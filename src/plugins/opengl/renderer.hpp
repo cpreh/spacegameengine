@@ -149,6 +149,8 @@ private:
 	GLenum get_clear_bit(bool_state::type) const;
 	template<typename T>
 		T get_state(const T&) const;
+	const any_renderer_state& get_any_state(
+		const any_renderer_state& state) const;
 
 	void set_vertex_buffer(sge::vertex_buffer_ptr vb);
 	void set_index_buffer(sge::index_buffer_ptr ib);

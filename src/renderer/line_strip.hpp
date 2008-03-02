@@ -26,12 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "renderer.hpp"
 #include "vertex_buffer.hpp"
 #include "default_transformable.hpp"
-#include "renderable.hpp"
 
 namespace sge
 {
 
-class line_strip : public default_transformable, public renderable, boost::noncopyable {
+class line_strip : public default_transformable, boost::noncopyable {
 public:
 	typedef vertex_buffer::size_type size_type;
 
@@ -43,14 +42,13 @@ public:
 	const pos3& operator[](size_type index) const;
 	void clear();
 	void loop(bool);
-	void set_parameters();
 private:
 	typedef std::vector<pos3> pos_vector;
 	const renderer_ptr rend;
-	color _col;
+	color col_;
 	vertex_buffer_ptr vb;
+	bool loop_;
 	pos_vector vertices;
-	bool _loop;
 };
 
 }

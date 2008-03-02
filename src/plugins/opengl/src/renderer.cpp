@@ -70,7 +70,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
    	adapter,
    	"TODO",
 	"TODO",
-	get_int(GL_MAX_TEXTURE_SIZE),
+	2048, //get_int(GL_MAX_TEXTURE_SIZE), //FIXME
 	get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
    state_levels(*this),
    current_states(default_renderer_states())
@@ -357,7 +357,12 @@ void sge::ogl::renderer::set_state(const renderer_state_list &states)
 
 void sge::ogl::renderer::push_state(const renderer_state_list& states)
 {
-	state_levels.push(states);
+	renderer_state_list list;
+	BOOST_FOREACH(const any_renderer_state& s, states)
+		list.insert(get_any_state(s));
+	
+	state_levels.push(list);
+	set_state(states);
 }
 
 void sge::ogl::renderer::set_stencil_func()
@@ -391,6 +396,14 @@ T sge::ogl::renderer::get_state(const T& t) const
 	if(it == current_states.end())
 		throw exception(SGE_TEXT("ogl::renderer::get_state(): state not found!"));
 	return boost::get<T>(*it);
+}
+
+const sge::any_renderer_state& sge::ogl::renderer::get_any_state(const any_renderer_state& state) const
+{
+	const renderer_state_list::const_iterator it = current_states.find(state);
+	if(it == current_states.end())
+		throw exception(SGE_TEXT("ogl::renderer::get_any_state(): state not found!"));
+	return *it;
 }
 
 void sge::ogl::renderer::set_material(const material& mat)
@@ -526,18 +539,6 @@ void sge::ogl::renderer::set_texture_stage_arg(
 {
 	set_texture_stage(stage, arg, value);
 }
-
-/*void sge::ogl::renderer::push_level()
-{
-	SGE_OPENGL_SENTRY
-
-	if(get_int(GL_ATTRIB_STACK_DEPTH) > 16)
-		std::cerr << "Warning: glPush() stack level is greater than 16 which is greater than the minimal supported level!\n";
-
-	glPushAttrib(accumulated_state);
-
-	accumulated_state = 0;
-}*/
 
 void sge::ogl::renderer::pop_level()
 {

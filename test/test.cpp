@@ -114,43 +114,11 @@ try
 	bool running = true;
 	sge::plugin_manager pm;
 
-//	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
-
-//	sge::shared_ptr<sge::audio_player> audio_player(audio_player_plugin->get()());
-
-/*	typedef std::vector< sge::plugin_manager::plugin_context<sge::audio_loader> > plugin_vector;
-	plugin_vector audio_plugins;
-	std::copy(pm.begin<sge::audio_loader>(),pm.end<sge::audio_loader>(),std::back_inserter(audio_plugins));
-
-	typedef std::vector<sge::plugin_manager::plugin_context<sge::audio_loader>::ptr_type> loaded_plugins_vector;
-	loaded_plugins_vector loaded;
-
-	typedef std::vector< sge::shared_ptr<sge::audio_loader> > audio_loader_vector;
-	audio_loader_vector loaders;*/
-
-/*	sge::shared_ptr<sge::audio_file> soundfile;
-	for (plugin_vector::iterator i = audio_plugins.begin(); i != audio_plugins.end(); ++i)
-	{
-		sge::plugin_manager::plugin_context<sge::audio_loader>::ptr_type np = i->load();
-		loaded.push_back(np);
-		sge::shared_ptr<sge::audio_loader> j(np->get()());
-		loaders.push_back(j);
-		const std::string path = sge::media_path()+"ding.wav";
-		if (j->is_valid_file(path))
-			soundfile = j->load(path);
-	}
-	if(!soundfile)
-		throw std::runtime_error("ding.wav not found!");
-	sge::shared_ptr<sge::sound> sound = audio_player->create_nonstream_sound(soundfile);*/
-
 	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
 	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
 
 	const sge::renderer_system_ptr rs(renderer_plugin->get()());
 	const sge::renderer_caps_array caps(rs->caps());
-	//for(sge::display_mode_array::size_type i = 0; i < caps.at(0).display_modes.size(); ++i)
-//		std::cout << caps.at(0).display_modes[i] << '\n';
-	//std::cout << caps.at(0).max_anisotropy_level << '\n';
 
 	const sge::renderer_parameters param(sge::display_mode(1280,1024,sge::bit_depth::depth32,100), true);
 	const sge::renderer_ptr rend = rs->create_renderer(param);
@@ -169,21 +137,21 @@ try
 	sge::font_ptr fn(new sge::font(metrics,fn_drawer));
 
 	sge::texture_manager texman(rend,sge::default_texture_creator<sge::no_fragmented_texture>(rend,sge::linear_filter));
-	const sge::image_ptr console_image = pl->load_image(sge::media_path() / SGE_TEXT("black.jpg"));
-	const sge::virtual_texture_ptr console_texture = sge::add_texture(texman,console_image);
-	const sge::sprite_point pos(0,0);
-	const sge::sprite_dim console_size(rend->screen_width(),rend->screen_height()/2);
-	sge::con::console_gfx console(rend,console_texture,fn,is,pos,console_size);
+//	const sge::image_ptr console_image = pl->load_image(sge::media_path() / SGE_TEXT("black.jpg"));
+//	const sge::virtual_texture_ptr console_texture = sge::add_texture(texman,console_image);
+//	const sge::sprite_point pos(0,0);
+//	const sge::sprite_dim console_size(rend->screen_width(),rend->screen_height()/2);
+//	sge::con::console_gfx console(rend,console_texture,fn,is,pos,console_size);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
 //	using boost::lambda::_1;
 	using boost::lambda::if_;
 
-	console_activator activator(console);
+//	console_activator activator(console);
 
 	const sge::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::key,boost::lambda::_1)) == sge::kc::key_escape)[var(running)=false]));
-	const sge::scoped_connection cb2(is->register_callback(boost::bind(&console_activator::callback,&activator,_1)));
+//	const sge::scoped_connection cb2(is->register_callback(boost::bind(&console_activator::callback,&activator,_1)));
 
 	sge::key_state_tracker ks(is);
 
@@ -196,26 +164,16 @@ try
 		sge::float_state::zbuffer_clear_val = 0,
 		sge::depth_func::greater));
 
-	rend->set_light(0, sge::light(sge::color4(1, 0.5, 0, 0), sge::color4(1, 0.5, 0, 0), sge::color4(1, 0, 0, 0), sge::light::position_type(0, 0, 0), sge::light::direction_type(0, 0, -1), 0.2, 0, 0, 1, 90));
-	rend->enable_light(0, true);
+//	rend->set_light(0, sge::light(sge::color4(1, 0.5, 0, 0), sge::color4(1, 0.5, 0, 0), sge::color4(1, 0, 0, 0), sge::light::position_type(0, 0, 0), sge::light::direction_type(0, 0, -1), 0.2, 0, 0, 1, 90));
+//	rend->enable_light(0, true);
 
-	sge::math::vector3 translation(0, 0, -200);
 	sge::frames_counter frames;
-	sge::timer move_timer(5);
 
 	const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	while(running)
 	{
-	//	if (sound->status() != sge::sound::status_stopped)
-	//		sound->update();
-
 		frames.update();
-		move_timer.update();
 		
-		translation.x() -= ks[sge::kc::key_left] * move_timer.elapsed_frames();
-		translation.x() += ks[sge::kc::key_right] * move_timer.elapsed_frames();
-		translation.z() -= ks[sge::kc::key_up] * move_timer.elapsed_frames();
-		translation.z() += ks[sge::kc::key_down] * move_timer.elapsed_frames();
 //		if(ks[sge::kc::key_return])
 //			sge::screenshot(rend,pl,"shot.png");
 
@@ -226,8 +184,8 @@ try
 		is->dispatch();
 		fn->draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
 		
-		if (console.active())
-			console.draw();
+		//if (console.active())
+		//	console.draw();
 		rend->end_rendering();
 	}
 	return EXIT_SUCCESS;
@@ -237,11 +195,11 @@ catch(const sge::exception& e)
 	sge::cerr << "Program terminated (sge::exception caught): " << e.what() << '\n';
 	return EXIT_FAILURE;
 }
-catch(const std::exception& e)
+/*catch(const std::exception& e)
 {
 	std::wcerr << "Program terminated (std::exception caught): " << e.what() << '\n';
 	return EXIT_FAILURE;
-}
+}*/
 /*catch(...)
 {
 	std::cerr << "Program terminated (unknown exception caught)!\n";

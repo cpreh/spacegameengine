@@ -23,16 +23,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/noncopyable.hpp>
 #include "renderer.hpp"
+#include "renderer_states.hpp"
 
 namespace sge
 {
 
 class scoped_state : boost::noncopyable {
 public:
-	scoped_state(renderer_ptr rend);
+	scoped_state(
+		renderer_ptr rend,
+		const renderer_state_list&);
+	scoped_state(
+		renderer_ptr rend,
+		const any_renderer_state&);
 	~scoped_state();
 	void release();
 private:
+	void init(const renderer_state_list&);
 	renderer_ptr rend;
 };
 
