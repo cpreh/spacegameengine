@@ -179,6 +179,7 @@
 		<Unit filename="..\..\..\src/renderer/renderable.hpp" />
 		<Unit filename="..\..\..\src/renderer/renderer.hpp" />
 		<Unit filename="..\..\..\src/renderer/renderer_caps.hpp" />
+		<Unit filename="..\..\..\src/renderer/renderer_parameters.hpp" />
 		<Unit filename="..\..\..\src/renderer/renderer_states.hpp" />
 		<Unit filename="..\..\..\src/renderer/renderer_system.hpp" />
 		<Unit filename="..\..\..\src/renderer/scoped_lock.hpp" />
@@ -196,6 +197,7 @@
 		<Unit filename="..\..\..\src/renderer/src/material.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/primitive.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/renderer.cpp" />
+		<Unit filename="..\..\..\src/renderer/src/renderer_parameters.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/renderer_states.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/renderer_system.cpp" />
 		<Unit filename="..\..\..\src/renderer/src/scoped_renderblock.cpp" />

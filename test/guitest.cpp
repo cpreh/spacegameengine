@@ -17,7 +17,40 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include "../src/plugin_manager.hpp"
+#include "../src/image/image_loader.hpp"
+#include "../src/field.hpp"
+#include "../src/image/image.hpp"
+#include "../src/su.hpp"
+#include "../src/iostream.hpp"
+#include "utility/normalize_field.hpp"
+#include "utility/interpolators.hpp"
+#include "utility/image_field_conversion.hpp"
+#include "utility/color_conversion.hpp"
 
+int main()
+try
+{
+	// sge init
+	sge::plugin_manager pm;
+	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
+	const sge::image_loader_ptr image_loader(image_loader_plugin->get()());
+
+//	sge::space_field f;
+//	image_to_field(image_loader->load_image(SGE_TEXT("images/checker.png")),f,color_to_numeric<sge::space_unit>());
+//	sge::cout << SGE_TEXT(f.pos(0,0)) << SGE_TEXT("\n");
+	sge::field<sge::color> c(sge::field<sge::color>::dim_type(1, 2));
+	c.pos(0,0) = sge::colors::aquamarine;
+	c.pos(0,1) = sge::colors::maroon;
+
+	image_loader->create_image(&c.front(),sge::image::dim_type(c.dim()))
+		->save(SGE_TEXT("tex.bmp"));
+//	field_to_image(f, image_loader,numeric_to_color<sge::space_unit>())->save(SGE_TEXT("images/textures.png"));
+} catch (const sge::exception &e) {
+	sge::cerr << SGE_TEXT("sge exception: ") << e.what() << SGE_TEXT("\n");
+}
+
+#if 0
 #include <ctime>
 #include <cstdlib>
 #include <string>
@@ -234,3 +267,4 @@ catch(...)
 	std::cerr << "Program terminated (unknown exception caught)!\n";
 	return EXIT_FAILURE;
 }
+#endif
