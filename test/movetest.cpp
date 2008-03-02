@@ -79,8 +79,8 @@ private:
 			break;
 		}
 
-		sge::math::clamp(mouse.x(), 0, static_cast<sge::sprite_unit>(rend->screen_width()));
-		sge::math::clamp(mouse.y(), 0, static_cast<sge::sprite_unit>(rend->screen_height()));
+		mouse.x() = sge::math::clamp(mouse.x(), 0, static_cast<sge::sprite_unit>(rend->screen_width()));
+		mouse.y() = sge::math::clamp(mouse.y(), 0, static_cast<sge::sprite_unit>(rend->screen_height()));
 
 		const sge::sprite_point d = spr.center() - mouse.pos();
 		const sge::space_unit len = sge::math::structure_cast<sge::space_unit>(d).length();

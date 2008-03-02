@@ -6,10 +6,11 @@
 #include <vector>
 #include <iterator>
 #include <memory>
-#include <stdexcept>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/format.hpp>
 #include "math/vector.hpp"
 #include "math/dim.hpp"
+#include "exception.hpp"
 
 namespace sge
 {
@@ -86,16 +87,35 @@ class field
 		const difference_type diff = std::distance(begin(), it);
 		return vector_type(diff % w(), diff / w());
 	}
+	iterator position_it(const size_type &x,const size_type &y) { return begin() + y * w() + x; }
+	const_iterator position_it(const size_type &x,const size_type &y) const { return begin() + y * w() + x; }
 
 	allocator_type get_allocator() const { return array.get_allocator(); }
 
 	void zero() { std::fill(begin(),end(),static_cast<value_type>(0)); }
 	void resize(const size_type &x,const size_type &y, const_reference value = value_type()) { resize(dim_type(x,y), value); }
 	void resize(const dim_type &n, const_reference value = value_type()) { if (dim_ == n) return; dim_ = n; array.resize(field_count(), value); }
+
+	value_type &pos_mod(size_type x,size_type y) { x = x % w(); y = y % h(); return array[y * dim_.w() + x]; }
+	const value_type &pos_mod(size_type x,size_type y) const { x = x % w(); y = y % h(); return array[y * dim_.w() + x]; }
+	value_type &pos_mod(vector_type p) { p.x() = p.x() % w(); p.y() = p.y() % h(); return pos(p.x(),p.y()); }
+	const value_type &pos_mod(vector_type p) const { p.x() = p.x() % w(); p.y() = p.y() % h(); return pos(p.x(),p.y()); }
+#ifndef SGE_FIELD_RANGE_CHECK
 	value_type &pos(const size_type &x,const size_type &y) { return array[y * dim_.w() + x]; }
 	const value_type &pos(const size_type &x,const size_type &y) const { return array[y * dim_.w() + x]; }
 	value_type &pos(const vector_type &p) { return pos(p.x(),p.y()); }
 	const value_type &pos(const vector_type &p) const { return pos(p.x(),p.y()); }
+#else
+	void range_check(const size_type &x,const size_type &y) const
+	{ 
+		if (x >= dim_.w() || y >= dim_.h()) 
+			throw sge::exception((boost::format(SGE_TEXT("tried to access position %ix%i")) % x % y).str());
+	}
+	value_type &pos(const size_type &x,const size_type &y) { range_check(x,y); return array[y * dim_.w() + x]; }
+	const value_type &pos(const size_type &x,const size_type &y) const { range_check(x,y); return array[y * dim_.w() + x]; }
+	value_type &pos(const vector_type &p) { range_check(p.x(),p.y()); return pos(p.x(),p.y()); }
+	const value_type &pos(const vector_type &p) const { range_check(p.x(),p.y()); return pos(p.x(),p.y()); }
+#endif
 
 	reference front() { return array.front(); }
 	const_reference front() const { return array.front(); }
