@@ -27,6 +27,9 @@ sge::devil::image_loader::image_loader()
 	ilEnable(IL_FORMAT_SET);
 	ilSetInteger(IL_FORMAT_MODE, IL_RGBA);
 	ilEnable(IL_FILE_OVERWRITE);
+	ilEnable(IL_ORIGIN_SET);
+	ilRegisterOrigin(IL_ORIGIN_UPPER_LEFT);
+
 	check_errors();
 }
 

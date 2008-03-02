@@ -109,24 +109,6 @@ void sge::devil::image::save(const path& file)
 {
 	bind_me();
 
-	sge::color c2;
-	const sge::color &c = c2;
-
-	ilCopyPixels(
-		0, 0, 0,
-		1, 1, 1,
-		IL_RGBA,
-		IL_UNSIGNED_BYTE,
-		&c2
-	);
-
-	std::cout << static_cast<int>(sge::color_red  (c)) << "/"
-	          << static_cast<int>(sge::color_green(c)) << "/"
-	          << static_cast<int>(sge::color_blue (c)) << std::endl;
-
-	ilEnable(IL_ORIGIN_SET);
-	ilRegisterOrigin(IL_ORIGIN_UPPER_LEFT);
-
 	ilSaveImage(
 #ifdef UNICODE
 		const_cast<wchar_t*>(file.string().c_str())

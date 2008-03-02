@@ -105,10 +105,10 @@ inline color_element& color_green(color& c) { return *(reinterpret_cast<color_el
 inline color_element&  color_blue(color& c) { return *(reinterpret_cast<color_element*>(&c) + color_traits<current_color_scheme>::b_pos); }
 inline color_element& color_alpha(color& c) { return *(reinterpret_cast<color_element*>(&c) + color_traits<current_color_scheme>::a_pos); }
 
-inline color_element   color_red(const color c) { return *(reinterpret_cast<const color_element*>(&c) + color_traits<current_color_scheme>::r_pos); }
-inline color_element color_green(const color c) { return *(reinterpret_cast<const color_element*>(&c) + color_traits<current_color_scheme>::g_pos); }
-inline color_element  color_blue(const color c) { return *(reinterpret_cast<const color_element*>(&c) + color_traits<current_color_scheme>::b_pos); }
-inline color_element color_alpha(const color c) { return *(reinterpret_cast<const color_element*>(&c) + color_traits<current_color_scheme>::a_pos); }
+inline color_element   color_red(const color& c) { return *(reinterpret_cast<const color_element*>(&c) + color_traits<current_color_scheme>::r_pos); }
+inline color_element color_green(const color& c) { return *(reinterpret_cast<const color_element*>(&c) + color_traits<current_color_scheme>::g_pos); }
+inline color_element  color_blue(const color& c) { return *(reinterpret_cast<const color_element*>(&c) + color_traits<current_color_scheme>::b_pos); }
+inline color_element color_alpha(const color& c) { return *(reinterpret_cast<const color_element*>(&c) + color_traits<current_color_scheme>::a_pos); }
 
 
 namespace colors {
