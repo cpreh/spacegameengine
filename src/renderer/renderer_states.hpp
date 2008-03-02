@@ -369,11 +369,6 @@ template<typename T, typename U> inline renderer_state_list operator,(const rend
 
 template<typename T> inline renderer_state_list operator,(const renderer_state_var<T> &a, const renderer_state_list &b) {
 	return any_renderer_state(a), b;
-	/*if (b.find(a) == b.end()) {
-		renderer_state_list temp = b;
-			temp.insert(a);
-		return temp;
-	} else return b; // rhs (list) overrides lhs (single value)*/
 }
 
 template<typename T> inline renderer_state_list operator,(const renderer_state_list &b, const renderer_state_var<T> &a) {
@@ -390,10 +385,7 @@ template<typename T> inline renderer_state_list operator,(const renderer_state_v
 }
 
 template<typename T> inline renderer_state_list operator,(const any_renderer_state &a, const renderer_state_var<T> &b) {
-	renderer_state_list temp;
-		temp.insert(a);
-		temp.insert(b);
-	return temp;
+	return b,a;
 }
 
 }

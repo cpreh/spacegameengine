@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include "../../../exception.hpp"
 #include "../../../math/rect_impl.hpp"
+#include "../../../math/utility.hpp"
 #include "../error.hpp"
 #include "../conversion.hpp"
 #include "../texture_functions.hpp"
@@ -68,8 +69,14 @@ void sge::ogl::set_texture(const GLenum tex_type,
 {
 	SGE_OPENGL_SENTRY
 	
+	// TODO: clean this up and use texture::dim_type
+
 	if(width < 64 || height < 64)
 		std::cerr << "warning: opengl implementations are not required to support textures smaller than 64x64."\
+		             " Specified texture size was " << width << 'x' << height << ".\n";
+
+	if(!math::is_int_log2(width) || !math::is_int_log2(height))
+		std::cerr << "warning: opengl implementations are not required to support textures with dimensions that are not a power of 2."\
 		             " Specified texture size was " << width << 'x' << height << ".\n";
 
 	glTexImage2D(tex_type, 0, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), 0, format, type, src);

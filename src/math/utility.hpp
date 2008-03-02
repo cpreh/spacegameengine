@@ -85,7 +85,8 @@ inline unsigned log2(const unsigned x)
 	return --r;
 }
 
-inline bool is_int_log2(const unsigned x)
+template<typename T>
+inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type is_int_log2(const T x)
 {
 	return !(x & (x-1));
 }

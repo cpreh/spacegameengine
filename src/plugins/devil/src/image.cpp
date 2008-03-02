@@ -109,6 +109,9 @@ void sge::devil::image::save(const path& file)
 {
 	bind_me();
 
+	ilEnable(IL_ORIGIN_SET);
+	ilRegisterOrigin(IL_ORIGIN_UPPER_LEFT);
+
 	ilSaveImage(
 #ifdef UNICODE
 		const_cast<wchar_t*>(file.string().c_str())
@@ -116,5 +119,6 @@ void sge::devil::image::save(const path& file)
 		const_cast<char*>(iconv(file.string()).c_str())
 #endif
 		);
+	ilDisable(IL_ORIGIN_SET);
 	check_errors();
 }
