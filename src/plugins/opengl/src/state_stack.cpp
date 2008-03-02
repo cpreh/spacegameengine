@@ -18,29 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../image_loader.hpp"
-#include "../image.hpp"
-#include "../error.hpp"
+#include "../state_stack.hpp"
+#include "../renderer.hpp"
 
-sge::devil::image_loader::image_loader()
+sge::ogl::state_stack::state_stack(renderer& rend)
+: rend(rend)
+{}
+
+void sge::ogl::state_stack::push(const renderer_state_list& list)
 {
-	ilEnable(IL_FORMAT_SET);
-	ilSetInteger(IL_FORMAT_MODE, IL_RGBA);
-	ilEnable(IL_FILE_OVERWRITE);
-	check_errors();
+	state_levels.push(list);
 }
 
-sge::image_ptr sge::devil::image_loader::load_image(const path& p)
+void sge::ogl::state_stack::pop()
 {
-	return image_ptr(new image(p));
-}
-
-sge::image_ptr sge::devil::image_loader::load_image(const image_format::type type, const image::const_pointer format_data, const image::size_type size)
-{
-	return image_ptr(new image(type, format_data, size));
-}
-
-sge::image_ptr sge::devil::image_loader::create_image(const image::const_pointer p, const image::dim_type& dim)
-{
-	return image_ptr(new image(p, dim));
+	rend.set_state(state_levels.top());
+	state_levels.pop();
 }

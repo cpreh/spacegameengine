@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../renderer/renderer_system.hpp"
 #include "../../../renderer/types.hpp"
 #include "../../../renderer/viewport.hpp"
+#include "../../../renderer/default_renderer_states.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
@@ -50,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program.hpp"
 #include "../error.hpp"
 #include "../state_visitor.hpp"
-#include "../push_visitor.hpp"
+#include "../conversion_visitor.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
@@ -65,8 +66,14 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
                              const unsigned adapter,
                              const window_ptr wnd_param)
  : param(param),
-   clearflags(0),
-   accumulated_state(0)
+   caps_(
+   	adapter,
+   	"TODO",
+	"TODO",
+	get_int(GL_MAX_TEXTURE_SIZE),
+	get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
+   state_levels(*this),
+   current_states(default_renderer_states())
 #ifdef SGE_LINUX_PLATFORM
    , dsp(new x_display())
 #endif
@@ -183,23 +190,21 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	initialize_vbo();
 	initialize_pbo();
 
-	//set_blend_func(source_blend_func::src_alpha, dest_blend_func::inv_src_alpha);
-	// TODO: implement caps
-	caps_.adapter_number = adapter;
-	caps_.max_tex_size = get_int(GL_MAX_TEXTURE_SIZE);
-	caps_.max_anisotropy_level = get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT);
-
 	set_render_target();
+	set_state(default_renderer_states());
 }
 
 void sge::ogl::renderer::begin_rendering()
 {
 	SGE_OPENGL_SENTRY
-	
-	glClear(clearflags);
+
+	glClear(
+		get_clear_bit(bool_state::clear_backbuffer)
+		| get_clear_bit(bool_state::clear_zbuffer)
+		| get_clear_bit(bool_state::clear_stencil));
 }
 
-sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(
+const sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(
 	const index_buffer::size_type size,
 	const resource_flag_t flags,
 	const index_buffer::const_pointer data)
@@ -207,13 +212,13 @@ sge::index_buffer_ptr sge::ogl::renderer::create_index_buffer(
 	return index_buffer_ptr(new index_buffer(size, flags, data));
 }
 
-sge::ogl::fbo_render_target_ptr sge::ogl::renderer::create_render_target(
+const sge::ogl::fbo_render_target_ptr sge::ogl::renderer::create_render_target(
 	const render_target::dim_type& dim)
 {
 	return fbo_render_target_ptr(new fbo_render_target(dim));
 }
 
-sge::texture_ptr sge::ogl::renderer::create_texture(
+const sge::texture_ptr sge::ogl::renderer::create_texture(
 	const texture::const_pointer src,
 	const texture::dim_type& dim,
 	const filter_args& filter,
@@ -222,7 +227,7 @@ sge::texture_ptr sge::ogl::renderer::create_texture(
 	return texture_ptr(new texture(src, dim, filter, flags));
 }
 
-sge::vertex_buffer_ptr sge::ogl::renderer::create_vertex_buffer(
+const sge::vertex_buffer_ptr sge::ogl::renderer::create_vertex_buffer(
 	const sge::vertex_format& format,
 	const vertex_buffer::size_type size,
 	const resource_flag_t flags,
@@ -231,7 +236,7 @@ sge::vertex_buffer_ptr sge::ogl::renderer::create_vertex_buffer(
 	return vertex_buffer_ptr(new vertex_buffer(size,format,flags,src));
 }
 
-sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(
+const sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(
 	const volume_texture::const_pointer src,
  	const volume_texture::box_type& box,
 	const filter_args& filter,
@@ -246,7 +251,7 @@ sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(
 #endif
 }
 
-sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(
+const sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(
 	const cube_side_array* const src,
 	const cube_texture::size_type sz,
 	const filter_args& filter,
@@ -277,23 +282,24 @@ const sge::renderer_caps& sge::ogl::renderer::caps() const
 	return caps_;
 }
 
-sge::window_ptr sge::ogl::renderer::get_window() const
+const sge::window_ptr sge::ogl::renderer::get_window() const
 {
 	return wnd;
 }
 
-sge::screen_size_t sge::ogl::renderer::screen_size() const
+const sge::screen_size_t sge::ogl::renderer::screen_size() const
 {
 	return param.mode.size;
 }
 
-void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
-                                const index_buffer_ptr ib,
-                                const sge::vertex_buffer::size_type first_vertex,
-                                const sge::vertex_buffer::size_type num_vertices,
-                                const indexed_primitive_type::type ptype,
-                                const sge::index_buffer::size_type pcount,
-                                const sge::index_buffer::size_type first_index)
+void sge::ogl::renderer::render(
+	const vertex_buffer_ptr vb,
+	const index_buffer_ptr ib,
+	const sge::vertex_buffer::size_type first_vertex,
+	const sge::vertex_buffer::size_type num_vertices,
+	const indexed_primitive_type::type ptype,
+	const sge::index_buffer::size_type pcount,
+	const sge::index_buffer::size_type first_index)
 {
 	if(!vb)
 		throw exception(SGE_TEXT("vb may not be 0 for renderer::render!"));
@@ -317,10 +323,11 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 			first_index * sizeof(sge::index_buffer::value_type)));
 }
 
-void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
-                                const vertex_buffer::size_type first_vertex,
-                                const vertex_buffer::size_type num_vertices,
-                                const nonindexed_primitive_type::type ptype)
+void sge::ogl::renderer::render(
+	const vertex_buffer_ptr vb,
+	const vertex_buffer::size_type first_vertex,
+	const vertex_buffer::size_type num_vertices,
+	const nonindexed_primitive_type::type ptype)
 {
 	if(!vb)
 		throw exception(SGE_TEXT("vb may not be 0 for renderer::render!"));
@@ -338,61 +345,52 @@ void sge::ogl::renderer::render(const vertex_buffer_ptr vb,
 
 }
 
-void sge::ogl::renderer::set_state(const any_renderer_state& state)
-{
-	boost::apply_visitor(state_visitor(*this), state);
-}
-
 void sge::ogl::renderer::set_state(const renderer_state_list &states)
 {
+	const state_visitor visitor(*this);
 	BOOST_FOREACH(const any_renderer_state& s, states)
-		set_state(s);
-}
-
-void sge::ogl::renderer::push_state(const any_renderer_state& state)
-{
-	boost::apply_visitor(push_visitor(*this), state);	
+	{
+		boost::apply_visitor(visitor, s);
+		current_states.insert(s);
+	}
 }
 
 void sge::ogl::renderer::push_state(const renderer_state_list& states)
 {
-	BOOST_FOREACH(const any_renderer_state& s, states)
-		push_state(s);
+	state_levels.push(states);
 }
 
-void sge::ogl::renderer::set_clear_bit(const GLenum bit, const bool value)
-{
-	set_bit(bit, clearflags, value);
-}
-
-void sge::ogl::renderer::set_stencil_func(const GLenum func)
-//, const signed_type value, const unsigned_type mask)
+void sge::ogl::renderer::set_stencil_func()
 {
 	SGE_OPENGL_SENTRY
-	glStencilFunc(func, stencil_value, stencil_mask);
-}
-
-void sge::ogl::renderer::set_source_blend_func(const GLenum func)
-{
-	source_blend_func = func;
-	set_blend_func();
-}
-
-void sge::ogl::renderer::set_dest_blend_func(const GLenum func)
-{
-	dest_blend_func = func;
-	set_blend_func();
+	const conversion_visitor conv;
+	glStencilFunc(
+		conv(get_state(stencil_func::off)), // FIXME
+		0,
+		0); // FIXME
 }
 
 void sge::ogl::renderer::set_blend_func()
 {
 	SGE_OPENGL_SENTRY
-	glBlendFunc(source_blend_func, dest_blend_func);
+	const conversion_visitor conv;
+	glBlendFunc(
+		conv(get_state(source_blend_func::zero)), // FIXME
+		conv(get_state(dest_blend_func::zero))); // FIXME
 }
 
-void sge::ogl::renderer::add_push_bit(const GLbitfield s)
+GLenum sge::ogl::renderer::get_clear_bit(const bool_state::type s) const
 {
-	accumulated_state |= s;
+	return get_state(s).value() ? convert_clear_bit(s) : 0;
+}
+
+template<typename T>
+T sge::ogl::renderer::get_state(const T& t) const
+{
+	const renderer_state_list::const_iterator it = current_states.find(t);
+	if(it == current_states.end())
+		throw exception(SGE_TEXT("ogl::renderer::get_state(): state not found!"));
+	return boost::get<T>(*it);
 }
 
 void sge::ogl::renderer::set_material(const material& mat)
@@ -459,7 +457,7 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 	set_viewport(viewport(0, 0, static_cast<screen_unit>(p->width()), static_cast<screen_unit>(p->height())));
 }
 
-sge::render_target_ptr sge::ogl::renderer::get_render_target() const
+const sge::render_target_ptr sge::ogl::renderer::get_render_target() const
 {
 	return render_target_;
 }
@@ -529,7 +527,7 @@ void sge::ogl::renderer::set_texture_stage_arg(
 	set_texture_stage(stage, arg, value);
 }
 
-void sge::ogl::renderer::push_level()
+/*void sge::ogl::renderer::push_level()
 {
 	SGE_OPENGL_SENTRY
 
@@ -539,16 +537,14 @@ void sge::ogl::renderer::push_level()
 	glPushAttrib(accumulated_state);
 
 	accumulated_state = 0;
-}
+}*/
 
 void sge::ogl::renderer::pop_level()
 {
-	SGE_OPENGL_SENTRY
-
-	glPopAttrib();
+	state_levels.pop();
 }
 
-sge::glsl::program_ptr sge::ogl::renderer::create_glsl_program(
+const sge::glsl::program_ptr sge::ogl::renderer::create_glsl_program(
 	const std::string& vs_source,
 	const std::string& ps_source)
 {

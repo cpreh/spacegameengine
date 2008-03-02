@@ -18,29 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../image_loader.hpp"
-#include "../image.hpp"
-#include "../error.hpp"
+#include "../default_renderer_states.hpp"
+#include "../color.hpp"
 
-sge::devil::image_loader::image_loader()
+sge::renderer_state_list sge::default_renderer_states()
 {
-	ilEnable(IL_FORMAT_SET);
-	ilSetInteger(IL_FORMAT_MODE, IL_RGBA);
-	ilEnable(IL_FILE_OVERWRITE);
-	check_errors();
-}
-
-sge::image_ptr sge::devil::image_loader::load_image(const path& p)
-{
-	return image_ptr(new image(p));
-}
-
-sge::image_ptr sge::devil::image_loader::load_image(const image_format::type type, const image::const_pointer format_data, const image::size_type size)
-{
-	return image_ptr(new image(type, format_data, size));
-}
-
-sge::image_ptr sge::devil::image_loader::create_image(const image::const_pointer p, const image::dim_type& dim)
-{
-	return image_ptr(new image(p, dim));
+	static const renderer_state_list list((
+		int_state::stencil_clear_val = 0,
+		float_state::zbuffer_clear_val = 0,
+		float_state::fog_start = 0,
+		float_state::fog_end = 0,
+		float_state::fog_density = 0,
+		bool_state::clear_zbuffer = false,
+		bool_state::clear_backbuffer = true,
+		bool_state::clear_stencil = false,
+		bool_state::enable_alpha_blending = false,
+		bool_state::enable_lighting = false,
+		color_state::clear_color = colors::black,
+		color_state::ambient_light_color = colors::white,
+		color_state::fog_color = colors::black,
+		cull_mode::off,
+		depth_func::off,
+		stencil_func::off,
+		fog_mode::off,
+		draw_mode::fill,
+		source_blend_func::src_alpha,
+		dest_blend_func::inv_src_alpha
+	));
+	return list;
 }

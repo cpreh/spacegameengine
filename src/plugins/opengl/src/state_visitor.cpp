@@ -1,7 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
-Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -74,7 +73,6 @@ void sge::ogl::state_visitor::operator()(const bool_state::type s) const
 	case rs::clear_backbuffer:
 	case rs::clear_zbuffer:
 	case rs::clear_stencil:
-		rend.set_clear_bit(convert_clear_bit(s), s.value());
 		break;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
@@ -152,11 +150,19 @@ void sge::ogl::state_visitor::operator()(const stencil_func::type f) const
 	}
 
 	enable(GL_STENCIL_TEST);
-	rend.set_stencil_func(conversion_visitor()(f));
+	rend.set_stencil_func();
 }
 
 void sge::ogl::state_visitor::operator()(const fog_mode::type m) const
 {
+	if(m.value() == renderer_state_fog_mode_type::off)
+	{
+		disable(GL_FOG);
+		return;
+	}
+
+	enable(GL_FOG);
+
 	SGE_OPENGL_SENTRY
 	glFogi(GL_FOG_MODE, conversion_visitor()(m));
 }
@@ -169,12 +175,12 @@ void sge::ogl::state_visitor::operator()(const draw_mode::type m) const
 		conversion_visitor()(m));
 }
 
-void sge::ogl::state_visitor::operator()(const source_blend_func::type f) const
+void sge::ogl::state_visitor::operator()(const source_blend_func::type) const
 {
-	rend.set_source_blend_func(conversion_visitor()(f));
+	rend.set_blend_func();
 }
 
-void sge::ogl::state_visitor::operator()(const dest_blend_func::type f) const
+void sge::ogl::state_visitor::operator()(const dest_blend_func::type) const
 {
-	rend.set_dest_blend_func(conversion_visitor()(f));
+	rend.set_blend_func();
 }

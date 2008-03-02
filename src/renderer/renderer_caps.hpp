@@ -21,16 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CAPS_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_HPP_INCLUDED
 
-#include "display_mode.hpp"
+#include <string>
 
 namespace sge
 {
 
 struct renderer_caps {
+	renderer_caps(
+		unsigned adapter_number,
+		const std::string& driver_name,
+		const std::string& description,
+		unsigned max_tex_size,
+		unsigned max_anisotropy_level);
+		
 	unsigned           adapter_number;
 	std::string        driver_name;
 	std::string        description;
-	display_mode_array display_modes;
 	unsigned           max_tex_size;
 	unsigned           max_anisotropy_level;
 };

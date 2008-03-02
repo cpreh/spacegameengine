@@ -20,19 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../scoped_state.hpp"
 
-sge::scoped_state::scoped_state(const renderer_ptr rend)
+sge::scoped_state::scoped_state(
+	const renderer_ptr rend)
 : rend(rend)
 {
-	rend->push_level();
+//	rend->push(list);
 }
 
 sge::scoped_state::~scoped_state()
 {
-	if(rend)
-		rend->pop_level();
+//	if(rend)
+//		rend->pop_level();
 }
 
 void sge::scoped_state::release()
 {
-	rend.reset();
+//	rend.reset();
 }

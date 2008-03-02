@@ -70,14 +70,14 @@ try
 	const sge::sprite_texture_animation::animation_series series(
 		boost::assign::list_of
 			(sge::sprite_texture_animation::entity(500, tex1))
-			(sge::sprite_texture_animation::entity(800, tex2))
+//			(sge::sprite_texture_animation::entity(800, tex2))
 		.to_container(series)
 	);
 	sge::sprite_texture_animation anim(series);
 
 	sge::sprite_system ss(rend);
-	sge::sprite spr(sge::sprite::point(0,0),
-	                sge::sprite::dim(rend->screen_width(), rend->screen_height()),
+	sge::sprite spr(sge::sprite::point(0,rend->screen_height()),
+	                sge::sprite::dim(rend->screen_width(), -rend->screen_height()),
 	                sge::virtual_texture_ptr());
 
 	using boost::lambda::var;

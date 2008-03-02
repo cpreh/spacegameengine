@@ -142,7 +142,9 @@ try
 	rend->set_state((
 		sge::bool_state::clear_backbuffer = true,
 		sge::depth_func::off,
-		sge::cull_mode::off));
+		sge::cull_mode::off,
+		sge::source_blend_func::src_alpha,
+		sge::dest_blend_func::inv_src_alpha));
 	rend->projection(sge::math::matrix_orthogonal_xy());
 
 	while(running)

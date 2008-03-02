@@ -368,11 +368,12 @@ template<typename T, typename U> inline renderer_state_list operator,(const rend
 }
 
 template<typename T> inline renderer_state_list operator,(const renderer_state_var<T> &a, const renderer_state_list &b) {
-	if (b.find(a) == b.end()) {
+	return any_renderer_state(a), b;
+	/*if (b.find(a) == b.end()) {
 		renderer_state_list temp = b;
 			temp.insert(a);
 		return temp;
-	} else return b; // rhs (list) overrides lhs (single value)
+	} else return b; // rhs (list) overrides lhs (single value)*/
 }
 
 template<typename T> inline renderer_state_list operator,(const renderer_state_list &b, const renderer_state_var<T> &a) {

@@ -18,38 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_PUSH_VISITOR_HPP_INCLUDED
-#define SGE_OPENGL_PUSH_VISITOR_HPP_INCLUDED
+#include "../renderer_caps.hpp"
 
-#include <boost/variant/static_visitor.hpp>
-#include "../../renderer/renderer_states.hpp"
-
-namespace sge
-{
-namespace ogl
-{
-
-class renderer;
-
-class push_visitor : public boost::static_visitor<> {
-public:
-	push_visitor(renderer&);
-	void operator()(int_state::type) const;
-	void operator()(float_state::type) const;
-	void operator()(bool_state::type) const;
-	void operator()(color_state::type) const;
-	void operator()(cull_mode::type) const;
-	void operator()(depth_func::type) const;
-	void operator()(stencil_func::type) const;
-	void operator()(fog_mode::type) const;
-	void operator()(draw_mode::type) const;
-	void operator()(source_blend_func::type) const;
-	void operator()(dest_blend_func::type) const;
-private:
-	renderer& rend;
-};
-
-}
-}
-
-#endif
+sge::renderer_caps::renderer_caps(
+	unsigned adapter_number,
+	const std::string& driver_name,
+	const std::string& description,
+	unsigned max_tex_size,
+	unsigned max_anisotropy_level)
+: adapter_number(adapter_number),
+  driver_name(driver_name),
+  description(description),
+  max_tex_size(max_tex_size),
+  max_anisotropy_level(max_anisotropy_level)
+{}

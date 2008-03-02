@@ -18,29 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../image_loader.hpp"
-#include "../image.hpp"
-#include "../error.hpp"
+#ifndef SGE_DEFAULT_RENDERER_STATES_HPP_INCLUDED
+#define SGE_DEFAULT_RENDERER_STATES_HPP_INCLUDED
 
-sge::devil::image_loader::image_loader()
+#include "renderer_states.hpp"
+
+namespace sge
 {
-	ilEnable(IL_FORMAT_SET);
-	ilSetInteger(IL_FORMAT_MODE, IL_RGBA);
-	ilEnable(IL_FILE_OVERWRITE);
-	check_errors();
+
+renderer_state_list default_renderer_states();
+
 }
 
-sge::image_ptr sge::devil::image_loader::load_image(const path& p)
-{
-	return image_ptr(new image(p));
-}
-
-sge::image_ptr sge::devil::image_loader::load_image(const image_format::type type, const image::const_pointer format_data, const image::size_type size)
-{
-	return image_ptr(new image(type, format_data, size));
-}
-
-sge::image_ptr sge::devil::image_loader::create_image(const image::const_pointer p, const image::dim_type& dim)
-{
-	return image_ptr(new image(p, dim));
-}
+#endif
