@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../default_renderer_states.hpp"
 #include "../color.hpp"
+#include "../colors.hpp"
 
 sge::renderer_state_list sge::default_renderer_states()
 {
