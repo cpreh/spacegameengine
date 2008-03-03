@@ -147,6 +147,30 @@ T clamp(const T& value, const T& vmin, const T& vmax)
 	return std::max(std::min(value, vmax), vmin);
 }
 
+template<typename T>
+typename boost::enable_if<boost::is_floating_point<T>, void>::type mod_assign(T& l, const T& r)
+{
+	l = std::fmod(l, r);
+}
+
+template<typename T>
+typename boost::enable_if<boost::is_unsigned<T>, void>::type mod_assign(T& l, const T& r)
+{
+	l %= r;
+}
+
+template<typename T>
+typename boost::enable_if<boost::is_floating_point<T>, T>::type mod(const T& a, const T& b)
+{
+	return std::fmod(a, b);
+}
+
+template<typename T>
+typename boost::enable_if<boost::is_unsigned<T>, T>::type mod(const T& a, const T& b)
+{
+	return a % b;
+}
+
 }
 }
 

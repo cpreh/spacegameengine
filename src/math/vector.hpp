@@ -137,19 +137,6 @@ public:
 		return ret;
 	}
 
-	value_type operator*(const basic_vector& r) const
-	{
-		return dot(r);
-	}
-
-	value_type dot(const basic_vector& r) const
-	{
-		value_type ret(0);
-		for(size_type i = 0; i < Dim; ++i)
-			ret += (*this)[i] * r[i];
-		return ret;
-	}
-
 	basic_vector& operator*=(const_reference r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -157,14 +144,26 @@ public:
 		return *this;
 	}
 
+	basic_vector& operator*=(const basic_vector& r)
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			(*this)[i] *= r[i];
+		return *this;
+	}
+
+	basic_vector operator*(const_reference r) const
+	{
+		return basic_vector(*this) *= r;
+	}
+
+	basic_vector operator*(const basic_vector& r) const
+	{
+		return basic_vector(*this) *= r;
+	}
+
 	friend basic_vector operator*(const_reference l, basic_vector r)
 	{
 		return r *= l;
-	}
-
-	friend basic_vector operator*(const basic_vector& l, const_reference r)
-	{
-		return r * l;
 	}
 
 	basic_vector& operator/=(const_reference r)
@@ -174,9 +173,53 @@ public:
 		return *this;
 	}
 
-	friend basic_vector operator/(basic_vector l, const_reference r)
+	basic_vector& operator/=(const basic_vector& r)
 	{
-		return l /= r;
+		for(size_type i = 0; i < Dim; ++i)
+			(*this)[i] /= r[i];
+		return *this;
+	}
+
+	basic_vector operator/(const_reference r) const
+	{
+		return basic_vector(*this) /= r;
+	}
+
+	basic_vector operator/(const basic_vector& r) const
+	{
+		return basic_vector(*this) /= r;
+	}
+
+	basic_vector& operator%=(const_reference r)
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			mod_assign((*this)[i], r);
+		return *this;
+	}
+
+	basic_vector& operator%=(const basic_vector& r)
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			mod_assign((*this)[i], r[i]);
+		return *this;
+	}
+
+	basic_vector operator%(const_reference r) const
+	{
+		return basic_vector(*this) %= r;
+	}
+
+	basic_vector operator%(const basic_vector& r) const
+	{
+		return basic_vector(*this) %= r;
+	}
+
+	value_type dot(const basic_vector& r) const
+	{
+		value_type ret(0);
+		for(size_type i = 0; i < Dim; ++i)
+			ret += (*this)[i] * r[i];
+		return ret;
 	}
 
 	reference operator[](const size_type pos)
