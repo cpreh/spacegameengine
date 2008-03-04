@@ -29,11 +29,11 @@ namespace sge
 {
 	
 struct material {
-	SGE_SYMBOL material(const color4 diffuse = color4(),
-	                    const color4 ambient = color4(),
-	                    const color4 specular = color4(),
-	                    const color4 emissive = color4(),
-	                    const space_unit power = 0);
+	SGE_SYMBOL material(const color4 diffuse,
+	                    const color4 ambient,
+	                    const color4 specular,
+	                    const color4 emissive,
+	                    const space_unit power);
 	
 	color4     diffuse;
 	color4     ambient; 

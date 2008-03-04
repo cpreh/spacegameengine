@@ -58,7 +58,7 @@ void sge::line_strip::render()
 		color_state::ambient_light_color = col_
 	));
 	set_matrices();
-	rend->set_material(material(color4(1,1,1,1), color4(1,1,1,1)));
+//	rend->set_material(material(color4(1,1,1,1), color4(1,1,1,1)));
 	rend->set_texture(texture_ptr());
 
 	if(vb->size() < vertices.size())
