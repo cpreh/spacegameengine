@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iostream>
 #include <algorithm>
 #include "../../../exception.hpp"
 #include "../../../renderer/types.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 #include "../enumeration.hpp"
 #include "../constants.hpp"
 #include "../conversion.hpp"
@@ -31,16 +32,16 @@ void sge::d3d9::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, 
 {
 	D3DCAPS9 caps;
 	if(sys->GetDeviceCaps(adapter,D3DDEVTYPE_HAL,&caps) != D3D_OK)
-		throw exception("GetDeviceCaps failed");
+		throw exception(SGE_TEXT("GetDeviceCaps failed"));
 
 	D3DADAPTER_IDENTIFIER9 identifier;
 	if(sys->GetAdapterIdentifier(adapter,0,&identifier) != D3D_OK)
-		throw exception("GetAdapterIdentifier failed");
+		throw exception(SGE_TEXT("GetAdapterIdentifier failed"));
 
 	c.adapter_number = adapter;
 	c.max_tex_size = caps.MaxTextureWidth;
 	if(caps.MaxTextureWidth != caps.MaxTextureHeight)
-		std::cerr << "Warning: MaxTextureWidth != MaxTextureHeight (case not handled)\n";
+		sge::cerr << SGE_TEXT("Warning: MaxTextureWidth != MaxTextureHeight (case not handled)\n");
 	c.max_tex_size = std::min(caps.MaxTextureHeight, caps.MaxTextureWidth);
 	c.driver_name = &identifier.Driver[0];
 	c.description = &identifier.Description[0];

@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
-#include <iostream>
-#include <ostream>
 #include "../../../exception.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 #include "../../../math/round_div_int.hpp"
 #include "../../../renderer/display_mode.hpp"
 #include "../xf86vidmode.hpp"
@@ -34,7 +34,7 @@ sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display_ptr dsp, const 
 	int event_base, error_base;
 	if(XF86VidModeQueryExtension(dsp->get(), &event_base, &error_base) == False)
 	{
-		std::cerr << "Warning: xf86 video modes queried but extension is not present!\n";
+		sge::cerr << SGE_TEXT("Warning: xf86 video modes queried but extension is not present!\n");
 		sz = 0;
 		return;
 	}

@@ -18,12 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <cstring>
 #include <boost/array.hpp>
 #include <boost/bind.hpp>
 #include "../../../exception.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 #include "../../../input/key_type.hpp"
 #include "../../../util.hpp"
-#include "../../../iconv.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 #include "../input_system.hpp"
 #include "../pointer.hpp"
 #include <X11/keysym.h>
@@ -54,7 +58,7 @@ sge::xinput::input_system::input_system(const x_window_ptr wnd)
 		throw exception(SGE_TEXT("XF86DGAQueryDirectVideo() failed!"));
 	if(flags & XF86DGADirectMouse)
 	{
-		std::cerr << "You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system! Maybe you are missing libXxf86dga or a proper video driver? Disabling dga.";
+		sge::cerr << SGE_TEXT("You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system! Maybe you are missing libXxf86dga or a proper video driver? Disabling dga.\n");
 		use_dga = false;
 	}
 #endif
@@ -596,7 +600,7 @@ sge::key_type sge::xinput::input_system::create_key_type(const XEvent& xev)
 
 	if(num_chars > 1)
 	{
-		std::cerr << "stub: character '" << code << "' in XLookupString has " << num_chars << " bytes!\n";
+		sge::cerr << SGE_TEXT("stub: character '") << code << SGE_TEXT("' in XLookupString has ") << num_chars << SGE_TEXT(" bytes!\n");
 		return key_type();
 	}
 
@@ -650,7 +654,7 @@ sge::key_type sge::xinput::input_system::mouse_key(const unsigned x11code) const
 sge::key_type::string sge::xinput::input_system::get_key_name(const KeySym ks) const
 {
 	const char* const name = XKeysymToString(ks);
-	return name ? iconv(name) : iconv("unknown");
+	return name ? sge::key_type::string(name,name+std::strlen(name)) : SGE_TEXT("unknown");
 }
 
 sge::key_code sge::xinput::input_system::get_key_code(const KeySym ks) const
@@ -729,14 +733,14 @@ void sge::xinput::input_system::warped_motion(XEvent xevent)
 			break;
 
 		if(i == max_loops - 1)
-			std::cerr << "warning: didn't detect mouse warp motion! Try to enable dga mouse instead.\n";
+			sge::cerr << SGE_TEXT("warning: didn't detect mouse warp motion! Try to enable dga mouse instead.\n");
 	}
 }
 
-const sge::key_type sge::xinput::input_system::mouse_x(iconv("mouse_x"), kc::mouse_x_axis);
-const sge::key_type sge::xinput::input_system::mouse_y(iconv("mouse_y"), kc::mouse_y_axis);
-const sge::key_type sge::xinput::input_system::undefined_mouse_key(iconv("undefined mouse key"));
-const sge::key_type sge::xinput::input_system::mouse_l(iconv("mouse_L"), kc::mouse_l);
-const sge::key_type sge::xinput::input_system::mouse_r(iconv("mouse_R"), kc::mouse_r);
-const sge::key_type sge::xinput::input_system::mouse_m(iconv("mouse_M"), kc::mouse_m);
+const sge::key_type sge::xinput::input_system::mouse_x(SGE_TEXT("mouse_x"), kc::mouse_x_axis);
+const sge::key_type sge::xinput::input_system::mouse_y(SGE_TEXT("mouse_y"), kc::mouse_y_axis);
+const sge::key_type sge::xinput::input_system::undefined_mouse_key(SGE_TEXT("undefined mouse key"));
+const sge::key_type sge::xinput::input_system::mouse_l(SGE_TEXT("mouse_L"), kc::mouse_l);
+const sge::key_type sge::xinput::input_system::mouse_r(SGE_TEXT("mouse_R"), kc::mouse_r);
+const sge::key_type sge::xinput::input_system::mouse_m(SGE_TEXT("mouse_M"), kc::mouse_m);
 

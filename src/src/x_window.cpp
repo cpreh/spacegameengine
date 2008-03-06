@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #ifdef SGE_LINUX_PLATFORM
 
-#include <iostream>
-#include <ostream>
 #include <boost/array.hpp>
 #include <boost/assign/list_of.hpp>
 #include "../exception.hpp"
+#include "../iostream.hpp"
+#include "../ostream.hpp"
 #include "../iconv.hpp"
 #include "../x_window.hpp"
 
@@ -200,7 +200,7 @@ int handler(Display* const d, XErrorEvent* const e)
 {
 	boost::array<char,1024> buf;
 	XGetErrorText(d, e->error_code,buf.c_array(), static_cast<int>(buf.size()));
-	std::cerr << "X Error: " << buf.data() << '\n';
+	sge::cerr << SGE_TEXT("X Error: ") << buf.data() << SGE_TEXT('\n');
 	return 0;
 }
 

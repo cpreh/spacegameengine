@@ -1,0 +1,3 @@
+#!/bin/sh
+
+find . -type d \( -name '.svn' -o -name 'CMake*' \) -prune -o -exec grep -H --binary-files=without-match --color=auto "$*" '{}' \;

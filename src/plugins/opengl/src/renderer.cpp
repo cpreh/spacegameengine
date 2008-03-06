@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iostream>
-#include <ostream>
 #include <boost/foreach.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include "../../../bit.hpp"
 #include "../../../exception.hpp"
 #include "../../../types.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 #include "../../../renderer/material.hpp"
 #include "../../../renderer/primitive.hpp"
 #include "../../../renderer/renderer_system.hpp"
@@ -79,7 +79,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 #endif
 {
 	if(adapter > 0)
-		std::cerr << "stub: adapter cannot be > 0 for opengl plugin (adapter was " << adapter << ").\n";
+		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
 
 	bool windowed = param.windowed;
 #ifdef SGE_WINDOWS_PLATFORM
@@ -96,7 +96,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
 		{
-			std::cerr << "Cannot change resolution to " << param.mode << "! Reverting to window mode!\n";
+			sge::cerr << SGE_TEXT("Cannot change resolution to ") << param.mode << SGE_TEXT("! Reverting to window mode!\n");
 			windowed = false;
 		}
 	}
@@ -148,7 +148,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 		resolution = modes->switch_to_mode(param.mode);
 		if(!resolution)
 		{
-			std::cerr << "Warning: No resolution matches against " << param.mode << "! Falling back to window mode!\n";
+			sge::cerr << SGE_TEXT("Warning: No resolution matches against ") << param.mode << SGE_TEXT("! Falling back to window mode!\n");
 			windowed = true;
 		}
 	}

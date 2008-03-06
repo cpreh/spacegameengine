@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iostream>
-#include <ostream>
 #include "../virtual_texture.hpp"
 #include "../fragmented_texture.hpp"
 #include "../atlasing.hpp"
@@ -27,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../renderer/transform.hpp"
 #include "../../math/compare.hpp"
 #include "../../math/rect_impl.hpp"
+#include "../../iostream.hpp"
+#include "../../ostream.hpp"
 
 sge::virtual_texture::virtual_texture(const lock_rect& outer_area_, fragmented_texture& fragment, const bool repeatable_)
 : outer_area_(outer_area_),
@@ -53,7 +53,7 @@ const sge::lock_rect& sge::virtual_texture::outer_area() const
 const sge::math::rect sge::virtual_texture::area_texc(const space_unit repeat) const
 {
 	if(!math::compare(repeat, static_cast<space_unit>(1)) && repeatable() == false)
-		std::cerr << "Warning: texture not repeatable but repetition is " << repeat << "!\n";
+		sge::cerr << SGE_TEXT("Warning: texture not repeatable but repetition is ") << repeat << SGE_TEXT("!\n");
 
 	const texture_ptr tex = my_texture();
 	return tex ? tex_size_to_space_rect(area(), tex->dim(), repeat) : math::rect();

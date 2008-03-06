@@ -259,12 +259,12 @@ try
 }
 catch(const std::exception& e)
 {
-	std::cerr << "Program terminated (std::exception caught): " << e.what() << '\n';
+	sge::cerr << SGE_TEXT("Program terminated (std::exception caught): ") << e.what() << '\n';
 	return EXIT_FAILURE;
 }
 catch(...)
 {
-	std::cerr << "Program terminated (unknown exception caught)!\n";
+	sge::cerr << SGE_TEXT("Program terminated (unknown exception caught)!\n");
 	return EXIT_FAILURE;
 }
 #endif

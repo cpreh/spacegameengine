@@ -17,10 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include <iostream>
 #include <boost/array.hpp>
 #include "../keyboard.hpp"
 #include "../../../win32_conv.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 
 sge::dinput::keyboard::keyboard(const dinput_ptr di, const string& name, const GUID guid, sge::win32_window_ptr window, const key_converter& conv)
 : input_device(di,name,guid,window),
@@ -83,6 +84,6 @@ sge::string::value_type sge::dinput::keyboard::keycode_to_char(const key_code ke
 	WORD result;
 	if(ToAsciiEx(vk, dik, state.c_array(), &result, 0, kblayout) == 1)
 		return *reinterpret_cast<char*>(&result);
-	std::cerr << "stub: Key names with more than one char are not supported.\n";
+	sge::cerr << SGE_TEXT("stub: Key names with more than one char are not supported.\n");
 	return 0;
 }

@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iostream>
-#include <ostream>
 #include "../../../exception.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 #include "../../../math/rect_impl.hpp"
 #include "../../../math/log.hpp"
 #include "../error.hpp"
@@ -72,12 +72,12 @@ void sge::ogl::set_texture(const GLenum tex_type,
 	// TODO: clean this up and use texture::dim_type
 
 	if(width < 64 || height < 64)
-		std::cerr << "warning: opengl implementations are not required to support textures smaller than 64x64."\
-		             " Specified texture size was " << width << 'x' << height << ".\n";
+		sge::cerr << SGE_TEXT("warning: opengl implementations are not required to support textures smaller than 64x64.")\
+		             SGE_TEXT(" Specified texture size was ") << width << SGE_TEXT('x') << height << SGE_TEXT(".\n");
 
 	if(!math::is_int_log2(width) || !math::is_int_log2(height))
-		std::cerr << "warning: opengl implementations are not required to support textures with dimensions that are not a power of 2."\
-		             " Specified texture size was " << width << 'x' << height << ".\n";
+		sge::cerr << SGE_TEXT("warning: opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
+		             SGE_TEXT(" Specified texture size was ") << width << SGE_TEXT('x') << height << SGE_TEXT(".\n");
 
 	glTexImage2D(tex_type, 0, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), 0, format, type, src);
 
@@ -183,10 +183,10 @@ void sge::ogl::set_texture_filter(const GLenum type,
 		}
 		catch(const exception&)
 		{
-			std::cerr << "Warning: anisotropy level " << filter.anisotropy_level << " not supported!\n";
+			sge::cerr << SGE_TEXT("Warning: anisotropy level ") << filter.anisotropy_level << SGE_TEXT(" not supported!\n");
 		}
 #else
-		std::cerr << "Warning: anisotropic filtering is not supported!\n";
+		sge::cerr << SGE_TEXT("Warning: anisotropic filtering is not supported!\n");
 #endif
 	}
 }

@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iostream>
 #include "../../../exception.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 #include "../multi_texture.hpp"
 #include "../common.hpp"
 
@@ -27,7 +28,7 @@ void sge::ogl::set_texture_level(const stage_type stage)
 {
 	if(stage >= static_cast<stage_type>(std::max(GL_MAX_TEXTURE_COORDS, GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS)))
 	{
-		std::cerr << "GL_MAX_COMBINED_TEXTURE_UNITS is " << GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS << ". Setting texture stage " << stage << " ignored!\n";
+		sge::cerr << SGE_TEXT("GL_MAX_COMBINED_TEXTURE_UNITS is ") << GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS << SGE_TEXT(". Setting texture stage ") << stage << SGE_TEXT(" ignored!\n");
 		return;
 	}
 

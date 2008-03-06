@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../exception.hpp"
 #include "../../istream_util.hpp"
 #include "../../istream_util_impl.hpp"
+#include "../../iostream.hpp"
+#include "../../ostream.hpp"
 
 const std::size_t max_qpath = 64;
 
@@ -44,7 +46,7 @@ sge::md3_model::md3_model(std::istream& is)
 
 	const s32 version = read<s32>(is);
 	if(version != 15)
-		std::cerr << "md3 version is not 15 but continuing anyway...\n";
+		sge::cerr << SGE_TEXT("md3 version is not 15 but continuing anyway...\n");
 
 	name_ = read_string<max_qpath>(is);
 

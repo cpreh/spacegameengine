@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <cstdlib>
-#include <iostream>
-#include <ostream>
 #include <exception>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/assign/list_of.hpp>
 #include "../src/systems.hpp"
+#include "../src/iostream.hpp"
+#include "../src/ostream.hpp"
 #include "../src/media.hpp"
 #include "../src/init.hpp"
 #include "../src/math/matrix.hpp"
@@ -112,6 +112,6 @@ try
 }
 catch(const std::exception& e)
 {
-	std::cerr << e.what() << '\n';
+	sge::cerr << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 }

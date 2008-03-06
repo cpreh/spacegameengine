@@ -1,11 +1,13 @@
 // c++
 #include <cctype>
-#include <fstream>
 // boost
 #include <boost/bind.hpp>
 #include <boost/array.hpp>
 // sge
 #include "../../sprite/system_impl.hpp"
+#include "../../iostream.hpp"
+#include "../../ostream.hpp"
+#include "../../fstream.hpp"
 #include "../console_gfx.hpp"
 
 namespace
@@ -26,34 +28,6 @@ typename IteratorType::value_type join(IteratorType begin,IteratorType end,const
 	s += *begin;
 	return s;
 }
-
-// helper to get the standard streams regardless of the character type used
-template<typename T>
-struct stdinner {};
-
-template<>
-struct stdinner<char>
-{
-	static std::ostream &cout() { return std::cout; }
-	static std::ostream &cerr() { return std::cerr; }
-	static std::ostream &clog() { return std::clog; }
-};
-
-template<>
-struct stdinner<wchar_t>
-{
-	static std::wostream &cout() { return std::wcout; }
-	static std::wostream &cerr() { return std::wcerr; }
-	static std::wostream &clog() { return std::wclog; }
-};
-
-template<typename T>
-struct stdouter
-{
-	static std::basic_ostream<T> &cout() { return stdinner<T>::cout(); }
-	static std::basic_ostream<T> &cerr() { return stdinner<T>::cerr(); }
-	static std::basic_ostream<T> &clog() { return stdinner<T>::clog(); }
-};
 
 }
 
@@ -87,13 +61,13 @@ void sge::con::console_gfx::dump(const arg_list &args)
 {
 	if (args.size() == 1)
 	{
-		std::copy(history.begin(),history.end(),std::ostream_iterator<sge::string,sge::string::value_type>(stdouter<sge::string::value_type>::cout(),SGE_TEXT("\n")));
+		std::copy(history.begin(),history.end(),std::ostream_iterator<sge::string,sge::string::value_type>(sge::cout,SGE_TEXT("\n")));
 		print(SGE_TEXT("dumped history to stdout"));
 	}
 	else
 	{
-		std::basic_ofstream<sge::string::value_type> file(std::string(args[1].begin(),args[1].end()).c_str());
-		std::cout << std::string(args[1].begin(),args[1].end()).c_str() << "\n";
+		sge::text_ofstream file(args[1]);
+		sge::cout << args[1] << SGE_TEXT("\n");
 		if (!file.is_open())
 		{
 			print(SGE_TEXT("error: couldn't open file \"") + args[1] + SGE_TEXT("\""));

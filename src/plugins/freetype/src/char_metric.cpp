@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../face.hpp"
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 
 sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_unit pixel_size)
 {
@@ -44,7 +46,7 @@ sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_un
 
 	if(bitmap.width == 0 || bitmap.rows == 0)
 	{
-		std::cerr << "warning: freetype char with value " << static_cast<int>(ch) << " requested which freetype can't handle!\n";
+		sge::cerr << SGE_TEXT("warning: freetype char with value ") << static_cast<int>(ch) << SGE_TEXT(" requested which freetype can't handle!\n");
 		return;
 	}
 
