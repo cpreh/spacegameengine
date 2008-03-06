@@ -17,47 +17,42 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#ifndef SGE_MATH_MOD_HPP_INCLUDED
+#define SGE_MATH_MOD_HPP_INCLUDED
 
-#include "../key_type.hpp"
+#include <cmath>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 
-sge::key_type::key_type(const string& name_, const key_code code_, const char_type char_code_)
- : name_(name_),
-   code_(code_),
-   char_code_(char_code_)
-{}
-
-const sge::key_type::string& sge::key_type::name() const
+namespace sge
 {
-	return name_;
+namespace math
+{
+template<typename T>
+typename boost::enable_if<boost::is_floating_point<T>, void>::type mod_assign(T& l, const T& r)
+{
+	l = std::fmod(l, r);
 }
 
-sge::key_code sge::key_type::code() const
+template<typename T>
+typename boost::enable_if<boost::is_unsigned<T>, void>::type mod_assign(T& l, const T& r)
 {
-	return code_;
+	l %= r;
 }
 
-sge::key_type::char_type sge::key_type::char_code() const
+template<typename T>
+typename boost::enable_if<boost::is_floating_point<T>, T>::type mod(const T& a, const T& b)
 {
-	return char_code_;
+	return std::fmod(a, b);
 }
 
-void sge::key_type::char_code(const char_type ch)
+template<typename T>
+typename boost::enable_if<boost::is_unsigned<T>, T>::type mod(const T& a, const T& b)
 {
-	char_code_ = ch;
+	return a % b;
+}
+}
 }
 
-
-sge::key_pair::key_pair(const key_type& key_, const key_state value_)
-: key_(key_),
-  value_(value_)
-{}
-
-const sge::key_type& sge::key_pair::key() const
-{
-	return key_;
-}
-
-sge::key_state sge::key_pair::value() const
-{
-	return value_;
-}
+#endif

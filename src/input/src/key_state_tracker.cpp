@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/bind.hpp>
 #include "../key_state_tracker.hpp"
-#include "../../math/utility.hpp"
 
 sge::key_state_tracker::key_state_tracker(const input_system_ptr is)
 : con(is->register_callback(boost::bind(&key_state_tracker::event_handler,this,_1)))

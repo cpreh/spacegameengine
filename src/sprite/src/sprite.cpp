@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <cmath>
-#include "../../math/utility.hpp"
+#include "../../math/compare.hpp"
 #include "../../math/rect_impl.hpp"
 #include "../sprite.hpp"
 #include "../helper.hpp"

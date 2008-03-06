@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #include "../util.hpp"
 #include "../exception.hpp"
-#include "utility.hpp"
 
 #ifndef SGE_MATH_VECTOR_MAX_SIZE
 #define SGE_MATH_VECTOR_MAX_SIZE 4

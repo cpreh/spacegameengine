@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../atlasing.hpp"
 #include "../../raw_vector_impl.hpp"
 #include "../../renderer/transform.hpp"
-#include "../../math/utility.hpp"
+#include "../../math/compare.hpp"
 #include "../../math/rect_impl.hpp"
 
 sge::virtual_texture::virtual_texture(const lock_rect& outer_area_, fragmented_texture& fragment, const bool repeatable_)

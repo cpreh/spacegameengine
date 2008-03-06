@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../algorithm_impl.hpp"
 #include "../renderer/scoped_lock.hpp"
 #include "../renderer/scoped_state.hpp"
-#include "../math/utility.hpp"
 
 template<typename RanIt>
 void sge::sprite_system::render(const RanIt beg, const RanIt end)

@@ -17,47 +17,30 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#ifndef SGE_MATH_LOG_HPP_INCLUDED
+#define SGE_MATH_LOG_HPP_INCLUDED
 
-#include "../key_type.hpp"
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
 
-sge::key_type::key_type(const string& name_, const key_code code_, const char_type char_code_)
- : name_(name_),
-   code_(code_),
-   char_code_(char_code_)
-{}
-
-const sge::key_type::string& sge::key_type::name() const
+namespace sge
 {
-	return name_;
+namespace math
+{
+inline unsigned log2(const unsigned x)
+{
+	unsigned r = 0;
+	while((x >> r) != 0)
+		r++;
+	return --r;
 }
 
-sge::key_code sge::key_type::code() const
+template<typename T>
+inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type is_int_log2(const T x)
 {
-	return code_;
+	return !(x & (x-1));
+}
+}
 }
 
-sge::key_type::char_type sge::key_type::char_code() const
-{
-	return char_code_;
-}
-
-void sge::key_type::char_code(const char_type ch)
-{
-	char_code_ = ch;
-}
-
-
-sge::key_pair::key_pair(const key_type& key_, const key_state value_)
-: key_(key_),
-  value_(value_)
-{}
-
-const sge::key_type& sge::key_pair::key() const
-{
-	return key_;
-}
-
-sge::key_state sge::key_pair::value() const
-{
-	return value_;
-}
+#endif

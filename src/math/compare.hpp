@@ -17,47 +17,42 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#ifndef SGE_MATH_COMPARE_HPP_INCLUDED
+#define SGE_MATH_COMPARE_HPP_INCLUDED
 
-#include "../key_type.hpp"
+#include <limits>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include "abs.hpp"
 
-sge::key_type::key_type(const string& name_, const key_code code_, const char_type char_code_)
- : name_(name_),
-   code_(code_),
-   char_code_(char_code_)
-{}
-
-const sge::key_type::string& sge::key_type::name() const
+namespace sge
 {
-	return name_;
+namespace math
+{
+template<typename T>
+inline bool nearly_equals(const T& a, const T& b)
+{
+	return abs(a - b) < std::numeric_limits<T>::epsilon();
 }
 
-sge::key_code sge::key_type::code() const
+template<typename T>
+inline typename boost::disable_if<boost::is_floating_point<T>, bool>::type compare(const T& a, const T& b)
 {
-	return code_;
+	return a == b;
 }
 
-sge::key_type::char_type sge::key_type::char_code() const
+template<typename T>
+inline typename boost::enable_if<boost::is_floating_point<T>, bool>::type compare(const T& a, const T& b)
 {
-	return char_code_;
+	return nearly_equals(a, b);
 }
 
-void sge::key_type::char_code(const char_type ch)
+template<typename T>
+inline bool almost_zero(const T t)
 {
-	char_code_ = ch;
+	return compare(t, static_cast<T>(0));
+}
+}
 }
 
-
-sge::key_pair::key_pair(const key_type& key_, const key_state value_)
-: key_(key_),
-  value_(value_)
-{}
-
-const sge::key_type& sge::key_pair::key() const
-{
-	return key_;
-}
-
-sge::key_state sge::key_pair::value() const
-{
-	return value_;
-}
+#endif

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iostream>
-#include <ostream>
+#include "../../iostream.hpp"
+#include "../../ostream.hpp"
 #include "../no_fragmented_texture.hpp"
 #include "../atlasing.hpp"
-#include "../../math/utility.hpp"
+#include "../../math/power.hpp"
 
 sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend, const filter_args& my_filter)
  : rend(rend),
@@ -44,10 +44,10 @@ const sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(con
 	if(!no_atlasing && !warn_once)
 	{
 		warn_once = true;
-		std::cerr << "warning: You used a no_fragmented_texture whose dimensions are not a power of 2."\
-		             " This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive."\
-			     " The texture's size was " << dim << "."\
-			     " This message will only be displayed once.\n";
+		sge::cerr << SGE_TEXT("warning: You used a no_fragmented_texture whose dimensions are not a power of 2.")\
+		             SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
+			     SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT(".")\
+			     SGE_TEXT(" This message will only be displayed once.\n");
 	}
 
 	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0,0), no_atlasing ? dim : atlased_size(dim)), *this, no_atlasing));

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../exception.hpp"
 #include "matrix_proxy.hpp"
 #include "vector.hpp"
-#include "utility.hpp"
+#include "compare.hpp"
 
 #ifndef SGE_MATH_MATRIX_MAX_SIZE
 #define SGE_MATH_MATRIX_MAX_SIZE 16
