@@ -145,10 +145,9 @@ public:
 	virtual void set_render_target(texture_ptr target) = 0;
 	virtual void set_viewport(const viewport&) = 0;
 
-	SGE_SYMBOL static const std::string no_shader;
 	virtual const glsl::program_ptr create_glsl_program(
-		const std::string& vertex_shader_source = no_shader,
-		const std::string& pixel_shader_source = no_shader) = 0;
+		const std::string& vertex_shader_source,
+		const std::string& pixel_shader_source) = 0;
 
 	SGE_SYMBOL static const glsl::program_ptr no_program;
 	virtual void set_glsl_shader(glsl::program_ptr) = 0;

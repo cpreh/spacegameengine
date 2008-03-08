@@ -35,19 +35,27 @@ namespace ogl
 
 // TODO: put some of them in their appropriate locations
 
-template<typename D, typename S> D convert_cast(const S&);
-template<> GLuint convert_cast(const lock_flag_t&);
-template<> GLenum convert_cast(const indexed_primitive_type::type&);
-template<> GLenum convert_cast(const nonindexed_primitive_type::type&);
-template<> GLenum convert_cast(const min_filter::type&);
-template<> GLenum convert_cast(const mag_filter::type&);
+GLenum convert_cast(bool_state::type);
+GLenum convert_cast(cull_mode::type);
+GLenum convert_cast(depth_func::type);
+GLenum convert_cast(stencil_func::type);
+GLenum convert_cast(fog_mode::type);
+GLenum convert_cast(source_blend_func::type);
+GLenum convert_cast(dest_blend_func::type);
+GLenum convert_cast(draw_mode::type);
+
+GLuint convert_cast(const lock_flag_t&);
+GLenum convert_cast(const indexed_primitive_type::type&);
+GLenum convert_cast(const nonindexed_primitive_type::type&);
+GLenum convert_cast(const min_filter::type&);
+GLenum convert_cast(const mag_filter::type&);
 #ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
-template<> GLenum convert_cast(const cube_side::type&);
+GLenum convert_cast(const cube_side::type&);
 #endif
-template<> GLenum convert_cast(const texture_stage_op::type&);
-template<> GLenum convert_cast(const texture_stage_op_value::type&);
-template<> GLenum convert_cast(const texture_stage_arg::type&);
-template<> GLenum convert_cast(const texture_stage_arg_value::type&);
+GLenum convert_cast(const texture_stage_op::type&);
+GLenum convert_cast(const texture_stage_op_value::type&);
+GLenum convert_cast(const texture_stage_arg::type&);
+GLenum convert_cast(const texture_stage_arg_value::type&);
 
 GLuint convert_resource_flags(resource_flag_t);
 GLenum convert_fog_float_state(float_state::type);

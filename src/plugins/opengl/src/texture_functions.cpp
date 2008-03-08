@@ -172,8 +172,8 @@ void sge::ogl::bind_texture(const GLenum type,
 void sge::ogl::set_texture_filter(const GLenum type,
                                   const filter_args& filter)
 {
-	tex_parameter_i(type, GL_TEXTURE_MIN_FILTER, convert_cast<GLenum>(filter.min_filter));
-	tex_parameter_i(type, GL_TEXTURE_MAG_FILTER, convert_cast<GLenum>(filter.mag_filter));
+	tex_parameter_i(type, GL_TEXTURE_MIN_FILTER, convert_cast(filter.min_filter));
+	tex_parameter_i(type, GL_TEXTURE_MAG_FILTER, convert_cast(filter.mag_filter));
 	if(filter.anisotropy_level)
 	{
 #if GL_EXT_texture_filter_anisotropic

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 const sge::texture_ptr sge::renderer::no_texture;
 const sge::texture_ptr sge::renderer::default_render_target;
 const sge::glsl::program_ptr sge::renderer::no_program;
-const std::string sge::renderer::no_shader;
 
 void sge::renderer::set_state(const any_renderer_state &state)
 {

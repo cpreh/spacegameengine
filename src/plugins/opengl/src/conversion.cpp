@@ -21,7 +21,161 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../conversion.hpp"
 
-template<> GLuint sge::ogl::convert_cast(const lock_flag_t& f)
+GLenum sge::ogl::convert_cast(const bool_state::type s)
+{
+	typedef renderer_state_var_traits<bool> rs;
+
+	switch(s.state_id) {
+	case rs::enable_alpha_blending:
+		return GL_BLEND;
+	case rs::enable_lighting:
+		return GL_LIGHTING;
+	default:
+		throw exception(SGE_TEXT("Invalid bool_state!"));
+	}
+}
+
+GLenum sge::ogl::convert_cast(const cull_mode::type m)
+{		
+	switch(m.value()) {
+	case renderer_state_cull_mode_type::back:
+		return GL_BACK;
+	case renderer_state_cull_mode_type::front:
+		return GL_FRONT;
+	default:
+		throw exception(SGE_TEXT("Invalid cull_mode!"));
+	}
+}
+
+GLenum sge::ogl::convert_cast(const depth_func::type f)
+{
+	switch(f.value()) {
+	case renderer_state_depth_func_type::never:
+		return GL_NEVER;
+	case renderer_state_depth_func_type::less:
+		return GL_LESS;
+	case renderer_state_depth_func_type::equal:
+		return GL_EQUAL;
+	case renderer_state_depth_func_type::less_equal:
+		return GL_LEQUAL;
+	case renderer_state_depth_func_type::greater:
+		return GL_GREATER;
+	case renderer_state_depth_func_type::not_equal:
+		return GL_NOTEQUAL;
+	case renderer_state_depth_func_type::greater_equal:
+		return GL_GEQUAL;
+	case renderer_state_depth_func_type::always:
+		return GL_ALWAYS;
+	default:
+		throw exception(SGE_TEXT("Invalid depth_func!"));
+	}
+}
+
+GLenum sge::ogl::convert_cast(const stencil_func::type f)
+{
+	switch(f.value()) {
+	case renderer_state_stencil_func_type::never:
+		return GL_NEVER;
+	case renderer_state_stencil_func_type::less:
+		return GL_LESS;
+	case renderer_state_stencil_func_type::equal:
+		return GL_EQUAL;
+	case renderer_state_stencil_func_type::less_equal:
+		return GL_LEQUAL;
+	case renderer_state_stencil_func_type::greater:
+		return GL_GREATER;
+	case renderer_state_stencil_func_type::not_equal:
+		return GL_NOTEQUAL;
+	case renderer_state_stencil_func_type::greater_equal:
+		return GL_GEQUAL;
+	case renderer_state_stencil_func_type::always:
+		return GL_ALWAYS;
+	default:
+		throw exception(SGE_TEXT("Invalid stencil_func!"));
+	}
+}
+
+GLenum sge::ogl::convert_cast(const fog_mode::type m)
+{
+	switch(m.value()) {
+	case renderer_state_fog_mode_type::linear:
+		return GL_LINEAR;
+	case renderer_state_fog_mode_type::exp:
+		return GL_EXP;
+	case renderer_state_fog_mode_type::exp2:
+		return GL_EXP2;
+	default:
+		throw exception(SGE_TEXT("Invalid fog_mode!"));
+	}
+}
+
+GLenum sge::ogl::convert_cast(const source_blend_func::type f)
+{
+	switch(f.value()) {
+	case renderer_state_source_blend_func_type::zero:
+		return GL_ZERO;
+	case renderer_state_source_blend_func_type::one:
+		return GL_ONE;
+	case renderer_state_source_blend_func_type::dest_color:
+		return GL_DST_COLOR;
+	case renderer_state_source_blend_func_type::inv_dest_color:
+		return GL_ONE_MINUS_DST_COLOR;
+	case renderer_state_source_blend_func_type::src_alpha:
+		return GL_SRC_ALPHA;
+	case renderer_state_source_blend_func_type::inv_src_alpha:
+		return GL_ONE_MINUS_SRC_ALPHA;
+	case renderer_state_source_blend_func_type::dest_alpha:
+		return GL_DST_ALPHA;
+	case renderer_state_source_blend_func_type::inv_dest_alpha:
+		return GL_ONE_MINUS_DST_ALPHA;
+	case renderer_state_source_blend_func_type::src_alpha_sat:
+		return GL_SRC_ALPHA_SATURATE;
+	default:
+		throw exception(SGE_TEXT("Invalid source_blend_func!"));
+	}
+}
+
+GLenum sge::ogl::convert_cast(const dest_blend_func::type f)
+{
+	switch(f.value()) {
+	case renderer_state_dest_blend_func_type::zero:
+		return GL_ZERO;
+	case renderer_state_dest_blend_func_type::one:
+		return GL_ONE;
+	case renderer_state_dest_blend_func_type::src_color:
+		return GL_SRC_COLOR;
+	case renderer_state_dest_blend_func_type::inv_src_color:
+		return GL_ONE_MINUS_SRC_COLOR;
+	case renderer_state_dest_blend_func_type::src_alpha:
+		return GL_SRC_ALPHA;
+	case renderer_state_dest_blend_func_type::inv_src_alpha:
+		return GL_ONE_MINUS_SRC_ALPHA;
+	case renderer_state_dest_blend_func_type::dest_alpha:
+		return GL_DST_ALPHA;
+	case renderer_state_dest_blend_func_type::inv_dest_alpha:
+		return GL_ONE_MINUS_DST_ALPHA;
+	default:
+		throw exception(SGE_TEXT("Invalid dest_blend_func!"));
+	}
+}
+
+GLenum sge::ogl::convert_cast(const draw_mode::type m)
+{
+	switch(m.value()) {
+	case renderer_state_draw_mode_type::point:
+		return GL_POINT;
+	case renderer_state_draw_mode_type::line:
+		return GL_LINE;
+	case renderer_state_draw_mode_type::fill:
+		return GL_FILL;
+	default:
+		throw exception(SGE_TEXT("Invalid draw_mode!"));
+	}
+}
+
+
+
+GLuint sge::ogl::convert_cast(const lock_flag_t& f)
 {
 	switch(f) {
 	case lock_flags::readonly:
@@ -35,7 +189,7 @@ template<> GLuint sge::ogl::convert_cast(const lock_flag_t& f)
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const nonindexed_primitive_type::type& t)
+GLenum sge::ogl::convert_cast(const nonindexed_primitive_type::type& t)
 {
 	switch(t) {
 	case nonindexed_primitive_type::point:
@@ -53,7 +207,7 @@ template<> GLenum sge::ogl::convert_cast(const nonindexed_primitive_type::type& 
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const indexed_primitive_type::type& t)
+GLenum sge::ogl::convert_cast(const indexed_primitive_type::type& t)
 {
 	switch(t) {
 	case indexed_primitive_type::line:
@@ -65,7 +219,7 @@ template<> GLenum sge::ogl::convert_cast(const indexed_primitive_type::type& t)
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const min_filter::type& arg)
+GLenum sge::ogl::convert_cast(const min_filter::type& arg)
 {
 	switch(arg) {
 	case min_filter::point:
@@ -81,7 +235,7 @@ template<> GLenum sge::ogl::convert_cast(const min_filter::type& arg)
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const mag_filter::type& arg)
+GLenum sge::ogl::convert_cast(const mag_filter::type& arg)
 {
 	switch(arg) {
 	case mag_filter::point:
@@ -121,7 +275,7 @@ const cube_side_array cube_sides =
 }
 
 #ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
-template<> GLenum sge::ogl::convert_cast(const cube_side::type& s)
+GLenum sge::ogl::convert_cast(const cube_side::type& s)
 {
 	const cube_side_array::size_type pos = static_cast<cube_side_array::size_type>(s);
 	if(pos >= cube_sides.size())
@@ -131,7 +285,7 @@ template<> GLenum sge::ogl::convert_cast(const cube_side::type& s)
 }
 #endif
 
-template<> GLenum sge::ogl::convert_cast(const texture_stage_op::type& op)
+GLenum sge::ogl::convert_cast(const texture_stage_op::type& op)
 {
 	switch(op) {
 	case texture_stage_op::color:
@@ -143,7 +297,7 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_op::type& op)
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const texture_stage_op_value::type& value)
+GLenum sge::ogl::convert_cast(const texture_stage_op_value::type& value)
 {
 	switch(value) {
 	case texture_stage_op_value::arg0:
@@ -168,7 +322,7 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_op_value::type& val
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const texture_stage_arg::type& arg)
+GLenum sge::ogl::convert_cast(const texture_stage_arg::type& arg)
 {
 	switch(arg) {
 	case texture_stage_arg::rgb0:
@@ -188,7 +342,7 @@ template<> GLenum sge::ogl::convert_cast(const texture_stage_arg::type& arg)
 	}
 }
 
-template<> GLenum sge::ogl::convert_cast(const texture_stage_arg_value::type& value)
+GLenum sge::ogl::convert_cast(const texture_stage_arg_value::type& value)
 {
 	switch(value) {
 	case texture_stage_arg_value::current:

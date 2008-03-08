@@ -100,7 +100,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 	if(std::isprint(k.char_code(),std::locale()))
 	{
 		// FIXME: input system doesn't work!
-		if (mod.state().ctrl && k.char_code() == SGE_TEXT('w') || k.char_code() == SGE_TEXT('W'))
+		if (mod.state().ctrl && (k.char_code() == SGE_TEXT('w') || k.char_code() == SGE_TEXT('W')))
 		{
 			if (cursor_pos == 0)
 				return;

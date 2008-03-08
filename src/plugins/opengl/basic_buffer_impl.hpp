@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../exception.hpp"
 #include "basic_buffer.hpp"
 #include "conversion.hpp"
+#include "common.hpp"
 #include "vbo_base.hpp"
 
 template<typename Base>
@@ -60,7 +61,7 @@ void sge::ogl::basic_buffer<Base>::lock(const lock_flag_t lockflags)
 	if(dest)
 		throw exception(SGE_TEXT("ogl_buffer::lock(), you have to unlock before locking!"));
 		
-	const GLuint glflags = convert_cast<GLuint>(lockflags);
+	const GLuint glflags = convert_cast(lockflags);
 	bind_me();
 	dest = static_cast<pointer>(impl.map_buffer(type, glflags));
 }

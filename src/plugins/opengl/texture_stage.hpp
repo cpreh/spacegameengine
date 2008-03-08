@@ -38,8 +38,8 @@ template<typename Arg, typename Value>
 void set_texture_stage(const stage_type stage, const Arg arg, const Value value)
 {
 	set_texture_level(stage);
-	const GLenum glarg = convert_cast<GLenum>(arg),
-	             glvalue = convert_cast<GLenum>(value);
+	const GLenum glarg = convert_cast(arg),
+	             glvalue = convert_cast(value);
 
 	tex_envf_ext(glarg, glvalue);
 }

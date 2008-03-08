@@ -330,7 +330,7 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	// operator==, expects operator== has been written for both t and u
 	//////////////////////////////////////////////////////////////////////////
-	const bool operator==(const multitree &inTree) const
+	bool operator==(const multitree &inTree) const
 	{
 		if (this->data_ == inTree.data_) return true;
 		return false;

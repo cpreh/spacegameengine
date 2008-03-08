@@ -51,7 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program.hpp"
 #include "../error.hpp"
 #include "../state_visitor.hpp"
-#include "../conversion_visitor.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../windows.hpp"
 #include "../../../win32_window.hpp"
@@ -311,7 +310,7 @@ void sge::ogl::renderer::render(
 	set_vertex_buffer(vb);
 	set_index_buffer(ib);
 
-	const GLenum prim_type = convert_cast<GLenum>(ptype);
+	const GLenum prim_type = convert_cast(ptype);
 
 	const index_buffer& gl_ib = dynamic_cast<const index_buffer&>(*ib);
 
@@ -337,7 +336,7 @@ void sge::ogl::renderer::render(
 	set_vertex_buffer(vb);
 	set_index_buffer(index_buffer_ptr());
 
-	const GLenum prim_type = convert_cast<GLenum>(ptype);
+	const GLenum prim_type = convert_cast(ptype);
 
 	glDrawArrays(prim_type,
 	             static_cast<GLsizei>(first_vertex),
@@ -368,9 +367,8 @@ void sge::ogl::renderer::push_state(const renderer_state_list& states)
 void sge::ogl::renderer::set_stencil_func()
 {
 	SGE_OPENGL_SENTRY
-	const conversion_visitor conv;
 	glStencilFunc(
-		conv(get_state(stencil_func::off)), // FIXME
+		convert_cast(get_state(stencil_func::off)), // FIXME
 		0,
 		0); // FIXME
 }
@@ -378,10 +376,9 @@ void sge::ogl::renderer::set_stencil_func()
 void sge::ogl::renderer::set_blend_func()
 {
 	SGE_OPENGL_SENTRY
-	const conversion_visitor conv;
 	glBlendFunc(
-		conv(get_state(source_blend_func::zero)), // FIXME
-		conv(get_state(dest_blend_func::zero))); // FIXME
+		convert_cast(get_state(source_blend_func::zero)), // FIXME
+		convert_cast(get_state(dest_blend_func::zero))); // FIXME
 }
 
 GLenum sge::ogl::renderer::get_clear_bit(const bool_state::type s) const
@@ -549,8 +546,8 @@ const sge::glsl::program_ptr sge::ogl::renderer::create_glsl_program(
 	const std::string& vs_source,
 	const std::string& ps_source)
 {
-	const shader_ptr vs(vs_source == no_shader ? 0 : new shader(GL_VERTEX_SHADER, vs_source)),
-	                 ps(ps_source == no_shader ? 0 : new shader(GL_FRAGMENT_SHADER, ps_source));
+	const shader_ptr vs(new shader(GL_VERTEX_SHADER, vs_source)),
+	                 ps(new shader(GL_FRAGMENT_SHADER, ps_source));
 	const program_ptr prog(new program());
 	if(vs)
 		prog->attach_shader(vs);

@@ -57,13 +57,13 @@ void sge::ogl::cube_texture::set_data(const cube_side::type side, const const_po
 	pre_setdata();
 	//scoped_lock<sge::cube_texture*> lock_(this, lock_flags::writeonly);
 	//std::copy(src, src + size(), data());
-	set_texture_rect(convert_cast<GLenum>(side), filter(), border_size(), border_size(), r, src);
+	set_texture_rect(convert_cast(side), filter(), border_size(), border_size(), r, src);
 }
 
 void sge::ogl::cube_texture::set_data(const cube_side::type side, const const_pointer src)
 {
 	pre_setdata();
-	set_texture(convert_cast<GLenum>(side), filter(), border_size(), border_size(), src);
+	set_texture(convert_cast(side), filter(), border_size(), border_size(), src);
 }
 
 /*void sge::ogl::cube_texture::lock(const cube_side::type side, const lock_flag_t lmode)

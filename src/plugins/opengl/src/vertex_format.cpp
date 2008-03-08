@@ -44,7 +44,7 @@ vertex_actor_info::vertex_actor_info(const vertex_size offset_,
 :	offset(
 		sge::ogl::vb_ib_vbo_impl().buffer_offset(
 			sge::ogl::vertex_buffer_type(),
-			offset_)),
+			static_cast<GLsizei>(offset_))),
 	stride(stride),
 	index(index)
 {}

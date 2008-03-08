@@ -11,7 +11,7 @@ ESVN_REPO_URI="https://spacegameengine.svn.sourceforge.net/svnroot/spacegameengi
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug devil dga openal opengl test truetype vorbis wave xinput zlib"
+IUSE="debug devil dga openal opengl test truetype vorbis wave xinput"
 
 DEPEND="${RDEPEND}
         dev-util/cmake
@@ -27,8 +27,7 @@ RDEPEND=">=dev-libs/boost-1.34
              x11-libs/libXxf86vm )
          truetype? ( media-libs/freetype )
          xinput? ( dga? ( x11-libs/libXxf86dga ) )
-         vorbis? ( media-libs/libvorbis )
-         zlib? ( sys-libs/zlib )"
+         vorbis? ( media-libs/libvorbis )"
 
 src_unpack() {
 	subversion_src_unpack
@@ -48,7 +47,6 @@ src_compile() {
 	use vorbis && myconf="${myconf} -D ENABLE_VORBIS:=1"
 	use wave && myconf="${myconf} -D ENABLE_WAVE:=1"
 	use xinput && myconf="${myconf} -D ENABLE_XINPUT:=1"
-	use zlib && myconf="${myconf} -D ENABLE_ZLIB:=1"
 
 	cmake ${myconf} \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \

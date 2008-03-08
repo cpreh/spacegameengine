@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../exception.hpp"
 #include "../state_visitor.hpp"
 #include "../renderer.hpp"
-#include "../conversion_visitor.hpp"
 #include "../conversion.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
@@ -76,7 +75,7 @@ void sge::ogl::state_visitor::operator()(const bool_state::type s) const
 		break;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
-		enable(conversion_visitor()(s), s.value());
+		enable(convert_cast(s), s.value());
 		break;
 	default:
 		throw exception(SGE_TEXT("Invalid bool_state!"));
@@ -124,7 +123,7 @@ void sge::ogl::state_visitor::operator()(const cull_mode::type m) const
 	enable(GL_CULL_FACE);
 	
 	SGE_OPENGL_SENTRY
-	glCullFace(conversion_visitor()(m));
+	glCullFace(convert_cast(m));
 }
 
 void sge::ogl::state_visitor::operator()(const depth_func::type f) const
@@ -138,7 +137,7 @@ void sge::ogl::state_visitor::operator()(const depth_func::type f) const
 	enable(GL_DEPTH_TEST);
 
 	SGE_OPENGL_SENTRY
-	glDepthFunc(conversion_visitor()(f));
+	glDepthFunc(convert_cast(f));
 }
 
 void sge::ogl::state_visitor::operator()(const stencil_func::type f) const
@@ -164,7 +163,7 @@ void sge::ogl::state_visitor::operator()(const fog_mode::type m) const
 	enable(GL_FOG);
 
 	SGE_OPENGL_SENTRY
-	glFogi(GL_FOG_MODE, conversion_visitor()(m));
+	glFogi(GL_FOG_MODE, convert_cast(m));
 }
 
 void sge::ogl::state_visitor::operator()(const draw_mode::type m) const
@@ -172,7 +171,7 @@ void sge::ogl::state_visitor::operator()(const draw_mode::type m) const
 	SGE_OPENGL_SENTRY
 	glPolygonMode(
 		GL_FRONT_AND_BACK,
-		conversion_visitor()(m));
+		convert_cast(m));
 }
 
 void sge::ogl::state_visitor::operator()(const source_blend_func::type) const
