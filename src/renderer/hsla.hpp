@@ -47,7 +47,10 @@ public:
 	color_element a() const;
 private:
 	void init(color_element r, color_element g, color_element b);
-	color_element _hue, _sat, _lum, _a;
+	color_element hue_,
+	              sat_,
+	              lum_,
+	              a_;
 };
 
 }
