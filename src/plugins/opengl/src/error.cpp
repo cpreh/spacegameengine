@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <exception>
-#include <boost/format.hpp>
+#include "../../../format.hpp"
 #include "../../../exception.hpp"
 #include "../../../iconv.hpp"
 #include "../../../iostream.hpp"
@@ -50,7 +50,9 @@ sge::ogl::sentry::~sentry()
 
 	const GLenum error = glGetError();
 	if(error != GL_NO_ERROR)
-		throw exception(((boost::format(SGE_TEXT("opengl failed in the following function \"%1%\" in file \"%2%\", line %3%. The error code was %4%."))
-		                               % function_name % file_name % line % error).str()));
-					       // FIXME
+		throw exception(
+			((format(
+				SGE_TEXT("opengl failed in the following function \"%1%\" in file \"%2%\", line %3%. The error code was %4%."))
+				% function_name % file_name % line % error)
+				.str()));
 }

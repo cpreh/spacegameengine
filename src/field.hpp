@@ -7,10 +7,10 @@
 #include <iterator>
 #include <memory>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/format.hpp>
 #include "math/vector.hpp"
 #include "math/dim.hpp"
 #include "exception.hpp"
+#include "format.hpp"
 
 namespace sge
 {
@@ -109,7 +109,7 @@ class field
 	void range_check(const size_type &x,const size_type &y) const
 	{ 
 		if (x >= dim_.w() || y >= dim_.h()) 
-			throw sge::exception((boost::format(SGE_TEXT("tried to access position %ix%i")) % x % y).str());
+			throw sge::exception((format(SGE_TEXT("tried to access position %ix%i")) % x % y).str());
 	}
 	value_type &pos(const size_type &x,const size_type &y) { range_check(x,y); return array[y * dim_.w() + x]; }
 	const value_type &pos(const size_type &x,const size_type &y) const { range_check(x,y); return array[y * dim_.w() + x]; }
