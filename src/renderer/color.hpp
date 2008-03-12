@@ -112,6 +112,7 @@ inline color_element color_alpha(const color& c) { return *(reinterpret_cast<con
 
 struct color4 {
 	typedef space_unit value_type;
+	color4() {}
 	color4(const value_type r, const value_type g, const value_type b, const value_type a)
 	: r(r), g(g), b(b), a(a) {}
 

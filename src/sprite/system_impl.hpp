@@ -78,7 +78,8 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 			dest_blend_func::inv_src_alpha,
 			cull_mode::off,
 			depth_func::off,
-			stencil_func::off
+			stencil_func::off,
+			draw_mode::fill
 		)
 	);
 

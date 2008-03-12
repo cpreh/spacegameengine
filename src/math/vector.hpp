@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../types.hpp"
 #include "../util.hpp"
 #include "../exception.hpp"
+#include "compare.hpp"
+#include "mod.hpp"
 
 #ifndef SGE_MATH_VECTOR_MAX_SIZE
 #define SGE_MATH_VECTOR_MAX_SIZE 4
@@ -236,14 +238,14 @@ public:
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
-			throw exception("basic_vector<T, N>::at(): out of range!");
+			throw exception(SGE_TEXT("basic_vector<T, N>::at(): out of range!"));
 		return data_[pos];
 	}
 
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
-			throw exception("basic_vector<T, N>::at(): out of range!");
+			throw exception(SGE_TEXT("basic_vector<T, N>::at(): out of range!"));
 		return data_[pos];
 	}
 
@@ -334,13 +336,14 @@ public:
 		return (*this)[3];
 	}
 
-/*	template<typename OtherT>
-	basic_vector cross(const basic_vector& r, typename boost::enable_if<boost::mpl::and_<boost::is_same<T,OtherT>, boost::mpl::bool_<Dim == 3> > >::type* = 0) const
+	//template<typename OtherT>
+	//basic_vector cross(const basic_vector& r, typename boost::enable_if<boost::mpl::and_<boost::is_same<T,OtherT>, boost::mpl::bool_<Dim == 3> > >::type* = 0) const
+	basic_vector cross(const basic_vector& r) const
 	{
 		return basic_vector(y()*r.z() - z()*r.y(),
 		              z()*r.x() - x()*r.z(),
 		              x()*r.y() - y()*r.x());
-	}*/
+	}
 
 	bool is_null() const
 	{
