@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEFAULT_RENDERER_STATES_HPP_INCLUDED
 #define SGE_DEFAULT_RENDERER_STATES_HPP_INCLUDED
 
+#include "../export.hpp"
 #include "renderer_states.hpp"
 
 namespace sge
 {
 
-renderer_state_list default_renderer_states();
+SGE_SYMBOL renderer_state_list default_renderer_states();
 
 }
 

@@ -18,23 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
+#include "../../../algorithm_impl.hpp"
 #include "../../../exception.hpp"
 #include "../../../renderer/scoped_lock.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
 
-sge::d3d9::vertex_buffer::vertex_buffer(renderer& r,
-                                        const d3d_device_ptr device,
-                                        const sge::vertex_format& format,
-                                        const size_type sz,
-                                        const resource_flag_t nflags,
-                                        const const_pointer src)
+sge::d3d9::vertex_buffer::vertex_buffer(
+	renderer& r,
+	const d3d_device_ptr device,
+	const sge::vertex_format& format,
+	const size_type sz,
+	const resource_flag_t nflags,
+	const const_pointer src)
 : resource(r, nflags),
   device(device),
   lock_dest(0),
-  _flags(nflags),
+  flags_(nflags),
   sz(sz),
   format(format),
   d3d_format(device, format)
@@ -50,12 +51,12 @@ void sge::d3d9::vertex_buffer::init(const const_pointer src)
 
 	IDirect3DVertexBuffer9* p;
 	if(device->CreateVertexBuffer(static_cast<UINT>(stride() * size()),usage,fvf,pool,&p,0) != D3D_OK)
-		throw exception("Cannot create vertex buffer!");
+		throw exception(SGE_TEXT("Cannot create vertex buffer!"));
 	buffer.reset(p);
 	if(src)
 	{
-		scoped_lock<vertex_buffer*> l(this);
-		std::copy(src,src+sz*stride(),lock_dest);
+		const scoped_lock<vertex_buffer*> l(make_scoped_lock(this, lock_flags::writeonly));
+		copy_n(src, sz * stride(), lock_dest);
 	}
 }
 
@@ -112,11 +113,11 @@ sge::d3d9::vertex_buffer::const_iterator sge::d3d9::vertex_buffer::create_iterat
 void sge::d3d9::vertex_buffer::lock(const lock_flag_t lflags, const size_type first, const size_type count)
 {
 	if(lock_dest)
-		throw exception("d3d::vertex_buffer::lock() you have to unlock first!");
+		throw exception(SGE_TEXT("d3d::vertex_buffer::lock() you have to unlock first!"));
 	void* p = 0;
 	const DWORD d3dlflags = convert_lock_flags(lflags, flags());
 	if(buffer->Lock(static_cast<UINT>(first * stride()), static_cast<UINT>(count * stride()), &p, d3dlflags) != D3D_OK)
-		throw exception("Cannot lock d3d vertex buffer!");
+		throw exception(SGE_TEXT("Cannot lock d3d vertex buffer!"));
 	lock_dest = static_cast<pointer>(p);
 /*#ifndef SGE_USE_ARGB
 	if(get_vertex_format().uses(vertex_usage::diffuse))
@@ -130,16 +131,24 @@ void sge::d3d9::vertex_buffer::lock(const lock_flag_t lflags)
 	lock(lflags,0,size());
 }
 
-void sge::d3d9::vertex_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
+void sge::d3d9::vertex_buffer::set_data(
+	const const_pointer src,
+	const size_type first,
+	const size_type count)
 {
-	scoped_lock<vertex_buffer*> _l(this, lock_flags::writeonly, first, count);
-	std::copy(src + first*stride(), src + (first+count)*stride(), data());
+	const scoped_lock<vertex_buffer*> lock_(
+		make_scoped_lock(
+			this,
+			first,
+			count,
+			lock_flags::writeonly));
+	copy_n(src + first * stride(), count * stride(), data());
 }
 
 void sge::d3d9::vertex_buffer::unlock()
 {
 	if(!lock_dest)
-		throw exception("d3d::vertex_buffer::unlock() you have to lock first!");
+		throw exception(SGE_TEXT("d3d::vertex_buffer::unlock() you have to lock first!"));
 
 /*#ifndef SGE_USE_ARGB
 	if(get_vertex_format().uses(vertex_usage::diffuse))
@@ -147,14 +156,14 @@ void sge::d3d9::vertex_buffer::unlock()
 			it->diffuse() = rgba_to_argb(it->diffuse());
 #endif*/
 	if(buffer->Unlock() != D3D_OK)
-		throw exception("Cannot unlock d3d vertex buffer!");
+		throw exception(SGE_TEXT("Cannot unlock d3d vertex buffer!"));
 	lock_dest = 0;
 }
 
 void sge::d3d9::vertex_buffer::resize(const size_type newsize, const const_pointer new_data)
 {
 	if(lock_dest)
-		throw exception("d3d::vertex_buffer::resize() you have to unlock before resizing!");
+		throw exception(SGE_TEXT("d3d::vertex_buffer::resize() you have to unlock before resizing!"));
 
 	sz = newsize;
 	init(new_data);
@@ -182,7 +191,7 @@ sge::vertex_size sge::d3d9::vertex_buffer::stride() const
 
 sge::resource_flag_t sge::d3d9::vertex_buffer::flags() const
 {
-	return _flags;
+	return flags_;
 }
 
 sge::d3d9::vertex_buffer::pointer sge::d3d9::vertex_buffer::data()

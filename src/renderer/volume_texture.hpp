@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VOLUME_TEXTURE_HPP_INCLUDED
 #define SGE_VOLUME_TEXTURE_HPP_INCLUDED
 
+#include "../export.hpp"
 #include "../math/dim.hpp"
 #include "../math/box.hpp"
 #include "texture_base.hpp"
@@ -38,10 +39,8 @@ public:
 	typedef typename base::const_pointer  const_pointer;
 	typedef math::basic_dim<size_type, 3> box_type;
 
-	virtual box_type box() const = 0;
-	virtual size_type width() const = 0;
-	virtual size_type height() const = 0;
-	virtual size_type depth() const = 0;
+	SGE_SYMBOL size_type size() const;
+	virtual const box_type box() const = 0;
 	virtual void set_data(const_pointer p) = 0;
 	virtual void set_data(const_pointer p, const lock_box&) = 0;
 };

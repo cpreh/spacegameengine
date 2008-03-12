@@ -41,28 +41,26 @@ class renderer;
 
 class volume_texture : public detail::volume_texture_base_type {
 public:
-	volume_texture(renderer& r,
-	               d3d_device_ptr device,
-	               const_pointer src,
-	               size_type width,
-	               size_type height,
-	               size_type depth,
-                   const filter_args& filter,
-	               resource_flag_t flags);
-	
-	size_type width() const;
-	size_type height() const;
-	size_type depth() const;
+	volume_texture(
+		renderer& r,
+		d3d_device_ptr device,
+		const_pointer src,
+		const box_type& box,
+		const filter_args& filter,
+		resource_flag_t flags);
 
-	size_type size() const;
+	const box_type box() const;	
 	void set_data(const_pointer src);
 	void set_data(const_pointer src, const lock_box& b);
 
-	void lock();
-	void lock(const lock_box&);
+	void lock(lock_flag_t lflags);
+	void lock(const lock_box&, lock_flag_t lflags);
 	void unlock();
+
+	pointer data();
+	const_pointer data() const;
 private:
-	void lock(const lock_box* b);
+	void lock(const lock_box* b, lock_flag_t lflags);
 	void do_loss();
 	IDirect3DBaseTexture9* do_reset();
 
@@ -70,9 +68,7 @@ private:
 	d3d_volume_texture_ptr  tex;
 	d3d_volume_texture_ptr  temp_tex;
 	pointer                 lock_dest;
-	size_type               _width;
-	size_type               _height;
-	size_type               _depth;
+	box_type                box_;
 };
 
 }

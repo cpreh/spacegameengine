@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../render_target.hpp"
 #include "../../../stub.hpp"
 
-sge::d3d9::render_target::render_target(renderer& r,
-                                        const d3d_device_ptr device,
-                                        const size_type _width,
-                                        const size_type _height)
+sge::d3d9::render_target::render_target(
+	renderer& r,
+	const d3d_device_ptr device,
+	const dim_type& dim_)
 : resource(r, true), // FIXME
   device(device),
-  _width(_width),
-  _height(_height)
+  dim_(dim_)
 {
 	init();
 }
@@ -37,12 +36,20 @@ sge::d3d9::render_target::render_target(renderer& r,
 void sge::d3d9::render_target::init()
 {
 	IDirect3DTexture9* t;
-	if(device->CreateTexture(static_cast<UINT>(width()),static_cast<UINT>(height()),1,D3DUSAGE_RENDERTARGET,D3DFMT_A8R8G8B8,D3DPOOL_DEFAULT,&t,0) != D3D_OK)
-		throw exception("creating render target failed");
+	if(device->CreateTexture(
+		static_cast<UINT>(dim().w()),
+		static_cast<UINT>(dim().h()),
+		1,
+		D3DUSAGE_RENDERTARGET,
+		D3DFMT_A8R8G8B8,
+		D3DPOOL_DEFAULT,
+		&t,
+		0) != D3D_OK)
+		throw exception(SGE_TEXT("Creating render target failed!"));
 	tex.reset(t);
 	IDirect3DSurface9* s;
 	if(tex->GetSurfaceLevel(0,&s) != D3D_OK)
-		throw exception("getting surface for render target failed");
+		throw exception(SGE_TEXT("Getting surface for render target failed!"));
 	surface.reset(s);
 }
 
@@ -57,19 +64,9 @@ void sge::d3d9::render_target::on_reset()
 	init();
 }
 
-sge::d3d9::render_target::size_type sge::d3d9::render_target::size() const
+const sge::render_target::dim_type sge::d3d9::render_target::dim() const
 {
-	return width() * height();
-}
-
-sge::d3d9::render_target::size_type sge::d3d9::render_target::width() const
-{
-	return _width;
-}
-
-sge::d3d9::render_target::size_type sge::d3d9::render_target::height() const
-{
-	return _height;
+	return dim_;
 }
 
 void sge::d3d9::render_target::copy_data(const pointer p)

@@ -38,29 +38,9 @@ sge::ogl::volume_texture::volume_texture(const const_pointer src,
 	set_data(src);
 }
 
-sge::ogl::volume_texture::box_type sge::ogl::volume_texture::box() const
+const sge::ogl::volume_texture::box_type sge::ogl::volume_texture::box() const
 {
 	return box_;
-}
-
-sge::ogl::volume_texture::size_type sge::ogl::volume_texture::size() const
-{
-	return width()*height()*depth();
-}
-
-sge::ogl::volume_texture::size_type sge::ogl::volume_texture::width() const
-{
-	return box().w();
-}
-
-sge::ogl::volume_texture::size_type sge::ogl::volume_texture::height() const
-{
-	return box().h();
-}
-
-sge::ogl::volume_texture::size_type sge::ogl::volume_texture::depth() const
-{
-	return box().d();
 }
 
 void sge::ogl::volume_texture::set_data(const const_pointer src)
@@ -78,9 +58,9 @@ void sge::ogl::volume_texture::set_data(const const_pointer src)
 	             detail::volume_texture_type,
 	             0,
 	             4,
-	             static_cast<GLsizei>(width()),
-	             static_cast<GLsizei>(height()),
-	             static_cast<GLsizei>(depth()),
+	             static_cast<GLsizei>(box().w()),
+	             static_cast<GLsizei>(box().h()),
+	             static_cast<GLsizei>(box().d()),
 	             0,
 	             format,
 	             type,

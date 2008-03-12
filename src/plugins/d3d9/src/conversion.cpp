@@ -45,7 +45,7 @@ template<> D3DPRIMITIVETYPE sge::d3d9::convert_cast (const indexed_primitive_typ
 	case indexed_primitive_type::triangle:
 		return D3DPT_TRIANGLELIST;
 	default:
-		throw exception("Invalid indexed primitive type!");
+		throw exception(SGE_TEXT("Invalid indexed primitive type!"));
 	}
 }
 
@@ -61,7 +61,7 @@ template<> D3DPRIMITIVETYPE sge::d3d9::convert_cast (const nonindexed_primitive_
 	case nonindexed_primitive_type::triangle_fan:
 		return D3DPT_TRIANGLEFAN;
 	default:
-		throw exception("Invalid non indexed primitive type!");
+		throw exception(SGE_TEXT("Invalid non indexed primitive type!"));
 	}
 
 }
@@ -103,7 +103,7 @@ template<> D3DMULTISAMPLE_TYPE sge::d3d9::convert_cast (const multi_sample_type&
 	case 16:
 		return D3DMULTISAMPLE_16_SAMPLES;
 	default:
-		throw exception("Invalid multi_sample_type value (must be <= 16)!");
+		throw exception(SGE_TEXT("Invalid multi_sample_type value (must be <= 16)!"));
 	}
 }
 
@@ -119,7 +119,7 @@ template<> D3DDECLUSAGE sge::d3d9::convert_cast (const vertex_usage::type& r)
 	case vertex_usage::diffuse:
 		return D3DDECLUSAGE_COLOR;
 	default:
-		throw exception("Invalid vertex_usage!");
+		throw exception(SGE_TEXT("Invalid vertex_usage!"));
 	}
 }
 
@@ -131,7 +131,7 @@ template<> D3DTEXTURESTAGESTATETYPE sge::d3d9::convert_cast (const texture_stage
 	case texture_stage_op::alpha:
 		return D3DTSS_ALPHAOP;
 	default:
-		throw exception("Invalid texture_stage_op!");
+		throw exception(SGE_TEXT("Invalid texture_stage_op!"));
 	}
 }
 
@@ -152,7 +152,7 @@ template<> D3DTEXTURESTAGESTATETYPE sge::d3d9::convert_cast (const texture_stage
 	case texture_stage_arg::alpha2:
 		return D3DTSS_ALPHAARG2;
 	default:
-		throw exception("Invalid texture_stage_arg!");
+		throw exception(SGE_TEXT("Invalid texture_stage_arg!"));
 	}
 }
 
@@ -195,7 +195,7 @@ template<> DWORD sge::d3d9::convert_cast (const texture_stage_op_value::type& r)
 //		return D3DTOP_MULTIPLYADD;
 //		return D3DTOP_LERP;
 	default:
-		throw exception("Invalid texture_stage_op_value!");
+		throw exception(SGE_TEXT("Invalid texture_stage_op_value!"));
 	}
 }
 
@@ -212,7 +212,7 @@ template<> DWORD sge::d3d9::convert_cast (const texture_stage_arg_value::type& r
 	case texture_stage_arg_value::texture:
 		return D3DTA_TEXTURE;
 	default:
-		throw exception("Invalid texture_stage_arg_value!");
+		throw exception(SGE_TEXT("Invalid texture_stage_arg_value!"));
 	}
 }
 

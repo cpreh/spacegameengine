@@ -21,26 +21,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_ENUMERATION_HPP_INCLUDED
 #define SGE_D3D9_ENUMERATION_HPP_INCLUDED
 
-#include "renderer_system.hpp"
+#include "../../renderer/adapter.hpp"
+#include "../../renderer/display_mode.hpp"
 #include "../../win32_window.hpp"
 #include "d3dinclude.hpp"
 
 namespace sge
 {
+
+struct renderer_parameters;
+struct renderer_caps;
+
 namespace d3d9
 {
 
-void create_renderer_caps(unsigned adapter, d3d_ptr sys, renderer_caps& caps);
+const renderer_caps create_renderer_caps(
+	adapter_type adapter,
+	d3d_ptr sys);
 
-DWORD get_tnl_caps(unsigned adapter, d3d_ptr sys);
+DWORD get_tnl_caps(
+	adapter_type adapter,
+	d3d_ptr sys);
 
-void add_display_modes(display_mode_array& v, unsigned adapter, bit_depth::type depth, D3DFORMAT format, d3d_ptr sys);
+void add_display_modes(
+	display_mode_array& v,
+	adapter_type adapter,
+	bit_depth::type depth,
+	D3DFORMAT format,
+	d3d_ptr sys);
 
-D3DFORMAT search_format(const display_mode& mode, d3d_ptr sys );
+D3DFORMAT search_format(
+	const display_mode& mode,
+	d3d_ptr sys);
 
-D3DFORMAT search_stencil_format(unsigned adapter, D3DFORMAT screen_format, d3d_ptr sys);
+D3DFORMAT search_stencil_format(
+	adapter_type adapter,
+	D3DFORMAT screen_format,
+	d3d_ptr sys);
 
-D3DPRESENT_PARAMETERS create_present_parameters(const renderer_parameters& param, int adapter, win32_window_ptr wnd, d3d_ptr sys);
+D3DPRESENT_PARAMETERS create_present_parameters(
+	const renderer_parameters& param,
+	adapter_type adapter,
+	win32_window_ptr wnd,
+	d3d_ptr sys);
 
 }
 }

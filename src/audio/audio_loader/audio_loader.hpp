@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../path.hpp"
 #include "../../shared_ptr.hpp"
 #include "../../plugin_traits.hpp"
+#include "../../export.hpp"
 // Own stuff
 #include "audio_file.hpp"
 
@@ -44,8 +45,8 @@ namespace detail
 {
 
 template<> struct plugin_traits<audio_loader> {
-	static address_name plugin_loader_name();
-	static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static plugin_type::type get_plugin_type();
 	typedef audio_loader* (*loader_fun)();
 };
 

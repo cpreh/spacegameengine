@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 bool sge::ogl::is_error()
 {
 	const GLenum error = glGetError();
-	if(error!=GL_NO_ERROR)
+	if(error != GL_NO_ERROR)
 		sge::cerr << SGE_TEXT("OpenGL errorcode: ") << error << SGE_TEXT('\n');
 	return error != GL_NO_ERROR;
 }
@@ -53,6 +53,6 @@ sge::ogl::sentry::~sentry()
 		throw exception(
 			((format(
 				SGE_TEXT("opengl failed in the following function \"%1%\" in file \"%2%\", line %3%. The error code was %4%."))
-				% function_name % file_name % line % error)
+				% iconv(function_name) % iconv(file_name) % line % error)
 				.str()));
 }

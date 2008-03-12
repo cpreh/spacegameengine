@@ -56,6 +56,16 @@ void sge::d3d9::cube_texture::unlock()
 	SGE_STUB_FUNCTION
 }
 
+sge::cube_texture::pointer sge::d3d9::cube_texture::data()
+{
+	return lock_dest;
+}
+
+sge::cube_texture::const_pointer sge::d3d9::cube_texture::data() const
+{
+	return lock_dest;
+}
+
 void sge::d3d9::cube_texture::set_data(const cube_side::type side,
                                        const const_pointer data)
 {

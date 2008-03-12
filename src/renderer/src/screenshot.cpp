@@ -27,9 +27,8 @@ void sge::screenshot(const renderer_ptr rend,
                      const path& file)
 {
 	const render_target_ptr target = rend->get_render_target();
-	raw_vector<color> buf(target->width()*target->height());
+	raw_vector<color> buf(target->size());
 	target->copy_data(buf.data());
 	const image_ptr shot = il->create_image(buf.data(), target->dim());
 	shot->save(file);
 }
-

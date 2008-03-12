@@ -42,7 +42,7 @@ public:
 	        const filter_args& filter,
 	        resource_flag_t flags);
 
-	dim_type dim() const;
+	const dim_type dim() const;
 	size_type width() const;
 	size_type height() const;
 	size_type size() const;

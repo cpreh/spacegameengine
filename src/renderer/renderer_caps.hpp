@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CAPS_HPP_INCLUDED
 
 #include <string>
+#include "../export.hpp"
 
 namespace sge
 {
 
 struct renderer_caps {
-	renderer_caps(
+	SGE_SYMBOL renderer_caps(
 		unsigned adapter_number,
 		const std::string& driver_name,
 		const std::string& description,

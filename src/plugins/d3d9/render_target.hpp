@@ -35,10 +35,11 @@ class renderer;
 class render_target : public sge::render_target, public resource {
 	friend class renderer;
 public:
-	render_target(renderer& r, d3d_device_ptr device, size_type width, size_type height);
-	size_type width() const;
-	size_type height() const;
-	size_type size() const;
+	render_target(
+		renderer& r,
+		d3d_device_ptr device,
+		const dim_type& dim);
+	const dim_type dim() const;
 	void copy_data(pointer);
 private:
 	void on_loss();
@@ -49,8 +50,7 @@ private:
 	d3d_texture_ptr  tex;
 	d3d_device_ptr   device;
 	d3d_surface_ptr  surface;
-	size_type        _width;
-	size_type        _height;
+	dim_type         dim_;
 };
 
 }

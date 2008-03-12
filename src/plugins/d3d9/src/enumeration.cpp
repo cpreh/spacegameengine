@@ -20,15 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <algorithm>
 #include "../../../exception.hpp"
-#include "../../../renderer/types.hpp"
 #include "../../../iostream.hpp"
 #include "../../../ostream.hpp"
+#include "../../../renderer/types.hpp"
+#include "../../../renderer/renderer_caps.hpp"
+#include "../../../renderer/renderer_parameters.hpp"
 #include "../enumeration.hpp"
 #include "../constants.hpp"
 #include "../conversion.hpp"
 #include "../../../win32_window.hpp"
 
-void sge::d3d9::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, renderer_caps& c)
+const sge::renderer_caps 
+sge::d3d9::create_renderer_caps(
+	const adapter_type adapter,
+	const d3d_ptr sys)
 {
 	D3DCAPS9 caps;
 	if(sys->GetDeviceCaps(adapter,D3DDEVTYPE_HAL,&caps) != D3D_OK)
@@ -38,22 +43,30 @@ void sge::d3d9::create_renderer_caps(const unsigned adapter, const d3d_ptr sys, 
 	if(sys->GetAdapterIdentifier(adapter,0,&identifier) != D3D_OK)
 		throw exception(SGE_TEXT("GetAdapterIdentifier failed"));
 
-	c.adapter_number = adapter;
-	c.max_tex_size = caps.MaxTextureWidth;
 	if(caps.MaxTextureWidth != caps.MaxTextureHeight)
 		sge::cerr << SGE_TEXT("Warning: MaxTextureWidth != MaxTextureHeight (case not handled)\n");
-	c.max_tex_size = std::min(caps.MaxTextureHeight, caps.MaxTextureWidth);
-	c.driver_name = &identifier.Driver[0];
-	c.description = &identifier.Description[0];
 
-	add_display_modes(c.display_modes, adapter, bit_depth::depth16, D3DFMT_A1R5G5B5, sys);
-	add_display_modes(c.display_modes, adapter, bit_depth::depth16, D3DFMT_X1R5G5B5, sys);
-	add_display_modes(c.display_modes, adapter, bit_depth::depth16, D3DFMT_R5G6B5,   sys);
-	add_display_modes(c.display_modes, adapter, bit_depth::depth32, D3DFMT_A8R8G8B8, sys);
-	add_display_modes(c.display_modes, adapter, bit_depth::depth32, D3DFMT_X8R8G8B8, sys);
+	/*display_mode_array display_modes;
+	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_A1R5G5B5, sys);
+	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_X1R5G5B5, sys);
+	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_R5G6B5,   sys);
+	add_display_modes(display_modes, adapter, bit_depth::depth32, D3DFMT_A8R8G8B8, sys);
+	add_display_modes(display_modes, adapter, bit_depth::depth32, D3DFMT_X8R8G8B8, sys);*/
+
+	return renderer_caps(
+		adapter,
+		identifier.Driver,
+		identifier.Description,
+		caps.MaxTextureWidth,
+		0); // FIXME
 }
 
-void sge::d3d9::add_display_modes(display_mode_array& v, const unsigned adapter, const bit_depth::type depth, const D3DFORMAT format, const d3d_ptr sys)
+void sge::d3d9::add_display_modes(
+	display_mode_array& v,
+	const adapter_type adapter,
+	const bit_depth::type depth,
+	const D3DFORMAT format,
+	const d3d_ptr sys)
 {
 	const unsigned modes = sys->GetAdapterModeCount(adapter,format);
 	for(unsigned i = 0; i < modes; ++i)
@@ -73,11 +86,13 @@ D3DFORMAT sge::d3d9::search_format(const display_mode& mode, const d3d_ptr sys)
 	case bit_depth::depth32:
 		return D3DFMT_X8R8G8B8;
 	default:
-		throw exception("You may only pass valid bit_depths");
+		throw exception(SGE_TEXT("You may only pass valid bit_depths!"));
 	}
 }
 
-DWORD sge::d3d9::get_tnl_caps(const unsigned adapter, const d3d_ptr sys)
+DWORD sge::d3d9::get_tnl_caps(
+	const adapter_type adapter,
+	const d3d_ptr sys)
 {
 	DWORD r = 0;
 	D3DCAPS9 caps;
@@ -93,7 +108,10 @@ DWORD sge::d3d9::get_tnl_caps(const unsigned adapter, const d3d_ptr sys)
 	return r;
 }
 
-D3DFORMAT sge::d3d9::search_stencil_format(const unsigned adapter, const D3DFORMAT screen_format, const d3d_ptr sys)
+D3DFORMAT sge::d3d9::search_stencil_format(
+	const adapter_type adapter,
+	const D3DFORMAT screen_format,
+	const d3d_ptr sys)
 {
 	if(sys->CheckDepthStencilMatch(adapter,D3DDEVTYPE_HAL,screen_format,screen_format,D3DFMT_D24S8) == D3D_OK)
 		return D3DFMT_D24S8;
@@ -102,7 +120,11 @@ D3DFORMAT sge::d3d9::search_stencil_format(const unsigned adapter, const D3DFORM
 	return D3DFMT_UNKNOWN;
 }
 
-D3DPRESENT_PARAMETERS sge::d3d9::create_present_parameters(const renderer_parameters& param, const int adapter, const win32_window_ptr wnd, const d3d_ptr sys)
+D3DPRESENT_PARAMETERS sge::d3d9::create_present_parameters(
+	const renderer_parameters& param,
+	const adapter_type adapter,
+	const win32_window_ptr wnd,
+	const d3d_ptr sys)
 {
 	const D3DFORMAT format = search_format(param.mode,sys);
 

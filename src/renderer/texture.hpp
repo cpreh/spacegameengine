@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_HPP_INCLUDED
 #define SGE_TEXTURE_HPP_INCLUDED
 
+#include "../export.hpp"
 #include "../math/dim.hpp"
 #include "texture_base.hpp"
 
@@ -42,9 +43,8 @@ public:
 	typedef typename base::const_reverse_iterator const_reverse_iterator;
 	typedef math::basic_dim<size_type, 2>         dim_type;
 
-	virtual dim_type dim() const = 0;
-	virtual size_type width() const = 0;
-	virtual size_type height() const = 0;
+	SGE_SYMBOL size_type size() const;
+	virtual const dim_type dim() const = 0;
 	virtual void set_data(const_pointer p, const lock_rect& r) = 0;
 	virtual void set_data(const_pointer p) = 0;
 	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;

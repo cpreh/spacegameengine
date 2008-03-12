@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_DIM_HPP_INCLUDED
 
 #include <cstddef>
+#include <cassert>
 #include <iterator>
 #include <ostream>
 #include <istream>
-#include <cassert>
+#include <numeric>
+#include <functional>
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -172,9 +174,14 @@ public:
 		return (*this)[2];
 	}
 
-	size_type size() const
+	size_type dim() const
 	{
 		return Dim;
+	}
+
+	size_type size() const
+	{
+		return std::accumulate(begin(), end(), 1, std::multiplies<size_type>());
 	}
 
 	iterator begin()

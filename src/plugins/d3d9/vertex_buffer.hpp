@@ -76,7 +76,7 @@ private:
 	d3d_device_ptr        device;
 	d3d_vertex_buffer_ptr buffer;
 	pointer               lock_dest;
-	resource_flag_t       _flags;
+	resource_flag_t       flags_;
 	size_type             sz;
 	sge::vertex_format    format;
 	vertex_format         d3d_format;

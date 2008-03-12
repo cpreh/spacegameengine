@@ -31,7 +31,10 @@ namespace ogl
 class renderer_system : public sge::renderer_system {
 public:
 	renderer_system();
-	renderer_ptr create_renderer(const renderer_parameters& param, int adapter, window_ptr);
+	const renderer_ptr create_renderer(
+		const renderer_parameters& param,
+		adapter_type adapter,
+		window_ptr);
 	const renderer_caps_array caps() const;
 private:
 	bool created;

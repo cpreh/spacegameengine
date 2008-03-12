@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
 #include "../../../raw_vector.hpp"
+#include "../../../raw_vector_impl.hpp"
 #include "../../../exception.hpp"
 
 namespace
@@ -57,7 +58,7 @@ sge::d3d9::vertex_format::vertex_format(const d3d_device_ptr device, const sge::
 
 	IDirect3DVertexDeclaration9* decl;
 	if(device->CreateVertexDeclaration(&vertex_elements.front(),&decl) != D3D_OK)
-		throw exception("CreateVertexDeclaration() failed!");
+		throw exception(SGE_TEXT("CreateVertexDeclaration() failed!"));
 	_vertex_declaration.reset(decl);
 
 	//if(D3DXFVFFromDeclarator(&vertex_elements.front(),&fvf) != D3D_OK)
@@ -99,7 +100,7 @@ BYTE get_vertex_type(const sge::vertex_usage::type u)
 	case sge::vertex_usage::diffuse:
 		return D3DDECLTYPE_D3DCOLOR;
 	default:
-		throw sge::exception("Invalid vertex_usage!");
+		throw sge::exception(SGE_TEXT("Invalid vertex_usage!"));
 	}
 }
 

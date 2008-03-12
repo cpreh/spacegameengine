@@ -43,7 +43,7 @@ sge::ogl::texture::texture(const const_pointer src,
 		set_texture(0);
 }
 
-sge::ogl::texture::dim_type sge::ogl::texture::dim() const
+const sge::ogl::texture::dim_type sge::ogl::texture::dim() const
 {
 	return dim_;
 }
@@ -77,7 +77,7 @@ void sge::ogl::texture::set_data(const const_pointer src)
 
 	if(pbo_in_hardware())
 	{
-		scoped_lock<sge::texture*> lock_(this, lock_flags::writeonly);
+		const scoped_lock<sge::ogl::texture*> lock_(make_scoped_lock(this, lock_flags::writeonly));
 		copy_n(src, size(), data());
 	}
 	else

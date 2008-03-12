@@ -19,25 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../renderer/scoped_lock.hpp"
+#include "../../../algorithm_impl.hpp"
 #include "../../../exception.hpp"
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"
 #include "../texture_functions.hpp"
 
-sge::d3d9::volume_texture::volume_texture(renderer& r,
-                                          const d3d_device_ptr device,
-                                          const const_pointer src,
-                                          const size_type _width,
-                                          const size_type _height,
-                                          const size_type _depth,
-                                          const filter_args& filter,
-                                          const resource_flag_t flags)
+sge::d3d9::volume_texture::volume_texture(
+	renderer& r,
+  const d3d_device_ptr device,
+	const const_pointer src,
+	const box_type& box_,
+	const filter_args& filter,
+	const resource_flag_t flags)
 : detail::volume_texture_base_type(r, filter, flags),
   device(device),
   lock_dest(0),
-  _width(_width),
-  _height(_height),
-  _depth(_depth)
+	box_(box_)
 {
 	on_reset();
 	if(src)
@@ -46,28 +44,40 @@ sge::d3d9::volume_texture::volume_texture(renderer& r,
 
 IDirect3DBaseTexture9* sge::d3d9::volume_texture::do_reset()
 {
-	tex.reset(create_volume_texture(device, width(), height(), depth(), filter(), flags(), false));
+	tex.reset(
+		create_volume_texture(
+			device,
+			box(),
+			filter(),
+			flags(),
+			false));
 	return tex.get();
 }
 
-void sge::d3d9::volume_texture::lock()
+void sge::d3d9::volume_texture::lock(const lock_flag_t lflags)
 {
-	lock(0);
+	lock(0, lflags);
 }
 
-void sge::d3d9::volume_texture::lock(const lock_box& b)
+void sge::d3d9::volume_texture::lock(const lock_box& b, const lock_flag_t lflags)
 {
-	lock(&b);
+	lock(&b, lflags);
 }
 
-void sge::d3d9::volume_texture::lock(const lock_box* const b)
+void sge::d3d9::volume_texture::lock(const lock_box* const b, const lock_flag_t lflags)
 {
 	if(flags() & resource_flags::dynamic)
-		lock_dest = lock_volume_texture(tex, b, flags());
+		lock_dest = lock_volume_texture(tex, b, lflags, flags());
 	else
 	{
-		temp_tex.reset(create_volume_texture(device, width(), height(), depth(), filter(), flags(), true));
-		lock_dest = lock_volume_texture(tex, b, flags());
+		temp_tex.reset(
+			create_volume_texture(
+				device,
+				box(),
+				filter(),
+				flags(),
+				true));
+		lock_dest = lock_volume_texture(tex, b, lflags, flags());
 	}
 }
 
@@ -84,6 +94,16 @@ void sge::d3d9::volume_texture::unlock()
 	lock_dest = 0;
 }
 
+sge::volume_texture::pointer sge::d3d9::volume_texture::data()
+{
+	return lock_dest;
+}
+
+sge::volume_texture::const_pointer sge::d3d9::volume_texture::data() const
+{
+	return lock_dest;
+}
+
 void sge::d3d9::volume_texture::do_loss()
 {
 	tex.reset();
@@ -91,32 +111,17 @@ void sge::d3d9::volume_texture::do_loss()
 
 void sge::d3d9::volume_texture::set_data(const const_pointer data)
 {
-	scoped_lock<volume_texture*> l(this);
-	std::copy(data, data + size(), lock_dest);
+	const scoped_lock<volume_texture*> l(make_scoped_lock(this, lock_flags::writeonly));
+	copy_n(data, size(), lock_dest);
 }
 
 void sge::d3d9::volume_texture::set_data(const const_pointer data, const lock_box& b)
 {
-	scoped_lock<volume_texture*> l(this, b);
-	std::copy(data, data + b.size(),lock_dest);
+	//const scoped_lock<volume_texture*> l(make_scoped_lock(this, b, lock_flags::writeonly));
+	//copy_n(data, b.size(), lock_dest);
 }
 
-sge::d3d9::volume_texture::size_type sge::d3d9::volume_texture::width() const
+const sge::volume_texture::box_type sge::d3d9::volume_texture::box() const
 {
-	return _width;
-}
-
-sge::d3d9::volume_texture::size_type sge::d3d9::volume_texture::height() const
-{
-	return _height;
-}
-
-sge::d3d9::volume_texture::size_type sge::d3d9::volume_texture::depth() const
-{
-	return _depth;
-}
-
-sge::d3d9::volume_texture::size_type sge::d3d9::volume_texture::size() const
-{
-	return width() * height() * depth();
+	return box_;
 }

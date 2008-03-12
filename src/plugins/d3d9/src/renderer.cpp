@@ -53,21 +53,19 @@ void set_transform(sge::d3d9::d3d_device_ptr device, D3DTRANSFORMSTATETYPE, cons
 
 }
 
-sge::d3d9::renderer::renderer(const d3d_device_ptr device,
-                              const renderer_parameters& param,
-                              const int adapter,
-                              const win32_window_ptr wnd,
-                              const d3d_ptr sys)
+sge::d3d9::renderer::renderer(
+	const d3d_device_ptr device,
+	const renderer_parameters& param,
+	const adapter_type adapter,
+  const win32_window_ptr wnd,
+  const d3d_ptr sys)
 : sys(sys),
   device(device),
   adapter(adapter),
   parameters(param),
   render_window(wnd),
-  clear_color(colors::white), // FIXME (should be argb)
-  stencil_clear_val(0),
-  zbuffer_clear_val(1.f)
+	caps_(create_renderer_caps(adapter, sys))
 {
-	create_renderer_caps(adapter, sys, _caps);
 	init();
 }
 
@@ -75,7 +73,7 @@ void sge::d3d9::renderer::init()
 {
 	IDirect3DSurface9* surface;
 	if(device->GetRenderTarget(0,&surface) != D3D_OK)
-		throw exception("d3d: cannot obtain default render target!");
+		throw exception(SGE_TEXT("d3d: cannot obtain default render target!"));
 	default_render_target.reset(surface);
 	std::for_each(resources.begin(),resources.end(),std::mem_fun(&resource::on_reset));
 }
@@ -87,37 +85,101 @@ void sge::d3d9::renderer::release_resources()
 	vertex_declaration.reset();
 }
 
-sge::vertex_buffer_ptr sge::d3d9::renderer::create_vertex_buffer(const sge::vertex_format& format, const vertex_buffer::size_type size, const resource_flag_t flags, const vertex_buffer::const_pointer data)
+const sge::vertex_buffer_ptr
+sge::d3d9::renderer::create_vertex_buffer(
+	const sge::vertex_format& format,
+	const vertex_buffer::size_type size,
+	const resource_flag_t flags,
+	const vertex_buffer::const_pointer data)
 {
-	return vertex_buffer_ptr(new vertex_buffer(*this, device, format, size, flags, data));
+	return vertex_buffer_ptr(
+		new vertex_buffer(
+			*this,
+			device,
+			format,
+			size,
+			flags,
+			data));
 }
 
-sge::index_buffer_ptr sge::d3d9::renderer::create_index_buffer( const index_buffer::size_type size, const resource_flag_t flags, const index_buffer::const_pointer data)
+const sge::index_buffer_ptr
+sge::d3d9::renderer::create_index_buffer(
+	const index_buffer::size_type size,
+	const resource_flag_t flags,
+	const index_buffer::const_pointer data)
 {
-	return index_buffer_ptr(new index_buffer(*this, device, size, flags, data));
+	return index_buffer_ptr(
+		new index_buffer(
+			*this,
+			device,
+			size,
+			flags,
+			data));
 }
 
-sge::texture_ptr sge::d3d9::renderer::create_texture(const texture::const_pointer data, const texture::size_type width, const texture::size_type height, const filter_args& filter, const resource_flag_t flags)
+const sge::texture_ptr
+sge::d3d9::renderer::create_texture(
+	const texture::const_pointer data,
+	const texture::dim_type& dim,
+	const filter_args& filter,
+	const resource_flag_t flags)
 {
-	return texture_ptr(new texture(*this, device, data, width, height, filter, flags));
+	return texture_ptr(
+		new texture(
+			*this,
+			device,
+			data,
+			dim,
+			filter,
+			flags));
 }
 
-sge::volume_texture_ptr sge::d3d9::renderer::create_volume_texture(const volume_texture::const_pointer data, const volume_texture::size_type width, const volume_texture::size_type height, const volume_texture::size_type depth, const filter_args& filter, const resource_flag_t flags)
+const sge::volume_texture_ptr
+sge::d3d9::renderer::create_volume_texture(
+	const volume_texture::const_pointer data,
+	const volume_texture::box_type& box,
+	const filter_args& filter,
+	const resource_flag_t flags)
 {
-	return volume_texture_ptr(new volume_texture(*this, device, data, width, height, depth, filter, flags));
+	return volume_texture_ptr(
+		new volume_texture(
+			*this,
+			device,
+			data,
+			box,
+			filter,
+			flags));
 }
 
-sge::cube_texture_ptr sge::d3d9::renderer::create_cube_texture(const cube_side_array* const src, const cube_texture::size_type size, const filter_args& filter, const resource_flag_t flags)
+const sge::cube_texture_ptr
+sge::d3d9::renderer::create_cube_texture(
+	const cube_side_array* const src,
+	const cube_texture::size_type size,
+	const filter_args& filter,
+	const resource_flag_t flags)
 {
-	return cube_texture_ptr(new cube_texture(*this, device, src, size, filter, flags));
+	return cube_texture_ptr(
+		new cube_texture(
+			*this,
+			device,
+			src,
+			size,
+			filter,
+			flags));
 }
 
-sge::render_target_ptr sge::d3d9::renderer::create_render_target(const render_target::size_type width, const render_target::size_type height)
+const sge::render_target_ptr sge::d3d9::renderer::create_render_target(
+	const render_target::dim_type& dim)
 {
-	return render_target_ptr(new render_target(*this, device, width, height));
+	return render_target_ptr(
+		new render_target(
+			*this,
+			device,
+			dim));
 }
 
-sge::window_ptr sge::d3d9::renderer::get_window() const
+const sge::window_ptr
+sge::d3d9::renderer::get_window() const
 {
 	return render_window;
 }
@@ -127,16 +189,16 @@ void sge::d3d9::renderer::set_vertex_buffer(const vertex_buffer_ptr buffer)
 	if(!buffer)
 		return; //FIXME
 
-	d3d9::vertex_buffer* const d3d_buffer = boost::polymorphic_cast<d3d9::vertex_buffer*>(buffer.get());
-	const d3d_vertex_declaration_ptr decl = d3d_buffer->d3d_format.vertex_declaration();
+	d3d9::vertex_buffer& d3d_buffer = dynamic_cast<d3d9::vertex_buffer&>(*buffer);
+	const d3d_vertex_declaration_ptr decl = d3d_buffer.d3d_format.vertex_declaration();
 	if(decl != vertex_declaration)
 	{
 		if(device->SetVertexDeclaration(decl.get()) != D3D_OK)
-			throw exception("set_vertex_declaration() failed");
+			throw exception(SGE_TEXT("set_vertex_declaration() failed"));
 		vertex_declaration = decl;
 	}
-	if(device->SetStreamSource(0,d3d_buffer->buffer.get(),0,static_cast<UINT>(buffer->stride())) != D3D_OK)
-		throw exception("set_vertex_buffer() failed");
+	if(device->SetStreamSource(0,d3d_buffer.buffer.get(),0,static_cast<UINT>(buffer->stride())) != D3D_OK)
+		throw exception(SGE_TEXT("set_vertex_buffer() failed"));
 }
 
 void sge::d3d9::renderer::set_index_buffer(const index_buffer_ptr buffer)
@@ -146,7 +208,7 @@ void sge::d3d9::renderer::set_index_buffer(const index_buffer_ptr buffer)
 
 	d3d9::index_buffer* const d3d_buffer = boost::polymorphic_cast<d3d9::index_buffer*>(buffer.get());
 	if(device->SetIndices(d3d_buffer->buffer.get()) != D3D_OK)
-		throw exception("set_index_buffer() failed");
+		throw exception(SGE_TEXT("set_index_buffer() failed"));
 }
 
 void sge::d3d9::renderer::set_render_target(const texture_ptr target)
@@ -154,20 +216,20 @@ void sge::d3d9::renderer::set_render_target(const texture_ptr target)
 	if(!target)
 	{
 		if(device->SetRenderTarget(0,default_render_target.get()) != D3D_OK)
-			throw exception("cannot set default render target");
+			throw exception(SGE_TEXT("cannot set default render target!"));
 		return;
 	}
 
 	render_target* const d3d_target = boost::polymorphic_cast<render_target*>(target.get());
 
 	if(device->SetRenderTarget(0,d3d_target->surface.get()) != D3D_OK)
-		throw exception("cannot set texture as render target");
+		throw exception(SGE_TEXT("cannot set texture as render target!"));
 }
 
 void sge::d3d9::renderer::set_material(const material& m)
 {
 	if(device->SetMaterial(reinterpret_cast<const D3DMATERIAL9*>(&m)) != D3D_OK)
-		throw exception("set_material() failed");
+		throw exception(SGE_TEXT("set_material() failed!"));
 }
 
 void sge::d3d9::renderer::reset(const renderer_parameters* const param)
@@ -198,13 +260,13 @@ void sge::d3d9::renderer::reset(const renderer_parameters* const param)
 		init();
 		break;
 	case D3DERR_DEVICELOST:
-		throw exception("d3d device still lost");
+		throw exception(SGE_TEXT("d3d device still lost!"));
 	case D3DERR_DRIVERINTERNALERROR:
-		throw exception("d3d driver internal error");
+		throw exception(SGE_TEXT("d3d driver internal error!"));
 	case D3DERR_INVALIDCALL:
-		throw exception("d3d invalid call to reset");
+		throw exception(SGE_TEXT("d3d invalid call to reset!"));
 	default:
-		throw exception("d3d reset failed");
+		throw exception(SGE_TEXT("d3d reset failed!"));
 	}
 }
 
@@ -263,7 +325,7 @@ void sge::d3d9::renderer::render(const vertex_buffer_ptr nvb,
 	                                static_cast<UINT>(first_index),
 	                                static_cast<UINT>(pcount)
 	)!= D3D_OK)
-		throw exception("DrawIndexedPrimitive() failed");
+		throw exception(SGE_TEXT("DrawIndexedPrimitive() failed!"));
 }
 
 void sge::d3d9::renderer::render(const vertex_buffer_ptr nvb,
@@ -279,21 +341,21 @@ void sge::d3d9::renderer::render(const vertex_buffer_ptr nvb,
 	                         static_cast<UINT>(first_vertex),
 	                         static_cast<UINT>(primitive_count(num_vertices, ptype))
 	) != D3D_OK)
-		throw exception("DrawPrimitive() failed");
+		throw exception(SGE_TEXT("DrawPrimitive() failed!"));
 }
 
 void sge::d3d9::renderer::begin_rendering()
 {
-	if(device->Clear(0,0,clear_flags,clear_color,zbuffer_clear_val,stencil_clear_val) != D3D_OK)
-		throw exception("Clear() failed");
+//	if(device->Clear(0,0,clear_flags,clear_color,zbuffer_clear_val,stencil_clear_val) != D3D_OK)
+//		throw exception(SGE_TEXT("Clear() failed!"));
 	if(device->BeginScene() != D3D_OK)
-		throw exception("BeginScene() failed");
+		throw exception(SGE_TEXT("BeginScene() failed!"));
 }
 
 void sge::d3d9::renderer::end_rendering()
 {
 	if(device->EndScene() != D3D_OK)
-		throw exception("EndScene() failed");
+		throw exception(SGE_TEXT("EndScene() failed!"));
 
 	const HRESULT present_res = device->Present(0,0,0,0);
 	switch(present_res) {
@@ -302,10 +364,23 @@ void sge::d3d9::renderer::end_rendering()
 	case D3DERR_DEVICELOST:
 		// TODO: Handle DEVICELOST
 	default:
-		throw exception("Present() failed");
+		throw exception(SGE_TEXT("Present() failed!"));
 	}
 }
 
+void sge::d3d9::renderer::set_state(const renderer_state_list& list)
+{
+}
+
+void sge::d3d9::renderer::push_state(const renderer_state_list& list)
+{
+}
+
+void sge::d3d9::renderer::pop_level()
+{
+}
+
+/*
 void sge::d3d9::renderer::set_bool_state(const bool_state::type state, const bool_type value)
 {
 	switch(state) {
@@ -321,9 +396,9 @@ void sge::d3d9::renderer::set_bool_state(const bool_state::type state, const boo
 	case bool_state::enable_fog:
 		set_render_state(device,D3DRS_FOGENABLE,value);
 		break;
-/*	case BS_EnableRangeFog:
+  case BS_EnableRangeFog:
 		set_render_state(device,D3DRS_RANGEFOGENABLE,value);
-		break;*/
+		break;
 	case bool_state::enable_stencil:
 		set_render_state(device,D3DRS_STENCILENABLE,value);
 		break;
@@ -367,11 +442,9 @@ void sge::d3d9::renderer::set_float_state(const float_state::type state, const f
 void sge::d3d9::renderer::set_int_state(const int_state::type state, const int_type value)
 {
 	switch(state) {
-	/*
 	case IS_FogMode:
 		set_render_state(device,D3DRS_FOGTABLEMODE,value);
 		break;
-*/
 	case int_state::stencil_clear_val:
 		stencil_clear_val = value;
 		break;
@@ -425,6 +498,7 @@ void sge::d3d9::renderer::set_draw_mode(const draw_mode::type mode)
 {
 	SGE_STUB_FUNCTION
 }
+*/
 
 void sge::d3d9::renderer::set_viewport(const viewport& v)
 {
@@ -443,28 +517,20 @@ void sge::d3d9::renderer::set_light(const light_index index,
 	SGE_STUB_FUNCTION
 }
 
-void sge::d3d9::renderer::push()
-{
-	SGE_STUB_FUNCTION
-}
-
-void sge::d3d9::renderer::pop()
-{
-	SGE_STUB_FUNCTION
-}
-
-sge::glsl::program_ptr sge::d3d9::renderer::create_glsl_program(const std::string&,
-                                                                const std::string&)
+const sge::glsl::program_ptr
+sge::d3d9::renderer::create_glsl_program(
+	const std::string&,
+	const std::string&)
 {
 	return glsl::program_ptr();
 }
 
 void sge::d3d9::renderer::set_glsl_shader(const glsl::program_ptr)
 {
-	throw exception("set_glsl_shader(): D3D9 does not support GLSL!");
+	throw exception(SGE_TEXT("set_glsl_shader(): D3D9 does not support GLSL!"));
 }
 
-sge::render_target_ptr sge::d3d9::renderer::get_render_target() const
+const sge::render_target_ptr sge::d3d9::renderer::get_render_target() const
 {
 	SGE_STUB_FUNCTION
 	return render_target_ptr(); //default_render_target; // FIXME
@@ -482,10 +548,11 @@ void sge::d3d9::renderer::projection(const math::space_matrix& m)
 
 const sge::renderer_caps& sge::d3d9::renderer::caps() const
 {
-	return _caps;
+	return caps_;
 }
 
-sge::screen_size_t sge::d3d9::renderer::screen_size() const
+const sge::screen_size_t
+sge::d3d9::renderer::screen_size() const
 {
 	return parameters.mode.size;
 }
@@ -496,43 +563,43 @@ namespace
 void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::bool_type value)
 {
 	if(device->SetRenderState(state,value) != D3D_OK)
-		throw sge::exception("SetRenderState() failed");
+		throw sge::exception(SGE_TEXT("SetRenderState() failed!"));
 }
 
 void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetRenderState(state,value) != D3D_OK)
-		throw sge::exception("SetRenderState() failed");
+		throw sge::exception(SGE_TEXT("SetRenderState() failed!"));
 }
 
 void set_render_state(const sge::d3d9::d3d_device_ptr device, const D3DRENDERSTATETYPE state, const sge::renderer::float_type value)
 {
 	if(device->SetRenderState(state,reinterpret_cast<const DWORD&>(value)) != D3D_OK)
-		throw sge::exception("SetRenderState() failed");
+		throw sge::exception(SGE_TEXT("SetRenderState() failed!"));
 }
 
 void set_texture_stage_state(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, const D3DTEXTURESTAGESTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetTextureStageState(static_cast<DWORD>(stage),state,value) != D3D_OK)
-		throw sge::exception("SetTextureStageState() failed");
+		throw sge::exception(SGE_TEXT("SetTextureStageState() failed!"));
 }
 
 void set_sampler_state(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, const D3DSAMPLERSTATETYPE state, const sge::renderer::int_type value)
 {
 	if(device->SetSamplerState(static_cast<DWORD>(stage),state,value) != D3D_OK)
-		throw sge::exception("SetSamplerState() failed");
+		throw sge::exception(SGE_TEXT("SetSamplerState() failed!"));
 }
 
 void set_texture(const sge::d3d9::d3d_device_ptr device, const sge::stage_type stage, IDirect3DBaseTexture9* const tex)
 {
 	if(device->SetTexture(static_cast<DWORD>(stage),tex) != D3D_OK)
-		throw sge::exception("SetTexture() failed");
+		throw sge::exception(SGE_TEXT("SetTexture() failed!"));
 }
 
 void set_transform(const sge::d3d9::d3d_device_ptr device, const D3DTRANSFORMSTATETYPE type, const sge::math::space_matrix& m)
 {
 	if(device->SetTransform(type, reinterpret_cast<const D3DMATRIX*>(m.data())) != D3D_OK)
-		throw sge::exception("SetTransform() failed");
+		throw sge::exception(SGE_TEXT("SetTransform() failed!"));
 }
 
 }

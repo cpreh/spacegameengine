@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
+#include "../../../algorithm_impl.hpp"
 #include "../../../renderer/scoped_lock.hpp"
 #include "../../../exception.hpp"
 #include "../texture.hpp"
 #include "../texture_functions.hpp"
 #include "../conversion.hpp"
 
-sge::d3d9::texture::texture(renderer& r,
-                            const d3d_device_ptr device,
-                            const const_pointer data,
-                            const size_type _width,
-                            const size_type _height,
-                            const filter_args& filter,
-                            const resource_flag_t nflags)
-: detail::texture_base_type(r, filter, nflags),
+sge::d3d9::texture::texture(
+	renderer& r,
+	const d3d_device_ptr device,
+	const const_pointer data,
+	const dim_type& dim_,
+	const filter_args& filter,
+	const resource_flag_t nflags)
+: detail::texture_base_type(
+		r,
+		filter,
+		nflags),
   device(device),
-  _width(_width),
-  _height(_height),
+  dim_(dim_),
   lock_dest(0)
 {
 	on_reset();
@@ -45,7 +47,13 @@ sge::d3d9::texture::texture(renderer& r,
 
 IDirect3DBaseTexture9* sge::d3d9::texture::do_reset()
 {
-	tex.reset(create_texture(device, width(), height(), filter(), flags(), false));
+	tex.reset(
+		create_texture(
+			device,
+			dim(),
+			filter(),
+			flags(),
+			false));
 	return tex.get();
 }
 
@@ -54,24 +62,30 @@ void sge::d3d9::texture::do_loss()
 	tex.reset();
 }
 
-void sge::d3d9::texture::lock(const lock_flag_t flags)
+void sge::d3d9::texture::lock(const lock_flag_t lflags)
 {
-	lock(0);
+	lock(0, lflags);
 }
 
-void sge::d3d9::texture::lock(const lock_rect& r, const lock_flag_t flags)
+void sge::d3d9::texture::lock(const lock_rect& r, const lock_flag_t lflags)
 {
-	lock(&r);
+	lock(&r, lflags);
 }
 
-void sge::d3d9::texture::lock(const lock_rect* const r)
+void sge::d3d9::texture::lock(const lock_rect* const r, const lock_flag_t lflags)
 {
 	if(flags() & resource_flags::dynamic)
-		lock_dest = lock_texture(tex, r, flags());
+		lock_dest = lock_texture(tex, r, lflags, flags());
 	else
 	{
-		temp_tex.reset(create_texture(device, width(), height(), filter(), flags(), true));
-		lock_dest = lock_texture(temp_tex, r, flags());
+		temp_tex.reset(
+			create_texture(
+				device,
+				dim(),
+				filter(),
+				flags(),
+				true));
+		lock_dest = lock_texture(temp_tex, r, lflags, flags());
 	}
 }
 
@@ -88,29 +102,29 @@ void sge::d3d9::texture::unlock()
 	lock_dest = 0;
 }
 
+sge::texture::pointer sge::d3d9::texture::data()
+{
+	return lock_dest;
+}
+
+sge::texture::const_pointer sge::d3d9::texture::data() const
+{
+	return lock_dest;
+}
+
 void sge::d3d9::texture::set_data(const const_pointer data)
 {
-	const scoped_lock<texture*> l(this);
-	std::copy(data, data + size(), lock_dest);
+	const scoped_lock<texture*> l(make_scoped_lock(this, lock_flags::writeonly));
+	copy_n(data, size(), lock_dest);
 }
 
 void sge::d3d9::texture::set_data(const const_pointer data, const lock_rect& r)
 {
-	const scoped_lock<texture*> l(this, r);
-	std::copy(data, data + r.w() * r.h(), lock_dest);
+	//const scoped_lock<texture*> l(this, r);
+	//std::copy(data, data + r.w() * r.h(), lock_dest);
 }
 
-sge::d3d9::texture::size_type sge::d3d9::texture::width() const
+const sge::texture::dim_type sge::d3d9::texture::dim() const
 {
-	return _width;
-}
-
-sge::d3d9::texture::size_type sge::d3d9::texture::height() const
-{
-	return _height;
-}
-
-sge::d3d9::texture::size_type sge::d3d9::texture::size() const
-{
-	return width() * height();
+	return dim_;
 }

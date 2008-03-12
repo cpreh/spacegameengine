@@ -56,6 +56,9 @@ public:
 	void lock(cube_side::type side);
 	void lock(cube_side::type side, const lock_rect&);
 	void unlock();
+
+	pointer data();
+	const_pointer data() const;
 private:
 	void lock(cube_side::type side, const lock_rect* r);
 	void do_loss();

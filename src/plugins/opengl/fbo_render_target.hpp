@@ -36,7 +36,7 @@ public:
 	fbo_render_target(const dim_type& dim_);
 	~fbo_render_target();
 
-	dim_type dim() const;
+	const dim_type dim() const;
 	size_type width() const;
 	size_type height() const;
 	size_type size() const;

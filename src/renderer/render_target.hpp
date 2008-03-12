@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <cstddef>
 #include "../shared_ptr.hpp"
+#include "../export.hpp"
 #include "../math/dim.hpp"
 #include "color.hpp"
 
@@ -38,10 +39,8 @@ public:
 	typedef const value_type*              const_pointer;
 	typedef math::basic_dim<size_type, 2>  dim_type;
 
-	virtual dim_type dim() const = 0;
-	virtual size_type width() const = 0;
-	virtual size_type height() const = 0;
-	virtual size_type size() const = 0;
+	virtual const dim_type dim() const = 0;
+	SGE_SYMBOL size_type size() const;
 	virtual void copy_data(pointer) = 0;
 	virtual ~basic_render_target(){}
 };

@@ -60,7 +60,6 @@ protected:
 public:
 	basic_texture(const filter_args& filter, resource_flag_t flags);
 	~basic_texture();
-	virtual size_type size() const = 0;
 	resource_flag_t flags() const;
 	pointer data();
 	const_pointer data() const;

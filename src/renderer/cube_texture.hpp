@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CUBE_TEXTURE_HPP_INCLUDED
 
 #include <boost/array.hpp>
+#include "../export.hpp"
 #include "texture_base.hpp"
 #include "types.hpp"
 
@@ -48,6 +49,7 @@ public:
 	typedef typename base::const_pointer const_pointer;
 	typedef typename base::size_type size_type;
 
+	SGE_SYMBOL size_type size() const;
 	virtual void set_data(cube_side::type side, const_pointer p, const lock_rect& r) = 0;
 	virtual void set_data(cube_side::type side, const_pointer p) = 0;
 	virtual size_type border_size() const = 0;
@@ -58,11 +60,9 @@ typedef shared_ptr<cube_texture> cube_texture_ptr;
 typedef boost::array<cube_texture::const_pointer, cube_side::num_elements> cube_side_array;
 
 template<typename BitDepth>
-void set_cube_texture_data(basic_cube_texture<BitDepth>& t, const cube_side_array& src)
-{
-	for(unsigned i = 0; i < cube_side::num_elements; ++i)
-		t.set_data(static_cast<cube_side::type>(i), src[i]);
-}
+SGE_SYMBOL void set_cube_texture_data(
+	basic_cube_texture<BitDepth>& t,
+	const cube_side_array& src);
 
 }
 

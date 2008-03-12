@@ -59,11 +59,7 @@ public:
 	               const filter_args& filter,
 	               resource_flag_t flags);
 
-	box_type box() const;
-	size_type size() const;
-	size_type width() const;
-	size_type height() const;
-	size_type depth() const;
+	const box_type box() const;
 
 	void set_data(const_pointer src);
 	void set_data(const_pointer src, const lock_box& b);

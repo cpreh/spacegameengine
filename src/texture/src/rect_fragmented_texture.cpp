@@ -35,18 +35,18 @@ const sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(c
 	const texture::dim_type atlased_dim(atlased_size(dim));
 
 	// if there is no space left for the requested height
-	if(cur_y + dim.h() >= tex->height())
+	if(cur_y + dim.h() >= tex->dim().h())
 		return virtual_texture_ptr();
 
 	// if the current line is full advance to the next
-	if(cur_x + dim.w() >= tex->width())
+	if(cur_x + dim.w() >= tex->dim().w())
 	{
 		cur_x = 0;
 		cur_y += cur_height;
 		cur_height = 0;
 	}
 
-	if(cur_y + dim.h() >= tex->height())
+	if(cur_y + dim.h() >= tex->dim().h())
 		return virtual_texture_ptr();
 
 	const virtual_texture_ptr ret(new virtual_texture(lock_rect(lock_rect::point_type(cur_x, cur_y), atlased_dim), *this));

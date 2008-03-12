@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_FUNCTIONS_HPP_INCLUDED
 
 #include "../../renderer/texture.hpp"
+#include "../../renderer/texture_filter.hpp"
 #include "../../renderer/volume_texture.hpp"
 #include "d3dinclude.hpp"
 
@@ -30,36 +31,43 @@ namespace sge
 namespace d3d9
 {
 
-IDirect3DTexture9* create_texture(d3d_device_ptr,
-                                  texture::size_type width,
-                                  texture::size_type height,
-                                  const filter_args& filter,
-                                  resource_flag_t flags,
-                                  bool system_mem);
+IDirect3DTexture9* create_texture(
+	d3d_device_ptr,
+	const texture::dim_type& dim,
+	const filter_args& filter,
+	resource_flag_t flags,
+	bool system_mem);
 
-sge::texture::pointer lock_texture(d3d_texture_ptr,
-                                   const lock_rect* rect,
-                                   resource_flag_t rflags);
+sge::texture::pointer lock_texture(
+	d3d_texture_ptr,
+	const lock_rect* rect,
+	lock_flag_t lflags,
+	resource_flag_t rflags);
 
-void unlock_texture(d3d_texture_ptr);
+void unlock_texture(
+	d3d_texture_ptr);
 
-void update_texture(d3d_device_ptr,
-                    IDirect3DBaseTexture9* src,
-                    IDirect3DBaseTexture9* dest);
+void update_texture(
+	d3d_device_ptr,
+	IDirect3DBaseTexture9* src,
+	IDirect3DBaseTexture9* dest);
 
-IDirect3DVolumeTexture9* create_volume_texture(d3d_device_ptr,
-                                               volume_texture::size_type width,
-                                               volume_texture::size_type height,
-                                               volume_texture::size_type depth,
-                                               const filter_args& filter,
-                                               resource_flag_t flags,
-                                               bool system_mem);
+IDirect3DVolumeTexture9* create_volume_texture(
+	d3d_device_ptr,
+	const volume_texture::box_type& box,
+	const filter_args& filter,
+	resource_flag_t flags,
+	bool system_mem);
 
-sge::volume_texture::pointer lock_volume_texture(d3d_volume_texture_ptr,
-                                                 const lock_box* box,
-                                                 resource_flag_t rflags);
+sge::volume_texture::pointer
+lock_volume_texture(
+	d3d_volume_texture_ptr,
+	const lock_box* box,
+	lock_flag_t lflags,
+	resource_flag_t rflags);
 
-void unlock_volume_texture(d3d_volume_texture_ptr);
+void unlock_volume_texture(
+	d3d_volume_texture_ptr);
 
 }
 }

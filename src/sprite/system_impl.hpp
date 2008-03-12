@@ -44,8 +44,8 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 	}
 
 	{
-		scoped_lock<index_buffer_ptr> iblock(ib);
-		scoped_lock<vertex_buffer_ptr> vblock(vb);
+		const scoped_lock<index_buffer_ptr> iblock(make_scoped_lock(ib, lock_flags::writeonly));
+		const scoped_lock<vertex_buffer_ptr> vblock(make_scoped_lock(vb, lock_flags::writeonly));
 		index_buffer::iterator ib_it = ib->begin();
 		vertex_buffer::iterator vb_it = vb->begin();
 

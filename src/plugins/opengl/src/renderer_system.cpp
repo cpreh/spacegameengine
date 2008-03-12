@@ -30,7 +30,11 @@ sge::ogl::renderer_system::renderer_system()
 : created(false)
 {}
 
-sge::renderer_ptr sge::ogl::renderer_system::create_renderer(const renderer_parameters& param, const int adapter, const window_ptr wnd)
+const sge::renderer_ptr
+sge::ogl::renderer_system::create_renderer(
+	const renderer_parameters& param,
+	const adapter_type adapter,
+	const window_ptr wnd)
 {
 	if(created)
 		throw exception(SGE_TEXT("The opengl plugin may only be used once for creating a renderer."));

@@ -26,7 +26,7 @@ sge::ogl::default_render_target::default_render_target(const window_ptr wnd)
 {}
 
 // FIXME: is this really intended (use the viewport dim here instead)?
-sge::render_target::dim_type sge::ogl::default_render_target::dim() const
+const sge::render_target::dim_type sge::ogl::default_render_target::dim() const
 {
 	return dim_type(wnd->width(), wnd->height());
 }

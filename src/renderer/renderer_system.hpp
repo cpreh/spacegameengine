@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
 #include <vector>
+#include "../export.hpp"
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
 #include "../plugin_traits.hpp"
 #include "../string.hpp"
-#include "types.hpp"
+#include "../window.hpp"
+#include "adapter.hpp"
 #include "renderer.hpp"
-#include "../export.hpp"
 
 namespace sge
 {
@@ -39,9 +40,10 @@ struct renderer_parameters;
 
 class renderer_system {
 public:
-	virtual renderer_ptr create_renderer(
+	virtual const renderer_ptr
+	create_renderer(
 		const renderer_parameters& param,
-		int adapter = 0,
+		adapter_type adapter = 0,
 		window_ptr wnd = window_ptr()) = 0;
 	virtual const renderer_caps_array caps() const = 0;
 	virtual ~renderer_system(){}

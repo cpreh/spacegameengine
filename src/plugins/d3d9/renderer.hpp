@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../math/matrix.hpp"
 #include "../../math/vector.hpp"
+#include "../../renderer/adapter.hpp"
 #include "../../renderer/renderer.hpp"
+#include "../../renderer/renderer_parameters.hpp"
 #include "../../renderer/renderer_system.hpp"
 #include "../../win32_window.hpp"
 #include "vertex_format.hpp"
@@ -37,39 +39,46 @@ namespace d3d9
 
 class renderer : public sge::renderer {
 public:
-	renderer(d3d_device_ptr device, const renderer_parameters& param, int adapter, win32_window_ptr wnd, d3d_ptr sys);
+	renderer(
+		d3d_device_ptr device,
+		const renderer_parameters& param,
+		adapter_type adapter,
+		win32_window_ptr wnd,
+		d3d_ptr sys);
 
-	texture_ptr        create_texture(texture::const_pointer data,
-	                                  texture::size_type width,
-	                                  texture::size_type height,
-	                                  const filter_args& filter,
-	                                  resource_flag_t flags);
+	const texture_ptr create_texture(
+		texture::const_pointer data,
+		const texture::dim_type& dim,
+		const filter_args& filter,
+		resource_flag_t flags);
 
-	volume_texture_ptr create_volume_texture(volume_texture::const_pointer data,
-	                                         volume_texture::size_type width,
-	                                         volume_texture::size_type height,
-	                                         volume_texture::size_type depth,
-	                                         const filter_args& filter,
-	                                         resource_flag_t flags);
+	const volume_texture_ptr create_volume_texture(
+		volume_texture::const_pointer data,
+		const volume_texture::box_type& box,
+		const filter_args& filter,
+		resource_flag_t flags);
 
-	cube_texture_ptr   create_cube_texture(const cube_side_array* data,
-	                                       cube_texture::size_type size,
-	                                       const filter_args& filter,
-	                                       resource_flag_t flags);
+	const cube_texture_ptr create_cube_texture(
+		const cube_side_array* data,
+		cube_texture::size_type size,
+		const filter_args& filter,
+		resource_flag_t flags);
 
-	vertex_buffer_ptr  create_vertex_buffer(const sge::vertex_format& format,
-	                                        vertex_buffer::size_type size,
-	                                        resource_flag_t flags,
-	                                        vertex_buffer::const_pointer data);
+	const vertex_buffer_ptr create_vertex_buffer(
+		const sge::vertex_format& format,
+		vertex_buffer::size_type size,
+		resource_flag_t flags,
+		vertex_buffer::const_pointer data);
 
-	index_buffer_ptr   create_index_buffer(index_buffer::size_type size,
-	                                       resource_flag_t flags,
-	                                       index_buffer::const_pointer data);
+	const index_buffer_ptr create_index_buffer(
+		index_buffer::size_type size,
+		resource_flag_t flags,
+		index_buffer::const_pointer data);
 
-	render_target_ptr  create_render_target(render_target::size_type width,
-	                                        render_target::size_type height);
+	const render_target_ptr  create_render_target(
+		const render_target::dim_type&);
 
-	void set_int_state(int_state::type, int_type);
+	/*void set_int_state(int_state::type, int_type);
 	void set_float_state(float_state::type, float_type);
 	void set_bool_state(bool_state::type, bool_type);
 	void set_color_state(color_state::type, color);
@@ -78,7 +87,10 @@ public:
 	void set_stencil_func(stencil_func::type, signed_type value, unsigned_type mask);
 	void set_fog_mode(fog_mode::type);
 	void set_blend_func(source_blend_func::type, dest_blend_func::type);
-	void set_draw_mode(draw_mode::type);
+	void set_draw_mode(draw_mode::type);*/
+	void set_state(const renderer_state_list&);
+	void push_state(const renderer_state_list&);
+	void pop_level();
 
 	void set_texture(texture_base_ptr tex, stage_type stage);
 	void set_material(const material& m);
@@ -88,13 +100,13 @@ public:
 	void enable_light(light_index index, bool enable);
 	void set_light(light_index index, const light&);
 
-	void push();
-	void pop();
+	const glsl::program_ptr create_glsl_program(
+		const std::string& vertex_shader_source,
+		const std::string& pixel_shader_source);
 
-	glsl::program_ptr create_glsl_program(const std::string& vertex_shader_source = no_shader, const std::string& pixel_shader_source = no_shader);
 	void set_glsl_shader(glsl::program_ptr);
 
-	render_target_ptr get_render_target() const;
+	const render_target_ptr get_render_target() const;
 
 	void begin_rendering();
 	void end_rendering();
@@ -117,23 +129,19 @@ public:
 	void transform(const math::space_matrix&);
 	void projection(const math::space_matrix&);
 
-	window_ptr get_window() const;
-	screen_size_t screen_size() const;
+	const window_ptr get_window() const;
+	const screen_size_t screen_size() const;
 	const renderer_caps& caps() const;
 private:
 	d3d_ptr                     sys;
 	d3d_device_ptr              device;
-	d3d_surface_ptr             default_render_target;
-	int                         adapter;
+	adapter_type                adapter;
 	renderer_parameters         parameters;
 	win32_window_ptr            render_window;
+	renderer_caps               caps_;
+	d3d_surface_ptr             default_render_target;
 	resource_list               resources;
 	d3d_vertex_declaration_ptr  vertex_declaration;
-	DWORD                       clear_flags;
-	int_type                    clear_color,
-	                            stencil_clear_val;
-	float_type                  zbuffer_clear_val;
-	renderer_caps               _caps;
 	vertex_buffer_ptr           vb;
 	index_buffer_ptr            ib;
 private:

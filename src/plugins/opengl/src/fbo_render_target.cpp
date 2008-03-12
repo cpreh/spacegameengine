@@ -50,7 +50,7 @@ void sge::ogl::fbo_render_target::bind_me() const
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo);
 }
 
-sge::render_target::dim_type sge::ogl::fbo_render_target::dim() const
+const sge::render_target::dim_type sge::ogl::fbo_render_target::dim() const
 {
 	return dim_;
 }

@@ -41,17 +41,15 @@ typedef basic_texture<sge::texture> texture_base_type;
 
 class texture : public detail::texture_base_type {
 public:
-	texture(renderer& r,
-	        d3d_device_ptr device,
-	        const_pointer data,
-	        size_type width,
-	        size_type height,
-	        const filter_args& filter,
-	        resource_flag_t flags);
+	texture(
+		renderer& r,
+		d3d_device_ptr device,
+		const_pointer data,
+		const dim_type& dim,
+		const filter_args& filter,
+		resource_flag_t flags);
 	
-	size_type width() const;
-	size_type height() const;
-	size_type size() const;
+	const dim_type dim() const;
 	
 	void set_data(const_pointer data);	
 	void set_data(const_pointer data, const lock_rect& r);
@@ -59,8 +57,11 @@ public:
 	void lock(lock_flag_t);
 	void lock(const lock_rect&, lock_flag_t);
 	void unlock();
+
+	pointer data();
+	const_pointer data() const;
 private:
-	void lock(const lock_rect* r);
+	void lock(const lock_rect* r, lock_flag_t);
 
 	void do_loss();
 	IDirect3DBaseTexture9* do_reset();
@@ -68,8 +69,7 @@ private:
 	d3d_device_ptr   device;
 	d3d_texture_ptr  tex;
 	d3d_texture_ptr  temp_tex;
-	size_type        _width;
-	size_type        _height;
+	dim_type         dim_;
 	pointer          lock_dest;
 };
 

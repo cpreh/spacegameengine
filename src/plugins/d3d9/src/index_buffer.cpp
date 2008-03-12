@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
+#include "../../../algorithm_impl.hpp"
 #include "../../../exception.hpp"
 #include "../../../renderer/scoped_lock.hpp"
 #include "../index_buffer.hpp"
@@ -48,13 +48,13 @@ void sge::d3d9::index_buffer::init(const const_pointer src)
 
 	IDirect3DIndexBuffer9* p;
 	if(device->CreateIndexBuffer(static_cast<UINT>(sz * stride), usage, format, pool, &p,0) != D3D_OK)
-		throw exception("Cannot create index buffer!");
+		throw exception(SGE_TEXT("Cannot create index buffer!"));
 	buffer.reset(p);
 
 	if(src)
 	{
-		scoped_lock<index_buffer*> l(this);
-		std::copy(src,src+size(),lock_dest);
+		const scoped_lock<index_buffer*> l(make_scoped_lock(this, lock_flags::writeonly));
+		copy_n(src, size(), lock_dest);
 	}
 }
 
@@ -101,11 +101,11 @@ sge::d3d9::index_buffer::const_reverse_iterator sge::d3d9::index_buffer::rend() 
 void sge::d3d9::index_buffer::lock(const lock_flag_t lflags, const size_type first, const size_type count)
 {
 	if(lock_dest)
-		throw exception("d3d::index_buffer::lock() you have to unlock first!");
+		throw exception(SGE_TEXT("d3d::index_buffer::lock() you have to unlock first!"));
 	void* p = 0;
 	const DWORD d3dlflags = convert_lock_flags(lflags, flags());
 	if(buffer->Lock(static_cast<UINT>(first * stride), static_cast<UINT>(count * stride), &p, d3dlflags) != D3D_OK)
-		throw exception("cannot lock index buffer");
+		throw exception(SGE_TEXT("Cannot lock index buffer!"));
 	lock_dest = static_cast<pointer>(p);
 }
 
@@ -117,9 +117,9 @@ void sge::d3d9::index_buffer::lock(const lock_flag_t lflags)
 void sge::d3d9::index_buffer::unlock()
 {
 	if(!lock_dest)
-		throw exception("d3d::index_buffer::unlock() you have to lock first!");
+		throw exception(SGE_TEXT("d3d::index_buffer::unlock() you have to lock first!"));
 	if(buffer->Unlock() != D3D_OK)
-		throw exception("cannot unlock index buffer");
+		throw exception(SGE_TEXT("Cannot unlock index buffer!"));
 	lock_dest = 0;
 }
 
@@ -136,7 +136,7 @@ sge::resource_flag_t sge::d3d9::index_buffer::flags() const
 void sge::d3d9::index_buffer::resize(const size_type newsize, const const_pointer new_data)
 {
 	if(lock_dest)
-		throw exception("d3d::index_buffer::resize() you have to unlock before resizing");
+		throw exception(SGE_TEXT("d3d::index_buffer::resize() you have to unlock before resizing!"));
 
 	sz = newsize;
 	init(new_data);
@@ -144,8 +144,8 @@ void sge::d3d9::index_buffer::resize(const size_type newsize, const const_pointe
 
 void sge::d3d9::index_buffer::set_data(const const_pointer src, const size_type first, const size_type count)
 {
-	scoped_lock<index_buffer*> _l(this, lock_flags::writeonly, first, count);
-	std::copy(src + first, src + first+count, data());
+	const scoped_lock<index_buffer*> lock_(make_scoped_lock(this, first, count, lock_flags::writeonly));
+	copy_n(src + first, count, data());
 }
 
 void sge::d3d9::index_buffer::on_loss()
