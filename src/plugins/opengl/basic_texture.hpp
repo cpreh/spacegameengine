@@ -63,6 +63,7 @@ public:
 	resource_flag_t flags() const;
 	pointer data();
 	const_pointer data() const;
+	using Base::size;
 private:
 	filter_args                            filter_;
 	resource_flag_t                        flags_;

@@ -90,7 +90,7 @@ make_scoped_lock(
 	const lock_flag_t flags)
 {
 	t->lock(flags);
-	return scoped_lock<T>::wrapper(t);
+	return typename scoped_lock<T>::wrapper(t);
 }
 
 template<typename T>
@@ -101,7 +101,7 @@ make_scoped_lock(
 	const lock_flag_t flags)
 {
 	t->lock(side, flags);
-	return scoped_lock<T>::wrapper(t);
+	return typename scoped_lock<T>::wrapper(t);
 }
 
 template<typename T, typename Sz>
@@ -113,7 +113,7 @@ make_scoped_lock(
 	const lock_flag_t flags)
 {
 	t->lock(flags, first, count);
-	return scoped_lock<T>::wrapper(t);
+	return typename scoped_lock<T>::wrapper(t);
 }
 
 /*scoped_lock(const T t, const lock_rect& r)

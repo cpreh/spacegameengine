@@ -21,12 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../cube_texture.hpp"
 
 template<typename BitDepth>
-void sge::set_cube_texture_data(
-	basic_cube_texture<BitDepth>& t,
+void sge::basic_cube_texture<BitDepth>::set_data(
 	const cube_side_array& src)
 {
 	for(unsigned i = 0; i < cube_side::num_elements; ++i)
-		t.set_data(static_cast<cube_side::type>(i), src[i]);
+		set_data(static_cast<cube_side::type>(i), src[i]);
 }
 
 template<typename BitDepth>

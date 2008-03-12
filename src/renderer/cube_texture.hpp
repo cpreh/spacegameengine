@@ -52,17 +52,14 @@ public:
 	SGE_SYMBOL size_type size() const;
 	virtual void set_data(cube_side::type side, const_pointer p, const lock_rect& r) = 0;
 	virtual void set_data(cube_side::type side, const_pointer p) = 0;
+	
+	typedef boost::array<const_pointer, cube_side::num_elements> cube_side_array;
+	SGE_SYMBOL void set_data(const cube_side_array&);
 	virtual size_type border_size() const = 0;
 };
 
 typedef basic_cube_texture<bit_depth32> cube_texture;
 typedef shared_ptr<cube_texture> cube_texture_ptr;
-typedef boost::array<cube_texture::const_pointer, cube_side::num_elements> cube_side_array;
-
-template<typename BitDepth>
-SGE_SYMBOL void set_cube_texture_data(
-	basic_cube_texture<BitDepth>& t,
-	const cube_side_array& src);
 
 }
 

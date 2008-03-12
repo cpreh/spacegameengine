@@ -38,7 +38,7 @@ sge::ogl::cube_texture::cube_texture(const cube_side_array* const src,
   sz(sz)
 {
 	if(src)
-		set_cube_texture_data(*this,*src);
+		sge::cube_texture::set_data(*src);
 }
 
 

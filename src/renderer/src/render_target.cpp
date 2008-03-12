@@ -20,7 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../render_target.hpp"
 
-sge::render_target::size_type sge::render_target::size() const
+template<typename BitDepth>
+typename sge::basic_render_target<BitDepth>::size_type
+sge::basic_render_target<BitDepth>::size() const
 {
 	return dim().size();
 }
+
+template class sge::basic_render_target<sge::bit_depth16>;
+template class sge::basic_render_target<sge::bit_depth32>;

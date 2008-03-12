@@ -251,7 +251,7 @@ const sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(
 }
 
 const sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(
-	const cube_side_array* const src,
+	const cube_texture::cube_side_array* const src,
 	const cube_texture::size_type sz,
 	const filter_args& filter,
 	const resource_flag_t flags)

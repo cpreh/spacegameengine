@@ -123,7 +123,7 @@ public:
 		resource_flag_t flags);
 
 	const cube_texture_ptr create_cube_texture(
-		const cube_side_array* data,
+		const cube_texture::cube_side_array* data,
 		cube_texture::size_type size,
 		const filter_args& filter,
 		resource_flag_t flags);
