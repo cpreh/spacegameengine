@@ -6,6 +6,8 @@
 #include "../algorithm_impl.hpp"
 #include "../exception.hpp"
 #include <cmath>
+#include <algorithm>
+#include <functional>
 
 template<typename T, std::size_t N, std::size_t M>
 sge::math::basic_matrix<T, N, M>::basic_matrix(no_initialization_tag)
@@ -93,7 +95,7 @@ inline sge::math::basic_matrix<T,N,M> sge::math::operator+ (const basic_matrix<T
 {
 	basic_matrix<T,N,M> ret;
 	for(typename basic_matrix<T,N,M>::size_type i = 0; i < r.size(); ++i)
-		ret[i] = +ret[i];
+		ret.data_[i] = +ret.data_[i];
 	return ret;
 }
 
@@ -102,7 +104,7 @@ inline sge::math::basic_matrix<T,N,M> sge::math::operator- (const basic_matrix<T
 {
 	basic_matrix<T,N,M> ret;
 	for(typename basic_matrix<T,N,M>::size_type i = 0; i < r.size(); ++i)
-		ret[i] = -ret[i];
+		ret.data_[i] = -ret.data_[i];
 	return ret;
 }
 
@@ -143,10 +145,7 @@ inline sge::math::basic_matrix<T,N,N> sge::math::operator* (const basic_matrix<T
 template<typename T, std::size_t N, std::size_t M>
 inline bool sge::math::operator== (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r)
 {
-	for(typename basic_matrix<T,N,M>::size_type x = 0; x < r.size(); ++x)
-		if(!compare(l.data[x], r.data[x]))
-			return false;
-	return true;
+	return std::equal(l.begin(), l.end(), r.begin(), std::ptr_fun(compare<T>));
 }
 
 template<typename T, std::size_t N, std::size_t M>
