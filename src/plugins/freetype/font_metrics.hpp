@@ -39,9 +39,9 @@ public:
 	const char_metric_ptr load_char(font_char c);
 	font_unit line_height() const;
 private:
-	face _face;
-
+	face face_;
 	font_unit pixel_size;
+
 	typedef std::map<font_char, char_metric_ptr> buffer_type;
 	buffer_type buffer;
 };

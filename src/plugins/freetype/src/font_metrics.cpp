@@ -25,17 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
 
-sge::ft::font_metrics::font_metrics(library& lib, const path& font_path, const unsigned font_height)
-: _face(lib, font_path)
+sge::ft::font_metrics::font_metrics(
+	library& lib,
+	const path& font_path,
+	const unsigned font_height)
+: face_(lib, font_path),
+  pixel_size(static_cast<font_unit>(font_height))
 {
-	if(FT_Select_Charmap(_face.get(), FT_ENCODING_UNICODE) != 0)
+	if(FT_Select_Charmap(face_.get(), FT_ENCODING_UNICODE) != 0)
 		throw exception(SGE_TEXT("No Unicode code map found!"));
 
-	if(FT_Set_Pixel_Sizes(_face.get(), 0, font_height))
+	if(FT_Set_Pixel_Sizes(face_.get(), 0, font_height))
 		throw exception(SGE_TEXT("FT_Set_Pixel_Sizes() failed!"));
-
-	pixel_size = font_height;
-	//pixel_size =  _face->ascender / 64 - _face->descender / 64;
 }
 
 const sge::char_metric_ptr sge::ft::font_metrics::load_char(const font_char c)
@@ -46,7 +47,7 @@ const sge::char_metric_ptr sge::ft::font_metrics::load_char(const font_char c)
 			return it->second;
 	}
 
-	const char_metric_ptr metric(new char_metric(_face, c, line_height()));
+	const char_metric_ptr metric(new char_metric(face_, c, line_height()));
 	buffer.insert(std::make_pair(c, metric));
 	return metric;
 }

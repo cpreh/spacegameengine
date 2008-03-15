@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../iostream.hpp"
 #include "../../../ostream.hpp"
 
-sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_unit pixel_size)
+sge::ft::char_metric::char_metric(face& face_, const font_char ch, const font_unit pixel_size)
 {
-	if(FT_Load_Char(_face.get(), ch, FT_LOAD_DEFAULT))
+	if(FT_Load_Char(face_.get(), ch, FT_LOAD_DEFAULT))
 		throw exception(SGE_TEXT("FT_Load_Glyph() failed!"));
 
-	glyph _glyph(_face);
+	glyph _glyph(face_);
 	FT_BitmapGlyph bmp_glyph = _glyph.bitmap_glyph();
 
 	FT_Bitmap& bitmap = bmp_glyph->bitmap;
@@ -41,14 +41,11 @@ sge::ft::char_metric::char_metric(face& _face, const font_char ch, const font_un
 	width_ = bitmap.width;
 	height_ = bitmap.rows;
 	left_ = bmp_glyph->left;
-	top_ = static_cast<int>(pixel_size) - bmp_glyph->top + _face->descender / 64;
-	x_advance_ = static_cast<font_unit>(_face->glyph->advance.x / 64);
+	top_ = static_cast<int>(pixel_size) - bmp_glyph->top + face_->descender / 64;
+	x_advance_ = static_cast<font_unit>(face_->glyph->advance.x / 64);
 
 	if(bitmap.width == 0 || bitmap.rows == 0)
-	{
-		sge::cerr << SGE_TEXT("warning: freetype char with value ") << static_cast<int>(ch) << SGE_TEXT(" requested which freetype can't handle!\n");
 		return;
-	}
 
 	buffer.resize_uninitialized(bitmap.width * bitmap.rows);
 	const unsigned char* data = bitmap.buffer;

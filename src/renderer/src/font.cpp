@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../font.hpp"
 #include "../../math/rect_impl.hpp"
 
-sge::font::font(const font_metrics_ptr metrics_, const font_drawer_ptr drawer_)
+sge::font::font(
+	const font_metrics_ptr metrics_,
+	const font_drawer_ptr drawer_)
 : metrics_(metrics_),
   drawer_(drawer_)
 {}
@@ -33,12 +35,14 @@ sge::font_unit sge::font::height() const
 	return metrics()->line_height();
 }
 
-const sge::font::text_size_t sge::font::draw_text(const string_type& text,
-                                                  const font_pos start_pos,
-                                                  const font_dim max_sz,
-                                                  const font_align_h::type align_h,
-                                                  const font_align_v::type align_v,
-                                                  const font_flag_t flags) const
+const sge::font::text_size_t
+sge::font::draw_text(
+	const string_type& text,
+	const font_pos start_pos,
+	const font_dim max_sz,
+	const font_align_h::type align_h,
+	const font_align_v::type align_v,
+	const font_flag_t flags) const
 {
 	if(text.empty() || height() > max_sz.h())
 		return text_size_t(font_dim(0,0), text.begin(), text.begin());
@@ -84,12 +88,17 @@ const sge::font::text_size_t sge::font::draw_text(const string_type& text,
 		for(;sbeg != line_size.end(); ++sbeg)
 		{
 			const char_metric_ptr metric = metrics()->load_char(*sbeg);
-			if(!metric->pixmap())
-				continue;
-
-			const font_rect fp(font_pos(pos.x() + metric->left(), pos.y() + metric->top()), font_dim(metric->width(), metric->height()));
-			drawer()->draw_char(*sbeg, fp, metric->pixmap());
-
+			if(metric->pixmap())
+				drawer()->draw_char(
+					*sbeg,
+					font_rect(
+						font_pos(
+							pos.x() + metric->left(),
+							pos.y() + metric->top()),
+						font_dim(
+							metric->width(),
+							metric->height())),
+					 metric->pixmap());
 			pos.x() += char_space(*sbeg);
 		}
 
@@ -107,7 +116,12 @@ sge::font_unit sge::font::char_space(const char_type ch) const
 	return metrics()->load_char(ch)->x_advance();
 }
 
-const sge::font::text_size_t sge::font::text_size(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_dim max_sz, const font_flag_t flags) const
+const sge::font::text_size_t
+sge::font::text_size(
+	string_type::const_iterator sbeg,
+	const string_type::const_iterator send,
+	const font_dim max_sz,
+	const font_flag_t flags) const
 {
 	font_dim sz(0,0);
 	while(sbeg != send && sz.h() + height() <= max_sz.h())
@@ -124,19 +138,32 @@ const sge::font::text_size_t sge::font::text_size(string_type::const_iterator sb
 	return text_size_t(sz, sbeg, sbeg);
 }
 
-const sge::font::text_size_t sge::font::text_size(const string_type& s, const font_dim max_sz, const font_flag_t flags) const
+const sge::font::text_size_t
+sge::font::text_size(
+	const string_type& s,
+	const font_dim max_sz,
+	const font_flag_t flags) const
 {
-	return text_size(s.begin(),s.end(),max_sz,flags);
+	return text_size(
+		s.begin(),
+		s.end(),
+		max_sz,
+		flags);
 }
 
-const sge::font::text_size_t sge::font::line_width(string_type::const_iterator sbeg, const string_type::const_iterator send, const font_unit width, const font_flag_t flags) const
+const sge::font::text_size_t
+sge::font::line_width(
+	string_type::const_iterator sbeg,
+	const string_type::const_iterator send,
+	const font_unit width,
+	const font_flag_t flags) const
 {
 	font_unit w(0), last_width(0);
 	string_type::const_iterator last_white = sbeg;
 
 	for(; sbeg != send; ++sbeg)
 	{
-		if(*sbeg == '\n')
+		if(*sbeg == SGE_TEXT('\n'))
 			return text_size_t(font_dim(w, height()), sbeg, boost::next(sbeg));
 
 		if(std::isspace(*sbeg, std::locale()))
@@ -167,7 +194,10 @@ const sge::font_drawer_ptr sge::font::drawer() const
 	return drawer_;
 }
 
-sge::font::text_size_t::text_size_t(const font_dim size_, const string_type::const_iterator end_, const string_type::const_iterator next_begin_)
+sge::font::text_size_t::text_size_t(
+	const font_dim size_,
+	const string_type::const_iterator end_,
+	const string_type::const_iterator next_begin_)
  : size_(size_),
    end_(end_),
    next_begin_(next_begin_)
