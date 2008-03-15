@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/weak_ptr.hpp>
 
+#include "../../path.hpp"
 #include "../../font/font_system.hpp"
 #include "../../font/font_metrics.hpp"
 #include "library.hpp"

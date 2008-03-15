@@ -5,7 +5,7 @@
 #include <deque>
 
 // sge
-#include "../renderer/font.hpp"
+#include "../font/font.hpp"
 #include "../renderer/renderer.hpp"
 #include "../input/input_system.hpp"
 #include "../input/key_mod_tracker.hpp"

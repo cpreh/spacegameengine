@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <utility>
 #include "../../../exception.hpp"
-#include "../../../renderer/transform.hpp"
 #include "../font_metrics.hpp"
 #include "../glyph.hpp"
 #include "../char_metric.hpp"

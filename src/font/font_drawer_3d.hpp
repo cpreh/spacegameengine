@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <vector>
 #include <map>
-#include "color.hpp"
-#include "font_drawer.hpp"
-#include "renderer.hpp"
-#include "font_types.hpp"
+#include "../export.hpp"
+#include "../renderer/color.hpp"
+#include "../renderer/renderer.hpp"
 #include "../texture/manager.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/sprite.hpp"
-#include "../export.hpp"
+#include "font_drawer.hpp"
+#include "font_types.hpp"
+
 
 namespace sge
 {

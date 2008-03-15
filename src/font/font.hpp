@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shared_ptr.hpp"
 #include "../types.hpp"
 #include "../string.hpp"
+#include "../export.hpp"
+#include "../renderer/index_buffer.hpp"
 #include "font_types.hpp"
 #include "font_drawer.hpp"
-#include "index_buffer.hpp"
-#include "../font/font_system.hpp"
-#include "../font/font_metrics.hpp"
-#include "../export.hpp"
+#include "font_system.hpp"
+#include "font_metrics.hpp"
 
 namespace sge
 {

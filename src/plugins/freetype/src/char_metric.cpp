@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstring>
 #include "../../../exception.hpp"
 #include "../../../raw_vector_impl.hpp"
+#include "../../../iostream.hpp"
+#include "../../../ostream.hpp"
 #include "../freetype.hpp"
 #include "../face.hpp"
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
-#include "../../../iostream.hpp"
-#include "../../../ostream.hpp"
 
 sge::ft::char_metric::char_metric(face& face_, const font_char ch, const font_unit pixel_size)
 {
