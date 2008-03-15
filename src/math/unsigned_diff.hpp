@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_UNSIGNED_DIFF_HPP_INCLUDED
 #define SGE_MATH_UNSIGNED_DIFF_HPP_INCLUDED
 
+#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
 
 namespace sge
@@ -27,7 +28,7 @@ namespace sge
 namespace math
 {
 template<typename T>
-inline typename boost::is_unsigned<T>::type unsigned_diff(const T a, const T b)
+inline typename boost::enable_if<boost::is_unsigned<T>, T>::type unsigned_diff(const T a, const T b)
 {
 	return a > b ? a - b : b - a;
 }

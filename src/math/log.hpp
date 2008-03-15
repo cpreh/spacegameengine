@@ -27,11 +27,13 @@ namespace sge
 {
 namespace math
 {
-inline unsigned log2(const unsigned x)
+
+template<typename T>
+inline typename boost::enable_if<boost::is_unsigned<T>, T>::type log2(const T x)
 {
-	unsigned r = 0;
+	T r(0);
 	while((x >> r) != 0)
-		r++;
+		++r;
 	return --r;
 }
 
@@ -40,6 +42,7 @@ inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type is_int_log2(
 {
 	return !(x & (x-1));
 }
+
 }
 }
 

@@ -20,15 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_ABS_HPP_INCLUDED
 #define SGE_MATH_ABS_HPP_INCLUDED
 
+#include <cstdlib>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_signed.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+
 namespace sge
 {
 namespace math
 {
 
 template<typename T>
-inline T abs(const T &t) 
+inline typename boost::enable_if<boost::is_signed<T>, T>::type abs(const T &t)
+{
+	return std::abs(t);
+}
+
+template<typename T>
+inline typename boost::enable_if<boost::is_floating_point<T>, T>::type abs(const T &t) 
 { 
-	return t >= T(0) ? t : -t; 
+	return t >= static_cast<T>(0) ? t : -t; 
 }
 
 }
