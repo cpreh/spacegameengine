@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../su.hpp"
 #include "../../math/rect_impl.hpp"
+#include "../../math/matrix_impl.hpp"
 #include "../transform.hpp"
 
 sge::math::space_matrix sge::matrix_pixel_to_space(const screen_size_t& sz)

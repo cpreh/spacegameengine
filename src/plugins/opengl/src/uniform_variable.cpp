@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../uniform_variable.hpp"
+#include "../../../math/matrix_impl.hpp"
 
 sge::ogl::uniform_variable::uniform_variable(GLuint program, const std::string& name)
 : ref(glGetUniformLocation(program, name.c_str()))

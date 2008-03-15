@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/ostream.hpp"
 #include "../src/media.hpp"
 #include "../src/init.hpp"
-#include "../src/math/matrix.hpp"
+#include "../src/math/matrix_impl.hpp"
 #include "../src/scoped_connection.hpp"
 #include "../src/renderer/renderer.hpp"
 #include "../src/renderer/scoped_renderblock.hpp"

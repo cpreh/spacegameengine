@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../transform.hpp"
 #include "../material.hpp"
 #include "../../vector.hpp"
+#include "../../math/matrix_impl.hpp"
 
 sge::line_strip::line_strip(
 	const renderer_ptr rend,

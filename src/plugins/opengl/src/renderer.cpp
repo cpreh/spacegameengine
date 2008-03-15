@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../renderer/types.hpp"
 #include "../../../renderer/viewport.hpp"
 #include "../../../renderer/default_renderer_states.hpp"
+#include "../../../math/matrix_impl.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"

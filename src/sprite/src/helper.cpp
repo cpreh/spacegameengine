@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/array.hpp>
 #include <boost/foreach.hpp>
 #include "../../renderer/transform.hpp"
-#include "../../math/matrix.hpp"
+#include "../../math/matrix_impl.hpp"
 #include "../../math/rect_impl.hpp"
 #include "../helper.hpp"
 

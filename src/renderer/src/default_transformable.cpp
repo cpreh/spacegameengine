@@ -19,8 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../default_transformable.hpp"
+#include "../../math/matrix_impl.hpp"
 
-sge::default_transformable::default_transformable(const renderer_ptr rend, const math::space_matrix& internal, const math::space_matrix& _projection, const math::space_matrix& _transform)
+sge::default_transformable::default_transformable(
+	const renderer_ptr rend,
+	const math::space_matrix& internal,
+	const math::space_matrix& _projection,
+	const math::space_matrix& _transform)
  : rend(rend),
    _internal_matrix(internal),
    _projection(_projection),

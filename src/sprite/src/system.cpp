@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../sprite.hpp"
 #include "../../renderer/vertex_format.hpp"
 #include "../../renderer/transform.hpp"
+#include "../../math/matrix_impl.hpp"
 
 const unsigned init_sprites = 25;
 
