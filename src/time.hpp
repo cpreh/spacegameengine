@@ -30,6 +30,8 @@ typedef unsigned long time_type;
 
 SGE_SYMBOL time_type time();
 
+SGE_SYMBOL time_type hz();
+
 }
 
 #endif

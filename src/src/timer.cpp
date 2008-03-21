@@ -20,21 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../timer.hpp"
 
-sge::timer::timer()
-: _interval(1000),
-  _last_time(time()),
-  _active(false)
-{}
-
-sge::timer::timer(const interval_type _interval)
-: _interval(_interval),
-  _last_time(time()),
-  _active(true)
+sge::timer::timer(
+	const interval_type interval_,
+	const bool active_)
+: interval_(interval_),
+  last_time_(time()),
+  active_(active_)
 {}
 
 sge::timer::frames_type sge::timer::update()
 {
-	if(!_active)
+	if(!active())
 		return 0;
 
 	const frames_type f = elapsed_frames();
@@ -45,7 +41,7 @@ sge::timer::frames_type sge::timer::update()
 
 sge::timer::frames_type sge::timer::elapsed_frames() const
 {
-	if(!_active)
+	if(!active())
 		return 0;
 
 	const interval_type ntime = time(),
@@ -55,42 +51,44 @@ sge::timer::frames_type sge::timer::elapsed_frames() const
 
 void sge::timer::reset()
 {
-	_last_time = time();
+	last_time_ = time();
 }
 
 bool sge::timer::expired() const
 {
-	return _active && elapsed_frames() >= 1;
+	return active() && elapsed_frames() >= 1;
 }
 
 void  sge::timer::activate()
 {
+	if(active())
+		return;
 	reset();
-	_active = true;
+	active_ = true;
 }
 
 void sge::timer::deactivate()
 {
-	_active = false;
+	active_ = false;
 }
 
 sge::timer::interval_type sge::timer::interval() const
 {
-	return _interval;
+	return interval_;
 }
 
 sge::timer::interval_type sge::timer::last_time() const
 {
-	return _last_time;
+	return last_time_;
 }
 
 bool sge::timer::active() const
 {
-	return _active;
+	return active_;
 }
 
 void sge::timer::interval(const interval_type i)
 {
-	_interval = i;
+	interval_ = i;
 	reset();
 }
