@@ -56,7 +56,7 @@ sge::time_type sge::time()
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
 		throw sge::exception(SGE_TEXT("gettimeofday() failed!"));
-	return static_cast<time_type>(tv.tv_sec * hz() + tv.tv_usec);
+	return static_cast<time_type>(tv.tv_sec * second() + tv.tv_usec);
 #elif SGE_WINDOWS_PLATFORM
 	return instance.use_performance_counter()
 		? query_performance_counter()
@@ -64,7 +64,7 @@ sge::time_type sge::time()
 #endif
 }
 
-sge::time_type sge::hz()
+sge::time_type sge::second()
 {
 #ifdef SGE_LINUX_PLATFORM
 	return 1000 * 1000;

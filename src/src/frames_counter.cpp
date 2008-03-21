@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../time.hpp"
 
 sge::frames_counter::frames_counter()
-: t(sge::hz()),
+: t(sge::second()),
   current_frames(0),
   display_frames(0)
 {}
