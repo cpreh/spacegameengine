@@ -20,9 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/lexical_cast.hpp>
 #include "../frames_counter.hpp"
+#include "../time.hpp"
 
 sge::frames_counter::frames_counter()
-: t(1000),
+: t(sge::hz()),
   current_frames(0),
   display_frames(0)
 {}

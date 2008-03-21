@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "time.hpp"
 #include "export.hpp"
+#include "types.hpp"
 
 namespace sge
 {
 
 class timer {
 public:
-	typedef float frames_type;
+	typedef space_unit frames_type;
 	typedef time_type interval_type;
 
 	SGE_SYMBOL timer(

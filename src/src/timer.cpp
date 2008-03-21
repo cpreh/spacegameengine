@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../exception.hpp"
 #include "../timer.hpp"
 
 sge::timer::timer(
@@ -30,9 +31,6 @@ sge::timer::timer(
 
 sge::timer::frames_type sge::timer::update()
 {
-	if(!active())
-		return 0;
-
 	const frames_type f = elapsed_frames();
 	if(f >= 1)
 		reset();
@@ -42,11 +40,10 @@ sge::timer::frames_type sge::timer::update()
 sge::timer::frames_type sge::timer::elapsed_frames() const
 {
 	if(!active())
-		return 0;
+		throw exception(SGE_TEXT("timer used which is not active!"));
 
-	const interval_type ntime = time(),
-	                    dif = ntime - last_time();
-	return static_cast<frames_type>(dif) / static_cast<frames_type>(interval());
+	return static_cast<frames_type>(time() - last_time())
+		/ static_cast<frames_type>(interval());
 }
 
 void sge::timer::reset()
