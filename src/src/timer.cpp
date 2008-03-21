@@ -46,9 +46,11 @@ sge::timer::frames_type sge::timer::elapsed_frames() const
 		/ static_cast<frames_type>(interval());
 }
 
-void sge::timer::reset()
+sge::timer::frames_type sge::timer::reset()
 {
+	const frames_type f = elapsed_frames();
 	last_time_ = time();
+	return f;
 }
 
 bool sge::timer::expired() const
