@@ -37,6 +37,7 @@ public:
 		interval_type interval,
 		bool active = true);
 	SGE_SYMBOL frames_type update();
+	SGE_SYMBOL bool update_b();
 	SGE_SYMBOL frames_type elapsed_frames() const;
 	SGE_SYMBOL frames_type reset();
 	SGE_SYMBOL bool expired() const;

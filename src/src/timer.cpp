@@ -37,6 +37,14 @@ sge::timer::frames_type sge::timer::update()
 	return f < 1 ? 0 : f;
 }
 
+bool sge::timer::update_b()
+{
+	if(!expired())
+		return false;
+	reset();
+	return true;
+}
+
 sge::timer::frames_type sge::timer::elapsed_frames() const
 {
 	if(!active())
