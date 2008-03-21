@@ -59,7 +59,7 @@ public:
 		resource_flag_t flags);
 
 	const cube_texture_ptr create_cube_texture(
-		const cube_side_array* data,
+		const cube_texture::cube_side_array* data,
 		cube_texture::size_type size,
 		const filter_args& filter,
 		resource_flag_t flags);
@@ -78,16 +78,6 @@ public:
 	const render_target_ptr  create_render_target(
 		const render_target::dim_type&);
 
-	/*void set_int_state(int_state::type, int_type);
-	void set_float_state(float_state::type, float_type);
-	void set_bool_state(bool_state::type, bool_type);
-	void set_color_state(color_state::type, color);
-	void set_cull_mode(cull_mode::type);
-	void set_depth_func(depth_func::type);
-	void set_stencil_func(stencil_func::type, signed_type value, unsigned_type mask);
-	void set_fog_mode(fog_mode::type);
-	void set_blend_func(source_blend_func::type, dest_blend_func::type);
-	void set_draw_mode(draw_mode::type);*/
 	void set_state(const renderer_state_list&);
 	void push_state(const renderer_state_list&);
 	void pop_level();

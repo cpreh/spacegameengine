@@ -59,7 +59,7 @@ sge::time_type sge::time()
 	return static_cast<time_type>(tv.tv_sec * hz() + tv.tv_usec);
 #elif SGE_WINDOWS_PLATFORM
 	return instance.use_performance_counter()
-		? queryformance_counter()
+		? query_performance_counter()
 		: static_cast<time_type>(GetTickCount());
 #endif
 }
@@ -110,7 +110,7 @@ initializer::initializer()
 	}
 	catch(const sge::exception&)
 	{
-		use_performance_counter = false;
+		use_performance_counter_ = false;
 	}
 }
 

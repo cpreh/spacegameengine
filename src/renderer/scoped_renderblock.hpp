@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCOPED_RENDERBLOCK_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
+#include "../export.hpp"
 #include "renderer.hpp"
 
 namespace sge
@@ -29,8 +30,8 @@ namespace sge
 
 class scoped_renderblock : boost::noncopyable {
 public:
-	scoped_renderblock(renderer_ptr);
-	~scoped_renderblock();
+	SGE_SYMBOL scoped_renderblock(renderer_ptr);
+	SGE_SYMBOL ~scoped_renderblock();
 	void release();
 private:
 	renderer_ptr rend;

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iterator>
 #include <algorithm>
 #include <functional>
-#include <boost/cast.hpp>
 #include "../../../bit.hpp"
 #include "../../../exception.hpp"
 #include "../../../raw_vector.hpp"
@@ -50,6 +49,7 @@ void set_sampler_state(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, 
 void set_texture(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, IDirect3DBaseTexture9* tex);
 void set_texture_stage_state(sge::d3d9::d3d_device_ptr device, sge::stage_type stage, D3DTEXTURESTAGESTATETYPE state, sge::renderer::int_type value);
 void set_transform(sge::d3d9::d3d_device_ptr device, D3DTRANSFORMSTATETYPE, const sge::math::space_matrix&);
+void set_render_target(sge::d3d9::d3d_device_ptr device, sge::d3d9::d3d_surface_ptr target);
 
 }
 
@@ -153,7 +153,7 @@ sge::d3d9::renderer::create_volume_texture(
 
 const sge::cube_texture_ptr
 sge::d3d9::renderer::create_cube_texture(
-	const cube_side_array* const src,
+	const cube_texture::cube_side_array* const src,
 	const cube_texture::size_type size,
 	const filter_args& filter,
 	const resource_flag_t flags)
@@ -206,8 +206,8 @@ void sge::d3d9::renderer::set_index_buffer(const index_buffer_ptr buffer)
 	if(!buffer)
 		return; //FIXME
 
-	d3d9::index_buffer* const d3d_buffer = boost::polymorphic_cast<d3d9::index_buffer*>(buffer.get());
-	if(device->SetIndices(d3d_buffer->buffer.get()) != D3D_OK)
+	d3d9::index_buffer& d3d_buffer = dynamic_cast<d3d9::index_buffer&>(*buffer);
+	if(device->SetIndices(d3d_buffer.buffer.get()) != D3D_OK)
 		throw exception(SGE_TEXT("set_index_buffer() failed"));
 }
 
@@ -215,15 +215,13 @@ void sge::d3d9::renderer::set_render_target(const texture_ptr target)
 {
 	if(!target)
 	{
-		if(device->SetRenderTarget(0,default_render_target.get()) != D3D_OK)
-			throw exception(SGE_TEXT("cannot set default render target!"));
+		::set_render_target(device, default_render_target);
 		return;
 	}
 
-	render_target* const d3d_target = boost::polymorphic_cast<render_target*>(target.get());
+	render_target& d3d_target = dynamic_cast<render_target&>(*target);
 
-	if(device->SetRenderTarget(0,d3d_target->surface.get()) != D3D_OK)
-		throw exception(SGE_TEXT("cannot set texture as render target!"));
+	::set_render_target(device, d3d_target.surface);
 }
 
 void sge::d3d9::renderer::set_material(const material& m)
@@ -275,8 +273,8 @@ void sge::d3d9::renderer::set_texture(const texture_base_ptr p, const stage_type
 	if(!p)
 		return ::set_texture(device, stage, 0);
 
-	texture_base* const tex_base = boost::polymorphic_cast<texture_base*>(p.get());
-	::set_texture(device, stage, tex_base->base);
+	texture_base& tex_base = dynamic_cast<texture_base&>(*p);
+	::set_texture(device, stage, tex_base.base);
 }
 
 void sge::d3d9::renderer::set_texture_stage_op(const stage_type stage,
@@ -600,6 +598,12 @@ void set_transform(const sge::d3d9::d3d_device_ptr device, const D3DTRANSFORMSTA
 {
 	if(device->SetTransform(type, reinterpret_cast<const D3DMATRIX*>(m.data())) != D3D_OK)
 		throw sge::exception(SGE_TEXT("SetTransform() failed!"));
+}
+
+void set_render_target(const sge::d3d9::d3d_device_ptr device, const sge::d3d9::d3d_surface_ptr target)
+{
+		if(device->SetRenderTarget(0, target.get()) != D3D_OK)
+			throw sge::exception(SGE_TEXT("SetRenderTarget() failed!"));
 }
 
 }

@@ -37,7 +37,7 @@ sge::d3d9::cube_texture::cube_texture(renderer& r,
 	do_reset();
 
 	if(data)
-		set_cube_texture_data(*this, *data);
+		sge::cube_texture::set_data(*data);
 }
 
 IDirect3DBaseTexture9* sge::d3d9::cube_texture::do_reset()
