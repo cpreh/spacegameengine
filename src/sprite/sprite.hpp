@@ -80,7 +80,7 @@ public:
 	repetition_type repeat() const;
 	color get_color() const;
 	rect bounding_quad() const;
-	circle bounding_circle() const;
+	math::circle bounding_circle() const;
 	const point rotation_center() const;
 	const virtual_texture_ptr get_texture() const;
 

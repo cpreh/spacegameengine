@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace math
+{
 
 template<typename T> class basic_circle {
 public:
@@ -34,25 +36,27 @@ public:
 	typedef const T&                          const_reference;
 	typedef math::basic_vector<value_type, 2> point_type;
 
-	basic_circle(const_reference x, const_reference y, const_reference _radius)
-	 : p(x, y), _radius(_radius)
-	{}
+	basic_circle(
+		const_reference x,
+		const_reference y,
+		const_reference radius);
 
-	basic_circle(const point_type& p, const_reference _radius)
-	 : p(p), _radius(_radius)
-	{}
+	basic_circle(
+		const point_type& origin,
+		const_reference radius);
 
-	point_type& origin() { return p; }
-	const point_type& origin() const { return p; }
-	reference radius() { return _radius; }
-	const_reference radius() const { return _radius; }
+	point_type& origin();
+	const point_type& origin() const;
+	reference radius();
+	const_reference radius() const;
 private:
-	point_type p;
-	space_unit _radius;
+	point_type origin_;
+	space_unit radius_;
 };
 
 typedef basic_circle<space_unit> circle;
 
+}
 }
 
 #endif

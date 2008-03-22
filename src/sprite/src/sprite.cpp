@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../math/compare.hpp"
 #include "../../math/rect_impl.hpp"
+#include "../../math/circle_impl.hpp"
 #include "../sprite.hpp"
 #include "../helper.hpp"
 #include <cmath>
@@ -205,9 +206,12 @@ sge::sprite::rect sge::sprite::bounding_quad() const
 	            static_cast<sprite_unit>(static_cast<space_unit>(center().y()) + rad));
 }
 
-sge::circle sge::sprite::bounding_circle() const
+sge::math::circle sge::sprite::bounding_circle() const
 {
-	return circle(static_cast<circle::value_type>(x()), static_cast<circle::value_type>(y()), radius());
+	return math::circle(
+		static_cast<math::circle::value_type>(x()),
+		static_cast<math::circle::value_type>(y()),
+		radius());
 }
 
 const sge::sprite::point sge::sprite::rotation_center() const
