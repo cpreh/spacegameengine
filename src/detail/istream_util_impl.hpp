@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_ISTREAM_IMPL_HPP_INCLUDED
 
 #include <istream>
-#include "istream.hpp"
 
 template<typename T> void sge::read(std::istream& s, T& t)
 {

@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/constants.hpp"
 #include "../../exception.hpp"
 #include "../../istream_util.hpp"
-#include "../../istream_util_impl.hpp"
 #include "../../iostream.hpp"
 #include "../../ostream.hpp"
 

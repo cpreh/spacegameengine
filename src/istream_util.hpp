@@ -31,4 +31,6 @@ template<typename T> T read(std::istream&);
 
 }
 
+#include "detail/istream_util_impl.hpp"
+
 #endif
