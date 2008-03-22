@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <algorithm>
 #include <iterator>
-#include "algorithm.hpp"
 
 template<typename In, typename Size, typename T>
 In sge::find_nth(In first, const In last, const Size count, const T& t)

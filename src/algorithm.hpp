@@ -38,4 +38,6 @@ Out copy_n(In beg, Size sz, Out out);
 
 }
 
+#include "detail/algorithm_impl.hpp"
+
 #endif

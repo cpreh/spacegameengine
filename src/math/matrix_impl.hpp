@@ -3,7 +3,7 @@
 
 #include "matrix.hpp"
 #include "compare.hpp"
-#include "../algorithm_impl.hpp"
+#include "../algorithm.hpp"
 #include "../exception.hpp"
 #include <cmath>
 #include <algorithm>
