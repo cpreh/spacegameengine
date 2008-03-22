@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+extern const sprite_dim sprite_texture_dim;
 
 class sprite {
 public:
@@ -42,8 +43,8 @@ public:
 	typedef sprite_repetition_type   repetition_type;
 
 	sprite(point pos,
-	       dim sz,
 	       virtual_texture_ptr tex,
+	       dim sz = sprite_texture_dim,
 	       color c = colors::white,
 	       depth_type z = 0,
 	       rotation_type rotation = 0,

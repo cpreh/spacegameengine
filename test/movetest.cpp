@@ -118,11 +118,11 @@ try
 	sge::sprite_system ss(rend);
 	const sge::sprite_unit spr_sz = 50;
 	sge::sprite spr(sge::sprite::point(rend->screen_width() / 2, rend->screen_height() / 2),
-	                sge::sprite::dim(spr_sz, spr_sz),
-	                tex),
+	                tex,
+	                sge::sprite::dim(spr_sz, spr_sz)),
 	            cursor(sge::sprite::point(50, 50),
-	                   sge::sprite::dim(32, 32),
-	                   cursor_tex);
+							       cursor_tex,
+	                   sge::sprite::dim(32, 32));
 	
 	const input_processor proc(rend, is, spr, cursor);
 

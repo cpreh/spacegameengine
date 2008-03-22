@@ -18,21 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <cmath>
 #include "../../math/compare.hpp"
 #include "../../math/rect_impl.hpp"
 #include "../sprite.hpp"
 #include "../helper.hpp"
+#include <cmath>
+#include <limits>
+
+const sge::sprite_dim sge::sprite_texture_dim(std::numeric_limits<sprite_unit>::max(),std::numeric_limits<sprite_unit>::max());
 
 sge::sprite::sprite(const point p,
-                    const dim sz,
                     const virtual_texture_ptr vtex,
+                    const dim sz,
                     const color color_,
                     const depth_type z_,
                     const rotation_type rotation_,
                     const bool visible_)
  : p(p),
-   sz(sz),
+   sz(sz == sprite_texture_dim ? dim(static_cast<sprite_unit>(vtex->area().w()),static_cast<sprite_unit>(vtex->area().h())) : sz),
    z_(z_),
    rotation_(rotation_),
    tex(vtex),

@@ -37,7 +37,7 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,const virtual_texture
 		ic(is->register_callback(boost::bind(&console_gfx::key_callback,this,_1))),
 		irc(is->register_repeat_callback(boost::bind(&console_gfx::key_action,this,_1))),
 		mod(is),
-		ss(rend),bg(pos,size,texture),
+		ss(rend),bg(pos,texture,size),
 		active_(false),
 		cursor_rate(SGE_TEXT("cursor_rate"),boost::bind(&console_gfx::change_cursor_rate,this,_1,_2),timer::interval_type(300)),
 		cursor_timer(cursor_rate.value()),cursor_active(false),
