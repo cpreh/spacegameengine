@@ -81,8 +81,8 @@ sge::vertex_buffer::iterator
 		}
 	};
 
-	const space_unit sinx = std::sin(-rot),
-	                 cosx = std::cos(-rot);
+	const space_unit sinx = std::sin(rot),
+	                 cosx = std::cos(rot);
 
 	const math::basic_matrix<space_unit,2,2> mat_rot(cosx, -sinx,
 	                                                 sinx,  cosx); 

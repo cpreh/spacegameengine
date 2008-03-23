@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_ANGLE_HPP_INCLUDED
 #define SGE_MATH_ANGLE_HPP_INCLUDED
 
-#include "compare.hpp"
-#include "constants.hpp"
+#include "atan2.hpp"
 #include "vector.hpp"
 #include <boost/optional.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -43,12 +42,13 @@ angle_to(
 	const basic_vector<T, 2>& from,
 	const basic_vector<T, 2>& to)
 {
-	const basic_vector<T, 2> d = from - to;
+/*	const basic_vector<T, 2> d = from - to;
 	const Dest len = sge::math::structure_cast<Dest>(d).length();
 	if(sge::math::almost_zero(len))
 		return boost::optional<Dest>();
 	const Dest rad = std::asin(static_cast<Dest>(d.x()) / len);
-	return d.y() >= 0 ? rad : -rad + sge::math::pi<Dest>();
+	return d.y() >= 0 ? rad : -rad + sge::math::pi<Dest>();*/
+	return atan2(structure_cast<Dest>(to - from));
 }
 
 }
