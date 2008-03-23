@@ -46,7 +46,7 @@ struct var_base
 	SGE_SYMBOL virtual void set(const string&);
 	SGE_SYMBOL virtual string get() const;
 #endif
-	virtual ~var_base() {}
+	virtual ~var_base();
 };
 
 template<typename T>

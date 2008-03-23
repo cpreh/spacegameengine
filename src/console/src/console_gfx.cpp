@@ -39,8 +39,9 @@ sge::con::console_gfx::console_gfx(const renderer_ptr rend,const virtual_texture
 		mod(is),
 		ss(rend),bg(pos,texture,size),
 		active_(false),
+		cursor_timer(timer::interval_type(300)),
 		cursor_rate(SGE_TEXT("cursor_rate"),boost::bind(&console_gfx::change_cursor_rate,this,_1,_2),timer::interval_type(300)),
-		cursor_timer(cursor_rate.value()),cursor_active(false),
+		cursor_active(false),
 		cursor_char(SGE_TEXT('_')),cursor_pos(0),history_size(0)
 {
 	input_history.push_front(SGE_TEXT(" "));

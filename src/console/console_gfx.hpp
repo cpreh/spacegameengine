@@ -37,8 +37,8 @@ struct console_gfx
 	bool active_;
 
 	// input and history stuff
-	sge::con::action_var<sge::timer::interval_type>::type cursor_rate;
 	sge::timer cursor_timer;
+	sge::con::action_var<sge::timer::interval_type>::type cursor_rate;
 	bool cursor_active;
 	char_type cursor_char;
 	string_type il;

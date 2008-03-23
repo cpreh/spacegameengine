@@ -78,6 +78,7 @@ struct singleton
 	singleton() : prefix(SGE_TEXT('/')) {}
 
 	void add(const sge::string &,sge::con::var_base &);
+	void erase(const sge::string &);
 	void add(const sge::string &,const sge::con::callback &);
 	void eval(const sge::string &);
 	void read_config(const sge::path &);
@@ -184,6 +185,11 @@ void singleton::eval(const sge::string &line)
 	}
 }
 
+void singleton::erase(const sge::string &name)
+{
+	funcs.erase(name);
+}
+
 void singleton::add(const sge::string &name,const sge::con::callback &v)
 {
 	if (funcs.find(name) != funcs.end())
@@ -241,6 +247,11 @@ void sge::con::read_config(const path &s)
 void sge::con::var_base::late_construct()
 {
 	instance().add(name_,*this);
+}
+
+sge::con::var_base::~var_base()
+{
+	instance().erase(name_);
 }
 
 #ifdef _MSC_VER
