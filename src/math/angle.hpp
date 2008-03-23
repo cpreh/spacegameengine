@@ -42,12 +42,6 @@ angle_to(
 	const basic_vector<T, 2>& from,
 	const basic_vector<T, 2>& to)
 {
-/*	const basic_vector<T, 2> d = from - to;
-	const Dest len = sge::math::structure_cast<Dest>(d).length();
-	if(sge::math::almost_zero(len))
-		return boost::optional<Dest>();
-	const Dest rad = std::asin(static_cast<Dest>(d.x()) / len);
-	return d.y() >= 0 ? rad : -rad + sge::math::pi<Dest>();*/
 	return atan2(structure_cast<Dest>(to - from));
 }
 

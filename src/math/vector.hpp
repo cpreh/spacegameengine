@@ -369,6 +369,11 @@ BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_SET, void)
 		return Dim;
 	}
 
+	size_type dim() const
+	{
+		return Dim;
+	}
+
 	iterator begin()
 	{
 		return data_;
