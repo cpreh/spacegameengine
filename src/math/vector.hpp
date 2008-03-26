@@ -380,13 +380,13 @@ private:
 	template<typename... Args>
 	void set_impl(const size_type i, const_reference arg, Args... args)
 	{
-		data_[i] = arg;
+		at(i) = arg;
 		set_impl(i+1, args...);
 	}
 
 	void set_impl(const size_type i, const_reference arg)
 	{
-		data_[i] = arg;
+		at(i) = arg;
 	}
 public:
 #else

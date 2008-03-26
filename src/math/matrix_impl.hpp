@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "matrix.hpp"
 #include "compare.hpp"
 #include "../algorithm.hpp"
+#include "../exception.hpp"
 #include <algorithm>
 #include <functional>
 #include <ostream>
@@ -135,7 +136,7 @@ void sge::math::basic_matrix<T, N, M>::set_impl(
 	const_reference arg,
 	Args... args)
 {
-	data_[i] = arg;
+	at(i) = arg;
 	set_impl(i+1, args...);
 }
 
@@ -144,7 +145,16 @@ void sge::math::basic_matrix<T, N, M>::set_impl(
 	const size_type i,
 	const_reference arg)
 {
-	data_[i] = arg;
+	at(i) = arg;
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::basic_matrix<T, N, M>::reference
+sge::math::basic_matrix<T, N, M>::at(const size_type i)
+{
+	if(i >= Dim)
+		throw exception(SGE_TEXT("basic_matrix<T, N, M>::at(): out of range!"));
+	return data_[i];
 }
 #endif
 

@@ -87,6 +87,8 @@ private:
 	void set_impl(size_type i, const_reference arg, Args... args);
 	
 	void set_impl(size_type i, const_reference arg);
+
+	reference at(size_type);
 #endif
 private:
 	value_type data_[Dim];
