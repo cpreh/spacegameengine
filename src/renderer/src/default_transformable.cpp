@@ -23,33 +23,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::default_transformable::default_transformable(
 	const renderer_ptr rend,
-	const math::space_matrix& internal,
-	const math::space_matrix& _projection,
-	const math::space_matrix& _transform)
+	const math::space_matrix& internal_matrix_,
+	const math::space_matrix& projection_,
+	const math::space_matrix& transform_)
  : rend(rend),
-   _internal_matrix(internal),
-   _projection(_projection),
-   _transform(_transform)
+   internal_matrix_(internal_matrix_),
+   projection_(projection_),
+   transform_(transform_)
 {}
 
 void sge::default_transformable::internal_transformation(const math::space_matrix& m)
 {
-	_internal_matrix = m;
+	internal_matrix_ = m;
 }
 
 void sge::default_transformable::transform(const math::space_matrix& m)
 {
-	_transform = m;
+	transform_ = m;
 }
 
 void sge::default_transformable::projection(const math::space_matrix& m)
 {
-	_projection = m;
+	projection_ = m;
 }
 
 void sge::default_transformable::set_matrices()
 {
-	rend->transform(_transform * _internal_matrix);
-	rend->projection(_projection);
+	rend->transform(transform_ * internal_matrix_);
+	rend->projection(projection_);
 }
-

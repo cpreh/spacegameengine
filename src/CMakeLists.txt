@@ -9,6 +9,7 @@ FILE (GLOB sgecorefiles
 	font/src/*.cpp
 	image/src/*.cpp
 	input/src/*.cpp
+	math/src/*.cpp
 	model/src/*.cpp
 	renderer/src/*.cpp
 	sprite/src/*.cpp

@@ -21,25 +21,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_HPP_INCLUDED
 #define SGE_MATH_VECTOR_HPP_INCLUDED
 
-#include <cassert>
-#include <cstddef>
-#include <cmath>
-#include <iterator>
-#include <istream>
-#include <ostream>
+#include "compare.hpp"
+#include "mod.hpp"
+#include "../types.hpp"
+#include "../util.hpp"
+#include "../exception.hpp"
+#include "../config.hpp"
+#ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
+#endif
 #include <boost/utility/enable_if.hpp>
-#include "../types.hpp"
-#include "../util.hpp"
-#include "../exception.hpp"
-#include "compare.hpp"
-#include "mod.hpp"
+#include <iterator>
+#include <istream>
+#include <ostream>
+#include <cassert>
+#include <cstddef>
+#include <cmath>
 
+#ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #ifndef SGE_MATH_VECTOR_MAX_SIZE
 #define SGE_MATH_VECTOR_MAX_SIZE 4
+#endif
 #endif
 
 namespace sge
@@ -49,7 +54,9 @@ namespace math
 
 template<typename T, std::size_t Dim>
 class basic_vector {
-	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_MATH_VECTOR_MAX_SIZE);
+#ifndef SGE_HAVE_VARIADIC_TEMPLATES
+	BOOST_STATIC_ASSERT(Dim <= SGE_MATH_VECTOR_MAX_SIZE);
+#endif
 public:
 	typedef T              value_type;
 	typedef T&             reference;
@@ -63,9 +70,17 @@ public:
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
+#ifdef SGE_HAVE_VARIADIC_TEMPLATES
+	template<typename... Args>
+	basic_vector(Args... args)
+	{
+		set(args...);
+	}
+#else
 #define SGE_MATH_VECTOR_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
 #define SGE_MATH_VECTOR_CTOR(z, n, text) basic_vector(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_CTOR, void)
+#endif
 
 	basic_vector()
 	{
@@ -78,7 +93,7 @@ public:
 	}
 
 	template<std::size_t U>
-	basic_vector(const basic_vector<T,U>& v, const_reference n = 0, typename boost::enable_if_c<U == Dim-1>::type* =0)
+	basic_vector(const basic_vector<T,U>& v, typename boost::enable_if_c<U == Dim - 1, const_reference>::type n = 0)
 	{
 		for(size_type i = 0; i < U; ++i)
 			data_[i] = v[i];
@@ -355,8 +370,30 @@ public:
 		std::swap(*this,r);
 	}
 
+#ifdef SGE_HAVE_VARIADIC_TEMPLATES
+	template<typename... Args>
+	void set(const_reference arg, Args... args)
+	{
+		set_impl(0, arg, args...);
+	}
+
+private:
+	template<typename... Args>
+	void set_impl(const size_type i, const_reference arg, Args... args)
+	{
+		data_[i] = arg;
+		set_impl(i+1, args...);
+	}
+
+	void set_impl(const size_type i, const_reference arg)
+	{
+		data_[i] = arg;
+	}
+public:
+#else
 #define SGE_MATH_VECTOR_SET(z, n, text) void set(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
 BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_SET, void)
+#endif
 
 	bool nearly_equals(const basic_vector& r, const value_type& radius) const
 	{

@@ -508,7 +508,7 @@ void sge::ogl::renderer::set_light(const light_index index, const light& l)
 	set_light_color4(glindex, GL_DIFFUSE, l.diffuse);
 	set_light_color4(glindex, GL_SPECULAR, l.specular);
 
-	const math::vector4 pos(l.pos, 1);
+	const math::vector4 pos(l.pos, static_cast<math::vector4::value_type>(1));
 	set_light_pos(glindex, pos);
 
 	set_light_dir(glindex, l.dir);

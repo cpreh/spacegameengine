@@ -22,22 +22,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEFAULT_TRANSFORMABLE_HPP_INCLUDED
 
 #include "transformable.hpp"
+#include "../math/matrix_util.hpp"
 
 namespace sge
 {
 
 class default_transformable {
 public:
-	default_transformable(const renderer_ptr rend, const math::space_matrix& internal, const math::space_matrix& projection, const math::space_matrix& transform = math::matrix_identity());
+	default_transformable(
+		const renderer_ptr rend,
+		const math::space_matrix& internal,
+		const math::space_matrix& projection,
+		const math::space_matrix& transform
+			= math::matrix_identity());
 	void internal_transformation(const math::space_matrix&);
 	void transform(const math::space_matrix&);
 	void projection(const math::space_matrix&);
 	void set_matrices();
 private:
 	renderer_ptr rend;
-	math::space_matrix _internal_matrix,
-			   _projection,
-	                   _transform;
+	math::space_matrix internal_matrix_,
+			   projection_,
+	                   transform_;
 };
 
 }

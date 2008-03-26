@@ -46,7 +46,7 @@ void check_bound(GLenum type);
 
 GLuint sge::ogl::software_vbo::gen_buffer()
 {
-	buffers.insert(buffer_map::value_type(nextid, 0));
+	buffers.insert(buffer_map::value_type(nextid, static_cast<buffer_map::mapped_type>(0))); // make gcc-4.3 -std=c++0x happy
 	return nextid++;
 }
 

@@ -21,23 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DIM_HPP_INCLUDED
 #define SGE_MATH_DIM_HPP_INCLUDED
 
-#include <cstddef>
-#include <cassert>
+#include "../types.hpp"
+#include "../exception.hpp"
+#include "../util.hpp"
+#include "../config.hpp"
+#ifndef SGE_HAVE_VARIADIC_TEMPLATES
+#include <boost/static_assert.hpp>
+#include <boost/preprocessor/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/arithmetic/add.hpp>
+#endif
 #include <iterator>
 #include <ostream>
 #include <istream>
 #include <numeric>
 #include <functional>
-#include <boost/static_assert.hpp>
-#include <boost/preprocessor/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/arithmetic/add.hpp>
-#include "../types.hpp"
-#include "../exception.hpp"
-#include "../util.hpp"
+#include <cstddef>
+#include <cassert>
 
+#ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #ifndef SGE_MATH_DIM_MAX_SIZE
 #define SGE_MATH_DIM_MAX_SIZE 3
+#endif
 #endif
 
 namespace sge
@@ -47,7 +52,9 @@ namespace math
 
 template<typename T, std::size_t Dim>
 class basic_dim {
-	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_MATH_DIM_MAX_SIZE);
+#ifndef SGE_HAVE_VARIADIC_TEMPLATES
+	BOOST_STATIC_ASSERT(Dim <= SGE_MATH_DIM_MAX_SIZE);
+#endif
 public:
 	typedef T value_type;
 	typedef T&             reference;
@@ -61,50 +68,82 @@ public:
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
+#ifdef SGE_HAVE_VARIADIC_TEMPLATES
+	template<typename... Args>
+	basic_dim(Args... args)
+	{
+		set(args...);
+	}
+#else
 #define SGE_MATH_DIM_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
 #define SGE_MATH_DIM_CTOR(z, n, text) basic_dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_CTOR, void)
-
+#endif
 	basic_dim()
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] = 0;
+			data_[i] = 0;
 	}
 
 	basic_dim(no_initialization_tag)
 	{
 	}
 
+#ifdef SGE_HAVE_VARIADIC_TEMPLATES
+	template<typename... Args>
+	void set(const_reference arg, Args... args)
+	{
+		set_impl(0, arg, args...);
+	}
+
+private:
+	template<typename... Args>
+	void set_impl(const size_type i, const_reference arg, Args... args)
+	{
+		data_[i] = arg;
+		set_impl(i+1, args...);
+	}
+
+	void set_impl(const size_type i, const_reference arg)
+	{
+		data_[i] = arg;
+	}
+public:
+#else
+#define SGE_MATH_DIM_SET(z, n, text) void set(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
+BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
+#endif
+
 	reference operator[](const size_type pos)
 	{
 		assert(pos < Dim);
-		return data[pos];
+		return data_[pos];
 	}
 
 	const_reference operator[](const size_type pos) const
 	{
 		assert(pos < Dim);
-		return data[pos];
+		return data_[pos];
 	}
 	
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
 			throw exception("basic_dim<T, N>::at(): out of range!");
-		return data[pos];
+		return (*this)[pos];
 	}
 
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
 			throw exception("basic_dim<T, N>::at(): out of range!");
-		return data[pos];
+		return (*this)[pos];
 	}
 
 	bool operator==(const basic_dim& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			if(data[i] != r[i])
+			if(data_[i] != r[i])
 				return false;
 		return true;
 	}
@@ -117,28 +156,28 @@ public:
 	basic_dim& operator+=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] += r[i];
+			data_[i] += r[i];
 		return *this;
 	}
 
 	basic_dim& operator-=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] -= r[i];
+			data_[i] -= r[i];
 		return *this;
 	}
 
 	basic_dim& operator*=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] *= r[i];
+			data_[i] *= r[i];
 		return *this;
 	}
 
 	basic_dim& operator/=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data[i] /= r[i];
+			data_[i] /= r[i];
 		return *this;
 	}
 
@@ -186,22 +225,22 @@ public:
 
 	iterator begin()
 	{
-		return data;
+		return data_;
 	}
 
 	iterator end()
 	{
-		return &data[Dim];
+		return &data_[Dim];
 	}
 
 	const_iterator begin() const
 	{
-		return data;
+		return data_;
 	}
 
 	const_iterator end() const
 	{
-		return &data[Dim];
+		return &data_[Dim];
 	}
 
 	reverse_iterator rbegin()
@@ -224,7 +263,7 @@ public:
 		return reverse_iterator(begin());
 	}
 private:
-	T data[Dim];
+	T data_[Dim];
 };
 
 template<typename T, std::size_t Dim> basic_dim<T,Dim> operator+(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)

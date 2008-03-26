@@ -1,0 +1,12 @@
+#ifndef SGE_CONFIG_HPP_INCLUDED
+#define SGE_CONFIG_HPP_INCLUDED
+
+#if __GNUC__ >= 4 && __GNUC_MINOR__ >= 3
+
+#define SGE_HAVE_VARIADIC_TEMPLATES
+
+#define SGE_HAVE_STATIC_ASSERT
+
+#endif
+
+#endif

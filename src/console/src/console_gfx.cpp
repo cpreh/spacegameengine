@@ -5,6 +5,8 @@
 #include <boost/array.hpp>
 // sge
 #include "../../sprite/system_impl.hpp"
+#include "../../math/matrix_util.hpp"
+#include "../../math/matrix_impl.hpp"
 #include "../../iostream.hpp"
 #include "../../ostream.hpp"
 #include "../../fstream.hpp"

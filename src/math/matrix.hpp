@@ -21,16 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_HPP_INCLUDED
 #define SGE_MATH_MATRIX_HPP_INCLUDED
 
-#include <cstddef>
-#include <ostream>
+#include "matrix_proxy.hpp"
+#include "vector.hpp"
+#include "../types.hpp"
+#include "../util.hpp"
+#include "../config.hpp"
+#ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
-#include "../types.hpp"
-#include "../util.hpp"
-#include "matrix_proxy.hpp"
-#include "vector.hpp"
+#endif
+#include <cstddef>
+#include <iosfwd>
 
 #ifndef SGE_MATH_MATRIX_MAX_SIZE
 #define SGE_MATH_MATRIX_MAX_SIZE 16
@@ -41,20 +44,30 @@ namespace sge
 namespace math
 {
 
-template<typename T, std::size_t N, std::size_t M> class basic_matrix {
+template<typename T, std::size_t N, std::size_t M>
+class basic_matrix {
 	enum { Dim = N*M };
+#ifndef SGE_HAVE_VARIADIC_TEMPLATES
 	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_MATH_MATRIX_MAX_SIZE);
+#endif
 public:
 	typedef T value_type;
+	typedef T& reference;
+	typedef const T& const_reference;
 	typedef T* pointer;
 	typedef const T* const_pointer;
 	typedef std::size_t size_type;
 	typedef detail::matrix_proxy_impl<value_type&, value_type*, N> proxy;
 	typedef detail::matrix_proxy_impl<const value_type&, const value_type*, N> const_proxy;
 
+#ifdef SGE_HAVE_VARIADIC_TEMPLATES
+	template<typename... Args>
+	basic_matrix(Args... args);
+#else
 #define SGE_MATH_MATRIX_CTOR_ASSIGN_N(z, n, text) data_[n] = text##n;
 #define SGE_MATH_MATRIX_CTOR(z, n, text) basic_matrix(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_MATRIX_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_MATRIX_MAX_SIZE, SGE_MATH_MATRIX_CTOR, void)
+#endif
 
 	basic_matrix(no_initialization_tag);
 	basic_matrix(const basic_matrix& r);
@@ -67,6 +80,15 @@ public:
 	pointer data();
 	const_pointer data() const;
 	size_type size() const;
+#ifdef SGE_HAVE_VARIADIC_TEMPLATES
+	template<typename... Args>
+	void set(const_reference arg, Args... args);
+private:
+	template<typename... Args>
+	void set_impl(size_type i, const_reference arg, Args... args);
+	
+	void set_impl(size_type i, const_reference arg);
+#endif
 private:
 	value_type data_[Dim];
 };
@@ -106,33 +128,6 @@ basic_matrix<T,N,N> transpose(const basic_matrix<T,N,N>& m);
 template<typename T, std::size_t N, std::size_t M>
 basic_vector<T,M> operator* (const basic_matrix<T,N,M>& m, const basic_vector<T,N>& v);
 
-space_matrix matrix_translation(const math::basic_vector<space_unit,3>& v);
-
-space_matrix matrix_translation(const space_unit x, const space_unit y, const space_unit z);
-
-space_matrix matrix_scaling(const math::basic_vector<space_unit,3>& v);
-
-space_matrix matrix_scaling(const space_unit x, const space_unit y, const space_unit z);
-
-space_matrix matrix_perspective(const space_unit aspect, const space_unit fov, const space_unit near, const space_unit far);
-
-space_matrix matrix_orthogonal_xy();
-
-space_matrix matrix_rotation_z(const space_unit angle);
-
-space_matrix matrix_rotation_y(const space_unit angle);
-
-space_matrix matrix_rotation_x(const space_unit angle);
-
-space_matrix matrix_identity();
-
-space_matrix matrix_orthogonal_xy(
-	const space_unit left,
-	const space_unit right,
-	const space_unit top,
-	const space_unit bottom,
-	const space_unit near,
-	const space_unit far);
 
 }
 }

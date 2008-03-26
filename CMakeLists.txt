@@ -4,7 +4,7 @@ SET (CMAKE_VERBOSE_MAKEFILE ON)
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
 IF (${CMAKE_COMPILER_IS_GNUCXX})
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic -Wall -Wextra -Wconversion -Wfloat-equal")
+	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic -Wall -Wextra -Wconversion -Wfloat-equal -Wold-style-cast -std=c++0x")
 ELSEIF (${MSVC})
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /wd4512 /wd4355 /wd4800 /wd4996")
 	SET (WINLIBS projects/windows/lib32)
