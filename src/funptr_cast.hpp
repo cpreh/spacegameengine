@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FUNPTR_CAST_HPP_INCLUDED
 
 #include <cstddef>
+#ifndef SGE_HAVE_STATIC_ASSERT
 #include <boost/static_assert.hpp>
+#endif
 
 namespace sge
 {
@@ -30,7 +32,11 @@ namespace sge
 template<typename Dest, typename Source>
 Dest funptr_cast(const Source& s)
 {
+#ifndef SGE_HAVE_STATIC_ASSERT
 	BOOST_STATIC_ASSERT(sizeof(std::size_t) == sizeof(void*));
+#else
+	static_assert(sizeof(std::size_t) == sizeof(void*), "funptr_cast: pointer is not of std::size_t's size");
+#endif
 	typedef std::size_t temp_type;
 	return reinterpret_cast<Dest>(reinterpret_cast<temp_type>(s));
 }

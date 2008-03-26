@@ -25,7 +25,7 @@ macro (ow_get_gcc_version version)
 			OUTPUT_VARIABLE
 				output
 		)
-		string(REGEX REPLACE ".* ([0-9]\\.[0-9]\\.[0-9]) .*" "\\1" version ${output})
+		string(REGEX REPLACE "\n" " " output "${output}")
+		string(REGEX REPLACE ".* (.\\..\\..) .*" "\\1" ${version} "${output}")
 	endif(CMAKE_COMPILER_IS_GNUCC)
-
 endmacro (ow_get_gcc_version)

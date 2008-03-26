@@ -6,14 +6,15 @@ SET (CMAKE_VERBOSE_MAKEFILE ON)
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
 IF (${CMAKE_COMPILER_IS_GNUCXX})
-	ow_get_gcc_version(gccversion)
+	ow_get_gcc_version (gccversion)
 
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic -Wall -Wextra -Wconversion -Wfloat-equal")
 
-	IF ($gccversion STRGREATER "4.2")
+	IF (${gccversion} STRGREATER "4.3.0" OR ${gccversion} STREQUAL "4.3.0")
 		SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wold-style-cast -std=c++0x")
-	ENDIF ()
 
+		ADD_DEFINITIONS(-DSGE_HAVE_VARIADIC_TEMPLATES -DSGE_HAVE_STATIC_ASSERT)
+	ENDIF ()
 ELSEIF (${MSVC})
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /wd4512 /wd4355 /wd4800 /wd4996")
 	SET (WINLIBS projects/windows/lib32)

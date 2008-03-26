@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "matrix.hpp"
 #include "compare.hpp"
 #include "../algorithm.hpp"
-#include "../config.hpp"
 #include <algorithm>
 #include <functional>
 #include <ostream>

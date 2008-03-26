@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RAW_VECTOR_HPP_INCLUDED
 #define SGE_RAW_VECTOR_HPP_INCLUDED
 
-#include "config.hpp"
 #ifndef SGE_HAVE_STATIC_ASSERT
 #include <boost/static_assert.hpp>
 #endif
