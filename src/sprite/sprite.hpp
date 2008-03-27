@@ -87,8 +87,8 @@ public:
 	static bool equal(const sprite& l, const sprite& r);
 	static bool less(const sprite& l, const sprite& r);
 private:
-	point               p;
-	dim                 sz;
+	point               pos_;
+	dim                 size_;
 	depth_type          z_;
 	rotation_type       rotation_;
 	virtual_texture_ptr tex;

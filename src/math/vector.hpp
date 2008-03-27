@@ -299,11 +299,6 @@ public:
 		return *this = unit();
 	}
 
-	value_type angle_to(const basic_vector& r) const
-	{
-		return std::acos(dot(r)/(length()*r.length()));
-	}
-
 	reference x()
 	{
 		return (*this)[0];
@@ -491,12 +486,6 @@ template<typename T, std::size_t Dim>
 basic_vector<T,Dim> normalize(basic_vector<T,Dim> l)
 {
 	return l.normalize();
-}
-
-template<typename T, std::size_t Dim>
-typename basic_vector<T,Dim>::value_type angle_to(const basic_vector<T,Dim>& l, const basic_vector<T,Dim>& r)
-{
-	return l.angle_to(r);
 }
 
 template<typename T, std::size_t Dim>

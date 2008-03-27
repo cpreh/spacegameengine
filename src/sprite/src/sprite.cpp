@@ -28,15 +28,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 const sge::sprite_dim sge::sprite_texture_dim(std::numeric_limits<sprite_unit>::max(),std::numeric_limits<sprite_unit>::max());
 
-sge::sprite::sprite(const point p,
-                    const virtual_texture_ptr vtex,
-                    const dim sz,
-                    const color color_,
-                    const depth_type z_,
-                    const rotation_type rotation_,
-                    const bool visible_)
- : p(p),
-   sz(sz == sprite_texture_dim ? dim(static_cast<sprite_unit>(vtex->area().w()),static_cast<sprite_unit>(vtex->area().h())) : sz),
+sge::sprite::sprite(
+	const point pos_,
+	const virtual_texture_ptr vtex,
+	const dim size_,
+	const color color_,
+	const depth_type z_,
+	const rotation_type rotation_,
+	const bool visible_)
+ : pos_(pos_),
+   size_(size_ == sprite_texture_dim
+      ? dim(
+            static_cast<sprite_unit>(vtex->area().w()),
+            static_cast<sprite_unit>(vtex->area().h()))
+      : size_),
    z_(z_),
    rotation_(rotation_),
    tex(vtex),
@@ -49,32 +54,32 @@ sge::sprite::sprite(const point p,
 
 sge::sprite_unit& sge::sprite::x()
 {
-	return p.x();
+	return pos().x();
 }
 
 sge::sprite_unit& sge::sprite::y()
 {
-	return p.y();
+	return pos().y();
 }
 
 sge::sprite::point& sge::sprite::pos()
 {
-	return p;
+	return pos_;
 }
 
 sge::sprite_unit& sge::sprite::width()
 {
-	return sz.w();
+	return size().w();
 }
 
 sge::sprite_unit& sge::sprite::height()
 {
-	return sz.h();
+	return size().h();
 }
 
 sge::sprite::dim& sge::sprite::size()
 {
-	return sz;
+	return size_;
 }
 
 sge::sprite::depth_type& sge::sprite::z()
@@ -120,32 +125,32 @@ void sge::sprite::set_color(const color c)
 
 const sge::sprite_unit& sge::sprite::x() const
 {
-	return p.x();
+	return pos().x();
 }
 
 const sge::sprite_unit& sge::sprite::y() const
 {
-	return p.y();
+	return pos().y();
 }
 
 const sge::sprite::point& sge::sprite::pos() const
 {
-	return p;
+	return pos_;
 }
 
 const sge::sprite_unit& sge::sprite::width() const
 {
-	return sz.w();
+	return size().w();
 }
 
 const sge::sprite_unit& sge::sprite::height() const
 {
-	return sz.h();
+	return size().h();
 }
 
 const sge::sprite::dim& sge::sprite::size() const
 {
-	return sz;
+	return size_;
 }
 
 const sge::sprite::depth_type& sge::sprite::z() const
