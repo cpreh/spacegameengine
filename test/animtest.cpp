@@ -67,18 +67,19 @@ try
 	const sge::virtual_texture_ptr tex1(sge::add_texture(tex_man, img1)),
 	                               tex2(sge::add_texture(tex_man, img2));
 
+	sge::sprite_system ss(rend);
+	sge::sprite spr(
+		sge::sprite::point(0,rend->screen_height()),
+        	sge::virtual_texture_ptr(),
+		sge::sprite::dim(rend->screen_width(), -rend->screen_height()));
+
 	const sge::sprite_texture_animation::animation_series series(
 		boost::assign::list_of
-			(sge::sprite_texture_animation::entity(500, tex1))
-//			(sge::sprite_texture_animation::entity(800, tex2))
+			(sge::sprite_texture_animation::entity(sge::second() / 2, tex1))
+			(sge::sprite_texture_animation::entity(sge::second(), tex2))
 		.to_container(series)
 	);
-	sge::sprite_texture_animation anim(series);
-
-	sge::sprite_system ss(rend);
-	sge::sprite spr(sge::sprite::point(0,rend->screen_height()),
-                  sge::virtual_texture_ptr(),
-	                sge::sprite::dim(rend->screen_width(), -rend->screen_height()));
+	sge::sprite_texture_animation anim(series, &spr);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
@@ -105,8 +106,7 @@ try
 		const sge::scoped_renderblock block_(rend);
 		sge::window::dispatch();
 		is->dispatch();
-		if(!anim.process())
-			anim.reset(spr);
+		anim.process();
 		ss.render(&spr, &spr+1);
 	}
 }

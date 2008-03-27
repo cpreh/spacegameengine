@@ -367,7 +367,7 @@ template<typename T, typename A>
 void sge::raw_vector<T, A>::range_check(const size_type n) const
 {
 	if(n >= size())
-		throw exception("raw_vector::at() out of range!");
+		throw exception(SGE_TEXT("raw_vector::at() out of range!"));
 }
 
 template<typename T, typename A>

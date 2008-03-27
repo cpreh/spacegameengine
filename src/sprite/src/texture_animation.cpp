@@ -21,37 +21,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_animation.hpp"
 #include "../sprite.hpp"
 
-sge::sprite_texture_animation::sprite_texture_animation(const animation_series& series_)
+sge::sprite_texture_animation::sprite_texture_animation(
+	const animation_series& series_,
+	sprite *spr)
 : series(series_),
   cur_timer(0),
   s(0),
   pos(series.end())
-{}
+{
+	bind(spr);
+}
+
+void sge::sprite_texture_animation::bind(sprite *new_sprite)
+{
+	s = new_sprite;
+	reset();
+}
 
 bool sge::sprite_texture_animation::process()
 {
 	if(!s)
-		return false;
+		return true;
 	if(cur_timer.expired())
 	{
 		if(pos == series.end())
-			return false;
+		{
+			reset();
+			return true;
+		}
 		cur_timer.interval(pos->delay);
 		s->set_texture(pos->tex);
 		++pos;
 	}
-	return true;
+	return false;
 }
 
-void sge::sprite_texture_animation::reset(sprite& nspr)
+void sge::sprite_texture_animation::reset()
 {
-	s = &nspr;
+	if(s && !series.empty())
+		s->set_texture(series[0].tex);
+
 	pos = series.begin();
 	cur_timer.interval(0);
 }
 
-sge::sprite_texture_animation::entity::entity(const time_type delay,
-                                              const virtual_texture_ptr tex)
+sge::sprite_texture_animation::entity::entity(
+	const time_type delay,
+	const virtual_texture_ptr tex)
 : delay(delay),
   tex(tex)
 {}

@@ -39,10 +39,13 @@ public:
 	};
 
 	typedef std::vector<entity> animation_series;
-	sprite_texture_animation(const animation_series&);
-
+	sprite_texture_animation(
+		const animation_series&,
+		sprite *init_sprite = 0);
+	
+	void bind(sprite*);
 	bool process();
-	void reset(sprite&);
+	void reset();
 private:
 	animation_series                 series;
 	timer                            cur_timer;

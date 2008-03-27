@@ -28,8 +28,9 @@ class sprite;
 
 class sprite_animation {
 public:
+	virtual void bind(sprite*) = 0;
 	virtual bool process() = 0;
-	virtual void reset(sprite&) = 0;
+	virtual void reset() = 0;
 	virtual ~sprite_animation(){}
 };
 
