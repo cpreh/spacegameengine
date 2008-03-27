@@ -218,7 +218,7 @@ const sge::sprite::point sge::sprite::rotation_center() const
 {
 	if(!use_rot_around)
 		return center();
-	return rot_around_;
+	return pos() + rot_around_;
 }
 
 bool sge::sprite::equal(const sprite& l, const sprite& r)
