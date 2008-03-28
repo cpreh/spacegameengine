@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_ATAN2_HPP_INCLUDED
 
 #include "vector.hpp"
+#include "constants.hpp"
 #include <boost/optional.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -40,7 +41,8 @@ atan2(const sge::math::basic_vector<T,2> &v)
 {
 	return v.is_null()
 		? boost::optional<T>()
-		: std::atan2(v.y(), v.x());
+		// FIXME: no +pi/2 here!
+		: std::atan2(v.y(), v.x())+pi<T>()/static_cast<T>(2);
 }
 }
 }
