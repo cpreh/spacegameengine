@@ -28,11 +28,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../iostream.hpp"
 #include "../../ostream.hpp"
 
-sge::virtual_texture::virtual_texture(const lock_rect& outer_area_, fragmented_texture& fragment, const bool repeatable_)
+sge::virtual_texture::virtual_texture(
+	const lock_rect& outer_area_,
+	fragmented_texture& fragment,
+	const bool need_atlasing_w,
+	const bool need_atlasing_h)
 : outer_area_(outer_area_),
    fragment(fragment),
-   repeatable_(repeatable_),
-   inner_area_(repeatable_ ? outer_area_ : inner_atlased_rect(outer_area()))
+   need_atlasing_w(need_atlasing_w),
+   need_atlasing_h(need_atlasing_h),
+   inner_area_(
+   	inner_atlased_rect(
+	   	outer_area(),
+		need_atlasing_w,
+		need_atlasing_h))
 {}
 
 sge::virtual_texture::~virtual_texture()
@@ -80,23 +89,29 @@ const sge::texture_ptr sge::virtual_texture::my_texture() const
 
 bool sge::virtual_texture::repeatable() const
 {
-	return repeatable_;
+	return !need_atlasing_w && !need_atlasing_h;
 }
+
+#include <sge/iostream.hpp>
+#include <ostream>
 
 void sge::virtual_texture::set_data(const texture::const_pointer src)
 {
 	my_texture()->set_data(src, inner_area_);
 
-	if(repeatable())
+	if(need_atlasing_h)
+	{
+		my_texture()->set_data(src,
+	        	               lock_rect(outer_area().left() + 1, outer_area().top(), outer_area().right() - 1, outer_area().top() + 1));
+		my_texture()->set_data(src + area().w() * (area().h() - 1),
+		                       lock_rect(outer_area().left() + 1, outer_area().bottom() - 1, outer_area().right() - 1, outer_area().bottom()));
+	}
+
+	if(need_atlasing_w)
 		return;
 	
 	typedef raw_vector<texture::value_type> pixel_vector;
 	pixel_vector height_pixels(outer_area().h());
-
-	my_texture()->set_data(src,
-	                       lock_rect(outer_area().left() + 1, outer_area().top(), outer_area().right() - 1, outer_area().top() + 1));
-	my_texture()->set_data(src + area().w() * (area().h() - 1),
-	                       lock_rect(outer_area().left() + 1, outer_area().bottom() - 1, outer_area().right() - 1, outer_area().bottom()));
 
 	height_pixels.front() = *src;
 	for(pixel_vector::size_type h = 1; h < height_pixels.size() - 1; ++h)

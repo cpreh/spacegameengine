@@ -17,12 +17,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #ifndef SGE_MATH_POWER_HPP_INCLUDED
 #define SGE_MATH_POWER_HPP_INCLUDED
 
 #include <cmath>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_unsigned.hpp>
 #include "dim.hpp"
 
 namespace sge
@@ -69,6 +71,21 @@ template<typename T> inline basic_dim<T, 2> next_pow_2(const basic_dim<T, 2>& r)
 {
 	return basic_dim<T, 2>(next_pow_2(r.w()), next_pow_2(r.h()));
 }
+
+template<typename T>
+inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type
+is_power_of_2(const T t)
+{
+	return t && !(t & (t - 1));
+}
+
+template<typename T>
+inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type
+is_power_of_2(const basic_dim<T, 2>& d)
+{
+	return is_power_of_2(d.w()) && is_power_of_2(d.h());
+}
+
 }
 }
 

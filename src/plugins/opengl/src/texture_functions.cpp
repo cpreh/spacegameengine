@@ -20,12 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../../exception.hpp"
 #include "../../../iostream.hpp"
-#include "../../../ostream.hpp"
+#include "../../../format.hpp"
 #include "../../../math/rect_impl.hpp"
 #include "../../../math/log.hpp"
 #include "../error.hpp"
 #include "../conversion.hpp"
 #include "../texture_functions.hpp"
+#include <ostream>
 #include <GL/glu.h>
 
 namespace
@@ -42,8 +43,8 @@ bool need_mipmap(const sge::min_filter::type filter)
 	}
 }
 
-const GLenum format = GL_RGBA,
-             type = GL_UNSIGNED_BYTE;
+const GLenum gl_format = GL_RGBA,
+             gl_type = GL_UNSIGNED_BYTE;
 
 }
 
@@ -79,7 +80,7 @@ void sge::ogl::set_texture(const GLenum tex_type,
 		sge::cerr << SGE_TEXT("warning: opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
 		             SGE_TEXT(" Specified texture size was ") << width << SGE_TEXT('x') << height << SGE_TEXT(".\n");
 
-	glTexImage2D(tex_type, 0, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), 0, format, type, src);
+	glTexImage2D(tex_type, 0, gl_format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), 0, gl_format, gl_type, src);
 
 	if(need_mipmap(filter.min_filter))
 		build_mipmaps(tex_type, width, height, src);
@@ -95,7 +96,7 @@ void sge::ogl::build_mipmaps(const GLenum tex_type,
 
 	SGE_OPENGL_SENTRY
 	
-	gluBuild2DMipmaps(tex_type, format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), format, type, src);
+	gluBuild2DMipmaps(tex_type, gl_format, static_cast<GLsizei>(width), static_cast<GLsizei>(height), gl_format, gl_type, src);
 }
 
 void sge::ogl::set_texture_rect(const GLenum tex_type,
@@ -111,7 +112,12 @@ void sge::ogl::set_texture_rect(const GLenum tex_type,
 		throw exception(SGE_TEXT("ogl::set_texture_rect(): src is 0!"));
 
 	if(r.right() > width || r.bottom() > height)
-		throw exception(SGE_TEXT("rect for setting a texture is out of range!"));
+		throw exception(
+			(format(
+				SGE_TEXT("rect for setting a texture is out of range (rect=%1%, w=%2%, h=%3%)!"))
+				% r
+				% width
+				% height).str());
 
 	if(need_mipmap(filter.min_filter))
 		throw exception(SGE_TEXT("You can't specify an update rect while using mipmaps. Ignored."));
@@ -121,7 +127,10 @@ void sge::ogl::set_texture_rect(const GLenum tex_type,
 	                static_cast<GLint>(r.left()),
 	                static_cast<GLint>(r.top()),
 	                static_cast<GLsizei>(r.w()),
-	                static_cast<GLsizei>(r.h()), format, type, src);
+	                static_cast<GLsizei>(r.h()),
+			gl_format,
+			gl_type,
+			src);
 }
 
 void sge::ogl::read_pixels(const sge::texture_base::size_type x,
@@ -136,8 +145,8 @@ void sge::ogl::read_pixels(const sge::texture_base::size_type x,
 	             static_cast<GLint>(y),
 	             static_cast<GLsizei>(width),
 	             static_cast<GLsizei>(height),
-	             format,
-	             type,
+	             gl_format,
+	             gl_type,
 	             dest);
 }
 
@@ -147,8 +156,8 @@ void sge::ogl::get_tex_image(const sge::texture::pointer dest)
 	
 	glGetTexImage(GL_TEXTURE_2D,
 	              0,
-	              format,
-	              type,
+	              gl_format,
+	              gl_type,
 	              dest);
 }
 

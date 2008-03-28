@@ -154,13 +154,15 @@ bool sge::math::operator!=(const basic_rect<T>& l,
 }
 
 template<typename T>
-sge::math::basic_rect<T> sge::math::resize_borders(const basic_rect<T>& r,
-                                                   const T diff)
+sge::math::basic_rect<T> sge::math::resize_borders(
+	const basic_rect<T>& r,
+	const T diff)
 {
-	return basic_rect<T>(r.left() + diff,
-	                     r.top() + diff,
-	                     r.right() - diff,
-	                     r.bottom() - diff);
+	return basic_rect<T>(
+		r.left() + diff,
+		r.top() + diff,
+		r.right() - diff,
+		r.bottom() - diff);
 }
 
 template<typename T, typename Ch, typename Traits>

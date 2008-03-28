@@ -32,12 +32,21 @@ class fragmented_texture;
 
 class virtual_texture : boost::noncopyable {
 public:
-	virtual_texture(const lock_rect&, fragmented_texture&, bool repeatable = false);
+	virtual_texture(
+		lock_rect const &outer_rect,
+		fragmented_texture&,
+		bool need_atlasing_w,
+		bool need_atlasing_h);
 	~virtual_texture();
 	const lock_rect& area() const;
 	const math::rect area_texc(space_unit repeat = 1) const;
-	const tex_pos translate(const tex_pos &local_coords, space_unit repeat = 1) const;
-	const tex_pos translate(tex_pos::value_type x, tex_pos::value_type y, space_unit repeat = 1) const;
+	const tex_pos translate(
+		const tex_pos &local_coords,
+		space_unit repeat = 1) const;
+	const tex_pos translate(
+		tex_pos::value_type x,
+		tex_pos::value_type y,
+		space_unit repeat = 1) const;
 	const texture_ptr my_texture() const;
 	bool repeatable() const;
 	void set_data(texture::const_pointer src);
@@ -45,7 +54,8 @@ private:
 	const lock_rect& outer_area() const;
 	lock_rect           outer_area_;
 	fragmented_texture& fragment;
-	bool                repeatable_;
+	bool                need_atlasing_w,
+	                    need_atlasing_h;
 	lock_rect           inner_area_;
 };
 

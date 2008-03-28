@@ -20,6 +20,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../atlasing.hpp"
 #include "../../math/rect_impl.hpp"
+#include "../../math/power.hpp"
+
+bool sge::need_atlasing(const texture::size_type s)
+{
+	return !math::is_power_of_2(s);
+}
+
+bool sge::need_atlasing(const texture::dim_type& dim)
+{
+	return !math::is_power_of_2(dim);
+}
+
+sge::texture::size_type sge::atlased_bound(const texture::size_type s)
+{
+	return math::is_power_of_2(s)
+		? s
+		: math::next_pow_2(s);
+}
+
+const sge::texture::dim_type sge::atlased_bounds(const texture::dim_type& dim)
+{
+	return texture::dim_type(
+		atlased_bound(dim.w()),
+		atlased_bound(dim.h()));
+}
 
 sge::texture::size_type sge::atlased_gap()
 {
@@ -28,7 +53,9 @@ sge::texture::size_type sge::atlased_gap()
 
 sge::texture::size_type sge::atlased_size(const texture::size_type s)
 {
-	return s + 2 * atlased_gap();
+	return need_atlasing(s)
+		? s + 2 * atlased_gap()
+		: s;
 }
 
 const sge::texture::dim_type sge::atlased_size(const texture::dim_type& dim)
@@ -42,12 +69,27 @@ const sge::texture::dim_type sge::atlased_texture_dim(const renderer_ptr rend)
 	return texture::dim_type(max_size, max_size);
 }
 
-const sge::texture_ptr sge::atlased_texture(const renderer_ptr rend, const filter_args& filter)
+const sge::texture_ptr sge::atlased_texture(
+	const renderer_ptr rend,
+	const filter_args& filter)
 {
 	return rend->create_texture(0, atlased_texture_dim(rend), filter);
 }
 
-const sge::lock_rect sge::inner_atlased_rect(const lock_rect& outer)
+const sge::lock_rect sge::inner_atlased_rect(
+	lock_rect outer,
+	const bool need_atlasing_w,
+	const bool need_atlasing_h)
 {
-	return resize_borders(outer, atlased_gap());
+	if(need_atlasing_w)
+	{
+		++outer.left();
+		--outer.right();
+	}
+	if(need_atlasing_h)
+	{
+		++outer.top();
+		--outer.bottom();
+	}
+	return outer;
 }

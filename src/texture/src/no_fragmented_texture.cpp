@@ -29,19 +29,19 @@ sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend, const
    my_filter(my_filter)
 {}
 
-const sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(const texture::dim_type& dim)
+const sge::virtual_texture_ptr
+sge::no_fragmented_texture::consume_fragments(
+	const texture::dim_type& dim)
 {
 	if(tex)
 		return virtual_texture_ptr();
 
-	const texture::dim_type next_dim(math::next_pow_2(dim));
+	const texture::dim_type real_dim(atlased_bounds(dim));
 
-   	tex = rend->create_texture(0, next_dim, my_filter);
-
-	const bool no_atlasing = next_dim == dim;
+   	tex = rend->create_texture(0, real_dim, my_filter);
 
 	static bool warn_once = false;
-	if(!no_atlasing && !warn_once)
+	if(real_dim != dim && !warn_once)
 	{
 		warn_once = true;
 		sge::cerr << SGE_TEXT("warning: You used a no_fragmented_texture whose dimensions are not a power of 2.")\
@@ -50,7 +50,14 @@ const sge::virtual_texture_ptr sge::no_fragmented_texture::consume_fragments(con
 			     SGE_TEXT(" This message will only be displayed once.\n");
 	}
 
-	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0,0), no_atlasing ? dim : atlased_size(dim)), *this, no_atlasing));
+	return virtual_texture_ptr(
+		new virtual_texture(
+			lock_rect(
+				lock_rect::point_type(0,0),
+				atlased_size(dim)),
+			*this,
+			dim.w() != real_dim.w(),
+			dim.h() != real_dim.h()));
 }
 
 void sge::no_fragmented_texture::return_fragments(const virtual_texture&)

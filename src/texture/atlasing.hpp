@@ -29,12 +29,19 @@ namespace sge
 
 struct filter_args;
 
+bool need_atlasing(texture::size_type);
+bool need_atlasing(const texture::dim_type&);
+texture::size_type atlased_bound(texture::size_type);
+const texture::dim_type atlased_bounds(const texture::dim_type&);
 texture::size_type atlased_gap();
 texture::size_type atlased_size(texture::size_type);
 const texture::dim_type atlased_size(const texture::dim_type&);
 const texture::dim_type atlased_texture_dim(renderer_ptr rend);
 const texture_ptr atlased_texture(renderer_ptr rend, const filter_args& filter);
-const lock_rect inner_atlased_rect(const lock_rect&);
+const lock_rect inner_atlased_rect(
+	lock_rect,
+	bool need_atlasing_w,
+	bool need_atlasing_h);
 
 }
 

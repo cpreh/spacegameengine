@@ -36,6 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/media.hpp"
 #include "../src/scoped_connection.hpp"
 #include "../src/window.hpp"
+#include "../src/iostream.hpp"
+#include "../src/string.hpp"
+#include "../src/exception.hpp"
 #include "../src/math/constants.hpp"
 #include "../src/math/clamp.hpp"
 #include "../src/math/matrix_impl.hpp"
@@ -157,6 +160,11 @@ try
 		std::vector<sge::sprite> sprites(boost::assign::list_of(spr)(cursor).to_container(sprites));
 		ss.render(sprites.begin(), sprites.end());
 	}
+}
+catch(const sge::exception& e)
+{
+	sge::cerr << e.what() << SGE_TEXT('\n');
+	return EXIT_FAILURE;
 }
 catch(const std::exception& e)
 {

@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../atlasing.hpp"
 #include "../cell_fragmented_texture.hpp"
 
-sge::cell_fragmented_texture::cell_fragmented_texture(const renderer_ptr rend,
-                                                      const filter_args& filter,
-                                                      const texture::dim_type& cell_size)
+sge::cell_fragmented_texture::cell_fragmented_texture(
+	const renderer_ptr rend,
+	const filter_args& filter,
+	const texture::dim_type& cell_size)
 : rend(rend),
   my_filter(filter),
   cell_size(cell_size),
@@ -47,7 +48,13 @@ const sge::virtual_texture_ptr sge::cell_fragmented_texture::consume_fragments(c
 	*it = true;
 	
 	const field_type::vector_type pos = cells.position(it);
-	return virtual_texture_ptr(new virtual_texture(lock_rect(pos + cell_size, cell_size), *this));
+	return virtual_texture_ptr(
+		new virtual_texture(
+			lock_rect(
+				pos + cell_size, cell_size),
+			*this,
+			true,
+			true));
 }
 
 void sge::cell_fragmented_texture::return_fragments(const virtual_texture& t)
