@@ -33,29 +33,30 @@ namespace ogl
 GLuint gen_texture();
 void delete_texture(GLuint id);
 
-void set_texture(GLenum type,
-                 const filter_args& filter,
-                 sge::texture_base::size_type width,
-                 sge::texture_base::size_type height,
-                 sge::texture_base::const_pointer src);
+void set_texture(
+	GLenum type,
+	const filter_args& filter,
+	const sge::texture::dim_type& dim,
+	sge::texture_base::const_pointer src);
 
-void build_mipmaps(GLenum type,
-                   sge::texture_base::size_type width,
-                   sge::texture_base::size_type height,
-                   sge::texture_base::const_pointer src);
+void build_mipmaps(
+	GLenum type,
+	const sge::texture::dim_type& dim,
+	sge::texture_base::const_pointer src);
 
-void set_texture_rect(GLenum type,
-                      const filter_args& filter,
-                      sge::texture_base::size_type width,
-                      sge::texture_base::size_type height,
-                      const lock_rect& dest,
-                      sge::texture_base::const_pointer src);
+void set_texture_rect(
+	GLenum type,
+	const filter_args& filter,
+	const sge::texture::dim_type& dim,
+	const lock_rect& dest,
+	sge::texture_base::const_pointer src);
 
-void read_pixels(sge::texture_base::size_type x,
-                 sge::texture_base::size_type y,
-                 sge::texture_base::size_type width,
-                 sge::texture_base::size_type height,
-                 sge::texture_base::pointer dest);
+void read_pixels(
+	sge::texture_base::size_type x,
+	sge::texture_base::size_type y,
+	sge::texture_base::size_type width,
+	sge::texture_base::size_type height,
+	sge::texture_base::pointer dest);
 
 void get_tex_image(sge::texture_base::pointer dest);
 

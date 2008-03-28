@@ -465,7 +465,12 @@ void sge::ogl::renderer::set_render_target(const texture_ptr target)
 	const fbo_render_target_ptr ntarget = create_render_target(p->dim());
 	render_target_ = ntarget;
 	ntarget->bind_texture(p);
-	set_viewport(viewport(0, 0, static_cast<screen_unit>(p->width()), static_cast<screen_unit>(p->height())));
+	set_viewport(
+		viewport(
+			0,
+			0,
+			static_cast<screen_unit>(p->dim().w()),
+			static_cast<screen_unit>(p->dim().h())));
 }
 
 const sge::render_target_ptr sge::ogl::renderer::get_render_target() const

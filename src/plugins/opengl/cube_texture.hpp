@@ -59,7 +59,6 @@ public:
 	             size_type sz,
 	             const filter_args& filter,
 	             resource_flag_t flags);
-	size_type size() const;
 	void set_data(cube_side::type side, const_pointer src, const lock_rect& r);
 	void set_data(cube_side::type side, const_pointer src);
 	size_type border_size() const;

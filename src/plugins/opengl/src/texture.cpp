@@ -48,25 +48,10 @@ const sge::ogl::texture::dim_type sge::ogl::texture::dim() const
 	return dim_;
 }
 
-sge::ogl::texture::size_type sge::ogl::texture::width() const
-{
-	return dim_.w();
-}
-
-sge::ogl::texture::size_type sge::ogl::texture::height() const
-{
-	return dim_.h();
-}
-
-sge::ogl::texture::size_type sge::ogl::texture::size() const
-{
-	return width()*height();
-}
-
 void sge::ogl::texture::set_data(const const_pointer src, const lock_rect& r)
 {
 	pre_setdata();
-	set_texture_rect(GL_TEXTURE_2D, filter(), width(), height(), r, src);
+	set_texture_rect(GL_TEXTURE_2D, filter(), dim(), r, src);
 }
 
 void sge::ogl::texture::set_data(const const_pointer src)
@@ -103,5 +88,5 @@ void sge::ogl::texture::unlock()
 void sge::ogl::texture::set_texture(const const_pointer src)
 {
 	pre_setdata();
-	ogl::set_texture(GL_TEXTURE_2D, filter(), width(), height(), src);
+	ogl::set_texture(GL_TEXTURE_2D, filter(), dim(), src);
 }

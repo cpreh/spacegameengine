@@ -43,9 +43,6 @@ public:
 	        resource_flag_t flags);
 
 	const dim_type dim() const;
-	size_type width() const;
-	size_type height() const;
-	size_type size() const;
 
 	void set_data(const_pointer src, const lock_rect& r);
 	void set_data(const_pointer src);
