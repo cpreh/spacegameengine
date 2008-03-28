@@ -40,15 +40,10 @@ sge::no_fragmented_texture::consume_fragments(
 
    	tex = rend->create_texture(0, real_dim, my_filter);
 
-	static bool warn_once = false;
-	if(real_dim != dim && !warn_once)
-	{
-		warn_once = true;
+	if(real_dim != dim)
 		sge::cerr << SGE_TEXT("warning: You used a no_fragmented_texture whose dimensions are not a power of 2.")\
 		             SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
-			     SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT(".")\
-			     SGE_TEXT(" This message will only be displayed once.\n");
-	}
+			     SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT(".\n");
 
 	return virtual_texture_ptr(
 		new virtual_texture(
