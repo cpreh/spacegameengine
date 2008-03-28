@@ -56,8 +56,8 @@ sge::no_fragmented_texture::consume_fragments(
 				lock_rect::point_type(0,0),
 				atlased_size(dim)),
 			*this,
-			dim.w() != real_dim.w(),
-			dim.h() != real_dim.h()));
+			need_atlasing(dim.w()),
+			need_atlasing(dim.h())));
 }
 
 void sge::no_fragmented_texture::return_fragments(const virtual_texture&)
