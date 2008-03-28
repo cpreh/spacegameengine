@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../../config.h"
 #include <boost/lexical_cast.hpp>
-#include "../../../types.hpp"
 #include "../../../audio/audio_player/sound.hpp"
 #include "../../../audio/audio_exception.hpp"
 #include "../../../raw_vector_impl.hpp"

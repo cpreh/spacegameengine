@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ICONV_HPP_INCLUDED
 #define SGE_ICONV_HPP_INCLUDED
 
-#include <string>
 #include "string.hpp"
 #include "export.hpp"
 #include "iconv_types.hpp"
+#include <string>
 
 namespace sge
 {

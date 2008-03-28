@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <cstddef>
 #include "../export.hpp"
-#include "../types.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"

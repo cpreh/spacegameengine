@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
 #define SGE_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
 
-#include "../types.hpp"
+#include "../su.hpp"
 #include "../shared_ptr.hpp"
 #include "../math/vector.hpp"
 #include "../math/matrix.hpp"

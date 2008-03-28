@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/mpl/if.hpp>
-#include "../types.hpp"
 #include "vertex_format.hpp"
 
 namespace sge

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <boost/iterator/iterator_facade.hpp>
 #include "../shared_ptr.hpp"
-#include "../types.hpp"
 #include "../algorithm.hpp"
 #include "../export.hpp"
 #include "vertex_format.hpp"

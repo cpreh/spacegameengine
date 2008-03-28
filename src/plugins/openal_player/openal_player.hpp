@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <list>
 #include <vector>
 // Own stuff
+#include "../../config.h"
 #include "../../shared_ptr.hpp"
-#include "../../types.hpp"
 #include "../../string.hpp"
 #include "../../audio/audio_player/audio_player.hpp"
 #include "../../audio/audio_player/sound_angle.hpp"

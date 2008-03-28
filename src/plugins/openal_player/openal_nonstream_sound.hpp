@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define OPENAL_NONSTREAM_SOUND_INCLUDED
 
 // Own stuff
-#include "../../types.hpp"
+#include "../../config.h"
 #include "../../string.hpp"
 #include "../../audio/audio_player/sound.hpp"
 #include "openal_player.hpp"

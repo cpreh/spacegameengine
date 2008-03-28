@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <istream>
 
-#include "../types.hpp"
+#include "../su.hpp"
 #include "../typeswitch.hpp"
 #include "../stub.hpp"
 

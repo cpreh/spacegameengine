@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DIM_HPP_INCLUDED
 #define SGE_MATH_DIM_HPP_INCLUDED
 
-#include "../types.hpp"
+#include "../config.h"
+#include "../su.hpp"
 #include "../exception.hpp"
 #include "../util.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
@@ -128,14 +129,14 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
-			throw exception("basic_dim<T, N>::at(): out of range!");
+			throw exception(SGE_TEXT("basic_dim<T, N>::at(): out of range!"));
 		return (*this)[pos];
 	}
 
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
-			throw exception("basic_dim<T, N>::at(): out of range!");
+			throw exception(SGE_TEXT("basic_dim<T, N>::at(): out of range!"));
 		return (*this)[pos];
 	}
 

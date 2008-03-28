@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_HPP_INCLUDED
 #define SGE_MATH_VECTOR_HPP_INCLUDED
 
+#include "../config.h"
 #include "compare.hpp"
 #include "mod.hpp"
-#include "../types.hpp"
+#include "../su.hpp"
 #include "../util.hpp"
 #include "../exception.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES

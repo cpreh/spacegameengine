@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../../config.h"
 #include "../iconv_detail.hpp"
 #include "../../exception.hpp"
 #include "../../iconv_types.hpp"
-#include "../../types.hpp"
 
 sge::iconv_instance::iconv_instance(const std::string &from, const std::string &to)
 : conv(iconv_open(to.c_str(), from.c_str())),

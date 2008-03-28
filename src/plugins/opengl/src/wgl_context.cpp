@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../types.hpp"
+#include "../../../config.h"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../../../exception.hpp"
 #include "../../../gdi_device.hpp"

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/convenience.hpp>
 #include <boost/filesystem/operations.hpp>
-#include "../types.hpp"
+#include "../config.h"
 #include "../plugin_manager.hpp"
 #include "../iconv.hpp"
 #include "../path.hpp"

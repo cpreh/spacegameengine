@@ -18,9 +18,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include <iostream>
 
-#include "../types.hpp"
+#include "../config.h"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../exception.hpp"
 #include "../win32_window.hpp"

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include "../export.hpp"
 #include "../shared_ptr.hpp"
-#include "../types.hpp"
 #include "../plugin_traits.hpp"
 #include "../string.hpp"
 #include "../window.hpp"
