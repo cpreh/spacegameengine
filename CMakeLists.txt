@@ -10,7 +10,7 @@ SET (CMAKE_REQUIRED_FLAGS "-std=c++0x")
 SET (CMAKE_REQUIRED_DEFINITIONS "")
 
 CHECK_CXX_SOURCE_COMPILES(
-	"template<typename... Args> void f(Args... args) {} int main(){}",
+	"template<typename... Args> void f(Args... args) {} int main(){}"
 	SGE_HAVE_VARIADIC_TEMPLATES
 )
 
