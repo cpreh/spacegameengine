@@ -1,9 +1,18 @@
 PROJECT (spacegameengine)
 
+INCLUDE (CheckCXXSourceCompiles)
 INCLUDE (OWGetGCCVersion.cmake)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
+
+SET (CMAKE_REQUIRED_FLAGS "-std=c++0x")
+SET (CMAKE_REQUIRED_DEFINITIONS "")
+
+CHECK_CXX_SOURCE_COMPILES(
+	"template<typename... Args> void f(Args... args) {} int main(){}",
+	SGE_HAVE_VARIADIC_TEMPLATES
+)
 
 IF (${CMAKE_COMPILER_IS_GNUCXX})
 	ow_get_gcc_version (gccversion)

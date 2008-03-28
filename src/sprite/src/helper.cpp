@@ -84,8 +84,9 @@ sge::vertex_buffer::iterator
 	const space_unit sinx = std::sin(rot),
 	                 cosx = std::cos(rot);
 
-	const math::basic_matrix<space_unit,2,2> mat_rot(cosx, -sinx,
-	                                                 sinx,  cosx); 
+	const math::basic_matrix<space_unit,2,2> mat_rot(
+		cosx, -sinx,
+		sinx,  cosx); 
 
 	BOOST_FOREACH(position_array::const_reference p, positions)
 		(*it++).pos() = pos3((mat_rot * p) + centerf, z);
