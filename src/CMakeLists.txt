@@ -34,7 +34,7 @@ ENDIF ()
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
 MACRO (INSTALL_HEADERS subpath)
-	FILE (GLOB sgeheaders ${subpath}/*.hpp)
+	FILE (GLOB sgeheaders ${subpath}/*.h*)
 	INSTALL (FILES ${sgeheaders} DESTINATION ${include_dest}${subpath})
 ENDMACRO ()
 
