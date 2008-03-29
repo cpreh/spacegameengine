@@ -168,8 +168,8 @@ private:
 	boost::scoped_ptr<wgl_current> current;
 #elif SGE_LINUX_PLATFORM
 	void reset_viewport_on_map(const XEvent&);
-	void reset_viewport_on_resize(const XEvent&);
-	void center_viewport();
+	void reset_viewport_on_configure(const XEvent&);
+	void center_viewport(int w, int h);
 
 	x_display_ptr                         dsp;
 	scoped_connection                     map_callback;

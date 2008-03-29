@@ -180,7 +180,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	current.reset(new glx_current(dsp, *wnd, context));
 
  	con_manager.scoped_connect(wnd->register_callback(MapNotify, boost::bind(&renderer::reset_viewport_on_map, this, _1)));
-	con_manager.scoped_connect(wnd->register_callback(ResizeRequest, boost::bind(&renderer::reset_viewport_on_resize, this, _1)));
+	con_manager.scoped_connect(wnd->register_callback(ConfigureNotify, boost::bind(&renderer::reset_viewport_on_configure, this, _1)));
 
 	XSync(dsp->get(), False);
 #endif
@@ -409,6 +409,7 @@ void sge::ogl::renderer::set_material(const material& mat)
 	SGE_OPENGL_SENTRY
 
 	const GLenum face = GL_FRONT_AND_BACK;
+	// FIXME: UB
 	glMaterialfv(face, GL_AMBIENT, reinterpret_cast<const GLfloat*>(&mat.ambient));
 	glMaterialfv(face, GL_DIFFUSE, reinterpret_cast<const GLfloat*>(&mat.diffuse));
 	glMaterialfv(face, GL_SPECULAR, reinterpret_cast<const GLfloat*>(&mat.specular));
@@ -425,24 +426,28 @@ void sge::ogl::renderer::set_viewport(const viewport& v)
 #ifdef SGE_LINUX_PLATFORM
 void sge::ogl::renderer::reset_viewport_on_map(const XEvent&)
 {
-	center_viewport();
+	center_viewport(wnd->width(), wnd->height());
 }
 
-void sge::ogl::renderer::reset_viewport_on_resize(const XEvent&)
+void sge::ogl::renderer::reset_viewport_on_configure(const XEvent& e)
 {
-	center_viewport();
+	const XConfigureEvent& r(e.xconfigure);
+	center_viewport(r.width, r.height);
 }
 
-void sge::ogl::renderer::center_viewport()
+void sge::ogl::renderer::center_viewport(const int w, const int h)
 {
-	const window::window_size window_dim(wnd->size());
-	const pixel_unit x =
-		window_dim.w() > screen_width()
-		? (window_dim.w() - screen_width()) / 2
+	const pixel_unit screen_w =
+		static_cast<pixel_unit>(screen_width()),
+		         screen_h =
+		static_cast<pixel_unit>(screen_height()),
+	                 x =
+		w > screen_w
+		? (w - screen_w) / 2
 		: 0,
 	                 y =
-		window_dim.h() > screen_height()
-		? (window_dim.h() - screen_height()) / 2
+		h > screen_h
+		? (h - screen_h) / 2
 		: 0;
 
 	set_viewport(viewport(x, y, screen_width(), screen_height()));

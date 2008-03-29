@@ -156,7 +156,8 @@ boost::assign::map_list_of(KeyPress, KeyPressMask)
                           (MapNotify, StructureNotifyMask)
                           (UnmapNotify, StructureNotifyMask)
                           (ResizeRequest, ResizeRedirectMask)
-                          (ConfigureRequest, SubstructureRedirectMask);
+                          (ConfigureRequest, SubstructureRedirectMask)
+                          (ConfigureNotify, StructureNotifyMask);
 
 void sge::x_window::add_event_mask(const x11_event_type event)
 {
