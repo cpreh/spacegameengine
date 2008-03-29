@@ -53,8 +53,8 @@ public:
 	sprite_unit& x();
 	sprite_unit& y();
 	point& pos();
-	sprite_unit& width();
-	sprite_unit& height();
+	sprite_unit& w();
+	sprite_unit& h();
 	dim& size();
 	depth_type& z();
 	void visible(bool visible);
@@ -69,8 +69,8 @@ public:
 	const sprite_unit& y() const;
 	const depth_type& z() const;
 	const point& pos() const;
-	const sprite_unit& width() const;
-	const sprite_unit& height() const;
+	const sprite_unit& w() const;
+	const sprite_unit& h() const;
 	const dim& size() const;
 	bool visible() const;
 	rect get_rect() const;

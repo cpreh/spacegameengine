@@ -67,12 +67,12 @@ sge::sprite::point& sge::sprite::pos()
 	return pos_;
 }
 
-sge::sprite_unit& sge::sprite::width()
+sge::sprite_unit& sge::sprite::w()
 {
 	return size().w();
 }
 
-sge::sprite_unit& sge::sprite::height()
+sge::sprite_unit& sge::sprite::h()
 {
 	return size().h();
 }
@@ -138,12 +138,12 @@ const sge::sprite::point& sge::sprite::pos() const
 	return pos_;
 }
 
-const sge::sprite_unit& sge::sprite::width() const
+const sge::sprite_unit& sge::sprite::w() const
 {
 	return size().w();
 }
 
-const sge::sprite_unit& sge::sprite::height() const
+const sge::sprite_unit& sge::sprite::h() const
 {
 	return size().h();
 }
@@ -165,7 +165,7 @@ bool sge::sprite::visible() const
 
 sge::sprite::point sge::sprite::center() const
 {
-	return  point(x() + width() / 2, y() + height() / 2);
+	return  point(x() + w() / 2, y() + h() / 2);
 }
 
 sge::sprite::rotation_type sge::sprite::rotation() const

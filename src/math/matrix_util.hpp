@@ -54,6 +54,8 @@ space_matrix matrix_perspective(
 
 space_matrix matrix_orthogonal_xy();
 
+basic_matrix<space_unit,2,2> matrix_rotation_2d(const space_unit angle);
+
 space_matrix matrix_rotation_z(const space_unit angle);
 
 space_matrix matrix_rotation_y(const space_unit angle);

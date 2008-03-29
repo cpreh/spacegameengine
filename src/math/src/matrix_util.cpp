@@ -125,6 +125,16 @@ sge::math::space_matrix sge::math::matrix_rotation_x(const space_unit angle)
 	        su(0), su(0), su(0), su(1));
 }
 
+sge::math::basic_matrix<sge::space_unit,2,2> sge::math::matrix_rotation_2d(const space_unit angle)
+{
+  const space_unit sinx = std::sin(angle),
+                   cosx = std::cos(angle);
+
+	return basic_matrix<space_unit,2,2>(
+    cosx, -sinx,
+    sinx,  cosx);
+}
+
 sge::math::space_matrix sge::math::matrix_identity()
 {
 	return space_matrix
