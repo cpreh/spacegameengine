@@ -163,6 +163,11 @@ bool sge::sprite::visible() const
 	return visible_;
 }
 
+void sge::sprite::set_center(const sge::sprite::point &p)
+{
+	pos() = p-sge::sprite::point(w()/2,h()/2);
+}
+
 sge::sprite::point sge::sprite::center() const
 {
 	return  point(x() + w() / 2, y() + h() / 2);

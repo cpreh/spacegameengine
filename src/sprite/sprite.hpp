@@ -64,6 +64,7 @@ public:
 	void rotate_around();
 	void repeat(repetition_type);
 	void set_color(color c);
+	void set_center(const point &);
 	
 	const sprite_unit& x() const;
 	const sprite_unit& y() const;
