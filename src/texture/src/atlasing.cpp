@@ -51,16 +51,27 @@ sge::texture::size_type sge::atlased_gap()
 	return 1;
 }
 
-sge::texture::size_type sge::atlased_size(const texture::size_type s)
+sge::texture::size_type sge::atlased_size(
+	const texture::size_type s,
+	const bool force_atlasing)
 {
-	return need_atlasing(s)
+	return need_atlasing(s) || force_atlasing
 		? s + 2 * atlased_gap()
 		: s;
 }
 
-const sge::texture::dim_type sge::atlased_size(const texture::dim_type& dim)
+const sge::texture::dim_type
+sge::atlased_size(
+	const texture::dim_type& dim,
+	const bool force_atlasing)
 {
-	return texture::dim_type(atlased_size(dim.w()), atlased_size(dim.h()));
+	return texture::dim_type(
+		atlased_size(
+			dim.w(),
+			force_atlasing),
+		atlased_size(
+			dim.h(),
+			force_atlasing));
 }
 
 const sge::texture::dim_type sge::atlased_texture_dim(const renderer_ptr rend)

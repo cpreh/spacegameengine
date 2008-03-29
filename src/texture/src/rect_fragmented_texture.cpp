@@ -32,7 +32,7 @@ sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend, c
 
 const sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const texture::dim_type& dim)
 {
-	const texture::dim_type atlased_dim(atlased_size(dim));
+	const texture::dim_type atlased_dim(atlased_size(dim, true));
 
 	// if there is no space left for the requested height
 	if(cur_y + dim.h() >= tex->dim().h())
