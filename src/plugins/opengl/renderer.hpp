@@ -169,6 +169,7 @@ private:
 #elif SGE_LINUX_PLATFORM
 	void reset_viewport_on_map(const XEvent&);
 	void reset_viewport_on_resize(const XEvent&);
+	void center_viewport();
 
 	x_display_ptr                         dsp;
 	scoped_connection                     map_callback;

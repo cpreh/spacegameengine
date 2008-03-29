@@ -425,12 +425,27 @@ void sge::ogl::renderer::set_viewport(const viewport& v)
 #ifdef SGE_LINUX_PLATFORM
 void sge::ogl::renderer::reset_viewport_on_map(const XEvent&)
 {
-	set_viewport(viewport(0, 0, screen_width(), screen_height()));
+	center_viewport();
 }
 
 void sge::ogl::renderer::reset_viewport_on_resize(const XEvent&)
 {
-	set_viewport(viewport(0, 0, screen_width(), screen_height()));
+	center_viewport();
+}
+
+void sge::ogl::renderer::center_viewport()
+{
+	const window::window_size window_dim(wnd->size());
+	const pixel_unit x =
+		window_dim.w() > screen_width()
+		? (window_dim.w() - screen_width()) / 2
+		: 0,
+	                 y =
+		window_dim.h() > screen_height()
+		? (window_dim.h() - screen_height()) / 2
+		: 0;
+
+	set_viewport(viewport(x, y, screen_width(), screen_height()));
 }
 #endif
 
