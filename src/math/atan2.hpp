@@ -39,10 +39,15 @@ inline typename boost::enable_if<
 	>::type
 atan2(const sge::math::basic_vector<T,2> &v)
 {
-	return v.is_null()
-		? boost::optional<T>()
-		// FIXME: no +pi/2 here!
-		: std::atan2(v.y(), v.x())+pi<T>()/static_cast<T>(2);
+	if (v.is_null())
+		return boost::optional<T>();
+	
+	const T t = std::atan2(v.y(), v.x());
+
+	if (t > pi<T>())
+		return -static_cast<T>(2)*pi<T>()+t;
+	
+	return t+pi<T>()/static_cast<T>(2);
 }
 }
 }
