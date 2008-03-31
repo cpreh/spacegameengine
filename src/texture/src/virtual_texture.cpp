@@ -92,9 +92,6 @@ bool sge::virtual_texture::repeatable() const
 	return !need_atlasing_w && !need_atlasing_h;
 }
 
-#include <sge/iostream.hpp>
-#include <ostream>
-
 void sge::virtual_texture::set_data(const texture::const_pointer src)
 {
 	my_texture()->set_data(src, inner_area_);
