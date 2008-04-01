@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/renderer/scoped_renderblock.hpp"
 #include "../src/input/input_system.hpp"
 #include "../src/image/image_loader.hpp"
-#include "../src/sprite/sprite.hpp"
+#include "../src/sprite/object.hpp"
 #include "../src/sprite/system.hpp"
 #include "../src/sprite/system_impl.hpp"
 #include "../src/sprite/texture_animation.hpp"
@@ -67,19 +67,19 @@ try
 	const sge::virtual_texture_ptr tex1(sge::add_texture(tex_man, img1)),
 	                               tex2(sge::add_texture(tex_man, img2));
 
-	sge::sprite_system ss(rend);
-	sge::sprite spr(
+	sge::sprite::system ss(rend);
+	sge::sprite::object spr(
 		sge::sprite::point(0,rend->screen_height()),
         	sge::virtual_texture_ptr(),
 		sge::sprite::dim(rend->screen_width(), -rend->screen_height()));
 
-	const sge::sprite_texture_animation::animation_series series(
+	const sge::sprite::texture_animation::animation_series series(
 		boost::assign::list_of
-			(sge::sprite_texture_animation::entity(sge::second() / 2, tex1))
-			(sge::sprite_texture_animation::entity(sge::second(), tex2))
+			(sge::sprite::texture_animation::entity(sge::second() / 2, tex1))
+			(sge::sprite::texture_animation::entity(sge::second(), tex2))
 		.to_container(series)
 	);
-	sge::sprite_texture_animation anim(series, &spr);
+	sge::sprite::texture_animation anim(series, &spr);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;

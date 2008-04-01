@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texture_animation.hpp"
-#include "../sprite.hpp"
+#include "../object.hpp"
 
-sge::sprite_texture_animation::sprite_texture_animation(
+sge::sprite::texture_animation::texture_animation(
 	const animation_series& series_,
-	sprite *spr)
+	object *spr)
 : series(series_),
   cur_timer(0),
   s(0),
@@ -32,13 +32,13 @@ sge::sprite_texture_animation::sprite_texture_animation(
 	bind(spr);
 }
 
-void sge::sprite_texture_animation::bind(sprite *new_sprite)
+void sge::sprite::texture_animation::bind(object *new_sprite)
 {
 	s = new_sprite;
 	reset();
 }
 
-bool sge::sprite_texture_animation::process()
+bool sge::sprite::texture_animation::process()
 {
 	if(!s)
 		return true;
@@ -56,7 +56,7 @@ bool sge::sprite_texture_animation::process()
 	return false;
 }
 
-void sge::sprite_texture_animation::reset()
+void sge::sprite::texture_animation::reset()
 {
 	if(s && !series.empty())
 		s->set_texture(series[0].tex);
@@ -65,7 +65,7 @@ void sge::sprite_texture_animation::reset()
 	cur_timer.interval(0);
 }
 
-sge::sprite_texture_animation::entity::entity(
+sge::sprite::texture_animation::entity::entity(
 	const time_type delay,
 	const virtual_texture_ptr tex)
 : delay(delay),

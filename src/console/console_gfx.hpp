@@ -3,6 +3,7 @@
 
 // c++
 #include <deque>
+#include <cstddef>
 
 // sge
 #include "../font/font.hpp"
@@ -11,11 +12,11 @@
 #include "../input/key_mod_tracker.hpp"
 #include "../scoped_connection.hpp"
 #include "../sprite/system.hpp"
-#include "../sprite/sprite.hpp"
+#include "../sprite/object.hpp"
 #include "../string.hpp"
 #include "../timer.hpp"
-#include "console.hpp"
 #include "../export.hpp"
+#include "console.hpp"
 
 namespace sge
 {
@@ -32,8 +33,8 @@ struct console_gfx
 	const font_ptr fn;
 	sge::scoped_connection ic,irc;
 	sge::key_mod_tracker mod;
-	sge::sprite_system ss;
-	sge::sprite bg;
+	sge::sprite::system ss;
+	sge::sprite::object bg;
 	bool active_;
 
 	// input and history stuff
@@ -54,8 +55,8 @@ struct console_gfx
 		const virtual_texture_ptr,
 		const font_ptr,
 		const input_system_ptr,
-		const sprite_point&,
-		const sprite_dim&);
+		const sprite::point&,
+		const sprite::dim&);
 	SGE_SYMBOL void key_callback(const key_pair &);
 	SGE_SYMBOL void key_action(const key_type &);
 	SGE_SYMBOL void draw();

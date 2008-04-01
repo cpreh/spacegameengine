@@ -43,8 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../src/plugin_manager.hpp"
 #include "../src/renderer/scoped_lock.hpp"
 #include "../src/util.hpp"
-#include "../src/sprite/system.hpp"
-#include "../src/sprite/sprite.hpp"
 #include "../src/font/font.hpp"
 #include "../src/font/font_drawer_3d.hpp"
 #include "../src/renderer/renderer.hpp"
@@ -139,8 +137,6 @@ try
 	sge::texture_manager texman(rend,sge::default_texture_creator<sge::no_fragmented_texture>(rend,sge::linear_filter));
 //	const sge::image_ptr console_image = pl->load_image(sge::media_path() / SGE_TEXT("black.jpg"));
 //	const sge::virtual_texture_ptr console_texture = sge::add_texture(texman,console_image);
-//	const sge::sprite_point pos(0,0);
-//	const sge::sprite_dim console_size(rend->screen_width(),rend->screen_height()/2);
 //	sge::con::console_gfx console(rend,console_texture,fn,is,pos,console_size);
 
 	using boost::lambda::var;

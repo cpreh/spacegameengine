@@ -20,23 +20,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
-#include "../sprite.hpp"
+#include "../object.hpp"
 #include "../../renderer/vertex_format.hpp"
 #include "../../renderer/transform.hpp"
 #include "../../math/matrix_impl.hpp"
 
 const unsigned init_sprites = 25;
 
-sge::sprite_system::sprite_system(const renderer_ptr rend)
- : default_transformable(rend,
-                         matrix_pixel_to_space(rend->screen_size()),
-                         math::matrix_orthogonal_xy()),
+sge::sprite::system::system(const renderer_ptr rend)
+ : default_transformable(
+ 	rend,
+	matrix_pixel_to_space(rend->screen_size()),
+	math::matrix_orthogonal_xy()),
    rend(rend),
-   vb(rend->create_vertex_buffer(vertex_format().add(vertex_usage::pos).add(vertex_usage::diffuse).add(vertex_usage::tex), init_sprites * detail::vertices_per_sprite, resource_flags::write_only | resource_flags::dynamic)),
-   ib(rend->create_index_buffer(init_sprites * detail::indices_per_sprite))
+   vb(
+   	rend->create_vertex_buffer(
+		vertex_format().add(vertex_usage::pos).add(vertex_usage::diffuse).add(vertex_usage::tex),
+		init_sprites * detail::vertices_per_sprite,
+		resource_flags::write_only | resource_flags::dynamic)),
+  ib(
+  	rend->create_index_buffer(
+		init_sprites * detail::indices_per_sprite))
 {}
 
-const sge::renderer_ptr sge::sprite_system::get_renderer() const
+const sge::renderer_ptr sge::sprite::system::get_renderer() const
 {
 	return rend;
 }

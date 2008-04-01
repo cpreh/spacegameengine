@@ -31,30 +31,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-extern const sprite_dim sprite_texture_dim;
+namespace sprite
+{
 
-class sprite {
+extern const dim texture_dim;
+
+class object {
 public:
-	typedef sprite_point             point;
-	typedef sprite_dim               dim;
-	typedef sprite_rect              rect;
-	typedef sprite_depth_type        depth_type;
-	typedef sprite_rotation_type     rotation_type;
-	typedef sprite_repetition_type   repetition_type;
-
-	sprite(point pos,
-	       virtual_texture_ptr tex,
-	       dim sz = sprite_texture_dim,
+	object(
+		point pos,
+		virtual_texture_ptr tex,
+	       dim sz = texture_dim,
 	       color c = colors::white,
 	       depth_type z = 0,
 	       rotation_type rotation = 0,
 	       bool visible = true);
 
-	sprite_unit& x();
-	sprite_unit& y();
+	unit& x();
+	unit& y();
 	point& pos();
-	sprite_unit& w();
-	sprite_unit& h();
+	unit& w();
+	unit& h();
 	dim& size();
 	depth_type& z();
 	void visible(bool visible);
@@ -66,12 +63,12 @@ public:
 	void set_color(color c);
 	void set_center(const point &);
 	
-	const sprite_unit& x() const;
-	const sprite_unit& y() const;
+	const unit& x() const;
+	const unit& y() const;
 	const depth_type& z() const;
 	const point& pos() const;
-	const sprite_unit& w() const;
-	const sprite_unit& h() const;
+	const unit& w() const;
+	const unit& h() const;
 	const dim& size() const;
 	bool visible() const;
 	rect get_rect() const;
@@ -85,8 +82,8 @@ public:
 	const point rotation_center() const;
 	const virtual_texture_ptr get_texture() const;
 
-	static bool equal(const sprite& l, const sprite& r);
-	static bool less(const sprite& l, const sprite& r);
+	static bool equal(const object& l, const object& r);
+	static bool less(const object& l, const object& r);
 private:
 	point               pos_;
 	dim                 size_;
@@ -101,5 +98,6 @@ private:
 };
 
 }
-#endif
+}
 
+#endif

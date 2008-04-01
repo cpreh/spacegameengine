@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/renderer.hpp"
 #include "../texture/manager.hpp"
 #include "../sprite/system.hpp"
-#include "../sprite/sprite.hpp"
+#include "../sprite/object.hpp"
 #include "font_drawer.hpp"
 #include "font_types.hpp"
 
@@ -51,8 +51,8 @@ private:
 	texture_manager                                  texman;
 	typedef std::map<font_char, virtual_texture_ptr> texture_map;
 	texture_map                                      textures;
-	sprite_system                                    sys;
-	typedef std::vector<sprite>                      sprite_vector;
+	sprite::system                                   sys;
+	typedef std::vector<sprite::object>              sprite_vector;
 	sprite_vector                                    sprites;
 };
 

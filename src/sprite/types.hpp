@@ -28,14 +28,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace sprite
+{
 
-typedef int                                sprite_unit;
-typedef math::basic_vector<sprite_unit, 2> sprite_point;
-typedef math::basic_dim<sprite_unit, 2>    sprite_dim;
-typedef math::basic_rect<sprite_unit>      sprite_rect;
-typedef space_unit                         sprite_depth_type;
-typedef space_unit                         sprite_rotation_type;
-typedef space_unit                         sprite_repetition_type;
+typedef int                         unit;
+typedef math::basic_vector<unit, 2> point;
+typedef math::basic_dim<unit, 2>    dim;
+typedef math::basic_rect<unit>      rect;
+typedef space_unit                  depth_type;
+typedef space_unit                  rotation_type;
+typedef space_unit                  repetition_type;
 
 namespace detail
 {
@@ -43,6 +45,7 @@ namespace detail
 	               vertices_per_sprite = 4;
 }
 
+}
 }
 
 #endif

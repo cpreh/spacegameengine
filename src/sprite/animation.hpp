@@ -23,17 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace sprite
+{
 
-class sprite;
+class object;
 
-class sprite_animation {
+class animation {
 public:
-	virtual void bind(sprite*) = 0;
+	virtual void bind(object*) = 0;
 	virtual bool process() = 0;
 	virtual void reset() = 0;
-	virtual ~sprite_animation(){}
+	virtual ~animation(){}
 };
 
+}
 }
 
 #endif

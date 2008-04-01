@@ -56,7 +56,7 @@ void sge::font_drawer_3d::draw_char(const font_char ch, const font_rect fr, cons
 		it = textures.find(ch);
 	}
 
-	sprites.push_back(sprite(fr.pos(), it->second, fr.size(), col));
+	sprites.push_back(sprite::object(fr.pos(), it->second, fr.size(), col));
 }
 
 void sge::font_drawer_3d::end_rendering()

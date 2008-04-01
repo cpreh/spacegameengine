@@ -2,7 +2,6 @@
 #include <cctype>
 // boost
 #include <boost/bind.hpp>
-#include <boost/array.hpp>
 // sge
 #include "../../sprite/system_impl.hpp"
 #include "../../math/matrix_util.hpp"
@@ -33,18 +32,27 @@ typename IteratorType::value_type join(IteratorType begin,IteratorType end,const
 
 }
 
-sge::con::console_gfx::console_gfx(const renderer_ptr rend,const virtual_texture_ptr texture,const font_ptr fn,
-	const input_system_ptr is,const sprite_point &pos,const sprite_dim &size)
-	: rend(rend),fn(fn),
-		ic(is->register_callback(boost::bind(&console_gfx::key_callback,this,_1))),
-		irc(is->register_repeat_callback(boost::bind(&console_gfx::key_action,this,_1))),
-		mod(is),
-		ss(rend),bg(pos,texture,size),
-		active_(false),
-		cursor_timer(timer::interval_type(300)),
-		cursor_rate(SGE_TEXT("cursor_rate"),boost::bind(&console_gfx::change_cursor_rate,this,_1,_2),timer::interval_type(300)),
-		cursor_active(false),
-		cursor_char(SGE_TEXT('_')),cursor_pos(0),history_size(0)
+sge::con::console_gfx::console_gfx(
+	const renderer_ptr rend,
+	const virtual_texture_ptr texture,
+	const font_ptr fn,
+	const input_system_ptr is,
+	const sprite::point &pos,
+	const sprite::dim &size)
+: rend(rend),
+  fn(fn),
+  ic(is->register_callback(boost::bind(&console_gfx::key_callback,this,_1))),
+  irc(is->register_repeat_callback(boost::bind(&console_gfx::key_action,this,_1))),
+  mod(is),
+  ss(rend),
+  bg(pos,texture,size),
+  active_(false),
+  cursor_timer(timer::interval_type(300)),
+  cursor_rate(SGE_TEXT("cursor_rate"),boost::bind(&console_gfx::change_cursor_rate,this,_1,_2),timer::interval_type(300)),
+  cursor_active(false),
+  cursor_char(SGE_TEXT('_')),
+  cursor_pos(0),
+  history_size(0)
 {
 	input_history.push_front(SGE_TEXT(" "));
 	input_history_pos = input_history.begin();
@@ -164,8 +172,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 
 void sge::con::console_gfx::draw()
 {
-	boost::array<sprite,1> v = { { bg } };
-	ss.render(v.begin(),v.end());
+	ss.render(&bg, &bg+1);
 
 	string iln = *input_history_pos;
 	if (cursor_active)

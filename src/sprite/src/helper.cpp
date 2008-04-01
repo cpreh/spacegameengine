@@ -27,9 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../helper.hpp"
 
 sge::vertex_buffer::iterator
-	sge::fill_sprite_position(vertex_buffer::iterator it,
-                                  const sprite_rect& rs,
-                                  const sprite_depth_type z)
+sge::sprite::fill_position(
+	vertex_buffer::iterator it,
+	const rect& rs,
+	const depth_type z)
 {
 	const math::rect r = math::structure_cast<space_unit>(rs);
 
@@ -42,8 +43,9 @@ sge::vertex_buffer::iterator
 }
 
 sge::vertex_buffer::iterator
-	sge::fill_sprite_tex_coordinates(vertex_buffer::iterator it,
-                                         const tex_rect& rt)
+sge::sprite::fill_tex_coordinates(
+	vertex_buffer::iterator it,
+	const tex_rect& rt)
 {
 	(*it++).tex() = tex_pos(rt.left(), rt.top());
 	(*it++).tex() = tex_pos(rt.right(), rt.top());
@@ -54,21 +56,23 @@ sge::vertex_buffer::iterator
 }
 
 sge::vertex_buffer::iterator
-	sge::fill_sprite_vertices(const vertex_buffer::iterator it,
-                                  const sprite_rect& rs,
-                                  const tex_rect& rt,
-                                  const sprite_depth_type z)
+sge::sprite::fill_vertices(
+	const vertex_buffer::iterator it,
+	const rect& rs,
+	const tex_rect& rt,
+	const depth_type z)
 {
-	fill_sprite_position(it, rs, z);
-	return fill_sprite_tex_coordinates(it, rt);
+	fill_position(it, rs, z);
+	return fill_tex_coordinates(it, rt);
 }
 
 sge::vertex_buffer::iterator
-	sge::fill_sprite_position_rotated(vertex_buffer::iterator it,
-	                                  const sprite_rect& rbs,
-                                          const sprite_rotation_type rot,
-                                          const sprite_point& center,
-                                          const sprite_depth_type z)
+sge::sprite::fill_position_rotated(
+	vertex_buffer::iterator it,
+	const rect& rbs,
+	const rotation_type rot,
+	const point& center,
+	const depth_type z)
 {
 	const pos2 centerf(math::structure_cast<space_unit>(center));
 
@@ -95,8 +99,9 @@ sge::vertex_buffer::iterator
 }
 
 sge::vertex_buffer::iterator
-	sge::fill_sprite_color(vertex_buffer::iterator it,
-                               const color col)
+sge::sprite::fill_color(
+	vertex_buffer::iterator it,
+	const color col)
 {
 	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)
 		(*it++).diffuse() = col;
@@ -104,8 +109,9 @@ sge::vertex_buffer::iterator
 }
 
 sge::index_buffer::iterator
-	sge::fill_sprite_indices(index_buffer::iterator it,
-                                 const index_buffer::value_type start)
+sge::sprite::fill_indices(
+	index_buffer::iterator it,
+	const index_buffer::value_type start)
 {
 	(*it++) = start + 0;
 	(*it++) = start + 1;

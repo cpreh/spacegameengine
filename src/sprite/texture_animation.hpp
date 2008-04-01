@@ -29,8 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace sprite
+{
 
-class sprite_texture_animation : public sprite_animation {
+class texture_animation : public animation {
 public:
 	struct entity {
 		entity(time_type delay, virtual_texture_ptr tex);
@@ -39,20 +41,21 @@ public:
 	};
 
 	typedef std::vector<entity> animation_series;
-	sprite_texture_animation(
+	texture_animation(
 		const animation_series&,
-		sprite *init_sprite = 0);
+		object *init_sprite = 0);
 	
-	void bind(sprite*);
+	void bind(object*);
 	bool process();
 	void reset();
 private:
 	animation_series                 series;
 	timer                            cur_timer;
-	sprite*                          s;
+	object*                          s;
 	animation_series::const_iterator pos;
 };
 
+}
 }
 
 #endif

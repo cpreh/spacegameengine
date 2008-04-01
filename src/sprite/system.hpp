@@ -29,10 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace sprite
+{
 
-class sprite_system : public default_transformable, boost::noncopyable {
+class system : public default_transformable, boost::noncopyable {
 public:
-	sprite_system(renderer_ptr rend);
+	system(renderer_ptr rend);
 	template<typename In>
 		void render(In beg, In end);
 	const renderer_ptr get_renderer() const;
@@ -42,6 +44,7 @@ private:
 	index_buffer_ptr ib;
 };
 
+}
 }
 
 #endif

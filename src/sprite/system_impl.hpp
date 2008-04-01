@@ -24,16 +24,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <iterator>
 #include "helper.hpp"
-#include "sprite.hpp"
+#include "object.hpp"
 #include "system.hpp"
 #include "../algorithm.hpp"
 #include "../renderer/scoped_lock.hpp"
 #include "../renderer/scoped_state.hpp"
 
 template<typename RanIt>
-void sge::sprite_system::render(const RanIt beg, const RanIt end)
+void sge::sprite::system::render(const RanIt beg, const RanIt end)
 {
-	std::sort(beg, end, &sprite::less);
+	std::sort(beg, end, &object::less);
 	
 	const typename std::iterator_traits<RanIt>::difference_type range_len = std::distance(beg,end);
 
@@ -51,19 +51,19 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 
 		for(RanIt cur = beg; cur != end; ++cur)
 		{
-			sprite& spr = *cur;
+			object& spr = *cur;
 			
-			ib_it = fill_sprite_indices(ib_it, static_cast<index_buffer::value_type>(vb_it - vb->begin()));
+			ib_it = fill_indices(ib_it, static_cast<index_buffer::value_type>(vb_it - vb->begin()));
 
 			if(math::almost_zero(spr.rotation()))
-				fill_sprite_position(vb_it, spr.get_rect(), spr.z());
+				fill_position(vb_it, spr.get_rect(), spr.z());
 			else
-				fill_sprite_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
+				fill_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
 			if(const virtual_texture_ptr tex = spr.get_texture())
-				fill_sprite_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
+				fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
 
-			vb_it = fill_sprite_color(vb_it, spr.get_color());
+			vb_it = fill_color(vb_it, spr.get_color());
 		}
 	}
 
@@ -91,12 +91,19 @@ void sge::sprite_system::render(const RanIt beg, const RanIt end)
 			break;
 
 		unsigned num_objects;
-		const RanIt next = first_mismatch_if(cur, end, num_objects, &sprite::equal);
+		const RanIt next = first_mismatch_if(cur, end, num_objects, &object::equal);
 
 		const virtual_texture_ptr vtex = cur->get_texture();
 		rend->set_texture(vtex ? vtex->my_texture() : texture_ptr());
 
-		rend->render(vb, ib, (cur - beg) * detail::vertices_per_sprite, (next - beg) * detail::vertices_per_sprite, indexed_primitive_type::triangle, num_objects*2, first_index);
+		rend->render(
+			vb,
+			ib,
+			(cur - beg) * detail::vertices_per_sprite,
+			(next - beg) * detail::vertices_per_sprite,
+			indexed_primitive_type::triangle,
+			num_objects * 2,
+			first_index);
 		first_index += num_objects * detail::indices_per_sprite;
 		cur = next;
 	}
