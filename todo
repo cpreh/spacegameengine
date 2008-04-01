@@ -1,7 +1,16 @@
-provide a factory for creating windows and decouple the window from the renderer as much as possible
-add std::string support for older mingws
-finish multi_tree or replace it with an existing class
-add a safer weak_ptr for Deleter template parameter
-breakpoints for the font
-other font formatting like bold, italic, underline
-review sound system and decouple buffers from sources; add 3d capabilities (positions)
+*low: provide a factory for creating windows and decouple the window from the renderer as much as possible
+*low: finish multi_tree or replace it with an existing class
+*low: add a safer weak_ptr for Deleter template parameter
+*low: add joystick support to dinput and xinput
+*low: make the d3d9 plugin functional again
+*low: add a d3d10 plugin
+*low: add model loaders, a model class and more
+*low: rework sge::math to contain views and have less code duplication
+*low?: review sound system and decouple buffers from sources; add 3d capabilities (positions)
+*medium: breakpoints for the font
+*medium: other font formatting like bold, italic, underline and colors
+*medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
+*medium: add a convenient method to check for key combinations in the input system
+*high: add a time wrapper for timer like millisecond_t
+*high: add a color system that allows arbitrary color formats to be used and has a nicer handling (maybe with boost::gil)
+*high: add a better constructor for sge::sprite that can optionally set the center instead of the topleft corner
