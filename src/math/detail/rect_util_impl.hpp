@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
 #define SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
 
-#include "rect_util.hpp"
-
 template<typename T>
 bool sge::math::intersects(const basic_rect<T>& r, 
                            const basic_vector<T,2>& p)

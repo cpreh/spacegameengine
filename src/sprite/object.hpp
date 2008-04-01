@@ -41,11 +41,11 @@ public:
 	object(
 		point pos,
 		virtual_texture_ptr tex,
-	       dim sz = texture_dim,
-	       color c = colors::white,
-	       depth_type z = 0,
-	       rotation_type rotation = 0,
-	       bool visible = true);
+		dim sz = texture_dim,
+		color c = colors::white,
+		depth_type z = 0,
+		rotation_type rotation = 0,
+		bool visible = true);
 
 	unit& x();
 	unit& y();

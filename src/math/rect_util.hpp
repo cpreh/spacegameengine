@@ -44,4 +44,6 @@ bool intersects(const basic_rect<T>& r, const basic_line_seg2<T>& l);
 }
 }
 
+#include "detail/rect_util_impl.hpp"
+
 #endif
