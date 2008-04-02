@@ -181,6 +181,13 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return *this;
 	}
 
+	friend basic_dim operator/(basic_dim l, const_reference r)
+	{
+		for(size_type i = 0; i < Dim; ++i)
+			l[i] /= r;
+		return l;
+	}
+
 	reference w()
 	{
 		return (*this)[0];
