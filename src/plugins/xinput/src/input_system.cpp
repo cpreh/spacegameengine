@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)
  : wnd(wnd),
-   colormap(DefaultColormap(wnd->display()->get(), wnd->screen())),
+   colormap(XDefaultColormap(wnd->display()->get(), wnd->screen())),
    _black(wnd->display(), colormap),
    _no_bmp(wnd->display(), wnd->get_window()),
    _no_cursor(wnd->display(), _no_bmp.pixmap(), _black.color()),

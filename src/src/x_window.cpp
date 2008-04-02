@@ -48,9 +48,9 @@ sge::x_window::x_window(const window_pos pos,
                         const XSetWindowAttributes& attr,
                         const XVisualInfo& vi)
  : dsp(dsp),
-   _screen(vi.screen),
+   screen_(vi.screen),
    wnd(XCreateWindow(dsp->get(),
-                     RootWindow(dsp->get(), screen()),
+                     XRootWindow(dsp->get(), screen()),
                      pos.x(),
                      pos.y(),
                      sz.w(),
@@ -61,7 +61,7 @@ sge::x_window::x_window(const window_pos pos,
                      vi.visual,
                      CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
                      const_cast<XSetWindowAttributes*>(&attr))),
-   _fullscreen(attr.override_redirect),
+   fullscreen_(attr.override_redirect),
    event_mask(0)
 {
 	title(t);
@@ -70,15 +70,9 @@ sge::x_window::x_window(const window_pos pos,
 
 sge::x_window::x_window(Display *const dsp, const int screen_, Window wnd)
  : dsp(new x_display(dsp, x_display::wrap_tag())),
-   _screen(screen_),
+   screen_(screen_),
    wnd(wnd)
 {}
-
-/*sge::x_window::x_window()
- : dsp(new x_display()),
-   _screen(DefaultScreen(dsp->get())),
-   wnd(XCreateSimpleWindow())
-{}*/
 
 sge::x_window::~x_window()
 {
@@ -112,7 +106,7 @@ sge::x_window::window_size sge::x_window::size() const
 
 bool sge::x_window::fullscreen() const
 {
-	return _fullscreen;
+	return fullscreen_;
 }
 
 Window sge::x_window::get_window() const
@@ -122,7 +116,7 @@ Window sge::x_window::get_window() const
 
 int sge::x_window::screen() const
 {
-	return _screen;
+	return screen_;
 }
 
 sge::x_display_ptr sge::x_window::display() const

@@ -66,9 +66,9 @@ private:
 	void add_event_mask(x11_event_type);
 
 	x_display_ptr dsp;
-	int _screen;
+	int screen_;
 	Window wnd;
-	bool _fullscreen;
+	bool fullscreen_;
 	x11_event_mask_type event_mask;
 
 	typedef boost::ptr_map<x11_event_type, x11_signal_type> signal_map;

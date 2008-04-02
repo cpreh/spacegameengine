@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::ogl::x_colormap::x_colormap(const x_display_ptr dsp, const XVisualInfo& vi)
 : dsp(dsp),
-  c(XCreateColormap(dsp->get(), RootWindow(dsp->get(), vi.screen), vi.visual, AllocNone))
+  c(XCreateColormap(dsp->get(), XRootWindow(dsp->get(), vi.screen), vi.visual, AllocNone))
 {
 	if(colormap() == 0)
 		throw exception(SGE_TEXT("XCreateColormap() failed!"));

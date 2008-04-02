@@ -140,7 +140,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	current.reset(new wgl_current(*hdc, *context));
 
 #elif SGE_LINUX_PLATFORM
-	const int screen = DefaultScreen(dsp->get());
+	const int screen = XDefaultScreen(dsp->get());
 
 	if(!windowed)
 	{
