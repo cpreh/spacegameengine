@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/compare.hpp"
 #include "../../math/rect_impl.hpp"
 #include "../../math/circle_impl.hpp"
+#include "../../renderer/colors.hpp"
 #include "../object.hpp"
 #include "../helper.hpp"
 #include <cmath>
@@ -30,27 +31,40 @@ const sge::sprite::dim sge::sprite::texture_dim(
 	std::numeric_limits<unit>::max(),
 	std::numeric_limits<unit>::max());
 
+const sge::virtual_texture_ptr sge::sprite::no_texture;
+
+const sge::sprite::point sge::sprite::defaults::pos_(0,0);
+const sge::virtual_texture_ptr sge::sprite::defaults::texture_(no_texture);
+const sge::sprite::dim sge::sprite::defaults::dim_(0,0);
+const sge::color sge::sprite::defaults::color_(colors::white);
+const sge::sprite::depth_type sge::sprite::defaults::depth_(0);
+const sge::sprite::rotation_type sge::sprite::defaults::rotation_(0);
+const bool sge::sprite::defaults::visible_(true);
+
 sge::sprite::object::object(
-	const point pos_,
-	const virtual_texture_ptr vtex,
-	const dim size_,
-	const color color_,
-	const depth_type z_,
-	const rotation_type rotation_,
-	const bool visible_)
- : pos_(pos_),
-   size_(size_ == texture_dim
-      ? dim(
-            static_cast<unit>(vtex->area().w()),
-            static_cast<unit>(vtex->area().h()))
-      : size_),
-   z_(z_),
-   rotation_(rotation_),
-   tex(vtex),
+	const boost::optional<point> pos_,
+	const boost::optional<virtual_texture_ptr> vtex,
+	const boost::optional<dim> size_,
+	const boost::optional<color> color_,
+	const boost::optional<depth_type> z_,
+	const boost::optional<rotation_type> rotation_,
+	const boost::optional<bool> visible_)
+ : pos_(pos_ ? *pos_ : defaults::pos_),
+   size_(
+	size_
+	? *size_ == texture_dim
+		? dim(
+			static_cast<unit>((*vtex)->area().w()),
+			static_cast<unit>((*vtex)->area().h()))
+	      : *size_
+	: defaults::dim_),
+   z_(z_ ? *z_ : defaults::depth_),
+   rotation_(rotation_ ? *rotation_ : defaults::rotation_),
+   tex(vtex ? *vtex : defaults::texture_),
    rot_around_(),
    repeat_(1),
-   color_(color_),
-   visible_(visible_),
+   color_(color_ ? *color_ : defaults::color_),
+   visible_(visible_ ? *visible_ : defaults::visible_),
    use_rot_around(false)
 {}
 

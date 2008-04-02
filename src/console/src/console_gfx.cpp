@@ -1,8 +1,3 @@
-// c++
-#include <cctype>
-// boost
-#include <boost/bind.hpp>
-// sge
 #include "../../sprite/system_impl.hpp"
 #include "../../math/matrix_util.hpp"
 #include "../../math/matrix_impl.hpp"
@@ -10,6 +5,9 @@
 #include "../../ostream.hpp"
 #include "../../fstream.hpp"
 #include "../console_gfx.hpp"
+#include <boost/bind.hpp>
+#include <boost/none.hpp>
+#include <cctype>
 
 namespace
 {
@@ -45,7 +43,10 @@ sge::con::console_gfx::console_gfx(
   irc(is->register_repeat_callback(boost::bind(&console_gfx::key_action,this,_1))),
   mod(is),
   ss(rend),
-  bg(pos,texture,size),
+  bg(
+  	pos,
+	texture,
+	size),
   active_(false),
   cursor_timer(timer::interval_type(300)),
   cursor_rate(SGE_TEXT("cursor_rate"),boost::bind(&console_gfx::change_cursor_rate,this,_1,_2),timer::interval_type(300)),

@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../texture/default_creator_impl.hpp"
 #include "../../sprite/system_impl.hpp"
 #include "../../math/rect_impl.hpp"
+#include "../../renderer/colors.hpp"
 #include "../font_drawer_3d.hpp"
+#include <boost/none.hpp>
 
 sge::font_drawer_3d::font_drawer_3d(const renderer_ptr rend, const color col)
 : rend(rend),
@@ -52,11 +54,23 @@ void sge::font_drawer_3d::draw_char(const font_char ch, const font_rect fr, cons
 			const color_element elem = data[i];
 			expanded[i] = elem ? make_color(elem, elem, elem, 255) : 0;
 		}
-		textures.insert(std::make_pair(ch, texman.add_texture(expanded.data(), texture::dim_type(fr.w(), fr.h()))));
+		textures.insert(
+			std::make_pair(
+				ch,
+				texman.add_texture(
+					expanded.data(),
+					texture::dim_type(
+						fr.w(),
+						fr.h()))));
 		it = textures.find(ch);
 	}
 
-	sprites.push_back(sprite::object(fr.pos(), it->second, fr.size(), col));
+	sprites.push_back(
+		sprite::object(
+			fr.pos(),
+			it->second,
+			fr.size(),
+			col));
 }
 
 void sge::font_drawer_3d::end_rendering()

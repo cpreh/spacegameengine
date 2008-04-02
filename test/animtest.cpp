@@ -71,7 +71,11 @@ try
 	sge::sprite::object spr(
 		sge::sprite::point(0,rend->screen_height()),
         	sge::virtual_texture_ptr(),
-		sge::sprite::dim(rend->screen_width(), -rend->screen_height()));
+		sge::sprite::dim(rend->screen_width(), -rend->screen_height()),
+		boost::none,
+		boost::none,
+		boost::none,
+		boost::none);
 
 	const sge::sprite::texture_animation::animation_series series(
 		boost::assign::list_of

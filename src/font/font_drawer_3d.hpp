@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <map>
 #include "../export.hpp"
 #include "../renderer/color.hpp"
+#include "../renderer/colors.hpp"
 #include "../renderer/renderer.hpp"
 #include "../texture/manager.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
 #include "font_drawer.hpp"
 #include "font_types.hpp"
-
 
 namespace sge
 {

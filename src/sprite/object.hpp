@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/dim.hpp"
 #include "../math/circle.hpp"
 #include "../texture/virtual_texture.hpp"
-#include "../renderer/colors.hpp"
 #include "types.hpp"
+#include <boost/optional.hpp>
 
 namespace sge
 {
@@ -35,17 +35,31 @@ namespace sprite
 {
 
 extern const dim texture_dim;
+extern const virtual_texture_ptr no_texture;
+
+namespace defaults
+{
+
+extern const point pos_;
+extern const virtual_texture_ptr texture_;
+extern const dim dim_;
+extern const color color_;
+extern const depth_type depth_;
+extern const rotation_type rotation_;
+extern const bool visible_;
+
+}
 
 class object {
 public:
 	object(
-		point pos,
-		virtual_texture_ptr tex,
-		dim sz = texture_dim,
-		color c = colors::white,
-		depth_type z = 0,
-		rotation_type rotation = 0,
-		bool visible = true);
+		boost::optional<point> = defaults::pos_,
+		boost::optional<virtual_texture_ptr> = defaults::texture_,
+		boost::optional<dim> = defaults::dim_,
+		boost::optional<color> = defaults::color_,
+		boost::optional<depth_type> = defaults::depth_,
+		boost::optional<rotation_type> = defaults::rotation_,
+		boost::optional<bool> visible = defaults::visible_);
 
 	unit& x();
 	unit& y();
