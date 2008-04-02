@@ -11,6 +11,7 @@
 *medium: other font formatting like bold, italic, underline and colors
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
 *medium: add a convenient method to check for key combinations in the input system
+*medium: add a better constructor for sge::sprite like boost::parameter would
+*medium: add a decent logging system
 *high: add a time wrapper for timer like millisecond_t
 *high: add a color system that allows arbitrary color formats to be used and has a nicer handling (maybe with boost::gil)
-*high: add a better constructor for sge::sprite that can optionally set the center instead of the topleft corner
