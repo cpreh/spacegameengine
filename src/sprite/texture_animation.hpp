@@ -48,6 +48,8 @@ public:
 	void bind(object*);
 	bool process();
 	void reset();
+
+	const texture::dim_type dim() const;
 private:
 	animation_series                 series;
 	timer                            cur_timer;

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texture_animation.hpp"
 #include "../object.hpp"
+#include "../../math/rect_impl.hpp"
 
 sge::sprite::texture_animation::texture_animation(
 	const animation_series& series_,
@@ -63,6 +64,12 @@ void sge::sprite::texture_animation::reset()
 
 	pos = series.begin();
 	cur_timer.interval(0);
+}
+
+const sge::texture::dim_type
+sge::sprite::texture_animation::dim() const
+{
+	return series.at(0).tex->area().size();
 }
 
 sge::sprite::texture_animation::entity::entity(
