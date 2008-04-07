@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../texture_animation.hpp"
 #include "../object.hpp"
-#include "../../math/rect_impl.hpp"
 #include <boost/next_prior.hpp>
 
 sge::sprite::texture_animation::texture_animation(
@@ -89,38 +88,13 @@ void sge::sprite::texture_animation::reset()
 {
 	if(!s || series.empty())
 		return;
-	s->set_texture(series[0].tex());
+	s->set_texture(series.begin()->tex());
 	pos = series.begin();
-	cur_timer.interval(series[0].delay());
+	cur_timer.interval(series.begin()->delay());
 }
 
 const sge::texture::dim_type
 sge::sprite::texture_animation::dim() const
 {
-	return series.at(0).dim();
-}
-
-sge::sprite::texture_animation::entity::entity(
-	const time_type delay_,
-	const virtual_texture_ptr tex_)
-: delay_(delay_),
-  tex_(tex_)
-{}
-
-sge::time_type
-sge::sprite::texture_animation::entity::delay() const
-{
-	return delay_;	
-}
-
-const sge::virtual_texture_ptr
-sge::sprite::texture_animation::entity::tex() const
-{
-	return tex_;
-}
-
-const sge::texture::dim_type
-sge::sprite::texture_animation::entity::dim() const
-{
-	return tex_->area().size();
+	return series.dim();
 }

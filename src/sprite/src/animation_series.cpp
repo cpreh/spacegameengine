@@ -18,50 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
-#define SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
+#include "../animation_series.hpp"
 
-#include "animation.hpp"
-#include "animation_series.hpp"
-#include "../timer.hpp"
+sge::sprite::animation_series::animation_series()
+{}
 
-namespace sge
+sge::sprite::animation_series::animation_series(
+	entity_vector const& entities)
+: entities(entities)
+{}
+
+void sge::sprite::animation_series::push_back(
+	animation_entity const& entity)
 {
-namespace sprite
+	entities.push_back(entity);
+}
+
+sge::sprite::animation_series::const_iterator
+sge::sprite::animation_series::begin() const
 {
+	return entities.begin();
+}
 
-class object;
+sge::sprite::animation_series::const_iterator
+sge::sprite::animation_series::end() const
+{
+	return entities.end();
+}
 
-class texture_animation : public animation {
-public:
-	struct loop_method {
-		enum type {
-			repeat,
-			stop_after_end,
-			stop_at_end
-		};
-	};
-
-	texture_animation(
-		const animation_series&,
-		loop_method::type,
-		object *init_sprite = 0);
+bool sge::sprite::animation_series::empty() const
+{
+	return entities.empty();
+}
 	
-	void bind(object*);
-	void method(loop_method::type);
-	bool process();
-	void reset();
-
-	const texture::dim_type dim() const;
-private:
-	animation_series                 series;
-	loop_method::type                action;
-	timer                            cur_timer;
-	object*                          s;
-	animation_series::const_iterator pos;
-};
-
+const sge::texture::dim_type
+sge::sprite::animation_series::dim() const
+{
+	return entities.at(0).dim();
 }
-}
-
-#endif

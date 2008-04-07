@@ -18,47 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
-#define SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
 
-#include "animation.hpp"
-#include "animation_series.hpp"
-#include "../timer.hpp"
+#ifndef SGE_SPRITE_ANIMATON_SERIES_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATON_SERIES_HPP_INCLUDED
+
+#include "animation_entity.hpp"
+#include <vector>
 
 namespace sge
 {
 namespace sprite
 {
 
-class object;
-
-class texture_animation : public animation {
+class animation_series {
 public:
-	struct loop_method {
-		enum type {
-			repeat,
-			stop_after_end,
-			stop_at_end
-		};
-	};
+	typedef std::vector<animation_entity>
+		entity_vector;
+	typedef entity_vector::const_iterator const_iterator;
 
-	texture_animation(
-		const animation_series&,
-		loop_method::type,
-		object *init_sprite = 0);
-	
-	void bind(object*);
-	void method(loop_method::type);
-	bool process();
-	void reset();
+	animation_series();
+	animation_series(
+		entity_vector const&);
+	void push_back(
+		animation_entity const&);
+	const_iterator begin() const;
+	const_iterator end() const;
+	bool empty() const;
 
 	const texture::dim_type dim() const;
 private:
-	animation_series                 series;
-	loop_method::type                action;
-	timer                            cur_timer;
-	object*                          s;
-	animation_series::const_iterator pos;
+	entity_vector entities;
 };
 
 }

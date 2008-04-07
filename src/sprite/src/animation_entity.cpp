@@ -18,50 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
-#define SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
+#include "../animation_entity.hpp"
+#include "../../math/rect_impl.hpp"
 
-#include "animation.hpp"
-#include "animation_series.hpp"
-#include "../timer.hpp"
+sge::sprite::animation_entity::animation_entity(
+	const time_type delay_,
+	const virtual_texture_ptr tex_)
+: delay_(delay_),
+  tex_(tex_)
+{}
 
-namespace sge
+sge::time_type
+sge::sprite::animation_entity::delay() const
 {
-namespace sprite
-{
-
-class object;
-
-class texture_animation : public animation {
-public:
-	struct loop_method {
-		enum type {
-			repeat,
-			stop_after_end,
-			stop_at_end
-		};
-	};
-
-	texture_animation(
-		const animation_series&,
-		loop_method::type,
-		object *init_sprite = 0);
-	
-	void bind(object*);
-	void method(loop_method::type);
-	bool process();
-	void reset();
-
-	const texture::dim_type dim() const;
-private:
-	animation_series                 series;
-	loop_method::type                action;
-	timer                            cur_timer;
-	object*                          s;
-	animation_series::const_iterator pos;
-};
-
-}
+	return delay_;	
 }
 
-#endif
+const sge::virtual_texture_ptr
+sge::sprite::animation_entity::tex() const
+{
+	return tex_;
+}
+
+const sge::texture::dim_type
+sge::sprite::animation_entity::dim() const
+{
+	return tex_->area().size();
+}
