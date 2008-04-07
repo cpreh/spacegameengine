@@ -34,10 +34,17 @@ namespace sprite
 
 class texture_animation : public animation {
 public:
-	struct entity {
-		entity(time_type delay, virtual_texture_ptr tex);
-		time_type           delay;
-		virtual_texture_ptr tex;
+	class entity {
+	public:
+		entity(
+			time_type delay,
+			virtual_texture_ptr tex);
+		time_type delay() const;
+		const virtual_texture_ptr tex() const;
+		const texture::dim_type dim() const;
+	private:
+		time_type           delay_;
+		virtual_texture_ptr tex_;
 	};
 
 	struct loop_method {
@@ -55,6 +62,7 @@ public:
 		object *init_sprite = 0);
 	
 	void bind(object*);
+	void method(loop_method::type);
 	bool process();
 	void reset();
 

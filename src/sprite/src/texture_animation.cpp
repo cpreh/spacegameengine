@@ -42,6 +42,13 @@ void sge::sprite::texture_animation::bind(object *new_sprite)
 	reset();
 }
 
+void sge::sprite::texture_animation::method(
+	const loop_method::type action_)
+{
+	action = action_;
+	reset();
+}
+
 bool sge::sprite::texture_animation::process()
 {
 	if(!s || series.empty())
@@ -72,8 +79,8 @@ bool sge::sprite::texture_animation::process()
 
 	++pos;
 
-	cur_timer.interval(pos->delay);
-	s->set_texture(pos->tex);
+	cur_timer.interval(pos->delay());
+	s->set_texture(pos->tex());
 
 	return false;
 }
@@ -82,20 +89,38 @@ void sge::sprite::texture_animation::reset()
 {
 	if(!s || series.empty())
 		return;
-	s->set_texture(series[0].tex);
+	s->set_texture(series[0].tex());
 	pos = series.begin();
-	cur_timer.interval(series[0].delay);
+	cur_timer.interval(series[0].delay());
 }
 
 const sge::texture::dim_type
 sge::sprite::texture_animation::dim() const
 {
-	return series.at(0).tex->area().size();
+	return series.at(0).dim();
 }
 
 sge::sprite::texture_animation::entity::entity(
-	const time_type delay,
-	const virtual_texture_ptr tex)
-: delay(delay),
-  tex(tex)
+	const time_type delay_,
+	const virtual_texture_ptr tex_)
+: delay_(delay_),
+  tex_(tex_)
 {}
+
+sge::time_type
+sge::sprite::texture_animation::entity::delay() const
+{
+	return delay_;	
+}
+
+const sge::virtual_texture_ptr
+sge::sprite::texture_animation::entity::tex() const
+{
+	return tex_;
+}
+
+const sge::texture::dim_type
+sge::sprite::texture_animation::entity::dim() const
+{
+	return tex_->area().size();
+}
