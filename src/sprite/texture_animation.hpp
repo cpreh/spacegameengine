@@ -40,9 +40,18 @@ public:
 		virtual_texture_ptr tex;
 	};
 
+	struct loop_method {
+		enum type {
+			repeat,
+			stop_after_end,
+			stop_at_end
+		};
+	};
+
 	typedef std::vector<entity> animation_series;
 	texture_animation(
 		const animation_series&,
+		loop_method::type,
 		object *init_sprite = 0);
 	
 	void bind(object*);
@@ -52,6 +61,7 @@ public:
 	const texture::dim_type dim() const;
 private:
 	animation_series                 series;
+	loop_method::type                action;
 	timer                            cur_timer;
 	object*                          s;
 	animation_series::const_iterator pos;

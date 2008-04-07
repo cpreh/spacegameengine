@@ -83,7 +83,10 @@ try
 			(sge::sprite::texture_animation::entity(sge::second(), tex2))
 		.to_container(series)
 	);
-	sge::sprite::texture_animation anim(series, &spr);
+	sge::sprite::texture_animation anim(
+		series,
+		sge::sprite::texture_animation::loop_method::repeat,
+		&spr);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;

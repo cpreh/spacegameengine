@@ -21,11 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_animation.hpp"
 #include "../object.hpp"
 #include "../../math/rect_impl.hpp"
+#include <boost/next_prior.hpp>
 
 sge::sprite::texture_animation::texture_animation(
 	const animation_series& series_,
+	const loop_method::type action,
 	object *spr)
 : series(series_),
+  action(action),
   cur_timer(0),
   s(0),
   pos(series.end())
@@ -41,29 +44,47 @@ void sge::sprite::texture_animation::bind(object *new_sprite)
 
 bool sge::sprite::texture_animation::process()
 {
-	if(!s)
+	if(!s || series.empty())
 		return true;
-	if(cur_timer.expired())
+	
+	if(!cur_timer.expired())
+		return false;
+
+	const animation_series::const_iterator next(boost::next(pos));
+
+	if(action == loop_method::repeat
+	   && next == series.end())
 	{
-		if(pos == series.end())
-		{
-			reset();
-			return true;
-		}
-		cur_timer.interval(pos->delay);
-		s->set_texture(pos->tex);
-		++pos;
+		reset();
+		return true;
 	}
+		
+	if(action == loop_method::stop_after_end
+	   && next == series.end())
+	{
+		s->set_texture(no_texture);
+		return true;
+	}
+	
+	if(action == loop_method::stop_at_end
+	   && next == series.end())
+		return true;
+
+	++pos;
+
+	cur_timer.interval(pos->delay);
+	s->set_texture(pos->tex);
+
 	return false;
 }
 
 void sge::sprite::texture_animation::reset()
 {
-	if(s && !series.empty())
-		s->set_texture(series[0].tex);
-
+	if(!s || series.empty())
+		return;
+	s->set_texture(series[0].tex);
 	pos = series.begin();
-	cur_timer.interval(0);
+	cur_timer.interval(series[0].delay);
 }
 
 const sge::texture::dim_type
