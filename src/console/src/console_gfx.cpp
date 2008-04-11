@@ -172,7 +172,8 @@ void sge::con::console_gfx::tabcomplete(string &il)
 		replacement = *completions.begin();
 	}
 
-	il.replace(left,right-left,replacement+SGE_TEXT(" "));
+	//il.replace(left,right-left,replacement+SGE_TEXT(" "));
+	il.replace(left,right-left,replacement);
 	cursor_pos = left + replacement.length();
 }
 
@@ -228,20 +229,14 @@ void sge::con::console_gfx::key_action(const key_type &k)
 				return;
 
 			input_history_pos = boost::next(input_history_pos);
-			cursor_pos = 
-				(cursor_pos < input_history_pos->length()) 
-					? cursor_pos 
-					: input_history_pos->length()-static_cast<string::size_type>(1);
+			cursor_pos = input_history_pos->length()-static_cast<string::size_type>(1);
 		break;
 		case kc::key_down:
 			if (input_history_pos == input_history.begin())
 				return;
 
 			input_history_pos = boost::prior(input_history_pos);
-			cursor_pos = 
-				(cursor_pos < input_history_pos->length()) 
-					? cursor_pos 
-					: input_history_pos->length()-static_cast<string::size_type>(1);
+			cursor_pos = input_history_pos->length()-static_cast<string::size_type>(1);
 		break;
 		case kc::key_pageup:
 			if (history_pos == --history.end())
