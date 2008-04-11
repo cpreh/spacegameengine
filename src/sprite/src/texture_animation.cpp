@@ -45,7 +45,6 @@ void sge::sprite::texture_animation::method(
 	const loop_method::type action_)
 {
 	action = action_;
-	reset();
 }
 
 bool sge::sprite::texture_animation::process()
