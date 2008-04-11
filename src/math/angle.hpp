@@ -45,6 +45,17 @@ angle_to(
 	return atan2(structure_cast<Dest>(to - from));
 }
 
+template<typename Dest, typename T>
+typename boost::enable_if<
+	boost::is_floating_point<Dest>,
+	boost::optional<Dest>
+	>::type
+angle_to(
+	const basic_vector<T, 2>& to)
+{
+	return atan2(structure_cast<Dest>(to));
+}
+
 }
 }
 
