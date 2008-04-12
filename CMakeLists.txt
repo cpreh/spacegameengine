@@ -63,3 +63,5 @@ ENDMACRO ()
 INSTALL_MEDIA (./)
 INSTALL_MEDIA (fonts)
 INSTALL_MEDIA (mainskin)
+
+INSTALL (FILES include DESTINATION ${include_dest})
