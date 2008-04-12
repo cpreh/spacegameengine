@@ -77,12 +77,10 @@ try
 		boost::none,
 		boost::none);
 
-	const sge::sprite::animation_series::entity_vector series(
+	const sge::sprite::animation_series::entity_vector series = 
 		boost::assign::list_of
 			(sge::sprite::animation_entity(sge::second() / 2, tex1))
-			(sge::sprite::animation_entity(sge::second(), tex2))
-		.to_container(series)
-	);
+			(sge::sprite::animation_entity(sge::second(), tex2));
 	sge::sprite::texture_animation anim(
 		series,
 		sge::sprite::texture_animation::loop_method::repeat,
