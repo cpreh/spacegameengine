@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_D3D9_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "../../renderer/vertex_buffer.hpp"
 #include "vertex_format.hpp"
 #include "resource.hpp"
 #include "d3dinclude.hpp"
+#include <sge/renderer/vertex_buffer.hpp>
 
 namespace sge
 {

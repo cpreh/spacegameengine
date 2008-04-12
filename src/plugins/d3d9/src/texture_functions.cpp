@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../texture_functions.hpp"
 #include "../conversion.hpp"
+#include <sge/exception.hpp>
 
 IDirect3DTexture9* sge::d3d9::create_texture(
 	const d3d_device_ptr device,

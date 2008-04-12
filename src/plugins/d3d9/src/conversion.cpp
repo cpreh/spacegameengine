@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../../../renderer/types.hpp"
 #include "../conversion.hpp"
+#include <sge/exception.hpp>
+#include <sge/renderer/types.hpp>
 
 template<> DWORD sge::d3d9::convert_cast (const resource_flag_t& r)
 {

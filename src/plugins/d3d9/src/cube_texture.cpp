@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
 #include "../cube_texture.hpp"
-#include "../../../stub.hpp"
-#include "../../../renderer/scoped_lock.hpp"
+#include <sge/stub.hpp>
+#include <sge/renderer/scoped_lock.hpp>
 
 sge::d3d9::cube_texture::cube_texture(renderer& r,
                                       const d3d_device_ptr device,

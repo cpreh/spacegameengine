@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../../../renderer/renderer_parameters.hpp"
-#include "../../../renderer/types.hpp"
 #include "../renderer_system.hpp"
 #include "../conversion.hpp"
 #include "../renderer.hpp"
 #include "../constants.hpp"
 #include "../enumeration.hpp"
+#include <sge/exception.hpp>
+#include <sge/renderer/renderer_parameters.hpp>
+#include <sge/renderer/types.hpp>
 
 sge::d3d9::renderer_system::renderer_system()
  : sys(Direct3DCreate9(D3D_SDK_VERSION))

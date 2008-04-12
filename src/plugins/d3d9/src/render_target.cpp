@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../render_target.hpp"
-#include "../../../stub.hpp"
+#include <sge/exception.hpp>
+#include <sge/stub.hpp>
 
 sge::d3d9::render_target::render_target(
 	renderer& r,

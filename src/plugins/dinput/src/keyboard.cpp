@@ -17,11 +17,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include <boost/array.hpp>
+
 #include "../keyboard.hpp"
-#include "../../../win32_conv.hpp"
-#include "../../../iostream.hpp"
-#include "../../../ostream.hpp"
+#include <sge/win32_conv.hpp>
+#include <sge/iostream.hpp>
+#include <boost/array.hpp>
+#include <ostream>
 
 sge::dinput::keyboard::keyboard(const dinput_ptr di, const string& name, const GUID guid, sge::win32_window_ptr window, const key_converter& conv)
 : input_device(di,name,guid,window),

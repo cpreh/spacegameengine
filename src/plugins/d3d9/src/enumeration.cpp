@@ -18,17 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <algorithm>
-#include "../../../exception.hpp"
-#include "../../../iostream.hpp"
-#include "../../../ostream.hpp"
-#include "../../../renderer/types.hpp"
-#include "../../../renderer/renderer_caps.hpp"
-#include "../../../renderer/renderer_parameters.hpp"
 #include "../enumeration.hpp"
 #include "../constants.hpp"
 #include "../conversion.hpp"
-#include "../../../win32_window.hpp"
+#include <sge/exception.hpp>
+#include <sge/iostream.hpp>
+#include <sge/win32_window.hpp>
+#include <sge/renderer/types.hpp>
+#include <sge/renderer/renderer_caps.hpp>
+#include <sge/renderer/renderer_parameters.hpp>
+#include <ostream>
 
 const sge::renderer_caps 
 sge::d3d9::create_renderer_caps(

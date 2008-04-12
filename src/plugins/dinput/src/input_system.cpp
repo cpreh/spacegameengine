@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../input_system.hpp"
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
-#include "../../../win32_window.hpp"
-#include "../../../win32_conv.hpp"
+#include <sge/exception.hpp>
+#include <sge/win32_window.hpp>
+#include <sge/win32_conv.hpp>
 
 sge::dinput::input_system::input_system(const win32_window_ptr wnd)
  : wnd(wnd)

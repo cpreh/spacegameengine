@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sstream>
 #include "../mouse.hpp"
-#include "../../../win32_conv.hpp"
+#include <sge/win32_conv.hpp>
+#include <sstream>
 
 namespace
 {

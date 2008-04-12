@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../renderer/scoped_lock.hpp"
-#include "../../../algorithm.hpp"
-#include "../../../exception.hpp"
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"
 #include "../texture_functions.hpp"
+#include <sge/exception.hpp>
+#include <sge/renderer/scoped_lock.hpp>
+#include <sge/algorithm.hpp>
 
 sge::d3d9::volume_texture::volume_texture(
 	renderer& r,

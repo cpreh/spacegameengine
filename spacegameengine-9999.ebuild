@@ -19,7 +19,6 @@ DEPEND="${RDEPEND}
 RDEPEND=">=dev-libs/boost-1.34
          x11-libs/libX11
          virtual/libc
-         virtual/libiconv
          devil? ( media-libs/devil )
          openal? ( media-libs/openal )
          opengl? (

@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_RENDERER_HPP_INCLUDED
 #define SGE_D3D9_RENDERER_HPP_INCLUDED
 
-#include "../../math/matrix.hpp"
-#include "../../math/vector.hpp"
-#include "../../renderer/adapter.hpp"
-#include "../../renderer/renderer.hpp"
-#include "../../renderer/renderer_parameters.hpp"
-#include "../../renderer/renderer_system.hpp"
-#include "../../win32_window.hpp"
 #include "vertex_format.hpp"
 #include "resource.hpp"
 #include "d3dinclude.hpp"
+#include <sge/math/matrix.hpp>
+#include <sge/math/vector.hpp>
+#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/renderer.hpp>
+#include <sge/renderer/renderer_parameters.hpp>
+#include <sge/renderer/renderer_system.hpp>
+#include <sge/win32_window.hpp>
 
 namespace sge
 {

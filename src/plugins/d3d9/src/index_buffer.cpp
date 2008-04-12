@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../algorithm.hpp"
-#include "../../../exception.hpp"
-#include "../../../renderer/scoped_lock.hpp"
 #include "../index_buffer.hpp"
 #include "../conversion.hpp"
+#include <sge/algorithm.hpp>
+#include <sge/exception.hpp>
+#include <sge/renderer/scoped_lock.hpp>
 
 namespace
 {

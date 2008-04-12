@@ -18,15 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <iterator>
-#include <algorithm>
-#include <functional>
-#include "../../../bit.hpp"
-#include "../../../exception.hpp"
-#include "../../../raw_vector.hpp"
-#include "../../../util.hpp"
-#include "../../../renderer/transform.hpp"
-#include "../../../math/matrix_impl.hpp"
 #include "../enumeration.hpp"
 #include "../renderer.hpp"
 #include "../texture.hpp"
@@ -38,7 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../resource.hpp"
 #include "../render_target.hpp"
-#include "../../../stub.hpp"
+#include <sge/stub.hpp>
+#include <sge/bit.hpp>
+#include <sge/exception.hpp>
+#include <sge/util.hpp>
+#include <sge/renderer/transform.hpp>
+#include <sge/math/matrix_impl.hpp>
+#include <iterator>
+#include <algorithm>
+#include <functional>
 
 namespace
 {

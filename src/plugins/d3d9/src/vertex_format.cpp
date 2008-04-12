@@ -20,9 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
-#include "../../../raw_vector.hpp"
-#include "../../../raw_vector_impl.hpp"
-#include "../../../exception.hpp"
+#include <sge/raw_vector_impl.hpp>
+#include <sge/exception.hpp>
 
 namespace
 {

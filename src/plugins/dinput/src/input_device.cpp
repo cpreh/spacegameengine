@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../../../util.hpp"
 #include "../input_device.hpp"
+#include <sge/exception.hpp>
+#include <sge/util.hpp>
 
 const DWORD sge::dinput::input_device::coop_level(DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 const DIPROPDWORD sge::dinput::input_device::buffer_settings = {

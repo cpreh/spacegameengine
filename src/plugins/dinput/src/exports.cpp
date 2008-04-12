@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../export.hpp"
-#include "../../../plugin.hpp"
 #include "../input_system.hpp"
-#include "../../../win32_window.hpp"
+#include <sge/export.hpp>
+#include <sge/plugin.hpp>
+#include <sge/win32_window.hpp>
 
 extern "C"
 {

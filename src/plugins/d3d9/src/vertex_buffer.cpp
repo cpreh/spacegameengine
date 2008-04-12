@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../algorithm.hpp"
-#include "../../../exception.hpp"
-#include "../../../renderer/scoped_lock.hpp"
 #include "../vertex_buffer.hpp"
 #include "../vertex_format.hpp"
 #include "../conversion.hpp"
+#include <sge/algorithm.hpp>
+#include <sge/exception.hpp>
+#include <sge/renderer/scoped_lock.hpp>
 
 sge::d3d9::vertex_buffer::vertex_buffer(
 	renderer& r,
