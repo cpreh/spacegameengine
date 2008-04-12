@@ -32,11 +32,6 @@ ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
-MACRO (INSTALL_HEADERS subpath)
-	FILE (GLOB sgeheaders ${subpath}/*.h*)
-	INSTALL (FILES ${sgeheaders} DESTINATION ${include_dest}${subpath})
-ENDMACRO ()
-
 IF (${ENABLE_GUI})
 	ADD_SUBDIRECTORY (gui)
 	INSTALL_HEADERS (gui)
