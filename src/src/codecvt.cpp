@@ -18,30 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../detail/iconv_detail.hpp"
-#undef iconv
-#include "../codecvt.hpp"
-
-// FIXME: codecvt is really broken when using UTF-8 and gcc
-
-std::wstring sge::widen(
-	const std::string& input)
-{
-	return _iconv<std::wstring>(input, enc_string_literal, internal_encoding);
-}
-
-std::string sge::narrow(
-	const std::wstring& input)
-{
-	return _iconv<std::string>(input, internal_encoding, enc_string_literal);
-}
-
-/*
-#include <locale>
 #include "../raw_vector_impl.hpp"
 #include "../exception.hpp"
 #include "../vector.hpp"
 #include "../codecvt.hpp"
+#include <locale>
 
 
 namespace
@@ -141,4 +122,3 @@ std::wstring sge::widen(const std::string& s)
 {
 	return convert<wchar_t>(s);
 }
-*/

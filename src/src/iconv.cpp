@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../detail/iconv_detail.hpp"
-#undef iconv
+//#include "../detail/iconv_detail.hpp"
+//#undef iconv
 #include "../iconv.hpp"
+#include "../codecvt.hpp"
 
 #ifndef SGE_NARROW_STRING
-SGE_SYMBOL sge::string sge::iconv(const std::string& input, const encoding from, const string::allocator_type& alloc)
+/*SGE_SYMBOL sge::string sge::iconv(const std::string& input, const encoding from, const string::allocator_type& alloc)
 {
 	return _iconv<string>(input, from, internal_encoding, alloc);
 }
@@ -31,7 +32,18 @@ SGE_SYMBOL sge::string sge::iconv(const std::string& input, const encoding from,
 SGE_SYMBOL std::string sge::iconv(const string& input, const encoding to, const std::string::allocator_type& alloc)
 {
 	return _iconv<std::string>(input, internal_encoding, to, alloc);
+}*/
+
+SGE_SYMBOL sge::string sge::iconv(const std::string& input)
+{
+	return widen(input);
 }
+
+SGE_SYMBOL std::string sge::iconv(const string& input)
+{
+	return narrow(input);
+}
+
 #else
 SGE_SYMBOL sge::string sge::iconv(const string& s)
 {

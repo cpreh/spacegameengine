@@ -5,7 +5,6 @@ FILE (GLOB sgecorefiles
 	audio/audio_loader/src/*.cpp
 	audio/audio_player/src/*.cpp
 	console/src/*.cpp
-	detail/src/*.cpp
 	font/src/*.cpp
 	image/src/*.cpp
 	input/src/*.cpp
@@ -28,7 +27,7 @@ ENDIF ()
 IF (${UNIX})
 	TARGET_LINK_LIBRARIES (sgecore X11 dl)
 ELSEIF (${WIN32})
-	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32 iconv)
+	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
 ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
