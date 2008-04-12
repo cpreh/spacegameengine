@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../../../renderer/scoped_lock.hpp"
-#include "../../../algorithm_impl.hpp"
+#include "../../../algorithm.hpp"
 #include "../../../exception.hpp"
 #include "../volume_texture.hpp"
 #include "../conversion.hpp"

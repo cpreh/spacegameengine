@@ -21,24 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../config.h"
 #ifdef SGE_WINDOWS_PLATFORM
 #include "../win32_conv.hpp"
-#include "../detail/iconv_detail.hpp"
-#include "../iconv_types.hpp"
+#include "../codecvt.hpp"
 
-const sge::encoding enc_win = 
-#ifdef UNICODE
-sge::enc_utf16
-#else
-sge::enc_ascii
-#endif
-;
-
+#ifndef SGE_NARROW_STRING
 sge::win_string sge::sge_str_to_win(const string& in)
 {
-	return _iconv<win_string>(in, internal_encoding, enc_win, in.get_allocator());
+	return in;
 }
 
 sge::string sge::win_str_to_sge(const win_string& in)
 {
-	return _iconv<string>(in, enc_win, internal_encoding, in.get_allocator());
+	return in;
 }
+#else
+sge::win_string sge::sge_str_to_win(const string& in)
+{
+	return widen(in);
+}
+
+sge::string sge::win_str_to_sge(const win_string& in)
+{
+	return narrow(in);
+}
+#endif
+
 #endif

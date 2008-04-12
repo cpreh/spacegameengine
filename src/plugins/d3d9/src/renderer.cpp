@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../raw_vector.hpp"
 #include "../../../util.hpp"
 #include "../../../renderer/transform.hpp"
+#include "../../../math/matrix_impl.hpp"
 #include "../enumeration.hpp"
 #include "../renderer.hpp"
 #include "../texture.hpp"
@@ -596,6 +597,7 @@ void set_texture(const sge::d3d9::d3d_device_ptr device, const sge::stage_type s
 
 void set_transform(const sge::d3d9::d3d_device_ptr device, const D3DTRANSFORMSTATETYPE type, const sge::math::space_matrix& m)
 {
+  // FIXME: this is UB!
 	if(device->SetTransform(type, reinterpret_cast<const D3DMATRIX*>(m.data())) != D3D_OK)
 		throw sge::exception(SGE_TEXT("SetTransform() failed!"));
 }
