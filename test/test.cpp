@@ -57,9 +57,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/renderer_parameters.hpp>
 #include <sge/language.hpp>
 #include <sge/endianness.hpp>
-#include <sge/audio/audio_loader/audio_loader.hpp>
-//#include <sge/audio/audio_player/audio_player.hpp>
-//#include <sge/audio/audio_player/sound.hpp>
 #include <sge/exception.hpp>
 #include <sge/console/console_gfx.hpp>
 #include <sge/console/console.hpp>
