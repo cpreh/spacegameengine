@@ -86,6 +86,12 @@ is_power_of_2(const basic_dim<T, 2>& d)
 	return is_power_of_2(d.w()) && is_power_of_2(d.h());
 }
 
+template<typename T>
+inline T quad(T const& t)
+{
+	return t*t;
+}
+
 }
 }
 
