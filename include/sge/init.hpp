@@ -22,61 +22,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INIT_HPP_INCLUDED
 
 #include "systems.hpp"
+#include "export.hpp"
 
 namespace sge {
 namespace init {
 
 struct core {
-	core(systems &);
-	operator bool() const;
+	SGE_SYMBOL core(systems &);
+	SGE_SYMBOL operator bool() const;
 };
 
 struct renderer {
 	systems &sys;
 
-	renderer(systems &sys, unsigned width, unsigned height);
-	operator bool() const;
+	SGE_SYMBOL renderer(systems &sys, unsigned width, unsigned height);
+	SGE_SYMBOL operator bool() const;
 };
 
 struct fullscreen_renderer {
 	systems &sys;
 
-	fullscreen_renderer(systems &sys,
-	                    unsigned width,
-	                    unsigned height,
-	                    bit_depth::type bdepth = bit_depth::depth32,
-	                    unsigned refresh_rate = 0,
-	                    multi_sample_type multi = 1,
-	                    bool vsync = true);
-	fullscreen_renderer(systems &sys,
-	                    unsigned width,
-	                    unsigned height,
-	                    unsigned refresh_rate = 0,
-	                    bit_depth::type bdepth = bit_depth::depth32,
-	                    multi_sample_type multi = 1,
-	                    bool vsync = true);
-	operator bool() const;
+	SGE_SYMBOL fullscreen_renderer(
+		systems &sys,
+		unsigned width,
+		unsigned height,
+		bit_depth::type bdepth
+			= bit_depth::depth32,
+		unsigned refresh_rate = 0,
+		multi_sample_type multi = 1,
+		bool vsync = true);
+
+	SGE_SYMBOL fullscreen_renderer(
+		systems &sys,
+		unsigned width,
+		unsigned height,
+		unsigned refresh_rate = 0,
+		bit_depth::type bdepth
+			= bit_depth::depth32,
+		multi_sample_type multi = 1,
+		bool vsync = true);
+
+	SGE_SYMBOL operator bool() const;
 private:
-	void init(unsigned width,
-	          unsigned height,
-	          unsigned refresh_rate,
-	          bit_depth::type bdepth,
-	          multi_sample_type multi,
-	          bool vsync);
+	void init(
+		unsigned width,
+		unsigned height,
+		unsigned refresh_rate,
+		bit_depth::type bdepth,
+		multi_sample_type multi,
+		bool vsync);
 };
 
 struct input {
 	systems &sys;
 
-	input(systems &sys);
-	operator bool() const;
+	SGE_SYMBOL input(systems &sys);
+	SGE_SYMBOL operator bool() const;
 };
 
 struct image_loader {
 	systems &sys;
 
-	image_loader(systems &sys);
-	operator bool() const;
+	SGE_SYMBOL image_loader(systems &sys);
+	SGE_SYMBOL operator bool() const;
 };
 
 }

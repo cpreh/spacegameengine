@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "sized_creator.hpp"
 
 template<typename T>
-sge::sized_texture_creator<T>::sized_texture_creator(const renderer_ptr rend,
-                                                     const filter_args& filter,
-                                                     const texture::dim_type& dim)
+sge::sized_texture_creator<T>::sized_texture_creator(
+	const renderer_ptr rend,
+	const filter_args& filter,
+	const texture::dim_type& dim)
 : rend(rend),
   filter(filter),
   dim(dim)
@@ -35,7 +36,6 @@ sge::sized_texture_creator<T>::sized_texture_creator(const renderer_ptr rend,
 template<typename T>
 sge::fragmented_texture* sge::sized_texture_creator<T>::operator()() const
 {
-	return new T(rend, filter, dim);
-}
+	return new T(rend, filter, dim); }
 
 #endif

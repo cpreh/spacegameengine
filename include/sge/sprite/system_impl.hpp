@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_SYSTEM_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_SYSTEM_IMPL_HPP_INCLUDED
 
-#include <algorithm>
-#include <iterator>
 #include "helper.hpp"
 #include "object.hpp"
 #include "system.hpp"
 #include "../algorithm.hpp"
 #include "../renderer/scoped_lock.hpp"
 #include "../renderer/scoped_state.hpp"
+#include <algorithm>
+#include <iterator>
 
 template<typename RanIt>
 void sge::sprite::system::render(const RanIt beg, const RanIt end)

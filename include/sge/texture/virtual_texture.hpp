@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VIRTUAL_TEXTURE_HPP_INCLUDED
 #define SGE_VIRTUAL_TEXTURE_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include "../renderer/texture.hpp"
 #include "../shared_ptr.hpp"
+#include "../export.hpp"
+#include "../renderer/texture.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,24 +33,26 @@ class fragmented_texture;
 
 class virtual_texture : boost::noncopyable {
 public:
-	virtual_texture(
+	SGE_SYMBOL virtual_texture(
 		lock_rect const &outer_rect,
 		fragmented_texture&,
 		bool need_atlasing_w,
 		bool need_atlasing_h);
-	~virtual_texture();
-	const lock_rect& area() const;
-	const math::rect area_texc(space_unit repeat = 1) const;
-	const tex_pos translate(
+	SGE_SYMBOL ~virtual_texture();
+	SGE_SYMBOL const lock_rect& area() const;
+	SGE_SYMBOL const math::rect area_texc(
+		space_unit repeat = 1) const;
+	SGE_SYMBOL const tex_pos translate(
 		const tex_pos &local_coords,
 		space_unit repeat = 1) const;
-	const tex_pos translate(
+	SGE_SYMBOL const tex_pos translate(
 		tex_pos::value_type x,
 		tex_pos::value_type y,
 		space_unit repeat = 1) const;
-	const texture_ptr my_texture() const;
-	bool repeatable() const;
-	void set_data(texture::const_pointer src);
+	SGE_SYMBOL const texture_ptr my_texture() const;
+	SGE_SYMBOL bool repeatable() const;
+	SGE_SYMBOL void set_data(
+		texture::const_pointer src);
 private:
 	const lock_rect& outer_area() const;
 	lock_rect           outer_area_;

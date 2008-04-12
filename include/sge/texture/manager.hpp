@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include <boost/function.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
+#include "fragmented_texture.hpp"
+#include "../export.hpp"
 #include "../shared_ptr.hpp"
 #include "../exception.hpp"
 #include "../renderer/renderer.hpp"
 #include "../renderer/texture.hpp"
-#include "fragmented_texture.hpp"
-#include "../export.hpp"
+#include <boost/noncopyable.hpp>
+#include <boost/function.hpp>
+#include <boost/ptr_container/ptr_list.hpp>
 
 namespace sge
 {

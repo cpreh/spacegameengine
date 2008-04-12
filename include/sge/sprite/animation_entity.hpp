@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
 
 #include "../time.hpp"
+#include "../export.hpp"
 #include "../texture/virtual_texture.hpp"
 
 namespace sge
@@ -31,12 +32,12 @@ namespace sprite
 
 class animation_entity {
 public:
-	animation_entity(
+	SGE_SYMBOL animation_entity(
 		time_type delay,
 		virtual_texture_ptr tex);
-	time_type delay() const;
-	const virtual_texture_ptr tex() const;
-	const texture::dim_type dim() const;
+	SGE_SYMBOL time_type delay() const;
+	SGE_SYMBOL const virtual_texture_ptr tex() const;
+	SGE_SYMBOL const texture::dim_type dim() const;
 private:
 	time_type           delay_;
 	virtual_texture_ptr tex_;

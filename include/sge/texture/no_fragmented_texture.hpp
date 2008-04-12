@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_NO_FRAGMENTED_TEXTURE_HPP_INCLUDED
 #define SGE_NO_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include "../renderer/texture_filter.hpp"
 #include "fragmented_texture.hpp"
+#include "../renderer/texture_filter.hpp"
 #include "../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {

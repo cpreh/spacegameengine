@@ -70,8 +70,11 @@ try
 	sge::sprite::system ss(rend);
 	sge::sprite::object spr(
 		sge::sprite::point(0,rend->screen_height()),
-        	sge::virtual_texture_ptr(),
-		sge::sprite::dim(rend->screen_width(), -rend->screen_height()),
+			sge::virtual_texture_ptr(),
+			sge::sprite::dim(
+				rend->screen_width(),
+				-static_cast<sge::sprite::unit>(
+					rend->screen_height())),
 		boost::none,
 		boost::none,
 		boost::none,

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_HPP_INCLUDED
 
+#include "../export.hpp"
 #include "../math/rect.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
@@ -52,7 +53,7 @@ extern const bool visible_;
 
 class object {
 public:
-	object(
+	SGE_SYMBOL object(
 		boost::optional<point> = defaults::pos_,
 		boost::optional<virtual_texture_ptr> = defaults::texture_,
 		boost::optional<dim> = defaults::dim_,
@@ -61,44 +62,46 @@ public:
 		boost::optional<rotation_type> = defaults::rotation_,
 		boost::optional<bool> visible = defaults::visible_);
 
-	unit& x();
-	unit& y();
-	point& pos();
-	unit& w();
-	unit& h();
-	dim& size();
-	depth_type& z();
-	void visible(bool visible);
-	void set_texture(virtual_texture_ptr);
-	void rotation(rotation_type rot);
-	void rotate_around(point p);
-	void rotate_around();
-	void repeat(repetition_type);
-	void set_color(color c);
-	void set_center(const point &);
+	SGE_SYMBOL unit& x();
+	SGE_SYMBOL unit& y();
+	SGE_SYMBOL point& pos();
+	SGE_SYMBOL unit& w();
+	SGE_SYMBOL unit& h();
+	SGE_SYMBOL dim& size();
+	SGE_SYMBOL depth_type& z();
+	SGE_SYMBOL void visible(bool visible);
+	SGE_SYMBOL void set_texture(virtual_texture_ptr);
+	SGE_SYMBOL void rotation(rotation_type rot);
+	SGE_SYMBOL void rotate_around(point p);
+	SGE_SYMBOL void rotate_around();
+	SGE_SYMBOL void repeat(repetition_type);
+	SGE_SYMBOL void set_color(color c);
+	SGE_SYMBOL void set_center(const point &);
 	
-	const unit& x() const;
-	const unit& y() const;
-	const depth_type& z() const;
-	const point& pos() const;
-	const unit& w() const;
-	const unit& h() const;
-	const dim& size() const;
-	bool visible() const;
-	rect get_rect() const;
-	point center() const;
-	rotation_type rotation() const;
-	space_unit radius() const;
-	repetition_type repeat() const;
-	color get_color() const;
-	rect bounding_quad() const;
-	math::circle bounding_circle() const;
-	const point rotation_center() const;
-	const virtual_texture_ptr get_texture() const;
-
-	static bool equal(const object& l, const object& r);
-	static bool less(const object& l, const object& r);
+	SGE_SYMBOL const unit& x() const;
+	SGE_SYMBOL const unit& y() const;
+	SGE_SYMBOL const depth_type& z() const;
+	SGE_SYMBOL const point& pos() const;
+	SGE_SYMBOL const unit& w() const;
+	SGE_SYMBOL const unit& h() const;
+	SGE_SYMBOL const dim& size() const;
+	SGE_SYMBOL bool visible() const;
+	SGE_SYMBOL rect get_rect() const;
+	SGE_SYMBOL point center() const;
+	SGE_SYMBOL rotation_type rotation() const;
+	SGE_SYMBOL space_unit radius() const;
+	SGE_SYMBOL repetition_type repeat() const;
+	SGE_SYMBOL color get_color() const;
+	SGE_SYMBOL rect bounding_quad() const;
+	SGE_SYMBOL math::circle bounding_circle() const;
+	SGE_SYMBOL const point rotation_center() const;
+	SGE_SYMBOL const virtual_texture_ptr get_texture() const;
 private:
+	SGE_SYMBOL static bool equal(const object& l, const object& r);
+	SGE_SYMBOL static bool less(const object& l, const object& r);
+
+	friend class system;
+
 	point               pos_;
 	dim                 size_;
 	depth_type          z_;

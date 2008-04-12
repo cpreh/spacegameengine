@@ -21,35 +21,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_HELDER_HPP_INCLUDED
 #define SGE_SPRITE_HELDER_HPP_INCLUDED
 
+#include "types.hpp"
+#include "../export.hpp"
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
 #include "../math/rect.hpp"
-#include "types.hpp"
 
 namespace sge
 {
 namespace sprite
 {
 
-vertex_buffer::iterator
+SGE_SYMBOL vertex_buffer::iterator
 fill_position(
 	vertex_buffer::iterator it,
 	const rect& rs,
 	depth_type z);
 
-vertex_buffer::iterator
+SGE_SYMBOL vertex_buffer::iterator
 fill_tex_coordinates(
 	vertex_buffer::iterator it,
 	const tex_rect& rt);
 
-vertex_buffer::iterator
+SGE_SYMBOL vertex_buffer::iterator
 fill_vertices(
 	vertex_buffer::iterator it,
 	const rect& rs,
 	const tex_rect& rt,
 	depth_type z);
 
-vertex_buffer::iterator
+SGE_SYMBOL vertex_buffer::iterator
 fill_position_rotated(
 	vertex_buffer::iterator it,
 	const rect& rbs,
@@ -57,12 +58,12 @@ fill_position_rotated(
 	const point& center,
 	depth_type z);
 
-vertex_buffer::iterator
+SGE_SYMBOL vertex_buffer::iterator
 fill_color(
 	vertex_buffer::iterator it,
 	color col);
 
-index_buffer::iterator
+SGE_SYMBOL index_buffer::iterator
 fill_indices(
 	index_buffer::iterator it,
 	index_buffer::value_type start);

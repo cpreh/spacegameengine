@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CELL_FRAGMENTED_TEXTURE_HPP_INCLUDED
 #define SGE_CELL_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
+#include "../export.hpp"
 #include "../raw_vector.hpp"
 #include "../field.hpp"
 #include "../renderer/texture.hpp"
@@ -33,13 +34,16 @@ namespace sge
 
 class cell_fragmented_texture : public fragmented_texture {
 public:
-	cell_fragmented_texture(renderer_ptr rend,
-	                        const filter_args& filter,
-	                        const texture::dim_type& cell_size);
-	const virtual_texture_ptr consume_fragments(const texture::dim_type&);
-	void return_fragments(const virtual_texture&);
-	const texture_ptr get_texture() const;
-	bool repeatable() const;
+	SGE_SYMBOL cell_fragmented_texture(
+		renderer_ptr rend,
+		const filter_args& filter,
+		const texture::dim_type& cell_size);
+	SGE_SYMBOL const virtual_texture_ptr consume_fragments(
+		const texture::dim_type&);
+	SGE_SYMBOL void return_fragments(
+		const virtual_texture&);
+	SGE_SYMBOL const texture_ptr get_texture() const;
+	SGE_SYMBOL bool repeatable() const;
 private:
 	typedef field<bool, raw_vector> field_type;
 	const renderer_ptr  rend;

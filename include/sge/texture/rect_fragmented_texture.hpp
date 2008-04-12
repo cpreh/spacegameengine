@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RECT_FRAGMENTED_TEXTURE_HPP_INCLUDED
 #define SGE_RECT_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include "../renderer/texture_filter.hpp"
 #include "fragmented_texture.hpp"
+#include "../export.hpp"
+#include "../renderer/texture_filter.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,11 +33,15 @@ namespace sge
 // this is just a temporary hack
 class rect_fragmented_texture : public fragmented_texture, boost::noncopyable {
 public:
-	rect_fragmented_texture(renderer_ptr rend, const filter_args& filter);
-	const virtual_texture_ptr consume_fragments(const texture::dim_type&);
-	void return_fragments(const virtual_texture&);
-	const texture_ptr get_texture() const;
-	bool repeatable() const;
+	SGE_SYMBOL rect_fragmented_texture(
+		renderer_ptr rend,
+		const filter_args& filter);
+	SGE_SYMBOL const virtual_texture_ptr consume_fragments(
+		const texture::dim_type&);
+	SGE_SYMBOL void return_fragments(
+		const virtual_texture&);
+	SGE_SYMBOL const texture_ptr get_texture() const;
+	SGE_SYMBOL bool repeatable() const;
 private:
 	const renderer_ptr rend;
 	const filter_args  my_filter;

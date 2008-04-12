@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_ANIMATION_HPP_INCLUDED
 #define SGE_SPRITE_ANIMATION_HPP_INCLUDED
 
+#include "../export.hpp"
+
 namespace sge
 {
 namespace sprite
@@ -33,7 +35,7 @@ public:
 	virtual void bind(object*) = 0;
 	virtual bool process() = 0;
 	virtual void reset() = 0;
-	virtual ~animation(){}
+	SGE_SYMBOL virtual ~animation(){}
 };
 
 }

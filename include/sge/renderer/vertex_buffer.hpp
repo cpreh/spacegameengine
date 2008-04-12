@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <iterator>
-#include <cstddef>
-#include <boost/iterator/iterator_facade.hpp>
-#include "../shared_ptr.hpp"
-#include "../algorithm.hpp"
-#include "../export.hpp"
 #include "vertex_format.hpp"
 #include "vertex.hpp"
 #include "types.hpp"
+#include "../shared_ptr.hpp"
+#include "../algorithm.hpp"
+#include "../export.hpp"
+#include <boost/iterator/iterator_facade.hpp>
+#include <iterator>
+#include <cstddef>
 
 namespace sge
 {

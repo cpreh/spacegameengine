@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_ANIMATON_SERIES_HPP_INCLUDED
 
 #include "animation_entity.hpp"
+#include "../export.hpp"
 #include <vector>
 
 namespace sge
@@ -36,16 +37,16 @@ public:
 		entity_vector;
 	typedef entity_vector::const_iterator const_iterator;
 
-	animation_series();
-	animation_series(
+	SGE_SYMBOL animation_series();
+	SGE_SYMBOL animation_series(
 		entity_vector const&);
-	void push_back(
+	SGE_SYMBOL void push_back(
 		animation_entity const&);
-	const_iterator begin() const;
-	const_iterator end() const;
-	bool empty() const;
+	SGE_SYMBOL const_iterator begin() const;
+	SGE_SYMBOL const_iterator end() const;
+	SGE_SYMBOL bool empty() const;
 
-	const texture::dim_type dim() const;
+	SGE_SYMBOL const texture::dim_type dim() const;
 private:
 	entity_vector entities;
 };

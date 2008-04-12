@@ -24,53 +24,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "matrix.hpp"
 #include "vector.hpp"
 #include "../su.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace math
 {
 
-space_matrix matrix_translation(
+SGE_SYMBOL space_matrix matrix_translation(
 	const math::basic_vector<space_unit,3>& v);
 
-space_matrix matrix_translation(
-	const space_unit x,
-	const space_unit y,
-	const space_unit z);
+SGE_SYMBOL space_matrix matrix_translation(
+	space_unit x,
+	space_unit y,
+	space_unit z);
 
-space_matrix matrix_scaling(
+SGE_SYMBOL space_matrix matrix_scaling(
 	const math::basic_vector<space_unit,3>& v);
 
-space_matrix matrix_scaling(
-	const space_unit x,
-	const space_unit y,
-	const space_unit z);
+SGE_SYMBOL space_matrix matrix_scaling(
+	space_unit x,
+	space_unit y,
+	space_unit z);
 
-space_matrix matrix_perspective(
-	const space_unit aspect,
-	const space_unit fov,
-	const space_unit near,
-	const space_unit far);
+SGE_SYMBOL space_matrix matrix_perspective(
+	space_unit aspect,
+	space_unit fov,
+	space_unit near,
+	space_unit far);
 
-space_matrix matrix_orthogonal_xy();
+SGE_SYMBOL space_matrix matrix_orthogonal_xy();
 
-basic_matrix<space_unit,2,2> matrix_rotation_2d(const space_unit angle);
+SGE_SYMBOL basic_matrix<space_unit,2,2> matrix_rotation_2d(
+	space_unit angle);
 
-space_matrix matrix_rotation_z(const space_unit angle);
+SGE_SYMBOL space_matrix matrix_rotation_z(
+	space_unit angle);
 
-space_matrix matrix_rotation_y(const space_unit angle);
+SGE_SYMBOL space_matrix matrix_rotation_y(
+	space_unit angle);
 
-space_matrix matrix_rotation_x(const space_unit angle);
+SGE_SYMBOL space_matrix matrix_rotation_x(
+	space_unit angle);
 
-space_matrix matrix_identity();
+SGE_SYMBOL space_matrix matrix_identity();
 
-space_matrix matrix_orthogonal_xy(
-	const space_unit left,
-	const space_unit right,
-	const space_unit top,
-	const space_unit bottom,
-	const space_unit near,
-	const space_unit far);
+SGE_SYMBOL space_matrix matrix_orthogonal_xy(
+	space_unit left,
+	space_unit right,
+	space_unit top,
+	space_unit bottom,
+	space_unit near,
+	space_unit far);
 }
 }
 
