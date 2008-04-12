@@ -17,16 +17,19 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include "../src/plugin_manager.hpp"
-#include "../src/image/image_loader.hpp"
-#include "../src/field.hpp"
-#include "../src/image/image.hpp"
-#include "../src/su.hpp"
-#include "../src/iostream.hpp"
+
 #include "utility/normalize_field.hpp"
 #include "utility/interpolators.hpp"
 #include "utility/image_field_conversion.hpp"
 #include "utility/color_conversion.hpp"
+#include <sge/plugin_manager.hpp>
+#include <sge/image/image_loader.hpp>
+#include <sge/field.hpp>
+#include <sge/image/image.hpp>
+#include <sge/su.hpp>
+#include <sge/iostream.hpp>
+#include <ostream>
+#include <exception>
 
 int main()
 try
@@ -64,23 +67,23 @@ try
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
 
-#include "../src/init.hpp"
-#include "../src/input/key_state_tracker.hpp"
-#include "../src/math/constants.hpp"
-#include "../src/renderer/scoped_lock.hpp"
-#include "../src/renderer/screenshot.hpp"
-#include "../src/sprite/sprite.hpp"
-#include "../src/sprite/system.hpp"
-#include "../src/texture/no_fragmented_texture.hpp"
-#include "../src/texture/default_creator.hpp"
-#include "../src/texture/default_creator_impl.hpp"
+#include <sge/init.hpp"
+#include <sge/input/key_state_tracker.hpp"
+#include <sge/math/constants.hpp"
+#include <sge/renderer/scoped_lock.hpp"
+#include <sge/renderer/screenshot.hpp"
+#include <sge/sprite/sprite.hpp"
+#include <sge/sprite/system.hpp"
+#include <sge/texture/no_fragmented_texture.hpp"
+#include <sge/texture/default_creator.hpp"
+#include <sge/texture/default_creator_impl.hpp"
 
-#include "../src/gui/color.hpp"
-#include "../src/gui/manager.hpp"
-#include "../src/gui/defaultskin.hpp"
-#include "../src/gui/button.hpp"
-#include "../src/gui/iconbutton.hpp"
-#include "../src/gui/inputprocessor.hpp"
+#include <sge/gui/color.hpp"
+#include <sge/gui/manager.hpp"
+#include <sge/gui/defaultskin.hpp"
+#include <sge/gui/button.hpp"
+#include <sge/gui/iconbutton.hpp"
+#include <sge/gui/inputprocessor.hpp"
 
 inline sge::pos3 at_pixel(int x, int y) {
 	return sge::pos3(

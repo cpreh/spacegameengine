@@ -21,12 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_XINPUT_INPUT_SYSTEM_HPP
 #define SGE_XINPUT_INPUT_SYSTEM_HPP
 
-#include <map>
-#include <boost/signals/connection.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include "../../input/input_system.hpp"
-#include "../../x_window.hpp"
-#include "../../math/vector.hpp"
 #include "pointer.hpp"
 #include "x_color.hpp"
 #include "x_pixmap.hpp"
@@ -34,6 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef USE_DGA
 #include "dga.hpp"
 #endif
+#include <sge/input/input_system.hpp>
+#include <sge/x_window.hpp>
+#include <sge/math/vector.hpp>
+#include <boost/signals/connection.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <map>
 
 namespace sge
 {

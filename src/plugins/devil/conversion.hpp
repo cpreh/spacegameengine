@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_CONVERSION_HPP_INCLUDED
 #define SGE_DEVIL_CONVERSION_HPP_INCLUDED
 
-#include "../../image/image_format.hpp"
 #include <IL/il.h>
+#include <sge/image/image_format.hpp>
 
 namespace sge
 {

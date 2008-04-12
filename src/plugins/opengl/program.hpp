@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_PROGRAM_HPP_INCLUDED
 #define SGE_OPENGL_PROGRAM_HPP_INCLUDED
 
-#include <vector>
-#include <boost/noncopyable.hpp>
-#include "../../shared_ptr.hpp"
-#include "../../renderer/glsl_program.hpp"
 #include "common.hpp"
 #include "shader.hpp"
 #include "uniform_variable.hpp"
 #include "attribute_variable.hpp"
+#include <sge/shared_ptr.hpp>
+#include <sge/renderer/glsl_program.hpp>
+#include <boost/noncopyable.hpp>
+#include <vector>
 
 namespace sge
 {

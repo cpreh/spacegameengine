@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../volume_texture.hpp"
 #ifdef SGE_OPENGL_HAVE_VOLUME_TEXTURE
-#include "../../../stub.hpp"
-#include "../../../math/box_impl.hpp"
 #include "../error.hpp"
 #include "../basic_texture_impl.hpp"
+#include <sge/stub.hpp>
+#include <sge/math/box_impl.hpp>
 
 template class sge::ogl::basic_texture<sge::volume_texture, sge::ogl::detail::volume_texture_type>;
 

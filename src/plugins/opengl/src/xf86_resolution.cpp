@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../config.h"
+#include <sge/config.h>
 #ifdef SGE_LINUX_PLATFORM
-#include "../../../exception.hpp"
 #include "../xf86_resolution.hpp"
+#include <sge/exception.hpp>
 
 sge::ogl::xf86_resolution::xf86_resolution(const x_display_ptr dsp, const int screen, const XF86VidModeModeInfo& new_mode, const XF86VidModeModeInfo& old_mode)
 : dsp(dsp),

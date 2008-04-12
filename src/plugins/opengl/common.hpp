@@ -23,5 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include <GL/glu.h>
 
 #endif

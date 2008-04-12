@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <boost/bind.hpp>
-#include "../../../exception.hpp"
 #include "../error.hpp"
 #include "../vbo.hpp"
 #include "../vbo_base.hpp"
 #include "../vertex_format.hpp"
+#include <sge/exception.hpp>
+#include <boost/bind.hpp>
 
 namespace {
 

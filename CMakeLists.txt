@@ -37,7 +37,9 @@ ELSEIF (${MSVC})
 	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/libiconv/lib)
 ENDIF ()
 
-CONFIGURE_FILE(config.h.in src/config.h)
+INCLUDE_DIRECTORIES (include)
+
+CONFIGURE_FILE(config.h.in include/sge/config.h)
 
 SET (pluginpath ${CMAKE_INSTALL_PREFIX}/lib/sge)
 SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/sge/)
@@ -64,4 +66,4 @@ INSTALL_MEDIA (./)
 INSTALL_MEDIA (fonts)
 INSTALL_MEDIA (mainskin)
 
-INSTALL (FILES include DESTINATION ${include_dest})
+#INSTALL (FILES include/sge DESTINATION ${include_dest})

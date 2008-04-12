@@ -18,20 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-// C
+#include "../vorbis_file.hpp"
+#include <sge/iconv.hpp>
+#include <sge/audio/audio_exception.hpp>
+#include <sge/raw_vector_impl.hpp>
+#include <algorithm>
+#include <string>
 #include <cstdio>
 #include <cstddef>
 #include <cstring>
 #include <cerrno>
 #include <cassert>
-// C++
-#include <algorithm>
-#include <string>
-// Own stuff
-#include "../vorbis_file.hpp"
-#include "../../../iconv.hpp"
-#include "../../../audio/audio_exception.hpp"
-#include "../../../raw_vector_impl.hpp"
+
 
 sge::vorbis_file::vorbis_file(const path &_filename, const sample_type _bits_per_sample)
 : bits_per_sample_(_bits_per_sample)

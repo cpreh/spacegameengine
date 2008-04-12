@@ -18,21 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-// C
-#include <cstddef>
-#include <cassert>
-// C++
+#include "../wave_file.hpp"
+#include <sge/iconv.hpp>
+#include <sge/endianness.hpp>
+#include <sge/raw_vector_impl.hpp>
 #include <algorithm>
 #include <string>
 #include <sstream>
-// Boost
 #include <boost/cstdint.hpp>
-// sge
-#include "../../../iconv.hpp"
-#include "../../../endianness.hpp"
-#include "../../../raw_vector_impl.hpp"
-// Own stuff
-#include "../wave_file.hpp"
+#include <cstddef>
+#include <cassert>
 
 sge::wave_file::wave_file(const path &filename)
 : filename_(filename),

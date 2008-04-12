@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <cassert>
 #include "../common.hpp"
 #include "../render_target.hpp"
+#include <cassert>
 
 void sge::ogl::render_target::copy_data(const pointer p)
 {

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FT_CHAR_METRIC_HPP_INCLUDED
 #define SGE_FT_CHAR_METRIC_HPP_INCLUDED
 
-#include "../../raw_vector.hpp"
-#include "../../font/font_types.hpp"
-#include "../../font/char_metric.hpp"
+#include <sge/raw_vector.hpp>
+#include <sge/font/font_types.hpp>
+#include <sge/font/char_metric.hpp>
 
 namespace sge
 {

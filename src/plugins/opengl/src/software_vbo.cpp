@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <map>
-#include <utility>
-#include "../../../algorithm.hpp"
-#include "../../../exception.hpp"
 #include "../software_vbo.hpp"
 #include "../vbo.hpp"
 #include "../pbo.hpp"
+#include <sge/algorithm.hpp>
+#include <sge/exception.hpp>
+#include <utility>
+#include <map>
 
 namespace
 {

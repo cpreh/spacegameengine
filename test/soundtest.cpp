@@ -1,14 +1,17 @@
+#include <sge/audio/loader/audio_loader.hpp>
+#include <sge/audio/player/audio_player.hpp>
+#include <sge/audio/player/sound.hpp>
+#include <sge/plugin_manager.hpp>
+#include <sge/media.hpp>
+#include <sge/timer.hpp>
+#include <sge/math/constants.hpp>
+#include <sge/util.hpp>
+#include <sge/exception.hpp>
+#include <sge/iostream.hpp>
+#include <ostream>
+#include <exception>
+#include <cstdlib>
 #include <cmath>
-#include <iostream>
-#include <stdexcept>
-#include "../src/audio/audio_loader/audio_loader.hpp"
-#include "../src/audio/audio_player/audio_player.hpp"
-#include "../src/audio/audio_player/sound.hpp"
-#include "../src/plugin_manager.hpp"
-#include "../src/media.hpp"
-#include "../src/timer.hpp"
-#include "../src/math/constants.hpp"
-#include "../src/util.hpp"
 
 int main()
 try
@@ -64,6 +67,10 @@ try
 		audio_player->update();
 	}
 	*/
+} catch (const sge::exception &e) {
+	sge::cerr << SGE_TEXT("Exception caught: ") << e.what() << SGE_TEXT('\n');
+	return EXIT_FAILURE;
 } catch (const std::exception &e) {
-	std::cerr << "Exception caught: " << e.what() << "\n";
+	sge::cerr << SGE_TEXT("Exception caught: ") << e.what() << SGE_TEXT('\n');
+	return EXIT_FAILURE;
 }

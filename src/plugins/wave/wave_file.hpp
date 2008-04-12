@@ -21,17 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WAVE_FILE_HPP_INCLUDED
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
-// C
-#include <cstddef>
-// C++
+#include <sge/path.hpp>
+#include <sge/audio/loader/audio_file.hpp>
+#include <sge/audio/audio_exception.hpp>
+#include <boost/logic/tribool.hpp>
 #include <fstream>
 #include <string>
-// Boost
-#include <boost/logic/tribool.hpp>
-// sge
-#include "../../path.hpp"
-#include "../../audio/audio_loader/audio_file.hpp"
-#include "../../audio/audio_exception.hpp"
+#include <cstddef>
 
 namespace sge
 {

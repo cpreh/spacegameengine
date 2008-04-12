@@ -21,34 +21,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_RENDERER_HPP_INCLUDED
 #define SGE_OPENGL_RENDERER_HPP_INCLUDED
 
-#include "../../config.h"
-#include <boost/scoped_ptr.hpp>
-#include <boost/signals/trackable.hpp>
-#include "../../renderer/renderer.hpp"
-#include "../../renderer/renderer_parameters.hpp"
-#include "../../window.hpp"
-#include "../../scoped_connection.hpp"
-#include "common.hpp"
+#include <sge/config.h>
 #include "render_target.hpp"
 #include "fbo_render_target.hpp"
 #include "state_stack.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
-#include "../../gdi_device.hpp"
 #include "wgl_context.hpp"
 #include "wgl_current.hpp"
-#include "../../win32_window.hpp"
-#include "../../windows.hpp"
+#include <sge/gdi_device.hpp>
+#include <sge/win32_window.hpp>
+#include <sge/windows.hpp>
 #elif SGE_LINUX_PLATFORM
-#include "../../x_window.hpp"
+#include <X11/Xlib.h>
+#include <GL/glx.h>
 #include "xf86vidmode.hpp"
 #include "xf86_resolution.hpp"
 #include "glx_visual.hpp"
 #include "glx_current.hpp"
 #include "glx_context.hpp"
 #include "x_colormap.hpp"
-#include <X11/Xlib.h>
-#include <GL/glx.h>
+#include <sge/x_window.hpp>
 #endif
+#include <sge/renderer/renderer.hpp>
+#include <sge/renderer/renderer_parameters.hpp>
+#include <sge/window.hpp>
+#include <sge/scoped_connection.hpp>
+#include "common.hpp"
+#include <boost/scoped_ptr.hpp>
+#include <boost/signals/trackable.hpp>
 
 namespace sge
 {

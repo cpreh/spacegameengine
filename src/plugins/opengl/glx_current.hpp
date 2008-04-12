@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 #define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 
-#include "../../x_display.hpp"
 #include "glx_context.hpp"
+#include <sge/x_display.hpp>
 
 namespace sge
 {

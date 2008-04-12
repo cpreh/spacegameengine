@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BASIC_TEXTURE_HPP_INCLUDED
 #define SGE_OPENGL_BASIC_TEXTURE_HPP_INCLUDED
 
-#include <boost/scoped_ptr.hpp>
-#include "../../renderer/texture_filter.hpp"
 #include "common.hpp"
 #include "pixel_pack_buffer.hpp"
 #include "pixel_unpack_buffer.hpp"
 #include "texture_base.hpp"
+#include <sge/renderer/texture_filter.hpp>
+#include <boost/scoped_ptr.hpp>
 
 namespace sge
 {

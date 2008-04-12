@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
 #define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
 
-#include "../../shared_ptr.hpp"
-#include "../../x_display.hpp"
-#include "../../x_deleter.hpp"
 #include <X11/Xutil.h>
+#include <sge/shared_ptr.hpp>
+#include <sge/x_display.hpp>
+#include <sge/x_deleter.hpp>
 
 namespace sge
 {

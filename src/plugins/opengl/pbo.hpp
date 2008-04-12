@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_PBO_HPP_INCLUDED
 #define SGE_OPENGL_PBO_HPP_INCLUDED
 
-#include "../../renderer/texture_base.hpp"
 #include "common.hpp"
+#include <sge/renderer/texture_base.hpp>
 
 namespace sge
 {

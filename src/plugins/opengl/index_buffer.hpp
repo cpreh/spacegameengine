@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 
-#include "../../renderer/index_buffer.hpp"
 #include "basic_raw_buffer.hpp"
 #include "vbo.hpp"
+#include <sge/renderer/index_buffer.hpp>
 
 namespace sge
 {

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../shader.hpp"
+#include <sge/exception.hpp>
 
 sge::ogl::shader::shader(const GLenum type, const std::string& source)
 : id_(glCreateShader(type))

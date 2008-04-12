@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../../../iostream.hpp"
-#include "../../../format.hpp"
-#include "../../../math/rect_impl.hpp"
-#include "../../../math/power.hpp"
 #include "../error.hpp"
 #include "../conversion.hpp"
 #include "../texture_functions.hpp"
+#include <sge/exception.hpp>
+#include <sge/iostream.hpp>
+#include <sge/format.hpp>
+#include <sge/math/rect_impl.hpp>
+#include <sge/math/power.hpp>
 #include <ostream>
-#include <GL/glu.h>
 
 namespace
 {

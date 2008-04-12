@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_SHADER_HPP_INCLUDED
 #define SGE_OPENGL_SHADER_HPP_INCLUDED
 
-#include <string>
-#include <boost/noncopyable.hpp>
-#include "../../shared_ptr.hpp"
 #include "common.hpp"
+#include <sge/shared_ptr.hpp>
+#include <boost/noncopyable.hpp>
+#include <string>
 
 namespace sge
 {

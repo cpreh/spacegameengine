@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../algorithm.hpp"
-#include "../../../renderer/scoped_lock.hpp"
 #include "../common.hpp"
 #include "../texture.hpp"
 #include "../error.hpp"
@@ -27,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_texture_impl.hpp"
 #include "../vbo.hpp"
 #include "../pbo.hpp"
+#include <sge/algorithm.hpp>
+#include <sge/renderer/scoped_lock.hpp>
 
 template class sge::ogl::basic_texture<sge::texture, GL_TEXTURE_2D>;
 

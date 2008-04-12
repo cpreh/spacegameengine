@@ -1,18 +1,18 @@
 FILE (GLOB sgecorefiles 
-	src/*.cpp
-	archive/src/*.cpp
-	audio/src/*.cpp
-	audio/audio_loader/src/*.cpp
-	audio/audio_player/src/*.cpp
-	console/src/*.cpp
-	font/src/*.cpp
-	image/src/*.cpp
-	input/src/*.cpp
-	math/src/*.cpp
-	model/src/*.cpp
-	renderer/src/*.cpp
-	sprite/src/*.cpp
-	texture/src/*.cpp)
+	*.cpp
+	archive/*.cpp
+	audio/*.cpp
+	audio/audio_loader/*.cpp
+	audio/audio_player/*.cpp
+	console/*.cpp
+	font/*.cpp
+	image/*.cpp
+	input/*.cpp
+	math/*.cpp
+	model/*.cpp
+	renderer/*.cpp
+	sprite/*.cpp
+	texture/*.cpp)
 
 ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
 
@@ -36,22 +36,6 @@ MACRO (INSTALL_HEADERS subpath)
 	FILE (GLOB sgeheaders ${subpath}/*.h*)
 	INSTALL (FILES ${sgeheaders} DESTINATION ${include_dest}${subpath})
 ENDMACRO ()
-
-INSTALL_HEADERS (./)
-INSTALL_HEADERS (archive)
-INSTALL_HEADERS (audio)
-INSTALL_HEADERS (audio/audio_loader)
-INSTALL_HEADERS (audio/audio_player)
-INSTALL_HEADERS (console)
-INSTALL_HEADERS (detail)
-INSTALL_HEADERS (font)
-INSTALL_HEADERS (image)
-INSTALL_HEADERS (input)
-INSTALL_HEADERS (math)
-INSTALL_HEADERS (math/detail)
-INSTALL_HEADERS (renderer)
-INSTALL_HEADERS (sprite)
-INSTALL_HEADERS (texture)
 
 IF (${ENABLE_GUI})
 	ADD_SUBDIRECTORY (gui)

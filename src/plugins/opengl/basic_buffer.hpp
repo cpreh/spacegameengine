@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BASIC_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_BASIC_BUFFER_HPP_INCLUDED
 
-#include "../../renderer/types.hpp"
 #include "common.hpp"
+#include <sge/renderer/types.hpp>
 
 namespace sge
 {

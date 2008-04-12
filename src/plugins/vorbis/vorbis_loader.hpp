@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VORBIS_LOADER_HPP_INCLUDED
 #define SGE_VORBIS_LOADER_HPP_INCLUDED
 
-#include "../../shared_ptr.hpp"
-#include "../../path.hpp"
-#include "../../audio/audio_loader/audio_loader.hpp"
-#include "../../audio/audio_loader/audio_file.hpp"
+#include <sge/shared_ptr.hpp>
+#include <sge/path.hpp>
+#include <sge/audio/loader/audio_loader.hpp>
+#include <sge/audio/loader/audio_file.hpp>
 
 namespace sge
 {

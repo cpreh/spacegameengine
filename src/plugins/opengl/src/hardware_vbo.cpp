@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../hardware_vbo.hpp"
 #include "../error.hpp"
+#include <sge/exception.hpp>
 
 namespace
 {

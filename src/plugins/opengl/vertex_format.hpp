@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERTEX_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_FORMAT_HPP_INCLUDED
 
-#include <vector>
+#include <sge/renderer/types.hpp>
+#include <sge/renderer/vertex_format.hpp>
 #include <boost/function.hpp>
-#include "../../renderer/types.hpp"
-#include "../../renderer/vertex_format.hpp"
+#include <vector>
 
 namespace sge
 {

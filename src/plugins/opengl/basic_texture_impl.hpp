@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_BASIC_TEXTURE_IMPL_HPP_INCLUDED
 
-#include <cassert>
-#include <algorithm>
-#include "../../exception.hpp"
 #include "common.hpp"
 #include "error.hpp"
 #include "texture_functions.hpp"
+#include <sge/exception.hpp>
+#include <cassert>
+#include <algorithm>
 
 template<typename Base, GLenum Type>
 void sge::ogl::basic_texture<Base, Type>::check_lock() const

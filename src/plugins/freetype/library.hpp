@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FT_LIBRARY_HPP_INCLUDED
 #define SGE_FT_LIBRARY_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
 #include "freetype.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {

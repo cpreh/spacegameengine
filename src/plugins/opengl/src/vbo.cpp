@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <boost/scoped_ptr.hpp>
 #include "../vbo.hpp"
 #include "../vbo_util.hpp"
 #include "../software_vbo.hpp"
+#include <boost/scoped_ptr.hpp>
 
 namespace
 {

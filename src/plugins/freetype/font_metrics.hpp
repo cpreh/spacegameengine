@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FT_FONT_METRICS_HPP_INCLUDED
 #define SGE_FT_FONT_METRICS_HPP_INCLUDED
 
-#include <map>
-#include "../../path.hpp"
-#include "../../font/font_metrics.hpp"
 #include "library.hpp"
 #include "face.hpp"
 #include "freetype.hpp"
+#include <sge/path.hpp>
+#include <sge/font/font_metrics.hpp>
+#include <map>
 
 namespace sge
 {

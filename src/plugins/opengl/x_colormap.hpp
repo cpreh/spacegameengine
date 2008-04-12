@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_X_COLORMAP_HPP_INCLUDED
 #define SGE_OPENGL_X_COLORMAP_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include "../../x_display.hpp"
 #include <X11/Xutil.h>
+#include <sge/x_display.hpp>
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {

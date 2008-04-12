@@ -18,12 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <string>
-#include <boost/lexical_cast.hpp>
-#include "../../../config.h"
-#include "../../../audio/audio_player/sound.hpp"
-#include "../../../audio/audio_exception.hpp"
-#include "../../../raw_vector_impl.hpp"
+#include <sge/config.h>
 #include "../openal_player.hpp"
 #include "../openal_nonstream_sound.hpp"
 #include "../openal_stream_sound.hpp"
@@ -32,6 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #else
 #include <AL/al.h>
 #endif
+#include <sge/audio/player/sound.hpp>
+#include <sge/audio/audio_exception.hpp>
+#include <sge/raw_vector_impl.hpp>
+#include <boost/lexical_cast.hpp>
 
 sge::openal::player::player()
 {

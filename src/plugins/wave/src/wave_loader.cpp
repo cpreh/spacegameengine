@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-// Own stuff
 #include "../wave_file.hpp"
 #include "../wave_loader.hpp"
-#include "../../../raw_vector_impl.hpp"
+#include <sge/raw_vector_impl.hpp>
 
 const sge::audio_file_ptr sge::wave_loader::load(const path &filename)
 {

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 
+#include <sge/windows.hpp>
 #include <boost/noncopyable.hpp>
-#include "../../windows.hpp"
 
 namespace sge
 {

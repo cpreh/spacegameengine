@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERSION_HPP_INCLUDED
 #define SGE_OPENGL_CONVERSION_HPP_INCLUDED
 
-#include <boost/variant/static_visitor.hpp>
-#include "../../renderer/types.hpp"
-#include "../../renderer/renderer.hpp"
-#include "../../renderer/cube_texture.hpp"
 #include "common.hpp"
 #include "cube_texture.hpp"
+#include <sge/renderer/types.hpp>
+#include <sge/renderer/renderer.hpp>
+#include <sge/renderer/cube_texture.hpp>
+#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {

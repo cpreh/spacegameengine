@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../config.h"
+#include <sge/config.h>
 #ifdef SGE_WINDOWS_PLATFORM
-#include "../../../exception.hpp"
-#include "../../../gdi_device.hpp"
 #include "../wgl_context.hpp"
+#include <sge/exception.hpp>
+#include <sge/gdi_device.hpp>
 
 sge::ogl::wgl_context::wgl_context(const gdi_device& dc)
 : glrc(wglCreateContext(dc.hdc()))

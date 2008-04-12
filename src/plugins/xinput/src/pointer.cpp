@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <X11/Xlib.h>
 #include "../pointer.hpp"
 
 sge::xinput::mouse_pos sge::xinput::get_mouse_pos(const x_display_ptr dsp,

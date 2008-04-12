@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../face.hpp"
 #include "../glyph.hpp"
+#include <sge/exception.hpp>
 
 sge::ft::glyph::glyph(const face& f)
 {

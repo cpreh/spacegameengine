@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../config.h"
-#include "../../../exception.hpp"
+#include <sge/config.h>
 #include "../renderer_system.hpp"
 #include "../renderer.hpp"
 #ifdef SGE_LINUX_PLATFORM
 #include "../xf86vidmode.hpp"
 #endif
+#include <sge/exception.hpp>
 
 sge::ogl::renderer_system::renderer_system()
 : created(false)

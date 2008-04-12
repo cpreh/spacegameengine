@@ -21,12 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_DI_HPP_INCLUDED
 #define SGE_DINPUT_DI_HPP_INCLUDED
 
-#include "../../shared_ptr.hpp"
-#include "../../com_deleter.hpp"
-
 #define WIN32_LEAN_AND_MEAN
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+#include <sge/shared_ptr.hpp>
+#include <sge/com_deleter.hpp>
 
 namespace sge
 {

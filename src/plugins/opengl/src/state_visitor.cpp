@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../state_visitor.hpp"
 #include "../renderer.hpp"
 #include "../conversion.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
+#include <sge/exception.hpp>
 
 sge::ogl::state_visitor::state_visitor(renderer& rend)
 : rend(rend)

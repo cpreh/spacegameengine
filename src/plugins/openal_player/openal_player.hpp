@@ -21,17 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_PLAYER_INCLUDED
 #define SGE_OPENAL_PLAYER_INCLUDED
 
-// C++
-#include <memory>
-#include <list>
-#include <vector>
-// Own stuff
-#include "../../config.h"
-#include "../../shared_ptr.hpp"
-#include "../../string.hpp"
-#include "../../audio/audio_player/audio_player.hpp"
-#include "../../audio/audio_player/sound_angle.hpp"
-// OpenAL
+#include <sge/config.h>
 #ifdef SGE_WINDOWS_PLATFORM
 #include <al.h>
 #include <alc.h>
@@ -39,6 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <AL/al.h>
 #include <AL/alc.h>
 #endif
+#include <sge/shared_ptr.hpp>
+#include <sge/string.hpp>
+#include <sge/audio/player/audio_player.hpp>
+#include <sge/audio/player/sound_angle.hpp>
+#include <memory>
+#include <list>
+#include <vector>
 
 namespace sge
 {

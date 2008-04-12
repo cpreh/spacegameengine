@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../version.hpp"
+#include <sge/exception.hpp>
 
 sge::string sge::ogl::version_not_supported_string(const string& function, const string& min_version)
 {

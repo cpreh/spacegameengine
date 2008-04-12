@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/vector.hpp"
 
 // Own stuff
-#include "../audio_loader/audio_file.hpp"
+#include "../loader/audio_file.hpp"
 #include "sound_angle.hpp"
 
 namespace sge

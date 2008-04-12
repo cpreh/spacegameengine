@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../config.h"
+#include <sge/config.h>
 #ifdef SGE_LINUX_PLATFORM
-#include "../../../exception.hpp"
-#include "../../../iostream.hpp"
-#include "../../../ostream.hpp"
-#include "../../../math/round_div_int.hpp"
-#include "../../../renderer/display_mode.hpp"
 #include "../xf86vidmode.hpp"
+#include <sge/exception.hpp>
+#include <sge/iostream.hpp>
+#include <sge/math/round_div_int.hpp>
+#include <sge/renderer/display_mode.hpp>
+#include <ostream>
 
 sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display_ptr dsp, const int screen)
 : dsp(dsp),

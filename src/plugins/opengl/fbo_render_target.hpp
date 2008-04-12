@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_RENDER_TARGET_HPP_INCLUDED
 #define SGE_OPENGL_FBO_RENDER_TARGET_HPP_INCLUDED
 
-#include "../../shared_ptr.hpp"
 #include "common.hpp"
-#include "../../renderer/texture.hpp"
 #include "render_target.hpp"
+#include <sge/renderer/texture.hpp>
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {

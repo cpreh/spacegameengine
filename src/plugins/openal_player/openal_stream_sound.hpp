@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_STREAM_SOUND_INCLUDED
 #define SGE_OPENAL_STREAM_SOUND_INCLUDED
 
-#include <cstddef>
-#include "../../audio/audio_player/sound.hpp"
-#include "../../shared_ptr.hpp"
-#include "../../string.hpp"
-#include "../../math/vector.hpp"
 #include "openal_player.hpp"
+#include <sge/audio/player/sound.hpp>
+#include <sge/shared_ptr.hpp>
+#include <sge/string.hpp>
+#include <sge/math/vector.hpp>
+#include <cstddef>
 
 namespace sge
 {

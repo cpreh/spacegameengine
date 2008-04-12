@@ -18,10 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
+#include <X11/Xlib.h>
 #include "../x_pixmap.hpp"
+#include <sge/exception.hpp>
+
+namespace
+{
 
 const char bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
+
+}
 
 sge::xinput::x_pixmap::x_pixmap(const x_display_ptr dsp, const Window wnd)
  : dsp(dsp),

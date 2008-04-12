@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../config.h"
+#include <sge/config.h>
 #ifdef SGE_LINUX_PLATFORM
-#include "../../../exception.hpp"
-#include "../../../x_window.hpp"
+#include <GL/glx.h>
 #include "../glx_current.hpp"
 #include "../glx_context.hpp"
-#include <GL/glx.h>
+#include <sge/exception.hpp>
+#include <sge/x_window.hpp>
 
 sge::ogl::glx_current::glx_current(const x_display_ptr dsp, const x_window& wnd, const glx_context_ptr context)
 : dsp(dsp),

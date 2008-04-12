@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../config.h"
+#include <sge/config.h>
 #ifdef SGE_LINUX_PLATFORM
-#include "../../../exception.hpp"
 #include "../glx_context.hpp"
+#include <sge/exception.hpp>
 
 sge::ogl::glx_context::glx_context(const x_display_ptr dsp, const XVisualInfo& vi)
 : dsp(dsp),

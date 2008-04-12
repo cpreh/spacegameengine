@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_IMAGE_HPP_INCLUDED
 #define SGE_DEVIL_IMAGE_HPP_INCLUDED
 
-#include "../../path.hpp"
-#include "../../image/image.hpp"
-#include "../../image/image_format.hpp"
 #include "image_impl.hpp"
+#include <sge/path.hpp>
+#include <sge/image/image.hpp>
+#include <sge/image/image_format.hpp>
 
 namespace sge
 {

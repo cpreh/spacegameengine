@@ -19,20 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../config.h"
+#include <sge/config.h>
 #include <boost/foreach.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include "../../../bit.hpp"
-#include "../../../exception.hpp"
-#include "../../../iostream.hpp"
-#include "../../../ostream.hpp"
-#include "../../../renderer/material.hpp"
-#include "../../../renderer/primitive.hpp"
-#include "../../../renderer/renderer_system.hpp"
-#include "../../../renderer/types.hpp"
-#include "../../../renderer/viewport.hpp"
-#include "../../../renderer/default_renderer_states.hpp"
-#include "../../../math/matrix_impl.hpp"
 #include "../renderer.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
@@ -52,14 +40,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program.hpp"
 #include "../error.hpp"
 #include "../state_visitor.hpp"
-#ifdef SGE_WINDOWS_PLATFORM
-#include "../../../windows.hpp"
-#include "../../../win32_window.hpp"
-#elif SGE_LINUX_PLATFORM
-#include <boost/bind.hpp>
-#include "../../../x_window.hpp"
-#endif
 #include "../common.hpp"
+#ifdef SGE_WINDOWS_PLATFORM
+#include <sge/windows.hpp>
+#include <sge/win32_window.hpp>
+#elif SGE_LINUX_PLATFORM
+#include <sge/x_window.hpp>
+#include <boost/bind.hpp>
+#endif
+#include <sge/bit.hpp>
+#include <sge/exception.hpp>
+#include <sge/iostream.hpp>
+#include <sge/ostream.hpp>
+#include <sge/renderer/material.hpp>
+#include <sge/renderer/primitive.hpp>
+#include <sge/renderer/renderer_system.hpp>
+#include <sge/renderer/types.hpp>
+#include <sge/renderer/viewport.hpp>
+#include <sge/renderer/default_renderer_states.hpp>
+#include <sge/math/matrix_impl.hpp>
+#include <boost/variant/apply_visitor.hpp>
 
 // TODO: maybe support different adapters?
 sge::ogl::renderer::renderer(const renderer_parameters& param,

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../export.hpp"
-#include "../../../plugin.hpp"
-#include "../../../string.hpp"
 #include "../openal_player.hpp"
+#include <sge/export.hpp>
+#include <sge/plugin.hpp>
+#include <sge/string.hpp>
 
 extern "C"
 {

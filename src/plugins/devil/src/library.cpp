@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../library.hpp"
 #include <IL/il.h>
 #include <IL/ilu.h>
+#include "../library.hpp"
 
 sge::devil::library::library()
 {

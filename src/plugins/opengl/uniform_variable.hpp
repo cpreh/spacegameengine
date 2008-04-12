@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_UNIFORM_VARIABLE_HPP_INCLUDED
 #define SGE_OPENGL_UNIFORM_VARIABLE_HPP_INCLUDED
 
-#include <string>
-#include "../../math/vector.hpp"
-#include "../../math/matrix.hpp"
-#include "../../renderer/glsl_uniform_variable.hpp"
 #include "common.hpp"
+#include <sge/math/vector.hpp>
+#include <sge/math/matrix.hpp>
+#include <sge/renderer/glsl_uniform_variable.hpp>
+#include <string>
 
 namespace sge
 {

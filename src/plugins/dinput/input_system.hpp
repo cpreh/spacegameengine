@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_INPUT_SYSTEM_HPP_INCLUDED
 #define SGE_DINPUT_INPUT_SYSTEM_HPP_INCLUDED
 
-#include <map>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include "../../input/input_system.hpp"
-#include "../../win32_window.hpp"
 #include "key_converter.hpp"
 #include "input_device.hpp"
 #include "di.hpp"
+#include <sge/input/input_system.hpp>
+#include <sge/win32_window.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <map>
 
 namespace sge
 {

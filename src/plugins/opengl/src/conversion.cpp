@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../conversion.hpp"
+#include <sge/exception.hpp>
 
 GLenum sge::ogl::convert_cast(const bool_state::type s)
 {

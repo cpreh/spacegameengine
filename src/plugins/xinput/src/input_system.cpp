@@ -18,25 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <cstring>
-#include <boost/array.hpp>
-#include <boost/bind.hpp>
-#include "../../../exception.hpp"
-#include "../../../iostream.hpp"
-#include "../../../ostream.hpp"
-#include "../../../input/key_type.hpp"
-#include "../../../util.hpp"
-#include "../../../iostream.hpp"
-#include "../../../ostream.hpp"
-#include "../input_system.hpp"
-#include "../pointer.hpp"
-#include <X11/keysym.h>
 #include <X11/Xlib.h>
+#include <X11/keysym.h>
 #include <X11/X.h>
 #ifdef USE_DGA
 #include <X11/extensions/xf86dga.h>
 #endif
-#include <iostream>
+#include "../input_system.hpp"
+#include "../pointer.hpp"
+#include <sge/exception.hpp>
+#include <sge/iostream.hpp>
+#include <sge/input/key_type.hpp>
+#include <sge/util.hpp>
+#include <boost/array.hpp>
+#include <boost/bind.hpp>
+#include <cstring>
 #include <ostream>
 
 sge::xinput::input_system::input_system(const x_window_ptr wnd)

@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
+#include <X11/Xlib.h>
 #include "../x_color.hpp"
+#include <sge/exception.hpp>
 	
 sge::xinput::x_color::x_color(const x_display_ptr dsp, Colormap colormap)
  : dsp(dsp),

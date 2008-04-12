@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_XF86VIDMODE_HPP_INCLUDED
 #define SGE_OPENGL_XF86VIDMODE_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/noncopyable.hpp>
-#include "../../shared_ptr.hpp"
-#include "../../x_deleter.hpp"
-#include "../../x_display.hpp"
 #include "xf86_resolution.hpp"
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
+#include <sge/shared_ptr.hpp>
+#include <sge/x_deleter.hpp>
+#include <sge/x_display.hpp>
+#include <boost/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
 {

@@ -18,32 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <cstdlib>
-#include <exception>
+#include <sge/systems.hpp>
+#include <sge/iostream.hpp>
+#include <sge/media.hpp>
+#include <sge/init.hpp>
+#include <sge/math/matrix_impl.hpp>
+#include <sge/scoped_connection.hpp>
+#include <sge/renderer/renderer.hpp>
+#include <sge/renderer/scoped_renderblock.hpp>
+#include <sge/input/input_system.hpp>
+#include <sge/image/image_loader.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/system.hpp>
+#include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/texture_animation.hpp>
+#include <sge/texture/manager.hpp>
+#include <sge/texture/util.hpp>
+#include <sge/texture/no_fragmented_texture.hpp>
+#include <sge/texture/default_creator.hpp>
+#include <sge/texture/default_creator_impl.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/assign/list_of.hpp>
-#include "../src/systems.hpp"
-#include "../src/iostream.hpp"
-#include "../src/ostream.hpp"
-#include "../src/media.hpp"
-#include "../src/init.hpp"
-#include "../src/math/matrix_impl.hpp"
-#include "../src/scoped_connection.hpp"
-#include "../src/renderer/renderer.hpp"
-#include "../src/renderer/scoped_renderblock.hpp"
-#include "../src/input/input_system.hpp"
-#include "../src/image/image_loader.hpp"
-#include "../src/sprite/object.hpp"
-#include "../src/sprite/system.hpp"
-#include "../src/sprite/system_impl.hpp"
-#include "../src/sprite/texture_animation.hpp"
-#include "../src/texture/manager.hpp"
-#include "../src/texture/util.hpp"
-#include "../src/texture/no_fragmented_texture.hpp"
-#include "../src/texture/default_creator.hpp"
-#include "../src/texture/default_creator_impl.hpp"
+#include <cstdlib>
+#include <exception>
+#include <ostream>
 
 int main()
 try

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
 #include "../fbo_render_target.hpp"
 #include "../extension.hpp"
 #include "../texture_base.hpp"
+#include <sge/exception.hpp>
 
 sge::ogl::fbo_render_target::fbo_render_target(const dim_type& dim_)
  : dim_(dim_)

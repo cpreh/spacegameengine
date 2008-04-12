@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 +*/
 
 
-#include "../../../string.hpp"
-#include "../../../exception.hpp"
-#include "../../../iconv.hpp"
-#include "../error.hpp"
 #include <IL/il.h>
 #include <IL/ilu.h>
+#include "../error.hpp"
+#include <sge/string.hpp>
+#include <sge/exception.hpp>
+#include <sge/iconv.hpp>
 
 void sge::devil::check_errors()
 {

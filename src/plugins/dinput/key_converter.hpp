@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_KEY_CONVERTER_HPP_INCLUDED
 #define SGE_DINPUT_KEY_CONVERTER_HPP_INCLUDED
 
+#include "di.hpp"
+#include <sge/input/key_type.hpp>
 #include <vector>
 #include <map>
-#include "../../input/key_type.hpp"
-#include "di.hpp"
 
 namespace sge
 {

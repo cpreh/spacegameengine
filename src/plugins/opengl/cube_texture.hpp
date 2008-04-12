@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CUBE_TEXTURE_HPP_INCLUDED
 #define SGE_OPENGL_CUBE_TEXTURE_HPP_INCLUDED
 
-#include "../../renderer/cube_texture.hpp"
 #include "common.hpp"
 #include "basic_texture.hpp"
+#include <sge/renderer/cube_texture.hpp>
 
 #if defined(GLEW_VERSION_1_3)
 #define SGE_OPENGL_CUBE_TEXTURE

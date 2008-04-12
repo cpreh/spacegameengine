@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VOLUME_TEXTURE_HPP_INCLUDED
 #define SGE_OPENGL_VOLUME_TEXTURE_HPP_INCLUDED
 
-#include "../../renderer/volume_texture.hpp"
 #include "common.hpp"
 #include "basic_texture.hpp"
+#include <sge/renderer/volume_texture.hpp>
 
 #if defined(GLEW_VERSION_1_2)
 #define SGE_OPENGL_VOLUME_TEXTURE

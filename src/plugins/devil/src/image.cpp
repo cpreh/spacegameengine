@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../../../iconv.hpp"
+#include <IL/ilu.h>
 #include "../image.hpp"
 #include "../error.hpp"
 #include "../conversion.hpp"
-#include <IL/ilu.h>
+#include <sge/exception.hpp>
+#include <sge/iconv.hpp>
 
 sge::devil::image::image(const path& file)
 {

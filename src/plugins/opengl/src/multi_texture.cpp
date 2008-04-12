@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../../exception.hpp"
-#include "../../../iostream.hpp"
-#include "../../../ostream.hpp"
 #include "../multi_texture.hpp"
 #include "../common.hpp"
+#include <sge/iostream.hpp>
+#include <ostream>
 
 void sge::ogl::set_texture_level(const stage_type stage)
 {

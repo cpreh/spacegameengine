@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../cube_texture.hpp"
 #ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
-#include <algorithm>
-#include "../../../renderer/scoped_lock.hpp"
 #include "../conversion.hpp"
 #include "../error.hpp"
 #include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
+#include <sge/renderer/scoped_lock.hpp>
+#include <algorithm>
 
 template class sge::ogl::basic_texture<sge::cube_texture, sge::ogl::detail::cube_texture_type>;
 

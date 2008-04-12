@@ -21,23 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VORBIS_FILE_HPP_INCLUDED
 #define SGE_VORBIS_FILE_HPP_INCLUDED
 
-// C
-#include <cstdio>
-#include <cstddef>
-// C++
-#include <vector>
-#include <memory>
-// boost
-#include <boost/noncopyable.hpp>
-// ogg/vorbis stuff
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisenc.h>
 #include <vorbis/vorbisfile.h>
-// Own stuff
-#include "../../path.hpp"
-#include "../../string.hpp"
-#include "../../audio/audio_loader/audio_file.hpp"
+#include <sge/path.hpp>
+#include <sge/string.hpp>
+#include <sge/audio/loader/audio_file.hpp>
+#include <boost/noncopyable.hpp>
+#include <vector>
+#include <memory>
+#include <cstdio>
+#include <cstddef>
 
 namespace sge
 {

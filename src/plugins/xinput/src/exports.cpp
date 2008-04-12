@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <boost/cast.hpp>
-#include "../../../exception.hpp"
-#include "../../../plugin.hpp"
-#include "../../../x_window.hpp"
 #include "../input_system.hpp"
+#include <sge/exception.hpp>
+#include <sge/plugin.hpp>
+#include <sge/x_window.hpp>
+#include <boost/cast.hpp>
 
 extern "C"
 {

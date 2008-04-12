@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-// Own stuff
-#include "../../../audio/audio_exception.hpp"
-#include "../../../raw_vector_impl.hpp"
-#include "../../../path.hpp"
 #include "../vorbis_file.hpp"
 #include "../vorbis_loader.hpp"
+#include <sge/audio/audio_exception.hpp>
+#include <sge/raw_vector_impl.hpp>
+#include <sge/path.hpp>
 
 const sge::audio_file_ptr sge::vorbis_loader::load(const path &filename)
 {
