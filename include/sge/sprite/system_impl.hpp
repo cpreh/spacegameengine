@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<typename RanIt>
 void sge::sprite::system::render(const RanIt beg, const RanIt end)
 {
-	std::sort(beg, end, &object::less);
+	//std::sort(beg, end, &object::less);
+	std::stable_sort(beg, end, &object::less);
 	
 	const typename std::iterator_traits<RanIt>::difference_type range_len = std::distance(beg,end);
 

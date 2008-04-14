@@ -273,22 +273,26 @@ private:
 	T data_[Dim];
 };
 
-template<typename T, std::size_t Dim> basic_dim<T,Dim> operator+(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+template<typename T, std::size_t Dim>
+basic_dim<T,Dim> operator+(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
 {
 	return l += r;
 }
 
-template<typename T, std::size_t Dim> basic_dim<T,Dim> operator-(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+template<typename T, std::size_t Dim>
+basic_dim<T,Dim> operator-(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
 {
 	return l -= r;
 }
 
-template<typename T, std::size_t Dim> basic_dim<T, Dim> operator*(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+template<typename T, std::size_t Dim>
+basic_dim<T, Dim> operator*(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
 {
 	return l *= r;
 }
 
-template<typename T, std::size_t Dim> basic_dim<T, Dim> operator/(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+template<typename T, std::size_t Dim>
+basic_dim<T, Dim> operator/(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
 {
 	return l /= r;
 }
