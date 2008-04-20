@@ -62,7 +62,7 @@ public:
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
-	basic_matrix(Args... args);
+	explicit basic_matrix(Args... args);
 #else
 #define SGE_MATH_MATRIX_CTOR_ASSIGN_N(z, n, text) data_[n] = text##n;
 #define SGE_MATH_MATRIX_CTOR(z, n, text) basic_matrix(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_MATRIX_CTOR_ASSIGN_N, param) }

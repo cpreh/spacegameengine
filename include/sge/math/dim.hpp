@@ -70,7 +70,7 @@ public:
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
-	basic_dim(Args... args)
+	explicit basic_dim(Args... args)
 	{
 		set(args...);
 	}

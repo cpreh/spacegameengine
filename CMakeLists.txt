@@ -21,7 +21,7 @@ CHECK_CXX_SOURCE_COMPILES(
 IF (${CMAKE_COMPILER_IS_GNUCXX})
 	ow_get_gcc_version (gccversion)
 
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic -Wall -Wextra -Wconversion -Wfloat-equal")
+	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal")
 
 	IF (${gccversion} STRGREATER "4.3.0" OR ${gccversion} STREQUAL "4.3.0")
 		SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wold-style-cast -std=c++0x")

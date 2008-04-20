@@ -72,8 +72,13 @@ public:
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
-	basic_vector(Args... args)
+	explicit basic_vector(Args... args)
 	{
+#ifdef SGE_HAVE_STATIC_ASSERT
+		static_assert(sizeof...(args) == Dim, "Invalid number of arguments to math::vector ctor!");
+#else
+		BOOST_STATIC_ASSERT(sizeof...(args) == Dim);
+#endif
 		set(args...);
 	}
 #else
@@ -369,6 +374,11 @@ public:
 	template<typename... Args>
 	void set(const_reference arg, Args... args)
 	{
+#ifdef SGE_HAVE_STATIC_ASSERT
+		static_assert(sizeof...(args) == Dim-1, "Invalid number of arguments to math::vector::set!");
+#else
+		BOOST_STATIC_ASSERT(sizeof...(args) == Dim);
+#endif
 		set_impl(0, arg, args...);
 	}
 
@@ -376,13 +386,13 @@ private:
 	template<typename... Args>
 	void set_impl(const size_type i, const_reference arg, Args... args)
 	{
-		at(i) = arg;
+		(*this)[i] = arg;
 		set_impl(i+1, args...);
 	}
 
 	void set_impl(const size_type i, const_reference arg)
 	{
-		at(i) = arg;
+		(*this)[i] = arg;
 	}
 public:
 #else
