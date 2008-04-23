@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <boost/array.hpp>
 #include <boost/foreach.hpp>
+#include <iterator>
 #include <cstddef>
 
 #if !defined(SGE_HAVE_VARIADIC_TEMPLATES) && !defined(SGE_MATH_VECTOR_MAX_SIZE)
@@ -78,8 +79,8 @@ public:
 #endif
 
 #define SGE_MATH_BINARY_OP_ASSIGN_DECL(x) \
-basic_sequence<T, Dim> & operator x( \
-	basic_sequence<T, Dim> const &r);
+basic_sequence & operator x ( \
+	basic_sequence const &r);
 
 	SGE_MATH_BINARY_OP_ASSIGN_DECL(+=)
 	SGE_MATH_BINARY_OP_ASSIGN_DECL(-=)
@@ -93,7 +94,7 @@ private:
 	internal_type data_;
 };
 
-#define SGE_MATH_UNARY_OP_IMPL(x) \
+#define SGE_MATH_UNARY_OP_DECL(x) \
 template< \
 	typename T, \
 	detail::dim_type Dim> \
@@ -110,7 +111,7 @@ SGE_MATH_UNARY_OP_DECL(-)
 template< \
 	typename T, \
 	detail::dim_type Dim> \
-basic_sequence<T, Dim> operator x( \
+basic_sequence<T, Dim> operator x ( \
 	basic_sequence<T, Dim> const &l, \
 	basic_sequence<T, Dim> const &r);
 

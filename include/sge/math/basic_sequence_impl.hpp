@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template< \
 	typename T, \
 	sge::math::detail::dim_type Dim> \
-sge::math::basic_sequence<T, Dim> \
+sge::math::basic_sequence<T, Dim> & \
 sge::math::basic_sequence<T, Dim>::operator x( \
 	basic_sequence<T, Dim> const &r) \
 { \
@@ -53,8 +53,9 @@ sge::math::basic_sequence<T, Dim> \
 sge::math::operator x( \
 	basic_sequence<T, Dim> l) \
 { \
-	BOOST_FOREACH(typename basic_sequence<T, Dim>::reference v, l) \
-		v = x v; \
+	for(unsigned i = 0; i < Dim; ++i) \
+		l[i] = x l[i]; \
+	return l; \
 }
 
 SGE_MATH_UNARY_OP(+)
@@ -70,8 +71,8 @@ sge::math::basic_sequence<T, Dim> \
 sge::math::operator x( \
 	basic_sequence<T, Dim> l, \
 	basic_sequence<T, Dim> const &r) \
-{\
-	return l x r; \
+{ \
+	return l x##= r; \
 }
 
 SGE_MATH_BINARY_OP(+)
