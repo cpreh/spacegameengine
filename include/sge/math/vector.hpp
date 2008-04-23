@@ -381,7 +381,6 @@ public:
 #endif
 		set_impl(0, arg, args...);
 	}
-
 private:
 	template<typename... Args>
 	void set_impl(const size_type i, const_reference arg, Args... args)

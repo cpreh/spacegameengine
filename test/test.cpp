@@ -72,6 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/fstream.hpp>
 #include <sge/sstream.hpp>
 #include <sge/iostream.hpp>
+#include <sge/math/basic_sequence_impl.hpp>
 
 namespace
 {
