@@ -73,9 +73,9 @@ public:
 	{
 	}
 #else
-//#define SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
-//#define SGE_MATH_BASIC_SEQUENCE_CTOR(z, n, text) basic_sequence(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N, param) }
-//	BOOST_PP_REPEAT(SGE_MATH_BASIC_SEQUENCE_MAX_SIZE, SGE_MATH_BASIC_SEQUENCE_CTOR, void)
+#define SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
+#define SGE_MATH_BASIC_SEQUENCE_CTOR(z, n, text) basic_sequence(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N, param) }
+	BOOST_PP_REPEAT(SGE_MATH_BASIC_SEQUENCE_MAX_SIZE, SGE_MATH_BASIC_SEQUENCE_CTOR, void)
 #endif
 
 #define SGE_MATH_BINARY_OP_ASSIGN_DECL(x) \
@@ -87,6 +87,20 @@ basic_sequence & operator x ( \
 	SGE_MATH_BINARY_OP_ASSIGN_DECL(*=)
 	SGE_MATH_BINARY_OP_ASSIGN_DECL(/=)
 	SGE_MATH_BINARY_OP_ASSIGN_DECL(%=)
+
+#undef SGE_MATH_BINARY_OP_ASSIGN_DECL
+
+#define SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL(x) \
+basic_sequence & operator x ( \
+	const_reference r);
+
+	SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL(+=)
+	SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL(-=)
+	SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL(*=)
+	SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL(/=)
+	SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL(%=)
+
+#undef SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL
 private:
 	typedef boost::array<
 		value_type,
@@ -112,7 +126,7 @@ template< \
 	typename T, \
 	detail::dim_type Dim> \
 basic_sequence<T, Dim> operator x ( \
-	basic_sequence<T, Dim> const &l, \
+	basic_sequence<T, Dim> l, \
 	basic_sequence<T, Dim> const &r);
 
 SGE_MATH_BINARY_OP_DECL(+)
@@ -122,6 +136,36 @@ SGE_MATH_BINARY_OP_DECL(/)
 SGE_MATH_BINARY_OP_DECL(%)
 
 #undef SGE_MATH_BINARY_OP_DECL
+
+#define SGE_MATH_BINARY_OP_SCALAR_DECL(x) \
+template< \
+	typename T, \
+	detail::dim_type Dim> \
+basic_sequence<T, Dim> operator x ( \
+	basic_sequence<T, Dim> l, \
+	typename basic_sequence<T, Dim>::const_reference r);
+
+SGE_MATH_BINARY_OP_SCALAR_DECL(+)
+SGE_MATH_BINARY_OP_SCALAR_DECL(-)
+SGE_MATH_BINARY_OP_SCALAR_DECL(*)
+SGE_MATH_BINARY_OP_SCALAR_DECL(/)
+SGE_MATH_BINARY_OP_SCALAR_DECL(%)
+
+#undef SGE_MATH_BINARY_OP_SCALAR_DECL
+
+#define SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(x) \
+template< \
+	typename T, \
+	detail::dim_type Dim> \
+basic_sequence<T, Dim> operator x ( \
+	typename basic_sequence<T, Dim>::const_reference l, \
+	basic_sequence<T, Dim> r);
+
+SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(+)
+SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(-)
+SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(*)
+
+#undef SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL
 
 }
 }

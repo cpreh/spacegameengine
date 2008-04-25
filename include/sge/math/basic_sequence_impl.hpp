@@ -83,4 +83,40 @@ SGE_MATH_BINARY_OP(%)
 
 #undef SGE_MATH_BINARY_OP
 
+#define SGE_MATH_BINARY_OP_SCALAR(x) \
+template< \
+	typename T, \
+	sge::math::detail::dim_type Dim> \
+sge::math::basic_sequence<T, Dim> \
+sge::math::operator x ( \
+	basic_sequence<T, Dim> l, \
+	typename basic_sequence<T, Dim>::const_reference r) \
+{  \
+	return l x##= r; \
+}
+
+SGE_MATH_BINARY_OP_SCALAR(+)
+SGE_MATH_BINARY_OP_SCALAR(-)
+SGE_MATH_BINARY_OP_SCALAR(/)
+SGE_MATH_BINARY_OP_SCALAR(*)
+SGE_MATH_BINARY_OP_SCALAR(%)
+
+#define SGE_MATH_BINARY_OP_SCALAR_LEFT(x) \
+template< \
+	typename T, \
+	sge::math::detail::dim_type Dim> \
+sge::math::basic_sequence<T, Dim> \
+sge::math::operator x ( \
+	typename basic_sequence<T, Dim>::const_reference l, \
+	basic_sequence<T, Dim> r) \
+{ \
+	return r x##= l; \
+}
+
+SGE_MATH_BINARY_OP_SCALAR_LEFT(+)
+SGE_MATH_BINARY_OP_SCALAR_LEFT(-)
+SGE_MATH_BINARY_OP_SCALAR_LEFT(*)
+
+#undef SGE_MATH_BINARY_OP_SCALAR_LEFT
+
 #endif
