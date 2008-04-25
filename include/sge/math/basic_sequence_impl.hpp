@@ -22,7 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_BASIC_SEQUENCE_IMPL_HPP_INCLUDED
 
 #include "basic_sequence.hpp"
-#include <boost/foreach.hpp>
+#include "../exception.hpp"
+#include "../string.hpp"
+#include <boost/static_assert.hpp>
+
+template<
+	typename T,
+	sge::math::detail::dim_type Dim>
+template<typename... Args>
+sge::math::basic_sequence<T, Dim>::basic_sequence(
+	Args... args)
+{
+#ifdef SGE_HAVE_STATIC_ASSERT
+	static_assert(sizeof... (args) == Dim, "Invalid number of arguments supplied to sequence!");
+#else
+	BOOST_STATIC_ASSERT(sizeof... (args) == Dim);
+#endif
+	init(args...);	
+}
 
 #define SGE_MATH_BINARY_OP_ASSIGN(x) \
 template< \
@@ -118,5 +135,90 @@ SGE_MATH_BINARY_OP_SCALAR_LEFT(-)
 SGE_MATH_BINARY_OP_SCALAR_LEFT(*)
 
 #undef SGE_MATH_BINARY_OP_SCALAR_LEFT
+
+template<typename T,
+	sge::math::detail::dim_type Dim>
+typename sge::math::basic_sequence<T, Dim>::reference
+sge::math::basic_sequence<T, Dim>::operator[](
+	const size_type i)
+{
+	return data_[i];
+}
+
+template<typename T,
+	sge::math::detail::dim_type Dim>
+typename sge::math::basic_sequence<T, Dim>::const_reference
+sge::math::basic_sequence<T, Dim>::operator[](
+	const size_type i) const
+{
+	return const_cast<const_reference>(
+		const_cast<basic_sequence&>(*this)[i]);
+}
+
+template<typename T,
+	sge::math::detail::dim_type Dim>
+typename sge::math::basic_sequence<T, Dim>::reference
+sge::math::basic_sequence<T, Dim>::at(
+	const size_type i)
+{
+	if(i >= size())
+		throw exception(
+			SGE_TEXT("basic_sequence::at(): out of range!"));
+	return (*this)[i];
+}
+
+template<typename T,
+	sge::math::detail::dim_type Dim>
+typename sge::math::basic_sequence<T, Dim>::const_reference
+sge::math::basic_sequence<T, Dim>::at(
+	const size_type i) const
+{
+	return const_cast<const_reference>(
+		const_cast<basic_sequence&>(*this).at(i));
+}
+
+template<typename T,
+	sge::math::detail::dim_type Dim>
+typename sge::math::basic_sequence<T, Dim>::size_type
+sge::math::basic_sequence<T, Dim>::size() const
+{
+	return Dim;
+}
+
+#ifdef SGE_HAVE_VARIADIC_TEMPLATES
+template<
+	typename T,
+	sge::math::detail::dim_type Dim>
+template<typename... Args>
+void sge::math::basic_sequence<T, Dim>::init(
+	const_reference arg1,
+	Args... args)
+{
+	init_where(0, arg1, args...);
+}
+
+template<
+	typename T,
+	sge::math::detail::dim_type Dim>
+template<typename... Args>
+void sge::math::basic_sequence<T, Dim>::init_where(
+	size_type pos,
+	const_reference arg1,
+	Args... args)
+{
+	(*this)[pos] = arg1;
+	init_where(++pos, args...);
+}
+
+template<
+	typename T,
+	sge::math::detail::dim_type Dim>
+void sge::math::basic_sequence<T, Dim>::init_where(
+	const size_type pos,
+	const_reference arg)
+{
+	(*this)[pos] = arg;
+}
+#endif
 
 #endif

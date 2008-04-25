@@ -69,12 +69,19 @@ public:
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
 	explicit basic_sequence(
-		Args... args)
-	{
-	}
+		Args... args);
 #else
-#define SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
-#define SGE_MATH_BASIC_SEQUENCE_CTOR(z, n, text) basic_sequence(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N, param) }
+#define SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N(z, n, text)\
+	(*this)[n] = text##n;
+#define SGE_MATH_BASIC_SEQUENCE_CTOR(z, n, text)\
+	basic_sequence(\
+		BOOST_PP_ENUM_PARAMS(\
+			BOOST_PP_ADD(n,1),\
+			T const& param))\
+	{\
+		BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim);\
+		BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N, param)\
+	}
 	BOOST_PP_REPEAT(SGE_MATH_BASIC_SEQUENCE_MAX_SIZE, SGE_MATH_BASIC_SEQUENCE_CTOR, void)
 #endif
 
@@ -101,7 +108,38 @@ basic_sequence & operator x ( \
 	SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL(%=)
 
 #undef SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL
+
+	reference operator[](
+		const size_type i);
+
+	const_reference operator[](
+		const size_type i) const;
+
+	reference at(
+		const size_type i);
+
+	const_reference at(
+		const size_type i) const;
+
+	size_type size() const;
 private:
+#ifdef SGE_HAVE_VARIADIC_TEMPLATES
+	template<typename... Args>
+	void init(
+		const_reference arg1,
+		Args... args);
+
+	template<typename... Args>
+	void init_where(
+		size_type pos,
+		const_reference arg1,
+		Args... args);
+
+	void init_where(
+		size_type pos,
+		const_reference arg);
+#endif
+
 	typedef boost::array<
 		value_type,
 		Dim>  internal_type;
