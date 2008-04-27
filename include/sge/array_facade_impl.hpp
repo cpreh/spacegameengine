@@ -2,6 +2,8 @@
 #define SGE_ARRAY_FACADE_IMPL_HPP_INCLUDED
 
 #include "array_facade.hpp"
+#include "exception.hpp"
+#include "string.hpp"
 
 template<
 	typename ThisType,

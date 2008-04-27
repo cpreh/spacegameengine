@@ -18,9 +18,9 @@ public:
 	typedef ThisType this_type;
 	typedef SizeType size_type;
 	typedef Reference reference;
-	typedef const Reference const_reference;
+	typedef Reference const const_reference;
 	typedef Pointer pointer;
-	typedef const Pointer const_pointer;
+	typedef Pointer const const_pointer;
 	typedef Iterator iterator;
 	typedef ConstIterator const_iterator;
 	typedef std::reverse_iterator<

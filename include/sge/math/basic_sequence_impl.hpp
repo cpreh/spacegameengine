@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_BASIC_SEQUENCE_IMPL_HPP_INCLUDED
 
 #include "basic_sequence.hpp"
-#include "../exception.hpp"
-#include "../string.hpp"
+#include "compare.hpp"
+#include "../array_facade_impl.hpp" // TODO: do we want this here?
 #include <boost/static_assert.hpp>
+#include <algorithm>
 
 template<
 	typename T,
@@ -195,5 +196,43 @@ void sge::math::basic_sequence<T, Dim>::init_where(
 	(*this)[pos] = arg;
 }
 #endif
+
+template<
+	typename T,
+	sge::math::detail::dim_type Dim>
+bool sge::math::operator==(
+	basic_sequence<T, Dim> const &a,
+	basic_sequence<T, Dim> const &b)
+{
+	return std::equal(
+		a.begin(),
+		a.end(),
+		b.begin(),
+		sge::math::compare<T>);
+}
+
+template<
+	typename T,
+	sge::math::detail::dim_type Dim>
+bool sge::math::operator!=(
+	basic_sequence<T, Dim> const &a,
+	basic_sequence<T, Dim> const &b)
+{
+	return !(a == b);
+}
+
+template<
+	typename D,
+	typename S,
+	sge::math::detail::dim_type Dim>
+sge::math::basic_sequence<D, Dim>
+sge::math::structure_cast(basic_sequence<S, Dim> const &s)
+{
+	typedef basic_sequence<D, Dim> ret_type;
+	ret_type ret = ret_type(no_initialization_tag());
+	for(typename ret_type::size_type i = 0; i < Dim; ++i)
+		ret[i] = static_cast<D>(s[i]);
+	return ret;
+}
 
 #endif

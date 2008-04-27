@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../config.h"
 #include "../array_facade.hpp"
+#include "../no_initialization_tag.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
@@ -30,8 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/arithmetic/add.hpp>
 #endif
 #include <boost/array.hpp>
-#include <boost/foreach.hpp>
-#include <iterator>
 #include <cstddef>
 
 #if !defined(SGE_HAVE_VARIADIC_TEMPLATES) && !defined(SGE_MATH_VECTOR_MAX_SIZE)
@@ -59,20 +58,29 @@ class basic_sequence
 	T*,
 	T*,
 	T const*> {
+private:
+	typedef array_facade<
+		basic_sequence<T, Dim>,
+		detail::dim_type,
+		T&,
+		T*,
+		T*,
+		T const*> base_type;
 public:
-	typedef T                         value_type;
-	typedef T&                        reference;
-	typedef const T&                  const_reference;
-	typedef T*                        pointer;
-	typedef const T*                  const_pointer;
-	typedef std::ptrdiff_t            difference_type;
-	typedef detail::dim_type          size_type;
-	typedef pointer                   iterator;
-	typedef const_pointer             const_iterator;
-	typedef std::reverse_iterator<
-		iterator>                 reverse_iterator;
-	typedef std::reverse_iterator<
-		const_iterator>           const_reverse_iterator;
+	typedef T                                          value_type;
+	typedef typename base_type::reference              reference;
+	typedef typename base_type::const_reference        const_reference;
+	typedef typename base_type::pointer                pointer;
+	typedef typename base_type::const_pointer          const_pointer;
+	typedef std::ptrdiff_t                             difference_type;
+	typedef typename base_type::size_type              size_type;
+	typedef typename base_type::iterator               iterator;
+	typedef typename base_type::const_iterator         const_iterator;
+	typedef typename base_type::reverse_iterator       reverse_iterator;
+	typedef typename base_type::const_reverse_iterator const_reverse_iterator;
+
+	explicit basic_sequence(
+		no_initialization_tag);
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
@@ -203,6 +211,27 @@ SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(-)
 SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(*)
 
 #undef SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL
+
+template<
+	typename T,
+	detail::dim_type Dim>
+bool operator==(
+	basic_sequence<T, Dim> const &,
+	basic_sequence<T, Dim> const &);
+
+template<
+	typename T,
+	detail::dim_type Dim>
+bool operator!=(
+	basic_sequence<T, Dim> const &,
+	basic_sequence<T, Dim> const &);
+
+template<
+	typename D,
+	typename S,
+	detail::dim_type Dim>
+basic_sequence<D, Dim>
+structure_cast(basic_sequence<S, Dim> const &);
 
 }
 }
