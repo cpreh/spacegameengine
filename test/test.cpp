@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/frames_counter.hpp>
 #include <sge/iostream.hpp>
 #include <sge/math/basic_sequence_impl.hpp>
+#include <sge/array_facade_impl.hpp>
 
 int main()
 try

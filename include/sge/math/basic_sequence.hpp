@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_BASIC_SEQUENCE_HPP_INCLUDED
 
 #include "../config.h"
+#include "../array_facade.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
@@ -50,7 +51,14 @@ typedef std::size_t dim_type;
 template<
 	typename T,
 	detail::dim_type Dim>
-class basic_sequence {
+class basic_sequence
+: public array_facade<
+	basic_sequence<T, Dim>,
+	detail::dim_type,
+	T&,
+	T*,
+	T*,
+	T const*> {
 public:
 	typedef T                         value_type;
 	typedef T&                        reference;
@@ -109,17 +117,8 @@ basic_sequence & operator x ( \
 
 #undef SGE_MATH_BINARY_OP_SCALAR_ASSIGN_DECL
 
-	reference operator[](
-		const size_type i);
-
-	const_reference operator[](
-		const size_type i) const;
-
-	reference at(
-		const size_type i);
-
-	const_reference at(
-		const size_type i) const;
+	pointer data();
+	const_pointer data() const;
 
 	size_type size() const;
 private:

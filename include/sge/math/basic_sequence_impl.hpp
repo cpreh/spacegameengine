@@ -138,43 +138,18 @@ SGE_MATH_BINARY_OP_SCALAR_LEFT(*)
 
 template<typename T,
 	sge::math::detail::dim_type Dim>
-typename sge::math::basic_sequence<T, Dim>::reference
-sge::math::basic_sequence<T, Dim>::operator[](
-	const size_type i)
+typename sge::math::basic_sequence<T, Dim>::pointer
+sge::math::basic_sequence<T, Dim>::data()
 {
-	return data_[i];
+	return data_.c_array();
 }
 
 template<typename T,
 	sge::math::detail::dim_type Dim>
-typename sge::math::basic_sequence<T, Dim>::const_reference
-sge::math::basic_sequence<T, Dim>::operator[](
-	const size_type i) const
+typename sge::math::basic_sequence<T, Dim>::const_pointer
+sge::math::basic_sequence<T, Dim>::data() const
 {
-	return const_cast<const_reference>(
-		const_cast<basic_sequence&>(*this)[i]);
-}
-
-template<typename T,
-	sge::math::detail::dim_type Dim>
-typename sge::math::basic_sequence<T, Dim>::reference
-sge::math::basic_sequence<T, Dim>::at(
-	const size_type i)
-{
-	if(i >= size())
-		throw exception(
-			SGE_TEXT("basic_sequence::at(): out of range!"));
-	return (*this)[i];
-}
-
-template<typename T,
-	sge::math::detail::dim_type Dim>
-typename sge::math::basic_sequence<T, Dim>::const_reference
-sge::math::basic_sequence<T, Dim>::at(
-	const size_type i) const
-{
-	return const_cast<const_reference>(
-		const_cast<basic_sequence&>(*this).at(i));
+	return data_.data();
 }
 
 template<typename T,
