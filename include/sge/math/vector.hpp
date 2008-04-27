@@ -21,6 +21,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_HPP_INCLUDED
 #define SGE_MATH_VECTOR_HPP_INCLUDED
 
+#if 0
+#include "basic_sequence.hpp"
+
+namespace sge
+{
+namespace math
+{
+namespace detail
+{
+
+template<
+	typename T,
+	dim_type Dim>
+class vector_policy {
+public:
+	typedef T &reference;
+	typedef T const &const_reference;
+	reference x();
+	const_reference x();
+	reference y();
+	const_reference y();
+	reference z();
+	const_reference z();
+};
+
+}
+
+typedef basic_sequence<
+
+}
+}
+#endif
+
 #include "../config.h"
 #include "compare.hpp"
 #include "mod.hpp"

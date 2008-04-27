@@ -38,7 +38,6 @@ public:
 	struct loop_method {
 		enum type {
 			repeat,
-			stop_after_end,
 			stop_at_end
 		};
 	};

@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/texture_animation.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
 #include <boost/next_prior.hpp>
 
 sge::sprite::texture_animation::texture_animation(
@@ -57,23 +59,18 @@ bool sge::sprite::texture_animation::process()
 
 	const animation_series::const_iterator next(boost::next(pos));
 
-	if(action == loop_method::repeat
-	   && next == series.end())
+	if(next == series.end())
 	{
-		reset();
-		return true;
+		switch(action) {
+		case loop_method::repeat:
+			reset();
+		case loop_method::stop_at_end:
+			return true;
+		default:
+			throw exception(
+				SGE_TEXT("Invalid loop_method!"));
+		}
 	}
-		
-	if(action == loop_method::stop_after_end
-	   && next == series.end())
-	{
-		s->set_texture(no_texture);
-		return true;
-	}
-	
-	if(action == loop_method::stop_at_end
-	   && next == series.end())
-		return true;
 
 	++pos;
 
