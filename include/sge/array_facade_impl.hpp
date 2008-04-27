@@ -85,7 +85,8 @@ sge::array_facade<
 {
 	return const_iterator(
 		const_cast<ThisType &>(
-			*this).	begin());
+			static_cast<ThisType const&>(
+				*this)).begin());
 }
 
 template<
@@ -112,7 +113,8 @@ sge::array_facade<
 {
 	return const_iterator(
 		const_cast<ThisType &>(
-			*this).end());
+			static_cast<ThisType const&>(
+				*this)).end());
 }
 
 template<
@@ -191,7 +193,8 @@ sge::array_facade<
 {
 	return const_reverse_iterator(
 		const_cast<ThisType &>(
-			*this).rbegin());
+			static_cast<ThisType const&>(
+				*this)).rbegin());
 }
 
 template<
@@ -218,7 +221,8 @@ sge::array_facade<
 {
 	return const_reverse_iterator(
 		const_cast<ThisType &>(
-			*this).rend());
+			static_cast<ThisType const&>(
+				*this)).rend());
 }
 
 template<
@@ -271,7 +275,8 @@ sge::array_facade<
 		const size_type i) const
 {
 	return const_cast<ThisType &>(
-		*this)[i];;
+		static_cast<ThisType const&>(
+			*this))[i];;
 }
 
 template<
@@ -327,7 +332,8 @@ sge::array_facade<
 		const size_type i) const
 {
 	return const_cast<ThisType &>(
-		*this).at(i);
+		static_cast<ThisType const&>(
+			*this).at(i));
 }
 
 #endif

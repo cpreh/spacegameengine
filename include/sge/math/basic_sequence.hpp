@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/arithmetic/add.hpp>
 #endif
 #include <boost/array.hpp>
+#include <iosfwd>
 #include <cstddef>
 
 #if !defined(SGE_HAVE_VARIADIC_TEMPLATES) && !defined(SGE_MATH_VECTOR_MAX_SIZE)
@@ -49,18 +50,20 @@ typedef std::size_t dim_type;
 
 template<
 	typename T,
-	detail::dim_type Dim>
+	detail::dim_type Dim,
+	template<typename, detail::dim_type> class Policy>
 class basic_sequence
 : public array_facade<
-	basic_sequence<T, Dim>,
+	basic_sequence<T, Dim, Policy>,
 	detail::dim_type,
 	T&,
 	T*,
 	T*,
-	T const*> {
+	T const*>,
+  public Policy<T, Dim> {
 private:
 	typedef array_facade<
-		basic_sequence<T, Dim>,
+		basic_sequence<T, Dim, Policy>,
 		detail::dim_type,
 		T&,
 		T*,
@@ -156,10 +159,11 @@ private:
 #define SGE_MATH_UNARY_OP_DECL(x) \
 template< \
 	typename T, \
-	detail::dim_type Dim> \
-basic_sequence<T, Dim> \
+	detail::dim_type Dim, \
+	template<typename, detail::dim_type> class Policy> \
+basic_sequence<T, Dim, Policy> \
 operator x( \
-	basic_sequence<T, Dim> l);
+	basic_sequence<T, Dim, Policy> l);
 
 SGE_MATH_UNARY_OP_DECL(+)
 SGE_MATH_UNARY_OP_DECL(-)
@@ -169,10 +173,11 @@ SGE_MATH_UNARY_OP_DECL(-)
 #define SGE_MATH_BINARY_OP_DECL(x) \
 template< \
 	typename T, \
-	detail::dim_type Dim> \
-basic_sequence<T, Dim> operator x ( \
-	basic_sequence<T, Dim> l, \
-	basic_sequence<T, Dim> const &r);
+	detail::dim_type Dim, \
+	template<typename, detail::dim_type> class Policy> \
+basic_sequence<T, Dim, Policy> operator x ( \
+	basic_sequence<T, Dim, Policy> l, \
+	basic_sequence<T, Dim, Policy> const &r);
 
 SGE_MATH_BINARY_OP_DECL(+)
 SGE_MATH_BINARY_OP_DECL(-)
@@ -185,10 +190,11 @@ SGE_MATH_BINARY_OP_DECL(%)
 #define SGE_MATH_BINARY_OP_SCALAR_DECL(x) \
 template< \
 	typename T, \
-	detail::dim_type Dim> \
-basic_sequence<T, Dim> operator x ( \
-	basic_sequence<T, Dim> l, \
-	typename basic_sequence<T, Dim>::const_reference r);
+	detail::dim_type Dim, \
+	template<typename, detail::dim_type> class Policy> \
+basic_sequence<T, Dim, Policy> operator x ( \
+	basic_sequence<T, Dim, Policy> l, \
+	typename basic_sequence<T, Dim, Policy>::const_reference r);
 
 SGE_MATH_BINARY_OP_SCALAR_DECL(+)
 SGE_MATH_BINARY_OP_SCALAR_DECL(-)
@@ -201,10 +207,11 @@ SGE_MATH_BINARY_OP_SCALAR_DECL(%)
 #define SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(x) \
 template< \
 	typename T, \
-	detail::dim_type Dim> \
-basic_sequence<T, Dim> operator x ( \
-	typename basic_sequence<T, Dim>::const_reference l, \
-	basic_sequence<T, Dim> r);
+	detail::dim_type Dim, \
+	template<typename, detail::dim_type> class Policy> \
+basic_sequence<T, Dim, Policy> operator x ( \
+	typename basic_sequence<T, Dim, Policy>::const_reference l, \
+	basic_sequence<T, Dim, Policy> r);
 
 SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(+)
 SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(-)
@@ -214,24 +221,38 @@ SGE_MATH_BINARY_OP_SCALAR_LEFT_DECL(*)
 
 template<
 	typename T,
-	detail::dim_type Dim>
+	detail::dim_type Dim,
+	template<typename, detail::dim_type> class Policy> \
 bool operator==(
-	basic_sequence<T, Dim> const &,
-	basic_sequence<T, Dim> const &);
+	basic_sequence<T, Dim, Policy> const &,
+	basic_sequence<T, Dim, Policy> const &);
 
 template<
 	typename T,
-	detail::dim_type Dim>
+	detail::dim_type Dim,
+	template<typename, detail::dim_type> class Policy> \
 bool operator!=(
-	basic_sequence<T, Dim> const &,
-	basic_sequence<T, Dim> const &);
+	basic_sequence<T, Dim, Policy> const &,
+	basic_sequence<T, Dim, Policy> const &);
 
 template<
 	typename D,
 	typename S,
-	detail::dim_type Dim>
-basic_sequence<D, Dim>
-structure_cast(basic_sequence<S, Dim> const &);
+	detail::dim_type Dim,
+	template<typename, detail::dim_type> class Policy> \
+basic_sequence<D, Dim, Policy>
+structure_cast(basic_sequence<S, Dim, Policy> const &);
+
+template<
+	typename CharT,
+	typename CharTraits,
+	typename T,
+	detail::dim_type Dim,
+	template<typename, detail::dim_type> class Policy>
+std::basic_ostream<CharT, CharTraits> &
+operator << (
+	std::basic_ostream<CharT, CharTraits> &,
+	basic_sequence<T, Dim, Policy> const &);
 
 }
 }
