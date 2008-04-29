@@ -57,9 +57,7 @@ bool sge::sprite::texture_animation::process()
 	if(!cur_timer.expired())
 		return false;
 
-	const animation_series::const_iterator next(boost::next(pos));
-
-	if(next == series.end())
+	if(boost::next(pos) == series.end())
 	{
 		switch(action) {
 		case loop_method::repeat:
