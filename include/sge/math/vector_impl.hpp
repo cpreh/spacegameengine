@@ -40,21 +40,24 @@ sge::math::detail::vector_policy<T, 1>::x() const
 		(*this).x();
 }
 
-/*template<
-	typename T,
-	sge::math::detail::dim_type Dim>
-typename sge::math::detail::vector_policy<T, Dim>::reference
-sge::math::detail::vector_policy<T, Dim>::x()
-{
-	return data_[0];
-}
-
 template<
-	typename T,
-	sge::math::detail::dim_type Dim>
-sge::math::detail::vector_policy<T, Dim>::vector_policy(
+	typename T>
+sge::math::detail::vector_policy<T, 1>::vector_policy(
 	const pointer data_)
 : data_(data_)
-{}*/
+{}
+
+#define SGE_MATH_VECTOR_POLICY_CTOR(N) \
+template< \
+	typename T> \
+sge::math::detail::vector_policy<T, N>::vector_policy( \
+	const pointer data_) \
+: vector_policy<T, N-1>(data_)\
+{}
+
+SGE_MATH_VECTOR_POLICY_CTOR(2)
+SGE_MATH_VECTOR_POLICY_CTOR(3)
+
+#undef SGE_MATH_VECTOR_POLICY_CTOR
 
 #endif

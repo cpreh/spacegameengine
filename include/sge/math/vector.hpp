@@ -48,7 +48,6 @@ public:
 protected:
 	vector_policy(
 		pointer);
-private:
 	pointer data_;
 };
 
@@ -67,8 +66,6 @@ public:
 protected:
 	vector_policy(
 		pointer);
-private:
-	pointer data_;
 };
 
 template<
@@ -86,8 +83,6 @@ public:
 protected:
 	vector_policy(
 		pointer);
-private:
-	pointer data_;
 };
 
 template<
