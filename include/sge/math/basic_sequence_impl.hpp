@@ -36,6 +36,7 @@ sge::math::basic_sequence<T, Dim, Policy>::basic_sequence(
 	no_initialization_tag)
 {}
 
+#ifdef SGE_HAVE_VARIADIC_TEMPLATES
 template<
 	typename T,
 	sge::math::detail::dim_type Dim,
@@ -43,6 +44,7 @@ template<
 template<typename... Args>
 sge::math::basic_sequence<T, Dim, Policy>::basic_sequence(
 	Args... args)
+: Policy<T, Dim>(data())
 {
 #ifdef SGE_HAVE_STATIC_ASSERT
 	static_assert(sizeof... (args) == Dim, "Invalid number of arguments supplied to sequence!");
@@ -51,6 +53,32 @@ sge::math::basic_sequence<T, Dim, Policy>::basic_sequence(
 #endif
 	init(args...);	
 }
+#else
+
+#define SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N(z, n, text)\
+	(*this)[n] = text##n;
+
+#define SGE_MATH_BASIC_SEQUENCE_CTOR(z, n, text)\
+template< \
+	typename T, \
+	sge::math::detail::dim_type Dim, \
+	template<typename, sge::math::detail::dim_type> class Policy> \
+sge::math::basic_sequence<T, Dim, Policy>::basic_sequence(\
+	BOOST_PP_ENUM_PARAMS(\
+		BOOST_PP_ADD(n,1),\
+		T const& param))\
+: Policy<T, Dim>(data())\
+{\
+	BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim);\
+	BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N, param)\
+}
+
+BOOST_PP_REPEAT(SGE_MATH_BASIC_SEQUENCE_MAX_SIZE, SGE_MATH_BASIC_SEQUENCE_CTOR, void)
+
+#undef SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN
+#undef SGE_MATH_BASIC_SEQUENCE_CTOR
+
+#endif
 
 #define SGE_MATH_BINARY_OP_ASSIGN(x) \
 template< \

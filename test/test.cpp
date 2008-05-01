@@ -45,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/frames_counter.hpp>
 #include <sge/iostream.hpp>
 #include <sge/math/basic_sequence_impl.hpp>
+#include <sge/math/vector.hpp>
+#include <sge/math/vector_impl.hpp>
 
 template<
 	typename,
@@ -54,13 +56,11 @@ struct no_policy{};
 int main()
 try
 {
-	sge::math::basic_sequence<
-		int,
-		2,
-		no_policy> i(1, 2),
-	                   j(3, 4);	
+	basic_vector_ext(int, 2)
+		   i(1, 2),
+	           j(3, 4);	
 
-	sge::cout << i << '\n';
+	sge::cout << i.x() << '\n';
 
 	bool running = true;
 	sge::plugin_manager pm;

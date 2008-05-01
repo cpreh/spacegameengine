@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_HPP_INCLUDED
 #define SGE_MATH_VECTOR_HPP_INCLUDED
 
-#if 0
 #include "basic_sequence.hpp"
 
 namespace sge
@@ -34,25 +33,93 @@ namespace detail
 template<
 	typename T,
 	dim_type Dim>
-class vector_policy {
-public:
+class vector_policy;
+
+template<
+	typename T>
+class vector_policy<T, 1> {
+protected:
 	typedef T &reference;
 	typedef T const &const_reference;
+	typedef T* pointer;
+public:
 	reference x();
-	const_reference x();
+	const_reference x() const;
+protected:
+	vector_policy(
+		pointer);
+private:
+	pointer data_;
+};
+
+template<
+	typename T>
+class vector_policy<T, 2> 
+	: public vector_policy<T, 1> {
+protected:
+	typedef vector_policy<T, 1> base;
+	typedef typename base::reference reference;
+	typedef typename base::const_reference const_reference;
+	typedef typename base::pointer pointer;
+public:
 	reference y();
-	const_reference y();
+	const_reference y() const;
+protected:
+	vector_policy(
+		pointer);
+private:
+	pointer data_;
+};
+
+template<
+	typename T>
+class vector_policy<T, 3> 
+	: public vector_policy<T, 2> {
+protected:
+	typedef vector_policy<T, 2> base;
+	typedef typename base::reference reference;
+	typedef typename base::const_reference const_reference;
+	typedef typename base::pointer pointer;
+public:
 	reference z();
-	const_reference z();
+	const_reference z() const;
+protected:
+	vector_policy(
+		pointer);
+private:
+	pointer data_;
+};
+
+template<
+	typename T,
+	dim_type Dim>
+class vector_policy
+	: public vector_policy<T, 3> {
+	typedef vector_policy<T, 3> base;
+	typedef typename base::reference reference;
+	typedef typename base::const_reference const_reference;
+	typedef typename base::pointer pointer;
+public:
+	reference x();
+	const_reference x() const;
+	reference y();
+	const_reference y() const;
+	reference z();
+	const_reference z() const;
+protected:
+	vector_policy(
+		pointer);
+private:
+	pointer data_;	
 };
 
 }
 
-typedef basic_sequence<
+}
+}
+//#endif
 
-}
-}
-#endif
+#define basic_vector_ext(T, Dim) sge::math::basic_sequence<T, Dim, sge::math::detail::vector_policy>
 
 #include "../config.h"
 #include "compare.hpp"

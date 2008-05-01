@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace math
+{
 namespace detail
 {
 
@@ -40,8 +42,9 @@ private:
 
 	matrix_proxy_impl& operator=(const matrix_proxy_impl&);
 };
-}
 
+}
+}
 }
 
 #endif

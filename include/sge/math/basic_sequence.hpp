@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 
 #if !defined(SGE_HAVE_VARIADIC_TEMPLATES) && !defined(SGE_MATH_VECTOR_MAX_SIZE)
-#define SGE_MATH_VECTOR_MAX_SIZE 4
+#define SGE_MATH_BASIC_SEQUENCE_MAX_SIZE 4
 #endif
 
 namespace sge
@@ -90,18 +90,14 @@ public:
 	explicit basic_sequence(
 		Args... args);
 #else
-#define SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N(z, n, text)\
-	(*this)[n] = text##n;
-#define SGE_MATH_BASIC_SEQUENCE_CTOR(z, n, text)\
+#define SGE_MATH_BASIC_SEQUENCE_CTOR_DECL(z, n, text)\
 	basic_sequence(\
 		BOOST_PP_ENUM_PARAMS(\
 			BOOST_PP_ADD(n,1),\
-			T const& param))\
-	{\
-		BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim);\
-		BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_BASIC_SEQUENCE_CTOR_ASSIGN_N, param)\
-	}
-	BOOST_PP_REPEAT(SGE_MATH_BASIC_SEQUENCE_MAX_SIZE, SGE_MATH_BASIC_SEQUENCE_CTOR, void)
+			T const& param));
+	BOOST_PP_REPEAT(SGE_MATH_BASIC_SEQUENCE_MAX_SIZE, SGE_MATH_BASIC_SEQUENCE_CTOR_DECL, void)
+
+#undef SGE_MATH_BASIC_SEQUENCE_CTOR_DECL
 #endif
 
 #define SGE_MATH_BINARY_OP_ASSIGN_DECL(x) \
