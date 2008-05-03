@@ -95,14 +95,16 @@ try
 
 	const sge::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::key,boost::lambda::_1)) == sge::kc::key_escape)[var(running)=false]));
 
-	rend->set_state((
-		sge::bool_state::enable_lighting = true,
-		sge::cull_mode::off,
-		sge::bool_state::clear_zbuffer = true,
-		sge::bool_state::clear_backbuffer = true,
-		sge::cull_mode::front,
-		sge::float_state::zbuffer_clear_val = 0,
-		sge::depth_func::greater));
+	rend->set_state(
+		sge::renderer_state_list
+			(sge::bool_state::enable_lighting = true)
+			(sge::cull_mode::off)
+			(sge::bool_state::clear_zbuffer = true)
+			(sge::bool_state::clear_backbuffer = true)
+			(sge::cull_mode::front)
+			(sge::float_state::zbuffer_clear_val = 0)
+			(sge::depth_func::greater)
+	);
 
 	const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	while(running)

@@ -104,10 +104,12 @@ try
 		[var(running)=false])
 	);
 
-	rend->set_state((
-		sge::bool_state::clear_backbuffer = true,
-		sge::depth_func::off,
-		sge::cull_mode::off));
+	rend->set_state(
+		sge::renderer_state_list
+			(sge::bool_state::clear_backbuffer = true)
+			(sge::depth_func::off)
+			(sge::cull_mode::off)
+	);
 	rend->projection(sge::math::matrix_orthogonal_xy());
 
 	while(running)

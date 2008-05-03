@@ -24,27 +24,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer_state_list sge::default_renderer_states()
 {
-	static const renderer_state_list list((
-		int_state::stencil_clear_val = 0,
-		float_state::zbuffer_clear_val = 0,
-		float_state::fog_start = 0,
-		float_state::fog_end = 0,
-		float_state::fog_density = 0,
-		bool_state::clear_zbuffer = false,
-		bool_state::clear_backbuffer = true,
-		bool_state::clear_stencil = false,
-		bool_state::enable_alpha_blending = false,
-		bool_state::enable_lighting = false,
-		color_state::clear_color = colors::black,
-		color_state::ambient_light_color = colors::white,
-		color_state::fog_color = colors::black,
-		cull_mode::off,
-		depth_func::off,
-		stencil_func::off,
-		fog_mode::off,
-		draw_mode::fill,
-		source_blend_func::src_alpha,
-		dest_blend_func::inv_src_alpha
-	));
+	static const renderer_state_list list(
+		renderer_state_list
+			(int_state::stencil_clear_val = 0)
+			(float_state::zbuffer_clear_val = 0)
+			(float_state::fog_start = 0)
+			(float_state::fog_end = 0)
+			(float_state::fog_density = 0)
+			(bool_state::clear_zbuffer = false)
+			(bool_state::clear_backbuffer = true)
+			(bool_state::clear_stencil = false)
+			(bool_state::enable_alpha_blending = false)
+			(bool_state::enable_lighting = false)
+			(color_state::clear_color = colors::black)
+			(color_state::ambient_light_color = colors::white)
+			(color_state::fog_color = colors::black)
+			(cull_mode::off)
+			(depth_func::off)
+			(stencil_func::off)
+			(fog_mode::off)
+			(draw_mode::fill)
+			(source_blend_func::src_alpha)
+			(dest_blend_func::inv_src_alpha)
+	);
 	return list;
 }

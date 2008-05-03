@@ -116,12 +116,8 @@ public:
 		vertex_buffer::size_type num_vertices,
 		nonindexed_primitive_type::type ptype) = 0;
 
-	void set_state(const any_renderer_state &);
 	virtual void set_state(const renderer_state_list &) = 0;
-
-	void push_state(const any_renderer_state &);
 	virtual void push_state(const renderer_state_list &) = 0;
-
 	virtual void pop_level() = 0;
 
 	virtual void set_material(const material& mat) = 0;

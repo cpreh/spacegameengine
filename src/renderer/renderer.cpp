@@ -24,20 +24,6 @@ const sge::texture_ptr sge::renderer::no_texture;
 const sge::texture_ptr sge::renderer::default_render_target;
 const sge::glsl::program_ptr sge::renderer::no_program;
 
-void sge::renderer::set_state(const any_renderer_state &state)
-{
-	renderer_state_list list;
-	list.insert(state);
-	set_state(list);
-}
-
-void sge::renderer::push_state(const any_renderer_state &state)
-{
-	renderer_state_list list;
-	list.insert(state);
-	push_state(list);
-}
-
 sge::screen_unit sge::renderer::screen_width() const
 {
 	return screen_size().w();

@@ -53,11 +53,12 @@ void sge::line_strip::render()
 {
 	if(vertices.size() <= 1)
 		return;
-	rend->set_state((
-		bool_state::enable_alpha_blending = false,
-		bool_state::enable_lighting = true,
-		color_state::ambient_light_color = col_
-	));
+	rend->set_state(
+		renderer_state_list
+			(bool_state::enable_alpha_blending = false)
+			(bool_state::enable_lighting = true)
+			(color_state::ambient_light_color = col_)
+	);
 	set_matrices();
 //	rend->set_material(material(color4(1,1,1,1), color4(1,1,1,1)));
 	rend->set_texture(texture_ptr());

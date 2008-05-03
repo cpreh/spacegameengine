@@ -160,10 +160,10 @@ private:
 	const fbo_render_target_ptr create_render_target(
 		const render_target::dim_type&);
 
-	renderer_parameters param;
-	renderer_caps       caps_;
-	state_stack         state_levels;
-	renderer_state_list current_states;
+	renderer_parameters           param;
+	renderer_caps                 caps_;
+	state_stack                   state_levels;
+	renderer_state_list           current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
 	win32_window_ptr               wnd;
 	boost::scoped_ptr<gdi_device>  hdc;

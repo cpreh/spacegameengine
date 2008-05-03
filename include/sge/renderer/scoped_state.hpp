@@ -34,9 +34,6 @@ public:
 	SGE_SYMBOL scoped_state(
 		renderer_ptr rend,
 		const renderer_state_list&);
-	SGE_SYMBOL scoped_state(
-		renderer_ptr rend,
-		const any_renderer_state&);
 	SGE_SYMBOL ~scoped_state();
 	SGE_SYMBOL void release();
 private:

@@ -17,18 +17,19 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #ifndef SGE_RENDERER_STATES_HPP_INCLUDED
 #define SGE_RENDERER_STATES_HPP_INCLUDED
 
-#include <set>
-#include <boost/variant.hpp>
-
 #include "../export.hpp"
 #include "color.hpp"
+#include <boost/variant.hpp>
+#include <set>
 
 namespace sge {
 
-template<typename T> struct renderer_state_var_traits {};
+template<typename T>
+struct renderer_state_var_traits;
 
 template<> struct renderer_state_var_traits<int> { enum available_states {
 	stencil_clear_val
@@ -189,23 +190,21 @@ struct renderer_state_var_traits<renderer_state_dest_blend_func_type::type> {
 	};
 };
 
-template<typename T> struct renderer_state_var {
+template<typename T>
+struct renderer_state_var {
 	typedef T value_type;
 
-	inline renderer_state_var<T> operator=(const T newval) {
-		renderer_state_var<T> cp(state_id, newval);
-		val = cp.val;
-		return cp;
-	}
-	inline T value() const { return val; }
+	renderer_state_var<T> operator=(T newval);
+	
+	T value() const;
 
 	const typename renderer_state_var_traits<T>::available_states state_id;
 
-	renderer_state_var(const typename renderer_state_var_traits<T>::available_states state_id, const T defval = T())
-	: state_id(state_id), val(defval) {}
+	explicit renderer_state_var(
+		const typename renderer_state_var_traits<T>::available_states state_id,
+		const T defval = T());
 
-	inline bool operator<(const renderer_state_var<T> &other) const { return state_id < other.state_id; }
-
+	bool operator<(renderer_state_var const&) const;
 private:
 	T val;
 };
@@ -337,49 +336,23 @@ typedef boost::variant<
 	dest_blend_func::type
 > any_renderer_state;
 
-typedef std::set<any_renderer_state> renderer_state_list;
 
-inline renderer_state_list operator,(const any_renderer_state &a, const renderer_state_list &b) {
-	if (b.find(a) == b.end()) {
-		renderer_state_list temp = b;
-			temp.insert(a);
-		return temp;
-	} else return b; // rhs (list) overrides lhs (single value)
-}
+class renderer_state_list {
+public:
+	SGE_SYMBOL renderer_state_list();
+	SGE_SYMBOL explicit renderer_state_list(
+		any_renderer_state const &);
+	SGE_SYMBOL renderer_state_list operator()(
+		any_renderer_state const&) const;
 
-inline renderer_state_list operator,(const renderer_state_list &b, const any_renderer_state &a) {
-	renderer_state_list temp = b;
-		temp.insert(a);
-	return temp;
-}
+	SGE_SYMBOL void overwrite(
+		any_renderer_state const&);
 
-template<typename T, typename U> inline renderer_state_list operator,(const renderer_state_var<T> &a, const renderer_state_var<U> &b) {
-	renderer_state_list temp;
-		temp.insert(a);
-		temp.insert(b);
-	return temp;
-}
-
-template<typename T> inline renderer_state_list operator,(const renderer_state_var<T> &a, const renderer_state_list &b) {
-	return any_renderer_state(a), b;
-}
-
-template<typename T> inline renderer_state_list operator,(const renderer_state_list &b, const renderer_state_var<T> &a) {
-	renderer_state_list temp = b;
-		temp.insert(a);
-	return temp;
-}
-
-template<typename T> inline renderer_state_list operator,(const renderer_state_var<T> &a, const any_renderer_state &b) {
-	renderer_state_list temp;
-		temp.insert(a);
-		temp.insert(b);
-	return temp;
-}
-
-template<typename T> inline renderer_state_list operator,(const any_renderer_state &a, const renderer_state_var<T> &b) {
-	return b,a;
-}
+	typedef std::set<any_renderer_state> set_type;
+	SGE_SYMBOL set_type const& get() const;
+private:
+	set_type set_;
+};
 
 }
 

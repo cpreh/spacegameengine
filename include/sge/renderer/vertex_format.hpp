@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VERTEX_FORMAT_HPP_INCLUDED
 #define SGE_VERTEX_FORMAT_HPP_INCLUDED
 
-#include <cstddef>
-#include <vector>
 #include "types.hpp"
 #include "color.hpp"
+#include <boost/array.hpp>
+#include <vector>
+#include <cstddef>
 
 namespace sge
 {
@@ -68,7 +69,7 @@ const vertex_size vertex_element_size[] = {
 	1*sizeof(vertex_traits<vertex_usage::diffuse>::element_type)
 };
 
-typedef vertex_size offset_info[vertex_usage::num_elements];
+typedef boost::array<vertex_size, vertex_usage::num_elements> offset_info;
 
 class vertex_element {
 public:

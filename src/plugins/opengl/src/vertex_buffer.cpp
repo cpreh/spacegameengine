@@ -39,7 +39,7 @@ sge::ogl::vertex_buffer::vertex_buffer(
 	format(format),
 	ogl_format(format)
 {}
-		
+
 sge::ogl::vertex_buffer::size_type sge::ogl::vertex_buffer::stride() const
 {
 	return format.stride();

@@ -19,6 +19,87 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/renderer_states.hpp>
+#include <sge/string.hpp>
+#include <sge/iostream.hpp>
+#include <ostream>
+
+template<typename T>
+sge::renderer_state_var<T> sge::renderer_state_var<T>::operator=(const T newval)
+{
+	renderer_state_var<T> cp(state_id, newval);
+	val = cp.val;
+	return cp;
+}
+
+template<typename T>
+T sge::renderer_state_var<T>::value() const
+{
+	return val;
+}
+
+template<typename T>
+sge::renderer_state_var<T>::renderer_state_var(
+	const typename renderer_state_var_traits<T>::available_states state_id,
+	const T defval)
+: state_id(state_id),
+  val(defval)
+{}
+
+template<typename T>
+bool sge::renderer_state_var<T>::operator<(
+	const renderer_state_var<T> &other) const
+{
+	return state_id < other.state_id;
+}
+
+
+sge::renderer_state_list::renderer_state_list()
+{}
+
+sge::renderer_state_list::renderer_state_list(
+	any_renderer_state const &a)
+{
+	set_.insert(a);
+}
+
+sge::renderer_state_list sge::renderer_state_list::operator()(
+	any_renderer_state const &a) const
+{
+	renderer_state_list temp(*this);
+	if(!temp.set_.insert(a).second)
+		sge::cerr << SGE_TEXT("warning: duplicate renderer state given!\n");
+	return temp;
+}
+
+void sge::renderer_state_list::overwrite(
+	any_renderer_state const& a)
+{
+//	const set_type::iterator it(set_.find(a));
+//	if(it != set_.end())
+//		*it = a;
+//	else
+		set_.insert(a);
+	// TODO: is there a better way to do this?
+}
+
+sge::renderer_state_list::set_type const &
+sge::renderer_state_list::get() const
+{
+	return set_;
+}
+
+template class sge::renderer_state_var<int>;
+template class sge::renderer_state_var<float>;
+template class sge::renderer_state_var<bool>;
+template class sge::renderer_state_var<sge::color>;
+
+template class sge::renderer_state_var<sge::renderer_state_cull_mode_type::type>;
+template class sge::renderer_state_var<sge::renderer_state_depth_func_type::type>;
+template class sge::renderer_state_var<sge::renderer_state_stencil_func_type::type>;
+template class sge::renderer_state_var<sge::renderer_state_fog_mode_type::type>;
+template class sge::renderer_state_var<sge::renderer_state_draw_mode_type::type>;
+template class sge::renderer_state_var<sge::renderer_state_source_blend_func_type::type>;
+template class sge::renderer_state_var<sge::renderer_state_dest_blend_func_type::type>;
 
 #undef STATE
 #define STATE(STATE_, NAME_) \

@@ -78,7 +78,7 @@ public:
 	 : data(data), stride(stride), oi(oi) {}
 
 	template<bool OtherConst>
-	vertex_impl(const vertex_impl<OtherConst>& o)
+	explicit vertex_impl(const vertex_impl<OtherConst>& o)
 	 : data(o.data), stride(o.stride), oi(o.oi) {}
 private:
 	pointer data;

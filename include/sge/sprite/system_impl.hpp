@@ -72,16 +72,15 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 
 	const scoped_state state_(
 		rend,
-		(
-			bool_state::enable_lighting = false,
-			bool_state::enable_alpha_blending = true,
-			source_blend_func::src_alpha,
-			dest_blend_func::inv_src_alpha,
-			cull_mode::off,
-			depth_func::off,
-			stencil_func::off,
-			draw_mode::fill
-		)
+		renderer_state_list
+			(bool_state::enable_lighting = false)
+			(bool_state::enable_alpha_blending = true)
+			(source_blend_func::src_alpha)
+			(dest_blend_func::inv_src_alpha)
+			(cull_mode::off)
+			(depth_func::off)
+			(stencil_func::off)
+			(draw_mode::fill)
 	);
 
 

@@ -25,21 +25,6 @@ sge::scoped_state::scoped_state(
 	const renderer_state_list& list)
 : rend(rend)
 {
-	init(list);
-}
-
-sge::scoped_state::scoped_state(
-	const renderer_ptr rend,
-	const any_renderer_state& state)
-: rend(rend)
-{
-	renderer_state_list list;
-	list.insert(state);
-	init(list);
-}
-
-void sge::scoped_state::init(const renderer_state_list& list)
-{
 	rend->push_state(list);
 }
 

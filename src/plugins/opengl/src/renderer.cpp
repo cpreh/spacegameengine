@@ -351,18 +351,18 @@ void sge::ogl::renderer::render(
 void sge::ogl::renderer::set_state(const renderer_state_list &states)
 {
 	const state_visitor visitor(*this);
-	BOOST_FOREACH(const any_renderer_state& s, states)
+	BOOST_FOREACH(const any_renderer_state& s, states.get())
 	{
 		boost::apply_visitor(visitor, s);
-		current_states.insert(s);
+		current_states.overwrite(s);
 	}
 }
 
 void sge::ogl::renderer::push_state(const renderer_state_list& states)
 {
 	renderer_state_list list;
-	BOOST_FOREACH(const any_renderer_state& s, states)
-		list.insert(get_any_state(s));
+	BOOST_FOREACH(const any_renderer_state& s, states.get())
+		list.overwrite(get_any_state(s));
 	
 	state_levels.push(list);
 	set_state(states);
@@ -393,16 +393,18 @@ GLenum sge::ogl::renderer::get_clear_bit(const bool_state::type s) const
 template<typename T>
 T sge::ogl::renderer::get_state(const T& t) const
 {
-	const renderer_state_list::const_iterator it = current_states.find(t);
-	if(it == current_states.end())
+	renderer_state_list::set_type const &states(current_states.get());
+	const renderer_state_list::set_type::const_iterator it = states.find(t);
+	if(it == states.end())
 		throw exception(SGE_TEXT("ogl::renderer::get_state(): state not found!"));
 	return boost::get<T>(*it);
 }
 
 const sge::any_renderer_state& sge::ogl::renderer::get_any_state(const any_renderer_state& state) const
 {
-	const renderer_state_list::const_iterator it = current_states.find(state);
-	if(it == current_states.end())
+	renderer_state_list::set_type const &states(current_states.get());
+	const renderer_state_list::set_type::const_iterator it = states.find(state);
+	if(it == states.end())
 		throw exception(SGE_TEXT("ogl::renderer::get_any_state(): state not found!"));
 	return *it;
 }
