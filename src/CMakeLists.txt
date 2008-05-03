@@ -12,7 +12,8 @@ FILE (GLOB sgecorefiles
 	model/*.cpp
 	renderer/*.cpp
 	sprite/*.cpp
-	texture/*.cpp)
+	texture/*.cpp
+	time/*.cpp)
 
 ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
 

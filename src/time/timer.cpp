@@ -18,17 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/timer.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/time/resolution.hpp>
 
-sge::timer::timer(
-	const interval_type interval_,
-	const bool active_)
-: interval_(interval_),
-  last_time_(time()),
+sge::time::timer::timer(
+	resolution const& res_,
+	const bool active_,
+	fun const& fun_)
+: fun_(fun_),
+  interval_(res_.get()),
+  last_time_(fun_()),
   active_(active_)
 {}
 
-sge::timer::frames_type sge::timer::update()
+sge::time::timer::frames_type sge::time::timer::update()
 {
 	const frames_type f = elapsed_frames();
 	if(f >= 1)
@@ -36,7 +39,7 @@ sge::timer::frames_type sge::timer::update()
 	return f < 1 ? 0 : f;
 }
 
-bool sge::timer::update_b()
+bool sge::time::timer::update_b()
 {
 	if(!expired())
 		return false;
@@ -44,30 +47,30 @@ bool sge::timer::update_b()
 	return true;
 }
 
-sge::timer::frames_type sge::timer::elapsed_frames() const
+sge::time::timer::frames_type sge::time::timer::elapsed_frames() const
 {
 	if(!active())
-		static_cast<frames_type>(0);
+		return static_cast<frames_type>(0);
 
-	return static_cast<frames_type>(time() - last_time())
+	return static_cast<frames_type>(fun_() - last_time())
 		/ static_cast<frames_type>(interval());
 }
 
-sge::timer::frames_type sge::timer::reset()
+sge::time::timer::frames_type sge::time::timer::reset()
 {
 	const frames_type f = elapsed_frames();
-	last_time_ = time();
+	last_time_ = fun_();
 	return f;
 }
 
-bool sge::timer::expired() const
+bool sge::time::timer::expired() const
 {
 	if(!active())
 		return false;
 	return elapsed_frames() >= 1;
 }
 
-void  sge::timer::activate()
+void  sge::time::timer::activate()
 {
 	if(active())
 		return;
@@ -75,28 +78,29 @@ void  sge::timer::activate()
 	active_ = true;
 }
 
-void sge::timer::deactivate()
+void sge::time::timer::deactivate()
 {
 	active_ = false;
 }
 
-sge::timer::interval_type sge::timer::interval() const
+sge::time::timer::interval_type sge::time::timer::interval() const
 {
 	return interval_;
 }
 
-sge::timer::interval_type sge::timer::last_time() const
+sge::time::timer::interval_type sge::time::timer::last_time() const
 {
 	return last_time_;
 }
 
-bool sge::timer::active() const
+bool sge::time::timer::active() const
 {
 	return active_;
 }
 
-void sge::timer::interval(const interval_type i)
+void sge::time::timer::interval(
+	resolution const& i)
 {
-	interval_ = i;
+	interval_ = i.get();
 	reset();
 }

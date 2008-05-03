@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/texture_animation.hpp>
 #include <sge/sprite/object.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 #include <boost/next_prior.hpp>
@@ -30,7 +31,9 @@ sge::sprite::texture_animation::texture_animation(
 	object *spr)
 : series(series_),
   action(action),
-  cur_timer(0),
+  cur_timer(
+  	time::resolution(
+		0)),
   s(0),
   pos(series.end())
 {
@@ -72,7 +75,9 @@ bool sge::sprite::texture_animation::process()
 
 	++pos;
 
-	cur_timer.interval(pos->delay());
+	cur_timer.interval(
+		time::resolution(
+			pos->delay()));
 	s->set_texture(pos->tex());
 
 	return false;
@@ -84,7 +89,9 @@ void sge::sprite::texture_animation::reset()
 		return;
 	s->set_texture(series.begin()->tex());
 	pos = series.begin();
-	cur_timer.interval(series.begin()->delay());
+	cur_timer.interval(
+		time::resolution(
+			series.begin()->delay()));
 }
 
 const sge::texture::dim_type

@@ -18,32 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/frames_counter.hpp>
-#include <sge/time.hpp>
-#include <boost/lexical_cast.hpp>
+#include <sge/time/millisecond.hpp>
+#include <sge/time/time.hpp>
 
-sge::frames_counter::frames_counter()
-: t(sge::second()),
-  current_frames(0),
-  display_frames(0)
+sge::time::millisecond::millisecond(
+	const space_unit tm)
+: resolution(
+	static_cast<unit>(
+		tm * static_cast<space_unit>(
+			hz()) * static_cast<space_unit>(1000)))
 {}
 
-void sge::frames_counter::update()
-{
-	++current_frames;
-	if(t.update() > 0)
-	{
-		display_frames = current_frames;
-		current_frames = 0;
-	}
-}
-
-sge::string sge::frames_counter::frames_str() const
-{
-	return boost::lexical_cast<string>(frames());
-}
-
-sge::time_type sge::frames_counter::frames() const
-{
-	return display_frames;
-}
+sge::time::millisecond::millisecond(
+	const unit tm)
+: resolution(
+	tm * hz() / 1000)
+{}

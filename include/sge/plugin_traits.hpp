@@ -36,8 +36,7 @@ namespace plugin_type
 		audio_player     = 1 << 3,
 		font             = 1 << 4,
 		audio_loader     = 1 << 5,
-		archive          = 1 << 6,
-		_last_guard      = 1 << 7
+		_last_guard      = 1 << 6
 	};
 }
 

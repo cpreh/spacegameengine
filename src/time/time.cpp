@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config.h>
 #include <sge/exception.hpp>
-#include <sge/time.hpp>
+#include <sge/time/time.hpp>
 
 #ifdef SGE_LINUX_PLATFORM
 #include <sys/time.h>
@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::time_type query_performance_frequency();
-sge::time_type query_performance_counter();
-sge::time_type large_int_to_time(LARGE_INTEGER);
+sge::time::unit query_performance_frequency();
+sge::time::unit query_performance_counter();
+sge::time::unit large_int_to_time(LARGE_INTEGER);
 
 struct initializer {
 	initializer();
@@ -49,22 +49,22 @@ private:
 
 #endif
 
-sge::time_type sge::time()
+sge::time::unit sge::time::time()
 {
 #ifdef SGE_LINUX_PLATFORM
 	struct timeval tv;
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
 		throw sge::exception(SGE_TEXT("gettimeofday() failed!"));
-	return static_cast<time_type>(tv.tv_sec * second() + tv.tv_usec);
+	return static_cast<time::unit>(tv.tv_sec * hz() + tv.tv_usec);
 #elif SGE_WINDOWS_PLATFORM
 	return instance.use_performance_counter()
 		? query_performance_counter()
-		: static_cast<time_type>(GetTickCount());
+		: static_cast<time::unit>(GetTickCount());
 #endif
 }
 
-sge::time_type sge::second()
+sge::time::unit sge::time::hz()
 {
 #ifdef SGE_LINUX_PLATFORM
 	return 1000 * 1000;
@@ -80,7 +80,7 @@ sge::time_type sge::second()
 namespace
 {
 
-sge::time_type query_performance_frequency()
+sge::time::unit query_performance_frequency()
 {
 	LARGE_INTEGER ret;
 	if(QueryPerformanceFrequency(&ret) == 0)
@@ -88,7 +88,7 @@ sge::time_type query_performance_frequency()
 	return large_int_to_time(ret);
 }
 
-sge::time_type query_performance_counter()
+sge::time::unit query_performance_counter()
 {
 	LARGE_INTEGER ret;
 	if(QueryPerformanceCounter(&ret) == 0)
@@ -96,7 +96,7 @@ sge::time_type query_performance_counter()
 	return large_int_to_time(ret);
 }
 
-sge::time_type large_int_to_time(const LARGE_INTEGER i)
+sge::time::unit large_int_to_time(const LARGE_INTEGER i)
 {
 	return i.QuadPart; // FIXME
 }

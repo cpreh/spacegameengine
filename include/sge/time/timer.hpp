@@ -18,24 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIMER_HPP_INCLUDED
-#define SGE_TIMER_HPP_INCLUDED
+#ifndef SGE_TIME_TIMER_HPP_INCLUDED
+#define SGE_TIME_TIMER_HPP_INCLUDED
 
-#include "export.hpp"
-#include "su.hpp"
-#include "time.hpp"
+#include "../export.hpp"
+#include "../su.hpp"
+#include "types.hpp"
+#include "fun.hpp"
 
 namespace sge
+{
+namespace time
 {
 
 class timer {
 public:
 	typedef space_unit frames_type;
-	typedef time_type interval_type;
+	typedef unit       interval_type;
 
 	SGE_SYMBOL timer(
-		interval_type interval,
-		bool active = true);
+		resolution const &interval,
+		bool active = true,
+		fun const & = default_time_fun());
 	SGE_SYMBOL frames_type update();
 	SGE_SYMBOL bool update_b();
 	SGE_SYMBOL frames_type elapsed_frames() const;
@@ -43,16 +47,19 @@ public:
 	SGE_SYMBOL bool expired() const;
 	SGE_SYMBOL interval_type interval() const;
 	SGE_SYMBOL interval_type last_time() const;
-	SGE_SYMBOL void interval(interval_type);
+	SGE_SYMBOL void interval(
+		resolution const&);
 	SGE_SYMBOL void activate();
 	SGE_SYMBOL void deactivate();
 	SGE_SYMBOL bool active() const;
 private:
+	fun           fun_;
 	interval_type interval_,
 	              last_time_;
 	bool          active_;
 };
 
+}
 }
 
 #endif

@@ -2,9 +2,9 @@
 #include <sge/sprite/system_impl.hpp>
 #include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
+#include <sge/time/second.hpp>
 #include <sge/iostream.hpp>
 #include <sge/fstream.hpp>
-#include <sge/time.hpp>
 #include <boost/bind.hpp>
 #include <boost/range.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -33,7 +33,7 @@ sge::con::console_gfx::console_gfx(
 	texture,
 	size),
   active_(false),
-  cursor_timer(static_cast<timer::interval_type>(su(0.3)*su(second()))),
+  cursor_timer(time::second(su(0.3))),
   cursor_rate(SGE_TEXT("console_cursor_rate"),
 		boost::bind(&console_gfx::change_cursor_rate,this,_1,_2),su(0.3)),
   cursor_active(false),
@@ -324,7 +324,8 @@ sge::space_unit sge::con::console_gfx::change_cursor_rate(
 	const space_unit &n,
 	const space_unit &)
 {
-	cursor_timer.interval(static_cast<timer::interval_type>(n*su(second())));
+	cursor_timer.interval(
+		time::second(n));
 	return n;	
 }
 

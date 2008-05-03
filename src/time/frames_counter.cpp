@@ -18,32 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
-#define SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
+#include <sge/time/frames_counter.hpp>
+#include <sge/time/second.hpp>
+#include <boost/lexical_cast.hpp>
 
-#include "../time/types.hpp"
-#include "../export.hpp"
-#include "../texture/virtual_texture.hpp"
+sge::time::frames_counter::frames_counter()
+: t(sge::time::second(su(1))),
+  current_frames(0),
+  display_frames(0)
+{}
 
-namespace sge
+void sge::time::frames_counter::update()
 {
-namespace sprite
-{
-
-class animation_entity {
-public:
-	SGE_SYMBOL animation_entity(
-		time::resolution const& delay,
-		virtual_texture_ptr tex);
-	SGE_SYMBOL time::unit delay() const;
-	SGE_SYMBOL const virtual_texture_ptr tex() const;
-	SGE_SYMBOL const texture::dim_type dim() const;
-private:
-	time::unit          delay_;
-	virtual_texture_ptr tex_;
-};
-
-}
+	++current_frames;
+	if(t.update() > 0)
+	{
+		display_frames = current_frames;
+		current_frames = 0;
+	}
 }
 
-#endif
+sge::string sge::time::frames_counter::frames_str() const
+{
+	return boost::lexical_cast<string>(frames());
+}
+
+sge::time::unit sge::time::frames_counter::frames() const
+{
+	return display_frames;
+}

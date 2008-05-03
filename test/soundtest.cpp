@@ -3,7 +3,6 @@
 #include <sge/audio/player/sound.hpp>
 #include <sge/plugin_manager.hpp>
 #include <sge/media.hpp>
-#include <sge/timer.hpp>
 #include <sge/math/constants.hpp>
 #include <sge/util.hpp>
 #include <sge/exception.hpp>

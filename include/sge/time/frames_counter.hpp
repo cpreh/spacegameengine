@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
-#define SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
+#ifndef SGE_FRAMES_COUNTER_HPP_INCLUDED
+#define SGE_FRAMES_COUNTER_HPP_INCLUDED
 
-#include "../time/types.hpp"
+#include "timer.hpp"
+#include "../string.hpp"
 #include "../export.hpp"
-#include "../texture/virtual_texture.hpp"
 
 namespace sge
 {
-namespace sprite
+namespace time
 {
 
-class animation_entity {
-public:
-	SGE_SYMBOL animation_entity(
-		time::resolution const& delay,
-		virtual_texture_ptr tex);
-	SGE_SYMBOL time::unit delay() const;
-	SGE_SYMBOL const virtual_texture_ptr tex() const;
-	SGE_SYMBOL const texture::dim_type dim() const;
+class frames_counter {
 private:
-	time::unit          delay_;
-	virtual_texture_ptr tex_;
+	timer t;
+	time::unit current_frames,
+	           display_frames;
+public:
+	SGE_SYMBOL frames_counter();
+	SGE_SYMBOL void update();
+	SGE_SYMBOL string frames_str() const;
+	SGE_SYMBOL time::unit frames() const;
 };
 
 }

@@ -18,28 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FRAMES_COUNTER_HPP_INCLUDED
-#define SGE_FRAMES_COUNTER_HPP_INCLUDED
+#ifndef SGE_TIME_FUN_HPP_INCLUDED
+#define SGE_TIME_FUN_HPP_INCLUDED
 
-#include "timer.hpp"
-#include "string.hpp"
-#include "export.hpp"
+#include "types.hpp"
+#include <boost/function.hpp>
 
 namespace sge
 {
+namespace time
+{
 
-class frames_counter {
-private:
-	timer t;
-	time_type current_frames,
-	          display_frames;
-public:
-	SGE_SYMBOL frames_counter();
-	SGE_SYMBOL void update();
-	SGE_SYMBOL string frames_str() const;
-	SGE_SYMBOL time_type frames() const;
-};
+typedef boost::function<unit()> fun;
 
+fun default_time_fun();
+void default_time_fun(fun const &);
+
+}
 }
 
 #endif

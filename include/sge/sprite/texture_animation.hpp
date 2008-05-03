@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "animation.hpp"
 #include "animation_series.hpp"
-#include "../timer.hpp"
+#include "../time/timer.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -56,7 +56,7 @@ public:
 private:
 	animation_series                 series;
 	loop_method::type                action;
-	timer                            cur_timer;
+	time::timer                      cur_timer;
 	object*                          s;
 	animation_series::const_iterator pos;
 };

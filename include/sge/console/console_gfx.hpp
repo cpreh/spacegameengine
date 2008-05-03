@@ -13,8 +13,8 @@
 #include "../scoped_connection.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
+#include "../time/timer.hpp"
 #include "../string.hpp"
-#include "../timer.hpp"
 #include "../export.hpp"
 #include "console.hpp"
 
@@ -59,7 +59,7 @@ class console_gfx
 	bool active_;
 
 	// input and history stuff
-	timer cursor_timer;
+	time::timer cursor_timer;
 	action_var<space_unit>::type cursor_rate;
 	bool cursor_active;
 	string::value_type cursor_char;
