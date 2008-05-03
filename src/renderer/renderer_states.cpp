@@ -74,11 +74,10 @@ sge::renderer_state_list sge::renderer_state_list::operator()(
 void sge::renderer_state_list::overwrite(
 	any_renderer_state const& a)
 {
-//	const set_type::iterator it(set_.find(a));
-//	if(it != set_.end())
-//		*it = a;
-//	else
-		set_.insert(a);
+	const set_type::iterator it(set_.find(a));
+	if(it != set_.end())
+		set_.erase(it);
+	set_.insert(a);
 	// TODO: is there a better way to do this?
 }
 
