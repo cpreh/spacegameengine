@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/win32_conv.hpp>
 #include <sge/codecvt.hpp>
 
-#ifndef SGE_NARROW_STRING
+#ifdef SGE_NARROW_STRING
 sge::win_string sge::sge_str_to_win(const string& in)
 {
 	return in;
