@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/array.hpp>
 #elif SGE_POSIX_PLATFORM
 #include <dlfcn.h>
+#else
+#error "Implement me!"
 #endif
 
 sge::library::library(const path& nname)
