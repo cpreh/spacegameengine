@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_HAVE_X11
 
 #include <sge/exception.hpp>
 #include <sge/x_display.hpp>
@@ -47,4 +47,4 @@ Display* sge::x_display::get() const
 {
 	return d;
 }
-#endif // SGE_LINUX_PLATFORM
+#endif

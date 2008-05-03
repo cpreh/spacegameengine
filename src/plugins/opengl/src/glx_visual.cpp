@@ -19,12 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_HAVE_X11
 #include <GL/glx.h>
 #include "../glx_visual.hpp"
 #include <sge/exception.hpp>
 
-sge::ogl::glx_visual::glx_visual(const x_display_ptr dsp, const int screen, const int* const attributes)
+sge::ogl::glx_visual::glx_visual(
+	const x_display_ptr dsp,
+	const int screen,
+	const int* const attributes)
 : vi(glXChooseVisual(dsp->get(), screen, const_cast<int*>(attributes)))
 {
 	if(!vi.get())

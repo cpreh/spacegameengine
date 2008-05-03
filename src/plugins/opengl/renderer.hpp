@@ -25,13 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "render_target.hpp"
 #include "fbo_render_target.hpp"
 #include "state_stack.hpp"
-#ifdef SGE_WINDOWS_PLATFORM
+#if defined(SGE_WINDOWS_PLATFORM)
 #include "wgl_context.hpp"
 #include "wgl_current.hpp"
 #include <sge/gdi_device.hpp>
 #include <sge/win32_window.hpp>
 #include <sge/windows.hpp>
-#elif SGE_LINUX_PLATFORM
+#elif defined(SGE_HAVE_X11)
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 #include "xf86vidmode.hpp"
@@ -41,7 +41,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glx_context.hpp"
 #include "x_colormap.hpp"
 #include <sge/x_window.hpp>
+#else
+#error "Implement me!"
 #endif
+#include <sge/renderer/adapter.hpp>
 #include <sge/renderer/renderer.hpp>
 #include <sge/renderer/renderer_parameters.hpp>
 #include <sge/window.hpp>
@@ -59,7 +62,7 @@ class renderer : public sge::renderer, public boost::signals::trackable {
 public:
 	renderer(
 		const renderer_parameters& param,
-		unsigned adapter,
+		adapter_type adapter,
 		window_ptr wnd);
 
 	void begin_rendering();
@@ -161,12 +164,12 @@ private:
 	renderer_caps       caps_;
 	state_stack         state_levels;
 	renderer_state_list current_states;
-#ifdef SGE_WINDOWS_PLATFORM
+#if defined(SGE_WINDOWS_PLATFORM)
 	win32_window_ptr               wnd;
 	boost::scoped_ptr<gdi_device>  hdc;
 	boost::scoped_ptr<wgl_context> context;
 	boost::scoped_ptr<wgl_current> current;
-#elif SGE_LINUX_PLATFORM
+#elif defined(SGE_HAVE_X11)
 	void reset_viewport_on_map(const XEvent&);
 	void reset_viewport_on_configure(const XEvent&);
 	void center_viewport(int w, int h);

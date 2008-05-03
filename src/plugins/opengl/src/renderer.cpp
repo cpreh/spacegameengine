@@ -41,12 +41,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../state_visitor.hpp"
 #include "../common.hpp"
-#ifdef SGE_WINDOWS_PLATFORM
+#if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows.hpp>
 #include <sge/win32_window.hpp>
-#elif SGE_LINUX_PLATFORM
+#elif defined(SGE_HAVE_X11)
 #include <sge/x_window.hpp>
 #include <boost/bind.hpp>
+#else
+#error "Implement me!"
 #endif
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
@@ -62,9 +64,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/variant/apply_visitor.hpp>
 
 // TODO: maybe support different adapters?
-sge::ogl::renderer::renderer(const renderer_parameters& param,
-                             const unsigned adapter,
-                             const window_ptr wnd_param)
+sge::ogl::renderer::renderer(
+	const renderer_parameters& param,
+	const adapter_type adapter,
+	const window_ptr wnd_param)
  : param(param),
    caps_(
    	adapter,
@@ -74,7 +77,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 	get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
    state_levels(*this),
    current_states(default_renderer_states())
-#ifdef SGE_LINUX_PLATFORM
+#if defined(SGE_HAVE_X11)
    , dsp(new x_display())
 #endif
 {
@@ -82,7 +85,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
 
 	bool windowed = param.windowed;
-#ifdef SGE_WINDOWS_PLATFORM
+#if defined(SGE_WINDOWS_PLATFORM)
 	const unsigned color_depth = bit_depth_bit_count(param.mode.depth);
 	if(!windowed)
 	{
@@ -139,7 +142,7 @@ sge::ogl::renderer::renderer(const renderer_parameters& param,
 
 	current.reset(new wgl_current(*hdc, *context));
 
-#elif SGE_LINUX_PLATFORM
+#elif defined(SGE_HAVE_X11)
 	const int screen = XDefaultScreen(dsp->get());
 
 	if(!windowed)
@@ -268,10 +271,10 @@ const sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(
 
 void sge::ogl::renderer::end_rendering()
 {
-#ifdef SGE_LINUX_PLATFORM
+#if defined(SGE_HAVE_X11)
 	SGE_OPENGL_SENTRY
 	glXSwapBuffers(dsp->get(), wnd->get_window());
-#elif SGE_WINDOWS_PLATFORM
+#elif defined(SGE_WINDOWS_PLATFORM)
 	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception(SGE_TEXT("wglSwapLayerBuffers() failed!"));
 #endif
@@ -423,7 +426,7 @@ void sge::ogl::renderer::set_viewport(const viewport& v)
 	glViewport(v.x, v.y, v.w, v.h);
 }
 
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_HAVE_X11
 void sge::ogl::renderer::reset_viewport_on_map(const XEvent&)
 {
 	center_viewport(wnd->width(), wnd->height());

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/win32_conv.hpp>
 #include <sge/windows.hpp>
 #include <boost/array.hpp>
-#elif SGE_LINUX_PLATFORM
+#elif SGE_POSIX_PLATFORM
 #include <dlfcn.h>
 #endif
 
@@ -35,7 +35,7 @@ sge::library::library(const path& nname)
  :
 #ifdef SGE_WINDOWS_PLATFORM
   handle(reinterpret_cast<void*>(LoadLibrary(nname.string().c_str())))
-#elif SGE_LINUX_PLATFORM
+#elif SGE_POSIX_PLATFORM
    handle(dlopen(iconv(nname.string()).c_str(), RTLD_NOW | RTLD_GLOBAL))
 #endif
   , name_(nname)
@@ -50,7 +50,7 @@ sge::library::~library()
 	{
 #ifdef SGE_WINDOWS_PLATFORM
 		FreeLibrary(static_cast<HINSTANCE__*>(handle));
-#elif SGE_LINUX_PLATFORM
+#elif SGE_POSIX_PLATFORM
 		dlclose(handle);
 #endif
 	}
@@ -66,7 +66,7 @@ sge::library::base_fun sge::library::load_address_base(const std::string& fun)
 	return funptr_cast<base_fun>(
 #ifdef SGE_WINDOWS_PLATFORM
 		GetProcAddress(static_cast<HINSTANCE__*>(handle), fun.c_str())
-#elif SGE_LINUX_PLATFORM
+#elif SGE_POSIX_PLATFORM
 		dlsym(handle, fun.c_str())
 #endif
 	);
@@ -74,7 +74,7 @@ sge::library::base_fun sge::library::load_address_base(const std::string& fun)
 
 sge::string sge::library::liberror()
 {
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_POSIX_PLATFORM
 	return iconv(dlerror());
 #else
 	const DWORD lasterror = GetLastError();

@@ -30,10 +30,12 @@ typedef void (*version_function)(sge::plugin_info*);
 
 const char* const plugin_path = PLUGIN_PATH;
 const sge::string::const_pointer plugin_extension =
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_POSIX_PLATFORM
 	SGE_TEXT(".so")
 #elif SGE_WINDOWS_PLATFORM
 	SGE_TEXT(".dll")
+#else
+#error "Don't know which plugin extension to use!"
 #endif
 	;
 

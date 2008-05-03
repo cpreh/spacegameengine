@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/time/time.hpp>
 
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_POSIX_PLATFORM
 #include <sys/time.h>
 #elif SGE_WINDOWS_PLATFORM
 #include <sge/windows.hpp>
+#else
+#error "Implement me!"
 #endif
 
 
@@ -51,7 +53,7 @@ private:
 
 sge::time::unit sge::time::time()
 {
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_POSIX_PLATFORM
 	struct timeval tv;
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
@@ -66,7 +68,7 @@ sge::time::unit sge::time::time()
 
 sge::time::unit sge::time::hz()
 {
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_POSIX_PLATFORM
 	return 1000 * 1000;
 #elif SGE_WINDOWS_PLATFORM
 	return instance.use_performance_counter()

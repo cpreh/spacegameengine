@@ -1,6 +1,7 @@
 PROJECT (spacegameengine)
 
 INCLUDE (CheckCXXSourceCompiles)
+INCLUDE (CheckCXXSourceRuns)
 INCLUDE (OWGetGCCVersion.cmake)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
@@ -17,6 +18,23 @@ CHECK_CXX_SOURCE_COMPILES(
 	"static_assert(sizeof(char) == 1, \"sizeof char is 1\"); int main(){}"
 	SGE_HAVE_STATIC_ASSERT
 )
+
+CHECK_CXX_SOURCE_COMPILES(
+	"#include <X11/Xlib.h>
+	 int main(){}"
+	 SGE_HAVE_X11
+)
+
+CHECK_CXX_SOURCE_RUNS(
+	"#include <unistd.h>
+	 #include <cstdlib>
+	 int main()
+	 {
+	   return _POSIX_VERSION >= 200100
+	          ? EXIT_SUCCESS
+		  : EXIT_FAILURE;
+	 }"
+	 SGE_HAVE_POSIX)
 
 IF (${CMAKE_COMPILER_IS_GNUCXX})
 	ow_get_gcc_version (gccversion)
