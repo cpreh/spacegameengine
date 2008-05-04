@@ -194,17 +194,17 @@ template<typename T>
 struct renderer_state_var {
 	typedef T value_type;
 
-	renderer_state_var<T> operator=(T newval);
+	SGE_SYMBOL renderer_state_var<T> operator=(T newval);
 	
-	T value() const;
+	SGE_SYMBOL T value() const;
 
 	const typename renderer_state_var_traits<T>::available_states state_id;
 
-	explicit renderer_state_var(
+	SGE_SYMBOL explicit renderer_state_var(
 		const typename renderer_state_var_traits<T>::available_states state_id,
 		const T defval = T());
 
-	bool operator<(renderer_state_var const&) const;
+	SGE_SYMBOL bool operator<(renderer_state_var const&) const;
 private:
 	T val;
 };

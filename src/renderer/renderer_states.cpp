@@ -87,18 +87,18 @@ sge::renderer_state_list::get() const
 	return set_;
 }
 
-template class sge::renderer_state_var<int>;
-template class sge::renderer_state_var<float>;
-template class sge::renderer_state_var<bool>;
-template class sge::renderer_state_var<sge::color>;
+template struct sge::renderer_state_var<int>;
+template struct sge::renderer_state_var<float>;
+template struct sge::renderer_state_var<bool>;
+template struct sge::renderer_state_var<sge::color>;
 
-template class sge::renderer_state_var<sge::renderer_state_cull_mode_type::type>;
-template class sge::renderer_state_var<sge::renderer_state_depth_func_type::type>;
-template class sge::renderer_state_var<sge::renderer_state_stencil_func_type::type>;
-template class sge::renderer_state_var<sge::renderer_state_fog_mode_type::type>;
-template class sge::renderer_state_var<sge::renderer_state_draw_mode_type::type>;
-template class sge::renderer_state_var<sge::renderer_state_source_blend_func_type::type>;
-template class sge::renderer_state_var<sge::renderer_state_dest_blend_func_type::type>;
+template struct sge::renderer_state_var<sge::renderer_state_cull_mode_type::type>;
+template struct sge::renderer_state_var<sge::renderer_state_depth_func_type::type>;
+template struct sge::renderer_state_var<sge::renderer_state_stencil_func_type::type>;
+template struct sge::renderer_state_var<sge::renderer_state_fog_mode_type::type>;
+template struct sge::renderer_state_var<sge::renderer_state_draw_mode_type::type>;
+template struct sge::renderer_state_var<sge::renderer_state_source_blend_func_type::type>;
+template struct sge::renderer_state_var<sge::renderer_state_dest_blend_func_type::type>;
 
 #undef STATE
 #define STATE(STATE_, NAME_) \
