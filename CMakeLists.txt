@@ -58,9 +58,18 @@ INCLUDE_DIRECTORIES (include)
 
 CONFIGURE_FILE(config.h.in include/sge/config.h)
 
-SET (pluginpath ${CMAKE_INSTALL_PREFIX}/lib/sge)
-SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/)
-SET (media_dest ${CMAKE_INSTALL_PREFIX}/share/games/sge/media/)
+SET (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+SET (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
+IF (WIN32)
+	SET (CMAKE_INSTALL_PREFIX "")
+	SET (pluginpath ${CMAKE_BINARY_DIR}/plugins)
+	SET (media_dest ${CMAKE_ROOT}/media)
+ELSE ()
+	SET (pluginpath ${CMAKE_INSTALL_PREFIX}/lib/sge)
+	SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/)
+	SET (media_dest ${CMAKE_INSTALL_PREFIX}/share/games/sge/media/)
+ENDIF ()
 
 IF (ENABLE_DEBUG AND CMAKE_COMPILER_IS_GNUCXX)
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -ggdb")

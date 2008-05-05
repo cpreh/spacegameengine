@@ -1,3 +1,7 @@
+IF (WIN32)
+	SET (LIBRARY_OUTPUT_PATH ${pluginpath})
+ENDIF ()
+
 IF (${ENABLE_OPENGL})
 	ADD_SUBDIRECTORY (opengl)
 ENDIF ()
