@@ -19,6 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/plugin.hpp>
+#include <sge/audio/loader/audio_loader.hpp>
+#include <sge/audio/player/audio_player.hpp>
+#include <sge/font/font_system.hpp>
+#include <sge/image/image_loader.hpp>
+#include <sge/input/input_system.hpp>
+#include <sge/renderer/renderer_system.hpp>
 
 sge::plugin_info::plugin_info()
  : name(0),
@@ -27,3 +33,22 @@ sge::plugin_info::plugin_info()
    min_core_version(0),
    type(plugin_type::nothing)
 {}
+
+template<typename T>
+sge::plugin<T>::plugin(const path& p)
+: lib(p),
+  loader(lib.load_function<loader_fun>(detail::plugin_traits<T>::plugin_loader_name()))
+{}
+
+template<typename T>
+typename sge::plugin<T>::loader_fun sge::plugin<T>::get() const
+{
+	return loader;
+}
+
+template class sge::plugin<sge::audio_loader>;
+template class sge::plugin<sge::audio_player>;
+template class sge::plugin<sge::font_system>;
+template class sge::plugin<sge::image_loader>;
+template class sge::plugin<sge::input_system>;
+template class sge::plugin<sge::renderer_system>;

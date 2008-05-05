@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_HPP_INCLUDED
 #define SGE_PLUGIN_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
 #include "shared_ptr.hpp"
 #include "plugin_traits.hpp"
 #include "library.hpp"
 #include "export.hpp"
 #include "path.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -51,8 +51,8 @@ public:
 	typedef typename detail::plugin_traits<T>::loader_fun loader_fun;
 	typedef shared_ptr<plugin<T> > ptr_type;
 
-	plugin(const path&);
-	loader_fun get() const;
+	SGE_SYMBOL plugin(const path&);
+	SGE_SYMBOL loader_fun get() const;
 private:
 	library lib;
 	const loader_fun loader;
@@ -60,7 +60,4 @@ private:
 
 }
 
-#include "detail/plugin_impl.hpp"
-
 #endif
-
