@@ -563,8 +563,7 @@ void sge::xinput::input_system::on_motion_event(const XEvent& xev)
 void sge::xinput::input_system::on_key_event(const XEvent& xev)
 {
 	// check for repeated key (thanks to SDL)
-	if(xev.type == KeyRelease
-	   && xev.type == KeyRelease && XPending(wnd->display()->get()))
+	if(xev.type == KeyRelease && XPending(wnd->display()->get()))
 	{
 		XEvent peek;
 		XPeekEvent(wnd->display()->get(), &peek);
