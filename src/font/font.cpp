@@ -175,11 +175,9 @@ sge::font::line_width(
 
 		const font_unit nw = w + char_space(*sbeg);
 		if(nw > width)
-		{
-			if(last_width && !(flags & font_flags::no_line_wrap))
-				return text_size_t(font_dim(last_width, height()), last_white, boost::next(last_white));
-			return text_size_t(font_dim(w, height()), sbeg, sbeg);
-		}
+			return last_width && !(flags & font_flags::no_line_wrap)
+				? text_size_t(font_dim(last_width, height()), last_white, boost::next(last_white))
+				: text_size_t(font_dim(w, height()), sbeg, sbeg);
 		w = nw;
 	}
 	return text_size_t(font_dim(w, height()), send, send);
