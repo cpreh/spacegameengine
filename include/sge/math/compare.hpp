@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_COMPARE_HPP_INCLUDED
 #define SGE_MATH_COMPARE_HPP_INCLUDED
 
-#include <limits>
+#include "diff.hpp"
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
-#include "abs.hpp"
+#include <limits>
 
 namespace sge
 {
@@ -32,7 +32,7 @@ namespace math
 template<typename T>
 inline bool nearly_equals(const T& a, const T& b)
 {
-	return abs(a - b) < std::numeric_limits<T>::epsilon();
+	return diff(a, b) < std::numeric_limits<T>::epsilon();
 }
 
 template<typename T>
