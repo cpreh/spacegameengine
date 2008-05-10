@@ -74,7 +74,8 @@ sge::ogl::renderer::renderer(
    	"TODO",
 	"TODO",
 	2048, //get_int(GL_MAX_TEXTURE_SIZE), //FIXME
-	get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
+	//get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
+   0),
    state_levels(*this),
    current_states(default_renderer_states())
 #if defined(SGE_HAVE_X11)

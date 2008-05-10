@@ -60,7 +60,7 @@ SET (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
 IF (WIN32)
 	SET (pluginpath ${CMAKE_BINARY_DIR}/plugins)
-	SET (media_dest ${CMAKE_ROOT}/media)
+	SET (media_dest ${CMAKE_SOURCE_DIR}/media)
 ELSE ()
 	SET (pluginpath ${CMAKE_INSTALL_PREFIX}/lib/sge)
 	SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/)
