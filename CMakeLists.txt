@@ -2,7 +2,6 @@ PROJECT (spacegameengine)
 
 INCLUDE (CheckCXXSourceCompiles)
 INCLUDE (CheckCXXSourceRuns)
-INCLUDE (OWGetGCCVersion.cmake)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
@@ -39,11 +38,9 @@ CHECK_CXX_SOURCE_RUNS(
 	 SGE_HAVE_POSIX)
 
 IF (${CMAKE_COMPILER_IS_GNUCXX})
-	ow_get_gcc_version (gccversion)
-
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal")
 
-	IF (${gccversion} STRGREATER "4.3.0" OR ${gccversion} STREQUAL "4.3.0")
+	IF (${SGE_HAVE_VARIADIC_TEMPLATES})
 		SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wold-style-cast -std=c++0x")
 	ENDIF ()
 ELSEIF (${MSVC})
@@ -62,7 +59,6 @@ SET (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 SET (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
 IF (WIN32)
-	SET (CMAKE_INSTALL_PREFIX "")
 	SET (pluginpath ${CMAKE_BINARY_DIR}/plugins)
 	SET (media_dest ${CMAKE_ROOT}/media)
 ELSE ()
@@ -70,11 +66,6 @@ ELSE ()
 	SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/)
 	SET (media_dest ${CMAKE_INSTALL_PREFIX}/share/games/sge/media/)
 ENDIF ()
-
-IF (ENABLE_DEBUG AND CMAKE_COMPILER_IS_GNUCXX)
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -ggdb")
-ENDIF ()
-
 
 ADD_SUBDIRECTORY (src)
 

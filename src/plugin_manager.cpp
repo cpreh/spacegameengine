@@ -28,7 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 typedef void (*version_function)(sge::plugin_info*);
 
-const char* const plugin_path = PLUGIN_PATH;
+const char* const plugin_path =
+#ifndef _MSC_VER
+  PLUGIN_PATH
+#else
+PLUGIN_PATH "/" CMAKE_INTDIR
+#endif
+  ;
 const sge::string::const_pointer plugin_extension =
 #ifdef SGE_POSIX_PLATFORM
 	SGE_TEXT(".so")
