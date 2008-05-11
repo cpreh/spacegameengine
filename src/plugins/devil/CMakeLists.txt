@@ -1,8 +1,8 @@
 FILE (GLOB sgedevilfiles src/*.cpp)
 
 IF (MSVC)
-	INCLUDE_DIRECTORIES (${WININCLUDES}/DevIL/include)
-	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/DevIL/lib)
+	INCLUDE_DIRECTORIES (${WININCLUDES}/devil/include)
+	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/devil/lib)
 ENDIF ()
 
 ADD_LIBRARY (sgedevil SHARED ${sgedevilfiles})

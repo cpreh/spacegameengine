@@ -1,8 +1,8 @@
 FILE (GLOB sgefreetypefiles src/*.cpp)
 
 IF (MSVC)
-	INCLUDE_DIRECTORIES (${WININCLUDES}/Freetype/include ${WININCLUDES}/Freetype/include/freetype2)
-	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/Freetype/lib)
+	INCLUDE_DIRECTORIES (${WININCLUDES}/freetype/include ${WININCLUDES}/freetype/include/freetype2)
+	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/freetype/lib)
 ENDIF ()
 
 ADD_LIBRARY (sgefreetype SHARED ${sgefreetypefiles})
