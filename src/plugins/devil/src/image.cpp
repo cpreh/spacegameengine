@@ -18,6 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+// FIXME: sadly, it seems that devil's unicode support is broken
+#undef UNICODE
+#undef _UNICODE
+
 #include <IL/ilu.h>
 #include "../image.hpp"
 #include "../error.hpp"
@@ -29,11 +33,11 @@ sge::devil::image::image(const path& file)
 {
 	bind_me();
 	if(ilLoadImage(
-#ifdef UNICODE
-		const_cast<wchar_t*>(file.string().c_str())
-#else
+//#ifdef UNICODE
+//		const_cast<wchar_t*>(file.string().c_str())
+//#else
 		const_cast<char*>(iconv(file.string()).c_str())
-#endif
+//#endif
 		) == IL_FALSE)
 		throw exception(string(SGE_TEXT("ilLoadImage() failed! Could not load '")) += file.string() + SGE_TEXT("'!"));
 }
@@ -113,11 +117,11 @@ void sge::devil::image::save(const path& file)
 	ilRegisterOrigin(IL_ORIGIN_UPPER_LEFT);
 
 	ilSaveImage(
-#ifdef UNICODE
-		const_cast<wchar_t*>(file.string().c_str())
-#else
+//#ifdef UNICODE
+//		const_cast<wchar_t*>(file.string().c_str())
+//#else
 		const_cast<char*>(iconv(file.string()).c_str())
-#endif
+//#endif
 		);
 	ilDisable(IL_ORIGIN_SET);
 	check_errors();
