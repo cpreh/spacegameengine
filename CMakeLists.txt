@@ -38,7 +38,7 @@ CHECK_CXX_SOURCE_RUNS(
 	 SGE_HAVE_POSIX)
 
 IF (${CMAKE_COMPILER_IS_GNUCXX})
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal")
+	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self")
 
 	IF (${SGE_HAVE_VARIADIC_TEMPLATES})
 		SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wold-style-cast -std=c++0x")
