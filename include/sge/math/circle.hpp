@@ -29,7 +29,8 @@ namespace sge
 namespace math
 {
 
-template<typename T> class basic_circle {
+template<typename T>
+class basic_circle {
 public:
 	typedef T                                 value_type;
 	typedef T&                                reference;
@@ -53,6 +54,11 @@ private:
 	point_type origin_;
 	space_unit radius_;
 };
+
+template<typename T>
+bool intersects(
+	basic_circle<T> const&,
+	basic_circle<T> const&);
 
 typedef basic_circle<space_unit> circle;
 

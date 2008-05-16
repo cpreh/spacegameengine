@@ -68,4 +68,13 @@ sge::math::basic_circle<T>::radius() const
 	return radius_;
 }
 
+template<typename T>
+bool sge::math::intersects(
+	basic_circle<T> const &a,
+	basic_circle<T> const &b)
+{
+	return (a.origin() - b.origin()).length()
+	< a.radius() + b.radius();
+}
+
 #endif
