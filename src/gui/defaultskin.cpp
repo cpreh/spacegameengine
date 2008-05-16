@@ -17,13 +17,13 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include "../defaultskin.hpp"
+#include <sge/gui/defaultskin.hpp>
 
 #include <boost/weak_ptr.hpp>
 
-#include "../canvas.hpp"
-#include "../color.hpp"
-#include "../widget.hpp"
+#include <sge/gui/canvas.hpp>
+#include <sge/gui/color.hpp>
+#include <sge/gui/widget.hpp>
 
 namespace {
 	boost::weak_ptr<sge::gui::skin> defaultskin_instance;

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../manager.hpp"
-#include "../types.hpp"
+#include <sge/gui/manager.hpp>
+#include <sge/gui/types.hpp>
 
 sge::gui::manager *sge::gui::manager::top_level_widget() { return this; }
 

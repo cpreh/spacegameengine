@@ -17,7 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include "../widget.hpp"
+#include <sge/gui/widget.hpp>
 
 #undef MOUSE_EVENT_IMPL
 #define MOUSE_EVENT_IMPL(EVENT_TYPE, EVENT_INVOKE_NAME, EVENT_NAME) \

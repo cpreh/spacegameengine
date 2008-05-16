@@ -17,7 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include "../iconbutton.hpp"
+#include <sge/gui/iconbutton.hpp>
 
 sge::gui::iconbutton::iconbutton(widget * const parent, const std::string &name)
 : button(parent, name) {

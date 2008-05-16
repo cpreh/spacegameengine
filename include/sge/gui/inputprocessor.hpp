@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <list>
 
-#include "../../src/timer.hpp"
-#include "../../src/input/input_system.hpp"
+#include "../time/timer.hpp"
+#include "../input/input_system.hpp"
 
 #include "events.hpp"
 #include "types.hpp"
@@ -81,7 +81,7 @@ protected:
 	events::mouse_event mouse_event;
 	struct {
 		events::mouse_event::button button;
-		timer dblclick;
+		time::timer dblclick;
 		point position;
 	} pending_click;
 	fpoint relative_position;

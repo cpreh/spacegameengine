@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../manager.hpp"
+#include <sge/gui/manager.hpp>
 
-#include "../defaultskin.hpp"
-#include "../types.hpp"
+#include <sge/gui/defaultskin.hpp>
+#include <sge/gui/types.hpp>
 
 void sge::gui::manager::init() {
 	skin(defaultskin::get());

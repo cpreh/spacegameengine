@@ -67,6 +67,11 @@ ELSE ()
 	SET (media_dest ${CMAKE_INSTALL_PREFIX}/share/games/sge/media/)
 ENDIF ()
 
+MACRO (INSTALL_HEADERS subpath)
+	FILE (GLOB sgeheaders include/${subpath}/*.h*)
+	INSTALL (FILES ${sgeheaders} DESTINATION ${include_dest}${subpath})
+ENDMACRO ()
+
 ADD_SUBDIRECTORY (src)
 
 IF (${ENABLE_TEST})
@@ -81,11 +86,6 @@ ENDMACRO ()
 INSTALL_MEDIA (./)
 INSTALL_MEDIA (fonts)
 INSTALL_MEDIA (mainskin)
-
-MACRO (INSTALL_HEADERS subpath)
-	FILE (GLOB sgeheaders include/${subpath}/*.h*)
-	INSTALL (FILES ${sgeheaders} DESTINATION ${include_dest}${subpath})
-ENDMACRO ()
 
 INSTALL_HEADERS (sge)
 INSTALL_HEADERS (sge/archive)

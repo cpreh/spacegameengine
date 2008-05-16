@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../scrollbar.hpp"
+#include <sge/gui/scrollbar.hpp>
 
 sge::gui::scrollbar::drawer::drawer(widget * const parent, const std::string &name)
 : button(parent, name) {}

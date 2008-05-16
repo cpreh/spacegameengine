@@ -17,10 +17,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include "../widget.hpp"
+#include <sge/gui/widget.hpp>
 
-#include "../defaultskin.hpp"
-#include "../manager.hpp"
+#include <sge/gui/defaultskin.hpp>
+#include <sge/gui/manager.hpp>
 
 sge::gui::events::child_event sge::gui::widget::sge_gui_widget_child_event() const {
 	events::child_event ce;

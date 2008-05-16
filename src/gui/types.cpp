@@ -17,7 +17,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include "../types.hpp"
+#include <sge/gui/types.hpp>
 
 sge::gui::point sge::gui::point::normalize(const sge::gui::rect &area) const {
 	return point(

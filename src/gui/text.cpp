@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cassert>
 #include <cstring>
 
-#include "../../math/rect_impl.hpp"
-#include "../../renderer/font_drawer.hpp"
-#include "../../renderer/font.hpp"
-#include "../text.hpp"
+#include <sge/math/rect_impl.hpp>
+#include <sge/renderer/font_drawer.hpp>
+#include <sge/renderer/font.hpp>
+#include <sge/gui/text.hpp>
 
 namespace sge {
 namespace gui {
