@@ -246,13 +246,7 @@ const sge::volume_texture_ptr sge::ogl::renderer::create_volume_texture(
 	const filter_args& filter,
 	const resource_flag_t flags)
 {
-#ifndef SGE_OPENGL_HAVE_VOLUME_TEXTURE
-	on_not_supported(SGE_TEXT("volume_texture"),
-	                 SGE_TEXT("1.2"),
-	                 SGE_TEXT("gl_ext_texture3d"));
-#else
 	return volume_texture_ptr(new volume_texture(src, box, filter, flags));
-#endif
 }
 
 const sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(
@@ -261,13 +255,7 @@ const sge::cube_texture_ptr sge::ogl::renderer::create_cube_texture(
 	const filter_args& filter,
 	const resource_flag_t flags)
 {
-#ifndef SGE_OPENGL_HAVE_CUBE_TEXTURE
-	on_not_supported(SGE_TEXT("cube texture"),
-	                 SGE_TEXT("1.3"),
-	                 SGE_TEXT("gl_arb_cube_texture"));
-#else
 	return cube_texture_ptr(new cube_texture(src, sz, filter, flags));
-#endif
 }
 
 void sge::ogl::renderer::end_rendering()

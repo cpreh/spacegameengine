@@ -247,44 +247,6 @@ GLenum sge::ogl::convert_cast(const mag_filter::type& arg)
 	}
 }
 
-namespace
-{
-
-typedef boost::array<GLenum, sge::cube_side::num_elements> cube_side_array;
-const cube_side_array cube_sides =
-{
-	{
-#ifdef SGE_OPENGL_CUBE_TEXTURE
-		GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
-		GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
-		GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
-		GL_TEXTURE_CUBE_MAP_POSITIVE_X,
-		GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
-		GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
-#elif SGE_OPENGL_CUBE_TEXTURE_ARB
-		GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB,
-		GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB,
-		GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB,
-		GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB,
-		GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB,
-		GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB
-#endif
-	}
-};
-
-}
-
-#ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
-GLenum sge::ogl::convert_cast(const cube_side::type& s)
-{
-	const cube_side_array::size_type pos = static_cast<cube_side_array::size_type>(s);
-	if(pos >= cube_sides.size())
-		throw exception(SGE_TEXT("Invalid cube_side!"));
-
-	return cube_sides[pos];
-}
-#endif
-
 GLenum sge::ogl::convert_cast(const texture_stage_op::type& op)
 {
 	switch(op) {

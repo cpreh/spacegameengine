@@ -28,13 +28,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/algorithm.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 
-template class sge::ogl::basic_texture<sge::texture, GL_TEXTURE_2D>;
+template class sge::ogl::basic_texture<sge::texture>;
 
-sge::ogl::texture::texture(const const_pointer src,
-                           const dim_type& dim_,
-                           const filter_args& filter_,
-                           const resource_flag_t flags)
- : detail::texture_base(filter_, flags),
+namespace
+{
+
+const GLenum texture_type = GL_TEXTURE_2D;
+
+}
+
+sge::ogl::texture::texture(
+	const const_pointer src,
+	const dim_type& dim_,
+	const filter_args& filter_,
+	const resource_flag_t flags)
+ : detail::texture_base(filter_, flags, texture_type),
    dim_(dim_)
 {
 	if(src)
@@ -51,7 +59,7 @@ const sge::ogl::texture::dim_type sge::ogl::texture::dim() const
 void sge::ogl::texture::set_data(const const_pointer src, const lock_rect& r)
 {
 	pre_setdata();
-	set_texture_rect(GL_TEXTURE_2D, filter(), dim(), r, src);
+	set_texture_rect(type(), filter(), dim(), r, src);
 }
 
 void sge::ogl::texture::set_data(const const_pointer src)
@@ -88,5 +96,5 @@ void sge::ogl::texture::unlock()
 void sge::ogl::texture::set_texture(const const_pointer src)
 {
 	pre_setdata();
-	ogl::set_texture(GL_TEXTURE_2D, filter(), dim(), src);
+	ogl::set_texture(type(), filter(), dim(), src);
 }

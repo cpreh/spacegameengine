@@ -49,9 +49,6 @@ GLenum convert_cast(const indexed_primitive_type::type&);
 GLenum convert_cast(const nonindexed_primitive_type::type&);
 GLenum convert_cast(const min_filter::type&);
 GLenum convert_cast(const mag_filter::type&);
-#ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
-GLenum convert_cast(const cube_side::type&);
-#endif
 GLenum convert_cast(const texture_stage_op::type&);
 GLenum convert_cast(const texture_stage_op_value::type&);
 GLenum convert_cast(const texture_stage_arg::type&);
@@ -65,4 +62,3 @@ GLenum convert_clear_bit(bool_state::type);
 }
 
 #endif
-

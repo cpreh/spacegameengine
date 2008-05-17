@@ -28,39 +28,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cassert>
 #include <algorithm>
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::check_lock() const
+template<typename Base>
+void sge::ogl::basic_texture<Base>::check_lock() const
 {
 	if(!cur_buffer)
 		throw exception(SGE_TEXT("ogl pbo used which is not locked!"));
 }
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::bind_me() const
+template<typename Base>
+void sge::ogl::basic_texture<Base>::bind_me() const
 {
-	bind_texture(Type, id());
+	bind_texture(type(), id());
 }
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::set_my_filter() const
+template<typename Base>
+void sge::ogl::basic_texture<Base>::set_my_filter() const
 {
-	set_texture_filter(Type, filter());
+	set_texture_filter(type(), filter());
 }
 
-template<typename Base, GLenum Type>
-GLuint sge::ogl::basic_texture<Base, Type>::id() const
+template<typename Base>
+GLuint sge::ogl::basic_texture<Base>::id() const
 {
 	return id_;
 }
 
-template<typename Base, GLenum Type>
-const sge::filter_args& sge::ogl::basic_texture<Base, Type>::filter() const
+template<typename Base>
+const sge::filter_args& sge::ogl::basic_texture<Base>::filter() const
 {
 	return filter_;
 }
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::do_lock(const lock_flag_t lmode)
+template<typename Base>
+void sge::ogl::basic_texture<Base>::do_lock(const lock_flag_t lmode)
 {
 	if(cur_buffer)
 		throw exception(SGE_TEXT("ogl::basic_texture::do_lock(): texture is already locked!"));
@@ -90,8 +90,8 @@ void sge::ogl::basic_texture<Base, Type>::do_lock(const lock_flag_t lmode)
 	assert(cur_buffer);
 }
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::post_lock()
+template<typename Base>
+void sge::ogl::basic_texture<Base>::post_lock()
 {
 	if(!cur_buffer)
 		throw exception(SGE_TEXT("ogl::basic_texture::post_lock(): texture is not locked!"));
@@ -99,8 +99,8 @@ void sge::ogl::basic_texture<Base, Type>::post_lock()
 	cur_buffer->lock(lock_mode());
 }
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::pre_unlock()
+template<typename Base>
+void sge::ogl::basic_texture<Base>::pre_unlock()
 {
 	if(!cur_buffer)
 		throw exception(SGE_TEXT("ogl::basic_texture::pre_unlock(): texture is not locked!"));
@@ -118,8 +118,8 @@ void sge::ogl::basic_texture<Base, Type>::pre_unlock()
 	cur_buffer->unlock();
 }
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::do_unlock()
+template<typename Base>
+void sge::ogl::basic_texture<Base>::do_unlock()
 {
 	if(!cur_buffer)
 		throw exception(SGE_TEXT("ogl::basic_texture::do_unlock(): texture is not locked!"));
@@ -134,22 +134,24 @@ void sge::ogl::basic_texture<Base, Type>::do_unlock()
 	cur_buffer = 0;
 }
 
-template<typename Base, GLenum Type>
-sge::lock_flag_t sge::ogl::basic_texture<Base, Type>::lock_mode() const
+template<typename Base>
+sge::lock_flag_t sge::ogl::basic_texture<Base>::lock_mode() const
 {
 	return lock_mode_;
 }
 
-template<typename Base, GLenum Type>
-typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::read_buffer() const
+template<typename Base>
+typename sge::ogl::basic_texture<Base>::pointer
+sge::ogl::basic_texture<Base>::read_buffer() const
 {
 	if(!pack_buffer)
 		throw exception(SGE_TEXT("pack_buffer not set in basic_texture::read_buffer()!"));
 	return pack_buffer->buffer_offset(0);
 }
 
-template<typename Base, GLenum Type>
-typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::write_buffer() const
+template<typename Base>
+typename sge::ogl::basic_texture<Base>::pointer
+sge::ogl::basic_texture<Base>::write_buffer() const
 {
 	if(!unpack_buffer)
 		throw exception(SGE_TEXT("unpack_buffer not set in basic_texture::write_buffer()!"));
@@ -157,17 +159,19 @@ typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Ba
 	return unpack_buffer->buffer_offset(0);
 }
 
-template<typename Base, GLenum Type>
-void sge::ogl::basic_texture<Base, Type>::pre_setdata() const
+template<typename Base>
+void sge::ogl::basic_texture<Base>::pre_setdata() const
 {
 	bind_me();
 	set_my_filter();
 }
 
-template<typename Base, GLenum Type>
-sge::ogl::basic_texture<Base, Type>::basic_texture(const filter_args& filter_,
-                                                   const resource_flag_t flags_)
- : texture_base(Type),
+template<typename Base>
+sge::ogl::basic_texture<Base>::basic_texture(
+	const filter_args& filter_,
+	const resource_flag_t flags_,
+	const GLenum type_)
+ : texture_base(type_),
    filter_(filter_),
    flags_(flags_),
    id_(gen_texture()),
@@ -175,27 +179,29 @@ sge::ogl::basic_texture<Base, Type>::basic_texture(const filter_args& filter_,
 {}
 
 
-template<typename Base, GLenum Type>
-sge::ogl::basic_texture<Base, Type>::~basic_texture()
+template<typename Base>
+sge::ogl::basic_texture<Base>::~basic_texture()
 {
 	delete_texture(id());
 }
 
-template<typename Base, GLenum Type>
-sge::resource_flag_t sge::ogl::basic_texture<Base, Type>::flags() const
+template<typename Base>
+sge::resource_flag_t sge::ogl::basic_texture<Base>::flags() const
 {
 	return flags_;
 }
 
-template<typename Base, GLenum Type>
-typename sge::ogl::basic_texture<Base, Type>::pointer sge::ogl::basic_texture<Base, Type>::data()
+template<typename Base>
+typename sge::ogl::basic_texture<Base>::pointer
+sge::ogl::basic_texture<Base>::data()
 {
 	check_lock();
 	return cur_buffer->data();
 }
 
-template<typename Base, GLenum Type>
-typename sge::ogl::basic_texture<Base, Type>::const_pointer sge::ogl::basic_texture<Base, Type>::data() const
+template<typename Base>
+typename sge::ogl::basic_texture<Base>::const_pointer
+sge::ogl::basic_texture<Base>::data() const
 {
 	check_lock();
 	return cur_buffer->data();

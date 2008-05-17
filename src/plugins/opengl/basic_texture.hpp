@@ -33,7 +33,7 @@ namespace sge
 namespace ogl
 {
 
-template<typename Base, GLenum Type>
+template<typename Base>
 class basic_texture : public Base, public texture_base {
 	void check_lock() const;
 public:
@@ -57,8 +57,11 @@ protected:
 	pointer write_buffer() const;
 	
 	void pre_setdata() const;
+	basic_texture(
+		const filter_args& filter,
+		resource_flag_t flags,
+		GLenum type);
 public:
-	basic_texture(const filter_args& filter, resource_flag_t flags);
 	~basic_texture();
 	resource_flag_t flags() const;
 	pointer data();

@@ -20,21 +20,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../cube_texture.hpp"
-#ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
 #include "../conversion.hpp"
 #include "../error.hpp"
 #include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
+#include "../version.hpp"
 #include <sge/renderer/scoped_lock.hpp>
+#include <boost/assign/list_of.hpp>
 #include <algorithm>
 
-template class sge::ogl::basic_texture<sge::cube_texture, sge::ogl::detail::cube_texture_type>;
+namespace
+{
 
-sge::ogl::cube_texture::cube_texture(const cube_side_array* const src,
-                                     const size_type sz,
-                                     const filter_args& filter,
-                                     const resource_flag_t flags)
- : detail::cube_texture_base(filter, flags),
+void initialize_cube_texture();
+GLenum cube_texture_type();
+
+GLenum gl_cube_texture_type;
+
+}
+
+template class sge::ogl::basic_texture<sge::cube_texture>;
+
+sge::ogl::cube_texture::cube_texture(
+	const cube_side_array* const src,
+	const size_type sz,
+	const filter_args& filter,
+	const resource_flag_t flags)
+ : detail::cube_texture_base(filter, flags, cube_texture_type()),
   sz(sz)
 {
 	if(src)
@@ -80,4 +92,59 @@ void sge::ogl::cube_texture::set_data(const cube_side::type side, const const_po
 {
 	
 }*/
-#endif
+
+GLenum sge::ogl::convert_cast(const cube_side::type& s)
+{
+	typedef boost::array<GLenum, sge::cube_side::num_elements> cube_side_array;
+	static const cube_side_array cube_sides = cube_texture_type() == GL_TEXTURE_CUBE_MAP
+		? boost::assign::list_of
+			(GL_TEXTURE_CUBE_MAP_POSITIVE_Z)
+			(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z)
+			(GL_TEXTURE_CUBE_MAP_NEGATIVE_X)
+			(GL_TEXTURE_CUBE_MAP_POSITIVE_X)
+			(GL_TEXTURE_CUBE_MAP_POSITIVE_Y)
+			(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y)
+		: boost::assign::list_of
+			(GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB)
+			(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB)
+			(GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB)
+			(GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB)
+			(GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB)
+			(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB);
+
+
+	const cube_side_array::size_type pos = static_cast<cube_side_array::size_type>(s);
+	if(pos >= cube_sides.size())
+		throw exception(SGE_TEXT("Invalid cube_side!"));
+
+	return cube_sides[pos];
+}
+
+namespace
+{
+
+void initialize_cube_texture()
+{
+	static bool initialized = false;
+	if(initialized)
+		return;
+	initialized = true;
+
+	if(GLEW_VERSION_1_3)
+		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP;
+	else if(GLEW_ARB_texture_cube_map)
+		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP_ARB;
+	else
+		sge::ogl::on_not_supported(
+			SGE_TEXT("cube texture"),
+			SGE_TEXT("1.3"),
+	        	SGE_TEXT("gl_arb_cube_texture"));
+}
+
+GLenum cube_texture_type()
+{
+	initialize_cube_texture();
+	return gl_cube_texture_type;
+}
+
+}

@@ -32,15 +32,16 @@ namespace ogl
 
 namespace detail
 {
-typedef basic_texture<sge::texture, GL_TEXTURE_2D> texture_base;
+typedef basic_texture<sge::texture> texture_base;
 }
 
 class texture : public detail::texture_base {
 public:
-	texture(const_pointer src,
-	        const dim_type& dim,
-	        const filter_args& filter,
-	        resource_flag_t flags);
+	texture(
+		const_pointer src,
+		const dim_type& dim,
+		const filter_args& filter,
+		resource_flag_t flags);
 
 	const dim_type dim() const;
 

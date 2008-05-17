@@ -20,19 +20,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../volume_texture.hpp"
-#ifdef SGE_OPENGL_HAVE_VOLUME_TEXTURE
 #include "../error.hpp"
+#include "../version.hpp"
 #include "../basic_texture_impl.hpp"
-#include <sge/stub.hpp>
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
 #include <sge/math/box_impl.hpp>
+#include <cassert>
 
-template class sge::ogl::basic_texture<sge::volume_texture, sge::ogl::detail::volume_texture_type>;
+namespace
+{
 
-sge::ogl::volume_texture::volume_texture(const const_pointer src,
-                                         const box_type& box_,
-                                         const filter_args& filter,
-                                         const resource_flag_t flags)
- : detail::volume_texture_base(filter, flags),
+void initialize_volume_texture();
+GLenum volume_texture_type();
+
+GLenum gl_volume_texture_type;
+
+}
+
+template class sge::ogl::basic_texture<sge::volume_texture>;
+
+sge::ogl::volume_texture::volume_texture(
+	const const_pointer src,
+	const box_type& box_,
+	const filter_args& filter,
+	const resource_flag_t flags)
+ : detail::volume_texture_base(filter, flags, volume_texture_type()),
    box_(box_)
 {
 	set_data(src);
@@ -50,45 +63,73 @@ void sge::ogl::volume_texture::set_data(const const_pointer src)
 
 	SGE_OPENGL_SENTRY
 
-#ifdef SGE_OPENGL_VOLUME_TEXTURE
-	glTexImage3D(
-#elif SGE_OPENGL_VOLUME_TEXTURE_EXT
-	glTexImage3DEXT(
-#endif
-	             detail::volume_texture_type,
-	             0,
-	             4,
-	             static_cast<GLsizei>(box().w()),
-	             static_cast<GLsizei>(box().h()),
-	             static_cast<GLsizei>(box().d()),
-	             0,
-	             format,
-	             type,
-	             src);
+	if(volume_texture_type() == GL_TEXTURE_3D)
+		glTexImage3D(
+	        	volume_texture_type(),
+	        	0,
+	        	4,
+	        	static_cast<GLsizei>(box().w()),
+	        	static_cast<GLsizei>(box().h()),
+	        	static_cast<GLsizei>(box().d()),
+	        	0,
+	        	format,
+	        	type,
+	        	src);
+	else if(volume_texture_type() == GL_TEXTURE_3D_EXT) // avoid possible double case
+	{}
+		// TODO:
 }
 
 void sge::ogl::volume_texture::set_data(const const_pointer src, const lock_box& b)
 {
-#ifdef SGE_OPENGL_VOLUME_TEXTURE
+	if(volume_texture_type() == GL_EXT_texture3D)
+		throw exception(
+			SGE_TEXT("GL_EXT_texture3d can't set sub images!"));
+	
 	pre_setdata();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
 	SGE_OPENGL_SENTRY
 
-	glTexSubImage3D(detail::volume_texture_type,
-	                0,
-	                static_cast<GLint>(b.left()),
-	                static_cast<GLint>(b.top()),
-	                static_cast<GLint>(b.front()),
-	                static_cast<GLsizei>(b.w()),
-	                static_cast<GLsizei>(b.h()),
-	                static_cast<GLsizei>(b.d()),
-	                format,
-	                type,
-	                src);
-#else
-	SGE_STUB_FUNCTION
-#endif
+	glTexSubImage3D(
+		volume_texture_type(),
+		0,
+		static_cast<GLint>(b.left()),
+		static_cast<GLint>(b.top()),
+		static_cast<GLint>(b.front()),
+		static_cast<GLsizei>(b.w()),
+		static_cast<GLsizei>(b.h()),
+		static_cast<GLsizei>(b.d()),
+		format,
+		type,
+		src);
 }
 
-#endif
+namespace
+{
+
+void initialize_volume_texture()
+{
+	static bool initialized = false;
+	if(initialized)
+		return;
+	initialized = true;
+
+	if(GLEW_VERSION_1_2)
+		gl_volume_texture_type = GL_TEXTURE_3D;
+	else if(GLEW_EXT_texture3D)
+		gl_volume_texture_type = GL_TEXTURE_3D_EXT;
+	else
+		sge::ogl::on_not_supported(
+			SGE_TEXT("volume_texture"),
+			SGE_TEXT("1.2"),
+			SGE_TEXT("gl_ext_texture3d"));
+}
+
+GLenum volume_texture_type()
+{
+	initialize_volume_texture();
+	return gl_volume_texture_type;
+}
+
+}

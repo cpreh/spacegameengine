@@ -37,7 +37,7 @@ public:
 protected:
 	texture_base(const GLenum type);
 private:
-	GLenum _type;
+	GLenum type_;
 };
 
 }
