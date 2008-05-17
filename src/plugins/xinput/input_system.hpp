@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_XINPUT_INPUT_SYSTEM_HPP
 #define SGE_XINPUT_INPUT_SYSTEM_HPP
 
+#include <X11/Xlib.h>
 #include "pointer.hpp"
 #include "x_color.hpp"
 #include "x_pixmap.hpp"
@@ -33,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector.hpp>
 #include <boost/signals/connection.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <map>
 
 namespace sge
 {
@@ -73,15 +73,13 @@ private:
 	x_window_ptr wnd;
 	Colormap colormap;
 
-	x_color _black;
-	x_pixmap _no_bmp;
-	x_cursor _no_cursor;
+	x_color black_;
+	x_pixmap no_bmp_;
+	x_cursor no_cursor_;
 #ifdef USE_DGA
-	dga_guard _dga_guard;
+	dga_guard dga_guard_;
 #endif
 	bool use_dga;
-	typedef std::map<KeySym, key_code> x11_to_sge_array;
-	x11_to_sge_array   x11tosge;
 
 	boost::ptr_vector<boost::signals::scoped_connection> connections;
 
