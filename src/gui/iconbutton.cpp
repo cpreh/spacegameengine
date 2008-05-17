@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include <sge/gui/iconbutton.hpp>
+#include <sge/renderer/colors.hpp>
 
 sge::gui::iconbutton::iconbutton(widget * const parent, const std::string &name)
 : button(parent, name) {

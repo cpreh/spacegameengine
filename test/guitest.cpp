@@ -18,10 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "utility/normalize_field.hpp"
-#include "utility/interpolators.hpp"
-#include "utility/image_field_conversion.hpp"
-#include "utility/color_conversion.hpp"
 #include <sge/plugin_manager.hpp>
 #include <sge/image/image_loader.hpp>
 #include <sge/field.hpp>
@@ -31,29 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <exception>
 
-int main()
-try
-{
-	// sge init
-	sge::plugin_manager pm;
-	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
-	const sge::image_loader_ptr image_loader(image_loader_plugin->get()());
-
-//	sge::space_field f;
-//	image_to_field(image_loader->load_image(SGE_TEXT("images/checker.png")),f,color_to_numeric<sge::space_unit>());
-//	sge::cout << SGE_TEXT(f.pos(0,0)) << SGE_TEXT("\n");
-	sge::field<sge::color> c(sge::field<sge::color>::dim_type(1, 2));
-	c.pos(0,0) = sge::colors::aquamarine;
-	c.pos(0,1) = sge::colors::maroon;
-
-	image_loader->create_image(&c.front(),sge::image::dim_type(c.dim()))
-		->save(SGE_TEXT("tex.bmp"));
-//	field_to_image(f, image_loader,numeric_to_color<sge::space_unit>())->save(SGE_TEXT("images/textures.png"));
-} catch (const sge::exception &e) {
-	sge::cerr << SGE_TEXT("sge exception: ") << e.what() << SGE_TEXT("\n");
-}
-
-#if 0
 #include <ctime>
 #include <cstdlib>
 #include <string>
@@ -67,23 +40,22 @@ try
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
 
-#include <sge/init.hpp"
-#include <sge/input/key_state_tracker.hpp"
-#include <sge/math/constants.hpp"
-#include <sge/renderer/scoped_lock.hpp"
-#include <sge/renderer/screenshot.hpp"
-#include <sge/sprite/sprite.hpp"
-#include <sge/sprite/system.hpp"
-#include <sge/texture/no_fragmented_texture.hpp"
-#include <sge/texture/default_creator.hpp"
-#include <sge/texture/default_creator_impl.hpp"
+#include <sge/init.hpp>
+#include <sge/input/key_state_tracker.hpp>
+#include <sge/math/constants.hpp>
+#include <sge/renderer/scoped_lock.hpp>
+#include <sge/renderer/screenshot.hpp>
+#include <sge/renderer/colors.hpp>
+#include <sge/texture/no_fragmented_texture.hpp>
+#include <sge/texture/default_creator.hpp>
+#include <sge/texture/default_creator_impl.hpp>
 
-#include <sge/gui/color.hpp"
-#include <sge/gui/manager.hpp"
-#include <sge/gui/defaultskin.hpp"
-#include <sge/gui/button.hpp"
-#include <sge/gui/iconbutton.hpp"
-#include <sge/gui/inputprocessor.hpp"
+#include <sge/gui/color.hpp>
+#include <sge/gui/manager.hpp>
+#include <sge/gui/defaultskin.hpp>
+#include <sge/gui/button.hpp>
+#include <sge/gui/iconbutton.hpp>
+#include <sge/gui/inputprocessor.hpp>
 
 inline sge::pos3 at_pixel(int x, int y) {
 	return sge::pos3(
@@ -118,7 +90,7 @@ struct myIA : public sge::gui::inputacceptor {
 
 	sge::gui::inputprocessor::response inject_mouse_move    (const sge::gui::events::mouse_event &me) {
 		{
-			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
+			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(sge::make_scoped_lock(cuvb, sge::lock_flags::writeonly));
 			sge::vertex_buffer::iterator it = cuvb->begin();
 			it->pos() = at_pixel(me.global_position.x +  0, me.global_position.y +  0); ++it;
 			it->pos() = at_pixel(me.global_position.x + 16, me.global_position.y + 32); ++it;
@@ -195,7 +167,7 @@ try
 								.add(sge::vertex_usage::diffuse),
 			4);
 		{
-			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(bgvb);
+			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(sge::make_scoped_lock(bgvb, sge::lock_flags::writeonly));
 			sge::vertex_buffer::iterator it = bgvb->begin();
 
 			it->pos() = sge::pos3(-1,  1, 0); it->diffuse() = sge::colors::blue  ; ++it; // top left
@@ -210,7 +182,7 @@ try
 								.add(sge::vertex_usage::diffuse),
 			3);
 		{
-			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(cuvb);
+			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(sge::make_scoped_lock(cuvb, sge::lock_flags::writeonly));
 			sge::vertex_buffer::iterator it = cuvb->begin();
 			it->diffuse() = sge::colors::white; ++it;
 			it->diffuse() = sge::colors::white; ++it;
@@ -223,7 +195,7 @@ try
 								.add(sge::vertex_usage::tex),
 			4);
 		{
-			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(fgvb);
+			sge::scoped_lock<sge::vertex_buffer_ptr> _lock(sge::make_scoped_lock(fgvb, sge::lock_flags::writeonly));
 			sge::vertex_buffer::iterator it = fgvb->begin();
 
 			it->pos() = sge::pos3(-1,  1, 0); it->tex() = canvastex->translate(0, 0); ++it; // top left
@@ -233,7 +205,9 @@ try
 		}
 	}
 
-	rend->set_bool_state(sge::bool_state::enable_alpha_blending, true);
+	rend->set_state(
+		sge::renderer_state_list(
+			sge::bool_state::enable_alpha_blending = true));
 
 	myIA ia(cuvb); ia.inputprocessor_attach(ip);
 
@@ -270,4 +244,3 @@ catch(...)
 	sge::cerr << SGE_TEXT("Program terminated (unknown exception caught)!\n");
 	return EXIT_FAILURE;
 }
-#endif

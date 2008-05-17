@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/gui/scrollbar.hpp>
 
+#include <sge/renderer/colors.hpp>
+
 sge::gui::scrollbar::drawer::drawer(widget * const parent, const std::string &name)
 : button(parent, name) {}
 sge::gui::widget::event_return_type sge::gui::scrollbar::drawer::on_mouse_move(const events::mouse_event &) { return this; }

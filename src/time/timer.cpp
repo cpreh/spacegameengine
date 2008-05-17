@@ -22,6 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/resolution.hpp>
 
 sge::time::timer::timer(
+	fun const& fun_)
+: fun_(fun_),
+  interval_(0),
+  last_time_(fun_()),
+  active_(false)
+{}
+
+sge::time::timer::timer(
 	resolution const& res_,
 	const bool active_,
 	fun const& fun_)

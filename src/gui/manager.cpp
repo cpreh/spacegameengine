@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/defaultskin.hpp>
 #include <sge/gui/types.hpp>
 
+#include <sge/renderer/colors.hpp>
+
 void sge::gui::manager::init() {
 	skin(defaultskin::get());
 	previously_hovered_widget = 0;

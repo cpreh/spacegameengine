@@ -36,7 +36,9 @@ public:
 	typedef space_unit frames_type;
 	typedef unit       interval_type;
 
-	SGE_SYMBOL timer(
+	SGE_SYMBOL explicit timer(
+		fun const & = default_time_fun());
+	SGE_SYMBOL explicit timer(
 		resolution const &interval,
 		bool active = true,
 		fun const & = default_time_fun());

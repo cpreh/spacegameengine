@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include <sge/gui/inputprocessor.hpp>
-#include <sge/math/utility.hpp>
+#include <sge/time/millisecond.hpp>
 
 #include <algorithm>
 #include <boost/bind.hpp>
@@ -175,7 +175,10 @@ void sge::gui::inputprocessor::input_system_callback_function(const sge::key_pai
 						} else {
 							if (options[double_click_duration]) {
 								// queue as waiting for a double click
-								pending_click.dblclick.interval(options[double_click_duration]);
+								pending_click.dblclick.interval(
+									sge::time::millisecond(
+										static_cast<time::unit>
+											(options[double_click_duration])));
 								pending_click.dblclick.activate();
 								pending_click.dblclick.reset();
 

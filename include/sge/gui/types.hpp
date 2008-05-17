@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_TYPES_HPP_INCLUDED
 #define SGE_GUI_TYPES_HPP_INCLUDED
 
-#include "../math/utility.hpp"
+#include "../math/compare.hpp"
 
 namespace sge {
 namespace gui {
