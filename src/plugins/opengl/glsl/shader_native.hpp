@@ -18,30 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SHADER_HPP_INCLUDED
-#define SGE_OPENGL_SHADER_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_SHADER_NATIVE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_SHADER_NATIVE_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/shared_ptr.hpp>
-#include <boost/noncopyable.hpp>
-#include <string>
+#include "../common.hpp"
+#include "shader_functions.hpp"
+#include "traits.hpp"
 
 namespace sge
 {
 namespace ogl
 {
+namespace glsl
+{
 
-class shader : boost::noncopyable {
-public:
-	shader(GLenum type, const std::string& source);
-	~shader();
-	GLuint id() const;
-private:
-	GLuint id_;
-};
+template<>
+traits<true>::handle create_shader<true>(
+	GLenum type);
 
-typedef shared_ptr<shader> shader_ptr;
+template<>
+void shader_source<true>(
+	traits<true>::handle shader,
+	GLint num_strings,
+	char const **strings,
+	GLint const *len_of_strings);
 
+template<>
+void compile_shader<true>(
+	traits<true>::handle shader);
+
+template<>
+GLint get_shader_integer<true>(
+	GLenum what,
+	traits<true>::handle shader);
+
+template<>
+GLint get_compile_status<true>(
+	traits<true>::handle shader);
+
+template<>
+void get_shader_info_log<true>(
+	traits<true>::handle program,
+	GLint maxlen,
+	GLint *len,
+	char *data);
+
+template<>
+void delete_shader<true>(
+	traits<true>::handle shader);
+
+}
 }
 }
 

@@ -64,8 +64,19 @@ GLint get_program_integer(
 	typename traits<Native>::handle program);
 
 template<bool Native>
+GLint get_link_status(
+	typename traits<Native>::handle program);
+
+template<bool Native>
 void use_program(
 	typename traits<Native>::handle program);
+
+template<bool Native>
+void get_program_info_log(
+	typename traits<Native>::handle program,
+	GLint maxlen,
+	GLint *len,
+	char *data);
 
 }
 }

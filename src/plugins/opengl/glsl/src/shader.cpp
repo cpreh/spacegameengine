@@ -19,31 +19,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../shader.hpp"
+#include "../shader_functions.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
+#include <boost/array.hpp>
 
 template<bool Native>
 sge::ogl::glsl::shader<Native>::shader(
 	const GLenum type,
 	const std::string& source)
-: id_(glCreateShader(type))
+: id_(create_shader<Native>(type))
 {
 	const char* const ptr = source.c_str();
 	const GLint len = static_cast<GLint>(source.size());
-	glShaderSource(id(), 1, const_cast<const char**>(&ptr), &len);
+	shader_source<Native>(id(), 1, const_cast<const char**>(&ptr), &len);
 
-	glCompileShader(id());
+	compile_shader<Native>(id());
 	
-	GLint compile_status;
-	glGetShaderiv(id(), GL_COMPILE_STATUS, &compile_status);
-	if(compile_status == GL_FALSE)
-		throw exception(SGE_TEXT("Compiling a shader failed!"));
-	// TODO: better error handling here!
+	if(get_compile_status<Native>(id()) == GL_FALSE)
+	{
+		typedef boost::array<char, 1024> errorlog_array;
+		errorlog_array errorlog;
+
+		GLint len;
+		get_shader_info_log<Native>(
+			id(),
+			static_cast<GLint>(errorlog.size() - 1u),
+			&len,
+			errorlog.c_array());
+		if(static_cast<errorlog_array::size_type>(len) >= errorlog.size())
+			throw exception(SGE_TEXT("GLSL compile info too big!"));
+		errorlog[len] = '\0';
+		throw exception(
+			string(SGE_TEXT("Compiling a shader failed!"))
+			+ errorlog.data());
+	}
 }
 
 template<bool Native>
 sge::ogl::glsl::shader<Native>::~shader()
 {
-	glDeleteShader(id());
+	delete_shader<Native>(id());
 }
 
 template<bool Native>

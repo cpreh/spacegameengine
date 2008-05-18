@@ -48,15 +48,15 @@ public:
 		std::string const &vs_source,
 		std::string const &ps_source);
 	~program();
-	void use();
 	static void use(sge::glsl::program_ptr);
-	static void use_ffp();
 private:
 	sge::glsl::uniform_variable_ptr uniform(
 		const std::string&);
 	sge::glsl::attribute_variable_ptr attribute(
 		const std::string&);
 	
+	static void use_ffp();
+	void use();
 	void attach_shader(
 		shader_ptr shader);
 	void link();

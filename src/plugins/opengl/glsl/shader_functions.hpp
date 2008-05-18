@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAM_ARBHPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAM_ARB_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_SHADER_FUNCTIONS_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_SHADER_FUNCTIONS_HPP_INCLUDED
 
-#include "../common.hpp"
-#include "program_functions.hpp"
 #include "traits.hpp"
+#include "../common.hpp"
 
 namespace sge
 {
@@ -32,52 +31,40 @@ namespace ogl
 namespace glsl
 {
 
-template<>
-traits<false>::handle create_program<false>();
+template<bool Native>
+typename traits<Native>::handle create_shader(
+	GLenum type);
 
-template<>
-GLenum vertex_shader_type<false>();
+template<bool Native>
+void shader_source(
+	typename traits<Native>::handle shader,
+	GLint num_strings,
+	char const **strings,
+	GLint const *len_of_strings);
 
-template<>
-GLenum pixel_shader_type<false>();
+template<bool Native>
+void compile_shader(
+	typename traits<Native>::handle shader);
 
-template<>
-void detach_shader<false>(
-	traits<false>::handle program,
-	traits<false>::handle shader);
-
-template<>
-void delete_program<false>(
-	traits<false>::handle program);
-
-template<>
-void attach_shader<false>(
-	traits<false>::handle program,
-	traits<false>::handle shader);
-
-template<>
-void link_program<false>(
-	traits<false>::handle program);
-
-template<>
-GLint get_program_integer<false>(
+template<bool Native>
+GLint get_shader_integer(
 	GLenum what,
-	traits<false>::handle program);
+	typename traits<Native>::handle shader);
 
-template<>
-GLint get_link_status<false>(
-	traits<false>::handle program);
+template<bool Native>
+GLint get_compile_status(
+	typename traits<Native>::handle shader);
 
-template<>
-void use_program<false>(
-	traits<false>::handle program);
-
-template<>
-void get_program_info_log<false>(
-	traits<false>::handle program,
+template<bool Native>
+void get_shader_info_log(
+	typename traits<Native>::handle program,
 	GLint maxlen,
 	GLint *len,
 	char *data);
+
+template<bool Native>
+void delete_shader(
+	typename traits<Native>::handle shader);
 
 }
 }

@@ -18,44 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_PROGRAM_HPP_INCLUDED
-#define SGE_OPENGL_PROGRAM_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_SHADER_ARB_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_SHADER_ARB_HPP_INCLUDED
 
-#include "common.hpp"
-#include "shader.hpp"
-#include "uniform_variable.hpp"
-#include "attribute_variable.hpp"
-#include <sge/shared_ptr.hpp>
-#include <sge/renderer/glsl_program.hpp>
-#include <boost/noncopyable.hpp>
-#include <vector>
+#include "../common.hpp"
+#include "shader_functions.hpp"
+#include "traits.hpp"
 
 namespace sge
 {
 namespace ogl
 {
+namespace glsl
+{
 
-class program : public glsl::program, boost::noncopyable {
-public:
-	program();
-	~program();
-	void attach_shader(shader_ptr shader);
-	void link();
-	void use();
-	glsl::uniform_variable_ptr uniform(const std::string&);
-	glsl::attribute_variable_ptr attribute(const std::string&);
+template<>
+traits<false>::handle create_shader<false>(
+	GLenum type);
 
-	static void use_ffp();
-private:
-	GLuint id() const;
+template<>
+void shader_source<false>(
+	traits<false>::handle shader,
+	GLint num_strings,
+	char const **strings,
+	GLint const *len_of_strings);
 
-	typedef std::vector<shader_ptr> shader_vector;
-	shader_vector                   shaders;
-	GLuint                          id_;
-};
+template<>
+void compile_shader<false>(
+	traits<false>::handle shader);
 
-typedef shared_ptr<program> program_ptr;
+template<>
+GLint get_shader_integer<false>(
+	GLenum what,
+	traits<false>::handle shader);
 
+template<>
+GLint get_compile_status<false>(
+	traits<false>::handle shader);
+
+template<>
+void get_shader_info_log<false>(
+	traits<false>::handle program,
+	GLint maxlen,
+	GLint *len,
+	char *data);
+
+template<>
+void delete_shader<false>(
+	traits<false>::handle shader);
+
+}
 }
 }
 

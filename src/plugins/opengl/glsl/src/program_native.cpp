@@ -83,9 +83,18 @@ GLint sge::ogl::glsl::get_program_integer<true>(
 	const traits<true>::handle program)
 {
 	SGE_OPENGL_SENTRY
-	GLint i;
-	glGetProgramiv(program, what, &i);
-	return i;
+	GLint result;
+	glGetProgramiv(program, what, &result);
+	return result;
+}
+
+template<>
+GLint sge::ogl::glsl::get_link_status<true>(
+	const traits<true>::handle program)
+{
+	return get_program_integer<true>(
+		GL_LINK_STATUS,
+		program);
 }
 
 template<>
@@ -94,4 +103,19 @@ void sge::ogl::glsl::use_program<true>(
 {
 	SGE_OPENGL_SENTRY
 	glUseProgram(program);
+}
+
+template<>
+void sge::ogl::glsl::get_program_info_log<true>(
+	const traits<true>::handle program,
+	const GLint maxlen,
+	GLint *const len,
+	char *const data)
+{
+	SGE_OPENGL_SENTRY
+	glGetProgramInfoLog(
+		program,
+		maxlen,
+		len,
+		data);
 }

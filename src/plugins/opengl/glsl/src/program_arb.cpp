@@ -83,9 +83,18 @@ GLint sge::ogl::glsl::get_program_integer<false>(
 	const traits<false>::handle program)
 {
 	SGE_OPENGL_SENTRY
-	GLint i;
-	glGetObjectParameterivARB(program, what, &i);
-	return i;
+	GLint result;
+	glGetObjectParameterivARB(program, what, &result);
+	return result;
+}
+
+template<>
+GLint sge::ogl::glsl::get_link_status<false>(
+	const traits<false>::handle program)
+{
+	return get_program_integer<false>(
+		GL_OBJECT_LINK_STATUS_ARB,
+		program);
 }
 
 template<>
@@ -94,4 +103,19 @@ void sge::ogl::glsl::use_program<false>(
 {
 	SGE_OPENGL_SENTRY
 	glUseProgramObjectARB(program);
+}
+
+template<>
+void sge::ogl::glsl::get_program_info_log<false>(
+	const traits<false>::handle program,
+	const GLint maxlen,
+	GLint *const len,
+	char *const data)
+{
+	SGE_OPENGL_SENTRY
+	glGetInfoLogARB(
+		program,
+		maxlen,
+		len,
+		data);
 }

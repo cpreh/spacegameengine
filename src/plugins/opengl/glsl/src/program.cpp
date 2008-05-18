@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program_functions.hpp"
 #include "../../error.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
+#include <boost/array.hpp>
 #include <boost/foreach.hpp>
 
 template<bool Native>
@@ -33,12 +35,12 @@ sge::ogl::glsl::program<Native>::program(
 	attach_shader(
 		shader_ptr(
 			new shader<Native>(
-				GL_VERTEX_SHADER,
+				vertex_shader_type<Native>(),
 				vs_source)));
 	attach_shader(
 		shader_ptr(
 			new shader<Native>(
-				GL_FRAGMENT_SHADER,
+				pixel_shader_type<Native>(),
 				ps_source)));
 	link();
 }
@@ -63,22 +65,31 @@ template<bool Native>
 void sge::ogl::glsl::program<Native>::link()
 {
 	link_program<Native>(id());
-	//glLinkProgram(id());
 
-//	if(get_program_integer<Native>(id()) == GL_FALSE)
-//		throw exception(SGE_TEXT("Linking a program failed!"));
-		
-//	int link_status;
-//	glGetProgramiv(id(), GL_LINK_STATUS, &link_status);
-//	if(link_status == GL_FALSE)
-//		throw exception(SGE_TEXT("Linking a program failed!"));
+	if(get_link_status<Native>(id()) == GL_FALSE)
+	{
+		typedef boost::array<char, 1024> errorlog_array;
+		errorlog_array errorlog;
+
+		GLint len;
+		get_program_info_log<Native>(
+			id(),
+			static_cast<GLint>(errorlog.size() - 1u),
+			&len,
+			errorlog.c_array());
+		if(static_cast<errorlog_array::size_type>(len) >= errorlog.size())
+			throw exception(SGE_TEXT("GLSL link info too big!"));
+		errorlog[len] = '\0';
+		throw exception(
+			string(SGE_TEXT("Linking a program failed!"))
+			+ errorlog.data());
+	}
 }
 
 template<bool Native>
 void sge::ogl::glsl::program<Native>::use()
 {
 	use_program<Native>(id());
-	//glUseProgram(id());
 }
 
 template<bool Native>
