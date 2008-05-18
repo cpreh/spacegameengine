@@ -19,43 +19,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../uniform_variable.hpp"
+#include "../uniform_variable_functions.hpp"
+#include "../init.hpp"
 #include <sge/math/matrix_impl.hpp>
+#include <sge/once.hpp>
+
+namespace
+{
+
+PFNGLUNIFORM1FPROC uniform_1f;
+PFNGLUNIFORM2FVPROC uniform_2fv;
+PFNGLUNIFORM3FVPROC uniform_3fv;
+PFNGLUNIFORM3FVPROC uniform_4fv;
+PFNGLUNIFORMMATRIX4FVPROC uniform_matrix_4fv;
+
+void initialize_uniform_variable();
+
+}
 
 template<bool Native>
 sge::ogl::glsl::uniform_variable<Native>::uniform_variable(
 	const handle program,
-	const std::string& name)
-: ref(glGetUniformLocation(program, name.c_str()))
-{}
+	std::string const &name)
+: ref(get_uniform_location<Native>(program, name.c_str()))
+{
+	initialize_uniform_variable();
+}
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const space_unit f)
 {
-	glUniform1f(location(), f);	
+	uniform_1f(location(), f);	
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::vector2& v)
 {
-	glUniform2fv(location(), static_cast<GLsizei>(v.size()), v.data());
+	uniform_2fv(location(), static_cast<GLsizei>(v.size()), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::vector3& v)
 {
-	glUniform3fv(location(), static_cast<GLsizei>(v.size()), v.data());
+	uniform_3fv(location(), static_cast<GLsizei>(v.size()), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::vector4& v)
 {
-	glUniform4fv(location(), static_cast<GLsizei>(v.size()), v.data());
+	uniform_4fv(location(), static_cast<GLsizei>(v.size()), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::space_matrix& m)
 {
-	glUniformMatrix4fv(location(), static_cast<GLsizei>(m.size()), false, m.data());
+	uniform_matrix_4fv(location(), static_cast<GLsizei>(m.size()), false, m.data());
 }
 
 template<bool Native>
@@ -66,3 +84,29 @@ GLint sge::ogl::glsl::uniform_variable<Native>::location() const
 
 template class sge::ogl::glsl::uniform_variable<true>;
 template class sge::ogl::glsl::uniform_variable<false>;
+
+namespace
+{
+
+void initialize_uniform_variable()
+{
+	SGE_FUNCTION_ONCE
+	if(sge::ogl::glsl::is_native())
+	{
+		uniform_1f = glUniform1f;
+		uniform_2fv = glUniform2fv;
+		uniform_3fv = glUniform3fv;
+		uniform_4fv = glUniform4fv;
+		uniform_matrix_4fv = glUniformMatrix4fv;
+	}
+	else
+	{
+		uniform_1f = glUniform1fARB;
+		uniform_2fv = glUniform2fvARB;
+		uniform_3fv = glUniform3fvARB;
+		uniform_4fv = glUniform4fvARB;
+		uniform_matrix_4fv = glUniformMatrix4fvARB;
+	}
+}
+
+}

@@ -19,28 +19,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../impl.hpp"
-#include "../program.hpp"
 #include "../init.hpp"
+#include "../../version.hpp"
 #include "../../common.hpp"
+#include <sge/once.hpp>
 
-const sge::glsl::program_ptr
-sge::ogl::glsl::create_program_impl(
-	const std::string& vs_source,
-	const std::string& ps_source)
+namespace
 {
-	return is_native()
-		? sge::glsl::program_ptr(
-			new program<true>(vs_source, ps_source))
-		: sge::glsl::program_ptr(
-			new program<false>(vs_source, ps_source));
+
+bool native;
+
+void initialize_glsl();
+
 }
 
-void sge::ogl::glsl::set_program_impl(
-	const sge::glsl::program_ptr prog)
+bool sge::ogl::glsl::is_native()
 {
-	if(is_native())
-		program<true>::use(prog);
+	initialize_glsl();
+	return native;
+}
+
+namespace
+{
+
+void initialize_glsl()
+{
+	SGE_FUNCTION_ONCE
+
+	if(GLEW_VERSION_2_0)
+		native = true;
+	// FIXME: add program check here too!
+	else if(GLEW_ARB_vertex_shader && GLEW_ARB_fragment_shader)
+		native = false;
 	else
-		program<false>::use(prog);
+		sge::ogl::on_not_supported(
+			SGE_TEXT("shader"),
+			SGE_TEXT("2.0"),
+			SGE_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));
+}
+
 }

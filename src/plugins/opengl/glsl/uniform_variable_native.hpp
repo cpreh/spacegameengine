@@ -1,7 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
-Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -19,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../impl.hpp"
-#include "../program.hpp"
-#include "../init.hpp"
-#include "../../common.hpp"
+#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_NATIVE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_NATIVE_HPP_INCLUDED
 
-const sge::glsl::program_ptr
-sge::ogl::glsl::create_program_impl(
-	const std::string& vs_source,
-	const std::string& ps_source)
+#include "../common.hpp"
+#include "uniform_variable_functions.hpp"
+#include "traits.hpp"
+
+namespace sge
 {
-	return is_native()
-		? sge::glsl::program_ptr(
-			new program<true>(vs_source, ps_source))
-		: sge::glsl::program_ptr(
-			new program<false>(vs_source, ps_source));
+namespace ogl
+{
+namespace glsl
+{
+
+template<>
+GLint get_uniform_location<true>(
+	traits<true>::handle program,
+	char const *name);
+
+}
+}
 }
 
-void sge::ogl::glsl::set_program_impl(
-	const sge::glsl::program_ptr prog)
-{
-	if(is_native())
-		program<true>::use(prog);
-	else
-		program<false>::use(prog);
-}
+#endif
