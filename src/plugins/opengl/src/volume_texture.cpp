@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_texture_impl.hpp"
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
+#include <sge/once.hpp>
 #include <sge/math/box_impl.hpp>
 #include <cassert>
 
@@ -110,10 +111,7 @@ namespace
 
 void initialize_volume_texture()
 {
-	static bool initialized = false;
-	if(initialized)
-		return;
-	initialized = true;
+	SGE_FUNCTION_ONCE
 
 	if(GLEW_VERSION_1_2)
 		gl_volume_texture_type = GL_TEXTURE_3D;

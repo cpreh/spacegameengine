@@ -21,17 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../hardware_vbo.hpp"
 #include "../error.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
+#include <sge/once.hpp>
 
 namespace
 {
-
-//void (GLAPIENTRY *gl_gen_buffers)(GLsizei, GLuint*);
-//void (GLAPIENTRY *gl_delete_buffers)(GLsizei, const GLuint*);
-//void (GLAPIENTRY *gl_bind_buffer)(GLenum, GLuint);
-//void* (GLAPIENTRY *gl_map_buffer)(GLenum, GLenum);
-//GLboolean (GLAPIENTRY *gl_unmap_buffer)(GLenum);
-//void (GLAPIENTRY *gl_buffer_data)(GLenum, GLsizeiptr, const GLvoid*, GLenum);
-//void (GLAPIENTRY *gl_buffer_sub_data)(GLenum, GLintptr, GLsizeiptr, const GLvoid*);
 
 PFNGLGENBUFFERSPROC gl_gen_buffers;
 PFNGLDELETEBUFFERSPROC gl_delete_buffers;
@@ -41,34 +35,7 @@ PFNGLUNMAPBUFFERPROC gl_unmap_buffer;
 PFNGLBUFFERDATAPROC gl_buffer_data;
 PFNGLBUFFERSUBDATAPROC gl_buffer_sub_data;
 
-void initialize_hardware_vbo()
-{
-	static bool initialized = false;
-	if(initialized)
-		return;
-	initialized = true;
-
-	if(GLEW_VERSION_1_5)
-	{
-		gl_gen_buffers = glGenBuffers;
-		gl_delete_buffers = glDeleteBuffers;
-		gl_bind_buffer = glBindBuffer;
-		gl_map_buffer = glMapBuffer;
-		gl_unmap_buffer = glUnmapBuffer;
-		gl_buffer_data = glBufferData;
-		gl_buffer_sub_data = glBufferSubData;
-	}
-	else if(GL_ARB_vertex_buffer_object)
-	{
-		gl_gen_buffers = glGenBuffersARB;
-		gl_delete_buffers = glDeleteBuffersARB;
-		gl_bind_buffer = glBindBufferARB;
-		gl_map_buffer = glMapBufferARB;
-		gl_unmap_buffer = glUnmapBufferARB;
-		gl_buffer_data = glBufferDataARB;
-		gl_buffer_sub_data = glBufferSubDataARB;
-	}
-}
+void initialize_hardware_vbo();
 
 }
 
@@ -140,4 +107,35 @@ void sge::ogl::hardware_vbo::buffer_sub_data(const GLenum type,
 void* sge::ogl::hardware_vbo::buffer_offset(const GLenum, const GLsizei offset)
 {
 	return reinterpret_cast<void*>(offset);
+}
+
+namespace
+{
+
+void initialize_hardware_vbo()
+{
+	SGE_FUNCTION_ONCE
+
+	if(GLEW_VERSION_1_5)
+	{
+		gl_gen_buffers = glGenBuffers;
+		gl_delete_buffers = glDeleteBuffers;
+		gl_bind_buffer = glBindBuffer;
+		gl_map_buffer = glMapBuffer;
+		gl_unmap_buffer = glUnmapBuffer;
+		gl_buffer_data = glBufferData;
+		gl_buffer_sub_data = glBufferSubData;
+	}
+	else if(GL_ARB_vertex_buffer_object)
+	{
+		gl_gen_buffers = glGenBuffersARB;
+		gl_delete_buffers = glDeleteBuffersARB;
+		gl_bind_buffer = glBindBufferARB;
+		gl_map_buffer = glMapBufferARB;
+		gl_unmap_buffer = glUnmapBufferARB;
+		gl_buffer_data = glBufferDataARB;
+		gl_buffer_sub_data = glBufferSubDataARB;
+	}
+}
+
 }
