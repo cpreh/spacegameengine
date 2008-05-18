@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
 
+#include "traits.hpp"
 #include "../common.hpp"
 #include <sge/math/vector.hpp>
 #include <sge/math/matrix.hpp>
@@ -34,11 +35,12 @@ namespace ogl
 namespace glsl
 {
 
-template<typename Handle>
+template<bool Native>
 class uniform_variable : public sge::glsl::uniform_variable {
 public:
+	typedef typename traits<Native>::handle handle;
 	uniform_variable(
-		Handle program,
+		handle program,
 		const std::string& name);
 
 	void set(space_unit);
@@ -49,7 +51,7 @@ public:
 	void set(const math::space_matrix&);
 private:
 	GLint location() const;
-	Handle ref;
+	handle ref;
 };
 
 }

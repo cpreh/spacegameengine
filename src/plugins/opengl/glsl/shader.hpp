@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SHADER_HPP_INCLUDED
 
 #include "../common.hpp"
+#include "traits.hpp"
 #include <sge/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <string>
@@ -33,16 +34,18 @@ namespace ogl
 namespace glsl
 {
 
-template<typename Handle>
+template<bool Native>
 class shader : boost::noncopyable {
 public:
+	typedef typename traits<Native>::handle handle;
+
 	shader(GLenum type, const std::string& source);
 	~shader();
-	Handle id() const;
+	handle id() const;
 
-	typedef boost::shared_ptr<shader<Handle> > shared_ptr;
+	typedef boost::shared_ptr<shader<Native> > shared_ptr;
 private:
-	Handle id_;
+	handle id_;
 };
 
 }

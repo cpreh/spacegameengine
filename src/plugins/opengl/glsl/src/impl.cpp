@@ -40,7 +40,7 @@ void initialize_glsl()
 		use_arb_shaders = true;
 	else
 		sge::ogl::on_not_supported(
-			SGE_TEXT("program"),
+			SGE_TEXT("shader"),
 			SGE_TEXT("2.0"),
 			SGE_TEXT("gl_arb_vertex_shader && gl_arb_fragment_shader"));
 }
@@ -55,15 +55,17 @@ sge::ogl::glsl::create_program_impl(
 	initialize_glsl();
 	return use_arb_shaders
 		? sge::glsl::program_ptr(
-			new program<GLhandleARB>(vs_source, ps_source))
+			new program<false>(vs_source, ps_source))
 		: sge::glsl::program_ptr(
-			new program<GLuint>(vs_source, ps_source));
+			new program<true>(vs_source, ps_source));
 }
 
 void sge::ogl::glsl::set_program_impl(
 	const sge::glsl::program_ptr prog)
 {
 	initialize_glsl();
-//	if(use_arb_shaders)
-	
+	if(use_arb_shaders)
+		program<false>::use(prog);
+	else
+		program<true>::use(prog);
 }

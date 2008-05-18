@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shader.hpp"
 #include <sge/exception.hpp>
 
-template<typename Handle>
-sge::ogl::glsl::shader<Handle>::shader(
+template<bool Native>
+sge::ogl::glsl::shader<Native>::shader(
 	const GLenum type,
 	const std::string& source)
 : id_(glCreateShader(type))
@@ -37,16 +37,18 @@ sge::ogl::glsl::shader<Handle>::shader(
 	glGetShaderiv(id(), GL_COMPILE_STATUS, &compile_status);
 	if(compile_status == GL_FALSE)
 		throw exception(SGE_TEXT("Compiling a shader failed!"));
+	// TODO: better error handling here!
 }
 
-template<typename Handle>
-sge::ogl::glsl::shader<Handle>::~shader()
+template<bool Native>
+sge::ogl::glsl::shader<Native>::~shader()
 {
 	glDeleteShader(id());
 }
 
-template<typename Handle>
-Handle sge::ogl::glsl::shader<Handle>::id() const
+template<bool Native>
+typename sge::ogl::glsl::traits<Native>::handle
+sge::ogl::glsl::shader<Native>::id() const
 {
 	return id_;
 }

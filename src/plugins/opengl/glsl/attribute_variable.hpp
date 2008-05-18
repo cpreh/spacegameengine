@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
 
+#include "traits.hpp"
 #include "../common.hpp"
 #include <sge/math/vector.hpp>
 #include <sge/math/matrix.hpp>
@@ -34,11 +35,13 @@ namespace ogl
 namespace glsl
 {
 
-template<typename Handle>
+template<bool Native>
 class attribute_variable : public sge::glsl::attribute_variable {
 public:
+	typedef typename traits<Native>::handle handle;
+
 	attribute_variable(
-		Handle program,
+		handle program,
 		const std::string& name);
 	
 	void set(space_unit);
@@ -47,7 +50,7 @@ public:
 	void set(const math::vector4&);
 private:
 	GLint location() const;
-	Handle ref;
+	handle ref;
 };
 
 }
