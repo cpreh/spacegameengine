@@ -36,10 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_stage.hpp"
 #include "../basic_buffer_impl.hpp"
 #include "../get.hpp"
-#include "../shader.hpp"
-#include "../program.hpp"
 #include "../error.hpp"
 #include "../state_visitor.hpp"
+#include "../glsl/impl.hpp"
 #include "../common.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows.hpp>
@@ -500,6 +499,7 @@ void sge::ogl::renderer::set_texture(
 
 	disable(GL_TEXTURE_1D);
 	disable(GL_TEXTURE_2D);
+	// FIXME:
 #ifdef SGE_OPENGL_HAVE_VOLUME_TEXTURE
 	disable(detail::volume_texture_type);
 #endif
@@ -566,27 +566,20 @@ const sge::glsl::program_ptr sge::ogl::renderer::create_glsl_program(
 	const std::string& vs_source,
 	const std::string& ps_source)
 {
-	const shader_ptr vs(new shader(GL_VERTEX_SHADER, vs_source)),
-	                 ps(new shader(GL_FRAGMENT_SHADER, ps_source));
-	const program_ptr prog(new program());
-	if(vs)
-		prog->attach_shader(vs);
-	if(ps)
-		prog->attach_shader(ps);
-	prog->link();
-
-	return prog;
+	return glsl::create_program_impl(vs_source, ps_source);
 }
 
-void sge::ogl::renderer::set_glsl_shader(const glsl::program_ptr prog)
+void sge::ogl::renderer::set_glsl_shader(
+	const sge::glsl::program_ptr prog)
 {
-	if(!prog)
+	glsl::set_program_impl(prog);
+	/*if(!prog)
 	{
 		program::use_ffp();
 		return;
 	}
 	const program_ptr gl_prog(dynamic_pointer_cast<program>(prog));
-	gl_prog->use();
+	gl_prog->use();*/
 }
 
 void sge::ogl::renderer::set_vertex_buffer(const sge::vertex_buffer_ptr vb)

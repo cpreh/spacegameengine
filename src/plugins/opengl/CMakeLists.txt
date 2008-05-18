@@ -1,4 +1,4 @@
-FILE (GLOB sgeopenglfiles src/*.cpp)
+FILE (GLOB sgeopenglfiles src/*.cpp glsl/src/*.cpp)
 
 IF (MSVC)
 	INCLUDE_DIRECTORIES (${WININCLUDES}/glew/include)

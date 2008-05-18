@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_texture_impl.hpp"
 #include "../version.hpp"
 #include <sge/renderer/scoped_lock.hpp>
+#include <sge/once.hpp>
 #include <boost/assign/list_of.hpp>
 #include <algorithm>
 
@@ -125,10 +126,7 @@ namespace
 
 void initialize_cube_texture()
 {
-	static bool initialized = false;
-	if(initialized)
-		return;
-	initialized = true;
+	SGE_FUNCTION_ONCE
 
 	if(GLEW_VERSION_1_3)
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP;

@@ -106,10 +106,10 @@ public:
 		texture_stage_arg::type,
 		texture_stage_arg_value::type);
 
-	const glsl::program_ptr create_glsl_program(
+	const sge::glsl::program_ptr create_glsl_program(
 		const std::string& vertex_shader_source,
 		const std::string& pixel_shader_source);
-	void set_glsl_shader(glsl::program_ptr);
+	void set_glsl_shader(sge::glsl::program_ptr);
 
 	const sge::render_target_ptr get_render_target() const;
 
