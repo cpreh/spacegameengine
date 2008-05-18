@@ -20,38 +20,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../attribute_variable.hpp"
 
-template<typename Handle>
-sge::ogl::glsl::attribute_variable<Handle>::attribute_variable(
-	Handle program, const std::string& name)
+template<bool Native>
+sge::ogl::glsl::attribute_variable<Native>::attribute_variable(
+	const handle program,
+	const std::string& name)
 : ref(glGetAttribLocation(program, name.c_str()))
 {}
 
-template<typename Handle>
-void sge::ogl::glsl::attribute_variable<Handle>::set(const space_unit f)
+template<bool Native>
+void sge::ogl::glsl::attribute_variable<Native>::set(const space_unit f)
 {
 	glVertexAttrib1f(location(), f);	
 }
 
-template<typename Handle>
-void sge::ogl::glsl::attribute_variable<Handle>::set(const math::vector2& v)
+template<bool Native>
+void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector2& v)
 {
 	glVertexAttrib2fv(location(), v.data());
 }
 
-template<typename Handle>
-void sge::ogl::glsl::attribute_variable<Handle>::set(const math::vector3& v)
+template<bool Native>
+void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector3& v)
 {
 	glVertexAttrib3fv(location(), v.data());
 }
 
-template<typename Handle>
-void sge::ogl::glsl::attribute_variable<Handle>::set(const math::vector4& v)
+template<bool Native>
+void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector4& v)
 {
 	glVertexAttrib4fv(location(), v.data());
 }
 
-template<typename Handle>
-GLint sge::ogl::glsl::attribute_variable<Handle>::location() const
+template<bool Native>
+GLint sge::ogl::glsl::attribute_variable<Native>::location() const
 {
 	return ref;
 }
+
+template class sge::ogl::glsl::attribute_variable<true>;
+template class sge::ogl::glsl::attribute_variable<false>;

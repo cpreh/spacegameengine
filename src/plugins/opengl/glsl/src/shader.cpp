@@ -52,3 +52,6 @@ sge::ogl::glsl::shader<Native>::id() const
 {
 	return id_;
 }
+
+template class sge::ogl::glsl::shader<true>;
+template class sge::ogl::glsl::shader<false>;

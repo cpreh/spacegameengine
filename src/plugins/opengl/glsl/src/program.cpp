@@ -19,109 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../program.hpp"
+#include "../program_functions.hpp"
 #include "../../error.hpp"
 #include <sge/exception.hpp>
 #include <boost/foreach.hpp>
-
-//namespace
-//{
-
-template<bool Native>
-typename sge::ogl::glsl::traits<Native>::handle create_program()
-{
-	SGE_OPENGL_SENTRY
-	return glCreateProgram();
-}
-
-template<>
-sge::ogl::glsl::traits<false>::handle create_program<false>()
-{
-	SGE_OPENGL_SENTRY
-	return glCreateProgramObjectARB();
-}
-
-template<bool Native>
-GLenum vertex_shader_type()
-{
-	return GL_VERTEX_SHADER;
-}
-
-template<>
-GLenum vertex_shader_type<false>()
-{
-	return GL_VERTEX_SHADER_ARB;
-}
-
-template<bool Native>
-GLenum pixel_shader_type()
-{
-	return GL_FRAGMENT_SHADER;
-}
-
-template<>
-GLenum pixel_shader_type<false>()
-{
-	return GL_FRAGMENT_SHADER_ARB;
-}
-
-template<bool Native>
-void detach_shader(
-	const typename sge::ogl::glsl::traits<Native>::handle program,
-	const typename sge::ogl::glsl::traits<Native>::handle shader)
-{
-	SGE_OPENGL_SENTRY
-	glDetachShader(program, shader);
-}
-
-template<>
-void detach_shader<false>(
-	const sge::ogl::glsl::traits<false>::handle program,
-	const sge::ogl::glsl::traits<false>::handle shader)
-{
-	SGE_OPENGL_SENTRY
-	glDetachObjectARB(program, shader);
-}
-
-
-template<bool Native>
-void delete_program(
-	const typename sge::ogl::glsl::traits<Native>::handle program)
-{
-	SGE_OPENGL_SENTRY
-	glDeleteProgram(program);
-}
-
-template<>
-void delete_program<false>(
-	const sge::ogl::glsl::traits<false>::handle program)
-{
-	SGE_OPENGL_SENTRY
-	glDeleteObjectARB(program);
-}
-
-
-template<bool Native>
-void attach_shader(
-	const typename sge::ogl::glsl::traits<Native>::handle program,
-	const typename sge::ogl::glsl::traits<Native>::handle shader)
-{
-	SGE_OPENGL_SENTRY
-	glAttachShader(program, shader);
-}
-
-template<bool Native>
-void link_program(
-	const typename sge::ogl::glsl::traits<Native>::handle program);
-
-template<bool Native>
-GLenum get_link_status(
-	const typename sge::ogl::glsl::traits<Native>::handle program);
-
-template<bool Native>
-void use_program(
-	const typename sge::ogl::glsl::traits<Native>::handle program);
-
-//}
 
 template<bool Native>
 sge::ogl::glsl::program<Native>::program(
@@ -154,8 +55,7 @@ template<bool Native>
 void sge::ogl::glsl::program<Native>::attach_shader(
 	const shader_ptr s)
 {
-	attach_shader<Native>(id());
-	//glAttachShader(id(), s->id());
+	glsl::attach_shader<Native>(id(), s->id());
 	shaders.push_back(s);
 }
 
@@ -165,8 +65,8 @@ void sge::ogl::glsl::program<Native>::link()
 	link_program<Native>(id());
 	//glLinkProgram(id());
 
-	if(get_link_status<Native>(id()) == GL_FALSE)
-		throw exception(SGE_TEXT("Linking a program failed!"));
+//	if(get_program_integer<Native>(id()) == GL_FALSE)
+//		throw exception(SGE_TEXT("Linking a program failed!"));
 		
 //	int link_status;
 //	glGetProgramiv(id(), GL_LINK_STATUS, &link_status);
@@ -179,6 +79,19 @@ void sge::ogl::glsl::program<Native>::use()
 {
 	use_program<Native>(id());
 	//glUseProgram(id());
+}
+
+template<bool Native>
+void sge::ogl::glsl::program<Native>::use(
+	const sge::glsl::program_ptr p)
+{
+	if(!p)
+	{
+		use_ffp();
+		return;
+	}
+
+	dynamic_pointer_cast<program<Native> >(p)->use();
 }
 
 template<bool Native>
