@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#include "../openal_player.hpp"
-#include "../openal_nonstream_sound.hpp"
-#include "../openal_stream_sound.hpp"
+#include "../player.hpp"
+#include "../nonstream_sound.hpp"
+#include "../stream_sound.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include <al.h>
 #else
 #include <AL/al.h>
 #endif
 #include <sge/audio/player/sound.hpp>
-#include <sge/audio/audio_exception.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <boost/lexical_cast.hpp>
 
@@ -36,14 +36,14 @@ sge::openal::player::player()
 {
 	device.reset(alcOpenDevice(0));
 	if (device.device == 0)
-		throw sge::audio_exception(SGE_TEXT("Error opening audio device!"));
+		throw sge::audio::exception(SGE_TEXT("Error opening audio device!"));
 
 	context.reset(alcCreateContext(device.device,0));
 	if (context.context == 0)
-		throw sge::audio_exception(SGE_TEXT("Error creating audio context!"));
+		throw sge::audio::exception(SGE_TEXT("Error creating audio context!"));
 	
 	if (!alcMakeContextCurrent(context.context))
-		throw sge::audio_exception(SGE_TEXT("Error selecting context"));
+		throw sge::audio::exception(SGE_TEXT("Error selecting context"));
 }
 
 void sge::openal::player::update()
@@ -52,24 +52,28 @@ void sge::openal::player::update()
 		(*i)->update();
 }
 
-sge::shared_ptr<sge::sound> sge::openal::player::create_nonstream_sound(const shared_ptr<audio_file> _audio_file)
+const sge::audio::sound_ptr
+sge::openal::player::create_nonstream_sound(
+	const audio::file_ptr _audio_file)
 {
-	return shared_ptr<sound>(new nonstream_sound(_audio_file,*this));
+	return audio::sound_ptr(new nonstream_sound(_audio_file,*this));
 }
 
-sge::shared_ptr<sge::sound> sge::openal::player::create_stream_sound(const shared_ptr<audio_file> _audio_file)
+const sge::audio::sound_ptr
+sge::openal::player::create_stream_sound(
+	const audio::file_ptr _audio_file)
 {
-	return shared_ptr<sound>(new stream_sound(_audio_file,*this));
+	return audio::sound_ptr(new stream_sound(_audio_file,*this));
 }
 
 void sge::openal::player::check(const string &_desc)
 {
 	ALint error;
 	if ((error = alGetError()) != AL_NO_ERROR)
-		throw sge::audio_exception(SGE_TEXT("OpenAL error (") + _desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
+		throw sge::audio::exception(SGE_TEXT("OpenAL error (") + _desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
 }
 
-void sge::openal::player::listener_pos(const sge::math::vector3 &n)
+void sge::openal::player::listener_pos(const math::vector3 &n)
 {
 	listener_pos_ = n;
 
@@ -77,7 +81,7 @@ void sge::openal::player::listener_pos(const sge::math::vector3 &n)
 	alListenerfv(AL_POSITION, vec);
 }
 
-void sge::openal::player::listener_angle(const sound_angle &n)
+void sge::openal::player::listener_angle(const audio::sound_angle &n)
 {
 	listener_angle_ = n;
 
@@ -85,7 +89,8 @@ void sge::openal::player::listener_angle(const sound_angle &n)
 	alListenerfv(AL_POSITION, vec);
 }
 
-ALuint sge::openal::player::register_nonstream_sound(const shared_ptr<sge::audio_file> _audio_file)
+ALuint sge::openal::player::register_nonstream_sound(
+	const audio::file_ptr _audio_file)
 {
  	for (buffer_map_container_type::iterator i = buffer_map_.begin(); i != buffer_map_.end(); ++i)
 	{
@@ -112,13 +117,13 @@ ALuint sge::openal::player::register_nonstream_sound(const shared_ptr<sge::audio
 	else if (_audio_file->bits_per_sample() == 16 && _audio_file->channels() == 2)
 		format = AL_FORMAT_STEREO16;
 	else
-		throw audio_exception(SGE_TEXT("OpenAL error: Format not supported: ")
+		throw audio::exception(SGE_TEXT("OpenAL error: Format not supported: ")
 		                      + boost::lexical_cast<string>(_audio_file->bits_per_sample())
 		                      + SGE_TEXT(" bps, ")
 		                      + boost::lexical_cast<string>(_audio_file->channels())
 		                      + SGE_TEXT(" channels"));
 
-	audio_file::raw_array_type data;
+	audio::file::raw_array_type data;
 	_audio_file->read_all(data);
 	alBufferData(n.buffer, format, data.data(), static_cast<ALsizei>(data.size()), static_cast<ALsizei>(_audio_file->sample_rate())); check(SGE_TEXT("alGetError"));
 
@@ -131,15 +136,11 @@ ALuint sge::openal::player::register_nonstream_sound(const shared_ptr<sge::audio
 void sge::openal::player::unregister_nonstream_sound(const ALuint buffer)
 {
  	for (buffer_map_container_type::iterator i = buffer_map_.begin(); i != buffer_map_.end(); ++i)
-	{
-		if (i->buffer == buffer)
+		if (i->buffer == buffer && --(i->refcount) == 0)
 		{
-			if (--(i->refcount) == 0)
-			{
-				alDeleteBuffers(1,&(i->buffer));
-				buffer_map_.erase(i);
-				break;
-			}
+			// FIXME: this is not right!
+			alDeleteBuffers(1,&(i->buffer));
+			buffer_map_.erase(i);
+			break;
 		}
-	}
 }

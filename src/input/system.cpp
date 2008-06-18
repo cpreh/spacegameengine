@@ -18,28 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../openal_player.hpp"
-#include <sge/export.hpp>
-#include <sge/plugin.hpp>
-#include <sge/string.hpp>
+#include <sge/input/system.hpp>
 
-extern "C"
-{
+sge::input::system::~system()
+{}
 
-SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
+sge::detail::address_name
+sge::detail::plugin_traits<sge::input::system>::plugin_loader_name()
 {
-	if(!p)
-		return;
-	p->name = SGE_TEXT("openal audio player plugin");
-	p->description = SGE_TEXT("");
-	p->plugin_version = 0x1;
-	p->min_core_version = 0x1;
-	p->type = sge::plugin_type::audio_player;
+	return SGE_ADDRESS_NAME("create_input_system");
 }
 
-SGE_EXPORT_SYMBOL sge::audio_player* create_audio_player()
+sge::plugin_type::type
+sge::detail::plugin_traits<sge::input::system>::get_plugin_type()
 {
-	return new sge::openal::player();
+	return plugin_type::input;
 }
 
-}

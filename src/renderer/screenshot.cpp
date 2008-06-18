@@ -31,6 +31,6 @@ void sge::renderer::screenshot(
 	std::vector<color> buf(target->size());
 	// FIXME: do this with boost::gil too!
 	//target->copy_data(sge::data(buf));
-	const sge::image::image_ptr shot = il->create_image(sge::data(buf), target->dim());
+	const sge::image::object_ptr shot = il->create_image(sge::data(buf), target->dim());
 	shot->save(file);
 }

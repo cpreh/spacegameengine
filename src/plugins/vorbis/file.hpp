@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vorbis/vorbisfile.h>
 #include <sge/path.hpp>
 #include <sge/string.hpp>
-#include <sge/audio/loader/audio_file.hpp>
+#include <sge/audio/loader/file.hpp>
 #include <boost/noncopyable.hpp>
 #include <vector>
 #include <memory>
@@ -36,7 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-class vorbis_file : public audio_file
+namespace vorbis
+{
+
+class file : public audio::file
 {
 	// TODO: ov_open_callbacks nutzen, damit std::ifstream geht und man auf FILE verzichten kann
 	struct file_wrapper : boost::noncopyable
@@ -56,8 +59,8 @@ class vorbis_file : public audio_file
 	sample_type bits_per_sample_;
 
 	string ogg_error(long);
-	public:
-	vorbis_file(const path &, sample_type);
+public:
+	file(const path &, sample_type);
 	sample_type read(sample_type samples, raw_array_type &);
 	sample_type read_all(raw_array_type &);
 	channel_type channels() const;
@@ -65,6 +68,8 @@ class vorbis_file : public audio_file
 	sample_type bits_per_sample() const;
 	void reset();
 };
+
+}
 }
 
 #endif

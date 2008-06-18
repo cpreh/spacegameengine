@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_STREAM_SOUND_INCLUDED
 #define SGE_OPENAL_STREAM_SOUND_INCLUDED
 
-#include "openal_player.hpp"
+#include "player.hpp"
 #include <sge/audio/player/sound.hpp>
 #include <sge/shared_ptr.hpp>
 #include <sge/string.hpp>
@@ -32,10 +32,11 @@ namespace sge
 {
 namespace openal
 {
-class stream_sound : public sound
+
+class stream_sound : public audio::sound
 {
 	player &                    player_;
-	shared_ptr<sge::audio_file> audio_file_;
+	audio::file_ptr             audio_file_;
 	std::size_t                 buffer_samples_;
 	math::vector3               pos_;
 	bool                        loop_,positional_;
@@ -50,7 +51,7 @@ class stream_sound : public sound
 	void check(const string &);
 	void sync() const;
 	public:
-	stream_sound(shared_ptr<audio_file>,player &);
+	stream_sound(audio::file_ptr, player &);
 	~stream_sound();
 	void play(const bool);
 	void toggle_pause();

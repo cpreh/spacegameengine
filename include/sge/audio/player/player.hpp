@@ -21,31 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_PLAYER_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_HPP_INCLUDED
 
-// sge
 #include "../../string.hpp"
 #include "../../shared_ptr.hpp"
 #include "../../plugin_traits.hpp"
 #include "../../export.hpp"
 #include "../../math/vector.hpp"
-
-// Own stuff
 #include "../loader/file.hpp"
 #include "sound_angle.hpp"
+#include "sound.hpp"
 
 namespace sge
 {
 namespace audio
 {
 
-class sound;
 struct player
 {
 	virtual math::vector3 listener_pos() const = 0;
 	virtual void listener_pos(const math::vector3 &) = 0;
-	virtual sound_angle listener_angle() const = 0;
+	virtual const sound_angle listener_angle() const = 0;
 	virtual void listener_angle(const sound_angle &) = 0;
-	virtual shared_ptr<sound> create_nonstream_sound(file_ptr) = 0;
-	virtual shared_ptr<sound> create_stream_sound(file_ptr) = 0;
+	virtual const sound_ptr create_nonstream_sound(file_ptr) = 0;
+	virtual const sound_ptr create_stream_sound(file_ptr) = 0;
 	virtual void update() = 0;
 	virtual ~player() {}
 };

@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../image_loader.hpp"
-#include "../image.hpp"
+#include "../loader.hpp"
+#include "../object.hpp"
 #include "../error.hpp"
 
-sge::devil::image_loader::image_loader()
+sge::devil::loader::loader()
 {
 	ilEnable(IL_FORMAT_SET);
 	ilSetInteger(IL_FORMAT_MODE, IL_RGBA);
@@ -30,26 +30,26 @@ sge::devil::image_loader::image_loader()
 	check_errors();
 }
 
-const sge::image::image_ptr
-sge::devil::image_loader::load_image(
+const sge::image::object_ptr
+sge::devil::loader::load_image(
 	const path& p)
 {
-	return image_ptr(new image(p));
+	return image::object_ptr(new object(p));
 }
 
-const sge::image::image_ptr
-sge::devil::image_loader::load_image(
+const sge::image::object_ptr
+sge::devil::loader::load_image(
 	const image::format::type type,
-	const image::const_pointer format_data
-	const image::size_type size)
+	const object::const_pointer format_data,
+	const object::size_type size)
 {
-	return image_ptr(new image(type, format_data, size));
+	return image::object_ptr(new object(type, format_data, size));
 }
 
-const sge::image::image_ptr
-sge::devil::image_loader::create_image(
-	const image::const_pointer p,
-	const image::dim_type& dim)
+const sge::image::object_ptr
+sge::devil::loader::create_image(
+	const object::const_pointer p,
+	const object::dim_type& dim)
 {
-	return image_ptr(new image(p, dim));
+	return image::object_ptr(new object(p, dim));
 }

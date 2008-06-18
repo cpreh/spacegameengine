@@ -18,38 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEVIL_IMAGE_HPP_INCLUDED
-#define SGE_DEVIL_IMAGE_HPP_INCLUDED
-
-#include "image_impl.hpp"
+#include "../file.hpp"
+#include "../loader.hpp"
+#include <sge/audio/exception.hpp>
+#include <sge/raw_vector_impl.hpp>
 #include <sge/path.hpp>
-#include <sge/image/image.hpp>
-#include <sge/image/format.hpp>
 
-namespace sge
+const sge::audio::file_ptr sge::vorbis::loader::load(const path &filename)
 {
-namespace devil
-{
-
-class image : public sge::image::image {
-public:
-	explicit image(const path&);
-	image(sge::image::format::type type, const_pointer format_data, size_type size);
-	image(const_pointer p, const dim_type&);
-	const_pointer data() const;
-	void data(const_pointer, const dim_type&);
-	const dim_type dim() const;
-	size_type width() const;
-	size_type height() const;
-	void resample(const dim_type&);
-	void save(const path&);
-private:
-	void bind_me() const;
-	image_impl impl;
-};
-
-}
+	return audio::file_ptr(new file(filename, 16));
 }
 
-#endif
-
+bool sge::vorbis::loader::is_valid_file(const path &filename) const
+{
+	try { 
+		const file file_(filename, 16);
+	} catch (const audio::exception &) {
+		return false;
+	}
+	return true;
+}

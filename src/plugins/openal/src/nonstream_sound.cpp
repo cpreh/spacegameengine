@@ -19,26 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#include "../openal_player.hpp"
-#include "../openal_nonstream_sound.hpp"
-#include "../openal_stream_sound.hpp"
+#include "../player.hpp"
+#include "../nonstream_sound.hpp"
+#include "../stream_sound.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include <al.h>
 #else
 #include <AL/al.h>
 #endif
 #include <sge/audio/player/sound.hpp>
-#include <sge/audio/audio_exception.hpp>
+#include <sge/audio/exception.hpp>
 #include <boost/lexical_cast.hpp>
 
 void sge::openal::nonstream_sound::check(const string &_desc)
 {
 	ALint error;
 	if ((error = alGetError()) != AL_NO_ERROR)
-		throw sge::audio_exception(SGE_TEXT("OpenAL error (") +_desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
+		throw sge::audio::exception(SGE_TEXT("OpenAL error (") +_desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
 }
 
-sge::openal::nonstream_sound::nonstream_sound(const shared_ptr<sge::audio_file> _audio_file,openal::player &_player) : player_(_player)
+sge::openal::nonstream_sound::nonstream_sound(
+	const audio::file_ptr _audio_file,
+	openal::player &_player)
+: player_(_player)
 {
 	al_buffer_ = _player.register_nonstream_sound(_audio_file);
 
@@ -134,7 +137,7 @@ void sge::openal::nonstream_sound::pos(const sge::math::vector3 &n)
 	alSourcefv(al_source_,AL_POSITION,vec);
 }
 
-sge::sound::sound_status sge::openal::nonstream_sound::status() const
+sge::audio::sound::sound_status sge::openal::nonstream_sound::status() const
 {
 	sync();
 	return status_;

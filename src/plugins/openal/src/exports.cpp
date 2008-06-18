@@ -18,22 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VORBIS_LOADER_HPP_INCLUDED
-#define SGE_VORBIS_LOADER_HPP_INCLUDED
+#include "../player.hpp"
+#include <sge/export.hpp>
+#include <sge/plugin.hpp>
+#include <sge/string.hpp>
 
-#include <sge/shared_ptr.hpp>
-#include <sge/path.hpp>
-#include <sge/audio/loader/audio_loader.hpp>
-#include <sge/audio/loader/audio_file.hpp>
+extern "C"
+{
 
-namespace sge
+SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
 {
-class vorbis_loader : public audio_loader
-{
-	public:
-	const audio_file_ptr load(const path &);
-	bool is_valid_file(const path &) const;
-};
+	if(!p)
+		return;
+	p->name = SGE_TEXT("openal audio player plugin");
+	p->description = SGE_TEXT("");
+	p->plugin_version = 0x1;
+	p->min_core_version = 0x1;
+	p->type = sge::plugin_type::audio_player;
 }
 
-#endif // WAVE_HPP
+SGE_EXPORT_SYMBOL sge::audio::player* create_audio_player()
+{
+	return new sge::openal::player();
+}
+
+}

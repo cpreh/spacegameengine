@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../wave_loader.hpp"
+#include "../loader.hpp"
 #include <sge/export.hpp>
 #include <sge/plugin.hpp>
 #include <sge/export.hpp>
@@ -37,9 +37,9 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
 	p->type = sge::plugin_type::audio_loader;
 }
 
-SGE_EXPORT_SYMBOL sge::audio_loader* create_audio_loader()
+SGE_EXPORT_SYMBOL sge::audio::loader* create_audio_loader()
 {
-	return new sge::wave_loader();
+	return new sge::wave::loader();
 }
 
 }

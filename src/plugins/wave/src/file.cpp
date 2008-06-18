@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../wave_file.hpp"
+#include "../file.hpp"
 #include <sge/iconv.hpp>
 #include <sge/endianness.hpp>
 #include <sge/raw_vector_impl.hpp>
+#include <sge/audio/exception.hpp>
 #include <algorithm>
 #include <string>
 #include <sstream>
@@ -29,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 #include <cassert>
 
-sge::wave_file::wave_file(const path &filename)
+sge::wave::file::file(const path &filename)
 : filename_(filename),
   swap_(boost::logic::indeterminate),
   loaded_(false)
@@ -37,7 +38,7 @@ sge::wave_file::wave_file(const path &filename)
 	load();
 }
 
-std::string sge::wave_file::to_string() const
+const std::string sge::wave::file::to_string() const
 {
 	std::ostringstream ss;
 	ss << "bits_per_sample: " << bits_per_sample_ << ", "
@@ -47,7 +48,7 @@ std::string sge::wave_file::to_string() const
 	return ss.str();
 }
 
-void sge::wave_file::load()
+void sge::wave::file::load()
 {
 	assert(!loaded_);
 
@@ -55,7 +56,7 @@ void sge::wave_file::load()
 	file_.open(iconv(filename_.string()).c_str());
 
 	if (!file_.is_open())
-		throw audio_exception(SGE_TEXT("Couldn't open file \"") + filename_.string() + SGE_TEXT("\""));
+		throw audio::exception(SGE_TEXT("Couldn't open file \"") + filename_.string() + SGE_TEXT("\""));
 
 	read_riff();
 	read_wave();
@@ -64,7 +65,7 @@ void sge::wave_file::load()
 	loaded_ = true;
 }
 
-void sge::wave_file::read_riff()
+void sge::wave::file::read_riff()
 {
 	const std::string rifftype = extract_string(4,"riff header");
 
@@ -76,7 +77,7 @@ void sge::wave_file::read_riff()
 	else if (rifftype == "RIFX")
 		file_bigendian = true;
 	else
-		throw audio_exception(SGE_TEXT("Not a valid riff file!"));
+		throw audio::exception(SGE_TEXT("Not a valid riff file!"));
 	
 	swap_ = file_bigendian == is_little_endian();
 
@@ -85,14 +86,14 @@ void sge::wave_file::read_riff()
 	boost::int32_t chunksize = extract_primitive<boost::int32_t>("chunk size") - 36;
 }
 
-void sge::wave_file::read_wave()
+void sge::wave::file::read_wave()
 {
 	if (extract_string(8,"wave header") != "WAVEfmt ")
-		throw audio_exception(SGE_TEXT("Not a valid wave file!"));
+		throw audio::exception(SGE_TEXT("Not a valid wave file!"));
 	if (extract_primitive<boost::uint32_t>("subchunksize") != 16)
-		throw audio_exception(SGE_TEXT("File is not PCM!"));
+		throw audio::exception(SGE_TEXT("File is not PCM!"));
 	if (extract_primitive<boost::uint16_t>("audio format") != 1)
-		throw audio_exception(SGE_TEXT("File is not linear quantisized!"));
+		throw audio::exception(SGE_TEXT("File is not linear quantisized!"));
 	channels_ = extract_primitive<boost::uint16_t>("channel count");
 	sample_rate_ = extract_primitive<boost::uint32_t>("sample rate");
 	extract_primitive<boost::uint32_t>("byte rate");
@@ -100,31 +101,31 @@ void sge::wave_file::read_wave()
 	bits_per_sample_ = extract_primitive<boost::uint16_t>("bits per sample");
 }
 
-void sge::wave_file::read_data()
+void sge::wave::file::read_data()
 {
 	if (extract_string(4,"data header") != "data")
-		throw audio_exception(SGE_TEXT("File is not a valid wave file!"));
+		throw audio::exception(SGE_TEXT("File is not a valid wave file!"));
 	
 	//buffer_size_ = extract_primitive<boost::uint32_t>("data size");
 	samples_ = extract_primitive<boost::uint32_t>("data size") / channels_ / (bits_per_sample_/8);
 	samples_read_ = 0;
 }
 
-std::string sge::wave_file::extract_string(const std::size_t _bytes, const std::string &_desc)
+const std::string sge::wave::file::extract_string(const std::size_t _bytes, const std::string &_desc)
 {
 	assert(_bytes < 32);
 
 	char array[32];
 	file_.read(array,_bytes);
 	if (file_.eof() || !file_)
-		throw audio_exception(SGE_TEXT("Unexpected end of file or error while reading ") + iconv(_desc) + SGE_TEXT("!"));
+		throw audio::exception(SGE_TEXT("Unexpected end of file or error while reading ") + iconv(_desc) + SGE_TEXT("!"));
 
 	array[_bytes] = 0;
 	return std::string(array);
 }
 
 template<typename T>
-T sge::wave_file::extract_primitive(const std::string &_desc)
+T sge::wave::file::extract_primitive(const std::string &_desc)
 {
 //	assert(swap_ != boost::logic::indeterminate);
 	assert(sizeof(T) < 64);
@@ -132,12 +133,12 @@ T sge::wave_file::extract_primitive(const std::string &_desc)
 	char array[64];
 	file_.read(array,sizeof(T));
 	if (file_.eof() || !file_)
-		throw audio_exception(SGE_TEXT("Unexpected end of file or error while reading ") + iconv(_desc) + SGE_TEXT("!"));
+		throw audio::exception(SGE_TEXT("Unexpected end of file or error while reading ") + iconv(_desc) + SGE_TEXT("!"));
 	T v = *reinterpret_cast<T *>(array);
 	return swap_ ? swap_endianness(v) : v;
 }
 
-sge::audio_file::sample_type sge::wave_file::read(const sample_type _sample_count, raw_array_type &_array) 
+sge::audio::file::sample_type sge::wave::file::read(const sample_type _sample_count, raw_array_type &_array) 
 {
 	assert(_array.size() == 0);
 
@@ -157,7 +158,7 @@ sge::audio_file::sample_type sge::wave_file::read(const sample_type _sample_coun
 	return samples_to_read;
 }
 
-void sge::wave_file::reset()
+void sge::wave::file::reset()
 {
 	assert(loaded_);
 
@@ -166,32 +167,32 @@ void sge::wave_file::reset()
 	samples_read_ = 0;
 }
 
-sge::audio_file::sample_type sge::wave_file::read_all(raw_array_type &_array) 
+sge::audio::file::sample_type sge::wave::file::read_all(raw_array_type &_array) 
 { 
 	assert(_array.size() == 0);
 
 	return read(samples_ - samples_read_,_array);
 }
 
-sge::audio_file::sample_type sge::wave_file::bits_per_sample() const
+sge::audio::file::sample_type sge::wave::file::bits_per_sample() const
 {
 	assert(loaded_);
 	return bits_per_sample_;
 }
 	
-sge::audio_file::sample_type sge::wave_file::sample_rate() const
+sge::audio::file::sample_type sge::wave::file::sample_rate() const
 {
 	assert(loaded_);
 	return sample_rate_;
 }
 
-sge::audio_file::channel_type sge::wave_file::channels() const
+sge::audio::file::channel_type sge::wave::file::channels() const
 {
 	assert(loaded_);
 	return channels_;
 }
 
-sge::audio_file::sample_type sge::wave_file::samples() const
+sge::audio::file::sample_type sge::wave::file::samples() const
 {
 	assert(loaded_);
 	return samples_;

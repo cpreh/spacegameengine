@@ -18,17 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/system.hpp>
+#ifndef SGE_VORBIS_LOADER_HPP_INCLUDED
+#define SGE_VORBIS_LOADER_HPP_INCLUDED
 
-sge::detail::address_name
-sge::detail::plugin_traits<sge::input::system>::plugin_loader_name()
+#include <sge/shared_ptr.hpp>
+#include <sge/path.hpp>
+#include <sge/audio/loader/loader.hpp>
+#include <sge/audio/loader/file.hpp>
+
+namespace sge
 {
-	return SGE_ADDRESS_NAME("create_input_system");
+namespace vorbis
+{
+
+class loader : public audio::loader
+{
+public:
+	const audio::file_ptr load(const path &);
+	bool is_valid_file(const path &) const;
+};
+
+}
 }
 
-sge::plugin_type::type
-sge::detail::plugin_traits<sge::input::system>::get_plugin_type()
-{
-	return plugin_type::input;
-}
-
+#endif

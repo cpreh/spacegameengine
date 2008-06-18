@@ -31,8 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <sge/shared_ptr.hpp>
 #include <sge/string.hpp>
-#include <sge/audio/player/audio_player.hpp>
+#include <sge/audio/player/player.hpp>
 #include <sge/audio/player/sound_angle.hpp>
+#include <sge/audio/player/sound.hpp>
 #include <memory>
 #include <list>
 #include <vector>
@@ -41,12 +42,15 @@ namespace sge
 {
 namespace openal
 {
+
 class stream_sound;
-class player : public audio_player
+
+class player : public audio::player
 {
+	// TODO: create own files for these classes
 	struct buffer_map
 	{
-		audio_file * file;
+		audio::file *file;
 		ALuint       buffer;
 		unsigned     refcount;
 	};
@@ -96,30 +100,31 @@ class player : public audio_player
 
 	stream_sound_container_type stream_sounds;
 	math::vector3               listener_pos_;
-	sound_angle                 listener_angle_;
+	audio::sound_angle          listener_angle_;
 	buffer_map_container_type   buffer_map_;
 	device_wrapper              device;
 	context_wrapper             context;
 
 	void check(const string &);
-	public:
-		player();
+public:
+	player();
 
-		void register_stream_sound(stream_sound *p) { stream_sounds.push_back(p); } 
-		void unregister_stream_sound(stream_sound *p) { stream_sounds.remove(p); }
+	void register_stream_sound(stream_sound *p) { stream_sounds.push_back(p); } 
+	void unregister_stream_sound(stream_sound *p) { stream_sounds.remove(p); }
 
-		ALuint register_nonstream_sound(shared_ptr<audio_file>);
-		void unregister_nonstream_sound(ALuint);
+	ALuint register_nonstream_sound(audio::file_ptr);
+	void unregister_nonstream_sound(ALuint);
 
-		math::vector3 listener_pos() const { return listener_pos_; }
-		void listener_pos(const math::vector3 &);
-		sound_angle listener_angle() const { return listener_angle_; }
-		void listener_angle(const sound_angle &);
+	math::vector3 listener_pos() const { return listener_pos_; }
+	void listener_pos(const math::vector3 &);
+	const audio::sound_angle listener_angle() const { return listener_angle_; }
+	void listener_angle(const audio::sound_angle &);
 		
-		shared_ptr<sound> create_nonstream_sound(shared_ptr<audio_file> _audio_file);
-		shared_ptr<sound> create_stream_sound(shared_ptr<audio_file> _audio_file);
-		void update();
+	const audio::sound_ptr create_nonstream_sound(audio::file_ptr);
+	const audio::sound_ptr create_stream_sound(audio::file_ptr);
+	void update();
 };
+
 }
 }
 

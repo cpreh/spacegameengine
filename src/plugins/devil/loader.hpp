@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEVIL_IMAGE_LOADER_HPP_INCLUDED
-#define SGE_DEVIL_IMAGE_LOADER_HPP_INCLUDED
+#ifndef SGE_DEVIL_LOADER_HPP_INCLUDED
+#define SGE_DEVIL_LOADER_HPP_INCLUDED
 
-#include "image.hpp"
+#include "object.hpp"
 #include "library.hpp"
 #include <sge/image/loader.hpp>
 
@@ -32,22 +32,22 @@ namespace devil
 
 class loader : public image::loader {
 public:
-	image_loader();
+	loader();
 
-	const image::image_ptr
+	const image::object_ptr
 	load_image(
 		const path&);
 	
-	const image::image_ptr
+	const image::object_ptr
 	load_image(
 		image::format::type type,
-		image::image::const_pointer format_data,
-		image::image::size_type size);
+		image::object::const_pointer format_data,
+		image::object::size_type size);
 	
-	const image::image_ptr
+	const image::object_ptr
 	create_image(
-		image::image::const_pointer src,
-		const image::image::dim_type&);
+		image::object::const_pointer src,
+		const image::object::dim_type&);
 private:
 	library lib_;
 };

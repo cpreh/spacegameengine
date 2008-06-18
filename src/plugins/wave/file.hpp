@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
 #include <sge/path.hpp>
-#include <sge/audio/loader/audio_file.hpp>
-#include <sge/audio/audio_exception.hpp>
+#include <sge/audio/loader/file.hpp>
+#include <sge/audio/exception.hpp>
 #include <boost/logic/tribool.hpp>
 #include <fstream>
 #include <string>
@@ -31,7 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-class wave_file : public audio_file 
+namespace wave
+{
+
+class file : public audio::file 
 {
 	const path                 filename_;
 	// Ob die Bytes geswappt werden muessen
@@ -55,15 +58,15 @@ class wave_file : public audio_file
 	void read_wave();
 	void read_data();
 
-	std::string extract_string(std::size_t _bytes, const std::string &_desc);
+	const std::string extract_string(std::size_t _bytes, const std::string &_desc);
 	
 	template<typename T>
 	T extract_primitive(const std::string &_desc);
 	
-	public:
-	wave_file(const path &);
+public:
+	file(const path &);
 
-	std::string to_string() const;
+	const std::string to_string() const;
 
 	sample_type bits_per_sample() const;
 	sample_type sample_rate() const;
@@ -74,6 +77,8 @@ class wave_file : public audio_file
 	sample_type read(sample_type, raw_array_type &);
 	sample_type read_all(raw_array_type &);
 };
+
+}
 }
 
-#endif // WAVE_FILE_HPP
+#endif

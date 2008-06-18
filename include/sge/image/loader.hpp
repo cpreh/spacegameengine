@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../plugin_traits.hpp"
 #include "../path.hpp"
 #include "../export.hpp"
-#include "image.hpp"
+#include "object.hpp"
 #include "format.hpp"
 
 namespace sge
@@ -36,20 +36,20 @@ namespace image
 
 class loader {
 public:
-	virtual const image_ptr
+	virtual const object_ptr
 	load_image(
 		const path&) = 0;
 
-	virtual const image_ptr
+	virtual const object_ptr
 	load_image(
 		format::type type,
-		image::const_pointer format_data,
-		image::size_type size) = 0;
+		object::const_pointer format_data,
+		object::size_type size) = 0;
 
-	virtual const image_ptr
+	virtual const object_ptr
 	create_image(
-		image::const_pointer data,
-		const image::dim_type&) = 0;
+		object::const_pointer data,
+		const object::dim_type&) = 0;
 	SGE_SYMBOL virtual ~loader();
 };
 

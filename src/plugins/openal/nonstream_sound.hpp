@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef OPENAL_NONSTREAM_SOUND_INCLUDED
-#define OPENAL_NONSTREAM_SOUND_INCLUDED
+#ifndef SGE_OPENAL_NONSTREAM_SOUND_INCLUDED
+#define SGE_OPENAL_NONSTREAM_SOUND_INCLUDED
 
 #include <sge/config.h>
-#include "openal_player.hpp"
+#include "player.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include <al.h>
 #else
@@ -35,7 +35,8 @@ namespace sge
 {
 namespace openal
 {
-class nonstream_sound : public sound
+
+class nonstream_sound : public audio::sound
 {
 	player &      player_;
 	mutable sound_status  status_;
@@ -47,8 +48,8 @@ class nonstream_sound : public sound
 
 	void check(const string &);
 	void sync() const;
-	public:
-	nonstream_sound(shared_ptr<audio_file>,player &);
+public:
+	nonstream_sound(audio::file_ptr, player &);
 	~nonstream_sound();
 	void play(const bool);
 	void toggle_pause();

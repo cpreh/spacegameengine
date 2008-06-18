@@ -18,23 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../vorbis_file.hpp"
-#include "../vorbis_loader.hpp"
-#include <sge/audio/audio_exception.hpp>
-#include <sge/raw_vector_impl.hpp>
+#ifndef SGE_DEVIL_OBJECT_HPP_INCLUDED
+#define SGE_DEVIL_OBJECT_HPP_INCLUDED
+
+#include "image_impl.hpp"
 #include <sge/path.hpp>
+#include <sge/image/object.hpp>
+#include <sge/image/format.hpp>
 
-const sge::audio_file_ptr sge::vorbis_loader::load(const path &filename)
+namespace sge
 {
-	return audio_file_ptr(new vorbis_file(filename, 16));
+namespace devil
+{
+
+class object : public image::object {
+public:
+	explicit object(const path&);
+	object(image::format::type type, const_pointer format_data, size_type size);
+	object(const_pointer p, const dim_type&);
+	const_pointer data() const;
+	void data(const_pointer, const dim_type&);
+	const dim_type dim() const;
+	size_type width() const;
+	size_type height() const;
+	void resample(const dim_type&);
+	void save(const path&);
+private:
+	void bind_me() const;
+	image_impl impl;
+};
+
+}
 }
 
-bool sge::vorbis_loader::is_valid_file(const path &filename) const
-{
-	try { 
-		const vorbis_file file(filename, 16);
-	} catch (const audio_exception &) {
-		return false;
-	}
-	return true;
-}
+#endif
+

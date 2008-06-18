@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../vorbis_file.hpp"
+#include "../file.hpp"
 #include <sge/iconv.hpp>
-#include <sge/audio/audio_exception.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <algorithm>
 #include <string>
@@ -31,28 +31,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cassert>
 
 
-sge::vorbis_file::vorbis_file(const path &_filename, const sample_type _bits_per_sample)
+sge::vorbis::file::file(
+	const path &_filename,
+	const sample_type _bits_per_sample)
 : bits_per_sample_(_bits_per_sample)
 {
 	assert(bits_per_sample_ == 8 || bits_per_sample_ == 16);
 
 	if((ogg_file_.file_ = std::fopen(iconv(_filename.string()).c_str(), "rb")) == 0)
-		throw audio_exception(SGE_TEXT("Couldn't open ogg file \"") + _filename.string() + SGE_TEXT("\": ") + iconv(std::string(std::strerror(errno))));
+		throw audio::exception(SGE_TEXT("Couldn't open ogg file \"") + _filename.string() + SGE_TEXT("\": ") + iconv(std::string(std::strerror(errno))));
  
  	// File pointer, ogg structure pointer, Mist, Mist
 	int result;
 	vorbis_info *vorbis_info;
 	if((result = ov_open(ogg_file_.file_, &ogg_stream_, 0, 0)) < 0)
-		throw audio_exception(SGE_TEXT("Invalid ogg file: ") + ogg_error(result));
+		throw audio::exception(SGE_TEXT("Invalid ogg file: ") + ogg_error(result));
 
 	if ((vorbis_info = ov_info(&ogg_stream_, -1)) == 0)
-		throw audio_exception(SGE_TEXT("Error getting ogg file info: ") + ogg_error(result));
+		throw audio::exception(SGE_TEXT("Error getting ogg file info: ") + ogg_error(result));
 
 	channels_ = vorbis_info->channels;
 	sample_rate_ = vorbis_info->rate;
 }
 
-sge::audio_file::sample_type sge::vorbis_file::read(const sample_type _sample_count, raw_array_type &_data)
+sge::audio::file::sample_type
+sge::vorbis::file::read(
+	const sample_type _sample_count,
+	raw_array_type &_data)
 {
 	sample_type bytes_to_read = _sample_count * channels() * 2;
 	_data.resize_uninitialized(bytes_to_read);
@@ -61,9 +66,14 @@ sge::audio_file::sample_type sge::vorbis_file::read(const sample_type _sample_co
 	while (bytes_read < bytes_to_read)
 	{
 		int bitstream;
-		long result = ov_read(&ogg_stream_, reinterpret_cast<char *>(_data.data()) + bytes_read, static_cast<int>(bytes_to_read - bytes_read), 0, (bits_per_sample_ == 8) ? 1 : 2, 1, &bitstream);
+		long result = ov_read(
+			&ogg_stream_,
+			reinterpret_cast<char *>(_data.data()) + bytes_read,
+			static_cast<int>(bytes_to_read - bytes_read),
+			0,
+			(bits_per_sample_ == 8) ? 1 : 2, 1, &bitstream);
 		if (result < 0)
-			throw audio_exception(SGE_TEXT("Error reading ogg file: ") + ogg_error(result));
+			throw audio::exception(SGE_TEXT("Error reading ogg file: ") + ogg_error(result));
 
 		// EOF?
 		if (result == 0)
@@ -75,7 +85,9 @@ sge::audio_file::sample_type sge::vorbis_file::read(const sample_type _sample_co
 	return bytes_read;
 }
 
-sge::audio_file::sample_type sge::vorbis_file::read_all(raw_array_type &_data)
+sge::audio::file::sample_type
+sge::vorbis::file::read_all(
+	raw_array_type &_data)
 {
 	// Wir wissen nicht, wie viele Samples wir kriegen, also lesen wir in diskreten Bloecken und fuegen die in _data ein.
 	// TODO: Das hier vielleicht optimieren.
@@ -85,7 +97,7 @@ sge::audio_file::sample_type sge::vorbis_file::read_all(raw_array_type &_data)
 		int bitstream;
 		long result = ov_read(&ogg_stream_, reinterpret_cast<char *>(buffer), buffer_size, 0, (bits_per_sample_ == 8) ? 1 : 2, 1, &bitstream);
 		if (result < 0)
-			throw audio_exception(SGE_TEXT("Error reading ogg file: ") + ogg_error(result));
+			throw audio::exception(SGE_TEXT("Error reading ogg file: ") + ogg_error(result));
 
 		// EOF?
 		if (result == 0)
@@ -96,15 +108,15 @@ sge::audio_file::sample_type sge::vorbis_file::read_all(raw_array_type &_data)
 	return _data.size();
 }
 
-void sge::vorbis_file::reset()
+void sge::vorbis::file::reset()
 {
 	// Hier seeken wir einfach zu Zeit 0
 	int result = ov_time_seek(&ogg_stream_,0.0);
 	if (result != 0)
-		throw audio_exception(SGE_TEXT("Error resetting ogg stream: ") + ogg_error(result));
+		throw audio::exception(SGE_TEXT("Error resetting ogg stream: ") + ogg_error(result));
 }
 
-sge::string sge::vorbis_file::ogg_error(const long code)
+sge::string sge::vorbis::file::ogg_error(const long code)
 {
 	switch(code)
 	{
@@ -125,17 +137,17 @@ sge::string sge::vorbis_file::ogg_error(const long code)
 	}
 }
 
-sge::audio_file::channel_type sge::vorbis_file::channels() const
+sge::audio::file::channel_type sge::vorbis::file::channels() const
 {
 	return channels_;
 }
 
-sge::audio_file::sample_type sge::vorbis_file::sample_rate() const
+sge::audio::file::sample_type sge::vorbis::file::sample_rate() const
 {
 	return sample_rate_;
 }
 
-sge::audio_file::sample_type sge::vorbis_file::bits_per_sample() const
+sge::audio::file::sample_type sge::vorbis::file::bits_per_sample() const
 {
 	return bits_per_sample_;
 }

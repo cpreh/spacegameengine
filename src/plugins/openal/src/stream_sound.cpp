@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#include "../openal_player.hpp"
-#include "../openal_nonstream_sound.hpp"
-#include "../openal_stream_sound.hpp"
+#include "../player.hpp"
+#include "../nonstream_sound.hpp"
+#include "../stream_sound.hpp"
 #ifdef SGE_WINDOWS_PLATFORM
 #include <al.h>
 #else
 #include <AL/al.h>
 #endif
 #include <sge/audio/player/sound.hpp>
-#include <sge/audio/audio_exception.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <boost/lexical_cast.hpp>
 
@@ -36,7 +36,7 @@ void sge::openal::stream_sound::check(const string &_desc)
 {
 	ALint error;
 	if ((error = alGetError()) != AL_NO_ERROR)
-		throw sge::audio_exception(SGE_TEXT("OpenAL error (") +_desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
+		throw audio::exception(SGE_TEXT("OpenAL error (") +_desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
 }
 
 void sge::openal::stream_sound::sync() const
@@ -51,7 +51,7 @@ void sge::openal::stream_sound::sync() const
 		status_ = status_playing;
 }
 
-sge::openal::stream_sound::stream_sound(const shared_ptr<audio_file> _audio_file,openal::player &_player)
+sge::openal::stream_sound::stream_sound(const audio::file_ptr _audio_file, player &_player)
 	: player_(_player),audio_file_(_audio_file)
 {
 	_player.register_stream_sound(this);
@@ -67,7 +67,7 @@ sge::openal::stream_sound::stream_sound(const shared_ptr<audio_file> _audio_file
 	else if (_audio_file->bits_per_sample() == 16 && _audio_file->channels() == 2)
 		format_ = AL_FORMAT_STEREO16;
 	else
-		throw sge::audio_exception(SGE_TEXT("OpenAL error: Format not supported: ")
+		throw audio::exception(SGE_TEXT("OpenAL error: Format not supported: ")
 		                           + boost::lexical_cast<string>(_audio_file->bits_per_sample())
 		                           + SGE_TEXT(" bps, ")
 		                           + boost::lexical_cast<string>(_audio_file->channels())
@@ -89,8 +89,8 @@ sge::openal::stream_sound::~stream_sound()
 
 bool sge::openal::stream_sound::fill_buffer(const ALuint buffer)
 {
-	audio_file::raw_array_type data;
-	audio_file::sample_type samples_read = audio_file_->read(buffer_samples_, data);
+	audio::file::raw_array_type data;
+	audio::file::sample_type samples_read = audio_file_->read(buffer_samples_, data);
 
 	if (samples_read == 0)
 	{
@@ -204,7 +204,7 @@ void sge::openal::stream_sound::pos(const sge::math::vector3 &n)
 	alSourcefv(al_source_,AL_POSITION,vec);
 }
 
-sge::sound::sound_status sge::openal::stream_sound::status() const
+sge::audio::sound::sound_status sge::openal::stream_sound::status() const
 {
 	sync();
 	return status_;

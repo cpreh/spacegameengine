@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture.hpp"
 #include "../renderer/texture_filter.hpp"
 #include "loader.hpp"
+#include "object.hpp"
 
 namespace sge
 {
@@ -35,7 +36,7 @@ namespace image
 
 const renderer::texture_ptr create_texture(
 	renderer::device_ptr r,
-	image_ptr p,
+	object_ptr p,
 	const renderer::filter_args& filter = renderer::linear_filter,
 	renderer::resource_flag_t flags = renderer::resource_flags::default_);
 

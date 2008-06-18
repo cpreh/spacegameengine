@@ -20,6 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/system.hpp>
 
+sge::renderer::system::~system()
+{}
+
 sge::detail::address_name
 sge::detail::plugin_traits<sge::renderer::system>::plugin_loader_name()
 {

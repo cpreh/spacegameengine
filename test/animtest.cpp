@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/init.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/scoped_connection.hpp>
-#include <sge/renderer/renderer.hpp>
-#include <sge/renderer/scoped_renderblock.hpp>
-#include <sge/input/input_system.hpp>
-#include <sge/image/image_loader.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/input/system.hpp>
+#include <sge/image/loader.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/system_impl.hpp>
@@ -55,14 +55,14 @@ try
 	sys.init<sge::init::input>();
 	sys.init<sge::init::image_loader>();
 	
-	const sge::input_system_ptr is   = sys.input_system;
-	const sge::renderer_ptr     rend = sys.renderer;
-	const sge::image_loader_ptr pl   = sys.image_loader;
+	const sge::input::system_ptr    is   = sys.input_system;
+	const sge::renderer::device_ptr rend = sys.renderer;
+	const sge::image::loader_ptr    pl   = sys.image_loader;
 
-	const sge::image_ptr img1(pl->load_image(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
-	                     img2(pl->load_image(sge::media_path() / SGE_TEXT("grass.png")));
+	const sge::image::object_ptr img1(pl->load_image(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
+	                             img2(pl->load_image(sge::media_path() / SGE_TEXT("grass.png")));
 
-	const sge::default_texture_creator<sge::no_fragmented_texture> creator(rend, sge::linear_filter);
+	const sge::default_texture_creator<sge::no_fragmented_texture> creator(rend, sge::renderer::linear_filter);
 	sge::texture_manager tex_man(rend, creator);
 
 	const sge::virtual_texture_ptr tex1(sge::add_texture(tex_man, img1)),
@@ -98,23 +98,23 @@ try
 
 	const sge::scoped_connection cb(
 		is->register_callback(
-			if_(bind(&sge::key_type::code,
-				bind(&sge::key_pair::key,boost::lambda::_1))
-			== sge::kc::key_escape)
+			if_(bind(&sge::input::key_type::code,
+				bind(&sge::input::key_pair::key,boost::lambda::_1))
+			== sge::input::kc::key_escape)
 		[var(running)=false])
 	);
 
 	rend->set_state(
-		sge::renderer_state_list
-			(sge::bool_state::clear_backbuffer = true)
-			(sge::depth_func::off)
-			(sge::cull_mode::off)
+		sge::renderer::state_list
+			(sge::renderer::bool_state::clear_backbuffer = true)
+			(sge::renderer::depth_func::off)
+			(sge::renderer::cull_mode::off)
 	);
 	rend->projection(sge::math::matrix_orthogonal_xy());
 
 	while(running)
 	{
-		const sge::scoped_renderblock block_(rend);
+		const sge::renderer::scoped_block block_(rend);
 		sge::window::dispatch();
 		is->dispatch();
 		anim.process();

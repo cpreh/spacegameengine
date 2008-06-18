@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../image_loader.hpp"
+#include "../loader.hpp"
 #include <sge/export.hpp>
 #include <sge/string.hpp>
 #include <sge/plugin.hpp>
@@ -37,9 +37,9 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
 	p->type = sge::plugin_type::image_loader;
 }
 
-SGE_EXPORT_SYMBOL sge::image_loader* create_image_loader()
+SGE_EXPORT_SYMBOL sge::image::loader* create_image_loader()
 {
-	return new sge::devil::image_loader();
+	return new sge::devil::loader();
 }
 
 }

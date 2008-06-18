@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #undef _UNICODE
 
 #include <IL/ilu.h>
-#include "../image.hpp"
+#include "../object.hpp"
 #include "../error.hpp"
 #include "../conversion.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
 #include <sge/iconv.hpp>
 
-sge::devil::image::image(const path& file)
+sge::devil::object::object(const path& file)
 {
 	bind_me();
 	if(ilLoadImage(
@@ -42,8 +43,8 @@ sge::devil::image::image(const path& file)
 		throw exception(string(SGE_TEXT("ilLoadImage() failed! Could not load '")) += file.string() + SGE_TEXT("'!"));
 }
 
-sge::devil::image::image(
-	const sge::image::format::type type,
+sge::devil::object::object(
+	const image::format::type type,
 	const const_pointer format_data,
 	const size_type size)
 {
@@ -54,7 +55,7 @@ sge::devil::image::image(
 		throw exception(SGE_TEXT("ilLoadL() failed!"));
 }
 
-sge::devil::image::image(
+sge::devil::object::object(
 	const const_pointer p,
 	const dim_type& dim_)
 {
@@ -63,29 +64,29 @@ sge::devil::image::image(
 	data(p, dim_);
 }
 
-void sge::devil::image::bind_me() const
+void sge::devil::object::bind_me() const
 {
 	ilBindImage(impl.id());
 	check_errors();
 }
 
-const sge::image::dim_type sge::devil::image::dim() const
+const sge::image::object::dim_type sge::devil::object::dim() const
 {
 	bind_me();
 	return dim_type(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
 }
 
-sge::image::size_type sge::devil::image::width() const
+sge::image::object::size_type sge::devil::object::width() const
 {
 	return dim().w();
 }
 
-sge::image::size_type sge::devil::image::height() const
+sge::image::object::size_type sge::devil::object::height() const
 {
 	return dim().h();
 }
 
-void sge::devil::image::data(const const_pointer p, const dim_type& dim_)
+void sge::devil::object::data(const const_pointer p, const dim_type& dim_)
 {
 	bind_me();
 	ilTexImage(static_cast<ILuint>(dim_.w()),
@@ -98,13 +99,13 @@ void sge::devil::image::data(const const_pointer p, const dim_type& dim_)
 	check_errors();
 }
 
-sge::image::const_pointer sge::devil::image::data() const
+sge::image::object::const_pointer sge::devil::object::data() const
 {
 	bind_me();
 	return reinterpret_cast<const_pointer>(ilGetData());
 }
 
-void sge::devil::image::resample(const dim_type& dim_)
+void sge::devil::object::resample(const dim_type& dim_)
 {
 	if(dim() == dim_)
 		return;
@@ -113,7 +114,7 @@ void sge::devil::image::resample(const dim_type& dim_)
 	check_errors();
 }
 
-void sge::devil::image::save(const path& file)
+void sge::devil::object::save(const path& file)
 {
 	bind_me();
 

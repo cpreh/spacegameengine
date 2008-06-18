@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_SOUND_HPP_INCLUDED
 
 #include "../../math/vector.hpp"
+#include "../../shared_ptr.hpp"
 
 namespace sge
 {
@@ -49,6 +50,9 @@ public:
 	virtual void update() {}
 	virtual ~sound() {}
 };
+
+typedef shared_ptr<sound> sound_ptr;
+
 }
 }
 
