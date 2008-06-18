@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../input_system.hpp"
+#include "../system.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
 #include <sge/plugin.hpp>
 #include <sge/x_window.hpp>
 #include <boost/cast.hpp>
@@ -38,12 +39,12 @@ void plugin_version_info(sge::plugin_info* const i)
 	i->min_core_version = 0x1;
 }
 
-sge::input_system* create_input_system(const sge::window_ptr w)
+sge::input::system* create_input_system(const sge::window_ptr w)
 {
 	if(!w)
 		throw sge::exception(SGE_TEXT("xinput plugin's window parameter may not be 0!"));
 	boost::polymorphic_cast<sge::x_window*>(w.get());
-	return new sge::xinput::input_system(sge::dynamic_pointer_cast<sge::x_window_ptr::value_type>(w));
+	return new sge::xinput::system(sge::dynamic_pointer_cast<sge::x_window_ptr::value_type>(w));
 }
 
 }

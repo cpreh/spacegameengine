@@ -35,40 +35,44 @@ void delete_texture(GLuint id);
 
 void set_texture(
 	GLenum type,
-	const filter_args& filter,
-	const sge::texture::dim_type& dim,
-	sge::texture_base::const_pointer src);
+	const renderer::filter_args& filter,
+	const renderer::texture::dim_type& dim,
+	renderer::texture_base::const_pointer src);
 
 void build_mipmaps(
 	GLenum type,
-	const sge::texture::dim_type& dim,
-	sge::texture_base::const_pointer src);
+	const renderer::texture::dim_type& dim,
+	renderer::texture_base::const_pointer src);
 
 void set_texture_rect(
 	GLenum type,
-	const filter_args& filter,
-	const sge::texture::dim_type& dim,
-	const lock_rect& dest,
-	sge::texture_base::const_pointer src);
+	const renderer::filter_args& filter,
+	const renderer::texture::dim_type& dim,
+	const renderer::lock_rect& dest,
+	renderer::texture_base::const_pointer src);
 
 void read_pixels(
-	sge::texture_base::size_type x,
-	sge::texture_base::size_type y,
-	sge::texture_base::size_type width,
-	sge::texture_base::size_type height,
-	sge::texture_base::pointer dest);
+	renderer::texture_base::size_type x,
+	renderer::texture_base::size_type y,
+	renderer::texture_base::size_type width,
+	renderer::texture_base::size_type height,
+	renderer::texture_base::pointer dest);
 
-void get_tex_image(sge::texture_base::pointer dest);
+void get_tex_image(
+	renderer::texture_base::pointer dest);
 
-void tex_parameter_i(GLenum type,
-                     GLenum name,
-                     GLint value);
+void tex_parameter_i(
+	GLenum type,
+	GLenum name,
+	GLint value);
 
-void bind_texture(GLenum type,
-                  GLuint value);
+void bind_texture(
+	GLenum type,
+	GLuint value);
 
-void set_texture_filter(GLenum type,
-                        const filter_args& filter);
+void set_texture_filter(
+	GLenum type,
+	const renderer::filter_args& filter);
 
 }
 }

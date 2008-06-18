@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_POSIX_PLATFORM
 #include <cstdlib>
 #endif
 #include <sge/client_config.hpp>
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::path sge::client_config_path()
 {
-#ifdef SGE_LINUX_PLATFORM
+#ifdef SGE_POSIX_PLATFORM
 	const char* const ret = std::getenv("HOME");
 	if(!ret)
 		throw exception(SGE_TEXT("client_config_path(): Can't find \"HOME\"!"));

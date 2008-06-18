@@ -23,48 +23,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/lambda.hpp>
 #include <algorithm>
 
-sge::vertex_element::vertex_element(const vertex_usage::type usage_, const vertex_size count_)
+sge::renderer::vertex_element::vertex_element(
+	const vertex_usage::type usage_,
+	const vertex_size count_)
  : usage_(usage_),
    count_(count_),
   size_(vertex_element_size[usage_])
 {}
 
-sge::vertex_usage::type sge::vertex_element::usage() const
+sge::renderer::vertex_usage::type
+sge::renderer::vertex_element::usage() const
 {
 	return usage_;
 }
 
-sge::vertex_size sge::vertex_element::size() const
+sge::renderer::vertex_size
+sge::renderer::vertex_element::size() const
 {
 	return size_;
 }
 
-sge::vertex_size sge::vertex_element::count() const
+sge::renderer::vertex_size
+sge::renderer::vertex_element::count() const
 {
 	return count_;
 }
 
-sge::vertex_size sge::vertex_element::stride() const
+sge::renderer::vertex_size
+sge::renderer::vertex_element::stride() const
 {
-	return size()*count();
+	return size() * count();
 }
 
 
-sge::vertex_format::vertex_format()
+sge::renderer::vertex_format::vertex_format()
 : stride_(0)
 {}
 
-const sge::vertex_format::usage_list& sge::vertex_format::elements() const
+sge::renderer::vertex_format::usage_list const &
+sge::renderer::vertex_format::elements() const
 {
 	return ulist;
 }
 
-sge::vertex_size sge::vertex_format::stride() const
+sge::renderer::vertex_size
+sge::renderer::vertex_format::stride() const
 {
 	return stride_;
 }
 
-sge::vertex_format& sge::vertex_format::add(const vertex_usage::type u, const vertex_size count)
+sge::renderer::vertex_format &
+sge::renderer::vertex_format::add(
+	const vertex_usage::type u,
+	const vertex_size count)
 {
 	oi[u] = stride_;
 	ulist.push_back(vertex_element(u, count));
@@ -72,12 +83,20 @@ sge::vertex_format& sge::vertex_format::add(const vertex_usage::type u, const ve
 	return *this;
 }
 
-const sge::offset_info& sge::vertex_format::offsets() const
+sge::renderer::offset_info const &
+sge::renderer::vertex_format::offsets() const
 {
 	return oi;
 }
 
-bool sge::vertex_format::uses(const vertex_usage::type e) const
+bool sge::renderer::vertex_format::uses(
+	const vertex_usage::type e) const
 {
-	return std::find_if(ulist.begin(),ulist.end(),boost::lambda::bind(&vertex_element::usage,boost::lambda::_1) == e) != ulist.end();
+	return std::find_if(
+		ulist.begin(),
+		ulist.end(),
+		boost::lambda::bind(
+			&vertex_element::usage,
+			boost::lambda::_1) == e)
+		!= ulist.end();
 }

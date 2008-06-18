@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/hsla.hpp>
+/*#include <sge/renderer/hsla.hpp>
 #include <algorithm>
 
 namespace
@@ -163,4 +163,4 @@ sge::color_element sge::hsla::a() const
 
 const sge::color_element sge::hsla::hsl_max;
 const sge::color_element sge::hsla::rgb_max;
-const sge::color_element sge::hsla::hue_undefined;
+const sge::color_element sge::hsla::hue_undefined;*/

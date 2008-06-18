@@ -26,13 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/raw_vector_impl.hpp>
 #include <cstring>
 
-sge::ft::char_metric::char_metric(face& face_, const font_char ch, const font_unit pixel_size)
+sge::ft::char_metric::char_metric(
+	face& face_,
+	const char_type ch,
+	const font::unit pixel_size)
 {
 	if(FT_Load_Char(face_.get(), ch, FT_LOAD_DEFAULT))
 		throw exception(SGE_TEXT("FT_Load_Glyph() failed!"));
 
-	glyph _glyph(face_);
-	FT_BitmapGlyph bmp_glyph = _glyph.bitmap_glyph();
+	glyph glyph_(face_);
+	FT_BitmapGlyph bmp_glyph = glyph_.bitmap_glyph();
 
 	FT_Bitmap& bitmap = bmp_glyph->bitmap;
 
@@ -40,7 +43,7 @@ sge::ft::char_metric::char_metric(face& face_, const font_char ch, const font_un
 	height_ = bitmap.rows;
 	left_ = bmp_glyph->left;
 	top_ = static_cast<int>(pixel_size) - bmp_glyph->top + face_->descender / 64;
-	x_advance_ = static_cast<font_unit>(face_->glyph->advance.x / 64);
+	x_advance_ = static_cast<font::unit>(face_->glyph->advance.x / 64);
 
 	if(bitmap.width == 0 || bitmap.rows == 0)
 		return;
@@ -51,32 +54,32 @@ sge::ft::char_metric::char_metric(face& face_, const font_char ch, const font_un
 		std::memcpy(buffer.data() + y * width(), data, width());
 }
 
-const sge::color_element* sge::ft::char_metric::pixmap() const
+const sge::font::color* sge::ft::char_metric::pixmap() const
 {
 	return buffer.data();
 }
 
-sge::font_unit sge::ft::char_metric::width() const
+sge::font::unit sge::ft::char_metric::width() const
 {
 	return width_;
 }
 
-sge::font_unit sge::ft::char_metric::height() const
+sge::font::unit sge::ft::char_metric::height() const
 {
 	return height_;
 }
 
-sge::font_unit sge::ft::char_metric::left() const
+sge::font::unit sge::ft::char_metric::left() const
 {
 	return left_;
 }
 
-sge::font_unit sge::ft::char_metric::top() const
+sge::font::unit sge::ft::char_metric::top() const
 {
 	return top_;
 }
 
-sge::font_unit sge::ft::char_metric::x_advance() const
+sge::font::unit sge::ft::char_metric::x_advance() const
 {
 	return x_advance_;
 }

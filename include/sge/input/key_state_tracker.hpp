@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_KEY_STATE_TRACKER_HPP_INCLUDED
-#define SGE_KEY_STATE_TRACKER_HPP_INCLUDED
+#ifndef SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
+#define SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
 
-#include <map>
-#include <boost/noncopyable.hpp>
-#include "../scoped_connection.hpp"
-#include "input_system.hpp"
+#include "system.hpp"
 #include "key_type.hpp"
 #include "../export.hpp"
+#include "../scoped_connection.hpp"
+#include <boost/noncopyable.hpp>
+#include <map>
 
 namespace sge
+{
+namespace input
 {
 
 class key_state_tracker : boost::noncopyable {
 public:
-	SGE_SYMBOL key_state_tracker(input_system_ptr);
+	SGE_SYMBOL key_state_tracker(system_ptr);
 	SGE_SYMBOL key_state state(const key_code&);
 	SGE_SYMBOL key_state state(const key_type&);
 	SGE_SYMBOL key_state state(const key_type::char_type&);
@@ -52,6 +54,7 @@ private:
 	key_char_map key_chars;
 };
 
+}
 }
 
 #endif

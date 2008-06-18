@@ -18,17 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SOUND_ANGLE_HPP_INCLUDED
-#define SGE_SOUND_ANGLE_HPP_INCLUDED
+#ifndef SGE_AUDIO_SOUND_ANGLE_HPP_INCLUDED
+#define SGE_AUDIO_SOUND_ANGLE_HPP_INCLUDED
 
 #include "../../math/vector.hpp"
 
 namespace sge
 {
+namespace audio
+{
+
 struct sound_angle
 {
-	math::vector3 forward,up;
+	math::vector3 forward,
+	              up;
 };
+
+}
 }
 
 #endif 

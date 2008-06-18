@@ -32,15 +32,15 @@ sge::init::renderer::renderer(systems &sys, const unsigned width, const unsigned
 : sys(sys)
 {
 	if (!sys.renderer_plugin)
-		sys.renderer_plugin = sys.plugin_manager.get_plugin<sge::renderer_system>().load();;
+		sys.renderer_plugin = sys.plugin_manager.get_plugin<sge::renderer::system>().load();;
 	if (!sys.renderer_system)
 		sys.renderer_system.reset(sys.renderer_plugin->get()());
 	sys.renderer_parameters =
-		sge::renderer_parameters(
-			sge::display_mode(
+		sge::renderer::parameters(
+			sge::renderer::display_mode(
 				width,
 				height,
-				sge::bit_depth::depth32,
+				sge::renderer::bit_depth::depth32,
 				0
 			),
 			true // windowed
@@ -52,24 +52,26 @@ sge::init::renderer::operator bool() const {
 	return sys.renderer;
 }
 
-sge::init::fullscreen_renderer::fullscreen_renderer(systems &sys,
-                                                    const unsigned width,
-                                                    const unsigned height,
-                                                    const bit_depth::type bdepth,
-                                                    const unsigned refresh_rate,
-                                                    const multi_sample_type multi,
-                                                    const bool vsync)
+sge::init::fullscreen_renderer::fullscreen_renderer(
+	systems &sys,
+	const unsigned width,
+	const unsigned height,
+	const sge::renderer::bit_depth::type bdepth,
+	const unsigned refresh_rate,
+	const sge::renderer::multi_sample_type multi,
+	const bool vsync)
 : sys(sys) {
 	init(width, height, refresh_rate, bdepth, multi, vsync);
 }
 
-sge::init::fullscreen_renderer::fullscreen_renderer(systems &sys,
-                                                    const unsigned width,
-                                                    const unsigned height,
-                                                    const unsigned refresh_rate,
-                                                    const bit_depth::type bdepth,
-                                                    const multi_sample_type multi,
-                                                    const bool vsync)
+sge::init::fullscreen_renderer::fullscreen_renderer(
+	systems &sys,
+	const unsigned width,
+	const unsigned height,
+	const unsigned refresh_rate,
+	const sge::renderer::bit_depth::type bdepth,
+	const sge::renderer::multi_sample_type multi,
+	const bool vsync)
 : sys(sys) {
 	init(width, height, refresh_rate, bdepth, multi, vsync);
 }
@@ -78,19 +80,21 @@ sge::init::fullscreen_renderer::operator bool() const {
 	return sys.renderer;
 }
 
-void sge::init::fullscreen_renderer::init(const unsigned width,
-                                          const unsigned height,
-                                          const unsigned refresh_rate,
-                                          const bit_depth::type bdepth,
-                                          const multi_sample_type multi,
-                                          const bool vsync) {
+void sge::init::fullscreen_renderer::init(
+	const unsigned width,
+	const unsigned height,
+	const unsigned refresh_rate,
+	const sge::renderer::bit_depth::type bdepth,
+	const sge::renderer::multi_sample_type multi,
+	const bool vsync)
+{
 	if (!sys.renderer_plugin)
-		sys.renderer_plugin = sys.plugin_manager.get_plugin<sge::renderer_system>().load();;
+		sys.renderer_plugin = sys.plugin_manager.get_plugin<sge::renderer::system>().load();;
 	if (!sys.renderer_system)
 		sys.renderer_system.reset(sys.renderer_plugin->get()());
 	sys.renderer_parameters =
-		sge::renderer_parameters(
-			sge::display_mode(
+		sge::renderer::parameters(
+			sge::renderer::display_mode(
 				width,
 				height,
 				bdepth,
@@ -106,7 +110,7 @@ void sge::init::fullscreen_renderer::init(const unsigned width,
 sge::init::input::input(systems &sys)
 : sys(sys) {
 	if (!sys.input_plugin)
-		sys.input_plugin = sys.plugin_manager.get_plugin<sge::input_system>().load();
+		sys.input_plugin = sys.plugin_manager.get_plugin<sge::input::system>().load();
 	sys.input_system.reset(sys.input_plugin->get()(sys.renderer->get_window()));
 }
 
@@ -117,7 +121,7 @@ sge::init::input::operator bool() const {
 sge::init::image_loader::image_loader(systems &sys)
 : sys(sys) {
 	if (!sys.image_loader_plugin)
-		sys.image_loader_plugin = sys.plugin_manager.get_plugin<sge::image_loader>().load();
+		sys.image_loader_plugin = sys.plugin_manager.get_plugin<sge::image::loader>().load();
 	sys.image_loader.reset(sys.image_loader_plugin->get()());
 }
 

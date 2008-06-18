@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TRANSFORM_HPP_INCLUDED
-#define SGE_TRANSFORM_HPP_INCLUDED
+#ifndef SGE_RENDERER_TRANSFORM_HPP_INCLUDED
+#define SGE_RENDERER_TRANSFORM_HPP_INCLUDED
 
 #include "types.hpp"
 #include "texture.hpp"
@@ -29,13 +29,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace renderer
+{
 
-math::space_matrix matrix_pixel_to_space(const screen_size_t&);
+const math::space_matrix matrix_pixel_to_space(
+	const screen_size_t&);
 
-math::rect tex_size_to_space_rect(const lock_rect& l,
-                                  const texture::dim_type& dim,
-                                  space_unit repeat = 1);
+const math::rect tex_size_to_space_rect(
+	const lock_rect& l,
+	const texture::dim_type& dim,
+	space_unit repeat = 1);
 
+}
 }
 
 #endif

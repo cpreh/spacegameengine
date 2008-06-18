@@ -26,33 +26,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef std::map<KeySym, sge::key_code> x11_to_sge_array;
+typedef std::map<KeySym, sge::input::key_code> x11_to_sge_array;
 const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
-	(NoSymbol, sge::kc::none)
-	(XK_BackSpace, sge::kc::key_backspace)
-	(XK_Tab, sge::kc::key_tab)
-	(XK_Return, sge::kc::key_return)
-	(XK_Pause, sge::kc::key_pause)
-	(XK_Scroll_Lock, sge::kc::key_scroll)
-	(XK_Escape, sge::kc::key_escape)
-	(XK_Delete, sge::kc::key_delete)
+	(NoSymbol, sge::input::kc::none)
+	(XK_BackSpace, sge::input::kc::key_backspace)
+	(XK_Tab, sge::input::kc::key_tab)
+	(XK_Return, sge::input::kc::key_return)
+	(XK_Pause, sge::input::kc::key_pause)
+	(XK_Scroll_Lock, sge::input::kc::key_scroll)
+	(XK_Escape, sge::input::kc::key_escape)
+	(XK_Delete, sge::input::kc::key_delete)
 
-	(XK_Home, sge::kc::key_home)
-	(XK_Left, sge::kc::key_left)
-	(XK_Up, sge::kc::key_up)
-	(XK_Right, sge::kc::key_right)
-	(XK_Down, sge::kc::key_down)
+	(XK_Home, sge::input::kc::key_home)
+	(XK_Left, sge::input::kc::key_left)
+	(XK_Up, sge::input::kc::key_up)
+	(XK_Right, sge::input::kc::key_right)
+	(XK_Down, sge::input::kc::key_down)
 	//XK_Prior
-	(XK_Page_Up, sge::kc::key_pageup)
+	(XK_Page_Up, sge::input::kc::key_pageup)
 	//XK_Next
-	(XK_Page_Down, sge::kc::key_pagedown)
-	(XK_End, sge::kc::key_end)
-//	(XK_Begin, sge::kc::key_home)
+	(XK_Page_Down, sge::input::kc::key_pagedown)
+	(XK_End, sge::input::kc::key_end)
+//	(XK_Begin, sge::input::kc::key_home)
 
 	//#define XK_Select                        0xff60  /* Select, mark */
 	//#define XK_Print                         0xff61
 	//#define XK_Execute                       0xff62  /* Execute, run, do */
-	(XK_Insert, sge::kc::key_insert)
+	(XK_Insert, sge::input::kc::key_insert)
 //#define XK_Undo                          0xff65
 //#define XK_Redo                          0xff66  /* Redo, again */
 //#define XK_Menu                          0xff67
@@ -64,16 +64,16 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 //#define XK_script_switch                 0xff7e  /* Alias for mode_switch */
 //#define XK_Num_Lock                      0xff7f
 
-//	(XK_KP_Space, sge::kc::key_SPACE)
+//	(XK_KP_Space, sge::input::kc::key_SPACE)
 //	(XK_KP_Tab])
-//	(XK_KP_Enter, sge::kc::key_ENTER)
+//	(XK_KP_Enter, sge::input::kc::key_ENTER)
 /*	(XK_KP_F1])
 	(XK_KP_F2])
 	(XK_KP_F3])
 	(XK_KP_F4])
-	(XK_KP_Home, sge::kc::key_NUM_HOME)
-	(XK_KP_Left, sge::kc::key_NUM_LEFT)
-	(XK_KP_Up, sge::kc::key_NUM_UP)
+	(XK_KP_Home, sge::input::kc::key_NUM_HOME)
+	(XK_KP_Left, sge::input::kc::key_NUM_LEFT)
+	(XK_KP_Up, sge::input::kc::key_NUM_UP)
 #define XK_KP_Right                      0xff98
 #define XK_KP_Down                       0xff99
 #define XK_KP_Prior                      0xff9a
@@ -103,18 +103,18 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 #define XK_KP_8                          0xffb8
 #define XK_KP_9                          0xffb9*/
 
-	(XK_F1, sge::kc::key_f1)
-	(XK_F2, sge::kc::key_f2)
-	(XK_F3, sge::kc::key_f3)
-	(XK_F4, sge::kc::key_f4)
-	(XK_F5, sge::kc::key_f5)
-	(XK_F6, sge::kc::key_f6)
-	(XK_F7, sge::kc::key_f7)
-	(XK_F8, sge::kc::key_f8)
-	(XK_F9, sge::kc::key_f9)
-	(XK_F10, sge::kc::key_f10)
-	(XK_F11, sge::kc::key_f11)
-	(XK_F12, sge::kc::key_f12)
+	(XK_F1, sge::input::kc::key_f1)
+	(XK_F2, sge::input::kc::key_f2)
+	(XK_F3, sge::input::kc::key_f3)
+	(XK_F4, sge::input::kc::key_f4)
+	(XK_F5, sge::input::kc::key_f5)
+	(XK_F6, sge::input::kc::key_f6)
+	(XK_F7, sge::input::kc::key_f7)
+	(XK_F8, sge::input::kc::key_f8)
+	(XK_F9, sge::input::kc::key_f9)
+	(XK_F10, sge::input::kc::key_f10)
+	(XK_F11, sge::input::kc::key_f11)
+	(XK_F12, sge::input::kc::key_f12)
 //#define XK_L1                            0xffc8
 /*
 #define XK_L2                            0xffc9
@@ -167,12 +167,12 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 */
 
 
-	(XK_Shift_L, sge::kc::key_lshift)
-	(XK_Shift_R, sge::kc::key_rshift)
-	(XK_Control_L, sge::kc::key_lctrl)
-	(XK_Control_R, sge::kc::key_rctrl)
+	(XK_Shift_L, sge::input::kc::key_lshift)
+	(XK_Shift_R, sge::input::kc::key_rshift)
+	(XK_Control_L, sge::input::kc::key_lctrl)
+	(XK_Control_R, sge::input::kc::key_rctrl)
 	//XK_Caps_Lock
-//	(XK_Shift_Lock, sge::kc::key_LSHIFT) // ???
+//	(XK_Shift_Lock, sge::input::kc::key_LSHIFT) // ???
 
 //#define XK_Meta_L                        0xffe7  /* Left meta */
 //#define XK_Meta_R                        0xffe8  /* Right meta */
@@ -328,7 +328,7 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 #define XK_3270_Enter                    0xfd1e
 #endif
 
-	(XK_space, sge::kc::key_space)
+	(XK_space, sge::input::kc::key_space)
 #if 0
 #define XK_exclam                        0x0021  /* U+0021 EXCLAMATION MARK */
 #define XK_quotedbl                      0x0022  /* U+0022 QUOTATION MARK */
@@ -347,16 +347,16 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 #define XK_period                        0x002e  /* U+002E FULL STOP */
 #define XK_slash                         0x002f  /* U+002F SOLIDUS */
 #endif
-	(XK_0, sge::kc::key_0)
-	(XK_1, sge::kc::key_1)
-	(XK_2, sge::kc::key_2)
-	(XK_3, sge::kc::key_3)
-	(XK_4, sge::kc::key_4)
-	(XK_5, sge::kc::key_5)
-	(XK_6, sge::kc::key_6)
-	(XK_7, sge::kc::key_7)
-	(XK_8, sge::kc::key_8)
-	(XK_9, sge::kc::key_9)
+	(XK_0, sge::input::kc::key_0)
+	(XK_1, sge::input::kc::key_1)
+	(XK_2, sge::input::kc::key_2)
+	(XK_3, sge::input::kc::key_3)
+	(XK_4, sge::input::kc::key_4)
+	(XK_5, sge::input::kc::key_5)
+	(XK_6, sge::input::kc::key_6)
+	(XK_7, sge::input::kc::key_7)
+	(XK_8, sge::input::kc::key_8)
+	(XK_9, sge::input::kc::key_9)
 #if 0
 #define XK_colon                         0x003a  /* U+003A COLON */
 #define XK_semicolon                     0x003b  /* U+003B SEMICOLON */
@@ -366,67 +366,67 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 #define XK_question                      0x003f  /* U+003F QUESTION MARK */
 #define XK_at                            0x0040  /* U+0040 COMMERCIAL AT */
 #endif
-	(XK_A, sge::kc::key_a)
-	(XK_B, sge::kc::key_b)
-	(XK_C, sge::kc::key_c)
-	(XK_D, sge::kc::key_d)
-	(XK_E, sge::kc::key_e)
-	(XK_F, sge::kc::key_f)
-	(XK_G, sge::kc::key_g)
-	(XK_H, sge::kc::key_h)
-	(XK_I, sge::kc::key_i)
-	(XK_J, sge::kc::key_j)
-	(XK_K, sge::kc::key_k)
-	(XK_L, sge::kc::key_l)
-	(XK_M, sge::kc::key_m)
-	(XK_N, sge::kc::key_n)
-	(XK_O, sge::kc::key_o)
-	(XK_P, sge::kc::key_p)
-	(XK_Q, sge::kc::key_q)
-	(XK_R, sge::kc::key_r)
-	(XK_S, sge::kc::key_s)
-	(XK_T, sge::kc::key_t)
-	(XK_U, sge::kc::key_u)
-	(XK_V, sge::kc::key_v)
-	(XK_W, sge::kc::key_w)
-	(XK_X, sge::kc::key_x)
-	(XK_Y, sge::kc::key_y)
-	(XK_Z, sge::kc::key_z)
+	(XK_A, sge::input::kc::key_a)
+	(XK_B, sge::input::kc::key_b)
+	(XK_C, sge::input::kc::key_c)
+	(XK_D, sge::input::kc::key_d)
+	(XK_E, sge::input::kc::key_e)
+	(XK_F, sge::input::kc::key_f)
+	(XK_G, sge::input::kc::key_g)
+	(XK_H, sge::input::kc::key_h)
+	(XK_I, sge::input::kc::key_i)
+	(XK_J, sge::input::kc::key_j)
+	(XK_K, sge::input::kc::key_k)
+	(XK_L, sge::input::kc::key_l)
+	(XK_M, sge::input::kc::key_m)
+	(XK_N, sge::input::kc::key_n)
+	(XK_O, sge::input::kc::key_o)
+	(XK_P, sge::input::kc::key_p)
+	(XK_Q, sge::input::kc::key_q)
+	(XK_R, sge::input::kc::key_r)
+	(XK_S, sge::input::kc::key_s)
+	(XK_T, sge::input::kc::key_t)
+	(XK_U, sge::input::kc::key_u)
+	(XK_V, sge::input::kc::key_v)
+	(XK_W, sge::input::kc::key_w)
+	(XK_X, sge::input::kc::key_x)
+	(XK_Y, sge::input::kc::key_y)
+	(XK_Z, sge::input::kc::key_z)
 
-	(XK_bracketleft, sge::kc::key_lbracket)
-	(XK_backslash, sge::kc::key_backslash)
-	(XK_bracketright, sge::kc::key_rbracket)
+	(XK_bracketleft, sge::input::kc::key_lbracket)
+	(XK_backslash, sge::input::kc::key_backslash)
+	(XK_bracketright, sge::input::kc::key_rbracket)
 //#define XK_asciicircum                   0x005e  /* U+005E CIRCUMFLEX ACCENT */
-	(XK_underscore, sge::kc::key_underline)
-	(XK_grave, sge::kc::key_grave)
+	(XK_underscore, sge::input::kc::key_underline)
+	(XK_grave, sge::input::kc::key_grave)
 //#define XK_quoteleft                     0x0060  /* deprecated */
 
-	(XK_a, sge::kc::key_a)
-	(XK_b, sge::kc::key_b)
-	(XK_c, sge::kc::key_c)
-	(XK_d, sge::kc::key_d)
-	(XK_e, sge::kc::key_e)
-	(XK_f, sge::kc::key_f)
-	(XK_g, sge::kc::key_g)
-	(XK_h, sge::kc::key_h)
-	(XK_i, sge::kc::key_i)
-	(XK_j, sge::kc::key_j)
-	(XK_k, sge::kc::key_k)
-	(XK_l, sge::kc::key_l)
-	(XK_m, sge::kc::key_m)
-	(XK_n, sge::kc::key_n)
-	(XK_o, sge::kc::key_o)
-	(XK_p, sge::kc::key_p)
-	(XK_q, sge::kc::key_q)
-	(XK_r, sge::kc::key_r)
-	(XK_s, sge::kc::key_s)
-	(XK_t, sge::kc::key_t)
-	(XK_u, sge::kc::key_u)
-	(XK_v, sge::kc::key_v)
-	(XK_w, sge::kc::key_w)
-	(XK_x, sge::kc::key_x)
-	(XK_y, sge::kc::key_y)
-	(XK_z, sge::kc::key_z);
+	(XK_a, sge::input::kc::key_a)
+	(XK_b, sge::input::kc::key_b)
+	(XK_c, sge::input::kc::key_c)
+	(XK_d, sge::input::kc::key_d)
+	(XK_e, sge::input::kc::key_e)
+	(XK_f, sge::input::kc::key_f)
+	(XK_g, sge::input::kc::key_g)
+	(XK_h, sge::input::kc::key_h)
+	(XK_i, sge::input::kc::key_i)
+	(XK_j, sge::input::kc::key_j)
+	(XK_k, sge::input::kc::key_k)
+	(XK_l, sge::input::kc::key_l)
+	(XK_m, sge::input::kc::key_m)
+	(XK_n, sge::input::kc::key_n)
+	(XK_o, sge::input::kc::key_o)
+	(XK_p, sge::input::kc::key_p)
+	(XK_q, sge::input::kc::key_q)
+	(XK_r, sge::input::kc::key_r)
+	(XK_s, sge::input::kc::key_s)
+	(XK_t, sge::input::kc::key_t)
+	(XK_u, sge::input::kc::key_u)
+	(XK_v, sge::input::kc::key_v)
+	(XK_w, sge::input::kc::key_w)
+	(XK_x, sge::input::kc::key_x)
+	(XK_y, sge::input::kc::key_y)
+	(XK_z, sge::input::kc::key_z);
 
 #if 0
 #define XK_braceleft                     0x007b  /* U+007B LEFT CURLY BRACKET */
@@ -437,10 +437,10 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 
 }
 
-sge::key_code sge::xinput::translate_key_code(const KeySym sym)
+sge::input::key_code sge::xinput::translate_key_code(const KeySym sym)
 {
 	const x11_to_sge_array::const_iterator it = x11_to_sge.find(sym);
 	return it == x11_to_sge.end()
-		? kc::none
+		? input::kc::none
 		: it->second;
 }

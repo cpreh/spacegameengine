@@ -20,20 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/util.hpp>
 
-const sge::texture_ptr sge::create_texture(const renderer_ptr r,
-                                           const image_ptr p,
-                                           const filter_args& filter,
-                                           const resource_flag_t flags)
+const sge::renderer::texture_ptr
+sge::image::create_texture(
+	const renderer::device_ptr r,
+	const image_ptr p,
+	const renderer::filter_args& filter,
+	const renderer::resource_flag_t flags)
 {
-	return r->create_texture(p->data(), p->dim(), filter, flags);
+	// FIXME
+	//return r->create_texture(p->data(), p->dim(), filter, flags);
 }
 
-const sge::texture_ptr sge::create_texture(const path& file,
-                                           const renderer_ptr r,
-                                           const image_loader_ptr p,
-                                           const filter_args& filter,
-                                           const resource_flag_t flags)
+const sge::renderer::texture_ptr
+sge::image::create_texture(
+	const path& file,
+	const renderer::device_ptr r,
+	const loader_ptr p,
+	const renderer::filter_args& filter,
+	const renderer::resource_flag_t flags)
 {
-	return create_texture(r, p->load_image(file), filter, flags);
+	// FIXME
+	//return create_texture(r, p->load_image(file), filter, flags);
 }
 

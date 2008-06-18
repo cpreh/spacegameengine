@@ -22,10 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONVERSION_HPP_INCLUDED
 
 #include "common.hpp"
-#include "cube_texture.hpp"
 #include <sge/renderer/types.hpp>
-#include <sge/renderer/renderer.hpp>
-#include <sge/renderer/cube_texture.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/texture_filter.hpp>
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
@@ -35,28 +34,28 @@ namespace ogl
 
 // TODO: put some of them in their appropriate locations
 
-GLenum convert_cast(bool_state::type);
-GLenum convert_cast(cull_mode::type);
-GLenum convert_cast(depth_func::type);
-GLenum convert_cast(stencil_func::type);
-GLenum convert_cast(fog_mode::type);
-GLenum convert_cast(source_blend_func::type);
-GLenum convert_cast(dest_blend_func::type);
-GLenum convert_cast(draw_mode::type);
+GLenum convert_cast(renderer::bool_state::type);
+GLenum convert_cast(renderer::cull_mode::type);
+GLenum convert_cast(renderer::depth_func::type);
+GLenum convert_cast(renderer::stencil_func::type);
+GLenum convert_cast(renderer::fog_mode::type);
+GLenum convert_cast(renderer::source_blend_func::type);
+GLenum convert_cast(renderer::dest_blend_func::type);
+GLenum convert_cast(renderer::draw_mode::type);
 
-GLuint convert_cast(const lock_flag_t&);
-GLenum convert_cast(const indexed_primitive_type::type&);
-GLenum convert_cast(const nonindexed_primitive_type::type&);
-GLenum convert_cast(const min_filter::type&);
-GLenum convert_cast(const mag_filter::type&);
-GLenum convert_cast(const texture_stage_op::type&);
-GLenum convert_cast(const texture_stage_op_value::type&);
-GLenum convert_cast(const texture_stage_arg::type&);
-GLenum convert_cast(const texture_stage_arg_value::type&);
+GLuint convert_cast(const renderer::lock_flag_t&);
+GLenum convert_cast(const renderer::indexed_primitive_type::type&);
+GLenum convert_cast(const renderer::nonindexed_primitive_type::type&);
+GLenum convert_cast(const renderer::min_filter::type&);
+GLenum convert_cast(const renderer::mag_filter::type&);
+GLenum convert_cast(const renderer::texture_stage_op::type&);
+GLenum convert_cast(const renderer::texture_stage_op_value::type&);
+GLenum convert_cast(const renderer::texture_stage_arg::type&);
+GLenum convert_cast(const renderer::texture_stage_arg_value::type&);
 
-GLuint convert_resource_flags(resource_flag_t);
-GLenum convert_fog_float_state(float_state::type);
-GLenum convert_clear_bit(bool_state::type);
+GLuint convert_resource_flags(renderer::resource_flag_t);
+GLenum convert_fog_float_state(renderer::float_state::type);
+GLenum convert_clear_bit(renderer::bool_state::type);
 
 }
 }

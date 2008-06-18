@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/algorithm.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 
-template class sge::ogl::basic_texture<sge::texture>;
+template class sge::ogl::basic_texture<sge::renderer::texture>;
 
 namespace
 {
@@ -40,8 +40,8 @@ const GLenum texture_type = GL_TEXTURE_2D;
 sge::ogl::texture::texture(
 	const const_pointer src,
 	const dim_type& dim_,
-	const filter_args& filter_,
-	const resource_flag_t flags)
+	const renderer::filter_args& filter_,
+	const resource_flag_type flags)
  : detail::texture_base(filter_, flags, texture_type),
    dim_(dim_)
 {
@@ -51,18 +51,22 @@ sge::ogl::texture::texture(
 		set_texture(0);
 }
 
-const sge::ogl::texture::dim_type sge::ogl::texture::dim() const
+const sge::ogl::texture::dim_type
+sge::ogl::texture::dim() const
 {
 	return dim_;
 }
 
-void sge::ogl::texture::set_data(const const_pointer src, const lock_rect& r)
+void sge::ogl::texture::set_data(
+	const const_pointer src,
+	const renderer::lock_rect& r)
 {
 	pre_setdata();
 	set_texture_rect(type(), filter(), dim(), r, src);
 }
 
-void sge::ogl::texture::set_data(const const_pointer src)
+void sge::ogl::texture::set_data(
+	const const_pointer src)
 {
 	if(!src)
 		throw exception(SGE_TEXT("texture::set_data(): src may not be 0!"));
@@ -70,17 +74,21 @@ void sge::ogl::texture::set_data(const const_pointer src)
 
 	if(pbo_in_hardware())
 	{
-		const scoped_lock<sge::ogl::texture*> lock_(make_scoped_lock(this, lock_flags::writeonly));
+		const renderer::scoped_lock<sge::ogl::texture*> lock_(
+			renderer::make_scoped_lock(
+				this,
+				renderer::lock_flags::writeonly));
 		copy_n(src, size(), data());
 	}
 	else
 		set_texture(src);
 }
 
-void sge::ogl::texture::lock(const lock_flag_t lmode)
+void sge::ogl::texture::lock(
+	const lock_flag_type lmode)
 {
 	do_lock(lmode);
-	if(lock_flag_read(lock_mode()))
+	if(renderer::lock_flag_read(lock_mode()))
 		get_tex_image(read_buffer());
 	post_lock();
 }
@@ -88,12 +96,13 @@ void sge::ogl::texture::lock(const lock_flag_t lmode)
 void sge::ogl::texture::unlock()
 {
 	pre_unlock();
-	if(lock_flag_write(lock_mode()))
+	if(renderer::lock_flag_write(lock_mode()))
 		set_texture(write_buffer());
 	do_unlock();
 }
 
-void sge::ogl::texture::set_texture(const const_pointer src)
+void sge::ogl::texture::set_texture(
+	const const_pointer src)
 {
 	pre_setdata();
 	ogl::set_texture(type(), filter(), dim(), src);

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 #define SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 
-#include <sge/renderer/renderer_states.hpp>
+#include <sge/renderer/states.hpp>
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
@@ -29,25 +29,25 @@ namespace sge
 namespace ogl
 {
 
-class renderer;
+class device;
 
 class state_visitor : public boost::static_visitor<> {
 public:
-	state_visitor(renderer& rend);
+	state_visitor(device& rend);
 
-	void operator()(int_state::type) const;
-	void operator()(float_state::type) const;
-	void operator()(bool_state::type) const;
-	void operator()(color_state::type) const;
-	void operator()(cull_mode::type) const;
-	void operator()(depth_func::type) const;
-	void operator()(stencil_func::type) const;
-	void operator()(fog_mode::type) const;
-	void operator()(draw_mode::type) const;
-	void operator()(source_blend_func::type) const;
-	void operator()(dest_blend_func::type) const;
+	void operator()(renderer::int_state::type) const;
+	void operator()(renderer::float_state::type) const;
+	void operator()(renderer::bool_state::type) const;
+	void operator()(renderer::color_state::type) const;
+	void operator()(renderer::cull_mode::type) const;
+	void operator()(renderer::depth_func::type) const;
+	void operator()(renderer::stencil_func::type) const;
+	void operator()(renderer::fog_mode::type) const;
+	void operator()(renderer::draw_mode::type) const;
+	void operator()(renderer::source_blend_func::type) const;
+	void operator()(renderer::dest_blend_func::type) const;
 private:
-	renderer& rend;
+	device& rend;
 };
 
 }

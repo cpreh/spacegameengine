@@ -24,21 +24,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/power.hpp>
 #include <ostream>
 
-sge::no_fragmented_texture::no_fragmented_texture(const renderer_ptr rend, const filter_args& my_filter)
+sge::no_fragmented_texture::no_fragmented_texture(
+	const renderer::device_ptr rend,
+	const renderer::filter_args& my_filter)
  : rend(rend),
    my_filter(my_filter)
 {}
 
 const sge::virtual_texture_ptr
 sge::no_fragmented_texture::consume_fragments(
-	const texture::dim_type& dim)
+	const renderer::texture::dim_type& dim)
 {
 	if(tex)
 		return virtual_texture_ptr();
 
-	const texture::dim_type real_dim(atlased_bounds(dim));
+	const renderer::texture::dim_type real_dim(atlased_bounds(dim));
 
-   	tex = rend->create_texture(0, real_dim, my_filter);
+	// FIXME: boost::gil!
+   	//tex = rend->create_texture(0, real_dim, my_filter);
 
 	if(real_dim != dim)
 		sge::cerr << SGE_TEXT("warning: You used a no_fragmented_texture whose dimensions are not a power of 2.")\
@@ -47,8 +50,8 @@ sge::no_fragmented_texture::consume_fragments(
 
 	return virtual_texture_ptr(
 		new virtual_texture(
-			lock_rect(
-				lock_rect::point_type(0,0),
+			renderer::lock_rect(
+				renderer::lock_rect::point_type(0,0),
 				atlased_size(dim)),
 			*this,
 			need_atlasing(dim.w()),
@@ -60,7 +63,8 @@ void sge::no_fragmented_texture::return_fragments(const virtual_texture&)
 	tex.reset();
 }
 
-const sge::texture_ptr sge::no_fragmented_texture::get_texture() const
+const sge::renderer::texture_ptr
+sge::no_fragmented_texture::get_texture() const
 {
 	return tex;
 }

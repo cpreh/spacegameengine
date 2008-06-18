@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEFAULT_TEXTURE_CREATOR_HPP_INCLUDED
 
 #include "../renderer/texture_filter.hpp"
-#include "../renderer/renderer.hpp"
+#include "../renderer/device.hpp"
 
 namespace sge
 {
@@ -32,11 +32,13 @@ class fragmented_texture;
 template<typename T>
 class default_texture_creator {
 public:
-	default_texture_creator(renderer_ptr rend, const filter_args& filter);
+	default_texture_creator(
+		renderer::device_ptr rend,
+		const renderer::filter_args& filter);
 	fragmented_texture* operator()() const;
 private:
-	const renderer_ptr rend;
-	const filter_args filter;
+	const renderer::device_ptr  rend;
+	const renderer::filter_args filter;
 };
 
 }

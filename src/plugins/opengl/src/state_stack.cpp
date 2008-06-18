@@ -19,13 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../state_stack.hpp"
-#include "../renderer.hpp"
+#include "../device.hpp"
 
-sge::ogl::state_stack::state_stack(renderer& rend)
+sge::ogl::state_stack::state_stack(
+	device& rend)
 : rend(rend)
 {}
 
-void sge::ogl::state_stack::push(const renderer_state_list& list)
+void sge::ogl::state_stack::push(
+	const renderer::state_list& list)
 {
 	state_levels.push(list);
 }

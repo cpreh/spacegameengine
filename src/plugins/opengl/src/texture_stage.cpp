@@ -21,26 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../texture_stage.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
 
 namespace
 {
 
-GLenum stage_value_scale(const sge::texture_stage_op_value::type value)
+GLenum stage_value_scale(
+	const sge::renderer::texture_stage_op_value::type value)
 {
 	switch(value) {
-	case sge::texture_stage_op_value::arg0:
-	case sge::texture_stage_op_value::modulate:
-	case sge::texture_stage_op_value::add:
-	case sge::texture_stage_op_value::substract:
-	case sge::texture_stage_op_value::add_signed:
-	case sge::texture_stage_op_value::interpolate:
+	case sge::renderer::texture_stage_op_value::arg0:
+	case sge::renderer::texture_stage_op_value::modulate:
+	case sge::renderer::texture_stage_op_value::add:
+	case sge::renderer::texture_stage_op_value::substract:
+	case sge::renderer::texture_stage_op_value::add_signed:
+	case sge::renderer::texture_stage_op_value::interpolate:
 		return 1;
-	case sge::texture_stage_op_value::modulate2x:
-	case sge::texture_stage_op_value::add2x:
-	case sge::texture_stage_op_value::add_signed2x:
+	case sge::renderer::texture_stage_op_value::modulate2x:
+	case sge::renderer::texture_stage_op_value::add2x:
+	case sge::renderer::texture_stage_op_value::add_signed2x:
 		return 2;
-	case sge::texture_stage_op_value::modulate4x:
-	case sge::texture_stage_op_value::add4x:
+	case sge::renderer::texture_stage_op_value::modulate4x:
+	case sge::renderer::texture_stage_op_value::add4x:
 		return 4;
 	default:
 		throw sge::exception(SGE_TEXT("Invalid texture_stage_op_value!"));
@@ -57,7 +59,7 @@ void sge::ogl::tex_envf_ext(const GLenum arg, const GLenum value)
 	glTexEnvf(GL_TEXTURE_ENV, arg, value); // FIXME
 }
 
-void sge::ogl::set_texture_stage_scale(const texture_stage_op_value::type value)
+void sge::ogl::set_texture_stage_scale(const renderer::texture_stage_op_value::type value)
 {
 	const GLenum scale = stage_value_scale(value);
 	tex_envf_ext(GL_RGB_SCALE, scale);

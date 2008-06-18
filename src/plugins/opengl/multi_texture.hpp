@@ -28,7 +28,8 @@ namespace sge
 namespace ogl
 {
 
-void set_texture_level(stage_type stage);
+void set_texture_level(
+	renderer::stage_type stage);
 
 }
 }

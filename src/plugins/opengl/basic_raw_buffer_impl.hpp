@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<typename Base, GLenum (*Type)(), sge::ogl::vbo_base& (*Impl)()>
 sge::ogl::basic_raw_buffer<Base, Type, Impl>::basic_raw_buffer(
 	const size_type sz,
-	const resource_flag_t flags,
+	const resource_flag_type flags,
 	const const_pointer src)
 :	base_type(
 		Type(),

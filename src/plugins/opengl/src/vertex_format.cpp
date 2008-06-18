@@ -23,24 +23,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo_base.hpp"
 #include "../vertex_format.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
 #include <boost/bind.hpp>
+#include <boost/foreach.hpp>
 
 namespace {
 
-using sge::vertex_size;
+using sge::renderer::vertex_size;
 
 struct vertex_actor_info {
-	vertex_actor_info(vertex_size offset,
-	                  vertex_size stride,
-	                  vertex_size index);
+	vertex_actor_info(
+		vertex_size offset,
+		vertex_size stride,
+		vertex_size index);
 	void*       offset;
 	vertex_size stride;
 	vertex_size index;
 };
 
-vertex_actor_info::vertex_actor_info(const vertex_size offset_,
-                                     const vertex_size stride,
-                                     const vertex_size index)
+vertex_actor_info::vertex_actor_info(
+	const vertex_size offset_,
+	const vertex_size stride,
+	const vertex_size index)
 :	offset(
 		sge::ogl::vb_ib_vbo_impl().buffer_offset(
 			sge::ogl::vertex_buffer_type(),
@@ -84,27 +88,27 @@ void diffuse_actor(const vertex_actor_info& ai)
 
 }
 
-sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
+sge::ogl::vertex_format::vertex_format(const renderer::vertex_format& f)
 {
 	vertex_size offset = 0;
-	const sge::vertex_format::usage_list& l = f.elements();
+	const renderer::vertex_format::usage_list& l = f.elements();
 
-	for(sge::vertex_format::usage_list::const_iterator it = l.begin(); it != l.end(); ++it)
+	BOOST_FOREACH(renderer::vertex_format::usage_list::const_reference i, l)
 	{
-		for(vertex_size count = 0; count < it->count(); ++count)
+		for(vertex_size count = 0; count < i.count(); ++count)
 		{
-			const vertex_actor_info ai(offset + count*it->size(), f.stride(), count);
-			switch(it->usage()) {
-			case vertex_usage::pos:
+			const vertex_actor_info ai(offset + count * i.size(), f.stride(), count);
+			switch(i.usage()) {
+			case renderer::vertex_usage::pos:
 				actors.push_back(boost::bind(pos_actor, ai));
 				break;
-			case vertex_usage::tex:
+			case renderer::vertex_usage::tex:
 				actors.push_back(boost::bind(tex_actor, ai));
 				break;
-			case vertex_usage::normal:
+			case renderer::vertex_usage::normal:
 				actors.push_back(boost::bind(normal_actor, ai));
 				break;
-			case vertex_usage::diffuse:
+			case renderer::vertex_usage::diffuse:
 				actors.push_back(boost::bind(diffuse_actor, ai));
 				break;
 			default:
@@ -112,12 +116,13 @@ sge::ogl::vertex_format::vertex_format(const sge::vertex_format& f)
 			}
 		}
 
-		oi[it->usage()] = offset;
-		offset += it->stride();
+		oi[i.usage()] = offset;
+		offset += i.stride();
 	}
 }
 
-const sge::offset_info& sge::ogl::vertex_format::offsets() const
+const sge::renderer::offset_info&
+sge::ogl::vertex_format::offsets() const
 {
 	return oi;
 }

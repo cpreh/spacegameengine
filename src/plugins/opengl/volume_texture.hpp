@@ -33,21 +33,25 @@ namespace ogl
 namespace detail
 {
 
-typedef basic_texture<sge::volume_texture> volume_texture_base;
+typedef basic_texture<renderer::volume_texture> volume_texture_base;
 
 }
 
 class volume_texture : public detail::volume_texture_base {
 public:
-	volume_texture(const_pointer src,
-	               const box_type& box,
-	               const filter_args& filter,
-	               resource_flag_t flags);
+	volume_texture(
+		const_pointer src,
+		const box_type& box,
+		const renderer::filter_args& filter,
+		resource_flag_type flags);
 
 	const box_type box() const;
 
-	void set_data(const_pointer src);
-	void set_data(const_pointer src, const lock_box& b);
+	void set_data(
+		const_pointer src);
+	void set_data(
+		const_pointer src,
+		const renderer::lock_box& b);
 private:
 	const box_type box_;
 };

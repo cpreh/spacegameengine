@@ -33,19 +33,21 @@ class vbo_base;
 
 class pbo_base {
 public:
-	typedef sge::texture_base::size_type              size_type;
-	typedef sge::texture_base::difference_type        difference_type;
-	typedef sge::texture_base::value_type             value_type;
-	typedef sge::texture_base::reference              reference;
-	typedef sge::texture_base::const_reference        const_reference;
-	typedef sge::texture_base::pointer                pointer;
-	typedef sge::texture_base::const_pointer          const_pointer;
-	typedef sge::texture_base::iterator               iterator;
-	typedef sge::texture_base::const_iterator         const_iterator;
-	typedef sge::texture_base::reverse_iterator       reverse_iterator;
-	typedef sge::texture_base::const_reverse_iterator const_reverse_iterator;
+	typedef sge::renderer::texture_base::size_type              size_type;
+	typedef sge::renderer::texture_base::difference_type        difference_type;
+	typedef sge::renderer::texture_base::value_type             value_type;
+	typedef sge::renderer::texture_base::reference              reference;
+	typedef sge::renderer::texture_base::const_reference        const_reference;
+	typedef sge::renderer::texture_base::pointer                pointer;
+	typedef sge::renderer::texture_base::const_pointer          const_pointer;
+	typedef sge::renderer::texture_base::iterator               iterator;
+	typedef sge::renderer::texture_base::const_iterator         const_iterator;
+	typedef sge::renderer::texture_base::reverse_iterator       reverse_iterator;
+	typedef sge::renderer::texture_base::const_reverse_iterator const_reverse_iterator;
+	typedef sge::renderer::texture_base::resource_flag_type     resource_flag_type;
+	typedef sge::renderer::texture_base::lock_flag_type         lock_flag_type;
 
-	virtual void lock(lock_flag_t) = 0;
+	virtual void lock(lock_flag_type) = 0;
 	virtual void unlock() = 0;
 
 	virtual iterator begin() = 0;

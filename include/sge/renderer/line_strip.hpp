@@ -18,23 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LINE_STRIP_HPP_INCLUDED
-#define SGE_LINE_STRIP_HPP_INCLUDED
+#ifndef SGE_RENDERER_LINE_STRIP_HPP_INCLUDED
+#define SGE_RENDERER_LINE_STRIP_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include <vector>
 #include "renderer.hpp"
 #include "vertex_buffer.hpp"
 #include "default_transformable.hpp"
+#include <boost/noncopyable.hpp>
+#include <vector>
 
 namespace sge
+{
+namespace renderer
 {
 
 class line_strip : public default_transformable, boost::noncopyable {
 public:
 	typedef vertex_buffer::size_type size_type;
 
-	line_strip(renderer_ptr rend, color _col, size_type init_lines = 1);
+	line_strip(device_ptr rend, color col, size_type init_lines = 1);
 	line_strip& add(const pos3& a);
 	void set_color(color c);
 	void render();
@@ -44,13 +46,14 @@ public:
 	void loop(bool);
 private:
 	typedef std::vector<pos3> pos_vector;
-	const renderer_ptr rend;
+	const device_ptr rend;
 	color col_;
 	vertex_buffer_ptr vb;
 	bool loop_;
 	pos_vector vertices;
 };
 
+}
 }
 
 #endif

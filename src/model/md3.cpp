@@ -80,23 +80,25 @@ sge::md3_model::md3_model(std::istream& is)
 	is.seekg(start + ofs_eof);
 }
 
-sge::index_buffer::size_type sge::md3_model::indices() const
+sge::renderer::index_buffer::size_type sge::md3_model::indices() const
 {
 	return indices_;
 }
 
-sge::vertex_buffer::size_type sge::md3_model::vertices() const
+sge::renderer::vertex_buffer::size_type sge::md3_model::vertices() const
 {
 	return vertices_;
 }
 
-void sge::md3_model::fill_indices(const index_buffer_ptr ib, const index_buffer::size_type offset)
+void sge::md3_model::fill_indices(
+	const renderer::index_buffer_ptr ib,
+	const renderer::index_buffer::size_type offset)
 {
 	if(offset + indices() > ib->size())
 		throw exception(SGE_TEXT("md3_model::fill_indices(): index buffer out of range!"));
 
-	index_buffer::value_type ib_offset(0);
-	index_buffer::iterator ibit = ib->begin() + offset;
+	renderer::index_buffer::value_type ib_offset(0);
+	renderer::index_buffer::iterator ibit = ib->begin() + offset;
 	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
 	{
 		const surface& surf = *surf_it;
@@ -106,21 +108,23 @@ void sge::md3_model::fill_indices(const index_buffer_ptr ib, const index_buffer:
 			*ibit++ = it->indices[1] + ib_offset;
 			*ibit++ = it->indices[2] + ib_offset;
 		}
-		ib_offset += static_cast<index_buffer::value_type>(surf.transformed_vertices.size());
+		ib_offset += static_cast<renderer::index_buffer::value_type>(surf.transformed_vertices.size());
 	}
 }
 
-void sge::md3_model::fill_vertices(const vertex_buffer_ptr vb, const vertex_buffer::size_type offset)
+void sge::md3_model::fill_vertices(
+	const renderer::vertex_buffer_ptr vb,
+	const renderer::vertex_buffer::size_type offset)
 {
 	if(offset + vertices() > vb->size())
 		throw exception(SGE_TEXT("md3_model::fill_vertices(): vertex buffer out of range!"));
 
-	vertex_buffer::iterator vbit = vb->begin() + offset;
+	renderer::vertex_buffer::iterator vbit = vb->begin() + offset;
 	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
 	{
 		const surface& surf = *surf_it;
 
-		const vertex_buffer::iterator vbold = vbit;
+		const renderer::vertex_buffer::iterator vbold = vbit;
 		for(surface::transformed_vertex_vector::size_type sz = 0; sz < surf.transformed_vertices.size(); ++sz)
 		{
 			const surface::transformed_vertex& v = surf.transformed_vertices.at(sz);

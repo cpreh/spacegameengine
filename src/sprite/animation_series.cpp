@@ -51,7 +51,7 @@ bool sge::sprite::animation_series::empty() const
 	return entities.empty();
 }
 	
-const sge::texture::dim_type
+const sge::renderer::texture::dim_type
 sge::sprite::animation_series::dim() const
 {
 	return entities.at(0).dim();

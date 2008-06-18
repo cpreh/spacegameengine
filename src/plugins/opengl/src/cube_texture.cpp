@@ -40,18 +40,18 @@ GLenum gl_cube_texture_type;
 
 }
 
-template class sge::ogl::basic_texture<sge::cube_texture>;
+template class sge::ogl::basic_texture<sge::renderer::cube_texture>;
 
 sge::ogl::cube_texture::cube_texture(
 	const cube_side_array* const src,
 	const size_type sz,
-	const filter_args& filter,
-	const resource_flag_t flags)
+	const renderer::filter_args& filter,
+	const resource_flag_type flags)
  : detail::cube_texture_base(filter, flags, cube_texture_type()),
   sz(sz)
 {
 	if(src)
-		sge::cube_texture::set_data(*src);
+		renderer::cube_texture::set_data(*src);
 }
 
 sge::ogl::cube_texture::size_type sge::ogl::cube_texture::border_size() const
@@ -60,9 +60,9 @@ sge::ogl::cube_texture::size_type sge::ogl::cube_texture::border_size() const
 }
 
 void sge::ogl::cube_texture::set_data(
-	const cube_side::type side,
+	const renderer::cube_side::type side,
 	const const_pointer src,
-	const lock_rect& r)
+	const renderer::lock_rect& r)
 {
 	pre_setdata();
 	//scoped_lock<sge::cube_texture*> lock_(this, lock_flags::writeonly);
@@ -70,20 +70,22 @@ void sge::ogl::cube_texture::set_data(
 	set_texture_rect(
 		convert_cast(side),
 		filter(),
-		sge::texture::dim_type(
+		renderer::texture::dim_type(
 			border_size(),
 			border_size()),
 		r,
 		src);
 }
 
-void sge::ogl::cube_texture::set_data(const cube_side::type side, const const_pointer src)
+void sge::ogl::cube_texture::set_data(
+	const renderer::cube_side::type side,
+	const const_pointer src)
 {
 	pre_setdata();
 	set_texture(
 		convert_cast(side),
 		filter(),
-		sge::texture::dim_type(
+		renderer::texture::dim_type(
 			border_size(),
 			border_size()),
 		src);
@@ -94,9 +96,9 @@ void sge::ogl::cube_texture::set_data(const cube_side::type side, const const_po
 	
 }*/
 
-GLenum sge::ogl::convert_cast(const cube_side::type& s)
+GLenum sge::ogl::convert_cast(const renderer::cube_side::type& s)
 {
-	typedef boost::array<GLenum, sge::cube_side::num_elements> cube_side_array;
+	typedef boost::array<GLenum, sge::renderer::cube_side::num_elements> cube_side_array;
 	static const cube_side_array cube_sides = cube_texture_type() == GL_TEXTURE_CUBE_MAP
 		? boost::assign::list_of
 			(GL_TEXTURE_CUBE_MAP_POSITIVE_Z)

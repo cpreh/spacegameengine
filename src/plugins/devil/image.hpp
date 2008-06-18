@@ -24,21 +24,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "image_impl.hpp"
 #include <sge/path.hpp>
 #include <sge/image/image.hpp>
-#include <sge/image/image_format.hpp>
+#include <sge/image/format.hpp>
 
 namespace sge
 {
 namespace devil
 {
 
-class image : public sge::image {
+class image : public sge::image::image {
 public:
 	explicit image(const path&);
-	image(image_format::type type, const_pointer format_data, size_type size);
+	image(sge::image::format::type type, const_pointer format_data, size_type size);
 	image(const_pointer p, const dim_type&);
 	const_pointer data() const;
 	void data(const_pointer, const dim_type&);
-	dim_type dim() const;
+	const dim_type dim() const;
 	size_type width() const;
 	size_type height() const;
 	void resample(const dim_type&);

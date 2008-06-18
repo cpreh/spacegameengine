@@ -24,31 +24,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "plugin_manager.hpp"
 #include "plugin.hpp"
 
-#include "renderer/renderer.hpp"
-#include "renderer/renderer_system.hpp"
-#include "renderer/renderer_parameters.hpp"
+#include "renderer/device.hpp"
+#include "renderer/system.hpp"
+#include "renderer/parameters.hpp"
 
-#include "input/input_system.hpp"
+#include "input/system.hpp"
 
-#include "image/image_loader.hpp"
+#include "image/loader.hpp"
 
 namespace sge {
 
 struct systems {
-	::sge::plugin_manager                         plugin_manager;
+	::sge::plugin_manager              plugin_manager;
 
-	::sge::plugin<sge::renderer_system>::ptr_type renderer_plugin;
-	::sge::renderer_system_ptr                    renderer_system;
-	::sge::renderer_parameters                    renderer_parameters;
-	::sge::renderer_ptr                           renderer;
+	plugin<renderer::system>::ptr_type renderer_plugin;
+	renderer::system_ptr               renderer_system;
+	renderer::parameters               renderer_parameters;
+	::sge::renderer::device_ptr        renderer;
 
-	::sge::plugin<sge::input_system>::ptr_type    input_plugin;
-	::sge::input_system_ptr                       input_system;
+	plugin<input::system>::ptr_type    input_plugin;
+	input::system_ptr                  input_system;
 
-	::sge::plugin<sge::image_loader>::ptr_type    image_loader_plugin;
-	::sge::image_loader_ptr                       image_loader;
+	plugin<image::loader>::ptr_type    image_loader_plugin;
+	image::loader_ptr                  image_loader;
 
-	systems() : renderer_parameters(display_mode(800,600,bit_depth::depth32)) {}
+	systems();
 
 	template<typename T>
 	bool init() { return T(*this); }

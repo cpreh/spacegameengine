@@ -22,13 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/static_texture.hpp>
 #include <boost/foreach.hpp>
 
-sge::texture_manager::texture_manager(const renderer_ptr rend, const onalloc_function& onalloc_)
+sge::texture_manager::texture_manager(
+	const renderer::device_ptr rend,
+	const onalloc_function& onalloc_)
  : rend(rend),
    onalloc_(onalloc_)
 {}
 
-const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::const_pointer src,
-                                                                 const texture::dim_type& dim)
+const sge::virtual_texture_ptr
+sge::texture_manager::add_texture(
+	const renderer::texture::const_pointer src,
+	const renderer::texture::dim_type& dim)
 {
 	BOOST_FOREACH(fragmented_texture& tex, fragmented_textures)
 		if(const virtual_texture_ptr p = init_texture(tex, src, dim))
@@ -41,9 +45,11 @@ const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture::
 	throw image_too_big();
 }
 
-const sge::virtual_texture_ptr sge::texture_manager::init_texture(fragmented_texture& tex,
-                                                                  const texture::const_pointer src,
-                                                                  const texture::dim_type& dim) const
+const sge::virtual_texture_ptr
+sge::texture_manager::init_texture(
+	fragmented_texture& tex,
+	const renderer::texture::const_pointer src,
+	const renderer::texture::dim_type& dim) const
 {
 	const virtual_texture_ptr p = tex.consume_fragments(dim);
 	if(p)
@@ -51,18 +57,22 @@ const sge::virtual_texture_ptr sge::texture_manager::init_texture(fragmented_tex
 	return p;
 }
 
-const sge::virtual_texture_ptr sge::texture_manager::add_texture(const texture_ptr tex)
+const sge::virtual_texture_ptr
+sge::texture_manager::add_texture(
+	const renderer::texture_ptr tex)
 {
 	fragmented_textures.push_back(new static_texture(tex));
 	return fragmented_textures.back().consume_fragments(tex->dim());
 }
 
-const sge::renderer_ptr sge::texture_manager::get_renderer() const
+const sge::renderer::device_ptr
+sge::texture_manager::get_renderer() const
 {
 	return rend;
 }
 
-void sge::texture_manager::onalloc(const onalloc_function& fun)
+void sge::texture_manager::onalloc(
+	const onalloc_function& fun)
 {
 	onalloc_ = fun;
 }

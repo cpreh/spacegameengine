@@ -32,24 +32,25 @@ namespace ogl
 
 namespace detail
 {
-typedef basic_buffer<sge::vertex_buffer> vertex_buffer_base;
+typedef basic_buffer<renderer::vertex_buffer> vertex_buffer_base;
 }
 
 class vertex_buffer : public detail::vertex_buffer_base {	
 public:
-	vertex_buffer(size_type size,
-	              const sge::vertex_format& format,
-	              resource_flag_t flags,
-	              const_pointer src);
+	vertex_buffer(
+		size_type size,
+		const renderer::vertex_format& format,
+		resource_flag_type flags,
+		const_pointer src);
 
 	size_type stride() const;
-	const sge::vertex_format& get_vertex_format() const;
+	const renderer::vertex_format& get_vertex_format() const;
 	iterator create_iterator(pointer p);
 	const_iterator create_iterator(const_pointer p) const;
 
 	void set_format();
 private:
-	sge::vertex_format format;
+	renderer::vertex_format format;
 	vertex_format ogl_format;
 };
 

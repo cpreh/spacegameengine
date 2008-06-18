@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_STACK_HPP_INCLUDED
 #define SGE_OPENGL_STATE_STACK_HPP_INCLUDED
 
-#include <sge/renderer/renderer_states.hpp>
+#include <sge/renderer/states.hpp>
 #include <stack>
 
 namespace sge
@@ -29,16 +29,16 @@ namespace sge
 namespace ogl
 {
 
-class renderer;
+class device;
 
 class state_stack {
 public:
-	state_stack(renderer& rend);
-	void push(const renderer_state_list& list);
+	state_stack(device& rend);
+	void push(const renderer::state_list& list);
 	void pop();
 private:
-	renderer& rend;
-	typedef std::stack<renderer_state_list> stack_type;
+	device& rend;
+	typedef std::stack<renderer::state_list> stack_type;
 	stack_type state_levels;
 };
 

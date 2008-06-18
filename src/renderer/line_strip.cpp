@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+/*
 #include <sge/renderer/line_strip.hpp>
 #include <sge/renderer/transform.hpp>
 #include <sge/renderer/material.hpp>
 #include <sge/vector.hpp>
 #include <sge/math/matrix_impl.hpp>
 
-sge::line_strip::line_strip(
-	const renderer_ptr rend,
+sge::renderer::line_strip::line_strip(
+	const device_ptr rend,
 	const color col_,
 	const size_type init_lines)
  : default_transformable(rend, math::matrix_identity(), math::matrix_orthogonal_xy()),
@@ -38,7 +39,7 @@ sge::line_strip::line_strip(
 	vertices.reserve(vb->size());
 }
 
-sge::line_strip& sge::line_strip::add(const pos3& a)
+sge::renderer::line_strip& sge::renderer::line_strip::add(const pos3& a)
 {
 	vertices.push_back(a);
 	return *this;
@@ -93,4 +94,4 @@ void sge::line_strip::clear()
 void sge::line_strip::loop(const bool b)
 {
 	loop_ = b;
-}
+}*/

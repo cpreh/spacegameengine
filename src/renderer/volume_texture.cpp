@@ -20,12 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/volume_texture.hpp>
 
-template<typename BitDepth>
-typename sge::basic_volume_texture<BitDepth>::size_type
-sge::basic_volume_texture<BitDepth>::size() const
+sge::renderer::volume_texture::size_type
+sge::renderer::volume_texture::size() const
 {
 	return box().size();
 }
-
-template class sge::basic_volume_texture<sge::bit_depth16>;
-template class sge::basic_volume_texture<sge::bit_depth32>;

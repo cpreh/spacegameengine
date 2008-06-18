@@ -94,7 +94,7 @@ void sge::ogl::glsl::program<Native>::use()
 
 template<bool Native>
 void sge::ogl::glsl::program<Native>::use(
-	const sge::glsl::program_ptr p)
+	const renderer::glsl::program_ptr p)
 {
 	if(!p)
 	{
@@ -106,18 +106,18 @@ void sge::ogl::glsl::program<Native>::use(
 }
 
 template<bool Native>
-sge::glsl::uniform_variable_ptr
+const sge::renderer::glsl::uniform_variable_ptr
 sge::ogl::glsl::program<Native>::uniform(const std::string& name)
 {
-	return sge::glsl::uniform_variable_ptr(
+	return renderer::glsl::uniform_variable_ptr(
 		new uniform_variable<Native>(id(), name));
 }
 
 template<bool Native>
-sge::glsl::attribute_variable_ptr
+const sge::renderer::glsl::attribute_variable_ptr
 sge::ogl::glsl::program<Native>::attribute(const std::string& name)
 {
-	return sge::glsl::attribute_variable_ptr(
+	return renderer::glsl::attribute_variable_ptr(
 		new attribute_variable<Native>(id(), name));
 }
 

@@ -33,9 +33,10 @@ void set_light_float_ptr(const GLenum index, const GLenum name, const GLfloat* c
 
 }
 
-void sge::ogl::set_light_color4(const GLenum index, const GLenum name, const color4& color)
+void sge::ogl::set_light_colorf(const GLenum index, const GLenum name, const renderer::colorf& color)
 {
-	set_light_float_ptr(index, name, reinterpret_cast<const GLfloat*>(&color));
+	// FIXME:
+	//set_light_float_ptr(index, name, reinterpret_cast<const GLfloat*>(&color));
 }
 
 void sge::ogl::set_light_pos(const GLenum index, const math::vector4& pos)
@@ -55,7 +56,7 @@ void sge::ogl::set_light_float(const GLenum index, const GLenum name, const GLfl
 	glLightf(index, name, value);
 }
 
-GLenum sge::ogl::convert_light_index(const light_index index)
+GLenum sge::ogl::convert_light_index(const renderer::light_index index)
 {
 	return GL_LIGHT0 + index;
 }

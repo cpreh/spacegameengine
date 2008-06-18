@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <iterator>
 
+// FIXME: make this more flexible
 template<typename RanIt>
 void sge::sprite::system::render(const RanIt beg, const RanIt end)
 {
@@ -38,23 +39,25 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 	
 	const typename std::iterator_traits<RanIt>::difference_type range_len = std::distance(beg,end);
 
-	if(vb->size() < static_cast<vertex_buffer::size_type>(range_len) * detail::vertices_per_sprite)
+	if(vb->size() < static_cast<renderer::vertex_buffer::size_type>(range_len) * detail::vertices_per_sprite)
 	{
 		vb->resize(range_len * detail::vertices_per_sprite);
 		ib->resize(range_len * detail::indices_per_sprite);
 	}
 
 	{
-		const scoped_lock<index_buffer_ptr> iblock(make_scoped_lock(ib, lock_flags::writeonly));
-		const scoped_lock<vertex_buffer_ptr> vblock(make_scoped_lock(vb, lock_flags::writeonly));
-		index_buffer::iterator ib_it = ib->begin();
-		vertex_buffer::iterator vb_it = vb->begin();
+		const renderer::scoped_lock<renderer::index_buffer_ptr> iblock(
+			renderer::make_scoped_lock(ib, renderer::lock_flags::writeonly));
+		const renderer::scoped_lock<renderer::vertex_buffer_ptr> vblock(
+			renderer::make_scoped_lock(vb, renderer::lock_flags::writeonly));
+		renderer::index_buffer::iterator ib_it = ib->begin();
+		renderer::vertex_buffer::iterator vb_it = vb->begin();
 
 		for(RanIt cur = beg; cur != end; ++cur)
 		{
 			object& spr = *cur;
 			
-			ib_it = fill_indices(ib_it, static_cast<index_buffer::value_type>(vb_it - vb->begin()));
+			ib_it = fill_indices(ib_it, static_cast<renderer::index_buffer::value_type>(vb_it - vb->begin()));
 
 			if(math::almost_zero(spr.rotation()))
 				fill_position(vb_it, spr.get_rect(), spr.z());
@@ -70,17 +73,17 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 
 	set_matrices();
 
-	const scoped_state state_(
+	const renderer::scoped_state state_(
 		rend,
-		renderer_state_list
-			(bool_state::enable_lighting = false)
-			(bool_state::enable_alpha_blending = true)
-			(source_blend_func::src_alpha)
-			(dest_blend_func::inv_src_alpha)
-			(cull_mode::off)
-			(depth_func::off)
-			(stencil_func::off)
-			(draw_mode::fill)
+		renderer::state_list
+			(renderer::bool_state::enable_lighting = false)
+			(renderer::bool_state::enable_alpha_blending = true)
+			(renderer::source_blend_func::src_alpha)
+			(renderer::dest_blend_func::inv_src_alpha)
+			(renderer::cull_mode::off)
+			(renderer::depth_func::off)
+			(renderer::stencil_func::off)
+			(renderer::draw_mode::fill)
 	);
 
 
@@ -94,21 +97,21 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 		const RanIt next = first_mismatch_if(cur, end, num_objects, &object::equal);
 
 		const virtual_texture_ptr vtex = cur->get_texture();
-		rend->set_texture(vtex ? vtex->my_texture() : texture_ptr());
+		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);
 
 		rend->render(
 			vb,
 			ib,
 			(cur - beg) * detail::vertices_per_sprite,
 			(next - beg) * detail::vertices_per_sprite,
-			indexed_primitive_type::triangle,
+			renderer::indexed_primitive_type::triangle,
 			num_objects * 2,
 			first_index);
 		first_index += num_objects * detail::indices_per_sprite;
 		cur = next;
 	}
 
-	rend->set_texture(texture_ptr());
+	rend->set_texture(renderer::device::no_texture);
 }
 
 #endif

@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/rect_fragmented_texture.hpp>
 #include <sge/texture/atlasing.hpp>
 
-sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend, const filter_args& my_filter)
+sge::rect_fragmented_texture::rect_fragmented_texture(
+	const renderer::device_ptr rend,
+	const renderer::filter_args& my_filter)
 : rend(rend),
   my_filter(my_filter),
   cur_x(0),
@@ -30,9 +32,11 @@ sge::rect_fragmented_texture::rect_fragmented_texture(const renderer_ptr rend, c
   tex(atlased_texture(rend, my_filter))
 {}
 
-const sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(const texture::dim_type& dim)
+const sge::virtual_texture_ptr
+sge::rect_fragmented_texture::consume_fragments(
+	const renderer::texture::dim_type& dim)
 {
-	const texture::dim_type atlased_dim(atlased_size(dim, true));
+	const renderer::texture::dim_type atlased_dim(atlased_size(dim, true));
 
 	// if there is no space left for the requested height
 	if(cur_y + dim.h() >= tex->dim().h())
@@ -51,8 +55,8 @@ const sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(c
 
 	const virtual_texture_ptr ret(
 		new virtual_texture(
-			lock_rect(
-				lock_rect::point_type(
+			renderer::lock_rect(
+				renderer::lock_rect::point_type(
 					cur_x,
 					cur_y),
 				atlased_dim),
@@ -66,12 +70,14 @@ const sge::virtual_texture_ptr sge::rect_fragmented_texture::consume_fragments(c
 	return ret;
 }
 
-void sge::rect_fragmented_texture::return_fragments(const virtual_texture&)
+void sge::rect_fragmented_texture::return_fragments(
+	const virtual_texture&)
 {
 	// FIXME
 }
 
-const sge::texture_ptr sge::rect_fragmented_texture::get_texture() const
+const sge::renderer::texture_ptr
+sge::rect_fragmented_texture::get_texture() const
 {
 	return tex;
 }

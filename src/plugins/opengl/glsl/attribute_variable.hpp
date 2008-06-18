@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include <sge/math/vector.hpp>
 #include <sge/math/matrix.hpp>
-#include <sge/renderer/glsl_attribute_variable.hpp>
+#include <sge/renderer/glsl/attribute_variable.hpp>
 #include <string>
 
 namespace sge
@@ -36,7 +36,7 @@ namespace glsl
 {
 
 template<bool Native>
-class attribute_variable : public sge::glsl::attribute_variable {
+class attribute_variable : public renderer::glsl::attribute_variable {
 public:
 	typedef typename traits<Native>::handle handle;
 

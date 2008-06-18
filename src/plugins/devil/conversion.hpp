@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_CONVERSION_HPP_INCLUDED
 
 #include <IL/il.h>
-#include <sge/image/image_format.hpp>
+#include <sge/image/format.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace devil
 {
 
 template<typename D, typename S> D convert_cast(const S&);
-template<> ILuint convert_cast(const image_format::type&);
+template<> ILuint convert_cast(const image::format::type&);
 
 }
 }

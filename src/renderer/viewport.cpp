@@ -20,10 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/viewport.hpp>
 
-sge::viewport::viewport(const pixel_unit x,
-                        const pixel_unit y,
-                        const screen_unit w,
-                        const screen_unit h)
+sge::renderer::viewport::viewport(
+	const pixel_unit x,
+	const pixel_unit y,
+	const screen_unit w,
+	const screen_unit h)
  : x(x),
    y(y),
    w(w),

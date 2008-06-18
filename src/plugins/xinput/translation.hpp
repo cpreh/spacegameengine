@@ -29,7 +29,7 @@ namespace sge
 namespace xinput
 {
 
-key_code translate_key_code(KeySym);
+input::key_code translate_key_code(KeySym);
 
 }
 }

@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cassert>
 
 sge::cell_fragmented_texture::cell_fragmented_texture(
-	const renderer_ptr rend,
-	const filter_args& filter,
-	const texture::dim_type& cell_size)
+	const renderer::device_ptr rend,
+	const renderer::filter_args& filter,
+	const renderer::texture::dim_type& cell_size)
 : rend(rend),
   my_filter(filter),
   cell_size(cell_size),
@@ -37,7 +37,9 @@ sge::cell_fragmented_texture::cell_fragmented_texture(
   tex(atlased_texture(rend, my_filter))
 {}
 
-const sge::virtual_texture_ptr sge::cell_fragmented_texture::consume_fragments(const texture::dim_type& dim)
+const sge::virtual_texture_ptr
+sge::cell_fragmented_texture::consume_fragments(
+	const renderer::texture::dim_type& dim)
 {
 	if(dim != cell_size)
 		throw exception(SGE_TEXT("Invalid request for consume_fragments in cell_fragmented_texture!"));
@@ -50,7 +52,7 @@ const sge::virtual_texture_ptr sge::cell_fragmented_texture::consume_fragments(c
 	const field_type::vector_type pos = cells.position(it);
 	return virtual_texture_ptr(
 		new virtual_texture(
-			lock_rect(
+			renderer::lock_rect(
 				pos + cell_size, cell_size),
 			*this,
 			true,
@@ -64,7 +66,8 @@ void sge::cell_fragmented_texture::return_fragments(const virtual_texture& t)
 	cells.pos(pos) = false;
 }
 
-const sge::texture_ptr sge::cell_fragmented_texture::get_texture() const
+const sge::renderer::texture_ptr
+sge::cell_fragmented_texture::get_texture() const
 {
 	return tex;
 }

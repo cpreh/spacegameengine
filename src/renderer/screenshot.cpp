@@ -19,15 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/screenshot.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/vector.hpp>
+#include <vector>
 
-void sge::screenshot(const renderer_ptr rend,
-                     const image_loader_ptr il,
-                     const path& file)
+void sge::renderer::screenshot(
+	const device_ptr rend,
+	const sge::image::loader_ptr il,
+	const path& file)
 {
-	const render_target_ptr target = rend->get_render_target();
-	raw_vector<color> buf(target->size());
-	target->copy_data(buf.data());
-	const image_ptr shot = il->create_image(buf.data(), target->dim());
+	const target_ptr target = rend->get_target();
+	std::vector<color> buf(target->size());
+	// FIXME: do this with boost::gil too!
+	//target->copy_data(sge::data(buf));
+	const sge::image::image_ptr shot = il->create_image(sge::data(buf), target->dim());
 	shot->save(file);
 }

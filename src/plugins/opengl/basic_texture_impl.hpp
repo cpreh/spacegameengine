@@ -54,20 +54,20 @@ GLuint sge::ogl::basic_texture<Base>::id() const
 }
 
 template<typename Base>
-const sge::filter_args& sge::ogl::basic_texture<Base>::filter() const
+const sge::renderer::filter_args& sge::ogl::basic_texture<Base>::filter() const
 {
 	return filter_;
 }
 
 template<typename Base>
-void sge::ogl::basic_texture<Base>::do_lock(const lock_flag_t lmode)
+void sge::ogl::basic_texture<Base>::do_lock(const lock_flag_type lmode)
 {
 	if(cur_buffer)
 		throw exception(SGE_TEXT("ogl::basic_texture::do_lock(): texture is already locked!"));
 
 	lock_mode_ = lmode;
 
-	if(lock_flag_write(lmode))
+	if(renderer::lock_flag_write(lmode))
 	{
 		unpack_buffer.reset(
 			new pixel_unpack_buffer(
@@ -77,7 +77,7 @@ void sge::ogl::basic_texture<Base>::do_lock(const lock_flag_t lmode)
 		cur_buffer = unpack_buffer.get();
 	}
 
-	if(lock_flag_read(lmode))
+	if(renderer::lock_flag_read(lmode))
 	{
 		pack_buffer.reset(
 			new pixel_pack_buffer(
@@ -104,7 +104,7 @@ void sge::ogl::basic_texture<Base>::pre_unlock()
 {
 	if(!cur_buffer)
 		throw exception(SGE_TEXT("ogl::basic_texture::pre_unlock(): texture is not locked!"));
-	if(lock_mode() == lock_flags::readwrite)
+	if(lock_mode() == renderer::lock_flags::readwrite)
 	{
 		assert(unpack_buffer);
 
@@ -135,7 +135,8 @@ void sge::ogl::basic_texture<Base>::do_unlock()
 }
 
 template<typename Base>
-sge::lock_flag_t sge::ogl::basic_texture<Base>::lock_mode() const
+typename sge::ogl::basic_texture<Base>::lock_flag_type
+sge::ogl::basic_texture<Base>::lock_mode() const
 {
 	return lock_mode_;
 }
@@ -168,8 +169,8 @@ void sge::ogl::basic_texture<Base>::pre_setdata() const
 
 template<typename Base>
 sge::ogl::basic_texture<Base>::basic_texture(
-	const filter_args& filter_,
-	const resource_flag_t flags_,
+	const renderer::filter_args& filter_,
+	const resource_flag_type flags_,
 	const GLenum type_)
  : texture_base(type_),
    filter_(filter_),
@@ -186,7 +187,8 @@ sge::ogl::basic_texture<Base>::~basic_texture()
 }
 
 template<typename Base>
-sge::resource_flag_t sge::ogl::basic_texture<Base>::flags() const
+typename sge::ogl::basic_texture<Base>::resource_flag_type
+sge::ogl::basic_texture<Base>::flags() const
 {
 	return flags_;
 }

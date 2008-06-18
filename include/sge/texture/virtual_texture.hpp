@@ -34,32 +34,28 @@ class fragmented_texture;
 class virtual_texture : boost::noncopyable {
 public:
 	SGE_SYMBOL virtual_texture(
-		lock_rect const &outer_rect,
+		renderer::lock_rect const &outer_rect,
 		fragmented_texture&,
 		bool need_atlasing_w,
 		bool need_atlasing_h);
 	SGE_SYMBOL ~virtual_texture();
-	SGE_SYMBOL const lock_rect& area() const;
+	SGE_SYMBOL const renderer::lock_rect& area() const;
 	SGE_SYMBOL const math::rect area_texc(
 		space_unit repeat = 1) const;
-	SGE_SYMBOL const tex_pos translate(
-		const tex_pos &local_coords,
+	SGE_SYMBOL const renderer::tex_pos translate(
+		const renderer::tex_pos &local_coords,
 		space_unit repeat = 1) const;
-	SGE_SYMBOL const tex_pos translate(
-		tex_pos::value_type x,
-		tex_pos::value_type y,
-		space_unit repeat = 1) const;
-	SGE_SYMBOL const texture_ptr my_texture() const;
+	SGE_SYMBOL const renderer::texture_ptr my_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 	SGE_SYMBOL void set_data(
-		texture::const_pointer src);
+		renderer::texture::const_pointer src);
 private:
-	const lock_rect& outer_area() const;
-	lock_rect           outer_area_;
+	const renderer::lock_rect& outer_area() const;
+	renderer::lock_rect outer_area_;
 	fragmented_texture& fragment;
 	bool                need_atlasing_w,
 	                    need_atlasing_h;
-	lock_rect           inner_area_;
+	renderer::lock_rect inner_area_;
 };
 
 typedef shared_ptr<virtual_texture>       virtual_texture_ptr;

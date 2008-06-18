@@ -7,9 +7,8 @@
 
 // sge
 #include "../font/font.hpp"
-#include "../renderer/renderer.hpp"
-#include "../input/input_system.hpp"
-#include "../input/key_mod_tracker.hpp"
+#include "../renderer/device.hpp"
+#include "../input/system.hpp"
 #include "../scoped_connection.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
@@ -27,14 +26,14 @@ class console_gfx
 {
 	public:
 	SGE_SYMBOL console_gfx(
-		const renderer_ptr,
+		const renderer::device_ptr,
 		const virtual_texture_ptr,
-		const font_ptr,
-		const input_system_ptr,
+		const font::font_ptr,
+		const input::system_ptr,
 		const sprite::point&,
 		const sprite::dim&);
-	SGE_SYMBOL void key_callback(const key_pair &);
-	SGE_SYMBOL void key_action(const key_type &);
+	SGE_SYMBOL void key_callback(const input::key_pair &);
+	SGE_SYMBOL void key_action(const input::key_type &);
 	SGE_SYMBOL void draw();
 	SGE_SYMBOL space_unit change_cursor_rate(
 		const space_unit &n,
@@ -50,10 +49,9 @@ class console_gfx
 
 	typedef std::deque<string> history_container;
 
-	const renderer_ptr rend;
-	const font_ptr fn;
+	const renderer::device_ptr rend;
+	const font::font_ptr fn;
 	scoped_connection ic,irc;
-	key_mod_tracker mod;
 	sprite::system ss;
 	sprite::object bg;
 	bool active_;

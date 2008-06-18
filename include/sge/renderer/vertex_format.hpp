@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VERTEX_FORMAT_HPP_INCLUDED
-#define SGE_VERTEX_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_VERTEX_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_VERTEX_FORMAT_HPP_INCLUDED
 
 #include "types.hpp"
 #include "color.hpp"
@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 
 namespace sge
+{
+namespace renderer
 {
 
 namespace vertex_usage
@@ -100,6 +102,7 @@ private:
 	vertex_size stride_;
 };
 
+}
 }
 
 #endif

@@ -32,7 +32,7 @@ class texture_manager;
 
 SGE_SYMBOL const virtual_texture_ptr add_texture(
 	texture_manager&,
-	image_ptr);
+	image::image_ptr);
 
 }
 

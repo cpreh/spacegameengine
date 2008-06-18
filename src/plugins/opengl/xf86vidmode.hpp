@@ -32,8 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-
+namespace renderer
+{
 struct display_mode;
+}
 
 namespace ogl
 {
@@ -46,7 +48,7 @@ public:
 	const XF86VidModeModeInfo& operator[](size_type index) const;
 	static unsigned refresh_rate(const XF86VidModeModeInfo&);
 	size_type size() const;
-	xf86_resolution_ptr switch_to_mode(const display_mode&) const;
+	const xf86_resolution_ptr switch_to_mode(const renderer::display_mode&) const;
 private:
 	const x_display_ptr dsp;
 	const int screen;

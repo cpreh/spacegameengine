@@ -38,11 +38,15 @@ class md3_model {
 public:
 	md3_model(std::istream& data);
 
-	sge::index_buffer::size_type indices() const;
-	sge::vertex_buffer::size_type vertices() const;
+	renderer::index_buffer::size_type indices() const;
+	renderer::vertex_buffer::size_type vertices() const;
 
-	void fill_vertices(vertex_buffer_ptr, vertex_buffer::size_type offset = 0);
-	void fill_indices(index_buffer_ptr, index_buffer::size_type offset = 0);
+	void fill_vertices(
+		renderer::vertex_buffer_ptr,
+		renderer::vertex_buffer::size_type offset = 0);
+	void fill_indices(
+		renderer::index_buffer_ptr,
+		renderer::index_buffer::size_type offset = 0);
 private:
 	typedef boost::int16_t s16;
 	typedef boost::int32_t s32;
@@ -89,7 +93,7 @@ private:
 		struct texcoord {
 			texcoord(std::istream& is);
 			
-			tex_pos tex;
+			renderer::tex_pos tex;
 		};
 
 		struct vertex {
@@ -132,8 +136,8 @@ private:
 
 	static vec3 convert_normal(s16);
 
-	index_buffer::size_type indices_;
-	vertex_buffer::size_type vertices_;
+	renderer::index_buffer::size_type indices_;
+	renderer::vertex_buffer::size_type vertices_;
 
 	string_type name_;
 

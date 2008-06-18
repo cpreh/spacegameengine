@@ -27,23 +27,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 const unsigned init_sprites = 25;
 
-sge::sprite::system::system(const renderer_ptr rend)
+sge::sprite::system::system(const renderer::device_ptr rend)
  : default_transformable(
  	rend,
-	matrix_pixel_to_space(rend->screen_size()),
+	renderer::matrix_pixel_to_space(rend->screen_size()),
 	math::matrix_orthogonal_xy()),
    rend(rend),
    vb(
    	rend->create_vertex_buffer(
-		vertex_format().add(vertex_usage::pos).add(vertex_usage::diffuse).add(vertex_usage::tex),
+		renderer::vertex_format()
+			.add(renderer::vertex_usage::pos)
+			.add(renderer::vertex_usage::diffuse)
+			.add(renderer::vertex_usage::tex),
 		init_sprites * detail::vertices_per_sprite,
-		resource_flags::write_only | resource_flags::dynamic)),
+		renderer::resource_flags::write_only
+		| renderer::resource_flags::dynamic)),
   ib(
   	rend->create_index_buffer(
 		init_sprites * detail::indices_per_sprite))
 {}
 
-const sge::renderer_ptr sge::sprite::system::get_renderer() const
+const sge::renderer::device_ptr sge::sprite::system::get_renderer() const
 {
 	return rend;
 }

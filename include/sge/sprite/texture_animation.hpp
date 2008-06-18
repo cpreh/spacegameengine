@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "animation.hpp"
 #include "animation_series.hpp"
+#include "../renderer/texture.hpp"
 #include "../time/timer.hpp"
 #include "../export.hpp"
 
@@ -52,7 +53,7 @@ public:
 	SGE_SYMBOL bool process();
 	SGE_SYMBOL void reset();
 
-	SGE_SYMBOL const texture::dim_type dim() const;
+	SGE_SYMBOL const renderer::texture::dim_type dim() const;
 private:
 	animation_series                 series;
 	loop_method::type                action;

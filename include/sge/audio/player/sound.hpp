@@ -18,13 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SOUND_HPP_INCLUDED
-#define SGE_SOUND_HPP_INCLUDED
+#ifndef SGE_AUDIO_SOUND_HPP_INCLUDED
+#define SGE_AUDIO_SOUND_HPP_INCLUDED
 
 #include "../../math/vector.hpp"
 
 namespace sge
 {
+namespace audio
+{
+
 class sound
 {
 public:
@@ -46,6 +49,7 @@ public:
 	virtual void update() {}
 	virtual ~sound() {}
 };
+}
 }
 
 #endif // SOUND_HPP

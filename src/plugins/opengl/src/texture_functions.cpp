@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../texture_functions.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
 #include <sge/iostream.hpp>
 #include <sge/format.hpp>
 #include <sge/math/rect_impl.hpp>
@@ -31,11 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-bool need_mipmap(const sge::min_filter::type filter)
+bool need_mipmap(const sge::renderer::min_filter::type filter)
 {
 	switch(filter) {
-	case sge::min_filter::mipmap:
-	case sge::min_filter::trilinear:
+	case sge::renderer::min_filter::mipmap:
+	case sge::renderer::min_filter::trilinear:
 		return true;
 	default:
 		return false;
@@ -63,9 +64,9 @@ void sge::ogl::delete_texture(const GLuint id)
 
 void sge::ogl::set_texture(
 	const GLenum tex_type,
-	const filter_args& filter,
-	const sge::texture::dim_type& dim,
-	const sge::texture_base::const_pointer src)
+	const renderer::filter_args& filter,
+	const renderer::texture::dim_type& dim,
+	const renderer::texture_base::const_pointer src)
 {
 	SGE_OPENGL_SENTRY
 	
@@ -99,8 +100,8 @@ void sge::ogl::set_texture(
 
 void sge::ogl::build_mipmaps(
 	const GLenum tex_type,
-	const sge::texture::dim_type& dim,
-	const sge::texture_base::const_pointer src)
+	const renderer::texture::dim_type& dim,
+	const renderer::texture_base::const_pointer src)
 {
 	if(!src)
 		throw exception(SGE_TEXT("ogl::build_mipmaps: src is 0!"));
@@ -119,10 +120,10 @@ void sge::ogl::build_mipmaps(
 
 void sge::ogl::set_texture_rect(
 	const GLenum tex_type,
-	const filter_args& filter,
-	const sge::texture::dim_type& dim,
-	const lock_rect& r,
-	const sge::texture_base::const_pointer src)
+	const renderer::filter_args& filter,
+	const renderer::texture::dim_type& dim,
+	const renderer::lock_rect& r,
+	const renderer::texture_base::const_pointer src)
 {
 	SGE_OPENGL_SENTRY
 	
@@ -150,53 +151,60 @@ void sge::ogl::set_texture_rect(
 			src);
 }
 
-void sge::ogl::read_pixels(const sge::texture_base::size_type x,
-                           const sge::texture_base::size_type y,
-                           const sge::texture_base::size_type width,
-                           const sge::texture_base::size_type height,
-                           const sge::texture_base::pointer dest)
+void sge::ogl::read_pixels(
+	const renderer::texture_base::size_type x,
+	const renderer::texture_base::size_type y,
+	const renderer::texture_base::size_type width,
+	const renderer::texture_base::size_type height,
+	const renderer::texture_base::pointer dest)
 {
 	SGE_OPENGL_SENTRY
 	
-	glReadPixels(static_cast<GLint>(x),
-	             static_cast<GLint>(y),
-	             static_cast<GLsizei>(width),
-	             static_cast<GLsizei>(height),
-	             gl_format,
-	             gl_type,
-	             dest);
+	glReadPixels(
+		static_cast<GLint>(x),
+		static_cast<GLint>(y),
+		static_cast<GLsizei>(width),
+		static_cast<GLsizei>(height),
+		gl_format,
+		gl_type,
+		dest);
 }
 
-void sge::ogl::get_tex_image(const sge::texture::pointer dest)
+void sge::ogl::get_tex_image(
+	const renderer::texture::pointer dest)
 {
 	SGE_OPENGL_SENTRY
 	
-	glGetTexImage(GL_TEXTURE_2D,
-	              0,
-	              gl_format,
-	              gl_type,
-	              dest);
+	glGetTexImage(
+		GL_TEXTURE_2D,
+		0,
+		gl_format,
+		gl_type,
+		dest);
 }
 
-void sge::ogl::tex_parameter_i(const GLenum type,
-                               const GLenum name,
-                               const GLint value)
+void sge::ogl::tex_parameter_i(
+	const GLenum type,
+	const GLenum name,
+	const GLint value)
 {
 	SGE_OPENGL_SENTRY
 	
 	glTexParameteri(type, name, value);
 }
 
-void sge::ogl::bind_texture(const GLenum type,
-                            const GLuint value)
+void sge::ogl::bind_texture(
+	const GLenum type,
+	const GLuint value)
 {
 	SGE_OPENGL_SENTRY
 	
 	glBindTexture(type, value);
 }
 
-void sge::ogl::set_texture_filter(const GLenum type,
-                                  const filter_args& filter)
+void sge::ogl::set_texture_filter(
+	const GLenum type,
+	const renderer::filter_args& filter)
 {
 	tex_parameter_i(type, GL_TEXTURE_MIN_FILTER, convert_cast(filter.min_filter));
 	tex_parameter_i(type, GL_TEXTURE_MAG_FILTER, convert_cast(filter.mag_filter));

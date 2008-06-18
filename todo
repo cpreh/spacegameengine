@@ -13,6 +13,5 @@
 *medium: add a convenient method to check for key combinations in the input system
 *medium: add a better constructor for sge::sprite like boost::parameter would
 *medium: add a decent logging system
-*medium: fix opengl static #ifdefs for features
 *medium: add a convenient method for the main loop probably with boost::channel
 *high: add a color system that allows arbitrary color formats to be used and has a nicer handling (maybe with boost::gil)

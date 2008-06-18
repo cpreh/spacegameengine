@@ -23,25 +23,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../path.hpp"
 #include "../renderer/types.hpp"
-#include "../renderer/renderer.hpp"
+#include "../renderer/device.hpp"
 #include "../renderer/texture.hpp"
 #include "../renderer/texture_filter.hpp"
-#include "image_loader.hpp"
+#include "loader.hpp"
 
 namespace sge
 {
+namespace image
+{
 
-const texture_ptr create_texture(renderer_ptr r,
-                                 image_ptr p,
-                                 const filter_args& filter = linear_filter,
-                                 resource_flag_t flags = resource_flags::default_);
+const renderer::texture_ptr create_texture(
+	renderer::device_ptr r,
+	image_ptr p,
+	const renderer::filter_args& filter = renderer::linear_filter,
+	renderer::resource_flag_t flags = renderer::resource_flags::default_);
 
-const texture_ptr create_texture(const path&,
-                                 renderer_ptr r,
-                                 image_loader_ptr p,
-                                 const filter_args& filter = linear_filter,
-                                 resource_flag_t flags = resource_flags::default_);
+const renderer::texture_ptr create_texture(
+	const path&,
+	renderer::device_ptr r,
+	loader_ptr p,
+	const renderer::filter_args& filter = renderer::linear_filter,
+	renderer::resource_flag_t flags = renderer::resource_flags::default_);
 
+}
 }
 
 #endif

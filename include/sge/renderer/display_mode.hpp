@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DISPLAY_MODE_HPP_INCLUDED
-#define SGE_DISPLAY_MODE_HPP_INCLUDED
+#ifndef SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
+#define SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
 
 #include <ostream>
 #include <vector>
@@ -28,12 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace renderer
+{
 
 struct display_mode {
-	SGE_SYMBOL display_mode(screen_unit width,
-	                        screen_unit height,
-	                        bit_depth::type depth,
-	                        unsigned refresh_rate = 0);
+	SGE_SYMBOL display_mode(
+		screen_unit width,
+		screen_unit height,
+		bit_depth::type depth,
+		unsigned refresh_rate = 0);
 	
 	screen_size_t   size;
 	bit_depth::type depth;
@@ -43,6 +46,7 @@ struct display_mode {
 	SGE_SYMBOL screen_unit height() const;
 };
 
+// TODO: move this to a cpp
 template<class Ch,class Traits>
 inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s,const display_mode &mode)
 {
@@ -54,6 +58,7 @@ bool operator!= (const display_mode& l, const display_mode& r);
 
 typedef std::vector<display_mode> display_mode_array;
 
+}
 }
 
 #endif

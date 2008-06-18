@@ -32,7 +32,7 @@ namespace ogl
 
 namespace detail
 {
-typedef basic_texture<sge::texture> texture_base;
+typedef basic_texture<renderer::texture> texture_base;
 }
 
 class texture : public detail::texture_base {
@@ -40,16 +40,16 @@ public:
 	texture(
 		const_pointer src,
 		const dim_type& dim,
-		const filter_args& filter,
-		resource_flag_t flags);
+		const renderer::filter_args& filter,
+		resource_flag_type flags);
 
 	const dim_type dim() const;
 
-	void set_data(const_pointer src, const lock_rect& r);
+	void set_data(const_pointer src, const renderer::lock_rect& r);
 	void set_data(const_pointer src);
 
-	void lock(lock_flag_t flags);
-	void lock(const lock_rect&, lock_flag_t flags);
+	void lock(lock_flag_type flags);
+	void lock(const renderer::lock_rect&, lock_flag_type flags);
 	void unlock();
 private:
 	void set_texture(const_pointer src);

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include <sge/math/vector.hpp>
 #include <sge/math/matrix.hpp>
-#include <sge/renderer/glsl_uniform_variable.hpp>
+#include <sge/renderer/glsl/uniform_variable.hpp>
 #include <string>
 
 namespace sge
@@ -36,7 +36,7 @@ namespace glsl
 {
 
 template<bool Native>
-class uniform_variable : public sge::glsl::uniform_variable {
+class uniform_variable : public renderer::glsl::uniform_variable {
 public:
 	typedef typename traits<Native>::handle handle;
 	uniform_variable(

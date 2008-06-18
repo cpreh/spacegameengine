@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATERIAL_HPP_INCLUDED
-#define SGE_MATERIAL_HPP_INCLUDED
+#ifndef SGE_RENDERER_MATERIAL_HPP_INCLUDED
+#define SGE_RENDERER_MATERIAL_HPP_INCLUDED
 
 #include "../export.hpp"
 #include "../su.hpp"
@@ -27,21 +27,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace renderer
+{
 	
 struct material {
-	SGE_SYMBOL material(const color4 diffuse,
-	                    const color4 ambient,
-	                    const color4 specular,
-	                    const color4 emissive,
-	                    const space_unit power);
+	// FIXME: should be color_f32
+	SGE_SYMBOL material(
+		const color diffuse,
+		const color ambient,
+		const color specular,
+		const color emissive,
+		const space_unit power);
 	
-	color4     diffuse;
-	color4     ambient; 
-	color4     specular; 
-	color4     emissive; 
-	space_unit power; 
+	color     diffuse,
+	          ambient,
+	          specular,
+	          emissive;
+	space_unit power;
 };
 
+}
 }
 
 #endif

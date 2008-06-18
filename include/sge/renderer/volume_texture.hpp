@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VOLUME_TEXTURE_HPP_INCLUDED
-#define SGE_VOLUME_TEXTURE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VOLUME_TEXTURE_HPP_INCLUDED
+#define SGE_RENDERER_VOLUME_TEXTURE_HPP_INCLUDED
 
 #include "../export.hpp"
 #include "../math/dim.hpp"
@@ -28,15 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace renderer
+{
 
 typedef math::basic_box<texture_base::size_type> lock_box;
 
-template<typename BitDepth>
-class basic_volume_texture : public basic_texture_base<BitDepth> {
+class volume_texture : public texture_base {
 public:
-	typedef basic_texture_base<BitDepth>  base;
-	typedef typename base::size_type      size_type;
-	typedef typename base::const_pointer  const_pointer;
 	typedef math::basic_dim<size_type, 3> box_type;
 
 	SGE_SYMBOL size_type size() const;
@@ -45,9 +43,9 @@ public:
 	virtual void set_data(const_pointer p, const lock_box&) = 0;
 };
 
-typedef basic_volume_texture<bit_depth32> volume_texture;
 typedef shared_ptr<volume_texture> volume_texture_ptr;
 
+}
 }
 
 #endif

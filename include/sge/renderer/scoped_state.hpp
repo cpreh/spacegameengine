@@ -21,26 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_STATE_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_STATE_HPP_INCLUDED
 
-#include "renderer.hpp"
-#include "renderer_states.hpp"
+#include "device.hpp"
+#include "states.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
 {
+namespace renderer
+{
 
 class scoped_state : boost::noncopyable {
 public:
 	SGE_SYMBOL scoped_state(
-		renderer_ptr rend,
-		const renderer_state_list&);
+		device_ptr rend,
+		const state_list&);
 	SGE_SYMBOL ~scoped_state();
 	SGE_SYMBOL void release();
 private:
-	void init(const renderer_state_list&);
-	renderer_ptr rend;
+	void init(const state_list&);
+	device_ptr rend;
 };
 
+}
 }
 
 #endif

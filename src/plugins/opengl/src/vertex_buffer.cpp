@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_buffer_impl.hpp"
 #include "../vbo.hpp"
 
-template class sge::ogl::basic_buffer<sge::vertex_buffer>;
+template class sge::ogl::basic_buffer<sge::renderer::vertex_buffer>;
 
 sge::ogl::vertex_buffer::vertex_buffer(
 	const size_type size,
-	const sge::vertex_format& format,
-	const resource_flag_t flags,
+	const renderer::vertex_format& format,
+	const resource_flag_type flags,
 	const const_pointer src)
  :	detail::vertex_buffer_base(
  		vertex_buffer_type(),
@@ -40,17 +40,21 @@ sge::ogl::vertex_buffer::vertex_buffer(
 	ogl_format(format)
 {}
 
-sge::ogl::vertex_buffer::size_type sge::ogl::vertex_buffer::stride() const
+sge::ogl::vertex_buffer::size_type
+sge::ogl::vertex_buffer::stride() const
 {
 	return format.stride();
 }
 
-const sge::vertex_format& sge::ogl::vertex_buffer::get_vertex_format() const
+const sge::renderer::vertex_format&
+sge::ogl::vertex_buffer::get_vertex_format() const
 {
 	return format;
 }
 
-sge::ogl::vertex_buffer::iterator sge::ogl::vertex_buffer::create_iterator(const pointer p)
+sge::ogl::vertex_buffer::iterator
+sge::ogl::vertex_buffer::create_iterator(
+	const pointer p)
 {
 	return iterator(
 		p,
@@ -58,7 +62,9 @@ sge::ogl::vertex_buffer::iterator sge::ogl::vertex_buffer::create_iterator(const
 		ogl_format.offsets());
 }
 
-sge::ogl::vertex_buffer::const_iterator sge::ogl::vertex_buffer::create_iterator(const const_pointer p) const
+sge::ogl::vertex_buffer::const_iterator
+sge::ogl::vertex_buffer::create_iterator(
+	const const_pointer p) const
 {
 	return const_iterator(
 		p,

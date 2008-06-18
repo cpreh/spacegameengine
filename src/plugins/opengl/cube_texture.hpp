@@ -33,24 +33,30 @@ namespace ogl
 namespace detail
 {
 
-typedef basic_texture<sge::cube_texture> cube_texture_base;
+typedef basic_texture<renderer::cube_texture> cube_texture_base;
 
 }
 
 class cube_texture : public detail::cube_texture_base {
 public:
-	cube_texture(const cube_side_array* src,
-	             size_type sz,
-	             const filter_args& filter,
-	             resource_flag_t flags);
-	void set_data(cube_side::type side, const_pointer src, const lock_rect& r);
-	void set_data(cube_side::type side, const_pointer src);
+	cube_texture(
+		const cube_side_array* src,
+		size_type sz,
+		const renderer::filter_args& filter,
+		resource_flag_type flags);
+	void set_data(
+		renderer::cube_side::type side,
+		const_pointer src,
+		const renderer::lock_rect& r);
+	void set_data(
+		renderer::cube_side::type side,
+		const_pointer src);
 	size_type border_size() const;
 private:
 	const size_type sz;
 };
 
-GLenum convert_cast(const cube_side::type&);
+GLenum convert_cast(const renderer::cube_side::type&);
 
 }
 }

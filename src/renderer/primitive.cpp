@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive.hpp>
 #include <sge/exception.hpp>
 
-std::size_t sge::indices_per_primitive(const indexed_primitive_type::type prim)
+std::size_t sge::renderer::indices_per_primitive(const indexed_primitive_type::type prim)
 {
 	switch(prim) {
 	case indexed_primitive_type::triangle:
@@ -33,7 +33,7 @@ std::size_t sge::indices_per_primitive(const indexed_primitive_type::type prim)
 	}
 }
 
-std::size_t sge::primitive_count(const std::size_t vertex_count, const nonindexed_primitive_type::type prim)
+std::size_t sge::renderer::primitive_count(const std::size_t vertex_count, const nonindexed_primitive_type::type prim)
 {
 	switch(prim) {
 	case nonindexed_primitive_type::point:

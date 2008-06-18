@@ -18,29 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHAR_METRIC_HPP_INCLUDED
-#define SGE_CHAR_METRIC_HPP_INCLUDED
+#ifndef SGE_FONT_CHAR_METRIC_HPP_INCLUDED
+#define SGE_FONT_CHAR_METRIC_HPP_INCLUDED
 
 #include "../shared_ptr.hpp"
 #include "../renderer/color.hpp"
-#include "font_types.hpp"
+#include "types.hpp"
 
 namespace sge
+{
+namespace font
 {
 
 class char_metric {
 public:
-	virtual const color_element* pixmap() const = 0;
-	virtual font_unit width() const = 0;
-	virtual font_unit height() const = 0;
-	virtual font_unit left() const = 0;
-	virtual font_unit top() const = 0;
-	virtual font_unit x_advance() const = 0;
+	virtual const color* pixmap() const = 0;
+	virtual unit width() const = 0;
+	virtual unit height() const = 0;
+	virtual unit left() const = 0;
+	virtual unit top() const = 0;
+	virtual unit x_advance() const = 0;
 	virtual ~char_metric() {}
 };
 
 typedef shared_ptr<char_metric> char_metric_ptr;
 
+}
 }
 
 #endif

@@ -17,8 +17,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <sge/renderer/index_buffer.hpp>
 
+// FIXME: do this with fragments
+
+/*
 sge::index_buffer::iterator sge::index_buffer::end()
 {
 	return begin() + size();
@@ -60,4 +64,4 @@ sge::index_buffer::const_reference sge::index_buffer::operator[](const size_type
 }
 	
 sge::index_buffer::~index_buffer()
-{}
+{}*/

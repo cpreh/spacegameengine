@@ -35,22 +35,22 @@ namespace sge
 class cell_fragmented_texture : public fragmented_texture {
 public:
 	SGE_SYMBOL cell_fragmented_texture(
-		renderer_ptr rend,
-		const filter_args& filter,
-		const texture::dim_type& cell_size);
+		renderer::device_ptr rend,
+		const renderer::filter_args& filter,
+		const renderer::texture::dim_type& cell_size);
 	SGE_SYMBOL const virtual_texture_ptr consume_fragments(
-		const texture::dim_type&);
+		const renderer::texture::dim_type&);
 	SGE_SYMBOL void return_fragments(
 		const virtual_texture&);
-	SGE_SYMBOL const texture_ptr get_texture() const;
+	SGE_SYMBOL const renderer::texture_ptr get_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
 	typedef field<bool, raw_vector> field_type;
-	const renderer_ptr  rend;
-	const filter_args   my_filter;
-	texture::dim_type   cell_size;
-	field_type          cells;
-	const texture_ptr   tex;
+	const renderer::device_ptr      rend;
+	const renderer::filter_args     my_filter;
+	renderer::texture::dim_type     cell_size;
+	field_type                      cells;
+	const renderer::texture_ptr     tex;
 };
 
 }

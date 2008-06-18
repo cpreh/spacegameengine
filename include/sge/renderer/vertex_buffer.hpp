@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_VERTEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
+#define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
 #include "vertex_format.hpp"
 #include "vertex.hpp"
@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstddef>
 
 namespace sge
+{
+namespace renderer
 {
 
 namespace vb_detail
@@ -94,6 +96,9 @@ public:
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
+	typedef resource_flag_t resource_flag_type;
+	typedef lock_flag_t     lock_flag_type;
+
 	SGE_SYMBOL iterator end();
 	SGE_SYMBOL const_iterator end() const;
 	SGE_SYMBOL reverse_iterator rbegin();
@@ -103,14 +108,14 @@ public:
 	SGE_SYMBOL reference operator[](size_type);
 	SGE_SYMBOL const_reference operator[](size_type) const;
 
-	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;
+	virtual void lock(lock_flag_type flags = lock_flags::default_) = 0;
 	virtual void unlock() = 0;
 	virtual void set_data(const_pointer data, size_type first, size_type count) = 0;
 
 	virtual iterator begin() = 0;
 	virtual const_iterator begin() const = 0;
 	virtual size_type size() const = 0;
-	virtual resource_flag_t flags() const = 0;
+	virtual resource_flag_type flags() const = 0;
 
 	virtual void resize(size_type newsize, const_pointer new_data = 0) = 0;
 	virtual size_type stride() const = 0;
@@ -125,6 +130,7 @@ public:
 
 typedef shared_ptr<vertex_buffer> vertex_buffer_ptr;
 
+}
 }
 
 #endif

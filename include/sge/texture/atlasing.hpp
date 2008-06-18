@@ -22,28 +22,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_ATLASING_HPP_INCLUDED
 
 #include "../renderer/texture.hpp"
-#include "../renderer/renderer.hpp"
+#include "../renderer/device.hpp"
 
 namespace sge
 {
 
 struct filter_args;
 
-bool need_atlasing(texture::size_type);
-bool need_atlasing(const texture::dim_type&);
-texture::size_type atlased_bound(texture::size_type);
-const texture::dim_type atlased_bounds(const texture::dim_type&);
-texture::size_type atlased_gap();
-texture::size_type atlased_size(
-	texture::size_type,
+bool need_atlasing(
+	renderer::texture::size_type);
+
+bool need_atlasing(
+	const renderer::texture::dim_type&);
+
+renderer::texture::size_type
+atlased_bound(
+	renderer::texture::size_type);
+
+const renderer::texture::dim_type
+atlased_bounds(
+	const renderer::texture::dim_type&);
+
+renderer::texture::size_type atlased_gap();
+
+renderer::texture::size_type
+atlased_size(
+	renderer::texture::size_type,
 	bool force_atlasing = false);
-const texture::dim_type atlased_size(
-	const texture::dim_type&,
+
+const renderer::texture::dim_type
+atlased_size(
+	const renderer::texture::dim_type&,
 	bool force_atlasing = false);
-const texture::dim_type atlased_texture_dim(renderer_ptr rend);
-const texture_ptr atlased_texture(renderer_ptr rend, const filter_args& filter);
-const lock_rect inner_atlased_rect(
-	lock_rect,
+
+const renderer::texture::dim_type
+atlased_texture_dim(
+	renderer::device_ptr rend);
+
+const renderer::texture_ptr
+atlased_texture(
+	renderer::device_ptr rend,
+	const renderer::filter_args& filter);
+
+const renderer::lock_rect
+inner_atlased_rect(
+	renderer::lock_rect,
 	bool need_atlasing_w,
 	bool need_atlasing_h);
 

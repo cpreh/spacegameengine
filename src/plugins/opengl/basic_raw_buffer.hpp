@@ -49,10 +49,12 @@ public:
 	typedef typename Base::const_iterator         const_iterator;
 	typedef typename Base::reverse_iterator       reverse_iterator;
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
+	typedef typename Base::resource_flag_type     resource_flag_type;
+	typedef typename Base::lock_flag_type         lock_flag_type;
 
 	basic_raw_buffer(
 		size_type,
-		resource_flag_t,
+		resource_flag_type,
 		const_pointer src);
 
 	typedef basic_buffer<Base> base_type;

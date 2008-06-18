@@ -20,44 +20,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/key_type.hpp>
 
-sge::key_type::key_type(const string& name_, const key_code code_, const char_type char_code_)
+sge::input::key_type::key_type(
+	const string& name_,
+	const key_code code_,
+	const char_type char_code_)
  : name_(name_),
    code_(code_),
    char_code_(char_code_)
 {}
 
-const sge::key_type::string& sge::key_type::name() const
+const sge::input::key_type::string&
+sge::input::key_type::name() const
 {
 	return name_;
 }
 
-sge::key_code sge::key_type::code() const
+sge::input::key_code
+sge::input::key_type::code() const
 {
 	return code_;
 }
 
-sge::key_type::char_type sge::key_type::char_code() const
+sge::input::key_type::char_type
+sge::input::key_type::char_code() const
 {
 	return char_code_;
 }
 
-void sge::key_type::char_code(const char_type ch)
+void sge::input::key_type::char_code(
+	const char_type ch)
 {
 	char_code_ = ch;
 }
 
 
-sge::key_pair::key_pair(const key_type& key_, const key_state value_)
+sge::input::key_pair::key_pair(
+	const key_type& key_,
+	const key_state value_)
 : key_(key_),
   value_(value_)
 {}
 
-const sge::key_type& sge::key_pair::key() const
+const sge::input::key_type&
+sge::input::key_pair::key() const
 {
 	return key_;
 }
 
-sge::key_state sge::key_pair::value() const
+sge::input::key_state
+sge::input::key_pair::value() const
 {
 	return value_;
 }

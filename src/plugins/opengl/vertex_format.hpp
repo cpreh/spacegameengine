@@ -34,11 +34,11 @@ namespace ogl
 
 class vertex_format {
 public:
-	vertex_format(const sge::vertex_format& f);
-	const offset_info& offsets() const;
+	vertex_format(const renderer::vertex_format& f);
+	const renderer::offset_info& offsets() const;
 	void use_me() const;
 private:
-	offset_info oi;
+	renderer::offset_info oi;
 
 	typedef boost::function<void ()> vertex_format_actor;
 	typedef std::vector<vertex_format_actor> actor_array;

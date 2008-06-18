@@ -39,13 +39,13 @@ GLenum gl_volume_texture_type;
 
 }
 
-template class sge::ogl::basic_texture<sge::volume_texture>;
+template class sge::ogl::basic_texture<sge::renderer::volume_texture>;
 
 sge::ogl::volume_texture::volume_texture(
 	const const_pointer src,
 	const box_type& box_,
-	const filter_args& filter,
-	const resource_flag_t flags)
+	const renderer::filter_args& filter,
+	const resource_flag_type flags)
  : detail::volume_texture_base(filter, flags, volume_texture_type()),
    box_(box_)
 {
@@ -81,7 +81,7 @@ void sge::ogl::volume_texture::set_data(const const_pointer src)
 		// TODO:
 }
 
-void sge::ogl::volume_texture::set_data(const const_pointer src, const lock_box& b)
+void sge::ogl::volume_texture::set_data(const const_pointer src, const renderer::lock_box& b)
 {
 	if(volume_texture_type() == GL_EXT_texture3D)
 		throw exception(

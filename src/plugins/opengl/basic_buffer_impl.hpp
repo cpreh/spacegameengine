@@ -33,7 +33,7 @@ sge::ogl::basic_buffer<Base>::basic_buffer(
 	vbo_base& impl,
 	const size_type sz,
 	const size_type stride_,
-	const resource_flag_t flags_,
+	const resource_flag_type flags_,
 	const const_pointer src)
  : type(type),
    impl(impl),
@@ -56,7 +56,7 @@ sge::ogl::basic_buffer<Base>::~basic_buffer()
 }
 
 template<typename Base>
-void sge::ogl::basic_buffer<Base>::lock(const lock_flag_t lockflags)
+void sge::ogl::basic_buffer<Base>::lock(const lock_flag_type lockflags)
 {
 	if(dest)
 		throw exception(SGE_TEXT("ogl_buffer::lock(), you have to unlock before locking!"));
@@ -95,13 +95,15 @@ void sge::ogl::basic_buffer<Base>::set_data(
 }
 
 template<typename Base>
-typename sge::ogl::basic_buffer<Base>::size_type sge::ogl::basic_buffer<Base>::size() const
+typename sge::ogl::basic_buffer<Base>::size_type
+sge::ogl::basic_buffer<Base>::size() const
 {
 	return sz;
 }
 
 template<typename Base>
-sge::resource_flag_t sge::ogl::basic_buffer<Base>::flags() const
+typename sge::ogl::basic_buffer<Base>::resource_flag_type
+sge::ogl::basic_buffer<Base>::flags() const
 {
 	return flags_;
 }

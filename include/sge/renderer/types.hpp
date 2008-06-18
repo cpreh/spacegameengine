@@ -21,14 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TYPES_HPP_INCLUDED
 #define SGE_RENDERER_TYPES_HPP_INCLUDED
 
-#include <cstddef>
 #include "../export.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
 #include "color.hpp"
+#include <cstddef>
 
 namespace sge
+{
+namespace renderer
 {
 
 namespace bit_depth
@@ -81,6 +83,7 @@ typedef math::vector3  pos3;
 
 typedef std::size_t stage_type;
 
+}
 }
 
 #endif

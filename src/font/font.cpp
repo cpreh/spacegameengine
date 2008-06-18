@@ -24,66 +24,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/next_prior.hpp>
 #include <locale>
 
-sge::font::font(
-	const font_metrics_ptr metrics_,
-	const font_drawer_ptr drawer_)
+sge::font::font::font(
+	const metrics_ptr metrics_,
+	const drawer_ptr drawer_)
 : metrics_(metrics_),
   drawer_(drawer_)
 {}
 
-sge::font_unit sge::font::height() const
+sge::font::unit sge::font::font::height() const
 {
 	return metrics()->line_height();
 }
 
 const sge::font::text_size_t
-sge::font::draw_text(
-	const string_type& text,
-	const font_pos start_pos,
-	const font_dim max_sz,
-	const font_align_h::type align_h,
-	const font_align_v::type align_v,
-	const font_flag_t flags) const
+sge::font::font::draw_text(
+	const string& text,
+	const pos start_pos,
+	const dim max_sz,
+	const align_h::type align_h,
+	const align_v::type align_v,
+	const flag_t flags) const
 {
 	if(text.empty() || height() > max_sz.h())
-		return text_size_t(font_dim(0,0), text.begin(), text.begin());
+		return text_size_t(dim(0,0), text.begin(), text.begin());
 
 	const text_size_t total_size = text_size(text.begin(), text.end(), max_sz, flags);
 
-	font_pos pos = start_pos;
+	pos pos_ = start_pos;
 	switch(align_v) {
-	case font_align_v::center:
-		pos.y() += (max_sz.h() - total_size.size().h()) / 2;
+	case align_v::center:
+		pos_.y() += (max_sz.h() - total_size.size().h()) / 2;
 		break;
-	case font_align_v::bottom:
-		pos.y() += max_sz.h() - total_size.size().h();
+	case align_v::bottom:
+		pos_.y() += max_sz.h() - total_size.size().h();
 		break;
-	case font_align_v::top:
+	case align_v::top:
 		break;
 	default:
-		throw exception(SGE_TEXT("Invalid font_align_v!"));
+		throw exception(SGE_TEXT("Invalid font::align_v!"));
 	}
 
-	string_type::const_iterator sbeg(text.begin());
+	string::const_iterator sbeg(text.begin());
 
 	drawer()->begin_rendering(text.size(), total_size.size());
 	while(sbeg != total_size.next_begin())
 	{
 		const text_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
 
-		pos.x() = start_pos.x();
+		pos_.x() = start_pos.x();
 		
 		switch(align_h) {
-		case font_align_h::center:
-			pos.x() += (max_sz.w() - line_size.size().w()) / 2;
+		case align_h::center:
+			pos_.x() += (max_sz.w() - line_size.size().w()) / 2;
 			break;
-		case font_align_h::right:
-			pos.x() += max_sz.w() - line_size.size().w();
+		case align_h::right:
+			pos_.x() += max_sz.w() - line_size.size().w();
 			break;
-		case font_align_h::left:
+		case align_h::left:
 			break;
 		default:
-			throw exception(SGE_TEXT("Invalid font_align_h!"));
+			throw exception(SGE_TEXT("Invalid font::align_h!"));
 		}
 
 		for(;sbeg != line_size.end(); ++sbeg)
@@ -92,58 +92,58 @@ sge::font::draw_text(
 			if(metric->pixmap())
 				drawer()->draw_char(
 					*sbeg,
-					font_rect(
-						font_pos(
-							pos.x() + metric->left(),
-							pos.y() + metric->top()),
-						font_dim(
+					rect(
+						pos(
+							pos_.x() + metric->left(),
+							pos_.y() + metric->top()),
+						dim(
 							metric->width(),
 							metric->height())),
 					 metric->pixmap());
-			pos.x() += char_space(*sbeg);
+			pos_.x() += char_space(*sbeg);
 		}
 
 		sbeg = line_size.next_begin();
 
-		pos.y() += height();
+		pos_.y() += height();
 	}
 	drawer()->end_rendering();
 
 	return total_size;
 }
 
-sge::font_unit sge::font::char_space(const char_type ch) const
+sge::font::unit sge::font::font::char_space(const char_type ch) const
 {
 	return metrics()->load_char(ch)->x_advance();
 }
 
 const sge::font::text_size_t
-sge::font::text_size(
-	string_type::const_iterator sbeg,
-	const string_type::const_iterator send,
-	const font_dim max_sz,
-	const font_flag_t flags) const
+sge::font::font::text_size(
+	string::const_iterator sbeg,
+	const string::const_iterator send,
+	const dim max_sz,
+	const flag_t flags) const
 {
-	font_dim sz(0,0);
+	dim sz(0,0);
 	while(sbeg != send && sz.h() + height() <= max_sz.h())
 	{
 		const text_size_t line_size = line_width(sbeg, send, max_sz.w(), flags);
-		const font_unit line_w = line_size.size().w();
+		const unit line_w = line_size.size().w();
 		sz.w() = std::max(sz.w(), line_w);
 		sz.h() += height();
 		sbeg = line_size.next_begin();
 
-		if(flags & font_flags::no_multi_line)
+		if(flags & flags::no_multi_line)
 			break;
 	}
 	return text_size_t(sz, sbeg, sbeg);
 }
 
 const sge::font::text_size_t
-sge::font::text_size(
-	const string_type& s,
-	const font_dim max_sz,
-	const font_flag_t flags) const
+sge::font::font::text_size(
+	const string& s,
+	const dim max_sz,
+	const flag_t flags) const
 {
 	return text_size(
 		s.begin(),
@@ -153,19 +153,19 @@ sge::font::text_size(
 }
 
 const sge::font::text_size_t
-sge::font::line_width(
-	string_type::const_iterator sbeg,
-	const string_type::const_iterator send,
-	const font_unit width,
-	const font_flag_t flags) const
+sge::font::font::line_width(
+	string::const_iterator sbeg,
+	const string::const_iterator send,
+	const unit width,
+	const flag_t flags) const
 {
-	font_unit w(0), last_width(0);
-	string_type::const_iterator last_white = sbeg;
+	unit w(0), last_width(0);
+	string::const_iterator last_white = sbeg;
 
 	for(; sbeg != send; ++sbeg)
 	{
 		if(*sbeg == SGE_TEXT('\n'))
-			return text_size_t(font_dim(w, height()), sbeg, boost::next(sbeg));
+			return text_size_t(dim(w, height()), sbeg, boost::next(sbeg));
 
 		if(std::isspace(*sbeg, std::locale()))
 		{
@@ -173,46 +173,24 @@ sge::font::line_width(
 			last_width = w;
 		}
 
-		const font_unit nw = w + char_space(*sbeg);
+		const unit nw = w + char_space(*sbeg);
 		if(nw > width)
-			return last_width && !(flags & font_flags::no_line_wrap)
-				? text_size_t(font_dim(last_width, height()), last_white, boost::next(last_white))
-				: text_size_t(font_dim(w, height()), sbeg, sbeg);
+			return last_width && !(flags & flags::no_line_wrap)
+				? text_size_t(dim(last_width, height()), last_white, boost::next(last_white))
+				: text_size_t(dim(w, height()), sbeg, sbeg);
 		w = nw;
 	}
-	return text_size_t(font_dim(w, height()), send, send);
+	return text_size_t(dim(w, height()), send, send);
 }
 
-const sge::font_metrics_ptr sge::font::metrics() const
+const sge::font::metrics_ptr
+sge::font::font::metrics() const
 {
 	return metrics_;
 }
 
-const sge::font_drawer_ptr sge::font::drawer() const
+const sge::font::drawer_ptr
+sge::font::font::drawer() const
 {
 	return drawer_;
-}
-
-sge::font::text_size_t::text_size_t(
-	const font_dim size_,
-	const string_type::const_iterator end_,
-	const string_type::const_iterator next_begin_)
- : size_(size_),
-   end_(end_),
-   next_begin_(next_begin_)
-{}
-	
-sge::font_dim sge::font::text_size_t::size() const
-{
-	return size_;
-}
-
-sge::font::text_size_t::const_iterator sge::font::text_size_t::end() const
-{
-	return end_;
-}
-
-sge::font::text_size_t::const_iterator sge::font::text_size_t::next_begin() const
-{
-	return next_begin_;
 }

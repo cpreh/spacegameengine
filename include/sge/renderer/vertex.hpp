@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VERTEX_HPP_INCLUDED
-#define SGE_VERTEX_HPP_INCLUDED
+#ifndef SGE_RENDERER_VERTEX_HPP_INCLUDED
+#define SGE_RENDERER_VERTEX_HPP_INCLUDED
 
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vertex_format.hpp"
 
 namespace sge
+{
+namespace renderer
 {
 
 namespace vb_detail
@@ -91,6 +93,7 @@ private:
 typedef vb_detail::vertex_impl<true>  const_vertex;
 typedef vb_detail::vertex_impl<false> vertex;
 
+}
 }
 
 #endif

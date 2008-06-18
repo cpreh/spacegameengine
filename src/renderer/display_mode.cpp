@@ -20,31 +20,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/display_mode.hpp>
 	
-sge::display_mode::display_mode(const screen_unit width,
-                                const screen_unit height,
-                                const bit_depth::type depth,
-                                const unsigned refresh_rate)
+sge::renderer::display_mode::display_mode(
+	const screen_unit width,
+	const screen_unit height,
+	const bit_depth::type depth,
+	const unsigned refresh_rate)
  : size(width, height),
    depth(depth),
    refresh_rate(refresh_rate)
 {}
 
-sge::screen_unit sge::display_mode::width() const
+sge::renderer::screen_unit
+sge::renderer::display_mode::width() const
 {
 	return size.w();
 }
 
-sge::screen_unit sge::display_mode::height() const
+sge::renderer::screen_unit
+sge::renderer::display_mode::height() const
 {
 	return size.h();
 }
 
-bool sge::operator== (const display_mode& l, const display_mode& r)
+bool sge::renderer::operator== (const display_mode& l, const display_mode& r)
 {
 	return l.depth == r.depth && l.size == r.size && l.refresh_rate == r.refresh_rate;
 }
 
-bool sge::operator!= (const display_mode& l, const display_mode& r)
+bool sge::renderer::operator!= (const display_mode& l, const display_mode& r)
 {
 	return !(l==r);
 }

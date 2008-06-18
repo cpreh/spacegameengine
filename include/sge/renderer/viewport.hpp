@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VIEWPORT_HPP_INCLUDED
-#define SGE_VIEWPORT_HPP_INCLDUED
+#ifndef SGE_RENDERER_VIEWPORT_HPP_INCLUDED
+#define SGE_RENDERER_VIEWPORT_HPP_INCLDUED
 
 #include "../export.hpp"
 #include "types.hpp"
 
 namespace sge
+{
+namespace renderer
 {
 
 struct viewport {
@@ -39,6 +41,7 @@ struct viewport {
 	                    screen_unit h);
 };
 
+}
 }
 
 #endif

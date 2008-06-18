@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CUBE_TEXTURE_HPP_INCLUDED
-#define SGE_CUBE_TEXTURE_HPP_INCLUDED
+#ifndef SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
+#define SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
 
-#include <boost/array.hpp>
 #include "../export.hpp"
 #include "texture_base.hpp"
 #include "types.hpp"
+#include <boost/array.hpp>
 
 namespace sge
+{
+namespace renderer
 {
 
 namespace cube_side
@@ -42,13 +44,8 @@ namespace cube_side
 	};
 }
 
-template<typename BitDepth>
-class basic_cube_texture : public basic_texture_base<BitDepth> {
+class cube_texture : public texture_base {
 public:
-	typedef basic_texture_base<BitDepth> base;
-	typedef typename base::const_pointer const_pointer;
-	typedef typename base::size_type size_type;
-
 	SGE_SYMBOL size_type size() const;
 	virtual void set_data(cube_side::type side, const_pointer p, const lock_rect& r) = 0;
 	virtual void set_data(cube_side::type side, const_pointer p) = 0;
@@ -58,9 +55,9 @@ public:
 	virtual size_type border_size() const = 0;
 };
 
-typedef basic_cube_texture<bit_depth32> cube_texture;
 typedef shared_ptr<cube_texture> cube_texture_ptr;
 
+}
 }
 
 #endif

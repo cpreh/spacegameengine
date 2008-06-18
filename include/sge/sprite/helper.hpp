@@ -32,41 +32,41 @@ namespace sge
 namespace sprite
 {
 
-SGE_SYMBOL vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_buffer::iterator
 fill_position(
-	vertex_buffer::iterator it,
+	renderer::vertex_buffer::iterator it,
 	const rect& rs,
 	depth_type z);
 
-SGE_SYMBOL vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_buffer::iterator
 fill_tex_coordinates(
-	vertex_buffer::iterator it,
-	const tex_rect& rt);
+	renderer::vertex_buffer::iterator it,
+	const renderer::tex_rect& rt);
 
-SGE_SYMBOL vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_buffer::iterator
 fill_vertices(
-	vertex_buffer::iterator it,
+	renderer::vertex_buffer::iterator it,
 	const rect& rs,
-	const tex_rect& rt,
+	const renderer::tex_rect& rt,
 	depth_type z);
 
-SGE_SYMBOL vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_buffer::iterator
 fill_position_rotated(
-	vertex_buffer::iterator it,
+	renderer::vertex_buffer::iterator it,
 	const rect& rbs,
 	rotation_type rot,
 	const point& center,
 	depth_type z);
 
-SGE_SYMBOL vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_buffer::iterator
 fill_color(
-	vertex_buffer::iterator it,
+	renderer::vertex_buffer::iterator it,
 	color col);
 
-SGE_SYMBOL index_buffer::iterator
+SGE_SYMBOL renderer::index_buffer::iterator
 fill_indices(
-	index_buffer::iterator it,
-	index_buffer::value_type start);
+	renderer::index_buffer::iterator it,
+	renderer::index_buffer::value_type start);
 
 }
 }

@@ -20,6 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vertex_buffer.hpp>
 
+// FIXME: do this with fragments, too
+
+/*
 sge::vertex_buffer::iterator sge::vertex_buffer::end()
 {
 	return begin() + size();
@@ -61,4 +64,4 @@ sge::vertex_buffer::const_reference sge::vertex_buffer::operator[](const size_ty
 }
 	
 sge::vertex_buffer::~vertex_buffer()
-{}
+{}*/

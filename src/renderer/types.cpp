@@ -21,19 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/types.hpp>
 #include <sge/exception.hpp>
 
-unsigned sge::bit_depth_bit_count(const bit_depth::type d)
-{
-	switch(d) {
-	case bit_depth::depth16:
-		return 16;
-	case bit_depth::depth32:
-		return 32;
-	}
-	throw exception(SGE_TEXT("Invalid bit_depth!"));
-}
-
-
-bool sge::lock_flag_write(const lock_flag_t mode)
+bool sge::renderer::lock_flag_write(const lock_flag_t mode)
 {
 	switch(mode) {
 	case lock_flags::readonly:
@@ -43,7 +31,7 @@ bool sge::lock_flag_write(const lock_flag_t mode)
 	}
 }
 
-bool sge::lock_flag_read(const lock_flag_t mode)
+bool sge::renderer::lock_flag_read(const lock_flag_t mode)
 {
 	switch(mode) {
 	case lock_flags::writeonly:

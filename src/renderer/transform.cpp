@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix_impl.hpp>
 #include <sge/math/matrix_util.hpp>
 
-sge::math::space_matrix sge::matrix_pixel_to_space(const screen_size_t& sz)
+const sge::math::space_matrix
+sge::renderer::matrix_pixel_to_space(
+	const screen_size_t& sz)
 {
 	return math::matrix_translation(static_cast<space_unit>(-static_cast<int>(sz.w()) / 2),
 	                                static_cast<space_unit>(-static_cast<int>(sz.h()) / 2),
@@ -34,9 +36,11 @@ sge::math::space_matrix sge::matrix_pixel_to_space(const screen_size_t& sz)
 	                            0);
 }
 
-sge::math::rect sge::tex_size_to_space_rect(const lock_rect& l,
-                                            const texture::dim_type& dim,
-                                            const space_unit repeat)
+const sge::math::rect
+sge::renderer::tex_size_to_space_rect(
+	const lock_rect& l,
+	const texture::dim_type& dim,
+	const space_unit repeat)
 {
 	return math::rect(static_cast<space_unit>(l.left()) / static_cast<space_unit>(dim.w()),
 	                  static_cast<space_unit>(l.top()) / static_cast<space_unit>(dim.h()),

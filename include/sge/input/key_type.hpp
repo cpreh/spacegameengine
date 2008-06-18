@@ -18,26 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_KEY_TYPE_HPP_INCLUDED
-#define SGE_KEY_TYPE_HPP_INCLUDED
+#ifndef SGE_INPUT_KEY_TYPE_HPP_INCLUDED
+#define SGE_INPUT_KEY_TYPE_HPP_INCLUDED
 
 #include "../export.hpp"
 #include "../string.hpp"
 
 namespace sge
 {
-
-struct mod_state {
-	mod_state(bool shift, bool ctrl, bool alt)
-	 : shift(shift),
-	   ctrl(ctrl),
-	   alt(alt)
-	{}
-
-	bool shift,
-	     ctrl,
-	     alt;
-};
+namespace input
+{
 
 namespace kc
 {
@@ -319,6 +309,7 @@ private:
 	key_state value_;
 };
 
+}
 }
 
 #endif

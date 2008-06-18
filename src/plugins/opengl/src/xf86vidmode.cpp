@@ -27,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode.hpp>
 #include <ostream>
 
-sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display_ptr dsp, const int screen)
+sge::ogl::xf86_vidmode_array::xf86_vidmode_array(
+	const x_display_ptr dsp,
+	const int screen)
 : dsp(dsp),
   screen(screen)
 {
@@ -47,22 +49,28 @@ sge::ogl::xf86_vidmode_array::xf86_vidmode_array(const x_display_ptr dsp, const 
 	sz = mode_count >= 0 ? mode_count : 0;
 }
 
-const XF86VidModeModeInfo& sge::ogl::xf86_vidmode_array::operator[](const size_type index) const
+const XF86VidModeModeInfo&
+sge::ogl::xf86_vidmode_array::operator[](
+	const size_type index) const
 {
 	return (*modes)[index];
 }
 
-unsigned sge::ogl::xf86_vidmode_array::refresh_rate(const XF86VidModeModeInfo& mode)
+unsigned sge::ogl::xf86_vidmode_array::refresh_rate(
+	const XF86VidModeModeInfo& mode)
 {
 	return math::round_div_int(1000 * mode.dotclock, unsigned(mode.htotal * mode.vtotal));
 }
 
-sge::ogl::xf86_vidmode_array::size_type sge::ogl::xf86_vidmode_array::size() const
+sge::ogl::xf86_vidmode_array::size_type
+sge::ogl::xf86_vidmode_array::size() const
 {
 	return sz;
 }
 
-sge::ogl::xf86_resolution_ptr sge::ogl::xf86_vidmode_array::switch_to_mode(const display_mode& pmode) const
+const sge::ogl::xf86_resolution_ptr
+sge::ogl::xf86_vidmode_array::switch_to_mode(
+	const renderer::display_mode& pmode) const
 {
 	int best = -1;
 	for(xf86_vidmode_array::size_type i = 1; i < size(); ++i)

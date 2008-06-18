@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_HPP_INCLUDED
-#define SGE_TEXTURE_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_HPP_INCLUDED
 
 #include "../export.hpp"
 #include "../math/dim.hpp"
@@ -27,21 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace renderer
+{
 
-template<typename BitDepth>
-class basic_texture : public basic_texture_base<BitDepth> {
+class texture : public texture_base {
 public:
-	typedef basic_texture_base<BitDepth>          base;
-	typedef typename base::size_type              size_type;
-	typedef typename base::difference_type        difference_type;
-	typedef typename base::value_type             value_type;
-	typedef typename base::pointer                pointer;
-	typedef typename base::const_pointer          const_pointer;
-	typedef typename base::iterator               iterator;
-	typedef typename base::const_iterator         const_iterator;
-	typedef typename base::reverse_iterator       reverse_iterator;
-	typedef typename base::const_reverse_iterator const_reverse_iterator;
-	typedef math::basic_dim<size_type, 2>         dim_type;
+	typedef math::basic_dim<size_type, 2>        dim_type;
 
 	SGE_SYMBOL size_type size() const;
 	virtual const dim_type dim() const = 0;
@@ -52,9 +43,9 @@ public:
 	virtual void unlock() = 0;
 };
 
-typedef basic_texture<bit_depth32> texture;
 typedef shared_ptr<texture> texture_ptr;
 
+}
 }
 
 #endif

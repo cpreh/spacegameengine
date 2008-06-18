@@ -45,22 +45,24 @@ public:
 	typedef typename Base::const_iterator         const_iterator;
 	typedef typename Base::reverse_iterator       reverse_iterator;
 	typedef typename Base::const_reverse_iterator const_reverse_iterator;
+	typedef typename Base::resource_flag_type     resource_flag_type;
+	typedef typename Base::lock_flag_type         lock_flag_type;
 			
 	basic_buffer(
 		GLenum type,
 		vbo_base&,
 		size_type sz,
 		size_type stride,
-		resource_flag_t flags,
+		resource_flag_type flags,
 		const_pointer src);
 	~basic_buffer();
 
-	void lock(lock_flag_t lockflags);
+	void lock(lock_flag_type lockflags);
 	void unlock();
 	void set_data(const_pointer data, size_type first, size_type count);
 
 	size_type size() const;
-	resource_flag_t flags() const;
+	resource_flag_type flags() const;
 
 	void resize(size_type newsize, const_pointer src);
 
@@ -81,13 +83,13 @@ private:
 	virtual iterator create_iterator(pointer) = 0;
 	virtual const_iterator create_iterator(const_pointer) const = 0;
 	
-	GLenum           type;
-	vbo_base&        impl;
-	size_type        sz;
-	size_type        stride_;
-	resource_flag_t  flags_;
-	pointer          dest;
-	GLuint           id;
+	GLenum             type;
+	vbo_base&          impl;
+	size_type          sz;
+	size_type          stride_;
+	resource_flag_type flags_;
+	pointer            dest;
+	GLuint             id;
 };
 
 }

@@ -38,7 +38,7 @@ public:
 	~glyph();
 	FT_BitmapGlyph bitmap_glyph() const;
 private:
-	FT_Glyph _glyph;
+	FT_Glyph glyph_;
 };
 
 }

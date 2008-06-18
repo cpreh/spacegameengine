@@ -18,14 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIGHT_HPP_INCLUDED
-#define SGE_LIGHT_HPP_INCLUDED
+#ifndef SGE_RENDERER_LIGHT_HPP_INCLUDED
+#define SGE_RENDERER_LIGHT_HPP_INCLUDED
 
 #include "color.hpp"
 #include "../math/vector.hpp"
 #include "../export.hpp"
 
 namespace sge
+{
+namespace renderer
 {
 
 struct light {
@@ -35,9 +37,9 @@ public:
 	typedef space_unit attenuation_type;
 
 	SGE_SYMBOL light(
-		const color4& ambient,
-		const color4& diffuse,
-		const color4& specular,
+		const colorf& ambient,
+		const colorf& diffuse,
+		const colorf& specular,
 		const position_type& pos,
 		const direction_type& dir,
 		attenuation_type const_attenuation,
@@ -46,7 +48,7 @@ public:
 		space_unit       distribution_exponent,
 		space_unit       cutoff_angle);
 
-	color4           ambient,
+	colorf           ambient,
 	                 diffuse,
 	                 specular;
 	position_type    pos;
@@ -60,6 +62,7 @@ public:
 
 typedef unsigned light_index;
 
+}
 }
 
 #endif

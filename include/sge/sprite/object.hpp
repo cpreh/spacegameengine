@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/dim.hpp"
 #include "../math/circle.hpp"
 #include "../texture/virtual_texture.hpp"
+#include "../renderer/color.hpp"
 #include "types.hpp"
 #include <boost/optional.hpp>
 

@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../face.hpp"
 #include "../glyph.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
 
 sge::ft::glyph::glyph(const face& f)
 {
-	if(FT_Get_Glyph(f->glyph, &_glyph))
+	if(FT_Get_Glyph(f->glyph, &glyph_))
 		throw exception(SGE_TEXT("FT_Get_Glyph() failed!"));
 
-	if(FT_Glyph_To_Bitmap(&_glyph, FT_RENDER_MODE_NORMAL, 0, true))
+	if(FT_Glyph_To_Bitmap(&glyph_, FT_RENDER_MODE_NORMAL, 0, true))
 		throw exception(SGE_TEXT("FT_Glyph_To_Bitmap() failed!"));
 }
 
 sge::ft::glyph::~glyph()
 {
-	FT_Done_Glyph(_glyph);
+	FT_Done_Glyph(glyph_);
 }
 
 FT_BitmapGlyph sge::ft::glyph::bitmap_glyph() const
 {
-	return reinterpret_cast<FT_BitmapGlyph>(_glyph);
+	return reinterpret_cast<FT_BitmapGlyph>(glyph_);
 }

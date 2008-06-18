@@ -31,7 +31,7 @@ namespace ogl
 {
 
 typedef basic_raw_buffer<
-	sge::index_buffer,
+	renderer::index_buffer,
 	index_buffer_type,
 	vb_ib_vbo_impl
 > index_buffer;

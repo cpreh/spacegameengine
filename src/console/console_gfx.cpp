@@ -16,17 +16,16 @@
 #include <ostream>
 
 sge::con::console_gfx::console_gfx(
-	const renderer_ptr rend,
+	const renderer::device_ptr rend,
 	const virtual_texture_ptr texture,
-	const font_ptr fn,
-	const input_system_ptr is,
+	const font::font_ptr fn,
+	const input::system_ptr is,
 	const sprite::point &pos,
 	const sprite::dim &size)
 : rend(rend),
   fn(fn),
   ic(is->register_callback(boost::bind(&console_gfx::key_callback,this,_1))),
   irc(is->register_repeat_callback(boost::bind(&console_gfx::key_action,this,_1))),
-  mod(is),
   ss(rend),
   bg(
   	pos,
@@ -78,7 +77,7 @@ void sge::con::console_gfx::dump(const arg_list &args)
 	}
 }
 
-void sge::con::console_gfx::key_callback(const key_pair &k)
+void sge::con::console_gfx::key_callback(const input::key_pair &k)
 {
 	if (!active_)
 		return;
@@ -172,7 +171,7 @@ void sge::con::console_gfx::tabcomplete(string &il)
 	cursor_pos = left + replacement.length();
 }
 
-void sge::con::console_gfx::key_action(const key_type &k)
+void sge::con::console_gfx::key_action(const input::key_type &k)
 {
 	if (!active_)
 		return;
@@ -183,7 +182,7 @@ void sge::con::console_gfx::key_action(const key_type &k)
 	if(std::isprint(k.char_code(),std::locale()))
 	{
 		// FIXME: input system doesn't work!
-		if (mod.state().ctrl && (k.char_code() == SGE_TEXT('w') || k.char_code() == SGE_TEXT('W')))
+		if ((k.char_code() == SGE_TEXT('w') || k.char_code() == SGE_TEXT('W')))
 		{
 			if (cursor_pos == 0)
 				return;
@@ -201,60 +200,60 @@ void sge::con::console_gfx::key_action(const key_type &k)
 
 	switch (k.code())
 	{
-		case kc::key_backspace:
+		case input::kc::key_backspace:
 			if (cursor_pos <= 0)
 				return;
 
 			il.erase(--cursor_pos,1);
 		break;
-		case kc::key_left:
+		case input::kc::key_left:
 			if (cursor_pos <= 0)
 				return;
 
 			--cursor_pos;
 		break;
-		case kc::key_right:
+		case input::kc::key_right:
 			if (cursor_pos >= il.size()-static_cast<string::size_type>(1))
 				return;
 			
 			++cursor_pos;
 		break;
-		case kc::key_up:
+		case input::kc::key_up:
 			if (input_history_pos == --input_history.end())
 				return;
 
 			input_history_pos = boost::next(input_history_pos);
 			cursor_pos = input_history_pos->length()-static_cast<string::size_type>(1);
 		break;
-		case kc::key_down:
+		case input::kc::key_down:
 			if (input_history_pos == input_history.begin())
 				return;
 
 			input_history_pos = boost::prior(input_history_pos);
 			cursor_pos = input_history_pos->length()-static_cast<string::size_type>(1);
 		break;
-		case kc::key_pageup:
+		case input::kc::key_pageup:
 			if (history_pos == --history.end())
 				return;
 
 			history_pos = boost::next(history_pos);
 		break;
-		case kc::key_tab:
+		case input::kc::key_tab:
 			tabcomplete(il);
 		break;
-		case kc::key_home:
+		case input::kc::key_home:
 			cursor_pos = 0;
 		break;
-		case kc::key_end:
+		case input::kc::key_end:
 			cursor_pos = il.length()-static_cast<string::size_type>(1);
 		break;
-		case kc::key_pagedown:
+		case input::kc::key_pagedown:
 			if (history_pos == history.begin())
 				return;
 
 			history_pos = boost::prior(history_pos);
 		break;
-		case kc::key_return:
+		case input::kc::key_return:
 			if (il.empty())
 				return;
 
@@ -294,9 +293,10 @@ void sge::con::console_gfx::draw()
 
 	// draw input line
 	fn->draw_text(iln,
-		math::structure_cast<font_unit>(bg.pos()),
-		math::structure_cast<font_unit>(bg.size()),
-		font_align_h::left,font_align_v::bottom);
+		math::structure_cast<font::unit>(bg.pos()),
+		math::structure_cast<font::unit>(bg.size()),
+		font::align_h::left,
+		font::align_v::bottom);
 
 	// draw history
 	const std::size_t total_lines = bg.size().h()/fn->height();
@@ -315,9 +315,10 @@ void sge::con::console_gfx::draw()
 
 	// draw history lines
 	fn->draw_text(history_string,
-		math::structure_cast<font_unit>(bg.pos()),
-		font_dim(bg.size().w(),bg.size().h()-fn->height()),
-		font_align_h::left,font_align_v::bottom);
+		math::structure_cast<font::unit>(bg.pos()),
+		font::dim(bg.size().w(),bg.size().h()-fn->height()),
+		font::align_h::left,
+		font::align_v::bottom);
 }
 
 sge::space_unit sge::con::console_gfx::change_cursor_rate(

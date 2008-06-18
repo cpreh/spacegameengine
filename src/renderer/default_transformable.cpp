@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/default_transformable.hpp>
 #include <sge/math/matrix_impl.hpp>
 
-sge::default_transformable::default_transformable(
-	const renderer_ptr rend,
+sge::renderer::default_transformable::default_transformable(
+	const device_ptr rend,
 	const math::space_matrix& internal_matrix_,
 	const math::space_matrix& projection_,
 	const math::space_matrix& transform_)
@@ -32,22 +32,25 @@ sge::default_transformable::default_transformable(
    transform_(transform_)
 {}
 
-void sge::default_transformable::internal_transformation(const math::space_matrix& m)
+void sge::renderer::default_transformable::internal_transformation(
+	const math::space_matrix& m)
 {
 	internal_matrix_ = m;
 }
 
-void sge::default_transformable::transform(const math::space_matrix& m)
+void sge::renderer::default_transformable::transform(
+	const math::space_matrix& m)
 {
 	transform_ = m;
 }
 
-void sge::default_transformable::projection(const math::space_matrix& m)
+void sge::renderer::default_transformable::projection(
+	const math::space_matrix& m)
 {
 	projection_ = m;
 }
 
-void sge::default_transformable::set_matrices()
+void sge::renderer::default_transformable::set_matrices()
 {
 	rend->transform(transform_ * internal_matrix_);
 	rend->projection(projection_);

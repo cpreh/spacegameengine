@@ -21,12 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/static_texture.hpp>
 #include <sge/exception.hpp>
 
-sge::static_texture::static_texture(const texture_ptr tex)
+sge::static_texture::static_texture(
+	const renderer::texture_ptr tex)
 : tex(tex),
   claimed(false)
 {}
 
-const sge::virtual_texture_ptr sge::static_texture::consume_fragments(const texture::dim_type& dim)
+const sge::virtual_texture_ptr
+sge::static_texture::consume_fragments(
+	const renderer::texture::dim_type& dim)
 {
 	if(claimed)
 		return virtual_texture_ptr();
@@ -34,15 +37,24 @@ const sge::virtual_texture_ptr sge::static_texture::consume_fragments(const text
 	if(dim.w() > tex->dim().w() || dim.h() > tex->dim().h())
 		throw exception(SGE_TEXT("static_texture::consume_fragments(): size out of range."));
 	claimed = true;
-	return virtual_texture_ptr(new virtual_texture(lock_rect(lock_rect::point_type(0, 0), dim), *this, false, false));
+	return virtual_texture_ptr(
+		new virtual_texture(
+			renderer::lock_rect(
+				renderer::lock_rect::point_type(0, 0),
+				dim),
+			*this,
+			false,
+			false));
 }
 
-void sge::static_texture::return_fragments(const virtual_texture&)
+void sge::static_texture::return_fragments(
+	const virtual_texture&)
 {
 	claimed = false;
 }
 
-const sge::texture_ptr sge::static_texture::get_texture() const
+const sge::renderer::texture_ptr
+sge::static_texture::get_texture() const
 {
 	return tex;
 }

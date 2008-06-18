@@ -20,16 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/light.hpp>
 
-sge::light::light(const color4& ambient,
-                  const color4& diffuse,
-                  const color4& specular,
-                  const position_type& pos,
-                  const direction_type& dir,
-                  const attenuation_type const_attenuation,
-                  const attenuation_type linear_attenuation,
-                  const attenuation_type quadratic_attenuation,
-                  const space_unit       distribution_exponent,
-                  const space_unit       cutoff_angle)
+sge::renderer::light::light(
+	const colorf& ambient,
+	const colorf& diffuse,
+	const colorf& specular,
+	const position_type& pos,
+	const direction_type& dir,
+	const attenuation_type const_attenuation,
+	const attenuation_type linear_attenuation,
+	const attenuation_type quadratic_attenuation,
+	const space_unit       distribution_exponent,
+	const space_unit       cutoff_angle)
 : ambient(ambient),
   diffuse(diffuse),
   specular(specular),

@@ -20,12 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture.hpp>
 
-template<typename BitDepth>
-typename sge::basic_texture<BitDepth>::size_type
-sge::basic_texture<BitDepth>::size() const
+sge::renderer::texture::size_type
+sge::renderer::texture::size() const
 {
 	return dim().size();
 }
-
-template class sge::basic_texture<sge::bit_depth16>;
-template class sge::basic_texture<sge::bit_depth32>;

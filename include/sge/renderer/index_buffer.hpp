@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_INDEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 
-#include <cstddef>
-#include <iterator>
 #include "../shared_ptr.hpp"
 #include "../typeswitch.hpp"
 #include "../export.hpp"
 #include "types.hpp"
+#include <cstddef>
+#include <iterator>
 
 namespace sge
+{
+namespace renderer
 {
 
 class index_buffer {
 public:
 	typedef std::size_t                           size_type;
 	typedef std::ptrdiff_t                        difference_type;
-	typedef uint32                                value_type;
+	typedef uint32                                value_type; // FIXME: replace this with a view and allow other value types!
 
 	typedef value_type&                           reference;
 	typedef const value_type&                     const_reference;
@@ -45,6 +47,9 @@ public:
 	typedef const_pointer                         const_iterator;
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+	typedef resource_flag_t                       resource_flag_type;
+	typedef lock_flag_t                           lock_flag_type;
 	
 	SGE_SYMBOL iterator end();
 	SGE_SYMBOL const_iterator end() const;
@@ -71,6 +76,7 @@ public:
 
 typedef shared_ptr<index_buffer> index_buffer_ptr;
 
+}
 }
 
 #endif

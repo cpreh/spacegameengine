@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../font_system.hpp"
+#include "../system.hpp"
 #include <sge/export.hpp>
 #include <sge/plugin.hpp>
 #include <sge/string.hpp>
@@ -37,9 +37,9 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
 	p->type = sge::plugin_type::font;
 }
 
-SGE_EXPORT_SYMBOL sge::font_system* create_font_system()
+SGE_EXPORT_SYMBOL sge::font::system* create_font_system()
 {
-	return new sge::ft::font_system();
+	return new sge::ft::system();
 }
 
 }

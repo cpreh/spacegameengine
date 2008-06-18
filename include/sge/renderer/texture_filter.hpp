@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace renderer
+{
 
 namespace min_filter
 {
@@ -60,6 +62,7 @@ const filter_args linear_filter(min_filter::linear, mag_filter::linear),
                   point_filter(min_filter::point, mag_filter::point),
                   mip_filter(min_filter::mipmap, mag_filter::linear),
                   trilinear_filter(min_filter::trilinear, mag_filter::linear);
+}
 }
 
 #endif

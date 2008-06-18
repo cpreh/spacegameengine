@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "attribute_variable.hpp"
 #include "traits.hpp"
 #include <sge/shared_ptr.hpp>
-#include <sge/renderer/glsl_program.hpp>
+#include <sge/renderer/glsl/program.hpp>
 #include <boost/noncopyable.hpp>
 #include <vector>
 
@@ -39,7 +39,7 @@ namespace glsl
 {
 
 template<bool Native>
-class program : public sge::glsl::program, boost::noncopyable {
+class program : public renderer::glsl::program, boost::noncopyable {
 public:
 	typedef typename traits<Native>::handle handle;
 	typedef typename shader<Native>::shared_ptr shader_ptr;
@@ -48,11 +48,11 @@ public:
 		std::string const &vs_source,
 		std::string const &ps_source);
 	~program();
-	static void use(sge::glsl::program_ptr);
+	static void use(renderer::glsl::program_ptr);
 private:
-	sge::glsl::uniform_variable_ptr uniform(
+	const renderer::glsl::uniform_variable_ptr uniform(
 		const std::string&);
-	sge::glsl::attribute_variable_ptr attribute(
+	const renderer::glsl::attribute_variable_ptr attribute(
 		const std::string&);
 	
 	static void use_ffp();

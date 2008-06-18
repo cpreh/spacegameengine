@@ -42,7 +42,10 @@ sge::devil::image::image(const path& file)
 		throw exception(string(SGE_TEXT("ilLoadImage() failed! Could not load '")) += file.string() + SGE_TEXT("'!"));
 }
 
-sge::devil::image::image(const image_format::type type, const const_pointer format_data, const size_type size)
+sge::devil::image::image(
+	const sge::image::format::type type,
+	const const_pointer format_data,
+	const size_type size)
 {
 	if(!format_data || size == 0)
 		throw exception(SGE_TEXT("load_image(): format_data or size is 0!"));
@@ -51,8 +54,9 @@ sge::devil::image::image(const image_format::type type, const const_pointer form
 		throw exception(SGE_TEXT("ilLoadL() failed!"));
 }
 
-sge::devil::image::image(const const_pointer p,
-                         const dim_type& dim_)
+sge::devil::image::image(
+	const const_pointer p,
+	const dim_type& dim_)
 {
 	if(!p)
 		throw exception(SGE_TEXT("load_image(): ptr is 0!"));
@@ -65,7 +69,7 @@ void sge::devil::image::bind_me() const
 	check_errors();
 }
 
-sge::image::dim_type sge::devil::image::dim() const
+const sge::image::dim_type sge::devil::image::dim() const
 {
 	bind_me();
 	return dim_type(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));

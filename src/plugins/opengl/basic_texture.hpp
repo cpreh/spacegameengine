@@ -42,38 +42,40 @@ public:
 	typedef typename Base::difference_type difference_type;
 	typedef typename Base::pointer pointer;
 	typedef typename Base::const_pointer const_pointer;
+	typedef typename Base::resource_flag_type resource_flag_type;
+	typedef typename Base::lock_flag_type lock_flag_type;
 protected:
 	void bind_me() const;
 	void set_my_filter() const;
 	GLuint id() const;
-	const filter_args& filter() const;
+	const renderer::filter_args& filter() const;
 	
-	void do_lock(lock_flag_t flags);
+	void do_lock(lock_flag_type flags);
 	void post_lock();
 	void pre_unlock();
 	void do_unlock();
-	lock_flag_t lock_mode() const;
+	lock_flag_type lock_mode() const;
 	pointer read_buffer() const;
 	pointer write_buffer() const;
 	
 	void pre_setdata() const;
 	basic_texture(
-		const filter_args& filter,
-		resource_flag_t flags,
+		const renderer::filter_args& filter,
+		resource_flag_type flags,
 		GLenum type);
 public:
 	~basic_texture();
-	resource_flag_t flags() const;
+	resource_flag_type flags() const;
 	pointer data();
 	const_pointer data() const;
 	using Base::size;
 private:
-	filter_args                            filter_;
-	resource_flag_t                        flags_;
+	renderer::filter_args                  filter_;
+	resource_flag_type                     flags_;
 	GLuint                                 id_;
 
 	pbo_base*                              cur_buffer;
-	lock_flag_t                            lock_mode_;
+	lock_flag_type                         lock_mode_;
 	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
 	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
 };

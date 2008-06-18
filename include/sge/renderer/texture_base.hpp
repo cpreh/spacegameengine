@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
 
-#include <cstddef>
-#include <iterator>
-#include "../shared_ptr.hpp"
-#include "../math/rect.hpp"
 #include "color.hpp"
 #include "types.hpp"
+#include "../shared_ptr.hpp"
+#include "../math/rect.hpp"
+#include <iterator>
+#include <cstddef>
 
 namespace sge
 {
+namespace renderer
+{
 
-template<typename BitDepth>
-class basic_texture_base {
+class texture_base {
 public:
 	typedef std::size_t                           size_type;
 	typedef std::ptrdiff_t                        difference_type;
-	typedef typename BitDepth::color              value_type;
+	typedef color                                 value_type;
 	typedef value_type&                           reference;
 	typedef const value_type&                     const_reference;
 	typedef value_type*                           pointer;
@@ -45,10 +46,12 @@ public:
 	typedef const_pointer                         const_iterator;
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+	typedef resource_flag_t                       resource_flag_type;
+	typedef lock_flag_t                           lock_flag_type;
 
-	virtual ~basic_texture_base() {}
+	virtual ~texture_base() {}
 	virtual size_type size() const = 0;
-	virtual resource_flag_t flags() const = 0;
+	virtual resource_flag_type flags() const = 0;
 
 	virtual pointer data() = 0;
 	virtual const_pointer data() const = 0;
@@ -62,10 +65,10 @@ public:
 	virtual const_reverse_iterator rend() const = 0;*/
 };
 
-typedef basic_texture_base<bit_depth32>           texture_base;
 typedef shared_ptr<texture_base>                  texture_base_ptr;
 typedef math::basic_rect<texture_base::size_type> lock_rect;
 
+}
 }
 
 #endif

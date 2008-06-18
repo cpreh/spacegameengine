@@ -19,21 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../state_visitor.hpp"
-#include "../renderer.hpp"
+#include "../device.hpp"
 #include "../conversion.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
 
-sge::ogl::state_visitor::state_visitor(renderer& rend)
+sge::ogl::state_visitor::state_visitor(device& rend)
 : rend(rend)
 {}
 
-void sge::ogl::state_visitor::operator()(const int_state::type s) const
+void sge::ogl::state_visitor::operator()(const renderer::int_state::type s) const
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer_state_var_traits<int> rs;
+	typedef renderer::state_var_traits<int> rs;
 
 	switch(s.state_id) {
 	case rs::stencil_clear_val:
@@ -44,11 +45,11 @@ void sge::ogl::state_visitor::operator()(const int_state::type s) const
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const float_state::type s) const
+void sge::ogl::state_visitor::operator()(const renderer::float_state::type s) const
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer_state_var_traits<float> rs;
+	typedef renderer::state_var_traits<float> rs;
 
 	switch(s.state_id) {
 	case rs::zbuffer_clear_val:
@@ -64,9 +65,9 @@ void sge::ogl::state_visitor::operator()(const float_state::type s) const
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const bool_state::type s) const
+void sge::ogl::state_visitor::operator()(const renderer::bool_state::type s) const
 {
-	typedef renderer_state_var_traits<bool> rs;
+	typedef renderer::state_var_traits<bool> rs;
 
 	switch(s.state_id) {
 	case rs::clear_backbuffer:
@@ -82,30 +83,31 @@ void sge::ogl::state_visitor::operator()(const bool_state::type s) const
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const color_state::type s) const
+void sge::ogl::state_visitor::operator()(const renderer::color_state::type s) const
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer_state_var_traits<color> rs;
+	typedef renderer::state_var_traits<renderer::color> rs;
 
 	switch(s.state_id) {
 	case rs::clear_color:
-		glClearColor(
+		// FIXME: use gil here too!
+/*		glClearColor(
 			red_part_rgba_f(s.value()),
 			green_part_rgba_f(s.value()),
 			blue_part_rgba_f(s.value()),
-			alpha_part_rgba_f(s.value()));
+			alpha_part_rgba_f(s.value()));*/
 		break;
 	case rs::ambient_light_color:
 		{
-			const color4 fc = color_to_color4(s.value());
-			glLightModelfv(GL_LIGHT_MODEL_AMBIENT, reinterpret_cast<const GLfloat*>(&fc));
+			//const color4 fc = color_to_color4(s.value());
+			//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, reinterpret_cast<const GLfloat*>(&fc));
 		}
 		break;
 	case rs::fog_color:
 		{
-			const color4 fc = color_to_color4(s.value());
-			glFogfv(GL_FOG_COLOR, reinterpret_cast<const GLfloat*>(&fc));
+			//const color4 fc = color_to_color4(s.value());
+			//glFogfv(GL_FOG_COLOR, reinterpret_cast<const GLfloat*>(&fc));
 		}
 		break;
 	default:
@@ -113,9 +115,9 @@ void sge::ogl::state_visitor::operator()(const color_state::type s) const
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const cull_mode::type m) const
+void sge::ogl::state_visitor::operator()(const renderer::cull_mode::type m) const
 {
-	if(m.value() == renderer_state_cull_mode_type::off)
+	if(m.value() == renderer::state_cull_mode_type::off)
 	{
 		disable(GL_CULL_FACE);
 		return;
@@ -126,9 +128,9 @@ void sge::ogl::state_visitor::operator()(const cull_mode::type m) const
 	glCullFace(convert_cast(m));
 }
 
-void sge::ogl::state_visitor::operator()(const depth_func::type f) const
+void sge::ogl::state_visitor::operator()(const renderer::depth_func::type f) const
 {
-	if(f.value() == renderer_state_depth_func_type::off)
+	if(f.value() == renderer::state_depth_func_type::off)
 	{
 		disable(GL_DEPTH_TEST);
 		return;
@@ -140,9 +142,9 @@ void sge::ogl::state_visitor::operator()(const depth_func::type f) const
 	glDepthFunc(convert_cast(f));
 }
 
-void sge::ogl::state_visitor::operator()(const stencil_func::type f) const
+void sge::ogl::state_visitor::operator()(const renderer::stencil_func::type f) const
 {
-	if(f.value() == renderer_state_stencil_func_type::off)
+	if(f.value() == renderer::state_stencil_func_type::off)
 	{
 		disable(GL_STENCIL_TEST);
 		return;
@@ -152,9 +154,9 @@ void sge::ogl::state_visitor::operator()(const stencil_func::type f) const
 	rend.set_stencil_func();
 }
 
-void sge::ogl::state_visitor::operator()(const fog_mode::type m) const
+void sge::ogl::state_visitor::operator()(const renderer::fog_mode::type m) const
 {
-	if(m.value() == renderer_state_fog_mode_type::off)
+	if(m.value() == renderer::state_fog_mode_type::off)
 	{
 		disable(GL_FOG);
 		return;
@@ -166,7 +168,7 @@ void sge::ogl::state_visitor::operator()(const fog_mode::type m) const
 	glFogi(GL_FOG_MODE, convert_cast(m));
 }
 
-void sge::ogl::state_visitor::operator()(const draw_mode::type m) const
+void sge::ogl::state_visitor::operator()(const renderer::draw_mode::type m) const
 {
 	SGE_OPENGL_SENTRY
 	glPolygonMode(
@@ -174,12 +176,12 @@ void sge::ogl::state_visitor::operator()(const draw_mode::type m) const
 		convert_cast(m));
 }
 
-void sge::ogl::state_visitor::operator()(const source_blend_func::type) const
+void sge::ogl::state_visitor::operator()(const renderer::source_blend_func::type) const
 {
 	rend.set_blend_func();
 }
 
-void sge::ogl::state_visitor::operator()(const dest_blend_func::type) const
+void sge::ogl::state_visitor::operator()(const renderer::dest_blend_func::type) const
 {
 	rend.set_blend_func();
 }

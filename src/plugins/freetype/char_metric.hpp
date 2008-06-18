@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FT_CHAR_METRIC_HPP_INCLUDED
 
 #include <sge/raw_vector.hpp>
-#include <sge/font/font_types.hpp>
+#include <sge/string.hpp>
+#include <sge/font/types.hpp>
 #include <sge/font/char_metric.hpp>
 
 namespace sge
@@ -32,23 +33,24 @@ namespace ft
 
 class face;
 
-class char_metric : public sge::char_metric {
+class char_metric : public font::char_metric {
 public:
-	char_metric(face&, font_char, font_unit pixel_size);
+	char_metric(face&, char_type, font::unit pixel_size);
 
-	const color_element* pixmap() const;
-	font_unit width() const;
-	font_unit height() const;
-	font_unit left() const;
-	font_unit top() const;
-	font_unit x_advance() const;
+	const font::color* pixmap() const;
+	// TODO: replace this with a rect
+	font::unit width() const;
+	font::unit height() const;
+	font::unit left() const;
+	font::unit top() const;
+	font::unit x_advance() const;
 private:
-	raw_vector<color_element> buffer;
-	font_unit width_,
-	          height_,
-	          left_,
-	          top_,
-	          x_advance_;
+	raw_vector<font::color> buffer;
+	font::unit width_,
+	           height_,
+	           left_,
+	           top_,
+	           x_advance_;
 };
 
 }

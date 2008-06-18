@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../export.hpp"
 #include "../shared_ptr.hpp"
 #include "../exception.hpp"
-#include "../renderer/renderer.hpp"
+#include "../renderer/device.hpp"
 #include "../renderer/texture.hpp"
 #include <boost/noncopyable.hpp>
 #include <boost/function.hpp>
@@ -38,14 +38,14 @@ class texture_manager : boost::noncopyable {
 public:
 	typedef boost::function<fragmented_texture* ()> onalloc_function;
 	SGE_SYMBOL texture_manager(
-		renderer_ptr rend,
+		renderer::device_ptr rend,
 		const onalloc_function&);
 	SGE_SYMBOL const virtual_texture_ptr add_texture(
-		texture::const_pointer src,
-		const texture::dim_type& dim);
+		renderer::texture::const_pointer src,
+		const renderer::texture::dim_type& dim);
 	SGE_SYMBOL const virtual_texture_ptr add_texture(
-		texture_ptr tex);
-	SGE_SYMBOL const renderer_ptr get_renderer() const;
+		renderer::texture_ptr tex);
+	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
 	SGE_SYMBOL void onalloc(const onalloc_function&);
 
 	class image_too_big : public exception {
@@ -55,10 +55,10 @@ public:
 private:
 	const virtual_texture_ptr init_texture(
 		fragmented_texture&,
-		texture::const_pointer src,
-		const texture::dim_type& dim) const;
+		renderer::texture::const_pointer src,
+		const renderer::texture::dim_type& dim) const;
 
-	const renderer_ptr                          rend;
+	const renderer::device_ptr                  rend;
 	onalloc_function                            onalloc_;
 	typedef boost::ptr_list<fragmented_texture> fragmented_texture_list;
 	fragmented_texture_list                     fragmented_textures;

@@ -18,26 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_HPP_INCLUDED
-#define SGE_IMAGE_HPP_INCLUDED
+#ifndef SGE_IMAGE_IMAGE_HPP_INCLUDED
+#define SGE_IMAGE_IMAGE_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/noncopyable.hpp>
 #include "../shared_ptr.hpp"
 #include "../path.hpp"
 #include "../renderer/types.hpp"
+#include "../renderer/color.hpp"
 #include "../math/dim.hpp"
+#include <boost/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
+{
+namespace image
 {
 
 class image : boost::noncopyable {
 public:
 	typedef std::size_t                   size_type;
 	typedef math::basic_dim<size_type, 2> dim_type;
-	typedef color                         value_type;
-	typedef color*                        pointer;
-	typedef const color*                  const_pointer;
+	typedef renderer::color               value_type;
+	typedef value_type*                   pointer;
+	typedef const value_type*             const_pointer;
 
 	virtual void data(const_pointer, const dim_type&) = 0;
 	virtual const_pointer data() const = 0;
@@ -48,8 +51,10 @@ public:
 	virtual void save(const path&) = 0;
 	virtual ~image(){}
 };
+
 typedef shared_ptr<image> image_ptr;
 
+}
 }
 
 #endif

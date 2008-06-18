@@ -18,17 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_SCOPED_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/noncopyable.hpp>
 #include "types.hpp"
 #include "texture_base.hpp"
 #include "volume_texture.hpp"
 #include "cube_texture.hpp"
+#include <boost/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
+{
+namespace renderer
 {
 
 template<typename T>
@@ -128,6 +130,7 @@ make_scoped_lock(
 		t->lock(box);
 	}*/
 
+}
 }
 
 #endif

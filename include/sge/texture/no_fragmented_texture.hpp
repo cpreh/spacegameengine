@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "fragmented_texture.hpp"
 #include "../renderer/texture_filter.hpp"
+#include "../renderer/device.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -32,17 +33,17 @@ namespace sge
 class no_fragmented_texture : public fragmented_texture, boost::noncopyable {
 public:
 	SGE_SYMBOL no_fragmented_texture(
-		renderer_ptr rend,
-		const filter_args& filter);
+		renderer::device_ptr rend,
+		const renderer::filter_args& filter);
 	SGE_SYMBOL const virtual_texture_ptr consume_fragments(
-		const texture::dim_type&);
+		const renderer::texture::dim_type&);
 	SGE_SYMBOL void return_fragments(const virtual_texture&);
-	SGE_SYMBOL const texture_ptr get_texture() const;
+	SGE_SYMBOL const renderer::texture_ptr get_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
-	const renderer_ptr rend;
-	const filter_args  my_filter;
-	texture_ptr        tex;
+	const renderer::device_ptr   rend;
+	const renderer::filter_args  my_filter;
+	renderer::texture_ptr        tex;
 };
 
 }
