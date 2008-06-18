@@ -18,10 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../basic_buffer_impl.hpp"
-#include "../pixel_unpack_buffer.hpp"
+#ifndef SGE_RENDERER_INDEX_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_HPP_INCLUDED
 
-template class sge::ogl::basic_buffer<
-	sge::ogl::pbo_base,
-	sge::ogl::pixel_unpack_buffer_type,
-	sge::ogl::pbo_impl>;
+namespace sge
+{
+namespace renderer
+{
+
+class index {
+public:
+			
+};
+
+template<typename Index>
+class basic_index_view {
+public:
+	pointer data();
+	size_type size();
+};
+
+typedef boost::variant<
+	index_view<index16>,
+	index_view<index32>
+> index_view;
+
+}
+}
+
+#endif

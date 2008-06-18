@@ -45,12 +45,14 @@ public:
 		resource_flag_type flags);
 	void data(
 		renderer::cube_side::type side,
-		image_view const &);
+		renderer::image_view const &);
 	void do_sub_data(
 		renderer::cube_side::type side,
-		image_view const &,
+		renderer::image_view const &,
 		renderer::lock_rect const &);
+	void unlock();
 	size_type border_size() const;
+	const renderer::image_view data();
 private:
 	const size_type sz;
 };

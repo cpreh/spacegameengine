@@ -19,10 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../basic_buffer_impl.hpp"
-#include "../basic_raw_buffer_impl.hpp"
 #include "../pixel_pack_buffer.hpp"
 
-template class sge::ogl::basic_raw_buffer<
+template class sge::ogl::basic_buffer<
 	sge::ogl::pbo_base,
 	sge::ogl::pixel_pack_buffer_type,
 	sge::ogl::pbo_impl>;

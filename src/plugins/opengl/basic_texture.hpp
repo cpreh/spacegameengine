@@ -37,11 +37,12 @@ template<typename Base>
 class basic_texture : public Base, public texture_base {
 	void check_lock() const;
 public:
-	typedef typename Base::value_type value_type;
 	typedef typename Base::size_type size_type;
 	typedef typename Base::difference_type difference_type;
-	typedef typename Base::pointer pointer;
-	typedef typename Base::const_pointer const_pointer;
+	/*typedef typename Base::pointer pointer;
+	typedef typename Base::const_pointer const_pointer;*/
+	typedef pixel_pack_buffer::pointer pointer;
+	typedef pixel_pack_buffer::const_pointer const_pointer;
 	typedef typename Base::resource_flag_type resource_flag_type;
 	typedef typename Base::lock_flag_type lock_flag_type;
 protected:
@@ -66,9 +67,8 @@ protected:
 public:
 	~basic_texture();
 	resource_flag_type flags() const;
-	pointer data();
-	const_pointer data() const;
-	using Base::size;
+	pointer raw_data();
+	const_pointer raw_data() const;
 private:
 	renderer::filter_args                  filter_;
 	resource_flag_type                     flags_;
@@ -76,8 +76,10 @@ private:
 
 	pbo_base*                              cur_buffer;
 	lock_flag_type                         lock_mode_;
-	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
-	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
+	pixel_pack_buffer                      pack_buffer;
+	pixel_unpack_buffer                    unpack_buffer;
+	//boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
+	//boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
 };
 
 }

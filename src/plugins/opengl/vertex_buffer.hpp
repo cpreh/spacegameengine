@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_buffer.hpp"
 #include "vertex_format.hpp"
+#include "vbo.hpp"
 #include <sge/renderer/vertex_buffer.hpp>
 
 namespace sge
@@ -32,7 +33,11 @@ namespace ogl
 
 namespace detail
 {
-typedef basic_buffer<renderer::vertex_buffer> vertex_buffer_base;
+typedef basic_buffer<
+	renderer::vertex_buffer,
+	vertex_buffer_type,
+	vb_ib_vbo_impl
+> vertex_buffer_base;
 }
 
 class vertex_buffer : public detail::vertex_buffer_base {	
@@ -45,8 +50,6 @@ public:
 
 	size_type stride() const;
 	const renderer::vertex_format& get_vertex_format() const;
-	iterator create_iterator(pointer p);
-	const_iterator create_iterator(const_pointer p) const;
 
 	void set_format();
 private:

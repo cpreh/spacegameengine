@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 
-#include "basic_raw_buffer.hpp"
+#include "basic_buffer.hpp"
 #include "vbo.hpp"
 #include <sge/renderer/index_buffer.hpp>
 
@@ -30,7 +30,7 @@ namespace sge
 namespace ogl
 {
 
-typedef basic_raw_buffer<
+typedef basic_buffer<
 	renderer::index_buffer,
 	index_buffer_type,
 	vb_ib_vbo_impl

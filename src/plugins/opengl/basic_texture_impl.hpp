@@ -67,6 +67,9 @@ void sge::ogl::basic_texture<Base>::do_lock(const lock_flag_type lmode)
 
 	lock_mode_ = lmode;
 
+	// if we want to read and write
+	// we set cur_buffer to the read_buffer
+	// and copy it over to the write buffer on unlock
 	if(renderer::lock_flag_write(lmode))
 	{
 		unpack_buffer.reset(
@@ -80,8 +83,11 @@ void sge::ogl::basic_texture<Base>::do_lock(const lock_flag_type lmode)
 	if(renderer::lock_flag_read(lmode))
 	{
 		pack_buffer.reset(
-			new pixel_pack_buffer(
+			new pixel_buffer(
+				pixel_pack_buffer_type(),
+				pbo_impl,
 				size(),
+				stride, // where to get that?
 				flags(),
 				0));
 		cur_buffer = pack_buffer.get();
@@ -195,7 +201,7 @@ sge::ogl::basic_texture<Base>::flags() const
 
 template<typename Base>
 typename sge::ogl::basic_texture<Base>::pointer
-sge::ogl::basic_texture<Base>::data()
+sge::ogl::basic_texture<Base>::raw_data()
 {
 	check_lock();
 	return cur_buffer->data();
@@ -203,7 +209,7 @@ sge::ogl::basic_texture<Base>::data()
 
 template<typename Base>
 typename sge::ogl::basic_texture<Base>::const_pointer
-sge::ogl::basic_texture<Base>::data() const
+sge::ogl::basic_texture<Base>::raw_data() const
 {
 	check_lock();
 	return cur_buffer->data();

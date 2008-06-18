@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_PIXEL_UNPACK_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_PIXEL_UNPACK_BUFFER_HPP_INCLUDED
 
-#include "basic_raw_buffer.hpp"
+#include "basic_buffer.hpp"
 #include "pbo.hpp"
 
 namespace sge
@@ -28,7 +28,7 @@ namespace sge
 namespace ogl
 {
 
-typedef basic_raw_buffer<
+typedef basic_buffer<
 	pbo_base,
 	pixel_unpack_buffer_type,
 	pbo_impl

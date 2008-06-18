@@ -42,18 +42,18 @@ public:
 	typedef value_type const                              *const_pointer;
 	typedef pointer                                        iterator;
 	typedef const_pointer                                  const_iterator;
-	typedef std::reverse_iterator<iterator>                reverse_iterator;
-	typedef std::reverse_iterator<const_iterator>          const_reverse_iterator;
+/*	typedef std::reverse_iterator<iterator>                reverse_iterator;
+	typedef std::reverse_iterator<const_iterator>          const_reverse_iterator;*/
 	typedef renderer::texture_base::resource_flag_type     resource_flag_type;
 	typedef renderer::texture_base::lock_flag_type         lock_flag_type;
 
 	virtual void lock(lock_flag_type) = 0;
 	virtual void unlock() = 0;
 
-	virtual iterator begin() = 0;
+/*	virtual iterator begin() = 0;
 	virtual const_iterator begin() const = 0;
 	iterator end();
-	const_iterator end() const;
+	const_iterator end() const;*/
 
 	virtual size_type size() const = 0;
 

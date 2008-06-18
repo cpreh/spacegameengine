@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 
 #include "../shared_ptr.hpp"
-#include "../typeswitch.hpp"
 #include "../export.hpp"
 #include "types.hpp"
 #include <cstddef>
@@ -37,40 +36,25 @@ class index_buffer {
 public:
 	typedef std::size_t                           size_type;
 	typedef std::ptrdiff_t                        difference_type;
-	typedef uint32                                value_type; // FIXME: replace this with a view and allow other value types!
-
-	typedef value_type&                           reference;
-	typedef const value_type&                     const_reference;
-	typedef value_type*                           pointer;
-	typedef const value_type*                     const_pointer;
-	typedef pointer                               iterator;
-	typedef const_pointer                         const_iterator;
-	typedef std::reverse_iterator<iterator>       reverse_iterator;
-	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-
 	typedef resource_flag_t                       resource_flag_type;
 	typedef lock_flag_t                           lock_flag_type;
-	
-	SGE_SYMBOL iterator end();
-	SGE_SYMBOL const_iterator end() const;
-	SGE_SYMBOL reverse_iterator rbegin();
-	SGE_SYMBOL const_reverse_iterator rbegin() const;
-	SGE_SYMBOL reverse_iterator rend();
-	SGE_SYMBOL const_reverse_iterator rend() const;
-	SGE_SYMBOL reference operator[](size_type);
-	SGE_SYMBOL const_reference operator[](size_type) const;
 
-	virtual void lock(lock_flag_t flags) = 0;
+	static const size_type npos = static_cast<size_type>(-1);
+
+	virtual void lock(
+		lock_flag_t flags,
+		size_type offset = 0,
+		size_type range = npos) = 0;
 	virtual void unlock() = 0;
-	virtual void set_data(const_pointer data, size_type first, size_type count) = 0;
-	virtual iterator begin() = 0;
-	virtual const_iterator begin() const = 0;
+	virtual void data(
+		index_view const &) = 0;
+	virtual void sub_data(
+		index_view const &,
+		size_type offset) = 0;
+	virtual const index_view data() const = 0;
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
 
-	virtual void resize(size_type newsize, const_pointer data = 0) = 0;
-	virtual pointer data() = 0;
-	virtual const_pointer data() const = 0;
 	SGE_SYMBOL virtual ~index_buffer();
 };
 

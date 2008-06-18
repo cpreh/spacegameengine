@@ -46,11 +46,17 @@ public:
 
 	const box_type box() const;
 
-	void set_data(
-		const_pointer src);
-	void set_data(
-		const_pointer src,
+	void data(
+		image_view_array const&);
+	void sub_data(
+		image_view_array const&,
 		const renderer::lock_box& b);
+
+	const image_view_array data() const;
+
+	void lock();
+	void lock(renderer::lock_box const &);
+	void unlock();
 private:
 	const box_type box_;
 };

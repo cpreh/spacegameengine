@@ -31,24 +31,21 @@ namespace ogl
 
 class vbo_base;
 
-template<typename Base>
+template<
+	typename Base,
+	GLenum (*Type)(),
+	vbo_base& (*Impl)()>
 class basic_buffer : public Base {
 public:
-	typedef typename Base::value_type             value_type;
 	typedef typename Base::size_type              size_type;
 	typedef typename Base::difference_type        difference_type;
-	typedef typename Base::pointer                pointer;
-	typedef typename Base::const_pointer          const_pointer;
-	typedef typename Base::iterator               iterator;
-	typedef typename Base::const_iterator         const_iterator;
-	typedef typename Base::reverse_iterator       reverse_iterator;
-	typedef typename Base::const_reverse_iterator const_reverse_iterator;
+	typedef unsigned char                         value_type;
+	typedef value_type                           *pointer;
+	typedef value_type const                     *const_pointer;
 	typedef typename Base::resource_flag_type     resource_flag_type;
 	typedef typename Base::lock_flag_type         lock_flag_type;
 			
 	basic_buffer(
-		GLenum type,
-		vbo_base&,
 		size_type sz,
 		size_type stride,
 		resource_flag_type flags,
@@ -57,15 +54,19 @@ public:
 
 	void lock(lock_flag_type lockflags);
 	void unlock();
-	void set_data(const_pointer data, size_type first, size_type count);
+	void sub_data(
+		const_pointer data,
+		size_type first,
+		size_type count);
 
 	size_type size() const;
 	resource_flag_type flags() const;
 
-	void resize(size_type newsize, const_pointer src);
+	void resize(
+		size_type newsize,
+		size_type newstride,
+		const_pointer src);
 
-	iterator begin();
-	const_iterator begin() const;
 	pointer data();
 	const_pointer data() const;
 
@@ -78,13 +79,8 @@ private:
 	void check_lock() const;
 	void set_size(const_pointer src);
 
-	virtual iterator create_iterator(pointer) = 0;
-	virtual const_iterator create_iterator(const_pointer) const = 0;
-	
-	GLenum             type;
-	vbo_base&          impl;
-	size_type          sz;
-	size_type          stride_;
+	size_type          sz,
+	                   stride_;
 	resource_flag_type flags_;
 	pointer            dest;
 	GLuint             id;

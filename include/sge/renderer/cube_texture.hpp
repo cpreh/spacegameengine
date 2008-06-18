@@ -58,7 +58,7 @@ public:
 	virtual const image_view data() = 0;
 	virtual size_type border_size() const = 0;
 private:
-	virtual void do_sub_data(cube_side::type side, image const &, lock_rect const &dest) = 0;
+	virtual void do_sub_data(cube_side::type side, image_view const &, lock_rect const &dest) = 0;
 };
 
 typedef shared_ptr<cube_texture> cube_texture_ptr;
