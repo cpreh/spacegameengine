@@ -40,7 +40,9 @@ sge::ogl::basic_buffer<Base, Type, Impl>::basic_buffer(
    stride_(stride_),
    flags_(flags_),
    dest(0),
-   id(Impl().gen_buffer())
+   id(Impl().gen_buffer()),
+   lock_offset(0),
+   lock_size_(0)
 {
 	set_size(src);
 }
@@ -62,14 +64,28 @@ template<
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
 void sge::ogl::basic_buffer<Base, Type, Impl>::lock(
-	const lock_flag_type lockflags)
+	lock_flag_type const lockflags,
+	size_type const first,
+	size_type count)
 {
 	if(dest)
-		throw exception(SGE_TEXT("ogl_buffer::lock(), you have to unlock before locking!"));
-		
+		throw exception(SGE_TEXT("ogl_buffer::lock(): you have to unlock before locking!"));
+
+	if(first > size())
+		throw exception(SGE_TEXT("ogl_buffer::lock(): first out of range!"));
+
+	if(count == npos)
+		count = size() - first;
+	
+	if(first + count > size())
+		throw exception(SGE_TEXT("ogl_buffer::lock(): first + count > size()"));
+	
 	const GLuint glflags = convert_cast(lockflags);
 	bind_me();
+	// TODO: we can not partially map this buffer! :(
 	dest = static_cast<pointer>(Impl().map_buffer(Type(), glflags));
+	lock_offset = first * stride();
+	lock_size_ = count * stride();
 }
 
 template<
@@ -83,6 +99,7 @@ void sge::ogl::basic_buffer<Base, Type, Impl>::unlock()
 	bind_me();
 	Impl().unmap_buffer(Type());
 	dest = 0;
+	lock_offset = lock_size_ = 0;
 }
 
 template<
@@ -150,7 +167,7 @@ typename sge::ogl::basic_buffer<Base, Type, Impl>::pointer
 sge::ogl::basic_buffer<Base, Type, Impl>::data()
 {
 	check_lock();
-	return dest;
+	return dest + lock_offset;
 }
 
 template<
@@ -162,6 +179,16 @@ sge::ogl::basic_buffer<Base, Type, Impl>::data() const
 {
 	return const_cast<const_pointer>(
 		const_cast<basic_buffer&>(*this).data());
+}
+
+template<
+	typename Base,
+	GLenum (*Type)(),
+	sge::ogl::vbo_base& (*Impl)()>
+typename sge::ogl::basic_buffer<Base, Type, Impl>::size_type
+sge::ogl::basic_buffer<Base, Type, Impl>::lock_size() const
+{
+	return lock_size_;
 }
 
 template<

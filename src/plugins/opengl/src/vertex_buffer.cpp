@@ -28,53 +28,66 @@ template class sge::ogl::basic_buffer<
 	sge::ogl::vb_ib_vbo_impl>;
 
 sge::ogl::vertex_buffer::vertex_buffer(
-	const size_type size,
-	const renderer::vertex_format& format,
-	const resource_flag_type flags,
-	const const_pointer src)
+	renderer::const_vertex_view const &src,
+	resource_flag_type const flags)
  :	detail::vertex_buffer_base(
- 		size,
-		format.stride(),
+ 		src.size(),
+		src.format().stride(),
 		flags,
-		src),
-	format(format),
+		src.data()),
+	format(src.format()),
 	ogl_format(format)
 {}
 
-sge::ogl::vertex_buffer::size_type
+/*sge::ogl::vertex_buffer::size_type
 sge::ogl::vertex_buffer::stride() const
 {
 	return format.stride();
-}
-
-const sge::renderer::vertex_format&
-sge::ogl::vertex_buffer::get_vertex_format() const
-{
-	return format;
-}
-
-/*sge::ogl::vertex_buffer::iterator
-sge::ogl::vertex_buffer::create_iterator(
-	const pointer p)
-{
-	return iterator(
-		p,
-		format.stride(),
-		ogl_format.offsets());
-}
-
-sge::ogl::vertex_buffer::const_iterator
-sge::ogl::vertex_buffer::create_iterator(
-	const const_pointer p) const
-{
-	return const_iterator(
-		p,
-		stride(),
-		ogl_format.offsets());
 }*/
 
 void sge::ogl::vertex_buffer::set_format()
 {
 	bind_me();
 	ogl_format.use_me();
+}
+
+void sge::ogl::vertex_buffer::data(
+	renderer::const_vertex_view const &src)
+{
+	detail::vertex_buffer_base::data(
+		src.data(),
+		src.format().stride(),
+		src.size());
+}
+
+void sge::ogl::vertex_buffer::do_sub_data(
+	renderer::const_vertex_view const &src,
+	size_type const first)
+{
+	detail::vertex_buffer_base::sub_data(
+		src.data(),
+		first,
+		src.size());
+}
+
+sge::renderer::vertex_view const
+sge::ogl::vertex_buffer::view()
+{
+	return renderer::vertex_view(
+		detail::vertex_buffer_base::data(),
+		detail::vertex_buffer_base::lock_size(),
+		get_vertex_format());
+}
+
+sge::renderer::const_vertex_view const
+sge::ogl::vertex_buffer::view() const
+{
+	return const_cast<vertex_buffer&>(
+		*this).view();
+}
+
+const sge::renderer::vertex_format&
+sge::ogl::vertex_buffer::get_vertex_format() const
+{
+	return format;
 }

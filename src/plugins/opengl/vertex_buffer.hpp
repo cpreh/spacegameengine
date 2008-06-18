@@ -40,19 +40,28 @@ typedef basic_buffer<
 > vertex_buffer_base;
 }
 
-class vertex_buffer : public detail::vertex_buffer_base {	
+class vertex_buffer
+: public detail::vertex_buffer_base {	
 public:
 	vertex_buffer(
-		size_type size,
-		const renderer::vertex_format& format,
-		resource_flag_type flags,
-		const_pointer src);
+		renderer::const_vertex_view const &,
+		resource_flag_type flags);
 
-	size_type stride() const;
-	const renderer::vertex_format& get_vertex_format() const;
-
+	//size_type stride() const;
 	void set_format();
 private:
+	void data(
+		renderer::const_vertex_view const &src);
+	void do_sub_data(
+		renderer::const_vertex_view const &src,
+		size_type first);
+
+	renderer::vertex_view const view();
+	renderer::const_vertex_view const view() const;
+
+	renderer::vertex_format const &
+	get_vertex_format() const;
+
 	renderer::vertex_format format;
 	vertex_format ogl_format;
 };

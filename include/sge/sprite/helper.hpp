@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "types.hpp"
 #include "../export.hpp"
 #include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index.hpp"
+#include "../renderer/index_view.hpp"
 #include "../math/rect.hpp"
 
 namespace sge

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 
 #include "../typeswitch.hpp"
 #include <boost/variant.hpp>
@@ -30,10 +30,12 @@ namespace sge
 namespace renderer
 {
 
+typedef std::size_t index_size;
+
 template<typename Index>
 class index_view {
 public:
-	typedef std::size_t size_type;
+	typedef index_size size_type;
 	typedef Index value_type;
 	typedef value_type *pointer;
 	typedef pointer iterator;
@@ -43,7 +45,7 @@ public:
 		size_type);
 
 	pointer data() const;
-	size_type size();
+	size_type size() const;
 
 	iterator begin() const;
 	iterator end() const;

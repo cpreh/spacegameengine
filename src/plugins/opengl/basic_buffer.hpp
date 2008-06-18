@@ -52,14 +52,25 @@ public:
 		const_pointer src);
 	~basic_buffer();
 
-	void lock(lock_flag_type lockflags);
+	void lock(
+		lock_flag_type lockflags);
+	void lock(
+		lock_flag_type lock_flags,
+		size_type first,
+		size_type count);
 	void unlock();
+	void data(
+		const_pointer,
+		size_type stride,
+		size_type size);
 	void sub_data(
 		const_pointer data,
 		size_type first,
 		size_type count);
+	void resize(size_type);
 
 	size_type size() const;
+	size_type stride() const;
 	resource_flag_type flags() const;
 
 	void resize(
@@ -69,12 +80,15 @@ public:
 
 	pointer data();
 	const_pointer data() const;
+	size_type lock_size() const;
 
 	void unbind() const;
 	void bind_me() const;
 	
 	pointer buffer_offset(size_type offset) const;
 private:
+	using Base::npos;
+
 	void bind(GLuint id) const;
 	void check_lock() const;
 	void set_size(const_pointer src);
@@ -84,6 +98,8 @@ private:
 	resource_flag_type flags_;
 	pointer            dest;
 	GLuint             id;
+	size_type          lock_offset,
+	                   lock_size_;
 };
 
 }

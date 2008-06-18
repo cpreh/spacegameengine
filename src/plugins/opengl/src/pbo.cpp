@@ -31,6 +31,12 @@ boost::scoped_ptr<sge::ogl::vbo_base> impl;
 
 }
 
+sge::ogl::pbo_base::size_type const
+sge::ogl::pbo_base::npos;
+
+sge::ogl::pbo_base::~pbo_base()
+{}
+
 void sge::ogl::initialize_pbo()
 {
 	impl.reset(create_vbo_impl(sge::ogl::pbo_in_hardware()));

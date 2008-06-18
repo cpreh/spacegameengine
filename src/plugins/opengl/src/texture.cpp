@@ -58,7 +58,14 @@ void sge::ogl::texture::sub_data(
 	renderer::lock_rect const &r)
 {
 	pre_setdata();
-	//set_texture_rect(type(), filter(), dim(), r, src);
+	/*set_texture_rect(
+		type(),
+		format(),
+		format_type(),
+		filter(),
+		dim(),
+		r,
+		src);*/
 }
 
 void sge::ogl::texture::data(

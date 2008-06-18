@@ -74,6 +74,8 @@ protected:
 
 	void internal_parameters(
 		renderer::const_image_view const &src);
+	GLenum format() const;
+	GLenum format_type() const;
 public:
 	~basic_texture();
 	resource_flag_type flags() const;

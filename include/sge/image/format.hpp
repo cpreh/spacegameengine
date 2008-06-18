@@ -30,6 +30,7 @@ namespace format
 {
 	enum type {
 		bmp,
+		gif,
 		jpeg,
 		png,
 		tiff,

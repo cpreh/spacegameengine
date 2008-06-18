@@ -29,12 +29,31 @@ namespace sge
 {
 namespace ogl
 {
-
+namespace detail
+{
 typedef basic_buffer<
 	renderer::index_buffer,
 	index_buffer_type,
 	vb_ib_vbo_impl
-> index_buffer;
+> index_buffer_base;
+}
+
+class index_buffer
+: public detail::index_buffer_base {
+public:
+	index_buffer(
+		renderer::const_dynamic_index_view const &,
+		renderer::resource_flag_t flags);
+private:	
+	void data(
+		renderer::const_dynamic_index_view const &);
+	void do_sub_data(
+		renderer::const_dynamic_index_view const &,
+		size_type offset);
+
+	renderer::dynamic_index_view const view();
+	renderer::const_dynamic_index_view const view() const;
+};
 
 }
 }

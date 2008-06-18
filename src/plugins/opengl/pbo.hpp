@@ -47,7 +47,12 @@ public:
 	typedef renderer::texture_base::resource_flag_type     resource_flag_type;
 	typedef renderer::texture_base::lock_flag_type         lock_flag_type;
 
-	virtual void lock(lock_flag_type) = 0;
+	static size_type const npos = static_cast<size_type>(-1);
+
+	virtual void lock(
+		lock_flag_type,
+		size_type first = 0,
+		size_type count = npos) = 0;
 	virtual void unlock() = 0;
 
 /*	virtual iterator begin() = 0;
@@ -65,7 +70,7 @@ public:
 
 	virtual pointer buffer_offset(size_type) const = 0;
 
-	virtual ~pbo_base(){}
+	virtual ~pbo_base();
 };
 
 GLenum pixel_pack_buffer_type();

@@ -45,6 +45,8 @@ public:
 	iterator begin() const;
 	iterator end() const;
 	size_type size() const;
+	vertex_format const &format() const;
+	pointer data() const;
 private:
 	pointer   raw_data;
 	size_type size_;

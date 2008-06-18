@@ -43,9 +43,6 @@ bool need_mipmap(const sge::renderer::min_filter::type filter)
 	}
 }
 
-//const GLenum gl_format = GL_RGBA,
-//             gl_type = GL_UNSIGNED_BYTE;
-
 }
 
 GLuint sge::ogl::gen_texture()
@@ -72,8 +69,6 @@ void sge::ogl::set_texture(
 {
 	SGE_OPENGL_SENTRY
 	
-	// TODO: clean this up and use texture::dim_type
-
 	if(dim.w() < 64 || dim.h() < 64)
 		sge::cerr << SGE_TEXT("warning: opengl implementations are not required to support textures smaller than 64x64.")\
 		             SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n");
@@ -96,6 +91,8 @@ void sge::ogl::set_texture(
 	if(need_mipmap(filter.min_filter))
 		build_mipmaps(
 			tex_type,
+			format,
+			type,
 			dim,
 			src);
 }
@@ -138,7 +135,7 @@ void sge::ogl::set_texture_rect(
 
 	if(r.right() > dim.w() || r.bottom() > dim.h())
 		throw exception(
-			(format(
+			(sge::format(
 				SGE_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!"))
 				% r
 				% dim).str());
@@ -165,7 +162,7 @@ void sge::ogl::read_pixels(
 	const renderer::texture_base::size_type y,
 	const renderer::texture_base::size_type width,
 	const renderer::texture_base::size_type height,
-	const renderer::texture_base::pointer dest)
+	const texture_pointer dest)
 {
 	SGE_OPENGL_SENTRY
 	

@@ -225,7 +225,10 @@ sge::ogl::device::create_index_buffer(
 	renderer::const_dynamic_index_view const &view,
 	const renderer::index_buffer::resource_flag_type flags)
 {
-//	return renderer::index_buffer_ptr(new index_buffer(size, flags, data));
+	return renderer::index_buffer_ptr(
+		new index_buffer(
+			view,
+			flags));
 }
 
 const sge::ogl::fbo_target_ptr
@@ -249,7 +252,10 @@ sge::ogl::device::create_vertex_buffer(
 	renderer::const_vertex_view const &src,
 	const renderer::vertex_buffer::resource_flag_type flags)
 {
-//	return renderer::vertex_buffer_ptr(new vertex_buffer(size, format, flags, src));
+	return renderer::vertex_buffer_ptr(
+		new vertex_buffer(
+			src,
+			flags));
 }
 
 const sge::renderer::volume_texture_ptr

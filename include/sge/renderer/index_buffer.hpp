@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
 #include "types.hpp"
-#include "index.hpp"
+#include "index_view.hpp"
 #include <cstddef>
 
 namespace sge
@@ -48,12 +48,12 @@ public:
 	virtual void unlock() = 0;
 	virtual void data(
 		const_dynamic_index_view const &) = 0;
-	virtual void sub_data(
+	void sub_data(
 		const_dynamic_index_view const &,
-		size_type offset) = 0;
+		size_type offset);
 
-	dynamic_index_view const view();
-	const_dynamic_index_view const view() const;
+	virtual dynamic_index_view const view() = 0;
+	virtual const_dynamic_index_view const view() const = 0;
 
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
@@ -62,6 +62,10 @@ public:
 		size_type) = 0;
 
 	SGE_SYMBOL virtual ~index_buffer();
+private:
+	virtual void do_sub_data(
+		const_dynamic_index_view const &,
+		size_type offset) = 0;
 };
 
 typedef shared_ptr<index_buffer> index_buffer_ptr;

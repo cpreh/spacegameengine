@@ -63,18 +63,19 @@ public:
 		size_type range = npos) = 0;
 	virtual void unlock() = 0;
 
+	virtual void data(
+		const_vertex_view const &src) = 0;
 	void sub_data(
-		vertex_view const &source,
-		size_type first,
-		size_type count);
+		const_vertex_view const &src,
+		size_type first);
 
 	virtual size_type size() const = 0;
 	virtual resource_flag_type flags() const = 0;
 
 	virtual size_type stride() const = 0;
 
-	virtual vertex_view view() = 0;
-	virtual const_vertex_view view() const = 0;
+	virtual vertex_view const view() = 0;
+	virtual const_vertex_view const view() const = 0;
 
 	virtual vertex_format const &get_vertex_format() const = 0;
 
@@ -84,9 +85,8 @@ public:
 	SGE_SYMBOL virtual ~vertex_buffer();
 private:
 	virtual void do_sub_data(
-		vertex_view const &source,
-		size_type first,
-		size_type count) = 0;
+		const_vertex_view const &source,
+		size_type first) = 0;
 };
 
 typedef shared_ptr<vertex_buffer> vertex_buffer_ptr;

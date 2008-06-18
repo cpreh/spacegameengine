@@ -28,6 +28,8 @@ template<> ILuint sge::devil::convert_cast(
 	switch(t) {
 	case image::format::bmp:
 		return IL_BMP;
+	case image::format::gif:
+		return IL_GIF;
 	case image::format::jpeg:
 		return IL_JPG;
 	case image::format::png:

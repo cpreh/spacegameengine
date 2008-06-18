@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/texture_animation.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/util.hpp>
-#include <sge/texture/no_fragmented_texture.hpp>
+#include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/default_creator.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/time/second.hpp>
@@ -62,16 +62,16 @@ try
 	const sge::image::object_ptr img1(pl->load_image(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
 	                             img2(pl->load_image(sge::media_path() / SGE_TEXT("grass.png")));
 
-	const sge::default_texture_creator<sge::no_fragmented_texture> creator(rend, sge::renderer::linear_filter);
-	sge::texture_manager tex_man(rend, creator);
+	const sge::texture::default_creator<sge::texture::no_fragmented> creator(rend, sge::renderer::linear_filter);
+	sge::texture::manager tex_man(rend, creator);
 
-	const sge::virtual_texture_ptr tex1(sge::add_texture(tex_man, img1)),
-	                               tex2(sge::add_texture(tex_man, img2));
+	const sge::texture::part_ptr tex1(sge::texture::add(tex_man, img1)),
+	                             tex2(sge::texture::add(tex_man, img2));
 
 	sge::sprite::system ss(rend);
 	sge::sprite::object spr(
 		sge::sprite::point(0,rend->screen_height()),
-			sge::virtual_texture_ptr(),
+			sge::texture::part_ptr(),
 			sge::sprite::dim(
 				rend->screen_width(),
 				-static_cast<sge::sprite::unit>(
