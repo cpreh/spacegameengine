@@ -18,39 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_PART_HPP_INCLUDED
-#define SGE_TEXTURE_PART_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_VIEW_OPERATIONS_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_VIEW_OPERATIONS_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
-#include "../export.hpp"
-#include "../renderer/texture.hpp"
-#include "../renderer/image.hpp"
-#include <boost/noncopyable.hpp>
+#include "index_view.hpp"
+#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
-namespace texture
+namespace renderer
 {
 
-class fragmented;
+struct index_view_size
+: boost::static_visitor<index_size> {
+	typedef index_size size_type;
 
-class part : boost::noncopyable {
-public:
-	SGE_SYMBOL virtual ~part();
-	SGE_SYMBOL const math::rect area_texc(
-		space_unit repeat = 1) const;
-	SGE_SYMBOL const renderer::tex_pos translate(
-		const renderer::tex_pos &local_coords,
-		space_unit repeat = 1) const;
-	virtual void data(
-		renderer::const_image_view const &src) = 0;
-	virtual const renderer::lock_rect& area() const = 0;
-	virtual const renderer::texture_ptr my_texture() const = 0;
-	virtual bool repeatable() const = 0;
+	template<typename T>
+	size_type operator()(T const &) const;
 };
 
-typedef shared_ptr<part>       part_ptr;
-typedef shared_ptr<const part> const_part_ptr;
+struct index_view_stride
+: boost::static_visitor<index_size> {
+	typedef index_size size_type;
+
+	template<typename T>
+	size_type operator()(T const &) const;
+};
+
+// TODO: what to do with const visitors?
+struct index_view_data
+: boost::static_visitor<unsigned char*> {
+	typedef index_size size_type;
+
+	template<typename T>
+	unsigned char *operator()(T const &) const;
+};
 
 }
 }

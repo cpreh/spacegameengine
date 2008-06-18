@@ -117,7 +117,7 @@ public:
 
 	const renderer::texture_ptr
 	create_texture(
-		renderer::image_view const&,
+		renderer::const_image_view const&,
 		const renderer::filter_args& filter,
 		renderer::texture::resource_flag_type flags);
 

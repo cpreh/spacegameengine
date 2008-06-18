@@ -35,7 +35,7 @@ sge::sprite::system::system(const renderer::device_ptr rend)
    rend(rend),
    vb(
    	rend->create_vertex_buffer(
-		renderer::vertex_view(
+		renderer::const_vertex_view(
 			0,
 			init_sprites * detail::vertices_per_sprite,
 			renderer::vertex_format()

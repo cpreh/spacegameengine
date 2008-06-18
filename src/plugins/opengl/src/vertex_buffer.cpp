@@ -39,12 +39,6 @@ sge::ogl::vertex_buffer::vertex_buffer(
 	ogl_format(format)
 {}
 
-/*sge::ogl::vertex_buffer::size_type
-sge::ogl::vertex_buffer::stride() const
-{
-	return format.stride();
-}*/
-
 void sge::ogl::vertex_buffer::set_format()
 {
 	bind_me();
@@ -82,8 +76,9 @@ sge::ogl::vertex_buffer::view()
 sge::renderer::const_vertex_view const
 sge::ogl::vertex_buffer::view() const
 {
-	return const_cast<vertex_buffer&>(
-		*this).view();
+	// FIXME
+	//return const_cast<vertex_buffer&>(
+	//	*this).view();
 }
 
 const sge::renderer::vertex_format&

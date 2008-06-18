@@ -31,13 +31,14 @@ namespace renderer
 
 class vertex_format;
 
-class vertex_view {
+template<typename Vertex>
+class basic_vertex_view {
 public:
 	typedef vertex_size size_type;
 	typedef vertex::pointer pointer;
 	typedef vb_detail::iterator iterator;
 
-	vertex_view(
+	basic_vertex_view(
 		pointer data,
 		size_type size,
 		vertex_format const &);
@@ -48,11 +49,13 @@ public:
 	vertex_format const &format() const;
 	pointer data() const;
 private:
-	pointer   raw_data;
-	size_type size_;
+	pointer       raw_data;
+	size_type     size_;
+	vertex_format format_;
 };
 
-typedef vertex_view const_vertex_view; // FIXME
+typedef basic_vertex_view<vertex> vertex_view;
+typedef basic_vertex_view<const_vertex> const_vertex_view;
 
 }
 }

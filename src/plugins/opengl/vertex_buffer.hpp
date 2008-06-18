@@ -47,7 +47,6 @@ public:
 		renderer::const_vertex_view const &,
 		resource_flag_type flags);
 
-	//size_type stride() const;
 	void set_format();
 private:
 	void data(

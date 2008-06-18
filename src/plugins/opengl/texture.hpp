@@ -42,12 +42,11 @@ public:
 		renderer::const_image_view const &src,
 		renderer::filter_args const &filter,
 		resource_flag_type flags);
-
 	const dim_type dim() const;
-
+	
 	void data(
 		renderer::const_image_view const &src);
-	void sub_data(
+	void do_sub_data(
 		renderer::const_image_view const &src,
 		renderer::lock_rect const &r);
 
@@ -57,15 +56,17 @@ public:
 		renderer::lock_rect const &,
 		lock_flag_type flags);
 	void unlock();
+
+	renderer::image_view const view();
+	renderer::const_image_view const view() const;
 private:
 	void data_internal(
 		renderer::const_image_view const &src);
 	void allocate_texture(
 		renderer::const_image_view const &src);
 
-	void set_texture(const_pointer src);
-
-	dim_type dim_;
+	dim_type            dim_;
+	renderer::lock_rect lock_rect_;
 };
 
 }

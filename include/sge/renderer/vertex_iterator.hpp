@@ -122,4 +122,3 @@ typedef iterator_impl<const_vertex> const_iterator;
 }
 
 #endif
-

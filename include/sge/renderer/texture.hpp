@@ -36,8 +36,8 @@ public:
 	typedef math::basic_dim<size_type, 2>        dim_type;
 
 	virtual const dim_type dim() const = 0;
-	void sub_data(image_view const &, lock_rect const &dest);
-	virtual void data(image_view const &) = 0;
+	void sub_data(const_image_view const &, lock_rect const &dest);
+	virtual void data(const_image_view const &) = 0;
 	virtual void lock(lock_flag_t) = 0;
 	virtual void lock(lock_rect const &, lock_flag_t);
 	virtual void unlock() = 0;
@@ -46,10 +46,13 @@ public:
 	virtual const image_view view() = 0;
 	virtual const const_image_view view() const = 0;
 private:
-	virtual void do_sub_data(image_view const &, lock_rect const &dest) = 0;
+	virtual void do_sub_data(
+		const_image_view const &,
+		lock_rect const &dest) = 0;
 };
 
 const texture::dim_type gil_dim_to_sge(image_view::point_t const &);
+const image_view::point_t sge_dim_to_gil(texture::dim_type const &);
 
 typedef shared_ptr<texture> texture_ptr;
 

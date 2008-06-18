@@ -18,41 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
-#define SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
+#include <sge/renderer/index_view_operations.hpp>
 
-#include "part.hpp"
-#include "../export.hpp"
-#include "../renderer/texture.hpp"
-
-namespace sge
+template<typename T>
+sge::renderer::index_view_size::size_type
+sge::renderer::index_view_size::operator()(
+	T const &src) const
 {
-namespace texture
-{
-
-class part_fragmented : public part {
-public:
-	SGE_SYMBOL part_fragmented(
-		renderer::lock_rect const &outer_rect,
-		fragmented&,
-		bool need_atlasing_w,
-		bool need_atlasing_h);
-	SGE_SYMBOL void data(
-		renderer::const_image_view const &src);
-	SGE_SYMBOL const renderer::lock_rect& area() const;
-	SGE_SYMBOL const renderer::texture_ptr my_texture() const;
-	SGE_SYMBOL bool repeatable() const;
-	SGE_SYMBOL ~part_fragmented();
-private:
-	renderer::lock_rect outer_area_;
-	fragmented&         fragment;
-	bool                need_atlasing_w,
-	                    need_atlasing_h;
-	renderer::lock_rect inner_area_;
-};
-
-
-}
+	return src.size();
 }
 
-#endif
+#define SGE_INSTANTIATE_INDEX_VIEW_SIZE(x) \
+template sge::renderer::index_view_size::size_type \
+sge::renderer::index_view_size::operator()( \
+	sge::renderer::x const &) const;
+
+SGE_INSTANTIATE_INDEX_VIEW_SIZE(index_view_16)
+SGE_INSTANTIATE_INDEX_VIEW_SIZE(index_view_32)
+SGE_INSTANTIATE_INDEX_VIEW_SIZE(const_index_view_16)
+SGE_INSTANTIATE_INDEX_VIEW_SIZE(const_index_view_32)
+
+#undef SGE_INSTANTIATE_INDEX_VIEW_SIZE

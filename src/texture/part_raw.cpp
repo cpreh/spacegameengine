@@ -28,7 +28,7 @@ sge::texture::part_raw::part_raw(
 {}
 
 void sge::texture::part_raw::data(
-	renderer::image_view const &src)
+	renderer::const_image_view const &src)
 {
 	tex->sub_data(src, area());
 }

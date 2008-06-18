@@ -33,7 +33,7 @@ sge::texture::part_fragmented::part_fragmented(
    need_atlasing_h(need_atlasing_h),
    inner_area_(
    	inner_atlased_rect(
-	   	outer_area(),
+	   	outer_area_,
 		need_atlasing_w,
 		need_atlasing_h))
 {}
@@ -44,14 +44,14 @@ sge::texture::part_fragmented::~part_fragmented()
 }
 
 void sge::texture::part_fragmented::data(
-	renderer::image_view const &src)
+	renderer::const_image_view const &src)
 {
 	my_texture()->sub_data(src, inner_area_);
 
 	if(need_atlasing_h)
-		atlas_h(my_texture(), src, outer_area());
+		atlas_h(my_texture(), src, outer_area_);
 	if(need_atlasing_w)
-		atlas_w(my_texture(), src, outer_area());
+		atlas_w(my_texture(), src, outer_area_);
 }
 
 const sge::renderer::lock_rect&

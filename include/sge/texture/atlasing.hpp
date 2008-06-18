@@ -72,12 +72,12 @@ inner_atlased_rect(
 
 void atlas_w(
 	renderer::texture_ptr,
-	renderer::image_view const &src,
+	renderer::const_image_view const &src,
 	renderer::lock_rect const &outer_area);
 	
 void atlas_h(
 	renderer::texture_ptr,
-	renderer::image_view const &src,
+	renderer::const_image_view const &src,
 	renderer::lock_rect const &outer_area);
 
 }

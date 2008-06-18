@@ -119,8 +119,8 @@ sge::texture::inner_atlased_rect(
 }
 
 void sge::texture::atlas_w(
-	const renderer::texture_ptr tex,
-	renderer::image_view const &src,
+	renderer::texture_ptr const tex,
+	renderer::const_image_view const &src,
 	renderer::lock_rect const &outer_area)
 {
 	// FIXME: use a gil image here
@@ -155,8 +155,8 @@ void sge::texture::atlas_w(
 }
 	
 void sge::texture::atlas_h(
-	const renderer::texture_ptr tex,
-	renderer::image_view const &src,
+	renderer::texture_ptr const tex,
+	renderer::const_image_view const &src,
 	renderer::lock_rect const &outer_area)
 {
 	// FIXME: use a GIL view here!

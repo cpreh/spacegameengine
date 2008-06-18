@@ -240,11 +240,15 @@ sge::ogl::device::create_render_target(
 
 const sge::renderer::texture_ptr
 sge::ogl::device::create_texture(
-	renderer::image_view const &src,
+	renderer::const_image_view const &src,
 	const renderer::filter_args& filter,
 	const renderer::texture::resource_flag_type flags)
 {
-	//return renderer::texture_ptr(new texture(src, filter, flags));
+	return renderer::texture_ptr(
+		new texture(
+			src,
+			filter,
+			flags));
 }
 
 const sge::renderer::vertex_buffer_ptr
@@ -264,7 +268,11 @@ sge::ogl::device::create_volume_texture(
 	const renderer::filter_args& filter,
 	const renderer::volume_texture::resource_flag_type flags)
 {
-	//return renderer::volume_texture_ptr(new volume_texture(src, filter, flags));
+	/*return renderer::volume_texture_ptr(
+		new volume_texture(
+			src,
+			filter,
+			flags));*/
 }
 
 const sge::renderer::cube_texture_ptr
@@ -326,12 +334,12 @@ void sge::ogl::device::render(
 
 	const index_buffer& gl_ib = dynamic_cast<const index_buffer&>(*ib);
 
-	/*glDrawElements(
+	glDrawElements(
 		prim_type,
 		static_cast<GLsizei>(renderer::indices_per_primitive(ptype) * pcount),
-		GL_UNSIGNED_INT,
+		gl_ib.stride() == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, // TODO: catch errornous strides
 		gl_ib.buffer_offset(
-			first_index * sizeof(renderer::index_buffer::value_type)));*/
+			first_index));
 }
 
 void sge::ogl::device::render(

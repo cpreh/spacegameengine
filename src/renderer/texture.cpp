@@ -20,6 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture.hpp>
 
+void sge::renderer::texture::sub_data(
+	const_image_view const &src,
+	lock_rect const &dest)
+{
+	do_sub_data(
+		src,
+		dest);
+}
+
 const sge::renderer::texture::dim_type
 sge::renderer::gil_dim_to_sge(image_view::point_t const &d)
 {

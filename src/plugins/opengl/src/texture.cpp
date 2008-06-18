@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../pbo.hpp"
 #include <sge/renderer/scoped_lock.hpp>
+#include <sge/renderer/color.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <boost/gil/extension/dynamic_image/algorithm.hpp>
 
 template class sge::ogl::basic_texture<sge::renderer::texture>;
 
@@ -42,7 +44,8 @@ sge::ogl::texture::texture(
 	const renderer::filter_args& filter_,
 	const resource_flag_type flags)
  : detail::texture_base(filter_, flags, texture_type),
-   dim_(renderer::gil_dim_to_sge(src.dimensions()))
+   dim_(renderer::gil_dim_to_sge(src.dimensions())),
+   lock_rect_(0, 0, 0, 0)
 {
 	data(src);
 }
@@ -53,7 +56,7 @@ sge::ogl::texture::dim() const
 	return dim_;
 }
 
-void sge::ogl::texture::sub_data(
+void sge::ogl::texture::do_sub_data(
 	renderer::const_image_view const &src,
 	renderer::lock_rect const &r)
 {
@@ -89,12 +92,14 @@ void sge::ogl::texture::data_internal(
 			renderer::make_scoped_lock(
 				this,
 				renderer::lock_flags::writeonly));
-		//boost::gil::copy_pixels(src.begin(), src.end(),
-		//boost::gil::raw_view(write_buffer()));
-		// FIXME
+		boost::gil::copy_and_convert_pixels(
+			src,
+			boost::gil::interleaved_view(
+				src.width(),
+				src.height(),
+				reinterpret_cast<renderer::rgba8_pixel*>(write_buffer()),
+				src.width() * stride()));
 	}
-//	else
-//		set_texture(src);
 }
 
 void sge::ogl::texture::allocate_texture(
@@ -118,8 +123,8 @@ void sge::ogl::texture::lock(
 		size());
 	if(renderer::lock_flag_read(lock_mode()))
 		get_tex_image(
-			0,//format(),
-			0,//format_type(),
+			format(),
+			format_type(),
 			read_buffer());
 	post_lock();
 }
@@ -136,19 +141,32 @@ void sge::ogl::texture::lock(
 			read_buffer(),
 			l);
 	post_lock();*/
+	lock_rect_ = l;
 }
 
 void sge::ogl::texture::unlock()
 {
 	pre_unlock();
-	if(renderer::lock_flag_write(lock_mode()))
-		set_texture(write_buffer());
+//	if(renderer::lock_flag_write(lock_mode()))
+//		set_texture(write_buffer());
 	do_unlock();
 }
 
-void sge::ogl::texture::set_texture(
-	const const_pointer src)
+sge::renderer::image_view const
+sge::ogl::texture::view()
 {
-	pre_setdata();
-	//ogl::set_texture(type(), filter(), dim(), src);
+	return renderer::image_view(
+		boost::gil::rgba8_view_t(
+			boost::gil::interleaved_view(
+				dim().w(),
+				dim().h(),
+				reinterpret_cast<renderer::rgba8_pixel*>(write_buffer()),
+				dim().w() * stride())));
+}
+
+sge::renderer::const_image_view const
+sge::ogl::texture::view() const
+{
+	return renderer::const_image_view(
+		const_cast<texture&>(*this).view());
 }

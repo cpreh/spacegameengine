@@ -36,7 +36,7 @@ public:
 		renderer::lock_rect const &,
 		renderer::texture_ptr tex);
 	SGE_SYMBOL void data(
-		renderer::image_view const &src);
+		renderer::const_image_view const &src);
 	SGE_SYMBOL renderer::lock_rect const &area() const;
 	SGE_SYMBOL const renderer::texture_ptr my_texture() const;
 	SGE_SYMBOL bool repeatable() const;
