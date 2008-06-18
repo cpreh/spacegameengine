@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
 #include "../string.hpp"
+#include <boost/gil/image.hpp>
 
 namespace sge
 {
@@ -38,6 +39,12 @@ typedef math::basic_vector<unit, 2>     pos;
 typedef math::basic_dim<size_type, 2>   dim;
 typedef renderer::gray8_pixel           color;
 typedef math::basic_rect<unit>          rect;
+
+typedef boost::gil::image<
+	renderer::gray8_pixel,
+	false>                          image;
+
+const dim gil_dim_to_sge(image::point_t const&);
 
 }
 }

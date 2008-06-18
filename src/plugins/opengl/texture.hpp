@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "basic_texture.hpp"
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/image.hpp>
 
 namespace sge
 {
@@ -38,15 +39,14 @@ typedef basic_texture<renderer::texture> texture_base;
 class texture : public detail::texture_base {
 public:
 	texture(
-		const_pointer src,
-		const dim_type& dim,
+		renderer::image const &src,
 		const renderer::filter_args& filter,
 		resource_flag_type flags);
 
 	const dim_type dim() const;
 
-	void set_data(const_pointer src, const renderer::lock_rect& r);
-	void set_data(const_pointer src);
+	void set_data(renderer::image const &src, const renderer::lock_rect& r);
+	void set_data(renderer::image const &src);
 
 	void lock(lock_flag_type flags);
 	void lock(const renderer::lock_rect&, lock_flag_type flags);

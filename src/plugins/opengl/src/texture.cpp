@@ -38,17 +38,15 @@ const GLenum texture_type = GL_TEXTURE_2D;
 }
 
 sge::ogl::texture::texture(
-	const const_pointer src,
-	const dim_type& dim_,
+	renderer::image const &src,
 	const renderer::filter_args& filter_,
 	const resource_flag_type flags)
  : detail::texture_base(filter_, flags, texture_type),
-   dim_(dim_)
+   dim_(src.width(), src.height()) // TODO:
 {
-	if(src)
-		set_data(src);
-	else
-		set_texture(0);
+	set_data(src);
+//	else
+//		set_texture(0);
 }
 
 const sge::ogl::texture::dim_type
@@ -58,18 +56,16 @@ sge::ogl::texture::dim() const
 }
 
 void sge::ogl::texture::set_data(
-	const const_pointer src,
-	const renderer::lock_rect& r)
+	renderer::image const &src,
+	renderer::lock_rect const &r)
 {
 	pre_setdata();
-	set_texture_rect(type(), filter(), dim(), r, src);
+	//set_texture_rect(type(), filter(), dim(), r, src);
 }
 
 void sge::ogl::texture::set_data(
-	const const_pointer src)
+	renderer::image const &src)
 {
-	if(!src)
-		throw exception(SGE_TEXT("texture::set_data(): src may not be 0!"));
 	pre_setdata();
 
 	if(pbo_in_hardware())
@@ -78,10 +74,11 @@ void sge::ogl::texture::set_data(
 			renderer::make_scoped_lock(
 				this,
 				renderer::lock_flags::writeonly));
-		copy_n(src, size(), data());
+		//copy_n(src, size(), data());
+		// FIXME
 	}
-	else
-		set_texture(src);
+//	else
+//		set_texture(src);
 }
 
 void sge::ogl::texture::lock(

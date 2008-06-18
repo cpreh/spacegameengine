@@ -43,14 +43,19 @@ namespace font
 
 class drawer_3d : public drawer {
 public:
-	SGE_SYMBOL drawer_3d(renderer::device_ptr rend, renderer::color col = renderer::colors::white);
-	SGE_SYMBOL void begin_rendering(size_type buffer_chars, dim size);
+	SGE_SYMBOL drawer_3d(
+		renderer::device_ptr rend,
+		renderer::color col = renderer::colors::white);
+	SGE_SYMBOL void begin_rendering(
+		size_type buffer_chars,
+		dim size);
 	SGE_SYMBOL void draw_char(
 		char_type,
-		rect const &,
-		color const* data);
+		pos const &,
+		image const &data);
 	SGE_SYMBOL void end_rendering();
-	SGE_SYMBOL void set_color(renderer::color col);
+	SGE_SYMBOL void set_color(
+		renderer::color col);
 private:
 	renderer::device_ptr                             rend;
 	renderer::color                                  col;

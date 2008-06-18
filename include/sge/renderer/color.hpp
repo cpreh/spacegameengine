@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/gil/pixel.hpp>
 #include <boost/gil/rgba.hpp>
+#include <boost/gil/gray.hpp>
 #include <iosfwd>
 
 namespace sge
@@ -51,10 +52,10 @@ typedef boost::gil::pixel<
 	boost::gil::rgba_layout_t
 > rgba_f32_pixel;
 
-/*typedef boost::gil::pixel<
+typedef boost::gil::pixel<
 	uint8,
 	boost::gil::gray_layout_t
-> */ typedef uint8 gray8_pixel;
+> gray8_pixel;
 
 #ifdef SGE_USE_ARGB
 typedef argb8_pixel color;

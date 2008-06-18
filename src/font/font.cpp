@@ -88,18 +88,17 @@ sge::font::font::draw_text(
 
 		for(;sbeg != line_size.end(); ++sbeg)
 		{
-			const char_metric_ptr metric = metrics()->load_char(*sbeg);
-			if(metric->pixmap())
-				drawer()->draw_char(
-					*sbeg,
-					rect(
-						pos(
-							pos_.x() + metric->left(),
-							pos_.y() + metric->top()),
-						dim(
-							metric->width(),
-							metric->height())),
-					 metric->pixmap());
+			drawer()->draw_char(
+				*sbeg,
+				pos_,
+				/*rect(
+					pos(
+						pos_.x() + metric->left(),
+						pos_.y() + metric->top()),
+					dim(
+						metric->width(),
+						metric->height())),*/
+				metrics()->load_char(*sbeg)->pixmap());
 			pos_.x() += char_space(*sbeg);
 		}
 

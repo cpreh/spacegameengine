@@ -31,16 +31,15 @@ sge::texture_manager::texture_manager(
 
 const sge::virtual_texture_ptr
 sge::texture_manager::add_texture(
-	const renderer::texture::const_pointer src,
-	const renderer::texture::dim_type& dim)
+	renderer::image const &src)
 {
 	BOOST_FOREACH(fragmented_texture& tex, fragmented_textures)
-		if(const virtual_texture_ptr p = init_texture(tex, src, dim))
+		if(const virtual_texture_ptr p = init_texture(tex, src))
 			return p;
 
 	fragmented_textures.push_back(onalloc_());
 
-	if(const virtual_texture_ptr p = init_texture(fragmented_textures.back(), src, dim))
+	if(const virtual_texture_ptr p = init_texture(fragmented_textures.back(), src))
 		return p;
 	throw image_too_big();
 }
@@ -48,10 +47,10 @@ sge::texture_manager::add_texture(
 const sge::virtual_texture_ptr
 sge::texture_manager::init_texture(
 	fragmented_texture& tex,
-	const renderer::texture::const_pointer src,
-	const renderer::texture::dim_type& dim) const
+	renderer::image const &src) const
 {
-	const virtual_texture_ptr p = tex.consume_fragments(dim);
+	const virtual_texture_ptr p = tex.consume_fragments(
+		renderer::gil_dim_to_sge(src.dimensions()));
 	if(p)
 		p->set_data(src);
 	return p;

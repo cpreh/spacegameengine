@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../export.hpp"
 #include "../math/dim.hpp"
 #include "texture_base.hpp"
+#include "image.hpp"
 
 namespace sge
 {
@@ -36,12 +37,14 @@ public:
 
 	SGE_SYMBOL size_type size() const;
 	virtual const dim_type dim() const = 0;
-	virtual void set_data(const_pointer p, const lock_rect& r) = 0;
-	virtual void set_data(const_pointer p) = 0;
+	virtual void set_data(image const &, const lock_rect& r) = 0;
+	virtual void set_data(image const &) = 0;
 	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;
 	//virtual void lock(const lock_rect&, lock_flag_t flags = lock_flags::default_) = 0;
 	virtual void unlock() = 0;
 };
+
+const texture::dim_type gil_dim_to_sge(image::point_t const &);
 
 typedef shared_ptr<texture> texture_ptr;
 

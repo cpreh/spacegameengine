@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/renderer/colors.hpp>
-#include <vector>
 
 sge::font::drawer_3d::drawer_3d(
 	const renderer::device_ptr rend,
@@ -43,37 +42,36 @@ void sge::font::drawer_3d::begin_rendering(const size_type buffer_chars, const d
 
 void sge::font::drawer_3d::draw_char(
 	const char_type ch,
-	rect const& fr,
-	color const *const data)
+	pos const& p,
+	image const &data)
 {
 	texture_map::const_iterator it = textures.find(ch);
 	if(it == textures.end())
 	{
-		const renderer::texture::size_type raw_size = fr.w() * fr.h();
+		//renderer::image img(fr.w(), fr.h());
+		
+		//const renderer::texture::size_type raw_size = fr.w() * fr.h();
 		//raw_vector<renderer::color> expanded(raw_size);
-		std::vector<renderer::color> expanded(raw_size);
-		for(renderer::texture::size_type i = 0; i < raw_size; ++i)
+		//std::vector<renderer::color> expanded(raw_size);
+		//for(renderer::texture::size_type i = 0; i < raw_size; ++i)
 		{
 			//const color_element elem = data[i];
 			// FIXME: use GIL to convert gray scale to rgba here
 			//expanded[i] = elem ? make_color(elem, elem, elem, 255) : 0;
 		}
-		textures.insert(
+/*		textures.insert(
 			std::make_pair(
 				ch,
 				texman.add_texture(
-					expanded.data(),
-					renderer::texture::dim_type(
-						fr.w(),
-						fr.h()))));
+					boost::gil::color_converted_view<renderer::color>(boost::gil::view(data)))));*/
 		it = textures.find(ch);
 	}
 
 	sprites.push_back(
 		sprite::object(
-			fr.pos(),
+			p,
 			it->second,
-			fr.size(),
+			gil_dim_to_sge(data.dimensions()),
 			col));
 }
 

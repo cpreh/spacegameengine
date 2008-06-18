@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
 #include "../renderer/texture.hpp"
+#include "../renderer/image.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -48,7 +49,7 @@ public:
 	SGE_SYMBOL const renderer::texture_ptr my_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 	SGE_SYMBOL void set_data(
-		renderer::texture::const_pointer src);
+		renderer::image const &src);
 private:
 	const renderer::lock_rect& outer_area() const;
 	renderer::lock_rect outer_area_;

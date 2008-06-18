@@ -36,7 +36,10 @@ public:
 	virtual void begin_rendering(
 		size_type buffer_chars,
 		dim size) = 0;
-	virtual void draw_char(char_type, rect const&, color const* data) = 0;
+	virtual void draw_char(
+		char_type,
+		pos const&,
+		image const &data) = 0;
 	virtual void end_rendering() = 0;
 	virtual ~drawer() {}
 };

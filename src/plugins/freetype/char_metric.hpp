@@ -37,20 +37,13 @@ class char_metric : public font::char_metric {
 public:
 	char_metric(face&, char_type, font::unit pixel_size);
 
-	const font::color* pixmap() const;
-	// TODO: replace this with a rect
-	font::unit width() const;
-	font::unit height() const;
-	font::unit left() const;
-	font::unit top() const;
+	font::image const &pixmap() const;
+	const font::pos offset() const;
 	font::unit x_advance() const;
 private:
-	raw_vector<font::color> buffer;
-	font::unit width_,
-	           height_,
-	           left_,
-	           top_,
-	           x_advance_;
+	font::image buffer;
+	font::pos   offset_;
+	font::unit  x_advance_;
 };
 
 }

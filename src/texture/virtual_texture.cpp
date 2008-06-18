@@ -96,11 +96,11 @@ bool sge::virtual_texture::repeatable() const
 }
 
 void sge::virtual_texture::set_data(
-	const renderer::texture::const_pointer src)
+	renderer::image const &src)
 {
 	my_texture()->set_data(src, inner_area_);
 
-	if(need_atlasing_h)
+	/*if(need_atlasing_h)
 	{
 		my_texture()->set_data(
 			src,
@@ -150,5 +150,5 @@ void sge::virtual_texture::set_data(
 			outer_area().right() - 1,
 			outer_area().top(),
 			outer_area().right(),
-			outer_area().bottom()));
+			outer_area().bottom()));*/
 }

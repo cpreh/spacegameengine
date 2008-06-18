@@ -26,5 +26,5 @@ sge::add_texture(
 	texture_manager& man,
 	const image::object_ptr img)
 {
-	return man.add_texture(img->data(), img->dim());
+	//return man.add_texture(img->data(), img->dim()); //FIXME
 }

@@ -242,7 +242,7 @@ sge::ogl::device::create_texture(
 	const renderer::filter_args& filter,
 	const renderer::texture::resource_flag_type flags)
 {
-	//return texture_ptr(new texture(src, dim, filter, flags));
+	return renderer::texture_ptr(new texture(src, filter, flags));
 }
 
 const sge::renderer::vertex_buffer_ptr

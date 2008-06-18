@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
 #include <sge/exception.hpp>
-#include <sge/raw_vector_impl.hpp>
-#include <cstring>
+#include <sge/string.hpp>
+#include <boost/gil/typedefs.hpp>
 
 sge::ft::char_metric::char_metric(
 	face& face_,
@@ -38,45 +38,33 @@ sge::ft::char_metric::char_metric(
 	FT_BitmapGlyph bmp_glyph = glyph_.bitmap_glyph();
 
 	FT_Bitmap& bitmap = bmp_glyph->bitmap;
-
-	width_ = bitmap.width;
-	height_ = bitmap.rows;
-	left_ = bmp_glyph->left;
-	top_ = static_cast<int>(pixel_size) - bmp_glyph->top + face_->descender / 64;
+	
+	offset_.x() = bmp_glyph->left;
+	offset_.y() = static_cast<int>(pixel_size) - bmp_glyph->top + face_->descender / 64;
 	x_advance_ = static_cast<font::unit>(face_->glyph->advance.x / 64);
 
-	if(bitmap.width == 0 || bitmap.rows == 0)
-		return;
+	boost::gil::gray8c_view_t src(
+		boost::gil::interleaved_view(
+			bitmap.width,
+			bitmap.rows,
+			reinterpret_cast<boost::gil::gray8_pixel_t const*>(bitmap.buffer),
+			bitmap.pitch));
+	
+	buffer.recreate(bitmap.width, bitmap.rows);
 
-	buffer.resize_uninitialized(bitmap.width * bitmap.rows);
-	const unsigned char* data = bitmap.buffer;
-	for(int y = 0; y < bitmap.rows; ++y, data += bitmap.pitch)
-		std::memcpy(buffer.data() + y * width(), data, width());
+	// FIXME: we need to color convert pixels so they are rgba!
+	boost::gil::copy_pixels(src, boost::gil::view(buffer));
 }
 
-const sge::font::color* sge::ft::char_metric::pixmap() const
+const sge::font::pos sge::ft::char_metric::offset() const
 {
-	return buffer.data();
+	return offset_;
 }
 
-sge::font::unit sge::ft::char_metric::width() const
+sge::font::image const &
+sge::ft::char_metric::pixmap() const
 {
-	return width_;
-}
-
-sge::font::unit sge::ft::char_metric::height() const
-{
-	return height_;
-}
-
-sge::font::unit sge::ft::char_metric::left() const
-{
-	return left_;
-}
-
-sge::font::unit sge::ft::char_metric::top() const
-{
-	return top_;
+	return buffer;
 }
 
 sge::font::unit sge::ft::char_metric::x_advance() const

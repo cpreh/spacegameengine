@@ -41,8 +41,7 @@ public:
 		renderer::device_ptr rend,
 		const onalloc_function&);
 	SGE_SYMBOL const virtual_texture_ptr add_texture(
-		renderer::texture::const_pointer src,
-		const renderer::texture::dim_type& dim);
+		renderer::image const &src);
 	SGE_SYMBOL const virtual_texture_ptr add_texture(
 		renderer::texture_ptr tex);
 	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
@@ -55,8 +54,7 @@ public:
 private:
 	const virtual_texture_ptr init_texture(
 		fragmented_texture&,
-		renderer::texture::const_pointer src,
-		const renderer::texture::dim_type& dim) const;
+		renderer::image const &src) const;
 
 	const renderer::device_ptr                  rend;
 	onalloc_function                            onalloc_;
