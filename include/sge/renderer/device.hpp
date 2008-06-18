@@ -154,7 +154,7 @@ public:
 	virtual const target_ptr get_target() const = 0;
 
 	virtual const texture_ptr create_texture(
-		image const &,
+		image_view const &,
 		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 

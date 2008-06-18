@@ -237,7 +237,7 @@ sge::ogl::device::create_render_target(
 
 const sge::renderer::texture_ptr
 sge::ogl::device::create_texture(
-	renderer::image const &src,
+	renderer::image_view const &src,
 	const renderer::filter_args& filter,
 	const renderer::texture::resource_flag_type flags)
 {

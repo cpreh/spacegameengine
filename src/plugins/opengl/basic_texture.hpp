@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pixel_unpack_buffer.hpp"
 #include "texture_base.hpp"
 #include <sge/renderer/texture_filter.hpp>
+#include <sge/renderer/image_view.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace sge
@@ -49,9 +50,11 @@ protected:
 	void bind_me() const;
 	void set_my_filter() const;
 	GLuint id() const;
-	const renderer::filter_args& filter() const;
+	renderer::filter_args const& filter() const;
 	
-	void do_lock(lock_flag_type flags);
+	void do_lock(
+		lock_flag_type flags,
+		size_type size);
 	void post_lock();
 	void pre_unlock();
 	void do_unlock();
@@ -64,6 +67,13 @@ protected:
 		const renderer::filter_args& filter,
 		resource_flag_type flags,
 		GLenum type);
+	
+	using Base::size;
+	void stride(size_type);
+	size_type stride() const;
+
+	void internal_parameters(
+		renderer::const_image_view const &src);
 public:
 	~basic_texture();
 	resource_flag_type flags() const;
@@ -76,10 +86,8 @@ private:
 
 	pbo_base*                              cur_buffer;
 	lock_flag_type                         lock_mode_;
-	pixel_pack_buffer                      pack_buffer;
-	pixel_unpack_buffer                    unpack_buffer;
-	//boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
-	//boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
+	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
+	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;
 };
 
 }

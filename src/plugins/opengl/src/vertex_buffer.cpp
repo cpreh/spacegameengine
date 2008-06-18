@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_buffer_impl.hpp"
 #include "../vbo.hpp"
 
-template class sge::ogl::basic_buffer<sge::renderer::vertex_buffer>;
+template class sge::ogl::basic_buffer<
+	sge::renderer::vertex_buffer,
+	sge::ogl::vertex_buffer_type,
+	sge::ogl::vb_ib_vbo_impl>;
 
 sge::ogl::vertex_buffer::vertex_buffer(
 	const size_type size,
@@ -30,8 +33,6 @@ sge::ogl::vertex_buffer::vertex_buffer(
 	const resource_flag_type flags,
 	const const_pointer src)
  :	detail::vertex_buffer_base(
- 		vertex_buffer_type(),
-		vb_ib_vbo_impl(),
  		size,
 		format.stride(),
 		flags,
@@ -52,7 +53,7 @@ sge::ogl::vertex_buffer::get_vertex_format() const
 	return format;
 }
 
-sge::ogl::vertex_buffer::iterator
+/*sge::ogl::vertex_buffer::iterator
 sge::ogl::vertex_buffer::create_iterator(
 	const pointer p)
 {
@@ -70,7 +71,7 @@ sge::ogl::vertex_buffer::create_iterator(
 		p,
 		stride(),
 		ogl_format.offsets());
-}
+}*/
 
 void sge::ogl::vertex_buffer::set_format()
 {

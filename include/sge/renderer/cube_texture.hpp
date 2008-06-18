@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "image.hpp"
+#include "image_view.hpp"
 #include "texture_base.hpp"
 #include "types.hpp"
 #include <boost/array.hpp>
@@ -55,7 +55,9 @@ public:
 	virtual void lock(cube_side::type side, lock_rect const &, lock_flag_t);
 	virtual void unlock() = 0;
 
-	virtual const image_view data() = 0;
+	size_type size() const;
+	virtual const image_view view() = 0;
+	virtual const const_image_view view() const = 0;
 	virtual size_type border_size() const = 0;
 private:
 	virtual void do_sub_data(cube_side::type side, image_view const &, lock_rect const &dest) = 0;

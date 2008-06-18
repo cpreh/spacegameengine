@@ -36,7 +36,7 @@ void sge::ogl::initialize_pbo()
 	impl.reset(create_vbo_impl(sge::ogl::pbo_in_hardware()));
 }
 
-sge::ogl::pbo_base::iterator sge::ogl::pbo_base::end()
+/*sge::ogl::pbo_base::iterator sge::ogl::pbo_base::end()
 {
 	return begin() + size();
 }
@@ -44,7 +44,7 @@ sge::ogl::pbo_base::iterator sge::ogl::pbo_base::end()
 sge::ogl::pbo_base::const_iterator sge::ogl::pbo_base::end() const
 {
 	return begin() + size();
-}
+}*/
 
 GLenum sge::ogl::pixel_pack_buffer_type()
 {

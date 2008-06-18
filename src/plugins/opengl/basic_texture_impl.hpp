@@ -60,7 +60,9 @@ const sge::renderer::filter_args& sge::ogl::basic_texture<Base>::filter() const
 }
 
 template<typename Base>
-void sge::ogl::basic_texture<Base>::do_lock(const lock_flag_type lmode)
+void sge::ogl::basic_texture<Base>::do_lock(
+	const lock_flag_type lmode,
+	const size_type lock_size)
 {
 	if(cur_buffer)
 		throw exception(SGE_TEXT("ogl::basic_texture::do_lock(): texture is already locked!"));
@@ -74,7 +76,8 @@ void sge::ogl::basic_texture<Base>::do_lock(const lock_flag_type lmode)
 	{
 		unpack_buffer.reset(
 			new pixel_unpack_buffer(
-				size(),
+				lock_size,
+				stride(),
 				flags(),
 				0));
 		cur_buffer = unpack_buffer.get();
@@ -83,11 +86,9 @@ void sge::ogl::basic_texture<Base>::do_lock(const lock_flag_type lmode)
 	if(renderer::lock_flag_read(lmode))
 	{
 		pack_buffer.reset(
-			new pixel_buffer(
-				pixel_pack_buffer_type(),
-				pbo_impl,
-				size(),
-				stride, // where to get that?
+			new pixel_pack_buffer(
+				lock_size,
+				stride(),
 				flags(),
 				0));
 		cur_buffer = pack_buffer.get();
@@ -115,7 +116,7 @@ void sge::ogl::basic_texture<Base>::pre_unlock()
 		assert(unpack_buffer);
 
 		unpack_buffer->lock(lock_mode());
-		std::copy(pack_buffer->begin(), pack_buffer->end(), unpack_buffer->data());
+		//std::copy(pack_buffer->begin(), pack_buffer->end(), unpack_buffer->data());
 		pack_buffer->unlock();
 		pack_buffer.reset();
 		cur_buffer = unpack_buffer.get();

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_texture_impl.hpp"
 #include "../vbo.hpp"
 #include "../pbo.hpp"
-#include <sge/algorithm.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
@@ -39,13 +38,13 @@ const GLenum texture_type = GL_TEXTURE_2D;
 }
 
 sge::ogl::texture::texture(
-	renderer::image const &src,
+	renderer::const_image_view const &src,
 	const renderer::filter_args& filter_,
 	const resource_flag_type flags)
  : detail::texture_base(filter_, flags, texture_type),
    dim_(renderer::gil_dim_to_sge(src.dimensions()))
 {
-	set_data(src);
+	data(src);
 }
 
 const sge::ogl::texture::dim_type
@@ -54,39 +53,82 @@ sge::ogl::texture::dim() const
 	return dim_;
 }
 
-void sge::ogl::texture::set_data(
-	renderer::image const &src,
+void sge::ogl::texture::sub_data(
+	renderer::const_image_view const &src,
 	renderer::lock_rect const &r)
 {
 	pre_setdata();
 	//set_texture_rect(type(), filter(), dim(), r, src);
 }
 
-void sge::ogl::texture::set_data(
-	renderer::image const &src)
+void sge::ogl::texture::data(
+	renderer::const_image_view const &src)
+{
+	dim_ = renderer::gil_dim_to_sge(src.dimensions());
+	data_internal(src);
+}
+
+void sge::ogl::texture::data_internal(
+	renderer::const_image_view const &src)
 {
 	pre_setdata();
+	internal_parameters(src);
 
 	if(pbo_in_hardware())
 	{
+		allocate_texture(src);
+			
 		const renderer::scoped_lock<sge::ogl::texture*> lock_(
 			renderer::make_scoped_lock(
 				this,
 				renderer::lock_flags::writeonly));
-		//copy_n(src, size(), data());
+		//boost::gil::copy_pixels(src.begin(), src.end(),
+		//boost::gil::raw_view(write_buffer()));
 		// FIXME
 	}
 //	else
 //		set_texture(src);
 }
 
+void sge::ogl::texture::allocate_texture(
+	renderer::const_image_view const &src)
+{
+	pre_setdata();	
+	ogl::set_texture(
+		type(),
+		0,//convert_format(src),
+		0,//convert_type(src),
+		filter(),
+		dim(),
+		0);
+}
+
 void sge::ogl::texture::lock(
 	const lock_flag_type lmode)
 {
-	do_lock(lmode);
+	do_lock(
+		lmode,
+		size());
 	if(renderer::lock_flag_read(lock_mode()))
-		get_tex_image(read_buffer());
+		get_tex_image(
+			0,//format(),
+			0,//format_type(),
+			read_buffer());
 	post_lock();
+}
+
+void sge::ogl::texture::lock(
+	renderer::lock_rect const &l,
+	const lock_flag_type lmode)
+{
+	/*do_lock(
+		lmode,
+		l.size());
+	if(renderer::lock_flag_read(lock_mode()))
+		get_tex_image(
+			read_buffer(),
+			l);
+	post_lock();*/
 }
 
 void sge::ogl::texture::unlock()
@@ -101,5 +143,5 @@ void sge::ogl::texture::set_texture(
 	const const_pointer src)
 {
 	pre_setdata();
-	ogl::set_texture(type(), filter(), dim(), src);
+	//ogl::set_texture(type(), filter(), dim(), src);
 }

@@ -43,8 +43,8 @@ bool need_mipmap(const sge::renderer::min_filter::type filter)
 	}
 }
 
-const GLenum gl_format = GL_RGBA,
-             gl_type = GL_UNSIGNED_BYTE;
+//const GLenum gl_format = GL_RGBA,
+//             gl_type = GL_UNSIGNED_BYTE;
 
 }
 
@@ -64,9 +64,11 @@ void sge::ogl::delete_texture(const GLuint id)
 
 void sge::ogl::set_texture(
 	const GLenum tex_type,
+	const GLenum format,
+	const GLenum type,
 	const renderer::filter_args& filter,
 	const renderer::texture::dim_type& dim,
-	const renderer::texture_base::const_pointer src)
+	const const_texture_pointer src)
 {
 	SGE_OPENGL_SENTRY
 	
@@ -83,12 +85,12 @@ void sge::ogl::set_texture(
 	glTexImage2D(
 		tex_type,
 		0,
-		gl_format,
+		format,
 		static_cast<GLsizei>(dim.w()),
 		static_cast<GLsizei>(dim.h()),
 		0,
-		gl_format,
-		gl_type,
+		format,
+		type,
 		src);
 
 	if(need_mipmap(filter.min_filter))
@@ -100,8 +102,10 @@ void sge::ogl::set_texture(
 
 void sge::ogl::build_mipmaps(
 	const GLenum tex_type,
+	const GLenum format,
+	const GLenum type,
 	const renderer::texture::dim_type& dim,
-	const renderer::texture_base::const_pointer src)
+	const const_texture_pointer src)
 {
 	if(!src)
 		throw exception(SGE_TEXT("ogl::build_mipmaps: src is 0!"));
@@ -110,20 +114,22 @@ void sge::ogl::build_mipmaps(
 	
 	gluBuild2DMipmaps(
 		tex_type,
-		gl_format,
+		format,
 		static_cast<GLsizei>(dim.w()),
 		static_cast<GLsizei>(dim.h()),
-		gl_format,
-		gl_type,
+		format,
+		type,
 		src);
 }
 
 void sge::ogl::set_texture_rect(
 	const GLenum tex_type,
+	const GLenum format,
+	const GLenum type,
 	const renderer::filter_args& filter,
 	const renderer::texture::dim_type& dim,
 	const renderer::lock_rect& r,
-	const renderer::texture_base::const_pointer src)
+	const const_texture_pointer src)
 {
 	SGE_OPENGL_SENTRY
 	
@@ -140,18 +146,21 @@ void sge::ogl::set_texture_rect(
 	if(need_mipmap(filter.min_filter))
 		throw exception(SGE_TEXT("You can't specify an update rect while using mipmaps. Ignored."));
 
-	glTexSubImage2D(tex_type,
-	                0,
-	                static_cast<GLint>(r.left()),
-	                static_cast<GLint>(r.top()),
-	                static_cast<GLsizei>(r.w()),
-	                static_cast<GLsizei>(r.h()),
-			gl_format,
-			gl_type,
-			src);
+	glTexSubImage2D(
+		tex_type,
+		0,
+		static_cast<GLint>(r.left()),
+		static_cast<GLint>(r.top()),
+		static_cast<GLsizei>(r.w()),
+		static_cast<GLsizei>(r.h()),
+		format,
+		type,
+		src);
 }
 
 void sge::ogl::read_pixels(
+	const GLenum format,
+	const GLenum type,
 	const renderer::texture_base::size_type x,
 	const renderer::texture_base::size_type y,
 	const renderer::texture_base::size_type width,
@@ -165,21 +174,23 @@ void sge::ogl::read_pixels(
 		static_cast<GLint>(y),
 		static_cast<GLsizei>(width),
 		static_cast<GLsizei>(height),
-		gl_format,
-		gl_type,
+		format,
+		type,
 		dest);
 }
 
 void sge::ogl::get_tex_image(
-	const renderer::texture::pointer dest)
+	const GLenum format,
+	const GLenum type,
+	const texture_pointer dest)
 {
 	SGE_OPENGL_SENTRY
 	
 	glGetTexImage(
 		GL_TEXTURE_2D,
 		0,
-		gl_format,
-		gl_type,
+		format,
+		type,
 		dest);
 }
 

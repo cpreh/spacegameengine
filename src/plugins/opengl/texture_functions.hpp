@@ -33,33 +33,46 @@ namespace ogl
 GLuint gen_texture();
 void delete_texture(GLuint id);
 
+typedef unsigned char *texture_pointer;
+typedef unsigned char const *const_texture_pointer;
+
 void set_texture(
+	GLenum target,
+	GLenum format,
 	GLenum type,
 	const renderer::filter_args& filter,
 	const renderer::texture::dim_type& dim,
-	renderer::texture_base::const_pointer src);
+	const_texture_pointer src);
 
 void build_mipmaps(
+	GLenum target,
+	GLenum format,
 	GLenum type,
 	const renderer::texture::dim_type& dim,
-	renderer::texture_base::const_pointer src);
+	const_texture_pointer src);
 
 void set_texture_rect(
+	GLenum target,
+	GLenum format,
 	GLenum type,
 	const renderer::filter_args& filter,
 	const renderer::texture::dim_type& dim,
 	const renderer::lock_rect& dest,
-	renderer::texture_base::const_pointer src);
+	const_texture_pointer src);
 
 void read_pixels(
+	GLenum format,
+	GLenum type,
 	renderer::texture_base::size_type x,
 	renderer::texture_base::size_type y,
 	renderer::texture_base::size_type width,
 	renderer::texture_base::size_type height,
-	renderer::texture_base::pointer dest);
+	texture_pointer dest);
 
 void get_tex_image(
-	renderer::texture_base::pointer dest);
+	GLenum format,
+	GLenum type,
+	texture_pointer dest);
 
 void tex_parameter_i(
 	GLenum type,

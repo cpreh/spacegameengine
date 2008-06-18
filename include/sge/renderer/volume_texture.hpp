@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/dim.hpp"
 #include "../math/box.hpp"
 #include "texture_base.hpp"
+#include "image_view.hpp"
 #include <vector>
 
 namespace sge
@@ -47,7 +48,8 @@ public:
 	virtual void lock(lock_box const&, lock_flag_t);
 	virtual void unlock() = 0;
 
-	virtual image_view_array const &data() = 0;
+	size_type size() const;
+	//virtual image_view_array const &data() = 0;
 };
 
 typedef shared_ptr<volume_texture> volume_texture_ptr;

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 
 const sge::renderer::texture::dim_type
-sge::renderer::gil_dim_to_sge(image::point_t const &d)
+sge::renderer::gil_dim_to_sge(image_view::point_t const &d)
 {
 	return texture::dim_type(d.x, d.y);
 }

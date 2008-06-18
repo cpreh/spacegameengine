@@ -39,22 +39,33 @@ typedef basic_texture<renderer::texture> texture_base;
 class texture : public detail::texture_base {
 public:
 	texture(
-		renderer::image const &src,
-		const renderer::filter_args& filter,
+		renderer::const_image_view const &src,
+		renderer::filter_args const &filter,
 		resource_flag_type flags);
 
 	const dim_type dim() const;
 
-	void set_data(renderer::image const &src, const renderer::lock_rect& r);
-	void set_data(renderer::image const &src);
+	void data(
+		renderer::const_image_view const &src);
+	void sub_data(
+		renderer::const_image_view const &src,
+		renderer::lock_rect const &r);
 
-	void lock(lock_flag_type flags);
-	void lock(const renderer::lock_rect&, lock_flag_type flags);
+	void lock(
+		lock_flag_type flags);
+	void lock(
+		renderer::lock_rect const &,
+		lock_flag_type flags);
 	void unlock();
 private:
+	void data_internal(
+		renderer::const_image_view const &src);
+	void allocate_texture(
+		renderer::const_image_view const &src);
+
 	void set_texture(const_pointer src);
 
-	const dim_type dim_;
+	dim_type dim_;
 };
 
 }

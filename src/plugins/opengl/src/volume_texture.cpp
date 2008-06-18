@@ -41,7 +41,7 @@ GLenum gl_volume_texture_type;
 
 template class sge::ogl::basic_texture<sge::renderer::volume_texture>;
 
-sge::ogl::volume_texture::volume_texture(
+/*sge::ogl::volume_texture::volume_texture(
 	const const_pointer src,
 	const box_type& box_,
 	const renderer::filter_args& filter,
@@ -104,7 +104,7 @@ void sge::ogl::volume_texture::set_data(const const_pointer src, const renderer:
 		format,
 		type,
 		src);
-}
+}*/
 
 namespace
 {

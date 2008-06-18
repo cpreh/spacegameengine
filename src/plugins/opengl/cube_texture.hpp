@@ -54,7 +54,7 @@ public:
 	size_type border_size() const;
 	const renderer::image_view data();
 private:
-	const size_type sz;
+	size_type sz;
 };
 
 GLenum convert_cast(const renderer::cube_side::type&);

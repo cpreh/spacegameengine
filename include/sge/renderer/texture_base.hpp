@@ -43,6 +43,7 @@ public:
 	typedef lock_flag_t                           lock_flag_type;
 
 	virtual ~texture_base() {}
+	virtual size_type size() const = 0;
 	virtual resource_flag_type flags() const = 0;
 };
 
