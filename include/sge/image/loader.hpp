@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../plugin_traits.hpp"
 #include "../path.hpp"
 #include "../export.hpp"
+#include "../renderer/image_view.hpp"
 #include "object.hpp"
 #include "format.hpp"
 
@@ -48,8 +49,8 @@ public:
 
 	virtual const object_ptr
 	create_image(
-		object::const_pointer data,
-		const object::dim_type&) = 0;
+		renderer::const_image_view const &) = 0;
+
 	SGE_SYMBOL virtual ~loader();
 };
 

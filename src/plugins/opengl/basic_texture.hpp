@@ -63,19 +63,19 @@ protected:
 	pointer write_buffer() const;
 	
 	void pre_setdata() const;
-	basic_texture(
-		const renderer::filter_args& filter,
-		resource_flag_type flags,
-		GLenum type);
 	
 	using Base::size;
-	void stride(size_type);
 	size_type stride() const;
 
 	void internal_parameters(
 		renderer::const_image_view const &src);
 	GLenum format() const;
 	GLenum format_type() const;
+
+	basic_texture(
+		const renderer::filter_args& filter,
+		resource_flag_type flags,
+		GLenum type);
 public:
 	~basic_texture();
 	resource_flag_type flags() const;
@@ -85,8 +85,11 @@ private:
 	renderer::filter_args                  filter_;
 	resource_flag_type                     flags_;
 	GLuint                                 id_;
-
 	pbo_base*                              cur_buffer;
+
+	GLenum                                 format_,
+	                                       format_type_;
+	size_type                              stride_;
 	lock_flag_type                         lock_mode_;
 	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
 	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;

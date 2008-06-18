@@ -33,16 +33,20 @@ namespace devil
 
 class object : public image::object {
 public:
-	explicit object(const path&);
-	object(image::format::type type, const_pointer format_data, size_type size);
-	object(const_pointer p, const dim_type&);
-	const_pointer data() const;
-	void data(const_pointer, const dim_type&);
+	explicit object(
+		path const &);
+	object(
+		image::format::type type,
+		const_pointer format_data,
+		size_type size);
+	explicit object(
+		renderer::const_image_view const &);
+	renderer::const_image_view const view() const;
+	void data(
+		renderer::const_image_view const &);
 	const dim_type dim() const;
-	size_type width() const;
-	size_type height() const;
-	void resample(const dim_type&);
-	void save(const path&);
+	void resample(dim_type const &);
+	void save(path const &);
 private:
 	void bind_me() const;
 	image_impl impl;

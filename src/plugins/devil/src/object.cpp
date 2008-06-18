@@ -56,12 +56,9 @@ sge::devil::object::object(
 }
 
 sge::devil::object::object(
-	const const_pointer p,
-	const dim_type& dim_)
+	renderer::const_image_view const &src)
 {
-	if(!p)
-		throw exception(SGE_TEXT("load_image(): ptr is 0!"));
-	data(p, dim_);
+	data(src);
 }
 
 void sge::devil::object::bind_me() const
@@ -73,39 +70,34 @@ void sge::devil::object::bind_me() const
 const sge::image::object::dim_type sge::devil::object::dim() const
 {
 	bind_me();
-	return dim_type(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
+	return dim_type(
+		ilGetInteger(IL_IMAGE_WIDTH),
+		ilGetInteger(IL_IMAGE_HEIGHT));
 }
 
-sge::image::object::size_type sge::devil::object::width() const
-{
-	return dim().w();
-}
-
-sge::image::object::size_type sge::devil::object::height() const
-{
-	return dim().h();
-}
-
-void sge::devil::object::data(const const_pointer p, const dim_type& dim_)
+void sge::devil::object::data(
+	renderer::const_image_view const &src)
 {
 	bind_me();
-	ilTexImage(static_cast<ILuint>(dim_.w()),
+	/*ilTexImage(static_cast<ILuint>(dim_.w()),
 	           static_cast<ILuint>(dim_.h()),
 	           1,
 	           4,
 	           IL_RGBA,
 	           IL_UNSIGNED_BYTE,
-	           const_cast<pointer>(p));
+	           const_cast<pointer>(p));*/
 	check_errors();
 }
 
-sge::image::object::const_pointer sge::devil::object::data() const
+sge::renderer::const_image_view const
+sge::devil::object::view() const
 {
 	bind_me();
-	return reinterpret_cast<const_pointer>(ilGetData());
+	//return reinterpret_cast<const_pointer>(ilGetData());
 }
 
-void sge::devil::object::resample(const dim_type& dim_)
+void sge::devil::object::resample(
+	dim_type const &dim_)
 {
 	if(dim() == dim_)
 		return;
@@ -114,7 +106,7 @@ void sge::devil::object::resample(const dim_type& dim_)
 	check_errors();
 }
 
-void sge::devil::object::save(const path& file)
+void sge::devil::object::save(path const &file)
 {
 	bind_me();
 

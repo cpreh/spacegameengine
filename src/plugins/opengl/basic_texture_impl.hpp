@@ -175,6 +175,35 @@ void sge::ogl::basic_texture<Base>::pre_setdata() const
 }
 
 template<typename Base>
+typename sge::ogl::basic_texture<Base>::size_type
+sge::ogl::basic_texture<Base>::stride() const
+{	
+	return stride_;
+}
+
+template<typename Base>
+void sge::ogl::basic_texture<Base>::internal_parameters(
+	renderer::const_image_view const &src)
+{
+	// TODO: set stride, format and format_type
+	format_ = GL_RGBA;
+	format_type_ = GL_UNSIGNED_BYTE;
+	stride_ = 4;
+}
+
+template<typename Base>
+GLenum sge::ogl::basic_texture<Base>::format() const
+{	
+	return format_;
+}
+
+template<typename Base>
+GLenum sge::ogl::basic_texture<Base>::format_type() const
+{
+	return format_type_;
+}
+
+template<typename Base>
 sge::ogl::basic_texture<Base>::basic_texture(
 	const renderer::filter_args& filter_,
 	const resource_flag_type flags_,
@@ -185,7 +214,6 @@ sge::ogl::basic_texture<Base>::basic_texture(
    id_(gen_texture()),
    cur_buffer(0)
 {}
-
 
 template<typename Base>
 sge::ogl::basic_texture<Base>::~basic_texture()

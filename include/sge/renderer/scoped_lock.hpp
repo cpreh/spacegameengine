@@ -98,6 +98,19 @@ make_scoped_lock(
 template<typename T>
 const typename scoped_lock<T>::wrapper
 make_scoped_lock(
+	T const t,
+	lock_rect const &r,
+	lock_flag_t const flags)
+{
+	t->lock(
+		r,
+		flags);
+	return typename scoped_lock<T>::wrapper(t);
+}
+
+template<typename T>
+const typename scoped_lock<T>::wrapper
+make_scoped_lock(
 	const T t,
 	const cube_side::type side,
 	const lock_flag_t flags)
@@ -117,18 +130,6 @@ make_scoped_lock(
 	t->lock(flags, first, count);
 	return typename scoped_lock<T>::wrapper(t);
 }
-
-/*scoped_lock(const T t, const lock_rect& r)
-	 : t(t)
-	{
-		t->lock(r);
-	}
-
-	scoped_lock(const T t, const lock_box& box)
-	 : t(t)
-	{
-		t->lock(box);
-	}*/
 
 }
 }

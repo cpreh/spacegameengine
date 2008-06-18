@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/util.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 const sge::renderer::texture_ptr
 sge::image::create_texture(
@@ -27,8 +28,7 @@ sge::image::create_texture(
 	const renderer::filter_args& filter,
 	const renderer::resource_flag_t flags)
 {
-	// FIXME
-	//return r->create_texture(p->data(), p->dim(), filter, flags);
+	return r->create_texture(p->view(), filter, flags);
 }
 
 const sge::renderer::texture_ptr
@@ -39,7 +39,6 @@ sge::image::create_texture(
 	const renderer::filter_args& filter,
 	const renderer::resource_flag_t flags)
 {
-	// FIXME
-	//return create_texture(r, p->load_image(file), filter, flags);
+	return create_texture(r, p->load_image(file), filter, flags);
 }
 

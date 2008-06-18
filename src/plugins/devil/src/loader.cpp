@@ -48,8 +48,7 @@ sge::devil::loader::load_image(
 
 const sge::image::object_ptr
 sge::devil::loader::create_image(
-	const object::const_pointer p,
-	const object::dim_type& dim)
+	renderer::const_image_view const &src)
 {
-	return image::object_ptr(new object(p, dim));
+	return image::object_ptr(new object(src));
 }

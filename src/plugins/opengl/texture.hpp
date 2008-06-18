@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_texture.hpp"
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/image.hpp>
+#include <boost/optional.hpp>
 
 namespace sge
 {
@@ -62,11 +63,12 @@ public:
 private:
 	void data_internal(
 		renderer::const_image_view const &src);
-	void allocate_texture(
-		renderer::const_image_view const &src);
+	void set_texture(
+		const_pointer src);
 
-	dim_type            dim_;
-	renderer::lock_rect lock_rect_;
+	dim_type                      dim_;
+	boost::optional<
+		renderer::lock_rect> lock_rect_;
 };
 
 }

@@ -23,9 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../shared_ptr.hpp"
 #include "../path.hpp"
-#include "../renderer/types.hpp"
-#include "../renderer/color.hpp"
 #include "../math/dim.hpp"
+#include "../renderer/image_view.hpp"
 #include <boost/noncopyable.hpp>
 #include <cstddef>
 
@@ -38,17 +37,16 @@ class object : boost::noncopyable {
 public:
 	typedef std::size_t                   size_type;
 	typedef math::basic_dim<size_type, 2> dim_type;
-	typedef renderer::color               value_type;
-	typedef value_type*                   pointer;
-	typedef const value_type*             const_pointer;
+	typedef unsigned char                 value_type;
+	typedef value_type                   *pointer;
+	typedef value_type const             *const_pointer;
 
-	virtual void data(const_pointer, const dim_type&) = 0;
-	virtual const_pointer data() const = 0;
-	virtual const dim_type dim() const = 0;
-	virtual size_type width() const = 0;
-	virtual size_type height() const = 0;
-	virtual void resample(const dim_type&) = 0;
-	virtual void save(const path&) = 0;
+	virtual void data(
+		renderer::const_image_view const &) = 0;
+	virtual renderer::const_image_view const view() const = 0;
+	virtual dim_type const dim() const = 0;
+	virtual void resample(dim_type const &) = 0;
+	virtual void save(path const &) = 0;
 	virtual ~object(){}
 };
 

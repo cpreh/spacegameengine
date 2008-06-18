@@ -47,5 +47,5 @@ sge::texture::part_raw::my_texture() const
 
 bool sge::texture::part_raw::repeatable() const
 {
-	return area().size() == tex->dim();
+	return area().dim() == tex->dim();
 }

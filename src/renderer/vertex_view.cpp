@@ -37,7 +37,7 @@ sge::renderer::basic_vertex_view<Vertex>::begin() const
 	return iterator(
 		data(),
 		format().stride(),
-		format().get_offset_info());
+		format().offsets());
 }
 
 template<typename Vertex>
@@ -67,3 +67,6 @@ sge::renderer::basic_vertex_view<Vertex>::data() const
 {
 	return raw_data;
 }
+
+template class sge::renderer::basic_vertex_view<sge::renderer::vertex>;
+template class sge::renderer::basic_vertex_view<sge::renderer::const_vertex>;

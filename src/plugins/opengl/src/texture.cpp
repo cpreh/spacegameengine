@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pbo.hpp"
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/color.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
 
@@ -44,8 +45,7 @@ sge::ogl::texture::texture(
 	const renderer::filter_args& filter_,
 	const resource_flag_type flags)
  : detail::texture_base(filter_, flags, texture_type),
-   dim_(renderer::gil_dim_to_sge(src.dimensions())),
-   lock_rect_(0, 0, 0, 0)
+   dim_(renderer::gil_dim_to_sge(src.dimensions()))
 {
 	data(src);
 }
@@ -61,14 +61,19 @@ void sge::ogl::texture::do_sub_data(
 	renderer::lock_rect const &r)
 {
 	pre_setdata();
-	/*set_texture_rect(
-		type(),
-		format(),
-		format_type(),
-		filter(),
-		dim(),
-		r,
-		src);*/
+
+	const renderer::scoped_lock<sge::ogl::texture*> lock_(
+		renderer::make_scoped_lock(
+			this,
+			r,
+			renderer::lock_flags::writeonly));
+	boost::gil::copy_and_convert_pixels(
+		src,
+		boost::gil::interleaved_view(
+			src.width(),
+			src.height(),
+			reinterpret_cast<renderer::rgba8_pixel*>(write_buffer()),
+			src.width() * stride()));
 }
 
 void sge::ogl::texture::data(
@@ -84,35 +89,19 @@ void sge::ogl::texture::data_internal(
 	pre_setdata();
 	internal_parameters(src);
 
-	if(pbo_in_hardware())
-	{
-		allocate_texture(src);
-			
-		const renderer::scoped_lock<sge::ogl::texture*> lock_(
-			renderer::make_scoped_lock(
-				this,
-				renderer::lock_flags::writeonly));
-		boost::gil::copy_and_convert_pixels(
-			src,
-			boost::gil::interleaved_view(
-				src.width(),
-				src.height(),
-				reinterpret_cast<renderer::rgba8_pixel*>(write_buffer()),
-				src.width() * stride()));
-	}
-}
-
-void sge::ogl::texture::allocate_texture(
-	renderer::const_image_view const &src)
-{
-	pre_setdata();	
-	ogl::set_texture(
-		type(),
-		0,//convert_format(src),
-		0,//convert_type(src),
-		filter(),
-		dim(),
-		0);
+	set_texture(0);
+	
+	const renderer::scoped_lock<sge::ogl::texture*> lock_(
+		renderer::make_scoped_lock(
+			this,
+			renderer::lock_flags::writeonly));
+	boost::gil::copy_and_convert_pixels(
+		src,
+		boost::gil::interleaved_view(
+			src.width(),
+			src.height(),
+			reinterpret_cast<renderer::rgba8_pixel*>(write_buffer()),
+			src.width() * stride()));
 }
 
 void sge::ogl::texture::lock(
@@ -127,28 +116,49 @@ void sge::ogl::texture::lock(
 			format_type(),
 			read_buffer());
 	post_lock();
+	lock_rect_.reset();
 }
 
 void sge::ogl::texture::lock(
 	renderer::lock_rect const &l,
 	const lock_flag_type lmode)
 {
-	/*do_lock(
+	do_lock(
 		lmode,
-		l.size());
+		renderer::lock_flag_read(
+			lmode)
+		? size()
+		: l.size());
 	if(renderer::lock_flag_read(lock_mode()))
 		get_tex_image(
-			read_buffer(),
-			l);
-	post_lock();*/
+			format(),
+			format_type(),
+			read_buffer());
+	post_lock();
 	lock_rect_ = l;
 }
 
 void sge::ogl::texture::unlock()
 {
 	pre_unlock();
-//	if(renderer::lock_flag_write(lock_mode()))
-//		set_texture(write_buffer());
+	if(renderer::lock_flag_write(lock_mode()))
+	{
+		if(!lock_rect_)
+			set_texture(
+				write_buffer());
+		else
+			set_texture_rect(
+				type(),
+				format(),
+				format_type(),
+				filter(),
+				dim(),
+				*lock_rect_,
+				write_buffer()
+				+ (lock_rect_->left()
+				   + lock_rect_->top() * dim().w())
+				* stride());
+	}
 	do_unlock();
 }
 
@@ -160,7 +170,8 @@ sge::ogl::texture::view()
 			boost::gil::interleaved_view(
 				dim().w(),
 				dim().h(),
-				reinterpret_cast<renderer::rgba8_pixel*>(write_buffer()),
+				reinterpret_cast<renderer::rgba8_pixel*>(
+					write_buffer()),
 				dim().w() * stride())));
 }
 
@@ -169,4 +180,17 @@ sge::ogl::texture::view() const
 {
 	return renderer::const_image_view(
 		const_cast<texture&>(*this).view());
+}
+
+void sge::ogl::texture::set_texture(
+	const_pointer const p)
+{
+	pre_setdata();
+	ogl::set_texture(
+		type(),
+		format(),
+		format_type(),
+		filter(),
+		dim(),
+		p);
 }

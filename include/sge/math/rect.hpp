@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_HPP_INCLUDED
 #define SGE_MATH_RECT_HPP_INCLUDED
 
-#include <iosfwd>
 #include "dim.hpp"
 #include "vector.hpp"
+#include <iosfwd>
+#include <cstddef>
 
 namespace sge
 {
@@ -32,6 +33,7 @@ namespace math
 template<typename T> class basic_rect {
 public:
 	typedef T                       value_type;
+	typedef std::size_t             size_type;
 	typedef T&                      reference;
 	typedef const T&                const_reference;
 	typedef math::basic_vector<T,2> point_type;
@@ -47,8 +49,9 @@ public:
 	value_type w() const;
 	value_type h() const;
 
-	point_type pos() const;
-	dim_type size() const;
+	point_type const pos() const;
+	dim_type const dim() const;
+	size_type size() const;
 
 	const_reference left() const;
 	const_reference top() const;
@@ -67,12 +70,14 @@ private:
 };
 
 template<typename T>
-basic_rect<T> operator+(const basic_rect<T>& l,
-                        const typename basic_rect<T>::point_type& r);
+basic_rect<T> const operator+(
+	const basic_rect<T>& l,
+	const typename basic_rect<T>::point_type& r);
 
 template<typename T>
-basic_rect<T> operator-(const basic_rect<T>& l,
-                        const typename basic_rect<T>::point_type& r);
+basic_rect<T> const operator-(
+	const basic_rect<T>& l,
+	const typename basic_rect<T>::point_type& r);
 
 template<typename T>
 bool operator==(const basic_rect<T>& l, const basic_rect<T>& r);
@@ -81,14 +86,14 @@ template<typename T>
 bool operator!=(const basic_rect<T>& l, const basic_rect<T>& r);
 
 template<typename T>
-basic_rect<T> resize_borders(const basic_rect<T>& r, const T diff);
+basic_rect<T> const resize_borders(const basic_rect<T>& r, const T diff);
 
 template<typename T, typename Ch, typename Traits>
 std::basic_ostream<Ch,Traits>& operator<<(std::basic_ostream<Ch,Traits>& s,
                                           const basic_rect<T>& r);
 
 template<typename D, typename S>
-basic_rect<D> structure_cast(const basic_rect<S>& r);
+basic_rect<D> const structure_cast(const basic_rect<S>& r);
 
 typedef basic_rect<space_unit> rect;
 

@@ -36,7 +36,7 @@ public:
 
 	const image::object_ptr
 	load_image(
-		const path&);
+		path const &);
 	
 	const image::object_ptr
 	load_image(
@@ -46,8 +46,7 @@ public:
 	
 	const image::object_ptr
 	create_image(
-		image::object::const_pointer src,
-		const image::object::dim_type&);
+		renderer::const_image_view const &src);
 private:
 	library lib_;
 };

@@ -44,5 +44,5 @@ sge::sprite::animation_entity::tex() const
 const sge::renderer::texture::dim_type
 sge::sprite::animation_entity::dim() const
 {
-	return tex_->area().size();
+	return tex_->area().dim();
 }
