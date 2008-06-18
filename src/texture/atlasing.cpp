@@ -95,8 +95,10 @@ sge::texture::atlased_texture(
 	const renderer::device_ptr rend,
 	const renderer::filter_args& filter)
 {
-	// FIXME:
-	//return rend->create_texture(0, atlased_texture_dim(rend), filter);
+	return rend->create_texture(
+		atlased_texture_dim(rend),
+		renderer::color_format::rgba8,
+		filter);
 }
 
 const sge::renderer::lock_rect

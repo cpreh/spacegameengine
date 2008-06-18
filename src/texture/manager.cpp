@@ -52,7 +52,8 @@ sge::texture::manager::init_texture(
 {
 	const part_ptr p = tex.consume_fragment(
 		renderer::gil_dim_to_sge(src.dimensions()));
-	p->data(src);
+	if(p)
+		p->data(src);
 	return p;
 }
 

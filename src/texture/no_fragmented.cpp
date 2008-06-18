@@ -41,8 +41,10 @@ sge::texture::no_fragmented::consume_fragment(
 
 	const renderer::texture::dim_type real_dim(atlased_bounds(dim));
 
-	// FIXME: boost::gil!
-   	//tex = rend->create_texture(0, real_dim, my_filter);
+	tex = rend->create_texture(
+		real_dim,
+		renderer::color_format::rgba8,
+		my_filter);
 
 	if(real_dim != dim)
 		sge::cerr << SGE_TEXT("warning: You used a texture::no_fragmented whose dimensions are not a power of 2.")\

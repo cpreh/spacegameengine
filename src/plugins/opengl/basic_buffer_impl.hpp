@@ -71,7 +71,7 @@ void sge::ogl::basic_buffer<Base, Type, Impl>::lock(
 	if(dest)
 		throw exception(SGE_TEXT("ogl_buffer::lock(): you have to unlock before locking!"));
 
-	if(first > size())
+	if(first >= size())
 		throw exception(SGE_TEXT("ogl_buffer::lock(): first out of range!"));
 
 	if(count == npos)
@@ -100,6 +100,21 @@ void sge::ogl::basic_buffer<Base, Type, Impl>::unlock()
 	Impl().unmap_buffer(Type());
 	dest = 0;
 	lock_offset = lock_size_ = 0;
+}
+
+
+template<
+	typename Base,
+	GLenum (*Type)(),
+	sge::ogl::vbo_base& (*Impl)()>
+void sge::ogl::basic_buffer<Base, Type, Impl>::data(
+	const_pointer const src,
+	size_type const stride,
+	size_type const size_)
+{
+	sz = size_;
+	stride_ = stride;
+	allocate_buffer(src);
 }
 
 template<

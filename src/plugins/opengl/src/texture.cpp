@@ -48,7 +48,19 @@ sge::ogl::texture::texture(
  : detail::texture_base(filter_, flags, texture_type),
    dim_(renderer::gil_dim_to_sge(src.dimensions()))
 {
-	data(src);
+	data_internal(src);
+}
+
+sge::ogl::texture::texture(
+	dim_type const &d,
+	renderer::color_format::type const format_,
+	renderer::filter_args const &filter,
+	resource_flag_type const flags)
+: detail::texture_base(filter, flags, texture_type),
+  dim_(d)
+{
+	format_internal(format_);
+	set_texture(0);	
 }
 
 const sge::ogl::texture::dim_type
@@ -87,15 +99,14 @@ void sge::ogl::texture::data(
 void sge::ogl::texture::data_internal(
 	renderer::const_image_view const &src)
 {
-	pre_setdata();
 	internal_parameters(src);
-
 	set_texture(0);
 	
 	const renderer::scoped_lock<sge::ogl::texture*> lock_(
 		renderer::make_scoped_lock(
 			this,
 			renderer::lock_flags::writeonly));
+
 	boost::gil::copy_and_convert_pixels(
 		src,
 		boost::gil::interleaved_view(

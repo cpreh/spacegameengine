@@ -18,41 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_VIEW_OPERATIONS_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_VIEW_OPERATIONS_HPP_INCLUDED
-
-#include "index_view.hpp"
-#include <boost/variant/static_visitor.hpp>
+#ifndef SGE_RENDERER_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_COLOR_FORMAT_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
 
-struct index_view_size
-: boost::static_visitor<index_size> {
-	typedef index_size size_type;
+namespace color_format
+{
 
-	template<typename T>
-	size_type operator()(T const &) const;
+enum type {
+	argb8,
+	rgba8
 };
 
-struct index_view_stride
-: boost::static_visitor<index_size> {
-	typedef index_size size_type;
+}
 
-	template<typename T>
-	size_type operator()(T const &) const;
-};
-
-// TODO: what to do with non const visitors?
-struct index_view_data
-: boost::static_visitor<unsigned char const*> {
-	typedef index_size size_type;
-
-	template<typename T>
-	unsigned char const *operator()(T const &) const;
-};
 
 }
 }

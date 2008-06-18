@@ -117,9 +117,16 @@ public:
 
 	const renderer::texture_ptr
 	create_texture(
-		renderer::const_image_view const&,
+		renderer::const_image_view const &,
 		const renderer::filter_args& filter,
 		renderer::texture::resource_flag_type flags);
+
+	const renderer::texture_ptr
+	create_texture(
+		renderer::texture::dim_type const &,
+		renderer::color_format::type,
+		renderer::filter_args const &,
+		renderer::texture::resource_flag_type);
 
 	const renderer::volume_texture_ptr
 	create_volume_texture(

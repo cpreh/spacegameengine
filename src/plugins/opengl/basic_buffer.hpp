@@ -52,12 +52,12 @@ public:
 		const_pointer src);
 	~basic_buffer();
 
-	void lock(
-		lock_flag_type lockflags);
+	using Base::npos;
+
 	void lock(
 		lock_flag_type lock_flags,
-		size_type first,
-		size_type count);
+		size_type first = 0,
+		size_type count = npos);
 	void unlock();
 	void data(
 		const_pointer,
@@ -87,8 +87,6 @@ public:
 	
 	pointer buffer_offset(size_type offset) const;
 private:
-	using Base::npos;
-
 	void bind(GLuint id) const;
 	void check_lock() const;
 	void allocate_buffer(const_pointer src);

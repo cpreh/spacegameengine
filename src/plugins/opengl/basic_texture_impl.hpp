@@ -118,6 +118,7 @@ void sge::ogl::basic_texture<Base>::pre_unlock()
 		assert(unpack_buffer);
 
 		unpack_buffer->lock(lock_mode());
+		// FIXME
 		//std::copy(pack_buffer->begin(), pack_buffer->end(), unpack_buffer->data());
 		pack_buffer->unlock();
 		pack_buffer.reset();
@@ -189,9 +190,17 @@ void sge::ogl::basic_texture<Base>::internal_parameters(
 	renderer::const_image_view const &src)
 {
 	// TODO: set stride, format and format_type
+	format_internal(renderer::color_format::rgba8);
+}
+
+template<typename Base>
+void sge::ogl::basic_texture<Base>::format_internal(
+	renderer::color_format::type const fmt)
+{
+	// FIXME
 	format_ = GL_RGBA;
 	format_type_ = GL_UNSIGNED_BYTE;
-	stride_ = 4;
+	stride_ = 4; // FIXME
 }
 
 template<typename Base>

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_base.hpp"
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/image_view.hpp>
+#include <sge/renderer/color_format.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace sge
@@ -68,6 +69,8 @@ protected:
 
 	void internal_parameters(
 		renderer::const_image_view const &src);
+	void format_internal(
+		renderer::color_format::type);
 	GLenum format() const;
 	GLenum format_type() const;
 

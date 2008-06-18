@@ -69,5 +69,6 @@ sge::ogl::vbo_base& sge::ogl::pbo_impl()
 
 bool sge::ogl::pbo_in_hardware()
 {
-	return GLEW_VERSION_2_1 || GLEW_ARB_pixel_buffer_object;
+//	return GLEW_VERSION_2_1 || GLEW_ARB_pixel_buffer_object;
+	return false; // FIXME
 }

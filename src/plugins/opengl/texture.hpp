@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_texture.hpp"
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/image.hpp>
+#include <sge/renderer/color_format.hpp>
 #include <boost/optional.hpp>
 
 namespace sge
@@ -41,6 +42,11 @@ class texture : public detail::texture_base {
 public:
 	texture(
 		renderer::const_image_view const &src,
+		renderer::filter_args const &filter,
+		resource_flag_type flags);
+	texture(
+		dim_type const &,
+		renderer::color_format::type format,
 		renderer::filter_args const &filter,
 		resource_flag_type flags);
 	const dim_type dim() const;

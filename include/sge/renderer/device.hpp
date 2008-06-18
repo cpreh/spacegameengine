@@ -38,7 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "primitive.hpp"
 #include "caps.hpp"
 #include "states.hpp"
-#include "image.hpp"
+#include "image_view.hpp"
+#include "color_format.hpp"
 
 namespace sge
 {
@@ -155,6 +156,12 @@ public:
 
 	virtual const texture_ptr create_texture(
 		const_image_view const &,
+		filter_args const &filter,
+		resource_flag_t flags = resource_flags::default_) = 0;
+
+	virtual const texture_ptr create_texture(
+		texture::dim_type const &dim,
+		color_format::type format,
 		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 

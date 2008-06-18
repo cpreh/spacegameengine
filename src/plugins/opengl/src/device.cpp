@@ -251,6 +251,21 @@ sge::ogl::device::create_texture(
 			flags));
 }
 
+sge::renderer::texture_ptr const
+sge::ogl::device::create_texture(
+	renderer::texture::dim_type const &dim,
+	renderer::color_format::type const format,
+	renderer::filter_args const &filter,
+	renderer::texture::resource_flag_type const flags)
+{
+	return renderer::texture_ptr(
+		new texture(
+			dim,
+			format,
+			filter,
+			flags));
+}
+
 const sge::renderer::vertex_buffer_ptr
 sge::ogl::device::create_vertex_buffer(
 	renderer::const_vertex_view const &src,
