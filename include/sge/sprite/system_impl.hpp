@@ -50,14 +50,18 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 			renderer::make_scoped_lock(ib, renderer::lock_flags::writeonly));
 		const renderer::scoped_lock<renderer::vertex_buffer_ptr> vblock(
 			renderer::make_scoped_lock(vb, renderer::lock_flags::writeonly));
-		renderer::index_buffer::iterator ib_it = ib->begin();
-		renderer::vertex_buffer::iterator vb_it = vb->begin();
+
+		index_view const indices(boost::get<index_view>(ib->view()));
+		renderer::vertex_view const vertices(vb->view());
+
+		index_view::iterator ib_it = indices.begin();
+		renderer::vertex_view::iterator vb_it = vertices.begin();
 
 		for(RanIt cur = beg; cur != end; ++cur)
 		{
 			object& spr = *cur;
 			
-			ib_it = fill_indices(ib_it, static_cast<renderer::index_buffer::value_type>(vb_it - vb->begin()));
+			ib_it = fill_indices(ib_it, static_cast<index_view::value_type>(vb_it - vertices.begin()));
 
 			if(math::almost_zero(spr.rotation()))
 				fill_position(vb_it, spr.get_rect(), spr.z());

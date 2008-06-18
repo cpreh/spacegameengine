@@ -111,10 +111,10 @@ sge::sprite::fill_color(
 	return it;
 }
 
-sge::renderer::index_buffer::iterator
+sge::sprite::index_view::iterator
 sge::sprite::fill_indices(
-	renderer::index_buffer::iterator it,
-	const renderer::index_buffer::value_type start)
+	index_view::iterator it,
+	const index_view::value_type start)
 {
 	(*it++) = start + 0;
 	(*it++) = start + 1;

@@ -14,4 +14,5 @@
 *medium: add a better constructor for sge::sprite like boost::parameter would
 *medium: add a decent logging system
 *medium: add a convenient method for the main loop probably with boost::channel
+*medium: add custom vertex elements
 *high: add a color system that allows arbitrary color formats to be used and has a nicer handling (maybe with boost::gil)

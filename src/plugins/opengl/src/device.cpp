@@ -222,11 +222,10 @@ void sge::ogl::device::begin_rendering()
 
 const sge::renderer::index_buffer_ptr
 sge::ogl::device::create_index_buffer(
-	const renderer::index_buffer::size_type size,
-	const renderer::index_buffer::resource_flag_type flags,
-	const renderer::index_buffer::const_pointer data)
+	renderer::const_dynamic_index_view const &view,
+	const renderer::index_buffer::resource_flag_type flags)
 {
-	return renderer::index_buffer_ptr(new index_buffer(size, flags, data));
+//	return renderer::index_buffer_ptr(new index_buffer(size, flags, data));
 }
 
 const sge::ogl::fbo_target_ptr
@@ -242,17 +241,15 @@ sge::ogl::device::create_texture(
 	const renderer::filter_args& filter,
 	const renderer::texture::resource_flag_type flags)
 {
-	return renderer::texture_ptr(new texture(src, filter, flags));
+	//return renderer::texture_ptr(new texture(src, filter, flags));
 }
 
 const sge::renderer::vertex_buffer_ptr
 sge::ogl::device::create_vertex_buffer(
-	const renderer::vertex_format& format,
-	const renderer::vertex_buffer::size_type size,
-	const renderer::vertex_buffer::resource_flag_type flags,
-	const renderer::vertex_buffer::const_pointer src)
+	renderer::const_vertex_view const &src,
+	const renderer::vertex_buffer::resource_flag_type flags)
 {
-	return renderer::vertex_buffer_ptr(new vertex_buffer(size, format, flags, src));
+//	return renderer::vertex_buffer_ptr(new vertex_buffer(size, format, flags, src));
 }
 
 const sge::renderer::volume_texture_ptr
@@ -261,7 +258,7 @@ sge::ogl::device::create_volume_texture(
 	const renderer::filter_args& filter,
 	const renderer::volume_texture::resource_flag_type flags)
 {
-	return renderer::volume_texture_ptr(new volume_texture(src, filter, flags));
+	//return renderer::volume_texture_ptr(new volume_texture(src, filter, flags));
 }
 
 const sge::renderer::cube_texture_ptr
@@ -270,7 +267,7 @@ sge::ogl::device::create_cube_texture(
 	const renderer::filter_args& filter,
 	const renderer::cube_texture::resource_flag_type flags)
 {
-	return renderer::cube_texture_ptr(new cube_texture(src, filter, flags));
+	//return renderer::cube_texture_ptr(new cube_texture(src, filter, flags));
 }
 
 void sge::ogl::device::end_rendering()
@@ -323,12 +320,12 @@ void sge::ogl::device::render(
 
 	const index_buffer& gl_ib = dynamic_cast<const index_buffer&>(*ib);
 
-	glDrawElements(
+	/*glDrawElements(
 		prim_type,
 		static_cast<GLsizei>(renderer::indices_per_primitive(ptype) * pcount),
 		GL_UNSIGNED_INT,
 		gl_ib.buffer_offset(
-			first_index * sizeof(renderer::index_buffer::value_type)));
+			first_index * sizeof(renderer::index_buffer::value_type)));*/
 }
 
 void sge::ogl::device::render(

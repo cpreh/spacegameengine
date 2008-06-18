@@ -34,22 +34,30 @@ namespace renderer
 namespace vb_detail
 {
 
-template<bool IsConst, typename T> struct return_type {
+template<bool IsConst, typename T>
+struct return_type {
 private:
 	typedef typename boost::mpl::if_c<IsConst, typename boost::add_const<T>::type, T>::type cv_type;
 public:
 	typedef typename boost::add_reference<cv_type>::type type;
 };
 
-template<bool IsConst> class vertex_impl {
+template<bool IsConst>
+class vertex_impl {
 public:
 	typedef unsigned char      value_type;
 	typedef vertex_difference  difference_type;
 	typedef vertex_size        size_type;
-	typedef typename boost::mpl::if_c<IsConst, typename boost::add_const<value_type>::type, value_type>::type* pointer;
+	typedef typename boost::mpl::if_c<
+		IsConst,
+		typename boost::add_const<
+			value_type>::type,
+		value_type>::type *pointer;
 
 	template<vertex_usage::type U>
-		typename return_type<IsConst, typename vertex_traits<U>::packed_type>::type
+		typename return_type<
+			IsConst,
+			typename vertex_traits<U>::packed_type>::type
 	element(const vertex_size index = 0) const
 	{
 		typedef typename return_type<IsConst, typename vertex_traits<U>::packed_type>::type type_to_cast;
@@ -76,16 +84,22 @@ public:
 		return element<vertex_usage::diffuse>();
 	}
 
-	vertex_impl(const pointer data, const size_type stride, const offset_info& oi)
-	 : data(data), stride(stride), oi(oi) {}
+	vertex_impl(
+		const pointer data,
+		const size_type stride,
+		const offset_info& oi)
+	 : data(data),
+	   stride(stride),
+	   oi(oi)
+	{}
 
 	template<bool OtherConst>
-	explicit vertex_impl(const vertex_impl<OtherConst>& o)
+	explicit vertex_impl(vertex_impl<OtherConst> const& o)
 	 : data(o.data), stride(o.stride), oi(o.oi) {}
 private:
 	pointer data;
 	size_type stride;
-	const offset_info& oi;
+	offset_info const &oi;
 };
 
 }

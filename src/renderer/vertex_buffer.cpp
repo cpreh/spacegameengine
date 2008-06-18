@@ -20,47 +20,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vertex_buffer.hpp>
 
-// FIXME: do this with fragments, too
-
-sge::renderer::vertex_buffer::iterator sge::renderer::vertex_buffer::end()
-{
-	return begin() + size();
-}
-
-sge::renderer::vertex_buffer::const_iterator sge::renderer::vertex_buffer::end() const
-{
-	return begin() + size();
-}
-
-sge::renderer::vertex_buffer::reverse_iterator sge::renderer::vertex_buffer::rbegin()
-{
-	return reverse_iterator(end());
-}
-
-sge::renderer::vertex_buffer::const_reverse_iterator sge::renderer::vertex_buffer::rbegin() const
-{
-	return const_reverse_iterator(end());
-}
-
-sge::renderer::vertex_buffer::reverse_iterator sge::renderer::vertex_buffer::rend()
-{
-	return reverse_iterator(begin());
-}
-
-sge::renderer::vertex_buffer::const_reverse_iterator sge::renderer::vertex_buffer::rend() const
-{
-	return const_reverse_iterator(begin());
-}
-
-sge::renderer::vertex_buffer::reference sge::renderer::vertex_buffer::operator[](const size_type i)
-{
-	return *(begin() + i);
-}
-
-sge::renderer::vertex_buffer::const_reference sge::renderer::vertex_buffer::operator[](const size_type i) const
-{
-	return *(begin() + i);
-}
-	
 sge::renderer::vertex_buffer::~vertex_buffer()
 {}

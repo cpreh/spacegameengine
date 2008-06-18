@@ -18,54 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_HPP_INCLUDED
+#ifndef SGE_RENDERER_VERTEX_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_VERTEX_VIEW_HPP_INCLUDED
 
-#include "../typeswitch.hpp"
-#include <boost/variant.hpp>
-#include <cstddef>
+#include "vertex.hpp"
+#include "vertex_iterator.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-template<typename Index>
-class index_view {
+class vertex_format;
+
+class vertex_view {
 public:
-	typedef std::size_t size_type;
-	typedef Index value_type;
-	typedef value_type *pointer;
-	typedef pointer iterator;
+	typedef vertex_size size_type;
+	typedef vertex::pointer pointer;
+	typedef vb_detail::iterator iterator;
 
-	index_view(
-		pointer,
-		size_type);
-
-	pointer data() const;
-	size_type size();
+	vertex_view(
+		pointer data,
+		size_type size,
+		vertex_format const &);
 
 	iterator begin() const;
 	iterator end() const;
+	size_type size() const;
 private:
-	pointer data_;
+	pointer   raw_data;
 	size_type size_;
 };
 
-typedef index_view<uint16> index_view_16;
-typedef index_view<uint16 const> const_index_view_16;
-typedef index_view<uint32> index_view_32;
-typedef index_view<uint32 const> const_index_view_32;
-
-typedef boost::variant<
-	index_view_16,
-	index_view_32
-> dynamic_index_view;
-
-typedef boost::variant<
-	const_index_view_16,
-	const_index_view_32
-> const_dynamic_index_view;
+typedef vertex_view const_vertex_view; // FIXME
 
 }
 }

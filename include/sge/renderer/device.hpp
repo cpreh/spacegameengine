@@ -154,30 +154,27 @@ public:
 	virtual const target_ptr get_target() const = 0;
 
 	virtual const texture_ptr create_texture(
-		image const&,
+		image const &,
 		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const volume_texture_ptr create_volume_texture(
-		volume_texture::image_view_array const&,
+		volume_texture::image_view_array const &,
 		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const cube_texture_ptr create_cube_texture(
-		cube_texture::image_view_6 const&,
-		filter_args const&filter,
+		cube_texture::image_view_6 const &,
+		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const vertex_buffer_ptr create_vertex_buffer(
-		const vertex_format& format,
-		vertex_buffer::size_type size,
-		resource_flag_t flags = resource_flags::default_,
-		vertex_buffer::const_pointer data = 0) = 0;
+		const_vertex_view const &,
+		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const index_buffer_ptr create_index_buffer(
-		index_buffer::size_type size,
-		resource_flag_t flags = resource_flags::default_,
-		index_buffer::const_pointer data = 0) = 0;
+		const_dynamic_index_view const &,
+		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const caps& get_caps() const = 0;
 	virtual const screen_size_t screen_size() const = 0;

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3.hpp>
+/*#include <sge/model/md3.hpp>
 #include <sge/math/constants.hpp>
 #include <sge/exception.hpp>
 #include <sge/istream_util.hpp>
@@ -262,4 +262,4 @@ sge::md3_model::surface::transformed_vertex::transformed_vertex(const vertex& v)
       static_cast<space_unit>(v.y) * MD3_XYZ_SCALE,
       static_cast<space_unit>(v.z) * MD3_XYZ_SCALE),
   normal(convert_normal(v.normal))
-{}
+{}*/

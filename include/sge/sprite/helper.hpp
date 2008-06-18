@@ -24,13 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "types.hpp"
 #include "../export.hpp"
 #include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
+#include "../renderer/index.hpp"
 #include "../math/rect.hpp"
 
 namespace sge
 {
 namespace sprite
 {
+
+typedef renderer::index_view_16 index_view;
 
 SGE_SYMBOL renderer::vertex_buffer::iterator
 fill_position(
@@ -63,10 +65,10 @@ fill_color(
 	renderer::vertex_buffer::iterator it,
 	color col);
 
-SGE_SYMBOL renderer::index_buffer::iterator
+SGE_SYMBOL index_view::iterator
 fill_indices(
-	renderer::index_buffer::iterator it,
-	renderer::index_buffer::value_type start);
+	index_view::iterator it,
+	index_view::value_type start);
 
 }
 }

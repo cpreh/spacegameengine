@@ -20,47 +20,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index_buffer.hpp>
 
-// FIXME: do this with fragments
-
-sge::renderer::index_buffer::iterator sge::renderer::index_buffer::end()
-{
-	return begin() + size();
-}
-
-sge::renderer::index_buffer::const_iterator sge::renderer::index_buffer::end() const
-{
-	return begin() + size();
-}
-
-sge::renderer::index_buffer::reverse_iterator sge::renderer::index_buffer::rbegin()
-{
-	return reverse_iterator(end());
-}
-
-sge::renderer::index_buffer::const_reverse_iterator sge::renderer::index_buffer::rbegin() const
-{
-	return const_reverse_iterator(end());
-}
-
-sge::renderer::index_buffer::reverse_iterator sge::renderer::index_buffer::rend()
-{
-	return reverse_iterator(begin());
-}
-
-sge::renderer::index_buffer::const_reverse_iterator sge::renderer::index_buffer::rend() const
-{
-	return const_reverse_iterator(begin());
-}
-
-sge::renderer::index_buffer::reference sge::renderer::index_buffer::operator[](const size_type i)
-{
-	return *(begin() + i);
-}
-
-sge::renderer::index_buffer::const_reference sge::renderer::index_buffer::operator[](const size_type i) const
-{
-	return *(begin() + i);
-}
-	
 sge::renderer::index_buffer::~index_buffer()
 {}

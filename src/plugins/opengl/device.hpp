@@ -135,16 +135,13 @@ public:
 
 	const renderer::vertex_buffer_ptr
 	create_vertex_buffer(
-		const renderer::vertex_format& format,
-		renderer::vertex_buffer::size_type size,
-		renderer::vertex_buffer::resource_flag_type flags,
-		renderer::vertex_buffer::const_pointer data);
+		renderer::const_vertex_view const &,
+		renderer::vertex_buffer::resource_flag_type flags);
 
 	const renderer::index_buffer_ptr
 	create_index_buffer(
-		renderer::index_buffer::size_type size,
-		renderer::index_buffer::resource_flag_type flags,
-		renderer::index_buffer::const_pointer data);
+		renderer::const_dynamic_index_view const &,
+		renderer::index_buffer::resource_flag_type flags);
 
 	const renderer::caps& get_caps() const;
 	const renderer::screen_size_t screen_size() const;
