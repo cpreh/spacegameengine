@@ -42,20 +42,21 @@ public:
 	volume_texture(
 		image_view_array const &,
 		const renderer::filter_args& filter,
-		resource_flag_type flags);
-
-	const box_type box() const;
+		resource_flag_type flags); 
+	box_type const box() const;
 
 	void data(
 		image_view_array const&);
-	void sub_data(
+	void do_sub_data(
 		image_view_array const&,
 		const renderer::lock_box& b);
 
-	const image_view_array data() const;
+	void lock(
+		lock_flag_type);
+	void lock(
+		renderer::lock_box const &,
+		lock_flag_type);
 
-	void lock();
-	void lock(renderer::lock_box const &);
 	void unlock();
 private:
 	const box_type box_;

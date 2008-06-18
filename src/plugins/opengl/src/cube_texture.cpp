@@ -53,7 +53,8 @@ sge::ogl::cube_texture::cube_texture(
 	//	renderer::cube_texture::set_data(*src);
 }
 
-sge::ogl::cube_texture::size_type sge::ogl::cube_texture::border_size() const
+sge::ogl::cube_texture::size_type
+sge::ogl::cube_texture::border_size() const
 {
 	return sz;
 }
@@ -90,10 +91,34 @@ void sge::ogl::cube_texture::data(
 		src);*/
 }
 
-/*void sge::ogl::cube_texture::lock(const cube_side::type side, const lock_flag_t lmode)
+void sge::ogl::cube_texture::lock(
+	renderer::cube_side::type const side,
+	lock_flag_type const lmode)
 {
 	
-}*/
+}
+
+void sge::ogl::cube_texture::lock(
+	renderer::cube_side::type const side,
+	renderer::lock_rect const &src,
+	lock_flag_type const flags)
+{
+
+}
+
+void sge::ogl::cube_texture::unlock()
+{
+}
+
+sge::renderer::image_view const
+sge::ogl::cube_texture::view()
+{
+}
+
+sge::renderer::const_image_view const
+sge::ogl::cube_texture::view() const
+{
+}
 
 GLenum sge::ogl::convert_cast(const renderer::cube_side::type& s)
 {

@@ -29,6 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 #include <sge/iconv.hpp>
+#include <sge/raw_vector_impl.hpp>
+#include <sge/renderer/color.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <boost/gil/image_view_factory.hpp>
 
 sge::devil::object::object(const path& file)
 {
@@ -79,13 +84,23 @@ void sge::devil::object::data(
 	renderer::const_image_view const &src)
 {
 	bind_me();
-	/*ilTexImage(static_cast<ILuint>(dim_.w()),
-	           static_cast<ILuint>(dim_.h()),
-	           1,
-	           4,
-	           IL_RGBA,
-	           IL_UNSIGNED_BYTE,
-	           const_cast<pointer>(p));*/
+	raw_vector<unsigned char> v(src.width() * src.height() * 4); // FIXME
+	boost::gil::copy_and_convert_pixels(
+		src,
+		boost::gil::interleaved_view(
+			src.width(),
+			src.height(),
+			reinterpret_cast<renderer::rgba8_pixel*>(v.data()),
+			src.width() * 4));
+
+	ilTexImage(
+		static_cast<ILuint>(src.width()),
+		static_cast<ILuint>(src.height()),
+		1,
+		4,
+		IL_RGBA,
+		IL_UNSIGNED_BYTE,
+		const_cast<pointer>(v.data()));
 	check_errors();
 }
 
@@ -93,7 +108,14 @@ sge::renderer::const_image_view const
 sge::devil::object::view() const
 {
 	bind_me();
-	//return reinterpret_cast<const_pointer>(ilGetData());
+	return renderer::const_image_view(
+		boost::gil::interleaved_view(
+			dim().w(),
+			dim().h(),
+			reinterpret_cast<renderer::rgba8_pixel const *>(
+				ilGetData()),
+			dim().w() * 4 // FIXME
+			));
 }
 
 void sge::devil::object::resample(

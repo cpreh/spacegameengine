@@ -41,25 +41,29 @@ GLenum gl_volume_texture_type;
 
 template class sge::ogl::basic_texture<sge::renderer::volume_texture>;
 
-/*sge::ogl::volume_texture::volume_texture(
-	const const_pointer src,
-	const box_type& box_,
-	const renderer::filter_args& filter,
-	const resource_flag_type flags)
- : detail::volume_texture_base(filter, flags, volume_texture_type()),
+sge::ogl::volume_texture::volume_texture(
+	image_view_array const &src,
+	renderer::filter_args const &filter,
+	resource_flag_type const flags)
+ : detail::volume_texture_base(
+ 	filter,
+	flags,
+	volume_texture_type()),
    box_(box_)
 {
-	set_data(src);
+	//set_data(src);
 }
 
-const sge::ogl::volume_texture::box_type sge::ogl::volume_texture::box() const
+sge::ogl::volume_texture::box_type const
+sge::ogl::volume_texture::box() const
 {
 	return box_;
 }
 
-void sge::ogl::volume_texture::set_data(const const_pointer src)
+void sge::ogl::volume_texture::data(
+	image_view_array const &src)
 {
-	pre_setdata();
+/*	pre_setdata();
 	const GLenum format = GL_RGBA, type = GL_UNSIGNED_BYTE;
 
 	SGE_OPENGL_SENTRY
@@ -78,12 +82,14 @@ void sge::ogl::volume_texture::set_data(const const_pointer src)
 	        	src);
 	else if(volume_texture_type() == GL_TEXTURE_3D_EXT) // avoid possible double case
 	{}
-		// TODO:
+		// TODO:*/
 }
 
-void sge::ogl::volume_texture::set_data(const const_pointer src, const renderer::lock_box& b)
+void sge::ogl::volume_texture::do_sub_data(
+	image_view_array const &src,
+	renderer::lock_box const &b)
 {
-	if(volume_texture_type() == GL_EXT_texture3D)
+/*	if(volume_texture_type() == GL_EXT_texture3D)
 		throw exception(
 			SGE_TEXT("GL_EXT_texture3d can't set sub images!"));
 	
@@ -103,8 +109,23 @@ void sge::ogl::volume_texture::set_data(const const_pointer src, const renderer:
 		static_cast<GLsizei>(b.d()),
 		format,
 		type,
-		src);
-}*/
+		src);*/
+}
+
+void sge::ogl::volume_texture::lock(
+	lock_flag_type const flags)
+{
+}
+
+void sge::ogl::volume_texture::lock(
+	renderer::lock_box const &b,
+	lock_flag_type const flags)
+{
+}
+
+void sge::ogl::volume_texture::unlock()
+{
+}
 
 namespace
 {

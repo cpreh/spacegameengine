@@ -39,7 +39,7 @@ public:
 	void sub_data(const_image_view const &, lock_rect const &dest);
 	virtual void data(const_image_view const &) = 0;
 	virtual void lock(lock_flag_t) = 0;
-	virtual void lock(lock_rect const &, lock_flag_t);
+	virtual void lock(lock_rect const &, lock_flag_t) = 0;
 	virtual void unlock() = 0;
 
 	size_type size() const;

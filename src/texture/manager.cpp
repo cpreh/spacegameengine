@@ -32,7 +32,7 @@ sge::texture::manager::manager(
 
 const sge::texture::part_ptr
 sge::texture::manager::add(
-	renderer::image_view const &src)
+	renderer::const_image_view const &src)
 {
 	BOOST_FOREACH(fragmented& tex, fragmented_textures)
 		if(const part_ptr p = init_texture(tex, src))
@@ -48,14 +48,12 @@ sge::texture::manager::add(
 const sge::texture::part_ptr
 sge::texture::manager::init_texture(
 	fragmented& tex,
-	renderer::image_view const &src) const
+	renderer::const_image_view const &src) const
 {
-	// FIXME
-/*	const part_ptr p = tex.consume_fragment(
+	const part_ptr p = tex.consume_fragment(
 		renderer::gil_dim_to_sge(src.dimensions()));
-	if(p)
-		p->data(src);
-	return p;*/
+	p->data(src);
+	return p;
 }
 
 const sge::texture::part_ptr

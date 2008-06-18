@@ -40,8 +40,6 @@ class basic_texture : public Base, public texture_base {
 public:
 	typedef typename Base::size_type size_type;
 	typedef typename Base::difference_type difference_type;
-	/*typedef typename Base::pointer pointer;
-	typedef typename Base::const_pointer const_pointer;*/
 	typedef pixel_pack_buffer::pointer pointer;
 	typedef pixel_pack_buffer::const_pointer const_pointer;
 	typedef typename Base::resource_flag_type resource_flag_type;
@@ -54,7 +52,8 @@ protected:
 	
 	void do_lock(
 		lock_flag_type flags,
-		size_type size);
+		size_type size,
+		size_type offset);
 	void post_lock();
 	void pre_unlock();
 	void do_unlock();
@@ -89,7 +88,8 @@ private:
 
 	GLenum                                 format_,
 	                                       format_type_;
-	size_type                              stride_;
+	size_type                              stride_,
+	                                       lock_offset_;
 	lock_flag_type                         lock_mode_;
 	boost::scoped_ptr<pixel_pack_buffer>   pack_buffer;
 	boost::scoped_ptr<pixel_unpack_buffer> unpack_buffer;

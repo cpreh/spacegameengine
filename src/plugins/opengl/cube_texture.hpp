@@ -50,9 +50,18 @@ public:
 		renderer::cube_side::type side,
 		renderer::image_view const &,
 		renderer::lock_rect const &);
+	void lock(
+		renderer::cube_side::type side,
+		lock_flag_type flags);
+	void lock(
+		renderer::cube_side::type side,
+		renderer::lock_rect const &,
+		lock_flag_type flags);
 	void unlock();
+	
+	renderer::image_view const view();
+	renderer::const_image_view const view() const;
 	size_type border_size() const;
-	const renderer::image_view data();
 private:
 	size_type sz;
 };

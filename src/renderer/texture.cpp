@@ -29,6 +29,12 @@ void sge::renderer::texture::sub_data(
 		dest);
 }
 
+sge::renderer::texture::size_type
+sge::renderer::texture::size() const
+{
+	return dim().size();
+}
+
 const sge::renderer::texture::dim_type
 sge::renderer::gil_dim_to_sge(image_view::point_t const &d)
 {

@@ -61,13 +61,15 @@ const sge::renderer::filter_args& sge::ogl::basic_texture<Base>::filter() const
 
 template<typename Base>
 void sge::ogl::basic_texture<Base>::do_lock(
-	const lock_flag_type lmode,
-	const size_type lock_size)
+	lock_flag_type const lmode,
+	size_type const lock_size,
+	size_type const offset)
 {
 	if(cur_buffer)
 		throw exception(SGE_TEXT("ogl::basic_texture::do_lock(): texture is already locked!"));
 
 	lock_mode_ = lmode;
+	lock_offset_ = offset;
 
 	// if we want to read and write
 	// we set cur_buffer to the read_buffer
@@ -154,6 +156,7 @@ sge::ogl::basic_texture<Base>::read_buffer() const
 {
 	if(!pack_buffer)
 		throw exception(SGE_TEXT("pack_buffer not set in basic_texture::read_buffer()!"));
+	// the read buffer doesn't get an offset because we have to load whole textures anyway
 	return pack_buffer->buffer_offset(0);
 }
 
@@ -164,7 +167,7 @@ sge::ogl::basic_texture<Base>::write_buffer() const
 	if(!unpack_buffer)
 		throw exception(SGE_TEXT("unpack_buffer not set in basic_texture::write_buffer()!"));
 
-	return unpack_buffer->buffer_offset(0);
+	return unpack_buffer->buffer_offset(lock_offset_ * stride());
 }
 
 template<typename Base>

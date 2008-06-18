@@ -42,14 +42,25 @@ public:
 	typedef math::basic_dim<size_type, 3> box_type;
 
 	virtual const box_type box() const = 0;
-	virtual void data(image_view_array const &) = 0;
-	virtual void sub_data(image_view_array const &, lock_box const &) = 0;
-	virtual void lock(lock_flag_t) = 0;
-	virtual void lock(lock_box const&, lock_flag_t);
+	virtual void data(
+		image_view_array const &) = 0;
+	/*void sub_data(
+		image_view_array const &,
+		lock_box const &);*/
+	virtual void lock(
+		lock_flag_type) = 0;
+	virtual void lock(
+		lock_box const &,
+		lock_flag_type) = 0;
 	virtual void unlock() = 0;
 
 	size_type size() const;
+
 	//virtual image_view_array const &data() = 0;
+private:
+	virtual void do_sub_data(
+		image_view_array const &,
+		lock_box const &) = 0;
 };
 
 typedef shared_ptr<volume_texture> volume_texture_ptr;

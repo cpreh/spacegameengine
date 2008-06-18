@@ -26,6 +26,6 @@ sge::texture::add(
 	manager& man,
 	const image::object_ptr img)
 {
-//	return man.add(
-//		img->data(), img->dim()); //FIXME
+	return man.add(
+		img->view());
 }

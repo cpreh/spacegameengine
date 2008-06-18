@@ -91,7 +91,7 @@ private:
 
 	void bind(GLuint id) const;
 	void check_lock() const;
-	void set_size(const_pointer src);
+	void allocate_buffer(const_pointer src);
 
 	size_type          sz,
 	                   stride_;

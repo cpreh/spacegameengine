@@ -44,7 +44,7 @@ sge::ogl::basic_buffer<Base, Type, Impl>::basic_buffer(
    lock_offset(0),
    lock_size_(0)
 {
-	set_size(src);
+	allocate_buffer(src);
 }
 
 template<
@@ -127,10 +127,33 @@ template<
 	typename Base,
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
+void sge::ogl::basic_buffer<Base, Type, Impl>::resize(
+	size_type const nsz)
+{
+	resize(
+		nsz,
+		stride(),
+		0); // TODO: maybe copy the old data over?
+}
+
+template<
+	typename Base,
+	GLenum (*Type)(),
+	sge::ogl::vbo_base& (*Impl)()>
 typename sge::ogl::basic_buffer<Base, Type, Impl>::size_type
 sge::ogl::basic_buffer<Base, Type, Impl>::size() const
 {
 	return sz;
+}
+
+template<
+	typename Base,
+	GLenum (*Type)(),
+	sge::ogl::vbo_base& (*Impl)()>
+typename sge::ogl::basic_buffer<Base, Type, Impl>::size_type
+sge::ogl::basic_buffer<Base, Type, Impl>::stride() const
+{
+	return stride_;
 }
 
 template<
@@ -156,7 +179,7 @@ void sge::ogl::basic_buffer<Base, Type, Impl>::resize(
 		throw exception(SGE_TEXT("ogl_buffer::resize(), buffer must be unlocked!"));
 	stride_ = newstride;
 	sz = newsize;
-	set_size(src);
+	allocate_buffer(src);
 }
 
 template<
@@ -247,7 +270,7 @@ template<
 	typename Base,
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
-void sge::ogl::basic_buffer<Base, Type, Impl>::set_size(
+void sge::ogl::basic_buffer<Base, Type, Impl>::allocate_buffer(
 	const const_pointer src)
 {
 	const GLuint glflags = convert_resource_flags(flags());

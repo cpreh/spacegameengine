@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <boost/gil/image_view_factory.hpp>
 
 template class sge::ogl::basic_texture<sge::renderer::texture>;
 
@@ -105,11 +106,12 @@ void sge::ogl::texture::data_internal(
 }
 
 void sge::ogl::texture::lock(
-	const lock_flag_type lmode)
+	lock_flag_type const lmode)
 {
 	do_lock(
 		lmode,
-		size());
+		size(),
+		0);
 	if(renderer::lock_flag_read(lock_mode()))
 		get_tex_image(
 			format(),
@@ -121,15 +123,18 @@ void sge::ogl::texture::lock(
 
 void sge::ogl::texture::lock(
 	renderer::lock_rect const &l,
-	const lock_flag_type lmode)
+	lock_flag_type const lmode)
 {
+	const bool must_read = renderer::lock_flag_read(lmode);
 	do_lock(
 		lmode,
-		renderer::lock_flag_read(
-			lmode)
+		must_read
 		? size()
-		: l.size());
-	if(renderer::lock_flag_read(lock_mode()))
+		: l.size(),
+		must_read
+		? l.left() + l.top() * dim().w()
+		: 0);
+	if(must_read)
 		get_tex_image(
 			format(),
 			format_type(),
@@ -154,10 +159,7 @@ void sge::ogl::texture::unlock()
 				filter(),
 				dim(),
 				*lock_rect_,
-				write_buffer()
-				+ (lock_rect_->left()
-				   + lock_rect_->top() * dim().w())
-				* stride());
+				write_buffer());
 	}
 	do_unlock();
 }

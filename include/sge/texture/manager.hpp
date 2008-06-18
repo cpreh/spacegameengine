@@ -43,7 +43,7 @@ public:
 		renderer::device_ptr rend,
 		const onalloc_function&);
 	SGE_SYMBOL const part_ptr add(
-		renderer::image_view const &src);
+		renderer::const_image_view const &src);
 	SGE_SYMBOL const part_ptr add(
 		renderer::texture_ptr tex);
 	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
@@ -56,7 +56,7 @@ public:
 private:
 	const part_ptr init_texture(
 		fragmented&,
-		renderer::image_view const &src) const;
+		renderer::const_image_view const &src) const;
 
 	const renderer::device_ptr          rend;
 	onalloc_function                    onalloc_;
