@@ -123,15 +123,13 @@ public:
 
 	const renderer::volume_texture_ptr
 	create_volume_texture(
-		renderer::volume_texture::const_pointer data,
-		const renderer::volume_texture::box_type& box,
+		renderer::volume_texture::image_view_array const &,
 		const renderer::filter_args& filter,
 		renderer::volume_texture::resource_flag_type flags);
 
 	const renderer::cube_texture_ptr
 	create_cube_texture(
-		const renderer::cube_texture::cube_side_array* data,
-		renderer::cube_texture::size_type size,
+		renderer::cube_texture::image_view_6 const &,
 		const renderer::filter_args& filter,
 		renderer::cube_texture::resource_flag_type flags);
 

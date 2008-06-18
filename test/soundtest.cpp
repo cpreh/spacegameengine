@@ -1,5 +1,5 @@
-#include <sge/audio/loader/audio_loader.hpp>
-#include <sge/audio/player/audio_player.hpp>
+#include <sge/audio/loader/loader.hpp>
+#include <sge/audio/player/player.hpp>
 #include <sge/audio/player/sound.hpp>
 #include <sge/plugin_manager.hpp>
 #include <sge/media.hpp>
@@ -9,6 +9,7 @@
 #include <sge/iostream.hpp>
 #include <ostream>
 #include <exception>
+#include <algorithm>
 #include <cstdlib>
 #include <cmath>
 
@@ -16,25 +17,25 @@ int main()
 try
 {
 	sge::plugin_manager pm;
-	const sge::plugin<sge::audio_player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio_player>().load();
-	sge::shared_ptr<sge::audio_player> audio_player(audio_player_plugin->get()());
+	const sge::plugin<sge::audio::player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio::player>().load();
+	sge::shared_ptr<sge::audio::player> audio_player(audio_player_plugin->get()());
 
-	typedef std::vector< sge::plugin_manager::plugin_context<sge::audio_loader> > plugin_vector;
+	typedef std::vector< sge::plugin_manager::plugin_context<sge::audio::loader> > plugin_vector;
 	plugin_vector audio_plugins;
-	std::copy(pm.begin<sge::audio_loader>(),pm.end<sge::audio_loader>(),std::back_inserter(audio_plugins));
+	std::copy(pm.begin<sge::audio::loader>(),pm.end<sge::audio::loader>(),std::back_inserter(audio_plugins));
 
-	typedef std::vector<sge::plugin_manager::plugin_context<sge::audio_loader>::ptr_type> loaded_plugins_vector;
+	typedef std::vector<sge::plugin_manager::plugin_context<sge::audio::loader>::ptr_type> loaded_plugins_vector;
 	loaded_plugins_vector loaded;
 
-	typedef std::vector< sge::shared_ptr<sge::audio_loader> > audio_loader_vector;
+	typedef std::vector<sge::audio::loader_ptr> audio_loader_vector;
 	audio_loader_vector loaders;
 
-	sge::shared_ptr<sge::audio_file> soundfile;
+	sge::shared_ptr<sge::audio::file> soundfile;
 	for (plugin_vector::iterator i = audio_plugins.begin(); i != audio_plugins.end(); ++i)
 	{
-		sge::plugin_manager::plugin_context<sge::audio_loader>::ptr_type np = i->load();
+		sge::plugin_manager::plugin_context<sge::audio::loader>::ptr_type np = i->load();
 		loaded.push_back(np);
-		sge::shared_ptr<sge::audio_loader> j(np->get()());
+		sge::shared_ptr<sge::audio::loader> j(np->get()());
 		loaders.push_back(j);
 		const sge::path path = sge::media_path() / SGE_TEXT("ding.wav");
 		//const std::string path = "/home/philipp/musik/queen_greatest_hits_iii/queen_you_dont_fool_me.ogg";
@@ -43,8 +44,8 @@ try
 	}
 	if(!soundfile)
 		throw std::runtime_error("ding.wav not found!");
-	sge::shared_ptr<sge::sound> soundleft = audio_player->create_nonstream_sound(soundfile);
-	sge::shared_ptr<sge::sound> soundright = audio_player->create_nonstream_sound(soundfile);
+	const sge::audio::sound_ptr soundleft = audio_player->create_nonstream_sound(soundfile),
+	                            soundright = audio_player->create_nonstream_sound(soundfile);
 
 	audio_player->listener_pos(sge::math::vector3(0,0,0));
 	soundleft->positional(true);

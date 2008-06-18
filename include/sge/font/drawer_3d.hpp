@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/colors.hpp"
 #include "../renderer/device.hpp"
 #include "../texture/manager.hpp"
+#include "../texture/part.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
 #include "drawer.hpp"
@@ -59,8 +60,8 @@ public:
 private:
 	renderer::device_ptr                             rend;
 	renderer::color                                  col;
-	texture_manager                                  texman;
-	typedef std::map<char_type, virtual_texture_ptr> texture_map;
+	texture::manager                                 texman;
+	typedef std::map<char_type, texture::part_ptr>   texture_map;
 	texture_map                                      textures;
 	sprite::system                                   sys;
 	typedef std::vector<sprite::object>              sprite_vector;

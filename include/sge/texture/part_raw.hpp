@@ -18,31 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STATIC_TEXTURE_HPP_INCLUDED
-#define SGE_STATIC_TEXTURE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_PART_RAW_HPP_INCLUDED
+#define SGE_TEXTURE_PART_RAW_HPP_INCLUDED
 
-#include "fragmented_texture.hpp"
+#include "part.hpp"
 #include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include "../renderer/texture.hpp"
 
 namespace sge
 {
+namespace texture
+{
 
-class static_texture : public fragmented_texture, boost::noncopyable {
+class part_raw : public part {
 public:
-	SGE_SYMBOL static_texture(
+	SGE_SYMBOL part_raw(
+		renderer::lock_rect const &,
 		renderer::texture_ptr tex);
-	SGE_SYMBOL const virtual_texture_ptr consume_fragments(
-		const renderer::texture::dim_type&);
-	SGE_SYMBOL void return_fragments(
-		const virtual_texture&);
-	SGE_SYMBOL const renderer::texture_ptr get_texture() const;
+	SGE_SYMBOL void data(
+		renderer::image_view const &src);
+	SGE_SYMBOL renderer::lock_rect const &area() const;
+	SGE_SYMBOL const renderer::texture_ptr my_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
-	const renderer::texture_ptr  tex;
-	bool                         claimed;
+	const renderer::lock_rect   area_;
+	const renderer::texture_ptr tex;
 };
 
+}
 }
 
 #endif

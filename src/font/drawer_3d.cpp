@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/drawer_3d.hpp>
-#include <sge/texture/rect_fragmented_texture.hpp>
+#include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/sprite/system_impl.hpp>
 #include <sge/math/rect_impl.hpp>
@@ -30,7 +30,11 @@ sge::font::drawer_3d::drawer_3d(
 	const renderer::color col)
 : rend(rend),
   col(col),
-  texman(rend, default_texture_creator<rect_fragmented_texture>(rend, renderer::linear_filter)),
+  texman(
+  	rend,
+	texture::default_creator<texture::rect_fragmented>(
+		rend,
+		renderer::linear_filter)),
   sys(rend)
 {}
 

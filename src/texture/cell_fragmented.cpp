@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/atlasing.hpp>
-#include <sge/texture/cell_fragmented_texture.hpp>
+#include <sge/texture/cell_fragmented.hpp>
+#include <sge/texture/part_fragmented.hpp>
 #include <sge/math/vec_dim.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/exception.hpp>
 #include <cassert>
 
-sge::cell_fragmented_texture::cell_fragmented_texture(
+sge::texture::cell_fragmented::cell_fragmented(
 	const renderer::device_ptr rend,
 	const renderer::filter_args& filter,
 	const renderer::texture::dim_type& cell_size)
@@ -37,21 +38,21 @@ sge::cell_fragmented_texture::cell_fragmented_texture(
   tex(atlased_texture(rend, my_filter))
 {}
 
-const sge::virtual_texture_ptr
-sge::cell_fragmented_texture::consume_fragments(
+const sge::texture::part_ptr
+sge::texture::cell_fragmented::consume_fragment(
 	const renderer::texture::dim_type& dim)
 {
 	if(dim != cell_size)
-		throw exception(SGE_TEXT("Invalid request for consume_fragments in cell_fragmented_texture!"));
+		throw exception(SGE_TEXT("Invalid request for consume_fragments in texture::cell_fragmented!"));
 	// TODO maybe optimize this with a stack?
 	const field_type::iterator it = std::find(cells.begin(), cells.end(), false);
 	if(it == cells.end())
-		return virtual_texture_ptr();
+		return part_ptr();
 	*it = true;
 	
 	const field_type::vector_type pos = cells.position(it);
-	return virtual_texture_ptr(
-		new virtual_texture(
+	return part_ptr(
+		new part_fragmented(
 			renderer::lock_rect(
 				pos + cell_size, cell_size),
 			*this,
@@ -59,7 +60,8 @@ sge::cell_fragmented_texture::consume_fragments(
 			true));
 }
 
-void sge::cell_fragmented_texture::return_fragments(const virtual_texture& t)
+void sge::texture::cell_fragmented::return_fragment(
+	const part& t)
 {
 	const field_type::vector_type pos = t.area().pos() * cell_size;
 	assert(cells.pos(pos));
@@ -67,12 +69,12 @@ void sge::cell_fragmented_texture::return_fragments(const virtual_texture& t)
 }
 
 const sge::renderer::texture_ptr
-sge::cell_fragmented_texture::get_texture() const
+sge::texture::cell_fragmented::get_texture() const
 {
 	return tex;
 }
 
-bool sge::cell_fragmented_texture::repeatable() const
+bool sge::texture::cell_fragmented::repeatable() const
 {
 	return false;
 }

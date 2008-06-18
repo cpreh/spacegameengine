@@ -18,25 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
-#define SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
+#ifndef SGE_TEXTURE_NO_FRAGMENTED_HPP_INCLUDED
+#define SGE_TEXTURE_NO_FRAGMENTED_HPP_INCLUDED
 
-#include "sized_creator.hpp"
+#include "fragmented.hpp"
+#include "../renderer/texture_filter.hpp"
+#include "../renderer/device.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
 
-template<typename T>
-sge::texture::sized_creator<T>::sized_creator(
-	const renderer::device_ptr rend,
-	const renderer::filter_args& filter,
-	const renderer::texture::dim_type& dim)
-: rend(rend),
-  filter(filter),
-  dim(dim)
-{}
-
-template<typename T>
-sge::texture::fragmented* sge::texture::sized_creator<T>::operator()() const
+namespace sge
 {
-	return new T(rend, filter, dim);
+namespace texture
+{
+
+class no_fragmented : public fragmented, boost::noncopyable {
+public:
+	SGE_SYMBOL no_fragmented(
+		renderer::device_ptr rend,
+		const renderer::filter_args& filter);
+	SGE_SYMBOL const part_ptr consume_fragment(
+		const renderer::texture::dim_type&);
+	SGE_SYMBOL void return_fragment(
+		const part&);
+	SGE_SYMBOL const renderer::texture_ptr get_texture() const;
+	SGE_SYMBOL bool repeatable() const;
+private:
+	const renderer::device_ptr   rend;
+	const renderer::filter_args  my_filter;
+	renderer::texture_ptr        tex;
+};
+
+}
 }
 
 #endif
+

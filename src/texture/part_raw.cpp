@@ -18,25 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
-#define SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
+#include <sge/texture/part_raw.hpp>
 
-#include "sized_creator.hpp"
-
-template<typename T>
-sge::texture::sized_creator<T>::sized_creator(
-	const renderer::device_ptr rend,
-	const renderer::filter_args& filter,
-	const renderer::texture::dim_type& dim)
-: rend(rend),
-  filter(filter),
-  dim(dim)
+sge::texture::part_raw::part_raw(
+	renderer::lock_rect const &area_,
+	const renderer::texture_ptr tex)
+: area_(area_),
+  tex(tex)
 {}
 
-template<typename T>
-sge::texture::fragmented* sge::texture::sized_creator<T>::operator()() const
+void sge::texture::part_raw::data(
+	renderer::image_view const &src)
 {
-	return new T(rend, filter, dim);
+	tex->sub_data(src, area());
 }
 
-#endif
+sge::renderer::lock_rect const &
+sge::texture::part_raw::area() const
+{
+	return area_;
+}
+
+const sge::renderer::texture_ptr
+sge::texture::part_raw::my_texture() const
+{
+	return tex;
+}
+
+bool sge::texture::part_raw::repeatable() const
+{
+	return area().size() == tex->dim();
+}

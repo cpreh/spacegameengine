@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/no_fragmented_texture.hpp>
+#include <sge/texture/no_fragmented.hpp>
+#include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/atlasing.hpp>
 #include <sge/iostream.hpp>
 #include <sge/math/power.hpp>
 #include <ostream>
 
-sge::no_fragmented_texture::no_fragmented_texture(
+sge::texture::no_fragmented::no_fragmented(
 	const renderer::device_ptr rend,
 	const renderer::filter_args& my_filter)
  : rend(rend),
    my_filter(my_filter)
 {}
 
-const sge::virtual_texture_ptr
-sge::no_fragmented_texture::consume_fragments(
+const sge::texture::part_ptr
+sge::texture::no_fragmented::consume_fragment(
 	const renderer::texture::dim_type& dim)
 {
 	if(tex)
-		return virtual_texture_ptr();
+		return part_ptr();
 
 	const renderer::texture::dim_type real_dim(atlased_bounds(dim));
 
@@ -44,12 +45,12 @@ sge::no_fragmented_texture::consume_fragments(
    	//tex = rend->create_texture(0, real_dim, my_filter);
 
 	if(real_dim != dim)
-		sge::cerr << SGE_TEXT("warning: You used a no_fragmented_texture whose dimensions are not a power of 2.")\
+		sge::cerr << SGE_TEXT("warning: You used a texture::no_fragmented whose dimensions are not a power of 2.")\
 		             SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
 			     SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT(".\n");
 
-	return virtual_texture_ptr(
-		new virtual_texture(
+	return part_ptr(
+		new part_fragmented(
 			renderer::lock_rect(
 				renderer::lock_rect::point_type(0,0),
 				atlased_size(dim)),
@@ -58,18 +59,19 @@ sge::no_fragmented_texture::consume_fragments(
 			need_atlasing(dim.h())));
 }
 
-void sge::no_fragmented_texture::return_fragments(const virtual_texture&)
+void sge::texture::no_fragmented::return_fragment(
+	const part&)
 {
 	tex.reset();
 }
 
 const sge::renderer::texture_ptr
-sge::no_fragmented_texture::get_texture() const
+sge::texture::no_fragmented::get_texture() const
 {
 	return tex;
 }
 
-bool sge::no_fragmented_texture::repeatable() const
+bool sge::texture::no_fragmented::repeatable() const
 {
 	return true;
 }

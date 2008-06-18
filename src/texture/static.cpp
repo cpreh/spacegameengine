@@ -18,27 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/static_texture.hpp>
+#include <sge/texture/static.hpp>
+#include <sge/texture/part_fragmented.hpp>
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
 
-sge::static_texture::static_texture(
+sge::texture::static_::static_(
 	const renderer::texture_ptr tex)
 : tex(tex),
   claimed(false)
 {}
 
-const sge::virtual_texture_ptr
-sge::static_texture::consume_fragments(
+const sge::texture::part_ptr
+sge::texture::static_::consume_fragment(
 	const renderer::texture::dim_type& dim)
 {
 	if(claimed)
-		return virtual_texture_ptr();
+		return part_ptr();
 
 	if(dim.w() > tex->dim().w() || dim.h() > tex->dim().h())
-		throw exception(SGE_TEXT("static_texture::consume_fragments(): size out of range."));
+		throw exception(SGE_TEXT("texture::static_::consume_fragments(): size out of range."));
 	claimed = true;
-	return virtual_texture_ptr(
-		new virtual_texture(
+	return part_ptr(
+		new part_fragmented(
 			renderer::lock_rect(
 				renderer::lock_rect::point_type(0, 0),
 				dim),
@@ -47,19 +49,19 @@ sge::static_texture::consume_fragments(
 			false));
 }
 
-void sge::static_texture::return_fragments(
-	const virtual_texture&)
+void sge::texture::static_::return_fragment(
+	const part&)
 {
 	claimed = false;
 }
 
 const sge::renderer::texture_ptr
-sge::static_texture::get_texture() const
+sge::texture::static_::get_texture() const
 {
 	return tex;
 }
 
-bool sge::static_texture::repeatable() const
+bool sge::texture::static_::repeatable() const
 {
 	return true;
 }

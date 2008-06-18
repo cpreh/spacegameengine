@@ -40,8 +40,7 @@ typedef basic_texture<renderer::volume_texture> volume_texture_base;
 class volume_texture : public detail::volume_texture_base {
 public:
 	volume_texture(
-		const_pointer src,
-		const box_type& box,
+		image_view_array const &,
 		const renderer::filter_args& filter,
 		resource_flag_type flags);
 

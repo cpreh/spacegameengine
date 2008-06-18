@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VIRTUAL_TEXTURE_HPP_INCLUDED
-#define SGE_VIRTUAL_TEXTURE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_PART_HPP_INCLUDED
+#define SGE_TEXTURE_PART_HPP_INCLUDED
 
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
@@ -29,39 +29,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace texture
+{
 
-class fragmented_texture;
+class fragmented;
 
-class virtual_texture : boost::noncopyable {
+class part : boost::noncopyable {
 public:
-	SGE_SYMBOL virtual_texture(
-		renderer::lock_rect const &outer_rect,
-		fragmented_texture&,
-		bool need_atlasing_w,
-		bool need_atlasing_h);
-	SGE_SYMBOL ~virtual_texture();
-	SGE_SYMBOL const renderer::lock_rect& area() const;
+	SGE_SYMBOL virtual ~part();
 	SGE_SYMBOL const math::rect area_texc(
 		space_unit repeat = 1) const;
 	SGE_SYMBOL const renderer::tex_pos translate(
 		const renderer::tex_pos &local_coords,
 		space_unit repeat = 1) const;
-	SGE_SYMBOL const renderer::texture_ptr my_texture() const;
-	SGE_SYMBOL bool repeatable() const;
-	SGE_SYMBOL void set_data(
-		renderer::image const &src);
-private:
-	const renderer::lock_rect& outer_area() const;
-	renderer::lock_rect outer_area_;
-	fragmented_texture& fragment;
-	bool                need_atlasing_w,
-	                    need_atlasing_h;
-	renderer::lock_rect inner_area_;
+	virtual void data(
+		renderer::image_view const &src) = 0;
+	virtual const renderer::lock_rect& area() const = 0;
+	virtual const renderer::texture_ptr my_texture() const = 0;
+	virtual bool repeatable() const = 0;
 };
 
-typedef shared_ptr<virtual_texture>       virtual_texture_ptr;
-typedef shared_ptr<const virtual_texture> const_virtual_texture_ptr;
+typedef shared_ptr<part>       part_ptr;
+typedef shared_ptr<const part> const_part_ptr;
 
+}
 }
 
 #endif

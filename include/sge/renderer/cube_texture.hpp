@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
 
 #include "../export.hpp"
+#include "image.hpp"
 #include "texture_base.hpp"
 #include "types.hpp"
 #include <boost/array.hpp>
@@ -46,13 +47,18 @@ namespace cube_side
 
 class cube_texture : public texture_base {
 public:
-	SGE_SYMBOL size_type size() const;
-	virtual void set_data(cube_side::type side, const_pointer p, const lock_rect& r) = 0;
-	virtual void set_data(cube_side::type side, const_pointer p) = 0;
-	
-	typedef boost::array<const_pointer, cube_side::num_elements> cube_side_array;
-	SGE_SYMBOL void set_data(const cube_side_array&);
+	typedef boost::array<image_view, cube_side::num_elements> image_view_6;
+
+	virtual void data(cube_side::type side, image_view const &) = 0;
+	void sub_data(cube_side::type side, image_view const &, lock_rect const &dest);
+	virtual void lock(cube_side::type side, lock_flag_t);
+	virtual void lock(cube_side::type side, lock_rect const &, lock_flag_t);
+	virtual void unlock() = 0;
+
+	virtual const image_view data() = 0;
 	virtual size_type border_size() const = 0;
+private:
+	virtual void do_sub_data(cube_side::type side, image const &, lock_rect const &dest) = 0;
 };
 
 typedef shared_ptr<cube_texture> cube_texture_ptr;

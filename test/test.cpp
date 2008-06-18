@@ -24,23 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
-#include <sge/texture/default_creator.hpp>
-#include <sge/texture/util.hpp>
-#include <sge/texture/default_creator_impl.hpp>
-#include <sge/texture/no_fragmented_texture.hpp>
 #include <sge/plugin_manager.hpp>
 #include <sge/font/font.hpp>
-#include <sge/font/font_drawer_3d.hpp>
-#include <sge/renderer/renderer.hpp>
+#include <sge/font/drawer_3d.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/types.hpp>
-#include <sge/renderer/renderer_system.hpp>
+#include <sge/renderer/system.hpp>
 #include <sge/renderer/transform.hpp>
 #include <sge/media.hpp>
-#include <sge/input/input_system.hpp>
-#include <sge/renderer/renderer_parameters.hpp>
+#include <sge/input/system.hpp>
+#include <sge/renderer/parameters.hpp>
 #include <sge/endianness.hpp>
 #include <sge/exception.hpp>
-#include <sge/image/util.hpp>
+#include <sge/string.hpp>
 #include <sge/scoped_connection.hpp>
 #include <sge/iostream.hpp>
 #include <sge/math/basic_sequence_impl.hpp>
@@ -59,43 +55,43 @@ try
 		   i(1, 2),
 	           j(3, 4);	
 
-	sge::cout << i.x() << '\n';
-
 	bool running = true;
 	sge::plugin_manager pm;
 
-	const sge::plugin<sge::renderer_system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer_system>().load();
-	const sge::plugin<sge::input_system>::ptr_type input_plugin = pm.get_plugin<sge::input_system>().load();
+	const sge::plugin<sge::renderer::system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer::system>().load();
+	const sge::plugin<sge::input::system>::ptr_type input_plugin = pm.get_plugin<sge::input::system>().load();
 
-	const sge::renderer_system_ptr rs(renderer_plugin->get()());
-	const sge::renderer_caps_array caps(rs->caps());
+	const sge::renderer::system_ptr rs(renderer_plugin->get()());
+	const sge::renderer::parameters param(sge::renderer::display_mode(1280,1024,sge::renderer::bit_depth::depth32,100), true);
+	const sge::renderer::device_ptr rend = rs->create_renderer(param);
 
-	const sge::renderer_parameters param(sge::display_mode(1280,1024,sge::bit_depth::depth32,100), true);
-	const sge::renderer_ptr rend = rs->create_renderer(param);
+	const sge::input::system_ptr is(input_plugin->get()(rend->get_window()));
 
-	const sge::input_system_ptr is(input_plugin->get()(rend->get_window()));
+	const sge::plugin<sge::font::system>::ptr_type font_plugin = pm.get_plugin<sge::font::system>().load();
+	const sge::font::system_ptr fs(font_plugin->get()());
 
-	const sge::plugin<sge::image_loader>::ptr_type image_loader_plugin = pm.get_plugin<sge::image_loader>().load();
-	const sge::image_loader_ptr pl(image_loader_plugin->get()());
+	const sge::font::metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);
+	const sge::font::drawer_ptr fn_drawer(new sge::font::drawer_3d(rend));
 
-	const sge::plugin<sge::font_system>::ptr_type font_plugin = pm.get_plugin<sge::font_system>().load();
-	const sge::font_system_ptr fs(font_plugin->get()());
-
-	const sge::font_metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);
-	const sge::font_drawer_ptr fn_drawer(new sge::font_drawer_3d(rend));
-
-	sge::font_ptr fn(new sge::font(metrics,fn_drawer));
-
-	sge::texture_manager texman(rend,sge::default_texture_creator<sge::no_fragmented_texture>(rend,sge::linear_filter));
+	sge::font::font fn(metrics,fn_drawer);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
 //	using boost::lambda::_1;
 	using boost::lambda::if_;
 
-	const sge::scoped_connection cb(is->register_callback(if_(bind(&sge::key_type::code, bind(&sge::key_pair::key,boost::lambda::_1)) == sge::kc::key_escape)[var(running)=false]));
+	const sge::scoped_connection cb(
+		is->register_callback(
+			if_(
+				bind(
+					&sge::input::key_type::code,
+					bind(
+						&sge::input::key_pair::key,
+						boost::lambda::_1))
+					== sge::input::kc::key_escape)
+				[var(running)=false]));
 
-	rend->set_state(
+/*	rend->set_state(
 		sge::renderer_state_list
 			(sge::bool_state::enable_lighting = true)
 			(sge::cull_mode::off)
@@ -104,7 +100,7 @@ try
 			(sge::cull_mode::front)
 			(sge::float_state::zbuffer_clear_val = 0)
 			(sge::depth_func::greater)
-	);
+	);*/
 
 	const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
 	while(running)
@@ -114,7 +110,7 @@ try
 		rend->get_window()->dispatch();
 		sge::window::dispatch();
 		is->dispatch();
-		fn->draw_text(some_text, sge::font_pos(100,100), sge::font_dim(20,500), sge::font_align_h::right, sge::font_align_v::bottom);
+		fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(20,500), sge::font::align_h::right, sge::font::align_v::bottom);
 		
 		rend->end_rendering();
 	}

@@ -64,7 +64,7 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 			else
 				fill_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
-			if(const virtual_texture_ptr tex = spr.get_texture())
+			if(const texture::part_ptr tex = spr.get_texture())
 				fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
 
 			vb_it = fill_color(vb_it, spr.get_color());
@@ -96,7 +96,7 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 		unsigned num_objects;
 		const RanIt next = first_mismatch_if(cur, end, num_objects, &object::equal);
 
-		const virtual_texture_ptr vtex = cur->get_texture();
+		const texture::part_ptr vtex = cur->get_texture();
 		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);
 
 		rend->render(

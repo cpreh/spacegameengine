@@ -18,29 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
-#define SGE_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#ifndef SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
+#define SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 
 #include "../shared_ptr.hpp"
 #include "../renderer/texture.hpp"
-#include "virtual_texture.hpp"
+#include "part.hpp"
 
 namespace sge
 {
+namespace texture
+{
 
-class fragmented_texture {
+class fragmented {
 public:
-	virtual const virtual_texture_ptr consume_fragments(
+	virtual const part_ptr consume_fragment(
 		const renderer::texture::dim_type&) = 0;
-	virtual void return_fragments(
-		const virtual_texture&) = 0;
+	virtual void return_fragment(
+		const  part&) = 0;
 	virtual const renderer::texture_ptr get_texture() const = 0;
 	virtual bool repeatable() const = 0;
-	virtual ~fragmented_texture(){}
+	virtual ~fragmented(){}
 };
 
-typedef shared_ptr<fragmented_texture> fragmented_texture_ptr;
+typedef shared_ptr<fragmented> fragmented_ptr;
 
+}
 }
 
 #endif

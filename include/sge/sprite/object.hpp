@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "../math/circle.hpp"
-#include "../texture/virtual_texture.hpp"
+#include "../texture/part.hpp"
 #include "../renderer/color.hpp"
 #include "types.hpp"
 #include <boost/optional.hpp>
@@ -37,13 +37,13 @@ namespace sprite
 {
 
 extern const dim texture_dim;
-extern const virtual_texture_ptr no_texture;
+extern const texture::part_ptr no_texture;
 
 namespace defaults
 {
 
 extern const point pos_;
-extern const virtual_texture_ptr texture_;
+extern const texture::part_ptr texture_;
 extern const dim dim_;
 extern const color color_;
 extern const depth_type depth_;
@@ -56,7 +56,7 @@ class object {
 public:
 	SGE_SYMBOL object(
 		boost::optional<point> = defaults::pos_,
-		boost::optional<virtual_texture_ptr> = defaults::texture_,
+		boost::optional<texture::part_ptr> = defaults::texture_,
 		boost::optional<dim> = defaults::dim_,
 		boost::optional<color> = defaults::color_,
 		boost::optional<depth_type> = defaults::depth_,
@@ -71,7 +71,7 @@ public:
 	SGE_SYMBOL dim& size();
 	SGE_SYMBOL depth_type& z();
 	SGE_SYMBOL void visible(bool visible);
-	SGE_SYMBOL void set_texture(virtual_texture_ptr);
+	SGE_SYMBOL void set_texture(texture::part_ptr);
 	SGE_SYMBOL void rotation(rotation_type rot);
 	SGE_SYMBOL void rotate_around(point p);
 	SGE_SYMBOL void rotate_around();
@@ -96,7 +96,7 @@ public:
 	SGE_SYMBOL rect bounding_quad() const;
 	SGE_SYMBOL math::circle bounding_circle() const;
 	SGE_SYMBOL const point rotation_center() const;
-	SGE_SYMBOL const virtual_texture_ptr get_texture() const;
+	SGE_SYMBOL const texture::part_ptr get_texture() const;
 private:
 	SGE_SYMBOL static bool equal(const object& l, const object& r);
 	SGE_SYMBOL static bool less(const object& l, const object& r);
@@ -107,7 +107,7 @@ private:
 	dim                 size_;
 	depth_type          z_;
 	rotation_type       rotation_;
-	virtual_texture_ptr tex;
+	texture::part_ptr   tex;
 	point               rot_around_;
 	repetition_type     repeat_;
 	color               color_;

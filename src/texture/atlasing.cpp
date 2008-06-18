@@ -22,19 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
 
-bool sge::need_atlasing(
+bool sge::texture::need_atlasing(
 	const renderer::texture::size_type s)
 {
 	return !math::is_power_of_2(s);
 }
 
-bool sge::need_atlasing(const renderer::texture::dim_type& dim)
+bool sge::texture::need_atlasing(
+	const renderer::texture::dim_type& dim)
 {
 	return !math::is_power_of_2(dim);
 }
 
 sge::renderer::texture::size_type
-sge::atlased_bound(
+sge::texture::atlased_bound(
 	const renderer::texture::size_type s)
 {
 	return math::is_power_of_2(s)
@@ -43,7 +44,7 @@ sge::atlased_bound(
 }
 
 const sge::renderer::texture::dim_type
-sge::atlased_bounds(
+sge::texture::atlased_bounds(
 	const renderer::texture::dim_type& dim)
 {
 	return renderer::texture::dim_type(
@@ -51,12 +52,14 @@ sge::atlased_bounds(
 		atlased_bound(dim.h()));
 }
 
-sge::renderer::texture::size_type sge::atlased_gap()
+sge::renderer::texture::size_type
+sge::texture::atlased_gap()
 {
 	return 1;
 }
 
-sge::renderer::texture::size_type sge::atlased_size(
+sge::renderer::texture::size_type
+sge::texture::atlased_size(
 	const renderer::texture::size_type s,
 	const bool force_atlasing)
 {
@@ -66,7 +69,7 @@ sge::renderer::texture::size_type sge::atlased_size(
 }
 
 const sge::renderer::texture::dim_type
-sge::atlased_size(
+sge::texture::atlased_size(
 	const renderer::texture::dim_type& dim,
 	const bool force_atlasing)
 {
@@ -80,7 +83,7 @@ sge::atlased_size(
 }
 
 const sge::renderer::texture::dim_type
-sge::atlased_texture_dim(
+sge::texture::atlased_texture_dim(
 	const renderer::device_ptr rend)
 {
 	const renderer::texture::size_type max_size = rend->get_caps().max_tex_size;
@@ -88,7 +91,7 @@ sge::atlased_texture_dim(
 }
 
 const sge::renderer::texture_ptr
-sge::atlased_texture(
+sge::texture::atlased_texture(
 	const renderer::device_ptr rend,
 	const renderer::filter_args& filter)
 {
@@ -97,7 +100,7 @@ sge::atlased_texture(
 }
 
 const sge::renderer::lock_rect
-sge::inner_atlased_rect(
+sge::texture::inner_atlased_rect(
 	renderer::lock_rect outer,
 	const bool need_atlasing_w,
 	const bool need_atlasing_h)
@@ -113,4 +116,62 @@ sge::inner_atlased_rect(
 		--outer.bottom();
 	}
 	return outer;
+}
+
+void sge::texture::atlas_w(
+	const renderer::texture_ptr tex,
+	renderer::image_view const &src,
+	renderer::lock_rect const &outer_area)
+{
+	// FIXME: use a gil image here
+	/*typedef std::vector<renderer::texture::value_type> pixel_vector;
+	pixel_vector height_pixels(outer_area().h());
+
+	height_pixels.front() = *src;
+	for(pixel_vector::size_type h = 1; h < height_pixels.size() - 1; ++h)
+		height_pixels[h] = *(src + area().w() * h);
+	height_pixels.back() = *(src + area().w() * (area().h() - 1));
+
+	my_texture()->set_data(
+		height_pixels.data(),
+		renderer::lock_rect(
+			outer_area().left(),
+			outer_area().top(),
+			outer_area().left() + 1,
+			outer_area().bottom()));
+
+	height_pixels.front() = *(src + area().w() - 1); 
+	for(pixel_vector::size_type h = 1; h < height_pixels.size() - 1; ++h)
+		height_pixels[h] = *(src + area().w() * (h + 1) - 1);
+	height_pixels.back() = *(src + area().w() * area().h() - 1);
+
+	my_texture()->set_data(
+		height_pixels.data(),
+	        renderer::lock_rect(
+			outer_area().right() - 1,
+			outer_area().top(),
+			outer_area().right(),
+			outer_area().bottom()));*/
+}
+	
+void sge::texture::atlas_h(
+	const renderer::texture_ptr tex,
+	renderer::image_view const &src,
+	renderer::lock_rect const &outer_area)
+{
+	// FIXME: use a GIL view here!
+	/*tex->sub_data(
+		src,
+	        renderer::lock_rect(
+			outer_area.left() + 1,
+			outer_area.top(),
+			outer_area.right() - 1,
+			outer_area.top() + 1));
+	tex->sub_data(
+		src + area().w() * (area().h() - 1),
+		renderer::lock_rect(
+			outer_area().left() + 1,
+			outer_area().bottom() - 1,
+			outer_area().right() - 1,
+			outer_area().bottom()));*/
 }

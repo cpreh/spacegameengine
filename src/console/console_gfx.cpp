@@ -17,7 +17,7 @@
 
 sge::con::console_gfx::console_gfx(
 	const renderer::device_ptr rend,
-	const virtual_texture_ptr texture,
+	const texture::part_ptr texture,
 	const font::font_ptr fn,
 	const input::system_ptr is,
 	const sprite::point &pos,

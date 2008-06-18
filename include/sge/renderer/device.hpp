@@ -155,21 +155,17 @@ public:
 
 	virtual const texture_ptr create_texture(
 		image const&,
-		//texture::const_pointer data,
-		//const texture::dim_type& dim,
-		const filter_args& filter,
+		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const volume_texture_ptr create_volume_texture(
-		volume_texture::const_pointer data,
-		const volume_texture::box_type& box,
-		const filter_args& filter,
+		volume_texture::image_view_array const&,
+		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const cube_texture_ptr create_cube_texture(
-		const cube_texture::cube_side_array* data,
-		cube_texture::size_type size,
-		const filter_args& filter,
+		cube_texture::image_view_6 const&,
+		filter_args const&filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const vertex_buffer_ptr create_vertex_buffer(

@@ -40,17 +40,16 @@ typedef basic_texture<renderer::cube_texture> cube_texture_base;
 class cube_texture : public detail::cube_texture_base {
 public:
 	cube_texture(
-		const cube_side_array* src,
-		size_type sz,
+		image_view_6 const &,
 		const renderer::filter_args& filter,
 		resource_flag_type flags);
-	void set_data(
+	void data(
 		renderer::cube_side::type side,
-		const_pointer src,
-		const renderer::lock_rect& r);
-	void set_data(
+		image_view const &);
+	void do_sub_data(
 		renderer::cube_side::type side,
-		const_pointer src);
+		image_view const &,
+		renderer::lock_rect const &);
 	size_type border_size() const;
 private:
 	const size_type sz;

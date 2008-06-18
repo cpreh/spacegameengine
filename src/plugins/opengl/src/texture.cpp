@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pbo.hpp"
 #include <sge/algorithm.hpp>
 #include <sge/renderer/scoped_lock.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 template class sge::ogl::basic_texture<sge::renderer::texture>;
 
@@ -42,11 +43,9 @@ sge::ogl::texture::texture(
 	const renderer::filter_args& filter_,
 	const resource_flag_type flags)
  : detail::texture_base(filter_, flags, texture_type),
-   dim_(src.width(), src.height()) // TODO:
+   dim_(renderer::gil_dim_to_sge(src.dimensions()))
 {
 	set_data(src);
-//	else
-//		set_texture(0);
 }
 
 const sge::ogl::texture::dim_type

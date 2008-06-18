@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/rect_fragmented_texture.hpp>
+#include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/atlasing.hpp>
+#include <sge/texture/part_fragmented.hpp>
 
-sge::rect_fragmented_texture::rect_fragmented_texture(
+sge::texture::rect_fragmented::rect_fragmented(
 	const renderer::device_ptr rend,
 	const renderer::filter_args& my_filter)
 : rend(rend),
@@ -32,15 +33,15 @@ sge::rect_fragmented_texture::rect_fragmented_texture(
   tex(atlased_texture(rend, my_filter))
 {}
 
-const sge::virtual_texture_ptr
-sge::rect_fragmented_texture::consume_fragments(
+const sge::texture::part_ptr
+sge::texture::rect_fragmented::consume_fragment(
 	const renderer::texture::dim_type& dim)
 {
 	const renderer::texture::dim_type atlased_dim(atlased_size(dim, true));
 
 	// if there is no space left for the requested height
 	if(cur_y + dim.h() >= tex->dim().h())
-		return virtual_texture_ptr();
+		return part_ptr();
 
 	// if the current line is full advance to the next
 	if(cur_x + dim.w() >= tex->dim().w())
@@ -51,10 +52,10 @@ sge::rect_fragmented_texture::consume_fragments(
 	}
 
 	if(cur_y + dim.h() >= tex->dim().h())
-		return virtual_texture_ptr();
+		return part_ptr();
 
-	const virtual_texture_ptr ret(
-		new virtual_texture(
+	const part_ptr ret(
+		new part_fragmented(
 			renderer::lock_rect(
 				renderer::lock_rect::point_type(
 					cur_x,
@@ -70,19 +71,19 @@ sge::rect_fragmented_texture::consume_fragments(
 	return ret;
 }
 
-void sge::rect_fragmented_texture::return_fragments(
-	const virtual_texture&)
+void sge::texture::rect_fragmented::return_fragment(
+	const part&)
 {
 	// FIXME
 }
 
 const sge::renderer::texture_ptr
-sge::rect_fragmented_texture::get_texture() const
+sge::texture::rect_fragmented::get_texture() const
 {
 	return tex;
 }
 
-bool sge::rect_fragmented_texture::repeatable() const
+bool sge::texture::rect_fragmented::repeatable() const
 {
 	return false;
 }

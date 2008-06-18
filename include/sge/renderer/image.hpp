@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "color.hpp"
 #include <boost/gil/image.hpp>
 #include <boost/gil/extension/dynamic_image/any_image.hpp>
+#include <boost/gil/extension/dynamic_image/any_image_view.hpp>
 #include <boost/mpl/vector.hpp>
 
 namespace sge
@@ -41,12 +42,13 @@ typedef boost::gil::image<
 	false
 > argb8_image;
 
-typedef boost::gil::any_image<
-	boost::mpl::vector<
-		rgba8_image,
-		argb8_image
-	>
-> image;
+typedef boost::mpl::vector<
+	rgba8_image,
+	argb8_image
+> image_types;
+
+typedef boost::gil::any_image_view<image_types> image_view;
+typedef boost::gil::any_image<image_types> image;
 
 }
 }

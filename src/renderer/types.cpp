@@ -21,6 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/types.hpp>
 #include <sge/exception.hpp>
 
+unsigned sge::renderer::bit_depth_bit_count(const bit_depth::type d)
+{
+	return static_cast<unsigned>(d);
+}
+
 bool sge::renderer::lock_flag_write(const lock_flag_t mode)
 {
 	switch(mode) {

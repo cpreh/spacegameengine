@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/dim.hpp"
 #include "../math/box.hpp"
 #include "texture_base.hpp"
+#include <vector>
 
 namespace sge
 {
@@ -35,12 +36,18 @@ typedef math::basic_box<texture_base::size_type> lock_box;
 
 class volume_texture : public texture_base {
 public:
+	// TODO: create a real 3d image type for this!
+	typedef std::vector<image_view> image_view_array;
 	typedef math::basic_dim<size_type, 3> box_type;
 
-	SGE_SYMBOL size_type size() const;
 	virtual const box_type box() const = 0;
-	virtual void set_data(const_pointer p) = 0;
-	virtual void set_data(const_pointer p, const lock_box&) = 0;
+	virtual void data(image_view_array const &) = 0;
+	virtual void sub_data(image_view_array const &, lock_box const &) = 0;
+	virtual void lock(lock_flag_t) = 0;
+	virtual void lock(lock_box const&, lock_flag_t);
+	virtual void unlock() = 0;
+
+	virtual image_view_array const &data() = 0;
 };
 
 typedef shared_ptr<volume_texture> volume_texture_ptr;

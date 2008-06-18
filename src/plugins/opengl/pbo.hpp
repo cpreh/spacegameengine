@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include <sge/renderer/texture_base.hpp>
+#include <iterator>
+#include <cstddef>
 
 namespace sge
 {
@@ -33,19 +35,17 @@ class vbo_base;
 
 class pbo_base {
 public:
-	typedef sge::renderer::texture_base::size_type              size_type;
-	typedef sge::renderer::texture_base::difference_type        difference_type;
-	typedef sge::renderer::texture_base::value_type             value_type;
-	typedef sge::renderer::texture_base::reference              reference;
-	typedef sge::renderer::texture_base::const_reference        const_reference;
-	typedef sge::renderer::texture_base::pointer                pointer;
-	typedef sge::renderer::texture_base::const_pointer          const_pointer;
-	typedef sge::renderer::texture_base::iterator               iterator;
-	typedef sge::renderer::texture_base::const_iterator         const_iterator;
-	typedef sge::renderer::texture_base::reverse_iterator       reverse_iterator;
-	typedef sge::renderer::texture_base::const_reverse_iterator const_reverse_iterator;
-	typedef sge::renderer::texture_base::resource_flag_type     resource_flag_type;
-	typedef sge::renderer::texture_base::lock_flag_type         lock_flag_type;
+	typedef std::size_t                                    size_type;
+	typedef std::ptrdiff_t                                 difference_type;
+	typedef unsigned char                                  value_type;
+	typedef value_type                                    *pointer;
+	typedef value_type const                              *const_pointer;
+	typedef pointer                                        iterator;
+	typedef const_pointer                                  const_iterator;
+	typedef std::reverse_iterator<iterator>                reverse_iterator;
+	typedef std::reverse_iterator<const_iterator>          const_reverse_iterator;
+	typedef renderer::texture_base::resource_flag_type     resource_flag_type;
+	typedef renderer::texture_base::lock_flag_type         lock_flag_type;
 
 	virtual void lock(lock_flag_type) = 0;
 	virtual void unlock() = 0;

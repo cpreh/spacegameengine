@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/util.hpp>
 #include <sge/texture/manager.hpp>
 
-const sge::virtual_texture_ptr
-sge::add_texture(
-	texture_manager& man,
+const sge::texture::part_ptr
+sge::texture::add(
+	manager& man,
 	const image::object_ptr img)
 {
-	//return man.add_texture(img->data(), img->dim()); //FIXME
+//	return man.add(
+//		img->data(), img->dim()); //FIXME
 }

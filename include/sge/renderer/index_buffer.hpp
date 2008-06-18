@@ -60,7 +60,7 @@ public:
 	SGE_SYMBOL reference operator[](size_type);
 	SGE_SYMBOL const_reference operator[](size_type) const;
 
-	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;
+	virtual void lock(lock_flag_t flags) = 0;
 	virtual void unlock() = 0;
 	virtual void set_data(const_pointer data, size_type first, size_type count) = 0;
 	virtual iterator begin() = 0;

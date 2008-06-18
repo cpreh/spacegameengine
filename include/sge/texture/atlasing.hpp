@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-
-struct filter_args;
+namespace texture
+{
 
 bool need_atlasing(
 	renderer::texture::size_type);
@@ -70,6 +70,17 @@ inner_atlased_rect(
 	bool need_atlasing_w,
 	bool need_atlasing_h);
 
+void atlas_w(
+	renderer::texture_ptr,
+	renderer::image_view const &src,
+	renderer::lock_rect const &outer_area);
+	
+void atlas_h(
+	renderer::texture_ptr,
+	renderer::image_view const &src,
+	renderer::lock_rect const &outer_area);
+
+}
 }
 
 #endif

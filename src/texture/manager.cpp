@@ -19,63 +19,65 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/manager.hpp>
-#include <sge/texture/static_texture.hpp>
+#include <sge/texture/static.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/foreach.hpp>
 
-sge::texture_manager::texture_manager(
+sge::texture::manager::manager(
 	const renderer::device_ptr rend,
 	const onalloc_function& onalloc_)
  : rend(rend),
    onalloc_(onalloc_)
 {}
 
-const sge::virtual_texture_ptr
-sge::texture_manager::add_texture(
-	renderer::image const &src)
+const sge::texture::part_ptr
+sge::texture::manager::add(
+	renderer::image_view const &src)
 {
-	BOOST_FOREACH(fragmented_texture& tex, fragmented_textures)
-		if(const virtual_texture_ptr p = init_texture(tex, src))
+	BOOST_FOREACH(fragmented& tex, fragmented_textures)
+		if(const part_ptr p = init_texture(tex, src))
 			return p;
 
 	fragmented_textures.push_back(onalloc_());
 
-	if(const virtual_texture_ptr p = init_texture(fragmented_textures.back(), src))
+	if(const part_ptr p = init_texture(fragmented_textures.back(), src))
 		return p;
 	throw image_too_big();
 }
 
-const sge::virtual_texture_ptr
-sge::texture_manager::init_texture(
-	fragmented_texture& tex,
-	renderer::image const &src) const
+const sge::texture::part_ptr
+sge::texture::manager::init_texture(
+	fragmented& tex,
+	renderer::image_view const &src) const
 {
-	const virtual_texture_ptr p = tex.consume_fragments(
+	// FIXME
+/*	const part_ptr p = tex.consume_fragment(
 		renderer::gil_dim_to_sge(src.dimensions()));
 	if(p)
-		p->set_data(src);
-	return p;
+		p->data(src);
+	return p;*/
 }
 
-const sge::virtual_texture_ptr
-sge::texture_manager::add_texture(
+const sge::texture::part_ptr
+sge::texture::manager::add(
 	const renderer::texture_ptr tex)
 {
-	fragmented_textures.push_back(new static_texture(tex));
-	return fragmented_textures.back().consume_fragments(tex->dim());
+	fragmented_textures.push_back(new static_(tex));
+	return fragmented_textures.back().consume_fragment(tex->dim());
 }
 
 const sge::renderer::device_ptr
-sge::texture_manager::get_renderer() const
+sge::texture::manager::get_renderer() const
 {
 	return rend;
 }
 
-void sge::texture_manager::onalloc(
+void sge::texture::manager::onalloc(
 	const onalloc_function& fun)
 {
 	onalloc_ = fun;
 }
 
-sge::texture_manager::image_too_big::image_too_big()
-: exception(SGE_TEXT("texture_manager::add_texture() image too big!"))
+sge::texture::manager::image_too_big::image_too_big()
+: exception(SGE_TEXT("texture::manager::add_texture() image too big!"))
 {}

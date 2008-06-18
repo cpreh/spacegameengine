@@ -18,41 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CELL_FRAGMENTED_TEXTURE_HPP_INCLUDED
-#define SGE_CELL_FRAGMENTED_TEXTURE_HPP_INCLUDED
+/*#ifndef SGE_GRID_FRAGMENTED_TEXTURE_HPP_INCLUDED
+#define SGE_GRID_FRAGMENTED_TEXTURE_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "../raw_vector.hpp"
-#include "../field.hpp"
-#include "../renderer/texture.hpp"
-#include "../renderer/texture_filter.hpp"
 #include "fragmented_texture.hpp"
-#include "virtual_texture.hpp"
+#include "../export.hpp"
+#include "../renderer/texture_filter.hpp"
+#include "../renderer/device.hpp"
+#include <boost/noncopyable.hpp>
+#include <boost/scoped_array.hpp>
 
 namespace sge
 {
 
-class cell_fragmented_texture : public fragmented_texture {
+class grid_fragmented_texture : public fragmented_texture, boost::noncopyable {
 public:
-	SGE_SYMBOL cell_fragmented_texture(
+	SGE_SYMBOL grid_fragmented_texture(
 		renderer::device_ptr rend,
-		const renderer::filter_args& filter,
-		const renderer::texture::dim_type& cell_size);
-	SGE_SYMBOL const virtual_texture_ptr consume_fragments(
+		const renderer::texture::dim_type&,
+		const renderer::filter_args& filter);
+	SGE_SYMBOL const virtual_texture_ptr consume_fragment(
 		const renderer::texture::dim_type&);
-	SGE_SYMBOL void return_fragments(
+	SGE_SYMBOL void return_fragment(
 		const virtual_texture&);
 	SGE_SYMBOL const renderer::texture_ptr get_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
-	typedef field<bool, raw_vector> field_type;
-	const renderer::device_ptr      rend;
-	const renderer::filter_args     my_filter;
-	renderer::texture::dim_type     cell_size;
-	field_type                      cells;
-	const renderer::texture_ptr     tex;
+	const renderer::device_ptr   rend;
+	const renderer::filter_args  my_filter;
+	renderer::texture::size_type part_width,
+	                             part_height;
+	renderer::texture_ptr        tex;
+	renderer::texture::size_type tex_x_size,
+	                             tex_y_size;
+	unsigned                     parts_per_row,
+	                             parts_total,
+	                             parts_free;
+	boost::scoped_array<bool>    reserved;
 };
 
 }
 
-#endif
+#endif*/

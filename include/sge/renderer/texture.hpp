@@ -34,14 +34,18 @@ namespace renderer
 class texture : public texture_base {
 public:
 	typedef math::basic_dim<size_type, 2>        dim_type;
+	typedef renderer::image_view                 image_view;
 
-	SGE_SYMBOL size_type size() const;
 	virtual const dim_type dim() const = 0;
-	virtual void set_data(image const &, const lock_rect& r) = 0;
-	virtual void set_data(image const &) = 0;
-	virtual void lock(lock_flag_t flags = lock_flags::default_) = 0;
-	//virtual void lock(const lock_rect&, lock_flag_t flags = lock_flags::default_) = 0;
+	void sub_data(image_view const &, lock_rect const &dest);
+	virtual void data(image_view const &) = 0;
+	virtual void lock(lock_flag_t) = 0;
+	virtual void lock(lock_rect const &, lock_flag_t);
 	virtual void unlock() = 0;
+
+	virtual const image_view data() = 0;
+private:
+	virtual void do_sub_data(image const &, lock_rect const &dest) = 0;
 };
 
 const texture::dim_type gil_dim_to_sge(image::point_t const &);

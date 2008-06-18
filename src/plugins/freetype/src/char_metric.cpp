@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../char_metric.hpp"
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
+#include <boost/gil/algorithm.hpp>
 #include <boost/gil/typedefs.hpp>
 
 sge::ft::char_metric::char_metric(
@@ -52,7 +53,6 @@ sge::ft::char_metric::char_metric(
 	
 	buffer.recreate(bitmap.width, bitmap.rows);
 
-	// FIXME: we need to color convert pixels so they are rgba!
 	boost::gil::copy_pixels(src, boost::gil::view(buffer));
 }
 

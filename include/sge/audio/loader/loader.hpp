@@ -43,6 +43,8 @@ public:
 	virtual ~loader() {}
 };
 
+typedef shared_ptr<loader> loader_ptr;
+
 }
 
 namespace detail

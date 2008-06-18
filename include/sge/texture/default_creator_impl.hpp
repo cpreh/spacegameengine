@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DEFAULT_TEXTURE_CREATOR_IMPL_HPP_INCLUDED
-#define SGE_DEFAULT_TEXTURE_CREATOR_IMPL_HPP_INCLUDED
+#ifndef SGE_TEXTURE_DEFAULT_CREATOR_IMPL_HPP_INCLUDED
+#define SGE_TEXTURE_DEFAULT_CREATOR_IMPL_HPP_INCLUDED
 
 #include "default_creator.hpp"
 
 template<typename T>
-sge::default_texture_creator<T>::default_texture_creator(
+sge::texture::default_creator<T>::default_creator(
 	const renderer::device_ptr rend,
 	const renderer::filter_args& filter)
 : rend(rend),
@@ -32,7 +32,8 @@ sge::default_texture_creator<T>::default_texture_creator(
 {}
 
 template<typename T>
-sge::fragmented_texture* sge::default_texture_creator<T>::operator()() const
+sge::texture::fragmented*
+sge::texture::default_creator<T>::operator()() const
 {
 	return new T(rend, filter);
 }

@@ -13,6 +13,7 @@
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
 #include "../time/timer.hpp"
+#include "../texture/part.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
 #include "console.hpp"
@@ -27,7 +28,7 @@ class console_gfx
 	public:
 	SGE_SYMBOL console_gfx(
 		const renderer::device_ptr,
-		const virtual_texture_ptr,
+		const texture::part_ptr,
 		const font::font_ptr,
 		const input::system_ptr,
 		const sprite::point&,

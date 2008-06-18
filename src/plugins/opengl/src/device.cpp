@@ -257,22 +257,20 @@ sge::ogl::device::create_vertex_buffer(
 
 const sge::renderer::volume_texture_ptr
 sge::ogl::device::create_volume_texture(
-	const renderer::volume_texture::const_pointer src,
- 	const renderer::volume_texture::box_type& box,
+	renderer::volume_texture::image_view_array const &src,
 	const renderer::filter_args& filter,
 	const renderer::volume_texture::resource_flag_type flags)
 {
-	return renderer::volume_texture_ptr(new volume_texture(src, box, filter, flags));
+	return renderer::volume_texture_ptr(new volume_texture(src, filter, flags));
 }
 
 const sge::renderer::cube_texture_ptr
 sge::ogl::device::create_cube_texture(
-	const renderer::cube_texture::cube_side_array* const src,
-	const renderer::cube_texture::size_type sz,
+	renderer::cube_texture::image_view_6 const &src,
 	const renderer::filter_args& filter,
 	const renderer::cube_texture::resource_flag_type flags)
 {
-	return renderer::cube_texture_ptr(new cube_texture(src, sz, filter, flags));
+	return renderer::cube_texture_ptr(new cube_texture(src, filter, flags));
 }
 
 void sge::ogl::device::end_rendering()

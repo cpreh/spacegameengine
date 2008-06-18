@@ -36,12 +36,12 @@ namespace renderer
 namespace bit_depth
 {
 	enum type {
-		depth16,
-		depth32
+		depth16 = 16,
+		depth32 = 32
 	};
 }
 
-SGE_SYMBOL unsigned bit_depth_bit_count(const bit_depth::type d);
+SGE_SYMBOL unsigned bit_depth_bit_count(bit_depth::type);
 
 typedef int                              pixel_unit;
 typedef unsigned                         screen_unit;
@@ -66,8 +66,7 @@ namespace lock_flags
 	enum type {
 		readonly,
 		writeonly,
-		readwrite,
-		default_ = writeonly
+		readwrite
 	};
 }
 

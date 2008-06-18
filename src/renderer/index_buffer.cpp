@@ -22,46 +22,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 // FIXME: do this with fragments
 
-/*
-sge::index_buffer::iterator sge::index_buffer::end()
+sge::renderer::index_buffer::iterator sge::renderer::index_buffer::end()
 {
 	return begin() + size();
 }
 
-sge::index_buffer::const_iterator sge::index_buffer::end() const
+sge::renderer::index_buffer::const_iterator sge::renderer::index_buffer::end() const
 {
 	return begin() + size();
 }
 
-sge::index_buffer::reverse_iterator sge::index_buffer::rbegin()
+sge::renderer::index_buffer::reverse_iterator sge::renderer::index_buffer::rbegin()
 {
 	return reverse_iterator(end());
 }
 
-sge::index_buffer::const_reverse_iterator sge::index_buffer::rbegin() const
+sge::renderer::index_buffer::const_reverse_iterator sge::renderer::index_buffer::rbegin() const
 {
 	return const_reverse_iterator(end());
 }
 
-sge::index_buffer::reverse_iterator sge::index_buffer::rend()
+sge::renderer::index_buffer::reverse_iterator sge::renderer::index_buffer::rend()
 {
 	return reverse_iterator(begin());
 }
 
-sge::index_buffer::const_reverse_iterator sge::index_buffer::rend() const
+sge::renderer::index_buffer::const_reverse_iterator sge::renderer::index_buffer::rend() const
 {
 	return const_reverse_iterator(begin());
 }
 
-sge::index_buffer::reference sge::index_buffer::operator[](const size_type i)
+sge::renderer::index_buffer::reference sge::renderer::index_buffer::operator[](const size_type i)
 {
 	return *(begin() + i);
 }
 
-sge::index_buffer::const_reference sge::index_buffer::operator[](const size_type i) const
+sge::renderer::index_buffer::const_reference sge::renderer::index_buffer::operator[](const size_type i) const
 {
 	return *(begin() + i);
 }
 	
-sge::index_buffer::~index_buffer()
-{}*/
+sge::renderer::index_buffer::~index_buffer()
+{}

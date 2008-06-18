@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
-#include "fragmented_texture.hpp"
+#include "fragmented.hpp"
 #include "../export.hpp"
 #include "../shared_ptr.hpp"
 #include "../exception.hpp"
@@ -33,16 +33,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace texture
+{
 
-class texture_manager : boost::noncopyable {
+class manager : boost::noncopyable {
 public:
-	typedef boost::function<fragmented_texture* ()> onalloc_function;
-	SGE_SYMBOL texture_manager(
+	typedef boost::function<fragmented* ()> onalloc_function;
+	SGE_SYMBOL manager(
 		renderer::device_ptr rend,
 		const onalloc_function&);
-	SGE_SYMBOL const virtual_texture_ptr add_texture(
-		renderer::image const &src);
-	SGE_SYMBOL const virtual_texture_ptr add_texture(
+	SGE_SYMBOL const part_ptr add(
+		renderer::image_view const &src);
+	SGE_SYMBOL const part_ptr add(
 		renderer::texture_ptr tex);
 	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
 	SGE_SYMBOL void onalloc(const onalloc_function&);
@@ -52,18 +54,19 @@ public:
 		SGE_SYMBOL image_too_big();
 	};
 private:
-	const virtual_texture_ptr init_texture(
-		fragmented_texture&,
-		renderer::image const &src) const;
+	const part_ptr init_texture(
+		fragmented&,
+		renderer::image_view const &src) const;
 
-	const renderer::device_ptr                  rend;
-	onalloc_function                            onalloc_;
-	typedef boost::ptr_list<fragmented_texture> fragmented_texture_list;
-	fragmented_texture_list                     fragmented_textures;
+	const renderer::device_ptr          rend;
+	onalloc_function                    onalloc_;
+	typedef boost::ptr_list<fragmented> fragmented_texture_list;
+	fragmented_texture_list             fragmented_textures;
 };
 
-typedef shared_ptr<texture_manager> texture_manager_ptr;
+typedef shared_ptr<manager> manager_ptr;
 
+}
 }
 
 #endif

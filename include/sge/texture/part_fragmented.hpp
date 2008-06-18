@@ -18,23 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_UTIL_HPP_INCLUDED
-#define SGE_TEXTURE_UTIL_HPP_INCLUDED
+#ifndef SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
+#define SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 
 #include "part.hpp"
 #include "../export.hpp"
-#include "../image/object.hpp"
+#include "../renderer/texture.hpp"
 
 namespace sge
 {
 namespace texture
 {
 
-class manager;
+class part_fragmented : public part {
+public:
+	SGE_SYMBOL part_fragmented(
+		renderer::lock_rect const &outer_rect,
+		fragmented&,
+		bool need_atlasing_w,
+		bool need_atlasing_h);
+	SGE_SYMBOL void data(
+		renderer::image_view const &src);
+	SGE_SYMBOL const renderer::lock_rect& area() const;
+	SGE_SYMBOL const renderer::texture_ptr my_texture() const;
+	SGE_SYMBOL bool repeatable() const;
+	SGE_SYMBOL ~part_fragmented();
+private:
+	const renderer::lock_rect& outer_area() const;
+	renderer::lock_rect outer_area_;
+	fragmented&         fragment;
+	bool                need_atlasing_w,
+	                    need_atlasing_h;
+	renderer::lock_rect inner_area_;
+};
 
-SGE_SYMBOL const part_ptr add(
-	manager&,
-	image::object_ptr);
 
 }
 }

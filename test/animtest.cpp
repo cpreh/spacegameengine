@@ -121,6 +121,11 @@ try
 		ss.render(&spr, &spr+1);
 	}
 }
+catch(const sge::exception& e)
+{
+	sge::cerr << e.what() << SGE_TEXT('\n');
+	return EXIT_FAILURE;
+}
 catch(const std::exception& e)
 {
 	sge::cerr << e.what() << SGE_TEXT('\n');
