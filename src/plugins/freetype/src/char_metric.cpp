@@ -61,10 +61,10 @@ const sge::font::pos sge::ft::char_metric::offset() const
 	return offset_;
 }
 
-sge::font::image const &
+sge::font::const_image_view const
 sge::ft::char_metric::pixmap() const
 {
-	return buffer;
+	return boost::gil::const_view(buffer);
 }
 
 sge::font::unit sge::ft::char_metric::x_advance() const

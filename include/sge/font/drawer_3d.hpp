@@ -53,7 +53,7 @@ public:
 	SGE_SYMBOL void draw_char(
 		char_type,
 		pos const &,
-		image const &data);
+		const_image_view const &data);
 	SGE_SYMBOL void end_rendering();
 	SGE_SYMBOL void set_color(
 		renderer::color col);

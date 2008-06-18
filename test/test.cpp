@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/types.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/transform.hpp>
+#include <sge/renderer/scoped_block.hpp>
 #include <sge/media.hpp>
 #include <sge/input/system.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -43,18 +44,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector.hpp>
 #include <sge/math/vector_impl.hpp>
 
-template<
-	typename,
-	sge::math::detail::dim_type>
-struct no_policy{};
-
 int main()
 try
 {
-	basic_vector_ext(int, 2)
-		   i(1, 2),
-	           j(3, 4);	
-
 	bool running = true;
 	sge::plugin_manager pm;
 
@@ -73,7 +65,7 @@ try
 	const sge::font::metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);
 	const sge::font::drawer_ptr fn_drawer(new sge::font::drawer_3d(rend));
 
-	sge::font::font fn(metrics,fn_drawer);
+	sge::font::font fn(metrics, fn_drawer);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
@@ -92,27 +84,21 @@ try
 				[var(running)=false]));
 
 /*	rend->set_state(
-		sge::renderer_state_list
-			(sge::bool_state::enable_lighting = true)
-			(sge::cull_mode::off)
-			(sge::bool_state::clear_zbuffer = true)
-			(sge::bool_state::clear_backbuffer = true)
-			(sge::cull_mode::front)
-			(sge::float_state::zbuffer_clear_val = 0)
-			(sge::depth_func::greater)
-	);*/
-
-	const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
+		sge::renderer::state_list
+			(sge::renderer::color_state::clear_color = sge::renderer::color(255, 255, 255, 255))
+			(sge::renderer::bool_state::clear_backbuffer = true)
+			(sge::renderer::depth_func::off)
+			(sge::renderer::cull_mode::off));*/
+	//const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
+	const sge::string some_text(SGE_TEXT("de"));
 	while(running)
 	{
-		rend->begin_rendering();
+		const sge::renderer::scoped_block block_(rend);
 
 		rend->get_window()->dispatch();
-		sge::window::dispatch();
 		is->dispatch();
-		fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(20,500), sge::font::align_h::right, sge::font::align_v::bottom);
-		
-		rend->end_rendering();
+
+		fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
 	}
 	return EXIT_SUCCESS;
 }

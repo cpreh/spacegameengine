@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/rect.hpp"
 #include "../string.hpp"
 #include <boost/gil/image.hpp>
+#include <boost/gil/image_view.hpp>
+#include <boost/gil/typedefs.hpp>
 
 namespace sge
 {
@@ -43,6 +45,8 @@ typedef math::basic_rect<unit>          rect;
 typedef boost::gil::image<
 	renderer::gray8_pixel,
 	false>                          image;
+typedef boost::gil::gray8c_view_t       const_image_view;
+typedef boost::gil::gray8_view_t        image_view;
 
 const dim gil_dim_to_sge(image::point_t const&);
 

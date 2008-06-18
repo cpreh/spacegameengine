@@ -37,8 +37,8 @@ class char_metric : public font::char_metric {
 public:
 	char_metric(face&, char_type, font::unit pixel_size);
 
-	font::image const &pixmap() const;
-	const font::pos offset() const;
+	font::const_image_view const pixmap() const;
+	font::pos const offset() const;
 	font::unit x_advance() const;
 private:
 	font::image buffer;

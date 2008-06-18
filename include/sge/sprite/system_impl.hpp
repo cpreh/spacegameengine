@@ -90,7 +90,6 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 			(renderer::draw_mode::fill)
 	);
 
-
 	unsigned first_index = 0;
 	for(RanIt cur = beg; cur != end; )
 	{

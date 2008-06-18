@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/renderer/colors.hpp>
+#include <sge/renderer/image.hpp>
+#include <boost/gil/algorithm.hpp>
 
 sge::font::drawer_3d::drawer_3d(
 	const renderer::device_ptr rend,
@@ -38,45 +40,64 @@ sge::font::drawer_3d::drawer_3d(
   sys(rend)
 {}
 
-void sge::font::drawer_3d::begin_rendering(const size_type buffer_chars, const dim)
+void sge::font::drawer_3d::begin_rendering(
+	const size_type buffer_chars,
+	const dim)
 {
 	sprites.clear();
 	sprites.reserve(buffer_chars);
 }
 
+//#include <sge/texture/part_raw.hpp>
+
 void sge::font::drawer_3d::draw_char(
 	const char_type ch,
 	pos const& p,
-	image const &data)
+	const_image_view const &data)
 {
 	texture_map::const_iterator it = textures.find(ch);
 	if(it == textures.end())
 	{
-		//renderer::image img(fr.w(), fr.h());
-		
-		//const renderer::texture::size_type raw_size = fr.w() * fr.h();
-		//raw_vector<renderer::color> expanded(raw_size);
-		//std::vector<renderer::color> expanded(raw_size);
-		//for(renderer::texture::size_type i = 0; i < raw_size; ++i)
-		{
-			//const color_element elem = data[i];
-			// FIXME: use GIL to convert gray scale to rgba here
-			//expanded[i] = elem ? make_color(elem, elem, elem, 255) : 0;
-		}
-/*		textures.insert(
+		renderer::rgba8_image img(data.width(), data.height());
+		boost::gil::copy_and_convert_pixels(data, boost::gil::view(img));
+
+		it = textures.insert(
 			std::make_pair(
 				ch,
-				texman.add_texture(
-					boost::gil::color_converted_view<renderer::color>(boost::gil::view(data)))));*/
-		it = textures.find(ch);
+				texman.add(
+					renderer::const_image_view(
+						boost::gil::const_view(
+							img))))).first;
+		// FIXME: do we have to handle alpha differently?
+		//expanded[i] = elem ? make_color(elem, elem, elem, 255) : 0;
 	}
 
+	/*if(!sprites.empty())
+		return;*/
+	
 	sprites.push_back(
 		sprite::object(
 			p,
 			it->second,
 			gil_dim_to_sge(data.dimensions()),
 			col));
+	
+	/*texture::part_ptr const tex_part(
+		new texture::part_raw(
+			renderer::lock_rect(
+				0,
+				0,
+				200,
+				200),
+				it->second->my_texture()));
+
+	sprites.push_back(
+		sprite::object(
+			p,
+			tex_part,
+			sprite::dim(500, 500),
+			col));
+	*/
 }
 
 void sge::font::drawer_3d::end_rendering()

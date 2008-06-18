@@ -100,7 +100,6 @@ void sge::ogl::texture::data_internal(
 	renderer::const_image_view const &src)
 {
 	internal_parameters(src);
-	set_texture(0);
 	
 	const renderer::scoped_lock<sge::ogl::texture*> lock_(
 		renderer::make_scoped_lock(
@@ -140,11 +139,11 @@ void sge::ogl::texture::lock(
 	do_lock(
 		lmode,
 		must_read
-		? size()
-		: l.size(),
+			? size()
+			: l.size(),
 		must_read
-		? l.left() + l.top() * dim().w()
-		: 0);
+			? l.left() + l.top() * dim().w()
+			: 0);
 	if(must_read)
 		get_tex_image(
 			format(),

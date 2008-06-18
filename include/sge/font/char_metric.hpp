@@ -32,7 +32,8 @@ namespace font
 
 class char_metric {
 public:
-	virtual image const &pixmap() const = 0;
+	virtual const_image_view const pixmap() const = 0;
+	virtual pos const offset() const = 0;
 	virtual unit x_advance() const = 0;
 	virtual ~char_metric() {}
 };

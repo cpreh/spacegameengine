@@ -71,7 +71,7 @@ void sge::ogl::basic_buffer<Base, Type, Impl>::lock(
 	if(dest)
 		throw exception(SGE_TEXT("ogl_buffer::lock(): you have to unlock before locking!"));
 
-	if(first >= size())
+	if(first > size())
 		throw exception(SGE_TEXT("ogl_buffer::lock(): first out of range!"));
 
 	if(count == npos)

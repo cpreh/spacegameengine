@@ -1,5 +1,7 @@
 #include <sge/renderer/colors.hpp>
 
+// FIXME: initialize all colors and do it so that they are not affected by changing the channel order
+
 const sge::renderer::color sge::renderer::colors::aliceblue(240, 248, 255, 255);
 
 const sge::renderer::color sge::renderer::colors::black(0, 0, 0, 255);

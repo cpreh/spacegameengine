@@ -53,7 +53,7 @@ sge::sprite::fill_tex_coordinates(
 	(*it++).tex() = tex_pos(rt.right(), rt.top());
 	(*it++).tex() = tex_pos(rt.right(), rt.bottom());
 	(*it++).tex() = tex_pos(rt.left(), rt.bottom());
-
+	
 	return it;
 }
 
@@ -107,7 +107,8 @@ sge::sprite::fill_color(
 	const color col)
 {
 	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)
-		(*it++).diffuse() = col;
+		(*it++).diffuse() = renderer::color(0xFF, 0xFF, 0xFF, 0xFF);
+	//	(*it++).diffuse() = col;
 	return it;
 }
 

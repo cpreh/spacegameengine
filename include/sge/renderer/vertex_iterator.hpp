@@ -114,9 +114,6 @@ public:
 	{}
 };
 
-typedef iterator_impl<vertex> iterator;
-typedef iterator_impl<const_vertex> const_iterator;
-
 }
 }
 }

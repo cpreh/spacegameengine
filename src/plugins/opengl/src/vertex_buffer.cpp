@@ -76,9 +76,10 @@ sge::ogl::vertex_buffer::view()
 sge::renderer::const_vertex_view const
 sge::ogl::vertex_buffer::view() const
 {
-	// FIXME
-	//return const_cast<vertex_buffer&>(
-	//	*this).view();
+	return renderer::const_vertex_view(
+		detail::vertex_buffer_base::data(),
+		detail::vertex_buffer_base::lock_size(),
+		get_vertex_format());
 }
 
 const sge::renderer::vertex_format&

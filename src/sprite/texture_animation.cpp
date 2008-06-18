@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::sprite::texture_animation::texture_animation(
 	const animation_series& series_,
 	const loop_method::type action,
-	object *spr)
+	object *const spr)
 : series(series_),
   action(action),
   cur_timer(

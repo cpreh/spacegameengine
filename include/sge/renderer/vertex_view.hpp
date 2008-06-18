@@ -35,8 +35,8 @@ template<typename Vertex>
 class basic_vertex_view {
 public:
 	typedef vertex_size size_type;
-	typedef vertex::pointer pointer;
-	typedef vb_detail::iterator iterator;
+	typedef typename Vertex::pointer pointer;
+	typedef vb_detail::iterator_impl<Vertex> iterator;
 
 	basic_vertex_view(
 		pointer data,

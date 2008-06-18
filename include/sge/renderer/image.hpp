@@ -22,16 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_IMAGE_HPP_INCLUDED
 
 #include <boost/gil/image.hpp>
-#include <boost/gil/extension/dynamic_image/any_image.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/gil/typedefs.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-// TODO:
-//typedef boost::gil::any_image<image_types> image;
+typedef boost::gil::rgba8_image_t rgba8_image;
 
 }
 }

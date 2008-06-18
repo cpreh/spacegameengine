@@ -39,7 +39,7 @@ public:
 	virtual void draw_char(
 		char_type,
 		pos const&,
-		image const &data) = 0;
+		const_image_view const &data) = 0;
 	virtual void end_rendering() = 0;
 	virtual ~drawer() {}
 };

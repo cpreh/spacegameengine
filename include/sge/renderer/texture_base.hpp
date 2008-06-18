@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "color.hpp"
 #include "types.hpp"
-#include "image.hpp"
 #include "../shared_ptr.hpp"
 #include "../math/rect.hpp"
 #include <iterator>
