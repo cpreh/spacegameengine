@@ -65,6 +65,12 @@ typedef rgba8_pixel color;
 typedef rgba_f32_pixel colorf;
 #endif
 
+color const make_color_rgba(
+	pixel_channel_8 r,
+	pixel_channel_8 g,
+	pixel_channel_8 b,
+	pixel_channel_8 a);
+
 /*
 template<typename Ch,typename Traits>
 inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s, const color4 &col)
