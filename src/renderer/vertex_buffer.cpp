@@ -20,5 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vertex_buffer.hpp>
 
+const sge::renderer::vertex_buffer::size_type
+sge::renderer::vertex_buffer::npos;
+
 sge::renderer::vertex_buffer::~vertex_buffer()
 {}

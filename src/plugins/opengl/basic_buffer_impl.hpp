@@ -268,7 +268,7 @@ sge::ogl::basic_buffer<Base, Type, Impl>::buffer_offset(
 	return static_cast<pointer>(
 		Impl().buffer_offset(
 			Type(),
-			static_cast<GLsizei>(sz)));
+			static_cast<GLsizei>(sz * stride())));
 }
 
 template<
