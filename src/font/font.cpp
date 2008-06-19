@@ -91,14 +91,7 @@ sge::font::font::draw_text(
 			char_metric_ptr const cm(metrics()->load_char(*sbeg));
 			drawer()->draw_char(
 				*sbeg,
-				pos_,// + cm->offset(),
-				/*rect(
-					pos(
-						pos_.x() + metric->left(),
-						pos_.y() + metric->top()),
-					dim(
-						metric->width(),
-						metric->height())),*/
+				pos_ + cm->offset(),
 				cm->pixmap());
 			pos_.x() += char_space(*sbeg);
 		}
