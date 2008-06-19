@@ -107,7 +107,7 @@ sge::sprite::fill_color(
 	const color col)
 {
 	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)
-		(*it++).diffuse() = col;
+		(*it++).diffuse() = col[3] << 24 | col[2] << 16 | col[1] << 8 | col[0] ; // FIXME
 	return it;
 }
 

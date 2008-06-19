@@ -61,7 +61,7 @@ template<> struct vertex_traits<vertex_usage::tex> {
 };
 
 template<> struct vertex_traits<vertex_usage::diffuse> {
-	typedef color        element_type;
+	typedef uint32       element_type;
 	typedef element_type packed_type;
 };
 

@@ -36,7 +36,7 @@ const sge::texture::part_ptr sge::sprite::no_texture;
 const sge::sprite::point sge::sprite::defaults::pos_(0,0);
 const sge::texture::part_ptr sge::sprite::defaults::texture_(no_texture);
 const sge::sprite::dim sge::sprite::defaults::dim_(0,0);
-const sge::sprite::color sge::sprite::defaults::color_(renderer::colors::white);
+const sge::sprite::color sge::sprite::defaults::color_(255, 255, 255, 255); // FIXME: we cant use global colors::white here :/
 const sge::sprite::depth_type sge::sprite::defaults::depth_(0);
 const sge::sprite::rotation_type sge::sprite::defaults::rotation_(0);
 const bool sge::sprite::defaults::visible_(true);
