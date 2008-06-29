@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/part_raw.hpp>
+#include <sge/math/rect_impl.hpp>
 
 sge::texture::part_raw::part_raw(
 	renderer::lock_rect const &area_,

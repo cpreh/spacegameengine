@@ -13,6 +13,7 @@
 #include <boost/gil/image_view_factory.hpp>
 #include <boost/foreach.hpp>
 #include <boost/array.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <exception>
 #include <ostream>
 #include <cstdlib>
