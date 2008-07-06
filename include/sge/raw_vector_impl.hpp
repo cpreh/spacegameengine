@@ -358,7 +358,7 @@ typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::erase(const iter
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::erase(const iterator l, const iterator r)
 {
-	std::uninitialized_copy(r, end(), begin());
+	std::uninitialized_copy(r, end(), l);
 	i.last -= r - l;
 	return r;
 }
