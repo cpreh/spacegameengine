@@ -8,6 +8,7 @@ FILE (GLOB sgecorefiles
 	font/*.cpp
 	image/*.cpp
 	input/*.cpp
+	log/*.cpp
 	math/*.cpp
 	model/*.cpp
 	renderer/*.cpp
@@ -22,7 +23,7 @@ ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 SET_TARGET_PROPERTIES (sgecore PROPERTIES DEFINE_SYMBOL SGE_EXPORTS)
 
 IF (NOT MSVC)
-	TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex)
+	TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex boost_iostreams)
 ENDIF ()
 
 IF (${UNIX})
