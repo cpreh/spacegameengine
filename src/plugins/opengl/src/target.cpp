@@ -20,19 +20,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../target.hpp"
-#include <cassert>
+#include "../framebuffer.hpp"
+#include <sge/renderer/scoped_lock.hpp>
+#include <sge/math/rect_impl.hpp>
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
-void sge::ogl::target::copy_data(const pointer p)
+void sge::ogl::target::lock()
 {
-	assert(p != 0);
+	renderer::lock_rect const dest(
+		renderer::lock_rect::point_type(0, 0),
+		dim());
+	lock(dest);
+}
+
+void sge::ogl::target::lock(
+	renderer::lock_rect const &dest)
+{
+	if(buffer)
+		throw exception(
+			SGE_TEXT("renderer::target()::lock(): already locked!"));
+
+	buffer.reset(
+		new pixel_pack_buffer(
+			dest.dim().size(),
+			stride(),
+			renderer::resource_flags::none,
+			0));
 	bind_me();
-	// FIXME:
-	glReadPixels(
-		0,
-		0,
-		static_cast<GLsizei>(dim().w()),
-		static_cast<GLsizei>(dim().h()),
-		GL_RGBA,
-		GL_UNSIGNED_BYTE,
-		p);
+
+	buffer->lock(
+		renderer::lock_flags::readonly);
+
+	read_pixels(
+		dest.left(),
+		dest.top(),
+		dest.dim().w(),
+		dest.dim().h(),
+		format(),
+		format_type(),
+		buffer->data());
+}
+
+void sge::ogl::target::unlock()
+{
+	buffer->unlock();
+	buffer.reset();
+}
+
+sge::renderer::const_image_view const
+sge::ogl::target::view() const
+{
+	return renderer::const_image_view(
+		boost::gil::rgba8_view_t(
+			boost::gil::interleaved_view(
+				dim().w(),
+				dim().h(),
+				reinterpret_cast<renderer::rgba8_pixel *>( // FIXME: why can't we use const * here?
+					buffer->data()),
+				dim().w() * stride())));
 }

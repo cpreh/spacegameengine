@@ -22,19 +22,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../default_target.hpp"
 
 sge::ogl::default_target::default_target(
-	const window_ptr wnd)
- : wnd(wnd)
+	dim_type const & dim_)
+ : dim_(dim_)
 {}
 
-// FIXME: is this really intended (use the viewport dim here instead)?
 const sge::renderer::target::dim_type
 sge::ogl::default_target::dim() const
 {
-	return dim_type(wnd->width(), wnd->height());
+	return dim_;
 }
 
 void sge::ogl::default_target::bind_me() const
 {
+	// TODO: this should be somewhere else!
 	if(glBindFramebufferEXT)
 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+}
+
+sge::ogl::default_target::size_type
+sge::ogl::default_target::stride() const
+{
+	return 4; // FIXME
+}
+
+GLenum sge::ogl::default_target::format() const
+{
+	return GL_RGBA; // FIXME
+}
+
+GLenum sge::ogl::default_target::format_type() const
+{
+	return GL_UNSIGNED_BYTE; // FIXME
 }

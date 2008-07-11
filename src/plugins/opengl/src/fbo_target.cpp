@@ -51,11 +51,6 @@ void sge::ogl::fbo_target::bind_me() const
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo);
 }
 
-const sge::renderer::target::dim_type sge::ogl::fbo_target::dim() const
-{
-	return dim_;
-}
-
 void sge::ogl::fbo_target::bind_texture(const renderer::texture_ptr t)
 {
 	bind_me();
@@ -64,4 +59,25 @@ void sge::ogl::fbo_target::bind_texture(const renderer::texture_ptr t)
 	const GLenum status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
 	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
 		throw exception(SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
+}
+
+const sge::renderer::target::dim_type sge::ogl::fbo_target::dim() const
+{
+	return dim_;
+}
+
+sge::ogl::fbo_target::size_type
+sge::ogl::fbo_target::stride() const
+{
+	return 4; // FIXME
+}
+
+GLenum sge::ogl::fbo_target::format() const
+{
+	return GL_RGBA; // FIXME
+}
+
+GLenum sge::ogl::fbo_target::format_type() const
+{
+	return GL_UNSIGNED_BYTE; // FIXME
 }

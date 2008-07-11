@@ -18,31 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_FRAMEBUFFER_HPP_INCLUDED
+#define SGE_OPENGL_FRAMEBUFFER_HPP_INCLUDED
 
 #include "common.hpp"
-#include "target.hpp"
+#include <sge/renderer/target.hpp>
 
 namespace sge
 {
 namespace ogl
 {
 
-class default_target : public target {
-public:
-	default_target(
-		dim_type const &);
-private:
-	dim_type const dim() const;
-
-	void bind_me() const;
-	size_type stride() const;
-	GLenum format() const;
-	GLenum format_type() const;
-
-	dim_type dim_;
-};
+void read_pixels(
+	renderer::target::size_type x,
+	renderer::target::size_type y,
+	renderer::target::size_type width,
+	renderer::target::size_type height,
+	GLenum format,
+	GLenum type,
+	unsigned char *dest);
 
 }
 }

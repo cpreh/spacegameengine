@@ -25,3 +25,6 @@ sge::renderer::target::size() const
 {
 	return dim().size();
 }
+
+sge::renderer::target::~target()
+{}

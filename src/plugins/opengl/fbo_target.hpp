@@ -34,15 +34,19 @@ namespace ogl
 class fbo_target : public target {
 public:
 	fbo_target(
-		const dim_type& dim_);
+		dim_type const &);
 	~fbo_target();
-
-	const dim_type dim() const;
 
 	void bind_texture(
 		renderer::texture_ptr);	
 	void bind_me() const;
 private:
+	const dim_type dim() const;
+
+	size_type stride() const;
+	GLenum format() const;
+	GLenum format_type() const;
+
 	dim_type  dim_;
 
 	GLuint    fbo,

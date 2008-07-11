@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/format.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
+#include <sge/log/logger.hpp>
+#include <sge/log/global.hpp>
 #include <ostream>
 
 namespace
@@ -70,12 +72,12 @@ void sge::ogl::set_texture(
 	SGE_OPENGL_SENTRY
 	
 	if(dim.w() < 64 || dim.h() < 64)
-		sge::cerr << SGE_TEXT("warning: opengl implementations are not required to support textures smaller than 64x64.")\
-		             SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n");
+		log::global().warn() << SGE_TEXT("warning: opengl implementations are not required to support textures smaller than 64x64.")\
+		                        SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n");
 
 	if(!math::is_power_of_2(dim))
-		sge::cerr << SGE_TEXT("warning: opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
-		             SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n");
+		log::global().warn() << SGE_TEXT("warning: opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
+		                        SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n");
 
 	glTexImage2D(
 		tex_type,

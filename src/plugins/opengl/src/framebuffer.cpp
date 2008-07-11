@@ -18,33 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
+#include "../framebuffer.hpp"
+#include "../error.hpp"
 
-#include "common.hpp"
-#include "target.hpp"
-
-namespace sge
+void sge::ogl::read_pixels(
+	renderer::target::size_type const x,
+	renderer::target::size_type const y,
+	renderer::target::size_type const width,
+	renderer::target::size_type const height,
+	GLenum const format,
+	GLenum const type,
+	unsigned char *const dest)
 {
-namespace ogl
-{
+	SGE_OPENGL_SENTRY
 
-class default_target : public target {
-public:
-	default_target(
-		dim_type const &);
-private:
-	dim_type const dim() const;
-
-	void bind_me() const;
-	size_type stride() const;
-	GLenum format() const;
-	GLenum format_type() const;
-
-	dim_type dim_;
-};
-
+	glReadPixels(
+		static_cast<GLint>(x),
+		static_cast<GLint>(y),
+		static_cast<GLsizei>(width),
+		static_cast<GLsizei>(height),
+		format,
+		type,
+		dest);
 }
-}
-
-#endif

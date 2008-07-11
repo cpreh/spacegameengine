@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
 
-#include "color.hpp"
 #include "types.hpp"
 #include "../shared_ptr.hpp"
 #include "../math/rect.hpp"
@@ -37,7 +36,6 @@ class texture_base {
 public:
 	typedef std::size_t                           size_type;
 	typedef std::ptrdiff_t                        difference_type;
-	typedef color                                 value_type;
 	typedef resource_flag_t                       resource_flag_type;
 	typedef lock_flag_t                           lock_flag_type;
 
@@ -47,7 +45,6 @@ public:
 };
 
 typedef shared_ptr<texture_base>                  texture_base_ptr;
-typedef math::basic_rect<texture_base::size_type> lock_rect;
 
 }
 }

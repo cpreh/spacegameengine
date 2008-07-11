@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_HPP_INCLUDED
 
+#include "common.hpp"
+#include "pixel_pack_buffer.hpp"
 #include <sge/shared_ptr.hpp>
 #include <sge/renderer/target.hpp>
+#include <boost/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -31,8 +34,19 @@ namespace ogl
 
 class target : public sge::renderer::target {
 public:
-	void copy_data(pointer);
 	virtual void bind_me() const = 0;
+private:
+	void lock();
+	void lock(renderer::lock_rect const &dest);
+	void unlock();
+	renderer::const_image_view const view() const;
+
+	virtual size_type stride() const = 0;
+	virtual GLenum format() const = 0;
+	virtual GLenum format_type() const = 0;
+
+	boost::scoped_ptr<
+		pixel_pack_buffer> buffer;
 };
 
 typedef shared_ptr<target> target_ptr;

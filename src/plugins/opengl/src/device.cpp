@@ -517,7 +517,11 @@ void sge::ogl::device::set_render_target(
 {
 	if(!target)
 	{
-		render_target_.reset(new default_target(wnd));
+		render_target_.reset(
+			new default_target(
+				math::structure_cast<
+					target::dim_type::value_type>(
+						screen_size())));
 		render_target_->bind_me();
 		const window::window_pos offset = wnd->viewport_offset();
 		set_viewport(

@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_HPP_INCLUDED
 
-#include "color.hpp"
+#include "image_view.hpp"
+#include "types.hpp"
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
 #include "../math/dim.hpp"
@@ -34,17 +35,19 @@ namespace renderer
 
 class target {
 public:
-	// FIXME:
-	typedef unsigned char                  value_type;
 	typedef std::size_t                    size_type;
-	typedef value_type*                    pointer;
-	typedef const value_type*              const_pointer;
 	typedef math::basic_dim<size_type, 2>  dim_type;
+
+	virtual void lock() = 0;
+	virtual void lock(lock_rect const &dest) = 0;
+	virtual void unlock() = 0;
 
 	virtual const dim_type dim() const = 0;
 	SGE_SYMBOL size_type size() const;
-	virtual void copy_data(pointer) = 0;
-	virtual ~target(){}
+
+	virtual const_image_view const view() const = 0;
+		
+	virtual ~target();
 };
 
 typedef shared_ptr<target> target_ptr;
