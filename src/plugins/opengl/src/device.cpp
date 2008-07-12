@@ -561,12 +561,9 @@ void sge::ogl::device::set_texture(
 	disable(GL_TEXTURE_1D);
 	disable(GL_TEXTURE_2D);
 	// FIXME:
-#ifdef SGE_OPENGL_HAVE_VOLUME_TEXTURE
-	disable(detail::volume_texture_type);
-#endif
-#ifdef SGE_OPENGL_HAVE_CUBE_TEXTURE
-	disable(detail::cube_texture_type);
-#endif
+	//disable(detail::volume_texture_type);
+	disable_cube_texture();
+
 	if(!tex)
 		return;
 	texture_base& b = dynamic_cast<texture_base&>(*tex);

@@ -49,8 +49,7 @@ private:
 
 	dim_type  dim_;
 
-	GLuint    fbo,
-	          depthbuffer;
+	GLuint    fbo;
 };
 
 typedef shared_ptr<fbo_target> fbo_target_ptr;

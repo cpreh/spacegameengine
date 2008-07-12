@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
 #include "../version.hpp"
+#include "../enable.hpp"
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/once.hpp>
 #include <boost/assign/list_of.hpp>
@@ -35,8 +36,10 @@ namespace
 
 void initialize_cube_texture();
 GLenum cube_texture_type();
+bool have_cube_texture();
 
 GLenum gl_cube_texture_type;
+bool have_cube_texture_;
 
 }
 
@@ -49,6 +52,12 @@ sge::ogl::cube_texture::cube_texture(
  : detail::cube_texture_base(filter, flags, cube_texture_type()),
   sz(0)
 {
+	if(!have_cube_texture())
+		sge::ogl::on_not_supported(
+			SGE_TEXT("cube texture"),
+			SGE_TEXT("1.3"),
+	       		SGE_TEXT("gl_arb_cube_texture"));
+
 	//if(src)
 	//	renderer::cube_texture::set_data(*src);
 }
@@ -147,6 +156,12 @@ GLenum sge::ogl::convert_cast(const renderer::cube_side::type& s)
 	return cube_sides[pos];
 }
 
+void sge::ogl::disable_cube_texture()
+{
+	if(have_cube_texture())
+		disable(cube_texture_type());
+}
+
 namespace
 {
 
@@ -159,16 +174,20 @@ void initialize_cube_texture()
 	else if(GLEW_ARB_texture_cube_map)
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP_ARB;
 	else
-		sge::ogl::on_not_supported(
-			SGE_TEXT("cube texture"),
-			SGE_TEXT("1.3"),
-	        	SGE_TEXT("gl_arb_cube_texture"));
+		return;
+	have_cube_texture_ = true;
 }
 
 GLenum cube_texture_type()
 {
 	initialize_cube_texture();
 	return gl_cube_texture_type;
+}
+
+bool have_cube_texture()
+{
+	initialize_cube_texture();
+	return have_cube_texture_;
 }
 
 }

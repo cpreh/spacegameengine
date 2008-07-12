@@ -28,11 +28,10 @@ namespace sge
 namespace ogl
 {
 
-string version_not_supported_string(const string& function, const string& min_version);
-
-void on_not_supported(const string& function,
-                      const string& min_version,
-                      const string& possible_extension);
+void on_not_supported(
+	string const &function,
+	string const &min_version,
+	string const &possible_extension);
 
 }
 }

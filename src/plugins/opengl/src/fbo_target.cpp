@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../fbo_target.hpp"
-#include "../extension.hpp"
+#include "../version.hpp"
 #include "../texture_base.hpp"
+#include "../error.hpp"
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 
@@ -28,22 +29,21 @@ sge::ogl::fbo_target::fbo_target(const dim_type& dim_)
  : dim_(dim_)
 {
 	if(!glGenFramebuffersEXT)
-		throw exception(extension_not_supported_string(SGE_TEXT("frame_buffer_ext")));
+		on_not_supported(
+			"glGenFrameBuffersEXT",
+			"none",
+			"frame_buffer_ext"
+			);
+
+	SGE_OPENGL_SENTRY
+
 	glGenFramebuffersEXT(1, &fbo);
 	bind_me();
-
-	if(!glGenRenderbuffersEXT)
-		throw exception(extension_not_supported_string(SGE_TEXT("render_buffer_ext")));
-	glGenRenderbuffersEXT(1, &depthbuffer);
-	glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthbuffer);
-	glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, static_cast<GLsizei>(dim().w()), static_cast<GLsizei>(dim().h()));
-	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, depthbuffer);
 }
 
 sge::ogl::fbo_target::~fbo_target()
 {
 	glDeleteFramebuffersEXT(1, &fbo);
-	glDeleteRenderbuffersEXT(1, &depthbuffer);
 }
 
 void sge::ogl::fbo_target::bind_me() const

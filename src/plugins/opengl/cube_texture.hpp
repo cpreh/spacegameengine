@@ -68,6 +68,8 @@ private:
 
 GLenum convert_cast(const renderer::cube_side::type&);
 
+void disable_cube_texture();
+
 }
 }
 
