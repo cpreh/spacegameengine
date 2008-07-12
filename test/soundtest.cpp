@@ -7,6 +7,8 @@
 #include <sge/util.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/time/second.hpp>
 #include <ostream>
 #include <exception>
 #include <algorithm>
@@ -54,19 +56,18 @@ try
 	soundleft->pos(sge::math::vector3(1,0,0));
 	soundleft->play(true);
 	sge::sleep(1);
-	soundright->play(true);	
+	//soundright->play(true);	
 
-	sge::sleep(20000);
+	//sge::sleep(20000);
 
-	/*
-	sge::timer frame_timer(1000);
+	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
 	while (true)
 	{
 		sge::space_unit angle = frame_timer.elapsed_frames() * 2 * sge::math::PI;
-		sound->pos(sge::math::vector3(std::sin(angle),0,std::cos(angle)));
+		soundleft->pos(sge::math::vector3(std::sin(angle),0,std::cos(angle)));
 		audio_player->update();
 	}
-	*/
+	
 } catch (const sge::exception &e) {
 	sge::cerr << SGE_TEXT("Exception caught: ") << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;

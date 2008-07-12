@@ -23,16 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/windows.hpp>
-#elif SGE_LINUX_PLATFORM
+#elif SGE_POSIX_PLATFORM
 #include <unistd.h>
 #endif
 
 void sge::sleep(const unsigned long milli_seconds)
 {
 #ifdef SGE_WINDOWS_PLATFORM
-	::Sleep(milli_seconds);
-#elif SGE_LINUX_PLATFORM
-	::usleep(static_cast<__useconds_t>(milli_seconds*1000));
+	Sleep(milli_seconds);
+#elif SGE_POSIX_PLATFORM
+	usleep(static_cast<__useconds_t>(milli_seconds*1000));
+#else
+#error "Implement me!"
 #endif
 }
 
