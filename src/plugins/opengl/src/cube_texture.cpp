@@ -57,9 +57,7 @@ sge::ogl::cube_texture::cube_texture(
 			SGE_TEXT("cube texture"),
 			SGE_TEXT("1.3"),
 	       		SGE_TEXT("gl_arb_cube_texture"));
-
-	//if(src)
-	//	renderer::cube_texture::set_data(*src);
+	//data(src);
 }
 
 sge::ogl::cube_texture::size_type
