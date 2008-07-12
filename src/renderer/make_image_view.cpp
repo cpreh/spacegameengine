@@ -62,6 +62,19 @@ sge::renderer::make_image_view(
 	}
 }
 
+sge::renderer::const_image_view const
+sge::renderer::make_image_view(
+	unsigned char const * const data,
+	image_dim const &d,
+	color_format::type const format)
+{
+	return const_image_view(
+		make_image_view(
+			const_cast<unsigned char *>(data),
+			d,
+			format));
+}
+
 namespace
 {
 
