@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pbo.hpp"
 #include "../color_convert.hpp"
 #include <sge/renderer/scoped_lock.hpp>
-#include <sge/renderer/color.hpp>
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
@@ -109,11 +108,6 @@ void sge::ogl::texture::data_internal(
 		src,
 		make_view(
 			src.dimensions()));
-		/*boost::gil::interleaved_view(
-			src.width(),
-			src.height(),
-			reinterpret_cast<renderer::rgba8_pixel*>(write_buffer()),
-			src.width() * stride()));*/
 }
 
 void sge::ogl::texture::lock(
@@ -180,14 +174,6 @@ sge::ogl::texture::view()
 {
 	return make_view(
 		dim());
-	/*return renderer::image_view(
-		boost::gil::rgba8_view_t(
-			boost::gil::interleaved_view(
-				dim().w(),
-				dim().h(),
-				reinterpret_cast<renderer::rgba8_pixel*>(
-					write_buffer()),
-				dim().w() * stride())));*/
 }
 
 sge::renderer::const_image_view const
