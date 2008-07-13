@@ -18,28 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_COLOR_CONVERT_HPP_INCLUDED
-#define SGE_OPENGL_COLOR_CONVERT_HPP_INCLUDED
+#include <sge/renderer/color_format_stride.hpp>
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
+#include <boost/cstdint.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/color_format.hpp>
-
-namespace sge
+std::size_t sge::renderer::color_format_stride(
+	color_format::type const fmt)
 {
-namespace ogl
-{
-
-renderer::color_format::type color_convert(
-	GLenum format,
-	GLenum format_type);
-
-GLenum to_format(
-	renderer::color_format::type);
-
-GLenum to_format_type(
-	renderer::color_format::type);
-
+	switch(fmt) {
+	case color_format::argb8:
+	case color_format::rgba8:
+		return sizeof(boost::uint32_t);
+	default:
+		throw exception(
+			SGE_TEXT("Invalid color_format in color_format_stride()!"));
+	}
 }
-}
-
-#endif

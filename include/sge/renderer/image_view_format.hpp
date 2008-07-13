@@ -18,26 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_COLOR_CONVERT_HPP_INCLUDED
-#define SGE_OPENGL_COLOR_CONVERT_HPP_INCLUDED
+#ifndef SGE_RENDERER_IMAGE_VIEW_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_IMAGE_VIEW_FORMAT_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/color_format.hpp>
+#include "image_view.hpp"
+#include "color_format.hpp"
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 
-renderer::color_format::type color_convert(
-	GLenum format,
-	GLenum format_type);
-
-GLenum to_format(
-	renderer::color_format::type);
-
-GLenum to_format_type(
-	renderer::color_format::type);
+color_format::type image_view_format(
+	const_image_view const &);
 
 }
 }

@@ -35,3 +35,29 @@ sge::ogl::color_convert(
 	throw exception(
 		SGE_TEXT("ogl::color_convert: No matching color_format!"));
 }
+
+GLenum sge::ogl::to_format(
+	renderer::color_format::type const fmt)
+{
+	switch(fmt) {
+	case renderer::color_format::argb8:
+	case renderer::color_format::rgba8:
+		return GL_RGBA; // TODO: is this right?
+	default:
+		throw exception(
+			SGE_TEXT("Invalid color_format in to_format()!"));
+	}
+}
+
+GLenum sge::ogl::to_format_type(
+	renderer::color_format::type const fmt)
+{
+	switch(fmt) {
+	case renderer::color_format::argb8:
+	case renderer::color_format::rgba8:
+		return GL_UNSIGNED_BYTE; // TODO: is this right?
+	default:
+		throw exception(
+			SGE_TEXT("Invalid color_format in to_format_type()!"));
+	}
+}

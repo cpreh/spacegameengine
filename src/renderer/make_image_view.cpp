@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/color.hpp>
+#include <sge/renderer/color_format_stride.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 #include <boost/cstdint.hpp>
@@ -45,17 +46,20 @@ sge::renderer::make_image_view(
 	image_dim const &d,
 	color_format::type const format)
 {
+	std::size_t const stride(
+		color_format_stride(
+			format));
 	switch(format) {
 	case color_format::rgba8:
 		return make_interleaved_view<renderer::rgba8_pixel>(
 			data,
 			d,
-			sizeof(boost::uint32_t));
+			stride);
 	case color_format::argb8:
 		return make_interleaved_view<renderer::argb8_pixel>(
 			data,
 			d,
-			sizeof(boost::uint32_t));
+			stride);
 	default:
 		throw exception(
 			SGE_TEXT("Invalid color_format!"));

@@ -24,7 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "error.hpp"
 #include "texture_functions.hpp"
+#include "color_convert.hpp"
+#include <sge/renderer/image_view_format.hpp>
+#include <sge/renderer/color_format_stride.hpp>
 #include <sge/exception.hpp>
+#include <sge/string.hpp>
 #include <cassert>
 #include <algorithm>
 
@@ -189,18 +193,18 @@ template<typename Base>
 void sge::ogl::basic_texture<Base>::internal_parameters(
 	renderer::const_image_view const &src)
 {
-	// TODO: set stride, format and format_type
-	format_internal(renderer::color_format::rgba8);
+	format_internal(
+		renderer::image_view_format(
+			src));
 }
 
 template<typename Base>
 void sge::ogl::basic_texture<Base>::format_internal(
 	renderer::color_format::type const fmt)
 {
-	// FIXME
-	format_ = GL_RGBA;
-	format_type_ = GL_UNSIGNED_BYTE;
-	stride_ = 4; // FIXME
+	format_ = to_format(fmt);
+	format_type_ = to_format_type(fmt);
+	stride_ = renderer::color_format_stride(fmt);
 }
 
 template<typename Base>
