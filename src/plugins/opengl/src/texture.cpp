@@ -25,8 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_texture_impl.hpp"
 #include "../vbo.hpp"
 #include "../pbo.hpp"
+#include "../color_convert.hpp"
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/color.hpp>
+#include <sge/renderer/make_image_view.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
@@ -82,11 +84,8 @@ void sge::ogl::texture::do_sub_data(
 			renderer::lock_flags::writeonly));
 	boost::gil::copy_and_convert_pixels(
 		src,
-		boost::gil::interleaved_view(
-			src.width(),
-			src.height(),
-			reinterpret_cast<renderer::rgba8_pixel*>(write_buffer()),
-			src.width() * stride()));
+		make_view(
+			src.dimensions()));
 }
 
 void sge::ogl::texture::data(
@@ -108,11 +107,13 @@ void sge::ogl::texture::data_internal(
 
 	boost::gil::copy_and_convert_pixels(
 		src,
-		boost::gil::interleaved_view(
+		make_view(
+			src.dimensions()));
+		/*boost::gil::interleaved_view(
 			src.width(),
 			src.height(),
 			reinterpret_cast<renderer::rgba8_pixel*>(write_buffer()),
-			src.width() * stride()));
+			src.width() * stride()));*/
 }
 
 void sge::ogl::texture::lock(
@@ -177,14 +178,16 @@ void sge::ogl::texture::unlock()
 sge::renderer::image_view const
 sge::ogl::texture::view()
 {
-	return renderer::image_view(
+	return make_view(
+		dim());
+	/*return renderer::image_view(
 		boost::gil::rgba8_view_t(
 			boost::gil::interleaved_view(
 				dim().w(),
 				dim().h(),
 				reinterpret_cast<renderer::rgba8_pixel*>(
 					write_buffer()),
-				dim().w() * stride())));
+				dim().w() * stride())));*/
 }
 
 sge::renderer::const_image_view const
@@ -205,4 +208,25 @@ void sge::ogl::texture::set_texture(
 		filter(),
 		dim(),
 		p);
+}
+
+sge::renderer::image_view const
+sge::ogl::texture::make_view(
+	dim_type const &d) const
+{
+	return renderer::make_image_view(
+		write_buffer(),
+		d,
+		color_convert(
+			format(),
+			format_type()));
+}
+
+sge::renderer::image_view const
+sge::ogl::texture::make_view(
+	renderer::image_view::point_t const &d) const
+{
+	return make_view(
+		renderer::gil_dim_to_sge(
+			d));
 }

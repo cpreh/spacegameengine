@@ -72,6 +72,11 @@ private:
 	void set_texture(
 		const_pointer src);
 
+	renderer::image_view const make_view(
+		dim_type const &) const;
+	renderer::image_view const make_view(
+		renderer::image_view::point_t const &) const;
+
 	dim_type                      dim_;
 	boost::optional<
 		renderer::lock_rect> lock_rect_;
