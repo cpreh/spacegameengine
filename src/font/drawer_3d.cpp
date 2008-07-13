@@ -28,6 +28,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/gil/algorithm.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
+namespace
+{
+
+struct converter {
+	void operator()(
+		sge::font::color const src,
+		sge::renderer::rgba8_pixel &dest) const;
+};
+
+}
+
 sge::font::drawer_3d::drawer_3d(
 	const renderer::device_ptr rend,
 	const renderer::color col)
@@ -57,8 +68,10 @@ void sge::font::drawer_3d::draw_char(
 	texture_map::const_iterator it = textures.find(ch);
 	if(it == textures.end())
 	{
+		// TODO: somehow use the renderer's preferred color format here and avoid conversions!
+		converter conv;
 		renderer::rgba8_image img(data.width(), data.height());
-		boost::gil::copy_and_convert_pixels(data, boost::gil::view(img));
+		boost::gil::copy_and_convert_pixels(data, boost::gil::view(img), conv);
 
 		it = textures.insert(
 			std::make_pair(
@@ -66,9 +79,8 @@ void sge::font::drawer_3d::draw_char(
 				texman.add(
 					renderer::const_image_view(
 						boost::gil::const_view(
-							img))))).first;
-		// FIXME: do we have to handle alpha differently?
-		//expanded[i] = elem ? make_color(elem, elem, elem, 255) : 0;
+							img)
+			)))).first;
 	}
 
 	sprites.push_back(
@@ -87,4 +99,22 @@ void sge::font::drawer_3d::end_rendering()
 void sge::font::drawer_3d::set_color(const renderer::color new_color)
 {
 	col = new_color;
+}
+
+namespace
+{
+
+void converter::operator()(
+	sge::font::color const src,
+	sge::renderer::rgba8_pixel &dest) const
+{
+	dest = sge::renderer::rgba8_pixel(
+		src,
+		src,
+		src,
+		src == 0 
+		? static_cast<unsigned char>(0)
+		: static_cast<unsigned char>(255)); // FIXME: use a typedef!
+}
+
 }

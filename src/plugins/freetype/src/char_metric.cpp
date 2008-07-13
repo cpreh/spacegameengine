@@ -53,7 +53,6 @@ sge::ft::char_metric::char_metric(
 	
 	buffer.recreate(bitmap.width, bitmap.rows);
 
-	// FIXME: make black pixels transparent!
 	boost::gil::copy_pixels(src, boost::gil::view(buffer));
 }
 
