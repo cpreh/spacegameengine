@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_format_stride.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
+#include <sge/algorithm.hpp>
 #include <cassert>
 #include <algorithm>
 
@@ -122,8 +123,7 @@ void sge::ogl::basic_texture<Base>::pre_unlock()
 		assert(unpack_buffer);
 
 		unpack_buffer->lock(lock_mode());
-		// FIXME
-		//std::copy(pack_buffer->begin(), pack_buffer->end(), unpack_buffer->data());
+		copy_n(pack_buffer->data(), pack_buffer->size(), unpack_buffer->data());
 		pack_buffer->unlock();
 		pack_buffer.reset();
 		cur_buffer = unpack_buffer.get();
