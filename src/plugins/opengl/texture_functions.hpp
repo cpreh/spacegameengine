@@ -60,15 +60,6 @@ void set_texture_rect(
 	const renderer::lock_rect& dest,
 	const_texture_pointer src);
 
-void read_pixels(
-	GLenum format,
-	GLenum type,
-	renderer::texture_base::size_type x,
-	renderer::texture_base::size_type y,
-	renderer::texture_base::size_type width,
-	renderer::texture_base::size_type height,
-	texture_pointer dest);
-
 void get_tex_image(
 	GLenum format,
 	GLenum type,

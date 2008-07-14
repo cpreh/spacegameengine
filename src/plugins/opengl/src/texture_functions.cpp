@@ -157,27 +157,6 @@ void sge::ogl::set_texture_rect(
 		src);
 }
 
-void sge::ogl::read_pixels(
-	const GLenum format,
-	const GLenum type,
-	const renderer::texture_base::size_type x,
-	const renderer::texture_base::size_type y,
-	const renderer::texture_base::size_type width,
-	const renderer::texture_base::size_type height,
-	const texture_pointer dest)
-{
-	SGE_OPENGL_SENTRY
-	
-	glReadPixels(
-		static_cast<GLint>(x),
-		static_cast<GLint>(y),
-		static_cast<GLsizei>(width),
-		static_cast<GLsizei>(height),
-		format,
-		type,
-		dest);
-}
-
 void sge::ogl::get_tex_image(
 	const GLenum format,
 	const GLenum type,
