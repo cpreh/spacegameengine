@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../config.h"
 #include "matrix_proxy.hpp"
 #include "vector.hpp"
-#include "../util.hpp"
 #include "../su.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>

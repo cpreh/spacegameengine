@@ -4,11 +4,12 @@
 #include <sge/plugin_manager.hpp>
 #include <sge/media.hpp>
 #include <sge/math/constants.hpp>
-#include <sge/util.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
+#include <sge/time/millisecond.hpp>
+#include <sge/time/sleep.hpp>
 #include <ostream>
 #include <exception>
 #include <algorithm>
@@ -55,10 +56,10 @@ try
 	soundright->positional(true);
 	soundleft->pos(sge::math::vector3(1,0,0));
 	soundleft->play(true);
-	sge::sleep(1);
-	//soundright->play(true);	
-
-	//sge::sleep(20000);
+	sge::time::sleep(
+		sge::time::millisecond(
+			static_cast<sge::time::unit>(
+				1)));
 
 	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
 	while (true)

@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/util.hpp>
+#include <sge/time/sleep.hpp>
+#include <sge/time/millisecond.hpp>
 #include <boost/array.hpp>
 #include <boost/bind.hpp>
 #include <cstring>
@@ -163,7 +164,10 @@ bool sge::xinput::system::handle_grab(const int r) const
 		throw exception(SGE_TEXT("x11: GrabInvalidTime!"));
 	}
 
-	sleep(100);
+	time::sleep(
+		time::millisecond(
+			static_cast<time::unit>
+				(1)));
 	return false;
 }
 

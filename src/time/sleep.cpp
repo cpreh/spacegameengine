@@ -19,7 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#include <sge/util.hpp>
+#include <sge/time/sleep.hpp>
+#include <sge/time/resolution.hpp>
+#include <sge/time/time.hpp>
 
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/windows.hpp>
@@ -27,12 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <unistd.h>
 #endif
 
-void sge::sleep(const unsigned long milli_seconds)
+void sge::time::sleep(
+	resolution const &res)
 {
 #ifdef SGE_WINDOWS_PLATFORM
-	Sleep(milli_seconds);
+	Sleep(res.get() * 1000 / hz());
 #elif SGE_POSIX_PLATFORM
-	usleep(static_cast<__useconds_t>(milli_seconds*1000));
+	usleep(static_cast<__useconds_t>(
+		res.get() * 1000 * 1000 / hz()));
 #else
 #error "Implement me!"
 #endif

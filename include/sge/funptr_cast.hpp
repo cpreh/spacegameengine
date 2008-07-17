@@ -33,6 +33,7 @@ namespace sge
 template<typename Dest, typename Source>
 Dest funptr_cast(const Source& s)
 {
+	// note: this is UB but sadly it is required for dlsym
 #ifndef SGE_HAVE_STATIC_ASSERT
 	BOOST_STATIC_ASSERT(sizeof(std::size_t) == sizeof(void*));
 #else
