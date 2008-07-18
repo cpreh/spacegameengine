@@ -11,7 +11,7 @@ ESVN_REPO_URI="https://spacegameengine.svn.sourceforge.net/svnroot/spacegameengi
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="debug devil dga openal opengl test truetype vorbis wave xinput"
+IUSE="devil dga openal opengl test truetype vorbis wave xinput"
 
 DEPEND="${RDEPEND}
         dev-util/cmake
@@ -36,7 +36,6 @@ src_unpack() {
 src_compile() {
 	local myconf=""
 
-	use debug && myconf="${myconf} -D ENABLE_DEBUG:=1"
 	use devil && myconf="${myconf} -D ENABLE_DEVIL:=1"
 	use dga && myconf="${myconf} -D ENABLE_DGA:=1"
 	use opengl && myconf="${myconf} -D ENABLE_OPENGL:=1"
