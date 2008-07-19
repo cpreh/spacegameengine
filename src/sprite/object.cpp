@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/helper.hpp>
-#include <sge/math/compare.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/circle_impl.hpp>
 #include <sge/renderer/colors.hpp>
@@ -245,26 +244,4 @@ const sge::sprite::point sge::sprite::object::rotation_center() const
 	if(!use_rot_around)
 		return center();
 	return pos() + rot_around_;
-}
-
-bool sge::sprite::object::equal(const object& l, const object& r)
-{
-	return l.visible() == r.visible() &&
-	       math::compare(l.z(), r.z()) &&
-	       l.tex == r.tex;
-}
-
-bool sge::sprite::object::less(const object& l, const object& r)
-{
-	const bool lvis = l.visible(), rvis = r.visible();
-	const depth_type lz = l.z(), rz = r.z();
-	const texture::part_ptr ltex = l.get_texture(), &rtex = r.get_texture();
-
-	return lvis == rvis ?
-			math::compare(lz, rz) ?
-	                	ltex == rtex ?
-	                        	     false
-		                : ltex < rtex
-		       : lz > rz
-		: lvis > rvis;
 }

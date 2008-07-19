@@ -54,13 +54,19 @@ void sge::texture::part_fragmented::data(
 		atlas_w(my_texture(), src, outer_area_);
 }
 
-const sge::renderer::lock_rect&
+sge::renderer::lock_rect const &
 sge::texture::part_fragmented::area() const
 {
 	return inner_area_;
 }
 
-const sge::renderer::texture_ptr
+sge::renderer::texture_ptr const
+sge::texture::part_fragmented::my_texture()
+{
+	return fragment.get_texture();
+}
+
+sge::renderer::const_texture_ptr const
 sge::texture::part_fragmented::my_texture() const
 {
 	return fragment.get_texture();

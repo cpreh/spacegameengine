@@ -18,35 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_PART_RAW_HPP_INCLUDED
-#define SGE_TEXTURE_PART_RAW_HPP_INCLUDED
+#include <sge/sprite/compare.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/math/compare.hpp>
 
-#include "part.hpp"
-#include "../export.hpp"
-#include "../renderer/texture.hpp"
-
-namespace sge
+bool sge::sprite::equal(const object& l, const object& r)
 {
-namespace texture
-{
-
-class part_raw : public part {
-public:
-	SGE_SYMBOL part_raw(
-		renderer::lock_rect const &,
-		renderer::texture_ptr tex);
-	SGE_SYMBOL void data(
-		renderer::const_image_view const &src);
-	SGE_SYMBOL renderer::lock_rect const &area() const;
-	SGE_SYMBOL renderer::texture_ptr const my_texture();
-	SGE_SYMBOL renderer::const_texture_ptr const my_texture() const;
-	SGE_SYMBOL bool repeatable() const;
-private:
-	const renderer::lock_rect   area_;
-	const renderer::texture_ptr tex;
-};
-
-}
+	return l.visible() == r.visible() &&
+	       math::compare(l.z(), r.z()) &&
+	       l.get_texture() == r.get_texture();
 }
 
-#endif
+bool sge::sprite::less(const object& l, const object& r)
+{
+	const bool lvis = l.visible(), rvis = r.visible();
+	const depth_type lz = l.z(), rz = r.z();
+	const texture::part_ptr ltex = l.get_texture(), &rtex = r.get_texture();
+
+	return lvis == rvis ?
+			math::compare(lz, rz) ?
+	                	ltex == rtex ?
+	                        	     false
+		                : ltex < rtex
+		       : lz > rz
+		: lvis > rvis;
+}

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../export.hpp"
 #include "../renderer/texture.hpp"
 #include "../renderer/image_view.hpp"
+#include "../renderer/types.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -37,16 +38,30 @@ class fragmented;
 class part : boost::noncopyable {
 public:
 	SGE_SYMBOL virtual ~part();
+
 	SGE_SYMBOL const math::rect area_texc(
 		space_unit repeat = 1) const;
+
 	SGE_SYMBOL const renderer::tex_pos translate(
 		const renderer::tex_pos &local_coords,
 		space_unit repeat = 1) const;
+
 	virtual void data(
 		renderer::const_image_view const &src) = 0;
-	virtual const renderer::lock_rect& area() const = 0;
-	virtual const renderer::texture_ptr my_texture() const = 0;
+
+	virtual renderer::lock_rect const &area() const = 0;
+
+	virtual renderer::texture_ptr const my_texture() = 0;
+	
+	virtual renderer::const_texture_ptr const my_texture() const = 0;
+
 	virtual bool repeatable() const = 0;
+
+	SGE_SYMBOL void lock(renderer::lock_flags::type);
+	SGE_SYMBOL void unlock();
+
+	SGE_SYMBOL renderer::const_image_view const view() const;
+	SGE_SYMBOL renderer::image_view const view();
 };
 
 typedef shared_ptr<part>       part_ptr;

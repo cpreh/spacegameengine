@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "helper.hpp"
 #include "object.hpp"
 #include "system.hpp"
+#include "compare.hpp"
 #include "../algorithm.hpp"
 #include "../renderer/scoped_lock.hpp"
 #include "../renderer/scoped_state.hpp"
@@ -34,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<typename RanIt>
 void sge::sprite::system::render(const RanIt beg, const RanIt end)
 {
-	//std::sort(beg, end, &object::less);
-	std::stable_sort(beg, end, &object::less);
+	std::stable_sort(beg, end, less);
 	
 	const typename std::iterator_traits<RanIt>::difference_type range_len = std::distance(beg,end);
 
@@ -97,7 +97,7 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 			break;
 
 		unsigned num_objects;
-		const RanIt next = first_mismatch_if(cur, end, num_objects, &object::equal);
+		const RanIt next = first_mismatch_if(cur, end, num_objects, equal);
 
 		const texture::part_ptr vtex = cur->get_texture();
 		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);

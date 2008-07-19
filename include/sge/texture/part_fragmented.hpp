@@ -40,7 +40,8 @@ public:
 	SGE_SYMBOL void data(
 		renderer::const_image_view const &src);
 	SGE_SYMBOL const renderer::lock_rect& area() const;
-	SGE_SYMBOL const renderer::texture_ptr my_texture() const;
+	SGE_SYMBOL renderer::texture_ptr const my_texture();
+	SGE_SYMBOL renderer::const_texture_ptr const my_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 	SGE_SYMBOL ~part_fragmented();
 private:

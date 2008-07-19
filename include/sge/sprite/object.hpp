@@ -98,11 +98,6 @@ public:
 	SGE_SYMBOL const point rotation_center() const;
 	SGE_SYMBOL const texture::part_ptr get_texture() const;
 private:
-	SGE_SYMBOL static bool equal(const object& l, const object& r);
-	SGE_SYMBOL static bool less(const object& l, const object& r);
-
-	friend class system;
-
 	point               pos_;
 	dim                 size_;
 	depth_type          z_;
