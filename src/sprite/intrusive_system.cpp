@@ -18,36 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
-#define SGE_SPRITE_SYSTEM_HPP_INCLUDED
+#include <sge/sprite/intrusive_system.hpp>
+#include <sge/renderer/transform.hpp>
+#include <sge/math/matrix_impl.hpp>
 
-#include "../export.hpp"
-#include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
-#include "../renderer/device.hpp"
-#include "../renderer/default_transformable.hpp"
-#include <boost/noncopyable.hpp>
+sge::sprite::intrusive_system::intrusive_system(
+	renderer::device_ptr const rend)
+: default_transformable(
+ 	rend,
+	renderer::matrix_pixel_to_space(rend->screen_size()),
+	math::matrix_orthogonal_xy()),
+  rend(rend)
+{}
 
-namespace sge
+void sge::sprite::intrusive_system::add(
+	intrusive_object &obj)
 {
-namespace sprite
-{
-
-class system : public renderer::default_transformable, boost::noncopyable {
-public:
-	SGE_SYMBOL explicit system(
-		renderer::device_ptr rend);
-	template<typename In>
-		void render(In beg, In end);
-	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
-private:
-	renderer::device_ptr        rend;
-	renderer::vertex_buffer_ptr vb;
-	renderer::index_buffer_ptr  ib;
-};
-
+	sprites.push_back(obj);
 }
-}
-
-#endif
-

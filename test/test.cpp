@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/basic_sequence_impl.hpp>
 #include <sge/math/vector.hpp>
 #include <sge/math/vector_impl.hpp>
+#include <sge/sprite/intrusive_system.hpp>
 
 int main()
 try
@@ -66,6 +67,10 @@ try
 	const sge::font::drawer_ptr fn_drawer(new sge::font::drawer_3d(rend));
 
 	sge::font::font fn(metrics, fn_drawer);
+
+	sge::sprite::intrusive_system sys(rend);
+	sge::sprite::intrusive_object spr(sys);
+	sge::sprite::intrusive_object spr2(spr);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;

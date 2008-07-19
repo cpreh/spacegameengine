@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
-#define SGE_SPRITE_SYSTEM_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
 
-#include "../export.hpp"
+#include "intrusive_object.hpp"
+#include "../renderer/device.hpp"
 #include "../renderer/vertex_buffer.hpp"
 #include "../renderer/index_buffer.hpp"
-#include "../renderer/device.hpp"
 #include "../renderer/default_transformable.hpp"
+#include <boost/intrusive/list.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -33,21 +34,25 @@ namespace sge
 namespace sprite
 {
 
-class system : public renderer::default_transformable, boost::noncopyable {
+class intrusive_system : public renderer::default_transformable, boost::noncopyable {
 public:
-	SGE_SYMBOL explicit system(
-		renderer::device_ptr rend);
-	template<typename In>
-		void render(In beg, In end);
-	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
+	SGE_SYMBOL explicit intrusive_system(
+		renderer::device_ptr);
 private:
-	renderer::device_ptr        rend;
+	void add(intrusive_object &);
+	friend class intrusive_object;
+
+	renderer::device_ptr const rend;
 	renderer::vertex_buffer_ptr vb;
-	renderer::index_buffer_ptr  ib;
+	renderer::index_buffer_ptr ib;
+	typedef boost::intrusive::list<
+		intrusive_object,
+		boost::intrusive::constant_time_size<false>
+	> intrusive_list;
+	intrusive_list sprites;
 };
 
 }
 }
 
 #endif
-

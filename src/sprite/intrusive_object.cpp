@@ -18,36 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
-#define SGE_SPRITE_SYSTEM_HPP_INCLUDED
+#include <sge/sprite/intrusive_object.hpp>
+#include <sge/sprite/intrusive_system.hpp>
 
-#include "../export.hpp"
-#include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
-#include "../renderer/device.hpp"
-#include "../renderer/default_transformable.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::sprite::intrusive_object::intrusive_object(
+	intrusive_system &sys,
+	const boost::optional<point> pos_,
+	const boost::optional<texture::part_ptr> vtex,
+	const boost::optional<dim> size_,
+	const boost::optional<color> color_,
+	const boost::optional<depth_type> z_,
+	const boost::optional<rotation_type> rotation_,
+	const boost::optional<bool> visible_)
+: object(
+	pos_,
+	vtex,
+	size_,
+	color_,
+	z_,
+	rotation_,
+	visible_)
 {
-namespace sprite
-{
-
-class system : public renderer::default_transformable, boost::noncopyable {
-public:
-	SGE_SYMBOL explicit system(
-		renderer::device_ptr rend);
-	template<typename In>
-		void render(In beg, In end);
-	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
-private:
-	renderer::device_ptr        rend;
-	renderer::vertex_buffer_ptr vb;
-	renderer::index_buffer_ptr  ib;
-};
-
+	sys.add(*this);
 }
-}
-
-#endif
-
