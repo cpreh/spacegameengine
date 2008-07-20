@@ -28,13 +28,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/algorithm.hpp>
 #include <boost/foreach.hpp>
 
+// TODO: merge the ctor stuff with system's ctor
+const unsigned init_sprites = 25;
+
 sge::sprite::intrusive_system::intrusive_system(
 	renderer::device_ptr const rend)
 : default_transformable(
  	rend,
 	renderer::matrix_pixel_to_space(rend->screen_size()),
 	math::matrix_orthogonal_xy()),
-  rend(rend)
+  rend(rend),
+  vb(
+   	rend->create_vertex_buffer(
+		renderer::const_vertex_view(
+			0,
+			init_sprites * detail::vertices_per_sprite,
+			renderer::vertex_format()
+				.add(renderer::vertex_usage::pos)
+				.add(renderer::vertex_usage::diffuse)
+				.add(renderer::vertex_usage::tex)),
+		renderer::resource_flags::write_only
+		| renderer::resource_flags::dynamic)),
+  ib(
+  	rend->create_index_buffer(
+		renderer::const_index_view_16(
+			0,
+			init_sprites * detail::indices_per_sprite)))
 {}
 
 void sge::sprite::intrusive_system::render()
