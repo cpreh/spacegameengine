@@ -18,22 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_COMPARE_HPP_INCLUDED
-#define SGE_SPRITE_COMPARE_HPP_INCLUDED
+#include <sge/sprite/intrusive_compare.hpp>
+#include <sge/sprite/intrusive_object.hpp>
 
-#include "../export.hpp"
-
-namespace sge
+bool sge::sprite::tex_equal(
+	intrusive_object const &l,
+	intrusive_object const &r)
 {
-namespace sprite
-{
-
-class object;
-
-SGE_SYMBOL bool equal(object const &, object const &);
-SGE_SYMBOL bool less(object const &, object const &);
-
+	return l.get_texture() == r.get_texture();
 }
-}
-
-#endif

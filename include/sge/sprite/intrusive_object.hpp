@@ -66,6 +66,17 @@ public:
 	using object::set_texture;
 	using object::rotation;
 	using object::rotate_around;
+	using object::repeat;
+	using object::set_color;
+	using object::set_center;
+
+	using object::get_rect;
+	using object::center;
+	using object::radius;
+	using object::get_color;
+	using object::bounding_quad;
+	using object::rotation_center;
+	using object::get_texture;
 };
 
 

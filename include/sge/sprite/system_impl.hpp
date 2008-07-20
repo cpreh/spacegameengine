@@ -106,7 +106,7 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 			vb,
 			ib,
 			(cur - beg) * detail::vertices_per_sprite,
-			(next - beg) * detail::vertices_per_sprite,
+			(next - cur) * detail::vertices_per_sprite,
 			renderer::indexed_primitive_type::triangle,
 			num_objects * 2,
 			first_index);
