@@ -69,7 +69,7 @@ try
 	sge::font::font fn(metrics, fn_drawer);
 
 	sge::sprite::intrusive_system sys(rend);
-	sge::sprite::intrusive_object spr(sys);
+	sge::sprite::intrusive_object spr(sys, 1);
 	sge::sprite::intrusive_object spr2(spr);
 
 	using boost::lambda::var;

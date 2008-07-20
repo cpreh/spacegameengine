@@ -58,6 +58,19 @@ sge::sprite::intrusive_system::intrusive_system(
 
 void sge::sprite::intrusive_system::render()
 {
+	BOOST_FOREACH(sprite_level_map::value_type const &v, sprite_levels)
+		render(*v.second);
+}
+
+sge::renderer::device_ptr const
+sge::sprite::intrusive_system::get_renderer() const
+{
+	return rend;
+}
+
+void sge::sprite::intrusive_system::render(
+	sprite_list const &sprites)
+{
 	sprite_list::size_type const num_sprites(sprites.size());
 	if(vb->size() < num_sprites * detail::vertices_per_sprite)
 	{
@@ -143,7 +156,8 @@ void sge::sprite::intrusive_system::render()
 }
 
 void sge::sprite::intrusive_system::add(
-	intrusive_object &obj)
+	intrusive_object &obj,
+	intrusive_object::order_type const order)
 {
-	sprites.push_back(obj);
+	sprite_levels[order].push_back(obj);
 }

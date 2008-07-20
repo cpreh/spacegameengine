@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/default_transformable.hpp"
 #include <boost/intrusive/list.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -38,19 +39,33 @@ class intrusive_system : public renderer::default_transformable, boost::noncopya
 public:
 	SGE_SYMBOL explicit intrusive_system(
 		renderer::device_ptr);
+	
 	void render();
+
+	SGE_SYMBOL renderer::device_ptr const
+	get_renderer() const;
 private:
-	void add(intrusive_object &);
+	typedef boost::intrusive::list<
+		intrusive_object,
+		boost::intrusive::constant_time_size<false>
+	> sprite_list;
+
+	void render(
+		sprite_list const &);
+	void add(
+		intrusive_object &,
+		intrusive_object::order_type);
 	friend class intrusive_object;
 
 	renderer::device_ptr const rend;
 	renderer::vertex_buffer_ptr vb;
 	renderer::index_buffer_ptr ib;
-	typedef boost::intrusive::list<
-		intrusive_object,
-		boost::intrusive::constant_time_size<false>
-	> sprite_list;
-	sprite_list sprites;
+	typedef boost::ptr_map<
+		intrusive_object::order_type,
+		sprite_list
+	> sprite_level_map;
+
+	sprite_level_map sprite_levels;
 };
 
 }

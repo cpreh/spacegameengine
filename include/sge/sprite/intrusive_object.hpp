@@ -45,8 +45,11 @@ typedef boost::intrusive::list_base_hook<
 
 class intrusive_object : object, public detail::auto_unlink_hook {
 public:
+	typedef unsigned order_type;
+
 	intrusive_object(
 		intrusive_system &,
+		order_type,
 		boost::optional<point> = defaults::pos_,
 		boost::optional<texture::part_ptr> = defaults::texture_,
 		boost::optional<dim> = defaults::dim_,
