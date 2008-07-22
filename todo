@@ -7,6 +7,7 @@
 *low: add model loaders, a model class and more
 *low: rework sge::math to contain views and have less code duplication
 *low?: review sound system and decouple buffers from sources; add 3d capabilities (positions)
+*low: add static vertex formats
 *medium: breakpoints for the font
 *medium: other font formatting like bold, italic, underline and colors
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
@@ -14,4 +15,5 @@
 *medium: add a better constructor for sge::sprite like boost::parameter would
 *medium: add a decent logging system
 *medium: add a convenient method for the main loop probably with boost::channel
-*medium: add custom vertex elements
+*medium: add support for _EXT vertex elements in opengl (binormal, tangent, etc)
+*high: fix cube_texture and the rest of the opengl stuff
