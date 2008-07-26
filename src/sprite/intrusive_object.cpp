@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::sprite::intrusive_object::intrusive_object(
 	intrusive_system &sys,
-	order_type const order,
+	order_type const order_,
 	boost::optional<point> const pos_,
 	boost::optional<texture::part_ptr> const vtex,
 	boost::optional<dim> const size_,
@@ -38,9 +38,55 @@ sge::sprite::intrusive_object::intrusive_object(
 	color_,
 	z_,
 	rotation_,
-	visible_)
+	visible_),
+  sys(sys),
+  order_(order_)
+{
+	add_me();
+}
+
+sge::sprite::intrusive_object::intrusive_object(
+	intrusive_object const &r)
+: object(r),
+  detail::object_base_hook(r),
+  sys(r.sys),
+  order_(r.order_)
+{
+	add_me();
+}
+
+sge::sprite::intrusive_object &
+sge::sprite::intrusive_object::operator=(
+	intrusive_object const &r)
+{
+	//unlink();
+	order_ = r.order_;
+	detail::object_base_hook::operator=(r);	
+	object::operator=(r);
+	//add_me();
+	return *this;
+}
+
+sge::sprite::intrusive_object::~intrusive_object()
+{
+	//unlink(); // TODO: is this necessary?
+}
+
+sge::sprite::object &
+sge::sprite::intrusive_object::explicit_upcast()
+{
+	return *this;
+}
+
+sge::sprite::object const &
+sge::sprite::intrusive_object::explicit_upcast() const
+{
+	return *this;
+}
+
+void sge::sprite::intrusive_object::add_me()
 {
 	sys.add(
 		*this,
-		order);
+		order_);
 }

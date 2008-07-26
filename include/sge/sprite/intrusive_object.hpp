@@ -39,11 +39,13 @@ typedef boost::intrusive::list_base_hook<
 	boost::intrusive::link_mode<
 		boost::intrusive::auto_unlink
 	>
-> auto_unlink_hook;
+> object_base_hook;
 
 }
 
-class intrusive_object : object, public detail::auto_unlink_hook {
+class intrusive_object : object, 
+//public boost::intrusive::list_base_hook<> {
+public detail::object_base_hook {
 public:
 	typedef unsigned order_type;
 
@@ -58,6 +60,15 @@ public:
 		boost::optional<rotation_type> = defaults::rotation_,
 		boost::optional<bool> visible = defaults::visible_);
 	
+	intrusive_object(
+		intrusive_object const &);
+
+	intrusive_object &
+	operator=(
+		intrusive_object const &);
+
+	~intrusive_object();
+
 	using object::x;
 	using object::y;
 	using object::pos;
@@ -80,6 +91,14 @@ public:
 	using object::bounding_quad;
 	using object::rotation_center;
 	using object::get_texture;
+
+	object &explicit_upcast();
+	object const &explicit_upcast() const;
+private:
+	void add_me();
+
+	intrusive_system &sys;
+	order_type       order_;
 };
 
 

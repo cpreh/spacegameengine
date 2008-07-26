@@ -40,7 +40,7 @@ sge::sprite::texture_animation::texture_animation(
 	bind(spr);
 }
 
-void sge::sprite::texture_animation::bind(object *new_sprite)
+void sge::sprite::texture_animation::bind(object * const new_sprite)
 {
 	s = new_sprite;
 	reset();
