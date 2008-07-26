@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_ANIMATION_HPP_INCLUDED
 
 #include "../export.hpp"
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,7 +30,7 @@ namespace sprite
 
 class object;
 
-class animation : boost::noncopyable {
+class animation {
 public:
 	virtual void bind(object*) = 0;
 	virtual bool process() = 0;
