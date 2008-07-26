@@ -28,35 +28,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::sprite::texture_animation::texture_animation(
 	const animation_series& series_,
 	const loop_method::type action,
-	object *const spr)
+	object &spr)
 : series(series_),
   action(action),
   cur_timer(
   	time::resolution(
 		0)),
-  s(0),
-  pos(series.end())
+  spr(spr),
+  pos(series.begin())
 {
-	bind(spr);
-}
-
-void sge::sprite::texture_animation::bind(object * const new_sprite)
-{
-	s = new_sprite;
+	if(series.empty())
+		throw exception(
+			SGE_TEXT("texture_animation series is empty!"));
 	reset();
-}
-
-void sge::sprite::texture_animation::method(
-	const loop_method::type action_)
-{
-	action = action_;
 }
 
 bool sge::sprite::texture_animation::process()
 {
-	if(!s || series.empty())
-		return true;
-	
 	if(!cur_timer.expired())
 		return false;
 
@@ -78,16 +66,14 @@ bool sge::sprite::texture_animation::process()
 	cur_timer.interval(
 		time::resolution(
 			pos->delay()));
-	s->set_texture(pos->tex());
+	spr.set_texture(pos->tex());
 
 	return false;
 }
 
 void sge::sprite::texture_animation::reset()
 {
-	if(!s || series.empty())
-		return;
-	s->set_texture(series.begin()->tex());
+	spr.set_texture(series.begin()->tex());
 	pos = series.begin();
 	cur_timer.interval(
 		time::resolution(

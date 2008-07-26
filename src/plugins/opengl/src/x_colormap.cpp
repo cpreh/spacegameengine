@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_HAVE_X11
 #include "../x_colormap.hpp"
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::ogl::x_colormap::x_colormap(const x_display_ptr dsp, const XVisualInfo& vi)
 : dsp(dsp),

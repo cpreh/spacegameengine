@@ -38,10 +38,4 @@ typedef std::basic_string<char_type> string;
 
 }
 
-#ifndef SGE_NARROW_STRING
-#define SGE_TEXT(x) L ## x
-#else
-#define SGE_TEXT(x) x
-#endif
-
 #endif

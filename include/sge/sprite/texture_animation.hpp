@@ -44,12 +44,10 @@ public:
 	};
 
 	SGE_SYMBOL texture_animation(
-		const animation_series&,
+		animation_series const &,
 		loop_method::type,
-		object *init_sprite = 0);
+		object &init_sprite);
 	
-	SGE_SYMBOL void bind(object*);
-	SGE_SYMBOL void method(loop_method::type);
 	SGE_SYMBOL bool process();
 	SGE_SYMBOL void reset();
 
@@ -58,7 +56,7 @@ private:
 	animation_series                 series;
 	loop_method::type                action;
 	time::timer                      cur_timer;
-	object*                          s;
+	object                          &spr;
 	animation_series::const_iterator pos;
 };
 

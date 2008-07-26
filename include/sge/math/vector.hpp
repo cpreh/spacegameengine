@@ -119,6 +119,8 @@ private:
 #include "../config.h"
 #include "compare.hpp"
 #include "mod.hpp"
+#include "../exception.hpp"
+#include "../text.hpp"
 #include "../su.hpp"
 #include "../no_initialization_tag.hpp"
 #include "../exception.hpp"

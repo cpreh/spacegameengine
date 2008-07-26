@@ -1,4 +1,6 @@
 #include <sge/console/stdlib.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/bind.hpp>
 
 sge::con::stdlib::stdlib(const callback_type &print)
@@ -34,7 +36,7 @@ void sge::con::stdlib::get(const arg_list &args)
 	}
 	catch (const exception &e)
 	{
-		print(SGE_TEXT("error: ")+e.wide_what());
+		print(SGE_TEXT("error: ")+e.what());
 	}
 }
 
@@ -53,7 +55,7 @@ void sge::con::stdlib::set(const arg_list &args)
 	}
 	catch (const exception &e)
 	{
-		print(SGE_TEXT("error: ")+e.wide_what());
+		print(SGE_TEXT("error: ")+e.what());
 	}
 }
 

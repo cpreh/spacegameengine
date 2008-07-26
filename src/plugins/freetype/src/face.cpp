@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/iconv.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
+#include <sge/text.hpp>
 
 sge::ft::face::face(library& lib, const path& name)
 {

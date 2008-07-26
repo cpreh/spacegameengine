@@ -88,7 +88,7 @@ try
 	sge::sprite::texture_animation anim(
 		series,
 		sge::sprite::texture_animation::loop_method::repeat,
-		&spr);
+		spr);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;

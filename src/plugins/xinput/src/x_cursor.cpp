@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include "../x_cursor.hpp"
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::xinput::x_cursor::x_cursor(const x_display_ptr dsp, Pixmap pixmap, XColor color)
  : dsp(dsp),

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_HAVE_X11
 #include "../xf86_resolution.hpp"
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::ogl::xf86_resolution::xf86_resolution(const x_display_ptr dsp, const int screen, const XF86VidModeModeInfo& new_mode, const XF86VidModeModeInfo& old_mode)
 : dsp(dsp),

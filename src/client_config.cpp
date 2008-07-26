@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <sge/client_config.hpp>
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/iconv.hpp>
 
 sge::path sge::client_config_path()

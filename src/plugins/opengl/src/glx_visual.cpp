@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <GL/glx.h>
 #include "../glx_visual.hpp"
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::ogl::glx_visual::glx_visual(
 	const x_display_ptr dsp,

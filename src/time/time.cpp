@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config.h>
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/time/time.hpp>
 
 #ifdef SGE_POSIX_PLATFORM

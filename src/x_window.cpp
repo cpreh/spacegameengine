@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_HAVE_X11
 
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/iostream.hpp>
 #include <sge/ostream.hpp>
 #include <sge/iconv.hpp>

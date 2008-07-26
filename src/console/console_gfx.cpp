@@ -5,6 +5,7 @@
 #include <sge/time/second.hpp>
 #include <sge/iostream.hpp>
 #include <sge/fstream.hpp>
+#include <sge/text.hpp>
 #include <boost/bind.hpp>
 #include <boost/range.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -265,7 +266,7 @@ void sge::con::console_gfx::key_action(const input::key_type &k)
 			}
 			catch (const exception &e)
 			{
-				print(SGE_TEXT("console error: ")+e.wide_what());
+				print(SGE_TEXT("console error: ")+e.what());
 			}
 
 			// add executed command to each history (at the front)...

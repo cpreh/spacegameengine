@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include "../x_pixmap.hpp"
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 namespace
 {
 
-const char bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
+char const bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
 
 }
 

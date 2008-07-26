@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../config.h"
 #include "../su.hpp"
 #include "../exception.hpp"
+#include "../text.hpp"
 #include "../no_initialization_tag.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>

@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include <sge/format.hpp>
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/iconv.hpp>
 #include <sge/iostream.hpp>
-#include <sge/ostream.hpp>
 #include <exception>
+#include <ostream>
 
 bool sge::ogl::is_error()
 {

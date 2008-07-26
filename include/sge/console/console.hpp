@@ -2,32 +2,28 @@
 #define CONSOLE_HPP_INCLUDED
 
 // c++
-#include <iostream>
-#include <exception>
 #include <vector>
 #include <map>
 // boost
 #include <boost/lexical_cast.hpp>
 #include <boost/function.hpp>
-#include <boost/filesystem.hpp>
+//#include <boost/filesystem.hpp> TODO: what is this for?
 // sge
 #include "../string.hpp"
 #include "../path.hpp"
 #include "../export.hpp"
+#include "../exception.hpp"
+#include "../text.hpp"
 
 namespace sge
 {
 namespace con
 {
 
-struct exception : public std::runtime_error
+struct exception : public sge::exception
 {
-	const sge::string wide;
-
-	explicit exception(const sge::string &wide) 
-		: std::runtime_error(std::string(wide.begin(),wide.end())),wide(wide) {}
-	const sge::string &wide_what() const { return wide; }
-	~exception() throw() {}
+	explicit exception(const sge::string &str) 
+		: sge::exception(str) {}
 };
 
 struct var_base

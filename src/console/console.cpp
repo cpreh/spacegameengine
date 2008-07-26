@@ -1,6 +1,8 @@
 #include <sge/string.hpp>
 #include <sge/path.hpp>
 #include <sge/iostream.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/console/console.hpp>
 #include <boost/spirit.hpp>
 #include <boost/bind.hpp>

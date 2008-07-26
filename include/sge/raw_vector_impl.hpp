@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RAW_VECTOR_IMPL_HPP_INCLUDED
 #define SGE_RAW_VECTOR_IMPL_HPP_INCLUDED
 
-#include <algorithm>
 #include "exception.hpp"
+#include "text.hpp"
 #include "raw_vector.hpp"
+#include <boost/next_prior.hpp>
+#include <algorithm>
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::begin()
@@ -114,13 +116,13 @@ typename sge::raw_vector<T, A>::const_reference sge::raw_vector<T, A>::front() c
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::reference sge::raw_vector<T, A>::back()
 {
-	return *(end()-1);
+	return *(boost::prior(end()));
 }
 
 template<typename T, typename A>
 typename sge::raw_vector<T, A>::const_reference sge::raw_vector<T, A>::back() const
 {
-	return *(end()-1);
+	return *(boost::prior(end()));
 }
 
 template<typename T, typename A>
@@ -206,7 +208,7 @@ void sge::raw_vector<T, A>::push_back(const T& x)
 template<typename T, typename A>
 void sge::raw_vector<T, A>::pop_back()
 {
-	erase(--end());
+	erase(boost::prior(end()));
 }
 
 template<typename T, typename A>

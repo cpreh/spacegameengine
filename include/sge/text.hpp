@@ -18,28 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include <sge/export.hpp>
-#include <sge/plugin.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_TEXT_HPP_INCLUDED
+#define SGE_TEXT_HPP_INCLUDED
 
-extern "C"
-{
+#include "config.h"
 
-SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
-{
-	if(!p)
-		return;
-	p->name = SGE_TEXT("opengl renderer plugin");
-	p->description = SGE_TEXT("");
-	p->plugin_version = 0x1;
-	p->min_core_version = 0x1;
-	p->type = sge::plugin_type::renderer;
-}
+#ifndef SGE_NARROW_STRING
+#define SGE_TEXT(x) L ## x
+#else
+#define SGE_TEXT(x) x
+#endif
 
-SGE_EXPORT_SYMBOL sge::renderer::system* create_renderer_system()
-{
-	return new sge::ogl::system();
-}
-
-}
+#endif
