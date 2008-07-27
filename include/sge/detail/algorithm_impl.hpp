@@ -63,10 +63,11 @@ template<typename In, typename Size, typename BinaryPredicate>
 In sge::first_mismatch_if(In first, const In last, Size& cnt, BinaryPredicate pred)
 {
 	cnt = 0;
-	if(first==last)
+	if(first == last)
 		return last;
 
-	typename std::iterator_traits<In>::reference ref = *first;
+	typename std::iterator_traits<In>::reference ref = *first++;
+	cnt = 1;
 	for(;first != last; ++first)
 	{
 		if(!pred(*first,ref))

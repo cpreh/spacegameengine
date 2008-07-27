@@ -92,6 +92,9 @@ void sge::sprite::intrusive_system::render(
 
 		BOOST_FOREACH(intrusive_object const &spr, sprites)
 		{
+			if(!spr.visible())
+				continue;
+
 			ib_it = fill_indices(ib_it, static_cast<index_view::value_type>(vb_it - vertices.begin()));
 
 			if(math::almost_zero(spr.rotation()))
@@ -132,12 +135,15 @@ void sge::sprite::intrusive_system::render(
 		if(cur == sprites.end())
 			break;
 
-		unsigned num_objects;
-		sprite_list::const_iterator const next = first_mismatch_if(cur, end, num_objects, tex_equal_visible);
+		//unsigned num_objects;
+		//sprite_list::const_iterator const next = first_mismatch_if(cur, end, num_objects, tex_equal_visible);
+		unsigned num_objects = 1;
+		sprite_list::const_iterator next = cur;
+		++next;
 
 		const texture::part_ptr vtex = cur->get_texture();
 		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);
-
+		
 		rend->render(
 			vb,
 			ib,
