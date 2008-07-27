@@ -144,7 +144,7 @@ void sge::sprite::intrusive_system::render(
 			first_index / detail::indices_per_sprite * detail::vertices_per_sprite,
 			num_objects * detail::vertices_per_sprite,
 			renderer::indexed_primitive_type::triangle,
-			num_objects * 2,
+			num_objects * detail::indices_per_sprite / 3,
 			first_index);
 
 		first_index += num_objects * detail::indices_per_sprite;
