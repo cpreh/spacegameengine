@@ -30,7 +30,7 @@ namespace sprite
 
 class intrusive_object;
 
-SGE_SYMBOL bool tex_equal(
+SGE_SYMBOL bool tex_equal_visible(
 	intrusive_object const &,
 	intrusive_object const &);
 

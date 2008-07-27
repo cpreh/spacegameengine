@@ -133,7 +133,7 @@ void sge::sprite::intrusive_system::render(
 			break;
 
 		unsigned num_objects;
-		sprite_list::const_iterator const next = first_mismatch_if(cur, end, num_objects, tex_equal);
+		sprite_list::const_iterator const next = first_mismatch_if(cur, end, num_objects, tex_equal_visible);
 
 		const texture::part_ptr vtex = cur->get_texture();
 		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);
