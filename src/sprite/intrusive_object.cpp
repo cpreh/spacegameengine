@@ -59,6 +59,7 @@ sge::sprite::intrusive_object &
 sge::sprite::intrusive_object::operator=(
 	intrusive_object const &r)
 {
+	// TODO: what is necessary here?
 	unlink();
 	order_ = r.order_;
 	detail::object_base_hook::operator=(r);	
@@ -70,6 +71,20 @@ sge::sprite::intrusive_object::operator=(
 sge::sprite::intrusive_object::~intrusive_object()
 {
 	unlink(); // TODO: is this necessary?
+}
+
+void sge::sprite::intrusive_object::order(
+	order_type const o)
+{
+	unlink();
+	order_ = o;
+	add_me();
+}
+
+sge::sprite::intrusive_object::order_type
+sge::sprite::intrusive_object::order() const
+{
+	return order_;
 }
 
 sge::sprite::object &

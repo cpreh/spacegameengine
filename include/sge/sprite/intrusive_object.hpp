@@ -92,6 +92,10 @@ public:
 	using object::rotation_center;
 	using object::get_texture;
 
+	void order(
+		order_type);
+	order_type order() const;
+
 	object &explicit_upcast();
 	object const &explicit_upcast() const;
 private:
