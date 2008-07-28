@@ -16,7 +16,7 @@ IUSE="devil dga openal opengl test truetype vorbis wave xinput"
 DEPEND="${RDEPEND}
         dev-util/cmake
         dev-util/pkgconfig"
-RDEPEND=">=dev-libs/boost-1.34
+RDEPEND=">=dev-libs/boost-1.35
          x11-libs/libX11
          virtual/libc
          devil? ( media-libs/devil )
