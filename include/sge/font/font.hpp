@@ -69,9 +69,9 @@ class font {
 public:
 	typedef renderer::index_buffer::size_type size_type;
 
-	SGE_SYMBOL font(
+	SGE_SYMBOL explicit font(
 		metrics_ptr metrics,
-		drawer_ptr drawer);
+		drawer_ptr drawer = drawer_ptr());
 
 	SGE_SYMBOL unit height() const;
 

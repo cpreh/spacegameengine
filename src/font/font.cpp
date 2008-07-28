@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/font.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/next_prior.hpp>
 #include <locale>
 
@@ -45,6 +46,10 @@ sge::font::font::draw_text(
 	const align_v::type align_v,
 	const flag_t flags) const
 {
+	if(!drawer())
+		throw exception(
+			SGE_TEXT("font::drawer not set in font::draw_text!"));
+
 	if(text.empty() || height() > max_sz.h())
 		return text_size_t(dim(0,0), text.begin(), text.begin());
 
