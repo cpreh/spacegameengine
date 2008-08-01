@@ -179,8 +179,8 @@ sge::ogl::texture::view()
 sge::renderer::const_image_view const
 sge::ogl::texture::view() const
 {
-	return renderer::const_image_view(
-		const_cast<texture&>(*this).view());
+	return make_view(
+		dim());
 }
 
 void sge::ogl::texture::set_texture(
@@ -198,7 +198,7 @@ void sge::ogl::texture::set_texture(
 
 sge::renderer::image_view const
 sge::ogl::texture::make_view(
-	dim_type const &d) const
+	dim_type const &d)
 {
 	return renderer::make_image_view(
 		write_buffer(),
@@ -208,9 +208,23 @@ sge::ogl::texture::make_view(
 			format_type()));
 }
 
+sge::renderer::const_image_view const
+sge::ogl::texture::make_view(
+	dim_type const &d) const
+{
+	return renderer::make_image_view(
+		static_cast<const_pointer>(
+			write_buffer()),
+		d,
+		color_convert(
+			format(),
+			format_type()));
+}
+
+
 sge::renderer::image_view const
 sge::ogl::texture::make_view(
-	renderer::image_view::point_t const &d) const
+	renderer::image_view::point_t const &d)
 {
 	return make_view(
 		renderer::gil_dim_to_sge(

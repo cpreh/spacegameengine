@@ -42,10 +42,14 @@ typedef boost::gil::pixel<
 	boost::gil::rgba_layout_t
 > rgba8_pixel;
 
+typedef rgba8_pixel const rgba8c_pixel;
+
 typedef boost::gil::pixel<
 	pixel_channel_8,
 	boost::gil::argb_layout_t
 > argb8_pixel;
+
+typedef argb8_pixel const argb8c_pixel;
 
 typedef boost::gil::pixel<
 	pixel_channel_f32,

@@ -84,12 +84,12 @@ sge::renderer::make_image_view(
 			format));
 	switch(format) {
 	case color_format::rgba8:
-		return make_interleaved_view<renderer::rgba8_pixel>(
+		return make_interleaved_view<renderer::rgba8_pixel const>(
 			data,
 			d,
 			stride);
 	case color_format::argb8:
-		return make_interleaved_view<renderer::argb8_pixel>(
+		return make_interleaved_view<renderer::argb8_pixel const>(
 			data,
 			d,
 			stride);

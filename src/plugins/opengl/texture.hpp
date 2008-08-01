@@ -73,9 +73,12 @@ private:
 		const_pointer src);
 
 	renderer::image_view const make_view(
+		dim_type const &);
+	renderer::const_image_view const make_view(
 		dim_type const &) const;
+
 	renderer::image_view const make_view(
-		renderer::image_view::point_t const &) const;
+		renderer::image_view::point_t const &);
 
 	dim_type                      dim_;
 	boost::optional<
