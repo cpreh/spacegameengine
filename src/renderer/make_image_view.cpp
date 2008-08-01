@@ -38,6 +38,13 @@ make_interleaved_view(
 	sge::renderer::image_dim const &,
 	std::size_t stride);
 
+template<typename Pixel>
+sge::renderer::const_image_view const
+make_interleaved_view(
+	unsigned char const *data,
+	sge::renderer::image_dim const &,
+	std::size_t stride);
+
 }
 
 sge::renderer::image_view const
@@ -72,12 +79,39 @@ sge::renderer::make_image_view(
 	image_dim const &d,
 	color_format::type const format)
 {
+	std::size_t const stride(
+		color_format_stride(
+			format));
+	switch(format) {
+	case color_format::rgba8:
+		return make_interleaved_view<renderer::rgba8_pixel>(
+			data,
+			d,
+			stride);
+	case color_format::argb8:
+		return make_interleaved_view<renderer::argb8_pixel>(
+			data,
+			d,
+			stride);
+	default:
+		throw exception(
+			SGE_TEXT("Invalid color_format!"));
+	}
+}
+
+
+/*sge::renderer::const_image_view const
+sge::renderer::make_image_view(
+	unsigned char const * const data,
+	image_dim const &d,
+	color_format::type const format)
+{
 	return const_image_view(
 		make_image_view(
 			const_cast<unsigned char *>(data),
 			d,
 			format));
-}
+}*/
 
 namespace
 {
@@ -98,4 +132,19 @@ make_interleaved_view(
 			d.w() * stride));
 }
 
+template<typename Pixel>
+sge::renderer::const_image_view const
+make_interleaved_view(
+	unsigned char const * const data,
+	sge::renderer::image_dim const &d,
+	std::size_t const stride)
+{
+	return sge::renderer::const_image_view(
+		boost::gil::interleaved_view(
+			d.w(),
+			d.h(),
+			reinterpret_cast<Pixel const *>(
+				data),
+			d.w() * stride));
+}
 }
