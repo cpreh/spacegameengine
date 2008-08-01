@@ -6,6 +6,7 @@ const sge::renderer::color sge::renderer::colors::aliceblue(240, 248, 255, 255);
 
 const sge::renderer::color sge::renderer::colors::black(0, 0, 0, 255);
 const sge::renderer::color sge::renderer::colors::white(255, 255, 255, 255);
+const sge::renderer::color sge::renderer::colors::red(255,0,0,255);
 /*
 const sge::renderer::color aliceblue    = static_color<240, 248, 255>::value,
 	            antiquewhite        = static_color<250, 235, 215>::value,

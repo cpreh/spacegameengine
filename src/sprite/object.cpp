@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/circle_impl.hpp>
 #include <sge/renderer/colors.hpp>
+#include <sge/iostream.hpp>
 #include <cmath>
 #include <limits>
 
@@ -65,7 +66,8 @@ sge::sprite::object::object(
    color_(color_ ? *color_ : defaults::color_),
    visible_(visible_ ? *visible_ : defaults::visible_),
    use_rot_around(false)
-{}
+{
+}
 
 sge::sprite::unit& sge::sprite::object::x()
 {

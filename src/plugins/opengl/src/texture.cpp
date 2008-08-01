@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../pbo.hpp"
 #include "../color_convert.hpp"
+#include <sge/iostream.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/math/rect_impl.hpp>

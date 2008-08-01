@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 #include <sge/math/rect_impl.hpp>
+#include <sge/iostream.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 void sge::renderer::texture::sub_data(
