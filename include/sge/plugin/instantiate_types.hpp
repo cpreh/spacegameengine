@@ -18,22 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/system.hpp>
-#include <sge/plugin/instantiate_types.hpp>
+#ifndef SGE_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
+#define SGE_PLUGIN_INSTANTIATE_TYPES_HPP_INCLUDED
 
-sge::renderer::system::~system()
-{}
+#include "manager_impl.hpp"
+#include "iterator_impl.hpp"
+#include "plugin_impl.hpp"
+#include "context_impl.hpp"
 
-sge::plugin::detail::address_name
-sge::plugin::detail::traits<sge::renderer::system>::plugin_loader_name()
-{
-	return SGE_ADDRESS_NAME("create_renderer_system");
-}
+#define SGE_PLUGIN_INSTANTIATE_TYPES(x)\
+template sge::plugin::iterator<x> sge::plugin::manager::begin<x>();\
+template sge::plugin::iterator<x> sge::plugin::manager::end<x>();\
+template sge::plugin::iterator<x>::reference sge::plugin::manager::get_plugin<x>(sge::plugin::manager::size_type);\
+template sge::plugin::manager::size_type sge::plugin::manager::size<x>() const;\
+template class sge::plugin::iterator<x>;\
+template class sge::plugin::plugin<x>;\
+template class sge::plugin::context<x>;
 
-sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::renderer::system>::get_plugin_type()
-{
-	return capabilities::renderer;
-}
-
-SGE_PLUGIN_INSTANTIATE_TYPES(sge::renderer::system)
+#endif

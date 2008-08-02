@@ -39,3 +39,5 @@ sge::plugin::plugin<T>::get() const
 {
 	return loader;
 }
+
+#endif

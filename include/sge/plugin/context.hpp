@@ -40,7 +40,7 @@ public:
 
 	ptr_type load();
 private:
-	context_base* base;
+	context_base* base_;
 };
 
 }

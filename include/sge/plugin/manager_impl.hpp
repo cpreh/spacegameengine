@@ -53,11 +53,11 @@ sge::plugin::manager::get_plugin(
 }
 
 template<typename T>
-sge::plugin_manager::size_type
-sge::plugin_manager::size() const
+sge::plugin::manager::size_type
+sge::plugin::manager::size() const
 {
 	const plugin_map::const_iterator it = categories.find(
-		detail::plugin_traits<T>::get_plugin_type());
+		detail::traits<T>::get_plugin_type());
 	return it == categories.end()
 		? 0
 		: it->second.size();

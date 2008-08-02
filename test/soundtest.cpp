@@ -1,7 +1,9 @@
 #include <sge/audio/loader/loader.hpp>
 #include <sge/audio/player/player.hpp>
 #include <sge/audio/player/sound.hpp>
-#include <sge/plugin_manager.hpp>
+#include <sge/plugin/plugin.hpp>
+#include <sge/plugin/manager.hpp>
+#include <sge/plugin/context.hpp>
 #include <sge/media.hpp>
 #include <sge/math/constants.hpp>
 #include <sge/exception.hpp>
@@ -19,15 +21,15 @@
 int main()
 try
 {
-	sge::plugin_manager pm;
-	const sge::plugin<sge::audio::player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio::player>().load();
+	sge::plugin::manager pm;
+	const sge::plugin::plugin<sge::audio::player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio::player>().load();
 	sge::shared_ptr<sge::audio::player> audio_player(audio_player_plugin->get()());
 
-	typedef std::vector< sge::plugin_manager::plugin_context<sge::audio::loader> > plugin_vector;
+	typedef std::vector< sge::plugin::context<sge::audio::loader> > plugin_vector;
 	plugin_vector audio_plugins;
 	std::copy(pm.begin<sge::audio::loader>(),pm.end<sge::audio::loader>(),std::back_inserter(audio_plugins));
 
-	typedef std::vector<sge::plugin_manager::plugin_context<sge::audio::loader>::ptr_type> loaded_plugins_vector;
+	typedef std::vector<sge::plugin::context<sge::audio::loader>::ptr_type> loaded_plugins_vector;
 	loaded_plugins_vector loaded;
 
 	typedef std::vector<sge::audio::loader_ptr> audio_loader_vector;
@@ -36,7 +38,7 @@ try
 	sge::shared_ptr<sge::audio::file> soundfile;
 	for (plugin_vector::iterator i = audio_plugins.begin(); i != audio_plugins.end(); ++i)
 	{
-		sge::plugin_manager::plugin_context<sge::audio::loader>::ptr_type np = i->load();
+		sge::plugin::context<sge::audio::loader>::ptr_type np = i->load();
 		loaded.push_back(np);
 		sge::shared_ptr<sge::audio::loader> j(np->get()());
 		loaders.push_back(j);

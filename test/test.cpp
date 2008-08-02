@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
-#include <sge/plugin_manager.hpp>
+#include <sge/plugin/manager.hpp>
+#include <sge/plugin/plugin.hpp>
 #include <sge/font/font.hpp>
 #include <sge/font/drawer_3d.hpp>
 #include <sge/renderer/device.hpp>
@@ -49,10 +50,10 @@ int main()
 try
 {
 	bool running = true;
-	sge::plugin_manager pm;
+	sge::plugin::manager pm;
 
-	const sge::plugin<sge::renderer::system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer::system>().load();
-	const sge::plugin<sge::input::system>::ptr_type input_plugin = pm.get_plugin<sge::input::system>().load();
+	const sge::plugin::plugin<sge::renderer::system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer::system>().load();
+	const sge::plugin::plugin<sge::input::system>::ptr_type input_plugin = pm.get_plugin<sge::input::system>().load();
 
 	const sge::renderer::system_ptr rs(renderer_plugin->get()());
 	const sge::renderer::parameters param(sge::renderer::display_mode(1280,1024,sge::renderer::bit_depth::depth32,100), true);
@@ -60,7 +61,7 @@ try
 
 	const sge::input::system_ptr is(input_plugin->get()(rend->get_window()));
 
-	const sge::plugin<sge::font::system>::ptr_type font_plugin = pm.get_plugin<sge::font::system>().load();
+	const sge::plugin::plugin<sge::font::system>::ptr_type font_plugin = pm.get_plugin<sge::font::system>().load();
 	const sge::font::system_ptr fs(font_plugin->get()());
 
 	const sge::font::metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);

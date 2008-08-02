@@ -27,20 +27,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<typename T>
 sge::plugin::context<T>::context(
 	context_base& base_)
-: base(&base_)
+: base_(&base_)
 {}
 
 template<typename T>
 typename sge::plugin::context<T>::ptr_type
 sge::plugin::context<T>::load()
 {
-	const shared_ptr<plugin_base> ptr_base(base->ref.lock());
+	const shared_ptr<base> ptr_base(base_->ref.lock());
 	if(ptr_base)
 		return polymorphic_pointer_cast<plugin<T> >(ptr_base);
 	
 	const shared_ptr<plugin<T> > new_ptr(
-		new plugin<T>(base->get_path()));
+		new plugin<T>(base_->get_path()));
 
-	base->ref = new_ptr.get_boost_ptr();
+	base_->ref = new_ptr.get_boost_ptr();
 	return new_ptr;
 }
+
+#endif

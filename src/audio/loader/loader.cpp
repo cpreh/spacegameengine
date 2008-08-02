@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/loader/loader.hpp>
+#include <sge/plugin/instantiate_types.hpp>
 
 sge::audio::loader::~loader()
 {}
@@ -34,3 +35,5 @@ sge::plugin::detail::traits<sge::audio::loader>::get_plugin_type()
 {
 	return capabilities::audio_loader;
 }
+
+SGE_PLUGIN_INSTANTIATE_TYPES(sge::audio::loader)

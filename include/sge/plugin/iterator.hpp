@@ -50,7 +50,7 @@ struct iterator_base_type {
 }
 
 template<typename T>
-class iterator : detail::iterator_base_type<T>::type  {
+class iterator : public detail::iterator_base_type<T>::type  {
 public:
 	typedef typename detail::iterator_base_type<T>::type base_type;
 
@@ -74,6 +74,8 @@ public:
 	difference_type distance_to(iterator const &r) const;
 private:
 	category_array::iterator it;
+
+	friend class boost::iterator_core_access;
 };
 
 }
