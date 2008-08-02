@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../string.hpp"
 #include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
+#include "../plugin/traits.hpp"
+#include "../plugin/capabilities.hpp"
 #include "../path.hpp"
 #include "../export.hpp"
 #include "../renderer/image_view.hpp"
@@ -58,15 +59,18 @@ typedef shared_ptr<loader> loader_ptr;
 
 }
 
+namespace plugin
+{
 namespace detail
 {
 
-template<> struct plugin_traits<image::loader> {
+template<> struct traits<image::loader> {
 	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static capabilities::type get_plugin_type();
 	typedef image::loader* (*loader_fun)();
 };
 
+}
 }
 
 }

@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../string.hpp"
 #include "../path.hpp"
 #include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
+#include "../plugin/traits.hpp"
+#include "../plugin/capabilities.hpp"
 #include "../export.hpp"
 #include "types.hpp"
 #include "metrics.hpp"
@@ -36,7 +37,7 @@ namespace font
 
 class system {
 public:
-	virtual ~system(){}
+	virtual ~system();
 	virtual const metrics_ptr create_font(
 		const path& font_path,
 		unsigned font_height) = 0;
@@ -46,18 +47,20 @@ typedef shared_ptr<system> system_ptr;
 
 }
 
+namespace plugin
+{
 namespace detail
 {
 
-template<> struct plugin_traits<font::system> {
+template<> struct traits<font::system> {
 	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static capabilities::type get_plugin_type();
 	typedef font::system* (*loader_fun)();
 };
 
+}
 }
 
 }
 
 #endif
-

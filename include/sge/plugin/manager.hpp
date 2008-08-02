@@ -21,20 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_MANAGER_HPP_INCLUDED
 #define SGE_PLUGIN_MANAGER_HPP_INCLUDED
 
-#include <cstddef>
+#include "capabilities.hpp"
+#include "context_base.hpp"
+#include "iterator.hpp"
+#include "category_array.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
 #include <vector>
 #include <map>
-#include <iterator>
-#include <boost/noncopyable.hpp>
-#include <boost/weak_ptr.hpp>
-#include "path.hpp"
-#include "shared_ptr.hpp"
-#include "plugin.hpp"
-#include "string.hpp"
-#include "exception.hpp"
-#include "export.hpp"
-#include "iconv.hpp"
-#include "text.hpp"
+#include <cstddef>
 
 namespace sge
 {
@@ -43,8 +38,7 @@ namespace plugin
 
 class manager : boost::noncopyable {
 	typedef std::vector<context_base> plugin_array;
-	typedef std::vector<context_base*> category_array;
-	typedef std::map<type::type, category_array> plugin_map;
+	typedef std::map<capabilities::type, category_array> plugin_map;
 public:
 	typedef std::size_t size_type;
 
@@ -67,6 +61,7 @@ private:
 	plugin_map categories;
 };
 
+}
 }
 
 #endif

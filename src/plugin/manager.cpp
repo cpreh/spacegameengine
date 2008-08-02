@@ -53,7 +53,7 @@ sge::plugin::manager::manager()
 			continue;
 
 		try {
-			plugins.push_back(plugin_context_base(*it));
+			plugins.push_back(context_base(*it));
 		} catch(const library::load_function_exception &e) {
 			// ignore info loading error - it's just a DLL, not a plugin...
 			// nothing to worry about (and especially nothing that justifies
@@ -63,10 +63,10 @@ sge::plugin::manager::manager()
 	}
 
 	for(plugin_array::iterator it = plugins.begin(); it != plugins.end(); ++it)
-		for(unsigned i = 1; i < plugin_type::_last_guard; i <<= 1)
+		for(unsigned i = 1; i < capabilities::last_guard_; i <<= 1)
 		{
 			const unsigned type = it->type();
 			if(type & i)
-				categories[static_cast<plugin_type::type>(i)].push_back(&*it);
+				categories[static_cast<capabilities::type>(i)].push_back(&*it);
 		}
 }

@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "caps.hpp"
 #include "../export.hpp"
 #include "../shared_ptr.hpp"
-#include "../plugin_traits.hpp"
+#include "../plugin/traits.hpp"
+#include "../plugin/capabilities.hpp"
 #include "../string.hpp"
 #include "../window.hpp"
 #include <vector>
@@ -55,15 +56,18 @@ typedef shared_ptr<system> system_ptr;
 
 }
 
+namespace plugin
+{
 namespace detail
 {
 
-template<> struct plugin_traits<renderer::system> {
+template<> struct traits<renderer::system> {
 	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static capabilities::type get_plugin_type();
 	typedef renderer::system* (*loader_fun)();
 };
 
+}
 }
 
 }

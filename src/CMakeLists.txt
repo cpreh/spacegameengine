@@ -11,6 +11,7 @@ FILE (GLOB sgecorefiles
 	log/*.cpp
 	math/*.cpp
 	model/*.cpp
+	plugin/*.cpp
 	renderer/*.cpp
 	sprite/*.cpp
 	texture/*.cpp

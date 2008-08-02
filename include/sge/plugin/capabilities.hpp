@@ -18,11 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-template<typename Fun>
-Fun sge::library::load_function(const std::string& fun)
+#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+
+namespace sge
 {
-	const Fun ptr = reinterpret_cast<Fun>(load_address_base(fun));
-	if(!ptr)
-		throw library::load_function_exception(name().string(), fun);
-	return ptr;
+namespace plugin
+{
+namespace capabilities
+{
+	enum type {
+		nothing          = 0,
+		renderer         = 1,
+		input            = 1 << 1,
+		image_loader     = 1 << 2,
+		audio_player     = 1 << 3,
+		font             = 1 << 4,
+		audio_loader     = 1 << 5,
+		last_guard_      = 1 << 6
+	};
 }
+
+}
+}
+
+#endif

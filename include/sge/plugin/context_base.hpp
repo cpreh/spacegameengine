@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
 #define SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
 
-#include "type.hpp"
+#include "base.hpp"
+#include "capabilities.hpp"
 #include "../export.hpp"
 #include "../string.hpp"
 #include "../path.hpp"
@@ -41,16 +42,16 @@ public:
 	SGE_SYMBOL const string& name() const;
 	SGE_SYMBOL const string& description() const;
 	SGE_SYMBOL unsigned version() const;
-	SGE_SYMBOL plugin_type::type type() const;
+	SGE_SYMBOL capabilities::type type() const;
 	SGE_SYMBOL const path& get_path() const;
 private:
 	template<typename T> friend class context;
-	boost::weak_ptr<plugin_base> ref;
-	path              path_;
-	string            name_;
-	string            description_;
-	unsigned          version_;
-	plugin_type::type type_;
+	boost::weak_ptr<base> ref;
+	path               path_;
+	string             name_;
+	string             description_;
+	unsigned           version_;
+	capabilities::type type_;
 };
 
 }

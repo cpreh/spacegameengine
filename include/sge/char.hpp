@@ -18,14 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/system.hpp>
+#ifndef SGE_CHAR_HPP_INCLUDED
+#define SGE_CHAR_HPP_INCLUDED
 
-sge::plugin::detail::address_name sge::plugin::detail::traits<sge::font::system>::plugin_loader_name()
+#include "config.h"
+
+namespace sge
 {
-	return SGE_ADDRESS_NAME("create_font_system");
+#ifdef SGE_NARROW_STRING
+typedef char char_type;
+#else
+typedef wchar_t char_type;
+#endif
+
 }
 
-sge::plugin::capabilities::type sge::plugin::detail::traits<sge::font::system>::get_plugin_type()
-{
-	return capabilities::font;
-}
+#endif

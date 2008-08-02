@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 
 #include "context.hpp"
+#include "category_array.hpp"
 #include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
 
@@ -58,7 +59,7 @@ public:
 	typedef typename base_type::pointer pointer;
 	typedef typename base_type::difference_type difference_type;
 
-	iterator(category_array::iterator it);
+	explicit iterator(category_array::iterator it);
 
 	void advance(difference_type diff);
 
@@ -66,7 +67,7 @@ public:
 
 	void decrement();
 
-	bool equal(terator const &r) const;
+	bool equal(iterator const &r) const;
 
 	reference dereference() const;
 

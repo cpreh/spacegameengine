@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::image::loader::~loader()
 {}
 
-sge::detail::address_name
-sge::detail::plugin_traits<sge::image::loader>::plugin_loader_name()
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<sge::image::loader>::plugin_loader_name()
 {
 	return SGE_ADDRESS_NAME("create_image_loader");
 }
 
-sge::plugin_type::type
-sge::detail::plugin_traits<sge::image::loader>::get_plugin_type()
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<sge::image::loader>::get_plugin_type()
 {
-	return plugin_type::image_loader;
+	return capabilities::image_loader;
 }

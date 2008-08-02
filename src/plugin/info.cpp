@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/info.hpp>
 
-sge::plugin_info::plugin_info()
+sge::plugin::info::info()
  : name(0),
    description(0),
    plugin_version(0),
    min_core_version(0),
-   type(plugin_type::nothing)
+   type(capabilities::nothing)
 {}

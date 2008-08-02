@@ -21,18 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_STRING_HPP_INCLUDED
 #define SGE_STRING_HPP_INCLUDED
 
-#include "config.h"
+#include "char.hpp"
 #include <memory>
 #include <string>
 
 namespace sge
 {
-
-#ifdef SGE_NARROW_STRING
-typedef char char_type;
-#else
-typedef wchar_t char_type;
-#endif
 
 typedef std::basic_string<char_type> string;
 

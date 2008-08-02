@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/system.hpp>
+#include "library.hpp"
 
-sge::plugin::detail::address_name sge::plugin::detail::traits<sge::font::system>::plugin_loader_name()
+template<typename Fun>
+Fun sge::library::load_function(const std::string& fun)
 {
-	return SGE_ADDRESS_NAME("create_font_system");
-}
-
-sge::plugin::capabilities::type sge::plugin::detail::traits<sge::font::system>::get_plugin_type()
-{
-	return capabilities::font;
+	const Fun ptr = reinterpret_cast<Fun>(load_address_base(fun));
+	if(!ptr)
+		throw library::load_function_exception(name().string(), fun);
+	return ptr;
 }

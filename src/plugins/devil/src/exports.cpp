@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include <sge/export.hpp>
 #include <sge/string.hpp>
-#include <sge/plugin.hpp>
+#include <sge/plugin/info.hpp>
 
 extern "C"
 {
 
-SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
+SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info* const p)
 {
 	if(!p)
 		return;
@@ -34,7 +34,7 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
 	p->description = SGE_TEXT("");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
-	p->type = sge::plugin_type::image_loader;
+	p->type = sge::plugin::capabilities::image_loader;
 }
 
 SGE_EXPORT_SYMBOL sge::image::loader* create_image_loader()

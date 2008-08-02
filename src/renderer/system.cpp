@@ -23,15 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::system::~system()
 {}
 
-sge::detail::address_name
-sge::detail::plugin_traits<sge::renderer::system>::plugin_loader_name()
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<sge::renderer::system>::plugin_loader_name()
 {
 	return SGE_ADDRESS_NAME("create_renderer_system");
 }
 
-sge::plugin_type::type
-sge::detail::plugin_traits<sge::renderer::system>::get_plugin_type()
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<sge::renderer::system>::get_plugin_type()
 {
-	return plugin_type::renderer;
+	return capabilities::renderer;
 }
-

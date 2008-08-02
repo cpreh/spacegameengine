@@ -18,14 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/system.hpp>
+#ifndef SGE_PLUGIN_CATEGORY_ARRAY_HPP_INCLUDED
+#define SGE_PLUGIN_CATEGORY_ARRAY_HPP_INCLUDED
 
-sge::plugin::detail::address_name sge::plugin::detail::traits<sge::font::system>::plugin_loader_name()
+#include <vector>
+
+namespace sge
 {
-	return SGE_ADDRESS_NAME("create_font_system");
+namespace plugin
+{
+
+class context_base;
+
+typedef std::vector<context_base*> category_array;
+
+}
 }
 
-sge::plugin::capabilities::type sge::plugin::detail::traits<sge::font::system>::get_plugin_type()
-{
-	return capabilities::font;
-}
+#endif

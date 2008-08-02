@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_HPP_INCLUDED
 #define SGE_SYSTEMS_HPP_INCLUDED
 
-#include "plugin_manager.hpp"
-#include "plugin.hpp"
+#include "plugin/manager.hpp"
+#include "plugin/plugin.hpp"
 
 #include "renderer/device.hpp"
 #include "renderer/system.hpp"
@@ -35,18 +35,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge {
 
 struct systems {
-	::sge::plugin_manager              plugin_manager;
+	::sge::plugin::manager                     plugin_manager;
 
-	plugin<renderer::system>::ptr_type renderer_plugin;
-	renderer::system_ptr               renderer_system;
-	renderer::parameters               renderer_parameters;
-	::sge::renderer::device_ptr        renderer;
+	plugin::plugin<renderer::system>::ptr_type renderer_plugin;
+	renderer::system_ptr                       renderer_system;
+	renderer::parameters                       renderer_parameters;
+	::sge::renderer::device_ptr                renderer;
 
-	plugin<input::system>::ptr_type    input_plugin;
-	input::system_ptr                  input_system;
+	plugin::plugin<input::system>::ptr_type    input_plugin;
+	input::system_ptr                          input_system;
 
-	plugin<image::loader>::ptr_type    image_loader_plugin;
-	image::loader_ptr                  image_loader;
+	plugin::plugin<image::loader>::ptr_type    image_loader_plugin;
+	image::loader_ptr                          image_loader;
 
 	systems();
 

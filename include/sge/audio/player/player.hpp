@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../string.hpp"
 #include "../../shared_ptr.hpp"
-#include "../../plugin_traits.hpp"
+#include "../../plugin/traits.hpp"
+#include "../../plugin/capabilities.hpp"
 #include "../../export.hpp"
 #include "../../math/vector.hpp"
 #include "../loader/file.hpp"
@@ -44,21 +45,25 @@ struct player
 	virtual const sound_ptr create_nonstream_sound(file_ptr) = 0;
 	virtual const sound_ptr create_stream_sound(file_ptr) = 0;
 	virtual void update() = 0;
-	virtual ~player() {}
+	virtual ~player();
 };
 
 }
 
+namespace plugin
+{
 namespace detail
 {
 
-template<> struct plugin_traits<audio::player> {
+template<> struct traits<audio::player> {
 	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static capabilities::type get_plugin_type();
 	typedef audio::player* (*loader_fun)();
 };
 
 }
+}
+
 }
 
 #endif // PLAYER_HPP

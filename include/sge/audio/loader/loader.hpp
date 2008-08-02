@@ -21,14 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
-// sge
+#include "file.hpp"
 #include "../../string.hpp"
 #include "../../path.hpp"
 #include "../../shared_ptr.hpp"
-#include "../../plugin_traits.hpp"
+#include "../../plugin/traits.hpp"
+#include "../../plugin/capabilities.hpp"
 #include "../../export.hpp"
-// Own stuff
-#include "file.hpp"
 
 namespace sge
 {
@@ -40,22 +39,25 @@ class loader
 public:
 	virtual const file_ptr load(const path& file) = 0;
 	virtual bool is_valid_file(const path& file) const = 0;
-	virtual ~loader() {}
+	virtual ~loader();
 };
 
 typedef shared_ptr<loader> loader_ptr;
 
 }
 
+namespace plugin
+{
 namespace detail
 {
 
-template<> struct plugin_traits<audio::loader> {
+template<> struct traits<audio::loader> {
 	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static plugin_type::type get_plugin_type();
+	SGE_SYMBOL static capabilities::type get_plugin_type();
 	typedef audio::loader* (*loader_fun)();
 };
 
+}
 }
 
 }

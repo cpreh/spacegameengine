@@ -21,20 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
-#include <sge/plugin.hpp>
+#include <sge/plugin/info.hpp>
 #include <sge/x_window.hpp>
 #include <boost/cast.hpp>
 
 extern "C"
 {
 
-void plugin_version_info(sge::plugin_info* const i)
+void plugin_version_info(sge::plugin::info* const i)
 {
 	if(!i)
 		return;
 	i->name = SGE_TEXT("X input plugin");
 	i->description = SGE_TEXT("");
-	i->type = sge::plugin_type::input;
+	i->type = sge::plugin::capabilities::input;
 	i->plugin_version = 0x1;
 	i->min_core_version = 0x1;
 }

@@ -60,6 +60,4 @@ public:
 
 }
 
-#include "detail/library_impl.hpp"
-
 #endif
