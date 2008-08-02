@@ -18,37 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/plugin.hpp>
-#include <sge/audio/loader/loader.hpp>
-#include <sge/audio/player/player.hpp>
-#include <sge/font/system.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/input/system.hpp>
-#include <sge/renderer/system.hpp>
+#ifndef SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
+#define SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
 
-sge::plugin_info::plugin_info()
- : name(0),
-   description(0),
-   plugin_version(0),
-   min_core_version(0),
-   type(plugin_type::nothing)
-{}
+#include "plugin.hpp"
+#include "traits.hpp"
+#include "../library_impl.hpp"
 
 template<typename T>
-sge::plugin<T>::plugin(const path& p)
+sge::plugin::plugin<T>::plugin(const path& p)
 : lib(p),
-  loader(lib.load_function<loader_fun>(detail::plugin_traits<T>::plugin_loader_name()))
+  loader(
+  	lib.load_function<loader_fun>(
+		detail::traits<T>::plugin_loader_name()))
 {}
 
 template<typename T>
-typename sge::plugin<T>::loader_fun sge::plugin<T>::get() const
+typename sge::plugin::plugin<T>::loader_fun
+sge::plugin::plugin<T>::get() const
 {
 	return loader;
 }
-
-template class sge::plugin<sge::audio::loader>;
-template class sge::plugin<sge::audio::player>;
-template class sge::plugin<sge::font::system>;
-template class sge::plugin<sge::image::loader>;
-template class sge::plugin<sge::input::system>;
-template class sge::plugin<sge::renderer::system>;
