@@ -49,6 +49,7 @@ public:
 		renderer::color col = renderer::colors::white);
 	SGE_SYMBOL void begin_rendering(
 		size_type buffer_chars,
+		pos const &start,
 		dim size);
 	SGE_SYMBOL void draw_char(
 		char_type,

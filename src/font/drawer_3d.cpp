@@ -53,8 +53,9 @@ sge::font::drawer_3d::drawer_3d(
 {}
 
 void sge::font::drawer_3d::begin_rendering(
-	const size_type buffer_chars,
-	const dim)
+	size_type const buffer_chars,
+	pos const &,
+	dim const)
 {
 	sprites.clear();
 	sprites.reserve(buffer_chars);

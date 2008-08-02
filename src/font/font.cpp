@@ -71,7 +71,8 @@ sge::font::font::draw_text(
 
 	string::const_iterator sbeg(text.begin());
 
-	drawer()->begin_rendering(text.size(), total_size.size());
+	drawer()->begin_rendering(text.size(), pos_, total_size.size());
+
 	while(sbeg != total_size.next_begin())
 	{
 		const text_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);

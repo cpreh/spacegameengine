@@ -35,6 +35,7 @@ public:
 	typedef std::size_t size_type;
 	virtual void begin_rendering(
 		size_type buffer_chars,
+		pos const& start,
 		dim size) = 0;
 	virtual void draw_char(
 		char_type,
