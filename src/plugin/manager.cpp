@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#include <sge/plugin_manager.hpp>
+#include <sge/plugin/manager.hpp>
 #include <sge/iconv.hpp>
 #include <sge/path.hpp>
 #include <sge/text.hpp>
@@ -27,11 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/convenience.hpp>
 #include <boost/filesystem/operations.hpp>
 
-typedef void (*version_function)(sge::plugin_info*);
-
 const char* const plugin_path =
 #ifndef _MSC_VER
-  PLUGIN_PATH
+PLUGIN_PATH
 #else
 PLUGIN_PATH "/" CMAKE_INTDIR
 #endif
@@ -46,7 +44,7 @@ const sge::string::const_pointer plugin_extension =
 #endif
 	;
 
-sge::plugin_manager::plugin_manager()
+sge::plugin::manager::manager()
 {
 	const directory_iterator end;
 	for(directory_iterator it(iconv(plugin_path)); it != end; ++it)
@@ -71,42 +69,4 @@ sge::plugin_manager::plugin_manager()
 			if(type & i)
 				categories[static_cast<plugin_type::type>(i)].push_back(&*it);
 		}
-}
-
-sge::plugin_manager::plugin_context_base::plugin_context_base(const path& path_)
-: path_(path_)
-{
-	library lib(get_path());
-	version_function vf = lib.load_function<version_function>("plugin_version_info");
-	plugin_info info;
-	vf(&info);
-	name_ = info.name;
-	description_ = info.description;
-	version_ = info.plugin_version;
-	type_ = info.type;
-}
-
-const sge::string& sge::plugin_manager::plugin_context_base::name() const
-{
-	return name_;
-}
-
-const sge::string& sge::plugin_manager::plugin_context_base::description() const
-{
-	return description_;
-}
-
-unsigned sge::plugin_manager::plugin_context_base::version() const
-{
-	return version_;
-}
-
-sge::plugin_type::type sge::plugin_manager::plugin_context_base::type() const
-{
-	return type_;
-}
-
-const sge::path& sge::plugin_manager::plugin_context_base::get_path() const
-{
-	return path_;
 }

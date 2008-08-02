@@ -18,46 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_HPP_INCLUDED
-#define SGE_PLUGIN_HPP_INCLUDED
+#ifndef SGE_PLUGIN_INFO_HPP_INCLUDED
+#define SGE_PLUGIN_INFO_HPP_INCLUDED
 
-#include "shared_ptr.hpp"
-#include "plugin_traits.hpp"
-#include "library.hpp"
-#include "export.hpp"
-#include "path.hpp"
-#include <boost/noncopyable.hpp>
+#include "../export.hpp"
+#include "../char.hpp"
 
 namespace sge
 {
+namespace plugin
+{
 
-struct plugin_info {
-	SGE_SYMBOL plugin_info();
+struct info {
+	SGE_SYMBOL info();
 
-	string::const_pointer name;
-	string::const_pointer description;
+	char_type const      *name;
+	char_type const      *description;
 	unsigned              plugin_version;
 	unsigned              min_core_version;
-	plugin_type::type     type;
+	type::type            type_;
 };
 
-struct plugin_base {
-	virtual ~plugin_base(){}
-};
-
-template<typename T>
-class plugin : boost::noncopyable, public plugin_base {
-public:
-	typedef typename detail::plugin_traits<T>::loader_fun loader_fun;
-	typedef shared_ptr<plugin<T> > ptr_type;
-
-	SGE_SYMBOL plugin(const path&);
-	SGE_SYMBOL loader_fun get() const;
-private:
-	library lib;
-	const loader_fun loader;
-};
-
+}
 }
 
 #endif

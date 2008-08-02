@@ -18,38 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_TRAITS_HPP_INCLUDED
-#define SGE_PLUGIN_TRAITS_HPP_INCLUDED
+#ifndef SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
+#define SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
 
-#include <string>
+#include "type.hpp"
+#include "../export.hpp"
+#include "../string.hpp"
+#include "../path.hpp"
+#include <boost/weak_ptr.hpp>
 
 namespace sge
 {
-
-namespace plugin_type
-{
-	enum type {
-		nothing          = 0,
-		renderer         = 1,
-		input            = 1 << 1,
-		image_loader     = 1 << 2,
-		audio_player     = 1 << 3,
-		font             = 1 << 4,
-		audio_loader     = 1 << 5,
-		_last_guard      = 1 << 6
-	};
-}
-
-namespace detail
+namespace plugin
 {
 
-template<typename T> struct plugin_traits;
+template<typename T> class context;
 
-typedef std::string::const_pointer address_name;
+class context_base {
+public:
+	SGE_SYMBOL context_base(const path& p);
+
+	SGE_SYMBOL const string& name() const;
+	SGE_SYMBOL const string& description() const;
+	SGE_SYMBOL unsigned version() const;
+	SGE_SYMBOL plugin_type::type type() const;
+	SGE_SYMBOL const path& get_path() const;
+private:
+	template<typename T> friend class context;
+	boost::weak_ptr<plugin_base> ref;
+	path              path_;
+	string            name_;
+	string            description_;
+	unsigned          version_;
+	plugin_type::type type_;
+};
 
 }
 }
-
-#define SGE_ADDRESS_NAME(x) x
 
 #endif
