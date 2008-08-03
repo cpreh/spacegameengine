@@ -31,7 +31,8 @@ namespace con
 
 struct exception : public sge::exception
 {
-	explicit exception(string const &str); 
+	explicit exception(
+		string const &str); 
 };
 
 }

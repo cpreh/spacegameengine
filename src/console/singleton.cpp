@@ -37,8 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/fstream.hpp>
 #include <locale>
 #include <algorithm>
-#include <cctype>
 #include <ostream>
+#include <utility>
+#include <cctype>
 
 namespace
 {
@@ -107,7 +108,7 @@ sge::string sge::con::singleton::get_var(const sge::string &name)
 {
 	var_map::const_iterator const i = vars.find(name);
 	if (i == vars.end())
-		throw sge::con::exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
+		throw exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
 	return i->second->get();
 }
 
@@ -120,7 +121,7 @@ void sge::con::singleton::set_var(const sge::string &name,const sge::string &val
 {
 	sge::con::var_map::const_iterator const i = vars.find(name);
 	if (i == vars.end())
-		throw sge::con::exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
+		throw exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
 	return i->second->set(value);
 }
 
@@ -134,11 +135,11 @@ void sge::con::singleton::read_config(const sge::path &fn)
 	{
 		const sge::string::size_type equals = i->find(SGE_TEXT('='));
 		if (equals == sge::string::npos)
-			throw sge::con::exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": no '=' found"));
+			throw exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": no '=' found"));
 
 		const sge::string name = i->substr(0,equals),value = i->substr(equals+1);
 		if (name.empty())
-			throw sge::con::exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": empty variable name"));
+			throw exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": empty variable name"));
 
 		// just a warning about multiply defined variables
 		if (config_vars.find(name) != config_vars.end())
@@ -190,33 +191,55 @@ void sge::con::singleton::eval(const sge::string &line)
 	{
 		args.insert(args.begin(),command_str);
 		if (funcs.find(command_str) == funcs.end())
-			throw sge::con::exception(SGE_TEXT("couldn't find command \"")+command_str+SGE_TEXT("\""));
+			throw exception(SGE_TEXT("couldn't find command \"")+command_str+SGE_TEXT("\""));
 		funcs[command_str](args);
 	}
 }
 
 void sge::con::singleton::erase(const sge::string &name)
 {
-	funcs.erase(name);
+	/*callback_map::size_type erases = 0;
+	erases += funcs.erase(name);
+	erases += vars.erase(name);
+
+	if(erases == 0)
+		throw exception(
+			SGE_TEXT("console function ")
+			+ name
+			+ SGE_TEXT(" not registered!"));*/
+	if(vars.erase(name) == 0)
+		throw exception(
+			SGE_TEXT("console variable ")
+			+ name
+			+ SGE_TEXT(" not registered!"));
 }
 
 void sge::con::singleton::add(const sge::string &name,const sge::con::callback &v)
 {
-	if (funcs.find(name) != funcs.end())
-		throw sge::con::exception(SGE_TEXT("console function ")+name+SGE_TEXT(" registered twice!"));
+	std::pair<callback_map::iterator, bool> const ret = funcs.insert(
+		std::make_pair(
+			name,
+			v));
 
-	funcs[name] = v;
+	if (!ret.second)
+		throw exception(
+			SGE_TEXT("console function ")
+			+ name
+			+ SGE_TEXT(" registered twice!"));
 }
 
 void sge::con::singleton::add(const sge::string &name,sge::con::var_base &v)
 {
-	if (vars.find(name) != vars.end())
-		throw sge::con::exception(
+	std::pair<var_map::iterator, bool> const ret = vars.insert(
+		std::make_pair(
+			name,
+			&v));
+	
+	if (!ret.second)
+		throw exception(
 			SGE_TEXT("console variable ")
 			+ name
 			+ SGE_TEXT(" registered twice!"));
-
-	vars[name] = &v;
 
 	// TODO: this might be pretty slow
 	config_map::const_iterator i = config_vars.find(name);
