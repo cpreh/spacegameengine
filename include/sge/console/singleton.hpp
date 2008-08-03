@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CON_SINGLETON_HPP_INCLUDED
 #define SGE_CON_SINGLETON_HPP_INCLUDED
 
-#include "console.hpp"
-#include <map>
+#include "types.hpp"
+#include "../path.hpp"
+#include "../string.hpp"
 
 namespace sge
 {

@@ -1,22 +1,5 @@
-#include <sge/string.hpp>
-#include <sge/path.hpp>
-#include <sge/iostream.hpp>
-#include <sge/text.hpp>
 #include <sge/console/console.hpp>
-#include <sge/console/exception.hpp>
-#include <sge/console/var_base.hpp>
 #include <sge/console/singleton.hpp>
-#include <boost/spirit.hpp>
-#include <boost/bind.hpp>
-#include <map>
-#include <string>
-#include <functional>
-#include <fstream>
-#include <algorithm>
-#include <vector>
-#include <iterator>
-#include <locale>
-#include <ostream>
 
 void sge::con::eval(const string &s)
 {

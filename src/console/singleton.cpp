@@ -26,7 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/iostream.hpp>
 
 #include <boost/bind.hpp>
-#include <boost/spirit.hpp> // FIXME
+#include <boost/spirit/core/scanner/scanner.hpp>
+#include <boost/spirit/core/non_terminal/rule.hpp>
+#include <boost/spirit/core/composite/epsilon.hpp>
+#include <boost/spirit/core/composite/actions.hpp>
+#include <boost/spirit/actor/push_back_actor.hpp>
+#include <boost/spirit/actor/assign_actor.hpp>
+#include <boost/spirit/utility/confix.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <locale>
