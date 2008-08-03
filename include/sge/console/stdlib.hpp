@@ -1,8 +1,9 @@
-#ifndef STDLIB_HPP_INCLUDED
-#define STDLIB_HPP_INCLUDED
+#ifndef SGE_CONSOLE_STDLIB_HPP_INCLUDED
+#define SGE_CONSOLE_STDLIB_HPP_INCLUDED
 
+#include "arg_list.hpp"
+#include "../string.hpp"
 #include <boost/function.hpp>
-#include "console.hpp"
 
 namespace sge
 {
@@ -22,7 +23,7 @@ struct stdlib
 	void listfuncs(const arg_list &);
 	void latch(const arg_list &);
 
-	stdlib(const callback_type &);
+	explicit stdlib(const callback_type &);
 };
 
 }

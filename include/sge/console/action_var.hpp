@@ -18,39 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_CONSOLE_HPP_INCLUDED
-#define SGE_CON_CONSOLE_HPP_INCLUDED
+#ifndef SGE_CON_ACTION_VAR_HPP_INCLUDED
+#define SGE_CON_ACTION_VAR_HPP_INCLUDED
 
-#include "arg_list.hpp"
-#include "../string.hpp"
-#include "../path.hpp"
-#include "../export.hpp"
-#include "../text.hpp"
+#include "action_var_base.hpp"
 #include <boost/function.hpp>
-#include <map>
-
 
 namespace sge
 {
 namespace con
 {
 
-struct var_base;
+// this constructs an action_var with boost::function as functor
+// which is an extremely convenient shortcut (you don't have to specify
+// action_var< T,boost::function<T (const T &,const T &)> >
+template<typename T>
+struct action_var
+{
+	typedef boost::function<T (const T &,const T &)> fn;
+	typedef action_var_base<T,fn> type;
 
-typedef boost::function<void (const arg_list &)> callback;
-typedef std::map<string, var_base*> var_map;
-typedef std::map<string, callback> callback_map; 
-SGE_SYMBOL void prefix(const string::value_type &);
-SGE_SYMBOL string::value_type prefix();
-SGE_SYMBOL void add(const string &,const callback &);
-SGE_SYMBOL void eval(const string &);
-SGE_SYMBOL void chat_callback(const callback &);
-SGE_SYMBOL void read_config(const path &);
-SGE_SYMBOL const var_map &vars();
-SGE_SYMBOL const callback_map &funcs();
-SGE_SYMBOL sge::string get_var(const sge::string &);
-SGE_SYMBOL void set_var(const sge::string &,const sge::string &);
-SGE_SYMBOL void latch(const sge::string &,const sge::string &);
+	private:
+	action_var() {}
+	action_var(const action_var &) {}
+};
 
 }
 }

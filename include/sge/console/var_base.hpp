@@ -18,39 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_CONSOLE_HPP_INCLUDED
-#define SGE_CON_CONSOLE_HPP_INCLUDED
+#ifndef SGE_CON_VAR_BASE_HPP_INCLUDED
+#define SGE_CON_VAR_BASE_HPP_INCLUDED
 
-#include "arg_list.hpp"
 #include "../string.hpp"
-#include "../path.hpp"
 #include "../export.hpp"
-#include "../text.hpp"
-#include <boost/function.hpp>
-#include <map>
-
 
 namespace sge
 {
 namespace con
 {
 
-struct var_base;
-
-typedef boost::function<void (const arg_list &)> callback;
-typedef std::map<string, var_base*> var_map;
-typedef std::map<string, callback> callback_map; 
-SGE_SYMBOL void prefix(const string::value_type &);
-SGE_SYMBOL string::value_type prefix();
-SGE_SYMBOL void add(const string &,const callback &);
-SGE_SYMBOL void eval(const string &);
-SGE_SYMBOL void chat_callback(const callback &);
-SGE_SYMBOL void read_config(const path &);
-SGE_SYMBOL const var_map &vars();
-SGE_SYMBOL const callback_map &funcs();
-SGE_SYMBOL sge::string get_var(const sge::string &);
-SGE_SYMBOL void set_var(const sge::string &,const sge::string &);
-SGE_SYMBOL void latch(const sge::string &,const sge::string &);
+class var_base
+{
+	string name_;
+public:
+	SGE_SYMBOL var_base(const string &);
+	SGE_SYMBOL void late_construct();
+	SGE_SYMBOL string const name() const;
+#ifndef _MSC_VER
+	virtual void set(const string &) = 0;
+	virtual string const get() const = 0;
+#else
+	// VC++ is so dumb that it wants to instantiate a class
+	// if you bind *this to a reference
+	SGE_SYMBOL virtual void set(const string&);
+	SGE_SYMBOL virtual string get() const;
+#endif
+	virtual ~var_base();
+};
 
 }
 }

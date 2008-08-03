@@ -16,7 +16,8 @@
 #include "../texture/part.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
-#include "console.hpp"
+#include "action_var.hpp"
+#include "arg_list.hpp"
 
 namespace sge
 {
@@ -27,12 +28,12 @@ class console_gfx
 {
 	public:
 	SGE_SYMBOL console_gfx(
-		const renderer::device_ptr,
-		const texture::part_ptr,
-		const font::font_ptr,
-		const input::system_ptr,
-		const sprite::point&,
-		const sprite::dim&);
+		renderer::device_ptr,
+		texture::part_ptr,
+		font::font_ptr,
+		input::system_ptr,
+		sprite::point const &,
+		sprite::dim const &);
 	SGE_SYMBOL void key_callback(const input::key_pair &);
 	SGE_SYMBOL void key_action(const input::key_type &);
 	SGE_SYMBOL void draw();

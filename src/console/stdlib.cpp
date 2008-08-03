@@ -1,4 +1,6 @@
 #include <sge/console/stdlib.hpp>
+#include <sge/console/console.hpp>
+#include <sge/console/var_base.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/bind.hpp>
