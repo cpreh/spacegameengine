@@ -37,7 +37,7 @@ void sge::con::var<T>::set(const string &s)
 	{
 		throw exception(
 			SGE_TEXT("couldn't parse variable \"")
-			+ name_
+			+ name()
 			+ SGE_TEXT("\""));
 	}
 }

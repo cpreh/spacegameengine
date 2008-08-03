@@ -18,37 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_VAR_BASE_HPP_INCLUDED
-#define SGE_CON_VAR_BASE_HPP_INCLUDED
+#include "action_var.hpp"
 
-#include "../string.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
-{
-namespace con
-{
-
-class var_base : boost::noncopyable {
-	string name_;
-public:
-	SGE_SYMBOL var_base(const string &);
-	SGE_SYMBOL void late_construct();
-	SGE_SYMBOL string const name() const;
-#ifndef _MSC_VER
-	virtual void set(const string &) = 0;
-	virtual string const get() const = 0;
-#else
-	// VC++ is so dumb that it wants to instantiate a class
-	// if you bind *this to a reference
-	SGE_SYMBOL virtual void set(const string&);
-	SGE_SYMBOL virtual string get() const;
-#endif
-	virtual ~var_base();
-};
-
-}
-}
-
-#endif
+// FIXME: stub
