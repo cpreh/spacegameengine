@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
 
 template<typename T>
-bool sge::math::intersects(const basic_rect<T>& r, 
+bool sge::math::contains(const basic_rect<T>& r, 
                            const basic_vector<T,2>& p)
 {
 	return p.x() >= r.left() && p.x() <= r.right() &&
