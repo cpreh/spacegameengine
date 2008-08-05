@@ -26,14 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/next_prior.hpp>
 
 sge::sprite::texture_animation::texture_animation(
-	const animation_series& series_,
-	const loop_method::type action,
-	object &spr)
+	animation_series const &series_,
+	loop_method::type const action,
+	object &spr,
+	time::fun const &time_function)
 : series(series_),
   action(action),
   cur_timer(
   	time::resolution(
-		0)),
+		0),
+	true,
+	time_function),
   spr(spr),
   pos(series.begin())
 {

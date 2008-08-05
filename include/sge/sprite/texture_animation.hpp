@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "animation_series.hpp"
 #include "../renderer/texture.hpp"
 #include "../time/timer.hpp"
+#include "../time/fun.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -46,7 +47,9 @@ public:
 	SGE_SYMBOL texture_animation(
 		animation_series const &,
 		loop_method::type,
-		object &init_sprite);
+		object &init_sprite,
+		time::fun const &time_fun
+			= time::default_time_fun());
 	
 	SGE_SYMBOL bool process();
 	SGE_SYMBOL void reset();
