@@ -64,4 +64,22 @@ bool sge::math::intersects(const basic_rect<T>& r, const basic_line_seg2<T>& l)
 	                  l);
 }
 
+template<typename T>
+basic_rect<T> const intersection(basic_rect<T> const &r1,basic_rect<T> const &r2)
+{
+	if (!intersect(r1,r2))
+		return basic_rect<T>(
+			static_cast<T>(0),
+			static_cast<T>(0),
+			static_cast<T>(0),
+			static_cast<T>(0));
+
+	return basic_rect<T>(
+		std::max(r1.left(),r2.left()), 
+		std::max(r1.top(),r2.top()), 
+		std::min(r1.right(),r2.right()), 
+		std::min(r1.bottom(),r2.bottom()));
+
+}
+
 #endif
