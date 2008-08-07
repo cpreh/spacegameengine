@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_RECT_IMPL_HPP_INCLUDED
 
 #include <ostream>
+#include <boost/lexical_cast.hpp>
+#include <sge/exception.hpp>
 #include "rect.hpp"
 
 template<typename T>
@@ -34,7 +36,11 @@ sge::math::basic_rect<T>::basic_rect(
   top_(top_),
   right_(right_),
   bottom_(bottom_)
-{}
+{
+	if (right() < left() || bottom() < top())
+		throw exception(SGE_TEXT("tried to create a rectangle ")+
+			boost::lexical_cast<string>(*this)+SGE_TEXT(" which is invalid"));
+}
 
 template<typename T>
 sge::math::basic_rect<T>::basic_rect(
@@ -44,7 +50,11 @@ sge::math::basic_rect<T>::basic_rect(
   top_(pos.y()),
   right_(pos.x() + sz.w()),
   bottom_(pos.y() + sz.h())
-{}
+{
+	if (right() < left() || bottom() < top())
+		throw exception(SGE_TEXT("tried to create a rectangle ")+
+			boost::lexical_cast<string>(*this)+SGE_TEXT(" which is invalid"));
+}
 
 template<typename T>
 typename sge::math::basic_rect<T>::value_type sge::math::basic_rect<T>::w() const

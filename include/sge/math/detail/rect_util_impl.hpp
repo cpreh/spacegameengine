@@ -65,9 +65,9 @@ bool sge::math::intersects(const basic_rect<T>& r, const basic_line_seg2<T>& l)
 }
 
 template<typename T>
-basic_rect<T> const intersection(basic_rect<T> const &r1,basic_rect<T> const &r2)
+sge::math::basic_rect<T> const sge::math::intersection(basic_rect<T> const &r1,basic_rect<T> const &r2)
 {
-	if (!intersect(r1,r2))
+	if (!intersects(r1,r2))
 		return basic_rect<T>(
 			static_cast<T>(0),
 			static_cast<T>(0),
