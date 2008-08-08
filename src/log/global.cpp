@@ -18,11 +18,11 @@ sge::log::logger_stream null_stream(&null_sink);
 void initialize_sge_logger() {
   SGE_FUNCTION_ONCE
   sge::log::sge_logger()->writer().write(
-    "%time%($hh:$mm.$ss.$mili)[%idx%]: ",
+    "[%idx%] %time%($hh:$mm.$ss): ",
     "cerr"
   );
   sge::log::sge_logger()->mark_as_initialized();
-  sge::log::sge_log_level()->set_enabled(sge::log::level::warning);
+  //sge::log::sge_log_level()->set_enabled(sge::log::level::warning);
 }
 
 }
@@ -30,10 +30,15 @@ void initialize_sge_logger() {
 sge::log::logger_stream&
 sge::log::global(const sge::log::level::type lvl)
 {
-  if(!sge_log_level()->is_enabled(lvl))
+  initialize_sge_logger();
+  const bool use_logger(sge_log_level()->is_enabled(lvl));
+//  if(!sge_log_level()->is_enabled(lvl))
+  if(!use_logger)
     return null_stream;
-  return
+  return null_stream;
+  /*
     ::boost::logging::get_logger_base(sge_logger())->
       read_msg().gather().out();
+  */
 }
 
