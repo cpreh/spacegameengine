@@ -7,11 +7,32 @@
 
 namespace
 {
+
+BOOST_DECLARE_LOG_FILTER(
+  sge_log_level,
+  boost::logging::level::holder
+)
+
+BOOST_DECLARE_LOG(
+  sge_logger, 
+  sge::log::logger_type
+)
+
+BOOST_DEFINE_LOG(
+  sge_logger, 
+  sge::log::logger_type
+)
+
+BOOST_DEFINE_LOG_FILTER(
+  sge_log_level, 
+  boost::logging::level::holder
+)
+
 typedef boost::iostreams::basic_null_sink<
   sge::char_type
 > null_sink_type;
 
-null_sink_type null_sink;
+//null_sink_type null_sink;
 
 boost::iostreams::stream_buffer<
   null_sink_type
@@ -22,12 +43,12 @@ sge::log::logger_stream null_stream(
 
 void initialize_sge_logger() {
   SGE_FUNCTION_ONCE
-  sge::log::sge_logger()->writer().write(
+  sge_logger()->writer().write(
     "[%idx%] %time%($hh:$mm.$ss): ",
     "cerr"
   );
-  sge::log::sge_logger()->mark_as_initialized();
-  sge::log::sge_log_level()->set_enabled(sge::log::level::warning);
+  sge_logger()->mark_as_initialized();
+  sge_log_level()->set_enabled(sge::log::level::warning);
 }
 
 }
