@@ -1,12 +1,14 @@
 #ifndef SGE_LOG_GLOBAL_HPP_INCLUDED
 #define SGE_LOG_GLOBAL_HPP_INCLUDED
+#include "logger.hpp"
+#include "level.hpp"
 
 namespace sge
 {
 namespace log
 {
 
-//logger &global();
+logger_stream& global(const level::type lvl);
 
 }
 }
