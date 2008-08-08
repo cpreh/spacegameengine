@@ -1,9 +1,7 @@
 #ifndef SGE_LOG_LOGGER_HPP_INCLUDED
 #define SGE_LOG_LOGGER_HPP_INCLUDED
-#include "../sstream.hpp"
-#include "../ostream.hpp"
-#include "logger.hpp"
 
+#include "../ostream.hpp"
 #include <boost/logging/format/named_write.hpp>
 
 namespace sge

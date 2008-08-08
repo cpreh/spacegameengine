@@ -25,7 +25,7 @@ SET_TARGET_PROPERTIES (sgecore PROPERTIES DEFINE_SYMBOL SGE_EXPORTS)
 
 IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex
-  boost_iostreams boost_system)
+  boost_iostreams boost_system boost_thread)
 ENDIF ()
 
 IF (${UNIX})

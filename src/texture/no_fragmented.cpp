@@ -48,12 +48,9 @@ sge::texture::no_fragmented::consume_fragment(
 		my_filter);
 
 	if(real_dim != dim)
-    log::global(log::level::warning) <<"test";
-    /*
-		log::global(log::level::warning) << SGE_TEXT("warning: You used a texture::no_fragmented whose dimensions are not a power of 2.")\
+    		log::global(log::level::warning) << SGE_TEXT("warning: You used a texture::no_fragmented whose dimensions are not a power of 2.")\
 		                                    SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
-			                                  SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT(".\n");
-    */
+		                                    SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT(".\n");
 
 	return part_ptr(
 		new part_fragmented(
