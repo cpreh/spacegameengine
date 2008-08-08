@@ -22,6 +22,7 @@ void initialize_sge_logger() {
     "cerr"
   );
   sge::log::sge_logger()->mark_as_initialized();
+  sge::log::sge_log_level()->set_enabled(sge::log::level::warning);
 }
 
 }
