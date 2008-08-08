@@ -32,11 +32,11 @@ typedef boost::iostreams::basic_null_sink<
   sge::char_type
 > null_sink_type;
 
-//null_sink_type null_sink;
+null_sink_type null_sink;
 
 boost::iostreams::stream_buffer<
   null_sink_type
-> null_stream_buffer;
+> null_stream_buffer(null_sink);
 
 sge::log::logger_stream null_stream(
   &null_stream_buffer);
@@ -57,8 +57,9 @@ sge::log::logger_stream&
 sge::log::global(const sge::log::level::type lvl)
 {
   initialize_sge_logger();
+
 //  const bool use_logger(sge_log_level()->is_enabled(lvl));
-  const bool use_logger(true);
+  const bool use_logger(false);
 //  if(!sge_log_level()->is_enabled(lvl))
   return use_logger
   ?  ::boost::logging::get_logger_base(
