@@ -3,6 +3,7 @@
 #include <sge/log/level.hpp>
 #include <sge/iostream.hpp>
 
+/*
 sge::log::logger &
 sge::log::global()
 {
@@ -11,3 +12,4 @@ sge::log::global()
 		sge::cerr);
 	return l;
 }
+*/

@@ -6,9 +6,7 @@ namespace sge
 namespace log
 {
 
-class logger;
-
-logger &global();
+//logger &global();
 
 }
 }

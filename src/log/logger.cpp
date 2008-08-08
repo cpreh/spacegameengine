@@ -1,3 +1,4 @@
+/*
 #include <sge/log/logger.hpp>
 #include <boost/foreach.hpp>
 #include <boost/iostreams/stream.hpp>
@@ -113,3 +114,4 @@ sge::ostream &sge::log::logger::stream_if_level(
 		? it->second
 		: null_stream;
 }
+*/

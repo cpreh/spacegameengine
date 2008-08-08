@@ -1,18 +1,11 @@
 #ifndef SGE_LOG_LOGGER_HPP_INCLUDED
 #define SGE_LOG_LOGGER_HPP_INCLUDED
 
-#include "../ostream.hpp"
-#include "../export.hpp"
-#include "level.hpp"
-#include <boost/tr1/functional.hpp>
-#include <boost/noncopyable.hpp>
-#include <map>
-
 namespace sge
 {
 namespace log
 {
-
+/*
 class logger : boost::noncopyable {
 public:
 	typedef std::tr1::reference_wrapper<
@@ -64,7 +57,7 @@ private:
 	log::level::type level_;
 	stream_map       streams_;
 };
-
+*/
 }
 }
 

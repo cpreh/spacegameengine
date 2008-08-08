@@ -51,7 +51,7 @@ ELSEIF (${MSVC})
 	ADD_DEFINITIONS (-DUNICODE=1 -D_UNICODE=1)
 ENDIF ()
 
-INCLUDE_DIRECTORIES (include)
+INCLUDE_DIRECTORIES (include include/3rdparty)
 
 CONFIGURE_FILE(config.h.in include/sge/config.h)
 
