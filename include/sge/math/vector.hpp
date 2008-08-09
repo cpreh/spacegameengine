@@ -198,7 +198,7 @@ public:
 	basic_vector()
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			data_[i] = 0;
+			data_[i] = static_cast<T>(0);
 	}
 
 	/**
@@ -449,10 +449,7 @@ public:
 	 */
 	value_type length_quad() const
 	{
-		value_type ret(0);
-		for(size_type i = 0; i < Dim; ++i)
-			ret += data_[i] * data_[i];
-		return ret;
+		return dot(*this);
 	}
 
 	/**

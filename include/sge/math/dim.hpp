@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../exception.hpp"
 #include "../text.hpp"
 #include "../no_initialization_tag.hpp"
+#include "compare.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
@@ -165,7 +166,7 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 	bool operator==(const basic_dim& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
-			if(data_[i] != r[i])
+			if (!compare(data_[i],r[i]))
 				return false;
 		return true;
 	}

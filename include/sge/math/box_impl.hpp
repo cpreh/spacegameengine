@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_BOX_IMPL_HPP_INCLUDED
 
 #include "box.hpp"
+#include "compare.hpp"
 
 template<typename T>
 sge::math::basic_box<T>::basic_box(const_reference left_,
@@ -137,12 +138,12 @@ typename sge::math::basic_box<T>::reference sge::math::basic_box<T>::back()
 template<typename T>
 bool sge::math::operator==(const basic_box<T>& l, const basic_box<T>& r)
 {
-	return l.left == r.left
-	    && l.top == r.top
-	    && l.right == r.right
-	    && l.bottom == r.bottom
-	    && l.front == r.front
-	    && l.back == r.back;
+	return compare(l.left,r.left)
+	    && compare(l.top,r.top)
+	    && compare(l.right,r.right)
+	    && compare(l.bottom,r.bottom)
+	    && compare(l.front,r.front)
+	    && compare(l.back,r.back);
 }
 
 template<typename T>
