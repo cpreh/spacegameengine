@@ -29,30 +29,45 @@ namespace sge
 {
 namespace math
 {
+/**
+ * Uses std::numeric_limits<T>::epsilon to check if \c a is nearly equal to \c b.
+ */
 template<typename T>
 inline bool nearly_equals(const T& a, const T& b)
 {
 	return diff(a, b) < std::numeric_limits<T>::epsilon();
 }
 
+/**
+ * This is the non floating point version of compare which simply uses operator==
+ */
 template<typename T>
 inline typename boost::disable_if<boost::is_floating_point<T>, bool>::type compare(const T& a, const T& b)
 {
 	return a == b;
 }
 
+/**
+ * The floating point version of compare uses sge::math::nearly_equals
+ */
 template<typename T>
 inline typename boost::enable_if<boost::is_floating_point<T>, bool>::type compare(const T& a, const T& b)
 {
 	return nearly_equals(a, b);
 }
 
+/**
+ * Applies sge::math::compare to \c t and 0
+ */
 template<typename T>
 inline bool almost_zero(const T t)
 {
 	return compare(t, static_cast<T>(0));
 }
 
+/**
+ * Checks if \c t is in \f$[l,r]\f$
+ */
 template<typename T>
 inline bool in_closed_interval(const T &t,const T &l,const T &r)
 {

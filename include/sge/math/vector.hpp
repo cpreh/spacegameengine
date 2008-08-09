@@ -406,7 +406,7 @@ public:
 	}
 
 	/**
-	 * Does range checking with sge::exception
+	 * \throw sge::exception If argument greater than dimension
 	 */
 	reference at(const size_type pos)
 	{
@@ -416,7 +416,7 @@ public:
 	}
 
 	/**
-	 * Does range checking with sge::exception
+	 * \throw sge::exception If argument greater than dimension
 	 */
 	const_reference at(const size_type pos) const
 	{
@@ -688,6 +688,9 @@ inline std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>&
 	return s << v[Dim-1] << s.widen(')');
 }
 
+/**
+ * Reads the vector from the stream in the format \f$(v_0,\ldots,v_n)\f$.
+ */
 template<typename T, std::size_t Dim,typename Ch, typename Traits>
 std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, basic_vector<T,Dim>& v)
 {

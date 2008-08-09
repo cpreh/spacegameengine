@@ -34,6 +34,9 @@ template<typename Reference, typename Pointer, std::size_t Stride>
 class matrix_proxy_impl {
 public:
 	typedef std::size_t size_type;
+	/**
+	 * This operator has \em no range checking!
+	 */
 	Reference operator[](const size_type y) const { return p[y*Stride + x]; }
 	matrix_proxy_impl(size_type x, const Pointer p) : x(x), p(p) {}
 private:

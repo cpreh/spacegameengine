@@ -163,6 +163,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return (*this)[pos];
 	}
 
+	/**
+	 * Uses sge::math::compare to compare componentwise
+	 */
 	bool operator==(const basic_dim& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -171,6 +174,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return true;
 	}
 
+	/**
+	 * Uses sge::math::compare to compare componentwise
+	 */
 	bool operator!=(const basic_dim& r) const
 	{
 		return !((*this)==r);
@@ -190,6 +196,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return *this;
 	}
 
+	/**
+	 * Multiplies componentwise
+	 */
 	basic_dim& operator*=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -197,6 +206,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return *this;
 	}
 
+	/**
+	 * Divides componentwise
+	 */
 	basic_dim& operator/=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -320,6 +332,9 @@ basic_dim<T, Dim> operator/(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
 	return l /= r;
 }
 
+/**
+ * Outputs the dim in the format \f$(v_0,\ldots,v_n)\f$.
+ */
 template<typename T, std::size_t Dim, typename Ch, typename Traits>
 std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,const basic_dim<T,Dim> &v)
 {
@@ -329,6 +344,9 @@ std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,
 	return stream << v[Dim-1] << stream.widen(')');
 }
 
+/**
+ * Reads the vector from the stream in the format \f$(v_0,\ldots,v_n)\f$.
+ */
 template<typename T, std::size_t Dim, typename Ch, typename Traits>
 std::basic_istream<Ch,Traits>& operator>>(std::basic_istream<Ch,Traits>& s, basic_dim<T,Dim>& v)
 {
@@ -348,6 +366,9 @@ std::basic_istream<Ch,Traits>& operator>>(std::basic_istream<Ch,Traits>& s, basi
 	return s;
 }
 
+/**
+ * Casts the basic_dim<T> to basic_dim<D> (using static_cast).
+ */
 template<typename D, typename S, std::size_t Dim>
 basic_dim<D, Dim> structure_cast(const basic_dim<S, Dim>& r)
 {

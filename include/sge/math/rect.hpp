@@ -39,11 +39,19 @@ public:
 	typedef math::basic_vector<T,2> point_type;
 	typedef math::basic_dim<T,2>    dim_type;
 
+	/**
+	 * Default constructs all parameters which are not given(sets them to zero
+	 * for arithmetic built-in types)
+	 * \throw sge::exception If right is smaller than left or bottom is smaller than top
+	 */
 	basic_rect(const value_type& left   = value_type(),
 	           const value_type& top    = value_type(),
 	           const value_type& right  = value_type(),
 	           const value_type& bottom = value_type());
 
+	/**
+	 * \throw sge::exception If right is smaller than left or bottom is smaller than top
+	 */
 	basic_rect(const point_type& pos, const dim_type& sz);
 
 	value_type w() const;
@@ -79,12 +87,21 @@ basic_rect<T> const operator-(
 	const basic_rect<T>& l,
 	const typename basic_rect<T>::point_type& r);
 
+/**
+ * Uses sge::math::compare to compare the components
+ */
 template<typename T>
 bool operator==(const basic_rect<T>& l, const basic_rect<T>& r);
 
+/**
+ * Uses sge::math::compare to compare the components
+ */
 template<typename T>
 bool operator!=(const basic_rect<T>& l, const basic_rect<T>& r);
 
+/**
+ * Resizes the rect and adds a border of \c diff at each side
+ */
 template<typename T>
 basic_rect<T> const resize_borders(const basic_rect<T>& r, const T diff);
 
@@ -92,6 +109,9 @@ template<typename T, typename Ch, typename Traits>
 std::basic_ostream<Ch,Traits>& operator<<(std::basic_ostream<Ch,Traits>& s,
                                           const basic_rect<T>& r);
 
+/**
+ * Casts a sge::math::basic_rect<T> to sge::math::basic_rect<S> using static_cast
+ */
 template<typename D, typename S>
 basic_rect<D> const structure_cast(const basic_rect<S>& r);
 

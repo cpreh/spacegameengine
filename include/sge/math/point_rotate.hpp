@@ -10,6 +10,9 @@ namespace sge
 {
 namespace math
 {
+/**
+ * Rotates a point around another point at angle \c rot
+ */
 vector2 point_rotate(const vector2 &point,const vector2 &around,const space_unit rot);
 }
 }
