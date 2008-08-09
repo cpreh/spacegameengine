@@ -51,6 +51,9 @@ namespace sge
 namespace math
 {
 
+/**
+ * basic_dim uses variadic templates where available
+ */
 template<typename T, std::size_t Dim>
 class basic_dim {
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
@@ -80,12 +83,18 @@ public:
 #define SGE_MATH_DIM_CTOR(z, n, text) basic_dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_CTOR, void)
 #endif
+	/**
+	 * This initializes the dim with zero
+	 */
 	basic_dim()
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] = 0;
 	}
 
+	/**
+	 * This does not initialize any of the coordinates (models the built types)
+	 */
 	basic_dim(no_initialization_tag)
 	{
 	}
@@ -115,18 +124,27 @@ public:
 BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 #endif
 
+	/**
+	 * Does range checking with an assertion
+	 */
 	reference operator[](const size_type pos)
 	{
 		assert(pos < Dim);
 		return data_[pos];
 	}
 
+	/**
+	 * Does range checking with an assertion
+	 */
 	const_reference operator[](const size_type pos) const
 	{
 		assert(pos < Dim);
 		return data_[pos];
 	}
 	
+	/**
+	 * Does range checking with sge::exception
+	 */
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
@@ -134,6 +152,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return (*this)[pos];
 	}
 
+	/**
+	 * Does range checking with an exception
+	 */
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
