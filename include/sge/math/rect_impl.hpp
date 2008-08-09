@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lexical_cast.hpp>
 #include <sge/exception.hpp>
 #include "rect.hpp"
+#include "compare.hpp"
 
 template<typename T>
 sge::math::basic_rect<T>::basic_rect(
@@ -172,10 +173,10 @@ template<typename T>
 bool sge::math::operator==(const basic_rect<T>& l,
                            const basic_rect<T>& r)
 {
-	return l.left() == r.left()
-	    && l.top() == r.top()
-	    && l.right() == r.right()
-	    && l.bottom() == r.bottom();
+	return compare(l.left(),r.left())
+	    && compare(l.top(),r.top())
+	    && compare(l.right(),r.right())
+	    && compare(l.bottom(),r.bottom());
 }
 
 template<typename T>
