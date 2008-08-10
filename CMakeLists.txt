@@ -37,6 +37,17 @@ CHECK_CXX_SOURCE_RUNS(
 	 }"
 	 SGE_HAVE_POSIX)
 
+CHECK_CXX_SOURCE_RUNS(
+	"#include <boost/version.hpp>
+	 #include <cstdlib>
+	 int main()
+	 {
+	   return BOOST_VERSION >= 103500
+	   	? EXIT_SUCCESS
+		: EXIT_FAILURE;
+	}"
+	HAVE_BOOST)
+
 IF (${CMAKE_COMPILER_IS_GNUCXX})
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self")
 
