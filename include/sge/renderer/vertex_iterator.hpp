@@ -115,6 +115,10 @@ public:
 };
 
 }
+
+typedef vb_detail::iterator_impl<vertex>       vertex_iterator;
+typedef vb_detail::iterator_impl<const_vertex> const_vertex_iterator;
+
 }
 }
 

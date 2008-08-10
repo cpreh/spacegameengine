@@ -44,12 +44,15 @@ public:
 	index_buffer(
 		renderer::const_dynamic_index_view const &,
 		renderer::resource_flag_t flags);
-private:	
-	void data(
-		renderer::const_dynamic_index_view const &);
-	void do_sub_data(
-		renderer::const_dynamic_index_view const &,
-		size_type offset);
+private:
+	renderer::dynamic_index_view const lock(
+		lock_flag_type flags,
+		size_type offset,
+		size_type range);
+
+	renderer::const_dynamic_index_view const lock(
+		size_type offset,
+		size_type range) const;
 
 	renderer::dynamic_index_view const view();
 	renderer::const_dynamic_index_view const view() const;

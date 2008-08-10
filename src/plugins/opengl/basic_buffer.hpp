@@ -54,11 +54,11 @@ public:
 
 	using Base::npos;
 
-	void lock(
+	void do_lock(
 		lock_flag_type lock_flags,
 		size_type first = 0,
 		size_type count = npos);
-	void unlock();
+	void do_unlock();
 	void data(
 		const_pointer,
 		size_type stride,

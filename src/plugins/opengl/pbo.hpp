@@ -45,11 +45,11 @@ public:
 
 	static size_type const npos = static_cast<size_type>(-1);
 
-	virtual void lock(
+	virtual void do_lock(
 		lock_flag_type,
 		size_type first = 0,
 		size_type count = npos) = 0;
-	virtual void unlock() = 0;
+	virtual void do_unlock() = 0;
 
 	virtual size_type size() const = 0;
 

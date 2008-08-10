@@ -18,36 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_CONST_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_LOCK_IMPL_HPP_INCLUDED
 
-#include "texture.hpp"
-#include "image_view.hpp"
-#include <boost/noncopyable.hpp>
+#include "scoped_lock.hpp"
 
-namespace sge
+template<typename T, typename Value>
+sge::renderer::scoped_lock<T, Value>::scoped_lock(
+	scoped_lock_wrapper<T, Value> const& w)
+ : w(w)
+{}
+
+template<typename T, typename Value>
+void sge::renderer::scoped_lock<T, Value>::unlock()
 {
-namespace renderer
-{
-
-class const_scoped_texture_lock : boost::noncopyable {
-public:
-	explicit const_scoped_texture_lock(
-		const_texture_ptr);
-
-	const_scoped_texture_lock(
-		const_texture_ptr,
-		lock_rect const &);
-
-	~const_scoped_texture_lock();
-
-	const_image_view const value() const;
-private:
-	const_texture_ptr const tex_;
-	const_image_view const  value_;
-};
-
+	if(w.set())
+	{
+		w.unlock();
+		release();
+	}
 }
+
+template<typename T, typename Value>
+void sge::renderer::scoped_lock<T, Value>::release()
+{
+	w.reset();
+}
+
+template<typename T, typename Value>
+Value const
+sge::renderer::scoped_lock<T, Value>::value() const
+{
+	return w.value();
+}
+
+template<typename T, typename Value>
+sge::renderer::scoped_lock<T, Value>::~scoped_lock()
+{
+	unlock();
 }
 
 #endif

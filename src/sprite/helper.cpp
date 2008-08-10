@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 #include <cmath>
 
-sge::renderer::vertex_buffer::iterator
+sge::renderer::vertex_iterator
 sge::sprite::fill_position(
-	renderer::vertex_buffer::iterator it,
+	renderer::vertex_iterator it,
 	const rect& rs,
 	const depth_type z)
 {
@@ -43,9 +43,9 @@ sge::sprite::fill_position(
 	return it;
 }
 
-sge::renderer::vertex_buffer::iterator
+sge::renderer::vertex_iterator
 sge::sprite::fill_tex_coordinates(
-	renderer::vertex_buffer::iterator it,
+	renderer::vertex_iterator it,
 	const renderer::tex_rect& rt)
 {
 	using renderer::tex_pos;
@@ -57,9 +57,9 @@ sge::sprite::fill_tex_coordinates(
 	return it;
 }
 
-sge::renderer::vertex_buffer::iterator
+sge::renderer::vertex_iterator
 sge::sprite::fill_vertices(
-	const renderer::vertex_buffer::iterator it,
+	const renderer::vertex_iterator it,
 	const rect& rs,
 	const renderer::tex_rect& rt,
 	const depth_type z)
@@ -68,9 +68,9 @@ sge::sprite::fill_vertices(
 	return fill_tex_coordinates(it, rt);
 }
 
-sge::renderer::vertex_buffer::iterator
+sge::renderer::vertex_iterator
 sge::sprite::fill_position_rotated(
-	renderer::vertex_buffer::iterator it,
+	renderer::vertex_iterator it,
 	const rect& rbs,
 	const rotation_type rot,
 	const point& center,
@@ -101,9 +101,9 @@ sge::sprite::fill_position_rotated(
 	return it;
 }
 
-sge::renderer::vertex_buffer::iterator
+sge::renderer::vertex_iterator
 sge::sprite::fill_color(
-	renderer::vertex_buffer::iterator it,
+	renderer::vertex_iterator it,
 	const color col)
 {
 	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)

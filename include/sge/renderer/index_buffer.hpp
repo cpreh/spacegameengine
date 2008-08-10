@@ -42,34 +42,25 @@ public:
 
 	static const size_type npos = static_cast<size_type>(-1);
 
-	virtual void lock(
-		lock_flag_t flags,
+	virtual dynamic_index_view const lock(
+		lock_flag_type flags,
 		size_type offset = 0,
 		size_type range = npos) = 0;
-	virtual void unlock() = 0;
-	virtual void data(
-		const_dynamic_index_view const &) = 0;
-	void sub_data(
-		const_dynamic_index_view const &,
-		size_type offset);
 
-	virtual dynamic_index_view const view() = 0;
-	virtual const_dynamic_index_view const view() const = 0;
+	virtual const_dynamic_index_view const lock(
+		size_type offset = 0,
+		size_type range = npos) const = 0;
+
+	virtual void unlock() const = 0;
 
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
 
-	virtual void resize(
-		size_type) = 0;
-
 	SGE_SYMBOL virtual ~index_buffer();
-private:
-	virtual void do_sub_data(
-		const_dynamic_index_view const &,
-		size_type offset) = 0;
 };
 
 typedef shared_ptr<index_buffer> index_buffer_ptr;
+typedef shared_ptr<index_buffer const> const_index_buffer_ptr;
 
 }
 }

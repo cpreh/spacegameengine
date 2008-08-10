@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_SCOPED_VERTEX_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_VERTEX_LOCK_HPP_INCLUDED
 
-#include "texture.hpp"
-#include "image_view.hpp"
+#include "vertex_buffer.hpp"
+#include "vertex_view.hpp"
 #include "scoped_lock_wrapper.hpp"
 #include "scoped_lock.hpp"
 
@@ -32,35 +32,37 @@ namespace renderer
 {
 
 typedef scoped_lock<
-	texture_ptr,
-	image_view
-> scoped_texture_lock;
+	vertex_buffer_ptr,
+	vertex_view
+> scoped_vertex_lock;
 
 typedef scoped_lock<
-	const_texture_ptr,
-	const_image_view
-> const_scoped_texture_lock;
+	const_vertex_buffer_ptr,
+	const_vertex_view
+> const_scoped_vertex_lock;
 
 typedef scoped_lock_wrapper<
-	texture_ptr,
-	image_view
-> scoped_texture_lock_wrapper;
+	vertex_buffer_ptr,
+	vertex_view
+> scoped_vertex_lock_wrapper;
 
 typedef scoped_lock_wrapper<
-	const_texture_ptr,
-	const_image_view
-> const_scoped_texture_lock_wrapper;
+	const_vertex_buffer_ptr,
+	const_vertex_view
+> const_scoped_vertex_lock_wrapper;
 
-scoped_texture_lock_wrapper const
+scoped_vertex_lock_wrapper const
 make_scoped_lock(
-	texture_ptr t,
-	lock_rect const &r,
-	lock_flag_t flags);
+	vertex_buffer_ptr t,
+	lock_flag_t flags,
+	vertex_buffer::size_type first = 0,
+	vertex_buffer::size_type count = vertex_buffer::npos);
 
-const_scoped_texture_lock_wrapper const
+const_scoped_vertex_lock_wrapper const
 make_scoped_lock(
-	const_texture_ptr t,
-	lock_rect const &r);
+	const_vertex_buffer_ptr t,
+	vertex_buffer::size_type first = 0,
+	vertex_buffer::size_type count = vertex_buffer::npos);
 
 }
 }

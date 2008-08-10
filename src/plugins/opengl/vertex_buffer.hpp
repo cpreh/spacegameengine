@@ -49,11 +49,14 @@ public:
 
 	void set_format();
 private:
-	void data(
-		renderer::const_vertex_view const &src);
-	void do_sub_data(
-		renderer::const_vertex_view const &src,
-		size_type first);
+	renderer::vertex_view const lock(
+		lock_flag_type flags,
+		size_type offset,
+		size_type range);
+
+	renderer::const_vertex_view const lock(
+		size_type offset,
+		size_type range) const;
 
 	renderer::vertex_view const view();
 	renderer::const_vertex_view const view() const;

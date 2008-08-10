@@ -45,6 +45,35 @@ void sge::ogl::vertex_buffer::set_format()
 	ogl_format.use_me();
 }
 
+
+sge::renderer::vertex_view const
+sge::ogl::vertex_buffer:lock(
+	lock_flag_type const flags,
+	size_type const offset,
+	size_type const range)
+{
+	do_lock(
+		convert_lock_method(flags),
+		offset,
+		range);
+	return view();
+}
+
+sge::renderer::const_vertex_view const
+sge::ogl::vertex_buffer::lock(
+	size_type const offset,
+	size_type const range) const
+{
+	do_lock(
+		lock_method::readonly,
+		offset,
+		range);
+	return view();
+}
+
+
+
+
 void sge::ogl::vertex_buffer::data(
 	renderer::const_vertex_view const &src)
 {

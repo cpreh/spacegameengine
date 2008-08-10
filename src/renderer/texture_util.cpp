@@ -29,12 +29,13 @@ void sge::renderer::sub_data(
 	texture::pos_type const &p)
 {
 	scoped_texture_lock const lock_(
-		tex,
-		lock_rect(
-			p,
-			gil_dim_to_sge(
-				view.dimensions())),
-		lock_flags::writeonly);
+		sge::renderer::make_scoped_lock(
+			tex,
+			lock_rect(
+				p,
+				gil_dim_to_sge(
+					view.dimensions())),
+			lock_flags::writeonly));
 
 	boost::gil::copy_and_convert_pixels(
 		view,

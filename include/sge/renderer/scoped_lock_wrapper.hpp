@@ -18,34 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/instantiate_scoped_lock.hpp>
+#ifndef SGE_RENDERER_SCOPED_LOCK_WRAPPER_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_LOCK_WRAPPER_HPP_INCLUDED
 
-sge::renderer::scoped_texture_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	texture_ptr const t,
-	lock_rect const &r,
-	lock_flag_t const flags)
+namespace sge
 {
-	return scoped_texture_lock_wrapper(
-		t,
-		t->lock(r, flags));
+namespace renderer
+{
+
+template<typename T, typename Value>
+class scoped_lock_wrapper {
+public:
+	scoped_lock_wrapper(
+		T const t,
+		Value const &v);
+	bool set() const;
+	void unlock();
+	void reset();
+	Value const value() const;
+private:
+	T t;
+	Value const v;
+};
+
+}
 }
 
-sge::renderer::const_scoped_texture_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	const_texture_ptr const t,
-	lock_rect const &r)
-{
-	return const_scoped_texture_lock_wrapper(
-		t,
-		t->lock(r));
-}
-
-SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(
-	sge::renderer::texture_ptr,
-	sge::renderer::image_view)
-
-SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(
-	sge::renderer::const_texture_ptr,
-	sge::renderer::const_image_view)
+#endif

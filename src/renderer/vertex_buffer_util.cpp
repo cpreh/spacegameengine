@@ -18,34 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/instantiate_scoped_lock.hpp>
+#include <sge/renderer/vertex_buffer_util.hpp>
 
-sge::renderer::scoped_texture_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	texture_ptr const t,
-	lock_rect const &r,
-	lock_flag_t const flags)
+sge::renderer::vertex_buffer_ptr const
+sge::renderer::resize(
+	vertex_buffer_ptr const vb,
+	device_ptr const rend,
+	vertex_buffer::size_type const newsize)
 {
-	return scoped_texture_lock_wrapper(
-		t,
-		t->lock(r, flags));
+	return rend->create_vertex_buffer(
+		const_vertex_view(
+			0,
+			newsize,
+			vb->get_vertex_format()));
 }
-
-sge::renderer::const_scoped_texture_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	const_texture_ptr const t,
-	lock_rect const &r)
-{
-	return const_scoped_texture_lock_wrapper(
-		t,
-		t->lock(r));
-}
-
-SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(
-	sge::renderer::texture_ptr,
-	sge::renderer::image_view)
-
-SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(
-	sge::renderer::const_texture_ptr,
-	sge::renderer::const_image_view)
