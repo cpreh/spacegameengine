@@ -63,6 +63,8 @@ public:
 	reference right();
 	reference bottom();
 private:
+	void check();
+
 	value_type left_,
 	           top_,
 	           right_,

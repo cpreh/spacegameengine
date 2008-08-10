@@ -38,9 +38,7 @@ sge::math::basic_rect<T>::basic_rect(
   right_(right_),
   bottom_(bottom_)
 {
-	if (right() < left() || bottom() < top())
-		throw exception(SGE_TEXT("tried to create a rectangle ")+
-			boost::lexical_cast<string>(*this)+SGE_TEXT(" which is invalid"));
+	check();
 }
 
 template<typename T>
@@ -52,9 +50,7 @@ sge::math::basic_rect<T>::basic_rect(
   right_(pos.x() + sz.w()),
   bottom_(pos.y() + sz.h())
 {
-	if (right() < left() || bottom() < top())
-		throw exception(SGE_TEXT("tried to create a rectangle ")+
-			boost::lexical_cast<string>(*this)+SGE_TEXT(" which is invalid"));
+	check();
 }
 
 template<typename T>
@@ -144,6 +140,14 @@ typename sge::math::basic_rect<T>::reference
 sge::math::basic_rect<T>::bottom()
 {
 	return bottom_;
+}
+
+template<typename T>
+void sge::math::basic_rect<T>::check()
+{
+	if (right() < left() || bottom() < top())
+		throw exception(SGE_TEXT("tried to create a rectangle ")+
+			boost::lexical_cast<string>(*this)+SGE_TEXT(" which is invalid"));
 }
 
 template<typename T> 
