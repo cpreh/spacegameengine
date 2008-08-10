@@ -29,6 +29,10 @@ namespace sge
 namespace math
 {
 
+/**
+ * \attention To use basic_circle's functions you have to include
+ * <sge/math/circle_impl.hpp>!
+ */
 template<typename T>
 class basic_circle {
 public:

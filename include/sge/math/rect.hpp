@@ -30,6 +30,9 @@ namespace sge
 {
 namespace math 
 {
+/**
+ * \attention To use basic_rect's functions you have to include <sge/math/rect_impl.hpp>!
+ */
 template<typename T> class basic_rect {
 public:
 	typedef T                       value_type;

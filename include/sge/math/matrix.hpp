@@ -45,6 +45,9 @@ namespace math
 
 /**
  * basic_matrix uses variadic templates where available
+ *
+ * \attention To use basic_matrix' functions you have to include
+ * <sge/math/matrix_impl.hpp>!
  */
 template<typename T, std::size_t N, std::size_t M>
 class basic_matrix {
