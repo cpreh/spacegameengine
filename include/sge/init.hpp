@@ -35,7 +35,7 @@ struct core {
 struct renderer {
 	systems &sys;
 
-	SGE_SYMBOL renderer(systems &sys, unsigned width, unsigned height);
+	SGE_SYMBOL renderer(systems &sys, renderer::screen_size_t const &);
 	SGE_SYMBOL operator bool() const;
 };
 

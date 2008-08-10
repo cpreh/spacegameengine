@@ -28,18 +28,18 @@ sge::init::core::operator bool() const {
 	return true;
 }
 
-sge::init::renderer::renderer(systems &sys, const unsigned width, const unsigned height)
+sge::init::renderer::renderer(systems &sys, renderer::screen_size_t const &s)
 : sys(sys)
 {
 	if (!sys.renderer_plugin)
-		sys.renderer_plugin = sys.plugin_manager.get_plugin<sge::renderer::system>().load();;
+		sys.renderer_plugin = sys.plugin_manager.get_plugin<sge::renderer::system>().load();
 	if (!sys.renderer_system)
 		sys.renderer_system.reset(sys.renderer_plugin->get()());
 	sys.renderer_parameters =
 		sge::renderer::parameters(
 			sge::renderer::display_mode(
-				width,
-				height,
+				s.w(),
+				s.h(),
 				sge::renderer::bit_depth::depth32,
 				0
 			),
