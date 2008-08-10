@@ -6,6 +6,7 @@
 #include <sge/plugin/context.hpp>
 #include <sge/media.hpp>
 #include <sge/math/constants.hpp>
+#include <sge/su.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/time/timer.hpp>
@@ -66,7 +67,7 @@ try
 	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
 	while (true)
 	{
-		sge::space_unit angle = frame_timer.elapsed_frames() * 2 * sge::math::PI;
+		sge::space_unit angle = sge::su(frame_timer.elapsed_frames() * 2 * sge::math::PI);
 		soundleft->pos(sge::math::vector3(std::sin(angle),0,std::cos(angle)));
 		audio_player->update();
 	}

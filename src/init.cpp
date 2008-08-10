@@ -28,7 +28,7 @@ sge::init::core::operator bool() const {
 	return true;
 }
 
-sge::init::renderer::renderer(systems &sys, renderer::screen_size_t const &s)
+sge::init::renderer::renderer(systems &sys, ::sge::renderer::screen_size_t const &s)
 : sys(sys)
 {
 	if (!sys.renderer_plugin)
