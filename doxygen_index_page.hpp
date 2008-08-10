@@ -40,7 +40,21 @@ sys.init<sge::init::renderer>(sge::renderer::screen_size_t(640,480));
 \endcode
 
 And that's it. If you start the program now you probably see a 640x480 window
-popping up for a split second. Our first sge program! 
+popping up for a split second. Our first sge program! Just for convenience,
+here's the whole program:
+
+\code
+#include <sge/systems.hpp>
+#include <sge/init.hpp>
+
+int main()
+{
+	sge::systems sys;
+	sys.init<sge::init::core>();
+	sys.init<sge::init::image_loader>();
+	sys.init<sge::init::renderer>(sge::renderer::screen_size_t(640,480));
+}
+\endcode
 
 Now that we've initialized the subsystems, we can access them via
 <tt>sys.renderer</tt> and <tt>sys.image_loader</tt>.
@@ -68,13 +82,13 @@ Now for the tricky part, loading the image and attaching it to a sge::sprite.
 First, we use the image loader to load the image:
 
 \code
-sge::image::object_ptr image = sys.image_loader->load(SGE_TEXT("testimage.png"));
+sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("testimage.png"));
 \endcode
 
-There are a few new things here, first of all <tt>sys.image_loader</tt> is a smart
-pointer, so we cannot use the . (dot) operator to access the \link
-sge::image::loader::load load \endlink function. The same applies to renderer
-and any other subsystem class.
+There are a few new things here, first of all <tt>sys.image_loader</tt> is a
+smart pointer, so we cannot use the . (dot) operator to access the \link
+sge::image::loader::load_image load_image \endlink function. The same applies
+to renderer and any other subsystem class.
 
 And what about this strange SGE_TEXT thingy around the string? Well, if you want
 to use character literals in sge, they have to be <em>narrow</em> literals and
@@ -82,7 +96,7 @@ you have to embrace them with SGE_TEXT; all this macro does is convert the liter
 sge::string's internal format (which is wide or narrow, depending on the FOOBAR
 macro which you can specify when you compile sge).
 
-The rest of the code should be pretty clear, the load function returns an
+The rest of the code should be pretty clear, the load_image function returns an
 sge::image::object_ptr (again a smart pointer) which we assign to the variable
 <em>image</em>.
 
@@ -94,27 +108,37 @@ Creating textures is the renderer's job:
 sge::renderer::texture_ptr image_texture = sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
 \endcode
 
+Files to include: <sge/renderer/texture_filter.hpp>
+
 This version of \link sge::renderer::device::create_texture create_texture
-\endlink takes a <em>renderer::const_image_view</em>. Luckily, our has a \link
-sge::image::object::view view \endlink function which returns just this. The
-second argument is the filter which is applied to the texture when it's
-rendered. Linear filter actually blurs the texture a bit, but it's the filter
-you'll most often want to use for sprites. An alternative would be
+\endlink takes a <em>renderer::const_image_view</em>. Luckily, our image object
+has a \link sge::image::object::view view \endlink function which returns just
+this. The second argument is the filter which is applied to the texture when
+it's rendered. Linear filter actually blurs the texture a bit, but it's the
+filter you'll most often want to use for sprites. An alternative would be
 sge::renderer::point_filter, which does no filtering at all, so with enlarged
 low resolution images, pixels can be seen.
 
-Anyway, now we're ready to construct a sge::sprite::object from the texture and
-a position argument:
+Anyway, in theory, we would now be able to use the texture to paste it onto a
+sprite. If you look at the constructor of sge::sprite::object you'll see that it
+doesn't take a <em>texture_ptr</em>, but a <em>part_ptr</em>. That's because you
+don't have to create a separate texture for each sprite, but you can also create
+a big texture containing smaller sub textures and assign those sub textures to
+the sprites. This is called "atlasing" and can really boost performance since
+changing the current texture on the videocard is considered expensive.
+
+Since we're not going to use atlasing in the tutorial, we create a part which is
+just a wrapper for a single texture. Watch!
 
 \code
 sge::sprite::object my_object(
 	sge::sprite::point(0,0),
-	image_texture);
+	sge::texture::part_ptr(new sge::texture::part_raw(image_texture)));
 \endcode
 
-Files to include: <sge/sprite/object.hpp>
+Files to include: <sge/texture/part_raw.hpp>, <sge/sprite/object.hpp>
 
-This piece of code should be pretty self explanatory. Note that
+This piece of code should be pretty self explanatory now. Note that
 <tt>my_object</tt> is not a smart pointer but a "real" object. We put the sprite
 on the top left corner of the screen and give it our test texture. If no size is
 specified, the default behaviour for a sprite is to be as large as its texture.
@@ -154,6 +178,44 @@ exception safe (!), we use the renderer::scoped_block class which calls these
 functions in its constructor and destructor.
 
 Finally, we tell the sprite system to render our sprite.
+
+Here's the complete program:
+
+\code
+#include <sge/systems.hpp>
+#include <sge/init.hpp>
+#include <sge/sprite/system.hpp>
+#include <sge/sprite/system_impl.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/texture_filter.hpp>
+#include <vector>
+
+int main()
+{
+	sge::systems sys;
+	sys.init<sge::init::core>();
+	sys.init<sge::init::image_loader>();
+	sys.init<sge::init::renderer>(sge::renderer::screen_size_t(640,480));
+
+	sge::sprite::system ss(sys.renderer);
+	sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("testimage.png"));
+	sge::renderer::texture_ptr image_texture = sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
+	sge::sprite::object my_object(
+			sge::sprite::point(0,0),
+			image_texture);
+
+	std::vector<sge::sprite::object> sprites;
+	sprites.push_back(my_object);
+
+	while (true)
+	{
+			sge::window::dispatch();
+			sge::renderer::scoped_block block_(sys.renderer);
+			ss.render(sprites.begin(),sprites.end());
+	}
+}
+\endcode
 
 \section FAQ 
 <ul> 
