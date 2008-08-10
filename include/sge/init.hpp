@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "systems.hpp"
 #include "export.hpp"
+#include <sge/renderer/types.hpp>
 
 namespace sge {
 namespace init {
@@ -35,7 +36,7 @@ struct core {
 struct renderer {
 	systems &sys;
 
-	SGE_SYMBOL renderer(systems &sys, renderer::screen_size_t const &);
+	SGE_SYMBOL renderer(systems &sys, ::sge::renderer::screen_size_t const &);
 	SGE_SYMBOL operator bool() const;
 };
 
