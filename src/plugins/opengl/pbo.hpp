@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_PBO_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/texture_base.hpp>
+#include "lock_method.hpp"
+#include <sge/renderer/resource_flags.hpp>
 #include <cstddef>
 
 namespace sge
@@ -39,8 +40,8 @@ public:
 	typedef unsigned char                                  value_type;
 	typedef value_type                                    *pointer;
 	typedef value_type const                              *const_pointer;
-	typedef renderer::texture_base::resource_flag_type     resource_flag_type;
-	typedef renderer::texture_base::lock_flag_type         lock_flag_type;
+	typedef renderer::resource_flag_t                      resource_flag_type;
+	typedef lock_method::type                              lock_flag_type;
 
 	static size_type const npos = static_cast<size_type>(-1);
 

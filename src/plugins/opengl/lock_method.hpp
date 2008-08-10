@@ -18,34 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_OPENGL_LOCK_METHOD_HPP_INCLUDED
+#define SGE_OPENGL_LOCK_METHOD_HPP_INCLUDED
 
-#include "resource_flags.hpp"
-#include "lock_flags.hpp"
-#include "../shared_ptr.hpp"
-#include "../math/rect.hpp"
-#include <iterator>
-#include <cstddef>
+#include "common.hpp"
+#include <sge/renderer/lock_flags.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace ogl
 {
 
-class texture_base {
-public:
-	typedef std::size_t                           size_type;
-	typedef std::ptrdiff_t                        difference_type;
-	typedef resource_flag_t                       resource_flag_type;
-	typedef lock_flag_t                           lock_flag_type;
-
-	virtual ~texture_base() {}
-	virtual size_type size() const = 0;
-	virtual resource_flag_type flags() const = 0;
+namespace lock_method
+{
+enum type {
+	readonly,
+	writeonly,
+	readwrite
 };
 
-typedef shared_ptr<texture_base>                  texture_base_ptr;
+}
+
+lock_method::type convert_lock_method(
+	renderer::lock_flag_t);
+
+GLuint ogl_lock_method(
+	lock_method::type);
+
+bool lock_flag_write(
+	lock_method::type);
 
 }
 }

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 
+#include "lock_flags.hpp"
+#include "resource_flags.hpp"
+#include "index_view.hpp"
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
-#include "lock_flags.hpp"
-#include "index_view.hpp"
-#include "types.hpp"
 #include <cstddef>
 
 namespace sge

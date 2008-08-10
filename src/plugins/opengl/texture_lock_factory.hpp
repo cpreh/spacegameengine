@@ -18,34 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_OGL_TEXTURE_LOCK_FACTORY_HPP_INCLUDED
+#define SGE_OGL_TEXTURE_LOCK_FACTORY_HPP_INCLUDED
 
-#include "resource_flags.hpp"
-#include "lock_flags.hpp"
-#include "../shared_ptr.hpp"
-#include "../math/rect.hpp"
-#include <iterator>
-#include <cstddef>
+#include "texture_lock.hpp"
+#include "lock_method.hpp"
+#include <sge/renderer/resource_flags.hpp>
+#include <memory>
 
 namespace sge
 {
-namespace renderer
+namespace ogl
 {
 
-class texture_base {
-public:
-	typedef std::size_t                           size_type;
-	typedef std::ptrdiff_t                        difference_type;
-	typedef resource_flag_t                       resource_flag_type;
-	typedef lock_flag_t                           lock_flag_type;
+typedef std::auto_ptr<texture_lock> texture_lock_auto_ptr;
 
-	virtual ~texture_base() {}
-	virtual size_type size() const = 0;
-	virtual resource_flag_type flags() const = 0;
-};
-
-typedef shared_ptr<texture_base>                  texture_base_ptr;
+texture_lock_auto_ptr create_texture_lock(
+	lock_method::type,
+	texture_lock::size_type lock_size,
+	texture_lock::size_type offset,
+	texture_lock::size_type whole_size,
+	texture_lock::size_type stride,
+	texture_lock::size_type pitch,
+	renderer::resource_flag_t flags);
 
 }
 }

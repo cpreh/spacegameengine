@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "conversion.hpp"
 #include "common.hpp"
 #include "vbo_base.hpp"
+#include "lock_method.hpp"
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 template<
 	typename Base,
@@ -80,7 +82,8 @@ void sge::ogl::basic_buffer<Base, Type, Impl>::lock(
 	if(first + count > size())
 		throw exception(SGE_TEXT("ogl_buffer::lock(): first + count > size()"));
 	
-	const GLuint glflags = convert_cast(lockflags);
+	GLuint const glflags = ogl_lock_method(
+		static_cast<lock_method::type>(lockflags)); // FIXME
 	bind_me();
 	// TODO: we can not partially map this buffer! :(
 	dest = static_cast<pointer>(Impl().map_buffer(Type(), glflags));

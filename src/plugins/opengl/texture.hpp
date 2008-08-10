@@ -71,7 +71,7 @@ private:
 	void data_internal(
 		renderer::const_image_view const &src);
 	void set_texture(
-		const_pointer src);
+		const_pointer src) const;
 
 	renderer::image_view const make_view(
 		dim_type const &);

@@ -18,36 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
+#include "../lock_method.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "resource_flags.hpp"
-#include "lock_flags.hpp"
-#include "../shared_ptr.hpp"
-#include "../math/rect.hpp"
-#include <iterator>
-#include <cstddef>
-
-namespace sge
+sge::ogl::lock_method::type
+sge::ogl::convert_lock_method(
+	renderer::lock_flag_t const m)
 {
-namespace renderer
-{
-
-class texture_base {
-public:
-	typedef std::size_t                           size_type;
-	typedef std::ptrdiff_t                        difference_type;
-	typedef resource_flag_t                       resource_flag_type;
-	typedef lock_flag_t                           lock_flag_type;
-
-	virtual ~texture_base() {}
-	virtual size_type size() const = 0;
-	virtual resource_flag_type flags() const = 0;
-};
-
-typedef shared_ptr<texture_base>                  texture_base_ptr;
-
-}
+	switch(m) {
+	case renderer::lock_flags::writeonly:
+		return lock_method::writeonly;
+	case renderer::lock_flags::readwrite:
+		return lock_method::readwrite;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid lock_flags in opengl!"));
+	}
 }
 
-#endif
+GLuint sge::ogl::ogl_lock_method(
+	lock_method::type const m)
+{
+	switch(m) {
+	case lock_method::readonly:
+		return GL_READ_ONLY;
+	case lock_method::writeonly:
+		return GL_WRITE_ONLY;
+	case lock_method::readwrite:
+		return GL_READ_WRITE;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid lock_method!"));
+	}
+}
+
+bool sge::ogl::lock_flag_write(
+	lock_method::type const m)
+{
+	return m != lock_method::readonly;
+}

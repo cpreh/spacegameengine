@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../pbo.hpp"
 #include "../color_convert.hpp"
-#include <sge/iostream.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/math/rect_impl.hpp>
@@ -91,12 +90,16 @@ sge::renderer::image_view const
 sge::ogl::texture::lock(
 	lock_flag_type const lmode)
 {
+	bool const must_read = renderer::lock_flag_read(lmode);
+
 	do_lock(
-		lmode,
+		convert_lock_method(lmode),
 		size(),
-		0);
+		0,
+		must_read
+		? 0 : 0);
 	
-	if(renderer::lock_flag_read(lock_mode()))
+	if(must_read)
 		get_tex_image(
 			format(),
 			format_type(),
@@ -113,13 +116,17 @@ sge::ogl::texture::lock(
 	lock_flag_type const lmode)
 {
 	bool const must_read = renderer::lock_flag_read(lmode);
+
 	do_lock(
-		lmode,
+		convert_lock_method(lmode),
 		must_read
 			? size()
 			: l.size(),
 		must_read
 			? l.left() + l.top() * dim().w()
+			: 0,
+		must_read
+			? dim().w() - l.dim().w()
 			: 0);
 	if(must_read)
 		get_tex_image(
@@ -135,7 +142,7 @@ sge::ogl::texture::lock(
 void sge::ogl::texture::unlock() const
 {
 	pre_unlock();
-	if(renderer::lock_flag_write(lock_mode()))
+	if(lock_flag_write(lock_mode()))
 	{
 		if(!lock_rect_)
 			set_texture(
@@ -168,7 +175,7 @@ sge::ogl::texture::view() const
 }
 
 void sge::ogl::texture::set_texture(
-	const_pointer const p)
+	const_pointer const p) const
 {
 	pre_setdata();
 	ogl::set_texture(

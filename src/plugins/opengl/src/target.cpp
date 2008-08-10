@@ -51,7 +51,7 @@ void sge::ogl::target::lock(
 	bind_me();
 
 	buffer->lock(
-		renderer::lock_flags::readonly);
+		lock_method::readonly);
 
 	read_pixels(
 		dest.left(),
