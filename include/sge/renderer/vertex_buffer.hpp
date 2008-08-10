@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vertex_format.hpp"
 #include "vertex_view.hpp"
 #include "vertex.hpp"
-#include "types.hpp"
+#include "lock_flags.hpp"
 #include "../shared_ptr.hpp"
 #include "../algorithm.hpp"
 #include "../export.hpp"

@@ -69,15 +69,3 @@ void sge::texture::part::unlock()
 {
 	my_texture()->unlock();
 }
-
-sge::renderer::const_image_view const
-sge::texture::part::view() const
-{
-	return my_texture()->view();
-}
-
-sge::renderer::image_view const
-sge::texture::part::view()
-{
-	return my_texture()->view();
-}

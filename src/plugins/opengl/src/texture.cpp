@@ -71,30 +71,6 @@ sge::ogl::texture::dim() const
 	return dim_;
 }
 
-void sge::ogl::texture::do_sub_data(
-	renderer::const_image_view const &src,
-	renderer::lock_rect const &r)
-{
-	pre_setdata();
-
-	const renderer::scoped_lock<sge::ogl::texture*> lock_(
-		renderer::make_scoped_lock(
-			this,
-			r,
-			renderer::lock_flags::writeonly));
-	boost::gil::copy_and_convert_pixels(
-		src,
-		make_view(
-			src.dimensions()));
-}
-
-void sge::ogl::texture::data(
-	renderer::const_image_view const &src)
-{
-	dim_ = renderer::gil_dim_to_sge(src.dimensions());
-	data_internal(src);
-}
-
 void sge::ogl::texture::data_internal(
 	renderer::const_image_view const &src)
 {
@@ -111,13 +87,15 @@ void sge::ogl::texture::data_internal(
 			src.dimensions()));
 }
 
-void sge::ogl::texture::lock(
+sge::renderer::image_view const
+sge::ogl::texture::lock(
 	lock_flag_type const lmode)
 {
 	do_lock(
 		lmode,
 		size(),
 		0);
+	
 	if(renderer::lock_flag_read(lock_mode()))
 		get_tex_image(
 			format(),
@@ -125,13 +103,16 @@ void sge::ogl::texture::lock(
 			read_buffer());
 	post_lock();
 	lock_rect_.reset();
+
+	return view();
 }
 
-void sge::ogl::texture::lock(
+sge::renderer::image_view const
+sge::ogl::texture::lock(
 	renderer::lock_rect const &l,
 	lock_flag_type const lmode)
 {
-	const bool must_read = renderer::lock_flag_read(lmode);
+	bool const must_read = renderer::lock_flag_read(lmode);
 	do_lock(
 		lmode,
 		must_read
@@ -147,9 +128,11 @@ void sge::ogl::texture::lock(
 			read_buffer());
 	post_lock();
 	lock_rect_ = l;
+
+	return view();
 }
 
-void sge::ogl::texture::unlock()
+void sge::ogl::texture::unlock() const
 {
 	pre_unlock();
 	if(renderer::lock_flag_write(lock_mode()))

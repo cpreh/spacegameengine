@@ -128,17 +128,24 @@ public:
 		renderer::filter_args const &,
 		renderer::texture::resource_flag_type);
 
-	const renderer::volume_texture_ptr
+	/*const renderer::volume_texture_ptr
 	create_volume_texture(
 		renderer::volume_texture::image_view_array const &,
 		const renderer::filter_args& filter,
-		renderer::volume_texture::resource_flag_type flags);
+		renderer::volume_texture::resource_flag_type flags);*/
 
 	const renderer::cube_texture_ptr
 	create_cube_texture(
 		renderer::cube_texture::image_view_6 const &,
 		const renderer::filter_args& filter,
 		renderer::cube_texture::resource_flag_type flags);
+
+	renderer::cube_texture_ptr const
+	create_cube_texture(
+		renderer::cube_texture::size_type border_size,
+		renderer::color_format::type,
+		renderer::filter_args const &,
+		renderer::texture::resource_flag_type);
 
 	const renderer::vertex_buffer_ptr
 	create_vertex_buffer(

@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VOLUME_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_VOLUME_TEXTURE_HPP_INCLUDED
 
+#if 0
+
 #include "../export.hpp"
 #include "../math/dim.hpp"
 #include "../math/box.hpp"
@@ -33,20 +35,17 @@ namespace sge
 namespace renderer
 {
 
+// FIXME: volume_textures are unsupported until we have something like a 3D image in GIL
+
+/*
 typedef math::basic_box<texture_base::size_type> lock_box;
 
 class volume_texture : public texture_base {
 public:
 	// TODO: create a real 3d image type for this!
-	typedef std::vector<image_view> image_view_array;
 	typedef math::basic_dim<size_type, 3> box_type;
 
 	virtual const box_type box() const = 0;
-	virtual void data(
-		image_view_array const &) = 0;
-	/*void sub_data(
-		image_view_array const &,
-		lock_box const &);*/
 	virtual void lock(
 		lock_flag_type) = 0;
 	virtual void lock(
@@ -64,8 +63,10 @@ private:
 };
 
 typedef shared_ptr<volume_texture> volume_texture_ptr;
+*/
+}
+}
 
-}
-}
+#endif
 
 #endif

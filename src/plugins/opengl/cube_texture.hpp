@@ -43,26 +43,30 @@ public:
 		image_view_6 const &,
 		const renderer::filter_args& filter,
 		resource_flag_type flags);
-	void data(
-		renderer::cube_side::type side,
-		renderer::image_view const &);
-	void do_sub_data(
-		renderer::cube_side::type side,
-		renderer::image_view const &,
-		renderer::lock_rect const &);
-	void lock(
+
+	renderer::image_view const lock(
 		renderer::cube_side::type side,
 		lock_flag_type flags);
-	void lock(
+
+	renderer::image_view const lock(
 		renderer::cube_side::type side,
 		renderer::lock_rect const &,
 		lock_flag_type flags);
-	void unlock();
 	
-	renderer::image_view const view();
-	renderer::const_image_view const view() const;
+	renderer::const_image_view const lock(
+		renderer::cube_side::type side) const;
+	
+	renderer::const_image_view const lock(
+		renderer::cube_side::type side,
+		renderer::lock_rect const &) const;
+
+	void unlock() const;
+	
 	size_type border_size() const;
 private:
+	renderer::image_view const view();
+	renderer::const_image_view const view() const;
+
 	size_type sz;
 };
 

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/atlasing.hpp>
+#include <sge/renderer/texture_util.hpp>
 
 sge::texture::part_fragmented::part_fragmented(
 	const renderer::lock_rect& outer_area_,
@@ -46,7 +47,10 @@ sge::texture::part_fragmented::~part_fragmented()
 void sge::texture::part_fragmented::data(
 	renderer::const_image_view const &src)
 {
-	my_texture()->sub_data(src, inner_area_);
+	renderer::sub_data(
+		my_texture(),
+		src,
+		inner_area_.pos());
 
 	if(need_atlasing_h)
 		atlas_h(my_texture(), src, outer_area_);

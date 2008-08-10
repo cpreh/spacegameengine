@@ -33,6 +33,8 @@ namespace sge
 namespace renderer
 {
 
+// TODO: further split this header!
+
 namespace bit_depth
 {
 	enum type {
@@ -60,20 +62,6 @@ namespace resource_flags
 	};
 }
 typedef unsigned resource_flag_t;
-
-namespace lock_flags
-{
-	enum type {
-		readonly,
-		writeonly,
-		readwrite
-	};
-}
-
-typedef lock_flags::type lock_flag_t;
-
-SGE_SYMBOL bool lock_flag_write(lock_flag_t mode);
-SGE_SYMBOL bool lock_flag_read(lock_flag_t mode);
 
 typedef math::vector2  tex_pos;
 typedef math::rect     tex_rect;

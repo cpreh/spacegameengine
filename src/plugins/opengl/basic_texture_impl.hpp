@@ -34,13 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 
 template<typename Base>
-void sge::ogl::basic_texture<Base>::check_lock() const
-{
-	if(!cur_buffer)
-		throw exception(SGE_TEXT("ogl pbo used which is not locked!"));
-}
-
-template<typename Base>
 void sge::ogl::basic_texture<Base>::bind_me() const
 {
 	bind_texture(type(), id());
@@ -79,7 +72,7 @@ void sge::ogl::basic_texture<Base>::do_lock(
 	// if we want to read and write
 	// we set cur_buffer to the read_buffer
 	// and copy it over to the write buffer on unlock
-	if(renderer::lock_flag_write(lmode))
+	//if(renderer::lock_flag_write(lmode))
 	{
 		unpack_buffer.reset(
 			new pixel_unpack_buffer(
@@ -105,19 +98,37 @@ void sge::ogl::basic_texture<Base>::do_lock(
 }
 
 template<typename Base>
+void sge::ogl::basic_texture<Base>::do_lock_const(
+	size_type const lock_size,
+	size_type const offset)
+{
+	check_not_locked();
+
+	lock_offset_ = offset;
+	lock_mode_ = renderer::lock_flags::writeonly; // FIXME
+
+	unpack_buffer.reset(
+		new pixel_unpack_buffer(
+			lock_size,
+			stride(),
+			flags(),
+			0));
+	
+	cur_buffer = unpack_buffer.get();
+}
+
+template<typename Base>
 void sge::ogl::basic_texture<Base>::post_lock()
 {
-	if(!cur_buffer)
-		throw exception(SGE_TEXT("ogl::basic_texture::post_lock(): texture is not locked!"));
-
+	check_locked();
 	cur_buffer->lock(lock_mode());
 }
 
 template<typename Base>
 void sge::ogl::basic_texture<Base>::pre_unlock()
 {
-	if(!cur_buffer)
-		throw exception(SGE_TEXT("ogl::basic_texture::pre_unlock(): texture is not locked!"));
+	check_locked();
+	
 	if(lock_mode() == renderer::lock_flags::readwrite)
 	{
 		assert(unpack_buffer);
@@ -160,7 +171,8 @@ typename sge::ogl::basic_texture<Base>::pointer
 sge::ogl::basic_texture<Base>::read_buffer() const
 {
 	if(!pack_buffer)
-		throw exception(SGE_TEXT("pack_buffer not set in basic_texture::read_buffer()!"));
+		throw exception(
+			SGE_TEXT("pack_buffer not set in basic_texture::read_buffer()!"));
 	// the read buffer doesn't get an offset because we have to load whole textures anyway
 	return pack_buffer->buffer_offset(0);
 }
@@ -170,7 +182,8 @@ typename sge::ogl::basic_texture<Base>::pointer
 sge::ogl::basic_texture<Base>::write_buffer() const
 {
 	if(!unpack_buffer)
-		throw exception(SGE_TEXT("unpack_buffer not set in basic_texture::write_buffer()!"));
+		throw exception(
+			SGE_TEXT("unpack_buffer not set in basic_texture::write_buffer()!"));
 
 	return unpack_buffer->buffer_offset(lock_offset_ * stride());
 }
@@ -248,7 +261,7 @@ template<typename Base>
 typename sge::ogl::basic_texture<Base>::pointer
 sge::ogl::basic_texture<Base>::raw_data()
 {
-	check_lock();
+	check_locked();
 	return cur_buffer->data();
 }
 
@@ -256,8 +269,24 @@ template<typename Base>
 typename sge::ogl::basic_texture<Base>::const_pointer
 sge::ogl::basic_texture<Base>::raw_data() const
 {
-	check_lock();
+	check_locked();
 	return cur_buffer->data();
+}
+
+template<typename Base>
+void sge::ogl::basic_texture<Base>::check_locked() const
+{
+	if(!cur_buffer)
+		throw exception(
+			SGE_TEXT("ogl::basic_texture not locked!"));
+}
+
+template<typename Base>
+void sge::ogl::basic_texture<Base>::check_not_locked() const
+{
+	if(cur_buffer)
+		throw exception(
+			SGE_TEXT("ogl::basic_texture already locked!"));
 }
 
 #endif

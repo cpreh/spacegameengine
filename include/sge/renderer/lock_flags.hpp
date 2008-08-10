@@ -18,60 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
-#define SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
+#ifndef SGE_RENDERER_LOCK_FLAGS_HPP_INCLUDED
+#define SGE_RENDERER_LOCK_FLAGS_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "image_view.hpp"
-#include "texture_base.hpp"
-#include "types.hpp"
-#include <boost/array.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-namespace cube_side
+namespace lock_flags
 {
 	enum type {
-		front,
-		back,
-		left,
-		right,
-		top,
-		bottom,
-		num_elements
+		writeonly,
+		readwrite
 	};
 }
 
-class cube_texture : public texture_base {
-public:
-	typedef boost::array<image_view, cube_side::num_elements> image_view_6;
+typedef lock_flags::type lock_flag_t;
 
-	virtual image_view const lock(
-		cube_side::type side,
-		lock_flag_type) = 0;
-
-	virtual const_image_view const lock(
-		cube_side::type side) const = 0;
-
-	virtual image_view const lock(
-		cube_side::type side,
-		lock_rect const &,
-		lock_flag_type) = 0;
-	
-	virtual const_image_view const lock(
-		cube_side::type side,
-		lock_rect const &) const = 0;
-
-	virtual void unlock() const = 0;
-
-	size_type size() const;
-	virtual size_type border_size() const = 0;
-};
-
-typedef shared_ptr<cube_texture> cube_texture_ptr;
+SGE_SYMBOL bool lock_flag_read(lock_flag_t mode);
 
 }
 }

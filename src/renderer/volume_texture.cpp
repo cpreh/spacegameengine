@@ -20,8 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/volume_texture.hpp>
 
+#if 0
 sge::renderer::volume_texture::size_type
 sge::renderer::volume_texture::size() const
 {
 	return box().size(); 
 }
+
+#endif

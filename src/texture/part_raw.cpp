@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/part_raw.hpp>
+#include <sge/renderer/texture_util.hpp>
 #include <sge/math/rect_impl.hpp>
 
 sge::texture::part_raw::part_raw(
@@ -31,7 +32,7 @@ sge::texture::part_raw::part_raw(
 void sge::texture::part_raw::data(
 	renderer::const_image_view const &src)
 {
-	tex->sub_data(src, area());
+	renderer::sub_data(tex, src, area().pos());
 }
 
 sge::renderer::lock_rect const &

@@ -19,28 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture.hpp>
-#include <sge/exception.hpp>
-#include <sge/string.hpp>
-#include <sge/math/rect_impl.hpp>
-#include <sge/iostream.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
-
-void sge::renderer::texture::sub_data(
-	const_image_view const &src,
-	lock_rect const &dest)
-{
-	if(gil_dim_to_sge(src.dimensions()) != dest.dim())
-		throw exception(
-			SGE_TEXT("texture::sub_data: src's dim and dest's dim do not match!"));
-	if(dest.right() > dim().w()
-	|| dest.bottom() > dim().h())
-		throw exception(
-			SGE_TEXT("texture::sub_data: dest out of range!"));
-	
-	do_sub_data(
-		src,
-		dest);
-}
 
 sge::renderer::texture::size_type
 sge::renderer::texture::size() const

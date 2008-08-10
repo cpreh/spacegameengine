@@ -51,22 +51,23 @@ public:
 		resource_flag_type flags);
 	const dim_type dim() const;
 	
-	void data(
-		renderer::const_image_view const &src);
-	void do_sub_data(
-		renderer::const_image_view const &src,
-		renderer::lock_rect const &r);
-
-	void lock(
+	renderer::image_view const lock(
 		lock_flag_type flags);
-	void lock(
+	
+	renderer::image_view const lock(
 		renderer::lock_rect const &,
 		lock_flag_type flags);
-	void unlock();
 
+	renderer::const_image_view const lock() const;
+
+	renderer::const_image_view const lock(
+		renderer::lock_rect const &) const;
+
+	void unlock() const;
+private:
 	renderer::image_view const view();
 	renderer::const_image_view const view() const;
-private:
+	
 	void data_internal(
 		renderer::const_image_view const &src);
 	void set_texture(

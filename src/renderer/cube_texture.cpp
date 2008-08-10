@@ -21,14 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cube_texture.hpp>
 #include <sge/math/power.hpp>
 
-void sge::renderer::cube_texture::sub_data(
-	cube_side::type const side,
-	const_image_view const &src,
-	lock_rect const &dest)
-{
-	
-}
-
 sge::renderer::cube_texture::size_type
 sge::renderer::cube_texture::size() const
 {

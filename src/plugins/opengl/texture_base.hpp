@@ -33,9 +33,9 @@ public:
 	GLenum type() const;
 	virtual void bind_me() const = 0;
 	virtual GLuint id() const = 0;
-	virtual ~texture_base() {}
+	virtual ~texture_base();
 protected:
-	texture_base(const GLenum type);
+	texture_base(GLenum type);
 private:
 	GLenum type_;
 };

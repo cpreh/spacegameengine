@@ -33,22 +33,19 @@ namespace renderer
 
 class texture : public texture_base {
 public:
+	typedef math::basic_vector<size_type, 2>     pos_type;
 	typedef math::basic_dim<size_type, 2>        dim_type;
 
-	virtual const dim_type dim() const = 0;
-	void sub_data(const_image_view const &, lock_rect const &dest);
-	virtual void data(const_image_view const &) = 0;
-	virtual void lock(lock_flag_t) = 0;
-	virtual void lock(lock_rect const &, lock_flag_t) = 0;
-	virtual void unlock() = 0;
+	virtual dim_type const dim() const = 0;
+	
+	virtual image_view const lock(lock_flag_t) = 0;
+	virtual const_image_view const lock() const = 0;
 
+	virtual image_view const lock(lock_rect const &, lock_flag_t) = 0;
+	virtual const_image_view const lock(lock_rect const &) const = 0;
+
+	virtual void unlock() const = 0;
 	size_type size() const;
-	virtual const image_view view() = 0;
-	virtual const const_image_view view() const = 0;
-private:
-	virtual void do_sub_data(
-		const_image_view const &,
-		lock_rect const &dest) = 0;
 };
 
 const texture::dim_type gil_dim_to_sge(image_view::point_t const &);

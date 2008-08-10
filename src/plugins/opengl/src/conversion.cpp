@@ -179,8 +179,8 @@ GLenum sge::ogl::convert_cast(const renderer::draw_mode::type m)
 GLuint sge::ogl::convert_cast(const renderer::lock_flag_t& f)
 {
 	switch(f) {
-	case renderer::lock_flags::readonly:
-		return GL_READ_ONLY;
+	//case renderer::lock_flags::readonly:
+	//	return GL_READ_ONLY;
 	case renderer::lock_flags::writeonly:
 		return GL_WRITE_ONLY;
 	case renderer::lock_flags::readwrite:

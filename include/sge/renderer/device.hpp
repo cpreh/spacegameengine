@@ -165,13 +165,19 @@ public:
 		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
-	virtual const volume_texture_ptr create_volume_texture(
+	/*virtual const volume_texture_ptr create_volume_texture(
 		volume_texture::image_view_array const &,
 		filter_args const &filter,
-		resource_flag_t flags = resource_flags::default_) = 0;
+		resource_flag_t flags = resource_flags::default_) = 0;*/
 
 	virtual const cube_texture_ptr create_cube_texture(
 		cube_texture::image_view_6 const &,
+		filter_args const &filter,
+		resource_flag_t flags = resource_flags::default_) = 0;
+
+	virtual cube_texture_ptr const create_cube_texture(
+		cube_texture::size_type border_size,
+		color_format::type format,
 		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 

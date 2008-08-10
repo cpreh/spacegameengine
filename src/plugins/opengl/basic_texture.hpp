@@ -2,8 +2,7 @@
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
 as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 
@@ -37,7 +36,6 @@ namespace ogl
 
 template<typename Base>
 class basic_texture : public Base, public texture_base {
-	void check_lock() const;
 public:
 	typedef typename Base::size_type size_type;
 	typedef typename Base::difference_type difference_type;
@@ -55,6 +53,11 @@ protected:
 		lock_flag_type flags,
 		size_type size,
 		size_type offset);
+
+	void do_lock_const(
+		size_type size,
+		size_type offset);
+
 	void post_lock();
 	void pre_unlock();
 	void do_unlock();
@@ -84,6 +87,9 @@ public:
 	pointer raw_data();
 	const_pointer raw_data() const;
 private:
+	void check_locked() const;
+	void check_not_locked() const;
+
 	renderer::filter_args                  filter_;
 	resource_flag_type                     flags_;
 	GLuint                                 id_;

@@ -277,6 +277,7 @@ sge::ogl::device::create_vertex_buffer(
 			flags));
 }
 
+#if 0
 const sge::renderer::volume_texture_ptr
 sge::ogl::device::create_volume_texture(
 	renderer::volume_texture::image_view_array const &src,
@@ -289,6 +290,7 @@ sge::ogl::device::create_volume_texture(
 			filter,
 			flags));*/
 }
+#endif
 
 const sge::renderer::cube_texture_ptr
 sge::ogl::device::create_cube_texture(
@@ -297,6 +299,16 @@ sge::ogl::device::create_cube_texture(
 	const renderer::cube_texture::resource_flag_type flags)
 {
 	//return renderer::cube_texture_ptr(new cube_texture(src, filter, flags));
+}
+
+sge::renderer::cube_texture_ptr const
+sge::ogl::device::create_cube_texture(
+	renderer::cube_texture::size_type const border_size,
+	renderer::color_format::type const format,
+	const renderer::filter_args& filter,
+	const renderer::cube_texture::resource_flag_type flags)
+{
+
 }
 
 void sge::ogl::device::end_rendering()

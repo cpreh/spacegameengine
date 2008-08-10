@@ -18,60 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
-#define SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
+#ifndef SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
 
-#include "../export.hpp"
+#include "texture.hpp"
 #include "image_view.hpp"
-#include "texture_base.hpp"
-#include "types.hpp"
-#include <boost/array.hpp>
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-namespace cube_side
-{
-	enum type {
-		front,
-		back,
-		left,
-		right,
-		top,
-		bottom,
-		num_elements
-	};
-}
-
-class cube_texture : public texture_base {
+class scoped_texture_lock : boost::noncopyable {
 public:
-	typedef boost::array<image_view, cube_side::num_elements> image_view_6;
+	scoped_texture_lock(
+		texture_ptr,
+		lock_flag_t);
 
-	virtual image_view const lock(
-		cube_side::type side,
-		lock_flag_type) = 0;
-
-	virtual const_image_view const lock(
-		cube_side::type side) const = 0;
-
-	virtual image_view const lock(
-		cube_side::type side,
+	scoped_texture_lock(
+		texture_ptr,
 		lock_rect const &,
-		lock_flag_type) = 0;
-	
-	virtual const_image_view const lock(
-		cube_side::type side,
-		lock_rect const &) const = 0;
+		lock_flag_t);
 
-	virtual void unlock() const = 0;
+	~scoped_texture_lock();
 
-	size_type size() const;
-	virtual size_type border_size() const = 0;
+	image_view const value() const;
+private:
+	texture_ptr const tex_;
+	image_view const  value_;
 };
-
-typedef shared_ptr<cube_texture> cube_texture_ptr;
 
 }
 }

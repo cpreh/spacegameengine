@@ -18,34 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_UTIL_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_UTIL_HPP_INCLUDED
 
-#include "types.hpp"
-#include "lock_flags.hpp"
-#include "../shared_ptr.hpp"
-#include "../math/rect.hpp"
-#include <iterator>
-#include <cstddef>
+#include "texture.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-class texture_base {
-public:
-	typedef std::size_t                           size_type;
-	typedef std::ptrdiff_t                        difference_type;
-	typedef resource_flag_t                       resource_flag_type;
-	typedef lock_flag_t                           lock_flag_type;
-
-	virtual ~texture_base() {}
-	virtual size_type size() const = 0;
-	virtual resource_flag_type flags() const = 0;
-};
-
-typedef shared_ptr<texture_base>                  texture_base_ptr;
+void sub_data(
+	texture_ptr,
+	const_image_view const &data,
+	texture::pos_type const &pos);
 
 }
 }

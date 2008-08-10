@@ -66,24 +66,7 @@ sge::ogl::cube_texture::border_size() const
 	return sz;
 }
 
-void sge::ogl::cube_texture::do_sub_data(
-	const renderer::cube_side::type side,
-	renderer::image_view const &,
-	renderer::lock_rect const &r)
-{
-/*	pre_setdata();
-	//scoped_lock<sge::cube_texture*> lock_(this, lock_flags::writeonly);
-	//std::copy(src, src + size(), data());
-	set_texture_rect(
-		convert_cast(side),
-		filter(),
-		renderer::texture::dim_type(
-			border_size(),
-			border_size()),
-		r,
-		src);*/
-}
-
+#if 0
 void sge::ogl::cube_texture::data(
 	const renderer::cube_side::type side,
 	renderer::image_view const &)
@@ -97,15 +80,18 @@ void sge::ogl::cube_texture::data(
 			border_size()),
 		src);*/
 }
+#endif
 
-void sge::ogl::cube_texture::lock(
+sge::renderer::image_view const
+sge::ogl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	lock_flag_type const lmode)
 {
 	
 }
 
-void sge::ogl::cube_texture::lock(
+sge::renderer::image_view const
+sge::ogl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src,
 	lock_flag_type const flags)
@@ -113,7 +99,22 @@ void sge::ogl::cube_texture::lock(
 
 }
 
-void sge::ogl::cube_texture::unlock()
+sge::renderer::const_image_view const
+sge::ogl::cube_texture::lock(
+	renderer::cube_side::type const side) const
+{
+
+}
+
+sge::renderer::const_image_view const
+sge::ogl::cube_texture::lock(
+	renderer::cube_side::type const side,
+	renderer::lock_rect const &src) const
+{
+
+}
+
+void sge::ogl::cube_texture::unlock() const
 {
 }
 
