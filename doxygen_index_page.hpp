@@ -189,6 +189,7 @@ Here's the complete program:
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
+#include <sge/texture/part_raw.hpp>
 #include <vector>
 
 int main()
@@ -202,7 +203,7 @@ int main()
 	sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("testimage.png"));
 	sge::renderer::texture_ptr image_texture = sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
 	sge::sprite::object my_object(
-			sge::sprite::point(0,0),
+			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)));
 			image_texture);
 
 	std::vector<sge::sprite::object> sprites;
@@ -220,6 +221,7 @@ int main()
 \section FAQ 
 <ul> 
 <li><b>Why the name "sge"?</b>
+
 The name stems from Freundlich's (the original author's) intention to program
 an engine for a "space game" of some sort. Long namespaces are, However,
 tideous to write, so it came down to "sge".  
