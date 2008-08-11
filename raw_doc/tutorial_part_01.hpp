@@ -136,15 +136,17 @@ just a wrapper for a single texture. Watch!
 \code
 sge::sprite::object my_object(
 	sge::sprite::point(0,0),
-	sge::texture::part_ptr(new sge::texture::part_raw(image_texture)));
+	sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
+	sge::sprite::texture_dim);
 \endcode
 
 Files to include: <sge/texture/part_raw.hpp>, <sge/sprite/object.hpp>
 
 This piece of code should be pretty self explanatory now. Note that
-<tt>my_object</tt> is not a smart pointer but a "real" object. We put the sprite
-on the top left corner of the screen and give it our test texture. If no size is
-specified, the default behaviour for a sprite is to be as large as its texture.
+<tt>my_object</tt> is not a smart pointer but a "real" object. We put the
+sprite on the top left corner of the screen and give it our test texture. For
+the size parameter, we specify the constant <tt>texture_dim</tt> which tells
+sge to choose the texture's dimensions for the sprite's size.
 
 \subsection The main loop
 
@@ -203,7 +205,8 @@ try
 	sge::renderer::texture_ptr image_texture = sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
 	sge::sprite::object my_object(
 			sge::sprite::point(0,0),
-			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)));
+			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
+			sge::sprite::texture_dim);
 
 	while (true)
 	{
@@ -223,7 +226,7 @@ catch (std::exception const &e)
 \endcode
 
 I added code to catch any sge exceptions (the most common one in this piece of
-code would be "could not find image 'tux.png'") and also standard exceptions,
+code would be <em>could not find image 'tux.png'</em>) and also standard exceptions,
 just to make sure. In case you wonder, yes, it's legal to write <tt>try</tt>
 directly after the declaration line of a function. 
 
