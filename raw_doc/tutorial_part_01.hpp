@@ -1,6 +1,6 @@
 /** 
-\mainpage Welcome to sge
-\section sec1 Using sge
+\page tut_begin sge tutorial
+\section abstract Abstract
 In this small tutorial we'll first write a program which displays an image
 on the screen. We'll then modify this program to move the image on the
 screen using the arrow keys on your keyboard or the mouse.
@@ -218,16 +218,5 @@ int main()
 }
 \endcode
 
-\section FAQ 
-<ul> 
-<li><b>Why the name "sge"?</b>
-
-The name stems from Freundlich's (the original author's) intention to program
-an engine for a "space game" of some sort. Long namespaces are, However,
-tideous to write, so it came down to "sge".  
-
-<li><b>Why a new engine in C++, there are numerous others like irrlicht or ogre?</b>
-
-TODO: Freundlich, write some rant about the horrible C++ those engines use
-</ul>
+Now we can move on to \ref tutorial_2 "part 2" of the tutorial, where we add input support.
 */
