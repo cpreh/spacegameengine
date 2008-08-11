@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/index_buffer.hpp"
 #include "../renderer/device.hpp"
 #include "../renderer/default_transformable.hpp"
+#include "object.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -39,6 +40,7 @@ public:
 		renderer::device_ptr rend);
 	template<typename In>
 		void render(In beg, In end);
+	void render(object);
 	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
 private:
 	renderer::device_ptr        rend;

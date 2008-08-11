@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/system_impl.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/vertex_format.hpp>
 #include <sge/renderer/transform.hpp>
@@ -54,4 +55,9 @@ sge::sprite::system::system(const renderer::device_ptr rend)
 const sge::renderer::device_ptr sge::sprite::system::get_renderer() const
 {
 	return rend;
+}
+
+void sge::sprite::system::render(object o)
+{
+	render(&o,&o+1);
 }
