@@ -28,17 +28,6 @@ sge::texture::part_raw::part_raw(
   tex(tex)
 {}
 
-sge::texture::part_raw::part_raw(
-	const renderer::texture_ptr tex)
-: area_(
-		static_cast<renderer::lock_rect::value_type>(0),
-		static_cast<renderer::lock_rect::value_type>(0),
-		static_cast<renderer::lock_rect::value_type>(tex->dim().w()),
-		static_cast<renderer::lock_rect::value_type>(tex->dim().h())
-		),
-  tex(tex)
-{}
-
 void sge::texture::part_raw::data(
 	renderer::const_image_view const &src)
 {
