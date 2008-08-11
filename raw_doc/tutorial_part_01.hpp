@@ -79,10 +79,13 @@ headers, so if you wonder why you get <em>undefined references</em> when
 compiling your code, look for missing <em>_impl</em> headers.
 
 Now for the tricky part, loading the image and attaching it to a sge::sprite.
-First, we use the image loader to load the image:
+We'll be using the image called \emph{tux.png} which is located in
+the \em image directory under the documentation directory. Just
+copy it into the directory of your sample application. First, we use the image
+loader to load the image:
 
 \code
-sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("testimage.png"));
+sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("tux.png"));
 \endcode
 
 There are a few new things here, first of all <tt>sys.image_loader</tt> is a
@@ -149,23 +152,15 @@ Having created all the stuff we need, the program still closes immediately after
 starting it. So let's add a main loop which keeps it going!
 
 \code
-std::vector<sge::sprite::object> sprites;
-sprites.push_back(my_object);
-
 while (true)
 {
 	sge::window::dispatch();
 	sge::renderer::scoped_block block_(sys.renderer);
-	ss.render(sprites.begin(),sprites.end());
+	ss.render(my_object);
 }
 \endcode
 
-Files to include: <vector>, <sge/renderer/scoped_block.hpp>.
-
-Being a <em>system</em> after all, sge::sprite::system can manage more than one
-sprite. So we create a container (a std::vector) and put all the sprites we
-want to draw into it - which is, of course, just one right now. Don't worry,
-sprites are very lightweight, copying isn't an expensive operation.
+Files to include: <sge/renderer/scoped_block.hpp>.
 
 Inside the endless loop (we'll fix that when we introduce the <em>input
 system</em>), sge::window::dispatch is called. This is just a maintenance
@@ -190,7 +185,6 @@ Here's the complete program:
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <vector>
 
 int main()
 {
@@ -203,17 +197,14 @@ int main()
 	sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("testimage.png"));
 	sge::renderer::texture_ptr image_texture = sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
 	sge::sprite::object my_object(
+			sge::sprite::point(0,0),
 			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)));
-			image_texture);
-
-	std::vector<sge::sprite::object> sprites;
-	sprites.push_back(my_object);
 
 	while (true)
 	{
 			sge::window::dispatch();
 			sge::renderer::scoped_block block_(sys.renderer);
-			ss.render(sprites.begin(),sprites.end());
+			ss.render(my_object);
 	}
 }
 \endcode
