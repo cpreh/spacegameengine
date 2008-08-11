@@ -22,6 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_BUFFER_HPP_INCLUDED
 
 #include "common.hpp"
+#include "lock_method.hpp"
+#include <sge/renderer/resource_flags.hpp>
+#include <boost/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
 {
@@ -30,21 +34,17 @@ namespace ogl
 
 class vbo_base;
 
-struct null_type {};
-
 template<
-	typename Base,
 	GLenum (*Type)(),
 	vbo_base& (*Impl)()>
-class basic_buffer : public Base {
+class basic_buffer : boost::noncopyable {
 public:
-	typedef typename Base::size_type              size_type;
-	typedef typename Base::difference_type        difference_type;
-	typedef unsigned char                         value_type;
+	typedef std::size_t                          size_type;
+	typedef unsigned char                        value_type;
 	typedef value_type                           *pointer;
 	typedef value_type const                     *const_pointer;
-	typedef typename Base::resource_flag_type     resource_flag_type;
-	typedef typename Base::lock_flag_type         lock_flag_type;
+	typedef renderer::resource_flag_t            resource_flag_type;
+	typedef lock_method::type                    lock_flag_type;
 			
 	basic_buffer(
 		size_type sz,
@@ -53,7 +53,7 @@ public:
 		const_pointer src);
 	~basic_buffer();
 
-	using Base::npos;
+	static const size_type npos = static_cast<size_type>(-1);
 
 	void lock(
 		lock_flag_type lock_flags,

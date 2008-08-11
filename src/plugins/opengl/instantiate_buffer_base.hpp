@@ -1,4 +1,5 @@
-/* spacegameengine is a portable easy to use game engine written in C++.
+/*
+spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
@@ -17,23 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_PIXEL_UNPACK_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_PIXEL_UNPACK_BUFFER_HPP_INCLUDED
+#ifndef SGE_OOPENGL_INSTNATIATE_BUFFER_BASE_HPP_INCLUDED
+#define SGE_OOPENGL_INSTNATIATE_BUFFER_BASE_HPP_INCLUDED
 
-#include "basic_buffer.hpp"
-#include "pbo.hpp"
+#include "buffer_base_impl.hpp"
+#include "instantiate_basic_buffer.hpp"
 
-namespace sge
-{
-namespace ogl
-{
-
-typedef basic_buffer<
-	pixel_unpack_buffer_type,
-	pbo_impl
-> pixel_unpack_buffer;
-
-}
-}
+#define SGE_OPENGL_INSTNATIATE_BUFFER_BASE(b, f, v)\
+template class sge::ogl::buffer_base<b, f, b>;\
+SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(f, v)
 
 #endif

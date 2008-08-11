@@ -37,7 +37,6 @@ template<
 	vbo_base &(*Impl)()>
 class buffer_base : public Base {
 	typedef basic_buffer<
-		null_type,
 		Type,
 		Impl
 	> buffer_type;
@@ -76,8 +75,8 @@ private:
 	size_type stride() const;
 	resource_flag_type flags() const;
 
-	virtual view_type view() = 0;
-	virtual const_view_type view() const = 0;
+	virtual view_type const view() = 0;
+	virtual const_view_type const view() const = 0;
 
 	mutable buffer_type buf;
 };

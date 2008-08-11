@@ -41,7 +41,7 @@ typedef buffer_base<
 }
 
 class vertex_buffer
-: public renderer::vertex_buffer {	
+: public detail::vertex_buffer_base {	
 public:
 	vertex_buffer(
 		const_view_type const &,
