@@ -185,8 +185,13 @@ Here's the complete program:
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/exception.hpp>
+#include <sge/iostream.hpp>
+#include <exception>
+#include <iostream>
 
 int main()
+try
 {
 	sge::systems sys;
 	sys.init<sge::init::core>();
@@ -194,7 +199,7 @@ int main()
 	sys.init<sge::init::renderer>(sge::renderer::screen_size_t(640,480));
 
 	sge::sprite::system ss(sys.renderer);
-	sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("testimage.png"));
+	sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("tux.png"));
 	sge::renderer::texture_ptr image_texture = sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
 	sge::sprite::object my_object(
 			sge::sprite::point(0,0),
@@ -206,8 +211,26 @@ int main()
 			sge::renderer::scoped_block block_(sys.renderer);
 			ss.render(my_object);
 	}
+} 
+catch (sge::exception const &e)
+{
+	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT("\n");
+}
+catch (std::exception const &e)
+{
+	std::cerr << "caught std exception: " << e.what() << "\n";
 }
 \endcode
+
+I added code to catch any sge exceptions (the most common one in this piece of
+code would be "could not find image 'tux.png'") and also standard exceptions,
+just to make sure. In case you wonder, yes, it's legal to write <tt>try</tt>
+directly after the declaration line of a function. 
+
+Note that there are sge
+iostream equivalents (called <tt>sge::cerr</tt>, <tt>sge::cout</tt> and
+<tt>sge::clog</tt>) so you don't have to worry if you should use
+<tt>std::cout</tt> or <tt>std::wcout</tt>.
 
 Now we can move on to \ref tutorial_2 "part 2" of the tutorial, where we add input support.
 */
