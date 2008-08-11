@@ -34,7 +34,7 @@ class part_raw : public part {
 public:
 	SGE_SYMBOL part_raw(renderer::texture_ptr);
 	SGE_SYMBOL part_raw(
-		renderer::texture_ptr tex,
+		renderer::texture_ptr,
 		renderer::lock_rect const &);
 	SGE_SYMBOL void data(
 		renderer::const_image_view const &src);
