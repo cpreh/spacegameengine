@@ -40,14 +40,17 @@ public:
 	typedef resource_flag_t                       resource_flag_type;
 	typedef lock_flag_t                           lock_flag_type;
 
+	typedef dynamic_index_view                    view_type;
+	typedef const_dynamic_index_view              const_view_type;
+
 	static const size_type npos = static_cast<size_type>(-1);
 
-	virtual dynamic_index_view const lock(
+	virtual view_type const lock(
 		lock_flag_type flags,
 		size_type offset = 0,
 		size_type range = npos) = 0;
 
-	virtual const_dynamic_index_view const lock(
+	virtual const_view_type const lock(
 		size_type offset = 0,
 		size_type range = npos) const = 0;
 

@@ -40,13 +40,13 @@ sge::ogl::readonly_texture_lock::readonly_texture_lock(
 
 void sge::ogl::readonly_texture_lock::post_lock()
 {
-	buffer.do_lock(
+	buffer.lock(
 		lock_method::readonly);
 }
 
 void sge::ogl::readonly_texture_lock::pre_unlock()
 {
-	buffer.do_unlock();
+	buffer.unlock();
 }
 
 sge::ogl::readonly_texture_lock::pointer

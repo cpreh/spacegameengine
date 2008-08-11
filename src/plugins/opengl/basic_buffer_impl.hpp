@@ -56,7 +56,7 @@ template<
 sge::ogl::basic_buffer<Base, Type, Impl>::~basic_buffer()
 {
 	if(dest)
-		do_unlock();
+		unlock();
 	unbind();
 	Impl().delete_buffer(id);
 }
@@ -65,7 +65,7 @@ template<
 	typename Base,
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
-void sge::ogl::basic_buffer<Base, Type, Impl>::do_lock(
+void sge::ogl::basic_buffer<Base, Type, Impl>::lock(
 	lock_flag_type const lockflags,
 	size_type const first,
 	size_type count)
@@ -94,7 +94,7 @@ template<
 	typename Base,
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
-void sge::ogl::basic_buffer<Base, Type, Impl>::do_unlock()
+void sge::ogl::basic_buffer<Base, Type, Impl>::unlock()
 {
 	if(!dest)
 		throw exception(SGE_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));

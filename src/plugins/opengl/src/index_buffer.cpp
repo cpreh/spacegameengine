@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_view_operations.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
-template class sge::ogl::basic_buffer<
+SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 	sge::renderer::index_buffer,
 	sge::ogl::index_buffer_type,
-	sge::ogl::vb_ib_vbo_impl>;
+	sge::ogl::vb_ib_vbo_impl)
 
 
 sge::ogl::index_buffer::index_buffer(
@@ -39,7 +39,7 @@ sge::ogl::index_buffer::index_buffer(
 	boost::apply_visitor(renderer::index_view_data(), src))
 {}
 
-void sge::ogl::index_buffer::data(
+/*void sge::ogl::index_buffer::data(
 	renderer::const_dynamic_index_view const &src)
 {
 	detail::index_buffer_base::data(
@@ -56,7 +56,7 @@ void sge::ogl::index_buffer::do_sub_data(
 		boost::apply_visitor(renderer::index_view_data(), src),
 		offset,
 		boost::apply_visitor(renderer::index_view_size(), src));
-}
+}*/
 
 // TODO: how can we simplify this?
 sge::renderer::dynamic_index_view const

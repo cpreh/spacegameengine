@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "basic_buffer.hpp"
+#include "buffer_base.hpp"
 #include "vertex_format.hpp"
 #include "vbo.hpp"
 #include <sge/renderer/vertex_buffer.hpp>
@@ -33,7 +33,7 @@ namespace ogl
 
 namespace detail
 {
-typedef basic_buffer<
+typedef buffer_base<
 	renderer::vertex_buffer,
 	vertex_buffer_type,
 	vb_ib_vbo_impl
@@ -41,25 +41,16 @@ typedef basic_buffer<
 }
 
 class vertex_buffer
-: public detail::vertex_buffer_base {	
+: public renderer::vertex_buffer {	
 public:
 	vertex_buffer(
-		renderer::const_vertex_view const &,
+		const_view_type const &,
 		resource_flag_type flags);
 
 	void set_format();
 private:
-	renderer::vertex_view const lock(
-		lock_flag_type flags,
-		size_type offset,
-		size_type range);
-
-	renderer::const_vertex_view const lock(
-		size_type offset,
-		size_type range) const;
-
-	renderer::vertex_view const view();
-	renderer::const_vertex_view const view() const;
+	view_type const view();
+	const_view_type const view() const;
 
 	renderer::vertex_format const &
 	get_vertex_format() const;

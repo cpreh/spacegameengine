@@ -28,10 +28,10 @@ template class sge::ogl::basic_buffer<
 	sge::ogl::vb_ib_vbo_impl>;
 
 sge::ogl::vertex_buffer::vertex_buffer(
-	renderer::const_vertex_view const &src,
+	const_vertex_view_type const &src,
 	resource_flag_type const flags)
  :	detail::vertex_buffer_base(
- 		src.size(),
+		src.size(),
 		src.format().stride(),
 		flags,
 		src.data()),
@@ -45,73 +45,25 @@ void sge::ogl::vertex_buffer::set_format()
 	ogl_format.use_me();
 }
 
-
-sge::renderer::vertex_view const
-sge::ogl::vertex_buffer:lock(
-	lock_flag_type const flags,
-	size_type const offset,
-	size_type const range)
-{
-	do_lock(
-		convert_lock_method(flags),
-		offset,
-		range);
-	return view();
-}
-
-sge::renderer::const_vertex_view const
-sge::ogl::vertex_buffer::lock(
-	size_type const offset,
-	size_type const range) const
-{
-	do_lock(
-		lock_method::readonly,
-		offset,
-		range);
-	return view();
-}
-
-
-
-
-void sge::ogl::vertex_buffer::data(
-	renderer::const_vertex_view const &src)
-{
-	detail::vertex_buffer_base::data(
-		src.data(),
-		src.format().stride(),
-		src.size());
-}
-
-void sge::ogl::vertex_buffer::do_sub_data(
-	renderer::const_vertex_view const &src,
-	size_type const first)
-{
-	detail::vertex_buffer_base::sub_data(
-		src.data(),
-		first,
-		src.size());
-}
-
-sge::renderer::vertex_view const
+sge::ogl::vertex_buffer::view_type const
 sge::ogl::vertex_buffer::view()
 {
-	return renderer::vertex_view(
+	return view_type(
 		detail::vertex_buffer_base::data(),
 		detail::vertex_buffer_base::lock_size(),
 		get_vertex_format());
 }
 
-sge::renderer::const_vertex_view const
+sge::ogl::vertex_buffer::const_view_type const
 sge::ogl::vertex_buffer::view() const
 {
-	return renderer::const_vertex_view(
+	return const_view_type(
 		detail::vertex_buffer_base::data(),
 		detail::vertex_buffer_base::lock_size(),
 		get_vertex_format());
 }
 
-const sge::renderer::vertex_format&
+sge::renderer::vertex_format const &
 sge::ogl::vertex_buffer::get_vertex_format() const
 {
 	return format;

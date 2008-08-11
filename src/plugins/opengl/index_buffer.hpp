@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 
-#include "basic_buffer.hpp"
+#include "buffer_base.hpp"
 #include "vbo.hpp"
 #include <sge/renderer/index_buffer.hpp>
 
@@ -31,7 +31,7 @@ namespace ogl
 {
 namespace detail
 {
-typedef basic_buffer<
+typedef buffer_base<
 	renderer::index_buffer,
 	index_buffer_type,
 	vb_ib_vbo_impl
@@ -42,20 +42,11 @@ class index_buffer
 : public detail::index_buffer_base {
 public:
 	index_buffer(
-		renderer::const_dynamic_index_view const &,
-		renderer::resource_flag_t flags);
+		const_view_type const &,
+		resource_flag_type flags);
 private:
-	renderer::dynamic_index_view const lock(
-		lock_flag_type flags,
-		size_type offset,
-		size_type range);
-
-	renderer::const_dynamic_index_view const lock(
-		size_type offset,
-		size_type range) const;
-
-	renderer::dynamic_index_view const view();
-	renderer::const_dynamic_index_view const view() const;
+	view_type const view();
+	const_view_type const view() const;
 };
 
 }

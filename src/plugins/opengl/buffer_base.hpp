@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BASIC_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_BASIC_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_BASE_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_BASE_HPP_INCLUDED
 
+#include "basic_buffer.hpp"
 #include "common.hpp"
 
 namespace sge
@@ -28,78 +29,57 @@ namespace sge
 namespace ogl
 {
 
-class vbo_base;
-
-struct null_type {};
+struct vbo_base;
 
 template<
 	typename Base,
 	GLenum (*Type)(),
-	vbo_base& (*Impl)()>
-class basic_buffer : public Base {
-public:
+	vbo_base &(*Impl)()>
+class buffer_base : public Base {
+	typedef basic_buffer<
+		null_type,
+		Type,
+		Impl
+	> buffer_type;
+protected:
 	typedef typename Base::size_type              size_type;
 	typedef typename Base::difference_type        difference_type;
-	typedef unsigned char                         value_type;
-	typedef value_type                           *pointer;
-	typedef value_type const                     *const_pointer;
+	typedef typename buffer_type::pointer         *pointer;
+	typedef typename buffer_type::const_pointer   *const_pointer;
 	typedef typename Base::resource_flag_type     resource_flag_type;
 	typedef typename Base::lock_flag_type         lock_flag_type;
-			
-	basic_buffer(
+	typedef typename Base::view_type              view_type;
+	typedef typename Base::const_view_type        const_view_type;
+
+	buffer_base(
 		size_type sz,
 		size_type stride,
 		resource_flag_type flags,
 		const_pointer src);
-	~basic_buffer();
-
-	using Base::npos;
-
-	void lock(
-		lock_flag_type lock_flags,
-		size_type first = 0,
-		size_type count = npos);
-	void unlock();
-	void data(
-		const_pointer,
-		size_type stride,
-		size_type size);
-	void sub_data(
-		const_pointer data,
+	
+	pointer data();
+	const_pointer data() const;
+	size_type lock_size() const;
+private:
+	view_type const lock(
+		lock_flag_type flags,
 		size_type first,
 		size_type count);
-	void resize(size_type);
-
+	
+	const_view_type const lock(
+		size_type first,
+		size_type count) const;
+	
+	void unlock() const;
+	
 	size_type size() const;
 	size_type stride() const;
 	resource_flag_type flags() const;
 
-	void resize(
-		size_type newsize,
-		size_type newstride,
-		const_pointer src);
+	virtual view_type view() = 0;
+	virtual const_view_type view() const = 0;
 
-	pointer data();
-	const_pointer data() const;
-	size_type lock_size() const;
-
-	void unbind() const;
-	void bind_me() const;
-	
-	pointer buffer_offset(
-		size_type offset) const;
-private:
-	void bind(GLuint id) const;
-	void check_lock() const;
-	void allocate_buffer(const_pointer src);
-
-	size_type          sz,
-	                   stride_;
-	resource_flag_type flags_;
-	pointer            dest;
-	GLuint             id;
-	size_type          lock_offset,
-	                   lock_size_;
+	mutable buffer_type buf;
 };
 
 }
