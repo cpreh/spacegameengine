@@ -235,5 +235,8 @@ iostream equivalents (called <tt>sge::cerr</tt>, <tt>sge::cout</tt> and
 <tt>sge::clog</tt>) so you don't have to worry if you should use
 <tt>std::cout</tt> or <tt>std::wcout</tt>.
 
-Now we can move on to \ref tutorial_2 "part 2" of the tutorial, where we add input support.
+When you start the program now you'll see tux on the top left corner of the
+screen. To close the program...well, do something radical, it won't close that
+easily. But we're working on that in \ref tutorial_2 "part 2" of the tutorial,
+where we add input support.
 */
