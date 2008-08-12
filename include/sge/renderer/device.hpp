@@ -180,19 +180,19 @@ public:
 		const_vertex_view const &,
 		resource_flag_t flags = resource_flags::default_) = 0;
 	
-	virtual vertex_buffer_tr const create_vertex_buffer(
+	/*virtual vertex_buffer_ptr const create_vertex_buffer(
 		vertex_format const &,
-		size_type size,
-		resource_flag_t flags = resource_flags::default_) = 0;
+		vertex_buffer::size_type size,
+		resource_flag_t flags = resource_flags::default_) = 0;*/
 
 	virtual const index_buffer_ptr create_index_buffer(
 		const_dynamic_index_view const &,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
-	virtual index_buffer_ptr const create_index_buffer(
-		index_format,
-		size_type size,
-		rsource_flag_t flags = resource_flags::default_) = 0;
+	/*virtual index_buffer_ptr const create_index_buffer(
+		index_format::type,
+		index_buffer::size_type size,
+		resource_flag_t flags = resource_flags::default_) = 0;*/
 
 	virtual const caps& get_caps() const = 0;
 	virtual const screen_size_t screen_size() const = 0;

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 
 #include "../typeswitch.hpp"
+#include "index_format.hpp"
 #include <boost/variant.hpp>
 #include <cstddef>
 
@@ -49,6 +50,8 @@ public:
 
 	iterator begin() const;
 	iterator end() const;
+
+	index_format::type format() const;
 private:
 	pointer data_;
 	size_type size_;

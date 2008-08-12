@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_VIEW_OPERATIONS_HPP_INCLUDED
 
 #include "index_view.hpp"
+#include "index_format.hpp"
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
@@ -52,6 +53,14 @@ struct index_view_data
 
 	template<typename T>
 	unsigned char const *operator()(T const &) const;
+};
+
+struct index_view_format
+: boost::static_visitor<index_format::type> {
+	typedef index_size size_type;
+
+	template<typename T>
+	index_format::type operator()(T const &) const;
 };
 
 }

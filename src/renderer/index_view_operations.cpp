@@ -45,6 +45,13 @@ sge::renderer::index_view_data::operator()(
 	return reinterpret_cast<unsigned char const *>(src.data());
 }
 
+template<typename T>
+sge::renderer::index_format::type
+sge::renderer::index_view_format::operator()(
+	T const &src) const
+{
+	return src.format();
+}
 
 #define SGE_INSTANTIATE_INDEX_VIEW_SIZE(x) \
 template sge::renderer::index_view_size::size_type \
@@ -82,4 +89,17 @@ SGE_INSTANTIATE_INDEX_VIEW_DATA(index_view_32)
 SGE_INSTANTIATE_INDEX_VIEW_DATA(const_index_view_16)
 SGE_INSTANTIATE_INDEX_VIEW_DATA(const_index_view_32)
 
-#undef SGE_INSTANTIATE_INDEX_VIEW_STRIDE
+#undef SGE_INSTANTIATE_INDEX_VIEW_DATA
+
+
+#define SGE_INSTANTIATE_INDEX_VIEW_FORMAT(x) \
+template sge::renderer::index_format::type \
+sge::renderer::index_view_format::operator()( \
+	sge::renderer::x const &) const;
+
+SGE_INSTANTIATE_INDEX_VIEW_FORMAT(index_view_16)
+SGE_INSTANTIATE_INDEX_VIEW_FORMAT(index_view_32)
+SGE_INSTANTIATE_INDEX_VIEW_FORMAT(const_index_view_16)
+SGE_INSTANTIATE_INDEX_VIEW_FORMAT(const_index_view_32)
+
+#undef SGE_INSTANTIATE_INDEX_VIEW_FORMAT

@@ -56,6 +56,14 @@ sge::renderer::index_view<Index>::end() const
 	return begin() + size();
 }
 
+template<typename Index>
+sge::renderer::index_format::type
+sge::renderer::index_view<Index>::format() const
+{
+	//return index_format_from_stride(
+	//	stride());
+}
+
 template class sge::renderer::index_view<sge::uint16>;
 template class sge::renderer::index_view<sge::uint32>;
 template class sge::renderer::index_view<sge::uint16 const>;
