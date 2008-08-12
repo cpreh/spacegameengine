@@ -260,7 +260,7 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return Dim;
 	}
 
-	size_type size() const
+	size_type content() const
 	{
 		return std::accumulate(begin(), end(), 1, std::multiplies<size_type>());
 	}

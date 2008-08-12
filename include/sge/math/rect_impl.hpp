@@ -74,9 +74,9 @@ sge::math::basic_rect<T>::pos() const
 
 template<typename T>
 typename sge::math::basic_rect<T>::size_type
-sge::math::basic_rect<T>::size() const
+sge::math::basic_rect<T>::content() const
 {
-	return dim().size();
+	return dim().content();
 }
 
 template<typename T>

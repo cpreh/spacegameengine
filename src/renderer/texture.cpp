@@ -43,9 +43,9 @@ void sge::renderer::texture::sub_data(
 }
 
 sge::renderer::texture::size_type
-sge::renderer::texture::size() const
+sge::renderer::texture::content() const
 {
-	return dim().size();
+	return dim().content();
 }
 
 const sge::renderer::texture::dim_type
