@@ -51,7 +51,7 @@ public:
 
 	point_type const pos() const;
 	dim_type const dim() const;
-	size_type content() const;
+	size_type area() const;
 
 	const_reference left() const;
 	const_reference top() const;

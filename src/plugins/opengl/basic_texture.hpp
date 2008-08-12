@@ -64,7 +64,7 @@ protected:
 	
 	void pre_setdata() const;
 	
-	using Base::content;
+	using Base::area;
 	size_type stride() const;
 
 	void internal_parameters(
