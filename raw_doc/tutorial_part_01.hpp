@@ -1,5 +1,5 @@
 /** 
-\page tut_begin sge tutorial
+\page tut_begin Beginner tutorial
 \section abstract Abstract
 In this small tutorial we'll first write a program which displays an image
 on the screen. We'll then modify this program to move the image on the

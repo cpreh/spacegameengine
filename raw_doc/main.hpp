@@ -3,6 +3,8 @@
 
 The manual consists of the following parts
 - \subpage installation
-- \subpage tut_begin
+- Tutorials:
+	-# \subpage tut_begin
+	-# \subpage textures
 - \subpage faq
 */
