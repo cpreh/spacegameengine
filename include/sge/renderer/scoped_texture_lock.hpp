@@ -53,6 +53,11 @@ typedef scoped_lock_wrapper<
 
 scoped_texture_lock_wrapper const
 make_scoped_lock(
+	texture_ptr,
+	lock_flag_t);
+
+scoped_texture_lock_wrapper const
+make_scoped_lock(
 	texture_ptr t,
 	lock_rect const &r,
 	lock_flag_t flags);

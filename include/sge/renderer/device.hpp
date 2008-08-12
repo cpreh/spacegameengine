@@ -154,10 +154,10 @@ public:
 
 	virtual const target_ptr get_target() const = 0;
 
-	virtual const texture_ptr create_texture(
+	SGE_SYMBOL texture_ptr const create_texture(
 		const_image_view const &,
 		filter_args const &filter,
-		resource_flag_t flags = resource_flags::default_) = 0;
+		resource_flag_t flags = resource_flags::default_);
 
 	virtual const texture_ptr create_texture(
 		texture::dim_type const &dim,
@@ -170,11 +170,6 @@ public:
 		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;*/
 
-	virtual const cube_texture_ptr create_cube_texture(
-		cube_texture::image_view_6 const &,
-		filter_args const &filter,
-		resource_flag_t flags = resource_flags::default_) = 0;
-
 	virtual cube_texture_ptr const create_cube_texture(
 		cube_texture::size_type border_size,
 		color_format::type format,
@@ -184,10 +179,20 @@ public:
 	virtual const vertex_buffer_ptr create_vertex_buffer(
 		const_vertex_view const &,
 		resource_flag_t flags = resource_flags::default_) = 0;
+	
+	virtual vertex_buffer_tr const create_vertex_buffer(
+		vertex_format const &,
+		size_type size,
+		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const index_buffer_ptr create_index_buffer(
 		const_dynamic_index_view const &,
 		resource_flag_t flags = resource_flags::default_) = 0;
+
+	virtual index_buffer_ptr const create_index_buffer(
+		index_format,
+		size_type size,
+		rsource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const caps& get_caps() const = 0;
 	virtual const screen_size_t screen_size() const = 0;

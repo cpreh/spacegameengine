@@ -18,9 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../basic_buffer_impl.hpp"
 #include "../index_buffer.hpp"
+#include "../vbo.hpp"
+#include "../instantiate_buffer_base.hpp"
 #include <sge/renderer/index_view_operations.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
 SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
@@ -39,24 +42,18 @@ sge::ogl::index_buffer::index_buffer(
 	boost::apply_visitor(renderer::index_view_data(), src))
 {}
 
-/*void sge::ogl::index_buffer::data(
-	renderer::const_dynamic_index_view const &src)
+GLenum sge::ogl::index_buffer::format() const
 {
-	detail::index_buffer_base::data(
-		boost::apply_visitor(renderer::index_view_data(), src),
-		boost::apply_visitor(renderer::index_view_size(), src),
-		boost::apply_visitor(renderer::index_view_stride(), src));
+	switch(stride()) {
+	case 2:
+		return GL_UNSIGNED_SHORT;
+	case 4:
+		return GL_UNSIGNED_INT;
+	default:
+		throw exception(
+			SGE_TEXT("Wrong stride in ogl::index_buffer!"));
+	}
 }
-	
-void sge::ogl::index_buffer::do_sub_data(
-	renderer::const_dynamic_index_view const &src,
-	size_type const offset)
-{
-	detail::index_buffer_base::sub_data(
-		boost::apply_visitor(renderer::index_view_data(), src),
-		offset,
-		boost::apply_visitor(renderer::index_view_size(), src));
-}*/
 
 // TODO: how can we simplify this?
 sge::renderer::dynamic_index_view const

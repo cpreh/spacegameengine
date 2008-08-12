@@ -43,8 +43,8 @@ class buffer_base : public Base {
 protected:
 	typedef typename Base::size_type              size_type;
 	typedef typename Base::difference_type        difference_type;
-	typedef typename buffer_type::pointer         *pointer;
-	typedef typename buffer_type::const_pointer   *const_pointer;
+	typedef typename buffer_type::pointer         pointer;
+	typedef typename buffer_type::const_pointer   const_pointer;
 	typedef typename Base::resource_flag_type     resource_flag_type;
 	typedef typename Base::lock_flag_type         lock_flag_type;
 	typedef typename Base::view_type              view_type;
@@ -59,6 +59,8 @@ protected:
 	pointer data();
 	const_pointer data() const;
 	size_type lock_size() const;
+	size_type stride() const;
+	void bind_me() const;
 private:
 	view_type const lock(
 		lock_flag_type flags,
@@ -72,7 +74,6 @@ private:
 	void unlock() const;
 	
 	size_type size() const;
-	size_type stride() const;
 	resource_flag_type flags() const;
 
 	virtual view_type const view() = 0;

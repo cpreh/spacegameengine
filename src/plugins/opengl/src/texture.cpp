@@ -28,10 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_convert.hpp"
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/make_image_view.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
-#include <boost/gil/image_view_factory.hpp>
 
 template class sge::ogl::basic_texture<sge::renderer::texture>;
 
@@ -40,16 +38,6 @@ namespace
 
 const GLenum texture_type = GL_TEXTURE_2D;
 
-}
-
-sge::ogl::texture::texture(
-	renderer::const_image_view const &src,
-	const renderer::filter_args& filter_,
-	const resource_flag_type flags)
- : detail::texture_base(filter_, flags, texture_type),
-   dim_(renderer::gil_dim_to_sge(src.dimensions()))
-{
-	data_internal(src);
 }
 
 sge::ogl::texture::texture(
@@ -68,22 +56,6 @@ const sge::ogl::texture::dim_type
 sge::ogl::texture::dim() const
 {
 	return dim_;
-}
-
-void sge::ogl::texture::data_internal(
-	renderer::const_image_view const &src)
-{
-	internal_parameters(src);
-	
-	const renderer::scoped_lock<sge::ogl::texture*> lock_(
-		renderer::make_scoped_lock(
-			this,
-			renderer::lock_flags::writeonly));
-
-	boost::gil::copy_and_convert_pixels(
-		src,
-		make_view(
-			src.dimensions()));
 }
 
 sge::renderer::image_view const
@@ -163,15 +135,24 @@ void sge::ogl::texture::unlock() const
 sge::renderer::image_view const
 sge::ogl::texture::view()
 {
-	return make_view(
-		dim());
+	return renderer::make_image_view(
+		write_buffer(),
+		dim(),
+		color_convert(
+			format(),
+			format_type()));
 }
 
 sge::renderer::const_image_view const
 sge::ogl::texture::view() const
 {
-	return make_view(
-		dim());
+	return renderer::make_image_view(
+		static_cast<const_pointer>(
+			write_buffer()),
+		dim(),
+		color_convert(
+			format(),
+			format_type()));
 }
 
 void sge::ogl::texture::set_texture(
@@ -185,39 +166,4 @@ void sge::ogl::texture::set_texture(
 		filter(),
 		dim(),
 		p);
-}
-
-sge::renderer::image_view const
-sge::ogl::texture::make_view(
-	dim_type const &d)
-{
-	return renderer::make_image_view(
-		write_buffer(),
-		d,
-		color_convert(
-			format(),
-			format_type()));
-}
-
-sge::renderer::const_image_view const
-sge::ogl::texture::make_view(
-	dim_type const &d) const
-{
-	return renderer::make_image_view(
-		static_cast<const_pointer>(
-			write_buffer()),
-		d,
-		color_convert(
-			format(),
-			format_type()));
-}
-
-
-sge::renderer::image_view const
-sge::ogl::texture::make_view(
-	renderer::image_view::point_t const &d)
-{
-	return make_view(
-		renderer::gil_dim_to_sge(
-			d));
 }

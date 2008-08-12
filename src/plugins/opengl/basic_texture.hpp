@@ -81,8 +81,6 @@ protected:
 public:
 	~basic_texture();
 	resource_flag_type flags() const;
-	pointer raw_data();
-	const_pointer raw_data() const;
 private:
 	void check_locked() const;
 	void check_not_locked() const;

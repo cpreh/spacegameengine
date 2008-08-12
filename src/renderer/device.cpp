@@ -19,10 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/image_view_algorithm.hpp>
+#include <sge/renderer/image_view_format.hpp>
+#include <sge/renderer/image_view_dim.hpp>
+	#include <sge/renderer/scoped_texture_lock.hpp>
 
 const sge::renderer::texture_ptr sge::renderer::device::no_texture;
 const sge::renderer::texture_ptr sge::renderer::device::default_render_target;
 const sge::renderer::glsl::program_ptr sge::renderer::device::no_program;
+
+
+sge::renderer::texture_ptr const
+sge::renderer::device::create_texture(
+	const_image_view const &v,
+	filter_args const &filter,
+	resource_flag_t const flags)
+{
+	texture_ptr const tex(
+		create_texture(
+			texture::dim_type(image_view_dim(v)),
+			image_view_format(v),
+			filter,
+			flags));
+	
+	scoped_texture_lock const lock(
+		make_scoped_lock(
+			tex,
+			lock_flags::writeonly));
+
+	copy_and_convert_pixels(
+		v,
+		lock.value());
+}
 
 sge::renderer::screen_unit
 sge::renderer::device::screen_width() const

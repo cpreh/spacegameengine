@@ -18,14 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OOPENGL_INSTNATIATE_BUFFER_BASE_HPP_INCLUDED
-#define SGE_OOPENGL_INSTNATIATE_BUFFER_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_IMAGE_VIEW_DIM_HPP_INCLUDED
+#define SGE_RENDERER_IMAGE_VIEW_DIM_HPP_INCLUDED
 
-#include "buffer_base_impl.hpp"
-#include "instantiate_basic_buffer.hpp"
+#include "types.hpp"
+#include "image_view.hpp"
 
-#define SGE_OPENGL_INSTANTIATE_BUFFER_BASE(b, f, v)\
-template class sge::ogl::buffer_base<b, f, v>;\
-SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(f, v)
+namespace sge
+{
+namespace renderer
+{
+
+dim_type const image_view_dim(
+	const_image_view const &);
+
+}
+}
 
 #endif

@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OOPENGL_INSTNATIATE_BUFFER_BASE_HPP_INCLUDED
-#define SGE_OOPENGL_INSTNATIATE_BUFFER_BASE_HPP_INCLUDED
+#include <sge/renderer/image_view_algorithm.hpp>
+#include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
-#include "buffer_base_impl.hpp"
-#include "instantiate_basic_buffer.hpp"
-
-#define SGE_OPENGL_INSTANTIATE_BUFFER_BASE(b, f, v)\
-template class sge::ogl::buffer_base<b, f, v>;\
-SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(f, v)
-
-#endif
+void sge::renderer::copy_and_convert_pixels(
+	const_image_view const &src,
+	image_view const &dest)
+{
+	boost::gil::copy_and_convert_pixels(
+		src,
+		dest);
+}

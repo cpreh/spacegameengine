@@ -18,14 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OOPENGL_INSTNATIATE_BUFFER_BASE_HPP_INCLUDED
-#define SGE_OOPENGL_INSTNATIATE_BUFFER_BASE_HPP_INCLUDED
+#include <sge/renderer/index_buffer_util.hpp>
 
-#include "buffer_base_impl.hpp"
-#include "instantiate_basic_buffer.hpp"
-
-#define SGE_OPENGL_INSTANTIATE_BUFFER_BASE(b, f, v)\
-template class sge::ogl::buffer_base<b, f, v>;\
-SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(f, v)
-
-#endif
+sge::renderer::index_buffer_ptr const
+sge::renderer::resize(
+	index_buffer_ptr const ib,
+	device_ptr const rend,
+	index_buffer::size_type const newsize)
+{
+	// FIXME
+	return rend->create_index_buffer(
+		index_buffer::const_view_type(
+			const_index_view_16(
+			0,
+			newsize)));
+}

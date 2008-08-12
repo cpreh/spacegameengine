@@ -43,6 +43,11 @@ typedef buffer_base<
 class vertex_buffer
 : public detail::vertex_buffer_base {	
 public:
+	typedef detail::vertex_buffer_base base;
+	using base::view_type;
+	using base::const_view_type;
+	using base::resource_flag_type;
+
 	vertex_buffer(
 		const_view_type const &,
 		resource_flag_type flags);

@@ -238,19 +238,6 @@ sge::ogl::device::create_render_target(
 	return fbo_target_ptr(new fbo_target(dim));
 }
 
-const sge::renderer::texture_ptr
-sge::ogl::device::create_texture(
-	renderer::const_image_view const &src,
-	const renderer::filter_args& filter,
-	const renderer::texture::resource_flag_type flags)
-{
-	return renderer::texture_ptr(
-		new texture(
-			src,
-			filter,
-			flags));
-}
-
 sge::renderer::texture_ptr const
 sge::ogl::device::create_texture(
 	renderer::texture::dim_type const &dim,
@@ -291,15 +278,6 @@ sge::ogl::device::create_volume_texture(
 			flags));*/
 }
 #endif
-
-const sge::renderer::cube_texture_ptr
-sge::ogl::device::create_cube_texture(
-	renderer::cube_texture::image_view_6 const &src,
-	const renderer::filter_args& filter,
-	const renderer::cube_texture::resource_flag_type flags)
-{
-	//return renderer::cube_texture_ptr(new cube_texture(src, filter, flags));
-}
 
 sge::renderer::cube_texture_ptr const
 sge::ogl::device::create_cube_texture(
@@ -363,8 +341,9 @@ void sge::ogl::device::render(
 
 	glDrawElements(
 		prim_type,
-		static_cast<GLsizei>(renderer::indices_per_primitive(ptype) * pcount),
-		gl_ib.stride() == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, // TODO: catch errornous strides
+		static_cast<GLsizei>(
+			renderer::indices_per_primitive(ptype) * pcount),
+		gl_ib.format(),
 		gl_ib.buffer_offset(
 			first_index));
 }

@@ -22,15 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_BASE_IMPL_HPP_INCLUDED
 
 #include "buffer_base.hpp"
+#include "basic_buffer_impl.hpp"
+#include "vbo_base.hpp"
 
 template<
 	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 sge::ogl::buffer_base<Base, Type, Impl>::buffer_base(
 	size_type const sz,
 	size_type const stride,
-	resources_flag_type const flags,
+	resource_flag_type const flags,
 	const_pointer const src)
 : buf(
 	sz,
@@ -41,8 +43,8 @@ sge::ogl::buffer_base<Base, Type, Impl>::buffer_base(
 
 template<
 	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 typename sge::ogl::buffer_base<Base, Type, Impl>::pointer
 sge::ogl::buffer_base<Base, Type, Impl>::data()
 {
@@ -51,8 +53,8 @@ sge::ogl::buffer_base<Base, Type, Impl>::data()
 
 template<
 	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 typename sge::ogl::buffer_base<Base, Type, Impl>::const_pointer
 sge::ogl::buffer_base<Base, Type, Impl>::data() const
 {
@@ -61,8 +63,8 @@ sge::ogl::buffer_base<Base, Type, Impl>::data() const
 
 template<
 	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 typename sge::ogl::buffer_base<Base, Type, Impl>::size_type
 sge::ogl::buffer_base<Base, Type, Impl>::lock_size() const
 {
@@ -71,8 +73,27 @@ sge::ogl::buffer_base<Base, Type, Impl>::lock_size() const
 
 template<
 	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
+typename sge::ogl::buffer_base<Base, Type, Impl>::size_type
+sge::ogl::buffer_base<Base, Type, Impl>::stride() const
+{
+	return buf.stride();
+}
+
+template<
+	typename Base,
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
+void sge::ogl::buffer_base<Base, Type, Impl>::bind_me() const
+{
+	return buf.bind_me();
+}
+
+template<
+	typename Base,
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 typename sge::ogl::buffer_base<Base, Type, Impl>::view_type const
 sge::ogl::buffer_base<Base, Type, Impl>::lock(
 	lock_flag_type const flags,
@@ -88,8 +109,8 @@ sge::ogl::buffer_base<Base, Type, Impl>::lock(
 
 template<
 	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 typename sge::ogl::buffer_base<Base, Type, Impl>::const_view_type const
 sge::ogl::buffer_base<Base, Type, Impl>::lock(
 	size_type const first,
@@ -104,8 +125,8 @@ sge::ogl::buffer_base<Base, Type, Impl>::lock(
 
 template<
 	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 void sge::ogl::buffer_base<Base, Type, Impl>::unlock() const
 {
 	buf.unlock();
@@ -113,8 +134,8 @@ void sge::ogl::buffer_base<Base, Type, Impl>::unlock() const
 
 template<
 	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 typename sge::ogl::buffer_base<Base, Type, Impl>::size_type
 sge::ogl::buffer_base<Base, Type, Impl>::size() const
 {
@@ -123,18 +144,8 @@ sge::ogl::buffer_base<Base, Type, Impl>::size() const
 
 template<
 	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
-typename sge::ogl::buffer_base<Base, Type, Impl>::size_type
-sge::ogl::buffer_base<Base, Type, Impl>::stride() const
-{
-	return buf.stride();
-}
-
-template<
-	typename Base,
-	GLenum Type,
-	vbo_base &(*Impl)()>
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 typename sge::ogl::buffer_base<Base, Type, Impl>::resource_flag_type
 sge::ogl::buffer_base<Base, Type, Impl>::flags() const
 {

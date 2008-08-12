@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 
+#include "common.hpp"
 #include "buffer_base.hpp"
 #include "vbo.hpp"
 #include <sge/renderer/index_buffer.hpp>
@@ -41,9 +42,17 @@ typedef buffer_base<
 class index_buffer
 : public detail::index_buffer_base {
 public:
+	typedef detail::index_buffer_base base;
+	using base::size_type;
+	using base::const_pointer;
+
 	index_buffer(
 		const_view_type const &,
 		resource_flag_type flags);
+	GLenum format() const;
+	const_pointer buffer_offset(
+		size_type) const;
+	void bind_me() const;
 private:
 	view_type const view();
 	const_view_type const view() const;

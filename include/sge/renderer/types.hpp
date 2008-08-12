@@ -59,6 +59,7 @@ typedef math::vector3  pos3;
 
 typedef std::size_t stage_type;
 
+typedef math::basic_dim<std::size_t, 2> dim_type;
 typedef math::basic_rect<std::size_t> lock_rect; // FIXME: use a consistent typedef for std::size_t!
 
 }

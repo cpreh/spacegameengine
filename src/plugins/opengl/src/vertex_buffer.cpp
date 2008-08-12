@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../basic_buffer_impl.hpp"
 #include "../vbo.hpp"
+#include "../instantiate_buffer_base.hpp"
 
-template class sge::ogl::basic_buffer<
+SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 	sge::renderer::vertex_buffer,
 	sge::ogl::vertex_buffer_type,
-	sge::ogl::vb_ib_vbo_impl>;
+	sge::ogl::vb_ib_vbo_impl)
 
 sge::ogl::vertex_buffer::vertex_buffer(
-	const_vertex_view_type const &src,
+	const_view_type const &src,
 	resource_flag_type const flags)
  :	detail::vertex_buffer_base(
 		src.size(),

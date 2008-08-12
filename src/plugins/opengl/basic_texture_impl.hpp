@@ -198,22 +198,6 @@ sge::ogl::basic_texture<Base>::flags() const
 }
 
 template<typename Base>
-typename sge::ogl::basic_texture<Base>::pointer
-sge::ogl::basic_texture<Base>::raw_data()
-{
-	check_locked();
-	//return cur_buffer->data();
-}
-
-template<typename Base>
-typename sge::ogl::basic_texture<Base>::const_pointer
-sge::ogl::basic_texture<Base>::raw_data() const
-{
-	check_locked();
-	//return cur_buffer->data();
-}
-
-template<typename Base>
 void sge::ogl::basic_texture<Base>::check_locked() const
 {
 	if(!lock_)

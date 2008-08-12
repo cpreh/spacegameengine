@@ -41,10 +41,6 @@ typedef basic_texture<renderer::texture> texture_base;
 class texture : public detail::texture_base {
 public:
 	texture(
-		renderer::const_image_view const &src,
-		renderer::filter_args const &filter,
-		resource_flag_type flags);
-	texture(
 		dim_type const &,
 		renderer::color_format::type format,
 		renderer::filter_args const &filter,
@@ -68,18 +64,8 @@ private:
 	renderer::image_view const view();
 	renderer::const_image_view const view() const;
 	
-	void data_internal(
-		renderer::const_image_view const &src);
 	void set_texture(
 		const_pointer src) const;
-
-	renderer::image_view const make_view(
-		dim_type const &);
-	renderer::const_image_view const make_view(
-		dim_type const &) const;
-
-	renderer::image_view const make_view(
-		renderer::image_view::point_t const &);
 
 	dim_type                      dim_;
 	boost::optional<
