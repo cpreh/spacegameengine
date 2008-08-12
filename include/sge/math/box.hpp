@@ -44,7 +44,7 @@ public:
 	value_type w() const;
 	value_type h() const;
 	value_type d() const;
-	value_type size() const;
+	value_type content() const;
 
 	const_reference left() const;
 	const_reference top() const;
