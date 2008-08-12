@@ -42,7 +42,7 @@ public:
 	virtual void lock(lock_rect const &, lock_flag_t) = 0;
 	virtual void unlock() = 0;
 
-	size_type content() const;
+	size_type area() const;
 	virtual const image_view view() = 0;
 	virtual const const_image_view view() const = 0;
 private:

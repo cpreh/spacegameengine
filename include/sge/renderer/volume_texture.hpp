@@ -54,7 +54,7 @@ public:
 		lock_flag_type) = 0;
 	virtual void unlock() = 0;
 
-	size_type size() const;
+	size_type volume() const;
 
 	//virtual image_view_array const &data() = 0;
 private:
