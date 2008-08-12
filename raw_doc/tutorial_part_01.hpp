@@ -108,7 +108,8 @@ stored in the fast VRAM of your graphics card instead of the system RAM.
 Creating textures is the renderer's job:
 
 \code
-sge::renderer::texture_ptr image_texture = sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
+sge::renderer::texture_ptr image_texture = 
+	sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
 \endcode
 
 Files to include: <sge/renderer/texture_filter.hpp>
@@ -202,7 +203,8 @@ try
 
 	sge::sprite::system ss(sys.renderer);
 	sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("tux.png"));
-	sge::renderer::texture_ptr image_texture = sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
+	sge::renderer::texture_ptr image_texture = 
+		sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
 	sge::sprite::object my_object(
 			sge::sprite::point(0,0),
 			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
