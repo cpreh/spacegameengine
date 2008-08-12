@@ -58,11 +58,15 @@ class input_functor
 Headers to include <sge/input/key_type.hpp>
 
 The functor gets the bool <tt>running</tt> as a reference so any change inside
-the class will have an effect on the "outside world". In <tt>operator()</tt>, we
-check the key code against a predefined constant <tt>sge::kc::key_escape</tt>
-which should match the escape key on your keyboard. Insert the functor somewhere
-in your code before <tt>main</tt> (maybe you choose to put it a seperate header)
-and insert the following snippet just before <tt>while (running)</tt>:
+the class will have an effect on the "outside world". In <tt>operator()</tt>,
+we check the key code against a predefined constant
+<tt>sge::input::kc::key_escape</tt> which should match the escape key on your
+keyboard. The sge::input::kc enum contains all the keys sge supports, as well
+as mouse and joystick axes. 
+
+Insert the functor somewhere in your code before <tt>main</tt> (maybe you
+choose to put it a seperate header) and insert the following snippet just
+before <tt>while (running)</tt>:
 
 \code
 sge::scoped_connection conn = 
@@ -73,9 +77,13 @@ Headers to include <sge/scoped_connection.hpp>
 
 You can now compile and run the program <em>and</em> - close it with the escape key!
 
+The sge::scoped_connection tracks your input connection and closes it when the
+<tt>conn</tt> is destroyed (which is incidentally the point where your
+input_functor is destroyed as well). 
+
 Now, just for the fun of it, lets make tux follow your mouse. We could use the
-same input functor again, but let's write another one (it serves a completely
-different purpose, after all):
+same input functor again, but let's write another one - it serves a completely
+different purpose, after all:
 
 \code
 class sprite_functor
@@ -102,7 +110,7 @@ class sprite_functor
 \endcode
 
 This time, we not only use sge::input::key_pair::key but also
-sge::input::key_pair::key value to measure how many pixels the mouse moved. We update the sprite's position according to this value. Insert the following somewhere before <tt>while (running)</tt>:
+sge::input::key_pair::value to measure how many pixels the mouse moved. We update the sprite's position according to this value. Insert the following somewhere before <tt>while (running)</tt>:
 
 \code
 sge::scoped_connection conn_other =
@@ -218,6 +226,6 @@ catch (std::exception const &e)
 \endcode
 
 In case you're wondering why I break long lines, that's because the pdf
-converter can't handle those lines.
+converter can't handle those properly.
 
 */
