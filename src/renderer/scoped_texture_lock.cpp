@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/instantiate_scoped_lock.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 sge::renderer::scoped_texture_lock_wrapper const
 sge::renderer::make_scoped_lock(

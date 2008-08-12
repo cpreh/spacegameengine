@@ -68,8 +68,7 @@ sge::ogl::texture::lock(
 		convert_lock_method(lmode),
 		size(),
 		0,
-		must_read
-		? 0 : 0);
+		0);
 	
 	if(must_read)
 		get_tex_image(

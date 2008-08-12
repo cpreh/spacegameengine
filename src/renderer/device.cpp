@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view_algorithm.hpp>
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-	#include <sge/renderer/scoped_texture_lock.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
 
 const sge::renderer::texture_ptr sge::renderer::device::no_texture;
 const sge::renderer::texture_ptr sge::renderer::device::default_render_target;

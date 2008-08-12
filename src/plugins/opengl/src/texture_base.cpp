@@ -25,6 +25,9 @@ sge::ogl::texture_base::texture_base(
  : type_(type_)
 {}
 
+sge::ogl::texture_base::~texture_base()
+{}
+
 GLenum sge::ogl::texture_base::type() const
 {
 	return type_;
