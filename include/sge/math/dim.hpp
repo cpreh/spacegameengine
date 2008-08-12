@@ -260,6 +260,10 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return Dim;
 	}
 
+	/**
+	 * Returns the product of all components, so the length/area/volume/... of
+	 * the dimension
+	 */
 	size_type content() const
 	{
 		return std::accumulate(begin(), end(), 1, std::multiplies<size_type>());
