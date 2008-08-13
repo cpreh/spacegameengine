@@ -79,7 +79,7 @@ headers, so if you wonder why you get <em>undefined references</em> when
 compiling your code, look for missing <em>_impl</em> headers.
 
 Now for the tricky part, loading the image and attaching it to a sge::sprite.
-We'll be using the image called \emph{tux.png} which is located in
+We'll be using the image called \em tux.png which is located in
 the \em image directory under the documentation directory. Just
 copy it into the directory of your sample application. First, we use the image
 loader to load the image:
