@@ -65,3 +65,9 @@ sge::ogl::readonly_texture_lock::read_pointer() const
 	// FIXME: use our buffer instead
 	return buffer.buffer_offset(offset * stride);
 }
+
+sge::ogl::lock_method::type
+sge::ogl::readonly_texture_lock::method() const
+{
+	return lock_method::readonly;
+}

@@ -45,6 +45,8 @@ public:
 
 	pointer write_pointer() const;
 private:
+	lock_method::type method() const;
+
 	pixel_unpack_buffer buffer;
 };
 

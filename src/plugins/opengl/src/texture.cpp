@@ -80,8 +80,13 @@ sge::ogl::texture::lock(
 	return view();
 }
 
+#include <sge/iostream.hpp>
+#include <sge/text.hpp>
+#include <ostream>
+
 void sge::ogl::texture::unlock() const
 {
+	cerr << SGE_TEXT("unlock\n");
 	pre_unlock();
 	if(lock_flag_write(lock_mode()))
 	{
@@ -129,9 +134,15 @@ void sge::ogl::texture::lock_me(
 	post_lock();
 
 	if(l == rect())
+	{
+		cerr << SGE_TEXT("lock all: ") << dim() << SGE_TEXT("\n");
 		lock_rect_.reset();
+	}
 	else
+	{
+		cerr << SGE_TEXT("lock part: ") << l << SGE_TEXT("\n");
 		lock_rect_ = l;
+	}
 }
 
 sge::renderer::image_view const

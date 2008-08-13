@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_LOCK_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_LOCK_HPP_INCLUDED
 
+#include "lock_method.hpp"
 #include <boost/noncopyable.hpp>
 #include <cstddef>
 
@@ -45,6 +46,8 @@ public:
 	virtual pointer write_pointer() const = 0;
 
 	virtual pointer read_pointer() const = 0;
+
+	virtual lock_method::type method() const = 0;
 };
 
 }

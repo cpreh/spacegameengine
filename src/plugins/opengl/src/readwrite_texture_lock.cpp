@@ -65,3 +65,9 @@ sge::ogl::readwrite_texture_lock::read_pointer() const
 {
 	return read_lock.read_pointer();
 }
+
+sge::ogl::lock_method::type
+sge::ogl::readwrite_texture_lock::method() const
+{
+	return lock_method::readwrite;
+}

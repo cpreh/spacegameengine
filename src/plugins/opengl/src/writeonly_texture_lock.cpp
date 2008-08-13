@@ -56,3 +56,9 @@ sge::ogl::writeonly_texture_lock::read_pointer() const
 	throw exception(
 		SGE_TEXT("Can't get a read pointer to a writeonly lock!"));
 }
+
+sge::ogl::lock_method::type
+sge::ogl::writeonly_texture_lock::method() const
+{
+	return lock_method::writeonly;
+}

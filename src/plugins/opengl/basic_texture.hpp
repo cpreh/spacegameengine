@@ -93,7 +93,7 @@ private:
 	GLenum                                 format_,
 	                                       format_type_;
 	size_type                              stride_;
-	lock_method::type                      lock_method_;
+
 	typedef boost::scoped_ptr<
 		texture_lock>                  scoped_lock_ptr;
 	mutable scoped_lock_ptr                lock_;

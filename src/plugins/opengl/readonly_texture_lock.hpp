@@ -48,6 +48,8 @@ public:
 
 	pointer write_pointer() const;
 private:
+	lock_method::type method() const;
+
 	pixel_pack_buffer      buffer;
 	size_type              offset,
 	                       stride,

@@ -107,7 +107,9 @@ template<typename Base>
 sge::ogl::lock_method::type
 sge::ogl::basic_texture<Base>::lock_mode() const
 {
-	return lock_method_;
+	check_locked();
+
+	return lock_->method();
 }
 
 template<typename Base>
@@ -180,7 +182,10 @@ sge::ogl::basic_texture<Base>::basic_texture(
  : texture_base(type_),
    filter_(filter_),
    flags_(flags_),
-   id_(gen_texture())
+   id_(gen_texture()),
+   format_(0), // FIXME: they are immutable, so set them in the ctor!
+   format_type_(0),
+   stride_(0)
 {}
 
 template<typename Base>

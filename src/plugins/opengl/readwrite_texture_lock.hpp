@@ -48,6 +48,8 @@ private:
 
 	pointer write_pointer() const;
 
+	lock_method::type method() const;
+
 	readonly_texture_lock  read_lock;
 	writeonly_texture_lock write_lock;
 };
