@@ -71,8 +71,6 @@ void sge::ogl::set_texture(
 {
 	SGE_OPENGL_SENTRY
 	
-	sge::cerr << SGE_TEXT("texture: ") << dim << SGE_TEXT(", ") << static_cast<void const *>(src) << SGE_TEXT("\n");
-
 	if(dim.w() < 64 || dim.h() < 64)
 		log::global(log::level::warning) << SGE_TEXT("warning: opengl implementations are not required to support textures smaller than 64x64.")\
 		                                    SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n");
@@ -134,8 +132,6 @@ void sge::ogl::set_texture_rect(
 {
 	SGE_OPENGL_SENTRY
 	
-	sge::cerr << SGE_TEXT("sub_texture: ") << dim << SGE_TEXT(' ') << r << SGE_TEXT('\n');
-
 	if(!src)
 		throw exception(SGE_TEXT("ogl::set_texture_rect(): src is 0!"));
 
@@ -192,6 +188,8 @@ void sge::ogl::bind_texture(
 {
 	SGE_OPENGL_SENTRY
 	
+	// TODO: maybe cache this here
+
 	glBindTexture(type, value);
 }
 
