@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture_util.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/renderer/image_view_dim.hpp>
+#include <sge/renderer/image_view_algorithm.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
 
 void sge::renderer::sub_data(
@@ -33,11 +34,10 @@ void sge::renderer::sub_data(
 			tex,
 			lock_rect(
 				p,
-				gil_dim_to_sge(
-					view.dimensions())),
+				image_view_dim(view)),
 			lock_flags::writeonly));
 
-	boost::gil::copy_and_convert_pixels(
+	copy_and_convert_pixels(
 		view,
 		lock_.value());
 }
