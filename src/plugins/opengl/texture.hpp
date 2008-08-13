@@ -63,6 +63,8 @@ private:
 
 	renderer::image_view const view();
 	renderer::const_image_view const view() const;
+
+	dim_type const lock_dim() const;
 	
 	void set_texture(
 		const_pointer src) const;

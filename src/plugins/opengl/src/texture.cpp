@@ -137,7 +137,7 @@ sge::ogl::texture::view()
 {
 	return renderer::make_image_view(
 		write_buffer(),
-		dim(),
+		lock_dim(),
 		color_convert(
 			format(),
 			format_type()));
@@ -149,10 +149,18 @@ sge::ogl::texture::view() const
 	return renderer::make_image_view(
 		static_cast<const_pointer>(
 			write_buffer()),
-		dim(),
+		lock_dim(),
 		color_convert(
 			format(),
 			format_type()));
+}
+
+sge::ogl::texture::dim_type const
+sge::ogl::texture::lock_dim() const
+{
+	return lock_rect_
+		? lock_rect_->dim()
+		: dim();
 }
 
 void sge::ogl::texture::set_texture(
