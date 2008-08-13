@@ -107,11 +107,13 @@ void sge::ogl::texture::lock_me(
 {
 	bool const must_read = lock_flag_read(method);
 
+	// if we must read we have to lock the whole texture
+	// and set the lock size, the offset and the pitch accordingly
 	do_lock(
 		method,
 		must_read
-			? size()
-			: l.size(),
+			? content()
+			: l.area(),
 		must_read
 			? l.left() + l.top() * dim().w()
 			: 0,

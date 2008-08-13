@@ -70,11 +70,10 @@ void sge::ogl::basic_texture<Base>::do_lock(
 			method,
 			lock_size,
 			offset,
-			size(),
+			content(),
 			stride(),
 			pitch,
 			flags()));
-
 
 	lock_.swap(
 		new_lock);

@@ -47,7 +47,6 @@ public:
 	virtual const_image_view const lock(lock_rect const &) const = 0;
 
 	virtual void unlock() const = 0;
-	size_type size() const;
 	rect_type const rect() const;
 
 	size_type content() const;

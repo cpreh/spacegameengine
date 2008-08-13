@@ -47,6 +47,8 @@ void sge::ogl::readwrite_texture_lock::post_lock()
 
 void sge::ogl::readwrite_texture_lock::pre_unlock()
 {
+	// FIXME: copy the read buffer to the write buffer
+	// potentially optimize this and read directly from the write buffer!
 	write_lock.post_lock();
 	read_lock.pre_unlock();
 	write_lock.pre_unlock();

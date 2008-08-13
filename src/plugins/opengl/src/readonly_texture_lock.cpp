@@ -43,10 +43,12 @@ void sge::ogl::readonly_texture_lock::post_lock()
 {
 	buffer.lock(
 		lock_method::readonly);
+	// FIXME: copy the stuff over in our buffer
 }
 
 void sge::ogl::readonly_texture_lock::pre_unlock()
 {
+	// FIXME: copy our buffer over in the lock_buffer
 	buffer.unlock();
 }
 
@@ -60,5 +62,6 @@ sge::ogl::readonly_texture_lock::write_pointer() const
 sge::ogl::readonly_texture_lock::pointer
 sge::ogl::readonly_texture_lock::read_pointer() const
 {
+	// FIXME: use our buffer instead
 	return buffer.buffer_offset(offset * stride);
 }
