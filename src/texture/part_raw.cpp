@@ -21,13 +21,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/texture_util.hpp>
 #include <sge/math/rect_impl.hpp>
+#include <sge/iostream.hpp>
 
 sge::texture::part_raw::part_raw(
-	renderer::lock_rect const &area_,
-	const renderer::texture_ptr tex)
+	const renderer::texture_ptr tex,
+	renderer::lock_rect const &area_)
 : area_(area_),
   tex(tex)
 {}
+
+sge::texture::part_raw::part_raw(
+  const renderer::texture_ptr tex)
+: area_(
+    static_cast<renderer::lock_rect::value_type>(0),
+    static_cast<renderer::lock_rect::value_type>(0),
+    static_cast<renderer::lock_rect::value_type>(tex->dim().w()),
+    static_cast<renderer::lock_rect::value_type>(tex->dim().h())
+    ),
+  tex(tex)
+{
+	sge::cerr << "added part with dimensions " << area_ << "\n";
+}
 
 void sge::texture::part_raw::data(
 	renderer::const_image_view const &src)

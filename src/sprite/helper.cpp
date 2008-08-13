@@ -116,12 +116,12 @@ sge::sprite::fill_indices(
 	index_view::iterator it,
 	const index_view::value_type start)
 {
-	(*it++) = start + 0;
-	(*it++) = start + 1;
-	(*it++) = start + 2;
-	(*it++) = start + 0;
-	(*it++) = start + 2;
-	(*it++) = start + 3;
+	(*it++) = static_cast<index_view::value_type>(start + 0);
+	(*it++) = static_cast<index_view::value_type>(start + 1);
+	(*it++) = static_cast<index_view::value_type>(start + 2);
+	(*it++) = static_cast<index_view::value_type>(start + 0);
+	(*it++) = static_cast<index_view::value_type>(start + 2);
+	(*it++) = static_cast<index_view::value_type>(start + 3);
 
 	return it;
 }

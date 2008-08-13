@@ -51,7 +51,7 @@ try
 {
 	sge::systems sys;
 	sys.init<sge::init::core>();
-	sys.init<sge::init::renderer>(1024, 768);
+	sys.init<sge::init::renderer>(sge::renderer::screen_size_t(1024, 768));
 	sys.init<sge::init::input>();
 	sys.init<sge::init::image_loader>();
 	

@@ -58,7 +58,7 @@ typename sge::math::basic_box<T>::value_type sge::math::basic_box<T>::d() const
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::value_type sge::math::basic_box<T>::size() const
+typename sge::math::basic_box<T>::value_type sge::math::basic_box<T>::volume() const
 {
 	return w() * h() * d();
 }

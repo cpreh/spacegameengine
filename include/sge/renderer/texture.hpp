@@ -49,6 +49,8 @@ public:
 	virtual void unlock() const = 0;
 	size_type size() const;
 	rect_type const rect() const;
+
+	size_type content() const;
 };
 
 const texture::dim_type gil_dim_to_sge(image_view::point_t const &);

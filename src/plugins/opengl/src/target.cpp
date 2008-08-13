@@ -44,7 +44,7 @@ void sge::ogl::target::lock(
 
 	buffer.reset(
 		new pixel_pack_buffer(
-			dest.dim().size(),
+			dest.dim().content(),
 			stride(),
 			renderer::resource_flags::none,
 			0));

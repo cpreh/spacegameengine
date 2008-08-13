@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 sge::renderer::texture::size_type
-sge::renderer::texture::size() const
+sge::renderer::texture::content() const
 {
-	return dim().size();
+	return dim().content();
 }
 
 sge::renderer::image_view const
