@@ -68,17 +68,14 @@ protected:
 
 	size_type stride() const;
 
-	void internal_parameters(
-		renderer::const_image_view const &src);
-	void format_internal(
-		renderer::color_format::type);
 	GLenum format() const;
 	GLenum format_type() const;
 
 	basic_texture(
 		const renderer::filter_args& filter,
 		resource_flag_type flags,
-		GLenum type);
+		GLenum type,
+		renderer::color_format::type);
 public:
 	~basic_texture();
 	resource_flag_type flags() const;
@@ -86,13 +83,13 @@ private:
 	void check_locked() const;
 	void check_not_locked() const;
 
-	renderer::filter_args                  filter_;
-	resource_flag_type                     flags_;
-	GLuint                                 id_;
+	renderer::filter_args const            filter_;
+	resource_flag_type const               flags_;
+	GLuint const                           id_;
 
-	GLenum                                 format_,
+	GLenum const                           format_,
 	                                       format_type_;
-	size_type                              stride_;
+	size_type const                        stride_;
 
 	typedef boost::scoped_ptr<
 		texture_lock>                  scoped_lock_ptr;

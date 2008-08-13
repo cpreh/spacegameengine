@@ -49,7 +49,11 @@ sge::ogl::cube_texture::cube_texture(
 	image_view_6 const &src,
 	renderer::filter_args const &filter,
 	const resource_flag_type flags)
- : detail::cube_texture_base(filter, flags, cube_texture_type()),
+ : detail::cube_texture_base(
+ 	filter,
+	flags,
+	cube_texture_type(),
+	renderer::color_format::rgba8), // FIXME
   sz(0)
 {
 	if(!have_cube_texture())

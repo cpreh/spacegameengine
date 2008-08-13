@@ -145,24 +145,6 @@ sge::ogl::basic_texture<Base>::stride() const
 }
 
 template<typename Base>
-void sge::ogl::basic_texture<Base>::internal_parameters(
-	renderer::const_image_view const &src)
-{
-	format_internal(
-		renderer::image_view_format(
-			src));
-}
-
-template<typename Base>
-void sge::ogl::basic_texture<Base>::format_internal(
-	renderer::color_format::type const fmt)
-{
-	format_ = to_format(fmt);
-	format_type_ = to_format_type(fmt);
-	stride_ = renderer::color_format_stride(fmt);
-}
-
-template<typename Base>
 GLenum sge::ogl::basic_texture<Base>::format() const
 {	
 	return format_;
@@ -176,16 +158,20 @@ GLenum sge::ogl::basic_texture<Base>::format_type() const
 
 template<typename Base>
 sge::ogl::basic_texture<Base>::basic_texture(
-	const renderer::filter_args& filter_,
-	const resource_flag_type flags_,
-	const GLenum type_)
+	renderer::filter_args const &filter_,
+	resource_flag_type const flags_,
+	GLenum const type_,
+	renderer::color_format::type const cformat)
  : texture_base(type_),
    filter_(filter_),
    flags_(flags_),
    id_(gen_texture()),
-   format_(0), // FIXME: they are immutable, so set them in the ctor!
-   format_type_(0),
-   stride_(0)
+   format_(
+   	to_format(cformat)),
+   format_type_(
+   	to_format_type(cformat)),
+   stride_(
+	renderer::color_format_stride(cformat))
 {}
 
 template<typename Base>

@@ -45,10 +45,13 @@ sge::ogl::texture::texture(
 	renderer::color_format::type const format_,
 	renderer::filter_args const &filter,
 	resource_flag_type const flags)
-: detail::texture_base(filter, flags, texture_type),
+: detail::texture_base(
+	filter,
+	flags,
+	texture_type,
+	format_),
   dim_(d)
 {
-	format_internal(format_);
 	set_texture(0);	
 }
 
