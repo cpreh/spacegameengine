@@ -17,7 +17,8 @@ headers are not even included indirectly (except the boost headers).
 
 Specific backends like opengl are plugins which can be loaded and unloaded at
 runtime. For every plugin type there is an abstract core interface plus
-additional interfaces that
+additional interfaces that can be obtained from those. Here are the plugin
+types supported by sge: 
 
 - audio_loader (wave, vorbis)
 - audio_player (openal)
@@ -76,7 +77,7 @@ For Gentoo users an ebuild is provided in the repository.
 
 \section d Dependencies
 <b>Note that some of these libraries may in turn require additional libraries by themselves.</b>
-\subsection Build time
+\subsection bt Build time
 - cmake
 - pkgconfig
 
@@ -97,5 +98,6 @@ For Gentoo users an ebuild is provided in the repository.
 - Tutorials:
 	-# \subpage tut_begin
 	-# \subpage textures
+	-# \subpage console
 - \subpage faq
 */
