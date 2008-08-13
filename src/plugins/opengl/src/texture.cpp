@@ -60,53 +60,23 @@ sge::ogl::texture::dim() const
 
 sge::renderer::image_view const
 sge::ogl::texture::lock(
+	renderer::lock_rect const &r,
 	lock_flag_type const lmode)
 {
-	bool const must_read = renderer::lock_flag_read(lmode);
-
-	do_lock(
-		convert_lock_method(lmode),
-		size(),
-		0,
-		0);
-	
-	if(must_read)
-		get_tex_image(
-			format(),
-			format_type(),
-			read_buffer());
-	post_lock();
-	lock_rect_.reset();
-
+	lock_me(
+		r,
+		convert_lock_method(
+			lmode));
 	return view();
 }
 
-sge::renderer::image_view const
+sge::renderer::const_image_view const
 sge::ogl::texture::lock(
-	renderer::lock_rect const &l,
-	lock_flag_type const lmode)
+	renderer::lock_rect const &l) const
 {
-	bool const must_read = renderer::lock_flag_read(lmode);
-
-	do_lock(
-		convert_lock_method(lmode),
-		must_read
-			? size()
-			: l.size(),
-		must_read
-			? l.left() + l.top() * dim().w()
-			: 0,
-		must_read
-			? dim().w() - l.dim().w()
-			: 0);
-	if(must_read)
-		get_tex_image(
-			format(),
-			format_type(),
-			read_buffer());
-	post_lock();
-	lock_rect_ = l;
-
+	lock_me(
+		l,
+		lock_method::readonly);
 	return view();
 }
 
@@ -129,6 +99,37 @@ void sge::ogl::texture::unlock() const
 				write_buffer());
 	}
 	do_unlock();
+}
+
+void sge::ogl::texture::lock_me(
+	renderer::lock_rect const &l,
+	lock_method::type const method) const
+{
+	bool const must_read = lock_flag_read(method);
+
+	do_lock(
+		method,
+		must_read
+			? size()
+			: l.size(),
+		must_read
+			? l.left() + l.top() * dim().w()
+			: 0,
+		must_read
+			? dim().w() - l.dim().w()
+			: 0);
+	if(must_read)
+		get_tex_image(
+			format(),
+			format_type(),
+			read_buffer());
+
+	post_lock();
+
+	if(l == rect())
+		lock_rect_.reset();
+	else
+		lock_rect_ = l;
 }
 
 sge::renderer::image_view const

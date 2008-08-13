@@ -58,3 +58,9 @@ bool sge::ogl::lock_flag_write(
 {
 	return m != lock_method::readonly;
 }
+
+bool sge::ogl::lock_flag_read(
+	lock_method::type const m)
+{
+	return m != lock_method::writeonly;
+}

@@ -36,8 +36,6 @@ public:
 	typedef value_type *pointer;
 	typedef value_type const *const_pointer;
 
-	texture_lock();
-	
 	virtual ~texture_lock();
 		
 	virtual void post_lock() = 0;

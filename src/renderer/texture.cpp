@@ -27,6 +27,26 @@ sge::renderer::texture::size() const
 	return dim().size();
 }
 
+sge::renderer::image_view const
+sge::renderer::texture::lock(lock_flag_t const flags)
+{
+	return lock(rect(), flags);
+}
+
+sge::renderer::const_image_view const
+sge::renderer::texture::lock() const
+{
+	return lock(rect());
+}
+
+sge::renderer::texture::rect_type const
+sge::renderer::texture::rect() const
+{
+	return rect_type(
+		rect_type::point_type(0,0),
+		dim());
+}
+
 const sge::renderer::texture::dim_type
 sge::renderer::gil_dim_to_sge(image_view::point_t const &d)
 {

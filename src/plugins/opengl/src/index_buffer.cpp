@@ -55,6 +55,18 @@ GLenum sge::ogl::index_buffer::format() const
 	}
 }
 
+sge::ogl::index_buffer::const_pointer
+sge::ogl::index_buffer::buffer_offset(
+	size_type const sz) const
+{
+	return base::buffer_offset(sz);
+}
+
+void sge::ogl::index_buffer::bind_me() const
+{
+	base::bind_me();
+}
+
 // TODO: how can we simplify this?
 sge::renderer::dynamic_index_view const
 sge::ogl::index_buffer::view()

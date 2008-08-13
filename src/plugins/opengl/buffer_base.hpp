@@ -61,6 +61,8 @@ protected:
 	size_type lock_size() const;
 	size_type stride() const;
 	void bind_me() const;
+	const_pointer buffer_offset(
+		size_type) const;
 private:
 	view_type const lock(
 		lock_flag_type flags,

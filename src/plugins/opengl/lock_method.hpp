@@ -47,6 +47,8 @@ GLuint ogl_lock_method(
 
 bool lock_flag_write(
 	lock_method::type);
+bool lock_flag_read(
+	lock_method::type);
 
 }
 }

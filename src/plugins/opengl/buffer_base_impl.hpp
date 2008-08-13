@@ -87,7 +87,18 @@ template<
 	sge::ogl::vbo_base &(*Impl)()>
 void sge::ogl::buffer_base<Base, Type, Impl>::bind_me() const
 {
-	return buf.bind_me();
+	buf.bind_me();
+}
+
+template<
+	typename Base,
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
+typename sge::ogl::buffer_base<Base, Type, Impl>::const_pointer
+sge::ogl::buffer_base<Base, Type, Impl>::buffer_offset(
+	size_type const sz) const
+{
+	return buf.buffer_offset(sz);
 }
 
 template<
