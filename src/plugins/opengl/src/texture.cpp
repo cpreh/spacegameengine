@@ -116,7 +116,7 @@ void sge::ogl::texture::lock(
 {
 	do_lock(
 		lmode,
-		area(),
+		content(),
 		0);
 	if(renderer::lock_flag_read(lock_mode()))
 		get_tex_image(
@@ -135,7 +135,7 @@ void sge::ogl::texture::lock(
 	do_lock(
 		lmode,
 		must_read
-			? area()
+			? content()
 			: l.area(),
 		must_read
 			? l.left() + l.top() * dim().w()

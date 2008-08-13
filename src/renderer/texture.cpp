@@ -43,7 +43,7 @@ void sge::renderer::texture::sub_data(
 }
 
 sge::renderer::texture::size_type
-sge::renderer::texture::area() const
+sge::renderer::texture::content() const
 {
 	return dim().content();
 }
