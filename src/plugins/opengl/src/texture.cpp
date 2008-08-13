@@ -115,17 +115,21 @@ void sge::ogl::texture::lock_me(
 
 	// if we must read we have to lock the whole texture
 	// and set the lock size, the offset and the pitch accordingly
-	do_lock(
-		method,
-		must_read
-			? content()
-			: l.area(),
-		must_read
-			? l.left() + l.top() * dim().w()
-			: 0,
-		must_read
-			? dim().w() - l.dim().w()
-			: 0);
+	if(must_read)
+		do_lock(
+			method,
+			content(),
+			l.left() + l.top() * dim().w(),
+			dim().w() - l.dim().w(),
+			dim().w());
+	else
+		do_lock(
+			method,
+			l.area(),
+			0,
+			0,
+			0);
+	
 	if(must_read)
 		get_tex_image(
 			format(),
@@ -156,7 +160,7 @@ sge::ogl::texture::view() const
 {
 	return renderer::make_image_view(
 		static_cast<const_pointer>(
-			write_buffer()),
+			real_read_buffer()),
 		lock_dim(),
 		color_convert(
 			format(),

@@ -43,9 +43,11 @@ public:
 	
 	virtual void pre_unlock() = 0;
 
-	virtual pointer write_pointer() const = 0;
+	virtual pointer write_pointer() const;
 
-	virtual pointer read_pointer() const = 0;
+	virtual pointer read_pointer() const;
+
+	virtual const_pointer real_read_pointer() const;
 
 	virtual lock_method::type method() const = 0;
 };

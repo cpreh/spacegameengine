@@ -40,6 +40,7 @@ texture_lock_auto_ptr create_texture_lock(
 	texture_lock::size_type whole_size,
 	texture_lock::size_type stride,
 	texture_lock::size_type pitch,
+	texture_lock::size_type block_width,
 	renderer::resource_flag_t flags);
 
 }

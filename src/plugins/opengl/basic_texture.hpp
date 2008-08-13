@@ -53,7 +53,8 @@ protected:
 		lock_method::type mode,
 		size_type size,
 		size_type offset,
-		size_type pitch) const;
+		size_type pitch,
+		size_type block_size) const;
 
 	void post_lock() const;
 	void pre_unlock() const;
@@ -61,6 +62,7 @@ protected:
 	lock_method::type lock_mode() const;
 	pointer read_buffer() const;
 	pointer write_buffer() const;
+	const_pointer real_read_buffer() const;
 	
 	void pre_setdata() const;
 	

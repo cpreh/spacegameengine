@@ -61,7 +61,8 @@ void sge::ogl::basic_texture<Base>::do_lock(
 	lock_method::type const method,
 	size_type const lock_size,
 	size_type const offset,
-	size_type const pitch) const
+	size_type const pitch,
+	size_type const block_size) const
 {
 	check_not_locked();
 
@@ -73,6 +74,7 @@ void sge::ogl::basic_texture<Base>::do_lock(
 			content(),
 			stride(),
 			pitch,
+			block_size,
 			flags()));
 
 	lock_.swap(
@@ -128,6 +130,15 @@ sge::ogl::basic_texture<Base>::write_buffer() const
 	check_locked();
 
 	return lock_->write_pointer();
+}
+
+template<typename Base>
+typename sge::ogl::basic_texture<Base>::const_pointer
+sge::ogl::basic_texture<Base>::real_read_buffer() const
+{
+	check_locked();
+
+	return lock_->real_read_pointer();
 }
 
 template<typename Base>

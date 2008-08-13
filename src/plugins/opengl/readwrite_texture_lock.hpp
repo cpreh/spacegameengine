@@ -38,6 +38,7 @@ public:
 		size_type whole_size,
 		size_type stride,
 		size_type pitch,
+		size_type block_size,
 		renderer::resource_flag_t flags);
 private:
 	void post_lock();

@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../writeonly_texture_lock.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
 
 sge::ogl::writeonly_texture_lock::writeonly_texture_lock(
 	size_type const lock_size,
@@ -48,13 +46,6 @@ sge::ogl::writeonly_texture_lock::pointer
 sge::ogl::writeonly_texture_lock::write_pointer() const
 {
 	return buffer.buffer_offset(0);
-}
-
-sge::ogl::writeonly_texture_lock::pointer
-sge::ogl::writeonly_texture_lock::read_pointer() const
-{
-	throw exception(
-		SGE_TEXT("Can't get a read pointer to a writeonly lock!"));
 }
 
 sge::ogl::lock_method::type

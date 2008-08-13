@@ -33,6 +33,7 @@ sge::ogl::create_texture_lock(
 	texture_lock::size_type const whole_size,
 	texture_lock::size_type const stride,
 	texture_lock::size_type const pitch,
+	texture_lock::size_type const block_size,
 	renderer::resource_flag_t const flags)
 {
 	switch(method) {
@@ -44,6 +45,7 @@ sge::ogl::create_texture_lock(
 				whole_size,
 				stride,
 				pitch,
+				block_size,
 				flags));
 	case lock_method::writeonly:
 		return texture_lock_auto_ptr(
@@ -60,6 +62,7 @@ sge::ogl::create_texture_lock(
 				whole_size,
 				stride,
 				pitch,
+				block_size,
 				flags));
 	default:
 		throw exception(

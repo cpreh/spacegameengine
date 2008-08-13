@@ -25,6 +25,7 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 	size_type const whole_size,
 	size_type const stride,
 	size_type const pitch,
+	size_type const block_size,
 	renderer::resource_flag_t const flags)
 : read_lock(
 	lock_size,
@@ -32,7 +33,8 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 	whole_size,
 	stride,
 	pitch,
-	flags),
+	flags,
+	block_size),
   write_lock(
   	lock_size,
 	offset,

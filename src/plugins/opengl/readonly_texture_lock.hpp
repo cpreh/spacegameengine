@@ -38,6 +38,7 @@ public:
 		size_type whole_size,
 		size_type stride,
 		size_type pitch,
+		size_type block_size,
 		renderer::resource_flag_t flags);
 
 	void post_lock();
@@ -46,16 +47,19 @@ public:
 
 	pointer read_pointer() const;
 
-	pointer write_pointer() const;
+	const_pointer real_read_pointer() const;
 private:
 	lock_method::type method() const;
 
 	pixel_pack_buffer      buffer;
-	size_type              offset,
-	                       stride,
-	                       pitch;
+	size_type              lock_size,
+	                       offset,
+	                       pitch,
+			       block_size;
 
-	raw_vector<value_type> cutout_buffer;
+	typedef raw_vector<
+		value_type>    cutout_buffer_type;
+	cutout_buffer_type     cutout_buffer;
 };
 
 }

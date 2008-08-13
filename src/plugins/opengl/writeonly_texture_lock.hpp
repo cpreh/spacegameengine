@@ -41,8 +41,6 @@ public:
 
 	void pre_unlock();
 
-	pointer read_pointer() const;
-
 	pointer write_pointer() const;
 private:
 	lock_method::type method() const;

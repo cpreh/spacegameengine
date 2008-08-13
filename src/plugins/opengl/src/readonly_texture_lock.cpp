@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../readonly_texture_lock.hpp"
 #include <sge/raw_vector_impl.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/algorithm.hpp>
 
 sge::ogl::readonly_texture_lock::readonly_texture_lock(
 	size_type const lock_size,
@@ -28,42 +27,57 @@ sge::ogl::readonly_texture_lock::readonly_texture_lock(
 	size_type const whole_size,
 	size_type const stride,
 	size_type const pitch,
+	size_type const block_size,
 	renderer::resource_flag_t const flags)
 : buffer(
 	whole_size,
 	stride,
 	flags,
 	0),
-  offset(offset),
-  stride(stride),
-  pitch(pitch)
+  lock_size(lock_size * stride),
+  offset(offset * stride),
+  pitch(pitch * stride),
+  block_size(block_size * stride)
 {}
 
 void sge::ogl::readonly_texture_lock::post_lock()
 {
 	buffer.lock(
 		lock_method::readonly);
-	// FIXME: copy the stuff over in our buffer
+	if(pitch)
+	{
+		cutout_buffer.resize(
+			lock_size);
+
+		cutout_buffer_type::pointer dest(cutout_buffer.data());
+		for(size_type i(offset); i < buffer.size(); i += pitch + block_size, dest += block_size)
+			copy_n(buffer.data() + i, block_size, dest);
+	}
 }
 
 void sge::ogl::readonly_texture_lock::pre_unlock()
 {
-	// FIXME: copy our buffer over in the lock_buffer
+	if(pitch)
+	{
+		pixel_pack_buffer::pointer dest(buffer.data());
+		for(size_type i(0); i < cutout_buffer.size(); i += block_size, dest += pitch + block_size)
+			copy_n(cutout_buffer.data() + i, block_size, dest);
+	}
 	buffer.unlock();
-}
-
-sge::ogl::readonly_texture_lock::pointer
-sge::ogl::readonly_texture_lock::write_pointer() const
-{
-	throw exception(
-		SGE_TEXT("Can't get a write pointer to a const lock!"));
 }
 
 sge::ogl::readonly_texture_lock::pointer
 sge::ogl::readonly_texture_lock::read_pointer() const
 {
-	// FIXME: use our buffer instead
-	return buffer.buffer_offset(offset * stride);
+	return buffer.buffer_offset(0);
+}
+
+sge::ogl::readonly_texture_lock::const_pointer
+sge::ogl::readonly_texture_lock::real_read_pointer() const
+{
+	return pitch
+		? cutout_buffer.data()
+		: read_pointer();
 }
 
 sge::ogl::lock_method::type

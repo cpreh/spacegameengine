@@ -18,6 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texture_lock.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::ogl::texture_lock::~texture_lock()
 {}
+
+sge::ogl::texture_lock::pointer
+sge::ogl::texture_lock::write_pointer() const
+{
+	throw exception(
+		SGE_TEXT("Can't get a write pointer to a lock!"));
+}
+
+sge::ogl::texture_lock::pointer
+sge::ogl::texture_lock::read_pointer() const
+{
+	throw exception(
+		SGE_TEXT("Can't get a read pointer to a lock!"));
+}
+
+sge::ogl::texture_lock::const_pointer
+sge::ogl::texture_lock::real_read_pointer() const
+{
+	throw exception(
+		SGE_TEXT("Can't get a real read pointer to a lock!"));
+}
