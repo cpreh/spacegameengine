@@ -45,7 +45,8 @@ public:
 	virtual resource_flag_type flags() const = 0;
 };
 
-typedef shared_ptr<texture_base>                  texture_base_ptr;
+typedef shared_ptr<texture_base>       texture_base_ptr;
+typedef shared_ptr<texture_base const> const_texture_base_ptr;
 
 }
 }

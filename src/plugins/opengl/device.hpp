@@ -68,15 +68,15 @@ public:
 	void begin_rendering();
 	void end_rendering();
 	void render(
-		renderer::vertex_buffer_ptr vb,
-		renderer::index_buffer_ptr ib,
+		renderer::const_vertex_buffer_ptr vb,
+		renderer::const_index_buffer_ptr ib,
 		renderer::vertex_buffer::size_type first_vertex,
 		renderer::vertex_buffer::size_type num_vertices,
 		renderer::indexed_primitive_type::type ptype,
 		renderer::index_buffer::size_type pcount,
 		renderer::index_buffer::size_type first_index);
 	void render(
-		renderer::vertex_buffer_ptr vb,
+		renderer::const_vertex_buffer_ptr vb,
 		renderer::vertex_buffer::size_type first_vertex,
 		renderer::vertex_buffer::size_type num_vertices,
 		renderer::nonindexed_primitive_type::type ptype);
@@ -88,7 +88,7 @@ public:
 	void pop_level();
 
 	void set_texture(
-		renderer::texture_base_ptr tex,
+		renderer::const_texture_base_ptr tex,
 		renderer::stage_type stage);
 	void set_material(const renderer::material& mat);
 
@@ -160,8 +160,8 @@ private:
 	const renderer::any_state& get_any_state(
 		const renderer::any_state& state) const;
 
-	void set_vertex_buffer(renderer::vertex_buffer_ptr vb);
-	void set_index_buffer(renderer::index_buffer_ptr ib);
+	void set_vertex_buffer(renderer::const_vertex_buffer_ptr vb);
+	void set_index_buffer(renderer::const_index_buffer_ptr ib);
 	const fbo_target_ptr create_render_target(
 		const renderer::target::dim_type&);
 

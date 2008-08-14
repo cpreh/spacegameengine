@@ -53,7 +53,7 @@ public:
 		size_type sz,
 		resource_flag_type flags);
 
-	void set_format();
+	void set_format() const;
 private:
 	view_type const view();
 	const_view_type const view() const;

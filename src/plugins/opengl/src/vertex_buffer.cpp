@@ -40,7 +40,7 @@ sge::ogl::vertex_buffer::vertex_buffer(
   ogl_format(format)
 {}
 
-void sge::ogl::vertex_buffer::set_format()
+void sge::ogl::vertex_buffer::set_format() const
 {
 	bind_me();
 	ogl_format.use_me();

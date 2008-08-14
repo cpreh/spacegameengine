@@ -107,24 +107,24 @@ public:
 	virtual void begin_rendering() = 0;
 	virtual void end_rendering() = 0;
 	virtual void render(
-		vertex_buffer_ptr vb,
-		index_buffer_ptr ib,
+		const_vertex_buffer_ptr vb,
+		const_index_buffer_ptr ib,
 		vertex_buffer::size_type first_vertex,
 		vertex_buffer::size_type num_vertices,
 		indexed_primitive_type::type ptype,
 		index_buffer::size_type primitive_count,
 		index_buffer::size_type first_index) = 0;
 	virtual void render(
-		vertex_buffer_ptr vb,
+		const_vertex_buffer_ptr vb,
 		vertex_buffer::size_type first_vertex,
 		vertex_buffer::size_type num_vertices,
 		nonindexed_primitive_type::type ptype) = 0;
 
-	virtual void set_state(const state_list &) = 0;
-	virtual void push_state(const state_list &) = 0;
+	virtual void set_state(state_list const &) = 0;
+	virtual void push_state(state_list const &) = 0;
 	virtual void pop_level() = 0;
 
-	virtual void set_material(const material& mat) = 0;
+	virtual void set_material(material const &mat) = 0;
 	virtual void enable_light(light_index index, bool enable) = 0;
 	virtual void set_light(light_index index, const light&) = 0;
 	virtual void set_texture_stage_op(
@@ -136,20 +136,20 @@ public:
 		texture_stage_arg::type,
 		texture_stage_arg_value::type) = 0;
 
-	SGE_SYMBOL static const texture_ptr no_texture;
-	virtual void set_texture(texture_base_ptr tex, stage_type stage = 0) = 0;
-	virtual void transform(const math::space_matrix& mat) = 0;
-	virtual void projection(const math::space_matrix& mat) = 0;
+	SGE_SYMBOL static texture_ptr const no_texture;
+	virtual void set_texture(const_texture_base_ptr tex, stage_type stage = 0) = 0;
+	virtual void transform(math::space_matrix const &mat) = 0;
+	virtual void projection(math::space_matrix const &mat) = 0;
 
 	SGE_SYMBOL static const texture_ptr default_render_target;
 	virtual void set_render_target(texture_ptr target) = 0;
-	virtual void set_viewport(const viewport&) = 0;
+	virtual void set_viewport(viewport const &) = 0;
 
 	virtual const glsl::program_ptr create_glsl_program(
-		const std::string& vertex_shader_source,
-		const std::string& pixel_shader_source) = 0;
+		std::string const &vertex_shader_source,
+		std::string const &pixel_shader_source) = 0;
 
-	SGE_SYMBOL static const glsl::program_ptr no_program;
+	SGE_SYMBOL static glsl::program_ptr const no_program;
 	virtual void set_glsl_program(glsl::program_ptr) = 0;
 
 	virtual const_target_ptr const get_target() const = 0;

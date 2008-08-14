@@ -322,8 +322,8 @@ sge::ogl::device::screen_size() const
 }
 
 void sge::ogl::device::render(
-	const renderer::vertex_buffer_ptr vb,
-	const renderer::index_buffer_ptr ib,
+	renderer::const_vertex_buffer_ptr const vb,
+	renderer::const_index_buffer_ptr const ib,
 	const renderer::vertex_buffer::size_type first_vertex,
 	const renderer::vertex_buffer::size_type num_vertices,
 	const renderer::indexed_primitive_type::type ptype,
@@ -354,7 +354,7 @@ void sge::ogl::device::render(
 }
 
 void sge::ogl::device::render(
-	const renderer::vertex_buffer_ptr vb,
+	const renderer::const_vertex_buffer_ptr vb,
 	const renderer::vertex_buffer::size_type first_vertex,
 	const renderer::vertex_buffer::size_type num_vertices,
 	const renderer::nonindexed_primitive_type::type ptype)
@@ -549,8 +549,8 @@ sge::ogl::device::get_target() const
 }
 
 void sge::ogl::device::set_texture(
-	const renderer::texture_base_ptr tex,
-	const renderer::stage_type stage)
+	renderer::const_texture_base_ptr const tex,
+	renderer::stage_type const stage)
 {
 	set_texture_level(stage);
 
@@ -562,16 +562,16 @@ void sge::ogl::device::set_texture(
 
 	if(!tex)
 		return;
-	texture_base& b = dynamic_cast<texture_base&>(*tex);
+	texture_base const &b = dynamic_cast<texture_base const &>(*tex);
 	enable(b.type());
 	b.bind_me();
 }
 
 void sge::ogl::device::enable_light(
-	const renderer::light_index index,
-	const bool enable_)
+	renderer::light_index const index,
+	bool const enable_)
 {
-	const GLenum glindex = convert_light_index(index);
+	GLenum const glindex = convert_light_index(index);
 	enable(glindex, enable_);
 }
 
@@ -625,7 +625,9 @@ sge::ogl::device::create_glsl_program(
 	const std::string& vs_source,
 	const std::string& ps_source)
 {
-	return glsl::create_program_impl(vs_source, ps_source);
+	return glsl::create_program_impl(
+		vs_source,
+		ps_source);
 }
 
 void sge::ogl::device::set_glsl_program(
@@ -634,7 +636,8 @@ void sge::ogl::device::set_glsl_program(
 	glsl::set_program_impl(prog);
 }
 
-void sge::ogl::device::set_vertex_buffer(const renderer::vertex_buffer_ptr vb)
+void sge::ogl::device::set_vertex_buffer(
+	renderer::const_vertex_buffer_ptr const vb)
 {
 	if(!vb)
 	{
@@ -642,11 +645,12 @@ void sge::ogl::device::set_vertex_buffer(const renderer::vertex_buffer_ptr vb)
 		//vertex_buffer::unbind();
 		return;
 	}
-	vertex_buffer& ovb = dynamic_cast<vertex_buffer&>(*vb);
+	vertex_buffer const &ovb = dynamic_cast<vertex_buffer const &>(*vb);
 	ovb.set_format();
 }
 
-void sge::ogl::device::set_index_buffer(const renderer::index_buffer_ptr ib)
+void sge::ogl::device::set_index_buffer(
+	renderer::const_index_buffer_ptr const ib)
 {
 	if(!ib)
 	{
@@ -654,6 +658,6 @@ void sge::ogl::device::set_index_buffer(const renderer::index_buffer_ptr ib)
 		//index_buffer::unbind();
 		return;
 	}
-	index_buffer& oib = dynamic_cast<index_buffer&>(*ib);
+	index_buffer const &oib = dynamic_cast<index_buffer const &>(*ib);
 	oib.bind_me();
 }
