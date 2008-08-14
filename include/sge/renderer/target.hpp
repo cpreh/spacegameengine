@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_HPP_INCLUDED
 
-#include "image_view.hpp"
 #include "types.hpp"
+#include "image_view.hpp"
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
 #include "../math/dim.hpp"
+#include "../math/rect.hpp"
 #include <cstddef>
 
 namespace sge
@@ -37,16 +38,16 @@ class target {
 public:
 	typedef std::size_t                    size_type;
 	typedef math::basic_dim<size_type, 2>  dim_type;
+	typedef lock_rect                      rect_type;
 
-	virtual void lock() = 0;
-	virtual void lock(lock_rect const &dest) = 0;
-	virtual void unlock() = 0;
+	const_image_view const lock() const;
+	virtual const_image_view const lock(lock_rect const &dest) const = 0;
+	virtual void unlock() const = 0;
 
-	virtual const dim_type dim() const = 0;
+	virtual dim_type const dim() const = 0;
+	SGE_SYMBOL rect_type const rect() const;
 	SGE_SYMBOL size_type size() const;
-
-	virtual const_image_view const view() const = 0;
-		
+	
 	virtual ~target();
 };
 

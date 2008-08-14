@@ -36,16 +36,15 @@ class target : public sge::renderer::target {
 public:
 	virtual void bind_me() const = 0;
 private:
-	void lock();
-	void lock(renderer::lock_rect const &dest);
-	void unlock();
-	renderer::const_image_view const view() const;
+	renderer::const_image_view const lock(
+		renderer::lock_rect const &dest) const;
+	void unlock() const;
 
 	virtual size_type stride() const = 0;
 	virtual GLenum format() const = 0;
 	virtual GLenum format_type() const = 0;
 
-	boost::scoped_ptr<
+	mutable boost::scoped_ptr<
 		pixel_pack_buffer> buffer;
 };
 

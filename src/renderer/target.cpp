@@ -20,6 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/target.hpp>
 
+sge::renderer::const_image_view const
+sge::renderer::target::lock() const
+{
+	return lock(rect());
+}
+
+sge::renderer::target::rect_type const
+sge::renderer::target::rect() const
+{
+	return rect_type(
+		rect_type::point_type(0, 0),
+		dim());
+}
+
 sge::renderer::target::size_type
 sge::renderer::target::size() const
 {

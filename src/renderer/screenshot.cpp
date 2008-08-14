@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 
 void sge::renderer::screenshot(
-	const device_ptr rend,
-	const sge::image::loader_ptr il,
-	const path& file)
+	device_ptr const rend,
+	sge::image::loader_ptr const il,
+	path const &file)
 {
-	//const target_ptr target = rend->get_target();
+	//target_ptr const target = rend->get_target();
 	//std::vector<color> buf(target->size());
 	// FIXME: do this with boost::gil too!
 	//target->copy_data(sge::data(buf));
