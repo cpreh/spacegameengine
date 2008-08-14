@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../readwrite_texture_lock.hpp"
+#include <sge/raw_vector_impl.hpp>
 
 sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 	size_type const lock_size,
