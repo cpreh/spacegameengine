@@ -34,18 +34,20 @@ namespace sge
 namespace image
 {
 
-const renderer::texture_ptr create_texture(
+renderer::texture_ptr const
+create_texture(
 	renderer::device_ptr r,
 	object_ptr p,
-	const renderer::filter_args& filter = renderer::linear_filter,
-	renderer::resource_flag_t flags = renderer::resource_flags::default_);
+	renderer::filter_args const &filter,
+	renderer::resource_flag_t flags);
 
-const renderer::texture_ptr create_texture(
-	const path&,
+renderer::texture_ptr const
+create_texture(
+	path const &,
 	renderer::device_ptr r,
 	loader_ptr p,
-	const renderer::filter_args& filter = renderer::linear_filter,
-	renderer::resource_flag_t flags = renderer::resource_flags::default_);
+	renderer::filter_args const &filter,
+	renderer::resource_flag_t flags);
 
 }
 }

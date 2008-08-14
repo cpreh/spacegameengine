@@ -90,15 +90,16 @@ sge::texture::atlased_texture_dim(
 	return renderer::texture::dim_type(max_size, max_size);
 }
 
-const sge::renderer::texture_ptr
+sge::renderer::texture_ptr const
 sge::texture::atlased_texture(
-	const renderer::device_ptr rend,
-	const renderer::filter_args& filter)
+	renderer::device_ptr const rend,
+	renderer::filter_args const &filter)
 {
 	return rend->create_texture(
 		atlased_texture_dim(rend),
 		renderer::color_format::rgba8,
-		filter);
+		filter,
+		renderer::resource_flags::write_only);
 }
 
 const sge::renderer::lock_rect

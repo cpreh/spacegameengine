@@ -31,8 +31,7 @@ namespace resource_flags
 	enum type {
 		none,
 		dynamic     = 1,
-		write_only  = 1 << 1,
-		default_    = write_only
+		write_only  = 1 << 1
 	};
 }
 
