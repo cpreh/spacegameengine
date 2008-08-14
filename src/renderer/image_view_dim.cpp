@@ -19,13 +19,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/texture.hpp> // FIXME
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+
+namespace
+{
+
+sge::renderer::dim_type const
+gil_dim_to_sge(sge::renderer::image_view::point_t const &);
+
+}
 
 sge::renderer::dim_type const
 sge::renderer::image_view_dim(
 	const_image_view const &v)
 {
 	return gil_dim_to_sge(
-		v.dimensions());	
+		v.dimensions());
+}
+
+namespace
+{
+
+sge::renderer::dim_type const
+gil_dim_to_sge(sge::renderer::image_view::point_t const &v)
+{
+	return sge::renderer::dim_type(
+		v.x,
+		v.y);
+}
+
 }

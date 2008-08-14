@@ -52,9 +52,6 @@ public:
 	size_type content() const;
 };
 
-const texture::dim_type gil_dim_to_sge(image_view::point_t const &);
-//const image_view::point_t sge_dim_to_gil(texture::dim_type const &);
-
 typedef shared_ptr<texture> texture_ptr;
 typedef shared_ptr<texture const> const_texture_ptr;
 

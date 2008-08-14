@@ -39,12 +39,18 @@ public:
 	typedef math::basic_vector<T,2> point_type;
 	typedef math::basic_dim<T,2>    dim_type;
 
-	basic_rect(const value_type& left   = value_type(),
-	           const value_type& top    = value_type(),
-	           const value_type& right  = value_type(),
-	           const value_type& bottom = value_type());
+	explicit basic_rect(
+		value_type const &left   = value_type(),
+		value_type const &top    = value_type(),
+		value_type const &right  = value_type(),
+		value_type const &bottom = value_type());
 
-	basic_rect(const point_type& pos, const dim_type& sz);
+	basic_rect(
+		point_type const &pos,
+		dim_type const &sz);
+
+	explicit basic_rect(
+		dim_type const &sz);
 
 	value_type w() const;
 	value_type h() const;

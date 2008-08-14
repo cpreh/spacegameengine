@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 sge::renderer::image_view const
@@ -37,7 +38,6 @@ sge::renderer::texture::rect_type const
 sge::renderer::texture::rect() const
 {
 	return rect_type(
-		rect_type::point_type(0,0),
 		dim());
 }
 
@@ -45,10 +45,4 @@ sge::renderer::texture::size_type
 sge::renderer::texture::content() const
 {
 	return dim().content();
-}
-
-const sge::renderer::texture::dim_type
-sge::renderer::gil_dim_to_sge(image_view::point_t const &d)
-{
-	return texture::dim_type(d.x, d.y);
 }

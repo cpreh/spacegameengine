@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/manager.hpp>
 #include <sge/texture/static.hpp>
+#include <sge/renderer/image_view_dim.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/foreach.hpp>
 
@@ -51,7 +52,7 @@ sge::texture::manager::init_texture(
 	renderer::const_image_view const &src) const
 {
 	const part_ptr p = tex.consume_fragment(
-		renderer::gil_dim_to_sge(src.dimensions()));
+		renderer::image_view_dim(src));
 	if(p)
 		p->data(src);
 	return p;

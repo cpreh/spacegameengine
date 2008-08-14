@@ -56,6 +56,8 @@ sge::renderer::device::create_texture(
 	copy_and_convert_pixels(
 		v,
 		lock.value());
+
+	return tex;
 }
 
 sge::renderer::vertex_buffer_ptr const
@@ -78,6 +80,8 @@ sge::renderer::device::create_vertex_buffer(
 		view.data(),
 		view.format().stride() * view.size(),
 		lock.value().data());
+
+	return vb;
 }
 
 sge::renderer::index_buffer_ptr const
@@ -113,6 +117,8 @@ sge::renderer::device::create_index_buffer(
 		boost::apply_visitor(
 			index_view_data(),
 			lock.value()));
+	
+	return ib;
 }
 
 sge::renderer::screen_unit
