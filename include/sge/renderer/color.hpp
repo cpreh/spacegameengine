@@ -21,13 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_COLOR_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_HPP_INCLUDED
 
-#include "../su.hpp"
 #include "../typeswitch.hpp"
 
 #include <boost/gil/pixel.hpp>
 #include <boost/gil/rgba.hpp>
 #include <boost/gil/gray.hpp>
-#include <iosfwd>
 
 namespace sge
 {
@@ -74,42 +72,6 @@ color const make_color_rgba(
 	pixel_channel_8 g,
 	pixel_channel_8 b,
 	pixel_channel_8 a);
-
-/*
-template<typename Ch,typename Traits>
-inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s, const color4 &col)
-{
-	return s << s.widen('(') << col.r << s.widen(',') << col.g << s.widen(',') << col.b << s.widen(',') << col.a << s.widen(')');
-}
-
-template<typename Ch,typename Traits>
-inline std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, color4& col)
-{
-	Ch c;
-	s >> c;
-	if(c != s.widen('('))
-		s.setstate(std::ios_base::failbit);
-
-	color4::value_type r,g,b,a;
-	s >> r >> c;
-	if (c != s.widen(','))
-		s.setstate(std::ios_base::failbit);
-	s >> g >> c;
-	if (c != s.widen(','))
-		s.setstate(std::ios_base::failbit);
-	s >> b >> c;
-	if (c != s.widen(','))
-		s.setstate(std::ios_base::failbit);
-	s >> a >> c;
-	if (c != s.widen(')'))
-		s.setstate(std::ios_base::failbit);
-	
-	col = color4(r,g,b,a);
-
-	return s;
-}
-
-*/
 
 }
 }

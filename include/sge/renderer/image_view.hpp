@@ -31,8 +31,6 @@ namespace sge
 namespace renderer
 {
 
-// TODO: maybe replace this with a macro to make generation easier
-
 typedef boost::gil::any_image_view<
 	boost::mpl::vector<
 		boost::gil::rgba8_view_t,
@@ -41,13 +39,7 @@ typedef boost::gil::any_image_view<
 	>
 > image_view;
 
-typedef boost::gil::any_image_view<
-	boost::mpl::vector<
-		boost::gil::rgba8c_view_t,
-		boost::gil::argb8c_view_t,
-		boost::gil::bgra8c_view_t
-	>
-> const_image_view;
+typedef image_view::const_t const_image_view;
 
 }
 }
