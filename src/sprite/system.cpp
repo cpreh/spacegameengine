@@ -47,9 +47,10 @@ sge::sprite::system::system(const renderer::device_ptr rend)
 		| renderer::resource_flags::dynamic)),
   ib(
   	rend->create_index_buffer(
-		renderer::const_index_view_16(
-			0,
-			init_sprites * detail::indices_per_sprite)))
+		renderer::index_format::index16,
+		init_sprites * detail::indices_per_sprite,
+		renderer::resource_flags::write_only
+		| renderer::resource_flags::dynamic))
 {}
 
 const sge::renderer::device_ptr sge::sprite::system::get_renderer() const

@@ -55,9 +55,10 @@ sge::sprite::intrusive_system::intrusive_system(
 		| renderer::resource_flags::dynamic)),
   ib(
   	rend->create_index_buffer(
-		renderer::const_index_view_16(
-			0,
-			init_sprites * detail::indices_per_sprite)))
+		renderer::index_format::index16,
+		init_sprites * detail::indices_per_sprite,
+		renderer::resource_flags::write_only
+		| renderer::resource_flags::dynamic))
 {}
 
 void sge::sprite::intrusive_system::render()
