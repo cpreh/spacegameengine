@@ -542,7 +542,7 @@ void sge::ogl::device::set_render_target(
 			static_cast<renderer::screen_unit>(p->dim().h())));
 }
 
-const sge::renderer::target_ptr
+sge::renderer::const_target_ptr const
 sge::ogl::device::get_target() const
 {
 	return render_target_;

@@ -113,7 +113,7 @@ public:
 		const std::string& pixel_shader_source);
 	void set_glsl_program(renderer::glsl::program_ptr);
 
-	const sge::renderer::target_ptr get_target() const;
+	renderer::const_target_ptr const get_target() const;
 
 	const renderer::texture_ptr
 	create_texture(

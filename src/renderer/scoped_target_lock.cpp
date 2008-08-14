@@ -18,51 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
+#include <sge/renderer/scoped_target_lock.hpp>
+#include <sge/renderer/instantiate_scoped_lock.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
-#include "scoped_lock_wrapper.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::renderer::const_scoped_target_lock_wrapper const
+sge::renderer::make_scoped_lock(
+	const_target_ptr const t)
 {
-namespace renderer
-{
-
-template<typename T, typename Value>
-class scoped_lock : boost::noncopyable {
-public:
-	typedef scoped_lock_wrapper<
-		T,
-		Value
-	> wrapper;
-
-	explicit scoped_lock(
-		wrapper const& w);
-
-	void release();
-
-	Value const value() const;
-
-	~scoped_lock();
-private:
-	void unlock();
-
-	wrapper w;
-};
-
-/*template<typename Ret, typename T>
-const typename scoped_lock<T, Ret>::wrapper
-make_scoped_lock(
-	T const t,
-	lock_flag_t const flags)
-{
-	return typename scoped_lock<T, Ret>::wrapper(
+	return const_scoped_target_lock_wrapper(
 		t,
-		t->lock(flags));
-}*/
-
-}
+		t->lock());
 }
 
-#endif
+sge::renderer::const_scoped_target_lock_wrapper const
+sge::renderer::make_scoped_lock(
+	const_target_ptr const t,
+	lock_rect const &r)
+{
+	return const_scoped_target_lock_wrapper(
+		t,
+		t->lock(r));
+}
+
+SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(
+	sge::renderer::const_target_ptr,
+	sge::renderer::const_image_view)

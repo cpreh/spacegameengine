@@ -19,18 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/screenshot.hpp>
-#include <sge/vector.hpp>
-#include <vector>
+#include <sge/renderer/scoped_target_lock.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 void sge::renderer::screenshot(
 	device_ptr const rend,
-	sge::image::loader_ptr const il,
+	image::loader_ptr const il,
 	path const &file)
 {
-	//target_ptr const target = rend->get_target();
-	//std::vector<color> buf(target->size());
-	// FIXME: do this with boost::gil too!
-	//target->copy_data(sge::data(buf));
-	//const sge::image::object_ptr shot = il->create_image(sge::data(buf), target->dim());
-	//shot->save(file);
+	il->create_image(
+		const_scoped_target_lock(
+			make_scoped_lock(
+				rend->get_target()
+			)
+		).value()
+	)->save(file);
 }

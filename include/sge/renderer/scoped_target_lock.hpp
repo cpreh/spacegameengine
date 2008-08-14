@@ -18,49 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_SCOPED_TARGET_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_TARGET_LOCK_HPP_INCLUDED
 
+#include "target.hpp"
+#include "image_view.hpp"
 #include "scoped_lock_wrapper.hpp"
-#include <boost/noncopyable.hpp>
+#include "scoped_lock.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-template<typename T, typename Value>
-class scoped_lock : boost::noncopyable {
-public:
-	typedef scoped_lock_wrapper<
-		T,
-		Value
-	> wrapper;
+typedef scoped_lock<
+	const_target_ptr,
+	const_image_view
+> const_scoped_target_lock;
 
-	explicit scoped_lock(
-		wrapper const& w);
+typedef scoped_lock_wrapper<
+	const_target_ptr,
+	const_image_view
+> const_scoped_target_lock_wrapper;
 
-	void release();
-
-	Value const value() const;
-
-	~scoped_lock();
-private:
-	void unlock();
-
-	wrapper w;
-};
-
-/*template<typename Ret, typename T>
-const typename scoped_lock<T, Ret>::wrapper
+const_scoped_target_lock_wrapper const
 make_scoped_lock(
-	T const t,
-	lock_flag_t const flags)
-{
-	return typename scoped_lock<T, Ret>::wrapper(
-		t,
-		t->lock(flags));
-}*/
+	const_target_ptr);
+
+const_scoped_target_lock_wrapper const
+make_scoped_lock(
+	const_target_ptr,
+	lock_rect const &);
 
 }
 }

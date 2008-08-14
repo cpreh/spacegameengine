@@ -152,7 +152,7 @@ public:
 	SGE_SYMBOL static const glsl::program_ptr no_program;
 	virtual void set_glsl_program(glsl::program_ptr) = 0;
 
-	virtual const target_ptr get_target() const = 0;
+	virtual const_target_ptr const get_target() const = 0;
 
 	SGE_SYMBOL texture_ptr const create_texture(
 		const_image_view const &,

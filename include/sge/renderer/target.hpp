@@ -52,6 +52,7 @@ public:
 };
 
 typedef shared_ptr<target> target_ptr;
+typedef shared_ptr<target const> const_target_ptr;
 
 }
 }
