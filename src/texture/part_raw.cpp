@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/renderer/texture_util.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <sge/iostream.hpp>
 
 sge::texture::part_raw::part_raw(
 	const renderer::texture_ptr tex,
@@ -39,9 +38,7 @@ sge::texture::part_raw::part_raw(
     static_cast<renderer::lock_rect::value_type>(tex->dim().h())
     ),
   tex(tex)
-{
-	sge::cerr << "added part with dimensions " << area_ << "\n";
-}
+{}
 
 void sge::texture::part_raw::data(
 	renderer::const_image_view const &src)

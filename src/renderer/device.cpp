@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/algorithm.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
-const sge::renderer::texture_ptr sge::renderer::device::no_texture;
-const sge::renderer::texture_ptr sge::renderer::device::default_render_target;
-const sge::renderer::glsl::program_ptr sge::renderer::device::no_program;
+sge::renderer::texture_ptr const sge::renderer::device::no_texture;
+sge::renderer::texture_ptr const sge::renderer::device::default_render_target;
+sge::renderer::glsl::program_ptr const sge::renderer::device::no_program;
 
 
 sge::renderer::texture_ptr const
@@ -43,7 +43,8 @@ sge::renderer::device::create_texture(
 {
 	texture_ptr const tex(
 		create_texture(
-			texture::dim_type(image_view_dim(v)),
+			texture::dim_type(
+				image_view_dim(v)),
 			image_view_format(v),
 			filter,
 			flags));
