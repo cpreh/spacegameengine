@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::vertex_element::vertex_element(
 	const vertex_usage::type usage_,
 	const vertex_size count_)
- : usage_(usage_),
-   count_(count_),
+: usage_(usage_),
+  count_(count_),
   size_(vertex_element_size[usage_])
 {}
 

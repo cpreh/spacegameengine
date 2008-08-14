@@ -256,14 +256,16 @@ sge::ogl::device::create_texture(
 			flags));
 }
 
-const sge::renderer::vertex_buffer_ptr
+sge::renderer::vertex_buffer_ptr const
 sge::ogl::device::create_vertex_buffer(
-	renderer::const_vertex_view const &src,
-	const renderer::vertex_buffer::resource_flag_type flags)
+	renderer::vertex_format const &format,
+	renderer::vertex_buffer::size_type const sz,
+	renderer::vertex_buffer::resource_flag_type const flags)
 {
 	return renderer::vertex_buffer_ptr(
 		new vertex_buffer(
-			src,
+			format,
+			sz,
 			flags));
 }
 

@@ -176,14 +176,14 @@ public:
 		filter_args const &filter,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
-	virtual const vertex_buffer_ptr create_vertex_buffer(
+	vertex_buffer_ptr const create_vertex_buffer(
 		const_vertex_view const &,
-		resource_flag_t flags = resource_flags::default_) = 0;
+		resource_flag_t flags = resource_flags::default_);
 	
-	/*virtual vertex_buffer_ptr const create_vertex_buffer(
+	virtual vertex_buffer_ptr const create_vertex_buffer(
 		vertex_format const &,
 		vertex_buffer::size_type size,
-		resource_flag_t flags = resource_flags::default_) = 0;*/
+		resource_flag_t flags = resource_flags::default_) = 0;
 
 	index_buffer_ptr const create_index_buffer(
 		const_dynamic_index_view const &,
@@ -194,9 +194,9 @@ public:
 		index_buffer::size_type size,
 		resource_flag_t flags = resource_flags::default_) = 0;
 
-	virtual const caps& get_caps() const = 0;
-	virtual const screen_size_t screen_size() const = 0;
-	virtual const window_ptr get_window() const = 0;
+	virtual caps const &get_caps() const = 0;
+	virtual screen_size_t const screen_size() const = 0;
+	virtual window_ptr const get_window() const = 0;
 
 	SGE_SYMBOL screen_unit screen_width() const;
 	SGE_SYMBOL screen_unit screen_height() const;

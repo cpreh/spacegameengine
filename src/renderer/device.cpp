@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/index_view_operations.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/vertex_format.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/algorithm.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
@@ -54,6 +56,28 @@ sge::renderer::device::create_texture(
 	copy_and_convert_pixels(
 		v,
 		lock.value());
+}
+
+sge::renderer::vertex_buffer_ptr const
+sge::renderer::device::create_vertex_buffer(
+	const_vertex_view const &view,
+	resource_flag_t const flags)
+{
+	vertex_buffer_ptr const vb(
+		create_vertex_buffer(
+			view.format(),
+			view.size(),
+			flags));
+	
+	scoped_vertex_lock const lock(
+		make_scoped_lock(
+			vb,
+			lock_flags::writeonly));
+	
+	copy_n(
+		view.data(),
+		view.format().stride() * view.size(),
+		lock.value().data());
 }
 
 sge::renderer::index_buffer_ptr const

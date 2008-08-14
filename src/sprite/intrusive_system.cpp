@@ -44,13 +44,11 @@ sge::sprite::intrusive_system::intrusive_system(
   rend(rend),
   vb(
    	rend->create_vertex_buffer(
-		renderer::const_vertex_view(
-			0,
-			init_sprites * detail::vertices_per_sprite,
-			renderer::vertex_format()
-				.add(renderer::vertex_usage::pos)
-				.add(renderer::vertex_usage::diffuse)
-				.add(renderer::vertex_usage::tex)),
+		renderer::vertex_format()
+			.add(renderer::vertex_usage::pos)
+			.add(renderer::vertex_usage::diffuse)
+			.add(renderer::vertex_usage::tex),
+		init_sprites * detail::vertices_per_sprite,
 		renderer::resource_flags::write_only
 		| renderer::resource_flags::dynamic)),
   ib(

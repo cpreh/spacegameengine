@@ -135,9 +135,10 @@ public:
 		renderer::filter_args const &,
 		renderer::texture::resource_flag_type);
 
-	const renderer::vertex_buffer_ptr
+	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		renderer::const_vertex_view const &,
+		renderer::vertex_format const &,
+		renderer::vertex_buffer::size_type size,
 		renderer::vertex_buffer::resource_flag_type flags);
 
 	renderer::index_buffer_ptr const

@@ -28,15 +28,16 @@ SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 	sge::ogl::vb_ib_vbo_impl)
 
 sge::ogl::vertex_buffer::vertex_buffer(
-	const_view_type const &src,
+	renderer::vertex_format const &format,
+	size_type const sz,
 	resource_flag_type const flags)
- :	detail::vertex_buffer_base(
-		src.size(),
-		src.format().stride(),
-		flags,
-		src.data()),
-	format(src.format()),
-	ogl_format(format)
+: detail::vertex_buffer_base(
+	sz,
+	format.stride(),
+	flags,
+	0),
+  format(format),
+  ogl_format(format)
 {}
 
 void sge::ogl::vertex_buffer::set_format()

@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/vertex_view.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 template<typename Vertex>
 sge::renderer::basic_vertex_view<Vertex>::basic_vertex_view(
@@ -28,7 +30,11 @@ sge::renderer::basic_vertex_view<Vertex>::basic_vertex_view(
 : raw_data(raw_data),
   size_(size_),
   format_(format_)
-{}
+{
+	if(!raw_data)
+		throw exception(
+			SGE_TEXT("vertex_view::data may not be 0!"));
+}
 
 template<typename Vertex>
 typename sge::renderer::basic_vertex_view<Vertex>::iterator

@@ -49,7 +49,8 @@ public:
 	using base::resource_flag_type;
 
 	vertex_buffer(
-		const_view_type const &,
+		renderer::vertex_format const &,
+		size_type sz,
 		resource_flag_type flags);
 
 	void set_format();
