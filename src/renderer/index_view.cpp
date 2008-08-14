@@ -19,6 +19,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index_view.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+
+namespace
+{
+
+template<typename> struct index_view_traits;
+
+template<>
+struct index_view_traits<
+	sge::renderer::index_view_16::value_type>
+{
+	static sge::renderer::index_format::type const format
+		= sge::renderer::index_format::index16;
+};
+
+template<>
+struct index_view_traits<
+	sge::renderer::const_index_view_16::value_type>
+: index_view_traits<sge::renderer::index_view_16::value_type>
+{};
+
+template<>
+struct index_view_traits<
+	sge::renderer::index_view_32::value_type>
+{
+	static sge::renderer::index_format::type const format
+		= sge::renderer::index_format::index32;
+};
+
+template<>
+struct index_view_traits<
+	sge::renderer::const_index_view_32::value_type>
+: index_view_traits<sge::renderer::index_view_32::value_type>
+{};
+
+}
+
 
 template<typename Index>
 sge::renderer::index_view<Index>::index_view(
@@ -26,7 +64,11 @@ sge::renderer::index_view<Index>::index_view(
 	size_type const size_)
 : data_(data_),
   size_(size_)
-{}
+{
+	if(!data_)
+		throw exception(
+			SGE_TEXT("index_view::data may not be 0!"));
+}
 
 template<typename Index>
 typename sge::renderer::index_view<Index>::pointer
@@ -60,8 +102,8 @@ template<typename Index>
 sge::renderer::index_format::type
 sge::renderer::index_view<Index>::format() const
 {
-	//return index_format_from_stride(
-	//	stride());
+	return index_view_traits<
+		value_type>::format;
 }
 
 template class sge::renderer::index_view<sge::uint16>;

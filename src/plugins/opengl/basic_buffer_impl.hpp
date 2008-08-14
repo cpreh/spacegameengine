@@ -59,6 +59,9 @@ sge::ogl::basic_buffer<Type, Impl>::~basic_buffer()
 	Impl().delete_buffer(id);
 }
 
+#include <sge/iostream.hpp>
+#include <ostream>
+
 template<
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>

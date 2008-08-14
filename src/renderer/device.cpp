@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
+#include <sge/renderer/index_view_operations.hpp>
+#include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/algorithm.hpp>
+#include <boost/variant/apply_visitor.hpp>
 
 const sge::renderer::texture_ptr sge::renderer::device::no_texture;
 const sge::renderer::texture_ptr sge::renderer::device::default_render_target;
@@ -50,6 +54,41 @@ sge::renderer::device::create_texture(
 	copy_and_convert_pixels(
 		v,
 		lock.value());
+}
+
+sge::renderer::index_buffer_ptr const
+sge::renderer::device::create_index_buffer(
+	const_dynamic_index_view const &view,
+	resource_flag_t const flags)
+{
+	index_buffer::size_type const sz(
+		boost::apply_visitor(
+			index_view_size(),
+			view));
+
+	index_buffer_ptr const ib(
+		create_index_buffer(
+			boost::apply_visitor(
+				index_view_format(),
+				view),
+			sz,
+			flags));
+	
+	scoped_index_lock const lock(
+		make_scoped_lock(
+			ib,
+			lock_flags::writeonly));
+	
+	copy_n(
+		boost::apply_visitor(
+			index_view_data_const(),
+			view),
+		sz * boost::apply_visitor(
+			index_view_stride(),
+			view),
+		boost::apply_visitor(
+			index_view_data(),
+			lock.value()));
 }
 
 sge::renderer::screen_unit

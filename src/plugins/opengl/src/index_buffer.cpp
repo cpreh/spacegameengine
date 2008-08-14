@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../vbo.hpp"
 #include "../instantiate_buffer_base.hpp"
-#include <sge/renderer/index_view_operations.hpp>
+#include <sge/renderer/make_index_view.hpp>
+#include <sge/renderer/index_format_stride.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/variant/apply_visitor.hpp>
 
 SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 	sge::renderer::index_buffer,
@@ -33,25 +33,33 @@ SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 
 
 sge::ogl::index_buffer::index_buffer(
-	renderer::const_dynamic_index_view const &src,
+	renderer::index_format::type const format_,
+	size_type const sz,
 	renderer::resource_flag_t const flags)
 : detail::index_buffer_base(
-	boost::apply_visitor(renderer::index_view_size(), src),
-	boost::apply_visitor(renderer::index_view_stride(), src),
+	sz,
+	renderer::index_format_stride(format_),
 	flags,
-	boost::apply_visitor(renderer::index_view_data(), src))
+	0),
+  format_(format_)
 {}
+
+sge::renderer::index_format::type
+sge::ogl::index_buffer::get_index_format() const
+{
+	return format_;
+}
 
 GLenum sge::ogl::index_buffer::format() const
 {
-	switch(stride()) {
-	case 2:
+	switch(format_) {
+	case renderer::index_format::index16:
 		return GL_UNSIGNED_SHORT;
-	case 4:
+	case renderer::index_format::index32:
 		return GL_UNSIGNED_INT;
 	default:
 		throw exception(
-			SGE_TEXT("Wrong stride in ogl::index_buffer!"));
+			SGE_TEXT("Wrong format in ogl::index_buffer!"));
 	}
 }
 
@@ -67,41 +75,20 @@ void sge::ogl::index_buffer::bind_me() const
 	base::bind_me();
 }
 
-// TODO: how can we simplify this?
 sge::renderer::dynamic_index_view const
 sge::ogl::index_buffer::view()
 {
-	switch(detail::index_buffer_base::stride()) {
-	case sizeof(uint16):
-		return renderer::index_view_16(
-			reinterpret_cast<renderer::index_view_16::pointer>(
-				detail::index_buffer_base::data()),
-			lock_size());
-	case sizeof(uint32):
-		return renderer::index_view_32(
-			reinterpret_cast<renderer::index_view_32::pointer>(
-				detail::index_buffer_base::data()),
-			lock_size());
-	default:
-		throw exception(SGE_TEXT("Invalid stride in ogl::index_buffer::view()!"));
-	}
+	return renderer::make_index_view(
+		detail::index_buffer_base::data(),
+		lock_size(),
+		get_index_format());
 }
 
 sge::renderer::const_dynamic_index_view const
 sge::ogl::index_buffer::view() const
 {
-	switch(detail::index_buffer_base::stride()) {
-	case sizeof(uint16):
-		return renderer::const_index_view_16(
-			reinterpret_cast<renderer::const_index_view_16::pointer>(
-				detail::index_buffer_base::data()),
-			lock_size());
-	case sizeof(uint32):
-		return renderer::const_index_view_32(
-			reinterpret_cast<renderer::const_index_view_32::pointer>(
-				detail::index_buffer_base::data()),
-			lock_size());
-	default:
-		throw exception(SGE_TEXT("Invalid stride in ogl::index_buffer::view()!"));
-	}	
+	return renderer::make_index_view(
+		detail::index_buffer_base::data(),
+		lock_size(),
+		get_index_format());
 }

@@ -140,9 +140,10 @@ public:
 		renderer::const_vertex_view const &,
 		renderer::vertex_buffer::resource_flag_type flags);
 
-	const renderer::index_buffer_ptr
+	renderer::index_buffer_ptr const
 	create_index_buffer(
-		renderer::const_dynamic_index_view const &,
+		renderer::index_format::type,
+		renderer::index_buffer::size_type sz,
 		renderer::index_buffer::resource_flag_type flags);
 
 	const renderer::caps& get_caps() const;

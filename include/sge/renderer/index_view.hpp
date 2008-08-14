@@ -62,6 +62,8 @@ typedef index_view<uint16 const> const_index_view_16;
 typedef index_view<uint32> index_view_32;
 typedef index_view<uint32 const> const_index_view_32;
 
+// FIXME: we should really use a variant with an mpl::vector here
+// so that return types of visitor algorithms can be deduced
 typedef boost::variant<
 	index_view_16,
 	index_view_32

@@ -59,6 +59,8 @@ public:
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
 
+	virtual index_format::type get_index_format() const = 0;
+
 	SGE_SYMBOL virtual ~index_buffer();
 };
 

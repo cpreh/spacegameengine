@@ -46,9 +46,16 @@ struct index_view_stride
 	size_type operator()(T const &) const;
 };
 
-// TODO: what to do with non const visitors?
 struct index_view_data
-: boost::static_visitor<unsigned char const*> {
+: boost::static_visitor<unsigned char *> {
+	typedef index_size size_type;
+
+	template<typename T>
+	unsigned char *operator()(T const &) const;
+};
+
+struct index_view_data_const
+: boost::static_visitor<unsigned char const *> {
 	typedef index_size size_type;
 
 	template<typename T>

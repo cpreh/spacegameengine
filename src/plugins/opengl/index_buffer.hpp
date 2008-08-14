@@ -47,8 +47,12 @@ public:
 	using base::const_pointer;
 
 	index_buffer(
-		const_view_type const &,
+		renderer::index_format::type format,
+		size_type sz,
 		resource_flag_type flags);
+	
+	renderer::index_format::type get_index_format() const;
+
 	GLenum format() const;
 	const_pointer buffer_offset(
 		size_type) const;
@@ -56,6 +60,8 @@ public:
 private:
 	view_type const view();
 	const_view_type const view() const;
+
+	renderer::index_format::type const format_;
 };
 
 }

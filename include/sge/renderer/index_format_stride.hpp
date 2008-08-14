@@ -18,15 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index_buffer_util.hpp>
+#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
 
-sge::renderer::index_buffer_ptr const
-sge::renderer::resize(
-	index_buffer_ptr const ib,
-	device_ptr const rend,
-	index_buffer::size_type const newsize)
+#include "index_format.hpp"
+#include <cstddef>
+
+namespace sge
 {
-	return rend->create_index_buffer(
-		ib->get_index_format(),
-		newsize);
+namespace renderer
+{
+
+// FIXME: fix the std::size_t here!
+std::size_t index_format_stride(
+	index_format::type);
+
 }
+}
+
+#endif

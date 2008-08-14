@@ -31,7 +31,7 @@ namespace sge
 namespace renderer
 {
 
-typedef math::basic_dim<std::size_t, 2> image_dim; // TODO: make a common typedef
+typedef math::basic_dim<std::size_t, 2> image_dim; // FIXME: make a common typedef
 
 image_view const make_image_view(
 	unsigned char *data,

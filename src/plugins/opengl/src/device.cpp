@@ -220,14 +220,16 @@ void sge::ogl::device::begin_rendering()
 		| get_clear_bit(renderer::bool_state::clear_stencil));
 }
 
-const sge::renderer::index_buffer_ptr
+sge::renderer::index_buffer_ptr const
 sge::ogl::device::create_index_buffer(
-	renderer::const_dynamic_index_view const &view,
-	const renderer::index_buffer::resource_flag_type flags)
+	renderer::index_format::type const format,
+	renderer::index_buffer::size_type const sz,
+	renderer::index_buffer::resource_flag_type const flags)
 {
 	return renderer::index_buffer_ptr(
 		new index_buffer(
-			view,
+			format,
+			sz,
 			flags));
 }
 
@@ -235,7 +237,8 @@ const sge::ogl::fbo_target_ptr
 sge::ogl::device::create_render_target(
 	const renderer::target::dim_type& dim)
 {
-	return fbo_target_ptr(new fbo_target(dim));
+	return fbo_target_ptr(
+		new fbo_target(dim));
 }
 
 sge::renderer::texture_ptr const

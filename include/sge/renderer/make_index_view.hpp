@@ -18,15 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index_buffer_util.hpp>
+#ifndef SGE_RENDERER_MAKE_INDEX_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_MAKE_INDEX_VIEW_HPP_INCLUDED
 
-sge::renderer::index_buffer_ptr const
-sge::renderer::resize(
-	index_buffer_ptr const ib,
-	device_ptr const rend,
-	index_buffer::size_type const newsize)
+#include "index_view.hpp"
+#include "index_format.hpp"
+#include <cstddef>
+
+namespace sge
 {
-	return rend->create_index_buffer(
-		ib->get_index_format(),
-		newsize);
+namespace renderer
+{
+
+// FIXME: use something else instead of std::size_t
+
+dynamic_index_view const make_index_view(
+	unsigned char *data,
+	std::size_t sz,
+	index_format::type);
+
+const_dynamic_index_view const make_index_view(
+	unsigned char const *data,
+	std::size_t sz,
+	index_format::type);
+
 }
+}
+
+#endif

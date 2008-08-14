@@ -185,14 +185,14 @@ public:
 		vertex_buffer::size_type size,
 		resource_flag_t flags = resource_flags::default_) = 0;*/
 
-	virtual const index_buffer_ptr create_index_buffer(
+	index_buffer_ptr const create_index_buffer(
 		const_dynamic_index_view const &,
-		resource_flag_t flags = resource_flags::default_) = 0;
+		resource_flag_t flags = resource_flags::default_);
 
-	/*virtual index_buffer_ptr const create_index_buffer(
+	virtual index_buffer_ptr const create_index_buffer(
 		index_format::type,
 		index_buffer::size_type size,
-		resource_flag_t flags = resource_flags::default_) = 0;*/
+		resource_flag_t flags = resource_flags::default_) = 0;
 
 	virtual const caps& get_caps() const = 0;
 	virtual const screen_size_t screen_size() const = 0;
