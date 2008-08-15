@@ -29,8 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/once.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/assign/list_of.hpp>
-#include <algorithm>
 
 namespace
 {
@@ -59,6 +60,7 @@ sge::ogl::cube_texture::cube_texture(
   sz(sz),
   locked_texture(0)
 {
+	// TODO: move this to a checker class
 	if(!have_cube_texture())
 		sge::ogl::on_not_supported(
 			SGE_TEXT("cube texture"),
@@ -79,18 +81,14 @@ sge::ogl::cube_texture::cube_texture(
 		));
 }
 
-sge::ogl::cube_texture::size_type
-sge::ogl::cube_texture::border_size() const
-{
-	return sz;
-}
-
 sge::renderer::image_view const
 sge::ogl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src,
 	lock_flag_type const flags)
 {
+	check_not_locked();
+
 	locked_texture = &textures[side];
 	return locked_texture->lock(
 		src,
@@ -102,6 +100,8 @@ sge::ogl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src) const
 {
+	check_not_locked();
+
 	locked_texture = &textures[side];
 	return locked_texture->lock(
 		src);
@@ -109,8 +109,30 @@ sge::ogl::cube_texture::lock(
 
 void sge::ogl::cube_texture::unlock() const
 {
+	check_locked();
+
 	locked_texture->unlock();
 	locked_texture = 0;
+}
+
+sge::ogl::cube_texture::size_type
+sge::ogl::cube_texture::border_size() const
+{
+	return sz;
+}
+
+void sge::ogl::cube_texture::check_locked() const
+{
+	if(!locked_texture)
+		throw exception(
+			SGE_TEXT("ogl::cube_texture: not locked!"));
+}
+
+void sge::ogl::cube_texture::check_not_locked() const
+{
+	if(locked_texture)
+		throw exception(
+			SGE_TEXT("ogl::cube_texture: already locked!"));
 }
 
 GLenum sge::ogl::convert_cast(renderer::cube_side::type const &s)

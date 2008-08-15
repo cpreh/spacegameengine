@@ -60,6 +60,9 @@ public:
 	
 	size_type border_size() const;
 private:
+	void check_locked() const;
+	void check_not_locked() const;
+
 	size_type const            sz;
 	mutable renderer::texture  *locked_texture;
 
