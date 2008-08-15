@@ -41,11 +41,16 @@ typedef basic_texture<renderer::texture> texture_base;
 
 class texture : public detail::texture_base {
 public:
+	typedef boost::optional<GLenum> optional_type;
+
 	texture(
 		dim_type const &,
 		renderer::color_format::type format,
 		renderer::filter_args const &filter,
-		resource_flag_type flags);
+		resource_flag_type flags,
+		optional_type type
+			= optional_type());
+	
 	dim_type const dim() const;
 	
 	renderer::image_view const lock(

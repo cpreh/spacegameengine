@@ -233,9 +233,9 @@ sge::ogl::device::create_index_buffer(
 			flags));
 }
 
-const sge::ogl::fbo_target_ptr
+sge::ogl::fbo_target_ptr const
 sge::ogl::device::create_render_target(
-	const renderer::target::dim_type& dim)
+	renderer::target::dim_type const & dim)
 {
 	return fbo_target_ptr(
 		new fbo_target(dim));
@@ -288,10 +288,15 @@ sge::renderer::cube_texture_ptr const
 sge::ogl::device::create_cube_texture(
 	renderer::cube_texture::size_type const border_size,
 	renderer::color_format::type const format,
-	const renderer::filter_args& filter,
-	const renderer::cube_texture::resource_flag_type flags)
+	renderer::filter_args const &filter,
+	renderer::cube_texture::resource_flag_type const flags)
 {
-
+	return renderer::cube_texture_ptr(
+		new cube_texture(
+			border_size,
+			format,
+			filter,
+			flags));
 }
 
 void sge::ogl::device::end_rendering()

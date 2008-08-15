@@ -44,11 +44,12 @@ sge::ogl::texture::texture(
 	dim_type const &d,
 	renderer::color_format::type const format_,
 	renderer::filter_args const &filter,
-	resource_flag_type const flags)
+	resource_flag_type const flags,
+	optional_type const type)
 : detail::texture_base(
 	filter,
 	flags,
-	texture_type,
+	type ? *type : texture_type,
 	format_),
   dim_(d)
 {

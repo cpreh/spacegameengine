@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../basic_texture_impl.hpp"
 #include "../version.hpp"
 #include "../enable.hpp"
+#include "../texture.hpp"
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/once.hpp>
 #include <boost/assign/list_of.hpp>
@@ -46,22 +47,36 @@ bool have_cube_texture_;
 template class sge::ogl::basic_texture<sge::renderer::cube_texture>;
 
 sge::ogl::cube_texture::cube_texture(
-	image_view_6 const &src,
+	size_type const sz,
+	renderer::color_format::type const format,
 	renderer::filter_args const &filter,
-	const resource_flag_type flags)
+	resource_flag_type const flags)
  : detail::cube_texture_base(
  	filter,
 	flags,
 	cube_texture_type(),
-	renderer::color_format::rgba8), // FIXME
-  sz(0)
+	format),
+  sz(sz),
+  locked_texture(0)
 {
 	if(!have_cube_texture())
 		sge::ogl::on_not_supported(
 			SGE_TEXT("cube texture"),
 			SGE_TEXT("1.3"),
 	       		SGE_TEXT("gl_arb_cube_texture"));
-	//data(src);
+
+	for(unsigned i = 0; i < 6; ++i)
+		textures.push_back(
+			new texture(
+				texture::dim_type(
+					sz,
+					sz),
+				format,
+				filter,
+				flags,
+				convert_cast(
+					static_cast<renderer::cube_side::type>(i))
+		));
 }
 
 sge::ogl::cube_texture::size_type
@@ -70,44 +85,16 @@ sge::ogl::cube_texture::border_size() const
 	return sz;
 }
 
-#if 0
-void sge::ogl::cube_texture::data(
-	const renderer::cube_side::type side,
-	renderer::image_view const &)
-{
-/*	pre_setdata();
-	set_texture(
-		convert_cast(side),
-		filter(),
-		renderer::texture::dim_type(
-			border_size(),
-			border_size()),
-		src);*/
-}
-#endif
-
-sge::renderer::image_view const
-sge::ogl::cube_texture::lock(
-	renderer::cube_side::type const side,
-	lock_flag_type const lmode)
-{
-	
-}
-
 sge::renderer::image_view const
 sge::ogl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src,
 	lock_flag_type const flags)
 {
-
-}
-
-sge::renderer::const_image_view const
-sge::ogl::cube_texture::lock(
-	renderer::cube_side::type const side) const
-{
-
+	locked_texture = &textures[side];
+	return locked_texture->lock(
+		src,
+		flags);
 }
 
 sge::renderer::const_image_view const
@@ -115,24 +102,18 @@ sge::ogl::cube_texture::lock(
 	renderer::cube_side::type const side,
 	renderer::lock_rect const &src) const
 {
-
+	locked_texture = &textures[side];
+	return locked_texture->lock(
+		src);
 }
 
 void sge::ogl::cube_texture::unlock() const
 {
+	locked_texture->unlock();
+	locked_texture = 0;
 }
 
-sge::renderer::image_view const
-sge::ogl::cube_texture::view()
-{
-}
-
-sge::renderer::const_image_view const
-sge::ogl::cube_texture::view() const
-{
-}
-
-GLenum sge::ogl::convert_cast(const renderer::cube_side::type& s)
+GLenum sge::ogl::convert_cast(renderer::cube_side::type const &s)
 {
 	typedef boost::array<GLenum, sge::renderer::cube_side::num_elements> cube_side_array;
 	static const cube_side_array cube_sides = cube_texture_type() == GL_TEXTURE_CUBE_MAP
