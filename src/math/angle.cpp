@@ -1,11 +1,16 @@
 #include <sge/math/angle.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/math/constants.hpp>
-#include <cassert>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/format.hpp>
 
 sge::space_unit sge::math::rel_angle_to_abs(const space_unit a)
 {
-	assert(in_closed_interval(a,-pi<space_unit>(),pi<space_unit>()));
+	if(!in_closed_interval(a,-pi<space_unit>(),pi<space_unit>()))
+		throw exception(
+			(format(SGE_TEXT("math::rel_angle_to_abs: relative angle %1% out of range!"))
+			% a).str());
 
 	if (almost_zero(a))
 		return su(0);
