@@ -99,7 +99,7 @@ try
 			(sge::renderer::depth_func::off)
 			(sge::renderer::cull_mode::off));*/
 	//const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
-	const sge::string some_text(SGE_TEXT("de"));
+	const sge::string some_text(SGE_TEXT("de\nEFygY\ngyhgh"));
 	while(running)
 	{
 		const sge::renderer::scoped_block block_(rend);

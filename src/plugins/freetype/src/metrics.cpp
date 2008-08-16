@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <utility>
 
 sge::ft::metrics::metrics(
-	library& lib,
-	const path& font_path,
-	const unsigned font_height)
+	library &lib,
+	path const &font_path,
+	unsigned const font_height)
 : face_(lib, font_path),
   pixel_size(static_cast<font::unit>(font_height))
 {
@@ -39,22 +39,25 @@ sge::ft::metrics::metrics(
 		throw exception(SGE_TEXT("FT_Set_Pixel_Sizes() failed!"));
 }
 
-const sge::font::char_metric_ptr
+sge::font::char_metric_ptr const
 sge::ft::metrics::load_char(
-	const char_type c)
+	char_type const c)
 {
 	{
-		const buffer_type::const_iterator it = buffer.find(c);
+		buffer_type::const_iterator const it = buffer.find(c);
 		if(it != buffer.end())
 			return it->second;
 	}
 
-	const font::char_metric_ptr metric(new char_metric(face_, c, line_height()));
+	font::char_metric_ptr const metric(
+		new char_metric(
+			face_,
+			c));
 	buffer.insert(std::make_pair(c, metric));
 	return metric;
 }
 
 sge::font::unit sge::ft::metrics::line_height() const
 {
-	return pixel_size;
+	return face_->height / 64;
 }

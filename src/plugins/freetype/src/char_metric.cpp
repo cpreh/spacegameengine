@@ -24,13 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../char_metric.hpp"
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
+#include <sge/iostream.hpp>
 #include <boost/gil/algorithm.hpp>
 #include <boost/gil/typedefs.hpp>
+#include <ostream>
+#include <cassert>
 
 sge::ft::char_metric::char_metric(
-	face& face_,
-	const char_type ch,
-	const font::unit pixel_size)
+	face &face_,
+	char_type const ch)
 {
 	if(FT_Load_Char(face_.get(), ch, FT_LOAD_DEFAULT))
 		throw exception(SGE_TEXT("FT_Load_Glyph() failed!"));
@@ -41,14 +43,23 @@ sge::ft::char_metric::char_metric(
 	FT_Bitmap& bitmap = bmp_glyph->bitmap;
 	
 	offset_.x() = bmp_glyph->left;
-	offset_.y() = static_cast<int>(pixel_size) - bmp_glyph->top + face_->descender / 64;
+	offset_.y() = face_->ascender / 64 - bmp_glyph->top; // FIXME: why are the ascenders so big?
 	x_advance_ = static_cast<font::unit>(face_->glyph->advance.x / 64);
+
+	assert(offset_.x() >= 0);
+	if(offset_.y() < 0)
+		cerr << SGE_TEXT("warning: y offset of character '")
+		     << ch
+		     << SGE_TEXT("' is ")
+		     << offset_.y()
+		     << SGE_TEXT("!\n");
 
 	boost::gil::gray8c_view_t src(
 		boost::gil::interleaved_view(
 			bitmap.width,
 			bitmap.rows,
-			reinterpret_cast<boost::gil::gray8_pixel_t const*>(bitmap.buffer),
+			reinterpret_cast<boost::gil::gray8_pixel_t const *>(
+				bitmap.buffer),
 			bitmap.pitch));
 	
 	buffer.recreate(bitmap.width, bitmap.rows);
@@ -56,7 +67,7 @@ sge::ft::char_metric::char_metric(
 	boost::gil::copy_pixels(src, boost::gil::view(buffer));
 }
 
-const sge::font::pos sge::ft::char_metric::offset() const
+sge::font::pos const sge::ft::char_metric::offset() const
 {
 	return offset_;
 }
