@@ -47,6 +47,12 @@ inline T pi()
 }
 
 template<typename T>
+inline T twopi()
+{
+	return static_cast<T>(2) * pi<T>();
+}
+
+template<typename T>
 inline T deg_to_rad(const T deg)
 {
 	return deg * PI / static_cast<T>(180);

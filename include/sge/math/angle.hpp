@@ -57,8 +57,9 @@ angle_to(
 	return atan2(structure_cast<Dest>(to));
 }
 
-space_unit rel_angle_to_abs(const space_unit);
+space_unit rel_angle_to_abs(space_unit);
 space_unit abs_angle_to_rel(space_unit);
+bool is_rel_angle(space_unit);
 
 }
 }
