@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TRANSFORMABLE_HPP_INCLUDED
 
 #include "../math/matrix.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-class transformable {
+class SGE_CLASS_SYMBOL transformable {
 public:
 	virtual void internal_transformation(const math::space_matrix&) = 0;
 	virtual void transform(const math::space_matrix&) = 0;

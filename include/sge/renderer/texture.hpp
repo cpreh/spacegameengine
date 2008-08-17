@@ -32,7 +32,7 @@ namespace sge
 namespace renderer
 {
 
-class texture : public texture_base {
+class SGE_CLASS_SYMBOL texture : public texture_base {
 public:
 	typedef math::basic_vector<size_type, 2>     pos_type;
 	typedef math::basic_dim<size_type, 2>        dim_type;

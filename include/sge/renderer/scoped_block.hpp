@@ -34,7 +34,7 @@ class scoped_block : boost::noncopyable {
 public:
 	SGE_SYMBOL explicit scoped_block(device_ptr);
 	SGE_SYMBOL ~scoped_block();
-	void release();
+	SGE_SYMBOL void release();
 private:
 	device_ptr rend;
 };

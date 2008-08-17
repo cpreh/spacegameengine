@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_DRAWER_HPP_INCLUDED
 
 #include "../shared_ptr.hpp"
+#include "../export.hpp"
 #include "types.hpp"
+#include <boost/noncopyable.hpp>
 #include <cstddef>
 
 namespace sge
@@ -30,7 +32,7 @@ namespace sge
 namespace font
 {
 
-class drawer {
+class SGE_CLASS_SYMBOL drawer : boost::noncopyable {
 public:
 	typedef std::size_t size_type;
 	virtual void begin_rendering(
@@ -42,7 +44,7 @@ public:
 		pos const&,
 		const_image_view const &data) = 0;
 	virtual void end_rendering() = 0;
-	virtual ~drawer() {}
+	SGE_SYMBOL virtual ~drawer();
 };
 
 typedef shared_ptr<drawer> drawer_ptr;

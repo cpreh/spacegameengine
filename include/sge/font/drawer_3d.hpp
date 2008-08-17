@@ -42,7 +42,7 @@ class fragmented_texture;
 namespace font
 {
 
-class drawer_3d : public drawer {
+class SGE_CLASS_SYMBOL drawer_3d : public drawer {
 public:
 	SGE_SYMBOL drawer_3d(
 		renderer::device_ptr rend,

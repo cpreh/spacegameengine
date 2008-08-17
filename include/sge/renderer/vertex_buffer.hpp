@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "resource_flags.hpp"
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
+#include <boost/noncopyable.hpp>
 #include <cstddef>
 
 namespace sge
@@ -35,7 +36,7 @@ namespace sge
 namespace renderer
 {
 
-class vertex_buffer {
+class SGE_CLASS_SYMBOL vertex_buffer : boost::noncopyable {
 public:
 	typedef vertex::value_type      value_type;
 	typedef vertex::size_type       size_type;

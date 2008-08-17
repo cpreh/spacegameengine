@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "states.hpp"
 #include "image_view.hpp"
 #include "color_format.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -96,7 +97,7 @@ namespace texture_stage_arg_value
 	};
 }
 
-class device {
+class SGE_CLASS_SYMBOL device : boost::noncopyable {
 public:
 	typedef uint32     int_type;
 	typedef int32      signed_type;

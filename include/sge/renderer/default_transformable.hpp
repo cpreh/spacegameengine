@@ -31,7 +31,7 @@ namespace sge
 namespace renderer
 {
 
-class default_transformable {
+class SGE_CLASS_SYMBOL default_transformable {
 public:
 	SGE_SYMBOL default_transformable(
 		device_ptr rend,

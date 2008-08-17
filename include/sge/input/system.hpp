@@ -38,7 +38,7 @@ namespace sge
 namespace input
 {
 
-class system : boost::noncopyable {
+class SGE_CLASS_SYMBOL system : boost::noncopyable {
 public:
 	typedef void key_pair_fun (const key_pair&);
 	typedef boost::signal<key_pair_fun> signal_type;

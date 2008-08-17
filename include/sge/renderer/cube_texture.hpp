@@ -45,7 +45,7 @@ namespace cube_side
 	};
 }
 
-class cube_texture : public texture_base {
+class SGE_CLASS_SYMBOL cube_texture : public texture_base {
 public:
 	typedef boost::array<
 		image_view,

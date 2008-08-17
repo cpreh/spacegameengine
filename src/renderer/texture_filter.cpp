@@ -28,3 +28,15 @@ sge::renderer::filter_args::filter_args(
    mag_filter(mag_filter),
    anisotropy_level(anisotropy_level)
 {}
+
+sge::renderer::filter_args const
+sge::renderer::linear_filter(min_filter::linear, mag_filter::linear);
+
+sge::renderer::filter_args const
+sge::renderer::point_filter(min_filter::point, mag_filter::point);
+
+sge::renderer::filter_args const
+sge::renderer::mip_filter(min_filter::mipmap, mag_filter::linear);
+
+sge::renderer::filter_args const
+sge::renderer::trilinear_filter(min_filter::trilinear, mag_filter::linear);

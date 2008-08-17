@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "types.hpp"
 #include "texture.hpp"
 #include "../su.hpp"
+#include "../export.hpp"
 #include "../math/rect.hpp"
 #include "../math/matrix.hpp"
 
@@ -32,10 +33,10 @@ namespace sge
 namespace renderer
 {
 
-const math::space_matrix matrix_pixel_to_space(
+SGE_SYMBOL const math::space_matrix matrix_pixel_to_space(
 	const screen_size_t&);
 
-const math::rect tex_size_to_space_rect(
+SGE_SYMBOL const math::rect tex_size_to_space_rect(
 	const lock_rect& l,
 	const texture::dim_type& dim,
 	space_unit repeat = 1);

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "renderer.hpp"
 #include "vertex_buffer.hpp"
 #include "default_transformable.hpp"
+#include "../export.hpp"
 #include <boost/noncopyable.hpp>
 #include <vector>
 
@@ -32,18 +33,18 @@ namespace sge
 namespace renderer
 {
 
-class line_strip : public default_transformable, boost::noncopyable {
+class SGE_CLASS_SYMBOL line_strip : public default_transformable, boost::noncopyable {
 public:
 	typedef vertex_buffer::size_type size_type;
 
-	line_strip(device_ptr rend, color col, size_type init_lines = 1);
-	line_strip& add(const pos3& a);
-	void set_color(color c);
-	void render();
-	pos3& operator[](size_type index);
-	const pos3& operator[](size_type index) const;
-	void clear();
-	void loop(bool);
+	SGE_SYMBOL line_strip(device_ptr rend, color col, size_type init_lines = 1);
+	SGE_SYMBOL line_strip& add(const pos3& a);
+	SGE_SYMBOL void set_color(color c);
+	SGE_SYMBOL void render();
+	SGE_SYMBOL pos3& operator[](size_type index);
+	SGE_SYMBOL const pos3& operator[](size_type index) const;
+	SGE_SYMBOL void clear();
+	SGE_SYMBOL void loop(bool);
 private:
 	typedef std::vector<pos3> pos_vector;
 	const device_ptr rend;

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color.hpp>
 #include <sge/renderer/colors.hpp>
 
-sge::renderer::state_list sge::renderer::default_states()
+sge::renderer::state_list const
+sge::renderer::default_states()
 {
 	static const state_list list(
 		state_list
