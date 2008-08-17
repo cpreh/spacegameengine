@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_OBJECT_HPP_INCLUDED
 
 #include "object.hpp"
+#include "../export.hpp"
 #include <boost/intrusive/list_hook.hpp>
 #include <boost/optional.hpp>
 
@@ -43,13 +44,11 @@ typedef boost::intrusive::list_base_hook<
 
 }
 
-class intrusive_object : object, 
-//public boost::intrusive::list_base_hook<> {
-public detail::object_base_hook {
+class intrusive_object : object, public detail::object_base_hook {
 public:
 	typedef unsigned order_type;
 
-	intrusive_object(
+	SGE_SYMBOL intrusive_object(
 		intrusive_system &,
 		order_type,
 		boost::optional<point> = defaults::pos_,
@@ -60,14 +59,14 @@ public:
 		boost::optional<rotation_type> = defaults::rotation_,
 		boost::optional<bool> visible = defaults::visible_);
 	
-	intrusive_object(
+	SGE_SYMBOL intrusive_object(
 		intrusive_object const &);
 
-	intrusive_object &
+	SGE_SYMBOL intrusive_object &
 	operator=(
 		intrusive_object const &);
 
-	~intrusive_object();
+	SGE_SYMBOL ~intrusive_object();
 
 	using object::x;
 	using object::y;
@@ -92,12 +91,12 @@ public:
 	using object::rotation_center;
 	using object::get_texture;
 
-	void order(
+	SGE_SYMBOL void order(
 		order_type);
-	order_type order() const;
+	SGE_SYMBOL order_type order() const;
 
-	object &explicit_upcast();
-	object const &explicit_upcast() const;
+	SGE_SYMBOL object &explicit_upcast();
+	SGE_SYMBOL object const &explicit_upcast() const;
 private:
 	void add_me();
 

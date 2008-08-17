@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 
-#include "../typeswitch.hpp"
 #include "index_format.hpp"
+#include "../typeswitch.hpp"
+#include "../export.hpp"
 #include <boost/variant.hpp>
 #include <cstddef>
 
@@ -41,17 +42,17 @@ public:
 	typedef value_type *pointer;
 	typedef pointer iterator;
 
-	index_view(
+	SGE_SYMBOL index_view(
 		pointer,
 		size_type);
 
-	pointer data() const;
-	size_type size() const;
+	SGE_SYMBOL pointer data() const;
+	SGE_SYMBOL size_type size() const;
 
-	iterator begin() const;
-	iterator end() const;
+	SGE_SYMBOL iterator begin() const;
+	SGE_SYMBOL iterator end() const;
 
-	index_format::type format() const;
+	SGE_SYMBOL index_format::type format() const;
 private:
 	pointer data_;
 	size_type size_;

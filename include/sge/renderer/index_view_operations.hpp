@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "index_view.hpp"
 #include "index_format.hpp"
+#include "../export.hpp"
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
@@ -35,7 +36,7 @@ struct index_view_size
 	typedef index_size size_type;
 
 	template<typename T>
-	size_type operator()(T const &) const;
+	SGE_SYMBOL size_type operator()(T const &) const;
 };
 
 struct index_view_stride
@@ -43,7 +44,7 @@ struct index_view_stride
 	typedef index_size size_type;
 
 	template<typename T>
-	size_type operator()(T const &) const;
+	SGE_SYMBOL size_type operator()(T const &) const;
 };
 
 struct index_view_data
@@ -51,7 +52,7 @@ struct index_view_data
 	typedef index_size size_type;
 
 	template<typename T>
-	unsigned char *operator()(T const &) const;
+	SGE_SYMBOL unsigned char *operator()(T const &) const;
 };
 
 struct index_view_data_const
@@ -59,7 +60,7 @@ struct index_view_data_const
 	typedef index_size size_type;
 
 	template<typename T>
-	unsigned char const *operator()(T const &) const;
+	SGE_SYMBOL unsigned char const *operator()(T const &) const;
 };
 
 struct index_view_format
@@ -67,7 +68,7 @@ struct index_view_format
 	typedef index_size size_type;
 
 	template<typename T>
-	index_format::type operator()(T const &) const;
+	SGE_SYMBOL index_format::type operator()(T const &) const;
 };
 
 }

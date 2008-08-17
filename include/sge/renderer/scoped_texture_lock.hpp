@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "image_view.hpp"
 #include "scoped_lock_wrapper.hpp"
 #include "scoped_lock.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -51,18 +52,18 @@ typedef scoped_lock_wrapper<
 	const_image_view
 > const_scoped_texture_lock_wrapper;
 
-scoped_texture_lock_wrapper const
+SGE_SYMBOL scoped_texture_lock_wrapper const
 make_scoped_lock(
 	texture_ptr,
 	lock_flag_t);
 
-scoped_texture_lock_wrapper const
+SGE_SYMBOL scoped_texture_lock_wrapper const
 make_scoped_lock(
 	texture_ptr t,
 	lock_rect const &r,
 	lock_flag_t flags);
 
-const_scoped_texture_lock_wrapper const
+SGE_SYMBOL const_scoped_texture_lock_wrapper const
 make_scoped_lock(
 	const_texture_ptr t,
 	lock_rect const &r);

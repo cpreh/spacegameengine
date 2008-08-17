@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "vertex_buffer.hpp"
 #include "device.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-vertex_buffer_ptr const
+SGE_SYMBOL vertex_buffer_ptr const
 resize(
 	vertex_buffer_ptr,
 	device_ptr,
