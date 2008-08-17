@@ -29,7 +29,7 @@ namespace sge
 namespace ogl
 {
 
-struct vbo_base;
+class vbo_base;
 
 template<
 	typename Base,

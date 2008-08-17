@@ -34,12 +34,12 @@ namespace dinput
 class key_converter {
 public:
 	key_converter();
-	key_code create_key_code(DWORD ofs) const;
-	DWORD   create_dik(key_code key) const;
+	input::key_code create_key_code(DWORD ofs) const;
+	DWORD   create_dik(input::key_code key) const;
 private:
-	typedef std::vector<key_code> key_vector;
+	typedef std::vector<input::key_code> key_vector;
 	key_vector v;
-	std::map<key_code, DWORD> vr;
+	std::map<input::key_code, DWORD> vr;
 };
 
 }

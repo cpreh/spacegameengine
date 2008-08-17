@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "vertex.hpp"
 #include "vertex_iterator.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -38,16 +39,16 @@ public:
 	typedef typename Vertex::pointer pointer;
 	typedef vb_detail::iterator_impl<Vertex> iterator;
 
-	basic_vertex_view(
+	SGE_SYMBOL basic_vertex_view(
 		pointer data,
 		size_type size,
 		vertex_format const &);
 
-	iterator begin() const;
-	iterator end() const;
-	size_type size() const;
-	vertex_format const &format() const;
-	pointer data() const;
+	SGE_SYMBOL iterator begin() const;
+	SGE_SYMBOL iterator end() const;
+	SGE_SYMBOL size_type size() const;
+	SGE_SYMBOL vertex_format const &format() const;
+	SGE_SYMBOL pointer data() const;
 private:
 	pointer       raw_data;
 	size_type     size_;

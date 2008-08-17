@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "key_converter.hpp"
 #include "di.hpp"
 #include <sge/input/key_type.hpp>
+#include <sge/input/mod_state.hpp>
 #include <sge/string.hpp>
+#include <sge/char.hpp>
 #include <map>
 
 namespace sge
@@ -35,17 +37,22 @@ namespace dinput
 
 class keyboard : public input_device {
 public:
-	keyboard(dinput_ptr, const string& name, GUID guid, sge::win32_window_ptr window, const key_converter& conv);
-	void dispatch(input_system::signal_type&);
-	key_state query_key(const string& name);
+	keyboard(
+		dinput_ptr,
+		string const &name,
+		GUID guid,
+		win32_window_ptr window,
+		key_converter const &conv);
+	void dispatch(input::system::signal_type&);
+	input::key_state query_key(string const &name);
 private:
-	sge::string::value_type keycode_to_char(const key_code key) const;
+	char_type keycode_to_char(const input::key_code key) const;
 	static BOOL CALLBACK enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
 
-	mod_state modifiers;
-	const key_converter& conv;
+	input::mod_state modifiers;
+	key_converter const &conv;
 	HKL kblayout;
-	typedef std::map<unsigned,key_type> key_map;
+	typedef std::map<unsigned, input::key_type> key_map;
 	key_map keys;
 };
 

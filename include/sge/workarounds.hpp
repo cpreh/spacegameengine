@@ -18,23 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#ifndef SGE_WORKAROUNDS_HPP_INCLUDED
+#define SGE_WORKAROUNDS_HPP_INCLUDED
 
-#include "index_format.hpp"
-#include "../export.hpp"
-#include <cstddef>
+#ifdef _MSC_VER
 
-namespace sge
-{
-namespace renderer
-{
+#define SGE_MSVC_STATIC_CONST_INTEGRAL_DEFINITION_BUG
+#define SGE_MSVC_VIRTUAL_BASE_REFERENCE_BUG
 
-// FIXME: fix the std::size_t here!
-SGE_SYMBOL std::size_t index_format_stride(
-	index_format::type);
-
-}
-}
+#endif
 
 #endif

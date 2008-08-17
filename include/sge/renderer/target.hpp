@@ -40,7 +40,7 @@ public:
 	typedef math::basic_dim<size_type, 2>  dim_type;
 	typedef lock_rect                      rect_type;
 
-	const_image_view const lock() const;
+	SGE_SYMBOL const_image_view const lock() const;
 	virtual const_image_view const lock(lock_rect const &dest) const = 0;
 	virtual void unlock() const = 0;
 
@@ -48,7 +48,7 @@ public:
 	SGE_SYMBOL rect_type const rect() const;
 	SGE_SYMBOL size_type size() const;
 	
-	virtual ~target();
+	SGE_SYMBOL virtual ~target();
 };
 
 typedef shared_ptr<target> target_ptr;

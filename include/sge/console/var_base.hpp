@@ -43,9 +43,9 @@ public:
 	// VC++ is so dumb that it wants to instantiate a class
 	// if you bind *this to a reference
 	SGE_SYMBOL virtual void set(const string&);
-	SGE_SYMBOL virtual string get() const;
+	SGE_SYMBOL virtual string const get() const;
 #endif
-	virtual ~var_base();
+	SGE_SYMBOL virtual ~var_base();
 };
 
 }

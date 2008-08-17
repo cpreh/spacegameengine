@@ -45,7 +45,7 @@ struct player
 	virtual const sound_ptr create_nonstream_sound(file_ptr) = 0;
 	virtual const sound_ptr create_stream_sound(file_ptr) = 0;
 	virtual void update() = 0;
-	virtual ~player();
+	SGE_SYMBOL virtual ~player();
 };
 
 }

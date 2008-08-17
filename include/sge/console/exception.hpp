@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../exception.hpp"
 #include "../string.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -31,7 +32,7 @@ namespace con
 
 struct exception : public sge::exception
 {
-	explicit exception(
+	SGE_SYMBOL explicit exception(
 		string const &str); 
 };
 

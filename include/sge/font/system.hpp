@@ -37,7 +37,7 @@ namespace font
 
 class system {
 public:
-	virtual ~system();
+	SGE_SYMBOL virtual ~system();
 	virtual const metrics_ptr create_font(
 		const path& font_path,
 		unsigned font_height) = 0;

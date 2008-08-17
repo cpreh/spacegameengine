@@ -1,5 +1,6 @@
 #include <sge/char.hpp>
 #include <sge/once.hpp>
+#include <sge/text.hpp>
 #include <sge/log/global.hpp> 
 #include <sge/log/logger.hpp>
 #include <boost/iostreams/stream_buffer.hpp>
@@ -44,8 +45,8 @@ sge::log::logger_stream null_stream(
 void initialize_sge_logger() {
   SGE_FUNCTION_ONCE
   sge_logger()->writer().write(
-    "[%idx%] %time%($hh:$mm.$ss): ",
-    "cerr"
+    SGE_TEXT("[%idx%] %time%($hh:$mm.$ss): "),
+    SGE_TEXT("cerr")
   );
   sge_logger()->mark_as_initialized();
   sge_log_level()->set_enabled(sge::log::level::warning);

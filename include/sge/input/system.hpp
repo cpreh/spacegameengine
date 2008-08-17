@@ -54,7 +54,7 @@ public:
 
 	virtual window_ptr get_window() const = 0;
 
-	virtual ~system();
+	SGE_SYMBOL virtual ~system();
 };
 
 typedef shared_ptr<system> system_ptr;

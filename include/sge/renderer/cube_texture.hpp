@@ -53,11 +53,11 @@ public:
 		> image_view_6;
 	typedef lock_rect rect_type;
 
-	image_view const lock(
+	SGE_SYMBOL image_view const lock(
 		cube_side::type side,
 		lock_flag_type);
 
-	const_image_view const lock(
+	SGE_SYMBOL const_image_view const lock(
 		cube_side::type side) const;
 
 	virtual image_view const lock(
@@ -71,8 +71,8 @@ public:
 
 	virtual void unlock() const = 0;
 
-	size_type content() const;
-	rect_type const rect() const;
+	SGE_SYMBOL size_type content() const;
+	SGE_SYMBOL rect_type const rect() const;
 	virtual size_type border_size() const = 0;
 };
 

@@ -40,16 +40,16 @@ public:
 
 	virtual dim_type const dim() const = 0;
 	
-	image_view const lock(lock_flag_t);
-	const_image_view const lock() const;
+	SGE_SYMBOL image_view const lock(lock_flag_t);
+	SGE_SYMBOL const_image_view const lock() const;
 
 	virtual image_view const lock(lock_rect const &, lock_flag_t) = 0;
 	virtual const_image_view const lock(lock_rect const &) const = 0;
 
 	virtual void unlock() const = 0;
-	rect_type const rect() const;
+	SGE_SYMBOL rect_type const rect() const;
 
-	size_type content() const;
+	SGE_SYMBOL size_type content() const;
 };
 
 typedef shared_ptr<texture> texture_ptr;

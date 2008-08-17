@@ -49,7 +49,7 @@ public:
 		adapter_type adapter = 0,
 		window_ptr wnd = window_ptr()) = 0;
 	virtual const caps_array caps() const = 0;
-	virtual ~system();
+	SGE_SYMBOL virtual ~system();
 };
 
 typedef shared_ptr<system> system_ptr;

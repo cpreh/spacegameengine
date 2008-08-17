@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "di.hpp"
 #include <sge/win32_window.hpp>
-#include <sge/input/input_system.hpp>
 #include <sge/input/key_type.hpp>
+#include <sge/input/system.hpp>
 #include <cstddef>
 
 namespace sge
@@ -34,7 +34,7 @@ namespace dinput
 
 class input_device {
 public:
-	virtual void dispatch(input_system::signal_type&) = 0;
+  virtual void dispatch(input::system::signal_type&) = 0;
 	virtual ~input_device(){}
 protected:
 	input_device(dinput_ptr di, const string& name, GUID Guid, sge::win32_window_ptr window);
