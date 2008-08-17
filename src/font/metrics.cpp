@@ -18,37 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_VAR_HPP_INCLUDED
-#define SGE_CON_VAR_HPP_INCLUDED
+#include <sge/font/metrics.hpp>
 
-#include "var_base.hpp"
-#include "../string.hpp"
-
-namespace sge
-{
-namespace con
-{
-
-template<typename T>
-class var : public var_base {
-public:
-	typedef T value_type;
-
-	void set(const string &s); 
-	string const get() const;
-
-	const T &value() const;
-	void value(const T &_t);
-
-	var(
-		const string &name,
-		const value_type &t = value_type());
-private:
-	value_type t;
-};
-
-}
-}
-
-#endif
-
+sge::font::metrics::~metrics()
+{}

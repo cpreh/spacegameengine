@@ -30,7 +30,7 @@ namespace sge
 namespace con
 {
 
-class var_base : boost::noncopyable {
+class SGE_CLASS_SYMBOL var_base : boost::noncopyable {
 	string name_;
 public:
 	SGE_SYMBOL var_base(const string &);

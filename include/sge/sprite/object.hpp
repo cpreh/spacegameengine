@@ -36,8 +36,8 @@ namespace sge
 namespace sprite
 {
 
-extern const dim texture_dim;
-extern const texture::part_ptr no_texture;
+SGE_SYMBOL extern const dim texture_dim;
+SGE_SYMBOL extern const texture::part_ptr no_texture;
 
 namespace defaults
 {

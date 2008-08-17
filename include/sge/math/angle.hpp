@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "atan2.hpp"
 #include "vector.hpp"
 #include "../su.hpp"
+#include "../export.hpp"
 #include <boost/optional.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -57,9 +58,9 @@ angle_to(
 	return atan2(structure_cast<Dest>(to));
 }
 
-space_unit rel_angle_to_abs(space_unit);
-space_unit abs_angle_to_rel(space_unit);
-bool is_rel_angle(space_unit);
+SGE_SYMBOL space_unit rel_angle_to_abs(space_unit);
+SGE_SYMBOL space_unit abs_angle_to_rel(space_unit);
+SGE_SYMBOL bool is_rel_angle(space_unit);
 
 }
 }
