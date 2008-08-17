@@ -46,7 +46,13 @@ sge::ft::char_metric::char_metric(
 	offset_.y() = face_->ascender / 64 - bmp_glyph->top; // FIXME: why are the ascenders so big?
 	x_advance_ = static_cast<font::unit>(face_->glyph->advance.x / 64);
 
-	assert(offset_.x() >= 0);
+	// FIXME: fix offsets and maybe those warnings
+	if(offset_.x() < 0)
+		cerr << SGE_TEXT("warning: x offset of character '")
+		     << ch
+		     << SGE_TEXT("' is ")
+		     << offset_.x()
+		     << SGE_TEXT("!\n");
 	if(offset_.y() < 0)
 		cerr << SGE_TEXT("warning: y offset of character '")
 		     << ch
