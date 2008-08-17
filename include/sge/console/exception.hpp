@@ -30,8 +30,7 @@ namespace sge
 namespace con
 {
 
-struct exception : public sge::exception
-{
+struct SGE_CLASS_SYMBOL exception : public sge::exception {
 	SGE_SYMBOL explicit exception(
 		string const &str); 
 };

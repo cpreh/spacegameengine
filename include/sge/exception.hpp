@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-class exception {
+class SGE_CLASS_SYMBOL exception {
 public:
-	SGE_SYMBOL explicit exception(const string& s);
-	SGE_SYMBOL const string& what() const;
+	SGE_SYMBOL explicit exception(string const &s);
+	SGE_SYMBOL string const &what() const;
 private:
 	string s;
 };

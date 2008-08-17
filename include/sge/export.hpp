@@ -42,9 +42,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	else
 #		define SGE_SYMBOL SGE_IMPORT_SYMBOL
 #	endif
+
+#	define SGE_CLASS_SYMBOL
 #else
 #	define SGE_SYMBOL __attribute__ ((visibility("default")))
 #	define SGE_EXPORT_SYMBOL SGE_SYMBOL
+#	define SGE_CLASS_SYMBOL SGE_SYMBOL
 #endif
 
 

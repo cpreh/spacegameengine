@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_COLOR_HPP_INCLUDED
 
 #include "../typeswitch.hpp"
+#include "../export.hpp"
 
 #include <boost/gil/pixel.hpp>
 #include <boost/gil/rgba.hpp>
@@ -67,7 +68,7 @@ typedef rgba8_pixel color;
 typedef rgba_f32_pixel colorf;
 #endif
 
-color const make_color_rgba(
+SGE_SYMBOL color const make_color_rgba(
 	pixel_channel_8 r,
 	pixel_channel_8 g,
 	pixel_channel_8 b,

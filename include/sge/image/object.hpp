@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../shared_ptr.hpp"
 #include "../path.hpp"
+#include "../export.hpp"
 #include "../math/dim.hpp"
 #include "../renderer/image_view.hpp"
 #include <boost/noncopyable.hpp>
@@ -33,7 +34,7 @@ namespace sge
 namespace image
 {
 
-class object : boost::noncopyable {
+class SGE_CLASS_SYMBOL object : boost::noncopyable {
 public:
 	typedef std::size_t                   size_type;
 	typedef math::basic_dim<size_type, 2> dim_type;
@@ -47,7 +48,7 @@ public:
 	virtual dim_type const dim() const = 0;
 	virtual void resample(dim_type const &) = 0;
 	virtual void save(path const &) = 0;
-	virtual ~object(){}
+	SGE_SYMBOL virtual ~object();
 };
 
 typedef shared_ptr<object> object_ptr;

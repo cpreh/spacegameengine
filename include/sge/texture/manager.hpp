@@ -49,7 +49,7 @@ public:
 	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
 	SGE_SYMBOL void onalloc(const onalloc_function&);
 
-	class image_too_big : public exception {
+	class SGE_CLASS_SYMBOL image_too_big : public exception {
 	public:
 		SGE_SYMBOL image_too_big();
 	};

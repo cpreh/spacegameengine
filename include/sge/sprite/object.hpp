@@ -42,13 +42,13 @@ extern const texture::part_ptr no_texture;
 namespace defaults
 {
 
-extern const point pos_;
-extern const texture::part_ptr texture_;
-extern const dim dim_;
-extern const color color_;
-extern const depth_type depth_;
-extern const rotation_type rotation_;
-extern const bool visible_;
+SGE_SYMBOL extern const point pos_;
+SGE_SYMBOL extern const texture::part_ptr texture_;
+SGE_SYMBOL extern const dim dim_;
+SGE_SYMBOL extern const color color_;
+SGE_SYMBOL extern const depth_type depth_;
+SGE_SYMBOL extern const rotation_type rotation_;
+SGE_SYMBOL extern const bool visible_;
 
 }
 
