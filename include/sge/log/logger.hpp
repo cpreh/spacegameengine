@@ -3,13 +3,12 @@
 
 #include "../ostream.hpp"
 #include <boost/logging/format/named_write.hpp>
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace log
 {
-
-typedef ostream logger_stream;
 
 typedef boost::logging::named_logger< >::type logger_type;
 
