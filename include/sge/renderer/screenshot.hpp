@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device.hpp"
 #include "../path.hpp"
+#include "../export.hpp"
 #include "../image/loader.hpp"
 
 namespace sge
@@ -30,10 +31,10 @@ namespace sge
 namespace renderer
 {
 
-void screenshot(
+SGE_SYMBOL void screenshot(
 	device_ptr rend,
 	sge::image::loader_ptr il,
-	const path&);
+	path const &);
 
 }
 }

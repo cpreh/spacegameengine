@@ -31,7 +31,7 @@ namespace sprite
 
 class object;
 
-class animation : boost::noncopyable {
+class SGE_CLASS_SYMBOL animation : boost::noncopyable {
 public:
 	virtual bool process() = 0;
 	virtual void reset() = 0;

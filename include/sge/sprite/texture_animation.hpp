@@ -35,7 +35,7 @@ namespace sprite
 
 class object;
 
-class texture_animation : public animation {
+class SGE_CLASS_SYMBOL texture_animation : public animation {
 public:
 	struct loop_method {
 		enum type {

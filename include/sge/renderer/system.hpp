@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../plugin/capabilities.hpp"
 #include "../string.hpp"
 #include "../window.hpp"
+#include <boost/noncopyable.hpp>
 #include <vector>
 
 namespace sge
@@ -41,15 +42,15 @@ typedef std::vector<caps> caps_array;
 
 struct parameters;
 
-class system {
+class SGE_CLASS_SYMBOL system : boost::noncopyable {
 public:
-	virtual const device_ptr
+	virtual device_ptr const
 	create_renderer(
-		const parameters& param,
+		parameters const &param,
 		adapter_type adapter = 0,
 		window_ptr wnd = window_ptr()) = 0;
-	virtual const caps_array caps() const = 0;
-	virtual ~system();
+	virtual caps_array const caps() const = 0;
+	SGE_SYMBOL virtual ~system();
 };
 
 typedef shared_ptr<system> system_ptr;

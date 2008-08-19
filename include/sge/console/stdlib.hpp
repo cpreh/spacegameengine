@@ -3,6 +3,7 @@
 
 #include "arg_list.hpp"
 #include "../string.hpp"
+#include "../export.hpp"
 #include <boost/function.hpp>
 
 namespace sge
@@ -16,14 +17,14 @@ struct stdlib
 
 	callback_type print;
 
-	void set(const arg_list &);
-	void get(const arg_list &);
-	void help(const arg_list &);
-	void listvars(const arg_list &);
-	void listfuncs(const arg_list &);
-	void latch(const arg_list &);
+	SGE_SYMBOL void set(const arg_list &);
+	SGE_SYMBOL void get(const arg_list &);
+	SGE_SYMBOL void help(const arg_list &);
+	SGE_SYMBOL void listvars(const arg_list &);
+	SGE_SYMBOL void listfuncs(const arg_list &);
+	SGE_SYMBOL void latch(const arg_list &);
 
-	explicit stdlib(const callback_type &);
+	SGE_SYMBOL explicit stdlib(const callback_type &);
 };
 
 }

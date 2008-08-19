@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "key_converter.hpp"
 #include "input_device.hpp"
 #include "di.hpp"
-#include <sge/input/input_system.hpp>
+#include <sge/input/system.hpp>
 #include <sge/win32_window.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <map>
@@ -34,9 +34,9 @@ namespace sge
 namespace dinput
 {
 
-class input_system : public sge::input_system {
+class input_system : public sge::input::system {
 public:
-	input_system(win32_window_ptr w);
+	explicit input_system(win32_window_ptr w);
 	callback_connection register_callback(const callback& c);
 	callback_connection register_repeat_callback(const repeat_callback& c);
 	void dispatch();
@@ -46,11 +46,11 @@ private:
 	repeat_signal_type repeat_sig;
 
 	typedef dinput_device_ptr key_map;
-	typedef std::map<std::string,key_map> key_mapper_u;
-	typedef std::multimap<std::string,key_map> key_mapper_m;
+	typedef std::map<std::string, key_map> key_mapper_u;
+	typedef std::multimap<std::string, key_map> key_mapper_m;
 	typedef std::pair<std::string,key_map> key_map_pair;
 	typedef boost::ptr_vector<input_device> device_array;
-	typedef std::map<key_code,bool> key_code_press_map;
+	typedef std::map<input::key_code, bool> key_code_press_map;
 	key_mapper_u       map_u;
 	key_mapper_m       map_m;
 	key_code_press_map key_codes_pressed;

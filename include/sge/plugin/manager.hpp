@@ -45,17 +45,17 @@ public:
 	SGE_SYMBOL manager();
 
 	template<typename T>
-	iterator<T> begin();
+	SGE_SYMBOL iterator<T> begin();
 
 	template<typename T>
-	iterator<T> end();
+	SGE_SYMBOL iterator<T> end();
 
 	template<typename T>
-	typename iterator<T>::reference get_plugin(
+	SGE_SYMBOL typename iterator<T>::reference get_plugin(
 		size_type index = 0);
 
 	template<typename T>
-	size_type size() const;
+	SGE_SYMBOL size_type size() const;
 private:
 	plugin_array plugins;
 	plugin_map categories;

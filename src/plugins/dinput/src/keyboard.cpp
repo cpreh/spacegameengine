@@ -24,9 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/array.hpp>
 #include <ostream>
 
-sge::dinput::keyboard::keyboard(const dinput_ptr di, const string& name, const GUID guid, sge::win32_window_ptr window, const key_converter& conv)
+sge::dinput::keyboard::keyboard(
+	dinput_ptr const di,
+	string const &name,
+	GUID const guid,
+	win32_window_ptr const window,
+	key_converter const &conv)
 : input_device(di,name,guid,window),
-  modifiers(false,false,false),
+  modifiers(false, false, false),
   conv(conv),
   kblayout(GetKeyboardLayout(0))
 {
@@ -35,7 +40,7 @@ sge::dinput::keyboard::keyboard(const dinput_ptr di, const string& name, const G
 	acquire();
 }
 
-void sge::dinput::keyboard::dispatch(input_system::signal_type& sig)
+void sge::dinput::keyboard::dispatch(input::system::signal_type& sig)
 {
 	input_buffer data;
 	DWORD elements;
@@ -43,7 +48,7 @@ void sge::dinput::keyboard::dispatch(input_system::signal_type& sig)
 		return;
 	for(unsigned i = 0; i < elements; ++i)
 	{
-		key_type key = keys[data[i].dwOfs];
+		input::key_type key = keys[data[i].dwOfs];
 
 		const bool key_value = static_cast<bool>(data[i].dwData & 0x80);
 		switch(data[i].dwOfs) {
@@ -59,19 +64,21 @@ void sge::dinput::keyboard::dispatch(input_system::signal_type& sig)
 		}
 
 		key.char_code(keycode_to_char(key.code()));
-		sig(key_pair(key, key_value ? static_cast<key_state>(1) : 0));
+		sig(input::key_pair(key, key_value ? static_cast<input::key_state>(1) : 0));
 	}
 }
 
 BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)
 {
-	keyboard& k = *static_cast<keyboard*>(s);
-	const key_type::string key_name(win_str_to_sge(ddoi->tszName));
-	k.keys[ddoi->dwOfs] = key_type(k.name() + key_name, k.conv.create_key_code(ddoi->dwOfs), key_name.size() == 1 ? key_name[0] : 0);
+	keyboard &k = *static_cast<keyboard*>(s);
+	input::key_type::string const key_name(win_str_to_sge(ddoi->tszName));
+	k.keys[ddoi->dwOfs] = input::key_type(k.name() + key_name, k.conv.create_key_code(ddoi->dwOfs), key_name.size() == 1 ? key_name[0] : 0);
 	return DIENUM_CONTINUE;
 }
 
-sge::string::value_type sge::dinput::keyboard::keycode_to_char(const key_code key) const
+sge::char_type
+sge::dinput::keyboard::keycode_to_char(
+	input::key_code const key) const
 {
 	boost::array<BYTE,256> state;
 	const BYTE key_up = 0, key_down = 0x80;

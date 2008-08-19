@@ -31,7 +31,7 @@ namespace sge
 namespace con
 {
 
-struct var_base;
+class var_base;
 
 typedef boost::function<void (const arg_list &)> callback;
 typedef std::map<string, var_base*> var_map;

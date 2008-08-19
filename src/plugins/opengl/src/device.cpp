@@ -85,7 +85,7 @@ sge::ogl::device::device(
 
 	bool windowed = param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
-	const unsigned color_depth = bit_depth_bit_count(param.mode.depth);
+  const unsigned color_depth = renderer::bit_depth_bit_count(param.mode.depth);
 	if(!windowed)
 	{
 		DEVMODE settings;

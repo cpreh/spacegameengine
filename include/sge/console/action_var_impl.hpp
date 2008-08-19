@@ -18,6 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "action_var.hpp"
+#ifndef SGE_CON_ACTION_VAR_IMPL_HPP_INCLUDED
+#define SGE_CON_ACTION_VAR_IMPL_HPP_INCLUDED
 
-// FIXME: stub
+#include "action_var.hpp"
+#include "action_var_base_impl.hpp"
+
+#endif

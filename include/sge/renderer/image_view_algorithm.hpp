@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_IMAGE_VIEW_ALGORITHM_HPP_INCLUDED
 
 #include "image_view.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-void copy_and_convert_pixels(
+SGE_SYMBOL void copy_and_convert_pixels(
 	const_image_view const &src,
 	image_view const &dest);
 

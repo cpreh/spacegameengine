@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../input_system.hpp"
 #include <sge/export.hpp>
-#include <sge/plugin.hpp>
+#include <sge/text.hpp>
+#include <sge/plugin/info.hpp>
 #include <sge/win32_window.hpp>
 
 extern "C"
 {
 
-SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
+SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info* const p)
 {
 	if(!p)
 		return;
@@ -34,10 +35,10 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin_info* const p)
 	p->description = SGE_TEXT("");
 	p->min_core_version = 0x1;
 	p->plugin_version = 0x1;
-	p->type = sge::plugin_type::input;
+	p->type = sge::plugin::capabilities::input;
 }
 
-SGE_EXPORT_SYMBOL sge::input_system* create_input_system(const sge::window_ptr w)
+SGE_EXPORT_SYMBOL sge::input::system* create_input_system(const sge::window_ptr w)
 {
 	const sge::win32_window_ptr ww = sge::dynamic_pointer_cast<sge::win32_window>(w);
 	return new sge::dinput::input_system(ww);

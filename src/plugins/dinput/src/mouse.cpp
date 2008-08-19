@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::key_code create_mouse_code(DWORD ofs);
-sge::key_code create_axis_neg_mouse_code(DWORD ofs);
-sge::key_code create_axis_pos_mouse_code(DWORD ofs);
+sge::input::key_code create_mouse_code(DWORD ofs);
+sge::input::key_code create_axis_neg_mouse_code(DWORD ofs);
+sge::input::key_code create_axis_pos_mouse_code(DWORD ofs);
 
 inline DWORD cast_key(const LONG key)
 {
@@ -51,7 +51,7 @@ sge::dinput::mouse::mouse(const dinput_ptr di, const string& name, const GUID gu
 	acquire();
 }
 
-void sge::dinput::mouse::dispatch(input_system::signal_type& sig)
+void sge::dinput::mouse::dispatch(input::system::signal_type& sig)
 {
 	input_buffer data;
 	DWORD elements;
@@ -61,36 +61,36 @@ void sge::dinput::mouse::dispatch(input_system::signal_type& sig)
 	for(unsigned i = 0; i < elements; ++i)
 	{
 		if(is_di_mouse_axis(data[i].dwOfs))
-			sig(key_pair(keys[data[i].dwOfs], reinterpret_cast<long&>(data[i].dwData)));
+			sig(input::key_pair(keys[data[i].dwOfs], reinterpret_cast<long&>(data[i].dwData)));
 		else
-			sig(key_pair(keys[data[i].dwOfs],(data[i].dwData & 0x80) ? static_cast<key_state>(1) : 0));
+			sig(input::key_pair(keys[data[i].dwOfs],(data[i].dwData & 0x80) ? static_cast<input::key_state>(1) : 0));
 	}
 }
 
 BOOL sge::dinput::mouse::enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID s)
 {
 	mouse& m = *static_cast<mouse*>(s);
-	m.keys[ddoi->dwOfs] = key_type(win_str_to_sge(ddoi->tszName) + m.name(),create_mouse_code(ddoi->dwOfs));
+  m.keys[ddoi->dwOfs] = input::key_type(win_str_to_sge(ddoi->tszName) + m.name(),create_mouse_code(ddoi->dwOfs));
 	return DIENUM_CONTINUE;
 }
 
 namespace
 {
 
-sge::key_code create_mouse_code(const DWORD ofs)
+sge::input::key_code create_mouse_code(const DWORD ofs)
 {
 	if(ofs == cast_key(DIMOFS_BUTTON0))
-		return sge::kc::mouse_l;
+    return sge::input::kc::mouse_l;
 	else if(ofs == cast_key(DIMOFS_BUTTON1))
-		return sge::kc::mouse_r;
+    return sge::input::kc::mouse_r;
 	else if(ofs == cast_key(DIMOFS_BUTTON2))
-		return sge::kc::mouse_m;
+		return sge::input::kc::mouse_m;
 	else if(ofs == cast_key(DIMOFS_X))
-		return sge::kc::mouse_x_axis;
+		return sge::input::kc::mouse_x_axis;
 	else if(ofs == cast_key(DIMOFS_Y))
-		return sge::kc::mouse_y_axis;
+		return sge::input::kc::mouse_y_axis;
 	else if(ofs == cast_key(DIMOFS_Z))
-		return sge::kc::mouse_z_axis;
-	return sge::kc::none;
+		return sge::input::kc::mouse_z_axis;
+	return sge::input::kc::none;
 }
 }

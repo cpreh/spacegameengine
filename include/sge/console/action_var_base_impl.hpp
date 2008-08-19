@@ -34,7 +34,7 @@ void sge::con::action_var_base<T, A>::set(
 	{
 		value(boost::lexical_cast<T>(s));
 	} 
-	catch (const boost::bad_lexical_cast &c)
+	catch (const boost::bad_lexical_cast &)
 	{
 		throw exception(
 			SGE_TEXT("couldn't parse variable \"")

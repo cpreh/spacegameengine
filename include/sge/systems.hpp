@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "image/loader.hpp"
 
+#include "export.hpp"
+
 namespace sge {
 
 struct systems {
@@ -48,7 +50,7 @@ struct systems {
 	plugin::plugin<image::loader>::ptr_type    image_loader_plugin;
 	image::loader_ptr                          image_loader;
 
-	systems();
+	SGE_SYMBOL systems();
 
 	template<typename T>
 	bool init() { return T(*this); }

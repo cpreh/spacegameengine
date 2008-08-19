@@ -40,7 +40,7 @@ public:
 	SGE_SYMBOL explicit intrusive_system(
 		renderer::device_ptr);
 	
-	void render();
+	SGE_SYMBOL void render();
 
 	SGE_SYMBOL renderer::device_ptr const
 	get_renderer() const;

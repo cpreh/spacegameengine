@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "context.hpp"
 #include "category_array.hpp"
+#include "../export.hpp"
 #include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
 
@@ -59,19 +60,19 @@ public:
 	typedef typename base_type::pointer pointer;
 	typedef typename base_type::difference_type difference_type;
 
-	explicit iterator(category_array::iterator it);
+	SGE_SYMBOL explicit iterator(category_array::iterator it);
 
-	void advance(difference_type diff);
+	SGE_SYMBOL void advance(difference_type diff);
 
-	void increment();
+	SGE_SYMBOL void increment();
 
-	void decrement();
+	SGE_SYMBOL void decrement();
 
-	bool equal(iterator const &r) const;
+	SGE_SYMBOL bool equal(iterator const &r) const;
 
-	reference dereference() const;
+	SGE_SYMBOL reference dereference() const;
 
-	difference_type distance_to(iterator const &r) const;
+	SGE_SYMBOL difference_type distance_to(iterator const &r) const;
 private:
 	category_array::iterator it;
 

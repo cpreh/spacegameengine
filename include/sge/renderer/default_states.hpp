@@ -29,7 +29,7 @@ namespace sge
 namespace renderer
 {
 
-SGE_SYMBOL state_list default_states();
+SGE_SYMBOL state_list const default_states();
 
 }
 }

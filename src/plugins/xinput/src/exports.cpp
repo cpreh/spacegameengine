@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../system.hpp"
+#include <sge/export.hpp>
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <sge/text.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/x_window.hpp>
 #include <boost/cast.hpp>
@@ -28,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 extern "C"
 {
 
-void plugin_version_info(sge::plugin::info* const i)
+SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info *const i)
 {
 	if(!i)
 		return;
@@ -39,7 +40,7 @@ void plugin_version_info(sge::plugin::info* const i)
 	i->min_core_version = 0x1;
 }
 
-sge::input::system* create_input_system(const sge::window_ptr w)
+SGE_EXPORT_SYMBOL sge::input::system* create_input_system(sge::window_ptr const w)
 {
 	if(!w)
 		throw sge::exception(SGE_TEXT("xinput plugin's window parameter may not be 0!"));

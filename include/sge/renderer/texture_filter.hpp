@@ -58,10 +58,11 @@ struct filter_args {
 	anisotropy_level_type anisotropy_level;
 };
 
-const filter_args linear_filter(min_filter::linear, mag_filter::linear),
-                  point_filter(min_filter::point, mag_filter::point),
-                  mip_filter(min_filter::mipmap, mag_filter::linear),
-                  trilinear_filter(min_filter::trilinear, mag_filter::linear);
+SGE_SYMBOL extern const filter_args
+	linear_filter,
+	point_filter,
+	mip_filter,
+	trilinear_filter;
 }
 }
 

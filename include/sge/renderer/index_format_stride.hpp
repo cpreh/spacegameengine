@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
 
 #include "index_format.hpp"
+#include "../export.hpp"
 #include <cstddef>
 
 namespace sge
@@ -30,7 +31,7 @@ namespace renderer
 {
 
 // FIXME: fix the std::size_t here!
-std::size_t index_format_stride(
+SGE_SYMBOL std::size_t index_format_stride(
 	index_format::type);
 
 }

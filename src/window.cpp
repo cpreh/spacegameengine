@@ -29,3 +29,6 @@ sge::window::size_type sge::window::height() const
 {
 	return size().h();
 }
+
+sge::window::~window()
+{}

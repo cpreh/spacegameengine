@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
 
 #include "scoped_lock_wrapper.hpp"
+#include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -37,30 +38,19 @@ public:
 		Value
 	> wrapper;
 
-	explicit scoped_lock(
+	SGE_SYMBOL explicit scoped_lock(
 		wrapper const& w);
 
-	void release();
+	SGE_SYMBOL void release();
 
-	Value const value() const;
+	SGE_SYMBOL Value const value() const;
 
-	~scoped_lock();
+	SGE_SYMBOL ~scoped_lock();
 private:
 	void unlock();
 
 	wrapper w;
 };
-
-/*template<typename Ret, typename T>
-const typename scoped_lock<T, Ret>::wrapper
-make_scoped_lock(
-	T const t,
-	lock_flag_t const flags)
-{
-	return typename scoped_lock<T, Ret>::wrapper(
-		t,
-		t->lock(flags));
-}*/
 
 }
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "plugin.hpp"
 #include "../shared_ptr.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -34,11 +35,12 @@ class context_base;
 template<typename T>
 class context {
 public:
-	context(context_base& base_);
+	SGE_SYMBOL explicit context(
+		context_base &base_);
 
 	typedef shared_ptr<plugin<T> > ptr_type;
 
-	ptr_type load();
+	SGE_SYMBOL ptr_type load();
 private:
 	context_base* base_;
 };

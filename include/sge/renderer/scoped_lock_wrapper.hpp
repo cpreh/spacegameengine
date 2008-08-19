@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_LOCK_WRAPPER_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_LOCK_WRAPPER_HPP_INCLUDED
 
+#include "../export.hpp"
+
 namespace sge
 {
 namespace renderer
@@ -29,13 +31,13 @@ namespace renderer
 template<typename T, typename Value>
 class scoped_lock_wrapper {
 public:
-	scoped_lock_wrapper(
+	SGE_SYMBOL scoped_lock_wrapper(
 		T const t,
 		Value const &v);
-	bool set() const;
-	void unlock();
-	void reset();
-	Value const value() const;
+	SGE_SYMBOL bool set() const;
+	SGE_SYMBOL void unlock();
+	SGE_SYMBOL void reset();
+	SGE_SYMBOL Value const value() const;
 private:
 	T t;
 	Value const v;

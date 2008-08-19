@@ -23,16 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_base.hpp"
 #include "../error.hpp"
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <sge/text.hpp>
 
 sge::ogl::fbo_target::fbo_target(const dim_type& dim_)
  : dim_(dim_)
 {
 	if(!glGenFramebuffersEXT)
 		on_not_supported(
-			"glGenFrameBuffersEXT",
-			"none",
-			"frame_buffer_ext"
+			SGE_TEXT("glGenFrameBuffersEXT"),
+			SGE_TEXT("none"),
+			SGE_TEXT("frame_buffer_ext")
 			);
 
 	SGE_OPENGL_SENTRY

@@ -1,11 +1,26 @@
-#ifndef CONSOLE_GFX_HPP_INCLUDED
-#define CONSOLE_GFX_HPP_INCLUDED
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
-// c++
-#include <deque>
-#include <cstddef>
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
 
-// sge
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+#ifndef SGE_CON_CONSOLE_GFX_HPP_INCLUDED
+#define SGE_CON_CONSOLE_GFX_HPP_INCLUDED
+
 #include "../font/font.hpp"
 #include "../renderer/device.hpp"
 #include "../input/system.hpp"
@@ -18,15 +33,17 @@
 #include "../export.hpp"
 #include "action_var.hpp"
 #include "arg_list.hpp"
+#include <boost/noncopyable.hpp>
+#include <deque>
+#include <cstddef>
 
 namespace sge
 {
 namespace con
 {
 
-class console_gfx
-{
-	public:
+class console_gfx : boost::noncopyable {
+public:
 	SGE_SYMBOL console_gfx(
 		renderer::device_ptr,
 		texture::part_ptr,
@@ -46,7 +63,7 @@ class console_gfx
 	SGE_SYMBOL void clear(const arg_list &);
 	SGE_SYMBOL void dump(const arg_list &);
 
-	private:
+private:
 	void tabcomplete(string &);
 
 	typedef std::deque<string> history_container;

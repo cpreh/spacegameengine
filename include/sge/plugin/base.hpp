@@ -21,13 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_BASE_HPP_INCLUDED
 #define SGE_PLUGIN_BASE_HPP_INCLUDED
 
+#include "../export.hpp"
+
 namespace sge
 {
 namespace plugin
 {
 
 struct base {
-	virtual ~base();
+	SGE_SYMBOL virtual ~base();
 };
 
 }
