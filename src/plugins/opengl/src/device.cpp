@@ -220,35 +220,25 @@ void sge::ogl::device::begin_rendering()
 		| get_clear_bit(renderer::bool_state::clear_stencil));
 }
 
-const sge::renderer::index_buffer_ptr
+sge::renderer::index_buffer_ptr const
 sge::ogl::device::create_index_buffer(
-	renderer::const_dynamic_index_view const &view,
-	const renderer::index_buffer::resource_flag_type flags)
+	renderer::index_format::type const format,
+	renderer::index_buffer::size_type const sz,
+	renderer::index_buffer::resource_flag_type const flags)
 {
 	return renderer::index_buffer_ptr(
 		new index_buffer(
-			view,
+			format,
+			sz,
 			flags));
 }
 
-const sge::ogl::fbo_target_ptr
+sge::ogl::fbo_target_ptr const
 sge::ogl::device::create_render_target(
-	const renderer::target::dim_type& dim)
+	renderer::target::dim_type const & dim)
 {
-	return fbo_target_ptr(new fbo_target(dim));
-}
-
-const sge::renderer::texture_ptr
-sge::ogl::device::create_texture(
-	renderer::const_image_view const &src,
-	const renderer::filter_args& filter,
-	const renderer::texture::resource_flag_type flags)
-{
-	return renderer::texture_ptr(
-		new texture(
-			src,
-			filter,
-			flags));
+	return fbo_target_ptr(
+		new fbo_target(dim));
 }
 
 sge::renderer::texture_ptr const
@@ -266,17 +256,20 @@ sge::ogl::device::create_texture(
 			flags));
 }
 
-const sge::renderer::vertex_buffer_ptr
+sge::renderer::vertex_buffer_ptr const
 sge::ogl::device::create_vertex_buffer(
-	renderer::const_vertex_view const &src,
-	const renderer::vertex_buffer::resource_flag_type flags)
+	renderer::vertex_format const &format,
+	renderer::vertex_buffer::size_type const sz,
+	renderer::vertex_buffer::resource_flag_type const flags)
 {
 	return renderer::vertex_buffer_ptr(
 		new vertex_buffer(
-			src,
+			format,
+			sz,
 			flags));
 }
 
+#if 0
 const sge::renderer::volume_texture_ptr
 sge::ogl::device::create_volume_texture(
 	renderer::volume_texture::image_view_array const &src,
@@ -289,14 +282,21 @@ sge::ogl::device::create_volume_texture(
 			filter,
 			flags));*/
 }
+#endif
 
-const sge::renderer::cube_texture_ptr
+sge::renderer::cube_texture_ptr const
 sge::ogl::device::create_cube_texture(
-	renderer::cube_texture::image_view_6 const &src,
-	const renderer::filter_args& filter,
-	const renderer::cube_texture::resource_flag_type flags)
+	renderer::cube_texture::size_type const border_size,
+	renderer::color_format::type const format,
+	renderer::filter_args const &filter,
+	renderer::cube_texture::resource_flag_type const flags)
 {
-	//return renderer::cube_texture_ptr(new cube_texture(src, filter, flags));
+	return renderer::cube_texture_ptr(
+		new cube_texture(
+			border_size,
+			format,
+			filter,
+			flags));
 }
 
 void sge::ogl::device::end_rendering()
@@ -327,8 +327,8 @@ sge::ogl::device::screen_size() const
 }
 
 void sge::ogl::device::render(
-	const renderer::vertex_buffer_ptr vb,
-	const renderer::index_buffer_ptr ib,
+	renderer::const_vertex_buffer_ptr const vb,
+	renderer::const_index_buffer_ptr const ib,
 	const renderer::vertex_buffer::size_type first_vertex,
 	const renderer::vertex_buffer::size_type num_vertices,
 	const renderer::indexed_primitive_type::type ptype,
@@ -351,14 +351,15 @@ void sge::ogl::device::render(
 
 	glDrawElements(
 		prim_type,
-		static_cast<GLsizei>(renderer::indices_per_primitive(ptype) * pcount),
-		gl_ib.stride() == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, // TODO: catch errornous strides
+		static_cast<GLsizei>(
+			renderer::indices_per_primitive(ptype) * pcount),
+		gl_ib.format(),
 		gl_ib.buffer_offset(
 			first_index));
 }
 
 void sge::ogl::device::render(
-	const renderer::vertex_buffer_ptr vb,
+	const renderer::const_vertex_buffer_ptr vb,
 	const renderer::vertex_buffer::size_type first_vertex,
 	const renderer::vertex_buffer::size_type num_vertices,
 	const renderer::nonindexed_primitive_type::type ptype)
@@ -546,15 +547,15 @@ void sge::ogl::device::set_render_target(
 			static_cast<renderer::screen_unit>(p->dim().h())));
 }
 
-const sge::renderer::target_ptr
+sge::renderer::const_target_ptr const
 sge::ogl::device::get_target() const
 {
 	return render_target_;
 }
 
 void sge::ogl::device::set_texture(
-	const renderer::texture_base_ptr tex,
-	const renderer::stage_type stage)
+	renderer::const_texture_base_ptr const tex,
+	renderer::stage_type const stage)
 {
 	set_texture_level(stage);
 
@@ -566,16 +567,16 @@ void sge::ogl::device::set_texture(
 
 	if(!tex)
 		return;
-	texture_base& b = dynamic_cast<texture_base&>(*tex);
+	texture_base const &b = dynamic_cast<texture_base const &>(*tex);
 	enable(b.type());
 	b.bind_me();
 }
 
 void sge::ogl::device::enable_light(
-	const renderer::light_index index,
-	const bool enable_)
+	renderer::light_index const index,
+	bool const enable_)
 {
-	const GLenum glindex = convert_light_index(index);
+	GLenum const glindex = convert_light_index(index);
 	enable(glindex, enable_);
 }
 
@@ -629,7 +630,9 @@ sge::ogl::device::create_glsl_program(
 	const std::string& vs_source,
 	const std::string& ps_source)
 {
-	return glsl::create_program_impl(vs_source, ps_source);
+	return glsl::create_program_impl(
+		vs_source,
+		ps_source);
 }
 
 void sge::ogl::device::set_glsl_program(
@@ -638,7 +641,8 @@ void sge::ogl::device::set_glsl_program(
 	glsl::set_program_impl(prog);
 }
 
-void sge::ogl::device::set_vertex_buffer(const renderer::vertex_buffer_ptr vb)
+void sge::ogl::device::set_vertex_buffer(
+	renderer::const_vertex_buffer_ptr const vb)
 {
 	if(!vb)
 	{
@@ -646,11 +650,12 @@ void sge::ogl::device::set_vertex_buffer(const renderer::vertex_buffer_ptr vb)
 		//vertex_buffer::unbind();
 		return;
 	}
-	vertex_buffer& ovb = dynamic_cast<vertex_buffer&>(*vb);
+	vertex_buffer const &ovb = dynamic_cast<vertex_buffer const &>(*vb);
 	ovb.set_format();
 }
 
-void sge::ogl::device::set_index_buffer(const renderer::index_buffer_ptr ib)
+void sge::ogl::device::set_index_buffer(
+	renderer::const_index_buffer_ptr const ib)
 {
 	if(!ib)
 	{
@@ -658,6 +663,6 @@ void sge::ogl::device::set_index_buffer(const renderer::index_buffer_ptr ib)
 		//index_buffer::unbind();
 		return;
 	}
-	index_buffer& oib = dynamic_cast<index_buffer&>(*ib);
+	index_buffer const &oib = dynamic_cast<index_buffer const &>(*ib);
 	oib.bind_me();
 }

@@ -26,13 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../pbo.hpp"
 #include "../color_convert.hpp"
-#include <sge/iostream.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/make_image_view.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
-#include <boost/gil/image_view_factory.hpp>
 
 template class sge::ogl::basic_texture<sge::renderer::texture>;
 
@@ -44,24 +41,18 @@ const GLenum texture_type = GL_TEXTURE_2D;
 }
 
 sge::ogl::texture::texture(
-	renderer::const_image_view const &src,
-	const renderer::filter_args& filter_,
-	const resource_flag_type flags)
- : detail::texture_base(filter_, flags, texture_type),
-   dim_(renderer::gil_dim_to_sge(src.dimensions()))
-{
-	data_internal(src);
-}
-
-sge::ogl::texture::texture(
 	dim_type const &d,
 	renderer::color_format::type const format_,
 	renderer::filter_args const &filter,
-	resource_flag_type const flags)
-: detail::texture_base(filter, flags, texture_type),
+	resource_flag_type const flags,
+	optional_type const type)
+: detail::texture_base(
+	filter,
+	flags,
+	type ? *type : texture_type,
+	format_),
   dim_(d)
 {
-	format_internal(format_);
 	set_texture(0);	
 }
 
@@ -71,93 +62,39 @@ sge::ogl::texture::dim() const
 	return dim_;
 }
 
-void sge::ogl::texture::do_sub_data(
-	renderer::const_image_view const &src,
-	renderer::lock_rect const &r)
-{
-	pre_setdata();
-
-	const renderer::scoped_lock<sge::ogl::texture*> lock_(
-		renderer::make_scoped_lock(
-			this,
-			r,
-			renderer::lock_flags::writeonly));
-	boost::gil::copy_and_convert_pixels(
-		src,
-		make_view(
-			src.dimensions()));
-}
-
-void sge::ogl::texture::data(
-	renderer::const_image_view const &src)
-{
-	dim_ = renderer::gil_dim_to_sge(src.dimensions());
-	data_internal(src);
-}
-
-void sge::ogl::texture::data_internal(
-	renderer::const_image_view const &src)
-{
-	internal_parameters(src);
-	
-	const renderer::scoped_lock<sge::ogl::texture*> lock_(
-		renderer::make_scoped_lock(
-			this,
-			renderer::lock_flags::writeonly));
-
-	boost::gil::copy_and_convert_pixels(
-		src,
-		make_view(
-			src.dimensions()));
-}
-
-void sge::ogl::texture::lock(
+sge::renderer::image_view const
+sge::ogl::texture::lock(
+	renderer::lock_rect const &r,
 	lock_flag_type const lmode)
 {
-	do_lock(
-		lmode,
-		area(),
-		0);
-	if(renderer::lock_flag_read(lock_mode()))
-		get_tex_image(
-			format(),
-			format_type(),
-			read_buffer());
-	post_lock();
-	lock_rect_.reset();
+	lock_me(
+		r,
+		convert_lock_method(
+			lmode));
+	return view();
 }
 
-void sge::ogl::texture::lock(
-	renderer::lock_rect const &l,
-	lock_flag_type const lmode)
+sge::renderer::const_image_view const
+sge::ogl::texture::lock(
+	renderer::lock_rect const &l) const
 {
-	const bool must_read = renderer::lock_flag_read(lmode);
-	do_lock(
-		lmode,
-		must_read
-			? area()
-			: l.area(),
-		must_read
-			? l.left() + l.top() * dim().w()
-			: 0);
-	if(must_read)
-		get_tex_image(
-			format(),
-			format_type(),
-			read_buffer());
-	post_lock();
-	lock_rect_ = l;
+	lock_me(
+		l,
+		lock_method::readonly);
+	return view();
 }
 
-void sge::ogl::texture::unlock()
+void sge::ogl::texture::unlock() const
 {
 	pre_unlock();
-	if(renderer::lock_flag_write(lock_mode()))
+	if(lock_flag_write(lock_mode()))
 	{
 		if(!lock_rect_)
 			set_texture(
 				write_buffer());
 		else
+		{
+			bind_me();
 			set_texture_rect(
 				type(),
 				format(),
@@ -166,26 +103,81 @@ void sge::ogl::texture::unlock()
 				dim(),
 				*lock_rect_,
 				write_buffer());
+		}
 	}
 	do_unlock();
+}
+
+void sge::ogl::texture::lock_me(
+	renderer::lock_rect const &l,
+	lock_method::type const method) const
+{
+	bool const must_read = lock_flag_read(method);
+
+	// if we must read we have to lock the whole texture
+	// and set the lock size, the offset and the pitch accordingly
+	if(must_read)
+		do_lock(
+			method,
+			content(),
+			l.left() + l.top() * dim().w(),
+			dim().w() - l.dim().w(),
+			dim().w());
+	else
+		do_lock(
+			method,
+			l.area(),
+			0,
+			0,
+			0);
+	
+	if(must_read)
+		get_tex_image(
+			format(),
+			format_type(),
+			read_buffer());
+
+	post_lock();
+
+	if(l == rect())
+		lock_rect_.reset();
+	else
+		lock_rect_ = l;
 }
 
 sge::renderer::image_view const
 sge::ogl::texture::view()
 {
-	return make_view(
-		dim());
+	return renderer::make_image_view(
+		write_buffer(),
+		lock_dim(),
+		color_convert(
+			format(),
+			format_type()));
 }
 
 sge::renderer::const_image_view const
 sge::ogl::texture::view() const
 {
-	return make_view(
-		dim());
+	return renderer::make_image_view(
+		static_cast<const_pointer>(
+			real_read_buffer()),
+		lock_dim(),
+		color_convert(
+			format(),
+			format_type()));
+}
+
+sge::ogl::texture::dim_type const
+sge::ogl::texture::lock_dim() const
+{
+	return lock_rect_
+		? lock_rect_->dim()
+		: dim();
 }
 
 void sge::ogl::texture::set_texture(
-	const_pointer const p)
+	const_pointer const p) const
 {
 	pre_setdata();
 	ogl::set_texture(
@@ -195,39 +187,4 @@ void sge::ogl::texture::set_texture(
 		filter(),
 		dim(),
 		p);
-}
-
-sge::renderer::image_view const
-sge::ogl::texture::make_view(
-	dim_type const &d)
-{
-	return renderer::make_image_view(
-		write_buffer(),
-		d,
-		color_convert(
-			format(),
-			format_type()));
-}
-
-sge::renderer::const_image_view const
-sge::ogl::texture::make_view(
-	dim_type const &d) const
-{
-	return renderer::make_image_view(
-		static_cast<const_pointer>(
-			write_buffer()),
-		d,
-		color_convert(
-			format(),
-			format_type()));
-}
-
-
-sge::renderer::image_view const
-sge::ogl::texture::make_view(
-	renderer::image_view::point_t const &d)
-{
-	return make_view(
-		renderer::gil_dim_to_sge(
-			d));
 }

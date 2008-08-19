@@ -33,6 +33,8 @@ namespace sge
 namespace renderer
 {
 
+// TODO: further split this header!
+
 namespace bit_depth
 {
 	enum type {
@@ -50,31 +52,6 @@ typedef math::basic_dim<screen_unit,2>   screen_size_t;
 
 typedef unsigned multi_sample_type;
 
-namespace resource_flags
-{
-	enum type {
-		none,
-		dynamic     = 1,
-		write_only  = 1 << 1,
-		default_    = write_only
-	};
-}
-typedef unsigned resource_flag_t;
-
-namespace lock_flags
-{
-	enum type {
-		readonly,
-		writeonly,
-		readwrite
-	};
-}
-
-typedef lock_flags::type lock_flag_t;
-
-SGE_SYMBOL bool lock_flag_write(lock_flag_t mode);
-SGE_SYMBOL bool lock_flag_read(lock_flag_t mode);
-
 typedef math::vector2  tex_pos;
 typedef math::rect     tex_rect;
 typedef math::vector2  pos2;
@@ -82,6 +59,7 @@ typedef math::vector3  pos3;
 
 typedef std::size_t stage_type;
 
+typedef math::basic_dim<std::size_t, 2> dim_type;
 typedef math::basic_rect<std::size_t> lock_rect; // FIXME: use a consistent typedef for std::size_t!
 
 }

@@ -36,20 +36,19 @@ sge::sprite::system::system(const renderer::device_ptr rend)
    rend(rend),
    vb(
    	rend->create_vertex_buffer(
-		renderer::const_vertex_view(
-			0,
-			init_sprites * detail::vertices_per_sprite,
-			renderer::vertex_format()
-				.add(renderer::vertex_usage::pos)
-				.add(renderer::vertex_usage::diffuse)
-				.add(renderer::vertex_usage::tex)),
+		renderer::vertex_format()
+			.add(renderer::vertex_usage::pos)
+			.add(renderer::vertex_usage::diffuse)
+			.add(renderer::vertex_usage::tex),
+		init_sprites * detail::vertices_per_sprite,
 		renderer::resource_flags::write_only
 		| renderer::resource_flags::dynamic)),
   ib(
   	rend->create_index_buffer(
-		renderer::const_index_view_16(
-			0,
-			init_sprites * detail::indices_per_sprite)))
+		renderer::index_format::index16,
+		init_sprites * detail::indices_per_sprite,
+		renderer::resource_flags::write_only
+		| renderer::resource_flags::dynamic))
 {}
 
 const sge::renderer::device_ptr sge::sprite::system::get_renderer() const

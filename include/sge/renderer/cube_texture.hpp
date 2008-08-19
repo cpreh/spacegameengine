@@ -47,33 +47,33 @@ namespace cube_side
 
 class cube_texture : public texture_base {
 public:
-	typedef boost::array<image_view, cube_side::num_elements> image_view_6;
+	typedef boost::array<
+		image_view,
+		cube_side::num_elements
+		> image_view_6;
+	typedef lock_rect rect_type;
 
-	virtual void data(
+	image_view const lock(
 		cube_side::type side,
-		image_view const &) = 0;
-	void sub_data(
-		cube_side::type side,
-		const_image_view const &,
-		lock_rect const &dest);
-	virtual void lock(
-		cube_side::type side,
-		lock_flag_type) = 0;
-	virtual void lock(
+		lock_flag_type);
+
+	const_image_view const lock(
+		cube_side::type side) const;
+
+	virtual image_view const lock(
 		cube_side::type side,
 		lock_rect const &,
 		lock_flag_type) = 0;
-	virtual void unlock() = 0;
-
-	size_type size() const;
-	virtual image_view const view() = 0;
-	virtual const_image_view const view() const = 0;
-	virtual size_type border_size() const = 0;
-private:
-	virtual void do_sub_data(
+	
+	virtual const_image_view const lock(
 		cube_side::type side,
-		const_image_view const &,
-		lock_rect const &dest) = 0;
+		lock_rect const &) const = 0;
+
+	virtual void unlock() const = 0;
+
+	size_type content() const;
+	rect_type const rect() const;
+	virtual size_type border_size() const = 0;
 };
 
 typedef shared_ptr<cube_texture> cube_texture_ptr;

@@ -188,6 +188,8 @@ void sge::ogl::bind_texture(
 {
 	SGE_OPENGL_SENTRY
 	
+	// TODO: maybe cache this here
+
 	glBindTexture(type, value);
 }
 

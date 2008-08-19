@@ -1,7 +1,6 @@
 #include <sge/console/console_gfx.hpp>
 #include <sge/console/console.hpp>
 #include <sge/console/console.hpp>
-//#include <sge/console/action_var_impl.hpp>
 #include <sge/console/action_var_base_impl.hpp>
 #include <sge/sprite/system_impl.hpp>
 #include <sge/math/matrix_util.hpp>

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "types.hpp"
 #include "../export.hpp"
-#include "../renderer/vertex_buffer.hpp"
+#include "../renderer/vertex_iterator.hpp"
 #include "../renderer/index_view.hpp"
 #include "../math/rect.hpp"
 
@@ -34,35 +34,35 @@ namespace sprite
 
 typedef renderer::index_view_16 index_view;
 
-SGE_SYMBOL renderer::vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_iterator
 fill_position(
-	renderer::vertex_buffer::iterator it,
+	renderer::vertex_iterator it,
 	const rect& rs,
 	depth_type z);
 
-SGE_SYMBOL renderer::vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_iterator
 fill_tex_coordinates(
-	renderer::vertex_buffer::iterator it,
+	renderer::vertex_iterator it,
 	const renderer::tex_rect& rt);
 
-SGE_SYMBOL renderer::vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_iterator
 fill_vertices(
-	renderer::vertex_buffer::iterator it,
+	renderer::vertex_iterator it,
 	const rect& rs,
 	const renderer::tex_rect& rt,
 	depth_type z);
 
-SGE_SYMBOL renderer::vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_iterator
 fill_position_rotated(
-	renderer::vertex_buffer::iterator it,
+	renderer::vertex_iterator it,
 	const rect& rbs,
 	rotation_type rot,
 	const point& center,
 	depth_type z);
 
-SGE_SYMBOL renderer::vertex_buffer::iterator
+SGE_SYMBOL renderer::vertex_iterator
 fill_color(
-	renderer::vertex_buffer::iterator it,
+	renderer::vertex_iterator it,
 	color col);
 
 SGE_SYMBOL index_view::iterator

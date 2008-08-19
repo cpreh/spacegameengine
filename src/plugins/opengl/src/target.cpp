@@ -21,22 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../target.hpp"
 #include "../framebuffer_functions.hpp"
-#include <sge/renderer/scoped_lock.hpp>
+#include "../color_convert.hpp"
+#include <sge/renderer/make_image_view.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <sge/text.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
-void sge::ogl::target::lock()
-{
-	renderer::lock_rect const dest(
-		renderer::lock_rect::point_type(0, 0),
-		dim());
-	lock(dest);
-}
-
-void sge::ogl::target::lock(
-	renderer::lock_rect const &dest)
+sge::renderer::const_image_view const
+sge::ogl::target::lock(
+	renderer::lock_rect const &dest) const
 {
 	if(buffer)
 		throw exception(
@@ -51,7 +45,7 @@ void sge::ogl::target::lock(
 	bind_me();
 
 	buffer->lock(
-		renderer::lock_flags::readonly);
+		lock_method::readonly);
 
 	read_pixels(
 		dest.left(),
@@ -61,23 +55,18 @@ void sge::ogl::target::lock(
 		format(),
 		format_type(),
 		buffer->data());
+
+	return renderer::const_image_view(
+		renderer::make_image_view(
+			buffer->data(),
+			dim(),
+			color_convert(
+				format(),
+				format_type())));
 }
 
-void sge::ogl::target::unlock()
+void sge::ogl::target::unlock() const
 {
 	buffer->unlock();
 	buffer.reset();
-}
-
-sge::renderer::const_image_view const
-sge::ogl::target::view() const
-{
-	return renderer::const_image_view(
-		boost::gil::rgba8_view_t(
-			boost::gil::interleaved_view(
-				dim().w(),
-				dim().h(),
-				reinterpret_cast<renderer::rgba8_pixel *>( // FIXME: why can't we use const * here?
-					buffer->data()),
-				dim().w() * stride())));
 }

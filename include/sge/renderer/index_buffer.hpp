@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_BUFFER_HPP_INCLUDED
 
+#include "lock_flags.hpp"
+#include "resource_flags.hpp"
+#include "index_view.hpp"
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
-#include "types.hpp"
-#include "index_view.hpp"
 #include <cstddef>
 
 namespace sge
@@ -39,36 +40,32 @@ public:
 	typedef resource_flag_t                       resource_flag_type;
 	typedef lock_flag_t                           lock_flag_type;
 
+	typedef dynamic_index_view                    view_type;
+	typedef const_dynamic_index_view              const_view_type;
+
 	static const size_type npos = static_cast<size_type>(-1);
 
-	virtual void lock(
-		lock_flag_t flags,
+	virtual view_type const lock(
+		lock_flag_type flags,
 		size_type offset = 0,
 		size_type range = npos) = 0;
-	virtual void unlock() = 0;
-	virtual void data(
-		const_dynamic_index_view const &) = 0;
-	void sub_data(
-		const_dynamic_index_view const &,
-		size_type offset);
 
-	virtual dynamic_index_view const view() = 0;
-	virtual const_dynamic_index_view const view() const = 0;
+	virtual const_view_type const lock(
+		size_type offset = 0,
+		size_type range = npos) const = 0;
+
+	virtual void unlock() const = 0;
 
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
 
-	virtual void resize(
-		size_type) = 0;
+	virtual index_format::type get_index_format() const = 0;
 
 	SGE_SYMBOL virtual ~index_buffer();
-private:
-	virtual void do_sub_data(
-		const_dynamic_index_view const &,
-		size_type offset) = 0;
 };
 
 typedef shared_ptr<index_buffer> index_buffer_ptr;
+typedef shared_ptr<index_buffer const> const_index_buffer_ptr;
 
 }
 }

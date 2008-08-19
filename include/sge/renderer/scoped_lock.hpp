@@ -21,115 +21,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
 
-#include "types.hpp"
-#include "texture_base.hpp"
-#include "volume_texture.hpp"
-#include "cube_texture.hpp"
+#include "scoped_lock_wrapper.hpp"
 #include <boost/noncopyable.hpp>
-#include <cstddef>
 
 namespace sge
 {
 namespace renderer
 {
 
-template<typename T>
+template<typename T, typename Value>
 class scoped_lock : boost::noncopyable {
 public:
-	struct wrapper {
-		explicit wrapper(const T t)
-		: t(t)
-		{}
+	typedef scoped_lock_wrapper<
+		T,
+		Value
+	> wrapper;
 
-		T t;
-	};
+	explicit scoped_lock(
+		wrapper const& w);
 
-	explicit scoped_lock(const wrapper& w)
-	 : w(w)
-	{}
+	void release();
 
-	void unlock()
-	{
-		if(w.t)
-		{
-			w.t->unlock();
-			release();
-		}
-	}
+	Value const value() const;
 
-	void release()
-	{
-		reset_<T>::reset_ptr(w.t);
-	}
-
-	~scoped_lock()
-	{
-		unlock();
-	}
+	~scoped_lock();
 private:
-	wrapper w;
+	void unlock();
 
-	template<typename U>
-	struct reset_ {
-		static void reset_ptr(U& u)
-		{
-			u.reset();
-		}
-	};
-	template<typename U>
-	struct reset_<U*> {
-		static void reset_ptr(U*& u)
-		{
-			u = 0;
-		}
-	};
+	wrapper w;
 };
 
-template<typename T>
-const typename scoped_lock<T>::wrapper
-make_scoped_lock(
-	const T t,
-	const lock_flag_t flags)
-{
-	t->lock(flags);
-	return typename scoped_lock<T>::wrapper(t);
-}
-
-template<typename T>
-const typename scoped_lock<T>::wrapper
+/*template<typename Ret, typename T>
+const typename scoped_lock<T, Ret>::wrapper
 make_scoped_lock(
 	T const t,
-	lock_rect const &r,
 	lock_flag_t const flags)
 {
-	t->lock(
-		r,
-		flags);
-	return typename scoped_lock<T>::wrapper(t);
-}
-
-template<typename T>
-const typename scoped_lock<T>::wrapper
-make_scoped_lock(
-	const T t,
-	const cube_side::type side,
-	const lock_flag_t flags)
-{
-	t->lock(side, flags);
-	return typename scoped_lock<T>::wrapper(t);
-}
-
-template<typename T, typename Sz>
-const typename scoped_lock<T>::wrapper
-make_scoped_lock(
-	const T t,
-	const Sz first,
-	const Sz count,
-	const lock_flag_t flags)
-{
-	t->lock(flags, first, count);
-	return typename scoped_lock<T>::wrapper(t);
-}
+	return typename scoped_lock<T, Ret>::wrapper(
+		t,
+		t->lock(flags));
+}*/
 
 }
 }

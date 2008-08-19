@@ -56,28 +56,3 @@ sge::texture::part::translate(
 		(1 - local_coords.x()) * texc.top() + local_coords.y() * texc.bottom()
 	);
 }
-
-void sge::texture::part::lock(
-	renderer::lock_flags::type const lflags)
-{
-	my_texture()->lock(
-		area(),
-		lflags);
-}
-
-void sge::texture::part::unlock()
-{
-	my_texture()->unlock();
-}
-
-sge::renderer::const_image_view const
-sge::texture::part::view() const
-{
-	return my_texture()->view();
-}
-
-sge::renderer::image_view const
-sge::texture::part::view()
-{
-	return my_texture()->view();
-}

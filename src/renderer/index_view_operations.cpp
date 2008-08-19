@@ -36,15 +36,29 @@ sge::renderer::index_view_stride::operator()(
 	return sizeof(typename T::value_type);
 }
 
+template<typename T>
+unsigned char *
+sge::renderer::index_view_data::operator()(
+	T const &src) const
+{
+	return reinterpret_cast<unsigned char *>(src.data());
+}
 
 template<typename T>
 unsigned char const *
-sge::renderer::index_view_data::operator()(
+sge::renderer::index_view_data_const::operator()(
 	T const &src) const
 {
 	return reinterpret_cast<unsigned char const *>(src.data());
 }
 
+template<typename T>
+sge::renderer::index_format::type
+sge::renderer::index_view_format::operator()(
+	T const &src) const
+{
+	return src.format();
+}
 
 #define SGE_INSTANTIATE_INDEX_VIEW_SIZE(x) \
 template sge::renderer::index_view_size::size_type \
@@ -73,13 +87,39 @@ SGE_INSTANTIATE_INDEX_VIEW_STRIDE(const_index_view_32)
 
 
 #define SGE_INSTANTIATE_INDEX_VIEW_DATA(x) \
-template unsigned char const * \
+template unsigned char * \
 sge::renderer::index_view_data::operator()( \
 	sge::renderer::x const &) const;
 
 SGE_INSTANTIATE_INDEX_VIEW_DATA(index_view_16)
 SGE_INSTANTIATE_INDEX_VIEW_DATA(index_view_32)
-SGE_INSTANTIATE_INDEX_VIEW_DATA(const_index_view_16)
-SGE_INSTANTIATE_INDEX_VIEW_DATA(const_index_view_32)
+//SGE_INSTANTIATE_INDEX_VIEW_DATA(const_index_view_16)
+//SGE_INSTANTIATE_INDEX_VIEW_DATA(const_index_view_32)
 
-#undef SGE_INSTANTIATE_INDEX_VIEW_STRIDE
+#undef SGE_INSTANTIATE_INDEX_VIEW_DATA
+
+
+#define SGE_INSTANTIATE_INDEX_VIEW_DATA_CONST(x) \
+template unsigned char const * \
+sge::renderer::index_view_data_const::operator()( \
+	sge::renderer::x const &) const;
+
+//SGE_INSTANTIATE_INDEX_VIEW_DATA_CONST(index_view_16)
+//SGE_INSTANTIATE_INDEX_VIEW_DATA_CONST(index_view_32)
+SGE_INSTANTIATE_INDEX_VIEW_DATA_CONST(const_index_view_16)
+SGE_INSTANTIATE_INDEX_VIEW_DATA_CONST(const_index_view_32)
+
+#undef SGE_INSTANTIATE_INDEX_VIEW_DATA_CONST
+
+
+#define SGE_INSTANTIATE_INDEX_VIEW_FORMAT(x) \
+template sge::renderer::index_format::type \
+sge::renderer::index_view_format::operator()( \
+	sge::renderer::x const &) const;
+
+SGE_INSTANTIATE_INDEX_VIEW_FORMAT(index_view_16)
+SGE_INSTANTIATE_INDEX_VIEW_FORMAT(index_view_32)
+SGE_INSTANTIATE_INDEX_VIEW_FORMAT(const_index_view_16)
+SGE_INSTANTIATE_INDEX_VIEW_FORMAT(const_index_view_32)
+
+#undef SGE_INSTANTIATE_INDEX_VIEW_FORMAT

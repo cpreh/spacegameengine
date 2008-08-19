@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "basic_texture.hpp"
 #include <sge/renderer/cube_texture.hpp>
+#include <sge/renderer/texture.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
 {
@@ -40,33 +42,36 @@ typedef basic_texture<renderer::cube_texture> cube_texture_base;
 class cube_texture : public detail::cube_texture_base {
 public:
 	cube_texture(
-		image_view_6 const &,
+		size_type border_size,
+		renderer::color_format::type format,
 		const renderer::filter_args& filter,
 		resource_flag_type flags);
-	void data(
-		renderer::cube_side::type side,
-		renderer::image_view const &);
-	void do_sub_data(
-		renderer::cube_side::type side,
-		renderer::image_view const &,
-		renderer::lock_rect const &);
-	void lock(
-		renderer::cube_side::type side,
-		lock_flag_type flags);
-	void lock(
+
+	renderer::image_view const lock(
 		renderer::cube_side::type side,
 		renderer::lock_rect const &,
 		lock_flag_type flags);
-	void unlock();
 	
-	renderer::image_view const view();
-	renderer::const_image_view const view() const;
+	renderer::const_image_view const lock(
+		renderer::cube_side::type side,
+		renderer::lock_rect const &) const;
+
+	void unlock() const;
+	
 	size_type border_size() const;
 private:
-	size_type sz;
+	void check_locked() const;
+	void check_not_locked() const;
+
+	size_type const            sz;
+	mutable renderer::texture  *locked_texture;
+
+	typedef boost::ptr_vector<
+		renderer::texture> texture_vector;
+	mutable texture_vector     textures;
 };
 
-GLenum convert_cast(const renderer::cube_side::type&);
+GLenum convert_cast(renderer::cube_side::type const &);
 
 void disable_cube_texture();
 

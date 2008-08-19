@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_texture.hpp"
 #include <sge/renderer/volume_texture.hpp>
 
+#if 0
+
 namespace sge
 {
 namespace ogl
@@ -64,5 +66,7 @@ private:
 
 }
 }
+
+#endif
 
 #endif

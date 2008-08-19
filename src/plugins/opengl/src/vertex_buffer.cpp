@@ -19,70 +19,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../vertex_buffer.hpp"
-#include "../basic_buffer_impl.hpp"
 #include "../vbo.hpp"
+#include "../instantiate_buffer_base.hpp"
 
-template class sge::ogl::basic_buffer<
+SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 	sge::renderer::vertex_buffer,
 	sge::ogl::vertex_buffer_type,
-	sge::ogl::vb_ib_vbo_impl>;
+	sge::ogl::vb_ib_vbo_impl)
 
 sge::ogl::vertex_buffer::vertex_buffer(
-	renderer::const_vertex_view const &src,
+	renderer::vertex_format const &format,
+	size_type const sz,
 	resource_flag_type const flags)
- :	detail::vertex_buffer_base(
- 		src.size(),
-		src.format().stride(),
-		flags,
-		src.data()),
-	format(src.format()),
-	ogl_format(format)
+: detail::vertex_buffer_base(
+	sz,
+	format.stride(),
+	flags,
+	0),
+  format(format),
+  ogl_format(format)
 {}
 
-void sge::ogl::vertex_buffer::set_format()
+void sge::ogl::vertex_buffer::set_format() const
 {
 	bind_me();
 	ogl_format.use_me();
 }
 
-void sge::ogl::vertex_buffer::data(
-	renderer::const_vertex_view const &src)
-{
-	detail::vertex_buffer_base::data(
-		src.data(),
-		src.format().stride(),
-		src.size());
-}
-
-void sge::ogl::vertex_buffer::do_sub_data(
-	renderer::const_vertex_view const &src,
-	size_type const first)
-{
-	detail::vertex_buffer_base::sub_data(
-		src.data(),
-		first,
-		src.size());
-}
-
-sge::renderer::vertex_view const
+sge::ogl::vertex_buffer::view_type const
 sge::ogl::vertex_buffer::view()
 {
-	return renderer::vertex_view(
+	return view_type(
 		detail::vertex_buffer_base::data(),
 		detail::vertex_buffer_base::lock_size(),
 		get_vertex_format());
 }
 
-sge::renderer::const_vertex_view const
+sge::ogl::vertex_buffer::const_view_type const
 sge::ogl::vertex_buffer::view() const
 {
-	return renderer::const_vertex_view(
+	return const_view_type(
 		detail::vertex_buffer_base::data(),
 		detail::vertex_buffer_base::lock_size(),
 		get_vertex_format());
 }
 
-const sge::renderer::vertex_format&
+sge::renderer::vertex_format const &
 sge::ogl::vertex_buffer::get_vertex_format() const
 {
 	return format;

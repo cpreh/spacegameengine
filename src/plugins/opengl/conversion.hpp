@@ -22,10 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONVERSION_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/types.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/texture_filter.hpp>
-#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
@@ -43,7 +42,6 @@ GLenum convert_cast(renderer::source_blend_func::type);
 GLenum convert_cast(renderer::dest_blend_func::type);
 GLenum convert_cast(renderer::draw_mode::type);
 
-GLuint convert_cast(const renderer::lock_flag_t&);
 GLenum convert_cast(const renderer::indexed_primitive_type::type&);
 GLenum convert_cast(const renderer::nonindexed_primitive_type::type&);
 GLenum convert_cast(const renderer::min_filter::type&);

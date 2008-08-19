@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "basic_texture.hpp"
+#include "lock_method.hpp"
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/image.hpp>
 #include <sge/renderer/color_format.hpp>
@@ -40,48 +41,41 @@ typedef basic_texture<renderer::texture> texture_base;
 
 class texture : public detail::texture_base {
 public:
-	texture(
-		renderer::const_image_view const &src,
-		renderer::filter_args const &filter,
-		resource_flag_type flags);
+	typedef boost::optional<GLenum> optional_type;
+
 	texture(
 		dim_type const &,
 		renderer::color_format::type format,
 		renderer::filter_args const &filter,
-		resource_flag_type flags);
-	const dim_type dim() const;
+		resource_flag_type flags,
+		optional_type type
+			= optional_type());
 	
-	void data(
-		renderer::const_image_view const &src);
-	void do_sub_data(
-		renderer::const_image_view const &src,
-		renderer::lock_rect const &r);
-
-	void lock(
-		lock_flag_type flags);
-	void lock(
+	dim_type const dim() const;
+	
+	renderer::image_view const lock(
 		renderer::lock_rect const &,
 		lock_flag_type flags);
-	void unlock();
+
+	renderer::const_image_view const lock(
+		renderer::lock_rect const &) const;
+
+	void unlock() const;
+private:
+	void lock_me(
+		renderer::lock_rect const &,
+		lock_method::type) const;
 
 	renderer::image_view const view();
 	renderer::const_image_view const view() const;
-private:
-	void data_internal(
-		renderer::const_image_view const &src);
+
+	dim_type const lock_dim() const;
+	
 	void set_texture(
-		const_pointer src);
+		const_pointer src) const;
 
-	renderer::image_view const make_view(
-		dim_type const &);
-	renderer::const_image_view const make_view(
-		dim_type const &) const;
-
-	renderer::image_view const make_view(
-		renderer::image_view::point_t const &);
-
-	dim_type                      dim_;
-	boost::optional<
+	dim_type const               dim_;
+	mutable boost::optional<
 		renderer::lock_rect> lock_rect_;
 };
 

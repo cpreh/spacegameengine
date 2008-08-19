@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 
-#include "basic_buffer.hpp"
+#include "common.hpp"
+#include "buffer_base.hpp"
 #include "vbo.hpp"
 #include <sge/renderer/index_buffer.hpp>
 
@@ -31,7 +32,7 @@ namespace ogl
 {
 namespace detail
 {
-typedef basic_buffer<
+typedef buffer_base<
 	renderer::index_buffer,
 	index_buffer_type,
 	vb_ib_vbo_impl
@@ -41,18 +42,26 @@ typedef basic_buffer<
 class index_buffer
 : public detail::index_buffer_base {
 public:
-	index_buffer(
-		renderer::const_dynamic_index_view const &,
-		renderer::resource_flag_t flags);
-private:	
-	void data(
-		renderer::const_dynamic_index_view const &);
-	void do_sub_data(
-		renderer::const_dynamic_index_view const &,
-		size_type offset);
+	typedef detail::index_buffer_base base;
+	using base::size_type;
+	using base::const_pointer;
 
-	renderer::dynamic_index_view const view();
-	renderer::const_dynamic_index_view const view() const;
+	index_buffer(
+		renderer::index_format::type format,
+		size_type sz,
+		resource_flag_type flags);
+	
+	renderer::index_format::type get_index_format() const;
+
+	GLenum format() const;
+	const_pointer buffer_offset(
+		size_type) const;
+	void bind_me() const;
+private:
+	view_type const view();
+	const_view_type const view() const;
+
+	renderer::index_format::type const format_;
 };
 
 }

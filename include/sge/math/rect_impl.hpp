@@ -54,6 +54,19 @@ sge::math::basic_rect<T>::basic_rect(
 }
 
 template<typename T>
+sge::math::basic_rect<T>::basic_rect(
+	dim_type const &sz)
+: left_(
+	static_cast<value_type>(0)),
+  top_(
+  	static_cast<value_type>(0)),
+  right_(sz.w()),
+  bottom_(sz.h())
+{
+	check();
+}
+
+template<typename T>
 typename sge::math::basic_rect<T>::value_type sge::math::basic_rect<T>::w() const
 {
 	return right() - left();

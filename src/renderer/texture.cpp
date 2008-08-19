@@ -19,37 +19,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture.hpp>
-#include <sge/exception.hpp>
-#include <sge/string.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <sge/iostream.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
-void sge::renderer::texture::sub_data(
-	const_image_view const &src,
-	lock_rect const &dest)
+sge::renderer::image_view const
+sge::renderer::texture::lock(lock_flag_t const flags)
 {
-	if(gil_dim_to_sge(src.dimensions()) != dest.dim())
-		throw exception(
-			SGE_TEXT("texture::sub_data: src's dim and dest's dim do not match!"));
-	if(dest.right() > dim().w()
-	|| dest.bottom() > dim().h())
-		throw exception(
-			SGE_TEXT("texture::sub_data: dest out of range!"));
-	
-	do_sub_data(
-		src,
-		dest);
+	return lock(rect(), flags);
+}
+
+sge::renderer::const_image_view const
+sge::renderer::texture::lock() const
+{
+	return lock(rect());
+}
+
+sge::renderer::texture::rect_type const
+sge::renderer::texture::rect() const
+{
+	return rect_type(
+		dim());
 }
 
 sge::renderer::texture::size_type
-sge::renderer::texture::area() const
+sge::renderer::texture::content() const
 {
 	return dim().content();
-}
-
-const sge::renderer::texture::dim_type
-sge::renderer::gil_dim_to_sge(image_view::point_t const &d)
-{
-	return texture::dim_type(d.x, d.y);
 }

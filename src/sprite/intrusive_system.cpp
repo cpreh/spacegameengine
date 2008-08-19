@@ -24,6 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/scoped_state.hpp>
 #include <sge/renderer/transform.hpp>
+#include <sge/renderer/vertex_buffer_util.hpp>
+#include <sge/renderer/index_buffer_util.hpp>
+#include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/algorithm.hpp>
 #include <boost/foreach.hpp>
@@ -40,20 +44,19 @@ sge::sprite::intrusive_system::intrusive_system(
   rend(rend),
   vb(
    	rend->create_vertex_buffer(
-		renderer::const_vertex_view(
-			0,
-			init_sprites * detail::vertices_per_sprite,
-			renderer::vertex_format()
-				.add(renderer::vertex_usage::pos)
-				.add(renderer::vertex_usage::diffuse)
-				.add(renderer::vertex_usage::tex)),
+		renderer::vertex_format()
+			.add(renderer::vertex_usage::pos)
+			.add(renderer::vertex_usage::diffuse)
+			.add(renderer::vertex_usage::tex),
+		init_sprites * detail::vertices_per_sprite,
 		renderer::resource_flags::write_only
 		| renderer::resource_flags::dynamic)),
   ib(
   	rend->create_index_buffer(
-		renderer::const_index_view_16(
-			0,
-			init_sprites * detail::indices_per_sprite)))
+		renderer::index_format::index16,
+		init_sprites * detail::indices_per_sprite,
+		renderer::resource_flags::write_only
+		| renderer::resource_flags::dynamic))
 {}
 
 void sge::sprite::intrusive_system::render()
@@ -74,18 +77,18 @@ void sge::sprite::intrusive_system::render(
 	sprite_list::size_type const num_sprites(sprites.size());
 	if(vb->size() < num_sprites * detail::vertices_per_sprite)
 	{
-		vb->resize(num_sprites * detail::vertices_per_sprite);
-		ib->resize(num_sprites * detail::indices_per_sprite);
+		vb = renderer::resize(vb, rend, num_sprites * detail::vertices_per_sprite);
+		ib = renderer::resize(ib, rend, num_sprites * detail::indices_per_sprite);
 	}
 
 	{
-		const renderer::scoped_lock<renderer::index_buffer_ptr> iblock(
+		renderer::scoped_index_lock const iblock(
 			renderer::make_scoped_lock(ib, renderer::lock_flags::writeonly));
-		const renderer::scoped_lock<renderer::vertex_buffer_ptr> vblock(
+		renderer::scoped_vertex_lock const vblock(
 			renderer::make_scoped_lock(vb, renderer::lock_flags::writeonly));
 
-		index_view const indices(boost::get<index_view>(ib->view()));
-		renderer::vertex_view const vertices(vb->view());
+		index_view const indices(boost::get<index_view>(iblock.value()));
+		renderer::vertex_view const vertices(vblock.value());
 
 		index_view::iterator ib_it = indices.begin();
 		renderer::vertex_view::iterator vb_it = vertices.begin();

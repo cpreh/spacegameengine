@@ -56,12 +56,6 @@ public:
 	virtual renderer::const_texture_ptr const my_texture() const = 0;
 
 	virtual bool repeatable() const = 0;
-
-	SGE_SYMBOL void lock(renderer::lock_flags::type);
-	SGE_SYMBOL void unlock();
-
-	SGE_SYMBOL renderer::const_image_view const view() const;
-	SGE_SYMBOL renderer::image_view const view();
 };
 
 typedef shared_ptr<part>       part_ptr;

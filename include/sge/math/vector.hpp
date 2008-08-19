@@ -465,6 +465,7 @@ public:
 	 */
 	basic_vector unit() const
 	{
+		assert(!is_null());
 		return (*this) * (static_cast<T>(1) / length());
 	}
 

@@ -45,7 +45,8 @@ sge::texture::no_fragmented::consume_fragment(
 	tex = rend->create_texture(
 		real_dim,
 		renderer::color_format::rgba8,
-		my_filter);
+		my_filter,
+		renderer::resource_flags::write_only);
 
 	if(real_dim != dim)
     		log::global(log::level::warning) << SGE_TEXT("warning: You used a texture::no_fragmented whose dimensions are not a power of 2.")\

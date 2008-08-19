@@ -29,7 +29,6 @@ namespace ogl
 {
 
 typedef basic_buffer<
-	pbo_base,
 	pixel_unpack_buffer_type,
 	pbo_impl
 > pixel_unpack_buffer;

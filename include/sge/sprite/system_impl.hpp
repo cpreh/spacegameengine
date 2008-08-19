@@ -28,6 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../algorithm.hpp"
 #include "../renderer/scoped_lock.hpp"
 #include "../renderer/scoped_state.hpp"
+#include "../renderer/vertex_buffer_util.hpp"
+#include "../renderer/index_buffer_util.hpp"
+#include "../renderer/scoped_index_lock.hpp"
+#include "../renderer/scoped_vertex_lock.hpp"
 #include <algorithm>
 #include <iterator>
 
@@ -41,18 +45,18 @@ void sge::sprite::system::render(const RanIt beg, const RanIt end)
 
 	if(vb->size() < static_cast<renderer::vertex_buffer::size_type>(range_len) * detail::vertices_per_sprite)
 	{
-		vb->resize(range_len * detail::vertices_per_sprite);
-		ib->resize(range_len * detail::indices_per_sprite);
+		vb = renderer::resize(vb, rend, range_len * detail::vertices_per_sprite);
+		ib = renderer::resize(ib, rend, range_len * detail::indices_per_sprite);
 	}
 
 	{
-		const renderer::scoped_lock<renderer::index_buffer_ptr> iblock(
+		renderer::scoped_index_lock const iblock(
 			renderer::make_scoped_lock(ib, renderer::lock_flags::writeonly));
-		const renderer::scoped_lock<renderer::vertex_buffer_ptr> vblock(
+		renderer::scoped_vertex_lock const vblock(
 			renderer::make_scoped_lock(vb, renderer::lock_flags::writeonly));
 
-		index_view const indices(boost::get<index_view>(ib->view()));
-		renderer::vertex_view const vertices(vb->view());
+		index_view const indices(boost::get<index_view>(iblock.value())); // FIXME
+		renderer::vertex_view const vertices(vblock.value());
 
 		index_view::iterator ib_it = indices.begin();
 		renderer::vertex_view::iterator vb_it = vertices.begin();

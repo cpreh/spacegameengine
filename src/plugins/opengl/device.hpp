@@ -68,15 +68,15 @@ public:
 	void begin_rendering();
 	void end_rendering();
 	void render(
-		renderer::vertex_buffer_ptr vb,
-		renderer::index_buffer_ptr ib,
+		renderer::const_vertex_buffer_ptr vb,
+		renderer::const_index_buffer_ptr ib,
 		renderer::vertex_buffer::size_type first_vertex,
 		renderer::vertex_buffer::size_type num_vertices,
 		renderer::indexed_primitive_type::type ptype,
 		renderer::index_buffer::size_type pcount,
 		renderer::index_buffer::size_type first_index);
 	void render(
-		renderer::vertex_buffer_ptr vb,
+		renderer::const_vertex_buffer_ptr vb,
 		renderer::vertex_buffer::size_type first_vertex,
 		renderer::vertex_buffer::size_type num_vertices,
 		renderer::nonindexed_primitive_type::type ptype);
@@ -88,7 +88,7 @@ public:
 	void pop_level();
 
 	void set_texture(
-		renderer::texture_base_ptr tex,
+		renderer::const_texture_base_ptr tex,
 		renderer::stage_type stage);
 	void set_material(const renderer::material& mat);
 
@@ -113,13 +113,7 @@ public:
 		const std::string& pixel_shader_source);
 	void set_glsl_program(renderer::glsl::program_ptr);
 
-	const sge::renderer::target_ptr get_target() const;
-
-	const renderer::texture_ptr
-	create_texture(
-		renderer::const_image_view const &,
-		const renderer::filter_args& filter,
-		renderer::texture::resource_flag_type flags);
+	renderer::const_target_ptr const get_target() const;
 
 	const renderer::texture_ptr
 	create_texture(
@@ -128,26 +122,29 @@ public:
 		renderer::filter_args const &,
 		renderer::texture::resource_flag_type);
 
-	const renderer::volume_texture_ptr
+	/*const renderer::volume_texture_ptr
 	create_volume_texture(
 		renderer::volume_texture::image_view_array const &,
 		const renderer::filter_args& filter,
-		renderer::volume_texture::resource_flag_type flags);
+		renderer::volume_texture::resource_flag_type flags);*/
 
-	const renderer::cube_texture_ptr
+	renderer::cube_texture_ptr const
 	create_cube_texture(
-		renderer::cube_texture::image_view_6 const &,
-		const renderer::filter_args& filter,
-		renderer::cube_texture::resource_flag_type flags);
+		renderer::cube_texture::size_type border_size,
+		renderer::color_format::type,
+		renderer::filter_args const &,
+		renderer::texture::resource_flag_type);
 
-	const renderer::vertex_buffer_ptr
+	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		renderer::const_vertex_view const &,
+		renderer::vertex_format const &,
+		renderer::vertex_buffer::size_type size,
 		renderer::vertex_buffer::resource_flag_type flags);
 
-	const renderer::index_buffer_ptr
+	renderer::index_buffer_ptr const
 	create_index_buffer(
-		renderer::const_dynamic_index_view const &,
+		renderer::index_format::type,
+		renderer::index_buffer::size_type sz,
 		renderer::index_buffer::resource_flag_type flags);
 
 	const renderer::caps& get_caps() const;
@@ -163,8 +160,8 @@ private:
 	const renderer::any_state& get_any_state(
 		const renderer::any_state& state) const;
 
-	void set_vertex_buffer(renderer::vertex_buffer_ptr vb);
-	void set_index_buffer(renderer::index_buffer_ptr ib);
+	void set_vertex_buffer(renderer::const_vertex_buffer_ptr vb);
+	void set_index_buffer(renderer::const_index_buffer_ptr ib);
 	const fbo_target_ptr create_render_target(
 		const renderer::target::dim_type&);
 
