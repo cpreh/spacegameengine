@@ -3,6 +3,7 @@
 #include <sge/text.hpp>
 #include <sge/log/global.hpp> 
 #include <sge/log/logger.hpp>
+#include <sge/log/convert_level.hpp>
 #include <boost/iostreams/stream_buffer.hpp>
 #include <boost/iostreams/device/null.hpp>
 
@@ -46,10 +47,10 @@ void initialize_logger() {
 }
 
 sge::log::temporary_output::temporary_output()
-  : os(new std::ostringstream())
+  : os(new ostringstream())
 {}
 
-void sge::log::log(level::type const l, temporary_output const t) {
+void sge::log::global(level::type const l, temporary_output const t) {
   initialize_logger();
   boost::logging::level::type bl = convert_level(l);
   if(sge_log_level()->is_enabled(bl))
@@ -58,3 +59,5 @@ void sge::log::log(level::type const l, temporary_output const t) {
     )->read_msg().gather().out() << t.os->rdbuf();
 }
 
+sge::log::output_helper const sge::log::_1
+	= sge::log::output_helper();

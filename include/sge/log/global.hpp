@@ -1,9 +1,10 @@
 #ifndef SGE_LOG_GLOBAL_HPP_INCLUDED
 #define SGE_LOG_GLOBAL_HPP_INCLUDED
 
-#include "logger.hpp"
 #include "level.hpp"
 #include "../export.hpp"
+#include "../shared_ptr.hpp"
+#include "../sstream.hpp"
 
 namespace sge
 {
@@ -14,10 +15,10 @@ struct output_helper
 {};
 
 struct temporary_output {
-  boost::shared_ptr<
-    std::ostringstream
+  shared_ptr<
+    ostringstream
   > os;
-  SGE_CLASS_SYMBOL temporary_output();
+  SGE_SYMBOL temporary_output();
 };
 
 template<typename T>
@@ -32,7 +33,9 @@ temporary_output operator<<(temporary_output const &s, T const &t) {
   return n;
 }
 
-void SGE_SYMBOL log(level::type const l, temporary_output const t);
+SGE_SYMBOL void global(level::type l, temporary_output t);
+
+SGE_SYMBOL extern output_helper const _1;
 
 }//end log
 }//end sge

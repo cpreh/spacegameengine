@@ -1,4 +1,4 @@
-#include <sge/log/level.hpp>
+#include <sge/log/convert_level.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 

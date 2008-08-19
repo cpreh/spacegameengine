@@ -72,18 +72,18 @@ void sge::ogl::set_texture(
 	SGE_OPENGL_SENTRY
 	
 	if(dim.w() < 64 || dim.h() < 64)
-    log::log(
-      log::level::warning,
-      log::output_helper() << SGE_TEXT("warning: opengl implementations are not required to support textures smaller than 64x64.")\
-                              SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n")
-    );
+		log::global(
+			log::level::warning,
+			log::_1 << SGE_TEXT("warning: opengl implementations are not required to support textures smaller than 64x64.")\
+			           SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n")
+		);
 
 	if(!math::is_power_of_2(dim))
-    log::log(
-      log::level::warning,
-      log::output_helper() << SGE_TEXT("warning: opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
-                              SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n")
-    );
+		log::global(
+			log::level::warning,
+			log::_1 << SGE_TEXT("warning: opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
+			           SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n")
+		);
 		
 	glTexImage2D(
 		tex_type,
