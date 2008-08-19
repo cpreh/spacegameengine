@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../../math/vector.hpp"
 #include "../../shared_ptr.hpp"
+#include "../../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
 
-class sound
-{
+class SGE_CLASS_SYMBOL sound : boost::noncopyable {
 public:
 	enum sound_status 
 	{ 
@@ -47,8 +48,8 @@ public:
 	virtual void pos(const math::vector3 &) = 0;
 	virtual bool positional() const = 0;
 	virtual void positional(const bool) = 0;
-	virtual void update() {}
-	virtual ~sound() {}
+	SGE_SYMBOL virtual void update();
+	SGE_SYMBOL virtual ~sound();
 };
 
 typedef shared_ptr<sound> sound_ptr;

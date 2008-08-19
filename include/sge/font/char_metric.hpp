@@ -21,21 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_CHAR_METRIC_HPP_INCLUDED
 #define SGE_FONT_CHAR_METRIC_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
-#include "../renderer/color.hpp"
 #include "types.hpp"
+#include "../shared_ptr.hpp"
+#include "../export.hpp"
+#include "../renderer/color.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-class char_metric {
+class SGE_CLASS_SYMBOL char_metric : boost::noncopyable {
 public:
 	virtual const_image_view const pixmap() const = 0;
 	virtual pos const offset() const = 0;
 	virtual unit x_advance() const = 0;
-	virtual ~char_metric() {}
+	SGE_SYMBOL virtual ~char_metric();
 };
 
 typedef shared_ptr<char_metric> char_metric_ptr;

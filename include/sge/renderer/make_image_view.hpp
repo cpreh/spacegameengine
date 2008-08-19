@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_MAKE_IMAGE_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_MAKE_IMAGE_VIEW_HPP_INCLUDED
 
-#include "../math/dim.hpp"
 #include "color_format.hpp"
 #include "image_view.hpp"
+#include "../math/dim.hpp"
+#include "../export.hpp"
 #include <cstddef>
 
 namespace sge
@@ -33,12 +34,14 @@ namespace renderer
 
 typedef math::basic_dim<std::size_t, 2> image_dim; // FIXME: make a common typedef
 
-image_view const make_image_view(
+SGE_SYMBOL image_view const
+make_image_view(
 	unsigned char *data,
 	image_dim const &,
 	color_format::type);
 
-const_image_view const make_image_view(
+SGE_SYMBOL const_image_view const
+make_image_view(
 	unsigned char const *data,
 	image_dim const &,
 	color_format::type);

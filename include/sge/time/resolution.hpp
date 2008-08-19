@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIME_RESOLUTION_HPP_INCLUDED
 
 #include "types.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -30,10 +31,10 @@ namespace time
 
 class resolution {
 public:
-	explicit resolution(
+	SGE_SYMBOL explicit resolution(
 		unit);
 	
-	unit get() const;
+	SGE_SYMBOL unit get() const;
 private:
 	unit res_;
 };

@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../error.hpp"
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
+#include <sge/text.hpp>
+#include <sge/iconv.hpp>
 #include <boost/array.hpp>
 #include <boost/foreach.hpp>
 
@@ -82,7 +84,7 @@ void sge::ogl::glsl::program<Native>::link()
 		errorlog[len] = '\0';
 		throw exception(
 			string(SGE_TEXT("Linking a program failed!"))
-			+ errorlog.data());
+			+ iconv(errorlog.data()));
 	}
 }
 

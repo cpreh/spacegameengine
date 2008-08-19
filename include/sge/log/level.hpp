@@ -7,10 +7,18 @@ namespace sge
 {
 namespace log
 {
-
-namespace level = boost::logging::level;
-
-}
-}
+namespace level
+{
+enum type {
+  debug,
+  info,
+  warning,
+  error,
+  fatal
+};
+}//end level
+boost::logging::level::type convert_level(level::type const);
+}//end log
+}//end sge
 
 #endif

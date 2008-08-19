@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "image_view.hpp"
 #include "color_format.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-color_format::type image_view_format(
+SGE_SYMBOL color_format::type image_view_format(
 	const_image_view const &);
 
 }

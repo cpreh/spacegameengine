@@ -28,6 +28,7 @@ namespace sge
 namespace renderer
 {
 
+// TODO: rewrite this to use GIL
 class hsla {
 public:
 	static const color_element hsl_max = 240;

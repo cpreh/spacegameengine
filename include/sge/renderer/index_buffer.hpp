@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "index_view.hpp"
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
+#include <boost/noncopyable.hpp>
 #include <cstddef>
 
 namespace sge
@@ -33,7 +34,7 @@ namespace sge
 namespace renderer
 {
 
-class index_buffer {
+class SGE_CLASS_SYMBOL index_buffer : boost::noncopyable {
 public:
 	typedef std::size_t                           size_type;
 	typedef std::ptrdiff_t                        difference_type;

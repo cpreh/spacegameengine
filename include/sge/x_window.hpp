@@ -22,44 +22,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X_WINDOW_HPP_INCLUDED
 #define SGE_X_WINDOW_HPP_INCLUDED
 
-#include <set>
-
+#include "window.hpp"
+#include "export.hpp"
+#include "x_display.hpp"
+#include <X11/Xlib.h>
+#include <GL/glx.h>
 #include <boost/function.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/signals.hpp>
-
-#include <X11/Xlib.h>
-#include <GL/glx.h>
-
-#include "window.hpp"
-#include "x_display.hpp"
+#include <set>
 
 namespace sge
 {
 
-class x_window : public window {
+class SGE_CLASS_SYMBOL x_window : public window {
 	friend class window;
 public:
 	typedef int x11_event_type;
 	typedef long x11_event_mask_type;
-	typedef boost::function<void(const XEvent&)> x11_callback_type;
-	typedef boost::signal<void(const XEvent&)> x11_signal_type;
 
-	x_window(Display *dsp, int screen, Window wnd);
-	x_window(window_pos pos, window_size sz, const string& title, x_display_ptr dsp, const XSetWindowAttributes& attr, const XVisualInfo& vi);
-	~x_window();
+	typedef void x11_function_type(XEvent const &);
+	typedef boost::function<x11_function_type> x11_callback_type;
+	typedef boost::signal<x11_function_type> x11_signal_type;
 
-	void title(const string& title);
-	void size(window_size sz);
-	window_size size() const;
-	window_pos viewport_offset() const;
-	bool fullscreen() const;
+	SGE_SYMBOL x_window(
+		Display *dsp,
+		int screen,
+		Window wnd);
+	SGE_SYMBOL x_window(
+		window_pos const &pos,
+		window_size const &sz,
+		string const &title,
+		x_display_ptr dsp,
+		XSetWindowAttributes const &attr,
+		XVisualInfo const &vi);
+	SGE_SYMBOL ~x_window();
 
-	Window get_window() const;
-	int screen() const;
-	x_display_ptr display() const;
+	SGE_SYMBOL void title(string const &title);
+	SGE_SYMBOL void size(window_size const &sz);
+	SGE_SYMBOL window_size const size() const;
+	SGE_SYMBOL window_pos const viewport_offset() const;
+	SGE_SYMBOL bool fullscreen() const;
 
-	boost::signals::connection register_callback(x11_event_type, x11_callback_type);
+	SGE_SYMBOL Window get_window() const;
+	SGE_SYMBOL int screen() const;
+	SGE_SYMBOL x_display_ptr const display() const;
+
+	SGE_SYMBOL boost::signals::connection register_callback(
+		x11_event_type,
+		x11_callback_type const &);
 private:
 	Display* dsp_() const;
 

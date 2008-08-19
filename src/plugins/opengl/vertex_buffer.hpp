@@ -44,9 +44,9 @@ class vertex_buffer
 : public detail::vertex_buffer_base {	
 public:
 	typedef detail::vertex_buffer_base base;
-	using base::view_type;
-	using base::const_view_type;
-	using base::resource_flag_type;
+	typedef base::view_type            view_type;
+	typedef base::const_view_type      const_view_type;
+	typedef base::resource_flag_type   resource_flag_type;
 
 	vertex_buffer(
 		renderer::vertex_format const &,

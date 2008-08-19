@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "index_buffer.hpp"
 #include "device.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-index_buffer_ptr const
+SGE_SYMBOL index_buffer_ptr const
 resize(
 	index_buffer_ptr,
 	device_ptr,

@@ -33,10 +33,10 @@ namespace dinput
 class mouse : public input_device {
 public:
 	mouse(dinput_ptr di, const string& name, GUID guid, sge::win32_window_ptr window);
-	void dispatch(input_system::signal_type&);
+  void dispatch(input::system::signal_type&);
 private:
 	static BOOL CALLBACK enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
-	typedef std::map<unsigned,key_type> key_map;
+	typedef std::map<unsigned, input::key_type> key_map;
 	key_map keys;
 };
 

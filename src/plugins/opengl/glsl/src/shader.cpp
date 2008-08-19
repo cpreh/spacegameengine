@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 #include <sge/text.hpp>
+#include <sge/iconv.hpp>
 #include <boost/array.hpp>
 
 template<bool Native>
@@ -53,7 +54,7 @@ sge::ogl::glsl::shader<Native>::shader(
 		errorlog[len] = '\0';
 		throw exception(
 			string(SGE_TEXT("Compiling a shader failed!"))
-			+ errorlog.data());
+			+ iconv(errorlog.data()));
 	}
 }
 

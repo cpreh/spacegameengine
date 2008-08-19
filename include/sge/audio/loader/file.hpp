@@ -21,20 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_FILE_HPP_INCLUDED
 #define SGE_AUDIO_FILE_HPP_INCLUDED
 
-// C
-#include <cstddef>
-
 #include "../../shared_ptr.hpp"
 #include "../../raw_vector.hpp"
+#include "../../export.hpp"
+#include <boost/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
 {
 namespace audio
 {
 
-class file
-{
-	public:
+class SGE_CLASS_SYMBOL file : boost::noncopyable {
+public:
 	typedef unsigned channel_type;
 	typedef std::size_t sample_type;
 	typedef raw_vector<unsigned char> raw_array_type;
@@ -46,7 +45,7 @@ class file
 	virtual sample_type sample_rate() const = 0;
 	virtual sample_type bits_per_sample() const = 0;
 	virtual void reset() = 0;
-	virtual ~file() {}
+	SGE_SYMBOL virtual ~file();
 };
 
 typedef shared_ptr<file> file_ptr;

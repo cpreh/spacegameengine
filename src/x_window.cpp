@@ -43,12 +43,13 @@ struct init_error_handler {
 } instance;
 }
 
-sge::x_window::x_window(const window_pos pos,
-                        const window_size sz,
-                        const string& t,
-                        const x_display_ptr dsp,
-                        const XSetWindowAttributes& attr,
-                        const XVisualInfo& vi)
+sge::x_window::x_window(
+	window_pos const &pos,
+	window_size const &sz,
+	string const &t,
+	x_display_ptr const dsp,
+ 	XSetWindowAttributes const &attr,
+	XVisualInfo const &vi)
  : dsp(dsp),
    screen_(vi.screen),
    wnd(XCreateWindow(dsp->get(),
@@ -82,17 +83,20 @@ sge::x_window::~x_window()
 	XDestroyWindow(dsp_(), wnd);
 }
 
-void sge::x_window::size(const window_size newsize)
+void sge::x_window::size(
+	window_size const &newsize)
 {
 	XResizeWindow(dsp_(), wnd, newsize.w(), newsize.h());
 }
 
-void sge::x_window::title(const string& t)
+void sge::x_window::title(
+	string const &t)
 {
 	XStoreName(dsp_(), wnd, iconv(t).c_str());
 }
 
-sge::x_window::window_size sge::x_window::size() const
+sge::x_window::window_size const
+sge::x_window::size() const
 {
 	Window root_return;
 	int x_return,
@@ -121,7 +125,8 @@ int sge::x_window::screen() const
 	return screen_;
 }
 
-sge::x_display_ptr sge::x_window::display() const
+sge::x_display_ptr const
+sge::x_window::display() const
 {
 	return dsp;
 }
@@ -131,7 +136,10 @@ Display* sge::x_window::dsp_() const
 	return display()->get();
 }
 
-boost::signals::connection sge::x_window::register_callback(const x11_event_type event, const x11_callback_type callback)
+boost::signals::connection
+sge::x_window::register_callback(
+	x11_event_type const event,
+	x11_callback_type const &callback)
 {
 	add_event_mask(event);
 	return signals[event].connect(callback);
@@ -201,8 +209,10 @@ int handler(Display* const d, XErrorEvent* const e)
 	return 0;
 }
 
-sge::window::window_pos sge::x_window::viewport_offset() const {
-	return window_pos(0,0);
+sge::window::window_pos const
+sge::x_window::viewport_offset() const
+{
+	return window_pos(0, 0);
 }
 
 sge::x_window::instance_map sge::x_window::instances;

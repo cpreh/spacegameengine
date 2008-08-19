@@ -30,8 +30,7 @@ namespace con
 {
 
 template<typename T>
-class var : public var_base
-{
+class var : public var_base {
 public:
 	typedef T value_type;
 

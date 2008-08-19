@@ -53,8 +53,8 @@ inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &
 	return s << s.widen('(') << mode.width() << s.widen('x') << mode.height() << s.widen('x') << bit_depth_bit_count(mode.depth) << s.widen('@') << mode.refresh_rate << s.widen(')');
 }
 
-bool operator== (const display_mode& l, const display_mode& r);
-bool operator!= (const display_mode& l, const display_mode& r);
+SGE_SYMBOL bool operator== (const display_mode& l, const display_mode& r);
+SGE_SYMBOL bool operator!= (const display_mode& l, const display_mode& r);
 
 typedef std::vector<display_mode> display_mode_array;
 

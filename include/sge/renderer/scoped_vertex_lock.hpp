@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vertex_view.hpp"
 #include "scoped_lock_wrapper.hpp"
 #include "scoped_lock.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -51,14 +52,14 @@ typedef scoped_lock_wrapper<
 	const_vertex_view
 > const_scoped_vertex_lock_wrapper;
 
-scoped_vertex_lock_wrapper const
+SGE_SYMBOL scoped_vertex_lock_wrapper const
 make_scoped_lock(
 	vertex_buffer_ptr t,
 	lock_flag_t flags,
 	vertex_buffer::size_type first = 0,
 	vertex_buffer::size_type count = vertex_buffer::npos);
 
-const_scoped_vertex_lock_wrapper const
+SGE_SYMBOL const_scoped_vertex_lock_wrapper const
 make_scoped_lock(
 	const_vertex_buffer_ptr t,
 	vertex_buffer::size_type first = 0,

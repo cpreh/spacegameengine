@@ -65,7 +65,7 @@ namespace flags
 }
 typedef unsigned flag_t;
 
-class font {
+class SGE_CLASS_SYMBOL font {
 public:
 	typedef renderer::index_buffer::size_type size_type;
 

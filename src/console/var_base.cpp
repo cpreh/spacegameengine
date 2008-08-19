@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/console.hpp>
 #include <sge/console/singleton.hpp>
 #ifdef _MSC_VER
-#include <sge/con/exception.hpp>
+#include <sge/console/exception.hpp>
 #include <sge/text.hpp>
 #endif
 
@@ -52,7 +52,7 @@ void sge::con::var_base::set(const string&)
 	throw exception(SGE_TEXT("var_base::set() is abstract (dumb VC++ hack)!"));
 }
 
-sge::string sge::con::var_base::get() const
+sge::string const sge::con::var_base::get() const
 {
 	throw exception(SGE_TEXT("var_base::get() is abstract (dumb VC++ hack)!"));
 }

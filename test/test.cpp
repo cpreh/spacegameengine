@@ -46,11 +46,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector_impl.hpp>
 #include <sge/sprite/intrusive_system.hpp>
 #include <sge/log/global.hpp>
+#include <sge/log/level.hpp>
 
 int main()
 try
 {
-	sge::log::global(sge::log::level::warning) << SGE_TEXT("test\n");
+//	sge::log::global(sge::log::level::warning) << SGE_TEXT("test\n");
+  sge::log::log(
+    sge::log::level::warning,
+    sge::log::output_helper() << SGE_TEXT("test\n")
+  );
 
 	bool running = true;
 	sge::plugin::manager pm;
@@ -99,7 +104,7 @@ try
 			(sge::renderer::depth_func::off)
 			(sge::renderer::cull_mode::off));*/
 	//const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
-	const sge::string some_text(SGE_TEXT("de"));
+	const sge::string some_text(SGE_TEXT("de\nEFygY\ngyhgh"));
 	while(running)
 	{
 		const sge::renderer::scoped_block block_(rend);

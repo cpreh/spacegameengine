@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_EXCEPTION_HPP_INCLUDED
 #define SGE_AUDIO_EXCEPTION_HPP_INCLUDED
 
-// sge
 #include "../export.hpp"
 #include "../string.hpp"
 #include "../exception.hpp"
@@ -31,12 +30,12 @@ namespace sge
 namespace audio
 {
 
-struct exception : public sge::exception 
-{
-	SGE_SYMBOL exception(const string &s);
+struct SGE_CLASS_SYMBOL exception : public sge::exception  {
+	SGE_SYMBOL explicit exception(
+		string const &s);
 };
 
 }
 }
 
-#endif // AUDIO_EXCEPTION_HPP
+#endif

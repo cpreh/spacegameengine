@@ -37,10 +37,6 @@ struct action_var
 {
 	typedef boost::function<T (const T &,const T &)> fn;
 	typedef action_var_base<T,fn> type;
-
-	private:
-	action_var() {}
-	action_var(const action_var &) {}
 };
 
 }

@@ -28,18 +28,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../plugin/traits.hpp"
 #include "../../plugin/capabilities.hpp"
 #include "../../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
 
-class loader
-{
+class SGE_CLASS_SYMBOL loader : boost::noncopyable {
 public:
 	virtual const file_ptr load(const path& file) = 0;
 	virtual bool is_valid_file(const path& file) const = 0;
-	virtual ~loader();
+	SGE_SYMBOL virtual ~loader();
 };
 
 typedef shared_ptr<loader> loader_ptr;

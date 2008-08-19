@@ -30,13 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/image_view.hpp"
 #include "object.hpp"
 #include "format.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace image
 {
 
-class loader {
+class SGE_CLASS_SYMBOL loader : boost::noncopyable {
 public:
 	virtual const object_ptr
 	load_image(

@@ -22,13 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_UTIL_HPP_INCLUDED
 
 #include "texture.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-void sub_data(
+SGE_SYMBOL void sub_data(
 	texture_ptr,
 	const_image_view const &data,
 	texture::pos_type const &pos);

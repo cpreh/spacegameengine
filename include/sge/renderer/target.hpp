@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../export.hpp"
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
+#include <boost/noncopyable.hpp>
 #include <cstddef>
 
 namespace sge
@@ -34,13 +35,13 @@ namespace sge
 namespace renderer
 {
 
-class target {
+class SGE_CLASS_SYMBOL target : boost::noncopyable {
 public:
 	typedef std::size_t                    size_type;
 	typedef math::basic_dim<size_type, 2>  dim_type;
 	typedef lock_rect                      rect_type;
 
-	const_image_view const lock() const;
+	SGE_SYMBOL const_image_view const lock() const;
 	virtual const_image_view const lock(lock_rect const &dest) const = 0;
 	virtual void unlock() const = 0;
 
@@ -48,7 +49,7 @@ public:
 	SGE_SYMBOL rect_type const rect() const;
 	SGE_SYMBOL size_type size() const;
 	
-	virtual ~target();
+	SGE_SYMBOL virtual ~target();
 };
 
 typedef shared_ptr<target> target_ptr;
