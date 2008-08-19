@@ -23,17 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "image_view.hpp"
 #include "types.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-image_view const subimage_view(
+SGE_SYMBOL image_view const subimage_view(
 	image_view const &src,
 	lock_rect const &);
 
-const_image_view const subimage_view(
+SGE_SYMBOL const_image_view const subimage_view(
 	const_image_view const &src,
 	lock_rect const &);
 
