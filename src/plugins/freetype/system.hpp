@@ -39,11 +39,11 @@ public:
 	const font::metrics_ptr
 	create_font(
 		const path& font_name,
-		unsigned font_size);
+		font::size_type font_size);
 private:
 	library library_;
 	typedef std::map<
-		std::pair<unsigned, path>,
+		std::pair<font::size_type, path>,
 		boost::weak_ptr<font::metrics>
 	> loaded_fonts_list;
 	loaded_fonts_list loaded_fonts;

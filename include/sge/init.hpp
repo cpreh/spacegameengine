@@ -88,6 +88,13 @@ struct image_loader {
 	SGE_SYMBOL operator bool() const;
 };
 
+struct font {
+	systems &sys;
+
+	SGE_SYMBOL font(systems &sys);
+	SGE_SYMBOL operator bool() const;
+};
+
 }
 }
 

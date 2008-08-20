@@ -107,6 +107,17 @@ void sge::init::fullscreen_renderer::init(
 	sys.renderer = sys.renderer_system->create_renderer(sys.renderer_parameters);
 }
 
+sge::init::font::font(systems &sys)
+: sys(sys) {
+	if (!sys.font_plugin)
+		sys.font_plugin = sys.plugin_manager.get_plugin<sge::font::system>().load();
+	sys.font_system.reset(sys.font_plugin->get()());
+}
+
+sge::init::font::operator bool() const {
+	return sys.font_plugin;
+}
+
 sge::init::input::input(systems &sys)
 : sys(sys) {
 	if (!sys.input_plugin)

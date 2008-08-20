@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 const sge::font::metrics_ptr
 sge::ft::system::create_font(
 	const path& font_name,
-	const unsigned font_size)
+	const font::size_type font_size)
 {
 	loaded_fonts_list::mapped_type &wfptr = loaded_fonts[
 		loaded_fonts_list::key_type(

@@ -37,12 +37,12 @@ namespace ft
 
 class metrics : public font::metrics {
 public:
-	metrics(library& lib, const path& font_path, unsigned font_height);
+	metrics(library& lib, const path& font_path, font::size_type font_height);
 	const font::char_metric_ptr load_char(char_type c);
 	font::unit line_height() const;
 private:
 	face face_;
-	font::unit pixel_size;
+	font::size_type pixel_size;
 
 	typedef std::map<char_type, font::char_metric_ptr> buffer_type;
 	buffer_type buffer;

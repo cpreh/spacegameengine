@@ -41,7 +41,7 @@ public:
 	SGE_SYMBOL virtual ~system();
 	virtual const metrics_ptr create_font(
 		const path& font_path,
-		unsigned font_height) = 0;
+		size_type font_height) = 0;
 };
 
 typedef shared_ptr<system> system_ptr;

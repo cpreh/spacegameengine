@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "renderer/system.hpp"
 #include "renderer/parameters.hpp"
 
+#include "font/system.hpp"
+
 #include "input/system.hpp"
 
 #include "image/loader.hpp"
@@ -49,6 +51,9 @@ struct systems {
 
 	plugin::plugin<image::loader>::ptr_type    image_loader_plugin;
 	image::loader_ptr                          image_loader;
+
+	plugin::plugin<font::system>::ptr_type     font_plugin;
+	font::system_ptr                           font_system;
 
 	SGE_SYMBOL systems();
 
