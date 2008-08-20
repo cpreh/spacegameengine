@@ -1,6 +1,15 @@
 /**
 \mainpage sge project site
 
+\section tm The manual
+- Tutorials:
+	-# \subpage tut_begin
+	-# \subpage tutorial_2
+	-# \subpage textures
+	-# \subpage tut_fonts
+	-# \subpage console
+- \subpage faq
+
 \section hap History and purpose
 I started this engine a few years ago. My primary aim at that time was to learn
 and practice good C++. Today I would like to share my programming work and to
@@ -99,10 +108,4 @@ For Gentoo users an ebuild is provided in the repository.
 - vorbis: libvorbis
 - xinput: xf86dga (for optional dga support, Linux only)
 
-\section tm The manual
-- Tutorials:
-	-# \subpage tut_begin
-	-# \subpage textures
-	-# \subpage console
-- \subpage faq
 */

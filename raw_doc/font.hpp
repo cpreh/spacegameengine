@@ -127,7 +127,7 @@ Drawing a text, however, takes a few more lines. sge::font::font::draw_text take
 <li> <tt>pos</tt> - Upper left corner of the bounding rect where the text resides in
 <li> <tt>dim</tt> - Size of the bounding rect. If this is too small, the font won't be drawn!
 <li> <tt>horizontal alignment</tt> - Can be <tt>left, center, right</tt>
-<li> <tt>vertical alignment</tt> - Dito.
+<li> <tt>vertical alignment</tt> - Can be <tt>top,center,bottom</tt>
 <li> <tt>flags</tt> - Here you can specify that text shouldn't be wrapped (<tt>flags::no_line_wrap</tt>) or that a newline should be ignored (<tt>flags::no_multi_line</tt>).
 </ul>
 
@@ -165,7 +165,7 @@ sge::math::basic_dim<T>(static_cast<T>(x.w()),...);
 since sge::renderer::screen_unit doesn't have to be the same as sge::font::unit.
 And that's it, fellas, "hello world" in sge.
 
-\section tut_fonts_final_code
+\section tut_fonts_final_code The result
 
 The final code looks like this
 

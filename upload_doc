@@ -19,4 +19,4 @@ scp /tmp/doc_archive.tar.bz2 $username@ssh.tuxfamily.org:~/ || exit "couldn't up
 echo "deleting old documentation, unpacking new"
 
 #ssh $username@ssh.tuxfamily.org 'rm -r /home/sge/*/htdocs/html; tar xjf /home/sge/*/htdocs/doc_archive.tar.bz2 -C /home/sge/*/htdocs/; rm /home/sge/*/htdocs/doc_archive.tar.bz2' 
-ssh $username@ssh.tuxfamily.org '/home/unpack_script' 
+ssh $username@ssh.tuxfamily.org '/home/sge/spacegameengine.tuxfamily.org-web/htdocs/unpack_script' 
