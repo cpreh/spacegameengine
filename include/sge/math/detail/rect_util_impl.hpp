@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
 #define SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
 
+#include <algorithm>
+
 template<typename T>
 bool sge::math::contains(const basic_rect<T>& r, 
                            const basic_vector<T,2>& p)
@@ -79,6 +81,23 @@ sge::math::basic_rect<T> const sge::math::intersection(basic_rect<T> const &r1,b
 		std::max(r1.top(),r2.top()), 
 		std::min(r1.right(),r2.right()), 
 		std::min(r1.bottom(),r2.bottom()));
+
+}
+
+template<typename T,typename U>
+sge::math::basic_rect<T> const sge::math::bounding(U it,U const end)
+{
+	basic_rect<T> r;
+
+  for (;it != end; ++it)
+  {
+    r.left() = std::min(it->left(),r.left());
+    r.right() = std::max(it->right(),r.right());
+    r.top() = std::min(it->top(),r.top());
+    r.bottom() = std::max(it->bottom(),r.bottom());
+  }
+
+  return r;
 
 }
 
