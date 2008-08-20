@@ -88,6 +88,8 @@ loader to load the image:
 sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("tux.png"));
 \endcode
 
+Files to include: <sge/text.hpp>
+
 There are a few new things here, first of all <tt>sys.image_loader</tt> is a
 smart pointer, so we cannot use the . (dot) operator to access the \link
 sge::image::loader::load_image load_image \endlink function. The same applies
@@ -190,6 +192,7 @@ Here's the complete program:
 #include <sge/texture/part_raw.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
+#include <sge/text.hpp>
 #include <exception>
 #include <iostream>
 

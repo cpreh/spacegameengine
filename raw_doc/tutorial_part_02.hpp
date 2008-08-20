@@ -133,6 +133,7 @@ copy and pasting pleasure:
 #include <sge/texture/part_raw.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
+#include <sge/text.hpp>
 #include <sge/scoped_connection.hpp>
 #include <exception>
 #include <iostream>
