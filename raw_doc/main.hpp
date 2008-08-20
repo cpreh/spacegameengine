@@ -51,6 +51,11 @@ The current codebase in git is considered to be in alpha state.
 - Joystick support.
 - Of course there is always more…
 
+\section htdl How to get it
+You just enter the following in a terminal:
+
+<tt>git clone foobar</tt>
+
 \section htc How to compile 
 You can either use cmake (which is recommended) or the Code::Blocks project
 files.
