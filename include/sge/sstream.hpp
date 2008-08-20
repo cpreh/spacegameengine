@@ -28,13 +28,13 @@ namespace sge
 {
 
 #ifndef SGE_NARROW_STRING
-typedef std::wistringstream text_istringstream;
-typedef std::wostringstream text_ostringstream;
-typedef std::wstringstream  text_stringstream;
+typedef std::wistringstream istringstream;
+typedef std::wostringstream ostringstream;
+typedef std::wstringstream  stringstream;
 #else
-typedef std::istringstream text_istringstream;
-typedef std::ostringstream text_ostringstream;
-typedef std::stringstream  text_stringstream;
+typedef std::istringstream istringstream;
+typedef std::ostringstream ostringstream;
+typedef std::stringstream  stringstream;
 #endif
 
 }

@@ -17,9 +17,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 #include <sge/renderer/image_view_factory.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 // FIXME: unify these
