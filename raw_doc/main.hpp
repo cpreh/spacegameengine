@@ -54,7 +54,7 @@ The current codebase in git is considered to be in alpha state.
 \section htdl How to get it
 You just enter the following in a terminal:
 
-<tt>git clone foobar</tt>
+<tt>git clone git://git.tuxfamily.org/gitroot/sge/spacegameengine.git</tt>
 
 \section htc How to compile 
 You can either use cmake (which is recommended) or the Code::Blocks project
