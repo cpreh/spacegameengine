@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../exception.hpp"
 #include "../text.hpp"
 #include "../no_initialization_tag.hpp"
+#include "../assert.hpp"
 #include "compare.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>
@@ -39,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <numeric>
 #include <functional>
 #include <cstddef>
-#include <cassert>
 
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #ifndef SGE_MATH_DIM_MAX_SIZE
@@ -118,13 +118,13 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 
 	reference operator[](const size_type pos)
 	{
-		assert(pos < Dim);
+		SGE_ASSERT(pos < Dim);
 		return data_[pos];
 	}
 
 	const_reference operator[](const size_type pos) const
 	{
-		assert(pos < Dim);
+		SGE_ASSERT(pos < Dim);
 		return data_[pos];
 	}
 	
@@ -212,13 +212,13 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 
 	reference d()
 	{
-		assert(Dim > 2);
+		SGE_ASSERT(Dim > 2);
 		return (*this)[2];
 	}
 	
 	const_reference d() const
 	{
-		assert(Dim > 2);
+		SGE_ASSERT(Dim > 2);
 		return (*this)[2];
 	}
 
