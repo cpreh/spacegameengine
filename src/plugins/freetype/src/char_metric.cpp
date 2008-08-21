@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/gil/algorithm.hpp>
 #include <boost/gil/typedefs.hpp>
 #include <ostream>
-#include <cassert>
 
 sge::ft::char_metric::char_metric(
 	face &face_,
@@ -43,7 +42,7 @@ sge::ft::char_metric::char_metric(
 	FT_Bitmap& bitmap = bmp_glyph->bitmap;
 	
 	offset_.x() = bmp_glyph->left;
-	offset_.y() = face_->ascender / 64 - bmp_glyph->top; // FIXME: why are the ascenders so big?
+	offset_.y() = static_cast<font::unit>(face_->size->metrics.ascender / 64 - bmp_glyph->top);
 	x_advance_ = static_cast<font::unit>(face_->glyph->advance.x / 64);
 
 	// FIXME: fix offsets and maybe those warnings
