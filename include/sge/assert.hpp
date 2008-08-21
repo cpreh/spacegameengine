@@ -3,13 +3,14 @@
 
 #include "string.hpp"
 #include "text.hpp"
+#include "export.hpp"
 #include <boost/preprocessor/stringize.hpp>
 
 namespace sge
 {
 namespace detail
 {
-void process_assert(string const &file,string const &line,string const &condition,string const &message,string const &function = string());
+SGE_SYMBOL void process_assert(string const &file,string const &line,string const &condition,string const &message,string const &function = string());
 }
 }
 
