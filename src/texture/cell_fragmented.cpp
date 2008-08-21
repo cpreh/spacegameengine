@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/exception.hpp>
-#include <cassert>
+#include <sge/assert.hpp>
 
 sge::texture::cell_fragmented::cell_fragmented(
 	const renderer::device_ptr rend,
@@ -64,7 +64,7 @@ void sge::texture::cell_fragmented::return_fragment(
 	const part& t)
 {
 	const field_type::vector_type pos = t.area().pos() * cell_size;
-	assert(cells.pos(pos));
+	SGE_ASSERT(cells.pos(pos));
 	cells.pos(pos) = false;
 }
 

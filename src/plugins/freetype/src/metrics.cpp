@@ -59,5 +59,5 @@ sge::ft::metrics::load_char(
 
 sge::font::unit sge::ft::metrics::line_height() const
 {
-	return face_->height / 64;
+	return static_cast<font::unit>(face_->size->metrics.height / 64);
 }

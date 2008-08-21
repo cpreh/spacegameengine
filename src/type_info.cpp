@@ -19,29 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/type_info.hpp>
-#include <cassert>
+#include <sge/assert.hpp>
 
 sge::type_info::type_info(const std::type_info& ti)
 : info_(&ti)
 { 
-	assert(info_); 
+	SGE_ASSERT(info_); 
 }
 
 bool sge::type_info::before(const type_info& rhs) const
 {
-	assert(info_);
+	SGE_ASSERT(info_);
 	return info_->before(*rhs.info_);
 }
 
 const std::type_info& sge::type_info::get() const
 {
-	assert(info_);
+	SGE_ASSERT(info_);
 	return *info_;
 }
 
 const char* sge::type_info::name() const
 {
-	assert(info_);
+	SGE_ASSERT(info_);
 	return info_->name();
 }
 

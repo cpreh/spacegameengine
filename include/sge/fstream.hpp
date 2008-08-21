@@ -28,13 +28,13 @@ namespace sge
 {
 
 #ifndef SGE_NARROW_STRING
-typedef boost::filesystem::wifstream text_ifstream;
-typedef boost::filesystem::wofstream text_ofstream;
-typedef boost::filesystem::wfstream  text_fstream;
+typedef boost::filesystem::wifstream ifstream;
+typedef boost::filesystem::wofstream ofstream;
+typedef boost::filesystem::wfstream  fstream;
 #else
-typedef boost::filesystem::ifstream text_ifstream;
-typedef boost::filesystem::ofstream text_ofstream;
-typedef boost::filesystem::fstream  text_fstream;
+typedef boost::filesystem::ifstream ifstream;
+typedef boost::filesystem::ofstream ofstream;
+typedef boost::filesystem::fstream  fstream;
 #endif
 
 }

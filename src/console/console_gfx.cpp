@@ -67,7 +67,7 @@ void sge::con::console_gfx::dump(const arg_list &args)
 	}
 	else
 	{
-		text_ofstream file(args[1]);
+		ofstream file(args[1]);
 		cout << args[1] << SGE_TEXT("\n");
 		if (!file.is_open())
 		{

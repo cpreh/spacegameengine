@@ -121,6 +121,7 @@ private:
 #include "mod.hpp"
 #include "../exception.hpp"
 #include "../text.hpp"
+#include "../assert.hpp"
 #include "../su.hpp"
 #include "../no_initialization_tag.hpp"
 #include "../exception.hpp"
@@ -134,7 +135,6 @@ private:
 #include <iterator>
 #include <istream>
 #include <ostream>
-#include <cassert>
 #include <cstddef>
 #include <cmath>
 
@@ -392,7 +392,7 @@ public:
 	 */
 	reference operator[](const size_type pos)
 	{
-		assert(pos < Dim);
+		SGE_ASSERT(pos < Dim);
 		return data_[pos];
 	}
 
@@ -401,7 +401,7 @@ public:
 	 */
 	const_reference operator[](const size_type pos) const
 	{
-		assert(pos < Dim);
+		SGE_ASSERT(pos < Dim);
 		return data_[pos];
 	}
 
@@ -465,7 +465,7 @@ public:
 	 */
 	basic_vector unit() const
 	{
-		assert(!is_null());
+		SGE_ASSERT(!is_null());
 		return (*this) * (static_cast<T>(1) / length());
 	}
 
@@ -497,26 +497,26 @@ public:
 //	template<typename Dummy>
 	reference z(/*typename boost::enable_if_c<(Dim > 2), Dummy>* = 0*/)
 	{
-		assert(Dim > 2);
+		SGE_ASSERT(Dim > 2);
 		return (*this)[2];
 	}
 
 //	template<typename Dummy>
 	const_reference z(/*typename boost::enable_if_c<(Dim > 2), Dummy>* = 0*/) const
 	{
-		assert(Dim > 2);
+		SGE_ASSERT(Dim > 2);
 		return (*this)[2];
 	}
 
 	reference w()
 	{
-		assert(Dim > 3);
+		SGE_ASSERT(Dim > 3);
 		return (*this)[3];
 	}
 
 	const_reference w() const
 	{
-		assert(Dim > 3);
+		SGE_ASSERT(Dim > 3);
 		return (*this)[3];
 	}
 

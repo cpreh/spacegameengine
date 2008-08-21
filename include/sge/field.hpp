@@ -1,7 +1,6 @@
 #ifndef SGE_FIELD_HPP_INCLUDED
 #define SGE_FIELD_HPP_INCLUDED
 
-#include <cassert>
 #include <algorithm>
 #include <vector>
 #include <iterator>
