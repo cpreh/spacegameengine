@@ -81,7 +81,7 @@ metrics_ptr \endlink containing the metric in an internal format.
 sge itself comes with a standard font (an open one, so no copyright
 infringements are to be expected) which resides in the "media path" you specify
 at compile time. This path is accessed via the sge::media_path() function, which
-returns a sge::path. That's the reason you can use <tt>operator/</tt> to
+returns an sge::path. That's the reason you can use <tt>operator/</tt> to
 concatenate the path with the string (which, again, is surrounded by the
 SGE_TEXT macro).
 
@@ -109,7 +109,7 @@ sge::renderer::screen_unit just to make sure.
 The second statement creates the font drawer. sge::font::font expects a
 sge::font::drawer_ptr (which is a smart pointer), so we have to out drawer_3d
 inside one. There's no specific reason why sge::font::font is configured that
-way, it could also take a sge::font::drawer reference, but that's how it is.
+way, it could also take an sge::font::drawer reference, but that's how it is.
 
 \section tut_fonts_drawing Drawing the text
 Now we can create a font and start drawing text. Creating the font is trivial:
@@ -125,7 +125,7 @@ Drawing a text, however, takes a few more lines. sge::font::font::draw_text take
 <ul>
 <li> <tt>text</tt> - The text to be drawn
 <li> <tt>pos</tt> - Upper left corner of the bounding rect where the text resides in
-<li> <tt>dim</tt> - Size of the bounding rect. If this is too small, the font won't be drawn!
+<li> <tt>dim</tt> - Size of the bounding rect. If this is too small, the font will be drawn only partially or not at all (for example, if the height is to narrow to fit any character)
 <li> <tt>horizontal alignment</tt> - Can be <tt>left, center, right</tt>
 <li> <tt>vertical alignment</tt> - Can be <tt>top,center,bottom</tt>
 <li> <tt>flags</tt> - Here you can specify that text shouldn't be wrapped (<tt>flags::no_line_wrap</tt>) or that a newline should be ignored (<tt>flags::no_multi_line</tt>).
