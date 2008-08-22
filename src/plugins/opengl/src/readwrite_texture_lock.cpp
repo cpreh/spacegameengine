@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../readwrite_texture_lock.hpp"
-#include <sge/raw_vector_impl.hpp>
 
 sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 	size_type const lock_size,
@@ -34,8 +33,8 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 	whole_size,
 	stride,
 	pitch,
-	flags,
-	block_size),
+	block_size,
+	flags),
   write_lock(
   	lock_size,
 	offset,
@@ -45,15 +44,16 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 
 void sge::ogl::readwrite_texture_lock::post_lock()
 {
-	read_lock.post_lock();
+	write_lock.post_lock();
+
+	read_lock.copy_read_part(
+		write_pointer());
+	
+	read_lock.pre_unlock();
 }
 
 void sge::ogl::readwrite_texture_lock::pre_unlock()
 {
-	// FIXME: copy the read buffer to the write buffer
-	// potentially optimize this and read directly from the write buffer!
-	write_lock.post_lock();
-	read_lock.pre_unlock();
 	write_lock.pre_unlock();
 }
 
@@ -72,7 +72,7 @@ sge::ogl::readwrite_texture_lock::read_pointer() const
 sge::ogl::readwrite_texture_lock::const_pointer
 sge::ogl::readwrite_texture_lock::real_read_pointer() const
 {
-	return read_lock.real_read_pointer();
+	return write_lock.write_pointer();
 }
 
 sge::ogl::lock_method::type

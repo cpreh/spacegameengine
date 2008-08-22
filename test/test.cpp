@@ -36,6 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/image_view_impl.hpp>
+#include <sge/renderer/image_view_hack.hpp>
+#include <sge/renderer/image_view_factory.hpp>
 #include <sge/media.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/loader.hpp>
@@ -51,6 +53,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/sprite/intrusive_system.hpp>
+
+#include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <sge/renderer/color.hpp>
 
 int main()
 try
@@ -113,17 +118,26 @@ try
 			sge::renderer::resource_flags::readable));
 
 	{
-		sge::renderer::const_scoped_texture_lock const lock_(
+		sge::renderer::scoped_texture_lock const lock_(
 			sge::renderer::make_scoped_lock(
 				testtex,
 				sge::renderer::lock_rect(
 					100,
 					100,
 					200,
-					200)));
-//		image_loader->create_image(
-//			lock_.value())->save(
-//				SGE_TEXT("/home/phil/test.png"));
+					200),
+				sge::renderer::lock_flags::readwrite));
+
+		boost::gil::fill_pixels(
+			sge::renderer::subimage_view(
+				lock_.value(),
+				sge::renderer::lock_rect(0, 0, 50, 50)),
+			sge::renderer::make_color_rgba(255, 0, 0, 255));
+
+
+		image_loader->create_image(
+			sge::renderer::make_const_view(lock_.value()))->save(
+				SGE_TEXT("./sge_test.png"));
 	}
 
 /*	rend->set_state(
