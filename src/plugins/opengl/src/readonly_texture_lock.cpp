@@ -43,8 +43,8 @@ sge::ogl::readonly_texture_lock::readonly_texture_lock(
 
 void sge::ogl::readonly_texture_lock::post_lock()
 {
-	buffer.lock(
-		lock_method::readonly);
+	lock_buffer();
+
 	if(pitch)
 	{
 		assert(lock_size % block_size == 0);
@@ -52,12 +52,23 @@ void sge::ogl::readonly_texture_lock::post_lock()
 		cutout_buffer.resize_uninitialized(
 			lock_size);
 
-		size_type i(offset);
-		for(cutout_buffer_type::pointer dest(cutout_buffer.data());
-		    dest != cutout_buffer.end();
-		    i += pitch + block_size, dest += block_size)
-			copy_n(buffer.data() + i, block_size, dest);
+		copy_read_part(cutout_buffer.data());
 	}
+}
+
+void sge::ogl::readonly_texture_lock::lock_buffer()
+{
+	buffer.lock(
+		lock_method::readonly);
+}
+
+void sge::ogl::readonly_texture_lock::copy_read_part(
+	pointer const dest) const
+{
+	size_type i(offset);
+	for(pointer p(dest); p != dest + lock_size;
+	    i += pitch + block_size, p += block_size)
+		copy_n(buffer.data() + i, block_size, p);
 }
 
 void sge::ogl::readonly_texture_lock::pre_unlock()

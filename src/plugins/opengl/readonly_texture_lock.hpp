@@ -42,11 +42,10 @@ public:
 		renderer::resource_flag_t flags);
 
 	void post_lock();
-
+	void lock_buffer();
+	void copy_read_part(pointer dest) const;
 	void pre_unlock();
-
 	pointer read_pointer() const;
-
 	const_pointer real_read_pointer() const;
 private:
 	lock_method::type method() const;
