@@ -22,7 +22,7 @@ class container;
 class manager;
 
 // declaration
-SGE_CLASS_SYMBOL class widget : boost::noncopyable
+class SGE_CLASS_SYMBOL widget : boost::noncopyable
 {
 	public:
 	class parent_data

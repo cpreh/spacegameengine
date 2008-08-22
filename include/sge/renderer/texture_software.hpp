@@ -11,7 +11,7 @@ namespace sge
 {
 namespace renderer
 {
-SGE_CLASS_SYMBOL class texture_software : public texture
+class SGE_CLASS_SYMBOL texture_software : public texture
 {
 public:
 	SGE_SYMBOL texture_software(dim_type const &,color_format::type);

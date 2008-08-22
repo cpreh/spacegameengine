@@ -10,7 +10,7 @@ namespace gui
 {
 namespace layouts
 {
-SGE_CLASS_SYMBOL class row : public layout
+class SGE_CLASS_SYMBOL row : public layout
 {
 	public:
 	SGE_SYMBOL row(widgets::container &);

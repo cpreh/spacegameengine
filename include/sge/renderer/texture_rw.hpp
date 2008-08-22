@@ -10,14 +10,14 @@ namespace sge
 {
 namespace renderer
 {
-SGE_CLASS_SYMBOL class texture_rw : public texture
+class SGE_CLASS_SYMBOL texture_rw : public texture
 {
 	public:
 	SGE_SYMBOL texture_rw(texture_ptr read,texture_ptr write);
 	SGE_SYMBOL dim_type const dim() const;
-  SGE_SYMBOL image_view const lock(lock_rect const &, lock_flag_t);
-  SGE_SYMBOL const_image_view const lock(lock_rect const &) const;
-  SGE_SYMBOL void unlock() const;
+	SGE_SYMBOL image_view const lock(lock_rect const &, lock_flag_t);
+	SGE_SYMBOL const_image_view const lock(lock_rect const &) const;
+	SGE_SYMBOL void unlock() const;
 	resource_flag_t flags() const { return resource_flags::dynamic; }
 	private:
 	mutable texture_ptr read,write;

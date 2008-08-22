@@ -14,7 +14,7 @@ namespace sge
 {
 namespace gui
 {
-SGE_CLASS_SYMBOL class font_drawer_canvas : public font::drawer
+class SGE_CLASS_SYMBOL font_drawer_canvas : public font::drawer
 {
 public:
 	SGE_SYMBOL font_drawer_canvas(canvas &);

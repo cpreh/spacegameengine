@@ -12,7 +12,7 @@ namespace gui
 {
 namespace widgets
 {
-SGE_CLASS_SYMBOL class button : public widget
+class SGE_CLASS_SYMBOL button : public widget
 {
 	public:
 	SGE_SYMBOL button(
