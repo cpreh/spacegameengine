@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/temporary_output.hpp>
 
 sge::log::level_stream::level_stream(
-	ostream *const dest_,
+	ostream &dest_,
 	const_formatter_ptr const formatter_)
 : dest_(dest_),
   formatter_(formatter_),
@@ -47,14 +47,20 @@ bool sge::log::level_stream::enabled() const
 void sge::log::level_stream::log(
 	temporary_output const &output)
 {
-	if(!dest_ || !enabled())
+	if(!enabled())
 		return;
 	string const result(output.result());
-	(*dest_) << (formatter_ ? formatter_->format(result) : result);
+	dest_ << (formatter_ ? formatter_->format(result) : result);
 }
 
-void sge::log::level_stream::dest(
-	ostream &ndest)
+void sge::log::level_stream::formatter(
+	const_formatter_ptr const new_formatter)
 {
-	dest_ = &ndest;
+	formatter_ = new_formatter;
+}
+
+sge::log::const_formatter_ptr const
+sge::log::level_stream::formatter() const
+{
+	return formatter_;
 }

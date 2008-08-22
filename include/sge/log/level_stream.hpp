@@ -36,7 +36,7 @@ class temporary_output;
 class level_stream : boost::noncopyable {
 	friend class logger;
 	explicit level_stream(
-		ostream *,
+		ostream &,
 		const_formatter_ptr);
 public:
 	SGE_SYMBOL void enable();
@@ -44,12 +44,12 @@ public:
 	SGE_SYMBOL bool enabled() const;
 	SGE_SYMBOL void log(
 		temporary_output const &);
-	SGE_SYMBOL void dest(
-		ostream &);
 	SGE_SYMBOL void formatter(
 		const_formatter_ptr);
+	SGE_SYMBOL const_formatter_ptr const
+	formatter() const;
 private:
-	ostream *dest_;
+	ostream &dest_;
 	const_formatter_ptr formatter_;
 	bool                enabled_;
 };

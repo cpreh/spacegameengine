@@ -37,11 +37,8 @@ class temporary_output;
 
 class logger : boost::noncopyable {
 public:
-	SGE_SYMBOL logger();
 	SGE_SYMBOL explicit logger(
-		ostream &default_stream);
-	SGE_SYMBOL void stream_all_levels(
-		ostream &);
+		ostream &sink);
 	SGE_SYMBOL void log(
 		level::type,
 		temporary_output const &);
@@ -59,17 +56,20 @@ public:
 		level::type);
 	SGE_SYMBOL bool enabled(
 		level::type) const;
+	SGE_SYMBOL ostream &sink() const;
 private:
 	void init_levels();
 	void set_hierarchie(
 		level::type,
 		void (logger::*)(level::type));
 
-	ostream *default_stream_;
+	ostream             &sink_;
+
 	typedef boost::ptr_vector<
 		level_stream
 	> level_vector;
-	level_vector level_streams;
+
+	level_vector        level_streams;
 };
 
 }
