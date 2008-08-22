@@ -2,11 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit games subversion
+inherit games git
 
 DESCRIPTION="A portable easy to use engine written in C++"
 HOMEPAGE="http://spacegameengine.sourceforge.net/"
-ESVN_REPO_URI="https://spacegameengine.svn.sourceforge.net/svnroot/spacegameengine"
+
+EGIT_REPO_URI="git://git.tuxfamily.org/gitroot/sge/spacegameengine.git"
 
 LICENSE="LGPL-2"
 SLOT="0"
@@ -29,7 +30,7 @@ RDEPEND=">=dev-libs/boost-1.35
          vorbis? ( media-libs/libvorbis )"
 
 src_unpack() {
-	subversion_src_unpack
+	git_src_unpack
 	cd ${S}
 }
 

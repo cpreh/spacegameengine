@@ -41,14 +41,12 @@ sge::sprite::system::system(const renderer::device_ptr rend)
 			.add(renderer::vertex_usage::diffuse)
 			.add(renderer::vertex_usage::tex),
 		init_sprites * detail::vertices_per_sprite,
-		renderer::resource_flags::write_only
-		| renderer::resource_flags::dynamic)),
+		renderer::resource_flags::dynamic)),
   ib(
   	rend->create_index_buffer(
 		renderer::index_format::index16,
 		init_sprites * detail::indices_per_sprite,
-		renderer::resource_flags::write_only
-		| renderer::resource_flags::dynamic))
+		renderer::resource_flags::dynamic))
 {}
 
 const sge::renderer::device_ptr sge::sprite::system::get_renderer() const

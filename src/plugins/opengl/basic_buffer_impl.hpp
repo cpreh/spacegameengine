@@ -59,9 +59,6 @@ sge::ogl::basic_buffer<Type, Impl>::~basic_buffer()
 	Impl().delete_buffer(id);
 }
 
-#include <sge/iostream.hpp>
-#include <ostream>
-
 template<
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
@@ -71,16 +68,23 @@ void sge::ogl::basic_buffer<Type, Impl>::lock(
 	size_type count)
 {
 	if(dest)
-		throw exception(SGE_TEXT("ogl_buffer::lock(): you have to unlock before locking!"));
+		throw exception(
+			SGE_TEXT("ogl_buffer::lock(): you have to unlock before locking!"));
+
+	if(lock_flag_read(lockflags) && !(flags() & renderer::resource_flags::readable))
+		throw exception(
+			SGE_TEXT("ogl_buffer: Cannot lock a writeonly buffer for reading!"));
 
 	if(first > size())
-		throw exception(SGE_TEXT("ogl_buffer::lock(): first out of range!"));
+		throw exception(
+			SGE_TEXT("ogl_buffer::lock(): first out of range!"));
 
 	if(count == npos)
 		count = size() - first;
 	
 	if(first + count > size())
-		throw exception(SGE_TEXT("ogl_buffer::lock(): first + count > size()"));
+		throw exception(
+			SGE_TEXT("ogl_buffer::lock(): first + count > size()"));
 	
 	GLuint const glflags = ogl_lock_method(lockflags);
 	bind_me();

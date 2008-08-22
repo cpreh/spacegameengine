@@ -46,7 +46,7 @@ sge::texture::no_fragmented::consume_fragment(
 		real_dim,
 		renderer::color_format::rgba8,
 		my_filter,
-		renderer::resource_flags::write_only);
+		renderer::resource_flags::none);
 
 	if(real_dim != dim)
 		log::global(
