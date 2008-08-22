@@ -22,36 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/default_formatter.hpp>
 #include <boost/foreach.hpp>
 
-sge::log::logger::logger()
-: default_stream_(0)
-{
-	init_levels();
-}
-
 sge::log::logger::logger(
-	ostream &default_stream_)
-: default_stream_(&default_stream_)
+	ostream &sink_)
+: sink_(sink_)
 {
 	init_levels();
-}
-
-void sge::log::logger::stream_all_levels(
-	ostream &new_stream)
-{
-	default_stream_ = &new_stream;
-	if(!new_stream)
-		return;
-
-	BOOST_FOREACH(level_stream &l, level_streams)
-		l.dest(*default_stream_);
 }
 
 void sge::log::logger::log(
 	level::type const level_,
 	temporary_output const &helper)
 {
-	if(enabled(level_))
-		level_sink(level_).log(helper);
+	if(!enabled(level_))
+		return;
+	
+	level_sink(level_).log(helper);
 }
 
 sge::log::level_stream &
@@ -102,10 +87,10 @@ bool sge::log::logger::enabled(
 	return level_sink(level_).enabled();
 }
 
-sge::ostream *
-sge::log::logger::default_stream() const
+sge::ostream &
+sge::log::logger::sink() const
 {
-	return default_stream_;
+	return sink_;
 }
 
 void sge::log::logger::init_levels()
@@ -113,7 +98,7 @@ void sge::log::logger::init_levels()
 	for(unsigned i = 0; i < level::size; ++i)
 		level_streams.push_back(
 			new level_stream(
-				default_stream_,
+				sink(),
 				default_formatter(
 					static_cast<level::type>(
 						i)
