@@ -30,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/math/rect_impl.hpp>
+#include <sge/format.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 template class sge::ogl::basic_texture<sge::renderer::texture>;
 
@@ -56,7 +59,7 @@ sge::ogl::texture::texture(
 	set_texture(0);	
 }
 
-const sge::ogl::texture::dim_type
+sge::ogl::texture::dim_type const
 sge::ogl::texture::dim() const
 {
 	return dim_;
@@ -112,6 +115,13 @@ void sge::ogl::texture::lock_me(
 	renderer::lock_rect const &l,
 	lock_method::type const method) const
 {
+	if(l.right() > dim().w()
+	|| l.bottom() > dim().h())
+		throw exception(
+			(sge::format(
+				SGE_TEXT("ogl: lock_rect (%1%) out of range! dim is %2%!"))
+				% l % dim()).str());
+
 	bool const must_read = lock_flag_read(method);
 
 	// if we must read we have to lock the whole texture
@@ -119,10 +129,10 @@ void sge::ogl::texture::lock_me(
 	if(must_read)
 		do_lock(
 			method,
-			content(),
+			l.area(),
 			l.left() + l.top() * dim().w(),
 			dim().w() - l.dim().w(),
-			dim().w());
+			l.dim().w());
 	else
 		do_lock(
 			method,

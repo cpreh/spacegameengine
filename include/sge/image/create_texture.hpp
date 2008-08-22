@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_UTIL_HPP_INCLUDED
-#define SGE_IMAGE_UTIL_HPP_INCLUDED
+#ifndef SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
+#define SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 
 #include "../path.hpp"
+#include "../export.hpp"
 #include "../renderer/types.hpp"
 #include "../renderer/device.hpp"
 #include "../renderer/texture.hpp"
@@ -34,14 +35,14 @@ namespace sge
 namespace image
 {
 
-renderer::texture_ptr const
+SGE_SYMBOL renderer::texture_ptr const
 create_texture(
 	renderer::device_ptr r,
 	object_ptr p,
 	renderer::filter_args const &filter,
 	renderer::resource_flag_t flags);
 
-renderer::texture_ptr const
+SGE_SYMBOL renderer::texture_ptr const
 create_texture(
 	path const &,
 	renderer::device_ptr r,
