@@ -1,5 +1,5 @@
-#include "layout.hpp"
-#include "widgets/container.hpp"
+#include <sge/gui/layout.hpp>
+#include <sge/gui/widgets/container.hpp>
 #include <sge/iostream.hpp>
 
 sge::gui::layout::layout(widgets::container &w)

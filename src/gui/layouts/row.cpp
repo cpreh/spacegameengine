@@ -1,5 +1,5 @@
-#include "../widgets/container.hpp"
-#include "row.hpp"
+#include <sge/gui/widgets/container.hpp>
+#include <sge/gui/layouts/row.hpp>
 #include <sge/iostream.hpp>
 #include <boost/foreach.hpp>
 

@@ -4,6 +4,7 @@
 #include "events/fwd.hpp"
 #include "types.hpp"
 #include "size_policy.hpp"
+#include "../export.hpp"
 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/function.hpp>
@@ -21,7 +22,7 @@ class container;
 class manager;
 
 // declaration
-class widget : boost::noncopyable
+SGE_CLASS_SYMBOL class widget : boost::noncopyable
 {
 	public:
 	class parent_data
@@ -30,14 +31,14 @@ class widget : boost::noncopyable
 		manager &manager_;
 
 		public:
-		explicit parent_data(widgets::container &);
-		explicit parent_data(manager &);
+		SGE_SYMBOL explicit parent_data(widgets::container &);
+		SGE_SYMBOL explicit parent_data(manager &);
 
 		widgets::container *parent_widget() const { return widget_; }
 		manager &parent_manager() { return manager_; }
 	};
 
-	widget(
+	SGE_SYMBOL widget(
 		parent_data,
 		size_policy::type = size_policy::fixed,
 		point const &pos = point(),
@@ -57,13 +58,13 @@ class widget : boost::noncopyable
 	size_policy::type size_policy() const { return size_policy_; }
 	void size_policy(size_policy::type s) { size_policy_ = s; }
 
-	void size(dim const &);
-	void pos(point const &);
-	void compile();
-	bool is_container() const;
+	SGE_SYMBOL void size(dim const &);
+	SGE_SYMBOL void pos(point const &);
+	SGE_SYMBOL void compile();
+	SGE_SYMBOL bool is_container() const;
 
 	// pure virtuals
-	virtual dim minimum_size() const = 0;
+	virtual dim const minimum_size() const = 0;
 	virtual void process(events::invalid_area const &) {};
 	virtual void process(events::mouse_enter const &) {};
 	virtual void process(events::mouse_leave const &) {};
@@ -71,10 +72,10 @@ class widget : boost::noncopyable
 	virtual void process(events::mouse_click const &) {};
 
 	// virtuals
-	virtual ~widget();
+	SGE_SYMBOL virtual ~widget();
 
-	rect const relative_area() const;
-	rect const absolute_area() const;
+	SGE_SYMBOL rect const relative_area() const;
+	SGE_SYMBOL rect const absolute_area() const;
 
 	void set_size_raw(dim const &d) { size_ = d; }
 	void set_pos_raw(point const &p) { pos_ = p; }

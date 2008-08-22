@@ -2,6 +2,7 @@
 #define SGE_GUI_LAYOUTS_ROW_HPP_INCLUDED
 
 #include "../layout.hpp"
+#include "../../export.hpp"
 
 namespace sge
 {
@@ -9,12 +10,12 @@ namespace gui
 {
 namespace layouts
 {
-class row : public layout
+SGE_CLASS_SYMBOL class row : public layout
 {
 	public:
-	row(widgets::container &);
-	void update();
-	dim const minimum_size() const;
+	SGE_SYMBOL row(widgets::container &);
+	SGE_SYMBOL void update();
+	SGE_SYMBOL dim const minimum_size() const;
 	private:
 	// NOTE: this is actually quite hacky, I first tried to return a reference to
 	// the w() or h() component, but then you get const issues which _might_ be

@@ -1,4 +1,4 @@
-#include "font_drawer_canvas.hpp"
+#include <sge/gui/font_drawer_canvas.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/iostream.hpp>
 

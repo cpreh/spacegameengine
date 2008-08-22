@@ -2,6 +2,7 @@
 #define SGE_GUI_LAYOUT_HPP_INCLUDED
 
 #include "types.hpp"
+#include "../export.hpp"
 #include <boost/scoped_ptr.hpp>
 #include <memory>
 
@@ -14,12 +15,12 @@ namespace widgets
 class container;
 }
 
-class layout
+SGE_CLASS_SYMBOL class layout
 {
 	public:
 	// nonvirtual
-	layout(widgets::container &);
-	void changed();
+	SGE_SYMBOL layout(widgets::container &);
+	SGE_SYMBOL void changed();
 
 	// pure virtual
 	virtual void update() = 0;

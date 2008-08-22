@@ -1,8 +1,8 @@
-#include "widget.hpp"
-#include "widgets/container.hpp"
-#include "events/mouse_leave.hpp"
-#include "events/mouse_move.hpp"
-#include "manager.hpp"
+#include <sge/gui/widget.hpp>
+#include <sge/gui/widgets/container.hpp>
+#include <sge/gui/events/mouse_leave.hpp>
+#include <sge/gui/events/mouse_move.hpp>
+#include <sge/gui/manager.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>

@@ -1,11 +1,12 @@
-#include "button.hpp"
-#include "../manager.hpp"
-#include "../events/invalid_area.hpp"
-#include "../max_dim.hpp"
-#include "../font_drawer_canvas.hpp"
+#include <sge/gui/widgets/button.hpp>
+#include <sge/gui/manager.hpp>
+#include <sge/gui/events/invalid_area.hpp>
+#include <sge/gui/max_dim.hpp>
+#include <sge/gui/font_drawer_canvas.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/image_view_impl.hpp>
 #include <sge/iostream.hpp>
+#include <sge/assert.hpp>
 #include <sge/font/font.hpp>
 #include <sge/math/rect_impl.hpp>
 
@@ -23,7 +24,7 @@ sge::gui::widgets::button::button(
 	if (!font_)
 		font_ = parent_manager().standard_font();
 
-	assert(font_);
+	SGE_ASSERT_MESSAGE(font_,SGE_TEXT("button: no standard font could be set by manager"));
 }
 
 void sge::gui::widgets::button::process(events::invalid_area const &e)
@@ -45,7 +46,7 @@ void sge::gui::widgets::button::process(events::invalid_area const &e)
 		col,
 		rect_type::filled);
 
-	assert(font_);
+	SGE_ASSERT_MESSAGE(font_,SGE_TEXT("button: font missing while drawing button"));
 
 	// reset font
 	c.reset_font(
@@ -64,7 +65,7 @@ void sge::gui::widgets::button::process(events::invalid_area const &e)
 		font::align_v::center);
 }
 
-sge::gui::dim sge::gui::widgets::button::minimum_size() const
+sge::gui::dim const sge::gui::widgets::button::minimum_size() const
 {
 	font::font fn(font_,font::drawer_ptr());	
 	// NOTE: we have to give text_size a huge rectangle because it won't

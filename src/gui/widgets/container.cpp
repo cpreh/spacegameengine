@@ -1,7 +1,7 @@
-#include "container.hpp"
-#include "../manager.hpp"
-#include "../events/invalid_area.hpp"
-#include "../events/mouse_enter.hpp"
+#include <sge/gui/widgets/container.hpp>
+#include <sge/gui/manager.hpp>
+#include <sge/gui/events/invalid_area.hpp>
+#include <sge/gui/events/mouse_enter.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
@@ -27,7 +27,7 @@ void sge::gui::widgets::container::remove_child(widget &w)
 	children_.erase_if(&boost::lambda::_1 == boost::lambda::constant(&w));
 }
 
-sge::gui::dim sge::gui::widgets::container::minimum_size() const
+sge::gui::dim const sge::gui::widgets::container::minimum_size() const
 {
 	if (!layout())
 	{

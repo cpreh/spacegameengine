@@ -2,7 +2,8 @@
 #define SGE_GUI_WIDGETS_BUTTON_HPP_INCLUDED
 
 #include "../widget.hpp"
-#include <sge/font/metrics.hpp>
+#include "../../export.hpp"
+#include "../../font/metrics.hpp"
 #include <boost/signals.hpp>
 
 namespace sge
@@ -11,10 +12,10 @@ namespace gui
 {
 namespace widgets
 {
-class button : public widget
+SGE_CLASS_SYMBOL class button : public widget
 {
 	public:
-	button(
+	SGE_SYMBOL button(
 		parent_data,
 		string const &,
 		font::metrics_ptr = font::metrics_ptr(),
@@ -22,11 +23,11 @@ class button : public widget
 		dim const & = dim());
 
 	// overridden virtuals
-	dim minimum_size() const;
-	void process(events::invalid_area const &);
-	void process(events::mouse_enter const &);
-	void process(events::mouse_leave const &);
-	void process(events::mouse_click const &);
+	SGE_SYMBOL dim const minimum_size() const;
+	SGE_SYMBOL void process(events::invalid_area const &);
+	SGE_SYMBOL void process(events::mouse_enter const &);
+	SGE_SYMBOL void process(events::mouse_leave const &);
+	SGE_SYMBOL void process(events::mouse_click const &);
 
 	// signals
 	boost::signal<void ()> clicked;

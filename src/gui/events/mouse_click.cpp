@@ -1,5 +1,5 @@
-#include "mouse_click.hpp"
-#include <cassert>
+#include <sge/gui/events/mouse_click.hpp>
+#include <sge/assert.hpp>
 
 sge::gui::events::mouse_click::mouse_click(
 	point const &pos_,
@@ -7,5 +7,5 @@ sge::gui::events::mouse_click::mouse_click(
 	: pos_(pos_),
 	  button_(button_)
 {
-	assert(input::is_mouse_button(button()));
+	SGE_ASSERT(input::is_mouse_button(button()));
 }

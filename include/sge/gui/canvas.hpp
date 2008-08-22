@@ -2,10 +2,11 @@
 #define SGE_GUI_CANVAS_HPP_INCLUDED
 
 #include "types.hpp"
-#include <sge/renderer/texture.hpp>
-#include <sge/font/types.hpp>
-#include <sge/font/fwd.hpp>
-#include <sge/font/font.hpp>
+#include "../export.hpp"
+#include "../renderer/texture.hpp"
+#include "../font/types.hpp"
+#include "../font/fwd.hpp"
+#include "../font/font.hpp"
 
 #include <boost/scoped_ptr.hpp>
 
@@ -32,26 +33,25 @@ class canvas
 	typedef renderer::color color_type;
 	typedef std::vector<point> point_container;
 
-	canvas(view_type const &,rect const &widget_rect,rect const &invalid_rect);
-	dim const widget_size();
+	SGE_SYMBOL canvas(view_type const &,rect const &widget_rect,rect const &invalid_rect);
+	SGE_SYMBOL dim const widget_size();
 	rect const widget_area() const { return widget_; }
 	rect const invalid_area() const { return invalid_; }
 	point const widget_pos() const { return point(widget_area().left(),widget_area().top()); }
-	void draw_rect(rect const &,color_type,rect_type::type);
-	void draw_text(
+	SGE_SYMBOL void draw_rect(rect const &,color_type,rect_type::type);
+	SGE_SYMBOL void draw_text(
 		string const &,
 		point const &,
 		dim const &max_size,
 		font::align_h::type,
 		font::align_v::type,
 		font::flag_t = font::flags::default_);
-	void draw_line(point const &,point const &,color_type);
-	void draw_line_strip(point_container const &,color_type,bool loop = true);
-	void reset_font(font::metrics_ptr,color_type fg,color_type bg);
-	void draw_pixel(point const &,color_type);
+	SGE_SYMBOL void draw_line(point const &,point const &,color_type);
+	SGE_SYMBOL void draw_line_strip(point_container const &,color_type,bool loop = true);
+	SGE_SYMBOL void reset_font(font::metrics_ptr,color_type fg,color_type bg);
+	SGE_SYMBOL void draw_pixel(point const &,color_type);
 	view_type view() { return texture_; }
 	view_type view() const { return texture_; }
-	//const_view_type const view() const { return const_view_type(texture_); }
 	private:
 	view_type const texture_;
 	rect const widget_;

@@ -1,8 +1,8 @@
 #ifndef SGE_MATH_MAX_RECT_HPP_INCLUDED
 #define SGE_MATH_MAX_RECT_HPP_INCLUDED
 
-#include <sge/math/rect.hpp>
-#include <sge/math/rect_impl.hpp>
+#include "../math/rect.hpp"
+#include "../math/rect_impl.hpp"
 #include <limits>
 
 namespace sge

@@ -3,25 +3,26 @@
 
 #include "types.hpp"
 #include "canvas.hpp"
-#include <sge/font/drawer.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/texture/part.hpp>
-#include <sge/renderer/color.hpp>
-#include <sge/renderer/colors.hpp>
+#include "../font/drawer.hpp"
+#include "../renderer/device.hpp"
+#include "../texture/part.hpp"
+#include "../renderer/color.hpp"
+#include "../renderer/colors.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace gui
 {
-class font_drawer_canvas : public font::drawer
+SGE_CLASS_SYMBOL class font_drawer_canvas : public font::drawer
 {
 public:
-	font_drawer_canvas(canvas &);
+	SGE_SYMBOL font_drawer_canvas(canvas &);
 
 	// NOTE: this is font::drawer::size_type, _not_ font::size_type!
-	void begin_rendering(size_type, font::pos const &, font::dim);
-	void draw_char(char_type, font::pos const &c, font::const_image_view const &);
-	void end_rendering();
+	SGE_SYMBOL void begin_rendering(size_type, font::pos const &, font::dim);
+	SGE_SYMBOL void draw_char(char_type, font::pos const &c, font::const_image_view const &);
+	SGE_SYMBOL void end_rendering();
 	void fg(renderer::color const _fg) { fg_ = _fg; }
 	void bg(renderer::color const _bg) { bg_ = _bg; }
 private:

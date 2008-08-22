@@ -2,6 +2,7 @@
 #define SGE_GUI_EVENTS_MOUSE_EXIT_HPP_INCLUDED
 
 #include "../types.hpp"
+#include "../../export.hpp"
 
 namespace sge
 {
@@ -12,7 +13,7 @@ namespace events
 class mouse_exit
 {
 	public:
-	mouse_exit(point const &);
+	SGE_SYMBOL mouse_exit(point const &);
 	point const &pos() const { return pos_; }
 	private:
 	point const pos_;

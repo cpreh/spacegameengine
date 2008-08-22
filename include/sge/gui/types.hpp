@@ -1,11 +1,11 @@
 #ifndef SGE_GUI_TYPES_HPP_INCLUDED
 #define SGE_GUI_TYPES_HPP_INCLUDED
 
-#include <sge/sprite/types.hpp>
-#include <sge/sprite/fwd.hpp>
-#include <sge/math/vector.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/renderer/texture.hpp>
+#include "../sprite/types.hpp"
+#include "../sprite/fwd.hpp"
+#include "../math/vector.hpp"
+#include "../input/key_type.hpp"
+#include "../renderer/texture.hpp"
 
 namespace sge
 {

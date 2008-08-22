@@ -3,6 +3,7 @@
 
 #include "../widget.hpp"
 #include "../layout.hpp"
+#include "../../export.hpp"
 
 namespace sge
 {
@@ -15,18 +16,18 @@ class container : public widget
 	public:
 	typedef boost::ptr_vector<widget,boost::view_clone_allocator> child_container;
 
-	explicit container(parent_data,point const & = point(),dim const & = dim());
-	void add_child(widget &);
-	void remove_child(widget &);
-	child_container &children() { return children_; }
-	child_container const &children() const { return children_; }
+	SGE_SYMBOL explicit container(parent_data,point const & = point(),dim const & = dim());
+	SGE_SYMBOL void add_child(widget &);
+	SGE_SYMBOL void remove_child(widget &);
+	SGE_SYMBOL child_container &children() { return children_; }
+	SGE_SYMBOL child_container const &children() const { return children_; }
 	template<typename T>
 	void layout() { layout_.reset(new T(*this)); }
-	layout_ptr layout() { return layout_.get(); }
-	const_layout_ptr layout() const { return layout_.get(); }
-	dim minimum_size() const;
-	void process(events::invalid_area const &);
-	bool has_child(widget const &) const;
+	SGE_SYMBOL layout_ptr layout() { return layout_.get(); }
+	SGE_SYMBOL const_layout_ptr layout() const { return layout_.get(); }
+	SGE_SYMBOL dim const minimum_size() const;
+	SGE_SYMBOL void process(events::invalid_area const &);
+	SGE_SYMBOL bool has_child(widget const &) const;
 	private:
 	void do_size(dim const &);
 	void do_pos(point const &);

@@ -3,13 +3,14 @@
 
 #include "types.hpp"
 
-#include <sge/renderer/device.hpp>
-#include <sge/input/system.hpp>
-#include <sge/font/system.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/scoped_connection.hpp>
-#include <sge/image/loader.hpp>
+#include "../renderer/device.hpp"
+#include "../input/system.hpp"
+#include "../font/system.hpp"
+#include "../sprite/object.hpp"
+#include "../sprite/system.hpp"
+#include "../scoped_connection.hpp"
+#include "../image/loader.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -21,9 +22,9 @@ class widget;
 class manager
 {
 	public:
-	manager(renderer::device_ptr,image::loader_ptr,input::system_ptr,font::system_ptr);
-	void invalidate(rect const &);
-	void draw();
+	SGE_SYMBOL manager(renderer::device_ptr,image::loader_ptr,input::system_ptr,font::system_ptr);
+	SGE_SYMBOL void invalidate(rect const &);
+	SGE_SYMBOL void draw();
 	font::metrics_ptr const standard_font() { return standard_font_; }
 	renderer::color const standard_color() const { return standard_color_; }
 	renderer::color const standard_color_focused() const { return standard_color_focused_; }

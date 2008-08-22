@@ -1,5 +1,5 @@
-#include "canvas.hpp"
-#include "font_drawer_canvas.hpp"
+#include <sge/gui/canvas.hpp>
+#include <sge/gui/font_drawer_canvas.hpp>
 
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/rect_util.hpp>
@@ -19,7 +19,6 @@
 
 #include <cmath>
 #include <cstdlib>
-#include <cassert>
 
 namespace
 {
@@ -181,7 +180,7 @@ void sge::gui::canvas::draw_line_strip(
 	color_type const c,
 	bool const loop)
 {
-	assert(points.size() > 1);
+	SGE_ASSERT(points.size() > 1);
 	
 	for (point_container::size_type i = static_cast<point_container::size_type>(0); 
 		i < static_cast<point_container::size_type>(points.size()-1); 
