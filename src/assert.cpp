@@ -13,12 +13,12 @@ void sge::detail::process_assert(
 {
 	ostringstream ss;
 	
-	ss << file << SGE_TEXT(":") << line;
+	ss << file << SGE_TEXT(':') << line;
 	
 	if (!function.empty())
-		ss << SGE_TEXT(" function '") << function << SGE_TEXT("'");
+		ss << SGE_TEXT(" function '") << function << SGE_TEXT('\'');
 	ss << SGE_TEXT(": assertion failed: ") << condition << SGE_TEXT(", ") << message;
 
-	cerr << ss.str() << SGE_TEXT("\n");
+	cerr << ss.str() << SGE_TEXT('\n');
 	throw exception(ss.str());
 }
