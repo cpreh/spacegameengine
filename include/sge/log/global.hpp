@@ -1,43 +1,38 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #ifndef SGE_LOG_GLOBAL_HPP_INCLUDED
 #define SGE_LOG_GLOBAL_HPP_INCLUDED
 
-#include "level.hpp"
 #include "../export.hpp"
-#include "../shared_ptr.hpp"
-#include "../sstream.hpp"
 
 namespace sge
 {
 namespace log
 {
 
-struct output_helper
-{};
+class logger;
 
-struct temporary_output {
-  shared_ptr<
-    ostringstream
-  > os;
-  SGE_SYMBOL temporary_output();
-};
+SGE_SYMBOL logger &global();
 
-template<typename T>
-temporary_output operator<<(output_helper const&, T const &t) {
-  return temporary_output() << t;
 }
-
-template<typename T>
-temporary_output operator<<(temporary_output const &s, T const &t) {
-  temporary_output  n(s);
-    *n.os << t;
-  return n;
 }
-
-SGE_SYMBOL void global(level::type l, temporary_output t);
-
-SGE_SYMBOL extern output_helper const _1;
-
-}//end log
-}//end sge
 
 #endif

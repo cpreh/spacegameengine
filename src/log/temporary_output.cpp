@@ -18,13 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/iostream.hpp>
+#include <sge/log/temporary_output.hpp>
 
-sge::log::logger &
-sge::log::global()
+sge::log::temporary_output::temporary_output()
+  : os(new ostringstream())
+{}
+
+sge::string const
+sge::log::temporary_output::result() const
 {
-	static logger global_(cout);
-	return global_;
+	return os->str();
 }

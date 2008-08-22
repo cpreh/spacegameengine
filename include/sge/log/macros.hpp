@@ -18,13 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/iostream.hpp>
+#ifndef SGE_LOG_MACROS_HPP_INCLUDED
+#define SGE_LOG_MACROS_HPP_INCLUDED
 
-sge::log::logger &
-sge::log::global()
-{
-	static logger global_(cout);
-	return global_;
-}
+#include "level.hpp"
+
+#define SGE_LOG_LEVEL_IF_ENABLED(stream, l, x)\
+	if(stream.enabled(l))\
+		stream.log(l, x);
+
+#define SGE_LOG_DEBUG(stream, x)\
+	SGE_LOG_LEVEL_IF_ENABLED(stream, sge::log::level::debug, x)
+
+#define SGE_LOG_INFO(stream, x)\
+	SGE_LOG_LEVEL_IF_ENABLED(stream, sge::log::level::info, x)
+
+#define SGE_LOG_WARNING(stream, x)\
+	SGE_LOG_LEVEL_IF_ENABLED(stream, sge::log::level::warning, x)
+
+#define SGE_LOG_ERROR(stream, x)\
+	SGE_LOG_LEVEL_IF_ENABLED(stream, sge::log::level::error, x)
+
+#define SGE_LOG_FATAL(stream, x)\
+	SGE_LOG_LEVEL_IF_ENABLED(stream, sge::log::level::fatal, x)
+
+#endif

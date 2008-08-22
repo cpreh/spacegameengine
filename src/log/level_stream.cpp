@@ -18,13 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/iostream.hpp>
+#include <sge/log/level_stream.hpp>
+#include <sge/log/temporary_output.hpp>
 
-sge::log::logger &
-sge::log::global()
+sge::log::level_stream::level_stream(
+	ostream *const dest_,
+	const_formatter_ptr const formatter_)
+: dest_(dest_),
+  formatter_(formatter_),
+  enabled_(false)
+{}
+
+void sge::log::level_stream::enable()
 {
-	static logger global_(cout);
-	return global_;
+	enabled_ = true;
+}
+
+void sge::log::level_stream::disable()
+{
+	enabled_ = false;
+}
+
+bool sge::log::level_stream::enabled() const
+{
+	return enabled_;
+}
+
+void sge::log::level_stream::log(
+	temporary_output const &output)
+{
+	if(!dest_ || !enabled())
+		return;
+	string const result(output.result());
+	(*dest_) << (formatter_ ? formatter_->format(result) : result);
+}
+
+void sge::log::level_stream::dest(
+	ostream &ndest)
+{
+	dest_ = &ndest;
 }
