@@ -1,157 +1,118 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2007  Simon Stienen (s.stienen@slashlife.org)
+#include "widget.hpp"
+#include "widgets/container.hpp"
+#include "events/mouse_leave.hpp"
+#include "events/mouse_move.hpp"
+#include "manager.hpp"
+#include <sge/iostream.hpp>
+#include <sge/assert.hpp>
+#include <sge/math/rect_util.hpp>
+#include <sge/math/rect_impl.hpp>
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-#include <sge/gui/widget.hpp>
-
-#include <sge/gui/defaultskin.hpp>
-#include <sge/gui/manager.hpp>
-
-sge::gui::events::child_event sge::gui::widget::sge_gui_widget_child_event() const {
-	events::child_event ce;
-	ce.child = const_cast<widget*>(this);
-	return ce;
+sge::gui::widget::widget(
+	parent_data parent_data_,
+	size_policy::type const size_policy_,
+	point const &pos_,
+	dim const &size_)
+	:	parent_(parent_data_.parent_widget()),
+	  manager_(parent_data_.parent_manager()),
+		pos_(pos_),
+		size_(size_),
+		size_policy_(size_policy_)
+{
+	if (parent_widget())
+		parent_widget()->add_child(*this);
+	else
+		parent_manager().add(*this);
 }
 
-sge::gui::widget::widget(widget * const parent_, const std::string &name_) {
-	sge_gui_widget_data_init();
-	sge_gui_widget_data.name = name_;
-	reparent(parent_);
+sge::gui::widget::~widget()
+{
+	if (parent_widget())
+		parent_widget()->remove_child(*this);
+	else
+		parent_manager().remove(*this);
 }
 
-sge::gui::widget::~widget() {
-	reparent(0);
+sge::gui::rect const sge::gui::widget::absolute_area() const
+{
+	return rect(pos(), size());
 }
 
-void sge::gui::widget::change() {
-	if (changed()) return;
-	sge_gui_widget_data.changed = true;
-	if (parent())
-		parent()->on_child_change(sge_gui_widget_child_event());
+sge::gui::rect const sge::gui::widget::relative_area() const
+{
+	return rect(point(static_cast<unit>(0),static_cast<unit>(0)), size());
 }
 
-void sge::gui::widget::show(bool newvis) {
-	if (visible() == newvis)
-		return;
+void sge::gui::widget::size(dim const &d)
+{
+	sge::cerr << "widget: size\n";
+	
+	sge::cerr << "widget: calling internal resize function\n";
+	// then call the internal size method
+	do_size(d);
 
-	sge_gui_widget_data.visible = newvis;
-	if (parent()) {
-		if (newvis)
-			parent()->on_child_show(sge_gui_widget_child_event());
-		else
-			parent()->on_child_hide(sge_gui_widget_child_event());
-	}
-}
-
-void sge::gui::widget::reparent(sge::gui::widget *newparent) {
-	if (sge_gui_widget_data.parent == newparent) return;
-
-	manager *oldmgr = top_level_widget();
-
-	if (parent())
-		sge_gui_widget_data.parent->on_child_remove(sge_gui_widget_child_event());
-	sge_gui_widget_data.parent = newparent;
-	if (parent()) {
-		parent()->on_child_add(sge_gui_widget_child_event());
-		if (changed())
-			parent()->on_child_change(sge_gui_widget_child_event());
+	// is this widget a top level widget? then call the manager to resize the
+	// underlying texture
+	if (!parent_widget())
+	{
+		sge::cerr << "widget: size: calling manager's resize function\n";
+		parent_manager().resize(*this,d);
 	}
 
-	if (oldmgr && oldmgr != top_level_widget())
-		oldmgr->widget_removed(this);
+	// then invalidate the whole rect
+	// sge::cerr << "widget: invalidating rectangle " << absolute_area() << "\n";
+	// parent_manager().invalidate(absolute_area());
 }
 
-sge::gui::manager *sge::gui::widget::top_level_widget() {
-	return parent()
-		? parent()->top_level_widget()
-		: 0;
+void sge::gui::widget::pos(point const &d)
+{
+	// is this widget a top level widget? then call the manager to reposition the
+	// underlying sprite
+	if (!parent_widget())
+		parent_manager().reposition(*this,d);
+	
+	// then call the internal size method
+	do_pos(d);
 }
 
-void sge::gui::widget::perform_resize(sge::gui::dim2 newsize) {
-	sge_gui_widget_data.size = newsize;
-	if (parent())
-		parent()->on_child_geom(sge_gui_widget_child_event());
+void sge::gui::widget::compile()
+{
+	sge::cerr << "widget: compiling\n";
+	SGE_ASSERT_MESSAGE(!parent_widget(),SGE_TEXT("tried to compile a non top level widget, that's not possible"));
+	sge::cerr << "widget: running do_compile\n";
+	do_compile();
+
+	// signal manager to recompile according to (new) size and position
+	sge::cerr << "widget: running manager::compile\n";
+	parent_manager().compile(*this);
+	//sge::cerr << "widget: running manager::invalidate(" << absolute_area() << ")\n";
+	//parent_manager().invalidate(absolute_area());
 }
 
-void sge::gui::widget::perform_move(sge::gui::point newpos) {
-	sge_gui_widget_data.position = newpos;
-	if (parent())
-		parent()->on_child_geom(sge_gui_widget_child_event());
+bool sge::gui::widget::is_container() const
+{
+	return dynamic_cast<widgets::container const *>(this);
 }
 
-sge::gui::point sge::gui::widget::child_position(const widget *w) const {
-	return w->position();
-}
+sge::gui::widget *sge::gui::widget::recalculate_focus(point const &mouse_click)
+{
+	// pointer is no longer inside widget area
+	if (!math::contains(absolute_area(),mouse_click))
+	{
+		cerr << "widget: mouse no longer inside widget, sending leave\n";
+		process(events::mouse_leave());
+		
+		if (!parent_widget())
+			return 0;
 
-sge::gui::point sge::gui::widget::global_position() const {
-	return parent()
-		? parent()->child_position(this) + parent()->global_position()
-		: point(0,0);
-}
-
-void sge::gui::widget::focus() { focus(this); }
-void sge::gui::widget::blur () { blur (this); }
-
-void sge::gui::widget::focus(widget *w) { if (parent()) parent()->focus(w); }
-void sge::gui::widget::blur (widget *w) { if (parent()) parent()->blur (w); }
-
-void sge::gui::widget::paint(const events::paint_event &pe) {
-	if (changed()) {
-		sge_gui_widget_data.changed = false;
-		on_update();
+		return parent_widget()->recalculate_focus(mouse_click);
 	}
-	on_paint(pe);
-}
 
-void sge::gui::widget::paint_children(const events::paint_event &pe) {
-	events::paint_event pe_ = pe;
-	for (child_widget_list::iterator b=sge_gui_widget_data.children.begin(), e=sge_gui_widget_data.children.end(); b != e; ++b) {
-		if (!(*b)->visible()) continue;
-		pe_.position = pe.position + child_position(*b);
-		(*b)->paint(pe_);
+	widget *const new_focus = do_recalculate_focus(mouse_click);
+	if (new_focus == this)
+	{
+		cerr << "widget: focus hasn't changed, sending mouse_move\n";
+		process(events::mouse_move(mouse_click));
 	}
+	return new_focus;
 }
-
-void sge::gui::widget::skin(skin_ptr newskin) {
-	if (sge_gui_widget_data.skin != newskin) {
-		if ((newskin && newskin != drawskin()) ||
-		    ((parent() && !newskin) && newskin != parent()->drawskin())) {
-			events::skin_event se;
-				se.skin = newskin;
-			for (child_widget_list::iterator b=sge_gui_widget_data.children.begin(), e=sge_gui_widget_data.children.end(); b != e; ++b)
-				(*b)->on_parent_skin_change(se);
-			change();
-		}
-		sge_gui_widget_data.skin = newskin;
-	}
-}
-
-sge::gui::skin_ptr sge::gui::widget::drawskin() const {
-	return skin()
-		? skin()
-		: parent()
-			? parent()->drawskin()
-			: defaultskin::get();
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// statics
-
-const boost::optional<sge::gui::color> sge::gui::widget::default_color;
