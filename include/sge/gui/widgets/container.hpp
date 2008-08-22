@@ -11,7 +11,7 @@ namespace gui
 {
 namespace widgets
 {
-class container : public widget
+class SGE_CLASS_SYMBOL container : public widget
 {
 	public:
 	typedef boost::ptr_vector<widget,boost::view_clone_allocator> child_container;

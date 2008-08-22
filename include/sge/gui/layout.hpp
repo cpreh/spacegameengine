@@ -15,7 +15,7 @@ namespace widgets
 class container;
 }
 
-SGE_CLASS_SYMBOL class layout
+class SGE_CLASS_SYMBOL layout
 {
 	public:
 	// nonvirtual

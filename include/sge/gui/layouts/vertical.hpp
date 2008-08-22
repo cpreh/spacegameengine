@@ -10,7 +10,7 @@ namespace gui
 {
 namespace layouts
 {
-SGE_CLASS_SYMBOL class vertical : public row
+class SGE_CLASS_SYMBOL vertical : public row
 {
 	public:
 	SGE_SYMBOL vertical(widgets::container &);
