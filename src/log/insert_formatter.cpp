@@ -18,13 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/iostream.hpp>
+#include <sge/log/insert_formatter.hpp>
+#include <sge/format.hpp>
 
-sge::log::logger &
-sge::log::global()
+sge::log::insert_formatter::insert_formatter(
+	string const &format_string)
+: format_string(format_string)
+{}
+
+sge::string const
+sge::log::insert_formatter::format(
+	string const &dest) const
 {
-	static logger global_(cout);
-	return global_;
+	return (sge::format(
+		format_string) % dest).str();
 }

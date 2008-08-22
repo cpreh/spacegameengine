@@ -53,13 +53,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/sprite/intrusive_system.hpp>
-
+#include <sge/log/macros.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/temporary_output.hpp>
+#include <sge/log/logger.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
 #include <sge/renderer/color.hpp>
 
 int main()
 try
 {
+	sge::log::logger &log(sge::log::global());
+
+	log.activate(sge::log::level::debug);
+
+	SGE_LOG_DEBUG(log, sge::log::_1 << SGE_TEXT("HAHA"));
+
 	bool running = true;
 	sge::plugin::manager pm;
 

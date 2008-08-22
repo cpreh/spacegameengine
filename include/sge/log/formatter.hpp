@@ -18,13 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/iostream.hpp>
+#ifndef SGE_LOG_FORMATTER_HPP_INCLUDED
+#define SGE_LOG_FORMATTER_HPP_INCLUDED
 
-sge::log::logger &
-sge::log::global()
+#include "../string.hpp"
+#include "../shared_ptr.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
+
+namespace sge
 {
-	static logger global_(cout);
-	return global_;
+namespace log
+{
+
+class SGE_CLASS_SYMBOL formatter : boost::noncopyable {
+public:
+	virtual string const
+	format(
+		string const &) const = 0;
+};
+
+typedef shared_ptr<formatter> formatter_ptr;
+typedef shared_ptr<formatter const> const_formatter_ptr;
+
 }
+}
+
+#endif

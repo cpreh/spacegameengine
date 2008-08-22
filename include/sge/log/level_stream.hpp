@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_LOGGER_HPP_INCLUDED
-#define SGE_LOG_LOGGER_HPP_INCLUDED
+#ifndef SGE_LOG_LEVEL_STREAM_HPP_INCLUDED
+#define SGE_LOG_LEVEL_STREAM_HPP_INCLUDED
 
-#include "level.hpp"
-#include "level_stream.hpp"
 #include "../ostream.hpp"
 #include "../export.hpp"
-#include <boost/ptr_container/ptr_vector.hpp>
+#include "formatter.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -35,41 +33,25 @@ namespace log
 
 class temporary_output;
 
-class logger : boost::noncopyable {
+class level_stream : boost::noncopyable {
+	friend class logger;
+	explicit level_stream(
+		ostream *,
+		const_formatter_ptr);
 public:
-	SGE_SYMBOL logger();
-	SGE_SYMBOL explicit logger(
-		ostream &default_stream);
-	SGE_SYMBOL void stream_all_levels(
-		ostream &);
+	SGE_SYMBOL void enable();
+	SGE_SYMBOL void disable();
+	SGE_SYMBOL bool enabled() const;
 	SGE_SYMBOL void log(
-		level::type,
 		temporary_output const &);
-	SGE_SYMBOL level_stream &level_sink(
-		level::type);
-	SGE_SYMBOL level_stream const &level_sink(
-		level::type) const;
-	SGE_SYMBOL void activate(
-		level::type);
-	SGE_SYMBOL void deactivate(
-		level::type);
-	SGE_SYMBOL void activate_hierarchie(
-		level::type);
-	SGE_SYMBOL void deactivate_hierarchie(
-		level::type);
-	SGE_SYMBOL bool enabled(
-		level::type) const;
+	SGE_SYMBOL void dest(
+		ostream &);
+	SGE_SYMBOL void formatter(
+		const_formatter_ptr);
 private:
-	void init_levels();
-	void set_hierarchie(
-		level::type,
-		void (logger::*)(level::type));
-
-	ostream *default_stream_;
-	typedef boost::ptr_vector<
-		level_stream
-	> level_vector;
-	level_vector level_streams;
+	ostream *dest_;
+	const_formatter_ptr formatter_;
+	bool                enabled_;
 };
 
 }

@@ -18,13 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/iostream.hpp>
+#ifndef SGE_LOG_TEMPORARY_OUTPUT_HPP_INCLUDED
+#define SGE_LOG_TEMPORARY_OUTPUT_HPP_INCLUDED
 
-sge::log::logger &
-sge::log::global()
+#include "output_helper.hpp"
+#include "../export.hpp"
+#include "../shared_ptr.hpp"
+#include "../sstream.hpp"
+#include "../string.hpp"
+#include <ostream>
+
+namespace sge
 {
-	static logger global_(cout);
-	return global_;
+namespace log
+{
+
+class temporary_output {
+public:
+	SGE_SYMBOL temporary_output();
+
+	SGE_SYMBOL string const result() const;
+private:
+	shared_ptr<
+		ostringstream
+	> os;
+
+	template<typename T>
+	friend temporary_output operator<<(temporary_output const &, T const &);
+};
+
+template<typename T>
+temporary_output operator<<(output_helper const &, T const &t)
+{
+	return temporary_output() << t;
 }
+
+template<typename T>
+temporary_output operator<<(temporary_output const &s, T const &t)
+{
+	temporary_output  n(s);
+	*n.os << t;
+	return n;
+}
+
+}
+}
+
+#endif
