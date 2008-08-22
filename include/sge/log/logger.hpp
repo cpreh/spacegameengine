@@ -59,6 +59,7 @@ public:
 		level::type);
 	SGE_SYMBOL bool enabled(
 		level::type) const;
+	SGE_SYMBOL ostream *default_stream() const;
 private:
 	void init_levels();
 	void set_hierarchie(

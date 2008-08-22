@@ -102,6 +102,12 @@ bool sge::log::logger::enabled(
 	return level_sink(level_).enabled();
 }
 
+sge::ostream *
+sge::log::logger::default_stream() const
+{
+	return default_stream_;
+}
+
 void sge::log::logger::init_levels()
 {
 	for(unsigned i = 0; i < level::size; ++i)
