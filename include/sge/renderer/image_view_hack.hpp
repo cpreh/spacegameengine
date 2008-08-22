@@ -29,7 +29,9 @@ namespace sge
 namespace renderer
 {
 
-SGE_SYMBOL const_image_view const make_const_view(image_view const &);
+SGE_SYMBOL const_image_view const
+make_const_view(
+	image_view const &);
 
 }
 }

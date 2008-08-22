@@ -39,27 +39,25 @@ sge::ogl::readonly_texture_lock::readonly_texture_lock(
   offset(offset * stride),
   pitch(pitch * stride),
   block_size(block_size * stride)
-{}
-
-void sge::ogl::readonly_texture_lock::post_lock()
-{
-	lock_buffer();
-
-	if(pitch)
-	{
-		assert(lock_size % block_size == 0);
-
-		cutout_buffer.resize_uninitialized(
-			lock_size);
-
-		copy_read_part(cutout_buffer.data());
-	}
-}
-
-void sge::ogl::readonly_texture_lock::lock_buffer()
 {
 	buffer.lock(
 		lock_method::readonly);
+}
+
+void sge::ogl::readonly_texture_lock::post_lock()
+{
+	if(!pitch)
+		return;
+	
+	// if the pitch is set we copy the part to read
+	// in our own buffer so that the user sees a contiguous array
+
+	assert(lock_size % block_size == 0);
+
+	cutout_buffer.resize_uninitialized(
+		lock_size);
+
+	copy_read_part(cutout_buffer.data());
 }
 
 void sge::ogl::readonly_texture_lock::copy_read_part(

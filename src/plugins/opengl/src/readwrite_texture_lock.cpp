@@ -44,7 +44,6 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 
 void sge::ogl::readwrite_texture_lock::post_lock()
 {
-	read_lock.lock_buffer();
 	write_lock.post_lock();
 
 	read_lock.copy_read_part(
@@ -67,7 +66,7 @@ sge::ogl::readwrite_texture_lock::write_pointer() const
 sge::ogl::readwrite_texture_lock::pointer
 sge::ogl::readwrite_texture_lock::read_pointer() const
 {
-	return write_lock.write_pointer();
+	return read_lock.read_pointer();
 }
 
 sge::ogl::readwrite_texture_lock::const_pointer
