@@ -48,6 +48,8 @@ public:
 		ostream &);
 	SGE_SYMBOL void formatter(
 		const_formatter_ptr);
+	SGE_SYMBOL const_formatter_ptr const
+	formatter() const;
 private:
 	ostream *dest_;
 	const_formatter_ptr formatter_;

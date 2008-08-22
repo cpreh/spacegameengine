@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/loader.hpp>
-#include <sge/image/util.hpp>
+#include <sge/image/create_texture.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/endianness.hpp>
 #include <sge/exception.hpp>

@@ -58,3 +58,15 @@ void sge::log::level_stream::dest(
 {
 	dest_ = &ndest;
 }
+
+void sge::log::level_stream::formatter(
+	const_formatter_ptr const new_formatter)
+{
+	formatter_ = new_formatter;
+}
+
+sge::log::const_formatter_ptr const
+sge::log::level_stream::formatter() const
+{
+	return formatter_;
+}
