@@ -18,18 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_FWD_HPP_INCLUDED
-#define SGE_SPRITE_FWD_HPP_INCLUDED
+#ifndef SGE_SPRITE_SYSTEM_BASE_HPP_INCLUDED
+#define SGE_SPRITE_SYSTEM_BASE_HPP_INCLUDED
+
+#include "../renderer/default_transformable.hpp"
+#include "../renderer/vertex_buffer.hpp"
+#include "../renderer/index_buffer.hpp"
+#include "../renderer/device.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
 {
 namespace sprite
 {
 
-class object;
-class system;
-class intrusive_object;
-class intrusive_system;
+class system_base : public renderer::default_transformable, boost::noncopyable {
+public:
+	SGE_SYMBOL renderer::device_ptr const
+	get_renderer() const;
+protected:
+	explicit system_base(
+		renderer::device_ptr rend);
+	
+	SGE_SYMBOL void allocate_buffers(
+		std::size_t needed_sprites);
+
+	SGE_SYMBOL renderer::vertex_buffer_ptr const
+	get_vertex_buffer() const;
+
+	SGE_SYMBOL renderer::index_buffer_ptr const
+	get_index_buffer() const;
+private:
+	renderer::device_ptr const  rend;
+	renderer::vertex_buffer_ptr vb;
+	renderer::index_buffer_ptr  ib;
+};
 
 }
 }

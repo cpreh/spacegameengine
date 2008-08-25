@@ -24,37 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/scoped_state.hpp>
 #include <sge/renderer/transform.hpp>
-#include <sge/renderer/vertex_buffer_util.hpp>
-#include <sge/renderer/index_buffer_util.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/algorithm.hpp>
 #include <boost/foreach.hpp>
 
-// TODO: merge the ctor stuff with system's ctor
-const unsigned init_sprites = 25;
-
 sge::sprite::intrusive_system::intrusive_system(
 	renderer::device_ptr const rend)
-: default_transformable(
- 	rend,
-	renderer::matrix_pixel_to_space(rend->screen_size()),
-	math::matrix_orthogonal_xy()),
-  rend(rend),
-  vb(
-   	rend->create_vertex_buffer(
-		renderer::vertex_format()
-			.add(renderer::vertex_usage::pos)
-			.add(renderer::vertex_usage::diffuse)
-			.add(renderer::vertex_usage::tex),
-		init_sprites * detail::vertices_per_sprite,
-		renderer::resource_flags::dynamic)),
-  ib(
-  	rend->create_index_buffer(
-		renderer::index_format::index16,
-		init_sprites * detail::indices_per_sprite,
-		renderer::resource_flags::dynamic))
+: system_base(rend)
 {}
 
 void sge::sprite::intrusive_system::render()
@@ -63,27 +41,21 @@ void sge::sprite::intrusive_system::render()
 		render(*v.second);
 }
 
-sge::renderer::device_ptr const
-sge::sprite::intrusive_system::get_renderer() const
-{
-	return rend;
-}
-
 void sge::sprite::intrusive_system::render(
 	sprite_list const &sprites)
 {
-	sprite_list::size_type const num_sprites(sprites.size());
-	if(vb->size() < num_sprites * detail::vertices_per_sprite)
-	{
-		vb = renderer::resize(vb, rend, num_sprites * detail::vertices_per_sprite);
-		ib = renderer::resize(ib, rend, num_sprites * detail::indices_per_sprite);
-	}
+	allocate_buffers(sprites.size());
 
 	{
 		renderer::scoped_index_lock const iblock(
-			renderer::make_scoped_lock(ib, renderer::lock_flags::writeonly));
+			renderer::make_scoped_lock(
+				get_index_buffer(),
+				renderer::lock_flags::writeonly));
+
 		renderer::scoped_vertex_lock const vblock(
-			renderer::make_scoped_lock(vb, renderer::lock_flags::writeonly));
+			renderer::make_scoped_lock(
+				get_vertex_buffer(),
+				renderer::lock_flags::writeonly));
 
 		index_view const indices(boost::get<index_view>(iblock.value()));
 		renderer::vertex_view const vertices(vblock.value());
@@ -111,6 +83,9 @@ void sge::sprite::intrusive_system::render(
 	}
 
 	set_matrices();
+
+	renderer::device_ptr const rend(
+		get_renderer());
 
 	const renderer::scoped_state state_(
 		rend,
@@ -146,8 +121,8 @@ void sge::sprite::intrusive_system::render(
 		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);
 		
 		rend->render(
-			vb,
-			ib,
+			get_vertex_buffer(),
+			get_index_buffer(),
 			first_index / detail::indices_per_sprite * detail::vertices_per_sprite,
 			num_objects * detail::vertices_per_sprite,
 			renderer::indexed_primitive_type::triangle,

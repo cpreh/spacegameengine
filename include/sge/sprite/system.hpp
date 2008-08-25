@@ -22,34 +22,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_SYSTEM_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
-#include "../renderer/device.hpp"
-#include "../renderer/default_transformable.hpp"
-#include "object.hpp"
-#include <boost/noncopyable.hpp>
+#include "fwd.hpp"
+#include "system_base.hpp"
+#include <boost/function.hpp>
+#include <vector>
 
 namespace sge
 {
 namespace sprite
 {
 
-class system : public renderer::default_transformable, boost::noncopyable {
+class system : public system_base {
 public:
 	SGE_SYMBOL explicit system(
 		renderer::device_ptr rend);
-	template<typename In>
-		void render(In beg, In end);
-	void render(object);
-	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
-private:
-	renderer::device_ptr        rend;
-	renderer::vertex_buffer_ptr vb;
-	renderer::index_buffer_ptr  ib;
+	
+	typedef std::vector<object> container;
+
+	typedef boost::function<
+		void (
+			object *,
+			object *,
+			bool (*)(object const &, object const &))
+	> sort_method;
+
+	SGE_SYMBOL static sort_method const default_sort;
+
+	SGE_SYMBOL void render(
+		container::iterator begin,
+		container::iterator end,
+		sort_method const &
+			= default_sort);
+
+	SGE_SYMBOL void render(
+		object *begin,
+		object *end,
+		sort_method const &
+			= default_sort);
+	
+	SGE_SYMBOL void render(
+		object);
 };
 
 }
 }
 
 #endif
-

@@ -27,15 +27,35 @@ namespace sge
 {
 
 template<typename T, typename A>
-inline typename std::vector<T,A>::pointer data(std::vector<T,A>& v)
+inline typename std::vector<T,A>::pointer
+data(
+	std::vector<T,A> &v)
 {
 	return v.empty() ? 0 : &v[0];
 }
 
 template<typename T, typename A>
-inline typename std::vector<T,A>::const_pointer data(const std::vector<T,A>& v)
+inline typename std::vector<T,A>::const_pointer
+data(
+	std::vector<T,A> const &v)
 {
 	return v.empty() ? 0 : &v[0];
+}
+
+template<typename T, typename A>
+inline typename std::vector<T,A>::pointer
+data_end(
+	std::vector<T,A> &v)
+{
+	return data(v) ? data(v) : data(v) + v.size();
+}
+
+template<typename T, typename A>
+inline typename std::vector<T,A>::const_pointer
+data_end(
+	std::vector<T,A> const &v)
+{
+	return data(v) ? data(v) : data(v) + v.size();
 }
 
 }
