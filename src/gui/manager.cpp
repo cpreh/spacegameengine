@@ -20,7 +20,6 @@
 #include <sge/assert.hpp>
 #include <sge/iostream.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/sprite/system_impl.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/foreach.hpp>
@@ -248,7 +247,7 @@ void sge::gui::manager::draw()
 	if (!dirt_.empty())
 		redraw_dirt();
 
-	std::vector<sprite::object> sprites;
+	sprite::system::container sprites;
 	BOOST_FOREACH(widget_data &w,widgets_)
 		sprites.push_back(w.spr);
 	sprites.push_back(cursor);

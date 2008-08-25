@@ -66,8 +66,6 @@ public:
 	operator=(
 		intrusive_object const &);
 
-	SGE_SYMBOL ~intrusive_object();
-
 	using object::x;
 	using object::y;
 	using object::pos;
