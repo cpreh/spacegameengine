@@ -49,14 +49,12 @@ sge::sprite::intrusive_system::intrusive_system(
 			.add(renderer::vertex_usage::diffuse)
 			.add(renderer::vertex_usage::tex),
 		init_sprites * detail::vertices_per_sprite,
-		renderer::resource_flags::write_only
-		| renderer::resource_flags::dynamic)),
+		renderer::resource_flags::dynamic)),
   ib(
   	rend->create_index_buffer(
 		renderer::index_format::index16,
 		init_sprites * detail::indices_per_sprite,
-		renderer::resource_flags::write_only
-		| renderer::resource_flags::dynamic))
+		renderer::resource_flags::dynamic))
 {}
 
 void sge::sprite::intrusive_system::render()

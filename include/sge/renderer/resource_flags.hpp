@@ -30,8 +30,8 @@ namespace resource_flags
 {
 	enum type {
 		none,
-		dynamic     = 1,
-		write_only  = 1 << 1
+		dynamic   = 1,
+		readable  = 1 << 1
 	};
 }
 

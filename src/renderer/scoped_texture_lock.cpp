@@ -53,6 +53,15 @@ sge::renderer::make_scoped_lock(
 		t->lock(r));
 }
 
+sge::renderer::const_scoped_texture_lock_wrapper const
+sge::renderer::make_scoped_lock(
+	const_texture_ptr const t)
+{
+	return const_scoped_texture_lock_wrapper(
+		t,
+		t->lock());
+}
+
 SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(
 	sge::renderer::texture_ptr,
 	sge::renderer::image_view)

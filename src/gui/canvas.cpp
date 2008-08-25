@@ -1,532 +1,342 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2007  Simon Stienen (s.stienen@slashlife.org)
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-
-#include <cmath> // memcpy
-#include <cstring> // memcpy
-#include <cstddef>
-#include <sge/math/constants.hpp>
-#include <sge/math/rect_impl.hpp>
 #include <sge/gui/canvas.hpp>
+#include <sge/gui/font_drawer_canvas.hpp>
 
-namespace {
+#include <sge/math/rect_impl.hpp>
+#include <sge/math/rect_util.hpp>
+#include <sge/math/signum.hpp>
+#include <sge/format.hpp>
+#include <sge/assert.hpp>
+#include <sge/iostream.hpp>
 
-inline std::ptrdiff_t get_index_from_coords(const sge::gui::unit x, const sge::gui::unit y, const sge::gui::dim2 &sz) {
-	return x + y*sz.w;
+#include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
+#include <boost/foreach.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/bind.hpp>
+
+#include <algorithm>
+
+#include <cmath>
+#include <cstdlib>
+
+namespace
+{
+struct converter 
+{
+	converter(sge::renderer::color const fg,sge::renderer::color const bg) : fg(fg),bg(bg) {}
+
+	template<typename T>
+	void operator()(sge::font::color const src,T &dest) const;
+
+	sge::renderer::color const fg,bg;
+};
+
+// FIXME: make this more clean: check T's channel count and determine which one is the alpha channel, then convert
+// the input to this function in 'src' is a gray value, 'dest' is rgba8
+template<typename T>
+void converter::operator()(
+  sge::font::color const src,
+	T &dest) const
+{ 
+	float const ratio = static_cast<float>(src)/255.0f;
+
+	for (unsigned i = 0; i <= 2; ++i)
+		dest[i] = static_cast<sge::renderer::pixel_channel_8>(
+			static_cast<float>(fg[i])*ratio+static_cast<float>(bg[i])*(1.0f-ratio));
+	
+	dest[3] = static_cast<sge::renderer::pixel_channel_8>(255);
 }
 
-inline sge::gui::funit cosine(sge::gui::funit x) {
-	return std::cos(x * 2 * sge::math::PI);
-}
+struct set_pixel_fn
+{
+	sge::gui::canvas::color_type const c;
+	sge::gui::point const p;
 
-inline sge::gui::funit sine(sge::gui::funit x) {
-	return cosine(x - 0.25);
-}
+	set_pixel_fn(
+		sge::gui::canvas::color_type const c,
+		sge::gui::point const p) 
+		: c(c),p(p) {}
 
-}
+	typedef void result_type;
 
-sge::gui::canvas::canvas() {}
-
-sge::gui::canvas::canvas(const sge::gui::canvas::canvas &other)
-: size_(other.size_), data(new sge::gui::color[size_.w * size_.h]) {
-	std::memcpy(
-		data.get(),
-		other.data.get(),
-		sizeof(sge::gui::color) * size_.w * size_.h
-	);
-}
-
-sge::gui::canvas::canvas &sge::gui::canvas::operator=(const sge::gui::canvas::canvas &other) {
-	if (size_ != other.size_) {
-		size_ = other.size_;
-		boost::scoped_array<sge::gui::color> dt(new sge::gui::color[size_.w * size_.h]);
-		data.swap(dt);
+	template<typename T>
+	result_type operator()(T &view) const
+	{
+		view(p.x(),p.y()) = c;
 	}
-	std::memcpy(
-		data.get(),
-		other.data.get(),
-		sizeof(sge::gui::color) * size_.w * size_.h
-	);
-	return *this;
+};
+
+template<typename T,std::size_t n,typename F>
+sge::math::basic_vector<T,n> apply(sge::math::basic_vector<T,n> const &v,F f)
+{
+	sge::math::basic_vector<T,n> newone = v;
+	std::transform(newone.begin(),newone.end(),newone.begin(),f);
+	//BOOST_FOREACH(T &c,newone)
+	//	c = f(c);
+	return newone;
+}
 }
 
-sge::gui::canvas::canvas(sge::gui::dim2 size_)
-: size_(size_), data(new sge::gui::color[size_.w * size_.h]) {}
-
-sge::gui::canvas::canvas(sge::gui::dim2 size_, const sge::gui::color &fillcolor)
-: size_(size_), data(new sge::gui::color[size_.w * size_.h]) {
-	for (sge::gui::color *b=data.get(), *e=b+size_.w * size_.h; b != e; ++b) {
-		*b = fillcolor;
-	}
+sge::gui::canvas::canvas(
+	view_type const &texture_,
+	rect const &widget_,
+	rect const &invalid_)
+	: texture_(texture_),
+		widget_(widget_),
+		invalid_(invalid_),
+	  drawer(new font_drawer_canvas(*this))
+{
 }
 
-void sge::gui::canvas::resize(const sge::gui::dim2 &newsize, bool keepcontent) {
-	if (newsize == size_) return;
-	boost::scoped_array<sge::gui::color> temp(new sge::gui::color[newsize.w * newsize.h]);
-	if (keepcontent) {
-		sge::gui::dim2 tocopy;
-			tocopy.w = (size_.w < newsize.w) ? size_.w : newsize.w;
-			tocopy.h = (size_.h < newsize.h) ? size_.h : newsize.h;
+void sge::gui::canvas::reset_font(
+	font::metrics_ptr _metrics,
+	color_type const fg,
+	color_type const bg)
+{
+	metrics = _metrics;
 
-		sge::gui::color
-			*flineb = data.get(),
-			*flinee = flineb + get_index_from_coords(0, tocopy.h, size_),
-			*tline  = temp.get(),
-			*fpixb, *fpixe, *tpix;
-		for (; flineb != flinee; flineb += size_.w, tline += newsize.w)
-			for (fpixb = flineb, fpixe = fpixb + tocopy.w, tpix = tline; fpixb != fpixe; ++fpixb, ++tpix)
-				*tpix = *fpixb;
-	}
-	size_ = newsize;
-	data.swap(temp);
+	// temporarily convert to canvas_drawer to set foreground and background
+	font_drawer_canvas &cd = static_cast<font_drawer_canvas &>(*drawer);
+	cd.fg(fg);
+	cd.bg(bg);
+
+	font.reset(new font::font(metrics,drawer));
 }
 
-void sge::gui::canvas::pixel(const sge::gui::point &coords, const sge::gui::color &newcol) {
-	pixel(coords) = newcol;
+sge::gui::dim const sge::gui::canvas::widget_size()
+{
+	return sge::gui::dim(
+		static_cast<unit>(view().width()),
+		static_cast<unit>(view().height()));
 }
 
-sge::gui::color &sge::gui::canvas::pixel(const sge::gui::point &coords) {
-	if (coords.x < 0 || coords.x >= size_.w ||
-	    coords.y < 0 || coords.y >= size_.h) throw sge::gui::canvas::invalid_coords();
-	return data[get_index_from_coords(coords.x, coords.y, size_)];
-}
+void sge::gui::canvas::draw_rect(
+	rect const &rel_rect,
+	color_type const c,
+	rect_type::type const t)
+{
+	cerr << "canvas: draw_rect: rel_rect: " << rel_rect << " (dimension: " << rel_rect.dim() << ", position: " << rel_rect.pos() << ")\n";
 
-void sge::gui::canvas::blit(sge::gui::color::mixing_policy_t policy, const sge::gui::canvas &source, sge::gui::rect srccoord, sge::gui::point dest) {
-	if (srccoord.x >= source.size_.w || srccoord.y >= source.size_.h) return; // nothing to blit from
-	if (dest.x >= size_.w || dest.y >= size_.h) return; // nowhere to blit to
-	if (dest.x < 0) {srccoord.x -= dest.x; srccoord.w += dest.x; dest.x = 0; }
-	if (dest.y < 0) { srccoord.y -= dest.y; srccoord.h += dest.y; dest.y = 0; }
-	if (srccoord.x < 0) { dest.x -= srccoord.x; srccoord.w += srccoord.x; srccoord.x = 0; }
-	if (srccoord.y < 0) { dest.y -= srccoord.y; srccoord.h += srccoord.y; srccoord.y = 0; }
-	if (size_.w - dest.x < srccoord.w) srccoord.w = size_.w - dest.x;
-	if (size_.h - dest.y < srccoord.h) srccoord.h = size_.h - dest.y;
-	if (source.size_.w - srccoord.x < srccoord.w) srccoord.w = source.size_.w - srccoord.x;
-	if (source.size_.h - srccoord.y < srccoord.h) srccoord.h = source.size_.h - srccoord.y;
-	if (srccoord.w <= 0 || srccoord.h <= 0) return; // no data left to copy
+	rect const abs_rect(rel_rect.pos()+widget_pos(),rel_rect.dim());
 
-	sge::gui::color // (_f_rom|_t_o) (_l_ine|_p_ixel) (_b_egin|_e_nd)
-		*flb = source.data.get() + get_index_from_coords(srccoord.x, srccoord.y, source.size_),
-		*fle = flb + srccoord.h * source.size_.w,
-		*tlb = data.get() + get_index_from_coords(dest.x, dest.y, size_),
-		*fpb, *fpe, *tpb;
+	//cerr << "canvas: widget position is " << widget_pos() << "\n";
 
-	for (; flb != fle; flb += source.size_.w, tlb += size_.w)
-		for (fpb = flb, fpe = fpb + srccoord.w, tpb = tlb; fpb != fpe; ++fpb, ++tpb)
-			policy(*tpb, *fpb);
-}
-
-void sge::gui::canvas::blit(color::mixing_policy_t policy, const canvas &source, rect srccoord, point dest, float alpha) {
-	if (srccoord.x >= source.size_.w || srccoord.y >= source.size_.h) return; // nothing to blit from
-	if (dest.x >= size_.w || dest.y >= size_.h) return; // nowhere to blit to
-	if (dest.x < 0) {srccoord.x -= dest.x; srccoord.w += dest.x; dest.x = 0; }
-	if (dest.y < 0) { srccoord.y -= dest.y; srccoord.h += dest.y; dest.y = 0; }
-	if (srccoord.x < 0) { dest.x -= srccoord.x; srccoord.w += srccoord.x; srccoord.x = 0; }
-	if (srccoord.y < 0) { dest.y -= srccoord.y; srccoord.h += srccoord.y; srccoord.y = 0; }
-	if (size_.w - dest.x < srccoord.w) srccoord.w = size_.w - dest.x;
-	if (size_.h - dest.y < srccoord.h) srccoord.h = size_.h - dest.y;
-	if (source.size_.w - srccoord.x < srccoord.w) srccoord.w = source.size_.w - srccoord.x;
-	if (source.size_.h - srccoord.y < srccoord.h) srccoord.h = source.size_.h - srccoord.y;
-	if (srccoord.w <= 0 || srccoord.h <= 0) return; // no data left to copy
-
-	sge::gui::color // (_f_rom|_t_o) (_l_ine|_p_ixel) (_b_egin|_e_nd)
-		*flb = source.data.get() + get_index_from_coords(srccoord.x, srccoord.y, source.size_),
-		*fle = flb + srccoord.h * source.size_.w,
-		*tlb = data.get() + get_index_from_coords(dest.x, dest.y, size_),
-		*fpb, *fpe, *tpb;
-
-	sge::gui::color current_pixel;
-	for (; flb != fle; flb += source.size_.w, tlb += size_.w) {
-		for (fpb = flb, fpe = fpb + srccoord.w, tpb = tlb; fpb != fpe; ++fpb, ++tpb) {
-			current_pixel = *tpb;
-			policy(current_pixel, *fpb);
-			*tpb = sge::gui::gradient_policy::normal::mix(*tpb, current_pixel, alpha);
-		}
-	}
-}
-
-void sge::gui::canvas::fill_rect(rect area, const color &col) {
-	if (area.x < 0) { area.w += area.x; area.x = 0; }
-	if (area.y < 0) { area.h += area.y; area.y = 0; }
-	if (area.x + area.w > size_.w) area.w = size_.w - area.x;
-	if (area.y + area.h > size_.h) area.h = size_.h - area.y;
-	if (area.w <= 0 || area.h <= 0) return;
-
-	sge::gui::color *lineb = data.get() + get_index_from_coords(area.x, area.y, size_),
-	                *linee = lineb + area.h * size_.w,
-	                *pixb, *pixe;
-	for (int i=0, j; lineb != linee; lineb += size_.w, ++i)
-		for (j=0, pixb = lineb, pixe = pixb + area.w; pixb != pixe; ++pixb, ++j)
-			*pixb = col;
-}
-
-namespace {
-	struct draw_line_coords {
-		sge::gui::unit &largeunit, &smallunit;
-		draw_line_coords(sge::gui::unit &lu, sge::gui::unit &su) : largeunit(lu), smallunit(su) {}
-	};
-}
-
-void sge::gui::canvas::draw_line(color::mixing_policy_t policy, const point &from, const point &to, const color &col) {
-	if (to == from) {
-		try {
-			pixel(to).mix(policy, col);
-		} catch(sge::gui::canvas::invalid_coords &e) {}
+	// rect is not (completely) inside area?
+	SGE_ASSERT_MESSAGE(
+		math::contains(widget_area(),abs_rect),SGE_TEXT("tried to draw a rect ")+
+		boost::lexical_cast<string>(abs_rect)+
+		SGE_TEXT(" which is not completely inside the widget rect ")+
+		boost::lexical_cast<string>(widget_area()));
+	
+	//cerr << "canvas: trying to draw rect " <<  abs_rect << " (absolute)\n";
+	
+	// draw not the whole rect but only the intersection of the rect with the
+	// locked area. if they don't intersect, nothing is to be drawn
+	if (!math::intersects(abs_rect,invalid_area()))
+	{
+		//cerr << "canvas: rect " << abs_rect << " and invalid area " << invalid_area() << " don't intersect, returning\n";
 		return;
 	}
 
-	sge::gui::unit
-		delta_x = to.x - from.x,
-		delta_y = to.y - from.y;
+	math::basic_rect<int> const is =
+		math::structure_cast<int>(math::intersection(abs_rect,invalid_area()));
 
-	sge::gui::point p(delta_x, delta_y);
-	draw_line_coords coord = ((delta_x < 0) ? -delta_x : delta_x) < ((delta_y < 0) ? -delta_y : delta_y)
-		? draw_line_coords(p.y, p.x)
-		: draw_line_coords(p.x, p.y);
-	const draw_line_coords size = ((delta_x < 0) ? -delta_x : delta_x) < ((delta_y < 0) ? -delta_y : delta_y)
-		? draw_line_coords(size_.h, size_.w)
-		: draw_line_coords(size_.w, size_.h);
+	//cerr << "canvas: rect " << abs_rect << " and invalid area " << invalid_area() << " intersection " << is << "\n";
 
-	// Note: This code actually draws from to to from.
-	// There is no reason for _this_ function to do so, but for the
-	// version that uses a gradient for drawing, this will vastly ease
-	// the gradient progess handling because it runs from 100% to 0%
-	const sge::gui::unit
-		largestep = (coord.largeunit < 0) ? 1 : -1;
-	int
-		numsteps = (coord.largeunit < 0) ? -coord.largeunit : coord.largeunit;
-	const sge::gui::funit
-		smallstep = -static_cast<sge::gui::funit>(coord.smallunit) / static_cast<sge::gui::funit>(numsteps);
-
-	p.x = to.x; p.y = to.y;
-	sge::gui::funit smallunit = coord.smallunit + 0.5;
-
-	// sanitize primary direction
-	if (coord.largeunit < 0) {
-		if (largestep > 0) {
-			numsteps -= -coord.largeunit;
-			smallunit += -coord.largeunit * smallstep;
-			coord.largeunit = 0;
-		} else
-			return; // no part of the line hits the rect
-	} else if (coord.largeunit >= size.largeunit) {
-		if (largestep < 0) {
-			numsteps -= coord.largeunit - size.largeunit - 1;
-			smallunit += (coord.largeunit - size.largeunit - 1) * smallstep;
-			coord.largeunit = size.largeunit - 1;
-		} else
-			return; // no part of the line hits the rect
+	switch (t)
+	{
+		case rect_type::filled:
+		{
+			//cerr << "chose type 'filled', so filling sub view " << is.left()-invalid_area().left() << "," 
+			//	<< is.top()-invalid_area().top() << "," << is.w() << "," << is.h() << "\n";
+			boost::gil::fill_pixels(
+				boost::gil::subimage_view(
+					view(),
+					is.left()-invalid_area().left(),
+					is.top()-invalid_area().top(),
+					is.w(),
+					is.h()
+					)
+			,c);
+		}
+		break;
+		case rect_type::outline:
+		{
+			// clipping is handled inside draw_line_strip or draw_line respectively
+			point_container ps;
+			ps.push_back(point(point(rel_rect.left(),rel_rect.top())));
+			ps.push_back(point(point(rel_rect.right()-1,rel_rect.top())));
+			ps.push_back(point(point(rel_rect.right()-1,rel_rect.bottom()-1)));
+			ps.push_back(point(point(rel_rect.left(),rel_rect.bottom()-1)));
+			draw_line_strip(ps,c,true);
+		}
+		break;
 	}
-
-	// sanitize secondary direction
-	if (smallunit < 0) {
-		if (smallstep > 0) {
-			const int fullsteps = static_cast<sge::gui::unit>(-smallunit/smallstep);
-			numsteps -= fullsteps;
-			coord.largeunit += fullsteps * largestep;
-			smallunit += fullsteps * smallstep;
-		} else
-			return; // no part of the line hits the rect
-	} else if (smallunit > size.smallunit) {
-		if (smallstep < 0) {
-			const int fullsteps = static_cast<sge::gui::unit>((size.smallunit - smallunit)/smallstep);
-			numsteps -= fullsteps;
-			coord.largeunit += fullsteps * largestep;
-			smallunit += fullsteps * smallstep;
-		} else
-			return; // no part of the line hits the rect
-	}
-
-	bool prev_in_area = false, this_in_area;
-	do {
-		coord.smallunit = static_cast<sge::gui::unit>(smallunit);
-		if (this_in_area = (p.x >= 0 && p.y >= 0 && p.x < size_.w && p.y < size_.h))
-			pixel(p).mix(policy, col);
-
-		else if (prev_in_area)
-			// we've walked out of the rect - no chance to get back
-			// into it on this line, so abort
-			break;
-
-		prev_in_area = this_in_area;
-		coord.largeunit += largestep;
-		smallunit += smallstep;
-	} while (numsteps--);
 }
 
-void sge::gui::canvas::draw_line(color::mixing_policy_t policy, color::gradient_policy_t gpolicy, const point &from, const point &to, const color &colfrom, const color &colto) {
-	if (to == from) {
-		try {
-			pixel(to).mix(policy, gpolicy(colfrom, colto, 0));
-		} catch(sge::gui::canvas::invalid_coords &e) {}
+void sge::gui::canvas::draw_line_strip(
+	point_container const &points,
+	color_type const c,
+	bool const loop)
+{
+	SGE_ASSERT(points.size() > 1);
+	
+	for (point_container::size_type i = static_cast<point_container::size_type>(0); 
+		i < static_cast<point_container::size_type>(points.size()-1); 
+		++i)
+		draw_line(points[i],points[i+1],c);
+
+	if (loop)
+		draw_line(points[points.size()-1],points[0],c);
+}
+
+sge::gui::canvas::view_type sge::gui::canvas::sub_view(rect const &r)
+{
+	return boost::gil::subimage_view(
+		view(),
+		static_cast<int>(r.left()),
+		static_cast<int>(r.top()),
+		static_cast<int>(r.w()),
+		static_cast<int>(r.h())
+		);
+}
+
+void sge::gui::canvas::blit_font(
+	point const &pos,
+	font::const_image_view const &data,
+	color_type const fg,
+	color_type const bg)
+{
+	//cerr << "canvas: character height is " << data.height() 
+	//					<< ", drawing it at position " << pos << "\n";
+	point const abs_pos = widget_pos() + pos;
+
+	// absolute data area
+	rect const abs_data_area(
+		abs_pos,
+		dim(
+			static_cast<unit>(data.width()),
+			static_cast<unit>(data.height())
+		));
+
+	//cerr << "canvas: trying to draw a character at " << abs_data_area << "\n";
+		
+	// if the character to be drawn and the invalid area don't even intersect,
+	// then leave it out
+	if (!math::intersects(abs_data_area,invalid_area()))
+	{
+		//cerr << "canvas: " << abs_data_area << " and invalid area " << invalid_area() << " do not intersect, returning\n";
 		return;
 	}
+	
+	//cerr << "canvas: " << abs_data_area << " and invalid area " << invalid_area() << " intersect, continuing\n";
 
-	sge::gui::unit
-		delta_x = to.x - from.x,
-		delta_y = to.y - from.y;
+	// calculate absolute intersection between invalid and data area
+	rect const is_abs = math::intersection(abs_data_area,invalid_area());
 
-	sge::gui::point p(delta_x, delta_y);
-	draw_line_coords coord = ((delta_x < 0) ? -delta_x : delta_x) < ((delta_y < 0) ? -delta_y : delta_y)
-		? draw_line_coords(p.y, p.x)
-		: draw_line_coords(p.x, p.y);
-	const draw_line_coords size = ((delta_x < 0) ? -delta_x : delta_x) < ((delta_y < 0) ? -delta_y : delta_y)
-		? draw_line_coords(size_.h, size_.w)
-		: draw_line_coords(size_.w, size_.h);
+	//cerr << "canvas: absolute intersection is: " << is_abs << "\n";
 
-	// Note: This code actually draws from to to from.
-	// There is no reason for _this_ function to do so, but for the
-	// version that uses a gradient for drawing, this will vastly ease
-	// the gradient progess handling because it runs from 100% to 0%
-	const sge::gui::unit
-		largestep = (coord.largeunit < 0) ? 1 : -1;
-	int
-		numsteps = (coord.largeunit < 0) ? -coord.largeunit : coord.largeunit;
-	const sge::gui::funit
-		smallstep = -static_cast<sge::gui::funit>(coord.smallunit) / static_cast<sge::gui::funit>(numsteps),
-		gradientstep = 1.0 / numsteps;
-
-	p.x = to.x; p.y = to.y;
-	sge::gui::funit smallunit = coord.smallunit + 0.5;
-
-	// sanitize primary direction
-	if (coord.largeunit < 0) {
-		if (largestep > 0) {
-			numsteps -= -coord.largeunit;
-			smallunit += -coord.largeunit * smallstep;
-			coord.largeunit = 0;
-		} else
-			return; // no part of the line hits the rect
-	} else if (coord.largeunit >= size.largeunit) {
-		if (largestep < 0) {
-			numsteps -= coord.largeunit - size.largeunit - 1;
-			smallunit += (coord.largeunit - size.largeunit - 1) * smallstep;
-			coord.largeunit = size.largeunit - 1;
-		} else
-			return; // no part of the line hits the rect
-	}
-
-	// sanitize secondary direction
-	if (smallunit < 0) {
-		if (smallstep > 0) {
-			const int fullsteps = static_cast<sge::gui::unit>(-smallunit/smallstep);
-			numsteps -= fullsteps;
-			coord.largeunit += fullsteps * largestep;
-			smallunit += fullsteps * smallstep;
-		} else
-			return; // no part of the line hits the rect
-	} else if (smallunit > size.smallunit) {
-		if (smallstep < 0) {
-			const int fullsteps = static_cast<sge::gui::unit>((size.smallunit - smallunit)/smallstep);
-			numsteps -= fullsteps;
-			coord.largeunit += fullsteps * largestep;
-			smallunit += fullsteps * smallstep;
-		} else
-			return; // no part of the line hits the rect
-	}
-
-	bool prev_in_area = false, this_in_area;
-	sge::gui::funit gradientposition = numsteps * gradientstep;
-	do {
-		coord.smallunit = static_cast<sge::gui::unit>(smallunit);
-		if (this_in_area = (p.x >= 0 && p.y >= 0 && p.x < size_.w && p.y < size_.h))
-			pixel(p).mix(policy, gpolicy(colfrom, colto, gradientposition));
-
-		else if (prev_in_area)
-			// we've walked out of the rect - no chance to get back
-			// into it on this line, so abort
-			break;
-
-		prev_in_area = this_in_area;
-		coord.largeunit += largestep;
-		smallunit += smallstep;
-		gradientposition -= gradientstep;
-	} while (numsteps--);
-}
-
-void sge::gui::canvas::draw_arc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &col) {
-	arcfrom /= 2 * sge::math::PI; arcto /= 2 * sge::math::PI;
-	double stupid_cstdlib_modf_urgently_needs_this_dummy;
-
-	sge::gui::fpoint excenter;
-	sge::gui::fdim2  dimension(boundary.w-1, boundary.h-1);
-	{ sge::gui::funit
-		exx = (dimension.w < 0) ? -dimension.w : dimension.w,
-		exy = (dimension.h < 0) ? -dimension.h : dimension.h;
-		if (exx > exy) {
-			excenter.x = 1.0;
-			excenter.y = exy/exx;
-		} else {
-			excenter.x = exx/exy;
-			excenter.y = 1.0;
-		}
-	}
-	dimension.w *= 0.5;
-	dimension.h *= 0.5;
-	const sge::gui::fpoint center(
-		boundary.x + dimension.w + 0.5,
-		boundary.y + dimension.h + 0.5
-	); // rounding for int cast ---^^^
-
-
-	const sge::gui::funit
-		stepmultiplyer = (arcto < arcfrom) ? -1 : 1,
-		basestep = stepmultiplyer * excenter.x * excenter.y * (0.5 / sge::math::PI) / ((dimension.w < dimension.h) ? dimension.w : dimension.h);
-
-	sge::gui::unit numstepsleft = 0;
-	{ sge::gui::funit arc = arcfrom; sge::gui::funit refined_arc;
-		while (stepmultiplyer * arc <= stepmultiplyer * arcto) {
-			++numstepsleft;
-			refined_arc = 2 * std::modf(arc, &stupid_cstdlib_modf_urgently_needs_this_dummy); // -2 .. 2
-			// fold full circle (circumference = 4)
-			// to first quarter of a circle
-			if (refined_arc < 0.0) refined_arc = 2.0 + refined_arc;
-			if (refined_arc > 1.0) refined_arc = 2.0 - refined_arc;
-			arc += basestep * (refined_arc * excenter.y + (1.0 - refined_arc) * excenter.x);
-		}
-	}
-	const sge::gui::unit numsteps = numstepsleft;
-	if (!numsteps) return;
-
-	const sge::gui::point startpoint(
-		static_cast<sge::gui::unit>(center.x + dimension.w * cosine(arcfrom)),
-		static_cast<sge::gui::unit>(center.y - dimension.h * sine(arcfrom))
+	// calculate rect which is relative to data (and make it 'int' 'cause gil wants it
+	// that way
+	math::basic_rect<int> const is_rel_data(
+		static_cast<int>(is_abs.left()-abs_pos.x()),
+		static_cast<int>(is_abs.top()-abs_pos.y()),
+		static_cast<int>(is_abs.right()-abs_pos.x()),
+		static_cast<int>(is_abs.bottom()-abs_pos.y())
 	);
 
-	--numstepsleft;
-	try {
-		pixel(startpoint).mix(policy, col);
-	} catch (...) {}
+	//cerr << "canvas: intersection relative to data is: " << is_rel_data << "\n";
 
-	sge::gui::point thispoint, lastpoint = startpoint;
-	sge::gui::funit arc = arcfrom, refined_arc;
-	while(numstepsleft--) {
-		refined_arc = 2 * std::modf(arc, &stupid_cstdlib_modf_urgently_needs_this_dummy); // -2 .. 2
-		// fold full circle (circumference = 4)
-		// to first quarter of a circle
-		if (refined_arc < 0.0) refined_arc = 2.0 + refined_arc;
-		if (refined_arc > 1.0) refined_arc = 2.0 - refined_arc;
-		arc += basestep * (refined_arc * excenter.y + (1.0 - refined_arc) * excenter.x);
-
-		thispoint.x = static_cast<sge::gui::unit>(center.x + dimension.w * cosine(arc));
-		thispoint.y = static_cast<sge::gui::unit>(center.y - dimension.h * sine(arc));
-
-		if (thispoint != lastpoint && (numstepsleft || (thispoint != startpoint))) try {
-			pixel(thispoint).mix(policy, col);
-		} catch(...) {}
-
-		lastpoint = thispoint;
-	}
-}
-
-void sge::gui::canvas::draw_arc(color::mixing_policy_t policy, color::gradient_policy_t gradientpolicy, const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto) {
-	arcfrom /= 2 * sge::math::PI; arcto /= 2 * sge::math::PI;
-	double stupid_cstdlib_modf_urgently_needs_this_dummy;
-
-	sge::gui::fpoint excenter;
-	sge::gui::fdim2  dimension(boundary.w-1, boundary.h-1);
-	{ sge::gui::funit
-		exx = (dimension.w < 0) ? -dimension.w : dimension.w,
-		exy = (dimension.h < 0) ? -dimension.h : dimension.h;
-		if (exx > exy) {
-			excenter.x = 1.0;
-			excenter.y = exy/exx;
-		} else {
-			excenter.x = exx/exy;
-			excenter.y = 1.0;
-		}
-	}
-	dimension.w *= 0.5;
-	dimension.h *= 0.5;
-	const sge::gui::fpoint center(
-		boundary.x + dimension.w + 0.5,
-		boundary.y + dimension.h + 0.5
-	); // rounding for int cast ---^^^
-
-
-	const sge::gui::funit
-		stepmultiplyer = (arcto < arcfrom) ? -1 : 1,
-		basestep = stepmultiplyer * excenter.x * excenter.y * (0.5 / sge::math::PI) / ((dimension.w < dimension.h) ? dimension.w : dimension.h);
-
-	sge::gui::unit numstepsleft = 0;
-	{ sge::gui::funit arc = arcfrom; sge::gui::funit refined_arc;
-		while (stepmultiplyer * arc <= stepmultiplyer * arcto) {
-			++numstepsleft;
-			refined_arc = 2 * std::modf(arc, &stupid_cstdlib_modf_urgently_needs_this_dummy); // -2 .. 2
-			// fold full circle (circumference = 4)
-			// to first quarter of a circle
-			if (refined_arc < 0.0) refined_arc = 2.0 + refined_arc;
-			if (refined_arc > 1.0) refined_arc = 2.0 - refined_arc;
-			arc += basestep * (refined_arc * excenter.y + (1.0 - refined_arc) * excenter.x);
-		}
-	}
-	if (!numstepsleft) return;
-	const sge::gui::unit numsteps = numstepsleft;
-	const sge::gui::funit gradientstep = (numsteps > 1) ? 1.0 / (numsteps - 1) : 0;
-
-	const sge::gui::point startpoint(
-		static_cast<sge::gui::unit>(center.x + dimension.w * cosine(arcfrom)),
-		static_cast<sge::gui::unit>(center.y - dimension.h * sine(arcfrom))
+	// calculate rect relative to invalid_rect
+	rect const is_rel_invalid(
+		is_abs.left()-invalid_area().left(),
+		is_abs.top()-invalid_area().top(),
+		is_abs.right()-invalid_area().left(),
+		is_abs.bottom()-invalid_area().top()
 	);
 
-
-	--numstepsleft;
-	try {
-		pixel(startpoint).mix(policy, gradientpolicy(colfrom, colto, 0));
-	} catch (...) {}
-
-	sge::gui::point thispoint, lastpoint = startpoint;
-	sge::gui::funit arc = arcfrom, refined_arc, gradient = gradientstep;
-	while(numstepsleft--) {
-		refined_arc = 2 * std::modf(arc, &stupid_cstdlib_modf_urgently_needs_this_dummy); // -2 .. 2
-		// fold full circle (circumference = 4)
-		// to first quarter of a circle
-		if (refined_arc < 0.0) refined_arc = 2.0 + refined_arc;
-		if (refined_arc > 1.0) refined_arc = 2.0 - refined_arc;
-		arc += basestep * (refined_arc * excenter.y + (1.0 - refined_arc) * excenter.x);
-
-		thispoint.x = static_cast<sge::gui::unit>(center.x + dimension.w * cosine(arc));
-		thispoint.y = static_cast<sge::gui::unit>(center.y - dimension.h * sine(arc));
-
-		if (thispoint != lastpoint && (numstepsleft || (thispoint != startpoint))) try {
-			pixel(thispoint).mix(policy, gradientpolicy(colfrom, colto, gradient));
-		} catch(...) {}
-
-		lastpoint = thispoint;
-		gradient += gradientstep;
-	}
+	//cerr << "canvas: intersection relative to invalid rect is: " << is_rel_invalid << "\n";
+	
+	converter conv(fg,bg);
+	boost::gil::copy_and_convert_pixels(
+		boost::gil::subimage_view(
+			data,
+			is_rel_data.left(),
+			is_rel_data.top(),
+			is_rel_data.w(),
+			is_rel_data.h()
+			),
+		sub_view(is_rel_invalid),
+		conv);
 }
 
-sge::virtual_texture_ptr sge::gui::canvas::to_texture(sge::texture_manager &texmgr, sge::virtual_texture_ptr texture) const {
-	sge::gui::color *fromb = data.get(), *frome = fromb + (size_.w * size_.h);
-	boost::scoped_array<sge::color> texdata(new sge::color[size_.w * size_.h]);
-	sge::color *to = texdata.get();
-	while (fromb != frome) {
-		*to = *fromb;
-		++to; ++fromb;
-	}
+void sge::gui::canvas::draw_text(
+	string const &text,
+	point const &pos,
+	dim const &max_size,
+	font::align_h::type h,
+	font::align_v::type v,
+	font::flag_t f)
+{
+	SGE_ASSERT_MESSAGE(metrics,SGE_TEXT("no metrics set!"));
+	SGE_ASSERT_MESSAGE(font,SGE_TEXT("no font set!"));
+	font->draw_text(text,pos,max_size,h,v,f);
+}
 
-	if (texture &&
-	    static_cast<sge::gui::unit>(texture->area().w()) == size_.w &&
-	    static_cast<sge::gui::unit>(texture->area().h()) == size_.h) {
-		texture->set_data(texdata.get());
-		return texture;
-	} else {
-		return texmgr.add_texture(texdata.get(), texture::dim_type(size_.w, size_.h));
+void sge::gui::canvas::draw_pixel(point const &p,color_type const c)
+{
+	// transform coordinate relative to widget origin to absolute coordinate
+	point const p_abs = widget_pos() + p;
+	
+	if (!math::contains(invalid_area(),p_abs))
+		return;
+	
+	// transform pixel coordinate (which is relative to the widget origin)
+	// to a position relative to the invalid area origin
+	point const tf = p_abs - point(invalid_area().left(),invalid_area().top());
+	boost::gil::apply_operation(texture_,set_pixel_fn(c,tf));
+}
+
+void sge::gui::canvas::draw_line(point const &a,point const &b,color_type const color)
+{
+	//cerr << "canvas: checking if " << (widget_pos() + a) << " is inside of ";
+	//cerr << widget_area() << ": " << math::contains(widget_area(),widget_pos() + a) << "\n";
+	//cerr << "canvas: checking if " << (widget_pos() + b) << " is inside of " ;
+	//cerr << widget_area() << ": " << math::contains(widget_area(),widget_pos() + b) << "\n";
+
+	SGE_ASSERT_MESSAGE(
+		math::contains(widget_area(),widget_pos() + a) && 
+		math::contains(widget_area(),widget_pos() + b),
+		(format(SGE_TEXT("tried to draw a line from %1% to %2%, which is out of the widget area %3%")) % (widget_pos() + a) % (widget_pos() + b) % widget_area()).str());
+
+	// increment in each direction, is also diagonal step
+ 	point const dd = apply(b-a,boost::bind(&math::signum<unit>,_1));
+	// absolute distance between the points
+	point const d = apply(b-a,boost::bind(&std::abs<unit>,_1));
+	// parallel step
+	point const pd = d.x() > d.y() 
+		? point(dd.x(),static_cast<unit>(0)) : point(static_cast<unit>(0),dd.y());
+	// error values
+	unit const es = std::min(d.x(),d.y()),el = std::max(d.x(),d.y());
+
+	// current pixel position
+	point pos = a;
+
+	// set first pixel
+	draw_pixel(pos,color);
+ 
+	// t counts the pixels
+	for(unit t = static_cast<unit>(0),
+		err = static_cast<unit>(el/2-es); t < el; t += 1,err -= es) 
+	{
+		if(err < static_cast<unit>(0))
+			// make error term positive again, then do diagonal step
+			err += el, pos += dd;
+		else
+			// parallel step
+			pos += pd;
+
+		draw_pixel(pos,color);
 	}
 }

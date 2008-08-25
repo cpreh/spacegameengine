@@ -1,82 +1,93 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2007  Simon Stienen (s.stienen@slashlife.org)
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-
 #ifndef SGE_GUI_MANAGER_HPP_INCLUDED
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
-#include "canvas.hpp"
-#include "inputprocessor.hpp"
-#include "widget.hpp"
+#include "types.hpp"
 
-namespace sge {
-namespace gui {
+#include "../renderer/device.hpp"
+#include "../input/system.hpp"
+#include "../font/system.hpp"
+#include "../sprite/object.hpp"
+#include "../sprite/system.hpp"
+#include "../scoped_connection.hpp"
+#include "../image/loader.hpp"
+#include "../export.hpp"
 
-class manager : public widget, public inputacceptor {
+namespace sge
+{
+namespace gui
+{
+// forward declaration
+class widget;
+
+class manager
+{
+	public:
+	SGE_SYMBOL manager(renderer::device_ptr,image::loader_ptr,input::system_ptr,font::system_ptr);
+	SGE_SYMBOL void invalidate(rect const &);
+	SGE_SYMBOL void draw();
+	font::metrics_ptr const standard_font() { return standard_font_; }
+	renderer::color const standard_color() const { return standard_color_; }
+	renderer::color const standard_color_focused() const { return standard_color_focused_; }
+
+	private:
 	friend class widget;
 
-public:
-	manager();
-	manager(const dim2 &);
-	manager(inputprocessor &);
-	manager(inputprocessor &, const point &, const dim2 &);
-	manager(inputprocessor &, const rect &);
-	~manager();
+	struct widget_data
+	{
+		widget_data(
+			widget&,
+			renderer::texture_ptr,
+			sprite::object const &);
 
-	manager *top_level_widget();
-	void resize(dim2);
+		widget *ptr;
+		renderer::texture_ptr texture;
+		sprite::object spr;
+	};
+	typedef std::vector<widget_data> widget_container;
+	typedef std::vector<rect> dirt_container;
 
-	sge::virtual_texture_ptr to_texture(sge::texture_manager &texmgr);
-	void free_texture();
+	// engine relevant stuff
+	renderer::device_ptr const rend;
+	image::loader_ptr const il;
+	input::system_ptr const is;
+	font::system_ptr const fs;
+	font::metrics_ptr const standard_font_;
+	renderer::color const standard_color_;
+	renderer::color const standard_color_focused_;
+	scoped_connection ic;
+	sprite::system ss;
+	sge::sprite::object cursor;
+	sge::sprite::point cursor_click;
 
-public:
-	// inputacceptor api
-	using inputacceptor::inputprocessor_attach;
-	using inputacceptor::inputprocessor_detach;
+	// other internal stuff
+	widget_container widgets_;
+	dirt_container dirt_;
 
-	point inputprocessor_offset() const;
+	// focus
+	widget *keyboard_focus;
+	widget *mouse_focus;
 
-	inputprocessor::response inject_mouse_move    (const events::mouse_event       &);
-	inputprocessor::response inject_mouse_click   (const events::mouse_event       &);
-	inputprocessor::response inject_mouse_dblclick(const events::mouse_event       &);
-	inputprocessor::response inject_mouse_down    (const events::mouse_event       &);
-	inputprocessor::response inject_mouse_up      (const events::mouse_event       &);
-	inputprocessor::response inject_mouse_wheel   (const events::mouse_wheel_event &);
+	// this is called by widget's constructor and destructor
+	void add(widget &);
+	void remove(widget &);
+	void compile(widget &);
 
-//	inputprocessor::response inject_key_down      (const events::keyboard_event    &);
-//	inputprocessor::response inject_key_up        (const events::keyboard_event    &);
-//	inputprocessor::response inject_key_press     (const events::keyboard_event    &);
+	// this is called by widget's size/pos function (if it encounters a top level widget)
+	void resize(widget &,dim const &);
+	void reposition(widget &,point const &);
 
-protected:
-	canvas framebuffer;
-	void focus(widget*);
-	void blur (widget*);
+	// internal search functions (just convenience)
+	widget_data &get_data(widget &);
+	widget_container::iterator get_data_iterator(widget &);
+	widget_data &parent_widget_data(widget &);
+	void recalculate_mouse_focus();
 
-private:
-	sge::virtual_texture_ptr last_texture;
-	void widget_removed(widget*);
-	widget *previously_hovered_widget,
-	       *currently_focused_widget;
-	void init();
+	// registered input callback
+	void input_callback(input::key_pair const &);
+
+	void redraw_dirt();
 };
-
 }
 }
 
-#endif // SGE_GUI_MANAGER_HPP_INCLUDED
+#endif

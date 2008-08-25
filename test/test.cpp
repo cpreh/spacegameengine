@@ -33,8 +33,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/transform.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/texture_filter.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
+#include <sge/renderer/image_view_impl.hpp>
+#include <sge/renderer/image_view_hack.hpp>
+#include <sge/renderer/image_view_factory.hpp>
 #include <sge/media.hpp>
 #include <sge/input/system.hpp>
+#include <sge/image/loader.hpp>
+#include <sge/image/create_texture.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/endianness.hpp>
 #include <sge/exception.hpp>
@@ -44,11 +51,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/basic_sequence_impl.hpp>
 #include <sge/math/vector.hpp>
 #include <sge/math/vector_impl.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <sge/sprite/intrusive_system.hpp>
+#include <sge/log/macros.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/temporary_output.hpp>
+#include <sge/log/logger.hpp>
+#include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <sge/renderer/color.hpp>
 
 int main()
 try
 {
+	sge::log::logger &log(sge::log::global());
+
+	log.activate(sge::log::level::debug);
+
+	SGE_LOG_DEBUG(log, sge::log::_1 << SGE_TEXT("HAHA"));
+
 	bool running = true;
 	sge::plugin::manager pm;
 
@@ -69,6 +89,9 @@ try
 
 	sge::font::font fn(metrics, fn_drawer);
 
+	const sge::plugin::plugin<sge::image::loader>::ptr_type image_plugin = pm.get_plugin<sge::image::loader>().load();
+	const sge::image::loader_ptr image_loader(image_plugin->get()());
+
 	sge::sprite::intrusive_system sys(rend);
 	sge::sprite::intrusive_object spr(sys, 1);
 	sge::sprite::intrusive_object spr2(spr);
@@ -88,6 +111,43 @@ try
 						boost::lambda::_1))
 					== sge::input::kc::key_escape)
 				[var(running)=false]));
+
+	/*sge::renderer::texture_ptr const testtex(
+		rend->create_texture(
+			sge::renderer::texture::dim_type(256, 256),
+			sge::renderer::color_format::rgba8,
+			sge::renderer::linear_filter,
+			sge::renderer::resource_flags::readable));*/
+	sge::renderer::texture_ptr const testtex(
+		sge::image::create_texture(
+			sge::media_path() / SGE_TEXT("grass.png"),
+			rend,
+			image_loader,
+			sge::renderer::linear_filter,
+			sge::renderer::resource_flags::readable));
+
+	{
+		sge::renderer::scoped_texture_lock const lock_(
+			sge::renderer::make_scoped_lock(
+				testtex,
+				sge::renderer::lock_rect(
+					100,
+					100,
+					200,
+					200),
+				sge::renderer::lock_flags::readwrite));
+
+		boost::gil::fill_pixels(
+			sge::renderer::subimage_view(
+				lock_.value(),
+				sge::renderer::lock_rect(0, 0, 50, 50)),
+			sge::renderer::make_color_rgba(255, 0, 0, 255));
+
+
+		image_loader->create_image(
+			sge::renderer::make_const_view(lock_.value()))->save(
+				SGE_TEXT("./sge_test.png"));
+	}
 
 /*	rend->set_state(
 		sge::renderer::state_list

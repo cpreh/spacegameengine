@@ -42,8 +42,7 @@ FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	signals
 	regex
 	iostreams
-	system
-	thread)
+	system)
 
 IF (${CMAKE_COMPILER_IS_GNUCXX})
 	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self")
@@ -59,7 +58,7 @@ ELSEIF (${MSVC})
 	ADD_DEFINITIONS (-DUNICODE=1 -D_UNICODE=1)
 ENDIF ()
 
-INCLUDE_DIRECTORIES (include include/3rdparty)
+INCLUDE_DIRECTORIES (include)
 
 CONFIGURE_FILE(config.h.in include/sge/config.h)
 

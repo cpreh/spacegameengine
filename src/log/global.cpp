@@ -1,63 +1,30 @@
-#include <sge/char.hpp>
-#include <sge/once.hpp>
-#include <sge/text.hpp>
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/log/global.hpp> 
 #include <sge/log/logger.hpp>
-#include <sge/log/convert_level.hpp>
-#include <boost/iostreams/stream_buffer.hpp>
-#include <boost/iostreams/device/null.hpp>
+#include <sge/iostream.hpp>
 
-namespace
+sge::log::logger &
+sge::log::global()
 {
-
-BOOST_DECLARE_LOG_FILTER(
-  sge_log_level,
-  boost::logging::level::holder
-)
-
-BOOST_DEFINE_LOG_FILTER(
-  sge_log_level, 
-  boost::logging::level::holder
-)
-
-BOOST_DECLARE_LOG(
-  sge_logger,
-  sge::log::logger_type
-)
-
-BOOST_DEFINE_LOG(
-  sge_logger, 
-  sge::log::logger_type
-)
-
-void initialize_logger() {
-  SGE_FUNCTION_ONCE
-  sge_logger()->writer().write(
-    SGE_TEXT("[%idx%] %time%($hh:$mm.$ss): "),
-    SGE_TEXT("cerr")
-  );
-  sge_logger()->mark_as_initialized();
-  sge_log_level()->set_enabled(
-    sge::log::convert_level(
-      sge::log::level::warning
-    )
-  );
+	static logger global_(cout);
+	return global_;
 }
-
-}
-
-sge::log::temporary_output::temporary_output()
-  : os(new ostringstream())
-{}
-
-void sge::log::global(level::type const l, temporary_output const t) {
-  initialize_logger();
-  boost::logging::level::type bl = convert_level(l);
-  if(sge_log_level()->is_enabled(bl))
-    ::boost::logging::get_logger_base(
-      sge_logger()
-    )->read_msg().gather().out() << t.os->rdbuf();
-}
-
-sge::log::output_helper const sge::log::_1
-	= sge::log::output_helper();

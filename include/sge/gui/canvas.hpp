@@ -1,105 +1,75 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2007  Simon Stienen (s.stienen@slashlife.org)
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-
 #ifndef SGE_GUI_CANVAS_HPP_INCLUDED
 #define SGE_GUI_CANVAS_HPP_INCLUDED
 
-#include <string>
-
-#include <boost/smart_ptr.hpp>
-
-#include "../texture/manager.hpp"
-
 #include "types.hpp"
-#include "color.hpp"
-#include "exception.hpp"
-#include "mixing_policies.hpp"
-#include "gradient_policies.hpp"
+#include "../export.hpp"
+#include "../renderer/texture.hpp"
+#include "../font/types.hpp"
+#include "../font/fwd.hpp"
+#include "../font/font.hpp"
 
-namespace sge {
-namespace gui {
+#include <boost/scoped_ptr.hpp>
 
-class canvas {
-private:
-	dim2 size_;
-	boost::scoped_array<color> data;
+#include <vector>
 
-public:
-	canvas();
-	canvas(const canvas &);
-	canvas &operator=(const canvas &other);
-	canvas(dim2 size_);
-	canvas(dim2 size_, const color &fillcolor);
+namespace sge
+{
+namespace gui
+{
+namespace rect_type
+{
+enum type { outline,filled };
+}
 
-	void resize(const dim2 &newsize, bool keepcontent=false);
-	inline const dim2 &size() const { return size_; }
-
-	class invalid_coords : public exception {
+// TODO: canvas has to accept three parameters: invalid_rect, widget_rect and the view. 
+// widget_rect and invalid_rect have to be absolute rects. the drawing functions get coordinates 
+// (relative to the widget's local area) and have to translate those local
+// coordinates to coordinates which are relative to the invalid area's origin
+class canvas
+{
 	public:
-		invalid_coords() : exception(SGE_TEXT("Invalid coordinates.")) {}
-	};
+	typedef renderer::image_view view_type;
+	typedef renderer::const_image_view const_view_type;
+	typedef renderer::color color_type;
+	typedef std::vector<point> point_container;
 
-	void pixel(const point &coords, const color &newcol);
-	color &pixel(const point &coords);
-	inline const color &pixel(const point &coords) const {
-		return const_cast<canvas&>(*this).pixel(coords);
-	}
+	SGE_SYMBOL canvas(view_type const &,rect const &widget_rect,rect const &invalid_rect);
+	SGE_SYMBOL dim const widget_size();
+	rect const widget_area() const { return widget_; }
+	rect const invalid_area() const { return invalid_; }
+	point const widget_pos() const { return point(widget_area().left(),widget_area().top()); }
+	SGE_SYMBOL void draw_rect(rect const &,color_type,rect_type::type);
+	SGE_SYMBOL void draw_text(
+		string const &,
+		point const &,
+		dim const &max_size,
+		font::align_h::type,
+		font::align_v::type,
+		font::flag_t = font::flags::default_);
+	SGE_SYMBOL void draw_line(point const &,point const &,color_type);
+	SGE_SYMBOL void draw_line_strip(point_container const &,color_type,bool loop = true);
+	SGE_SYMBOL void reset_font(font::metrics_ptr,color_type fg,color_type bg);
+	SGE_SYMBOL void draw_pixel(point const &,color_type);
+	view_type view() { return texture_; }
+	view_type view() const { return texture_; }
+	private:
+	view_type const texture_;
+	rect const widget_;
+	rect const invalid_;
+	font::drawer_ptr const drawer;
+	font::metrics_ptr metrics;
+	font::font_ptr font;
 
-	void blit(color::mixing_policy_t policy, const canvas &source, rect srccoord, point dest);
-	template<typename MixingPolicy> inline void blit(const canvas &source, const rect &srccoord, const point &dest) {
-		blit(MixingPolicy(), source, srccoord, dest);
-	}
-	void blit(color::mixing_policy_t policy, const canvas &source, rect srccoord, point dest, float alpha);
-	template<typename MixingPolicy> inline void blit(const canvas &source, const rect &srccoord, const point &dest, float alpha) {
-		blit(MixingPolicy(), source, srccoord, dest, alpha);
-	}
-
-	void fill_rect(rect area, const color &col);
-	inline void fill(const color &col) { fill_rect(rect(point(0,0), size_), col); }
-
-	void draw_line(color::mixing_policy_t policy, const point &from, const point &to, const color &col);
-	template<typename MixingPolicy> inline void draw_line(const point &from, const point &to, const color &col) {
-		draw_line(MixingPolicy(), from, to, col);
-	}
-	void draw_line(color::mixing_policy_t mpolicy, color::gradient_policy_t gpolicy, const point &from, const point &to, const color &colfrom, const color &colto);
-	template<typename MixingPolicy, typename GradientPolicy> inline void draw_line(const point &from, const point &to, const color &colfrom, const color &colto) {
-		draw_line(MixingPolicy(), GradientPolicy(), from, to, colfrom, colto);
-	}
-
-	void draw_arc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &col);
-	template<typename MixingPolicy> inline void draw_arc(color::mixing_policy_t policy, const rect &boundary, float arcfrom, float arcto, const color &col) {
-		draw_arc(MixingPolicy(), boundary, arcfrom, arcto, col);
-	}
-	void draw_arc(color::mixing_policy_t mpolicy, color::gradient_policy_t gpolicy, const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto);
-	template<typename MixingPolicy, typename GradientPolicy> inline void draw_arc(const rect &boundary, float arcfrom, float arcto, const color &colfrom, const color &colto) {
-		draw_arc(MixingPolicy(), GradientPolicy(), boundary, arcfrom, arcto, colfrom, colto);
-	}
-
-	sge::virtual_texture_ptr to_texture(sge::texture_manager &texmgr, sge::virtual_texture_ptr texture = sge::virtual_texture_ptr()) const;
-
-public: // static members
-//	static canvas from_texture(const sge::texture &texture); // TODO
-	static canvas from_image(const std::string &path);
+	view_type sub_view(rect const &);
+	
+	friend class font_drawer_canvas;
+	void blit_font(
+		point const &,
+		font::const_image_view const &,
+		color_type fg,
+		color_type bg);
 };
-
 }
 }
 
-#endif // SGE_GUI_CANVAS_HPP_INCLUDED
+#endif

@@ -68,6 +68,10 @@ make_scoped_lock(
 	const_texture_ptr t,
 	lock_rect const &r);
 
+SGE_SYMBOL const_scoped_texture_lock_wrapper const
+make_scoped_lock(
+	const_texture_ptr t);
+
 }
 }
 

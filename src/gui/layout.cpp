@@ -1,18 +1,29 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2007  Simon Stienen (s.stienen@slashlife.org)
+#include <sge/gui/layout.hpp>
+#include <sge/gui/widgets/container.hpp>
+#include <sge/iostream.hpp>
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+sge::gui::layout::layout(widgets::container &w)
+	: w(w)
+{
+}
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+void sge::gui::layout::changed()
+{
+	sge::cerr << "layout: changed\n";
 
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+	// if size policy is fixed or it is a top level widget with dynamic size,
+	// then the environment is "safe" and we can update without breaking the
+	// layout of other widgets
+	if (connected_widget().size_policy() == size_policy::fixed || 
+		  !connected_widget().parent_widget())
+	{
+		sge::cerr << "layout: size_policy is fixed or we have a top level widget, so update\n";
+		update();
+		return;
+	}
+
+	// size policy is not fixed, so propagate event upwards until we get to a widget which
+	// is fixed
+	sge::cerr << "layout: propagaging changed event to upper layouts\n";
+	connected_widget().layout()->changed();
+}

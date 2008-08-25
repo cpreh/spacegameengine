@@ -1,39 +1,45 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2007  Simon Stienen (s.stienen@slashlife.org)
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-
 #ifndef SGE_GUI_LAYOUT_HPP_INCLUDED
 #define SGE_GUI_LAYOUT_HPP_INCLUDED
 
-#include "widget.hpp"
+#include "types.hpp"
+#include "../export.hpp"
+#include <boost/scoped_ptr.hpp>
+#include <memory>
 
-namespace sge {
-namespace gui {
+namespace sge
+{
+namespace gui
+{
+namespace widgets
+{
+class container;
+}
 
-class layout {
-public:
-	layout();
+class SGE_CLASS_SYMBOL layout
+{
+	public:
+	// nonvirtual
+	SGE_SYMBOL layout(widgets::container &);
+	SGE_SYMBOL void changed();
 
+	// pure virtual
+	virtual void update() = 0;
+	virtual dim const minimum_size() const = 0;
 
+	// getters
+	widgets::container &connected_widget() { return w; }
+	widgets::container const &connected_widget() const { return w; }
+
+	// virtual
+	virtual ~layout() {}
+	private:
+	widgets::container &w;
 };
 
+typedef boost::scoped_ptr<layout> layout_auto_ptr;
+typedef layout* layout_ptr;
+typedef layout const * const_layout_ptr;
 }
 }
 
-#endif // SGE_GUI_LAYOUT_HPP_INCLUDED
+#endif

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../readonly_texture_lock.hpp"
 #include <sge/raw_vector_impl.hpp>
 #include <sge/algorithm.hpp>
+#include <cassert>
 
 sge::ogl::readonly_texture_lock::readonly_texture_lock(
 	size_type const lock_size,
@@ -38,31 +39,38 @@ sge::ogl::readonly_texture_lock::readonly_texture_lock(
   offset(offset * stride),
   pitch(pitch * stride),
   block_size(block_size * stride)
-{}
-
-void sge::ogl::readonly_texture_lock::post_lock()
 {
 	buffer.lock(
 		lock_method::readonly);
-	if(pitch)
-	{
-		cutout_buffer.resize(
-			lock_size);
+}
 
-		cutout_buffer_type::pointer dest(cutout_buffer.data());
-		for(size_type i(offset); i < buffer.size(); i += pitch + block_size, dest += block_size)
-			copy_n(buffer.data() + i, block_size, dest);
-	}
+void sge::ogl::readonly_texture_lock::post_lock()
+{
+	if(!pitch)
+		return;
+	
+	// if the pitch is set we copy the part to read
+	// in our own buffer so that the user sees a contiguous array
+
+	assert(lock_size % block_size == 0);
+
+	cutout_buffer.resize_uninitialized(
+		lock_size);
+
+	copy_read_part(cutout_buffer.data());
+}
+
+void sge::ogl::readonly_texture_lock::copy_read_part(
+	pointer const dest) const
+{
+	size_type i(offset);
+	for(pointer p(dest); p != dest + lock_size;
+	    i += pitch + block_size, p += block_size)
+		copy_n(buffer.data() + i, block_size, p);
 }
 
 void sge::ogl::readonly_texture_lock::pre_unlock()
 {
-	if(pitch)
-	{
-		pixel_pack_buffer::pointer dest(buffer.data());
-		for(size_type i(0); i < cutout_buffer.size(); i += block_size, dest += pitch + block_size)
-			copy_n(cutout_buffer.data() + i, block_size, dest);
-	}
 	buffer.unlock();
 }
 

@@ -99,7 +99,7 @@ sge::texture::atlased_texture(
 		atlased_texture_dim(rend),
 		renderer::color_format::rgba8,
 		filter,
-		renderer::resource_flags::write_only);
+		renderer::resource_flags::none);
 }
 
 const sge::renderer::lock_rect

@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/iostream.hpp>
 #include <sge/math/power.hpp>
 #include <sge/log/global.hpp>
+#include <sge/log/logger.hpp>
+#include <sge/log/temporary_output.hpp>
 #include <ostream>
 
 sge::texture::no_fragmented::no_fragmented(
@@ -46,10 +48,10 @@ sge::texture::no_fragmented::consume_fragment(
 		real_dim,
 		renderer::color_format::rgba8,
 		my_filter,
-		renderer::resource_flags::write_only);
+		renderer::resource_flags::none);
 
 	if(real_dim != dim)
-		log::global(
+		log::global().log(
 			log::level::warning,
 			log::_1 << SGE_TEXT("warning: You used a texture::no_fragmented whose dimensions are not a power of 2.")\
 		                   SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
