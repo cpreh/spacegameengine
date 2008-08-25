@@ -111,10 +111,13 @@ Creating textures is the renderer's job:
 
 \code
 sge::renderer::texture_ptr image_texture = 
-	sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
+	sys.renderer->create_texture(
+		image->view(),
+		sge::renderer::linear_filter,
+		sge::renderer::resource_flags::readable);
 \endcode
 
-Files to include: <sge/renderer/texture_filter.hpp>
+Files to include: <sge/renderer/texture_filter.hpp>, <sge/renderer/image_view_impl.hpp>
 
 This version of \link sge::renderer::device::create_texture create_texture
 \endlink takes a <em>renderer::const_image_view</em>. Luckily, our image object
@@ -123,7 +126,8 @@ this. The second argument is the filter which is applied to the texture when
 it's rendered. Linear filter actually blurs the texture a bit, but it's the
 filter you'll most often want to use for sprites. An alternative would be
 sge::renderer::point_filter, which does no filtering at all, so with enlarged
-low resolution images, pixels can be seen.
+low resolution images, pixels can be seen. The last argument just specifies
+that we're not interested in changing this texture dynamically.
 
 Anyway, in theory, we would now be able to use the texture to paste it onto a
 sprite. If you look at the constructor of sge::sprite::object you'll see that it
@@ -181,54 +185,7 @@ Finally, we tell the sprite system to render our sprite.
 
 Here's the complete program:
 
-\code
-#include <sge/systems.hpp>
-#include <sge/init.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/system_impl.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture_filter.hpp>
-#include <sge/texture/part_raw.hpp>
-#include <sge/exception.hpp>
-#include <sge/iostream.hpp>
-#include <sge/text.hpp>
-#include <exception>
-#include <iostream>
-
-int main()
-try
-{
-	sge::systems sys;
-	sys.init<sge::init::core>();
-	sys.init<sge::init::image_loader>();
-	sys.init<sge::init::renderer>(sge::renderer::screen_size_t(640,480));
-
-	sge::sprite::system ss(sys.renderer);
-	sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("tux.png"));
-	sge::renderer::texture_ptr image_texture = 
-		sys.renderer->create_texture(image->view(),sge::renderer::linear_filter);
-	sge::sprite::object my_object(
-			sge::sprite::point(0,0),
-			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
-			sge::sprite::texture_dim);
-
-	while (true)
-	{
-			sge::window::dispatch();
-			sge::renderer::scoped_block block_(sys.renderer);
-			ss.render(my_object);
-	}
-} 
-catch (sge::exception const &e)
-{
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT("\n");
-}
-catch (std::exception const &e)
-{
-	std::cerr << "caught std exception: " << e.what() << "\n";
-}
-\endcode
+\include tutorial_01.cpp
 
 I added code to catch any sge exceptions (the most common one in this piece of
 code would be <em>could not find image 'tux.png'</em>) and also standard exceptions,

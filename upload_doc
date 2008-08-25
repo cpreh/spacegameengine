@@ -2,9 +2,9 @@
 
 username="phillemann"
 
-#echo "executing doxygen"
+echo "executing doxygen"
 
-#doxygen || exit "doxygen failed!"
+doxygen || exit "doxygen failed!"
 
 echo "switching to doc directory; compressing documentation"
 
