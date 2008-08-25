@@ -2,7 +2,6 @@
 #include <sge/console/console.hpp>
 #include <sge/console/console.hpp>
 #include <sge/console/action_var_base_impl.hpp>
-#include <sge/sprite/system_impl.hpp>
 #include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/time/second.hpp>
@@ -286,7 +285,7 @@ void sge::con::console_gfx::key_action(const input::key_type &k)
 
 void sge::con::console_gfx::draw()
 {
-	ss.render(&bg, &bg+1);
+	ss.render(bg);
 
 	string iln = *input_history_pos;
 	if (cursor_active)

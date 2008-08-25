@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
 
 #include "intrusive_object.hpp"
+#include "system_base.hpp"
 #include "../renderer/device.hpp"
-#include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
-#include "../renderer/default_transformable.hpp"
 #include <boost/intrusive/list.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/noncopyable.hpp>
@@ -35,15 +33,12 @@ namespace sge
 namespace sprite
 {
 
-class intrusive_system : public renderer::default_transformable, boost::noncopyable {
+class intrusive_system : public system_base {
 public:
 	SGE_SYMBOL explicit intrusive_system(
 		renderer::device_ptr);
 	
 	SGE_SYMBOL void render();
-
-	SGE_SYMBOL renderer::device_ptr const
-	get_renderer() const;
 private:
 	typedef boost::intrusive::list<
 		intrusive_object,
@@ -57,9 +52,6 @@ private:
 		intrusive_object::order_type);
 	friend class intrusive_object;
 
-	renderer::device_ptr const rend;
-	renderer::vertex_buffer_ptr vb;
-	renderer::index_buffer_ptr ib;
 	typedef boost::ptr_map<
 		intrusive_object::order_type,
 		sprite_list

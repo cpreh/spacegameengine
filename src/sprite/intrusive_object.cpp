@@ -68,11 +68,6 @@ sge::sprite::intrusive_object::operator=(
 	return *this;
 }
 
-sge::sprite::intrusive_object::~intrusive_object()
-{
-	unlink(); // TODO: is this necessary?
-}
-
 void sge::sprite::intrusive_object::order(
 	order_type const o)
 {

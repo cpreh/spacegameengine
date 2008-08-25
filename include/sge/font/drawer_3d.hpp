@@ -65,8 +65,7 @@ private:
 	typedef std::map<char_type, texture::part_ptr>   texture_map;
 	texture_map                                      textures;
 	sprite::system                                   sys;
-	typedef std::vector<sprite::object>              sprite_vector;
-	sprite_vector                                    sprites;
+	sprite::system::container                        sprites;
 };
 
 }
