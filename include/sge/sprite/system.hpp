@@ -40,7 +40,7 @@ public:
 		renderer::device_ptr rend);
 	template<typename In>
 		void render(In beg, In end);
-	void render(object);
+	SGE_SYMBOL void render(object);
 	SGE_SYMBOL const renderer::device_ptr get_renderer() const;
 private:
 	renderer::device_ptr        rend;
