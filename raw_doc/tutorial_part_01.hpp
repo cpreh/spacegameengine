@@ -70,13 +70,7 @@ sge::sprite::system, which gets the renderer in its constructor.
 sge::sprite::system ss(sys.renderer);
 \endcode
 
-To declare a variable of type sge::sprite::system somewhere, you need to include
-<sge/sprite/system.hpp>. To \em use it, however, another header,
-<sge/sprite/system_impl.hpp>, is needed. This is because the system's \link
-sge::sprite::system::render render \endlink function is a template and by not
-including it by default, compile time is saved. You'll see this often in sge
-headers, so if you wonder why you get <em>undefined references</em> when
-compiling your code, look for missing <em>_impl</em> headers.
+Files to include: <sge/sprite/system.hpp>
 
 Now for the tricky part, loading the image and attaching it to a sge::sprite.
 We'll be using the image called \em tux.png which is located in

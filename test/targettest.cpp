@@ -27,16 +27,43 @@ try
 			image->view(),
 			sge::renderer::linear_filter,
 			sge::renderer::resource_flags::readable);
+
 	sge::sprite::object my_object(
-			sge::sprite::point(0,0),
+			sge::sprite::point(100,0),
 			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
 			sge::sprite::texture_dim);
+
+	sge::sprite::object my_object_2(
+			sge::sprite::point(100,20),
+			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
+			sge::sprite::texture_dim);
+	
+	sge::renderer::texture_ptr target = 
+		sys.renderer->create_texture(
+			sge::renderer::texture::dim_type(640,480),
+			sge::renderer::color_format::rgba8,
+			sge::renderer::linear_filter,
+			sge::renderer::resource_flags::dynamic);
+
+	{
+		sge::renderer::scoped_block block_(sys.renderer);
+		sys.renderer->set_render_target(target);
+		ss.render(my_object);
+		ss.render(my_object_2);
+	}
+
+	sys.renderer->set_render_target(sge::renderer::device::default_render_target);
+
+	sge::sprite::object rendered_stuff(
+		sge::sprite::point(0,0),
+		sge::texture::part_ptr(new sge::texture::part_raw(target)),
+		sge::sprite::texture_dim);
 
 	while (true)
 	{
 			sge::window::dispatch();
 			sge::renderer::scoped_block block_(sys.renderer);
-			ss.render(my_object);
+			ss.render(rendered_stuff);
 	}
 } 
 catch (sge::exception const &e)

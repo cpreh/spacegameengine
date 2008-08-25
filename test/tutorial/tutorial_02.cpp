@@ -1,7 +1,6 @@
 #include <sge/systems.hpp>
 #include <sge/init.hpp>
 #include <sge/sprite/system.hpp>
-#include <sge/sprite/system_impl.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
