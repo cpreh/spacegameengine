@@ -23,7 +23,7 @@ class SGE_CLASS_SYMBOL button : public widget
 		dim const & = dim());
 
 	// overridden virtuals
-	SGE_SYMBOL dim const minimum_size() const;
+	SGE_SYMBOL dim const size_hint() const;
 	SGE_SYMBOL void process(events::invalid_area const &);
 	SGE_SYMBOL void process(events::mouse_enter const &);
 	SGE_SYMBOL void process(events::mouse_leave const &);

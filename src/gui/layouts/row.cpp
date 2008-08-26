@@ -12,6 +12,7 @@ sge::gui::layouts::row::row(widgets::container &w)
 void sge::gui::layouts::row::update()
 {
 	sge::cerr << "row: updating\n";
+
 	// if this widget has no children, just quit
 	if (!connected_widget().children().size())
 	{
@@ -20,19 +21,20 @@ void sge::gui::layouts::row::update()
 	}
 
 	// if we have a top level widget which isn't fixed, set it to the minimum size
-	if (!connected_widget().parent_widget() && connected_widget().size_policy() != size_policy::fixed)
+	if (!connected_widget().parent_widget() && 
+	    connected_widget().size_policy() != size_policy::fixed)
 	{
 		sge::cerr << "row: top level widget which can expand, setting to minimum size\n";
-		sge::cerr << "row: minimum size is " << minimum_size() << "\n";
-		connected_widget().size(minimum_size());
+		sge::cerr << "row: minimum size is " << size_hint() << "\n";
+		connected_widget().size(size_hint());
 	}
 
-	sge::cerr << "row: minimum size for this widget is " << minimum_size() << "\n";
+	sge::cerr << "row: minimum size for this widget is " << size_hint() << "\n";
 
 	// now assume we have this widget's size fixed
 	dim const fixed_size = connected_widget().size();
 	// minimum size for all widgets
-	dim const minimum = minimum_size();
+	dim const minimum = size_hint();
 	// overhead space
 	dim const extra = fixed_size - minimum;
 
@@ -78,7 +80,7 @@ void sge::gui::layouts::row::update()
 		{
 			sge::cerr << "row: child is dynamic size\n";
 
-			dim const this_min_size = child.minimum_size();
+			dim const this_min_size = child.size_hint();
 			// else use minimum size plus extra space and keep height
 			dim new_size;
 			new_size[master(new_size)] = this_min_size[master(this_min_size)]+widget_space;
@@ -98,20 +100,19 @@ void sge::gui::layouts::row::update()
 	}
 }
 
-sge::gui::dim const sge::gui::layouts::row::minimum_size() const
+sge::gui::dim const sge::gui::layouts::row::size_hint() const
 {
-	sge::cerr << "row: in minimum size\n";
+	sge::cerr << "row: in size_hint\n";
 
-	// calculate total minimum size (rowly)
-	dim minimum(static_cast<unit>(0),static_cast<unit>(0));
+	dim hint;
 
 	BOOST_FOREACH(widget const &child,connected_widget().children())
 	{
-		dim const child_size = child.minimum_size();
-		sge::cerr << "row: this child's minimum size " << child_size << "\n";
-		minimum[master(minimum)] += child_size[master(child_size)];
-		minimum[slave(minimum)] = std::max(minimum[slave(minimum)],child_size[slave(child_size)]);
+		dim const child_size = child.size_hint();
+		sge::cerr << "row: this child's size hint is " << child_size << "\n";
+		hint[master(hint)] += child_size[master(child_size)];
+		hint[slave(hint)] = std::max(hint[slave(hint)],child_size[slave(child_size)]);
 	}
 
-	return minimum;
+	return hint;
 }
