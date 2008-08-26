@@ -21,12 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/viewport.hpp>
 
 sge::renderer::viewport::viewport(
-	const pixel_unit x,
-	const pixel_unit y,
-	const screen_unit w,
-	const screen_unit h)
- : x(x),
-   y(y),
-   w(w),
-   h(h)
+	pixel_pos_t const &pos_,
+	screen_size_t const &size_)
+ : pos_(pos_),
+   size_(size_)
 {}
+
+sge::renderer::pixel_pos_t const &
+sge::renderer::viewport::pos() const
+{
+	return pos_;
+}
+
+sge::renderer::screen_size_t const &
+sge::renderer::viewport::size() const
+{
+	return size_;
+}

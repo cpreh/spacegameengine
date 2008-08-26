@@ -59,6 +59,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/types.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/default_states.hpp>
+#include <sge/math/matrix_util.hpp>
+#include <sge/math/matrix_impl.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
 // TODO: maybe support different adapters?
@@ -460,10 +462,14 @@ void sge::ogl::device::set_material(const renderer::material& mat)
 }
 
 void sge::ogl::device::set_viewport(
-	const renderer::viewport& v)
+	renderer::viewport const &v)
 {
 	SGE_OPENGL_SENTRY
-	glViewport(v.x, v.y, v.w, v.h);
+	glViewport(
+		v.pos().x(),
+		v.pos().y(),
+		v.size().w(),
+		v.size().h());
 }
 
 #ifdef SGE_HAVE_X11
@@ -493,7 +499,11 @@ void sge::ogl::device::center_viewport(const int w, const int h)
 		? (h - screen_h) / 2
 		: 0;
 
-	set_viewport(renderer::viewport(x, y, screen_width(), screen_height()));
+	set_viewport(
+		renderer::viewport(
+			renderer::pixel_pos_t(
+				x, y),
+			screen_size()));
 }
 #endif
 
@@ -512,7 +522,7 @@ void sge::ogl::device::projection(const math::space_matrix& matrix)
 }
 
 void sge::ogl::device::set_render_target(
-	const renderer::texture_ptr target)
+	renderer::texture_ptr const target)
 {
 	if(!target)
 	{
@@ -526,22 +536,30 @@ void sge::ogl::device::set_render_target(
 		set_viewport(
 			// TODO: better ctor for viewport
 			renderer::viewport(
-				offset.x(),
-				offset.y(),
-				wnd->width(),
-				wnd->height()));
+				offset,
+				wnd->size()));
+
+		/*set_matrix(
+			GL_TEXTURE,
+			math::matrix_identity());*/
 		return;
 	}
 
-	const shared_ptr<texture> p(dynamic_pointer_cast<texture>(target));
-	const fbo_target_ptr ntarget = create_render_target(p->dim());
+	shared_ptr<texture> const p(dynamic_pointer_cast<texture>(target));
+	fbo_target_ptr const ntarget = create_render_target(p->dim());
 	ntarget->bind_texture(p);
+
 	set_viewport(
 		renderer::viewport(
-			0,
-			0,
-			static_cast<renderer::screen_unit>(p->dim().w()),
-			static_cast<renderer::screen_unit>(p->dim().h())));
+			renderer::pixel_pos_t(0, 0),
+			math::structure_cast<renderer::screen_unit>(
+				p->dim())));
+	
+	/*set_matrix(
+		GL_TEXTURE,
+		math::matrix_scaling(
+			1, -1, 1));*/
+
 	render_target_ = ntarget;
 }
 

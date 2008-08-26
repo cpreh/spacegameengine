@@ -29,16 +29,17 @@ namespace sge
 namespace renderer
 {
 
-struct viewport {
-	pixel_unit x,
-	           y;
-	screen_unit w,
-	            h;
+class viewport {
+public:
+	SGE_SYMBOL viewport(
+		pixel_pos_t const &,
+		screen_size_t const &);
 
-	SGE_SYMBOL viewport(pixel_unit x,
-	                    pixel_unit y,
-	                    screen_unit w,
-	                    screen_unit h);
+	SGE_SYMBOL pixel_pos_t const &pos() const;
+	SGE_SYMBOL screen_size_t const &size() const;
+private:
+	pixel_pos_t   pos_;
+	screen_size_t size_;
 };
 
 }
