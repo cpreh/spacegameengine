@@ -26,6 +26,9 @@ namespace sge
 {
 namespace math
 {
+/**
+ * Clamps \c value to the range \f$[\textrm{vmin},\textrm{vmax}]\f$
+ */
 template<typename T>
 T clamp(const T& value, const T& vmin, const T& vmax)
 {

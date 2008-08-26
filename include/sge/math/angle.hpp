@@ -35,6 +35,9 @@ namespace sge
 namespace math
 {
 
+/**
+ * Calculates the angle between the two vectors using std::atan2
+ */
 template<typename Dest, typename T>
 typename boost::enable_if<
 	boost::is_floating_point<Dest>,
@@ -47,6 +50,10 @@ angle_to(
 	return atan2(structure_cast<Dest>(to - from));
 }
 
+/** 
+ * Calculates the angle between the origin and the given vector using
+ * sge::math::atan2.
+ */
 template<typename Dest, typename T>
 typename boost::enable_if<
 	boost::is_floating_point<Dest>,
@@ -58,7 +65,14 @@ angle_to(
 	return atan2(structure_cast<Dest>(to));
 }
 
+/** 
+ * Calculates an angle in the range \f$[-\pi,\pi]\f$ to an absolute angle in
+ * \f$[0,2 \pi]\f$
+ */
 SGE_SYMBOL space_unit rel_angle_to_abs(space_unit);
+/** 
+ * Does the inverse of rel_angle_to_abs
+ */
 SGE_SYMBOL space_unit abs_angle_to_rel(space_unit);
 SGE_SYMBOL bool is_rel_angle(space_unit);
 

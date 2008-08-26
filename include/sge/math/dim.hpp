@@ -52,6 +52,9 @@ namespace sge
 namespace math
 {
 
+/**
+ * basic_dim uses variadic templates where available
+ */
 template<typename T, std::size_t Dim>
 class basic_dim {
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
@@ -81,12 +84,18 @@ public:
 #define SGE_MATH_DIM_CTOR(z, n, text) basic_dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_CTOR, void)
 #endif
+	/**
+	 * This initializes the dim with zero
+	 */
 	basic_dim()
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] = 0;
 	}
 
+	/**
+	 * This does not initialize any of the coordinates (models the built types)
+	 */
 	basic_dim(no_initialization_tag)
 	{
 	}
@@ -116,18 +125,27 @@ public:
 BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 #endif
 
+	/**
+	 * Does range checking with an assertion
+	 */
 	reference operator[](const size_type pos)
 	{
 		SGE_ASSERT(pos < Dim);
 		return data_[pos];
 	}
 
+	/**
+	 * Does range checking with an assertion
+	 */
 	const_reference operator[](const size_type pos) const
 	{
 		SGE_ASSERT(pos < Dim);
 		return data_[pos];
 	}
 	
+	/**
+	 * Does range checking with sge::exception
+	 */
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
@@ -135,6 +153,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return (*this)[pos];
 	}
 
+	/**
+	 * Does range checking with an exception
+	 */
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
@@ -142,6 +163,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return (*this)[pos];
 	}
 
+	/**
+	 * Uses sge::math::compare to compare componentwise
+	 */
 	bool operator==(const basic_dim& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -150,6 +174,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return true;
 	}
 
+	/**
+	 * Uses sge::math::compare to compare componentwise
+	 */
 	bool operator!=(const basic_dim& r) const
 	{
 		return !((*this)==r);
@@ -169,6 +196,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return *this;
 	}
 
+	/**
+	 * Multiplies componentwise
+	 */
 	basic_dim& operator*=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -176,6 +206,9 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return *this;
 	}
 
+	/**
+	 * Divides componentwise
+	 */
 	basic_dim& operator/=(const basic_dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -227,6 +260,10 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return Dim;
 	}
 
+	/**
+	 * Returns the product of all components, so the length/area/volume/... of
+	 * the dimension
+	 */
 	size_type content() const
 	{
 		return std::accumulate(begin(), end(), 1, std::multiplies<size_type>());
@@ -299,6 +336,9 @@ basic_dim<T, Dim> operator/(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
 	return l /= r;
 }
 
+/**
+ * Outputs the dim in the format \f$(v_0,\ldots,v_n)\f$.
+ */
 template<typename T, std::size_t Dim, typename Ch, typename Traits>
 std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,const basic_dim<T,Dim> &v)
 {
@@ -308,6 +348,9 @@ std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,
 	return stream << v[Dim-1] << stream.widen(')');
 }
 
+/**
+ * Reads the vector from the stream in the format \f$(v_0,\ldots,v_n)\f$.
+ */
 template<typename T, std::size_t Dim, typename Ch, typename Traits>
 std::basic_istream<Ch,Traits>& operator>>(std::basic_istream<Ch,Traits>& s, basic_dim<T,Dim>& v)
 {
@@ -327,6 +370,9 @@ std::basic_istream<Ch,Traits>& operator>>(std::basic_istream<Ch,Traits>& s, basi
 	return s;
 }
 
+/**
+ * Casts the basic_dim<T> to basic_dim<D> (using static_cast).
+ */
 template<typename D, typename S, std::size_t Dim>
 basic_dim<D, Dim> structure_cast(const basic_dim<S, Dim>& r)
 {

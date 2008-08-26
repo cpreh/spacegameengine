@@ -149,6 +149,14 @@ namespace sge
 namespace math
 {
 
+/** 
+ * This class should be used for representing vectors, so either points or
+ * direction vectors. You could also store size values in here, but there are
+ * no accessors like "w" or "h". Use sge::math::basic_rect or
+ * sge::math::basic_dim for that purpose.
+ *
+ * basic_vector uses C++0x variadic templates where available.
+ */
 template<typename T, std::size_t Dim>
 class basic_vector {
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
@@ -184,16 +192,28 @@ public:
 	BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_CTOR, void)
 #endif
 
+	/**
+	 * This initializes the vector with zero
+	 */
 	basic_vector()
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] = static_cast<T>(0);
 	}
 
+	/**
+	 * This does not initialize any of the coordinates (models the built types)
+	 */
 	basic_vector(no_initialization_tag)
 	{
 	}
 
+	/**
+	 * This constructor gets a vector of the same type, but with a dimension
+	 * lower. This is just a convenience so you can construct, for example, a
+	 * vector3 from a vector2 by writing \code basic_vector<T,2> small;
+	 * basic_vector<T,3> large(small,0); \endcode
+	 */
 	template<std::size_t U>
 	basic_vector(const basic_vector<T,U>& v, typename boost::enable_if_c<U == Dim - 1, const_reference>::type n = 0)
 	{
@@ -255,6 +275,9 @@ public:
 		return ret;
 	}
 
+	/**
+	 * Scalar multiplication
+	 */
 	basic_vector& operator*=(const_reference r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -262,6 +285,9 @@ public:
 		return *this;
 	}
 
+	/**
+	 * This does not take the dot or cross product but rather multiplies componentwise
+	 */
 	basic_vector& operator*=(const basic_vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -269,16 +295,25 @@ public:
 		return *this;
 	}
 
+	/**
+	 * Scalar multiplication
+	 */
 	basic_vector operator*(const_reference r) const
 	{
 		return basic_vector(*this) *= r;
 	}
 
+	/**
+	 * This does not take the dot or cross product but rather multiplies componentwise
+	 */
 	basic_vector operator*(const basic_vector& r) const
 	{
 		return basic_vector(*this) *= r;
 	}
 
+	/**
+	 * Scalar multiplication
+	 */
 	friend basic_vector operator*(const_reference l, basic_vector r)
 	{
 		return r *= l;
@@ -308,6 +343,9 @@ public:
 		return basic_vector(*this) /= r;
 	}
 
+	/**
+	 * This operator uses sge::math::mod to calculate the modulo
+	 */
 	basic_vector& operator%=(const_reference r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -315,6 +353,9 @@ public:
 		return *this;
 	}
 
+	/**
+	 * This operator uses sge::math::mod to calculate the modulo
+	 */
 	basic_vector& operator%=(const basic_vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -322,11 +363,17 @@ public:
 		return *this;
 	}
 
+	/**
+	 * This operator uses sge::math::mod to calculate the modulo
+	 */
 	basic_vector operator%(const_reference r) const
 	{
 		return basic_vector(*this) %= r;
 	}
 
+	/**
+	 * This operator uses sge::math::mod to calculate the modulo
+	 */
 	basic_vector operator%(const basic_vector& r) const
 	{
 		return basic_vector(*this) %= r;
@@ -340,18 +387,27 @@ public:
 		return ret;
 	}
 
+	/**
+	 * Does range checking with an assertion
+	 */
 	reference operator[](const size_type pos)
 	{
 		SGE_ASSERT(pos < Dim);
 		return data_[pos];
 	}
 
+	/**
+	 * Does range checking with an assertion
+	 */
 	const_reference operator[](const size_type pos) const
 	{
 		SGE_ASSERT(pos < Dim);
 		return data_[pos];
 	}
 
+	/**
+	 * \throw sge::exception If argument greater than dimension
+	 */
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
@@ -359,6 +415,9 @@ public:
 		return data_[pos];
 	}
 
+	/**
+	 * \throw sge::exception If argument greater than dimension
+	 */
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
@@ -366,6 +425,9 @@ public:
 		return data_[pos];
 	}
 
+	/**
+	 * Uses sge::math::compare to compare componentwise
+	 */
 	bool operator==(const basic_vector& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
@@ -374,21 +436,33 @@ public:
 		return true;
 	}
 
+	/**
+	 * Uses sge::math::compare to compare componentwise
+	 */
 	bool operator!=(const basic_vector& r) const
 	{
 		return !((*this)==r);
 	}
 
+	/**
+	 * Returns the dot product of the vector with itself
+	 */
 	value_type length_quad() const
 	{
 		return dot(*this);
 	}
 
+	/**
+	 * Applies std::sqrt to length_quad.
+	 */
 	value_type length() const
 	{
 		return static_cast<value_type>(std::sqrt(length_quad()));
 	}
 
+	/**
+	 * Returns the normalized vector
+	 */
 	basic_vector unit() const
 	{
 		SGE_ASSERT(!is_null());
@@ -455,6 +529,10 @@ public:
 		              x()*r.y() - y()*r.x());
 	}
 
+	/** 
+	 * Compares the vector against the default constructed (and thus "nullified")
+	 * vector
+	 */
 	bool is_null() const
 	{
 		return *this == basic_vector();
@@ -599,6 +677,9 @@ typename basic_vector<T,Dim>::value_type dot(const basic_vector<T,Dim>& l, const
 	return l.dot(r);
 }
 
+/**
+ * Outputs the vector in the format \f$(v_0,\ldots,v_n)\f$.
+ */
 template<typename T, std::size_t Dim,typename Ch, typename Traits>
 inline std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& s, const basic_vector<T,Dim>& v)
 {
@@ -608,6 +689,9 @@ inline std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>&
 	return s << v[Dim-1] << s.widen(')');
 }
 
+/**
+ * Reads the vector from the stream in the format \f$(v_0,\ldots,v_n)\f$.
+ */
 template<typename T, std::size_t Dim,typename Ch, typename Traits>
 std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, basic_vector<T,Dim>& v)
 {
@@ -627,6 +711,9 @@ std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, bas
 	return s;
 }
 
+/**
+ * Casts the basic_vector<T> to basic_vector<D> (using static_cast).
+ */
 template<typename D, typename S, std::size_t Dim>
 basic_vector<D, Dim> structure_cast(const basic_vector<S, Dim>& s)
 {

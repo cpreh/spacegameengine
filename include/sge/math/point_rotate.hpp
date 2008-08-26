@@ -9,12 +9,13 @@ namespace sge
 {
 namespace math
 {
-
+/**
+ * Rotates a point around another point at angle \c rot
+ */
 SGE_SYMBOL vector2 const point_rotate(
 	vector2 const &point,
 	vector2 const &around,
 	space_unit rot);
-
 }
 }
 

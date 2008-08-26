@@ -31,6 +31,10 @@ namespace sge
 {
 namespace math
 {
+/**
+ * Wraps std::atan2 so it can be used with sge::math::basic_vector. Returns an
+ * empty boost::optional if given the null vector
+ */
 template<typename T>
 inline typename boost::enable_if<
 	boost::is_floating_point<T>,

@@ -10,8 +10,17 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/foreach.hpp>
 
-sge::gui::widgets::container::container(parent_data parent,point const &p,dim const &d)
-	: widget(parent,parent.parent_widget() ? size_policy::dynamic : size_policy::fixed,p,d)
+sge::gui::widgets::container::container(
+	parent_data parent,
+	point const &p,
+	dim const &d)
+	: widget(
+			parent,
+			size_policy(
+				axis_policy::preferred,
+				axis_policy::preferred),
+			p,
+			d)
 {
 }
 
@@ -27,15 +36,13 @@ void sge::gui::widgets::container::remove_child(widget &w)
 	children_.erase_if(&boost::lambda::_1 == boost::lambda::constant(&w));
 }
 
-sge::gui::dim const sge::gui::widgets::container::minimum_size() const
+sge::gui::dim const sge::gui::widgets::container::size_hint() const
 {
-	if (!layout())
-	{
-		sge::cerr << "container: no layout present\n";
-		throw exception(SGE_TEXT("container doesn't have a layout, yet tried to call minimum_size"));
-	}
+	SGE_ASSERT_MESSAGE(
+		layout(),
+		SGE_TEXT("container doesn't have a layout, yet tried to call size_hint"));
 
-	return layout()->minimum_size();
+	return layout()->size_hint();
 }
 
 // TODO: this just brute force resizes the widget, even if it's in the middle of
@@ -48,7 +55,6 @@ void sge::gui::widgets::container::do_size(dim const &n)
 		SGE_TEXT("container doesn't have a layout, yet tried to call do_size"));
 
 	set_size_raw(n);
-	layout()->update();
 }
 
 void sge::gui::widgets::container::do_pos(point const &p)
@@ -60,7 +66,12 @@ void sge::gui::widgets::container::process(events::invalid_area const &e)
 {
 	BOOST_FOREACH(widget &w,children())
 		if (math::intersects(w.absolute_area(),e.canvas().invalid_area()))
-			w.process(events::invalid_area(canvas(e.canvas().view(),w.absolute_area(),e.canvas().invalid_area())));
+			w.process(
+				events::invalid_area(
+					canvas(
+						e.canvas().view(),
+						w.absolute_area(),
+						e.canvas().invalid_area())));
 }
 
 void sge::gui::widgets::container::do_compile()

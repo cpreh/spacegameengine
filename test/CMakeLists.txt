@@ -15,6 +15,15 @@ ADD_EXECUTABLE (animtest animtest.cpp)
 TARGET_LINK_LIBRARIES (animtest sgecore)
 INSTALL (TARGETS animtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
+ADD_EXECUTABLE (tutorial_01 tutorial/tutorial_01.cpp)
+TARGET_LINK_LIBRARIES (tutorial_01 sgecore)
+
+ADD_EXECUTABLE (tutorial_02 tutorial/tutorial_02.cpp)
+TARGET_LINK_LIBRARIES (tutorial_02 sgecore)
+
+ADD_EXECUTABLE (font tutorial/font.cpp)
+TARGET_LINK_LIBRARIES (font sgecore)
+
 ADD_EXECUTABLE (giltest giltest.cpp)
 TARGET_LINK_LIBRARIES (giltest sgecore)
 INSTALL (TARGETS giltest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

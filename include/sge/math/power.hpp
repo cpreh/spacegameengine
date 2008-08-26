@@ -32,6 +32,10 @@ namespace sge
 namespace math
 {
 
+/**
+ * Calculates \f$\textrm{base}^e\f$ using integer arithmetics (no cast to float
+ * and std::pow needed)
+ */
 template<typename Base, typename Exp> Base pow_int(const Base base, const Exp e)
 {
 	if(e == 0)
@@ -62,16 +66,25 @@ template<> struct next_pow_2_implementation<true> {
 	}
 };
 
+/**
+ * "Rounds up" \c t to the next power of 2
+ */
 template<typename T> inline T next_pow_2(const T t) {
 	typedef typename boost::is_integral<T> is_int;
 	return next_pow_2_implementation<is_int::value>::next_pow_2(t);
 }
 
+/**
+ * "Rounds up" both components of \c r to the next power of two
+ */
 template<typename T> inline basic_dim<T, 2> next_pow_2(const basic_dim<T, 2>& r)
 {
 	return basic_dim<T, 2>(next_pow_2(r.w()), next_pow_2(r.h()));
 }
 
+/**
+ * Checks if an unsigned type is a power of two
+ */
 template<typename T>
 inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type
 is_power_of_2(const T t)
@@ -79,6 +92,10 @@ is_power_of_2(const T t)
 	return t && !(t & (t - 1));
 }
 
+/**
+ * Checks if both coordinates of an unsigned sge::math::basic_dim are powers of
+ * two
+ */
 template<typename T>
 inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type
 is_power_of_2(const basic_dim<T, 2>& d)
@@ -86,6 +103,9 @@ is_power_of_2(const basic_dim<T, 2>& d)
 	return is_power_of_2(d.w()) && is_power_of_2(d.h());
 }
 
+/**
+ * Returns the square of \c (this is pretty dumb)
+ */
 template<typename T>
 inline T quad(T const& t)
 {

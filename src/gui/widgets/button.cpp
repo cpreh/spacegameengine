@@ -16,7 +16,13 @@ sge::gui::widgets::button::button(
 	font::metrics_ptr _font,
 	point const &p,
 	dim const &d)
-	: widget(parent_,size_policy::dynamic,p,d),
+	: widget(
+			parent_,
+			size_policy(
+				axis_policy::minimum,
+				axis_policy::fixed),
+			p,
+			d),
 	  text_(text_),
 	  font_(_font),
 		mouse_over(false)
@@ -65,7 +71,7 @@ void sge::gui::widgets::button::process(events::invalid_area const &e)
 		font::align_v::center);
 }
 
-sge::gui::dim const sge::gui::widgets::button::minimum_size() const
+sge::gui::dim const sge::gui::widgets::button::size_hint() const
 {
 	font::font fn(font_,font::drawer_ptr());	
 	// NOTE: we have to give text_size a huge rectangle because it won't

@@ -10,7 +10,7 @@
 
 sge::gui::widget::widget(
 	parent_data parent_data_,
-	size_policy::type const size_policy_,
+	size_policy const &size_policy_,
 	point const &pos_,
 	dim const &size_)
 	:	parent_(parent_data_.parent_widget()),
@@ -58,35 +58,35 @@ void sge::gui::widget::size(dim const &d)
 		sge::cerr << "widget: size: calling manager's resize function\n";
 		parent_manager().resize(*this,d);
 	}
-
-	// then invalidate the whole rect
-	// sge::cerr << "widget: invalidating rectangle " << absolute_area() << "\n";
-	// parent_manager().invalidate(absolute_area());
 }
 
 void sge::gui::widget::pos(point const &d)
 {
+	// then call the internal size method
+	do_pos(d);
+
 	// is this widget a top level widget? then call the manager to reposition the
 	// underlying sprite
 	if (!parent_widget())
 		parent_manager().reposition(*this,d);
 	
-	// then call the internal size method
-	do_pos(d);
 }
 
 void sge::gui::widget::compile()
 {
 	sge::cerr << "widget: compiling\n";
-	SGE_ASSERT_MESSAGE(!parent_widget(),SGE_TEXT("tried to compile a non top level widget, that's not possible"));
+	if (parent_widget())
+	{
+		parent_widget()->compile();
+		return;
+	}
+	
 	sge::cerr << "widget: running do_compile\n";
 	do_compile();
 
 	// signal manager to recompile according to (new) size and position
 	sge::cerr << "widget: running manager::compile\n";
 	parent_manager().compile(*this);
-	//sge::cerr << "widget: running manager::invalidate(" << absolute_area() << ")\n";
-	//parent_manager().invalidate(absolute_area());
 }
 
 bool sge::gui::widget::is_container() const

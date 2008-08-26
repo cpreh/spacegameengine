@@ -15,7 +15,7 @@ class SGE_CLASS_SYMBOL row : public layout
 	public:
 	SGE_SYMBOL row(widgets::container &);
 	SGE_SYMBOL void update();
-	SGE_SYMBOL dim const minimum_size() const;
+	SGE_SYMBOL dim const size_hint() const;
 	private:
 	// NOTE: this is actually quite hacky, I first tried to return a reference to
 	// the w() or h() component, but then you get const issues which _might_ be

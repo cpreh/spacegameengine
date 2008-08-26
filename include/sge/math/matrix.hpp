@@ -43,6 +43,12 @@ namespace sge
 namespace math
 {
 
+/**
+ * basic_matrix uses variadic templates where available
+ *
+ * \attention To use basic_matrix' functions you have to include
+ * <sge/math/matrix_impl.hpp>!
+ */
 template<typename T, std::size_t N, std::size_t M>
 class basic_matrix {
 	enum { Dim = N*M };
@@ -68,16 +74,34 @@ public:
 	BOOST_PP_REPEAT(SGE_MATH_MATRIX_MAX_SIZE, SGE_MATH_MATRIX_CTOR, void)
 #endif
 
+	/**
+	 * Doesn't initialize any of the fields
+	 */
 	basic_matrix(no_initialization_tag);
 	basic_matrix(const basic_matrix& r);
 	basic_matrix& operator=(const basic_matrix& r);
 	basic_matrix& operator+=(const basic_matrix& r);
 	basic_matrix& operator-=(const basic_matrix& r);
 	basic_matrix& operator*=(const value_type& v);
+	/**
+	 * Returns a proxy object which itself has operator[]
+	 */
 	const proxy operator[](const size_type j);
+	/**
+	 * Returns a proxy object which itself has operator[]
+	 */
 	const const_proxy operator[](const size_type j) const;
+	/**
+	 * Returns a raw pointer to the matrix data
+	 */
 	pointer data();
+	/**
+	 * Returns a raw pointer to the matrix data
+	 */
 	const_pointer data() const;
+	/**
+	 * Returns \f$n \cdot m\f$
+	 */
 	size_type size() const;
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
