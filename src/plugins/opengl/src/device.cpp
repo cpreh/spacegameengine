@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../state_visitor.hpp"
 #include "../glsl/impl.hpp"
 #include "../common.hpp"
+#include "../matrix.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows.hpp>
 #include <sge/win32_window.hpp>
@@ -58,7 +59,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/types.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/default_states.hpp>
-#include <sge/math/matrix_impl.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
 // TODO: maybe support different adapters?
@@ -499,18 +499,16 @@ void sge::ogl::device::center_viewport(const int w, const int h)
 
 void sge::ogl::device::transform(const math::space_matrix& matrix)
 {
-	SGE_OPENGL_SENTRY
-	// TODO: put this in an own file!
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(math::transpose(matrix).data());
+	set_matrix(
+		GL_MODELVIEW,
+		matrix);
 }
 
 void sge::ogl::device::projection(const math::space_matrix& matrix)
 {
-	SGE_OPENGL_SENTRY
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(math::transpose(matrix).data());
+	set_matrix(
+		GL_PROJECTION,
+		matrix);
 }
 
 void sge::ogl::device::set_render_target(
@@ -537,7 +535,6 @@ void sge::ogl::device::set_render_target(
 
 	const shared_ptr<texture> p(dynamic_pointer_cast<texture>(target));
 	const fbo_target_ptr ntarget = create_render_target(p->dim());
-	render_target_ = ntarget;
 	ntarget->bind_texture(p);
 	set_viewport(
 		renderer::viewport(
@@ -545,6 +542,7 @@ void sge::ogl::device::set_render_target(
 			0,
 			static_cast<renderer::screen_unit>(p->dim().w()),
 			static_cast<renderer::screen_unit>(p->dim().h())));
+	render_target_ = ntarget;
 }
 
 sge::renderer::const_target_ptr const
