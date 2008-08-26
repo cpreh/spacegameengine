@@ -41,6 +41,6 @@ void sge::ogl::set_matrix(
 	math::space_matrix const &mat)
 {
 	SGE_OPENGL_SENTRY
-	glLoadMatrixf(
-		math::transpose(mat).data());
+	glLoadTransposeMatrixf(
+		mat.data());
 }
