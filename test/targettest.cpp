@@ -9,6 +9,7 @@
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
+#include <sge/media.hpp>
 #include <exception>
 #include <iostream>
 
@@ -21,7 +22,7 @@ try
 	sys.init<sge::init::renderer>(sge::renderer::screen_size_t(640,480));
 
 	sge::sprite::system ss(sys.renderer);
-	sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("tux.png"));
+	sge::image::object_ptr image = sys.image_loader->load_image(sge::media_path() / SGE_TEXT("tux.png"));
 	sge::renderer::texture_ptr image_texture = 
 		sys.renderer->create_texture(
 			image->view(),

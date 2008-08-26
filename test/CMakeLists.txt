@@ -19,6 +19,10 @@ ADD_EXECUTABLE (giltest giltest.cpp)
 TARGET_LINK_LIBRARIES (giltest sgecore)
 INSTALL (TARGETS giltest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
+ADD_EXECUTABLE (targettest targettest.cpp)
+TARGET_LINK_LIBRARIES (targettest sgecore)
+INSTALL (TARGETS targettest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
 IF (${ENABLE_GUI})
 	ADD_EXECUTABLE (sgeguitest guitest.cpp)
 	TARGET_LINK_LIBRARIES (sgeguitest sgecore sgegui boost_signals)
