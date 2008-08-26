@@ -521,6 +521,14 @@ void sge::ogl::device::projection(const math::space_matrix& matrix)
 		matrix);
 }
 
+void sge::ogl::device::texture_transform(
+	math::space_matrix const &matrix)
+{
+	set_matrix(
+		GL_TEXTURE,
+		matrix);
+}
+
 void sge::ogl::device::set_render_target(
 	renderer::texture_ptr const target)
 {
@@ -538,10 +546,6 @@ void sge::ogl::device::set_render_target(
 			renderer::viewport(
 				offset,
 				wnd->size()));
-
-		/*set_matrix(
-			GL_TEXTURE,
-			math::matrix_identity());*/
 		return;
 	}
 
@@ -555,11 +559,6 @@ void sge::ogl::device::set_render_target(
 			math::structure_cast<renderer::screen_unit>(
 				p->dim())));
 	
-	/*set_matrix(
-		GL_TEXTURE,
-		math::matrix_scaling(
-			1, -1, 1));*/
-
 	render_target_ = ntarget;
 }
 
