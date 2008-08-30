@@ -17,7 +17,10 @@ void sge::detail::process_assert(
 	
 	if (!function.empty())
 		ss << SGE_TEXT(" function '") << function << SGE_TEXT('\'');
-	ss << SGE_TEXT(": assertion failed: ") << condition << SGE_TEXT(", ") << message;
+	ss << SGE_TEXT(": assertion failed: ") << condition;
+	
+	if (!message.empty())
+		ss << SGE_TEXT(", ") << message;
 
 	cerr << ss.str() << SGE_TEXT('\n');
 	throw exception(ss.str());
