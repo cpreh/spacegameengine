@@ -87,7 +87,8 @@ sge::win32_window::~win32_window()
 	DestroyWindow(handle);
 }
 
-void sge::win32_window::size(const window_size nsz)
+void sge::win32_window::size(
+	window_size const &nsz)
 {
 	if(SetWindowPos(
 		hwnd(),
@@ -108,7 +109,8 @@ void sge::win32_window::title(const string& ntitle)
 		throw exception(SGE_TEXT("SetWindowText() failed!"));
 }
 
-sge::win32_window::window_size sge::win32_window::size() const
+sge::win32_window::window_size const
+sge::win32_window::size() const
 {
 	RECT rect;
 	if(GetWindowRect(handle, &rect) == FALSE)
@@ -119,7 +121,8 @@ sge::win32_window::window_size sge::win32_window::size() const
 	);
 }
 
-sge::win32_window::window_pos sge::win32_window::viewport_offset() const
+sge::win32_window::window_pos const
+sge::win32_window::viewport_offset() const
 {
 	return window_pos(
 		0,

@@ -5,6 +5,7 @@
 #include "text.hpp"
 #include "export.hpp"
 #include <boost/preprocessor/stringize.hpp>
+#include <boost/lexical_cast.hpp>
 
 namespace sge
 {
@@ -35,23 +36,23 @@ if (!(cond))\
 		__FILE__,\
 		BOOST_PP_STRINGIZE(__LINE__),\
 		#cond,\
-		BOOST_PP_STRINGIZE(message));
+    SGE_TEXT(""));
 #else
 #define SGE_ASSERT_MESSAGE(cond,message)\
 if (!(cond))\
 	sge::detail::process_assert(\
-		SGE_TEXT(__FILE__),\
-		BOOST_PP_STRINGIZE_W(__LINE__),\
+		boost::lexical_cast<sge::string>(__FILE__),\
+		boost::lexical_cast<sge::string>(__LINE__),\
 		SGE_TEXT(#cond),\
 		message);
 
 #define SGE_ASSERT(cond)\
 if (!(cond))\
 	sge::detail::process_assert(\
-		SGE_TEXT(__FILE__),\
-		BOOST_PP_STRINGIZE_W(__LINE__),\
-		SGE_TEXT(#cond),\
-		BOOST_PP_STRINGIZE_W(message));
+    boost::lexical_cast<sge::string>(__FILE__),\
+    boost::lexical_cast<sge::string>(__LINE__),\
+    SGE_TEXT(#cond),\
+		SGE_TEXT(""));
 #endif
 
 #endif
