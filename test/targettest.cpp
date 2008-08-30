@@ -44,7 +44,7 @@ try
 			sge::renderer::texture::dim_type(640,480),
 			sge::renderer::color_format::rgba8,
 			sge::renderer::linear_filter,
-			sge::renderer::resource_flags::dynamic);
+			sge::renderer::resource_flags::none);
 
 	{
 		sge::renderer::scoped_block block_(sys.renderer);

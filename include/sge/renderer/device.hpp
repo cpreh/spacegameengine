@@ -139,11 +139,17 @@ public:
 
 	SGE_SYMBOL static texture_ptr const no_texture;
 	virtual void set_texture(const_texture_base_ptr tex, stage_type stage = 0) = 0;
-	virtual void transform(math::space_matrix const &mat) = 0;
-	virtual void projection(math::space_matrix const &mat) = 0;
+
+	virtual void transform(
+		math::space_matrix const &mat) = 0;
+	virtual void projection(
+		math::space_matrix const &mat) = 0;
+	virtual void texture_transform(
+		math::space_matrix const &mat) = 0;
 
 	SGE_SYMBOL static const texture_ptr default_render_target;
 	virtual void set_render_target(texture_ptr target) = 0;
+
 	virtual void set_viewport(viewport const &) = 0;
 
 	virtual const glsl::program_ptr create_glsl_program(

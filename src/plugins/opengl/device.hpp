@@ -94,6 +94,8 @@ public:
 
 	void transform(const math::space_matrix& matrix);
 	void projection(const math::space_matrix& matrix);
+	void texture_transform(math::space_matrix const & matrix);
+
 	void set_render_target(renderer::texture_ptr target);
 	void set_viewport(const renderer::viewport&);
 	const renderer::viewport &get_viewport() const;

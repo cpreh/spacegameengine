@@ -18,29 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VIEWPORT_HPP_INCLUDED
-#define SGE_RENDERER_VIEWPORT_HPP_INCLDUED
+#ifndef SGE_OPENGL_MATRIX_HPP_INCLUDED
+#define SGE_OPENGL_MATRIX_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "types.hpp"
+#include "common.hpp"
+#include <sge/math/matrix.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace ogl
 {
 
-class viewport {
-public:
-	SGE_SYMBOL viewport(
-		pixel_pos_t const &,
-		screen_size_t const &);
+void set_matrix(
+	GLenum mode,
+	math::space_matrix const &);
 
-	SGE_SYMBOL pixel_pos_t const &pos() const;
-	SGE_SYMBOL screen_size_t const &size() const;
-private:
-	pixel_pos_t   pos_;
-	screen_size_t size_;
-};
+void matrix_mode(
+	GLenum);
+
+void set_matrix(
+	math::space_matrix const &);
 
 }
 }
