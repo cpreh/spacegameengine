@@ -42,7 +42,7 @@ sge::gui::dim const sge::gui::widgets::container::size_hint() const
 		layout(),
 		SGE_TEXT("container doesn't have a layout, yet tried to call size_hint"));
 
-	return layout()->size_hint();
+	return size();
 }
 
 // TODO: this just brute force resizes the widget, even if it's in the middle of
@@ -54,12 +54,8 @@ void sge::gui::widgets::container::do_size(dim const &n)
 		layout(),
 		SGE_TEXT("container doesn't have a layout, yet tried to call do_size"));
 
-	set_size_raw(n);
-}
-
-void sge::gui::widgets::container::do_pos(point const &p)
-{
-	set_pos_raw(p);
+	dim const m = minimum_size();
+	set_size_raw(dim(std::max(n.w(),m.w()),std::max(n.h(),m.h())));
 }
 
 void sge::gui::widgets::container::process(events::invalid_area const &e)
@@ -114,4 +110,13 @@ sge::gui::widget *sge::gui::widgets::container::do_recalculate_focus(point const
 	
 	cerr << "container: no child has the focus, doing nothing\n";
 	return this;
+}
+
+sge::gui::dim const sge::gui::widgets::container::minimum_size() const
+{
+	SGE_ASSERT_MESSAGE(
+		layout(),
+		SGE_TEXT("container doesn't have a layout, yet tried to call minimum_size"));
+	
+	return layout()->minimum_size();
 }

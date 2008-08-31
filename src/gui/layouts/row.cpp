@@ -20,16 +20,7 @@ void sge::gui::layouts::row::update()
 		return;
 	}
 
-	// if we have a top level widget which isn't fixed, set it to the minimum size
-	if (!connected_widget().parent_widget() && 
-	    connected_widget().size_policy() != size_policy::fixed)
-	{
-		sge::cerr << "row: top level widget which can expand, setting to minimum size\n";
-		sge::cerr << "row: minimum size is " << size_hint() << "\n";
-		connected_widget().size(size_hint());
-	}
-
-	sge::cerr << "row: minimum size for this widget is " << size_hint() << "\n";
+	sge::cerr << "row: minimum size for this widget is " << minimum_size() << "\n";
 
 	// now assume we have this widget's size fixed
 	dim const fixed_size = connected_widget().size();
@@ -100,19 +91,22 @@ void sge::gui::layouts::row::update()
 	}
 }
 
-sge::gui::dim const sge::gui::layouts::row::size_hint() const
+sge::gui::dim const sge::gui::layouts::row::minimum_size() const
 {
-	sge::cerr << "row: in size_hint\n";
+	sge::cerr << "row: in minimum_size\n";
 
-	dim hint;
+	dim minimum;
 
 	BOOST_FOREACH(widget const &child,connected_widget().children())
 	{
-		dim const child_size = child.size_hint();
-		sge::cerr << "row: this child's size hint is " << child_size << "\n";
-		hint[master(hint)] += child_size[master(child_size)];
-		hint[slave(hint)] = std::max(hint[slave(hint)],child_size[slave(child_size)]);
+		dim const child_size = child.minimum_size();
+		sge::cerr << "row: this child's size minimum is " << child_size << "\n";
+		minimum[master(minimum)] += child_size[master(child_size)];
+		minimum[slave(minimum)] = 
+			std::max(
+				minimum[slave(minimum)],
+				child_size[slave(child_size)]);
 	}
 
-	return hint;
+	return minimum;
 }

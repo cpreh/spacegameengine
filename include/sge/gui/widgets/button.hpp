@@ -24,6 +24,7 @@ class SGE_CLASS_SYMBOL button : public widget
 
 	// overridden virtuals
 	SGE_SYMBOL dim const size_hint() const;
+	dim const minimum_size() const { return size_hint(); }
 	SGE_SYMBOL void process(events::invalid_area const &);
 	SGE_SYMBOL void process(events::mouse_enter const &);
 	SGE_SYMBOL void process(events::mouse_leave const &);
@@ -32,10 +33,6 @@ class SGE_CLASS_SYMBOL button : public widget
 	// signals
 	boost::signal<void ()> clicked;
 	private:
-	void do_size(dim const &);
-	void do_pos(point const &);
-	void do_compile();
-
 	string text_;
 	font::metrics_ptr font_;
 	bool mouse_over;

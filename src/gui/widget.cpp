@@ -45,11 +45,8 @@ sge::gui::rect const sge::gui::widget::relative_area() const
 
 void sge::gui::widget::size(dim const &d)
 {
-	sge::cerr << "widget: size\n";
-	
-	sge::cerr << "widget: calling internal resize function\n";
-	// then call the internal size method
 	do_size(d);
+	compile();
 
 	// is this widget a top level widget? then call the manager to resize the
 	// underlying texture
@@ -69,7 +66,6 @@ void sge::gui::widget::pos(point const &d)
 	// underlying sprite
 	if (!parent_widget())
 		parent_manager().reposition(*this,d);
-	
 }
 
 void sge::gui::widget::compile()

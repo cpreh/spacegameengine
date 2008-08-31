@@ -30,7 +30,7 @@ enum type
 	/*
 	 * The widget::size_hint() is best, but the widget can be shrunk and still be
 	 * useful. The widget can be expanded, but there is no advantage to it being
-	 * larger than widget::size_hint() (the default QWidget policy).
+	 * larger than widget::size_hint() (the default widget policy).
 	 */
 	preferred,
 	/*

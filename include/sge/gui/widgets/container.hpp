@@ -26,11 +26,11 @@ class SGE_CLASS_SYMBOL container : public widget
 	SGE_SYMBOL layout_ptr layout() { return layout_.get(); }
 	SGE_SYMBOL const_layout_ptr layout() const { return layout_.get(); }
 	SGE_SYMBOL dim const size_hint() const;
+	SGE_SYMBOL dim const minimum_size() const;
 	SGE_SYMBOL void process(events::invalid_area const &);
 	SGE_SYMBOL bool has_child(widget const &) const;
 	private:
 	void do_size(dim const &);
-	void do_pos(point const &);
 	void do_compile();
 	widget *do_recalculate_focus(point const &);
 

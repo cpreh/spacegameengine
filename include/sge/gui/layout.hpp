@@ -24,7 +24,7 @@ class SGE_CLASS_SYMBOL layout
 
 	// pure virtual
 	virtual void update() = 0;
-	virtual dim const size_hint() const = 0;
+	virtual dim const minimum_size() const = 0;
 
 	// getters
 	widgets::container &connected_widget() { return w; }

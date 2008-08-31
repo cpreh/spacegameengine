@@ -35,12 +35,7 @@ sge::gui::widgets::button::button(
 
 void sge::gui::widgets::button::process(events::invalid_area const &e)
 {
-	//cerr << "button: drawing myself\n";
-
 	canvas c = e.canvas();
-
-	// fill with grey
-	//cerr << "button: drawing rect " << relative_area() << "\n";
 	
 	renderer::color const col = 
 		mouse_over ? 
@@ -59,13 +54,11 @@ void sge::gui::widgets::button::process(events::invalid_area const &e)
 		font_,
 		sge::renderer::colors::black,
 		col);
-
-	//cerr << "button: drawing font in rect " << widget::size() << "\n";
 	
 	// draw text centered
 	c.draw_text(
 		text_,
-		point(static_cast<unit>(0),static_cast<unit>(0)),
+		point(),
 		widget::size(),
 		font::align_h::center,
 		font::align_v::center);
@@ -74,27 +67,13 @@ void sge::gui::widgets::button::process(events::invalid_area const &e)
 sge::gui::dim const sge::gui::widgets::button::size_hint() const
 {
 	font::font fn(font_,font::drawer_ptr());	
+
 	// NOTE: we have to give text_size a huge rectangle because it won't
 	// return a valid rectangle otherwise
-	
 	dim const font_dim = math::structure_cast<unit>(
 		fn.text_size(text_,math::max_dim<font::unit>()).size());
 
 	return dim(static_cast<unit>(font_dim.w()+2),static_cast<unit>(font_dim.h()+2));
-}
-
-void sge::gui::widgets::button::do_size(dim const &s)
-{
-	set_size_raw(s);
-}
-
-void sge::gui::widgets::button::do_pos(point const &s)
-{
-	set_pos_raw(s);
-}
-
-void sge::gui::widgets::button::do_compile()
-{
 }
 
 void sge::gui::widgets::button::process(events::mouse_enter const &)

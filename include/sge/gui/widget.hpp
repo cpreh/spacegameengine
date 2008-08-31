@@ -65,11 +65,12 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 
 	// pure virtuals
 	virtual dim const size_hint() const = 0;
-	virtual void process(events::invalid_area const &) {};
-	virtual void process(events::mouse_enter const &) {};
-	virtual void process(events::mouse_leave const &) {};
-	virtual void process(events::mouse_move const &) {};
-	virtual void process(events::mouse_click const &) {};
+	virtual dim const minimum_size() const = 0;
+	virtual void process(events::invalid_area const &) {}
+	virtual void process(events::mouse_enter const &) {}
+	virtual void process(events::mouse_leave const &) {}
+	virtual void process(events::mouse_move const &) {}
+	virtual void process(events::mouse_click const &) {}
 
 	// virtuals
 	SGE_SYMBOL virtual ~widget();
@@ -81,9 +82,9 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	void set_pos_raw(point const &p) { pos_ = p; }
 
 	protected:
-	virtual void do_size(dim const &) = 0;
-	virtual void do_compile() = 0;
-	virtual void do_pos(point const &) = 0;
+	virtual void do_size(dim const &s) { set_size_raw(s); }
+	virtual void do_pos(point const &p) { set_pos_raw(p); }
+	virtual void do_compile() {}
 	virtual widget *do_recalculate_focus(point const &) { return this; }
 
 	private:
@@ -92,7 +93,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	manager &manager_;
 
 	point pos_;
-	dim size_;
+	dim size_,size_hint_;
 	size_policy size_policy_;
 
 	widget *recalculate_focus(point const &mouse_click);
