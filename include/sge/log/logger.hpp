@@ -70,6 +70,8 @@ public:
 	formatter() const;
 private:
 	void init_levels();
+	void init_level(
+		level::type);
 	void set_hierarchie(
 		level::type,
 		void (logger::*)(level::type));

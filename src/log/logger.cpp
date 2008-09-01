@@ -19,9 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/logger.hpp>
+#include <sge/log/level_field.hpp>
 #include <sge/log/format/default_level.hpp>
 #include <sge/log/format/create_chain.hpp>
 #include <sge/log/format/create_prefix.hpp>
+#include <sge/foreach_enumerator.hpp>
+#include <boost/bind.hpp>
 
 sge::log::logger::logger(
 	ostream &sink_,
@@ -123,20 +126,21 @@ sge::log::logger::sink() const
 
 void sge::log::logger::init_levels()
 {
-	for(unsigned i = 0; i < level::size; ++i)
-		level_streams.push_back(
-			new level_stream(
-				sink(),
-				create_chain(
-					formatter_,
-					format::default_level(
-						static_cast<level::type>(
-							i
-						)
-					)
-				)
-			)
-		);
+	foreach_enumerator<level_field>(
+		boost::bind(
+			&logger::init_level, this, _1));
+}
+
+void sge::log::logger::init_level(
+	level::type const level_)
+{
+	level_streams.push_back(
+		new level_stream(
+			sink(),
+			create_chain(
+				formatter_,
+				format::default_level(
+					level_))));
 }
 
 void sge::log::logger::set_hierarchie(
