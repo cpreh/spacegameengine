@@ -39,5 +39,5 @@ sge::time::microsecond::microsecond(
 sge::time::microsecond::microsecond(
 	unit const tm)
 : resolution(
-	tm * hz() / (factor))
+	tm * hz() / factor)
 {}

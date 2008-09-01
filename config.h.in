@@ -5,6 +5,7 @@
 #cmakedefine SGE_HAVE_STATIC_ASSERT
 #cmakedefine SGE_HAVE_X11
 #cmakedefine SGE_HAVE_POSIX
+#cmakedefine SGE_HAVE_ATLEAST_UINT64
 
 #ifdef _WIN32
 #define SGE_WINDOWS_PLATFORM 1

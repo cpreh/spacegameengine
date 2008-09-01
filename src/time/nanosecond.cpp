@@ -39,5 +39,5 @@ sge::time::nanosecond::nanosecond(
 sge::time::nanosecond::nanosecond(
 	unit const tm)
 : resolution(
-	tm * hz() / (factor))
+	tm * hz() / factor)
 {}

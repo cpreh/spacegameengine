@@ -37,6 +37,14 @@ CHECK_CXX_SOURCE_RUNS(
 	 }"
 	 SGE_HAVE_POSIX)
 
+CHECK_CXX_SOURCE_COMPILES(
+	"#include <boost/cstdint.hpp>
+	 int main()
+	 {
+	   boost::uint_least64_t test;
+	 }"
+	 SGE_HAVE_ATLEAST_UINT64)
+
 FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	filesystem
 	signals
