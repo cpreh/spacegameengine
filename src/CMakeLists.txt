@@ -30,7 +30,7 @@ IF (NOT MSVC)
 ENDIF ()
 
 IF (${UNIX})
-	TARGET_LINK_LIBRARIES (sgecore X11 dl)
+	TARGET_LINK_LIBRARIES (sgecore X11 dl rt)
 ELSEIF (${WIN32})
 	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
 ENDIF ()
