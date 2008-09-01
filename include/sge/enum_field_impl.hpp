@@ -18,23 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_DEFAULT_FORMATTER_HPP_INCLUDED
-#define SGE_LOG_DEFAULT_FORMATTER_HPP_INCLUDED
+#ifndef SGE_ENUM_FIELD_IMPL_HPP_INCLUDED
+#define SGE_ENUM_FIELD_IMPL_HPP_INCLUDED
 
-#include "formatter.hpp"
-#include "level.hpp"
-#include "../export.hpp"
+#include "enum_field.hpp"
 
 namespace sge
 {
-namespace log
-{
 
-SGE_SYMBOL const_formatter_ptr const
-default_formatter(
-	level::type);
+template<typename Enum, Enum Size>
+Enum const enum_field<Enum, Size>::size;
 
-}
 }
 
 #endif

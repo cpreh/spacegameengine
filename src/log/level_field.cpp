@@ -18,16 +18,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/text.hpp>
-#include <sge/iostream.hpp>
-
-sge::log::logger &
-sge::log::global()
-{
-	static logger global_(
-		cout,
-		SGE_TEXT("sge: "));
-	return global_;
-}
+#include <sge/log/level_field.hpp>
+#include <sge/enum_field.hpp>

@@ -18,29 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_INSERT_FORMATTER_HPP_INCLUDED
-#define SGE_LOG_INSERT_FORMATTER_HPP_INCLUDED
+#ifndef SGE_LOG_LEVEL_FIELD_HPP_INCLUDED
+#define SGE_LOG_LEVEL_FIELD_HPP_INCLUDED
 
-#include "formatter.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include "level.hpp"
+#include "../enum_field.hpp"
 
 namespace sge
 {
 namespace log
 {
 
-class SGE_CLASS_SYMBOL insert_formatter : public formatter {
-public:
-	SGE_SYMBOL explicit insert_formatter(
-		string const &format_string);
-	
-	SGE_SYMBOL string const
-	format(
-		string const &) const;
-private:
-	string const format_string;
-};
+typedef enum_field<
+	level::type,
+	level::size
+> level_field;
 
 }
 }

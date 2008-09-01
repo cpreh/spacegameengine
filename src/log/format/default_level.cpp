@@ -18,16 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
+#include <sge/log/format/default_level.hpp>
+#include <sge/log/format/inserter.hpp>
 #include <sge/text.hpp>
-#include <sge/iostream.hpp>
+#include <boost/array.hpp>
 
-sge::log::logger &
-sge::log::global()
+sge::log::format::const_formatter_ptr const
+sge::log::format::default_level(
+	level::type const level_)
 {
-	static logger global_(
-		cout,
-		SGE_TEXT("sge: "));
-	return global_;
+	boost::array<string, level::size>
+	const prefix_array = {
+	{
+		SGE_TEXT("debug"),
+		SGE_TEXT("info"),
+		SGE_TEXT("warning"),
+		SGE_TEXT("error"),
+		SGE_TEXT("fatal")
+	} };
+
+	return const_formatter_ptr(
+		new inserter(
+			prefix_array.at(level_)
+			+ SGE_TEXT(": %1%\n")));
 }

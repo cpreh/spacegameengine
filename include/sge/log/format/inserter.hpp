@@ -18,16 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/text.hpp>
-#include <sge/iostream.hpp>
+#ifndef SGE_LOG_FORMAT_INSERTER_HPP_INCLUDED
+#define SGE_LOG_FORMAT_INSERTER_HPP_INCLUDED
 
-sge::log::logger &
-sge::log::global()
+#include "formatter.hpp"
+#include "../../string.hpp"
+#include "../../export.hpp"
+
+namespace sge
 {
-	static logger global_(
-		cout,
-		SGE_TEXT("sge: "));
-	return global_;
+namespace log
+{
+namespace format
+{
+
+class SGE_CLASS_SYMBOL inserter : public formatter {
+public:
+	SGE_SYMBOL explicit inserter(
+		string const &format_string);
+	
+	SGE_SYMBOL string const
+	format(
+		string const &) const;
+private:
+	string const format_string;
+};
+
 }
+}
+}
+
+#endif

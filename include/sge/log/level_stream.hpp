@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../ostream.hpp"
 #include "../export.hpp"
-#include "formatter.hpp"
+#include "format/formatter.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -37,7 +37,7 @@ class level_stream : boost::noncopyable {
 	friend class logger;
 	explicit level_stream(
 		ostream &,
-		const_formatter_ptr);
+		format::const_formatter_ptr);
 public:
 	SGE_SYMBOL void enable();
 	SGE_SYMBOL void disable();
@@ -45,13 +45,13 @@ public:
 	SGE_SYMBOL void log(
 		temporary_output const &);
 	SGE_SYMBOL void formatter(
-		const_formatter_ptr);
-	SGE_SYMBOL const_formatter_ptr const
+		format::const_formatter_ptr);
+	SGE_SYMBOL format::const_formatter_ptr const
 	formatter() const;
 private:
-	ostream &dest_;
-	const_formatter_ptr formatter_;
-	bool                enabled_;
+	ostream                     &dest_;
+	format::const_formatter_ptr formatter_;
+	bool                        enabled_;
 };
 
 }

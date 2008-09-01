@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "level.hpp"
 #include "level_stream.hpp"
+#include "format/formatter.hpp"
 #include "../ostream.hpp"
+#include "../string.hpp"
 #include "../export.hpp"
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/noncopyable.hpp>
@@ -37,8 +39,15 @@ class temporary_output;
 
 class logger : boost::noncopyable {
 public:
-	SGE_SYMBOL explicit logger(
-		ostream &sink);
+	SGE_SYMBOL logger(
+		ostream &sink,
+		format::const_formatter_ptr formatter);
+	SGE_SYMBOL logger(
+		ostream &sink,
+		string const &prefix);
+	SGE_SYMBOL logger(
+		logger &parent,
+		string const &prefix);
 	SGE_SYMBOL void log(
 		level::type,
 		temporary_output const &);
@@ -57,19 +66,24 @@ public:
 	SGE_SYMBOL bool enabled(
 		level::type) const;
 	SGE_SYMBOL ostream &sink() const;
+	SGE_SYMBOL format::const_formatter_ptr const
+	formatter() const;
 private:
 	void init_levels();
+	void init_level(
+		level::type);
 	void set_hierarchie(
 		level::type,
 		void (logger::*)(level::type));
 
-	ostream             &sink_;
+	ostream                     &sink_;
+	format::const_formatter_ptr formatter_;
 
 	typedef boost::ptr_vector<
 		level_stream
 	> level_vector;
 
-	level_vector        level_streams;
+	level_vector                level_streams;
 };
 
 }

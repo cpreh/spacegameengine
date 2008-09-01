@@ -18,27 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/default_formatter.hpp>
-#include <sge/log/insert_formatter.hpp>
+#include <sge/log/format/create_prefix.hpp>
+#include <sge/log/format/inserter.hpp>
 #include <sge/text.hpp>
-#include <boost/array.hpp>
 
-sge::log::const_formatter_ptr const
-sge::log::default_formatter(
-	level::type const level_)
+sge::log::format::const_formatter_ptr const
+sge::log::format::create_prefix(
+	string const &prefix)
 {
-	boost::array<string, level::size>
-	const prefix_array = {
-	{
-		SGE_TEXT("debug"),
-		SGE_TEXT("info"),
-		SGE_TEXT("warning"),
-		SGE_TEXT("error"),
-		SGE_TEXT("fatal")
-	} };
-
 	return const_formatter_ptr(
-		new insert_formatter(
-			prefix_array.at(level_)
-			+ SGE_TEXT(": %1%\n")));
+		new inserter(
+			prefix + SGE_TEXT("%1%")));
 }

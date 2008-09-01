@@ -18,16 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/text.hpp>
-#include <sge/iostream.hpp>
+#ifndef SGE_TIME_MICROSECOND_HPP_INCLUDED
+#define SGE_TIME_MICROSECOND_HPP_INCLUDED
 
-sge::log::logger &
-sge::log::global()
+#include "../export.hpp"
+#include "../su.hpp"
+#include "resolution.hpp"
+
+namespace sge
 {
-	static logger global_(
-		cout,
-		SGE_TEXT("sge: "));
-	return global_;
+namespace time
+{
+
+class microsecond : public resolution {
+public:
+	SGE_SYMBOL explicit microsecond(space_unit);
+	SGE_SYMBOL explicit microsecond(unit);
+};
+
 }
+}
+
+#endif

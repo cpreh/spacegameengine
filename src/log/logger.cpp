@@ -19,12 +19,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/logger.hpp>
-#include <sge/log/default_formatter.hpp>
-#include <boost/foreach.hpp>
+#include <sge/log/level_field.hpp>
+#include <sge/log/format/default_level.hpp>
+#include <sge/log/format/create_chain.hpp>
+#include <sge/log/format/create_prefix.hpp>
+#include <sge/foreach_enumerator.hpp>
+#include <boost/bind.hpp>
 
 sge::log::logger::logger(
-	ostream &sink_)
-: sink_(sink_)
+	ostream &sink_,
+	format::const_formatter_ptr const formatter_)
+: sink_(sink_),
+  formatter_(formatter_)
+{
+	init_levels();
+}
+
+sge::log::logger::logger(
+	ostream &sink_,
+	string const &prefix)
+: sink_(sink_),
+  formatter_(
+  	format::create_prefix(
+		prefix))
+{
+	init_levels();
+}
+
+sge::log::logger::logger(
+	logger &parent,
+	string const &prefix)
+: sink_(parent.sink()),
+  formatter_(
+  	format::create_chain(
+  		parent.formatter(),
+  		format::create_prefix(
+  			prefix)))
 {
 	init_levels();
 }
@@ -50,7 +80,8 @@ sge::log::level_stream const &
 sge::log::logger::level_sink(
 	level::type const level_) const
 {
-	return const_cast<logger &>(*this).level_sink(level_);
+	return const_cast<logger &>(
+		*this).level_sink(level_);
 }
 
 void sge::log::logger::activate(
@@ -95,16 +126,21 @@ sge::log::logger::sink() const
 
 void sge::log::logger::init_levels()
 {
-	for(unsigned i = 0; i < level::size; ++i)
-		level_streams.push_back(
-			new level_stream(
-				sink(),
-				default_formatter(
-					static_cast<level::type>(
-						i)
-				)
-			)
-		);
+	foreach_enumerator<level_field>(
+		boost::bind(
+			&logger::init_level, this, _1));
+}
+
+void sge::log::logger::init_level(
+	level::type const level_)
+{
+	level_streams.push_back(
+		new level_stream(
+			sink(),
+			create_chain(
+				formatter_,
+				format::default_level(
+					level_))));
 }
 
 void sge::log::logger::set_hierarchie(
@@ -112,5 +148,13 @@ void sge::log::logger::set_hierarchie(
 	void (logger::*fun)(level::type))
 {
 	for(unsigned i = level_; i < level::size; ++i)
-		(this->*fun)(level_);
+		(this->*fun)(
+			static_cast<level::type>(
+				i));
+}
+
+sge::log::format::const_formatter_ptr const
+sge::log::logger::formatter() const
+{
+	return formatter_;
 }

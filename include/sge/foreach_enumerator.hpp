@@ -18,16 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/text.hpp>
-#include <sge/iostream.hpp>
+#ifndef SGE_FOREACH_ENUMERATOR_HPP_INCLUDED
+#define SGE_FOREACH_ENUMERATOR_HPP_INCLUDED
 
-sge::log::logger &
-sge::log::global()
+namespace sge
 {
-	static logger global_(
-		cout,
-		SGE_TEXT("sge: "));
-	return global_;
+
+template<typename EnumField, typename Callback>
+void foreach_enumerator(
+	Callback const &fun);
+
 }
+
+#include "detail/foreach_enumerator_impl.hpp"
+
+#endif

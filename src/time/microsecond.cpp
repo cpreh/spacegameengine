@@ -18,16 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/text.hpp>
-#include <sge/iostream.hpp>
+#include <sge/time/microsecond.hpp>
+#include <sge/time/time.hpp>
 
-sge::log::logger &
-sge::log::global()
+namespace
 {
-	static logger global_(
-		cout,
-		SGE_TEXT("sge: "));
-	return global_;
+
+sge::time::unit const factor(1000 * 1000);
+
 }
+
+sge::time::microsecond::microsecond(
+	space_unit const tm)
+: resolution(
+	static_cast<unit>(
+		tm * static_cast<space_unit>(
+			hz()) * static_cast<space_unit>(factor)))
+{}
+
+sge::time::microsecond::microsecond(
+	unit const tm)
+: resolution(
+	tm * hz() / factor)
+{}

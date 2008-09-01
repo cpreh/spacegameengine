@@ -3,8 +3,7 @@ spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
+modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
@@ -18,30 +17,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_FORMATTER_HPP_INCLUDED
-#define SGE_LOG_FORMATTER_HPP_INCLUDED
-
-#include "../string.hpp"
-#include "../shared_ptr.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#ifndef SGE_ENUM_FIELD_HPP_INCLUDED
+#define SGE_ENUM_FIELD_HPP_INCLUDED
 
 namespace sge
 {
-namespace log
-{
 
-class SGE_CLASS_SYMBOL formatter : boost::noncopyable {
-public:
-	virtual string const
-	format(
-		string const &) const = 0;
+template<typename Enum, Enum Size>
+struct enum_field {
+	typedef Enum wrapped_type;
+	static Enum const size = Size;
 };
 
-typedef shared_ptr<formatter> formatter_ptr;
-typedef shared_ptr<formatter const> const_formatter_ptr;
-
-}
 }
 
 #endif

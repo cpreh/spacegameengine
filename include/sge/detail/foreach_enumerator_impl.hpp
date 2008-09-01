@@ -18,16 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
-#include <sge/text.hpp>
-#include <sge/iostream.hpp>
-
-sge::log::logger &
-sge::log::global()
+template<typename EnumField, typename Callback>
+void sge::foreach_enumerator(
+	Callback const &fun)
 {
-	static logger global_(
-		cout,
-		SGE_TEXT("sge: "));
-	return global_;
+	// TODO: find out the underlying type!
+	for(unsigned i = 0; i < EnumField::size; ++i)
+		fun(
+			static_cast<typename EnumField::wrapped_type>(
+				i));
 }
