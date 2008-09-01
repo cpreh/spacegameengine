@@ -18,30 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_INSERT_FORMATTER_HPP_INCLUDED
-#define SGE_LOG_INSERT_FORMATTER_HPP_INCLUDED
+#ifndef SGE_LOG_FORMAT_FORMATTER_HPP_INCLUDED
+#define SGE_LOG_FORMAT_FORMATTER_HPP_INCLUDED
 
-#include "formatter.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include "../../string.hpp"
+#include "../../shared_ptr.hpp"
+#include "../../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace log
 {
+namespace format
+{
 
-class SGE_CLASS_SYMBOL insert_formatter : public formatter {
+class SGE_CLASS_SYMBOL formatter : boost::noncopyable {
 public:
-	SGE_SYMBOL explicit insert_formatter(
-		string const &format_string);
-	
-	SGE_SYMBOL string const
+	virtual string const
 	format(
-		string const &) const;
-private:
-	string const format_string;
+		string const &) const = 0;
 };
 
+typedef shared_ptr<formatter> formatter_ptr;
+typedef shared_ptr<formatter const> const_formatter_ptr;
+
+}
 }
 }
 

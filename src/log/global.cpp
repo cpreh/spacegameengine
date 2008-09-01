@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::log::logger &
 sge::log::global()
 {
-	static logger global_(cout);
+	static logger global_(
+		cout,
+		format::const_formatter_ptr()); // TODO
 	return global_;
 }

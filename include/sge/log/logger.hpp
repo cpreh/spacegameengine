@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "level.hpp"
 #include "level_stream.hpp"
+#include "format/formatter.hpp"
 #include "../ostream.hpp"
 #include "../export.hpp"
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -38,7 +39,8 @@ class temporary_output;
 class logger : boost::noncopyable {
 public:
 	SGE_SYMBOL explicit logger(
-		ostream &sink);
+		ostream &sink,
+		format::const_formatter_ptr formatter);
 	SGE_SYMBOL void log(
 		level::type,
 		temporary_output const &);
@@ -63,13 +65,14 @@ private:
 		level::type,
 		void (logger::*)(level::type));
 
-	ostream             &sink_;
+	ostream                     &sink_;
+	format::const_formatter_ptr formatter_;
 
 	typedef boost::ptr_vector<
 		level_stream
 	> level_vector;
 
-	level_vector        level_streams;
+	level_vector                level_streams;
 };
 
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::log::level_stream::level_stream(
 	ostream &dest_,
-	const_formatter_ptr const formatter_)
+	format::const_formatter_ptr const formatter_)
 : dest_(dest_),
   formatter_(formatter_),
   enabled_(false)
@@ -54,12 +54,12 @@ void sge::log::level_stream::log(
 }
 
 void sge::log::level_stream::formatter(
-	const_formatter_ptr const new_formatter)
+	format::const_formatter_ptr const new_formatter)
 {
 	formatter_ = new_formatter;
 }
 
-sge::log::const_formatter_ptr const
+sge::log::format::const_formatter_ptr const
 sge::log::level_stream::formatter() const
 {
 	return formatter_;

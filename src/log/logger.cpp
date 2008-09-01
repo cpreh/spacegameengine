@@ -19,11 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/logger.hpp>
-#include <sge/log/default_formatter.hpp>
+#include <sge/log/format/default_level.hpp>
 
 sge::log::logger::logger(
-	ostream &sink_)
-: sink_(sink_)
+	ostream &sink_,
+	format::const_formatter_ptr const formatter_)
+: sink_(sink_),
+  formatter_(formatter_)
 {
 	init_levels();
 }
@@ -49,7 +51,8 @@ sge::log::level_stream const &
 sge::log::logger::level_sink(
 	level::type const level_) const
 {
-	return const_cast<logger &>(*this).level_sink(level_);
+	return const_cast<logger &>(
+		*this).level_sink(level_);
 }
 
 void sge::log::logger::activate(
@@ -98,7 +101,7 @@ void sge::log::logger::init_levels()
 		level_streams.push_back(
 			new level_stream(
 				sink(),
-				default_formatter(
+				format::default_level(
 					static_cast<level::type>(
 						i)
 				)
@@ -111,5 +114,7 @@ void sge::log::logger::set_hierarchie(
 	void (logger::*fun)(level::type))
 {
 	for(unsigned i = level_; i < level::size; ++i)
-		(this->*fun)(level_);
+		(this->*fun)(
+			static_cast<level::type>(
+				i));
 }

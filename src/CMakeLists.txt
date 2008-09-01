@@ -9,6 +9,7 @@ FILE (GLOB sgecorefiles
 	image/*.cpp
 	input/*.cpp
 	log/*.cpp
+	log/format/*.cpp
 	math/*.cpp
 	model/*.cpp
 	plugin/*.cpp
