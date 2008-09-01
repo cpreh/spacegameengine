@@ -23,8 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/time.hpp>
 
 #ifdef SGE_POSIX_PLATFORM
-//#include <sys/time.h>
+#ifndef SGE_HAVE_ATLEAST_UINT64
+#include <sys/time.h>
+#else
 #include <time.h>
+#endif
 #elif SGE_WINDOWS_PLATFORM
 #include <sge/windows.hpp>
 #else
@@ -55,16 +58,19 @@ private:
 sge::time::unit sge::time::time()
 {
 #ifdef SGE_POSIX_PLATFORM
-/*	struct timeval tv;
+#ifndef SGE_HAVE_ATLEAST_UINT64
+	struct timeval tv;
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
 		throw sge::exception(SGE_TEXT("gettimeofday() failed!"));
-	return static_cast<time::unit>(tv.tv_sec * hz() + tv.tv_usec);*/
+	return static_cast<time::unit>(tv.tv_sec * hz() + tv.tv_usec);
+#else
 	timespec tp;
 	if(clock_gettime(CLOCK_REALTIME, &tp) != 0)
 		throw sge::exception(
 			SGE_TEXT("clock_gettime() failed!"));
 	return tp.tv_sec * hz() + tp.tv_nsec;
+#endif
 #elif SGE_WINDOWS_PLATFORM
 	return instance.use_performance_counter()
 		? query_performance_counter()
@@ -75,8 +81,11 @@ sge::time::unit sge::time::time()
 sge::time::unit sge::time::hz()
 {
 #ifdef SGE_POSIX_PLATFORM
-	//return 1000 * 1000;
+#ifndef SGE_HAVE_ATLEAST_UINT64
+	return 1000 * 1000;
+#else
 	return 1000 * 1000 * 1000;
+#endif
 #elif SGE_WINDOWS_PLATFORM
 	return instance.use_performance_counter()
 	? query_performance_frequency()
