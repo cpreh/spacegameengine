@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/time/millisecond.hpp>
+#include <sge/time/nanosecond.hpp>
 #include <sge/time/time.hpp>
 
 namespace
 {
 
-sge::time::unit const factor(1000);
+sge::time::unit const factor(1000 * 1000 * 1000);
 
 }
 
-sge::time::millisecond::millisecond(
+sge::time::nanosecond::nanosecond(
 	space_unit const tm)
 : resolution(
 	static_cast<unit>(
@@ -36,8 +36,8 @@ sge::time::millisecond::millisecond(
 			hz()) * static_cast<space_unit>(factor)))
 {}
 
-sge::time::millisecond::millisecond(
+sge::time::nanosecond::nanosecond(
 	unit const tm)
 : resolution(
-	tm * hz() / factor)
+	tm * hz() / (factor))
 {}

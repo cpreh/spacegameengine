@@ -18,26 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/time/millisecond.hpp>
-#include <sge/time/time.hpp>
+#ifndef SGE_TIME_MICROSECOND_HPP_INCLUDED
+#define SGE_TIME_MICROSECOND_HPP_INCLUDED
 
-namespace
+#include "../export.hpp"
+#include "../su.hpp"
+#include "resolution.hpp"
+
+namespace sge
+{
+namespace time
 {
 
-sge::time::unit const factor(1000);
+class microsecond : public resolution {
+public:
+	SGE_SYMBOL explicit microsecond(space_unit);
+	SGE_SYMBOL explicit microsecond(unit);
+};
 
 }
+}
 
-sge::time::millisecond::millisecond(
-	space_unit const tm)
-: resolution(
-	static_cast<unit>(
-		tm * static_cast<space_unit>(
-			hz()) * static_cast<space_unit>(factor)))
-{}
-
-sge::time::millisecond::millisecond(
-	unit const tm)
-: resolution(
-	tm * hz() / factor)
-{}
+#endif
