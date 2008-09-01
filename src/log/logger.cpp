@@ -20,12 +20,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/logger.hpp>
 #include <sge/log/format/default_level.hpp>
+#include <sge/log/format/create_chain.hpp>
+#include <sge/log/format/create_prefix.hpp>
 
 sge::log::logger::logger(
 	ostream &sink_,
 	format::const_formatter_ptr const formatter_)
 : sink_(sink_),
   formatter_(formatter_)
+{
+	init_levels();
+}
+
+sge::log::logger::logger(
+	ostream &sink_,
+	string const &prefix)
+: sink_(sink_),
+  formatter_(
+  	format::create_prefix(
+		prefix))
+{
+	init_levels();
+}
+
+sge::log::logger::logger(
+	logger &parent,
+	string const &prefix)
+: sink_(parent.sink()),
+  formatter_(
+  	format::create_chain(
+  		parent.formatter(),
+  		format::create_prefix(
+  			prefix)))
 {
 	init_levels();
 }
@@ -101,9 +127,13 @@ void sge::log::logger::init_levels()
 		level_streams.push_back(
 			new level_stream(
 				sink(),
-				format::default_level(
-					static_cast<level::type>(
-						i)
+				create_chain(
+					formatter_,
+					format::default_level(
+						static_cast<level::type>(
+							i
+						)
+					)
 				)
 			)
 		);
@@ -117,4 +147,10 @@ void sge::log::logger::set_hierarchie(
 		(this->*fun)(
 			static_cast<level::type>(
 				i));
+}
+
+sge::log::format::const_formatter_ptr const
+sge::log::logger::formatter() const
+{
+	return formatter_;
 }

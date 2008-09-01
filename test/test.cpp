@@ -67,7 +67,13 @@ try
 
 	log.activate(sge::log::level::debug);
 
+	sge::log::logger inner_logger(log, SGE_TEXT("inner: "));
+
+	inner_logger.activate(sge::log::level::warning);
+
 	SGE_LOG_DEBUG(log, sge::log::_1 << SGE_TEXT("HAHA"));
+
+	SGE_LOG_WARNING(inner_logger, sge::log::_1 << SGE_TEXT("blubb"));
 
 	bool running = true;
 	sge::plugin::manager pm;

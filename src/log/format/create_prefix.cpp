@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global.hpp> 
-#include <sge/log/logger.hpp>
+#include <sge/log/format/create_prefix.hpp>
+#include <sge/log/format/inserter.hpp>
 #include <sge/text.hpp>
-#include <sge/iostream.hpp>
 
-sge::log::logger &
-sge::log::global()
+sge::log::format::const_formatter_ptr const
+sge::log::format::create_prefix(
+	string const &prefix)
 {
-	static logger global_(
-		cout,
-		SGE_TEXT("sge: "));
-	return global_;
+	return const_formatter_ptr(
+		new inserter(
+			prefix + SGE_TEXT("%1%")));
 }

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_LOG_FORMAT_CREATE_CHAIN_HPP_INCLUDED
 
 #include "formatter.hpp"
+#include "../../export.hpp"
 
 namespace sge
 {
@@ -30,7 +31,7 @@ namespace log
 namespace format
 {
 
-const_formatter_ptr const
+SGE_SYMBOL const_formatter_ptr const
 create_chain(
 	const_formatter_ptr parent,
 	const_formatter_ptr child);
