@@ -56,7 +56,9 @@ sge::log::logger::logger(
   		format::create_prefix(
   			prefix)))
 {
-	init_levels();
+	foreach_enumerator<level_field>(
+		boost::bind(
+			&logger::inherit_levels, this, boost::ref(parent), _1));
 }
 
 void sge::log::logger::log(
@@ -124,6 +126,12 @@ sge::log::logger::sink() const
 	return sink_;
 }
 
+sge::log::format::const_formatter_ptr const
+sge::log::logger::formatter() const
+{
+	return formatter_;
+}
+
 void sge::log::logger::init_levels()
 {
 	foreach_enumerator<level_field>(
@@ -143,6 +151,16 @@ void sge::log::logger::init_level(
 					level_))));
 }
 
+void sge::log::logger::inherit_levels(
+	logger &parent,
+	level::type const level_)
+{
+	level_streams.push_back(
+		new level_stream(
+			parent.level_sink(
+				level_)));
+}
+
 void sge::log::logger::set_hierarchie(
 	level::type const level_,
 	void (logger::*fun)(level::type))
@@ -151,10 +169,4 @@ void sge::log::logger::set_hierarchie(
 		(this->*fun)(
 			static_cast<level::type>(
 				i));
-}
-
-sge::log::format::const_formatter_ptr const
-sge::log::logger::formatter() const
-{
-	return formatter_;
 }
