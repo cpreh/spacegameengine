@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_BITFIELD_HPP_INCLUDED
 #define SGE_BITFIELD_HPP_INCLUDED
 
-#include <cstddef>
-#include <limits>
-#include <iterator>
-#include <algorithm>
+#include "functional.hpp"
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/array.hpp>
+#include <iterator>
+#include <limits>
+#include <algorithm>
+#include <cstddef>
 
 // Requires:
 // - Enum shall be an enumeration type that doesn't contain any enumerators with explicit values.
@@ -74,18 +75,6 @@ private:
 		}
 		operator value_type() const { return array[array_offset(pos)] & (1 << (bit_offset(pos))); }
 	};
-
-	template <typename T>
-	struct bit_and : public std::binary_function<T,T,T> { T operator()(const T& x, const T& y) const { return x & y; } };
-
-	template <typename T>
-	struct bit_or : public std::binary_function<T,T,T> { T operator()(const T& x, const T& y) const { return x | y; } };
-
-	template <typename T>
-	struct bit_xor : public std::binary_function<T,T,T> { T operator()(const T& x, const T& y) const { return x ^ y; } };
-
-	template <typename T>
-	struct bit_not : public std::unary_function<T,T> { T operator()(const T& x) const { return ~x; } }; 
 
 	typedef proxy_impl<array_type&> proxy;
 public:
