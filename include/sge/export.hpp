@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EXPORT_HPP_INCLUDED
 #define SGE_EXPORT_HPP_INCLUDED
 
+#include "config.h"
+
 #ifdef SGE_SYMBOL
 #	undef SGE_SYMBOL
 #endif
@@ -44,10 +46,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	endif
 
 #	define SGE_CLASS_SYMBOL
-#else
+#elif defined(__GNUC__) && defined(SGE_HAVE_GCC_VISIBILITY)
 #	define SGE_SYMBOL __attribute__ ((visibility("default")))
 #	define SGE_EXPORT_SYMBOL SGE_SYMBOL
 #	define SGE_CLASS_SYMBOL SGE_SYMBOL
+#else
+#	define SGE_SYMBOL
+#	define SGE_EXPORT_SYMBOL
+#	define SGE_CLASS_SYMBOL
 #endif
 
 

@@ -37,6 +37,13 @@ CHECK_CXX_SOURCE_RUNS(
 	 }"
 	 SGE_HAVE_POSIX)
 
+FIND_PACKAGE(Boost 1.35.0 COMPONENTS
+	filesystem
+	signals
+	regex
+	iostreams
+	system)
+
 CHECK_CXX_SOURCE_COMPILES(
 	"#include <boost/cstdint.hpp>
 	 int main()
@@ -45,15 +52,18 @@ CHECK_CXX_SOURCE_COMPILES(
 	 }"
 	 SGE_HAVE_ATLEAST_UINT64)
 
-FIND_PACKAGE(Boost 1.35.0 COMPONENTS
-	filesystem
-	signals
-	regex
-	iostreams
-	system)
-
 IF (${CMAKE_COMPILER_IS_GNUCXX})
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self")
+	SET (CMAKE_REQUIRED_FLAGS "-fvisibility=hidden")
+
+	CHECK_CXX_SOURCE_COMPILES(
+		"int main(){}"
+		SGE_HAVE_GCC_VISIBILITY)
+
+	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self")
+
+	IF (${SGE_HAVE_GCC_VISIBILITY})
+		SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden")
+	ENDIF ()
 
 	IF (${SGE_HAVE_VARIADIC_TEMPLATES})
 		SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wold-style-cast -std=c++0x")

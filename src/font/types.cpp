@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/types.hpp>
 
-const sge::font::dim
+sge::font::dim const
 sge::font::gil_dim_to_sge(image::point_t const &d)
 {
-	return dim(d.x, d.y);
+	return dim(
+		static_cast<dim::value_type>(d.x),
+		static_cast<dim::value_type>(d.y));
 }
