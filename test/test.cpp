@@ -75,6 +75,8 @@ try
 {
 	typedef sge::bitfield<testenum, esize> myfield;
 	myfield testfield;
+	testfield |= foo;
+	*testfield.begin() = true;
 
 	sge::log::logger &log(sge::log::global());
 
