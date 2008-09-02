@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
 #define SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
 
-#include "plugin.hpp"
-#include "traits.hpp"
-#include "../library_impl.hpp"
+#include "../plugin.hpp"
+#include "../traits.hpp"
+#include "../../library_impl.hpp"
 
 template<typename T>
 sge::plugin::plugin<T>::plugin(const path& p)

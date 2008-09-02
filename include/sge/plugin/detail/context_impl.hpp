@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
 #define SGE_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
 
-#include "context.hpp"
-#include "plugin.hpp"
+#include "../context.hpp"
+#include "../plugin.hpp"
 
 template<typename T>
 sge::plugin::context<T>::context(
@@ -34,11 +34,11 @@ template<typename T>
 typename sge::plugin::context<T>::ptr_type
 sge::plugin::context<T>::load()
 {
-	const shared_ptr<base> ptr_base(base_->ref.lock());
+	shared_ptr<base> const ptr_base(base_->ref.lock());
 	if(ptr_base)
 		return polymorphic_pointer_cast<plugin<T> >(ptr_base);
 	
-	const shared_ptr<plugin<T> > new_ptr(
+	shared_ptr<plugin<T> > const new_ptr(
 		new plugin<T>(base_->get_path()));
 
 	base_->ref = new_ptr.get_boost_ptr();

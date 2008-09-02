@@ -18,47 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "manager.hpp"
-#include "../exception.hpp"
-#include "../text.hpp"
-#include "../iconv.hpp"
+#ifndef SGE_PLUGIN_ITERATOR_IMPL_HPP_INCLUDED
+#define SGE_PLUGIN_ITERATOR_IMPL_HPP_INCLUDED
+
+#include "../iterator.hpp"
 
 template<typename T>
-sge::plugin::iterator<T>
-sge::plugin::manager::begin()
+sge::plugin::iterator<T>::iterator(
+	category_array::iterator const it)
+: it(it)
+{}
+
+template<typename T>
+void sge::plugin::iterator<T>::advance(const difference_type diff)
 {
-	return iterator<T>(
-		categories[detail::traits<T>::get_plugin_type()].begin());
+	it+=diff;
 }
 
 template<typename T>
-sge::plugin::iterator<T>
-sge::plugin::manager::end()
+void sge::plugin::iterator<T>::increment()
 {
-	return iterator<T>(
-		categories[detail::traits<T>::get_plugin_type()].end());
+	++it;
+}
+
+template<typename T>
+void sge::plugin::iterator<T>::decrement()
+{
+	--it;
+}
+
+template<typename T>
+bool sge::plugin::iterator<T>::equal(const iterator& r) const
+{
+	return it == r.it;
 }
 
 template<typename T>
 typename sge::plugin::iterator<T>::reference
-sge::plugin::manager::get_plugin(
-	size_type const index)
+sge::plugin::iterator<T>::dereference() const
 {
-	if(index >= size<T>())
-		throw exception(
-			SGE_TEXT("get_plugin(): No plugins found of type: \"")
-			+ iconv(typeid(T).name())
-			+ SGE_TEXT("\"!"));
-	return *(begin<T>()+index);
+	return context<T>(**it);
 }
 
 template<typename T>
-sge::plugin::manager::size_type
-sge::plugin::manager::size() const
+typename sge::plugin::iterator<T>::difference_type
+sge::plugin::iterator<T>::distance_to(
+	iterator const &r) const
 {
-	const plugin_map::const_iterator it = categories.find(
-		detail::traits<T>::get_plugin_type());
-	return it == categories.end()
-		? 0
-		: it->second.size();
+	return r.it - it;
 }
+
+#endif
