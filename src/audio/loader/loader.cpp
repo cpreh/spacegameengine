@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/loader/loader.hpp>
-#include <sge/plugin/instantiate_types.hpp>
+#include <sge/plugin/detail/instantiate_types.hpp>
 
 sge::audio::loader::~loader()
 {}

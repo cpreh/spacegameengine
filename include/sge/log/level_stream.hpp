@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../ostream.hpp"
 #include "../export.hpp"
 #include "format/formatter.hpp"
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,7 +32,7 @@ namespace log
 
 class temporary_output;
 
-class level_stream : boost::noncopyable {
+class level_stream {
 	friend class logger;
 	explicit level_stream(
 		ostream &,

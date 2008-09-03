@@ -18,43 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EXPORT_HPP_INCLUDED
-#define SGE_EXPORT_HPP_INCLUDED
+#ifndef SGE_FUNCTIONAL_HPP_INCLUDED
+#define SGE_FUNCTIONAL_HPP_INCLUDED 
 
-#include "config.h"
+#include <functional>
 
-#ifdef SGE_SYMBOL
-#	undef SGE_SYMBOL
+namespace sge
+{
+
+template <typename T>
+struct bit_and : public std::binary_function<T, T, T> {
+	T operator()(
+		T const &x,
+		T const &y) const
+	{
+		return x & y;
+	}
+};
+
+template <typename T>
+struct bit_or : public std::binary_function<T, T, T> {
+	T operator()(
+		T const &x,
+		T const &y) const
+	{
+		return x | y;
+	}
+};
+
+template <typename T>
+struct bit_xor : public std::binary_function<T, T, T> {
+	T operator()(
+		T const &x,
+		T const &y) const
+	{
+		return x ^ y;
+	}
+};
+
+template <typename T>
+struct bit_not : public std::unary_function<T, T> {
+	T operator()(T const &x) const
+	{
+		return ~x;
+	}
+}; 
+
+}
+
 #endif
-
-#ifdef SGE_EXPORT_SYMBOL
-#	undef SGE_EXPORT_SYMBOL
-#endif
-
-#ifdef SGE_IMPORT_SYMBOL
-#	undef SGE_IMPORT_SYMBOL
-#endif
-
-#if defined(_MSC_VER)
-#	define SGE_EXPORT_SYMBOL __declspec(dllexport)
-#	define SGE_IMPORT_SYMBOL __declspec(dllimport)
-
-#	ifdef SGE_EXPORTS
-#		define SGE_SYMBOL SGE_EXPORT_SYMBOL
-#	else
-#		define SGE_SYMBOL SGE_IMPORT_SYMBOL
-#	endif
-
-#	define SGE_CLASS_SYMBOL
-#elif defined(__GNUC__) && defined(SGE_HAVE_GCC_VISIBILITY)
-#	define SGE_SYMBOL __attribute__ ((visibility("default")))
-#	define SGE_EXPORT_SYMBOL SGE_SYMBOL
-#	define SGE_CLASS_SYMBOL SGE_SYMBOL
-#else
-#	define SGE_SYMBOL
-#	define SGE_EXPORT_SYMBOL
-#	define SGE_CLASS_SYMBOL
-#endif
-
-
-#endif // SGE_EXPORT_HPP_INCLUDED

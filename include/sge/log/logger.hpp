@@ -72,6 +72,9 @@ private:
 	void init_levels();
 	void init_level(
 		level::type);
+	void inherit_levels(
+		logger &parent,
+		level::type);
 	void set_hierarchie(
 		level::type,
 		void (logger::*)(level::type));
