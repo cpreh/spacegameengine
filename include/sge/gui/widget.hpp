@@ -25,6 +25,8 @@ class manager;
 class SGE_CLASS_SYMBOL widget : boost::noncopyable
 {
 	public:
+	typedef sge::gui::size_policy size_policy_t;
+
 	class parent_data
 	{
 		widgets::container *const widget_;
@@ -40,9 +42,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 
 	SGE_SYMBOL widget(
 		parent_data,
-		size_policy const & = size_policy::default_policy,
-		point const &pos = point(),
-		dim const &size = dim());
+		size_policy_t const & = size_policy_t::default_policy);
 
 	// getters and setters go here
 	point const &pos() const { return pos_; }
@@ -55,8 +55,8 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	widgets::container *parent_widget() { return parent_; }
 	widgets::container const *parent_widget() const { return parent_; }
 
-	size_policy const &size_policy() const { return size_policy_; }
-	void size_policy(size_policy const &s) { size_policy_ = s; }
+	size_policy_t const &size_policy() const { return size_policy_; }
+	void size_policy(size_policy_t const &s) { size_policy_ = s; }
 
 	SGE_SYMBOL void size(dim const &);
 	SGE_SYMBOL void pos(point const &);
@@ -65,7 +65,6 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 
 	// pure virtuals
 	virtual dim const size_hint() const = 0;
-	virtual dim const minimum_size() const = 0;
 	virtual void process(events::invalid_area const &) {}
 	virtual void process(events::mouse_enter const &) {}
 	virtual void process(events::mouse_leave const &) {}
@@ -80,11 +79,11 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 
 	void set_size_raw(dim const &d) { size_ = d; }
 	void set_pos_raw(point const &p) { pos_ = p; }
+	virtual void do_compile() {}
 
 	protected:
 	virtual void do_size(dim const &s) { set_size_raw(s); }
 	virtual void do_pos(point const &p) { set_pos_raw(p); }
-	virtual void do_compile() {}
 	virtual widget *do_recalculate_focus(point const &) { return this; }
 
 	private:
@@ -94,7 +93,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 
 	point pos_;
 	dim size_,size_hint_;
-	size_policy size_policy_;
+	size_policy_t size_policy_;
 
 	widget *recalculate_focus(point const &mouse_click);
 

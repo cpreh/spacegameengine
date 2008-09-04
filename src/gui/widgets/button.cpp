@@ -13,16 +13,10 @@
 sge::gui::widgets::button::button(
 	parent_data parent_,
 	string const &text_,
-	font::metrics_ptr _font,
-	point const &p,
-	dim const &d)
+	font::metrics_ptr _font)
 	: widget(
 			parent_,
-			size_policy(
-				axis_policy::minimum,
-				axis_policy::fixed),
-			p,
-			d),
+			size_policy_t(axis_policy::can_grow,axis_policy::none)),
 	  text_(text_),
 	  font_(_font),
 		mouse_over(false)
@@ -88,7 +82,7 @@ void sge::gui::widgets::button::process(events::mouse_leave const &)
 	parent_manager().invalidate(absolute_area());
 }
 
-void sge::gui::widgets::button::process(events::mouse_click const &m)
+void sge::gui::widgets::button::process(events::mouse_click const &)
 {
 	clicked();
 }

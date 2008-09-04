@@ -10,6 +10,7 @@ namespace sge
 {
 namespace gui
 {
+class widget;
 namespace widgets
 {
 class container;
@@ -18,20 +19,20 @@ class container;
 class SGE_CLASS_SYMBOL layout
 {
 	public:
-	// nonvirtual
 	SGE_SYMBOL layout(widgets::container &);
-	SGE_SYMBOL void changed();
 
-	// pure virtual
 	virtual void update() = 0;
-	virtual dim const minimum_size() const = 0;
+	virtual dim const size_hint() const = 0;
 
-	// getters
 	widgets::container &connected_widget() { return w; }
 	widgets::container const &connected_widget() const { return w; }
 
-	// virtual
 	virtual ~layout() {}
+	protected:
+	void set_widget_size(widget &,dim const &);
+	void set_widget_pos(widget &,point const &);
+	void widget_compile(widget &);
+
 	private:
 	widgets::container &w;
 };

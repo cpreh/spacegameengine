@@ -1,4 +1,5 @@
 #include <sge/gui/canvas.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/gui/font_drawer_canvas.hpp>
 
 #include <sge/math/rect_impl.hpp>
@@ -76,6 +77,11 @@ sge::math::basic_vector<T,n> apply(sge::math::basic_vector<T,n> const &v,F f)
 	//	c = f(c);
 	return newone;
 }
+
+namespace
+{
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("canvas"),false);
+}
 }
 
 sge::gui::canvas::canvas(
@@ -116,11 +122,11 @@ void sge::gui::canvas::draw_rect(
 	color_type const c,
 	rect_type::type const t)
 {
-	cerr << "canvas: draw_rect: rel_rect: " << rel_rect << " (dimension: " << rel_rect.dim() << ", position: " << rel_rect.pos() << ")\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "draw_rect: rel_rect: " << rel_rect << " (dimension: " << rel_rect.dim() << ", position: " << rel_rect.pos());
 
 	rect const abs_rect(rel_rect.pos()+widget_pos(),rel_rect.dim());
 
-	//cerr << "canvas: widget position is " << widget_pos() << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "widget position is " << widget_pos());
 
 	// rect is not (completely) inside area?
 	SGE_ASSERT_MESSAGE(
@@ -129,27 +135,28 @@ void sge::gui::canvas::draw_rect(
 		SGE_TEXT(" which is not completely inside the widget rect ")+
 		boost::lexical_cast<string>(widget_area()));
 	
-	//cerr << "canvas: trying to draw rect " <<  abs_rect << " (absolute)\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "trying to draw rect " <<  abs_rect << " (absolute)");
 	
 	// draw not the whole rect but only the intersection of the rect with the
 	// locked area. if they don't intersect, nothing is to be drawn
 	if (!math::intersects(abs_rect,invalid_area()))
 	{
-		//cerr << "canvas: rect " << abs_rect << " and invalid area " << invalid_area() << " don't intersect, returning\n";
+		SGE_LOG_DEBUG(mylogger,log::_1 << "rect " << abs_rect << " and invalid area " << invalid_area() << " don't intersect, returning");
 		return;
 	}
 
 	math::basic_rect<int> const is =
 		math::structure_cast<int>(math::intersection(abs_rect,invalid_area()));
 
-	//cerr << "canvas: rect " << abs_rect << " and invalid area " << invalid_area() << " intersection " << is << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "rect " << abs_rect << " and invalid area " << invalid_area() << " intersection " << is);
 
 	switch (t)
 	{
 		case rect_type::filled:
 		{
-			//cerr << "chose type 'filled', so filling sub view " << is.left()-invalid_area().left() << "," 
-			//	<< is.top()-invalid_area().top() << "," << is.w() << "," << is.h() << "\n";
+			SGE_LOG_DEBUG(mylogger,log::_1 << "chose type 'filled', so filling sub view " << is.left()-invalid_area().left() << "," 
+				<< is.top()-invalid_area().top() << "," << is.w() << "," << is.h());
+
 			boost::gil::fill_pixels(
 				boost::gil::subimage_view(
 					view(),
@@ -208,8 +215,9 @@ void sge::gui::canvas::blit_font(
 	color_type const fg,
 	color_type const bg)
 {
-	//cerr << "canvas: character height is " << data.height() 
-	//					<< ", drawing it at position " << pos << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "character height is " << data.height() 
+						                     << ", drawing it at position " << pos);
+
 	point const abs_pos = widget_pos() + pos;
 
 	// absolute data area
@@ -220,22 +228,22 @@ void sge::gui::canvas::blit_font(
 			static_cast<unit>(data.height())
 		));
 
-	//cerr << "canvas: trying to draw a character at " << abs_data_area << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "trying to draw a character at " << abs_data_area);
 		
 	// if the character to be drawn and the invalid area don't even intersect,
 	// then leave it out
 	if (!math::intersects(abs_data_area,invalid_area()))
 	{
-		//cerr << "canvas: " << abs_data_area << " and invalid area " << invalid_area() << " do not intersect, returning\n";
+		SGE_LOG_DEBUG(mylogger,log::_1 << abs_data_area << " and invalid area " << invalid_area() << " do not intersect, returning");
 		return;
 	}
 	
-	//cerr << "canvas: " << abs_data_area << " and invalid area " << invalid_area() << " intersect, continuing\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << abs_data_area << " and invalid area " << invalid_area() << " intersect, continuing");
 
 	// calculate absolute intersection between invalid and data area
 	rect const is_abs = math::intersection(abs_data_area,invalid_area());
 
-	//cerr << "canvas: absolute intersection is: " << is_abs << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "absolute intersection is: " << is_abs);
 
 	// calculate rect which is relative to data (and make it 'int' 'cause gil wants it
 	// that way
@@ -246,7 +254,7 @@ void sge::gui::canvas::blit_font(
 		static_cast<int>(is_abs.bottom()-abs_pos.y())
 	);
 
-	//cerr << "canvas: intersection relative to data is: " << is_rel_data << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "intersection relative to data is: " << is_rel_data);
 
 	// calculate rect relative to invalid_rect
 	rect const is_rel_invalid(
@@ -256,7 +264,7 @@ void sge::gui::canvas::blit_font(
 		is_abs.bottom()-invalid_area().top()
 	);
 
-	//cerr << "canvas: intersection relative to invalid rect is: " << is_rel_invalid << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "intersection relative to invalid rect is: " << is_rel_invalid);
 	
 	converter conv(fg,bg);
 	boost::gil::copy_and_convert_pixels(
@@ -300,11 +308,6 @@ void sge::gui::canvas::draw_pixel(point const &p,color_type const c)
 
 void sge::gui::canvas::draw_line(point const &a,point const &b,color_type const color)
 {
-	//cerr << "canvas: checking if " << (widget_pos() + a) << " is inside of ";
-	//cerr << widget_area() << ": " << math::contains(widget_area(),widget_pos() + a) << "\n";
-	//cerr << "canvas: checking if " << (widget_pos() + b) << " is inside of " ;
-	//cerr << widget_area() << ": " << math::contains(widget_area(),widget_pos() + b) << "\n";
-
 	SGE_ASSERT_MESSAGE(
 		math::contains(widget_area(),widget_pos() + a) && 
 		math::contains(widget_area(),widget_pos() + b),

@@ -18,9 +18,7 @@ class SGE_CLASS_SYMBOL button : public widget
 	SGE_SYMBOL button(
 		parent_data,
 		string const &,
-		font::metrics_ptr = font::metrics_ptr(),
-		point const & = point(),
-		dim const & = dim());
+		font::metrics_ptr = font::metrics_ptr());
 
 	// overridden virtuals
 	SGE_SYMBOL dim const size_hint() const;

@@ -15,8 +15,7 @@ class SGE_CLASS_SYMBOL vertical : public row
 	public:
 	SGE_SYMBOL vertical(widgets::container &);
 	private:
-	dim::size_type master(dim const &) const { return static_cast<dim::size_type>(1); }
-	point::size_type master(point const &) const { return static_cast<point::size_type>(1); }
+	std::size_t master() const { return static_cast<std::size_t>(1); }
 };
 }
 }
