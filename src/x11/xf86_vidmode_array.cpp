@@ -18,18 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_HAVE_X11
-#include "../xf86vidmode.hpp"
+#include <sge/x11/xf86_vidmode_array.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/math/round_div_int.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <ostream>
 
-sge::ogl::xf86_vidmode_array::xf86_vidmode_array(
-	const x_display_ptr dsp,
-	const int screen)
+sge::x11::xf86_vidmode_array::xf86_vidmode_array(
+	display_ptr const dsp,
+	int const screen)
 : dsp(dsp),
   screen(screen)
 {
@@ -49,27 +47,29 @@ sge::ogl::xf86_vidmode_array::xf86_vidmode_array(
 	sz = mode_count >= 0 ? mode_count : 0;
 }
 
-const XF86VidModeModeInfo&
-sge::ogl::xf86_vidmode_array::operator[](
+XF86VidModeModeInfo const &
+sge::x11::xf86_vidmode_array::operator[](
 	const size_type index) const
 {
 	return (*modes)[index];
 }
 
-unsigned sge::ogl::xf86_vidmode_array::refresh_rate(
-	const XF86VidModeModeInfo& mode)
+unsigned sge::x11::xf86_vidmode_array::refresh_rate(
+	XF86VidModeModeInfo const &mode)
 {
-	return math::round_div_int(1000 * mode.dotclock, unsigned(mode.htotal * mode.vtotal));
+	return math::round_div_int(
+		1000 * mode.dotclock,
+		static_cast<unsigned>(mode.htotal * mode.vtotal));
 }
 
-sge::ogl::xf86_vidmode_array::size_type
-sge::ogl::xf86_vidmode_array::size() const
+sge::x11::xf86_vidmode_array::size_type
+sge::x11::xf86_vidmode_array::size() const
 {
 	return sz;
 }
 
-const sge::ogl::xf86_resolution_ptr
-sge::ogl::xf86_vidmode_array::switch_to_mode(
+sge::x11::xf86_resolution_ptr const
+sge::x11::xf86_vidmode_array::switch_to_mode(
 	const renderer::display_mode& pmode) const
 {
 	int best = -1;
@@ -89,5 +89,3 @@ sge::ogl::xf86_vidmode_array::switch_to_mode(
 		return xf86_resolution_ptr(new xf86_resolution(dsp, screen, (*this)[best], (*this)[0]));
 	return xf86_resolution_ptr();
 }
-
-#endif

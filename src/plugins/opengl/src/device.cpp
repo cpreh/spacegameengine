@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows.hpp>
 #include <sge/win32_window.hpp>
 #elif defined(SGE_HAVE_X11)
-#include <sge/x_window.hpp>
+#include <sge/x11/window.hpp>
 #include <boost/bind.hpp>
 #else
 #error "Implement me!"
@@ -79,7 +79,7 @@ sge::ogl::device::device(
    state_levels(*this),
    current_states(renderer::default_states())
 #if defined(SGE_HAVE_X11)
-   , dsp(new x_display())
+   , dsp(new x11::display())
 #endif
 {
 	if(adapter > 0)
@@ -148,7 +148,7 @@ sge::ogl::device::device(
 
 	if(!windowed)
 	{
-		modes.reset(new xf86_vidmode_array(dsp, screen));
+		modes.reset(new x11::xf86_vidmode_array(dsp, screen));
 		resolution = modes->switch_to_mode(param.mode);
 		if(!resolution)
 		{
@@ -162,20 +162,20 @@ sge::ogl::device::device(
 
 	context.reset(new glx_context(dsp, visual->visual_info()));
 
-	colormap.reset(new x_colormap(dsp, visual->visual_info()));
+	colormap.reset(new x11::colormap(dsp, visual->visual_info()));
 
 	XSetWindowAttributes swa;
-	swa.colormap = colormap->colormap();
+	swa.colormap = colormap->get();
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
 	swa.override_redirect = windowed ? False : True;
 	swa.event_mask = StructureNotifyMask;
 
 	if(wnd_param)
-		wnd = polymorphic_pointer_cast<x_window>(wnd_param);
+		wnd = polymorphic_pointer_cast<x11::window>(wnd_param);
 	else
 		wnd.reset(
-			new x_window(
+			new x11::window(
 				window::window_pos(0,0),
 				window::window_size(param.mode.width(), param.mode.height()),
 				string(),

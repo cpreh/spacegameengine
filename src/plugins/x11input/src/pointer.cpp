@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <X11/Xlib.h>
 #include "../pointer.hpp"
 
-sge::xinput::mouse_pos sge::xinput::get_mouse_pos(const x_display_ptr dsp,
-                                                  const x_window_ptr wnd)
+sge::xinput::mouse_pos const
+sge::xinput::get_mouse_pos(
+	x11::display_ptr const dsp,
+        x11::window_ptr const wnd)
 {
 	Window root_return,
 	       child_return;
@@ -32,7 +34,18 @@ sge::xinput::mouse_pos sge::xinput::get_mouse_pos(const x_display_ptr dsp,
 	    win_y_return;
 	unsigned mask_return;
 
-	XQueryPointer(dsp->get(), wnd->get_window(), &root_return, &child_return, &root_x_return, &root_y_return, &win_x_return, &win_y_return, &mask_return);
+	XQueryPointer(
+		dsp->get(),
+		wnd->get_window(),
+		&root_return,
+		&child_return,
+		&root_x_return,
+		&root_y_return,
+		&win_x_return,
+		&win_y_return,
+		&mask_return);
 
-	return mouse_pos(win_x_return, win_y_return);
+	return mouse_pos(
+		win_x_return,
+		win_y_return);
 }

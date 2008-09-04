@@ -24,19 +24,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glx_current.hpp"
 #include "../glx_context.hpp"
 #include <sge/exception.hpp>
-#include <sge/x_window.hpp>
+#include <sge/x11/window.hpp>
 
-sge::ogl::glx_current::glx_current(const x_display_ptr dsp, const x_window& wnd, const glx_context_ptr context)
-: dsp(dsp),
-  context(context)
+sge::ogl::glx_current::glx_current(
+	x11::display_ptr const dsp,
+	x11::window const &wnd,
+	glx_context_ptr const context)
+:
+	dsp(dsp),
+	context(context)
 {
-	if(glXMakeCurrent(dsp->get(), wnd.get_window(), context->context()) == false)
+	if(glXMakeCurrent(
+		dsp->get(),
+		wnd.get_window(),
+		context->context())
+	== false)
 		throw exception(SGE_TEXT("glXMakeCurrent() failed!"));
 }
 
 sge::ogl::glx_current::~glx_current()
 {
-	glXMakeCurrent(dsp->get(), None, NULL);
+	glXMakeCurrent(
+		dsp->get(),
+		None,
+		NULL);
 }
 
 #endif

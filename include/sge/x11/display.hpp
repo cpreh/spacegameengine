@@ -18,28 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_WINDOWS_PLATFORM
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/gdi_device.hpp>
+#ifndef SGE_X11_DISPLAY_HPP_INCLUDED
+#define SGE_X11_DISPLAY_HPP_INCLUDED
 
-sge::gdi_device::gdi_device(HWND hwnd, get_tag)
-: hwnd(hwnd),
-  dc(GetDC(hwnd))
+#include <X11/Xlib.h>
+#include "../shared_ptr.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
+
+namespace sge
 {
-	if(!dc)
-		throw exception(SGE_TEXT("GetDC() failed!"));
+namespace x11
+{
+
+class SGE_CLASS_SYMBOL display : boost::noncopyable {
+public:
+	struct wrap_tag {};
+	SGE_SYMBOL display();
+	SGE_SYMBOL display(
+		Display *dsp,
+		wrap_tag);
+	SGE_SYMBOL ~display();
+	SGE_SYMBOL Display *get() const;
+private:
+	Display  *d;
+	bool     wrapped;
+};
+
+typedef shared_ptr<display> display_ptr;
+
 }
-
-sge::gdi_device::~gdi_device()
-{
-	ReleaseDC(hwnd, dc);
-}
-
-HDC sge::gdi_device::hdc() const
-{
-	return dc;
 }
 
 #endif

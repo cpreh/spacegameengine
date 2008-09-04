@@ -18,26 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XINPUT_X_CURSOR_HPP_INCLUDED
-#define SGE_XINPUT_X_CURSOR_HPP_INCLUDED
+#ifndef SGE_X11_XF86_VIDMODE_ARRAY_HPP_INCLUDED
+#define SGE_X11_XF86_VIDMODE_ARRAY_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/x_display.hpp>
+#include <X11/extensions/xf86vmode.h>
+#include "xf86_resolution.hpp"
+#include "deleter.hpp"
+#include "display.hpp"
+#include "../shared_ptr.hpp"
+#include "../export.hpp"
 #include <boost/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
 {
-namespace xinput
+namespace renderer
 {
 
-class x_cursor : boost::noncopyable {
+struct display_mode;
+
+}
+
+namespace x11
+{
+
+class xf86_vidmode_array : boost::noncopyable {
 public:
-	x_cursor(x_display_ptr, Pixmap pixmap, XColor color);
-	~x_cursor();
-	Cursor cursor() const;
+	typedef std::size_t size_type;
+
+	SGE_SYMBOL xf86_vidmode_array(
+		x11::display_ptr dsp,
+		int screen);
+	SGE_SYMBOL XF86VidModeModeInfo const &operator[](
+		size_type index) const;
+
+	SGE_SYMBOL static unsigned refresh_rate(
+		XF86VidModeModeInfo const &);
+	SGE_SYMBOL size_type size() const;
+	SGE_SYMBOL xf86_resolution_ptr const switch_to_mode(
+		renderer::display_mode const &) const;
 private:
-	x_display_ptr dsp;
-	Cursor _cursor;
+	display_ptr const dsp;
+	int const screen;
+	typedef shared_ptr<
+		XF86VidModeModeInfo*,
+		deleter
+	> vidmode_ptr;
+
+	vidmode_ptr modes;
+	size_type sz;
 };
 
 }

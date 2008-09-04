@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/x_window.hpp>
+#include <sge/x11/window.hpp>
 #include <boost/cast.hpp>
 
 extern "C"
@@ -43,9 +43,14 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info *const i)
 SGE_EXPORT_SYMBOL sge::input::system* create_input_system(sge::window_ptr const w)
 {
 	if(!w)
-		throw sge::exception(SGE_TEXT("xinput plugin's window parameter may not be 0!"));
-	boost::polymorphic_cast<sge::x_window*>(w.get());
-	return new sge::xinput::system(sge::dynamic_pointer_cast<sge::x_window_ptr::value_type>(w));
+		throw sge::exception(
+			SGE_TEXT("xinput plugin's window parameter may not be 0!"));
+	
+	boost::polymorphic_cast<sge::x11::window*>(w.get());
+
+	return new sge::xinput::system(
+		sge::dynamic_pointer_cast<sge::x11::window>(
+			w));
 }
 
 }

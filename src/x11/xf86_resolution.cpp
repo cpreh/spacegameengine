@@ -18,30 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XINPUT_X_COLOR_HPP_INCLUDED
-#define SGE_XINPUT_X_COLOR_HPP_INCLUDED
+#include <sge/x11/xf86_resolution.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include <X11/Xlib.h>
-#include <sge/x_display.hpp>
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::x11::xf86_resolution::xf86_resolution(
+	display_ptr const dsp,
+	int const screen,
+	XF86VidModeModeInfo const &new_mode,
+	XF86VidModeModeInfo const &old_mode)
+: dsp(dsp),
+  screen(screen),
+  old_mode(old_mode)
 {
-namespace xinput
+	if(XF86VidModeSwitchToMode(
+		dsp->get(),
+		screen,
+		const_cast<XF86VidModeModeInfo*>(
+			&new_mode))
+	== False)
+		throw exception(SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
+
+	XF86VidModeSetViewPort(
+		dsp->get(),
+		screen,
+		0,
+		0);
+}
+
+sge::x11::xf86_resolution::~xf86_resolution()
 {
-	
-class x_color : boost::noncopyable {
-public:
-	x_color(x_display_ptr, Colormap colormap);
-	~x_color();
-	XColor color() const;
-private:
-	x_display_ptr dsp;
-	Colormap colormap;
-	XColor _color;
-};
-
+	XF86VidModeSwitchToMode(
+		dsp->get(),
+		screen,
+		const_cast<XF86VidModeModeInfo*>(
+			&old_mode));
 }
-}
-
-#endif

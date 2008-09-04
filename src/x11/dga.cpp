@@ -19,33 +19,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#ifdef SGE_HAVE_X11
+#include <sge/x11/dga.hpp>
+#ifdef SGE_USE_DGA
+#include <X11/extensions/xf86dga.h>
 
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/x_display.hpp>
-
-sge::x_display::x_display()
-: d(XOpenDisplay(0)),
-  wrapped(false)
+sge::x11::dga_guard::dga_guard(
+	display_ptr const dsp,
+	int const screen)
+ : dsp(dsp),
+   screen(screen),
+   enabled(false)
 {
-	if(!d)
-		throw exception(SGE_TEXT("XOpenDisplay failed or dsp is 0!"));
+	enable(true);
 }
 
-sge::x_display::x_display(Display* dsp, wrap_tag)
-: d(dsp),
-  wrapped(true)
-{}
-
-sge::x_display::~x_display()
+sge::x11::dga_guard::~dga_guard()
 {
-	if(!wrapped)
-		XCloseDisplay(d);
+	enable(false);
 }
 
-Display* sge::x_display::get() const
+void sge::x11::dga_guard::enable(
+	bool const b)
 {
-	return d;
+	if(enabled == b)
+		return;
+
+	XF86DGADirectVideo(dsp->get(), screen, b ? XF86DGADirectMouse : 0);
+
+	enabled = b;
 }
 #endif

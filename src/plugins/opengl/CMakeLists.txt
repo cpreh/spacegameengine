@@ -9,7 +9,7 @@ ADD_LIBRARY (sgeopengl SHARED ${sgeopenglfiles})
 TARGET_LINK_LIBRARIES (sgeopengl sgecore)
 
 IF (${UNIX})
-	TARGET_LINK_LIBRARIES (sgeopengl GL GLEW X11 Xxf86vm)
+	TARGET_LINK_LIBRARIES (sgeopengl GL GLEW X11)
 ELSEIF (${WIN32})
 	TARGET_LINK_LIBRARIES (sgeopengl opengl32 glu32 glew32)
 ENDIF ()

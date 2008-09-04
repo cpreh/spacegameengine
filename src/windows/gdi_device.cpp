@@ -18,29 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X_COLORMAP_HPP_INCLUDED
-#define SGE_OPENGL_X_COLORMAP_HPP_INCLUDED
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/gdi_device.hpp>
 
-#include <X11/Xutil.h>
-#include <sge/x_display.hpp>
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::gdi_device::gdi_device(
+	HWND hwnd,
+	get_tag)
+: hwnd(hwnd),
+  dc(GetDC(hwnd))
 {
-namespace ogl
-{
-
-class x_colormap : boost::noncopyable {
-public:
-	x_colormap(x_display_ptr, const XVisualInfo&);
-	~x_colormap();
-	Colormap& colormap();
-private:
-	const x_display_ptr dsp;
-	Colormap c;
-};
-
-}
+	if(!dc)
+		throw exception(
+			SGE_TEXT("GetDC() failed!"));
 }
 
-#endif
+sge::gdi_device::~gdi_device()
+{
+	ReleaseDC(hwnd, dc);
+}
+
+HDC sge::gdi_device::hdc() const
+{
+	return dc;
+}

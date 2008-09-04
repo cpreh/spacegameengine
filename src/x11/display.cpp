@@ -18,30 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XINPUT_DGA_HPP_INCLUDED
-#define SGE_XINPUT_DGA_HPP_INCLUDED
+#include <sge/x11/display.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include <X11/Xlib.h>
-#include <sge/x_display.hpp>
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::x11::display::display()
+: d(XOpenDisplay(0)),
+  wrapped(false)
 {
-namespace xinput
-{
-
-class dga_guard : boost::noncopyable {
-public:
-	dga_guard(x_display_ptr, int screen);
-	~dga_guard();
-	void enable(bool);
-private:
-	x_display_ptr dsp;
-	int screen;
-	bool enabled;
-};
-
-}
+	if(!d)
+		throw exception(
+			SGE_TEXT("XOpenDisplay failed or dsp is 0!"));
 }
 
-#endif
+sge::x11::display::display(
+	Display *const dsp,
+	wrap_tag)
+: d(dsp),
+  wrapped(true)
+{}
+
+sge::x11::display::~display()
+{
+	if(!wrapped)
+		XCloseDisplay(d);
+}
+
+Display* sge::x11::display::get() const
+{
+	return d;
+}

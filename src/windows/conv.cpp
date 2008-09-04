@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_HAVE_X11
-#include "../x_colormap.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/windows/conv.hpp>
+#include <sge/codecvt.hpp>
 
-sge::ogl::x_colormap::x_colormap(const x_display_ptr dsp, const XVisualInfo& vi)
-: dsp(dsp),
-  c(XCreateColormap(dsp->get(), XRootWindow(dsp->get(), vi.screen), vi.visual, AllocNone))
+//#ifdef SGE_NARROW_STRING
+sge::win_string sge::sge_str_to_win(string const &in)
 {
-	if(colormap() == 0)
-		throw exception(SGE_TEXT("XCreateColormap() failed!"));
+	return in;
 }
 
-sge::ogl::x_colormap::~x_colormap()
+sge::string sge::win_str_to_sge(win_string const &in)
 {
-	XFreeColormap(dsp->get(), colormap());
+	return in;
+}
+/*#else
+sge::win_string sge::sge_str_to_win(const string& in)
+{
+	return widen(in);
 }
 
-Colormap& sge::ogl::x_colormap::colormap()
+sge::string sge::win_str_to_sge(const win_string& in)
 {
-	return c;
+	return narrow(in);
 }
-
-#endif
+#endif*/

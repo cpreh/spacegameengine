@@ -19,10 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_WINDOWS_PLATFORM
 #include <sge/exception.hpp>
-#include <sge/win32_window.hpp>
+#include <sge/windows::window.hpp>
 #include <sge/win32_conv.hpp>
 
 namespace
@@ -30,8 +28,9 @@ namespace
 	LRESULT CALLBACK wnd_proc(HWND,unsigned,WPARAM,LPARAM);
 }
 
-sge::win32_window::win32_window(const window_size sz, const string& title)
-: _title(title)
+sge::windows::window::window(
+	window_size const sz,
+	string const &title)
 {
 	const TCHAR* const window_classname = TEXT("SpacegameWindow");
 
@@ -68,7 +67,7 @@ sge::win32_window::win32_window(const window_size sz, const string& title)
 	decoration_size.b = static_cast<unsigned>(r.bottom);
 
 	handle = CreateWindow(window_classname,
-		sge_str_to_win(_title).c_str(),
+		sge_str_to_win(title).c_str(),
 		flags,
 		0,
 		0,
@@ -82,12 +81,12 @@ sge::win32_window::win32_window(const window_size sz, const string& title)
 		throw exception(SGE_TEXT("CreateWindow() failed!"));
 }
 
-sge::win32_window::~win32_window()
+sge::windows::window::~windows::window()
 {
 	DestroyWindow(handle);
 }
 
-void sge::win32_window::size(
+void sge::windows::window::size(
 	window_size const &nsz)
 {
 	if(SetWindowPos(
@@ -102,15 +101,15 @@ void sge::win32_window::size(
 		throw exception(SGE_TEXT("SetWindowPos() failed!"));
 }
 
-void sge::win32_window::title(const string& ntitle)
+void sge::windows::window::title(
+	string const &title)
 {
-	_title = ntitle;
-	if(SetWindowText(hwnd(),sge_str_to_win(_title).c_str()) == 0)
+	if(SetWindowText(hwnd(),sge_str_to_win(title).c_str()) == 0)
 		throw exception(SGE_TEXT("SetWindowText() failed!"));
 }
 
-sge::win32_window::window_size const
-sge::win32_window::size() const
+sge::windows::window::window_size const
+sge::windows::window::size() const
 {
 	RECT rect;
 	if(GetWindowRect(handle, &rect) == FALSE)
@@ -121,8 +120,8 @@ sge::win32_window::size() const
 	);
 }
 
-sge::win32_window::window_pos const
-sge::win32_window::viewport_offset() const
+sge::windows::window::window_pos const
+sge::windows::window::viewport_offset() const
 {
 	return window_pos(
 		0,
@@ -130,28 +129,31 @@ sge::win32_window::viewport_offset() const
 	);
 }
 
-const sge::string& sge::win32_window::title() const
+sge::string const
+sge::windows::window::title() const
 {
-	return _title;
+	// FIXME
+	//if(GetWindowText(
+	//return _title;
 }
 
-HWND sge::win32_window::hwnd() const
+HWND sge::windows::window::hwnd() const
 {
 	return handle;
 }
 
-boost::signals::connection sge::win32_window::register_callback(win32_event_type msg, win32_callback_type func)
+boost::signals::connection sge::windows::window::register_callback(win32_event_type msg, win32_callback_type func)
 {
 	return signals[msg].connect(func);
 }
 
-sge::win32_window::win32_callback_return_type sge::win32_window::execute_callback(win32_event_type msg, WPARAM wparam, LPARAM lparam)
+sge::windows::window::win32_callback_return_type sge::windows::window::execute_callback(win32_event_type msg, WPARAM wparam, LPARAM lparam)
 {
-	sge::win32_window::win32_signal_map::iterator it = signals.find(msg);
+	sge::windows::window::win32_signal_map::iterator it = signals.find(msg);
 	if (it != signals.end())
 		return (*(it->second))(*this, msg, wparam, lparam);
 	else
-		return sge::win32_window::win32_callback_return_type();
+		return sge::windows::window::win32_callback_return_type();
 }
 
 void sge::window::dispatch()
@@ -164,7 +166,7 @@ void sge::window::dispatch()
 	}
 }
 
-bool sge::win32_window::wndclass_created(false);
+bool sge::windows::window::wndclass_created(false);
 
 namespace
 {
@@ -176,10 +178,10 @@ namespace
 			SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(s->lpCreateParams));
 		}
 
-		sge::win32_window *wnd = reinterpret_cast<sge::win32_window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+		sge::windows::window *wnd = reinterpret_cast<sge::windows::window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 		if (wnd)
 		{
-			sge::win32_window::win32_callback_return_type ret =
+			sge::windows::window::win32_callback_return_type ret =
 				wnd->execute_callback(msg, wparam, lparam);
 			if (ret)
 				return *ret;
@@ -193,7 +195,7 @@ namespace
 			break;
 		case WM_ACTIVATE:
 		{
-			sge::win32_window* const wnd = reinterpret_cast<sge::win32_window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+			sge::windows::window* const wnd = reinterpret_cast<sge::windows::window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 			const bool active = wparam != 0 ? true : false;
 			//wnd->set_active(active); // FIXME
 			if(!active)
@@ -207,5 +209,3 @@ namespace
 		return returnvalue;
 	}
 }
-
-#endif

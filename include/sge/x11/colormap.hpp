@@ -18,25 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <X11/Xlib.h>
-#include "../x_cursor.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_X11_COLORMAP_HPP_INCLUDED
+#define SGE_X11_COLORMAP_HPP_INCLUDED
 
-sge::xinput::x_cursor::x_cursor(const x_display_ptr dsp, Pixmap pixmap, XColor color)
- : dsp(dsp),
-   _cursor(XCreatePixmapCursor(dsp->get(), pixmap, pixmap, &color, &color, 0, 0))
+#include <X11/Xutil.h>
+#include "display.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
+
+namespace sge
 {
-	if(cursor() == None)
-		throw exception(SGE_TEXT("XCreatePixmapCursor() failed!"));
+namespace x11
+{
+
+class colormap : boost::noncopyable {
+public:
+	SGE_SYMBOL colormap(
+		display_ptr,
+		XVisualInfo const &);
+	SGE_SYMBOL ~colormap();
+	SGE_SYMBOL Colormap& get();
+private:
+	display_ptr const dsp;
+	Colormap          c;
+};
+
+}
 }
 
-sge::xinput::x_cursor::~x_cursor()
-{
-	XFreeCursor(dsp->get(), cursor());
-}
-
-Cursor sge::xinput::x_cursor::cursor() const
-{
-	return _cursor;
-}
+#endif

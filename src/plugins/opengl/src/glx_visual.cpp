@@ -26,16 +26,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::ogl::glx_visual::glx_visual(
-	const x_display_ptr dsp,
-	const int screen,
-	const int* const attributes)
-: vi(glXChooseVisual(dsp->get(), screen, const_cast<int*>(attributes)))
+	x11::display_ptr const dsp,
+	int const screen,
+	int const *const attributes)
+:
+	vi(
+		glXChooseVisual(
+			dsp->get(),
+			screen,
+			const_cast<int*>(
+				attributes)))
 {
 	if(!vi.get())
-		throw exception(SGE_TEXT("glXChooseVisual() failed!"));
+		throw exception(
+			SGE_TEXT("glXChooseVisual() failed!"));
 }
 
-const XVisualInfo& sge::ogl::glx_visual::visual_info() const
+XVisualInfo const &
+sge::ogl::glx_visual::visual_info() const
 {
 	return *vi.get();
 }
