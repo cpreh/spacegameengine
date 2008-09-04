@@ -41,13 +41,16 @@ class logger : boost::noncopyable {
 public:
 	SGE_SYMBOL logger(
 		ostream &sink,
-		format::const_formatter_ptr formatter);
+		format::const_formatter_ptr formatter,
+		bool active = true);
 	SGE_SYMBOL logger(
 		ostream &sink,
-		string const &prefix);
+		string const &prefix,
+		bool active = true);
 	SGE_SYMBOL logger(
 		logger &parent,
-		string const &prefix);
+		string const &prefix,
+		bool active = true);
 	SGE_SYMBOL void log(
 		level::type,
 		temporary_output const &);
@@ -87,6 +90,7 @@ private:
 	> level_vector;
 
 	level_vector                level_streams;
+	bool                        active;
 };
 
 }

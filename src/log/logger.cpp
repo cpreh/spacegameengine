@@ -28,33 +28,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::log::logger::logger(
 	ostream &sink_,
-	format::const_formatter_ptr const formatter_)
+	format::const_formatter_ptr const formatter_,
+	bool const active)
 : sink_(sink_),
-  formatter_(formatter_)
+  formatter_(formatter_),
+	active(active)
 {
 	init_levels();
 }
 
 sge::log::logger::logger(
 	ostream &sink_,
-	string const &prefix)
+	string const &prefix,
+	bool const active)
 : sink_(sink_),
   formatter_(
   	format::create_prefix(
-		prefix))
+		prefix)),
+	active(active)
 {
 	init_levels();
 }
 
 sge::log::logger::logger(
 	logger &parent,
-	string const &prefix)
+	string const &prefix,
+	bool const active)
 : sink_(parent.sink()),
   formatter_(
   	format::create_chain(
   		parent.formatter(),
   		format::create_prefix(
-  			prefix)))
+  			prefix))),
+	active(active)
 {
 	foreach_enumerator<level_field>(
 		boost::bind(
@@ -65,6 +71,8 @@ void sge::log::logger::log(
 	level::type const level_,
 	temporary_output const &helper)
 {
+	if (!active)
+		return;
 	if(!enabled(level_))
 		return;
 	
