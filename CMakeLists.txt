@@ -26,6 +26,21 @@ CHECK_CXX_SOURCE_COMPILES(
 	 SGE_HAVE_X11
 )
 
+IF (${SGE_HAVE_X11})
+	CHECK_CXX_SOURCE_COMPILES(
+		"#include <X11/Xlib.h>
+		 #include <X11/extensions/xf86vmode.h>
+		 int main() {}"
+		SGE_HAVE_XF86_VIDMODE
+	)
+	CHECK_CXX_SOURCE_COMPILES(
+		"#include <X11/Xlib.h>
+		 #include <X11/extensions/xf86dga.h>
+		 int main() {}"
+		SGE_HAVE_XF86_DGA
+	)
+ENDIF ()
+
 CHECK_CXX_SOURCE_RUNS(
 	"#include <unistd.h>
 	 #include <cstdlib>
