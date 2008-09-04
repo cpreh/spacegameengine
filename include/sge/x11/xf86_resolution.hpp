@@ -18,27 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XINPUT_X_PIXMAP_HPP_INCLUDED
-#define SGE_XINPUT_X_PIXMAP_HPP_INCLUDED
+#ifndef SGE_X11_XF86_RESOLUTION_HPP_INCLUDED
+#define SGE_X11_XF86_RESOLUTION_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/x_display.hpp>
-#include <boost/noncopyable.hpp>
+#include <X11/extensions/xf86vmode.h>
+#include "display.hpp"
+#include "../export.hpp"
+#include "../shared_ptr.hpp"
 
 namespace sge
 {
-namespace xinput
+namespace x11
 {
 
-class x_pixmap : boost::noncopyable {
+class xf86_resolution : boost::noncopyable {
 public:
-	x_pixmap(x_display_ptr, Window wnd);
-	~x_pixmap();
-	Pixmap pixmap() const;
+	SGE_SYMBOL xf86_resolution(
+		x11::display_ptr,
+		int screen,
+		XF86VidModeModeInfo const &new_mode,
+		XF86VidModeModeInfo const &old_mode);
+	SGE_SYMBOL ~xf86_resolution(); 
 private:
-	x_display_ptr dsp;
-	Pixmap _pixmap;
+	x11::display_ptr const dsp;
+	int const screen;
+	XF86VidModeModeInfo const &old_mode;
 };
+
+typedef shared_ptr<xf86_resolution> xf86_resolution_ptr;
 
 }
 }

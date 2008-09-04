@@ -18,34 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_HAVE_X11
-
+#include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/x_display.hpp>
 
-sge::x_display::x_display()
+sge::x11::display::display()
 : d(XOpenDisplay(0)),
   wrapped(false)
 {
 	if(!d)
-		throw exception(SGE_TEXT("XOpenDisplay failed or dsp is 0!"));
+		throw exception(
+			SGE_TEXT("XOpenDisplay failed or dsp is 0!"));
 }
 
-sge::x_display::x_display(Display* dsp, wrap_tag)
+sge::x11::display::display(
+	Display *const dsp,
+	wrap_tag)
 : d(dsp),
   wrapped(true)
 {}
 
-sge::x_display::~x_display()
+sge::x11::display::~display()
 {
 	if(!wrapped)
 		XCloseDisplay(d);
 }
 
-Display* sge::x_display::get() const
+Display* sge::x11::display::get() const
 {
 	return d;
 }
-#endif

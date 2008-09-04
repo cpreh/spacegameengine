@@ -19,27 +19,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
-#ifdef SGE_HAVE_X11
-#include "../x_colormap.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/x11/dga.hpp>
+#ifdef SGE_USE_DGA
+#include <X11/extensions/xf86dga.h>
 
-sge::ogl::x_colormap::x_colormap(const x_display_ptr dsp, const XVisualInfo& vi)
-: dsp(dsp),
-  c(XCreateColormap(dsp->get(), XRootWindow(dsp->get(), vi.screen), vi.visual, AllocNone))
+sge::x11::dga_guard::dga_guard(
+	display_ptr const dsp,
+	int const screen)
+ : dsp(dsp),
+   screen(screen),
+   enabled(false)
 {
-	if(colormap() == 0)
-		throw exception(SGE_TEXT("XCreateColormap() failed!"));
+	enable(true);
 }
 
-sge::ogl::x_colormap::~x_colormap()
+sge::x11::dga_guard::~dga_guard()
 {
-	XFreeColormap(dsp->get(), colormap());
+	enable(false);
 }
 
-Colormap& sge::ogl::x_colormap::colormap()
+void sge::x11::dga_guard::enable(
+	bool const b)
 {
-	return c;
-}
+	if(enabled == b)
+		return;
 
+	XF86DGADirectVideo(dsp->get(), screen, b ? XF86DGADirectMouse : 0);
+
+	enabled = b;
+}
 #endif

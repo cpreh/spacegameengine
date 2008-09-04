@@ -18,30 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../dga.hpp"
-#ifdef USE_DGA
-#include <X11/extensions/xf86dga.h>
+#ifndef SGE_WINDOWS_GDI_DEVICE_HPP_INCLUDED
+#define SGE_WINDOWS_GDI_DEVICE_HPP_INCLUDED
 
-sge::xinput::dga_guard::dga_guard(const x_display_ptr dsp, const int screen)
- : dsp(dsp),
-   screen(screen),
-   enabled(false)
+#include <boost/noncopyable.hpp>
+#include "export.hpp"
+#include "windows.hpp"
+
+namespace sge
 {
-	enable(true);
+namespace windows
+{
+
+class gdi_device : boost::noncopyable {
+public:
+	struct get_tag{};
+	SGE_SYMBOL gdi_device(HWND, get_tag);
+	SGE_SYMBOL ~gdi_device();
+	SGE_SYMBOL HDC hdc() const;
+private:
+	HWND hwnd;
+	HDC dc;
+};
+
+}
 }
 
-sge::xinput::dga_guard::~dga_guard()
-{
-	enable(false);
-}
-
-void sge::xinput::dga_guard::enable(const bool b)
-{
-	if(enabled == b)
-		return;
-
-	XF86DGADirectVideo(dsp->get(), screen, b ? XF86DGADirectMouse : 0);
-
-	enabled = b;
-}
 #endif

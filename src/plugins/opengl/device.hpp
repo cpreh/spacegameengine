@@ -34,13 +34,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif defined(SGE_HAVE_X11)
 #include <X11/Xlib.h>
 #include <GL/glx.h>
-#include "xf86vidmode.hpp"
-#include "xf86_resolution.hpp"
 #include "glx_visual.hpp"
 #include "glx_current.hpp"
 #include "glx_context.hpp"
-#include "x_colormap.hpp"
-#include <sge/x_window.hpp>
+#include <sge/x11/colormap.hpp>
+#include <sge/x11/xf86_vidmode_array.hpp>
+#include <sge/x11/xf86_resolution.hpp>
+#include <sge/x11/window.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -149,9 +149,9 @@ public:
 		renderer::index_buffer::size_type sz,
 		renderer::index_buffer::resource_flag_type flags);
 
-	const renderer::caps& get_caps() const;
-	const renderer::screen_size_t screen_size() const;
-	const window_ptr get_window() const;
+	renderer::caps const &get_caps() const;
+	renderer::screen_size_t const screen_size() const;
+	window_ptr const get_window() const;
 
 	void set_stencil_func();
 	void set_blend_func();
@@ -181,15 +181,16 @@ private:
 	void reset_viewport_on_configure(const XEvent&);
 	void center_viewport(int w, int h);
 
-	x_display_ptr                         dsp;
+	x11::display_ptr                      dsp;
 	scoped_connection                     map_callback;
 	boost::scoped_ptr<glx_visual>         visual;
 	glx_context_ptr                       context;
-	boost::scoped_ptr<x_colormap>         colormap;
-	x_window_ptr                          wnd;
+	boost::scoped_ptr<x11::colormap>      colormap;
+	x11::window_ptr                       wnd;
 	boost::scoped_ptr<glx_current>        current;
-	boost::scoped_ptr<xf86_vidmode_array> modes;
-	xf86_resolution_ptr                   resolution;
+	boost::scoped_ptr<
+		x11::xf86_vidmode_array>      modes;
+	x11::xf86_resolution_ptr              resolution;
 	scoped_connection_manager             con_manager;
 #endif
 	target_ptr                            render_target_;

@@ -18,26 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <X11/Xlib.h>
-#include "../x_color.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-	
-sge::xinput::x_color::x_color(const x_display_ptr dsp, Colormap colormap)
- : dsp(dsp),
-   colormap(colormap)
+#ifndef SGE_WINDOWS_CONV_HPP_INCLUDED
+#define SGE_WINDOWS_CONV_HPP_INCLUDED
+
+#include <string>
+#include <sstream>
+#include "../string.hpp"
+#include "../export.hpp"
+#include "windows.hpp"
+
+namespace sge
 {
-	XColor dummy;
-	if(XAllocNamedColor(dsp->get(), colormap, "black", &_color, &dummy ) == 0)
-		throw exception(SGE_TEXT("XAllocNamedColor() failed!"));
+namespace windows
+{
+
+typedef std::basic_string<TCHAR> win_string;
+typedef std::basic_stringstream<TCHAR> win_stringstream;
+typedef std::basic_ostringstream<TCHAR> win_ostringstream;
+typedef std::basic_istringstream<TCHAR> win_istringstream;
+
+SGE_SYMBOL win_string sge_str_to_win(string const &);
+SGE_SYMBOL string win_str_to_sge(win_string const &);
+
+}
 }
 
-sge::xinput::x_color::~x_color()
-{
-	XFreeColors(dsp->get(), colormap, &_color.pixel, 1, 0);
-}
-
-XColor sge::xinput::x_color::color() const
-{
-	return _color;
-}
+#endif

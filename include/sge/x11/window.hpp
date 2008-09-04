@@ -19,12 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X_WINDOW_HPP_INCLUDED
-#define SGE_X_WINDOW_HPP_INCLUDED
+#ifndef SGE_X11_WINDOW_HPP_INCLUDED
+#define SGE_X11_WINDOW_HPP_INCLUDED
 
-#include "window.hpp"
-#include "export.hpp"
-#include "x_display.hpp"
+#include "display.hpp"
+#include "../window.hpp"
+#include "../export.hpp"
 #include <X11/Xlib.h>
 #include <GL/glx.h>
 #include <boost/function.hpp>
@@ -34,9 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace x11
+{
 
-class SGE_CLASS_SYMBOL x_window : public window {
-	friend class window;
+class SGE_CLASS_SYMBOL window : public sge::window {
+	friend class sge::window;
 public:
 	typedef int x11_event_type;
 	typedef long x11_event_mask_type;
@@ -45,18 +47,18 @@ public:
 	typedef boost::function<x11_function_type> x11_callback_type;
 	typedef boost::signal<x11_function_type> x11_signal_type;
 
-	SGE_SYMBOL x_window(
+	SGE_SYMBOL window(
 		Display *dsp,
 		int screen,
 		Window wnd);
-	SGE_SYMBOL x_window(
+	SGE_SYMBOL window(
 		window_pos const &pos,
 		window_size const &sz,
 		string const &title,
-		x_display_ptr dsp,
+		display_ptr dsp,
 		XSetWindowAttributes const &attr,
 		XVisualInfo const &vi);
-	SGE_SYMBOL ~x_window();
+	SGE_SYMBOL ~window();
 
 	SGE_SYMBOL void title(string const &title);
 	SGE_SYMBOL void size(window_size const &sz);
@@ -66,7 +68,7 @@ public:
 
 	SGE_SYMBOL Window get_window() const;
 	SGE_SYMBOL int screen() const;
-	SGE_SYMBOL x_display_ptr const display() const;
+	SGE_SYMBOL display_ptr const display() const;
 
 	SGE_SYMBOL boost::signals::connection register_callback(
 		x11_event_type,
@@ -76,7 +78,7 @@ private:
 
 	void add_event_mask(x11_event_type);
 
-	x_display_ptr dsp;
+	display_ptr dsp;
 	int screen_;
 	Window wnd;
 	bool fullscreen_;
@@ -85,12 +87,13 @@ private:
 	typedef boost::ptr_map<x11_event_type, x11_signal_type> signal_map;
 	signal_map signals;
 
-	typedef std::set<x_window*> instance_map;
+	typedef std::set<window*> instance_map;
 	static instance_map instances;
 };
 
-typedef shared_ptr<x_window> x_window_ptr;
+typedef shared_ptr<window> window_ptr;
 
+}
 }
 
 #endif

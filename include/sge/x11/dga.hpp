@@ -18,27 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XINPUT_X_COLOR_HPP_INCLUDED
-#define SGE_XINPUT_X_COLOR_HPP_INCLUDED
+#ifndef SGE_X11_DGA_HPP_INCLUDED
+#define SGE_X11_DGA_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/x_display.hpp>
+#include "display.hpp"
+#include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
 {
-namespace xinput
+namespace x11
 {
-	
-class x_color : boost::noncopyable {
+
+class dga_guard : boost::noncopyable {
 public:
-	x_color(x_display_ptr, Colormap colormap);
-	~x_color();
-	XColor color() const;
+	SGE_SYMBOL dga_guard(
+		display_ptr,
+		int screen);
+	SGE_SYMBOL ~dga_guard();
+	SGE_SYMBOL void enable(
+		bool);
 private:
-	x_display_ptr dsp;
-	Colormap colormap;
-	XColor _color;
+	display_ptr dsp;
+	int screen;
+	bool enabled;
 };
 
 }

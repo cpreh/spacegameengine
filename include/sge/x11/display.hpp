@@ -18,31 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X_DISPLAY_HPP_INCLUDED
-#define SGE_X_DISPLAY_HPP_INCLUDED
+#ifndef SGE_X11_DISPLAY_HPP_INCLUDED
+#define SGE_X11_DISPLAY_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include "shared_ptr.hpp"
-#include "export.hpp"
+#include "../shared_ptr.hpp"
+#include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
 {
+namespace x11
+{
 
-class SGE_CLASS_SYMBOL x_display : boost::noncopyable {
+class SGE_CLASS_SYMBOL display : boost::noncopyable {
 public:
 	struct wrap_tag {};
-	SGE_SYMBOL x_display();
-	SGE_SYMBOL x_display(Display *dsp, wrap_tag);
-	SGE_SYMBOL ~x_display();
+	SGE_SYMBOL display();
+	SGE_SYMBOL display(
+		Display *dsp,
+		wrap_tag);
+	SGE_SYMBOL ~display();
 	SGE_SYMBOL Display *get() const;
 private:
-	Display* d;
+	Display  *d;
 	bool     wrapped;
 };
 
-typedef shared_ptr<x_display> x_display_ptr;
+typedef shared_ptr<display> display_ptr;
 
+}
 }
 
 #endif

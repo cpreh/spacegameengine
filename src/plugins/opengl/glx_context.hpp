@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 
 #include <sge/shared_ptr.hpp>
-#include <sge/x_display.hpp>
+#include <sge/x11/display.hpp>
 #include <GL/glx.h>
 #include <boost/noncopyable.hpp>
 
@@ -33,11 +33,13 @@ namespace ogl
 
 class glx_context : boost::noncopyable {
 public:
-	glx_context(x_display_ptr, const XVisualInfo& vi);
+	glx_context(
+		x11::display_ptr,
+		XVisualInfo const &vi);
 	~glx_context();
 	GLXContext& context();
 private:
-	x_display_ptr dsp;
+	x11::display_ptr dsp;
 	GLXContext c;
 };
 

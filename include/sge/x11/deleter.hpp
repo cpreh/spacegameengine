@@ -18,32 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_X11_DELETER_HPP_INCLUDED
+#define SGE_X11_DELETER_HPP_INCLUDED
+
 #include <X11/Xlib.h>
-#include "../x_pixmap.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
 
-namespace
+namespace sge
+{
+namespace x11
 {
 
-char const bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
+template<typename T>
+struct deleter {
+	void operator()(T* const t) const
+	{
+		XFree(t);
+	}
+};
 
 }
-
-sge::xinput::x_pixmap::x_pixmap(const x_display_ptr dsp, const Window wnd)
- : dsp(dsp),
-   _pixmap(XCreateBitmapFromData(dsp->get(), wnd, bm_no_data, 8, 8))
-{
-	if(pixmap() == None)
-		throw exception(SGE_TEXT("XCreateBitmapFromData() failed!"));
 }
 
-sge::xinput::x_pixmap::~x_pixmap()
-{
-	XFreePixmap(dsp->get(), pixmap());
-}
-
-Pixmap sge::xinput::x_pixmap::pixmap() const
-{
-	return _pixmap;
-}
+#endif

@@ -18,22 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X_DELETER_HPP_INCLUDED
-#define SGE_X_DELETER_HPP_INCLUDED
-
 #include <X11/Xlib.h>
+#include <sge/x11/cursor.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-namespace sge
+sge::x11::cursor::cursor(
+	display_ptr const dsp,
+	Pixmap const pixmap,
+	XColor color)
+ :
+ 	dsp(dsp),
+	cursor_(
+		XCreatePixmapCursor(
+			dsp->get(),
+			pixmap,
+			pixmap,
+			&color,
+			&color,
+			0,
+			0))
 {
-
-template<typename T>
-struct x_deleter {
-	void operator()(T* const t) const
-	{
-		XFree(t);
-	}
-};
-
+	if(get() == None)
+		throw exception(
+			SGE_TEXT("XCreatePixmapCursor() failed!"));
 }
 
-#endif
+sge::x11::cursor::~cursor()
+{
+	XFreeCursor(
+		dsp->get(),
+		get());
+}
+
+Cursor sge::x11::cursor::get() const
+{
+	return cursor_;
+}

@@ -18,35 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XF86_RESOLUTION_HPP_INCLUDED
-#define SGE_OPENGL_XF86_RESOLUTION_HPP_INCLUDED
-
 #include <X11/Xlib.h>
-#include <X11/extensions/xf86vmode.h>
-#include <sge/shared_ptr.hpp>
-#include <sge/x_display.hpp>
+#include <sge/x11/pixmap.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-namespace sge
-{
-namespace ogl
+namespace
 {
 
-class xf86_resolution : boost::noncopyable {
-public:
-	xf86_resolution(x_display_ptr,
-	                int screen,
-	                const XF86VidModeModeInfo& new_mode,
-	                const XF86VidModeModeInfo& old_mode);
-	~xf86_resolution(); 
-private:
-	const x_display_ptr dsp;
-	const int screen;
-	const XF86VidModeModeInfo& old_mode;
-};
-
-typedef shared_ptr<xf86_resolution> xf86_resolution_ptr;
+char const bm_no_data[] = { 0,0,0,0, 0,0,0,0 };
 
 }
+
+sge::x11::pixmap::pixmap(
+	display_ptr const dsp,
+	Window const wnd)
+ :
+ 	dsp(dsp),
+	pixmap_(
+		XCreateBitmapFromData(
+			dsp->get(),
+			wnd,
+			bm_no_data,
+			8,
+			8))
+{
+	if(get() == None)
+		throw exception(
+			SGE_TEXT("XCreateBitmapFromData() failed!"));
 }
 
-#endif
+sge::x11::pixmap::~pixmap()
+{
+	XFreePixmap(
+		dsp->get(),
+		get());
+}
+
+Pixmap sge::x11::pixmap::get() const
+{
+	return pixmap_;
+}

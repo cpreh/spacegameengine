@@ -19,24 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WIN32_WINDOW_HPP_INCLUDED
-#define SGE_WIN32_WINDOW_HPP_INCLUDED
+#ifndef SGE_WINDOWS_WINDOW_HPP_INCLUDED
+#define SGE_WINDOWS_WINDOW_HPP_INCLUDED
 
 #include <boost/function.hpp>
 #include <boost/optional.hpp>
 #include <boost/signals.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
-#include "shared_ptr.hpp"
-#include "string.hpp"
-#include "window.hpp"
-#include "export.hpp"
+#include "../shared_ptr.hpp"
+#include "../string.hpp"
+#include "../window.hpp"
+#include "../export.hpp"
 #include "windows.hpp"
 
 namespace sge
 {
+namespace windows
+{
 
-class win32_window : public window {
+class window : public sge::window {
 public:
 	typedef unsigned win32_event_type;
 	typedef boost::optional<LRESULT> win32_callback_return_type;
@@ -82,8 +84,9 @@ private:
 	win32_signal_map signals;
 };
 
-typedef shared_ptr<win32_window> win32_window_ptr;
+typedef shared_ptr<window> window_ptr;
 
+}
 }
 
 #endif

@@ -18,27 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_GDI_DEVICE_HPP_INCLUDED
-#define SGE_GDI_DEVICE_HPP_INCLUDED
+#ifndef SGE_X11_PIXMAP_HPP_INCLUDED
+#define SGE_X11_PIXMAP_HPP_INCLUDED
 
+#include <X11/Xlib.h>
+#include "display.hpp"
+#include "../export.hpp"
 #include <boost/noncopyable.hpp>
-#include "export.hpp"
-#include "windows.hpp"
 
 namespace sge
 {
+namespace x11
+{
 
-class gdi_device : boost::noncopyable {
+class pixmap : boost::noncopyable {
 public:
-	struct get_tag{};
-	SGE_SYMBOL gdi_device(HWND, get_tag);
-	SGE_SYMBOL ~gdi_device();
-	SGE_SYMBOL HDC hdc() const;
+	SGE_SYMBOL pixmap(
+		display_ptr,
+		Window wnd);
+	SGE_SYMBOL ~pixmap();
+	SGE_SYMBOL Pixmap get() const;
 private:
-	HWND hwnd;
-	HDC dc;
+	display_ptr const dsp;
+	Pixmap      const pixmap_;
 };
 
+}
 }
 
 #endif

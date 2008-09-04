@@ -18,30 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XINPUT_DGA_HPP_INCLUDED
-#define SGE_XINPUT_DGA_HPP_INCLUDED
+#include <sge/x11/colormap.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include <X11/Xlib.h>
-#include <sge/x_display.hpp>
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::x11::colormap::colormap(
+	display_ptr const dsp,
+	XVisualInfo const &vi)
+: dsp(dsp),
+  c(
+	XCreateColormap(
+		dsp->get(),
+		XRootWindow(
+			dsp->get(),
+			vi.screen),
+		vi.visual,
+		AllocNone))
 {
-namespace xinput
-{
-
-class dga_guard : boost::noncopyable {
-public:
-	dga_guard(x_display_ptr, int screen);
-	~dga_guard();
-	void enable(bool);
-private:
-	x_display_ptr dsp;
-	int screen;
-	bool enabled;
-};
-
-}
+	if(get() == 0)
+		throw exception(
+			SGE_TEXT("XCreateColormap() failed!"));
 }
 
-#endif
+sge::x11::colormap::~colormap()
+{
+	XFreeColormap(
+		dsp->get(),
+		get());
+}
+
+Colormap& sge::x11::colormap::get()
+{
+	return c;
+}

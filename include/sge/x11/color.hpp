@@ -18,25 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_HAVE_X11
-#include "../xf86_resolution.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_X11_COLOR_HPP_INCLUDED
+#define SGE_X11_COLOR_HPP_INCLUDED
 
-sge::ogl::xf86_resolution::xf86_resolution(const x_display_ptr dsp, const int screen, const XF86VidModeModeInfo& new_mode, const XF86VidModeModeInfo& old_mode)
-: dsp(dsp),
-  screen(screen),
-  old_mode(old_mode)
+#include <X11/Xlib.h>
+#include "display.hpp"
+#include "../string.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
+
+namespace sge
 {
-	if(XF86VidModeSwitchToMode(dsp->get(), screen, const_cast<XF86VidModeModeInfo*>(&new_mode)) == False)
-		throw exception(SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
-	XF86VidModeSetViewPort(dsp->get(),screen,0,0);
+namespace x11
+{
+	
+class color : boost::noncopyable {
+public:
+	SGE_SYMBOL color(
+		display_ptr,
+		Colormap colormap,
+		string const &name);
+	SGE_SYMBOL ~color();
+	SGE_SYMBOL XColor get() const;
+private:
+	display_ptr const dsp;
+	Colormap const colormap;
+	XColor color_;
+};
+
 }
-
-sge::ogl::xf86_resolution::~xf86_resolution()
-{
-	XF86VidModeSwitchToMode(dsp->get(), screen, const_cast<XF86VidModeModeInfo*>(&old_mode));
 }
 
 #endif

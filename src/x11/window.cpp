@@ -19,15 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_HAVE_X11
-
+#include <sge/x11/window.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iostream.hpp>
-#include <sge/ostream.hpp>
 #include <sge/iconv.hpp>
-#include <sge/x_window.hpp>
 #include <boost/array.hpp>
 #include <boost/assign/list_of.hpp>
 #include <ostream>
@@ -43,27 +39,28 @@ struct init_error_handler {
 } instance;
 }
 
-sge::x_window::x_window(
+sge::x11::window::window(
 	window_pos const &pos,
 	window_size const &sz,
 	string const &t,
-	x_display_ptr const dsp,
+	display_ptr const dsp,
  	XSetWindowAttributes const &attr,
 	XVisualInfo const &vi)
  : dsp(dsp),
    screen_(vi.screen),
-   wnd(XCreateWindow(dsp->get(),
-                     XRootWindow(dsp->get(), screen()),
-                     pos.x(),
-                     pos.y(),
-                     sz.w(),
-                     sz.h(),
-                     0,
-                     vi.depth,
-                     InputOutput,
-                     vi.visual,
-                     CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
-                     const_cast<XSetWindowAttributes*>(&attr))),
+   wnd(
+	XCreateWindow(dsp->get(),
+		XRootWindow(dsp->get(), screen()),
+		pos.x(),
+		pos.y(),
+		sz.w(),
+		sz.h(),
+		0,
+		vi.depth,
+		InputOutput,
+		vi.visual,
+		CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
+		const_cast<XSetWindowAttributes*>(&attr))),
    fullscreen_(attr.override_redirect),
    event_mask(0)
 {
@@ -71,32 +68,35 @@ sge::x_window::x_window(
 	instances.insert(this);
 }
 
-sge::x_window::x_window(Display *const dsp, const int screen_, Window wnd)
- : dsp(new x_display(dsp, x_display::wrap_tag())),
+sge::x11::window::window(
+	Display *const dsp,
+	int const screen_,
+	Window wnd)
+ : dsp(new x11::display(dsp, display::wrap_tag())),
    screen_(screen_),
    wnd(wnd)
 {}
 
-sge::x_window::~x_window()
+sge::x11::window::~window()
 {
 	instances.erase(this);
 	XDestroyWindow(dsp_(), wnd);
 }
 
-void sge::x_window::size(
+void sge::x11::window::size(
 	window_size const &newsize)
 {
 	XResizeWindow(dsp_(), wnd, newsize.w(), newsize.h());
 }
 
-void sge::x_window::title(
+void sge::x11::window::title(
 	string const &t)
 {
 	XStoreName(dsp_(), wnd, iconv(t).c_str());
 }
 
-sge::x_window::window_size const
-sge::x_window::size() const
+sge::x11::window::window_size const
+sge::x11::window::size() const
 {
 	Window root_return;
 	int x_return,
@@ -110,34 +110,34 @@ sge::x_window::size() const
 	return window_size(width_return, height_return);
 }
 
-bool sge::x_window::fullscreen() const
+bool sge::x11::window::fullscreen() const
 {
 	return fullscreen_;
 }
 
-Window sge::x_window::get_window() const
+Window sge::x11::window::get_window() const
 {
 	return wnd;
 }
 
-int sge::x_window::screen() const
+int sge::x11::window::screen() const
 {
 	return screen_;
 }
 
-sge::x_display_ptr const
-sge::x_window::display() const
+sge::x11::display_ptr const
+sge::x11::window::display() const
 {
 	return dsp;
 }
 
-Display* sge::x_window::dsp_() const
+Display* sge::x11::window::dsp_() const
 {
 	return display()->get();
 }
 
 boost::signals::connection
-sge::x_window::register_callback(
+sge::x11::window::register_callback(
 	x11_event_type const event,
 	x11_callback_type const &callback)
 {
@@ -145,7 +145,7 @@ sge::x_window::register_callback(
 	return signals[event].connect(callback);
 }
 
-typedef std::map<sge::x_window::x11_event_type, sge::x_window::x11_event_mask_type> mask_map;
+typedef std::map<sge::x11::window::x11_event_type, sge::x11::window::x11_event_mask_type> mask_map;
 
 const mask_map masks =
 boost::assign::map_list_of(KeyPress, KeyPressMask)
@@ -163,7 +163,7 @@ boost::assign::map_list_of(KeyPress, KeyPressMask)
                           (ConfigureRequest, SubstructureRedirectMask)
                           (ConfigureNotify, StructureNotifyMask);
 
-void sge::x_window::add_event_mask(const x11_event_type event)
+void sge::x11::window::add_event_mask(const x11_event_type event)
 {
 	const mask_map::const_iterator it = masks.find(event);
 	if(it == masks.end())
@@ -182,10 +182,10 @@ void sge::x_window::add_event_mask(const x11_event_type event)
 void sge::window::dispatch()
 {
 	XEvent xev;
-	const x_window::instance_map::iterator e = sge::x_window::instances.end();
-	for (x_window::instance_map::iterator b = sge::x_window::instances.begin(); b != e; ++b)
+	const x11::window::instance_map::iterator e = sge::x11::window::instances.end();
+	for (x11::window::instance_map::iterator b = sge::x11::window::instances.begin(); b != e; ++b)
 	{
-		x_window& wnd = **b;
+		x11::window& wnd = **b;
 		while(XCheckWindowEvent(wnd.dsp_(), wnd.get_window(), wnd.event_mask, &xev))
 		{
 			if(XFilterEvent(&xev, None))
@@ -198,7 +198,7 @@ void sge::window::dispatch()
 
 /*sge::window_ptr sge::create_window()
 {
-	return window_ptr(new x_window());
+	return window_ptr(new x11::window());
 }*/
 
 int handler(Display* const d, XErrorEvent* const e)
@@ -210,11 +210,9 @@ int handler(Display* const d, XErrorEvent* const e)
 }
 
 sge::window::window_pos const
-sge::x_window::viewport_offset() const
+sge::x11::window::viewport_offset() const
 {
 	return window_pos(0, 0);
 }
 
-sge::x_window::instance_map sge::x_window::instances;
-
-#endif
+sge::x11::window::instance_map sge::x11::window::instances;
