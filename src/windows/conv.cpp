@@ -18,18 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_WINDOWS_PLATFORM
-#include <sge/win32_conv.hpp>
+#include <sge/windows/conv.hpp>
 #include <sge/codecvt.hpp>
 
 //#ifdef SGE_NARROW_STRING
-sge::win_string sge::sge_str_to_win(const string& in)
+sge::win_string sge::sge_str_to_win(string const &in)
 {
 	return in;
 }
 
-sge::string sge::win_str_to_sge(const win_string& in)
+sge::string sge::win_str_to_sge(win_string const &in)
 {
 	return in;
 }
@@ -44,5 +42,3 @@ sge::string sge::win_str_to_sge(const win_string& in)
 	return narrow(in);
 }
 #endif*/
-
-#endif

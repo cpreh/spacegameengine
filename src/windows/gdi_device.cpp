@@ -18,18 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_WINDOWS_PLATFORM
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/gdi_device.hpp>
 
-sge::gdi_device::gdi_device(HWND hwnd, get_tag)
+sge::gdi_device::gdi_device(
+	HWND hwnd,
+	get_tag)
 : hwnd(hwnd),
   dc(GetDC(hwnd))
 {
 	if(!dc)
-		throw exception(SGE_TEXT("GetDC() failed!"));
+		throw exception(
+			SGE_TEXT("GetDC() failed!"));
 }
 
 sge::gdi_device::~gdi_device()
@@ -41,5 +42,3 @@ HDC sge::gdi_device::hdc() const
 {
 	return dc;
 }
-
-#endif

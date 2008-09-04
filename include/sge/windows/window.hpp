@@ -67,13 +67,12 @@ public:
 	SGE_SYMBOL void title(const string& t);
 	SGE_SYMBOL void size(window_size const &newsize);
 	SGE_SYMBOL window_size const size() const;
-	SGE_SYMBOL const string& title() const;
+	SGE_SYMBOL string const title() const;
 	SGE_SYMBOL HWND hwnd() const;
 	SGE_SYMBOL boost::signals::connection register_callback(win32_event_type, win32_callback_type);
 	SGE_SYMBOL win32_callback_return_type execute_callback(win32_event_type msg, WPARAM wparam, LPARAM lparam);
 	SGE_SYMBOL window_pos const viewport_offset() const;
 private:
-	string      _title;
 	struct {
 		unsigned r, l, t, b;
 	} decoration_size;
