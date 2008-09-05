@@ -180,7 +180,8 @@ unsigned sge::gui::layouts::row::count_flags(
 {
 	unsigned count = static_cast<unsigned>(0);
 	BOOST_FOREACH(widget const &w,connected_widget().children())
-		if (bitfield_and(w.size_policy().index(axis),flags))
+		//if (bitfield_and(w.size_policy().index(axis),flags))
+		if (w.size_policy().index(axis) & flags)
 			++count;
 	return count;
 }
