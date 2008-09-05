@@ -71,9 +71,7 @@ void sge::log::logger::log(
 	level::type const level_,
 	temporary_output const &helper)
 {
-	if (!active)
-		return;
-	if(!enabled(level_))
+	if (!active || !enabled(level_))
 		return;
 	
 	level_sink(level_).log(helper);
