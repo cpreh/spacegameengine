@@ -42,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-template<typename Enum, Enum Size, typename InternalType = unsigned> class bitfield : public safe_bool<bitfield> {
+template<typename Enum, Enum Size, typename InternalType = unsigned>
+class bitfield : public safe_bool<> {
 public:
 	typedef std::size_t size_type;
 	typedef std::ptrdiff_t difference_type;

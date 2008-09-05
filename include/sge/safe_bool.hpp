@@ -23,7 +23,7 @@ class safe_bool : public safe_bool_base
   operator bool_type() const 
 	{
 		return (static_cast<T const *>(this))->boolean_test()
-			? &safe_bool_base::this_type_does_not_support_comparisons : 0;
+			? &safe_bool::this_type_does_not_support_comparisons : 0;
   }
   protected:
     ~safe_bool() {}
@@ -36,7 +36,7 @@ class safe_bool<void> : public safe_bool_base
 	operator bool_type() const 
 	{
 		return boolean_test() == true ? 
-			&safe_bool_base::this_type_does_not_support_comparisons : 0;
+			&safe_bool::this_type_does_not_support_comparisons : 0;
 	}
 	protected:
 	virtual bool boolean_test() const = 0;
