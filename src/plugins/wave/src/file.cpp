@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/iconv.hpp>
 #include <sge/endianness.hpp>
 #include <sge/raw_vector_impl.hpp>
+#include <sge/istream_util.hpp>
 #include <sge/audio/exception.hpp>
 #include <algorithm>
 #include <string>
@@ -29,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/cstdint.hpp>
 #include <cstddef>
 #include <cassert>
+#include <climits>
 
 sge::wave::file::file(const path &filename)
 : filename_(filename),
@@ -128,14 +130,13 @@ template<typename T>
 T sge::wave::file::extract_primitive(const std::string &_desc)
 {
 //	assert(swap_ != boost::logic::indeterminate);
-	assert(sizeof(T) < 64);
 
-	char array[64];
-	file_.read(array,sizeof(T));
+	T const ret = sge::read<T>(file_);
 	if (file_.eof() || !file_)
-		throw audio::exception(SGE_TEXT("Unexpected end of file or error while reading ") + iconv(_desc) + SGE_TEXT("!"));
-	T v = *reinterpret_cast<T *>(array);
-	return swap_ ? swap_endianness(v) : v;
+		throw audio::exception(
+			SGE_TEXT("Unexpected end of file or error while reading ") + iconv(_desc) + SGE_TEXT("!"));
+
+	return swap_ ? swap_endianness(ret) : ret;
 }
 
 sge::audio::file::sample_type sge::wave::file::read(const sample_type _sample_count, raw_array_type &_array) 
