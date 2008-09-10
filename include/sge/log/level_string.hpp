@@ -23,17 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "level.hpp"
 #include "../string.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace log
 {
 
-level::type
+SGE_SYMBOL level::type
 level_from_string(
 	string const &);
 
-string const
+SGE_SYMBOL string const
 level_to_string(
 	level::type);
 
