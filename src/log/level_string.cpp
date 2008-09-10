@@ -18,17 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/format/default_level.hpp>
-#include <sge/log/format/inserter.hpp>
 #include <sge/log/level_string.hpp>
 #include <sge/text.hpp>
+#include <sge/exception.hpp>
+#include <boost/array.hpp>
+#include <algorithm>
 
-sge::log::format::const_formatter_ptr const
-sge::log::format::default_level(
+namespace
+{
+
+typedef boost::array<
+	sge::string,
+	sge::log::level::size
+> name_array;
+
+name_array const names = {
+{
+	SGE_TEXT("debug"),
+	SGE_TEXT("info"),
+	SGE_TEXT("warning"),
+	SGE_TEXT("error"),
+	SGE_TEXT("fatal")
+} };
+
+}
+
+sge::log::level::type
+sge::log::level_from_string(
+	string const &str)
+{
+	name_array::const_iterator const it =
+		std::find(names.begin(), names.end(), str);
+	if(it == names.end())
+		throw exception(
+			SGE_TEXT("level_from_string(): \"")
+			+ str
+			+ SGE_TEXT("\" not found!"));
+	return static_cast<level::type>(
+		std::distance(
+			static_cast<name_array const &>(
+				names).begin(),
+			it));
+}
+
+sge::string const
+sge::log::level_to_string(
 	level::type const level_)
 {
-	return const_formatter_ptr(
-		new inserter(
-			level_to_string(level_)
-			+ SGE_TEXT(": %1%\n")));
+	return names.at(
+		static_cast<name_array::size_type>(
+			level_));
 }
