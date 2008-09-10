@@ -65,9 +65,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 // TODO: maybe support different adapters?
 sge::ogl::device::device(
-	const renderer::parameters& param,
-	const renderer::adapter_type adapter,
-	const window_ptr wnd_param)
+	renderer::parameters const &param,
+	renderer::adapter_type const adapter,
+	window_ptr const wnd_param)
  : param(param),
    caps_(
    	adapter,
@@ -87,7 +87,7 @@ sge::ogl::device::device(
 
 	bool windowed = param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
-  const unsigned color_depth = renderer::bit_depth_bit_count(param.mode.depth);
+	const unsigned color_depth = renderer::bit_depth_bit_count(param.mode.depth);
 	if(!windowed)
 	{
 		DEVMODE settings;
@@ -207,8 +207,6 @@ sge::ogl::device::device(
 	initialize_vbo();
 	initialize_pbo();
 
-	// FIXME:
-	//set_target(renderer::default_target);
 	set_state(renderer::default_states());
 }
 
@@ -507,14 +505,16 @@ void sge::ogl::device::center_viewport(const int w, const int h)
 }
 #endif
 
-void sge::ogl::device::transform(const math::space_matrix& matrix)
+void sge::ogl::device::transform(
+	math::space_matrix const &matrix)
 {
 	set_matrix(
 		GL_MODELVIEW,
 		matrix);
 }
 
-void sge::ogl::device::projection(const math::space_matrix& matrix)
+void sge::ogl::device::projection(
+	math::space_matrix const &matrix)
 {
 	set_matrix(
 		GL_PROJECTION,
@@ -540,9 +540,8 @@ void sge::ogl::device::set_render_target(
 					target::dim_type::value_type>(
 						screen_size())));
 		render_target_->bind_me();
-		const window::window_pos offset = wnd->viewport_offset();
+		window::window_pos const offset = wnd->viewport_offset();
 		set_viewport(
-			// TODO: better ctor for viewport
 			renderer::viewport(
 				offset,
 				wnd->size()));

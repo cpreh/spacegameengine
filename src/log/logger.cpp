@@ -104,18 +104,18 @@ void sge::log::logger::deactivate(
 	level_sink(level_).disable();
 }
 
-void sge::log::logger::activate_hierarchie(
+void sge::log::logger::activate_hierarchy(
 	level::type const level_)
 {
-	set_hierarchie(
+	set_hierarchy(
 		level_,
 		&logger::activate);
 }
 
-void sge::log::logger::deactivate_hierarchie(
+void sge::log::logger::deactivate_hierarchy(
 	level::type const level_)
 {
-	set_hierarchie(
+	set_hierarchy(
 		level_,
 		&logger::deactivate);
 }
@@ -167,7 +167,7 @@ void sge::log::logger::inherit_levels(
 				level_)));
 }
 
-void sge::log::logger::set_hierarchie(
+void sge::log::logger::set_hierarchy(
 	level::type const level_,
 	void (logger::*fun)(level::type))
 {
