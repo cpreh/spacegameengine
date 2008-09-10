@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
+PFNGLUNIFORM1IPROC uniform_1i;
 PFNGLUNIFORM1FPROC uniform_1f;
 PFNGLUNIFORM2FVPROC uniform_2fv;
 PFNGLUNIFORM3FVPROC uniform_3fv;
@@ -44,6 +45,13 @@ sge::ogl::glsl::uniform_variable<Native>::uniform_variable(
 : ref(get_uniform_location<Native>(program, name.c_str()))
 {
 	initialize_uniform_variable();
+}
+
+template<bool Native>
+void sge::ogl::glsl::uniform_variable<Native>::set(
+	int const i)
+{
+	uniform_1i(location(), i);
 }
 
 template<bool Native>
@@ -93,6 +101,7 @@ void initialize_uniform_variable()
 	SGE_FUNCTION_ONCE
 	if(sge::ogl::glsl::is_native())
 	{
+		uniform_1i = glUniform1i;
 		uniform_1f = glUniform1f;
 		uniform_2fv = glUniform2fv;
 		uniform_3fv = glUniform3fv;
@@ -101,6 +110,7 @@ void initialize_uniform_variable()
 	}
 	else
 	{
+		uniform_1i = glUniform1iARB;
 		uniform_1f = glUniform1fARB;
 		uniform_2fv = glUniform2fvARB;
 		uniform_3fv = glUniform3fvARB;

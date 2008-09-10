@@ -35,6 +35,7 @@ namespace glsl
 
 class uniform_variable {
 public:
+	virtual void set(int) = 0;
 	virtual void set(space_unit) = 0;
 	virtual void set(const math::vector2&) = 0;
 	virtual void set(const math::vector3&) = 0;

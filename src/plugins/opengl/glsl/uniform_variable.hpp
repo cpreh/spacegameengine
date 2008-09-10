@@ -43,6 +43,7 @@ public:
 		handle program,
 		const std::string& name);
 
+	void set(int);
 	void set(space_unit);
 	void set(const math::vector2&);
 	void set(const math::vector3&);
