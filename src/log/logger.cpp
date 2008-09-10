@@ -74,7 +74,7 @@ void sge::log::logger::log(
 	if (!active || !enabled(level_))
 		return;
 	
-	level_sink(level_).log(helper);
+	level_sink(level_).log(helper, formatter());
 }
 
 sge::log::level_stream &
@@ -151,10 +151,8 @@ void sge::log::logger::init_level(
 	level_streams.push_back(
 		new level_stream(
 			sink(),
-			create_chain(
-				formatter_,
-				format::default_level(
-					level_))));
+			format::default_level(
+				level_)));
 }
 
 void sge::log::logger::inherit_levels(

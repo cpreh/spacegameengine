@@ -42,7 +42,8 @@ public:
 	SGE_SYMBOL void disable();
 	SGE_SYMBOL bool enabled() const;
 	SGE_SYMBOL void log(
-		temporary_output const &);
+		temporary_output const &,
+		format::const_formatter_ptr addtional_formatter);
 	SGE_SYMBOL void formatter(
 		format::const_formatter_ptr);
 	SGE_SYMBOL format::const_formatter_ptr const
