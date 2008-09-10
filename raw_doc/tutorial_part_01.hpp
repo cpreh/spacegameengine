@@ -108,7 +108,7 @@ sge::renderer::texture_ptr image_texture =
 	sys.renderer->create_texture(
 		image->view(),
 		sge::renderer::linear_filter,
-		sge::renderer::resource_flags::readable);
+		sge::renderer::resource_flags::none);
 \endcode
 
 Files to include: <sge/renderer/texture_filter.hpp>, <sge/renderer/image_view_impl.hpp>

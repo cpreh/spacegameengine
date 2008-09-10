@@ -26,7 +26,7 @@ try
 		sys.renderer->create_texture(
 			image->view(),
 			sge::renderer::linear_filter,
-			sge::renderer::resource_flags::readable);
+			sge::renderer::resource_flags::none);
 	sge::sprite::object my_object(
 			sge::sprite::point(0,0),
 			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
