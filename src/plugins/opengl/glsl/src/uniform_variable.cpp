@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../uniform_variable.hpp"
 #include "../uniform_variable_functions.hpp"
 #include "../init.hpp"
+#include "../../error.hpp"
 #include <sge/math/matrix_impl.hpp>
 #include <sge/once.hpp>
 
@@ -51,36 +52,42 @@ template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(
 	int const i)
 {
+	SGE_OPENGL_SENTRY
 	uniform_1i(location(), i);
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const space_unit f)
 {
+	SGE_OPENGL_SENTRY
 	uniform_1f(location(), f);	
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::vector2& v)
 {
+	SGE_OPENGL_SENTRY
 	uniform_2fv(location(), static_cast<GLsizei>(v.size()), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::vector3& v)
 {
+	SGE_OPENGL_SENTRY
 	uniform_3fv(location(), static_cast<GLsizei>(v.size()), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::vector4& v)
 {
+	SGE_OPENGL_SENTRY
 	uniform_4fv(location(), static_cast<GLsizei>(v.size()), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::space_matrix& m)
 {
+	SGE_OPENGL_SENTRY
 	uniform_matrix_4fv(location(), static_cast<GLsizei>(m.size()), false, m.data());
 }
 

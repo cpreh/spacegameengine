@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../attribute_variable.hpp"
 #include "../attribute_variable_functions.hpp"
 #include "../init.hpp"
+#include "../../error.hpp"
 #include <sge/once.hpp>
 
 namespace
@@ -45,24 +46,28 @@ sge::ogl::glsl::attribute_variable<Native>::attribute_variable(
 template<bool Native>
 void sge::ogl::glsl::attribute_variable<Native>::set(const space_unit f)
 {
+	SGE_OPENGL_SENTRY
 	vertex_attrib_1f(location(), f);	
 }
 
 template<bool Native>
 void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector2& v)
 {
+	SGE_OPENGL_SENTRY
 	vertex_attrib_2fv(location(), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector3& v)
 {
+	SGE_OPENGL_SENTRY
 	vertex_attrib_3fv(location(), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector4& v)
 {
+	SGE_OPENGL_SENTRY
 	vertex_attrib_4fv(location(), v.data());
 }
 
