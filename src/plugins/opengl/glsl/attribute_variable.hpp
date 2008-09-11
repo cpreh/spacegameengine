@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
 
 #include "traits.hpp"
+#include "attribute_type.hpp"
 #include "../common.hpp"
 #include <sge/renderer/glsl/attribute_variable.hpp>
 #include <sge/renderer/glsl/string.hpp>
@@ -47,7 +48,8 @@ public:
 		renderer::glsl::attribute_value const &);
 private:
 	GLint location() const;
-	handle ref;
+	handle const         ref;
+	attribute_type::type stored_type;
 };
 
 }

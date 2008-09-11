@@ -39,6 +39,14 @@ sge::ogl::glsl::uniform_variable<Native>::uniform_variable(
 {}
 
 template<bool Native>
+sge::renderer::glsl::uniform_value const
+sge::ogl::glsl::uniform_variable<Native>::get() const
+{
+	return uniform_get(
+		stored_type);
+}
+
+template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(
 	renderer::glsl::uniform_value const &v)
 {
@@ -47,14 +55,6 @@ void sge::ogl::glsl::uniform_variable<Native>::set(
 		uniform_setter(
 			location()),
 		v);
-}
-
-template<bool Native>
-sge::renderer::glsl::uniform_value const
-sge::ogl::glsl::uniform_variable<Native>::get() const
-{
-	return uniform_get(
-		stored_type);
 }
 
 template<bool Native>
