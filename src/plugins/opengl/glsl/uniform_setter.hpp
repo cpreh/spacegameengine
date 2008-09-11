@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "traits.hpp"
 #include "uniform_type.hpp"
 #include <sge/su.hpp>
-#include <sge/renderer/glsl/int_type.hpp>
+#include <sge/renderer/glsl/int_types.hpp>
 #include <sge/math/vector.hpp>
 #include <sge/math/matrix.hpp>
 #include <boost/variant/static_visitor.hpp>

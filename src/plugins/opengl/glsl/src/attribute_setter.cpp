@@ -46,14 +46,6 @@ sge::ogl::glsl::attribute_setter::attribute_setter(
 	
 sge::ogl::glsl::attribute_type::type
 sge::ogl::glsl::attribute_setter::operator()(
-	renderer::glsl::int_type const i) const
-{
-	//vertex_attrib_1i(location, i);
-	return attribute_type::int1;
-}
-	
-sge::ogl::glsl::attribute_type::type
-sge::ogl::glsl::attribute_setter::operator()(
 	space_unit const f) const
 {
 	vertex_attrib_1f(location, f);

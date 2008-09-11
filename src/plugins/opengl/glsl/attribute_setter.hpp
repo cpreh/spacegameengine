@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "traits.hpp"
 #include "attribute_type.hpp"
 #include <sge/su.hpp>
-#include <sge/renderer/glsl/int_type.hpp>
 #include <sge/math/vector.hpp>
 #include <boost/variant/static_visitor.hpp>
 
@@ -39,10 +38,6 @@ class attribute_setter : public boost::static_visitor<attribute_type::type> {
 public:
 	explicit attribute_setter(
 		GLint location);
-	
-	attribute_type::type
-	operator()(
-		renderer::glsl::int_type) const;
 	
 	attribute_type::type
 	operator()(
