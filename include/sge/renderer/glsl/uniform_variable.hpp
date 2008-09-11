@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../shared_ptr.hpp"
 #include "../../math/vector.hpp"
 #include "../../math/matrix.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,7 +34,7 @@ namespace renderer
 namespace glsl
 {
 
-class uniform_variable {
+class uniform_variable : boost::noncopyable {
 public:
 	virtual void set(int) = 0;
 	virtual void set(space_unit) = 0;

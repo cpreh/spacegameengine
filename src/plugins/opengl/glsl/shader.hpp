@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "traits.hpp"
 #include <sge/shared_ptr.hpp>
+#include <sge/renderer/glsl/string.hpp>
 #include <boost/noncopyable.hpp>
-#include <string>
 
 namespace sge
 {
@@ -39,7 +39,9 @@ class shader : boost::noncopyable {
 public:
 	typedef typename traits<Native>::handle handle;
 
-	shader(GLenum type, const std::string& source);
+	shader(
+		GLenum type,
+		renderer::glsl::string const &source);
 	~shader();
 	handle id() const;
 

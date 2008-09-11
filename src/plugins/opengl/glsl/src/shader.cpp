@@ -21,15 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shader.hpp"
 #include "../shader_functions.hpp"
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
 #include <boost/array.hpp>
 
 template<bool Native>
 sge::ogl::glsl::shader<Native>::shader(
-	const GLenum type,
-	const std::string& source)
+	GLenum const type,
+	renderer::glsl::string const &source)
 : id_(create_shader<Native>(type))
 {
 	const char* const ptr = source.c_str();

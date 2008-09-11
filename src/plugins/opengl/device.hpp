@@ -110,14 +110,16 @@ public:
 		renderer::texture_stage_arg::type,
 		renderer::texture_stage_arg_value::type);
 
-	const renderer::glsl::program_ptr create_glsl_program(
-		const std::string& vertex_shader_source,
-		const std::string& pixel_shader_source);
-	void set_glsl_program(renderer::glsl::program_ptr);
+	renderer::glsl::program_ptr const
+	create_glsl_program(
+		renderer::glsl::string const &vertex_shader_source,
+		renderer::glsl::string const &pixel_shader_source);
+	void set_glsl_program(
+		renderer::glsl::program_ptr);
 
 	renderer::const_target_ptr const get_target() const;
 
-	const renderer::texture_ptr
+	renderer::texture_ptr const
 	create_texture(
 		renderer::texture::dim_type const &,
 		renderer::color_format::type,

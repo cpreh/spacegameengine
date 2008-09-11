@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector.hpp>
 #include <sge/math/matrix.hpp>
 #include <sge/renderer/glsl/attribute_variable.hpp>
+#include <sge/renderer/glsl/string.hpp>
 #include <string>
 
 namespace sge
@@ -42,7 +43,7 @@ public:
 
 	attribute_variable(
 		handle program,
-		const std::string& name);
+		renderer::glsl::string const &name);
 	
 	void set(space_unit);
 	void set(const math::vector2&);

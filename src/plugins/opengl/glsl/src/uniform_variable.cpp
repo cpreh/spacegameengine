@@ -41,8 +41,8 @@ void initialize_uniform_variable();
 
 template<bool Native>
 sge::ogl::glsl::uniform_variable<Native>::uniform_variable(
-	const handle program,
-	std::string const &name)
+	handle const program,
+	renderer::glsl::string const &name)
 : ref(get_uniform_location<Native>(program, name.c_str()))
 {
 	initialize_uniform_variable();

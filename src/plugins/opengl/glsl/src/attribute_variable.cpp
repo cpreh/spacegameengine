@@ -38,9 +38,13 @@ void initialize_attribute_variable();
 
 template<bool Native>
 sge::ogl::glsl::attribute_variable<Native>::attribute_variable(
-	const handle program,
-	const std::string& name)
-: ref(get_attrib_location<Native>(program, name.c_str()))
+	handle const program,
+	renderer::glsl::string const &name)
+:
+	ref(
+		get_attrib_location<Native>(
+			program,
+			name.c_str()))
 {}
 
 template<bool Native>
