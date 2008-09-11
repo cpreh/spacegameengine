@@ -23,11 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "traits.hpp"
 #include "../common.hpp"
-#include <sge/math/vector.hpp>
-#include <sge/math/matrix.hpp>
 #include <sge/renderer/glsl/attribute_variable.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <string>
 
 namespace sge
 {
@@ -45,10 +42,9 @@ public:
 		handle program,
 		renderer::glsl::string const &name);
 	
-	void set(space_unit);
-	void set(const math::vector2&);
-	void set(const math::vector3&);
-	void set(const math::vector4&);
+	renderer::glsl::attribute_value const get() const;
+	void set(
+		renderer::glsl::attribute_value const &);
 private:
 	GLint location() const;
 	handle ref;

@@ -48,6 +48,18 @@ sge::ogl::glsl::attribute_variable<Native>::attribute_variable(
 {}
 
 template<bool Native>
+sge::renderer::glsl::attribute_value const
+sge::ogl::glsl::attribute_variable<Native>::get() const
+{
+}
+
+template<bool Native>
+void sge::ogl::glsl::attribute_variable<Native>::set(
+	renderer::glsl::attribute_value const &)
+{
+}
+
+/*template<bool Native>
 void sge::ogl::glsl::attribute_variable<Native>::set(const space_unit f)
 {
 	SGE_OPENGL_SENTRY
@@ -73,7 +85,7 @@ void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector4& v)
 {
 	SGE_OPENGL_SENTRY
 	vertex_attrib_4fv(location(), v.data());
-}
+}*/
 
 template<bool Native>
 GLint sge::ogl::glsl::attribute_variable<Native>::location() const

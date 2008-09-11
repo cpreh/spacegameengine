@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
 
-#include "../../su.hpp"
+#include "uniform_value.hpp"
+#include "../../export.hpp"
 #include "../../shared_ptr.hpp"
-#include "../../math/vector.hpp"
-#include "../../math/matrix.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -34,20 +33,15 @@ namespace renderer
 namespace glsl
 {
 
-class uniform_variable : boost::noncopyable {
+class SGE_CLASS_SYMBOL uniform_variable : boost::noncopyable {
 public:
-	virtual void set(int) = 0;
-	virtual void set(space_unit) = 0;
-	virtual void set(const math::vector2&) = 0;
-	virtual void set(const math::vector3&) = 0;
-	virtual void set(const math::vector4&) = 0;
-
-	virtual void set(const math::space_matrix&) = 0;
-
-	virtual ~uniform_variable() {}
+	virtual uniform_value const get() const = 0;
+	virtual void set(uniform_value const &) = 0;
+	SGE_SYMBOL virtual ~uniform_variable();
 };
 
 typedef shared_ptr<uniform_variable> uniform_variable_ptr;
+typedef shared_ptr<uniform_variable const> const_uniform_variable_ptr;
 
 }
 }

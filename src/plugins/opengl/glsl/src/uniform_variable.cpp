@@ -50,13 +50,19 @@ sge::ogl::glsl::uniform_variable<Native>::uniform_variable(
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(
-	int const i)
+	renderer::glsl::uniform_value const &v)
 {
 	SGE_OPENGL_SENTRY
-	uniform_1i(location(), i);
+	//uniform_1i(location(), i);
 }
 
 template<bool Native>
+sge::renderer::glsl::uniform_value const
+sge::ogl::glsl::uniform_variable<Native>::get() const
+{
+}
+
+/*template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const space_unit f)
 {
 	SGE_OPENGL_SENTRY
@@ -89,7 +95,7 @@ void sge::ogl::glsl::uniform_variable<Native>::set(const math::space_matrix& m)
 {
 	SGE_OPENGL_SENTRY
 	uniform_matrix_4fv(location(), static_cast<GLsizei>(1), false, m.data());
-}
+}*/
 
 template<bool Native>
 GLint sge::ogl::glsl::uniform_variable<Native>::location() const

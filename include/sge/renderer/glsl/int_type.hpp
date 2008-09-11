@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
-
-#include "attribute_value.hpp"
-#include "../../export.hpp"
-#include "../../shared_ptr.hpp"
-#include <boost/noncopyable.hpp>
+#ifndef SGE_RENDERER_GLSL_INT_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_INT_TYPE_HPP_INCLUDED
 
 namespace sge
 {
@@ -33,15 +28,7 @@ namespace renderer
 namespace glsl
 {
 
-class SGE_CLASS_SYMBOL attribute_variable : boost::noncopyable {
-public:
-	virtual attribute_value const get() const = 0;
-	virtual void set(attribute_value const &) = 0;
-	SGE_SYMBOL virtual ~attribute_variable();
-};
-
-typedef shared_ptr<attribute_variable> attribute_variable_ptr;
-typedef shared_ptr<attribute_variable const> const_attribute_variable_ptr;
+typedef int int_type;
 
 }
 }
