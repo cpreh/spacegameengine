@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::glsl::uniform_value const
 sge::ogl::glsl::uniform_get(
+	GLint const location,
 	uniform_type::type const t)
 {
 	

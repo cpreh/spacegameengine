@@ -47,8 +47,7 @@ public:
 	void set(
 		renderer::glsl::attribute_value const &);
 private:
-	GLint location() const;
-	handle const         ref;
+	GLint const          location;
 	attribute_type::type stored_type;
 };
 

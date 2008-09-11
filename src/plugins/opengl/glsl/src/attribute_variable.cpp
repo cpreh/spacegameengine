@@ -29,7 +29,7 @@ sge::ogl::glsl::attribute_variable<Native>::attribute_variable(
 	handle const program,
 	renderer::glsl::string const &name)
 :
-	ref(
+	location(
 		get_attrib_location<Native>(
 			program,
 			name.c_str())),
@@ -50,14 +50,8 @@ void sge::ogl::glsl::attribute_variable<Native>::set(
 	SGE_OPENGL_SENTRY
 	stored_type = boost::apply_visitor(
 		attribute_setter(
-			location()),
+			location),
 		v);
-}
-
-template<bool Native>
-GLint sge::ogl::glsl::attribute_variable<Native>::location() const
-{
-	return ref; 
 }
 
 template class sge::ogl::glsl::attribute_variable<true>;

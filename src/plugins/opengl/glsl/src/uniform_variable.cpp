@@ -30,7 +30,7 @@ sge::ogl::glsl::uniform_variable<Native>::uniform_variable(
 	handle const program,
 	renderer::glsl::string const &name)
 :
-	ref(
+	location(
 		get_uniform_location<Native>(
 			program,
 			name.c_str())),
@@ -43,6 +43,7 @@ sge::renderer::glsl::uniform_value const
 sge::ogl::glsl::uniform_variable<Native>::get() const
 {
 	return uniform_get(
+		location,
 		stored_type);
 }
 
@@ -53,14 +54,8 @@ void sge::ogl::glsl::uniform_variable<Native>::set(
 	SGE_OPENGL_SENTRY
 	stored_type = boost::apply_visitor(
 		uniform_setter(
-			location()),
+			location),
 		v);
-}
-
-template<bool Native>
-GLint sge::ogl::glsl::uniform_variable<Native>::location() const
-{
-	return ref;
 }
 
 template class sge::ogl::glsl::uniform_variable<true>;

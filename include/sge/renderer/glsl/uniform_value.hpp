@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_VALUE_HPP_INCLUDED
 
-#include "int_type.hpp"
+#include "int_types.hpp"
 #include "../../su.hpp"
 #include "../../math/vector.hpp"
 #include "../../math/matrix.hpp"
