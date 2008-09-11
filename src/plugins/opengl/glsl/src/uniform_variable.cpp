@@ -67,28 +67,28 @@ template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::vector2& v)
 {
 	SGE_OPENGL_SENTRY
-	uniform_2fv(location(), static_cast<GLsizei>(v.size()), v.data());
+	uniform_2fv(location(), static_cast<GLsizei>(1), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::vector3& v)
 {
 	SGE_OPENGL_SENTRY
-	uniform_3fv(location(), static_cast<GLsizei>(v.size()), v.data());
+	uniform_3fv(location(), static_cast<GLsizei>(1), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::vector4& v)
 {
 	SGE_OPENGL_SENTRY
-	uniform_4fv(location(), static_cast<GLsizei>(v.size()), v.data());
+	uniform_4fv(location(), static_cast<GLsizei>(1), v.data());
 }
 
 template<bool Native>
 void sge::ogl::glsl::uniform_variable<Native>::set(const math::space_matrix& m)
 {
 	SGE_OPENGL_SENTRY
-	uniform_matrix_4fv(location(), static_cast<GLsizei>(m.size()), false, m.data());
+	uniform_matrix_4fv(location(), static_cast<GLsizei>(1), false, m.data());
 }
 
 template<bool Native>
