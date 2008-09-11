@@ -14,6 +14,7 @@ FILE (GLOB sgecorefiles
 	model/*.cpp
 	plugin/*.cpp
 	renderer/*.cpp
+	renderer/glsl/*.cpp
 	sprite/*.cpp
 	texture/*.cpp
 	time/*.cpp)

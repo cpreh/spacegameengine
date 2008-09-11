@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../uniform_variable.hpp"
 #include "../uniform_variable_functions.hpp"
 #include "../uniform_setter.hpp"
+#include "../uniform_get.hpp"
 #include "../../error.hpp"
 #include <boost/variant/apply_visitor.hpp>
 
@@ -52,6 +53,8 @@ template<bool Native>
 sge::renderer::glsl::uniform_value const
 sge::ogl::glsl::uniform_variable<Native>::get() const
 {
+	return uniform_get(
+		stored_type);
 }
 
 template<bool Native>

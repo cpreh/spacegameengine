@@ -33,13 +33,17 @@ PFNGLUNIFORM3FVPROC uniform_3fv;
 PFNGLUNIFORM3FVPROC uniform_4fv;
 PFNGLUNIFORMMATRIX4FVPROC uniform_matrix_4fv;
 
+void initialize_uniform_setter();
+
 }
 
 sge::ogl::glsl::uniform_setter::uniform_setter(
 	GLint const location)
 :
 	location(location)
-{}
+{
+	initialize_uniform_setter();
+}
 	
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
@@ -92,7 +96,7 @@ sge::ogl::glsl::uniform_type::type
 namespace
 {
 
-void initialize_uniform_variable()
+void initialize_uniform_setter()
 {
 	SGE_FUNCTION_ONCE
 	if(sge::ogl::glsl::is_native())
