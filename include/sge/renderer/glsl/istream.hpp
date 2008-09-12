@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_STRING_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_STRING_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_ISTREAM_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_ISTREAM_HPP_INCLUDED
 
 #include "char.hpp"
 #include <string>
@@ -31,7 +31,7 @@ namespace renderer
 namespace glsl
 {
 
-typedef std::basic_string<char_type> string;
+typedef std::basic_istream<char_type> istream;
 
 }
 }

@@ -114,6 +114,11 @@ public:
 	create_glsl_program(
 		renderer::glsl::string const &vertex_shader_source,
 		renderer::glsl::string const &pixel_shader_source);
+	renderer::glsl::program_ptr const
+	create_glsl_program(
+		renderer::glsl::istream &vertex_shader_source,
+		renderer::glsl::istream &pixel_shader_source);
+	
 	void set_glsl_program(
 		renderer::glsl::program_ptr);
 

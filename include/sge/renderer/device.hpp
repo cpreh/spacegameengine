@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "light.hpp"
 #include "glsl/program.hpp"
 #include "glsl/string.hpp"
+#include "glsl/istream.hpp"
 #include "primitive.hpp"
 #include "caps.hpp"
 #include "states.hpp"
@@ -157,6 +158,10 @@ public:
 	create_glsl_program(
 		glsl::string const &vertex_shader_source,
 		glsl::string const &pixel_shader_source) = 0;
+	virtual glsl::program_ptr const
+	create_glsl_program(
+		glsl::istream &vertex_shader_source,
+		glsl::istream &pixel_shader_source) = 0;
 
 	SGE_SYMBOL static glsl::program_ptr const no_program;
 	virtual void set_glsl_program(glsl::program_ptr) = 0;

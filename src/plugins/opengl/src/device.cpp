@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <boost/variant/apply_visitor.hpp>
+#include <sstream>
 
 // TODO: maybe support different adapters?
 sge::ogl::device::device(
@@ -639,14 +640,34 @@ void sge::ogl::device::pop_level()
 	state_levels.pop();
 }
 
-const sge::renderer::glsl::program_ptr
+sge::renderer::glsl::program_ptr const
 sge::ogl::device::create_glsl_program(
-	const std::string& vs_source,
-	const std::string& ps_source)
+	renderer::glsl::string const &vs_source,
+	renderer::glsl::string const &ps_source)
 {
 	return glsl::create_program_impl(
 		vs_source,
 		ps_source);
+}
+
+sge::renderer::glsl::program_ptr const
+sge::ogl::device::create_glsl_program(
+	renderer::glsl::istream &vs_source,
+	renderer::glsl::istream &ps_source)
+{
+	// unfortunately opengl can't read out of files directly
+	typedef std::basic_ostringstream<
+		renderer::glsl::char_type
+	> osstream;
+
+	osstream vs_stream,
+	         ps_stream;
+	vs_stream << vs_source.rdbuf();
+	ps_stream << ps_source.rdbuf();
+
+	return create_glsl_program(
+		vs_stream.str(),
+		ps_stream.str());
 }
 
 void sge::ogl::device::set_glsl_program(
