@@ -83,7 +83,7 @@ void sge::ogl::glsl::program<Native>::link()
 			throw exception(SGE_TEXT("GLSL link info too big!"));
 		errorlog[len] = '\0';
 		throw exception(
-			string(SGE_TEXT("Linking a program failed!"))
+			string(SGE_TEXT("Linking a program failed!\n"))
 			+ iconv(errorlog.data()));
 	}
 }

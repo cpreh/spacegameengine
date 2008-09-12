@@ -52,7 +52,7 @@ sge::ogl::glsl::shader<Native>::shader(
 			throw exception(SGE_TEXT("GLSL compile info too big!"));
 		errorlog[len] = '\0';
 		throw exception(
-			string(SGE_TEXT("Compiling a shader failed!"))
+			string(SGE_TEXT("Compiling a shader failed!\n"))
 			+ iconv(errorlog.data()));
 	}
 }
