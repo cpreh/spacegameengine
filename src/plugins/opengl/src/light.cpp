@@ -21,25 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../light.hpp"
 #include "../error.hpp"
 
-namespace
-{
-
-void set_light_float_ptr(
-	GLenum index,
-	GLenum name,
-	GLfloat const *data);
-
-}
-
-void sge::ogl::set_light_colorf(
-	GLenum const index,
-	GLenum const name,
-	renderer::any_color const &color)
-{
-	// FIXME:
-	//set_light_float_ptr(index, name, reinterpret_cast<const GLfloat*>(&color));
-}
-
 void sge::ogl::set_light_pos(
 	GLenum const index,
 	math::vector4 const &pos)
@@ -70,10 +51,7 @@ GLenum sge::ogl::convert_light_index(
 	return GL_LIGHT0 + index;
 }
 
-namespace
-{
-
-void set_light_float_ptr(
+void sge::ogl::set_light_float_ptr(
 	GLenum const index,
 	GLenum const name,
 	GLfloat const *const data)
@@ -83,6 +61,12 @@ void set_light_float_ptr(
 	glLightfv(index, name, data);
 }
 
+void sge::ogl::set_light_int_ptr(
+	GLenum const index,
+	GLenum const name,
+	GLint const *const data)
+{
+	SGE_OPENGL_SENTRY
+
+	glLightiv(index, name, data);
 }
-
-

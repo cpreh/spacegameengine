@@ -30,11 +30,6 @@ namespace sge
 namespace ogl
 {
 
-void set_light_colorf(
-	GLenum index,
-	GLenum name,
-	renderer::any_color const &color);
-
 void set_light_pos(
 	GLenum index,
 	math::vector4 const &);
@@ -47,6 +42,16 @@ void set_light_float(
 	GLenum index,
 	GLenum name,
 	GLfloat value);
+
+void set_light_int_ptr(
+	GLenum index,
+	GLenum name,
+	GLint const *data);
+
+void set_light_float_ptr(
+	GLenum index,
+	GLenum name,
+	GLfloat const *data);
 
 GLenum convert_light_index(
 	renderer::light_index);

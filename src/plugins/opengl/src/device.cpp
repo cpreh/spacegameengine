@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../default_target.hpp"
 #include "../light.hpp"
+#include "../light_color.hpp"
 #include "../enable.hpp"
 #include "../multi_texture.hpp"
 #include "../texture_stage.hpp"
@@ -77,7 +78,6 @@ sge::ogl::device::device(
 	2048, //get_int(GL_MAX_TEXTURE_SIZE), //FIXME
 	//get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
    0),
-   state_levels(*this),
    current_states(renderer::default_states())
 #if defined(SGE_HAVE_X11)
    , dsp(new x11::display())
@@ -596,16 +596,16 @@ void sge::ogl::device::enable_light(
 }
 
 void sge::ogl::device::set_light(
-	const renderer::light_index index,
-	const renderer::light& l)
+	renderer::light_index const index,
+	renderer::light const &l)
 {
-	const GLenum glindex = convert_light_index(index);
+	GLenum const glindex = convert_light_index(index);
 
-	set_light_colorf(glindex, GL_AMBIENT, l.ambient);
-	set_light_colorf(glindex, GL_DIFFUSE, l.diffuse);
-	set_light_colorf(glindex, GL_SPECULAR, l.specular);
+	set_light_color(glindex, GL_AMBIENT, l.ambient);
+	set_light_color(glindex, GL_DIFFUSE, l.diffuse);
+	set_light_color(glindex, GL_SPECULAR, l.specular);
 
-	const math::vector4 pos(l.pos, static_cast<math::vector4::value_type>(1));
+	math::vector4 const pos(l.pos, static_cast<math::vector4::value_type>(1));
 	set_light_pos(glindex, pos);
 
 	set_light_dir(glindex, l.dir);
@@ -637,6 +637,7 @@ void sge::ogl::device::set_texture_stage_arg(
 
 void sge::ogl::device::pop_level()
 {
+	set_state(state_levels.top());
 	state_levels.pop();
 }
 
