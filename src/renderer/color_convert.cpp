@@ -29,21 +29,11 @@ template<typename Dest>
 struct conversion_helper {
 	conversion_helper(
 		sge::renderer::any_color const &col,
-		Dest &dest)
-	:
-		col(col),
-		dest(dest)
-	{}
+		Dest &dest);
 
 	template<typename Source>
 	void operator()(
-		Source const &) const
-	{
-		if(typeid(Source) == col.type())
-			boost::gil::color_convert(
-				dest,
-				boost::get<Source>(col));
-	}
+		Source &) const;
 private:
 	sge::renderer::any_color const &col;
 	Dest                           &dest;
@@ -56,12 +46,37 @@ Dest const sge::renderer::color_convert(
 	any_color const &col)
 {
 	Dest dest;
-	/*boost::mpl::for_each<
+	boost::mpl::for_each<
 		any_color::types>(
 			conversion_helper<Dest>(
 				col,
-				dest));*/
+				dest));
 	return dest;
+}
+
+namespace
+{
+
+template<typename Dest>
+conversion_helper<Dest>::conversion_helper(
+	sge::renderer::any_color const &col,
+	Dest &dest)
+:
+	col(col),
+	dest(dest)
+{}
+
+template<typename Dest>
+template<typename Source>
+void conversion_helper<Dest>::operator()(
+	Source &) const
+{
+	if(typeid(Source) == col.type())
+		boost::gil::color_convert(
+			boost::get<Source>(col),
+			dest);
+}
+
 }
 
 #define SGE_INSTANTIATE_COLOR_CONVERT(x)\
