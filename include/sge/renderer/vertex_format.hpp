@@ -31,7 +31,7 @@ namespace sge
 namespace renderer
 {
 
-namespace vertex_usage
+/*namespace vertex_usage
 {
 	enum type {
 		pos,
@@ -103,6 +103,63 @@ private:
 	offset_info oi;
 	usage_list  ulist;
 	vertex_size stride_;
+};*/
+
+// mpl::vector<pos<1>, tex<1>, color<rgba8_color, 1> >;
+
+template<vertex_size NumElements>
+struct pos {
+	static vertex_size const sub_elements = 3;
+
+	typedef space_unit element_type;
+	typedef math::vector<element_type, sub_elements> packed_type;
+
+	static vertex_size const stride = NumElements * sub_elements;
+};
+
+template<typename Format, vertex_size NumElements>
+struct color {
+	static vertex_size const sub_elements = 4;
+	
+	typedef typename Format::channel_type element_type;
+
+};
+
+template<typename Element, vertex_size Pos>
+struct counted_element : Element {
+	typedef Element element;
+
+	static vertex_size const pos = Pos;
+};
+
+template<typename ElementList>
+class vertex_format {
+public:
+	typedef boost::fusion::transform<
+		ElementList,
+		...
+	> counted_elements;
+
+	template<typename Element>
+	void set(
+		typename Element::const_reference ref)
+	{
+		typename boost::fusion::find<
+			counted_elements
+			boost::is_base_of<Element> >::type type;
+		
+		copy_n(
+			reinterpret_cast<unsigned char const *>(&ref),
+			type::size,
+			raw_data);
+	}
+private:
+	template<typename Element>
+	void init_element(
+		Element &)
+	{
+		strides.push_back(Element::stride);	
+	}
 };
 
 }

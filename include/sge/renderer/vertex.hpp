@@ -31,7 +31,7 @@ namespace sge
 namespace renderer
 {
 
-namespace vb_detail
+/*namespace vb_detail
 {
 
 template<bool IsConst, typename T>
@@ -105,7 +105,7 @@ private:
 }
 
 typedef vb_detail::vertex_impl<true>  const_vertex;
-typedef vb_detail::vertex_impl<false> vertex;
+typedef vb_detail::vertex_impl<false> vertex;*/
 
 }
 }
