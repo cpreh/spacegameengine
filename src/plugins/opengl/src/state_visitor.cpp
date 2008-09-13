@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
+#include <sge/renderer/color_convert.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -97,12 +98,16 @@ void sge::ogl::state_visitor::operator()(
 
 	switch(s.state_id) {
 	case rs::clear_color:
-		// FIXME: use gil here too!
-/*		glClearColor(
-			red_part_rgba_f(s.value()),
-			green_part_rgba_f(s.value()),
-			blue_part_rgba_f(s.value()),
-			alpha_part_rgba_f(s.value()));*/
+		{
+			renderer::rgba_f32_color const c(
+				renderer::color_convert<renderer::rgba_f32_color>(
+					s.value()));
+			glClearColor(
+				c[0],
+				c[1],
+				c[2],
+				c[3]);
+		}
 		break;
 	case rs::ambient_light_color:
 		{

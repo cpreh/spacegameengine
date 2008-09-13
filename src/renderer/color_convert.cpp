@@ -18,40 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_HPP_INCLUDED
+#include <sge/renderer/color_convert.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/any_color.hpp>
-#include <sge/renderer/light.hpp>
-
-namespace sge
+template<typename Dest>
+Dest const sge::renderer::color_convert(
+	any_color const &col)
 {
-namespace ogl
-{
-
-void set_light_pos(
-	GLenum index,
-	math::vector4 const &);
-
-void set_light_dir(
-	GLenum index,
-	math::vector3 const &);
-
-void set_light_float(
-	GLenum index,
-	GLenum name,
-	GLfloat value);
-
-void set_light_color(
-	GLenum index,
-	GLenum name,
-	renderer::any_color const &color);
-
-GLenum convert_light_index(
-	renderer::light_index);
-
-}
 }
 
-#endif
+#define SGE_INSTANTIATE_COLOR_CONVERT(x)\
+template x const sge::renderer::color_convert<x>(\
+	sge::renderer::any_color const &);
+
+SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::rgba8_color)
+SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::argb8_color)
+SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::bgra8_color)
+SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::rgba_f32_color)
+
+#undef SGE_INSTANTIATE_COLOR_CONVERT

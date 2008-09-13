@@ -18,38 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_HPP_INCLUDED
+#ifndef SGE_RENDERER_RAW_COLOR_HPP_INCLUDED
+#define SGE_RENDERER_RAW_COLOR_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/any_color.hpp>
-#include <sge/renderer/light.hpp>
+#include "color.hpp"
+#include <boost/array.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 
-void set_light_pos(
-	GLenum index,
-	math::vector4 const &);
+typedef boost::array<color_channel_f32, 4> raw_color_f32;
 
-void set_light_dir(
-	GLenum index,
-	math::vector3 const &);
-
-void set_light_float(
-	GLenum index,
-	GLenum name,
-	GLfloat value);
-
-void set_light_color(
-	GLenum index,
-	GLenum name,
-	renderer::any_color const &color);
-
-GLenum convert_light_index(
-	renderer::light_index);
+// TODO: add enable_if here
+template<typename T>
+raw_color_f32 const raw_color(
+	T const &);
 
 }
 }

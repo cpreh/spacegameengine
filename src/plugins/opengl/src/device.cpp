@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../default_target.hpp"
 #include "../light.hpp"
-#include "../light_color.hpp"
 #include "../enable.hpp"
 #include "../multi_texture.hpp"
 #include "../texture_stage.hpp"

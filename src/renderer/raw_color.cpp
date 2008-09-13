@@ -18,40 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_HPP_INCLUDED
+#include <sge/renderer/raw_color.hpp>
+#include <sge/renderer/color.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/any_color.hpp>
-#include <sge/renderer/light.hpp>
-
-namespace sge
+template<typename T>
+sge::renderer::raw_color_f32 const
+sge::renderer::raw_color(
+	T const &c)
 {
-namespace ogl
-{
-
-void set_light_pos(
-	GLenum index,
-	math::vector4 const &);
-
-void set_light_dir(
-	GLenum index,
-	math::vector3 const &);
-
-void set_light_float(
-	GLenum index,
-	GLenum name,
-	GLfloat value);
-
-void set_light_color(
-	GLenum index,
-	GLenum name,
-	renderer::any_color const &color);
-
-GLenum convert_light_index(
-	renderer::light_index);
-
-}
+	raw_color_f32 const ret = {
+	{
+		c[0],
+		c[1],
+		c[2],
+		c[3]
+	} };
+	return ret;
 }
 
-#endif
+#define SGE_INSTANTIATE_RAW_COLOR(x)\
+template sge::renderer::raw_color_f32 const\
+ sge::renderer::raw_color<x>(x const &);
+
+SGE_INSTANTIATE_RAW_COLOR(sge::renderer::rgba_f32_color)
+
+#undef SGE_INSTANTIATE_RAW_COLOR

@@ -18,38 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LIGHT_HPP_INCLUDED
-#define SGE_OPENGL_LIGHT_HPP_INCLUDED
+#ifndef SGE_RENDERER_COLOR_CONVERT_HPP_INCLUDED
+#define SGE_RENDERER_COLOR_CONVERT_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/any_color.hpp>
-#include <sge/renderer/light.hpp>
+#include "any_color.hpp"
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 
-void set_light_pos(
-	GLenum index,
-	math::vector4 const &);
-
-void set_light_dir(
-	GLenum index,
-	math::vector3 const &);
-
-void set_light_float(
-	GLenum index,
-	GLenum name,
-	GLfloat value);
-
-void set_light_color(
-	GLenum index,
-	GLenum name,
-	renderer::any_color const &color);
-
-GLenum convert_light_index(
-	renderer::light_index);
+template<typename Dest>
+Dest const color_convert(
+	any_color const &);
 
 }
 }
