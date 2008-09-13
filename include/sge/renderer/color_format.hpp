@@ -31,7 +31,9 @@ namespace color_format
 
 enum type {
 	argb8,
-	rgba8
+	rgba8,
+	bgra8,
+	rgbaf32
 };
 
 }

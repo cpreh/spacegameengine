@@ -24,13 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable.hpp"
 #include "../error.hpp"
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <sge/text.hpp>
 
-sge::ogl::state_visitor::state_visitor(device& rend)
+sge::ogl::state_visitor::state_visitor(
+	device& rend)
 : rend(rend)
 {}
 
-void sge::ogl::state_visitor::operator()(const renderer::int_state::type s) const
+void sge::ogl::state_visitor::operator()(
+	renderer::int_state::type const s) const
 {
 	SGE_OPENGL_SENTRY
 
@@ -41,11 +43,13 @@ void sge::ogl::state_visitor::operator()(const renderer::int_state::type s) cons
 		glClearStencil(s.value());
 		break;
 	default:
-		throw exception(SGE_TEXT("Invalid int_state!"));
+		throw exception(
+			SGE_TEXT("Invalid int_state!"));
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::float_state::type s) const
+void sge::ogl::state_visitor::operator()(
+	renderer::float_state::type const s) const
 {
 	SGE_OPENGL_SENTRY
 
@@ -65,7 +69,8 @@ void sge::ogl::state_visitor::operator()(const renderer::float_state::type s) co
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::bool_state::type s) const
+void sge::ogl::state_visitor::operator()(
+	renderer::bool_state::type const s) const
 {
 	typedef renderer::state_var_traits<bool> rs;
 
@@ -83,11 +88,12 @@ void sge::ogl::state_visitor::operator()(const renderer::bool_state::type s) con
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::color_state::type s) const
+void sge::ogl::state_visitor::operator()(
+	renderer::color_state::type const s) const
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state_var_traits<renderer::color> rs;
+	typedef renderer::state_var_traits<renderer::any_color> rs;
 
 	switch(s.state_id) {
 	case rs::clear_color:
@@ -115,7 +121,8 @@ void sge::ogl::state_visitor::operator()(const renderer::color_state::type s) co
 	}
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::cull_mode::type m) const
+void sge::ogl::state_visitor::operator()(
+	renderer::cull_mode::type const m) const
 {
 	if(m.value() == renderer::state_cull_mode_type::off)
 	{
@@ -128,7 +135,8 @@ void sge::ogl::state_visitor::operator()(const renderer::cull_mode::type m) cons
 	glCullFace(convert_cast(m));
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::depth_func::type f) const
+void sge::ogl::state_visitor::operator()(
+	renderer::depth_func::type const f) const
 {
 	if(f.value() == renderer::state_depth_func_type::off)
 	{
@@ -142,7 +150,8 @@ void sge::ogl::state_visitor::operator()(const renderer::depth_func::type f) con
 	glDepthFunc(convert_cast(f));
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::stencil_func::type f) const
+void sge::ogl::state_visitor::operator()(
+	renderer::stencil_func::type const f) const
 {
 	if(f.value() == renderer::state_stencil_func_type::off)
 	{
@@ -154,7 +163,8 @@ void sge::ogl::state_visitor::operator()(const renderer::stencil_func::type f) c
 	rend.set_stencil_func();
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::fog_mode::type m) const
+void sge::ogl::state_visitor::operator()(
+	renderer::fog_mode::type const m) const
 {
 	if(m.value() == renderer::state_fog_mode_type::off)
 	{
@@ -168,7 +178,8 @@ void sge::ogl::state_visitor::operator()(const renderer::fog_mode::type m) const
 	glFogi(GL_FOG_MODE, convert_cast(m));
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::draw_mode::type m) const
+void sge::ogl::state_visitor::operator()(
+	renderer::draw_mode::type const m) const
 {
 	SGE_OPENGL_SENTRY
 	glPolygonMode(
@@ -176,12 +187,14 @@ void sge::ogl::state_visitor::operator()(const renderer::draw_mode::type m) cons
 		convert_cast(m));
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::source_blend_func::type) const
+void sge::ogl::state_visitor::operator()(
+	renderer::source_blend_func::type) const
 {
 	rend.set_blend_func();
 }
 
-void sge::ogl::state_visitor::operator()(const renderer::dest_blend_func::type) const
+void sge::ogl::state_visitor::operator()(
+	renderer::dest_blend_func::type) const
 {
 	rend.set_blend_func();
 }

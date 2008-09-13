@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_DRAWER_3D_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../renderer/color.hpp"
+#include "../renderer/any_color.hpp"
 #include "../renderer/colors.hpp"
 #include "../renderer/device.hpp"
 #include "../texture/manager.hpp"
@@ -46,7 +46,7 @@ class SGE_CLASS_SYMBOL drawer_3d : public drawer {
 public:
 	SGE_SYMBOL drawer_3d(
 		renderer::device_ptr rend,
-		renderer::color col = renderer::colors::white);
+		renderer::any_color const &col = renderer::colors::white());
 	SGE_SYMBOL void begin_rendering(
 		size_type buffer_chars,
 		pos const &start,
@@ -57,10 +57,10 @@ public:
 		const_image_view const &data);
 	SGE_SYMBOL void end_rendering();
 	SGE_SYMBOL void set_color(
-		renderer::color col);
+		renderer::any_color const &col);
 private:
 	renderer::device_ptr                             rend;
-	renderer::color                                  col;
+	renderer::any_color                              col;
 	texture::manager                                 texman;
 	typedef std::map<char_type, texture::part_ptr>   texture_map;
 	texture_map                                      textures;

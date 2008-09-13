@@ -2,158 +2,164 @@
 
 // FIXME: initialize all colors and do it so that they are not affected by changing the channel order
 
-const sge::renderer::color sge::renderer::colors::aliceblue(240, 248, 255, 255);
+#define SGE_DEFINE_COLOR_A(name, r, g, b, a)\
+sge::renderer::any_color const sge::renderer::colors::name()\
+{\
+	return sge::renderer::rgba8_color(r,g,b,a);\
+}
 
-const sge::renderer::color sge::renderer::colors::black(0, 0, 0, 255);
-const sge::renderer::color sge::renderer::colors::white(255, 255, 255, 255);
-const sge::renderer::color sge::renderer::colors::red(255,0,0,255);
-/*
-const sge::renderer::color aliceblue    = static_color<240, 248, 255>::value,
-	            antiquewhite        = static_color<250, 235, 215>::value,
-	            aqua                = static_color<0  , 255, 255>::value,
-	            aquamarine          = static_color<127, 255, 212>::value,
-	            azure               = static_color<240, 255, 255>::value,
-	            beige               = static_color<245, 245, 220>::value,
-	            bisque              = static_color<255, 228, 196>::value,
-	            black               = static_color<  0,   0,   0>::value,
-	            blanchedalmond      = static_color<255, 235, 205>::value,
-	            blue                = static_color<  0,   0, 255>::value,
-	            blueviolet          = static_color<138,  43, 226>::value,
-	            brown               = static_color<165,  42,  42>::value,
-	            burlywood           = static_color<222, 184, 135>::value,
-	            cadetblue           = static_color< 95, 158, 160>::value,
-	            chartreuse          = static_color<127, 255,   0>::value,
-	            chocolate           = static_color<210, 105,  30>::value,
-	            coral               = static_color<255, 127,  80>::value,
-	            cornflowerblue      = static_color<100, 149, 237>::value,
-	            cornsilk            = static_color<255, 248, 220>::value,
-	            crimson             = static_color<220,  20,  60>::value,
-	            cyan                = static_color<  0, 255, 255>::value,
-	            darkblue            = static_color<  0,   0, 139>::value,
-	            darkcyan            = static_color<  0, 139, 139>::value,
-	            darkgoldenrod       = static_color<184, 134,  11>::value,
-	            darkgray            = static_color<169, 169, 169>::value,
-	            darkgreen           = static_color<  0, 100,   0>::value,
-	            darkgrey            = static_color<169, 169, 169>::value,
-	            darkkhaki           = static_color<189, 183, 107>::value,
-	            darkmagenta         = static_color<139,   0, 139>::value,
-	            darkolivegreen      = static_color< 85, 107,  47>::value,
-	            darkorange          = static_color<255, 140,   0>::value,
-	            darkorchid          = static_color<153,  50, 204>::value,
-	            darkred             = static_color<139,   0,   0>::value,
-	            darksalmon          = static_color<233, 150, 122>::value,
-	            darkseagreen        = static_color<143, 188, 143>::value,
-	            darkslateblue       = static_color< 72,  61, 139>::value,
-	            darkslategray       = static_color< 47,  79,  79>::value,
-	            darkslategrey       = static_color< 47,  79,  79>::value,
-	            darkturquoise       = static_color<  0, 206, 209>::value,
-	            darkviolet          = static_color<148,   0, 211>::value,
-	            deeppink            = static_color<255,  20, 147>::value,
-	            deepskyblue         = static_color<  0, 191, 255>::value,
-	            dimgray             = static_color<105, 105, 105>::value,
-	            dimgrey             = static_color<105, 105, 105>::value,
-	            dodgerblue          = static_color< 30, 144, 255>::value,
-	            firebrick           = static_color<178,  34,  34>::value,
-	            floralwhite         = static_color<255, 250, 240>::value,
-	            forestgreen         = static_color< 34, 139,  34>::value,
-	            fuchsia             = static_color<255,   0, 255>::value,
-	            gainsboro           = static_color<220, 220, 220>::value,
-	            ghostwhite          = static_color<248, 248, 255>::value,
-	            gold                = static_color<255, 215,   0>::value,
-	            goldenrod           = static_color<218, 165,  32>::value,
-	            gray                = static_color<128, 128, 128>::value,
-	            green               = static_color<  0, 128,   0>::value,
-	            greenyellow         = static_color<173, 255,  47>::value,
-	            grey                = static_color<128, 128, 128>::value,
-	            honeydew            = static_color<240, 255, 240>::value,
-	            hotpink             = static_color<255, 105, 180>::value,
-	            indianred           = static_color<205,  92,  92>::value,
-	            indigo              = static_color< 75,   0, 130>::value,
-	            ivory               = static_color<255, 255, 240>::value,
-	            khaki               = static_color<240, 230, 140>::value,
-	            lavender            = static_color<230, 230, 250>::value,
-	            lavenderblush       = static_color<255, 240, 245>::value,
-	            lawngreen           = static_color<124, 252,   0>::value,
-	            lemonchiffon        = static_color<255, 250, 205>::value,
-	            lightblue           = static_color<173, 216, 230>::value,
-	            lightcoral          = static_color<240, 128, 128>::value,
-	            lightcyan           = static_color<224, 255, 255>::value,
-	            lightgoldenrodyellow= static_color<250, 250, 210>::value,
-	            lightgray           = static_color<211, 211, 211>::value,
-	            lightgreen          = static_color<144, 238, 144>::value,
-	            lightgrey           = static_color<211, 211, 211>::value,
-	            lightpink           = static_color<255, 182, 193>::value,
-	            lightsalmon         = static_color<255, 160, 122>::value,
-	            lightseagreen       = static_color< 32, 178, 170>::value,
-	            lightskyblue        = static_color<135, 206, 250>::value,
-	            lightslategray      = static_color<119, 136, 153>::value,
-	            lightslategrey      = static_color<119, 136, 153>::value,
-	            lightsteelblue      = static_color<176, 196, 222>::value,
-	            lightyellow         = static_color<255, 255, 224>::value,
-	            lime                = static_color<  0, 255,   0>::value,
-	            limegreen           = static_color< 50, 205,  50>::value,
-	            linen               = static_color<250, 240, 230>::value,
-	            magenta             = static_color<255,   0, 255>::value,
-	            maroon              = static_color<128,   0,   0>::value,
-	            mediumaquamarine    = static_color<102, 205, 170>::value,
-	            mediumblue          = static_color<  0,   0, 205>::value,
-	            mediumorchid        = static_color<186,  85, 211>::value,
-	            mediumpurple        = static_color<147, 112, 219>::value,
-	            mediumseagreen      = static_color< 60, 179, 113>::value,
-	            mediumslateblue     = static_color<123, 104, 238>::value,
-	            mediumspringgreen   = static_color<  0, 250, 154>::value,
-	            mediumturquoise     = static_color< 72, 209, 204>::value,
-	            mediumvioletred     = static_color<199,  21, 133>::value,
-	            midnightblue        = static_color< 25,  25, 112>::value,
-	            mintcream           = static_color<245, 255, 250>::value,
-	            mistyrose           = static_color<255, 228, 225>::value,
-	            moccasin            = static_color<255, 228, 181>::value,
-	            navajowhite         = static_color<255, 222, 173>::value,
-	            navy                = static_color<  0,   0, 128>::value,
-	            oldlace             = static_color<253, 245, 230>::value,
-	            olive               = static_color<128, 128,   0>::value,
-	            olivedrab           = static_color<107, 142,  35>::value,
-	            orange              = static_color<255, 165,   0>::value,
-	            orangered           = static_color<255,  69,   0>::value,
-	            orchid              = static_color<218, 112, 214>::value,
-	            palegoldenrod       = static_color<238, 232, 170>::value,
-	            palegreen           = static_color<152, 251, 152>::value,
-	            paleturquoise       = static_color<175, 238, 238>::value,
-	            palevioletred       = static_color<219, 112, 147>::value,
-	            papayawhip          = static_color<255, 239, 213>::value,
-	            peachpuff           = static_color<255, 218, 185>::value,
-	            peru                = static_color<205, 133,  63>::value,
-	            pink                = static_color<255, 192, 203>::value,
-	            plum                = static_color<221, 160, 221>::value,
-	            powderblue          = static_color<176, 224, 230>::value,
-	            purple              = static_color<128,   0, 128>::value,
-	            red                 = static_color<255,   0,   0>::value,
-	            rosybrown           = static_color<188, 143, 143>::value,
-	            royalblue           = static_color< 65, 105, 225>::value,
-	            saplebrown          = static_color<139,  69,  19>::value,
-	            salmon              = static_color<250, 128, 114>::value,
-	            sandybrown          = static_color<244, 164,  96>::value,
-	            seagreen            = static_color< 46, 139,  87>::value,
-	            seashell            = static_color<255, 245, 238>::value,
-	            sienna              = static_color<160,  82,  45>::value,
-	            silver              = static_color<192, 192, 192>::value,
-	            skyblue             = static_color<135, 206, 235>::value,
-	            slateblue           = static_color<106,  90, 205>::value,
-	            slategray           = static_color<112, 128, 144>::value,
-	            slategrey           = static_color<112, 128, 144>::value,
-	            snow                = static_color<255, 250, 250>::value,
-	            springgreen         = static_color<  0, 255, 127>::value,
-	            steelblue           = static_color< 70, 130, 180>::value,
-	            tan                 = static_color<210, 180, 140>::value,
-	            teal                = static_color<  0, 128, 128>::value,
-	            thistle             = static_color<216, 191, 216>::value,
-	            tomato              = static_color<255,  99,  71>::value,
-	            turquoise           = static_color< 64, 224, 208>::value,
-	            violet              = static_color<238, 130, 238>::value,
-	            wheat               = static_color<245, 222, 179>::value,
-	            white               = static_color<255, 255, 255>::value,
-	            whitesmoke          = static_color<245, 245, 245>::value,
-	            yellow              = static_color<255, 255,   0>::value,
-	            yellowgreen         = static_color<154, 205,  50>::value,
-	            transparent         = static_color<  0,   0,   0, 0>::value;*/
+#define SGE_DEFINE_COLOR(name, r, g, b)\
+SGE_DEFINE_COLOR_A(name, r, g, b, 255)
 
+SGE_DEFINE_COLOR(aliceblue,          240, 248, 255)
+SGE_DEFINE_COLOR(antiquewhite,       250, 235, 215)
+SGE_DEFINE_COLOR(            aqua                ,0  , 255, 255)
+SGE_DEFINE_COLOR(            aquamarine          ,127, 255, 212)
+SGE_DEFINE_COLOR(            azure               ,240, 255, 255)
+SGE_DEFINE_COLOR(            beige               ,245, 245, 220)
+SGE_DEFINE_COLOR(            bisque              ,255, 228, 196)
+SGE_DEFINE_COLOR(            black               ,  0,   0,   0)
+SGE_DEFINE_COLOR(            blanchedalmond      ,255, 235, 205)
+SGE_DEFINE_COLOR(            blue                ,  0,   0, 255)
+SGE_DEFINE_COLOR(            blueviolet          ,138,  43, 226)
+SGE_DEFINE_COLOR(            brown               ,165,  42,  42)
+SGE_DEFINE_COLOR(            burlywood           ,222, 184, 135)
+SGE_DEFINE_COLOR(            cadetblue           , 95, 158, 160)
+SGE_DEFINE_COLOR(            chartreuse          ,127, 255,   0)
+SGE_DEFINE_COLOR(            chocolate           ,210, 105,  30)
+SGE_DEFINE_COLOR(            coral               ,255, 127,  80)
+SGE_DEFINE_COLOR(            cornflowerblue      ,100, 149, 237)
+SGE_DEFINE_COLOR(            cornsilk            ,255, 248, 220)
+SGE_DEFINE_COLOR(            crimson             ,220,  20,  60)
+SGE_DEFINE_COLOR(            cyan                ,  0, 255, 255)
+SGE_DEFINE_COLOR(            darkblue            ,  0,   0, 139)
+SGE_DEFINE_COLOR(            darkcyan            ,  0, 139, 139)
+SGE_DEFINE_COLOR(            darkgoldenrod       ,184, 134,  11)
+SGE_DEFINE_COLOR(            darkgray            ,169, 169, 169)
+SGE_DEFINE_COLOR(            darkgreen           ,  0, 100,   0)
+SGE_DEFINE_COLOR(            darkgrey            ,169, 169, 169)
+SGE_DEFINE_COLOR(            darkkhaki           ,189, 183, 107)
+SGE_DEFINE_COLOR(            darkmagenta         ,139,   0, 139)
+SGE_DEFINE_COLOR(            darkolivegreen      , 85, 107,  47)
+SGE_DEFINE_COLOR(            darkorange          ,255, 140,   0)
+SGE_DEFINE_COLOR(            darkorchid          ,153,  50, 204)
+SGE_DEFINE_COLOR(            darkred             ,139,   0,   0)
+SGE_DEFINE_COLOR(            darksalmon          ,233, 150, 122)
+SGE_DEFINE_COLOR(            darkseagreen        ,143, 188, 143)
+SGE_DEFINE_COLOR(            darkslateblue       , 72,  61, 139)
+SGE_DEFINE_COLOR(            darkslategray       , 47,  79,  79)
+SGE_DEFINE_COLOR(            darkslategrey       , 47,  79,  79)
+SGE_DEFINE_COLOR(            darkturquoise       ,  0, 206, 209)
+SGE_DEFINE_COLOR(            darkviolet          ,148,   0, 211)
+SGE_DEFINE_COLOR(            deeppink            ,255,  20, 147)
+SGE_DEFINE_COLOR(            deepskyblue         ,  0, 191, 255)
+SGE_DEFINE_COLOR(            dimgray             ,105, 105, 105)
+SGE_DEFINE_COLOR(            dimgrey             ,105, 105, 105)
+SGE_DEFINE_COLOR(            dodgerblue          , 30, 144, 255)
+SGE_DEFINE_COLOR(            firebrick           ,178,  34,  34)
+SGE_DEFINE_COLOR(            floralwhite         ,255, 250, 240)
+SGE_DEFINE_COLOR(            forestgreen         , 34, 139,  34)
+SGE_DEFINE_COLOR(            fuchsia             ,255,   0, 255)
+SGE_DEFINE_COLOR(            gainsboro           ,220, 220, 220)
+SGE_DEFINE_COLOR(            ghostwhite          ,248, 248, 255)
+SGE_DEFINE_COLOR(            gold                ,255, 215,   0)
+SGE_DEFINE_COLOR(            goldenrod           ,218, 165,  32)
+SGE_DEFINE_COLOR(            gray                ,128, 128, 128)
+SGE_DEFINE_COLOR(            green               ,  0, 128,   0)
+SGE_DEFINE_COLOR(            greenyellow         ,173, 255,  47)
+SGE_DEFINE_COLOR(            grey                ,128, 128, 128)
+SGE_DEFINE_COLOR(            honeydew            ,240, 255, 240)
+SGE_DEFINE_COLOR(            hotpink             ,255, 105, 180)
+SGE_DEFINE_COLOR(            indianred           ,205,  92,  92)
+SGE_DEFINE_COLOR(            indigo              , 75,   0, 130)
+SGE_DEFINE_COLOR(            ivory               ,255, 255, 240)
+SGE_DEFINE_COLOR(            khaki               ,240, 230, 140)
+SGE_DEFINE_COLOR(            lavender            ,230, 230, 250)
+SGE_DEFINE_COLOR(            lavenderblush       ,255, 240, 245)
+SGE_DEFINE_COLOR(            lawngreen           ,124, 252,   0)
+SGE_DEFINE_COLOR(            lemonchiffon        ,255, 250, 205)
+SGE_DEFINE_COLOR(            lightblue           ,173, 216, 230)
+SGE_DEFINE_COLOR(            lightcoral          ,240, 128, 128)
+SGE_DEFINE_COLOR(            lightcyan           ,224, 255, 255)
+SGE_DEFINE_COLOR(            lightgoldenrodyellow,250, 250, 210)
+SGE_DEFINE_COLOR(            lightgray           ,211, 211, 211)
+SGE_DEFINE_COLOR(            lightgreen          ,144, 238, 144)
+SGE_DEFINE_COLOR(            lightgrey           ,211, 211, 211)
+SGE_DEFINE_COLOR(            lightpink           ,255, 182, 193)
+SGE_DEFINE_COLOR(            lightsalmon         ,255, 160, 122)
+SGE_DEFINE_COLOR(            lightseagreen       , 32, 178, 170)
+SGE_DEFINE_COLOR(            lightskyblue        ,135, 206, 250)
+SGE_DEFINE_COLOR(            lightslategray      ,119, 136, 153)
+SGE_DEFINE_COLOR(            lightslategrey      ,119, 136, 153)
+SGE_DEFINE_COLOR(            lightsteelblue      ,176, 196, 222)
+SGE_DEFINE_COLOR(            lightyellow         ,255, 255, 224)
+SGE_DEFINE_COLOR(            lime                ,  0, 255,   0)
+SGE_DEFINE_COLOR(            limegreen           , 50, 205,  50)
+SGE_DEFINE_COLOR(            linen               ,250, 240, 230)
+SGE_DEFINE_COLOR(            magenta             ,255,   0, 255)
+SGE_DEFINE_COLOR(            maroon              ,128,   0,   0)
+SGE_DEFINE_COLOR(            mediumaquamarine    ,102, 205, 170)
+SGE_DEFINE_COLOR(            mediumblue          ,  0,   0, 205)
+SGE_DEFINE_COLOR(            mediumorchid        ,186,  85, 211)
+SGE_DEFINE_COLOR(            mediumpurple        ,147, 112, 219)
+SGE_DEFINE_COLOR(            mediumseagreen      , 60, 179, 113)
+SGE_DEFINE_COLOR(            mediumslateblue     ,123, 104, 238)
+SGE_DEFINE_COLOR(            mediumspringgreen   ,  0, 250, 154)
+SGE_DEFINE_COLOR(            mediumturquoise     , 72, 209, 204)
+SGE_DEFINE_COLOR(            mediumvioletred     ,199,  21, 133)
+SGE_DEFINE_COLOR(            midnightblue        , 25,  25, 112)
+SGE_DEFINE_COLOR(            mintcream           ,245, 255, 250)
+SGE_DEFINE_COLOR(            mistyrose           ,255, 228, 225)
+SGE_DEFINE_COLOR(            moccasin            ,255, 228, 181)
+SGE_DEFINE_COLOR(            navajowhite         ,255, 222, 173)
+SGE_DEFINE_COLOR(            navy                ,  0,   0, 128)
+SGE_DEFINE_COLOR(            oldlace             ,253, 245, 230)
+SGE_DEFINE_COLOR(            olive               ,128, 128,   0)
+SGE_DEFINE_COLOR(            olivedrab           ,107, 142,  35)
+SGE_DEFINE_COLOR(            orange              ,255, 165,   0)
+SGE_DEFINE_COLOR(            orangered           ,255,  69,   0)
+SGE_DEFINE_COLOR(            orchid              ,218, 112, 214)
+SGE_DEFINE_COLOR(            palegoldenrod       ,238, 232, 170)
+SGE_DEFINE_COLOR(            palegreen           ,152, 251, 152)
+SGE_DEFINE_COLOR(            paleturquoise       ,175, 238, 238)
+SGE_DEFINE_COLOR(            palevioletred       ,219, 112, 147)
+SGE_DEFINE_COLOR(            papayawhip          ,255, 239, 213)
+SGE_DEFINE_COLOR(            peachpuff           ,255, 218, 185)
+SGE_DEFINE_COLOR(            peru                ,205, 133,  63)
+SGE_DEFINE_COLOR(            pink                ,255, 192, 203)
+SGE_DEFINE_COLOR(            plum                ,221, 160, 221)
+SGE_DEFINE_COLOR(            powderblue          ,176, 224, 230)
+SGE_DEFINE_COLOR(            purple              ,128,   0, 128)
+SGE_DEFINE_COLOR(            red                 ,255,   0,   0)
+SGE_DEFINE_COLOR(            rosybrown           ,188, 143, 143)
+SGE_DEFINE_COLOR(            royalblue           , 65, 105, 225)
+SGE_DEFINE_COLOR(            saplebrown          ,139,  69,  19)
+SGE_DEFINE_COLOR(            salmon              ,250, 128, 114)
+SGE_DEFINE_COLOR(            sandybrown          ,244, 164,  96)
+SGE_DEFINE_COLOR(            seagreen            , 46, 139,  87)
+SGE_DEFINE_COLOR(            seashell            ,255, 245, 238)
+SGE_DEFINE_COLOR(            sienna              ,160,  82,  45)
+SGE_DEFINE_COLOR(            silver              ,192, 192, 192)
+SGE_DEFINE_COLOR(            skyblue             ,135, 206, 235)
+SGE_DEFINE_COLOR(            slateblue           ,106,  90, 205)
+SGE_DEFINE_COLOR(            slategray           ,112, 128, 144)
+SGE_DEFINE_COLOR(            slategrey           ,112, 128, 144)
+SGE_DEFINE_COLOR(            snow                ,255, 250, 250)
+SGE_DEFINE_COLOR(            springgreen         ,  0, 255, 127)
+SGE_DEFINE_COLOR(            steelblue           , 70, 130, 180)
+SGE_DEFINE_COLOR(            tan                 ,210, 180, 140)
+SGE_DEFINE_COLOR(            teal                ,  0, 128, 128)
+SGE_DEFINE_COLOR(            thistle             ,216, 191, 216)
+SGE_DEFINE_COLOR(            tomato              ,255,  99,  71)
+SGE_DEFINE_COLOR(            turquoise           , 64, 224, 208)
+SGE_DEFINE_COLOR(            violet              ,238, 130, 238)
+SGE_DEFINE_COLOR(            wheat               ,245, 222, 179)
+SGE_DEFINE_COLOR(            white               ,255, 255, 255)
+SGE_DEFINE_COLOR(            whitesmoke          ,245, 245, 245)
+SGE_DEFINE_COLOR(            yellow              ,255, 255,   0)
+SGE_DEFINE_COLOR(            yellowgreen         ,154, 205,  50)
+
+SGE_DEFINE_COLOR_A(          transparent         ,  0,   0,   0, 0)
+
+#undef SGE_DEFINE_COLOR
+#undef SGE_DEFINE_COLOR_A

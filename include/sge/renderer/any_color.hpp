@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/color.hpp>
+#ifndef SGE_RENDERER_ANY_COLOR_HPP_INCLUDED
+#define SGE_RENDERER_ANY_COLOR_HPP_INCLUDED
 
-sge::renderer::color const sge::renderer::make_color_rgba(
-	pixel_channel_8 const r,
-	pixel_channel_8 const g,
-	pixel_channel_8 const b,
-	pixel_channel_8 const a)
+#include "color.hpp"
+#include <boost/variant.hpp>
+
+namespace sge
 {
-#ifdef SGE_USE_ARGB
-	return color(
-		a,
-		r,
-		g,
-		b);
-#else
-	return color(
-		r,
-		g,
-		b,
-		a);
-#endif
+namespace renderer
+{
+
+typedef boost::variant<
+	argb8_color,
+	rgba8_color,
+	bgra8_color,
+	rgba_f32_color
+> any_color;
+
 }
+}
+
+#endif

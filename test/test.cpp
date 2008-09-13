@@ -164,7 +164,7 @@ try
 			sge::renderer::subimage_view(
 				lock_.value(),
 				sge::renderer::lock_rect(0, 0, 50, 50)),
-			sge::renderer::make_color_rgba(255, 0, 0, 255));
+			sge::renderer::rgba8_color(255, 0, 0, 255));
 
 
 		image_loader->create_image(

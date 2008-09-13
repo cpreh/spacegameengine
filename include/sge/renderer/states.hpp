@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATES_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "color.hpp"
+#include "any_color.hpp"
 #include <boost/variant.hpp>
 #include <set>
 
@@ -53,7 +53,7 @@ template<> struct state_var_traits<bool> { enum available_states {
 	enable_lighting
 }; };
 
-template<> struct state_var_traits<color> { enum available_states {
+template<> struct state_var_traits<any_color> { enum available_states {
 	clear_color,
 	ambient_light_color,
 	fog_color
@@ -238,7 +238,7 @@ namespace bool_state {
 }
 
 namespace color_state {
-	typedef state_var<color> type;
+	typedef state_var<any_color> type;
 	SGE_SYMBOL extern type
 		clear_color,
 		ambient_light_color,

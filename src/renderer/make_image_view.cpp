@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/make_image_view.hpp>
+#include <sge/renderer/image_view_hack.hpp>
 #include <sge/renderer/color.hpp>
 #include <sge/renderer/color_format_stride.hpp>
 #include <sge/exception.hpp>
@@ -58,12 +59,22 @@ sge::renderer::make_image_view(
 			format));
 	switch(format) {
 	case color_format::rgba8:
-		return make_interleaved_view<renderer::rgba8_pixel>(
+		return make_interleaved_view<renderer::rgba8_color>(
 			data,
 			d,
 			stride);
 	case color_format::argb8:
-		return make_interleaved_view<renderer::argb8_pixel>(
+		return make_interleaved_view<renderer::argb8_color>(
+			data,
+			d,
+			stride);
+	case color_format::bgra8:
+		return make_interleaved_view<renderer::bgra8_color>(
+			data,
+			d,
+			stride);
+	case color_format::rgbaf32:
+		return make_interleaved_view<renderer::rgba_f32_color>(
 			data,
 			d,
 			stride);
@@ -79,39 +90,12 @@ sge::renderer::make_image_view(
 	image_dim const &d,
 	color_format::type const format)
 {
-	std::size_t const stride(
-		color_format_stride(
-			format));
-	switch(format) {
-	case color_format::rgba8:
-		return make_interleaved_view<renderer::rgba8_pixel const>(
-			data,
-			d,
-			stride);
-	case color_format::argb8:
-		return make_interleaved_view<renderer::argb8_pixel const>(
-			data,
-			d,
-			stride);
-	default:
-		throw exception(
-			SGE_TEXT("Invalid color_format!"));
-	}
-}
-
-
-/*sge::renderer::const_image_view const
-sge::renderer::make_image_view(
-	unsigned char const * const data,
-	image_dim const &d,
-	color_format::type const format)
-{
-	return const_image_view(
+	return make_const_view(
 		make_image_view(
 			const_cast<unsigned char *>(data),
 			d,
 			format));
-}*/
+}
 
 namespace
 {

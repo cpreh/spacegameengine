@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_FORMAT_HPP_INCLUDED
 
 #include "types.hpp"
-#include "color.hpp"
 #include <boost/array.hpp>
 #include <vector>
 #include <cstddef>
@@ -61,7 +60,7 @@ template<> struct vertex_traits<vertex_usage::tex> {
 };
 
 template<> struct vertex_traits<vertex_usage::diffuse> {
-	typedef uint32       element_type;
+	typedef uint32       element_type; // FIXME
 	typedef element_type packed_type;
 };
 

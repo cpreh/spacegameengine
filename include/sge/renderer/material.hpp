@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../export.hpp"
 #include "../su.hpp"
-#include "color.hpp"
+#include "any_color.hpp"
 
 namespace sge
 {
@@ -31,15 +31,14 @@ namespace renderer
 {
 	
 struct material {
-	// FIXME: should be color_f32
 	SGE_SYMBOL material(
-		const color diffuse,
-		const color ambient,
-		const color specular,
-		const color emissive,
-		const space_unit power);
+		any_color const &diffuse,
+		any_color const &ambient,
+		any_color const &specular,
+		any_color const &emissive,
+		space_unit power);
 	
-	color     diffuse,
+	any_color diffuse,
 	          ambient,
 	          specular,
 	          emissive;
