@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_RAW_COLOR_HPP_INCLUDED
 
 #include "color.hpp"
+#include "../export.hpp"
 #include <boost/array.hpp>
 
 namespace sge
@@ -33,7 +34,8 @@ typedef boost::array<color_channel_f32, 4> raw_color_f32;
 
 // TODO: add enable_if here
 template<typename T>
-raw_color_f32 const raw_color(
+SGE_SYMBOL raw_color_f32 const
+raw_color(
 	T const &);
 
 }

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_COLOR_CONVERT_HPP_INCLUDED
 
 #include "any_color.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -29,7 +30,8 @@ namespace renderer
 {
 
 template<typename Dest>
-Dest const color_convert(
+SGE_SYMBOL Dest const
+color_convert(
 	any_color const &);
 
 }
