@@ -19,11 +19,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/color_convert.hpp>
+#include <boost/mpl/for_each.hpp>
+#include <boost/gil/color_convert.hpp>
+
+namespace
+{
+
+template<typename Dest>
+struct conversion_helper {
+	conversion_helper(
+		sge::renderer::any_color const &col,
+		Dest &dest)
+	:
+		col(col),
+		dest(dest)
+	{}
+
+	template<typename Source>
+	void operator()(
+		Source const &) const
+	{
+		if(typeid(Source) == col.type())
+			boost::gil::color_convert(
+				dest,
+				boost::get<Source>(col));
+	}
+private:
+	sge::renderer::any_color const &col;
+	Dest                           &dest;
+};
+
+}
 
 template<typename Dest>
 Dest const sge::renderer::color_convert(
 	any_color const &col)
 {
+	Dest dest;
+	/*boost::mpl::for_each<
+		any_color::types>(
+			conversion_helper<Dest>(
+				col,
+				dest));*/
+	return dest;
 }
 
 #define SGE_INSTANTIATE_COLOR_CONVERT(x)\
