@@ -19,10 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/image_view_format.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::renderer::color_format::type
 sge::renderer::image_view_format(
 	const_image_view const &view)
 {
-	return color_format::rgba8; // FIXME	
+	if(view.current_type_is<rgba8_view>())
+		return color_format::rgba8;
+	if(view.current_type_is<argb8_view>())
+		return color_format::argb8;
+	if(view.current_type_is<bgra8_view>())
+		return color_format::bgra8;
+	throw exception(
+		SGE_TEXT("Unknown view type in image_view_format()!"));
 }
