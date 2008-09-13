@@ -12,8 +12,7 @@
 *medium: other font formatting like bold, italic, underline and colors
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
 *medium: add a convenient method to check for key combinations in the input system
-*medium: add a better constructor for sge::sprite like boost::parameter would
-*medium: add a decent logging system
 *medium: add a convenient method for the main loop probably with boost::channel
 *medium: add support for _EXT vertex elements in opengl (binormal, tangent, etc)
-*high: fix cube_texture and the rest of the opengl stuff
+*high: fix the rest of the opengl stuff
+*high: fix vertex colors
