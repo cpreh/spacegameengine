@@ -126,11 +126,11 @@ private:
 #include "../no_initialization_tag.hpp"
 #include "../exception.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
-#include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
 #endif
+#include <boost/static_assert.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <iterator>
 #include <istream>
@@ -179,11 +179,7 @@ public:
 	template<typename... Args>
 	explicit basic_vector(Args... args)
 	{
-#ifdef SGE_HAVE_STATIC_ASSERT
-		static_assert(sizeof...(args) == Dim, "Invalid number of arguments to math::vector ctor!");
-#else
 		BOOST_STATIC_ASSERT(sizeof...(args) == Dim);
-#endif
 		set(args...);
 	}
 #else
@@ -547,11 +543,7 @@ public:
 	template<typename... Args>
 	void set(const_reference arg, Args... args)
 	{
-#ifdef SGE_HAVE_STATIC_ASSERT
-		static_assert(sizeof...(args) == Dim-1, "Invalid number of arguments to math::vector::set!");
-#else
-		BOOST_STATIC_ASSERT(sizeof...(args) == Dim);
-#endif
+		BOOST_STATIC_ASSERT(sizeof...(args) == Dim - 1);
 		set_impl(0, arg, args...);
 	}
 private:
