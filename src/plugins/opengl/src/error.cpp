@@ -24,17 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
-#include <sge/iostream.hpp>
 #include <exception>
-#include <ostream>
-
-bool sge::ogl::is_error()
-{
-	GLenum const error = glGetError();
-	if(error != GL_NO_ERROR)
-		sge::cerr << SGE_TEXT("OpenGL errorcode: ") << error << SGE_TEXT('\n');
-	return error != GL_NO_ERROR;
-}
 
 sge::ogl::sentry::sentry(
 	std::string const &file_name,

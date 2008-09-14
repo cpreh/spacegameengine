@@ -28,8 +28,6 @@ namespace sge
 namespace ogl
 {
 
-bool is_error();
-
 class sentry {
 public:
 	sentry(
