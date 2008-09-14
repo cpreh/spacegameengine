@@ -32,19 +32,18 @@ bool is_error();
 
 class sentry {
 public:
-	sentry(const std::string& function_name,
-	       const std::string& file_name,
+	sentry(
+	       std::string const &file_name,
 	       int line);
 	~sentry();
 private:
-	const std::string function_name,
-	                  file_name;
+	std::string const file_name;
 	int               line;
 };
 
 }
 }
 
-#define SGE_OPENGL_SENTRY sge::ogl::sentry sentry__(__FUNCTION__, __FILE__, __LINE__);
+#define SGE_OPENGL_SENTRY sge::ogl::sentry sentry_(__FILE__, __LINE__);
 
 #endif
