@@ -105,58 +105,109 @@ private:
 	vertex_size stride_;
 };*/
 
-// mpl::vector<pos<1>, tex<1>, color<rgba8_color, 1> >;
-
 namespace vf
 {
 
-namespace pos
-{
-
-typedef boost::mpl::integral_c<streamsize, 3> sub_elements;
-
-}
-
-}
+template<vertex_size NumElements>
+struct element_base {
+	static vertex_size const num_elements = NumElements;
+};
 
 template<vertex_size NumElements>
-struct pos {
-	static vertex_size const sub_elements = 3;
-
-	typedef space_unit element_type;
-	typedef math::vector<element_type, sub_elements> packed_type;
-
-	static vertex_size const stride = NumElements * sub_elements;
+struct pos : element_base<NumElements> {
+	typedef space_unit subelement_type;
+	typedef math::vector3 packet_type;
+	static vertex_size const num_subelements = 3;
 };
 
 template<typename Format, vertex_size NumElements>
-struct color {
-	static vertex_size const sub_elements = 4;
-	
-	typedef typename Format::channel_type element_type;
-
+struct color : element_base<NumElements> {
+	typedef Format::channel_t subelement_type;
+	typedef Format packet_type;
+	static vertex_size const num_subelements = 4;
 };
 
-template<typename Element, vertex_size Pos>
-struct counted_element : Element {
-	typedef Element element;
+template<typename T>
+struct element_stride
+: boost::mpl::integral_c<
+	vertex_size,
+	sizeof(typename T::subelement_type)
+	* T::num_subelements
+>{};
 
-	static vertex_size const pos = Pos;
-};
-
-template<typename ElementList>
-struct vertex_offset_list
-: boost::mpl::transform<
-	ElementList,
-	boost::mpl::accumulate<
-		boost::mpl::iterator_range<
-			boost::mpl::begin<
-				ElementList
-			>,
-			boost::mpl::_1
-		>
+template<typename T>
+struct stride
+: boost::mpl::integral_c<
+	vertex_size,
+	boost::mpl::multiply<
+		element_size<T>,
+		T::num_elements
 	>
-{};
+>{};
+
+template<typename T>
+struct packed_type {
+	typedef typename T::packet_type packet_type;
+};
+
+}
+
+template<typename Elements>
+struct vertex_format {
+	typedef Elements elements;
+
+	typedef partial_sums<
+		boost::mpl::transform<
+			Elements,
+			stride<
+				boost::mpl::_1
+			>
+		>		
+	>::type offsets;
+};
+
+template<typename VertexFormat>
+class vertex {
+public:
+	typedef unsigned char internal_type;
+	typedef internal_type *pointer;
+
+	vertex(
+		pointer const data)
+	:
+		data(data)
+	{}
+
+	template<typename T>
+	void set(
+		T const &t)
+	{
+		typedef typename boost::mpl::find_if<
+			typename VertexFormat::elements,
+			T,
+			packed_type<
+				boost::mpl::_1
+			>
+		>::type element;
+
+		typedef typename boost::mpl::advance<
+			boost::mpl::begin<
+				typename VertexFormat::offsets
+			>,
+			boost::mpl::distance<
+				typename VertexFormat::elements
+				element
+			>
+		>::type offset;
+
+		copy_n(
+			reinterpret_cast<unsigned char const *>(
+				t)
+			+ offset::value,
+			stride<element>::value,
+			data);
+	}
+};
 
 }
 }
