@@ -107,6 +107,18 @@ private:
 
 // mpl::vector<pos<1>, tex<1>, color<rgba8_color, 1> >;
 
+namespace vf
+{
+
+namespace pos
+{
+
+typedef boost::mpl::integral_c<streamsize, 3> sub_elements;
+
+}
+
+}
+
 template<vertex_size NumElements>
 struct pos {
 	static vertex_size const sub_elements = 3;
@@ -133,34 +145,18 @@ struct counted_element : Element {
 };
 
 template<typename ElementList>
-class vertex_format {
-public:
-	typedef boost::fusion::transform<
-		ElementList,
-		...
-	> counted_elements;
-
-	template<typename Element>
-	void set(
-		typename Element::const_reference ref)
-	{
-		typename boost::fusion::find<
-			counted_elements
-			boost::is_base_of<Element> >::type type;
-		
-		copy_n(
-			reinterpret_cast<unsigned char const *>(&ref),
-			type::size,
-			raw_data);
-	}
-private:
-	template<typename Element>
-	void init_element(
-		Element &)
-	{
-		strides.push_back(Element::stride);	
-	}
-};
+struct vertex_offset_list
+: boost::mpl::transform<
+	ElementList,
+	boost::mpl::accumulate<
+		boost::mpl::iterator_range<
+			boost::mpl::begin<
+				ElementList
+			>,
+			boost::mpl::_1
+		>
+	>
+{};
 
 }
 }
