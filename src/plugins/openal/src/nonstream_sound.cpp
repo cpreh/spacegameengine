@@ -18,15 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
 #include "../player.hpp"
 #include "../nonstream_sound.hpp"
 #include "../stream_sound.hpp"
-#ifdef SGE_WINDOWS_PLATFORM
-#include <al.h>
-#else
-#include <AL/al.h>
-#endif
+#include "../openal.hpp"
 #include <sge/audio/player/sound.hpp>
 #include <sge/audio/exception.hpp>
 #include <boost/lexical_cast.hpp>

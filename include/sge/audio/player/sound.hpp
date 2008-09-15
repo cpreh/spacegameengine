@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/vector.hpp"
 #include "../../shared_ptr.hpp"
 #include "../../export.hpp"
+#include "play_mode.hpp"
+#include "sound_status.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -33,21 +35,14 @@ namespace audio
 
 class SGE_CLASS_SYMBOL sound : boost::noncopyable {
 public:
-	enum sound_status 
-	{ 
-		status_stopped,
-		status_playing,
-		status_paused 
-	};
-
-	virtual void play(const bool) = 0;
+	virtual void play(play_mode::type) = 0;
 	virtual void toggle_pause() = 0;
-	virtual sound_status status() const = 0;
+	virtual sound_status::type status() const = 0;
 	virtual void stop() = 0;
-	virtual math::vector3 pos() const = 0;
-	virtual void pos(const math::vector3 &) = 0;
+	virtual math::vector3 const pos() const = 0;
+	virtual void pos(math::vector3 const &) = 0;
 	virtual bool positional() const = 0;
-	virtual void positional(const bool) = 0;
+	virtual void positional(bool) = 0;
 	SGE_SYMBOL virtual void update();
 	SGE_SYMBOL virtual ~sound();
 };

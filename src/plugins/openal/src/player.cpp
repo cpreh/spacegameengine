@@ -18,129 +18,92 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
 #include "../player.hpp"
 #include "../nonstream_sound.hpp"
 #include "../stream_sound.hpp"
-#ifdef SGE_WINDOWS_PLATFORM
-#include <al.h>
-#else
-#include <AL/al.h>
-#endif
+#include "../error.hpp"
+#include "../file_format.hpp"
 #include <sge/audio/player/sound.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/ptr_container_erase.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <boost/lexical_cast.hpp>
 
 sge::openal::player::player()
+	: device(),
+	  context(device)
 {
-	device.reset(alcOpenDevice(0));
-	if (device.device == 0)
-		throw sge::audio::exception(SGE_TEXT("Error opening audio device!"));
-
-	context.reset(alcCreateContext(device.device,0));
-	if (context.context == 0)
-		throw sge::audio::exception(SGE_TEXT("Error creating audio context!"));
-	
-	if (!alcMakeContextCurrent(context.context))
-		throw sge::audio::exception(SGE_TEXT("Error selecting context"));
+	context.make_current();
 }
 
 void sge::openal::player::update()
 {
-	for (stream_sound_container_type::iterator i = stream_sounds.begin(); i != stream_sounds.end(); ++i)
-		(*i)->update();
+	BOOST_FOREACH(stream_sound &s,stream_sounds)
+		s.update();
 }
 
-const sge::audio::sound_ptr
+void sge::openal::register_stream_sound(stream_sound * const p)
+{
+	stream_sounds.push_back(p);
+}
+
+void sge::openal::unregister_stream_sound(stream_sound * const p)
+{
+	ptr_container_erase(stream_sounds,p);
+}
+
+sge::audio::sound_ptr const
 sge::openal::player::create_nonstream_sound(
-	const audio::file_ptr _audio_file)
+	audio::file_ptr const _audio_file)
 {
 	return audio::sound_ptr(new nonstream_sound(_audio_file,*this));
 }
 
-const sge::audio::sound_ptr
+sge::audio::sound_ptr const
 sge::openal::player::create_stream_sound(
-	const audio::file_ptr _audio_file)
+	audio::file_ptr const _audio_file)
 {
 	return audio::sound_ptr(new stream_sound(_audio_file,*this));
 }
 
-void sge::openal::player::check(const string &_desc)
-{
-	ALint error;
-	if ((error = alGetError()) != AL_NO_ERROR)
-		throw sge::audio::exception(SGE_TEXT("OpenAL error (") + _desc + SGE_TEXT("): ") + boost::lexical_cast<string>(error));
-}
-
-void sge::openal::player::listener_pos(const math::vector3 &n)
-{
-	listener_pos_ = n;
-
-	float vec[3] = { n.x(),n.y(),n.z() };
-	alListenerfv(AL_POSITION, vec);
-}
-
-void sge::openal::player::listener_angle(const audio::sound_angle &n)
-{
-	listener_angle_ = n;
-
-	float vec[6] = { n.forward.x(),n.forward.y(),n.forward.z(),n.up.x(),n.up.y(),n.up.z() };
-	alListenerfv(AL_POSITION, vec);
-}
-
 ALuint sge::openal::player::register_nonstream_sound(
-	const audio::file_ptr _audio_file)
+	audio::file_ptr const _audio_file)
 {
- 	for (buffer_map_container_type::iterator i = buffer_map_.begin(); i != buffer_map_.end(); ++i)
+	BOOST_FOREACH(buffer_wrapper &b,nonstream_sounds)
 	{
-		if (i->file == &(*_audio_file))
+		if (&(b.file()) == &(*_audio_file))
 		{
-			(i->refcount)++;
-			return i->buffer;
+			b.refcount++;
+			return b.buffer;
 		}
 	}
 
-	buffer_map n;
-	n.file = &(*_audio_file);
-
-	// Buffer erstellen
-	alGenBuffers(1, &n.buffer); check(SGE_TEXT("alGenBuffers"));
-
-	ALenum format;
-	if (_audio_file->bits_per_sample() == 8 && _audio_file->channels() == 1)
-		format = AL_FORMAT_MONO8;
-	else if (_audio_file->bits_per_sample() == 8 && _audio_file->channels() == 2)
-		format = AL_FORMAT_STEREO8;
-	else if (_audio_file->bits_per_sample() == 16 && _audio_file->channels() == 1)
-		format = AL_FORMAT_MONO16;
-	else if (_audio_file->bits_per_sample() == 16 && _audio_file->channels() == 2)
-		format = AL_FORMAT_STEREO16;
-	else
-		throw audio::exception(SGE_TEXT("OpenAL error: Format not supported: ")
-		                      + boost::lexical_cast<string>(_audio_file->bits_per_sample())
-		                      + SGE_TEXT(" bps, ")
-		                      + boost::lexical_cast<string>(_audio_file->channels())
-		                      + SGE_TEXT(" channels"));
+	nonstream_sounds.push_back(new buffer_wrapper(_audio_file));
+	buffer_wrapper &buffer = nonstream_sounds.back();
 
 	audio::file::raw_array_type data;
 	_audio_file->read_all(data);
-	alBufferData(n.buffer, format, data.data(), static_cast<ALsizei>(data.size()), static_cast<ALsizei>(_audio_file->sample_rate())); check(SGE_TEXT("alGetError"));
+	alBufferData(
+		buffer.buffer(), 
+		file_format(*_audio_file), 
+		data.data(), 
+		static_cast<ALsizei>(data.size()), 
+		static_cast<ALsizei>(_audio_file->sample_rate()));
+	SGE_OPENAL_ERROR_CHECK
 
-	n.refcount = 1;
-
-	buffer_map_.push_back(n);
-	return n.buffer;
+	return buffer.buffer();
 }
 
-void sge::openal::player::unregister_nonstream_sound(const ALuint buffer)
+void sge::openal::player::unregister_nonstream_sound(ALuint const buffer)
 {
- 	for (buffer_map_container_type::iterator i = buffer_map_.begin(); i != buffer_map_.end(); ++i)
-		if (i->buffer == buffer && --(i->refcount) == 0)
-		{
-			// FIXME: this is not right!
-			alDeleteBuffers(1,&(i->buffer));
+ 	for (stream_sound_container_type::iterator i = nonstream_sounds_.begin(); i != nonstream_sounds_.end(); ++i)
+	{
+		if (i->buffer() != buffer)
+			continue;
+
+		if (i->remove_instance())
 			buffer_map_.erase(i);
-			break;
-		}
+
+		break;
+	}
 }

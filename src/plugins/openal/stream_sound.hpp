@@ -22,46 +22,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_STREAM_SOUND_INCLUDED
 
 #include "player.hpp"
+#include "source_wrapper.hpp"
 #include <sge/audio/player/sound.hpp>
 #include <sge/shared_ptr.hpp>
 #include <sge/string.hpp>
 #include <sge/math/vector.hpp>
-#include <cstddef>
 
 namespace sge
 {
 namespace openal
 {
-
 class stream_sound : public audio::sound
 {
-	player &                    player_;
-	audio::file_ptr             audio_file_;
-	std::size_t                 buffer_samples_;
-	math::vector3               pos_;
-	bool                        loop_,positional_;
-	mutable sound_status        status_;
-
-	// OpenAL-Zeugs
-	ALenum format_;
-	ALuint al_buffers_[2];
-	mutable ALuint al_source_;
-
-	bool fill_buffer(ALuint);
-	void check(const string &);
-	void sync() const;
 	public:
-	stream_sound(audio::file_ptr, player &);
-	~stream_sound();
-	void play(const bool);
+	stream_sound(audio::file_ptr,player&);
+	void play(play_mode::type);
 	void toggle_pause();
-	sound_status status() const;
+	sound_status::type status() const;
 	void stop();
 	void update();
 	bool positional() const { return positional_; }
-	void positional(const bool);
-	math::vector3 pos() const { return pos_; }
+	void positional(bool);
+	math::vector3 const pos() const { return pos_; }
 	void pos(const math::vector3 &);
+	~stream_sound();
+	private:
+	player &                    player_;
+	audio::file_ptr const       audio_file_;
+	audio::sample_type const    buffer_samples_;
+	ALenum const                format_;
+	math::vector3               pos_;
+	play_mode::type             play_mode_;
+	bool                        positional_;
+	ALuint                      al_buffers_[2];
+	mutable sound_status::type  status_;
+	mutable source_wrapper      source_;
+
+	bool fill_buffer(ALuint);
 };
 }
 }
