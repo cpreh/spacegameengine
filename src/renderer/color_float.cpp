@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../state_stack.hpp"
-#include "../device.hpp"
+#include <sge/renderer/color_float.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-sge::ogl::state_stack::state_stack(
-	device& rend)
-: rend(rend)
-{}
-
-void sge::ogl::state_stack::push(
-	const renderer::state_list& list)
+void sge::renderer::check_color_float_channel(
+	color_channel_f32 const c)
 {
-	state_levels.push(list);
+	if(c < static_cast<color_channel_f32>(0)
+	|| c > static_cast<color_channel_f32>(1))
+		throw exception(
+			SGE_TEXT("float color out of range!"));
 }
 
-void sge::ogl::state_stack::pop()
+void sge::renderer::check_color_float(
+	rgba_f32_color const &c)
 {
-	rend.set_state(state_levels.top());
-	state_levels.pop();
+	for(unsigned i = 0; i < 4; ++i) // TODO: can we do this better?
+		check_color_float_channel(c[i]);
 }

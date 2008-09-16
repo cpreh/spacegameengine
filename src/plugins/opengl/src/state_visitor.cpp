@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
+#include <sge/renderer/color_convert.hpp>
+#include <sge/renderer/raw_color.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -95,26 +97,29 @@ void sge::ogl::state_visitor::operator()(
 
 	typedef renderer::state_var_traits<renderer::any_color> rs;
 
+	renderer::rgba_f32_color const fcolor(
+		renderer::color_convert<renderer::rgba_f32_color>(
+			s.value()));
+
 	switch(s.state_id) {
 	case rs::clear_color:
-		// FIXME: use gil here too!
-/*		glClearColor(
-			red_part_rgba_f(s.value()),
-			green_part_rgba_f(s.value()),
-			blue_part_rgba_f(s.value()),
-			alpha_part_rgba_f(s.value()));*/
+		glClearColor(
+			fcolor[0],
+			fcolor[1],
+			fcolor[2],
+			fcolor[3]);
 		break;
 	case rs::ambient_light_color:
-		{
-			//const color4 fc = color_to_color4(s.value());
-			//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, reinterpret_cast<const GLfloat*>(&fc));
-		}
+		glLightModelfv(
+			GL_LIGHT_MODEL_AMBIENT,
+			renderer::raw_color(
+				fcolor).data());
 		break;
 	case rs::fog_color:
-		{
-			//const color4 fc = color_to_color4(s.value());
-			//glFogfv(GL_FOG_COLOR, reinterpret_cast<const GLfloat*>(&fc));
-		}
+		glFogfv(
+			GL_FOG_COLOR,
+			renderer::raw_color(
+				fcolor).data());
 		break;
 	default:
 		throw exception(SGE_TEXT("Invalid color_state!"));

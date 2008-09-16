@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../light.hpp"
 #include "../error.hpp"
+#include <sge/renderer/raw_color.hpp>
+#include <sge/renderer/color_convert.hpp>
 
 namespace
 {
@@ -29,15 +31,6 @@ void set_light_float_ptr(
 	GLenum name,
 	GLfloat const *data);
 
-}
-
-void sge::ogl::set_light_colorf(
-	GLenum const index,
-	GLenum const name,
-	renderer::any_color const &color)
-{
-	// FIXME:
-	//set_light_float_ptr(index, name, reinterpret_cast<const GLfloat*>(&color));
 }
 
 void sge::ogl::set_light_pos(
@@ -70,6 +63,19 @@ GLenum sge::ogl::convert_light_index(
 	return GL_LIGHT0 + index;
 }
 
+void sge::ogl::set_light_color(
+	GLenum const index,
+	GLenum const name,
+	renderer::any_color const &color)
+{
+	set_light_float_ptr(
+		index,
+		name,
+		renderer::raw_color(
+			renderer::color_convert<renderer::rgba_f32_color>(
+				color)).data());
+}
+
 namespace
 {
 
@@ -84,5 +90,3 @@ void set_light_float_ptr(
 }
 
 }
-
-

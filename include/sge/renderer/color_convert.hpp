@@ -18,20 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/image_view_format.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_RENDERER_COLOR_CONVERT_HPP_INCLUDED
+#define SGE_RENDERER_COLOR_CONVERT_HPP_INCLUDED
 
-sge::renderer::color_format::type
-sge::renderer::image_view_format(
-	const_image_view const &view)
+#include "any_color.hpp"
+#include "../export.hpp"
+
+namespace sge
 {
-	if(view.current_type_is<rgba8_view>())
-		return color_format::rgba8;
-	if(view.current_type_is<argb8_view>())
-		return color_format::argb8;
-	if(view.current_type_is<bgra8_view>())
-		return color_format::bgra8;
-	throw exception(
-		SGE_TEXT("Unknown view type in image_view_format()!"));
+namespace renderer
+{
+
+template<typename Dest>
+SGE_SYMBOL Dest const
+color_convert(
+	any_color const &);
+
 }
+}
+
+#endif

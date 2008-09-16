@@ -18,29 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_STACK_HPP_INCLUDED
-#define SGE_OPENGL_STATE_STACK_HPP_INCLUDED
+#ifndef SGE_RENDERER_RAW_COLOR_HPP_INCLUDED
+#define SGE_RENDERER_RAW_COLOR_HPP_INCLUDED
 
-#include <sge/renderer/states.hpp>
-#include <stack>
+#include "color.hpp"
+#include "../export.hpp"
+#include <boost/array.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 
-class device;
+typedef boost::array<color_channel_f32, 4> raw_color_f32;
 
-class state_stack {
-public:
-	state_stack(device& rend);
-	void push(const renderer::state_list& list);
-	void pop();
-private:
-	device& rend;
-	typedef std::stack<renderer::state_list> stack_type;
-	stack_type state_levels;
-};
+// TODO: add enable_if here
+template<typename T>
+SGE_SYMBOL raw_color_f32 const
+raw_color(
+	T const &);
 
 }
 }

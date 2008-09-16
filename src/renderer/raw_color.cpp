@@ -18,20 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/image_view_format.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/renderer/raw_color.hpp>
+#include <sge/renderer/color.hpp>
 
-sge::renderer::color_format::type
-sge::renderer::image_view_format(
-	const_image_view const &view)
+template<typename T>
+sge::renderer::raw_color_f32 const
+sge::renderer::raw_color(
+	T const &c)
 {
-	if(view.current_type_is<rgba8_view>())
-		return color_format::rgba8;
-	if(view.current_type_is<argb8_view>())
-		return color_format::argb8;
-	if(view.current_type_is<bgra8_view>())
-		return color_format::bgra8;
-	throw exception(
-		SGE_TEXT("Unknown view type in image_view_format()!"));
+	raw_color_f32 const ret = {
+	{
+		c[0],
+		c[1],
+		c[2],
+		c[3]
+	} };
+	return ret;
 }
+
+#define SGE_INSTANTIATE_RAW_COLOR(x)\
+template sge::renderer::raw_color_f32 const\
+ sge::renderer::raw_color<x>(x const &);
+
+SGE_INSTANTIATE_RAW_COLOR(sge::renderer::rgba_f32_color)
+
+#undef SGE_INSTANTIATE_RAW_COLOR

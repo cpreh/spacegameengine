@@ -39,7 +39,7 @@ template class sge::ogl::basic_texture<sge::renderer::texture>;
 namespace
 {
 
-const GLenum texture_type = GL_TEXTURE_2D;
+GLenum const texture_type = GL_TEXTURE_2D;
 
 }
 

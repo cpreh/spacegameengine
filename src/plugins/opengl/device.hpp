@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RENDERER_HPP_INCLUDED
-#define SGE_OPENGL_RENDERER_HPP_INCLUDED
+#ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
+#define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include <sge/config.h>
 #include "target.hpp"
 #include "fbo_target.hpp"
-#include "state_stack.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include "wgl_context.hpp"
 #include "wgl_current.hpp"
@@ -52,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include <boost/scoped_ptr.hpp>
 #include <boost/signals/trackable.hpp>
+#include <stack>
 
 namespace sge
 {
@@ -176,7 +176,6 @@ private:
 
 	renderer::parameters          param;
 	renderer::caps                caps_;
-	state_stack                   state_levels;
 	renderer::state_list          current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
 	win32_window_ptr               wnd;
@@ -201,6 +200,10 @@ private:
 	scoped_connection_manager             con_manager;
 #endif
 	target_ptr                            render_target_;
+	typedef std::stack<
+		renderer::state_list
+	> stack_type;
+	stack_type                            state_levels;
 };
 
 }
