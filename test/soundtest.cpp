@@ -13,6 +13,7 @@
 #include <sge/time/second.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
+#include <sge/log/headers.hpp>
 #include <ostream>
 #include <exception>
 #include <algorithm>
@@ -22,9 +23,8 @@
 int main()
 try
 {
+	sge::log::global().activate(sge::log::level::debug);
 	sge::plugin::manager pm;
-	const sge::plugin::plugin<sge::audio::player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio::player>().load();
-	sge::shared_ptr<sge::audio::player> audio_player(audio_player_plugin->get()());
 
 	typedef std::vector< sge::plugin::context<sge::audio::loader> > plugin_vector;
 	plugin_vector audio_plugins;
@@ -43,13 +43,21 @@ try
 		loaded.push_back(np);
 		sge::shared_ptr<sge::audio::loader> j(np->get()());
 		loaders.push_back(j);
-		const sge::path path = sge::media_path() / SGE_TEXT("ding.wav");
-		//const std::string path = "/home/philipp/musik/queen_greatest_hits_iii/queen_you_dont_fool_me.ogg";
+		//const sge::path path = sge::media_path() / SGE_TEXT("ding.wav");
+		const std::string path = "/mnt/extern/musik/queen_greatest_hits_iii/queen_you_dont_fool_me.ogg";
 		if (j->is_valid_file(path))
 			soundfile = j->load(path);
 	}
 	if(!soundfile)
 		throw std::runtime_error("ding.wav not found!");
+	
+	sge::cerr << "creating audio player\n";
+
+	const sge::plugin::plugin<sge::audio::player>::ptr_type audio_player_plugin = pm.get_plugin<sge::audio::player>().load();
+	sge::shared_ptr<sge::audio::player> audio_player(audio_player_plugin->get()());
+
+	sge::cerr << "created audio player\n";
+
 	const sge::audio::sound_ptr soundleft = audio_player->create_nonstream_sound(soundfile),
 	                            soundright = audio_player->create_nonstream_sound(soundfile);
 
@@ -58,7 +66,7 @@ try
 	soundleft->pos(sge::math::vector3(-1,0,0));
 	soundright->positional(true);
 	soundleft->pos(sge::math::vector3(1,0,0));
-	soundleft->play(true);
+	soundleft->play(sge::audio::play_mode::loop);
 	sge::time::sleep(
 		sge::time::millisecond(
 			static_cast<sge::time::unit>(

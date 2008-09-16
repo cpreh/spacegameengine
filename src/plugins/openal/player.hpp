@@ -58,13 +58,13 @@ public:
 	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);
 	audio::sound_ptr const create_stream_sound(audio::file_ptr);
 private:
+	typedef boost::ptr_list<stream_sound,boost::view_clone_allocator> 
+		stream_sound_container;
 	typedef boost::ptr_list<buffer_wrapper> 
-		buffer_container_type;
-	typedef boost::ptr_list<stream_sound*,boost::view_clone_allocator> 
-		stream_sound_container_type;
+		nonstream_sound_container;
 
-	stream_sound_container_type stream_sounds;
-	buffer_map_container_type   nonstream_sounds;
+	stream_sound_container      stream_sounds;
+	nonstream_sound_container   nonstream_sounds;
 	listener_wrapper            listener;
 	device_wrapper              device;
 	context_wrapper             context;

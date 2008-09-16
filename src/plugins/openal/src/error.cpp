@@ -1,12 +1,10 @@
-#include "../error_string.hpp"
+#include "../error.hpp"
 #include "../openal.hpp"
 #include <sge/text.hpp>
 #include <sge/string.hpp>
 #include <sge/audio/exception.hpp>
 
-namespace
-{
-sge::string const error_string()
+sge::string const sge::openal::error_string()
 {
 	ALenum const error = alGetError();
 	switch (error)
@@ -21,11 +19,10 @@ sge::string const error_string()
 			return SGE_TEXT("invalid enum parameter value");
 		case AL_INVALID_OPERATION:
 			return SGE_TEXT("illegal call");
-		case AL_OUT_OF_MEMOTY:
+		case AL_OUT_OF_MEMORY:
 			return SGE_TEXT("unable to allocate memory");
 	}
 	return SGE_TEXT("you really shouldn't see this");
-}
 }
 
 void sge::openal::error_check(string const &file,string const &line)

@@ -18,11 +18,10 @@ void sge::openal::listener_wrapper::set_pos(math::vector3 const &n)
 			static_cast<float>(n.y()),
 			static_cast<float>(n.z()) 
 		};
-	alListenerfv(AL_POSITION, vec);
-	SGE_OPENAL_ERROR_CHECK
+	alListenerfv(AL_POSITION, vec); SGE_OPENAL_ERROR_CHECK;
 }
 
-void sge::openal::listener_wrapper::set_angle(audio::sound_angle const &p)
+void sge::openal::listener_wrapper::set_angle(audio::sound_angle const &n)
 {
 	float const vec[6] = 
 		{ 
@@ -34,8 +33,7 @@ void sge::openal::listener_wrapper::set_angle(audio::sound_angle const &p)
 			static_cast<float>(n.up.z()) 
 		};
 
-	alListenerfv(AL_POSITION, vec);
-	SGE_OPENAL_ERROR_CHECK
+	alListenerfv(AL_POSITION, vec); SGE_OPENAL_ERROR_CHECK;
 }
 
 sge::math::vector3 const sge::openal::listener_wrapper::get_pos() const

@@ -11,6 +11,7 @@ namespace openal
 {
 #define SGE_OPENAL_ERROR_CHECK error_check(SGE_FILE,SGE_STRINGIZE(__LINE__));
 void error_check(string const &,string const &);
+sge::string const error_string();
 }
 }
 

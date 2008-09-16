@@ -25,9 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file_format.hpp"
 #include <sge/audio/player/sound.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/ptr_container_erase.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/foreach.hpp>
 
 sge::openal::player::player()
 	: device(),
@@ -42,12 +44,12 @@ void sge::openal::player::update()
 		s.update();
 }
 
-void sge::openal::register_stream_sound(stream_sound * const p)
+void sge::openal::player::register_stream_sound(stream_sound *p)
 {
 	stream_sounds.push_back(p);
 }
 
-void sge::openal::unregister_stream_sound(stream_sound * const p)
+void sge::openal::player::unregister_stream_sound(stream_sound * const p)
 {
 	ptr_container_erase(stream_sounds,p);
 }
@@ -73,12 +75,12 @@ ALuint sge::openal::player::register_nonstream_sound(
 	{
 		if (&(b.file()) == &(*_audio_file))
 		{
-			b.refcount++;
-			return b.buffer;
+			b.add_instance();
+			return b.buffer();
 		}
 	}
 
-	nonstream_sounds.push_back(new buffer_wrapper(_audio_file));
+	nonstream_sounds.push_back(new buffer_wrapper(*_audio_file));
 	buffer_wrapper &buffer = nonstream_sounds.back();
 
 	audio::file::raw_array_type data;
@@ -88,21 +90,20 @@ ALuint sge::openal::player::register_nonstream_sound(
 		file_format(*_audio_file), 
 		data.data(), 
 		static_cast<ALsizei>(data.size()), 
-		static_cast<ALsizei>(_audio_file->sample_rate()));
-	SGE_OPENAL_ERROR_CHECK
+		static_cast<ALsizei>(_audio_file->sample_rate())); SGE_OPENAL_ERROR_CHECK;
 
 	return buffer.buffer();
 }
 
 void sge::openal::player::unregister_nonstream_sound(ALuint const buffer)
 {
- 	for (stream_sound_container_type::iterator i = nonstream_sounds_.begin(); i != nonstream_sounds_.end(); ++i)
+ 	for (nonstream_sound_container::iterator i = nonstream_sounds.begin(); i != nonstream_sounds.end(); ++i)
 	{
 		if (i->buffer() != buffer)
 			continue;
 
 		if (i->remove_instance())
-			buffer_map_.erase(i);
+			nonstream_sounds.erase(i);
 
 		break;
 	}

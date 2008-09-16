@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "player.hpp"
 #include "source_wrapper.hpp"
 #include <sge/audio/player/sound.hpp>
+#include <sge/audio/loader/file.hpp>
 #include <sge/shared_ptr.hpp>
 #include <sge/string.hpp>
 #include <sge/math/vector.hpp>
@@ -32,31 +33,19 @@ namespace sge
 {
 namespace openal
 {
-class stream_sound : public audio::sound
+class stream_sound : public source_wrapper
 {
 	public:
 	stream_sound(audio::file_ptr,player&);
-	void play(play_mode::type);
-	void toggle_pause();
-	sound_status::type status() const;
-	void stop();
 	void update();
-	bool positional() const { return positional_; }
-	void positional(bool);
-	math::vector3 const pos() const { return pos_; }
-	void pos(const math::vector3 &);
+	void do_play();
 	~stream_sound();
 	private:
-	player &                    player_;
-	audio::file_ptr const       audio_file_;
-	audio::sample_type const    buffer_samples_;
-	ALenum const                format_;
-	math::vector3               pos_;
-	play_mode::type             play_mode_;
-	bool                        positional_;
-	ALuint                      al_buffers_[2];
-	mutable sound_status::type  status_;
-	mutable source_wrapper      source_;
+	player &                       player_;
+	audio::file_ptr const          audio_file_;
+	audio::file::sample_type const buffer_samples_;
+	ALenum const                   format_;
+	ALuint                         al_buffers_[2];
 
 	bool fill_buffer(ALuint);
 };

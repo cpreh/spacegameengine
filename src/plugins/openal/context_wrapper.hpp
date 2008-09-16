@@ -1,7 +1,10 @@
 #ifndef SGE_OPENAL_CONTEXT_WRAPPER_HPP_INCLUDED
 #define SGE_OPENAL_CONTEXT_WRAPPER_HPP_INCLUDED
 
-class ALCcontext;
+#include "openal.hpp"
+#include <boost/noncopyable.hpp>
+#include <vector>
+#include <utility>
 
 namespace sge
 {
@@ -9,7 +12,7 @@ namespace openal
 {
 class device_wrapper;
 
-class context_wrapper
+class context_wrapper : boost::noncopyable
 {
 	public:
 	typedef std::vector< std::pair<ALCint,ALCint> > attribute_container;
@@ -18,7 +21,7 @@ class context_wrapper
 	void make_current();
 	~context_wrapper();
 	private:
-	ALCcontext * const context_;
+	ALCcontext *context_;
 };
 }
 }

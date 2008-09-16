@@ -1,5 +1,8 @@
 #include "../file_format.hpp"
 #include <sge/audio/loader/file.hpp>
+#include <sge/audio/exception.hpp>
+#include <sge/text.hpp>
+#include <boost/lexical_cast.hpp>
 
 ALenum sge::openal::file_format(audio::file const &file)
 {

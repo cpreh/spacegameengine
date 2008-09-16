@@ -37,9 +37,9 @@ namespace audio
 {
 
 struct SGE_CLASS_SYMBOL player : boost::noncopyable {
-	virtual math::vector3 listener_pos() const = 0;
-	virtual void listener_pos(const math::vector3 &) = 0;
-	virtual const sound_angle listener_angle() const = 0;
+	virtual math::vector3 const listener_pos() const = 0;
+	virtual void listener_pos(math::vector3 const &) = 0;
+	virtual sound_angle const listener_angle() const = 0;
 	virtual void listener_angle(const sound_angle &) = 0;
 	virtual const sound_ptr create_nonstream_sound(file_ptr) = 0;
 	virtual const sound_ptr create_stream_sound(file_ptr) = 0;

@@ -55,6 +55,7 @@ void sge::log::level_stream::log(
 	dest_ << format::create_chain(
 		additional_formatter,
 		formatter())->format(output.result());
+	dest_.flush();
 }
 
 void sge::log::level_stream::formatter(

@@ -2,6 +2,7 @@
 #define SGE_OPENAL_BUFFER_WRAPPER_HPP_INCLUDED
 
 #include <boost/noncopyable.hpp>
+#include "openal.hpp"
 
 namespace sge
 {

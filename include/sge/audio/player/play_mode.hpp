@@ -10,7 +10,7 @@ namespace play_mode
 enum type
 {
 	once,
-	looping
+	loop
 };
 }
 }
