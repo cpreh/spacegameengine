@@ -41,7 +41,7 @@ public:
 		dinput_ptr,
 		string const &name,
 		GUID guid,
-		win32_window_ptr window,
+		windows::window_ptr window,
 		key_converter const &conv);
 	void dispatch(input::system::signal_type&);
 	input::key_state query_key(string const &name);

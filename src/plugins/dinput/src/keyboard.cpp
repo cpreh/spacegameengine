@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../keyboard.hpp"
-#include <sge/win32_conv.hpp>
+#include <sge/windows/conv.hpp>
 #include <sge/iostream.hpp>
 #include <boost/array.hpp>
 #include <ostream>
@@ -28,7 +28,7 @@ sge::dinput::keyboard::keyboard(
 	dinput_ptr const di,
 	string const &name,
 	GUID const guid,
-	win32_window_ptr const window,
+	windows::window_ptr const window,
 	key_converter const &conv)
 : input_device(di,name,guid,window),
   modifiers(false, false, false),
@@ -71,7 +71,7 @@ void sge::dinput::keyboard::dispatch(input::system::signal_type& sig)
 BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)
 {
 	keyboard &k = *static_cast<keyboard*>(s);
-	input::key_type::string const key_name(win_str_to_sge(ddoi->tszName));
+	input::key_type::string const key_name(windows::win_str_to_sge(ddoi->tszName));
 	k.keys[ddoi->dwOfs] = input::key_type(k.name() + key_name, k.conv.create_key_code(ddoi->dwOfs), key_name.size() == 1 ? key_name[0] : 0);
 	return DIENUM_CONTINUE;
 }

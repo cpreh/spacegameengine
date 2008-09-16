@@ -32,7 +32,11 @@ const DIPROPDWORD sge::dinput::input_device::buffer_settings = {
 	buffer_size
 };
 
-sge::dinput::input_device::input_device(const dinput_ptr di, const string& _name, const GUID guid, sge::win32_window_ptr window)
+sge::dinput::input_device::input_device(
+	dinput_ptr const di,
+	string const &_name,
+	GUID const guid,
+	windows::window_ptr const window)
 : _name(_name)
 {
 	direct_input_device* d;
@@ -116,7 +120,12 @@ const sge::string& sge::dinput::input_device::name() const
 	return _name;
 }
 
-sge::win32_window::win32_callback_return_type sge::dinput::input_device::lost_focus_unacquire_handler::operator()(sge::win32_window&, sge::win32_window::win32_event_type, WPARAM wparam, LPARAM)
+sge::windows::window::win32_callback_return_type
+sge::dinput::input_device::lost_focus_unacquire_handler::operator()(
+	windows::window&,
+	windows::window::win32_event_type,
+	WPARAM wparam,
+	LPARAM)
 {
 	const bool active = wparam != 0 ? true : false;
 	if(active)
@@ -124,7 +133,7 @@ sge::win32_window::win32_callback_return_type sge::dinput::input_device::lost_fo
 	else
 		device.acquire();
 
-	return sge::win32_window::win32_callback_return_type();
+	return windows::window::win32_callback_return_type();
 }
 
 #ifndef _MSC_VER

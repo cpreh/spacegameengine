@@ -61,7 +61,7 @@ private:
 	{
 		input_device &device;
 		lost_focus_unacquire_handler(input_device &dev) : device(dev) {}
-		sge::win32_window::win32_callback_return_type operator()(sge::win32_window&, sge::win32_window::win32_event_type, WPARAM wparam, LPARAM lparam);
+		windows::window::win32_callback_return_type operator()(windows::window&, windows::window::win32_event_type, WPARAM wparam, LPARAM lparam);
 	};
 };
 

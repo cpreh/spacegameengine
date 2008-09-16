@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../mouse.hpp"
-#include <sge/win32_conv.hpp>
-#include <sstream>
+#include <sge/windows/conv.hpp>
 
 namespace
 {
@@ -43,7 +42,11 @@ inline bool is_di_mouse_axis(const DWORD di_mouse)
 
 }
 
-sge::dinput::mouse::mouse(const dinput_ptr di, const string& name, const GUID guid, sge::win32_window_ptr window)
+sge::dinput::mouse::mouse(
+	dinput_ptr const di,
+	string const &name,
+	GUID const guid,
+	windows::window_ptr const window)
 : input_device(di,name,guid,window)
 {
 	set_data_format(&c_dfDIMouse2);
@@ -70,7 +73,7 @@ void sge::dinput::mouse::dispatch(input::system::signal_type& sig)
 BOOL sge::dinput::mouse::enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID s)
 {
 	mouse& m = *static_cast<mouse*>(s);
-  m.keys[ddoi->dwOfs] = input::key_type(win_str_to_sge(ddoi->tszName) + m.name(),create_mouse_code(ddoi->dwOfs));
+	m.keys[ddoi->dwOfs] = input::key_type(windows::win_str_to_sge(ddoi->tszName) + m.name(),create_mouse_code(ddoi->dwOfs));
 	return DIENUM_CONTINUE;
 }
 

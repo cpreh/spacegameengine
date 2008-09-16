@@ -80,7 +80,7 @@ void conversion_helper<Dest>::operator()(
 }
 
 #define SGE_INSTANTIATE_COLOR_CONVERT(x)\
-template x const sge::renderer::color_convert<x>(\
+template SGE_EXPORT_SYMBOL x const sge::renderer::color_convert<x>(\
 	sge::renderer::any_color const &);
 
 SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::rgba8_color)

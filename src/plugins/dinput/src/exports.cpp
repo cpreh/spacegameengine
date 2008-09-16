@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/export.hpp>
 #include <sge/text.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/win32_window.hpp>
+#include <sge/windows/window.hpp>
 
 extern "C"
 {
@@ -38,9 +38,10 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info* const p)
 	p->type = sge::plugin::capabilities::input;
 }
 
-SGE_EXPORT_SYMBOL sge::input::system* create_input_system(const sge::window_ptr w)
+SGE_EXPORT_SYMBOL sge::input::system* create_input_system(
+	sge::window_ptr const w)
 {
-	const sge::win32_window_ptr ww = sge::dynamic_pointer_cast<sge::win32_window>(w);
+	sge::windows::window_ptr const ww = sge::dynamic_pointer_cast<sge::windows::window>(w);
 	return new sge::dinput::input_system(ww);
 }
 

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "input_device.hpp"
 #include "di.hpp"
 #include <sge/input/system.hpp>
-#include <sge/win32_window.hpp>
+#include <sge/windows/window.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <map>
 
@@ -36,7 +36,7 @@ namespace dinput
 
 class input_system : public sge::input::system {
 public:
-	explicit input_system(win32_window_ptr w);
+	explicit input_system(windows::window_ptr w);
 	callback_connection register_callback(const callback& c);
 	callback_connection register_repeat_callback(const repeat_callback& c);
 	void dispatch();
@@ -56,7 +56,7 @@ private:
 	key_code_press_map key_codes_pressed;
 	device_array       devices;
 	dinput_ptr         di;
-	win32_window_ptr   wnd;
+	windows::window_ptr   wnd;
 	key_converter      key_conv;
 
 	static BOOL CALLBACK di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi, LPVOID s);

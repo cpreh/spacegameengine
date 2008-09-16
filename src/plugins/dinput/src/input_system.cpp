@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
 #include <sge/exception.hpp>
-#include <sge/win32_window.hpp>
-#include <sge/win32_conv.hpp>
+#include <sge/windows/window.hpp>
+#include <sge/windows/conv.hpp>
 
-sge::dinput::input_system::input_system(const win32_window_ptr wnd)
+sge::dinput::input_system::input_system(
+	windows::window_ptr const wnd)
  : wnd(wnd)
 {
 	direct_input* d;
@@ -66,7 +67,7 @@ BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi
 	input_system& sys = *static_cast<input_system*>(s);
 	const unsigned char dev_type = static_cast<unsigned char>(ddi->dwDevType & 0xFF);
 
-	const string product_name = win_str_to_sge(ddi->tszProductName);
+	const string product_name = windows::win_str_to_sge(ddi->tszProductName);
 
 	switch(dev_type) {
 	case DI8DEVTYPE_KEYBOARD:
