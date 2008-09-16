@@ -16,6 +16,7 @@
 #include <sge/log/headers.hpp>
 #include <sge/systems.hpp>
 #include <sge/init.hpp>
+#include <sge/iconv.hpp>
 #include <boost/program_options.hpp>
 #include <ostream>
 #include <exception>
@@ -32,15 +33,16 @@ try
 	namespace po = boost::program_options;
   po::options_description desc("allowed options");
 
-	sge::string file_name;
+	std::string file_name_prog_options;
 	bool revolving,streaming;
 	sge::space_unit speed;
 
+	// FIXME: can't we use wstring here too?
   desc.add_options()
       ("help",
         "produce help message")
       ("file",
-        po::value<sge::string>(&file_name),
+        po::value<std::string>(&file_name_prog_options),
         "sets the sound file name")
       ("revolving",
         po::value<bool>(&revolving)->default_value(true),
@@ -62,6 +64,7 @@ try
     return EXIT_SUCCESS;
   }
 
+  sge::string file_name(sge::iconv(file_name_prog_options));
 	if (file_name.empty())
 		file_name = sge::media_path().string()+SGE_TEXT("/ding.wav");
 
@@ -101,6 +104,6 @@ try
 	sge::cerr << SGE_TEXT("Exception caught: ") << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 } catch (const std::exception &e) {
-	sge::cerr << SGE_TEXT("Exception caught: ") << e.what() << SGE_TEXT('\n');
+	std::cerr << "Exception caught: " << e.what() << '\n';
 	return EXIT_FAILURE;
 }

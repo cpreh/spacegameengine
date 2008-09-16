@@ -8,7 +8,10 @@ ENDIF ()
 INSTALL (TARGETS sgetest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 ADD_EXECUTABLE (sgesoundtest soundtest.cpp)
-TARGET_LINK_LIBRARIES (sgesoundtest sgecore boost_program_options)
+TARGET_LINK_LIBRARIES (sgesoundtest sgecore)
+IF (NOT MSVC)
+	TARGET_LINK_LIBRARIES (sgesoundtest boost_program_options)
+ENDIF ()
 INSTALL (TARGETS sgesoundtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 ADD_EXECUTABLE (sgeanimtest animtest.cpp)
