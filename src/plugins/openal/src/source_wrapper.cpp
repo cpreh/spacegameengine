@@ -32,7 +32,7 @@ void sge::openal::source_wrapper::sync() const
 			status_ = audio::sound_status::playing;
 		break;
 		default:
-			throw audio::exception("OpenAL error: invalid playing status");
+			throw audio::exception(SGE_TEXT("OpenAL error: invalid playing status"));
 		break;
 	}
 }
@@ -89,7 +89,7 @@ void sge::openal::source_wrapper::stop()
 	status_ = audio::sound_status::stopped;
 }
 
-void sge::openal::source_wrapper::pos(math::vector3 const &n)
+void sge::openal::source_wrapper::pos(audio::sound_pos const &n)
 {
 	pos_ = n;
 

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/player/player.hpp>
 #include <sge/audio/player/sound.hpp>
+#include <sge/audio/player/types.hpp>
 
 #include <boost/ptr_container/ptr_list.hpp>
 
@@ -50,9 +51,9 @@ public:
 	ALuint register_nonstream_sound(audio::file_ptr);
 	void unregister_nonstream_sound(ALuint);
 
-	math::vector3 const listener_pos() const { return listener.get_pos(); }
+	audio::sound_pos const listener_pos() const { return listener.get_pos(); }
 	audio::sound_angle const listener_angle() const { return listener.get_angle(); }
-	void listener_pos(math::vector3 const &n) { return listener.set_pos(n); }
+	void listener_pos(audio::sound_pos const &n) { return listener.set_pos(n); }
 	void listener_angle(audio::sound_angle const &n) { return listener.set_angle(n); }
 		
 	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);

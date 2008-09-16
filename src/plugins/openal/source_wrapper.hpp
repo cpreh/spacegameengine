@@ -20,8 +20,8 @@ class source_wrapper : public audio::sound
 	void toggle_pause();
 	audio::sound_status::type status() const;
 	void stop();
-	math::vector3 const pos() const { return pos_; }
-	void pos(math::vector3 const &);
+	audio::sound_pos const pos() const { return pos_; }
+	void pos(audio::sound_pos const &);
 	bool positional() const { return positional_; }
 	void positional(bool);
 	audio::play_mode::type play_mode() const { return play_mode_; }
@@ -33,7 +33,7 @@ class source_wrapper : public audio::sound
 	audio::play_mode::type play_mode_;
 	mutable audio::sound_status::type status_;
 	bool positional_;
-	math::vector3 pos_;
+	audio::sound_pos pos_;
 };
 }
 }

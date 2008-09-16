@@ -8,7 +8,7 @@ sge::openal::listener_wrapper::listener_wrapper()
 	set_angle(angle_);
 }
 
-void sge::openal::listener_wrapper::set_pos(math::vector3 const &n)
+void sge::openal::listener_wrapper::set_pos(audio::sound_pos const &n)
 {
 	pos_ = n;
 	// OpenAL wants float
@@ -36,7 +36,7 @@ void sge::openal::listener_wrapper::set_angle(audio::sound_angle const &n)
 	alListenerfv(AL_POSITION, vec); SGE_OPENAL_ERROR_CHECK;
 }
 
-sge::math::vector3 const sge::openal::listener_wrapper::get_pos() const
+sge::audio::sound_pos const sge::openal::listener_wrapper::get_pos() const
 {
 	return pos_;
 }

@@ -18,23 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_SOUND_ANGLE_HPP_INCLUDED
-#define SGE_AUDIO_SOUND_ANGLE_HPP_INCLUDED
+#ifndef SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
+#define SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 
-#include "../../math/vector.hpp"
+#include "loader.hpp"
+#include "../../path.hpp"
+#include "../../plugin/manager.hpp"
+#include <boost/noncopyable.hpp>
+#include <vector>
 
 namespace sge
 {
 namespace audio
 {
-
-struct sound_angle
+class SGE_CLASS_SYMBOL multi_loader : boost::noncopyable 
 {
-	math::vector3 forward,
-	              up;
+public:
+	SGE_SYMBOL multi_loader(plugin::manager&);
+	SGE_SYMBOL file_ptr const load(path const&);
+private:
+	typedef std::vector<plugin::context<loader>::ptr_type> plugin_container;
+  typedef std::vector<loader_ptr> loader_container;
+
+	plugin_container plugins;
+	loader_container loaders;
 };
 
 }
 }
 
-#endif 
+#endif // AUDIO_HPP
