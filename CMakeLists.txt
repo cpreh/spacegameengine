@@ -13,11 +13,6 @@ CHECK_CXX_SOURCE_COMPILES(
 	SGE_HAVE_VARIADIC_TEMPLATES
 )
 
-CHECK_CXX_SOURCE_COMPILES(
-	"static_assert(sizeof(char) == 1, \"sizeof char is 1\"); int main(){}"
-	SGE_HAVE_STATIC_ASSERT
-)
-
 SET (CMAKE_REQUIRED_FLAGS "")
 
 CHECK_CXX_SOURCE_COMPILES(
@@ -25,6 +20,21 @@ CHECK_CXX_SOURCE_COMPILES(
 	 int main(){}"
 	 SGE_HAVE_X11
 )
+
+IF (${SGE_HAVE_X11})
+	CHECK_CXX_SOURCE_COMPILES(
+		"#include <X11/Xlib.h>
+		 #include <X11/extensions/xf86vmode.h>
+		 int main() {}"
+		SGE_HAVE_XF86_VIDMODE
+	)
+	CHECK_CXX_SOURCE_COMPILES(
+		"#include <X11/Xlib.h>
+		 #include <X11/extensions/xf86dga.h>
+		 int main() {}"
+		SGE_HAVE_XF86_DGA
+	)
+ENDIF ()
 
 CHECK_CXX_SOURCE_RUNS(
 	"#include <unistd.h>
@@ -122,6 +132,8 @@ INSTALL_HEADERS (sge/detail)
 INSTALL_HEADERS (sge/font)
 INSTALL_HEADERS (sge/image)
 INSTALL_HEADERS (sge/input)
+INSTALL_HEADERS (sge/log)
+INSTALL_HEADERS (sge/log/format)
 INSTALL_HEADERS (sge/math)
 INSTALL_HEADERS (sge/math/detail)
 INSTALL_HEADERS (sge/model)

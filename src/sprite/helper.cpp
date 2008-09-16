@@ -104,8 +104,9 @@ sge::sprite::fill_position_rotated(
 sge::renderer::vertex_iterator
 sge::sprite::fill_color(
 	renderer::vertex_iterator it,
-	const color col)
+	color const acol)
 {
+	renderer::rgba8_color const col(boost::get<renderer::rgba8_color>(acol)); // FIXME
 	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)
 		(*it++).diffuse() = col[3] << 24 | col[2] << 16 | col[1] << 8 | col[0] ; // FIXME
 	return it;

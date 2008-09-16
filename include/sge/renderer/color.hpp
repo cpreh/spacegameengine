@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_COLOR_HPP_INCLUDED
 
 #include "../typeswitch.hpp"
-#include "../export.hpp"
 
 #include <boost/gil/pixel.hpp>
 #include <boost/gil/rgba.hpp>
@@ -33,46 +32,33 @@ namespace sge
 namespace renderer
 {
 
-typedef uint8 pixel_channel_8;
-typedef float pixel_channel_f32;
+typedef uint8 color_channel_8;
+typedef float color_channel_f32;
 
 typedef boost::gil::pixel<
-	pixel_channel_8,
+	color_channel_8,
 	boost::gil::rgba_layout_t
-> rgba8_pixel;
-
-typedef rgba8_pixel const rgba8c_pixel;
+> rgba8_color;
 
 typedef boost::gil::pixel<
-	pixel_channel_8,
+	color_channel_8,
 	boost::gil::argb_layout_t
-> argb8_pixel;
-
-typedef argb8_pixel const argb8c_pixel;
+> argb8_color;
 
 typedef boost::gil::pixel<
-	pixel_channel_f32,
+	color_channel_8,
+	boost::gil::bgra_layout_t
+> bgra8_color;
+
+typedef boost::gil::pixel<
+	color_channel_f32,
 	boost::gil::rgba_layout_t
-> rgba_f32_pixel;
+> rgba_f32_color;
 
 typedef boost::gil::pixel<
 	uint8,
 	boost::gil::gray_layout_t
-> gray8_pixel;
-
-#ifdef SGE_USE_ARGB
-typedef argb8_pixel color;
-typedef argb_f32_pixel colorf;
-#else
-typedef rgba8_pixel color;
-typedef rgba_f32_pixel colorf;
-#endif
-
-SGE_SYMBOL color const make_color_rgba(
-	pixel_channel_8 r,
-	pixel_channel_8 g,
-	pixel_channel_8 b,
-	pixel_channel_8 a);
+> gray8_color;
 
 }
 }

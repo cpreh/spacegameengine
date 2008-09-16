@@ -1,112 +1,187 @@
 #include <sge/gui/widgets/container.hpp>
 #include <sge/gui/layouts/row.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/iostream.hpp>
 #include <boost/foreach.hpp>
+
+namespace
+{
+sge::gui::logger layoutlog(sge::gui::global_log(),SGE_TEXT("layouts"));
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("row"));
+
+template<typename T>
+bool bitfield_and(T const &a,T const &b)
+{
+	T const result = a & b;
+	BOOST_FOREACH(typename T::value_type const v,result)
+	{
+		if (v)
+			return true;
+	}
+	return false;
+}
+}
 
 sge::gui::layouts::row::row(widgets::container &w)
 	: layout(w)
 {
-	sge::cerr << "row: constructed row layout\n";
+}
+
+sge::gui::dim const sge::gui::layouts::row::size_hint() const
+{
+	dim hint;
+	BOOST_FOREACH(widget const &w,connected_widget().children())
+	{
+		hint[master()] += w.size_hint()[master()];
+		hint[slave()] = std::max(hint[slave()],w.size_hint()[slave()]);
+	}
+	return hint;
+}
+
+void sge::gui::layouts::row::reset_cache()
+{
+	SGE_LOG_DEBUG(mylogger,log::_1 << "resetting cache begin");
+	sizes.clear();
+	BOOST_FOREACH(widget &w,connected_widget().children())
+	{
+		SGE_LOG_DEBUG(mylogger,log::_1 << "size hint for this child is " << w.size_hint());
+		sizes.push_back(widget_map::value_type(&w,w.size_hint()));
+	}
+	SGE_LOG_DEBUG(mylogger,log::_1 << "resetting cache end");
+}
+
+void sge::gui::layouts::row::adapt(
+	dim const &optimal,
+	dim const &usable,
+	axis_policy::type const flag,
+	std::size_t const axis)
+{
+	unsigned const count = count_flags(flag,axis);
+
+	SGE_ASSERT_MESSAGE(count,SGE_TEXT("adapt called when there are no widgets to adapt"));
+
+	unit const diff = usable[axis] - optimal[axis];
+	unit const addition = static_cast<unit>(diff/count);
+
+	SGE_LOG_DEBUG(mylogger,
+		log::_1 << "adding " << diff << "/" << count << "=" << addition << " pixels to each widget");
+
+	BOOST_FOREACH(widget_map::value_type &p,sizes)
+		if (bitfield_and(p.first->size_policy().index(axis),flag))
+			p.second[axis] += addition;
+}
+
+void sge::gui::layouts::row::adapt_outer(
+	dim const &optimal,
+	dim const &usable,
+	std::size_t const axis)
+{
+	// optimal > size
+	// count widgets with shrink flag and distribute (optimal - size) among
+	// them. if there are no shrinkable widgets, issue an error
+	// optimal < size 
+	// count widgets with expand flag and distribute (size - optimal) among
+	// them. if there are no widgets with the expand flag, distribute space among
+	// widgets with grow flag.
+	
+	if (optimal[axis] > usable[axis])
+	{
+		SGE_ASSERT_MESSAGE(
+			count_flags(axis_policy::can_shrink,axis),
+			SGE_TEXT("not enough space to hold all widgets and no shrinkable widgets found"));
+
+		SGE_LOG_DEBUG(mylogger,log::_1 << "there is too less space, shrinking begin");
+		adapt(optimal,usable,axis_policy::can_shrink,axis);
+		SGE_LOG_DEBUG(mylogger,log::_1 << "shrinking end");
+	}
+	else
+	{
+		SGE_LOG_DEBUG(mylogger,log::_1 << "there is too much space, expanding begin");
+		unsigned count;
+		if (count = count_flags(axis_policy::should_grow,axis))
+		{
+			SGE_LOG_DEBUG(mylogger,
+				log::_1 << "there are " << count << " widgets which should grow, growing those");
+			adapt(optimal,usable,axis_policy::should_grow,axis);
+		}
+		else if (count = count_flags(axis_policy::can_grow,axis))
+		{
+			SGE_LOG_DEBUG(mylogger,
+				log::_1 << "there are " << count 
+				        << " widgets which can show grow, growing those");
+			adapt(optimal,usable,axis_policy::can_grow,axis);
+		}
+		else
+		{
+			SGE_LOG_DEBUG(mylogger,
+				log::_1 << "there are widgets no widgets which could grow :(");
+		}
+		SGE_LOG_DEBUG(mylogger,log::_1 << "expanding end");
+	}
+}
+
+void sge::gui::layouts::row::update_widgets(dim const &usable)
+{
+	SGE_LOG_DEBUG(mylogger,log::_1 << "update widgets begin");
+
+	// calculate "bounding line" of all widgets on the master axis
+	unit bounding = static_cast<unit>(0);
+	BOOST_FOREACH(widget_map::value_type &p,sizes)
+		bounding += p.second[master()];
+	
+	unit const extra_space = static_cast<unit>(usable[master()]-bounding);
+	unit const increment = static_cast<unit>(extra_space/(sizes.size()+1));
+	
+	SGE_LOG_DEBUG(mylogger,
+		log::_1 << "there are " << extra_space << " pixels extra space and " 
+		        << increment << " is the increment");
+
+	point pos;
+	pos[master()] = static_cast<unit>(connected_widget().pos()[master()]+increment);
+
+	BOOST_FOREACH(widget_map::value_type &p,sizes)
+	{
+		pos[slave()] = 
+			static_cast<unit>(
+				connected_widget().pos()[slave()]+usable[slave()]/2-p.second[slave()]/2);
+		
+		set_widget_size(*p.first,p.second);
+		set_widget_pos(*p.first,pos);
+		widget_compile(*p.first);
+
+		pos[master()] += p.second[master()]+increment;
+	}
+	SGE_LOG_DEBUG(mylogger,log::_1 << "update widgets end");
 }
 
 void sge::gui::layouts::row::update()
 {
-	sge::cerr << "row: updating\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "updating");
 
-	// if this widget has no children, just quit
-	if (!connected_widget().children().size())
-	{
-		sge::cerr << "row: widget has no children, returning\n";
-		return;
-	}
+	reset_cache();
+	dim const optimal = size_hint(),usable = connected_widget().size();
+	SGE_LOG_DEBUG(mylogger,
+		log::_1 << "optimal size " << optimal << ", usable size: " << usable);
 
-	sge::cerr << "row: minimum size for this widget is " << minimum_size() << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "adapting master axis begin");
+	adapt_outer(optimal,usable,master());
+	SGE_LOG_DEBUG(mylogger,log::_1 << "adapting master axis end");
+	SGE_LOG_DEBUG(mylogger,log::_1 << "adapting slave axis begin");
+	adapt_outer(optimal,usable,slave());
+	SGE_LOG_DEBUG(mylogger,log::_1 << "adapting slave axis end");
 
-	// now assume we have this widget's size fixed
-	dim const fixed_size = connected_widget().size();
-	// minimum size for all widgets
-	dim const minimum = size_hint();
-	// overhead space
-	dim const extra = fixed_size - minimum;
-
-	// get all non fixed widgets
-	unsigned non_fixed = static_cast<unsigned>(0);
-	BOOST_FOREACH(widget &child,connected_widget().children())
-		if (child.size_policy() != size_policy::fixed)
-			non_fixed++;
-
-	sge::cerr << "row: there are " << non_fixed << " non fixed children\n";
-	
-	// extra space per widget
-	unit const widget_space = 
-		static_cast<unit>(non_fixed ? extra[master(extra)]/non_fixed : 0);
-	
-	sge::cerr << "row: ... so we have " << 
-		widget_space << " pixels extra space to spare\n";
-
-	unit master_pos = connected_widget().pos()[master(connected_widget().pos())];
-	unit const slave_pos = connected_widget().pos()[slave(connected_widget().pos())];
-
-	// loop through widgets and update according to space
-	sge::cerr << "row: updating children\n";
-	BOOST_FOREACH(widget &child,connected_widget().children())
-	{
-		// if size is fixed, just use w.size()
-		if (child.size_policy() == size_policy::fixed)
-		{
-			sge::cerr << "row: child is fixed size\n";
-
-			point new_pos;
-			new_pos[master(new_pos)] = master_pos;
-			new_pos[slave(new_pos)] = 
-				static_cast<unit>(
-					slave_pos+
-					connected_widget().size()[slave(connected_widget().size())]/2-
-					child.size()[slave(child.size())]/2);
-			child.set_pos_raw(new_pos);
-			sge::cerr << "row: new position is " << new_pos << "\n";
-			master_pos += child.size()[master(child.size())];
-		}
-		else
-		{
-			sge::cerr << "row: child is dynamic size\n";
-
-			dim const this_min_size = child.size_hint();
-			// else use minimum size plus extra space and keep height
-			dim new_size;
-			new_size[master(new_size)] = this_min_size[master(this_min_size)]+widget_space;
-			new_size[slave(new_size)] = fixed_size[slave(fixed_size)];
-
-			point new_pos;
-			new_pos[master(new_pos)] = master_pos;
-			new_pos[slave(new_pos)] = static_cast<unit>(
-				slave_pos+
-				connected_widget().size()[slave(connected_widget().size())]/2-
-				new_size[slave(new_size)]/2);
-			sge::cerr << "row: new size is " << new_size << "\n";
-			child.set_pos_raw(new_pos);
-			child.size(new_size);
-			master_pos += new_size[master(new_size)];
-		}
-	}
+	// finally, set positions and sizes
+	update_widgets(usable);
 }
 
-sge::gui::dim const sge::gui::layouts::row::minimum_size() const
+unsigned sge::gui::layouts::row::count_flags(
+	axis_policy::type const flags,
+	std::size_t const axis) const
 {
-	sge::cerr << "row: in minimum_size\n";
-
-	dim minimum;
-
-	BOOST_FOREACH(widget const &child,connected_widget().children())
-	{
-		dim const child_size = child.minimum_size();
-		sge::cerr << "row: this child's size minimum is " << child_size << "\n";
-		minimum[master(minimum)] += child_size[master(child_size)];
-		minimum[slave(minimum)] = 
-			std::max(
-				minimum[slave(minimum)],
-				child_size[slave(child_size)]);
-	}
-
-	return minimum;
+	unsigned count = static_cast<unsigned>(0);
+	BOOST_FOREACH(widget const &w,connected_widget().children())
+		//if (bitfield_and(w.size_policy().index(axis),flags))
+		if (w.size_policy().index(axis) & flags)
+			++count;
+	return count;
 }

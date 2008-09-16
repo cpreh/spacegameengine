@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light.hpp>
 
 sge::renderer::light::light(
-	const colorf& ambient,
-	const colorf& diffuse,
-	const colorf& specular,
-	const position_type& pos,
-	const direction_type& dir,
-	const attenuation_type const_attenuation,
-	const attenuation_type linear_attenuation,
-	const attenuation_type quadratic_attenuation,
-	const space_unit       distribution_exponent,
-	const space_unit       cutoff_angle)
+	any_color const &ambient,
+	any_color const &diffuse,
+	any_color const &specular,
+	position_type const &pos,
+	direction_type const &dir,
+	attenuation_type const const_attenuation,
+	attenuation_type const linear_attenuation,
+	attenuation_type const quadratic_attenuation,
+	space_unit const distribution_exponent,
+	space_unit const cutoff_angle)
 : ambient(ambient),
   diffuse(diffuse),
   specular(specular),

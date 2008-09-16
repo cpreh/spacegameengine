@@ -5,5 +5,4 @@
 sge::gui::layouts::horizontal::horizontal(widgets::container &w)
 	: row(w)
 {
-	sge::cerr << "horizontal: constructed horizontal layout\n";
 }

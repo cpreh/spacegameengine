@@ -20,81 +20,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../attribute_variable.hpp"
 #include "../attribute_variable_functions.hpp"
-#include "../init.hpp"
-#include <sge/once.hpp>
-
-namespace
-{
-
-PFNGLVERTEXATTRIB1FPROC vertex_attrib_1f;
-PFNGLVERTEXATTRIB2FVPROC vertex_attrib_2fv;
-PFNGLVERTEXATTRIB3FVPROC vertex_attrib_3fv;
-PFNGLVERTEXATTRIB4FVPROC vertex_attrib_4fv;
-
-void initialize_attribute_variable();
-
-}
+#include "../attribute_setter.hpp"
+#include "../../error.hpp"
+#include <boost/variant/apply_visitor.hpp>
 
 template<bool Native>
 sge::ogl::glsl::attribute_variable<Native>::attribute_variable(
-	const handle program,
-	const std::string& name)
-: ref(get_attrib_location<Native>(program, name.c_str()))
+	handle const program,
+	renderer::glsl::string const &name)
+:
+	location(
+		get_attrib_location<Native>(
+			program,
+			name.c_str())),
+	stored_type(
+		attribute_type::nothing)
 {}
 
 template<bool Native>
-void sge::ogl::glsl::attribute_variable<Native>::set(const space_unit f)
+sge::renderer::glsl::attribute_value const
+sge::ogl::glsl::attribute_variable<Native>::get() const
 {
-	vertex_attrib_1f(location(), f);	
 }
 
 template<bool Native>
-void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector2& v)
+void sge::ogl::glsl::attribute_variable<Native>::set(
+	renderer::glsl::attribute_value const &v)
 {
-	vertex_attrib_2fv(location(), v.data());
-}
-
-template<bool Native>
-void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector3& v)
-{
-	vertex_attrib_3fv(location(), v.data());
-}
-
-template<bool Native>
-void sge::ogl::glsl::attribute_variable<Native>::set(const math::vector4& v)
-{
-	vertex_attrib_4fv(location(), v.data());
-}
-
-template<bool Native>
-GLint sge::ogl::glsl::attribute_variable<Native>::location() const
-{
-	return ref;
+	SGE_OPENGL_SENTRY
+	stored_type = boost::apply_visitor(
+		attribute_setter(
+			location),
+		v);
 }
 
 template class sge::ogl::glsl::attribute_variable<true>;
 template class sge::ogl::glsl::attribute_variable<false>;
-
-namespace
-{
-
-void initialize_attribute_varaible()
-{
-	SGE_FUNCTION_ONCE
-	if(sge::ogl::glsl::is_native())
-	{
-		vertex_attrib_1f = glVertexAttrib1f;
-		vertex_attrib_2fv = glVertexAttrib2fv;
-		vertex_attrib_3fv = glVertexAttrib3fv;
-		vertex_attrib_4fv = glVertexAttrib4fv;
-	}
-	else
-	{
-		vertex_attrib_1f = glVertexAttrib1fARB;
-		vertex_attrib_2fv = glVertexAttrib2fvARB;
-		vertex_attrib_3fv = glVertexAttrib3fvARB;
-		vertex_attrib_4fv = glVertexAttrib4fvARB;
-	}
-}
-
-}

@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include "pointer.hpp"
-#include "x_color.hpp"
-#include "x_pixmap.hpp"
-#include "x_cursor.hpp"
-#ifdef USE_DGA
-#include "dga.hpp"
+#include <sge/config.h>
+#ifdef SGE_USE_DGA
+#include <sge/x11/dga.hpp>
 #endif
+#include <sge/x11/color.hpp>
+#include <sge/x11/pixmap.hpp>
+#include <sge/x11/cursor.hpp>
+#include <sge/x11/window.hpp>
 #include <sge/input/system.hpp>
-#include <sge/x_window.hpp>
 #include <sge/math/vector.hpp>
 #include <sge/scoped_connection.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -42,7 +43,8 @@ namespace xinput
 
 class system : public input::system {
 public:
-	system(x_window_ptr wnd);
+	explicit system(
+		x11::window_ptr wnd);
 	~system();
 	callback_connection register_callback(const callback& c);
 	callback_connection register_repeat_callback(const repeat_callback& c);
@@ -70,13 +72,13 @@ private:
 	input::key_code get_key_code(KeySym ks) const;
 	input::key_type::string get_key_name(KeySym ks) const;
 
-	x_window_ptr wnd;
+	x11::window_ptr wnd;
 	Colormap colormap;
 
-	x_color black_;
-	x_pixmap no_bmp_;
-	x_cursor no_cursor_;
-#ifdef USE_DGA
+	x11::color  black_;
+	x11::pixmap no_bmp_;
+	x11::cursor no_cursor_;
+#ifdef SGE_USE_DGA
 	dga_guard dga_guard_;
 #endif
 	bool use_dga;

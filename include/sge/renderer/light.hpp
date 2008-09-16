@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LIGHT_HPP_INCLUDED
 #define SGE_RENDERER_LIGHT_HPP_INCLUDED
 
-#include "color.hpp"
+#include "any_color.hpp"
 #include "../math/vector.hpp"
 #include "../export.hpp"
 
@@ -37,18 +37,18 @@ public:
 	typedef space_unit attenuation_type;
 
 	SGE_SYMBOL light(
-		const colorf& ambient,
-		const colorf& diffuse,
-		const colorf& specular,
-		const position_type& pos,
-		const direction_type& dir,
+		any_color const &ambient,
+		any_color const &diffuse,
+		any_color const &specular,
+		position_type const &pos,
+		direction_type const &dir,
 		attenuation_type const_attenuation,
 		attenuation_type linear_attenuation,
 		attenuation_type quadratic_attenuation,
 		space_unit       distribution_exponent,
 		space_unit       cutoff_angle);
 
-	colorf           ambient,
+	any_color        ambient,
 	                 diffuse,
 	                 specular;
 	position_type    pos;

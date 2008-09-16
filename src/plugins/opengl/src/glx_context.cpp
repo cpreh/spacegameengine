@@ -24,9 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::glx_context::glx_context(const x_display_ptr dsp, const XVisualInfo& vi)
-: dsp(dsp),
-  c(glXCreateContext(dsp->get(), const_cast<XVisualInfo*>(&vi), NULL, True))
+sge::ogl::glx_context::glx_context(
+	x11::display_ptr const dsp,
+	XVisualInfo const &vi)
+:
+	dsp(dsp),
+	c(
+		glXCreateContext(
+			dsp->get(),
+			const_cast<XVisualInfo*>(&vi),
+			NULL,
+			True))
 {
 	if(c == 0)
 		throw exception(SGE_TEXT("glXCreateContext() failed!"));
@@ -34,7 +42,9 @@ sge::ogl::glx_context::glx_context(const x_display_ptr dsp, const XVisualInfo& v
 
 sge::ogl::glx_context::~glx_context()
 {
-	glXDestroyContext(dsp->get(), context());
+	glXDestroyContext(
+		dsp->get(),
+		context());
 }
 
 GLXContext& sge::ogl::glx_context::context()

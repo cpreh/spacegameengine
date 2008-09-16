@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows.hpp>
 #include <sge/win32_window.hpp>
 #elif defined(SGE_HAVE_X11)
-#include <sge/x_window.hpp>
+#include <sge/x11/window.hpp>
 #include <boost/bind.hpp>
 #else
 #error "Implement me!"
@@ -62,12 +62,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <boost/variant/apply_visitor.hpp>
+#include <sstream>
 
 // TODO: maybe support different adapters?
 sge::ogl::device::device(
-	const renderer::parameters& param,
-	const renderer::adapter_type adapter,
-	const window_ptr wnd_param)
+	renderer::parameters const &param,
+	renderer::adapter_type const adapter,
+	window_ptr const wnd_param)
  : param(param),
    caps_(
    	adapter,
@@ -76,10 +77,9 @@ sge::ogl::device::device(
 	2048, //get_int(GL_MAX_TEXTURE_SIZE), //FIXME
 	//get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
    0),
-   state_levels(*this),
    current_states(renderer::default_states())
 #if defined(SGE_HAVE_X11)
-   , dsp(new x_display())
+   , dsp(new x11::display())
 #endif
 {
 	if(adapter > 0)
@@ -87,7 +87,7 @@ sge::ogl::device::device(
 
 	bool windowed = param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
-  const unsigned color_depth = renderer::bit_depth_bit_count(param.mode.depth);
+	const unsigned color_depth = renderer::bit_depth_bit_count(param.mode.depth);
 	if(!windowed)
 	{
 		DEVMODE settings;
@@ -148,7 +148,7 @@ sge::ogl::device::device(
 
 	if(!windowed)
 	{
-		modes.reset(new xf86_vidmode_array(dsp, screen));
+		modes.reset(new x11::xf86_vidmode_array(dsp, screen));
 		resolution = modes->switch_to_mode(param.mode);
 		if(!resolution)
 		{
@@ -162,20 +162,20 @@ sge::ogl::device::device(
 
 	context.reset(new glx_context(dsp, visual->visual_info()));
 
-	colormap.reset(new x_colormap(dsp, visual->visual_info()));
+	colormap.reset(new x11::colormap(dsp, visual->visual_info()));
 
 	XSetWindowAttributes swa;
-	swa.colormap = colormap->colormap();
+	swa.colormap = colormap->get();
 	swa.border_pixel = 0;
 	swa.background_pixel = 0;
 	swa.override_redirect = windowed ? False : True;
 	swa.event_mask = StructureNotifyMask;
 
 	if(wnd_param)
-		wnd = polymorphic_pointer_cast<x_window>(wnd_param);
+		wnd = polymorphic_pointer_cast<x11::window>(wnd_param);
 	else
 		wnd.reset(
-			new x_window(
+			new x11::window(
 				window::window_pos(0,0),
 				window::window_size(param.mode.width(), param.mode.height()),
 				string(),
@@ -207,8 +207,6 @@ sge::ogl::device::device(
 	initialize_vbo();
 	initialize_pbo();
 
-	// FIXME:
-	//set_target(renderer::default_target);
 	set_state(renderer::default_states());
 }
 
@@ -507,14 +505,16 @@ void sge::ogl::device::center_viewport(const int w, const int h)
 }
 #endif
 
-void sge::ogl::device::transform(const math::space_matrix& matrix)
+void sge::ogl::device::transform(
+	math::space_matrix const &matrix)
 {
 	set_matrix(
 		GL_MODELVIEW,
 		matrix);
 }
 
-void sge::ogl::device::projection(const math::space_matrix& matrix)
+void sge::ogl::device::projection(
+	math::space_matrix const &matrix)
 {
 	set_matrix(
 		GL_PROJECTION,
@@ -540,9 +540,8 @@ void sge::ogl::device::set_render_target(
 					target::dim_type::value_type>(
 						screen_size())));
 		render_target_->bind_me();
-		const window::window_pos offset = wnd->viewport_offset();
+		window::window_pos const offset = wnd->viewport_offset();
 		set_viewport(
-			// TODO: better ctor for viewport
 			renderer::viewport(
 				offset,
 				wnd->size()));
@@ -596,16 +595,16 @@ void sge::ogl::device::enable_light(
 }
 
 void sge::ogl::device::set_light(
-	const renderer::light_index index,
-	const renderer::light& l)
+	renderer::light_index const index,
+	renderer::light const &l)
 {
-	const GLenum glindex = convert_light_index(index);
+	GLenum const glindex = convert_light_index(index);
 
-	set_light_colorf(glindex, GL_AMBIENT, l.ambient);
-	set_light_colorf(glindex, GL_DIFFUSE, l.diffuse);
-	set_light_colorf(glindex, GL_SPECULAR, l.specular);
+	set_light_color(glindex, GL_AMBIENT, l.ambient);
+	set_light_color(glindex, GL_DIFFUSE, l.diffuse);
+	set_light_color(glindex, GL_SPECULAR, l.specular);
 
-	const math::vector4 pos(l.pos, static_cast<math::vector4::value_type>(1));
+	math::vector4 const pos(l.pos, static_cast<math::vector4::value_type>(1));
 	set_light_pos(glindex, pos);
 
 	set_light_dir(glindex, l.dir);
@@ -637,17 +636,38 @@ void sge::ogl::device::set_texture_stage_arg(
 
 void sge::ogl::device::pop_level()
 {
+	set_state(state_levels.top());
 	state_levels.pop();
 }
 
-const sge::renderer::glsl::program_ptr
+sge::renderer::glsl::program_ptr const
 sge::ogl::device::create_glsl_program(
-	const std::string& vs_source,
-	const std::string& ps_source)
+	renderer::glsl::string const &vs_source,
+	renderer::glsl::string const &ps_source)
 {
 	return glsl::create_program_impl(
 		vs_source,
 		ps_source);
+}
+
+sge::renderer::glsl::program_ptr const
+sge::ogl::device::create_glsl_program(
+	renderer::glsl::istream &vs_source,
+	renderer::glsl::istream &ps_source)
+{
+	// unfortunately opengl can't read out of files directly
+	typedef std::basic_ostringstream<
+		renderer::glsl::char_type
+	> osstream;
+
+	osstream vs_stream,
+	         ps_stream;
+	vs_stream << vs_source.rdbuf();
+	ps_stream << ps_source.rdbuf();
+
+	return create_glsl_program(
+		vs_stream.str(),
+		ps_stream.str());
 }
 
 void sge::ogl::device::set_glsl_program(

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include <X11/X.h>
-#ifdef USE_DGA
+#ifdef SGE_USE_DGA
 #include <X11/extensions/xf86dga.h>
 #endif
 #include "../system.hpp"
@@ -36,23 +36,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstring>
 #include <ostream>
 
-sge::xinput::system::system(const x_window_ptr wnd)
- : wnd(wnd),
-   colormap(XDefaultColormap(wnd->display()->get(), wnd->screen())),
-   black_(wnd->display(), colormap),
-   no_bmp_(wnd->display(), wnd->get_window()),
-   no_cursor_(wnd->display(), no_bmp_.pixmap(), black_.color()),
+sge::xinput::system::system(
+	x11::window_ptr const wnd)
+ :
+	wnd(wnd),
+	colormap(
+		XDefaultColormap(
+			wnd->display()->get(),
+			wnd->screen())),
+	black_(
+		wnd->display(),
+		colormap,
+		SGE_TEXT("black")),
+	no_bmp_(
+		wnd->display(),
+		wnd->get_window()),
+	no_cursor_(
+		wnd->display(),
+		no_bmp_.get(),
+		black_.get()),
 #ifdef USE_DGA
-   dga_guard_(wnd->display(), wnd->screen()),
-   use_dga(true)
+	dga_guard_(
+		wnd->display(),
+		wnd->screen()),
+	use_dga(true)
 #else
-   use_dga(false)
+	use_dga(false)
 #endif
 {
 #ifdef USE_DGA
 	int flags;
 	if(XF86DGAQueryDirectVideo(wnd->display()->get(),wnd->screen(),&flags)==false)
 		throw exception(SGE_TEXT("XF86DGAQueryDirectVideo() failed!"));
+
 	if(flags & XF86DGADirectMouse)
 	{
 		sge::cerr << SGE_TEXT("You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system! Maybe you are missing libXxf86dga or a proper video driver? Disabling dga.\n");
@@ -131,7 +147,7 @@ void sge::xinput::system::grab_pointer()
 				GrabModeAsync,
 				GrabModeAsync,
 				wnd->get_window(),
-				no_cursor_.cursor(),
+				no_cursor_.get(),
 				CurrentTime)))
 			return;
 }
@@ -240,12 +256,12 @@ void sge::xinput::system::on_acquire(const XEvent&)
 }
 
 void sge::xinput::system::enable_dga(const bool
-#ifdef USE_DGA
+#ifdef SGE_USE_DGA
 		enable
 #endif
 )
 {
-#ifdef USE_DGA
+#ifdef SGE_USE_DGA
 	if(!use_dga)
 		return;
 	_dga_guard.enable(enable);

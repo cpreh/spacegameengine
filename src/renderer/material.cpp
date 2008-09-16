@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material.hpp>
 
 sge::renderer::material::material(
-	const color diffuse,
-	const color ambient,
-	const color specular,
-	const color emissive,
-	const space_unit power)
+	any_color const &diffuse,
+	any_color const &ambient,
+	any_color const &specular,
+	any_color const &emissive,
+	space_unit const power)
  : diffuse(diffuse),
    ambient(ambient),
    specular(specular),

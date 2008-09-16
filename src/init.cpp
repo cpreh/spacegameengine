@@ -139,3 +139,14 @@ sge::init::image_loader::image_loader(systems &sys)
 sge::init::image_loader::operator bool() const {
 	return sys.image_loader;
 }
+
+sge::init::audio_player::audio_player(systems &sys)
+: sys(sys) {
+	if (!sys.audio_player_plugin)
+		sys.audio_player_plugin = sys.plugin_manager.get_plugin<sge::audio::player>().load();
+	sys.audio_player.reset(sys.audio_player_plugin->get()());
+}
+
+sge::init::audio_player::operator bool() const {
+	return sys.audio_player;
+}

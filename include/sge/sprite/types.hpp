@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_TYPES_HPP_INCLUDED
 
 #include "../su.hpp"
-#include "../renderer/color.hpp"
+#include "../renderer/any_color.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
@@ -36,15 +36,16 @@ typedef int                         unit;
 typedef math::basic_vector<unit, 2> point;
 typedef math::basic_dim<unit, 2>    dim;
 typedef math::basic_rect<unit>      rect;
-typedef renderer::color             color;
+typedef renderer::any_color         color;
 typedef space_unit                  depth_type;
 typedef space_unit                  rotation_type;
 typedef space_unit                  repetition_type;
 
 namespace detail
 {
-	const unsigned indices_per_sprite = 6,
-	               vertices_per_sprite = 4;
+
+unsigned const indices_per_sprite = 6,
+               vertices_per_sprite = 4;
 }
 
 }

@@ -95,6 +95,13 @@ struct font {
 	SGE_SYMBOL operator bool() const;
 };
 
+struct audio_player {
+	systems &sys;
+
+	SGE_SYMBOL audio_player(systems &sys);
+	SGE_SYMBOL operator bool() const;
+};
+
 }
 }
 

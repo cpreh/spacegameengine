@@ -1,5 +1,6 @@
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widget.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/gui/widgets/container.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/events/mouse_enter.hpp>
@@ -24,6 +25,11 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
+
+namespace
+{
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"));
+}
 
 sge::gui::manager::widget_data::widget_data(
 	widget &w,
@@ -63,10 +69,12 @@ sge::gui::manager::manager(
 			texture::part_ptr(
 				new texture::part_raw(
 					rend->create_texture(
-					il->load_image(SGE_TEXT("cursor.png"))->view(),
+					il->load_image(media_path()/SGE_TEXT("mainskin/cursor_pressed.png"))->view(),
 					renderer::linear_filter,
 					renderer::resource_flags::readable))),
-			sprite::texture_dim),
+			sprite::texture_dim,
+			sprite::defaults::color_,
+			static_cast<sge::sprite::depth_type>(0)),
 		// top left
 		cursor_click(),
 		keyboard_focus(0),
@@ -76,14 +84,14 @@ sge::gui::manager::manager(
 
 void sge::gui::manager::reposition(widget &w,point const &d)
 {
-	sge::cerr << "manager: repositioning sprite\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "repositioning sprite to " << d);
 	// just reset sprite position
 	get_data(w).spr.pos() = math::structure_cast<sprite::unit>(d);
 }
 
 void sge::gui::manager::resize(widget &w,dim const &d)
 {
-	sge::cerr << "manager: resizing widget from " << w.size() << " to " << d << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "resizing widget from " << w.size() << " to " << d);
 
 	// TODO: if the widget is shrunk, you could fill the extra space with
 	// transparent pixels so you don't have to create a whole new texture. if it
@@ -109,10 +117,12 @@ void sge::gui::manager::resize(widget &w,dim const &d)
 	wd.spr = sprite::object(
 				sprite::point(math::structure_cast<sprite::unit>(w.pos())),
 				texture::part_ptr(new texture::part_raw(hardware_texture)),
-				sprite::dim(math::structure_cast<sprite::unit>(d))
+				sprite::dim(math::structure_cast<sprite::unit>(d)),
+				sprite::defaults::color_,
+				static_cast<sprite::depth_type>(1)
 			);
 	
-	//sge::cerr << "manager: resized widget, now locking it and let it draw itself\n";
+	//SGE_LOG_DEBUG(mylogger,log::_1 << "resized widget, now locking it and let it draw itself");
 	invalidate(rect(w.pos(),d));
 }
 
@@ -151,19 +161,19 @@ void sge::gui::manager::add(widget &w)
 
 void sge::gui::manager::recalculate_mouse_focus()
 {
-	cerr << "manager: in top level recalculate_mouse_focus\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "in top level recalculate_mouse_focus");
 
 	point const click_point = math::structure_cast<unit>(cursor.pos()+cursor_click);
 
 	if (mouse_focus)
 	{
-		cerr << "manager: a widget currently has the focus, so letting it recalculate\n";
+		SGE_LOG_DEBUG(mylogger,log::_1 << "a widget currently has the focus, so letting it recalculate");
 		mouse_focus = mouse_focus->recalculate_focus(click_point);
 	}
 	
 	if (!mouse_focus)
 	{
-		cerr << "manager: no widget currently has the focus, so letting it recalculate\n";
+		SGE_LOG_DEBUG(mylogger,log::_1 << "no widget currently has the focus, so letting it recalculate");
 		BOOST_FOREACH(widget_data &wd,widgets_)
 		{
 			if (math::contains(wd.spr.get_rect(),click_point))
@@ -175,7 +185,7 @@ void sge::gui::manager::recalculate_mouse_focus()
 		}
 	}
 
-	cerr << "manager: finished recalculating focus\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "finished recalculating focus");
 }
 
 void sge::gui::manager::compile(widget &w)
@@ -194,23 +204,24 @@ void sge::gui::manager::redraw_dirt()
 {
 	// calculate bounding rect of all dirt rects
 	rect const bound = sge::math::bounding<unit>(dirt_.begin(),dirt_.end());
-	sge::cerr << "manager: bounding rect of all dirty regions is " << bound << "\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "bounding rect of all dirty regions is " << bound << "");
 	dirt_.clear();
 	
-	sge::cerr << "manager: invalidate called for rect "
-	          << bound << ", checking intersections\n";
+	SGE_LOG_DEBUG(mylogger,
+		log::_1 << "invalidate called for rect " << bound << ", checking intersections");
 	// if rects intersect, pass event on to top level widgets
 	BOOST_FOREACH(widget_data &wd,widgets_)
 	{
 		if (math::intersects(wd.ptr->absolute_area(),bound))
 		{
-			sge::cerr << "manager: got an intersection with area " << wd.ptr->absolute_area() << "\n";
+			SGE_LOG_DEBUG(mylogger,
+				log::_1 << "got an intersection with area " << wd.ptr->absolute_area());
 
 			// if it intersects, lock the whole intersection
 			rect const widget_area  = wd.ptr->absolute_area();
 			rect const is = math::intersection(widget_area,bound);
 
-			sge::cerr << "manager: intersection is " << is;
+			SGE_LOG_DEBUG(mylogger,log::_1 << "intersection is " << is);
 
 			// we have to convert the global intersection rect to a local one so we
 			// can lock the texture
@@ -220,7 +231,7 @@ void sge::gui::manager::redraw_dirt()
 				is.right()-widget_area.left(),
 				is.bottom()-widget_area.top());
 
-			sge::cerr << " - locking " << is_local << " and sending invalid_area event\n";
+			SGE_LOG_DEBUG(mylogger,log::_1 << "locking " << is_local << " and sending invalid_area event");
 
 			renderer::scoped_texture_lock lock_(
 				renderer::make_scoped_lock(
@@ -236,10 +247,10 @@ void sge::gui::manager::redraw_dirt()
 						wd.ptr->absolute_area(),
 						is)));
 
-			sge::cerr << "manager: invalid_area sent, now unlocking\n";
+			SGE_LOG_DEBUG(mylogger,log::_1 << "invalid_area sent, now unlocking");
 		}
 	}
-	sge::cerr << "manager: checking intersections completed\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << "checking intersections completed");
 }
 
 void sge::gui::manager::draw()
@@ -286,7 +297,7 @@ void sge::gui::manager::input_callback(input::key_pair const &k)
 {
 	if (input::is_mouse_axis(k.key().code()))
 	{
-		cerr << "manager: mouse move " << key_to_mouse_coords(k) << "\n";
+		SGE_LOG_DEBUG(mylogger,log::_1 << "mouse move " << key_to_mouse_coords(k));
 		cursor.pos() += key_to_mouse_coords(k);
 		recalculate_mouse_focus();
 		return;

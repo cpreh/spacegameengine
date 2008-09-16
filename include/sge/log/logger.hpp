@@ -41,13 +41,16 @@ class logger : boost::noncopyable {
 public:
 	SGE_SYMBOL logger(
 		ostream &sink,
-		format::const_formatter_ptr formatter);
+		format::const_formatter_ptr formatter,
+		bool active = true);
 	SGE_SYMBOL logger(
 		ostream &sink,
-		string const &prefix);
+		string const &prefix,
+		bool active = true);
 	SGE_SYMBOL logger(
 		logger &parent,
-		string const &prefix);
+		string const &prefix,
+		bool active = true);
 	SGE_SYMBOL void log(
 		level::type,
 		temporary_output const &);
@@ -59,9 +62,9 @@ public:
 		level::type);
 	SGE_SYMBOL void deactivate(
 		level::type);
-	SGE_SYMBOL void activate_hierarchie(
+	SGE_SYMBOL void activate_hierarchy(
 		level::type);
-	SGE_SYMBOL void deactivate_hierarchie(
+	SGE_SYMBOL void deactivate_hierarchy(
 		level::type);
 	SGE_SYMBOL bool enabled(
 		level::type) const;
@@ -75,7 +78,7 @@ private:
 	void inherit_levels(
 		logger &parent,
 		level::type);
-	void set_hierarchie(
+	void set_hierarchy(
 		level::type,
 		void (logger::*)(level::type));
 
@@ -87,6 +90,7 @@ private:
 	> level_vector;
 
 	level_vector                level_streams;
+	bool                        active;
 };
 
 }

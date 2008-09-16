@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../init.hpp"
 #include "../../common.hpp"
 
-const sge::renderer::glsl::program_ptr
+sge::renderer::glsl::program_ptr const
 sge::ogl::glsl::create_program_impl(
-	const std::string& vs_source,
-	const std::string& ps_source)
+	renderer::glsl::string const &vs_source,
+	renderer::glsl::string const &ps_source)
 {
 	return is_native()
 		? renderer::glsl::program_ptr(
@@ -37,7 +37,7 @@ sge::ogl::glsl::create_program_impl(
 }
 
 void sge::ogl::glsl::set_program_impl(
-	const renderer::glsl::program_ptr prog)
+	renderer::glsl::program_ptr const prog)
 {
 	if(is_native())
 		program<true>::use(prog);

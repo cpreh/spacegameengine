@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_BITFIELD_HPP_INCLUDED
 #define SGE_BITFIELD_HPP_INCLUDED
 
+#include "safe_bool.hpp"
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/array.hpp>
 #include <iterator>
@@ -41,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-template<typename Enum, Enum Size, typename InternalType = unsigned> class bitfield {
+template<typename Enum, Enum Size, typename InternalType = unsigned>
+class bitfield : public safe_bool<> {
 public:
 	typedef std::size_t size_type;
 	typedef std::ptrdiff_t difference_type;
@@ -71,6 +73,8 @@ private:
 	};
 
 	typedef proxy_impl<array_type&> proxy;
+
+	bool boolean_test() const;
 public:
 	typedef proxy reference;
 	typedef value_type const_reference;

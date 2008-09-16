@@ -91,7 +91,7 @@ sge::renderer::state_list::get() const
 template struct sge::renderer::state_var<int>;
 template struct sge::renderer::state_var<float>;
 template struct sge::renderer::state_var<bool>;
-template struct sge::renderer::state_var<sge::renderer::color>;
+template struct sge::renderer::state_var<sge::renderer::any_color>;
 
 template struct sge::renderer::state_var<sge::renderer::state_cull_mode_type::type>;
 template struct sge::renderer::state_var<sge::renderer::state_depth_func_type::type>;

@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<bool Native>
 sge::ogl::glsl::program<Native>::program(
-	std::string const &vs_source,
-	std::string const &ps_source)
+	renderer::glsl::string const &vs_source,
+	renderer::glsl::string const &ps_source)
 : id_(create_program<Native>())
 {
 	attach_shader(
@@ -83,7 +83,7 @@ void sge::ogl::glsl::program<Native>::link()
 			throw exception(SGE_TEXT("GLSL link info too big!"));
 		errorlog[len] = '\0';
 		throw exception(
-			string(SGE_TEXT("Linking a program failed!"))
+			string(SGE_TEXT("Linking a program failed!\n"))
 			+ iconv(errorlog.data()));
 	}
 }
@@ -108,16 +108,18 @@ void sge::ogl::glsl::program<Native>::use(
 }
 
 template<bool Native>
-const sge::renderer::glsl::uniform_variable_ptr
-sge::ogl::glsl::program<Native>::uniform(const std::string& name)
+sge::renderer::glsl::uniform_variable_ptr const
+sge::ogl::glsl::program<Native>::uniform(
+	renderer::glsl::string const &name)
 {
 	return renderer::glsl::uniform_variable_ptr(
 		new uniform_variable<Native>(id(), name));
 }
 
 template<bool Native>
-const sge::renderer::glsl::attribute_variable_ptr
-sge::ogl::glsl::program<Native>::attribute(const std::string& name)
+sge::renderer::glsl::attribute_variable_ptr const
+sge::ogl::glsl::program<Native>::attribute(
+	renderer::glsl::string const &name)
 {
 	return renderer::glsl::attribute_variable_ptr(
 		new attribute_variable<Native>(id(), name));

@@ -78,15 +78,17 @@ try
 	testfield |= foo;
 	*testfield.begin() = true;
 
-	sge::log::logger &log(sge::log::global());
+	//sge::log::logger &log(sge::log::global());
 
-	log.activate(sge::log::level::debug);
+	//log.activate(sge::log::level::debug);
 
-	sge::log::logger inner_logger(log, SGE_TEXT("inner: "));
+	sge::log::logger inner_logger(sge::log::global(), SGE_TEXT("inner: "));
 
 	inner_logger.activate(sge::log::level::warning);
 
-	SGE_LOG_DEBUG(log, sge::log::_1 << SGE_TEXT("HAHA"));
+	//sge::cout << inner_logger.formatter()->format(SGE_TEXT("BLAH"));
+
+	//SGE_LOG_DEBUG(log, sge::log::_1 << SGE_TEXT("HAHA"));
 
 	SGE_LOG_WARNING(inner_logger, sge::log::_1 << SGE_TEXT("blubb"));
 
@@ -162,7 +164,7 @@ try
 			sge::renderer::subimage_view(
 				lock_.value(),
 				sge::renderer::lock_rect(0, 0, 50, 50)),
-			sge::renderer::make_color_rgba(255, 0, 0, 255));
+			sge::renderer::rgba8_color(255, 0, 0, 255));
 
 
 		image_loader->create_image(

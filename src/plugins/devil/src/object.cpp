@@ -90,7 +90,7 @@ void sge::devil::object::data(
 		boost::gil::interleaved_view(
 			src.width(),
 			src.height(),
-			reinterpret_cast<renderer::rgba8_pixel*>(v.data()),
+			reinterpret_cast<renderer::rgba8_color*>(v.data()),
 			src.width() * 4));
 
 	ilTexImage(
@@ -112,7 +112,7 @@ sge::devil::object::view() const
 		boost::gil::interleaved_view(
 			dim().w(),
 			dim().h(),
-			reinterpret_cast<renderer::rgba8_pixel const *>(
+			reinterpret_cast<renderer::rgba8_color const *>(
 				ilGetData()),
 			dim().w() * 4 // FIXME
 			));

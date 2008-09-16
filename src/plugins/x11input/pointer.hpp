@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_XINPUT_POINTER_HPP_INCLUDED
 
 #include <sge/math/vector.hpp>
-#include <sge/x_display.hpp>
-#include <sge/x_window.hpp>
+#include <sge/x11/display.hpp>
+#include <sge/x11/window.hpp>
 
 namespace sge
 {
@@ -31,9 +31,16 @@ namespace xinput
 {
 
 typedef int mouse_coordinate_t;
-typedef math::basic_vector<mouse_coordinate_t,2> mouse_pos;
 
-mouse_pos get_mouse_pos(x_display_ptr, x_window_ptr);
+typedef math::basic_vector<
+	mouse_coordinate_t,
+	2
+> mouse_pos;
+
+mouse_pos const
+get_mouse_pos(
+	x11::display_ptr,
+	x11::window_ptr);
 
 }
 }

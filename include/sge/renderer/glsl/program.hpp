@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../shared_ptr.hpp"
 #include "uniform_variable.hpp"
 #include "attribute_variable.hpp"
-#include <string>
+#include "string.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -33,10 +34,15 @@ namespace renderer
 namespace glsl
 {
 
-class program {
+class program : boost::noncopyable {
 public:
-	virtual const uniform_variable_ptr uniform(const std::string&) = 0;
-	virtual const attribute_variable_ptr attribute(const std::string&) = 0;
+	virtual uniform_variable_ptr
+	const uniform(
+		string const &) = 0;
+
+	virtual attribute_variable_ptr const
+	attribute(
+		string const &) = 0;
 	virtual ~program() {}
 };
 

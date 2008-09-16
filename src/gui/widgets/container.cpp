@@ -2,6 +2,7 @@
 #include <sge/gui/manager.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/events/mouse_enter.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
@@ -10,29 +11,28 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/foreach.hpp>
 
+namespace
+{
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("container"));
+}
+
 sge::gui::widgets::container::container(
-	parent_data parent,
-	point const &p,
-	dim const &d)
+	parent_data parent)
 	: widget(
 			parent,
-			size_policy(
-				axis_policy::preferred,
-				axis_policy::preferred),
-			p,
-			d)
+			size_policy_t(
+				axis_policy::type(axis_policy::can_grow) | axis_policy::can_shrink,
+				axis_policy::type(axis_policy::can_grow) | axis_policy::can_shrink))
 {
 }
 
 void sge::gui::widgets::container::add_child(widget &w)
 {
-	sge::cerr << "container: adding child\n";
 	children_.push_back(&w);
 }
 
 void sge::gui::widgets::container::remove_child(widget &w)
 {
-	sge::cerr << "container: removing child\n";
 	children_.erase_if(&boost::lambda::_1 == boost::lambda::constant(&w));
 }
 
@@ -41,21 +41,18 @@ sge::gui::dim const sge::gui::widgets::container::size_hint() const
 	SGE_ASSERT_MESSAGE(
 		layout(),
 		SGE_TEXT("container doesn't have a layout, yet tried to call size_hint"));
-
-	return size();
-}
-
-// TODO: this just brute force resizes the widget, even if it's in the middle of
-// a layout hierarchy. we could implement a
-// parent_widget().layout()->size_hint(n); here
-void sge::gui::widgets::container::do_size(dim const &n)
-{
-	SGE_ASSERT_MESSAGE(
-		layout(),
-		SGE_TEXT("container doesn't have a layout, yet tried to call do_size"));
-
-	dim const m = minimum_size();
-	set_size_raw(dim(std::max(n.w(),m.w()),std::max(n.h(),m.h())));
+	
+	// FIXME: make size_hint axis based (independent axes)
+	if (size_hint_ != dim())
+	{
+		SGE_LOG_DEBUG(mylogger,
+			log::_1 << SGE_TEXT("size hint manually set to ") << size_hint_);
+		return size_hint_;
+	}
+	SGE_LOG_DEBUG(mylogger,
+		log::_1 << SGE_TEXT("size hint calculated automatically to ") 
+						<< layout()->size_hint());
+	return layout()->size_hint();
 }
 
 void sge::gui::widgets::container::process(events::invalid_area const &e)
@@ -72,7 +69,7 @@ void sge::gui::widgets::container::process(events::invalid_area const &e)
 
 void sge::gui::widgets::container::do_compile()
 {
-	sge::cerr << "container: in do_compile\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("in do_compile"));
 	SGE_ASSERT_MESSAGE(
 		layout(),
 		SGE_TEXT("container doesn't have a layout yet, tried to call do_compile"));
@@ -102,21 +99,12 @@ sge::gui::widget *sge::gui::widgets::container::do_recalculate_focus(point const
 	{
 		if (math::contains(child.absolute_area(),p))
 		{
-			cerr << "container: a child has the focus, sending enter\n";
+			SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("a child has the focus, sending enter"));
 			child.process(events::mouse_enter(p));
 			return child.do_recalculate_focus(p);
 		}
 	}
 	
-	cerr << "container: no child has the focus, doing nothing\n";
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("no child has the focus, doing nothing"));
 	return this;
-}
-
-sge::gui::dim const sge::gui::widgets::container::minimum_size() const
-{
-	SGE_ASSERT_MESSAGE(
-		layout(),
-		SGE_TEXT("container doesn't have a layout, yet tried to call minimum_size"));
-	
-	return layout()->minimum_size();
 }

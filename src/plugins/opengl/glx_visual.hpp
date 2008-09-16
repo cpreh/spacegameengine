@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xutil.h>
 #include <sge/shared_ptr.hpp>
-#include <sge/x_display.hpp>
-#include <sge/x_deleter.hpp>
+#include <sge/x11/display.hpp>
+#include <sge/x11/deleter.hpp>
 
 namespace sge
 {
@@ -33,10 +33,17 @@ namespace ogl
 
 class glx_visual {
 public:
-	glx_visual(x_display_ptr, int screen, const int* attributes);
-	const XVisualInfo& visual_info() const;
+	glx_visual(
+		x11::display_ptr,
+		int screen,
+		int const *attributes);
+	XVisualInfo const &visual_info() const;
 private:
-	typedef shared_ptr<XVisualInfo, x_deleter> x_visualinfo_ptr;
+	typedef shared_ptr<
+		XVisualInfo,
+		x11::deleter
+	> x_visualinfo_ptr;
+
 	x_visualinfo_ptr vi;
 };
 

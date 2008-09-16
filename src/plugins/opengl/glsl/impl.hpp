@@ -32,9 +32,10 @@ namespace ogl
 namespace glsl
 {
 
-const sge::renderer::glsl::program_ptr create_program_impl(
-	const std::string& vs_source,
-	const std::string& ps_source);
+sge::renderer::glsl::program_ptr const
+create_program_impl(
+	renderer::glsl::string const &vs_source,
+	renderer::glsl::string const &ps_source);
 
 void set_program_impl(
 	sge::renderer::glsl::program_ptr);

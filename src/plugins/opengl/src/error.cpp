@@ -24,24 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
-#include <sge/iostream.hpp>
 #include <exception>
-#include <ostream>
 
-bool sge::ogl::is_error()
-{
-	const GLenum error = glGetError();
-	if(error != GL_NO_ERROR)
-		sge::cerr << SGE_TEXT("OpenGL errorcode: ") << error << SGE_TEXT('\n');
-	return error != GL_NO_ERROR;
-}
-
-sge::ogl::sentry::sentry(const std::string& function_name,
-                         const std::string& file_name,
-                         const int line)
-: function_name(function_name),
-  file_name(file_name),
-  line(line)
+sge::ogl::sentry::sentry(
+	std::string const &file_name,
+	int const line)
+:
+	file_name(file_name),
+	line(line)
 {}
 
 sge::ogl::sentry::~sentry()
@@ -49,11 +39,11 @@ sge::ogl::sentry::~sentry()
 	if(std::uncaught_exception())
 		return;
 
-	const GLenum error = glGetError();
+	GLenum const error = glGetError();
 	if(error != GL_NO_ERROR)
 		throw exception(
 			((format(
-				SGE_TEXT("opengl failed in the following function \"%1%\" in file \"%2%\", line %3%. The error code was %4%."))
-				% iconv(function_name) % iconv(file_name) % line % error)
+				SGE_TEXT("opengl failed in file \"%1%\", line %2%. The error code was %3%."))
+				% iconv(file_name) % line % error)
 				.str()));
 }

@@ -49,8 +49,10 @@ try
 	
 	sge::gui::manager m(sys.renderer,sys.image_loader,sys.input_system,sys.font_system);
 
-	sge::gui::widgets::container top(sge::gui::widget::parent_data(m),sge::gui::point(10,10),sge::gui::dim(300,300));
+	sge::gui::widgets::container top((sge::gui::widget::parent_data(m)));
 	top.layout<sge::gui::layouts::horizontal>();
+	top.pos(sge::gui::point(10,10));
+	top.size_hint(sge::gui::dim(400,300));
 
 	sge::gui::widgets::container left((sge::gui::widget::parent_data(top)));
 	left.layout<sge::gui::layouts::vertical>();
@@ -62,7 +64,6 @@ try
 		sge::gui::widget::parent_data(left),
 		SGE_TEXT("(left top) me!"));
 	
-		
 	sge::gui::widgets::button left_bottom(
 		sge::gui::widget::parent_data(left),
 		SGE_TEXT("(left bottom) me!"));
@@ -74,16 +75,9 @@ try
 	sge::gui::widgets::button right_bottom(
 		sge::gui::widget::parent_data(right),
 		SGE_TEXT("(right bottom) me!"));
-
-	assert(top.layout());
-	assert(right.layout());
-	assert(left.layout());
 	
 	// compile the stuff!
 	top.compile();
-	//top.compile();
-
-	//top.size(sge::gui::dim(500,500));
 	
 	bool running = true;
 	end_program p(running);

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../export.hpp"
 #include "../../math/vector.hpp"
 #include "../loader/file.hpp"
-#include "sound_angle.hpp"
+#include "types.hpp"
 #include "sound.hpp"
 
 namespace sge
@@ -37,15 +37,17 @@ namespace audio
 {
 
 struct SGE_CLASS_SYMBOL player : boost::noncopyable {
-	virtual math::vector3 listener_pos() const = 0;
-	virtual void listener_pos(const math::vector3 &) = 0;
-	virtual const sound_angle listener_angle() const = 0;
-	virtual void listener_angle(const sound_angle &) = 0;
+	virtual sound_pos const listener_pos() const = 0;
+	virtual void listener_pos(sound_pos const &) = 0;
+	virtual sound_angle const listener_angle() const = 0;
+	virtual void listener_angle(sound_angle const &) = 0;
 	virtual const sound_ptr create_nonstream_sound(file_ptr) = 0;
 	virtual const sound_ptr create_stream_sound(file_ptr) = 0;
 	virtual void update() = 0;
 	SGE_SYMBOL virtual ~player();
 };
+
+typedef shared_ptr<player> player_ptr;
 
 }
 

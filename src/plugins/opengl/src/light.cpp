@@ -20,43 +20,73 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../light.hpp"
 #include "../error.hpp"
+#include <sge/renderer/raw_color.hpp>
+#include <sge/renderer/color_convert.hpp>
 
 namespace
 {
 
-void set_light_float_ptr(const GLenum index, const GLenum name, const GLfloat* const data)
-{
-	SGE_OPENGL_SENTRY
-	
-	glLightfv(index, name, data);
-}
+void set_light_float_ptr(
+	GLenum index,
+	GLenum name,
+	GLfloat const *data);
 
 }
 
-void sge::ogl::set_light_colorf(const GLenum index, const GLenum name, const renderer::colorf& color)
-{
-	// FIXME:
-	//set_light_float_ptr(index, name, reinterpret_cast<const GLfloat*>(&color));
-}
-
-void sge::ogl::set_light_pos(const GLenum index, const math::vector4& pos)
+void sge::ogl::set_light_pos(
+	GLenum const index,
+	math::vector4 const &pos)
 {
 	set_light_float_ptr(index, GL_POSITION, pos.data());
 }
 
-void sge::ogl::set_light_dir(const GLenum index, const math::vector3& dir)
+void sge::ogl::set_light_dir(
+	GLenum const index,
+	math::vector3 const &dir)
 {
 	set_light_float_ptr(index, GL_SPOT_DIRECTION, dir.data());
 }
 
-void sge::ogl::set_light_float(const GLenum index, const GLenum name, const GLfloat value)
+void sge::ogl::set_light_float(
+	GLenum const index,
+	GLenum const name,
+	GLfloat const value)
 {
 	SGE_OPENGL_SENTRY
 	
 	glLightf(index, name, value);
 }
 
-GLenum sge::ogl::convert_light_index(const renderer::light_index index)
+GLenum sge::ogl::convert_light_index(
+	renderer::light_index const index)
 {
 	return GL_LIGHT0 + index;
+}
+
+void sge::ogl::set_light_color(
+	GLenum const index,
+	GLenum const name,
+	renderer::any_color const &color)
+{
+	set_light_float_ptr(
+		index,
+		name,
+		renderer::raw_color(
+			renderer::color_convert<renderer::rgba_f32_color>(
+				color)).data());
+}
+
+namespace
+{
+
+void set_light_float_ptr(
+	GLenum const index,
+	GLenum const name,
+	GLfloat const *const data)
+{
+	SGE_OPENGL_SENTRY
+	
+	glLightfv(index, name, data);
+}
+
 }

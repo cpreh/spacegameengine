@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RENDERER_HPP_INCLUDED
-#define SGE_OPENGL_RENDERER_HPP_INCLUDED
+#ifndef SGE_OPENGL_DEVICE_HPP_INCLUDED
+#define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include <sge/config.h>
 #include "target.hpp"
 #include "fbo_target.hpp"
-#include "state_stack.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include "wgl_context.hpp"
 #include "wgl_current.hpp"
@@ -34,13 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif defined(SGE_HAVE_X11)
 #include <X11/Xlib.h>
 #include <GL/glx.h>
-#include "xf86vidmode.hpp"
-#include "xf86_resolution.hpp"
 #include "glx_visual.hpp"
 #include "glx_current.hpp"
 #include "glx_context.hpp"
-#include "x_colormap.hpp"
-#include <sge/x_window.hpp>
+#include <sge/x11/colormap.hpp>
+#include <sge/x11/xf86_vidmode_array.hpp>
+#include <sge/x11/xf86_resolution.hpp>
+#include <sge/x11/window.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -52,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include <boost/scoped_ptr.hpp>
 #include <boost/signals/trackable.hpp>
+#include <stack>
 
 namespace sge
 {
@@ -110,14 +110,21 @@ public:
 		renderer::texture_stage_arg::type,
 		renderer::texture_stage_arg_value::type);
 
-	const renderer::glsl::program_ptr create_glsl_program(
-		const std::string& vertex_shader_source,
-		const std::string& pixel_shader_source);
-	void set_glsl_program(renderer::glsl::program_ptr);
+	renderer::glsl::program_ptr const
+	create_glsl_program(
+		renderer::glsl::string const &vertex_shader_source,
+		renderer::glsl::string const &pixel_shader_source);
+	renderer::glsl::program_ptr const
+	create_glsl_program(
+		renderer::glsl::istream &vertex_shader_source,
+		renderer::glsl::istream &pixel_shader_source);
+	
+	void set_glsl_program(
+		renderer::glsl::program_ptr);
 
 	renderer::const_target_ptr const get_target() const;
 
-	const renderer::texture_ptr
+	renderer::texture_ptr const
 	create_texture(
 		renderer::texture::dim_type const &,
 		renderer::color_format::type,
@@ -149,9 +156,9 @@ public:
 		renderer::index_buffer::size_type sz,
 		renderer::index_buffer::resource_flag_type flags);
 
-	const renderer::caps& get_caps() const;
-	const renderer::screen_size_t screen_size() const;
-	const window_ptr get_window() const;
+	renderer::caps const &get_caps() const;
+	renderer::screen_size_t const screen_size() const;
+	window_ptr const get_window() const;
 
 	void set_stencil_func();
 	void set_blend_func();
@@ -169,7 +176,6 @@ private:
 
 	renderer::parameters          param;
 	renderer::caps                caps_;
-	state_stack                   state_levels;
 	renderer::state_list          current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
 	win32_window_ptr               wnd;
@@ -181,18 +187,23 @@ private:
 	void reset_viewport_on_configure(const XEvent&);
 	void center_viewport(int w, int h);
 
-	x_display_ptr                         dsp;
+	x11::display_ptr                      dsp;
 	scoped_connection                     map_callback;
 	boost::scoped_ptr<glx_visual>         visual;
 	glx_context_ptr                       context;
-	boost::scoped_ptr<x_colormap>         colormap;
-	x_window_ptr                          wnd;
+	boost::scoped_ptr<x11::colormap>      colormap;
+	x11::window_ptr                       wnd;
 	boost::scoped_ptr<glx_current>        current;
-	boost::scoped_ptr<xf86_vidmode_array> modes;
-	xf86_resolution_ptr                   resolution;
+	boost::scoped_ptr<
+		x11::xf86_vidmode_array>      modes;
+	x11::xf86_resolution_ptr              resolution;
 	scoped_connection_manager             con_manager;
 #endif
 	target_ptr                            render_target_;
+	typedef std::stack<
+		renderer::state_list
+	> stack_type;
+	stack_type                            state_levels;
 };
 
 }

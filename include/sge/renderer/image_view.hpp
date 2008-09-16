@@ -31,11 +31,15 @@ namespace sge
 namespace renderer
 {
 
+typedef boost::gil::rgba8_view_t rgba8_view;
+typedef boost::gil::argb8_view_t argb8_view;
+typedef boost::gil::bgra8_view_t bgra8_view;
+
 typedef boost::gil::any_image_view<
 	boost::mpl::vector<
-		boost::gil::rgba8_view_t,
-		boost::gil::argb8_view_t,
-		boost::gil::bgra8_view_t
+		rgba8_view,
+		argb8_view,
+		bgra8_view
 	>
 > image_view;
 

@@ -27,19 +27,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cmath>
 #include <limits>
 
-const sge::sprite::dim sge::sprite::texture_dim(
+sge::sprite::dim const sge::sprite::texture_dim(
 	std::numeric_limits<unit>::max(),
 	std::numeric_limits<unit>::max());
 
-const sge::texture::part_ptr sge::sprite::no_texture;
+sge::texture::part_ptr const sge::sprite::no_texture;
 
-const sge::sprite::point sge::sprite::defaults::pos_(0,0);
-const sge::texture::part_ptr sge::sprite::defaults::texture_(no_texture);
-const sge::sprite::dim sge::sprite::defaults::dim_(0,0);
-const sge::sprite::color sge::sprite::defaults::color_(255, 255, 255, 255); // FIXME: we cant use global colors::white here :/
-const sge::sprite::depth_type sge::sprite::defaults::depth_(0);
-const sge::sprite::rotation_type sge::sprite::defaults::rotation_(0);
-const bool sge::sprite::defaults::visible_(true);
+sge::sprite::point const sge::sprite::defaults::pos_(0,0);
+sge::texture::part_ptr const sge::sprite::defaults::texture_(no_texture);
+sge::sprite::dim const sge::sprite::defaults::dim_(0,0);
+sge::sprite::color const sge::sprite::defaults::color_(sge::renderer::colors::white());
+sge::sprite::depth_type const sge::sprite::defaults::depth_(0);
+sge::sprite::rotation_type const sge::sprite::defaults::rotation_(0);
+bool const sge::sprite::defaults::visible_(true);
 
 sge::sprite::object::object(
 	const boost::optional<point> pos_,
@@ -200,7 +200,7 @@ sge::sprite::repetition_type sge::sprite::object::repeat() const
 	return repeat_;
 }
 
-sge::renderer::color sge::sprite::object::get_color() const
+sge::sprite::color sge::sprite::object::get_color() const
 {
 	return color_;
 }

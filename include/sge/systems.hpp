@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "image/loader.hpp"
 
+#include "audio/player/player.hpp"
+
 #include "export.hpp"
 
 namespace sge {
@@ -51,6 +53,9 @@ struct systems {
 
 	plugin::plugin<image::loader>::ptr_type    image_loader_plugin;
 	image::loader_ptr                          image_loader;
+
+	plugin::plugin<audio::player>::ptr_type    audio_player_plugin;
+	audio::player_ptr                          audio_player;
 
 	plugin::plugin<font::system>::ptr_type     font_plugin;
 	font::system_ptr                           font_system;

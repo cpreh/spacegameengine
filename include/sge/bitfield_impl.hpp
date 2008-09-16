@@ -405,4 +405,13 @@ bool sge::bitfield<Enum, Size, InternalType>::operator!=(
 	return !((*this)==r);
 }
 
+template<typename Enum, Enum Size, typename InternalType>
+bool sge::bitfield<Enum, Size, InternalType>::boolean_test() const
+{
+	for (const_iterator i = begin(); i != end(); ++i)
+		if (*i)
+			return true;
+	return false;
+}
+
 #endif

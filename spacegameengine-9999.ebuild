@@ -12,7 +12,7 @@ EGIT_REPO_URI="git://git.tuxfamily.org/gitroot/sge/spacegameengine.git"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="devil dga openal opengl test truetype vorbis wave xinput"
+IUSE="devil dga openal opengl test truetype vorbis wave x11input"
 
 DEPEND="${RDEPEND}
         dev-util/cmake
@@ -26,7 +26,7 @@ RDEPEND=">=dev-libs/boost-1.35
              media-libs/glew
              x11-libs/libXxf86vm )
          truetype? ( media-libs/freetype )
-         xinput? ( dga? ( x11-libs/libXxf86dga ) )
+         x11input? ( dga? ( x11-libs/libXxf86dga ) )
          vorbis? ( media-libs/libvorbis )"
 
 src_unpack() {
@@ -45,7 +45,7 @@ src_compile() {
 	use truetype && myconf="${myconf} -D ENABLE_FREETYPE:=1"
 	use vorbis && myconf="${myconf} -D ENABLE_VORBIS:=1"
 	use wave && myconf="${myconf} -D ENABLE_WAVE:=1"
-	use xinput && myconf="${myconf} -D ENABLE_XINPUT:=1"
+	use x11input && myconf="${myconf} -D ENABLE_X11INPUT:=1"
 
 	cmake ${myconf} \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \

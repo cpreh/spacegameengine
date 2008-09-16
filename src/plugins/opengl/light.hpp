@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_LIGHT_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/color.hpp>
+#include <sge/renderer/any_color.hpp>
 #include <sge/renderer/light.hpp>
 
 namespace sge
@@ -30,12 +30,26 @@ namespace sge
 namespace ogl
 {
 
-void set_light_colorf(GLenum index, GLenum name, const renderer::colorf& color);
-void set_light_pos(GLenum index, const math::vector4&);
-void set_light_dir(GLenum index, const math::vector3&);
-void set_light_float(GLenum index, GLenum name, GLfloat value);
+void set_light_pos(
+	GLenum index,
+	math::vector4 const &);
 
-GLenum convert_light_index(renderer::light_index);
+void set_light_dir(
+	GLenum index,
+	math::vector3 const &);
+
+void set_light_float(
+	GLenum index,
+	GLenum name,
+	GLfloat value);
+
+void set_light_color(
+	GLenum index,
+	GLenum name,
+	renderer::any_color const &color);
+
+GLenum convert_light_index(
+	renderer::light_index);
 
 }
 }

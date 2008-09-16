@@ -34,14 +34,14 @@ namespace
 struct converter {
 	void operator()(
 		sge::font::color const src,
-		sge::renderer::rgba8_pixel &dest) const;
+		sge::renderer::rgba8_color &dest) const;
 };
 
 }
 
 sge::font::drawer_3d::drawer_3d(
-	const renderer::device_ptr rend,
-	const renderer::color col)
+	renderer::device_ptr const rend,
+	renderer::any_color const &col)
 : rend(rend),
   col(col),
   texman(
@@ -97,7 +97,8 @@ void sge::font::drawer_3d::end_rendering()
 	sys.render(sprites.begin(), sprites.end());
 }
 
-void sge::font::drawer_3d::set_color(const renderer::color new_color)
+void sge::font::drawer_3d::set_color(
+	renderer::any_color const &new_color)
 {
 	col = new_color;
 }
@@ -107,9 +108,9 @@ namespace
 
 void converter::operator()(
 	sge::font::color const src,
-	sge::renderer::rgba8_pixel &dest) const
+	sge::renderer::rgba8_color &dest) const
 {
-	dest = sge::renderer::rgba8_pixel(
+	dest = sge::renderer::rgba8_color(
 		src,
 		src,
 		src,

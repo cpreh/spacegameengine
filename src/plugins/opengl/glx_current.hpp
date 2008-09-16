@@ -22,23 +22,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 
 #include "glx_context.hpp"
-#include <sge/x_display.hpp>
+#include <sge/x11/display.hpp>
 
 namespace sge
 {
+namespace x11
+{
 
-class x_window;
+class window;
+
+}
 
 namespace ogl
 {
 
 class glx_current : boost::noncopyable {
 public:
-	glx_current(x_display_ptr, const x_window&, glx_context_ptr);
+	glx_current(
+		x11::display_ptr,
+		x11::window const &,
+		glx_context_ptr);
 	~glx_current();
 private:
-	const x_display_ptr dsp;
-	const glx_context_ptr context;
+	x11::display_ptr const dsp;
+	glx_context_ptr const context;
 };
 
 

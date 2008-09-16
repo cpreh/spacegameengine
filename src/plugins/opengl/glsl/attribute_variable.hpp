@@ -22,11 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
 
 #include "traits.hpp"
+#include "attribute_type.hpp"
 #include "../common.hpp"
-#include <sge/math/vector.hpp>
-#include <sge/math/matrix.hpp>
 #include <sge/renderer/glsl/attribute_variable.hpp>
-#include <string>
+#include <sge/renderer/glsl/string.hpp>
 
 namespace sge
 {
@@ -42,15 +41,14 @@ public:
 
 	attribute_variable(
 		handle program,
-		const std::string& name);
+		renderer::glsl::string const &name);
 	
-	void set(space_unit);
-	void set(const math::vector2&);
-	void set(const math::vector3&);
-	void set(const math::vector4&);
+	renderer::glsl::attribute_value const get() const;
+	void set(
+		renderer::glsl::attribute_value const &);
 private:
-	GLint location() const;
-	handle ref;
+	GLint const          location;
+	attribute_type::type stored_type;
 };
 
 }
