@@ -25,8 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-
+namespace windows
+{
 class gdi_device;
+}
 
 namespace ogl
 {
@@ -35,7 +37,9 @@ class wgl_context;
 
 class wgl_current : boost::noncopyable {
 public:
-	wgl_current(const gdi_device&, const wgl_context&);
+	wgl_current(
+		windows::gdi_device const &,
+		wgl_context const &);
 	~wgl_current();
 };
 

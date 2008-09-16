@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_WINDOWS_PLATFORM)
 #include "wgl_context.hpp"
 #include "wgl_current.hpp"
-#include <sge/gdi_device.hpp>
-#include <sge/win32_window.hpp>
-#include <sge/windows.hpp>
+#include <sge/windows/gdi_device.hpp>
+#include <sge/windows/window.hpp>
+#include <sge/windows/windows.hpp>
 #elif defined(SGE_HAVE_X11)
 #include <X11/Xlib.h>
 #include <GL/glx.h>
@@ -178,8 +178,8 @@ private:
 	renderer::caps                caps_;
 	renderer::state_list          current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
-	win32_window_ptr               wnd;
-	boost::scoped_ptr<gdi_device>  hdc;
+	windows::window_ptr               wnd;
+	boost::scoped_ptr<windows::gdi_device>  hdc;
 	boost::scoped_ptr<wgl_context> context;
 	boost::scoped_ptr<wgl_current> current;
 #elif defined(SGE_HAVE_X11)

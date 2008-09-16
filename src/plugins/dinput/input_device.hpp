@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_INPUT_DEVICE_HPP_INCLUDED
 
 #include "di.hpp"
-#include <sge/win32_window.hpp>
+#include <sge/windows/window.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/system.hpp>
 #include <cstddef>
@@ -37,7 +37,7 @@ public:
   virtual void dispatch(input::system::signal_type&) = 0;
 	virtual ~input_device(){}
 protected:
-	input_device(dinput_ptr di, const string& name, GUID Guid, sge::win32_window_ptr window);
+	input_device(dinput_ptr di, const string& name, GUID Guid, windows::window_ptr window);
 	void acquire();
 	void unacquire();
 	void poll();

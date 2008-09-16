@@ -32,13 +32,13 @@ namespace sge
 namespace windows
 {
 
-typedef std::basic_string<TCHAR> win_string;
-typedef std::basic_stringstream<TCHAR> win_stringstream;
-typedef std::basic_ostringstream<TCHAR> win_ostringstream;
-typedef std::basic_istringstream<TCHAR> win_istringstream;
+typedef std::basic_string<TCHAR> string;
+typedef std::basic_stringstream<TCHAR> stringstream;
+typedef std::basic_ostringstream<TCHAR> ostringstream;
+typedef std::basic_istringstream<TCHAR> istringstream;
 
-SGE_SYMBOL win_string sge_str_to_win(string const &);
-SGE_SYMBOL string win_str_to_sge(win_string const &);
+SGE_SYMBOL string const sge_str_to_win(sge::string const &);
+SGE_SYMBOL sge::string const win_str_to_sge(string const &);
 
 }
 }

@@ -24,9 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../wgl_context.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/gdi_device.hpp>
+#include <sge/windows/gdi_device.hpp>
 
-sge::ogl::wgl_current::wgl_current(const gdi_device& dev, const wgl_context& ctx)
+sge::ogl::wgl_current::wgl_current(
+	windows::gdi_device const &dev,
+	wgl_context const &ctx)
 {
 	if(wglMakeCurrent(dev.hdc(), ctx.hglrc()) == FALSE)
 		throw exception(SGE_TEXT("wglMakeCurrent() failed!"));

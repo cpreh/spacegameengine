@@ -41,6 +41,9 @@ template<bool Native>
 sge::renderer::glsl::attribute_value const
 sge::ogl::glsl::attribute_variable<Native>::get() const
 {
+	// FIXME
+	throw exception(
+		SGE_TEXT("unimplemented!"));
 }
 
 template<bool Native>

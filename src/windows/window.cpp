@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/exception.hpp>
-#include <sge/windows::window.hpp>
-#include <sge/win32_conv.hpp>
+#include <sge/windows/window.hpp>
+#include <sge/windows/conv.hpp>
+#include <boost/array.hpp>
 
 namespace
 {
@@ -81,7 +82,7 @@ sge::windows::window::window(
 		throw exception(SGE_TEXT("CreateWindow() failed!"));
 }
 
-sge::windows::window::~windows::window()
+sge::windows::window::~window()
 {
 	DestroyWindow(handle);
 }
@@ -132,9 +133,12 @@ sge::windows::window::viewport_offset() const
 sge::string const
 sge::windows::window::title() const
 {
-	// FIXME
-	//if(GetWindowText(
-	//return _title;
+	// TODO: read the length first!
+	boost::array<TCHAR, 1024> buffer;
+	if(GetWindowText(hwnd(), buffer.c_array(), buffer.size()) == 0)
+		throw exception(
+			SGE_TEXT("GetWindowText() failed!"));
+	return string(buffer.data());
 }
 
 HWND sge::windows::window::hwnd() const

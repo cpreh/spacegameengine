@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../wgl_context.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/gdi_device.hpp>
+#include <sge/windows/gdi_device.hpp>
 
-sge::ogl::wgl_context::wgl_context(const gdi_device& dc)
+sge::ogl::wgl_context::wgl_context(
+	windows::gdi_device const &dc)
 : glrc(wglCreateContext(dc.hdc()))
 {
 	if(!hglrc())

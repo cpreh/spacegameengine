@@ -32,11 +32,9 @@ namespace renderer
 
 typedef boost::array<color_channel_f32, 4> raw_color_f32;
 
-// TODO: add enable_if here
-template<typename T>
 SGE_SYMBOL raw_color_f32 const
 raw_color(
-	T const &);
+	rgba_f32_color const &);
 
 }
 }

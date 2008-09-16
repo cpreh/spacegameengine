@@ -7,14 +7,17 @@ sge::audio::multi_loader::multi_loader(plugin::manager &pm)
 	for (plugin::iterator<loader> i = pm.begin<loader>(); i != pm.end<loader>(); ++i)
 	{
 		plugins.push_back(i->load());
-		loaders.push_back(plugins.back()->get()());
+		loaders.push_back(loader_ptr(plugins.back()->get()()));
 	}
 }	
 
 sge::audio::file_ptr const sge::audio::multi_loader::load(path const &file)
 {
 	if (!boost::filesystem::exists(file))
-		throw exception(SGE_TEXT("file \""+file.string()+"\" does not exist"));
+		throw exception(
+			SGE_TEXT("file \"")
+			+ file.string()
+			+ SGE_TEXT("\" does not exist"));
 
 	for (loader_container::iterator i = loaders.begin(); i != loaders.end(); ++i)
 	{
@@ -25,6 +28,8 @@ sge::audio::file_ptr const sge::audio::multi_loader::load(path const &file)
 	}
 
 	throw exception(
-		SGE_TEXT("couldn't find any audio loaders for file \""+file.string()+"\""));
+		SGE_TEXT("couldn't find any audio loaders for file \"")
+		+ file.string()
+		+ SGE_TEXT("\""));
 	return file_ptr();
 }

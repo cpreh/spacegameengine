@@ -42,8 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../matrix.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
-#include <sge/windows.hpp>
-#include <sge/win32_window.hpp>
+#include <sge/windows/windows.hpp>
+#include <sge/windows/window.hpp>
 #elif defined(SGE_HAVE_X11)
 #include <sge/x11/window.hpp>
 #include <boost/bind.hpp>
@@ -127,11 +127,12 @@ sge::ogl::device::device(
 	};
 
 	if(!wnd_param)
-		wnd.reset(new win32_window(window::window_size(param.mode.width(),param.mode.height())));
+		wnd.reset(new windows::window(
+			window::window_size(param.mode.width(),param.mode.height())));
 	else
-		wnd = polymorphic_pointer_cast<win32_window>(wnd_param);
+		wnd = polymorphic_pointer_cast<windows::window>(wnd_param);
 
-	hdc.reset(new gdi_device(wnd->hwnd(), gdi_device::get_tag()));
+	hdc.reset(new windows::gdi_device(wnd->hwnd(), windows::gdi_device::get_tag()));
 
 	const int pixel_format = ChoosePixelFormat(hdc->hdc(), &pfd);
 	if(pixel_format == 0)

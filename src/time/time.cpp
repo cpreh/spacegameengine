@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <time.h>
 #endif
 #elif SGE_WINDOWS_PLATFORM
-#include <sge/windows.hpp>
+#include <sge/windows/windows.hpp>
 #else
 #error "Implement me!"
 #endif

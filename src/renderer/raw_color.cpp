@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_color.hpp>
 #include <sge/renderer/color.hpp>
 
-template<typename T>
 sge::renderer::raw_color_f32 const
 sge::renderer::raw_color(
-	T const &c)
+	rgba_f32_color const &c)
 {
 	raw_color_f32 const ret = {
 	{
@@ -35,11 +34,3 @@ sge::renderer::raw_color(
 	} };
 	return ret;
 }
-
-#define SGE_INSTANTIATE_RAW_COLOR(x)\
-template sge::renderer::raw_color_f32 const\
- sge::renderer::raw_color<x>(x const &);
-
-SGE_INSTANTIATE_RAW_COLOR(sge::renderer::rgba_f32_color)
-
-#undef SGE_INSTANTIATE_RAW_COLOR

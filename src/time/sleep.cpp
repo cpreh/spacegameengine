@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/time.hpp>
 
 #ifdef SGE_WINDOWS_PLATFORM
-#include <sge/windows.hpp>
+#include <sge/windows/windows.hpp>
 #elif SGE_POSIX_PLATFORM
 #include <unistd.h>
 #endif

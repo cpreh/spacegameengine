@@ -21,20 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 
-#include <sge/windows.hpp>
+#include <sge/windows/windows.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge
 {
-
+namespace windows
+{
 class gdi_device;
+}
 
 namespace ogl
 {
 
 class wgl_context : boost::noncopyable {
 public:
-	wgl_context(const gdi_device&);
+	explicit wgl_context(
+		windows::gdi_device const &);
 	~wgl_context();
 	HGLRC hglrc() const;
 private:

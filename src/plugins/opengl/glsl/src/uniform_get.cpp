@@ -25,5 +25,7 @@ sge::ogl::glsl::uniform_get(
 	GLint const location,
 	uniform_type::type const t)
 {
-	
+		// FIXME
+	throw exception(
+		SGE_TEXT("unimplemented!"));
 }

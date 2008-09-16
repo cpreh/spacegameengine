@@ -57,12 +57,12 @@ public:
 		}
 	};
 
-	typedef win32_callback_return_type win32_callback_signature_type(win32_window&, win32_event_type, WPARAM, LPARAM);
+	typedef win32_callback_return_type win32_callback_signature_type(window&, win32_event_type, WPARAM, LPARAM);
 	typedef boost::function<win32_callback_signature_type> win32_callback_type;
 	typedef boost::signal<win32_callback_signature_type, win32_signal_combiner> win32_signal_type;
 
-	SGE_SYMBOL win32_window(window_size sz, const string& title = string());
-	SGE_SYMBOL ~win32_window();
+	SGE_SYMBOL window(window_size sz, const string& title = string());
+	SGE_SYMBOL ~window();
 
 	SGE_SYMBOL void title(const string& t);
 	SGE_SYMBOL void size(window_size const &newsize);
