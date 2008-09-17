@@ -32,6 +32,8 @@ sge::renderer::image_view_format(
 		return color_format::argb8;
 	if(view.current_type_is<bgra8_view>())
 		return color_format::bgra8;
+	if(view.current_type_is<rgba_f32_view>())
+		return color_format::rgbaf32;
 	throw exception(
 		SGE_TEXT("Unknown view type in image_view_format()!"));
 }

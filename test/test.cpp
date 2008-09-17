@@ -68,12 +68,13 @@ enum testenum {
 	esize
 };
 
+typedef sge::bitfield<testenum, esize> myfield;
+
 template class sge::bitfield<testenum, esize>;
 
 int main()
 try
 {
-	typedef sge::bitfield<testenum, esize> myfield;
 	myfield testfield;
 	testfield |= foo;
 	*testfield.begin() = true;
