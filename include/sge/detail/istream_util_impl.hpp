@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <istream>
 
 template<typename T>
-T sge::read(
+typename boost::enable_if<boost::is_fundamental<T>, T>::type
+sge::read(
 	std::istream& s)
 {
 	T t;

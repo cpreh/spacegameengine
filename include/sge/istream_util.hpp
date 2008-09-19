@@ -21,13 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ISTREAM_UTIL_HPP_INCLUDED
 #define SGE_ISTREAM_UTIL_HPP_INCLUDED
 
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
 #include <iosfwd>
 
 namespace sge
 {
 
 template<typename T>
-T read(
+typename boost::enable_if<boost::is_fundamental<T>, T>::type
+read(
 	std::istream&);
 
 }
