@@ -6,7 +6,7 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 	: stdstream(p),
 	  s(stdstream)
 {
-	SGE_LOG_INFO(log::global(),log::_1 << "mad: constructing mpeg file");
+	SGE_LOG_DEBUG(log::global(),log::_1 << "mad: constructing mpeg file");
 
 	s.decode(f);
 
@@ -24,6 +24,10 @@ sge::mad::mpeg_file::sample_type sge::mad::mpeg_file::read(
 	sample_type const samples,
 	raw_array_type &dest)
 {
+	SGE_LOG_DEBUG(
+		log::global(),
+		log::_1 << "requested " << samples << " samples, got " << buffered_samples.size()/bytes_per_sample() << " samples in buffer");
+
 	// there are enough buffered samples to meet the request
 	if (static_cast<sample_type>(buffered_samples.size()/bytes_per_sample()) >= samples)
 	{
@@ -40,12 +44,25 @@ sge::mad::mpeg_file::sample_type sge::mad::mpeg_file::read(
 	}
 
 	if (s.eof())
-		return static_cast<sge::mad::mpeg_file::sample_type>(0);
+	{
+		SGE_LOG_DEBUG(
+			log::global(),
+			log::_1 << "at end of file, returning zero samples");
 
+		return static_cast<sge::mad::mpeg_file::sample_type>(0);
+	}
+
+	SGE_LOG_DEBUG(
+		log::global(),
+		log::_1 << "putting " << buffered_samples.size() << " bytes into destination");
 	std::copy(buffered_samples.begin(),buffered_samples.end(),std::back_inserter(dest));
 
 	sample_type const remaining_samples = 
 		static_cast<sample_type>(samples - buffered_samples.size()/bytes_per_sample());
+
+	SGE_LOG_DEBUG(
+		log::global(),
+		log::_1 << "remaining " << remaining_samples << " samples");
 	
 	buffered_samples.clear();
 

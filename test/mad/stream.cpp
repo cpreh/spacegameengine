@@ -96,6 +96,10 @@ void sge::mad::stream::decode(frame &f)
 {
 	sync();
 
+	SGE_LOG_DEBUG(
+		log::global(),
+		log::_1 << "mad: decoding a frame");
+
 	if (!mad_frame_decode(&(f.madframe()),&madstream))
 	{
 		SGE_LOG_DEBUG(
@@ -106,10 +110,11 @@ void sge::mad::stream::decode(frame &f)
 	
 	if (MAD_RECOVERABLE(madstream.error))
 	{
-		decode(f);
 		SGE_LOG_DEBUG(
 			log::global(),
-			log::_1 << "mad: got recoverable error: "+error_string());
+			log::_1 << "mad: got recoverable error: " << error_string() << ", decoding some more");
+
+		decode(f);
 	}
 	else
 	{

@@ -33,9 +33,12 @@ void sge::mad::synth::synthesize(
 {
 	mad_synth_frame(&synth_,&(f.madframe()));
 
+	SGE_LOG_DEBUG(log::global(),log::_1 << "synthesized " << synth_.pcm.length << " samples");
+
+	// multiply by two because each sample is always 2 byte
 	dest.resize(
 		static_cast<audio::raw_array_type::size_type>(
-			synth_.pcm.length*channels));
+			synth_.pcm.length*channels*2));
 
 	audio::raw_array_type::iterator ptr = dest.begin();
 	for(pcm_length_type i = static_cast<pcm_length_type>(0);
