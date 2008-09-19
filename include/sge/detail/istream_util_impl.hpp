@@ -23,15 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <istream>
 
-template<typename T> void sge::read(std::istream& s, T& t)
-{
-	s.read(reinterpret_cast<char*>(&t), sizeof(T));
-}
-
-template<typename T> T sge::read(std::istream& s)
+template<typename T>
+T sge::read(
+	std::istream& s)
 {
 	T t;
-	read(s, t);
+	s.read(
+		reinterpret_cast<char*>(&t),
+		sizeof(T));
 	return t;
 }
 

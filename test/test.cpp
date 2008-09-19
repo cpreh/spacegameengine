@@ -59,26 +59,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/logger.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
 #include <sge/renderer/color.hpp>
-#include <sge/bitfield.hpp>
-#include <sge/bitfield_impl.hpp>
-
-enum testenum {
-	foo,
-	bar,
-	esize
-};
-
-typedef sge::bitfield<testenum, esize> myfield;
-
-template class sge::bitfield<testenum, esize>;
+#include <sge/istream_endianness.hpp>
 
 int main()
 try
 {
-	myfield testfield;
-	testfield |= foo;
-	*testfield.begin() = true;
-
+	int i(sge::read_le<int>(sge::cin));
 	//sge::log::logger &log(sge::log::global());
 
 	//log.activate(sge::log::level::debug);

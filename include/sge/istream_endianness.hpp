@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ISTREAM_UTIL_HPP_INCLUDED
-#define SGE_ISTREAM_UTIL_HPP_INCLUDED
+#ifndef SGE_ISTREAM_ENDIANNESS_HPP_INCLUDED
+#define SGE_ISTREAM_ENDIANNESS_HPP_INCLUDED
 
 #include <iosfwd>
 
@@ -27,11 +27,15 @@ namespace sge
 {
 
 template<typename T>
-T read(
-	std::istream&);
+T read_le(
+	std::istream &);
+
+template<typename T>
+T read_be(
+	std::istream &);
 
 }
 
-#include "detail/istream_util_impl.hpp"
+#include "detail/istream_endianness_impl.hpp"
 
 #endif
