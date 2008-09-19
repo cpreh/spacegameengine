@@ -65,7 +65,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 
 	// pure virtuals
 	virtual dim const size_hint() const = 0;
-	virtual void process(events::invalid_area const &) {}
+	virtual void process(events::invalid_area const &);
 	virtual void process(events::mouse_enter const &) {}
 	virtual void process(events::mouse_leave const &) {}
 	virtual void process(events::mouse_move const &) {}

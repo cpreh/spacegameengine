@@ -1,6 +1,6 @@
 #include "../buffer_wrapper.hpp"
 #include "../error.hpp"
-#include <sge/audio/loader/file.hpp>
+#include <sge/audio/file.hpp>
 
 sge::openal::buffer_wrapper::buffer_wrapper(audio::file &file_)
 	: file_(file_),refcount_(static_cast<unsigned>(1))

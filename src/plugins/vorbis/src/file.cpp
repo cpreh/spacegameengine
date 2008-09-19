@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::vorbis::file::file(
 	const path &_filename,
-	const sample_type _bits_per_sample)
+	const audio::sample_type _bits_per_sample)
 : bits_per_sample_(_bits_per_sample)
 {
 	assert(bits_per_sample_ == 8 || bits_per_sample_ == 16);
@@ -54,15 +54,15 @@ sge::vorbis::file::file(
 	sample_rate_ = vorbis_info->rate;
 }
 
-sge::audio::file::sample_type
+sge::audio::sample_type
 sge::vorbis::file::read(
-	const sample_type _sample_count,
-	raw_array_type &_data)
+	const audio::sample_type _sample_count,
+	audio::raw_array_type &_data)
 {
-	sample_type bytes_to_read = _sample_count * channels() * 2;
+	audio::sample_type bytes_to_read = _sample_count * channels() * 2;
 	_data.resize_uninitialized(bytes_to_read);
 
-	sample_type bytes_read = 0;
+	audio::sample_type bytes_read = 0;
 	while (bytes_read < bytes_to_read)
 	{
 		int bitstream;
@@ -85,9 +85,9 @@ sge::vorbis::file::read(
 	return bytes_read;
 }
 
-sge::audio::file::sample_type
+sge::audio::sample_type
 sge::vorbis::file::read_all(
-	raw_array_type &_data)
+	audio::raw_array_type &_data)
 {
 	// Wir wissen nicht, wie viele Samples wir kriegen, also lesen wir in diskreten Bloecken und fuegen die in _data ein.
 	// TODO: Das hier vielleicht optimieren.
@@ -137,17 +137,17 @@ sge::string sge::vorbis::file::ogg_error(const long code)
 	}
 }
 
-sge::audio::file::channel_type sge::vorbis::file::channels() const
+sge::audio::channel_type sge::vorbis::file::channels() const
 {
 	return channels_;
 }
 
-sge::audio::file::sample_type sge::vorbis::file::sample_rate() const
+sge::audio::sample_type sge::vorbis::file::sample_rate() const
 {
 	return sample_rate_;
 }
 
-sge::audio::file::sample_type sge::vorbis::file::bits_per_sample() const
+sge::audio::sample_type sge::vorbis::file::bits_per_sample() const
 {
 	return bits_per_sample_;
 }

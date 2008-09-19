@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shared_ptr.hpp>
 #include <sge/path.hpp>
 #include <sge/audio/loader/loader.hpp>
-#include <sge/audio/loader/file.hpp>
+#include <sge/audio/file.hpp>
 
 namespace sge
 {

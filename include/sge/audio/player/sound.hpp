@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../math/vector.hpp"
 #include "../../shared_ptr.hpp"
 #include "../../export.hpp"
+#include "../types.hpp"
 #include "play_mode.hpp"
 #include "sound_status.hpp"
-#include "types.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge

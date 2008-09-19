@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "player.hpp"
 #include "source_wrapper.hpp"
 #include <sge/audio/player/sound.hpp>
-#include <sge/audio/loader/file.hpp>
+#include <sge/audio/file.hpp>
+#include <sge/math/vector.hpp>
 #include <sge/shared_ptr.hpp>
 #include <sge/string.hpp>
-#include <sge/math/vector.hpp>
 
 namespace sge
 {
@@ -43,7 +43,7 @@ class stream_sound : public source_wrapper
 	private:
 	player &                       player_;
 	audio::file_ptr const          audio_file_;
-	audio::file::sample_type const buffer_samples_;
+	audio::sample_type const       buffer_samples_;
 	ALenum const                   format_;
 	ALuint                         al_buffers_[2];
 

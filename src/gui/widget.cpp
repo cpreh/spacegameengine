@@ -84,6 +84,11 @@ bool sge::gui::widget::is_container() const
 	return dynamic_cast<widgets::container const *>(this);
 }
 
+void sge::gui::widget::process(events::invalid_area const &e)
+{
+	manager().skin()->draw(*this,e);
+}
+
 sge::gui::widget *sge::gui::widget::recalculate_focus(point const &mouse_click)
 {
 	// pointer is no longer inside widget area

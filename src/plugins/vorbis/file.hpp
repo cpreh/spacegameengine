@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vorbis/vorbisfile.h>
 #include <sge/path.hpp>
 #include <sge/string.hpp>
-#include <sge/audio/loader/file.hpp>
+#include <sge/audio/file.hpp>
 #include <boost/noncopyable.hpp>
 #include <vector>
 #include <memory>
@@ -54,18 +54,18 @@ class file : public audio::file
 	file_wrapper ogg_file_;
 	OggVorbis_File ogg_stream_;
 
-	channel_type channels_;
-	sample_type sample_rate_;
-	sample_type bits_per_sample_;
+	audio::channel_type channels_;
+	audio::sample_type sample_rate_;
+	audio::sample_type bits_per_sample_;
 
 	string ogg_error(long);
 public:
-	file(const path &, sample_type);
-	sample_type read(sample_type samples, raw_array_type &);
-	sample_type read_all(raw_array_type &);
-	channel_type channels() const;
-	sample_type sample_rate() const;
-	sample_type bits_per_sample() const;
+	file(const path &, audio::sample_type);
+	audio::sample_type read(audio::sample_type samples, audio::raw_array_type &);
+	audio::sample_type read_all(audio::raw_array_type &);
+	audio::channel_type channels() const;
+	audio::sample_type sample_rate() const;
+	audio::sample_type bits_per_sample() const;
 	void reset();
 };
 

@@ -2,7 +2,7 @@
 #define SGE_OPENAL_LISTENER_WRAPPER_HPP_INCLUDED
 
 #include <sge/math/vector.hpp>
-#include <sge/audio/player/types.hpp>
+#include <sge/audio/types.hpp>
 
 namespace sge
 {

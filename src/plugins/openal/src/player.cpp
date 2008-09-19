@@ -83,7 +83,7 @@ ALuint sge::openal::player::register_nonstream_sound(
 	nonstream_sounds.push_back(new buffer_wrapper(*_audio_file));
 	buffer_wrapper &buffer = nonstream_sounds.back();
 
-	audio::file::raw_array_type data;
+	audio::raw_array_type data;
 	_audio_file->read_all(data);
 	alBufferData(
 		buffer.buffer(), 

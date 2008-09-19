@@ -31,6 +31,10 @@ ADD_EXECUTABLE (sgegiltest giltest.cpp)
 TARGET_LINK_LIBRARIES (sgegiltest sgecore)
 INSTALL (TARGETS sgegiltest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
+ADD_EXECUTABLE (sgemadtest madtest.cpp)
+TARGET_LINK_LIBRARIES (sgemadtest sgecore boost_program_options)
+INSTALL (TARGETS sgemadtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
 ADD_EXECUTABLE (sgetargettest targettest.cpp)
 TARGET_LINK_LIBRARIES (sgetargettest sgecore)
 INSTALL (TARGETS sgetargettest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

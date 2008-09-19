@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
 #include <sge/path.hpp>
-#include <sge/audio/loader/file.hpp>
+#include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
 #include <boost/logic/tribool.hpp>
 #include <fstream>
@@ -40,17 +40,17 @@ class file : public audio::file
 	// Ob die Bytes geswappt werden muessen
 	boost::logic::tribool      swap_;
 	std::ifstream              file_;
-	sample_type                samples_,
+	audio::sample_type         samples_,
 	                           samples_read_;
-	raw_array_type             buffer_;
+	audio::raw_array_type      buffer_;
 
 	// Ob das Ding geladen wurde
 	bool                       loaded_;
 
 	// "Pflichtfelder"
-	channel_type               channels_;
-	sample_type                sample_rate_;
-	sample_type                bits_per_sample_;
+	audio::channel_type        channels_;
+	audio::sample_type         sample_rate_;
+	audio::sample_type         bits_per_sample_;
 
 	// Interne Funktionen
 	void load();
@@ -68,14 +68,14 @@ public:
 
 	const std::string to_string() const;
 
-	sample_type bits_per_sample() const;
-	sample_type sample_rate() const;
-	channel_type channels() const;
-	sample_type samples() const;
+	audio::sample_type bits_per_sample() const;
+	audio::sample_type sample_rate() const;
+	audio::channel_type channels() const;
+	audio::sample_type samples() const;
 	void reset();
 
-	sample_type read(sample_type, raw_array_type &);
-	sample_type read_all(raw_array_type &);
+	audio::sample_type read(audio::sample_type, audio::raw_array_type &);
+	audio::sample_type read_all(audio::raw_array_type &);
 };
 
 }
