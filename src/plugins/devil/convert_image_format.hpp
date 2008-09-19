@@ -18,27 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../conversion.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_DEVIL_CONVERT_IMAGE_FORMAT_HPP_INCLUDED
+#define SGE_DEVIL_CONVERT_IMAGE_FORMAT_HPP_INCLUDED
 
-template<> ILuint sge::devil::convert_cast(
-	const image::format::type& t)
+#include <sge/image/format.hpp>
+#include <IL/il.h>
+
+namespace sge
 {
-	switch(t) {
-	case image::format::bmp:
-		return IL_BMP;
-	case image::format::gif:
-		return IL_GIF;
-	case image::format::jpeg:
-		return IL_JPG;
-	case image::format::png:
-		return IL_PNG;
-	case image::format::tiff:
-		return IL_TIF;
-	case image::format::tga:
-		return IL_TGA;
-	default:
-		throw exception(SGE_TEXT("Invalid image_format!"));
-	}
+namespace devil
+{
+
+ILuint convert_image_format(
+	image::format::type);
+
 }
+}
+
+#endif

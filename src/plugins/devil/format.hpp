@@ -18,21 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMAGE_VIEW_DIM_HPP_INCLUDED
-#define SGE_RENDERER_IMAGE_VIEW_DIM_HPP_INCLUDED
+#ifndef SGE_DEVIL_FORMAT_HPP_INCLUDED
+#define SGE_DEVIL_FORMAT_HPP_INCLUDED
 
-#include "types.hpp"
-#include "image_view.hpp"
-#include "../export.hpp"
+#include <IL/il.h>
+#include <sge/renderer/color_format.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace devil
 {
 
-SGE_SYMBOL dim_type const
-image_view_dim(
-	const_image_view const &);
+renderer::color_format::type
+convert_format(
+	ILint bits_per_pixel,
+	ILint format);
+
+ILint to_il_format(
+	renderer::color_format::type);
+
+ILint to_il_channel(
+	renderer::color_format::type);
+
+renderer::color_format::type
+best_il_format(
+	renderer::color_format::type);
 
 }
 }

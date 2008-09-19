@@ -25,15 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <IL/ilu.h>
 #include "../object.hpp"
 #include "../error.hpp"
-#include "../conversion.hpp"
+#include "../format.hpp"
+#include "../convert_image_format.hpp"
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
+#include <sge/text.hpp>
 #include <sge/iconv.hpp>
 #include <sge/raw_vector_impl.hpp>
-#include <sge/renderer/color.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
-#include <boost/gil/image_view_factory.hpp>
+#include <sge/renderer/color_format_stride.hpp>
+#include <sge/renderer/make_image_view.hpp>
+#include <sge/renderer/image_view_format.hpp>
+#include <sge/renderer/image_view_dim.hpp>
+#include <sge/renderer/image_view_algorithm.hpp>
+#include <sge/renderer/image_view_impl.hpp>
 
 sge::devil::object::object(const path& file)
 {
@@ -45,19 +49,28 @@ sge::devil::object::object(const path& file)
 		const_cast<char*>(iconv(file.string()).c_str())
 //#endif
 		) == IL_FALSE)
-		throw exception(string(SGE_TEXT("ilLoadImage() failed! Could not load '")) += file.string() + SGE_TEXT("'!"));
+		throw exception(
+			SGE_TEXT("ilLoadImage() failed! Could not load '")
+			+ file.string()
+			+ SGE_TEXT("'!"));
 }
 
 sge::devil::object::object(
-	const image::format::type type,
+	image::format::type const type,
 	const const_pointer format_data,
 	const size_type size)
 {
 	if(!format_data || size == 0)
-		throw exception(SGE_TEXT("load_image(): format_data or size is 0!"));
+		throw exception(
+			SGE_TEXT("load_image(): format_data or size is 0!"));
 	bind_me();
-	if(ilLoadL(convert_cast<ILenum>(type), const_cast<pointer>(format_data), static_cast<ILuint>(size)) == IL_FALSE)
-		throw exception(SGE_TEXT("ilLoadL() failed!"));
+	if(ilLoadL(
+		convert_image_format(type),
+		const_cast<pointer>(format_data),
+		static_cast<ILuint>(size))
+	== IL_FALSE)
+		throw exception(
+			SGE_TEXT("ilLoadL() failed!"));
 }
 
 sge::devil::object::object(
@@ -84,22 +97,42 @@ void sge::devil::object::data(
 	renderer::const_image_view const &src)
 {
 	bind_me();
-	raw_vector<unsigned char> v(src.width() * src.height() * 4); // FIXME
-	boost::gil::copy_and_convert_pixels(
+
+	typedef raw_vector<
+		unsigned char
+	> raw_vector_t;
+
+	renderer::dim_type const src_dim(
+		renderer::image_view_dim(
+			src));
+
+	renderer::color_format::type const fmt(
+		renderer::image_view_format(
+			src));
+
+	raw_vector_t v(
+		renderer::color_format_stride(fmt)
+		* src_dim.content());
+
+	renderer::color_format::type const best_il_format(
+		fmt);
+
+	renderer::copy_and_convert_pixels(
 		src,
-		boost::gil::interleaved_view(
-			src.width(),
-			src.height(),
-			reinterpret_cast<renderer::rgba8_color*>(v.data()),
-			src.width() * 4));
+		renderer::make_image_view(
+			v.data(),
+			src_dim,
+			best_il_format));
 
 	ilTexImage(
 		static_cast<ILuint>(src.width()),
 		static_cast<ILuint>(src.height()),
 		1,
-		4,
-		IL_RGBA,
-		IL_UNSIGNED_BYTE,
+		4, // always 4 channels
+		to_il_format(
+			best_il_format),	
+		to_il_channel(
+			best_il_format),
 		const_cast<pointer>(v.data()));
 	check_errors();
 }
@@ -108,14 +141,12 @@ sge::renderer::const_image_view const
 sge::devil::object::view() const
 {
 	bind_me();
-	return renderer::const_image_view(
-		boost::gil::interleaved_view(
-			dim().w(),
-			dim().h(),
-			reinterpret_cast<renderer::rgba8_color const *>(
-				ilGetData()),
-			dim().w() * 4 // FIXME
-			));
+	return renderer::make_image_view(
+		const_cast<unsigned char const *>(ilGetData()),
+		dim(),
+		convert_format(
+			ilGetInteger(IL_IMAGE_BITS_PER_PIXEL),
+			ilGetInteger(IL_IMAGE_FORMAT)));
 }
 
 void sge::devil::object::resample(
