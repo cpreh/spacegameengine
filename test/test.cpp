@@ -102,22 +102,15 @@ try
 					== sge::input::kc::key_escape)
 				[var(running)=false]));
 
-	/*sge::renderer::texture_ptr const testtex(
+	sge::renderer::texture_ptr const testtex(
 		rend->create_texture(
 			sge::renderer::texture::dim_type(256, 256),
 			sge::renderer::color_format::rgba8,
 			sge::renderer::linear_filter,
-			sge::renderer::resource_flags::readable));*/
-	sge::renderer::texture_ptr const testtex(
-		sge::image::create_texture(
-			sge::media_path() / SGE_TEXT("grass.png"),
-			rend,
-			image_loader,
-			sge::renderer::linear_filter,
 			sge::renderer::resource_flags::readable));
 
 	{
-	/*	sge::renderer::scoped_texture_lock const lock_(
+		sge::renderer::scoped_texture_lock const lock_(
 			sge::renderer::make_scoped_lock(
 				testtex,
 				sge::renderer::lock_rect(
@@ -125,9 +118,9 @@ try
 					100,
 					200,
 					200),
-				sge::renderer::lock_flags::readwrite));*/
+				sge::renderer::lock_flags::readwrite));
 
-	/*	boost::gil::fill_pixels(
+		boost::gil::fill_pixels(
 			sge::renderer::subimage_view(
 				lock_.value(),
 				sge::renderer::lock_rect(0, 0, 50, 50)),
@@ -136,7 +129,7 @@ try
 
 		image_loader->create_image(
 			sge::renderer::make_const_view(lock_.value()))->save(
-				SGE_TEXT("./sge_test.png"));*/
+				SGE_TEXT("./sge_test.png"));
 	}
 
 /*	rend->set_state(
