@@ -31,7 +31,7 @@ try
 {
 	sge::log::global().activate_hierarchy(sge::log::level::debug);
 
-	sge::audio::file_ptr const soundfile(new sge::mad::mpeg_file(SGE_TEXT("/mnt/extern/musik/misc/37-peter_gabriel-down_to_earth.mp3")));
+	sge::audio::file_ptr const soundfile(new sge::mad::mpeg_file(SGE_TEXT("/mnt/extern/musik/misc/29 - the notwist - good lies.mp3")));
 
 	namespace po = boost::program_options;
   po::options_description desc("allowed options");
@@ -48,13 +48,13 @@ try
         po::value<std::string>(&file_name_prog_options),
         "sets the sound file name")
       ("revolving",
-        po::value<bool>(&revolving)->default_value(true),
+        po::value<bool>(&revolving)->default_value(false),
         "does the sound revolve around the player")
       ("speed",
         po::value<sge::space_unit>(&speed)->default_value(sge::su(1)),
         "speed of the sound in percent of 2*pi per second")
       ("streaming",
-        po::value<bool>(&streaming)->default_value(false),
+        po::value<bool>(&streaming)->default_value(true),
         "stream sound or not");
 
   po::variables_map vm;

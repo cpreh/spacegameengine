@@ -3,22 +3,35 @@
 #include <sge/raw_vector_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <limits>
+#include <cstddef>
 #include <boost/cstdint.hpp>
 
 namespace
 {
 typedef unsigned short pcm_length_type;
 
+signed short mad_fixed_to_target(mad_fixed_t fixed)
+{
+	if(fixed>=MAD_F_ONE)
+		return std::numeric_limits<short>::max();
+	if(fixed<=-MAD_F_ONE)
+		return -std::numeric_limits<short>::max();
+
+	fixed=fixed>>(MAD_F_FRACBITS-15);
+	return((signed short)fixed);
+}
+/*
 boost::int16_t mad_fixed_to_target(mad_fixed_t const fixed)
 {
 	if (fixed >= MAD_F_ONE)
-		return std::numeric_limits<boost::uint16_t>::max();
+		return std::numeric_limits<boost::int16_t>::max();
 	
 	if (fixed <= -MAD_F_ONE)
-		return std::numeric_limits<boost::uint16_t>::min();
+		return std::numeric_limits<boost::int16_t>::min();
 	
 	return static_cast<signed short>(fixed >> (MAD_F_FRACBITS-15));
 }
+*/
 }
 
 sge::mad::synth::synth()
@@ -45,7 +58,8 @@ void sge::mad::synth::synthesize(
 		  i < synth_.pcm.length;
 		  i++)
 	{
-		boost::int16_t sample = mad_fixed_to_target(synth_.pcm.samples[0][i]);
+		//boost::int16_t sample = mad_fixed_to_target(synth_.pcm.samples[0][i]);
+		signed short sample = mad_fixed_to_target(synth_.pcm.samples[0][i]);
 
 		// Left channel
 		*(ptr++) = static_cast<audio::raw_array_type::value_type>(sample >> 8);

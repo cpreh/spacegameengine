@@ -1,6 +1,7 @@
 #include "mpeg_file.hpp"
 #include <sge/log/headers.hpp>
 #include <sge/raw_vector_impl.hpp>
+#include <sge/iostream.hpp>
 
 sge::mad::mpeg_file::mpeg_file(path const &p)
 	: stdstream(p),
@@ -52,44 +53,26 @@ sge::mad::mpeg_file::sample_type sge::mad::mpeg_file::read(
 		return static_cast<sge::mad::mpeg_file::sample_type>(0);
 	}
 
-	SGE_LOG_DEBUG(
-		log::global(),
-		log::_1 << "putting " << buffered_samples.size() << " bytes into destination");
 	std::copy(buffered_samples.begin(),buffered_samples.end(),std::back_inserter(dest));
 
 	sample_type const remaining_samples = 
 		static_cast<sample_type>(samples - buffered_samples.size()/bytes_per_sample());
 
-	SGE_LOG_DEBUG(
-		log::global(),
-		log::_1 << "remaining " << remaining_samples << " samples");
-	
 	buffered_samples.clear();
 
-	s.decode(f);
-
-	raw_array_type temp;
-	syn.synthesize(f,temp,channels());
-
-	// not all samples could be read?
-	if (static_cast<sample_type>(temp.size()/bytes_per_sample()) < remaining_samples)
+	raw_array_type buffer;
+	while ((buffer.size()/bytes_per_sample()) < remaining_samples)
 	{
-		std::copy(temp.begin(),temp.end(),std::back_inserter(dest));
+		raw_array_type temp;
+		s.decode(f);
+		syn.synthesize(f,temp,channels());
+		std::copy(temp.begin(),temp.end(),std::back_inserter(buffer));
 	}
-	else
-	{
-		// copy the requested amount to dest...
-		std::copy(
-			temp.begin(),
-			temp.begin()+remaining_samples*bytes_per_sample(),
-			std::back_inserter(dest));
 
-		// and update buffered samples
-		std::copy(
-			temp.begin()+remaining_samples*bytes_per_sample(),
-			temp.end(),
-			std::back_inserter(buffered_samples));
-	}
+	SGE_LOG_DEBUG(log::global(),log::_1 << "synthesized " << (buffer.size()/bytes_per_sample()) << " samples");
+
+	std::copy(buffer.begin(),buffer.begin()+(remaining_samples*bytes_per_sample()),std::back_inserter(dest));
+	std::copy(buffer.begin()+(remaining_samples*bytes_per_sample()),buffer.end(),std::back_inserter(buffered_samples));
 	
 	return static_cast<sample_type>(dest.size());
 }

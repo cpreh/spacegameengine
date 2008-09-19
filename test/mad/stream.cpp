@@ -28,11 +28,11 @@ void sge::mad::stream::sync()
 	// madstream.buffer == 0 means the stream has no buffer yet
 	if (madstream.buffer != 0 && madstream.error != MAD_ERROR_BUFLEN)
 	{
-		SGE_LOG_DEBUG(log::global(),log::_1 << "mad: syncing not needed");
+		//SGE_LOG_DEBUG(log::global(),log::_1 << "mad: syncing not needed");
 		return;
 	}
 
-	SGE_LOG_DEBUG(log::global(),log::_1 << "mad: stream needs syncing");
+	//SGE_LOG_DEBUG(log::global(),log::_1 << "mad: stream needs syncing");
 	
 	byte_container bytes(input_size+mad_buffer_guard_size);
 
@@ -41,24 +41,28 @@ void sge::mad::stream::sync()
 
 	if (madstream.next_frame)
 	{
-		SGE_LOG_DEBUG(log::global(),log::_1 << "mad: stream not fully consumed");
+		//SGE_LOG_DEBUG(log::global(),log::_1 << "mad: stream not fully consumed");
 		std::copy(madstream.next_frame,madstream.bufend,bytes.begin());
 		pos = static_cast<size_type>(madstream.bufend-madstream.next_frame);
 	}
 
+	/*
 	SGE_LOG_DEBUG(
 		log::global(),
 		log::_1 << "mad: reading " << static_cast<std::streamsize>(input_size-pos) 
 		        << " bytes from file, starting at " << pos);
+	*/
 	
 	stdstream.read(
 		// istream uses char, mad uses unsigned char, so cast here
 		reinterpret_cast<char*>(&bytes[pos]),
 		static_cast<std::streamsize>(input_size-pos));
 
+	/*
 	SGE_LOG_DEBUG(
 		log::global(),
 		log::_1 << "mad: read " << stdstream.gcount() << " bytes from file");
+	*/
 	
 	pos += static_cast<size_type>(stdstream.gcount());
 
@@ -82,9 +86,11 @@ void sge::mad::stream::sync()
 	input_buffer = bytes;
 	//input_buffer.swap(bytes);
 
+	/*
 	SGE_LOG_DEBUG(
 		log::global(),
 		log::_1 << "mad: setting stream buffer, size " << pos);
+	*/
 
 	mad_stream_buffer(&madstream,&input_buffer[0],pos);
 
@@ -96,15 +102,19 @@ void sge::mad::stream::decode(frame &f)
 {
 	sync();
 
+	/*
 	SGE_LOG_DEBUG(
 		log::global(),
 		log::_1 << "mad: decoding a frame");
+	*/
 
 	if (!mad_frame_decode(&(f.madframe()),&madstream))
 	{
+		/*
 		SGE_LOG_DEBUG(
 			log::global(),
 			log::_1 << "mad: decoded frame successfully");
+		*/
 		return;
 	}
 	
