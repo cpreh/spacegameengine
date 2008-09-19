@@ -106,6 +106,7 @@ void sge::mad::stream::decode(frame &f)
 	
 	if (MAD_RECOVERABLE(madstream.error))
 	{
+		decode(f);
 		SGE_LOG_DEBUG(
 			log::global(),
 			log::_1 << "mad: got recoverable error: "+error_string());
