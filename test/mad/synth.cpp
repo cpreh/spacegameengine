@@ -57,28 +57,40 @@ sge::mad::synth::sample_type mad_to_native(mad_fixed_t fixed)
 	return((signed short)fixed);
 	*/
 }
+
+mad_synth &synth_singleton()
+{
+	static bool inited = false;
+	static mad_synth synth;
+	if (!inited)
+	{
+		mad_synth_init(&synth);
+		inited = true;
+	}
+	return synth;
+}
 }
 
 sge::mad::synth::synth(frame &f)
 {
-	mad_synth_init(&synth_);
-	mad_synth_frame(&synth_,&(f.madframe()));
+	//mad_synth_init(&synth_);
+	mad_synth_frame(&synth_singleton(),&(f.madframe()));
 
 	for (unsigned i = static_cast<unsigned>(0); 
-	     i < static_cast<unsigned>(synth_.pcm.length); 
+	     i < static_cast<unsigned>(synth_singleton().pcm.length); 
 			 ++i)
 		synthed_samples.push_back(
 			std::make_pair(
-				mad_to_native(synth_.pcm.samples[0][i]),
-				mad_to_native(synth_.pcm.samples[1][i])));
+				mad_to_native(synth_singleton().pcm.samples[0][i]),
+				mad_to_native(synth_singleton().pcm.samples[1][i])));
 }
 
 sge::audio::sample_count sge::mad::synth::sample_count() const
 {
-	return synth_.pcm.length;
+	return synth_singleton().pcm.length;
 }
 
 sge::mad::synth::~synth()
 {
-	mad_synth_finish(&synth_);
+	//mad_synth_finish(&synth_);
 }

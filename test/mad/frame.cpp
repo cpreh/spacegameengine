@@ -4,29 +4,44 @@
 #include <sge/raw_vector_impl.hpp>
 #include <sge/log/headers.hpp>
 
+namespace
+{
+mad_frame &frame_singleton()
+{
+	static bool inited = false;
+	static mad_frame frame;
+	if (!inited)
+	{
+		mad_frame_init(&frame);
+		inited = true;
+	}
+	return frame;
+}
+}
+
 sge::mad::frame::frame()
 {
-	mad_frame_init(&frame_);
+	//mad_frame_init(&frame_);
 }
 
 sge::audio::sample_count sge::mad::frame::sample_rate() const
 {
-	return static_cast<audio::sample_count>(frame_.header.samplerate);
+	return static_cast<audio::sample_count>(frame_singleton().header.samplerate);
 }
 
 sge::audio::channel_type sge::mad::frame::channels() const
 {
-	return static_cast<audio::channel_type>(MAD_NCHANNELS(&frame_.header));
+	return static_cast<audio::channel_type>(MAD_NCHANNELS(&frame_singleton().header));
 }
 
 sge::string const sge::mad::frame::info() const
 {
 	sge::ostringstream ss;
-	ss << MAD_NCHANNELS(&frame_.header) << " channels\n";
-	ss << frame_.header.samplerate << " sample rate\n";
+	ss << MAD_NCHANNELS(&frame_singleton().header) << " channels\n";
+	ss << frame_singleton().header.samplerate << " sample rate\n";
 
 	ss << "layer ";
-  switch(frame_.header.layer)
+  switch(frame_singleton().header.layer)
   {
     case MAD_LAYER_I:
 			ss << "I";
@@ -45,7 +60,7 @@ sge::string const sge::mad::frame::info() const
 	ss << "\n";
 	ss << "mode ";
 
-	switch(frame_.header.mode)
+	switch(frame_singleton().header.mode)
   {
     case MAD_MODE_SINGLE_CHANNEL:
       ss << "single channel";
@@ -65,7 +80,7 @@ sge::string const sge::mad::frame::info() const
   }
 
 	ss << "\n";
-	ss << "bit rate " << frame_.header.bitrate;
+	ss << "bit rate " << frame_singleton().header.bitrate;
 
 	return ss.str();
 }
@@ -99,5 +114,10 @@ sge::audio::sample_container const sge::mad::frame::synthesize()
 
 sge::mad::frame::~frame()
 {
-	mad_frame_finish(&frame_);
+	//mad_frame_finish(&frame_);
+}
+
+mad_frame &sge::mad::frame::madframe()
+{
+	return frame_singleton();
 }
