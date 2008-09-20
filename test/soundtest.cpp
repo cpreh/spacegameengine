@@ -64,9 +64,9 @@ try
     return EXIT_SUCCESS;
   }
 
-  sge::string file_name(sge::iconv(file_name_prog_options));
+  sge::path file_name(sge::iconv(file_name_prog_options));
 	if (file_name.empty())
-		file_name = sge::media_path().string()+SGE_TEXT("/ding.wav");
+		file_name = sge::media_path() / SGE_TEXT("ding.wav");
 
 	sge::systems sys;
 	sge::audio::multi_loader loader(sys.plugin_manager);
