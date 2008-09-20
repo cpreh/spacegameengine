@@ -31,7 +31,8 @@ try
 {
 	sge::log::global().activate_hierarchy(sge::log::level::debug);
 
-	sge::audio::file_ptr const soundfile(new sge::mad::mpeg_file(SGE_TEXT("/mnt/extern/musik/misc/29 - the notwist - good lies.mp3")));
+	//sge::audio::file_ptr const soundfile(new sge::mad::mpeg_file(SGE_TEXT("/mnt/extern/musik/misc/29 - the notwist - good lies.mp3")));
+	sge::audio::file_ptr const soundfile(new sge::mad::mpeg_file(SGE_TEXT("/home/phil/music/steve_harley_and_cockney_rebel-sebastian.mp3")));
 
 	namespace po = boost::program_options;
   po::options_description desc("allowed options");
