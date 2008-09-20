@@ -85,7 +85,7 @@ void sge::wave::file::read_riff()
 
 	// Groesse des Wave-Teils der Datei
 	// TODO: Checken ob man das wirklich braucht und sonst ueberspringen.
-	boost::int32_t chunksize = extract_primitive<boost::int32_t>("chunk size") - 36;
+	//boost::int32_t chunksize = extract_primitive<boost::int32_t>("chunk size") - 36;
 }
 
 void sge::wave::file::read_wave()
@@ -139,20 +139,20 @@ T sge::wave::file::extract_primitive(const std::string &_desc)
 	return swap_ ? swap_endianness(ret) : ret;
 }
 
-sge::audio::sample_type sge::wave::file::read(const audio::sample_type _sample_count, audio::raw_array_type &_array) 
+sge::audio::sample_count sge::wave::file::read(const audio::sample_count _sample_count, audio::sample_container &_array) 
 {
 	assert(_array.size() == 0);
 
-	const audio::sample_type samples_to_read = std::min(_sample_count,samples_ - samples_read_);
+	const audio::sample_count samples_to_read = std::min(_sample_count,samples_ - samples_read_);
 	if (samples_to_read == 0)
 		return 0;
 
-	audio::sample_type bytes_to_read = samples_to_read * channels_ * (bits_per_sample_/8);
+	audio::sample_count bytes_to_read = samples_to_read * channels_ * (bits_per_sample_/8);
 	_array.resize_uninitialized(bytes_to_read);
 	file_.read(reinterpret_cast<char *>(_array.data()),bytes_to_read);
 
 	if (swap_ && bits_per_sample_ > 8)
-		for (audio::sample_type i = 0; i < bytes_to_read; i += (bits_per_sample_/8))
+		for (audio::sample_count i = 0; i < bytes_to_read; i += (bits_per_sample_/8))
 			swap_endianness(&_array[i],bits_per_sample_/8);
 
 	samples_read_ += samples_to_read;
@@ -168,20 +168,20 @@ void sge::wave::file::reset()
 	samples_read_ = 0;
 }
 
-sge::audio::sample_type sge::wave::file::read_all(audio::raw_array_type &_array) 
+sge::audio::sample_count sge::wave::file::read_all(audio::sample_container &_array) 
 { 
 	assert(_array.size() == 0);
 
 	return read(samples_ - samples_read_,_array);
 }
 
-sge::audio::sample_type sge::wave::file::bits_per_sample() const
+sge::audio::sample_count sge::wave::file::bits_per_sample() const
 {
 	assert(loaded_);
 	return bits_per_sample_;
 }
 	
-sge::audio::sample_type sge::wave::file::sample_rate() const
+sge::audio::sample_count sge::wave::file::sample_rate() const
 {
 	assert(loaded_);
 	return sample_rate_;
@@ -193,7 +193,7 @@ sge::audio::channel_type sge::wave::file::channels() const
 	return channels_;
 }
 
-sge::audio::sample_type sge::wave::file::samples() const
+sge::audio::sample_count sge::wave::file::samples() const
 {
 	assert(loaded_);
 	return samples_;

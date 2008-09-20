@@ -1,4 +1,5 @@
-project (HELLO)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT (HELLO)
 
 INCLUDE (CheckCXXSourceRuns)
 
@@ -18,7 +19,7 @@ CHECK_CXX_SOURCE_RUNS(
 	 HAVE_VARIADIC_TEMPLATES)
 
 IF (${CMAKE_COMPILER_IS_GNUCXX})
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Winit-self")
+	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Winit-self -g")
 ENDIF ()
 
 IF (ENABLE_DEBUG AND CMAKE_COMPILER_IS_GNUCXX)
@@ -31,5 +32,5 @@ ENDIF ()
 
 FILE (GLOB files *.cpp)
 
-add_executable(main ${files})
-target_link_libraries(main sgecore mad boost_program_options)
+ADD_EXECUTABLE(main ${files})
+TARGET_LINK_LIBRARIES(main sgecore mad boost_program_options)

@@ -1,6 +1,6 @@
-#include <sge/audio/loader/multi_loader.hpp>
-#include <sge/audio/player/player.hpp>
-#include <sge/audio/player/sound.hpp>
+#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/player.hpp>
+#include <sge/audio/sound.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context.hpp>

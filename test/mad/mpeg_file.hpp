@@ -15,27 +15,25 @@ namespace mad
 class mpeg_file : public audio::file
 {
 	public:
-	typedef audio::sample_type sample_type;
+	typedef audio::sample_count sample_count;
 	typedef audio::channel_type channel_type;
-	typedef audio::raw_array_type raw_array_type;
+	typedef audio::sample_container sample_container;
 
 	mpeg_file(path const &);
 
-  sample_type read(sample_type samples, raw_array_type &);
-  sample_type read_all(raw_array_type &);
+  sample_count read(sample_count samples, sample_container &);
+  sample_count read_all(sample_container &);
 
   channel_type channels() const { return channels_; }
-  sample_type sample_rate() const { return sample_rate_; }
-  sample_type bits_per_sample() const { return static_cast<sample_type>(16); }
+  sample_count sample_rate() const { return sample_rate_; }
+  sample_count bits_per_sample() const { return static_cast<sample_count>(16); }
   void reset();
 	private:
 	sge::ifstream stdstream;
 	stream s;
-	frame f;
-	synth syn;
-	raw_array_type buffered_samples;
+	sample_container buffered_;
 	channel_type channels_;
-	sample_type sample_rate_;
+	sample_count sample_rate_;
 };
 }
 }

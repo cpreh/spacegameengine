@@ -25,15 +25,11 @@ sge::mad::stream::stream(std::istream &stdstream)
 
 void sge::mad::stream::sync()
 {
-	// madstream.buffer == 0 means the stream has no buffer yet
 	if (madstream.buffer != 0 && madstream.error != MAD_ERROR_BUFLEN)
-	{
-		//SGE_LOG_DEBUG(log::global(),log::_1 << "mad: syncing not needed");
 		return;
-	}
 
-	//SGE_LOG_DEBUG(log::global(),log::_1 << "mad: stream needs syncing");
-	
+	SGE_LOG_DEBUG(log::global(),log::_1 << "mad: syncing");
+
 	byte_container bytes(input_size+mad_buffer_guard_size);
 
 	// keeps track of the current stream position
@@ -41,28 +37,14 @@ void sge::mad::stream::sync()
 
 	if (madstream.next_frame)
 	{
-		//SGE_LOG_DEBUG(log::global(),log::_1 << "mad: stream not fully consumed");
 		std::copy(madstream.next_frame,madstream.bufend,bytes.begin());
 		pos = static_cast<size_type>(madstream.bufend-madstream.next_frame);
 	}
-
-	/*
-	SGE_LOG_DEBUG(
-		log::global(),
-		log::_1 << "mad: reading " << static_cast<std::streamsize>(input_size-pos) 
-		        << " bytes from file, starting at " << pos);
-	*/
 	
 	stdstream.read(
 		// istream uses char, mad uses unsigned char, so cast here
 		reinterpret_cast<char*>(&bytes[pos]),
 		static_cast<std::streamsize>(input_size-pos));
-
-	/*
-	SGE_LOG_DEBUG(
-		log::global(),
-		log::_1 << "mad: read " << stdstream.gcount() << " bytes from file");
-	*/
 	
 	pos += static_cast<size_type>(stdstream.gcount());
 
@@ -83,14 +65,7 @@ void sge::mad::stream::sync()
 		pos += mad_buffer_guard_size;
 	}
 
-	input_buffer = bytes;
-	//input_buffer.swap(bytes);
-
-	/*
-	SGE_LOG_DEBUG(
-		log::global(),
-		log::_1 << "mad: setting stream buffer, size " << pos);
-	*/
+	input_buffer.swap(bytes);
 
 	mad_stream_buffer(&madstream,&input_buffer[0],pos);
 
@@ -98,82 +73,47 @@ void sge::mad::stream::sync()
 	madstream.error = static_cast<mad_error>(0);
 }
 
-void sge::mad::stream::decode(frame &f)
+sge::mad::frame_ptr const sge::mad::stream::decode()
 {
 	sync();
 
-	/*
-	SGE_LOG_DEBUG(
-		log::global(),
-		log::_1 << "mad: decoding a frame");
-	*/
+	frame_ptr f(new frame());
 
-	if (!mad_frame_decode(&(f.madframe()),&madstream))
+	if (!mad_frame_decode(&(f->madframe()),&madstream))
 	{
-		/*
 		SGE_LOG_DEBUG(
 			log::global(),
 			log::_1 << "mad: decoded frame successfully");
-		*/
-		return;
+
+		return f;
 	}
-	
+
 	if (MAD_RECOVERABLE(madstream.error))
 	{
 		SGE_LOG_DEBUG(
 			log::global(),
 			log::_1 << "mad: got recoverable error: " << error_string() << ", decoding some more");
 
-		decode(f);
+		return decode();
 	}
-	else
+
+	SGE_LOG_DEBUG(
+		log::global(),
+		log::_1 << "mad: got not recoverable error: "+error_string());
+
+	if (madstream.error == MAD_ERROR_BUFLEN)
 	{
 		SGE_LOG_DEBUG(
 			log::global(),
-			log::_1 << "mad: got not recoverable error: "+error_string());
+			log::_1 << "mad: resyncing stream and decoding");
 
-		if (madstream.error == MAD_ERROR_BUFLEN)
-		{
-			SGE_LOG_DEBUG(
-				log::global(),
-				log::_1 << "mad: resyncing stream and decoding");
-
-			sync();
-			decode(f);
-		}
-		else
-		{
-			throw audio::exception(
-				SGE_TEXT("mad: unrecoverable error in mpeg stream: ")+error_string());
-		}
-	}
-	/*
-	if (madstream.error == MAD_ERROR_BUFLEN)
-	{
-		SGE_LOG_INFO(
-			log::global(),
-			log::_1 << SGE_TEXT("mad: got buflen error, so retrieving more bytes"));
-		sync();
-		decode(f);
-		return;
+		return decode();
 	}
 
-	if (madstream.error == MAD_ERROR_LOSTSYNC && stdstream.eof())
-	{
-		SGE_LOG_INFO(
-			log::global(),
-			log::_1 << SGE_TEXT("mad: lost sync, but at end of file "));
-		return;
-	}
-	
-	if (!MAD_RECOVERABLE(madstream.error))
-		throw audio::exception(
-			SGE_TEXT("mad: unrecoverable error in mpeg stream: ")+error_string());
-	
-	SGE_LOG_WARNING(
-		log::global(),
-		log::_1 << SGE_TEXT("mad: got recoverable error: "+error_string()));
-	*/
+	throw audio::exception(
+		SGE_TEXT("mad: unrecoverable error in mpeg stream: ")+error_string());
+
+	return frame_ptr();
 }
 
 bool sge::mad::stream::eof() const

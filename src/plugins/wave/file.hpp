@@ -40,17 +40,17 @@ class file : public audio::file
 	// Ob die Bytes geswappt werden muessen
 	boost::logic::tribool      swap_;
 	std::ifstream              file_;
-	audio::sample_type         samples_,
+	audio::sample_count        samples_,
 	                           samples_read_;
-	audio::raw_array_type      buffer_;
+	audio::sample_container    buffer_;
 
 	// Ob das Ding geladen wurde
 	bool                       loaded_;
 
 	// "Pflichtfelder"
 	audio::channel_type        channels_;
-	audio::sample_type         sample_rate_;
-	audio::sample_type         bits_per_sample_;
+	audio::sample_count        sample_rate_;
+	audio::sample_count        bits_per_sample_;
 
 	// Interne Funktionen
 	void load();
@@ -68,14 +68,14 @@ public:
 
 	const std::string to_string() const;
 
-	audio::sample_type bits_per_sample() const;
-	audio::sample_type sample_rate() const;
+	audio::sample_count bits_per_sample() const;
+	audio::sample_count sample_rate() const;
 	audio::channel_type channels() const;
-	audio::sample_type samples() const;
+	audio::sample_count samples() const;
 	void reset();
 
-	audio::sample_type read(audio::sample_type, audio::raw_array_type &);
-	audio::sample_type read_all(audio::raw_array_type &);
+	audio::sample_count read(audio::sample_count,audio::sample_container &);
+	audio::sample_count read_all(audio::sample_container &);
 };
 
 }

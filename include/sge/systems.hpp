@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "image/loader.hpp"
 
-#include "audio/player/player.hpp"
+#include "audio/player.hpp"
 
 #include "export.hpp"
 

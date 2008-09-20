@@ -1,25 +1,21 @@
 #include "frame.hpp"
 #include "synth.hpp"
 #include <sge/sstream.hpp>
+#include <sge/log/headers.hpp>
 
 sge::mad::frame::frame()
 {
 	mad_frame_init(&frame_);
 }
 
-sge::audio::sample_type sge::mad::frame::sample_rate() const
+sge::audio::sample_count sge::mad::frame::sample_rate() const
 {
-	return static_cast<audio::sample_type>(frame_.header.samplerate);
+	return static_cast<audio::sample_count>(frame_.header.samplerate);
 }
 
 sge::audio::channel_type sge::mad::frame::channels() const
 {
 	return static_cast<audio::channel_type>(MAD_NCHANNELS(&frame_.header));
-}
-
-sge::mad::frame::~frame()
-{
-	mad_frame_finish(&frame_);
 }
 
 sge::string const sge::mad::frame::info() const
@@ -71,4 +67,36 @@ sge::string const sge::mad::frame::info() const
 	ss << "bit rate " << frame_.header.bitrate;
 
 	return ss.str();
+}
+
+sge::audio::sample_container const sge::mad::frame::synthesize()
+{
+	synth synth_(*this);
+
+	// multiply by two because each sample is always 2 byte
+	audio::sample_container dest(
+		static_cast<audio::sample_container::size_type>(
+			synth_.sample_count()*2*2));
+
+	audio::sample_container::iterator ptr = dest.begin();
+	for (synth::const_iterator i = synth_.begin(); i != synth_.end(); ++i)
+	{
+		synth::sample_type sample = i->first;
+
+		*ptr++ = static_cast<audio::sample_container::value_type>(sample >> 8);
+		*ptr++ = static_cast<audio::sample_container::value_type>(sample & 0xff);
+
+		if (channels() == static_cast<sge::audio::channel_type>(2))
+			sample = i->second;
+
+		*ptr++ = static_cast<audio::sample_container::value_type>(sample >> 8);
+		*ptr++ = static_cast<audio::sample_container::value_type>(sample & 0xff);
+	}
+
+	return dest;
+}
+
+sge::mad::frame::~frame()
+{
+	mad_frame_finish(&frame_);
 }

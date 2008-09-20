@@ -55,17 +55,17 @@ class file : public audio::file
 	OggVorbis_File ogg_stream_;
 
 	audio::channel_type channels_;
-	audio::sample_type sample_rate_;
-	audio::sample_type bits_per_sample_;
+	audio::sample_count sample_rate_;
+	audio::sample_count bits_per_sample_;
 
 	string ogg_error(long);
 public:
-	file(const path &, audio::sample_type);
-	audio::sample_type read(audio::sample_type samples, audio::raw_array_type &);
-	audio::sample_type read_all(audio::raw_array_type &);
+	file(const path &, audio::sample_count);
+	audio::sample_count read(audio::sample_count samples, audio::sample_container &);
+	audio::sample_count read_all(audio::sample_container &);
 	audio::channel_type channels() const;
-	audio::sample_type sample_rate() const;
-	audio::sample_type bits_per_sample() const;
+	audio::sample_count sample_rate() const;
+	audio::sample_count bits_per_sample() const;
 	void reset();
 };
 

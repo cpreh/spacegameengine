@@ -1,24 +1,22 @@
 #ifndef SGE_MAD_STREAM_HPP_INCLUDED
 #define SGE_MAD_STREAM_HPP_INCLUDED
 
-#include "timer.hpp"
+#include "frame_fwd.hpp"
 #include <mad.h>
 #include <sge/raw_vector.hpp>
 #include <sge/string.hpp>
+#include <boost/noncopyable.hpp>
 #include <iosfwd>
 
 namespace sge
 {
 namespace mad
 {
-class frame;
-
-class stream
+class stream : boost::noncopyable
 {
 	public:
 	stream(std::istream &);
-	void sync();
-	void decode(frame &);
+	frame_ptr const decode();
 	bool eof() const;
 	~stream();
 
@@ -32,8 +30,8 @@ class stream
 	mad_stream madstream;
 	std::istream &stdstream;
 	byte_container input_buffer;
-	timer time;
 
+	void sync();
 	string const error_string() const;
 };
 }

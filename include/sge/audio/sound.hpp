@@ -18,14 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/file.hpp>
-#include <limits>
+#ifndef SGE_AUDIO_SOUND_HPP_INCLUDED
+#define SGE_AUDIO_SOUND_HPP_INCLUDED
 
-sge::audio::sample_type sge::audio::file::bytes_per_sample() const
+#include "types.hpp"
+#include "play_mode.hpp"
+#include "sound_status.hpp"
+#include "../math/vector.hpp"
+#include "../shared_ptr.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
+
+namespace sge
 {
-	return static_cast<audio::sample_type>(
-		bits_per_sample()/std::numeric_limits<unsigned char>::digits);
+namespace audio
+{
+
+class SGE_CLASS_SYMBOL sound : boost::noncopyable {
+public:
+	virtual void play(play_mode::type) = 0;
+	virtual void toggle_pause() = 0;
+	virtual sound_status::type status() const = 0;
+	virtual void stop() = 0;
+	virtual sound_pos const pos() const = 0;
+	virtual void pos(sound_pos const &) = 0;
+	virtual bool positional() const = 0;
+	virtual void positional(bool) = 0;
+	SGE_SYMBOL virtual void update();
+	SGE_SYMBOL virtual ~sound();
+};
+
+typedef shared_ptr<sound> sound_ptr;
+
+}
 }
 
-sge::audio::file::~file()
-{}
+#endif // SOUND_HPP

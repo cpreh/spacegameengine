@@ -29,15 +29,14 @@ namespace sge
 namespace audio
 {
 typedef unsigned channel_type;
-typedef std::size_t sample_type;
-typedef raw_vector<unsigned char> raw_array_type;
+typedef std::size_t sample_count;
+typedef raw_vector<unsigned char> sample_container;
 
 typedef math::vector3 sound_pos;
 
 struct sound_angle
 {
-	math::vector3 forward,
-	              up;
+	math::vector3 forward,up;
 };
 }
 }

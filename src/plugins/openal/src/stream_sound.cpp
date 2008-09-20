@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../openal.hpp"
 #include "../error.hpp"
 #include "../file_format.hpp"
-#include <sge/audio/player/sound.hpp>
+#include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <boost/lexical_cast.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::openal::stream_sound::stream_sound(audio::file_ptr const _audio_file, player &_player)
 	: player_(_player),
 	  audio_file_(_audio_file),
-		buffer_samples_(static_cast<audio::sample_type>(2*_audio_file->sample_rate())),
+		buffer_samples_(static_cast<audio::sample_count>(2*_audio_file->sample_rate())),
 		format_(file_format(*_audio_file))
 {
 	_player.register_stream_sound(this);
@@ -47,11 +47,11 @@ sge::openal::stream_sound::~stream_sound()
 
 bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 {
-	audio::raw_array_type data;
-	audio::sample_type samples_read = 
+	audio::sample_container data;
+	audio::sample_count samples_read = 
 		audio_file_->read(buffer_samples_, data);
 
-	if (samples_read == static_cast<audio::sample_type>(0))
+	if (samples_read == static_cast<audio::sample_count>(0))
 	{
 		// Nichts mehr nachzuladen, aber es soll geloopt werden? Dann resetten und von vorne nachladen
 		if (play_mode() != audio::play_mode::loop)

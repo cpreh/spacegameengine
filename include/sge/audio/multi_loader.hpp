@@ -18,22 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/player/player.hpp>
-#include <sge/plugin/detail/instantiate_types.hpp>
+#ifndef SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
+#define SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 
-sge::audio::player::~player()
-{}
+#include "loader.hpp"
+#include "../path.hpp"
+#include "../plugin/manager.hpp"
+#include <boost/noncopyable.hpp>
+#include <vector>
 
-sge::plugin::detail::address_name
-sge::plugin::detail::traits<sge::audio::player>::plugin_loader_name()
+namespace sge
 {
-	return SGE_ADDRESS_NAME("create_audio_player");
+namespace audio
+{
+class SGE_CLASS_SYMBOL multi_loader : boost::noncopyable 
+{
+public:
+	SGE_SYMBOL multi_loader(plugin::manager&);
+	SGE_SYMBOL file_ptr const load(path const&);
+private:
+	typedef std::vector<plugin::context<loader>::ptr_type> plugin_container;
+  typedef std::vector<loader_ptr> loader_container;
+
+	plugin_container plugins;
+	loader_container loaders;
+};
+
+}
 }
 
-sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::audio::player>::get_plugin_type()
-{
-	return capabilities::audio_player;
-}
-
-SGE_PLUGIN_INSTANTIATE_TYPES(sge::audio::player)
+#endif // AUDIO_HPP

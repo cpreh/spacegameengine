@@ -2,8 +2,6 @@ FILE (GLOB sgecorefiles
 	*.cpp
 	archive/*.cpp
 	audio/*.cpp
-	audio/loader/*.cpp
-	audio/player/*.cpp
 	console/*.cpp
 	font/*.cpp
 	image/*.cpp

@@ -1,5 +1,6 @@
-#include <sge/audio/loader/multi_loader.hpp>
+#include <sge/audio/multi_loader.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 
 sge::audio::multi_loader::multi_loader(plugin::manager &pm)
@@ -21,6 +22,8 @@ sge::audio::file_ptr const sge::audio::multi_loader::load(path const &file)
 
 	for (loader_container::iterator i = loaders.begin(); i != loaders.end(); ++i)
 	{
+		SGE_LOG_DEBUG(log::global(),log::_1 << "trying to load audio file");
+
 		if (!(*i)->is_valid_file(file))
 			continue;
 

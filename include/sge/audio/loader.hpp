@@ -18,36 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_FILE_HPP_INCLUDED
-#define SGE_AUDIO_FILE_HPP_INCLUDED
+#ifndef SGE_AUDIO_LOADER_HPP_INCLUDED
+#define SGE_AUDIO_LOADER_HPP_INCLUDED
 
-#include "types.hpp"
+#include "file.hpp"
+#include "../string.hpp"
+#include "../path.hpp"
 #include "../shared_ptr.hpp"
+#include "../plugin/traits.hpp"
+#include "../plugin/capabilities.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
-#include <cstddef>
 
 namespace sge
 {
 namespace audio
 {
 
-class SGE_CLASS_SYMBOL file : boost::noncopyable {
+class SGE_CLASS_SYMBOL loader : boost::noncopyable {
 public:
-	virtual sample_count read(sample_count samples, sample_container &) = 0;
-	virtual sample_count read_all(sample_container &) = 0;
-
-	virtual channel_type channels() const = 0;
-	virtual sample_count sample_rate() const = 0;
-	virtual sample_count bits_per_sample() const = 0;
-	virtual void reset() = 0;
-	SGE_SYMBOL sample_count bytes_per_sample() const;
-	SGE_SYMBOL virtual ~file();
+	virtual const file_ptr load(const path& file) = 0;
+	virtual bool is_valid_file(const path& file) const = 0;
+	SGE_SYMBOL virtual ~loader();
 };
 
-typedef shared_ptr<file> file_ptr;
+typedef shared_ptr<loader> loader_ptr;
+
+}
+
+namespace plugin
+{
+namespace detail
+{
+
+template<> struct traits<audio::loader> {
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static capabilities::type get_plugin_type();
+	typedef audio::loader* (*loader_fun)();
+};
 
 }
 }
 
-#endif // AUDIO_FILE_HPP
+}
+
+#endif // AUDIO_HPP

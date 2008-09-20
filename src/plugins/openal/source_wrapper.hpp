@@ -2,7 +2,7 @@
 #define SGE_OPENAL_SOURCE_WRAPPER_HPP_INCLUDED
 
 #include "openal.hpp"
-#include <sge/audio/player/sound.hpp>
+#include <sge/audio/sound.hpp>
 
 namespace sge
 {
