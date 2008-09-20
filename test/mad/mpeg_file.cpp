@@ -31,7 +31,6 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 
 	frame_ptr f = s.decode();
 
-	channels_ = f->channels();
 	sample_rate_ = f->sample_rate();
 
 	SGE_LOG_INFO(

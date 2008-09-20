@@ -12,12 +12,10 @@ namespace
 {
 sge::mad::synth::sample_type mad_to_native(mad_fixed_t fixed)
 {
-	/*
 	if(fixed>=MAD_F_ONE)
 		return SHRT_MAX;
 	if(fixed<=-MAD_F_ONE)
 		return -SHRT_MAX;
-	*/
 
 	fixed=fixed>>(MAD_F_FRACBITS-15);
 	return((signed short)fixed);
@@ -43,14 +41,14 @@ sge::mad::synth::sample_type mad_to_native(mad_fixed_t fixed)
 	//return std::sin((counter++) * 100) * 60000;
 
 	/*
-  sample += (1L << (MAD_F_FRACBITS - 16));
+  fixed += (1L << (MAD_F_FRACBITS - 16));
 
-  if (sample >= MAD_F_ONE)
-    sample = MAD_F_ONE - 1;
-  else if (sample < -MAD_F_ONE)
-    sample = -MAD_F_ONE;
+  if (fixed >= MAD_F_ONE)
+    fixed = MAD_F_ONE - 1;
+  else if (fixed < -MAD_F_ONE)
+    fixed = -MAD_F_ONE;
 
-  return sample >> (MAD_F_FRACBITS + 1 - 16);
+  return fixed >> (MAD_F_FRACBITS + 1 - 16);
 	*/
 
 		
