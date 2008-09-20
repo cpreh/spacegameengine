@@ -47,7 +47,10 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
 {
 	move(buffered_,buffered_.begin(),buffered_.end(),std::back_inserter(dest));
 
-	for (int i = 0; i < 20; ++i)
+	//sample_count const remaining_bytes = dest.size();
+
+	//while (
+	for (int i = 0; i < 40; ++i)
 		append(dest,s.decode()->synthesize());
 
 	return dest.size()/bytes_per_sample();

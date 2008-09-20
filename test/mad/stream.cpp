@@ -112,8 +112,6 @@ sge::mad::frame_ptr const sge::mad::stream::decode()
 
 	throw audio::exception(
 		SGE_TEXT("mad: unrecoverable error in mpeg stream: ")+error_string());
-
-	return frame_ptr();
 }
 
 bool sge::mad::stream::eof() const

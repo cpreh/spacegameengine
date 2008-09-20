@@ -83,14 +83,14 @@ sge::audio::sample_container const sge::mad::frame::synthesize()
 	{
 		synth::sample_type sample = i->first;
 
-		*ptr++ = static_cast<audio::sample_container::value_type>(sample >> 8);
 		*ptr++ = static_cast<audio::sample_container::value_type>(sample & 0xff);
+		*ptr++ = static_cast<audio::sample_container::value_type>(sample >> 8);
 
 		if (channels() == static_cast<sge::audio::channel_type>(2))
 			sample = i->second;
 
-		*ptr++ = static_cast<audio::sample_container::value_type>(sample >> 8);
 		*ptr++ = static_cast<audio::sample_container::value_type>(sample & 0xff);
+		*ptr++ = static_cast<audio::sample_container::value_type>(sample >> 8);
 	}
 
 	return dest;
