@@ -81,9 +81,11 @@ sge::mad::frame_ptr const sge::mad::stream::decode()
 
 	if (!mad_frame_decode(&(f->madframe()),&madstream))
 	{
+		/*
 		SGE_LOG_DEBUG(
 			log::global(),
 			log::_1 << "mad: decoded frame successfully");
+		*/
 
 		return f;
 	}

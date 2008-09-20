@@ -12,10 +12,12 @@ namespace
 {
 sge::mad::synth::sample_type mad_to_native(mad_fixed_t fixed)
 {
+	/*
 	if(fixed>=MAD_F_ONE)
 		return SHRT_MAX;
 	if(fixed<=-MAD_F_ONE)
 		return -SHRT_MAX;
+	*/
 
 	fixed=fixed>>(MAD_F_FRACBITS-15);
 	return((signed short)fixed);
