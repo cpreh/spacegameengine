@@ -164,7 +164,7 @@ sge::raw_vector<T, A>::raw_vector(const In beg, const In end, const A& a)
 	
 template<typename T, typename A>
 sge::raw_vector<T, A>::raw_vector(const raw_vector& x)
-: i(x.a, x.size())
+: i(x.i.a, x.size())
 {
 	assign(x.begin(), x.end());
 }
