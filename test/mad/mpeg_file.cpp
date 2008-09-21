@@ -31,7 +31,6 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 
 	frame_ptr f = s.decode();
 
-	channels_ = f->channels();
 	sample_rate_ = f->sample_rate();
 
 	SGE_LOG_INFO(
@@ -45,15 +44,15 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
 	sample_count const samples,
 	sample_container &dest)
 {
+	sample_count const samples_bytes = 
+		static_cast<sample_count>(samples*bytes_per_sample());
+
 	move(buffered_,buffered_.begin(),buffered_.end(),std::back_inserter(dest));
 
-	while (dest.size() < samples*bytes_per_sample())
+	while (dest.size() < samples_bytes)
 		append(dest,s.decode()->synthesize());
 	
-	/*
-	for (int i = 0; i < 40; ++i)
-		append(dest,s.decode()->synthesize());
-	*/
+	move(dest,dest.begin()+samples_bytes,dest.end(),std::back_inserter(buffered_));
 
 	return dest.size()/bytes_per_sample();
 }

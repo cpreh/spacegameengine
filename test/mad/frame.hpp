@@ -14,8 +14,8 @@ class frame : boost::noncopyable
 {
 	public:
 	frame();
-	mad_frame &madframe() { return frame_; }
-	mad_frame const &madframe() const { return frame_; }
+	mad_frame &madframe(); /*{ return frame_; }*/
+	//mad_frame const &madframe();/* const { return frame_; } */
 	audio::sample_count sample_rate() const;
 	audio::channel_type channels() const;
 	string const info() const;

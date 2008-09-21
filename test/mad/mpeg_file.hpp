@@ -32,7 +32,6 @@ class mpeg_file : public audio::file
 	sge::ifstream stdstream;
 	stream s;
 	sample_container buffered_;
-	channel_type channels_;
 	sample_count sample_rate_;
 };
 }

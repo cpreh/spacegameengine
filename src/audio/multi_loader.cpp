@@ -22,7 +22,7 @@ sge::audio::file_ptr const sge::audio::multi_loader::load(path const &file)
 
 	for (loader_container::iterator i = loaders.begin(); i != loaders.end(); ++i)
 	{
-		SGE_LOG_DEBUG(log::global(),log::_1 << "trying to load audio file");
+		SGE_LOG_DEBUG(log::global(),log::_1 << SGE_TEXT("trying to load audio file"));
 
 		if (!(*i)->is_valid_file(file))
 			continue;
@@ -33,6 +33,6 @@ sge::audio::file_ptr const sge::audio::multi_loader::load(path const &file)
 	throw exception(
 		SGE_TEXT("couldn't find any audio loaders for file \"")
 		+ file.string()
-		+ SGE_TEXT("\""));
+		+ SGE_TEXT('"'));
 	return file_ptr();
 }

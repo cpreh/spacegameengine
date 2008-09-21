@@ -46,7 +46,7 @@ try
       ("help",
         "produce help message")
       ("file",
-        po::value<std::string>(&file_name_prog_options),
+        po::value<std::string>(&file_name_prog_options)->default_value("/mnt/extern/musik/misc/29 - the notwist - good lies.mp3"),
         "sets the sound file name")
       ("revolving",
         po::value<bool>(&revolving)->default_value(false),
@@ -68,14 +68,12 @@ try
     return EXIT_SUCCESS;
   }
 
-  sge::string file_name(sge::iconv(file_name_prog_options));
-	if (file_name.empty())
-		file_name = sge::media_path().string()+SGE_TEXT("/ding.wav");
+  sge::string const file_name(sge::iconv(file_name_prog_options));
 
 	sge::systems sys;
 	sys.init<sge::init::audio_player>();
 	
-	//sge::audio::file_ptr const soundfile(new sge::mad::mpeg_file(file_name));
+	sge::audio::file_ptr const soundfile(new sge::mad::mpeg_file(file_name));
 
 	sge::audio::sound_ptr const sound = 
 		streaming 
