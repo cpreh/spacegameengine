@@ -37,6 +37,7 @@ GLenum convert_cast(renderer::bool_state::type);
 GLenum convert_cast(renderer::cull_mode::type);
 GLenum convert_cast(renderer::depth_func::type);
 GLenum convert_cast(renderer::stencil_func::type);
+GLenum convert_cast(renderer::alpha_func::type);
 GLenum convert_cast(renderer::fog_mode::type);
 GLenum convert_cast(renderer::source_blend_func::type);
 GLenum convert_cast(renderer::dest_blend_func::type);

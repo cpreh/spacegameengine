@@ -18,45 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
+#include "../split_states.hpp"
+#include "../common.hpp"
+#include "../error.hpp"
+#include "../conversion.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "intrusive_object.hpp"
-#include "system_base.hpp"
-#include "../renderer/device.hpp"
-#include <boost/intrusive/list.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
-#include <boost/noncopyable.hpp>
+sge::ogl::split_states::split_states(
+	renderer::state_list &states)
+: states(states)
+{}
 
-namespace sge
+void sge::ogl::split_states::update_stencil()
 {
-namespace sprite
-{
+	SGE_OPENGL_SENTRY
 
-class intrusive_system : public system_base {
-public:
-	SGE_SYMBOL explicit intrusive_system(
-		renderer::device_ptr);
-	
-	SGE_SYMBOL void render();
-private:
-	typedef boost::intrusive::list<
-		intrusive_object,
-		boost::intrusive::constant_time_size<false>
-	> sprite_list;
-
-	void render(
-		sprite_list const &);
-	void add(
-		intrusive_object &,
-		bool transparent);
-	friend class intrusive_object;
-
-	sprite_list opaque_sprites,
-	            transparent_sprites;
-};
-
-}
+	glStencilFunc(
+		convert_cast(
+			states.get<renderer::stencil_func::type>()),
+		0, // FIXME
+		0); // FIXME
 }
 
-#endif
+void sge::ogl::split_states::update_blend()
+{
+	SGE_OPENGL_SENTRY
+
+	glBlendFunc(
+		convert_cast(
+			states.get<renderer::source_blend_func::type>()),
+		convert_cast(
+			states.get<renderer::dest_blend_func::type>()));
+}
+
+void sge::ogl::split_states::update_alpha_test()
+{
+	SGE_OPENGL_SENTRY	
+}

@@ -37,8 +37,38 @@ sge::sprite::intrusive_system::intrusive_system(
 
 void sge::sprite::intrusive_system::render()
 {
-	BOOST_FOREACH(sprite_level_map::value_type const &v, sprite_levels)
-		render(*v.second);
+	renderer::device_ptr const rend(
+		get_renderer());
+	
+	renderer::scoped_state const state_(
+		rend,
+		renderer::state_list
+			(renderer::bool_state::enable_lighting = false)
+			(renderer::bool_state::enable_alpha_blending = true)
+			(renderer::source_blend_func::src_alpha)
+			(renderer::dest_blend_func::inv_src_alpha)
+			(renderer::cull_mode::off)
+			(renderer::stencil_func::off)
+			(renderer::draw_mode::fill)
+	);
+
+	{
+		
+		renderer::scoped_state const state_(
+			rend,
+			renderer::state_list
+				(renderer::depth_func::off)
+		);
+		render(transparent_sprites);
+	}
+	{
+		renderer::scoped_state const state_(
+			rend,
+			renderer::state_list
+				(renderer::depth_func::greater)
+		);
+		render(opaque_sprites);
+	}
 }
 
 void sge::sprite::intrusive_system::render(
@@ -75,7 +105,7 @@ void sge::sprite::intrusive_system::render(
 			else
 				fill_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
-			if(const texture::part_ptr tex = spr.get_texture())
+			if(texture::part_ptr const tex = spr.get_texture())
 				fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
 
 			vb_it = fill_color(vb_it, spr.get_color());
@@ -86,19 +116,9 @@ void sge::sprite::intrusive_system::render(
 
 	renderer::device_ptr const rend(
 		get_renderer());
-
-	const renderer::scoped_state state_(
-		rend,
-		renderer::state_list
-			(renderer::bool_state::enable_lighting = false)
-			(renderer::bool_state::enable_alpha_blending = true)
-			(renderer::source_blend_func::src_alpha)
-			(renderer::dest_blend_func::inv_src_alpha)
-			(renderer::cull_mode::off)
-			(renderer::depth_func::off)
-			(renderer::stencil_func::off)
-			(renderer::draw_mode::fill)
-	);
+	
+	rend->projection(
+		sge::math::matrix_identity());
 
 	unsigned first_index = 0;
 	
@@ -136,7 +156,10 @@ void sge::sprite::intrusive_system::render(
 
 void sge::sprite::intrusive_system::add(
 	intrusive_object &obj,
-	intrusive_object::order_type const order)
+	bool const transparent)
 {
-	sprite_levels[order].push_back(obj);
+	if(transparent)
+		transparent_sprites.push_back(obj);
+	else
+		opaque_sprites.push_back(obj);
 }

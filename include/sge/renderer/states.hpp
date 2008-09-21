@@ -30,36 +30,52 @@ namespace sge
 {
 namespace renderer
 {
+namespace state
+{
 
 template<typename T>
-struct state_var_traits;
+struct traits;
 
-template<> struct state_var_traits<int> { enum available_states {
-	stencil_clear_val
-}; };
+template<>
+struct traits<int> {
+	enum available_states {
+		stencil_clear_val
+	};
+};
 
-template<> struct state_var_traits<float> { enum available_states {
-	zbuffer_clear_val,
-	fog_start,
-	fog_end,
-	fog_density
-}; };
+template<>
+struct traits<float> {
+	enum available_states {
+		zbuffer_clear_val,
+		alpha_test_ref,
+		fog_start,
+		fog_end,
+		fog_density
+	};
+};
 
-template<> struct state_var_traits<bool> { enum available_states {
-	clear_zbuffer,
-	clear_backbuffer,
-	clear_stencil,
-	enable_alpha_blending,
-	enable_lighting
-}; };
+template<>
+struct traits<bool> {
+	enum available_states {
+		clear_zbuffer,
+		clear_backbuffer,
+		clear_stencil,
+		enable_alpha_blending,
+		enable_alpha_test,
+		enable_lighting
+	};
+};
 
-template<> struct state_var_traits<any_color> { enum available_states {
-	clear_color,
-	ambient_light_color,
-	fog_color
-}; };
+template<>
+struct traits<any_color> {
+	enum available_states {
+		clear_color,
+		ambient_light_color,
+		fog_color
+	};
+};
 
-namespace state_cull_mode_type {
+namespace cull_mode {
 	enum type {
 		off,
 		back,
@@ -67,14 +83,7 @@ namespace state_cull_mode_type {
 	};
 }
 
-template<>
-struct state_var_traits<state_cull_mode_type::type> {
-	enum available_states {
-		singular
-	};
-};
-
-namespace state_depth_func_type
+namespace depth_func
 {
 	enum type {
 		off,
@@ -89,14 +98,7 @@ namespace state_depth_func_type
 	};
 }
 
-template<>
-struct state_var_traits<state_depth_func_type::type> {
-	enum available_states {
-		singular
-	};
-};
-
-namespace state_stencil_func_type
+namespace stencil_func
 {
 	enum type {
 		off,
@@ -111,14 +113,22 @@ namespace state_stencil_func_type
 	};
 }
 
-template<>
-struct state_var_traits<state_stencil_func_type::type> {
-	enum available_states {
-		singular
+namespace alpha_func
+{
+	enum type {
+		off,
+		never,
+		less,
+		equal,
+		less_equal,
+		greater,
+		not_equal,
+		greater_equal,
+		always
 	};
-};
+}
 
-namespace state_fog_mode_type {
+namespace fog_mode {
 	enum type {
 		off,
 		linear,
@@ -127,14 +137,7 @@ namespace state_fog_mode_type {
 	};
 }
 
-template<>
-struct state_var_traits<state_fog_mode_type::type> {
-	enum available_states {
-		singular
-	};
-};
-
-namespace state_draw_mode_type
+namespace draw_mode
 {
 	enum type {
 		point,
@@ -143,14 +146,7 @@ namespace state_draw_mode_type
 	};
 }
 
-template<>
-struct state_var_traits<state_draw_mode_type::type> {
-	enum available_states {
-		singular
-	};
-};
-
-namespace state_source_blend_func_type
+namespace source_blend_func
 {
 	enum type {
 		zero,
@@ -165,14 +161,7 @@ namespace state_source_blend_func_type
 	};
 }
 
-template<>
-struct state_var_traits<state_source_blend_func_type::type> {
-	enum available_states {
-		singular
-	};
-};
-
-namespace state_dest_blend_func_type
+namespace dest_blend_func
 {
 	enum type {
 		zero,
@@ -186,49 +175,47 @@ namespace state_dest_blend_func_type
 	};
 }
 
-template<>
-struct state_var_traits<state_dest_blend_func_type::type> {
-	enum available_states {
-		singular
-	};
+template<typename T>
+struct var {
+	typedef traits<T>::available_states state_type;
+	typedef T value_type;
+
+	SGE_SYMBOL var &operator=(
+		value_type);
+	
+	SGE_SYMBOL state_type state() const;
+	SGE_SYMBOL value_type value() const;
+
+	SGE_SYMBOL explicit var(
+		state_type state,
+		value_type defval = value_type());
+private:
+	value_type val;
 };
 
 template<typename T>
-struct state_var {
-	typedef T value_type;
-
-	SGE_SYMBOL state_var<T> operator=(T newval);
-	
-	SGE_SYMBOL T value() const;
-
-	const typename state_var_traits<T>::available_states state_id;
-
-	SGE_SYMBOL explicit state_var(
-		const typename state_var_traits<T>::available_states state_id,
-		const T defval = T());
-
-	SGE_SYMBOL bool operator<(state_var const&) const;
-private:
-	T val;
+struct trampoline {
+	var<T> const operator=(T);
 };
 
 namespace int_state {
-	typedef state_var<int> type;
+	typedef var<int> type;
 	SGE_SYMBOL extern type
 		stencil_clear_val;
 }
 
 namespace float_state {
-	typedef state_var<float> type;
+	typedef var<float> type;
 	SGE_SYMBOL extern type
 		zbuffer_clear_val,
+		alpha_test_ref,
 		fog_start,
 		fog_end,
 		fog_density;
 }
 
 namespace bool_state {
-	typedef state_var<bool> type;
+	typedef var<bool> type;
 	SGE_SYMBOL extern type
 		clear_zbuffer,
 		clear_backbuffer,
@@ -238,91 +225,11 @@ namespace bool_state {
 }
 
 namespace color_state {
-	typedef state_var<any_color> type;
+	typedef var<any_color> type;
 	SGE_SYMBOL extern type
 		clear_color,
 		ambient_light_color,
 		fog_color;
-}
-
-namespace cull_mode {
-	typedef state_var<state_cull_mode_type::type> type;
-	SGE_SYMBOL extern const type
-		off,
-		back,
-		front;
-}
-
-namespace depth_func {
-	typedef state_var<state_depth_func_type::type> type;
-	SGE_SYMBOL extern const type
-		off,
-		never,
-		less,
-		equal,
-		less_equal,
-		greater,
-		not_equal,
-		greater_equal,
-		always;
-}
-
-namespace stencil_func {
-	typedef state_var<state_stencil_func_type::type> type;
-	SGE_SYMBOL extern const type
-		off,
-		never,
-		less,
-		equal,
-		less_equal,
-		greater,
-		not_equal,
-		greater_equal,
-		always;
-}
-
-namespace fog_mode {
-	typedef state_var<state_fog_mode_type::type> type;
-	SGE_SYMBOL extern const type
-		off,
-		linear,
-		exp,
-		exp2;
-}
-
-namespace draw_mode {
-	typedef state_var<state_draw_mode_type::type> type;
-	SGE_SYMBOL extern const type
-		point,
-		line,
-		fill;
-}
-
-namespace source_blend_func {
-	typedef state_var<state_source_blend_func_type::type> type;
-	SGE_SYMBOL extern const type
-		zero,
-		one,
-		dest_color,
-		inv_dest_color,
-		src_alpha,
-		inv_src_alpha,
-		dest_alpha,
-		inv_dest_alpha,
-		src_alpha_sat;
-}
-
-namespace dest_blend_func {
-	typedef state_var<state_dest_blend_func_type::type> type;
-	SGE_SYMBOL extern const type
-		zero,
-		one,
-		src_color,
-		inv_src_color,
-		src_alpha,
-		inv_src_alpha,
-		dest_alpha,
-		inv_dest_alpha;
 }
 
 typedef boost::variant<
@@ -333,30 +240,39 @@ typedef boost::variant<
 	cull_mode::type,
 	depth_func::type,
 	stencil_func::type,
+	alpha_func::type,
 	fog_mode::type,
 	draw_mode::type,
 	source_blend_func::type,
 	dest_blend_func::type
-> any_state;
+> any;
 
 
-class state_list {
+class list {
 public:
-	SGE_SYMBOL state_list();
-	SGE_SYMBOL explicit state_list(
-		any_state const &);
-	SGE_SYMBOL const state_list operator()(
-		any_state const&) const;
+	SGE_SYMBOL list();
+	SGE_SYMBOL explicit list(
+		any const &);
+	SGE_SYMBOL list const operator()(
+		any const &) const;
 
 	SGE_SYMBOL void overwrite(
-		any_state const&);
+		any const &);
 
-	typedef std::set<any_state> set_type;
-	SGE_SYMBOL set_type const& get() const;
+	template<typename T>
+	T const get() const;
+
+	typedef std::set<any> set_type;
+	set_type const &values() const;
 private:
 	set_type set_;
 };
 
+list const combine(
+	list,
+	list const &);
+
+}
 }
 }
 

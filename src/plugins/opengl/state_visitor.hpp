@@ -29,11 +29,12 @@ namespace sge
 namespace ogl
 {
 
-class device;
+class split_states;
 
 class state_visitor : public boost::static_visitor<> {
 public:
-	state_visitor(device& rend);
+	explicit state_visitor(
+		split_states &states);
 
 	void operator()(renderer::int_state::type) const;
 	void operator()(renderer::float_state::type) const;
@@ -42,12 +43,13 @@ public:
 	void operator()(renderer::cull_mode::type) const;
 	void operator()(renderer::depth_func::type) const;
 	void operator()(renderer::stencil_func::type) const;
+	void operator()(renderer::alpha_func::type) const;
 	void operator()(renderer::fog_mode::type) const;
 	void operator()(renderer::draw_mode::type) const;
 	void operator()(renderer::source_blend_func::type) const;
 	void operator()(renderer::dest_blend_func::type) const;
 private:
-	device& rend;
+	split_states &states;
 };
 
 }

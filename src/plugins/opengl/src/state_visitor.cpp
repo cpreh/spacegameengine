@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../state_visitor.hpp"
-#include "../device.hpp"
+#include "../split_states.hpp"
 #include "../conversion.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::ogl::state_visitor::state_visitor(
-	device& rend)
-: rend(rend)
+	split_states& states)
+: states(states)
 {}
 
 void sge::ogl::state_visitor::operator()(
@@ -60,6 +60,9 @@ void sge::ogl::state_visitor::operator()(
 	switch(s.state_id) {
 	case rs::zbuffer_clear_val:
 		glClearDepth(s.value());
+		break;
+	case rs::alpha_test_ref:
+		states.update_alpha_test();
 		break;
 	case rs::fog_start:
 	case rs::fog_end:
@@ -165,7 +168,20 @@ void sge::ogl::state_visitor::operator()(
 	}
 
 	enable(GL_STENCIL_TEST);
-	rend.set_stencil_func();
+	states.update_stencil();
+}
+
+void sge::ogl::state_visitor::operator()(
+	renderer::alpha_func::type const f) const
+{
+	if(f.value() == renderer::state_alpha_func_type::off)
+	{
+		disable(GL_ALPHA_TEST);
+		return;
+	}
+	
+	enable(GL_ALPHA_TEST);
+	states.update_alpha_test();
 }
 
 void sge::ogl::state_visitor::operator()(
@@ -195,11 +211,11 @@ void sge::ogl::state_visitor::operator()(
 void sge::ogl::state_visitor::operator()(
 	renderer::source_blend_func::type) const
 {
-	rend.set_blend_func();
+	states.update_blend();
 }
 
 void sge::ogl::state_visitor::operator()(
 	renderer::dest_blend_func::type) const
 {
-	rend.set_blend_func();
+	states.update_blend();
 }

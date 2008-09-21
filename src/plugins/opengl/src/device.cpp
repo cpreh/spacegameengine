@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glsl/impl.hpp"
 #include "../common.hpp"
 #include "../matrix.hpp"
+#include "../split_states.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
@@ -382,69 +383,32 @@ void sge::ogl::device::render(
 }
 
 void sge::ogl::device::set_state(
-	const renderer::state_list &states)
+	renderer::state_list const &states)
 {
-	const state_visitor visitor(*this);
-	BOOST_FOREACH(const renderer::any_state& s, states.get())
+	state_visitor const visitor(
+		split_states(
+			current_states));
+	BOOST_FOREACH(renderer::any_state const &s, states.values())
 	{
-		boost::apply_visitor(visitor, s);
 		current_states.overwrite(s);
+		//boost::apply_visitor(visitor, s);
 	}
 }
 
 void sge::ogl::device::push_state(
-	const renderer::state_list& states)
-{
-	renderer::state_list list;
-	BOOST_FOREACH(const renderer::any_state& s, states.get())
-		list.overwrite(get_any_state(s));
-	
-	state_levels.push(list);
+	renderer::state_list const &states)
+{	
+	state_levels.push(
+		renderer::combine(
+			current_states,
+			states));
 	set_state(states);
-}
-
-void sge::ogl::device::set_stencil_func()
-{
-	SGE_OPENGL_SENTRY
-	glStencilFunc(
-		convert_cast(get_state(renderer::stencil_func::off)), // FIXME
-		0,
-		0); // FIXME
-}
-
-void sge::ogl::device::set_blend_func()
-{
-	SGE_OPENGL_SENTRY
-	glBlendFunc(
-		convert_cast(get_state(renderer::source_blend_func::zero)), // FIXME
-		convert_cast(get_state(renderer::dest_blend_func::zero))); // FIXME
 }
 
 GLenum sge::ogl::device::get_clear_bit(
 	const renderer::bool_state::type s) const
 {
-	return get_state(s).value() ? convert_clear_bit(s) : 0;
-}
-
-template<typename T>
-T sge::ogl::device::get_state(const T& t) const
-{
-	renderer::state_list::set_type const &states(current_states.get());
-	const renderer::state_list::set_type::const_iterator it = states.find(t);
-	if(it == states.end())
-		throw exception(SGE_TEXT("ogl::device::get_state(): state not found!"));
-	return boost::get<T>(*it);
-}
-
-const sge::renderer::any_state&
-sge::ogl::device::get_any_state(
-	const renderer::any_state& state) const
-{
-	renderer::state_list::set_type const &states(current_states.get());
-	const renderer::state_list::set_type::const_iterator it = states.find(state);
-	if(it == states.end())
-		throw exception(SGE_TEXT("ogl::device::get_any_state(): state not found!"));
-	return *it;
+	//return get_state(s).value() ? convert_clear_bit(s) : 0;
 }
 
 void sge::ogl::device::set_material(const renderer::material& mat)

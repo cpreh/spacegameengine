@@ -18,42 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
+#ifndef SGE_OPENGL_SPLIT_STATES_HPP_INCLUDED
+#define SGE_OPENGL_SPLIT_STATES_HPP_INCLUDED
 
-#include "intrusive_object.hpp"
-#include "system_base.hpp"
-#include "../renderer/device.hpp"
-#include <boost/intrusive/list.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
-#include <boost/noncopyable.hpp>
+#include "common.hpp"
+#include <sge/renderer/states.hpp>
 
 namespace sge
 {
-namespace sprite
+namespace ogl
 {
 
-class intrusive_system : public system_base {
+class split_states {
 public:
-	SGE_SYMBOL explicit intrusive_system(
-		renderer::device_ptr);
-	
-	SGE_SYMBOL void render();
+	explicit split_states(
+		renderer::state_list &);
+	void update_stencil();
+	void update_blend();
+	void update_alpha_test();
 private:
-	typedef boost::intrusive::list<
-		intrusive_object,
-		boost::intrusive::constant_time_size<false>
-	> sprite_list;
+	template<typename T>
+	T const get(
+		T const &) const;
 
-	void render(
-		sprite_list const &);
-	void add(
-		intrusive_object &,
-		bool transparent);
-	friend class intrusive_object;
-
-	sprite_list opaque_sprites,
-	            transparent_sprites;
+	renderer::state_list &states;
 };
 
 }

@@ -159,20 +159,17 @@ public:
 	renderer::caps const &get_caps() const;
 	renderer::screen_size_t const screen_size() const;
 	window_ptr const get_window() const;
-
-	void set_stencil_func();
-	void set_blend_func();
 private:
-	GLenum get_clear_bit(renderer::bool_state::type) const;
-	template<typename T>
-		T get_state(const T&) const;
-	const renderer::any_state& get_any_state(
-		const renderer::any_state& state) const;
+	GLenum get_clear_bit(
+		renderer::bool_state::type) const;
+	renderer::any_state const &
+	get_any_state(
+		renderer::any_state const &state) const;
 
 	void set_vertex_buffer(renderer::const_vertex_buffer_ptr vb);
 	void set_index_buffer(renderer::const_index_buffer_ptr ib);
-	const fbo_target_ptr create_render_target(
-		const renderer::target::dim_type&);
+	fbo_target_ptr const create_render_target(
+		renderer::target::dim_type const &);
 
 	renderer::parameters          param;
 	renderer::caps                caps_;

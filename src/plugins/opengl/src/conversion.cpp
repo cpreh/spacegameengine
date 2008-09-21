@@ -96,6 +96,30 @@ GLenum sge::ogl::convert_cast(const renderer::stencil_func::type f)
 	}
 }
 
+GLenum sge::ogl::convert_cast(const renderer::alpha_func::type f)
+{
+	switch(f.value()) {
+	case renderer::state_alpha_func_type::never:
+		return GL_NEVER;
+	case renderer::state_alpha_func_type::less:
+		return GL_LESS;
+	case renderer::state_alpha_func_type::equal:
+		return GL_EQUAL;
+	case renderer::state_alpha_func_type::less_equal:
+		return GL_LEQUAL;
+	case renderer::state_alpha_func_type::greater:
+		return GL_GREATER;
+	case renderer::state_alpha_func_type::not_equal:
+		return GL_NOTEQUAL;
+	case renderer::state_alpha_func_type::greater_equal:
+		return GL_GEQUAL;
+	case renderer::state_alpha_func_type::always:
+		return GL_ALWAYS;
+	default:
+		throw exception(SGE_TEXT("Invalid alpha_func!"));
+	}
+}
+
 GLenum sge::ogl::convert_cast(const renderer::fog_mode::type m)
 {
 	switch(m.value()) {

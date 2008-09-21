@@ -20,15 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/states.hpp>
 #include <sge/text.hpp>
+#include <sge/exception.hpp>
 #include <sge/iostream.hpp>
+#include <boost/foreach.hpp>
 #include <ostream>
 
 template<typename T>
-sge::renderer::state_var<T> sge::renderer::state_var<T>::operator=(const T newval)
+sge::renderer::state_var<T>
+sge::renderer::state_var<T>::operator=(
+	T const newval)
 {
-	state_var<T> cp(state_id, newval);
-	val = cp.val;
-	return cp;
+	return state_var<T>(newval);
 }
 
 template<typename T>
@@ -39,18 +41,9 @@ T sge::renderer::state_var<T>::value() const
 
 template<typename T>
 sge::renderer::state_var<T>::state_var(
-	const typename state_var_traits<T>::available_states state_id,
-	const T defval)
-: state_id(state_id),
-  val(defval)
+	T const defval)
+: val(defval)
 {}
-
-template<typename T>
-bool sge::renderer::state_var<T>::operator<(
-	const state_var<T> &other) const
-{
-	return state_id < other.state_id;
-}
 
 
 sge::renderer::state_list::state_list()
@@ -75,31 +68,40 @@ sge::renderer::state_list::operator()(
 void sge::renderer::state_list::overwrite(
 	any_state const& a)
 {
-	const set_type::iterator it(set_.find(a));
+	set_type::iterator const it(set_.find(a));
 	if(it != set_.end())
 		set_.erase(it);
 	set_.insert(a);
 	// TODO: is there a better way to do this?
 }
 
-sge::renderer::state_list::set_type const &
+template<typename T>
+T const
 sge::renderer::state_list::get() const
 {
-	return set_;
+	BOOST_FOREACH(set_type::const_reference ref, set_)
+		if(ref.type() == typeid(T))
+			return boost::get<T>(ref);
+	
+	throw exception(
+		SGE_TEXT("ogl::split_states::get(): state not found!"));
+}
+
+sge::renderer::state_list const
+sge::renderer::combine(
+	state_list l,
+	state_list const &r)
+{
+	// FIXME
+//	BOOST_FOREACH(renderer::any_state const &s, states.values())
+//		l.overwrite(r.get_dynamic(s));
+	return l;
 }
 
 template struct sge::renderer::state_var<int>;
 template struct sge::renderer::state_var<float>;
 template struct sge::renderer::state_var<bool>;
 template struct sge::renderer::state_var<sge::renderer::any_color>;
-
-template struct sge::renderer::state_var<sge::renderer::state_cull_mode_type::type>;
-template struct sge::renderer::state_var<sge::renderer::state_depth_func_type::type>;
-template struct sge::renderer::state_var<sge::renderer::state_stencil_func_type::type>;
-template struct sge::renderer::state_var<sge::renderer::state_fog_mode_type::type>;
-template struct sge::renderer::state_var<sge::renderer::state_draw_mode_type::type>;
-template struct sge::renderer::state_var<sge::renderer::state_source_blend_func_type::type>;
-template struct sge::renderer::state_var<sge::renderer::state_dest_blend_func_type::type>;
 
 #undef STATE
 #define STATE(STATE_, NAME_) \
@@ -111,6 +113,7 @@ template struct sge::renderer::state_var<sge::renderer::state_dest_blend_func_ty
 #define SGE_RS_NAMESPACE_cull_mode         state_cull_mode_type
 #define SGE_RS_NAMESPACE_depth_func        state_depth_func_type
 #define SGE_RS_NAMESPACE_stencil_func      state_stencil_func_type
+#define SGE_RS_NAMESPACE_alpha_func        state_alpha_func_type
 #define SGE_RS_NAMESPACE_fog_mode          state_fog_mode_type
 #define SGE_RS_NAMESPACE_draw_mode         state_draw_mode_type
 #define SGE_RS_NAMESPACE_source_blend_func state_source_blend_func_type
@@ -140,6 +143,7 @@ sge::renderer::int_state::type
 
 sge::renderer::float_state::type
 	STATE(float_state, zbuffer_clear_val),
+	STATE(float_state, alpha_test_ref),
 	STATE(float_state, fog_start),
 	STATE(float_state, fog_end),
 	STATE(float_state, fog_density);
@@ -167,104 +171,3 @@ sge::renderer::color_state::type
 	STATE(color_state, clear_color),
 	STATE(color_state, ambient_light_color),
 	STATE(color_state, fog_color);
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// cull_modes
-//
-
-const sge::renderer::cull_mode::type
-	SSTATE(cull_mode, off),
-	SSTATE(cull_mode, back),
-	SSTATE(cull_mode, front);
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// depth_funcs
-//
-
-const sge::renderer::depth_func::type
-	SSTATE(depth_func, off),
-	SSTATE(depth_func, never),
-	SSTATE(depth_func, less),
-	SSTATE(depth_func, equal),
-	SSTATE(depth_func, less_equal),
-	SSTATE(depth_func, greater),
-	SSTATE(depth_func, not_equal),
-	SSTATE(depth_func, greater_equal),
-	SSTATE(depth_func, always);
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// stencil_funcs
-//
-
-const sge::renderer::stencil_func::type
-	SSTATE(stencil_func, off),
-	SSTATE(stencil_func, never),
-	SSTATE(stencil_func, less),
-	SSTATE(stencil_func, equal),
-	SSTATE(stencil_func, less_equal),
-	SSTATE(stencil_func, greater),
-	SSTATE(stencil_func, not_equal),
-	SSTATE(stencil_func, greater_equal),
-	SSTATE(stencil_func, always);
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// fog_modes
-//
-
-const sge::renderer::fog_mode::type
-	SSTATE(fog_mode, off),
-	SSTATE(fog_mode, linear),
-	SSTATE(fog_mode, exp),
-	SSTATE(fog_mode, exp2);
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// draw_modes
-//
-
-const sge::renderer::draw_mode::type
-	SSTATE(draw_mode, point),
-	SSTATE(draw_mode, line),
-	SSTATE(draw_mode, fill);
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// source_blend_funcs
-//
-
-const sge::renderer::source_blend_func::type
-	SSTATE(source_blend_func, zero),
-	SSTATE(source_blend_func, one),
-	SSTATE(source_blend_func, dest_color),
-	SSTATE(source_blend_func, inv_dest_color),
-	SSTATE(source_blend_func, src_alpha),
-	SSTATE(source_blend_func, inv_src_alpha),
-	SSTATE(source_blend_func, dest_alpha),
-	SSTATE(source_blend_func, inv_dest_alpha),
-	SSTATE(source_blend_func, src_alpha_sat);
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// dest_blend_funcs
-//
-
-const sge::renderer::dest_blend_func::type
-	SSTATE(dest_blend_func, zero),
-	SSTATE(dest_blend_func, one),
-	SSTATE(dest_blend_func, src_color),
-	SSTATE(dest_blend_func, inv_src_color),
-	SSTATE(dest_blend_func, src_alpha),
-	SSTATE(dest_blend_func, inv_src_alpha),
-	SSTATE(dest_blend_func, dest_alpha),
-	SSTATE(dest_blend_func, inv_dest_alpha);
