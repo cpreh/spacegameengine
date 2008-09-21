@@ -3,16 +3,18 @@
 #include <sge/audio/exception.hpp>
 
 sge::openal::source_wrapper::source_wrapper()
-	: status_(audio::sound_status::stopped)
+	: status_(audio::sound_status::stopped),positional_(false)
 {
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
+	//positional(positional_);
 }
 
 sge::openal::source_wrapper::source_wrapper(ALuint const buffer)
-	: status_(audio::sound_status::stopped)
+	: status_(audio::sound_status::stopped),positional_(false)
 {
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 	alSourcei(source(),AL_BUFFER,buffer); SGE_OPENAL_ERROR_CHECK;
+	//positional(positional_);
 }
 
 void sge::openal::source_wrapper::sync() const
@@ -107,7 +109,7 @@ void sge::openal::source_wrapper::positional(bool const n)
 {
 	positional_ = n;
 
-	if (!n)
+	if (n)
 	{
 		alSourcef(source(),AL_ROLLOFF_FACTOR,static_cast<float>(0.0)); SGE_OPENAL_ERROR_CHECK;
 		alSourcei(source(),AL_SOURCE_RELATIVE, AL_TRUE); SGE_OPENAL_ERROR_CHECK;

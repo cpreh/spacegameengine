@@ -17,26 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include <sge/format.hpp>
 
-#ifndef SGE_FORMAT_HPP_INCLUDED
-#define SGE_FORMAT_HPP_INCLUDED
-
-#include "config.h"
-#include "string.hpp"
-#include "export.hpp"
-#include <boost/format.hpp>
-
-namespace sge
+sge::string const sge::str(format const &f)
 {
-
-#ifdef SGE_NARROW_STRING
-typedef boost::format format;
-#else
-typedef boost::wformat format;
-#endif
-
-SGE_SYMBOL string const str(format const &);
-
+	return boost::str(f);
 }
-
-#endif

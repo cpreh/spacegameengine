@@ -1,7 +1,7 @@
 #ifndef SGE_MAD_STREAM_HPP_INCLUDED
 #define SGE_MAD_STREAM_HPP_INCLUDED
 
-#include "frame_fwd.hpp"
+#include "frame.hpp"
 #include <mad.h>
 #include <sge/raw_vector.hpp>
 #include <sge/string.hpp>
@@ -16,7 +16,7 @@ class stream : boost::noncopyable
 {
 	public:
 	stream(std::istream &);
-	frame_ptr const decode();
+	frame &decode();
 	bool eof() const;
 	~stream();
 
@@ -28,6 +28,7 @@ class stream : boost::noncopyable
 	static size_type const input_size,mad_buffer_guard_size;
 
 	mad_stream madstream;
+	frame f;
 	std::istream &stdstream;
 	byte_container input_buffer;
 

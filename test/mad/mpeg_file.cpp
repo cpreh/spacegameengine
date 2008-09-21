@@ -29,15 +29,15 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 	if (!stdstream.is_open())
 		throw audio::exception(SGE_TEXT("couldn't open file \"")+p.string()+SGE_TEXT("\""));
 
-	frame_ptr f = s.decode();
+	frame &f = s.decode();
 
-	sample_rate_ = f->sample_rate();
+	sample_rate_ = f.sample_rate();
 
 	SGE_LOG_INFO(
 		log::global(),
-		log::_1 << "mad: file info: \n" << f->info());
+		log::_1 << "mad: file info: \n" << f.info());
 
-	append(buffered_,f->synthesize());
+	append(buffered_,f.synthesize());
 }
 
 sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
@@ -50,7 +50,7 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
 	move(buffered_,buffered_.begin(),buffered_.end(),std::back_inserter(dest));
 
 	while (dest.size() < samples_bytes)
-		append(dest,s.decode()->synthesize());
+		append(dest,s.decode().synthesize());
 	
 	move(dest,dest.begin()+samples_bytes,dest.end(),std::back_inserter(buffered_));
 

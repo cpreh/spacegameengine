@@ -20,18 +20,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../file.hpp"
 #include "../loader.hpp"
-#include <sge/raw_vector_impl.hpp>
+#include <sge/audio/exception.hpp>
+#include <sge/log/headers.hpp>
 
 const sge::audio::file_ptr sge::wave::loader::load(const path &filename)
 {
 	return audio::file_ptr(new file(filename));
 }
 
-bool sge::wave::loader::is_valid_file(const path &filename) const
+bool sge::wave::loader::is_valid_file(path const &filename) const
 {
-	try {
-		const file file_(filename);
-	} catch (const audio::exception &) {
+	try 
+	{
+		file const file_(filename);
+	} 
+	catch (audio::exception const &e) 
+	{
+		SGE_LOG_DEBUG(log::global(),log::_1 << "couldn't load " << filename << ": " << e.what());
 		return false;
 	}
 	return true;

@@ -68,27 +68,15 @@ void sge::mad::stream::sync()
 	input_buffer.swap(bytes);
 
 	mad_stream_buffer(&madstream,&input_buffer[0],pos);
-
-	// we have to manually reset the error code, apparently
-	madstream.error = static_cast<mad_error>(0);
+	madstream.error = MAD_ERROR_NONE;
 }
 
-sge::mad::frame_ptr const sge::mad::stream::decode()
+sge::mad::frame &sge::mad::stream::decode()
 {
 	sync();
 
-	frame_ptr f(new frame());
-
-	if (!mad_frame_decode(&(f->madframe()),&madstream))
-	{
-		/*
-		SGE_LOG_DEBUG(
-			log::global(),
-			log::_1 << "mad: decoded frame successfully");
-		*/
-
+	if (!mad_frame_decode(&(f.madframe()),&madstream))
 		return f;
-	}
 
 	if (MAD_RECOVERABLE(madstream.error))
 	{
