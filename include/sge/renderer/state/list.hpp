@@ -56,7 +56,7 @@ private:
 	set_type set_;
 };
 
-list const
+SGE_SYMBOL list const
 combine(
 	list,
 	list const &);

@@ -39,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glsl/istream.hpp"
 #include "primitive.hpp"
 #include "caps.hpp"
-#include "state/list.hpp"
 #include "image_view.hpp"
 #include "color_format.hpp"
 #include <boost/noncopyable.hpp>
@@ -48,6 +47,12 @@ namespace sge
 {
 namespace renderer
 {
+namespace state
+{
+
+class list;
+
+}
 
 struct viewport;
 struct filter_args;

@@ -85,5 +85,12 @@ sge::renderer::state::combine(
 template x sge::renderer::state::list::get<x>() const;
 
 SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::cull_mode::type)
+SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::depth_func::type)
+SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::stencil_func::type)
+SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::alpha_func::type)
+SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::fog_mode::type)
+SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::draw_mode::type)
+SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::source_blend_func::type)
+SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::dest_blend_func::type)
 
 #undef SGE_INSTANTIATE_STATE_LIST_GET
