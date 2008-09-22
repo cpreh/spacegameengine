@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <boost/foreach.hpp>
-#include <algorithm>
-#include <iterator>
 
 sge::renderer::state::list::list(
 	any const &a)
@@ -52,7 +50,7 @@ sge::renderer::state::list::operator()(
 }
 
 void sge::renderer::state::list::overwrite(
-	any const& a)
+	any const &a)
 {
 	set_type::iterator const it(set_.find(a));
 	if(it != set_.end())
@@ -97,26 +95,7 @@ sge::renderer::state::combine(
 	list const &l,
 	list const &r)
 {
-	list::set_type const 
-		&a(l.values()),
-		&b(r.values());
-	
-	typedef std::insert_iterator<
-		list::set_type
-	> insert_iterator_type;
-
-	list::set_type c;
-	std::set_difference(
-		a.begin(),
-		a.end(),
-		b.begin(),
-		b.end(),
-		insert_iterator_type(
-			c,
-			c.begin()),
-		list::set_type::value_compare());
-	
-	list result(c);
+	list result(l);
 	BOOST_FOREACH(any const &s, r.values())
 		result.overwrite(s);
 	return result;

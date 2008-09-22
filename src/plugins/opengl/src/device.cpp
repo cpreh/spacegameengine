@@ -335,25 +335,27 @@ sge::ogl::device::screen_size() const
 void sge::ogl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::const_index_buffer_ptr const ib,
-	const renderer::vertex_buffer::size_type first_vertex,
-	const renderer::vertex_buffer::size_type num_vertices,
-	const renderer::indexed_primitive_type::type ptype,
-	const renderer::index_buffer::size_type pcount,
-	const renderer::index_buffer::size_type first_index)
+	renderer::vertex_buffer::size_type const first_vertex,
+	renderer::vertex_buffer::size_type const num_vertices,
+	renderer::indexed_primitive_type::type const ptype,
+	renderer::index_buffer::size_type const pcount,
+	renderer::index_buffer::size_type const first_index)
 {
 	if(!vb)
-		throw exception(SGE_TEXT("vb may not be 0 for renderer::render!"));
+		throw exception(
+			SGE_TEXT("vb may not be 0 for renderer::render!"));
 	if(!ib)
-		throw exception(SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
-
-	SGE_OPENGL_SENTRY
+		throw exception(
+			SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
 
 	set_vertex_buffer(vb);
 	set_index_buffer(ib);
 
-	const GLenum prim_type = convert_cast(ptype);
+	GLenum const prim_type = convert_cast(ptype);
 
-	const index_buffer& gl_ib = dynamic_cast<const index_buffer&>(*ib);
+	index_buffer const &gl_ib = dynamic_cast<index_buffer const &>(*ib);
+
+	SGE_OPENGL_SENTRY
 
 	glDrawElements(
 		prim_type,
@@ -365,25 +367,25 @@ void sge::ogl::device::render(
 }
 
 void sge::ogl::device::render(
-	const renderer::const_vertex_buffer_ptr vb,
-	const renderer::vertex_buffer::size_type first_vertex,
-	const renderer::vertex_buffer::size_type num_vertices,
-	const renderer::nonindexed_primitive_type::type ptype)
+	renderer::const_vertex_buffer_ptr const vb,
+	renderer::vertex_buffer::size_type const first_vertex,
+	renderer::vertex_buffer::size_type const num_vertices,
+	renderer::nonindexed_primitive_type::type const ptype)
 {
 	if(!vb)
-		throw exception(SGE_TEXT("vb may not be 0 for renderer::render!"));
-
-	SGE_OPENGL_SENTRY
+		throw exception(
+			SGE_TEXT("vb may not be 0 for renderer::render!"));
 
 	set_vertex_buffer(vb);
 	set_index_buffer(renderer::index_buffer_ptr());
 
-	const GLenum prim_type = convert_cast(ptype);
+	GLenum const prim_type = convert_cast(ptype);
+
+	SGE_OPENGL_SENTRY
 
 	glDrawArrays(prim_type,
 	             static_cast<GLsizei>(first_vertex),
 	             static_cast<GLint>(num_vertices));
-
 }
 
 void sge::ogl::device::set_state(

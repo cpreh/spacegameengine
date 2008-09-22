@@ -44,7 +44,7 @@ struct var {
 
 	SGE_SYMBOL explicit var(
 		state_type state,
-		value_type defval = value_type());
+		value_type defval);
 private:
 	state_type state_;
 	value_type val_;

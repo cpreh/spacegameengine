@@ -78,6 +78,7 @@ void sge::sprite::intrusive_object::order(
 {
 	unlink();
 	order_ = norder;
+	z() = static_cast<depth_type>(order());
 	add_me();
 }
 

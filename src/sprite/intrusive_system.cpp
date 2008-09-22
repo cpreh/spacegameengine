@@ -46,9 +46,6 @@ void sge::sprite::intrusive_system::render()
 		rend,
 		renderer::state::list
 			(renderer::state::bool_::enable_lighting = false)
-			(renderer::state::bool_::enable_alpha_blending = true)
-			(renderer::state::source_blend_func::src_alpha)
-			(renderer::state::dest_blend_func::inv_src_alpha)
 			(renderer::state::cull_mode::off)
 			(renderer::state::stencil_func::off)
 			(renderer::state::draw_mode::fill)
@@ -60,6 +57,9 @@ void sge::sprite::intrusive_system::render()
 			rend,
 			renderer::state::list
 				(renderer::state::depth_func::off)
+				(renderer::state::bool_::enable_alpha_blending = true)
+				(renderer::state::source_blend_func::src_alpha)
+				(renderer::state::dest_blend_func::inv_src_alpha)
 		);
 		render(transparent_sprites);
 	}
@@ -68,6 +68,9 @@ void sge::sprite::intrusive_system::render()
 			rend,
 			renderer::state::list
 				(renderer::state::depth_func::greater)
+				(renderer::state::bool_::enable_alpha_blending = false)
+				(renderer::state::alpha_func::not_equal)
+				(renderer::state::float_::alpha_test_ref = 0)
 		);
 		render(opaque_sprites);
 	}
@@ -119,8 +122,12 @@ void sge::sprite::intrusive_system::render(
 	renderer::device_ptr const rend(
 		get_renderer());
 	
+	//rend->projection(
+	//	sge::math::matrix_identity());
+
 	rend->projection(
-		sge::math::matrix_identity());
+		sge::math::matrix_scaling(
+			1, 1, 0.1));
 
 	unsigned first_index = 0;
 	
