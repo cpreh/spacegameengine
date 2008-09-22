@@ -24,12 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <boost/foreach.hpp>
+#include <algorithm>
+#include <iterator>
 
 sge::renderer::state::list::list(
 	any const &a)
 {
 	set_.insert(a);
 }
+
+sge::renderer::state::list::list(
+	set_type const &set_)
+:
+	set_(set_)
+{}
 
 sge::renderer::state::list const
 sge::renderer::state::list::operator()(
@@ -86,13 +94,32 @@ sge::renderer::state::list::values() const
 
 sge::renderer::state::list const
 sge::renderer::state::combine(
-	list l,
+	list const &l,
 	list const &r)
 {
-	// FIXME
-//	BOOST_FOREACH(renderer::any_state const &s, states.values())
-//		l.overwrite(r.get_dynamic(s));
-	return l;
+	list::set_type const 
+		&a(l.values()),
+		&b(r.values());
+	
+	typedef std::insert_iterator<
+		list::set_type
+	> insert_iterator_type;
+
+	list::set_type c;
+	std::set_difference(
+		a.begin(),
+		a.end(),
+		b.begin(),
+		b.end(),
+		insert_iterator_type(
+			c,
+			c.begin()),
+		list::set_type::value_compare());
+	
+	list result(c);
+	BOOST_FOREACH(any const &s, r.values())
+		result.overwrite(s);
+	return result;
 }
 
 #define SGE_INSTANTIATE_STATE_LIST_GET(x)\

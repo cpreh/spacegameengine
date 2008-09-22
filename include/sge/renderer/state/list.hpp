@@ -38,8 +38,15 @@ struct trampoline;
 
 class list {
 public:
+	typedef std::set<
+		any,
+		any_compare
+	> set_type;
+
 	SGE_SYMBOL explicit list(
 		any const &);
+	SGE_SYMBOL explicit list(
+		set_type const &);
 	SGE_SYMBOL list const operator()(
 		any const &) const;
 
@@ -53,11 +60,6 @@ public:
 	SGE_SYMBOL T get(
 		trampoline<T> const &) const;
 
-	typedef std::set<
-		any,
-		any_compare
-	> set_type;
-
 	SGE_SYMBOL set_type const &values() const;
 private:
 	set_type set_;
@@ -65,7 +67,7 @@ private:
 
 SGE_SYMBOL list const
 combine(
-	list,
+	list const &,
 	list const &);
 
 }
