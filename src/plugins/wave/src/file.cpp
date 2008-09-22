@@ -54,6 +54,7 @@ sge::string const sge::wave::file::to_string() const
 
 void sge::wave::file::reset()
 {
+	SGE_LOG_DEBUG(log::global(),log::_1 << "wave: resetting file");
 	file_.seekg(data_segment);
 	samples_read_ = static_cast<audio::sample_count>(0);
 }

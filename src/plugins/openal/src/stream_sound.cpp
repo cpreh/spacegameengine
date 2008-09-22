@@ -17,11 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 #include "../player.hpp"
 #include "../nonstream_sound.hpp"
 #include "../stream_sound.hpp"
 #include "../openal.hpp"
+#include "../log.hpp"
 #include "../error.hpp"
 #include "../file_format.hpp"
 #include <sge/audio/sound.hpp>
@@ -51,10 +51,15 @@ bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 	audio::sample_container data;
 	audio::sample_count samples_read = 
 		audio_file_->read(buffer_samples_, data);
+	
+	SGE_LOG_DEBUG(log(),log::_1 << "read " << samples_read << " samples");
 
 	if (samples_read == static_cast<audio::sample_count>(0))
 	{
-		// Nichts mehr nachzuladen, aber es soll geloopt werden? Dann resetten und von vorne nachladen
+		SGE_LOG_DEBUG(log(),log::_1 << "at the end of last buffer");
+
+		// there's nothing more to load, but the sound should be looped? then reset
+		// and start from the beginning
 		if (play_mode() != audio::play_mode::loop)
 			return false;
 
@@ -75,11 +80,20 @@ bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 void sge::openal::stream_sound::do_play()
 {
 	// reset file and fill buffers
+	if (status() == audio::sound_status::playing)
+		return;
+
 	audio_file_->reset();
+
 	fill_buffer(al_buffers_[0]);
 	fill_buffer(al_buffers_[1]);
 
-	alSourceQueueBuffers(alsource(),static_cast<ALsizei>(2),al_buffers_); SGE_OPENAL_ERROR_CHECK;
+	SGE_LOG_DEBUG(log(),log::_1 << "queued 2 buffers");
+
+	alSourceQueueBuffers(
+		alsource(),
+		static_cast<ALsizei>(2),
+		al_buffers_); SGE_OPENAL_ERROR_CHECK;
 }
 
 void sge::openal::stream_sound::update()
@@ -87,15 +101,18 @@ void sge::openal::stream_sound::update()
 	sync();
 
 	ALint processed;
-	alGetSourcei(alsource(), AL_BUFFERS_PROCESSED, &processed);
+	alGetSourcei(alsource(), AL_BUFFERS_PROCESSED, &processed); SGE_OPENAL_ERROR_CHECK;
+
+	if (processed)
+		SGE_LOG_DEBUG(log(),log::_1 << processed << " buffers processed");
 
 	while(processed--)
 	{
 		ALuint buffer;
-		// Unqueuen bewirkt, dass der Puffer von oben weggenommen wird...
-		alSourceUnqueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer);
-		// ...und Queue bewirkt, dass es hinten angefuegt wird. Genial!
+		// throw away one buffer from the top (the processed one)
+		alSourceUnqueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer); SGE_OPENAL_ERROR_CHECK;
+		// ...and put the newly filled back in
 		if (fill_buffer(buffer))
-			alSourceQueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer);
+			alSourceQueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer); SGE_OPENAL_ERROR_CHECK;
 	}
 }

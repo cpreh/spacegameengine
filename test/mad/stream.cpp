@@ -1,10 +1,11 @@
 #include "stream.hpp"
 #include "frame.hpp"
+#include "log.hpp"
 #include <sge/raw_vector_impl.hpp>
 #include <sge/text.hpp>
 #include <sge/string.hpp>
+#include <sge/assert.hpp>
 #include <sge/iconv.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/audio/exception.hpp>
 #include <istream>
 #include <algorithm>
@@ -25,10 +26,10 @@ sge::mad::stream::stream(std::istream &stdstream)
 
 void sge::mad::stream::sync()
 {
+	SGE_ASSERT(!stdstream.eof());
+
 	if (madstream.buffer != 0 && madstream.error != MAD_ERROR_BUFLEN)
 		return;
-
-	SGE_LOG_DEBUG(log::global(),log::_1 << "mad: syncing");
 
 	byte_container bytes(input_size+mad_buffer_guard_size);
 
@@ -54,7 +55,7 @@ void sge::mad::stream::sync()
 	if (stdstream.eof())
 	{
 		SGE_LOG_DEBUG(
-			log::global(),
+			log(),
 			log::_1 << "mad: arrived at end of stream");
 
 		byte_container::iterator guard_start = bytes.begin()+pos;
@@ -80,25 +81,14 @@ sge::mad::frame &sge::mad::stream::decode()
 
 	if (MAD_RECOVERABLE(madstream.error))
 	{
-		SGE_LOG_DEBUG(
-			log::global(),
-			log::_1 << "mad: got recoverable error: " << error_string() << ", decoding some more");
+		if (madstream.error != MAD_ERROR_LOSTSYNC || !stdstream.eof())
+			return decode();
 
-		return decode();
+		return f;
 	}
-
-	SGE_LOG_DEBUG(
-		log::global(),
-		log::_1 << "mad: got not recoverable error: "+error_string());
 
 	if (madstream.error == MAD_ERROR_BUFLEN)
-	{
-		SGE_LOG_DEBUG(
-			log::global(),
-			log::_1 << "mad: resyncing stream and decoding");
-
 		return decode();
-	}
 
 	throw audio::exception(
 		SGE_TEXT("mad: unrecoverable error in mpeg stream: ")+error_string());
@@ -117,4 +107,9 @@ sge::mad::stream::~stream()
 sge::string const sge::mad::stream::error_string() const
 {
 	return sge::iconv(mad_stream_errorstr(&madstream));
+}
+
+void sge::mad::stream::reset()
+{
+	stdstream.seekg(static_cast<std::streampos>(0));
 }

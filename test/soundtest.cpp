@@ -89,6 +89,7 @@ try
 	}
 	*/
 	sound->play(sge::audio::play_mode::loop);
+	//sound->play(sge::audio::play_mode::once);
 
 	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
 	while (true)

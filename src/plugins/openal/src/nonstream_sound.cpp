@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../nonstream_sound.hpp"
 #include "../player.hpp"
+#include "../error.hpp"
 
 sge::openal::nonstream_sound::nonstream_sound(
 	const audio::file_ptr _audio_file,
@@ -26,6 +27,18 @@ sge::openal::nonstream_sound::nonstream_sound(
 : source(_player.register_nonstream_sound(_audio_file)),
   player_(_player)
 {
+}
+
+void sge::openal::nonstream_sound::play_mode(sge::audio::play_mode::type pm)
+{
+	source::play_mode(pm);
+	
+	alSourcei(
+		alsource(),
+		AL_LOOPING,
+		source::play_mode() == audio::play_mode::loop 
+			? AL_TRUE 
+			: AL_FALSE); SGE_OPENAL_ERROR_CHECK
 }
 
 sge::openal::nonstream_sound::~nonstream_sound()

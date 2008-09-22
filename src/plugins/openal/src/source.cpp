@@ -1,16 +1,19 @@
 #include "../source.hpp"
 #include "../error.hpp"
+#include "../log.hpp"
 #include <sge/audio/exception.hpp>
 
 sge::openal::source::source()
 	: status_(audio::sound_status::stopped),positional_(false)
 {
+	SGE_LOG_DEBUG(log(),log::_1 << "creating a free source");
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 }
 
 sge::openal::source::source(ALuint const buffer)
 	: status_(audio::sound_status::stopped),positional_(false)
 {
+	SGE_LOG_DEBUG(log(),log::_1 << "creating a source bound to a buffer");
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 	alSourcei(alsource(),AL_BUFFER,buffer); SGE_OPENAL_ERROR_CHECK;
 }
@@ -40,17 +43,14 @@ void sge::openal::source::sync() const
 void sge::openal::source::play(audio::play_mode::type const _play_mode)
 {
 	sync();
-
-	play_mode_ = _play_mode;
-	alSourcei(alsource(),AL_LOOPING,play_mode_ == audio::play_mode::loop ? AL_TRUE : AL_FALSE); SGE_OPENAL_ERROR_CHECK
-
-	if (status_ == audio::sound_status::playing)
-		return;
-
+	play_mode(_play_mode);
 	do_play();
 
-	alSourcePlay(alsource()); SGE_OPENAL_ERROR_CHECK;
-	status_ = audio::sound_status::playing;
+	if (status() != audio::sound_status::playing)
+	{
+		status_ = audio::sound_status::playing;
+		alSourcePlay(alsource()); SGE_OPENAL_ERROR_CHECK;
+	}
 }
 
 void sge::openal::source::toggle_pause()
@@ -62,8 +62,7 @@ void sge::openal::source::toggle_pause()
 		case audio::sound_status::stopped:
 			return;
 		case audio::sound_status::paused:
-			alSourcei(alsource(),AL_LOOPING,
-				play_mode_ == audio::play_mode::loop ? AL_TRUE : AL_FALSE); SGE_OPENAL_ERROR_CHECK;
+			play_mode(play_mode_);
 			alSourcePlay(alsource()); SGE_OPENAL_ERROR_CHECK;
 		break;
 		case audio::sound_status::playing:
@@ -117,6 +116,11 @@ void sge::openal::source::positional(bool const n)
 		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<float>(1.0)); SGE_OPENAL_ERROR_CHECK;
 		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_FALSE); SGE_OPENAL_ERROR_CHECK;
 	}
+}
+
+void sge::openal::source::play_mode(audio::play_mode::type const pm)
+{
+	play_mode_ = pm;
 }
 
 sge::openal::source::~source()

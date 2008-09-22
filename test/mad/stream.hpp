@@ -18,6 +18,7 @@ class stream : boost::noncopyable
 	stream(std::istream &);
 	frame &decode();
 	bool eof() const;
+	void reset();
 	~stream();
 
 	private:

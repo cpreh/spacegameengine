@@ -25,6 +25,7 @@ class source : public audio::sound
 	bool positional() const { return positional_; }
 	void positional(bool);
 	audio::play_mode::type play_mode() const { return play_mode_; }
+	virtual void play_mode(audio::play_mode::type);
 	virtual void do_play() {}
 	~source();
 
