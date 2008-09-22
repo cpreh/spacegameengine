@@ -111,11 +111,8 @@ void sge::sprite::intrusive_system::render(
 		if(cur == sprites.end())
 			break;
 
-		//unsigned num_objects;
-		//sprite_list::const_iterator const next = first_mismatch_if(cur, end, num_objects, tex_equal_visible);
-		unsigned num_objects = 1;
-		sprite_list::const_iterator next = cur;
-		++next;
+		unsigned num_objects;
+		sprite_list::const_iterator const next = first_mismatch_if(cur, end, num_objects, tex_equal_visible);
 
 		const texture::part_ptr vtex = cur->get_texture();
 		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);
