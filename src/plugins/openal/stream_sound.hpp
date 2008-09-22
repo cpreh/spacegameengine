@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_STREAM_SOUND_INCLUDED
 
 #include "player.hpp"
-#include "source_wrapper.hpp"
+#include "source.hpp"
 #include <sge/audio/sound.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/math/vector.hpp>
@@ -33,7 +33,7 @@ namespace sge
 {
 namespace openal
 {
-class stream_sound : public source_wrapper
+class stream_sound : public source
 {
 	public:
 	stream_sound(audio::file_ptr,player&);

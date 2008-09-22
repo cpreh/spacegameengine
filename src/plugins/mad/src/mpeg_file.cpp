@@ -1,5 +1,5 @@
-#include "mpeg_file.hpp"
-#include <sge/log/headers.hpp>
+#include "../mpeg_file.hpp"
+#include "../log.hpp"
 #include <sge/raw_vector_impl.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/iostream.hpp>
@@ -29,28 +29,34 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 	if (!stdstream.is_open())
 		throw audio::exception(SGE_TEXT("couldn't open file \"")+p.string()+SGE_TEXT("\""));
 
-	frame_ptr f = s.decode();
+	frame &f = s.decode();
 
-	sample_rate_ = f->sample_rate();
+	sample_rate_ = f.sample_rate();
 
 	SGE_LOG_INFO(
-		log::global(),
-		log::_1 << "mad: file info: \n" << f->info());
+		log(),
+		log::_1 << "mad: file info: \n" << f.info());
 
-	append(buffered_,f->synthesize());
+	append(buffered_,f.synthesize());
 }
 
 sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
 	sample_count const samples,
 	sample_container &dest)
 {
+	if (s.eof())
+	{
+		SGE_LOG_DEBUG(log(),log::_1 << "we're at the end");
+		return static_cast<sample_count>(0);
+	}
+
 	sample_count const samples_bytes = 
 		static_cast<sample_count>(samples*bytes_per_sample());
 
 	move(buffered_,buffered_.begin(),buffered_.end(),std::back_inserter(dest));
 
-	while (dest.size() < samples_bytes)
-		append(dest,s.decode()->synthesize());
+	while (dest.size() < samples_bytes && !s.eof())
+		append(dest,s.decode().synthesize());
 	
 	move(dest,dest.begin()+samples_bytes,dest.end(),std::back_inserter(buffered_));
 
@@ -59,12 +65,24 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
 
 sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read_all(sample_container &dest)
 {
+	SGE_LOG_DEBUG(log(),log::_1 << "reading all samples");
+
+	if (s.eof())
+	{
+		SGE_LOG_DEBUG(log(),log::_1 << "we're at the end");
+		return static_cast<sample_count>(0);
+	}
+
+	move(buffered_,buffered_.begin(),buffered_.end(),std::back_inserter(dest));
+
 	while (!s.eof())
-		read(static_cast<sample_count>(1024),dest);
-	return dest.size();
+		append(dest,s.decode().synthesize());
+
+	return dest.size()/bytes_per_sample();
 }
 
 void sge::mad::mpeg_file::reset()
 {
-
+	s.reset();
+	//append(buffered_,s.decode().synthesize());
 }

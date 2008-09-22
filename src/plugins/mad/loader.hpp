@@ -18,29 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../file.hpp"
-#include "../loader.hpp"
-#include <sge/audio/exception.hpp>
-#include <sge/log/headers.hpp>
+#ifndef SGE_MAD_LOADER_HPP_INCLUDED
+#define SGE_MAD_LOADER_HPP_INCLUDED
 
-#include <sge/iostream.hpp>
+#include <sge/shared_ptr.hpp>
+#include <sge/path.hpp>
+#include <sge/audio/loader.hpp>
 
-const sge::audio::file_ptr sge::wave::loader::load(const path &filename)
+namespace sge
 {
-	return audio::file_ptr(new file(filename));
+namespace mad
+{
+
+class loader : public audio::loader
+{
+public:
+	audio::file_ptr const load(path const &);
+	bool is_valid_file(path const &) const;
+};
+
+}
 }
 
-bool sge::wave::loader::is_valid_file(path const &filename) const
-{
-	try 
-	{
-		file const file_(filename);
-		SGE_LOG_DEBUG(log::global(),log::_1 << "wave file info: " << file_.to_string());
-	} 
-	catch (audio::exception const &e) 
-	{
-		SGE_LOG_DEBUG(log::global(),log::_1 << "couldn't load " << filename << ": " << e.what());
-		return false;
-	}
-	return true;
-}
+#endif

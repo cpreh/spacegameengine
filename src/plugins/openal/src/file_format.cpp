@@ -2,6 +2,7 @@
 #include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/iostream.hpp>
 #include <boost/lexical_cast.hpp>
 
 ALenum sge::openal::file_format(audio::file const &file)

@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../file.hpp"
+#include "../mpeg_file.hpp"
 #include "../loader.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
 
-#include <sge/iostream.hpp>
-
-const sge::audio::file_ptr sge::wave::loader::load(const path &filename)
+sge::audio::file_ptr const sge::mad::loader::load(const path &filename)
 {
-	return audio::file_ptr(new file(filename));
+	return audio::file_ptr(new mpeg_file(filename));
 }
 
-bool sge::wave::loader::is_valid_file(path const &filename) const
+bool sge::mad::loader::is_valid_file(path const &filename) const
 {
 	try 
 	{
-		file const file_(filename);
-		SGE_LOG_DEBUG(log::global(),log::_1 << "wave file info: " << file_.to_string());
+		mpeg_file const file_(filename);
 	} 
 	catch (audio::exception const &e) 
 	{
-		SGE_LOG_DEBUG(log::global(),log::_1 << "couldn't load " << filename << ": " << e.what());
+		SGE_LOG_DEBUG(
+			log::global(),
+			log::_1 << "couldn't load " << filename << ": " << e.what());
 		return false;
 	}
 	return true;

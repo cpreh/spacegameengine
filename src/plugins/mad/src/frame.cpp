@@ -1,47 +1,33 @@
-#include "frame.hpp"
-#include "synth.hpp"
+#include "../frame.hpp"
+#include "../synth.hpp"
 #include <sge/sstream.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/log/headers.hpp>
 
-namespace
-{
-mad_frame &frame_singleton()
-{
-	static bool inited = false;
-	static mad_frame frame;
-	if (!inited)
-	{
-		mad_frame_init(&frame);
-		inited = true;
-	}
-	return frame;
-}
-}
-
 sge::mad::frame::frame()
+	: syn(*this)
 {
-	//mad_frame_init(&frame_);
+	mad_frame_init(&frame_);
 }
 
 sge::audio::sample_count sge::mad::frame::sample_rate() const
 {
-	return static_cast<audio::sample_count>(frame_singleton().header.samplerate);
+	return static_cast<audio::sample_count>(frame_.header.samplerate);
 }
 
 sge::audio::channel_type sge::mad::frame::channels() const
 {
-	return static_cast<audio::channel_type>(MAD_NCHANNELS(&frame_singleton().header));
+	return static_cast<audio::channel_type>(MAD_NCHANNELS(&frame_.header));
 }
 
 sge::string const sge::mad::frame::info() const
 {
 	sge::ostringstream ss;
-	ss << MAD_NCHANNELS(&frame_singleton().header) << " channels\n";
-	ss << frame_singleton().header.samplerate << " sample rate\n";
+	ss << MAD_NCHANNELS(&frame_.header) << " channels\n";
+	ss << frame_.header.samplerate << " sample rate\n";
 
 	ss << "layer ";
-  switch(frame_singleton().header.layer)
+  switch(frame_.header.layer)
   {
     case MAD_LAYER_I:
 			ss << "I";
@@ -60,7 +46,7 @@ sge::string const sge::mad::frame::info() const
 	ss << "\n";
 	ss << "mode ";
 
-	switch(frame_singleton().header.mode)
+	switch(frame_.header.mode)
   {
     case MAD_MODE_SINGLE_CHANNEL:
       ss << "single channel";
@@ -80,22 +66,22 @@ sge::string const sge::mad::frame::info() const
   }
 
 	ss << "\n";
-	ss << "bit rate " << frame_singleton().header.bitrate;
+	ss << "bit rate " << frame_.header.bitrate;
 
 	return ss.str();
 }
 
 sge::audio::sample_container const sge::mad::frame::synthesize()
 {
-	synth synth_(*this);
+	syn.synthesize();
 
 	// multiply by two because each sample is always 2 byte
 	audio::sample_container dest(
 		static_cast<audio::sample_container::size_type>(
-			synth_.sample_count()*2*2));
+			syn.sample_count()*2*2));
 
 	audio::sample_container::iterator ptr = dest.begin();
-	for (synth::const_iterator i = synth_.begin(); i != synth_.end(); ++i)
+	for (synth::const_iterator i = syn.begin(); i != syn.end(); ++i)
 	{
 		synth::sample_type sample = i->first;
 
@@ -114,10 +100,10 @@ sge::audio::sample_container const sge::mad::frame::synthesize()
 
 sge::mad::frame::~frame()
 {
-	//mad_frame_finish(&frame_);
+	mad_frame_finish(&frame_);
 }
 
 mad_frame &sge::mad::frame::madframe()
 {
-	return frame_singleton();
+	return frame_;
 }

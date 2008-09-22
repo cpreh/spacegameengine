@@ -1,5 +1,6 @@
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/manager.hpp>
@@ -28,7 +29,7 @@
 int main(int argc, char *argv[])
 try
 {
-	sge::log::global().activate(sge::log::level::debug);
+	sge::log::global().activate_hierarchy(sge::log::level::debug);
 
 	namespace po = boost::program_options;
   po::options_description desc("allowed options");
@@ -100,6 +101,9 @@ try
 		sys.audio_player->update();
 	}
 	
+} catch (const sge::audio::exception &e) {
+	sge::cerr << SGE_TEXT("audio exception caught: ") << e.what() << SGE_TEXT('\n');
+	return EXIT_FAILURE;
 } catch (const sge::exception &e) {
 	sge::cerr << SGE_TEXT("Exception caught: ") << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;

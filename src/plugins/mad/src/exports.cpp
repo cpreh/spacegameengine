@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../file.hpp"
 #include "../loader.hpp"
-#include <sge/audio/exception.hpp>
-#include <sge/log/headers.hpp>
+#include <sge/export.hpp>
+#include <sge/plugin/info.hpp>
+#include <sge/text.hpp>
 
-#include <sge/iostream.hpp>
-
-const sge::audio::file_ptr sge::wave::loader::load(const path &filename)
+extern "C"
 {
-	return audio::file_ptr(new file(filename));
+
+SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info* const p)
+{
+	if(!p)
+		return;
+	p->name = SGE_TEXT("mad loader plugin");
+	p->description = SGE_TEXT("");
+	p->plugin_version = 0x1;
+	p->min_core_version = 0x1;
+	p->type = sge::plugin::capabilities::audio_loader;
 }
 
-bool sge::wave::loader::is_valid_file(path const &filename) const
+SGE_EXPORT_SYMBOL sge::audio::loader* create_audio_loader()
 {
-	try 
-	{
-		file const file_(filename);
-		SGE_LOG_DEBUG(log::global(),log::_1 << "wave file info: " << file_.to_string());
-	} 
-	catch (audio::exception const &e) 
-	{
-		SGE_LOG_DEBUG(log::global(),log::_1 << "couldn't load " << filename << ": " << e.what());
-		return false;
-	}
-	return true;
+	return new sge::mad::loader();
+}
+
 }

@@ -17,30 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+#include <sge/format.hpp>
 
-#include "../file.hpp"
-#include "../loader.hpp"
-#include <sge/audio/exception.hpp>
-#include <sge/log/headers.hpp>
-
-#include <sge/iostream.hpp>
-
-const sge::audio::file_ptr sge::wave::loader::load(const path &filename)
+sge::string const sge::str(format const &f)
 {
-	return audio::file_ptr(new file(filename));
-}
-
-bool sge::wave::loader::is_valid_file(path const &filename) const
-{
-	try 
-	{
-		file const file_(filename);
-		SGE_LOG_DEBUG(log::global(),log::_1 << "wave file info: " << file_.to_string());
-	} 
-	catch (audio::exception const &e) 
-	{
-		SGE_LOG_DEBUG(log::global(),log::_1 << "couldn't load " << filename << ": " << e.what());
-		return false;
-	}
-	return true;
+	return boost::str(f);
 }

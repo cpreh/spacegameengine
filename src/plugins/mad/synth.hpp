@@ -22,15 +22,15 @@ class synth
 	typedef synthed_sample_container::const_iterator const_iterator;
 
 	synth(frame &);
-	//mad_synth &madsynth() { return synth_; }
-	//mad_synth const &madsynth() const { return synth_; }
 	const_iterator begin() const { return synthed_samples.begin(); }
 	const_iterator end() const { return synthed_samples.end(); }
+	void synthesize();
 	audio::sample_count sample_count() const;
 	~synth();
 
 	private:
 	mad_synth synth_;
+	frame &f;
 	synthed_sample_container synthed_samples;
 };
 }

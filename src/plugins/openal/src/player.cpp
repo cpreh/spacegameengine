@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 sge::openal::player::player()
-	: device(),
-	  context(device)
+	: device_(),
+	  context_(device_)
 {
-	context.make_current();
+	context_.make_current();
 }
 
 void sge::openal::player::update()
@@ -71,35 +71,35 @@ sge::openal::player::create_stream_sound(
 ALuint sge::openal::player::register_nonstream_sound(
 	audio::file_ptr const _audio_file)
 {
-	BOOST_FOREACH(buffer_wrapper &b,nonstream_sounds)
+	BOOST_FOREACH(buffer &b,nonstream_sounds)
 	{
 		if (&(b.file()) == &(*_audio_file))
 		{
 			b.add_instance();
-			return b.buffer();
+			return b.albuffer();
 		}
 	}
 
-	nonstream_sounds.push_back(new buffer_wrapper(*_audio_file));
-	buffer_wrapper &buffer = nonstream_sounds.back();
+	nonstream_sounds.push_back(new buffer(*_audio_file));
+	buffer &buffer = nonstream_sounds.back();
 
 	audio::sample_container data;
 	_audio_file->read_all(data);
 	alBufferData(
-		buffer.buffer(), 
+		buffer.albuffer(), 
 		file_format(*_audio_file), 
 		data.data(), 
 		static_cast<ALsizei>(data.size()), 
 		static_cast<ALsizei>(_audio_file->sample_rate())); SGE_OPENAL_ERROR_CHECK;
 
-	return buffer.buffer();
+	return buffer.albuffer();
 }
 
 void sge::openal::player::unregister_nonstream_sound(ALuint const buffer)
 {
  	for (nonstream_sound_container::iterator i = nonstream_sounds.begin(); i != nonstream_sounds.end(); ++i)
 	{
-		if (i->buffer() != buffer)
+		if (i->albuffer() != buffer)
 			continue;
 
 		if (i->remove_instance())
