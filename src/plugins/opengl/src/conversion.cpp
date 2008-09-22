@@ -388,7 +388,7 @@ GLenum sge::ogl::convert_fog_float_state(
 }
 
 GLenum sge::ogl::convert_clear_bit(
-	renderer::state::bool_::type const s)
+	renderer::state::bool_::trampoline_type const &s)
 {
 	typedef renderer::state::traits<bool> rs;
 	switch(s.state()) {

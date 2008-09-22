@@ -162,7 +162,7 @@ public:
 	window_ptr const get_window() const;
 private:
 	GLenum get_clear_bit(
-		renderer::state::bool_::type) const;
+		renderer::state::bool_::trampoline_type const &) const;
 
 	void set_vertex_buffer(renderer::const_vertex_buffer_ptr vb);
 	void set_index_buffer(renderer::const_index_buffer_ptr ib);

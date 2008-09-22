@@ -37,10 +37,12 @@ template<typename T> class var;
 template<typename T>
 struct trampoline : boost::noncopyable {
 	typedef typename traits<T>::available_states state_type;
+	typedef var<T> var_type;
 
 	explicit trampoline(
 		state_type);
-	SGE_SYMBOL var<T> const operator=(T) const;
+	SGE_SYMBOL var_type const operator=(T) const;
+	SGE_SYMBOL state_type state() const;
 private:
 	state_type const state_;
 };

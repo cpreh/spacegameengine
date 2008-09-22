@@ -33,6 +33,9 @@ namespace renderer
 namespace state
 {
 
+template<typename T>
+struct trampoline;
+
 class list {
 public:
 	SGE_SYMBOL explicit list(
@@ -45,6 +48,10 @@ public:
 
 	template<typename T>
 	SGE_SYMBOL T get() const;
+
+	template<typename T>
+	SGE_SYMBOL T get(
+		trampoline<T> const &) const;
 
 	typedef std::set<
 		any,

@@ -218,10 +218,10 @@ void sge::ogl::device::begin_rendering()
 {
 	SGE_OPENGL_SENTRY
 
-	/*glClear(
-		get_clear_bit(renderer::bool_state::clear_backbuffer)
-		| get_clear_bit(renderer::bool_state::clear_zbuffer)
-		| get_clear_bit(renderer::bool_state::clear_stencil));*/
+	glClear(
+		get_clear_bit(renderer::state::bool_::clear_backbuffer)
+		| get_clear_bit(renderer::state::bool_::clear_zbuffer)
+		| get_clear_bit(renderer::state::bool_::clear_stencil));
 }
 
 sge::renderer::index_buffer_ptr const
@@ -389,13 +389,12 @@ void sge::ogl::device::render(
 void sge::ogl::device::set_state(
 	renderer::state::list const &states)
 {
-	state_visitor const visitor(
-		split_states(
-			current_states));
+	split_states split(current_states);
+	state_visitor const visitor(split);
 	BOOST_FOREACH(renderer::state::any const &s, states.values())
 	{
 		current_states.overwrite(s);
-		//boost::apply_visitor(visitor, s);
+		boost::apply_visitor(visitor, s);
 	}
 }
 
@@ -410,9 +409,9 @@ void sge::ogl::device::push_state(
 }
 
 GLenum sge::ogl::device::get_clear_bit(
-	renderer::state::bool_::type const s) const
+	renderer::state::bool_::trampoline_type const &s) const
 {
-	//return get_state(s).value() ? convert_clear_bit(s) : 0;
+	return current_states.get(s) ? convert_clear_bit(s) : 0;
 }
 
 void sge::ogl::device::set_material(

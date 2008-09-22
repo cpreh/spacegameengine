@@ -61,7 +61,21 @@ T sge::renderer::state::list::get() const
 			return boost::get<T>(ref);
 	
 	throw exception(
-		SGE_TEXT("ogl::split_states::get(): state not found!"));
+		SGE_TEXT("renderer::list::get(): state not found!"));
+}
+
+template<typename T>
+T sge::renderer::state::list::get(
+	trampoline<T> const &) const
+{
+	typedef typename trampoline<T>::var_type var_type;
+
+	BOOST_FOREACH(set_type::const_reference ref, set_)
+		if(ref.type() == typeid(var_type))
+			return boost::get<var_type>(ref).value();
+	
+	throw exception(
+		SGE_TEXT("renderer::list::get(): state not found!"));
 }
 
 sge::renderer::state::list::set_type const &
@@ -94,3 +108,14 @@ SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::source_blend_func::type)
 SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::dest_blend_func::type)
 
 #undef SGE_INSTANTIATE_STATE_LIST_GET
+
+#define SGE_INSTANTIATE_STATE_LIST_GET_T(x)\
+template x sge::renderer::state::list::get(\
+	sge::renderer::state::trampoline<x> const &) const;
+
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_::base_type)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::bool_::base_type)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::float_::base_type)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::color_::base_type)
+
+#undef SGE_INSTANTIATE_STATE_LIST_GET_T

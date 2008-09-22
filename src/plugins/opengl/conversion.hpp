@@ -55,7 +55,7 @@ GLenum convert_cast(renderer::texture_stage_arg_value::type);
 
 GLuint convert_resource_flags(renderer::resource_flag_t);
 GLenum convert_fog_float_state(renderer::state::float_::type);
-GLenum convert_clear_bit(renderer::state::bool_::type);
+GLenum convert_clear_bit(renderer::state::bool_::trampoline_type const &);
 
 }
 }

@@ -30,13 +30,20 @@ sge::renderer::state::trampoline<T>::trampoline(
 {}
 
 template<typename T>
-sge::renderer::state::var<T> const
+typename sge::renderer::state::trampoline<T>::var_type const
 sge::renderer::state::trampoline<T>::operator=(
 	T const t) const
 {
 	return var<T>(
 		state_,
 		t);
+}
+
+template<typename T>
+typename sge::renderer::state::trampoline<T>::state_type
+sge::renderer::state::trampoline<T>::state() const
+{
+	return state_;
 }
 
 template struct sge::renderer::state::trampoline<sge::renderer::state::int_type>;
