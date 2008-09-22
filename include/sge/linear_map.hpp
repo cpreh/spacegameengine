@@ -55,6 +55,8 @@ class linear_map
 	linear_map(linear_map const &);
 
 	linear_map &operator=(linear_map const &);
+	
+	allocator_type get_allocator() const;
 
 	iterator begin();
 	iterator end();

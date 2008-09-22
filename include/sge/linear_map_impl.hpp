@@ -41,6 +41,12 @@ sge::linear_map<Key,T,Compare,Allocator> &
 }
 
 template<class Key,class T,class Compare,class Allocator>
+typename sge::linear_map<Key,T,Compare,Allocator>::allocator_type get_allocator() const
+{
+	return container_.get_allocator();
+}
+
+template<class Key,class T,class Compare,class Allocator>
 template<typename InputIterator>
 sge::linear_map<Key,T,Compare,Allocator>::linear_map(
 	InputIterator const begin,
