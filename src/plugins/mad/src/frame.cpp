@@ -1,5 +1,5 @@
-#include "frame.hpp"
-#include "synth.hpp"
+#include "../frame.hpp"
+#include "../synth.hpp"
 #include <sge/sstream.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/log/headers.hpp>
