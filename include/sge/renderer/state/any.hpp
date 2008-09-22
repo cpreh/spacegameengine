@@ -34,6 +34,7 @@ namespace state
 
 typedef boost::variant<
 	int_::type,
+	uint_::type,
 	float_::type,
 	bool_::type,
 	color_::type,

@@ -29,6 +29,9 @@ sge::renderer::state::s::x(\
 	>::x);
 
 SGE_DEFINE_STATE_TRAMPOLINE(int_, stencil_clear_val)
+SGE_DEFINE_STATE_TRAMPOLINE(int_, stencil_ref)
+
+SGE_DEFINE_STATE_TRAMPOLINE(uint_, stencil_mask)
 
 SGE_DEFINE_STATE_TRAMPOLINE(float_, zbuffer_clear_val)
 SGE_DEFINE_STATE_TRAMPOLINE(float_, alpha_test_ref)

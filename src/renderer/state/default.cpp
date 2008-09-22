@@ -30,6 +30,8 @@ sge::renderer::state::default_()
 	static const list l(
 		list
 			(int_::stencil_clear_val = 0)
+			(int_::stencil_ref = 0)
+			(uint_::stencil_mask = 0)
 			(float_::zbuffer_clear_val = 0)
 			(float_::fog_start = 0)
 			(float_::fog_end = 0)

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_convert.hpp>
 #include <sge/renderer/raw_color.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/traits.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -39,7 +40,9 @@ void sge::ogl::state_visitor::operator()(
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state::traits<int> rs;
+	typedef renderer::state::traits<
+		renderer::state::int_type
+	> rs;
 
 	switch(s.state()) {
 	case rs::stencil_clear_val:
@@ -52,11 +55,30 @@ void sge::ogl::state_visitor::operator()(
 }
 
 void sge::ogl::state_visitor::operator()(
+	renderer::state::uint_::type const s) const
+{
+	typedef renderer::state::traits<
+		renderer::state::uint_type
+	> rs;
+
+	switch(s.state()) {
+	case rs::stencil_mask:
+		states.update_stencil();
+		break;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid uint_state!"));
+	}
+}
+
+void sge::ogl::state_visitor::operator()(
 	renderer::state::float_::type const s) const
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state::traits<float> rs;
+	typedef renderer::state::traits<
+		renderer::state::float_type
+	> rs;
 
 	switch(s.state()) {
 	case rs::zbuffer_clear_val:
@@ -79,7 +101,9 @@ void sge::ogl::state_visitor::operator()(
 void sge::ogl::state_visitor::operator()(
 	renderer::state::bool_::type const s) const
 {
-	typedef renderer::state::traits<bool> rs;
+	typedef renderer::state::traits<
+		renderer::state::bool_type
+	> rs;
 
 	switch(s.state()) {
 	case rs::clear_backbuffer:
@@ -101,7 +125,9 @@ void sge::ogl::state_visitor::operator()(
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state::traits<renderer::any_color> rs;
+	typedef renderer::state::traits<
+		renderer::state::color_type
+	> rs;
 
 	renderer::rgba_f32_color const fcolor(
 		renderer::color_convert<renderer::rgba_f32_color>(
@@ -163,28 +189,14 @@ void sge::ogl::state_visitor::operator()(
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::state::stencil_func::type const f) const
+	renderer::state::stencil_func::type) const
 {
-	if(f == renderer::state::stencil_func::off)
-	{
-		disable(GL_STENCIL_TEST);
-		return;
-	}
-
-	enable(GL_STENCIL_TEST);
 	states.update_stencil();
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::state::alpha_func::type const f) const
+	renderer::state::alpha_func::type) const
 {
-	if(f == renderer::state::alpha_func::off)
-	{
-		disable(GL_ALPHA_TEST);
-		return;
-	}
-	
-	enable(GL_ALPHA_TEST);
 	states.update_alpha_test();
 }
 

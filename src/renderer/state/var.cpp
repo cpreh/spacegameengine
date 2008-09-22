@@ -53,6 +53,7 @@ sge::renderer::state::var<T>::var(
 {}
 
 template struct sge::renderer::state::var<sge::renderer::state::int_type>;
+template struct sge::renderer::state::var<sge::renderer::state::uint_type>;
 template struct sge::renderer::state::var<sge::renderer::state::float_type>;
 template struct sge::renderer::state::var<sge::renderer::state::bool_type>;
 template struct sge::renderer::state::var<sge::renderer::state::color_type>;

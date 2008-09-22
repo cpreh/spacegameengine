@@ -141,6 +141,7 @@ template x sge::renderer::state::list::get(\
 	sge::renderer::state::trampoline<x> const &) const;
 
 SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_::base_type)
+SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::uint_::base_type)
 SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::bool_::base_type)
 SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::float_::base_type)
 SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::color_::base_type)

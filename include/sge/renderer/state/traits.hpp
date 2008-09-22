@@ -36,7 +36,15 @@ struct traits;
 template<>
 struct traits<int_type> {
 	enum available_states {
-		stencil_clear_val
+		stencil_clear_val,
+		stencil_ref
+	};
+};
+
+template<>
+struct traits<uint_type> {
+	enum available_states {
+		stencil_mask
 	};
 };
 

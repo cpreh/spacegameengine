@@ -33,6 +33,7 @@ namespace state
 
 typedef bool bool_type;
 typedef int int_type;
+typedef unsigned uint_type;
 typedef space_unit float_type;
 typedef any_color color_type;
 

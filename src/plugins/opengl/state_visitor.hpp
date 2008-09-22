@@ -37,6 +37,7 @@ public:
 		split_states &states);
 
 	void operator()(renderer::state::int_::type) const;
+	void operator()(renderer::state::uint_::type) const;
 	void operator()(renderer::state::float_::type) const;
 	void operator()(renderer::state::bool_::type) const;
 	void operator()(renderer::state::color_::type) const;

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../error.hpp"
 #include "../conversion.hpp"
+#include "../enable.hpp"
 #include <sge/renderer/state/list.hpp>
 
 sge::ogl::split_states::split_states(
@@ -29,15 +30,31 @@ sge::ogl::split_states::split_states(
 : states(states)
 {}
 
+// TODO: those functions can be optimized
+// to set all things in one go for a state::list
+
 void sge::ogl::split_states::update_stencil()
 {
+	renderer::state::stencil_func::type const method(
+		states.get<renderer::state::stencil_func::type>());
+		
+	if(method == renderer::state::stencil_func::off)
+	{
+		disable(GL_STENCIL_TEST);
+		return;
+	}
+
+	enable(GL_STENCIL_TEST);
+
 	SGE_OPENGL_SENTRY
 
 	glStencilFunc(
 		convert_cast(
-			states.get<renderer::state::stencil_func::type>()),
-		0, // FIXME
-		0); // FIXME
+			method),
+		static_cast<GLint>(
+			states.get(renderer::state::int_::stencil_ref)),
+		static_cast<GLuint>(
+			states.get(renderer::state::uint_::stencil_mask)));
 }
 
 void sge::ogl::split_states::update_blend()
@@ -53,5 +70,22 @@ void sge::ogl::split_states::update_blend()
 
 void sge::ogl::split_states::update_alpha_test()
 {
-	SGE_OPENGL_SENTRY	
+	renderer::state::alpha_func::type const func(
+		states.get<renderer::state::alpha_func::type>());
+
+	if(func == renderer::state::alpha_func::off)
+	{
+		disable(GL_ALPHA_TEST);
+		return;
+	}
+	
+	enable(GL_ALPHA_TEST);
+
+	SGE_OPENGL_SENTRY
+
+	glAlphaFunc(
+		convert_cast(
+			func),
+		static_cast<GLclampf>(
+			states.get(renderer::state::float_::alpha_test_ref)));
 }

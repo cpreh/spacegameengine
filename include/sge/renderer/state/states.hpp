@@ -138,7 +138,17 @@ namespace int_ {
 	typedef var<base_type> type;
 
 	SGE_SYMBOL extern trampoline_type const
-		stencil_clear_val;
+		stencil_clear_val,
+		stencil_ref;
+}
+
+namespace uint_ {
+	typedef uint_type base_type;
+	typedef trampoline<base_type> trampoline_type;
+	typedef var<base_type> type;
+
+	SGE_SYMBOL extern trampoline_type const
+		stencil_mask;
 }
 
 namespace float_ {
