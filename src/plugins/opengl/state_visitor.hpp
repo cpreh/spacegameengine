@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 #define SGE_OPENGL_STATE_VISITOR_HPP_INCLUDED
 
-#include <sge/renderer/states.hpp>
+#include <sge/renderer/state/states.hpp>
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
@@ -36,18 +36,18 @@ public:
 	explicit state_visitor(
 		split_states &states);
 
-	void operator()(renderer::int_state::type) const;
-	void operator()(renderer::float_state::type) const;
-	void operator()(renderer::bool_state::type) const;
-	void operator()(renderer::color_state::type) const;
-	void operator()(renderer::cull_mode::type) const;
-	void operator()(renderer::depth_func::type) const;
-	void operator()(renderer::stencil_func::type) const;
-	void operator()(renderer::alpha_func::type) const;
-	void operator()(renderer::fog_mode::type) const;
-	void operator()(renderer::draw_mode::type) const;
-	void operator()(renderer::source_blend_func::type) const;
-	void operator()(renderer::dest_blend_func::type) const;
+	void operator()(renderer::state::int_::type) const;
+	void operator()(renderer::state::float_::type) const;
+	void operator()(renderer::state::bool_::type) const;
+	void operator()(renderer::state::color_::type) const;
+	void operator()(renderer::state::cull_mode::type) const;
+	void operator()(renderer::state::depth_func::type) const;
+	void operator()(renderer::state::stencil_func::type) const;
+	void operator()(renderer::state::alpha_func::type) const;
+	void operator()(renderer::state::fog_mode::type) const;
+	void operator()(renderer::state::draw_mode::type) const;
+	void operator()(renderer::state::source_blend_func::type) const;
+	void operator()(renderer::state::dest_blend_func::type) const;
 private:
 	split_states &states;
 };

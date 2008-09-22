@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glsl/istream.hpp"
 #include "primitive.hpp"
 #include "caps.hpp"
-#include "states.hpp"
+#include "state/list.hpp"
 #include "image_view.hpp"
 #include "color_format.hpp"
 #include <boost/noncopyable.hpp>
@@ -123,8 +123,8 @@ public:
 		vertex_buffer::size_type num_vertices,
 		nonindexed_primitive_type::type ptype) = 0;
 
-	virtual void set_state(state_list const &) = 0;
-	virtual void push_state(state_list const &) = 0;
+	virtual void set_state(state::list const &) = 0;
+	virtual void push_state(state::list const &) = 0;
 	virtual void pop_level() = 0;
 
 	virtual void set_material(material const &mat) = 0;

@@ -18,23 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_state.hpp>
+#ifndef SGE_RENDERER_STATE_ANY_COMPARE_HPP_INCLUDED
+#define SGE_RENDERER_STATE_ANY_COMPARE_HPP_INCLUDED
 
-sge::renderer::scoped_state::scoped_state(
-	const device_ptr rend,
-	const state_list& list)
-: rend(rend)
+#include "any.hpp"
+#include <functional>
+
+namespace sge
 {
-	rend->push_state(list);
+namespace renderer
+{
+namespace state
+{
+
+struct any_compare : std::binary_function<any const &, any const &, bool> {
+	bool operator()(
+		any const &,
+		any const &) const;
+};
+
+}
+}
 }
 
-sge::renderer::scoped_state::~scoped_state()
-{
-	if(rend)
-		rend->pop_level();
-}
-
-void sge::renderer::scoped_state::release()
-{
-	rend.reset();
-}
+#endif

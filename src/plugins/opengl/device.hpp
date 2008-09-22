@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/state/list.hpp>
 #include <sge/window.hpp>
 #include <sge/scoped_connection.hpp>
 #include "common.hpp"
@@ -81,9 +82,9 @@ public:
 		renderer::vertex_buffer::size_type num_vertices,
 		renderer::nonindexed_primitive_type::type ptype);
 
-	void set_state(const renderer::state_list &);
+	void set_state(renderer::state::list const &);
 
-	void push_state(const renderer::state_list &);
+	void push_state(renderer::state::list const &);
 
 	void pop_level();
 
@@ -161,10 +162,7 @@ public:
 	window_ptr const get_window() const;
 private:
 	GLenum get_clear_bit(
-		renderer::bool_state::type) const;
-	renderer::any_state const &
-	get_any_state(
-		renderer::any_state const &state) const;
+		renderer::state::bool_::type) const;
 
 	void set_vertex_buffer(renderer::const_vertex_buffer_ptr vb);
 	void set_index_buffer(renderer::const_index_buffer_ptr ib);
@@ -173,7 +171,7 @@ private:
 
 	renderer::parameters          param;
 	renderer::caps                caps_;
-	renderer::state_list          current_states;
+	renderer::state::list         current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
 	windows::window_ptr               wnd;
 	boost::scoped_ptr<windows::gdi_device>  hdc;
@@ -198,7 +196,7 @@ private:
 #endif
 	target_ptr                            render_target_;
 	typedef std::stack<
-		renderer::state_list
+		renderer::state::list
 	> stack_type;
 	stack_type                            state_levels;
 };

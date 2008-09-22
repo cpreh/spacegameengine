@@ -18,22 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#ifndef SGE_RENDERER_SCOPED_STATE_HPP_INCLUDED
+#define SGE_RENDERER_SCOPED_STATE_HPP_INCLUDED
 
-#include "index_format.hpp"
-#include "../export.hpp"
-#include <cstddef>
+#include "states.hpp"
+#include "../device.hpp"
+#include "../../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace state
+{
 
-// FIXME: fix the std::size_t here!
-SGE_SYMBOL std::size_t index_format_stride(
-	index_format::type);
+class scoped : boost::noncopyable {
+public:
+	SGE_SYMBOL scoped(
+		device_ptr rend,
+		list const &);
+	SGE_SYMBOL ~scoped();
+	SGE_SYMBOL void release();
+private:
+	device_ptr rend;
+};
 
+}
 }
 }
 

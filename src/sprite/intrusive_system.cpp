@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive_system.hpp>
 #include <sge/sprite/helper.hpp>
 #include <sge/sprite/intrusive_compare.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/scoped_lock.hpp>
-#include <sge/renderer/scoped_state.hpp>
 #include <sge/renderer/transform.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -40,32 +42,32 @@ void sge::sprite::intrusive_system::render()
 	renderer::device_ptr const rend(
 		get_renderer());
 	
-	renderer::scoped_state const state_(
+	renderer::state::scoped const state_(
 		rend,
-		renderer::state_list
-			(renderer::bool_state::enable_lighting = false)
-			(renderer::bool_state::enable_alpha_blending = true)
-			(renderer::source_blend_func::src_alpha)
-			(renderer::dest_blend_func::inv_src_alpha)
-			(renderer::cull_mode::off)
-			(renderer::stencil_func::off)
-			(renderer::draw_mode::fill)
+		renderer::state::list
+			(renderer::state::bool_::enable_lighting = false)
+			(renderer::state::bool_::enable_alpha_blending = true)
+			(renderer::state::source_blend_func::src_alpha)
+			(renderer::state::dest_blend_func::inv_src_alpha)
+			(renderer::state::cull_mode::off)
+			(renderer::state::stencil_func::off)
+			(renderer::state::draw_mode::fill)
 	);
 
 	{
 		
-		renderer::scoped_state const state_(
+		renderer::state::scoped const state_(
 			rend,
-			renderer::state_list
-				(renderer::depth_func::off)
+			renderer::state::list
+				(renderer::state::depth_func::off)
 		);
 		render(transparent_sprites);
 	}
 	{
-		renderer::scoped_state const state_(
+		renderer::state::scoped const state_(
 			rend,
-			renderer::state_list
-				(renderer::depth_func::greater)
+			renderer::state::list
+				(renderer::state::depth_func::greater)
 		);
 		render(opaque_sprites);
 	}

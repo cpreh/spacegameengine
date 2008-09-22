@@ -22,17 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SPLIT_STATES_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/states.hpp>
 
 namespace sge
 {
+namespace renderer
+{
+namespace state
+{
+class list;
+}
+}
+
 namespace ogl
 {
 
 class split_states {
 public:
 	explicit split_states(
-		renderer::state_list &);
+		renderer::state::list &);
 	void update_stencil();
 	void update_blend();
 	void update_alpha_test();
@@ -41,7 +48,7 @@ private:
 	T const get(
 		T const &) const;
 
-	renderer::state_list &states;
+	renderer::state::list &states;
 };
 
 }

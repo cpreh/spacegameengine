@@ -22,11 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../error.hpp"
 #include "../conversion.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/renderer/state/list.hpp>
 
 sge::ogl::split_states::split_states(
-	renderer::state_list &states)
+	renderer::state::list &states)
 : states(states)
 {}
 
@@ -36,7 +35,7 @@ void sge::ogl::split_states::update_stencil()
 
 	glStencilFunc(
 		convert_cast(
-			states.get<renderer::stencil_func::type>()),
+			states.get<renderer::state::stencil_func::type>()),
 		0, // FIXME
 		0); // FIXME
 }
@@ -47,9 +46,9 @@ void sge::ogl::split_states::update_blend()
 
 	glBlendFunc(
 		convert_cast(
-			states.get<renderer::source_blend_func::type>()),
+			states.get<renderer::state::source_blend_func::type>()),
 		convert_cast(
-			states.get<renderer::dest_blend_func::type>()));
+			states.get<renderer::state::dest_blend_func::type>()));
 }
 
 void sge::ogl::split_states::update_alpha_test()

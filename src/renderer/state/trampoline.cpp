@@ -18,23 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#include <sge/renderer/state/trampoline.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/types.hpp>
 
-#include "index_format.hpp"
-#include "../export.hpp"
-#include <cstddef>
+template<typename T>
+sge::renderer::state::trampoline<T>::trampoline(
+	state_type const state_)
+:
+	state_(state_)
+{}
 
-namespace sge
+template<typename T>
+sge::renderer::state::var<T> const
+sge::renderer::state::trampoline<T>::operator=(
+	T const t) const
 {
-namespace renderer
-{
-
-// FIXME: fix the std::size_t here!
-SGE_SYMBOL std::size_t index_format_stride(
-	index_format::type);
-
-}
+	return var<T>(
+		state_,
+		t);
 }
 
-#endif
+template struct sge::renderer::state::trampoline<sge::renderer::state::int_type>;
+template struct sge::renderer::state::trampoline<sge::renderer::state::float_type>;
+template struct sge::renderer::state::trampoline<sge::renderer::state::bool_type>;
+template struct sge::renderer::state::trampoline<sge::renderer::state::color_type>;
