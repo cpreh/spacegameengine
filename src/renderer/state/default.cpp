@@ -18,35 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/default_states.hpp>
-#include <sge/renderer/color.hpp>
+#include <sge/renderer/state/default.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/states.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/colors.hpp>
 
-sge::renderer::state_list const
-sge::renderer::default_states()
+sge::renderer::state::list const
+sge::renderer::state::default_()
 {
-	static const state_list list(
-		state_list
-			(int_state::stencil_clear_val = 0)
-			(float_state::zbuffer_clear_val = 0)
-			(float_state::fog_start = 0)
-			(float_state::fog_end = 0)
-			(float_state::fog_density = 0)
-			(bool_state::clear_zbuffer = false)
-			(bool_state::clear_backbuffer = true)
-			(bool_state::clear_stencil = false)
-			(bool_state::enable_alpha_blending = false)
-			(bool_state::enable_lighting = false)
-			(color_state::clear_color = colors::black())
-			(color_state::ambient_light_color = colors::white())
-			(color_state::fog_color = colors::black())
+	static const list l(
+		list
+			(int_::stencil_clear_val = 0)
+			(int_::stencil_ref = 0)
+			(uint_::stencil_mask = 0)
+			(float_::zbuffer_clear_val = 0)
+			(float_::fog_start = 0)
+			(float_::fog_end = 0)
+			(float_::fog_density = 0)
+			(float_::alpha_test_ref = 0)
+			(bool_::clear_zbuffer = false)
+			(bool_::clear_backbuffer = true)
+			(bool_::clear_stencil = false)
+			(bool_::enable_alpha_blending = false)
+			(bool_::enable_lighting = false)
+			(color_::clear_color = colors::black())
+			(color_::ambient_light_color = colors::white())
+			(color_::fog_color = colors::black())
 			(cull_mode::off)
 			(depth_func::off)
 			(stencil_func::off)
+			(alpha_func::off)
+			(alpha_func::off)
 			(fog_mode::off)
 			(draw_mode::fill)
 			(source_blend_func::src_alpha)
 			(dest_blend_func::inv_src_alpha)
 	);
-	return list;
+	return l;
 }

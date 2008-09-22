@@ -18,22 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_STATE_TYPES_HPP_INCLUDED
 
-#include "index_format.hpp"
-#include "../export.hpp"
-#include <cstddef>
+#include "../any_color.hpp"
+#include "../../su.hpp"
 
 namespace sge
 {
 namespace renderer
 {
+namespace state
+{
 
-// FIXME: fix the std::size_t here!
-SGE_SYMBOL std::size_t index_format_stride(
-	index_format::type);
+typedef bool bool_type;
+typedef int int_type;
+typedef unsigned uint_type;
+typedef space_unit float_type;
+typedef any_color color_type;
 
+}
 }
 }
 

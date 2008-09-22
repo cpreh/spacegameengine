@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive_system.hpp>
 #include <sge/sprite/helper.hpp>
 #include <sge/sprite/intrusive_compare.hpp>
+#include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/scoped_lock.hpp>
-#include <sge/renderer/scoped_state.hpp>
 #include <sge/renderer/transform.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -37,8 +39,41 @@ sge::sprite::intrusive_system::intrusive_system(
 
 void sge::sprite::intrusive_system::render()
 {
-	BOOST_FOREACH(sprite_level_map::value_type const &v, sprite_levels)
-		render(*v.second);
+	renderer::device_ptr const rend(
+		get_renderer());
+	
+	renderer::state::scoped const state_(
+		rend,
+		renderer::state::list
+			(renderer::state::bool_::enable_lighting = false)
+			(renderer::state::cull_mode::off)
+			(renderer::state::stencil_func::off)
+			(renderer::state::draw_mode::fill)
+	);
+
+	{
+		
+		renderer::state::scoped const state_(
+			rend,
+			renderer::state::list
+				(renderer::state::depth_func::off)
+				(renderer::state::bool_::enable_alpha_blending = true)
+				(renderer::state::source_blend_func::src_alpha)
+				(renderer::state::dest_blend_func::inv_src_alpha)
+		);
+		render(transparent_sprites);
+	}
+	{
+		renderer::state::scoped const state_(
+			rend,
+			renderer::state::list
+				(renderer::state::depth_func::greater)
+				(renderer::state::bool_::enable_alpha_blending = false)
+				(renderer::state::alpha_func::not_equal)
+				(renderer::state::float_::alpha_test_ref = 0)
+		);
+		render(opaque_sprites);
+	}
 }
 
 void sge::sprite::intrusive_system::render(
@@ -75,7 +110,7 @@ void sge::sprite::intrusive_system::render(
 			else
 				fill_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
-			if(const texture::part_ptr tex = spr.get_texture())
+			if(texture::part_ptr const tex = spr.get_texture())
 				fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
 
 			vb_it = fill_color(vb_it, spr.get_color());
@@ -86,19 +121,13 @@ void sge::sprite::intrusive_system::render(
 
 	renderer::device_ptr const rend(
 		get_renderer());
+	
+	//rend->projection(
+	//	sge::math::matrix_identity());
 
-	const renderer::scoped_state state_(
-		rend,
-		renderer::state_list
-			(renderer::bool_state::enable_lighting = false)
-			(renderer::bool_state::enable_alpha_blending = true)
-			(renderer::source_blend_func::src_alpha)
-			(renderer::dest_blend_func::inv_src_alpha)
-			(renderer::cull_mode::off)
-			(renderer::depth_func::off)
-			(renderer::stencil_func::off)
-			(renderer::draw_mode::fill)
-	);
+	rend->projection(
+		sge::math::matrix_scaling(
+			1, 1, 0.1));
 
 	unsigned first_index = 0;
 	
@@ -136,7 +165,10 @@ void sge::sprite::intrusive_system::render(
 
 void sge::sprite::intrusive_system::add(
 	intrusive_object &obj,
-	intrusive_object::order_type const order)
+	bool const transparent)
 {
-	sprite_levels[order].push_back(obj);
+	if(transparent)
+		transparent_sprites.push_back(obj);
+	else
+		opaque_sprites.push_back(obj);
 }

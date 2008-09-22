@@ -18,22 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_LIST_HPP_INCLUDED
+#define SGE_RENDERER_STATE_LIST_HPP_INCLUDED
 
-#include "index_format.hpp"
-#include "../export.hpp"
-#include <cstddef>
+#include "any.hpp"
+#include "any_compare.hpp"
+#include "../../export.hpp"
+#include <set>
 
 namespace sge
 {
 namespace renderer
 {
+namespace state
+{
 
-// FIXME: fix the std::size_t here!
-SGE_SYMBOL std::size_t index_format_stride(
-	index_format::type);
+template<typename T>
+struct trampoline;
 
+class list {
+public:
+	typedef std::set<
+		any,
+		any_compare
+	> set_type;
+
+	SGE_SYMBOL explicit list(
+		any const &);
+	SGE_SYMBOL explicit list(
+		set_type const &);
+	SGE_SYMBOL list const operator()(
+		any const &) const;
+
+	SGE_SYMBOL void overwrite(
+		any const &);
+
+	template<typename T>
+	SGE_SYMBOL T get() const;
+
+	template<typename T>
+	SGE_SYMBOL T get(
+		trampoline<T> const &) const;
+
+	SGE_SYMBOL set_type const &values() const;
+private:
+	set_type set_;
+};
+
+SGE_SYMBOL list const
+combine(
+	list const &,
+	list const &);
+
+}
 }
 }
 

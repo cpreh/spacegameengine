@@ -18,20 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEFAULT_STATES_HPP_INCLUDED
-#define SGE_RENDERER_DEFAULT_STATES_HPP_INCLUDED
+#include <sge/renderer/state/scoped.hpp>
 
-#include "../export.hpp"
-#include "states.hpp"
-
-namespace sge
+sge::renderer::state::scoped::scoped(
+	device_ptr const rend,
+	list const &l)
+: rend(rend)
 {
-namespace renderer
-{
-
-SGE_SYMBOL state_list const default_states();
-
-}
+	rend->push_state(l);
 }
 
-#endif
+sge::renderer::state::scoped::~scoped()
+{
+	if(rend)
+		rend->pop_level();
+}
+
+void sge::renderer::state::scoped::release()
+{
+	rend.reset();
+}

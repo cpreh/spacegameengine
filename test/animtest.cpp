@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/sprite/object.hpp>
@@ -104,20 +106,18 @@ try
 	);
 
 	rend->set_state(
-		sge::renderer::state_list
-			(sge::renderer::bool_state::clear_backbuffer = true)
-			(sge::renderer::depth_func::off)
-			(sge::renderer::cull_mode::off)
+		sge::renderer::state::list
+			(sge::renderer::state::bool_::clear_backbuffer = true)
 	);
 	rend->projection(sge::math::matrix_orthogonal_xy());
 
 	while(running)
 	{
-		const sge::renderer::scoped_block block_(rend);
+		sge::renderer::scoped_block const block_(rend);
 		sge::window::dispatch();
 		is->dispatch();
 		anim.process();
-		ss.render(&spr, &spr+1);
+		ss.render(spr);
 	}
 }
 catch(const sge::exception& e)

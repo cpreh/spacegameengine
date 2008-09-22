@@ -13,6 +13,7 @@ FILE (GLOB sgecorefiles
 	plugin/*.cpp
 	renderer/*.cpp
 	renderer/glsl/*.cpp
+	renderer/state/*.cpp
 	sprite/*.cpp
 	texture/*.cpp
 	time/*.cpp)

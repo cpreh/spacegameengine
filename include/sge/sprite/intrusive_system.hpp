@@ -49,15 +49,11 @@ private:
 		sprite_list const &);
 	void add(
 		intrusive_object &,
-		intrusive_object::order_type);
+		bool transparent);
 	friend class intrusive_object;
 
-	typedef boost::ptr_map<
-		intrusive_object::order_type,
-		sprite_list
-	> sprite_level_map;
-
-	sprite_level_map sprite_levels;
+	sprite_list opaque_sprites,
+	            transparent_sprites;
 };
 
 }
