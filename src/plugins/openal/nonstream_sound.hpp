@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_NONSTREAM_SOUND_INCLUDED
 
 #include <sge/audio/file.hpp>
-#include "source_wrapper.hpp"
+#include "source.hpp"
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace openal
 {
 class player;
 
-class nonstream_sound : public source_wrapper
+class nonstream_sound : public source
 {
 public:
 	nonstream_sound(audio::file_ptr,player&);

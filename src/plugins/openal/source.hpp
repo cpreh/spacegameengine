@@ -1,5 +1,5 @@
-#ifndef SGE_OPENAL_SOURCE_WRAPPER_HPP_INCLUDED
-#define SGE_OPENAL_SOURCE_WRAPPER_HPP_INCLUDED
+#ifndef SGE_OPENAL_SOURCE_HPP_INCLUDED
+#define SGE_OPENAL_SOURCE_HPP_INCLUDED
 
 #include "openal.hpp"
 #include <sge/audio/sound.hpp>
@@ -8,13 +8,13 @@ namespace sge
 {
 namespace openal
 {
-class source_wrapper : public audio::sound
+class source : public audio::sound
 {
 	public:
-	explicit source_wrapper();
-	explicit source_wrapper(ALuint);
-	ALuint source() const { return source_; }
-	ALuint buffer() const { return buffer_; }
+	explicit source();
+	explicit source(ALuint);
+	ALuint alsource() const { return source_; }
+	ALuint albuffer() const { return buffer_; }
 	void sync() const;
 	void play(audio::play_mode::type);
 	void toggle_pause();
@@ -26,7 +26,7 @@ class source_wrapper : public audio::sound
 	void positional(bool);
 	audio::play_mode::type play_mode() const { return play_mode_; }
 	virtual void do_play() {}
-	~source_wrapper();
+	~source();
 
 	private:
 	ALuint source_,buffer_;

@@ -1,5 +1,6 @@
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/manager.hpp>
@@ -28,7 +29,7 @@
 int main(int argc, char *argv[])
 try
 {
-	sge::log::global().activate(sge::log::level::debug);
+	sge::log::global().activate_hierarchy(sge::log::level::debug);
 
 	namespace po = boost::program_options;
   po::options_description desc("allowed options");
@@ -79,17 +80,20 @@ try
 		? sys.audio_player->create_stream_sound(soundfile)
 		: sys.audio_player->create_nonstream_sound(soundfile);
 
-	sys.audio_player->listener_pos(sge::audio::sound_pos(0,0,0));
+	//sys.audio_player->listener_pos(sge::audio::sound_pos(0,0,0));
+	/*
 	if (revolving)
 	{
 		sound->positional(true);
 		sound->pos(sge::audio::sound_pos(-1,0,0));
 	}
+	*/
 	sound->play(sge::audio::play_mode::loop);
 
 	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
 	while (true)
 	{
+		/*
 		if (revolving)
 		{
 			sge::space_unit angle = 
@@ -97,9 +101,13 @@ try
 					frame_timer.elapsed_frames() * (2 * sge::math::PI * speed));
 			sound->pos(sge::audio::sound_pos(std::sin(angle),0,std::cos(angle)));
 		}
+		*/
 		sys.audio_player->update();
 	}
 	
+} catch (const sge::audio::exception &e) {
+	sge::cerr << SGE_TEXT("audio exception caught: ") << e.what() << SGE_TEXT('\n');
+	return EXIT_FAILURE;
 } catch (const sge::exception &e) {
 	sge::cerr << SGE_TEXT("Exception caught: ") << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;

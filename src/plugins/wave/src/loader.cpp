@@ -33,6 +33,7 @@ bool sge::wave::loader::is_valid_file(path const &filename) const
 	try 
 	{
 		file const file_(filename);
+		SGE_LOG_DEBUG(log::global(),log::_1 << "wave file info: " << file_.to_string());
 	} 
 	catch (audio::exception const &e) 
 	{

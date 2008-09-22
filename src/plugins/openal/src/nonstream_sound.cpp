@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::openal::nonstream_sound::nonstream_sound(
 	const audio::file_ptr _audio_file,
 	openal::player &_player)
-: source_wrapper(_player.register_nonstream_sound(_audio_file)),
+: source(_player.register_nonstream_sound(_audio_file)),
   player_(_player)
 {
 }
 
 sge::openal::nonstream_sound::~nonstream_sound()
 {
-	player_.unregister_nonstream_sound(buffer());
+	player_.unregister_nonstream_sound(albuffer());
 }

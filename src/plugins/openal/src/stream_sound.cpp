@@ -79,7 +79,7 @@ void sge::openal::stream_sound::do_play()
 	fill_buffer(al_buffers_[0]);
 	fill_buffer(al_buffers_[1]);
 
-	alSourceQueueBuffers(source(),static_cast<ALsizei>(2),al_buffers_); SGE_OPENAL_ERROR_CHECK;
+	alSourceQueueBuffers(alsource(),static_cast<ALsizei>(2),al_buffers_); SGE_OPENAL_ERROR_CHECK;
 }
 
 void sge::openal::stream_sound::update()
@@ -87,15 +87,15 @@ void sge::openal::stream_sound::update()
 	sync();
 
 	ALint processed;
-	alGetSourcei(source(), AL_BUFFERS_PROCESSED, &processed);
+	alGetSourcei(alsource(), AL_BUFFERS_PROCESSED, &processed);
 
 	while(processed--)
 	{
 		ALuint buffer;
 		// Unqueuen bewirkt, dass der Puffer von oben weggenommen wird...
-		alSourceUnqueueBuffers(source(),static_cast<ALsizei>(1),&buffer);
+		alSourceUnqueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer);
 		// ...und Queue bewirkt, dass es hinten angefuegt wird. Genial!
 		if (fill_buffer(buffer))
-			alSourceQueueBuffers(source(),static_cast<ALsizei>(1),&buffer);
+			alSourceQueueBuffers(alsource(),static_cast<ALsizei>(1),&buffer);
 	}
 }
