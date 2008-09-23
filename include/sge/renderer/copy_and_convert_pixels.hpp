@@ -18,27 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture_util.hpp>
-#include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/image_view_impl.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/math/rect_impl.hpp>
+#ifndef SGE_RENDERER_COPY_AND_CONVERT_PIXELS_HPP_INCLUDED
+#define SGE_RENDERER_COPY_AND_CONVERT_PIXELS_HPP_INCLUDED
 
-void sge::renderer::sub_data(
-	texture_ptr const tex,
-	const_image_view const &view,
-	texture::pos_type const &p)
+#include "image_view.hpp"
+#include "../export.hpp"
+
+namespace sge
 {
-	scoped_texture_lock const lock_(
-		sge::renderer::make_scoped_lock(
-			tex,
-			lock_rect(
-				p,
-				image_view_dim(view)),
-			lock_flags::writeonly));
+namespace renderer
+{
 
-	copy_and_convert_pixels(
-		view,
-		lock_.value());
+SGE_SYMBOL void copy_and_convert_pixels(
+	const_image_view const &src,
+	image_view const &dest);
+
 }
+}
+
+#endif

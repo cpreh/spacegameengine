@@ -18,15 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/image_view_algorithm.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#ifndef SGE_RENDERER_FILL_PIXELS_HPP_INCLUDED
+#define SGE_RENDERER_FILL_PIXELS_HPP_INCLUDED
 
-void sge::renderer::copy_and_convert_pixels(
-	const_image_view const &src,
-	image_view const &dest)
+#include "any_color.hpp"
+#include "image_view.hpp"
+#include "../export.hpp"
+
+namespace sge
 {
-	boost::gil::copy_and_convert_pixels(
-		src,
-		dest);
+namespace renderer
+{
+
+SGE_SYMBOL void fill_pixels(
+	image_view const &,
+	any_color const &);
+
 }
+}
+
+#endif

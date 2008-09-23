@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/image_view_algorithm.hpp>
+#include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
+#include <sge/renderer/image_view_impl.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/index_view_operations.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
@@ -29,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/algorithm.hpp>
 #include <boost/variant/apply_visitor.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 sge::renderer::texture_ptr const sge::renderer::device::no_texture;
 sge::renderer::texture_ptr const sge::renderer::device::default_render_target;

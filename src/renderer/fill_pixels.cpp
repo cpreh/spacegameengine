@@ -18,27 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/texture_util.hpp>
-#include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/image_view_dim.hpp>
+#include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/image_view_impl.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/math/rect_impl.hpp>
+#include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
 
-void sge::renderer::sub_data(
-	texture_ptr const tex,
-	const_image_view const &view,
-	texture::pos_type const &p)
+namespace
 {
-	scoped_texture_lock const lock_(
-		sge::renderer::make_scoped_lock(
-			tex,
-			lock_rect(
-				p,
-				image_view_dim(view)),
-			lock_flags::writeonly));
 
-	copy_and_convert_pixels(
-		view,
-		lock_.value());
+struct visitor : boost::static_visitor<> {
+	explicit visitor(
+		sge::renderer::image_view const &);
+	template<typename T>
+	void operator()(
+		T const &t) const;
+private:
+	sge::renderer::image_view const &dest;
+};
+
+}
+
+void sge::renderer::fill_pixels(
+	image_view const &dest,
+	any_color const &c)
+{
+	boost::apply_visitor(
+		visitor(dest),
+		c);
+}
+
+namespace
+{
+
+visitor::visitor(
+	sge::renderer::image_view const &dest)
+: dest(dest)
+{}
+
+template<typename T>
+void visitor::operator()(
+	T const &t) const
+{
+	boost::gil::fill_pixels(
+		dest,
+		t);
+}
+
 }
