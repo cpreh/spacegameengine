@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/instantiate_scoped_lock.hpp>
+#include <sge/renderer/detail/instantiate_scoped_lock.hpp>
 
 sge::renderer::scoped_vertex_lock_wrapper const
 sge::renderer::make_scoped_lock(

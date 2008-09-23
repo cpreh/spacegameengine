@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_LOCK_WRAPPER_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_LOCK_WRAPPER_IMPL_HPP_INCLUDED
 
-#include "scoped_lock_wrapper.hpp"
+#include "../scoped_lock_wrapper.hpp"
 
 template<typename T, typename Value>
 sge::renderer::scoped_lock_wrapper<T, Value>::scoped_lock_wrapper(
