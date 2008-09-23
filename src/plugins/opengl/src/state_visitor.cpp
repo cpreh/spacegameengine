@@ -48,6 +48,9 @@ void sge::ogl::state_visitor::operator()(
 	case rs::stencil_clear_val:
 		glClearStencil(s.value());
 		break;
+	case rs::stencil_ref:
+		states.update_stencil();
+		break;
 	default:
 		throw exception(
 			SGE_TEXT("Invalid int_state!"));
