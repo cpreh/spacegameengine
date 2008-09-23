@@ -67,6 +67,8 @@ bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
 		samples_read = audio_file_->read(buffer_samples_,data);
 	}
 
+	SGE_ASSERT(data.size());
+
 	alBufferData(
 		buffer, 
 		format_, 

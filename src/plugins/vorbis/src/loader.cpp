@@ -21,19 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../file.hpp"
 #include "../loader.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/raw_vector_impl.hpp>
 #include <sge/path.hpp>
 
 const sge::audio::file_ptr sge::vorbis::loader::load(const path &filename)
 {
-	return audio::file_ptr(new file(filename, 16));
+	return audio::file_ptr(new file(filename));
 }
 
 bool sge::vorbis::loader::is_valid_file(const path &filename) const
 {
 	try { 
-		const file file_(filename, 16);
-	} catch (const audio::exception &) {
+		file const file_(filename);
+	} catch (audio::exception const &) {
 		return false;
 	}
 	return true;
