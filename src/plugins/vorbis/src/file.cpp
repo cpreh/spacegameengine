@@ -1,153 +1,204 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-
 #include "../file.hpp"
-#include <sge/iconv.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/endianness.hpp>
 #include <sge/raw_vector_impl.hpp>
+#include <sge/assert.hpp>
+#include <sge/iostream.hpp>
 #include <algorithm>
-#include <string>
-#include <cstdio>
-#include <cstddef>
-#include <cstring>
-#include <cerrno>
-#include <cassert>
+#include <iterator>
 
-
-sge::vorbis::file::file(
-	const path &_filename,
-	const audio::sample_count _bits_per_sample)
-: bits_per_sample_(_bits_per_sample)
+namespace
 {
-	assert(bits_per_sample_ == 8 || bits_per_sample_ == 16);
-
-	if((ogg_file_.file_ = std::fopen(iconv(_filename.string()).c_str(), "rb")) == 0)
-		throw audio::exception(SGE_TEXT("Couldn't open ogg file \"") + _filename.string() + SGE_TEXT("\": ") + iconv(std::string(std::strerror(errno))));
- 
- 	// File pointer, ogg structure pointer, Mist, Mist
-	int result;
-	vorbis_info *vorbis_info;
-	if((result = ov_open(ogg_file_.file_, &ogg_stream_, 0, 0)) < 0)
-		throw audio::exception(SGE_TEXT("Invalid ogg file: ") + ogg_error(result));
-
-	if ((vorbis_info = ov_info(&ogg_stream_, -1)) == 0)
-		throw audio::exception(SGE_TEXT("Error getting ogg file info: ") + ogg_error(result));
-
-	channels_ = vorbis_info->channels;
-	sample_rate_ = vorbis_info->rate;
-}
-
-sge::audio::sample_count
-sge::vorbis::file::read(
-	const audio::sample_count _sample_count,
-	audio::sample_container &_data)
-{
-	audio::sample_count bytes_to_read = _sample_count * channels() * 2;
-	_data.resize_uninitialized(bytes_to_read);
-
-	audio::sample_count bytes_read = 0;
-	while (bytes_read < bytes_to_read)
-	{
-		int bitstream;
-		long result = ov_read(
-			&ogg_stream_,
-			reinterpret_cast<char *>(_data.data()) + bytes_read,
-			static_cast<int>(bytes_to_read - bytes_read),
-			0,
-			(bits_per_sample_ == 8) ? 1 : 2, 1, &bitstream);
-		if (result < 0)
-			throw audio::exception(SGE_TEXT("Error reading ogg file: ") + ogg_error(result));
-
-		// EOF?
-		if (result == 0)
-			break;
-
-		bytes_read += result;
-	}
-
-	return bytes_read;
-}
-
-sge::audio::sample_count
-sge::vorbis::file::read_all(
-	audio::sample_container &_data)
-{
-	// Wir wissen nicht, wie viele Samples wir kriegen, also lesen wir in diskreten Bloecken und fuegen die in _data ein.
-	// TODO: Das hier vielleicht optimieren.
-	const int buffer_size = 4096; unsigned char buffer[buffer_size];
-	while (true)
-	{
-		int bitstream;
-		long result = ov_read(&ogg_stream_, reinterpret_cast<char *>(buffer), buffer_size, 0, (bits_per_sample_ == 8) ? 1 : 2, 1, &bitstream);
-		if (result < 0)
-			throw audio::exception(SGE_TEXT("Error reading ogg file: ") + ogg_error(result));
-
-		// EOF?
-		if (result == 0)
-			break;
-
-		std::copy(buffer,buffer + result,std::back_inserter(_data));
-	}
-	return _data.size();
-}
-
-void sge::vorbis::file::reset()
-{
-	// Hier seeken wir einfach zu Zeit 0
-	int result = ov_time_seek(&ogg_stream_,0.0);
-	if (result != 0)
-		throw audio::exception(SGE_TEXT("Error resetting ogg stream: ") + ogg_error(result));
-}
-
-sge::string sge::vorbis::file::ogg_error(const long code)
+sge::string ogg_error(int const code)
 {
 	switch(code)
 	{
 		case OV_EREAD:
-			return SGE_TEXT("Read from media");
+			return SGE_TEXT("a read from a media has returned an error");
 		case OV_ENOTVORBIS:
-			return SGE_TEXT("Not Vorbis data");
+			return SGE_TEXT("bitstream does not contain any vorbis data");
 		case OV_EVERSION:
-			return SGE_TEXT("Vorbis version mismatch");
+			return SGE_TEXT("vorbis version mismatch");
 		case OV_EBADHEADER:
-			return SGE_TEXT("Invalid Vorbis header");
+			return SGE_TEXT("invalid vorbis bitstream header");
 		case OV_EFAULT:
 			return SGE_TEXT("Internal logic fault (bug or heap/stack corruption)");
 		case OV_ENOSEEK:
-			return SGE_TEXT("Bitstream is not seekable.");
+			return SGE_TEXT("bitstream is not seekable.");
 		default:
-			return SGE_TEXT("Unknown Ogg error");
+			return SGE_TEXT("unknown ogg error");
 	}
 }
-
-sge::audio::channel_type sge::vorbis::file::channels() const
-{
-	return channels_;
 }
 
-sge::audio::sample_count sge::vorbis::file::sample_rate() const
+sge::vorbis::file::file(path const &p)
+	: file_name(p.string()),
+	  stdstream(p)
 {
-	return sample_rate_;
+	if (!stdstream.is_open())
+		throw audio::exception(SGE_TEXT("vorbis: couldn't open file \"")+file_name+SGE_TEXT("\""));
+
+	ov_callbacks callbacks;
+
+	callbacks.read_func = &file::ogg_read_static;
+	callbacks.seek_func = &file::ogg_seek_static;
+	callbacks.close_func = &file::ogg_close_static;
+	callbacks.tell_func = &file::ogg_tell_static;
+
+	if (int error = ov_open_callbacks(this,&ogg_file,0,static_cast<long>(0),callbacks))
+		throw audio::exception(SGE_TEXT("vorbis: error opening ogg vorbis file \"")+file_name+SGE_TEXT("\": ")+ogg_error(error));
+	
+	vorbis_info * const info = ov_info(&ogg_file,static_cast<int>(-1));
+	if (!info)
+		throw audio::exception(SGE_TEXT("vorbis: couldn't read file info from ogg vorbis file \"")+file_name+SGE_TEXT("\""));
+
+	channels_ = static_cast<channel_type>(info->channels);
+	sample_rate_ = static_cast<sample_count>(info->rate);
 }
 
-sge::audio::sample_count sge::vorbis::file::bits_per_sample() const
+sge::audio::sample_count sge::vorbis::file::read(
+	sample_count const samples,
+	sample_container &data)
 {
-	return bits_per_sample_;
+	if (stdstream.eof())
+		return static_cast<sample_count>(0);
+	
+	sample_count const bytes_to_read = samples*channels()*bytes_per_sample();
+	sample_container newdata(static_cast<sample_container::size_type>(bytes_to_read));
+
+	sample_count bytes_read = static_cast<sample_count>(0);
+	while (bytes_read < bytes_to_read)
+	{
+		int bitstream;
+
+		long result = ov_read(
+			&ogg_file,
+			reinterpret_cast<char *>(&newdata[bytes_read]),
+			static_cast<int>(bytes_to_read - bytes_read),
+			static_cast<int>(!is_little_endian()),
+			static_cast<int>(2), // 8 or 16 bit samples
+			static_cast<int>(1), // 0 is unsigned data, 1 is signed
+			&bitstream);
+		
+		switch (result)
+		{
+			case OV_HOLE:
+				continue;
+			case OV_EBADLINK:
+				throw audio::exception(SGE_TEXT("vorbis: an invalid stream section was supplied to libvorbisfile, or the requested link is corrupt in file \"")+file_name+SGE_TEXT("\""));
+			case OV_EINVAL:
+				throw audio::exception(SGE_TEXT("vorbis: the initial file headers couldn't be read or are corrupt, or the initial open call for vf failed in file \"")+file_name+SGE_TEXT("\""));
+		}
+
+		if (result == static_cast<long>(0))
+			break;
+
+		bytes_read += static_cast<sample_count>(result);
+	}
+
+	std::copy(newdata.begin(),newdata.begin() + bytes_read,std::back_inserter(data));
+	return bytes_read/bytes_per_sample();
+}
+
+sge::audio::sample_count sge::vorbis::file::read_all(
+	sample_container &data)
+{
+	while (!stdstream.eof())
+		read(static_cast<sample_count>(16*4096),data);
+	return data.size()/bytes_per_sample();
+}
+
+void sge::vorbis::file::reset()
+{
+	if (int error = ov_pcm_seek(&ogg_file,static_cast<ogg_int64_t>(0)))
+		throw audio::exception(SGE_TEXT("vorbis: couldn't reset file \"")+file_name+SGE_TEXT("\": ")+ogg_error(error));
+}
+
+sge::vorbis::file::~file()
+{
+	int result = ov_clear(&ogg_file);
+	SGE_ASSERT(!result);
+}
+
+std::size_t sge::vorbis::file::ogg_read_static(
+	void * const ptr, 
+	std::size_t const size, 
+	std::size_t const nmemb, 
+	void * const datasource)
+{
+	return static_cast<sge::vorbis::file*>(datasource)->ogg_read(ptr,size,nmemb);
+}
+
+int sge::vorbis::file::ogg_seek_static(
+	void * const datasource, 
+	ogg_int64_t const offset, 
+	int const whence)
+{
+	return static_cast<sge::vorbis::file*>(datasource)->ogg_seek(offset,whence);
+}
+
+int sge::vorbis::file::ogg_close_static(void *datasource)
+{
+	return static_cast<sge::vorbis::file*>(datasource)->ogg_close();
+}
+
+long sge::vorbis::file::ogg_tell_static(void *datasource)
+{
+	return static_cast<sge::vorbis::file*>(datasource)->ogg_tell();
+}
+
+std::size_t sge::vorbis::file::ogg_read(
+	void * const ptr, 
+	std::size_t const size,  // size of a "package"
+	std::size_t const nmemb) // how many packages to read
+{
+	if (stdstream.eof())
+		return static_cast<std::size_t>(0);
+	stdstream.read(static_cast<char *>(ptr),static_cast<std::streamsize>(size*nmemb));
+	if (stdstream.bad())
+		throw audio::exception(SGE_TEXT("vorbis: stream error while reading from file \"")+file_name+SGE_TEXT("\""));
+	return static_cast<std::size_t>(stdstream.gcount()/size);
+}
+
+int sge::vorbis::file::ogg_seek(
+	ogg_int64_t const offset, 
+	int whence)
+{
+	if (stdstream.eof())
+		stdstream.clear();
+
+	switch (whence)
+	{
+		case SEEK_SET:
+			stdstream.seekg(static_cast<std::streamoff>(offset),std::ios_base::beg);
+			if (stdstream.bad())
+				throw audio::exception(SGE_TEXT("vorbis: stream error while reading from file \"")+file_name+SGE_TEXT("\""));
+			break;
+		case SEEK_CUR:
+			stdstream.seekg(static_cast<std::streamoff>(offset),std::ios_base::cur);
+			if (stdstream.bad())
+				throw audio::exception(SGE_TEXT("vorbis: stream error while reading from file \"")+file_name+SGE_TEXT("\""));
+			break;
+		case SEEK_END:
+			stdstream.seekg(static_cast<std::streamoff>(offset),std::ios_base::end);
+			if (stdstream.bad())
+				throw audio::exception(SGE_TEXT("vorbis: stream error while reading from file \"")+file_name+SGE_TEXT("\""));
+			break;
+		default:
+			throw audio::exception(SGE_TEXT("vorbis: invalid seek parameter in file \"")+file_name+SGE_TEXT("\""));
+	}
+	return static_cast<int>(0);
+}
+
+int sge::vorbis::file::ogg_close()
+{
+	stdstream.close();
+	// the return code is not checked, but zero indicates success in the orr library
+	return static_cast<int>(0);
+}
+
+long sge::vorbis::file::ogg_tell()
+{
+	return static_cast<long>(stdstream.tellg());
 }

@@ -111,5 +111,12 @@ sge::string const sge::mad::stream::error_string() const
 
 void sge::mad::stream::reset()
 {
+	SGE_LOG_DEBUG(log(),log::_1 << "resetting file");
+	mad_stream_finish(&madstream);
+	mad_stream_init(&madstream);
+	madstream.buffer = 0;
+	stdstream.clear();
 	stdstream.seekg(static_cast<std::streampos>(0));
+	sync();
+	SGE_LOG_DEBUG(log(),log::_1 << "file reset");
 }

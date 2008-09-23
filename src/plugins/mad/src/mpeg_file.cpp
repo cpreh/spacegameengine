@@ -44,6 +44,8 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
 	sample_count const samples,
 	sample_container &dest)
 {
+	SGE_LOG_DEBUG(log(),log::_1 << "reading " << samples << " samples");
+
 	if (s.eof())
 	{
 		SGE_LOG_DEBUG(log(),log::_1 << "we're at the end");
@@ -84,5 +86,5 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read_all(sample_container
 void sge::mad::mpeg_file::reset()
 {
 	s.reset();
-	//append(buffered_,s.decode().synthesize());
+	buffered_.clear();
 }
