@@ -21,62 +21,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive_system.hpp>
 #include <sge/sprite/helper.hpp>
 #include <sge/sprite/intrusive_compare.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/scoped_lock.hpp>
+#include <sge/renderer/scoped_state.hpp>
 #include <sge/renderer/transform.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/math/matrix_impl.hpp>
-#include <sge/math/matrix_util.hpp>
 #include <sge/algorithm.hpp>
-#include <sge/su.hpp>
 #include <boost/foreach.hpp>
 
 sge::sprite::intrusive_system::intrusive_system(
 	renderer::device_ptr const rend)
-: system_base(rend),
-  z_max(su(0))
+: system_base(rend)
 {}
 
 void sge::sprite::intrusive_system::render()
 {
-	renderer::device_ptr const rend(
-		get_renderer());
-
-	renderer::state::scoped const state_(
-		rend,
-		renderer::state::list
-			(renderer::state::bool_::enable_lighting = false)
-			(renderer::state::cull_mode::off)
-			(renderer::state::stencil_func::off)
-			(renderer::state::draw_mode::fill)
-			(renderer::state::alpha_func::off)
-	);
-
-	{
-		renderer::state::scoped const state_(
-			rend,
-			renderer::state::list
-				(renderer::state::depth_func::greater)
-				(renderer::state::bool_::enable_alpha_blending = false)
-				(renderer::state::alpha_func::equal)
-				(renderer::state::float_::alpha_test_ref = su(1))
-		);
-		render(opaque_sprites);
-	}
-	{
-		renderer::state::scoped const state_(
-			rend,
-			renderer::state::list
-				(renderer::state::depth_func::off)
-				(renderer::state::bool_::enable_alpha_blending = true)
-				(renderer::state::source_blend_func::src_alpha)
-				(renderer::state::dest_blend_func::inv_src_alpha)
-		);
-		render(transparent_sprites);
-	}
+	BOOST_FOREACH(sprite_level_map::value_type const &v, sprite_levels)
+		render(*v.second);
 }
 
 void sge::sprite::intrusive_system::render(
@@ -113,7 +75,7 @@ void sge::sprite::intrusive_system::render(
 			else
 				fill_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
-			if(texture::part_ptr const tex = spr.get_texture())
+			if(const texture::part_ptr tex = spr.get_texture())
 				fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
 
 			vb_it = fill_color(vb_it, spr.get_color());
@@ -124,7 +86,20 @@ void sge::sprite::intrusive_system::render(
 
 	renderer::device_ptr const rend(
 		get_renderer());
-	
+
+	const renderer::scoped_state state_(
+		rend,
+		renderer::state_list
+			(renderer::bool_state::enable_lighting = false)
+			(renderer::bool_state::enable_alpha_blending = true)
+			(renderer::source_blend_func::src_alpha)
+			(renderer::dest_blend_func::inv_src_alpha)
+			(renderer::cull_mode::off)
+			(renderer::depth_func::off)
+			(renderer::stencil_func::off)
+			(renderer::draw_mode::fill)
+	);
+
 	unsigned first_index = 0;
 	
 	sprite_list::const_iterator const end(sprites.end());
@@ -136,8 +111,11 @@ void sge::sprite::intrusive_system::render(
 		if(cur == sprites.end())
 			break;
 
-		unsigned num_objects;
-		sprite_list::const_iterator const next = first_mismatch_if(cur, end, num_objects, tex_equal_visible);
+		//unsigned num_objects;
+		//sprite_list::const_iterator const next = first_mismatch_if(cur, end, num_objects, tex_equal_visible);
+		unsigned num_objects = 1;
+		sprite_list::const_iterator next = cur;
+		++next;
 
 		const texture::part_ptr vtex = cur->get_texture();
 		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);
@@ -161,24 +139,7 @@ void sge::sprite::intrusive_system::render(
 
 void sge::sprite::intrusive_system::add(
 	intrusive_object &obj,
-	bool const transparent)
+	intrusive_object::order_type const order)
 {
-	if(transparent)
-		transparent_sprites.push_back(obj);
-	else
-		opaque_sprites.push_back(obj);
-}
-
-void sge::sprite::intrusive_system::update_z(
-	depth_type const d)
-{
-	if(d < z_max)
-		return;
-	
-	z_max = d;
-	projection(
-		math::matrix_scaling(
-			su(1),
-			su(1),
-			su(1) / z_max));
+	sprite_levels[order].push_back(obj);
 }

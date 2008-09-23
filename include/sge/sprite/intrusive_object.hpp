@@ -50,11 +50,12 @@ public:
 
 	SGE_SYMBOL intrusive_object(
 		intrusive_system &,
-		order_type order,
+		order_type,
 		boost::optional<point> = defaults::pos_,
 		boost::optional<texture::part_ptr> = defaults::texture_,
 		boost::optional<dim> = defaults::dim_,
 		boost::optional<color> = defaults::color_,
+		boost::optional<depth_type> = defaults::depth_,
 		boost::optional<rotation_type> = defaults::rotation_,
 		boost::optional<bool> visible = defaults::visible_);
 	
@@ -71,11 +72,13 @@ public:
 	using object::w;
 	using object::h;
 	using object::size;
+	using object::z;
 	using object::visible;
 	using object::set_texture;
 	using object::rotation;
 	using object::rotate_around;
 	using object::repeat;
+	using object::set_color;
 	using object::set_center;
 
 	using object::get_rect;
@@ -86,11 +89,6 @@ public:
 	using object::rotation_center;
 	using object::get_texture;
 
-	using object::z;
-
-	SGE_SYMBOL void set_color(
-		color);
-	
 	SGE_SYMBOL void order(
 		order_type);
 	SGE_SYMBOL order_type order() const;
@@ -99,7 +97,6 @@ public:
 	SGE_SYMBOL object const &explicit_upcast() const;
 private:
 	void add_me();
-	void update_z();
 
 	intrusive_system &sys;
 	order_type       order_;

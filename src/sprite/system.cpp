@@ -25,9 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/helper.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/scoped_state.hpp>
 #include <sge/algorithm.hpp>
 
 sge::sprite::system::system(
@@ -95,17 +93,17 @@ void sge::sprite::system::render(
 	renderer::device_ptr const rend(
 		get_renderer());
 
-	renderer::state::scoped const state_(
+	const renderer::scoped_state state_(
 		rend,
-		renderer::state::list
-			(renderer::state::bool_::enable_lighting = false)
-			(renderer::state::bool_::enable_alpha_blending = true)
-			(renderer::state::source_blend_func::src_alpha)
-			(renderer::state::dest_blend_func::inv_src_alpha)
-			(renderer::state::cull_mode::off)
-			(renderer::state::depth_func::off)
-			(renderer::state::stencil_func::off)
-			(renderer::state::draw_mode::fill)
+		renderer::state_list
+			(renderer::bool_state::enable_lighting = false)
+			(renderer::bool_state::enable_alpha_blending = true)
+			(renderer::source_blend_func::src_alpha)
+			(renderer::dest_blend_func::inv_src_alpha)
+			(renderer::cull_mode::off)
+			(renderer::depth_func::off)
+			(renderer::stencil_func::off)
+			(renderer::draw_mode::fill)
 	);
 
 	unsigned first_index = 0;
