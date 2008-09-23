@@ -404,10 +404,18 @@ void sge::ogl::device::push_state(
 	renderer::state::list const &states)
 {	
 	state_levels.push(
+		current_states);
+
+	set_state(
 		renderer::state::combine(
 			current_states,
 			states));
-	set_state(states);
+}
+
+void sge::ogl::device::pop_state()
+{
+	set_state(state_levels.top());
+	state_levels.pop();
 }
 
 GLenum sge::ogl::device::get_clear_bit(
@@ -603,12 +611,6 @@ void sge::ogl::device::set_texture_stage_arg(
 	const renderer::texture_stage_arg_value::type value)
 {
 	set_texture_stage(stage, arg, value);
-}
-
-void sge::ogl::device::pop_level()
-{
-	set_state(state_levels.top());
-	state_levels.pop();
 }
 
 sge::renderer::glsl::program_ptr const

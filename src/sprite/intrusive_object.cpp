@@ -42,6 +42,7 @@ sge::sprite::intrusive_object::intrusive_object(
   order_(order_)
 {
 	add_me();
+	update_z();
 }
 
 sge::sprite::intrusive_object::intrusive_object(
@@ -76,10 +77,9 @@ void sge::sprite::intrusive_object::set_color(
 void sge::sprite::intrusive_object::order(
 	order_type const norder)
 {
-	unlink();
 	order_ = norder;
 	z() = static_cast<depth_type>(order());
-	add_me();
+	update_z();
 }
 
 sge::sprite::intrusive_object::order_type
@@ -105,4 +105,9 @@ void sge::sprite::intrusive_object::add_me()
 	sys.add(
 		*this,
 		false);
+}
+
+void sge::sprite::intrusive_object::update_z()
+{
+	sys.update_z(z());
 }

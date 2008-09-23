@@ -130,7 +130,7 @@ public:
 
 	virtual void set_state(state::list const &) = 0;
 	virtual void push_state(state::list const &) = 0;
-	virtual void pop_level() = 0;
+	virtual void pop_state() = 0;
 
 	virtual void set_material(material const &mat) = 0;
 	virtual void enable_light(light_index index, bool enable) = 0;

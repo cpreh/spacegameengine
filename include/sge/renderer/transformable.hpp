@@ -31,9 +31,12 @@ namespace renderer
 
 class SGE_CLASS_SYMBOL transformable {
 public:
-	virtual void internal_transformation(const math::space_matrix&) = 0;
-	virtual void transform(const math::space_matrix&) = 0;
-	virtual void projection(const math::space_matrix&) = 0;
+	virtual void internal_transformation(
+		math::space_matrix const &) = 0;
+	virtual void transform(
+		math::space_matrix const &) = 0;
+	virtual void projection(
+		math::space_matrix const &) = 0;
 	virtual void set_matrices() = 0;
 	virtual ~transformable(){}
 };

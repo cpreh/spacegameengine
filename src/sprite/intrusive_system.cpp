@@ -29,19 +29,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/math/matrix_impl.hpp>
+#include <sge/math/matrix_util.hpp>
 #include <sge/algorithm.hpp>
+#include <sge/su.hpp>
 #include <boost/foreach.hpp>
 
 sge::sprite::intrusive_system::intrusive_system(
 	renderer::device_ptr const rend)
-: system_base(rend)
+: system_base(rend),
+  z_max(su(0))
 {}
 
 void sge::sprite::intrusive_system::render()
 {
 	renderer::device_ptr const rend(
 		get_renderer());
-	
+
 	renderer::state::scoped const state_(
 		rend,
 		renderer::state::list
@@ -49,10 +52,21 @@ void sge::sprite::intrusive_system::render()
 			(renderer::state::cull_mode::off)
 			(renderer::state::stencil_func::off)
 			(renderer::state::draw_mode::fill)
+			(renderer::state::alpha_func::off)
 	);
 
 	{
-		
+		renderer::state::scoped const state_(
+			rend,
+			renderer::state::list
+				(renderer::state::depth_func::greater)
+				(renderer::state::bool_::enable_alpha_blending = false)
+				(renderer::state::alpha_func::equal)
+				(renderer::state::float_::alpha_test_ref = su(1))
+		);
+		render(opaque_sprites);
+	}
+	{
 		renderer::state::scoped const state_(
 			rend,
 			renderer::state::list
@@ -62,17 +76,6 @@ void sge::sprite::intrusive_system::render()
 				(renderer::state::dest_blend_func::inv_src_alpha)
 		);
 		render(transparent_sprites);
-	}
-	{
-		renderer::state::scoped const state_(
-			rend,
-			renderer::state::list
-				(renderer::state::depth_func::greater)
-				(renderer::state::bool_::enable_alpha_blending = false)
-				(renderer::state::alpha_func::not_equal)
-				(renderer::state::float_::alpha_test_ref = 0)
-		);
-		render(opaque_sprites);
 	}
 }
 
@@ -122,13 +125,6 @@ void sge::sprite::intrusive_system::render(
 	renderer::device_ptr const rend(
 		get_renderer());
 	
-	//rend->projection(
-	//	sge::math::matrix_identity());
-
-	rend->projection(
-		sge::math::matrix_scaling(
-			1, 1, 0.1));
-
 	unsigned first_index = 0;
 	
 	sprite_list::const_iterator const end(sprites.end());
@@ -171,4 +167,18 @@ void sge::sprite::intrusive_system::add(
 		transparent_sprites.push_back(obj);
 	else
 		opaque_sprites.push_back(obj);
+}
+
+void sge::sprite::intrusive_system::update_z(
+	depth_type const d)
+{
+	if(d < z_max)
+		return;
+	
+	z_max = d;
+	projection(
+		math::matrix_scaling(
+			su(1),
+			su(1),
+			su(1) / z_max));
 }

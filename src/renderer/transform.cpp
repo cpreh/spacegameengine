@@ -35,7 +35,7 @@ sge::renderer::matrix_pixel_to_space(
 		* math::matrix_scaling(
 			su(2) / static_cast<space_unit>(sz.w()),
 	        	su(-2) / static_cast<space_unit>(sz.h()),
-	        	0);
+	        	su(1));
 }
 
 sge::math::rect const

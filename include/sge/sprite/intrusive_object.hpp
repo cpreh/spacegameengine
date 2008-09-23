@@ -99,6 +99,7 @@ public:
 	SGE_SYMBOL object const &explicit_upcast() const;
 private:
 	void add_me();
+	void update_z();
 
 	intrusive_system &sys;
 	order_type       order_;

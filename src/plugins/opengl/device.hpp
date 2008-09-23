@@ -86,7 +86,7 @@ public:
 
 	void push_state(renderer::state::list const &);
 
-	void pop_level();
+	void pop_state();
 
 	void set_texture(
 		renderer::const_texture_base_ptr tex,

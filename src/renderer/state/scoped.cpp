@@ -31,7 +31,7 @@ sge::renderer::state::scoped::scoped(
 sge::renderer::state::scoped::~scoped()
 {
 	if(rend)
-		rend->pop_level();
+		rend->pop_state();
 }
 
 void sge::renderer::state::scoped::release()

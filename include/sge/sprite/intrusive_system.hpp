@@ -50,8 +50,12 @@ private:
 	void add(
 		intrusive_object &,
 		bool transparent);
+	void update_z(
+		depth_type);
+
 	friend class intrusive_object;
 
+	depth_type  z_max;
 	sprite_list opaque_sprites,
 	            transparent_sprites;
 };
