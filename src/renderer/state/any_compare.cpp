@@ -28,19 +28,15 @@ namespace
 {
 
 struct compare : boost::static_visitor<bool> {
-	compare(
-		sge::renderer::state::any const &a,
-		sge::renderer::state::any const &b);
-		
 	template<typename T>
 	bool operator()(
+		sge::renderer::state::var<T> const &,
 		sge::renderer::state::var<T> const &) const;
 
-	template<typename T>
+	template<typename T, typename U>
 	bool operator()(
-		T) const;
-private:
-	sge::renderer::state::any const &a, &b;
+		T const &,
+		U const &) const;
 };
 
 }
@@ -49,37 +45,30 @@ bool sge::renderer::state::any_compare::operator()(
 	any const &a,
 	any const &b) const
 {
-	return a.type() == b.type()
-		? boost::apply_visitor(
-			compare(a, b),
-			a)
-		: a.type().before(b.type());
+	return boost::apply_visitor(
+		compare(),
+		a,
+		b);
 }
 
 namespace
 {
 
-compare::compare(
-	sge::renderer::state::any const &a,
-	sge::renderer::state::any const &b)
-: a(a),
-  b(b)
-{}
-		
 template<typename T>
 bool compare::operator()(
-	sge::renderer::state::var<T> const &) const
+	sge::renderer::state::var<T> const &a,
+	sge::renderer::state::var<T> const &b) const
 {
-	typedef sge::renderer::state::var<T> type;
-	return boost::get<type>(a).state()
-	     < boost::get<type>(b).state();
+	return a.state()
+	     < b.state();
 }
 
-template<typename T>
+template<typename T, typename U>
 bool compare::operator()(
-	T) const
+	T const &t,
+	U const &u) const
 {
-	return false; 
+	return typeid(t).before(typeid(u));
 }
 
 }
