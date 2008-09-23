@@ -18,22 +18,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_TRAITS_HPP_INCLUDED
+#define SGE_RENDERER_STATE_TRAITS_HPP_INCLUDED
 
-#include "index_format.hpp"
-#include "../export.hpp"
-#include <cstddef>
+#include "types.hpp"
 
 namespace sge
 {
 namespace renderer
 {
+namespace state
+{
 
-// FIXME: fix the std::size_t here!
-SGE_SYMBOL std::size_t index_format_stride(
-	index_format::type);
+template<typename T>
+struct traits;
 
+template<>
+struct traits<int_type> {
+	enum available_states {
+		stencil_clear_val,
+		stencil_ref
+	};
+};
+
+template<>
+struct traits<uint_type> {
+	enum available_states {
+		stencil_mask
+	};
+};
+
+template<>
+struct traits<float_type> {
+	enum available_states {
+		zbuffer_clear_val,
+		alpha_test_ref,
+		fog_start,
+		fog_end,
+		fog_density
+	};
+};
+
+template<>
+struct traits<bool_type> {
+	enum available_states {
+		clear_zbuffer,
+		clear_backbuffer,
+		clear_stencil,
+		enable_alpha_blending,
+		enable_alpha_test,
+		enable_lighting
+	};
+};
+
+template<>
+struct traits<color_type> {
+	enum available_states {
+		clear_color,
+		ambient_light_color,
+		fog_color
+	};
+};
+
+}
 }
 }
 

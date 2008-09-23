@@ -18,21 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#ifndef SGE_OPENGL_SPLIT_STATES_HPP_INCLUDED
+#define SGE_OPENGL_SPLIT_STATES_HPP_INCLUDED
 
-#include "index_format.hpp"
-#include "../export.hpp"
-#include <cstddef>
+#include "common.hpp"
 
 namespace sge
 {
 namespace renderer
 {
+namespace state
+{
+class list;
+}
+}
 
-// FIXME: fix the std::size_t here!
-SGE_SYMBOL std::size_t index_format_stride(
-	index_format::type);
+namespace ogl
+{
+
+class split_states {
+public:
+	explicit split_states(
+		renderer::state::list &);
+	void update_stencil();
+	void update_blend();
+	void update_alpha_test();
+private:
+	template<typename T>
+	T const get(
+		T const &) const;
+
+	renderer::state::list &states;
+};
 
 }
 }

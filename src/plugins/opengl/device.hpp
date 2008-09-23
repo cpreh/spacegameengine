@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/state/list.hpp>
 #include <sge/window.hpp>
 #include <sge/scoped_connection.hpp>
 #include "common.hpp"
@@ -81,9 +82,9 @@ public:
 		renderer::vertex_buffer::size_type num_vertices,
 		renderer::nonindexed_primitive_type::type ptype);
 
-	void set_state(const renderer::state_list &);
+	void set_state(renderer::state::list const &);
 
-	void push_state(const renderer::state_list &);
+	void push_state(renderer::state::list const &);
 
 	void pop_level();
 
@@ -159,24 +160,18 @@ public:
 	renderer::caps const &get_caps() const;
 	renderer::screen_size_t const screen_size() const;
 	window_ptr const get_window() const;
-
-	void set_stencil_func();
-	void set_blend_func();
 private:
-	GLenum get_clear_bit(renderer::bool_state::type) const;
-	template<typename T>
-		T get_state(const T&) const;
-	const renderer::any_state& get_any_state(
-		const renderer::any_state& state) const;
+	GLenum get_clear_bit(
+		renderer::state::bool_::trampoline_type const &) const;
 
 	void set_vertex_buffer(renderer::const_vertex_buffer_ptr vb);
 	void set_index_buffer(renderer::const_index_buffer_ptr ib);
-	const fbo_target_ptr create_render_target(
-		const renderer::target::dim_type&);
+	fbo_target_ptr const create_render_target(
+		renderer::target::dim_type const &);
 
 	renderer::parameters          param;
 	renderer::caps                caps_;
-	renderer::state_list          current_states;
+	renderer::state::list         current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
 	windows::window_ptr               wnd;
 	boost::scoped_ptr<windows::gdi_device>  hdc;
@@ -201,7 +196,7 @@ private:
 #endif
 	target_ptr                            render_target_;
 	typedef std::stack<
-		renderer::state_list
+		renderer::state::list
 	> stack_type;
 	stack_type                            state_levels;
 };

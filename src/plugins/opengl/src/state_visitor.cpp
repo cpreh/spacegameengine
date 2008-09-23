@@ -19,28 +19,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../state_visitor.hpp"
-#include "../device.hpp"
+#include "../split_states.hpp"
 #include "../conversion.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
 #include <sge/renderer/color_convert.hpp>
 #include <sge/renderer/raw_color.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/traits.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 sge::ogl::state_visitor::state_visitor(
-	device& rend)
-: rend(rend)
+	split_states& states)
+: states(states)
 {}
 
 void sge::ogl::state_visitor::operator()(
-	renderer::int_state::type const s) const
+	renderer::state::int_::type const s) const
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state_var_traits<int> rs;
+	typedef renderer::state::traits<
+		renderer::state::int_type
+	> rs;
 
-	switch(s.state_id) {
+	switch(s.state()) {
 	case rs::stencil_clear_val:
 		glClearStencil(s.value());
 		break;
@@ -51,15 +55,37 @@ void sge::ogl::state_visitor::operator()(
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::float_state::type const s) const
+	renderer::state::uint_::type const s) const
+{
+	typedef renderer::state::traits<
+		renderer::state::uint_type
+	> rs;
+
+	switch(s.state()) {
+	case rs::stencil_mask:
+		states.update_stencil();
+		break;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid uint_state!"));
+	}
+}
+
+void sge::ogl::state_visitor::operator()(
+	renderer::state::float_::type const s) const
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state_var_traits<float> rs;
+	typedef renderer::state::traits<
+		renderer::state::float_type
+	> rs;
 
-	switch(s.state_id) {
+	switch(s.state()) {
 	case rs::zbuffer_clear_val:
 		glClearDepth(s.value());
+		break;
+	case rs::alpha_test_ref:
+		states.update_alpha_test();
 		break;
 	case rs::fog_start:
 	case rs::fog_end:
@@ -67,16 +93,19 @@ void sge::ogl::state_visitor::operator()(
 		glFogf(convert_fog_float_state(s), s.value());
 		break;
 	default:
-		throw exception(SGE_TEXT("Invalid float_state!"));
+		throw exception(
+			SGE_TEXT("Invalid float_state!"));
 	}
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::bool_state::type const s) const
+	renderer::state::bool_::type const s) const
 {
-	typedef renderer::state_var_traits<bool> rs;
+	typedef renderer::state::traits<
+		renderer::state::bool_type
+	> rs;
 
-	switch(s.state_id) {
+	switch(s.state()) {
 	case rs::clear_backbuffer:
 	case rs::clear_zbuffer:
 	case rs::clear_stencil:
@@ -86,22 +115,25 @@ void sge::ogl::state_visitor::operator()(
 		enable(convert_cast(s), s.value());
 		break;
 	default:
-		throw exception(SGE_TEXT("Invalid bool_state!"));
+		throw exception(
+			SGE_TEXT("Invalid bool_state!"));
 	}
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::color_state::type const s) const
+	renderer::state::color_::type const s) const
 {
 	SGE_OPENGL_SENTRY
 
-	typedef renderer::state_var_traits<renderer::any_color> rs;
+	typedef renderer::state::traits<
+		renderer::state::color_type
+	> rs;
 
 	renderer::rgba_f32_color const fcolor(
 		renderer::color_convert<renderer::rgba_f32_color>(
 			s.value()));
 
-	switch(s.state_id) {
+	switch(s.state()) {
 	case rs::clear_color:
 		glClearColor(
 			fcolor[0],
@@ -122,14 +154,15 @@ void sge::ogl::state_visitor::operator()(
 				fcolor).data());
 		break;
 	default:
-		throw exception(SGE_TEXT("Invalid color_state!"));
+		throw exception(
+			SGE_TEXT("Invalid color_state!"));
 	}
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::cull_mode::type const m) const
+	renderer::state::cull_mode::type const m) const
 {
-	if(m.value() == renderer::state_cull_mode_type::off)
+	if(m == renderer::state::cull_mode::off)
 	{
 		disable(GL_CULL_FACE);
 		return;
@@ -141,9 +174,9 @@ void sge::ogl::state_visitor::operator()(
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::depth_func::type const f) const
+	renderer::state::depth_func::type const f) const
 {
-	if(f.value() == renderer::state_depth_func_type::off)
+	if(f == renderer::state::depth_func::off)
 	{
 		disable(GL_DEPTH_TEST);
 		return;
@@ -156,22 +189,21 @@ void sge::ogl::state_visitor::operator()(
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::stencil_func::type const f) const
+	renderer::state::stencil_func::type) const
 {
-	if(f.value() == renderer::state_stencil_func_type::off)
-	{
-		disable(GL_STENCIL_TEST);
-		return;
-	}
-
-	enable(GL_STENCIL_TEST);
-	rend.set_stencil_func();
+	states.update_stencil();
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::fog_mode::type const m) const
+	renderer::state::alpha_func::type) const
 {
-	if(m.value() == renderer::state_fog_mode_type::off)
+	states.update_alpha_test();
+}
+
+void sge::ogl::state_visitor::operator()(
+	renderer::state::fog_mode::type const m) const
+{
+	if(m == renderer::state::fog_mode::off)
 	{
 		disable(GL_FOG);
 		return;
@@ -184,7 +216,7 @@ void sge::ogl::state_visitor::operator()(
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::draw_mode::type const m) const
+	renderer::state::draw_mode::type const m) const
 {
 	SGE_OPENGL_SENTRY
 	glPolygonMode(
@@ -193,13 +225,13 @@ void sge::ogl::state_visitor::operator()(
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::source_blend_func::type) const
+	renderer::state::source_blend_func::type) const
 {
-	rend.set_blend_func();
+	states.update_blend();
 }
 
 void sge::ogl::state_visitor::operator()(
-	renderer::dest_blend_func::type) const
+	renderer::state::dest_blend_func::type) const
 {
-	rend.set_blend_func();
+	states.update_blend();
 }

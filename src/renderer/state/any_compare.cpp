@@ -18,32 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_STATE_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_STATE_HPP_INCLUDED
+#include <sge/renderer/state/any_compare.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <typeinfo>
 
-#include "device.hpp"
-#include "states.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+bool sge::renderer::state::any_compare::operator()(
+	any const &a,
+	any const &b) const
 {
-namespace renderer
-{
-
-class scoped_state : boost::noncopyable {
-public:
-	SGE_SYMBOL scoped_state(
-		device_ptr rend,
-		const state_list&);
-	SGE_SYMBOL ~scoped_state();
-	SGE_SYMBOL void release();
-private:
-	void init(const state_list&);
-	device_ptr rend;
-};
-
+	return a.type().before(b.type());
 }
-}
-
-#endif

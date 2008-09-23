@@ -38,6 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view_impl.hpp>
 #include <sge/renderer/image_view_hack.hpp>
 #include <sge/renderer/image_view_factory.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/states.hpp>
+#include <sge/renderer/state/scoped.hpp>
 #include <sge/media.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/loader.hpp>
@@ -132,17 +136,22 @@ try
 				SGE_TEXT("./sge_test.png"));
 	}
 
-/*	rend->set_state(
-		sge::renderer::state_list
-			(sge::renderer::color_state::clear_color = sge::renderer::color(255, 255, 255, 255))
-			(sge::renderer::bool_state::clear_backbuffer = true)
-			(sge::renderer::depth_func::off)
-			(sge::renderer::cull_mode::off));*/
-	//const sge::string some_text(SGE_TEXT("abc\n\nasadgasdgsadg ahsfh ashsdg sadgfas d asd\n asdgg asdg asdg asg asdg sa\nb"));
-	const sge::string some_text(SGE_TEXT("de\nEFygY\ngyhgh"));
+	rend->set_state(
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::off)
+			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(255, 255, 0, 255))
+			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::cull_mode::off));
+	sge::string const some_text(SGE_TEXT("de\nEFygY\ngyhgh"));
 	while(running)
 	{
-		const sge::renderer::scoped_block block_(rend);
+		sge::renderer::state::scoped const states_(
+			rend,
+			sge::renderer::state::list
+				(sge::renderer::state::color_::clear_color
+				= sge::renderer::rgba8_color(255, 0, 0, 255)));
+
+		sge::renderer::scoped_block const block_(rend);
 
 		rend->get_window()->dispatch();
 		is->dispatch();

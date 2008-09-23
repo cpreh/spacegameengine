@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glsl/impl.hpp"
 #include "../common.hpp"
 #include "../matrix.hpp"
+#include "../split_states.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
@@ -58,7 +59,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/types.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/renderer/default_states.hpp>
+#include <sge/renderer/state/default.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <boost/variant/apply_visitor.hpp>
@@ -77,7 +79,7 @@ sge::ogl::device::device(
 	2048, //get_int(GL_MAX_TEXTURE_SIZE), //FIXME
 	//get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
    0),
-   current_states(renderer::default_states())
+   current_states(renderer::state::default_())
 #if defined(SGE_HAVE_X11)
    , dsp(new x11::display())
 #endif
@@ -208,7 +210,8 @@ sge::ogl::device::device(
 	initialize_vbo();
 	initialize_pbo();
 
-	set_state(renderer::default_states());
+	set_state(
+		renderer::state::default_());
 }
 
 void sge::ogl::device::begin_rendering()
@@ -216,9 +219,9 @@ void sge::ogl::device::begin_rendering()
 	SGE_OPENGL_SENTRY
 
 	glClear(
-		get_clear_bit(renderer::bool_state::clear_backbuffer)
-		| get_clear_bit(renderer::bool_state::clear_zbuffer)
-		| get_clear_bit(renderer::bool_state::clear_stencil));
+		get_clear_bit(renderer::state::bool_::clear_backbuffer)
+		| get_clear_bit(renderer::state::bool_::clear_zbuffer)
+		| get_clear_bit(renderer::state::bool_::clear_stencil));
 }
 
 sge::renderer::index_buffer_ptr const
@@ -311,17 +314,19 @@ void sge::ogl::device::end_rendering()
 #endif
 }
 
-const sge::renderer::caps& sge::ogl::device::get_caps() const
+sge::renderer::caps const&
+sge::ogl::device::get_caps() const
 {
 	return caps_;
 }
 
-const sge::window_ptr sge::ogl::device::get_window() const
+sge::window_ptr const
+sge::ogl::device::get_window() const
 {
 	return wnd;
 }
 
-const sge::renderer::screen_size_t
+sge::renderer::screen_size_t const
 sge::ogl::device::screen_size() const
 {
 	return param.mode.size;
@@ -330,25 +335,27 @@ sge::ogl::device::screen_size() const
 void sge::ogl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::const_index_buffer_ptr const ib,
-	const renderer::vertex_buffer::size_type first_vertex,
-	const renderer::vertex_buffer::size_type num_vertices,
-	const renderer::indexed_primitive_type::type ptype,
-	const renderer::index_buffer::size_type pcount,
-	const renderer::index_buffer::size_type first_index)
+	renderer::vertex_buffer::size_type const first_vertex,
+	renderer::vertex_buffer::size_type const num_vertices,
+	renderer::indexed_primitive_type::type const ptype,
+	renderer::index_buffer::size_type const pcount,
+	renderer::index_buffer::size_type const first_index)
 {
 	if(!vb)
-		throw exception(SGE_TEXT("vb may not be 0 for renderer::render!"));
+		throw exception(
+			SGE_TEXT("vb may not be 0 for renderer::render!"));
 	if(!ib)
-		throw exception(SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
-
-	SGE_OPENGL_SENTRY
+		throw exception(
+			SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
 
 	set_vertex_buffer(vb);
 	set_index_buffer(ib);
 
-	const GLenum prim_type = convert_cast(ptype);
+	GLenum const prim_type = convert_cast(ptype);
 
-	const index_buffer& gl_ib = dynamic_cast<const index_buffer&>(*ib);
+	index_buffer const &gl_ib = dynamic_cast<index_buffer const &>(*ib);
+
+	SGE_OPENGL_SENTRY
 
 	glDrawElements(
 		prim_type,
@@ -360,94 +367,57 @@ void sge::ogl::device::render(
 }
 
 void sge::ogl::device::render(
-	const renderer::const_vertex_buffer_ptr vb,
-	const renderer::vertex_buffer::size_type first_vertex,
-	const renderer::vertex_buffer::size_type num_vertices,
-	const renderer::nonindexed_primitive_type::type ptype)
+	renderer::const_vertex_buffer_ptr const vb,
+	renderer::vertex_buffer::size_type const first_vertex,
+	renderer::vertex_buffer::size_type const num_vertices,
+	renderer::nonindexed_primitive_type::type const ptype)
 {
 	if(!vb)
-		throw exception(SGE_TEXT("vb may not be 0 for renderer::render!"));
-
-	SGE_OPENGL_SENTRY
+		throw exception(
+			SGE_TEXT("vb may not be 0 for renderer::render!"));
 
 	set_vertex_buffer(vb);
 	set_index_buffer(renderer::index_buffer_ptr());
 
-	const GLenum prim_type = convert_cast(ptype);
+	GLenum const prim_type = convert_cast(ptype);
+
+	SGE_OPENGL_SENTRY
 
 	glDrawArrays(prim_type,
 	             static_cast<GLsizei>(first_vertex),
 	             static_cast<GLint>(num_vertices));
-
 }
 
 void sge::ogl::device::set_state(
-	const renderer::state_list &states)
+	renderer::state::list const &states)
 {
-	const state_visitor visitor(*this);
-	BOOST_FOREACH(const renderer::any_state& s, states.get())
+	split_states split(current_states);
+	state_visitor const visitor(split);
+	BOOST_FOREACH(renderer::state::any const &s, states.values())
 	{
-		boost::apply_visitor(visitor, s);
 		current_states.overwrite(s);
+		boost::apply_visitor(visitor, s);
 	}
 }
 
 void sge::ogl::device::push_state(
-	const renderer::state_list& states)
-{
-	renderer::state_list list;
-	BOOST_FOREACH(const renderer::any_state& s, states.get())
-		list.overwrite(get_any_state(s));
-	
-	state_levels.push(list);
+	renderer::state::list const &states)
+{	
+	state_levels.push(
+		renderer::state::combine(
+			current_states,
+			states));
 	set_state(states);
 }
 
-void sge::ogl::device::set_stencil_func()
-{
-	SGE_OPENGL_SENTRY
-	glStencilFunc(
-		convert_cast(get_state(renderer::stencil_func::off)), // FIXME
-		0,
-		0); // FIXME
-}
-
-void sge::ogl::device::set_blend_func()
-{
-	SGE_OPENGL_SENTRY
-	glBlendFunc(
-		convert_cast(get_state(renderer::source_blend_func::zero)), // FIXME
-		convert_cast(get_state(renderer::dest_blend_func::zero))); // FIXME
-}
-
 GLenum sge::ogl::device::get_clear_bit(
-	const renderer::bool_state::type s) const
+	renderer::state::bool_::trampoline_type const &s) const
 {
-	return get_state(s).value() ? convert_clear_bit(s) : 0;
+	return current_states.get(s) ? convert_clear_bit(s) : 0;
 }
 
-template<typename T>
-T sge::ogl::device::get_state(const T& t) const
-{
-	renderer::state_list::set_type const &states(current_states.get());
-	const renderer::state_list::set_type::const_iterator it = states.find(t);
-	if(it == states.end())
-		throw exception(SGE_TEXT("ogl::device::get_state(): state not found!"));
-	return boost::get<T>(*it);
-}
-
-const sge::renderer::any_state&
-sge::ogl::device::get_any_state(
-	const renderer::any_state& state) const
-{
-	renderer::state_list::set_type const &states(current_states.get());
-	const renderer::state_list::set_type::const_iterator it = states.find(state);
-	if(it == states.end())
-		throw exception(SGE_TEXT("ogl::device::get_any_state(): state not found!"));
-	return *it;
-}
-
-void sge::ogl::device::set_material(const renderer::material& mat)
+void sge::ogl::device::set_material(
+	renderer::material const &mat)
 {
 	SGE_OPENGL_SENTRY
 

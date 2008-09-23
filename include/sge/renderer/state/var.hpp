@@ -18,22 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_VAR_HPP_INCLUDED
+#define SGE_RENDERER_STATE_VAR_HPP_INCLUDED
 
-#include "index_format.hpp"
-#include "../export.hpp"
-#include <cstddef>
+#include "traits.hpp"
+#include "../../export.hpp"
 
 namespace sge
 {
 namespace renderer
 {
+namespace state
+{
 
-// FIXME: fix the std::size_t here!
-SGE_SYMBOL std::size_t index_format_stride(
-	index_format::type);
+template<typename T>
+struct var {
+	typedef typename traits<T>::available_states state_type;
+	typedef T value_type;
 
+	SGE_SYMBOL var &operator=(
+		value_type);
+	
+	SGE_SYMBOL state_type state() const;
+	SGE_SYMBOL value_type value() const;
+
+	SGE_SYMBOL explicit var(
+		state_type state,
+		value_type defval);
+private:
+	state_type state_;
+	value_type val_;
+};
+
+}
 }
 }
 
