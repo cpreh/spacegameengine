@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
-#define SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
-#include "../../algorithm/copy_n.hpp"
-#include <boost/mpl/find_if.hpp>
-#include <boost/mpl/distance.hpp>
-#include <boost/mpl/begin.hpp>
+#include "types.hpp"
+#include "../../partial_sums.hpp"
+#include <boost/mpl/transform.hpp>
 #include <boost/mpl/placeholders.hpp>
 
 namespace sge
@@ -34,47 +33,18 @@ namespace renderer
 namespace vf
 {
 
-template<typename VertexFormat>
-class vertex {
-public:
-	typedef unsigned char internal_type;
-	typedef internal_type *pointer;
+template<typename Elements>
+struct vertex_format {
+	typedef Elements elements;
 
-	vertex(
-		pointer const data)
-	:
-		data(data)
-	{}
-
-	template<typename T>
-	void set(
-		T const &t)
-	{
-		typedef typename boost::mpl::find_if<
-			typename VertexFormat::elements,
-			T,
-			packed_type<
+	typedef partial_sums<
+		boost::mpl::transform<
+			Elements,
+			stride<
 				boost::mpl::_1
 			>
-		>::type element;
-
-		typedef typename boost::mpl::advance<
-			boost::mpl::begin<
-				typename VertexFormat::offsets
-			>,
-			boost::mpl::distance<
-				typename VertexFormat::elements
-				element
-			>
-		>::type offset;
-
-		copy_n(
-			reinterpret_cast<unsigned char const *>(
-				t)
-			+ offset::value,
-			stride<element>::value,
-			data);
-	}
+		>		
+	>::type offsets;
 };
 
 }

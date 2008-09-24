@@ -105,67 +105,6 @@ private:
 	vertex_size stride_;
 };
 
-/*namespace vf
-{
-
-template<vertex_size NumElements>
-struct element_base {
-	static vertex_size const num_elements = NumElements;
-};
-
-template<vertex_size NumElements>
-struct pos : element_base<NumElements> {
-	typedef space_unit subelement_type;
-	typedef math::vector3 packet_type;
-	static vertex_size const num_subelements = 3;
-};
-
-template<typename Format, vertex_size NumElements>
-struct color : element_base<NumElements> {
-	typedef Format::channel_t subelement_type;
-	typedef Format packet_type;
-	static vertex_size const num_subelements = 4;
-};
-
-template<typename T>
-struct element_stride
-: boost::mpl::integral_c<
-	vertex_size,
-	sizeof(typename T::subelement_type)
-	* T::num_subelements
->{};
-
-template<typename T>
-struct stride
-: boost::mpl::integral_c<
-	vertex_size,
-	boost::mpl::multiply<
-		element_size<T>,
-		T::num_elements
-	>
->{};
-
-template<typename T>
-struct packed_type {
-	typedef typename T::packet_type packet_type;
-};
-
-}
-
-template<typename Elements>
-struct vertex_format {
-	typedef Elements elements;
-
-	typedef partial_sums<
-		boost::mpl::transform<
-			Elements,
-			stride<
-				boost::mpl::_1
-			>
-		>		
-	>::type offsets;
-};*/
-
 }
 }
 
