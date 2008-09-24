@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_STRIDE_HPP_INCLUDED
 
 #include "vertex_size.hpp"
-#include "element_size.hpp"
+#include "element_stride.hpp"
 #include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/multiply.hpp>
+#include <boost/mpl/times.hpp>
 
 namespace sge
 {
@@ -35,10 +35,11 @@ namespace vf
 
 template<typename T>
 struct stride
-: boost::mpl::integral_c<
-	vertex_size,
-	boost::mpl::multiply<
-		element_size<T>,
+:
+boost::mpl::times<
+	element_stride<T>,
+	boost::mpl::integral_c<
+		vertex_size,
 		T::num_elements
 	>
 >{};

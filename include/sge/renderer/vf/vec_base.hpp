@@ -43,4 +43,8 @@ struct vec_base : element_base<NumElements> {
 	static vertex_size const num_subelements = NumSubElements;
 };
 
+}
+}
+}
 
+#endif
