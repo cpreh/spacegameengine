@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vec_base.hpp"
 #include "color_base.hpp"
 #include "format_to_element.hpp"
+#include "../color_format_static.hpp"
 #include <boost/mpl/for_each.hpp>
 
 namespace sge
@@ -82,6 +83,14 @@ struct visitor {
 			NumElements
 		> &t) const
 	{
+		elems.push_back(
+			dynamic_element(
+				dynamic_color(
+					Role,
+					color_format_static<Format>::value
+				),
+				NumElements
+			));
 	}
 private:
 	dynamic_element_list &elems;
