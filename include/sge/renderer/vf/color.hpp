@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_COLOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_COLOR_HPP_INCLUDED
 
-#include "element_base.hpp"
+#include "color_base.hpp"
 #include "vertex_size.hpp"
 
 namespace sge
@@ -31,12 +31,12 @@ namespace renderer
 namespace vf
 {
 
-template<typename Format, vertex_size NumElements>
-struct color : element_base<NumElements> {
-	typedef Format::channel_t subelement_type;
-	typedef Format packet_type;
-	static vertex_size const num_subelements = 4;
-};
+template<
+	typename Format,
+	vertex_size NumElements
+>
+struct color
+: color_base<Format, role::color, NumElements> {};
 
 }
 }

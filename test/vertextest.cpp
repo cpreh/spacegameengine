@@ -30,6 +30,9 @@ try
 			pos_type
 		>
 	> format;
+
+	sge::renderer::vf::make_dynamic_format<
+		format>();
 }
 catch(sge::exception const &e)
 {

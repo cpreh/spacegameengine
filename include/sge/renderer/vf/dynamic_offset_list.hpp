@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
@@ -18,12 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_OFFSET_LIST_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_OFFSET_LIST_HPP_INCLUDED
 
-#include "vec_base.hpp"
 #include "vertex_size.hpp"
-#include "role.hpp"
+#include <vector>
 
 namespace sge
 {
@@ -32,13 +32,9 @@ namespace renderer
 namespace vf
 {
 
-template<
-	typename Format,
-	role::type Role,
-	vertex_size NumElements
->
-struct vec3_base
-: vec_base<Format, Role, 3, NumElements> {};
+typedef std::vector<
+	vertex_size
+> dynamic_offset_list;
 
 }
 }

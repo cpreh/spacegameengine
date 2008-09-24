@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_VEC_BASE_HPP_INCLUDED
 
 #include "vertex_size.hpp"
+#include "role.hpp"
 #include "element_base.hpp"
 #include "../../math/vector.hpp"
 
@@ -34,10 +35,12 @@ namespace vf
 
 template<
 	typename Format,
+	role::type Role,
 	vertex_size NumSubElements,
 	vertex_size NumElements
 >
-struct vec_base : element_base<NumElements> {
+struct vec_base
+: element_base<Role, NumElements> {
 	typedef Format subelement_type;
 	typedef math::basic_vector<Format, NumSubElements> packet_type;
 	static vertex_size const num_subelements = NumSubElements;

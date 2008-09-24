@@ -33,7 +33,7 @@ namespace vf
 
 template<typename Format, vertex_size NumElements>
 struct texpos
-: vec_baes<Format, 2, NumElements> {};
+: vec_baes<Format, role::texpos, 2, NumElements> {};
 
 }
 }

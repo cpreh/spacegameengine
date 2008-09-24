@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_COLOR_BASE_HPP_INCLUDED
+#define SGE_RENDERER_VF_COLOR_BASE_HPP_INCLUDED
 
-#include "vec_base.hpp"
+#include "element_base.hpp"
 #include "vertex_size.hpp"
 #include "role.hpp"
 
@@ -37,8 +37,12 @@ template<
 	role::type Role,
 	vertex_size NumElements
 >
-struct vec3_base
-: vec_base<Format, Role, 3, NumElements> {};
+struct color_base
+: element_base<Role, NumElements> {
+	typedef typename Format::channel_t subelement_type;
+	typedef Format packed_type;
+	static vertex_size const num_subelements = 4;
+};
 
 }
 }

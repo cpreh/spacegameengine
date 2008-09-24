@@ -22,6 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_MAKE_DYNAMIC_FORMAT_HPP_INCLUDED
 
 #include "dynamic_format.hpp"
+#include "dynamic_element_list.hpp"
+#include "role.hpp"
+#include "vec_base.hpp"
+#include "color_base.hpp"
+#include "format_to_element.hpp"
+#include <boost/mpl/for_each.hpp>
 
 namespace sge
 {
@@ -30,12 +36,68 @@ namespace renderer
 namespace vf
 {
 
+struct visitor {
+	explicit visitor(
+		dynamic_element_list &elems)
+	:
+		elems(elems)
+	{}
+
+	template<
+		typename Format,
+		role::type Role,
+		vertex_size NumSubElements,
+		vertex_size NumElements
+	>
+	void operator()(
+		vec_base<
+			Format,
+			Role,
+			NumSubElements,
+			NumElements
+		> &t) const
+	{
+		elems.push_back(
+			dynamic_element(
+				dynamic_vector(
+					Role,
+					format_to_element<
+						Format
+					>::value
+				),
+				NumElements
+			));
+				
+	}
+
+	template<
+		typename Format,
+		role::type Role,
+		vertex_size NumElements
+	>
+	void operator()(
+		color_base<
+			Format,
+			Role,
+			NumElements
+		> &t) const
+	{
+	}
+private:
+	dynamic_element_list &elems;
+};
+
 template<typename Format>
 dynamic_format const
 make_dynamic_format()
 {
 	typedef typename Format::elements elements;
 	typedef typename Format::offsets offsets;
+
+	dynamic_element_list elems;
+	boost::mpl::for_each<
+		elements>(
+			visitor(elems));
 }
 
 }

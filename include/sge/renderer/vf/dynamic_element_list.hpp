@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_LIST_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_ELEMENT_LIST_HPP_INCLUDED
 
-#include "vec_base.hpp"
-#include "vertex_size.hpp"
-#include "role.hpp"
+#include "dynamic_element.hpp"
+#include <vector>
 
 namespace sge
 {
@@ -32,13 +31,9 @@ namespace renderer
 namespace vf
 {
 
-template<
-	typename Format,
-	role::type Role,
-	vertex_size NumElements
->
-struct vec3_base
-: vec_base<Format, Role, 3, NumElements> {};
+typedef std::vector<
+	dynamic_element
+> dynamic_element_list;
 
 }
 }

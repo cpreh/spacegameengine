@@ -33,7 +33,7 @@ namespace role
 enum type {
 	pos,
 	normal,
-	texture,
+	texpos,
 	color
 };
 }
