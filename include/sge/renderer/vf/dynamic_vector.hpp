@@ -18,10 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_ELEMENT_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_ELEMENT_BASE_HPP_INCLUDED
-
-#include "vertex_size.hpp"
+#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
 
 namespace sge
 {
@@ -30,9 +28,14 @@ namespace renderer
 namespace vf
 {
 
-template<vertex_size NumElements>
-struct element_base {
-	static vertex_size const num_elements = NumElements;
+class dynamic_vector {
+public:
+	dynamic_vector(
+		role::type,
+		element_type::type);
+private:
+	role::type         role_;
+	element_type::type element_type_;
 };
 
 }

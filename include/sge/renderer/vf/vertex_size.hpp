@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_ELEMENT_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_ELEMENT_BASE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_VERTEX_SIZE_HPP_INCLUDED
+#define SGE_RENDERER_VF_VERTEX_SIZE_HPP_INCLUDED
 
-#include "vertex_size.hpp"
+#include <cstddef>
 
 namespace sge
 {
@@ -30,10 +30,7 @@ namespace renderer
 namespace vf
 {
 
-template<vertex_size NumElements>
-struct element_base {
-	static vertex_size const num_elements = NumElements;
-};
+typedef std::size_t vertex_size;
 
 }
 }
