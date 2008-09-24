@@ -114,9 +114,7 @@ void converter::operator()(
 		src,
 		src,
 		src,
-		src == 0 
-		? static_cast<unsigned char>(0)
-		: static_cast<unsigned char>(255)); // FIXME: use a typedef!
+		src);
 }
 
 }
