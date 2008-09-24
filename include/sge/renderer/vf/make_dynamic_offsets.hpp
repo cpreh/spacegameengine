@@ -38,8 +38,12 @@ struct make_dynamic_offsets {
 		offsets(offsets)
 	{}
 
+	template<typename T>
 	void operator()(
-		vertex_size &t) const;
+		T &t) const
+	{
+		offsets.push_back(t);	
+	}
 private:
 	dynamic_offset_list &offsets;
 };
