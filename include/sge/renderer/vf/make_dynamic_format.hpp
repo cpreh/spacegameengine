@@ -18,12 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_MAKE_DYNAMIC_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_VF_MAKE_DYNAMIC_FORMAT_HPP_INCLUDED
 
-#include "dynamic_element.hpp"
-#include "vertex_size.hpp"
-#include <vector>
+#include "dynamic_format.hpp"
 
 namespace sge
 {
@@ -32,23 +30,14 @@ namespace renderer
 namespace vf
 {
 
-class dynamic_format {
-public:
-	typedef std::vector<
-		dynamic_element
-	> element_list;
-
-	typedef std::vector<
-		vertex_size
-	> offset_list;
-
-	dynamic_format(
-		element_list const &,
-		offset_list const &);
-};
+template<typename Format>
+dynamic_format const
+make_dynamic_format()
+{
+	typedef typename Format::elements elements;
+	typedef typename Format::offsets offsets;
+}
 
 }
 }
 }
-
-#endif
