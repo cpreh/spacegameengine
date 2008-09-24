@@ -383,9 +383,10 @@ void sge::ogl::device::render(
 
 	SGE_OPENGL_SENTRY
 
-	glDrawArrays(prim_type,
-	             static_cast<GLsizei>(first_vertex),
-	             static_cast<GLint>(num_vertices));
+	glDrawArrays(
+		prim_type,
+		static_cast<GLsizei>(first_vertex),
+		static_cast<GLint>(num_vertices));
 }
 
 void sge::ogl::device::set_state(

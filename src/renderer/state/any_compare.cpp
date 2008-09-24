@@ -65,8 +65,8 @@ bool compare::operator()(
 
 template<typename T, typename U>
 bool compare::operator()(
-	T const &t,
-	U const &u) const
+	T const &,
+	U const &) const
 {
 	return typeid(T).before(typeid(U));
 }

@@ -30,7 +30,7 @@ namespace sge
 namespace renderer
 {
 
-typedef boost::array<color_channel_f32, 4> raw_color_f32;
+typedef boost::array<color_channel_f32_raw, 4> raw_color_f32;
 
 SGE_SYMBOL raw_color_f32 const
 raw_color(

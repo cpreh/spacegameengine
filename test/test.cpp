@@ -60,12 +60,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive_system.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
 #include <sge/renderer/color.hpp>
-
-#include <sge/renderer/state/default.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/logger.hpp>
 
 int main()
 try
 {
+	sge::log::global().activate_hierarchy(
+		sge::log::level::debug);
+	
 	bool running = true;
 	sge::plugin::manager pm;
 
@@ -139,32 +142,30 @@ try
 				SGE_TEXT("sge_test.png"));
 	}
 
-	sge::renderer::operator<<(sge::cerr, sge::renderer::state::default_().get(sge::renderer::state::color_::clear_color)) << '\n';
-/*
 	rend->set_state(
 		sge::renderer::state::list
-			//(sge::renderer::state::depth_func::off)
-			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(255, 255, 0, 255))
+			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			//(sge::renderer::state::cull_mode::off)
-		);*/
+			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(255, 255, 0, 255))
+			(sge::renderer::state::cull_mode::off)
+		);
 	sge::string const some_text(SGE_TEXT("de\nEFygY\ngyhgh"));
 	while(running)
 	{
-	/*	sge::renderer::state::scoped const states_(
+		sge::renderer::state::scoped const states_(
 			rend,
 			sge::renderer::state::list
 				(sge::renderer::state::color_::clear_color
 				= sge::renderer::rgba8_color(255, 0, 0, 255))
 				(sge::renderer::state::bool_::clear_backbuffer = true)
-			);*/
+			);
 
 		sge::renderer::scoped_block const block_(rend);
 
 		rend->get_window()->dispatch();
 		is->dispatch();
 
-	//	fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
+		fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
 	}
 	return EXIT_SUCCESS;
 }

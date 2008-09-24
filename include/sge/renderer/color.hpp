@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/gil/pixel.hpp>
 #include <boost/gil/rgba.hpp>
 #include <boost/gil/gray.hpp>
+#include <boost/gil/channel.hpp>
 
 namespace sge
 {
@@ -33,7 +34,8 @@ namespace renderer
 {
 
 typedef uint8 color_channel_8;
-typedef float color_channel_f32;
+typedef boost::gil::bits32f color_channel_f32;
+typedef float color_channel_f32_raw;
 
 typedef boost::gil::pixel<
 	color_channel_8,

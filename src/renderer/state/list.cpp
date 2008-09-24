@@ -62,6 +62,8 @@ void sge::renderer::state::list::overwrite(
 template<typename T>
 T sge::renderer::state::list::get() const
 {
+	// TODO: can we optimize this?
+	
 	BOOST_FOREACH(set_type::const_reference ref, set_)
 		if(ref.type() == typeid(T))
 			return boost::get<T>(ref);
@@ -72,13 +74,20 @@ T sge::renderer::state::list::get() const
 
 template<typename T>
 T sge::renderer::state::list::get(
-	trampoline<T> const &) const
+	trampoline<T> const &t) const
 {
 	typedef typename trampoline<T>::var_type var_type;
 
+	// TODO: can we optimize this?
+
 	BOOST_FOREACH(set_type::const_reference ref, set_)
 		if(ref.type() == typeid(var_type))
-			return boost::get<var_type>(ref).value();
+		{
+			var_type const &v(
+				boost::get<var_type>(ref));
+			if(v.state() == t.state())
+				return v.value();
+		}
 	
 	throw exception(
 		SGE_TEXT("renderer::list::get(): state not found!"));
