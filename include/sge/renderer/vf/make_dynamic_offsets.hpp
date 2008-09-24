@@ -18,15 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_MAKE_DYNAMIC_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_VF_MAKE_DYNAMIC_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_MAKE_DYNAMIC_OFFSETS_HPP_INCLUDED
+#define SGE_RENDERER_VF_MAKE_DYNAMIC_OFFSETS_HPP_INCLUDED
 
-#include "dynamic_element_list.hpp"
 #include "dynamic_offset_list.hpp"
-#include "make_dynamic_elements.hpp"
-#include "make_dynamic_offsets.hpp"
-#include "dynamic_format.hpp"
-#include <boost/mpl/for_each.hpp>
+#include "vertex_size.hpp"
 
 namespace sge
 {
@@ -35,29 +31,18 @@ namespace renderer
 namespace vf
 {
 
-template<typename Format>
-dynamic_format const
-make_dynamic_format()
-{
-	typedef typename Format::elements elements;
-	typedef typename Format::offsets offsets;
+struct make_dynamic_offsets {
+	explicit make_dynamic_offsets(
+		dynamic_offset_list &offsets)
+	:
+		offsets(offsets)
+	{}
 
-	dynamic_element_list elems;
-	boost::mpl::for_each<
-		elements>(
-			make_dynamic_elements(
-				elems));
-	
-	dynamic_offset_list offs;
-	/*boost::mpl::for_each<
-		offsets>(
-			make_dynamic_offsets(
-				offs));*/
-	
-	return dynamic_format(
-		elems,
-		offs);
-}
+	void operator()(
+		vertex_size &t) const;
+private:
+	dynamic_offset_list &offsets;
+};
 
 }
 }
