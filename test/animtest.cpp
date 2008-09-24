@@ -120,12 +120,12 @@ try
 		ss.render(spr);
 	}
 }
-catch(const sge::exception& e)
+catch(sge::exception const &e)
 {
 	sge::cerr << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 }
-catch(const std::exception& e)
+catch(std::exception const &e)
 {
 	sge::cerr << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
