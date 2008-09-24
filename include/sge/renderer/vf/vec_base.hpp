@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_POS_HPP_INCLUDED
-#define SGE_RENDERER_VF_POS_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_VEC_BASE_HPP_INCLUDED
+#define SGE_RENDERER_VF_VEC_BASE_HPP_INCLUDED
 
-#include "vec3_base.hpp"
 #include "vertex_size.hpp"
+#include "element_base.hpp"
+#include "../../math/vector.hpp"
 
 namespace sge
 {
@@ -31,12 +32,15 @@ namespace renderer
 namespace vf
 {
 
-template<typename Format, vertex_size NumElements>
-struct pos
-: vec3_base<Format, NumElements> {};
+template<
+	typename Format,
+	vertex_size NumSubElements,
+	vertex_size NumElements
+>
+struct vec_base : element_base<NumElements> {
+	typedef Format subelement_type;
+	typedef math::basic_vector<Format, NumSubElements> packet_type;
+	static vertex_size const num_subelements = NumSubElements;
+};
 
-}
-}
-}
 
-#endif
