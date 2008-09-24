@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../readonly_texture_lock.hpp"
 #include <sge/raw_vector_impl.hpp>
-#include <sge/algorithm.hpp>
+#include <sge/algorithm/copy_n.hpp>
 #include <cassert>
 
 sge::ogl::readonly_texture_lock::readonly_texture_lock(

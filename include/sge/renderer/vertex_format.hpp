@@ -31,7 +31,7 @@ namespace sge
 namespace renderer
 {
 
-/*namespace vertex_usage
+namespace vertex_usage
 {
 	enum type {
 		pos,
@@ -103,9 +103,9 @@ private:
 	offset_info oi;
 	usage_list  ulist;
 	vertex_size stride_;
-};*/
+};
 
-namespace vf
+/*namespace vf
 {
 
 template<vertex_size NumElements>
@@ -164,50 +164,7 @@ struct vertex_format {
 			>
 		>		
 	>::type offsets;
-};
-
-template<typename VertexFormat>
-class vertex {
-public:
-	typedef unsigned char internal_type;
-	typedef internal_type *pointer;
-
-	vertex(
-		pointer const data)
-	:
-		data(data)
-	{}
-
-	template<typename T>
-	void set(
-		T const &t)
-	{
-		typedef typename boost::mpl::find_if<
-			typename VertexFormat::elements,
-			T,
-			packed_type<
-				boost::mpl::_1
-			>
-		>::type element;
-
-		typedef typename boost::mpl::advance<
-			boost::mpl::begin<
-				typename VertexFormat::offsets
-			>,
-			boost::mpl::distance<
-				typename VertexFormat::elements
-				element
-			>
-		>::type offset;
-
-		copy_n(
-			reinterpret_cast<unsigned char const *>(
-				t)
-			+ offset::value,
-			stride<element>::value,
-			data);
-	}
-};
+};*/
 
 }
 }

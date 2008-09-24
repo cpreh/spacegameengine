@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/vertex_format.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/algorithm.hpp>
+#include <sge/algorithm/copy_n.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
 sge::renderer::texture_ptr const sge::renderer::device::no_texture;

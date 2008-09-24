@@ -58,10 +58,4 @@ In sge::first_mismatch_if(In first, const In last, Size& cnt, BinaryPredicate pr
 	return last;
 }
 
-template<typename In, typename Out, typename Size>
-Out sge::copy_n(const In beg, const Size sz, const Out out)
-{
-	return std::copy(beg, beg + sz, out);
-}
-
 #endif

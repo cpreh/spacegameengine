@@ -125,6 +125,8 @@ INSTALL_MEDIA (fonts)
 INSTALL_MEDIA (mainskin)
 
 INSTALL_HEADERS (sge)
+INSTALL_HEADERS (sge/algorithm)
+INSTALL_HEADERS (sge/algorithm/detail)
 INSTALL_HEADERS (sge/archive)
 INSTALL_HEADERS (sge/audio)
 INSTALL_HEADERS (sge/audio/loader)
