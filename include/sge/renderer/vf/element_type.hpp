@@ -35,5 +35,10 @@ enum type {
 	double_,
 	uint8
 };
+}
+
+}
+}
+}
 
 #endif

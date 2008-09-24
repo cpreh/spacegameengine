@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_STRIDE_HPP_INCLUDED
 #define SGE_RENDERER_VF_STRIDE_HPP_INCLUDED
 
-#include "types.hpp"
+#include "vertex_size.hpp"
 #include "element_size.hpp"
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/multiply.hpp>

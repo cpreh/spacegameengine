@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_POS_HPP_INCLUDED
 
 #include "element_base.hpp"
-#include "types.hpp"
+#include "vertex_size.hpp"
 #include "../../math/vector.hpp"
 
 namespace sge

@@ -36,6 +36,7 @@ enum type {
 	texture,
 	color
 };
+}
 
 }
 }
