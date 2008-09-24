@@ -68,7 +68,7 @@ bool compare::operator()(
 	T const &t,
 	U const &u) const
 {
-	return typeid(t).before(typeid(u));
+	return typeid(T).before(typeid(U));
 }
 
 }

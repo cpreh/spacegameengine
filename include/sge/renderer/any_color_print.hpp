@@ -18,21 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OSTREAM_HPP_INCLUDED
-#define SGE_OSTREAM_HPP_INCLUDED
+#ifndef SGE_RENDERER_ANY_COLOR_PRINT_HPP_INCLUDED
+#define SGE_RENDERER_ANY_COLOR_PRINT_HPP_INCLUDED
 
-#include "config.h"
-#include <iosfwd>
+#include "any_color.hpp"
+#include "../ostream.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
+namespace renderer
+{
 
-#ifndef SGE_NARROW_STRING
-typedef std::basic_ostream<wchar_t> ostream;
-#else
-typedef std::basic_ostream<char> ostream;
-#endif
+SGE_SYMBOL ostream &
+operator<<(
+	ostream &,
+	any_color const &);
 
+}
 }
 
 #endif

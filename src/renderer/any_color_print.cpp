@@ -18,21 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OSTREAM_HPP_INCLUDED
-#define SGE_OSTREAM_HPP_INCLUDED
+#include <sge/renderer/any_color_print.hpp>
+#include <sge/renderer/color_print.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
 
-#include "config.h"
-#include <iosfwd>
-
-namespace sge
+namespace
 {
 
-#ifndef SGE_NARROW_STRING
-typedef std::basic_ostream<wchar_t> ostream;
-#else
-typedef std::basic_ostream<char> ostream;
-#endif
+struct visitor : boost::static_visitor<sge::ostream &> {
+	explicit visitor(
+		sge::ostream &s);
+	template<typename T>
+	sge::ostream &
+	operator()(
+		T const &) const;
+private:
+	sge::ostream &s;
+};
 
 }
 
-#endif
+sge::ostream &
+sge::renderer::operator<<(
+	ostream &s,
+	any_color const &c)
+{
+	return boost::apply_visitor(
+		visitor(s),
+		c);
+}
+
+namespace
+{
+
+visitor::visitor(
+	sge::ostream &s)
+: s(s)
+{}
+
+template<typename T>
+sge::ostream &
+visitor::operator()(
+	T const &t) const
+{
+	return sge::renderer::operator<<(s, t);
+}
+
+}
