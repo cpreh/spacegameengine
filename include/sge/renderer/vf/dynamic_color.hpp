@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "role.hpp"
 #include "../color_format.hpp"
+#include "../../export.hpp"
 
 namespace sge
 {
@@ -33,11 +34,14 @@ namespace vf
 
 class dynamic_color {
 public:
-	dynamic_color(
+	SGE_SYMBOL dynamic_color(
 		role::type,
 		color_format::type);
+	SGE_SYMBOL role::type get_role() const;
+	SGE_SYMBOL color_format::type get_color_format() const;
 private:
-	
+	role::type role_;
+	color_format::type color_format_;
 };
 
 }

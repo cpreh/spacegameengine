@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "vertex_size.hpp"
 #include "dynamic_any.hpp"
+#include "../../export.hpp"
 
 namespace sge
 {
@@ -33,9 +34,15 @@ namespace vf
 
 class dynamic_element {
 public:
-	dynamic_element(
+	SGE_SYMBOL dynamic_element(
 		dynamic_any const &,
-		vertex_size elements);
+		vertex_size count);
+	
+	SGE_SYMBOL dynamic_any const &info() const;
+	SGE_SYMBOL vertex_size count() const;
+private:
+	dynamic_any info_;
+	vertex_size count_;
 };
 
 }

@@ -18,34 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
+#include <sge/renderer/vf/dynamic_format.hpp>
 
-#include "role.hpp"
-#include "element_type.hpp"
-#include "../../export.hpp"
+sge::renderer::vf::dynamic_format::dynamic_format(
+	dynamic_element_list const &elements_,
+	dynamic_offset_list const &offsets_)
+:
+	elements_(elements_),
+	offsets_(offsets_)
+{}
 
-namespace sge
+sge::renderer::vf::dynamic_element_list const &
+sge::renderer::vf::dynamic_format::elements() const
 {
-namespace renderer
-{
-namespace vf
-{
-
-class dynamic_vector {
-public:
-	SGE_SYMBOL dynamic_vector(
-		role::type,
-		element_type::type);
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL element_type::type get_element_type() const;
-private:
-	role::type         role_;
-	element_type::type element_type_;
-};
-
-}
-}
+	return elements_;
 }
 
-#endif
+sge::renderer::vf::dynamic_offset_list const &
+sge::renderer::vf::dynamic_format::offsets() const
+{
+	return offsets_;
+}
+

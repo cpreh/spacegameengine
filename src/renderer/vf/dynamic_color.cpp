@@ -18,34 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
+#include <sge/renderer/vf/dynamic_color.hpp>
 
-#include "role.hpp"
-#include "element_type.hpp"
-#include "../../export.hpp"
+sge::renderer::vf::dynamic_color::dynamic_color(
+	role::type const role_,
+	color_format::type const color_format_)
+:
+	role_(role_),
+	color_format_(color_format_)
+{}
 
-namespace sge
+sge::renderer::vf::role::type
+sge::renderer::vf::dynamic_color::get_role() const
 {
-namespace renderer
-{
-namespace vf
-{
-
-class dynamic_vector {
-public:
-	SGE_SYMBOL dynamic_vector(
-		role::type,
-		element_type::type);
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL element_type::type get_element_type() const;
-private:
-	role::type         role_;
-	element_type::type element_type_;
-};
-
-}
-}
+	return role_;
 }
 
-#endif
+sge::renderer::color_format::type
+sge::renderer::vf::dynamic_color::get_color_format() const
+{
+	return color_format_;
+}
+
