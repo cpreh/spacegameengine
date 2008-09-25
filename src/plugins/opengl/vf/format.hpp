@@ -18,27 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_VF_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_VF_FORMAT_HPP_INCLUDED
+
 #include <sge/renderer/vf/dynamic_format.hpp>
+#include <boost/function.hpp>
+#include <vector>
 
-sge::renderer::vf::dynamic_format::dynamic_format(
-	dynamic_element_list const &elem,
-	dynamic_offset_list const &offs)
+namespace sge
 {
-	if(elem.size() != offs.size())
-		throw exception(
-			SGE_TEXT("dynamic_format: Invalid sizes of vectors!"));
-	if(elem.empty() || offs.empty())
-		throw exception(
-			SGE_TEXT("dynamic_format: Format cannot be empty!"));
-	for(dynamic_element_list::size_type i(0); i < elem.size(); ++i)
-		elements_.push_back(
-			dynamic_ordered_element(
-				elem[i],
-				offs[i]));
+namespace ogl
+{
+namespace vf
+{
+
+class format {
+public:
+	explicit vertex_format(
+		renderer::vf::dynamic_format const &);
+	renderer::vf::dynamic_format const &get() const;
+	void use_me() const;
+private:
+	renderer::vf::dynamic_format const fmt;
+
+	typedef boost::function<void ()> vertex_format_actor;
+	typedef std::vector<vertex_format_actor> actor_array;
+	actor_array actors;
+};
+
+}
+}
 }
 
-sge::renderer::vf::dynamic_ordered_element_list const &
-sge::renderer::vf::dynamic_format::elements() const
-{
-	return elements_;
-}
+#endif

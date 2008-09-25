@@ -262,7 +262,7 @@ sge::ogl::device::create_texture(
 
 sge::renderer::vertex_buffer_ptr const
 sge::ogl::device::create_vertex_buffer(
-	renderer::vertex_format const &format,
+	renderer::vf::dynamic_format const &format,
 	renderer::vertex_buffer::size_type const sz,
 	renderer::vertex_buffer::resource_flag_type const flags)
 {

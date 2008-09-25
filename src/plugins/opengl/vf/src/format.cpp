@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo_base.hpp"
 #include "../vertex_format.hpp"
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <sge/text.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 
@@ -88,9 +88,19 @@ void diffuse_actor(const vertex_actor_info& ai)
 
 }
 
-sge::ogl::vertex_format::vertex_format(const renderer::vertex_format& f)
+sge::ogl::vf::format::vf::format(
+	renderer::vf::dynamic_format const &fmt)
+: fmt(fmt)
 {
-	vertex_size offset = 0;
+	renderer::vf::dynamic_element_list const &elems(
+		fmt.elements());
+	renderer::vf::dynamic_offset_list const &offsets(
+		fmt.offsets());
+	
+	BOOST_FOREACH(renderer::fv::dynamic_element const &e, elemens)
+		actors.push_back(
+			to_actor(e, ));
+	/*vertex_size offset = 0;
 	const renderer::vertex_format::usage_list& l = f.elements();
 
 	BOOST_FOREACH(renderer::vertex_format::usage_list::const_reference i, l)
@@ -118,22 +128,23 @@ sge::ogl::vertex_format::vertex_format(const renderer::vertex_format& f)
 
 		oi[i.usage()] = offset;
 		offset += i.stride();
-	}
+	}*/
 }
 
-const sge::renderer::offset_info&
-sge::ogl::vertex_format::offsets() const
+sge::renderer::vf::dynamic_format const &
+sge::ogl::vf::format::get() const
 {
-	return oi;
+	return fmt;
 }
 
-void sge::ogl::vertex_format::use_me() const
+void sge::ogl::vf::format::use_me() const
 {
 	glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_NORMAL_ARRAY);
         glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         glDisableClientState(GL_SECONDARY_COLOR_ARRAY);
-	for(actor_array::const_iterator it = actors.begin(); it != actors.end(); ++it)
-		(*it)();
+
+	BOOST_FOREACH(actor_array::const_reference c, actors)
+		c();
 }

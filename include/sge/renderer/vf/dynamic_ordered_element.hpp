@@ -18,27 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_format.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_HPP_INCLUDED
 
-sge::renderer::vf::dynamic_format::dynamic_format(
-	dynamic_element_list const &elem,
-	dynamic_offset_list const &offs)
+#include "dynamic_element.hpp"
+#include "vertex_size.hpp"
+#include "../../export.hpp"
+
+namespace sge
 {
-	if(elem.size() != offs.size())
-		throw exception(
-			SGE_TEXT("dynamic_format: Invalid sizes of vectors!"));
-	if(elem.empty() || offs.empty())
-		throw exception(
-			SGE_TEXT("dynamic_format: Format cannot be empty!"));
-	for(dynamic_element_list::size_type i(0); i < elem.size(); ++i)
-		elements_.push_back(
-			dynamic_ordered_element(
-				elem[i],
-				offs[i]));
+namespace renderer
+{
+namespace vf
+{
+
+class dynamic_ordered_element {
+public:
+	SGE_SYMBOL dynamic_ordered_element(
+		dynamic_element const &,
+		vertex_size offset);
+	
+	SGE_SYMBOL dynamic_element const &element() const;
+	SGE_SYMBOL vertex_size offset() const;
+private:	
+	dynamic_element element_;
+	vertex_size     offset_;
+}
+}
 }
 
-sge::renderer::vf::dynamic_ordered_element_list const &
-sge::renderer::vf::dynamic_format::elements() const
-{
-	return elements_;
-}
+#endif

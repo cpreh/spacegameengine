@@ -18,27 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_format.hpp>
+#ifndef SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_LIST_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_LIST_HPP_INCLUDED
 
-sge::renderer::vf::dynamic_format::dynamic_format(
-	dynamic_element_list const &elem,
-	dynamic_offset_list const &offs)
+#include "dynamic_ordered_element.hpp"
+#include <vector>
+
+namespace sge
 {
-	if(elem.size() != offs.size())
-		throw exception(
-			SGE_TEXT("dynamic_format: Invalid sizes of vectors!"));
-	if(elem.empty() || offs.empty())
-		throw exception(
-			SGE_TEXT("dynamic_format: Format cannot be empty!"));
-	for(dynamic_element_list::size_type i(0); i < elem.size(); ++i)
-		elements_.push_back(
-			dynamic_ordered_element(
-				elem[i],
-				offs[i]));
+namespace renderer
+{
+namespace vf
+{
+
+typedef std::vector<
+	dynamic_ordered_element
+> dynamic_ordered_element_list;
+
+}
+}
 }
 
-sge::renderer::vf::dynamic_ordered_element_list const &
-sge::renderer::vf::dynamic_format::elements() const
-{
-	return elements_;
-}
+#endif

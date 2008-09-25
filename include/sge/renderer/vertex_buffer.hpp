@@ -21,32 +21,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "vertex_format.hpp"
-#include "vertex_view.hpp"
-#include "vertex.hpp"
 #include "lock_flags.hpp"
 #include "resource_flags.hpp"
+#include "vf/vertex_size.hpp"
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
-#include <cstddef>
 
 namespace sge
 {
 namespace renderer
 {
 
+namespace vf
+{
+
+class dynamic_format;
+class view;
+class const_view;
+
+}
+
 class SGE_CLASS_SYMBOL vertex_buffer : boost::noncopyable {
 public:
-	typedef vertex::value_type      value_type;
-	typedef vertex::size_type       size_type;
-	typedef vertex::difference_type difference_type;
+	typedef vf::vertex_size         size_type;
 	
 	typedef resource_flag_t         resource_flag_type;
 	typedef lock_flag_t             lock_flag_type;
 
-	typedef vertex_view             view_type;
-	typedef const_vertex_view       const_view_type;
+	typedef vf::view             view_type;
+	typedef vf::const_view       const_view_type;
 
 	static const size_type npos = static_cast<size_type>(-1);
 
@@ -66,7 +70,7 @@ public:
 
 	virtual size_type stride() const = 0;
 
-	virtual vertex_format const &get_vertex_format() const = 0;
+	virtual vf::dynamic_format const &format() const = 0;
 
 	SGE_SYMBOL virtual ~vertex_buffer();
 };

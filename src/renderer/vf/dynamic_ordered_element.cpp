@@ -18,35 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VERTEX_FORMAT_HPP_INCLUDED
-#define SGE_OPENGL_VERTEX_FORMAT_HPP_INCLUDED
+#include <sge/renderer/vf/dynamic_ordered_element.hpp>
 
-#include <sge/renderer/types.hpp>
-#include <sge/renderer/vertex_format.hpp>
-#include <boost/function.hpp>
-#include <vector>
+sge::renderer::vf::dynamic_ordered_element::dynamic_ordered_element(
+	dynamic_element const &element_,
+	vertex_size const offset_)
+:
+	element_(element_)
+	offset_(offset_)
+{}
 
-namespace sge
+sge::renderer::vf::dynamic_element const &
+sge::renderer::vf::dynamic_ordered_element::element() const
 {
-namespace ogl
-{
-
-
-class vertex_format {
-public:
-	vertex_format(const renderer::vertex_format& f);
-	const renderer::offset_info& offsets() const;
-	void use_me() const;
-private:
-	renderer::offset_info oi;
-
-	typedef boost::function<void ()> vertex_format_actor;
-	typedef std::vector<vertex_format_actor> actor_array;
-	actor_array actors;
-};
-
-}
+	return element_;
 }
 
-#endif
-
+sge::renderer::vf::vertex_size
+sge::renderer::vf::dynamic_ordered_element::offset() const
+{
+	return offset_;
+}

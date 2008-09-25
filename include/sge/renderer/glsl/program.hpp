@@ -36,8 +36,8 @@ namespace glsl
 
 class program : boost::noncopyable {
 public:
-	virtual uniform_variable_ptr
-	const uniform(
+	virtual uniform_variable_ptr const
+	uniform(
 		string const &) = 0;
 
 	virtual attribute_variable_ptr const

@@ -67,6 +67,7 @@ sge::renderer::device::create_vertex_buffer(
 	const_vertex_view const &view,
 	resource_flag_t const flags)
 {
+/*
 	vertex_buffer_ptr const vb(
 		create_vertex_buffer(
 			view.format(),
@@ -83,7 +84,7 @@ sge::renderer::device::create_vertex_buffer(
 		view.format().stride() * view.size(),
 		lock.value().data());
 
-	return vb;
+	return vb;*/
 }
 
 sge::renderer::index_buffer_ptr const
