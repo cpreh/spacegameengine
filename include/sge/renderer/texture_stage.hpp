@@ -18,34 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
-
-#include "role.hpp"
-#include "element_type.hpp"
-#include "../../export.hpp"
+#ifndef SGE_RENDERER_TEXTURE_STAGE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_STAGE_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
-namespace vf
+
+namespace texture_stage_op
 {
-
-class dynamic_vector {
-public:
-	SGE_SYMBOL dynamic_vector(
-		role::type,
-		element_type::type);
-	SGE_SYMBOL vertex_size elements() const;
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL element_type::type get_element_type() const;
-private:
-	role::type         role_;
-	element_type::type element_type_;
-};
-
+	enum type {
+		color,
+		alpha
+	};
 }
+
+namespace texture_stage_op_value
+{
+	enum type {
+		arg0,
+		modulate,
+		modulate2x,
+		modulate4x,
+		add,
+		add2x,
+		add4x,
+		substract,
+		add_signed,
+		add_signed2x,
+		interpolate
+	};
+}
+
+namespace texture_stage_arg
+{
+	enum type {
+		rgb0,
+		rgb1,
+		rgb2,
+		alpha0,
+		alpha1,
+		alpha2
+	};
+}
+
+namespace texture_stage_arg_value
+{
+	enum type {
+		current,
+		texture,
+		constant
+	};
+}
+
 }
 }
 

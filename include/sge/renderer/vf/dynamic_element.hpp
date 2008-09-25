@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
 
-#include "vertex_size.hpp"
 #include "dynamic_any.hpp"
+#include "role.hpp"
 #include "../../export.hpp"
 
 namespace sge
@@ -36,13 +36,13 @@ class dynamic_element {
 public:
 	SGE_SYMBOL dynamic_element(
 		dynamic_any const &,
-		vertex_size count);
+		role::type);
 	
 	SGE_SYMBOL dynamic_any const &info() const;
-	SGE_SYMBOL vertex_size count() const;
+	SGE_SYMBOL role::type get_role() const;
 private:
 	dynamic_any info_;
-	vertex_size count_;
+	role::type  role_;
 };
 
 }

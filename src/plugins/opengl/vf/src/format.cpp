@@ -18,49 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../error.hpp"
+/*#include "../error.hpp"
 #include "../vbo.hpp"
 #include "../vbo_base.hpp"
-#include "../vertex_format.hpp"
-#include <sge/exception.hpp>
+#include "../vertex_format.hpp"*/
+#include "../format.hpp"
+#include "../to_actor.hpp"
+#include <boost/foreach.hpp>
+/*#include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/bind.hpp>
-#include <boost/foreach.hpp>
+#include <boost/foreach.hpp>*/
 
-namespace {
-
-using sge::renderer::vertex_size;
-
-struct vertex_actor_info {
-	vertex_actor_info(
-		vertex_size offset,
-		vertex_size stride,
-		vertex_size index);
-	void*       offset;
-	vertex_size stride;
-	vertex_size index;
-};
-
-vertex_actor_info::vertex_actor_info(
-	const vertex_size offset_,
-	const vertex_size stride,
-	const vertex_size index)
-:	offset(
-		sge::ogl::vb_ib_vbo_impl().buffer_offset(
-			sge::ogl::vertex_buffer_type(),
-			static_cast<GLsizei>(offset_))),
-	stride(stride),
-	index(index)
-{}
-
-void pos_actor(const vertex_actor_info& ai)
-{
-	SGE_OPENGL_SENTRY
-
-	glVertexPointer(3, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
-	glEnableClientState(GL_VERTEX_ARRAY);
-}
-
+/*
 void normal_actor(const vertex_actor_info& ai)
 {
 	SGE_OPENGL_SENTRY
@@ -84,22 +54,18 @@ void diffuse_actor(const vertex_actor_info& ai)
 
   	glColorPointer(4, GL_UNSIGNED_BYTE, static_cast<GLsizei>(ai.stride), ai.offset);
 	glEnableClientState(GL_COLOR_ARRAY);
-}
-
-}
+}*/
 
 sge::ogl::vf::format::vf::format(
 	renderer::vf::dynamic_format const &fmt)
 : fmt(fmt)
 {
-	renderer::vf::dynamic_element_list const &elems(
+	renderer::vf::dynamic_ordered_element_list const &elems(
 		fmt.elements());
-	renderer::vf::dynamic_offset_list const &offsets(
-		fmt.offsets());
 	
-	BOOST_FOREACH(renderer::fv::dynamic_element const &e, elemens)
+	BOOST_FOREACH(renderer::fv::dynamic_ordered_element const &e, elems)
 		actors.push_back(
-			to_actor(e, ));
+			to_actor(e));
 	/*vertex_size offset = 0;
 	const renderer::vertex_format::usage_list& l = f.elements();
 

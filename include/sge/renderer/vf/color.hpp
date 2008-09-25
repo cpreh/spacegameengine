@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_COLOR_HPP_INCLUDED
 
 #include "color_base.hpp"
-#include "vertex_size.hpp"
+#include "role.hpp"
 
 namespace sge
 {
@@ -32,11 +32,13 @@ namespace vf
 {
 
 template<
-	typename Format,
-	vertex_size NumElements
+	typename Format
 >
 struct color
-: color_base<Format, role::color, NumElements> {};
+: color_base<
+	Format,
+	role::color
+> {};
 
 }
 }

@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::vf::dynamic_element::dynamic_element(
 	dynamic_any const &info_,
-	vertex_size const count_)
+	role::type const role_)
 :
 	info_(info_),
-	count_(count_)
+	role_(role_)
 {}
 	
 sge::renderer::vf::dynamic_any const &
@@ -34,8 +34,8 @@ sge::renderer::vf::dynamic_element::info() const
 	return info_;
 }
 
-sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic_element::count() const
+sge::renderer::vf::role::type
+sge::renderer::vf::dynamic_element::role() const
 {
-	return count_;
+	return role_;
 }

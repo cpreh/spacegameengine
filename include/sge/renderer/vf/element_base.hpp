@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_ELEMENT_BASE_HPP_INCLUDED
 #define SGE_RENDERER_VF_ELEMENT_BASE_HPP_INCLUDED
 
-#include "vertex_size.hpp"
 #include "role.hpp"
 
 namespace sge
@@ -32,12 +31,10 @@ namespace vf
 {
 
 template<
-	role::type Role,
-	vertex_size NumElements
+	role::type Role
 >
 struct element_base {
 	static role::type const role = Role;
-	static vertex_size const num_elements = NumElements;
 };
 
 }

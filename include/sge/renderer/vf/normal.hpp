@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_NORMAL_HPP_INCLUDED
 #define SGE_RENDERER_VF_NORMAL_HPP_INCLUDED
 
-#include "vertex_size.hpp"
 #include "vec3_base.hpp"
 #include "role.hpp"
 
@@ -33,11 +32,13 @@ namespace vf
 {
 
 template<
-	typename Format,
-	vertex_size NumElements
+	typename Format
 >
 struct normal
-: vec3_base<Format, role::normal, NumElements> {};
+: vec3_base<
+	Format,
+	role::normal
+> {};
 
 }
 }

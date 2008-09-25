@@ -18,35 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
+#include "../pos_actor.hpp"
 
-#include "role.hpp"
-#include "element_type.hpp"
-#include "../../export.hpp"
+sge::ogl::vf::pos_actor::pos_actor(
+	renderer::vf::dynamic_ordered_element const &e)
+:
+	pointer_actor(
+		e),
+	elements(
+		boost::get<renderer::vf::dynamic_vector>(
+			e.element().info())
+		.elements())
+{}
 
-namespace sge
+void sge::ogl::vf::pos_actor::set()
 {
-namespace renderer
-{
-namespace vf
-{
+	SGE_OPENGL_SENTRY
 
-class dynamic_vector {
-public:
-	SGE_SYMBOL dynamic_vector(
-		role::type,
-		element_type::type);
-	SGE_SYMBOL vertex_size elements() const;
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL element_type::type get_element_type() const;
-private:
-	role::type         role_;
-	element_type::type element_type_;
-};
-
+	glVertexPointer(
+		elements,
+		format(),
+		stride(),
+		offset());
+	
+	glEnableClientState(GL_VERTEX_ARRAY);
 }
-}
-}
-
-#endif

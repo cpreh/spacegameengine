@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_VF_FORMAT_HPP_INCLUDED
 
+#include "actor.hpp"
 #include <sge/renderer/vf/dynamic_format.hpp>
 #include <boost/function.hpp>
-#include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +34,7 @@ namespace ogl
 namespace vf
 {
 
-class format {
+class format : boost::noncopyable {
 public:
 	explicit vertex_format(
 		renderer::vf::dynamic_format const &);
@@ -41,8 +43,9 @@ public:
 private:
 	renderer::vf::dynamic_format const fmt;
 
-	typedef boost::function<void ()> vertex_format_actor;
-	typedef std::vector<vertex_format_actor> actor_array;
+	typedef boost::ptr_vector<
+		actor
+	> actor_array;
 	actor_array actors;
 };
 

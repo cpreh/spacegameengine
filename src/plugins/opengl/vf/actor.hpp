@@ -18,35 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
+#define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
 
-#include "role.hpp"
-#include "element_type.hpp"
-#include "../../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace ogl
 {
 namespace vf
 {
 
-class dynamic_vector {
-public:
-	SGE_SYMBOL dynamic_vector(
-		role::type,
-		element_type::type);
-	SGE_SYMBOL vertex_size elements() const;
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL element_type::type get_element_type() const;
-private:
-	role::type         role_;
-	element_type::type element_type_;
+struct actor : boost::noncopyable {
+	virtual void set() = 0;
+	virtual ~actor();
 };
 
 }
 }
 }
-
-#endif

@@ -36,11 +36,12 @@ namespace vf
 template<
 	typename Format,
 	role::type Role,
-	vertex_size NumSubElements,
-	vertex_size NumElements
+	vertex_size NumSubElements
 >
 struct vec_base
-: element_base<Role, NumElements> {
+: element_base<
+	Role
+> {
 	typedef Format subelement_type;
 	typedef math::basic_vector<Format, NumSubElements> packet_type;
 	static vertex_size const num_subelements = NumSubElements;

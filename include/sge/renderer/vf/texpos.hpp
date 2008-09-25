@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "vec_base.hpp"
 #include "vertex_size.hpp"
+#include "role.hpp"
 
 namespace sge
 {
@@ -31,9 +32,16 @@ namespace renderer
 namespace vf
 {
 
-template<typename Format, vertex_size NumElements>
+template<
+	typename Format,
+	vertex_size NumSubElements
+>
 struct texpos
-: vec_baes<Format, role::texpos, 2, NumElements> {};
+: vec_base<
+	Format,
+	role::texpos,
+	NumSubElements
+> {};
 
 }
 }

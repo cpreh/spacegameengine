@@ -18,35 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
+#include "../to_actor.hpp"
+#include "../pos_actor.hpp"
+#include "../normal_actor.hpp"
+#include "../color_actor.hpp"
+#include "../texpos_actor.hpp"
+#include <sge/execption.hpp>
+#include <sge/text.hpp>
 
-#include "role.hpp"
-#include "element_type.hpp"
-#include "../../export.hpp"
-
-namespace sge
+sge::ogl::vf::actor_auto_ptr 
+sge::ogl::vf::to_actor(
+	renderer::vf::dynamic_ordered_element const &e)
 {
-namespace renderer
-{
-namespace vf
-{
-
-class dynamic_vector {
-public:
-	SGE_SYMBOL dynamic_vector(
-		role::type,
-		element_type::type);
-	SGE_SYMBOL vertex_size elements() const;
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL element_type::type get_element_type() const;
-private:
-	role::type         role_;
-	element_type::type element_type_;
-};
-
+	switch(e.get_role()) {
+	case renderer::vf::role::pos:
+		return actor_auto_ptr(
+			new pos_actor(e));
+	case renderer::vf::role::normal:
+		return actor_auto_ptr(
+			new normal_actor(e));
+	case renderer::vf::role::color:
+		return actor_auto_ptr(
+			new color_actor(e));
+	case renderer::vf::role::texpos:
+		return actor_auto_ptr(
+			new texpos_actor(e));
+	default:
+		throw exception(
+			SGE_TEXT("Invalid role in ogl vertex format!"));
+	}
 }
-}
-}
-
-#endif

@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_CONVERT_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_VF_CONVERT_FORMAT_HPP_INCLUDED
 
-#include "role.hpp"
-#include "element_type.hpp"
-#include "../../export.hpp"
+#include "../common.hpp"
+#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
@@ -31,18 +30,22 @@ namespace renderer
 {
 namespace vf
 {
+class dynamic_vector;
+class dynamic_color;
+}
+}
+}
 
-class dynamic_vector {
-public:
-	SGE_SYMBOL dynamic_vector(
-		role::type,
-		element_type::type);
-	SGE_SYMBOL vertex_size elements() const;
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL element_type::type get_element_type() const;
-private:
-	role::type         role_;
-	element_type::type element_type_;
+namespace ogl
+{
+namespace vf
+{
+
+struct convert_format : boost::static_visitor<GLenum> {
+	GLenum operator()(
+		renderer::vf::dynamic_vector const &) const;
+	GLenum operator()(
+		renderer::vf::dynamic_color const &) const;
 };
 
 }
