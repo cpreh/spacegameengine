@@ -18,14 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
-#define SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
-
-#include "../../algorithm/copy_n.hpp"
-#include <boost/mpl/find.hpp>
-#include <boost/mpl/distance.hpp>
-#include <boost/mpl/begin.hpp>
-#include <boost/mpl/placeholders.hpp>
+#ifndef SGE_RENDERER_VF_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_VF_VIEW_HPP_INCLUDED
 
 namespace sge
 {
@@ -35,45 +29,31 @@ namespace vf
 {
 
 template<typename VertexFormat>
-class vertex {
+class view {
 public:
-	typedef unsigned char internal_type;
-	typedef internal_type *pointer;
+	typedef iterator<VertexFormat> iterator_type;
 
-	explicit vertex(
-		pointer const data)
+	explicit view(
+		dynamic_view const &v)
 	:
-		data(data)
-	{}
-
-	template<
-		typename Field,
-		typename T
-	>
-	void set(
-		T const &t)
+		data(v.data()),
+		sz(v.size())
 	{
-		typedef typename boost::mpl::find<
-			typename VertexFormat::elements,
-			Field
-		>::type element;
-		
-		typedef typename boost::mpl::advance<
-			boost::mpl::begin<
-				typename VertexFormat::offsets
-			>,
-			boost::mpl::distance<
-				typename VertexFormat::elements
-				element
-			>
-		>::type offset;
+		if(make_dynamic_format<VertexFormat>() != v.format())
+			throw exception(
+				SGE_TEXT("vertex views are incompatible!"));
+	}
 
-		copy_n(
-			reinterpret_cast<unsigned char const *>(
-				t)
-			+ offset::value,
-			stride<element>::value,
+	iterator_type begin() const
+	{
+		return iterator_type(
 			data);
+	}
+
+	iterator_type end() const
+	{
+		return iterator_type(
+			data + size);
 	}
 };
 

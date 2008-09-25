@@ -37,8 +37,8 @@ namespace vf
 {
 
 class dynamic_format;
-class view;
-class const_view;
+class dynamic_view;
+class const_dynamic_view;
 
 }
 
@@ -49,8 +49,8 @@ public:
 	typedef resource_flag_t         resource_flag_type;
 	typedef lock_flag_t             lock_flag_type;
 
-	typedef vf::view             view_type;
-	typedef vf::const_view       const_view_type;
+	typedef vf::dynamic_view        view_type;
+	typedef vf::const_dynamic_view  const_view_type;
 
 	static const size_type npos = static_cast<size_type>(-1);
 
