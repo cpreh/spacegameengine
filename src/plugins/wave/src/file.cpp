@@ -148,7 +148,7 @@ void sge::wave::file::read_wave()
 	bits_per_sample_ = static_cast<audio::sample_count>(
 		extract_primitive<boost::uint16_t>(SGE_TEXT("bits per sample")));
 	
-	ignore_chunks_until(SGE_TEXT("data"));
+	ignore_chunks_until("data");
 
 	boost::uint32_t const data_size = 
 		extract_primitive<boost::uint32_t>(SGE_TEXT("data size"));
@@ -167,11 +167,14 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 	{
 		SGE_LOG_INFO(
 			log::global(),
-			log::_1 << "detected unknown subchunk in wave file \"" << filename_ << "\"");
+			log::_1 << SGE_TEXT("detected unknown subchunk in wave file \"")
+			        << filename_
+			        << SGE_TEXT("\""));
 
 		file_.seekg(
 			static_cast<std::streamoff>(
-				extract_primitive<boost::uint32_t>("subchunk size")),
+				extract_primitive<boost::uint32_t>(
+					SGE_TEXT("subchunk size"))),
 			std::ios_base::cur);
 	}
 }
@@ -184,7 +187,11 @@ std::string const sge::wave::file::extract_header(string const &_desc)
 	file_.read(&bytes[0],byte_count);
 	if (file_.bad())
 		throw audio::exception(
-			SGE_TEXT("error while reading header \"")+_desc+SGE_TEXT("\" from file \"")+filename_+SGE_TEXT("\""));
+			SGE_TEXT("error while reading header \"")
+			+ _desc
+			+ SGE_TEXT("\" from file \"")
+			+ filename_
+			+ SGE_TEXT("\""));
 	return std::string(bytes.begin(),bytes.end());
 }
 
@@ -197,7 +204,11 @@ T sge::wave::file::extract_primitive(string const &_desc)
 
 	if (file_.bad())
 		throw audio::exception(
-			SGE_TEXT("error while reading ")+_desc+SGE_TEXT(" from file \"")+filename_+SGE_TEXT("\""));
+			SGE_TEXT("error while reading ")
+			+ _desc
+			+ SGE_TEXT(" from file \"")
+			+ filename_
+			+ SGE_TEXT("\""));
 
 	return swap_ ? swap_endianness(ret) : ret;
 }
