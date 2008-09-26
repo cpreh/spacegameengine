@@ -37,8 +37,7 @@ namespace vf
 template<typename VertexFormat>
 class vertex {
 public:
-	typedef unsigned char internal_type;
-	typedef internal_type *pointer;
+	typedef typename VertexFormat::pointer pointer;
 
 	explicit vertex(
 		pointer const data)
@@ -69,12 +68,42 @@ public:
 		>::type offset;
 
 		copy_n(
-			reinterpret_cast<unsigned char const *>(
+			reinterpret_cast<pointer>(
 				t)
 			+ offset::value,
 			stride<element>::value,
 			data);
 	}
+
+	/*
+	template<
+		typename Field
+	>
+	typename Field::packed_type const get() const
+	{
+		typedef typename boost::mpl::find<
+			typename VertexFormat::elements,
+			Field
+		>::type element;
+	
+		typedef typename boost::mpl::advance<
+			boost::mpl::begin<
+				typename VertexFormat::offsets
+			>,
+			boost::mpl::distance<
+				typename VertexFormat::elements
+				element
+			>
+		>::type offset;
+	
+		T ret;
+		copy_n(
+			data + offset::value,
+			reinterpret_cast<pointer>(
+				ret),
+			stride<element>::value);
+		return ret;
+	}*/
 };
 
 }

@@ -35,7 +35,7 @@ sge::renderer::vf::dynamic_element::info() const
 }
 
 sge::renderer::vf::role::type
-sge::renderer::vf::dynamic_element::role() const
+sge::renderer::vf::dynamic_element::get_role() const
 {
 	return role_;
 }

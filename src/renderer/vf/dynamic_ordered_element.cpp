@@ -24,7 +24,7 @@ sge::renderer::vf::dynamic_ordered_element::dynamic_ordered_element(
 	dynamic_element const &element_,
 	vertex_size const offset_)
 :
-	element_(element_)
+	element_(element_),
 	offset_(offset_)
 {}
 

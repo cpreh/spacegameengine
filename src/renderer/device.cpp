@@ -64,7 +64,7 @@ sge::renderer::device::create_texture(
 
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::device::create_vertex_buffer(
-	const_vertex_view const &view,
+	vf::const_dynamic_view const &view,
 	resource_flag_t const flags)
 {
 /*
@@ -124,23 +124,11 @@ sge::renderer::device::create_index_buffer(
 	return ib;
 }
 
-sge::renderer::screen_unit
-sge::renderer::device::screen_width() const
-{
-	return screen_size().w();
-}
-
-sge::renderer::screen_unit
-sge::renderer::device::screen_height() const
-{
-	return screen_size().h();
-}
-
 sge::space_unit
 sge::renderer::device::aspect() const
 {
-	return static_cast<space_unit>(screen_width())
-	     / static_cast<space_unit>(screen_height());
+	return static_cast<space_unit>(screen_size().w())
+	     / static_cast<space_unit>(screen_size().h());
 }
 
 sge::renderer::device::~device()

@@ -43,6 +43,8 @@ public:
 private:	
 	dynamic_element element_;
 	vertex_size     offset_;
+};
+
 }
 }
 }

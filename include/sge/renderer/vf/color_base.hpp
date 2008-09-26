@@ -34,11 +34,10 @@ namespace vf
 
 template<
 	typename Format,
-	role::type Role,
-	vertex_size NumElements
+	role::type Role
 >
 struct color_base
-: element_base<Role, NumElements> {
+: element_base<Role> {
 	typedef typename Format::channel_t subelement_type;
 	typedef Format packed_type;
 	static vertex_size const num_subelements = 4;

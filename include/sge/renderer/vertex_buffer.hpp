@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "lock_flags.hpp"
 #include "resource_flags.hpp"
 #include "vf/vertex_size.hpp"
+#include "vf/dynamic_view.hpp"
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
@@ -37,8 +38,6 @@ namespace vf
 {
 
 class dynamic_format;
-class dynamic_view;
-class const_dynamic_view;
 
 }
 

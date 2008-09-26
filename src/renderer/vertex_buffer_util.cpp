@@ -27,7 +27,7 @@ sge::renderer::resize(
 	vertex_buffer::size_type const newsize)
 {
 	return rend->create_vertex_buffer(
-		vb->get_vertex_format(),
+		vb->format(),
 		newsize,
 		vb->flags());
 }

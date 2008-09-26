@@ -56,7 +56,7 @@ void sge::sprite::system::render(
 	object *const end,
 	sort_method const &sort_fun)
 {
-	sort_fun(beg, end, less);
+	/*sort_fun(beg, end, less);
 	
 	allocate_buffers(std::distance(beg,end));
 
@@ -72,7 +72,7 @@ void sge::sprite::system::render(
 				renderer::lock_flags::writeonly));
 
 		index_view const indices(boost::get<index_view>(iblock.value())); // FIXME
-		renderer::vertex_view const vertices(vblock.value());
+		renderer::vf::dynamic_view const vertices(vblock.value());
 
 		index_view::iterator ib_it = indices.begin();
 		renderer::vertex_view::iterator vb_it = vertices.begin();
@@ -141,7 +141,7 @@ void sge::sprite::system::render(
 		cur = next;
 	}
 
-	rend->set_texture(renderer::device::no_texture);
+	rend->set_texture(renderer::device::no_texture);*/
 
 }
 

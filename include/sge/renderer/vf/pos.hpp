@@ -33,7 +33,7 @@ namespace vf
 {
 
 template<
-	typename Format
+	typename Format,
 	vertex_size NumSubElements = 3
 >
 struct pos

@@ -18,35 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
+#ifndef SGE_SPRITE_VERTEX_FORMAT_HPP_INCLUDED
+#define SGE_SPRITE_VERTEX_FORMAT_HPP_INCLUDED
 
-#include "role.hpp"
-#include "element_type.hpp"
-#include "vertex_size.hpp"
-#include "../../export.hpp"
+#include "../renderer/vf/format.hpp"
+#include "../renderer/vf/pos.hpp"
+#include "../renderer/vf/color.hpp"
+#include "../renderer/vf/texpos.hpp"
+#include "../renderer/color.hpp"
+#include "../su.hpp"
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
+namespace sprite
 {
 
-class dynamic_vector {
-public:
-	SGE_SYMBOL dynamic_vector(
-		role::type,
-		element_type::type);
-	SGE_SYMBOL vertex_size elements() const;
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL element_type::type get_element_type() const;
-private:
-	role::type         role_;
-	element_type::type element_type_;
-};
+typedef renderer::vf::format<
+	boost::mpl::vector<
+		renderer::vf::pos<space_unit, 3>,
+		renderer::vf::color<renderer::rgba8_color>,
+		renderer::vf::texpos<space_unit, 2>
+	>
+>::type vertex_format;
 
-}
 }
 }
 

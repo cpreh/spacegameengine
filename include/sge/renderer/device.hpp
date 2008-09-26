@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glsl/program.hpp"
 #include "glsl/string.hpp"
 #include "glsl/istream.hpp"
+#include "vf/dynamic_view.hpp"
 #include "primitive.hpp"
 #include "caps.hpp"
 #include "image_view.hpp"
@@ -159,7 +160,7 @@ public:
 		resource_flag_t flags) = 0;
 
 	SGE_SYMBOL vertex_buffer_ptr const create_vertex_buffer(
-		const_vertex_view const &,
+		vf::const_dynamic_view const &,
 		resource_flag_t flags);
 	
 	virtual vertex_buffer_ptr const create_vertex_buffer(

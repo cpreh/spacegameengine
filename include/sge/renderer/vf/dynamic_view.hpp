@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_VIEW_HPP_INCLUDED
 
+#include "dynamic_format.hpp"
+#include "vertex_size.hpp"
+
 namespace sge
 {
 namespace renderer
@@ -28,17 +31,29 @@ namespace renderer
 namespace vf
 {
 
-class dynamic_view {
+template<typename Value>
+class basic_dynamic_view {
 public:
-	SGE_SYMBOL dynamic_view(
+	typedef Value *pointer;
+	typedef vertex_size size_type;
+
+	SGE_SYMBOL basic_dynamic_view(
 		pointer data,
 		size_type elements,
 		dynamic_format const &);
+	
+	pointer data() const;
+	size_type size() const;
+	dynamic_format const &format() const;
 private:
-	pointer        const data;
-	size_type      const elements;
-	dynamic_format const &format;
+	pointer        const data_;
+	size_type      const size_;
+	dynamic_format const &format_;
 };
+
+// TODO: add typedefs for unsigned char!
+typedef basic_dynamic_view<unsigned char> dynamic_view;
+typedef basic_dynamic_view<unsigned char const> const_dynamic_view;
 
 }
 }
