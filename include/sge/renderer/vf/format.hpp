@@ -37,7 +37,7 @@ namespace vf
 
 template<
 	typename ElementList,
-	bool IsConst = true
+	bool IsConst = false // FIXME!
 >
 struct format {
 	typedef ElementList elements;

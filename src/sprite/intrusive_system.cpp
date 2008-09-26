@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive_system.hpp>
 #include <sge/sprite/helper.hpp>
 #include <sge/sprite/intrusive_compare.hpp>
+#include <sge/sprite/vertex_format.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -29,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/transform.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/vertex.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/algorithm.hpp>
 #include <boost/foreach.hpp>
@@ -66,7 +70,6 @@ void sge::sprite::intrusive_system::render()
 void sge::sprite::intrusive_system::render(
 	sprite_list const &sprites)
 {
-	/*
 	allocate_buffers(sprites.size());
 
 	{
@@ -80,13 +83,18 @@ void sge::sprite::intrusive_system::render(
 				get_vertex_buffer(),
 				renderer::lock_flags::writeonly));
 
+		typedef renderer::vf::view<
+			vertex_format
+		> vertex_view;
+
 		index_view const indices(boost::get<index_view>(iblock.value()));
-		renderer::vertex_view const vertices(vblock.value());
+		vertex_view const vertices(vblock.value());
 
 		index_view::iterator ib_it = indices.begin();
-		renderer::vertex_view::iterator vb_it = vertices.begin();
 
-		BOOST_FOREACH(intrusive_object const &spr, sprites)
+		vertex_view::iterator vb_it = vertices.begin();
+
+	/*	BOOST_FOREACH(intrusive_object const &spr, sprites)
 		{
 			if(!spr.visible())
 				continue;
@@ -102,7 +110,7 @@ void sge::sprite::intrusive_system::render(
 				fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
 
 			vb_it = fill_color(vb_it, spr.get_color());
-		}
+		}*/
 	}
 
 	renderer::device_ptr const rend(
@@ -139,7 +147,6 @@ void sge::sprite::intrusive_system::render(
 	}
 
 	rend->set_texture(renderer::device::no_texture);
-	*/
 }
 
 void sge::sprite::intrusive_system::add(

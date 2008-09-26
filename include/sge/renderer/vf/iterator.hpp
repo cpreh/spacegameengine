@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
+#include <cstddef> // FIXME
 
 namespace sge
 {
@@ -30,6 +31,10 @@ namespace renderer
 {
 namespace vf
 {
+
+template<typename>
+class vertex;
+
 namespace detail
 {
 
@@ -40,15 +45,16 @@ struct iterator_base {
 		vertex<VertexFormat>,
 		std::random_access_iterator_tag,
 		vertex<VertexFormat>,
-		vertex_difference
+		std::ptrdiff_t // FIXME
+		//vertex_difference
 	> type;
 };
 
 }
 
 template<typename VertexFormat>
-class iterator : public iterator_base<VertexFormat>::type {
-	typedef typename iterator_base<VertexFormat>::type base;
+class iterator : public detail::iterator_base<VertexFormat>::type {
+	typedef typename detail::iterator_base<VertexFormat>::type base;
 public:
 	typedef typename base::value_type value_type;
 	typedef typename base::reference reference;
@@ -90,7 +96,7 @@ private:
 		return data == r.data;
 	}
 
-	difference_type distance_to(iterator_impl const &r) const
+	difference_type distance_to(iterator const &r) const
 	{
 		return (r.data - data) / difference_type(stride);
 	}
@@ -101,6 +107,8 @@ private:
 	}
 
 	internal_pointer data;
+
+	template<typename> friend class view;
 };
 
 }

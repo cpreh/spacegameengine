@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../algorithm/copy_n.hpp"
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/distance.hpp>
+#include <boost/mpl/advance.hpp>
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 
@@ -62,17 +63,17 @@ public:
 				typename VertexFormat::offsets
 			>,
 			boost::mpl::distance<
-				typename VertexFormat::elements
+				typename VertexFormat::elements,
 				element
 			>
 		>::type offset;
 
-		copy_n(
+		/*copy_n(
 			reinterpret_cast<pointer>(
 				t)
 			+ offset::value,
 			stride<element>::value,
-			data);
+			data);*/
 	}
 
 	/*
@@ -104,6 +105,8 @@ public:
 			stride<element>::value);
 		return ret;
 	}*/
+private:
+	pointer const data;	
 };
 
 }

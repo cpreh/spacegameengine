@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_VF_VIEW_HPP_INCLUDED
 
+#include "dynamic_view.hpp"
+#include "../../exception.hpp"
+#include "../../text.hpp"
+
 namespace sge
 {
 namespace renderer
@@ -28,33 +32,42 @@ namespace renderer
 namespace vf
 {
 
+template<typename>
+class iterator;
+
 template<typename VertexFormat>
 class view {
 public:
-	typedef iterator<VertexFormat> iterator_type;
+	typedef vf::iterator<VertexFormat> iterator;
+	typedef typename VertexFormat::pointer pointer;
+	typedef basic_dynamic_view<pointer> dynamic_view_type;
+	typedef vertex_size size_type;
 
 	explicit view(
-		dynamic_view const &v)
+		dynamic_view_type const &v)
 	:
 		data(v.data()),
-		sz(v.size())
+		size(v.size())
 	{
-		if(make_dynamic_format<VertexFormat>() != v.format())
+	/*	if(make_dynamic_format<VertexFormat>() != v.format())
 			throw exception(
-				SGE_TEXT("vertex views are incompatible!"));
+				SGE_TEXT("vertex views are incompatible!"));*/
 	}
 
-	iterator_type begin() const
+	iterator begin() const
 	{
-		return iterator_type(
+		return iterator(
 			data);
 	}
 
-	iterator_type end() const
+	iterator end() const
 	{
-		return iterator_type(
+		return iterator(
 			data + size);
 	}
+private:
+	pointer   const data;
+	size_type const size;
 };
 
 }
