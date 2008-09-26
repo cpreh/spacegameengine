@@ -40,7 +40,7 @@ typedef renderer::vf::format<
 		renderer::vf::color<renderer::rgba8_color>,
 		renderer::vf::texpos<space_unit, 2>
 	>
->::type vertex_format;
+> vertex_format;
 
 }
 }

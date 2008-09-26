@@ -74,9 +74,9 @@ try
 		sge::sprite::point(0,0),
 		sge::texture::part_ptr(),
 		sge::sprite::dim(
-			rend->screen_width(),
+			rend->screen_size().w(),
 			static_cast<sge::sprite::unit>(
-				rend->screen_height())),
+				rend->screen_size().h())),
 		boost::none,
 		boost::none,
 		boost::none,

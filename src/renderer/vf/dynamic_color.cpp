@@ -21,22 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_color.hpp>
 
 sge::renderer::vf::dynamic_color::dynamic_color(
-	role::type const role_,
 	color_format::type const color_format_)
 :
-	role_(role_),
 	color_format_(color_format_)
 {}
-
-sge::renderer::vf::role::type
-sge::renderer::vf::dynamic_color::get_role() const
-{
-	return role_;
-}
 
 sge::renderer::color_format::type
 sge::renderer::vf::dynamic_color::get_color_format() const
 {
 	return color_format_;
 }
-

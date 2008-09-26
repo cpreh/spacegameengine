@@ -41,6 +41,8 @@ public:
 
 	SGE_SYMBOL dynamic_ordered_element_list const &
 	elements() const;
+
+	SGE_SYMBOL vertex_size stride() const;
 private:
 	dynamic_ordered_element_list elements_;
 };

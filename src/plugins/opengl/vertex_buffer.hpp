@@ -22,12 +22,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 
 #include "buffer_base.hpp"
-#include "vertex_format.hpp"
 #include "vbo.hpp"
+#include "vf/format.hpp"
 #include <sge/renderer/vertex_buffer.hpp>
 
 namespace sge
 {
+namespace renderer
+{
+namespace vf
+{
+class dynamic_format;
+}
+}
+
 namespace ogl
 {
 
@@ -49,7 +57,7 @@ public:
 	typedef base::resource_flag_type   resource_flag_type;
 
 	vertex_buffer(
-		renderer::vertex_format const &,
+		renderer::vf::dynamic_format const &,
 		size_type sz,
 		resource_flag_type flags);
 
@@ -58,11 +66,11 @@ private:
 	view_type const view();
 	const_view_type const view() const;
 
-	renderer::vertex_format const &
-	get_vertex_format() const;
+	renderer::vf::dynamic_format const &
+	format() const;
 
-	renderer::vertex_format format;
-	vertex_format ogl_format;
+	renderer::vf::dynamic_format format_;
+	vf::format ogl_format;
 };
 
 }

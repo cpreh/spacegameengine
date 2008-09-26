@@ -36,7 +36,7 @@ namespace vf
 
 class format : boost::noncopyable {
 public:
-	explicit vertex_format(
+	explicit format(
 		renderer::vf::dynamic_format const &);
 	renderer::vf::dynamic_format const &get() const;
 	void use_me() const;

@@ -66,6 +66,7 @@ void sge::sprite::intrusive_system::render()
 void sge::sprite::intrusive_system::render(
 	sprite_list const &sprites)
 {
+	/*
 	allocate_buffers(sprites.size());
 
 	{
@@ -138,7 +139,7 @@ void sge::sprite::intrusive_system::render(
 	}
 
 	rend->set_texture(renderer::device::no_texture);
-
+	*/
 }
 
 void sge::sprite::intrusive_system::add(

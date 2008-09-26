@@ -53,8 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
-#include <sge/ostream.hpp>
+#include <sge/renderer/caps.hpp>
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/types.hpp>
@@ -72,20 +71,13 @@ sge::ogl::device::device(
 	renderer::adapter_type const adapter,
 	window_ptr const wnd_param)
  : param(param),
-   caps_(
-   	adapter,
-   	"TODO",
-	"TODO",
-	2048, //get_int(GL_MAX_TEXTURE_SIZE), //FIXME
-	//get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
-   0),
    current_states(renderer::state::default_())
 #if defined(SGE_HAVE_X11)
    , dsp(new x11::display())
 #endif
 {
-	if(adapter > 0)
-		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
+//	if(adapter > 0)
+//		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
 
 	bool windowed = param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
@@ -102,7 +94,7 @@ sge::ogl::device::device(
 		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
 		{
-			sge::cerr << SGE_TEXT("Cannot change resolution to ") << param.mode << SGE_TEXT("! Reverting to window mode!\n");
+			//sge::cerr << SGE_TEXT("Cannot change resolution to ") << param.mode << SGE_TEXT("! Reverting to window mode!\n");
 			windowed = false;
 		}
 	}
@@ -155,7 +147,7 @@ sge::ogl::device::device(
 		resolution = modes->switch_to_mode(param.mode);
 		if(!resolution)
 		{
-			sge::cerr << SGE_TEXT("Warning: No resolution matches against ") << param.mode << SGE_TEXT("! Falling back to window mode!\n");
+			//sge::cerr << SGE_TEXT("Warning: No resolution matches against ") << param.mode << SGE_TEXT("! Falling back to window mode!\n");
 			windowed = true;
 		}
 	}
@@ -314,10 +306,9 @@ void sge::ogl::device::end_rendering()
 #endif
 }
 
-sge::renderer::caps const&
+sge::renderer::caps const
 sge::ogl::device::get_caps() const
 {
-	return caps_;
 }
 
 sge::window_ptr const
@@ -465,9 +456,9 @@ void sge::ogl::device::reset_viewport_on_configure(const XEvent& e)
 void sge::ogl::device::center_viewport(const int w, const int h)
 {
 	const renderer::pixel_unit screen_w =
-		static_cast<renderer::pixel_unit>(screen_width()),
+		static_cast<renderer::pixel_unit>(screen_size().w()),
 		         screen_h =
-		static_cast<renderer::pixel_unit>(screen_height()),
+		static_cast<renderer::pixel_unit>(screen_size().h()),
 	                 x =
 		w > screen_w
 		? (w - screen_w) / 2

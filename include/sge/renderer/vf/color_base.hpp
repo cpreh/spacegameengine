@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vertex_size.hpp"
 #include "role.hpp"
 
+#include <boost/gil/pixel.hpp>
+
 namespace sge
 {
 namespace renderer
@@ -32,13 +34,19 @@ namespace renderer
 namespace vf
 {
 
+template<typename T> struct channel_traits;
+template<typename T, typename U>
+struct channel_traits<boost::gil::pixel<T, U> > {
+	typedef T type;
+};
+
 template<
 	typename Format,
 	role::type Role
 >
 struct color_base
 : element_base<Role> {
-	typedef typename Format::channel_t subelement_type;
+	typedef typename channel_traits<Format>::type subelement_type;
 	typedef Format packed_type;
 	static vertex_size const num_subelements = 4;
 };

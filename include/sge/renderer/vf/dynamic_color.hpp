@@ -34,13 +34,10 @@ namespace vf
 
 class dynamic_color {
 public:
-	SGE_SYMBOL dynamic_color(
-		role::type,
+	SGE_SYMBOL explicit dynamic_color(
 		color_format::type);
-	SGE_SYMBOL role::type get_role() const;
 	SGE_SYMBOL color_format::type get_color_format() const;
 private:
-	role::type role_;
 	color_format::type color_format_;
 };
 

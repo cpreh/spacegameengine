@@ -46,49 +46,44 @@ struct make_dynamic_elements {
 	template<
 		typename Format,
 		role::type Role,
-		vertex_size NumSubElements,
-		vertex_size NumElements
+		vertex_size NumSubElements
 	>
 	void operator()(
 		vec_base<
 			Format,
 			Role,
-			NumSubElements,
-			NumElements
+			NumSubElements
 		> &) const
 	{
 		elems.push_back(
 			dynamic_element(
 				dynamic_vector(
-					Role,
 					format_to_element<
 						Format
-					>::value
+					>::value,
+					NumSubElements
 				),
-				NumElements
+				Role
 			));
 				
 	}
 
 	template<
 		typename Format,
-		role::type Role,
-		vertex_size NumElements
+		role::type Role
 	>
 	void operator()(
 		color_base<
 			Format,
-			Role,
-			NumElements
+			Role
 		> &) const
 	{
 		elems.push_back(
 			dynamic_element(
 				dynamic_color(
-					Role,
 					color_format_static<Format>::value
 				),
-				NumElements
+				Role
 			));
 	}
 private:

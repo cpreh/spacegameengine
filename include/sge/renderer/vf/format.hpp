@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
 #include "../../partial_sums.hpp"
-#include "stride.hpp"
+#include "element_stride.hpp"
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -45,7 +45,7 @@ struct format {
 	typedef typename partial_sums<
 		boost::mpl::transform<
 			elements,
-			stride<
+			element_stride<
 				boost::mpl::_1
 			>
 		>

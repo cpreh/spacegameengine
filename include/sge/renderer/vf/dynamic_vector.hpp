@@ -36,14 +36,13 @@ namespace vf
 class dynamic_vector {
 public:
 	SGE_SYMBOL dynamic_vector(
-		role::type,
-		element_type::type);
-	SGE_SYMBOL vertex_size elements() const;
-	SGE_SYMBOL role::type get_role() const;
+		element_type::type,
+		vertex_size num_elements);
 	SGE_SYMBOL element_type::type get_element_type() const;
+	SGE_SYMBOL vertex_size elements() const;
 private:
-	role::type         role_;
 	element_type::type element_type_;
+	vertex_size        elements_;
 };
 
 }

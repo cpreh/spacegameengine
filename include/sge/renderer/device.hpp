@@ -39,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glsl/istream.hpp"
 #include "vf/dynamic_view.hpp"
 #include "primitive.hpp"
-#include "caps.hpp"
 #include "image_view.hpp"
 #include "color_format.hpp"
 #include "texture_stage.hpp"
@@ -66,6 +65,7 @@ class dynamic_format;
 struct viewport;
 struct filter_args;
 struct material;
+struct caps;
 
 class SGE_CLASS_SYMBOL device : boost::noncopyable {
 public:

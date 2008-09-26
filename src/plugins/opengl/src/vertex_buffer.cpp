@@ -28,16 +28,16 @@ SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 	sge::ogl::vb_ib_vbo_impl)
 
 sge::ogl::vertex_buffer::vertex_buffer(
-	renderer::vertex_format const &format,
+	renderer::vf::dynamic_format const &format_,
 	size_type const sz,
 	resource_flag_type const flags)
 : detail::vertex_buffer_base(
 	sz,
-	format.stride(),
+	format_.stride(),
 	flags,
 	0),
-  format(format),
-  ogl_format(format)
+  format_(format_),
+  ogl_format(format_)
 {}
 
 void sge::ogl::vertex_buffer::set_format() const
@@ -52,7 +52,7 @@ sge::ogl::vertex_buffer::view()
 	return view_type(
 		detail::vertex_buffer_base::data(),
 		detail::vertex_buffer_base::lock_size(),
-		get_vertex_format());
+		format());
 }
 
 sge::ogl::vertex_buffer::const_view_type const
@@ -61,11 +61,11 @@ sge::ogl::vertex_buffer::view() const
 	return const_view_type(
 		detail::vertex_buffer_base::data(),
 		detail::vertex_buffer_base::lock_size(),
-		get_vertex_format());
+		format());
 }
 
-sge::renderer::vertex_format const &
-sge::ogl::vertex_buffer::get_vertex_format() const
+sge::renderer::vf::dynamic_format const &
+sge::ogl::vertex_buffer::format() const
 {
-	return format;
+	return format_;
 }

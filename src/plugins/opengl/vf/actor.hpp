@@ -38,3 +38,5 @@ struct actor : boost::noncopyable {
 }
 }
 }
+
+#endif

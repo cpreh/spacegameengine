@@ -42,7 +42,6 @@ class buffer_base : public Base {
 	> buffer_type;
 protected:
 	typedef typename Base::size_type              size_type;
-	typedef typename Base::difference_type        difference_type;
 	typedef typename buffer_type::pointer         pointer;
 	typedef typename buffer_type::const_pointer   const_pointer;
 	typedef typename Base::resource_flag_type     resource_flag_type;

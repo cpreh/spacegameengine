@@ -147,7 +147,7 @@ public:
 
 	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
-		renderer::vertex_format const &,
+		renderer::vf::dynamic_format const &,
 		renderer::vertex_buffer::size_type size,
 		renderer::vertex_buffer::resource_flag_type flags);
 
@@ -157,7 +157,7 @@ public:
 		renderer::index_buffer::size_type sz,
 		renderer::index_buffer::resource_flag_type flags);
 
-	renderer::caps const &get_caps() const;
+	renderer::caps const get_caps() const;
 	renderer::screen_size_t const screen_size() const;
 	window_ptr const get_window() const;
 private:
@@ -170,7 +170,6 @@ private:
 		renderer::target::dim_type const &);
 
 	renderer::parameters          param;
-	renderer::caps                caps_;
 	renderer::state::list         current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
 	windows::window_ptr               wnd;
