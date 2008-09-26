@@ -34,11 +34,15 @@ namespace sge
 namespace sprite
 {
 
+typedef renderer::vf::pos<space_unit 3> vertex_pos;
+typedef renderer::vf::color<renderer::rgba8_color> vertex_color;
+typedef renderer::vf::texpos<space_unit, 2> vertex_texpos;
+
 typedef renderer::vf::format<
 	boost::mpl::vector<
-		renderer::vf::pos<space_unit, 3>,
-		renderer::vf::color<renderer::rgba8_color>,
-		renderer::vf::texpos<space_unit, 2>
+		vertex_pos,
+		vertex_color,
+		vertex_texpos
 	>
 > vertex_format;
 

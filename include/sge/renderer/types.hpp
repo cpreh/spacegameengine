@@ -33,29 +33,12 @@ namespace sge
 namespace renderer
 {
 
-// TODO: further split this header!
-
-namespace bit_depth
-{
-	enum type {
-		depth16 = 16,
-		depth32 = 32
-	};
-}
-
-SGE_SYMBOL unsigned bit_depth_bit_count(bit_depth::type);
-
 typedef int                              pixel_unit;
 typedef unsigned                         screen_unit;
 typedef math::basic_vector<pixel_unit,2> pixel_pos_t;
 typedef math::basic_dim<screen_unit,2>   screen_size_t;
 
 typedef unsigned multi_sample_type;
-
-typedef math::vector2  tex_pos;
-typedef math::rect     tex_rect;
-typedef math::vector2  pos2;
-typedef math::vector3  pos3;
 
 typedef std::size_t stage_type;
 

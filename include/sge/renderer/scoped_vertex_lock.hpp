@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SCOPED_VERTEX_LOCK_HPP_INCLUDED
 
 #include "vertex_buffer.hpp"
-#include "vertex_view.hpp"
 #include "scoped_lock_wrapper.hpp"
 #include "scoped_lock.hpp"
 #include "vf/dynamic_view.hpp"

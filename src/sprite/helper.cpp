@@ -29,14 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::vertex_iterator
 sge::sprite::fill_position(
 	renderer::vertex_iterator it,
-	const rect& rs,
+	rect const &rs,
 	const depth_type z)
 {
 	using renderer::pos3;
 	const math::rect r = math::structure_cast<space_unit>(rs);
 
-	(*it++).pos() = pos3(r.left(), r.top(), z);
-	(*it++).pos() = pos3(r.right(), r.top(), z);
+	(*it++).set<vertex_pos>(pos3(r.left(), r.top(), z));
+	(*it++).set<vertex_pos>(pos3(r.right(), r.top(), z));
 	(*it++).pos() = pos3(r.right(), r.bottom(), z);
 	(*it++).pos() = pos3(r.left(), r.bottom(), z);
 

@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "types.hpp"
 #include "../export.hpp"
-#include "../renderer/vertex_iterator.hpp"
-#include "../renderer/index_view.hpp"
 #include "../math/rect.hpp"
 
 namespace sge
@@ -34,16 +32,16 @@ namespace sprite
 
 typedef renderer::index_view_16 index_view;
 
-SGE_SYMBOL renderer::vertex_iterator
+SGE_SYMBOL vertex_iterator
 fill_position(
-	renderer::vertex_iterator it,
-	const rect& rs,
+	vertex_iterator,
+	rect const &rs,
 	depth_type z);
 
 SGE_SYMBOL renderer::vertex_iterator
 fill_tex_coordinates(
-	renderer::vertex_iterator it,
-	const renderer::tex_rect& rt);
+	vertex_iterator,
+	renderer::tex_rect const &rt);
 
 SGE_SYMBOL renderer::vertex_iterator
 fill_vertices(

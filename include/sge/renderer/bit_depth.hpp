@@ -18,45 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VERTEX_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_VERTEX_VIEW_HPP_INCLUDED
-
-#include "vertex.hpp"
-#include "vertex_iterator.hpp"
-#include "../export.hpp"
+#ifndef SGE_RENDERER_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_TYPES_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
 
-class vertex_format;
-
-template<typename Vertex>
-class basic_vertex_view {
-public:
-	typedef vertex_size size_type;
-	typedef typename Vertex::pointer pointer;
-	typedef vb_detail::iterator_impl<Vertex> iterator;
-
-	SGE_SYMBOL basic_vertex_view(
-		pointer data,
-		size_type size,
-		vertex_format const &);
-
-	SGE_SYMBOL iterator begin() const;
-	SGE_SYMBOL iterator end() const;
-	SGE_SYMBOL size_type size() const;
-	SGE_SYMBOL vertex_format const &format() const;
-	SGE_SYMBOL pointer data() const;
-private:
-	pointer       raw_data;
-	size_type     size_;
-	vertex_format format_;
-};
-
-typedef basic_vertex_view<vertex> vertex_view;
-typedef basic_vertex_view<const_vertex> const_vertex_view;
+namespace bit_depth
+{
+	enum type {
+		depth16 = 16,
+		depth32 = 32
+	};
+}
 
 }
 }
