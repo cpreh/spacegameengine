@@ -25,12 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "iterator_impl.hpp"
 #include "plugin_impl.hpp"
 #include "context_impl.hpp"
+#include "../../export.hpp"
 
 #define SGE_PLUGIN_INSTANTIATE_TYPES(x)\
-template sge::plugin::iterator<x> sge::plugin::manager::begin<x>();\
-template sge::plugin::iterator<x> sge::plugin::manager::end<x>();\
-template sge::plugin::iterator<x>::reference sge::plugin::manager::get_plugin<x>(sge::plugin::manager::size_type);\
-template sge::plugin::manager::size_type sge::plugin::manager::size<x>() const;\
+template SGE_SYMBOL sge::plugin::iterator<x> sge::plugin::manager::begin<x>();\
+template SGE_SYMBOL sge::plugin::iterator<x> sge::plugin::manager::end<x>();\
+template SGE_SYMBOL sge::plugin::iterator<x>::reference sge::plugin::manager::get_plugin<x>(sge::plugin::manager::size_type);\
+template SGE_SYMBOL sge::plugin::manager::size_type sge::plugin::manager::size<x>() const;\
 template class sge::plugin::iterator<x>;\
 template class sge::plugin::plugin<x>;\
 template class sge::plugin::context<x>;
