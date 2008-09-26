@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
+#include <sge/export.hpp>
 #include <boost/foreach.hpp>
 
 sge::renderer::state::list::list(
@@ -111,7 +112,7 @@ sge::renderer::state::combine(
 }
 
 #define SGE_INSTANTIATE_STATE_LIST_GET(x)\
-template x sge::renderer::state::list::get<x>() const;
+template SGE_SYMBOL x sge::renderer::state::list::get<x>() const;
 
 SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::cull_mode::type)
 SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::depth_func::type)
@@ -125,7 +126,7 @@ SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::dest_blend_func::type)
 #undef SGE_INSTANTIATE_STATE_LIST_GET
 
 #define SGE_INSTANTIATE_STATE_LIST_GET_T(x)\
-template x sge::renderer::state::list::get(\
+template SGE_SYMBOL x sge::renderer::state::list::get(\
 	sge::renderer::state::trampoline<x> const &) const;
 
 SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_::base_type)
