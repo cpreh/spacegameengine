@@ -21,5 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems.hpp>
 
 sge::systems::systems()
-: renderer_parameters(renderer::display_mode(800,600,renderer::bit_depth::depth32))
+:
+	renderer_parameters(renderer::display_mode(
+		renderer::screen_size_t(800,600), renderer::bit_depth::depth32))
 {} // FIXME

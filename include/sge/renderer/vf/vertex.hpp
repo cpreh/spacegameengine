@@ -22,11 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 
 #include "../../algorithm/copy_n.hpp"
+#include "raw_data.hpp"
+#include "element_stride.hpp"
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/distance.hpp>
 #include <boost/mpl/advance.hpp>
 #include <boost/mpl/begin.hpp>
+#include <boost/mpl/end.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace sge
 {
@@ -39,6 +44,8 @@ template<typename VertexFormat>
 class vertex {
 public:
 	typedef typename VertexFormat::pointer pointer;
+	typedef typename VertexFormat::elements elements;
+	typedef typename VertexFormat::offsets offsets;
 
 	explicit vertex(
 		pointer const data)
@@ -54,25 +61,31 @@ public:
 		T const &t)
 	{
 		typedef typename boost::mpl::find<
-			typename VertexFormat::elements,
+			elements,
 			Field
 		>::type element;
 		
-		typedef typename boost::mpl::advance<
+		BOOST_STATIC_ASSERT((
+			!boost::is_same<
+				boost::mpl::end<
+					elements
+				>,
+				element
+			>::value));
+
+		/*typedef typename boost::mpl::advance<
 			boost::mpl::begin<
-				typename VertexFormat::offsets
+				offsets
 			>,
 			boost::mpl::distance<
-				typename VertexFormat::elements,
+				elements,
 				element
 			>
-		>::type offset;
+		>::type offset;*/
 
 		/*copy_n(
-			reinterpret_cast<pointer>(
-				t)
-			+ offset::value,
-			stride<element>::value,
+			raw_data(t) + offset::value,
+			typename element_stride<element>::value,
 			data);*/
 	}
 

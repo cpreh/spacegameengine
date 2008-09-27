@@ -18,9 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/types.hpp>
+#ifndef SGE_OPENGL_VF_ACTOR_PTR_HPP_INCLUDED
+#define SGE_OPENGL_VF_ACTOR_PTR_HPP_INCLUDED
 
-unsigned sge::renderer::bit_depth_bit_count(const bit_depth::type d)
+#include <memory>
+
+namespace sge
 {
-	return static_cast<unsigned>(d);
+namespace ogl
+{
+namespace vf
+{
+
+typedef std::auto_ptr<actor> actor_ptr; 
+
 }
+}
+}
+
+#endif

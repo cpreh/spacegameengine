@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
 #include "../../partial_sums.hpp"
+#include "raw_pointer.hpp"
 #include "element_stride.hpp"
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/type_traits/add_const.hpp>
 
 namespace sge
 {
@@ -51,14 +51,11 @@ struct format {
 		>
 	>::type offsets;
 
-	typedef unsigned char raw_type;
-
 	typedef typename boost::mpl::if_c<
 		IsConst,
-		boost::add_const<raw_type>,
-		raw_type
-	>::type internal_type;
-	typedef internal_type *pointer;
+		const_raw_pointer,
+		raw_pointer
+	>::type pointer;
 };
 
 }

@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_ITERATOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_ITERATOR_HPP_INCLUDED
 
+#include "vertex_size.hpp"
+#include <boost/type_traits/make_signed.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
-#include <cstddef> // FIXME
 
 namespace sge
 {
@@ -35,6 +36,9 @@ namespace vf
 template<typename>
 class vertex;
 
+template<typename>
+class iterator;
+
 namespace detail
 {
 
@@ -45,8 +49,7 @@ struct iterator_base {
 		vertex<VertexFormat>,
 		std::random_access_iterator_tag,
 		vertex<VertexFormat>,
-		std::ptrdiff_t // FIXME
-		//vertex_difference
+		boost::make_signed<vertex_size>::type
 	> type;
 };
 

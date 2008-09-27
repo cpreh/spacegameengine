@@ -23,36 +23,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/transform.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <sge/iostream.hpp>
+#include <sge/log/headers.hpp>
 #include <ostream>
 
 sge::texture::part::~part()
 {}
 
-const sge::math::rect
+sge::math::rect const
 sge::texture::part::area_texc(
 	const space_unit repeat) const
 {
 	if(!math::compare(repeat, static_cast<space_unit>(1)) && !repeatable())
-		sge::cerr << SGE_TEXT("Warning: texture not repeatable but repetition is ") << repeat << SGE_TEXT("!\n");
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1 << SGE_TEXT("texture not repeatable but repetition is ")
+			        << repeat
+			        << SGE_TEXT('!'));
 
-	const renderer::const_texture_ptr tex = my_texture();
+	renderer::const_texture_ptr const tex = my_texture();
 	return tex
 		? renderer::tex_size_to_space_rect(
 			area(),
 			tex->dim(),
 			repeat)
 		: math::rect();
-}
-
-const sge::renderer::tex_pos
-sge::texture::part::translate(
-	const renderer::tex_pos &local_coords,
-	const space_unit repeat) const
-{
-	const sge::math::rect texc = area_texc(repeat);
-	return sge::renderer::tex_pos(
-		(1 - local_coords.x()) * texc.left() + local_coords.y() * texc.right(),
-		(1 - local_coords.x()) * texc.top() + local_coords.y() * texc.bottom()
-	);
 }

@@ -76,7 +76,12 @@ try
 	const sge::plugin::plugin<sge::input::system>::ptr_type input_plugin = pm.get_plugin<sge::input::system>().load();
 
 	const sge::renderer::system_ptr rs(renderer_plugin->get()());
-	const sge::renderer::parameters param(sge::renderer::display_mode(1280,1024,sge::renderer::bit_depth::depth32,100), true);
+	const sge::renderer::parameters param(
+		sge::renderer::display_mode(
+			sge::renderer::screen_size_t(1280, 1024),
+			sge::renderer::bit_depth::depth32,
+			100),
+		true);
 	const sge::renderer::device_ptr rend = rs->create_renderer(param);
 
 	const sge::input::system_ptr is(input_plugin->get()(rend->get_window()));

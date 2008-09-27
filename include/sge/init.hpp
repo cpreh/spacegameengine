@@ -45,8 +45,7 @@ struct fullscreen_renderer {
 
 	SGE_SYMBOL fullscreen_renderer(
 		systems &sys,
-		unsigned width,
-		unsigned height,
+		::sge::renderer::screen_size_t const &,
 		sge::renderer::bit_depth::type bdepth
 			= sge::renderer::bit_depth::depth32,
 		unsigned refresh_rate = 0,
@@ -55,8 +54,7 @@ struct fullscreen_renderer {
 
 	SGE_SYMBOL fullscreen_renderer(
 		systems &sys,
-		unsigned width,
-		unsigned height,
+		::sge::renderer::screen_size_t const &,
 		unsigned refresh_rate = 0,
 		sge::renderer::bit_depth::type bdepth
 			= sge::renderer::bit_depth::depth32,
@@ -66,11 +64,10 @@ struct fullscreen_renderer {
 	SGE_SYMBOL operator bool() const;
 private:
 	void init(
-		unsigned width,
-		unsigned height,
+		::sge::renderer::screen_size_t const &,
 		unsigned refresh_rate,
-		sge::renderer::bit_depth::type bdepth,
-		sge::renderer::multi_sample_type multi,
+		::sge::renderer::bit_depth::type bdepth,
+		::sge::renderer::multi_sample_type multi,
 		bool vsync);
 };
 

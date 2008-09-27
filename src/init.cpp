@@ -38,8 +38,7 @@ sge::init::renderer::renderer(systems &sys, ::sge::renderer::screen_size_t const
 	sys.renderer_parameters =
 		sge::renderer::parameters(
 			sge::renderer::display_mode(
-				s.w(),
-				s.h(),
+				s,
 				sge::renderer::bit_depth::depth32,
 				0
 			),
@@ -54,26 +53,24 @@ sge::init::renderer::operator bool() const {
 
 sge::init::fullscreen_renderer::fullscreen_renderer(
 	systems &sys,
-	const unsigned width,
-	const unsigned height,
+	::sge::renderer::screen_size_t const &size,
 	const sge::renderer::bit_depth::type bdepth,
 	const unsigned refresh_rate,
 	const sge::renderer::multi_sample_type multi,
 	const bool vsync)
 : sys(sys) {
-	init(width, height, refresh_rate, bdepth, multi, vsync);
+	init(size, refresh_rate, bdepth, multi, vsync);
 }
 
 sge::init::fullscreen_renderer::fullscreen_renderer(
 	systems &sys,
-	const unsigned width,
-	const unsigned height,
+	::sge::renderer::screen_size_t const &size,
 	const unsigned refresh_rate,
 	const sge::renderer::bit_depth::type bdepth,
 	const sge::renderer::multi_sample_type multi,
 	const bool vsync)
 : sys(sys) {
-	init(width, height, refresh_rate, bdepth, multi, vsync);
+	init(size, refresh_rate, bdepth, multi, vsync);
 }
 
 sge::init::fullscreen_renderer::operator bool() const {
@@ -81,8 +78,7 @@ sge::init::fullscreen_renderer::operator bool() const {
 }
 
 void sge::init::fullscreen_renderer::init(
-	const unsigned width,
-	const unsigned height,
+	::sge::renderer::screen_size_t const &size,
 	const unsigned refresh_rate,
 	const sge::renderer::bit_depth::type bdepth,
 	const sge::renderer::multi_sample_type multi,
@@ -95,8 +91,7 @@ void sge::init::fullscreen_renderer::init(
 	sys.renderer_parameters =
 		sge::renderer::parameters(
 			sge::renderer::display_mode(
-				width,
-				height,
+				size,
 				bdepth,
 				refresh_rate
 			),

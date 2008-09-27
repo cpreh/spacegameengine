@@ -18,41 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/display_mode.hpp>
-	
-sge::renderer::display_mode::display_mode(
-	screen_size_t const &size,
-	bit_depth::type const depth,
-	refresh_rate_type const refresh_rate)
- : size(size),
-   depth(depth),
-   refresh_rate(refresh_rate)
-{}
+#ifndef SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
+#define SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
 
-sge::renderer::screen_unit
-sge::renderer::display_mode::width() const
+#include "raw_pointer.hpp"
+
+namespace sge
 {
-	return size.w();
+namespace renderer
+{
+namespace vf
+{
+
+template<typename T>
+const_raw_pointer
+raw_data(
+	T const &t);
+
+}
+}
 }
 
-sge::renderer::screen_unit
-sge::renderer::display_mode::height() const
-{
-	return size.h();
-}
-
-bool sge::renderer::operator== (
-	display_mode const &l,
-	display_mode const &r)
-{
-	return l.depth == r.depth
-		&& l.size == r.size
-		&& l.refresh_rate == r.refresh_rate;
-}
-
-bool sge::renderer::operator!= (
-	display_mode const &l,
-	display_mode const &r)
-{
-	return !(l==r);
-}
+#endif

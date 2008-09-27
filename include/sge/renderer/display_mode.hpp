@@ -21,22 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
 
-#include <ostream>
-#include <vector>
 #include "../export.hpp"
+#include "bit_depth.hpp"
 #include "types.hpp"
+#include <ostream>
 
 namespace sge
 {
 namespace renderer
 {
 
+typedef unsigned refresh_rate_type;
+
 struct display_mode {
 	SGE_SYMBOL display_mode(
-		screen_unit width,
-		screen_unit height,
+		screen_size_t const &sz,
 		bit_depth::type depth,
-		unsigned refresh_rate = 0);
+		refresh_rate_type refresh_rate = 0);
 	
 	screen_size_t   size;
 	bit_depth::type depth;
@@ -50,13 +51,11 @@ struct display_mode {
 template<class Ch,class Traits>
 inline std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &s,const display_mode &mode)
 {
-	return s << s.widen('(') << mode.width() << s.widen('x') << mode.height() << s.widen('x') << bit_depth_bit_count(mode.depth) << s.widen('@') << mode.refresh_rate << s.widen(')');
+	return s << s.widen('(') << mode.width() << s.widen('x') << mode.height() << s.widen('x') << mode.depth << s.widen('@') << mode.refresh_rate << s.widen(')');
 }
 
 SGE_SYMBOL bool operator== (const display_mode& l, const display_mode& r);
 SGE_SYMBOL bool operator!= (const display_mode& l, const display_mode& r);
-
-typedef std::vector<display_mode> display_mode_array;
 
 }
 }

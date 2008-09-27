@@ -39,11 +39,7 @@ class part : boost::noncopyable {
 public:
 	SGE_SYMBOL virtual ~part();
 
-	SGE_SYMBOL const math::rect area_texc(
-		space_unit repeat = 1) const;
-
-	SGE_SYMBOL const renderer::tex_pos translate(
-		const renderer::tex_pos &local_coords,
+	SGE_SYMBOL math::rect const area_texc(
 		space_unit repeat = 1) const;
 
 	virtual void data(
