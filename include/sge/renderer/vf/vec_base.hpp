@@ -43,7 +43,7 @@ struct vec_base
 	Role
 > {
 	typedef Format subelement_type;
-	typedef math::basic_vector<Format, NumSubElements> packet_type;
+	typedef math::basic_vector<Format, NumSubElements> packed_type;
 	static vertex_size const num_subelements = NumSubElements;
 };
 

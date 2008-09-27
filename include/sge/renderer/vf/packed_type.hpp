@@ -30,7 +30,7 @@ namespace vf
 
 template<typename T>
 struct packed_type {
-	typedef typename T::packet_type packet_type;
+	typedef typename T::packed_type packed_type;
 };
 
 }

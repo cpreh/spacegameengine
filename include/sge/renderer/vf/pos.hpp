@@ -34,7 +34,7 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements = 3
+	vertex_size NumSubElements
 >
 struct pos
 : vec_base<

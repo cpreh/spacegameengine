@@ -38,11 +38,31 @@ try
 		2
 	> pos_type;
 
+	typedef sge::renderer::vf::pos<
+		sge::space_unit,
+		3
+	> pos3_type;
+
 	typedef sge::renderer::vf::format<
 		boost::mpl::vector<
-			pos_type
+			pos_type,
+			pos_type,
+			pos3_type
 		>
 	> format;
+
+	typedef boost::mpl::transform<
+		format::elements,
+		sge::renderer::vf::element_stride<
+			boost::mpl::_1
+		>
+	> strides;
+
+	boost::mpl::for_each<
+		strides>(
+		//format::offsets>(
+			print_vector());
+	sge::cerr << '\n';
 
 	sge::renderer::vf::dynamic_format const dyn_fmt(
 		sge::renderer::vf::make_dynamic_format<
@@ -65,10 +85,6 @@ try
 		sge::math::vector2(
 			sge::su(0),
 			sge::su(0)));*/
-
-	boost::mpl::for_each<
-		format::offsets>(
-			print_vector());
 }
 catch(sge::exception const &e)
 {
