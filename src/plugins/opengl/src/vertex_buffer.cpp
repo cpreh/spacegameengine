@@ -31,19 +31,19 @@ sge::ogl::vertex_buffer::vertex_buffer(
 	renderer::vf::dynamic_format const &format_,
 	size_type const sz,
 	resource_flag_type const flags)
-: detail::vertex_buffer_base(
-	sz,
-	format_.stride(),
-	flags,
-	0),
-  format_(format_),
-  ogl_format(format_)
+:
+	detail::vertex_buffer_base(
+		sz,
+		format_.stride(),
+		flags,
+		0),
+	format_(format_)
 {}
 
 void sge::ogl::vertex_buffer::set_format() const
 {
 	bind_me();
-	ogl_format.use_me();
+	format_.use_me();
 }
 
 sge::ogl::vertex_buffer::view_type const
@@ -67,5 +67,5 @@ sge::ogl::vertex_buffer::view() const
 sge::renderer::vf::dynamic_format const &
 sge::ogl::vertex_buffer::format() const
 {
-	return format_;
+	return format_.get();
 }

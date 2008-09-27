@@ -31,7 +31,7 @@ namespace vf
 {
 
 struct actor : boost::noncopyable {
-	virtual void set() = 0;
+	virtual void operator()() const = 0;
 	virtual ~actor();
 };
 

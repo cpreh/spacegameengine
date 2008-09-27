@@ -73,7 +73,7 @@ public:
 				element
 			>::value));
 
-		/*typedef typename boost::mpl::advance<
+		typedef typename boost::mpl::advance<
 			boost::mpl::begin<
 				offsets
 			>,
@@ -81,7 +81,7 @@ public:
 				elements,
 				element
 			>
-		>::type offset;*/
+		>::type offset;
 
 		/*copy_n(
 			raw_data(t) + offset::value,

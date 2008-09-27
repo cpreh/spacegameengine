@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../vbo_base.hpp"
 #include "../vertex_format.hpp"*/
+#include "../../common.hpp"
 #include "../format.hpp"
 #include "../to_actor.hpp"
 #include <boost/foreach.hpp>
@@ -56,14 +57,14 @@ void diffuse_actor(const vertex_actor_info& ai)
 	glEnableClientState(GL_COLOR_ARRAY);
 }*/
 
-sge::ogl::vf::format::vf::format(
+sge::ogl::vf::format::format(
 	renderer::vf::dynamic_format const &fmt)
 : fmt(fmt)
 {
 	renderer::vf::dynamic_ordered_element_list const &elems(
 		fmt.elements());
 	
-	BOOST_FOREACH(renderer::fv::dynamic_ordered_element const &e, elems)
+	BOOST_FOREACH(renderer::vf::dynamic_ordered_element const &e, elems)
 		actors.push_back(
 			to_actor(e));
 	/*vertex_size offset = 0;

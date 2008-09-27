@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_TO_ACTOR_HPP_INCLUDED
 
 #include "actor.hpp"
+#include "actor_ptr.hpp"
 
 namespace sge
 {
@@ -38,7 +39,7 @@ namespace ogl
 namespace vf
 {
 
-actor_auto_ptr to_actor(
+actor_ptr to_actor(
 	renderer::vf::dynamic_ordered_element const &);
 
 }

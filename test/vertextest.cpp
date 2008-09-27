@@ -3,13 +3,26 @@
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
+#include <sge/su.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/vertex.hpp>
 #include <boost/mpl/vector.hpp>
 #include <ostream>
 #include <exception>
 #include <cstdlib>
+
+struct print_vector {
+	template<typename T>
+	void operator()(
+		T &t) const
+	{
+		sge::cerr << t << ' ';
+	}
+};
 
 int main()
 try
@@ -22,7 +35,7 @@ try
 
 	typedef sge::renderer::vf::pos<
 		sge::space_unit,
-		1
+		2
 	> pos_type;
 
 	typedef sge::renderer::vf::format<
@@ -31,8 +44,31 @@ try
 		>
 	> format;
 
-	sge::renderer::vf::make_dynamic_format<
-		format>();
+	sge::renderer::vf::dynamic_format const dyn_fmt(
+		sge::renderer::vf::make_dynamic_format<
+			format>());
+	
+	unsigned char test[1000];
+	sge::renderer::vf::dynamic_view const dyn_view(
+		test,
+		1,
+		dyn_fmt);
+	
+	typedef sge::renderer::vf::view<
+		format
+	> view;
+
+	view v(dyn_view);
+	
+	/*
+	v.begin()->set<pos_type>(
+		sge::math::vector2(
+			sge::su(0),
+			sge::su(0)));*/
+
+	boost::mpl::for_each<
+		format::offsets>(
+			print_vector());
 }
 catch(sge::exception const &e)
 {

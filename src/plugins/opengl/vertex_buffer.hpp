@@ -69,8 +69,7 @@ private:
 	renderer::vf::dynamic_format const &
 	format() const;
 
-	renderer::vf::dynamic_format format_;
-	vf::format ogl_format;
+	vf::format const format_;
 };
 
 }
