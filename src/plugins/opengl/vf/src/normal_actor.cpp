@@ -18,38 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
+#include "../normal_actor.hpp"
+#include "../../error.hpp"
+#include <sge/renderer/vf/dynamic_ordered_element.hpp>
 
-#include "dynamic_any.hpp"
-#include "role.hpp"
-#include "../../export.hpp"
+sge::ogl::vf::normal_actor::normal_actor(
+	renderer::vf::dynamic_ordered_element const &e)
+:
+	pointer_actor(
+		e)
+{}
 
-namespace sge
+void sge::ogl::vf::normal_actor::operator()() const
 {
-namespace renderer
-{
-namespace vf
-{
+	SGE_OPENGL_SENTRY
 
-class dynamic_element {
-public:
-	SGE_SYMBOL dynamic_element(
-		dynamic_any const &,
-		role::type,
-		vertex_size stride);
+	glNormalPointer(
+		format(),
+		stride(),
+		pointer());
 	
-	SGE_SYMBOL dynamic_any const &info() const;
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL vertex_size stride() const;
-private:
-	dynamic_any info_;
-	role::type  role_;
-	vertex_size stride_;
-};
-
+	glEnableClientState(GL_NORMAL_ARRAY);
 }
-}
-}
-
-#endif

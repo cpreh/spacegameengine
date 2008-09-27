@@ -25,6 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace renderer
+{
+namespace vf
+{
+class dynamic_ordered_element;
+}
+}
+
 namespace ogl
 {
 namespace vf
@@ -33,11 +41,15 @@ namespace vf
 class pos_actor : public pointer_actor {
 public:
 	explicit pos_actor(
-		dynamic_ordered_element const &);
+		renderer::vf::dynamic_ordered_element const &);
 
-	void set();
+	void operator()() const;
 private:
-	GLint const size;
+	GLint const elements;
 };
+
+}
+}
+}
 
 #endif

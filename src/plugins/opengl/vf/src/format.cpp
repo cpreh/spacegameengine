@@ -18,44 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-/*#include "../error.hpp"
-#include "../vbo.hpp"
-#include "../vbo_base.hpp"
-#include "../vertex_format.hpp"*/
 #include "../../common.hpp"
 #include "../format.hpp"
 #include "../to_actor.hpp"
 #include <boost/foreach.hpp>
-/*#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <boost/bind.hpp>
-#include <boost/foreach.hpp>*/
 
 /*
-void normal_actor(const vertex_actor_info& ai)
-{
-	SGE_OPENGL_SENTRY
-
-	glNormalPointer(GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
-	glEnableClientState(GL_NORMAL_ARRAY);
-}
-
 void tex_actor(const vertex_actor_info& ai)
 {
 	SGE_OPENGL_SENTRY
 
-	glClientActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + ai.index));
-	glTexCoordPointer(2, GL_FLOAT, static_cast<GLsizei>(ai.stride), ai.offset);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void diffuse_actor(const vertex_actor_info& ai)
-{
-	SGE_OPENGL_SENTRY
-
-  	glColorPointer(4, GL_UNSIGNED_BYTE, static_cast<GLsizei>(ai.stride), ai.offset);
-	glEnableClientState(GL_COLOR_ARRAY);
-}*/
+*/
 
 sge::ogl::vf::format::format(
 	renderer::vf::dynamic_format const &fmt)

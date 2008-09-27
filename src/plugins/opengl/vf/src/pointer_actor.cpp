@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pointer_actor.hpp"
 #include "../convert_format.hpp"
 #include "../../vbo.hpp"
+#include "../../vbo_base.hpp"
+#include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
 sge::ogl::vf::pointer_actor::pointer_actor(
@@ -29,12 +31,28 @@ sge::ogl::vf::pointer_actor::pointer_actor(
 	format_(
 		boost::apply_visitor(
 			convert_format(),
-			e.element())),
+			e.element().info())),
 	stride_(
-		e.element().stride()),
+		static_cast<GLsizei>(
+			e.element().stride())),
 	pointer_(
 		vb_ib_vbo_impl().buffer_offset(
 			vertex_buffer_type(),
 			static_cast<GLsizei>(
 				e.offset())))
 {}
+
+GLenum sge::ogl::vf::pointer_actor::format() const
+{
+	return format_;
+}
+
+GLsizei sge::ogl::vf::pointer_actor::stride() const
+{
+	return stride_;
+}
+
+GLvoid const *sge::ogl::vf::pointer_actor::pointer() const
+{
+	return pointer_;
+}

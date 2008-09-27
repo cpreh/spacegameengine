@@ -34,7 +34,6 @@ class dynamic_vector;
 class dynamic_color;
 }
 }
-}
 
 namespace ogl
 {

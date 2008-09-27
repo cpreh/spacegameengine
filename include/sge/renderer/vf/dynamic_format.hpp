@@ -45,6 +45,7 @@ public:
 	SGE_SYMBOL vertex_size stride() const;
 private:
 	dynamic_ordered_element_list elements_;
+	vertex_size                  stride_;
 };
 
 }

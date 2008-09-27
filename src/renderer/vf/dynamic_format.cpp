@@ -26,7 +26,7 @@ sge::renderer::vf::dynamic_format::dynamic_format(
 	dynamic_element_list const &elem,
 	dynamic_offset_list const &offs)
 {
-	if(elem.size() != offs.size())
+	if(elem.size() != offs.size() + 1)
 		throw exception(
 			SGE_TEXT("dynamic_format: Invalid sizes of vectors!"));
 	if(elem.empty() || offs.empty())
@@ -37,10 +37,17 @@ sge::renderer::vf::dynamic_format::dynamic_format(
 			dynamic_ordered_element(
 				elem[i],
 				offs[i]));
+	stride_ = offs.back();
 }
 
 sge::renderer::vf::dynamic_ordered_element_list const &
 sge::renderer::vf::dynamic_format::elements() const
 {
 	return elements_;
+}
+
+sge::renderer::vf::vertex_size
+sge::renderer::vf::dynamic_format::stride() const
+{
+	return stride_;
 }

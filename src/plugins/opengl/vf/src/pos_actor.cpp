@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../pos_actor.hpp"
+#include "../../error.hpp"
+#include <sge/renderer/vf/dynamic_ordered_element.hpp>
 
 sge::ogl::vf::pos_actor::pos_actor(
 	renderer::vf::dynamic_ordered_element const &e)
@@ -26,12 +28,13 @@ sge::ogl::vf::pos_actor::pos_actor(
 	pointer_actor(
 		e),
 	elements(
-		boost::get<renderer::vf::dynamic_vector>(
-			e.element().info())
-		.elements())
+		static_cast<GLint>(
+			boost::get<renderer::vf::dynamic_vector>(
+				e.element().info())
+			.elements()))
 {}
 
-void sge::ogl::vf::pos_actor::set()
+void sge::ogl::vf::pos_actor::operator()() const
 {
 	SGE_OPENGL_SENTRY
 
@@ -39,7 +42,7 @@ void sge::ogl::vf::pos_actor::set()
 		elements,
 		format(),
 		stride(),
-		offset());
+		pointer());
 	
 	glEnableClientState(GL_VERTEX_ARRAY);
 }

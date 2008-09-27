@@ -33,7 +33,7 @@ namespace element_type
 enum type {
 	float_,
 	double_,
-	uint8
+	byte
 };
 }
 

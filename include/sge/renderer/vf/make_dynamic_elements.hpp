@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "format_to_element.hpp"
 #include "color_base.hpp"
 #include "vec_base.hpp"
+#include "element_stride.hpp"
 #include "../color_format_static.hpp"
 
 namespace sge
@@ -63,9 +64,15 @@ struct make_dynamic_elements {
 					>::value,
 					NumSubElements
 				),
-				Role
+				Role,
+				element_stride<
+					vec_base<
+						Format,
+						Role,
+						NumSubElements
+					>
+				>::value
 			));
-				
 	}
 
 	template<
@@ -83,7 +90,13 @@ struct make_dynamic_elements {
 				dynamic_color(
 					color_format_static<Format>::value
 				),
-				Role
+				Role,
+				element_stride<
+					color_base<
+						Format,
+						Role
+					>
+				>::value
 			));
 	}
 private:

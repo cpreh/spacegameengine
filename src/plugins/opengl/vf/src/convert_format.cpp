@@ -18,34 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../to_actor.hpp"
-#include "../pos_actor.hpp"
-#include "../normal_actor.hpp"
-#include "../color_actor.hpp"
-#include "../texpos_actor.hpp"
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include "../convert_format.hpp"
+#include <sge/renderer/vf/dynamic_vector.hpp>
+#include <sge/renderer/vf/dynamic_color.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::vf::actor_ptr 
-sge::ogl::vf::to_actor(
-	renderer::vf::dynamic_ordered_element const &e)
+GLenum sge::ogl::vf::convert_format::operator()(
+	renderer::vf::dynamic_vector const &v) const
 {
-	switch(e.element().get_role()) {
-	case renderer::vf::role::pos:
-		return actor_ptr(
-			new pos_actor(e));
-	case renderer::vf::role::normal:
-		return actor_ptr(
-			new normal_actor(e));
-	case renderer::vf::role::color:
-		return actor_ptr(
-			new color_actor(e));
-	case renderer::vf::role::texpos:
-		return actor_ptr(
-			new texpos_actor(e));
+	switch(v.get_element_type()) {
+	case renderer::vf::element_type::float_:
+		return GL_FLOAT;
+	case renderer::vf::element_type::double_:
+		return GL_DOUBLE;
+	case renderer::vf::element_type::byte:
+		return GL_UNSIGNED_BYTE;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid role in ogl vertex format!"));
+			SGE_TEXT("Invalid format in ogl::vf::convert_format!"));
+	}
+}
+
+GLenum sge::ogl::vf::convert_format::operator()(
+	renderer::vf::dynamic_color const &c) const
+{
+	switch(c.get_color_format()) {
+	case renderer::color_format::rgba8:
+	case renderer::color_format::bgra8:
+	case renderer::color_format::argb8:
+		return GL_UNSIGNED_BYTE;
+	case renderer::color_format::rgbaf32:
+		return GL_FLOAT;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid color_format in ogl::vf::convert_format!"));
 	}
 }

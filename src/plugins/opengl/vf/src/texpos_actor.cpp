@@ -18,38 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
+#include "../texpos_actor.hpp"
+#include "../../error.hpp"
+#include <sge/renderer/vf/dynamic_ordered_element.hpp>
 
-#include "dynamic_any.hpp"
-#include "role.hpp"
-#include "../../export.hpp"
+sge::ogl::vf::texpos_actor::texpos_actor(
+	renderer::vf::dynamic_ordered_element const &e)
+:
+	pointer_actor(
+		e),
+	elements(
+		static_cast<GLint>(
+			boost::get<renderer::vf::dynamic_vector>(
+				e.element().info())
+			.elements()))
+{}
 
-namespace sge
+void sge::ogl::vf::texpos_actor::operator()() const
 {
-namespace renderer
-{
-namespace vf
-{
+	SGE_OPENGL_SENTRY
 
-class dynamic_element {
-public:
-	SGE_SYMBOL dynamic_element(
-		dynamic_any const &,
-		role::type,
-		vertex_size stride);
-	
-	SGE_SYMBOL dynamic_any const &info() const;
-	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL vertex_size stride() const;
-private:
-	dynamic_any info_;
-	role::type  role_;
-	vertex_size stride_;
-};
+	// FIXME
+	//glClientActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + ai.index));
 
-}
-}
-}
+	glTexCoordPointer(
+		elements,
+		format(),
+		stride(),
+		pointer());
 
-#endif
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+}
