@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/states.hpp>
 #include <sge/algorithm.hpp>
+#include <iterator>
 
 sge::sprite::system::system(
 	renderer::device_ptr const rend)
@@ -41,9 +42,12 @@ void sge::sprite::system::render(
 	container::iterator const end,
 	sort_method const &sort_fun)
 {
+	if(begin == end)
+		return;
+	object *const beg(&*begin);
 	render(
-		&*begin,
-		&*end,
+		beg,
+		beg + std::distance(begin, end),
 		sort_fun);
 }
 
