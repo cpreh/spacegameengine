@@ -51,7 +51,6 @@ sge::ogl::create_texture_lock(
 		return texture_lock_auto_ptr(
 			new writeonly_texture_lock(
 				lock_size,
-				offset,
 				stride,
 				flags));
 	case lock_method::readwrite:
