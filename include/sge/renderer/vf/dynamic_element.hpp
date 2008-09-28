@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "dynamic_any.hpp"
 #include "role.hpp"
+#include "vertex_size.hpp"
 #include "../../export.hpp"
 
 namespace sge
@@ -36,13 +37,16 @@ class dynamic_element {
 public:
 	SGE_SYMBOL dynamic_element(
 		dynamic_any const &,
-		role::type);
+		role::type,
+		vertex_size index);
 	
 	SGE_SYMBOL dynamic_any const &info() const;
 	SGE_SYMBOL role::type get_role() const;
+	SGE_SYMBOL vertex_size index() const;
 private:
 	dynamic_any info_;
 	role::type  role_;
+	vertex_size index_;
 };
 
 }

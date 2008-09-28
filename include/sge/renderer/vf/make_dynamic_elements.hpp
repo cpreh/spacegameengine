@@ -27,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "format_to_element.hpp"
 #include "color_base.hpp"
 #include "vec_base.hpp"
+#include "vertex_size.hpp"
 #include "../color_format_static.hpp"
+#include <map>
 
 namespace sge
 {
@@ -63,7 +65,8 @@ struct make_dynamic_elements {
 					>::value,
 					NumSubElements
 				),
-				Role
+				Role,
+				category_count[Role]++
 			));
 	}
 
@@ -82,11 +85,19 @@ struct make_dynamic_elements {
 				dynamic_color(
 					color_format_static<Format>::value
 				),
-				Role
+				Role,
+				category_count[Role]++
 			));
 	}
 private:
 	dynamic_element_list &elems;
+	
+	typedef std::map<
+		role::type,
+		vertex_size
+	> category_count_map;
+
+	mutable category_count_map category_count;
 };
 
 }
