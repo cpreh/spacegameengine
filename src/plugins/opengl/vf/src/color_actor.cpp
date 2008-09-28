@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_actor.hpp"
 #include "../../error.hpp"
 //#include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::ogl::vf::color_actor::color_actor(
 	renderer::vf::dynamic_ordered_element const &e,
@@ -30,7 +32,12 @@ sge::ogl::vf::color_actor::color_actor(
 		e,
 		stride),
 	elements(4) // TODO: maybe allow colors without alpha?
-{}
+{
+	if(index() > 0)
+		throw exception(
+			SGE_TEXT("opengl does not support more than one color type in the vertex format!")
+			SGE_TEXT(" glSecondaryColor is currently not supported."));
+}
 
 void sge::ogl::vf::color_actor::operator()() const
 {

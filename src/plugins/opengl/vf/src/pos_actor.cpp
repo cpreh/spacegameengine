@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pos_actor.hpp"
 #include "../../error.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::ogl::vf::pos_actor::pos_actor(
 	renderer::vf::dynamic_ordered_element const &e,
@@ -34,7 +36,11 @@ sge::ogl::vf::pos_actor::pos_actor(
 			boost::get<renderer::vf::dynamic_vector>(
 				e.element().info())
 			.elements()))
-{}
+{
+	if(index() > 0)
+		throw exception(
+			SGE_TEXT("opengl does not support more than one pos type in the vertex format!"));
+}
 
 void sge::ogl::vf::pos_actor::operator()() const
 {

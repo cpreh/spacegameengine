@@ -49,10 +49,12 @@ protected:
 	GLenum format() const;
 	GLsizei stride() const;
 	GLvoid const *pointer() const;
+	renderer::vf::vertex_size index() const;
 private:
 	GLenum const format_;
 	GLsizei const stride_;
 	GLvoid const *const pointer_;
+	renderer::vf::vertex_size const index_;
 };
 
 }

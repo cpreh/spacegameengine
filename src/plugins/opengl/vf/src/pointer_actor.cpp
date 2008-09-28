@@ -40,7 +40,9 @@ sge::ogl::vf::pointer_actor::pointer_actor(
 		vb_ib_vbo_impl().buffer_offset(
 			vertex_buffer_type(),
 			static_cast<GLsizei>(
-				e.offset())))
+				e.offset()))),
+	index_(
+		e.element().index())
 {}
 
 GLenum sge::ogl::vf::pointer_actor::format() const
@@ -56,4 +58,10 @@ GLsizei sge::ogl::vf::pointer_actor::stride() const
 GLvoid const *sge::ogl::vf::pointer_actor::pointer() const
 {
 	return pointer_;
+}
+
+sge::renderer::vf::vertex_size
+sge::ogl::vf::pointer_actor::index() const
+{
+	return index_;
 }
