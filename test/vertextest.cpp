@@ -76,6 +76,9 @@ try
 		vertex_view::iterator vb_it = vertices.begin();
 		
 		(*vb_it).set<pos3_type, 0>(sge::math::vector3(-1, 1, 0));
+
+		sge::cout << vb_it->get<pos3_type>() << '\n';
+
 		(*vb_it++).set<color_type>(sge::renderer::rgba8_color(255, 255, 255, 255));
 		(*vb_it).set<pos3_type>(sge::math::vector3(-1, -1, 0));
 		(*vb_it++).set<color_type>(sge::renderer::rgba8_color(255, 255, 0, 255));

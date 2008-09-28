@@ -24,18 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../algorithm/copy_n.hpp"
 #include "../../mpl/find_nth.hpp"
 #include "raw_data.hpp"
+#include "calc_offset.hpp"
 #include "element_stride.hpp"
 #include "vertex_size.hpp"
 #include <boost/mpl/find.hpp>
-#include <boost/mpl/distance.hpp>
-#include <boost/mpl/advance.hpp>
-#include <boost/mpl/begin.hpp>
-#include <boost/mpl/end.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/deref.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -91,6 +85,39 @@ public:
 
 		set_internal<element>(t);
 	}
+
+	template<
+		typename Field
+	>
+	typename Field::packed_type
+	get() const
+	{
+		typedef typename boost::mpl::find<
+			elements,
+			Field
+		>::type element;
+
+		return get_internal<element>();
+	}
+
+	template<
+		typename Field,
+		vertex_size Index
+	>
+	typename Field::packed_type
+	get() const
+	{
+		typedef typename mpl::find_nth<
+			elements,
+			Field,
+			boost::mpl::integral_c<
+				vertex_size,
+				Index
+			>
+		>::type element;
+		
+		return get_internal<element>();
+	}
 private:
 	template<
 		typename Iter,
@@ -99,24 +126,10 @@ private:
 	void set_internal(
 		T const &t)
 	{
-		BOOST_STATIC_ASSERT((
-			!boost::is_same<
-				typename boost::mpl::end<
-					elements
-				>::type,
-				Iter
-			>::value));
-
-		typedef typename boost::mpl::advance<
-			typename boost::mpl::begin<
-				offsets
-			>::type,
-			boost::mpl::distance<
-				typename boost::mpl::begin<
-					elements
-				>::type,
-				Iter
-			>
+		typedef typename calc_offset<
+			elements,
+			offsets,
+			Iter
 		>::type offset;
 
 		copy_n(
@@ -128,36 +141,37 @@ private:
 			>::type::value,
 			data + boost::mpl::deref<offset>::type::value);
 	}
-	/*
-	template<
-		typename Field
-	>
-	typename Field::packed_type const get() const
-	{
-		typedef typename boost::mpl::find<
-			typename VertexFormat::elements,
-			Field
-		>::type element;
+
 	
-		typedef typename boost::mpl::advance<
-			boost::mpl::begin<
-				typename VertexFormat::offsets
-			>,
-			boost::mpl::distance<
-				typename VertexFormat::elements
-				element
-			>
+	template<
+		typename Iter
+	>
+	typename boost::mpl::deref<Iter>::type::packed_type const
+	get_internal() const
+	{
+		typedef typename calc_offset<
+			elements,
+			offsets,
+			Iter
 		>::type offset;
 	
-		T ret;
+		typedef typename boost::mpl::deref<Iter>::type element;
+
+		typedef typename element::packed_type packed_type;
+
+		packed_type ret;
+
 		copy_n(
-			data + offset::value,
-			reinterpret_cast<pointer>(
-				ret),
-			stride<element>::value);
+			data + boost::mpl::deref<offset>::type::value,
+			element_stride<
+				element
+			>::type::value,
+			const_cast<raw_pointer>(raw_data(ret)));
+
 		return ret;
-	}*/
-	pointer const data;	
+	}
+	
+	pointer const data;
 };
 
 }
