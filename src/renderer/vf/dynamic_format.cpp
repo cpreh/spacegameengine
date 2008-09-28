@@ -26,7 +26,7 @@ sge::renderer::vf::dynamic_format::dynamic_format(
 	dynamic_element_list const &elem,
 	dynamic_offset_list const &offs)
 {
-	if(elem.size() != offs.size() + 1)
+	if(elem.size() + 1 != offs.size())
 		throw exception(
 			SGE_TEXT("dynamic_format: Invalid sizes of vectors!"));
 	if(elem.empty() || offs.empty())

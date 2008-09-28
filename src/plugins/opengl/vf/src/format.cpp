@@ -23,15 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../to_actor.hpp"
 #include <boost/foreach.hpp>
 
-/*
-void tex_actor(const vertex_actor_info& ai)
-{
-	SGE_OPENGL_SENTRY
-
-}
-
-*/
-
 sge::ogl::vf::format::format(
 	renderer::vf::dynamic_format const &fmt)
 : fmt(fmt)
@@ -42,35 +33,6 @@ sge::ogl::vf::format::format(
 	BOOST_FOREACH(renderer::vf::dynamic_ordered_element const &e, elems)
 		actors.push_back(
 			to_actor(e));
-	/*vertex_size offset = 0;
-	const renderer::vertex_format::usage_list& l = f.elements();
-
-	BOOST_FOREACH(renderer::vertex_format::usage_list::const_reference i, l)
-	{
-		for(vertex_size count = 0; count < i.count(); ++count)
-		{
-			const vertex_actor_info ai(offset + count * i.size(), f.stride(), count);
-			switch(i.usage()) {
-			case renderer::vertex_usage::pos:
-				actors.push_back(boost::bind(pos_actor, ai));
-				break;
-			case renderer::vertex_usage::tex:
-				actors.push_back(boost::bind(tex_actor, ai));
-				break;
-			case renderer::vertex_usage::normal:
-				actors.push_back(boost::bind(normal_actor, ai));
-				break;
-			case renderer::vertex_usage::diffuse:
-				actors.push_back(boost::bind(diffuse_actor, ai));
-				break;
-			default:
-				throw exception(SGE_TEXT("Invalid vertex_usage!"));
-			}
-		}
-
-		oi[i.usage()] = offset;
-		offset += i.stride();
-	}*/
 }
 
 sge::renderer::vf::dynamic_format const &

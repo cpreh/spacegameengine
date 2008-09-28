@@ -23,12 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/compare.hpp>
 #include <sge/sprite/helper.hpp>
+#include <sge/sprite/vertex_format.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/states.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/vertex.hpp>
 #include <sge/algorithm.hpp>
 #include <iterator>
 
@@ -56,7 +60,7 @@ void sge::sprite::system::render(
 	object *const end,
 	sort_method const &sort_fun)
 {
-	/*sort_fun(beg, end, less);
+	sort_fun(beg, end, less);
 	
 	allocate_buffers(std::distance(beg,end));
 
@@ -71,11 +75,16 @@ void sge::sprite::system::render(
 				get_vertex_buffer(),
 				renderer::lock_flags::writeonly));
 
-		index_view const indices(boost::get<index_view>(iblock.value())); // FIXME
-		renderer::vf::dynamic_view const vertices(vblock.value());
+		typedef renderer::vf::view<
+			vertex_format
+		> vertex_view;
+
+		index_view const indices(boost::get<index_view>(iblock.value()));
+		vertex_view const vertices(vblock.value());
 
 		index_view::iterator ib_it = indices.begin();
-		renderer::vertex_view::iterator vb_it = vertices.begin();
+
+		vertex_view::iterator vb_it = vertices.begin();
 
 		for(object const *cur = beg; cur != end; ++cur)
 		{
@@ -141,7 +150,7 @@ void sge::sprite::system::render(
 		cur = next;
 	}
 
-	rend->set_texture(renderer::device::no_texture);*/
+	rend->set_texture(renderer::device::no_texture);
 
 }
 

@@ -56,13 +56,11 @@ try
 		sge::renderer::vf::element_stride<
 			boost::mpl::_1
 		>
-	> strides;
+	>::type strides;
 
-	boost::mpl::for_each<
-		strides>(
-		//format::offsets>(
-			print_vector());
-	sge::cerr << '\n';
+	typedef sge::partial_sums<
+		strides
+	>::type offsets;
 
 	sge::renderer::vf::dynamic_format const dyn_fmt(
 		sge::renderer::vf::make_dynamic_format<
@@ -78,13 +76,31 @@ try
 		format
 	> view;
 
-	view v(dyn_view);
+	/*view v(dyn_view);
 	
-	/*
+	
 	v.begin()->set<pos_type>(
 		sge::math::vector2(
 			sge::su(0),
 			sge::su(0)));*/
+	//typedef view::iterator::value_type vertex_type;
+
+	typedef sge::renderer::vf::vertex<
+		format
+	> vertex_type;
+
+	boost::mpl::for_each<
+		//offsets>(
+		vertex_type::offsets>(
+			print_vector());
+	sge::cerr << '\n';
+
+
+	vertex_type vert(test);
+	vert.set<pos_type>(
+		sge::math::vector2(
+			sge::su(0),
+			sge::su(0)));
 }
 catch(sge::exception const &e)
 {

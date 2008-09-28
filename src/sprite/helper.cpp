@@ -35,11 +35,11 @@ sge::sprite::fill_position(
 {
 	math::rect const r = math::structure_cast<space_unit>(rs);
 
-/*	(*it++).set<vertex_pos>(pos3(r.left(), r.top(), z));
+	(*it++).set<vertex_pos>(pos3(r.left(), r.top(), z));
 	(*it++).set<vertex_pos>(pos3(r.right(), r.top(), z));
 	(*it++).set<vertex_pos>(pos3(r.right(), r.bottom(), z));
 	(*it++).set<vertex_pos>(pos3(r.left(), r.bottom(), z));
-*/
+
 	return it;
 }
 
@@ -48,11 +48,11 @@ sge::sprite::fill_tex_coordinates(
 	vertex_iterator it,
 	tex_rect const &rt)
 {
-/*	(*it++).set<vertex_texpos>(tex_pos(rt.left(), rt.top()));
+	(*it++).set<vertex_texpos>(tex_pos(rt.left(), rt.top()));
 	(*it++).set<vertex_texpos>(tex_pos(rt.right(), rt.top()));
 	(*it++).set<vertex_texpos>(tex_pos(rt.right(), rt.bottom()));
 	(*it++).set<vertex_texpos>(tex_pos(rt.left(), rt.bottom()));
-	*/
+	
 	return it;
 }
 
@@ -101,8 +101,8 @@ sge::sprite::fill_position_rotated(
 		cosx, -sinx,
 		sinx,  cosx); 
 
-//	BOOST_FOREACH(position_array::const_reference p, positions)
-//		(*it++).set<vertex_pos>(pos3((mat_rot * p) + centerf, z));
+	BOOST_FOREACH(position_array::const_reference p, positions)
+		(*it++).set<vertex_pos>(pos3((mat_rot * p) + centerf, z));
 
 	return it;
 }
@@ -116,8 +116,8 @@ sge::sprite::fill_color(
 		renderer::color_convert<renderer::rgba8_color>(
 			acol));
 	
-//	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)
-//		(*it++).set<vertex_color>(col);
+	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)
+		(*it++).set<vertex_color>(col);
 	return it;
 }
 

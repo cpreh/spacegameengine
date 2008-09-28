@@ -39,7 +39,7 @@ void sge::ogl::vf::texpos_actor::operator()() const
 	SGE_OPENGL_SENTRY
 
 	// FIXME
-	//glClientActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + ai.index));
+	glClientActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + 0));
 
 	glTexCoordPointer(
 		elements,

@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -74,19 +74,23 @@ public:
 			>::value));
 
 		typedef typename boost::mpl::advance<
-			boost::mpl::begin<
+			typename boost::mpl::begin<
 				offsets
-			>,
+			>::type,
 			boost::mpl::distance<
-				elements,
+				typename boost::mpl::begin<
+					elements
+				>::type,
 				element
 			>
 		>::type offset;
 
-		/*copy_n(
-			raw_data(t) + offset::value,
-			typename element_stride<element>::value,
-			data);*/
+		copy_n(
+			raw_data(t) + offset::type::value,
+			element_stride<
+				typename element::type
+			>::type::value,
+			data);
 	}
 
 	/*

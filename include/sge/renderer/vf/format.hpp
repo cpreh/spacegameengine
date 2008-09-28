@@ -42,13 +42,15 @@ template<
 struct format {
 	typedef ElementList elements;
 
-	typedef typename partial_sums<
-		boost::mpl::transform<
-			elements,
-			element_stride<
-				boost::mpl::_1
-			>
+	typedef typename boost::mpl::transform<
+		elements,
+		element_stride<
+			boost::mpl::_1
 		>
+	>::type strides;
+
+	typedef typename partial_sums<
+		strides
 	>::type offsets;
 
 	typedef typename boost::mpl::if_c<

@@ -309,6 +309,12 @@ void sge::ogl::device::end_rendering()
 sge::renderer::caps const
 sge::ogl::device::get_caps() const
 {
+	return renderer::caps(
+		0,
+		"fixme",
+		"fixme",
+		1024,
+		0); // FIXME
 }
 
 sge::window_ptr const

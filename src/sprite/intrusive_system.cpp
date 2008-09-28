@@ -94,7 +94,7 @@ void sge::sprite::intrusive_system::render(
 
 		vertex_view::iterator vb_it = vertices.begin();
 
-	/*	BOOST_FOREACH(intrusive_object const &spr, sprites)
+		BOOST_FOREACH(intrusive_object const &spr, sprites)
 		{
 			if(!spr.visible())
 				continue;
@@ -110,7 +110,7 @@ void sge::sprite::intrusive_system::render(
 				fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
 
 			vb_it = fill_color(vb_it, spr.get_color());
-		}*/
+		}
 	}
 
 	renderer::device_ptr const rend(
