@@ -18,49 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
+#ifndef SGE_MPL_FIND_NTH_HPP_INCLUDED
+#define SGE_MPL_FIND_NTH_HPP_INCLUDED
 
-#include "../../mpl/partial_sums.hpp"
-#include "raw_pointer.hpp"
-#include "element_stride.hpp"
-#include <boost/mpl/transform.hpp>
+#include <boost/mpl/advance.hpp>
+#include <boost/mpl/begin.hpp>
+#include <boost/mpl/iter_fold.hpp>
+#include <boost/mpl/push_back.hpp>
+#include <boost/mpl/deref.hpp>
+#include <boost/mpl/vector.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
+namespace mpl
 {
 
 template<
-	typename ElementList,
-	bool IsConst = false // FIXME!
+	typename Elements,
+	typename Element,
+	typename Number
 >
-struct format {
-	typedef ElementList elements;
+struct find_nth
+:
+boost::mpl::deref<
+	typename boost::mpl::advance<
+		typename boost::mpl::begin<
+			typename boost::mpl::iter_fold<
+				Elements,
+				boost::mpl::vector<>,
+				boost::mpl::if_<
+					boost::is_same<
+						Element,
+						boost::mpl::deref<
+							boost::mpl::_2
+						>
+					>,
+					boost::mpl::push_back<
+						boost::mpl::_1,
+						boost::mpl::_2
+					>,
+					boost::mpl::_1
+				>
+			>::type
+		>::type,
+		Number
+	>::type
+> {};
 
-	typedef typename boost::mpl::transform<
-		elements,
-		element_stride<
-			boost::mpl::_1
-		>
-	>::type strides;
-
-	typedef typename mpl::partial_sums<
-		strides
-	>::type offsets;
-
-	typedef typename boost::mpl::if_c<
-		IsConst,
-		const_raw_pointer,
-		raw_pointer
-	>::type pointer;
-};
-
-}
 }
 }
 

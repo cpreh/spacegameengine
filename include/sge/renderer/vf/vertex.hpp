@@ -22,13 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 
 #include "../../algorithm/copy_n.hpp"
+#include "../../mpl/find_nth.hpp"
 #include "raw_data.hpp"
 #include "element_stride.hpp"
+#include "vertex_size.hpp"
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/distance.hpp>
 #include <boost/mpl/advance.hpp>
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/end.hpp>
+#include <boost/mpl/integral_c.hpp>
+#include <boost/mpl/deref.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
@@ -64,13 +68,43 @@ public:
 			elements,
 			Field
 		>::type element;
-		
+	
+		set_internal<element>(t);
+	}
+
+	template<
+		typename Field,
+		vertex_size Index,
+		typename T
+	>
+	void set(
+		T const &t)
+	{
+		typedef typename mpl::find_nth<
+			elements,
+			Field,
+			boost::mpl::integral_c<
+				vertex_size,
+				Index
+			>
+		>::type element;
+
+		set_internal<element>(t);
+	}
+private:
+	template<
+		typename Iter,
+		typename T
+	>
+	void set_internal(
+		T const &t)
+	{
 		BOOST_STATIC_ASSERT((
 			!boost::is_same<
-				boost::mpl::end<
+				typename boost::mpl::end<
 					elements
-				>,
-				element
+				>::type,
+				Iter
 			>::value));
 
 		typedef typename boost::mpl::advance<
@@ -81,18 +115,19 @@ public:
 				typename boost::mpl::begin<
 					elements
 				>::type,
-				element
+				Iter
 			>
 		>::type offset;
 
 		copy_n(
 			raw_data(t),
 			element_stride<
-				typename element::type
+				typename boost::mpl::deref<
+					Iter
+				>::type
 			>::type::value,
-			data + offset::type::value);
+			data + boost::mpl::deref<offset>::type::value);
 	}
-
 	/*
 	template<
 		typename Field
@@ -122,7 +157,6 @@ public:
 			stride<element>::value);
 		return ret;
 	}*/
-private:
 	pointer const data;	
 };
 
