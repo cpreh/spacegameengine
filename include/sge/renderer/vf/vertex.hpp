@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/deref.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -132,12 +134,20 @@ private:
 			Iter
 		>::type offset;
 
+		typedef typename boost::mpl::deref<
+			Iter
+		>::type element;
+
+		BOOST_STATIC_ASSERT((
+			boost::is_same<
+				typename element::packed_type,
+				T
+			>::value));
+
 		copy_n(
 			raw_data(t),
 			element_stride<
-				typename boost::mpl::deref<
-					Iter
-				>::type
+				element
 			>::type::value,
 			data + boost::mpl::deref<offset>::type::value);
 	}
