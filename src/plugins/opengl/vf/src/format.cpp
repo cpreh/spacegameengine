@@ -32,7 +32,7 @@ sge::ogl::vf::format::format(
 	
 	BOOST_FOREACH(renderer::vf::dynamic_ordered_element const &e, elems)
 		actors.push_back(
-			to_actor(e));
+			to_actor(e, fmt.stride()));
 }
 
 sge::renderer::vf::dynamic_format const &

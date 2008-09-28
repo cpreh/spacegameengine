@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "actor.hpp"
 #include "../common.hpp"
+#include <sge/renderer/vf/vertex_size.hpp>
 
 namespace sge
 {
@@ -41,8 +42,9 @@ namespace vf
 
 class pointer_actor : public actor {
 protected:
-	explicit pointer_actor(
-		renderer::vf::dynamic_ordered_element const &);
+	pointer_actor(
+		renderer::vf::dynamic_ordered_element const &,
+		renderer::vf::vertex_size stride);
 	
 	GLenum format() const;
 	GLsizei stride() const;

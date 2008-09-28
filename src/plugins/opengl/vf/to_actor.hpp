@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "actor.hpp"
 #include "actor_ptr.hpp"
+#include <sge/renderer/vf/vertex_size.hpp>
 
 namespace sge
 {
@@ -40,7 +41,8 @@ namespace vf
 {
 
 actor_ptr to_actor(
-	renderer::vf::dynamic_ordered_element const &);
+	renderer::vf::dynamic_ordered_element const &,
+	renderer::vf::vertex_size stride);
 
 }
 }

@@ -29,21 +29,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::ogl::vf::actor_ptr 
 sge::ogl::vf::to_actor(
-	renderer::vf::dynamic_ordered_element const &e)
+	renderer::vf::dynamic_ordered_element const &e,
+	renderer::vf::vertex_size const stride)
 {
 	switch(e.element().get_role()) {
 	case renderer::vf::role::pos:
 		return actor_ptr(
-			new pos_actor(e));
+			new pos_actor(e, stride));
 	case renderer::vf::role::normal:
 		return actor_ptr(
-			new normal_actor(e));
+			new normal_actor(e, stride));
 	case renderer::vf::role::color:
 		return actor_ptr(
-			new color_actor(e));
+			new color_actor(e, stride));
 	case renderer::vf::role::texpos:
 		return actor_ptr(
-			new texpos_actor(e));
+			new texpos_actor(e, stride));
 	default:
 		throw exception(
 			SGE_TEXT("Invalid role in ogl vertex format!"));

@@ -311,8 +311,8 @@ sge::ogl::device::get_caps() const
 {
 	return renderer::caps(
 		0,
-		"fixme",
-		"fixme",
+		SGE_TEXT("fixme"),
+		SGE_TEXT("fixme"),
 		1024,
 		0); // FIXME
 }

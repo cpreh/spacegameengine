@@ -36,16 +36,13 @@ class dynamic_element {
 public:
 	SGE_SYMBOL dynamic_element(
 		dynamic_any const &,
-		role::type,
-		vertex_size stride);
+		role::type);
 	
 	SGE_SYMBOL dynamic_any const &info() const;
 	SGE_SYMBOL role::type get_role() const;
-	SGE_SYMBOL vertex_size stride() const;
 private:
 	dynamic_any info_;
 	role::type  role_;
-	vertex_size stride_;
 };
 
 }

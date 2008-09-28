@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_TEXPOS_ACTOR_HPP_INCLUDED
 
 #include "pointer_actor.hpp"
+#include <sge/renderer/vf/vertex_size.hpp>
 
 namespace sge
 {
@@ -40,8 +41,9 @@ namespace vf
 
 class texpos_actor : public pointer_actor {
 public:
-	explicit texpos_actor(
-		renderer::vf::dynamic_ordered_element const &);
+	texpos_actor(
+		renderer::vf::dynamic_ordered_element const &,
+		renderer::vf::vertex_size stride);
 
 	void operator()() const;
 private:

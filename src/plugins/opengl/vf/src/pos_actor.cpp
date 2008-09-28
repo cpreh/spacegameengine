@@ -23,10 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 
 sge::ogl::vf::pos_actor::pos_actor(
-	renderer::vf::dynamic_ordered_element const &e)
+	renderer::vf::dynamic_ordered_element const &e,
+	renderer::vf::vertex_size const stride)
 :
 	pointer_actor(
-		e),
+		e,
+		stride),
 	elements(
 		static_cast<GLint>(
 			boost::get<renderer::vf::dynamic_vector>(

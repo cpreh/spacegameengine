@@ -23,10 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 
 sge::ogl::vf::normal_actor::normal_actor(
-	renderer::vf::dynamic_ordered_element const &e)
+	renderer::vf::dynamic_ordered_element const &e,
+	renderer::vf::vertex_size const stride)
 :
 	pointer_actor(
-		e)
+		e,
+		stride)
 {}
 
 void sge::ogl::vf::normal_actor::operator()() const

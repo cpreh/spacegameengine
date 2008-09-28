@@ -86,11 +86,11 @@ public:
 		>::type offset;
 
 		copy_n(
-			raw_data(t) + offset::type::value,
+			raw_data(t),
 			element_stride<
 				typename element::type
 			>::type::value,
-			data);
+			data + offset::type::value);
 	}
 
 	/*

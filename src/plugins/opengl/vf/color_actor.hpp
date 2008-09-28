@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_COLOR_ACTOR_HPP_INCLUDED
 
 #include "pointer_actor.hpp"
+#include <sge/renderer/vf/vertex_size.hpp>
 
 namespace sge
 {
@@ -40,8 +41,9 @@ namespace vf
 
 class color_actor : public pointer_actor {
 public:
-	explicit color_actor(
-		renderer::vf::dynamic_ordered_element const &);
+	color_actor(
+		renderer::vf::dynamic_ordered_element const &,
+		renderer::vf::vertex_size);
 
 	void operator()() const;
 private:

@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/variant/apply_visitor.hpp>
 
 sge::ogl::vf::pointer_actor::pointer_actor(
-	renderer::vf::dynamic_ordered_element const &e)
+	renderer::vf::dynamic_ordered_element const &e,
+	renderer::vf::vertex_size const stride_)
 :
 	format_(
 		boost::apply_visitor(
@@ -34,7 +35,7 @@ sge::ogl::vf::pointer_actor::pointer_actor(
 			e.element().info())),
 	stride_(
 		static_cast<GLsizei>(
-			e.element().stride())),
+			stride_)),
 	pointer_(
 		vb_ib_vbo_impl().buffer_offset(
 			vertex_buffer_type(),
