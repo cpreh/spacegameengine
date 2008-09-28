@@ -37,10 +37,15 @@ namespace vf
 
 template<
 	typename ElementList,
-	bool IsConst = false // FIXME!
+	bool IsConst = false
 >
 struct format {
 	typedef ElementList elements;
+
+	typedef format<
+		elements,
+		true
+	> const_type;
 
 	typedef typename boost::mpl::transform<
 		elements,
