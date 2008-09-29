@@ -27,45 +27,45 @@ sge::string const sge::mad::frame::info() const
 	ss << frame_.header.samplerate << " sample rate\n";
 
 	ss << "layer ";
-  switch(frame_.header.layer)
-  {
-    case MAD_LAYER_I:
+	switch(frame_.header.layer)
+	{
+	 case MAD_LAYER_I:
 			ss << "I";
 		break;
-    case MAD_LAYER_II:
-      ss << "II";
+	 case MAD_LAYER_II:
+		ss << "II";
 		break;
-    case MAD_LAYER_III:
-      ss << "III";
+	 case MAD_LAYER_III:
+		 ss << "III";
 		break;
-    default:
-      ss << "(unexpected layer value)";
+	 default:
+		ss << "(unexpected layer value)";
 		break;
-  }
+	}
 
 	ss << "\n";
 	ss << "mode ";
 
 	switch(frame_.header.mode)
-  {
-    case MAD_MODE_SINGLE_CHANNEL:
-      ss << "single channel";
-      break;
-    case MAD_MODE_DUAL_CHANNEL:
-      ss << "dual channel";
-      break;
-    case MAD_MODE_JOINT_STEREO:
-      ss << "joint (MS/intensity) stereo";
-      break;
-    case MAD_MODE_STEREO:
-      ss << "normal LR stereo";
-      break;
-    default:
-      ss << "(unexpected mode value)";
-      break;
-  }
+	{
+	case MAD_MODE_SINGLE_CHANNEL:
+		 ss << "single channel";
+		 break;
+	case MAD_MODE_DUAL_CHANNEL:
+		ss << "dual channel";
+		break;
+	case MAD_MODE_JOINT_STEREO:
+		ss << "joint (MS/intensity) stereo";
+		 break;
+	case MAD_MODE_STEREO:
+		ss << "normal LR stereo";
+		break;
+	default:
+		ss << "(unexpected mode value)";
+		break;
+	}
 
-	ss << "\n";
+	ss << '\n';
 	ss << "bit rate " << frame_.header.bitrate;
 
 	return ss.str();
