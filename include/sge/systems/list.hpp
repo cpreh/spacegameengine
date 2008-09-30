@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_LIST_HPP_INCLUDED
 
 #include "any.hpp"
+#include "any_compare.hpp"
+#include "../export.hpp"
 #include <set>
 
 namespace sge
@@ -31,16 +33,19 @@ namespace systems
 
 class list {
 public:
-	explicit list(
+	SGE_SYMBOL list();
+	SGE_SYMBOL explicit list(
 		any const &);
 	
-	list const operator()(
+	SGE_SYMBOL list const operator()(
 		any const &) const;
-private:
 	typedef std::set<
-		any
+		any,
+		any_compare
 	> any_set;
 
+	SGE_SYMBOL any_set const &get() const;
+private:
 	any_set states;
 };
 

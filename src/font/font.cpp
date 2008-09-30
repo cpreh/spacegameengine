@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/font.hpp>
+#include <sge/font/char_metric.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -26,10 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <locale>
 
 sge::font::font::font(
-	const metrics_ptr metrics_,
-	const drawer_ptr drawer_)
-: metrics_(metrics_),
-  drawer_(drawer_)
+	metrics_ptr const metrics_,
+	drawer_ptr const drawer_)
+:
+	metrics_(metrics_),
+	drawer_(drawer_)
 {}
 
 sge::font::unit sge::font::font::height() const

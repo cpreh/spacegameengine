@@ -18,41 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
-#define SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_ANY_COMPARE_HPP_INCLUDED
+#define SGE_SYSTEMS_ANY_COMPARE_HPP_INCLUDED
 
-#include "base.hpp"
-#include "capabilities.hpp"
-#include "../export.hpp"
-#include "../string.hpp"
-#include "../path.hpp"
-#include <boost/weak_ptr.hpp>
+#include "any.hpp"
+#include <functional>
 
 namespace sge
 {
-namespace plugin
+namespace systems
 {
 
-template<typename T> class context;
-
-class context_base {
-public:
-	SGE_SYMBOL explicit context_base(
-		path const &p);
-
-	SGE_SYMBOL string const &name() const;
-	SGE_SYMBOL string const &description() const;
-	SGE_SYMBOL unsigned version() const;
-	SGE_SYMBOL capabilities::type type() const;
-	SGE_SYMBOL path const &get_path() const;
-private:
-	template<typename T> friend class context;
-	boost::weak_ptr<base> ref;
-	path               path_;
-	string             name_;
-	string             description_;
-	unsigned           version_;
-	capabilities::type type_;
+struct any_compare : std::binary_function<any const &, any const &, bool> {
+	bool operator()(
+		any const &,
+		any const &) const;
 };
 
 }

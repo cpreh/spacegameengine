@@ -18,44 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
-#define SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
+#include <sge/systems/any_compare.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <typeinfo>
 
-#include "base.hpp"
-#include "capabilities.hpp"
-#include "../export.hpp"
-#include "../string.hpp"
-#include "../path.hpp"
-#include <boost/weak_ptr.hpp>
-
-namespace sge
-{
-namespace plugin
+namespace
 {
 
-template<typename T> class context;
+struct compare : boost::static_visitor<bool> {
+	bool operator()(
+		sge::systems::parameterless::type const &,
+		sge::systems::parameterless::type const &) const;
 
-class context_base {
-public:
-	SGE_SYMBOL explicit context_base(
-		path const &p);
-
-	SGE_SYMBOL string const &name() const;
-	SGE_SYMBOL string const &description() const;
-	SGE_SYMBOL unsigned version() const;
-	SGE_SYMBOL capabilities::type type() const;
-	SGE_SYMBOL path const &get_path() const;
-private:
-	template<typename T> friend class context;
-	boost::weak_ptr<base> ref;
-	path               path_;
-	string             name_;
-	string             description_;
-	unsigned           version_;
-	capabilities::type type_;
+	template<typename T, typename U>
+	bool operator()(
+		T const &,
+		U const &) const;
 };
 
 }
+
+bool sge::systems::any_compare::operator()(
+	any const &a,
+	any const &b) const
+{
+	return boost::apply_visitor(
+		compare(),
+		a,
+		b);
 }
 
-#endif
+namespace
+{
+
+bool compare::operator()(
+	sge::systems::parameterless::type const &a,
+	sge::systems::parameterless::type const &b) const
+{
+	return a < b;
+}
+
+template<typename T, typename U>
+bool compare::operator()(
+	T const &,
+	U const &) const
+{
+	return typeid(T).before(typeid(U));
+}
+
+}

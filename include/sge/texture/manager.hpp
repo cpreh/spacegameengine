@@ -48,8 +48,6 @@ public:
 		onalloc_function const &);
 	SGE_SYMBOL part_ptr const add(
 		renderer::const_image_view const &src);
-	SGE_SYMBOL part_ptr const add(
-		renderer::texture_ptr tex);
 	SGE_SYMBOL renderer::device_ptr const get_renderer() const;
 	SGE_SYMBOL void onalloc(onalloc_function const &);
 

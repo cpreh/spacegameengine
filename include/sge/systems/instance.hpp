@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 #define SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 
-#include "../plugin/manager.hpp"
-#include "../plugin/plugin.hpp"
 #include "../renderer/device_fwd.hpp"
 #include "../renderer/system_fwd.hpp"
 #include "../font/system_fwd.hpp"
@@ -30,10 +28,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../image/loader_fwd.hpp"
 #include "../audio/player_fwd.hpp"
 #include "../export.hpp"
+#include <boost/scoped_ptr.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge
 {
+namespace plugin
+{
+class manager;
+}
+
 namespace systems
 {
 
@@ -42,39 +46,30 @@ class list;
 struct instance : boost::noncopyable {
 	SGE_SYMBOL explicit instance(
 		list const &);
+	SGE_SYMBOL ~instance();
 
-	plugin::manager &plugin_manager();
+	SGE_SYMBOL void reinit(
+		list const &);
+	
+	SGE_SYMBOL plugin::manager &plugin_manager();
 
-	renderer::system_ptr const renderer_system() const;
-	renderer::device_ptr const renderer_device() const;
+	SGE_SYMBOL renderer::system_ptr const renderer_system() const;
+	SGE_SYMBOL renderer::device_ptr const renderer() const;
 
-	input::system_ptr const input_system() const;
+	SGE_SYMBOL input::system_ptr const input_system() const;
 
-	image::loader_ptr const image_loader() const; // TODO: replace this with an image prober
+	SGE_SYMBOL image::loader_ptr const image_loader() const; // TODO: replace this with an image prober
 
-	audio::player_ptr const audio_player() const;
+	SGE_SYMBOL audio::player_ptr const audio_player() const;
 
-	font::system_ptr const font_system() const;
+	SGE_SYMBOL font::system_ptr const font_system() const;
+
+	struct impl;
 private:
-	plugin::manager                            plugin_manager_;
-
-	plugin::plugin<renderer::system>::ptr_type renderer_plugin;
-	renderer::system_ptr                       renderer_system_;
-	renderer::device_ptr                       renderer_device_;
-
-	plugin::plugin<input::system>::ptr_type    input_plugin;
-	input::system_ptr                          input_system;
-
-	plugin::plugin<image::loader>::ptr_type    image_loader_plugin;
-	image::loader_ptr                          image_loader_;
-
-	plugin::plugin<audio::player>::ptr_type    audio_player_plugin;
-	audio::player_ptr                          audio_player;
-
-	plugin::plugin<font::system>::ptr_type     font_plugin;
-	font::system_ptr                           font_system;
+	boost::scoped_ptr<impl> impl_;
 };
 
+}
 }
 
 #endif

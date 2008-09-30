@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_CHAR_METRIC_HPP_INCLUDED
 
 #include "types.hpp"
-#include "../shared_ptr.hpp"
 #include "../export.hpp"
-#include "../renderer/color.hpp"
+#include "../renderer/image_view.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -39,8 +38,6 @@ public:
 	virtual unit x_advance() const = 0;
 	SGE_SYMBOL virtual ~char_metric();
 };
-
-typedef shared_ptr<char_metric> char_metric_ptr;
 
 }
 }

@@ -18,44 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
-#define SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
+#include <sge/systems/list.hpp>
 
-#include "base.hpp"
-#include "capabilities.hpp"
-#include "../export.hpp"
-#include "../string.hpp"
-#include "../path.hpp"
-#include <boost/weak_ptr.hpp>
+sge::systems::list::list()
+{}
 
-namespace sge
+sge::systems::list::list(
+	any const &a)
 {
-namespace plugin
-{
-
-template<typename T> class context;
-
-class context_base {
-public:
-	SGE_SYMBOL explicit context_base(
-		path const &p);
-
-	SGE_SYMBOL string const &name() const;
-	SGE_SYMBOL string const &description() const;
-	SGE_SYMBOL unsigned version() const;
-	SGE_SYMBOL capabilities::type type() const;
-	SGE_SYMBOL path const &get_path() const;
-private:
-	template<typename T> friend class context;
-	boost::weak_ptr<base> ref;
-	path               path_;
-	string             name_;
-	string             description_;
-	unsigned           version_;
-	capabilities::type type_;
-};
-
-}
+	states.insert(a);
 }
 
-#endif
+sge::systems::list const
+sge::systems::list::operator()(
+	any const &a) const
+{
+	list ret(*this);
+	if(!ret.states.insert(a).second)
+	{} // TODO: warn
+
+	return ret;
+}
+
+sge::systems::list::any_set const &
+sge::systems::list::get() const
+{
+	return states;
+}

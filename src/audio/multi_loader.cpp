@@ -1,5 +1,8 @@
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/manager.hpp>
+#include <sge/plugin/plugin.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 

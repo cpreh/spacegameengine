@@ -32,7 +32,7 @@ namespace systems
 
 typedef boost::variant<
 	renderer::parameters,
-	parametersless::type
+	parameterless::type
 	// TODO: add image format and audio format, too!
 > any;
 

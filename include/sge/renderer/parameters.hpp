@@ -40,7 +40,7 @@ struct parameters {
 		depth_buffer::type,
 		stencil_buffer::type,
 		window_mode::type,
-		vsync::type,
+		vsync::type = vsync::on,
 		multi_sample_type samples = 1);
 
 	SGE_SYMBOL display_mode const &mode() const;

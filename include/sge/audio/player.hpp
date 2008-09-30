@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "file.hpp"
 #include "types.hpp"
-#include "sound.hpp"
-#include "../string.hpp"
-#include "../shared_ptr.hpp"
+#include "sound_fwd.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
 #include "../export.hpp"
@@ -41,13 +39,11 @@ struct SGE_CLASS_SYMBOL player : boost::noncopyable {
 	virtual void listener_pos(sound_pos const &) = 0;
 	virtual sound_angle const listener_angle() const = 0;
 	virtual void listener_angle(sound_angle const &) = 0;
-	virtual const sound_ptr create_nonstream_sound(file_ptr) = 0;
-	virtual const sound_ptr create_stream_sound(file_ptr) = 0;
+	virtual sound_ptr const create_nonstream_sound(file_ptr) = 0;
+	virtual sound_ptr const create_stream_sound(file_ptr) = 0;
 	virtual void update() = 0;
 	SGE_SYMBOL virtual ~player();
 };
-
-typedef shared_ptr<player> player_ptr;
 
 }
 
