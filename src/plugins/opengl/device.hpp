@@ -46,6 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/adapter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/dim_types.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/window.hpp>
 #include <sge/scoped_connection.hpp>
@@ -71,15 +73,15 @@ public:
 	void render(
 		renderer::const_vertex_buffer_ptr vb,
 		renderer::const_index_buffer_ptr ib,
-		renderer::vertex_buffer::size_type first_vertex,
-		renderer::vertex_buffer::size_type num_vertices,
+		renderer::size_type first_vertex,
+		renderer::size_type num_vertices,
 		renderer::indexed_primitive_type::type ptype,
-		renderer::index_buffer::size_type pcount,
-		renderer::index_buffer::size_type first_index);
+		renderer::size_type pcount,
+		renderer::size_type first_index);
 	void render(
 		renderer::const_vertex_buffer_ptr vb,
-		renderer::vertex_buffer::size_type first_vertex,
-		renderer::vertex_buffer::size_type num_vertices,
+		renderer::size_type first_vertex,
+		renderer::size_type num_vertices,
 		renderer::nonindexed_primitive_type::type ptype);
 
 	void set_state(renderer::state::list const &);
@@ -123,14 +125,15 @@ public:
 	void set_glsl_program(
 		renderer::glsl::program_ptr);
 
-	renderer::const_target_ptr const get_target() const;
+	renderer::const_target_ptr const
+	get_target() const;
 
 	renderer::texture_ptr const
 	create_texture(
-		renderer::texture::dim_type const &,
+		renderer::dim_type const &,
 		renderer::color_format::type,
 		renderer::filter_args const &,
-		renderer::texture::resource_flag_type);
+		renderer::resource_flag_t);
 
 	/*const renderer::volume_texture_ptr
 	create_volume_texture(
@@ -140,22 +143,22 @@ public:
 
 	renderer::cube_texture_ptr const
 	create_cube_texture(
-		renderer::cube_texture::size_type border_size,
+		renderer::size_type border_size,
 		renderer::color_format::type,
 		renderer::filter_args const &,
-		renderer::texture::resource_flag_type);
+		renderer::resource_flag_t);
 
 	renderer::vertex_buffer_ptr const
 	create_vertex_buffer(
 		renderer::vf::dynamic_format const &,
-		renderer::vertex_buffer::size_type size,
-		renderer::vertex_buffer::resource_flag_type flags);
+		renderer::size_type size,
+		renderer::resource_flag_t flags);
 
 	renderer::index_buffer_ptr const
 	create_index_buffer(
 		renderer::index_format::type,
-		renderer::index_buffer::size_type sz,
-		renderer::index_buffer::resource_flag_type flags);
+		renderer::size_type sz,
+		renderer::resource_flag_t flags);
 
 	renderer::caps const get_caps() const;
 	renderer::screen_size_t const screen_size() const;
@@ -166,8 +169,10 @@ private:
 
 	void set_vertex_buffer(renderer::const_vertex_buffer_ptr vb);
 	void set_index_buffer(renderer::const_index_buffer_ptr ib);
-	fbo_target_ptr const create_render_target(
-		renderer::target::dim_type const &);
+
+	fbo_target_ptr const
+	create_render_target(
+		renderer::dim_type const &);
 
 	renderer::parameters          param;
 	renderer::state::list         current_states;

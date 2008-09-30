@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_BUFFER_UTIL_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_UTIL_HPP_INCLUDED
 
-#include "vertex_buffer.hpp"
-#include "device.hpp"
+#include "vertex_buffer_fwd.hpp"
+#include "device_fwd.hpp"
+#include "size_type.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -34,7 +35,7 @@ SGE_SYMBOL vertex_buffer_ptr const
 resize(
 	vertex_buffer_ptr,
 	device_ptr,
-	vertex_buffer::size_type newsize);
+	size_type newsize);
 
 }
 }

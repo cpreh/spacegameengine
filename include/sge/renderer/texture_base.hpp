@@ -23,11 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "resource_flags.hpp"
 #include "lock_flags.hpp"
-#include "../shared_ptr.hpp"
+#include "size_type.hpp"
 #include "../export.hpp"
-#include "../math/rect.hpp"
 #include <boost/noncopyable.hpp>
-#include <cstddef>
 
 namespace sge
 {
@@ -36,8 +34,7 @@ namespace renderer
 
 class SGE_CLASS_SYMBOL texture_base : boost::noncopyable {
 public:
-	typedef std::size_t                           size_type;
-	typedef std::ptrdiff_t                        difference_type;
+	typedef renderer::size_type                   size_type;
 	typedef resource_flag_t                       resource_flag_type;
 	typedef lock_flag_t                           lock_flag_type;
 
@@ -45,9 +42,6 @@ public:
 	virtual size_type content() const = 0;
 	virtual resource_flag_type flags() const = 0;
 };
-
-typedef shared_ptr<texture_base>       texture_base_ptr;
-typedef shared_ptr<texture_base const> const_texture_base_ptr;
 
 }
 }

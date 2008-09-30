@@ -22,14 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
 #include "adapter.hpp"
-#include "device.hpp"
-#include "caps.hpp"
+#include "device_fwd.hpp"
 #include "../export.hpp"
-#include "../shared_ptr.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
-#include "../string.hpp"
-#include "../window.hpp"
+#include "../window_fwd.hpp"
 #include <boost/noncopyable.hpp>
 #include <vector>
 
@@ -37,6 +34,8 @@ namespace sge
 {
 namespace renderer
 {
+
+struct caps;
 
 typedef std::vector<caps> caps_array;
 
@@ -52,8 +51,6 @@ public:
 	virtual caps_array const caps() const = 0;
 	SGE_SYMBOL virtual ~system();
 };
-
-typedef shared_ptr<system> system_ptr;
 
 }
 

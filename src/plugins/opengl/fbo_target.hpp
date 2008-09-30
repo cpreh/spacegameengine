@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "target.hpp"
-#include <sge/renderer/texture.hpp>
+#include <sge/renderer/texture_fwd.hpp>
 #include <sge/shared_ptr.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ namespace ogl
 
 class fbo_target : public target {
 public:
-	fbo_target(
+	explicit fbo_target(
 		dim_type const &);
 	~fbo_target();
 

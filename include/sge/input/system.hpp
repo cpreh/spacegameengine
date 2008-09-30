@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
 #define SGE_INPUT_SYSTEM_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
-#include "../window.hpp"
+#include "../window_fwd.hpp"
 #include "../callback_connection.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
-#include "../string.hpp"
 #include "../export.hpp"
 #include "key_type.hpp"
 #include <boost/noncopyable.hpp>
@@ -48,11 +46,17 @@ public:
 	typedef boost::signal<key_type_fun> repeat_signal_type;
 	typedef boost::function<key_type_fun> repeat_callback;
 
-	virtual callback_connection register_callback(const callback& c) = 0;
-	virtual callback_connection register_repeat_callback(const repeat_callback& c) = 0;
+	virtual callback_connection const
+	register_callback(
+		callback const &c) = 0;
+
+	virtual callback_connection const
+	register_repeat_callback(
+		repeat_callback const &c) = 0;
+	
 	virtual void dispatch() = 0;
 
-	virtual window_ptr get_window() const = 0;
+	virtual window_ptr const get_window() const = 0;
 
 	SGE_SYMBOL virtual ~system();
 };

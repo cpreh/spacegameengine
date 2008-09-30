@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../math/dim.hpp"
+#include "../math/vector.hpp"
 #include "texture_base.hpp"
 #include "image_view.hpp"
-#include "types.hpp" // FIXME
+#include "dim_types.hpp"
 
 namespace sge
 {
@@ -35,7 +35,7 @@ namespace renderer
 class SGE_CLASS_SYMBOL texture : public texture_base {
 public:
 	typedef math::basic_vector<size_type, 2>     pos_type;
-	typedef math::basic_dim<size_type, 2>        dim_type;
+	typedef renderer::dim_type                   dim_type;
 	typedef lock_rect                            rect_type;
 
 	virtual dim_type const dim() const = 0;
@@ -51,9 +51,6 @@ public:
 
 	SGE_SYMBOL size_type content() const;
 };
-
-typedef shared_ptr<texture> texture_ptr;
-typedef shared_ptr<texture const> const_texture_ptr;
 
 }
 }

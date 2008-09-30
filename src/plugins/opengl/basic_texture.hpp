@@ -38,7 +38,6 @@ template<typename Base>
 class basic_texture : public Base, public texture_base {
 public:
 	typedef typename Base::size_type size_type;
-	typedef typename Base::difference_type difference_type;
 	typedef texture_lock::pointer pointer;
 	typedef texture_lock::const_pointer const_pointer;
 	typedef typename Base::resource_flag_type resource_flag_type;

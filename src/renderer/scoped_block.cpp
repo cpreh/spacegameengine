@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/device.hpp>
 
 sge::renderer::scoped_block::scoped_block(
 	device_ptr const rend)

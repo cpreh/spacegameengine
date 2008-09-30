@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 
-#include "../../shared_ptr.hpp"
-#include "uniform_variable.hpp"
-#include "attribute_variable.hpp"
+#include "uniform_variable_fwd.hpp"
+#include "attribute_variable_fwd.hpp"
 #include "string.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -43,10 +42,8 @@ public:
 	virtual attribute_variable_ptr const
 	attribute(
 		string const &) = 0;
-	virtual ~program() {}
+	virtual ~program(); 
 };
-
-typedef shared_ptr<program> program_ptr;
 
 }
 }

@@ -56,8 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/primitive.hpp>
-#include <sge/renderer/types.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/light.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/math/matrix_util.hpp>
@@ -79,7 +79,7 @@ sge::ogl::device::device(
 //	if(adapter > 0)
 //		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
 
-	bool windowed = param.windowed;
+	bool windowed = true; // param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
 	const unsigned color_depth = renderer::bit_depth_bit_count(param.mode.depth);
 	if(!windowed)
@@ -144,7 +144,7 @@ sge::ogl::device::device(
 	if(!windowed)
 	{
 		modes.reset(new x11::xf86_vidmode_array(dsp, screen));
-		resolution = modes->switch_to_mode(param.mode);
+		resolution = modes->switch_to_mode(param.mode());
 		if(!resolution)
 		{
 			//sge::cerr << SGE_TEXT("Warning: No resolution matches against ") << param.mode << SGE_TEXT("! Falling back to window mode!\n");
@@ -172,7 +172,7 @@ sge::ogl::device::device(
 		wnd.reset(
 			new x11::window(
 				window::window_pos(0,0),
-				window::window_size(param.mode.width(), param.mode.height()),
+				param.mode().size,
 				string(),
 				dsp,
 				swa,
@@ -219,8 +219,8 @@ void sge::ogl::device::begin_rendering()
 sge::renderer::index_buffer_ptr const
 sge::ogl::device::create_index_buffer(
 	renderer::index_format::type const format,
-	renderer::index_buffer::size_type const sz,
-	renderer::index_buffer::resource_flag_type const flags)
+	renderer::size_type const sz,
+	renderer::resource_flag_t const flags)
 {
 	return renderer::index_buffer_ptr(
 		new index_buffer(
@@ -255,8 +255,8 @@ sge::ogl::device::create_texture(
 sge::renderer::vertex_buffer_ptr const
 sge::ogl::device::create_vertex_buffer(
 	renderer::vf::dynamic_format const &format,
-	renderer::vertex_buffer::size_type const sz,
-	renderer::vertex_buffer::resource_flag_type const flags)
+	renderer::size_type const sz,
+	renderer::resource_flag_t const flags)
 {
 	return renderer::vertex_buffer_ptr(
 		new vertex_buffer(
@@ -282,10 +282,10 @@ sge::ogl::device::create_volume_texture(
 
 sge::renderer::cube_texture_ptr const
 sge::ogl::device::create_cube_texture(
-	renderer::cube_texture::size_type const border_size,
+	renderer::size_type const border_size,
 	renderer::color_format::type const format,
 	renderer::filter_args const &filter,
-	renderer::cube_texture::resource_flag_type const flags)
+	renderer::resource_flag_t const flags)
 {
 	return renderer::cube_texture_ptr(
 		new cube_texture(
@@ -326,17 +326,17 @@ sge::ogl::device::get_window() const
 sge::renderer::screen_size_t const
 sge::ogl::device::screen_size() const
 {
-	return param.mode.size;
+	return param.mode().size;
 }
 
 void sge::ogl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::const_index_buffer_ptr const ib,
-	renderer::vertex_buffer::size_type const first_vertex,
-	renderer::vertex_buffer::size_type const num_vertices,
+	renderer::size_type const first_vertex,
+	renderer::size_type const num_vertices,
 	renderer::indexed_primitive_type::type const ptype,
-	renderer::index_buffer::size_type const pcount,
-	renderer::index_buffer::size_type const first_index)
+	renderer::size_type const pcount,
+	renderer::size_type const first_index)
 {
 	if(!vb)
 		throw exception(
@@ -365,8 +365,8 @@ void sge::ogl::device::render(
 
 void sge::ogl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
-	renderer::vertex_buffer::size_type const first_vertex,
-	renderer::vertex_buffer::size_type const num_vertices,
+	renderer::size_type const first_vertex,
+	renderer::size_type const num_vertices,
 	renderer::nonindexed_primitive_type::type const ptype)
 {
 	if(!vb)

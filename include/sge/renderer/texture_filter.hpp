@@ -49,16 +49,17 @@ namespace mag_filter
 struct filter_args {
 	typedef unsigned anisotropy_level_type;
 
-	SGE_SYMBOL filter_args(const min_filter::type min_filter,
-	                       const mag_filter::type mag_filter,
-	                       const anisotropy_level_type anisotropy_level = 0);
+	SGE_SYMBOL filter_args(
+		min_filter::type min_filter,
+		mag_filter::type mag_filter,
+		anisotropy_level_type anisotropy_level = 0);
 
 	min_filter::type      min_filter;
 	mag_filter::type      mag_filter;
 	anisotropy_level_type anisotropy_level;
 };
 
-SGE_SYMBOL extern const filter_args
+SGE_SYMBOL extern filter_args const
 	linear_filter,
 	point_filter,
 	mip_filter,

@@ -46,10 +46,17 @@ public:
 	explicit system(
 		x11::window_ptr wnd);
 	~system();
-	callback_connection register_callback(const callback& c);
-	callback_connection register_repeat_callback(const repeat_callback& c);
+
+	callback_connection const
+	register_callback(
+		callback const &c);
+
+	callback_connection const
+	register_repeat_callback(
+		repeat_callback const &c);
+
 	void dispatch();
-	window_ptr get_window() const;
+	window_ptr const get_window() const;
 private:
 	void add_connection(boost::signals::connection);
 	void grab();

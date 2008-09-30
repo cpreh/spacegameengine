@@ -21,12 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 
 sge::renderer::parameters::parameters(
-	const display_mode& mode,
-	const bool windowed,
-	const multi_sample_type samples,
-	const bool vsync)
-: mode(mode),
-  windowed(windowed),
-  samples(samples),
-  vsync(vsync)
+	display_mode const &mode_,
+	depth_buffer::type const depth_buffer_,
+	stencil_buffer::type const stencil_buffer_,
+	window_mode::type const window_mode_,
+	vsync::type const vsync_,
+	multi_sample_type const samples_)
+:
+	mode_(mode_),
+	depth_buffer_(depth_buffer_),
+	stencil_buffer_(stencil_buffer_),
+	window_mode_(window_mode_),
+	vsync_(vsync_),
+	samples_(samples_)
 {}

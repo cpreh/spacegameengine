@@ -30,25 +30,27 @@ sge::devil::loader::loader()
 	check_errors();
 }
 
-const sge::image::object_ptr
-sge::devil::loader::load_image(
-	const path& p)
+sge::image::object_ptr const
+sge::devil::loader::load(
+	path const &p)
 {
-	return image::object_ptr(new object(p));
+	return image::object_ptr(
+		new object(p));
 }
 
-const sge::image::object_ptr
+/*const sge::image::object_ptr
 sge::devil::loader::load_image(
 	const image::format::type type,
 	const object::const_pointer format_data,
 	const object::size_type size)
 {
 	return image::object_ptr(new object(type, format_data, size));
-}
+}*/
 
-const sge::image::object_ptr
-sge::devil::loader::create_image(
+sge::image::object_ptr const
+sge::devil::loader::create(
 	renderer::const_image_view const &src)
 {
-	return image::object_ptr(new object(src));
+	return image::object_ptr(
+		new object(src));
 }

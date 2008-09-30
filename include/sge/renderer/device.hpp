@@ -22,19 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../window.hpp"
-#include "../shared_ptr.hpp"
+#include "../su.hpp"
+#include "../window_fwd.hpp"
 #include "../math/matrix.hpp"
-#include "types.hpp"
-#include "vertex_buffer.hpp"
-#include "index_buffer.hpp"
-#include "texture_base.hpp"
-#include "texture.hpp"
-#include "cube_texture.hpp"
-#include "volume_texture.hpp"
-#include "target.hpp"
-#include "light.hpp"
-#include "glsl/program.hpp"
+#include "vertex_buffer_fwd.hpp"
+#include "index_buffer_fwd.hpp"
+#include "texture_base_fwd.hpp"
+#include "texture_fwd.hpp"
+#include "cube_texture_fwd.hpp"
+//#include "volume_texture.hpp"
+#include "target_fwd.hpp"
+#include "light_index.hpp"
+#include "glsl/program_fwd.hpp"
 #include "glsl/string.hpp"
 #include "glsl/istream.hpp"
 #include "vf/dynamic_view.hpp"
@@ -42,6 +41,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "image_view.hpp"
 #include "color_format.hpp"
 #include "texture_stage.hpp"
+#include "stage_type.hpp"
+#include "size_type.hpp"
+#include "dim_types.hpp"
+#include "screen_types.hpp"
+#include "resource_flags.hpp"
+#include "index_view.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -66,6 +71,7 @@ struct viewport;
 struct filter_args;
 struct material;
 struct caps;
+struct light;
 
 class SGE_CLASS_SYMBOL device : boost::noncopyable {
 public:
@@ -74,19 +80,21 @@ public:
 	virtual void render(
 		const_vertex_buffer_ptr vb,
 		const_index_buffer_ptr ib,
-		vertex_buffer::size_type first_vertex,
-		vertex_buffer::size_type num_vertices,
+		size_type first_vertex,
+		size_type num_vertices,
 		indexed_primitive_type::type ptype,
-		index_buffer::size_type primitive_count,
-		index_buffer::size_type first_index) = 0;
+		size_type primitive_count,
+		size_type first_index) = 0;
 	virtual void render(
 		const_vertex_buffer_ptr vb,
-		vertex_buffer::size_type first_vertex,
-		vertex_buffer::size_type num_vertices,
+		size_type first_vertex,
+		size_type num_vertices,
 		nonindexed_primitive_type::type ptype) = 0;
 
-	virtual void set_state(state::list const &) = 0;
-	virtual void push_state(state::list const &) = 0;
+	virtual void set_state(
+		state::list const &) = 0;
+	virtual void push_state(
+		state::list const &) = 0;
 	virtual void pop_state() = 0;
 
 	virtual void set_material(
@@ -143,7 +151,7 @@ public:
 		resource_flag_t flags);
 
 	virtual texture_ptr const create_texture(
-		texture::dim_type const &dim,
+		dim_type const &dim,
 		color_format::type format,
 		filter_args const &filter,
 		resource_flag_t flags) = 0;
@@ -154,7 +162,7 @@ public:
 		resource_flag_t flags) = 0;*/
 
 	virtual cube_texture_ptr const create_cube_texture(
-		cube_texture::size_type border_size,
+		size_type border_size,
 		color_format::type format,
 		filter_args const &filter,
 		resource_flag_t flags) = 0;
@@ -165,7 +173,7 @@ public:
 	
 	virtual vertex_buffer_ptr const create_vertex_buffer(
 		vf::dynamic_format const &,
-		vertex_buffer::size_type size,
+		size_type size,
 		resource_flag_t flags) = 0;
 
 	SGE_SYMBOL index_buffer_ptr const create_index_buffer(
@@ -174,7 +182,7 @@ public:
 
 	virtual index_buffer_ptr const create_index_buffer(
 		index_format::type,
-		index_buffer::size_type size,
+		size_type size,
 		resource_flag_t flags) = 0;
 
 	virtual caps const get_caps() const = 0;
@@ -185,8 +193,6 @@ public:
 
 	SGE_SYMBOL virtual ~device();
 };
-
-typedef shared_ptr<device> device_ptr;
 
 }
 }

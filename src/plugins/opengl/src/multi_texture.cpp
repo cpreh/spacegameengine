@@ -20,16 +20,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../multi_texture.hpp"
 #include "../common.hpp"
-#include <sge/iostream.hpp>
+#include <sge/log/headers.hpp>
+#include <sge/text.hpp>
 #include <ostream>
 #include <algorithm>
 
 void sge::ogl::set_texture_level(
-	const renderer::stage_type stage)
+	renderer::stage_type const stage)
 {
-	if(stage >= static_cast<renderer::stage_type>(std::max(GL_MAX_TEXTURE_COORDS, GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS)))
+	if(stage >= static_cast<renderer::stage_type>(
+		std::max(
+			GL_MAX_TEXTURE_COORDS,
+			GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS)))
 	{
-		sge::cerr << SGE_TEXT("GL_MAX_COMBINED_TEXTURE_UNITS is ") << GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS << SGE_TEXT(". Setting texture stage ") << stage << SGE_TEXT(" ignored!\n");
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("GL_MAX_COMBINED_TEXTURE_UNITS is ")
+				<< GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
+				<< SGE_TEXT(". Setting texture stage ")
+				<< stage
+				<< SGE_TEXT(" ignored!"));
 		return;
 	}
 

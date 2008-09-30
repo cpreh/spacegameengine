@@ -21,11 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_PART_HPP_INCLUDED
 #define SGE_TEXTURE_PART_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
 #include "../export.hpp"
-#include "../renderer/texture.hpp"
+#include "../renderer/texture_fwd.hpp"
 #include "../renderer/image_view.hpp"
-#include "../renderer/types.hpp"
+#include "../renderer/dim_types.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -53,9 +52,6 @@ public:
 
 	virtual bool repeatable() const = 0;
 };
-
-typedef shared_ptr<part>       part_ptr;
-typedef shared_ptr<const part> const_part_ptr;
 
 }
 }

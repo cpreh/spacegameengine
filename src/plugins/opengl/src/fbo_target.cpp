@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../version.hpp"
 #include "../texture_base.hpp"
 #include "../error.hpp"
+#include <sge/renderer/texture.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::fbo_target::fbo_target(const dim_type& dim_)
- : dim_(dim_)
+sge::ogl::fbo_target::fbo_target(
+	dim_type const &dim_)
+:
+	dim_(dim_)
 {
 	if(!glGenFramebuffersEXT)
 		on_not_supported(
@@ -51,17 +54,28 @@ void sge::ogl::fbo_target::bind_me() const
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo);
 }
 
-void sge::ogl::fbo_target::bind_texture(const renderer::texture_ptr t)
+void sge::ogl::fbo_target::bind_texture(
+	renderer::texture_ptr const t)
 {
 	bind_me();
-	const shared_ptr<texture_base> p(dynamic_pointer_cast<texture_base>(t));
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, p->id(), 0);
-	const GLenum status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
+
+	shared_ptr<texture_base> const p(dynamic_pointer_cast<texture_base>(t));
+
+	glFramebufferTexture2DEXT(
+		GL_FRAMEBUFFER_EXT,
+		GL_COLOR_ATTACHMENT0_EXT,
+		GL_TEXTURE_2D,
+		p->id(),
+		0);
+
+	GLenum const status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
 	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
-		throw exception(SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
+		throw exception(
+			SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
 }
 
-const sge::renderer::target::dim_type sge::ogl::fbo_target::dim() const
+sge::renderer::target::dim_type const
+sge::ogl::fbo_target::dim() const
 {
 	return dim_;
 }

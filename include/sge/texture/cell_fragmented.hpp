@@ -21,16 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_CELL_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_CELL_FRAGMENTED_HPP_INCLUDED
 
+#include "fragmented.hpp"
+#include "part_fwd.hpp"
 #include "../export.hpp"
 #include "../raw_vector.hpp"
 #include "../field.hpp"
-#include "../renderer/texture.hpp"
-#include "../renderer/texture_filter.hpp"
-#include "fragmented.hpp"
-#include "part.hpp"
+#include "../renderer/texture_fwd.hpp"
+#include "../renderer/dim_types.hpp"
 
 namespace sge
 {
+namespace renderer
+{
+struct filter_args;
+}
+
 namespace texture
 {
 
@@ -38,21 +43,26 @@ class cell_fragmented : public fragmented {
 public:
 	SGE_SYMBOL cell_fragmented(
 		renderer::device_ptr rend,
-		const renderer::filter_args& filter,
-		const renderer::texture::dim_type& cell_size);
-	SGE_SYMBOL const part_ptr consume_fragment(
-		const renderer::texture::dim_type&);
+		renderer::filter_args const &filter,
+		renderer::dim_type const &cell_size);
+	SGE_SYMBOL part_ptr const
+	consume_fragment(
+		renderer::dim_type const &);
 	SGE_SYMBOL void return_fragment(
-		const part&);
-	SGE_SYMBOL const renderer::texture_ptr get_texture() const;
+		part const &);
+	SGE_SYMBOL renderer::texture_ptr const
+	get_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
-	typedef field<bool, raw_vector> field_type;
-	const renderer::device_ptr      rend;
-	const renderer::filter_args     my_filter;
-	renderer::texture::dim_type     cell_size;
+	typedef field<
+		bool,
+		raw_vector
+	> field_type;
+
+	renderer::device_ptr      const rend;
+	renderer::dim_type        const cell_size;
 	field_type                      cells;
-	const renderer::texture_ptr     tex;
+	renderer::texture_ptr     const tex;
 };
 
 }

@@ -36,9 +36,7 @@ namespace renderer
 
 namespace vf
 {
-
 class dynamic_format;
-
 }
 
 class SGE_CLASS_SYMBOL vertex_buffer : boost::noncopyable {
@@ -73,9 +71,6 @@ public:
 
 	SGE_SYMBOL virtual ~vertex_buffer();
 };
-
-typedef shared_ptr<vertex_buffer> vertex_buffer_ptr;
-typedef shared_ptr<vertex_buffer const> const_vertex_buffer_ptr;
 
 }
 }

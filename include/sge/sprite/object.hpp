@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "../math/circle.hpp"
-#include "../texture/part.hpp"
-#include "../renderer/color.hpp"
+#include "../texture/part_fwd.hpp"
 #include "types.hpp"
 #include <boost/optional.hpp>
 
@@ -42,8 +41,8 @@ SGE_SYMBOL extern const texture::part_ptr no_texture;
 namespace defaults
 {
 
-SGE_SYMBOL extern const point pos_;
-SGE_SYMBOL extern const texture::part_ptr texture_;
+SGE_SYMBOL extern point const pos_;
+SGE_SYMBOL extern texture::part_ptr const texture_;
 SGE_SYMBOL extern const dim dim_;
 SGE_SYMBOL extern const color color_;
 SGE_SYMBOL extern const depth_type depth_;

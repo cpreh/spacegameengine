@@ -22,20 +22,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_DEFAULT_CREATOR_IMPL_HPP_INCLUDED
 
 #include "default_creator.hpp"
+#include "../renderer/device.hpp"
 
 template<typename T>
 sge::texture::default_creator<T>::default_creator(
-	const renderer::device_ptr rend,
-	const renderer::filter_args& filter)
-: rend(rend),
-  filter(filter)
+	renderer::device_ptr const rend,
+	renderer::filter_args const &filter)
+:
+	rend(rend),
+	filter(filter)
 {}
 
 template<typename T>
-sge::texture::fragmented*
+sge::texture::fragmented_auto_ptr
 sge::texture::default_creator<T>::operator()() const
 {
-	return new T(rend, filter);
+	return fragmented_auto_ptr(
+		new T(
+			rend,
+			filter));
 }
 
 #endif

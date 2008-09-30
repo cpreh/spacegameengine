@@ -1,6 +1,7 @@
 #ifndef SGE_RENDERER_TEXTURE_RW_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_RW_HPP_INCLUDED
 
+#include "texture_fwd.hpp"
 #include "texture.hpp"
 #include "../export.hpp"
 #include <boost/optional.hpp>

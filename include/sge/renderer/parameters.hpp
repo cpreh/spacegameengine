@@ -22,7 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PARAMETERS_HPP_INCLUDED
 
 #include "display_mode.hpp"
-#include "types.hpp"
+#include "multi_sampling.hpp"
+#include "depth_buffer.hpp"
+#include "stencil_buffer.hpp"
+#include "window_mode.hpp"
+#include "vsync.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -32,15 +36,26 @@ namespace renderer
 
 struct parameters {
 	SGE_SYMBOL parameters(
-		const display_mode& mode,
-		bool windowed = false,
-		multi_sample_type samples = 1,
-		bool vsync = true);
+		display_mode const &mode,
+		depth_buffer::type,
+		stencil_buffer::type,
+		window_mode::type,
+		vsync::type,
+		multi_sample_type samples = 1);
 
-	display_mode      mode;
-	bool              windowed;
-	multi_sample_type samples;
-	bool              vsync;
+	SGE_SYMBOL display_mode const &mode() const;
+	SGE_SYMBOL depth_buffer::type dbuffer() const;
+	SGE_SYMBOL stencil_buffer::type sbuffer() const;
+	SGE_SYMBOL window_mode::type wmode() const;
+	SGE_SYMBOL vsync::type vsmode() const;
+	SGE_SYMBOL multi_sample_type samples() const;
+private:
+	display_mode         mode_;
+	depth_buffer::type   depth_buffer_;
+	stencil_buffer::type stencil_buffer_;
+	window_mode::type    window_mode_;
+	vsync::type          vsync_;
+	multi_sample_type    samples_;
 };
 
 }

@@ -23,10 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
 #include <sge/renderer/image_view_impl.hpp>
-#include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/index_view_operations.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/algorithm/copy_n.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
@@ -43,7 +46,7 @@ sge::renderer::device::create_texture(
 {
 	texture_ptr const tex(
 		create_texture(
-			texture::dim_type(
+			dim_type(
 				image_view_dim(v)),
 			image_view_format(v),
 			filter,
@@ -90,7 +93,7 @@ sge::renderer::device::create_index_buffer(
 	const_dynamic_index_view const &view,
 	resource_flag_t const flags)
 {
-	index_buffer::size_type const sz(
+	size_type const sz(
 		boost::apply_visitor(
 			index_view_size(),
 			view));
