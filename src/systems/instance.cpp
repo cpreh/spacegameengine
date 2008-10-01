@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
+#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/context.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/device.hpp>
@@ -51,6 +53,13 @@ struct sge::systems::instance::impl {
 
 	plugin::plugin<font::system>::ptr_type     font_plugin;
 	font::system_ptr                           font_system;
+
+	void init_renderer(
+		renderer::parameters const &);
+	void init_input();
+	void init_image();
+	void init_audio_player();
+	void init_font();
 };
 
 namespace
@@ -78,6 +87,9 @@ sge::systems::instance::instance(
 {
 	reinit(l);
 }
+
+sge::systems::instance::~instance()
+{}
 
 void sge::systems::instance::reinit(
 	list const &l)
@@ -143,11 +155,61 @@ visitor::visitor(
 void visitor::operator()(
 	sge::renderer::parameters const &p) const
 {
+	impl_.init_renderer(p);
 }
 
 void visitor::operator()(
 	sge::systems::parameterless::type const p) const
 {
+	switch(p) {
+	case sge::systems::parameterless::input:
+		impl_.init_input();
+		break;
+	case sge::systems::parameterless::image:
+		impl_.init_image();
+		break;
+	case sge::systems::parameterless::audio_player:
+		impl_.init_audio_player();
+		break;
+	case sge::systems::parameterless::font:
+		impl_.init_font();
+		break;
+	default:
+		throw sge::exception(
+			SGE_TEXT("Invalid systems::parameterless!"));
+	}
 }
 
+}
+
+void sge::systems::instance::impl::init_renderer(
+	renderer::parameters const &p)
+{
+	renderer_plugin = plugin_manager.get_plugin<renderer::system>().load();
+	renderer_system.reset(renderer_plugin->get()());
+	renderer = renderer_system->create_renderer(p);
+}
+
+void sge::systems::instance::impl::init_input()
+{
+	input_plugin = plugin_manager.get_plugin<sge::input::system>().load();
+	input_system.reset(input_plugin->get()(renderer->get_window()));
+}
+
+void sge::systems::instance::impl::init_image()
+{
+	image_loader_plugin = plugin_manager.get_plugin<sge::image::loader>().load();
+	image_loader.reset(image_loader_plugin->get()());
+}
+
+void sge::systems::instance::impl::init_audio_player()
+{
+	audio_player_plugin = plugin_manager.get_plugin<sge::audio::player>().load();
+	audio_player.reset(audio_player_plugin->get()());
+}
+
+void sge::systems::instance::impl::init_font()
+{
+	font_plugin = plugin_manager.get_plugin<sge::font::system>().load();
+	font_system.reset(font_plugin->get()());
 }

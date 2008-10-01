@@ -52,12 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	/*sge::systems sys;
-	sys.init<sge::init::core>();
-	sys.init<sge::init::renderer>(sge::renderer::screen_size_t(1024, 768));
-	sys.init<sge::init::input>();
-	sys.init<sge::init::image_loader>();*/
-
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::renderer::parameters(

@@ -35,3 +35,39 @@ sge::renderer::parameters::parameters(
 	vsync_(vsync_),
 	samples_(samples_)
 {}
+
+sge::renderer::display_mode const &
+sge::renderer::parameters::mode() const
+{
+	return mode_;
+}
+
+sge::renderer::depth_buffer::type
+sge::renderer::parameters::dbuffer() const
+{
+	return depth_buffer_;
+}
+
+sge::renderer::stencil_buffer::type
+sge::renderer::parameters::sbuffer() const
+{
+	return stencil_buffer_;
+}
+
+sge::renderer::window_mode::type
+sge::renderer::parameters::wmode() const
+{
+	return window_mode_;
+}
+
+sge::renderer::vsync::type
+sge::renderer::parameters::vsmode() const
+{
+	return vsync_;
+}
+
+sge::renderer::multi_sample_type
+sge::renderer::parameters::samples() const
+{
+	return samples_;
+}

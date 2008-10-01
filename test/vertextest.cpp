@@ -1,9 +1,10 @@
-#include <sge/init.hpp>
-#include <sge/systems.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/su.hpp>
+#include <sge/window.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
 #include <sge/scoped_connection.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
 #include <sge/renderer/vf/format.hpp>
@@ -30,11 +31,18 @@
 int main()
 try
 {
-	sge::systems sys;
-	sys.init<sge::init::core>();
-	sys.init<sge::init::renderer>(
-		sge::renderer::screen_size_t(1024, 768));
-	sys.init<sge::init::input>();
+	sge::systems::instance sys(
+		sge::systems::list()
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size_t(
+					1024,
+					768),
+				sge::renderer::bit_depth::depth32),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed))
+		(sge::systems::parameterless::input));
 
 	typedef sge::renderer::vf::pos<
 		sge::space_unit,
@@ -53,7 +61,7 @@ try
 	> format;
 
 	sge::renderer::device_ptr const rend(
-		sys.renderer);
+		sys.renderer());
 	sge::renderer::vertex_buffer_ptr const vb(
 		rend->create_vertex_buffer(
 			sge::renderer::vf::make_dynamic_format<format>(),
@@ -85,7 +93,7 @@ try
 
 	bool running = true;
 
-	sge::input::system_ptr const is = sys.input_system;
+	sge::input::system_ptr const is = sys.input_system();
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
