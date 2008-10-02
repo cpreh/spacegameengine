@@ -32,7 +32,7 @@ namespace renderer
 {
 
 SGE_SYMBOL void screenshot(
-	device_ptr rend,
+	const_device_ptr rend,
 	image::loader_ptr il,
 	path const &);
 
