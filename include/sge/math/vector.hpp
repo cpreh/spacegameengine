@@ -453,7 +453,10 @@ public:
 	 */
 	value_type length() const
 	{
-		return static_cast<value_type>(std::sqrt(length_quad()));
+		return static_cast<value_type>(
+			std::sqrt(
+				static_cast<long double>(
+					length_quad())));
 	}
 
 	/**

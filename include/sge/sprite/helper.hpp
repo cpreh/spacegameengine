@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_HELDER_HPP_INCLUDED
 
 #include "types.hpp"
-#include "../export.hpp"
-#include "../renderer/vertex_iterator.hpp"
+#include "vertex_format.hpp"
+#include "../renderer/vf/iterator.hpp"
 #include "../renderer/index_view.hpp"
+#include "../export.hpp"
 #include "../math/rect.hpp"
 
 namespace sge
@@ -33,36 +34,37 @@ namespace sprite
 {
 
 typedef renderer::index_view_16 index_view;
+typedef renderer::vf::iterator<vertex_format> vertex_iterator;
 
-SGE_SYMBOL renderer::vertex_iterator
+SGE_SYMBOL vertex_iterator
 fill_position(
-	renderer::vertex_iterator it,
-	const rect& rs,
+	vertex_iterator,
+	rect const &rs,
 	depth_type z);
 
-SGE_SYMBOL renderer::vertex_iterator
+SGE_SYMBOL vertex_iterator
 fill_tex_coordinates(
-	renderer::vertex_iterator it,
-	const renderer::tex_rect& rt);
+	vertex_iterator,
+	tex_rect const &rt);
 
-SGE_SYMBOL renderer::vertex_iterator
+SGE_SYMBOL vertex_iterator
 fill_vertices(
-	renderer::vertex_iterator it,
-	const rect& rs,
-	const renderer::tex_rect& rt,
+	vertex_iterator it,
+	rect const &rs,
+	tex_rect const &rt,
 	depth_type z);
 
-SGE_SYMBOL renderer::vertex_iterator
+SGE_SYMBOL vertex_iterator
 fill_position_rotated(
-	renderer::vertex_iterator it,
-	const rect& rbs,
+	vertex_iterator it,
+	rect const &rbs,
 	rotation_type rot,
-	const point& center,
+	point const &center,
 	depth_type z);
 
-SGE_SYMBOL renderer::vertex_iterator
+SGE_SYMBOL vertex_iterator
 fill_color(
-	renderer::vertex_iterator it,
+	vertex_iterator it,
 	color col);
 
 SGE_SYMBOL index_view::iterator

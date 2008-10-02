@@ -15,7 +15,7 @@ namespace mad
 class stream : boost::noncopyable
 {
 	public:
-	stream(std::istream &);
+	explicit stream(std::istream &);
 	frame &decode();
 	bool eof() const;
 	void reset();

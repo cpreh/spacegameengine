@@ -49,15 +49,15 @@ private:
 		sprite_list const &);
 	void add(
 		intrusive_object &,
-		bool transparent);
-	void update_z(
-		depth_type);
-
+		intrusive_object::order_type);
 	friend class intrusive_object;
 
-	depth_type  z_max;
-	sprite_list opaque_sprites,
-	            transparent_sprites;
+	typedef boost::ptr_map<
+		intrusive_object::order_type,
+		sprite_list
+	> sprite_level_map;
+
+	sprite_level_map sprite_levels;
 };
 
 }

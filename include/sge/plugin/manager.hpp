@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_MANAGER_HPP_INCLUDED
 
 #include "capabilities.hpp"
-#include "context_base.hpp"
-#include "iterator.hpp"
 #include "category_array.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
@@ -35,6 +33,11 @@ namespace sge
 {
 namespace plugin
 {
+
+class context_base;
+
+template<typename T>
+class iterator;
 
 class manager : boost::noncopyable {
 	typedef std::vector<context_base> plugin_array;

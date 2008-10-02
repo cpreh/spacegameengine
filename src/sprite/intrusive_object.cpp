@@ -28,6 +28,7 @@ sge::sprite::intrusive_object::intrusive_object(
 	boost::optional<texture::part_ptr> const vtex,
 	boost::optional<dim> const size_,
 	boost::optional<color> const color_,
+	boost::optional<depth_type> const z_,
 	boost::optional<rotation_type> const rotation_,
 	boost::optional<bool> const visible_)
 : object(
@@ -35,21 +36,21 @@ sge::sprite::intrusive_object::intrusive_object(
 	vtex,
 	size_,
 	color_,
-	static_cast<depth_type>(order_),
+	z_,
 	rotation_,
 	visible_),
   sys(sys),
   order_(order_)
 {
 	add_me();
-	update_z();
 }
 
 sge::sprite::intrusive_object::intrusive_object(
 	intrusive_object const &r)
 : object(r),
   detail::object_base_hook(r),
-  sys(r.sys)
+  sys(r.sys),
+  order_(r.order_)
 {
 	add_me();
 }
@@ -60,26 +61,19 @@ sge::sprite::intrusive_object::operator=(
 {
 	// TODO: what is necessary here?
 	unlink();
+	order_ = r.order_;
 	detail::object_base_hook::operator=(r);	
 	object::operator=(r);
 	add_me();
 	return *this;
 }
 
-void sge::sprite::intrusive_object::set_color(
-	color const c)
+void sge::sprite::intrusive_object::order(
+	order_type const o)
 {
 	unlink();
-	object::set_color(c);
+	order_ = o;
 	add_me();
-}
-
-void sge::sprite::intrusive_object::order(
-	order_type const norder)
-{
-	order_ = norder;
-	z() = static_cast<depth_type>(order());
-	update_z();
 }
 
 sge::sprite::intrusive_object::order_type
@@ -104,10 +98,5 @@ void sge::sprite::intrusive_object::add_me()
 {
 	sys.add(
 		*this,
-		false);
-}
-
-void sge::sprite::intrusive_object::update_z()
-{
-	sys.update_z(z());
+		order_);
 }

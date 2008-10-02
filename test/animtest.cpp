@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
 #include <sge/iostream.hpp>
 #include <sge/media.hpp>
-#include <sge/init.hpp>
+#include <sge/window.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -50,18 +52,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::systems sys;
-	sys.init<sge::init::core>();
-	sys.init<sge::init::renderer>(sge::renderer::screen_size_t(1024, 768));
-	sys.init<sge::init::input>();
-	sys.init<sge::init::image_loader>();
+	sge::systems::instance sys(
+		sge::systems::list()
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size_t(
+					1024,
+					768),
+				sge::renderer::bit_depth::depth32),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed))
+		(sge::systems::parameterless::input)
+		(sge::systems::parameterless::image));
 	
-	const sge::input::system_ptr    is   = sys.input_system;
-	const sge::renderer::device_ptr rend = sys.renderer;
-	const sge::image::loader_ptr    pl   = sys.image_loader;
+	const sge::input::system_ptr    is   = sys.input_system();
+	const sge::renderer::device_ptr rend = sys.renderer();
+	const sge::image::loader_ptr    pl   = sys.image_loader();
 
-	const sge::image::object_ptr img1(pl->load_image(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
-	                             img2(pl->load_image(sge::media_path() / SGE_TEXT("grass.png")));
+	const sge::image::object_ptr img1(pl->load(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
+	                             img2(pl->load(sge::media_path() / SGE_TEXT("grass.png")));
 
 	const sge::texture::default_creator<sge::texture::no_fragmented> creator(rend, sge::renderer::linear_filter);
 	sge::texture::manager tex_man(rend, creator);
@@ -74,9 +84,9 @@ try
 		sge::sprite::point(0,0),
 		sge::texture::part_ptr(),
 		sge::sprite::dim(
-			rend->screen_width(),
+			rend->screen_size().w(),
 			static_cast<sge::sprite::unit>(
-				rend->screen_height())),
+				rend->screen_size().h())),
 		boost::none,
 		boost::none,
 		boost::none,
@@ -120,12 +130,12 @@ try
 		ss.render(spr);
 	}
 }
-catch(const sge::exception& e)
+catch(sge::exception const &e)
 {
 	sge::cerr << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;
 }
-catch(const std::exception& e)
+catch(std::exception const &e)
 {
 	sge::cerr << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;

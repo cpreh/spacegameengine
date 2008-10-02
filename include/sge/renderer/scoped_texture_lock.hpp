@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
 
-#include "texture.hpp"
+#include "texture_fwd.hpp"
 #include "image_view.hpp"
 #include "scoped_lock_wrapper.hpp"
 #include "scoped_lock.hpp"
+#include "lock_flags.hpp"
+#include "dim_types.hpp"
 #include "../export.hpp"
 
 namespace sge

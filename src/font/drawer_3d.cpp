@@ -42,14 +42,15 @@ struct converter {
 sge::font::drawer_3d::drawer_3d(
 	renderer::device_ptr const rend,
 	renderer::any_color const &col)
-: rend(rend),
-  col(col),
-  texman(
-  	rend,
-	texture::default_creator<texture::rect_fragmented>(
+:
+	rend(rend),
+	col(col),
+	texman(
 		rend,
-		renderer::linear_filter)),
-  sys(rend)
+		texture::default_creator<texture::rect_fragmented>(
+			rend,
+			renderer::linear_filter)),
+	sys(rend)
 {}
 
 void sge::font::drawer_3d::begin_rendering(
@@ -114,9 +115,7 @@ void converter::operator()(
 		src,
 		src,
 		src,
-		src == 0 
-		? static_cast<unsigned char>(0)
-		: static_cast<unsigned char>(255)); // FIXME: use a typedef!
+		src);
 }
 
 }

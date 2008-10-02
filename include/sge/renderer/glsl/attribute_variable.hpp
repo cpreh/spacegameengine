@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "attribute_value.hpp"
 #include "../../export.hpp"
-#include "../../shared_ptr.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -39,9 +38,6 @@ public:
 	virtual void set(attribute_value const &) = 0;
 	SGE_SYMBOL virtual ~attribute_variable();
 };
-
-typedef shared_ptr<attribute_variable> attribute_variable_ptr;
-typedef shared_ptr<attribute_variable const> const_attribute_variable_ptr;
 
 }
 }

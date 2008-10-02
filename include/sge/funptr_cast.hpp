@@ -30,6 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+// This function is only intended to make working
+// with the broken POSIX interface for getting functions from
+// DSOs possible. Do not use this yourself!
+
 template<typename Dest, typename Source>
 Dest funptr_cast(const Source& s)
 {

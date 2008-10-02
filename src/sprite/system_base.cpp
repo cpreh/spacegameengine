@@ -20,12 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/system_base.hpp>
 #include <sge/sprite/types.hpp>
+#include <sge/sprite/vertex_format.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/math/matrix_util.hpp>
 #include <sge/renderer/transform.hpp>
-#include <sge/renderer/vertex_format.hpp>
 #include <sge/renderer/vertex_buffer_util.hpp>
 #include <sge/renderer/index_buffer_util.hpp>
+#include <sge/renderer/vf/make_dynamic_format.hpp>
 
 namespace
 {
@@ -42,24 +43,24 @@ sge::sprite::system_base::get_renderer() const
 
 sge::sprite::system_base::system_base(
 	renderer::device_ptr const rend)
-: default_transformable(
- 	rend,
-	renderer::matrix_pixel_to_space(rend->screen_size()),
-	math::matrix_orthogonal_xy()),
-   rend(rend),
-   vb(
-   	rend->create_vertex_buffer(
-		renderer::vertex_format()
-			.add(renderer::vertex_usage::pos)
-			.add(renderer::vertex_usage::diffuse)
-			.add(renderer::vertex_usage::tex),
-		init_sprites * detail::vertices_per_sprite,
-		renderer::resource_flags::dynamic)),
-  ib(
-  	rend->create_index_buffer(
-		renderer::index_format::index16,
-		init_sprites * detail::indices_per_sprite,
-		renderer::resource_flags::dynamic))
+:
+	default_transformable(
+		rend,
+		renderer::matrix_pixel_to_space(rend->screen_size()),
+		math::matrix_orthogonal_xy()),
+	rend(rend),
+	vb(
+		rend->create_vertex_buffer(
+			renderer::vf::make_dynamic_format<
+				vertex_format
+			>(),
+			init_sprites * detail::vertices_per_sprite,
+			renderer::resource_flags::dynamic)),
+	ib(
+		rend->create_index_buffer(
+			renderer::index_format::index16,
+			init_sprites * detail::indices_per_sprite,
+			renderer::resource_flags::dynamic))
 {}
 
 void sge::sprite::system_base::allocate_buffers(

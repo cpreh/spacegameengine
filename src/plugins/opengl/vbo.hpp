@@ -34,7 +34,7 @@ GLenum index_buffer_type();
 GLenum vertex_buffer_type();
 
 void initialize_vbo();
-vbo_base& vb_ib_vbo_impl();
+vbo_base &vb_ib_vbo_impl();
 
 }
 }

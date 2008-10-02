@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_DEFAULT_CREATOR_HPP_INCLUDED
 #define SGE_TEXTURE_DEFAULT_CREATOR_HPP_INCLUDED
 
+#include "fragmented_auto_ptr.hpp"
 #include "../renderer/texture_filter.hpp"
-#include "../renderer/device.hpp"
+#include "../renderer/device_fwd.hpp"
 
 namespace sge
 {
@@ -36,8 +37,8 @@ class default_creator {
 public:
 	default_creator(
 		renderer::device_ptr rend,
-		const renderer::filter_args& filter);
-	fragmented* operator()() const;
+		renderer::filter_args const &filter);
+	fragmented_auto_ptr operator()() const;
 private:
 	renderer::device_ptr  rend;
 	renderer::filter_args filter;

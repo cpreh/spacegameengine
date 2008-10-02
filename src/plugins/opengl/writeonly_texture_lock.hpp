@@ -33,7 +33,6 @@ class writeonly_texture_lock : public texture_lock {
 public:
 	writeonly_texture_lock(
 		size_type lock_size,
-		size_type offset,
 		size_type stride,
 		renderer::resource_flag_t flags);
 

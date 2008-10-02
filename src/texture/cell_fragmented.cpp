@@ -25,25 +25,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/assert.hpp>
 
 sge::texture::cell_fragmented::cell_fragmented(
-	const renderer::device_ptr rend,
-	const renderer::filter_args& filter,
-	const renderer::texture::dim_type& cell_size)
-: rend(rend),
-  my_filter(filter),
-  cell_size(cell_size),
-  cells(atlased_texture_dim(rend) / cell_size, false),
-  tex(atlased_texture(rend, my_filter))
+	renderer::device_ptr const rend,
+	renderer::filter_args const &filter,
+	renderer::dim_type const &cell_size)
+:
+	rend(rend),
+	cell_size(cell_size),
+	cells(atlased_texture_dim(rend) / cell_size, false),
+	tex(atlased_texture(rend, filter))
 {}
 
-const sge::texture::part_ptr
+sge::texture::part_ptr const
 sge::texture::cell_fragmented::consume_fragment(
-	const renderer::texture::dim_type& dim)
+	renderer::dim_type const &dim)
 {
 	if(dim != cell_size)
-		throw exception(SGE_TEXT("Invalid request for consume_fragments in texture::cell_fragmented!"));
+		throw exception(
+			SGE_TEXT("Invalid request for consume_fragments in texture::cell_fragmented!"));
 	// TODO maybe optimize this with a stack?
 	const field_type::iterator it = std::find(cells.begin(), cells.end(), false);
 	if(it == cells.end())
@@ -61,14 +63,14 @@ sge::texture::cell_fragmented::consume_fragment(
 }
 
 void sge::texture::cell_fragmented::return_fragment(
-	const part& t)
+	part const &t)
 {
-	const field_type::vector_type pos = t.area().pos() * cell_size;
+	field_type::vector_type const pos = t.area().pos() * cell_size;
 	SGE_ASSERT(cells.pos(pos));
 	cells.pos(pos) = false;
 }
 
-const sge::renderer::texture_ptr
+sge::renderer::texture_ptr const
 sge::texture::cell_fragmented::get_texture() const
 {
 	return tex;

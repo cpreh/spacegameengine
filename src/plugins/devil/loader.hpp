@@ -34,18 +34,18 @@ class loader : public image::loader {
 public:
 	loader();
 
-	const image::object_ptr
-	load_image(
+	image::object_ptr const
+	load(
 		path const &);
 	
-	const image::object_ptr
+	/*image::object_ptr const
 	load_image(
 		image::format::type type,
 		image::object::const_pointer format_data,
-		image::object::size_type size);
+		image::object::size_type size);*/
 	
-	const image::object_ptr
-	create_image(
+	image::object_ptr const
+	create(
 		renderer::const_image_view const &src);
 private:
 	library lib_;

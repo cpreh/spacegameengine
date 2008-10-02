@@ -23,15 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../path.hpp"
 #include "../export.hpp"
-#include "../renderer/types.hpp"
-#include "../renderer/device.hpp"
-#include "../renderer/texture.hpp"
-#include "../renderer/texture_filter.hpp"
-#include "loader.hpp"
-#include "object.hpp"
+#include "../renderer/resource_flags.hpp"
+#include "../renderer/device_fwd.hpp"
+#include "../renderer/texture_fwd.hpp"
+#include "loader_fwd.hpp"
+#include "object_fwd.hpp"
 
 namespace sge
 {
+namespace renderer
+{
+struct filter_args;
+}
+
 namespace image
 {
 

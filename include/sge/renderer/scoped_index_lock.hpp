@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
 
+#include "index_buffer_fwd.hpp"
 #include "index_buffer.hpp"
 #include "index_view.hpp"
 #include "scoped_lock_wrapper.hpp"
 #include "scoped_lock.hpp"
+#include "lock_flags.hpp"
+#include "size_type.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -56,14 +59,14 @@ SGE_SYMBOL scoped_index_lock_wrapper const
 make_scoped_lock(
 	index_buffer_ptr t,
 	lock_flag_t flags,
-	index_buffer::size_type first = 0,
-	index_buffer::size_type count = index_buffer::npos);
+	size_type first = 0,
+	size_type count = index_buffer::npos);
 
 SGE_SYMBOL const_scoped_index_lock_wrapper const
 make_scoped_lock(
 	const_index_buffer_ptr t,
-	index_buffer::size_type first = 0,
-	index_buffer::size_type count = index_buffer::npos);
+	size_type first = 0,
+	size_type count = index_buffer::npos);
 
 }
 }

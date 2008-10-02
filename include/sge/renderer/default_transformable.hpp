@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEFAULT_TRANSFORMABLE_HPP_INCLUDED
 
 #include "transformable.hpp"
-#include "device.hpp"
+#include "device_fwd.hpp"
 #include "../export.hpp"
 #include "../math/matrix_util.hpp"
 
@@ -35,20 +35,20 @@ class SGE_CLASS_SYMBOL default_transformable {
 public:
 	SGE_SYMBOL default_transformable(
 		device_ptr rend,
-		const math::space_matrix& internal,
-		const math::space_matrix& projection,
-		const math::space_matrix& transform
+		math::space_matrix const &internal,
+		math::space_matrix const &projecion,
+		math::space_matrix const &transform
 			= math::matrix_identity());
 
 	SGE_SYMBOL void internal_transformation(
-		const math::space_matrix&);
+		math::space_matrix const &);
 	SGE_SYMBOL void transform(
-		const math::space_matrix&);
+		math::space_matrix const &);
 	SGE_SYMBOL void projection(
-		const math::space_matrix&);
+		math::space_matrix const &);
 	SGE_SYMBOL void set_matrices();
 private:
-	device_ptr rend;
+	device_ptr const   rend;
 	math::space_matrix internal_matrix_,
 			   projection_,
 	                   transform_;

@@ -53,12 +53,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
-#include <sge/ostream.hpp>
+#include <sge/renderer/caps.hpp>
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/primitive.hpp>
-#include <sge/renderer/types.hpp>
 #include <sge/renderer/viewport.hpp>
+#include <sge/renderer/light.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/math/matrix_util.hpp>
@@ -72,22 +71,15 @@ sge::ogl::device::device(
 	renderer::adapter_type const adapter,
 	window_ptr const wnd_param)
  : param(param),
-   caps_(
-   	adapter,
-   	"TODO",
-	"TODO",
-	2048, //get_int(GL_MAX_TEXTURE_SIZE), //FIXME
-	//get_int(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT)),
-   0),
    current_states(renderer::state::default_())
 #if defined(SGE_HAVE_X11)
    , dsp(new x11::display())
 #endif
 {
-	if(adapter > 0)
-		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
+//	if(adapter > 0)
+//		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
 
-	bool windowed = param.windowed;
+	bool windowed = true; // param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
 	const unsigned color_depth = renderer::bit_depth_bit_count(param.mode.depth);
 	if(!windowed)
@@ -102,7 +94,7 @@ sge::ogl::device::device(
 		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
 		{
-			sge::cerr << SGE_TEXT("Cannot change resolution to ") << param.mode << SGE_TEXT("! Reverting to window mode!\n");
+			//sge::cerr << SGE_TEXT("Cannot change resolution to ") << param.mode << SGE_TEXT("! Reverting to window mode!\n");
 			windowed = false;
 		}
 	}
@@ -152,10 +144,10 @@ sge::ogl::device::device(
 	if(!windowed)
 	{
 		modes.reset(new x11::xf86_vidmode_array(dsp, screen));
-		resolution = modes->switch_to_mode(param.mode);
+		resolution = modes->switch_to_mode(param.mode());
 		if(!resolution)
 		{
-			sge::cerr << SGE_TEXT("Warning: No resolution matches against ") << param.mode << SGE_TEXT("! Falling back to window mode!\n");
+			//sge::cerr << SGE_TEXT("Warning: No resolution matches against ") << param.mode << SGE_TEXT("! Falling back to window mode!\n");
 			windowed = true;
 		}
 	}
@@ -180,7 +172,7 @@ sge::ogl::device::device(
 		wnd.reset(
 			new x11::window(
 				window::window_pos(0,0),
-				window::window_size(param.mode.width(), param.mode.height()),
+				param.mode().size,
 				string(),
 				dsp,
 				swa,
@@ -227,8 +219,8 @@ void sge::ogl::device::begin_rendering()
 sge::renderer::index_buffer_ptr const
 sge::ogl::device::create_index_buffer(
 	renderer::index_format::type const format,
-	renderer::index_buffer::size_type const sz,
-	renderer::index_buffer::resource_flag_type const flags)
+	renderer::size_type const sz,
+	renderer::resource_flag_t const flags)
 {
 	return renderer::index_buffer_ptr(
 		new index_buffer(
@@ -262,9 +254,9 @@ sge::ogl::device::create_texture(
 
 sge::renderer::vertex_buffer_ptr const
 sge::ogl::device::create_vertex_buffer(
-	renderer::vertex_format const &format,
-	renderer::vertex_buffer::size_type const sz,
-	renderer::vertex_buffer::resource_flag_type const flags)
+	renderer::vf::dynamic_format const &format,
+	renderer::size_type const sz,
+	renderer::resource_flag_t const flags)
 {
 	return renderer::vertex_buffer_ptr(
 		new vertex_buffer(
@@ -290,10 +282,10 @@ sge::ogl::device::create_volume_texture(
 
 sge::renderer::cube_texture_ptr const
 sge::ogl::device::create_cube_texture(
-	renderer::cube_texture::size_type const border_size,
+	renderer::size_type const border_size,
 	renderer::color_format::type const format,
 	renderer::filter_args const &filter,
-	renderer::cube_texture::resource_flag_type const flags)
+	renderer::resource_flag_t const flags)
 {
 	return renderer::cube_texture_ptr(
 		new cube_texture(
@@ -314,10 +306,15 @@ void sge::ogl::device::end_rendering()
 #endif
 }
 
-sge::renderer::caps const&
+sge::renderer::caps const
 sge::ogl::device::get_caps() const
 {
-	return caps_;
+	return renderer::caps(
+		0,
+		SGE_TEXT("fixme"),
+		SGE_TEXT("fixme"),
+		1024,
+		0); // FIXME
 }
 
 sge::window_ptr const
@@ -329,17 +326,17 @@ sge::ogl::device::get_window() const
 sge::renderer::screen_size_t const
 sge::ogl::device::screen_size() const
 {
-	return param.mode.size;
+	return param.mode().size;
 }
 
 void sge::ogl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
 	renderer::const_index_buffer_ptr const ib,
-	renderer::vertex_buffer::size_type const first_vertex,
-	renderer::vertex_buffer::size_type const num_vertices,
+	renderer::size_type const first_vertex,
+	renderer::size_type const num_vertices,
 	renderer::indexed_primitive_type::type const ptype,
-	renderer::index_buffer::size_type const pcount,
-	renderer::index_buffer::size_type const first_index)
+	renderer::size_type const pcount,
+	renderer::size_type const first_index)
 {
 	if(!vb)
 		throw exception(
@@ -368,8 +365,8 @@ void sge::ogl::device::render(
 
 void sge::ogl::device::render(
 	renderer::const_vertex_buffer_ptr const vb,
-	renderer::vertex_buffer::size_type const first_vertex,
-	renderer::vertex_buffer::size_type const num_vertices,
+	renderer::size_type const first_vertex,
+	renderer::size_type const num_vertices,
 	renderer::nonindexed_primitive_type::type const ptype)
 {
 	if(!vb)
@@ -383,9 +380,10 @@ void sge::ogl::device::render(
 
 	SGE_OPENGL_SENTRY
 
-	glDrawArrays(prim_type,
-	             static_cast<GLsizei>(first_vertex),
-	             static_cast<GLint>(num_vertices));
+	glDrawArrays(
+		prim_type,
+		static_cast<GLsizei>(first_vertex),
+		static_cast<GLint>(num_vertices));
 }
 
 void sge::ogl::device::set_state(
@@ -464,9 +462,9 @@ void sge::ogl::device::reset_viewport_on_configure(const XEvent& e)
 void sge::ogl::device::center_viewport(const int w, const int h)
 {
 	const renderer::pixel_unit screen_w =
-		static_cast<renderer::pixel_unit>(screen_width()),
+		static_cast<renderer::pixel_unit>(screen_size().w()),
 		         screen_h =
-		static_cast<renderer::pixel_unit>(screen_height()),
+		static_cast<renderer::pixel_unit>(screen_size().h()),
 	                 x =
 		w > screen_w
 		? (w - screen_w) / 2

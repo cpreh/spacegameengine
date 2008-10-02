@@ -26,7 +26,9 @@ sge::string const alc_error_string(ALCenum const error)
 	}
 
 	if (!std::uncaught_exception())
-		throw sge::audio::exception(sge::str(sge::format("invalid alc error code: %1%") % error));
+		throw sge::audio::exception(
+			sge::str(
+				sge::format(SGE_TEXT("invalid alc error code: %1%")) % error));
 }
 
 sge::string const error_string(ALenum const error)
@@ -48,7 +50,8 @@ sge::string const error_string(ALenum const error)
 	}
 
 	if (!std::uncaught_exception())
-		throw sge::audio::exception(sge::str(sge::format("invalid openal error code: %1%") % error));
+		throw sge::audio::exception(
+			sge::str(sge::format(SGE_TEXT("invalid openal error code: %1%")) % error));
 }
 }
 

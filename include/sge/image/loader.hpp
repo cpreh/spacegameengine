@@ -21,14 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_LOADER_HPP_INCLUDED
 #define SGE_IMAGE_LOADER_HPP_INCLUDED
 
-#include "../string.hpp"
-#include "../shared_ptr.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
 #include "../path.hpp"
 #include "../export.hpp"
 #include "../renderer/image_view.hpp"
-#include "object.hpp"
+#include "object_fwd.hpp"
 #include "format.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -40,23 +38,21 @@ namespace image
 class SGE_CLASS_SYMBOL loader : boost::noncopyable {
 public:
 	virtual const object_ptr
-	load_image(
-		const path&) = 0;
+	load(
+		path const &) = 0;
 
-	virtual const object_ptr
-	load_image(
+	/*virtual object_ptr const
+	load(
 		format::type type,
 		object::const_pointer format_data,
-		object::size_type size) = 0;
+		object::size_type size) = 0;*/
 
-	virtual const object_ptr
-	create_image(
+	virtual object_ptr const
+	create(
 		renderer::const_image_view const &) = 0;
 
 	SGE_SYMBOL virtual ~loader();
 };
-
-typedef shared_ptr<loader> loader_ptr;
 
 }
 

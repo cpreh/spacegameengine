@@ -33,9 +33,6 @@ In find_nth_if(In first, In last, Size count, UnaryPredicate pred);
 template<typename In, typename Size, typename BinaryPredicate>
 In first_mismatch_if(In first, In last, Size& cnt, BinaryPredicate pred);
 
-template<typename In, typename Out, typename Size>
-Out copy_n(In beg, Size sz, Out out);
-
 }
 
 #include "detail/algorithm_impl.hpp"

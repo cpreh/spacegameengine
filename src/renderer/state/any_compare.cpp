@@ -20,11 +20,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/any_compare.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
 #include <typeinfo>
+
+namespace
+{
+
+struct compare : boost::static_visitor<bool> {
+	template<typename T>
+	bool operator()(
+		sge::renderer::state::var<T> const &,
+		sge::renderer::state::var<T> const &) const;
+
+	template<typename T, typename U>
+	bool operator()(
+		T const &,
+		U const &) const;
+};
+
+}
 
 bool sge::renderer::state::any_compare::operator()(
 	any const &a,
 	any const &b) const
 {
-	return a.type().before(b.type());
+	return boost::apply_visitor(
+		compare(),
+		a,
+		b);
+}
+
+namespace
+{
+
+template<typename T>
+bool compare::operator()(
+	sge::renderer::state::var<T> const &a,
+	sge::renderer::state::var<T> const &b) const
+{
+	return a.state()
+	     < b.state();
+}
+
+template<typename T, typename U>
+bool compare::operator()(
+	T const &,
+	U const &) const
+{
+	return typeid(T).before(typeid(U));
+}
+
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
+#include <sge/export.hpp>
 #include <boost/foreach.hpp>
 
 sge::renderer::state::list::list(
@@ -62,6 +63,8 @@ void sge::renderer::state::list::overwrite(
 template<typename T>
 T sge::renderer::state::list::get() const
 {
+	// TODO: can we optimize this?
+	
 	BOOST_FOREACH(set_type::const_reference ref, set_)
 		if(ref.type() == typeid(T))
 			return boost::get<T>(ref);
@@ -72,13 +75,20 @@ T sge::renderer::state::list::get() const
 
 template<typename T>
 T sge::renderer::state::list::get(
-	trampoline<T> const &) const
+	trampoline<T> const &t) const
 {
 	typedef typename trampoline<T>::var_type var_type;
 
+	// TODO: can we optimize this?
+
 	BOOST_FOREACH(set_type::const_reference ref, set_)
 		if(ref.type() == typeid(var_type))
-			return boost::get<var_type>(ref).value();
+		{
+			var_type const &v(
+				boost::get<var_type>(ref));
+			if(v.state() == t.state())
+				return v.value();
+		}
 	
 	throw exception(
 		SGE_TEXT("renderer::list::get(): state not found!"));
@@ -102,7 +112,7 @@ sge::renderer::state::combine(
 }
 
 #define SGE_INSTANTIATE_STATE_LIST_GET(x)\
-template x sge::renderer::state::list::get<x>() const;
+template SGE_SYMBOL x sge::renderer::state::list::get<x>() const;
 
 SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::cull_mode::type)
 SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::depth_func::type)
@@ -116,7 +126,7 @@ SGE_INSTANTIATE_STATE_LIST_GET(sge::renderer::state::dest_blend_func::type)
 #undef SGE_INSTANTIATE_STATE_LIST_GET
 
 #define SGE_INSTANTIATE_STATE_LIST_GET_T(x)\
-template x sge::renderer::state::list::get(\
+template SGE_SYMBOL x sge::renderer::state::list::get(\
 	sge::renderer::state::trampoline<x> const &) const;
 
 SGE_INSTANTIATE_STATE_LIST_GET_T(sge::renderer::state::int_::base_type)

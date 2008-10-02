@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::ogl::writeonly_texture_lock::writeonly_texture_lock(
 	size_type const lock_size,
-	size_type const offset,
 	size_type const stride,
 	renderer::resource_flag_t const flags)
 : buffer(

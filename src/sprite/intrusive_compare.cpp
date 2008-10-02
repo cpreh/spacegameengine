@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/intrusive_compare.hpp>
 #include <sge/sprite/intrusive_object.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/renderer/texture.hpp>
 
 bool sge::sprite::tex_equal_visible(
 	intrusive_object const &l,

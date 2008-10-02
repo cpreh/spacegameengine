@@ -22,21 +22,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
 
 #include "sized_creator.hpp"
+#include "../renderer/device.hpp"
 
 template<typename T>
 sge::texture::sized_creator<T>::sized_creator(
-	const renderer::device_ptr rend,
-	const renderer::filter_args& filter,
-	const renderer::texture::dim_type& dim)
-: rend(rend),
-  filter(filter),
-  dim(dim)
+	renderer::device_ptr const rend,
+	renderer::filter_args const &filter,
+	renderer::texture::dim_type const &dim)
+:
+	rend(rend),
+	filter(filter),
+	dim(dim)
 {}
 
 template<typename T>
-sge::texture::fragmented* sge::texture::sized_creator<T>::operator()() const
+sge::texture::fragmented_auto_ptr
+sge::texture::sized_creator<T>::operator()() const
 {
-	return new T(rend, filter, dim);
+	return fragmented_auto_ptr(
+		new T(
+			rend,
+			filter,
+			dim));
 }
 
 #endif

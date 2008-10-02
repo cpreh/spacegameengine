@@ -1,3 +1,0 @@
-LIBRARY sgecore
-EXPORTS
-sge::create_texture@1

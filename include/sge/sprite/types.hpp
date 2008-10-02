@@ -41,6 +41,22 @@ typedef space_unit                  depth_type;
 typedef space_unit                  rotation_type;
 typedef space_unit                  repetition_type;
 
+typedef math::basic_rect<
+	space_unit
+> tex_rect;
+
+typedef math::basic_vector<
+	space_unit,
+	3
+> pos3;
+
+typedef math::basic_vector<
+	space_unit,
+	2
+> pos2;
+
+typedef pos2 tex_pos;
+
 namespace detail
 {
 

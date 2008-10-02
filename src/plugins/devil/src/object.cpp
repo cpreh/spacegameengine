@@ -34,9 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/raw_vector_impl.hpp>
 #include <sge/renderer/color_format_stride.hpp>
 #include <sge/renderer/make_image_view.hpp>
+#include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/image_view_algorithm.hpp>
 #include <sge/renderer/image_view_impl.hpp>
 
 sge::devil::object::object(const path& file)

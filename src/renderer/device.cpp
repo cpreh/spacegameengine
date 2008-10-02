@@ -19,17 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/image_view_algorithm.hpp>
+#include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/scoped_texture_lock.hpp>
+#include <sge/renderer/image_view_impl.hpp>
 #include <sge/renderer/index_view_operations.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/vertex_format.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/algorithm.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/algorithm/copy_n.hpp>
 #include <boost/variant/apply_visitor.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 sge::renderer::texture_ptr const sge::renderer::device::no_texture;
 sge::renderer::texture_ptr const sge::renderer::device::default_render_target;
@@ -44,7 +46,7 @@ sge::renderer::device::create_texture(
 {
 	texture_ptr const tex(
 		create_texture(
-			texture::dim_type(
+			dim_type(
 				image_view_dim(v)),
 			image_view_format(v),
 			filter,
@@ -64,7 +66,7 @@ sge::renderer::device::create_texture(
 
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::device::create_vertex_buffer(
-	const_vertex_view const &view,
+	vf::const_dynamic_view const &view,
 	resource_flag_t const flags)
 {
 	vertex_buffer_ptr const vb(
@@ -91,7 +93,7 @@ sge::renderer::device::create_index_buffer(
 	const_dynamic_index_view const &view,
 	resource_flag_t const flags)
 {
-	index_buffer::size_type const sz(
+	size_type const sz(
 		boost::apply_visitor(
 			index_view_size(),
 			view));
@@ -123,23 +125,11 @@ sge::renderer::device::create_index_buffer(
 	return ib;
 }
 
-sge::renderer::screen_unit
-sge::renderer::device::screen_width() const
-{
-	return screen_size().w();
-}
-
-sge::renderer::screen_unit
-sge::renderer::device::screen_height() const
-{
-	return screen_size().h();
-}
-
 sge::space_unit
 sge::renderer::device::aspect() const
 {
-	return static_cast<space_unit>(screen_width())
-	     / static_cast<space_unit>(screen_height());
+	return static_cast<space_unit>(screen_size().w())
+	     / static_cast<space_unit>(screen_size().h());
 }
 
 sge::renderer::device::~device()

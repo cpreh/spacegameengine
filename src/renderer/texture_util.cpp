@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_util.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/image_view_algorithm.hpp>
+#include <sge/renderer/image_view_impl.hpp>
+#include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 void sge::renderer::sub_data(
 	texture_ptr const tex,

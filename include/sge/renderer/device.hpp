@@ -22,25 +22,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../window.hpp"
-#include "../shared_ptr.hpp"
+#include "../su.hpp"
+#include "../window_fwd.hpp"
 #include "../math/matrix.hpp"
-#include "types.hpp"
-#include "vertex_buffer.hpp"
-#include "index_buffer.hpp"
-#include "texture_base.hpp"
-#include "texture.hpp"
-#include "cube_texture.hpp"
-#include "volume_texture.hpp"
-#include "target.hpp"
-#include "light.hpp"
-#include "glsl/program.hpp"
+#include "vertex_buffer_fwd.hpp"
+#include "index_buffer_fwd.hpp"
+#include "texture_base_fwd.hpp"
+#include "texture_fwd.hpp"
+#include "cube_texture_fwd.hpp"
+//#include "volume_texture.hpp"
+#include "target_fwd.hpp"
+#include "light_index.hpp"
+#include "glsl/program_fwd.hpp"
 #include "glsl/string.hpp"
 #include "glsl/istream.hpp"
+#include "vf/dynamic_view.hpp"
 #include "primitive.hpp"
-#include "caps.hpp"
 #include "image_view.hpp"
 #include "color_format.hpp"
+#include "texture_stage.hpp"
+#include "stage_type.hpp"
+#include "size_type.hpp"
+#include "dim_types.hpp"
+#include "screen_types.hpp"
+#include "resource_flags.hpp"
+#include "index_view.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -54,87 +60,51 @@ class list;
 
 }
 
+namespace vf
+{
+
+class dynamic_format;
+
+}
+
 struct viewport;
 struct filter_args;
 struct material;
-
-namespace texture_stage_op
-{
-	enum type {
-		color,
-		alpha
-	};
-}
-
-namespace texture_stage_op_value
-{
-	enum type {
-		arg0,
-		modulate,
-		modulate2x,
-		modulate4x,
-		add,
-		add2x,
-		add4x,
-		substract,
-		add_signed,
-		add_signed2x,
-		interpolate
-	};
-}
-
-namespace texture_stage_arg
-{
-	enum type {
-		rgb0,
-		rgb1,
-		rgb2,
-		alpha0,
-		alpha1,
-		alpha2
-	};
-}
-
-namespace texture_stage_arg_value
-{
-	enum type {
-		current,
-		texture,
-		constant
-	};
-}
+struct caps;
+struct light;
 
 class SGE_CLASS_SYMBOL device : boost::noncopyable {
 public:
-	typedef uint32     int_type;
-	typedef int32      signed_type;
-	typedef uint32     unsigned_type;
-	typedef space_unit float_type;
-	typedef bool       bool_type;
-
 	virtual void begin_rendering() = 0;
 	virtual void end_rendering() = 0;
 	virtual void render(
 		const_vertex_buffer_ptr vb,
 		const_index_buffer_ptr ib,
-		vertex_buffer::size_type first_vertex,
-		vertex_buffer::size_type num_vertices,
+		size_type first_vertex,
+		size_type num_vertices,
 		indexed_primitive_type::type ptype,
-		index_buffer::size_type primitive_count,
-		index_buffer::size_type first_index) = 0;
+		size_type primitive_count,
+		size_type first_index) = 0;
 	virtual void render(
 		const_vertex_buffer_ptr vb,
-		vertex_buffer::size_type first_vertex,
-		vertex_buffer::size_type num_vertices,
+		size_type first_vertex,
+		size_type num_vertices,
 		nonindexed_primitive_type::type ptype) = 0;
 
-	virtual void set_state(state::list const &) = 0;
-	virtual void push_state(state::list const &) = 0;
+	virtual void set_state(
+		state::list const &) = 0;
+	virtual void push_state(
+		state::list const &) = 0;
 	virtual void pop_state() = 0;
 
-	virtual void set_material(material const &mat) = 0;
-	virtual void enable_light(light_index index, bool enable) = 0;
-	virtual void set_light(light_index index, const light&) = 0;
+	virtual void set_material(
+		material const &mat) = 0;
+	virtual void enable_light(
+		light_index index,
+		bool enable) = 0;
+	virtual void set_light(
+		light_index index,
+		light const &) = 0;
 	virtual void set_texture_stage_op(
 		stage_type stage,
 		texture_stage_op::type,
@@ -145,7 +115,9 @@ public:
 		texture_stage_arg_value::type) = 0;
 
 	SGE_SYMBOL static texture_ptr const no_texture;
-	virtual void set_texture(const_texture_base_ptr tex, stage_type stage = 0) = 0;
+	virtual void set_texture(
+		const_texture_base_ptr tex,
+		stage_type stage = 0) = 0;
 
 	virtual void transform(
 		math::space_matrix const &mat) = 0;
@@ -154,7 +126,7 @@ public:
 	virtual void texture_transform(
 		math::space_matrix const &mat) = 0;
 
-	SGE_SYMBOL static const texture_ptr default_render_target;
+	SGE_SYMBOL static texture_ptr const default_render_target;
 	virtual void set_render_target(texture_ptr target) = 0;
 
 	virtual void set_viewport(viewport const &) = 0;
@@ -178,8 +150,8 @@ public:
 		filter_args const &filter,
 		resource_flag_t flags);
 
-	virtual const texture_ptr create_texture(
-		texture::dim_type const &dim,
+	virtual texture_ptr const create_texture(
+		dim_type const &dim,
 		color_format::type format,
 		filter_args const &filter,
 		resource_flag_t flags) = 0;
@@ -190,18 +162,18 @@ public:
 		resource_flag_t flags) = 0;*/
 
 	virtual cube_texture_ptr const create_cube_texture(
-		cube_texture::size_type border_size,
+		size_type border_size,
 		color_format::type format,
 		filter_args const &filter,
 		resource_flag_t flags) = 0;
 
 	SGE_SYMBOL vertex_buffer_ptr const create_vertex_buffer(
-		const_vertex_view const &,
+		vf::const_dynamic_view const &,
 		resource_flag_t flags);
 	
 	virtual vertex_buffer_ptr const create_vertex_buffer(
-		vertex_format const &,
-		vertex_buffer::size_type size,
+		vf::dynamic_format const &,
+		size_type size,
 		resource_flag_t flags) = 0;
 
 	SGE_SYMBOL index_buffer_ptr const create_index_buffer(
@@ -210,21 +182,17 @@ public:
 
 	virtual index_buffer_ptr const create_index_buffer(
 		index_format::type,
-		index_buffer::size_type size,
+		size_type size,
 		resource_flag_t flags) = 0;
 
-	virtual caps const &get_caps() const = 0;
+	virtual caps const get_caps() const = 0;
 	virtual screen_size_t const screen_size() const = 0;
 	virtual window_ptr const get_window() const = 0;
 
-	SGE_SYMBOL screen_unit screen_width() const;
-	SGE_SYMBOL screen_unit screen_height() const;
 	SGE_SYMBOL space_unit aspect() const;
 
 	SGE_SYMBOL virtual ~device();
 };
-
-typedef shared_ptr<device> device_ptr;
 
 }
 }

@@ -29,7 +29,7 @@ namespace renderer
 {
 
 void check_color_float_channel(
-	color_channel_f32);	
+	color_channel_f32);
 
 void check_color_float(
 	rgba_f32_color const &);

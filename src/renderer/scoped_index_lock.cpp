@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/instantiate_scoped_lock.hpp>
+#include <sge/renderer/detail/instantiate_scoped_lock.hpp>
+#include <sge/renderer/index_buffer.hpp>
 
 // TODO:
 // maybe merge this in a template with scoped_vertex_lock?

@@ -2,8 +2,7 @@
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
 as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 
@@ -21,10 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_VERTEX_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_VERTEX_LOCK_HPP_INCLUDED
 
+#include "vertex_buffer_fwd.hpp"
 #include "vertex_buffer.hpp"
-#include "vertex_view.hpp"
 #include "scoped_lock_wrapper.hpp"
 #include "scoped_lock.hpp"
+#include "vf/dynamic_view.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -34,22 +34,22 @@ namespace renderer
 
 typedef scoped_lock<
 	vertex_buffer_ptr,
-	vertex_view
+	vf::dynamic_view
 > scoped_vertex_lock;
 
 typedef scoped_lock<
 	const_vertex_buffer_ptr,
-	const_vertex_view
+	vf::const_dynamic_view
 > const_scoped_vertex_lock;
 
 typedef scoped_lock_wrapper<
 	vertex_buffer_ptr,
-	vertex_view
+	vf::dynamic_view
 > scoped_vertex_lock_wrapper;
 
 typedef scoped_lock_wrapper<
 	const_vertex_buffer_ptr,
-	const_vertex_view
+	vf::const_dynamic_view
 > const_scoped_vertex_lock_wrapper;
 
 SGE_SYMBOL scoped_vertex_lock_wrapper const

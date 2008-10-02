@@ -21,7 +21,7 @@ class synth
 	typedef std::vector<channel_pair> synthed_sample_container;
 	typedef synthed_sample_container::const_iterator const_iterator;
 
-	synth(frame &);
+	explicit synth(frame &);
 	const_iterator begin() const { return synthed_samples.begin(); }
 	const_iterator end() const { return synthed_samples.end(); }
 	void synthesize();

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_BLOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_BLOCK_HPP_INCLUDED
 
-#include "device.hpp"
+#include "device_fwd.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -32,11 +32,11 @@ namespace renderer
 
 class scoped_block : boost::noncopyable {
 public:
-	SGE_SYMBOL explicit scoped_block(device_ptr);
+	SGE_SYMBOL explicit scoped_block(
+		device_ptr);
 	SGE_SYMBOL ~scoped_block();
-	SGE_SYMBOL void release();
 private:
-	device_ptr rend;
+	device_ptr const rend;
 };
 
 }

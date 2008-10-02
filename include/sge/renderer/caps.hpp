@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CAPS_HPP_INCLUDED
 
 #include "../export.hpp"
-#include <string>
+#include "../string.hpp"
+#include "adapter.hpp"
 
 namespace sge
 {
@@ -31,15 +32,15 @@ namespace renderer
 
 struct caps {
 	SGE_SYMBOL caps(
-		unsigned adapter_number,
-		const std::string& driver_name,
-		const std::string& description,
+		adapter_type adapter_number,
+		string const &driver_name,
+		string const &description,
 		unsigned max_tex_size,
 		unsigned max_anisotropy_level);
 		
-	unsigned           adapter_number;
-	std::string        driver_name;
-	std::string        description;
+	adapter_type       adapter_number;
+	string             driver_name;
+	string             description;
 	unsigned           max_tex_size;
 	unsigned           max_anisotropy_level;
 };

@@ -37,13 +37,14 @@ template<typename T> class context;
 
 class context_base {
 public:
-	SGE_SYMBOL context_base(const path& p);
+	SGE_SYMBOL explicit context_base(
+		path const &p);
 
-	SGE_SYMBOL const string& name() const;
-	SGE_SYMBOL const string& description() const;
+	SGE_SYMBOL string const &name() const;
+	SGE_SYMBOL string const &description() const;
 	SGE_SYMBOL unsigned version() const;
 	SGE_SYMBOL capabilities::type type() const;
-	SGE_SYMBOL const path& get_path() const;
+	SGE_SYMBOL path const &get_path() const;
 private:
 	template<typename T> friend class context;
 	boost::weak_ptr<base> ref;

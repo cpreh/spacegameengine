@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_IMAGE_VIEW_FACTORY_HPP_INCLUDED
 
 #include "image_view.hpp"
-#include "types.hpp"
+#include "dim_types.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -30,11 +30,13 @@ namespace sge
 namespace renderer
 {
 
-SGE_SYMBOL image_view const subimage_view(
+SGE_SYMBOL image_view const
+subimage_view(
 	image_view const &src,
 	lock_rect const &);
 
-SGE_SYMBOL const_image_view const subimage_view(
+SGE_SYMBOL const_image_view const
+subimage_view(
 	const_image_view const &src,
 	lock_rect const &);
 

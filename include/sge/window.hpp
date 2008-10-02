@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_HPP_INCLUDED
 #define SGE_WINDOW_HPP_INCLUDED
 
-#include "shared_ptr.hpp"
 #include "math/dim.hpp"
 #include "math/vector.hpp"
 #include "string.hpp"
@@ -49,8 +48,6 @@ public:
 
 	SGE_SYMBOL static void dispatch();
 };
-
-typedef shared_ptr<window> window_ptr;
 
 //window_ptr create_window();
 

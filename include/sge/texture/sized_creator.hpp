@@ -21,29 +21,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_SIZED_CREATOR_HPP_INCLUDED
 #define SGE_TEXTURE_SIZED_CREATOR_HPP_INCLUDED
 
+#include "fragmented_auto_ptr.hpp"
 #include "../renderer/texture_filter.hpp"
-#include "../renderer/device.hpp"
-#include "../renderer/types.hpp"
+#include "../renderer/device_fwd.hpp"
+#include "../renderer/dim_types.hpp"
 
 namespace sge
 {
 namespace texture
 {
 
-class fragmented;
-
 template<typename T>
 class sized_creator {
 public:
 	sizede_creator(
 		renderer::device_ptr rend,
-	        const renderer::filter_args& filter,
-	        const renderer::texture::dim_type& dim);
-	fragmented* operator()() const;
+	        renderer::filter_args const &filter,
+	        renderer::texture::dim_type const &dim);
+	fragmented_auto_ptr operator()() const;
 private:
 	renderer::device_ptr        rend;
 	renderer::filter_args       filter;
-	renderer::texture::dim_type dim;
+	renderer::dim_type          dim;
 };
 
 }

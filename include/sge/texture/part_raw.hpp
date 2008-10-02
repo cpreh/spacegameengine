@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "part.hpp"
 #include "../export.hpp"
-#include "../renderer/texture.hpp"
+#include "../renderer/texture_fwd.hpp"
+#include "../renderer/dim_types.hpp"
 
 namespace sge
 {
@@ -32,7 +33,8 @@ namespace texture
 
 class part_raw : public part {
 public:
-	SGE_SYMBOL part_raw(renderer::texture_ptr);
+	SGE_SYMBOL explicit part_raw(
+		renderer::texture_ptr);
 	SGE_SYMBOL part_raw(
 		renderer::texture_ptr,
 		renderer::lock_rect const &);
@@ -43,8 +45,8 @@ public:
 	SGE_SYMBOL renderer::const_texture_ptr const my_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
-	const renderer::lock_rect   area_;
-	const renderer::texture_ptr tex;
+	renderer::lock_rect   const area_;
+	renderer::texture_ptr const tex;
 };
 
 }

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../time/types.hpp"
 #include "../export.hpp"
-#include "../texture/part.hpp"
-#include "../renderer/texture.hpp"
+#include "../texture/part_fwd.hpp"
+#include "../renderer/dim_types.hpp"
 
 namespace sge
 {
@@ -34,11 +34,11 @@ namespace sprite
 class animation_entity {
 public:
 	SGE_SYMBOL animation_entity(
-		time::resolution const& delay,
+		time::resolution const &delay,
 		texture::part_ptr tex);
 	SGE_SYMBOL time::unit delay() const;
-	SGE_SYMBOL const texture::part_ptr tex() const;
-	SGE_SYMBOL const renderer::texture::dim_type dim() const;
+	SGE_SYMBOL texture::part_ptr const tex() const;
+	SGE_SYMBOL renderer::dim_type const dim() const;
 private:
 	time::unit          delay_;
 	texture::part_ptr   tex_;

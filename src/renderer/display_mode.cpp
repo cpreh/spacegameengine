@@ -19,15 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/display_mode.hpp>
+#include <sge/text.hpp>
+#include <ostream>
 	
 sge::renderer::display_mode::display_mode(
-	const screen_unit width,
-	const screen_unit height,
-	const bit_depth::type depth,
-	const unsigned refresh_rate)
- : size(width, height),
-   depth(depth),
-   refresh_rate(refresh_rate)
+	screen_size_t const &size,
+	bit_depth::type const depth,
+	refresh_rate_type const refresh_rate)
+ :
+	size(size),
+	depth(depth),
+	refresh_rate(refresh_rate)
 {}
 
 sge::renderer::screen_unit
@@ -42,12 +44,34 @@ sge::renderer::display_mode::height() const
 	return size.h();
 }
 
-bool sge::renderer::operator== (const display_mode& l, const display_mode& r)
+bool sge::renderer::operator== (
+	display_mode const &l,
+	display_mode const &r)
 {
-	return l.depth == r.depth && l.size == r.size && l.refresh_rate == r.refresh_rate;
+	return l.depth == r.depth
+		&& l.size == r.size
+		&& l.refresh_rate == r.refresh_rate;
 }
 
-bool sge::renderer::operator!= (const display_mode& l, const display_mode& r)
+bool sge::renderer::operator!= (
+	display_mode const &l,
+	display_mode const &r)
 {
 	return !(l==r);
+}
+
+sge::ostream &
+sge::renderer::operator<<(
+	ostream &s,
+	display_mode const &mode)
+{
+	return s << SGE_TEXT('(')
+	         << mode.width()
+	         << SGE_TEXT('x')
+	         << mode.height()
+	         << SGE_TEXT('x')
+	         << mode.depth
+	         << SGE_TEXT('@')
+	         << mode.refresh_rate
+	         << SGE_TEXT(')');
 }

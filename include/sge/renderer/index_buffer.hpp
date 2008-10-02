@@ -65,9 +65,6 @@ public:
 	SGE_SYMBOL virtual ~index_buffer();
 };
 
-typedef shared_ptr<index_buffer> index_buffer_ptr;
-typedef shared_ptr<index_buffer const> const_index_buffer_ptr;
-
 }
 }
 

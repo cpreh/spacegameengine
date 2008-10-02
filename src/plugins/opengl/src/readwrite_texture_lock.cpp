@@ -38,7 +38,6 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 	flags),
   write_lock(
   	lock_size,
-	offset,
 	stride,
 	flags)
 {}

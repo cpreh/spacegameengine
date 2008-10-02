@@ -21,21 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/atlasing.hpp>
 #include <sge/texture/part_fragmented.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/device.hpp>
 
 sge::texture::rect_fragmented::rect_fragmented(
-	const renderer::device_ptr rend,
-	const renderer::filter_args& my_filter)
-: rend(rend),
-  my_filter(my_filter),
-  cur_x(0),
-  cur_y(0),
-  cur_height(0),
-  tex(atlased_texture(rend, my_filter))
+	renderer::device_ptr const rend,
+	renderer::filter_args const &filter)
+:
+	rend(rend),
+	cur_x(0),
+	cur_y(0),
+	cur_height(0),
+	tex(atlased_texture(rend, filter))
 {}
 
-const sge::texture::part_ptr
+sge::texture::part_ptr const
 sge::texture::rect_fragmented::consume_fragment(
-	const renderer::texture::dim_type& dim)
+	const renderer::dim_type& dim)
 {
 	const renderer::texture::dim_type atlased_dim(atlased_size(dim, true));
 

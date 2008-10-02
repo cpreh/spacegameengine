@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../software_vbo.hpp"
 #include "../vbo.hpp"
 #include "../pbo.hpp"
-#include <sge/algorithm.hpp>
+#include <sge/algorithm/copy_n.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <utility>
