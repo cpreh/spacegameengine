@@ -15,49 +15,59 @@ them and create the according renderers and image loaders from those plugins,
 but there's a shortcut which we'll take here since it's probably your first
 glance at sge. 
 
-To initialize sge we create a sge::systems object, which will handle the dirty
-details of initialization for us. That's a one liner
+To initialize sge we create a sge::systems::instance object, which will handle
+the dirty details of initialization for us. The systems::instance object needs
+a list of things we want it to initialize. For the renderer we pass a
+renderer::parameters structure since we have to tell the renderer a few
+settings. The image plugin can be initialized just by passing
+systems::parameterless::image.
 
 \code
-sge::systems sys;
+sge::systems::instance sys(
+	sge::systems::list()
+	(sge::renderer::parameters(
+		sge::renderer::display_mode(
+			sge::renderer::screen_size_t(
+				640,
+				480),
+			sge::renderer::bit_depth::depth32),
+		sge::renderer::depth_buffer::off,
+		sge::renderer::stencil_buffer::off,
+		sge::renderer::window_mode::windowed))
+	(sge::systems::parameterless::image));
 \endcode
 
-You have to include <sge/systems.hpp> for that. Now we can start initializing,
-first the core and the image loader:
-
-\code
-sys.init<sge::init::core>();
-sys.init<sge::init::image_loader>();
-\endcode
-
-The header belonging to \link sge::init init \endlink is <sge/init.hpp>.
-
-Then, for the renderer, we need to choose a window resolution and pass it to
-\link sge::systems::init init \endlink:
-
-\code
-sys.init<sge::init::renderer>(sge::renderer::screen_size_t(640,480));
-\endcode
+You have to include <sge/systems/instance.hpp>, <sge/systems/list.hpp>
+and <sge/renderer/parameters.hpp> for that.
 
 And that's it. If you start the program now you probably see a 640x480 window
 popping up for a split second. Our first sge program! Just for convenience,
 here's the whole program:
 
 \code
-#include <sge/systems.hpp>
-#include <sge/init.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/systems/list.hpp>
+#include <sge/renderer/parameters.hpp>
 
 int main()
 {
-	sge::systems sys;
-	sys.init<sge::init::core>();
-	sys.init<sge::init::image_loader>();
-	sys.init<sge::init::renderer>(sge::renderer::screen_size_t(640,480));
+	sge::systems::instance sys(
+		sge::systems::list()
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size_t(
+					640,
+					480),
+				sge::renderer::bit_depth::depth32),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed))
+		(sge::systems::parameterless::image));
 }
 \endcode
 
 Now that we've initialized the subsystems, we can access them via
-<tt>sys.renderer</tt> and <tt>sys.image_loader</tt>.
+<tt>sys.renderer()</tt> and <tt>sys.image_loader()</tt>.
 
 \section sec3 Drawing an image
 
@@ -67,35 +77,36 @@ around later on. In computer graphics, a two dimensional "object" is called a
 sge::sprite::system, which gets the renderer in its constructor.
 
 \code
-sge::sprite::system ss(sys.renderer);
+sge::sprite::system ss(sys.renderer());
 \endcode
 
-Files to include: <sge/sprite/system.hpp>
+Files to include: <sge/sprite/system.hpp>, <sge/renderer/device.hpp>
 
-Now for the tricky part, loading the image and attaching it to a sge::sprite.
+Now for the tricky part, loading the image and attaching it to an
+sge::sprite::object.
 We'll be using the image called \em tux.png which is located in
 the \em image directory under the documentation directory. Just
 copy it into the directory of your sample application. First, we use the image
 loader to load the image:
 
 \code
-sge::image::object_ptr image = sys.image_loader->load_image(SGE_TEXT("tux.png"));
+sge::image::object_ptr image = sys.image_loader()->load(SGE_TEXT("tux.png"));
 \endcode
 
-Files to include: <sge/text.hpp>
+Files to include: <sge/text.hpp>, <sge/image/loader.hpp>, <sge/image/object.hpp>
 
-There are a few new things here, first of all <tt>sys.image_loader</tt> is a
+There are a few new things here, first of all <tt>sys.image_loader()</tt> is a
 smart pointer, so we cannot use the . (dot) operator to access the \link
-sge::image::loader::load_image load_image \endlink function. The same applies
+sge::image::loader::load load \endlink function. The same applies
 to renderer and any other subsystem class.
 
 And what about this strange SGE_TEXT thingy around the string? Well, if you want
 to use character literals in sge, they have to be <em>narrow</em> literals and
 you have to embrace them with SGE_TEXT; all this macro does is convert the literal to
-sge::string's internal format (which is wide or narrow, depending on the FOOBAR
-macro which you can specify when you compile sge).
+sge::string's internal format (which is wide or narrow, depending on the
+SGE_NARROW_STRING macro which you can specify when you compile sge).
 
-The rest of the code should be pretty clear, the load_image function returns an
+The rest of the code should be pretty clear, the load function returns an
 sge::image::object_ptr (again a smart pointer) which we assign to the variable
 <em>image</em>.
 
@@ -111,7 +122,8 @@ sge::renderer::texture_ptr image_texture =
 		sge::renderer::resource_flags::none);
 \endcode
 
-Files to include: <sge/renderer/texture_filter.hpp>, <sge/renderer/image_view_impl.hpp>
+Files to include: <sge/renderer/texture_filter.hpp>,
+<sge/renderer/image_view_impl.hpp>, <sge/renderer/texture.hpp>
 
 This version of \link sge::renderer::device::create_texture create_texture
 \endlink takes a <em>renderer::const_image_view</em>. Luckily, our image object
@@ -158,12 +170,12 @@ starting it. So let's add a main loop which keeps it going!
 while (true)
 {
 	sge::window::dispatch();
-	sge::renderer::scoped_block block_(sys.renderer);
+	sge::renderer::scoped_block block_(sys.renderer());
 	ss.render(my_object);
 }
 \endcode
 
-Files to include: <sge/renderer/scoped_block.hpp>.
+Files to include: <sge/renderer/scoped_block.hpp>, <sge/window.hpp>.
 
 Inside the endless loop (we'll fix that when we introduce the <em>input
 system</em>), sge::window::dispatch is called. This is just a maintenance
