@@ -39,7 +39,7 @@ try
 		sys.renderer()->create_texture(
 			image->view(),
 			sge::renderer::linear_filter,
-			sge::renderer::resource_flags::readable);
+			sge::renderer::resource_flags::none);
 	sge::sprite::object const my_object(
 			sge::sprite::point(0,0),
 			sge::make_shared_ptr<
