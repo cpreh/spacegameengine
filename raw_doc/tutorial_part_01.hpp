@@ -23,7 +23,7 @@ settings. The image plugin can be initialized just by passing
 systems::parameterless::image.
 
 \code
-sge::systems::instance sys(
+sge::systems::instance const sys(
 	sge::systems::list()
 	(sge::renderer::parameters(
 		sge::renderer::display_mode(
@@ -51,7 +51,7 @@ here's the whole program:
 
 int main()
 {
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -90,7 +90,7 @@ copy it into the directory of your sample application. First, we use the image
 loader to load the image:
 
 \code
-sge::image::object_ptr image = sys.image_loader()->load(SGE_TEXT("tux.png"));
+sge::image::object_ptr const image = sys.image_loader()->load(SGE_TEXT("tux.png"));
 \endcode
 
 Files to include: <sge/text.hpp>, <sge/image/loader.hpp>, <sge/image/object.hpp>
@@ -115,8 +115,8 @@ stored in the fast VRAM of your graphics card instead of the system RAM.
 Creating textures is the renderer's job:
 
 \code
-sge::renderer::texture_ptr image_texture = 
-	sys.renderer->create_texture(
+sge::renderer::texture_ptr const image_texture = 
+	sys.renderer()->create_texture(
 		image->view(),
 		sge::renderer::linear_filter,
 		sge::renderer::resource_flags::none);
@@ -147,15 +147,25 @@ Since we're not going to use atlasing in the tutorial, we create a part which is
 just a wrapper for a single texture. Watch!
 
 \code
-sge::sprite::object my_object(
+sge::sprite::object const my_object(
 	sge::sprite::point(0,0),
-	sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
+	sge::make_shared_ptr<
+		sge::texture::part_ptr,
+		sge::texture::part_raw>(
+			image_texture),
 	sge::sprite::texture_dim);
 \endcode
 
-Files to include: <sge/texture/part_raw.hpp>, <sge/sprite/object.hpp>
+Files to include: <sge/texture/part_raw.hpp>, <sge/sprite/object.hpp>,
+<sge/make_shared_ptr.hpp>.
 
-This piece of code should be pretty self explanatory now. Note that
+We use make_shared_ptr to create a texture::part_ptr from a new
+texture::part_raw which takes image_texture as an argument.
+The reason behind this is that having a new expression in an argument list
+which is given to a shared ptr might leak memory because even the order of
+evaluation of subexpressions is unspecified.
+
+The rest of the code should be pretty self explanatory now. Note that
 <tt>my_object</tt> is not a smart pointer but a "real" object. We put the
 sprite on the top left corner of the screen and give it our test texture. For
 the size parameter, we specify the constant <tt>texture_dim</tt> which tells
