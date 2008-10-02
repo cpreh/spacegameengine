@@ -12,6 +12,7 @@
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <sge/window.hpp>
 #include <exception>
 #include <iostream>
@@ -19,7 +20,7 @@
 int main()
 try
 {
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -33,15 +34,18 @@ try
 		(sge::systems::parameterless::image));
 
 	sge::sprite::system ss(sys.renderer());
-	sge::image::object_ptr image = sys.image_loader()->load(SGE_TEXT("tux.png"));
-	sge::renderer::texture_ptr image_texture = 
+	sge::image::object_ptr const image = sys.image_loader()->load(SGE_TEXT("tux.png"));
+	sge::renderer::texture_ptr const image_texture = 
 		sys.renderer()->create_texture(
 			image->view(),
 			sge::renderer::linear_filter,
 			sge::renderer::resource_flags::readable);
-	sge::sprite::object my_object(
+	sge::sprite::object const my_object(
 			sge::sprite::point(0,0),
-			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
+			sge::make_shared_ptr<
+				sge::texture::part_ptr,
+				sge::texture::part_raw>(
+					image_texture),
 			sge::sprite::texture_dim);
 
 	while (true)
