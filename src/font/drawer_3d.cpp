@@ -112,9 +112,9 @@ void converter::operator()(
 	sge::renderer::rgba8_color &dest) const
 {
 	dest = sge::renderer::rgba8_color(
-		src,
-		src,
-		src,
+		255,
+		255,
+		255,
 		src);
 }
 
