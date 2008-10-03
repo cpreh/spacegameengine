@@ -31,6 +31,20 @@ struct compare : boost::static_visitor<bool> {
 		sge::systems::parameterless::type const &,
 		sge::systems::parameterless::type const &) const;
 
+	template<typename T>
+	bool operator()(
+		sge::renderer::parameters const &,
+		T const &) const;
+
+	template<typename T>
+	bool operator()(
+		T const &,
+		sge::renderer::parameters const &) const;
+
+	bool operator()(
+		sge::renderer::parameters const &,
+		sge::renderer::parameters const &) const;
+	
 	template<typename T, typename U>
 	bool operator()(
 		T const &,
@@ -57,6 +71,29 @@ bool compare::operator()(
 	sge::systems::parameterless::type const &b) const
 {
 	return a < b;
+}
+
+template<typename T>
+bool compare::operator()(
+	sge::renderer::parameters const &,
+	T const &) const
+{
+	return true;
+}
+
+template<typename T>
+bool compare::operator()(
+	T const &,
+	sge::renderer::parameters const &) const
+{
+	return false;
+}
+
+bool compare::operator()(
+	sge::renderer::parameters const &,
+	sge::renderer::parameters const &) const
+{
+	return false;
 }
 
 template<typename T, typename U>
