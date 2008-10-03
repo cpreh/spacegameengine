@@ -98,13 +98,13 @@ void sge::gui::layouts::row::adapt_outer(
 	{
 		SGE_LOG_DEBUG(mylogger,log::_1 << "there is too much space, expanding begin");
 		unsigned count;
-		if (count = count_flags(axis_policy::should_grow,axis))
+		if ((count = count_flags(axis_policy::should_grow,axis)))
 		{
 			SGE_LOG_DEBUG(mylogger,
 				log::_1 << "there are " << count << " widgets which should grow, growing those");
 			adapt(optimal,usable,axis_policy::should_grow,axis);
 		}
-		else if (count = count_flags(axis_policy::can_grow,axis))
+		else if ((count = count_flags(axis_policy::can_grow,axis)))
 		{
 			SGE_LOG_DEBUG(mylogger,
 				log::_1 << "there are " << count 

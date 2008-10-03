@@ -15,6 +15,7 @@
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/time/sleep.hpp>
 #include <sge/systems.hpp>
 #include <sge/init.hpp>
 #include <sge/iconv.hpp>
@@ -99,6 +100,7 @@ try
 			sound->pos(sge::audio::sound_pos(std::sin(angle),0,std::cos(angle)));
 		}
 		sys.audio_player->update();
+		sge::time::sleep(sge::time::millisecond(static_cast<sge::time::unit>(250)));
 	}
 	
 } catch (const sge::audio::exception &e) {

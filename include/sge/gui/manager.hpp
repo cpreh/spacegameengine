@@ -2,7 +2,7 @@
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
 #include "types.hpp"
-
+#include "skin.hpp"
 #include "../renderer/device.hpp"
 #include "../input/system.hpp"
 #include "../font/system.hpp"
@@ -26,8 +26,7 @@ class manager
 	SGE_SYMBOL void invalidate(rect const &);
 	SGE_SYMBOL void draw();
 	font::metrics_ptr const standard_font() { return standard_font_; }
-	renderer::color const standard_color() const { return standard_color_; }
-	renderer::color const standard_color_focused() const { return standard_color_focused_; }
+	skin_ptr const skin() { return skin_; }
 
 	private:
 	friend class widget;
@@ -52,8 +51,6 @@ class manager
 	input::system_ptr const is;
 	font::system_ptr const fs;
 	font::metrics_ptr const standard_font_;
-	renderer::color const standard_color_;
-	renderer::color const standard_color_focused_;
 	scoped_connection ic;
 	sprite::system ss;
 	sge::sprite::object cursor;
@@ -66,6 +63,8 @@ class manager
 	// focus
 	widget *keyboard_focus;
 	widget *mouse_focus;
+
+	skin_ptr skin_;
 
 	// this is called by widget's constructor and destructor
 	void add(widget &);

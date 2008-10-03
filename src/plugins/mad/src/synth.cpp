@@ -8,6 +8,8 @@
 #include <cmath>
 #include <boost/cstdint.hpp>
 
+#include <sge/iostream.hpp>
+
 namespace
 {
 sge::mad::synth::sample_type mad_to_native(mad_fixed_t fixed)
@@ -18,7 +20,16 @@ sge::mad::synth::sample_type mad_to_native(mad_fixed_t fixed)
 		return -SHRT_MAX;
 
 	fixed=fixed>>(MAD_F_FRACBITS-15);
-	return((signed short)fixed);
+
+	//sge::cout << "stupid: " << fixed << "\n";
+	//sge::cout << "smart: " << (mad_f_todouble(fixed)*std::numeric_limits<boost::int16_t>::max()) << "\n";
+	//sge::cout << "before: " << fixed << "\n";
+	//sge::cout << "after: " << (mad_f_tofixed(mad_f_todouble(fixed))) << "\n";
+	
+	//sge::cout << "double-rep: " << mad_f_todouble(fixed)*double(std::numeric_limits<mad_fixed_t>::max()) << "\n";
+	//return static_cast<sge::mad::synth::sample_type>(mad_f_todouble(fixed)*double(std::numeric_limits<boost::int16_t>::max()));
+
+	return static_cast<sge::mad::synth::sample_type>(fixed);
 
 	/*
 	if(fixed>=MAD_F_ONE)
