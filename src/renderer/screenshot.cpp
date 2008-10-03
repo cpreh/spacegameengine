@@ -20,14 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/screenshot.hpp>
 #include <sge/renderer/scoped_target_lock.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/image_view_impl.hpp>
+#include <sge/image/loader.hpp>
+#include <sge/image/object.hpp>
 
 void sge::renderer::screenshot(
-	device_ptr const rend,
+	const_device_ptr const rend,
 	image::loader_ptr const il,
 	path const &file)
 {
-	il->create_image(
+	il->create(
 		const_scoped_target_lock(
 			make_scoped_lock(
 				rend->get_target()

@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/util.hpp>
 #include <sge/texture/manager.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/image/object.hpp>
+#include <sge/renderer/image_view_impl.hpp>
 
 sge::texture::part_ptr const
 sge::texture::add(

@@ -22,11 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_FUNCTIONS_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/texture.hpp>
-#include <sge/renderer/types.hpp>
+#include <sge/renderer/dim_types.hpp>
 
 namespace sge
 {
+namespace renderer
+{
+struct filter_args;
+}
+
 namespace ogl
 {
 
@@ -40,24 +44,24 @@ void set_texture(
 	GLenum target,
 	GLenum format,
 	GLenum type,
-	const renderer::filter_args& filter,
-	const renderer::texture::dim_type& dim,
+	renderer::filter_args const &filter,
+	renderer::dim_type const &dim,
 	const_texture_pointer src);
 
 void build_mipmaps(
 	GLenum target,
 	GLenum format,
 	GLenum type,
-	const renderer::texture::dim_type& dim,
+	renderer::dim_type const &dim,
 	const_texture_pointer src);
 
 void set_texture_rect(
 	GLenum target,
 	GLenum format,
 	GLenum type,
-	const renderer::filter_args& filter,
-	const renderer::texture::dim_type& dim,
-	const renderer::lock_rect& dest,
+	renderer::filter_args const &filter,
+	renderer::dim_type const &dim,
+	renderer::lock_rect const &dest,
 	const_texture_pointer src);
 
 void get_tex_image(
@@ -76,7 +80,7 @@ void bind_texture(
 
 void set_texture_filter(
 	GLenum type,
-	const renderer::filter_args& filter);
+	renderer::filter_args const &filter);
 
 }
 }

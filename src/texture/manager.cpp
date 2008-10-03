@@ -19,19 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/texture/manager.hpp>
-#include <sge/texture/static.hpp>
+#include <sge/texture/fragmented.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/renderer/image_view_impl.hpp>
 #include <boost/foreach.hpp>
 
 sge::texture::manager::manager(
-	const renderer::device_ptr rend,
-	const onalloc_function& onalloc_)
- : rend(rend),
-   onalloc_(onalloc_)
+	renderer::device_ptr const rend,
+	onalloc_function const &onalloc_)
+:
+	rend(rend),
+	onalloc_(onalloc_)
 {}
 
-const sge::texture::part_ptr
+sge::texture::part_ptr const
 sge::texture::manager::add(
 	renderer::const_image_view const &src)
 {
@@ -46,7 +48,7 @@ sge::texture::manager::add(
 	throw image_too_big();
 }
 
-const sge::texture::part_ptr
+sge::texture::part_ptr const
 sge::texture::manager::init_texture(
 	fragmented& tex,
 	renderer::const_image_view const &src) const
@@ -56,14 +58,6 @@ sge::texture::manager::init_texture(
 	if(p)
 		p->data(src);
 	return p;
-}
-
-const sge::texture::part_ptr
-sge::texture::manager::add(
-	const renderer::texture_ptr tex)
-{
-	fragmented_textures.push_back(new static_(tex));
-	return fragmented_textures.back().consume_fragment(tex->dim());
 }
 
 const sge::renderer::device_ptr

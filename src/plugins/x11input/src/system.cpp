@@ -99,14 +99,16 @@ sge::xinput::system::~system()
 	XUngrabPointer(wnd->display()->get(), CurrentTime);
 }
 
-sge::callback_connection sge::xinput::system::register_callback(
-	const callback& c)
+sge::callback_connection const
+sge::xinput::system::register_callback(
+	callback const &c)
 {
 	return sig.connect(c);
 }
 
-sge::callback_connection sge::xinput::system::register_repeat_callback(
-	const repeat_callback& c)
+sge::callback_connection const
+sge::xinput::system::register_repeat_callback(
+	repeat_callback const &c)
 {
 	return repeat_sig.connect(c);
 }
@@ -115,7 +117,8 @@ void sge::xinput::system::dispatch()
 {
 }
 
-sge::window_ptr sge::xinput::system::get_window() const
+sge::window_ptr const
+sge::xinput::system::get_window() const
 {
 	return wnd;
 }

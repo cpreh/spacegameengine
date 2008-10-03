@@ -67,7 +67,7 @@ void sge::ogl::set_texture(
 	const GLenum format,
 	const GLenum type,
 	const renderer::filter_args& filter,
-	const renderer::texture::dim_type& dim,
+	const renderer::dim_type& dim,
 	const const_texture_pointer src)
 {
 	SGE_OPENGL_SENTRY
@@ -110,7 +110,7 @@ void sge::ogl::build_mipmaps(
 	const GLenum tex_type,
 	const GLenum format,
 	const GLenum type,
-	const renderer::texture::dim_type& dim,
+	const renderer::dim_type& dim,
 	const const_texture_pointer src)
 {
 	if(!src)
@@ -133,7 +133,7 @@ void sge::ogl::set_texture_rect(
 	const GLenum format,
 	const GLenum type,
 	const renderer::filter_args& filter,
-	const renderer::texture::dim_type& dim,
+	const renderer::dim_type& dim,
 	const renderer::lock_rect& r,
 	const const_texture_pointer src)
 {

@@ -21,27 +21,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
-#include "../renderer/texture.hpp"
-#include "part.hpp"
+#include "part_fwd.hpp"
+#include "../renderer/texture_fwd.hpp"
+#include "../renderer/dim_types.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-class fragmented {
+class SGE_CLASS_SYMBOL fragmented : boost::noncopyable {
 public:
-	virtual const part_ptr consume_fragment(
-		const renderer::texture::dim_type&) = 0;
+	virtual part_ptr const consume_fragment(
+		renderer::dim_type const &) = 0;
 	virtual void return_fragment(
-		const  part&) = 0;
-	virtual const renderer::texture_ptr get_texture() const = 0;
+		part const &) = 0;
+	virtual renderer::texture_ptr const get_texture() const = 0;
 	virtual bool repeatable() const = 0;
-	virtual ~fragmented(){}
+	SGE_SYMBOL virtual ~fragmented();
 };
-
-typedef shared_ptr<fragmented> fragmented_ptr;
 
 }
 }

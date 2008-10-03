@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/circle_impl.hpp>
 #include <sge/renderer/colors.hpp>
-#include <sge/iostream.hpp>
+#include <sge/texture/part.hpp>
 #include <cmath>
 #include <limits>
 
@@ -49,25 +49,25 @@ sge::sprite::object::object(
 	const boost::optional<depth_type> z_,
 	const boost::optional<rotation_type> rotation_,
 	const boost::optional<bool> visible_)
- : pos_(pos_ ? *pos_ : defaults::pos_),
-   size_(
-	size_
-	? *size_ == texture_dim
-		? dim(
-			static_cast<unit>((*vtex)->area().w()),
-			static_cast<unit>((*vtex)->area().h()))
-	      : *size_
-	: defaults::dim_),
-   z_(z_ ? *z_ : defaults::depth_),
-   rotation_(rotation_ ? *rotation_ : defaults::rotation_),
-   tex(vtex ? *vtex : defaults::texture_),
-   rot_around_(),
-   repeat_(1),
-   color_(color_ ? *color_ : defaults::color_),
-   visible_(visible_ ? *visible_ : defaults::visible_),
-   use_rot_around(false)
-{
-}
+ :
+	pos_(pos_ ? *pos_ : defaults::pos_),
+	size_(
+		size_
+		? *size_ == texture_dim
+			? dim(
+				math::structure_cast<unit>(
+					(*vtex)->area().dim()))
+			: *size_
+		: defaults::dim_),
+	z_(z_ ? *z_ : defaults::depth_),
+	rotation_(rotation_ ? *rotation_ : defaults::rotation_),
+	tex(vtex ? *vtex : defaults::texture_),
+	rot_around_(),
+	repeat_(1),
+	color_(color_ ? *color_ : defaults::color_),
+	visible_(visible_ ? *visible_ : defaults::visible_),
+	use_rot_around(false)
+{}
 
 sge::sprite::unit& sge::sprite::object::x()
 {

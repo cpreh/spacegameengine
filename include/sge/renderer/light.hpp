@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "any_color.hpp"
 #include "../math/vector.hpp"
 #include "../export.hpp"
+#include "../su.hpp"
 
 namespace sge
 {
@@ -59,8 +60,6 @@ public:
 	space_unit       distribution_exponent,
 	                 cutoff_angle;
 };
-
-typedef unsigned light_index;
 
 }
 }

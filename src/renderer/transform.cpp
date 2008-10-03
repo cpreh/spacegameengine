@@ -41,7 +41,7 @@ sge::renderer::matrix_pixel_to_space(
 sge::math::rect const
 sge::renderer::tex_size_to_space_rect(
 	lock_rect const &l,
-	texture::dim_type const &dim,
+	dim_type const &dim,
 	space_unit const repeat)
 {
 	return math::rect(

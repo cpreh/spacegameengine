@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "play_mode.hpp"
 #include "sound_status.hpp"
 #include "../math/vector.hpp"
-#include "../shared_ptr.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -47,8 +46,6 @@ public:
 	SGE_SYMBOL virtual void update();
 	SGE_SYMBOL virtual ~sound();
 };
-
-typedef shared_ptr<sound> sound_ptr;
 
 }
 }

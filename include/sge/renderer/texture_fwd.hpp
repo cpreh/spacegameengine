@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2007  Simon Stienen (s.stienen@slashlife.org)
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,10 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems.hpp>
+#ifndef SGE_RENDERER_TEXTURE_FWD_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_FWD_HPP_INCLUDED
 
-sge::systems::systems()
-:
-	renderer_parameters(renderer::display_mode(
-		renderer::screen_size_t(800,600), renderer::bit_depth::depth32))
-{} // FIXME
+#include "../shared_ptr.hpp"
+
+namespace sge
+{
+namespace renderer
+{
+
+class texture;
+
+typedef shared_ptr<texture> texture_ptr;
+typedef shared_ptr<texture const> const_texture_ptr;
+
+}
+}
+
+#endif

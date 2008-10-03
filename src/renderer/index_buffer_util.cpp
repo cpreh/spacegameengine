@@ -19,12 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index_buffer_util.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/index_buffer.hpp>
 
 sge::renderer::index_buffer_ptr const
 sge::renderer::resize(
 	index_buffer_ptr const ib,
 	device_ptr const rend,
-	index_buffer::size_type const newsize)
+	size_type const newsize)
 {
 	return rend->create_index_buffer(
 		ib->get_index_format(),

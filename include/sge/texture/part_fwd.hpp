@@ -18,32 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_TYPES_HPP_INCLUDED
+#ifndef SGE_TEXTURE_PART_FWD_HPP_INCLUDED
+#define SGE_TEXTURE_PART_FWD_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "../math/vector.hpp"
-#include "../math/dim.hpp"
-#include "../math/rect.hpp"
-#include "color.hpp"
-#include <cstddef>
+#include "../shared_ptr.hpp"
 
 namespace sge
 {
-namespace renderer
+namespace texture
 {
 
-typedef int                              pixel_unit;
-typedef unsigned                         screen_unit;
-typedef math::basic_vector<pixel_unit,2> pixel_pos_t;
-typedef math::basic_dim<screen_unit,2>   screen_size_t;
+class part;
 
-typedef unsigned multi_sample_type;
-
-typedef std::size_t stage_type;
-
-typedef math::basic_dim<std::size_t, 2> dim_type;
-typedef math::basic_rect<std::size_t> lock_rect; // FIXME: use a consistent typedef for std::size_t!
+typedef shared_ptr<part>       part_ptr;
+typedef shared_ptr<part const> const_part_ptr;
 
 }
 }

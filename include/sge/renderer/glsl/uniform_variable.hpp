@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "uniform_value.hpp"
 #include "../../export.hpp"
-#include "../../shared_ptr.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -39,9 +38,6 @@ public:
 	virtual void set(uniform_value const &) = 0;
 	SGE_SYMBOL virtual ~uniform_variable();
 };
-
-typedef shared_ptr<uniform_variable> uniform_variable_ptr;
-typedef shared_ptr<uniform_variable const> const_uniform_variable_ptr;
 
 }
 }

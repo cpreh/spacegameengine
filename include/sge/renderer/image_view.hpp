@@ -36,13 +36,15 @@ typedef boost::gil::argb8_view_t   argb8_view;
 typedef boost::gil::bgra8_view_t   bgra8_view;
 typedef boost::gil::rgba32f_view_t rgba_f32_view;
 
+typedef boost::mpl::vector<
+	rgba8_view,
+	argb8_view,
+	bgra8_view,
+	rgba_f32_view
+> image_view_elements;
+
 typedef boost::gil::any_image_view<
-	boost::mpl::vector<
-		rgba8_view,
-		argb8_view,
-		bgra8_view,
-		rgba_f32_view
-	>
+	image_view_elements
 > image_view;
 
 typedef image_view::const_t const_image_view;

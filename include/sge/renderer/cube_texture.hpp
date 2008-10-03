@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_CUBE_TEXTURE_HPP_INCLUDED
 
-#include "../export.hpp"
 #include "image_view.hpp"
 #include "texture_base.hpp"
-#include "types.hpp"
+#include "dim_types.hpp"
+#include "../export.hpp"
 #include <boost/array.hpp>
 
 namespace sge
@@ -50,7 +50,7 @@ public:
 	typedef boost::array<
 		image_view,
 		cube_side::num_elements
-		> image_view_6;
+	> image_view_6;
 	typedef lock_rect rect_type;
 
 	SGE_SYMBOL image_view const lock(
@@ -75,8 +75,6 @@ public:
 	SGE_SYMBOL rect_type const rect() const;
 	virtual size_type border_size() const = 0;
 };
-
-typedef shared_ptr<cube_texture> cube_texture_ptr;
 
 }
 }

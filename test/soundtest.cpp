@@ -16,8 +16,6 @@
 #include <sge/time/sleep.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/time/sleep.hpp>
-#include <sge/systems.hpp>
-#include <sge/init.hpp>
 #include <sge/iconv.hpp>
 #include <boost/program_options.hpp>
 #include <ostream>
@@ -70,18 +68,20 @@ try
 	if (file_name.empty())
 		file_name = sge::media_path() / SGE_TEXT("ding.wav");
 
-	sge::systems sys;
-	sge::audio::multi_loader loader(sys.plugin_manager);
-	sys.init<sge::init::audio_player>();
+	sge::systems::instance sys(
+		sge::systems::list()
+		(sge::systems::parameterless::audio_player));
+
+	sge::audio::multi_loader loader(sys.plugin_manager());
 	
 	sge::audio::file_ptr const soundfile = loader.load(file_name);
 
 	sge::audio::sound_ptr const sound = 
 		streaming 
-		? sys.audio_player->create_stream_sound(soundfile)
-		: sys.audio_player->create_nonstream_sound(soundfile);
+		? sys.audio_player()->create_stream_sound(soundfile)
+		: sys.audio_player()->create_nonstream_sound(soundfile);
 
-	sys.audio_player->listener_pos(sge::audio::sound_pos(0,0,0));
+	sys.audio_player()->listener_pos(sge::audio::sound_pos(0,0,0));
 	if (revolving)
 	{
 		sound->positional(true);
@@ -99,6 +99,7 @@ try
 					frame_timer.elapsed_frames() * (2 * sge::math::PI * speed));
 			sound->pos(sge::audio::sound_pos(std::sin(angle),0,std::cos(angle)));
 		}
+
 		sys.audio_player->update();
 		sge::time::sleep(sge::time::millisecond(static_cast<sge::time::unit>(250)));
 	}

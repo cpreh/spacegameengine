@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
 
 #include "../context.hpp"
+#include "../context_base.hpp"
 #include "../plugin.hpp"
 
 template<typename T>

@@ -40,7 +40,8 @@ public:
 	typedef typename detail::traits<T>::loader_fun loader_fun;
 	typedef shared_ptr<plugin<T> > ptr_type;
 
-	SGE_SYMBOL plugin(const path&);
+	SGE_SYMBOL explicit plugin(
+		path const &);
 	SGE_SYMBOL loader_fun get() const;
 private:
 	library lib;

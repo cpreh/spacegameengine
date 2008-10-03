@@ -20,61 +20,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/atlasing.hpp>
 #include <sge/renderer/caps.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
 
 bool sge::texture::need_atlasing(
-	const renderer::texture::size_type s)
+	renderer::size_type const s)
 {
 	return !math::is_power_of_2(s);
 }
 
 bool sge::texture::need_atlasing(
-	const renderer::texture::dim_type& dim)
+	renderer::dim_type const &dim)
 {
 	return !math::is_power_of_2(dim);
 }
 
-sge::renderer::texture::size_type
+sge::renderer::size_type
 sge::texture::atlased_bound(
-	const renderer::texture::size_type s)
+	renderer::size_type const s)
 {
 	return math::is_power_of_2(s)
 		? s
 		: math::next_pow_2(s);
 }
 
-const sge::renderer::texture::dim_type
+sge::renderer::dim_type const
 sge::texture::atlased_bounds(
-	const renderer::texture::dim_type& dim)
+	renderer::dim_type const &dim)
 {
-	return renderer::texture::dim_type(
+	return renderer::dim_type(
 		atlased_bound(dim.w()),
 		atlased_bound(dim.h()));
 }
 
-sge::renderer::texture::size_type
+sge::renderer::size_type
 sge::texture::atlased_gap()
 {
 	return 1;
 }
 
-sge::renderer::texture::size_type
+sge::renderer::size_type
 sge::texture::atlased_size(
-	const renderer::texture::size_type s,
-	const bool force_atlasing)
+	renderer::size_type const s,
+	bool const force_atlasing)
 {
 	return need_atlasing(s) || force_atlasing
 		? s + 2 * atlased_gap()
 		: s;
 }
 
-const sge::renderer::texture::dim_type
+sge::renderer::dim_type const
 sge::texture::atlased_size(
-	const renderer::texture::dim_type& dim,
-	const bool force_atlasing)
+	renderer::dim_type const &dim,
+	bool const force_atlasing)
 {
-	return renderer::texture::dim_type(
+	return renderer::dim_type(
 		atlased_size(
 			dim.w(),
 			force_atlasing),
@@ -83,12 +84,12 @@ sge::texture::atlased_size(
 			force_atlasing));
 }
 
-const sge::renderer::texture::dim_type
+sge::renderer::dim_type const
 sge::texture::atlased_texture_dim(
-	const renderer::device_ptr rend)
+	renderer::device_ptr const rend)
 {
-	const renderer::texture::size_type max_size = rend->get_caps().max_tex_size;
-	return renderer::texture::dim_type(max_size, max_size);
+	renderer::size_type const max_size = rend->get_caps().max_tex_size;
+	return renderer::dim_type(max_size, max_size);
 }
 
 sge::renderer::texture_ptr const
@@ -98,16 +99,16 @@ sge::texture::atlased_texture(
 {
 	return rend->create_texture(
 		atlased_texture_dim(rend),
-		renderer::color_format::rgba8,
+		renderer::color_format::rgba8, // TODO: add a common format
 		filter,
 		renderer::resource_flags::none);
 }
 
-const sge::renderer::lock_rect
+sge::renderer::lock_rect const
 sge::texture::inner_atlased_rect(
 	renderer::lock_rect outer,
-	const bool need_atlasing_w,
-	const bool need_atlasing_h)
+	bool const need_atlasing_w,
+	bool const need_atlasing_h)
 {
 	if(need_atlasing_w)
 	{

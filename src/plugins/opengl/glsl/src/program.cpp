@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../program.hpp"
 #include "../program_functions.hpp"
+#include "../attribute_variable.hpp"
+#include "../uniform_variable.hpp"
 #include "../../error.hpp"
 #include <sge/exception.hpp>
 #include <sge/string.hpp>

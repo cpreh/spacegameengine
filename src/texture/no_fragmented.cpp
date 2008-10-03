@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/atlasing.hpp>
-#include <sge/iostream.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/math/power.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
@@ -29,25 +29,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 
 sge::texture::no_fragmented::no_fragmented(
-	const renderer::device_ptr rend,
-	const renderer::filter_args& my_filter)
- : rend(rend),
-   my_filter(my_filter)
+	renderer::device_ptr const rend,
+	renderer::filter_args const &filter)
+ :
+ 	rend(rend),
+ 	filter(filter)
 {}
 
-const sge::texture::part_ptr
+sge::texture::part_ptr const
 sge::texture::no_fragmented::consume_fragment(
-	const renderer::texture::dim_type& dim)
+	renderer::dim_type const &dim)
 {
 	if(tex)
 		return part_ptr();
 
-	const renderer::texture::dim_type real_dim(atlased_bounds(dim));
+	const renderer::dim_type real_dim(atlased_bounds(dim));
 
 	tex = rend->create_texture(
 		real_dim,
 		renderer::color_format::rgba8,
-		my_filter,
+		filter,
 		renderer::resource_flags::none);
 
 	if(real_dim != dim)
@@ -69,12 +70,12 @@ sge::texture::no_fragmented::consume_fragment(
 }
 
 void sge::texture::no_fragmented::return_fragment(
-	const part&)
+	part const &)
 {
 	tex.reset();
 }
 
-const sge::renderer::texture_ptr
+sge::renderer::texture_ptr const
 sge::texture::no_fragmented::get_texture() const
 {
 	return tex;

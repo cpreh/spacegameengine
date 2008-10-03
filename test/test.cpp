@@ -18,20 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <cstdlib>
-#include <exception>
-#include <ostream>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/if.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
+#include <sge/plugin/context.hpp>
+#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/context_base.hpp>
 #include <sge/font/font.hpp>
 #include <sge/font/drawer_3d.hpp>
+#include <sge/font/system.hpp>
+#include <sge/font/system_fwd.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/types.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system.hpp>
+#include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/transform.hpp>
+#include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
@@ -44,8 +45,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/states.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/media.hpp>
+#include <sge/window.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/loader.hpp>
+#include <sge/image/object.hpp>
 #include <sge/image/create_texture.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/endianness.hpp>
@@ -58,10 +61,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/sprite/intrusive_system.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
 #include <sge/renderer/color.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
+#include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/bind.hpp>
+#include <boost/lambda/if.hpp>
+#include <exception>
+#include <ostream>
+#include <cstdlib>
 
 int main()
 try
@@ -79,9 +88,11 @@ try
 	const sge::renderer::parameters param(
 		sge::renderer::display_mode(
 			sge::renderer::screen_size_t(1280, 1024),
-			sge::renderer::bit_depth::depth32,
-			100),
-		true);
+			sge::renderer::bit_depth::depth32),
+		sge::renderer::depth_buffer::off,
+		sge::renderer::stencil_buffer::off,
+		sge::renderer::window_mode::windowed,
+		sge::renderer::vsync::on);
 	const sge::renderer::device_ptr rend = rs->create_renderer(param);
 
 	const sge::input::system_ptr is(input_plugin->get()(rend->get_window()));
@@ -142,7 +153,7 @@ try
 			sge::renderer::rgba8_color(255, 0, 0, 255));
 
 
-		image_loader->create_image(
+		image_loader->create(
 			sge::renderer::make_const_view(lock_.value()))->save(
 				SGE_TEXT("sge_test.png"));
 	}

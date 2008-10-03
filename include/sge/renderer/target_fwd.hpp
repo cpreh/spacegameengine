@@ -18,32 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_STATIC_HPP_INCLUDED
-#define SGE_TEXTURE_STATIC_HPP_INCLUDED
+#ifndef SGE_RENDERER_TARGET_FWD_HPP_INCLUDED
+#define SGE_RENDERER_TARGET_FWD_HPP_INCLUDED
 
-#include "fragmented.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include "../shared_ptr.hpp"
 
 namespace sge
 {
-namespace texture
+namespace renderer
 {
 
-class static_ : public fragmented, boost::noncopyable {
-public:
-	SGE_SYMBOL static_(
-		renderer::texture_ptr tex);
-	SGE_SYMBOL const part_ptr consume_fragment(
-		const renderer::texture::dim_type&);
-	SGE_SYMBOL void return_fragment(
-		const part&);
-	SGE_SYMBOL const renderer::texture_ptr get_texture() const;
-	SGE_SYMBOL bool repeatable() const;
-private:
-	const renderer::texture_ptr  tex;
-	bool                         claimed;
-};
+class target;
+
+typedef shared_ptr<target> target_ptr;
+typedef shared_ptr<target const> const_target_ptr;
 
 }
 }

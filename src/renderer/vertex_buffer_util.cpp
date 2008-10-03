@@ -19,12 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/vertex_buffer_util.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
 
 sge::renderer::vertex_buffer_ptr const
 sge::renderer::resize(
 	vertex_buffer_ptr const vb,
 	device_ptr const rend,
-	vertex_buffer::size_type const newsize)
+	size_type const newsize)
 {
 	return rend->create_vertex_buffer(
 		vb->format(),

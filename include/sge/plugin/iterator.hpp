@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 #define SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 
-#include "context.hpp"
 #include "category_array.hpp"
 #include "../export.hpp"
 #include <boost/iterator/iterator_facade.hpp>
@@ -31,6 +30,9 @@ namespace sge
 {
 namespace plugin
 {
+
+template<typename T>
+class context;
 
 template<typename T>
 class iterator;
@@ -59,8 +61,10 @@ public:
 	typedef typename base_type::reference reference;
 	typedef typename base_type::pointer pointer;
 	typedef typename base_type::difference_type difference_type;
+	typedef typename base_type::iterator_category iterator_category;
 
-	SGE_SYMBOL explicit iterator(category_array::iterator it);
+	SGE_SYMBOL explicit iterator(
+		category_array::iterator it);
 
 	SGE_SYMBOL void advance(difference_type diff);
 

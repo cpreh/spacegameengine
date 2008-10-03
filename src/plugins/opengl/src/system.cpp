@@ -18,43 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
 #include "../system.hpp"
 #include "../device.hpp"
-#ifdef SGE_LINUX_PLATFORM
-#include "../xf86vidmode.hpp"
-#endif
+#include <sge/renderer/caps.hpp>
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::ogl::system::system()
 : created(false)
 {}
 
-const sge::renderer::device_ptr
+sge::renderer::device_ptr const
 sge::ogl::system::create_renderer(
-	const renderer::parameters& param,
-	const renderer::adapter_type adapter,
-	const window_ptr wnd)
+	renderer::parameters const &param,
+	renderer::adapter_type const adapter,
+	window_ptr const wnd)
 {
 	if(created)
-		throw exception(SGE_TEXT("The opengl plugin may only be used once for creating a device."));
-	const renderer::device_ptr r(new device(param, adapter, wnd));
-	created = true;
+		throw exception(
+			SGE_TEXT("The opengl plugin may only be used once for creating a device."));
+	renderer::device_ptr const r(
+		new device(param, adapter, wnd));
+	created = true; // FIXME: use a weak_ptr here!
 	return r;
 }
 
-const sge::renderer::caps_array sge::ogl::system::caps() const
+sge::renderer::caps_array const
+sge::ogl::system::caps() const
 {
 	renderer::caps_array v;
-#ifdef SGE_LINUX_PLATFORM
-/*	const x_display_ptr dsp(new x_display());
-	const int screen = DefaultScreen(dsp->get());
-	const xf86_vidmode_array modes(dsp, screen);
-
-	renderer_caps ret;
-	for(xf86_vidmode_array::size_type i = 0; i < modes.size(); ++i)
-		ret.display_modes.push_back(display_mode(modes[i].hdisplay, modes[i].vdisplay, bit_depth::depth32, xf86_vidmode_array::refresh_rate(modes[i])));
-	v.push_back(ret);*/ // FIXME
-#endif
-	return v;
+	return v; // FIXME
 }

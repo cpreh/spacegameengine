@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config.h>
 #include <sge/plugin/manager.hpp>
+#include <sge/plugin/context_base.hpp>
+#include <sge/library.hpp>
 #include <sge/iconv.hpp>
 #include <sge/path.hpp>
 #include <sge/text.hpp>
@@ -54,7 +56,8 @@ sge::plugin::manager::manager()
 
 		try {
 			plugins.push_back(context_base(*it));
-		} catch(const library::load_function_exception &e) {
+		} catch(
+			library::load_function_exception const &e) {
 			// ignore info loading error - it's just a DLL, not a plugin...
 			// nothing to worry about (and especially nothing that justifies
 			// aborting the program ...)
