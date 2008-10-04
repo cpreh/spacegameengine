@@ -18,53 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/key_type.hpp>
+#include <sge/input/classification.hpp>
 
-sge::input::key_type::key_type(
-	string const &name_,
-	key_code const code_,
-	char_type const char_code_)
-:
-	name_(name_),
-	code_(code_),
-	char_code_(char_code_)
-{}
-
-sge::input::key_type::string const&
-sge::input::key_type::name() const
+bool sge::input::is_mouse_button(
+	key_code const key)
 {
-	return name_;
+	return (key & kc::input_type_mask) == kc::input_type_mouse_key;
 }
 
-sge::input::key_code
-sge::input::key_type::code() const
+bool sge::input::is_mouse_axis(
+	key_code const key)
 {
-	return code_;
+	return (key & kc::input_type_mask) == kc::input_type_mouse_axis;
 }
 
-sge::input::key_type::char_type
-sge::input::key_type::char_code() const
+bool sge::input::is_keyboard_key(
+	key_code const key)
 {
-	return char_code_;
+	return (key & kc::input_type_mask) == kc::input_type_keyboard;
 }
 
-void sge::input::key_type::char_code(
-	char_type const ch)
+bool sge::input::is_shift(
+	key_code const key)
 {
-	char_code_ = ch;
+	return
+		(key == kc::key_lshift) ||
+		(key == kc::key_rshift);
 }
 
-bool sge::input::operator<(key_type const &l, key_type const &r)
+bool sge::input::is_ctrl(
+	key_code const key)
 {
-	return l.name() < r.name();
+	// TODO: reevaluate role of altgr
+	return
+		(key == kc::key_lctrl) ||
+		(key == kc::key_rctrl) ||
+		(key == kc::key_altgr);
 }
 
-bool sge::input::operator==(key_type const &l, key_type const &r)
+bool sge::input::is_alt(
+	key_code const key)
 {
-	return l.name() == r.name() && l.char_code() == r.char_code();
-}
-
-bool sge::input::operator!=(key_type const &l, key_type const &r)
-{
-	return !(l==r);
+	// TODO: reevaluate role of altgr
+	return
+		(key == kc::key_alt  ) ||
+		(key == kc::key_altgr);
 }

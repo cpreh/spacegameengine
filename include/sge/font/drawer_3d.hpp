@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../sprite/object.hpp"
 #include "drawer.hpp"
 #include "types.hpp"
-#include <vector>
 #include <map>
 
 namespace sge

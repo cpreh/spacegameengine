@@ -8,6 +8,7 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/input/key_type.hpp>
+#include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/object.hpp>
 #include <sge/image/loader.hpp>

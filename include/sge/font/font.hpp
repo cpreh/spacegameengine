@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shared_ptr.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
-#include "../renderer/index_buffer.hpp"
+#include "../renderer/size_type.hpp"
 #include "types.hpp"
 #include "drawer.hpp"
 #include "system.hpp"
@@ -67,7 +67,7 @@ typedef unsigned flag_t;
 
 class SGE_CLASS_SYMBOL font {
 public:
-	typedef renderer::index_buffer::size_type size_type;
+	typedef renderer::size_type size_type;
 
 	SGE_SYMBOL explicit font(
 		metrics_ptr metrics,

@@ -18,42 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
-#define SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
+#ifndef SGE_INPUT_KEY_PAIR_HPP_INCLUDED
+#define SGE_INPUT_KEY_PAIR_HPP_INCLUDED
 
-#include "system_fwd.hpp"
-#include "key_code.hpp"
 #include "key_type.hpp"
 #include "key_state.hpp"
 #include "../export.hpp"
-#include "../scoped_connection.hpp"
-#include <boost/noncopyable.hpp>
-#include <map>
 
 namespace sge
 {
 namespace input
 {
 
-class key_pair;
-
-class key_state_tracker : boost::noncopyable {
+class key_pair {
 public:
-	SGE_SYMBOL explicit key_state_tracker(
-		system_ptr);
-	SGE_SYMBOL key_state state(key_code);
-	SGE_SYMBOL key_state state(key_type const &);
-	SGE_SYMBOL key_state operator[](key_code);
-	SGE_SYMBOL key_state operator[](key_type const &);
+	SGE_SYMBOL key_pair(
+		key_type const &key,
+		key_state value);
+
+	SGE_SYMBOL key_type const &key() const;
+	SGE_SYMBOL key_state value() const;
 private:
-	void event_handler(key_pair const &key);
-
-	scoped_connection const con;
-
-	typedef std::map<key_code, key_state> key_code_map;
-	typedef std::map<key_type, key_state> key_type_map;
-	key_code_map key_codes;
-	key_type_map key_types;
+	key_type  key_;
+	key_state value_;
 };
 
 }
