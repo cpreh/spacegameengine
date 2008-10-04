@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_convert.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/gil/color_convert.hpp>
+#include <boost/variant/get.hpp>
 
 namespace
 {
