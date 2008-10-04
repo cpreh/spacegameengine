@@ -18,39 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_VIEW_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_VIEW_FWD_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "texture_base.hpp"
-#include "image_view.hpp"
-#include "dim_types.hpp"
-#include "pos_types.hpp"
+#include "../typeswitch.hpp"
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL texture : public texture_base {
-public:
-	typedef renderer::dim_type dim_type;
-	typedef lock_rect          rect_type;
-	typedef texture_pos_type   pos_type;
+template<typename Index>
+class index_view;
 
-	virtual dim_type const dim() const = 0;
-	
-	SGE_SYMBOL image_view const lock(lock_flag_t);
-	SGE_SYMBOL const_image_view const lock() const;
+typedef index_view<uint16> index_view_16;
+typedef index_view<uint16 const> const_index_view_16;
+typedef index_view<uint32> index_view_32;
+typedef index_view<uint32 const> const_index_view_32;
 
-	virtual image_view const lock(lock_rect const &, lock_flag_t) = 0;
-	virtual const_image_view const lock(lock_rect const &) const = 0;
+// FIXME: we should really use a variant with an mpl::vector here
+// so that return types of visitor algorithms can be deduced
+typedef boost::variant<
+	index_view_16,
+	index_view_32
+> dynamic_index_view;
 
-	virtual void unlock() const = 0;
-	SGE_SYMBOL rect_type const rect() const;
-
-	SGE_SYMBOL size_type content() const;
-};
+typedef boost::variant<
+	const_index_view_16,
+	const_index_view_32
+> const_dynamic_index_view;
 
 }
 }

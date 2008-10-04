@@ -46,7 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "dim_types.hpp"
 #include "screen_types.hpp"
 #include "resource_flags.hpp"
-#include "index_view.hpp"
+#include "index_view_fwd.hpp"
+#include "index_format.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge

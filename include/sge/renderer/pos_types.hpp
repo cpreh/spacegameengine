@@ -18,39 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_HPP_INCLUDED
+#ifndef SGE_RENDERER_POS_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_POS_TYPES_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "texture_base.hpp"
-#include "image_view.hpp"
-#include "dim_types.hpp"
-#include "pos_types.hpp"
+#include "size_type.hpp"
+#include "../math/vector.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL texture : public texture_base {
-public:
-	typedef renderer::dim_type dim_type;
-	typedef lock_rect          rect_type;
-	typedef texture_pos_type   pos_type;
-
-	virtual dim_type const dim() const = 0;
-	
-	SGE_SYMBOL image_view const lock(lock_flag_t);
-	SGE_SYMBOL const_image_view const lock() const;
-
-	virtual image_view const lock(lock_rect const &, lock_flag_t) = 0;
-	virtual const_image_view const lock(lock_rect const &) const = 0;
-
-	virtual void unlock() const = 0;
-	SGE_SYMBOL rect_type const rect() const;
-
-	SGE_SYMBOL size_type content() const;
-};
+typedef math::basic_vector<size_type, 2> texture_pos_type;
 
 }
 }
