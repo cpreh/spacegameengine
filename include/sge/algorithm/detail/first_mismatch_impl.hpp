@@ -18,23 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ALGORITHM_HPP_INCLUDED
-#define SGE_ALGORITHM_HPP_INCLUDED
+#ifndef SGE_ALGORITHM_FIRST_MISMATCH_IMPL_HPP_INCLUDED
+#define SGE_ALGORITHM_FIRST_MISMATCH_IMPL_HPP_INCLUDED
 
-namespace sge
-{
-
-template<typename In, typename Size, typename T>
-In find_nth(In first, In last, Size count, const T& t);
-
-template<typename In, typename Size, typename UnaryPredicate>
-In find_nth_if(In first, In last, Size count, UnaryPredicate pred);
+#include <iterator>
 
 template<typename In, typename Size, typename BinaryPredicate>
-In first_mismatch_if(In first, In last, Size& cnt, BinaryPredicate pred);
+In sge::first_mismatch_if(
+	In first,
+	In const last,
+	Size& cnt,
+	BinaryPredicate const pred)
+{
+	cnt = 0;
+	if(first == last)
+		return last;
 
+	typename std::iterator_traits<In>::reference ref = *first++;
+	cnt = 1;
+	for(;first != last; ++first)
+	{
+		if(!pred(*first,ref))
+			return first;
+		++cnt;
+	}
+	return last;
 }
-
-#include "detail/algorithm_impl.hpp"
 
 #endif

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/texture/part.hpp>
-#include <sge/algorithm.hpp>
+#include <sge/algorithm/first_mismatch.hpp>
 #include <iterator>
 
 sge::sprite::system::system(
