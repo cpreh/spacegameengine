@@ -20,6 +20,8 @@
 #include <sge/scoped_connection.hpp>
 #include <exception>
 #include <iostream>
+#include <ostream>
+#include <cstdlib>
 
 namespace
 {
@@ -68,7 +70,7 @@ class sprite_functor
 int main()
 try
 {
-    sge::systems::instance sys(
+    sge::systems::instance const sys(
         sge::systems::list()
         (sge::renderer::parameters(
             sge::renderer::display_mode(
@@ -83,13 +85,13 @@ try
         (sge::systems::parameterless::image));
 
     sge::sprite::system ss(sys.renderer());
-    sge::image::object_ptr image = 
+    sge::image::object_ptr const image = 
         sys.image_loader()->load(SGE_TEXT("tux.png"));
-        sge::renderer::texture_ptr image_texture = 
-            sys.renderer()->create_texture(
-                image->view(),
-                sge::renderer::linear_filter,
-                sge::renderer::resource_flags::readable);
+    sge::renderer::texture_ptr const image_texture = 
+        sys.renderer()->create_texture(
+            image->view(),
+            sge::renderer::linear_filter,
+            sge::renderer::resource_flags::readable);
     sge::sprite::object my_object(
             sge::sprite::point(0,0),
             sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
@@ -97,24 +99,26 @@ try
 
     bool running = true;
 
-    sge::scoped_connection conn = 
+    sge::scoped_connection const conn = 
         sys.input_system()->register_callback(input_functor(running));
 
-    sge::scoped_connection conn_other =
+    sge::scoped_connection const conn_other =
         sys.input_system()->register_callback(sprite_functor(my_object));
 
     while (running)
     {
             sge::window::dispatch();
-            sge::renderer::scoped_block block_(sys.renderer());
+            sge::renderer::scoped_block const block_(sys.renderer());
             ss.render(my_object);
     }
 } 
 catch (sge::exception const &e)
 {
-    sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT("\n");
+    sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT('\n');
+    return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-    std::cerr << "caught std exception: " << e.what() << "\n";
+    std::cerr << "caught std exception: " << e.what() << '\n';
+    return EXIT_FAILURE;
 }
