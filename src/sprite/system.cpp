@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/algorithm.hpp>
 #include <iterator>

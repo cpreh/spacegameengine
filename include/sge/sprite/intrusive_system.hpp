@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "intrusive_object.hpp"
 #include "system_base.hpp"
-#include "../renderer/device.hpp"
+#include "../renderer/device_fwd.hpp"
 #include <boost/intrusive/list.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/noncopyable.hpp>

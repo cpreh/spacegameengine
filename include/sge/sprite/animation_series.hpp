@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_ANIMATON_SERIES_HPP_INCLUDED
 
 #include "animation_entity.hpp"
-#include "../renderer/texture.hpp"
+#include "../renderer/dim_types.hpp"
 #include "../export.hpp"
 #include <vector>
 
@@ -34,8 +34,9 @@ namespace sprite
 
 class animation_series {
 public:
-	typedef std::vector<animation_entity>
-		entity_vector;
+	typedef std::vector<
+		animation_entity
+	> entity_vector;
 	typedef entity_vector::const_iterator const_iterator;
 
 	SGE_SYMBOL animation_series();
@@ -47,7 +48,7 @@ public:
 	SGE_SYMBOL const_iterator end() const;
 	SGE_SYMBOL bool empty() const;
 
-	SGE_SYMBOL const renderer::texture::dim_type dim() const;
+	SGE_SYMBOL const renderer::dim_type dim() const;
 private:
 	entity_vector entities;
 };
