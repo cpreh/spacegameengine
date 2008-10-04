@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glsl/program_fwd.hpp"
 #include "glsl/string.hpp"
 #include "glsl/istream.hpp"
-#include "vf/dynamic_view.hpp"
+#include "vf/dynamic_view_fwd.hpp"
 #include "primitive.hpp"
 #include "image_view.hpp"
 #include "color_format.hpp"
