@@ -2,6 +2,7 @@
 #include <sge/console/console.hpp>
 #include <sge/console/console.hpp>
 #include <sge/console/action_var_base_impl.hpp>
+#include <sge/input/key_pair.hpp>
 #include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/time/second.hpp>
@@ -80,7 +81,8 @@ void sge::con::console_gfx::dump(const arg_list &args)
 	}
 }
 
-void sge::con::console_gfx::key_callback(const input::key_pair &k)
+void sge::con::console_gfx::key_callback(
+	input::key_pair const &k)
 {
 	if (!active_)
 		return;

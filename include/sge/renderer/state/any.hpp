@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_ANY_HPP_INCLUDED
 
 #include "states.hpp"
-#include <boost/variant.hpp>
+#include <boost/variant/variant.hpp>
 
 namespace sge
 

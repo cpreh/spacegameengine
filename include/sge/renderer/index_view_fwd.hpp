@@ -18,41 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/animation_series.hpp>
+#ifndef SGE_RENDERER_INDEX_VIEW_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_VIEW_FWD_HPP_INCLUDED
 
-sge::sprite::animation_series::animation_series()
-{}
+#include "../typeswitch.hpp"
+#include <boost/variant/variant.hpp>
 
-sge::sprite::animation_series::animation_series(
-	entity_vector const& entities)
-: entities(entities)
-{}
-
-void sge::sprite::animation_series::push_back(
-	animation_entity const& entity)
+namespace sge
 {
-	entities.push_back(entity);
+namespace renderer
+{
+
+template<typename Index>
+class index_view;
+
+typedef index_view<uint16> index_view_16;
+typedef index_view<uint16 const> const_index_view_16;
+typedef index_view<uint32> index_view_32;
+typedef index_view<uint32 const> const_index_view_32;
+
+// FIXME: we should really use a variant with an mpl::vector here
+// so that return types of visitor algorithms can be deduced
+typedef boost::variant<
+	index_view_16,
+	index_view_32
+> dynamic_index_view;
+
+typedef boost::variant<
+	const_index_view_16,
+	const_index_view_32
+> const_dynamic_index_view;
+
+}
 }
 
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::begin() const
-{
-	return entities.begin();
-}
-
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::end() const
-{
-	return entities.end();
-}
-
-bool sge::sprite::animation_series::empty() const
-{
-	return entities.empty();
-}
-	
-sge::renderer::dim_type const
-sge::sprite::animation_series::dim() const
-{
-	return entities.at(0).dim();
-}
+#endif

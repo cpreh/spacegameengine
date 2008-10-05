@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "dynamic_vector.hpp"
 #include "dynamic_color.hpp"
-#include <boost/variant.hpp>
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {

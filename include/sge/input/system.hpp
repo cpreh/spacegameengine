@@ -21,15 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
 #define SGE_INPUT_SYSTEM_HPP_INCLUDED
 
+#include "callback.hpp"
 #include "../window_fwd.hpp"
 #include "../callback_connection.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
 #include "../export.hpp"
-#include "key_type.hpp"
 #include <boost/noncopyable.hpp>
-#include <boost/signal.hpp>
-#include <boost/function.hpp>
+//#include <boost/signal.hpp>
 
 namespace sge
 {
@@ -38,13 +37,9 @@ namespace input
 
 class SGE_CLASS_SYMBOL system : boost::noncopyable {
 public:
-	typedef void key_pair_fun (const key_pair&);
-	typedef boost::signal<key_pair_fun> signal_type;
-	typedef boost::function<key_pair_fun> callback;
+	//typedef boost::signal<key_pair_fun> signal_type;
 
-	typedef void key_type_fun (const key_type&);
-	typedef boost::signal<key_type_fun> repeat_signal_type;
-	typedef boost::function<key_type_fun> repeat_callback;
+	//typedef boost::signal<key_type_fun> repeat_signal_type;
 
 	virtual callback_connection const
 	register_callback(

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/states.hpp>
 #include <sge/renderer/transform.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/vf/view.hpp>
@@ -36,8 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/math/matrix_impl.hpp>
-#include <sge/algorithm.hpp>
+#include <sge/algorithm/first_mismatch.hpp>
 #include <boost/foreach.hpp>
+#include <boost/variant/get.hpp>
 
 sge::sprite::intrusive_system::intrusive_system(
 	renderer::device_ptr const rend)

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_SYSTEM_BASE_HPP_INCLUDED
 
 #include "../renderer/default_transformable.hpp"
-#include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
-#include "../renderer/device.hpp"
+#include "../renderer/vertex_buffer_fwd.hpp"
+#include "../renderer/index_buffer_fwd.hpp"
+#include "../renderer/device_fwd.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 #include <cstddef>

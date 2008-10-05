@@ -16,6 +16,8 @@
 #include <sge/window.hpp>
 #include <exception>
 #include <iostream>
+#include <ostream>
+#include <cstdlib>
 
 int main()
 try
@@ -51,15 +53,17 @@ try
 	while (true)
 	{
 			sge::window::dispatch();
-			sge::renderer::scoped_block block_(sys.renderer());
+			sge::renderer::scoped_block const block_(sys.renderer());
 			ss.render(my_object);
 	}
 } 
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT("\n");
+	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT('\n');
+	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-	std::cerr << "caught std exception: " << e.what() << "\n";
+	std::cerr << "caught std exception: " << e.what() << '\n';
+	return EXIT_FAILURE;
 }

@@ -18,44 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ALGORITHM_IMPL_HPP_INCLUDED
-#define SGE_ALGORITHM_IMPL_HPP_INCLUDED
+#ifndef SGE_ALGORITHM_FIRST_MISMATCH_HPP_INCLUDED
+#define SGE_ALGORITHM_FIRST_MISMATCH_HPP_INCLUDED
 
-#include <algorithm>
-#include <iterator>
-
-template<typename In, typename Size, typename T>
-In sge::find_nth(In first, const In last, const Size count, const T& t)
+namespace sge
 {
-	for(Size c = 0; c < count && first != last; ++c)
-		first = std::find(first, last, t);
-	return first;
-}
-
-template<typename In, typename Size, typename UnaryPredicate>
-In sge::find_nth_if(In first, const In last, const Size count, UnaryPredicate pred)
-{
-	for(Size c = 0; c < count && first != last; ++c)
-		first = std::find_if(first, last, pred);
-	return first;
-}
 
 template<typename In, typename Size, typename BinaryPredicate>
-In sge::first_mismatch_if(In first, const In last, Size& cnt, BinaryPredicate pred)
-{
-	cnt = 0;
-	if(first == last)
-		return last;
+In first_mismatch_if(In first, In last, Size& cnt, BinaryPredicate pred);
 
-	typename std::iterator_traits<In>::reference ref = *first++;
-	cnt = 1;
-	for(;first != last; ++first)
-	{
-		if(!pred(*first,ref))
-			return first;
-		++cnt;
-	}
-	return last;
 }
+
+#include "detail/first_mismatch_impl.hpp"
 
 #endif

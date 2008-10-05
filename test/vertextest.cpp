@@ -19,6 +19,8 @@
 #include <sge/renderer/color.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/key_type.hpp>
+#include <sge/input/key_pair.hpp>
 #include <sge/math/vector.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/lambda/lambda.hpp>

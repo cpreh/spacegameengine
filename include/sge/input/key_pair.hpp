@@ -18,41 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/animation_series.hpp>
+#ifndef SGE_INPUT_KEY_PAIR_HPP_INCLUDED
+#define SGE_INPUT_KEY_PAIR_HPP_INCLUDED
 
-sge::sprite::animation_series::animation_series()
-{}
+#include "key_type.hpp"
+#include "key_state.hpp"
+#include "../export.hpp"
 
-sge::sprite::animation_series::animation_series(
-	entity_vector const& entities)
-: entities(entities)
-{}
-
-void sge::sprite::animation_series::push_back(
-	animation_entity const& entity)
+namespace sge
 {
-	entities.push_back(entity);
+namespace input
+{
+
+class key_pair {
+public:
+	SGE_SYMBOL key_pair(
+		key_type const &key,
+		key_state value);
+
+	SGE_SYMBOL key_type const &key() const;
+	SGE_SYMBOL key_state value() const;
+private:
+	key_type  key_;
+	key_state value_;
+};
+
+}
 }
 
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::begin() const
-{
-	return entities.begin();
-}
-
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::end() const
-{
-	return entities.end();
-}
-
-bool sge::sprite::animation_series::empty() const
-{
-	return entities.empty();
-}
-	
-sge::renderer::dim_type const
-sge::sprite::animation_series::dim() const
-{
-	return entities.at(0).dim();
-}
+#endif

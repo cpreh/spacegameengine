@@ -18,41 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/animation_series.hpp>
+#include <sge/input/classification.hpp>
 
-sge::sprite::animation_series::animation_series()
-{}
-
-sge::sprite::animation_series::animation_series(
-	entity_vector const& entities)
-: entities(entities)
-{}
-
-void sge::sprite::animation_series::push_back(
-	animation_entity const& entity)
+bool sge::input::is_mouse_button(
+	key_code const key)
 {
-	entities.push_back(entity);
+	return (key & kc::input_type_mask) == kc::input_type_mouse_key;
 }
 
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::begin() const
+bool sge::input::is_mouse_axis(
+	key_code const key)
 {
-	return entities.begin();
+	return (key & kc::input_type_mask) == kc::input_type_mouse_axis;
 }
 
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::end() const
+bool sge::input::is_keyboard_key(
+	key_code const key)
 {
-	return entities.end();
+	return (key & kc::input_type_mask) == kc::input_type_keyboard;
 }
 
-bool sge::sprite::animation_series::empty() const
+bool sge::input::is_shift(
+	key_code const key)
 {
-	return entities.empty();
+	return
+		(key == kc::key_lshift) ||
+		(key == kc::key_rshift);
 }
-	
-sge::renderer::dim_type const
-sge::sprite::animation_series::dim() const
+
+bool sge::input::is_ctrl(
+	key_code const key)
 {
-	return entities.at(0).dim();
+	// TODO: reevaluate role of altgr
+	return
+		(key == kc::key_lctrl) ||
+		(key == kc::key_rctrl) ||
+		(key == kc::key_altgr);
+}
+
+bool sge::input::is_alt(
+	key_code const key)
+{
+	// TODO: reevaluate role of altgr
+	return
+		(key == kc::key_alt  ) ||
+		(key == kc::key_altgr);
 }

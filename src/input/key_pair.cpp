@@ -18,41 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/animation_series.hpp>
+#include <sge/input/key_pair.hpp>
 
-sge::sprite::animation_series::animation_series()
+sge::input::key_pair::key_pair(
+	key_type const &key_,
+	key_state const value_)
+:
+	key_(key_),
+	value_(value_)
 {}
 
-sge::sprite::animation_series::animation_series(
-	entity_vector const& entities)
-: entities(entities)
-{}
-
-void sge::sprite::animation_series::push_back(
-	animation_entity const& entity)
+sge::input::key_type const &
+sge::input::key_pair::key() const
 {
-	entities.push_back(entity);
+	return key_;
 }
 
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::begin() const
+sge::input::key_state
+sge::input::key_pair::value() const
 {
-	return entities.begin();
-}
-
-sge::sprite::animation_series::const_iterator
-sge::sprite::animation_series::end() const
-{
-	return entities.end();
-}
-
-bool sge::sprite::animation_series::empty() const
-{
-	return entities.empty();
-}
-	
-sge::renderer::dim_type const
-sge::sprite::animation_series::dim() const
-{
-	return entities.at(0).dim();
+	return value_;
 }
