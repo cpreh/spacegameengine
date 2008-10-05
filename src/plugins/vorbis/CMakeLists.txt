@@ -9,11 +9,11 @@ ENDIF ()
 ADD_LIBRARY (sgevorbis SHARED ${sgevorbisfiles})
 
 IF(${UNIX})
-	INCLUDE (UsePkgConfig)
+	INCLUDE (FindPkgConfig)
 
-	PKGCONFIG (vorbis vorbisincludedir vorbislibdir vorbislinkflags vorbiscflags)
+	pkg_check_modules (VORBIS vorbis)
 ENDIF ()
 
-TARGET_LINK_LIBRARIES (sgevorbis sgecore vorbisfile ${vorbislinkflags})
+TARGET_LINK_LIBRARIES (sgevorbis sgecore vorbisfile ${VORBIS_LDFLAGS})
 
 INSTALL (TARGETS sgevorbis DESTINATION ${pluginpath})

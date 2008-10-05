@@ -30,7 +30,7 @@ ELSEIF (${WIN32})
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 
-ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
+ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
