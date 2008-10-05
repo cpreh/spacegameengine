@@ -2,6 +2,16 @@ FILE (GLOB sgeopenglfiles
 	src/*.cpp
 	glsl/src/*.cpp
 	vf/src/*.cpp)
+	
+IF (${SGE_HAVE_X11})
+	FILE (GLOB sgeopenglx11files
+		glx/src/*.cpp)
+	SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglx11files})
+ELSEIF (${WIN32})
+	FILE (GLOB sgeopenglwglfiles
+		wgl/src/*.cpp)
+	SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglwglfiles})
+ENDIF ()
 
 IF (MSVC)
 	INCLUDE_DIRECTORIES (${WININCLUDES}/glew/include)

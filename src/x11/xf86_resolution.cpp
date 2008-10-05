@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11/xf86_resolution.hpp>
+#include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -27,9 +28,10 @@ sge::x11::xf86_resolution::xf86_resolution(
 	int const screen,
 	XF86VidModeModeInfo const &new_mode,
 	XF86VidModeModeInfo const &old_mode)
-: dsp(dsp),
-  screen(screen),
-  old_mode(old_mode)
+:
+	dsp(dsp),
+	screen(screen),
+	old_mode(old_mode)
 {
 	if(XF86VidModeSwitchToMode(
 		dsp->get(),
@@ -37,7 +39,8 @@ sge::x11::xf86_resolution::xf86_resolution(
 		const_cast<XF86VidModeModeInfo*>(
 			&new_mode))
 	== False)
-		throw exception(SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
+		throw exception(
+			SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
 
 	XF86VidModeSetViewPort(
 		dsp->get(),

@@ -48,3 +48,8 @@ Display* sge::x11::display::get() const
 {
 	return d;
 }
+
+void sge::x11::display::sync()
+{
+	XSync(get(), False);
+}

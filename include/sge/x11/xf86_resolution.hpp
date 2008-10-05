@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include "display.hpp"
+#include "display_fwd.hpp"
 #include "../export.hpp"
-#include "../shared_ptr.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -45,8 +45,6 @@ private:
 	int const screen;
 	XF86VidModeModeInfo const &old_mode;
 };
-
-typedef shared_ptr<xf86_resolution> xf86_resolution_ptr;
 
 }
 }

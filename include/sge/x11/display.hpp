@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_DISPLAY_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include "../shared_ptr.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -40,12 +39,11 @@ public:
 		wrap_tag);
 	SGE_SYMBOL ~display();
 	SGE_SYMBOL Display *get() const;
+	SGE_SYMBOL void sync();
 private:
 	Display  *d;
 	bool     wrapped;
 };
-
-typedef shared_ptr<display> display_ptr;
 
 }
 }

@@ -18,35 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 
-#include <X11/Xutil.h>
-#include <sge/shared_ptr.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/x11/deleter.hpp>
+#include "context.hpp"
+#include <sge/x11/display_fwd.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace x11
 {
 
-class glx_visual {
-public:
-	glx_visual(
-		x11::display_ptr,
-		int screen,
-		int const *attributes);
-	XVisualInfo const &visual_info() const;
-private:
-	typedef shared_ptr<
-		XVisualInfo,
-		x11::deleter
-	> x_visualinfo_ptr;
+class window;
 
-	x_visualinfo_ptr vi;
+}
+
+namespace ogl
+{
+namespace glx
+{
+
+class current : boost::noncopyable {
+public:
+	current(
+		x11::display_ptr,
+		x11::window const &,
+		context_ptr);
+	~current();
+private:
+	x11::display_ptr const dsp;
+	context_ptr const context;
 };
 
+}
 }
 }
 

@@ -15,7 +15,6 @@ CHECK_CXX_COMPILER_FLAG(
 	SGE_HAVE_VARIADIC_TEMPLATES
 )
 
-
 CHECK_CXX_SOURCE_COMPILES(
 	"#include <boost/cstdint.hpp>
 	 int main()

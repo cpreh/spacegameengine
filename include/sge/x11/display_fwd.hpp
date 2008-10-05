@@ -18,36 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
-#define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
+#ifndef SGE_X11_DISPLAY_FWD_HPP_INCLUDED
+#define SGE_X11_DISPLAY_FWD_HPP_INCLUDED
 
-#include "glx_context.hpp"
-#include <sge/x11/display.hpp>
+#include "../shared_ptr.hpp"
 
 namespace sge
 {
 namespace x11
 {
 
-class window;
+class display;
 
-}
-
-namespace ogl
-{
-
-class glx_current : boost::noncopyable {
-public:
-	glx_current(
-		x11::display_ptr,
-		x11::window const &,
-		glx_context_ptr);
-	~glx_current();
-private:
-	x11::display_ptr const dsp;
-	glx_context_ptr const context;
-};
-
+typedef shared_ptr<display> display_ptr;
 
 }
 }

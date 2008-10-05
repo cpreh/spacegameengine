@@ -21,16 +21,6 @@ IF (${SGE_HAVE_POSIX})
 		 X11/Xlib.h
 		 SGE_HAVE_X11
 	)
-
-	CHECK_INCLUDE_FILE(
-		X11/extensions/xf86vmode.h
-		SGE_HAVE_XF86_VIDMODE
-	)
-
-	CHECK_INCLUDE_FILE(
-		X11/extensions/xf86dga.h
-		SGE_HAVE_XF86_DGA
-	)
 ENDIF ()
 
 FILE (GLOB sgecorefiles 

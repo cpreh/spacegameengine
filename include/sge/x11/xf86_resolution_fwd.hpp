@@ -18,31 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_CURSOR_HPP_INCLUDED
-#define SGE_X11_CURSOR_HPP_INCLUDED
+#ifndef SGE_X11_XF86_RESOLUTION_FWD_HPP_INCLUDED
+#define SGE_X11_XF86_RESOLUTION_FWD_HPP_INCLUDED
 
-#include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include "../shared_ptr.hpp"
 
 namespace sge
 {
 namespace x11
 {
 
-class cursor : boost::noncopyable {
-public:
-	SGE_SYMBOL cursor(
-		display_ptr,
-		Pixmap pixmap,
-		XColor color);
-	SGE_SYMBOL ~cursor();
-	SGE_SYMBOL Cursor get() const;
-private:
-	display_ptr const dsp;
-	Cursor            cursor_;
-};
+class xf86_resolution;
+
+typedef shared_ptr<xf86_resolution> xf86_resolution_ptr;
 
 }
 }

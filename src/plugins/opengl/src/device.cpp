@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window.hpp>
 #elif defined(SGE_HAVE_X11)
 #include <sge/x11/window.hpp>
+#include <sge/x11/display.hpp>
 #include <boost/bind.hpp>
 #else
 #error "Implement me!"
@@ -153,11 +154,11 @@ sge::ogl::device::device(
 	}
 
 	const int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 24, None};
-	visual.reset(new glx_visual(dsp, screen, attributes));
+	visual.reset(new glx::visual(dsp, screen, attributes));
 
-	context.reset(new glx_context(dsp, visual->visual_info()));
+	context.reset(new glx::context(dsp, visual->info()));
 
-	colormap.reset(new x11::colormap(dsp, visual->visual_info()));
+	colormap.reset(new x11::colormap(dsp, visual->info()));
 
 	XSetWindowAttributes swa;
 	swa.colormap = colormap->get();
@@ -176,14 +177,14 @@ sge::ogl::device::device(
 				string(),
 				dsp,
 				swa,
-				visual->visual_info()));
+				visual->info()));
 
 	if(!windowed)
-		XMapWindow(dsp->get(), wnd->get_window());
+		wnd->map();
 	else
-		XMapRaised(dsp->get(), wnd->get_window());
+		wnd->map_raised();
 
-	current.reset(new glx_current(dsp, *wnd, context));
+	current.reset(new glx::current(dsp, *wnd, context));
 
  	con_manager.scoped_connect(
 		wnd->register_callback(
@@ -193,8 +194,8 @@ sge::ogl::device::device(
 		wnd->register_callback(
 			ConfigureNotify,
 			boost::bind(&device::reset_viewport_on_configure, this, _1)));
-
-	XSync(dsp->get(), False);
+	
+	dsp->sync();
 #endif
 	if(glewInit() != GLEW_OK)
 		throw exception(SGE_TEXT("glewInit() failed!"));
