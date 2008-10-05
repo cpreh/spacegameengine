@@ -46,9 +46,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
 #elif defined(SGE_HAVE_X11)
+#include "../glx/choose_visual.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <boost/bind.hpp>
+#include <sge/raw_vector_impl.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -153,8 +155,14 @@ sge::ogl::device::device(
 		}
 	}
 
-	const int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 24, None};
-	visual.reset(new glx::visual(dsp, screen, attributes));
+	visual.reset(
+		new glx::visual(
+			dsp,
+			screen,
+			glx::choose_visual(
+				param.mode().depth,
+				param.dbuffer(),
+				param.sbuffer()).data()));
 
 	context.reset(new glx::context(dsp, visual->info()));
 

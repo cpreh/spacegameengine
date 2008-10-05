@@ -18,31 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <GL/glx.h>
-#include "../visual.hpp"
-#include <sge/x11/display.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_OPENGL_GLX_CHOOSE_VISUAL_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CHOOSE_VISUAL_HPP_INCLUDED
 
-sge::ogl::glx::visual::visual(
-	x11::display_ptr const dsp,
-	int const screen,
-	int const *const param)
-:
-	vi(
-		glXChooseVisual(
-			dsp->get(),
-			screen,
-			const_cast<int*>(
-				param)))
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/raw_vector.hpp>
+
+namespace sge
 {
-	if(!vi.get())
-		throw exception(
-			SGE_TEXT("glXChooseVisual() failed!"));
+namespace ogl
+{
+namespace glx
+{
+
+typedef sge::raw_vector<int> visual_attribute_array;
+
+visual_attribute_array const
+choose_visual(
+	renderer::bit_depth::type,
+	renderer::depth_buffer::type,
+	renderer::stencil_buffer::type);
+
+}
+}
 }
 
-XVisualInfo const &
-sge::ogl::glx::visual::info() const
-{
-	return *vi.get();
-}
+#endif
