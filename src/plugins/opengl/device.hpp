@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif defined(SGE_HAVE_X11)
 #include <X11/Xlib.h>
 #include <GL/glx.h>
-#include "glx_visual.hpp"
-#include "glx_current.hpp"
-#include "glx_context.hpp"
+#include "glx/visual.hpp"
+#include "glx/current.hpp"
+#include "glx/context.hpp"
 #include <sge/x11/colormap.hpp>
 #include <sge/x11/xf86_vidmode_array.hpp>
 #include <sge/x11/xf86_resolution.hpp>
@@ -188,11 +188,11 @@ private:
 
 	x11::display_ptr                      dsp;
 	scoped_connection                     map_callback;
-	boost::scoped_ptr<glx_visual>         visual;
-	glx_context_ptr                       context;
+	boost::scoped_ptr<glx::visual>        visual;
+	glx::context_ptr                      context;
 	boost::scoped_ptr<x11::colormap>      colormap;
 	x11::window_ptr                       wnd;
-	boost::scoped_ptr<glx_current>        current;
+	boost::scoped_ptr<glx::current>       current;
 	boost::scoped_ptr<
 		x11::xf86_vidmode_array>      modes;
 	x11::xf86_resolution_ptr              resolution;

@@ -18,38 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_HAVE_X11
-#include "../glx_context.hpp"
+#include <GL/glx.h>
+#include "../current.hpp"
+#include "../context.hpp"
 #include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/x11/window.hpp>
+#include <sge/x11/display.hpp>
 
-sge::ogl::glx_context::glx_context(
+sge::ogl::glx::current::current(
 	x11::display_ptr const dsp,
-	XVisualInfo const &vi)
+	x11::window const &wnd,
+	context_ptr const context)
 :
 	dsp(dsp),
-	c(
-		glXCreateContext(
-			dsp->get(),
-			const_cast<XVisualInfo*>(&vi),
-			NULL,
-			True))
+	context(context)
 {
-	if(c == 0)
-		throw exception(SGE_TEXT("glXCreateContext() failed!"));
-}
-
-sge::ogl::glx_context::~glx_context()
-{
-	glXDestroyContext(
+	if(glXMakeCurrent(
 		dsp->get(),
-		context());
+		wnd.get_window(),
+		context->get())
+	== false)
+		throw exception(
+			SGE_TEXT("glXMakeCurrent() failed!"));
 }
 
-GLXContext& sge::ogl::glx_context::context()
+sge::ogl::glx::current::~current()
 {
-	return c;
+	glXMakeCurrent(
+		dsp->get(),
+		None,
+		NULL);
 }
-
-#endif

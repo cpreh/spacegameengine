@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="devil dga openal opengl test truetype vorbis wave x11input"
 
 DEPEND="${RDEPEND}
-        dev-util/cmake
+        >=dev-util/cmake-2.6
         dev-util/pkgconfig"
 RDEPEND=">=dev-libs/boost-1.35
          x11-libs/libX11

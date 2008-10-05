@@ -18,32 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_CURSOR_HPP_INCLUDED
-#define SGE_X11_CURSOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 
-#include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "../export.hpp"
+#include <sge/shared_ptr.hpp>
+#include <sge/x11/display_fwd.hpp>
+#include <GL/glx.h>
 #include <boost/noncopyable.hpp>
 
 namespace sge
 {
-namespace x11
+namespace ogl
+{
+namespace glx
 {
 
-class cursor : boost::noncopyable {
+class context : boost::noncopyable {
 public:
-	SGE_SYMBOL cursor(
-		display_ptr,
-		Pixmap pixmap,
-		XColor color);
-	SGE_SYMBOL ~cursor();
-	SGE_SYMBOL Cursor get() const;
+	context(
+		x11::display_ptr,
+		XVisualInfo const &vi);
+	~context();
+	GLXContext& get();
 private:
-	display_ptr const dsp;
-	Cursor            cursor_;
+	x11::display_ptr const dsp;
+	GLXContext c;
 };
 
+typedef shared_ptr<context> context_ptr;
+
+}
 }
 }
 

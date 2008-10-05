@@ -18,36 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_HAVE_X11
-#include <GL/glx.h>
-#include "../glx_current.hpp"
-#include "../glx_context.hpp"
-#include <sge/exception.hpp>
-#include <sge/x11/window.hpp>
+#ifndef SGE_OPENGL_GLX_CHOOSE_VISUAL_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CHOOSE_VISUAL_HPP_INCLUDED
 
-sge::ogl::glx_current::glx_current(
-	x11::display_ptr const dsp,
-	x11::window const &wnd,
-	glx_context_ptr const context)
-:
-	dsp(dsp),
-	context(context)
+#include <sge/renderer/bit_depth.hpp>
+#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/raw_vector.hpp>
+
+namespace sge
 {
-	if(glXMakeCurrent(
-		dsp->get(),
-		wnd.get_window(),
-		context->context())
-	== false)
-		throw exception(SGE_TEXT("glXMakeCurrent() failed!"));
+namespace ogl
+{
+namespace glx
+{
+
+typedef sge::raw_vector<int> visual_attribute_array;
+
+visual_attribute_array const
+choose_visual(
+	renderer::bit_depth::type,
+	renderer::depth_buffer::type,
+	renderer::stencil_buffer::type);
+
 }
-
-sge::ogl::glx_current::~glx_current()
-{
-	glXMakeCurrent(
-		dsp->get(),
-		None,
-		NULL);
+}
 }
 
 #endif

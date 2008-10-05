@@ -18,33 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_CURSOR_HPP_INCLUDED
-#define SGE_X11_CURSOR_HPP_INCLUDED
+#include "../context.hpp"
+#include <sge/x11/display.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::ogl::glx::context::context(
+	x11::display_ptr const dsp,
+	XVisualInfo const &vi)
+:
+	dsp(dsp),
+	c(
+		glXCreateContext(
+			dsp->get(),
+			const_cast<XVisualInfo*>(&vi),
+			NULL,
+			True))
 {
-namespace x11
-{
-
-class cursor : boost::noncopyable {
-public:
-	SGE_SYMBOL cursor(
-		display_ptr,
-		Pixmap pixmap,
-		XColor color);
-	SGE_SYMBOL ~cursor();
-	SGE_SYMBOL Cursor get() const;
-private:
-	display_ptr const dsp;
-	Cursor            cursor_;
-};
-
-}
+	if(c == 0)
+		throw exception(
+			SGE_TEXT("glXCreateContext() failed!"));
 }
 
-#endif
+sge::ogl::glx::context::~context()
+{
+	glXDestroyContext(
+		dsp->get(),
+		get());
+}
+
+GLXContext &
+sge::ogl::glx::context::get()
+{
+	return c;
+}

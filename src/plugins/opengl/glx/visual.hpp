@@ -18,34 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_HAVE_X11
-#include <GL/glx.h>
-#include "../glx_visual.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
 
-sge::ogl::glx_visual::glx_visual(
-	x11::display_ptr const dsp,
-	int const screen,
-	int const *const attributes)
-:
-	vi(
-		glXChooseVisual(
-			dsp->get(),
-			screen,
-			const_cast<int*>(
-				attributes)))
+#include <X11/Xutil.h>
+#include <sge/shared_ptr.hpp>
+#include <sge/x11/display_fwd.hpp>
+#include <sge/x11/deleter.hpp>
+
+namespace sge
 {
-	if(!vi.get())
-		throw exception(
-			SGE_TEXT("glXChooseVisual() failed!"));
+namespace ogl
+{
+namespace glx
+{
+
+class visual {
+public:
+	visual(
+		x11::display_ptr,
+		int screen,
+		int const *attributes);
+	XVisualInfo const &info() const;
+private:
+	typedef shared_ptr<
+		XVisualInfo,
+		x11::deleter
+	> visualinfo_ptr;
+
+	visualinfo_ptr vi;
+};
+
 }
-
-XVisualInfo const &
-sge::ogl::glx_visual::visual_info() const
-{
-	return *vi.get();
+}
 }
 
 #endif

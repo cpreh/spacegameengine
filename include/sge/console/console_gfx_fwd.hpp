@@ -18,34 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-
-#include <X11/Xutil.h>
-#include <sge/shared_ptr.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/x11/deleter.hpp>
+#ifndef SGE_CON_CONSOLE_GFX_FWD_HPP_INCLUDED
+#define SGE_CON_CONSOLE_GFX_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace ogl
+namespace con
 {
 
-class glx_visual {
-public:
-	glx_visual(
-		x11::display_ptr,
-		int screen,
-		int const *attributes);
-	XVisualInfo const &visual_info() const;
-private:
-	typedef shared_ptr<
-		XVisualInfo,
-		x11::deleter
-	> x_visualinfo_ptr;
-
-	x_visualinfo_ptr vi;
-};
+class console_gfx;
 
 }
 }

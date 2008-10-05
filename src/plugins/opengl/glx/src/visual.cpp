@@ -18,33 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_CURSOR_HPP_INCLUDED
-#define SGE_X11_CURSOR_HPP_INCLUDED
+#include <GL/glx.h>
+#include "../visual.hpp"
+#include <sge/x11/display.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::ogl::glx::visual::visual(
+	x11::display_ptr const dsp,
+	int const screen,
+	int const *const param)
+:
+	vi(
+		glXChooseVisual(
+			dsp->get(),
+			screen,
+			const_cast<int*>(
+				param)))
 {
-namespace x11
-{
-
-class cursor : boost::noncopyable {
-public:
-	SGE_SYMBOL cursor(
-		display_ptr,
-		Pixmap pixmap,
-		XColor color);
-	SGE_SYMBOL ~cursor();
-	SGE_SYMBOL Cursor get() const;
-private:
-	display_ptr const dsp;
-	Cursor            cursor_;
-};
-
-}
+	if(!vi.get())
+		throw exception(
+			SGE_TEXT("glXChooseVisual() failed!"));
 }
 
-#endif
+XVisualInfo const &
+sge::ogl::glx::visual::info() const
+{
+	return *vi.get();
+}

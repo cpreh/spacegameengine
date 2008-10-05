@@ -20,24 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11/window.hpp>
+#include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/iostream.hpp>
 #include <sge/iconv.hpp>
-#include <boost/array.hpp>
 #include <boost/assign/list_of.hpp>
 #include <ostream>
-
-int handler(Display*, XErrorEvent*);
-
-namespace {
-struct init_error_handler {
-	init_error_handler()
-	{
-		XSetErrorHandler(handler);
-	}
-} instance;
-}
 
 sge::x11::window::window(
 	window_pos const &pos,
@@ -106,7 +94,16 @@ sge::x11::window::size() const
 	         border_width_return,
 	         depth_return;
 
-	XGetGeometry(dsp_(), get_window(), &root_return, &x_return, &y_return, &width_return, &height_return, &border_width_return, &depth_return);
+	XGetGeometry(
+		dsp_(),
+		get_window(),
+		&root_return,
+		&x_return,
+		&y_return,
+		&width_return, 
+		&height_return,
+		&border_width_return,
+		&depth_return);
 	return window_size(width_return, height_return);
 }
 
@@ -131,6 +128,15 @@ sge::x11::window::display() const
 	return dsp;
 }
 
+void sge::x11::window::map()
+{
+	XMapWindow(dsp->get(), get_window());
+}
+
+void sge::x11::window::map_raised()
+{
+	XMapRaised(dsp->get(), get_window());
+}
 Display* sge::x11::window::dsp_() const
 {
 	return display()->get();
@@ -194,19 +200,6 @@ void sge::window::dispatch()
 			wnd.signals[xev.type](xev);
 		}
 	}
-}
-
-/*sge::window_ptr sge::create_window()
-{
-	return window_ptr(new x11::window());
-}*/
-
-int handler(Display* const d, XErrorEvent* const e)
-{
-	boost::array<char,1024> buf;
-	XGetErrorText(d, e->error_code,buf.c_array(), static_cast<int>(buf.size()));
-	sge::cerr << SGE_TEXT("X Error: ") << buf.data() << SGE_TEXT('\n');
-	return 0;
 }
 
 sge::window::window_pos const
