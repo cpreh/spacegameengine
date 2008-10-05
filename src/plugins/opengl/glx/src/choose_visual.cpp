@@ -24,6 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
+namespace
+{
+
+void add_bit_depth(
+	sge::ogl::glx::visual_attribute_array &,
+	int r,
+	int g,
+	int b);
+
+}
+
 sge::ogl::glx::visual_attribute_array const
 sge::ogl::glx::choose_visual(
 	renderer::bit_depth::type const bit_depth,
@@ -36,16 +47,10 @@ sge::ogl::glx::choose_visual(
 
 	switch(bit_depth) {
 	case renderer::bit_depth::depth16:
-		//  FIXME
-		//t.push_back(
+		add_bit_depth(ret, 5, 6, 5); // TODO: what can we choose from here?
 		break;
 	case renderer::bit_depth::depth32:
-		ret.push_back(GLX_RED_SIZE);
-		ret.push_back(8);
-		ret.push_back(GLX_BLUE_SIZE);
-		ret.push_back(8);
-		ret.push_back(GLX_GREEN_SIZE);
-		ret.push_back(8);
+		add_bit_depth(ret, 8, 8, 8);
 		break;
 	default:
 		throw exception(
@@ -61,8 +66,27 @@ sge::ogl::glx::choose_visual(
 	if(stencil_buffer != renderer::stencil_buffer::off)
 	{
 		ret.push_back(GLX_STENCIL_SIZE);
-		ret.push_back(static_cast<int>(stencil_buffer));
+		ret.push_back(static_cast<int>(stencil_buffer)); // TODO
 	}
 	ret.push_back(None);
 	return ret;
-}	
+}
+
+namespace
+{
+
+void add_bit_depth(
+	sge::ogl::glx::visual_attribute_array &ret,
+	int const r,
+	int const g,
+	int const b)
+{
+	ret.push_back(GLX_RED_SIZE);
+	ret.push_back(r);
+	ret.push_back(GLX_BLUE_SIZE);
+	ret.push_back(g);
+	ret.push_back(GLX_GREEN_SIZE);
+	ret.push_back(b);
+}
+
+}
