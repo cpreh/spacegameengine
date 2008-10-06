@@ -18,29 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
-#ifdef SGE_WINDOWS_PLATFORM
-#include "../wgl_context.hpp"
+#include "../context.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/windows/gdi_device.hpp>
 
-sge::ogl::wgl_context::wgl_context(
+sge::ogl::wgl::context::context(
 	windows::gdi_device const &dc)
-: glrc(wglCreateContext(dc.hdc()))
+:
+	glrc(wglCreateContext(dc.hdc()))
 {
 	if(!hglrc())
-		throw exception(SGE_TEXT("wglCreateContext() failed!"));
+		throw exception(
+			SGE_TEXT("wglCreateContext() failed!"));
 }
 
-sge::ogl::wgl_context::~wgl_context()
+sge::ogl::wgl::context::~context()
 {
 	wglDeleteContext(hglrc());
 }
 
-HGLRC sge::ogl::wgl_context::hglrc() const
+HGLRC sge::ogl::wgl::context::hglrc() const
 {
 	return glrc;
 }
-
-#endif

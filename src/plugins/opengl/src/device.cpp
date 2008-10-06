@@ -137,9 +137,9 @@ sge::ogl::device::device(
 	if(SetPixelFormat(hdc->hdc(), pixel_format, &pfd) == FALSE)
 		throw exception(SGE_TEXT("SetPixelFormat() failed"));
 
-	context.reset(new wgl_context(*hdc));
+	context.reset(new wgl::context(*hdc));
 
-	current.reset(new wgl_current(*hdc, *context));
+	current.reset(new wgl::current(*hdc, *context));
 
 #elif defined(SGE_HAVE_X11)
 	const int screen = XDefaultScreen(dsp->get());

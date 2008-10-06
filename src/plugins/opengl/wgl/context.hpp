@@ -33,17 +33,20 @@ class gdi_device;
 
 namespace ogl
 {
+namespace wgl
+{
 
-class wgl_context : boost::noncopyable {
+class context : boost::noncopyable {
 public:
-	explicit wgl_context(
+	explicit context(
 		windows::gdi_device const &);
-	~wgl_context();
+	~context();
 	HGLRC hglrc() const;
 private:
 	HGLRC glrc;
 };
 
+}
 }
 }
 
