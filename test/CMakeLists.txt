@@ -39,6 +39,10 @@ ADD_EXECUTABLE (sgevertextest vertextest.cpp)
 TARGET_LINK_LIBRARIES (sgevertextest sgecore)
 INSTALL (TARGETS sgevertextest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
+ADD_EXECUTABLE (sgerandomtest randomtest.cpp)
+TARGET_LINK_LIBRARIES (sgerandomtest sgecore)
+INSTALL (TARGETS sgerandomtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
 IF (${ENABLE_GUI})
 	ADD_EXECUTABLE (sgeguitest guitest.cpp)
 	TARGET_LINK_LIBRARIES (sgeguitest sgecore sgegui boost_signals)
