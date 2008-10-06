@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "key_converter.hpp"
 #include "input_device.hpp"
 #include "di.hpp"
+#include "signal.hpp"
 #include <sge/input/system.hpp>
 #include <sge/windows/window.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
@@ -37,10 +38,14 @@ namespace dinput
 class input_system : public sge::input::system {
 public:
 	explicit input_system(windows::window_ptr w);
-	callback_connection register_callback(const callback& c);
-	callback_connection register_repeat_callback(const repeat_callback& c);
+	callback_connection const
+	register_callback(
+		input::callback const &c);
+	callback_connection const
+	register_repeat_callback(
+		input::repeat_callback const &c);
 	void dispatch();
-	sge::window_ptr get_window() const;
+	sge::window_ptr const get_window() const;
 private:
 	signal_type sig;
 	repeat_signal_type repeat_sig;

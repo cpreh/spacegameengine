@@ -33,7 +33,7 @@ namespace dinput
 class joystick : public input_device {
 public:
 	joystick(dinput_ptr di, GUID guid, unsigned index, windows::window_ptr window);
-	void dispatch(input::system::signal_type&);
+	void dispatch(signal_type &);
 private:
 	static BOOL CALLBACK enum_joystick_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
 	typedef std::map<unsigned, input::key_type> key_map;

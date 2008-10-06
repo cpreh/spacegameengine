@@ -84,16 +84,16 @@ sge::ogl::device::device(
 
 	bool windowed = true; // param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
-	const unsigned color_depth = renderer::bit_depth_bit_count(param.mode.depth);
+	unsigned const color_depth = static_cast<unsigned>(param.mode().depth);
 	if(!windowed)
 	{
 		DEVMODE settings;
 		memset(&settings,0,sizeof(DEVMODE));
 		settings.dmSize = sizeof(DEVMODE);
-		settings.dmPelsWidth    = param.mode.width();
-		settings.dmPelsHeight   = param.mode.height();
+		settings.dmPelsWidth    = param.mode().width();
+		settings.dmPelsHeight   = param.mode().height();
 		settings.dmBitsPerPel   = color_depth;
-		settings.dmDisplayFrequency = param.mode.refresh_rate;
+		settings.dmDisplayFrequency = param.mode().refresh_rate;
 		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
 		{
@@ -125,7 +125,7 @@ sge::ogl::device::device(
 
 	if(!wnd_param)
 		wnd.reset(new windows::window(
-			window::window_size(param.mode.width(),param.mode.height())));
+			window::window_size(param.mode().width(),param.mode().height())));
 	else
 		wnd = polymorphic_pointer_cast<windows::window>(wnd_param);
 

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../keyboard.hpp"
 #include <sge/windows/conv.hpp>
+#include <sge/input/key_pair.hpp>
 #include <sge/iostream.hpp>
 #include <boost/array.hpp>
 #include <ostream>
@@ -40,7 +41,7 @@ sge::dinput::keyboard::keyboard(
 	acquire();
 }
 
-void sge::dinput::keyboard::dispatch(input::system::signal_type& sig)
+void sge::dinput::keyboard::dispatch(signal_type &sig)
 {
 	input_buffer data;
 	DWORD elements;

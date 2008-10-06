@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../mouse.hpp"
+#include <sge/input/key_pair.hpp>
 #include <sge/windows/conv.hpp>
 
 namespace
@@ -54,7 +55,7 @@ sge::dinput::mouse::mouse(
 	acquire();
 }
 
-void sge::dinput::mouse::dispatch(input::system::signal_type& sig)
+void sge::dinput::mouse::dispatch(signal_type &sig)
 {
 	input_buffer data;
 	DWORD elements;

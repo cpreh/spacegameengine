@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 
 sge::renderer::caps::caps(
-	const unsigned adapter_number,
-	const std::string& driver_name,
-	const std::string& description,
-	const unsigned max_tex_size,
-	const unsigned max_anisotropy_level)
+	adapter_type const adapter_number,
+	string const &driver_name,
+	string const &description,
+	unsigned const max_tex_size,
+	unsigned const max_anisotropy_level)
 : adapter_number(adapter_number),
   driver_name(driver_name),
   description(description),
