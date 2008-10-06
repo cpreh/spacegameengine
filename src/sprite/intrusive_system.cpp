@@ -19,10 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/intrusive_system.hpp>
-#include <sge/sprite/helper.hpp>
 #include <sge/sprite/intrusive_compare.hpp>
-#include <sge/sprite/vertex_format.hpp>
 #include <sge/sprite/render_states.hpp>
+#include <sge/sprite/fill_geometry.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -31,14 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/renderer/vf/view.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/vertex.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/algorithm/first_mismatch.hpp>
 #include <boost/foreach.hpp>
-#include <boost/variant/get.hpp>
 
 sge::sprite::intrusive_system::intrusive_system(
 	renderer::device_ptr const rend)
@@ -66,46 +61,11 @@ void sge::sprite::intrusive_system::render(
 {
 	allocate_buffers(sprites.size());
 
-	{
-		renderer::scoped_index_lock const iblock(
-			renderer::make_scoped_lock(
-				get_index_buffer(),
-				renderer::lock_flags::writeonly));
-
-		renderer::scoped_vertex_lock const vblock(
-			renderer::make_scoped_lock(
-				get_vertex_buffer(),
-				renderer::lock_flags::writeonly));
-
-		typedef renderer::vf::view<
-			vertex_format
-		> vertex_view;
-
-		index_view const indices(boost::get<index_view>(iblock.value()));
-		vertex_view const vertices(vblock.value());
-
-		index_view::iterator ib_it = indices.begin();
-
-		vertex_view::iterator vb_it = vertices.begin();
-
-		BOOST_FOREACH(intrusive_object const &spr, sprites)
-		{
-			if(!spr.visible())
-				continue;
-
-			ib_it = fill_indices(ib_it, static_cast<index_view::value_type>(vb_it - vertices.begin()));
-
-			if(math::almost_zero(spr.rotation()))
-				fill_position(vb_it, spr.get_rect(), spr.z());
-			else
-				fill_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
-
-			if(const texture::part_ptr tex = spr.get_texture())
-				fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
-
-			vb_it = fill_color(vb_it, spr.get_color());
-		}
-	}
+	fill_geometry(
+		sprites.begin(),
+		sprites.end(),
+		get_vertex_buffer(),
+		get_index_buffer());
 
 	renderer::device_ptr const rend(
 		get_renderer());

@@ -44,7 +44,7 @@ typedef boost::intrusive::list_base_hook<
 
 }
 
-class intrusive_object : object, public detail::object_base_hook {
+class intrusive_object : public object, public detail::object_base_hook {
 public:
 	typedef unsigned order_type;
 
@@ -66,35 +66,9 @@ public:
 	operator=(
 		intrusive_object const &);
 
-	using object::x;
-	using object::y;
-	using object::pos;
-	using object::w;
-	using object::h;
-	using object::size;
-	using object::z;
-	using object::visible;
-	using object::set_texture;
-	using object::rotation;
-	using object::rotate_around;
-	using object::repeat;
-	using object::set_color;
-	using object::set_center;
-
-	using object::get_rect;
-	using object::center;
-	using object::radius;
-	using object::get_color;
-	using object::bounding_quad;
-	using object::rotation_center;
-	using object::get_texture;
-
 	SGE_SYMBOL void order(
 		order_type);
 	SGE_SYMBOL order_type order() const;
-
-	SGE_SYMBOL object &explicit_upcast();
-	SGE_SYMBOL object const &explicit_upcast() const;
 private:
 	void add_me();
 

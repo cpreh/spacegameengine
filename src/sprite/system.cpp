@@ -21,21 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/compare.hpp>
-#include <sge/sprite/helper.hpp>
-#include <sge/sprite/vertex_format.hpp>
 #include <sge/sprite/render_states.hpp>
+#include <sge/sprite/fill_geometry.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/vf/view.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/algorithm/first_mismatch.hpp>
-#include <boost/variant/get.hpp>
 #include <iterator>
 
 sge::sprite::system::system(
@@ -64,47 +59,13 @@ void sge::sprite::system::render(
 {
 	sort_fun(beg, end, less);
 	
-	allocate_buffers(std::distance(beg,end));
+	allocate_buffers(std::distance(beg, end));
 
-	{
-		renderer::scoped_index_lock const iblock(
-			renderer::make_scoped_lock(
-				get_index_buffer(),
-				renderer::lock_flags::writeonly));
-
-		renderer::scoped_vertex_lock const vblock(
-			renderer::make_scoped_lock(
-				get_vertex_buffer(),
-				renderer::lock_flags::writeonly));
-
-		typedef renderer::vf::view<
-			vertex_format
-		> vertex_view;
-
-		index_view const indices(boost::get<index_view>(iblock.value()));
-		vertex_view const vertices(vblock.value());
-
-		index_view::iterator ib_it = indices.begin();
-
-		vertex_view::iterator vb_it = vertices.begin();
-
-		for(object const *cur = beg; cur != end; ++cur)
-		{
-			object const &spr = *cur;
-			
-			ib_it = fill_indices(ib_it, static_cast<index_view::value_type>(vb_it - vertices.begin()));
-
-			if(math::almost_zero(spr.rotation()))
-				fill_position(vb_it, spr.get_rect(), spr.z());
-			else
-				fill_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
-
-			if(texture::part_ptr const tex = spr.get_texture())
-				fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
-
-			vb_it = fill_color(vb_it, spr.get_color());
-		}
-	}
+	fill_geometry(
+		beg,
+		end,
+		get_vertex_buffer(),
+		get_index_buffer());
 
 	set_matrices();
 

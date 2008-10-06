@@ -82,18 +82,6 @@ sge::sprite::intrusive_object::order() const
 	return order_;
 }
 
-sge::sprite::object &
-sge::sprite::intrusive_object::explicit_upcast()
-{
-	return *this;
-}
-
-sge::sprite::object const &
-sge::sprite::intrusive_object::explicit_upcast() const
-{
-	return *this;
-}
-
 void sge::sprite::intrusive_object::add_me()
 {
 	sys.add(
