@@ -89,10 +89,10 @@ try
 		sound->positional(true);
 		sound->pos(sge::audio::sound_pos(-1,0,0));
 	}
-	sound->play(sge::audio::play_mode::loop);
+	sound->play(sge::audio::play_mode::once);
 
 	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
-	while (true)
+	while (sound->status() != sge::audio::sound_status::stopped)
 	{
 		if (revolving)
 		{
@@ -105,7 +105,6 @@ try
 		sys.audio_player()->update();
 		sge::time::sleep(sge::time::millisecond(static_cast<sge::time::unit>(250)));
 	}
-	
 } catch (const sge::audio::exception &e) {
 	sge::cerr << SGE_TEXT("audio exception caught: ") << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;

@@ -60,10 +60,12 @@ sge::openal::context::~context()
 	{
 		alcMakeContextCurrent(0); 
 		SGE_ALC_ERROR_CHECK(device_.aldevice());
+		// this actually triggers an INVALID_CALL error for no apparent reason
 		SGE_OPENAL_ERROR_CHECK;
 	}
 
 	alcDestroyContext(context_); 
 	SGE_ALC_ERROR_CHECK(device_.aldevice());
+	// see above
 	SGE_OPENAL_ERROR_CHECK;
 }
