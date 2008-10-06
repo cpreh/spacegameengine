@@ -27,13 +27,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lexical_cast.hpp>
 
 template<typename T>
-void sge::con::var<T>::set(const string &s) 
+void sge::con::var<T>::set(string const &s) 
 { 
 	try
 	{
 		t = boost::lexical_cast<T>(s); 
 	} 
-	catch (const boost::bad_lexical_cast &c)
+	catch (boost::bad_lexical_cast const &)
 	{
 		throw exception(
 			SGE_TEXT("couldn't parse variable \"")
@@ -50,23 +50,24 @@ sge::con::var<T>::get() const
 }
 
 template<typename T>
-const T &sge::con::var<T>::value() const
+T const &sge::con::var<T>::value() const
 {
 	return t;
 }
 
 template<typename T>
-void sge::con::var<T>::value(const T &_t)
+void sge::con::var<T>::value(T const &_t)
 {
 	t = _t;
 }
 
 template<typename T>
 sge::con::var<T>::var(
-	const string &name,
-	const value_type &t) 
-: var_base(name),
-  t(t)
+	string const &name,
+	value_type const &t) 
+:
+	var_base(name),
+	t(t)
 {
 	late_construct();
 }
