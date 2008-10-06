@@ -32,7 +32,7 @@ namespace renderer
 namespace state
 {
 
-template<typename T> class var;
+template<typename T> struct var;
 
 template<typename T>
 struct trampoline : boost::noncopyable {

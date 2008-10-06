@@ -68,7 +68,7 @@ class dynamic_format;
 
 }
 
-struct viewport;
+class viewport;
 struct filter_args;
 struct material;
 struct caps;
