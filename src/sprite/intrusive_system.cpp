@@ -22,11 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/helper.hpp>
 #include <sge/sprite/intrusive_compare.hpp>
 #include <sge/sprite/vertex_format.hpp>
+#include <sge/sprite/render_states.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/renderer/state/states.hpp>
 #include <sge/renderer/transform.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
@@ -55,17 +54,8 @@ void sge::sprite::intrusive_system::render()
 
 	renderer::state::scoped const state_(
 		rend,
-		renderer::state::list
-			(renderer::state::bool_::enable_lighting = false)
-			(renderer::state::bool_::enable_alpha_blending = true)
-			(renderer::state::source_blend_func::src_alpha)
-			(renderer::state::dest_blend_func::inv_src_alpha)
-			(renderer::state::cull_mode::off)
-			(renderer::state::depth_func::off)
-			(renderer::state::stencil_func::off)
-			(renderer::state::draw_mode::fill)
+		render_states()
 	);
-
 
 	BOOST_FOREACH(sprite_level_map::value_type const &v, sprite_levels)
 		render(*v.second);

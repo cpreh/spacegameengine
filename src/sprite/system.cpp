@@ -1,7 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
-Copyright (C) 2008       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -24,12 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/compare.hpp>
 #include <sge/sprite/helper.hpp>
 #include <sge/sprite/vertex_format.hpp>
+#include <sge/sprite/render_states.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/state/states.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
@@ -115,15 +113,7 @@ void sge::sprite::system::render(
 
 	renderer::state::scoped const state_(
 		rend,
-		renderer::state::list
-			(renderer::state::bool_::enable_lighting = false)
-			(renderer::state::bool_::enable_alpha_blending = true)
-			(renderer::state::source_blend_func::src_alpha)
-			(renderer::state::dest_blend_func::inv_src_alpha)
-			(renderer::state::cull_mode::off)
-			(renderer::state::depth_func::off)
-			(renderer::state::stencil_func::off)
-			(renderer::state::draw_mode::fill)
+		render_states()
 	);
 
 	unsigned first_index = 0;
