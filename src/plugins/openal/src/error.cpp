@@ -29,6 +29,8 @@ sge::string const alc_error_string(ALCenum const error)
 		throw sge::audio::exception(
 			sge::str(
 				sge::format(SGE_TEXT("invalid alc error code: %1%")) % error));
+	
+	return SGE_TEXT("you shouldn't see this");
 }
 
 sge::string const error_string(ALenum const error)
@@ -52,6 +54,8 @@ sge::string const error_string(ALenum const error)
 	if (!std::uncaught_exception())
 		throw sge::audio::exception(
 			sge::str(sge::format(SGE_TEXT("invalid openal error code: %1%")) % error));
+
+	return SGE_TEXT("you shouldn't see this");
 }
 }
 
