@@ -23,14 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/compare.hpp>
 #include <sge/sprite/render_states.hpp>
 #include <sge/sprite/fill_geometry.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/sprite/render.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/texture/part.hpp>
-#include <sge/algorithm/first_mismatch.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/index_buffer.hpp>
 #include <iterator>
 
 sge::sprite::system::system(
@@ -61,11 +59,17 @@ void sge::sprite::system::render(
 	
 	allocate_buffers(std::distance(beg, end));
 
+	renderer::vertex_buffer_ptr const vb(
+		get_vertex_buffer());
+	
+	renderer::index_buffer_ptr const ib(
+		get_index_buffer());
+
 	fill_geometry(
 		beg,
 		end,
-		get_vertex_buffer(),
-		get_index_buffer());
+		vb,
+		ib);
 
 	set_matrices();
 
@@ -77,36 +81,13 @@ void sge::sprite::system::render(
 		render_states()
 	);
 
-	unsigned first_index = 0;
-	for(object const *cur = beg; cur != end; )
-	{
-		if(!cur->visible())
-			break;
-
-		unsigned num_objects;
-		object const *const next = first_mismatch_if(
-			cur,
-			static_cast<object const *>(end),
-			num_objects,
-			equal);
-
-		texture::part_ptr const vtex = cur->get_texture();
-		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);
-
-		rend->render(
-			get_vertex_buffer(),
-			get_index_buffer(),
-			(cur - beg) * detail::vertices_per_sprite,
-			(next - cur) * detail::vertices_per_sprite,
-			renderer::indexed_primitive_type::triangle,
-			num_objects * 2,
-			first_index);
-		first_index += num_objects * detail::indices_per_sprite;
-		cur = next;
-	}
-
-	rend->set_texture(renderer::device::no_texture);
-
+	sprite::render(
+		beg,
+		end,
+		equal,
+		rend,
+		vb,
+		ib);
 }
 
 void sge::sprite::system::render(

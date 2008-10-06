@@ -22,17 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive_compare.hpp>
 #include <sge/sprite/render_states.hpp>
 #include <sge/sprite/fill_geometry.hpp>
-#include <sge/renderer/scoped_lock.hpp>
+#include <sge/sprite/render.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/renderer/transform.hpp>
-#include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/scoped_vertex_lock.hpp>
-#include <sge/texture/part.hpp>
-#include <sge/math/matrix_impl.hpp>
-#include <sge/algorithm/first_mismatch.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/index_buffer.hpp>
 #include <boost/foreach.hpp>
 
 sge::sprite::intrusive_system::intrusive_system(
@@ -61,6 +56,12 @@ void sge::sprite::intrusive_system::render(
 {
 	allocate_buffers(sprites.size());
 
+	renderer::vertex_buffer_ptr const vb(
+		get_vertex_buffer());
+	
+	renderer::index_buffer_ptr const ib(
+		get_index_buffer());
+
 	fill_geometry(
 		sprites.begin(),
 		sprites.end(),
@@ -70,37 +71,13 @@ void sge::sprite::intrusive_system::render(
 	renderer::device_ptr const rend(
 		get_renderer());
 
-	unsigned first_index = 0;
-	
-	sprite_list::const_iterator const end(sprites.end());
-
-	for(sprite_list::const_iterator cur = sprites.begin(); cur != end; )
-	{
-		for(; cur != sprites.end() && !cur->visible(); ++cur) ;
-
-		if(cur == sprites.end())
-			break;
-
-		unsigned num_objects;
-		sprite_list::const_iterator const next = first_mismatch_if(cur, end, num_objects, tex_equal_visible);
-
-		const texture::part_ptr vtex = cur->get_texture();
-		rend->set_texture(vtex ? vtex->my_texture() : renderer::device::no_texture);
-		
-		rend->render(
-			get_vertex_buffer(),
-			get_index_buffer(),
-			first_index / detail::indices_per_sprite * detail::vertices_per_sprite,
-			num_objects * detail::vertices_per_sprite,
-			renderer::indexed_primitive_type::triangle,
-			num_objects * detail::indices_per_sprite / 3,
-			first_index);
-
-		first_index += num_objects * detail::indices_per_sprite;
-		cur = next;
-	}
-
-	rend->set_texture(renderer::device::no_texture);
+	sprite::render(
+		sprites.begin(),
+		sprites.end(),
+		tex_equal_visible,
+		rend,
+		vb,
+		ib);
 }
 
 void sge::sprite::intrusive_system::add(
