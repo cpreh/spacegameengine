@@ -32,17 +32,20 @@ class gdi_device;
 
 namespace ogl
 {
+namespace wgl
+{
 
-class wgl_context;
+class context;
 
-class wgl_current : boost::noncopyable {
+class current : boost::noncopyable {
 public:
-	wgl_current(
+	current(
 		windows::gdi_device const &,
-		wgl_context const &);
-	~wgl_current();
+		context const &);
+	~current();
 };
 
+}
 }
 }
 

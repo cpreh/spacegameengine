@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "target.hpp"
 #include "fbo_target.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
-#include "wgl_context.hpp"
-#include "wgl_current.hpp"
+#include "wgl/context.hpp"
+#include "wgl/current.hpp"
 #include <sge/windows/gdi_device.hpp>
 #include <sge/windows/window.hpp>
 #include <sge/windows/windows.hpp>
@@ -179,8 +179,8 @@ private:
 #if defined(SGE_WINDOWS_PLATFORM)
 	windows::window_ptr               wnd;
 	boost::scoped_ptr<windows::gdi_device>  hdc;
-	boost::scoped_ptr<wgl_context> context;
-	boost::scoped_ptr<wgl_current> current;
+	boost::scoped_ptr<wgl::context> context;
+	boost::scoped_ptr<wgl::current> current;
 #elif defined(SGE_HAVE_X11)
 	void reset_viewport_on_map(const XEvent&);
 	void reset_viewport_on_configure(const XEvent&);
