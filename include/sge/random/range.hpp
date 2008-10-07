@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RNADOM_UNIFORM_HPP_INCLUDED
-#define SGE_RANDOM_UNIFORM_HPP_INCLUDED
-
-#include "default_generator.hpp"
-#include "uniform_distribution.hpp"
-#include "../time/time.hpp"
-#include <boost/tr1/random.hpp>
+#ifndef SGE_RANDOM_RANGE_HPP_INCLUDED
+#define SGE_RANDOM_RANGE_HPP_INCLUDED
 
 namespace sge
 {
@@ -32,51 +27,30 @@ namespace random
 {
 
 template<
-	typename T>
-class range;
-
-template<
-	typename T,
-	typename Generator = default_generator
+	typename T
 >
-class uniform {
-	typedef typename uniform_distribution<
-		T
-	>::type range_type;
+class range {
+protected:
+	range(
+		T const &first_,
+		T const &last_)
+	:
+		first_(first_),
+		last_(last_)
+	{}
 public:
-	explicit uniform(
-		range<T> const &range)
-	:
-		variate(
-			default_generator(
-				sge::time::time()),
-			range_type(
-				range.first(),
-				range.last()))
-	{}
-
-	uniform(
-		range<T> const &range,
-		Generator const &gen)
-	:
-		variate(
-			gen,
-			range_type(
-				range.first(),
-				range.last()))
-	{}
-	
-	T operator()()
+	T first() const
 	{
-		return variate();
+		return first_;
+	}
+
+	T last() const
+	{
+		return last_;
 	}
 private:
-	typedef typename std::tr1::variate_generator<
-		Generator,
-		range_type
-	> variate_type;
-	
-	variate_type variate;
+	T first_,
+	  last_;
 };
 
 }

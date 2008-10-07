@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RNADOM_UNIFORM_HPP_INCLUDED
-#define SGE_RANDOM_UNIFORM_HPP_INCLUDED
+#ifndef SGE_RNADOM_UNIFORM_DISTRIBUTION_HPP_INCLUDED
+#define SGE_RANDOM_UNIFORM_DISTRIBUTION_HPP_INCLUDED
 
-#include "default_generator.hpp"
-#include "uniform_distribution.hpp"
-#include "../time/time.hpp"
+#include <boost/utility/enable_if.hpp>
 #include <boost/tr1/random.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/type_traits/is_integral.hpp>
 
 namespace sge
 {
@@ -32,51 +32,36 @@ namespace random
 {
 
 template<
-	typename T>
-class range;
+	typename T,
+	typename Enable = void>
+struct uniform_distribution;
 
 template<
-	typename T,
-	typename Generator = default_generator
+	typename T
 >
-class uniform {
-	typedef typename uniform_distribution<
-		T
-	>::type range_type;
-public:
-	explicit uniform(
-		range<T> const &range)
-	:
-		variate(
-			default_generator(
-				sge::time::time()),
-			range_type(
-				range.first(),
-				range.last()))
-	{}
+struct uniform_distribution<
+	T,
+	typename boost::enable_if<
+		boost::is_floating_point<
+			T
+		>
+	>::type
+> {
+	typedef std::tr1::uniform_real<T> type;
+};
 
-	uniform(
-		range<T> const &range,
-		Generator const &gen)
-	:
-		variate(
-			gen,
-			range_type(
-				range.first(),
-				range.last()))
-	{}
-	
-	T operator()()
-	{
-		return variate();
-	}
-private:
-	typedef typename std::tr1::variate_generator<
-		Generator,
-		range_type
-	> variate_type;
-	
-	variate_type variate;
+template<
+	typename T
+>
+struct uniform_distribution<
+	T,
+	typename boost::enable_if<
+		boost::is_integral<
+			T
+		>
+	>::type
+> {
+	typedef std::tr1::uniform_int<T> type;
 };
 
 }

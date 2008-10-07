@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/random/uniform.hpp>
+#include <sge/random/inclusive_range.hpp>
+#include <sge/random/last_exclusive_range.hpp>
 #include <sge/iostream.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -47,16 +49,25 @@ int main()
 try
 {
 	sge::random::uniform<int> rng(
-		0,
-		10);
+		sge::random::inclusive_range<int>(
+			0,
+			10));
 
 	print_values(rng);
 
 	sge::random::uniform<float> rngf(
-		0.f,
-		10.f);
+		sge::random::inclusive_range<float>(
+			0.f,
+			10.f));
 	
 	print_values(rngf);
+	
+	sge::random::uniform<int> rngex(
+		sge::random::last_exclusive_range<int>(
+			0,
+			10));
+
+	print_values(rngex);
 }
 catch(sge::exception const &e)
 {

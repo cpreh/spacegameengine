@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RNADOM_UNIFORM_RANGE_HPP_INCLUDED
-#define SGE_RANDOM_UNIFORM_RANGE_HPP_INCLUDED
+#ifndef SGE_RNADOM_LAST_EXCLUSIVE_RANGE_HPP_INCLUDED
+#define SGE_RANDOM_LAST_EXCLUSIVE_RANGE_HPP_INCLUDED
 
+#include "range.hpp"
+#include "../exception.hpp"
+#include "../text.hpp"
 #include <boost/utility/enable_if.hpp>
-#include <boost/tr1/random.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
 namespace sge
@@ -33,35 +34,33 @@ namespace random
 
 template<
 	typename T,
-	typename Enable = void>
-struct uniform_range;
+	typename Enable = void
+> class last_exclusive_range;
 
 template<
 	typename T
 >
-struct uniform_range<
-	T,
-	typename boost::enable_if<
-		boost::is_floating_point<
-			T
-		>
-	>::type
-> {
-	typedef std::tr1::uniform_real<T> type;
-};
-
-template<
-	typename T
->
-struct uniform_range<
+class last_exclusive_range<
 	T,
 	typename boost::enable_if<
 		boost::is_integral<
 			T
 		>
 	>::type
-> {
-	typedef std::tr1::uniform_int<T> type;
+> : public range<T> {
+public:
+	last_exclusive_range(
+		T const &first,
+		T const &last)
+	:
+		range<T>(
+			first,
+			last - static_cast<T>(1))
+	{
+		if(first == last)
+			throw exception(
+				SGE_TEXT("exclusive range empty!"));
+	}
 };
 
 }
