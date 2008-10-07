@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "listener.hpp"
 
 #include <sge/audio/player.hpp>
-#include <sge/audio/sound.hpp>
+#include <sge/audio/sound_fwd.hpp>
+#include <sge/audio/pool_fwd.hpp>
 #include <sge/audio/types.hpp>
 
 #include <boost/ptr_container/ptr_list.hpp>
@@ -43,7 +44,6 @@ class player : public audio::player
 {
 public:
 	player();
-	void update();
 
 	void register_stream_sound(stream_sound *p);
 	void unregister_stream_sound(stream_sound *p);
@@ -55,6 +55,8 @@ public:
 		
 	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);
 	audio::sound_ptr const create_stream_sound(audio::file_ptr);
+
+	audio::pool_ptr const create_pool();
 private:
 	typedef boost::ptr_list<stream_sound,boost::view_clone_allocator> 
 		stream_sound_container;

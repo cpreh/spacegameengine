@@ -103,7 +103,7 @@ try
 			sound->pos(sge::audio::point(std::sin(angle),0,std::cos(angle)));
 		}
 
-		sys.audio_player()->update();
+		sound->update();
 		sge::time::sleep(sge::time::millisecond(static_cast<sge::time::unit>(250)));
 	}
 } catch (const sge::audio::exception &e) {

@@ -18,47 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_PLAYER_HPP_INCLUDED
-#define SGE_AUDIO_PLAYER_HPP_INCLUDED
+#ifndef SGE_AUDIO_POOL_FWD_HPP_INCLUDED
+#define SGE_AUDIO_POOL_FWD_HPP_INCLUDED
 
-#include "file.hpp"
-#include "types.hpp"
-#include "sound_fwd.hpp"
-#include "pool_fwd.hpp"
-#include "../plugin/traits.hpp"
-#include "../plugin/capabilities.hpp"
-#include "../export.hpp"
+#include "../shared_ptr.hpp"
 
 namespace sge
 {
 namespace audio
 {
-class listener;
 
-struct SGE_CLASS_SYMBOL player : boost::noncopyable {
-	virtual audio::listener& listener() = 0;
-	virtual sound_ptr const create_nonstream_sound(file_ptr) = 0;
-	virtual sound_ptr const create_stream_sound(file_ptr) = 0;
-	virtual pool_ptr const create_pool() = 0;
-	SGE_SYMBOL virtual ~player();
-};
+class pool;
 
-}
-
-namespace plugin
-{
-namespace detail
-{
-
-template<> struct traits<audio::player> {
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type get_plugin_type();
-	typedef audio::player* (*loader_fun)();
-};
+typedef shared_ptr<pool> pool_ptr;
 
 }
 }
 
-}
-
-#endif // PLAYER_HPP
+#endif
