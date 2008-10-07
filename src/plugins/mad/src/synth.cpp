@@ -12,6 +12,8 @@
 
 namespace
 {
+// FIXME: this is just bad, but mad doesn't give you much guarantees on it's
+// number system
 sge::mad::synth::sample_type mad_to_native(mad_fixed_t fixed)
 {
 	if(fixed>=MAD_F_ONE)

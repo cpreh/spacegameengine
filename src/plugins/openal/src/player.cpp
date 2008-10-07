@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../stream_sound.hpp"
 #include "../error.hpp"
 #include "../file_format.hpp"
+#include "../log.hpp"
 #include <sge/audio/sound.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
@@ -85,6 +86,14 @@ ALuint sge::openal::player::register_nonstream_sound(
 
 	audio::sample_container data;
 	_audio_file->read_all(data);
+
+	SGE_LOG_DEBUG(
+		log(),
+		log::_1 << SGE_TEXT("creating buffer of size ")
+	          << data.size() << SGE_TEXT(" and format ")
+						<< file_format(*_audio_file)
+						<< SGE_TEXT(" and sample rate ") << _audio_file->sample_rate());
+
 	alBufferData(
 		buffer.albuffer(), 
 		file_format(*_audio_file), 

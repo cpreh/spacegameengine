@@ -51,10 +51,7 @@ public:
 	ALuint register_nonstream_sound(audio::file_ptr);
 	void unregister_nonstream_sound(ALuint);
 
-	audio::sound_pos const listener_pos() const { return listener_.get_pos(); }
-	audio::sound_angle const listener_angle() const { return listener_.get_angle(); }
-	void listener_pos(audio::sound_pos const &n) { return listener_.set_pos(n); }
-	void listener_angle(audio::sound_angle const &n) { return listener_.set_angle(n); }
+	audio::listener &listener() { return listener_; }
 		
 	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);
 	audio::sound_ptr const create_stream_sound(audio::file_ptr);
@@ -66,9 +63,9 @@ private:
 
 	stream_sound_container    stream_sounds;
 	nonstream_sound_container nonstream_sounds;
-	listener                  listener_;
 	device                    device_;
 	context                   context_;
+	sge::openal::listener     listener_;
 };
 
 }

@@ -39,8 +39,8 @@ public:
 	virtual void toggle_pause() = 0;
 	virtual sound_status::type status() const = 0;
 	virtual void stop() = 0;
-	virtual sound_pos const pos() const = 0;
-	virtual void pos(sound_pos const &) = 0;
+	virtual point const pos() const = 0;
+	virtual void pos(point const &) = 0;
 	virtual bool positional() const = 0;
 	virtual void positional(bool) = 0;
 	SGE_SYMBOL virtual void update();

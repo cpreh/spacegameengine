@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../raw_vector.hpp"
 #include "../math/vector.hpp"
+#include "../export.hpp"
 #include <cstddef>
 
 namespace sge
@@ -32,11 +33,14 @@ typedef unsigned channel_type;
 typedef std::size_t sample_count;
 typedef raw_vector<unsigned char> sample_container;
 
-typedef math::vector3 sound_pos;
+typedef math::vector3 point;
 
-struct sound_angle
+struct angle
 {
-	math::vector3 forward,up;
+	point forward,up;
+
+	SGE_SYMBOL angle();
+	SGE_SYMBOL angle(point const &forward,point const &up);
 };
 }
 }
