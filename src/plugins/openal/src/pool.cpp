@@ -1,4 +1,5 @@
 #include "../pool.hpp"
+#include "../log.hpp"
 #include <boost/foreach.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/assert.hpp>
@@ -40,6 +41,7 @@ void sge::openal::pool::update()
 			continue;
 		}
 
+		SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("deleting stopped sound from pool"));
 		s = sounds.erase(s);
 	}
 }
