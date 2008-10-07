@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "types.hpp"
 #include "play_mode.hpp"
 #include "sound_status.hpp"
-#include "../math/vector.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
