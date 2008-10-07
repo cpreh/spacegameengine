@@ -19,15 +19,14 @@ sge::mad::stream::size_type const sge::mad::stream::mad_buffer_guard_size =
 
 sge::mad::stream::stream(std::istream &stdstream)
 	: stdstream(stdstream),
-	  input_buffer(input_size+mad_buffer_guard_size)
+	  input_buffer(input_size+mad_buffer_guard_size),
+		eof_(false)
 {
 	mad_stream_init(&madstream);
 }
 
 void sge::mad::stream::sync()
 {
-	SGE_ASSERT(!stdstream.eof());
-
 	if (madstream.buffer != 0 && madstream.error != MAD_ERROR_BUFLEN)
 		return;
 
@@ -72,31 +71,52 @@ void sge::mad::stream::sync()
 	madstream.error = MAD_ERROR_NONE;
 }
 
-sge::mad::frame &sge::mad::stream::decode()
+/*
+ * why first_frame? when decoding, the first frame decides if the file read is
+ * a valid mpeg file or if it's garbage. if it's the first frame there are no
+ * recoverable errors (like BAD_BITRATE or something), so we have to handle
+ * this differently. if first_frame ist omitted, mad will even read a wave file
+ * as if it's mpeg layer 1/2/3
+ */
+sge::mad::frame &sge::mad::stream::decode(bool first_frame)
 {
 	sync();
 
 	if (!mad_frame_decode(&(f.madframe()),&madstream))
 		return f;
 
-	if (MAD_RECOVERABLE(madstream.error))
-	{
-		if (madstream.error != MAD_ERROR_LOSTSYNC || !stdstream.eof())
-			return decode();
+	SGE_LOG_DEBUG(log(),log::_1 << "mad: got decoder error " << madstream.error);
+	
+	if (first_frame)
+		throw audio::exception(
+			SGE_TEXT("mad: first frame resulted in an error: ")+error_string());
 
-		return f;
+	// we just need more data, not really an error
+	if (madstream.error == MAD_ERROR_BUFLEN)
+	{
+		SGE_LOG_DEBUG(log(),log::_1 << "mad: got buflen error, decoding some more");
+		return decode();
 	}
 
-	if (madstream.error == MAD_ERROR_BUFLEN)
+	// if we lost synchronization _and_ we're at the end of the file, then really
+	// no error occured, it's just...mad
+	if (madstream.error == MAD_ERROR_LOSTSYNC && stdstream.eof())
+	{
+		eof_ = true;
+		return f;
+	}
+	
+	if (MAD_RECOVERABLE(madstream.error))
 		return decode();
 
+	// the error is really an error and it's not recoverable from
 	throw audio::exception(
 		SGE_TEXT("mad: unrecoverable error in mpeg stream: ")+error_string());
 }
 
 bool sge::mad::stream::eof() const
 {
-	return stdstream.eof();
+	return eof_;
 }
 
 sge::mad::stream::~stream()

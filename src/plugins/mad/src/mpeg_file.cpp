@@ -28,7 +28,7 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 	if (!stdstream.is_open())
 		throw audio::exception(SGE_TEXT("couldn't open file \"")+p.string()+SGE_TEXT("\""));
 
-	frame &f = s.decode();
+	frame &f = s.decode(true);
 
 	sample_rate_ = f.sample_rate();
 
@@ -68,7 +68,7 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read_all(sample_container
 {
 	SGE_LOG_DEBUG(log(),log::_1 << "reading all samples");
 
-	if (s.eof())
+	if (s.eof() && buffered_.empty())
 	{
 		SGE_LOG_DEBUG(log(),log::_1 << "we're at the end");
 		return static_cast<sample_count>(0);

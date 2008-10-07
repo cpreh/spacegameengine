@@ -16,7 +16,7 @@ class stream : boost::noncopyable
 {
 	public:
 	explicit stream(std::istream &);
-	frame &decode();
+	frame &decode(bool first_frame = false);
 	bool eof() const;
 	void reset();
 	~stream();
@@ -32,6 +32,7 @@ class stream : boost::noncopyable
 	frame f;
 	std::istream &stdstream;
 	byte_container input_buffer;
+	bool eof_;
 
 	void sync();
 	string const error_string() const;
