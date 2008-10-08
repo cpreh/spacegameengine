@@ -21,6 +21,7 @@ RDEPEND=">=dev-libs/boost-1.35
          x11-libs/libX11
          virtual/libc
          devil? ( media-libs/devil )
+		 mad? ( media-libs/libmad )
          openal? ( media-libs/openal )
          opengl? (
              media-libs/glew
