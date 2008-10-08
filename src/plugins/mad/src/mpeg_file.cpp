@@ -27,8 +27,16 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 {
 	if (!stdstream.is_open())
 		throw audio::exception(SGE_TEXT("couldn't open file \"")+p.string()+SGE_TEXT("\""));
+	
+	// throw away first frame if it's the id3 tag
+	char id3[3];
+	stdstream.read(id3,static_cast<std::streamsize>(3));
+	stdstream.clear();
+	stdstream.seekg(static_cast<std::streamoff>(0),std::ios_base::beg);
 
-	frame &f = s.decode(true);
+	frame &f = std::string(id3,id3+3) == "ID3" 
+		? s.decode(decoding_mode::recover) 
+		: s.decode(decoding_mode::strict);
 
 	sample_rate_ = f.sample_rate();
 
@@ -57,7 +65,7 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
 	move(buffered_,buffered_.begin(),buffered_.end(),std::back_inserter(dest));
 
 	while (dest.size() < samples_bytes && !s.eof())
-		append(dest,s.decode().synthesize());
+		append(dest,s.decode(decoding_mode::recover).synthesize());
 	
 	move(dest,dest.begin()+samples_bytes,dest.end(),std::back_inserter(buffered_));
 
@@ -77,7 +85,7 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read_all(sample_container
 	move(buffered_,buffered_.begin(),buffered_.end(),std::back_inserter(dest));
 
 	while (!s.eof())
-		append(dest,s.decode().synthesize());
+		append(dest,s.decode(decoding_mode::recover).synthesize());
 
 	return dest.size()/bytes_per_sample();
 }

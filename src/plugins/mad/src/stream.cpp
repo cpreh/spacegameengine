@@ -72,30 +72,40 @@ void sge::mad::stream::sync()
 }
 
 /*
- * why first_frame? when decoding, the first frame decides if the file read is
- * a valid mpeg file or if it's garbage. if it's the first frame there are no
- * recoverable errors (like BAD_BITRATE or something), so we have to handle
- * this differently. if first_frame ist omitted, mad will even read a wave file
- * as if it's mpeg layer 1/2/3
+ * why decoding_mode? when decoding, the first frame decides if the file read
+ * is a valid mpeg file or if it's garbage - with one exception. if the first
+ * frame begins with "ID3" then it _could_ be a valid mpeg file, we don't know.
+ *
+ * currently, we just assume that it _is_ a valid mpeg file because if it
+ * _isn't_, we have to load the _complete_ file until we know for sure if it's
+ * valid or not.
+ *
+ * if there's no id3 tag, we decode with "strict". if there are no recoverable
+ * errors (like BAD_BITRATE or something), we've got a valid mpeg file. if
+ * there are errors, we throw an exception
  */
-sge::mad::frame &sge::mad::stream::decode(bool first_frame)
+sge::mad::frame &sge::mad::stream::decode(decoding_mode::type const mode)
 {
 	sync();
 
 	if (!mad_frame_decode(&(f.madframe()),&madstream))
 		return f;
-
-	SGE_LOG_DEBUG(log(),log::_1 << "mad: got decoder error " << madstream.error);
 	
-	if (first_frame)
+	if (mode == decoding_mode::strict)
+	{
+		SGE_LOG_DEBUG(
+			log(),
+			log::_1 << "mad: got decoder error " << madstream.error 
+			        << " and in strict mode, so exiting");
 		throw audio::exception(
 			SGE_TEXT("mad: first frame resulted in an error: ")+error_string());
+	}
 
 	// we just need more data, not really an error
 	if (madstream.error == MAD_ERROR_BUFLEN)
 	{
 		SGE_LOG_DEBUG(log(),log::_1 << "mad: got buflen error, decoding some more");
-		return decode();
+		return decode(decoding_mode::recover);
 	}
 
 	// if we lost synchronization _and_ we're at the end of the file, then really
@@ -107,7 +117,7 @@ sge::mad::frame &sge::mad::stream::decode(bool first_frame)
 	}
 	
 	if (MAD_RECOVERABLE(madstream.error))
-		return decode();
+		return decode(decoding_mode::recover);
 
 	// the error is really an error and it's not recoverable from
 	throw audio::exception(
