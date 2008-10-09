@@ -159,3 +159,17 @@ sge::math::matrix_orthogonal_xy(
 	                       su(0),                su(0), su(-2)/(far - near), -(far+near)/(far-near),
 	                       su(0),                su(0),               su(0), su(1));
 }
+
+sge::math::space_matrix
+sge::math::matrix_orthogonal_xy(
+	const space_unit left,
+	const space_unit right,
+	const space_unit top,
+	const space_unit bottom)
+{
+	return space_matrix
+	       (su(2)/(right - left),                su(0),su(0), -(right+left)/(right-left),
+	                       su(0), su(2)/(top - bottom),su(0), -(top+bottom)/(top-bottom),
+	                       su(0),                su(0),su(0), su(0),
+	                       su(0),                su(0),su(0), su(1));
+}

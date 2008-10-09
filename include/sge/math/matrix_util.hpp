@@ -76,6 +76,12 @@ SGE_SYMBOL space_matrix matrix_orthogonal_xy(
 	space_unit bottom,
 	space_unit near,
 	space_unit far);
+
+SGE_SYMBOL space_matrix matrix_orthogonal_xy(
+	space_unit left,
+	space_unit right,
+	space_unit top,
+	space_unit bottom);
 }
 }
 
