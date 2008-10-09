@@ -56,19 +56,29 @@ digraph font_graph
 So let's start at the top, the <em>font system</em>. We use our old shortcut sge::systems again to load this system:
 
 \code
-sge::systems sys;
-sys.init<sge::init::font>();
+sge::systems::instance const sys(
+	sge::systems::list()
+	(sge::renderer::parameters(
+		sge::renderer::display_mode(
+			sge::renderer::screen_size_t(
+				640,
+				480),
+			sge::renderer::bit_depth::depth32),
+		sge::renderer::depth_buffer::off,
+		sge::renderer::stencil_buffer::off,
+		sge::renderer::window_mode::windowed))
+	(sge::systems::parameterless::font));
 \endcode
 
-Files to include: <sge/systems.hpp>, <sge/init.hpp>
+Files to include: <sge/systems/instance.hpp>, <sge/systems/list.hpp>
 
 Since the system doesn't receive any parameters, we can go on to the next
 component, the <em>font metrics</em>. As seen in the diagram, we use sge::font::system to load a metric:
 
 \code
-sge::font::metrics_ptr metrics = 
-	sys.font_system->create_font(
-		sge::media_path()/SGE_TEXT("fonts/default.ttf"),
+sge::font::metrics_ptr const metrics = 
+	sys.font_system()->create_font(
+		sge::media_path() / SGE_TEXT("fonts") / SGE_TEXT("default.ttf"),
 		static_cast<sge::font::size_type>(15));
 \endcode
 
@@ -86,28 +96,22 @@ concatenate the path with the string (which, again, is surrounded by the
 SGE_TEXT macro).
 
 The second parameter denotes the <em>font size</em>. A value of 15 is nice to
-read on a 64x480 display (which we'll initialize next). 
+read on a 640x480 display (which we'll initialize next). 
 
 \note Note that we cast to sge::font::size_type since we don't know if this
 size_type is integral and if so, which of the integral types it is. Good
 compilers will issue a warning if there's no explicit cast here.
 
 \code
-sys.init<sge::init::renderer>(
-	sge::renderer::screen_size_t(
-		static_cast<sge::renderer::screen_unit>(640),
-		static_cast<sge::renderer::screen_unit>(480)));
-
-sge::font::drawer_ptr drawer(new sge::font::drawer_3d(sys.renderer));
+sge::font::drawer_ptr const drawer(
+	new sge::font::drawer_3d(
+		sys.renderer()));
 \endcode
 
 Files to include: <sge/font/drawer_3d.hpp>
 
-The first statement looks familiar, although we added the static casts to
-sge::renderer::screen_unit just to make sure. 
-
-The second statement creates the font drawer. sge::font::font expects a
-sge::font::drawer_ptr (which is a smart pointer), so we have to out drawer_3d
+The statement creates the font drawer. sge::font::font expects a
+sge::font::drawer_ptr (which is a smart pointer), so we have to put drawer_3d
 inside one. There's no specific reason why sge::font::font is configured that
 way, it could also take an sge::font::drawer reference, but that's how it is.
 
@@ -115,7 +119,7 @@ way, it could also take an sge::font::drawer reference, but that's how it is.
 Now we can create a font and start drawing text. Creating the font is trivial:
 
 \code
-sge::font::font font(metrics,drawer);
+sge::font::font font(metrics, drawer);
 \endcode
 
 Files to include: <sge/font/font.hpp>
@@ -125,9 +129,9 @@ Drawing a text, however, takes a few more lines. sge::font::font::draw_text take
 <ul>
 <li> <tt>text</tt> - The text to be drawn
 <li> <tt>pos</tt> - Upper left corner of the bounding rect where the text resides in
-<li> <tt>dim</tt> - Size of the bounding rect. If this is too small, the font will be drawn only partially or not at all (for example, if the height is to narrow to fit any character)
+<li> <tt>dim</tt> - Size of the bounding rect. If this is too small, the font will be drawn only partially or not at all (for example, if the height is too narrow to fit any character)
 <li> <tt>horizontal alignment</tt> - Can be <tt>left, center, right</tt>
-<li> <tt>vertical alignment</tt> - Can be <tt>top,center,bottom</tt>
+<li> <tt>vertical alignment</tt> - Can be <tt>top, center, bottom</tt>
 <li> <tt>flags</tt> - Here you can specify that text shouldn't be wrapped (<tt>flags::no_line_wrap</tt>) or that a newline should be ignored (<tt>flags::no_multi_line</tt>).
 </ul>
 
@@ -137,24 +141,27 @@ Now that we know, here's the main loop:
 while (true)
 {
 	sge::window::dispatch();
-	sge::renderer::scoped_block block(sys.renderer);
+	sge::renderer::scoped_block const block(sys.renderer);
 	font.draw_text(
 		SGE_TEXT("hello world"),
-		sge::font::pos(),
-		sge::math::structure_cast<sge::font::unit>(sys.renderer->screen_size()),
+		sge::font::pos(
+			static_cast<sge::font::unit>(0),
+			static_cast<sge::font::unit>(0)),
+		sge::math::structure_cast<sge::font::unit>(
+			sys.renderer()->screen_size()),
 		sge::font::align_h::center,
 		sge::font::align_v::center);
 }
 \endcode
 
-Files to include: <sge/renderer/scoped_block.hpp>
+Files to include: <sge/renderer/scoped_block.hpp>, <sge/window.hpp>
 
 This loop, as in the first tutorial, loops forever until you close it somehow.
 Feel free to integrate an input system if you like. There's nothing much here
-that needs explanation. sge::font::pos() is the standard constructor for a
-sge::math::basic_vector, which initializes all components to
-<tt>static_cast<T>(0)</tt>, so the rect in which the font is trapped in begins
-at the top left corner of the screen. The next line tells us that it takes up
+that needs explanation.
+The first line tells us that the text should be draw beginning at (0,0) in
+pixel coordinates.
+The second line tells us that it takes up
 the whole screen. <tt>sge::math::structure_cast<T>(x)</tt> is basically just a
 shorthand for 
 
