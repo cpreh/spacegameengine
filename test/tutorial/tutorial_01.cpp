@@ -43,18 +43,18 @@ try
 			sge::renderer::linear_filter,
 			sge::renderer::resource_flags::none);
 	sge::sprite::object const my_object(
-			sge::sprite::point(0,0),
-			sge::make_shared_ptr<
-				sge::texture::part_ptr,
-				sge::texture::part_raw>(
-					image_texture),
-			sge::sprite::texture_dim);
+		sge::sprite::point(0,0),
+		sge::make_shared_ptr<
+			sge::texture::part_ptr,
+			sge::texture::part_raw>(
+				image_texture),
+		sge::sprite::texture_dim);
 
 	while (true)
 	{
-			sge::window::dispatch();
-			sge::renderer::scoped_block const block_(sys.renderer());
-			ss.render(my_object);
+		sge::window::dispatch();
+		sge::renderer::scoped_block const block_(sys.renderer());
+		ss.render(my_object);
 	}
 } 
 catch (sge::exception const &e)
