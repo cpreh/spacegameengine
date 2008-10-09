@@ -39,7 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view_dim.hpp>
 #include <sge/renderer/image_view_impl.hpp>
 
-sge::devil::object::object(const path& file)
+sge::devil::object::object(
+	path const &file)
 {
 	bind_me();
 	if(ilLoadImage(
@@ -55,6 +56,7 @@ sge::devil::object::object(const path& file)
 			+ SGE_TEXT("'!"));
 }
 
+/*
 sge::devil::object::object(
 	image::format::type const type,
 	const const_pointer format_data,
@@ -72,6 +74,7 @@ sge::devil::object::object(
 		throw exception(
 			SGE_TEXT("ilLoadL() failed!"));
 }
+*/
 
 sge::devil::object::object(
 	renderer::const_image_view const &src)
@@ -133,7 +136,7 @@ void sge::devil::object::data(
 			best_il_format),	
 		to_il_channel(
 			best_il_format),
-		const_cast<pointer>(v.data()));
+		const_cast<raw_vector_t::pointer>(v.data()));
 	check_errors();
 }
 

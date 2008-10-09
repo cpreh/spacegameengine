@@ -2,23 +2,22 @@
 #define SGE_OPENAL_LISTENER_HPP_INCLUDED
 
 #include <sge/math/vector.hpp>
-#include <sge/audio/types.hpp>
+#include <sge/audio/listener.hpp>
 
 namespace sge
 {
 namespace openal
 {
-class listener
+class listener : public sge::audio::listener
 {
 	public:
-	listener();
-	void set_pos(audio::sound_pos const &);
-	audio::sound_pos const get_pos() const;
-	void set_angle(audio::sound_angle const &);
-	audio::sound_angle const get_angle() const;
+	void pos(audio::point const &);
+	audio::point const pos() const;
+	void direction(audio::angle const &);
+	audio::angle const direction() const;
 	private:
-	audio::sound_pos pos_;
-	audio::sound_angle angle_;
+	audio::point pos_;
+	audio::angle angle_;
 };
 }
 }

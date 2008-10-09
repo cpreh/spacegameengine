@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/list.hpp>
+#include <sge/log/headers.hpp>
+#include <ostream>
 
 sge::systems::list::list()
 {}
@@ -35,8 +37,10 @@ sge::systems::list::operator()(
 {
 	list ret(*this);
 	if(!ret.states.insert(a).second)
-	{} // TODO: warn
-
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("Duplicate system state given!"));
 	return ret;
 }
 

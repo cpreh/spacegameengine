@@ -2,6 +2,7 @@
 #define SGE_MAD_STREAM_HPP_INCLUDED
 
 #include "frame.hpp"
+#include "decoding_mode.hpp"
 #include <mad.h>
 #include <sge/raw_vector.hpp>
 #include <sge/string.hpp>
@@ -16,7 +17,7 @@ class stream : boost::noncopyable
 {
 	public:
 	explicit stream(std::istream &);
-	frame &decode();
+	frame &decode(decoding_mode::type);
 	bool eof() const;
 	void reset();
 	~stream();
@@ -32,6 +33,7 @@ class stream : boost::noncopyable
 	frame f;
 	std::istream &stdstream;
 	byte_container input_buffer;
+	bool eof_;
 
 	void sync();
 	string const error_string() const;

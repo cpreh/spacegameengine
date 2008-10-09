@@ -84,6 +84,10 @@ template<typename T>
 void channel_printer<Pixel>::operator()(
 	T &t) const
 {
+	// this is a hack to prevent ostream::operator<< from outputting a plain char
+	// instead of a numeric value. since we don't know the exact type of p[t] we
+	// cannot simply cast to int (it could be a floating point typ), so we add 0
+	// to promote a char to int and any floating point type to itself
 	s << (p[t] + 0);
 	typedef typename Pixel::layout_t::channel_mapping_t mapping;
 	if(t != boost::mpl::back<mapping>::type::value)

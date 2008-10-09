@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture_util.hpp>
+#include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/image_view_dim.hpp>
 #include <sge/renderer/image_view_impl.hpp>
@@ -28,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void sge::renderer::sub_data(
 	texture_ptr const tex,
 	const_image_view const &view,
-	texture::pos_type const &p)
+	texture_pos_type const &p)
 {
 	scoped_texture_lock const lock_(
 		sge::renderer::make_scoped_lock(

@@ -2,6 +2,7 @@
 #include <sge/audio/player.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/sound.hpp>
+#include <sge/audio/listener.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context.hpp>
@@ -17,6 +18,7 @@
 #include <sge/log/headers.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/time/sleep.hpp>
 #include <sge/iconv.hpp>
 #include <boost/program_options.hpp>
 #include <ostream>
@@ -82,27 +84,28 @@ try
 		? sys.audio_player()->create_stream_sound(soundfile)
 		: sys.audio_player()->create_nonstream_sound(soundfile);
 
-	sys.audio_player()->listener_pos(sge::audio::sound_pos(0,0,0));
+	sys.audio_player()->listener().pos(sge::audio::point(0,0,0));
 	if (revolving)
 	{
 		sound->positional(true);
-		sound->pos(sge::audio::sound_pos(-1,0,0));
+		sound->pos(sge::audio::point(-1,0,0));
 	}
-	sound->play(sge::audio::play_mode::loop);
+	sound->play(sge::audio::play_mode::once);
 
 	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
-	while (true)
+	while (sound->status() != sge::audio::sound_status::stopped)
 	{
 		if (revolving)
 		{
 			sge::space_unit angle = 
 				sge::su(
 					frame_timer.elapsed_frames() * (2 * sge::math::PI * speed));
-			sound->pos(sge::audio::sound_pos(std::sin(angle),0,std::cos(angle)));
+			sound->pos(sge::audio::point(std::sin(angle),0,std::cos(angle)));
 		}
-		sys.audio_player()->update();
+
+		sound->update();
+		sge::time::sleep(sge::time::millisecond(static_cast<sge::time::unit>(250)));
 	}
-	
 } catch (const sge::audio::exception &e) {
 	sge::cerr << SGE_TEXT("audio exception caught: ") << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;

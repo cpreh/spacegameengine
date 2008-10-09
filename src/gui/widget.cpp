@@ -86,7 +86,7 @@ bool sge::gui::widget::is_container() const
 
 void sge::gui::widget::process(events::invalid_area const &e)
 {
-	manager().skin()->draw(*this,e);
+	parent_manager().skin()->draw(*this,e);
 }
 
 sge::gui::widget *sge::gui::widget::recalculate_focus(point const &mouse_click)

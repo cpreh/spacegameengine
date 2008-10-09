@@ -6,6 +6,7 @@
 #include "../math/vector.hpp"
 #include "../input/key_type.hpp"
 #include "../renderer/texture.hpp"
+#include "../renderer/any_color.hpp"
 
 namespace sge
 {
@@ -21,6 +22,9 @@ namespace direction
 {
 enum type { up,down,left,right };
 }
+
+typedef renderer::any_color color;
+typedef renderer::rgba8_color internal_color;
 }
 }
 

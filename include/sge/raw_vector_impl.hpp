@@ -294,11 +294,31 @@ typename sge::raw_vector<T, A>::allocator_type sge::raw_vector<T, A>::get_alloca
 }
 
 template<typename T, typename A>
-typename sge::raw_vector<T, A>::iterator sge::raw_vector<T, A>::insert(const iterator position, const T& x)
+typename sge::raw_vector<T, A>::iterator
+sge::raw_vector<T, A>::insert(
+	iterator const position,
+	T const &x)
 {
-	const difference_type diff = position - begin();
-	insert(position, 1, x);
-	return begin() + diff;
+	size_type const new_size = size() + 1;
+	if(new_size > capacity())
+	{
+		difference_type const insert_sz = position - begin();
+		size_type const new_cap = new_capacity(new_size);
+		pointer const new_memory = i.a.allocate(new_cap);
+		std::uninitialized_copy(begin(), position, new_memory);
+		*(new_memory + insert_sz) = x;
+		std::uninitialized_copy(position, end(), new_memory + insert_sz + 1);
+		deallocate();
+		set_pointers(new_memory, new_size, new_cap);
+		return begin() + insert_sz;
+	}
+	else
+	{
+		std::copy_backward(position, end(), position + 1);
+		*position = x;
+		i.last += 1;
+		return position;
+	}
 }
 	
 template<typename T, typename A>
@@ -328,7 +348,7 @@ template<typename T, typename A>
 template<typename In>
 void sge::raw_vector<T, A>::insert(const iterator position, const In l, const In r)
 {
-	const difference_type distance = std::distance(l, r);
+	const difference_type distance = r - l;//std::distance(l, r);
 	const size_type new_size = size() + distance;
 	if(new_size > capacity())
 	{

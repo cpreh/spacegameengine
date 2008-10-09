@@ -32,9 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/cursor.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/callback.hpp>
+#include <sge/input/key_code.hpp>
+#include <sge/input/key_type.hpp>
 #include <sge/math/vector.hpp>
 #include <sge/scoped_connection.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/signals.hpp>
 
 namespace sge
 {
@@ -49,16 +53,17 @@ public:
 
 	callback_connection const
 	register_callback(
-		callback const &c);
+		input::callback const &c);
 
 	callback_connection const
 	register_repeat_callback(
-		repeat_callback const &c);
+		input::repeat_callback const &c);
 
 	void dispatch();
 	window_ptr const get_window() const;
 private:
-	void add_connection(boost::signals::connection);
+	void add_connection(
+		boost::signals::connection);
 	void grab();
 	void grab_pointer();
 	void grab_keyboard();
@@ -93,6 +98,9 @@ private:
 	boost::ptr_vector<scoped_connection> connections;
 
 	mouse_pos          mouse_last;
+	
+	typedef boost::signal<input::key_pair_fun> signal_type;
+	typedef boost::signal<input::key_type_fun> repeat_signal_type;
 
 	signal_type        sig;
 	repeat_signal_type repeat_sig;

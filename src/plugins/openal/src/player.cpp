@@ -19,11 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../player.hpp"
+#include "../pool.hpp"
 #include "../nonstream_sound.hpp"
 #include "../stream_sound.hpp"
 #include "../error.hpp"
 #include "../file_format.hpp"
+#include "../log.hpp"
 #include <sge/audio/sound.hpp>
+#include <sge/audio/pool.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/ptr_container_erase.hpp>
@@ -36,12 +39,6 @@ sge::openal::player::player()
 	  context_(device_)
 {
 	context_.make_current();
-}
-
-void sge::openal::player::update()
-{
-	BOOST_FOREACH(stream_sound &s,stream_sounds)
-		s.update();
 }
 
 void sge::openal::player::register_stream_sound(stream_sound *p)
@@ -68,6 +65,11 @@ sge::openal::player::create_stream_sound(
 	return audio::sound_ptr(new stream_sound(_audio_file,*this));
 }
 
+sge::audio::pool_ptr const sge::openal::player::create_pool()
+{
+	return audio::pool_ptr(new pool());
+}
+
 ALuint sge::openal::player::register_nonstream_sound(
 	audio::file_ptr const _audio_file)
 {
@@ -85,6 +87,14 @@ ALuint sge::openal::player::register_nonstream_sound(
 
 	audio::sample_container data;
 	_audio_file->read_all(data);
+
+	SGE_LOG_DEBUG(
+		log(),
+		log::_1 << SGE_TEXT("creating buffer of size ")
+	          << data.size() << SGE_TEXT(" and format ")
+						<< file_format(*_audio_file)
+						<< SGE_TEXT(" and sample rate ") << _audio_file->sample_rate());
+
 	alBufferData(
 		buffer.albuffer(), 
 		file_format(*_audio_file), 

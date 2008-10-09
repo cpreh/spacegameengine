@@ -30,7 +30,6 @@ class canvas
 	public:
 	typedef renderer::image_view view_type;
 	typedef renderer::const_image_view const_view_type;
-	typedef renderer::color color_type;
 	typedef std::vector<point> point_container;
 
 	SGE_SYMBOL canvas(view_type const &,rect const &widget_rect,rect const &invalid_rect);
@@ -38,7 +37,7 @@ class canvas
 	rect const widget_area() const { return widget_; }
 	rect const invalid_area() const { return invalid_; }
 	point const widget_pos() const { return point(widget_area().left(),widget_area().top()); }
-	SGE_SYMBOL void draw_rect(rect const &,color_type,rect_type::type);
+	SGE_SYMBOL void draw_rect(rect const &,color,rect_type::type);
 	SGE_SYMBOL void draw_text(
 		string const &,
 		point const &,
@@ -46,10 +45,10 @@ class canvas
 		font::align_h::type,
 		font::align_v::type,
 		font::flag_t = font::flags::default_);
-	SGE_SYMBOL void draw_line(point const &,point const &,color_type);
-	SGE_SYMBOL void draw_line_strip(point_container const &,color_type,bool loop = true);
-	SGE_SYMBOL void reset_font(font::metrics_ptr,color_type fg,color_type bg);
-	SGE_SYMBOL void draw_pixel(point const &,color_type);
+	SGE_SYMBOL void draw_line(point const &,point const &,color);
+	SGE_SYMBOL void draw_line_strip(point_container const &,color,bool loop = true);
+	SGE_SYMBOL void reset_font(font::metrics_ptr,color fg,color bg);
+	SGE_SYMBOL void draw_pixel(point const &,color);
 	view_type view() { return texture_; }
 	view_type view() const { return texture_; }
 	private:
@@ -66,8 +65,8 @@ class canvas
 	void blit_font(
 		point const &,
 		font::const_image_view const &,
-		color_type fg,
-		color_type bg);
+		color fg,
+		color bg);
 };
 }
 }

@@ -30,6 +30,5 @@ sge::openal::device::~device()
 		if (!std::uncaught_exception())
 			throw audio::exception(SGE_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers"));
 
-	SGE_OPENAL_ERROR_CHECK;
 	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("closed openal device"));
 }

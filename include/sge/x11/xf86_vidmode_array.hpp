@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include "xf86_resolution.hpp"
+#include "xf86_resolution_fwd.hpp"
 #include "deleter.hpp"
-#include "display.hpp"
+#include "display_fwd.hpp"
 #include "../shared_ptr.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
@@ -48,15 +48,18 @@ public:
 	typedef std::size_t size_type;
 
 	SGE_SYMBOL xf86_vidmode_array(
-		x11::display_ptr dsp,
+		display_ptr dsp,
 		int screen);
-	SGE_SYMBOL XF86VidModeModeInfo const &operator[](
+	SGE_SYMBOL XF86VidModeModeInfo const &
+	operator[](
 		size_type index) const;
 
-	SGE_SYMBOL static unsigned refresh_rate(
+	SGE_SYMBOL static unsigned
+	refresh_rate(
 		XF86VidModeModeInfo const &);
 	SGE_SYMBOL size_type size() const;
-	SGE_SYMBOL xf86_resolution_ptr const switch_to_mode(
+	SGE_SYMBOL xf86_resolution_ptr const
+	switch_to_mode(
 		renderer::display_mode const &) const;
 private:
 	display_ptr const dsp;

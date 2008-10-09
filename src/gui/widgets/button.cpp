@@ -19,43 +19,12 @@ sge::gui::widgets::button::button(
 			size_policy_t(axis_policy::can_grow,axis_policy::none)),
 	  text_(text_),
 	  font_(_font),
-		mouse_over(false)
+		mouse_over_(false)
 {
 	if (!font_)
 		font_ = parent_manager().standard_font();
 
 	SGE_ASSERT_MESSAGE(font_,SGE_TEXT("button: no standard font could be set by manager"));
-}
-
-void sge::gui::widgets::button::process(events::invalid_area const &e)
-{
-	canvas c = e.canvas();
-	
-	renderer::color const col = 
-		mouse_over ? 
-			parent_manager().standard_color_focused() : 
-			parent_manager().standard_color();
-
-	c.draw_rect(
-		relative_area(),
-		col,
-		rect_type::filled);
-
-	SGE_ASSERT_MESSAGE(font_,SGE_TEXT("button: font missing while drawing button"));
-
-	// reset font
-	c.reset_font(
-		font_,
-		sge::renderer::colors::black,
-		col);
-	
-	// draw text centered
-	c.draw_text(
-		text_,
-		point(),
-		widget::size(),
-		font::align_h::center,
-		font::align_v::center);
 }
 
 sge::gui::dim const sge::gui::widgets::button::size_hint() const
@@ -72,13 +41,13 @@ sge::gui::dim const sge::gui::widgets::button::size_hint() const
 
 void sge::gui::widgets::button::process(events::mouse_enter const &)
 {
-	mouse_over = true;
+	mouse_over_ = true;
 	parent_manager().invalidate(absolute_area());
 }
 
 void sge::gui::widgets::button::process(events::mouse_leave const &)
 {
-	mouse_over = false;
+	mouse_over_ = false;
 	parent_manager().invalidate(absolute_area());
 }
 

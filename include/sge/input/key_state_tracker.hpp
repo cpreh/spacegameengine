@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
 #define SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
 
-#include "system.hpp"
+#include "system_fwd.hpp"
+#include "key_code.hpp"
 #include "key_type.hpp"
+#include "key_state.hpp"
 #include "../export.hpp"
 #include "../scoped_connection.hpp"
 #include <boost/noncopyable.hpp>
@@ -33,25 +35,25 @@ namespace sge
 namespace input
 {
 
+class key_pair;
+
 class key_state_tracker : boost::noncopyable {
 public:
-	SGE_SYMBOL key_state_tracker(system_ptr);
-	SGE_SYMBOL key_state state(const key_code&);
-	SGE_SYMBOL key_state state(const key_type&);
-	SGE_SYMBOL key_state state(const key_type::char_type&);
-	SGE_SYMBOL key_state operator[](const key_code&k);
-	SGE_SYMBOL key_state operator[](const key_type&k);
-	SGE_SYMBOL key_state operator[](const key_type::char_type&k);
+	SGE_SYMBOL explicit key_state_tracker(
+		system_ptr);
+	SGE_SYMBOL key_state state(key_code);
+	SGE_SYMBOL key_state state(key_type const &);
+	SGE_SYMBOL key_state operator[](key_code);
+	SGE_SYMBOL key_state operator[](key_type const &);
 private:
-	void event_handler(const key_pair& key);
-	scoped_connection con;
+	void event_handler(key_pair const &key);
+
+	scoped_connection const con;
 
 	typedef std::map<key_code, key_state> key_code_map;
 	typedef std::map<key_type, key_state> key_type_map;
-	typedef std::map<key_type::char_type, key_state> key_char_map;
 	key_code_map key_codes;
 	key_type_map key_types;
-	key_char_map key_chars;
 };
 
 }

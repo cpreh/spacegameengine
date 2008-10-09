@@ -22,17 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 
 #include "index_format.hpp"
-#include "../typeswitch.hpp"
+#include "size_type.hpp"
+#include "index_view_fwd.hpp"
 #include "../export.hpp"
-#include <boost/variant.hpp>
-#include <cstddef>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef std::size_t index_size;
+typedef size_type index_size;
 
 template<typename Index>
 class index_view {
@@ -57,23 +56,6 @@ private:
 	pointer data_;
 	size_type size_;
 };
-
-typedef index_view<uint16> index_view_16;
-typedef index_view<uint16 const> const_index_view_16;
-typedef index_view<uint32> index_view_32;
-typedef index_view<uint32 const> const_index_view_32;
-
-// FIXME: we should really use a variant with an mpl::vector here
-// so that return types of visitor algorithms can be deduced
-typedef boost::variant<
-	index_view_16,
-	index_view_32
-> dynamic_index_view;
-
-typedef boost::variant<
-	const_index_view_16,
-	const_index_view_32
-> const_dynamic_index_view;
 
 }
 }

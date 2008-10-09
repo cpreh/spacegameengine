@@ -21,6 +21,9 @@ INSTALL (TARGETS sgeanimtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 ADD_EXECUTABLE (tutorial_01 tutorial/tutorial_01.cpp)
 TARGET_LINK_LIBRARIES (tutorial_01 sgecore)
 
+ADD_EXECUTABLE (pooltest pooltest.cpp)
+TARGET_LINK_LIBRARIES (pooltest sgecore)
+
 ADD_EXECUTABLE (tutorial_02 tutorial/tutorial_02.cpp)
 TARGET_LINK_LIBRARIES (tutorial_02 sgecore)
 
@@ -38,6 +41,10 @@ INSTALL (TARGETS sgetargettest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 ADD_EXECUTABLE (sgevertextest vertextest.cpp)
 TARGET_LINK_LIBRARIES (sgevertextest sgecore)
 INSTALL (TARGETS sgevertextest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
+ADD_EXECUTABLE (sgerandomtest randomtest.cpp)
+TARGET_LINK_LIBRARIES (sgerandomtest sgecore)
+INSTALL (TARGETS sgerandomtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 IF (${ENABLE_GUI})
 	ADD_EXECUTABLE (sgeguitest guitest.cpp)

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
 #include <sge/x11/dga.hpp>
+#include <sge/x11/display.hpp>
 #ifdef SGE_USE_DGA
 #include <X11/extensions/xf86dga.h>
 

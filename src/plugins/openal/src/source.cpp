@@ -88,7 +88,7 @@ void sge::openal::source::stop()
 	status_ = audio::sound_status::stopped;
 }
 
-void sge::openal::source::pos(audio::sound_pos const &n)
+void sge::openal::source::pos(audio::point const &n)
 {
 	pos_ = n;
 

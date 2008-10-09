@@ -21,13 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_HPP_INCLUDED
 
+#include "types.hpp"
 #include "../export.hpp"
-#include "../math/rect.hpp"
-#include "../math/vector.hpp"
-#include "../math/dim.hpp"
 #include "../math/circle.hpp"
 #include "../texture/part_fwd.hpp"
-#include "types.hpp"
 #include <boost/optional.hpp>
 
 namespace sge

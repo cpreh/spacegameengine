@@ -23,12 +23,12 @@ public:
 	SGE_SYMBOL void begin_rendering(size_type, font::pos const &, font::dim);
 	SGE_SYMBOL void draw_char(char_type, font::pos const &c, font::const_image_view const &);
 	SGE_SYMBOL void end_rendering();
-	void fg(renderer::color const _fg) { fg_ = _fg; }
-	void bg(renderer::color const _bg) { bg_ = _bg; }
+	void fg(color const &_fg) { fg_ = _fg; }
+	void bg(color const &_bg) { bg_ = _bg; }
 private:
 	renderer::device_ptr rend_;
 	canvas &canvas_;
-	renderer::color fg_,bg_;
+	color fg_,bg_;
 };
 }
 }

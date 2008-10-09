@@ -46,11 +46,7 @@ sge::math::basic_sequence<T, Dim, Policy>::basic_sequence(
 	Args... args)
 : Policy<T, Dim>(data())
 {
-#ifdef SGE_HAVE_STATIC_ASSERT
-	static_assert(sizeof... (args) == Dim, "Invalid number of arguments supplied to sequence!");
-#else
 	BOOST_STATIC_ASSERT(sizeof... (args) == Dim);
-#endif
 	init(args...);	
 }
 #else

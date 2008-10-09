@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/input/key_type.hpp>
+#include <sge/input/key_pair.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/time/millisecond.hpp>
 #include <boost/array.hpp>
@@ -101,14 +102,14 @@ sge::xinput::system::~system()
 
 sge::callback_connection const
 sge::xinput::system::register_callback(
-	callback const &c)
+	input::callback const &c)
 {
 	return sig.connect(c);
 }
 
 sge::callback_connection const
 sge::xinput::system::register_repeat_callback(
-	repeat_callback const &c)
+	input::repeat_callback const &c)
 {
 	return repeat_sig.connect(c);
 }

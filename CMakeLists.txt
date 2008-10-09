@@ -1,60 +1,19 @@
-#CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT (spacegameengine)
 
+INCLUDE (CheckIncludeFile)
+INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (CheckCXXSourceCompiles)
 INCLUDE (CheckCXXSourceRuns)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
-SET (CMAKE_REQUIRED_FLAGS "-std=c++0x")
-
-CHECK_CXX_SOURCE_COMPILES(
-	"template<typename... Args> void f(Args... args) {} int main(){}"
+CHECK_CXX_COMPILER_FLAG(
+	"-std=c++0x"
 	SGE_HAVE_VARIADIC_TEMPLATES
 )
-
-SET (CMAKE_REQUIRED_FLAGS "")
-
-CHECK_CXX_SOURCE_COMPILES(
-	"#include <X11/Xlib.h>
-	 int main(){}"
-	 SGE_HAVE_X11
-)
-
-IF (${SGE_HAVE_X11})
-	CHECK_CXX_SOURCE_COMPILES(
-		"#include <X11/Xlib.h>
-		 #include <X11/extensions/xf86vmode.h>
-		 int main() {}"
-		SGE_HAVE_XF86_VIDMODE
-	)
-	CHECK_CXX_SOURCE_COMPILES(
-		"#include <X11/Xlib.h>
-		 #include <X11/extensions/xf86dga.h>
-		 int main() {}"
-		SGE_HAVE_XF86_DGA
-	)
-ENDIF ()
-
-CHECK_CXX_SOURCE_RUNS(
-	"#include <unistd.h>
-	 #include <cstdlib>
-	 int main()
-	 {
-	   return _POSIX_VERSION >= 200100
-	          ? EXIT_SUCCESS
-		  : EXIT_FAILURE;
-	 }"
-	 SGE_HAVE_POSIX)
-
-FIND_PACKAGE(Boost 1.35.0 COMPONENTS
-	filesystem
-	signals
-	regex
-	iostreams
-	system)
 
 CHECK_CXX_SOURCE_COMPILES(
 	"#include <boost/cstdint.hpp>
@@ -65,23 +24,21 @@ CHECK_CXX_SOURCE_COMPILES(
 	 SGE_HAVE_ATLEAST_UINT64)
 
 IF (${CMAKE_COMPILER_IS_GNUCXX})
-	SET (CMAKE_REQUIRED_FLAGS "-fvisibility=hidden")
-
-	CHECK_CXX_SOURCE_COMPILES(
-		"int main(){}"
+	CHECK_CXX_COMPILER_FLAG(
+		"-fvisibility=hidden"
 		SGE_HAVE_GCC_VISIBILITY)
 
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self")
+	ADD_DEFINITIONS ("-ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self")
 
 	IF (${SGE_HAVE_GCC_VISIBILITY})
-		SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden")
+		ADD_DEFINITIONS("-fvisibility=hidden")
 	ENDIF ()
 
 	IF (${SGE_HAVE_VARIADIC_TEMPLATES})
-		SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wold-style-cast -std=c++0x")
+		ADD_DEFINITIONS ("-Wold-style-cast -std=c++0x")
 	ENDIF ()
 ELSEIF (${MSVC})
-	SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714")
+	ADD_DEFINITIONS ("/W4 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714")
 	SET (WINLIBS projects/windows/lib32)
 	SET (WININCLUDES ${CMAKE_SOURCE_DIR}/${WINLIBS})
 
@@ -143,6 +100,7 @@ INSTALL_HEADERS (sge/math/detail)
 INSTALL_HEADERS (sge/model)
 INSTALL_HEADERS (sge/mpl)
 INSTALL_HEADERS (sge/plugin)
+INSTALL_HEADERS (sge/random)
 INSTALL_HEADERS (sge/renderer)
 INSTALL_HEADERS (sge/renderer/glsl)
 INSTALL_HEADERS (sge/renderer/state)

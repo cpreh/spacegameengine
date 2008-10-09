@@ -17,6 +17,7 @@ class frame : boost::noncopyable
 	mad_frame &madframe();
 	audio::sample_count sample_rate() const;
 	audio::channel_type channels() const;
+	unsigned layer() const;
 	string const info() const;
 	audio::sample_container const synthesize();
 	~frame();

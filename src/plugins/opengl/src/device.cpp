@@ -46,8 +46,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
 #elif defined(SGE_HAVE_X11)
+#include "../glx/choose_visual.hpp"
 #include <sge/x11/window.hpp>
+#include <sge/x11/display.hpp>
 #include <boost/bind.hpp>
+#include <sge/raw_vector_impl.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -81,16 +84,16 @@ sge::ogl::device::device(
 
 	bool windowed = true; // param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
-	const unsigned color_depth = renderer::bit_depth_bit_count(param.mode.depth);
+	unsigned const color_depth = static_cast<unsigned>(param.mode().depth);
 	if(!windowed)
 	{
 		DEVMODE settings;
 		memset(&settings,0,sizeof(DEVMODE));
 		settings.dmSize = sizeof(DEVMODE);
-		settings.dmPelsWidth    = param.mode.width();
-		settings.dmPelsHeight   = param.mode.height();
+		settings.dmPelsWidth    = param.mode().width();
+		settings.dmPelsHeight   = param.mode().height();
 		settings.dmBitsPerPel   = color_depth;
-		settings.dmDisplayFrequency = param.mode.refresh_rate;
+		settings.dmDisplayFrequency = param.mode().refresh_rate;
 		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
 		{
@@ -122,7 +125,7 @@ sge::ogl::device::device(
 
 	if(!wnd_param)
 		wnd.reset(new windows::window(
-			window::window_size(param.mode.width(),param.mode.height())));
+			window::window_size(param.mode().width(),param.mode().height())));
 	else
 		wnd = polymorphic_pointer_cast<windows::window>(wnd_param);
 
@@ -134,9 +137,9 @@ sge::ogl::device::device(
 	if(SetPixelFormat(hdc->hdc(), pixel_format, &pfd) == FALSE)
 		throw exception(SGE_TEXT("SetPixelFormat() failed"));
 
-	context.reset(new wgl_context(*hdc));
+	context.reset(new wgl::context(*hdc));
 
-	current.reset(new wgl_current(*hdc, *context));
+	current.reset(new wgl::current(*hdc, *context));
 
 #elif defined(SGE_HAVE_X11)
 	const int screen = XDefaultScreen(dsp->get());
@@ -152,12 +155,18 @@ sge::ogl::device::device(
 		}
 	}
 
-	const int attributes[] = {GLX_RGBA, GLX_DOUBLEBUFFER, GLX_RED_SIZE, 8, GLX_GREEN_SIZE, 8, GLX_BLUE_SIZE, 8, GLX_DEPTH_SIZE, 24, None};
-	visual.reset(new glx_visual(dsp, screen, attributes));
+	visual.reset(
+		new glx::visual(
+			dsp,
+			screen,
+			glx::choose_visual(
+				param.mode().depth,
+				param.dbuffer(),
+				param.sbuffer()).data()));
 
-	context.reset(new glx_context(dsp, visual->visual_info()));
+	context.reset(new glx::context(dsp, visual->info()));
 
-	colormap.reset(new x11::colormap(dsp, visual->visual_info()));
+	colormap.reset(new x11::colormap(dsp, visual->info()));
 
 	XSetWindowAttributes swa;
 	swa.colormap = colormap->get();
@@ -176,14 +185,14 @@ sge::ogl::device::device(
 				string(),
 				dsp,
 				swa,
-				visual->visual_info()));
+				visual->info()));
 
 	if(!windowed)
-		XMapWindow(dsp->get(), wnd->get_window());
+		wnd->map();
 	else
-		XMapRaised(dsp->get(), wnd->get_window());
+		wnd->map_raised();
 
-	current.reset(new glx_current(dsp, *wnd, context));
+	current.reset(new glx::current(dsp, *wnd, context));
 
  	con_manager.scoped_connect(
 		wnd->register_callback(
@@ -193,8 +202,8 @@ sge::ogl::device::device(
 		wnd->register_callback(
 			ConfigureNotify,
 			boost::bind(&device::reset_viewport_on_configure, this, _1)));
-
-	XSync(dsp->get(), False);
+	
+	dsp->sync();
 #endif
 	if(glewInit() != GLEW_OK)
 		throw exception(SGE_TEXT("glewInit() failed!"));

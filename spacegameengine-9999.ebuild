@@ -12,15 +12,16 @@ EGIT_REPO_URI="git://git.tuxfamily.org/gitroot/sge/spacegameengine.git"
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="devil dga openal opengl test truetype vorbis wave x11input"
+IUSE="devil dga mad openal opengl test truetype vorbis wave x11input"
 
 DEPEND="${RDEPEND}
-        dev-util/cmake
+        >=dev-util/cmake-2.6
         dev-util/pkgconfig"
 RDEPEND=">=dev-libs/boost-1.35
          x11-libs/libX11
          virtual/libc
          devil? ( media-libs/devil )
+		 mad? ( media-libs/libmad )
          openal? ( media-libs/openal )
          opengl? (
              media-libs/glew
@@ -39,6 +40,7 @@ src_compile() {
 
 	use devil && myconf="${myconf} -D ENABLE_DEVIL:=1"
 	use dga && myconf="${myconf} -D ENABLE_DGA:=1"
+	use mad && myconf="${myconf} -D ENABLE_MAD:=1"
 	use opengl && myconf="${myconf} -D ENABLE_OPENGL:=1"
 	use openal && myconf="${myconf} -D ENABLE_OPENAL:=1"
 	use test && myconf="${myconf} -D ENABLE_TEST:=1"

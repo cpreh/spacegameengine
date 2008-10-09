@@ -1,3 +1,28 @@
+CHECK_CXX_SOURCE_RUNS(
+	"#include <unistd.h>
+	 #include <cstdlib>
+	 int main()
+	 {
+	   return _POSIX_VERSION >= 200100
+	          ? EXIT_SUCCESS
+		  : EXIT_FAILURE;
+	 }"
+	 SGE_HAVE_POSIX)
+
+FIND_PACKAGE(Boost 1.35.0 COMPONENTS
+	filesystem
+	signals
+	regex
+	#iostreams
+	system)
+
+IF (${SGE_HAVE_POSIX})
+	CHECK_INCLUDE_FILE(
+		 X11/Xlib.h
+		 SGE_HAVE_X11
+	)
+ENDIF ()
+
 FILE (GLOB sgecorefiles 
 	*.cpp
 	archive/*.cpp
@@ -30,15 +55,20 @@ ELSEIF (${WIN32})
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 
-ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
+ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
 SET_TARGET_PROPERTIES (sgecore PROPERTIES DEFINE_SYMBOL SGE_EXPORTS)
 
 IF (NOT MSVC)
-	TARGET_LINK_LIBRARIES (sgecore boost_filesystem boost_signals boost_regex
-  boost_iostreams boost_system)
+	TARGET_LINK_LIBRARIES (
+		sgecore
+		boost_filesystem
+		boost_signals
+		boost_regex
+		#boost_iostreams
+		boost_system)
 ENDIF ()
 
 IF (${UNIX})

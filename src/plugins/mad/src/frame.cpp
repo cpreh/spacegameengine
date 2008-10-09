@@ -1,6 +1,7 @@
 #include "../frame.hpp"
 #include "../synth.hpp"
 #include <sge/sstream.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/log/headers.hpp>
 
@@ -18,6 +19,21 @@ sge::audio::sample_count sge::mad::frame::sample_rate() const
 sge::audio::channel_type sge::mad::frame::channels() const
 {
 	return static_cast<audio::channel_type>(MAD_NCHANNELS(&frame_.header));
+}
+
+unsigned sge::mad::frame::layer() const
+{
+	switch(frame_.header.layer)
+	{
+		case MAD_LAYER_I:
+			return 1;
+		case MAD_LAYER_II:
+			return 2;
+		case MAD_LAYER_III:
+			return 3;
+		default:
+			throw audio::exception(SGE_TEXT("invalid mad layer"));
+	}
 }
 
 sge::string const sge::mad::frame::info() const

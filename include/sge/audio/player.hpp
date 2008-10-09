@@ -24,24 +24,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "file.hpp"
 #include "types.hpp"
 #include "sound_fwd.hpp"
+#include "pool_fwd.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
 #include "../export.hpp"
-#include "../math/vector.hpp"
 
 namespace sge
 {
 namespace audio
 {
+class listener;
 
 struct SGE_CLASS_SYMBOL player : boost::noncopyable {
-	virtual sound_pos const listener_pos() const = 0;
-	virtual void listener_pos(sound_pos const &) = 0;
-	virtual sound_angle const listener_angle() const = 0;
-	virtual void listener_angle(sound_angle const &) = 0;
+	virtual audio::listener& listener() = 0;
 	virtual sound_ptr const create_nonstream_sound(file_ptr) = 0;
 	virtual sound_ptr const create_stream_sound(file_ptr) = 0;
-	virtual void update() = 0;
+	virtual pool_ptr const create_pool() = 0;
 	SGE_SYMBOL virtual ~player();
 };
 

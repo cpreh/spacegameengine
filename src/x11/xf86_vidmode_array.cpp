@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11/xf86_vidmode_array.hpp>
+#include <sge/x11/xf86_resolution.hpp>
+#include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/math/round_div_int.hpp>
@@ -28,8 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11::xf86_vidmode_array::xf86_vidmode_array(
 	display_ptr const dsp,
 	int const screen)
-: dsp(dsp),
-  screen(screen)
+:
+	dsp(dsp),
+	screen(screen)
 {
 	int event_base, error_base;
 	if(XF86VidModeQueryExtension(dsp->get(), &event_base, &error_base) == False)

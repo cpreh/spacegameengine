@@ -1,13 +1,14 @@
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widget.hpp>
+#include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/gui/skins/standard.hpp>
 #include <sge/gui/widgets/container.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/events/mouse_enter.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/events/mouse_click.hpp>
-#include <sge/gui/canvas.hpp>
 #include <sge/media.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/rect_util.hpp>
@@ -52,16 +53,6 @@ sge::gui::manager::manager(
 		fs(fs),
 		standard_font_(
 			fs->create_font(sge::media_path()/SGE_TEXT("fonts/default.ttf"),15)),
-		standard_color_(renderer::make_color_rgba(
-			static_cast<renderer::pixel_channel_8>(128),
-			static_cast<renderer::pixel_channel_8>(128),
-			static_cast<renderer::pixel_channel_8>(128),
-			static_cast<renderer::pixel_channel_8>(255))),
-		standard_color_focused_(renderer::make_color_rgba(
-			static_cast<renderer::pixel_channel_8>(196),
-			static_cast<renderer::pixel_channel_8>(196),
-			static_cast<renderer::pixel_channel_8>(196),
-			static_cast<renderer::pixel_channel_8>(255))),
 		ic(is->register_callback(boost::bind(&manager::input_callback,this,_1))),
 		ss(rend),
 		cursor(
@@ -78,7 +69,8 @@ sge::gui::manager::manager(
 		// top left
 		cursor_click(),
 		keyboard_focus(0),
-		mouse_focus(0)
+		mouse_focus(0),
+		skin_(new skins::standard())
 {
 }
 

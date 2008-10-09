@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_CURSOR_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include "display.hpp"
+#include "display_fwd.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 

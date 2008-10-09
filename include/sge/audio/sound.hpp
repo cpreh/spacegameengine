@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "types.hpp"
 #include "play_mode.hpp"
 #include "sound_status.hpp"
-#include "../math/vector.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -39,8 +38,8 @@ public:
 	virtual void toggle_pause() = 0;
 	virtual sound_status::type status() const = 0;
 	virtual void stop() = 0;
-	virtual sound_pos const pos() const = 0;
-	virtual void pos(sound_pos const &) = 0;
+	virtual point const pos() const = 0;
+	virtual void pos(point const &) = 0;
 	virtual bool positional() const = 0;
 	virtual void positional(bool) = 0;
 	SGE_SYMBOL virtual void update();

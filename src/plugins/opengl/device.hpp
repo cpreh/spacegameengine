@@ -25,17 +25,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "target.hpp"
 #include "fbo_target.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
-#include "wgl_context.hpp"
-#include "wgl_current.hpp"
+#include "wgl/context.hpp"
+#include "wgl/current.hpp"
 #include <sge/windows/gdi_device.hpp>
 #include <sge/windows/window.hpp>
 #include <sge/windows/windows.hpp>
 #elif defined(SGE_HAVE_X11)
 #include <X11/Xlib.h>
 #include <GL/glx.h>
-#include "glx_visual.hpp"
-#include "glx_current.hpp"
-#include "glx_context.hpp"
+#include "glx/visual.hpp"
+#include "glx/current.hpp"
+#include "glx/context.hpp"
 #include <sge/x11/colormap.hpp>
 #include <sge/x11/xf86_vidmode_array.hpp>
 #include <sge/x11/xf86_resolution.hpp>
@@ -179,8 +179,8 @@ private:
 #if defined(SGE_WINDOWS_PLATFORM)
 	windows::window_ptr               wnd;
 	boost::scoped_ptr<windows::gdi_device>  hdc;
-	boost::scoped_ptr<wgl_context> context;
-	boost::scoped_ptr<wgl_current> current;
+	boost::scoped_ptr<wgl::context> context;
+	boost::scoped_ptr<wgl::current> current;
 #elif defined(SGE_HAVE_X11)
 	void reset_viewport_on_map(const XEvent&);
 	void reset_viewport_on_configure(const XEvent&);
@@ -188,11 +188,11 @@ private:
 
 	x11::display_ptr                      dsp;
 	scoped_connection                     map_callback;
-	boost::scoped_ptr<glx_visual>         visual;
-	glx_context_ptr                       context;
+	boost::scoped_ptr<glx::visual>        visual;
+	glx::context_ptr                      context;
 	boost::scoped_ptr<x11::colormap>      colormap;
 	x11::window_ptr                       wnd;
-	boost::scoped_ptr<glx_current>        current;
+	boost::scoped_ptr<glx::current>       current;
 	boost::scoped_ptr<
 		x11::xf86_vidmode_array>      modes;
 	x11::xf86_resolution_ptr              resolution;

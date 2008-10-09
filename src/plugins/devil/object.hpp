@@ -35,10 +35,10 @@ class object : public image::object {
 public:
 	explicit object(
 		path const &);
-	object(
+	/*object(
 		image::format::type type,
 		const_pointer format_data,
-		size_type size);
+		size_type size);*/
 	explicit object(
 		renderer::const_image_view const &);
 	renderer::const_image_view const view() const;

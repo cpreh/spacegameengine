@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_VIEW_HPP_INCLUDED
 
-#include "dynamic_format.hpp"
+#include "dynamic_view_fwd.hpp"
 #include "vertex_size.hpp"
-#include "raw_pointer.hpp"
 #include "../../export.hpp"
 
 namespace sge
@@ -32,6 +31,8 @@ namespace renderer
 {
 namespace vf
 {
+
+class dynamic_format;
 
 template<typename Pointer>
 class basic_dynamic_view {
@@ -52,9 +53,6 @@ private:
 	size_type      const size_;
 	dynamic_format const &format_;
 };
-
-typedef basic_dynamic_view<raw_pointer> dynamic_view;
-typedef basic_dynamic_view<const_raw_pointer> const_dynamic_view;
 
 }
 }

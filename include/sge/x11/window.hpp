@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_WINDOW_HPP_INCLUDED
 #define SGE_X11_WINDOW_HPP_INCLUDED
 
-#include "display.hpp"
+#include "display_fwd.hpp"
 #include "../window.hpp"
 #include "../export.hpp"
 #include <X11/Xlib.h>
-#include <GL/glx.h>
+#include <X11/Xutil.h>
 #include <boost/function.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/signals.hpp>
@@ -69,6 +69,8 @@ public:
 	SGE_SYMBOL Window get_window() const;
 	SGE_SYMBOL int screen() const;
 	SGE_SYMBOL display_ptr const display() const;
+	SGE_SYMBOL void map();
+	SGE_SYMBOL void map_raised();
 
 	SGE_SYMBOL boost::signals::connection register_callback(
 		x11_event_type,

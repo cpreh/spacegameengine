@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_UTIL_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_UTIL_HPP_INCLUDED
 
-#include "texture.hpp" // TODO:
+#include "pos_types.hpp"
 #include "texture_fwd.hpp"
 #include "image_view.hpp"
 #include "../export.hpp"
@@ -34,7 +34,7 @@ namespace renderer
 SGE_SYMBOL void sub_data(
 	texture_ptr,
 	const_image_view const &data,
-	texture::pos_type const &pos);
+	texture_pos_type const &pos);
 
 }
 }

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "key_converter.hpp"
 #include "di.hpp"
 #include <sge/input/key_type.hpp>
+#include <sge/input/key_state.hpp>
 #include <sge/input/mod_state.hpp>
 #include <sge/string.hpp>
 #include <sge/char.hpp>
@@ -43,7 +44,7 @@ public:
 		GUID guid,
 		windows::window_ptr window,
 		key_converter const &conv);
-	void dispatch(input::system::signal_type&);
+	void dispatch(signal_type &);
 	input::key_state query_key(string const &name);
 private:
 	char_type keycode_to_char(const input::key_code key) const;

@@ -20,8 +20,8 @@ class source : public audio::sound
 	void toggle_pause();
 	audio::sound_status::type status() const;
 	void stop();
-	audio::sound_pos const pos() const { return pos_; }
-	void pos(audio::sound_pos const &);
+	audio::point const pos() const { return pos_; }
+	void pos(audio::point const &);
 	bool positional() const { return positional_; }
 	void positional(bool);
 	audio::play_mode::type play_mode() const { return play_mode_; }
@@ -34,7 +34,7 @@ class source : public audio::sound
 	audio::play_mode::type play_mode_;
 	mutable audio::sound_status::type status_;
 	bool positional_;
-	audio::sound_pos pos_;
+	audio::point pos_;
 };
 }
 }

@@ -45,12 +45,16 @@ sge::dinput::input_system::input_system(
 		throw exception(SGE_TEXT("DirectInput Enumeration failed!"));
 }
 
-sge::callback_connection sge::dinput::input_system::register_callback(const callback& c)
+sge::callback_connection const
+sge::dinput::input_system::register_callback(
+	input::callback const &c)
 {
 	return sig.connect(c);
 }
 
-sge::callback_connection sge::dinput::input_system::register_repeat_callback(const repeat_callback& c)
+sge::callback_connection const
+sge::dinput::input_system::register_repeat_callback(
+	input::repeat_callback const &c)
 {
 	return repeat_sig.connect(c);
 }
@@ -110,7 +114,8 @@ BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi
 	return DIENUM_CONTINUE;
 }
 
-sge::window_ptr sge::dinput::input_system::get_window() const
+sge::window_ptr const
+sge::dinput::input_system::get_window() const
 {
 	return sge::static_pointer_cast<sge::window>(wnd);
 }

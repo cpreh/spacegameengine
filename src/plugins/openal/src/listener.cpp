@@ -2,15 +2,7 @@
 #include "../error.hpp"
 #include "../openal.hpp"
 
-sge::openal::listener::listener()
-{
-	/*
-	set_pos(pos_);
-	set_angle(angle_);
-	*/
-}
-
-void sge::openal::listener::set_pos(audio::sound_pos const &n)
+void sge::openal::listener::pos(audio::point const &n)
 {
 	pos_ = n;
 	// OpenAL wants float
@@ -23,7 +15,7 @@ void sge::openal::listener::set_pos(audio::sound_pos const &n)
 	alListenerfv(AL_POSITION, vec); SGE_OPENAL_ERROR_CHECK;
 }
 
-void sge::openal::listener::set_angle(audio::sound_angle const &n)
+void sge::openal::listener::direction(audio::angle const &n)
 {
 	float const vec[6] = 
 		{ 
@@ -38,12 +30,12 @@ void sge::openal::listener::set_angle(audio::sound_angle const &n)
 	alListenerfv(AL_POSITION, vec); SGE_OPENAL_ERROR_CHECK;
 }
 
-sge::audio::sound_pos const sge::openal::listener::get_pos() const
+sge::audio::point const sge::openal::listener::pos() const
 {
 	return pos_;
 }
 
-sge::audio::sound_angle const sge::openal::listener::get_angle() const
+sge::audio::angle const sge::openal::listener::direction() const
 {
 	return angle_;
 }

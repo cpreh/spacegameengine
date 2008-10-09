@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../su.hpp"
 #include "../../math/vector.hpp"
 #include "../../math/matrix.hpp"
-#include <boost/variant.hpp>
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {
