@@ -54,7 +54,7 @@ Here's the code for our functor:
 class input_functor
 {
 	public:
-	input_functor(bool &running) 
+	explicit input_functor(bool &running) 
 		: running(running) 
 	{
 	}
@@ -103,7 +103,7 @@ different purpose, after all:
 class sprite_functor
 {
 	public:
-	sprite_functor(sge::sprite::object &s) : s(s) {}
+	explicit sprite_functor(sge::sprite::object &s) : s(s) {}
 
 	void operator()(sge::input::key_pair const &k) const
 	{
