@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../math/matrix.hpp"
 #include "../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL transformable {
+class SGE_CLASS_SYMBOL transformable : boost::noncopyable {
 public:
 	virtual void internal_transformation(
 		math::space_matrix const &) = 0;
