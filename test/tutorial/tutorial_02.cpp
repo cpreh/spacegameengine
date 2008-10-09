@@ -29,7 +29,7 @@ namespace
 class input_functor
 {
 	public:
-	input_functor(bool &running)
+	explicit input_functor(bool &running)
 		: running(running)
 	{
 	}
@@ -46,7 +46,7 @@ class input_functor
 class sprite_functor
 {
 	public:
-	sprite_functor(sge::sprite::object &s)
+	explicit sprite_functor(sge::sprite::object &s)
 			: s(s) 
 		{}
 
