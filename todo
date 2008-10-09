@@ -1,12 +1,11 @@
-*low: finish multi_tree or replace it with an existing class
+*very low: get information about 3d facilities such as a scene graph
 *low: add a safer weak_ptr for Deleter template parameter
 *low: add joystick support to dinput and xinput
 *low: make the d3d9 plugin functional again
 *low: add a d3d10 plugin
 *low: add model loaders, a model class and more for models
-*low: add 3d facilities such as a scene graph
 *low: rework sge::math to contain views and have less code duplication
-*low?: review sound system and decouple buffers from sources; add 3d capabilities (positions)
+*low: add speed of sound and velocity to sounds
 *low: replace every cerr and cout output with sge's log system
 *medium: breakpoints for the font
 *medium: export more from the input system (like keyboard, mouse and joystick interfaces)
