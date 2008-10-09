@@ -1,17 +1,31 @@
 /**
 \page tutorial_2 Handling input in sge
 
-I don't know how you managed to our program from \ref tut_begin "part 1" but I
-hope you realized it's not The Right Way to just choke a program when it's in
-the middle of a loop (especially because none of the destructors are called).
+I don't know how you managed to close our program from \ref tut_begin "part 1"
+but I hope you realized it's not The Right Way to just choke a program when
+it's in the middle of a loop (especially because none of the destructors are
+called).
 
 So let's add the possibility to close the program by pressing the escape key.
 First, we need an <em>input system</em> which handles all types of input
 (keyboard, mouse, joystick). We get it the same way we retrieved the renderer
-and the image loader: by using <tt>sys</tt>, the initialization class:
+and the image loader: by using <tt>sys</tt>, the initialization class.
+We add <tt>sge::system::parameterless::input</tt> to the initialization list:
 
 \code
-sys.init<sge::init::input>();
+sge::systems::instance const sys(
+	sge::systems::list()
+	(sge::renderer::parameters(
+		sge::renderer::display_mode(
+			sge::renderer::screen_size_t(
+				640,
+				480),
+			sge::renderer::bit_depth::depth32),
+		sge::renderer::depth_buffer::off,
+		sge::renderer::stencil_buffer::off,
+		sge::renderer::window_mode::windowed))
+	(sge::systems::parameterless::input)
+	(sge::systems::parameterless::image));
 \endcode
 
 Now we can use the input system to register an <em>input callback</em> which is
@@ -55,7 +69,7 @@ class input_functor
 };
 \endcode
 
-Headers to include <sge/input/key_type.hpp>
+Headers to include <sge/input/key_type.hpp>, <sge/input/key_pair.hpp>
 
 The functor gets the bool <tt>running</tt> as a reference so any change inside
 the class will have an effect on the "outside world". In <tt>operator()</tt>,
@@ -69,11 +83,11 @@ choose to put it a seperate header) and insert the following snippet just
 before <tt>while (running)</tt>:
 
 \code
-sge::scoped_connection conn = 
-	sys.input_system->register_callback(input_functor(running));
+sge::scoped_connection const conn = 
+	sys.input_system()->register_callback(input_functor(running));
 \endcode
 
-Headers to include <sge/scoped_connection.hpp>
+Headers to include <sge/scoped_connection.hpp>, <sge/input/system.hpp>
 
 You can now compile and run the program <em>and</em> - close it with the escape key!
 
@@ -110,16 +124,17 @@ class sprite_functor
 \endcode
 
 This time, we not only use sge::input::key_pair::key but also
-sge::input::key_pair::value to measure how many pixels the mouse moved. We update the sprite's position according to this value. Insert the following somewhere before <tt>while (running)</tt>:
+sge::input::key_pair::value to measure how many pixels the mouse moved. We
+update the sprite's position according to this value. Insert the following
+somewhere before <tt>while (running)</tt>:
 
 \code
-sge::scoped_connection conn_other =
+sge::scoped_connection const conn_other =
 	sys.input_system->register_callback(sprite_functor(my_object));
 \endcode
 
-And watch tux move as your mouse moves. That's it for the input tutorial,
-there's nothing more to be said, basically. Here's the complete program for your
-copy and pasting pleasure:
+And watch tux move as your mouse moves. That's it for the input tutorial.
+Here's the complete program for your copy and pasting pleasure:
 
 \include tutorial_02.cpp
 
