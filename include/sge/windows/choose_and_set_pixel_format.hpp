@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOWS_CHOOSE_PIXEL_FORMAT_HPP_INCLUDED
-#define SGE_WINDOWS_CHOOSE_PIXEL_FORMAT_HPP_INCLUDED
+#ifndef SGE_WINDOWS_CHOOSE_AND_SET_PIXEL_FORMAT_HPP_INCLUDED
+#define SGE_WINDOWS_CHOOSE_AND_SET_PIXEL_FORMAT_HPP_INCLUDED
 
 #include "windows.hpp"
 
@@ -31,7 +31,7 @@ namespace windows
 class device_context;
 
 // TODO: maybe add the remaining parameters as well?
-int choose_pixel_format(
+void choose_and_set_pixel_format(
 	device_context const &,
 	DWORD flags,
 	BYTE pixel_type,

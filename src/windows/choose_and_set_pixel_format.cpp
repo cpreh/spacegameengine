@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-int sge::windows::choose_pixel_format(
+void sge::windows::choose_and_set_pixel_format(
 	device_context const &dc,
 	DWORD const flags,
 	BYTE const pixel_type,
@@ -50,12 +50,15 @@ int sge::windows::choose_pixel_format(
 			0, 0, 0                 // Layer Masks Ignored
 	};
 
-	int const ret = ChoosePixelFormat(
+	int const format = ChoosePixelFormat(
 		dc.hdc(),
 		&pfd);
 	
-	if(ret == 0)
+	if(format == 0)
 		throw exception(
 			SGE_TEXT("ChoosePixelFormat() failed"));
-	return ret;
+	
+	if(SetPixelFormat(dc.hdc(), format, &pfd) == FALSE)
+		throw exception(
+			SGE_TEXT("SetPixelFormat() failed"));
 }
