@@ -18,6 +18,7 @@
 *medium: implement vertex attributes for the static vertex format
 *medium: add renderer::device::create_window for renderable windows
 *medium: add sge::create_window to create (possibly) not renderable windows
+*medium: fix renderer::caps and the opengl implementation of them
 *high: fix renderer initialization on windows
 *high: set up proper window information for X
 *high: split the code from ogl::device into windows and linux code
