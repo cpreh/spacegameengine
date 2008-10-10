@@ -67,13 +67,14 @@ protected:
 	
 	using Base::content;
 
+public:
 	size_type stride() const;
 
 	GLenum format() const;
 	GLenum format_type() const;
-
+protected:
 	basic_texture(
-		const renderer::filter_args& filter,
+		renderer::filter_args const &filter,
 		resource_flag_type flags,
 		GLenum type,
 		renderer::color_format::type);

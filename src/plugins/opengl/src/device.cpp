@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../matrix.hpp"
 #include "../split_states.hpp"
+#include "../material.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
@@ -57,7 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/renderer/material.hpp>
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/light.hpp>
@@ -212,6 +212,9 @@ sge::ogl::device::device(
 
 	set_state(
 		renderer::state::default_());
+	
+	set_render_target(
+		default_render_target);
 }
 
 void sge::ogl::device::begin_rendering()
@@ -238,11 +241,10 @@ sge::ogl::device::create_index_buffer(
 }
 
 sge::ogl::fbo_target_ptr const
-sge::ogl::device::create_render_target(
-	renderer::target::dim_type const & dim)
+sge::ogl::device::create_render_target()
 {
 	return fbo_target_ptr(
-		new fbo_target(dim));
+		new fbo_target());
 }
 
 sge::renderer::texture_ptr const
@@ -433,15 +435,7 @@ GLenum sge::ogl::device::get_clear_bit(
 void sge::ogl::device::set_material(
 	renderer::material const &mat)
 {
-	SGE_OPENGL_SENTRY
-
-	const GLenum face = GL_FRONT_AND_BACK;
-	// FIXME: UB
-	//glMaterialfv(face, GL_AMBIENT, reinterpret_cast<const GLfloat*>(&mat.ambient));
-	//glMaterialfv(face, GL_DIFFUSE, reinterpret_cast<const GLfloat*>(&mat.diffuse));
-	//glMaterialfv(face, GL_SPECULAR, reinterpret_cast<const GLfloat*>(&mat.specular));
-	//glMaterialfv(face, GL_EMISSION, reinterpret_cast<const GLfloat*>(&mat.emissive));
-	glMaterialf(face, GL_SHININESS, mat.power);
+	ogl::set_material(mat);
 }
 
 void sge::ogl::device::set_viewport(
@@ -523,7 +517,8 @@ void sge::ogl::device::set_render_target(
 			new default_target(
 				math::structure_cast<
 					target::dim_type::value_type>(
-						screen_size())));
+						screen_size()),
+				param.mode().depth));
 		render_target_->bind_me();
 		window::window_pos const offset = wnd->viewport_offset();
 		set_viewport(
@@ -533,8 +528,11 @@ void sge::ogl::device::set_render_target(
 		return;
 	}
 
-	shared_ptr<texture> const p(dynamic_pointer_cast<texture>(target));
-	fbo_target_ptr const ntarget = create_render_target(p->dim());
+	shared_ptr<texture> const p(
+		dynamic_pointer_cast<texture>(target));
+	
+	fbo_target_ptr const ntarget = create_render_target();
+
 	ntarget->bind_texture(p);
 
 	set_viewport(

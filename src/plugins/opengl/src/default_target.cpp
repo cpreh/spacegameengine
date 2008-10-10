@@ -20,13 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../default_target.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/typeswitch.hpp>
 
 sge::ogl::default_target::default_target(
-	dim_type const & dim_)
- : dim_(dim_)
+	dim_type const & dim_,
+	renderer::bit_depth::type const depth_)
+ :
+ 	dim_(dim_),
+	depth_(depth_)
 {}
 
-const sge::renderer::target::dim_type
+sge::renderer::target::dim_type const 
 sge::ogl::default_target::dim() const
 {
 	return dim_;
@@ -42,15 +48,23 @@ void sge::ogl::default_target::bind_me() const
 sge::ogl::default_target::size_type
 sge::ogl::default_target::stride() const
 {
-	return 4; // FIXME
+	switch(depth_) {
+	case renderer::bit_depth::depth16:
+		return sizeof(uint16);
+	case renderer::bit_depth::depth32:
+		return sizeof(uint32);
+	default:
+		throw exception(
+			SGE_TEXT("Invalid bit_depth in ogl::default_target!"));
+	}
 }
 
 GLenum sge::ogl::default_target::format() const
 {
-	return GL_RGBA; // FIXME
+	return GL_RGBA;
 }
 
 GLenum sge::ogl::default_target::format_type() const
 {
-	return GL_UNSIGNED_BYTE; // FIXME
+	return GL_UNSIGNED_BYTE;
 }

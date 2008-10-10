@@ -21,10 +21,7 @@
 *high: fix renderer initialization on windows
 *high: set up proper window information for X
 *high: split the code from ogl::device into windows and linux code
-*high: fix opengl's render_target color information
-*high: fix material in opengl
 *high: implement uniform arrays for glsl
 *high: Improve the cmake script, search for libraries per default.
-*high: put a weak_ptr in ogl::system so you can destroy renderers again
 *high: find a way to explicitly instantiate gil::apply_operation or reduce compile time in another way
 *high: add support for pkgconfig so that users don't have to specify -std=c++0x on their own

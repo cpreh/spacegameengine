@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,34 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_DEFAULT_TARGET_HPP_INCLUDED
-
-#include "common.hpp"
-#include "target.hpp"
-#include <sge/renderer/bit_depth.hpp>
+#ifndef SGE_OPENGL_MATERIAL_HPP_INCLUDED
+#define SGE_OPENGL_MATERIAL_HPP_INCLUDED
 
 namespace sge
 {
+namespace renderer
+{
+struct material;
+}
+
 namespace ogl
 {
 
-class default_target : public target {
-public:
-	default_target(
-		dim_type const &,
-		renderer::bit_depth::type);
-private:
-	dim_type const dim() const;
-
-	void bind_me() const;
-	size_type stride() const;
-	GLenum format() const;
-	GLenum format_type() const;
-
-	dim_type const dim_;
-	renderer::bit_depth::type const depth_;
-};
+void set_material(
+	renderer::material const &);
 
 }
 }

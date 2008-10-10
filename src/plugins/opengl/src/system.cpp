@@ -24,22 +24,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::system::system()
-: created(false)
-{}
-
 sge::renderer::device_ptr const
 sge::ogl::system::create_renderer(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
 	window_ptr const wnd)
 {
-	if(created)
+	if(ref.lock())
 		throw exception(
-			SGE_TEXT("The opengl plugin may only be used once for creating a device."));
+			SGE_TEXT("The opengl plugin may only have one renderer!"));
+
 	renderer::device_ptr const r(
-		new device(param, adapter, wnd));
-	created = true; // FIXME: use a weak_ptr here!
+		new device(
+			param,
+			adapter,
+			wnd));
+	ref = r.get_boost_ptr();
 	return r;
 }
 

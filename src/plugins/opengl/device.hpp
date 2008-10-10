@@ -171,8 +171,7 @@ private:
 	void set_index_buffer(renderer::const_index_buffer_ptr ib);
 
 	fbo_target_ptr const
-	create_render_target(
-		renderer::dim_type const &);
+	create_render_target();
 
 	renderer::parameters          param;
 	renderer::state::list         current_states;
