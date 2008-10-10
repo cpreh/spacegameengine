@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../matrix.hpp"
 #include "../split_states.hpp"
+#include "../material.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
@@ -57,7 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/renderer/material.hpp>
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/light.hpp>
@@ -435,15 +435,7 @@ GLenum sge::ogl::device::get_clear_bit(
 void sge::ogl::device::set_material(
 	renderer::material const &mat)
 {
-	SGE_OPENGL_SENTRY
-
-	const GLenum face = GL_FRONT_AND_BACK;
-	// FIXME: UB
-	//glMaterialfv(face, GL_AMBIENT, reinterpret_cast<const GLfloat*>(&mat.ambient));
-	//glMaterialfv(face, GL_DIFFUSE, reinterpret_cast<const GLfloat*>(&mat.diffuse));
-	//glMaterialfv(face, GL_SPECULAR, reinterpret_cast<const GLfloat*>(&mat.specular));
-	//glMaterialfv(face, GL_EMISSION, reinterpret_cast<const GLfloat*>(&mat.emissive));
-	glMaterialf(face, GL_SHININESS, mat.power);
+	ogl::set_material(mat);
 }
 
 void sge::ogl::device::set_viewport(
