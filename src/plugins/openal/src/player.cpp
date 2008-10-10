@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/pool.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/ptr_container_erase.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/foreach.hpp>
@@ -41,16 +40,6 @@ sge::openal::player::player()
 	context_.make_current();
 	// set our own speed of sound standard rather than relying on OpenAL
 	speed_of_sound(static_cast<audio::unit>(343));
-}
-
-void sge::openal::player::register_stream_sound(stream_sound *p)
-{
-	stream_sounds.push_back(p);
-}
-
-void sge::openal::player::unregister_stream_sound(stream_sound * const p)
-{
-	ptr_container_erase(stream_sounds,p);
 }
 
 sge::audio::unit sge::openal::player::speed_of_sound() const

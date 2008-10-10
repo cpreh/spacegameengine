@@ -45,9 +45,6 @@ class player : public audio::player
 public:
 	player();
 
-	void register_stream_sound(stream_sound *p);
-	void unregister_stream_sound(stream_sound *p);
-
 	ALuint register_nonstream_sound(audio::file_ptr);
 	void unregister_nonstream_sound(ALuint);
 

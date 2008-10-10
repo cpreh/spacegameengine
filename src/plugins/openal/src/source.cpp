@@ -17,6 +17,7 @@ sge::openal::source::source()
 	pos(pos_);
 	vel(vel_);
 	attenuation(attenuation_);
+	rolloff(sge::su(1));
 }
 
 sge::openal::source::source(ALuint const buffer)
@@ -35,6 +36,7 @@ sge::openal::source::source(ALuint const buffer)
 	pos(pos_);
 	vel(vel_);
 	attenuation(attenuation_);
+	rolloff(sge::su(1));
 }
 
 void sge::openal::source::sync() const
@@ -113,6 +115,12 @@ void sge::openal::source::attenuation(audio::unit const n)
 	alSourcef(alsource(),AL_GAIN,static_cast<ALfloat>(attenuation_)); SGE_OPENAL_ERROR_CHECK;
 }
 
+void sge::openal::source::rolloff(audio::unit const n)
+{
+	rolloff_ = n;
+	alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<ALfloat>(n)); SGE_OPENAL_ERROR_CHECK;
+}
+
 void sge::openal::source::pos(audio::point const &n)
 {
 	pos_ = n;
@@ -143,17 +151,25 @@ void sge::openal::source::vel(audio::point const &n)
 
 void sge::openal::source::positional(bool const n)
 {
+	if (n == positional_)
+		return;
+
 	positional_ = n;
 
 	if (n)
 	{
-		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<ALfloat>(0.0)); SGE_OPENAL_ERROR_CHECK;
-		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_TRUE); SGE_OPENAL_ERROR_CHECK;
+		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<ALfloat>(1)); SGE_OPENAL_ERROR_CHECK;
+		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_FALSE); SGE_OPENAL_ERROR_CHECK;
 	}
 	else
 	{
-		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<ALfloat>(1.0)); SGE_OPENAL_ERROR_CHECK;
-		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_FALSE); SGE_OPENAL_ERROR_CHECK;
+		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<ALfloat>(0)); SGE_OPENAL_ERROR_CHECK;
+		// make source relative to listener and set it's position to (0,0,0), so directly on the listener
+		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_TRUE); SGE_OPENAL_ERROR_CHECK;
+		pos(
+			audio::point(static_cast<audio::unit>(0),
+			             static_cast<audio::unit>(0),
+			             static_cast<audio::unit>(0)));
 	}
 }
 

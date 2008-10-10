@@ -36,14 +36,7 @@ sge::openal::stream_sound::stream_sound(audio::file_ptr const _audio_file, playe
 		buffer_samples_(static_cast<audio::sample_count>(2*_audio_file->sample_rate())),
 		format_(file_format(*_audio_file))
 {
-	_player.register_stream_sound(this);
-
 	alGenBuffers(static_cast<ALsizei>(2), al_buffers_); SGE_OPENAL_ERROR_CHECK;
-}
-
-sge::openal::stream_sound::~stream_sound()
-{
-	player_.unregister_stream_sound(this);
 }
 
 bool sge::openal::stream_sound::fill_buffer(ALuint const buffer)
