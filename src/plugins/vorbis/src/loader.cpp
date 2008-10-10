@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/path.hpp>
+#include <sge/log/headers.hpp>
 
 const sge::audio::file_ptr sge::vorbis::loader::load(const path &filename)
 {
@@ -35,5 +36,6 @@ bool sge::vorbis::loader::is_valid_file(const path &filename) const
 	} catch (audio::exception const &) {
 		return false;
 	}
+	SGE_LOG_DEBUG(log::global(),log::_1 << SGE_TEXT("successfully loaded vorbis file"));
 	return true;
 }

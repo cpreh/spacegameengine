@@ -1,6 +1,7 @@
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/endianness.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/assert.hpp>
@@ -61,8 +62,14 @@ sge::audio::sample_count sge::vorbis::file::read(
 	sample_count const samples,
 	sample_container &data)
 {
+	/*
 	if (stdstream.eof())
+	{
+		SGE_LOG_DEBUG(log::global(),log::_1 << SGE_TEXT("vorbis: we're at the end, returning"));
 		return static_cast<sample_count>(0);
+	}
+	*/
+	SGE_LOG_DEBUG(log::global(),log::_1 << SGE_TEXT("vorbis: reading stuff"));
 	
 	sample_count const bytes_to_read = samples*channels()*bytes_per_sample();
 	sample_container newdata(static_cast<sample_container::size_type>(bytes_to_read));
@@ -92,7 +99,10 @@ sge::audio::sample_count sge::vorbis::file::read(
 		}
 
 		if (result == static_cast<long>(0))
+		{
+			SGE_LOG_DEBUG(log::global(),log::_1 << SGE_TEXT("vorbis: read until the end"));
 			break;
+		}
 
 		bytes_read += static_cast<sample_count>(result);
 	}
@@ -104,8 +114,8 @@ sge::audio::sample_count sge::vorbis::file::read(
 sge::audio::sample_count sge::vorbis::file::read_all(
 	sample_container &data)
 {
-	while (!stdstream.eof())
-		read(static_cast<sample_count>(16*4096),data);
+	while (read(static_cast<sample_count>(16*4096),data))
+		;
 	return data.size()/bytes_per_sample();
 }
 
