@@ -384,7 +384,6 @@ void sge::ogl::device::render(
 			SGE_TEXT("vb may not be 0 for renderer::render!"));
 
 	set_vertex_buffer(vb);
-	set_index_buffer(renderer::index_buffer_ptr());
 
 	GLenum const prim_type = convert_cast(ptype);
 
@@ -656,12 +655,6 @@ void sge::ogl::device::set_glsl_program(
 void sge::ogl::device::set_vertex_buffer(
 	renderer::const_vertex_buffer_ptr const vb)
 {
-	if(!vb)
-	{
-		// FIXME
-		//vertex_buffer::unbind();
-		return;
-	}
 	vertex_buffer const &ovb = dynamic_cast<vertex_buffer const &>(*vb);
 	ovb.set_format();
 }
@@ -669,12 +662,6 @@ void sge::ogl::device::set_vertex_buffer(
 void sge::ogl::device::set_index_buffer(
 	renderer::const_index_buffer_ptr const ib)
 {
-	if(!ib)
-	{
-		// FIXME
-		//index_buffer::unbind();
-		return;
-	}
 	index_buffer const &oib = dynamic_cast<index_buffer const &>(*ib);
 	oib.bind_me();
 }
