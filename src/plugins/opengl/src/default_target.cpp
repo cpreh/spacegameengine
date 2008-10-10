@@ -26,7 +26,7 @@ sge::ogl::default_target::default_target(
  : dim_(dim_)
 {}
 
-const sge::renderer::target::dim_type
+sge::renderer::target::dim_type const 
 sge::ogl::default_target::dim() const
 {
 	return dim_;

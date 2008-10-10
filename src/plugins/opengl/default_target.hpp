@@ -31,7 +31,7 @@ namespace ogl
 
 class default_target : public target {
 public:
-	default_target(
+	explicit default_target(
 		dim_type const &);
 private:
 	dim_type const dim() const;
@@ -41,7 +41,7 @@ private:
 	GLenum format() const;
 	GLenum format_type() const;
 
-	dim_type dim_;
+	dim_type const dim_;
 };
 
 }

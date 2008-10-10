@@ -212,6 +212,9 @@ sge::ogl::device::device(
 
 	set_state(
 		renderer::state::default_());
+	
+	set_render_target(
+		default_render_target);
 }
 
 void sge::ogl::device::begin_rendering()
