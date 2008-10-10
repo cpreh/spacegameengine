@@ -180,7 +180,7 @@ try
 			sge::su(screen_size.w()/2),
 			sge::su(0),
 			sge::su(screen_size.h()/2)));
-	sys.audio_player()->speed_of_sound(sge::su(10));
+	sys.audio_player()->speed_of_sound(sge::su(500));
 	sound_siren->positional(true);
 	sound_siren->rolloff(static_cast<sge::audio::unit>(1)/static_cast<sge::audio::unit>(screen_size.h()));
 	sound_siren->play(sge::audio::play_mode::loop);

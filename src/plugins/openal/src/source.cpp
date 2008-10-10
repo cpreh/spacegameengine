@@ -3,40 +3,37 @@
 #include "../log.hpp"
 #include <sge/audio/exception.hpp>
 
+// that's a hack because we have two constructors
+void sge::openal::source::init()
+{
+	// we just impose our default values 
+	positional(false);
+	pos(audio::point(sge::su(0),sge::su(0),sge::su(0)));
+	vel(audio::point(sge::su(0),sge::su(0),sge::su(0)));
+	attenuation(sge::su(1));
+	rolloff(sge::su(1));
+	inner_cone_angle(sge::su(360));
+	outer_cone_angle(sge::su(360));
+	// setting the direction vector to zero creates a non-directional source.
+	// this, of course, assumes that the zero vector is uniquely identified by
+	// (0.0f,0.0f,0.0f) which is not really guaranteed
+	direction(audio::point(sge::su(0),sge::su(0),sge::su(0)));
+}
+
 sge::openal::source::source()
-	: status_(audio::sound_status::stopped),
-	  positional_(false),
-		pos_(sge::su(0),sge::su(0),sge::su(0)),
-		vel_(sge::su(0),sge::su(0),sge::su(0)),
-		attenuation_(sge::su(1))
+	: status_(audio::sound_status::stopped)
 {
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
-
-	// we just impose our default values 
-	positional(positional_);
-	pos(pos_);
-	vel(vel_);
-	attenuation(attenuation_);
-	rolloff(sge::su(1));
+	init();
 }
 
 sge::openal::source::source(ALuint const buffer)
-	: status_(audio::sound_status::stopped),
-	  positional_(false),
-		pos_(sge::su(0),sge::su(0),sge::su(0)),
-		vel_(sge::su(0),sge::su(0),sge::su(0)),
-		attenuation_(sge::su(1))
+	: status_(audio::sound_status::stopped)
 {
 	SGE_LOG_DEBUG(log(),log::_1 << "creating a source bound to a buffer");
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 	alSourcei(alsource(),AL_BUFFER,buffer); SGE_OPENAL_ERROR_CHECK;
-
-	// we just impose our default values 
-	positional(positional_);
-	pos(pos_);
-	vel(vel_);
-	attenuation(attenuation_);
-	rolloff(sge::su(1));
+	init();
 }
 
 void sge::openal::source::sync() const
@@ -109,6 +106,18 @@ void sge::openal::source::stop()
 	status_ = audio::sound_status::stopped;
 }
 
+void sge::openal::source::outer_cone_angle(audio::unit const n)
+{
+	outer_cone_angle_ = n;
+	alSourcef(alsource(),AL_CONE_OUTER_ANGLE,static_cast<ALfloat>(outer_cone_angle_)); SGE_OPENAL_ERROR_CHECK;
+}
+
+void sge::openal::source::inner_cone_angle(audio::unit const n)
+{
+	inner_cone_angle_ = n;
+	alSourcef(alsource(),AL_CONE_INNER_ANGLE,static_cast<ALfloat>(inner_cone_angle_)); SGE_OPENAL_ERROR_CHECK;
+}
+
 void sge::openal::source::attenuation(audio::unit const n)
 {
 	attenuation_ = n;
@@ -135,6 +144,20 @@ void sge::openal::source::pos(audio::point const &n)
 	alSourcefv(alsource(),AL_POSITION,vec); SGE_OPENAL_ERROR_CHECK;
 }
 
+void sge::openal::source::direction(audio::point const &n)
+{
+	direction_ = n;
+
+	ALfloat const vec[3] = 
+		{ 
+			static_cast<ALfloat>(n.x()),
+			static_cast<ALfloat>(n.y()),
+			static_cast<ALfloat>(n.z()) 
+		};
+
+	alSourcefv(alsource(),AL_DIRECTION,vec); SGE_OPENAL_ERROR_CHECK;
+}
+
 void sge::openal::source::vel(audio::point const &n)
 {
 	vel_ = n;
@@ -158,12 +181,12 @@ void sge::openal::source::positional(bool const n)
 
 	if (n)
 	{
-		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<ALfloat>(1)); SGE_OPENAL_ERROR_CHECK;
+		rolloff(sge::su(1));
 		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_FALSE); SGE_OPENAL_ERROR_CHECK;
 	}
 	else
 	{
-		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<ALfloat>(0)); SGE_OPENAL_ERROR_CHECK;
+		rolloff(sge::su(0));
 		// make source relative to listener and set it's position to (0,0,0), so directly on the listener
 		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_TRUE); SGE_OPENAL_ERROR_CHECK;
 		pos(

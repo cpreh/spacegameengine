@@ -38,6 +38,7 @@ public:
 	virtual void toggle_pause() = 0;
 	virtual sound_status::type status() const = 0;
 	virtual void stop() = 0;
+
 	virtual point const pos() const = 0;
 	virtual void pos(point const &) = 0;
 	virtual point const vel() const = 0;
@@ -48,6 +49,12 @@ public:
 	virtual unit rolloff() const = 0;
 	virtual bool positional() const = 0;
 	virtual void positional(bool) = 0;
+	virtual void direction(point const &) = 0;
+	virtual point const direction() const = 0;
+	virtual void inner_cone_angle(unit);
+	virtual unit inner_cone_angle() const;
+	virtual void outer_cone_angle(unit);
+	virtual unit outer_cone_angle() const;
 	SGE_SYMBOL virtual void update();
 	SGE_SYMBOL virtual ~sound();
 };
