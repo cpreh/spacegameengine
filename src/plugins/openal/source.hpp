@@ -21,7 +21,9 @@ class source : public audio::sound
 	audio::sound_status::type status() const;
 	void stop();
 	audio::point const pos() const { return pos_; }
+	audio::point const vel() const { return vel_; }
 	void pos(audio::point const &);
+	void vel(audio::point const &);
 	bool positional() const { return positional_; }
 	void positional(bool);
 	audio::play_mode::type play_mode() const { return play_mode_; }
@@ -35,6 +37,7 @@ class source : public audio::sound
 	mutable audio::sound_status::type status_;
 	bool positional_;
 	audio::point pos_;
+	audio::point vel_;
 };
 }
 }

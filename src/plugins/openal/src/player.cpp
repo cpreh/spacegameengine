@@ -95,6 +95,9 @@ ALuint sge::openal::player::register_nonstream_sound(
 						<< file_format(*_audio_file)
 						<< SGE_TEXT(" and sample rate ") << _audio_file->sample_rate());
 
+	if (data.empty())
+		throw audio::exception(SGE_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
+
 	alBufferData(
 		buffer.albuffer(), 
 		file_format(*_audio_file), 

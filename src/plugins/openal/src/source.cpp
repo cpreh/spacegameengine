@@ -102,6 +102,20 @@ void sge::openal::source::pos(audio::point const &n)
 	alSourcefv(alsource(),AL_POSITION,vec); SGE_OPENAL_ERROR_CHECK;
 }
 
+void sge::openal::source::vel(audio::point const &n)
+{
+	vel_ = n;
+
+	float const vec[3] = 
+		{ 
+			static_cast<float>(n.x()),
+			static_cast<float>(n.y()),
+			static_cast<float>(n.z()) 
+		};
+
+	alSourcefv(alsource(),AL_VELOCITY,vec); SGE_OPENAL_ERROR_CHECK;
+}
+
 void sge::openal::source::positional(bool const n)
 {
 	positional_ = n;

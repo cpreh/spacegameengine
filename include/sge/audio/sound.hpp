@@ -40,6 +40,8 @@ public:
 	virtual void stop() = 0;
 	virtual point const pos() const = 0;
 	virtual void pos(point const &) = 0;
+	virtual point const vel() const = 0;
+	virtual void vel(point const &) = 0;
 	virtual bool positional() const = 0;
 	virtual void positional(bool) = 0;
 	SGE_SYMBOL virtual void update();
