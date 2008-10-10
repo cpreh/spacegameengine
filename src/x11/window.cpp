@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
+#include <sge/x11/visual.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
@@ -33,37 +34,33 @@ sge::x11::window::window(
 	string const &t,
 	display_ptr const dsp,
  	XSetWindowAttributes const &attr,
-	XVisualInfo const &vi)
- : dsp(dsp),
-   screen_(vi.screen),
-   wnd(
-	XCreateWindow(dsp->get(),
-		XRootWindow(dsp->get(), screen()),
-		pos.x(),
-		pos.y(),
-		sz.w(),
-		sz.h(),
-		0,
-		vi.depth,
-		InputOutput,
-		vi.visual,
-		CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
-		const_cast<XSetWindowAttributes*>(&attr))),
-   fullscreen_(attr.override_redirect),
-   event_mask(0)
+	const_visual_ptr const visual_,
+	const_colormap_ptr const colormap_)
+:
+	dsp(dsp),
+	visual_(visual_),
+	colormap_(colormap_),
+	screen_(visual_->info().screen),
+	wnd(
+		XCreateWindow(
+			dsp->get(),
+			XRootWindow(dsp->get(), screen()),
+			pos.x(),
+			pos.y(),
+			sz.w(),
+			sz.h(),
+			0,
+			visual_->info().depth,
+			InputOutput,
+			visual_->info().visual,
+			CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
+			const_cast<XSetWindowAttributes*>(&attr))),
+	fullscreen_(attr.override_redirect),
+	event_mask(0)
 {
 	title(t);
 	instances.insert(this);
 }
-
-sge::x11::window::window(
-	Display *const dsp,
-	int const screen_,
-	Window wnd)
- : dsp(new x11::display(dsp, display::wrap_tag())),
-   screen_(screen_),
-   wnd(wnd)
-{}
 
 sge::x11::window::~window()
 {
@@ -153,21 +150,22 @@ sge::x11::window::register_callback(
 
 typedef std::map<sge::x11::window::x11_event_type, sge::x11::window::x11_event_mask_type> mask_map;
 
-const mask_map masks =
-boost::assign::map_list_of(KeyPress, KeyPressMask)
-                          (KeyRelease, KeyReleaseMask)
-                          (ButtonPress, ButtonPressMask)
-                          (ButtonRelease, ButtonReleaseMask)
-                          (MotionNotify, PointerMotionMask)
-                          (EnterNotify, EnterWindowMask)
-                          (LeaveNotify, LeaveWindowMask)
-                          (FocusIn, FocusChangeMask)
-                          (FocusOut, FocusChangeMask)
-                          (MapNotify, StructureNotifyMask)
-                          (UnmapNotify, StructureNotifyMask)
-                          (ResizeRequest, ResizeRedirectMask)
-                          (ConfigureRequest, SubstructureRedirectMask)
-                          (ConfigureNotify, StructureNotifyMask);
+mask_map const masks =
+boost::assign::map_list_of
+	(KeyPress, KeyPressMask)
+	(KeyRelease, KeyReleaseMask)
+	(ButtonPress, ButtonPressMask)
+	(ButtonRelease, ButtonReleaseMask)
+	(MotionNotify, PointerMotionMask)
+	(EnterNotify, EnterWindowMask)
+	(LeaveNotify, LeaveWindowMask)
+	(FocusIn, FocusChangeMask)
+	(FocusOut, FocusChangeMask)
+	(MapNotify, StructureNotifyMask)
+	(UnmapNotify, StructureNotifyMask)
+	(ResizeRequest, ResizeRedirectMask)
+	(ConfigureRequest, SubstructureRedirectMask)
+	(ConfigureNotify, StructureNotifyMask);
 
 void sge::x11::window::add_event_mask(const x11_event_type event)
 {

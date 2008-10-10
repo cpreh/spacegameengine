@@ -46,10 +46,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
+#include <sge/windows/choose_and_set_pixel_format.hpp>
 #elif defined(SGE_HAVE_X11)
 #include "../glx/choose_visual.hpp"
+#include "../glx/create_visual.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
+#include <sge/x11/visual.hpp>
+#include <sge/x11/colormap.hpp>
 #include <boost/bind.hpp>
 #include <sge/raw_vector_impl.hpp>
 #else
@@ -101,27 +105,6 @@ sge::ogl::device::device(
 		}
 	}
 
-	PIXELFORMATDESCRIPTOR pfd = {
-		sizeof(PIXELFORMATDESCRIPTOR),  // Size Of This Pixel Format Descriptor
-			1,                      // Version Number
-			PFD_DRAW_TO_WINDOW |    // Format Must Support Window
-			PFD_SUPPORT_OPENGL |    // Format Must Support OpenGL
-			PFD_DOUBLEBUFFER,       // Must Support Double Buffering
-			PFD_TYPE_RGBA,          // Request An RGBA Format
-			BYTE(color_depth),      // Select Our Color Depth
-			0, 0, 0, 0, 0, 0,       // Color Bits Ignored
-			0,                      // No Alpha Buffer
-			0,                      // Shift Bit Ignored
-			0,                      // No Accumulation Buffer
-			0, 0, 0, 0,             // Accumulation Bits Ignored
-			16,                     // 16Bit Z-Buffer (Depth Buffer)
-			0,                      // Stencil Buffer
-			0,                      // No Auxiliary Buffer
-			PFD_MAIN_PLANE,         // Main Drawing Layer
-			0,                      // Reserved
-			0, 0, 0                 // Layer Masks Ignored
-	};
-
 	if(!wnd_param)
 		wnd.reset(new windows::window(
 			window::window_size(param.mode().width(),param.mode().height())));
@@ -130,11 +113,15 @@ sge::ogl::device::device(
 
 	hdc.reset(new windows::gdi_device(wnd->hwnd(), windows::gdi_device::get_tag()));
 
-	const int pixel_format = ChoosePixelFormat(hdc->hdc(), &pfd);
-	if(pixel_format == 0)
-		throw exception(SGE_TEXT("ChoosePixelFormat() failed"));
-	if(SetPixelFormat(hdc->hdc(), pixel_format, &pfd) == FALSE)
-		throw exception(SGE_TEXT("SetPixelFormat() failed"));
+	windows::choose_and_set_pixel_format(
+		hdc,
+		PFD_DRAW_TO_WINDOW |
+		PFD_SUPPORT_OPENGL |
+		PFD_DOUBLEBUFFER,
+		PFD_TYPE_RGBA,
+		static_cast<BYTE>(color_depth),
+		static_cast<BYTE>(param.dbuffer()),
+		static_cast<BYTE>(param.sbuffer()));
 
 	context.reset(new wgl::context(*hdc));
 
@@ -154,8 +141,8 @@ sge::ogl::device::device(
 		}
 	}
 
-	visual.reset(
-		new glx::visual(
+	x11::visual_ptr const visual(
+		glx::create_visual(
 			dsp,
 			screen,
 			glx::choose_visual(
@@ -165,7 +152,10 @@ sge::ogl::device::device(
 
 	context.reset(new glx::context(dsp, visual->info()));
 
-	colormap.reset(new x11::colormap(dsp, visual->info()));
+	x11::colormap_ptr const colormap(
+		new x11::colormap(
+			dsp,
+			visual->info()));
 
 	XSetWindowAttributes swa;
 	swa.colormap = colormap->get();
@@ -184,7 +174,8 @@ sge::ogl::device::device(
 				string(),
 				dsp,
 				swa,
-				visual->info()));
+				visual,
+				colormap));
 
 	if(!windowed)
 		wnd->map();
@@ -557,7 +548,6 @@ void sge::ogl::device::set_texture(
 
 	disable(GL_TEXTURE_1D);
 	disable(GL_TEXTURE_2D);
-	// FIXME:
 	//disable(detail::volume_texture_type);
 	disable_cube_texture();
 

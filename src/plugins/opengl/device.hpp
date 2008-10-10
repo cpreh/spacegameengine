@@ -33,10 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif defined(SGE_HAVE_X11)
 #include <X11/Xlib.h>
 #include <GL/glx.h>
-#include "glx/visual.hpp"
 #include "glx/current.hpp"
 #include "glx/context.hpp"
-#include <sge/x11/colormap.hpp>
 #include <sge/x11/xf86_vidmode_array.hpp>
 #include <sge/x11/xf86_resolution.hpp>
 #include <sge/x11/window.hpp>
@@ -100,10 +98,10 @@ public:
 	void texture_transform(math::space_matrix const & matrix);
 
 	void set_render_target(renderer::texture_ptr target);
-	void set_viewport(const renderer::viewport&);
+	void set_viewport(renderer::viewport const &);
 	const renderer::viewport &get_viewport() const;
 	void enable_light(renderer::light_index index, bool enable);
-	void set_light(renderer::light_index index, const renderer::light&);
+	void set_light(renderer::light_index index, renderer::light const &);
 	void set_texture_stage_op(
 		renderer::stage_type stage,
 		renderer::texture_stage_op::type,
@@ -187,9 +185,7 @@ private:
 
 	x11::display_ptr                      dsp;
 	scoped_connection                     map_callback;
-	boost::scoped_ptr<glx::visual>        visual;
 	glx::context_ptr                      context;
-	boost::scoped_ptr<x11::colormap>      colormap;
 	x11::window_ptr                       wnd;
 	boost::scoped_ptr<glx::current>       current;
 	boost::scoped_ptr<
