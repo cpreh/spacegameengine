@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif defined(SGE_HAVE_X11)
 #include <X11/Xlib.h>
 #include <GL/glx.h>
-#include "glx/visual.hpp"
 #include "glx/current.hpp"
 #include "glx/context.hpp"
 #include <sge/x11/colormap.hpp>
@@ -187,7 +186,6 @@ private:
 
 	x11::display_ptr                      dsp;
 	scoped_connection                     map_callback;
-	boost::scoped_ptr<glx::visual>        visual;
 	glx::context_ptr                      context;
 	boost::scoped_ptr<x11::colormap>      colormap;
 	x11::window_ptr                       wnd;

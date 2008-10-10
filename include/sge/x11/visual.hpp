@@ -33,11 +33,13 @@ namespace x11
 class visual : boost::noncopyable {
 public:
 	SGE_SYMBOL explicit visual(	
-		XVisualInfo const *);
+		XVisualInfo *);
 	
+	SGE_SYMBOL ~visual();
+
 	SGE_SYMBOL XVisualInfo const &info() const;
 private:
-	XVisualInfo const *const info_;
+	XVisualInfo *const info_;
 };
 
 }

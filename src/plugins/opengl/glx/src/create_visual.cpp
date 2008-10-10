@@ -18,21 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <GL/glx.h>
+#include "../create_visual.hpp"
+#include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-sge::x11::visual::visual(
-	XVisualInfo *const info_)
-:
-	info_(info_)
-{}
-
-sge::x11::visual::~visual()
+sge::x11::visual_ptr const
+sge::ogl::glx::create_visual(
+	x11::display_ptr const dsp,
+	int const screen,
+	int const *const param)
 {
-	XFree(info_);
-}
-
-XVisualInfo const &
-sge::x11::visual::info() const
-{
-	return *info_;
+	XVisualInfo *const info(
+		glXChooseVisual(
+			dsp->get(),
+			screen,
+			const_cast<int*>(
+				param)));
+	if(!info)
+		throw exception(
+			SGE_TEXT("glXChooseVisual() failed!"));
+	
+	return x11::visual_ptr(
+		new x11::visual(
+			info));
 }

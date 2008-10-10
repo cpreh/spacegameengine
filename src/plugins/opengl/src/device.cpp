@@ -48,8 +48,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window.hpp>
 #elif defined(SGE_HAVE_X11)
 #include "../glx/choose_visual.hpp"
+#include "../glx/create_visual.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
+#include <sge/x11/visual.hpp>
 #include <boost/bind.hpp>
 #include <sge/raw_vector_impl.hpp>
 #else
@@ -154,8 +156,8 @@ sge::ogl::device::device(
 		}
 	}
 
-	visual.reset(
-		new glx::visual(
+	x11::visual_ptr const visual(
+		glx::create_visual(
 			dsp,
 			screen,
 			glx::choose_visual(
@@ -184,7 +186,7 @@ sge::ogl::device::device(
 				string(),
 				dsp,
 				swa,
-				visual->info()));
+				visual));
 
 	if(!windowed)
 		wnd->map();

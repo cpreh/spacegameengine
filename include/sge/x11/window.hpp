@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_WINDOW_HPP_INCLUDED
 
 #include "display_fwd.hpp"
+#include "visual_fwd.hpp"
 #include "../window.hpp"
 #include "../export.hpp"
 #include <X11/Xlib.h>
@@ -45,15 +46,14 @@ public:
 
 	typedef void x11_function_type(XEvent const &);
 	typedef boost::function<x11_function_type> x11_callback_type;
-	typedef boost::signal<x11_function_type> x11_signal_type;
 
 	SGE_SYMBOL window(
-		window_pos const &pos,
-		window_size const &sz,
+		window_pos const &,
+		window_size const &,
 		string const &title,
-		display_ptr dsp,
-		XSetWindowAttributes const &attr,
-		XVisualInfo const &vi);
+		display_ptr,
+		XSetWindowAttributes const &,
+		const_visual_ptr);
 	SGE_SYMBOL ~window();
 
 	SGE_SYMBOL void title(string const &title);
@@ -76,12 +76,14 @@ private:
 
 	void add_event_mask(x11_event_type);
 
-	display_ptr dsp;
+	display_ptr      dsp;
+	const_visual_ptr visual_;
 	int screen_;
 	Window wnd;
 	bool fullscreen_;
 	x11_event_mask_type event_mask;
 
+	typedef boost::signal<x11_function_type> x11_signal_type;
 	typedef boost::ptr_map<x11_event_type, x11_signal_type> signal_map;
 	signal_map signals;
 
