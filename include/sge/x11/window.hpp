@@ -48,10 +48,6 @@ public:
 	typedef boost::signal<x11_function_type> x11_signal_type;
 
 	SGE_SYMBOL window(
-		Display *dsp,
-		int screen,
-		Window wnd);
-	SGE_SYMBOL window(
 		window_pos const &pos,
 		window_size const &sz,
 		string const &title,

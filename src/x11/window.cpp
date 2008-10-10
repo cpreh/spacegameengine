@@ -56,15 +56,6 @@ sge::x11::window::window(
 	instances.insert(this);
 }
 
-sge::x11::window::window(
-	Display *const dsp,
-	int const screen_,
-	Window wnd)
- : dsp(new x11::display(dsp, display::wrap_tag())),
-   screen_(screen_),
-   wnd(wnd)
-{}
-
 sge::x11::window::~window()
 {
 	instances.erase(this);
