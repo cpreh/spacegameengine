@@ -34,10 +34,12 @@ sge::x11::window::window(
 	string const &t,
 	display_ptr const dsp,
  	XSetWindowAttributes const &attr,
-	const_visual_ptr const visual_)
+	const_visual_ptr const visual_,
+	const_colormap_ptr const colormap_)
 :
 	dsp(dsp),
 	visual_(visual_),
+	colormap_(colormap_),
 	screen_(visual_->info().screen),
 	wnd(
 		XCreateWindow(

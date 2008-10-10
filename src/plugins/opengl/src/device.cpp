@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
+#include <sge/x11/colormap.hpp>
 #include <boost/bind.hpp>
 #include <sge/raw_vector_impl.hpp>
 #else
@@ -167,7 +168,10 @@ sge::ogl::device::device(
 
 	context.reset(new glx::context(dsp, visual->info()));
 
-	colormap.reset(new x11::colormap(dsp, visual->info()));
+	x11::colormap_ptr const colormap(
+		new x11::colormap(
+			dsp,
+			visual->info()));
 
 	XSetWindowAttributes swa;
 	swa.colormap = colormap->get();
@@ -186,7 +190,8 @@ sge::ogl::device::device(
 				string(),
 				dsp,
 				swa,
-				visual));
+				visual,
+				colormap));
 
 	if(!windowed)
 		wnd->map();
@@ -559,7 +564,6 @@ void sge::ogl::device::set_texture(
 
 	disable(GL_TEXTURE_1D);
 	disable(GL_TEXTURE_2D);
-	// FIXME:
 	//disable(detail::volume_texture_type);
 	disable_cube_texture();
 
