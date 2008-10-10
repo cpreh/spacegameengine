@@ -241,11 +241,10 @@ sge::ogl::device::create_index_buffer(
 }
 
 sge::ogl::fbo_target_ptr const
-sge::ogl::device::create_render_target(
-	renderer::target::dim_type const & dim)
+sge::ogl::device::create_render_target()
 {
 	return fbo_target_ptr(
-		new fbo_target(dim));
+		new fbo_target());
 }
 
 sge::renderer::texture_ptr const
@@ -537,8 +536,11 @@ void sge::ogl::device::set_render_target(
 		return;
 	}
 
-	shared_ptr<texture> const p(dynamic_pointer_cast<texture>(target));
-	fbo_target_ptr const ntarget = create_render_target(p->dim());
+	shared_ptr<texture> const p(
+		dynamic_pointer_cast<texture>(target));
+	
+	fbo_target_ptr const ntarget = create_render_target();
+
 	ntarget->bind_texture(p);
 
 	set_viewport(

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "target.hpp"
+#include "texture.hpp"
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/shared_ptr.hpp>
 
@@ -33,23 +34,21 @@ namespace ogl
 
 class fbo_target : public target {
 public:
-	explicit fbo_target(
-		dim_type const &);
+	fbo_target();
 	~fbo_target();
 
 	void bind_texture(
 		renderer::texture_ptr);	
 	void bind_me() const;
 private:
-	const dim_type dim() const;
+	dim_type const dim() const;
 
 	size_type stride() const;
 	GLenum format() const;
 	GLenum format_type() const;
 
-	dim_type  dim_;
-
-	GLuint    fbo;
+	texture_ptr           texture_target;
+	GLuint                fbo;
 };
 
 typedef shared_ptr<fbo_target> fbo_target_ptr;
