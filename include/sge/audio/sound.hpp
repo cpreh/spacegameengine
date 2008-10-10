@@ -51,10 +51,10 @@ public:
 	virtual void positional(bool) = 0;
 	virtual void direction(point const &) = 0;
 	virtual point const direction() const = 0;
-	virtual void inner_cone_angle(unit);
-	virtual unit inner_cone_angle() const;
-	virtual void outer_cone_angle(unit);
-	virtual unit outer_cone_angle() const;
+	virtual void inner_cone_angle(unit) = 0;
+	virtual unit inner_cone_angle() const = 0;
+	virtual void outer_cone_angle(unit) = 0;
+	virtual unit outer_cone_angle() const = 0;
 	SGE_SYMBOL virtual void update();
 	SGE_SYMBOL virtual ~sound();
 };
