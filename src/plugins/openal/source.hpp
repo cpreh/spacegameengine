@@ -22,8 +22,10 @@ class source : public audio::sound
 	void stop();
 	audio::point const pos() const { return pos_; }
 	audio::point const vel() const { return vel_; }
+	audio::unit attenuation() const { return attenuation_; }
 	void pos(audio::point const &);
 	void vel(audio::point const &);
+	void attenuation(audio::unit);
 	bool positional() const { return positional_; }
 	void positional(bool);
 	audio::play_mode::type play_mode() const { return play_mode_; }
@@ -38,6 +40,7 @@ class source : public audio::sound
 	bool positional_;
 	audio::point pos_;
 	audio::point vel_;
+	audio::unit attenuation_;
 };
 }
 }

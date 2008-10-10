@@ -4,18 +4,37 @@
 #include <sge/audio/exception.hpp>
 
 sge::openal::source::source()
-	: status_(audio::sound_status::stopped),positional_(false)
+	: status_(audio::sound_status::stopped),
+	  positional_(false),
+		pos_(sge::su(0),sge::su(0),sge::su(0)),
+		vel_(sge::su(0),sge::su(0),sge::su(0)),
+		attenuation_(sge::su(1))
 {
-	SGE_LOG_DEBUG(log(),log::_1 << "creating a free source");
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
+
+	// we just impose our default values 
+	positional(positional_);
+	pos(pos_);
+	vel(vel_);
+	attenuation(attenuation_);
 }
 
 sge::openal::source::source(ALuint const buffer)
-	: status_(audio::sound_status::stopped),positional_(false)
+	: status_(audio::sound_status::stopped),
+	  positional_(false),
+		pos_(sge::su(0),sge::su(0),sge::su(0)),
+		vel_(sge::su(0),sge::su(0),sge::su(0)),
+		attenuation_(sge::su(1))
 {
 	SGE_LOG_DEBUG(log(),log::_1 << "creating a source bound to a buffer");
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 	alSourcei(alsource(),AL_BUFFER,buffer); SGE_OPENAL_ERROR_CHECK;
+
+	// we just impose our default values 
+	positional(positional_);
+	pos(pos_);
+	vel(vel_);
+	attenuation(attenuation_);
 }
 
 void sge::openal::source::sync() const
@@ -88,15 +107,21 @@ void sge::openal::source::stop()
 	status_ = audio::sound_status::stopped;
 }
 
+void sge::openal::source::attenuation(audio::unit const n)
+{
+	attenuation_ = n;
+	alSourcef(alsource(),AL_GAIN,static_cast<ALfloat>(attenuation_)); SGE_OPENAL_ERROR_CHECK;
+}
+
 void sge::openal::source::pos(audio::point const &n)
 {
 	pos_ = n;
 
-	float const vec[3] = 
+	ALfloat const vec[3] = 
 		{ 
-			static_cast<float>(n.x()),
-			static_cast<float>(n.y()),
-			static_cast<float>(n.z()) 
+			static_cast<ALfloat>(n.x()),
+			static_cast<ALfloat>(n.y()),
+			static_cast<ALfloat>(n.z()) 
 		};
 
 	alSourcefv(alsource(),AL_POSITION,vec); SGE_OPENAL_ERROR_CHECK;
@@ -106,11 +131,11 @@ void sge::openal::source::vel(audio::point const &n)
 {
 	vel_ = n;
 
-	float const vec[3] = 
+	ALfloat const vec[3] = 
 		{ 
-			static_cast<float>(n.x()),
-			static_cast<float>(n.y()),
-			static_cast<float>(n.z()) 
+			static_cast<ALfloat>(n.x()),
+			static_cast<ALfloat>(n.y()),
+			static_cast<ALfloat>(n.z()) 
 		};
 
 	alSourcefv(alsource(),AL_VELOCITY,vec); SGE_OPENAL_ERROR_CHECK;
@@ -122,12 +147,12 @@ void sge::openal::source::positional(bool const n)
 
 	if (n)
 	{
-		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<float>(0.0)); SGE_OPENAL_ERROR_CHECK;
+		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<ALfloat>(0.0)); SGE_OPENAL_ERROR_CHECK;
 		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_TRUE); SGE_OPENAL_ERROR_CHECK;
 	}
 	else
 	{
-		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<float>(1.0)); SGE_OPENAL_ERROR_CHECK;
+		alSourcef(alsource(),AL_ROLLOFF_FACTOR,static_cast<ALfloat>(1.0)); SGE_OPENAL_ERROR_CHECK;
 		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_FALSE); SGE_OPENAL_ERROR_CHECK;
 	}
 }
