@@ -39,6 +39,8 @@ sge::openal::player::player()
 	  context_(device_)
 {
 	context_.make_current();
+	// set our own speed of sound standard rather than relying on OpenAL
+	speed_of_sound(static_cast<audio::unit>(343));
 }
 
 void sge::openal::player::register_stream_sound(stream_sound *p)
@@ -49,6 +51,18 @@ void sge::openal::player::register_stream_sound(stream_sound *p)
 void sge::openal::player::unregister_stream_sound(stream_sound * const p)
 {
 	ptr_container_erase(stream_sounds,p);
+}
+
+sge::audio::unit sge::openal::player::speed_of_sound() const
+{
+	ALfloat dest;
+	alGetFloatv(AL_SPEED_OF_SOUND,&dest);
+	return static_cast<audio::unit>(dest);
+}
+
+void sge::openal::player::speed_of_sound(audio::unit const dest)
+{
+	alSpeedOfSound(static_cast<ALfloat>(dest));
 }
 
 sge::audio::sound_ptr const

@@ -56,6 +56,9 @@ public:
 	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);
 	audio::sound_ptr const create_stream_sound(audio::file_ptr);
 
+	audio::unit speed_of_sound() const;
+	void speed_of_sound(audio::unit);
+
 	audio::pool_ptr const create_pool();
 private:
 	typedef boost::ptr_list<stream_sound,boost::view_clone_allocator> 
