@@ -526,7 +526,8 @@ void sge::ogl::device::set_render_target(
 			new default_target(
 				math::structure_cast<
 					target::dim_type::value_type>(
-						screen_size())));
+						screen_size()),
+				param.mode().depth));
 		render_target_->bind_me();
 		window::window_pos const offset = wnd->viewport_offset();
 		set_viewport(
