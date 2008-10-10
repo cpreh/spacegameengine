@@ -141,7 +141,7 @@ sge::ogl::device::device(
 	current.reset(new wgl::current(*hdc, *context));
 
 #elif defined(SGE_HAVE_X11)
-	const int screen = XDefaultScreen(dsp->get());
+	int const screen = dsp->default_screen();
 
 	if(!windowed)
 	{

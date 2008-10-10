@@ -43,6 +43,13 @@ sge::ogl::system::create_renderer(
 	return r;
 }
 
+sge::window_ptr const
+sge::ogl::system::create_window(
+	renderer::parameters const &param)
+{
+		
+}
+
 sge::renderer::caps_array const
 sge::ogl::system::caps() const
 {
