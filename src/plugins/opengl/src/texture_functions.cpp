@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../texture_functions.hpp"
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
-#include <sge/iostream.hpp>
+#include <sge/text.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/format.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
@@ -140,7 +140,8 @@ void sge::ogl::set_texture_rect(
 	SGE_OPENGL_SENTRY
 	
 	if(!src)
-		throw exception(SGE_TEXT("ogl::set_texture_rect(): src is 0!"));
+		throw exception(
+			SGE_TEXT("ogl::set_texture_rect(): src is 0!"));
 
 	if(r.right() > dim.w() || r.bottom() > dim.h())
 		throw exception(
@@ -150,7 +151,8 @@ void sge::ogl::set_texture_rect(
 				% dim).str());
 
 	if(need_mipmap(filter.min_filter))
-		throw exception(SGE_TEXT("You can't specify an update rect while using mipmaps. Ignored."));
+		throw exception(
+			SGE_TEXT("You can't specify an update rect while using mipmaps."));
 
 	glTexSubImage2D(
 		tex_type,
@@ -213,12 +215,20 @@ void sge::ogl::set_texture_filter(
 		{
 			tex_parameter_i(type, GL_TEXTURE_MAX_ANISOTROPY_EXT, filter.anisotropy_level);
 		}
-		catch(const exception&)
+		catch(exception const &)
 		{
-			sge::cerr << SGE_TEXT("Warning: anisotropy level ") << filter.anisotropy_level << SGE_TEXT(" not supported!\n");
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< SGE_TEXT("anisotropy level ")
+					<< filter.anisotropy_level
+					<< SGE_TEXT(" not supported!\n"));
 		}
 #else
-		sge::cerr << SGE_TEXT("Warning: anisotropic filtering is not supported!\n");
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("Warning: anisotropic filtering is not supported!");
 #endif
 	}
 }
