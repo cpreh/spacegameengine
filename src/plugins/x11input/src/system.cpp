@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pointer.hpp"
 #include "../translation.hpp"
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
+#include <sge/text.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/time/sleep.hpp>
@@ -56,7 +57,7 @@ sge::xinput::system::system(
 		wnd->display(),
 		no_bmp_.get(),
 		black_.get()),
-#ifdef USE_DGA
+#ifdef SGE_USE_DGA
 	dga_guard_(
 		wnd->display(),
 		wnd->screen()),
@@ -65,14 +66,20 @@ sge::xinput::system::system(
 	use_dga(false)
 #endif
 {
-#ifdef USE_DGA
+#ifdef SGE_USE_DGA
 	int flags;
 	if(XF86DGAQueryDirectVideo(wnd->display()->get(),wnd->screen(),&flags)==false)
-		throw exception(SGE_TEXT("XF86DGAQueryDirectVideo() failed!"));
+		throw exception(
+			SGE_TEXT("XF86DGAQueryDirectVideo() failed!"));
 
 	if(flags & XF86DGADirectMouse)
 	{
-		sge::cerr << SGE_TEXT("You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system! Maybe you are missing libXxf86dga or a proper video driver? Disabling dga.\n");
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT(
+					"You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system!"
+					"Maybe you are missing libXxf86dga or a proper video driver? Disabling dga."));
 		use_dga = false;
 	}
 #endif
@@ -235,7 +242,14 @@ sge::input::key_type sge::xinput::system::create_key_type(const XEvent& xev)
 
 	if(num_chars > 1)
 	{
-		sge::cerr << SGE_TEXT("stub: character '") << code << SGE_TEXT("' in XLookupString has ") << num_chars << SGE_TEXT(" bytes!\n");
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("stub: character '")
+				<< code
+				<< SGE_TEXT("' in XLookupString has ")
+				<< num_chars
+				<< SGE_TEXT(" bytes!"));
 		return input::key_type();
 	}
 
@@ -365,7 +379,10 @@ void sge::xinput::system::warped_motion(XEvent xevent)
 			break;
 
 		if(i == max_loops - 1)
-			sge::cerr << SGE_TEXT("warning: didn't detect mouse warp motion! Try to enable dga mouse instead.\n");
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< SGE_TEXT("Didn't detect mouse warp motion! Try to enable dga mouse instead."));
 	}
 }
 

@@ -50,7 +50,7 @@ sge::ft::char_metric::char_metric(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("warning: x offset of character '")
+				<< SGE_TEXT("x offset of character '")
 				<< ch
 				<< SGE_TEXT("' is ")
 				<< offset_.x()
@@ -59,7 +59,7 @@ sge::ft::char_metric::char_metric(
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("warning: y offset of character '")
+				<< SGE_TEXT("y offset of character '")
 				<< ch
 				<< SGE_TEXT("' is ")
 				<< offset_.y()
