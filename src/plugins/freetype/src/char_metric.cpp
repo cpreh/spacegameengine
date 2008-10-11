@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
-#include <sge/iostream.hpp>
+#include <sge/text.hpp>
+#include <sge/log/headers.hpp>
 #include <boost/gil/algorithm.hpp>
 #include <boost/gil/typedefs.hpp>
 #include <ostream>
@@ -47,17 +47,23 @@ sge::ft::char_metric::char_metric(
 
 	// FIXME: fix offsets and maybe those warnings
 	if(offset_.x() < 0)
-		cerr << SGE_TEXT("warning: x offset of character '")
-		     << ch
-		     << SGE_TEXT("' is ")
-		     << offset_.x()
-		     << SGE_TEXT("!\n");
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("warning: x offset of character '")
+				<< ch
+				<< SGE_TEXT("' is ")
+				<< offset_.x()
+				<< SGE_TEXT('!'));
 	if(offset_.y() < 0)
-		cerr << SGE_TEXT("warning: y offset of character '")
-		     << ch
-		     << SGE_TEXT("' is ")
-		     << offset_.y()
-		     << SGE_TEXT("!\n");
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("warning: y offset of character '")
+				<< ch
+				<< SGE_TEXT("' is ")
+				<< offset_.y()
+				<< SGE_TEXT('!'));
 
 	boost::gil::gray8c_view_t src(
 		boost::gil::interleaved_view(
