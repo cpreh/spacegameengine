@@ -56,7 +56,7 @@ sge::texture::no_fragmented::consume_fragment(
 			log::level::warning,
 			log::_1 << SGE_TEXT("You used a texture::no_fragmented whose dimensions are not a power of 2.")\
 		                   SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
-		                   SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT(".\n")
+		                   SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT('.')
 		);
 
 	return part_ptr(

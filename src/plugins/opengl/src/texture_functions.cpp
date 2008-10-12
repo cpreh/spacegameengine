@@ -75,15 +75,15 @@ void sge::ogl::set_texture(
 	if(dim.w() < 64 || dim.h() < 64)
 		log::global().log(
 			log::level::warning,
-			log::_1 << SGE_TEXT("warning: opengl implementations are not required to support textures smaller than 64x64.")\
-			           SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n")
+			log::_1 << SGE_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
+			           SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT('.')
 		);
 
 	if(!math::is_power_of_2(dim))
 		log::global().log(
 			log::level::warning,
-			log::_1 << SGE_TEXT("warning: opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
-			           SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT(".\n")
+			log::_1 << SGE_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
+			           SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT('.')
 		);
 		
 	glTexImage2D(
