@@ -62,6 +62,7 @@ protected:
 	pointer read_buffer() const;
 	pointer write_buffer() const;
 	const_pointer real_read_buffer() const;
+	pointer real_write_buffer() const;
 	
 	void pre_setdata() const;
 	

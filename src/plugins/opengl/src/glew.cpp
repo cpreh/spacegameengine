@@ -30,3 +30,9 @@ void sge::ogl::initialize_glew()
 		throw exception(
 			SGE_TEXT("glewInit() failed!"));
 }
+
+bool sge::ogl::glew_is_supported(
+	glew_string const &str)
+{
+	return glewIsSupported(str.c_str());
+}

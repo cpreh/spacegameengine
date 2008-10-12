@@ -142,6 +142,15 @@ sge::ogl::basic_texture<Base>::real_read_buffer() const
 }
 
 template<typename Base>
+typename sge::ogl::basic_texture<Base>::pointer
+sge::ogl::basic_texture<Base>::real_write_buffer() const
+{
+	check_locked();
+
+	return lock_->real_write_pointer();
+}
+
+template<typename Base>
 void sge::ogl::basic_texture<Base>::pre_setdata() const
 {
 	bind_me();

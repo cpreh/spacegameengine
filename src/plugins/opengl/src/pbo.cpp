@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pbo.hpp"
 #include "../software_vbo.hpp"
 #include "../vbo_util.hpp"
+#include "../glew.hpp"
 #include <boost/scoped_ptr.hpp>
 
 namespace
@@ -33,27 +34,37 @@ boost::scoped_ptr<sge::ogl::vbo_base> impl;
 
 void sge::ogl::initialize_pbo()
 {
-	impl.reset(create_vbo_impl(sge::ogl::pbo_in_hardware()));
+	impl.reset(
+		create_vbo_impl(
+			sge::ogl::pbo_in_hardware()));
 }
 
 GLenum sge::ogl::pixel_pack_buffer_type()
 {
-	if(GLEW_VERSION_2_1)
-		return GL_PIXEL_PACK_BUFFER;
-	if(GLEW_ARB_pixel_buffer_object)
-		return GL_PIXEL_PACK_BUFFER_ARB;
-	static const GLenum software_id = software_vbo::unique_id();
-	return software_id;
+	static GLenum const type(
+		glew_is_supported(
+			"GL_VERSION_2_1")
+			? GL_PIXEL_PACK_BUFFER
+			: glew_is_supported(
+				"GL_ARB_pixel_buffer_object")
+				? GL_PIXEL_PACK_BUFFER_ARB
+				: software_vbo::unique_id());
+
+	return type;
 }
 
 GLenum sge::ogl::pixel_unpack_buffer_type()
 {
-	if(GLEW_VERSION_2_1)
-		return GL_PIXEL_UNPACK_BUFFER;
-	if(GLEW_ARB_pixel_buffer_object)
-		return GL_PIXEL_UNPACK_BUFFER_ARB;
-	static const GLenum software_id = software_vbo::unique_id();
-	return software_id;
+	static GLenum const type(
+		glew_is_supported(
+			"GL_VERSION_2_1")
+			? GL_PIXEL_UNPACK_BUFFER
+			: glew_is_supported(
+				"GL_ARB_pixel_buffer_object")
+				? GL_PIXEL_UNPACK_BUFFER_ARB
+				: software_vbo::unique_id());
+
+	return type;
 }
 
 sge::ogl::vbo_base& sge::ogl::pbo_impl()
@@ -63,6 +74,6 @@ sge::ogl::vbo_base& sge::ogl::pbo_impl()
 
 bool sge::ogl::pbo_in_hardware()
 {
-//	return GLEW_VERSION_2_1 || GLEW_ARB_pixel_buffer_object;
-	return false; // FIXME
+	return glew_is_supported("GL_VERSION_2_1")
+		|| glew_is_supported("GL_ARB_pixel_buffer_object");
 }

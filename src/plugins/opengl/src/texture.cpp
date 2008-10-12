@@ -159,7 +159,7 @@ sge::renderer::image_view const
 sge::ogl::texture::view()
 {
 	return renderer::make_image_view(
-		write_buffer(),
+		real_write_buffer(),
 		lock_dim(),
 		color_convert(
 			format(),

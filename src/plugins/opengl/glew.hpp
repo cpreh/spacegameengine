@@ -22,12 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLEW_HPP_INCLUDED
 #define SGE_OPENGL_GLEW_HPP_INCLUDED
 
+#include <string>
+
 namespace sge
 {
 namespace ogl
 {
 
+typedef std::string glew_string;
+
 void initialize_glew();
+
+bool glew_is_supported(
+	glew_string const &);	
 
 }
 }

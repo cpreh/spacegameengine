@@ -47,6 +47,8 @@ public:
 
 	virtual pointer read_pointer() const;
 
+	virtual pointer real_write_pointer();
+
 	virtual const_pointer real_read_pointer() const;
 
 	virtual lock_method::type method() const = 0;

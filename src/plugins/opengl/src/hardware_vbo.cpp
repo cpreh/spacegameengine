@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../hardware_vbo.hpp"
 #include "../error.hpp"
+#include "../glew.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/once.hpp>
@@ -72,7 +73,8 @@ void* sge::ogl::hardware_vbo::map_buffer(const GLenum type, const GLenum flags)
 	void *const ret = static_cast<void*>(gl_map_buffer(type, flags));
 
 	if(ret == 0)
-		throw exception(SGE_TEXT("glMapBuffer() returned 0!"));
+		throw exception(
+			SGE_TEXT("glMapBuffer() returned 0!"));
 	return ret;
 }
 
@@ -81,7 +83,8 @@ void sge::ogl::hardware_vbo::unmap_buffer(const GLenum type)
 	SGE_OPENGL_SENTRY
 
 	if(gl_unmap_buffer(type) == GL_FALSE)
-		throw exception(SGE_TEXT("gl_unmap_buffer() returned false. The buffer corrupted during the lock time."));
+		throw exception(
+			SGE_TEXT("gl_unmap_buffer() returned false. The buffer corrupted during the lock time."));
 }
 
 void sge::ogl::hardware_vbo::buffer_data(const GLenum type,
@@ -116,7 +119,7 @@ void initialize_hardware_vbo()
 {
 	SGE_FUNCTION_ONCE
 
-	if(GLEW_VERSION_1_5)
+	if(sge::ogl::glew_is_supported("GL_VERSION_1_5"))
 	{
 		gl_gen_buffers = glGenBuffers;
 		gl_delete_buffers = glDeleteBuffers;
@@ -126,7 +129,7 @@ void initialize_hardware_vbo()
 		gl_buffer_data = glBufferData;
 		gl_buffer_sub_data = glBufferSubData;
 	}
-	else if(GL_ARB_vertex_buffer_object)
+	else if(sge::ogl::glew_is_supported("GL_ARB_vertex_buffer_object"))
 	{
 		gl_gen_buffers = glGenBuffersARB;
 		gl_delete_buffers = glDeleteBuffersARB;
@@ -136,6 +139,9 @@ void initialize_hardware_vbo()
 		gl_buffer_data = glBufferDataARB;
 		gl_buffer_sub_data = glBufferSubDataARB;
 	}
+	else
+		throw sge::exception(
+			SGE_TEXT("Invalid initialization of hardware_vbo!"));
 }
 
 }

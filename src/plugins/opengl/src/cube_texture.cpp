@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../version.hpp"
 #include "../enable.hpp"
 #include "../texture.hpp"
+#include "../glew.hpp"
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
@@ -175,9 +176,9 @@ void initialize_cube_texture()
 {
 	SGE_FUNCTION_ONCE
 
-	if(GLEW_VERSION_1_3)
+	if(sge::ogl::glew_is_supported("GL_VERSION_1_3"))
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP;
-	else if(GLEW_ARB_texture_cube_map)
+	else if(sge::ogl::glew_is_supported("GL_ARB_texture_cube_map"))
 		gl_cube_texture_type = GL_TEXTURE_CUBE_MAP_ARB;
 	else
 		return;

@@ -191,7 +191,7 @@ try
 		rend->get_window()->dispatch();
 		is->dispatch();
 
-		fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
+		//fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
 	}
 	return EXIT_SUCCESS;
 }
