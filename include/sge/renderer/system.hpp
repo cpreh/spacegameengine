@@ -46,8 +46,8 @@ public:
 	virtual device_ptr const
 	create_renderer(
 		parameters const &param,
-		adapter_type adapter = 0,
-		window_ptr wnd = window_ptr()) = 0;
+		adapter_type adapter,
+		window_ptr wnd) = 0;
 
 	virtual window_ptr const create_window(
 		parameters const &) = 0;

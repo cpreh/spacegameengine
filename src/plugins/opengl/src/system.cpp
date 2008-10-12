@@ -18,11 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/config.h>
 #include "../system.hpp"
 #include "../device.hpp"
+#if defined(SGE_HAVE_X11)
+#include "../glx/choose_visual.hpp"
+#include "../glx/create_visual.hpp"
+#include <sge/x11/colormap.hpp>
+#include <sge/x11/visual.hpp>
+#include <sge/x11/display.hpp>
+#include <sge/x11/window.hpp>
+#else
+#error "Implement me!"
+#endif
 #include <sge/renderer/caps.hpp>
+#include <sge/renderer/parameters.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/raw_vector_impl.hpp>
 
 sge::renderer::device_ptr const
 sge::ogl::system::create_renderer(
@@ -47,7 +60,36 @@ sge::window_ptr const
 sge::ogl::system::create_window(
 	renderer::parameters const &param)
 {
-		
+#if defined(SGE_HAVE_X11)
+	x11::display_ptr const dsp(
+		new x11::display());
+
+	x11::visual_ptr const visual(
+	glx::create_visual(
+		dsp,
+		dsp->default_screen(),
+		glx::choose_visual(
+			param.mode().depth,
+			param.dbuffer(),
+			param.sbuffer()).data()));
+	
+	x11::colormap_ptr const colormap(
+		new x11::colormap(
+			dsp,
+			visual->info()));
+
+	return window_ptr(
+		new x11::window(
+			window::window_pos(0,0),
+			param.mode().size,
+			SGE_TEXT("spacegameengine - untitled"),
+			dsp,
+			param.wmode() == renderer::window_mode::fullscreen,
+			visual,
+			colormap));
+#else
+#error "Implement me!"
+#endif
 }
 
 sge::renderer::caps_array const

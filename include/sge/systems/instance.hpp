@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../input/system_fwd.hpp"
 #include "../image/loader_fwd.hpp"
 #include "../audio/player_fwd.hpp"
+#include "../window_fwd.hpp"
 #include "../export.hpp"
 #include <boost/scoped_ptr.hpp>
 #include <boost/noncopyable.hpp>
@@ -63,6 +64,8 @@ struct instance : boost::noncopyable {
 	SGE_SYMBOL audio::player_ptr const audio_player() const;
 
 	SGE_SYMBOL font::system_ptr const font_system() const;
+
+	SGE_SYMBOL window_ptr const window() const;
 
 	struct impl;
 private:

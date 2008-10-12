@@ -48,14 +48,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window.hpp>
 #include <sge/windows/choose_and_set_pixel_format.hpp>
 #elif defined(SGE_HAVE_X11)
-#include "../glx/choose_visual.hpp"
-#include "../glx/create_visual.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
-#include <sge/x11/colormap.hpp>
 #include <boost/bind.hpp>
-#include <sge/raw_vector_impl.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -78,9 +74,6 @@ sge::ogl::device::device(
 	window_ptr const wnd_param)
  : param(param),
    current_states(renderer::state::default_())
-#if defined(SGE_HAVE_X11)
-   , dsp(new x11::display())
-#endif
 {
 //	if(adapter > 0)
 //		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
@@ -128,11 +121,17 @@ sge::ogl::device::device(
 	current.reset(new wgl::current(*hdc, *context));
 
 #elif defined(SGE_HAVE_X11)
-	int const screen = dsp->default_screen();
+	wnd = polymorphic_pointer_cast<x11::window>(wnd_param);
+
+	x11::display_ptr const dsp(
+		wnd->display());
 
 	if(!windowed)
 	{
-		modes.reset(new x11::xf86_vidmode_array(dsp, screen));
+		modes.reset(
+			new x11::xf86_vidmode_array(
+				dsp,
+				dsp->default_screen()));
 		resolution = modes->switch_to_mode(param.mode());
 		if(!resolution)
 		{
@@ -141,41 +140,10 @@ sge::ogl::device::device(
 		}
 	}
 
-	x11::visual_ptr const visual(
-		glx::create_visual(
-			dsp,
-			screen,
-			glx::choose_visual(
-				param.mode().depth,
-				param.dbuffer(),
-				param.sbuffer()).data()));
+	x11::const_visual_ptr const visual(
+		wnd->visual());
 
 	context.reset(new glx::context(dsp, visual->info()));
-
-	x11::colormap_ptr const colormap(
-		new x11::colormap(
-			dsp,
-			visual->info()));
-
-	XSetWindowAttributes swa;
-	swa.colormap = colormap->get();
-	swa.border_pixel = 0;
-	swa.background_pixel = 0;
-	swa.override_redirect = windowed ? False : True;
-	swa.event_mask = StructureNotifyMask;
-
-	if(wnd_param)
-		wnd = polymorphic_pointer_cast<x11::window>(wnd_param);
-	else
-		wnd.reset(
-			new x11::window(
-				window::window_pos(0,0),
-				param.mode().size,
-				string(),
-				dsp,
-				swa,
-				visual,
-				colormap));
 
 	if(!windowed)
 		wnd->map();
@@ -300,7 +268,9 @@ void sge::ogl::device::end_rendering()
 {
 #if defined(SGE_HAVE_X11)
 	SGE_OPENGL_SENTRY
-	glXSwapBuffers(dsp->get(), wnd->get_window());
+	glXSwapBuffers(
+		wnd->display()->get(),
+		wnd->get_window());
 #elif defined(SGE_WINDOWS_PLATFORM)
 	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception(SGE_TEXT("wglSwapLayerBuffers() failed!"));

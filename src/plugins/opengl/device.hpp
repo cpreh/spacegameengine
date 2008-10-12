@@ -183,7 +183,6 @@ private:
 	void reset_viewport_on_configure(const XEvent&);
 	void center_viewport(int w, int h);
 
-	x11::display_ptr                      dsp;
 	scoped_connection                     map_callback;
 	glx::context_ptr                      context;
 	x11::window_ptr                       wnd;

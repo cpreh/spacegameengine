@@ -95,7 +95,15 @@ try
 		sge::renderer::stencil_buffer::off,
 		sge::renderer::window_mode::windowed,
 		sge::renderer::vsync::on);
-	const sge::renderer::device_ptr rend = rs->create_renderer(param);
+	
+	sge::window_ptr const wnd(
+		rs->create_window(
+			param));
+
+	const sge::renderer::device_ptr rend = rs->create_renderer(
+		param,
+		static_cast<sge::renderer::adapter_type>(0),
+		wnd);
 
 	const sge::input::system_ptr is(input_plugin->get()(rend->get_window()));
 

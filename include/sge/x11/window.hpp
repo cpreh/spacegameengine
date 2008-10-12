@@ -53,9 +53,9 @@ public:
 		window_size const &,
 		string const &title,
 		display_ptr,
-		XSetWindowAttributes const &,
+		bool fullscreen,
 		const_visual_ptr,
-		const_colormap_ptr);
+		colormap_ptr);
 	SGE_SYMBOL ~window();
 
 	SGE_SYMBOL void title(string const &title);
@@ -67,6 +67,7 @@ public:
 	SGE_SYMBOL Window get_window() const;
 	SGE_SYMBOL int screen() const;
 	SGE_SYMBOL display_ptr const display() const;
+	SGE_SYMBOL const_visual_ptr const visual() const;
 	SGE_SYMBOL void map();
 	SGE_SYMBOL void map_raised();
 

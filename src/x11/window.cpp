@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
+#include <sge/x11/colormap.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
@@ -33,31 +34,39 @@ sge::x11::window::window(
 	window_size const &sz,
 	string const &t,
 	display_ptr const dsp,
- 	XSetWindowAttributes const &attr,
+	bool const fullscreen_,
 	const_visual_ptr const visual_,
-	const_colormap_ptr const colormap_)
+	colormap_ptr const colormap_)
 :
 	dsp(dsp),
 	visual_(visual_),
 	colormap_(colormap_),
 	screen_(visual_->info().screen),
-	wnd(
-		XCreateWindow(
-			dsp->get(),
-			XRootWindow(dsp->get(), screen()),
-			pos.x(),
-			pos.y(),
-			sz.w(),
-			sz.h(),
-			0,
-			visual_->info().depth,
-			InputOutput,
-			visual_->info().visual,
-			CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
-			const_cast<XSetWindowAttributes*>(&attr))),
-	fullscreen_(attr.override_redirect),
+	wnd(0),
+	fullscreen_(fullscreen_),
 	event_mask(0)
 {
+	XSetWindowAttributes swa;
+	swa.colormap = colormap_->get();
+	swa.border_pixel = 0;
+	swa.background_pixel = 0;
+	swa.override_redirect = fullscreen_ ? True : False;
+	swa.event_mask = StructureNotifyMask;
+
+	wnd = XCreateWindow(
+		dsp->get(),
+		XRootWindow(dsp->get(), screen()),
+		pos.x(),
+		pos.y(),
+		sz.w(),
+		sz.h(),
+		0,
+		visual_->info().depth,
+		InputOutput,
+		visual_->info().visual,
+		CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
+		const_cast<XSetWindowAttributes*>(&swa)),
+
 	title(t);
 	instances.insert(this);
 }
@@ -125,6 +134,12 @@ sge::x11::window::display() const
 	return dsp;
 }
 
+sge::x11::const_visual_ptr const
+sge::x11::window::visual() const
+{
+	return visual_;
+}
+
 void sge::x11::window::map()
 {
 	XMapWindow(dsp->get(), get_window());
@@ -134,6 +149,7 @@ void sge::x11::window::map_raised()
 {
 	XMapRaised(dsp->get(), get_window());
 }
+
 Display* sge::x11::window::dsp_() const
 {
 	return display()->get();
