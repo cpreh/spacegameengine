@@ -30,15 +30,16 @@ sge::ogl::readonly_texture_lock::readonly_texture_lock(
 	size_type const pitch,
 	size_type const block_size,
 	renderer::resource_flag_t const flags)
-: buffer(
-	whole_size,
-	stride,
-	flags,
-	0),
-  lock_size(lock_size * stride),
-  offset(offset * stride),
-  pitch(pitch * stride),
-  block_size(block_size * stride)
+:
+	buffer(
+		whole_size,
+		stride,
+		flags,
+		0),
+	lock_size(lock_size * stride),
+	offset(offset * stride),
+	pitch(pitch * stride),
+	block_size(block_size * stride)
 {
 	buffer.lock(
 		lock_method::readonly);

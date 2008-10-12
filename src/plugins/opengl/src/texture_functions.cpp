@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../conversion.hpp"
 #include "../texture_functions.hpp"
+#include "../pbo.hpp" // TODO: maybe put this somewhere else
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/log/headers.hpp>
@@ -139,7 +140,7 @@ void sge::ogl::set_texture_rect(
 {
 	SGE_OPENGL_SENTRY
 	
-	if(!src)
+	if(!src && !pbo_in_hardware())
 		throw exception(
 			SGE_TEXT("ogl::set_texture_rect(): src is 0!"));
 

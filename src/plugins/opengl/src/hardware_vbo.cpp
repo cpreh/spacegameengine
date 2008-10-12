@@ -59,14 +59,18 @@ void sge::ogl::hardware_vbo::delete_buffer(const GLuint id)
 	gl_delete_buffers(1, &id);
 }
 
-void sge::ogl::hardware_vbo::bind_buffer(const GLenum type, const GLuint id)
+void sge::ogl::hardware_vbo::bind_buffer(
+	GLenum const type,
+	GLuint const id)
 {
 	SGE_OPENGL_SENTRY
 
 	gl_bind_buffer(type, id);
 }
 
-void* sge::ogl::hardware_vbo::map_buffer(const GLenum type, const GLenum flags)
+void *sge::ogl::hardware_vbo::map_buffer(
+	GLenum const type,
+	GLenum const flags)
 {
 	SGE_OPENGL_SENTRY
 
