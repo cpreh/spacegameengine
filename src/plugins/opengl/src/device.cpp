@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../matrix.hpp"
 #include "../split_states.hpp"
 #include "../material.hpp"
+#include "../glew.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
@@ -163,8 +164,7 @@ sge::ogl::device::device(
 	
 	dsp->sync();
 #endif
-	if(glewInit() != GLEW_OK)
-		throw exception(SGE_TEXT("glewInit() failed!"));
+	initialize_glew();
 
 	initialize_vbo();
 	initialize_pbo();
