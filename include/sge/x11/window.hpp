@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/function.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/signals.hpp>
-#include <set>
 
 namespace sge
 {
@@ -90,9 +89,6 @@ private:
 	typedef boost::signal<x11_function_type> x11_signal_type;
 	typedef boost::ptr_map<x11_event_type, x11_signal_type> signal_map;
 	signal_map signals;
-
-	typedef std::set<window*> instance_map;
-	static instance_map instances;
 };
 
 typedef shared_ptr<window> window_ptr;

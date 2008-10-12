@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <boost/foreach.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
@@ -27,7 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
 #include <boost/assign/list_of.hpp>
-#include <ostream>
+#include <set>
+
+namespace
+{
+
+typedef std::set<sge::x11::window *> instance_map;
+static instance_map instances;
+
+}
 
 sge::x11::window::window(
 	window_pos const &pos,
@@ -202,10 +211,9 @@ void sge::x11::window::add_event_mask(const x11_event_type event)
 void sge::window::dispatch()
 {
 	XEvent xev;
-	const x11::window::instance_map::iterator e = sge::x11::window::instances.end();
-	for (x11::window::instance_map::iterator b = sge::x11::window::instances.begin(); b != e; ++b)
+	BOOST_FOREACH(instance_map::value_type ptr, instances)
 	{
-		x11::window& wnd = **b;
+		x11::window &wnd = *ptr;
 		while(XCheckWindowEvent(wnd.dsp_(), wnd.get_window(), wnd.event_mask, &xev))
 		{
 			if(XFilterEvent(&xev, None))
@@ -221,5 +229,3 @@ sge::x11::window::viewport_offset() const
 {
 	return window_pos(0, 0);
 }
-
-sge::x11::window::instance_map sge::x11::window::instances;
