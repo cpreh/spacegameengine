@@ -36,6 +36,7 @@ FILE (GLOB sgecorefiles
 	math/*.cpp
 	model/*.cpp
 	plugin/*.cpp
+	random/*.cpp
 	renderer/*.cpp
 	renderer/glsl/*.cpp
 	renderer/state/*.cpp
