@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/arithmetic/add.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
 
 namespace sge
 {
@@ -38,28 +38,42 @@ namespace sge
 	template<\
 		typename SharedPtr,\
 		typename Type,\
-		BOOST_PP_ENUM_PARAMS(\
-			BOOST_PP_ADD(n, 1),\
+		BOOST_PP_ENUM_PARAMS_Z(\
+			z,\
+			BOOST_PP_INC(n),\
 			typename T)\
 	>\
 	SharedPtr const\
 	make_shared_ptr(\
 		BOOST_PP_ENUM_BINARY_PARAMS(\
-			BOOST_PP_ADD(n, 1),\
+			BOOST_PP_INC(n),\
 			T,\
 			const &param)\
 		)\
 	{\
 		return SharedPtr(\
 			new Type(\
-				BOOST_PP_ENUM_PARAMS(\
-					BOOST_PP_ADD(n, 1),\
+				BOOST_PP_ENUM_PARAMS_Z(\
+					z,\
+					BOOST_PP_INC(n),\
 					param)\
 				)\
 			);\
 	}
 
 BOOST_PP_REPEAT(SGE_MAKE_SHARED_PTR_MAX_SIZE, SGE_MAKE_SHARED_PTR_FUN, void)
+
+template<
+	typename SharedPtr,
+	typename Type
+>
+SharedPtr const
+make_shared_ptr()
+{
+	return SharedPtr(
+		new Type());
+}
+// TODO: can't the macro generate this, too?
 
 }
 
