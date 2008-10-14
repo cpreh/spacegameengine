@@ -100,7 +100,8 @@ template<
 void sge::ogl::basic_buffer<Type, Impl>::unlock()
 {
 	if(!dest)
-		throw exception(SGE_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));
+		throw exception(
+			SGE_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));
 	bind_me();
 	Impl().unmap_buffer(Type());
 	dest = 0;
@@ -280,6 +281,11 @@ void sge::ogl::basic_buffer<Type, Impl>::allocate_buffer(
 {
 	GLuint const glflags = convert_resource_flags(flags());
 	size_type const nsz = size() * stride_;
+
+	if(nsz == 0)
+		throw exception(
+			SGE_TEXT("ogl_buffer: cannot create an empty buffer!"));
+
 	bind_me();
 	Impl().buffer_data(
 		Type(),

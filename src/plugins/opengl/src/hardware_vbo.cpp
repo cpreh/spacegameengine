@@ -75,15 +75,10 @@ void *sge::ogl::hardware_vbo::map_buffer(
 {
 	SGE_OPENGL_SENTRY
 
-	void *const ret = static_cast<void*>(
+	return static_cast<void*>(
 		gl_map_buffer(
 			type,
 			flags));
-
-	if(ret == 0)
-		throw exception(
-			SGE_TEXT("glMapBuffer() returned 0!"));
-	return ret;
 }
 
 void sge::ogl::hardware_vbo::unmap_buffer(
@@ -91,9 +86,7 @@ void sge::ogl::hardware_vbo::unmap_buffer(
 {
 	SGE_OPENGL_SENTRY
 
-	if(gl_unmap_buffer(type) == GL_FALSE)
-		throw exception(
-			SGE_TEXT("gl_unmap_buffer() returned false. The buffer corrupted during the lock time."));
+	gl_unmap_buffer(type); 
 }
 
 void sge::ogl::hardware_vbo::buffer_data(
