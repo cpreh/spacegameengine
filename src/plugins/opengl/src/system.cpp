@@ -28,6 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/visual.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/window.hpp>
+#elif defined(SGE_WINDOWS_PLATFORM)
+#include <sge/windows/gdi_device.hpp>
+#include <sge/windows/window.hpp>
+#include <sge/windows/choose_and_set_pixel_format.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -35,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/parameters.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/string.hpp>
 #include <sge/raw_vector_impl.hpp>
 
 sge::renderer::device_ptr const
@@ -60,6 +65,8 @@ sge::window_ptr const
 sge::ogl::system::create_window(
 	renderer::parameters const &param)
 {
+	string const default_title(
+		SGE_TEXT("spacegameengine - untitled"));
 #if defined(SGE_HAVE_X11)
 	x11::display_ptr const dsp(
 		new x11::display());
@@ -82,11 +89,30 @@ sge::ogl::system::create_window(
 		new x11::window(
 			window::window_pos(0,0),
 			param.mode().size,
-			SGE_TEXT("spacegameengine - untitled"),
+			default_title,
 			dsp,
 			param.wmode() == renderer::window_mode::fullscreen,
 			visual,
 			colormap));
+#elif defined(SGE_WINDOWS_PLATFORM)
+	windows::window_ptr const wnd(
+		new windows::window(
+			param.mode().size,
+			default_title));
+
+	windows::choose_and_set_pixel_format(
+		windows::gdi_device(
+			wnd->hwnd(),
+			windows::gdi_device::get_tag()),
+		PFD_DRAW_TO_WINDOW |
+		PFD_SUPPORT_OPENGL |
+		PFD_DOUBLEBUFFER,
+		PFD_TYPE_RGBA,
+		static_cast<BYTE>(param.mode().depth),
+		static_cast<BYTE>(param.dbuffer()),
+		static_cast<BYTE>(param.sbuffer()));
+
+	return wnd;
 #else
 #error "Implement me!"
 #endif

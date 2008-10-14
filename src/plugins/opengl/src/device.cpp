@@ -47,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
-#include <sge/windows/choose_and_set_pixel_format.hpp>
 #elif defined(SGE_HAVE_X11)
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
@@ -81,7 +80,6 @@ sge::ogl::device::device(
 
 	bool windowed = true; // param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
-	unsigned const color_depth = static_cast<unsigned>(param.mode().depth);
 	if(!windowed)
 	{
 		DEVMODE settings;
@@ -89,7 +87,7 @@ sge::ogl::device::device(
 		settings.dmSize = sizeof(DEVMODE);
 		settings.dmPelsWidth    = param.mode().width();
 		settings.dmPelsHeight   = param.mode().height();
-		settings.dmBitsPerPel   = color_depth;
+		settings.dmBitsPerPel   = static_cast<UINT>(param.mode().depth);
 		settings.dmDisplayFrequency = param.mode().refresh_rate;
 		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
@@ -99,27 +97,21 @@ sge::ogl::device::device(
 		}
 	}
 
-	if(!wnd_param)
-		wnd.reset(new windows::window(
-			window::window_size(param.mode().width(),param.mode().height())));
-	else
-		wnd = polymorphic_pointer_cast<windows::window>(wnd_param);
+	wnd = polymorphic_pointer_cast<windows::window>(wnd_param);
 
-	hdc.reset(new windows::gdi_device(wnd->hwnd(), windows::gdi_device::get_tag()));
+	hdc.reset(
+		new windows::gdi_device(
+			wnd->hwnd(),
+			windows::gdi_device::get_tag()));
 
-	windows::choose_and_set_pixel_format(
-		hdc,
-		PFD_DRAW_TO_WINDOW |
-		PFD_SUPPORT_OPENGL |
-		PFD_DOUBLEBUFFER,
-		PFD_TYPE_RGBA,
-		static_cast<BYTE>(color_depth),
-		static_cast<BYTE>(param.dbuffer()),
-		static_cast<BYTE>(param.sbuffer()));
+	context.reset(
+		new wgl::context(
+			*hdc));
 
-	context.reset(new wgl::context(*hdc));
-
-	current.reset(new wgl::current(*hdc, *context));
+	current.reset(
+		new wgl::current(
+			*hdc,
+			*context));
 
 #elif defined(SGE_HAVE_X11)
 	wnd = polymorphic_pointer_cast<x11::window>(wnd_param);
