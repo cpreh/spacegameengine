@@ -52,7 +52,8 @@ GLuint sge::ogl::hardware_vbo::gen_buffer()
 	return id;
 }
 
-void sge::ogl::hardware_vbo::delete_buffer(const GLuint id)
+void sge::ogl::hardware_vbo::delete_buffer(
+	GLuint const id)
 {
 	SGE_OPENGL_SENTRY
 
@@ -74,7 +75,10 @@ void *sge::ogl::hardware_vbo::map_buffer(
 {
 	SGE_OPENGL_SENTRY
 
-	void *const ret = static_cast<void*>(gl_map_buffer(type, flags));
+	void *const ret = static_cast<void*>(
+		gl_map_buffer(
+			type,
+			flags));
 
 	if(ret == 0)
 		throw exception(
@@ -82,7 +86,8 @@ void *sge::ogl::hardware_vbo::map_buffer(
 	return ret;
 }
 
-void sge::ogl::hardware_vbo::unmap_buffer(const GLenum type)
+void sge::ogl::hardware_vbo::unmap_buffer(
+	GLenum const type)
 {
 	SGE_OPENGL_SENTRY
 
@@ -91,27 +96,39 @@ void sge::ogl::hardware_vbo::unmap_buffer(const GLenum type)
 			SGE_TEXT("gl_unmap_buffer() returned false. The buffer corrupted during the lock time."));
 }
 
-void sge::ogl::hardware_vbo::buffer_data(const GLenum type,
-                                         const GLsizei size,
-                                         const void *const data,
-                                         const GLenum flags)
+void sge::ogl::hardware_vbo::buffer_data(
+	GLenum const type,
+	GLsizei const size,
+	void const *const data,
+	GLenum const flags)
 {
 	SGE_OPENGL_SENTRY
 
-	gl_buffer_data(type, size, data, flags);
+	gl_buffer_data(
+		type,
+		size,
+		data,
+		flags);
 }
 
-void sge::ogl::hardware_vbo::buffer_sub_data(const GLenum type,
-                                             const GLsizei first,
-                                             const GLsizei size,
-                                             const void *const data)
+void sge::ogl::hardware_vbo::buffer_sub_data(
+	GLenum const type,
+	GLsizei const first,
+	GLsizei const size,
+	void const *const data)
 {
 	SGE_OPENGL_SENTRY
 
-	gl_buffer_sub_data(type, first, size, data);
+	gl_buffer_sub_data(
+		type,
+		first,
+		size,
+		data);
 }
 
-void* sge::ogl::hardware_vbo::buffer_offset(const GLenum, const GLsizei offset)
+void *sge::ogl::hardware_vbo::buffer_offset(
+	GLenum,
+	GLsizei const offset)
 {
 	return reinterpret_cast<void*>(offset);
 }

@@ -40,13 +40,13 @@ sge::ogl::readonly_texture_lock::readonly_texture_lock(
 	offset(offset * stride),
 	pitch(pitch * stride),
 	block_size(block_size * stride)
-{
-	buffer.lock(
-		lock_method::readonly);
-}
+{}
 
 void sge::ogl::readonly_texture_lock::post_lock()
 {
+	buffer.lock(
+		lock_method::readonly);
+
 	if(!pitch)
 		return;
 	

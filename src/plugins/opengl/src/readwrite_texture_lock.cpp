@@ -45,10 +45,11 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 
 void sge::ogl::readwrite_texture_lock::post_lock()
 {
+	read_lock.post_lock();
 	write_lock.post_lock();
 
 	read_lock.copy_read_part(
-		write_pointer());
+		real_write_pointer());
 	
 	read_lock.pre_unlock();
 }

@@ -168,9 +168,9 @@ void sge::ogl::set_texture_rect(
 }
 
 void sge::ogl::get_tex_image(
-	const GLenum format,
-	const GLenum type,
-	const texture_pointer dest)
+	GLenum const format,
+	GLenum const type,
+	texture_pointer const dest)
 {
 	SGE_OPENGL_SENTRY
 	

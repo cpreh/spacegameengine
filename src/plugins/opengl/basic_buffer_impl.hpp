@@ -272,9 +272,6 @@ void sge::ogl::basic_buffer<Type, Impl>::check_lock() const
 			SGE_TEXT("ogl_buffer used but the buffer has not been locked!"));
 }
 
-#include <sge/iostream.hpp>
-#include <ostream>
-
 template<
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
@@ -284,7 +281,6 @@ void sge::ogl::basic_buffer<Type, Impl>::allocate_buffer(
 	GLuint const glflags = convert_resource_flags(flags());
 	size_type const nsz = size() * stride_;
 	bind_me();
-	sge::cerr << nsz << '\n';
 	Impl().buffer_data(
 		Type(),
 		static_cast<GLsizei>(nsz),

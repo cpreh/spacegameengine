@@ -141,18 +141,16 @@ try
 			sge::renderer::resource_flags::readable));
 
 	{
-		sge::renderer::const_scoped_texture_lock const lock_(
+		sge::renderer::scoped_texture_lock const lock_(
 			sge::renderer::make_scoped_lock(
-				testtex
-			//	sge::renderer::lock_rect(
-			//		100,
-			//		100,
-			//		200,
-			//		200),
-				));
-				//sge::renderer::lock_flags::readwrite));
+				testtex,
+				sge::renderer::lock_rect(
+					100,
+					100,
+					200,
+					200),
+				sge::renderer::lock_flags::readwrite));
 
-		/*
 		boost::gil::fill_pixels(
 			sge::renderer::subimage_view(
 				lock_.value(),
@@ -162,7 +160,7 @@ try
 
 		image_loader->create(
 			sge::renderer::make_const_view(lock_.value()))->save(
-				SGE_TEXT("sge_test.png"));*/
+				SGE_TEXT("sge_test.png"));
 	}
 
 	rend->set_state(
