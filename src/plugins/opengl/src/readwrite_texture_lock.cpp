@@ -45,7 +45,10 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 
 void sge::ogl::readwrite_texture_lock::post_lock()
 {
-	read_lock.post_lock();
+	// skip copying the read pointer to its internal
+	// buffer because we can copy it directly
+	// to the write buffer
+	read_lock.do_lock();
 	write_lock.post_lock();
 
 	read_lock.copy_read_part(

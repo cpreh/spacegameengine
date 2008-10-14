@@ -44,8 +44,7 @@ sge::ogl::readonly_texture_lock::readonly_texture_lock(
 
 void sge::ogl::readonly_texture_lock::post_lock()
 {
-	buffer.lock(
-		lock_method::readonly);
+	do_lock();
 
 	if(!pitch)
 		return;
@@ -59,6 +58,12 @@ void sge::ogl::readonly_texture_lock::post_lock()
 		lock_size);
 
 	copy_read_part(cutout_buffer.data());
+}
+
+void sge::ogl::readonly_texture_lock::do_lock()
+{
+	buffer.lock(
+		lock_method::readonly);
 }
 
 void sge::ogl::readonly_texture_lock::copy_read_part(
