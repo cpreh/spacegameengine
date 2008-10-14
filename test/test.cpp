@@ -62,7 +62,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector.hpp>
 #include <sge/math/vector_impl.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <sge/sprite/intrusive_system.hpp>
 #include <sge/renderer/color.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
@@ -107,20 +106,16 @@ try
 
 	const sge::input::system_ptr is(input_plugin->get()(rend->get_window()));
 
-	const sge::plugin::plugin<sge::font::system>::ptr_type font_plugin = pm.get_plugin<sge::font::system>().load();
-	const sge::font::system_ptr fs(font_plugin->get()());
+	//const sge::plugin::plugin<sge::font::system>::ptr_type font_plugin = pm.get_plugin<sge::font::system>().load();
+	//const sge::font::system_ptr fs(font_plugin->get()());
 
-	const sge::font::metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);
-	const sge::font::drawer_ptr fn_drawer(new sge::font::drawer_3d(rend));
+	//const sge::font::metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);
+	//const sge::font::drawer_ptr fn_drawer(new sge::font::drawer_3d(rend));
 
-	sge::font::font fn(metrics, fn_drawer);
+	//sge::font::font fn(metrics, fn_drawer);
 
 	const sge::plugin::plugin<sge::image::loader>::ptr_type image_plugin = pm.get_plugin<sge::image::loader>().load();
 	const sge::image::loader_ptr image_loader(image_plugin->get()());
-
-	sge::sprite::intrusive_system sys(rend);
-	sge::sprite::intrusive_object spr(sys, 1);
-	sge::sprite::intrusive_object spr2(spr);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
@@ -146,16 +141,18 @@ try
 			sge::renderer::resource_flags::readable));
 
 	{
-		sge::renderer::scoped_texture_lock const lock_(
+		sge::renderer::const_scoped_texture_lock const lock_(
 			sge::renderer::make_scoped_lock(
-				testtex,
-				sge::renderer::lock_rect(
-					100,
-					100,
-					200,
-					200),
-				sge::renderer::lock_flags::readwrite));
+				testtex
+			//	sge::renderer::lock_rect(
+			//		100,
+			//		100,
+			//		200,
+			//		200),
+				));
+				//sge::renderer::lock_flags::readwrite));
 
+		/*
 		boost::gil::fill_pixels(
 			sge::renderer::subimage_view(
 				lock_.value(),
@@ -165,7 +162,7 @@ try
 
 		image_loader->create(
 			sge::renderer::make_const_view(lock_.value()))->save(
-				SGE_TEXT("sge_test.png"));
+				SGE_TEXT("sge_test.png"));*/
 	}
 
 	rend->set_state(
@@ -191,7 +188,7 @@ try
 		rend->get_window()->dispatch();
 		is->dispatch();
 
-		fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
+		//fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
 	}
 	return EXIT_SUCCESS;
 }

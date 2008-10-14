@@ -42,13 +42,13 @@ void sge::ogl::initialize_pbo()
 GLenum sge::ogl::pixel_pack_buffer_type()
 {
 	static GLenum const type(
-		/*glew_is_supported(
+		glew_is_supported(
 			"GL_VERSION_2_1")
 			? GL_PIXEL_PACK_BUFFER
 			: glew_is_supported(
 				"GL_ARB_pixel_buffer_object")
 				? GL_PIXEL_PACK_BUFFER_ARB
-				:*/ software_vbo::unique_id());
+				: software_vbo::unique_id());
 
 	return type;
 }
@@ -56,13 +56,13 @@ GLenum sge::ogl::pixel_pack_buffer_type()
 GLenum sge::ogl::pixel_unpack_buffer_type()
 {
 	static GLenum const type(
-		/*glew_is_supported(
+		glew_is_supported(
 			"GL_VERSION_2_1")
 			? GL_PIXEL_UNPACK_BUFFER
 			: glew_is_supported(
 				"GL_ARB_pixel_buffer_object")
 				? GL_PIXEL_UNPACK_BUFFER_ARB
-				: */software_vbo::unique_id());
+				: software_vbo::unique_id());
 
 	return type;
 }
@@ -74,7 +74,6 @@ sge::ogl::vbo_base& sge::ogl::pbo_impl()
 
 bool sge::ogl::pbo_in_hardware()
 {
-	//return glew_is_supported("GL_VERSION_2_1")
-	//	|| glew_is_supported("GL_ARB_pixel_buffer_object");
-	return false;
+	return glew_is_supported("GL_VERSION_2_1")
+		|| glew_is_supported("GL_ARB_pixel_buffer_object");
 }
