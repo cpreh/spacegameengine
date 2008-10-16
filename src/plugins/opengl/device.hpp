@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glx/context.hpp"
 #include <sge/x11/xf86_vidmode_array.hpp>
 #include <sge/x11/xf86_resolution.hpp>
-#include <sge/x11/window.hpp>
+#include <sge/x11/window_fwd.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -47,8 +47,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_types.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/window.hpp>
-#include <sge/scoped_connection.hpp>
+#include <sge/window_fwd.hpp>
+#include <sge/scoped_connection_manager.hpp>
 #include "common.hpp"
 #include <boost/scoped_ptr.hpp>
 #include <boost/signals/trackable.hpp>

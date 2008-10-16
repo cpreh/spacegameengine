@@ -18,18 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_TRANSLATION_HPP_INCLUDED
-#define SGE_X11INPUT_TRNASLATION_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DGA_HPP_INCLUDED
+#define SGE_X11INPUT_DGA_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/input/key_type.hpp>
+#include <sge/x11/display_fwd.hpp>
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace x11input
 {
 
-input::key_code translate_key_code(KeySym);
+class dga : boost::noncopyable {
+public:
+	dga(
+		x11::display_ptr,
+		int screen);
+	~dga();
+	void enable(
+		bool);
+private:
+	x11::display_ptr const dsp;
+	int const screen;
+	bool enabled;
+};
 
 }
 }

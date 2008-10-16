@@ -91,8 +91,6 @@ private:
 	signal_map signals;
 };
 
-typedef shared_ptr<window> window_ptr;
-
 }
 }
 

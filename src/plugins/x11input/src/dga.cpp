@@ -18,20 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_TRANSLATION_HPP_INCLUDED
-#define SGE_X11INPUT_TRNASLATION_HPP_INCLUDED
+#ifdef SGE_USE_DGA
+#include "../dga.hpp"
+#include <sge/x11/display.hpp>
+#include <X11/extensions/xf86dga.h>
 
-#include <X11/Xlib.h>
-#include <sge/input/key_type.hpp>
-
-namespace sge
+sge::x11input::dga::dga(
+	x11::display_ptr const dsp,
+	int const screen)
+:
+	dsp(dsp),
+	screen(screen),
+	enabled(false)
 {
-namespace x11input
+	enable(true);
+}
+
+sge::x11input::dga::~dga()
 {
-
-input::key_code translate_key_code(KeySym);
-
-}
+	enable(false);
 }
 
+void sge::x11input::dga::enable(
+	bool const b)
+{
+	if(enabled == b)
+		return;
+
+	XF86DGADirectVideo(
+		dsp->get(),
+		screen,
+		b
+		? XF86DGADirectMouse
+		: 0);
+
+	enabled = b;
+}
 #endif

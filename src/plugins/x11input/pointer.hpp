@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XINPUT_POINTER_HPP_INCLUDED
-#define SGE_XINPUT_POINTER_HPP_INCLUDED
+#ifndef SGE_X11INPUT_POINTER_HPP_INCLUDED
+#define SGE_X11INPUT_POINTER_HPP_INCLUDED
 
 #include <sge/math/vector.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/x11/window.hpp>
+#include <sge/x11/display_fwd.hpp>
+#include <sge/x11/window_fwd.hpp>
 
 namespace sge
 {
-namespace xinput
+namespace x11input
 {
 
 typedef int mouse_coordinate_t;

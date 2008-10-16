@@ -19,10 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <X11/Xlib.h>
+#include <sge/x11/display.hpp>
+#include <sge/x11/window.hpp>
 #include "../pointer.hpp"
 
-sge::xinput::mouse_pos const
-sge::xinput::get_mouse_pos(
+sge::x11input::mouse_pos const
+sge::x11input::get_mouse_pos(
 	x11::display_ptr const dsp,
         x11::window_ptr const wnd)
 {

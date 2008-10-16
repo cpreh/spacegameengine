@@ -145,11 +145,11 @@ sge::ogl::device::device(
 
 	current.reset(new glx::current(dsp, *wnd, context));
 
- 	con_manager.scoped_connect(
+ 	con_manager.connect(
 		wnd->register_callback(
 			MapNotify,
 			boost::bind(&device::reset_viewport_on_map, this, _1)));
-	con_manager.scoped_connect(
+	con_manager.connect(
 		wnd->register_callback(
 			ConfigureNotify,
 			boost::bind(&device::reset_viewport_on_configure, this, _1)));

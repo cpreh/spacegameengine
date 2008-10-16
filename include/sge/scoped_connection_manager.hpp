@@ -18,34 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_DGA_HPP_INCLUDED
-#define SGE_X11_DGA_HPP_INCLUDED
+#ifndef SGE_SCOPED_CONNECTION_MANAGER_HPP_INCLUDED
+#define SGE_SCOPED_CONNECTION_MANAGER_HPP_INCLUDED
 
-#include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "../export.hpp"
+#include "export.hpp"
+#include "callback_connection.hpp"
+#include "scoped_connection.hpp"
+#include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge
 {
-namespace x11
-{
 
-class dga_guard : boost::noncopyable {
+// TODO: we should use boost::signals::trackable instead
+class SGE_CLASS_SYMBOL scoped_connection_manager : boost::noncopyable {
 public:
-	SGE_SYMBOL dga_guard(
-		display_ptr,
-		int screen);
-	SGE_SYMBOL ~dga_guard();
-	SGE_SYMBOL void enable(
-		bool);
+	void connect(
+		callback_connection const &);
 private:
-	display_ptr dsp;
-	int screen;
-	bool enabled;
+	typedef boost::ptr_vector<
+		scoped_connection
+	> connection_vector;
+
+	connection_vector connections;
 };
 
-}
 }
 
 #endif

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include "../pointer.hpp"
 #include "../translation.hpp"
+#include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/log/headers.hpp>
@@ -38,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstring>
 #include <ostream>
 
-sge::xinput::system::system(
+sge::x11input::system::system(
 	x11::window_ptr const wnd)
  :
 	wnd(wnd),
@@ -57,8 +58,9 @@ sge::xinput::system::system(
 		wnd->display(),
 		no_bmp_.get(),
 		black_.get()),
+	mouse_grabbed(false),
 #ifdef SGE_USE_DGA
-	dga_guard_(
+	dga_(
 		wnd->display(),
 		wnd->screen()),
 	use_dga(true)
@@ -86,21 +88,21 @@ sge::xinput::system::system(
 	if(!use_dga)
 		mouse_last = get_mouse_pos(wnd->display(), wnd);
 
-	add_connection(wnd->register_callback(KeyPress, boost::bind(&system::on_key_event, this, _1)));
-	add_connection(wnd->register_callback(KeyRelease, boost::bind(&system::on_key_event, this, _1)));
-	add_connection(wnd->register_callback(ButtonPress, boost::bind(&system::on_button_event, this, _1)));
-	add_connection(wnd->register_callback(ButtonRelease, boost::bind(&system::on_button_event, this, _1)));
-	add_connection(wnd->register_callback(MotionNotify, boost::bind(&system::on_motion_event, this, _1)));
-	add_connection(wnd->register_callback(EnterNotify, boost::bind(&system::on_acquire, this, _1)));
-	add_connection(wnd->register_callback(LeaveNotify, boost::bind(&system::on_release, this, _1)));
-	add_connection(wnd->register_callback(FocusIn, boost::bind(&system::on_acquire, this, _1)));
-	add_connection(wnd->register_callback(FocusOut, boost::bind(&system::on_release, this, _1)));
-	add_connection(wnd->register_callback(MapNotify, boost::bind(&system::on_acquire, this, _1)));
-	add_connection(wnd->register_callback(UnmapNotify, boost::bind(&system::on_release, this, _1)));
+	connections.connect(wnd->register_callback(KeyPress, boost::bind(&system::on_key_event, this, _1)));
+	connections.connect(wnd->register_callback(KeyRelease, boost::bind(&system::on_key_event, this, _1)));
+	connections.connect(wnd->register_callback(ButtonPress, boost::bind(&system::on_button_event, this, _1)));
+	connections.connect(wnd->register_callback(ButtonRelease, boost::bind(&system::on_button_event, this, _1)));
+	connections.connect(wnd->register_callback(MotionNotify, boost::bind(&system::on_motion_event, this, _1)));
+	connections.connect(wnd->register_callback(EnterNotify, boost::bind(&system::on_acquire, this, _1)));
+	connections.connect(wnd->register_callback(LeaveNotify, boost::bind(&system::on_release, this, _1)));
+	connections.connect(wnd->register_callback(FocusIn, boost::bind(&system::on_acquire, this, _1)));
+	connections.connect(wnd->register_callback(FocusOut, boost::bind(&system::on_release, this, _1)));
+	connections.connect(wnd->register_callback(MapNotify, boost::bind(&system::on_acquire, this, _1)));
+	connections.connect(wnd->register_callback(UnmapNotify, boost::bind(&system::on_release, this, _1)));
 
 }
 
-sge::xinput::system::~system()
+sge::x11input::system::~system()
 {
 	if(wnd->fullscreen())
 		XUngrabKeyboard(wnd->display()->get(), CurrentTime);
@@ -108,43 +110,38 @@ sge::xinput::system::~system()
 }
 
 sge::callback_connection const
-sge::xinput::system::register_callback(
+sge::x11input::system::register_callback(
 	input::callback const &c)
 {
 	return sig.connect(c);
 }
 
 sge::callback_connection const
-sge::xinput::system::register_repeat_callback(
+sge::x11input::system::register_repeat_callback(
 	input::repeat_callback const &c)
 {
 	return repeat_sig.connect(c);
 }
 
-void sge::xinput::system::dispatch()
+void sge::x11input::system::dispatch()
 {
 }
 
 sge::window_ptr const
-sge::xinput::system::get_window() const
+sge::x11input::system::get_window() const
 {
 	return wnd;
 }
 
-void sge::xinput::system::add_connection(const boost::signals::connection con)
-{
-	connections.push_back(new boost::signals::scoped_connection(con));
-}
-
-void sge::xinput::system::grab()
+void sge::x11input::system::grab()
 {
 	grab_pointer();
 	if(wnd->fullscreen())
 		grab_keyboard();
-	XSync(wnd->display()->get(), False);
+	wnd->display()->sync();
 }
 
-void sge::xinput::system::grab_pointer()
+void sge::x11input::system::grab_pointer()
 {
 	for(;;)
 		if(handle_grab(
@@ -160,10 +157,13 @@ void sge::xinput::system::grab_pointer()
 				wnd->get_window(),
 				no_cursor_.get(),
 				CurrentTime)))
+		{
+			mouse_grabbed = true;
 			return;
+		}
 }
 
-void sge::xinput::system::grab_keyboard()
+void sge::x11input::system::grab_keyboard()
 {
 	for(;;)
 		if(handle_grab(
@@ -177,7 +177,7 @@ void sge::xinput::system::grab_keyboard()
 			return;
 }
 
-bool sge::xinput::system::handle_grab(const int r) const
+bool sge::x11input::system::handle_grab(const int r) const
 {
 	switch(r) {
 	case GrabSuccess:
@@ -198,7 +198,7 @@ bool sge::xinput::system::handle_grab(const int r) const
 	return false;
 }
 
-void sge::xinput::system::on_motion_event(const XEvent& xev)
+void sge::x11input::system::on_motion_event(const XEvent& xev)
 {
 	if(use_dga)
 		dga_motion(xev);
@@ -206,7 +206,7 @@ void sge::xinput::system::on_motion_event(const XEvent& xev)
 		warped_motion(xev);
 }
 
-void sge::xinput::system::on_key_event(const XEvent& xev)
+void sge::x11input::system::on_key_event(const XEvent& xev)
 {
 	// check for repeated key (thanks to SDL)
 	if(xev.type == KeyRelease && XPending(wnd->display()->get()))
@@ -226,7 +226,7 @@ void sge::xinput::system::on_key_event(const XEvent& xev)
 	sig(input::key_pair(create_key_type(xev), xev.type == KeyRelease ? 0 : 1));
 }
 
-sge::input::key_type sge::xinput::system::create_key_type(const XEvent& xev)
+sge::input::key_type sge::x11input::system::create_key_type(const XEvent& xev)
 {
 	XComposeStatus state;
 	KeySym ks;
@@ -256,24 +256,25 @@ sge::input::key_type sge::xinput::system::create_key_type(const XEvent& xev)
 	return input::key_type(get_key_name(ks), get_key_code(ks), code);
 }
 
-void sge::xinput::system::on_button_event(const XEvent& xev)
+void sge::x11input::system::on_button_event(const XEvent& xev)
 {
 	sig(input::key_pair(mouse_key(xev.xbutton.button), xev.type == ButtonRelease ? 0 : 1));
 }
 
-void sge::xinput::system::on_release(const XEvent&)
+void sge::x11input::system::on_release(const XEvent&)
 {
 	enable_dga(false);
+	mouse_grabbed = false;
 	XUngrabPointer(wnd->display()->get(), CurrentTime);
 }
 
-void sge::xinput::system::on_acquire(const XEvent&)
+void sge::x11input::system::on_acquire(const XEvent&)
 {
 	grab();
 	enable_dga(true);
 }
 
-void sge::xinput::system::enable_dga(const bool
+void sge::x11input::system::enable_dga(const bool
 #ifdef SGE_USE_DGA
 		enable
 #endif
@@ -282,11 +283,11 @@ void sge::xinput::system::enable_dga(const bool
 #ifdef SGE_USE_DGA
 	if(!use_dga)
 		return;
-	_dga_guard.enable(enable);
+	dga_.enable(enable);
 #endif
 }
 
-sge::input::key_type sge::xinput::system::mouse_key(const unsigned x11code) const
+sge::input::key_type sge::x11input::system::mouse_key(const unsigned x11code) const
 {
 	switch(x11code) {
 	case 1:
@@ -300,18 +301,18 @@ sge::input::key_type sge::xinput::system::mouse_key(const unsigned x11code) cons
 	}
 }
 
-sge::input::key_type::string sge::xinput::system::get_key_name(const KeySym ks) const
+sge::input::key_type::string sge::x11input::system::get_key_name(const KeySym ks) const
 {
 	const char* const name = XKeysymToString(ks);
 	return name ? input::key_type::string(name,name+std::strlen(name)) : SGE_TEXT("unknown");
 }
 
-sge::input::key_code sge::xinput::system::get_key_code(const KeySym ks) const
+sge::input::key_code sge::x11input::system::get_key_code(const KeySym ks) const
 {
 	return translate_key_code(ks);
 }
 
-void sge::xinput::system::private_mouse_motion(const mouse_coordinate_t deltax, const mouse_coordinate_t deltay)
+void sge::x11input::system::private_mouse_motion(const mouse_coordinate_t deltax, const mouse_coordinate_t deltay)
 {
 	if(deltax)
 		sig(input::key_pair(mouse_x, deltax));
@@ -319,7 +320,7 @@ void sge::xinput::system::private_mouse_motion(const mouse_coordinate_t deltax, 
 		sig(input::key_pair(mouse_y, deltay));
 }
 
-void sge::xinput::system::dga_motion(XEvent xevent)
+void sge::x11input::system::dga_motion(XEvent xevent)
 {
 	mouse_coordinate_t dx = xevent.xmotion.x_root,
 	                   dy = xevent.xmotion.y_root;
@@ -334,8 +335,12 @@ void sge::xinput::system::dga_motion(XEvent xevent)
 }
 
 // thanks to SDL
-void sge::xinput::system::warped_motion(XEvent xevent)
+void sge::x11input::system::warped_motion(
+	XEvent xevent)
 {
+	if(!mouse_grabbed)
+		return;
+	
 	const mouse_coordinate_t MOUSE_FUDGE_FACTOR = 8;
 
 	const mouse_coordinate_t w = wnd->width(),
@@ -386,10 +391,10 @@ void sge::xinput::system::warped_motion(XEvent xevent)
 	}
 }
 
-const sge::input::key_type sge::xinput::system::mouse_x(SGE_TEXT("mouse_x"), input::kc::mouse_x_axis);
-const sge::input::key_type sge::xinput::system::mouse_y(SGE_TEXT("mouse_y"), input::kc::mouse_y_axis);
-const sge::input::key_type sge::xinput::system::undefined_mouse_key(SGE_TEXT("undefined mouse key"));
-const sge::input::key_type sge::xinput::system::mouse_l(SGE_TEXT("mouse_L"), input::kc::mouse_l);
-const sge::input::key_type sge::xinput::system::mouse_r(SGE_TEXT("mouse_R"), input::kc::mouse_r);
-const sge::input::key_type sge::xinput::system::mouse_m(SGE_TEXT("mouse_M"), input::kc::mouse_m);
+const sge::input::key_type sge::x11input::system::mouse_x(SGE_TEXT("mouse_x"), input::kc::mouse_x_axis);
+const sge::input::key_type sge::x11input::system::mouse_y(SGE_TEXT("mouse_y"), input::kc::mouse_y_axis);
+const sge::input::key_type sge::x11input::system::undefined_mouse_key(SGE_TEXT("undefined mouse key"));
+const sge::input::key_type sge::x11input::system::mouse_l(SGE_TEXT("mouse_L"), input::kc::mouse_l);
+const sge::input::key_type sge::x11input::system::mouse_r(SGE_TEXT("mouse_R"), input::kc::mouse_r);
+const sge::input::key_type sge::x11input::system::mouse_m(SGE_TEXT("mouse_M"), input::kc::mouse_m);
 

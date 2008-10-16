@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_XINPUT_SYSTEM_HPP
-#define SGE_XINPUT_SYSTEM_HPP
+#ifndef SGE_X11INPUT_SYSTEM_HPP_INCLUDED
+#define SGE_X11INPUT_SYSTEM_HPP_INCLUDED
 
 #include <X11/Xlib.h>
 #include "pointer.hpp"
-#include <sge/config.h>
 #ifdef SGE_USE_DGA
-#include <sge/x11/dga.hpp>
+#include "dga.hpp"
 #endif
 #include <sge/x11/color.hpp>
 #include <sge/x11/pixmap.hpp>
@@ -36,13 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_code.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/math/vector.hpp>
-#include <sge/scoped_connection.hpp>
+#include <sge/scoped_connection_manager.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/signals.hpp>
 
 namespace sge
 {
-namespace xinput
+namespace x11input
 {
 
 class system : public input::system {
@@ -62,8 +61,6 @@ public:
 	void dispatch();
 	window_ptr const get_window() const;
 private:
-	void add_connection(
-		boost::signals::connection);
 	void grab();
 	void grab_pointer();
 	void grab_keyboard();
@@ -90,12 +87,13 @@ private:
 	x11::color  black_;
 	x11::pixmap no_bmp_;
 	x11::cursor no_cursor_;
+	bool        mouse_grabbed; // TODO: replace this with a RAII class
 #ifdef SGE_USE_DGA
-	dga_guard dga_guard_;
+	dga dga_;
 #endif
 	bool use_dga;
 
-	boost::ptr_vector<scoped_connection> connections;
+	scoped_connection_manager connections;
 
 	mouse_pos          mouse_last;
 	
