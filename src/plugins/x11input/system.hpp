@@ -102,14 +102,6 @@ private:
 
 	signal_type        sig;
 	repeat_signal_type repeat_sig;
-	
-	static const input::key_type mouse_x,
-	                             mouse_y,
-	                             undefined_mouse_key,
-	                             mouse_l,
-	                             mouse_r,
-	                             mouse_m;
-
 };
 
 }
