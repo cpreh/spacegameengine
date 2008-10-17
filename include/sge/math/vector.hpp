@@ -189,19 +189,20 @@ public:
 #endif
 
 	/**
-	 * This initializes the vector with zero
-	 */
-	basic_vector()
-	{
-		for(size_type i = 0; i < Dim; ++i)
-			data_[i] = static_cast<T>(0);
-	}
-
-	/**
 	 * This does not initialize any of the coordinates (models the built types)
 	 */
 	basic_vector(no_initialization_tag)
 	{
+	}
+
+	static basic_vector const
+	null()
+	{
+		basic_vector ret = basic_vector(no_initialization_tag());
+		
+		for(size_type i = 0; i < Dim; ++i)
+			ret[i] = static_cast<value_type>(0);
+		return ret;
 	}
 
 	/**
