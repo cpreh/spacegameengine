@@ -69,7 +69,6 @@ sge::audio::sample_count sge::vorbis::file::read(
 		return static_cast<sample_count>(0);
 	}
 	*/
-	SGE_LOG_DEBUG(log::global(),log::_1 << SGE_TEXT("vorbis: reading stuff"));
 	
 	sample_count const bytes_to_read = samples*channels()*bytes_per_sample();
 	sample_container newdata(static_cast<sample_container::size_type>(bytes_to_read));

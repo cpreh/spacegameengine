@@ -41,7 +41,6 @@ void sge::openal::pool::update()
 			continue;
 		}
 
-		SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("deleting stopped sound from pool"));
 		s = sounds.erase(s);
 	}
 }

@@ -10,9 +10,6 @@ INSTALL (TARGETS sgetest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 ADD_EXECUTABLE (tutorial_01 tutorial/tutorial_01.cpp)
 TARGET_LINK_LIBRARIES (tutorial_01 sgecore)
 
-ADD_EXECUTABLE (pooltest pooltest.cpp)
-TARGET_LINK_LIBRARIES (pooltest sgecore)
-
 ADD_EXECUTABLE (tutorial_02 tutorial/tutorial_02.cpp)
 TARGET_LINK_LIBRARIES (tutorial_02 sgecore)
 
@@ -26,6 +23,7 @@ MACRO (ADD_SGE_TEST name)
 ENDMACRO ()
 
 ADD_SGE_TEST(anim)
+ADD_SGE_TEST(pool)
 ADD_SGE_TEST(gil)
 ADD_SGE_TEST(doppler)
 ADD_SGE_TEST(random)

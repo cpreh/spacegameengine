@@ -53,9 +53,6 @@ void sge::openal::context::make_current()
 
 sge::openal::context::~context()
 {
-	SGE_LOG_DEBUG(log(),
-		log::_1 << SGE_TEXT("destroying openal context"));
-
 	ALCcontext const * const current = alcGetCurrentContext();
 	SGE_ALC_ERROR_CHECK(device_.aldevice());
 	SGE_OPENAL_ERROR_CHECK;
@@ -69,11 +66,6 @@ sge::openal::context::~context()
 		//SGE_OPENAL_ERROR_CHECK;
 	}
 
-	SGE_LOG_DEBUG(log(),
-		log::_1 << SGE_TEXT("making destruction call"));
 	alcDestroyContext(context_); 
 	SGE_ALC_ERROR_CHECK(device_.aldevice());
-
-	SGE_LOG_DEBUG(log(),
-		log::_1 << SGE_TEXT("destroyed openal context"));
 }

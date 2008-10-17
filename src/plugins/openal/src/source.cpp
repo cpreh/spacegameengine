@@ -30,7 +30,6 @@ sge::openal::source::source()
 sge::openal::source::source(ALuint const buffer)
 	: status_(audio::sound_status::stopped)
 {
-	SGE_LOG_DEBUG(log(),log::_1 << "creating a source bound to a buffer");
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 	alSourcei(alsource(),AL_BUFFER,buffer); SGE_OPENAL_ERROR_CHECK;
 	init();
