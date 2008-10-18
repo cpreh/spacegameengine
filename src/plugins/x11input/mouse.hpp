@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device.hpp"
 #include "mouse_coordinate.hpp"
-#ifdef SGE_USE_DGA
 #include "dga.hpp"
-#endif
 #include <X11/Xlib.h>
 #include <sge/input/callback.hpp>
 #include <sge/signals/connection_manager.hpp>
@@ -49,8 +47,7 @@ public:
 	mouse(
 		x11::window_ptr,
 		x11::cursor const &,
-		input::callback const &,
-		bool use_dga);
+		input::callback const &);
 private:
 	void grab();
 	void ungrab();
@@ -71,12 +68,8 @@ private:
 	x11::window_ptr const wnd;
 	x11::cursor const    &cur;
 	input::callback const callback;
-	bool const            use_dga;
-	mouse_pos              mouse_last;
-
-#ifdef SGE_USE_DGA
-	dga dga_;
-#endif
+	mouse_pos             mouse_last;
+	dga                   dga_;
 
 	signals::connection_manager connections;
 

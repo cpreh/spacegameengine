@@ -42,14 +42,13 @@ mouse_key(
 sge::x11input::mouse::mouse(
 	x11::window_ptr const wnd,
 	x11::cursor const &cur,
-	input::callback const &callback,
-	bool const use_dga)
+	input::callback const &callback)
 :
 	wnd(wnd),
 	cur(cur),
 	callback(callback),
-	use_dga(use_dga),
-	mouse_last(no_initialization_tag())
+	mouse_last(no_initialization_tag()),
+	dga_(wnd)
 {
 	connections.connect(
 		wnd->register_callback(
@@ -72,7 +71,7 @@ sge::x11input::mouse::mouse(
 				&mouse::on_button_up,
 				this,
 				_1)));
-	if(!use_dga)
+	if(!dga_.useable())
 		mouse_last = get_pointer(wnd);
 }
 
@@ -92,7 +91,7 @@ void sge::x11input::mouse::ungrab()
 void sge::x11input::mouse::on_motion(
 	XEvent const &e)
 {
-	if(use_dga)
+	if(dga_.useable())
 		dga_motion(e);
 	else
 		warped_motion(e);

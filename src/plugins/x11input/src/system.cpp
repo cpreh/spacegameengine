@@ -18,11 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <boost/foreach.hpp> // some header breaks BOOST_FOREACH
 #include <X11/Xlib.h>
 #include <X11/X.h>
-#ifdef SGE_USE_DGA
-#include <X11/extensions/xf86dga.h>
-#endif
 #include "../system.hpp"
 #include "../mouse.hpp"
 #include "../translation.hpp"
@@ -57,31 +55,8 @@ sge::x11input::system::system(
 	no_cursor_(
 		wnd->display(),
 		no_bmp_.get(),
-		black_.get()),
-#ifdef SGE_USE_DGA
-	use_dga(true)
-#else
-	use_dga(false)
-#endif
+		black_.get())
 {
-#ifdef SGE_USE_DGA
-	int flags;
-	if(XF86DGAQueryDirectVideo(wnd->display()->get(),wnd->screen(),&flags)==false)
-		throw exception(
-			SGE_TEXT("XF86DGAQueryDirectVideo() failed!"));
-
-	if(flags & XF86DGADirectMouse)
-	{
-		SGE_LOG_WARNING(
-			log::global(),
-			log::_1
-				<< SGE_TEXT(
-					"You compiled spacegameengine with use_dga=1 but DGA Mouse is not supported by your system!"
-					"Maybe you are missing libXxf86dga or a proper video driver? Disabling dga."));
-		use_dga = false;
-	}
-#endif
-
 	connections.connect(wnd->register_callback(KeyPress, boost::bind(&system::on_key_event, this, _1)));
 	connections.connect(wnd->register_callback(KeyRelease, boost::bind(&system::on_key_event, this, _1)));
 	connections.connect(wnd->register_callback(EnterNotify, boost::bind(&system::on_acquire, this, _1)));
@@ -106,8 +81,7 @@ sge::x11input::system::system(
 			new mouse(
 				wnd,
 				no_cursor_,
-				callback,
-				use_dga));
+				callback));
 		devices.push_back(mouse_);
 	}
 }
@@ -116,7 +90,6 @@ sge::x11input::system::~system()
 {
 	if(wnd->fullscreen())
 		XUngrabKeyboard(wnd->display()->get(), CurrentTime);
-	XUngrabPointer(wnd->display()->get(), CurrentTime);
 }
 
 sge::signals::connection const
@@ -149,31 +122,10 @@ void sge::x11input::system::emit_callback(
 	sig(k);
 }
 
-void sge::x11input::system::grab()
+void sge::x11input::system::emit_repeat_callback(
+	input::key_type const &k)
 {
-	grab_pointer();
-	if(wnd->fullscreen())
-		grab_keyboard();
-	wnd->display()->sync();
-}
-
-void sge::x11input::system::grab_pointer()
-{
-	for(;;)
-		if(handle_grab(
-			XGrabPointer(
-				wnd->display()->get(),
-				wnd->get_window(),
-				True,
-				PointerMotionMask
-					| ButtonPressMask
-					| ButtonReleaseMask,
-				GrabModeAsync,
-				GrabModeAsync,
-				wnd->get_window(),
-				no_cursor_.get(),
-				CurrentTime)))
-			return;
+	repeat_sig(k);
 }
 
 void sge::x11input::system::grab_keyboard()
@@ -263,12 +215,20 @@ sge::input::key_type sge::x11input::system::create_key_type(const XEvent& xev)
 
 void sge::x11input::system::on_release(const XEvent&)
 {
-	XUngrabPointer(wnd->display()->get(), CurrentTime);
+	BOOST_FOREACH(device_vector::reference dev, devices)
+		dev.ungrab();
 }
 
-void sge::x11input::system::on_acquire(const XEvent&)
+void sge::x11input::system::on_acquire(
+	XEvent const &)
 {
-	grab();
+	if(wnd->fullscreen())
+		grab_keyboard();
+	
+	BOOST_FOREACH(device_vector::reference dev, devices)
+		dev.grab();
+
+	wnd->display()->sync();
 }
 
 sge::string const sge::x11input::system::get_key_name(const KeySym ks) const

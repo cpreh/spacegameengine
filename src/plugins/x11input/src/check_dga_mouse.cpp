@@ -18,31 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DGA_HPP_INCLUDED
-#define SGE_X11INPUT_DGA_HPP_INCLUDED
-
-#include <sge/x11/window_fwd.hpp>
-#include <boost/noncopyable.hpp>
-
-namespace sge
-{
-namespace x11input
-{
-
-class dga : boost::noncopyable {
-public:
-	explicit dga(
-		x11::window_ptr);
-	~dga();
-	void enable(
-		bool);
-	bool useable() const;
-private:
-	x11::window_ptr const wnd;
-	bool enabled;
-};
-
-}
-}
-
+#include "../check_dga_mouse.hpp"
+#include <sge/x11/window.hpp>
+#ifdef SGE_USE_DGA
+#include <X11/extensions/xf86dga.h>
+#include <sge/x11/display.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #endif
+
+bool sge::x11input::check_dga_mouse(
+	x11::window_ptr
+#ifdef SGE_USE_DGA
+	const wnd
+#endif
+)
+	
+{
+#ifdef SGE_USE_DGA
+	int flags;
+	if(XF86DGAQueryDirectVideo(
+		wnd->display()->get(),
+		wnd->screen(),
+		&flags)
+	== false)
+		throw exception(
+			SGE_TEXT("XF86DGAQueryDirectVideo() failed!"));
+	return !(flags & XF86DGADirectMouse);
+#else
+	return false;
+#endif
+}

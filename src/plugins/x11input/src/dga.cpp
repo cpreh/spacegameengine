@@ -18,19 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifdef SGE_USE_DGA
 #include "../dga.hpp"
-#include <sge/x11/display.hpp>
+#include <sge/x11/window.hpp>
+#include <sge/once.hpp>
+#ifdef SGE_USE_DGA
 #include <X11/extensions/xf86dga.h>
+#include <sge/log/headers.hpp>
+#endif
+
+namespace
+{
+
+void init_dga(
+	sge::x11::window_ptr);
+
+bool have_dga = false;
+
+}
 
 sge::x11input::dga::dga(
-	x11::display_ptr const dsp,
-	int const screen)
+	x11::window_ptr const wnd)
 :
-	dsp(dsp),
-	screen(screen),
+	wnd(wnd),
 	enabled(false)
 {
+	init_dga(wnd);
 	enable(true);
 }
 
@@ -40,18 +52,61 @@ sge::x11input::dga::~dga()
 }
 
 void sge::x11input::dga::enable(
-	bool const b)
+	bool
+#ifdef SGE_USE_DGA
+	const b
+#endif
+	)
 {
+#ifdef SGE_USE_DGA
 	if(enabled == b)
 		return;
 
+	if(!have_dga)
+		return;
+	
 	XF86DGADirectVideo(
 		dsp->get(),
 		screen,
 		b
 		? XF86DGADirectMouse
 		: 0);
-
 	enabled = b;
-}
 #endif
+}
+
+bool sge::x11input::dga::useable() const
+{
+	return have_dga;
+}
+
+namespace
+{
+
+void init_dga(
+	sge::x11::window_ptr
+#ifdef SGE_USE_DGA
+	const wnd
+#endif
+	)
+{
+#ifdef SGE_USE_DGA
+	SGE_FUNCTION_ONCE
+
+	have_dga = sge::x11input::check_dga_mouse(
+		wnd);
+	
+	if(have_dga)
+		return;
+
+	SGE_LOG_WARNING(
+		sge::log::global(),
+		sge::log::_1
+			<< SGE_TEXT(
+				"You compiled spacegameengine with DGA support but DGA Mouse is not supported by your system!"
+				"Maybe you are missing libXxf86dga or a proper video driver? Disabling dga."));
+
+#endif
+}
+
+}

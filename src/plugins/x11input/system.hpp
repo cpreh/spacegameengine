@@ -68,8 +68,9 @@ private:
 
 	void emit_callback(
 		input::key_pair const &);
-	void grab();
-	void grab_pointer();
+	void emit_repeat_callback(
+		input::key_type const &);
+	
 	void grab_keyboard();
 	bool handle_grab(int return_value) const;
 	void enable_dga(bool);
@@ -87,7 +88,6 @@ private:
 	x11::color      const black_;
 	x11::pixmap     const no_bmp_;
 	x11::cursor     const no_cursor_;
-	bool use_dga;
 	
 	typedef boost::ptr_vector<
 		device
