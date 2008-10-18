@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
 #include <sge/x11/colormap.hpp>
+#include <sge/x11/sentry.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
@@ -55,6 +56,8 @@ sge::x11::window::window(
 	fullscreen_(fullscreen_),
 	event_mask(0)
 {
+	SGE_X11_SENTRY
+
 	XSetWindowAttributes swa;
 	swa.colormap = colormap_->get();
 	swa.border_pixel = 0;
@@ -82,6 +85,8 @@ sge::x11::window::window(
 
 sge::x11::window::~window()
 {
+	SGE_X11_SENTRY
+
 	instances.erase(this);
 	XDestroyWindow(dsp_(), wnd);
 }
@@ -89,18 +94,24 @@ sge::x11::window::~window()
 void sge::x11::window::size(
 	window_size const &newsize)
 {
+	SGE_X11_SENTRY
+
 	XResizeWindow(dsp_(), wnd, newsize.w(), newsize.h());
 }
 
 void sge::x11::window::title(
 	string const &t)
 {
+	SGE_X11_SENTRY
+
 	XStoreName(dsp_(), wnd, iconv(t).c_str());
 }
 
 sge::x11::window::window_size const
 sge::x11::window::size() const
 {
+	SGE_X11_SENTRY
+
 	Window root_return;
 	int x_return,
 	    y_return;
@@ -151,11 +162,15 @@ sge::x11::window::visual() const
 
 void sge::x11::window::map()
 {
+	SGE_X11_SENTRY
+
 	XMapWindow(dsp->get(), get_window());
 }
 
 void sge::x11::window::map_raised()
 {
+	SGE_X11_SENTRY
+
 	XMapRaised(dsp->get(), get_window());
 }
 
@@ -210,6 +225,8 @@ void sge::x11::window::add_event_mask(const x11_event_type event)
 
 void sge::window::dispatch()
 {
+	SGE_X11_SENTRY
+
 	XEvent xev;
 	BOOST_FOREACH(instance_map::value_type ptr, instances)
 	{
