@@ -18,46 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
-#define SGE_FONT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_SIGNALS_CONNECTION_HPP_INCLUDED
+#define SGE_SIGNALS_CONNECTION_HPP_INCLUDED
 
-#include "../path.hpp"
-#include "../plugin/traits.hpp"
-#include "../plugin/capabilities.hpp"
-#include "../export.hpp"
-#include "types.hpp"
-#include "metrics_fwd.hpp"
-#include <boost/noncopyable.hpp>
+#include <boost/signals/connection.hpp>
 
 namespace sge
 {
-namespace font
+namespace signals
 {
 
-class SGE_CLASS_SYMBOL system : boost::noncopyable {
-public:
-	SGE_SYMBOL virtual ~system();
-	virtual metrics_ptr const create_font(
-		path const &font_path,
-		size_type font_height) = 0;
-};
+typedef boost::signals::connection connection;
 
 }
-
-namespace plugin
-{
-namespace detail
-{
-
-template<> struct traits<font::system> {
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type get_plugin_type();
-	typedef font::system* (*loader_fun)();
-};
-
-}
-}
-
 }
 
 #endif

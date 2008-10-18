@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CON_CONSOLE_GFX_HPP_INCLUDED
 #define SGE_CON_CONSOLE_GFX_HPP_INCLUDED
 
-#include "../font/font.hpp"
-#include "../renderer/device.hpp"
-#include "../input/system.hpp"
-#include "../scoped_connection.hpp"
+#include "../font/font_fwd.hpp"
+#include "../renderer/device_fwd.hpp"
+#include "../input/system_fwd.hpp"
+#include "../signals/scoped_connection.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
 #include "../time/timer.hpp"
-#include "../texture/part.hpp"
+#include "../texture/part_fwd.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
 #include "action_var.hpp"
@@ -39,6 +39,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace input
+{
+class key_type;
+class key_pair;
+}
+
 namespace con
 {
 
@@ -51,17 +57,19 @@ public:
 		input::system_ptr,
 		sprite::point const &,
 		sprite::dim const &);
-	SGE_SYMBOL void key_callback(const input::key_pair &);
-	SGE_SYMBOL void key_action(const input::key_type &);
+	SGE_SYMBOL void key_callback(
+		input::key_pair const &);
+	SGE_SYMBOL void key_action(
+		input::key_type const &);
 	SGE_SYMBOL void draw();
 	SGE_SYMBOL space_unit change_cursor_rate(
-		const space_unit &n,
-		const space_unit &);
+		space_unit n,
+		space_unit);
 	SGE_SYMBOL void toggle(); 
 	SGE_SYMBOL bool active() const;
-	SGE_SYMBOL void print(const string &);
-	SGE_SYMBOL void clear(const arg_list &);
-	SGE_SYMBOL void dump(const arg_list &);
+	SGE_SYMBOL void print(string const &);
+	SGE_SYMBOL void clear(arg_list const &);
+	SGE_SYMBOL void dump(arg_list const &);
 
 private:
 	void tabcomplete(string &);
@@ -70,7 +78,7 @@ private:
 
 	const renderer::device_ptr rend;
 	const font::font_ptr fn;
-	scoped_connection ic,irc;
+	signals::scoped_connection ic,irc;
 	sprite::system ss;
 	sprite::object bg;
 	bool active_;

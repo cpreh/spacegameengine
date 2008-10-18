@@ -18,16 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CALLBACK_CONNECTION_HPP_INCLUDED
-#define SGE_CALLBACK_CONNECTION_HPP_INCLUDED
+#ifndef SGE_SIGNALS_SIGNAL_HPP_INCLUDED
+#define SGE_SIGNALS_SIGNAL_HPP_INCLUDED
 
-#include <boost/signals/connection.hpp>
+#include <boost/signal.hpp>
 
 namespace sge
 {
+namespace signals
+{
 
-typedef boost::signals::connection callback_connection;
+using boost::signal;
 
+}
 }
 
 #endif

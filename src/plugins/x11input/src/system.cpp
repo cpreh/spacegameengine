@@ -92,9 +92,6 @@ sge::x11input::system::system(
 
 	connections.connect(wnd->register_callback(KeyPress, boost::bind(&system::on_key_event, this, _1)));
 	connections.connect(wnd->register_callback(KeyRelease, boost::bind(&system::on_key_event, this, _1)));
-	connections.connect(wnd->register_callback(ButtonPress, boost::bind(&system::on_button_event, this, _1)));
-	connections.connect(wnd->register_callback(ButtonRelease, boost::bind(&system::on_button_event, this, _1)));
-	connections.connect(wnd->register_callback(MotionNotify, boost::bind(&system::on_motion_event, this, _1)));
 	connections.connect(wnd->register_callback(EnterNotify, boost::bind(&system::on_acquire, this, _1)));
 	connections.connect(wnd->register_callback(LeaveNotify, boost::bind(&system::on_release, this, _1)));
 	connections.connect(wnd->register_callback(FocusIn, boost::bind(&system::on_acquire, this, _1)));
@@ -111,14 +108,14 @@ sge::x11input::system::~system()
 	XUngrabPointer(wnd->display()->get(), CurrentTime);
 }
 
-sge::callback_connection const
+sge::signals::connection const
 sge::x11input::system::register_callback(
 	input::callback const &c)
 {
 	return sig.connect(c);
 }
 
-sge::callback_connection const
+sge::signals::connection const
 sge::x11input::system::register_repeat_callback(
 	input::repeat_callback const &c)
 {

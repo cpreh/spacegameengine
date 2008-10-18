@@ -1,8 +1,9 @@
 #include <sge/console/console_gfx.hpp>
 #include <sge/console/console.hpp>
-#include <sge/console/console.hpp>
 #include <sge/console/action_var_base_impl.hpp>
+#include <sge/font/font.hpp>
 #include <sge/input/key_pair.hpp>
+#include <sge/input/system.hpp>
 #include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/time/second.hpp>
@@ -62,7 +63,12 @@ void sge::con::console_gfx::dump(const arg_list &args)
 {
 	if (args.size() == 1)
 	{
-		std::copy(history.begin(),history.end(),std::ostream_iterator<string,string::value_type>(cout,SGE_TEXT("\n")));
+		std::copy(
+			history.begin(),
+			history.end(),
+			std::ostream_iterator<string, string::value_type>(
+				cout,
+				SGE_TEXT("\n")));
 		print(SGE_TEXT("dumped history to stdout"));
 	}
 	else
@@ -327,8 +333,8 @@ void sge::con::console_gfx::draw()
 }
 
 sge::space_unit sge::con::console_gfx::change_cursor_rate(
-	const space_unit &n,
-	const space_unit &)
+	space_unit  const n,
+	space_unit)
 {
 	cursor_timer.interval(
 		time::second(n));

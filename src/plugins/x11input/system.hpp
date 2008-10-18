@@ -35,9 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_code.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/math/vector.hpp>
-#include <sge/scoped_connection_manager.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/signals.hpp>
+#include <sge/signals/signal.hpp>
+#include <sge/signals/connection_manager.hpp>
 
 namespace sge
 {
@@ -50,11 +49,11 @@ public:
 		x11::window_ptr wnd);
 	~system();
 
-	callback_connection const
+	signals::connection const
 	register_callback(
 		input::callback const &c);
 
-	callback_connection const
+	signals::connection const
 	register_repeat_callback(
 		input::repeat_callback const &c);
 
@@ -94,10 +93,10 @@ private:
 #endif
 	bool use_dga;
 	
-	scoped_connection_manager connections;
+	signals::connection_manager connections;
 
-	typedef boost::signal<input::key_pair_fun> signal_type;
-	typedef boost::signal<input::key_type_fun> repeat_signal_type;
+	typedef signals::signal<input::key_pair_fun> signal_type;
+	typedef signals::signal<input::key_type_fun> repeat_signal_type;
 
 	signal_type        sig;
 	repeat_signal_type repeat_sig;

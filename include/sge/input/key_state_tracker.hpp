@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "key_code.hpp"
 #include "key_type.hpp"
 #include "key_state.hpp"
+#include "../signals/scoped_connection.hpp"
 #include "../export.hpp"
-#include "../scoped_connection.hpp"
 #include <boost/noncopyable.hpp>
 #include <map>
 
@@ -48,7 +48,7 @@ public:
 private:
 	void event_handler(key_pair const &key);
 
-	scoped_connection const con;
+	signals::scoped_connection const con;
 
 	typedef std::map<key_code, key_state> key_code_map;
 	typedef std::map<key_type, key_state> key_type_map;
