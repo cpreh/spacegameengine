@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_ERROR_HPP_INCLUDED
-#define SGE_OPENGL_ERROR_HPP_INCLUDED
+#ifndef SGE_X11_ERROR_HPP_INCLUDED
+#define SGE_X11_ERROR_HPP_INCLUDED
 
-#include <string>
+#include "../export.hpp"
+#include <X11/Xlib.h>
+#include <boost/optional.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace x11
 {
 
-class sentry {
-public:
-	sentry(
-	       std::string const &file_name,
-	       int line);
-	~sentry();
-private:
-	std::string const file_name;
-	int         const line;
-};
+typedef boost::optional<
+	XErrorEvent
+> optional_error;
+
+SGE_SYMBOL optional_error const
+last_error();
 
 }
 }
-
-#define SGE_OPENGL_SENTRY sge::ogl::sentry const sentry_(__FILE__, __LINE__);
 
 #endif

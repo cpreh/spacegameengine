@@ -18,22 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_ERROR_HPP_INCLUDED
-#define SGE_OPENGL_ERROR_HPP_INCLUDED
+#ifndef SGE_X11_SENTRY_HPP_INCLUDED
+#define SGE_X11_SENTRY_HPP_INCLUDED
 
+#include "../export.hpp"
 #include <string>
 
 namespace sge
 {
-namespace ogl
+namespace x11
 {
 
-class sentry {
-public:
-	sentry(
-	       std::string const &file_name,
-	       int line);
-	~sentry();
+struct sentry {
+	SGE_SYMBOL sentry(
+		std::string const &file_name,
+		int line);
+	SGE_SYMBOL ~sentry();
 private:
 	std::string const file_name;
 	int         const line;
@@ -42,6 +42,6 @@ private:
 }
 }
 
-#define SGE_OPENGL_SENTRY sge::ogl::sentry const sentry_(__FILE__, __LINE__);
+#define SGE_X11_SENTRY sge::x11::sentry const sentry_(__FILE__, __LINE__);
 
 #endif

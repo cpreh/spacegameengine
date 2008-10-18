@@ -18,30 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_ERROR_HPP_INCLUDED
-#define SGE_OPENGL_ERROR_HPP_INCLUDED
+#include <sge/x11/error.hpp>
 
-#include <string>
-
-namespace sge
-{
-namespace ogl
+namespace
 {
 
-class sentry {
-public:
-	sentry(
-	       std::string const &file_name,
-	       int line);
-	~sentry();
-private:
-	std::string const file_name;
-	int         const line;
-};
+sge::x11::optional_error last_error_;
+
+int error_handler(
+	Display *,
+	XErrorEvent *);
+
+struct init {
+	init();
+} init_;
 
 }
+
+sge::x11::optional_error const
+sge::x11::last_error()
+{
+	optional_error const ret(
+		last_error_);
+	last_error_.reset();
+	return ret;
 }
 
-#define SGE_OPENGL_SENTRY sge::ogl::sentry const sentry_(__FILE__, __LINE__);
+namespace
+{
 
-#endif
+int error_handler(
+	Display *,
+	XErrorEvent *const ev)
+{
+	last_error_ = *ev;
+	return 0; // TODO: what should we return?
+}
+
+init::init()
+{
+	XSetErrorHandler(
+		error_handler);
+}
+
+}
