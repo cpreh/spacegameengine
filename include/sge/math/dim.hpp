@@ -84,19 +84,7 @@ public:
 #define SGE_MATH_DIM_CTOR(z, n, text) basic_dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_CTOR, void)
 #endif
-	/**
-	 * This initializes the dim with zero
-	 */
-	basic_dim()
-	{
-		for(size_type i = 0; i < Dim; ++i)
-			data_[i] = 0;
-	}
-
-	/**
-	 * This does not initialize any of the coordinates (models the built types)
-	 */
-	basic_dim(no_initialization_tag)
+	explicit basic_dim(no_initialization_tag)
 	{
 	}
 

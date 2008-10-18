@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "matrix.hpp"
 #include "compare.hpp"
-#include "../algorithm/copy_n.hpp"
 #include "../exception.hpp"
 #include <algorithm>
 #include <functional>
@@ -41,20 +40,6 @@ sge::math::basic_matrix<T, N, M>::basic_matrix(Args... args)
 template<typename T, std::size_t N, std::size_t M>
 sge::math::basic_matrix<T, N, M>::basic_matrix(no_initialization_tag)
 {
-}
-
-template<typename T, std::size_t N, std::size_t M>
-sge::math::basic_matrix<T, N, M>::basic_matrix(const basic_matrix& r)
-{
-	copy_n(r.data_, size(), data_);
-}
-
-template<typename T, std::size_t N, std::size_t M>
-typename sge::math::basic_matrix<T, N, M>&
-sge::math::basic_matrix<T, N, M>::operator=(const basic_matrix& r)
-{
-	copy_n(r.data_, size(), data_);
-	return *this;
 }
 
 template<typename T, std::size_t N, std::size_t M>
