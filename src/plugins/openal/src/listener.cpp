@@ -3,6 +3,24 @@
 #include "../log.hpp"
 #include "../openal.hpp"
 
+sge::openal::listener::listener()
+	: pos_(no_initialization_tag()),
+	  vel_(no_initialization_tag())
+{
+	pos(audio::point::null());
+	vel(audio::point::null());
+	direction(
+		audio::angle(
+			audio::point(
+				static_cast<audio::unit>(0),
+				static_cast<audio::unit>(0),
+				static_cast<audio::unit>(1)),
+			audio::point(
+				static_cast<audio::unit>(0),
+				static_cast<audio::unit>(1),
+				static_cast<audio::unit>(0))));
+}
+
 void sge::openal::listener::vel(audio::point const &n)
 {
 	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("setting listener velocity to ") << n);

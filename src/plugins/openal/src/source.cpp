@@ -21,14 +21,20 @@ void sge::openal::source::init()
 }
 
 sge::openal::source::source()
-	: status_(audio::sound_status::stopped)
+	: status_(audio::sound_status::stopped),
+	  pos_(no_initialization_tag()),
+	  direction_(no_initialization_tag()),
+	  vel_(no_initialization_tag())
 {
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 	init();
 }
 
 sge::openal::source::source(ALuint const buffer)
-	: status_(audio::sound_status::stopped)
+	: status_(audio::sound_status::stopped),
+	  pos_(no_initialization_tag()),
+	  direction_(no_initialization_tag()),
+	  vel_(no_initialization_tag())
 {
 	alGenSources(static_cast<ALsizei>(1),&source_); SGE_OPENAL_ERROR_CHECK;
 	alSourcei(alsource(),AL_BUFFER,buffer); SGE_OPENAL_ERROR_CHECK;

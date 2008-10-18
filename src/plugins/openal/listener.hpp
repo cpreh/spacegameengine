@@ -11,6 +11,7 @@ namespace openal
 class listener : public sge::audio::listener
 {
 	public:
+	listener();
 	void pos(audio::point const &);
 	audio::point const pos() const;
 	void vel(audio::point const &);
