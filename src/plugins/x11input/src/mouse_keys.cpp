@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../mouse_axis.hpp"
+#include "../mouse_keys.hpp"
 #include <sge/text.hpp>
 
 sge::input::key_type const

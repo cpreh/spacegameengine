@@ -18,24 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_POINTER_HPP_INCLUDED
-#define SGE_X11INPUT_POINTER_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MOUSE_KEYS_HPP_INCLUDED
+#define SGE_X11INPUT_MOUSE_KEYS_HPP_INCLUDED
 
-#include "mouse_coordinate.hpp"
-#include <sge/x11/window_fwd.hpp>
+#include <sge/input/key_type.hpp>
 
 namespace sge
 {
 namespace x11input
 {
 
-mouse_pos const
-get_pointer(
-	x11::window_ptr);
-
-void warp_pointer(
-	x11::window_ptr wnd,
-	mouse_pos const &);
+extern input::key_type const
+	mouse_x,
+	mouse_y,
+	undefined_mouse_key,
+	mouse_l,
+	mouse_r,
+	mouse_m;
 
 }
 }

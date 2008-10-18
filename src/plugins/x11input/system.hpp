@@ -22,31 +22,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_SYSTEM_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include "pointer.hpp"
-#ifdef SGE_USE_DGA
-#include "dga.hpp"
-#endif
 #include <sge/x11/color.hpp>
 #include <sge/x11/pixmap.hpp>
 #include <sge/x11/cursor.hpp>
-#include <sge/x11/window.hpp>
+#include <sge/x11/window_fwd.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/callback.hpp>
-#include <sge/input/key_code.hpp>
-#include <sge/input/key_type.hpp>
 #include <sge/math/vector.hpp>
 #include <sge/signals/signal.hpp>
 #include <sge/signals/connection_manager.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
 
+#include <sge/input/key_code.hpp>
 namespace sge
 {
+namespace input
+{
+class key_pair;
+
+class key_type;
+}
+
 namespace x11input
 {
+
+class device;
 
 class system : public input::system {
 public:
 	explicit system(
 		x11::window_ptr wnd);
+private:
 	~system();
 
 	signals::connection const
@@ -59,40 +65,36 @@ public:
 
 	void dispatch();
 	window_ptr const get_window() const;
-private:
+
+	void emit_callback(
+		input::key_pair const &);
 	void grab();
 	void grab_pointer();
 	void grab_keyboard();
 	bool handle_grab(int return_value) const;
 	void enable_dga(bool);
 	input::key_type mouse_key(unsigned x11code) const;
-	void dga_motion(XEvent);
-	void warped_motion(XEvent);
-	void private_mouse_motion(mouse_coordinate_t deltax, mouse_coordinate_t deltay);
 	input::key_type create_key_type(const XEvent&);
 
-	void on_motion_event(const XEvent&);
-	void on_key_event(const XEvent&);
-	void on_button_event(const XEvent&);
-	void on_acquire(const XEvent&);
-	void on_release(const XEvent&);
+	void on_key_event(XEvent const &);
+	void on_acquire(XEvent const &);
+	void on_release(XEvent const &);
 
 	input::key_code get_key_code(KeySym ks) const;
-	input::key_type::string get_key_name(KeySym ks) const;
+	string const get_key_name(KeySym ks) const;
 
-	x11::window_ptr wnd;
-	Colormap colormap;
-
-	x11::color  black_;
-	x11::pixmap no_bmp_;
-	x11::cursor no_cursor_;
-	bool        mouse_grabbed; // TODO: replace this with a RAII class
-	mouse_pos   mouse_last; // TODO: move this in a mouse class
-#ifdef SGE_USE_DGA
-	dga dga_;
-#endif
+	x11::window_ptr const wnd;
+	x11::color      const black_;
+	x11::pixmap     const no_bmp_;
+	x11::cursor     const no_cursor_;
 	bool use_dga;
 	
+	typedef boost::ptr_vector<
+		device
+	> device_vector;
+
+	device_vector devices;
+
 	signals::connection_manager connections;
 
 	typedef signals::signal<input::key_pair_fun> signal_type;

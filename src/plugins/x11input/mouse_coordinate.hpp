@@ -18,24 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_POINTER_HPP_INCLUDED
-#define SGE_X11INPUT_POINTER_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MOUSE_COORDINATE_HPP_INCLUDED
+#define SGE_X11INPUT_MOUSE_COORDINATE_HPP_INCLUDED
 
-#include "mouse_coordinate.hpp"
-#include <sge/x11/window_fwd.hpp>
+#include <sge/math/vector.hpp>
 
 namespace sge
 {
 namespace x11input
 {
 
-mouse_pos const
-get_pointer(
-	x11::window_ptr);
+typedef int mouse_coordinate_t;
 
-void warp_pointer(
-	x11::window_ptr wnd,
-	mouse_pos const &);
+typedef math::basic_vector<
+	mouse_coordinate_t,
+	2
+> mouse_pos;
 
 }
 }

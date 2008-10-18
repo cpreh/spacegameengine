@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/signals/connection_manager.hpp>
+#include <boost/foreach.hpp>
 
 void sge::signals::connection_manager::connect(
 	connection const &v)

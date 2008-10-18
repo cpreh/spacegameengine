@@ -41,6 +41,7 @@ FILE (GLOB sgecorefiles
 	renderer/glsl/*.cpp
 	renderer/state/*.cpp
 	renderer/vf/*.cpp
+	signals/*.cpp
 	sprite/*.cpp
 	systems/*.cpp
 	texture/*.cpp
