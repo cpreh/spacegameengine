@@ -83,15 +83,15 @@ choose to put it a seperate header) and insert the following snippet just
 before <tt>while (running)</tt>:
 
 \code
-sge::scoped_connection const conn = 
+sge::signals::scoped_connection const conn = 
 	sys.input_system()->register_callback(input_functor(running));
 \endcode
 
-Headers to include <sge/scoped_connection.hpp>, <sge/input/system.hpp>
+Headers to include <sge/signals/scoped_connection.hpp>, <sge/input/system.hpp>
 
 You can now compile and run the program <em>and</em> - close it with the escape key!
 
-The sge::scoped_connection tracks your input connection and closes it when the
+The sge::signals::scoped_connection tracks your input connection and closes it when the
 <tt>conn</tt> is destroyed (which is incidentally the point where your
 input_functor is destroyed as well). 
 
@@ -129,7 +129,7 @@ update the sprite's position according to this value. Insert the following
 somewhere before <tt>while (running)</tt>:
 
 \code
-sge::scoped_connection const conn_other =
+sge::signals::scoped_connection const conn_other =
 	sys.input_system->register_callback(sprite_functor(my_object));
 \endcode
 
