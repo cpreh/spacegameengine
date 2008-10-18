@@ -41,11 +41,22 @@ mouse_key(
 
 sge::x11input::mouse::mouse(
 	x11::window_ptr const wnd,
-	x11::cursor const &cur,
 	input::callback const &callback)
 :
 	wnd(wnd),
-	cur(cur),
+	black_(
+		wnd->display(),
+		XDefaultColormap(
+			wnd->display()->get(),
+			wnd->screen()), // TODO: do we have to release this?
+		SGE_TEXT("black")),
+	no_bmp_(
+		wnd->display(),
+		wnd->get_window()),
+	cur(
+		wnd->display(),
+		no_bmp_.get(),
+		black_.get()),
 	callback(callback),
 	mouse_last(no_initialization_tag()),
 	dga_(wnd)

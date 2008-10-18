@@ -22,24 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_SYSTEM_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include <sge/x11/color.hpp>
-#include <sge/x11/pixmap.hpp>
-#include <sge/x11/cursor.hpp>
 #include <sge/x11/window_fwd.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/callback.hpp>
-#include <sge/math/vector.hpp>
 #include <sge/signals/signal.hpp>
 #include <sge/signals/connection_manager.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
-#include <sge/input/key_code.hpp>
 namespace sge
 {
 namespace input
 {
 class key_pair;
-
 class key_type;
 }
 
@@ -53,8 +47,6 @@ public:
 	explicit system(
 		x11::window_ptr wnd);
 private:
-	~system();
-
 	signals::connection const
 	register_callback(
 		input::callback const &c);
@@ -71,20 +63,11 @@ private:
 	void emit_repeat_callback(
 		input::key_type const &);
 	
-	void grab_keyboard();
-	input::key_type create_key_type(const XEvent&);
-
 	void on_key_event(XEvent const &);
 	void on_acquire(XEvent const &);
 	void on_release(XEvent const &);
 
-	input::key_code get_key_code(KeySym ks) const;
-	string const get_key_name(KeySym ks) const;
-
 	x11::window_ptr const wnd;
-	x11::color      const black_;
-	x11::pixmap     const no_bmp_;
-	x11::cursor     const no_cursor_;
 	
 	typedef boost::ptr_vector<
 		device

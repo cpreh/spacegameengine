@@ -18,37 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../mouse_grab.hpp"
-#include "../handle_grab.hpp"
+#ifndef SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
+#define SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
+
+#include "device.hpp"
 #include <X11/Xlib.h>
-#include <sge/x11/window.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/x11/cursor.hpp>
+#include <sge/input/callback.hpp>
+#include <sge/signals/connection_manager.hpp>
+#include <sge/x11/window_fwd.hpp>
+#include <boost/scoped_ptr.hpp>
 
-sge::x11input::mouse_grab::mouse_grab(
-	x11::window_ptr const wnd,
-	x11::cursor const &cur)
-:
-	wnd(wnd)
+namespace sge
 {
-	handle_grab(
-		XGrabPointer(
-			wnd->display()->get(),
-			wnd->get_window(),
-			True,
-			PointerMotionMask
-			| ButtonPressMask
-			| ButtonReleaseMask,
-			GrabModeAsync,
-			GrabModeAsync,
-			wnd->get_window(),
-			cur.get(),
-			CurrentTime));
+namespace x11input
+{
+
+class keyboard_grab;
+
+class keyboard : public device {
+public:
+	keyboard(
+		x11::window_ptr,
+		input::callback const &,
+		input::repeat_callback const &);
+private:
+	void grab();
+	void ungrab();
+
+	void on_key_event(
+		XEvent const &);
+	
+	x11::window_ptr const        wnd;
+	input::callback const        callback;
+	input::repeat_callback const repeat_callback;
+	bool const                   need_grab;
+
+	signals::connection_manager connections;
+
+	boost::scoped_ptr<
+		keyboard_grab
+	>                            grab_;
+};
+
+}
 }
 
-sge::x11input::mouse_grab::~mouse_grab()
-{
-	XUngrabPointer(
-		wnd->display()->get(),
-		CurrentTime);
-}
+#endif

@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/callback.hpp>
 #include <sge/signals/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>
+#include <sge/x11/color.hpp>
+#include <sge/x11/pixmap.hpp>
+#include <sge/x11/cursor.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace sge
@@ -46,7 +49,6 @@ class mouse : public device {
 public:
 	mouse(
 		x11::window_ptr,
-		x11::cursor const &,
 		input::callback const &);
 private:
 	void grab();
@@ -66,7 +68,9 @@ private:
 		mouse_coordinate_t deltay);
 
 	x11::window_ptr const wnd;
-	x11::cursor const    &cur;
+	x11::color      const black_;
+	x11::pixmap     const no_bmp_;
+	x11::cursor     const cur;
 	input::callback const callback;
 	mouse_pos             mouse_last;
 	dga                   dga_;
