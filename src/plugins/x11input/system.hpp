@@ -72,9 +72,6 @@ private:
 		input::key_type const &);
 	
 	void grab_keyboard();
-	bool handle_grab(int return_value) const;
-	void enable_dga(bool);
-	input::key_type mouse_key(unsigned x11code) const;
 	input::key_type create_key_type(const XEvent&);
 
 	void on_key_event(XEvent const &);

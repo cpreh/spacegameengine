@@ -18,36 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../mouse_grab.hpp"
 #include "../handle_grab.hpp"
-#include <sge/x11/window.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/x11/cursor.hpp>
+#include <X11/Xlib.h>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-sge::x11input::mouse_grab::mouse_grab(
-	x11::window_ptr const wnd,
-	x11::cursor const &cur)
-:
-	wnd(wnd)
+void sge::x11input::handle_grab(
+	int const result)
 {
-	handle_grab(
-		XGrabPointer(
-			wnd->display()->get(),
-			wnd->get_window(),
-			True,
-			PointerMotionMask
-			| ButtonPressMask
-			| ButtonReleaseMask,
-			GrabModeAsync,
-			GrabModeAsync,
-			wnd->get_window(),
-			cur.get(),
-			CurrentTime));
-}
-
-sge::x11input::mouse_grab::~mouse_grab()
-{
-	XUngrabPointer(
-		wnd->display()->get(),
-		CurrentTime);
+	switch(result) {
+	case GrabSuccess:
+		return;
+	case GrabFrozen:
+		throw exception(
+			SGE_TEXT("x11: Grab frozen!"));
+	case GrabNotViewable:
+		throw exception(
+			SGE_TEXT("x11: Grab not viewable!"));
+	case AlreadyGrabbed:
+		throw exception(
+			SGE_TEXT("x11: already grabbed!"));
+	case GrabInvalidTime:
+		throw exception(
+			SGE_TEXT("x11: GrabInvalidTime!"));
+	default:
+		throw exception(
+			SGE_TEXT("x11: Unknown grab result!"));
+	}
 }

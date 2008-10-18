@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../mouse.hpp"
 #include "../translation.hpp"
 #include "../device.hpp"
+#include "../handle_grab.hpp"
 #include <sge/x11/display.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/exception.hpp>
@@ -32,8 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/headers.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/time/sleep.hpp>
-#include <sge/time/millisecond.hpp>
 #include <boost/array.hpp>
 #include <boost/bind.hpp>
 #include <cstring>
@@ -130,37 +129,14 @@ void sge::x11input::system::emit_repeat_callback(
 
 void sge::x11input::system::grab_keyboard()
 {
-	for(;;)
-		if(handle_grab(
-			XGrabKeyboard(
-				wnd->display()->get(),
-				wnd->get_window(),
-				True,
-				GrabModeAsync,
-				GrabModeAsync,
-				CurrentTime)))
-			return;
-}
-
-bool sge::x11input::system::handle_grab(const int r) const
-{
-	switch(r) {
-	case GrabSuccess:
-		return true;
-	case GrabFrozen:
-		throw exception(SGE_TEXT("x11: Grab frozen!"));
-	case GrabNotViewable:
-	case AlreadyGrabbed:
-		break;
-	case GrabInvalidTime:
-		throw exception(SGE_TEXT("x11: GrabInvalidTime!"));
-	}
-
-	time::sleep(
-		time::millisecond(
-			static_cast<time::unit>
-				(1)));
-	return false;
+	handle_grab(
+		XGrabKeyboard(
+			wnd->display()->get(),
+			wnd->get_window(),
+			True,
+			GrabModeAsync,
+			GrabModeAsync,
+			CurrentTime));
 }
 
 void sge::x11input::system::on_key_event(const XEvent& xev)
