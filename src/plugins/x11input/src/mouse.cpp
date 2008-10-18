@@ -81,10 +81,12 @@ void sge::x11input::mouse::grab()
 		new mouse_grab(
 			wnd,
 			cur));
+	dga_.enable(true);
 }
 
 void sge::x11input::mouse::ungrab()
 {
+	dga_.enable(false);
 	grab_.reset();
 }
 
@@ -120,6 +122,17 @@ void sge::x11input::mouse::on_button_up(
 void sge::x11input::mouse::dga_motion(
 	XEvent xevent)
 {
+	mouse_coordinate_t
+		dx = xevent.xmotion.x_root,
+		dy = xevent.xmotion.y_root;
+
+	while(XCheckTypedEvent(wnd->display()->get(), MotionNotify, &xevent))
+	{
+		dx += xevent.xmotion.x_root;
+		dy += xevent.xmotion.y_root;
+	}
+
+	private_mouse_motion(dx, dy);
 }
 
 void sge::x11input::mouse::warped_motion(
