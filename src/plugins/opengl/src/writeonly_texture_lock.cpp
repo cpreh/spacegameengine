@@ -47,6 +47,12 @@ sge::ogl::writeonly_texture_lock::write_pointer() const
 	return buffer.buffer_offset(0);
 }
 
+sge::ogl::writeonly_texture_lock::pointer
+sge::ogl::writeonly_texture_lock::real_write_pointer()
+{
+	return buffer.data();
+}
+
 sge::ogl::lock_method::type
 sge::ogl::writeonly_texture_lock::method() const
 {

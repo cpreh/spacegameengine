@@ -18,34 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_DGA_HPP_INCLUDED
-#define SGE_X11_DGA_HPP_INCLUDED
-
+#include "../mouse_grab.hpp"
+#include "../handle_grab.hpp"
 #include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/x11/window.hpp>
+#include <sge/x11/display.hpp>
+#include <sge/x11/cursor.hpp>
 
-namespace sge
+sge::x11input::mouse_grab::mouse_grab(
+	x11::window_ptr const wnd,
+	x11::cursor const &cur)
+:
+	wnd(wnd)
 {
-namespace x11
+	handle_grab(
+		XGrabPointer(
+			wnd->display()->get(),
+			wnd->get_window(),
+			True,
+			PointerMotionMask
+			| ButtonPressMask
+			| ButtonReleaseMask,
+			GrabModeAsync,
+			GrabModeAsync,
+			wnd->get_window(),
+			cur.get(),
+			CurrentTime));
+}
+
+sge::x11input::mouse_grab::~mouse_grab()
 {
-
-class dga_guard : boost::noncopyable {
-public:
-	SGE_SYMBOL dga_guard(
-		display_ptr,
-		int screen);
-	SGE_SYMBOL ~dga_guard();
-	SGE_SYMBOL void enable(
-		bool);
-private:
-	display_ptr dsp;
-	int screen;
-	bool enabled;
-};
-
+	XUngrabPointer(
+		wnd->display()->get(),
+		CurrentTime);
 }
-}
-
-#endif

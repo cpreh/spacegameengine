@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::x11::display::display()
-: d(XOpenDisplay(0)),
-  wrapped(false)
+:
+	d(XOpenDisplay(0)),
+	wrapped(false)
 {
 	if(!d)
 		throw exception(
@@ -34,8 +35,9 @@ sge::x11::display::display()
 sge::x11::display::display(
 	Display *const dsp,
 	wrap_tag)
-: d(dsp),
-  wrapped(true)
+:
+	d(dsp),
+	wrapped(true)
 {}
 
 sge::x11::display::~display()
@@ -52,4 +54,9 @@ Display* sge::x11::display::get() const
 void sge::x11::display::sync()
 {
 	XSync(get(), False);
+}
+
+int sge::x11::display::default_screen() const
+{
+	return XDefaultScreen(get());
 }

@@ -62,7 +62,7 @@ sge::sprite::object::object(
 	z_(z_ ? *z_ : defaults::depth_),
 	rotation_(rotation_ ? *rotation_ : defaults::rotation_),
 	tex(vtex ? *vtex : defaults::texture_),
-	rot_around_(),
+	rot_around_(no_initialization_tag()),
 	repeat_(1),
 	color_(color_ ? *color_ : defaults::color_),
 	visible_(visible_ ? *visible_ : defaults::visible_),

@@ -43,7 +43,7 @@ sge::texture::no_fragmented::consume_fragment(
 	if(tex)
 		return part_ptr();
 
-	const renderer::dim_type real_dim(atlased_bounds(dim));
+	renderer::dim_type const real_dim(atlased_bounds(dim));
 
 	tex = rend->create_texture(
 		real_dim,
@@ -54,9 +54,9 @@ sge::texture::no_fragmented::consume_fragment(
 	if(real_dim != dim)
 		log::global().log(
 			log::level::warning,
-			log::_1 << SGE_TEXT("warning: You used a texture::no_fragmented whose dimensions are not a power of 2.")\
+			log::_1 << SGE_TEXT("You used a texture::no_fragmented whose dimensions are not a power of 2.")\
 		                   SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
-		                   SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT(".\n")
+		                   SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT('.')
 		);
 
 	return part_ptr(

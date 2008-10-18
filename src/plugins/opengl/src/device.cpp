@@ -42,28 +42,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "../matrix.hpp"
 #include "../split_states.hpp"
+#include "../material.hpp"
+#include "../glew.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
 #elif defined(SGE_HAVE_X11)
-#include "../glx/choose_visual.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
+#include <sge/x11/visual.hpp>
 #include <boost/bind.hpp>
-#include <sge/raw_vector_impl.hpp>
 #else
 #error "Implement me!"
 #endif
 #include <sge/bit.hpp>
 #include <sge/exception.hpp>
 #include <sge/renderer/caps.hpp>
-#include <sge/renderer/material.hpp>
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/viewport.hpp>
 #include <sge/renderer/light.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
-#include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <sstream>
@@ -75,16 +74,12 @@ sge::ogl::device::device(
 	window_ptr const wnd_param)
  : param(param),
    current_states(renderer::state::default_())
-#if defined(SGE_HAVE_X11)
-   , dsp(new x11::display())
-#endif
 {
 //	if(adapter > 0)
 //		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
 
 	bool windowed = true; // param.windowed;
 #if defined(SGE_WINDOWS_PLATFORM)
-	unsigned const color_depth = static_cast<unsigned>(param.mode().depth);
 	if(!windowed)
 	{
 		DEVMODE settings;
@@ -92,7 +87,7 @@ sge::ogl::device::device(
 		settings.dmSize = sizeof(DEVMODE);
 		settings.dmPelsWidth    = param.mode().width();
 		settings.dmPelsHeight   = param.mode().height();
-		settings.dmBitsPerPel   = color_depth;
+		settings.dmBitsPerPel   = static_cast<UINT>(param.mode().depth);
 		settings.dmDisplayFrequency = param.mode().refresh_rate;
 		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
@@ -102,51 +97,34 @@ sge::ogl::device::device(
 		}
 	}
 
-	PIXELFORMATDESCRIPTOR pfd = {
-		sizeof(PIXELFORMATDESCRIPTOR),  // Size Of This Pixel Format Descriptor
-			1,                      // Version Number
-			PFD_DRAW_TO_WINDOW |    // Format Must Support Window
-			PFD_SUPPORT_OPENGL |    // Format Must Support OpenGL
-			PFD_DOUBLEBUFFER,       // Must Support Double Buffering
-			PFD_TYPE_RGBA,          // Request An RGBA Format
-			BYTE(color_depth),      // Select Our Color Depth
-			0, 0, 0, 0, 0, 0,       // Color Bits Ignored
-			0,                      // No Alpha Buffer
-			0,                      // Shift Bit Ignored
-			0,                      // No Accumulation Buffer
-			0, 0, 0, 0,             // Accumulation Bits Ignored
-			16,                     // 16Bit Z-Buffer (Depth Buffer)
-			0,                      // Stencil Buffer
-			0,                      // No Auxiliary Buffer
-			PFD_MAIN_PLANE,         // Main Drawing Layer
-			0,                      // Reserved
-			0, 0, 0                 // Layer Masks Ignored
-	};
+	wnd = polymorphic_pointer_cast<windows::window>(wnd_param);
 
-	if(!wnd_param)
-		wnd.reset(new windows::window(
-			window::window_size(param.mode().width(),param.mode().height())));
-	else
-		wnd = polymorphic_pointer_cast<windows::window>(wnd_param);
+	hdc.reset(
+		new windows::gdi_device(
+			wnd->hwnd(),
+			windows::gdi_device::get_tag()));
 
-	hdc.reset(new windows::gdi_device(wnd->hwnd(), windows::gdi_device::get_tag()));
+	context.reset(
+		new wgl::context(
+			*hdc));
 
-	const int pixel_format = ChoosePixelFormat(hdc->hdc(), &pfd);
-	if(pixel_format == 0)
-		throw exception(SGE_TEXT("ChoosePixelFormat() failed"));
-	if(SetPixelFormat(hdc->hdc(), pixel_format, &pfd) == FALSE)
-		throw exception(SGE_TEXT("SetPixelFormat() failed"));
-
-	context.reset(new wgl::context(*hdc));
-
-	current.reset(new wgl::current(*hdc, *context));
+	current.reset(
+		new wgl::current(
+			*hdc,
+			*context));
 
 #elif defined(SGE_HAVE_X11)
-	const int screen = XDefaultScreen(dsp->get());
+	wnd = polymorphic_pointer_cast<x11::window>(wnd_param);
+
+	x11::display_ptr const dsp(
+		wnd->display());
 
 	if(!windowed)
 	{
-		modes.reset(new x11::xf86_vidmode_array(dsp, screen));
+		modes.reset(
+			new x11::xf86_vidmode_array(
+				dsp,
+				dsp->default_screen()));
 		resolution = modes->switch_to_mode(param.mode());
 		if(!resolution)
 		{
@@ -155,37 +133,10 @@ sge::ogl::device::device(
 		}
 	}
 
-	visual.reset(
-		new glx::visual(
-			dsp,
-			screen,
-			glx::choose_visual(
-				param.mode().depth,
-				param.dbuffer(),
-				param.sbuffer()).data()));
+	x11::const_visual_ptr const visual(
+		wnd->visual());
 
 	context.reset(new glx::context(dsp, visual->info()));
-
-	colormap.reset(new x11::colormap(dsp, visual->info()));
-
-	XSetWindowAttributes swa;
-	swa.colormap = colormap->get();
-	swa.border_pixel = 0;
-	swa.background_pixel = 0;
-	swa.override_redirect = windowed ? False : True;
-	swa.event_mask = StructureNotifyMask;
-
-	if(wnd_param)
-		wnd = polymorphic_pointer_cast<x11::window>(wnd_param);
-	else
-		wnd.reset(
-			new x11::window(
-				window::window_pos(0,0),
-				param.mode().size,
-				string(),
-				dsp,
-				swa,
-				visual->info()));
 
 	if(!windowed)
 		wnd->map();
@@ -194,25 +145,27 @@ sge::ogl::device::device(
 
 	current.reset(new glx::current(dsp, *wnd, context));
 
- 	con_manager.scoped_connect(
+ 	con_manager.connect(
 		wnd->register_callback(
 			MapNotify,
 			boost::bind(&device::reset_viewport_on_map, this, _1)));
-	con_manager.scoped_connect(
+	con_manager.connect(
 		wnd->register_callback(
 			ConfigureNotify,
 			boost::bind(&device::reset_viewport_on_configure, this, _1)));
 	
 	dsp->sync();
 #endif
-	if(glewInit() != GLEW_OK)
-		throw exception(SGE_TEXT("glewInit() failed!"));
+	initialize_glew();
 
 	initialize_vbo();
 	initialize_pbo();
 
 	set_state(
 		renderer::state::default_());
+	
+	set_render_target(
+		default_render_target);
 }
 
 void sge::ogl::device::begin_rendering()
@@ -239,11 +192,10 @@ sge::ogl::device::create_index_buffer(
 }
 
 sge::ogl::fbo_target_ptr const
-sge::ogl::device::create_render_target(
-	renderer::target::dim_type const & dim)
+sge::ogl::device::create_render_target()
 {
 	return fbo_target_ptr(
-		new fbo_target(dim));
+		new fbo_target());
 }
 
 sge::renderer::texture_ptr const
@@ -308,7 +260,9 @@ void sge::ogl::device::end_rendering()
 {
 #if defined(SGE_HAVE_X11)
 	SGE_OPENGL_SENTRY
-	glXSwapBuffers(dsp->get(), wnd->get_window());
+	glXSwapBuffers(
+		wnd->display()->get(),
+		wnd->get_window());
 #elif defined(SGE_WINDOWS_PLATFORM)
 	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception(SGE_TEXT("wglSwapLayerBuffers() failed!"));
@@ -383,7 +337,6 @@ void sge::ogl::device::render(
 			SGE_TEXT("vb may not be 0 for renderer::render!"));
 
 	set_vertex_buffer(vb);
-	set_index_buffer(renderer::index_buffer_ptr());
 
 	GLenum const prim_type = convert_cast(ptype);
 
@@ -434,15 +387,7 @@ GLenum sge::ogl::device::get_clear_bit(
 void sge::ogl::device::set_material(
 	renderer::material const &mat)
 {
-	SGE_OPENGL_SENTRY
-
-	const GLenum face = GL_FRONT_AND_BACK;
-	// FIXME: UB
-	//glMaterialfv(face, GL_AMBIENT, reinterpret_cast<const GLfloat*>(&mat.ambient));
-	//glMaterialfv(face, GL_DIFFUSE, reinterpret_cast<const GLfloat*>(&mat.diffuse));
-	//glMaterialfv(face, GL_SPECULAR, reinterpret_cast<const GLfloat*>(&mat.specular));
-	//glMaterialfv(face, GL_EMISSION, reinterpret_cast<const GLfloat*>(&mat.emissive));
-	glMaterialf(face, GL_SHININESS, mat.power);
+	ogl::set_material(mat);
 }
 
 void sge::ogl::device::set_viewport(
@@ -524,7 +469,8 @@ void sge::ogl::device::set_render_target(
 			new default_target(
 				math::structure_cast<
 					target::dim_type::value_type>(
-						screen_size())));
+						screen_size()),
+				param.mode().depth));
 		render_target_->bind_me();
 		window::window_pos const offset = wnd->viewport_offset();
 		set_viewport(
@@ -534,8 +480,11 @@ void sge::ogl::device::set_render_target(
 		return;
 	}
 
-	shared_ptr<texture> const p(dynamic_pointer_cast<texture>(target));
-	fbo_target_ptr const ntarget = create_render_target(p->dim());
+	shared_ptr<texture> const p(
+		dynamic_pointer_cast<texture>(target));
+	
+	fbo_target_ptr const ntarget = create_render_target();
+
 	ntarget->bind_texture(p);
 
 	set_viewport(
@@ -561,7 +510,6 @@ void sge::ogl::device::set_texture(
 
 	disable(GL_TEXTURE_1D);
 	disable(GL_TEXTURE_2D);
-	// FIXME:
 	//disable(detail::volume_texture_type);
 	disable_cube_texture();
 
@@ -659,12 +607,6 @@ void sge::ogl::device::set_glsl_program(
 void sge::ogl::device::set_vertex_buffer(
 	renderer::const_vertex_buffer_ptr const vb)
 {
-	if(!vb)
-	{
-		// FIXME
-		//vertex_buffer::unbind();
-		return;
-	}
 	vertex_buffer const &ovb = dynamic_cast<vertex_buffer const &>(*vb);
 	ovb.set_format();
 }
@@ -672,12 +614,6 @@ void sge::ogl::device::set_vertex_buffer(
 void sge::ogl::device::set_index_buffer(
 	renderer::const_index_buffer_ptr const ib)
 {
-	if(!ib)
-	{
-		// FIXME
-		//index_buffer::unbind();
-		return;
-	}
 	index_buffer const &oib = dynamic_cast<index_buffer const &>(*ib);
 	oib.bind_me();
 }

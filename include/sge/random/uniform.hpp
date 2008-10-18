@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RNADOM_UNIFORM_HPP_INCLUDED
+#ifndef SGE_RANDOM_UNIFORM_HPP_INCLUDED
 #define SGE_RANDOM_UNIFORM_HPP_INCLUDED
 
 #include "default_generator.hpp"

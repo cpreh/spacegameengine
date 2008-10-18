@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SYSTEM_HPP_INCLUDED
 
 #include <sge/renderer/system.hpp>
+#include <boost/weak_ptr.hpp>
 
 namespace sge
 {
@@ -30,14 +31,18 @@ namespace ogl
 
 class system : public renderer::system {
 public:
-	system();
-	const renderer::device_ptr create_renderer(
-		const renderer::parameters& param,
+	renderer::device_ptr const
+	create_renderer(
+		renderer::parameters const &param,
 		renderer::adapter_type adapter,
 		window_ptr);
-	const renderer::caps_array caps() const;
+
+	window_ptr const create_window(
+		renderer::parameters const &);
+
+	renderer::caps_array const caps() const;
 private:
-	bool created;
+	boost::weak_ptr<renderer::device> ref;
 };
 
 }

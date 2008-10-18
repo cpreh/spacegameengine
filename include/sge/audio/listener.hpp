@@ -12,6 +12,8 @@ class listener
 	public:
 	virtual point const pos() const = 0;
 	virtual void pos(point const &) = 0;
+	virtual point const vel() const = 0;
+	virtual void vel(point const &) = 0;
 	virtual angle const direction() const = 0;
 	virtual void direction(angle const &) = 0;
 };

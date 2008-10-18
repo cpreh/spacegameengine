@@ -18,32 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCOPED_CONNECTION_HPP_INCLUDED
-#define SGE_SCOPED_CONNECTION_HPP_INCLUDED
+#ifndef SGE_SIGNALS_SCOPED_CONNECTION_HPP_INCLUDED
+#define SGE_SIGNALS_SCOPED_CONNECTION_HPP_INCLUDED
 
-#include "callback_connection.hpp"
-#include "export.hpp"
 #include <boost/signals/connection.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
-#include <boost/noncopyable.hpp>
 
 namespace sge
+{
+namespace signals
 {
 
 typedef boost::signals::scoped_connection scoped_connection;
 
-class SGE_CLASS_SYMBOL scoped_connection_manager : boost::noncopyable {
-public:
-	typedef unsigned key_type;
-
-	key_type scoped_connect(sge::callback_connection);
-	void scoped_disconnect(key_type);
-
-private:
-	unsigned anonymous_connections;
-	boost::ptr_map<key_type, scoped_connection> cons;
-};
-
+}
 }
 
 #endif

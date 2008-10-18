@@ -56,13 +56,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/endianness.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
-#include <sge/scoped_connection.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/iostream.hpp>
 #include <sge/math/basic_sequence_impl.hpp>
 #include <sge/math/vector.hpp>
 #include <sge/math/vector_impl.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <sge/sprite/intrusive_system.hpp>
 #include <sge/renderer/color.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
@@ -95,31 +94,35 @@ try
 		sge::renderer::stencil_buffer::off,
 		sge::renderer::window_mode::windowed,
 		sge::renderer::vsync::on);
-	const sge::renderer::device_ptr rend = rs->create_renderer(param);
+	
+	sge::window_ptr const wnd(
+		rs->create_window(
+			param));
+
+	const sge::renderer::device_ptr rend = rs->create_renderer(
+		param,
+		static_cast<sge::renderer::adapter_type>(0),
+		wnd);
 
 	const sge::input::system_ptr is(input_plugin->get()(rend->get_window()));
 
-	const sge::plugin::plugin<sge::font::system>::ptr_type font_plugin = pm.get_plugin<sge::font::system>().load();
-	const sge::font::system_ptr fs(font_plugin->get()());
+	//const sge::plugin::plugin<sge::font::system>::ptr_type font_plugin = pm.get_plugin<sge::font::system>().load();
+	//const sge::font::system_ptr fs(font_plugin->get()());
 
-	const sge::font::metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);
-	const sge::font::drawer_ptr fn_drawer(new sge::font::drawer_3d(rend));
+	//const sge::font::metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);
+	//const sge::font::drawer_ptr fn_drawer(new sge::font::drawer_3d(rend));
 
-	sge::font::font fn(metrics, fn_drawer);
+	//sge::font::font fn(metrics, fn_drawer);
 
 	const sge::plugin::plugin<sge::image::loader>::ptr_type image_plugin = pm.get_plugin<sge::image::loader>().load();
 	const sge::image::loader_ptr image_loader(image_plugin->get()());
-
-	sge::sprite::intrusive_system sys(rend);
-	sge::sprite::intrusive_object spr(sys, 1);
-	sge::sprite::intrusive_object spr2(spr);
 
 	using boost::lambda::var;
 	using boost::lambda::bind;
 //	using boost::lambda::_1;
 	using boost::lambda::if_;
 
-	const sge::scoped_connection cb(
+	sge::signals::scoped_connection const cb(
 		is->register_callback(
 			if_(
 				bind(
@@ -183,7 +186,7 @@ try
 		rend->get_window()->dispatch();
 		is->dispatch();
 
-		fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
+		//fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
 	}
 	return EXIT_SUCCESS;
 }

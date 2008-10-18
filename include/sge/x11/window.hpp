@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_WINDOW_HPP_INCLUDED
 
 #include "display_fwd.hpp"
+#include "visual_fwd.hpp"
+#include "colormap_fwd.hpp"
 #include "../window.hpp"
 #include "../export.hpp"
 #include <X11/Xlib.h>
@@ -30,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/function.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/signals.hpp>
-#include <set>
 
 namespace sge
 {
@@ -45,19 +46,15 @@ public:
 
 	typedef void x11_function_type(XEvent const &);
 	typedef boost::function<x11_function_type> x11_callback_type;
-	typedef boost::signal<x11_function_type> x11_signal_type;
 
 	SGE_SYMBOL window(
-		Display *dsp,
-		int screen,
-		Window wnd);
-	SGE_SYMBOL window(
-		window_pos const &pos,
-		window_size const &sz,
+		window_pos const &,
+		window_size const &,
 		string const &title,
-		display_ptr dsp,
-		XSetWindowAttributes const &attr,
-		XVisualInfo const &vi);
+		display_ptr,
+		bool fullscreen,
+		const_visual_ptr,
+		colormap_ptr);
 	SGE_SYMBOL ~window();
 
 	SGE_SYMBOL void title(string const &title);
@@ -69,6 +66,7 @@ public:
 	SGE_SYMBOL Window get_window() const;
 	SGE_SYMBOL int screen() const;
 	SGE_SYMBOL display_ptr const display() const;
+	SGE_SYMBOL const_visual_ptr const visual() const;
 	SGE_SYMBOL void map();
 	SGE_SYMBOL void map_raised();
 
@@ -80,20 +78,18 @@ private:
 
 	void add_event_mask(x11_event_type);
 
-	display_ptr dsp;
-	int screen_;
-	Window wnd;
-	bool fullscreen_;
+	display_ptr         dsp;
+	const_visual_ptr    visual_;
+	const_colormap_ptr  colormap_;
+	int                 screen_;
+	Window              wnd;
+	bool                fullscreen_;
 	x11_event_mask_type event_mask;
 
+	typedef boost::signal<x11_function_type> x11_signal_type;
 	typedef boost::ptr_map<x11_event_type, x11_signal_type> signal_map;
 	signal_map signals;
-
-	typedef std::set<window*> instance_map;
-	static instance_map instances;
 };
-
-typedef shared_ptr<window> window_ptr;
 
 }
 }

@@ -37,6 +37,8 @@ class listener;
 
 struct SGE_CLASS_SYMBOL player : boost::noncopyable {
 	virtual audio::listener& listener() = 0;
+	virtual unit speed_of_sound() const = 0;
+	virtual void speed_of_sound(unit) = 0;
 	virtual sound_ptr const create_nonstream_sound(file_ptr) = 0;
 	virtual sound_ptr const create_stream_sound(file_ptr) = 0;
 	virtual pool_ptr const create_pool() = 0;

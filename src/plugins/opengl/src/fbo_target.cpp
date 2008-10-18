@@ -26,10 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::fbo_target::fbo_target(
-	dim_type const &dim_)
-:
-	dim_(dim_)
+sge::ogl::fbo_target::fbo_target()
 {
 	if(!glGenFramebuffersEXT)
 		on_not_supported(
@@ -59,7 +56,8 @@ void sge::ogl::fbo_target::bind_texture(
 {
 	bind_me();
 
-	shared_ptr<texture_base> const p(dynamic_pointer_cast<texture_base>(t));
+	shared_ptr<texture_base> const p(
+		dynamic_pointer_cast<texture_base>(t));
 
 	glFramebufferTexture2DEXT(
 		GL_FRAMEBUFFER_EXT,
@@ -68,30 +66,33 @@ void sge::ogl::fbo_target::bind_texture(
 		p->id(),
 		0);
 
-	GLenum const status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
+	GLenum const status = glCheckFramebufferStatusEXT(
+		GL_FRAMEBUFFER_EXT);
 	if(status != GL_FRAMEBUFFER_COMPLETE_EXT)
 		throw exception(
 			SGE_TEXT("glCheckFramebufferStatusEXT: fbo incomplete!"));
+	
+	texture_target = dynamic_pointer_cast<texture>(t);
 }
 
 sge::renderer::target::dim_type const
 sge::ogl::fbo_target::dim() const
 {
-	return dim_;
+	return texture_target->dim();
 }
 
 sge::ogl::fbo_target::size_type
 sge::ogl::fbo_target::stride() const
 {
-	return 4; // FIXME
+	return texture_target->stride();
 }
 
 GLenum sge::ogl::fbo_target::format() const
 {
-	return GL_RGBA; // FIXME
+	return texture_target->format();
 }
 
 GLenum sge::ogl::fbo_target::format_type() const
 {
-	return GL_UNSIGNED_BYTE; // FIXME
+	return texture_target->format_type();
 }

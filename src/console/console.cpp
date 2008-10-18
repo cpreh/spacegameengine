@@ -41,7 +41,7 @@ const sge::con::callback_map &sge::con::funcs()
 	return instance().funcs;
 }
 
-sge::string sge::con::get_var(const sge::string &name)
+sge::string const sge::con::get_var(const sge::string &name)
 {
 	return instance().get_var(name);
 }

@@ -19,11 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <X11/Xlib.h>
+#include <sge/x11/display.hpp>
+#include <sge/x11/window.hpp>
+#include <sge/x11/sentry.hpp>
 #include "../pointer.hpp"
 
-sge::xinput::mouse_pos const
-sge::xinput::get_mouse_pos(
-	x11::display_ptr const dsp,
+sge::x11input::mouse_pos const
+sge::x11input::get_pointer(
         x11::window_ptr const wnd)
 {
 	Window root_return,
@@ -34,8 +36,10 @@ sge::xinput::get_mouse_pos(
 	    win_y_return;
 	unsigned mask_return;
 
+	SGE_X11_SENTRY
+
 	XQueryPointer(
-		dsp->get(),
+		wnd->display()->get(),
 		wnd->get_window(),
 		&root_return,
 		&child_return,
@@ -48,4 +52,22 @@ sge::xinput::get_mouse_pos(
 	return mouse_pos(
 		win_x_return,
 		win_y_return);
+}
+
+void sge::x11input::warp_pointer(
+	x11::window_ptr const wnd,
+	mouse_pos const &pos)
+{
+	SGE_X11_SENTRY
+
+	XWarpPointer(
+		wnd->display()->get(),
+		None,
+		wnd->get_window(),
+		0,
+		0,
+		0,
+		0,
+		pos.x(),
+		pos.y());
 }

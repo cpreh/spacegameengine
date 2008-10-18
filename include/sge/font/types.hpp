@@ -48,7 +48,7 @@ typedef boost::gil::image<
 typedef boost::gil::gray8c_view_t       const_image_view;
 typedef boost::gil::gray8_view_t        image_view;
 
-const dim gil_dim_to_sge(image::point_t const&);
+dim const gil_dim_to_sge(image::point_t const&);
 
 }
 }

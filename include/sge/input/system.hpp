@@ -23,12 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "callback.hpp"
 #include "../window_fwd.hpp"
-#include "../callback_connection.hpp"
+#include "../signals/connection.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
-//#include <boost/signal.hpp>
 
 namespace sge
 {
@@ -37,15 +36,11 @@ namespace input
 
 class SGE_CLASS_SYMBOL system : boost::noncopyable {
 public:
-	//typedef boost::signal<key_pair_fun> signal_type;
-
-	//typedef boost::signal<key_type_fun> repeat_signal_type;
-
-	virtual callback_connection const
+	virtual signals::connection const
 	register_callback(
 		callback const &c) = 0;
 
-	virtual callback_connection const
+	virtual signals::connection const
 	register_repeat_callback(
 		repeat_callback const &c) = 0;
 	

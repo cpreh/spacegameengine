@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../hardware_vbo.hpp"
 #include "../error.hpp"
+#include "../glew.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/once.hpp>
@@ -51,60 +52,76 @@ GLuint sge::ogl::hardware_vbo::gen_buffer()
 	return id;
 }
 
-void sge::ogl::hardware_vbo::delete_buffer(const GLuint id)
+void sge::ogl::hardware_vbo::delete_buffer(
+	GLuint const id)
 {
 	SGE_OPENGL_SENTRY
 
 	gl_delete_buffers(1, &id);
 }
 
-void sge::ogl::hardware_vbo::bind_buffer(const GLenum type, const GLuint id)
+void sge::ogl::hardware_vbo::bind_buffer(
+	GLenum const type,
+	GLuint const id)
 {
 	SGE_OPENGL_SENTRY
 
 	gl_bind_buffer(type, id);
 }
 
-void* sge::ogl::hardware_vbo::map_buffer(const GLenum type, const GLenum flags)
+void *sge::ogl::hardware_vbo::map_buffer(
+	GLenum const type,
+	GLenum const flags)
 {
 	SGE_OPENGL_SENTRY
 
-	void *const ret = static_cast<void*>(gl_map_buffer(type, flags));
-
-	if(ret == 0)
-		throw exception(SGE_TEXT("glMapBuffer() returned 0!"));
-	return ret;
+	return static_cast<void*>(
+		gl_map_buffer(
+			type,
+			flags));
 }
 
-void sge::ogl::hardware_vbo::unmap_buffer(const GLenum type)
+void sge::ogl::hardware_vbo::unmap_buffer(
+	GLenum const type)
 {
 	SGE_OPENGL_SENTRY
 
-	if(gl_unmap_buffer(type) == GL_FALSE)
-		throw exception(SGE_TEXT("gl_unmap_buffer() returned false. The buffer corrupted during the lock time."));
+	gl_unmap_buffer(type); 
 }
 
-void sge::ogl::hardware_vbo::buffer_data(const GLenum type,
-                                         const GLsizei size,
-                                         const void *const data,
-                                         const GLenum flags)
+void sge::ogl::hardware_vbo::buffer_data(
+	GLenum const type,
+	GLsizei const size,
+	void const *const data,
+	GLenum const flags)
 {
 	SGE_OPENGL_SENTRY
 
-	gl_buffer_data(type, size, data, flags);
+	gl_buffer_data(
+		type,
+		size,
+		data,
+		flags);
 }
 
-void sge::ogl::hardware_vbo::buffer_sub_data(const GLenum type,
-                                             const GLsizei first,
-                                             const GLsizei size,
-                                             const void *const data)
+void sge::ogl::hardware_vbo::buffer_sub_data(
+	GLenum const type,
+	GLsizei const first,
+	GLsizei const size,
+	void const *const data)
 {
 	SGE_OPENGL_SENTRY
 
-	gl_buffer_sub_data(type, first, size, data);
+	gl_buffer_sub_data(
+		type,
+		first,
+		size,
+		data);
 }
 
-void* sge::ogl::hardware_vbo::buffer_offset(const GLenum, const GLsizei offset)
+void *sge::ogl::hardware_vbo::buffer_offset(
+	GLenum,
+	GLsizei const offset)
 {
 	return reinterpret_cast<void*>(offset);
 }
@@ -116,7 +133,7 @@ void initialize_hardware_vbo()
 {
 	SGE_FUNCTION_ONCE
 
-	if(GLEW_VERSION_1_5)
+	if(sge::ogl::glew_is_supported("GL_VERSION_1_5"))
 	{
 		gl_gen_buffers = glGenBuffers;
 		gl_delete_buffers = glDeleteBuffers;
@@ -126,7 +143,7 @@ void initialize_hardware_vbo()
 		gl_buffer_data = glBufferData;
 		gl_buffer_sub_data = glBufferSubData;
 	}
-	else if(GL_ARB_vertex_buffer_object)
+	else if(sge::ogl::glew_is_supported("GL_ARB_vertex_buffer_object"))
 	{
 		gl_gen_buffers = glGenBuffersARB;
 		gl_delete_buffers = glDeleteBuffersARB;
@@ -136,6 +153,9 @@ void initialize_hardware_vbo()
 		gl_buffer_data = glBufferDataARB;
 		gl_buffer_sub_data = glBufferSubDataARB;
 	}
+	else
+		throw sge::exception(
+			SGE_TEXT("Invalid initialization of hardware_vbo!"));
 }
 
 }

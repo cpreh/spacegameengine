@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vbo.hpp"
 #include "../vbo_util.hpp"
 #include "../software_vbo.hpp"
+#include "../glew.hpp"
 #include <boost/scoped_ptr.hpp>
 
 namespace
@@ -32,27 +33,37 @@ boost::scoped_ptr<sge::ogl::vbo_base> impl;
 
 void sge::ogl::initialize_vbo()
 {
-	impl.reset(create_vbo_impl(GLEW_VERSION_1_5 || GL_ARB_vertex_buffer_object));
+	impl.reset(
+		create_vbo_impl(
+			glew_is_supported("GL_VERSION_1_5")
+			|| glew_is_supported("GL_ARB_vertex_buffer_object")));
 }
 
 GLenum sge::ogl::index_buffer_type()
 {
-	if(GLEW_VERSION_1_5)
-		return GL_ELEMENT_ARRAY_BUFFER;
-	if(GLEW_ARB_vertex_buffer_object)
-		return GL_ELEMENT_ARRAY_BUFFER_ARB;
-	static GLenum software_id = software_vbo::unique_id();
-	return software_id;
+	static GLenum const type(
+		glew_is_supported(
+			"GL_VERSION_1_5")
+			? GL_ELEMENT_ARRAY_BUFFER
+			: glew_is_supported(
+				"GL_ARB_vertex_buffer_object")
+				? GL_ELEMENT_ARRAY_BUFFER_ARB
+				: software_vbo::unique_id());
+	return type;
 }
 
 GLenum sge::ogl::vertex_buffer_type()
 {
-	if(GLEW_VERSION_1_5)
-		return GL_ARRAY_BUFFER;
-	if(GLEW_ARB_vertex_buffer_object)
-		return GL_ARRAY_BUFFER_ARB;
-	static GLenum software_id = software_vbo::unique_id();
-	return software_id;
+	static GLenum const type(
+		glew_is_supported(
+			"GL_VERSION_1_5")
+			? GL_ARRAY_BUFFER
+			: glew_is_supported(
+				"GL_ARB_vertex_buffer_object")
+				? GL_ARRAY_BUFFER_ARB
+				: software_vbo::unique_id());
+
+	return type;
 }
 
 sge::ogl::vbo_base& sge::ogl::vb_ib_vbo_impl()

@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/pool.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/ptr_container_erase.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/foreach.hpp>
@@ -39,16 +38,33 @@ sge::openal::player::player()
 	  context_(device_)
 {
 	context_.make_current();
+	// set our own speed of sound standard rather than relying on OpenAL
+	speed_of_sound(static_cast<audio::unit>(343));
+
+	listener().pos(audio::point::null());
+	listener().vel(audio::point::null());
+	listener().direction(
+		audio::angle(
+			audio::point(
+				static_cast<audio::unit>(0),
+				static_cast<audio::unit>(0),
+				static_cast<audio::unit>(1)),
+			audio::point(
+				static_cast<audio::unit>(0),
+				static_cast<audio::unit>(1),
+				static_cast<audio::unit>(0))));
 }
 
-void sge::openal::player::register_stream_sound(stream_sound *p)
+sge::audio::unit sge::openal::player::speed_of_sound() const
 {
-	stream_sounds.push_back(p);
+	ALfloat dest;
+	alGetFloatv(AL_SPEED_OF_SOUND,&dest);
+	return static_cast<audio::unit>(dest);
 }
 
-void sge::openal::player::unregister_stream_sound(stream_sound * const p)
+void sge::openal::player::speed_of_sound(audio::unit const dest)
 {
-	ptr_container_erase(stream_sounds,p);
+	alSpeedOfSound(static_cast<ALfloat>(dest));
 }
 
 sge::audio::sound_ptr const
@@ -94,6 +110,9 @@ ALuint sge::openal::player::register_nonstream_sound(
 	          << data.size() << SGE_TEXT(" and format ")
 						<< file_format(*_audio_file)
 						<< SGE_TEXT(" and sample rate ") << _audio_file->sample_rate());
+
+	if (data.empty())
+		throw audio::exception(SGE_TEXT("tried to create empty nonstreaming sound, that's not possible!"));
 
 	alBufferData(
 		buffer.albuffer(), 

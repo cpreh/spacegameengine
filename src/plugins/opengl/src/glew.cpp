@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2007  Simon Stienen (s.stienen@slashlife.org)
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,15 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/scoped_connection.hpp>
+#include "../glew.hpp"
+#include "../common.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-sge::scoped_connection_manager::key_type sge::scoped_connection_manager::scoped_connect(sge::callback_connection v) {
-	while (cons.find(++anonymous_connections) != cons.end()) ;
-	cons.insert(anonymous_connections, new sge::scoped_connection(v));
-	return anonymous_connections;
+void sge::ogl::initialize_glew()
+{
+	if(glewInit() != GLEW_OK)
+		throw exception(
+			SGE_TEXT("glewInit() failed!"));
 }
 
-void sge::scoped_connection_manager::scoped_disconnect(const key_type k) {
-	cons.erase(k);
+bool sge::ogl::glew_is_supported(
+	glew_string const &str)
+{
+	return glewIsSupported(str.c_str());
 }
-

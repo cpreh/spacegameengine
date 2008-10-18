@@ -113,8 +113,6 @@ private:
 	drawer_ptr        drawer_;
 };
 
-typedef shared_ptr<font> font_ptr;
-
 }
 }
 

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include "target.hpp"
+#include <sge/renderer/bit_depth.hpp>
 
 namespace sge
 {
@@ -32,7 +33,8 @@ namespace ogl
 class default_target : public target {
 public:
 	default_target(
-		dim_type const &);
+		dim_type const &,
+		renderer::bit_depth::type);
 private:
 	dim_type const dim() const;
 
@@ -41,7 +43,8 @@ private:
 	GLenum format() const;
 	GLenum format_type() const;
 
-	dim_type dim_;
+	dim_type const dim_;
+	renderer::bit_depth::type const depth_;
 };
 
 }

@@ -40,6 +40,7 @@ public:
 	SGE_SYMBOL ~display();
 	SGE_SYMBOL Display *get() const;
 	SGE_SYMBOL void sync();
+	SGE_SYMBOL int default_screen() const;
 private:
 	Display  *d;
 	bool     wrapped;

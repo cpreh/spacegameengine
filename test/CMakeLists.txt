@@ -7,22 +7,8 @@ ENDIF ()
 
 INSTALL (TARGETS sgetest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
-ADD_EXECUTABLE (sgesoundtest soundtest.cpp)
-TARGET_LINK_LIBRARIES (sgesoundtest sgecore)
-IF (NOT MSVC)
-	TARGET_LINK_LIBRARIES (sgesoundtest boost_program_options)
-ENDIF ()
-INSTALL (TARGETS sgesoundtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-
-ADD_EXECUTABLE (sgeanimtest animtest.cpp)
-TARGET_LINK_LIBRARIES (sgeanimtest sgecore)
-INSTALL (TARGETS sgeanimtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-
 ADD_EXECUTABLE (tutorial_01 tutorial/tutorial_01.cpp)
 TARGET_LINK_LIBRARIES (tutorial_01 sgecore)
-
-ADD_EXECUTABLE (pooltest pooltest.cpp)
-TARGET_LINK_LIBRARIES (pooltest sgecore)
 
 ADD_EXECUTABLE (tutorial_02 tutorial/tutorial_02.cpp)
 TARGET_LINK_LIBRARIES (tutorial_02 sgecore)
@@ -30,26 +16,28 @@ TARGET_LINK_LIBRARIES (tutorial_02 sgecore)
 ADD_EXECUTABLE (font tutorial/font.cpp)
 TARGET_LINK_LIBRARIES (font sgecore)
 
-ADD_EXECUTABLE (sgegiltest giltest.cpp)
-TARGET_LINK_LIBRARIES (sgegiltest sgecore)
-INSTALL (TARGETS sgegiltest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+MACRO (ADD_SGE_TEST name)
+	ADD_EXECUTABLE (sge${name}test ${name}.cpp)
+	TARGET_LINK_LIBRARIES (sge${name}test sgecore)
+	INSTALL (TARGETS sge${name}test DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+ENDMACRO ()
 
-ADD_EXECUTABLE (sgetargettest targettest.cpp)
-TARGET_LINK_LIBRARIES (sgetargettest sgecore)
-INSTALL (TARGETS sgetargettest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+ADD_SGE_TEST(anim)
+ADD_SGE_TEST(pool)
+ADD_SGE_TEST(gil)
+ADD_SGE_TEST(doppler)
+ADD_SGE_TEST(random)
+ADD_SGE_TEST(sound)
+ADD_SGE_TEST(target)
+ADD_SGE_TEST(vertex)
 
-ADD_EXECUTABLE (sgevertextest vertextest.cpp)
-TARGET_LINK_LIBRARIES (sgevertextest sgecore)
-INSTALL (TARGETS sgevertextest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-
-ADD_EXECUTABLE (sgerandomtest randomtest.cpp)
-TARGET_LINK_LIBRARIES (sgerandomtest sgecore)
-INSTALL (TARGETS sgerandomtest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+# TODO: this should be part of the macro
+IF (NOT MSVC)
+	TARGET_LINK_LIBRARIES (sgesoundtest boost_program_options)
+ENDIF ()
 
 IF (${ENABLE_GUI})
-	ADD_EXECUTABLE (sgeguitest guitest.cpp)
-	TARGET_LINK_LIBRARIES (sgeguitest sgecore sgegui boost_signals)
-	INSTALL (TARGETS sgeguitest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+	ADD_SGE_TEST(gui)
 ENDIF ()
 
 #ADD_EXECUTABLE (islandtest island/main.cpp quadtree/quadtree.cpp quadtree/mathstuff.cpp island/island_extractor.cpp island/skydome.cpp)

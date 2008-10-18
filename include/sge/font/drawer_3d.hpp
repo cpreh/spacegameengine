@@ -56,6 +56,11 @@ public:
 	SGE_SYMBOL void set_color(
 		renderer::any_color const &col);
 private:
+	texture::part_ptr const
+	get_cached_texture(
+		char_type,
+		const_image_view const &);
+
 	renderer::device_ptr                             rend;
 	renderer::any_color                              col;
 	texture::manager                                 texman;

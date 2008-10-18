@@ -39,6 +39,8 @@ protected:
 		last_(last_)
 	{}
 public:
+	typedef T value_type;
+
 	T first() const
 	{
 		return first_;

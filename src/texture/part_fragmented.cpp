@@ -25,19 +25,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 
 sge::texture::part_fragmented::part_fragmented(
-	const renderer::lock_rect& outer_area_,
+	renderer::lock_rect const &outer_area_,
 	fragmented &fragment,
-	const bool need_atlasing_w,
-	const bool need_atlasing_h)
-: outer_area_(outer_area_),
-   fragment(fragment),
-   need_atlasing_w(need_atlasing_w),
-   need_atlasing_h(need_atlasing_h),
-   inner_area_(
-   	inner_atlased_rect(
-	   	outer_area_,
-		need_atlasing_w,
-		need_atlasing_h))
+	bool const need_atlasing_w,
+	bool const need_atlasing_h)
+:
+	outer_area_(outer_area_),
+	fragment(fragment),
+	need_atlasing_w(need_atlasing_w),
+	need_atlasing_h(need_atlasing_h),
+	inner_area_(
+		inner_atlased_rect(
+			outer_area_,
+			need_atlasing_w,
+			need_atlasing_h))
 {}
 
 sge::texture::part_fragmented::~part_fragmented()

@@ -18,31 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <GL/glx.h>
-#include "../visual.hpp"
-#include <sge/x11/display.hpp>
-#include <sge/exception.hpp>
+#include <sge/x11/sentry.hpp>
+#include <sge/x11/error.hpp>
 #include <sge/text.hpp>
+#include <sge/exception.hpp>
+#include <sge/format.hpp>
+#include <sge/iconv.hpp>
+#include <exception>
 
-sge::ogl::glx::visual::visual(
-	x11::display_ptr const dsp,
-	int const screen,
-	int const *const param)
+sge::x11::sentry::sentry(
+	std::string const &file_name,
+	int const line)
 :
-	vi(
-		glXChooseVisual(
-			dsp->get(),
-			screen,
-			const_cast<int*>(
-				param)))
-{
-	if(!vi.get())
-		throw exception(
-			SGE_TEXT("glXChooseVisual() failed!"));
-}
+	file_name(file_name),
+	line(line)
+{}
 
-XVisualInfo const &
-sge::ogl::glx::visual::info() const
+sge::x11::sentry::~sentry()
 {
-	return *vi.get();
+	optional_error const err(
+		last_error());
+	
+	if(std::uncaught_exception() || !err)
+		return;
+
+	// TODO: print something about the error!
+	throw exception(
+		(format(
+			SGE_TEXT("x11 error in file %1%, line %2%!"))
+		% iconv(file_name)
+		% line).str());
 }

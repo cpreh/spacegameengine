@@ -39,7 +39,7 @@ SGE_SYMBOL void chat_callback(const callback &);
 SGE_SYMBOL void read_config(const path &);
 SGE_SYMBOL const var_map &vars();
 SGE_SYMBOL const callback_map &funcs();
-SGE_SYMBOL sge::string get_var(const sge::string &);
+SGE_SYMBOL sge::string const get_var(const sge::string &);
 SGE_SYMBOL void set_var(const sge::string &,const sge::string &);
 SGE_SYMBOL void latch(const sge::string &,const sge::string &);
 

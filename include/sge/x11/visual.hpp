@@ -18,34 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11/dga.hpp>
-#include <sge/x11/display.hpp>
-#ifdef SGE_USE_DGA
-#include <X11/extensions/xf86dga.h>
+#ifndef SGE_X11_VISUAL_HPP_INCLUDED
+#define SGE_X11_VISUAL_HPP_INCLUDED
 
-sge::x11::dga_guard::dga_guard(
-	display_ptr const dsp,
-	int const screen)
- : dsp(dsp),
-   screen(screen),
-   enabled(false)
+#include <X11/Xutil.h>
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
+
+namespace sge
 {
-	enable(true);
+namespace x11
+{
+
+class visual : boost::noncopyable {
+public:
+	SGE_SYMBOL explicit visual(	
+		XVisualInfo *);
+	
+	SGE_SYMBOL ~visual();
+
+	SGE_SYMBOL XVisualInfo const &info() const;
+private:
+	XVisualInfo *const info_;
+};
+
+}
 }
 
-sge::x11::dga_guard::~dga_guard()
-{
-	enable(false);
-}
-
-void sge::x11::dga_guard::enable(
-	bool const b)
-{
-	if(enabled == b)
-		return;
-
-	XF86DGADirectVideo(dsp->get(), screen, b ? XF86DGADirectMouse : 0);
-
-	enabled = b;
-}
 #endif

@@ -7,6 +7,10 @@ IF(${UNIX})
 	)
 ENDIF ()
 
+IF (${ENABLE_DGA})
+	ADD_DEFINITIONS (-DSGE_USE_DGA)
+ENDIF ()
+
 ADD_LIBRARY (sgex11input SHARED ${sgex11inputfiles})
 TARGET_LINK_LIBRARIES (sgex11input sgecore X11)
 

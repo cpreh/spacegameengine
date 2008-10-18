@@ -437,7 +437,7 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 
 }
 
-sge::input::key_code sge::xinput::translate_key_code(const KeySym sym)
+sge::input::key_code sge::x11input::translate_key_code(const KeySym sym)
 {
 	const x11_to_sge_array::const_iterator it = x11_to_sge.find(sym);
 	return it == x11_to_sge.end()
