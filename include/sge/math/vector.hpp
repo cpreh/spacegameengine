@@ -175,6 +175,10 @@ public:
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
+	explicit basic_vector(no_initialization_tag)
+	{
+	}
+
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
 	explicit basic_vector(Args... args)
@@ -187,13 +191,6 @@ public:
 #define SGE_MATH_VECTOR_CTOR(z, n, text) basic_vector(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_CTOR, void)
 #endif
-
-	/**
-	 * This does not initialize any of the coordinates (models the built types)
-	 */
-	basic_vector(no_initialization_tag)
-	{
-	}
 
 	static basic_vector const
 	null()

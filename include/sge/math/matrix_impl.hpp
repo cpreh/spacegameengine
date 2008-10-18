@@ -259,7 +259,7 @@ sge::math::operator* (
 	const basic_vector<T,N>& v)
 {
 	typedef basic_vector<T,M> result_type;
-	result_type ret;
+	result_type ret(result_type::null());
 	for(typename result_type::size_type i = 0; i < M; ++i)
 		for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
 			ret[i] += v[j] * m[j][i];
