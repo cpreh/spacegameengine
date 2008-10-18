@@ -88,15 +88,14 @@ private:
 	x11::pixmap no_bmp_;
 	x11::cursor no_cursor_;
 	bool        mouse_grabbed; // TODO: replace this with a RAII class
+	mouse_pos   mouse_last; // TODO: move this in a mouse class
 #ifdef SGE_USE_DGA
 	dga dga_;
 #endif
 	bool use_dga;
-
+	
 	scoped_connection_manager connections;
 
-	mouse_pos          mouse_last;
-	
 	typedef boost::signal<input::key_pair_fun> signal_type;
 	typedef boost::signal<input::key_type_fun> repeat_signal_type;
 

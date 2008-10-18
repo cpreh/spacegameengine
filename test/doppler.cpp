@@ -53,11 +53,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/assign/list_of.hpp>
-#include <boost/array.hpp>
-#include <cstdlib>
-#include <algorithm>
 #include <exception>
 #include <ostream>
+#include <cstdlib>
 
 namespace
 {
@@ -208,11 +206,6 @@ try
 			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))
 	);
 	sys.renderer()->projection(sge::math::matrix_orthogonal_xy());
-
-	typedef boost::array<sge::sprite::point,3> mouse_container;
-	mouse_container mouse_positions;
-
-	std::fill(mouse_positions.begin(),mouse_positions.end(),sge::sprite::point(0,0));
 
 	while(running)
 	{
