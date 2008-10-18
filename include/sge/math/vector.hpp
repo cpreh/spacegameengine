@@ -532,7 +532,7 @@ public:
 	 */
 	bool is_null() const
 	{
-		return *this == basic_vector();
+		return *this == null();
 	}
 
 	void swap(basic_vector& r)
