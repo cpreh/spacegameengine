@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/endianness.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
-#include <sge/scoped_connection.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/iostream.hpp>
 #include <sge/math/basic_sequence_impl.hpp>
 #include <sge/math/vector.hpp>
@@ -122,7 +122,7 @@ try
 //	using boost::lambda::_1;
 	using boost::lambda::if_;
 
-	const sge::scoped_connection cb(
+	sge::signals::scoped_connection const cb(
 		is->register_callback(
 			if_(
 				bind(

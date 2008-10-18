@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media.hpp>
 #include <sge/window.hpp>
 #include <sge/math/matrix_impl.hpp>
-#include <sge/scoped_connection.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -189,7 +189,7 @@ try
 
 	bool running = true;
 
-	sge::scoped_connection const cb(
+	sge::signals::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			if_(bind(&sge::input::key_type::code,
 				bind(&sge::input::key_pair::key,boost::lambda::_1))
@@ -197,7 +197,7 @@ try
 		[var(running)=false])
 	);
 
-	sge::scoped_connection const pc(
+	sge::signals::scoped_connection const pc(
 		sys.input_system()->register_callback(sprite_functor(pointer,sound_siren)));
 
 	sys.renderer()->set_state(
