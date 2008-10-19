@@ -37,6 +37,7 @@ sge::x11input::system::system(
 	wnd(wnd),
 	acquired(false)
 {
+	/*
 	connections.connect(
 		wnd->register_callback(
 			EnterNotify,
@@ -52,8 +53,7 @@ sge::x11input::system::system(
 				&system::on_release,
 				this,
 				_1)));
-
-/*
+*/
 	connections.connect(
 		wnd->register_callback(
 			FocusIn,
@@ -69,7 +69,7 @@ sge::x11input::system::system(
 				&system::on_release,
 				this,
 				_1)));
-*/
+
 	connections.connect(
 		wnd->register_callback(
 			MapNotify,
@@ -152,22 +152,6 @@ void sge::x11input::system::emit_repeat_callback(
 	repeat_sig(k);
 }
 
-void sge::x11input::system::on_release(
-	XEvent const &)
-{
-	if(!acquired)
-		return;
-	acquired = false;
-	
-	SGE_LOG_DEBUG(
-		log::global(),
-		log::_1
-			<< SGE_TEXT("x11: release window"));
-	
-	BOOST_FOREACH(device_vector::reference dev, devices)
-		dev.ungrab();
-}
-
 void sge::x11input::system::on_acquire(
 	XEvent const &)
 {
@@ -184,4 +168,20 @@ void sge::x11input::system::on_acquire(
 		dev.grab();
 
 	wnd->display()->sync();
+}
+
+void sge::x11input::system::on_release(
+	XEvent const &)
+{
+	if(!acquired)
+		return;
+	acquired = false;
+	
+	SGE_LOG_DEBUG(
+		log::global(),
+		log::_1
+			<< SGE_TEXT("x11: release window"));
+	
+	BOOST_FOREACH(device_vector::reference dev, devices)
+		dev.ungrab();
 }

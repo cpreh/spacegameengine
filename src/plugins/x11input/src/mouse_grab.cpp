@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/cursor.hpp>
+#include <sge/x11/sentry.hpp>
 #include <sge/exception.hpp>
 
 sge::x11input::mouse_grab::mouse_grab(
@@ -34,6 +35,8 @@ sge::x11input::mouse_grab::mouse_grab(
 :
 	wnd(wnd)
 {
+	SGE_X11_SENTRY
+
 	for(;;)
 	{
 		try
@@ -65,6 +68,8 @@ sge::x11input::mouse_grab::mouse_grab(
 
 sge::x11input::mouse_grab::~mouse_grab()
 {
+	SGE_X11_SENTRY
+
 	XUngrabPointer(
 		wnd->display()->get(),
 		CurrentTime);
