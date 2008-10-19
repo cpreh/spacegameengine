@@ -68,6 +68,7 @@ private:
 	void on_release(XEvent const &);
 
 	x11::window_ptr const wnd;
+	bool                  acquired;
 	
 	typedef boost::ptr_vector<
 		device

@@ -34,7 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11input::system::system(
 	x11::window_ptr const wnd)
  :
-	wnd(wnd)
+	wnd(wnd),
+	acquired(false)
 {
 	connections.connect(
 		wnd->register_callback(
@@ -52,6 +53,7 @@ sge::x11input::system::system(
 				this,
 				_1)));
 
+/*
 	connections.connect(
 		wnd->register_callback(
 			FocusIn,
@@ -67,7 +69,7 @@ sge::x11input::system::system(
 				&system::on_release,
 				this,
 				_1)));
-
+*/
 	connections.connect(
 		wnd->register_callback(
 			MapNotify,
@@ -153,6 +155,10 @@ void sge::x11input::system::emit_repeat_callback(
 void sge::x11input::system::on_release(
 	XEvent const &)
 {
+	if(!acquired)
+		return;
+	acquired = false;
+	
 	SGE_LOG_DEBUG(
 		log::global(),
 		log::_1
@@ -165,6 +171,10 @@ void sge::x11input::system::on_release(
 void sge::x11input::system::on_acquire(
 	XEvent const &)
 {
+	if(acquired)
+		return;
+	acquired = true;
+
 	SGE_LOG_DEBUG(
 		log::global(),
 		log::_1
