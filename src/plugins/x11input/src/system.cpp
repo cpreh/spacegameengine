@@ -60,7 +60,7 @@ sge::x11input::system::system(
 		no_bmp_.get(),
 		black_.get()),
 	mouse_grabbed(false),
-	mouse_last(no_initialization_tag()),
+	mouse_last(),
 #ifdef SGE_USE_DGA
 	dga_(
 		wnd->display(),
