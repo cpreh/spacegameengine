@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window.hpp>
 #include <sge/once.hpp>
 #ifdef SGE_USE_DGA
+#include "../check_dga_mouse.hpp"
 #include <X11/extensions/xf86dga.h>
+#include <sge/x11/display.hpp>
 #include <sge/log/headers.hpp>
 #endif
 
@@ -66,8 +68,8 @@ void sge::x11input::dga::enable(
 		return;
 	
 	XF86DGADirectVideo(
-		dsp->get(),
-		screen,
+		wnd->display()->get(),
+		wnd->screen(),
 		b
 		? XF86DGADirectMouse
 		: 0);
