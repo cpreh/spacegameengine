@@ -88,17 +88,17 @@ sge::x11input::mouse::mouse(
 
 void sge::x11input::mouse::grab()
 {
+	dga_.enable(true);
 	grab_.reset(
 		new mouse_grab(
 			wnd,
 			cur));
-	dga_.enable(true);
 }
 
 void sge::x11input::mouse::ungrab()
 {
-	dga_.enable(false);
 	grab_.reset();
+	dga_.enable(false);
 }
 
 void sge::x11input::mouse::on_motion(

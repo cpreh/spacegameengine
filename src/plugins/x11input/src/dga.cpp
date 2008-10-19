@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_dga_mouse.hpp"
 #include <X11/extensions/xf86dga.h>
 #include <sge/x11/display.hpp>
+#include <sge/x11/sentry.hpp>
 #include <sge/log/headers.hpp>
 #endif
 
@@ -67,6 +68,8 @@ void sge::x11input::dga::enable(
 	if(!have_dga)
 		return;
 	
+	SGE_X11_SENTRY
+
 	XF86DGADirectVideo(
 		wnd->display()->get(),
 		wnd->screen(),
