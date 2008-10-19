@@ -230,7 +230,7 @@ inline std::basic_ostream<Ch,Traits>& sge::math::operator<< (std::basic_ostream<
 template<typename T, std::size_t N>
 inline sge::math::basic_matrix<T,N,N> sge::math::transpose(const basic_matrix<T,N,N>& m)
 {
-	basic_matrix<T,N,N> ret = basic_matrix<T,N,N>(no_initialization_tag());
+	basic_matrix<T,N,N> ret;
 	for(typename basic_matrix<T,N,N>::size_type j = 0; j < N; ++j)
 		for(typename basic_matrix<T,N,N>::size_type i = 0; i < N; ++i)
 			ret[i][j] = m[j][i];
