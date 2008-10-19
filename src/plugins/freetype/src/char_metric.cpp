@@ -34,7 +34,7 @@ sge::ft::char_metric::char_metric(
 	char_type const ch)
 :
 	buffer(),
-	offset_(no_initialization_tag())
+	offset_()
 {
 	if(FT_Load_Char(face_.get(), ch, FT_LOAD_DEFAULT))
 		throw exception(SGE_TEXT("FT_Load_Glyph() failed!"));

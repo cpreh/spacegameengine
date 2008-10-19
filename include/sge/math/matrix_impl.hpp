@@ -38,7 +38,7 @@ sge::math::basic_matrix<T, N, M>::basic_matrix(Args... args)
 #endif
 
 template<typename T, std::size_t N, std::size_t M>
-sge::math::basic_matrix<T, N, M>::basic_matrix(no_initialization_tag)
+sge::math::basic_matrix<T, N, M>::basic_matrix()
 {
 }
 
@@ -183,7 +183,7 @@ template<typename T, std::size_t N, std::size_t M1, std::size_t M2>
 inline sge::math::basic_matrix<T,N,N> sge::math::operator* (const basic_matrix<T,M1,N>& a, const basic_matrix<T,N,M2>& b)
 {
 	typedef basic_matrix<T,M1,M2> result_type;
-	result_type ret = result_type(no_initialization_tag());
+	result_type ret;
 	for(typename basic_matrix<T,M1,N>::size_type i = 0; i < M1; ++i)
 		for(typename basic_matrix<T,N,M2>::size_type j = 0; j < M2; ++j)
 		{

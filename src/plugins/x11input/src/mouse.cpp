@@ -58,7 +58,7 @@ sge::x11input::mouse::mouse(
 		no_bmp_.get(),
 		black_.get()),
 	callback(callback),
-	mouse_last(no_initialization_tag()),
+	mouse_last(),
 	dga_(wnd)
 {
 	connections.connect(

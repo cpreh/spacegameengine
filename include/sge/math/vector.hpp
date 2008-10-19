@@ -123,7 +123,6 @@ private:
 #include "../text.hpp"
 #include "../assert.hpp"
 #include "../su.hpp"
-#include "../no_initialization_tag.hpp"
 #include "../exception.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/preprocessor/enum_params.hpp>
@@ -175,9 +174,7 @@ public:
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	explicit basic_vector(no_initialization_tag)
-	{
-	}
+	explicit basic_vector() {}
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
@@ -195,7 +192,7 @@ public:
 	static basic_vector const
 	null()
 	{
-		basic_vector ret = basic_vector(no_initialization_tag());
+		basic_vector ret;
 		
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = static_cast<value_type>(0);
@@ -255,7 +252,7 @@ public:
 
 	basic_vector operator+() const
 	{
-		basic_vector ret = basic_vector(no_initialization_tag());
+		basic_vector ret;
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = +data_[i];
 		return ret;
@@ -263,7 +260,7 @@ public:
 
 	basic_vector operator-() const
 	{
-		basic_vector ret = basic_vector(no_initialization_tag());
+		basic_vector ret;
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = -data_[i];
 		return ret;
@@ -711,7 +708,7 @@ template<typename D, typename S, std::size_t Dim>
 basic_vector<D, Dim> structure_cast(const basic_vector<S, Dim>& s)
 {
 	typedef basic_vector<D, Dim> ret_type;
-	ret_type ret = ret_type(no_initialization_tag());
+	ret_type ret;
 	for(typename ret_type::size_type i = 0; i < Dim; ++i)
 		ret[i] = static_cast<D>(s[i]);
 	return ret;

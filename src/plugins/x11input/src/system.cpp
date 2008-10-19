@@ -93,7 +93,6 @@ sge::x11input::system::system(
 			&system::emit_callback,
 			this,
 			_1));
-
 	{
 		device_auto_ptr mouse_(
 			new mouse(

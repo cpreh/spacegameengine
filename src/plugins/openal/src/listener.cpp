@@ -4,8 +4,8 @@
 #include "../openal.hpp"
 
 sge::openal::listener::listener()
-	: pos_(no_initialization_tag()),
-	  vel_(no_initialization_tag())
+	: pos_(),
+	  vel_()
 {
 }
 

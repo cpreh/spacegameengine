@@ -28,7 +28,7 @@
 #include <cstdlib>
 #include <cmath>
 
-int main(int argc, char *argv[])
+int main(int, char *[])
 try
 {
 	sge::log::global().activate_hierarchy(sge::log::level::debug);

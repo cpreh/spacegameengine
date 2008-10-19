@@ -23,7 +23,7 @@ void sge::renderer::texture_software::resize(dim_type const &new_dim)
 }
 
 sge::renderer::texture_software::texture_software(dim_type const &new_dim,color_format::type const cf)
-	: dim_(no_initialization_tag()),
+	: dim_(),
 	  cf(cf),
 	  locked(false)
 {
