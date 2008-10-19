@@ -22,18 +22,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/math/compare.hpp>
 
-bool sge::sprite::equal(const object& l, const object& r)
+bool sge::sprite::equal(
+	object const &l,
+	object const &r)
 {
 	return l.visible() == r.visible() &&
 	       math::compare(l.z(), r.z()) &&
-	       l.get_texture() == r.get_texture();
+	       l.texture() == r.texture();
 }
 
-bool sge::sprite::less(const object& l, const object& r)
+bool sge::sprite::less(
+	object const &l,
+	object const &r)
 {
-	const bool lvis = l.visible(), rvis = r.visible();
-	const depth_type lz = l.z(), rz = r.z();
-	const texture::part_ptr ltex = l.get_texture(), &rtex = r.get_texture();
+	bool const
+		lvis = l.visible(),
+		rvis = r.visible();
+
+	depth_type const
+		lz = l.z(),
+		rz = r.z();
+
+	texture::part_ptr const
+		ltex = l.texture(),
+		rtex = r.texture();
 
 	return lvis == rvis ?
 			math::compare(lz, rz) ?

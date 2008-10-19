@@ -75,14 +75,14 @@ void fill_geometry(
 		ib_it = fill_indices(ib_it, static_cast<index_view::value_type>(vb_it - vertices.begin()));
 
 		if(math::almost_zero(spr.rotation()))
-			fill_position(vb_it, spr.get_rect(), spr.z());
+			fill_position(vb_it, spr.rect(), spr.z());
 		else
-			fill_position_rotated(vb_it, spr.get_rect(), spr.rotation(), spr.rotation_center(), spr.z());
+			fill_position_rotated(vb_it, spr.rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
-		if(texture::part_ptr const tex = spr.get_texture())
+		if(texture::part_ptr const tex = spr.texture())
 			fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
 
-		vb_it = fill_color(vb_it, spr.get_color());
+		vb_it = fill_color(vb_it, spr.color());
 	}
 }
 

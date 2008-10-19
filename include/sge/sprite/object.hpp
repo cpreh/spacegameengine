@@ -50,11 +50,14 @@ SGE_SYMBOL extern const bool visible_;
 
 class object {
 public:
+	typedef sprite::rect rect_t;
+	typedef sprite::color color_t;
+
 	SGE_SYMBOL object(
 		boost::optional<point> = defaults::pos_,
 		boost::optional<texture::part_ptr> = defaults::texture_,
 		boost::optional<dim> = defaults::dim_,
-		boost::optional<color> = defaults::color_,
+		boost::optional<color_t> = defaults::color_,
 		boost::optional<depth_type> = defaults::depth_,
 		boost::optional<rotation_type> = defaults::rotation_,
 		boost::optional<bool> visible = defaults::visible_);
@@ -67,13 +70,13 @@ public:
 	SGE_SYMBOL dim& size();
 	SGE_SYMBOL depth_type& z();
 	SGE_SYMBOL void visible(bool visible);
-	SGE_SYMBOL void set_texture(texture::part_ptr);
+	SGE_SYMBOL void texture(texture::part_ptr);
 	SGE_SYMBOL void rotation(rotation_type rot);
 	SGE_SYMBOL void rotate_around(point p);
 	SGE_SYMBOL void rotate_around();
 	SGE_SYMBOL void repeat(repetition_type);
-	SGE_SYMBOL void set_color(color c);
-	SGE_SYMBOL void set_center(const point &);
+	SGE_SYMBOL void color(color_t c);
+	SGE_SYMBOL void center(	point const &);
 	
 	SGE_SYMBOL const unit& x() const;
 	SGE_SYMBOL const unit& y() const;
@@ -83,16 +86,16 @@ public:
 	SGE_SYMBOL const unit& h() const;
 	SGE_SYMBOL const dim& size() const;
 	SGE_SYMBOL bool visible() const;
-	SGE_SYMBOL rect get_rect() const;
+	SGE_SYMBOL rect_t const rect() const;
 	SGE_SYMBOL point center() const;
 	SGE_SYMBOL rotation_type rotation() const;
 	SGE_SYMBOL space_unit radius() const;
 	SGE_SYMBOL repetition_type repeat() const;
-	SGE_SYMBOL color get_color() const;
-	SGE_SYMBOL rect bounding_quad() const;
-	SGE_SYMBOL math::circle bounding_circle() const;
+	SGE_SYMBOL color_t const color() const;
+	SGE_SYMBOL rect_t const bounding_quad() const;
+	SGE_SYMBOL math::circle const bounding_circle() const;
 	SGE_SYMBOL const point rotation_center() const;
-	SGE_SYMBOL const texture::part_ptr get_texture() const;
+	SGE_SYMBOL const texture::part_ptr texture() const;
 private:
 	point               pos_;
 	dim                 size_;
@@ -101,7 +104,7 @@ private:
 	texture::part_ptr   tex;
 	point               rot_around_;
 	repetition_type     repeat_;
-	color               color_;
+	color_t             color_;
 	bool                visible_;
 	bool                use_rot_around;
 };

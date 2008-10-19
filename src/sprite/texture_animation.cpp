@@ -69,14 +69,14 @@ bool sge::sprite::texture_animation::process()
 	cur_timer.interval(
 		time::resolution(
 			pos->delay()));
-	spr.set_texture(pos->tex());
+	spr.texture(pos->tex());
 
 	return false;
 }
 
 void sge::sprite::texture_animation::reset()
 {
-	spr.set_texture(series.begin()->tex());
+	spr.texture(series.begin()->tex());
 	pos = series.begin();
 	cur_timer.interval(
 		time::resolution(
