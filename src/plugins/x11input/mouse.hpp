@@ -18,74 +18,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_SYSTEM_HPP_INCLUDED
-#define SGE_X11INPUT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MOUSE_HPP_INCLUDED
+#define SGE_X11INPUT_MOUSE_HPP_INCLUDED
 
+#include "device.hpp"
+#include "mouse_coordinate.hpp"
+#include "dga.hpp"
 #include <X11/Xlib.h>
-#include <sge/x11/window_fwd.hpp>
-#include <sge/input/system.hpp>
 #include <sge/input/callback.hpp>
-#include <sge/signals/signal.hpp>
 #include <sge/signals/connection_manager.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <sge/x11/window_fwd.hpp>
+#include <sge/x11/color.hpp>
+#include <sge/x11/pixmap.hpp>
+#include <sge/x11/cursor.hpp>
+#include <boost/scoped_ptr.hpp>
 
 namespace sge
 {
-namespace input
+namespace x11
 {
-class key_pair;
-class key_type;
+class cursor;
 }
 
 namespace x11input
 {
 
-class device;
+class mouse_grab;
 
-class system : public input::system {
+class mouse : public device {
 public:
-	explicit system(
-		x11::window_ptr wnd);
+	mouse(
+		x11::window_ptr,
+		input::callback const &);
 private:
-	signals::connection const
-	register_callback(
-		input::callback const &c);
-
-	signals::connection const
-	register_repeat_callback(
-		input::repeat_callback const &c);
-
-	void dispatch();
-	window_ptr const get_window() const;
-
-	void emit_callback(
-		input::key_pair const &);
-	void emit_repeat_callback(
-		input::key_type const &);
+	void grab();
+	void ungrab();
 	
-	void on_key_event(XEvent const &);
-	void on_acquire(XEvent const &);
-	void on_release(XEvent const &);
+	void on_motion(
+		XEvent const &);
+	void on_button_down(
+		XEvent const &);
+	void on_button_up(
+		XEvent const &);
+
+	void dga_motion(XEvent);
+	void warped_motion(XEvent);
+	void private_mouse_motion(
+		mouse_coordinate_t deltax,
+		mouse_coordinate_t deltay);
 
 	x11::window_ptr const wnd;
-	
-	typedef boost::ptr_vector<
-		device
-	> device_vector;
-
-	device_vector devices;
+	x11::color      const black_;
+	x11::pixmap     const no_bmp_;
+	x11::cursor     const cur;
+	input::callback const callback;
+	mouse_pos             mouse_last;
+	dga                   dga_;
 
 	signals::connection_manager connections;
 
-	typedef signals::signal<input::key_pair_fun> signal_type;
-	typedef signals::signal<input::key_type_fun> repeat_signal_type;
-
-	signal_type        sig;
-	repeat_signal_type repeat_sig;
+	boost::scoped_ptr<
+		mouse_grab
+	> grab_;
 };
 
 }
 }
 
 #endif
-

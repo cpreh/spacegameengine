@@ -18,35 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_ATAN2_HPP_INCLUDED
-#define SGE_MATH_ATAN2_HPP_INCLUDED
+#ifndef SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
+#define SGE_X11INPUT_KEYBOARD_HPP_INCLUDED
 
-#include "vector.hpp"
-#include <boost/optional.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <cmath>
+#include "device.hpp"
+#include <X11/Xlib.h>
+#include <sge/input/callback.hpp>
+#include <sge/signals/connection_manager.hpp>
+#include <sge/x11/window_fwd.hpp>
+#include <boost/scoped_ptr.hpp>
 
 namespace sge
 {
-namespace math
+namespace x11input
 {
-/**
- * Wraps std::atan2 so it can be used with sge::math::basic_vector. Returns an
- * empty boost::optional if given the null vector
- */
-template<typename T>
-inline typename boost::enable_if<
-	boost::is_floating_point<T>,
-	boost::optional<T>
-	>::type
-atan2(
-	sge::math::basic_vector<T,2> const &v)
-{
-	return v.is_null()
-		? boost::optional<T>()
-		: std::atan2(v.y(), v.x());
-}
+
+class keyboard_grab;
+
+class keyboard : public device {
+public:
+	keyboard(
+		x11::window_ptr,
+		input::callback const &,
+		input::repeat_callback const &);
+private:
+	void grab();
+	void ungrab();
+
+	void on_key_event(
+		XEvent const &);
+	
+	x11::window_ptr const        wnd;
+	input::callback const        callback;
+	input::repeat_callback const repeat_callback;
+	bool const                   need_grab;
+
+	signals::connection_manager connections;
+
+	boost::scoped_ptr<
+		keyboard_grab
+	>                            grab_;
+};
+
 }
 }
 

@@ -27,30 +27,32 @@ sge::sprite::intrusive_object::intrusive_object(
 	boost::optional<point> const pos_,
 	boost::optional<texture::part_ptr> const vtex,
 	boost::optional<dim> const size_,
-	boost::optional<color> const color_,
+	boost::optional<color_t> const color_,
 	boost::optional<depth_type> const z_,
 	boost::optional<rotation_type> const rotation_,
 	boost::optional<bool> const visible_)
-: object(
-	pos_,
-	vtex,
-	size_,
-	color_,
-	z_,
-	rotation_,
-	visible_),
-  sys(sys),
-  order_(order_)
+:
+	object(
+		pos_,
+		vtex,
+		size_,
+		color_,
+		z_,
+		rotation_,
+		visible_),
+	sys(sys),
+	order_(order_)
 {
 	add_me();
 }
 
 sge::sprite::intrusive_object::intrusive_object(
 	intrusive_object const &r)
-: object(r),
-  detail::object_base_hook(r),
-  sys(r.sys),
-  order_(r.order_)
+:
+	object(r),
+	detail::object_base_hook(r),
+	sys(r.sys),
+	order_(r.order_)
 {
 	add_me();
 }

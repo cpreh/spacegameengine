@@ -18,15 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/scoped_connection_manager.hpp>
-#include <memory>
+#ifndef SGE_SIGNALS_CONNECTION_MANAGER_HPP_INCLUDED
+#define SGE_SIGNALS_CONNECTION_MANAGER_HPP_INCLUDED
 
-void sge::scoped_connection_manager::connect(
-	callback_connection const &v)
+#include "connection.hpp"
+#include "../export.hpp"
+#include <boost/noncopyable.hpp>
+#include <vector>
+
+namespace sge
 {
-	std::auto_ptr<scoped_connection> ptr(
-		new scoped_connection(
-			v));
-	connections.push_back(
-		ptr);
+namespace signals
+{
+
+// TODO: we should use boost::signals::trackable instead
+class connection_manager : boost::noncopyable {
+public:
+	SGE_SYMBOL ~connection_manager();
+
+	SGE_SYMBOL void connect(
+		connection const &);
+private:
+	typedef std::vector<
+		connection
+	> connection_vector;
+
+	connection_vector connections;
+};
+
 }
+}
+
+#endif

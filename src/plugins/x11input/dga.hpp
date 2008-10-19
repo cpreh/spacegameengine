@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DGA_HPP_INCLUDED
 #define SGE_X11INPUT_DGA_HPP_INCLUDED
 
-#include <X11/Xlib.h>
-#include <sge/x11/display_fwd.hpp>
+#include <sge/x11/window_fwd.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -32,15 +31,14 @@ namespace x11input
 
 class dga : boost::noncopyable {
 public:
-	dga(
-		x11::display_ptr,
-		int screen);
+	explicit dga(
+		x11::window_ptr);
 	~dga();
 	void enable(
 		bool);
+	bool useable() const;
 private:
-	x11::display_ptr const dsp;
-	int const screen;
+	x11::window_ptr const wnd;
 	bool enabled;
 };
 

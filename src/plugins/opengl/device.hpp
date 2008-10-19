@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/window_fwd.hpp>
-#include <sge/scoped_connection_manager.hpp>
+#include <sge/signals/connection_manager.hpp>
 #include "common.hpp"
 #include <boost/scoped_ptr.hpp>
 #include <boost/signals/trackable.hpp>
@@ -183,14 +183,13 @@ private:
 	void reset_viewport_on_configure(const XEvent&);
 	void center_viewport(int w, int h);
 
-	scoped_connection                     map_callback;
 	glx::context_ptr                      context;
 	x11::window_ptr                       wnd;
 	boost::scoped_ptr<glx::current>       current;
 	boost::scoped_ptr<
 		x11::xf86_vidmode_array>      modes;
 	x11::xf86_resolution_ptr              resolution;
-	scoped_connection_manager             con_manager;
+	signals::connection_manager           con_manager;
 #endif
 	target_ptr                            render_target_;
 	typedef std::stack<

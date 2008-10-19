@@ -52,7 +52,7 @@ void render(
 			num_objects,
 			comp);
 
-		texture::part_ptr const vtex = cur->get_texture();
+		texture::part_ptr const vtex = cur->texture();
 		rend->set_texture(
 			vtex
 			? vtex->my_texture()

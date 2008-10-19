@@ -42,13 +42,13 @@ sge::sprite::rotation_type const sge::sprite::defaults::rotation_(0);
 bool const sge::sprite::defaults::visible_(true);
 
 sge::sprite::object::object(
-	const boost::optional<point> pos_,
-	const boost::optional<texture::part_ptr> vtex,
-	const boost::optional<dim> size_,
-	const boost::optional<color> color_,
-	const boost::optional<depth_type> z_,
-	const boost::optional<rotation_type> rotation_,
-	const boost::optional<bool> visible_)
+	boost::optional<point> const pos_,
+	boost::optional<texture::part_ptr> const vtex,
+	boost::optional<dim> const size_,
+	boost::optional<color_t> const color_,
+	boost::optional<depth_type> const z_,
+	boost::optional<rotation_type> const rotation_,
+	boost::optional<bool> const visible_)
  :
 	pos_(pos_ ? *pos_ : defaults::pos_),
 	size_(
@@ -108,7 +108,8 @@ void sge::sprite::object::visible(const bool nvisible)
 	visible_ = nvisible;
 }
 
-void sge::sprite::object::set_texture(const texture::part_ptr vtex)
+void sge::sprite::object::texture(
+	::sge::texture::part_ptr const vtex)
 {
 	tex = vtex;
 }
@@ -134,7 +135,8 @@ void sge::sprite::object::repeat(const repetition_type r)
 	repeat_ = r;
 }
 
-void sge::sprite::object::set_color(const color c)
+void sge::sprite::object::color(
+	color_t const c)
 {
 	color_ = c;
 }
@@ -179,7 +181,8 @@ bool sge::sprite::object::visible() const
 	return visible_;
 }
 
-void sge::sprite::object::set_center(const sge::sprite::point &p)
+void sge::sprite::object::center(
+	point const &p)
 {
 	pos() = p-sge::sprite::point(w()/2,h()/2);
 }
@@ -199,12 +202,13 @@ sge::sprite::repetition_type sge::sprite::object::repeat() const
 	return repeat_;
 }
 
-sge::sprite::color sge::sprite::object::get_color() const
+sge::sprite::object::color_t const
+sge::sprite::object::color() const
 {
 	return color_;
 }
 
-const sge::texture::part_ptr sge::sprite::object::get_texture() const
+const sge::texture::part_ptr sge::sprite::object::texture() const
 {
 	return tex;
 }
@@ -216,23 +220,27 @@ sge::space_unit sge::sprite::object::radius() const
 	               );
 }
 
-sge::sprite::rect sge::sprite::object::get_rect() const
+sge::sprite::object::rect_t const
+sge::sprite::object::rect() const
 {
-	return rect(pos(),size());
+	return rect_t(pos(),size());
 }
 
-sge::sprite::rect sge::sprite::object::bounding_quad() const
+sge::sprite::rect const
+sge::sprite::object::bounding_quad() const
 {
 	if(math::almost_zero(rotation()))
-		return get_rect();
-	const space_unit rad = radius();
-	return rect(static_cast<sprite::unit>(static_cast<space_unit>(center().x()) - rad),
-	            static_cast<sprite::unit>(static_cast<space_unit>(center().y()) - rad),
-	            static_cast<sprite::unit>(static_cast<space_unit>(center().x()) + rad),
-	            static_cast<sprite::unit>(static_cast<space_unit>(center().y()) + rad));
+		return rect();
+	space_unit const rad = radius();
+	return rect_t(
+		static_cast<sprite::unit>(static_cast<space_unit>(center().x()) - rad),
+		static_cast<sprite::unit>(static_cast<space_unit>(center().y()) - rad),
+		static_cast<sprite::unit>(static_cast<space_unit>(center().x()) + rad),
+		static_cast<sprite::unit>(static_cast<space_unit>(center().y()) + rad));
 }
 
-sge::math::circle sge::sprite::object::bounding_circle() const
+sge::math::circle const
+sge::sprite::object::bounding_circle() const
 {
 	return math::circle(
 		static_cast<math::circle::value_type>(x()),
@@ -240,7 +248,8 @@ sge::math::circle sge::sprite::object::bounding_circle() const
 		radius());
 }
 
-const sge::sprite::point sge::sprite::object::rotation_center() const
+sge::sprite::point const
+sge::sprite::object::rotation_center() const
 {
 	if(!use_rot_around)
 		return center();

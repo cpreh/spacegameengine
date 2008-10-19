@@ -18,16 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CALLBACK_CONNECTION_HPP_INCLUDED
-#define SGE_CALLBACK_CONNECTION_HPP_INCLUDED
-
-#include <boost/signals/connection.hpp>
+#ifndef SGE_X11INPUT_HANDLE_GRAB_HPP_INCLUDED
+#define SGE_X11INPUT_HANDLE_GRAB_HPP_INCLUDED
 
 namespace sge
 {
+namespace x11input
+{
 
-typedef boost::signals::connection callback_connection;
+void handle_grab(
+	int result);	
 
+}
 }
 
 #endif

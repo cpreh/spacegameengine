@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../mouse_grab.hpp"
+#include "../handle_grab.hpp"
+#include <X11/Xlib.h>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/cursor.hpp>
@@ -29,18 +31,19 @@ sge::x11input::mouse_grab::mouse_grab(
 :
 	wnd(wnd)
 {
-	XGrabPointer(
-		wnd->display()->get(),
-		wnd->get_window(),
-		True,
-		PointerMotionMask
-		| ButtonPressMask
-		| ButtonReleaseMask,
-		GrabModeAsync,
-		GrabModeAsync,
-		wnd->get_window(),
-		cur.get(),
-		CurrentTime);
+	handle_grab(
+		XGrabPointer(
+			wnd->display()->get(),
+			wnd->get_window(),
+			True,
+			PointerMotionMask
+			| ButtonPressMask
+			| ButtonReleaseMask,
+			GrabModeAsync,
+			GrabModeAsync,
+			wnd->get_window(),
+			cur.get(),
+			CurrentTime));
 }
 
 sge::x11input::mouse_grab::~mouse_grab()

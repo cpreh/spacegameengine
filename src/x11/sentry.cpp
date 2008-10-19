@@ -18,16 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SCOPED_CONNECTION_HPP_INCLUDED
-#define SGE_SCOPED_CONNECTION_HPP_INCLUDED
+#include <sge/x11/sentry.hpp>
+#include <sge/x11/error.hpp>
+#include <sge/text.hpp>
+#include <sge/exception.hpp>
+#include <sge/format.hpp>
+#include <sge/iconv.hpp>
+#include <exception>
 
-#include <boost/signals/connection.hpp>
+sge::x11::sentry::sentry(
+	std::string const &file_name,
+	int const line)
+:
+	file_name(file_name),
+	line(line)
+{}
 
-namespace sge
+sge::x11::sentry::~sentry()
 {
+	optional_error const err(
+		last_error());
+	
+	if(std::uncaught_exception() || !err)
+		return;
 
-typedef boost::signals::scoped_connection scoped_connection;
-
+	// TODO: print something about the error!
+	throw exception(
+		(format(
+			SGE_TEXT("x11 error in file %1%, line %2%!"))
+		% iconv(file_name)
+		% line).str());
 }
-
-#endif

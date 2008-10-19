@@ -18,23 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_MOUSE_AXIS_HPP_INCLUDED
-#define SGE_X11INPUT_MOUSE_AXIS_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CHECK_DGA_MOUSE_HPP_INCLUDED
+#define SGE_X11INPUT_CHECK_DGA_MOUSE_HPP_INCLUDED
 
-#include <sge/input/key_type.hpp>
+#include <sge/x11/window_fwd.hpp>
 
 namespace sge
 {
 namespace x11input
 {
 
-extern input::key_type const
-	mouse_x,
-	mouse_y,
-	undefined_mouse_key,
-	mouse_l,
-	mouse_r,
-	mouse_m;
+bool check_dga_mouse(
+	x11::window_ptr);
 
 }
 }
