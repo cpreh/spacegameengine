@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <boost/foreach.hpp>
 
 sge::texture::manager::manager(

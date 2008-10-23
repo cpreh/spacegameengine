@@ -5,7 +5,6 @@
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view_hack.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <sge/assert.hpp>
 #include <typeinfo>
 

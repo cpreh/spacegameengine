@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../framebuffer_functions.hpp"
 #include "../color_convert.hpp"
 #include <sge/renderer/make_image_view.hpp>
+#include <sge/renderer/image_view_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 sge::renderer::const_image_view const
 sge::ogl::target::lock(

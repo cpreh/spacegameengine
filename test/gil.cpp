@@ -2,7 +2,7 @@
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/typeswitch.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/renderer/image_view_impl.hpp>
 #include <boost/gil/extension/dynamic_image/any_image_view.hpp>
 #include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
 #include <boost/gil/typedefs.hpp>
