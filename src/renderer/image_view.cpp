@@ -26,11 +26,11 @@ typedef boost::gil::variant<
 	boost::gil::detail::views_get_const_t<
 		sge::renderer::image_view_elements
 	>::type
-> const_image_view_elements;
+> const_image_view_variant;
 
 typedef boost::gil::variant<
 	sge::renderer::image_view_elements
-> image_view_elements;
+> image_view_variant;
 
 #define SGE_INSTANTIATE_APPLY_OPERATION(img, op)\
 template SGE_SYMBOL \
@@ -56,8 +56,8 @@ SGE_INSTANTIATE_APPLY_OPERATION(\
 	variant const &,\
 	boost::gil::detail::any_type_get_dimensions)
 
-SGE_INSTANTIATE_IMAGE_VIEW(const_image_view_elements)
-SGE_INSTANTIATE_IMAGE_VIEW(image_view_elements)
+SGE_INSTANTIATE_IMAGE_VIEW(const_image_view_variant)
+SGE_INSTANTIATE_IMAGE_VIEW(image_view_variant)
 
 #undef SGE_INSTANTIATE_APPLY_OPERATION
 #undef SGE_INSTANTIATE_IMAGE_VIEW
