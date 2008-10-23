@@ -4,7 +4,6 @@
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/input/key_type.hpp>
