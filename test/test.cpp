@@ -36,10 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <sge/renderer/image_view_hack.hpp>
 #include <sge/renderer/image_view_factory.hpp>
 #include <sge/renderer/any_color_print.hpp>
+#include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/states.hpp>
@@ -150,7 +150,7 @@ try
 					200),
 				sge::renderer::lock_flags::readwrite));
 
-		boost::gil::fill_pixels(
+		sge::renderer::fill_pixels(
 			sge::renderer::subimage_view(
 				lock_.value(),
 				sge::renderer::lock_rect(0, 0, 50, 50)),

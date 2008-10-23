@@ -41,7 +41,7 @@ boost::gil::apply_operation(
 template SGE_SYMBOL
 boost::gil::detail::equal_to_fn<const_image_view_elements::base_t>::result_type
 boost::gil::apply_operation(
-	const_image_view_elements &,
+	const_image_view_elements const &,
 	boost::gil::detail::equal_to_fn<const_image_view_elements::base_t>);
 
 template SGE_SYMBOL
@@ -74,7 +74,7 @@ boost::gil::apply_operation(
 template SGE_SYMBOL
 boost::gil::detail::equal_to_fn<image_view_elements::base_t>::result_type
 boost::gil::apply_operation(
-	image_view_elements &,
+	image_view_elements const &,
 	boost::gil::detail::equal_to_fn<image_view_elements::base_t>);
 
 template SGE_SYMBOL

@@ -24,7 +24,6 @@ ENDMACRO ()
 
 ADD_SGE_TEST(anim)
 ADD_SGE_TEST(pool)
-ADD_SGE_TEST(gil)
 ADD_SGE_TEST(doppler)
 ADD_SGE_TEST(random)
 ADD_SGE_TEST(sound)
