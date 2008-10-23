@@ -32,65 +32,32 @@ typedef boost::gil::variant<
 	sge::renderer::image_view_elements
 > image_view_elements;
 
-template SGE_SYMBOL
-boost::gil::detail::destructor_op::result_type
-boost::gil::apply_operation(
-	const_image_view_elements &,
-	boost::gil::detail::destructor_op);
+#define SGE_INSTANTIATE_APPLY_OPERATION(img, op)\
+template SGE_SYMBOL \
+op::result_type \
+boost::gil::apply_operation(\
+	img,\
+	op);
 
-template SGE_SYMBOL
-boost::gil::detail::equal_to_fn<const_image_view_elements::base_t>::result_type
-boost::gil::apply_operation(
-	const_image_view_elements const &,
-	boost::gil::detail::equal_to_fn<const_image_view_elements::base_t>);
+#define SGE_INSTANTIATE_IMAGE_VIEW(variant)\
+SGE_INSTANTIATE_APPLY_OPERATION(\
+	variant &,\
+	boost::gil::detail::destructor_op)\
+SGE_INSTANTIATE_APPLY_OPERATION(\
+	variant const &,\
+	boost::gil::detail::equal_to_fn<variant::base_t>)\
+SGE_INSTANTIATE_APPLY_OPERATION(\
+	variant const &,\
+	boost::gil::detail::copy_construct_in_place_fn<variant::base_t>)\
+SGE_INSTANTIATE_APPLY_OPERATION(\
+	variant const &,\
+	boost::gil::detail::any_type_get_num_channels)\
+SGE_INSTANTIATE_APPLY_OPERATION(\
+	variant const &,\
+	boost::gil::detail::any_type_get_dimensions)
 
-template SGE_SYMBOL
-boost::gil::detail::copy_construct_in_place_fn<const_image_view_elements::base_t>::result_type
-boost::gil::apply_operation(
-	const_image_view_elements const &,
-	boost::gil::detail::copy_construct_in_place_fn<const_image_view_elements::base_t>);
+SGE_INSTANTIATE_IMAGE_VIEW(const_image_view_elements)
+SGE_INSTANTIATE_IMAGE_VIEW(image_view_elements)
 
-template SGE_SYMBOL
-boost::gil::detail::any_type_get_num_channels::result_type
-boost::gil::apply_operation(
-	const_image_view_elements const &,
-	boost::gil::detail::any_type_get_num_channels);
-
-template SGE_SYMBOL
-boost::gil::detail::any_type_get_dimensions::result_type
-boost::gil::apply_operation(
-	const_image_view_elements const &,
-	boost::gil::detail::any_type_get_dimensions);
-
-
-
-
-template SGE_SYMBOL
-boost::gil::detail::destructor_op::result_type
-boost::gil::apply_operation(
-	image_view_elements &,
-	boost::gil::detail::destructor_op);
-
-template SGE_SYMBOL
-boost::gil::detail::equal_to_fn<image_view_elements::base_t>::result_type
-boost::gil::apply_operation(
-	image_view_elements const &,
-	boost::gil::detail::equal_to_fn<image_view_elements::base_t>);
-
-template SGE_SYMBOL
-boost::gil::detail::copy_construct_in_place_fn<image_view_elements::base_t>::result_type
-boost::gil::apply_operation(
-	image_view_elements const &,
-	boost::gil::detail::copy_construct_in_place_fn<image_view_elements::base_t>);
-
-template SGE_SYMBOL
-boost::gil::detail::any_type_get_num_channels::result_type
-boost::gil::apply_operation(
-	image_view_elements const &,
-	boost::gil::detail::any_type_get_num_channels);
-
-template SGE_SYMBOL
-boost::gil::detail::any_type_get_dimensions::result_type
-boost::gil::apply_operation(
-	image_view_elements const &,
-	boost::gil::detail::any_type_get_dimensions);
+#undef SGE_INSTANTIATE_APPLY_OPERATION
+#undef SGE_INSTANTIATE_IMAGE_VIEW
