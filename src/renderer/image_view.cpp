@@ -26,19 +26,19 @@ boost::gil::apply_operation(
 template
 boost::gil::detail::copy_construct_in_place_fn<const_image_view_elements::base_t>::result_type
 boost::gil::apply_operation(
-	const_image_view_elements &,
+	const_image_view_elements const &,
 	boost::gil::detail::copy_construct_in_place_fn<const_image_view_elements::base_t>);
 
 template
 boost::gil::detail::any_type_get_num_channels::result_type
 boost::gil::apply_operation(
-	const_image_view_elements &,
+	const_image_view_elements const &,
 	boost::gil::detail::any_type_get_num_channels);
 
 template
 boost::gil::detail::any_type_get_dimensions::result_type
 boost::gil::apply_operation(
-	const_image_view_elements &,
+	const_image_view_elements const &,
 	boost::gil::detail::any_type_get_dimensions);
 
 
@@ -59,17 +59,17 @@ boost::gil::apply_operation(
 template
 boost::gil::detail::copy_construct_in_place_fn<image_view_elements::base_t>::result_type
 boost::gil::apply_operation(
-	image_view_elements &,
+	image_view_elements const &,
 	boost::gil::detail::copy_construct_in_place_fn<image_view_elements::base_t>);
 
 template
 boost::gil::detail::any_type_get_num_channels::result_type
 boost::gil::apply_operation(
-	image_view_elements &,
+	image_view_elements const &,
 	boost::gil::detail::any_type_get_num_channels);
 
 template
 boost::gil::detail::any_type_get_dimensions::result_type
 boost::gil::apply_operation(
-	image_view_elements &,
+	image_view_elements const &,
 	boost::gil::detail::any_type_get_dimensions);
