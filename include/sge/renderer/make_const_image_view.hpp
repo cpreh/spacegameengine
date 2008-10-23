@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMAGE_VIEW_HACK_HPP_INCLUDED
-#define SGE_RENDERER_IMAGE_VIEW_HACK_HPP_INCLUDED
+#ifndef SGE_RENDERER_MAKE_CONST_IMAGE_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_MAKE_CONST_IMAGE_VIEW_HPP_INCLUDED
 
 #include "image_view.hpp"
 #include "../export.hpp"
@@ -30,7 +30,7 @@ namespace renderer
 {
 
 SGE_SYMBOL const_image_view const
-make_const_view(
+make_const_image_view(
 	image_view const &);
 
 }

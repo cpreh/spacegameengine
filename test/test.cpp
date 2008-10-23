@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/image_view_hack.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/image_view_factory.hpp>
 #include <sge/renderer/any_color_print.hpp>
 #include <sge/renderer/fill_pixels.hpp>
@@ -158,7 +158,7 @@ try
 
 
 		image_loader->create(
-			sge::renderer::make_const_view(lock_.value()))->save(
+			sge::renderer::make_const_image_view(lock_.value()))->save(
 				SGE_TEXT("sge_test.png"));
 	}
 

@@ -4,7 +4,7 @@
 #include <sge/exception.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/renderer/image_view_hack.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
 #include <sge/assert.hpp>
 #include <typeinfo>
 
@@ -45,7 +45,7 @@ void sge::renderer::texture_rw::unlock() const
 	{
 		scoped_texture_lock lock_(
 			make_scoped_lock(write,locked->area,lock_flags::writeonly));
-		copy_and_convert_pixels(make_const_view(*locked->view),lock_.value());
+		copy_and_convert_pixels(make_const_image_view(*locked->view),lock_.value());
 	}
 
 	read->unlock();

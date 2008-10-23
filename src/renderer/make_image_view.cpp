@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/make_image_view.hpp>
-#include <sge/renderer/image_view_hack.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/color.hpp>
 #include <sge/renderer/color_format_stride.hpp>
 #include <sge/exception.hpp>
@@ -89,7 +89,7 @@ sge::renderer::make_image_view(
 	image_dim const &d,
 	color_format::type const format)
 {
-	return make_const_view(
+	return make_const_image_view(
 		make_image_view(
 			const_cast<unsigned char *>(data),
 			d,

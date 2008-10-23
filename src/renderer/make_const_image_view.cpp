@@ -17,20 +17,27 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include <sge/renderer/image_view_hack.hpp>
+
+#include <sge/renderer/make_const_image_view.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 namespace 
 {
 template <typename Dst>
-struct variant_const_assign_fn 
-{
+struct variant_const_assign_fn {
 	typedef void result_type;
-	Dst& _dst;
-	variant_const_assign_fn(Dst& dst) : _dst(dst) {}
+	Dst &_dst;
 
-	template <typename Src> void operator()(const Src& src) const 
+	explicit variant_const_assign_fn(
+		Dst& dst)
+	: 
+		_dst(dst)
+	{}
+
+	template<typename Src>
+	void operator()(
+		Src const &src) const 
 	{
 		typename Src::const_t const_src(src);
 		_dst = const_src;
@@ -43,12 +50,13 @@ void variant_const_assign(
 	boost::gil::variant<V2>& dst) 
 {
 	variant_const_assign_fn<boost::gil::variant<V2> > fn(dst);
-	boost::gil::apply_operation(src,fn);
+	boost::gil::apply_operation(src, fn);
 } 
+
 }
 
-
-sge::renderer::const_image_view const sge::renderer::make_const_view(
+sge::renderer::const_image_view const
+sge::renderer::make_const_image_view(
 	image_view const &ncv)
 {
 	const_image_view cv;
