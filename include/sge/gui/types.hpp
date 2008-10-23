@@ -5,6 +5,7 @@
 #include "../sprite/fwd.hpp"
 #include "../math/vector.hpp"
 #include "../input/key_type.hpp"
+#include "../input/key_state.hpp"
 #include "../renderer/texture.hpp"
 #include "../renderer/any_color.hpp"
 

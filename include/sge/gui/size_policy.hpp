@@ -15,7 +15,7 @@ namespace axis_policy
 {
 enum internal_type { none,can_grow,can_shrink,should_grow,size };
 typedef bitfield<internal_type,size> type;
-};
+}
 
 class size_policy
 {

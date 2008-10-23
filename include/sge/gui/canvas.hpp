@@ -5,7 +5,7 @@
 #include "../export.hpp"
 #include "../renderer/texture.hpp"
 #include "../font/types.hpp"
-#include "../font/fwd.hpp"
+#include "../font/font_fwd.hpp"
 #include "../font/font.hpp"
 
 #include <boost/scoped_ptr.hpp>
