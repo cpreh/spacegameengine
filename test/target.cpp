@@ -18,11 +18,13 @@
 #include <sge/window.hpp>
 #include <exception>
 #include <iostream>
+#include <ostream>
+#include <cstdlib>
 
 int main()
 try
 {
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -37,8 +39,8 @@ try
 		(sge::systems::parameterless::image));
 
 	sge::sprite::system ss(sys.renderer());
-	sge::image::object_ptr image = sys.image_loader()->load(sge::media_path() / SGE_TEXT("tux.png"));
-	sge::renderer::texture_ptr image_texture = 
+	sge::image::object_ptr const image = sys.image_loader()->load(sge::media_path() / SGE_TEXT("tux.png"));
+	sge::renderer::texture_ptr const image_texture = 
 		sys.renderer()->create_texture(
 			image->view(),
 			sge::renderer::linear_filter,
@@ -54,7 +56,7 @@ try
 			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
 			sge::sprite::texture_dim);
 	
-	sge::renderer::texture_ptr target = 
+	sge::renderer::texture_ptr const target = 
 		sys.renderer()->create_texture(
 			sge::renderer::texture::dim_type(640,480),
 			sge::renderer::color_format::rgba8,
@@ -62,7 +64,7 @@ try
 			sge::renderer::resource_flags::none);
 
 	{
-		sge::renderer::scoped_block block_(sys.renderer());
+		sge::renderer::scoped_block const block_(sys.renderer());
 		sys.renderer()->set_render_target(target);
 		ss.render(my_object);
 		ss.render(my_object_2);
@@ -77,16 +79,18 @@ try
 
 	while (true)
 	{
-			sge::window::dispatch();
-			sge::renderer::scoped_block block_(sys.renderer());
-			ss.render(rendered_stuff);
+		sge::window::dispatch();
+		sge::renderer::scoped_block const block_(sys.renderer());
+		ss.render(rendered_stuff);
 	}
 } 
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT("\n");
+	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT('\n');
+	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-	std::cerr << "caught std exception: " << e.what() << "\n";
+	std::cerr << "caught std exception: " << e.what() << '\n';
+	return EXIT_FAILURE;
 }
