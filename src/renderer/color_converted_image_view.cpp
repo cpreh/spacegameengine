@@ -18,24 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/color_format_stride.hpp>
-#include <sge/exception.hpp>
+#include <sge/renderer/color_converted_image_view.hpp>
+#include <sge/renderer/image_view_impl.hpp>
 #include <sge/text.hpp>
-#include <boost/cstdint.hpp>
+#include <sge/exception.hpp>
+#include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
 
-sge::renderer::size_type
-sge::renderer::color_format_stride(
+sge::renderer::image_view const
+sge::renderer::color_converted_image_view(
+	image_view const &view,
 	color_format::type const fmt)
 {
 	switch(fmt) {
-	case color_format::argb8:
 	case color_format::rgba8:
+		return image_view(
+			boost::gil::any_color_converted_view<
+				renderer::rgba8_view>(
+					view));
 	case color_format::bgra8:
-		return sizeof(boost::uint32_t);
+		return image_view(
+			boost::gil::any_color_converted_view<
+				renderer::bgra8_view>(
+					view));
+	case color_format::argb8:
+		return image_view(
+			boost::gil::any_color_converted_view<
+				renderer::argb8_view>(
+					view));
 	case color_format::rgbaf32:
-		return sizeof(float) * 4;
+		return image_view(
+			boost::gil::any_color_converted_view<
+				renderer::rgba_f32_view>(
+					view));
 	default:
 		throw exception(
-			SGE_TEXT("Invalid color_format in color_format_stride()!"));
+			SGE_TEXT("Invalid color_format in color_converted_image_view!"));
 	}
 }
+
+sge::renderer::const_image_view const
+sge::renderer::color_converted_image_view(
+	const_image_view const &view,
+	color_format::type const fmt)
+{
+	// TODO:	
+}
+

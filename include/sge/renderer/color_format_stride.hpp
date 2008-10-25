@@ -22,15 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_COLOR_FORMAT_STRIDE_HPP_INCLUDED
 
 #include "color_format.hpp"
+#include "size_type.hpp"
 #include "../export.hpp"
-#include <cstddef>
 
 namespace sge
 {
 namespace renderer
 {
 
-SGE_SYMBOL std::size_t color_format_stride(
+SGE_SYMBOL size_type
+color_format_stride(
 	color_format::type);
 
 }

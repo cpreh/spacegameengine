@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/gil/image_view_factory.hpp>
-#include <cstddef>
 
 namespace
 {
@@ -35,25 +34,20 @@ template<typename Pixel>
 sge::renderer::image_view const
 make_interleaved_view(
 	unsigned char *data,
-	sge::renderer::image_dim const &,
-	std::size_t stride);
-
-template<typename Pixel>
-sge::renderer::const_image_view const
-make_interleaved_view(
-	unsigned char const *data,
-	sge::renderer::image_dim const &,
-	std::size_t stride);
+	sge::renderer::dim_type const &,
+	sge::renderer::size_type stride,
+	sge::renderer::optional_image_pitch const &pitch);
 
 }
 
 sge::renderer::image_view const
 sge::renderer::make_image_view(
 	unsigned char * const data,
-	image_dim const &d,
-	color_format::type const format)
+	dim_type const &d,
+	color_format::type const format,
+	optional_image_pitch const pitch)
 {
-	std::size_t const stride(
+	size_type const stride(
 		color_format_stride(
 			format));
 	switch(format) {
@@ -61,22 +55,26 @@ sge::renderer::make_image_view(
 		return make_interleaved_view<renderer::rgba8_color>(
 			data,
 			d,
-			stride);
+			stride,
+			pitch);
 	case color_format::argb8:
 		return make_interleaved_view<renderer::argb8_color>(
 			data,
 			d,
-			stride);
+			stride,
+			pitch);
 	case color_format::bgra8:
 		return make_interleaved_view<renderer::bgra8_color>(
 			data,
 			d,
-			stride);
+			stride,
+			pitch);
 	case color_format::rgbaf32:
 		return make_interleaved_view<renderer::rgba_f32_color>(
 			data,
 			d,
-			stride);
+			stride,
+			pitch);
 	default:
 		throw exception(
 			SGE_TEXT("Invalid color_format!"));
@@ -86,14 +84,16 @@ sge::renderer::make_image_view(
 sge::renderer::const_image_view const
 sge::renderer::make_image_view(
 	unsigned char const * const data,
-	image_dim const &d,
-	color_format::type const format)
+	dim_type const &d,
+	color_format::type const format,
+	optional_image_pitch const pitch)
 {
 	return make_const_image_view(
 		make_image_view(
 			const_cast<unsigned char *>(data),
 			d,
-			format));
+			format,
+			pitch));
 }
 
 namespace
@@ -103,8 +103,9 @@ template<typename Pixel>
 sge::renderer::image_view const
 make_interleaved_view(
 	unsigned char * const data,
-	sge::renderer::image_dim const &d,
-	std::size_t const stride)
+	sge::renderer::dim_type const &d,
+	sge::renderer::size_type const stride,
+	sge::renderer::optional_image_pitch const &pitch)
 {
 	return sge::renderer::image_view(
 		boost::gil::interleaved_view(
@@ -112,22 +113,9 @@ make_interleaved_view(
 			d.h(),
 			reinterpret_cast<Pixel *>(
 				data),
-			d.w() * stride));
+			pitch
+			? *pitch
+			: d.w() * stride));
 }
 
-template<typename Pixel>
-sge::renderer::const_image_view const
-make_interleaved_view(
-	unsigned char const * const data,
-	sge::renderer::image_dim const &d,
-	std::size_t const stride)
-{
-	return sge::renderer::const_image_view(
-		boost::gil::interleaved_view(
-			d.w(),
-			d.h(),
-			reinterpret_cast<Pixel const *>(
-				data),
-			d.w() * stride));
-}
 }

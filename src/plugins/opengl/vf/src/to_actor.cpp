@@ -32,7 +32,7 @@ sge::ogl::vf::to_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride)
 {
-	switch(e.element().get_role()) {
+	switch(e.element().role()) {
 	case renderer::vf::role::pos:
 		return actor_ptr(
 			new pos_actor(e, stride));
