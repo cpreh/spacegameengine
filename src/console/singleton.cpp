@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/singleton.hpp>
 #include <sge/console/exception.hpp>
 #include <sge/console/var_base.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/string.hpp>
 #include <sge/text.hpp>
-#include <sge/iostream.hpp>
 
 #include <boost/bind.hpp>
 #include <boost/spirit/core/scanner/scanner.hpp>
@@ -143,7 +143,12 @@ void sge::con::singleton::read_config(const sge::path &fn)
 
 		// just a warning about multiply defined variables
 		if (config_vars.find(name) != config_vars.end())
-			sge::cerr << SGE_TEXT("warning, console variable \"") << name << SGE_TEXT("\" already registered from another file\n");
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< SGE_TEXT("console variable \"")
+					<< name
+					<< SGE_TEXT("\" already registered from another file"));
 
 		config_vars[name] = value;
 	}

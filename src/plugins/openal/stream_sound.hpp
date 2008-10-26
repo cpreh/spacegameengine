@@ -39,7 +39,6 @@ class stream_sound : public source
 	stream_sound(audio::file_ptr,player&);
 	void update();
 	void do_play();
-	~stream_sound();
 	private:
 	player &                       player_;
 	audio::file_ptr const          audio_file_;

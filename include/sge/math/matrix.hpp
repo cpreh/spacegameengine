@@ -74,12 +74,7 @@ public:
 	BOOST_PP_REPEAT(SGE_MATH_MATRIX_MAX_SIZE, SGE_MATH_MATRIX_CTOR, void)
 #endif
 
-	/**
-	 * Doesn't initialize any of the fields
-	 */
-	basic_matrix(no_initialization_tag);
-	basic_matrix(const basic_matrix& r);
-	basic_matrix& operator=(const basic_matrix& r);
+	explicit basic_matrix();
 	basic_matrix& operator+=(const basic_matrix& r);
 	basic_matrix& operator-=(const basic_matrix& r);
 	basic_matrix& operator*=(const value_type& v);

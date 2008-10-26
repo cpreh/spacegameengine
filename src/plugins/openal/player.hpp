@@ -45,9 +45,6 @@ class player : public audio::player
 public:
 	player();
 
-	void register_stream_sound(stream_sound *p);
-	void unregister_stream_sound(stream_sound *p);
-
 	ALuint register_nonstream_sound(audio::file_ptr);
 	void unregister_nonstream_sound(ALuint);
 
@@ -55,6 +52,9 @@ public:
 		
 	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);
 	audio::sound_ptr const create_stream_sound(audio::file_ptr);
+
+	audio::unit speed_of_sound() const;
+	void speed_of_sound(audio::unit);
 
 	audio::pool_ptr const create_pool();
 private:

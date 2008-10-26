@@ -51,6 +51,8 @@ private:
 
 	const_pointer real_read_pointer() const;
 
+	pointer real_write_pointer();
+
 	lock_method::type method() const;
 
 	readonly_texture_lock  read_lock;

@@ -4,7 +4,6 @@
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/input/key_type.hpp>
@@ -13,12 +12,12 @@
 #include <sge/image/object.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/window.hpp>
-#include <sge/scoped_connection.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -103,10 +102,10 @@ try
 
 	bool running = true;
 
-	sge::scoped_connection const conn =
+	sge::signals::scoped_connection const conn =
 		sys.input_system()->register_callback(input_functor(running));
 
-	sge::scoped_connection const conn_other =
+	sge::signals::scoped_connection const conn_other =
 		sys.input_system()->register_callback(sprite_functor(my_object));
 
 	while (running)

@@ -5,7 +5,7 @@
 #include <sge/window.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/scoped_connection.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/pos.hpp>
@@ -101,7 +101,7 @@ try
 	using boost::lambda::bind;
 	using boost::lambda::if_;
 
-	sge::scoped_connection const cb(
+	sge::signals::scoped_connection const cb(
 		is->register_callback(
 			if_(bind(&sge::input::key_type::code,
 				bind(&sge::input::key_pair::key,boost::lambda::_1))

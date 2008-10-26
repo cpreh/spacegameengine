@@ -18,14 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_NO_INITIALIZATION_TAG_HPP_INCLUDED
-#define SGE_NO_INITIALIZATION_TAG_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CHECK_DGA_MOUSE_HPP_INCLUDED
+#define SGE_X11INPUT_CHECK_DGA_MOUSE_HPP_INCLUDED
+
+#include <sge/x11/window_fwd.hpp>
 
 namespace sge
 {
+namespace x11input
+{
 
-struct no_initialization_tag{};
+bool check_dga_mouse(
+	x11::window_ptr);
 
+}
 }
 
 #endif

@@ -83,13 +83,13 @@ public:
 	const_pointer data() const;
 	size_type lock_size() const;
 
-	void unbind() const;
+	static void unbind();
 	void bind_me() const;
 	
 	pointer buffer_offset(
 		size_type offset) const;
 private:
-	void bind(GLuint id) const;
+	static void bind(GLuint id);
 	void check_lock() const;
 	void allocate_buffer(const_pointer src);
 

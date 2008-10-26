@@ -4,7 +4,7 @@
 #include "types.hpp"
 #include "canvas.hpp"
 #include "../font/drawer.hpp"
-#include "../renderer/device.hpp"
+#include "../renderer/device_fwd.hpp"
 #include "../texture/part.hpp"
 #include "../renderer/color.hpp"
 #include "../renderer/colors.hpp"

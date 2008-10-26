@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "matrix.hpp"
 #include "compare.hpp"
-#include "../algorithm/copy_n.hpp"
 #include "../exception.hpp"
 #include <algorithm>
 #include <functional>
@@ -39,22 +38,8 @@ sge::math::basic_matrix<T, N, M>::basic_matrix(Args... args)
 #endif
 
 template<typename T, std::size_t N, std::size_t M>
-sge::math::basic_matrix<T, N, M>::basic_matrix(no_initialization_tag)
+sge::math::basic_matrix<T, N, M>::basic_matrix()
 {
-}
-
-template<typename T, std::size_t N, std::size_t M>
-sge::math::basic_matrix<T, N, M>::basic_matrix(const basic_matrix& r)
-{
-	copy_n(r.data_, size(), data_);
-}
-
-template<typename T, std::size_t N, std::size_t M>
-typename sge::math::basic_matrix<T, N, M>&
-sge::math::basic_matrix<T, N, M>::operator=(const basic_matrix& r)
-{
-	copy_n(r.data_, size(), data_);
-	return *this;
 }
 
 template<typename T, std::size_t N, std::size_t M>
@@ -198,7 +183,7 @@ template<typename T, std::size_t N, std::size_t M1, std::size_t M2>
 inline sge::math::basic_matrix<T,N,N> sge::math::operator* (const basic_matrix<T,M1,N>& a, const basic_matrix<T,N,M2>& b)
 {
 	typedef basic_matrix<T,M1,M2> result_type;
-	result_type ret = result_type(no_initialization_tag());
+	result_type ret;
 	for(typename basic_matrix<T,M1,N>::size_type i = 0; i < M1; ++i)
 		for(typename basic_matrix<T,N,M2>::size_type j = 0; j < M2; ++j)
 		{
@@ -245,7 +230,7 @@ inline std::basic_ostream<Ch,Traits>& sge::math::operator<< (std::basic_ostream<
 template<typename T, std::size_t N>
 inline sge::math::basic_matrix<T,N,N> sge::math::transpose(const basic_matrix<T,N,N>& m)
 {
-	basic_matrix<T,N,N> ret = basic_matrix<T,N,N>(no_initialization_tag());
+	basic_matrix<T,N,N> ret;
 	for(typename basic_matrix<T,N,N>::size_type j = 0; j < N; ++j)
 		for(typename basic_matrix<T,N,N>::size_type i = 0; i < N; ++i)
 			ret[i][j] = m[j][i];
@@ -259,7 +244,7 @@ sge::math::operator* (
 	const basic_vector<T,N>& v)
 {
 	typedef basic_vector<T,M> result_type;
-	result_type ret;
+	result_type ret(result_type::null());
 	for(typename result_type::size_type i = 0; i < M; ++i)
 		for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
 			ret[i] += v[j] * m[j][i];

@@ -3,7 +3,6 @@
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/image_view_factory.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/assert.hpp>
@@ -23,7 +22,9 @@ void sge::renderer::texture_software::resize(dim_type const &new_dim)
 }
 
 sge::renderer::texture_software::texture_software(dim_type const &new_dim,color_format::type const cf)
-	: cf(cf),locked(false)
+	: dim_(),
+	  cf(cf),
+	  locked(false)
 {
 	resize(new_dim);
 }

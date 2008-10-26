@@ -9,8 +9,6 @@
 sge::openal::device::device(ALCchar const * const specifier)
 	: device_(alcOpenDevice(specifier))
 {
-	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("creating openal device"));
-
 	if (!device_)
 	{
 		SGE_ALC_ERROR_CHECK(device_);
@@ -18,17 +16,11 @@ sge::openal::device::device(ALCchar const * const specifier)
 	}
 
 	SGE_ASSERT(device_);
-
-	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("created openal device"));
 }
 
 sge::openal::device::~device()
 {
-	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("openal: closing device"));
-
 	if (alcCloseDevice(device_) == AL_FALSE)
 		if (!std::uncaught_exception())
 			throw audio::exception(SGE_TEXT("error closing audio device. this means you tried to close the device before unloading all contexts and buffers"));
-
-	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("closed openal device"));
 }

@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 
 sge::devil::object::object(
 	path const &file)

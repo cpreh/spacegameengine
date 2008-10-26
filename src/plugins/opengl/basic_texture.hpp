@@ -62,18 +62,20 @@ protected:
 	pointer read_buffer() const;
 	pointer write_buffer() const;
 	const_pointer real_read_buffer() const;
+	pointer real_write_buffer() const;
 	
 	void pre_setdata() const;
 	
 	using Base::content;
 
+public:
 	size_type stride() const;
 
 	GLenum format() const;
 	GLenum format_type() const;
-
+protected:
 	basic_texture(
-		const renderer::filter_args& filter,
+		renderer::filter_args const &filter,
 		resource_flag_type flags,
 		GLenum type,
 		renderer::color_format::type);

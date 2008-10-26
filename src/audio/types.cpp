@@ -1,4 +1,5 @@
 #include <sge/audio/types.hpp>
+#include <sge/math/vector.hpp>
 
 sge::audio::angle::angle()
 {

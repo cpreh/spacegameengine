@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/gil/image_view_factory.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <cstddef>
 
 namespace

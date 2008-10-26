@@ -8,6 +8,7 @@
 *low: add speed of sound and velocity to sounds
 *low: replace every cerr and cout output with sge's log system
 *medium: breakpoints for the font
+*medium: implement "loop and play once on kill" to sound buffer
 *medium: export more from the input system (like keyboard, mouse and joystick interfaces)
 *medium: other font formatting like bold, italic, underline and colors
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
@@ -16,15 +17,15 @@
 *medium: add support for _EXT vertex elements in opengl (binormal, tangent, etc)
 *medium: implement GLSL getter
 *medium: implement vertex attributes for the static vertex format
-*medium: add renderer::device::create_window for renderable windows
 *medium: add sge::create_window to create (possibly) not renderable windows
-*high: fix renderer initialization on windows
+*medium: fix renderer::caps and the opengl implementation of them
 *high: set up proper window information for X
 *high: split the code from ogl::device into windows and linux code
-*high: fix opengl's render_target color information
-*high: fix material in opengl
 *high: implement uniform arrays for glsl
 *high: Improve the cmake script, search for libraries per default.
-*high: put a weak_ptr in ogl::system so you can destroy renderers again
 *high: find a way to explicitly instantiate gil::apply_operation or reduce compile time in another way
 *high: add support for pkgconfig so that users don't have to specify -std=c++0x on their own
+*high: convert colors in opengl
+*high: make X11 errors handleable
+*high: fix unmapping of windows and dga
+*high: implement window_parameters

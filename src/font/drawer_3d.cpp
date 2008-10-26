@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image.hpp>
 #include <sge/vector.hpp>
 #include <boost/gil/algorithm.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
 namespace
 {
@@ -63,33 +62,23 @@ void sge::font::drawer_3d::begin_rendering(
 }
 
 void sge::font::drawer_3d::draw_char(
-	const char_type ch,
-	pos const& p,
+	char_type const ch,
+	pos const &p,
 	const_image_view const &data)
 {
-	texture_map::const_iterator it = textures.find(ch);
-	if(it == textures.end())
-	{
-		// TODO: somehow use the renderer's preferred color format here and avoid conversions!
-		converter conv;
-		renderer::rgba8_image img(data.width(), data.height());
-		boost::gil::copy_and_convert_pixels(data, boost::gil::view(img), conv);
-
-		it = textures.insert(
-			std::make_pair(
-				ch,
-				texman.add(
-					renderer::const_image_view(
-						boost::gil::const_view(
-							img)
-			)))).first;
-	}
+	dim const d(
+		gil_dim_to_sge(
+			data.dimensions()));
 
 	sprites.push_back(
 		sprite::object(
 			p,
-			it->second,
-			gil_dim_to_sge(data.dimensions()),
+			d.content()
+				? get_cached_texture(
+					ch,
+					data)
+				: texture::part_ptr(),
+			d,
 			col));
 }
 
@@ -102,6 +91,38 @@ void sge::font::drawer_3d::set_color(
 	renderer::any_color const &new_color)
 {
 	col = new_color;
+}
+
+sge::texture::part_ptr const
+sge::font::drawer_3d::get_cached_texture(
+	char_type const ch,
+	const_image_view const &data)
+{
+	texture_map::const_iterator const it = textures.find(ch);
+	if(it != textures.end())
+		return it->second;
+	
+	// TODO: somehow use the renderer's preferred color format here and avoid conversions!
+	renderer::rgba8_image img(
+		data.width(),
+		data.height());
+
+	{
+		converter conv;
+		boost::gil::copy_and_convert_pixels(
+			data,
+			boost::gil::view(img),
+			conv);
+	}
+
+	return textures.insert(
+		std::make_pair(
+			ch,
+			texman.add(
+				renderer::const_image_view(
+					boost::gil::const_view(
+						img)
+		)))).first->second;
 }
 
 namespace

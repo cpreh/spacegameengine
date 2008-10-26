@@ -48,7 +48,7 @@ SGE_EXPORT_SYMBOL sge::input::system* create_input_system(sge::window_ptr const 
 	
 	boost::polymorphic_cast<sge::x11::window*>(w.get());
 
-	return new sge::xinput::system(
+	return new sge::x11input::system(
 		sge::dynamic_pointer_cast<sge::x11::window>(
 			w));
 }

@@ -32,8 +32,7 @@ template<
 	typename T,
 	sge::math::detail::dim_type Dim,
 	template<typename, sge::math::detail::dim_type> class Policy>
-sge::math::basic_sequence<T, Dim, Policy>::basic_sequence(
-	no_initialization_tag)
+sge::math::basic_sequence<T, Dim, Policy>::basic_sequence()
 {}
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
@@ -280,7 +279,7 @@ sge::math::basic_sequence<D, Dim, Policy>
 sge::math::structure_cast(basic_sequence<S, Dim, Policy> const &s)
 {
 	typedef basic_sequence<D, Dim, Policy> ret_type;
-	ret_type ret = ret_type(no_initialization_tag());
+	ret_type ret;
 	for(typename ret_type::size_type i = 0; i < Dim; ++i)
 		ret[i] = static_cast<D>(s[i]);
 	return ret;

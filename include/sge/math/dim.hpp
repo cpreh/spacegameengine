@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../su.hpp"
 #include "../exception.hpp"
 #include "../text.hpp"
-#include "../no_initialization_tag.hpp"
 #include "../assert.hpp"
 #include "compare.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
@@ -84,19 +83,7 @@ public:
 #define SGE_MATH_DIM_CTOR(z, n, text) basic_dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_CTOR, void)
 #endif
-	/**
-	 * This initializes the dim with zero
-	 */
-	basic_dim()
-	{
-		for(size_type i = 0; i < Dim; ++i)
-			data_[i] = 0;
-	}
-
-	/**
-	 * This does not initialize any of the coordinates (models the built types)
-	 */
-	basic_dim(no_initialization_tag)
+	explicit basic_dim()
 	{
 	}
 
@@ -378,7 +365,7 @@ basic_dim<D, Dim> structure_cast(const basic_dim<S, Dim>& r)
 {
 	typedef basic_dim<D, Dim> ret_type;
 
-	ret_type ret = ret_type(no_initialization_tag());
+	ret_type ret;
 	for(typename ret_type::size_type i = 0; i < Dim; ++i)
 		ret[i] = static_cast<D>(r[i]);
 	return ret;

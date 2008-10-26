@@ -28,26 +28,31 @@ sge::ogl::readwrite_texture_lock::readwrite_texture_lock(
 	size_type const pitch,
 	size_type const block_size,
 	renderer::resource_flag_t const flags)
-: read_lock(
-	lock_size,
-	offset,
-	whole_size,
-	stride,
-	pitch,
-	block_size,
-	flags),
-  write_lock(
-  	lock_size,
-	stride,
-	flags)
+:
+	read_lock(
+		lock_size,
+		offset,
+		whole_size,
+		stride,
+		pitch,
+		block_size,
+		flags),
+	write_lock(
+	  	lock_size,
+		stride,
+		flags)
 {}
 
 void sge::ogl::readwrite_texture_lock::post_lock()
 {
+	// skip copying the read pointer to its internal
+	// buffer because we can copy it directly
+	// to the write buffer
+	read_lock.do_lock();
 	write_lock.post_lock();
 
 	read_lock.copy_read_part(
-		write_pointer());
+		real_write_pointer());
 	
 	read_lock.pre_unlock();
 }
@@ -58,21 +63,27 @@ void sge::ogl::readwrite_texture_lock::pre_unlock()
 }
 
 sge::ogl::readwrite_texture_lock::pointer
-sge::ogl::readwrite_texture_lock::write_pointer() const
-{
-	return write_lock.write_pointer();
-}
-
-sge::ogl::readwrite_texture_lock::pointer
 sge::ogl::readwrite_texture_lock::read_pointer() const
 {
 	return read_lock.read_pointer();
+}
+
+sge::ogl::readwrite_texture_lock::pointer
+sge::ogl::readwrite_texture_lock::write_pointer() const
+{
+	return write_lock.write_pointer();
 }
 
 sge::ogl::readwrite_texture_lock::const_pointer
 sge::ogl::readwrite_texture_lock::real_read_pointer() const
 {
 	return write_lock.write_pointer();
+}
+
+sge::ogl::readwrite_texture_lock::pointer
+sge::ogl::readwrite_texture_lock::real_write_pointer()
+{
+	return write_lock.real_write_pointer();
 }
 
 sge::ogl::lock_method::type

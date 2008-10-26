@@ -21,10 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_STUB_HPP_INCLUDED
 #define SGE_STUB_HPP_INCLUDED
 
-#include "iostream.hpp"
-#include "ostream.hpp"
-#include "string.hpp"
+#include "log/headers.hpp"
+#include <ostream>
 
-#define SGE_STUB_FUNCTION sge::cerr << SGE_TEXT("stub: ") << __FUNCTION__ << SGE_TEXT('\n');
+#define SGE_STUB_FUNCTION\
+SGE_LOG_WARNING(\
+	sge::log::global(),\
+	sge::log::_1\
+		<< SGE_TEXT("stub in ")\
+		<< __FILE__\
+		<< SGE_TEXT(" at ")\
+		<< __LINE__);
 
 #endif

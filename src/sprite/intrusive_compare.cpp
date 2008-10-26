@@ -27,8 +27,9 @@ bool sge::sprite::tex_equal_visible(
 	intrusive_object const &l,
 	intrusive_object const &r)
 {
-	texture::part_ptr const texa(l.get_texture()),
-	                        texb(r.get_texture());
+	texture::part_ptr const
+		texa(l.texture()),
+		texb(r.texture());
 	return !texa || !texb
 		? texa == texb
 		: (texa->my_texture() == texb->my_texture()

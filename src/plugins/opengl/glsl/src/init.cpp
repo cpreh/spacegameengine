@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../init.hpp"
+#include "../../glew.hpp"
 #include "../../version.hpp"
 #include "../../common.hpp"
 #include <sge/once.hpp>
@@ -47,10 +48,9 @@ void initialize_glsl()
 {
 	SGE_FUNCTION_ONCE
 
-	if(GLEW_VERSION_2_0)
+	if(sge::ogl::glew_is_supported("GL_VERSION_2_0"))
 		native = true;
-	// FIXME: add program check here too!
-	else if(GLEW_ARB_vertex_shader && GLEW_ARB_fragment_shader)
+	else if(sge::ogl::glew_is_supported("GL_ARB_vertex_shader GL_ARB_fragment_shader"))
 		native = false;
 	else
 		sge::ogl::on_not_supported(

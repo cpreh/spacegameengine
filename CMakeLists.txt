@@ -28,7 +28,7 @@ IF (${CMAKE_COMPILER_IS_GNUCXX})
 		"-fvisibility=hidden"
 		SGE_HAVE_GCC_VISIBILITY)
 
-	ADD_DEFINITIONS ("-ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self")
+	ADD_DEFINITIONS ("-ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self -Woverloaded-virtual")
 
 	IF (${SGE_HAVE_GCC_VISIBILITY})
 		ADD_DEFINITIONS("-fvisibility=hidden")
@@ -105,6 +105,7 @@ INSTALL_HEADERS (sge/renderer)
 INSTALL_HEADERS (sge/renderer/glsl)
 INSTALL_HEADERS (sge/renderer/state)
 INSTALL_HEADERS (sge/renderer/vf)
+INSTALL_HEADERS (sge/signals)
 INSTALL_HEADERS (sge/sprite)
 INSTALL_HEADERS (sge/systems)
 INSTALL_HEADERS (sge/texture)

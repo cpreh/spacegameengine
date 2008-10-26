@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../config.h"
 #include "../array_facade.hpp"
-#include "../no_initialization_tag.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
@@ -82,8 +81,7 @@ public:
 	typedef typename base_type::reverse_iterator       reverse_iterator;
 	typedef typename base_type::const_reverse_iterator const_reverse_iterator;
 
-	explicit basic_sequence(
-		no_initialization_tag);
+	basic_sequence();
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>

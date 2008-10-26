@@ -18,16 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_FWD_HPP_INCLUDED
-#define SGE_FONT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_CREATE_VISUAL_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CREATE_VISUAL_HPP_INCLUDED
+
+#include <sge/x11/display_fwd.hpp>
+#include <sge/x11/visual_fwd.hpp>
 
 namespace sge
 {
-namespace font
+namespace ogl
+{
+namespace glx
 {
 
-class font;
+x11::visual_ptr const
+create_visual(
+	x11::display_ptr,
+	int screen,
+	int const *attributes);
 
+}
 }
 }
 

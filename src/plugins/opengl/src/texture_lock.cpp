@@ -38,6 +38,13 @@ sge::ogl::texture_lock::read_pointer() const
 		SGE_TEXT("Can't get a read pointer to a lock!"));
 }
 
+sge::ogl::texture_lock::pointer
+sge::ogl::texture_lock::real_write_pointer()
+{
+	throw exception(
+		SGE_TEXT("Can't get a real write pointer to a lock!"));
+}
+
 sge::ogl::texture_lock::const_pointer
 sge::ogl::texture_lock::real_read_pointer() const
 {

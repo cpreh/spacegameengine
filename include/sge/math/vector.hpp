@@ -21,101 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_HPP_INCLUDED
 #define SGE_MATH_VECTOR_HPP_INCLUDED
 
-#include "basic_sequence.hpp"
-
-namespace sge
-{
-namespace math
-{
-namespace detail
-{
-
-template<
-	typename T,
-	dim_type Dim>
-class vector_policy;
-
-template<
-	typename T>
-class vector_policy<T, 1> {
-protected:
-	typedef T &reference;
-	typedef T const &const_reference;
-	typedef T* pointer;
-public:
-	reference x();
-	const_reference x() const;
-protected:
-	vector_policy(
-		pointer);
-	pointer data_;
-};
-
-template<
-	typename T>
-class vector_policy<T, 2> 
-	: public vector_policy<T, 1> {
-protected:
-	typedef vector_policy<T, 1> base;
-	typedef typename base::reference reference;
-	typedef typename base::const_reference const_reference;
-	typedef typename base::pointer pointer;
-public:
-	reference y();
-	const_reference y() const;
-protected:
-	vector_policy(
-		pointer);
-};
-
-template<
-	typename T>
-class vector_policy<T, 3> 
-	: public vector_policy<T, 2> {
-protected:
-	typedef vector_policy<T, 2> base;
-	typedef typename base::reference reference;
-	typedef typename base::const_reference const_reference;
-	typedef typename base::pointer pointer;
-public:
-	reference z();
-	const_reference z() const;
-protected:
-	vector_policy(
-		pointer);
-};
-
-template<
-	typename T,
-	dim_type Dim>
-class vector_policy
-	: public vector_policy<T, 3> {
-	typedef vector_policy<T, 3> base;
-	typedef typename base::reference reference;
-	typedef typename base::const_reference const_reference;
-	typedef typename base::pointer pointer;
-public:
-	reference x();
-	const_reference x() const;
-	reference y();
-	const_reference y() const;
-	reference z();
-	const_reference z() const;
-protected:
-	vector_policy(
-		pointer);
-private:
-	pointer data_;	
-};
-
-}
-
-}
-}
-//#endif
-
-#define basic_vector_ext(T, Dim) sge::math::basic_sequence<T, Dim, sge::math::detail::vector_policy>
-
 #include "../config.h"
 #include "compare.hpp"
 #include "mod.hpp"
@@ -123,7 +28,6 @@ private:
 #include "../text.hpp"
 #include "../assert.hpp"
 #include "../su.hpp"
-#include "../no_initialization_tag.hpp"
 #include "../exception.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/preprocessor/enum_params.hpp>
@@ -175,6 +79,8 @@ public:
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
+	explicit basic_vector() {}
+
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
 	explicit basic_vector(Args... args)
@@ -188,20 +94,14 @@ public:
 	BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_CTOR, void)
 #endif
 
-	/**
-	 * This initializes the vector with zero
-	 */
-	basic_vector()
+	static basic_vector const
+	null()
 	{
+		basic_vector ret;
+		
 		for(size_type i = 0; i < Dim; ++i)
-			data_[i] = static_cast<T>(0);
-	}
-
-	/**
-	 * This does not initialize any of the coordinates (models the built types)
-	 */
-	basic_vector(no_initialization_tag)
-	{
+			ret[i] = static_cast<value_type>(0);
+		return ret;
 	}
 
 	/**
@@ -257,7 +157,7 @@ public:
 
 	basic_vector operator+() const
 	{
-		basic_vector ret = basic_vector(no_initialization_tag());
+		basic_vector ret;
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = +data_[i];
 		return ret;
@@ -265,7 +165,7 @@ public:
 
 	basic_vector operator-() const
 	{
-		basic_vector ret = basic_vector(no_initialization_tag());
+		basic_vector ret;
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = -data_[i];
 		return ret;
@@ -534,7 +434,7 @@ public:
 	 */
 	bool is_null() const
 	{
-		return *this == basic_vector();
+		return *this == null();
 	}
 
 	void swap(basic_vector& r)
@@ -713,7 +613,7 @@ template<typename D, typename S, std::size_t Dim>
 basic_vector<D, Dim> structure_cast(const basic_vector<S, Dim>& s)
 {
 	typedef basic_vector<D, Dim> ret_type;
-	ret_type ret = ret_type(no_initialization_tag());
+	ret_type ret;
 	for(typename ret_type::size_type i = 0; i < Dim; ++i)
 		ret[i] = static_cast<D>(s[i]);
 	return ret;

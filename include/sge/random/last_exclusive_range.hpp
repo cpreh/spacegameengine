@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RNADOM_LAST_EXCLUSIVE_RANGE_HPP_INCLUDED
+#ifndef SGE_RANDOM_LAST_EXCLUSIVE_RANGE_HPP_INCLUDED
 #define SGE_RANDOM_LAST_EXCLUSIVE_RANGE_HPP_INCLUDED
 
 #include "range.hpp"
-#include "../exception.hpp"
+#include "exclusive_range_error.hpp"
 #include "../text.hpp"
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
@@ -58,8 +58,8 @@ public:
 			last - static_cast<T>(1))
 	{
 		if(first == last)
-			throw exception(
-				SGE_TEXT("exclusive range empty!"));
+			throw exclusive_range_error(
+				SGE_TEXT("last_exclusive_range empty!"));
 	}
 };
 

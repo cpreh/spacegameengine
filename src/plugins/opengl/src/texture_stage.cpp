@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../texture_stage.hpp"
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <sge/text.hpp>
 
 namespace
 {
 
 GLenum stage_value_scale(
-	const sge::renderer::texture_stage_op_value::type value)
+	sge::renderer::texture_stage_op_value::type const value)
 {
 	switch(value) {
 	case sge::renderer::texture_stage_op_value::arg0:
@@ -45,21 +45,25 @@ GLenum stage_value_scale(
 	case sge::renderer::texture_stage_op_value::add4x:
 		return 4;
 	default:
-		throw sge::exception(SGE_TEXT("Invalid texture_stage_op_value!"));
+		throw sge::exception(
+			SGE_TEXT("Invalid texture_stage_op_value!"));
 	}
 }
 
 }
 
-void sge::ogl::tex_envf_ext(const GLenum arg, const GLenum value)
+void sge::ogl::tex_envf_ext(
+	GLenum const arg,
+	GLenum const value)
 {
 	SGE_OPENGL_SENTRY
 	
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
-	glTexEnvf(GL_TEXTURE_ENV, arg, value); // FIXME
+	glTexEnvf(GL_TEXTURE_ENV, arg, static_cast<GLfloat>(value));
 }
 
-void sge::ogl::set_texture_stage_scale(const renderer::texture_stage_op_value::type value)
+void sge::ogl::set_texture_stage_scale(
+	renderer::texture_stage_op_value::type const value)
 {
 	const GLenum scale = stage_value_scale(value);
 	tex_envf_ext(GL_RGB_SCALE, scale);

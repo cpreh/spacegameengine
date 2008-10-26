@@ -36,12 +36,12 @@ public:
 	~sentry();
 private:
 	std::string const file_name;
-	int               line;
+	int         const line;
 };
 
 }
 }
 
-#define SGE_OPENGL_SENTRY sge::ogl::sentry sentry_(__FILE__, __LINE__);
+#define SGE_OPENGL_SENTRY sge::ogl::sentry const sentry_(__FILE__, __LINE__);
 
 #endif

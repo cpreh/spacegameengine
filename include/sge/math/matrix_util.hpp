@@ -31,51 +31,70 @@ namespace sge
 namespace math
 {
 
-SGE_SYMBOL space_matrix matrix_translation(
-	const math::basic_vector<space_unit,3>& v);
+SGE_SYMBOL space_matrix const
+matrix_translation(
+	basic_vector<space_unit, 3> const &v);
 
-SGE_SYMBOL space_matrix matrix_translation(
+SGE_SYMBOL space_matrix const
+matrix_translation(
 	space_unit x,
 	space_unit y,
 	space_unit z);
 
-SGE_SYMBOL space_matrix matrix_scaling(
-	const math::basic_vector<space_unit,3>& v);
+SGE_SYMBOL space_matrix const
+matrix_scaling(
+	basic_vector<space_unit, 3> const &v);
 
-SGE_SYMBOL space_matrix matrix_scaling(
+SGE_SYMBOL space_matrix const
+matrix_scaling(
 	space_unit x,
 	space_unit y,
 	space_unit z);
 
-SGE_SYMBOL space_matrix matrix_perspective(
+SGE_SYMBOL space_matrix const
+matrix_perspective(
 	space_unit aspect,
 	space_unit fov,
 	space_unit near,
 	space_unit far);
 
-SGE_SYMBOL space_matrix matrix_orthogonal_xy();
+SGE_SYMBOL space_matrix const
+matrix_orthogonal_xy();
 
-SGE_SYMBOL basic_matrix<space_unit,2,2> matrix_rotation_2d(
+SGE_SYMBOL basic_matrix<space_unit, 2, 2> const
+matrix_rotation_2d(
 	space_unit angle);
 
-SGE_SYMBOL space_matrix matrix_rotation_z(
+SGE_SYMBOL space_matrix const
+matrix_rotation_z(
 	space_unit angle);
 
-SGE_SYMBOL space_matrix matrix_rotation_y(
+SGE_SYMBOL space_matrix const
+matrix_rotation_y(
 	space_unit angle);
 
-SGE_SYMBOL space_matrix matrix_rotation_x(
+SGE_SYMBOL space_matrix const
+matrix_rotation_x(
 	space_unit angle);
 
-SGE_SYMBOL space_matrix matrix_identity();
+SGE_SYMBOL space_matrix const
+matrix_identity();
 
-SGE_SYMBOL space_matrix matrix_orthogonal_xy(
+SGE_SYMBOL space_matrix const
+matrix_orthogonal_xy(
 	space_unit left,
 	space_unit right,
 	space_unit top,
 	space_unit bottom,
 	space_unit near,
 	space_unit far);
+
+SGE_SYMBOL space_matrix const
+matrix_orthogonal_xy(
+	space_unit left,
+	space_unit right,
+	space_unit top,
+	space_unit bottom);
 }
 }
 

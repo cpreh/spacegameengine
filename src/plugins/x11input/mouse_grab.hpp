@@ -18,46 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_IMPL_HPP_INCLUDED
-#define SGE_MATH_VECTOR_IMPL_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MOUSE_GRAB_HPP_INCLUDED
+#define SGE_X11INPUT_MOUSE_GRAB_HPP_INCLUDED
 
-#include "vector.hpp"
+#include <sge/x11/window_fwd.hpp>
+#include <boost/noncopyable.hpp>
 
-template<
-	typename T>
-typename sge::math::detail::vector_policy<T, 1>::reference
-sge::math::detail::vector_policy<T, 1>::x()
+namespace sge
 {
-	return data_[0];
+namespace x11
+{
+class cursor;
 }
 
-template<
-	typename T>
-typename sge::math::detail::vector_policy<T, 1>::const_reference
-sge::math::detail::vector_policy<T, 1>::x() const
+namespace x11input
 {
-	return const_cast<vector_policy<T, 1>&>
-		(*this).x();
+
+class mouse_grab : boost::noncopyable {
+public:
+	mouse_grab(
+		x11::window_ptr,
+		x11::cursor const &);
+	~mouse_grab();	
+private:
+	x11::window_ptr const wnd;
+};
+
 }
-
-template<
-	typename T>
-sge::math::detail::vector_policy<T, 1>::vector_policy(
-	const pointer data_)
-: data_(data_)
-{}
-
-#define SGE_MATH_VECTOR_POLICY_CTOR(N) \
-template< \
-	typename T> \
-sge::math::detail::vector_policy<T, N>::vector_policy( \
-	const pointer data_) \
-: vector_policy<T, N-1>(data_)\
-{}
-
-SGE_MATH_VECTOR_POLICY_CTOR(2)
-SGE_MATH_VECTOR_POLICY_CTOR(3)
-
-#undef SGE_MATH_VECTOR_POLICY_CTOR
+}
 
 #endif

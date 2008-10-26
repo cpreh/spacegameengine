@@ -40,7 +40,8 @@ inline typename boost::enable_if<
 	boost::is_floating_point<T>,
 	boost::optional<T>
 	>::type
-atan2(const sge::math::basic_vector<T,2> &v)
+atan2(
+	sge::math::basic_vector<T,2> const &v)
 {
 	return v.is_null()
 		? boost::optional<T>()

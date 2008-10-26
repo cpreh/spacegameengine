@@ -100,7 +100,8 @@ template<
 void sge::ogl::basic_buffer<Type, Impl>::unlock()
 {
 	if(!dest)
-		throw exception(SGE_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));
+		throw exception(
+			SGE_TEXT("ogl_buffer::unlock(), buffer is not locked! cannot unlock!"));
 	bind_me();
 	Impl().unmap_buffer(Type());
 	dest = 0;
@@ -228,7 +229,7 @@ template<
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
 void sge::ogl::basic_buffer<Type, Impl>::bind(
-	const GLuint id) const
+	GLuint const id)
 {
 	Impl().bind_buffer(Type(), id);
 }
@@ -236,7 +237,7 @@ void sge::ogl::basic_buffer<Type, Impl>::bind(
 template<
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
-void sge::ogl::basic_buffer<Type, Impl>::unbind() const
+void sge::ogl::basic_buffer<Type, Impl>::unbind()
 {
 	bind(0);
 }
@@ -268,19 +269,29 @@ template<
 void sge::ogl::basic_buffer<Type, Impl>::check_lock() const
 {
 	if(!dest)
-		throw exception(SGE_TEXT("ogl_buffer used but the buffer has not been locked!"));
+		throw exception(
+			SGE_TEXT("ogl_buffer used but the buffer has not been locked!"));
 }
 
 template<
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
 void sge::ogl::basic_buffer<Type, Impl>::allocate_buffer(
-	const const_pointer src)
+	const_pointer const src)
 {
-	const GLuint glflags = convert_resource_flags(flags());
-	const size_type nsz = size() * stride_;
+	GLuint const glflags = convert_resource_flags(flags());
+	size_type const nsz = size() * stride_;
+
+	if(nsz == 0)
+		throw exception(
+			SGE_TEXT("ogl_buffer: cannot create an empty buffer!"));
+
 	bind_me();
-	Impl().buffer_data(Type(), static_cast<GLsizei>(nsz), src, glflags);
+	Impl().buffer_data(
+		Type(),
+		static_cast<GLsizei>(nsz),
+		src, 
+		glflags);
 }
 
 #endif
