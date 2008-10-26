@@ -18,49 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
+#define SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 
-#include "fold_color_format_operation.hpp"
-#include "../image_view_elements.hpp"
-#include "../color_format.hpp"
-#include <boost/fusion/algorithm/iteration/fold.hpp>
-
-// TODO:
-#include <boost/fusion/container/vector.hpp>
+#include <boost/gil/typedefs.hpp>
+#include <boost/gil/image_view.hpp>
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-template<
-	typename Operation
->
-typename Operation::result_type
-fold_color_format(
-	Operation const &op,
-	color_format::type const fmt)
-{
-	// TODO: we should declare this only once!
-	typedef boost::fusion::vector<
-		rgba8_view,
-		argb8_view,
-		bgra8_view,
-		rgba_f32_view
-	> image_view_elements;
+typedef boost::gil::rgba8_view_t   rgba8_view;
+typedef boost::gil::argb8_view_t   argb8_view;
+typedef boost::gil::bgra8_view_t   bgra8_view;
+typedef boost::gil::rgba32f_view_t rgba_f32_view;
 
-	image_view_elements e;
-
-	return boost::fusion::fold(
-		e,
-		typename Operation::result_type(),
-		fold_color_format_operation<
-			Operation
-			>(
-				op,
-				fmt));
-}
+typedef boost::mpl::vector<
+	rgba8_view,
+	argb8_view,
+	bgra8_view,
+	rgba_f32_view
+> image_view_elements;
 
 }
 }
