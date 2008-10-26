@@ -20,23 +20,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
-#include <sge/renderer/color.hpp>
 #include <sge/renderer/color_format_stride.hpp>
-#include <sge/exception.hpp>
-#include <sge/string.hpp>
-#include <boost/cstdint.hpp>
+#include <sge/renderer/detail/fold_color_format.hpp>
 #include <boost/gil/image_view_factory.hpp>
 
 namespace
 {
+struct operation {
+	typedef sge::renderer::image_view result_type;
 
-template<typename Pixel>
-sge::renderer::image_view const
-make_interleaved_view(
-	unsigned char *data,
-	sge::renderer::dim_type const &,
-	sge::renderer::size_type stride,
-	sge::renderer::optional_image_pitch const &pitch);
+	operation(
+		unsigned char *data,
+		sge::renderer::dim_type const &,
+		sge::renderer::size_type stride,
+		sge::renderer::optional_image_pitch const &pitch);
+	
+	template<
+		typename T
+	>
+	sge::renderer::image_view const
+	operator()() const;
+private:
+	unsigned char *const data;
+	sge::renderer::dim_type const d;
+	sge::renderer::size_type const stride;
+	sge::renderer::optional_image_pitch const pitch;
+};
 
 }
 
@@ -47,6 +56,16 @@ sge::renderer::make_image_view(
 	color_format::type const format,
 	optional_image_pitch const pitch)
 {
+	return fold_color_format(
+		operation(
+			data,
+			d,
+			color_format_stride(
+				format),
+			pitch),
+		format);
+
+	/*
 	size_type const stride(
 		color_format_stride(
 			format));
@@ -78,7 +97,7 @@ sge::renderer::make_image_view(
 	default:
 		throw exception(
 			SGE_TEXT("Invalid color_format!"));
-	}
+	}*/
 }
 
 sge::renderer::const_image_view const
@@ -99,23 +118,35 @@ sge::renderer::make_image_view(
 namespace
 {
 
-template<typename Pixel>
-sge::renderer::image_view const
-make_interleaved_view(
-	unsigned char * const data,
+operation::operation(
+	unsigned char *const data,
 	sge::renderer::dim_type const &d,
 	sge::renderer::size_type const stride,
 	sge::renderer::optional_image_pitch const &pitch)
+:
+	data(data),
+	d(d),
+	stride(stride),
+	pitch(pitch)
+{}
+
+template<
+	typename T
+>
+sge::renderer::image_view const
+operation::operator()() const
 {
 	return sge::renderer::image_view(
 		boost::gil::interleaved_view(
 			d.w(),
 			d.h(),
-			reinterpret_cast<Pixel *>(
+			reinterpret_cast<
+				typename T::value_type *>(
 				data),
 			pitch
 			? *pitch
 			: d.w() * stride));
+
 }
 
 }

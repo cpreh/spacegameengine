@@ -18,26 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_COLOR_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_OPERATION_HPP_INCLUDED
+#define SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_OPERATION_HPP_INCLUDED
+
+#include "../color_format.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-namespace color_format
-{
+template<
+	typename Operation
+>
+struct fold_color_format_operation {
+	typedef typename Operation::result_type result_type;
 
-enum type {
-	rgba8,
-	argb8,
-	bgra8,
-	rgbaf32
+	explicit fold_color_format_operation(
+		Operation const &op,
+		color_format::type const fmt)
+	:
+		op(op),
+		fmt(fmt),
+		count(0)
+	{}
+
+	template<typename T>
+	result_type const operator()(
+		T const &,
+		result_type const &v) const
+	{
+		return count++ == static_cast<unsigned long>(fmt)
+		? op.operator()<T>()
+		: v;
+	}
+
+private:
+	Operation const op;
+	color_format::type const fmt;
+	mutable unsigned long count;
 };
-
-}
-
 
 }
 }
