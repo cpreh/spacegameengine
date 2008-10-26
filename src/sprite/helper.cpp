@@ -112,8 +112,8 @@ sge::sprite::fill_color(
 	vertex_iterator it,
 	color const acol)
 {
-	renderer::rgba8_color const col(
-		renderer::color_convert<renderer::rgba8_color>(
+	base_color const col(
+		renderer::color_convert<base_color>(
 			acol));
 	
 	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)

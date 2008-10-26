@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/color_converted_image_view.hpp>
 #include <sge/renderer/image_view_impl.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/detail/fold_color_format.hpp>
 #include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
 
@@ -45,13 +46,13 @@ private:
 
 }
 
-sge::renderer::image_view const
+sge::renderer::const_image_view const
 sge::renderer::color_converted_image_view(
 	image_view const &view,
 	color_format::type const fmt)
 {
-	return fold_color_format(
-		operation<image_view>(
+	return color_converted_image_view(
+		make_const_image_view(
 			view),
 		fmt);
 }
@@ -89,7 +90,7 @@ View const
 operation<View>::operator()() const
 {
 	return View(
-		boost::gil::any_color_converted_view<
+		boost::gil::color_converted_view<
 			T>(
 				v));
 }

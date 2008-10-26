@@ -31,7 +31,7 @@ IF (${CMAKE_COMPILER_IS_GNUCXX})
 	ADD_DEFINITIONS ("-ansi -pedantic-errors -Wall -Wextra -Wconversion -Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self -Woverloaded-virtual")
 
 	SET (CMAKE_CXX_FLAGS_RELEASE "-O3 -fomit-frame-pointer -DNDEBUG")
-	SET (CMAKE_CXX_FLAGS_DEBUG "-g3")
+	SET (CMAKE_CXX_FLAGS_DEBUG "-g")
 
 # -fvisibility=hidden causes problems without inlining, so just switch it on
 # in release mode

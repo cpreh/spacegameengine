@@ -35,6 +35,7 @@ void sge::ogl::convert_vertex_colors(
 	sge::renderer::vf::dynamic_color const dcolor(
 		boost::get<sge::renderer::vf::dynamic_color>(
 			e.element().info()));
+
 	sge::renderer::image_view const view(
 		sge::renderer::make_image_view(
 			data,

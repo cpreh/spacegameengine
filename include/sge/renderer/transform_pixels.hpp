@@ -18,49 +18,79 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/make_const_image_view.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#ifndef SGE_RENDERER_TRANSFORM_PIXELS_HPP_INCLUDED
+#define SGE_RENDERER_TRANSFORM_PIXELS_HPP_INCLUDED
 
-namespace 
+#include "image_view.hpp"
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <boost/gil/algorithm.hpp>
+
+namespace sge
+{
+namespace renderer
 {
 
-template <typename Dst>
-struct variant_const_assign_fn {
+template<
+	typename Dst,
+	typename Op
+>
+struct transform_pixels_fn {
 	typedef void result_type;
+
 	Dst &_dst;
 
-	explicit variant_const_assign_fn(
-		Dst& dst)
-	: 
-		_dst(dst)
+	transform_pixels_fn(
+		Dst& dst,
+		Op const &op)
+	:
+		_dst(dst),
+		op(op)
 	{}
 
-	template<typename Src>
+	template<
+		typename Src
+	>
 	void operator()(
-		Src const &src) const 
+		Src const &src) const
 	{
-		typename Src::const_t const_src(src);
-		_dst = const_src;
+		boost::gil::transform_pixels(
+			_dst,
+			src,
+			op);
 	}
+private:
+	Op const op;
 };
 
-template <typename V1, typename V2>
-void variant_const_assign(
-	boost::gil::variant<V1> const &src, 
-	boost::gil::variant<V2>& dst) 
+template<
+	typename Src,
+	typename Dst,
+	typename Op
+>
+void variant_transform_pixels_fn(
+	boost::gil::variant<Src> const &src,
+	boost::gil::variant<Dst> const &dst,
+	Op const &op)
 {
-	variant_const_assign_fn<boost::gil::variant<V2> > fn(dst);
+	transform_pixels_fn<Dst, Op> fn(dst, op);
 	boost::gil::apply_operation(src, fn);
-} 
-
 }
 
-sge::renderer::const_image_view const
-sge::renderer::make_const_image_view(
-	image_view const &ncv)
+template<
+	typename Op
+>
+SGE_SYMBOL void transform_pixels(
+	const_image_view const &src,
+	image_view const &dst,
+	Op const &op)
 {
-	const_image_view cv;
-	variant_const_assign(ncv,cv);
-	return cv;
+	variant_transform_pixels_fn(
+		src,
+		dst,
+		op);
 }
+
+}
+}
+
+#endif
