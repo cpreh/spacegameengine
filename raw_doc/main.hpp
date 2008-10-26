@@ -3,11 +3,10 @@
 
 \section tm The manual
 - Tutorials:
-	-# \subpage tut_begin
-	-# \subpage tutorial_2
-	-# \subpage textures
+	-# \subpage tut_01
+	-# \subpage tut_02
+	-# \subpage tut_sound
 	-# \subpage tut_fonts
-	-# \subpage console
 - \subpage faq
 
 \section hap History and purpose
@@ -29,7 +28,7 @@ runtime. For every plugin type there is an abstract core interface plus
 additional interfaces that can be obtained from those. Here are the plugin
 types supported by sge: 
 
-- audio_loader (wave, vorbis)
+- audio_loader (wave, vorbis, mp3)
 - audio_player (openal)
 - font (freetype)
 - image (devil)

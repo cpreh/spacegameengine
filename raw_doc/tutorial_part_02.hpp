@@ -1,5 +1,5 @@
 /**
-\page tutorial_2 Handling input in sge
+\page tut_02 Handling input in sge
 
 I don't know how you managed to close our program from \ref tut_begin "part 1"
 but I hope you realized it's not The Right Way to just choke a program when
