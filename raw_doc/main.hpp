@@ -43,7 +43,7 @@ The current codebase in git is considered to be in alpha state.
 - Most opengl functionality.
 - Mouse and keyboard using the X input plugin or the direct input plugin.
 - Playing sounds using the openal audio plugin.
-- Loading wave and ogg vorbis files.
+- Loading wave, mpeg1-3 and ogg vorbis files.
 - Loading images using the devil image plugin.
 - 'Making' fonts using the freetype font plugin.
 - Rendering fonts using the engine's font architecture.
@@ -75,11 +75,15 @@ To start the build run <tt>cmake .</tt> and pass the options to enable what you
 need. The following options may be specified: 
 
 - <tt>-DCMAKE_INSTALL_PREFIX=/where/to/install</tt> (important: This is your installation destination which is usually /usr)
+- <tt>-DCMAKE_CXX_FLAGS="your custom cxx flags"</tt>
+- <tt>-DCMAKE_BUILD_TYPE=Release</tt> (do a release build)
+- <tt>-DCMAKE_BUILD_TYPE=Debug</tt> (do a debug build)
 - <tt>-D ENABLE_DEVIL:=1</tt> (build the devil plugin)
 - <tt>-D ENABLE_DINPUT:=1</tt> (build the direct input plugin)
 - <tt>-D ENABLE_DGA:=1</tt> (build dga support)
 - <tt>-D ENABLE_FREETYPE:=1</tt> (build the freetype plugin)
 - <tt>-D ENABLE_GUI:=1</tt> (build the gui)
+- <tt>-D ENABLE_MAD:=1</tt> (build the mad plugin)
 - <tt>-D ENABLE_OPENAL:=1</tt> (build the openal plugin)
 - <tt>-D ENABLE_OPENGL:=1</tt> (build the opengl plugin)
 - <tt>-D ENABLE_TEST:=1</tt> (build the test application)
@@ -92,7 +96,7 @@ For Gentoo users an ebuild is provided in the repository.
 \section d Dependencies
 <b>Note that some of these libraries may in turn require additional libraries by themselves.</b>
 \subsection bt Build time
-- cmake
+- cmake (2.6 or later)
 - pkgconfig
 
 \subsection c Core
@@ -103,6 +107,7 @@ For Gentoo users an ebuild is provided in the repository.
 - devil: devil
 - direct input: DirectX SDK
 - freetype: freetype
+- mad: libmad
 - openal: openal
 - opengl: glew, xf86vidmode (for optional fullscreen mode, Linux only)
 - vorbis: libvorbis

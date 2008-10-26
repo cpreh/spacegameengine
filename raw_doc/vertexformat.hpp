@@ -39,7 +39,7 @@ that the vertex format's color should be in rgba and every color channel
 should be 8 bits wide.
 
 
-\subsection assemble_vertex_format Assembling the vertex format
+\section assemble_vertex_format Assembling the vertex format
 
 Now that our elements are specified we can define our vertex format:
 
@@ -58,7 +58,7 @@ But a vertex format on its own isn't very interesting.
 We want a vertex buffer to fill some vertices in, so
 let's create one.
 
-\subsection create_vertex_buffer Creating the vertex buffer
+\section create_vertex_buffer Creating the vertex buffer
 
 \code
 
@@ -72,9 +72,9 @@ sge::renderer::vertex_buffer_ptr const vb(
 
 For a renderer <em> rend </em> this creates a vertex buffer for us
 with space for three vertices.
-<em> sge::renderer::resource_flags::none </em> tells the renderer
+sge::renderer::resource_flags::none tells the renderer
 that we are not interested in reading this vertex buffer's data back.
-The strange <em> sge::renderer::vf::make_dynamic_format </em> is
+The strange  sge::renderer::vf::make_dynamic_format is
 needed to create a dynamic vertex format structure out of our
 compile time safe format. The reason behind this is that plugins
 can't involve templates for arbitrary types in their interfaces.
@@ -85,7 +85,7 @@ into a dynamic format is solely to reduce dependency bloat.
 If this was the case every header where you define your vertex format
 would pull in the whole dynamic format's definitions.
 
-\subsection fill_vertices Filling the vertices
+\section fill_vertices Filling the vertices
 
 Now to the interesting part: We want to fill our vertex buffer with data.
 To do this we have to lock the buffer first.
@@ -105,16 +105,16 @@ sge;:renderer::scoped_vertex_lock const vblock(
 \endcode
 
 scoped_lock is an RAII class that frees the lock in its destructor.
-<em> sge::renderer::lock_flags::writeonly </em> tells the renderer
+sge::renderer::lock_flags::writeonly tells the renderer
 that we are only interested in writing to that buffer.
-We could have specified <em> sge::renderer::lock_flags::readwrite </em>
+We could have specified sge::renderer::lock_flags::readwrite
 instead but this would have failed at runtime because we didn't create
 a readable buffer.
 There is also another overload of make_scoped_lock so that you can
 get a <em> const_scoped_vertex_lock </em> which is for reading only.
 
 We can't use the lock directly to write our vertices, instead we have to
-create a <em> sge::renderer::vf::view </em> from it.
+create a sge::renderer::vf::view from it.
 
 \code
 typedef sge::renderer::vf::view<
@@ -123,9 +123,9 @@ typedef sge::renderer::vf::view<
 
 vertex_view const view(
 	vblock.value());
-\encode
+\endcode
 
-<em> sge::renderer::scoped_vertex_lock::value </em> returns a 
+sge::renderer::scoped_vertex_lock::value returns a 
 dynamic vertex view which can be converted into our compile time safe 
 vertex view. There is also a check involved to see if they are compatible.
 The easiest way to fill in our data is to use an iterator.
@@ -143,7 +143,7 @@ fill in the vertex data.
 typedef iterator::reference vertex_ref;
 
 vertex_ref r(*it);
-\encode
+\endcode
 
 Getting a reference to a vertex is just for exposition. Now we will see
 how to set a vertex with this.
@@ -160,6 +160,9 @@ r.set<pos_type>(
 
 This sets the first vertex's position of our vertex buffer to (-1, 1, 0).
 Note the dots behind the numbers: They turn our numbers into double literals.
+The packed_type of a vertex element's role is the associated compound type
+for this element. In this case this will be a
+sge::math::basic_vector<double, 3>.
 Next we set the color, too.
 
 \code
@@ -171,16 +174,20 @@ r.set<color_type>(
 		255,
 		0,
 		255));
-\encode
+\endcode
 
 This sets the color to yellow with 100% opacity.
-We could have also used sge's color constant to do that.
+Remember that we used sge::renderer::rgba8_color for our color channel.
+The constructor's argument order is determined by the order of the format
+itself.
+sge offers a lot of predefined colors.
+We could have also used the yellow constant to set the color.
 
 \code
 r.set<color_type>(
 	sge::renderer::color_convert<col4>(
 		sge::renderer::colors::yellow));
-\encode
+\endcode
 
 The iterator can, of course, be incremented to reach the other two
 vertices in the buffer. A vertex iterator is a <em> random access iterator
