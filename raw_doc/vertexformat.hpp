@@ -21,6 +21,8 @@ typedef sge::renderer::vf::pos<
 > pos_type;
 \endcode
 
+Files to include: <sge/renderer/vf/pos.hpp>
+
 <em> pos_type </em> is not useful on its own, but it tells what this
 vertex element should look like: It consists of 3 doubles and has the
 role <em> pos </em> associated with it. Of course you could use 4 elements,
@@ -33,6 +35,8 @@ typedef sge::renderer::vf::color<
 	sge::renderer::rgba8_color
 > color_type;
 \endcode
+
+Files to include: <sge/renderer/vf/color.hpp>, <sge/renderer/color.hpp>
 
 sge knows some color layouts like rgba8, argb8 and rgbaf32. Here we tell
 that the vertex format's color should be in rgba and every color channel
@@ -53,6 +57,8 @@ typedef sge::renderer::vf::format<
 
 \endcode
 
+Files to include: <sge/renderer/vf/format.hpp>, <boost/mpl/vector.hpp>
+
 That's it! We now have our vertex format.
 But a vertex format on its own isn't very interesting.
 We want a vertex buffer to fill some vertices in, so
@@ -69,6 +75,9 @@ sge::renderer::vertex_buffer_ptr const vb(
 		sge::renderer::resource_flags::none));
 
 \endcode
+
+Files to include: <sge/renderer/device.hpp>, <sge/renderer/vertex_buffer.hpp>,
+<sge/renderer/vf/make_dynamic_format.hpp>
 
 For a renderer <em> rend </em> this creates a vertex buffer for us
 with space for three vertices.
@@ -104,6 +113,8 @@ sge;:renderer::scoped_vertex_lock const vblock(
 
 \endcode
 
+Files to include: <sge/renderer/scoped_vertex_lock.hpp>
+
 scoped_lock is an RAII class that frees the lock in its destructor.
 sge::renderer::lock_flags::writeonly tells the renderer
 that we are only interested in writing to that buffer.
@@ -125,6 +136,8 @@ vertex_view const view(
 	vblock.value());
 \endcode
 
+Files to include: <sge/renderer/vf/view.hpp>
+
 sge::renderer::scoped_vertex_lock::value returns a 
 dynamic vertex view which can be converted into our compile time safe 
 vertex view. There is also a check involved to see if they are compatible.
@@ -136,6 +149,8 @@ typedef vertex_view::iterator iterator;
 iterator it = view.begin();
 \endcode
 
+Files to include: <sge/renderer/vf/iterator.hpp>
+
 The iterator's reference type is a vertex. This structure finally lets you
 fill in the vertex data.
 
@@ -144,6 +159,8 @@ typedef iterator::reference vertex_ref;
 
 vertex_ref r(*it);
 \endcode
+
+Files to include: <sge/renderer/vf/vertex.hpp>
 
 Getting a reference to a vertex is just for exposition. Now we will see
 how to set a vertex with this.
@@ -189,7 +206,175 @@ r.set<color_type>(
 		sge::renderer::colors::yellow));
 \endcode
 
+Files to include: <sge/renderer/colors.hpp>, <sge/renderer/color_convert.hpp>
+
 The iterator can, of course, be incremented to reach the other two
 vertices in the buffer. A vertex iterator is a <em> random access iterator
 </em>.
+
+\section vertex_roles Vertex roles
+
+So far we have seen how to create a vertex format for a position and a color.
+There are, however, more possible roles and some even can be used more than
+once.
+
+\code
+typedef sge::renderer::vf::normal<
+	float
+> normal_type;
+\endcode
+
+FIles to include: <sge/renderer/vf/normal.hpp>
+
+The above code can be used to specify a <em> normal role </em> for a
+vertex format. Notice the absence of the element count type.
+Normals always have to consist of three subelements, namely x, y and z.
+
+\code
+typedef sge::renderer::vf::texpos<
+	float,
+	2
+> texpos_type;
+\endcode
+
+Files to include: <sge/renderer/vf/texpos.hpp>
+
+This code specifies a <em> texture coordinate role </em> for a vertex format.
+It should be used with 2-dimensional textures only.
+
+\section multiple_roles Multiple roles of the same type
+
+There is multi texturing in 3D applications so we might want
+to specify more than one texture coordinate.
+Here is how we do that:
+
+\code
+typedef sge::renderer::vf::format<
+	boost::mpl::vector<
+		texpos_type,
+		texpos_type
+	>
+> format;
+\endcode
+
+Simply repeat the role's type in the mpl::vector to get the role twice!
+The next thing is: How do we access multiple elements of the same
+role type through a vertex?
+Here is how:
+
+
+\code
+vertex &r(*it); // suppose we already have the other stuff in place
+
+typedef texpos_type::packed_type texp;
+
+r.set<texpos, 0>(
+	texp(
+		0.f
+		1.f));
+
+r.set<texpos, 1>(
+	texp(
+		0.f,
+		1.f));
+\endcode
+
+<em> set </em> is a template function whose second argument defaults to 0.
+So set<type> is equivalent to set<type, 0>. If you choose a different index
+than 0, you can set the other vertex elements besides the first.
+The example above would set both texture coordinates of the vertex to the
+same value.
+
+\section limitations_multiple_roles Limitations of multiple roles
+
+More than one <em> pos role </em> is meaningless. It is therefore not allowed.
+The same goes for more than one <em> normal role </em>.
+At the moment only one <em> color role </em> is supported.
+There can be up to an implementation defined number of <em> texture pos roles </em>
+in the format.
+Vertex attributes for shaders are not accounted for at the moment.
+These will be added in the near future.
+
+\section limitations_element_types Limitations of the element types
+
+For a <em> pos role </em> only 2, 3 or 4 subelement types are accepted.
+Their types must be either float or double.
+
+A <em> normal role's </em> type must be either float or double.
+
+For the <em> color roles </em> only the predefined colors in
+<sge/renderer/color.hpp> are accepted.
+
+The <em> texture roles </em> must have 2 or 3 subelements.
+Their types must be either float or double.
+
+\section reading_vertices Reading vertices
+
+Our code earlier disabled the reading of vertices.
+For most parts there is a good reason to: Reading back vertex data is slow.
+If you choose not to read the data back like we did, their contents will be
+initially undefined (this is even true if you choose to read them back but the
+vertices have not been initialized yet).
+However, you can read the vertex data out that you
+have just written before unlocking the buffer (which means that our
+scoped lock goes out of scope).
+We take the code for writing a vertex's position and read it right back.
+
+\code
+
+typedef pos_type::packed_type vec3;
+
+r.set<pos_type>(
+	vec3(
+		-1.,
+		1.,
+		0.));
+
+vec3 const v(
+	r.get<pos_type>());
+
+\endcode
+
+<em> get </em> of course also takes an index which defaults to zero.
+
+\code
+vertex &r(*it);
+
+typedef texpos_type::packed_type texp;
+
+r.set<texpos, 0>(
+	texp(
+		0.f
+		1.f));
+
+r.set<texpos, 1>(
+	texp(
+		0.f,
+		1.f));
+
+texp const tex1(
+	r.get<texpos, 1>);
+
+\endcode
+
+\section vertex_design Design reasons
+
+The vertex format is designed so that it is compile time safe.
+This means that if you accidently try to access a vertex element whose role
+has not been specified you will get a compile time error.
+Exposing more type information to the compiler can also have positive impact
+on performance.
+
+<em> set </em> and <em> get </em> take and return the elements by value.
+This means you can't get a reference to your vertices or vertex elements.
+The reason behind this is the same why we need a dynamic format in the first
+place. A vertex buffer interface can't return arbitrary types so we have to
+stick to the only method of passing binary data: Use a raw array of
+<em> unsigned char </em>. Because C++'s aliasing rules are very strict,
+we are allowed to copy any data in such an array or copy any data out but
+building a pointer of a different type to an array of <em> unsigned char </em>
+and dereferencing it is undefined behaviour (this is, of course not true if
+the static type of the raw array is in fact the type we casted back to, but
+this is obviously not possible here).
+
 */
