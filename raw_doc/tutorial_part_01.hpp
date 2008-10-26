@@ -123,7 +123,7 @@ sge::renderer::texture_ptr const image_texture =
 \endcode
 
 Files to include: <sge/renderer/texture_filter.hpp>,
-<sge/renderer/image_view_impl.hpp>, <sge/renderer/texture.hpp>
+<sge/renderer/texture.hpp>
 
 This version of \link sge::renderer::device::create_texture create_texture
 \endlink takes a <em>renderer::const_image_view</em>. Luckily, our image object
