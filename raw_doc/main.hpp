@@ -7,6 +7,7 @@
 	-# \subpage tut_02
 	-# \subpage tut_sound
 	-# \subpage tut_fonts
+	-# \subpage tut_vertexformat
 - \subpage faq
 
 \section hap History and purpose
