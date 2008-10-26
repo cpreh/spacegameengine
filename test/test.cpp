@@ -23,10 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/context_base.hpp>
-#include <sge/font/font.hpp>
-#include <sge/font/drawer_3d.hpp>
-#include <sge/font/system.hpp>
-#include <sge/font/system_fwd.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system.hpp>
@@ -36,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/image_view_hack.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/image_view_factory.hpp>
 #include <sge/renderer/any_color_print.hpp>
 #include <sge/renderer/fill_pixels.hpp>
@@ -105,14 +101,6 @@ try
 
 	const sge::input::system_ptr is(input_plugin->get()(rend->get_window()));
 
-	//const sge::plugin::plugin<sge::font::system>::ptr_type font_plugin = pm.get_plugin<sge::font::system>().load();
-	//const sge::font::system_ptr fs(font_plugin->get()());
-
-	//const sge::font::metrics_ptr metrics = fs->create_font(sge::media_path() / SGE_TEXT("fonts/default.ttf"), 15);
-	//const sge::font::drawer_ptr fn_drawer(new sge::font::drawer_3d(rend));
-
-	//sge::font::font fn(metrics, fn_drawer);
-
 	const sge::plugin::plugin<sge::image::loader>::ptr_type image_plugin = pm.get_plugin<sge::image::loader>().load();
 	const sge::image::loader_ptr image_loader(image_plugin->get()());
 
@@ -158,7 +146,7 @@ try
 
 
 		image_loader->create(
-			sge::renderer::make_const_view(lock_.value()))->save(
+			sge::renderer::make_const_image_view(lock_.value()))->save(
 				SGE_TEXT("sge_test.png"));
 	}
 
@@ -184,8 +172,6 @@ try
 
 		rend->get_window()->dispatch();
 		is->dispatch();
-
-		//fn.draw_text(some_text, sge::font::pos(100,100), sge::font::dim(100,500), sge::font::align_h::right, sge::font::align_v::bottom);
 	}
 	return EXIT_SUCCESS;
 }

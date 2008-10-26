@@ -34,11 +34,13 @@ namespace vf
 
 class dynamic_color {
 public:
+	typedef color_format::type color_format_t;
+
 	SGE_SYMBOL explicit dynamic_color(
-		color_format::type);
-	SGE_SYMBOL color_format::type get_color_format() const;
+		color_format_t);
+	SGE_SYMBOL color_format_t color_format() const;
 private:
-	color_format::type color_format_;
+	color_format_t color_format_;
 };
 
 }

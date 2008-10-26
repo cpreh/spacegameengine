@@ -18,20 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMAGE_VIEW_HACK_HPP_INCLUDED
-#define SGE_RENDERER_IMAGE_VIEW_HACK_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_VERTEX_COLORS_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_VERTEX_COLORS_HPP_INCLUDED
 
-#include "image_view.hpp"
-#include "../export.hpp"
+#include <sge/renderer/size_type.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace vf
+{
+class dynamic_ordered_element;
+}
+}
 
-SGE_SYMBOL const_image_view const
-make_const_view(
-	image_view const &);
+namespace ogl
+{
+
+void convert_vertex_colors(
+	renderer::vf::dynamic_ordered_element const &e,
+	renderer::size_type vertex_stride,
+	renderer::size_type num_vertices,
+	unsigned char *const data);
 
 }
 }

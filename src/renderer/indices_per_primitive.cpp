@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/primitive.hpp>
+#include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-std::size_t sge::renderer::indices_per_primitive(const indexed_primitive_type::type prim)
+sge::renderer::size_type
+sge::renderer::indices_per_primitive(
+	indexed_primitive_type::type const prim)
 {
 	switch(prim) {
 	case indexed_primitive_type::triangle:
@@ -30,25 +32,9 @@ std::size_t sge::renderer::indices_per_primitive(const indexed_primitive_type::t
 	case indexed_primitive_type::line:
 		return 2;
 	default:
-		throw exception(SGE_TEXT("indices_per_primitive: Invalid indexed_primitive_format!"));
+		throw exception(
+			SGE_TEXT("indices_per_primitive: Invalid indexed_primitive_format!"));
 	}
 }
 
-std::size_t sge::renderer::primitive_count(const std::size_t vertex_count, const nonindexed_primitive_type::type prim)
-{
-	switch(prim) {
-	case nonindexed_primitive_type::point:
-		return vertex_count;
-	case nonindexed_primitive_type::line_strip:
-		if(vertex_count <= 1)
-			throw exception(SGE_TEXT("primitive_count(): line_strip needs at least two vertices!"));
-		return vertex_count - 1;
-	case nonindexed_primitive_type::triangle_strip:
-	case nonindexed_primitive_type::triangle_fan:
-		if(vertex_count <= 2)
-			throw exception(SGE_TEXT("primitive_count(): triangles need at least three vertices!"));
-		return vertex_count - 2;
-	default:
-		throw exception(SGE_TEXT("Invalid nonindexed_primitive_type!"));
-	}
-}
+

@@ -69,6 +69,8 @@ private:
 	renderer::vf::dynamic_format const &
 	format() const;
 
+	void pre_unlock() const;
+
 	vf::format const format_;
 };
 

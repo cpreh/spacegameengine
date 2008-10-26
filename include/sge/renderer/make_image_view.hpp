@@ -23,28 +23,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "color_format.hpp"
 #include "image_view.hpp"
-#include "../math/dim.hpp"
+#include "dim_types.hpp"
+#include "size_type.hpp"
 #include "../export.hpp"
-#include <cstddef>
+#include <boost/optional.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef math::basic_dim<std::size_t, 2> image_dim; // FIXME: make a common typedef
+typedef boost::optional<
+	size_type
+> optional_image_pitch;
 
 SGE_SYMBOL image_view const
 make_image_view(
 	unsigned char *data,
-	image_dim const &,
-	color_format::type);
+	dim_type const &,
+	color_format::type,
+	optional_image_pitch pitch
+		= optional_image_pitch());
 
 SGE_SYMBOL const_image_view const
 make_image_view(
 	unsigned char const *data,
-	image_dim const &,
-	color_format::type);
+	dim_type const &,
+	color_format::type,
+	optional_image_pitch pitch
+		= optional_image_pitch());
 
 }
 }

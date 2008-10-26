@@ -18,32 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_element.hpp>
+#ifndef SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
+#define SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 
-sge::renderer::vf::dynamic_element::dynamic_element(
-	dynamic_any const &info_,
-	role_t const role_,
-	vertex_size const index_)
-:
-	info_(info_),
-	role_(role_),
-	index_(index_)
-{}
-	
-sge::renderer::vf::dynamic_any const &
-sge::renderer::vf::dynamic_element::info() const
+#include <boost/gil/typedefs.hpp>
+#include <boost/gil/image_view.hpp>
+#include <boost/mpl/vector.hpp>
+
+namespace sge
 {
-	return info_;
+namespace renderer
+{
+
+typedef boost::gil::rgba8_view_t   rgba8_view;
+typedef boost::gil::argb8_view_t   argb8_view;
+typedef boost::gil::bgra8_view_t   bgra8_view;
+typedef boost::gil::rgba32f_view_t rgba_f32_view;
+
+typedef boost::mpl::vector<
+	rgba8_view,
+	argb8_view,
+	bgra8_view,
+	rgba_f32_view
+> image_view_elements;
+
+}
 }
 
-sge::renderer::vf::dynamic_element::role_t
-sge::renderer::vf::dynamic_element::role() const
-{
-	return role_;
-}
-
-sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic_element::index() const
-{
-	return index_;
-}
+#endif

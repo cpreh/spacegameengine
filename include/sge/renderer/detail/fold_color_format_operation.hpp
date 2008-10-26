@@ -18,40 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LINE_STRIP_HPP_INCLUDED
-#define SGE_RENDERER_LINE_STRIP_HPP_INCLUDED
+#ifndef SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_OPERATION_HPP_INCLUDED
+#define SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_OPERATION_HPP_INCLUDED
 
-#include "renderer.hpp"
-#include "vertex_buffer.hpp"
-#include "default_transformable.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-#include <vector>
+#include "../color_format.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL line_strip : public default_transformable, boost::noncopyable {
+template<
+	typename Operation
+>
+class fold_color_format_operation {
+	typedef unsigned long counter_type;
 public:
-	typedef vertex_buffer::size_type size_type;
+	typedef typename Operation::result_type result_type;
 
-	SGE_SYMBOL line_strip(device_ptr rend, color col, size_type init_lines = 1);
-	SGE_SYMBOL line_strip& add(const pos3& a);
-	SGE_SYMBOL void set_color(color c);
-	SGE_SYMBOL void render();
-	SGE_SYMBOL pos3& operator[](size_type index);
-	SGE_SYMBOL const pos3& operator[](size_type index) const;
-	SGE_SYMBOL void clear();
-	SGE_SYMBOL void loop(bool);
+	explicit fold_color_format_operation(
+		Operation const &op,
+		color_format::type const fmt)
+	:
+		op(op),
+		fmt(fmt),
+		count(0)
+	{}
+
+	template<typename T>
+	result_type const operator()(
+		T const &,
+		result_type const &v) const
+	{
+		return count++ == static_cast<counter_type>(fmt)
+		? op.operator()<T>()
+		: v;
+	}
 private:
-	typedef std::vector<pos3> pos_vector;
-	const device_ptr rend;
-	color col_;
-	vertex_buffer_ptr vb;
-	bool loop_;
-	pos_vector vertices;
+	Operation const op;
+	color_format::type const fmt;
+	mutable counter_type count;
 };
 
 }

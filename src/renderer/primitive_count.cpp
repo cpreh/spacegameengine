@@ -18,35 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../to_actor.hpp"
-#include "../pos_actor.hpp"
-#include "../normal_actor.hpp"
-#include "../color_actor.hpp"
-#include "../texpos_actor.hpp"
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <sge/renderer/primitive_count.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::vf::actor_ptr 
-sge::ogl::vf::to_actor(
-	renderer::vf::dynamic_ordered_element const &e,
-	renderer::vf::vertex_size const stride)
+sge::renderer::size_type
+sge::renderer::primitive_count(
+	size_type const vertex_count,
+	nonindexed_primitive_type::type const prim)
 {
-	switch(e.element().role()) {
-	case renderer::vf::role::pos:
-		return actor_ptr(
-			new pos_actor(e, stride));
-	case renderer::vf::role::normal:
-		return actor_ptr(
-			new normal_actor(e, stride));
-	case renderer::vf::role::color:
-		return actor_ptr(
-			new color_actor(e, stride));
-	case renderer::vf::role::texpos:
-		return actor_ptr(
-			new texpos_actor(e, stride));
+	switch(prim) {
+	case nonindexed_primitive_type::point:
+		return vertex_count;
+	case nonindexed_primitive_type::line_strip:
+		if(vertex_count <= 1)
+			throw exception(
+				SGE_TEXT("primitive_count(): line_strip needs at least two vertices!"));
+		return vertex_count - 1;
+	case nonindexed_primitive_type::triangle_strip:
+	case nonindexed_primitive_type::triangle_fan:
+		if(vertex_count <= 2)
+			throw exception(
+				SGE_TEXT("primitive_count(): triangles need at least three vertices!"));
+		return vertex_count - 2;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid role in ogl vertex format!"));
+			SGE_TEXT("Invalid nonindexed_primitive_type!"));
 	}
 }

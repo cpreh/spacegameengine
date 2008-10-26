@@ -72,6 +72,8 @@ private:
 		size_type first,
 		size_type count) const;
 	
+	virtual void pre_unlock() const;
+
 	void unlock() const;
 	
 	size_type size() const;

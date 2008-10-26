@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_vector.hpp>
 
 sge::renderer::vf::dynamic_vector::dynamic_vector(
-	element_type::type const element_type_,
+	element_type_t const element_type_,
 	vertex_size const elements_)
 :
 	element_type_(element_type_),
 	elements_(elements_)
 {}
 
-sge::renderer::vf::element_type::type
-sge::renderer::vf::dynamic_vector::get_element_type() const
+sge::renderer::vf::dynamic_vector::element_type_t
+sge::renderer::vf::dynamic_vector::element_type() const
 {
 	return element_type_;
 }

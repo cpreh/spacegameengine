@@ -23,9 +23,7 @@
 *high: split the code from ogl::device into windows and linux code
 *high: implement uniform arrays for glsl
 *high: Improve the cmake script, search for libraries per default.
-*high: find a way to explicitly instantiate gil::apply_operation or reduce compile time in another way
 *high: add support for pkgconfig so that users don't have to specify -std=c++0x on their own
 *high: convert colors in opengl
-*high: make X11 errors handleable
-*high: fix unmapping of windows and dga
+*high: fix dga
 *high: implement window_parameters

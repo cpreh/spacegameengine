@@ -23,13 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <boost/cstdint.hpp>
 
-std::size_t sge::renderer::color_format_stride(
+sge::renderer::size_type
+sge::renderer::color_format_stride(
 	color_format::type const fmt)
 {
 	switch(fmt) {
 	case color_format::argb8:
 	case color_format::rgba8:
+	case color_format::bgra8:
 		return sizeof(boost::uint32_t);
+	case color_format::rgbaf32:
+		return sizeof(float) * 4;
 	default:
 		throw exception(
 			SGE_TEXT("Invalid color_format in color_format_stride()!"));

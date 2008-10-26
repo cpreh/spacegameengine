@@ -18,32 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_element.hpp>
+#ifndef SGE_RENDERER_IMAGE_VIEW_DATA_HPP_INCLUDED
+#define SGE_RENDERER_IMAGE_VIEW_DATA_HPP_INCLUDED
 
-sge::renderer::vf::dynamic_element::dynamic_element(
-	dynamic_any const &info_,
-	role_t const role_,
-	vertex_size const index_)
-:
-	info_(info_),
-	role_(role_),
-	index_(index_)
-{}
-	
-sge::renderer::vf::dynamic_any const &
-sge::renderer::vf::dynamic_element::info() const
+#include "image_view.hpp"
+
+namespace sge
 {
-	return info_;
+namespace renderer
+{
+
+unsigned char *image_view_data(
+	image_view const &);
+
+unsigned char const *image_view_data(
+	const_image_view const &);
+
+}
 }
 
-sge::renderer::vf::dynamic_element::role_t
-sge::renderer::vf::dynamic_element::role() const
-{
-	return role_;
-}
-
-sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic_element::index() const
-{
-	return index_;
-}
+#endif

@@ -18,32 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_element.hpp>
+#ifndef SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_HPP_INCLUDED
 
-sge::renderer::vf::dynamic_element::dynamic_element(
-	dynamic_any const &info_,
-	role_t const role_,
-	vertex_size const index_)
-:
-	info_(info_),
-	role_(role_),
-	index_(index_)
-{}
-	
-sge::renderer::vf::dynamic_any const &
-sge::renderer::vf::dynamic_element::info() const
+#include "fold_color_format_operation.hpp"
+#include "../image_view_elements.hpp"
+#include "../color_format.hpp"
+#include <boost/fusion/algorithm/iteration/fold.hpp>
+
+// TODO:
+#include <boost/fusion/container/vector.hpp>
+
+namespace sge
 {
-	return info_;
+namespace renderer
+{
+
+template<
+	typename Operation
+>
+typename Operation::result_type
+fold_color_format(
+	Operation const &op,
+	color_format::type const fmt)
+{
+	// TODO: we should declare this only once!
+	typedef boost::fusion::vector<
+		rgba8_view,
+		argb8_view,
+		bgra8_view,
+		rgba_f32_view
+	> image_view_elements;
+
+	image_view_elements e;
+
+	return boost::fusion::fold(
+		e,
+		typename Operation::result_type(),
+		fold_color_format_operation<
+			Operation
+			>(
+				op,
+				fmt));
 }
 
-sge::renderer::vf::dynamic_element::role_t
-sge::renderer::vf::dynamic_element::role() const
-{
-	return role_;
+}
 }
 
-sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic_element::index() const
-{
-	return index_;
-}
+#endif
