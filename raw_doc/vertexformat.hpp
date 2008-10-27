@@ -2,8 +2,8 @@
 \page tut_vertexformat Vertex Format
 \section abstract Abstract
 Every 3D application needs some sort of geometry. In most cases this geometry
-is represented by triangles which in turn consist of three edges.
-The data associated with those edges is called a vertex (like position,
+is represented by triangles which in turn consist of three points.
+The data associated with those points is called a vertex (like position,
 normals, and so forth).
 
 \section vertex_elements Vertex Elements
