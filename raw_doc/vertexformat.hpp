@@ -106,7 +106,7 @@ except its content. So resource allocation is not mixed with filling the data.
 
 \code
 
-sge;:renderer::scoped_vertex_lock const vblock(
+sge::renderer::scoped_vertex_lock const vblock(
 	sge::renderer::make_scoped_lock(
 		vb,
 		sge::renderer::lock_flags::writeonly));
@@ -178,12 +178,12 @@ r.set<pos_type>(
 This sets the first vertex's position of our vertex buffer to (-1, 1, 0).
 Note the dots behind the numbers: They turn our numbers into double literals.
 The packed_type of a vertex element's role is the associated compound type
-for this element. In this case this will be a
+for this element. In this case this will be an
 sge::math::basic_vector<double, 3>.
 Next we set the color, too.
 
 \code
-typedef color_type::packet_type col4;
+typedef color_type::packed_type col4;
 
 r.set<color_type>(
 	col4(
