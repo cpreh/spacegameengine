@@ -63,43 +63,7 @@ sge::renderer::make_image_view(
 			color_format_stride(
 				format),
 			pitch),
-		format);
-
-	/*
-	size_type const stride(
-		color_format_stride(
-			format));
-	switch(format) {
-	case color_format::rgba8:
-		return make_interleaved_view<renderer::rgba8_color>(
-			data,
-			d,
-			stride,
-			pitch);
-	case color_format::argb8:
-		return make_interleaved_view<renderer::argb8_color>(
-			data,
-			d,
-			stride,
-			pitch);
-	case color_format::bgra8:
-		return make_interleaved_view<renderer::bgra8_color>(
-			data,
-			d,
-			stride,
-			pitch);
-	case color_format::rgbaf32:
-		return make_interleaved_view<renderer::rgba_f32_color>(
-			data,
-			d,
-			stride,
-			pitch);
-	default:
-		throw exception(
-			SGE_TEXT("Invalid color_format!"));
-	}*/
-}
-
+		format); } 
 sge::renderer::const_image_view const
 sge::renderer::make_image_view(
 	unsigned char const * const data,

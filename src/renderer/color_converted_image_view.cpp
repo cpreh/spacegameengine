@@ -90,7 +90,7 @@ View const
 operation<View>::operator()() const
 {
 	return View(
-		boost::gil::color_converted_view<
+		boost::gil::any_color_converted_view<
 			T>(
 				v));
 }

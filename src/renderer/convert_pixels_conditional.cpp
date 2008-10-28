@@ -31,8 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/bind.hpp>
 #include <algorithm>
 
-#include <sge/renderer/transform_pixels.hpp>
-
 void sge::renderer::convert_pixels_conditional(
 	image_view const &view,
 	accepted_color_format_array const &formats)
@@ -62,11 +60,6 @@ void sge::renderer::convert_pixels_conditional(
 		throw exception(
 			SGE_TEXT("No suitable color format in convert_pixels_conditional!"));
 	
-	/*
-	copy_and_convert_pixels(
-		make_const_image_view(
-			view),
-		color_converted_image_view(
-			view,
-			fmt));*/
+	//copy_and_convert_pixels(
+	//	view);
 }

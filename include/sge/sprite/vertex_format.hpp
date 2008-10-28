@@ -34,7 +34,7 @@ namespace sge
 namespace sprite
 {
 
-typedef renderer::rgba8_color base_color;
+typedef renderer::argb8_color base_color;
 
 typedef renderer::vf::pos<space_unit, 3> vertex_pos;
 typedef renderer::vf::color<base_color> vertex_color;

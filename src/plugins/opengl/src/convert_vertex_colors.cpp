@@ -51,5 +51,3 @@ void sge::ogl::convert_vertex_colors(
 			(sge::renderer::color_format::rgba8)
 			(sge::renderer::color_format::rgbaf32));
 }
-
-
