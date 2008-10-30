@@ -18,37 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_PART_HPP_INCLUDED
-#define SGE_TEXTURE_PART_HPP_INCLUDED
+#ifndef SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
+#define SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "../renderer/texture_fwd.hpp"
-#include "../renderer/image_view.hpp"
-#include "../renderer/dim_types.hpp"
-#include <boost/noncopyable.hpp>
+#include "dim_types.hpp"
+#include "../math/rect.hpp"
+#include "../math/rect_impl.hpp"
+#include "../math/dim.hpp"
 
 namespace sge
 {
-namespace texture
+namespace renderer
 {
 
-class fragmented;
-
-class SGE_CLASS_SYMBOL part : boost::noncopyable {
-public:
-	SGE_SYMBOL virtual ~part();
-
-	virtual void data(
-		renderer::const_image_view const &src) = 0;
-
-	virtual renderer::lock_rect const &area() const = 0;
-
-	virtual renderer::texture_ptr const my_texture() = 0;
+template<
+	typename T
+>
+math::basic_rect<T> const
+lock_rect_to_coords(
+	lock_rect const &l,
+	dim_type const &dim,
+	T const repeat)
+{
+	math::basic_rect<T> const srect(
+		math::structure_cast<T>(l));
 	
-	virtual renderer::const_texture_ptr const my_texture() const = 0;
+	math::basic_dim<T, 2> const sdim(
+		math::structure_cast<T>(dim));
 
-	virtual bool repeatable() const = 0;
-};
+	return math::basic_rect<T>(
+		srect.left() / sdim.w(),
+		srect.top() / sdim.h(),
+		repeat * srect.right() / sdim.w(),
+		repeat * srect.bottom() / sdim.h());
+}
 
 }
 }

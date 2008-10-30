@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../renderer/vf/iterator.hpp"
 #include "../../renderer/vf/vertex.hpp"
 #include "../../texture/part.hpp"
+#include "../../texture/area_texc.hpp"
 #include <boost/variant/get.hpp>
 
 namespace sge
@@ -80,7 +81,7 @@ void fill_geometry(
 			fill_position_rotated(vb_it, spr.rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
 		if(texture::part_ptr const tex = spr.texture())
-			fill_tex_coordinates(vb_it, tex->area_texc(spr.repeat()));
+			fill_tex_coordinates(vb_it, texture::area_texc(tex, spr.repeat()));
 
 		vb_it = fill_color(vb_it, spr.color());
 	}

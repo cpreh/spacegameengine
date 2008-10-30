@@ -18,37 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_PART_HPP_INCLUDED
-#define SGE_TEXTURE_PART_HPP_INCLUDED
+#ifndef SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
+#define SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "../renderer/texture_fwd.hpp"
-#include "../renderer/image_view.hpp"
-#include "../renderer/dim_types.hpp"
-#include <boost/noncopyable.hpp>
+#include "part_fwd.hpp"
+#include "part.hpp"
+#include "../renderer/lock_rect_to_coords.hpp"
+#include "../renderer/texture.hpp"
+#include "../math/rect_impl.hpp"
+#include "../math/compare.hpp"
+#include "../log/headers.hpp"
+#include <ostream>
 
 namespace sge
 {
 namespace texture
 {
 
-class fragmented;
+template<
+	typename T
+>
+math::basic_rect<T> const
+area_texc(
+	const_part_ptr const part,
+	T const repeat)
+{
+	if(!math::compare(repeat, static_cast<T>(1)) && part->repeatable())
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1 << SGE_TEXT("texture not repeatable but repetition is ")
+			        << repeat
+			        << SGE_TEXT('!'));
 
-class SGE_CLASS_SYMBOL part : boost::noncopyable {
-public:
-	SGE_SYMBOL virtual ~part();
+	renderer::const_texture_ptr const tex = part->my_texture();
+	return tex
+		? renderer::lock_rect_to_coords(
+			part->area(),
+			tex->dim(),
+			repeat)
+		: math::basic_rect<T>();
+}
 
-	virtual void data(
-		renderer::const_image_view const &src) = 0;
 
-	virtual renderer::lock_rect const &area() const = 0;
-
-	virtual renderer::texture_ptr const my_texture() = 0;
-	
-	virtual renderer::const_texture_ptr const my_texture() const = 0;
-
-	virtual bool repeatable() const = 0;
-};
 
 }
 }

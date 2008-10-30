@@ -18,37 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_PART_HPP_INCLUDED
-#define SGE_TEXTURE_PART_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_FWD_HPP_INCLUDED
+#define SGE_MATH_MATRIX_FWD_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "../renderer/texture_fwd.hpp"
-#include "../renderer/image_view.hpp"
-#include "../renderer/dim_types.hpp"
-#include <boost/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
 {
-namespace texture
+namespace math
 {
 
-class fragmented;
-
-class SGE_CLASS_SYMBOL part : boost::noncopyable {
-public:
-	SGE_SYMBOL virtual ~part();
-
-	virtual void data(
-		renderer::const_image_view const &src) = 0;
-
-	virtual renderer::lock_rect const &area() const = 0;
-
-	virtual renderer::texture_ptr const my_texture() = 0;
-	
-	virtual renderer::const_texture_ptr const my_texture() const = 0;
-
-	virtual bool repeatable() const = 0;
-};
+template<typename T, std::size_t N, std::size_t M>
+class basic_matrix;
 
 }
 }
