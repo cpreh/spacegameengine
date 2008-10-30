@@ -56,7 +56,7 @@ public:
 	const_reference radius() const;
 private:
 	point_type origin_;
-	space_unit radius_;
+	value_type radius_;
 };
 
 template<typename T>
