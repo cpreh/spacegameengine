@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 GLenum sge::ogl::vf::convert_format::operator()(
 	renderer::vf::dynamic_vector const &v) const
 {
-	switch(v.get_element_type()) {
+	switch(v.element_type()) {
 	case renderer::vf::element_type::float_:
 		return GL_FLOAT;
 	case renderer::vf::element_type::double_:
@@ -43,7 +43,7 @@ GLenum sge::ogl::vf::convert_format::operator()(
 GLenum sge::ogl::vf::convert_format::operator()(
 	renderer::vf::dynamic_color const &c) const
 {
-	switch(c.get_color_format()) {
+	switch(c.color_format()) {
 	case renderer::color_format::rgba8:
 	case renderer::color_format::bgra8:
 	case renderer::color_format::argb8:

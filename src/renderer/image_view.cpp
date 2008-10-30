@@ -19,13 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/image_view.hpp>
+#include <sge/renderer/const_image_view_elements.hpp>
 #include <sge/renderer/image_view_impl.hpp>
 #include <sge/export.hpp>
 
 typedef boost::gil::variant<
-	boost::gil::detail::views_get_const_t<
-		sge::renderer::image_view_elements
-	>::type
+	sge::renderer::const_image_view_elements
 > const_image_view_variant;
 
 typedef boost::gil::variant<

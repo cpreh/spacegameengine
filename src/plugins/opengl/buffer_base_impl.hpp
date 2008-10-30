@@ -138,8 +138,17 @@ template<
 	typename Base,
 	GLenum (*Type)(),
 	sge::ogl::vbo_base &(*Impl)()>
+void sge::ogl::buffer_base<Base, Type, Impl>::pre_unlock() const
+{
+}
+
+template<
+	typename Base,
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)()>
 void sge::ogl::buffer_base<Base, Type, Impl>::unlock() const
 {
+	pre_unlock();
 	buf.unlock();
 }
 

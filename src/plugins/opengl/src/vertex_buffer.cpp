@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vertex_buffer.hpp"
 #include "../vbo.hpp"
 #include "../instantiate_buffer_base.hpp"
+#include "../convert_vertex_colors.hpp"
+#include <boost/foreach.hpp>
 
 SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 	sge::renderer::vertex_buffer,
@@ -68,4 +70,18 @@ sge::renderer::vf::dynamic_format const &
 sge::ogl::vertex_buffer::format() const
 {
 	return format_.get();
+}
+
+void sge::ogl::vertex_buffer::pre_unlock() const
+{
+	renderer::vf::dynamic_ordered_element_list const &elems(
+		format().elements());
+	
+	BOOST_FOREACH(renderer::vf::dynamic_ordered_element_list::const_reference elem, elems)
+		if(elem.element().role() == renderer::vf::role::color)
+			convert_vertex_colors(
+				elem,
+				format().stride(),
+				lock_size(),
+				const_cast<unsigned char *>(data())); // FIXME
 }

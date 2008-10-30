@@ -18,32 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic_element.hpp>
+#ifndef SGE_OPENGL_CONVERT_VERTEX_COLORS_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_VERTEX_COLORS_HPP_INCLUDED
 
-sge::renderer::vf::dynamic_element::dynamic_element(
-	dynamic_any const &info_,
-	role_t const role_,
-	vertex_size const index_)
-:
-	info_(info_),
-	role_(role_),
-	index_(index_)
-{}
-	
-sge::renderer::vf::dynamic_any const &
-sge::renderer::vf::dynamic_element::info() const
+#include <sge/renderer/size_type.hpp>
+
+namespace sge
 {
-	return info_;
+namespace renderer
+{
+namespace vf
+{
+class dynamic_ordered_element;
+}
 }
 
-sge::renderer::vf::dynamic_element::role_t
-sge::renderer::vf::dynamic_element::role() const
+namespace ogl
 {
-	return role_;
+
+void convert_vertex_colors(
+	renderer::vf::dynamic_ordered_element const &e,
+	renderer::size_type vertex_stride,
+	renderer::size_type num_vertices,
+	unsigned char *const data);
+
+}
 }
 
-sge::renderer::vf::vertex_size
-sge::renderer::vf::dynamic_element::index() const
-{
-	return index_;
-}
+#endif

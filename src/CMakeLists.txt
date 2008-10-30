@@ -69,7 +69,6 @@ IF (NOT MSVC)
 		boost_filesystem
 		boost_signals
 		boost_regex
-		#boost_iostreams
 		boost_system)
 ENDIF ()
 
