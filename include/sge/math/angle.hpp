@@ -75,7 +75,7 @@ T rel_angle_to_abs(
 	if (almost_zero(a))
 		return su(0);
 
-	return a > su(0) ? a : twopi<space_unit>()+a;
+	return a > su(0) ? a : twopi<T>()+a;
 }
 
 template<
@@ -84,14 +84,14 @@ template<
 T abs_angle_to_rel(
 	T a)
 {
-	a = mod(a, twopi<space_unit>());
+	a = mod(a, twopi<T>());
 
 	if (is_rel_angle(a))
 		return a;
 	
 	return a > 0 
-		? a - twopi<space_unit>() 
-		: a + twopi<space_unit>();
+		? a - twopi<T>() 
+		: a + twopi<T>();
 }
 
 template<
@@ -102,8 +102,8 @@ bool is_rel_angle(
 {
 	return in_closed_interval(
 		a,
-		-pi<space_unit>(),
-		pi<space_unit>());
+		-pi<T>(),
+		pi<T>());
 }
 
 }
