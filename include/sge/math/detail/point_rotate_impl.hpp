@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MATH_POINT_ROTATE_IMPL_HPP_INCLUDED
+#define SGE_MATH_POINT_ROTATE_IMPL_HPP_INCLUDED
+
 #include "../point_rotate.hpp"
 #include "../matrix_impl.hpp"
 #include "../matrix_util.hpp"
@@ -29,7 +32,9 @@ sge::math::basic_vector<T, 2> const
 sge::math::point_rotate(
 	basic_vector<T, 2> const &point,
 	basic_vector<T, 2> const &around,
-	space_unit const rot)
+	T const rot)
 {
 	return (matrix_rotation_2d(rot) * (point - around)) + around;
 }
+
+#endif

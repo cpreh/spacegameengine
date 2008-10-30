@@ -193,7 +193,7 @@ sge::math::matrix_rotation_2d(
 		sinx = std::sin(angle),
         	cosx = std::cos(angle);
 
-	return basic_matrix<T, 2, 2>::type(
+	return basic_matrix<T, 2, 2>(
 		cosx, -sinx,
 		sinx,  cosx);
 }

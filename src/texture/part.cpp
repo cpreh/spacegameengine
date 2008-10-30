@@ -20,19 +20,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/texture/part.hpp>
 #include <sge/texture/atlasing.hpp>
-#include <sge/renderer/transform.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <ostream>
 
+namespace
+{
+
+template<
+	typename T
+>
+sge::math::basic_rect<T> const
+tex_size_to_space_rect(
+	sge::renderer::lock_rect const &l,
+	sge::renderer::dim_type const &dim,
+	T repeat);
+
+}
+
 sge::texture::part::~part()
 {}
 
 sge::math::rect const
 sge::texture::part::area_texc(
-	const space_unit repeat) const
+	space_unit const repeat) const
 {
 	if(!math::compare(repeat, static_cast<space_unit>(1)) && !repeatable())
 		SGE_LOG_WARNING(
@@ -43,9 +56,30 @@ sge::texture::part::area_texc(
 
 	renderer::const_texture_ptr const tex = my_texture();
 	return tex
-		? renderer::tex_size_to_space_rect(
+		? tex_size_to_space_rect(
 			area(),
 			tex->dim(),
 			repeat)
 		: math::rect();
+}
+
+namespace
+{
+
+template<
+	typename T
+>
+sge::math::basic_rect<T> const
+tex_size_to_space_rect(
+	sge::renderer::lock_rect const &l,
+	sge::renderer::dim_type const &dim,
+	T const repeat)
+{
+	return sge::math::basic_rect<T>(
+		static_cast<T>(l.left()) / static_cast<T>(dim.w()),
+		static_cast<T>(l.top()) / static_cast<T>(dim.h()),
+		repeat * static_cast<T>(l.right()) / static_cast<T>(dim.w()),
+		repeat * static_cast<T>(l.bottom()) / static_cast<T>(dim.h()));
+}
+
 }

@@ -40,4 +40,6 @@ point_rotate(
 }
 }
 
+#include "detail/point_rotate_impl.hpp"
+
 #endif
