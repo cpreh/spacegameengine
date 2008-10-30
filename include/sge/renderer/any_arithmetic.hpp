@@ -18,19 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ARITHMETIC_VARIANT_HPP_INCLUDED
-#define SGE_ARITHMETIC_VARIANT_HPP_INCLUDED
+#ifndef SGE_RENDERER_ANY_ARITHMETIC_HPP_INCLUDED
+#define SGE_RENDERER_ANY_ARITHMETIC_HPP_INCLUDED
 
 #include <boost/variant/variant.hpp>
 
 namespace sge
 {
+namespace renderer
+{
 
 typedef boost::variant<
 	float,
 	double
-> arithmetic_variant;
+> any_arithmetic;
 
+}
 }
 
 #endif
