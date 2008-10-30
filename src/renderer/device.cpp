@@ -125,12 +125,5 @@ sge::renderer::device::create_index_buffer(
 	return ib;
 }
 
-sge::space_unit
-sge::renderer::device::aspect() const
-{
-	return static_cast<space_unit>(screen_size().w())
-	     / static_cast<space_unit>(screen_size().h());
-}
-
 sge::renderer::device::~device()
 {}

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../su.hpp"
 #include "../window_fwd.hpp"
 #include "../math/matrix.hpp"
 #include "vertex_buffer_fwd.hpp"
@@ -189,8 +188,6 @@ public:
 	virtual caps const get_caps() const = 0;
 	virtual screen_size_t const screen_size() const = 0;
 	virtual window_ptr const get_window() const = 0;
-
-	SGE_SYMBOL space_unit aspect() const;
 
 	SGE_SYMBOL virtual ~device();
 };
