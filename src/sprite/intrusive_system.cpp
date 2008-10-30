@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/intrusive_system.hpp>
-#include <sge/sprite/intrusive_compare.hpp>
-#include <sge/sprite/render_states.hpp>
-#include <sge/sprite/fill_geometry.hpp>
-#include <sge/sprite/render.hpp>
+#include <sge/sprite/detail/render_states.hpp>
+#include <sge/sprite/detail/intrusive_compare.hpp>
+#include <sge/sprite/detail/fill_geometry.hpp>
+#include <sge/sprite/detail/render.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/device.hpp>
@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::sprite::intrusive_system::intrusive_system(
 	renderer::device_ptr const rend)
-: system_base(rend)
+:
+	system_base(rend)
 {}
 
 void sge::sprite::intrusive_system::render()

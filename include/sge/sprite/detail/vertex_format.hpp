@@ -18,20 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/intrusive_compare.hpp>
-#include <sge/sprite/intrusive_object.hpp>
-#include <sge/texture/part.hpp>
-#include <sge/renderer/texture.hpp>
+#ifndef SGE_SPRITE_VERTEX_FORMAT_HPP_INCLUDED
+#define SGE_SPRITE_VERTEX_FORMAT_HPP_INCLUDED
 
-bool sge::sprite::tex_equal_visible(
-	intrusive_object const &l,
-	intrusive_object const &r)
+#include "../types.hpp"
+#include "../../renderer/vf/format.hpp"
+#include "../../renderer/vf/pos.hpp"
+#include "../../renderer/vf/color.hpp"
+#include "../../renderer/vf/texpos.hpp"
+#include "../../renderer/color.hpp"
+#include <boost/mpl/vector.hpp>
+
+namespace sge
 {
-	texture::part_ptr const
-		texa(l.texture()),
-		texb(r.texture());
-	return !texa || !texb
-		? texa == texb
-		: (texa->my_texture() == texb->my_texture()
-		   && l.visible() == r.visible());
+namespace sprite
+{
+
+typedef renderer::rgba8_color base_color;
+
+typedef renderer::vf::pos<funit, 3> vertex_pos;
+typedef renderer::vf::color<base_color> vertex_color;
+typedef renderer::vf::texpos<funit, 2> vertex_texpos;
+
+typedef renderer::vf::format<
+	boost::mpl::vector<
+		vertex_pos,
+		vertex_color,
+		vertex_texpos
+	>
+> vertex_format;
+
 }
+}
+
+#endif

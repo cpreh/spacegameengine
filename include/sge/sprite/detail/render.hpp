@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_HPP_INCLUDED
 
-#include "../renderer/size_type.hpp"
-#include "../renderer/device.hpp"
-#include "../renderer/texture.hpp"
-#include "../texture/part.hpp"
-#include "../algorithm/first_mismatch.hpp"
+#include "../../renderer/size_type.hpp"
+#include "../../renderer/device.hpp"
+#include "../../renderer/texture.hpp"
+#include "../../texture/part.hpp"
+#include "../../algorithm/first_mismatch.hpp"
 #include <iterator>
 
 namespace sge

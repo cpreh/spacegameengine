@@ -43,6 +43,7 @@ FILE (GLOB sgecorefiles
 	renderer/vf/*.cpp
 	signals/*.cpp
 	sprite/*.cpp
+	sprite/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
 	time/*.cpp)

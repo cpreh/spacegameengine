@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_COMPARE_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_COMPARE_HPP_INCLUDED
 
-#include "../export.hpp"
-
 namespace sge
 {
 namespace sprite
@@ -30,7 +28,7 @@ namespace sprite
 
 class intrusive_object;
 
-SGE_SYMBOL bool tex_equal_visible(
+bool tex_equal_visible(
 	intrusive_object const &,
 	intrusive_object const &);
 

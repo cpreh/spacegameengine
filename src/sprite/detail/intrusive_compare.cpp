@@ -18,40 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/compare.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/math/compare.hpp>
+#include <sge/sprite/detail/intrusive_compare.hpp>
+#include <sge/sprite/intrusive_object.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/renderer/texture.hpp>
 
-bool sge::sprite::equal(
-	object const &l,
-	object const &r)
+bool sge::sprite::tex_equal_visible(
+	intrusive_object const &l,
+	intrusive_object const &r)
 {
-	return l.visible() == r.visible() &&
-	       math::compare(l.z(), r.z()) &&
-	       l.texture() == r.texture();
-}
-
-bool sge::sprite::less(
-	object const &l,
-	object const &r)
-{
-	bool const
-		lvis = l.visible(),
-		rvis = r.visible();
-
-	depth_type const
-		lz = l.z(),
-		rz = r.z();
-
 	texture::part_ptr const
-		ltex = l.texture(),
-		rtex = r.texture();
-
-	return lvis == rvis ?
-			math::compare(lz, rz) ?
-	                	ltex == rtex ?
-	                        	     false
-		                : ltex < rtex
-		       : lz > rz
-		: lvis > rvis;
+		texa(l.texture()),
+		texb(r.texture());
+	return !texa || !texb
+		? texa == texb
+		: (texa->my_texture() == texb->my_texture()
+		   && l.visible() == r.visible());
 }

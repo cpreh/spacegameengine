@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/helper.hpp>
+#include <sge/sprite/detail/helper.hpp>
 #include <sge/renderer/color_convert.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/math/matrix_impl.hpp>
@@ -27,13 +27,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 #include <cmath>
 
-sge::sprite::vertex_iterator
+namespace
+{
+
+typedef sge::math::basic_rect<
+	sge::sprite::funit
+> frect;
+
+}
+
+sge::sprite::vertex_iterator const
 sge::sprite::fill_position(
 	vertex_iterator it,
 	rect const &rs,
 	depth_type const z)
 {
-	math::rect const r = math::structure_cast<space_unit>(rs);
+	frect const r = math::structure_cast<funit>(rs);
 
 	(*it++).set<vertex_pos>(pos3(r.left(), r.top(), z));
 	(*it++).set<vertex_pos>(pos3(r.right(), r.top(), z));
@@ -43,7 +52,7 @@ sge::sprite::fill_position(
 	return it;
 }
 
-sge::sprite::vertex_iterator
+sge::sprite::vertex_iterator const
 sge::sprite::fill_tex_coordinates(
 	vertex_iterator it,
 	tex_rect const &rt)
@@ -56,7 +65,7 @@ sge::sprite::fill_tex_coordinates(
 	return it;
 }
 
-sge::sprite::vertex_iterator
+sge::sprite::vertex_iterator const
 sge::sprite::fill_vertices(
 	vertex_iterator const it,
 	rect const &rs,
@@ -67,7 +76,7 @@ sge::sprite::fill_vertices(
 	return fill_tex_coordinates(it, rt);
 }
 
-sge::sprite::vertex_iterator
+sge::sprite::vertex_iterator const
 sge::sprite::fill_position_rotated(
 	vertex_iterator it,
 	rect const &rbs,
@@ -76,28 +85,29 @@ sge::sprite::fill_position_rotated(
 	depth_type const z)
 {
 	pos2 const centerf(
-		math::structure_cast<space_unit>(center));
+		math::structure_cast<funit>(center));
 
 	typedef boost::array<pos2, detail::vertices_per_sprite> position_array;
 	position_array const positions = {{
 		pos2(
-			static_cast<space_unit>(rbs.left()),
-			static_cast<space_unit>(rbs.top())) - centerf,
+			static_cast<funit>(rbs.left()),
+			static_cast<funit>(rbs.top())) - centerf,
 		pos2(
-			static_cast<space_unit>(rbs.right()),
-			static_cast<space_unit>(rbs.top())) - centerf,
+			static_cast<funit>(rbs.right()),
+			static_cast<funit>(rbs.top())) - centerf,
 		pos2(
-			static_cast<space_unit>(rbs.right()),
-			static_cast<space_unit>(rbs.bottom())) - centerf,
+			static_cast<funit>(rbs.right()),
+			static_cast<funit>(rbs.bottom())) - centerf,
 		pos2(
-			static_cast<space_unit>(rbs.left()),
-			static_cast<space_unit>(rbs.bottom())) - centerf
+			static_cast<funit>(rbs.left()),
+			static_cast<funit>(rbs.bottom())) - centerf
 	}};
 
-	space_unit const sinx = std::sin(rot),
-	                 cosx = std::cos(rot);
+	funit const
+		sinx = std::sin(rot),
+		cosx = std::cos(rot);
 
-	math::basic_matrix<space_unit,2,2> const mat_rot(
+	math::basic_matrix<funit,2,2> const mat_rot(
 		cosx, -sinx,
 		sinx,  cosx); 
 
@@ -107,7 +117,7 @@ sge::sprite::fill_position_rotated(
 	return it;
 }
 
-sge::sprite::vertex_iterator
+sge::sprite::vertex_iterator const
 sge::sprite::fill_color(
 	vertex_iterator it,
 	color const acol)

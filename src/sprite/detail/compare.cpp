@@ -18,37 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_VERTEX_FORMAT_HPP_INCLUDED
-#define SGE_SPRITE_VERTEX_FORMAT_HPP_INCLUDED
+#include <sge/sprite/detail/compare.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/math/compare.hpp>
 
-#include "../renderer/vf/format.hpp"
-#include "../renderer/vf/pos.hpp"
-#include "../renderer/vf/color.hpp"
-#include "../renderer/vf/texpos.hpp"
-#include "../renderer/color.hpp"
-#include "../su.hpp"
-#include <boost/mpl/vector.hpp>
-
-namespace sge
+bool sge::sprite::equal(
+	object const &l,
+	object const &r)
 {
-namespace sprite
-{
-
-typedef renderer::rgba8_color base_color;
-
-typedef renderer::vf::pos<space_unit, 3> vertex_pos;
-typedef renderer::vf::color<base_color> vertex_color;
-typedef renderer::vf::texpos<space_unit, 2> vertex_texpos;
-
-typedef renderer::vf::format<
-	boost::mpl::vector<
-		vertex_pos,
-		vertex_color,
-		vertex_texpos
-	>
-> vertex_format;
-
-}
+	return l.visible() == r.visible() &&
+	       math::compare(l.z(), r.z()) &&
+	       l.texture() == r.texture();
 }
 
-#endif
+bool sge::sprite::less(
+	object const &l,
+	object const &r)
+{
+	bool const
+		lvis = l.visible(),
+		rvis = r.visible();
+
+	depth_type const
+		lz = l.z(),
+		rz = r.z();
+
+	texture::part_ptr const
+		ltex = l.texture(),
+		rtex = r.texture();
+
+	return lvis == rvis ?
+			math::compare(lz, rz) ?
+	                	ltex == rtex ?
+	                        	     false
+		                : ltex < rtex
+		       : lz > rz
+		: lvis > rvis;
+}

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "types.hpp"
 #include "../export.hpp"
-#include "../math/circle.hpp"
 #include "../texture/part_fwd.hpp"
 #include <boost/optional.hpp>
 
@@ -93,7 +92,7 @@ public:
 	SGE_SYMBOL repetition_type repeat() const;
 	SGE_SYMBOL color_t const color() const;
 	SGE_SYMBOL rect_t const bounding_quad() const;
-	SGE_SYMBOL math::circle const bounding_circle() const;
+	SGE_SYMBOL circle const bounding_circle() const;
 	SGE_SYMBOL const point rotation_center() const;
 	SGE_SYMBOL const texture::part_ptr texture() const;
 private:

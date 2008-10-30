@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/exception.hpp>
-#include <sge/string.hpp>
+#include <sge/text.hpp>
 #include <boost/next_prior.hpp>
 
 sge::sprite::texture_animation::texture_animation(
@@ -30,15 +30,16 @@ sge::sprite::texture_animation::texture_animation(
 	loop_method::type const action,
 	object &spr,
 	time::fun const &time_function)
-: series(series_),
-  action(action),
-  cur_timer(
-  	time::resolution(
+:
+	series(series_),
+	action(action),
+	cur_timer(
+		time::resolution(
 		0),
 	true,
 	time_function),
-  spr(spr),
-  pos(series.begin())
+	spr(spr),
+	pos(series.begin())
 {
 	if(series.empty())
 		throw exception(

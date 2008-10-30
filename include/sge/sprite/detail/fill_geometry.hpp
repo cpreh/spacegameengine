@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "vertex_format.hpp"
 #include "helper.hpp"
-#include "../renderer/vertex_buffer.hpp"
-#include "../renderer/index_buffer.hpp"
-#include "../renderer/scoped_index_lock.hpp"
-#include "../renderer/scoped_vertex_lock.hpp"
-#include "../renderer/vf/view.hpp"
-#include "../renderer/vf/iterator.hpp"
-#include "../renderer/vf/vertex.hpp"
-#include "../texture/part.hpp"
+#include "../../renderer/vertex_buffer.hpp"
+#include "../../renderer/index_buffer.hpp"
+#include "../../renderer/scoped_index_lock.hpp"
+#include "../../renderer/scoped_vertex_lock.hpp"
+#include "../../renderer/vf/view.hpp"
+#include "../../renderer/vf/iterator.hpp"
+#include "../../renderer/vf/vertex.hpp"
+#include "../../texture/part.hpp"
 #include <boost/variant/get.hpp>
 
 namespace sge

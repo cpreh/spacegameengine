@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
 #include "../math/matrix.hpp"
+#include "../math/circle.hpp"
 
 // TODO: split this bloated header
 
@@ -46,18 +47,22 @@ typedef funit                       repetition_type;
 typedef math::basic_matrix<funit, 4, 4> matrix;
 
 typedef math::basic_rect<
-	space_unit
+	funit
 > tex_rect;
 
 typedef math::basic_vector<
-	space_unit,
+	funit,
 	3
 > pos3;
 
 typedef math::basic_vector<
-	space_unit,
+	funit,
 	2
 > pos2;
+
+typedef math::basic_circle<
+	funit
+> circle;
 
 typedef pos2 tex_pos;
 

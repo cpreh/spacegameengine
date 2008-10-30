@@ -21,12 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_HELDER_HPP_INCLUDED
 #define SGE_SPRITE_HELDER_HPP_INCLUDED
 
-#include "types.hpp"
 #include "vertex_format.hpp"
-#include "../renderer/vf/iterator.hpp"
-#include "../renderer/index_view.hpp"
-#include "../export.hpp"
-#include "../math/rect.hpp"
+#include "../types.hpp"
+#include "../../renderer/vf/iterator.hpp"
+#include "../../renderer/index_view.hpp"
 
 namespace sge
 {
@@ -36,25 +34,25 @@ namespace sprite
 typedef renderer::index_view_16 index_view;
 typedef renderer::vf::iterator<vertex_format> vertex_iterator;
 
-SGE_SYMBOL vertex_iterator
+vertex_iterator const
 fill_position(
 	vertex_iterator,
 	rect const &rs,
 	depth_type z);
 
-SGE_SYMBOL vertex_iterator
+vertex_iterator const
 fill_tex_coordinates(
 	vertex_iterator,
 	tex_rect const &rt);
 
-SGE_SYMBOL vertex_iterator
+vertex_iterator const
 fill_vertices(
 	vertex_iterator it,
 	rect const &rs,
 	tex_rect const &rt,
 	depth_type z);
 
-SGE_SYMBOL vertex_iterator
+vertex_iterator const
 fill_position_rotated(
 	vertex_iterator it,
 	rect const &rbs,
@@ -62,12 +60,12 @@ fill_position_rotated(
 	point const &center,
 	depth_type z);
 
-SGE_SYMBOL vertex_iterator
+vertex_iterator const
 fill_color(
 	vertex_iterator it,
 	color col);
 
-SGE_SYMBOL index_view::iterator
+index_view::iterator
 fill_indices(
 	index_view::iterator it,
 	index_view::value_type start);
