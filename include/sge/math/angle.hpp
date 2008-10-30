@@ -23,8 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "atan2.hpp"
 #include "vector.hpp"
-#include "../su.hpp"
-#include "../export.hpp"
+#include "mod.hpp"
+#include "constants.hpp"
+#include "../exception.hpp"
+#include "../text.hpp"
+#include "../format.hpp"
 #include <boost/optional.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -35,9 +38,6 @@ namespace sge
 namespace math
 {
 
-/**
- * Calculates the angle between the two vectors using std::atan2
- */
 template<typename Dest, typename T>
 typename boost::enable_if<
 	boost::is_floating_point<Dest>,
@@ -50,10 +50,6 @@ angle_to(
 	return atan2(structure_cast<Dest>(to - from));
 }
 
-/** 
- * Calculates the angle between the origin and the given vector using
- * sge::math::atan2.
- */
 template<typename Dest, typename T>
 typename boost::enable_if<
 	boost::is_floating_point<Dest>,
@@ -65,16 +61,50 @@ angle_to(
 	return atan2(structure_cast<Dest>(to));
 }
 
-/** 
- * Calculates an angle in the range \f$[-\pi,\pi]\f$ to an absolute angle in
- * \f$[0,2 \pi]\f$
- */
-SGE_SYMBOL space_unit rel_angle_to_abs(space_unit);
-/** 
- * Does the inverse of rel_angle_to_abs
- */
-SGE_SYMBOL space_unit abs_angle_to_rel(space_unit);
-SGE_SYMBOL bool is_rel_angle(space_unit);
+template<
+	typename T
+>
+T rel_angle_to_abs(
+	T const a)
+{
+	if(!is_rel_angle(a))
+		throw exception(
+			(format(SGE_TEXT("math::rel_angle_to_abs: relative angle %1% out of range!"))
+			% a).str());
+
+	if (almost_zero(a))
+		return su(0);
+
+	return a > su(0) ? a : twopi<space_unit>()+a;
+}
+
+template<
+	typename T
+>
+T abs_angle_to_rel(
+	T a)
+{
+	a = mod(a, twopi<space_unit>());
+
+	if (is_rel_angle(a))
+		return a;
+	
+	return a > 0 
+		? a - twopi<space_unit>() 
+		: a + twopi<space_unit>();
+}
+
+template<
+	typename T
+>
+bool is_rel_angle(
+	T const a)
+{
+	return in_closed_interval(
+		a,
+		-pi<space_unit>(),
+		pi<space_unit>());
+}
 
 }
 }

@@ -33,7 +33,6 @@ FILE (GLOB sgecorefiles
 	input/*.cpp
 	log/*.cpp
 	log/format/*.cpp
-	math/*.cpp
 	model/*.cpp
 	plugin/*.cpp
 	random/*.cpp
