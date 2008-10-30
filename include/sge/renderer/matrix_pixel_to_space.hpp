@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEFAULT_TRANSFORMABLE_HPP_INCLUDED
-#define SGE_RENDERER_DEFAULT_TRANSFORMABLE_HPP_INCLUDED
+#ifndef SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
+#define SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
 
-#include "transformable.hpp"
-#include "device_fwd.hpp"
-#include "../export.hpp"
+#include "screen_types.hpp"
+#include "../math/matrix.hpp"
+#include "../math/matrix_impl.hpp"
 #include "../math/matrix_util.hpp"
 
 namespace sge
@@ -31,28 +31,22 @@ namespace sge
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL default_transformable {
-public:
-	SGE_SYMBOL default_transformable(
-		device_ptr rend,
-		math::space_matrix const &internal,
-		math::space_matrix const &projecion,
-		math::space_matrix const &transform
-			= math::matrix_identity());
-
-	SGE_SYMBOL void internal_transformation(
-		math::space_matrix const &);
-	SGE_SYMBOL void transform(
-		math::space_matrix const &);
-	SGE_SYMBOL void projection(
-		math::space_matrix const &);
-	SGE_SYMBOL void set_matrices();
-private:
-	device_ptr const   rend;
-	math::space_matrix internal_matrix_,
-			   projection_,
-	                   transform_;
-};
+template<
+	typename T
+>
+math::basic_matrix<T, 4, 4> const
+matrix_pixel_to_space(
+	screen_size_t const &sz)
+{
+	return math::matrix_translation(
+		static_cast<T>(-static_cast<int>(sz.w()) / 2),
+		static_cast<T>(-static_cast<int>(sz.h()) / 2),
+		static_cast<T>(0))
+		* math::matrix_scaling(
+			static_cast<T>(2) / static_cast<T>(sz.w()),
+	        	static_cast<T>(-2) / static_cast<T>(sz.h()),
+	        	static_cast<T>(1));
+}
 
 }
 }

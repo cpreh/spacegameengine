@@ -21,25 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_TYPES_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_HPP_INCLUDED
 
-#include "../su.hpp"
 #include "../renderer/any_color.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
 #include "../math/rect.hpp"
+#include "../math/matrix.hpp"
+
+// TODO: split this bloated header
 
 namespace sge
 {
 namespace sprite
 {
 
+typedef float                       funit;
 typedef int                         unit;
 typedef math::basic_vector<unit, 2> point;
 typedef math::basic_dim<unit, 2>    dim;
 typedef math::basic_rect<unit>      rect;
 typedef renderer::any_color         color;
-typedef space_unit                  depth_type;
-typedef space_unit                  rotation_type;
-typedef space_unit                  repetition_type;
+typedef funit                       depth_type;
+typedef funit                       rotation_type;
+typedef funit                       repetition_type;
+typedef math::basic_matrix<funit, 4, 4> matrix;
 
 typedef math::basic_rect<
 	space_unit

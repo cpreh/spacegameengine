@@ -18,31 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TRANSFORMABLE_HPP_INCLUDED
-#define SGE_RENDERER_TRANSFORMABLE_HPP_INCLUDED
+#include "../point_rotate.hpp"
+#include "../matrix_impl.hpp"
+#include "../matrix_util.hpp"
 
-#include "../math/matrix.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+template<
+	typename T
+>
+sge::math::basic_vector<T, 2> const
+sge::math::point_rotate(
+	basic_vector<T, 2> const &point,
+	basic_vector<T, 2> const &around,
+	space_unit const rot)
 {
-namespace renderer
-{
-
-class SGE_CLASS_SYMBOL transformable : boost::noncopyable {
-public:
-	virtual void internal_transformation(
-		math::space_matrix const &) = 0;
-	virtual void transform(
-		math::space_matrix const &) = 0;
-	virtual void projection(
-		math::space_matrix const &) = 0;
-	virtual void set_matrices() = 0;
-	virtual ~transformable(){}
-};
-
+	return (matrix_rotation_2d(rot) * (point - around)) + around;
 }
-}
-
-#endif

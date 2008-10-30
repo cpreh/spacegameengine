@@ -205,7 +205,6 @@ try
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))
 	);
-	sys.renderer()->projection(sge::math::matrix_orthogonal_xy());
 
 	while(running)
 	{

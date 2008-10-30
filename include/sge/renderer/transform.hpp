@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TRANSFORM_HPP_INCLUDED
 
 #include "dim_types.hpp"
-#include "screen_types.hpp"
 #include "../su.hpp"
 #include "../export.hpp"
 #include "../math/rect.hpp"
@@ -32,10 +31,6 @@ namespace sge
 {
 namespace renderer
 {
-
-SGE_SYMBOL math::space_matrix const
-matrix_pixel_to_space(
-	screen_size_t const &);
 
 SGE_SYMBOL math::rect const
 tex_size_to_space_rect(

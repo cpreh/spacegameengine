@@ -121,7 +121,6 @@ try
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 	);
-	rend->projection(sge::math::matrix_orthogonal_xy());
 
 	while(running)
 	{

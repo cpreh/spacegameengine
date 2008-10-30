@@ -28,12 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_util.hpp>
 #include <sge/renderer/index_buffer_util.hpp>
+#include <sge/renderer/matrix_pixel_to_space.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
 
 namespace
 {
 
-unsigned const init_sprites = 25;
+unsigned const init_sprites = 1;
 
 }
 
@@ -46,10 +47,6 @@ sge::sprite::system_base::get_renderer() const
 sge::sprite::system_base::system_base(
 	renderer::device_ptr const rend)
 :
-	default_transformable(
-		rend,
-		renderer::matrix_pixel_to_space(rend->screen_size()),
-		math::matrix_orthogonal_xy()),
 	rend(rend),
 	vb(
 		rend->create_vertex_buffer(
@@ -62,7 +59,11 @@ sge::sprite::system_base::system_base(
 		rend->create_index_buffer(
 			renderer::index_format::index16,
 			init_sprites * detail::indices_per_sprite,
-			renderer::resource_flags::dynamic))
+			renderer::resource_flags::dynamic)),
+	transform_matrix(
+		renderer::matrix_pixel_to_space<funit>(rend->screen_size())),
+	projection_matrix(
+		math::matrix_orthogonal_xy<funit>())
 {}
 
 void sge::sprite::system_base::allocate_buffers(
@@ -79,6 +80,12 @@ void sge::sprite::system_base::allocate_buffers(
 		ib,
 		rend,
 		num_sprites * detail::indices_per_sprite);
+}
+
+void sge::sprite::system_base::set_matrices()
+{
+	rend->transform(transform_matrix);
+	rend->projection(projection_matrix);
 }
 
 sge::renderer::vertex_buffer_ptr const
