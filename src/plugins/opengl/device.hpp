@@ -93,9 +93,12 @@ public:
 		renderer::stage_type stage);
 	void set_material(const renderer::material& mat);
 
-	void transform(const math::space_matrix& matrix);
-	void projection(const math::space_matrix& matrix);
-	void texture_transform(math::space_matrix const & matrix);
+	void transform(
+		renderer::any_matrix const &);
+	void projection(
+		renderer::any_matrix const &);
+	void texture_transform(
+		renderer::any_matrix const &);
 
 	void set_render_target(renderer::texture_ptr target);
 	void set_viewport(renderer::viewport const &);

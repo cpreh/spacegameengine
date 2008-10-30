@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../export.hpp"
 #include "../window_fwd.hpp"
-#include "../math/matrix.hpp"
+#include "any_matrix.hpp"
 #include "vertex_buffer_fwd.hpp"
 #include "index_buffer_fwd.hpp"
 #include "texture_base_fwd.hpp"
@@ -120,11 +120,11 @@ public:
 		stage_type stage = 0) = 0;
 
 	virtual void transform(
-		math::space_matrix const &mat) = 0;
+		any_matrix const &mat) = 0;
 	virtual void projection(
-		math::space_matrix const &mat) = 0;
+		any_matrix const &mat) = 0;
 	virtual void texture_transform(
-		math::space_matrix const &mat) = 0;
+		any_matrix const &mat) = 0;
 
 	SGE_SYMBOL static texture_ptr const default_render_target;
 	virtual void set_render_target(texture_ptr target) = 0;

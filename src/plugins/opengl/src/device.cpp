@@ -437,7 +437,7 @@ void sge::ogl::device::center_viewport(const int w, const int h)
 #endif
 
 void sge::ogl::device::transform(
-	math::space_matrix const &matrix)
+	renderer::any_matrix const &matrix)
 {
 	set_matrix(
 		GL_MODELVIEW,
@@ -445,7 +445,7 @@ void sge::ogl::device::transform(
 }
 
 void sge::ogl::device::projection(
-	math::space_matrix const &matrix)
+	renderer::any_matrix const &matrix)
 {
 	set_matrix(
 		GL_PROJECTION,
@@ -453,7 +453,7 @@ void sge::ogl::device::projection(
 }
 
 void sge::ogl::device::texture_transform(
-	math::space_matrix const &matrix)
+	renderer::any_matrix const &matrix)
 {
 	set_matrix(
 		GL_TEXTURE,

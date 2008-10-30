@@ -20,11 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../matrix.hpp"
 #include "../error.hpp"
+#include <sge/math/matrix.hpp>
 #include <sge/math/matrix_impl.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+
+namespace
+{
+
+struct visitor : boost::static_visitor<> {
+	void operator()(
+		sge::renderer::matrix_f const &m) const;
+	void operator()(
+		sge::renderer::matrix_d const &m) const;
+};
+
+}
 
 void sge::ogl::set_matrix(
 	GLenum const mode,
-	math::space_matrix const &mat)
+	renderer::any_matrix const &mat)
 {
 	matrix_mode(mode);
 	set_matrix(mat);
@@ -38,9 +53,30 @@ void sge::ogl::matrix_mode(
 }
 
 void sge::ogl::set_matrix(
-	math::space_matrix const &mat)
+	renderer::any_matrix const &mat)
+{
+	boost::apply_visitor(
+		visitor(),
+		mat);
+}
+
+namespace
+{
+
+void visitor::operator()(
+	sge::renderer::matrix_f const &m) const
 {
 	SGE_OPENGL_SENTRY
 	glLoadTransposeMatrixf(
-		mat.data());
+		m.data());
+}
+	
+void visitor::operator()(
+	sge::renderer::matrix_d const &m) const
+{
+	SGE_OPENGL_SENTRY
+	glLoadTransposeMatrixd(
+		m.data());
+}
+
 }

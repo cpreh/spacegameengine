@@ -18,26 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_MATRIX_HPP_INCLUDED
-#define SGE_OPENGL_MATRIX_HPP_INCLUDED
+#ifndef SGE_RENDERER_ANY_MATRIX_HPP_INCLUDED
+#define SGE_RENDERER_ANY_MATRIX_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/any_matrix.hpp>
+#include "../math/matrix_fwd.hpp"
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 
-void set_matrix(
-	GLenum mode,
-	renderer::any_matrix const &);
+typedef math::basic_matrix<float, 4, 4> matrix_f;
+typedef math::basic_matrix<double, 4, 4> matrix_d;
 
-void matrix_mode(
-	GLenum);
-
-void set_matrix(
-	renderer::any_matrix const &);
+typedef boost::variant<
+	matrix_f,
+	matrix_d
+> any_matrix;
 
 }
 }
