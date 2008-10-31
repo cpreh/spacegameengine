@@ -21,14 +21,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material.hpp>
 
 sge::renderer::material::material(
-	any_color const &diffuse,
-	any_color const &ambient,
-	any_color const &specular,
-	any_color const &emissive,
-	space_unit const power)
- : diffuse(diffuse),
-   ambient(ambient),
-   specular(specular),
-   emissive(emissive),
-   power(power)
+	any_color const &diffuse_,
+	any_color const &ambient_,
+	any_color const &specular_,
+	any_color const &emissive_,
+	any_arithmetic const &power_)
+:
+	diffuse_(diffuse_),
+	ambient_(ambient_),
+	specular_(specular_),
+	emissive_(emissive_),
+	power_(power_)
 {}
+
+sge::renderer::any_color const &
+sge::renderer::material::diffuse() const
+{
+	return diffuse_;
+}
+
+sge::renderer::any_color const &
+sge::renderer::material::ambient() const
+{
+	return ambient_;
+}
+
+sge::renderer::any_color const &
+sge::renderer::material::specular() const
+{
+	return specular_;
+}
+
+sge::renderer::any_color const &
+sge::renderer::material::emissive() const
+{
+	return emissive_;
+}
+
+sge::renderer::any_arithmetic const &
+sge::renderer::material::power() const
+{
+	return power_;
+}

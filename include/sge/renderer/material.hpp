@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_MATERIAL_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../su.hpp"
 #include "any_color.hpp"
+#include "any_arithmetic.hpp"
 
 namespace sge
 {
@@ -36,13 +36,19 @@ struct material {
 		any_color const &ambient,
 		any_color const &specular,
 		any_color const &emissive,
-		space_unit power);
+		any_arithmetic const &power);
 	
-	any_color diffuse,
-	          ambient,
-	          specular,
-	          emissive;
-	space_unit power;
+	SGE_SYMBOL any_color const &diffuse() const;
+	SGE_SYMBOL any_color const &ambient() const;
+	SGE_SYMBOL any_color const &specular() const;
+	SGE_SYMBOL any_color const &emissive() const;
+	SGE_SYMBOL any_arithmetic const &power() const;
+private:
+	any_color diffuse_,
+	          ambient_,
+	          specular_,
+	          emissive_;
+	any_arithmetic power_;
 };
 
 }

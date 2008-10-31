@@ -13,8 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
@@ -24,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/raw_color.hpp>
 #include <sge/renderer/color_convert.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
 
 namespace
 {
@@ -43,6 +44,22 @@ void material_color(
 	GLenum type,
 	sge::renderer::any_color const &);
 
+struct arithmetic_visitor : boost::static_visitor<> {
+	arithmetic_visitor(
+		GLenum face,
+		GLenum type);
+	
+	template<
+		typename T
+	>
+	void operator()(
+		T) const;
+private:
+	GLenum const
+		face,
+		type;
+};
+
 }
 
 void sge::ogl::set_material(
@@ -53,27 +70,28 @@ void sge::ogl::set_material(
 	material_color(
 		face,
 		GL_AMBIENT,
-		mat.ambient);
+		mat.ambient());
 	
 	material_color(
 		face,
 		GL_DIFFUSE,
-		mat.diffuse);
+		mat.diffuse());
 	
 	material_color(
 		face,
 		GL_SPECULAR,
-		mat.specular);
+		mat.specular());
 	
 	material_color(
 		face,
 		GL_EMISSION,
-		mat.emissive);
+		mat.emissive());
 
-	glmaterialf(
-		face,
-		GL_SHININESS,
-		mat.power);
+	boost::apply_visitor(
+		arithmetic_visitor(
+			face,
+			GL_SHININESS),
+		mat.power());
 }
 
 namespace
@@ -116,6 +134,27 @@ void material_color(
 		sge::renderer::raw_color(
 			sge::renderer::color_convert<sge::renderer::rgba_f32_color>(
 				color)).data());
+}
+
+arithmetic_visitor::arithmetic_visitor(
+	GLenum const face,
+	GLenum const type)
+:
+	face(face),
+	type(type)
+{}
+
+template<
+	typename T
+>
+void arithmetic_visitor::operator()(
+	T const f) const
+{
+	glmaterialf(
+		face,
+		type,
+		static_cast<GLfloat>(f));
+		
 }
 
 }
