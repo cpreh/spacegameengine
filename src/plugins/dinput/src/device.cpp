@@ -51,11 +51,11 @@ sge::dinput::device::device(
 :
 	name_(name_)
 {
-	direct_device* d;
+	direct_input_device* d;
 	if(di->CreateDevice(guid, &d, 0) != DI_OK)
 		throw exception(
 			SGE_TEXT("dinput: cannot create input device!"));
-	device.reset(d);
+	device_.reset(d);
 	set_cooperative_level(window->hwnd(),coop_level);
 	set_property(DIPROP_BUFFERSIZE, &buffer_settings.diph);
 
@@ -66,7 +66,7 @@ void sge::dinput::device::set_cooperative_level(
 	HWND const hwnd,
 	DWORD const flags)
 {
-	if(device->SetCooperativeLevel(hwnd, flags) != DI_OK)
+	if(device_->SetCooperativeLevel(hwnd, flags) != DI_OK)
 		throw exception(
 			SGE_TEXT("SetCooperativeLevel() failed!"));
 }
@@ -74,7 +74,7 @@ void sge::dinput::device::set_cooperative_level(
 void sge::dinput::device::set_data_format(
 	LPCDIDATAFORMAT const df)
 {
-	if(device->SetDataFormat(df) != DI_OK)
+	if(device_->SetDataFormat(df) != DI_OK)
 		throw exception(
 			SGE_TEXT("SetDataFormat() failed!"));
 }
@@ -83,14 +83,14 @@ void sge::dinput::device::set_property(
 	REFGUID guid,
 	LPCDIPROPHEADER diph)
 {
-	if(device->SetProperty(guid, diph) != DI_OK)
+	if(device_->SetProperty(guid, diph) != DI_OK)
 		throw exception(
 			SGE_TEXT("SetProperty() failed!"));
 }
 
 void sge::dinput::device::acquire()
 {
-	switch(device->Acquire()) {
+	switch(device_->Acquire()) {
 	case S_FALSE:
 	case DI_OK:
 		return;
@@ -109,7 +109,7 @@ void sge::dinput::device::unacquire()
 
 void sge::dinput::device::poll()
 {
-	if(device->Poll() != DI_OK)
+	if(device_->Poll() != DI_OK)
 		throw exception(SGE_TEXT("Poll() failed!"));
 }
 
@@ -118,10 +118,10 @@ bool sge::dinput::device::get_input(
 	DWORD &elements,
 	unsigned const d)
 {
-	elements = static_cast<DWOD>(data.size());
-	HRESULT const res = device->GetDeviceData(
+	elements = static_cast<DWORD>(data.size());
+	HRESULT const res = device_->GetDeviceData(
 		sizeof(DIDEVICEOBJECTDATA),
-		data,
+		data.data(),
 		&elements,
 		0);
 	
@@ -147,7 +147,7 @@ bool sge::dinput::device::get_input(
 void sge::dinput::device::enum_objects(
 	LPDIENUMDEVICEOBJECTSCALLBACK const fun)
 {
-	if(device->EnumObjects(fun, this, DIDFT_ALL) != DI_OK)
+	if(device_->EnumObjects(fun, this, DIDFT_ALL) != DI_OK)
 		throw exception(
 			SGE_TEXT("enumerating objects failed!"));
 }

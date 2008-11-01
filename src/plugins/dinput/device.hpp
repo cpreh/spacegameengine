@@ -34,7 +34,7 @@ namespace sge
 namespace dinput
 {
 
-class device : boost::noncopybale {
+class device : boost::noncopyable {
 public:
 	virtual void dispatch(signal_type &) = 0;
 	virtual ~device();
@@ -72,7 +72,7 @@ private:
 		HWND hwnd,
 		DWORD flags);
 	string const              name_;
-	dinput_device_ptr         device;
+	dinput_device_ptr         device_;
 
 	/*struct lost_focus_unacquire_handler
 	{

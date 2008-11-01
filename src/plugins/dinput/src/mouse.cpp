@@ -48,7 +48,8 @@ sge::dinput::mouse::mouse(
 	string const &name,
 	GUID const guid,
 	windows::window_ptr const window)
-: input_device(di,name,guid,window)
+:
+	device(di,name,guid,window)
 {
 	set_data_format(&c_dfDIMouse2);
 	enum_objects(enum_mouse_keys);
@@ -59,7 +60,7 @@ void sge::dinput::mouse::dispatch(signal_type &sig)
 {
 	input_buffer data;
 	DWORD elements;
-	if(!_get_input(data,elements))
+	if(!get_input(data, elements))
 		return;
 
 	for(unsigned i = 0; i < elements; ++i)

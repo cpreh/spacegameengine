@@ -31,10 +31,15 @@ sge::dinput::keyboard::keyboard(
 	GUID const guid,
 	windows::window_ptr const window,
 	key_converter const &conv)
-: input_device(di,name,guid,window),
-  modifiers(false, false, false),
-  conv(conv),
-  kblayout(GetKeyboardLayout(0))
+:
+	device(
+		di,
+		name,
+		guid,
+		window),
+	modifiers(false, false, false),
+	conv(conv),
+	kblayout(GetKeyboardLayout(0))
 {
 	set_data_format(&c_dfDIKeyboard);
 	enum_objects(enum_keyboard_keys);
@@ -45,7 +50,7 @@ void sge::dinput::keyboard::dispatch(signal_type &sig)
 {
 	input_buffer data;
 	DWORD elements;
-	if(!_get_input(data,elements))
+	if(!get_input(data,elements))
 		return;
 	for(unsigned i = 0; i < elements; ++i)
 	{

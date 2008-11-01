@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_SYSTEM_HPP_INCLUDED
 
 #include "key_converter.hpp"
-#include "input_device.hpp"
+#include "device.hpp"
 #include "di.hpp"
 #include "signal.hpp"
 #include <sge/input/system.hpp>
@@ -55,7 +55,7 @@ private:
 	typedef std::map<std::string, key_map> key_mapper_u;
 	typedef std::multimap<std::string, key_map> key_mapper_m;
 	typedef std::pair<std::string,key_map> key_map_pair;
-	typedef boost::ptr_vector<input_device> device_array;
+	typedef boost::ptr_vector<device> device_array;
 	typedef std::map<input::key_code, bool> key_code_press_map;
 	key_mapper_u         map_u;
 	key_mapper_m         map_m;
