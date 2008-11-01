@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "color_format.hpp"
 #include "image_view.hpp"
+#include "../export.hpp"
 #include <vector>
 
 namespace sge
@@ -34,7 +35,7 @@ typedef std::vector<
 	color_format::type
 > accepted_color_format_array;
 
-void convert_pixels_conditional(
+SGE_SYMBOL void convert_pixels_conditional(
 	image_view const &,
 	accepted_color_format_array const &);
 

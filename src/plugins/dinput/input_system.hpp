@@ -38,10 +38,10 @@ namespace dinput
 class input_system : public sge::input::system {
 public:
 	explicit input_system(windows::window_ptr w);
-	callback_connection const
+	signals::connection const
 	register_callback(
 		input::callback const &c);
-	callback_connection const
+	signals::connection const
 	register_repeat_callback(
 		input::repeat_callback const &c);
 	void dispatch();
