@@ -36,7 +36,7 @@ namespace sge
 namespace dinput
 {
 
-class keyboard : public input_device {
+class keyboard : public device {
 public:
 	keyboard(
 		dinput_ptr,
@@ -47,13 +47,18 @@ public:
 	void dispatch(signal_type &);
 	input::key_state query_key(string const &name);
 private:
-	char_type keycode_to_char(const input::key_code key) const;
+	char_type keycode_to_char(
+		input::key_code key) const;
+	
 	static BOOL CALLBACK enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
 
 	input::mod_state modifiers;
 	key_converter const &conv;
 	HKL kblayout;
-	typedef std::map<unsigned, input::key_type> key_map;
+	typedef std::map<
+		unsigned,
+		input::key_type
+	> key_map;
 	key_map keys;
 };
 

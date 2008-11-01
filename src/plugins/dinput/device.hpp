@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_INPUT_DEVICE_HPP_INCLUDED
-#define SGE_DINPUT_INPUT_DEVICE_HPP_INCLUDED
+#ifndef SGE_DINPUT_DEVICE_HPP_INCLUDED
+#define SGE_DINPUT_DEVICE_HPP_INCLUDED
 
 #include "di.hpp"
 #include "signal.hpp"
 #include <sge/windows/window.hpp>
 #include <sge/input/key_type.hpp>
+#include <boost/noncopyable.hpp>
+#include <boost/array.hpp>
 #include <cstddef>
 
 namespace sge
@@ -32,12 +34,14 @@ namespace sge
 namespace dinput
 {
 
-class input_device {
+class device : boost::noncopybale {
 public:
 	virtual void dispatch(signal_type &) = 0;
-	virtual ~input_device(){}
+	virtual ~device();
+
+	static std::size_t const buffer_size = 1024;
 protected:
-	input_device(
+	device(
 		dinput_ptr di,
 		string const &name,
 		GUID Guid,
@@ -45,31 +49,40 @@ protected:
 	void acquire();
 	void unacquire();
 	void poll();
-	void set_data_format(LPCDIDATAFORMAT lpdf);
-	void set_property(REFGUID rguidProp, LPCDIPROPHEADER pdiph);
+	void set_data_format(
+		LPCDIDATAFORMAT lpdf);
+	void set_property(
+		REFGUID rguidProp,
+		LPCDIPROPHEADER pdiph);
 
-	static const std::size_t buffer_size = 1024;
-	typedef DIDEVICEOBJECTDATA input_buffer[buffer_size];
+	typedef boost::array<
+		DIDEVICEOBJECTDATA,
+		buffer_size
+	> input_buffer;
 
-	bool _get_input(input_buffer buf, DWORD& elements, unsigned d=0);
-	void enum_objects(LPDIENUMDEVICEOBJECTSCALLBACK fun);
-	const string& name() const;
+	bool get_input(
+		input_buffer buf,
+		DWORD &elements,
+		unsigned d = 0);
+	void enum_objects(
+		LPDIENUMDEVICEOBJECTSCALLBACK fun);
+	string const &name() const;
 private:
-	void set_cooperative_level(HWND hwnd, DWORD flags);
-	static const DIPROPDWORD  buffer_settings;
-	static const DWORD        coop_level;
+	void set_cooperative_level(
+		HWND hwnd,
+		DWORD flags);
+	string const              name_;
 	dinput_device_ptr         device;
-	string                    _name;
 
-	struct lost_focus_unacquire_handler
+	/*struct lost_focus_unacquire_handler
 	{
 		input_device &device;
 		lost_focus_unacquire_handler(input_device &dev) : device(dev) {}
 		windows::window::win32_callback_return_type operator()(windows::window&, windows::window::win32_event_type, WPARAM wparam, LPARAM lparam);
-	};
+	};*/
 };
 
-typedef shared_ptr<input_device> input_device_ptr;
+typedef shared_ptr<device> device_ptr;
 
 }
 }

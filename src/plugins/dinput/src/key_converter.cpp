@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../key_converter.hpp"
 
 sge::dinput::key_converter::key_converter()
-: v(256, input::kc::none)
+:
+	v(
+		256,
+		input::kc::none)
 {
 	v[DIK_0] = input::kc::key_0;
 	v[DIK_1] = input::kc::key_1;

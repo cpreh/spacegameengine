@@ -18,67 +18,94 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../input_system.hpp"
+#include "../system.hpp"
 #include "../keyboard.hpp"
 #include "../mouse.hpp"
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/windows/window.hpp>
 #include <sge/windows/conv.hpp>
+#include <boost/foreach.hpp>
 
-sge::dinput::input_system::input_system(
+sge::dinput::system::system(
 	windows::window_ptr const wnd)
- : wnd(wnd)
+:
+	wnd(wnd)
 {
 	direct_input* d;
-	if(DirectInput8Create(GetModuleHandle(0),
-	                      DIRECTINPUT_VERSION,
-	                      IID_IDirectInput8A,
-	                      reinterpret_cast<LPVOID*>(&d),
-	                      0) != DI_OK)
-		throw exception(SGE_TEXT("Cannot create direct input!"));
+	if(DirectInput8Create(
+		GetModuleHandle(0),
+		DIRECTINPUT_VERSION,
+		IID_IDirectInput8A,
+		reinterpret_cast<LPVOID*>(&d), // this is undefined but Direct Input wants us to do it
+		0)
+	!= DI_OK)
+		throw exception(
+			SGE_TEXT("Cannot create direct input!"));
 	di.reset(d);
 
-	if(di->EnumDevices(DI8DEVCLASS_ALL,
-	                   di_enum_devices_callback,
-	                   this,
-	                   DIEDFL_ATTACHEDONLY) != DI_OK)
-		throw exception(SGE_TEXT("DirectInput Enumeration failed!"));
+	if(di->EnumDevices(
+		DI8DEVCLASS_ALL,
+		di_enum_devices_callback,
+		this,
+		 DIEDFL_ATTACHEDONLY)
+	!= DI_OK)
+		throw exception(
+			SGE_TEXT("DirectInput Enumeration failed!"));
 }
 
 sge::signals::connection const
-sge::dinput::input_system::register_callback(
+sge::dinput::system::register_callback(
 	input::callback const &c)
 {
 	return sig.connect(c);
 }
 
 sge::signals::connection const
-sge::dinput::input_system::register_repeat_callback(
+sge::dinput::system::register_repeat_callback(
 	input::repeat_callback const &c)
 {
 	return repeat_sig.connect(c);
 }
 
-void sge::dinput::input_system::dispatch()
+void sge::dinput::system::dispatch()
 {
-	for(device_array::iterator it = devices.begin(); it != devices.end(); ++it)
-		it->dispatch(sig);
+	BOOST_FOREACH(device_array::reference r, devices)
+		r.dispatch(sig);
 	// FIXME: dispatch repeated signals as well
 }
 
-BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi, LPVOID s)
+BOOL sge::dinput::system::di_enum_devices_callback(
+	LPCDIDEVICEINSTANCE ddi,
+	LPVOID s)
 {
-	input_system& sys = *static_cast<input_system*>(s);
-	const unsigned char dev_type = static_cast<unsigned char>(ddi->dwDevType & 0xFF);
+	system &sys = *static_cast<system*>(s);
 
-	const string product_name = windows::win_str_to_sge(ddi->tszProductName);
+	const unsigned char dev_type
+		= static_cast<unsigned char>(
+			ddi->dwDevType & 0xFF);
+
+	string const product_name
+		= windows::win_str_to_sge(
+			ddi->tszProductName);
 
 	switch(dev_type) {
 	case DI8DEVTYPE_KEYBOARD:
-		sys.devices.push_back(new keyboard(sys.di, product_name, ddi->guidInstance, sys.wnd, sys.key_conv));
+		sys.devices.push_back(
+			new keyboard(
+				sys.di,
+				product_name,
+				ddi->guidInstance,
+				sys.wnd,
+				sys.key_conv));
 		break;
 	case DI8DEVTYPE_MOUSE:
-		sys.devices.push_back(new mouse(sys.di, product_name, ddi->guidInstance, sys.wnd));
+		sys.devices.push_back(
+			new mouse(
+				sys.di,
+				product_name,
+				ddi->guidInstance,
+				sys.wnd));
 		break;
 	/*
 	case DI8DEVTYPE_JOYSTICK:
@@ -115,7 +142,7 @@ BOOL sge::dinput::input_system::di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi
 }
 
 sge::window_ptr const
-sge::dinput::input_system::get_window() const
+sge::dinput::system::get_window() const
 {
 	return sge::static_pointer_cast<sge::window>(wnd);
 }

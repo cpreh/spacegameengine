@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_MOUSE_HPP_INCLUDED
 #define SGE_DINPUT_MOUSE_HPP_INCLUDED
 
-#include "input_device.hpp"
+#include "device.hpp"
 #include "di.hpp"
 #include <map>
 
@@ -30,13 +30,23 @@ namespace sge
 namespace dinput
 {
 
-class mouse : public input_device {
+class mouse : public device {
 public:
-	mouse(dinput_ptr di, const string& name, GUID guid, windows::window_ptr window);
+	mouse(
+		dinput_ptr di,
+		string const &name,
+		GUID guid,
+		windows::window_ptr window);
 	void dispatch(signal_type &);
 private:
-	static BOOL CALLBACK enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
-	typedef std::map<unsigned, input::key_type> key_map;
+	static BOOL CALLBACK enum_mouse_keys(
+		LPCDIDEVICEOBJECTINSTANCE ddoi,
+		LPVOID ref);
+
+	typedef std::map<
+		unsigned,
+		input::key_type
+	> key_map;
 	key_map keys;
 };
 

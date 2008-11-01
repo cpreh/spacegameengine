@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_JOYSTICK_HPP_INCLUDED
 #define SGE_DINPUT_JOYSTICK_HPP_INCLUDED
 
-#include "input_device.hpp"
+#include "device.hpp"
 #include "di.hpp"
 #include <map>
 
@@ -30,13 +30,24 @@ namespace sge
 namespace dinput
 {
 
-class joystick : public input_device {
+class joystick : public device {
 public:
-	joystick(dinput_ptr di, GUID guid, unsigned index, windows::window_ptr window);
+	joystick(
+		dinput_ptr di,
+		GUID guid,
+		unsigned index,
+		windows::window_ptr window);
 	void dispatch(signal_type &);
 private:
-	static BOOL CALLBACK enum_joystick_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID ref);
-	typedef std::map<unsigned, input::key_type> key_map;
+	static BOOL CALLBACK enum_joystick_keys(
+		LPCDIDEVICEOBJECTINSTANCE ddoi,
+		LPVOID ref);
+	
+	typedef std::map<
+		unsigned,
+		input::key_type
+	> key_map;
+
 	key_map  keys;
 	key_map  l_keys;
 	key_map  r_keys;

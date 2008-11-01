@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_INPUT_SYSTEM_HPP_INCLUDED
-#define SGE_DINPUT_INPUT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_DINPUT_SYSTEM_HPP_INCLUDED
+#define SGE_DINPUT_SYSTEM_HPP_INCLUDED
 
 #include "key_converter.hpp"
 #include "input_device.hpp"
@@ -35,9 +35,10 @@ namespace sge
 namespace dinput
 {
 
-class input_system : public sge::input::system {
+class system : public input::system {
 public:
-	explicit input_system(windows::window_ptr w);
+	explicit system(
+		windows::window_ptr w);
 	signals::connection const
 	register_callback(
 		input::callback const &c);
@@ -56,13 +57,13 @@ private:
 	typedef std::pair<std::string,key_map> key_map_pair;
 	typedef boost::ptr_vector<input_device> device_array;
 	typedef std::map<input::key_code, bool> key_code_press_map;
-	key_mapper_u       map_u;
-	key_mapper_m       map_m;
-	key_code_press_map key_codes_pressed;
-	device_array       devices;
-	dinput_ptr         di;
-	windows::window_ptr   wnd;
-	key_converter      key_conv;
+	key_mapper_u         map_u;
+	key_mapper_m         map_m;
+	key_code_press_map   key_codes_pressed;
+	device_array         devices;
+	dinput_ptr           di;
+	windows::window_ptr  wnd;
+	key_converter        key_conv;
 
 	static BOOL CALLBACK di_enum_devices_callback(LPCDIDEVICEINSTANCE ddi, LPVOID s);
 };

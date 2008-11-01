@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../input_system.hpp"
+#include "../system.hpp"
 #include <sge/export.hpp>
 #include <sge/text.hpp>
 #include <sge/plugin/info.hpp>
@@ -42,7 +42,7 @@ SGE_EXPORT_SYMBOL sge::input::system* create_input_system(
 	sge::window_ptr const w)
 {
 	sge::windows::window_ptr const ww = sge::dynamic_pointer_cast<sge::windows::window>(w);
-	return new sge::dinput::input_system(ww);
+	return new sge::dinput::system(ww);
 }
 
 }
