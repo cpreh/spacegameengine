@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/convert_pixels_conditional.hpp>
-#include <sge/renderer/image_view_format.hpp>
+#include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/color_format_stride.hpp>
@@ -31,14 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 
 void sge::renderer::convert_pixels_conditional(
-	image_view const &view,
+	unsigned char *const data,
+	dim_type const &dim,
+	color_format::type const fmt,
+	size_type const pitch,
 	accepted_color_format_array const &formats)
 {
-	color_format::type const fmt(
-		image_view_format(
-			make_const_image_view(
-				view)));
-	
 	if(std::find(formats.begin(), formats.end(), fmt) != formats.end())
 		return;
 	
@@ -59,6 +57,16 @@ void sge::renderer::convert_pixels_conditional(
 		throw exception(
 			SGE_TEXT("No suitable color format in convert_pixels_conditional!"));
 	
-	//copy_and_convert_pixels(
-	//	view);
+	copy_and_convert_pixels(
+		make_const_image_view(
+			make_image_view(
+				data,
+				dim,
+				fmt,
+				pitch)),
+		make_image_view(
+			data,
+			dim,
+			*it,
+			pitch));
 }

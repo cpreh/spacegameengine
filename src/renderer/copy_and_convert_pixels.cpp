@@ -22,6 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view_impl.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
 
+struct in_place_converter {
+	template<
+		typename Src,
+		typename Dest
+	>
+	void operator()(
+		Src const &src,
+		Dest &dest) const
+	{
+		Dest cp;
+		boost::gil::default_color_converter()(
+			src,
+			cp);
+		dest = cp;
+	}
+};
+
 void sge::renderer::copy_and_convert_pixels(
 	const_image_view const &src,
 	image_view const &dest)
@@ -29,4 +46,6 @@ void sge::renderer::copy_and_convert_pixels(
 	boost::gil::copy_and_convert_pixels(
 		src,
 		dest);
+		//,
+		//in_place_converter());
 }
