@@ -105,7 +105,7 @@ operation::operator()() const
 			d.w(),
 			d.h(),
 			reinterpret_cast<
-				typename T::value_type *>(
+				typename T::value_type::value_type *>(
 				data),
 			pitch
 			? *pitch

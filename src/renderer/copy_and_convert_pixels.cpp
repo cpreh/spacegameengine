@@ -20,32 +20,81 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view_impl.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <boost/gil/algorithm.hpp>
 
-struct in_place_converter {
-	template<
-		typename Src,
-		typename Dest
+namespace
+{
+
+template <typename CC>
+class copy_and_convert_pixels_fn
+: public boost::gil::binary_operation_obj<
+	copy_and_convert_pixels_fn<
+		CC
 	>
-	void operator()(
-		Src const &src,
-		Dest &dest) const
+> {
+private:
+	CC _cc;
+public:
+	typedef typename boost::gil::binary_operation_obj<
+		copy_and_convert_pixels_fn<
+			CC
+		>
+	>::result_type result_type;
+
+	copy_and_convert_pixels_fn() {}
+	explicit copy_and_convert_pixels_fn(
+		CC const cc_in)
+	:
+		_cc(cc_in)
+	{}
+
+	template<
+		typename V1,
+		typename V2
+	>
+	result_type
+	apply_incompatible(
+		V1 const &src,
+		V2 const &dst) const
 	{
-		Dest cp;
-		boost::gil::default_color_converter()(
+		boost::gil::copy_pixels(
+			boost::gil::color_converted_view<
+				typename V2::value_type
+			>(
+				src,
+				_cc),
+			dst);
+	}
+
+	template<
+		typename V1,
+		typename V2
+	>
+	result_type
+		apply_compatible(
+			V1 const &src,
+			V2 const &dst) const
+	{
+		// hack this because GIL thinks that two views
+		// don't need any conversion if they have the same set of channels
+		// which are in different order
+		return apply_incompatible(
 			src,
-			cp);
-		dest = cp;
+			dst);
 	}
 };
+
+}
 
 void sge::renderer::copy_and_convert_pixels(
 	const_image_view const &src,
 	image_view const &dest)
 {
-	boost::gil::copy_and_convert_pixels(
+        apply_operation(
 		src,
-		dest);
-		//,
-		//in_place_converter());
+		dest,
+		copy_and_convert_pixels_fn<
+			boost::gil::default_color_converter
+		>());
 }
