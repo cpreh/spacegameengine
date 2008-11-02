@@ -182,16 +182,17 @@ sge::ogl::basic_texture<Base>::basic_texture(
 	resource_flag_type const flags_,
 	GLenum const type_,
 	renderer::color_format::type const cformat)
- : texture_base(type_),
-   filter_(filter_),
-   flags_(flags_),
-   id_(gen_texture()),
-   format_(
-   	to_format(cformat)),
-   format_type_(
-   	to_format_type(cformat)),
-   stride_(
-	renderer::color_format_stride(cformat))
+:
+	texture_base(type_),
+	filter_(filter_),
+	flags_(flags_),
+	id_(gen_texture()),
+	format_(
+		to_format(cformat)),
+	format_type_(
+		to_format_type(cformat)),
+	stride_(
+		renderer::color_format_stride(cformat))
 {}
 
 template<typename Base>
