@@ -34,7 +34,7 @@ class copy_and_convert_pixels_fn
 	>
 > {
 private:
-	CC _cc;
+	CC const cc;
 public:
 	typedef typename boost::gil::binary_operation_obj<
 		copy_and_convert_pixels_fn<
@@ -42,11 +42,15 @@ public:
 		>
 	>::result_type result_type;
 
-	copy_and_convert_pixels_fn() {}
-	explicit copy_and_convert_pixels_fn(
-		CC const cc_in)
+	copy_and_convert_pixels_fn()
 	:
-		_cc(cc_in)
+		cc()
+	{}
+
+	explicit copy_and_convert_pixels_fn(
+		CC const cc)
+	:
+		cc(cc)
 	{}
 
 	template<
@@ -63,7 +67,7 @@ public:
 				typename V2::value_type
 			>(
 				src,
-				_cc),
+				cc),
 			dst);
 	}
 
