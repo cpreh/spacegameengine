@@ -10,7 +10,7 @@ OPTION (ENABLE_OPENAL "Build the openal audio plugin" OFF)
 OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
 OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" OFF)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" OFF)
-OPTION (EABLE_X11INPUT "Build the x11 input plugin" OFF)
+OPTION (ENABLE_X11INPUT "Build the x11 input plugin" OFF)
 
 IF(${ENABLE_D3D9})
 	ADD_SUBDIRECTORY (d3d9)
