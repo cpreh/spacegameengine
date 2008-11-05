@@ -12,8 +12,10 @@ SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
 CHECK_CXX_COMPILER_FLAG(
 	"-std=c++0x"
-	SGE_HAVE_VARIADIC_TEMPLATES
+	HAVE_VARIADIC_TEMPLATES
 )
+
+
 
 CHECK_CXX_SOURCE_COMPILES(
 	"#include <boost/cstdint.hpp>
@@ -35,11 +37,11 @@ IF (${CMAKE_COMPILER_IS_GNUCXX})
 
 # -fvisibility=hidden causes problems without inlining, so just switch it on
 # in release mode
-	IF (${SGE_HAVE_GCC_VISIBILITY})
+	IF (SGE_HAVE_GCC_VISIBILITY)
 		SET (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fvisibility=hidden")
 	ENDIF ()
 
-	IF (${SGE_HAVE_VARIADIC_TEMPLATES})
+	IF (HAVE_VARIADIC_TEMPLATES)
 		ADD_DEFINITIONS ("-Wold-style-cast -std=c++0x")
 	ENDIF ()
 ELSEIF (${MSVC})
