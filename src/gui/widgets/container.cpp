@@ -99,12 +99,16 @@ sge::gui::widget *sge::gui::widgets::container::do_recalculate_focus(point const
 	{
 		if (math::contains(child.absolute_area(),p))
 		{
-			SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("a child has the focus, sending enter"));
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("a child has the focus, sending enter"));
 			child.process(events::mouse_enter(p));
 			return child.do_recalculate_focus(p);
 		}
 	}
 	
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("no child has the focus, doing nothing"));
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("no child has the focus, doing nothing"));
 	return this;
 }

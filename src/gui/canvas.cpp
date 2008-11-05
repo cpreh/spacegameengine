@@ -275,8 +275,9 @@ void sge::gui::canvas::blit_font(
 	color const fg,
 	color const bg)
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << "character height is " << data.height() 
-						                     << ", drawing it at position " << pos);
+	SGE_LOG_DEBUG(mylogger,
+		log::_1 << SGE_TEXT("character height is ") << data.height() 
+						<< SGE_TEXT(", drawing it at position ") << pos);
 
 	point const abs_pos = widget_pos() + pos;
 
@@ -288,22 +289,33 @@ void sge::gui::canvas::blit_font(
 			static_cast<unit>(data.height())
 		));
 
-	SGE_LOG_DEBUG(mylogger,log::_1 << "trying to draw a character at " << abs_data_area);
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("trying to draw a character at ") 
+		        << abs_data_area);
 		
 	// if the character to be drawn and the invalid area don't even intersect,
 	// then leave it out
 	if (!math::intersects(abs_data_area,invalid_area()))
 	{
-		SGE_LOG_DEBUG(mylogger,log::_1 << abs_data_area << " and invalid area " << invalid_area() << " do not intersect, returning");
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << abs_data_area << SGE_TEXT(" and invalid area ") 
+			        << invalid_area() << SGE_TEXT(" do not intersect, returning"));
 		return;
 	}
 	
-	SGE_LOG_DEBUG(mylogger,log::_1 << abs_data_area << " and invalid area " << invalid_area() << " intersect, continuing");
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << abs_data_area << SGE_TEXT(" and invalid area ") 
+		        << invalid_area() << SGE_TEXT(" intersect, continuing"));
 
 	// calculate absolute intersection between invalid and data area
 	rect const is_abs = math::intersection(abs_data_area,invalid_area());
 
-	SGE_LOG_DEBUG(mylogger,log::_1 << "absolute intersection is: " << is_abs);
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("absolute intersection is: ") << is_abs);
 
 	// calculate rect which is relative to data (and make it 'int' 'cause gil wants it
 	// that way
@@ -314,7 +326,9 @@ void sge::gui::canvas::blit_font(
 		static_cast<int>(is_abs.bottom()-abs_pos.y())
 	);
 
-	SGE_LOG_DEBUG(mylogger,log::_1 << "intersection relative to data is: " << is_rel_data);
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("intersection relative to data is: ") << is_rel_data);
 
 	// calculate rect relative to invalid_rect
 	rect const is_rel_invalid(
@@ -324,7 +338,9 @@ void sge::gui::canvas::blit_font(
 		is_abs.bottom()-invalid_area().top()
 	);
 
-	SGE_LOG_DEBUG(mylogger,log::_1 << "intersection relative to invalid rect is: " << is_rel_invalid);
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("intersection relative to invalid rect is: ") << is_rel_invalid);
 	
 	//converter conv(fg,bg);
 

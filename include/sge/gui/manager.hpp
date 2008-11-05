@@ -3,13 +3,16 @@
 
 #include "types.hpp"
 #include "skin.hpp"
-#include "../renderer/device.hpp"
-#include "../input/system.hpp"
-#include "../font/system.hpp"
+#include "../renderer/device_fwd.hpp"
+#include "../renderer/texture_fwd.hpp"
+#include "../input/system_fwd.hpp"
+#include "../input/key_pair.hpp"
+#include "../font/system_fwd.hpp"
+#include "../font/metrics_fwd.hpp"
+#include "../image/loader_fwd.hpp"
 #include "../sprite/object.hpp"
 #include "../sprite/system.hpp"
-#include "../scoped_connection.hpp"
-#include "../image/loader.hpp"
+#include "../signals/connection.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -51,7 +54,7 @@ class manager
 	input::system_ptr const is;
 	font::system_ptr const fs;
 	font::metrics_ptr const standard_font_;
-	scoped_connection ic;
+	signals::connection ic;
 	sprite::system ss;
 	sge::sprite::object cursor;
 	sge::sprite::point cursor_click;

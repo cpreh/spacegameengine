@@ -27,33 +27,55 @@ sge::gui::widget::widget(
 		parent_manager().add(*this);
 }
 
-sge::gui::widget::~widget()
+sge::gui::point const &sge::gui::widget::pos() const
 {
-	if (parent_widget())
-		parent_widget()->remove_child(*this);
-	else
-		parent_manager().remove(*this);
+	return pos_;
 }
 
-sge::gui::rect const sge::gui::widget::absolute_area() const
+sge::gui::dim const &sge::gui::widget::size() const
 {
-	return rect(pos(), size());
+	return size_;
 }
 
-sge::gui::rect const sge::gui::widget::relative_area() const
+sge::gui::manager &sge::gui::widget::parent_manager() 
+{ 
+	return manager_; 
+}
+
+sge::gui::manager const &sge::gui::widget::parent_manager() const 
+{ 
+	return manager_; 
+}
+
+sge::gui::widgets::container *sge::gui::widget::parent_widget() 
+{ 
+	return parent_; 
+}
+
+sge::gui::widgets::container const *sge::gui::widget::parent_widget() const 
+{ 
+	return parent_; 
+}
+
+sge::gui::widget::size_policy_t const &sge::gui::widget::size_policy() const 
 {
-	return rect(point(static_cast<unit>(0),static_cast<unit>(0)), size());
+	return size_policy_; 
+}
+
+void sge::gui::widget::size_policy(size_policy_t const &s) 
+{ 
+	size_policy_ = s; 
 }
 
 void sge::gui::widget::size(dim const &d)
 {
-	do_size(d);
+	set_size_raw(d);
 	compile();
 }
 
 void sge::gui::widget::pos(point const &d)
 {
-	do_pos(d);
+	set_pos_raw(d);
 
 	// is this widget a top level widget? then call the manager to reposition the
 	// underlying sprite
@@ -64,6 +86,7 @@ void sge::gui::widget::pos(point const &d)
 void sge::gui::widget::compile()
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << "compiling");
+
 	if (parent_widget())
 	{
 		parent_widget()->compile();
@@ -79,14 +102,56 @@ void sge::gui::widget::compile()
 	parent_manager().compile(*this);
 }
 
+void sge::gui::widget::process(events::invalid_area const &e)
+{
+	parent_manager().skin()->draw(*this,e);
+}
+
+void sge::gui::widget::process(events::mouse_enter const &) {}
+void sge::gui::widget::process(events::mouse_leave const &) {}
+void sge::gui::widget::process(events::mouse_move const &) {}
+void sge::gui::widget::process(events::mouse_click const &) {}
+
 bool sge::gui::widget::is_container() const
 {
 	return dynamic_cast<widgets::container const *>(this);
 }
 
-void sge::gui::widget::process(events::invalid_area const &e)
+sge::gui::widget::~widget()
 {
-	parent_manager().skin()->draw(*this,e);
+	if (parent_widget())
+		parent_widget()->remove_child(*this);
+	else
+		parent_manager().remove(*this);
+}
+
+sge::gui::rect const sge::gui::widget::relative_area() const
+{
+	return rect(point(static_cast<unit>(0),static_cast<unit>(0)), size());
+}
+
+sge::gui::rect const sge::gui::widget::absolute_area() const
+{
+	return rect(pos(), size());
+}
+
+void sge::gui::widget::set_size_raw(dim const &d) 
+{ 
+	size_ = d; 
+}
+
+void sge::gui::widget::set_pos_raw(point const &p) 
+{ 
+	pos_ = p; 
+}
+
+void sge::gui::widget::do_compile() 
+{
+}
+
+sge::gui::widget *sge::gui::widget::do_recalculate_focus(point const &) 
+{ 
+	return this; 
 }
 
 sge::gui::widget *sge::gui::widget::recalculate_focus(point const &mouse_click)
@@ -94,7 +159,10 @@ sge::gui::widget *sge::gui::widget::recalculate_focus(point const &mouse_click)
 	// pointer is no longer inside widget area
 	if (!math::contains(absolute_area(),mouse_click))
 	{
-		SGE_LOG_DEBUG(mylogger,log::_1 << "mouse no longer inside widget, sending leave");
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("mouse no longer inside widget, sending leave"));
+
 		process(events::mouse_leave());
 		
 		if (!parent_widget())
@@ -106,7 +174,9 @@ sge::gui::widget *sge::gui::widget::recalculate_focus(point const &mouse_click)
 	widget *const new_focus = do_recalculate_focus(mouse_click);
 	if (new_focus == this)
 	{
-		SGE_LOG_DEBUG(mylogger,log::_1 << "focus hasn't changed, sending mouse_move");
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("focus hasn't changed, sending mouse_move"));
 		process(events::mouse_move(mouse_click));
 	}
 	return new_focus;
