@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_LIGHT_HPP_INCLUDED
 
 #include "any_color.hpp"
-#include "../math/vector.hpp"
+#include "any_vector3.hpp"
+#include "any_arithmetic.hpp"
 #include "../export.hpp"
-#include "../su.hpp"
 
 namespace sge
 {
@@ -32,10 +32,9 @@ namespace renderer
 {
 
 struct light {
-public:
-	typedef math::vector3 position_type;
-	typedef math::vector3 direction_type;
-	typedef space_unit attenuation_type;
+	typedef any_vector3 position_type;
+	typedef any_vector3 direction_type;
+	typedef any_arithmetic attenuation_type;
 
 	SGE_SYMBOL light(
 		any_color const &ambient,
@@ -43,22 +42,33 @@ public:
 		any_color const &specular,
 		position_type const &pos,
 		direction_type const &dir,
-		attenuation_type const_attenuation,
-		attenuation_type linear_attenuation,
-		attenuation_type quadratic_attenuation,
-		space_unit       distribution_exponent,
-		space_unit       cutoff_angle);
-
-	any_color        ambient,
-	                 diffuse,
-	                 specular;
-	position_type    pos;
-	direction_type   dir;
-	attenuation_type const_attenuation,
-	                 linear_attenuation,
-	                 quadratic_attenuation;
-	space_unit       distribution_exponent,
-	                 cutoff_angle;
+		attenuation_type const &const_attenuation,
+		attenuation_type const &linear_attenuation,
+		attenuation_type const &quadratic_attenuation,
+		any_arithmetic const &distribution_exponent,
+		any_arithmetic const &cutoff_angle);
+	
+	SGE_SYMBOL any_color const &ambient() const;
+	SGE_SYMBOL any_color const &diffuse() const;
+	SGE_SYMBOL any_color const &specular() const;
+	SGE_SYMBOL position_type const &position() const;
+	SGE_SYMBOL direction_type const &direction() const;
+	SGE_SYMBOL attenuation_type const &const_attenuation() const;
+	SGE_SYMBOL attenuation_type const &linear_attenuation() const;
+	SGE_SYMBOL attenuation_type const &quadratic_attenuation() const;
+	SGE_SYMBOL any_arithmetic const &distribution_exponent() const;
+	SGE_SYMBOL any_arithmetic const &cutoff_angle() const;
+private:
+	any_color        ambient_,
+	                 diffuse_,
+	                 specular_;
+	position_type    position_;
+	direction_type   direction_;
+	attenuation_type const_attenuation_,
+	                 linear_attenuation_,
+	                 quadratic_attenuation_;
+	any_arithmetic   distribution_exponent_,
+	                 cutoff_angle_;
 };
 
 }

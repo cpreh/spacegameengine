@@ -21,24 +21,85 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/light.hpp>
 
 sge::renderer::light::light(
-	any_color const &ambient,
-	any_color const &diffuse,
-	any_color const &specular,
-	position_type const &pos,
-	direction_type const &dir,
-	attenuation_type const const_attenuation,
-	attenuation_type const linear_attenuation,
-	attenuation_type const quadratic_attenuation,
-	space_unit const distribution_exponent,
-	space_unit const cutoff_angle)
-: ambient(ambient),
-  diffuse(diffuse),
-  specular(specular),
-  pos(pos),
-  dir(dir),
-  const_attenuation(const_attenuation),
-  linear_attenuation(linear_attenuation),
-  quadratic_attenuation(quadratic_attenuation),
-  distribution_exponent(distribution_exponent),
-  cutoff_angle(cutoff_angle)
+	any_color const &ambient_,
+	any_color const &diffuse_,
+	any_color const &specular_,
+	position_type const &position_,
+	direction_type const &direction_,
+	attenuation_type const &const_attenuation_,
+	attenuation_type const &linear_attenuation_,
+	attenuation_type const &quadratic_attenuation_,
+	any_arithmetic const &distribution_exponent_,
+	any_arithmetic const &cutoff_angle_)
+:
+	ambient_(ambient_),
+	diffuse_(diffuse_),
+	specular_(specular_),
+	position_(position_),
+	direction_(direction_),
+	const_attenuation_(const_attenuation_),
+	linear_attenuation_(linear_attenuation_),
+	quadratic_attenuation_(quadratic_attenuation_),
+	distribution_exponent_(distribution_exponent_),
+	cutoff_angle_(cutoff_angle_)
 {}
+
+sge::renderer::any_color const &
+sge::renderer::light::ambient() const
+{
+	return ambient_;
+}
+
+sge::renderer::any_color const &
+sge::renderer::light::diffuse() const
+{
+	return diffuse_;
+}
+
+sge::renderer::any_color const &
+sge::renderer::light::specular() const
+{
+	return specular_;
+}
+
+sge::renderer::light::position_type const &
+sge::renderer::light::position() const
+{
+	return position_;
+}
+
+sge::renderer::light::direction_type const &
+sge::renderer::light::direction() const
+{
+	return direction_;
+}
+
+sge::renderer::light::attenuation_type const &
+sge::renderer::light::const_attenuation() const
+{
+	return const_attenuation_;
+}
+
+sge::renderer::light::attenuation_type const &
+sge::renderer::light::linear_attenuation() const
+{
+	return linear_attenuation_;
+}
+
+sge::renderer::light::attenuation_type const &
+sge::renderer::light::quadratic_attenuation() const
+{
+	return quadratic_attenuation_;
+}
+
+sge::renderer::any_arithmetic const &
+sge::renderer::light::distribution_exponent() const
+{
+	return distribution_exponent_;
+}
+
+sge::renderer::any_arithmetic const &
+sge::renderer::light::cutoff_angle() const
+{
+	return cutoff_angle_;
+}
