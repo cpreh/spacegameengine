@@ -59,7 +59,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/viewport.hpp>
-#include <sge/renderer/light.hpp>
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
@@ -532,38 +531,24 @@ void sge::ogl::device::set_light(
 	renderer::light_index const index,
 	renderer::light const &l)
 {
-	GLenum const glindex = convert_light_index(index);
-
-	set_light_color(glindex, GL_AMBIENT, l.ambient);
-	set_light_color(glindex, GL_DIFFUSE, l.diffuse);
-	set_light_color(glindex, GL_SPECULAR, l.specular);
-
-	math::vector4 const pos(l.pos, static_cast<math::vector4::value_type>(1));
-	set_light_pos(glindex, pos);
-
-	set_light_dir(glindex, l.dir);
-
-	set_light_float(glindex, GL_CONSTANT_ATTENUATION, l.const_attenuation);
-	set_light_float(glindex, GL_LINEAR_ATTENUATION, l.linear_attenuation);
-	set_light_float(glindex, GL_QUADRATIC_ATTENUATION, l.quadratic_attenuation);
-
-	set_light_float(glindex, GL_SPOT_EXPONENT, l.distribution_exponent);
-	set_light_float(glindex, GL_SPOT_CUTOFF, l.cutoff_angle);
+	ogl::set_light(
+		index,
+		l);
 }
 
 void sge::ogl::device::set_texture_stage_op(
-	const renderer::stage_type stage,
-	const renderer::texture_stage_op::type op,
-	const renderer::texture_stage_op_value::type value)
+	renderer::stage_type const stage,
+	renderer::texture_stage_op::type const op,
+	renderer::texture_stage_op_value::type const value)
 {
 	set_texture_stage(stage, op, value);
 	set_texture_stage_scale(value);
 }
 
 void sge::ogl::device::set_texture_stage_arg(
-	const renderer::stage_type stage,
-	const renderer::texture_stage_arg::type arg,
-	const renderer::texture_stage_arg_value::type value)
+	renderer::stage_type const stage,
+	renderer::texture_stage_arg::type const arg,
+	renderer::texture_stage_arg_value::type const value)
 {
 	set_texture_stage(stage, arg, value);
 }
