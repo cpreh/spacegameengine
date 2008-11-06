@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
 #include "../time/timer.hpp"
+#include "../time/types.hpp"
 #include "../texture/part_fwd.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
@@ -62,9 +63,9 @@ public:
 	SGE_SYMBOL void key_action(
 		input::key_type const &);
 	SGE_SYMBOL void draw();
-	SGE_SYMBOL space_unit change_cursor_rate(
-		space_unit n,
-		space_unit);
+	SGE_SYMBOL time::unit
+	change_cursor_rate(
+		time::unit);
 	SGE_SYMBOL void toggle(); 
 	SGE_SYMBOL bool active() const;
 	SGE_SYMBOL void print(string const &);

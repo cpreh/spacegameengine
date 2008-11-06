@@ -92,7 +92,7 @@ try
 	}
 	sound->play(sge::audio::play_mode::once);
 
-	sge::time::timer frame_timer(sge::time::second(static_cast<sge::time::unit>(1)));
+	sge::time::timer frame_timer(sge::time::second(1));
 	while (sound->status() != sge::audio::sound_status::stopped)
 	{
 		if (revolving)
@@ -104,7 +104,7 @@ try
 		}
 
 		sound->update();
-		sge::time::sleep(sge::time::millisecond(static_cast<sge::time::unit>(250)));
+		sge::time::sleep(sge::time::millisecond(250));
 	}
 } catch (const sge::audio::exception &e) {
 	sge::cerr << SGE_TEXT("audio exception caught: ") << e.what() << SGE_TEXT('\n');

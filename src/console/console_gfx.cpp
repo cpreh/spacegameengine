@@ -6,7 +6,7 @@
 #include <sge/input/system.hpp>
 #include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
-#include <sge/time/second.hpp>
+#include <sge/time/millisecond.hpp>
 #include <sge/iostream.hpp>
 #include <sge/fstream.hpp>
 #include <sge/text.hpp>
@@ -21,29 +21,45 @@
 #include <ostream>
 
 sge::con::console_gfx::console_gfx(
-	const renderer::device_ptr rend,
-	const texture::part_ptr texture,
-	const font::font_ptr fn,
-	const input::system_ptr is,
-	const sprite::point &pos,
-	const sprite::dim &size)
-: rend(rend),
-  fn(fn),
-  ic(is->register_callback(boost::bind(&console_gfx::key_callback,this,_1))),
-  irc(is->register_repeat_callback(boost::bind(&console_gfx::key_action,this,_1))),
-  ss(rend),
-  bg(
-  	pos,
-	texture,
-	size),
-  active_(false),
-  cursor_timer(time::second(su(0.3))),
-  cursor_rate(SGE_TEXT("console_cursor_rate"),
-		boost::bind(&console_gfx::change_cursor_rate,this,_1,_2),su(0.3)),
-  cursor_active(false),
-  cursor_char(SGE_TEXT('_')),
-  cursor_pos(0),
-  history_size(0)
+	renderer::device_ptr const rend,
+	texture::part_ptr const texture,
+	font::font_ptr const fn,
+	input::system_ptr const is,
+	sprite::point const &pos,
+	sprite::dim const &size)
+:
+	rend(rend),
+	fn(fn),
+	ic(
+		is->register_callback(
+			boost::bind(
+				&console_gfx::key_callback,
+				this,
+				_1))),
+	irc(
+		is->register_repeat_callback(
+			boost::bind(
+				&console_gfx::key_action,
+				this,
+				_1))),
+	ss(rend),
+	bg(
+		pos,
+		texture,
+		size),
+	active_(false),
+	cursor_timer(time::millisecond(300)),
+	cursor_rate(
+		SGE_TEXT("console_cursor_rate"),
+		boost::bind(
+			&console_gfx::change_cursor_rate,
+			this,
+			_1),
+		300),
+	cursor_active(false),
+	cursor_char(SGE_TEXT('_')),
+	cursor_pos(0),
+	history_size(0)
 {
 	input_history.push_front(SGE_TEXT(" "));
 	input_history_pos = input_history.begin();
@@ -332,13 +348,13 @@ void sge::con::console_gfx::draw()
 		font::align_v::bottom);
 }
 
-sge::space_unit sge::con::console_gfx::change_cursor_rate(
-	space_unit  const n,
-	space_unit)
+sge::time::unit
+sge::con::console_gfx::change_cursor_rate(
+	time::unit  const n)
 {
 	cursor_timer.interval(
-		time::second(n));
-	return n;	
+		time::millisecond(n));
+	return n;
 }
 
 void sge::con::console_gfx::toggle()
