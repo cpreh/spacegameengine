@@ -26,6 +26,31 @@ sge::gui::widgets::container::container(
 {
 }
 
+sge::gui::widgets::container::child_container &sge::gui::widgets::container::children() 
+{ 
+	return children_; 
+}
+
+sge::gui::widgets::container::child_container const &sge::gui::widgets::container::children() const 
+{ 
+	return children_; 
+}
+
+sge::gui::layout_ptr const sge::gui::widgets::container::layout() 
+{ 
+	return layout_.get(); 
+}
+
+sge::gui::const_layout_ptr const sge::gui::widgets::container::layout() const 
+{ 
+	return layout_.get(); 
+}
+
+void sge::gui::widgets::container::size_hint(dim const &s) 
+{ 
+	size_hint_ = s; 
+}
+
 void sge::gui::widgets::container::add_child(widget &w)
 {
 	children_.push_back(&w);
