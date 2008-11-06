@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIME_TIMER_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../su.hpp"
 #include "types.hpp"
 #include "fun.hpp"
 
@@ -33,7 +32,7 @@ namespace time
 
 class timer {
 public:
-	typedef space_unit frames_type;
+	typedef float      frames_type;
 	typedef unit       interval_type;
 
 	SGE_SYMBOL explicit timer(

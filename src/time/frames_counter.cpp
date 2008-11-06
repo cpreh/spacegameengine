@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lexical_cast.hpp>
 
 sge::time::frames_counter::frames_counter()
-: t(sge::time::second(su(1))),
-  current_frames(0),
-  display_frames(0)
+:
+	t(sge::time::second(1)),
+	current_frames(0),
+	display_frames(0)
 {}
 
 void sge::time::frames_counter::update()
@@ -38,12 +39,14 @@ void sge::time::frames_counter::update()
 	}
 }
 
-sge::string sge::time::frames_counter::frames_str() const
+sge::string const
+sge::time::frames_counter::frames_str() const
 {
 	return boost::lexical_cast<string>(frames());
 }
 
-sge::time::unit sge::time::frames_counter::frames() const
+sge::time::unit
+sge::time::frames_counter::frames() const
 {
 	return display_frames;
 }

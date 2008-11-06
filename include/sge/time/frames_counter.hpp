@@ -38,7 +38,7 @@ private:
 public:
 	SGE_SYMBOL frames_counter();
 	SGE_SYMBOL void update();
-	SGE_SYMBOL string frames_str() const;
+	SGE_SYMBOL string const frames_str() const;
 	SGE_SYMBOL time::unit frames() const;
 };
 

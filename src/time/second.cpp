@@ -22,14 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/time.hpp>
 
 sge::time::second::second(
-	const space_unit tm)
-: resolution(
-	static_cast<unit>(
-		tm * static_cast<space_unit>(
-			hz())))
-{}
-
-sge::time::second::second(
 	const unit tm)
 : resolution(
 	tm * hz())
