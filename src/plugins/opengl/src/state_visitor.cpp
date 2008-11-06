@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../enable.hpp"
 #include "../error.hpp"
 #include <sge/renderer/color_convert.hpp>
+#include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/raw_color.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/traits.hpp>
@@ -31,8 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 sge::ogl::state_visitor::state_visitor(
-	split_states& states)
-: states(states)
+	split_states &states)
+:
+	states(states)
 {}
 
 void sge::ogl::state_visitor::operator()(
@@ -85,7 +87,11 @@ void sge::ogl::state_visitor::operator()(
 
 	switch(s.state()) {
 	case rs::zbuffer_clear_val:
-		glClearDepth(s.value());
+		glClearDepth(
+			renderer::arithmetic_convert<
+				GLdouble
+			>(
+				s.value()));
 		break;
 	case rs::alpha_test_ref:
 		states.update_alpha_test();
@@ -93,7 +99,12 @@ void sge::ogl::state_visitor::operator()(
 	case rs::fog_start:
 	case rs::fog_end:
 	case rs::fog_density:
-		glFogf(convert_fog_float_state(s), s.value());
+		glFogf(
+			convert_fog_float_state(s),
+			renderer::arithmetic_convert<
+				GLfloat
+			>(
+				s.value()));
 		break;
 	default:
 		throw exception(

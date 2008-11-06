@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_TYPES_HPP_INCLUDED
 
 #include "../any_color.hpp"
-#include "../../su.hpp"
+#include "../any_arithmetic.hpp"
 
 namespace sge
 {
@@ -34,7 +34,7 @@ namespace state
 typedef bool bool_type;
 typedef int int_type;
 typedef unsigned uint_type;
-typedef space_unit float_type;
+typedef any_arithmetic float_type;
 typedef any_color color_type;
 
 }
