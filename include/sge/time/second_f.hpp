@@ -18,28 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_TYPES_HPP_INCLUDED
-#define SGE_TIME_TYPES_HPP_INCLUDED
+#ifndef SGE_TIME_SECOND_F_HPP_INCLUDED
+#define SGE_TIME_SECOND_F_HPP_INCLUDED
 
-#include "../config.h"
-#ifdef SGE_HAVE_ATLEAST_UINT64
-#include <boost/cstdint.hpp>
-#endif
+#include "../export.hpp"
+#include "resolution.hpp"
+#include "types.hpp"
 
 namespace sge
 {
 namespace time
 {
 
-#ifndef SGE_HAVE_ATLEAST_UINT64
-typedef unsigned long unit;
-#else
-typedef boost::uint_least64_t unit;
-#endif
-
-typedef float funit;
-
-class resolution;
+class second_f : public resolution {
+public:
+	SGE_SYMBOL explicit second_f(
+		funit);
+};
 
 }
 }
