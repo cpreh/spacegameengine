@@ -86,7 +86,7 @@ private:
 
 	// input and history stuff
 	time::timer cursor_timer;
-	action_var<space_unit>::type cursor_rate;
+	action_var<time::unit>::type cursor_rate;
 	bool cursor_active;
 	string::value_type cursor_char;
 	string il;
