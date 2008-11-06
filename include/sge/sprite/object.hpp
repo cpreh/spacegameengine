@@ -88,7 +88,7 @@ public:
 	SGE_SYMBOL rect_t const rect() const;
 	SGE_SYMBOL point center() const;
 	SGE_SYMBOL rotation_type rotation() const;
-	SGE_SYMBOL space_unit radius() const;
+	SGE_SYMBOL funit radius() const;
 	SGE_SYMBOL repetition_type repeat() const;
 	SGE_SYMBOL color_t const color() const;
 	SGE_SYMBOL rect_t const bounding_quad() const;

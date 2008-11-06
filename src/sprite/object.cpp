@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/object.hpp>
-//#include <sge/sprite/detail/helper.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/circle_impl.hpp>
 #include <sge/renderer/colors.hpp>
@@ -213,11 +212,17 @@ const sge::texture::part_ptr sge::sprite::object::texture() const
 	return tex;
 }
 
-sge::space_unit sge::sprite::object::radius() const
+sge::sprite::funit
+sge::sprite::object::radius() const
 {
-	return std::max(std::sqrt(static_cast<space_unit>(center().x() * center().x() + x() * x())),
-	                std::sqrt(static_cast<space_unit>(center().y() * center().y() + y() * y()))
-	               );
+	return std::max(
+		std::sqrt(
+			static_cast<funit>(
+				center().x() * center().x() + x() * x())),
+		std::sqrt(
+			static_cast<funit>(
+				center().y() * center().y() + y() * y()))
+		);
 }
 
 sge::sprite::object::rect_t const
@@ -231,12 +236,20 @@ sge::sprite::object::bounding_quad() const
 {
 	if(math::almost_zero(rotation()))
 		return rect();
-	space_unit const rad = radius();
+	funit const rad = radius();
 	return rect_t(
-		static_cast<sprite::unit>(static_cast<space_unit>(center().x()) - rad),
-		static_cast<sprite::unit>(static_cast<space_unit>(center().y()) - rad),
-		static_cast<sprite::unit>(static_cast<space_unit>(center().x()) + rad),
-		static_cast<sprite::unit>(static_cast<space_unit>(center().y()) + rad));
+		static_cast<sprite::unit>(
+			static_cast<funit>(
+				center().x()) - rad),
+		static_cast<unit>(
+			static_cast<funit>(
+				center().y()) - rad),
+		static_cast<unit>(
+			static_cast<funit>(
+				center().x()) + rad),
+		static_cast<unit>(
+			static_cast<funit>(
+				center().y()) + rad));
 }
 
 sge::math::circle const
