@@ -29,14 +29,6 @@ sge::time::unit const factor(1000);
 }
 
 sge::time::millisecond::millisecond(
-	space_unit const tm)
-: resolution(
-	static_cast<unit>(
-		tm * static_cast<space_unit>(
-			hz()) * static_cast<space_unit>(factor)))
-{}
-
-sge::time::millisecond::millisecond(
 	unit const tm)
 : resolution(
 	tm * hz() / factor)

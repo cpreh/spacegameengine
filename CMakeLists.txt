@@ -2,6 +2,15 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT (spacegameengine)
 
+IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+	message(FATAL_ERROR "In-source builds are not permitted. Make a separate folder for building:\nmkdir build; cd build; cmake ..\nBefore that, remove the files that cmake just created:\nrm -rf CMakeCache.txt CMakeFiles")
+ENDIF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+
+
+
+
+
+
 INCLUDE (CheckIncludeFile)
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (CheckCXXSourceCompiles)
@@ -12,8 +21,10 @@ SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
 CHECK_CXX_COMPILER_FLAG(
 	"-std=c++0x"
-	SGE_HAVE_VARIADIC_TEMPLATES
+	HAVE_VARIADIC_TEMPLATES
 )
+
+
 
 CHECK_CXX_SOURCE_COMPILES(
 	"#include <boost/cstdint.hpp>
@@ -35,11 +46,11 @@ IF (${CMAKE_COMPILER_IS_GNUCXX})
 
 # -fvisibility=hidden causes problems without inlining, so just switch it on
 # in release mode
-	IF (${SGE_HAVE_GCC_VISIBILITY})
+	IF (SGE_HAVE_GCC_VISIBILITY)
 		SET (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fvisibility=hidden")
 	ENDIF ()
 
-	IF (${SGE_HAVE_VARIADIC_TEMPLATES})
+	IF (HAVE_VARIADIC_TEMPLATES)
 		ADD_DEFINITIONS ("-Wold-style-cast -std=c++0x")
 	ENDIF ()
 ELSEIF (${MSVC})
@@ -52,7 +63,7 @@ ENDIF ()
 
 INCLUDE_DIRECTORIES (include)
 
-CONFIGURE_FILE(config.h.in include/sge/config.h)
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/sge/config.h)
 
 SET (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 SET (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)

@@ -24,10 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../enable.hpp"
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/arithmetic_convert.hpp>
 
 sge::ogl::split_states::split_states(
 	renderer::state::list &states)
-: states(states)
+:
+	states(states)
 {}
 
 // TODO: those functions can be optimized
@@ -86,6 +88,9 @@ void sge::ogl::split_states::update_alpha_test()
 	glAlphaFunc(
 		convert_cast(
 			func),
-		static_cast<GLclampf>(
-			states.get(renderer::state::float_::alpha_test_ref)));
+		renderer::arithmetic_convert<
+			GLfloat
+		>(
+			states.get(
+				renderer::state::float_::alpha_test_ref)));
 }

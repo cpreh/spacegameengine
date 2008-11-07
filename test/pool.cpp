@@ -4,27 +4,17 @@
 #include <sge/audio/exception.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/listener.hpp>
-#include <sge/plugin/plugin.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/context.hpp>
 #include <sge/media.hpp>
-#include <sge/math/constants.hpp>
-#include <sge/su.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/second.hpp>
-#include <sge/time/millisecond.hpp>
-#include <sge/time/sleep.hpp>
-#include <sge/log/headers.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/logger.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/time/sleep.hpp>
-#include <sge/iconv.hpp>
 #include <ostream>
 #include <exception>
-#include <algorithm>
 #include <iostream>
+#include <ostream>
 #include <cstdlib>
 #include <cmath>
 
@@ -33,7 +23,7 @@ try
 {
 	sge::log::global().activate_hierarchy(sge::log::level::debug);
 
-  sge::path file_name(sge::media_path() / SGE_TEXT("ding.wav"));
+	sge::path const file_name(sge::media_path() / SGE_TEXT("ding.wav"));
 
 	bool const streaming = false;
 

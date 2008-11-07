@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TIME_MILLISECOND_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../su.hpp"
 #include "resolution.hpp"
 
 namespace sge
@@ -32,7 +31,6 @@ namespace time
 
 class millisecond : public resolution {
 public:
-	SGE_SYMBOL explicit millisecond(space_unit);
 	SGE_SYMBOL explicit millisecond(unit);
 };
 

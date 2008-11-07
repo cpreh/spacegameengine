@@ -18,28 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_TYPES_HPP_INCLUDED
-#define SGE_TIME_TYPES_HPP_INCLUDED
+#ifndef SGE_RENDERER_VECTOR_CONVERT_HPP_INCLUDED
+#define SGE_RENDERER_VECTOR_CONVERT_HPP_INCLUDED
 
-#include "../config.h"
-#ifdef SGE_HAVE_ATLEAST_UINT64
-#include <boost/cstdint.hpp>
-#endif
+#include "../export.hpp"
 
 namespace sge
 {
-namespace time
+namespace renderer
 {
 
-#ifndef SGE_HAVE_ATLEAST_UINT64
-typedef unsigned long unit;
-#else
-typedef boost::uint_least64_t unit;
-#endif
-
-typedef float funit;
-
-class resolution;
+template<
+	typename Dest,
+	typename Source
+>
+SGE_SYMBOL Dest const
+vector_convert(
+	Source const &);
 
 }
 }

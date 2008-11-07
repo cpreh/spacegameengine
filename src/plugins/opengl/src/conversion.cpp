@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 GLenum sge::ogl::convert_cast(
 	renderer::state::bool_::type const s)
 {
-	typedef renderer::state::traits<bool> rs;
+	typedef renderer::state::traits<
+		renderer::state::bool_type
+	>rs;
 
 	switch(s.state()) {
 	case rs::enable_alpha_blending:
@@ -373,7 +375,9 @@ GLuint sge::ogl::convert_resource_flags(
 GLenum sge::ogl::convert_fog_float_state(
 	renderer::state::float_::type const s)
 {
-	typedef renderer::state::traits<float> rs;
+	typedef renderer::state::traits<
+		renderer::state::float_type
+	> rs;
 	switch(s.state()) {
 	case rs::fog_start:
 		return GL_FOG_START;
@@ -390,7 +394,9 @@ GLenum sge::ogl::convert_fog_float_state(
 GLenum sge::ogl::convert_clear_bit(
 	renderer::state::bool_::trampoline_type const &s)
 {
-	typedef renderer::state::traits<bool> rs;
+	typedef renderer::state::traits<
+		renderer::state::bool_type
+	> rs;
 	switch(s.state()) {
 	case rs::clear_backbuffer:
 		return GL_COLOR_BUFFER_BIT;

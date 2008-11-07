@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/default_creator.hpp>
 #include <sge/texture/default_creator_impl.hpp>
+#include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
@@ -96,8 +97,13 @@ try
 
 	const sge::sprite::animation_series::entity_vector series = 
 		boost::assign::list_of
-			(sge::sprite::animation_entity(sge::time::second(sge::su(0.5)), tex1))
-			(sge::sprite::animation_entity(sge::time::second(sge::su(1)), tex2));
+			(sge::sprite::animation_entity(
+				sge::time::millisecond(500),
+				tex1))
+			(sge::sprite::animation_entity(
+				sge::time::second(
+					1),
+					tex2));
 	sge::sprite::texture_animation anim(
 		series,
 		sge::sprite::texture_animation::loop_method::repeat,

@@ -1,0 +1,4 @@
+bin
+build
+doc
+include/sge/config.h

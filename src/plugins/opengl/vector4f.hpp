@@ -14,32 +14,25 @@ GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1401, USA.
 */
 
 
-#ifndef SGE_TIME_TYPES_HPP_INCLUDED
-#define SGE_TIME_TYPES_HPP_INCLUDED
+#ifndef SGE_PLUGINS_OPENGL_VECTOR4F_HPP_INCLUDED
+#define SGE_PLUGINS_OPENGL_VECTOR4F_HPP_INCLUDED
 
-#include "../config.h"
-#ifdef SGE_HAVE_ATLEAST_UINT64
-#include <boost/cstdint.hpp>
-#endif
+#include "common.hpp"
+#include <sge/math/vector.hpp>
 
 namespace sge
 {
-namespace time
+namespace ogl
 {
 
-#ifndef SGE_HAVE_ATLEAST_UINT64
-typedef unsigned long unit;
-#else
-typedef boost::uint_least64_t unit;
-#endif
-
-typedef float funit;
-
-class resolution;
+typedef math::basic_vector<
+	GLfloat,
+	4
+> vector4f;
 
 }
 }
