@@ -1,7 +1,10 @@
+#include "utility/font_blitter.hpp"
+
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/font_drawer_canvas.hpp>
 #include <sge/renderer/fill_pixels.hpp>
+#include <sge/renderer/transform_pixels.hpp>
 
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/rect_util.hpp>
@@ -25,108 +28,6 @@
 
 namespace
 {
-template<class Pixel>
-struct channel_adder {
-	channel_adder(
-		Pixel const &p0,
-		Pixel const &p1,
-		Pixel &result);
-
-	template<class T>
-	void operator()(T &) const;
-private:
-	Pixel const &p0,p1;
-	Pixel &result;
-};
-
-template<class Pixel>
-channel_adder<Pixel>::channel_adder(
-	Pixel const &p0,
-	Pixel const &p1,
-	Pixel &result)
-: p0(p0),
-  p1(p1),
-	result(result)
-{}
-
-template<class Pixel>
-template<class T>
-void channel_adder<Pixel>::operator()(T &t) const
-{
-	result[t] = p0[t]+p1[t];
-}
-
-class font_converter
-{
-	template<class Channel,class Layout>
-	boost::gil::pixel<Channel,Layout> operator()(
-		boost::gil::pixel<Channel,Layout> const &,
-		boost::gil::pixel<Channel,Layout> const &) const;
-};
-
-template<class Channel,class Layout>
-boost::gil::pixel<Channel,Layout> font_converter::operator()(
-	boost::gil::pixel<Channel,Layout> const &p0,
-	boost::gil::pixel<Channel,Layout> const &p1) const
-{
-	typedef boost::gil::pixel<Channel,Layout> pixel_type;
-
-	pixel_type result;
-
-	boost::mpl::for_each<typename pixel_type::layout_t::channel_mapping_t>(
-		channel_adder<pixel_type>(p0,p1,result));
-
-	return result;
-}
-
-/*
-struct converter 
-{
-	converter(sge::renderer::any_color const fg,sge::renderer::any_color const bg) : fg(fg),bg(bg) {}
-
-	template<class T>
-	void operator()(sge::font::color const src,T &dest) const;
-
-	sge::renderer::any_color const fg,bg;
-};
-
-// FIXME: make this more clean: check T's channel count and determine which one is the alpha channel, then convert
-// the input to this function in 'src' is a gray value, 'dest' is rgba8
-template<class T>
-void converter::operator()(
-  sge::font::color const src,
-	T &dest) const
-{ 
-	float const ratio = static_cast<float>(src)/255.0f;
-
-	for (unsigned i = 0; i <= 2; ++i)
-		dest[i] = static_cast<sge::renderer::pixel_channel_8>(
-			static_cast<float>(fg[i])*ratio+static_cast<float>(bg[i])*(1.0f-ratio));
-	
-	dest[3] = static_cast<sge::renderer::pixel_channel_8>(255);
-}
-*/
-
-/*
-struct set_pixel_fn
-{
-	sge::gui::canvas::color const c;
-	sge::gui::point const p;
-
-	set_pixel_fn(
-		sge::gui::canvas::color const c,
-		sge::gui::point const p) 
-		: c(c),p(p) {}
-
-	typedef void result_type;
-
-	template<class T>
-	result_type operator()(T &view) const
-	{
-		view(p.x(),p.y()) = c;
-	}
-};
-*/
 
 template<class T,std::size_t n,class F>
 sge::math::basic_vector<T,n> apply(sge::math::basic_vector<T,n> const &v,F f)
@@ -275,9 +176,8 @@ void sge::gui::canvas::blit_font(
 	color const fg,
 	color const bg)
 {
-	SGE_LOG_DEBUG(mylogger,
-		log::_1 << SGE_TEXT("character height is ") << data.height() 
-						<< SGE_TEXT(", drawing it at position ") << pos);
+	SGE_LOG_DEBUG(mylogger,log::_1 << "character height is " << data.height() 
+						                     << ", drawing it at position " << pos);
 
 	point const abs_pos = widget_pos() + pos;
 
@@ -289,33 +189,22 @@ void sge::gui::canvas::blit_font(
 			static_cast<unit>(data.height())
 		));
 
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("trying to draw a character at ") 
-		        << abs_data_area);
+	SGE_LOG_DEBUG(mylogger,log::_1 << "trying to draw a character at " << abs_data_area);
 		
 	// if the character to be drawn and the invalid area don't even intersect,
 	// then leave it out
 	if (!math::intersects(abs_data_area,invalid_area()))
 	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << abs_data_area << SGE_TEXT(" and invalid area ") 
-			        << invalid_area() << SGE_TEXT(" do not intersect, returning"));
+		SGE_LOG_DEBUG(mylogger,log::_1 << abs_data_area << " and invalid area " << invalid_area() << " do not intersect, returning");
 		return;
 	}
 	
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << abs_data_area << SGE_TEXT(" and invalid area ") 
-		        << invalid_area() << SGE_TEXT(" intersect, continuing"));
+	SGE_LOG_DEBUG(mylogger,log::_1 << abs_data_area << " and invalid area " << invalid_area() << " intersect, continuing");
 
 	// calculate absolute intersection between invalid and data area
 	rect const is_abs = math::intersection(abs_data_area,invalid_area());
 
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("absolute intersection is: ") << is_abs);
+	SGE_LOG_DEBUG(mylogger,log::_1 << "absolute intersection is: " << is_abs);
 
 	// calculate rect which is relative to data (and make it 'int' 'cause gil wants it
 	// that way
@@ -326,9 +215,7 @@ void sge::gui::canvas::blit_font(
 		static_cast<int>(is_abs.bottom()-abs_pos.y())
 	);
 
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("intersection relative to data is: ") << is_rel_data);
+	SGE_LOG_DEBUG(mylogger,log::_1 << "intersection relative to data is: " << is_rel_data);
 
 	// calculate rect relative to invalid_rect
 	rect const is_rel_invalid(
@@ -340,10 +227,21 @@ void sge::gui::canvas::blit_font(
 
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("intersection relative to invalid rect is: ") << is_rel_invalid);
+		log::_1 << "intersection relative to invalid rect is: " << is_rel_invalid);
 	
 	//converter conv(fg,bg);
-
+	
+	sge::renderer::transform_pixels(
+		boost::gil::subimage_view(
+			data,
+			is_rel_data.left(),
+			is_rel_data.top(),
+			is_rel_data.w(),
+			is_rel_data.h()
+			),
+		sub_view(is_rel_invalid),
+		utility::font_blitter());
+	/*
 	boost::gil::transform_pixels(
 		boost::gil::subimage_view(
 			data,
@@ -356,6 +254,7 @@ void sge::gui::canvas::blit_font(
 		sub_view(is_rel_invalid),
 		font_converter()
 	);
+	*/
 	/*
 	sge::renderer::copy_and_convert_pixels(
 		boost::gil::subimage_view(

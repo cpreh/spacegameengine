@@ -9,10 +9,10 @@
 #include "../input/key_pair.hpp"
 #include "../font/system_fwd.hpp"
 #include "../font/metrics_fwd.hpp"
-#include "../image/loader_fwd.hpp"
 #include "../sprite/object.hpp"
 #include "../sprite/system.hpp"
-#include "../signals/connection.hpp"
+#include "../signals/scoped_connection.hpp"
+#include "../image/loader_fwd.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -25,7 +25,11 @@ class widget;
 class manager
 {
 	public:
-	SGE_SYMBOL manager(renderer::device_ptr,image::loader_ptr,input::system_ptr,font::system_ptr);
+	SGE_SYMBOL manager(
+		renderer::device_ptr,
+		image::loader_ptr,
+		input::system_ptr,
+		font::system_ptr);
 	SGE_SYMBOL void invalidate(rect const &);
 	SGE_SYMBOL void draw();
 	font::metrics_ptr const standard_font() { return standard_font_; }
@@ -54,10 +58,10 @@ class manager
 	input::system_ptr const is;
 	font::system_ptr const fs;
 	font::metrics_ptr const standard_font_;
-	signals::connection ic;
+	signals::scoped_connection ic;
 	sprite::system ss;
-	sge::sprite::object cursor;
-	sge::sprite::point cursor_click;
+	sprite::object cursor;
+	sprite::point cursor_click;
 
 	// other internal stuff
 	widget_container widgets_;

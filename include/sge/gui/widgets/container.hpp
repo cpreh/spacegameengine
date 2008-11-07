@@ -23,7 +23,7 @@ class SGE_CLASS_SYMBOL container : public widget
 	child_container const &children() const;
 	template<typename T>
 	void layout() { layout_.reset(new T(*this)); }
-	layout_ptr layout()
+	layout_ptr layout();
 	const_layout_ptr layout() const;
 	void size_hint(dim const &);
 	dim const size_hint() const;

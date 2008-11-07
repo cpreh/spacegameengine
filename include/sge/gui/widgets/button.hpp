@@ -3,7 +3,7 @@
 
 #include "../widget.hpp"
 #include "../../export.hpp"
-#include "../../font/metrics.hpp"
+#include "../../font/metrics_fwd.hpp"
 #include <boost/signals.hpp>
 
 namespace sge
