@@ -251,4 +251,18 @@ sge::math::operator* (
 	return ret;
 }
 
+template<typename D, typename S, std::size_t N, std::size_t M>
+sge::math::basic_matrix<D, N, M> const
+sge::math::structure_cast(
+	basic_matrix<S, N, M> const &s)
+{
+	typedef basic_matrix<D, N, M> ret_type;
+	ret_type ret;
+	for(typename ret_type::size_type i = 0; i < N; ++i)
+		for(typename ret_type::size_type j = 0; j < M; ++j)
+			ret[i][j] = static_cast<D>(s[i][j]);
+	return ret;
+
+}
+
 #endif

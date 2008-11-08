@@ -18,30 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_ATTRIBUTE_VALUE_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_ATTRIBUTE_VALUE_HPP_INCLUDED
+#ifndef SGE_RENDERER_ANY_VECTOR2_HPP_INCLUDED
+#define SGE_RENDERER_ANY_VECTOR2_HPP_INCLUDED
 
-#include "../any_arithmetic.hpp"
-#include "../any_vector2.hpp"
-#include "../any_vector3.hpp"
-#include "../any_vector4.hpp"
-#include <boost/variant/variant.hpp>
+#include "basic_any_vector.hpp"
 
 namespace sge
 {
 namespace renderer
 {
-namespace glsl
-{
 
-typedef boost::variant<
-	any_arithmetic,
-	any_vector2,
-	any_vector3,
-	any_vector4
-> attribute_value;
+typedef basic_any_vector<2>::type any_vector2;
 
-}
 }
 }
 

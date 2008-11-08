@@ -35,7 +35,11 @@ enum type {
 	float1,
 	float2,
 	float3,
-	float4
+	float4,
+	double1,
+	double2,
+	double3,
+	double4
 };
 }
 

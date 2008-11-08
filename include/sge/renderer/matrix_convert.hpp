@@ -18,30 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_ATTRIBUTE_VALUE_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_ATTRIBUTE_VALUE_HPP_INCLUDED
+#ifndef SGE_RENDERER_MATRIX_CONVERT_HPP_INCLUDED
+#define SGE_RENDERER_MATRIX_CONVERT_HPP_INCLUDED
 
-#include "../any_arithmetic.hpp"
-#include "../any_vector2.hpp"
-#include "../any_vector3.hpp"
-#include "../any_vector4.hpp"
-#include <boost/variant/variant.hpp>
+#include "../export.hpp"
 
 namespace sge
 {
 namespace renderer
 {
-namespace glsl
-{
 
-typedef boost::variant<
-	any_arithmetic,
-	any_vector2,
-	any_vector3,
-	any_vector4
-> attribute_value;
+template<
+	typename Dest,
+	typename Source
+>
+SGE_SYMBOL Dest const
+matrix_convert(
+	Source const &);
 
-}
 }
 }
 

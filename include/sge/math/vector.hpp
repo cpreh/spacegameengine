@@ -617,7 +617,6 @@ basic_vector<D, Dim> structure_cast(const basic_vector<S, Dim>& s)
 	for(typename ret_type::size_type i = 0; i < Dim; ++i)
 		ret[i] = static_cast<D>(s[i]);
 	return ret;
-
 }
 
 typedef basic_vector<space_unit,2> vector2;

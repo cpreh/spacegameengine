@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_VALUE_HPP_INCLUDED
 
 #include "int_types.hpp"
-#include "../../su.hpp"
-#include "../../math/vector.hpp"
-#include "../../math/matrix.hpp"
+#include "../any_arithmetic.hpp"
+#include "../any_matrix.hpp"
+#include "../any_vector2.hpp"
+#include "../any_vector3.hpp"
+#include "../any_vector4.hpp"
 #include <boost/variant/variant.hpp>
 
 namespace sge
@@ -36,11 +38,11 @@ namespace glsl
 
 typedef boost::variant<
 	int_type,
-	space_unit,
-	math::vector2,
-	math::vector3,
-	math::vector4,
-	math::space_matrix
+	any_arithmetic,
+	any_vector2,
+	any_vector3,
+	any_vector4,
+	any_matrix
 > uniform_value;
 
 }
