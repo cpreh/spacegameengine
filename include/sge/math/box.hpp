@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_BOX_HPP_INCLUDED
 #define SGE_MATH_BOX_HPP_INCLUDED
 
-#include "../su.hpp"
-
 namespace sge
 {
 namespace math
@@ -73,8 +71,6 @@ bool operator==(const basic_box<T>& l, const basic_box<T>& r);
 
 template<typename T>
 bool operator!=(const basic_box<T>& l, const basic_box<T>& r);
-
-typedef basic_box<space_unit> space_box;
 
 }
 

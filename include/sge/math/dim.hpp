@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_DIM_HPP_INCLUDED
 
 #include "../config.h"
-#include "../su.hpp"
 #include "../exception.hpp"
 #include "../text.hpp"
 #include "../assert.hpp"
@@ -370,9 +369,6 @@ basic_dim<D, Dim> structure_cast(const basic_dim<S, Dim>& r)
 		ret[i] = static_cast<D>(r[i]);
 	return ret;
 }
-
-typedef basic_dim<space_unit,2> dim2;
-typedef basic_dim<space_unit,3> dim3;
 
 }
 }

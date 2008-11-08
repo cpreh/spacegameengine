@@ -8,16 +8,16 @@ void sge::openal::source::init()
 {
 	// we just impose our default values 
 	positional(false);
-	pos(audio::point(sge::su(0),sge::su(0),sge::su(0)));
-	vel(audio::point(sge::su(0),sge::su(0),sge::su(0)));
-	attenuation(sge::su(1));
-	rolloff(sge::su(1));
-	inner_cone_angle(sge::su(360));
-	outer_cone_angle(sge::su(360));
+	pos(audio::point::null());
+	vel(audio::point::null());
+	attenuation(static_cast<audio::unit>(1));
+	rolloff(static_cast<audio::unit>(1));
+	inner_cone_angle(static_cast<audio::unit>(360));
+	outer_cone_angle(static_cast<audio::unit>(360));
 	// setting the direction vector to zero creates a non-directional source.
 	// this, of course, assumes that the zero vector is uniquely identified by
 	// (0.0f,0.0f,0.0f) which is not really guaranteed
-	direction(audio::point(sge::su(0),sge::su(0),sge::su(0)));
+	direction(audio::point::null());
 }
 
 sge::openal::source::source()
@@ -186,18 +186,15 @@ void sge::openal::source::positional(bool const n)
 
 	if (n)
 	{
-		rolloff(sge::su(1));
+		rolloff(static_cast<audio::unit>(1));
 		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_FALSE); SGE_OPENAL_ERROR_CHECK;
 	}
 	else
 	{
-		rolloff(sge::su(0));
+		rolloff(static_cast<audio::unit>(0));
 		// make source relative to listener and set it's position to (0,0,0), so directly on the listener
 		alSourcei(alsource(),AL_SOURCE_RELATIVE, AL_TRUE); SGE_OPENAL_ERROR_CHECK;
-		pos(
-			audio::point(static_cast<audio::unit>(0),
-			             static_cast<audio::unit>(0),
-			             static_cast<audio::unit>(0)));
+		pos(audio::point::null());
 	}
 }
 

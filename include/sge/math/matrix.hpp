@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../config.h"
 #include "matrix_proxy.hpp"
 #include "vector.hpp"
-#include "../su.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/static_assert.hpp>
 #include <boost/preprocessor/enum_params.hpp>
@@ -97,8 +96,6 @@ private:
 private:
 	value_type data_[Dim];
 };
-
-typedef basic_matrix<space_unit,4,4> space_matrix;
 
 template<typename T, std::size_t N, std::size_t M>
 basic_matrix<T,N,M> operator+ (const basic_matrix<T,N,M>& r);

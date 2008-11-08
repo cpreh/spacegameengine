@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../exception.hpp"
 #include "../text.hpp"
 #include "../assert.hpp"
-#include "../su.hpp"
 #include "../exception.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/preprocessor/enum_params.hpp>
@@ -618,10 +617,6 @@ basic_vector<D, Dim> structure_cast(const basic_vector<S, Dim>& s)
 		ret[i] = static_cast<D>(s[i]);
 	return ret;
 }
-
-typedef basic_vector<space_unit,2> vector2;
-typedef basic_vector<space_unit,3> vector3;
-typedef basic_vector<space_unit,4> vector4;
 
 }
 }

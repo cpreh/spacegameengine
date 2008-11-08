@@ -73,7 +73,7 @@ class sprite_functor
 			s.pos().x() += k.value();
 			sound->vel(
 				sge::audio::point(
-					sge::su(k.value()),
+					static_cast<sge::audio::unit>(k.value()),
 					sound->vel().y(),
 					sound->vel().z()));
 			break;
@@ -83,16 +83,16 @@ class sprite_functor
 				sge::audio::point(
 					sound->vel().x(),
 					sound->vel().y(),
-					sge::su(k.value())));
+					static_cast<sge::audio::unit>(k.value())));
 			break;
 			default: break;
 		}
 
 		sound->pos(
 			sge::audio::point(
-				sge::su(s.pos().x()),
-				sge::su(0),
-				sge::su(s.pos().y())));
+				static_cast<sge::audio::unit>(s.pos().x()),
+				static_cast<sge::audio::unit>(0),
+				static_cast<sge::audio::unit>(s.pos().y())));
 	}
 	private:
 	sge::sprite::object &s;
@@ -174,10 +174,10 @@ try
 	sge::audio::sound_ptr const sound_siren = sys.audio_player()->create_nonstream_sound(af_siren);
 	sys.audio_player()->listener().pos(
 		sge::audio::point(
-			sge::su(screen_size.w()/2),
-			sge::su(0),
-			sge::su(screen_size.h()/2)));
-	sys.audio_player()->speed_of_sound(sge::su(500));
+			static_cast<sge::audio::unit>(screen_size.w()/2),
+			static_cast<sge::audio::unit>(0),
+			static_cast<sge::audio::unit>(screen_size.h()/2)));
+	sys.audio_player()->speed_of_sound(static_cast<sge::audio::unit>(500));
 	sound_siren->positional(true);
 	sound_siren->rolloff(static_cast<sge::audio::unit>(1)/static_cast<sge::audio::unit>(screen_size.h()));
 	sound_siren->play(sge::audio::play_mode::loop);
