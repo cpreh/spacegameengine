@@ -27,7 +27,7 @@ class font_blitter
 		font_pixel_type const &font_value) const;
 	
 	private:
-	dest_pixel_type font_color;
+	dest_pixel_type const font_color;
 };
 }
 }

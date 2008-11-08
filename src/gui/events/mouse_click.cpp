@@ -1,4 +1,5 @@
 #include <sge/gui/events/mouse_click.hpp>
+#include <sge/input/classification.hpp>
 #include <sge/assert.hpp>
 
 sge::gui::events::mouse_click::mouse_click(

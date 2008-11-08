@@ -36,12 +36,12 @@ sge::gui::widgets::container::child_container const &sge::gui::widgets::containe
 	return children_; 
 }
 
-sge::gui::layout_ptr const sge::gui::widgets::container::layout() 
+sge::gui::layout_ptr sge::gui::widgets::container::layout()
 { 
 	return layout_.get(); 
 }
 
-sge::gui::const_layout_ptr const sge::gui::widgets::container::layout() const 
+sge::gui::const_layout_ptr sge::gui::widgets::container::layout() const 
 { 
 	return layout_.get(); 
 }

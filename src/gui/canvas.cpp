@@ -5,6 +5,7 @@
 #include <sge/gui/font_drawer_canvas.hpp>
 #include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/transform_pixels.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
 
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/rect_util.hpp>
@@ -239,6 +240,7 @@ void sge::gui::canvas::blit_font(
 			is_rel_data.w(),
 			is_rel_data.h()
 			),
+		renderer::make_const_image_view(sub_view(is_rel_invalid)),
 		sub_view(is_rel_invalid),
 		utility::font_blitter<color,sge::font::color>(fg));
 	/*
