@@ -12,30 +12,47 @@ namespace gui
 {
 namespace utility
 {
+template<class DstPixel,class FontPixel>
 class font_blitter
 {
-	template<class Channel,class Layout>
-	boost::gil::pixel<Channel,Layout> const operator()(
-		boost::gil::pixel<Channel,Layout> const &src_color,
-		boost::gil::pixel<Channel,Layout> const &font_color,
-		sge::font::color const &font_value) const;
+	public:
+	//typedef boost::gil::pixel<Channel,Layout> pixel_type;  
+	typedef DstPixel dest_pixel_type;  
+	typedef FontPixel font_pixel_type;  
+
+	font_blitter(dest_pixel_type font_color);
+
+	dest_pixel_type const operator()(
+		dest_pixel_type const &src_color,
+		font_pixel_type const &font_value) const;
+	
+	private:
+	dest_pixel_type font_color;
 };
 }
 }
 }
 
-template<class Channel,class Layout>
-boost::gil::pixel<Channel,Layout> const sge::gui::utility:font_blitter::operator()(
-	boost::gil::pixel<Channel,Layout> const &src_color,
-	boost::gil::pixel<Channel,Layout> const &font_color,
-	sge::font::color const &font_value) const
+template<class DstPixel,class FontPixel>
+sge::gui::utility::font_blitter<DstPixel,FontPixel>::font_blitter(
+	dest_pixel_type const font_color)
+	: font_color(font_color)
 {
-	typedef boost::gil::pixel<Channel,Layout> pixel_type;
+}
 
-	pixel_type result;
+template<class DstPixel,class FontPixel>
+typename sge::gui::utility::font_blitter<DstPixel,FontPixel>::dest_pixel_type const 
+	sge::gui::utility::font_blitter<DstPixel,FontPixel>::operator()(
+		dest_pixel_type const &src_color,
+		font_pixel_type const &font_value) const
+{
+	dest_pixel_type result;
 
-	boost::mpl::for_each<typename pixel_type::layout_t::channel_mapping_t>(
-		font_channel_blitter<pixel_type>(src_color,font_color,result));
+	boost::mpl::for_each<typename dest_pixel_type::layout_t::channel_mapping_t>(
+		font_channel_blitter<dest_pixel_type>(
+			src_color,
+			font_color,
+			result));
 
 	return result;
 }
