@@ -12,9 +12,10 @@ CHECK_CXX_SOURCE_RUNS(
 FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	filesystem
 	signals
-	regex
-	#iostreams
 	system)
+
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 
 IF (${SGE_HAVE_POSIX})
 	CHECK_INCLUDE_FILE(
@@ -73,7 +74,7 @@ IF (NOT MSVC)
 ENDIF ()
 
 IF (${UNIX})
-	TARGET_LINK_LIBRARIES (sgecore X11 Xxf86vm dl rt)
+	TARGET_LINK_LIBRARIES (sgecore X11 dl rt)
 ELSEIF (${WIN32})
 	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
 ENDIF ()

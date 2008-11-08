@@ -18,46 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11/xf86_vidmode_array.hpp>
-#include <sge/x11/xf86_resolution.hpp>
+#include "../vidmode_array.hpp"
+#include "../resolution.hpp"
 #include <sge/x11/display.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
+#include <sge/text.hpp>
 #include <sge/math/round_div_int.hpp>
 #include <sge/renderer/display_mode.hpp>
 #include <ostream>
 
-sge::x11::xf86_vidmode_array::xf86_vidmode_array(
-	display_ptr const dsp,
+sge::ogl::xf86::vidmode_array::vidmode_array(
+	x11::display_ptr const dsp,
 	int const screen)
 :
 	dsp(dsp),
 	screen(screen)
 {
 	int event_base, error_base;
-	if(XF86VidModeQueryExtension(dsp->get(), &event_base, &error_base) == False)
+	if(XF86VidModeQueryExtension(
+		dsp->get(),
+		&event_base,
+		&error_base)
+	== False)
 	{
-		sge::cerr << SGE_TEXT("Warning: xf86 video modes queried but extension is not present!\n");
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("xf86 video modes queried but extension is not present!"));
 		sz = 0;
 		return;
 	}
 
 	int mode_count;
-	XF86VidModeModeInfo** ret;	
-	if(XF86VidModeGetAllModeLines(dsp->get(), screen, &mode_count, &ret) == False)
-		throw exception(SGE_TEXT("XF86VidModeGetAllModeLines() failed"));
+	XF86VidModeModeInfo **ret;	
+	if(XF86VidModeGetAllModeLines(
+		dsp->get(),
+		screen,
+		&mode_count,
+		&ret)
+	== False)
+		throw exception(SGE_TEXT(
+			"XF86VidModeGetAllModeLines() failed"));
 	modes.reset(ret);
 	sz = mode_count >= 0 ? mode_count : 0;
 }
 
 XF86VidModeModeInfo const &
-sge::x11::xf86_vidmode_array::operator[](
-	const size_type index) const
+sge::ogl::xf86::vidmode_array::operator[](
+	size_type const index) const
 {
 	return (*modes)[index];
 }
 
-unsigned sge::x11::xf86_vidmode_array::refresh_rate(
+unsigned sge::ogl::xf86::vidmode_array::refresh_rate(
 	XF86VidModeModeInfo const &mode)
 {
 	return math::round_div_int(
@@ -65,18 +79,18 @@ unsigned sge::x11::xf86_vidmode_array::refresh_rate(
 		static_cast<unsigned>(mode.htotal * mode.vtotal));
 }
 
-sge::x11::xf86_vidmode_array::size_type
-sge::x11::xf86_vidmode_array::size() const
+sge::ogl::xf86::vidmode_array::size_type
+sge::ogl::xf86::vidmode_array::size() const
 {
 	return sz;
 }
 
-sge::x11::xf86_resolution_ptr const
-sge::x11::xf86_vidmode_array::switch_to_mode(
-	const renderer::display_mode& pmode) const
+sge::ogl::xf86::resolution_ptr const
+sge::ogl::xf86::vidmode_array::switch_to_mode(
+	renderer::display_mode const &pmode) const
 {
 	int best = -1;
-	for(xf86_vidmode_array::size_type i = 1; i < size(); ++i)
+	for(size_type i = 1; i < size(); ++i)
 	{
 		const XF86VidModeModeInfo& mode = (*this)[i];
 		const unsigned rate = refresh_rate(mode);
@@ -88,7 +102,12 @@ sge::x11::xf86_vidmode_array::switch_to_mode(
 			best = static_cast<int>(i);
 	}
 	
-	if(best != -1)
-		return xf86_resolution_ptr(new xf86_resolution(dsp, screen, (*this)[best], (*this)[0]));
-	return xf86_resolution_ptr();
+	return best != -1
+		? resolution_ptr(
+			new resolution(
+				dsp,
+				screen,
+				(*this)[best],
+				(*this)[0]))
+		: resolution_ptr();
 }

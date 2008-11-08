@@ -18,61 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_XF86_VIDMODE_ARRAY_HPP_INCLUDED
-#define SGE_X11_XF86_VIDMODE_ARRAY_HPP_INCLUDED
+#ifndef SGE_X11_XF86_RESOLUTION_HPP_INCLUDED
+#define SGE_X11_XF86_RESOLUTION_HPP_INCLUDED
 
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include "xf86_resolution_fwd.hpp"
-#include "deleter.hpp"
-#include "display_fwd.hpp"
-#include "../shared_ptr.hpp"
-#include "../export.hpp"
+#include <sge/x11/display_fwd.hpp>
+#include <sge/export.hpp>
 #include <boost/noncopyable.hpp>
-#include <cstddef>
 
 namespace sge
 {
-namespace renderer
+namespace ogl
+{
+namespace xf86
 {
 
-struct display_mode;
-
-}
-
-namespace x11
-{
-
-class xf86_vidmode_array : boost::noncopyable {
+class resolution : boost::noncopyable {
 public:
-	typedef std::size_t size_type;
-
-	SGE_SYMBOL xf86_vidmode_array(
-		display_ptr dsp,
-		int screen);
-	SGE_SYMBOL XF86VidModeModeInfo const &
-	operator[](
-		size_type index) const;
-
-	SGE_SYMBOL static unsigned
-	refresh_rate(
-		XF86VidModeModeInfo const &);
-	SGE_SYMBOL size_type size() const;
-	SGE_SYMBOL xf86_resolution_ptr const
-	switch_to_mode(
-		renderer::display_mode const &) const;
+	SGE_SYMBOL resolution(
+		x11::display_ptr,
+		int screen,
+		XF86VidModeModeInfo const &new_mode,
+		XF86VidModeModeInfo const &old_mode);
+	SGE_SYMBOL ~resolution(); 
 private:
-	display_ptr const dsp;
+	x11::display_ptr const dsp;
 	int const screen;
-	typedef shared_ptr<
-		XF86VidModeModeInfo*,
-		deleter
-	> vidmode_ptr;
-
-	vidmode_ptr modes;
-	size_type sz;
+	XF86VidModeModeInfo const old_mode;
 };
 
+}
 }
 }
 

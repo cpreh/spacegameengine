@@ -7,10 +7,6 @@ IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 ENDIF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 
 
-
-
-
-
 INCLUDE (CheckIncludeFile)
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (CheckCXXSourceCompiles)
@@ -23,8 +19,6 @@ CHECK_CXX_COMPILER_FLAG(
 	"-std=c++0x"
 	HAVE_VARIADIC_TEMPLATES
 )
-
-
 
 CHECK_CXX_SOURCE_COMPILES(
 	"#include <boost/cstdint.hpp>
@@ -52,6 +46,9 @@ IF (${CMAKE_COMPILER_IS_GNUCXX})
 
 	IF (HAVE_VARIADIC_TEMPLATES)
 		ADD_DEFINITIONS ("-Wold-style-cast -std=c++0x")
+	ELSE ()
+		# C++ 98 has no long long but boost insists on using it anyway
+		ADD_DEFINITIONS ("-Wno-long-long")
 	ENDIF ()
 ELSEIF (${MSVC})
 	ADD_DEFINITIONS ("/W4 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714")

@@ -18,35 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_XF86_RESOLUTION_HPP_INCLUDED
-#define SGE_X11_XF86_RESOLUTION_HPP_INCLUDED
+#include "../resolution.hpp"
+#include <sge/x11/display.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include <X11/Xlib.h>
-#include <X11/extensions/xf86vmode.h>
-#include "display_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::ogl::xf86::resolution::resolution(
+	x11::display_ptr const dsp,
+	int const screen,
+	XF86VidModeModeInfo const &new_mode,
+	XF86VidModeModeInfo const &old_mode)
+:
+	dsp(dsp),
+	screen(screen),
+	old_mode(old_mode)
 {
-namespace x11
+	if(XF86VidModeSwitchToMode(
+		dsp->get(),
+		screen,
+		const_cast<XF86VidModeModeInfo*>(
+			&new_mode))
+	== False)
+		throw exception(
+			SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
+
+	XF86VidModeSetViewPort(
+		dsp->get(),
+		screen,
+		0,
+		0);
+}
+
+sge::ogl::xf86::resolution::~resolution()
 {
-
-class xf86_resolution : boost::noncopyable {
-public:
-	SGE_SYMBOL xf86_resolution(
-		x11::display_ptr,
-		int screen,
-		XF86VidModeModeInfo const &new_mode,
-		XF86VidModeModeInfo const &old_mode);
-	SGE_SYMBOL ~xf86_resolution(); 
-private:
-	x11::display_ptr const dsp;
-	int const screen;
-	XF86VidModeModeInfo const &old_mode;
-};
-
+	XF86VidModeSwitchToMode(
+		dsp->get(),
+		screen,
+		const_cast<XF86VidModeModeInfo*>(
+			&old_mode));
 }
-}
-
-#endif
