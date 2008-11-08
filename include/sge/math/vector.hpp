@@ -55,8 +55,8 @@ namespace math
 /** 
  * This class should be used for representing vectors, so either points or
  * direction vectors. You could also store size values in here, but there are
- * no accessors like "w" or "h". Use sge::math::basic_rect or
- * sge::math::basic_dim for that purpose.
+ * no accessors like "w" or "h". Use sge::math::rect or
+ * sge::math::dim for that purpose.
  *
  * vector uses C++0x variadic templates where available.
  */

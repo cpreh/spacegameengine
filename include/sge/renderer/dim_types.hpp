@@ -30,8 +30,8 @@ namespace sge
 namespace renderer
 {
 
-typedef math::basic_dim<size_type, 2> dim_type;
-typedef math::basic_rect<size_type> lock_rect;
+typedef math::dim<size_type, 2> dim_type;
+typedef math::rect<size_type> lock_rect;
 
 }
 }

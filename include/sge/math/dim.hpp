@@ -51,10 +51,10 @@ namespace math
 {
 
 /**
- * basic_dim uses variadic templates where available
+ * dim uses variadic templates where available
  */
 template<typename T, std::size_t Dim>
-class basic_dim {
+class dim {
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 	BOOST_STATIC_ASSERT(Dim <= SGE_MATH_DIM_MAX_SIZE);
 #endif
@@ -73,16 +73,16 @@ public:
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
-	explicit basic_dim(Args... args)
+	explicit dim(Args... args)
 	{
 		set(args...);
 	}
 #else
 #define SGE_MATH_DIM_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
-#define SGE_MATH_DIM_CTOR(z, n, text) basic_dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
+#define SGE_MATH_DIM_CTOR(z, n, text) dim(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_DIM_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_CTOR, void)
 #endif
-	explicit basic_dim()
+	explicit dim()
 	{
 	}
 
@@ -135,7 +135,7 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
-			throw exception(SGE_TEXT("basic_dim<T, N>::at(): out of range!"));
+			throw exception(SGE_TEXT("dim<T, N>::at(): out of range!"));
 		return (*this)[pos];
 	}
 
@@ -145,14 +145,14 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
-			throw exception(SGE_TEXT("basic_dim<T, N>::at(): out of range!"));
+			throw exception(SGE_TEXT("dim<T, N>::at(): out of range!"));
 		return (*this)[pos];
 	}
 
 	/**
 	 * Uses sge::math::compare to compare componentwise
 	 */
-	bool operator==(const basic_dim& r) const
+	bool operator==(const dim& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			if (!compare(data_[i],r[i]))
@@ -163,19 +163,19 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 	/**
 	 * Uses sge::math::compare to compare componentwise
 	 */
-	bool operator!=(const basic_dim& r) const
+	bool operator!=(const dim& r) const
 	{
 		return !((*this)==r);
 	}
 
-	basic_dim& operator+=(const basic_dim& r)
+	dim& operator+=(const dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] += r[i];
 		return *this;
 	}
 
-	basic_dim& operator-=(const basic_dim& r)
+	dim& operator-=(const dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] -= r[i];
@@ -185,7 +185,7 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 	/**
 	 * Multiplies componentwise
 	 */
-	basic_dim& operator*=(const basic_dim& r)
+	dim& operator*=(const dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] *= r[i];
@@ -195,14 +195,14 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 	/**
 	 * Divides componentwise
 	 */
-	basic_dim& operator/=(const basic_dim& r)
+	dim& operator/=(const dim& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] /= r[i];
 		return *this;
 	}
 
-	friend basic_dim operator/(basic_dim l, const_reference r)
+	friend dim operator/(dim l, const_reference r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			l[i] /= r;
@@ -241,10 +241,11 @@ BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 		return (*this)[2];
 	}
 
+	/*
 	size_type dim() const
 	{
 		return Dim;
-	}
+	}*/
 
 	/**
 	 * Returns the product of all components, so the length/area/volume/... of
@@ -299,25 +300,25 @@ private:
 };
 
 template<typename T, std::size_t Dim>
-basic_dim<T,Dim> operator+(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+dim<T,Dim> operator+(dim<T,Dim> l, const dim<T,Dim>& r)
 {
 	return l += r;
 }
 
 template<typename T, std::size_t Dim>
-basic_dim<T,Dim> operator-(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+dim<T,Dim> operator-(dim<T,Dim> l, const dim<T,Dim>& r)
 {
 	return l -= r;
 }
 
 template<typename T, std::size_t Dim>
-basic_dim<T, Dim> operator*(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+dim<T, Dim> operator*(dim<T,Dim> l, const dim<T,Dim>& r)
 {
 	return l *= r;
 }
 
 template<typename T, std::size_t Dim>
-basic_dim<T, Dim> operator/(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
+dim<T, Dim> operator/(dim<T,Dim> l, const dim<T,Dim>& r)
 {
 	return l /= r;
 }
@@ -326,10 +327,10 @@ basic_dim<T, Dim> operator/(basic_dim<T,Dim> l, const basic_dim<T,Dim>& r)
  * Outputs the dim in the format \f$(v_0,\ldots,v_n)\f$.
  */
 template<typename T, std::size_t Dim, typename Ch, typename Traits>
-std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,const basic_dim<T,Dim> &v)
+std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,const dim<T,Dim> &v)
 {
 	stream << stream.widen('(');
-	for(typename basic_dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 		stream << v[i] << stream.widen(',');
 	return stream << v[Dim-1] << stream.widen(')');
 }
@@ -338,13 +339,13 @@ std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,
  * Reads the vector from the stream in the format \f$(v_0,\ldots,v_n)\f$.
  */
 template<typename T, std::size_t Dim, typename Ch, typename Traits>
-std::basic_istream<Ch,Traits>& operator>>(std::basic_istream<Ch,Traits>& s, basic_dim<T,Dim>& v)
+std::basic_istream<Ch,Traits>& operator>>(std::basic_istream<Ch,Traits>& s, dim<T,Dim>& v)
 {
 	Ch c;
 	s >> c;
 	if(c != s.widen('('))
 		s.setstate(std::ios_base::failbit);
-	for(typename basic_dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 	{
 		s >> v[i] >> c;
 		if (c != s.widen(','))
@@ -357,12 +358,12 @@ std::basic_istream<Ch,Traits>& operator>>(std::basic_istream<Ch,Traits>& s, basi
 }
 
 /**
- * Casts the basic_dim<T> to basic_dim<D> (using static_cast).
+ * Casts the dim<T> to dim<D> (using static_cast).
  */
 template<typename D, typename S, std::size_t Dim>
-basic_dim<D, Dim> structure_cast(const basic_dim<S, Dim>& r)
+dim<D, Dim> structure_cast(const dim<S, Dim>& r)
 {
-	typedef basic_dim<D, Dim> ret_type;
+	typedef dim<D, Dim> ret_type;
 
 	ret_type ret;
 	for(typename ret_type::size_type i = 0; i < Dim; ++i)

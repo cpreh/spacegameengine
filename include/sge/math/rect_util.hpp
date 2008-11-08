@@ -30,22 +30,22 @@ namespace math
 {
 
 template<typename T>
-bool contains(const basic_rect<T>& r, const vector<T,2>& p);
+bool contains(const rect<T>& r, const vector<T,2>& p);
 
 template<typename T>
-basic_rect<T> const intersection(basic_rect<T> const &,basic_rect<T> const &);
+rect<T> const intersection(rect<T> const &,rect<T> const &);
 
 template<typename T,typename U>
-basic_rect<T> const bounding(U begin,U const end);
+rect<T> const bounding(U begin,U const end);
 
 template<typename T>
-bool contains(const basic_rect<T>& outer, const basic_rect<T>& inner);
+bool contains(const rect<T>& outer, const rect<T>& inner);
 
 template<typename T>
-bool intersects(const basic_rect<T>& l, const basic_rect<T>& r);
+bool intersects(const rect<T>& l, const rect<T>& r);
 
 template<typename T>
-bool intersects(const basic_rect<T>& r, const basic_line_seg2<T>& l);
+bool intersects(const rect<T>& r, const line_seg2<T>& l);
 
 }
 }

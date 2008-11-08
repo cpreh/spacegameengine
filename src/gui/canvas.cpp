@@ -205,7 +205,7 @@ void sge::gui::canvas::draw_rect(
 		return;
 	}
 
-	math::basic_rect<int> const is =
+	math::rect<int> const is =
 		math::structure_cast<int>(math::intersection(abs_rect,invalid_area()));
 
 	SGE_LOG_DEBUG(mylogger,log::_1 << "rect " << abs_rect << " and invalid area " << invalid_area() << " intersection " << is);
@@ -307,7 +307,7 @@ void sge::gui::canvas::blit_font(
 
 	// calculate rect which is relative to data (and make it 'int' 'cause gil wants it
 	// that way
-	math::basic_rect<int> const is_rel_data(
+	math::rect<int> const is_rel_data(
 		static_cast<int>(is_abs.left()-abs_pos.x()),
 		static_cast<int>(is_abs.top()-abs_pos.y()),
 		static_cast<int>(is_abs.right()-abs_pos.x()),

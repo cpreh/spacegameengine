@@ -11,7 +11,7 @@ struct island_extractor
 	typedef field_type::dim_type                             dim_type;
 	typedef field_type::coord_type                           coord_type;
 	typedef field_type::coord_vector_type                    pos_type;
-	typedef sge::math::basic_rect<dim_type::value_type>      rect_type;
+	typedef sge::math::rect<dim_type::value_type>      rect_type;
 	typedef std::list<pos_type>                              pixel_list_type;
 	typedef std::list<field_type>                            field_list_type;
 

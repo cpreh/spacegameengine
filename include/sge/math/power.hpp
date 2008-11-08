@@ -77,9 +77,9 @@ template<typename T> inline T next_pow_2(const T t) {
 /**
  * "Rounds up" both components of \c r to the next power of two
  */
-template<typename T> inline basic_dim<T, 2> next_pow_2(const basic_dim<T, 2>& r)
+template<typename T> inline dim<T, 2> next_pow_2(const dim<T, 2>& r)
 {
-	return basic_dim<T, 2>(next_pow_2(r.w()), next_pow_2(r.h()));
+	return dim<T, 2>(next_pow_2(r.w()), next_pow_2(r.h()));
 }
 
 /**
@@ -93,12 +93,12 @@ is_power_of_2(const T t)
 }
 
 /**
- * Checks if both coordinates of an unsigned sge::math::basic_dim are powers of
+ * Checks if both coordinates of an unsigned sge::math::dim are powers of
  * two
  */
 template<typename T>
 inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type
-is_power_of_2(const basic_dim<T, 2>& d)
+is_power_of_2(const dim<T, 2>& d)
 {
 	return is_power_of_2(d.w()) && is_power_of_2(d.h());
 }

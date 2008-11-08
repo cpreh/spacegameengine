@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef sge::math::basic_rect<
+typedef sge::math::rect<
 	sge::sprite::funit
 > frect;
 

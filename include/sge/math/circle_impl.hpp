@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "circle.hpp"
 
 template<typename T>
-sge::math::basic_circle<T>::basic_circle(
+sge::math::circle<T>::circle(
 	const_reference x,
 	const_reference y,
 	const_reference radius_)
@@ -33,7 +33,7 @@ sge::math::basic_circle<T>::basic_circle(
 {}
 
 template<typename T>
-sge::math::basic_circle<T>::basic_circle(
+sge::math::circle<T>::circle(
 	const point_type& origin_,
 	const_reference radius_)
  : origin_(origin_),
@@ -41,37 +41,37 @@ sge::math::basic_circle<T>::basic_circle(
 {}
 
 template<typename T>
-typename sge::math::basic_circle<T>::point_type&
-sge::math::basic_circle<T>::origin()
+typename sge::math::circle<T>::point_type&
+sge::math::circle<T>::origin()
 {
 	return origin_;
 }
 
 template<typename T>
-const typename sge::math::basic_circle<T>::point_type&
-sge::math::basic_circle<T>::origin() const
+const typename sge::math::circle<T>::point_type&
+sge::math::circle<T>::origin() const
 {
 	return origin_;
 }
 
 template<typename T>
-typename sge::math::basic_circle<T>::reference
-sge::math::basic_circle<T>::radius()
+typename sge::math::circle<T>::reference
+sge::math::circle<T>::radius()
 {
 	return radius_;
 }
 
 template<typename T>
-typename sge::math::basic_circle<T>::const_reference
-sge::math::basic_circle<T>::radius() const
+typename sge::math::circle<T>::const_reference
+sge::math::circle<T>::radius() const
 {
 	return radius_;
 }
 
 template<typename T>
 bool sge::math::intersects(
-	basic_circle<T> const &a,
-	basic_circle<T> const &b)
+	circle<T> const &a,
+	circle<T> const &b)
 {
 	return (a.origin() - b.origin()).length()
 	< a.radius() + b.radius();

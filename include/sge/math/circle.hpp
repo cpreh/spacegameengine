@@ -29,23 +29,23 @@ namespace math
 {
 
 /**
- * \attention To use basic_circle's functions you have to include
+ * \attention To use circle's functions you have to include
  * <sge/math/circle_impl.hpp>!
  */
 template<typename T>
-class basic_circle {
+class circle {
 public:
 	typedef T                                 value_type;
 	typedef T&                                reference;
 	typedef const T&                          const_reference;
 	typedef math::vector<value_type, 2> point_type;
 
-	basic_circle(
+	circle(
 		const_reference x,
 		const_reference y,
 		const_reference radius);
 
-	basic_circle(
+	circle(
 		const point_type& origin,
 		const_reference radius);
 
@@ -60,8 +60,8 @@ private:
 
 template<typename T>
 bool intersects(
-	basic_circle<T> const&,
-	basic_circle<T> const&);
+	circle<T> const&,
+	circle<T> const&);
 
 }
 }

@@ -159,7 +159,7 @@ the whole screen. <tt>sge::math::structure_cast<T>(x)</tt> is basically just a
 shorthand for 
 
 \code
-sge::math::basic_dim<T>(static_cast<T>(x.w()),...);
+sge::math::dim<T>(static_cast<T>(x.w()),...);
 \endcode
 
 since sge::renderer::screen_unit doesn't have to be the same as sge::font::unit.

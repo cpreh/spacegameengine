@@ -26,13 +26,13 @@ namespace sge
 namespace math
 {
 
-template<typename T> class basic_box {
+template<typename T> class box {
 public:
 	typedef T        value_type;
 	typedef T&       reference;
 	typedef const T& const_reference;
 
-	basic_box(const_reference left,
+	box(const_reference left,
 	          const_reference top,
 	          const_reference right,
 	          const_reference bottom,
@@ -67,10 +67,10 @@ private:
 };
 
 template<typename T>
-bool operator==(const basic_box<T>& l, const basic_box<T>& r);
+bool operator==(const box<T>& l, const box<T>& r);
 
 template<typename T>
-bool operator!=(const basic_box<T>& l, const basic_box<T>& r);
+bool operator!=(const box<T>& l, const box<T>& r);
 
 }
 

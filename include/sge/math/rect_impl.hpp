@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "compare.hpp"
 
 template<typename T>
-sge::math::basic_rect<T>::basic_rect(
+sge::math::rect<T>::rect(
 	value_type const &left_,
 	value_type const &top_,
 	value_type const &right_,
@@ -42,7 +42,7 @@ sge::math::basic_rect<T>::basic_rect(
 }
 
 template<typename T>
-sge::math::basic_rect<T>::basic_rect(
+sge::math::rect<T>::rect(
 	point_type const &pos,
 	dim_type const &sz)
 : left_(pos.x()),
@@ -54,7 +54,7 @@ sge::math::basic_rect<T>::basic_rect(
 }
 
 template<typename T>
-sge::math::basic_rect<T>::basic_rect(
+sge::math::rect<T>::rect(
 	dim_type const &sz)
 : left_(
 	static_cast<value_type>(0)),
@@ -67,96 +67,96 @@ sge::math::basic_rect<T>::basic_rect(
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::value_type sge::math::basic_rect<T>::w() const
+typename sge::math::rect<T>::value_type sge::math::rect<T>::w() const
 {
 	return right() - left();
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::value_type sge::math::basic_rect<T>::h() const
+typename sge::math::rect<T>::value_type sge::math::rect<T>::h() const
 {
 	return bottom() - top();
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::point_type const
-sge::math::basic_rect<T>::pos() const
+typename sge::math::rect<T>::point_type const
+sge::math::rect<T>::pos() const
 {
 	return point_type(left(), top());
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::size_type
-sge::math::basic_rect<T>::area() const
+typename sge::math::rect<T>::size_type
+sge::math::rect<T>::area() const
 {
 	return dim().content();
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::dim_type const
-sge::math::basic_rect<T>::dim() const
+typename sge::math::rect<T>::dim_type const
+sge::math::rect<T>::dim() const
 {
 	return dim_type(w(), h());
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::const_reference
-sge::math::basic_rect<T>::left() const
+typename sge::math::rect<T>::const_reference
+sge::math::rect<T>::left() const
 {
 	return left_;
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::const_reference
-sge::math::basic_rect<T>::top() const
+typename sge::math::rect<T>::const_reference
+sge::math::rect<T>::top() const
 {
 	return top_;
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::const_reference
-sge::math::basic_rect<T>::right() const
+typename sge::math::rect<T>::const_reference
+sge::math::rect<T>::right() const
 {
 	return right_;
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::const_reference
-sge::math::basic_rect<T>::bottom() const
+typename sge::math::rect<T>::const_reference
+sge::math::rect<T>::bottom() const
 {
 	return bottom_;
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::reference
-sge::math::basic_rect<T>::left()
+typename sge::math::rect<T>::reference
+sge::math::rect<T>::left()
 {
 	return left_;
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::reference
-sge::math::basic_rect<T>::top()
+typename sge::math::rect<T>::reference
+sge::math::rect<T>::top()
 {
 	return top_;
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::reference
-sge::math::basic_rect<T>::right()
+typename sge::math::rect<T>::reference
+sge::math::rect<T>::right()
 {
 	return right_;
 }
 
 template<typename T>
-typename sge::math::basic_rect<T>::reference
-sge::math::basic_rect<T>::bottom()
+typename sge::math::rect<T>::reference
+sge::math::rect<T>::bottom()
 {
 	return bottom_;
 }
 
 template<typename T>
-void sge::math::basic_rect<T>::check()
+void sge::math::rect<T>::check()
 {
 	if (right() < left() || bottom() < top())
 		throw exception(SGE_TEXT("tried to create a rectangle ")+
@@ -164,31 +164,31 @@ void sge::math::basic_rect<T>::check()
 }
 
 template<typename T> 
-sge::math::basic_rect<T> const sge::math::operator+(
-	basic_rect<T> const &l,
-	typename basic_rect<T>::point_type const & r)
+sge::math::rect<T> const sge::math::operator+(
+	rect<T> const &l,
+	typename rect<T>::point_type const & r)
 {
-	return basic_rect<T>(l.left() + r.x(),
+	return rect<T>(l.left() + r.x(),
 	                     l.top() + r.y(),
 	                     l.right() + r.x(),
 	                     l.bottom() + r.y());
 }
 
 template<typename T>
-sge::math::basic_rect<T> const
+sge::math::rect<T> const
 sge::math::operator-(
-	basic_rect<T> const &l,
-	typename basic_rect<T>::point_type const &r)
+	rect<T> const &l,
+	typename rect<T>::point_type const &r)
 {
-	return basic_rect<T>(l.left() - r.x(),
+	return rect<T>(l.left() - r.x(),
 	                     l.top() - r.y(),
 	                     l.right() - r.x(),
 	                     l.bottom - r.y());
 }
 
 template<typename T>
-bool sge::math::operator==(const basic_rect<T>& l,
-                           const basic_rect<T>& r)
+bool sge::math::operator==(const rect<T>& l,
+                           const rect<T>& r)
 {
 	return compare(l.left(),r.left())
 	    && compare(l.top(),r.top())
@@ -197,19 +197,19 @@ bool sge::math::operator==(const basic_rect<T>& l,
 }
 
 template<typename T>
-bool sge::math::operator!=(const basic_rect<T>& l,
-                           const basic_rect<T>& r)
+bool sge::math::operator!=(const rect<T>& l,
+                           const rect<T>& r)
 {
 	return !(l==r);
 }
 
 template<typename T>
-sge::math::basic_rect<T> const
+sge::math::rect<T> const
 sge::math::resize_borders(
-	const basic_rect<T>& r,
+	const rect<T>& r,
 	const T diff)
 {
-	return basic_rect<T>(
+	return rect<T>(
 		r.left() + diff,
 		r.top() + diff,
 		r.right() - diff,
@@ -218,7 +218,7 @@ sge::math::resize_borders(
 
 template<typename T, typename Ch, typename Traits>
 std::basic_ostream<Ch,Traits>& sge::math::operator<<(std::basic_ostream<Ch,Traits>& s,
-                                                     const basic_rect<T>& r)
+                                                     const rect<T>& r)
 {
 	return s << s.widen('(')
 			<< s.widen('(') << r.left() << s.widen(',') << r.top() << s.widen(')')
@@ -228,10 +228,10 @@ std::basic_ostream<Ch,Traits>& sge::math::operator<<(std::basic_ostream<Ch,Trait
 }
 
 template<typename D, typename S>
-sge::math::basic_rect<D> const
-sge::math::structure_cast(basic_rect<S> const &r)
+sge::math::rect<D> const
+sge::math::structure_cast(rect<S> const &r)
 {
-	return basic_rect<D>(
+	return rect<D>(
 		structure_cast<D>(r.pos()),
 		structure_cast<D>(r.dim()));
 }

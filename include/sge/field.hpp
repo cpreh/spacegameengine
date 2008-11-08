@@ -33,7 +33,7 @@ class field
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
 	typedef math::vector<size_type,2>      vector_type;
-	typedef math::basic_dim<size_type,2>         dim_type;
+	typedef math::dim<size_type,2>         dim_type;
 
 	private:
 	dim_type   dim_;

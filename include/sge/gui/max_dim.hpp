@@ -9,9 +9,9 @@ namespace sge
 namespace math
 {
 template<typename T>
-inline basic_dim<T,2> const max_dim()
+inline dim<T,2> const max_dim()
 {
-	return basic_dim<T,2>(
+	return dim<T,2>(
 		std::numeric_limits<T>::max(),
 		std::numeric_limits<T>::max()
 	);

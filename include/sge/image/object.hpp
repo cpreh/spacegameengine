@@ -36,7 +36,7 @@ namespace image
 class SGE_CLASS_SYMBOL object : boost::noncopyable {
 public:
 	typedef std::size_t                   size_type;
-	typedef math::basic_dim<size_type, 2> dim_type;
+	typedef math::dim<size_type, 2> dim_type;
 
 	virtual void data(
 		renderer::const_image_view const &) = 0;
