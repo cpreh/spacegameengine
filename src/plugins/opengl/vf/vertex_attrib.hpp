@@ -18,38 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attribute_actor.hpp"
-#include "../convert_num_elements.hpp"
-#include "../client_state_combiner.hpp"
-#include "../vertex_attrib.hpp"
-#include <sge/renderer/vf/dynamic_ordered_element.hpp>
-#include <boost/variant/apply_visitor.hpp>
+#ifndef SGE_OPENGL_VERTEX_ATTRIB_HPP_INCLUDED
+#define SGE_OPENGL_VERTEX_ATTRIB_HPP_INCLUDED
 
-sge::ogl::vf::attribute_actor::attribute_actor(
-	renderer::vf::dynamic_ordered_element const &e,
-	renderer::vf::vertex_size const stride)
-:
-	pointer_actor(
-		e,
-		stride),
-	elements(
-		boost::apply_visitor(
-			convert_num_elements(),
-			e.element().info()))
-{}
+#include "../common.hpp"
 
-void sge::ogl::vf::attribute_actor::operator()(
-	client_state_combiner &c) const
+namespace sge
 {
-	vertex_attrib_pointer(
-		static_cast<GLuint>(index()),
-		elements,
-		format(),
-		true, // normalized
-		stride(),
-		pointer());
-	
-	c.enable_attribute(
-		static_cast<GLuint>(
-			index()));
+namespace ogl
+{
+namespace vf
+{
+
+void vertex_attrib_pointer(
+	GLuint index,
+	GLint size,
+	GLenum type,
+	GLboolean normalized,
+	GLsizei stride,
+	void const *pointer);
+
+void enable_vertex_attrib_array(
+	GLuint index);
+
+void disable_vertex_attrib_array(
+	GLuint index);
+
 }
+}
+}
+
+#endif

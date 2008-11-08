@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../client_state_combiner.hpp"
 #include "../global_client_state.hpp"
+#include "../vertex_attrib.hpp"
 #include <sge/linear_set_impl.hpp>
 #include <boost/foreach.hpp>
 #include <functional>
@@ -70,8 +71,8 @@ sge::ogl::vf::client_state_combiner::~client_state_combiner()
 	apply_difference(
 		old_states.attribute_states(),
 		new_states.attribute_states(),
-		glEnableVertexAttribArray,
-		glDisableVertexAttribArray);
+		enable_vertex_attrib_array,
+		disable_vertex_attrib_array);
 
 	global_client_state(
 		new_states);
