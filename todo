@@ -16,7 +16,6 @@
 *medium: add a convenient method for the main loop (instead of window::dispatch and input::system::process) 
 *medium: add support for _EXT vertex elements in opengl (binormal, tangent, etc)
 *medium: implement GLSL getter
-*medium: implement vertex attributes for the static vertex format
 *medium: add sge::create_window to create (possibly) not renderable windows
 *medium: fix renderer::caps and the opengl implementation of them
 *high: set up proper window information for X
