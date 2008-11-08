@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vec_base.hpp"
 #include "vertex_size.hpp"
 #include "role.hpp"
+#include "../../type_traits/is_float_or_double.hpp"
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -41,7 +43,13 @@ struct texpos
 	Format,
 	role::texpos,
 	NumSubElements
-> {};
+> {
+	BOOST_STATIC_ASSERT(
+		is_float_or_double<Format>::value);
+
+	BOOST_STATIC_ASSERT(
+		NumSubElements >= 2 && NumSubElements <= 3);
+};
 
 }
 }

@@ -38,7 +38,7 @@ struct color
 : color_base<
 	Format,
 	role::color
-> {};
+>{};
 
 }
 }

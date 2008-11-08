@@ -18,41 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_POS_HPP_INCLUDED
-#define SGE_RENDERER_VF_POS_HPP_INCLUDED
+#ifndef SGE_TYPE_TRAITS_IS_FLOAT_OR_DOUBLE_HPP_INCLUDED
+#define SGE_TYPE_TRAITS_IS_FLOAT_OR_DOUBLE_HPP_INCLUDED
 
-#include "vec_base.hpp"
-#include "vertex_size.hpp"
-#include "role.hpp"
-#include "../../type_traits/is_float_or_double.hpp"
-#include <boost/static_assert.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
 
 template<
-	typename Format,
-	vertex_size NumSubElements
+	typename T
 >
-struct pos
-: vec_base<
-	Format,
-	role::pos,
-	NumSubElements
-> {
-	BOOST_STATIC_ASSERT(
-		is_float_or_double<Format>::value);
-	
-	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2 && NumSubElements <= 4);
-};
+struct is_float_or_double :
+boost::mpl::or_<
+	boost::is_same<T, float>,
+	boost::is_same<T, double>
+>
+{};
 
-}
-}
 }
 
 #endif
