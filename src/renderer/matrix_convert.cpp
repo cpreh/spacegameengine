@@ -76,7 +76,7 @@ visitor<Dest>::operator()(
 
 #define SGE_INSTANTIATE_MATRIX_CONVERT(t, n, m)\
 template SGE_SYMBOL \
-sge::math::basic_matrix<t, n, m> const \
+sge::math::matrix<t, n, m> const \
 sge::renderer::matrix_convert(\
 	sge::renderer::basic_any_matrix<n, m>::type const &);
 

@@ -44,7 +44,7 @@ typedef renderer::any_color         color;
 typedef funit                       depth_type;
 typedef funit                       rotation_type;
 typedef funit                       repetition_type;
-typedef math::basic_matrix<funit, 4, 4> matrix;
+typedef math::matrix<funit, 4, 4> matrix;
 
 typedef math::basic_rect<
 	funit

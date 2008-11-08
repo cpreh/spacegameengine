@@ -29,7 +29,7 @@ namespace math
 {
 
 template<typename T, std::size_t N, std::size_t M>
-class basic_matrix;
+class matrix;
 
 }
 }

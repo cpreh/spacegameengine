@@ -117,7 +117,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 		1u,
 		false,
 		renderer::matrix_convert<
-			math::basic_matrix<GLfloat, 4, 4>
+			math::matrix<GLfloat, 4, 4>
 		>(
 			m).data());
 	return uniform_type::matrix4x4;

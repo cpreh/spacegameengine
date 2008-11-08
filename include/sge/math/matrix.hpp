@@ -43,13 +43,13 @@ namespace math
 {
 
 /**
- * basic_matrix uses variadic templates where available
+ * matrix uses variadic templates where available
  *
- * \attention To use basic_matrix' functions you have to include
+ * \attention To use matrix' functions you have to include
  * <sge/math/matrix_impl.hpp>!
  */
 template<typename T, std::size_t N, std::size_t M>
-class basic_matrix {
+class matrix {
 	enum { Dim = N*M };
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_MATH_MATRIX_MAX_SIZE);
@@ -66,17 +66,17 @@ public:
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
-	explicit basic_matrix(Args... args);
+	explicit matrix(Args... args);
 #else
 #define SGE_MATH_MATRIX_CTOR_ASSIGN_N(z, n, text) data_[n] = text##n;
-#define SGE_MATH_MATRIX_CTOR(z, n, text) basic_matrix(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_MATRIX_CTOR_ASSIGN_N, param) }
+#define SGE_MATH_MATRIX_CTOR(z, n, text) matrix(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_MATRIX_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_MATRIX_MAX_SIZE, SGE_MATH_MATRIX_CTOR, void)
 #endif
 
-	basic_matrix();
-	basic_matrix& operator+=(const basic_matrix& r);
-	basic_matrix& operator-=(const basic_matrix& r);
-	basic_matrix& operator*=(const value_type& v);
+	matrix();
+	matrix& operator+=(const matrix& r);
+	matrix& operator-=(const matrix& r);
+	matrix& operator*=(const value_type& v);
 	const proxy operator[](const size_type j);
 	const const_proxy operator[](const size_type j) const;
 	pointer data();
@@ -98,42 +98,42 @@ private:
 };
 
 template<typename T, std::size_t N, std::size_t M>
-basic_matrix<T,N,M> operator+ (const basic_matrix<T,N,M>& r);
+matrix<T,N,M> operator+ (const matrix<T,N,M>& r);
 
 template<typename T, std::size_t N, std::size_t M>
-basic_matrix<T,N,M> operator- (const basic_matrix<T,N,M>& r);
+matrix<T,N,M> operator- (const matrix<T,N,M>& r);
 
 template<typename T, std::size_t N, std::size_t M>
-basic_matrix<T,N,M> operator+ (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r);
+matrix<T,N,M> operator+ (const matrix<T,N,M>& l, const matrix<T,N,M>& r);
 
 template<typename T, std::size_t N, std::size_t M>
-basic_matrix<T,N,M> operator- (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r);
+matrix<T,N,M> operator- (const matrix<T,N,M>& l, const matrix<T,N,M>& r);
 
 template<typename T, std::size_t N, std::size_t M>
-basic_matrix<T,N,M> operator* (const typename basic_matrix<T,N,M>::value_type& l, const basic_matrix<T,N,M>& r);
+matrix<T,N,M> operator* (const typename matrix<T,N,M>::value_type& l, const matrix<T,N,M>& r);
 
 template<typename T, std::size_t N, std::size_t M1, std::size_t M2>
-basic_matrix<T,N,N> operator* (const basic_matrix<T,M1,N>& a, const basic_matrix<T,N,M2>& b);
+matrix<T,N,N> operator* (const matrix<T,M1,N>& a, const matrix<T,N,M2>& b);
 
 template<typename T, std::size_t N, std::size_t M>
-bool operator== (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r);
+bool operator== (const matrix<T,N,M>& l, const matrix<T,N,M>& r);
 
 template<typename T, std::size_t N, std::size_t M>
-bool operator!= (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r);
+bool operator!= (const matrix<T,N,M>& l, const matrix<T,N,M>& r);
 
 template<typename T, std::size_t N, std::size_t M,typename Ch, typename Traits>
-std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& s, const basic_matrix<T,N,M>& m);
+std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& s, const matrix<T,N,M>& m);
 
 template<typename T, std::size_t N>
-basic_matrix<T,N,N> transpose(const basic_matrix<T,N,N>& m);
+matrix<T,N,N> transpose(const matrix<T,N,N>& m);
 
 template<typename T, std::size_t N, std::size_t M>
-vector<T,M> operator* (const basic_matrix<T,N,M>& m, const vector<T,N>& v);
+vector<T,M> operator* (const matrix<T,N,M>& m, const vector<T,N>& v);
 
 template<typename D, typename S, std::size_t N, std::size_t M>
-basic_matrix<D, N, M> const
+matrix<D, N, M> const
 structure_cast(
-	basic_matrix<S, N, M> const &s);
+	matrix<S, N, M> const &s);
 
 }
 }

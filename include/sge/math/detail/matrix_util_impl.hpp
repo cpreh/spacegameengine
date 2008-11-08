@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_translation(
 	vector<T, 3> const &v)
 {
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       (static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), v.x(),
 	        static_cast<T>(0), static_cast<T>(1), static_cast<T>(0), v.y(),
 	        static_cast<T>(0), static_cast<T>(0), static_cast<T>(1), v.z(),
@@ -45,7 +45,7 @@ sge::math::matrix_translation(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_translation(
 	T const x,
 	T const y,
@@ -61,11 +61,11 @@ sge::math::matrix_translation(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_scaling(
 	vector<T, 3> const &v)
 {
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       (v.x(),  static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0), v.y(),  static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0),  static_cast<T>(0), v.z(), static_cast<T>(0),
@@ -75,7 +75,7 @@ sge::math::matrix_scaling(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_scaling(
 	T const x,
 	T const y,
@@ -94,7 +94,7 @@ sge::math::matrix_scaling(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_perspective(
 	T const aspect,
 	T const fov,
@@ -112,7 +112,7 @@ sge::math::matrix_perspective(
 		h = static_cast<T>(1) / std::tan(fov / static_cast<T>(2)),
 		w = h / aspect,
 		q = (far + near) / (far - near);
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       (    w, static_cast<T>(0),                     static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0),     h,                     static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0), static_cast<T>(0),                         q, static_cast<T>(1),
@@ -122,10 +122,10 @@ sge::math::matrix_perspective(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_orthogonal_xy()
 {
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       (static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0), static_cast<T>(1), static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
@@ -135,14 +135,14 @@ sge::math::matrix_orthogonal_xy()
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_rotation_z(
 	T const angle)
 {
 	T const
 		sinx = std::sin(angle),
 		cosx = std::cos(angle);
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       (cosx,  -sinx, static_cast<T>(0), static_cast<T>(0),
 	        sinx,   cosx, static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0), static_cast<T>(0), static_cast<T>(1), static_cast<T>(0),
@@ -152,13 +152,13 @@ sge::math::matrix_rotation_z(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const sge::math::matrix_rotation_y(
+sge::math::matrix<T, 4, 4> const sge::math::matrix_rotation_y(
 	T const angle)
 {
 	T const
 		sinx = std::sin(angle),
 		cosx = std::cos(angle);
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       ( cosx, static_cast<T>(0), -sinx, static_cast<T>(0),
 	        static_cast<T>(0), static_cast<T>(1), static_cast<T>(0), static_cast<T>(0),
 	         sinx, static_cast<T>(0),  cosx, static_cast<T>(0),
@@ -168,14 +168,14 @@ sge::math::basic_matrix<T, 4, 4> const sge::math::matrix_rotation_y(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_rotation_x(
 	T const angle)
 {
 	T const
 		sinx = std::sin(angle),
 		cosx = std::cos(angle);
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       (static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0),  cosx, -sinx, static_cast<T>(0),
 	        static_cast<T>(0),  sinx,  cosx, static_cast<T>(0),
@@ -185,7 +185,7 @@ sge::math::matrix_rotation_x(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 2, 2> const
+sge::math::matrix<T, 2, 2> const
 sge::math::matrix_rotation_2d(
 	T const angle)
 {
@@ -193,7 +193,7 @@ sge::math::matrix_rotation_2d(
 		sinx = std::sin(angle),
         	cosx = std::cos(angle);
 
-	return basic_matrix<T, 2, 2>(
+	return matrix<T, 2, 2>(
 		cosx, -sinx,
 		sinx,  cosx);
 }
@@ -201,10 +201,10 @@ sge::math::matrix_rotation_2d(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_identity()
 {
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       (static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0), static_cast<T>(1), static_cast<T>(0), static_cast<T>(0),
 	        static_cast<T>(0), static_cast<T>(0), static_cast<T>(1), static_cast<T>(0),
@@ -214,7 +214,7 @@ sge::math::matrix_identity()
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_orthogonal_xy(
 	T const left,
 	T const right,
@@ -223,7 +223,7 @@ sge::math::matrix_orthogonal_xy(
 	T const near,
 	T const far)
 {
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       (static_cast<T>(2)/(right - left), static_cast<T>(0),                static_cast<T>(0), -(right+left)/(right-left),
 	        static_cast<T>(0),                static_cast<T>(2)/(top - bottom), static_cast<T>(0), -(top+bottom)/(top-bottom),
 	        static_cast<T>(0),                static_cast<T>(0),                static_cast<T>(-2)/(far - near), -(far+near)/(far-near),
@@ -233,14 +233,14 @@ sge::math::matrix_orthogonal_xy(
 template<
 	typename T
 >
-sge::math::basic_matrix<T, 4, 4> const
+sge::math::matrix<T, 4, 4> const
 sge::math::matrix_orthogonal_xy(
 	T const left,
 	T const right,
 	T const top,
 	T const bottom)
 {
-	return basic_matrix<T, 4, 4>
+	return matrix<T, 4, 4>
 	       (static_cast<T>(2)/(right - left),                static_cast<T>(0),static_cast<T>(0), -(right+left)/(right-left),
 	                       static_cast<T>(0), static_cast<T>(2)/(top - bottom),static_cast<T>(0), -(top+bottom)/(top-bottom),
 	                       static_cast<T>(0),                static_cast<T>(0),static_cast<T>(0), static_cast<T>(0),

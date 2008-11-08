@@ -31,20 +31,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 template<typename T, std::size_t N, std::size_t M>
 template<typename... Args>
-sge::math::basic_matrix<T, N, M>::basic_matrix(Args... args)
+sge::math::matrix<T, N, M>::matrix(Args... args)
 {
 	set(args...);
 }
 #endif
 
 template<typename T, std::size_t N, std::size_t M>
-sge::math::basic_matrix<T, N, M>::basic_matrix()
+sge::math::matrix<T, N, M>::matrix()
 {
 }
 
 template<typename T, std::size_t N, std::size_t M>
-sge::math::basic_matrix<T, N, M>&
-sge::math::basic_matrix<T, N, M>::operator+=(const basic_matrix& r)
+sge::math::matrix<T, N, M>&
+sge::math::matrix<T, N, M>::operator+=(const matrix& r)
 {
 	for(size_type i = 0; i < size(); ++i)
 		data_[i] += r.data_[i];
@@ -52,8 +52,8 @@ sge::math::basic_matrix<T, N, M>::operator+=(const basic_matrix& r)
 }
 
 template<typename T, std::size_t N, std::size_t M>
-sge::math::basic_matrix<T, N, M>&
-sge::math::basic_matrix<T, N, M>::operator-=(const basic_matrix& r)
+sge::math::matrix<T, N, M>&
+sge::math::matrix<T, N, M>::operator-=(const matrix& r)
 {
 	for(size_type i = 0; i < size(); ++i)
 		data_[i] -= r.data_[i];
@@ -61,8 +61,8 @@ sge::math::basic_matrix<T, N, M>::operator-=(const basic_matrix& r)
 }
 
 template<typename T, std::size_t N, std::size_t M>
-sge::math::basic_matrix<T, N, M>&
-sge::math::basic_matrix<T, N, M>::operator*=(const value_type& v)
+sge::math::matrix<T, N, M>&
+sge::math::matrix<T, N, M>::operator*=(const value_type& v)
 {
 	for(size_type i = 0; i < size(); ++i)
 		data_[i] *= v;
@@ -70,36 +70,36 @@ sge::math::basic_matrix<T, N, M>::operator*=(const value_type& v)
 }
 
 template<typename T, std::size_t N, std::size_t M>
-const typename sge::math::basic_matrix<T, N, M>::proxy
-sge::math::basic_matrix<T, N, M>::operator[](const size_type j)
+const typename sge::math::matrix<T, N, M>::proxy
+sge::math::matrix<T, N, M>::operator[](const size_type j)
 {
 	return proxy(j,data());
 }
 
 template<typename T, std::size_t N, std::size_t M>
-const typename sge::math::basic_matrix<T, N, M>::const_proxy
-sge::math::basic_matrix<T, N, M>::operator[](const size_type j) const
+const typename sge::math::matrix<T, N, M>::const_proxy
+sge::math::matrix<T, N, M>::operator[](const size_type j) const
 {
 	return const_proxy(j,data());
 }
 
 template<typename T, std::size_t N, std::size_t M>
-typename sge::math::basic_matrix<T, N, M>::pointer
-sge::math::basic_matrix<T, N, M>::data()
+typename sge::math::matrix<T, N, M>::pointer
+sge::math::matrix<T, N, M>::data()
 {
 	return data_;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-typename sge::math::basic_matrix<T, N, M>::const_pointer
-sge::math::basic_matrix<T, N, M>::data() const
+typename sge::math::matrix<T, N, M>::const_pointer
+sge::math::matrix<T, N, M>::data() const
 {
 	return data_;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-typename sge::math::basic_matrix<T, N, M>::size_type
-sge::math::basic_matrix<T, N, M>::size() const
+typename sge::math::matrix<T, N, M>::size_type
+sge::math::matrix<T, N, M>::size() const
 {
 	return Dim;
 }
@@ -107,7 +107,7 @@ sge::math::basic_matrix<T, N, M>::size() const
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 template<typename T, std::size_t N, std::size_t M>
 template<typename... Args>
-void sge::math::basic_matrix<T, N, M>::set(
+void sge::math::matrix<T, N, M>::set(
 	const_reference arg,
 	Args... args)
 {
@@ -116,7 +116,7 @@ void sge::math::basic_matrix<T, N, M>::set(
 
 template<typename T, std::size_t N, std::size_t M>
 template<typename... Args>
-void sge::math::basic_matrix<T, N, M>::set_impl(
+void sge::math::matrix<T, N, M>::set_impl(
 	const size_type i,
 	const_reference arg,
 	Args... args)
@@ -126,7 +126,7 @@ void sge::math::basic_matrix<T, N, M>::set_impl(
 }
 
 template<typename T, std::size_t N, std::size_t M>
-void sge::math::basic_matrix<T, N, M>::set_impl(
+void sge::math::matrix<T, N, M>::set_impl(
 	const size_type i,
 	const_reference arg)
 {
@@ -134,58 +134,58 @@ void sge::math::basic_matrix<T, N, M>::set_impl(
 }
 
 template<typename T, std::size_t N, std::size_t M>
-typename sge::math::basic_matrix<T, N, M>::reference
-sge::math::basic_matrix<T, N, M>::at(const size_type i)
+typename sge::math::matrix<T, N, M>::reference
+sge::math::matrix<T, N, M>::at(const size_type i)
 {
 	if(i >= Dim)
-		throw exception(SGE_TEXT("basic_matrix<T, N, M>::at(): out of range!"));
+		throw exception(SGE_TEXT("matrix<T, N, M>::at(): out of range!"));
 	return data_[i];
 }
 #endif
 
 template<typename T, std::size_t N, std::size_t M>
-inline sge::math::basic_matrix<T,N,M> sge::math::operator+ (const basic_matrix<T,N,M>& r)
+inline sge::math::matrix<T,N,M> sge::math::operator+ (const matrix<T,N,M>& r)
 {
-	basic_matrix<T,N,M> ret;
-	for(typename basic_matrix<T,N,M>::size_type i = 0; i < r.size(); ++i)
+	matrix<T,N,M> ret;
+	for(typename matrix<T,N,M>::size_type i = 0; i < r.size(); ++i)
 		ret.data_[i] = +ret.data_[i];
 	return ret;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline sge::math::basic_matrix<T,N,M> sge::math::operator- (const basic_matrix<T,N,M>& r)
+inline sge::math::matrix<T,N,M> sge::math::operator- (const matrix<T,N,M>& r)
 {
-	basic_matrix<T,N,M> ret;
-	for(typename basic_matrix<T,N,M>::size_type i = 0; i < r.size(); ++i)
+	matrix<T,N,M> ret;
+	for(typename matrix<T,N,M>::size_type i = 0; i < r.size(); ++i)
 		ret.data_[i] = -ret.data_[i];
 	return ret;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline sge::math::basic_matrix<T,N,M> sge::math::operator+ (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r)
+inline sge::math::matrix<T,N,M> sge::math::operator+ (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
 {
-	return basic_matrix<T,N,M>(l) += r;
+	return matrix<T,N,M>(l) += r;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline sge::math::basic_matrix<T,N,M> sge::math::operator- (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r)
+inline sge::math::matrix<T,N,M> sge::math::operator- (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
 {
-	return basic_matrix<T,N,M>(l) -= r;
+	return matrix<T,N,M>(l) -= r;
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline sge::math::basic_matrix<T,N,M> sge::math::operator* (const typename basic_matrix<T,N,M>::value_type& l, const basic_matrix<T,N,M>& r)
+inline sge::math::matrix<T,N,M> sge::math::operator* (const typename matrix<T,N,M>::value_type& l, const matrix<T,N,M>& r)
 {
-	return basic_matrix<T,N,M>(r) *= l;
+	return matrix<T,N,M>(r) *= l;
 }
 
 template<typename T, std::size_t N, std::size_t M1, std::size_t M2>
-inline sge::math::basic_matrix<T,N,N> sge::math::operator* (const basic_matrix<T,M1,N>& a, const basic_matrix<T,N,M2>& b)
+inline sge::math::matrix<T,N,N> sge::math::operator* (const matrix<T,M1,N>& a, const matrix<T,N,M2>& b)
 {
-	typedef basic_matrix<T,M1,M2> result_type;
+	typedef matrix<T,M1,M2> result_type;
 	result_type ret;
-	for(typename basic_matrix<T,M1,N>::size_type i = 0; i < M1; ++i)
-		for(typename basic_matrix<T,N,M2>::size_type j = 0; j < M2; ++j)
+	for(typename matrix<T,M1,N>::size_type i = 0; i < M1; ++i)
+		for(typename matrix<T,N,M2>::size_type j = 0; j < M2; ++j)
 		{
 			typename result_type::value_type v(0);
 			for(typename result_type::size_type r = 0; r < N; ++r)
@@ -196,25 +196,25 @@ inline sge::math::basic_matrix<T,N,N> sge::math::operator* (const basic_matrix<T
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline bool sge::math::operator== (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r)
+inline bool sge::math::operator== (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
 {
 	return std::equal(l.begin(), l.end(), r.begin(), std::ptr_fun(compare<T>));
 }
 
 template<typename T, std::size_t N, std::size_t M>
-inline bool sge::math::operator!= (const basic_matrix<T,N,M>& l, const basic_matrix<T,N,M>& r)
+inline bool sge::math::operator!= (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
 {
 	return !(l==r);
 }
 
 template<typename T, std::size_t N, std::size_t M,typename Ch, typename Traits>
-inline std::basic_ostream<Ch,Traits>& sge::math::operator<< (std::basic_ostream<Ch,Traits>& s, const basic_matrix<T,N,M>& m)
+inline std::basic_ostream<Ch,Traits>& sge::math::operator<< (std::basic_ostream<Ch,Traits>& s, const matrix<T,N,M>& m)
 {
 	s << s.widen('(');
-	for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
+	for(typename matrix<T,N,M>::size_type j = 0; j < N; ++j)
 	{
 		s << s.widen('(');
-		for(typename basic_matrix<T,N,M>::size_type i = 0; i < M; ++i)
+		for(typename matrix<T,N,M>::size_type i = 0; i < M; ++i)
 		{
 			s << m[j][i];
 			if(i != M-1)
@@ -228,11 +228,11 @@ inline std::basic_ostream<Ch,Traits>& sge::math::operator<< (std::basic_ostream<
 }
 
 template<typename T, std::size_t N>
-inline sge::math::basic_matrix<T,N,N> sge::math::transpose(const basic_matrix<T,N,N>& m)
+inline sge::math::matrix<T,N,N> sge::math::transpose(const matrix<T,N,N>& m)
 {
-	basic_matrix<T,N,N> ret;
-	for(typename basic_matrix<T,N,N>::size_type j = 0; j < N; ++j)
-		for(typename basic_matrix<T,N,N>::size_type i = 0; i < N; ++i)
+	matrix<T,N,N> ret;
+	for(typename matrix<T,N,N>::size_type j = 0; j < N; ++j)
+		for(typename matrix<T,N,N>::size_type i = 0; i < N; ++i)
 			ret[i][j] = m[j][i];
 	return ret;
 }
@@ -240,23 +240,23 @@ inline sge::math::basic_matrix<T,N,N> sge::math::transpose(const basic_matrix<T,
 template<typename T, std::size_t N, std::size_t M>
 sge::math::vector<T,M>
 sge::math::operator* (
-	const basic_matrix<T,N,M>& m,
+	const matrix<T,N,M>& m,
 	const vector<T,N>& v)
 {
 	typedef vector<T,M> result_type;
 	result_type ret(result_type::null());
 	for(typename result_type::size_type i = 0; i < M; ++i)
-		for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)
+		for(typename matrix<T,N,M>::size_type j = 0; j < N; ++j)
 			ret[i] += v[j] * m[j][i];
 	return ret;
 }
 
 template<typename D, typename S, std::size_t N, std::size_t M>
-sge::math::basic_matrix<D, N, M> const
+sge::math::matrix<D, N, M> const
 sge::math::structure_cast(
-	basic_matrix<S, N, M> const &s)
+	matrix<S, N, M> const &s)
 {
-	typedef basic_matrix<D, N, M> ret_type;
+	typedef matrix<D, N, M> ret_type;
 	ret_type ret;
 	for(typename ret_type::size_type i = 0; i < N; ++i)
 		for(typename ret_type::size_type j = 0; j < M; ++j)

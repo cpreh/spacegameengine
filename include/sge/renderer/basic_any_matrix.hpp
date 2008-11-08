@@ -36,12 +36,12 @@ template<
 >
 struct basic_any_matrix {
 	typedef typename boost::variant<
-		math::basic_matrix<
+		math::matrix<
 			float,
 			N,
 			M
 		>,
-		math::basic_matrix<
+		math::matrix<
 			double,
 			N,
 			M
