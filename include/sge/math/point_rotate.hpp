@@ -31,10 +31,10 @@ namespace math
 template<
 	typename T
 >
-basic_vector<T, 2> const
+vector<T, 2> const
 point_rotate(
-	basic_vector<T, 2> const &point,
-	basic_vector<T, 2> const &around,
+	vector<T, 2> const &point,
+	vector<T, 2> const &around,
 	T rot);
 
 }

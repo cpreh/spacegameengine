@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-template<typename T> class basic_line2 {
+template<typename T> class line2 {
 public:
-	typedef math::basic_vector<T,2> point;
-	basic_line2(const point o, point d) : o(o), d(d) {}
+	typedef math::vector<T,2> point;
+	line2(const point o, point d) : o(o), d(d) {}
 	bool intersects(const line2& r) const
 	{
 		const T& a1 = d.x, a2 = d.y, a3 = r.d.x, a4 = r.d.y;
@@ -39,7 +39,7 @@ private:
 	point o,d;
 };
 
-template<typename T> inline bool intersects(const basic_line2<T>& l, const basic_line2<T>& r)
+template<typename T> inline bool intersects(const line2<T>& l, const line2<T>& r)
 {
 	return l.intersects(r);
 }

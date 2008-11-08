@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CIRCLE_HPP_INCLUDED
 #define SGE_CIRCLE_HPP_INCLUDED
 
-#include "../su.hpp"
 #include "vector.hpp"
 
 namespace sge
@@ -30,23 +29,23 @@ namespace math
 {
 
 /**
- * \attention To use basic_circle's functions you have to include
+ * \attention To use circle's functions you have to include
  * <sge/math/circle_impl.hpp>!
  */
 template<typename T>
-class basic_circle {
+class circle {
 public:
 	typedef T                                 value_type;
 	typedef T&                                reference;
 	typedef const T&                          const_reference;
-	typedef math::basic_vector<value_type, 2> point_type;
+	typedef math::vector<value_type, 2> point_type;
 
-	basic_circle(
+	circle(
 		const_reference x,
 		const_reference y,
 		const_reference radius);
 
-	basic_circle(
+	circle(
 		const point_type& origin,
 		const_reference radius);
 
@@ -61,10 +60,8 @@ private:
 
 template<typename T>
 bool intersects(
-	basic_circle<T> const&,
-	basic_circle<T> const&);
-
-typedef basic_circle<space_unit> circle;
+	circle<T> const&,
+	circle<T> const&);
 
 }
 }

@@ -35,8 +35,8 @@ class SGE_CLASS_SYMBOL window : boost::noncopyable {
 public:
 	typedef int pos_type;
 	typedef unsigned size_type;
-	typedef math::basic_vector<pos_type,2> window_pos;
-	typedef math::basic_dim<size_type,2> window_size;
+	typedef math::vector<pos_type,2> window_pos;
+	typedef math::dim<size_type,2> window_size;
 
 	virtual void title(string const &title) = 0;
 	virtual window_size const size() const = 0;

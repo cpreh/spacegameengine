@@ -11,9 +11,9 @@ class field
 {
 	public:
 	typedef unsigned                              coord_type;
-	typedef sge::math::basic_vector<coord_type,2> coord_vector_type;
+	typedef sge::math::vector<coord_type,2> coord_vector_type;
 	typedef T                                     value_type;
-	typedef sge::math::basic_dim<unsigned,2>      dim_type;
+	typedef sge::math::dim<unsigned,2>      dim_type;
 	typedef std::vector<value_type>               array_type;
 	typedef typename array_type::iterator         iterator;
 	typedef typename array_type::const_iterator   const_iterator;

@@ -252,12 +252,12 @@ sge::sprite::object::bounding_quad() const
 				center().y()) + rad));
 }
 
-sge::math::circle const
+sge::sprite::circle const
 sge::sprite::object::bounding_circle() const
 {
-	return math::circle(
-		static_cast<math::circle::value_type>(x()),
-		static_cast<math::circle::value_type>(y()),
+	return circle(
+		static_cast<circle::value_type>(x()),
+		static_cast<circle::value_type>(y()),
 		radius());
 }
 

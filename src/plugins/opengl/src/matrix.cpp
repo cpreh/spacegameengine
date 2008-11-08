@@ -30,9 +30,9 @@ namespace
 
 struct visitor : boost::static_visitor<> {
 	void operator()(
-		sge::renderer::matrix_f const &m) const;
+		sge::math::matrix<float, 4, 4> const &m) const;
 	void operator()(
-		sge::renderer::matrix_d const &m) const;
+		sge::math::matrix<double, 4, 4> const &m) const;
 };
 
 }
@@ -64,7 +64,7 @@ namespace
 {
 
 void visitor::operator()(
-	sge::renderer::matrix_f const &m) const
+	sge::math::matrix<float, 4, 4>const &m) const
 {
 	SGE_OPENGL_SENTRY
 	glLoadTransposeMatrixf(
@@ -72,7 +72,7 @@ void visitor::operator()(
 }
 	
 void visitor::operator()(
-	sge::renderer::matrix_d const &m) const
+	sge::math::matrix<double, 4, 4> const &m) const
 {
 	SGE_OPENGL_SENTRY
 	glLoadTransposeMatrixd(

@@ -34,19 +34,19 @@ namespace renderer
 template<
 	typename T
 >
-math::basic_rect<T> const
+math::rect<T> const
 lock_rect_to_coords(
 	lock_rect const &l,
 	dim_type const &dim,
 	T const repeat)
 {
-	math::basic_rect<T> const srect(
+	math::rect<T> const srect(
 		math::structure_cast<T>(l));
 	
-	math::basic_dim<T, 2> const sdim(
+	math::dim<T, 2> const sdim(
 		math::structure_cast<T>(dim));
 
-	return math::basic_rect<T>(
+	return math::rect<T>(
 		srect.left() / sdim.w(),
 		srect.top() / sdim.h(),
 		repeat * srect.right() / sdim.w(),

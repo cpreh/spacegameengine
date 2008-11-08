@@ -30,8 +30,8 @@ namespace renderer
 
 typedef int                              pixel_unit;
 typedef unsigned                         screen_unit;
-typedef math::basic_vector<pixel_unit,2> pixel_pos_t;
-typedef math::basic_dim<screen_unit,2>   screen_size_t;
+typedef math::vector<pixel_unit,2> pixel_pos_t;
+typedef math::dim<screen_unit,2>   screen_size_t;
 
 }
 }

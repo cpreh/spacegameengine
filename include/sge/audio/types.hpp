@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_TYPES_HPP_INCLUDED
 
 #include "../raw_vector.hpp"
-#include "../su.hpp"
 #include "../math/vector.hpp"
 #include "../export.hpp"
 #include <cstddef>
@@ -34,8 +33,8 @@ typedef unsigned channel_type;
 typedef std::size_t sample_count;
 typedef raw_vector<unsigned char> sample_container;
 
-typedef space_unit unit;
-typedef math::vector3 point;
+typedef float unit; // TODO: is float ok here?
+typedef math::vector<unit, 3> point;
 
 struct angle
 {

@@ -30,7 +30,7 @@ namespace math
 {
 
 template<typename T, std::size_t Dim>
-basic_vector<T, Dim> operator+(basic_vector<T, Dim> l, const basic_dim<T, Dim>& r)
+vector<T, Dim> operator+(vector<T, Dim> l, const dim<T, Dim>& r)
 {
 	for(std::size_t i = 0; i < Dim; ++i)
 		l[i] += r[i];
@@ -38,7 +38,7 @@ basic_vector<T, Dim> operator+(basic_vector<T, Dim> l, const basic_dim<T, Dim>& 
 }
 
 template<typename T, std::size_t Dim>
-basic_vector<T, Dim> operator-(basic_vector<T, Dim> l, const basic_dim<T, Dim>& r)
+vector<T, Dim> operator-(vector<T, Dim> l, const dim<T, Dim>& r)
 {
 	for(std::size_t i = 0; i < Dim; ++i)
 		l[i] -= r[i];
@@ -46,7 +46,7 @@ basic_vector<T, Dim> operator-(basic_vector<T, Dim> l, const basic_dim<T, Dim>& 
 }
 
 template<typename T, std::size_t Dim>
-basic_vector<T, Dim> operator*(basic_vector<T, Dim> l, const basic_dim<T, Dim>& r)
+vector<T, Dim> operator*(vector<T, Dim> l, const dim<T, Dim>& r)
 {
 	for(std::size_t i = 0; i < Dim; ++i)
 		l[i] *= r[i];
@@ -54,7 +54,7 @@ basic_vector<T, Dim> operator*(basic_vector<T, Dim> l, const basic_dim<T, Dim>& 
 }
 
 template<typename T, std::size_t Dim>
-basic_vector<T, Dim> operator/(basic_vector<T, Dim> l, const basic_dim<T, Dim>& r)
+vector<T, Dim> operator/(vector<T, Dim> l, const dim<T, Dim>& r)
 {
 	for(std::size_t i = 0; i < Dim; ++i)
 		l[i] /= r[i];

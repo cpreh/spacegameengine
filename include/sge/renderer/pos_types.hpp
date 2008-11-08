@@ -29,7 +29,7 @@ namespace sge
 namespace renderer
 {
 
-typedef math::basic_vector<size_type, 2> texture_pos_type;
+typedef math::vector<size_type, 2> texture_pos_type;
 
 }
 }

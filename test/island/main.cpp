@@ -188,7 +188,7 @@ void generate_heightmap_particles(space_field &map)
 	map.zero();
 
 	// Zufallsfeld auswaehlen
-	sge::math::basic_vector<unsigned,2> current_field(rand()%map.width(),rand()%map.height());
+	sge::math::vector<unsigned,2> current_field(rand()%map.width(),rand()%map.height());
 
 	const unsigned iterations = 10000;
 	for (unsigned i = 0; i < iterations; ++i)
@@ -245,8 +245,8 @@ void generate_heightmap_hills(space_field &map,const space_field &binary_map)
 		//const space_field::value_type distance = (rand() / (RAND_MAX+1.0))*map.width()/2;
 
 		// Zufallsfeld auswaehlen
-		//const sge::math::basic_vector<unsigned,2> current_field(/*rand()%map.width(),rand()%map.height()*/map.width()/2+std::cos(theta)*distance,map.width()/2+std::sin(theta)*distance);
-		const sge::math::basic_vector<unsigned,2> current_field(rand()%map.width(),rand()%map.height());
+		//const sge::math::vector<unsigned,2> current_field(/*rand()%map.width(),rand()%map.height()*/map.width()/2+std::cos(theta)*distance,map.width()/2+std::sin(theta)*distance);
+		const sge::math::vector<unsigned,2> current_field(rand()%map.width(),rand()%map.height());
 
 
 		// TODO: Das hier schneller machen, indem man nur die naehere Umgebung des Zufallpunkts durchgeht

@@ -30,7 +30,7 @@ namespace x11input
 
 typedef int mouse_coordinate_t;
 
-typedef math::basic_vector<
+typedef math::vector<
 	mouse_coordinate_t,
 	2
 > mouse_pos;

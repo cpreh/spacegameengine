@@ -47,7 +47,7 @@ struct display_mode {
 	SGE_SYMBOL screen_unit height() const;
 };
 
-ostream &
+SGE_SYMBOL ostream &
 operator<<(
 	ostream &,
 	display_mode const &mode);

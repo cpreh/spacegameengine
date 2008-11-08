@@ -29,7 +29,7 @@ namespace sge
 namespace ogl
 {
 
-typedef math::basic_vector<
+typedef math::vector<
 	GLfloat,
 	3
 > vector3f;

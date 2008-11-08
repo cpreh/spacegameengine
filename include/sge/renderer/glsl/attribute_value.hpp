@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_ATTRIBUTE_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_ATTRIBUTE_VALUE_HPP_INCLUDED
 
-#include "../../su.hpp"
-#include "../../math/vector.hpp"
+#include "../any_arithmetic.hpp"
+#include "../any_vector2.hpp"
+#include "../any_vector3.hpp"
+#include "../any_vector4.hpp"
 #include <boost/variant/variant.hpp>
 
 namespace sge
@@ -33,10 +35,10 @@ namespace glsl
 {
 
 typedef boost::variant<
-	space_unit,
-	math::vector2,
-	math::vector3,
-	math::vector4
+	any_arithmetic,
+	any_vector2,
+	any_vector3,
+	any_vector4
 > attribute_value;
 
 }

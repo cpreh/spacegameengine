@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/math/matrix_impl.hpp>
+#include <sge/log/headers.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <sstream>
 
@@ -120,16 +121,25 @@ sge::ogl::device::device(
 
 	if(!windowed)
 	{
+#if defined(SGE_HAVE_XF86_VMODE)
 		modes.reset(
-			new x11::xf86_vidmode_array(
+			new xf86::vidmode_array(
 				dsp,
 				dsp->default_screen()));
 		resolution = modes->switch_to_mode(param.mode());
 		if(!resolution)
 		{
-			//sge::cerr << SGE_TEXT("Warning: No resolution matches against ") << param.mode << SGE_TEXT("! Falling back to window mode!\n");
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< SGE_TEXT("No resolution matches against ")
+					<< param.mode()
+					<< SGE_TEXT("! Falling back to window mode!"));
 			windowed = true;
 		}
+#else
+		//
+#endif
 	}
 
 	x11::const_visual_ptr const visual(

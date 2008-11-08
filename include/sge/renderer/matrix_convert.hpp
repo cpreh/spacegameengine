@@ -18,35 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_ATAN2_HPP_INCLUDED
-#define SGE_MATH_ATAN2_HPP_INCLUDED
+#ifndef SGE_RENDERER_MATRIX_CONVERT_HPP_INCLUDED
+#define SGE_RENDERER_MATRIX_CONVERT_HPP_INCLUDED
 
-#include "vector.hpp"
-#include <boost/optional.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <cmath>
+#include "../export.hpp"
 
 namespace sge
 {
-namespace math
+namespace renderer
 {
-/**
- * Wraps std::atan2 so it can be used with sge::math::vector. Returns an
- * empty boost::optional if given the null vector
- */
-template<typename T>
-inline typename boost::enable_if<
-	boost::is_floating_point<T>,
-	boost::optional<T>
-	>::type
-atan2(
-	sge::math::vector<T,2> const &v)
-{
-	return v.is_null()
-		? boost::optional<T>()
-		: std::atan2(v.y(), v.x());
-}
+
+template<
+	typename Dest,
+	typename Source
+>
+SGE_SYMBOL Dest const
+matrix_convert(
+	Source const &);
+
 }
 }
 

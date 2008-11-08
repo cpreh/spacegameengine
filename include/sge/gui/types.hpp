@@ -17,7 +17,7 @@ typedef sprite::unit unit;
 typedef sprite::point point;
 typedef sprite::dim dim;
 typedef sprite::rect rect;
-typedef math::basic_vector<input::key_state,2u> mouse_point;
+typedef math::vector<input::key_state,2u> mouse_point;
 
 namespace direction
 {

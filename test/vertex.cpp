@@ -1,7 +1,6 @@
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <sge/su.hpp>
 #include <sge/window.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -47,7 +46,7 @@ try
 		(sge::systems::parameterless::input));
 
 	typedef sge::renderer::vf::pos<
-		sge::space_unit,
+		float,
 		3
 	> pos3_type;
 
@@ -85,11 +84,13 @@ try
 
 		vertex_view::iterator vb_it = vertices.begin();
 		
-		(*vb_it).set<pos3_type, 0>(sge::math::vector3(sge::su(-1), sge::su(1), sge::su(0)));
+		typedef pos3_type::packed_type vec3;
+
+		(*vb_it).set<pos3_type>(vec3(-1.f, 1.f, 0.f));
 		(*vb_it++).set<color_type>(sge::renderer::rgba8_color(255, 255, 255, 255));
-		(*vb_it).set<pos3_type>(sge::math::vector3(sge::su(-1), sge::su(-1), sge::su(0)));
+		(*vb_it).set<pos3_type>(vec3(-1.f, -1.f, 0.f));
 		(*vb_it++).set<color_type>(sge::renderer::rgba8_color(255, 255, 0, 255));
-		(*vb_it).set<pos3_type>(sge::math::vector3(sge::su(1), sge::su(1), sge::su(0)));
+		(*vb_it).set<pos3_type>(vec3(1.f, 1.f, 0.f));
 		(*vb_it++).set<color_type>(sge::renderer::rgba8_color(255, 255, 255, 255));
 	}
 

@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../exception.hpp"
 #include "../text.hpp"
 #include "../assert.hpp"
-#include "../su.hpp"
 #include "../exception.hpp"
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/preprocessor/enum_params.hpp>
@@ -56,13 +55,13 @@ namespace math
 /** 
  * This class should be used for representing vectors, so either points or
  * direction vectors. You could also store size values in here, but there are
- * no accessors like "w" or "h". Use sge::math::basic_rect or
- * sge::math::basic_dim for that purpose.
+ * no accessors like "w" or "h". Use sge::math::rect or
+ * sge::math::dim for that purpose.
  *
- * basic_vector uses C++0x variadic templates where available.
+ * vector uses C++0x variadic templates where available.
  */
 template<typename T, std::size_t Dim>
-class basic_vector {
+class vector {
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 	BOOST_STATIC_ASSERT(Dim <= SGE_MATH_VECTOR_MAX_SIZE);
 #endif
@@ -79,25 +78,25 @@ public:
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	explicit basic_vector() {}
+	explicit vector() {}
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
-	explicit basic_vector(Args... args)
+	explicit vector(Args... args)
 	{
 		BOOST_STATIC_ASSERT(sizeof...(args) == Dim);
 		set(args...);
 	}
 #else
 #define SGE_MATH_VECTOR_CTOR_ASSIGN_N(z, n, text) (*this)[n] = text##n;
-#define SGE_MATH_VECTOR_CTOR(z, n, text) basic_vector(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
+#define SGE_MATH_VECTOR_CTOR(z, n, text) vector(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_VECTOR_CTOR_ASSIGN_N, param) }
 	BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_CTOR, void)
 #endif
 
-	static basic_vector const
+	static vector const
 	null()
 	{
-		basic_vector ret;
+		vector ret;
 		
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = static_cast<value_type>(0);
@@ -107,65 +106,65 @@ public:
 	/**
 	 * This constructor gets a vector of the same type, but with a dimension
 	 * lower. This is just a convenience so you can construct, for example, a
-	 * vector3 from a vector2 by writing \code basic_vector<T,2> small;
-	 * basic_vector<T,3> large(small,0); \endcode
+	 * vector3 from a vector2 by writing \code vector<T,2> small;
+	 * vector<T,3> large(small,0); \endcode
 	 */
 	template<std::size_t U>
-	basic_vector(const basic_vector<T,U>& v, typename boost::enable_if_c<U == Dim - 1, const_reference>::type n = 0)
+	vector(const vector<T,U>& v, typename boost::enable_if_c<U == Dim - 1, const_reference>::type n = 0)
 	{
 		for(size_type i = 0; i < U; ++i)
 			data_[i] = v[i];
 		data_[U] = n;
 	}
 
-	basic_vector(const basic_vector& r)
+	vector(const vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] = r[i];
 	}
 
-	basic_vector& operator=(const basic_vector& r)
+	vector& operator=(const vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] = r[i];
 		return *this;
 	}
 
-	basic_vector& operator+=(const basic_vector& r)
+	vector& operator+=(const vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] += r[i];
 		return *this;
 	}
 
-	basic_vector& operator-=(const basic_vector& r)
+	vector& operator-=(const vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			data_[i] -= r[i];
 		return *this;
 	}
 
-	basic_vector operator+(const basic_vector& r) const
+	vector operator+(const vector& r) const
 	{
-		return basic_vector(*this) += r;
+		return vector(*this) += r;
 	}
 
-	basic_vector operator-(const basic_vector& r) const
+	vector operator-(const vector& r) const
 	{
-		return basic_vector(*this) -= r;
+		return vector(*this) -= r;
 	}
 
-	basic_vector operator+() const
+	vector operator+() const
 	{
-		basic_vector ret;
+		vector ret;
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = +data_[i];
 		return ret;
 	}
 
-	basic_vector operator-() const
+	vector operator-() const
 	{
-		basic_vector ret;
+		vector ret;
 		for(size_type i = 0; i < Dim; ++i)
 			ret[i] = -data_[i];
 		return ret;
@@ -174,7 +173,7 @@ public:
 	/**
 	 * Scalar multiplication
 	 */
-	basic_vector& operator*=(const_reference r)
+	vector& operator*=(const_reference r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			(*this)[i] *= r;
@@ -184,7 +183,7 @@ public:
 	/**
 	 * This does not take the dot or cross product but rather multiplies componentwise
 	 */
-	basic_vector& operator*=(const basic_vector& r)
+	vector& operator*=(const vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			(*this)[i] *= r[i];
@@ -194,55 +193,55 @@ public:
 	/**
 	 * Scalar multiplication
 	 */
-	basic_vector operator*(const_reference r) const
+	vector operator*(const_reference r) const
 	{
-		return basic_vector(*this) *= r;
+		return vector(*this) *= r;
 	}
 
 	/**
 	 * This does not take the dot or cross product but rather multiplies componentwise
 	 */
-	basic_vector operator*(const basic_vector& r) const
+	vector operator*(const vector& r) const
 	{
-		return basic_vector(*this) *= r;
+		return vector(*this) *= r;
 	}
 
 	/**
 	 * Scalar multiplication
 	 */
-	friend basic_vector operator*(const_reference l, basic_vector r)
+	friend vector operator*(const_reference l, vector r)
 	{
 		return r *= l;
 	}
 
-	basic_vector& operator/=(const_reference r)
+	vector& operator/=(const_reference r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			(*this)[i] /= r;
 		return *this;
 	}
 
-	basic_vector& operator/=(const basic_vector& r)
+	vector& operator/=(const vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			(*this)[i] /= r[i];
 		return *this;
 	}
 
-	basic_vector operator/(const_reference r) const
+	vector operator/(const_reference r) const
 	{
-		return basic_vector(*this) /= r;
+		return vector(*this) /= r;
 	}
 
-	basic_vector operator/(const basic_vector& r) const
+	vector operator/(const vector& r) const
 	{
-		return basic_vector(*this) /= r;
+		return vector(*this) /= r;
 	}
 
 	/**
 	 * This operator uses sge::math::mod to calculate the modulo
 	 */
-	basic_vector& operator%=(const_reference r)
+	vector& operator%=(const_reference r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			mod_assign((*this)[i], r);
@@ -252,7 +251,7 @@ public:
 	/**
 	 * This operator uses sge::math::mod to calculate the modulo
 	 */
-	basic_vector& operator%=(const basic_vector& r)
+	vector& operator%=(const vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			mod_assign((*this)[i], r[i]);
@@ -262,20 +261,20 @@ public:
 	/**
 	 * This operator uses sge::math::mod to calculate the modulo
 	 */
-	basic_vector operator%(const_reference r) const
+	vector operator%(const_reference r) const
 	{
-		return basic_vector(*this) %= r;
+		return vector(*this) %= r;
 	}
 
 	/**
 	 * This operator uses sge::math::mod to calculate the modulo
 	 */
-	basic_vector operator%(const basic_vector& r) const
+	vector operator%(const vector& r) const
 	{
-		return basic_vector(*this) %= r;
+		return vector(*this) %= r;
 	}
 
-	value_type dot(const basic_vector& r) const
+	value_type dot(const vector& r) const
 	{
 		value_type ret(0);
 		for(size_type i = 0; i < Dim; ++i)
@@ -307,7 +306,7 @@ public:
 	reference at(const size_type pos)
 	{
 		if(pos >= Dim)
-			throw exception(SGE_TEXT("basic_vector<T, N>::at(): out of range!"));
+			throw exception(SGE_TEXT("vector<T, N>::at(): out of range!"));
 		return data_[pos];
 	}
 
@@ -317,14 +316,14 @@ public:
 	const_reference at(const size_type pos) const
 	{
 		if(pos >= Dim)
-			throw exception(SGE_TEXT("basic_vector<T, N>::at(): out of range!"));
+			throw exception(SGE_TEXT("vector<T, N>::at(): out of range!"));
 		return data_[pos];
 	}
 
 	/**
 	 * Uses sge::math::compare to compare componentwise
 	 */
-	bool operator==(const basic_vector& r) const
+	bool operator==(const vector& r) const
 	{
 		for(size_type i = 0; i < Dim; ++i)
 			if(!compare(data_[i], r[i]))
@@ -335,7 +334,7 @@ public:
 	/**
 	 * Uses sge::math::compare to compare componentwise
 	 */
-	bool operator!=(const basic_vector& r) const
+	bool operator!=(const vector& r) const
 	{
 		return !((*this)==r);
 	}
@@ -362,13 +361,13 @@ public:
 	/**
 	 * Returns the normalized vector
 	 */
-	basic_vector unit() const
+	vector unit() const
 	{
 		SGE_ASSERT(!is_null());
 		return (*this) * (static_cast<T>(1) / length());
 	}
 
-	basic_vector& normalize()
+	vector& normalize()
 	{
 		return *this = unit();
 	}
@@ -420,10 +419,10 @@ public:
 	}
 
 	//template<typename OtherT>
-	//basic_vector cross(const basic_vector& r, typename boost::enable_if<boost::mpl::and_<boost::is_same<T,OtherT>, boost::mpl::bool_<Dim == 3> > >::type* = 0) const
-	basic_vector cross(const basic_vector& r) const
+	//vector cross(const vector& r, typename boost::enable_if<boost::mpl::and_<boost::is_same<T,OtherT>, boost::mpl::bool_<Dim == 3> > >::type* = 0) const
+	vector cross(const vector& r) const
 	{
-		return basic_vector(y()*r.z() - z()*r.y(),
+		return vector(y()*r.z() - z()*r.y(),
 		              z()*r.x() - x()*r.z(),
 		              x()*r.y() - y()*r.x());
 	}
@@ -437,7 +436,7 @@ public:
 		return *this == null();
 	}
 
-	void swap(basic_vector& r)
+	void swap(vector& r)
 	{
 		std::swap(*this,r);
 	}
@@ -467,9 +466,9 @@ public:
 BOOST_PP_REPEAT(SGE_MATH_VECTOR_MAX_SIZE, SGE_MATH_VECTOR_SET, void)
 #endif
 
-	bool nearly_equals(const basic_vector& r, const value_type& radius) const
+	bool nearly_equals(const vector& r, const value_type& radius) const
 	{
-		const basic_vector tmp(*this - r);
+		const vector tmp(*this - r);
 		return dot(tmp,tmp) < radius * radius;
 	}
 
@@ -537,10 +536,10 @@ private:
 };
 
 template<typename T, std::size_t Dim>
-void place(basic_vector<T,Dim>& v,
-           const typename basic_vector<T,Dim>::const_reference radius,
-           const typename basic_vector<T,Dim>::const_reference high_angle,
-           const typename basic_vector<T,Dim>::const_reference plane_angle,
+void place(vector<T,Dim>& v,
+           const typename vector<T,Dim>::const_reference radius,
+           const typename vector<T,Dim>::const_reference high_angle,
+           const typename vector<T,Dim>::const_reference plane_angle,
            typename boost::enable_if_c<Dim==3,T>::type* = 0)
 {
 	v.x() = radius * std::sin(high_angle) * std::cos(plane_angle);
@@ -549,25 +548,25 @@ void place(basic_vector<T,Dim>& v,
 }
 
 template<typename T, std::size_t Dim>
-void swap(basic_vector<T,Dim>& a, basic_vector<T,Dim>& b)
+void swap(vector<T,Dim>& a, vector<T,Dim>& b)
 {
 	a.swap(b);
 }
 
 template<typename T, std::size_t Dim>
-basic_vector<T,Dim> cross(const basic_vector<T,Dim>& l, const basic_vector<T,Dim>& r)
+vector<T,Dim> cross(const vector<T,Dim>& l, const vector<T,Dim>& r)
 {
 	return l.cross(r);
 }
 
 template<typename T, std::size_t Dim>
-basic_vector<T,Dim> normalize(basic_vector<T,Dim> l)
+vector<T,Dim> normalize(vector<T,Dim> l)
 {
 	return l.normalize();
 }
 
 template<typename T, std::size_t Dim>
-typename basic_vector<T,Dim>::value_type dot(const basic_vector<T,Dim>& l, const basic_vector<T,Dim>& r)
+typename vector<T,Dim>::value_type dot(const vector<T,Dim>& l, const vector<T,Dim>& r)
 {
 	return l.dot(r);
 }
@@ -576,10 +575,10 @@ typename basic_vector<T,Dim>::value_type dot(const basic_vector<T,Dim>& l, const
  * Outputs the vector in the format \f$(v_0,\ldots,v_n)\f$.
  */
 template<typename T, std::size_t Dim,typename Ch, typename Traits>
-inline std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& s, const basic_vector<T,Dim>& v)
+inline std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& s, const vector<T,Dim>& v)
 {
 	s << s.widen('(');
-	for(typename basic_vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	for(typename vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 		s << v[i] << s.widen(',');
 	return s << v[Dim-1] << s.widen(')');
 }
@@ -588,13 +587,13 @@ inline std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>&
  * Reads the vector from the stream in the format \f$(v_0,\ldots,v_n)\f$.
  */
 template<typename T, std::size_t Dim,typename Ch, typename Traits>
-std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, basic_vector<T,Dim>& v)
+std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, vector<T,Dim>& v)
 {
 	Ch c;
 	s >> c;
 	if(c != s.widen('('))
 		s.setstate(std::ios_base::failbit);
-	for(typename basic_vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
+	for(typename vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
 	{
 		s >> v[i] >> c;
 		if(c != s.widen(','))
@@ -607,22 +606,17 @@ std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, bas
 }
 
 /**
- * Casts the basic_vector<T> to basic_vector<D> (using static_cast).
+ * Casts the vector<T> to vector<D> (using static_cast).
  */
 template<typename D, typename S, std::size_t Dim>
-basic_vector<D, Dim> structure_cast(const basic_vector<S, Dim>& s)
+vector<D, Dim> structure_cast(const vector<S, Dim>& s)
 {
-	typedef basic_vector<D, Dim> ret_type;
+	typedef vector<D, Dim> ret_type;
 	ret_type ret;
 	for(typename ret_type::size_type i = 0; i < Dim; ++i)
 		ret[i] = static_cast<D>(s[i]);
 	return ret;
-
 }
-
-typedef basic_vector<space_unit,2> vector2;
-typedef basic_vector<space_unit,3> vector3;
-typedef basic_vector<space_unit,4> vector4;
 
 }
 }

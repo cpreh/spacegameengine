@@ -38,7 +38,7 @@ namespace texture
 template<
 	typename T
 >
-math::basic_rect<T> const
+math::rect<T> const
 area_texc(
 	const_part_ptr const part,
 	T const repeat)
@@ -56,7 +56,7 @@ area_texc(
 			part->area(),
 			tex->dim(),
 			repeat)
-		: math::basic_rect<T>();
+		: math::rect<T>();
 }
 
 

@@ -47,7 +47,7 @@ class noise_field_generator
 			*/
 
 			// Position im Raster, das durch die Frequenz aufgespannt wird
-			const sge::math::basic_vector<coord_type,2> ipos(x*freq/ndim.w(),y*freq/ndim.h());
+			const sge::math::vector<coord_type,2> ipos(x*freq/ndim.w(),y*freq/ndim.h());
 
 			// Noise-Wert an der momentan und naechsten Rasterposition
 			const value_type noise_cur = noise_generator(ipos.x(),ipos.y());

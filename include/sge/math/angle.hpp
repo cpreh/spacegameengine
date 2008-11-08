@@ -44,8 +44,8 @@ typename boost::enable_if<
 	boost::optional<Dest>
 	>::type
 angle_to(
-	const basic_vector<T, 2>& from,
-	const basic_vector<T, 2>& to)
+	const vector<T, 2>& from,
+	const vector<T, 2>& to)
 {
 	return atan2(structure_cast<Dest>(to - from));
 }
@@ -56,7 +56,7 @@ typename boost::enable_if<
 	boost::optional<Dest>
 	>::type
 angle_to(
-	const basic_vector<T, 2>& to)
+	const vector<T, 2>& to)
 {
 	return atan2(structure_cast<Dest>(to));
 }
@@ -73,9 +73,9 @@ T rel_angle_to_abs(
 			% a).str());
 
 	if (almost_zero(a))
-		return su(0);
+		return static_cast<T>(0);
 
-	return a > su(0) ? a : twopi<T>()+a;
+	return a > static_cast<T>(0) ? a : twopi<T>()+a;
 }
 
 template<

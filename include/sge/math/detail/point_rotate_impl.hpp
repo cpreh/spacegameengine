@@ -28,10 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename T
 >
-sge::math::basic_vector<T, 2> const
+sge::math::vector<T, 2> const
 sge::math::point_rotate(
-	basic_vector<T, 2> const &point,
-	basic_vector<T, 2> const &around,
+	vector<T, 2> const &point,
+	vector<T, 2> const &around,
 	T const rot)
 {
 	return (matrix_rotation_2d(rot) * (point - around)) + around;

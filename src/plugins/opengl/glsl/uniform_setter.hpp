@@ -23,10 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "traits.hpp"
 #include "uniform_type.hpp"
-#include <sge/su.hpp>
 #include <sge/renderer/glsl/int_types.hpp>
-#include <sge/math/vector.hpp>
-#include <sge/math/matrix.hpp>
+#include <sge/renderer/any_arithmetic.hpp>
+#include <sge/renderer/any_matrix.hpp>
+#include <sge/renderer/any_vector2.hpp>
+#include <sge/renderer/any_vector3.hpp>
+#include <sge/renderer/any_vector4.hpp>
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
@@ -47,23 +49,23 @@ public:
 	
 	uniform_type::type
 	operator()(
-		space_unit) const;
+		renderer::any_arithmetic const &) const;
 
 	uniform_type::type
 	operator()(
-		math::vector2 const &) const;
+		renderer::any_vector2 const &) const;
 	
 	uniform_type::type
 	operator()(
-		math::vector3 const &) const;
+		renderer::any_vector3 const &) const;
 	
 	uniform_type::type
 	operator()(
-		math::vector4 const &) const;
+		renderer::any_vector4 const &) const;
 
 	uniform_type::type
 	operator()(
-		math::space_matrix const &) const;
+		renderer::any_matrix const &) const;
 private:
 	GLint const location;
 };

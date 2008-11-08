@@ -32,14 +32,14 @@ namespace math
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_translation(
-	basic_vector<T, 3> const &v);
+	vector<T, 3> const &v);
 
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_translation(
 	T x,
 	T y,
@@ -48,14 +48,14 @@ matrix_translation(
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_scaling(
-	basic_vector<T, 3> const &v);
+	vector<T, 3> const &v);
 
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_scaling(
 	T x,
 	T y,
@@ -64,7 +64,7 @@ matrix_scaling(
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_perspective(
 	T aspect,
 	T fov,
@@ -74,47 +74,47 @@ matrix_perspective(
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_orthogonal_xy();
 
 template<
 	typename T
 >
-basic_matrix<T, 2, 2> const
+matrix<T, 2, 2> const
 matrix_rotation_2d(
 	T angle);
 
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_rotation_z(
 	T angle);
 
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_rotation_y(
 	T angle);
 
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_rotation_x(
 	T angle);
 
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_identity();
 
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_orthogonal_xy(
 	T left,
 	T right,
@@ -126,7 +126,7 @@ matrix_orthogonal_xy(
 template<
 	typename T
 >
-basic_matrix<T, 4, 4> const
+matrix<T, 4, 4> const
 matrix_orthogonal_xy(
 	T left,
 	T right,

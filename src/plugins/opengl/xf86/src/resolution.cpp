@@ -18,36 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_ATAN2_HPP_INCLUDED
-#define SGE_MATH_ATAN2_HPP_INCLUDED
+#include "../resolution.hpp"
+#include <sge/x11/display.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "vector.hpp"
-#include <boost/optional.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <cmath>
+sge::ogl::xf86::resolution::resolution(
+	x11::display_ptr const dsp,
+	int const screen,
+	XF86VidModeModeInfo const &new_mode,
+	XF86VidModeModeInfo const &old_mode)
+:
+	dsp(dsp),
+	screen(screen),
+	old_mode(old_mode)
+{
+	if(XF86VidModeSwitchToMode(
+		dsp->get(),
+		screen,
+		const_cast<XF86VidModeModeInfo*>(
+			&new_mode))
+	== False)
+		throw exception(
+			SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
 
-namespace sge
-{
-namespace math
-{
-/**
- * Wraps std::atan2 so it can be used with sge::math::vector. Returns an
- * empty boost::optional if given the null vector
- */
-template<typename T>
-inline typename boost::enable_if<
-	boost::is_floating_point<T>,
-	boost::optional<T>
-	>::type
-atan2(
-	sge::math::vector<T,2> const &v)
-{
-	return v.is_null()
-		? boost::optional<T>()
-		: std::atan2(v.y(), v.x());
-}
-}
+	XF86VidModeSetViewPort(
+		dsp->get(),
+		screen,
+		0,
+		0);
 }
 
-#endif
+sge::ogl::xf86::resolution::~resolution()
+{
+	XF86VidModeSwitchToMode(
+		dsp->get(),
+		screen,
+		const_cast<XF86VidModeModeInfo*>(
+			&old_mode));
+}

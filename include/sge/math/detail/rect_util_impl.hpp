@@ -24,23 +24,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 
 template<typename T>
-bool sge::math::contains(const basic_rect<T>& r, 
-                           const basic_vector<T,2>& p)
+bool sge::math::contains(const rect<T>& r, 
+                           const vector<T,2>& p)
 {
 	return p.x() >= r.left() && p.x() <= r.right() &&
 	       p.y() >= r.top()  && p.y() <= r.bottom();
 }
 
 template<typename T>
-bool sge::math::contains(const basic_rect<T>& outer,
-                         const basic_rect<T>& inner)
+bool sge::math::contains(const rect<T>& outer,
+                         const rect<T>& inner)
 {
 	return inner.left() >= outer.left() && inner.right() <= outer.right() &&
 	       inner.top() >= outer.top() && inner.bottom() <= outer.bottom();
 }
 
 template<typename T>
-bool sge::math::intersects(const basic_rect<T>& l, const basic_rect<T>& r)
+bool sge::math::intersects(const rect<T>& l, const rect<T>& r)
 {
 	return !(l.bottom()   < r.top()
 	         || l.top()   > r.bottom()
@@ -49,34 +49,34 @@ bool sge::math::intersects(const basic_rect<T>& l, const basic_rect<T>& r)
 }
 
 template<typename T>
-bool sge::math::intersects(const basic_rect<T>& r, const basic_line_seg2<T>& l)
+bool sge::math::intersects(const rect<T>& r, const line_seg2<T>& l)
 {
-	typedef typename basic_line_seg2<T>::vec vec;
-	return intersects(basic_line_seg2<T>(vec(r.left(), r.top()),
+	typedef typename line_seg2<T>::vec vec;
+	return intersects(line_seg2<T>(vec(r.left(), r.top()),
 	                                     vec(r.left(),  r.bottom())),
 	                  l)
-	   ||  intersects(basic_line_seg2<T>(vec(r.left(), r.bottom()), 
+	   ||  intersects(line_seg2<T>(vec(r.left(), r.bottom()), 
 	                                     vec(r.right(), r.bottom())),
 	                  l)
-	   ||  intersects(basic_line_seg2<T>(vec(r.right(), r.bottom()),
+	   ||  intersects(line_seg2<T>(vec(r.right(), r.bottom()),
 	                                     vec(r.right(), r.top())),
 	                  l)
-	   ||  intersects(basic_line_seg2<T>(vec(r.right(), r.top()),
+	   ||  intersects(line_seg2<T>(vec(r.right(), r.top()),
 	                                     vec(r.left,  r.top)),
 	                  l);
 }
 
 template<typename T>
-sge::math::basic_rect<T> const sge::math::intersection(basic_rect<T> const &r1,basic_rect<T> const &r2)
+sge::math::rect<T> const sge::math::intersection(rect<T> const &r1,rect<T> const &r2)
 {
 	if (!intersects(r1,r2))
-		return basic_rect<T>(
+		return rect<T>(
 			static_cast<T>(0),
 			static_cast<T>(0),
 			static_cast<T>(0),
 			static_cast<T>(0));
 
-	return basic_rect<T>(
+	return rect<T>(
 		std::max(r1.left(),r2.left()), 
 		std::max(r1.top(),r2.top()), 
 		std::min(r1.right(),r2.right()), 
@@ -85,9 +85,9 @@ sge::math::basic_rect<T> const sge::math::intersection(basic_rect<T> const &r1,b
 }
 
 template<typename T,typename U>
-sge::math::basic_rect<T> const sge::math::bounding(U it,U const end)
+sge::math::rect<T> const sge::math::bounding(U it,U const end)
 {
-	basic_rect<T> r;
+	rect<T> r;
 
   for (;it != end; ++it)
   {

@@ -8,7 +8,6 @@
 #include <sge/plugin/context.hpp>
 #include <sge/media.hpp>
 #include <sge/math/constants.hpp>
-#include <sge/su.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/time/timer.hpp>
@@ -34,40 +33,40 @@ try
 	sge::log::global().activate_hierarchy(sge::log::level::debug);
 
 	namespace po = boost::program_options;
-  po::options_description desc("allowed options");
+	po::options_description desc("allowed options");
 
 	std::string file_name_prog_options;
 	bool revolving,streaming;
-	sge::space_unit speed;
+	sge::audio::unit speed;
 
 	// FIXME: can't we use wstring here too?
-  desc.add_options()
-      ("help",
-        "produce help message")
-      ("file",
-        po::value<std::string>(&file_name_prog_options),
-        "sets the sound file name")
-      ("revolving",
-        po::value<bool>(&revolving)->default_value(true),
-        "does the sound revolve around the player")
-      ("speed",
-        po::value<sge::space_unit>(&speed)->default_value(sge::su(1)),
-        "speed of the sound in percent of 2*pi per second")
-      ("streaming",
-        po::value<bool>(&streaming)->default_value(false),
-        "stream sound or not");
+	desc.add_options()
+	("help",
+	"produce help message")
+	("file",
+	po::value<std::string>(&file_name_prog_options),
+	"sets the sound file name")
+	("revolving",
+	po::value<bool>(&revolving)->default_value(true),
+	"does the sound revolve around the player")
+	("speed",
+	po::value<sge::audio::unit>(&speed)->default_value(static_cast<sge::audio::unit>(1)),
+	"speed of the sound in percent of 2*pi per second")
+	("streaming",
+	po::value<bool>(&streaming)->default_value(false),
+	"stream sound or not");
 
-  po::variables_map vm;
-  po::store(po::parse_command_line(argc,argv,desc),vm);
-  po::notify(vm);
+	po::variables_map vm;
+	po::store(po::parse_command_line(argc,argv,desc),vm);
+	po::notify(vm);
 
-  if (vm.count("help"))
-  {
-    std::cout << desc << "\n";
-    return EXIT_SUCCESS;
-  }
+	if (vm.count("help"))
+	{
+		std::cout << desc << "\n";
+		 return EXIT_SUCCESS;
+	}
 
-  sge::path file_name(sge::iconv(file_name_prog_options));
+	sge::path file_name(sge::iconv(file_name_prog_options));
 	if (file_name.empty())
 		file_name = sge::media_path() / SGE_TEXT("ding.wav");
 
@@ -97,8 +96,8 @@ try
 	{
 		if (revolving)
 		{
-			sge::space_unit angle = 
-				sge::su(
+			sge::audio::unit const angle = 
+				static_cast<sge::audio::unit>(
 					frame_timer.elapsed_frames() * (2 * sge::math::PI * speed));
 			sound->pos(sge::audio::point(std::sin(angle),0,std::cos(angle)));
 		}

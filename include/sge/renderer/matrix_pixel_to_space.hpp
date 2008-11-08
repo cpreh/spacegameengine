@@ -34,7 +34,7 @@ namespace renderer
 template<
 	typename T
 >
-math::basic_matrix<T, 4, 4> const
+math::matrix<T, 4, 4> const
 matrix_pixel_to_space(
 	screen_size_t const &sz)
 {

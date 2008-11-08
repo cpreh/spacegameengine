@@ -35,8 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <GL/glx.h>
 #include "glx/current.hpp"
 #include "glx/context.hpp"
-#include <sge/x11/xf86_vidmode_array.hpp>
-#include <sge/x11/xf86_resolution.hpp>
+#if defined(SGE_HAVE_XF86_VMODE)
+#include "xf86/vidmode_array.hpp"
+#include "xf86/resolution.hpp"
+#endif
 #include <sge/x11/window_fwd.hpp>
 #else
 #error "Implement me!"
@@ -51,7 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signals/connection_manager.hpp>
 #include "common.hpp"
 #include <boost/scoped_ptr.hpp>
-#include <boost/signals/trackable.hpp>
 #include <stack>
 
 namespace sge
@@ -59,10 +60,10 @@ namespace sge
 namespace ogl
 {
 
-class device : public renderer::device, public boost::signals::trackable {
+class device : public renderer::device {
 public:
 	device(
-		const renderer::parameters& param,
+		renderer::parameters const &param,
 		renderer::adapter_type adapter,
 		window_ptr wnd);
 
@@ -182,16 +183,19 @@ private:
 	boost::scoped_ptr<wgl::context> context;
 	boost::scoped_ptr<wgl::current> current;
 #elif defined(SGE_HAVE_X11)
-	void reset_viewport_on_map(const XEvent&);
-	void reset_viewport_on_configure(const XEvent&);
+	void reset_viewport_on_map(XEvent const &);
+	void reset_viewport_on_configure(XEvent const &);
 	void center_viewport(int w, int h);
 
 	glx::context_ptr                      context;
 	x11::window_ptr                       wnd;
 	boost::scoped_ptr<glx::current>       current;
+#if defined(SGE_HAVE_XF86_VMODE)
 	boost::scoped_ptr<
-		x11::xf86_vidmode_array>      modes;
-	x11::xf86_resolution_ptr              resolution;
+		xf86::vidmode_array
+	>                                     modes;
+	xf86::resolution_ptr                  resolution;
+#endif
 	signals::connection_manager           con_manager;
 #endif
 	target_ptr                            render_target_;

@@ -18,32 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_XF86_RESOLUTION_HPP_INCLUDED
-#define SGE_X11_XF86_RESOLUTION_HPP_INCLUDED
+#ifndef SGE_RENDERER_BASIC_ANY_MATRIX_HPP_INCLUDED
+#define SGE_RENDERER_BASIC_ANY_MATRIX_HPP_INCLUDED
 
-#include <X11/Xlib.h>
-#include <X11/extensions/xf86vmode.h>
-#include "display_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include "size_type.hpp"
+#include "../math/matrix.hpp"
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {
-namespace x11
+namespace renderer
 {
 
-class xf86_resolution : boost::noncopyable {
-public:
-	SGE_SYMBOL xf86_resolution(
-		x11::display_ptr,
-		int screen,
-		XF86VidModeModeInfo const &new_mode,
-		XF86VidModeModeInfo const &old_mode);
-	SGE_SYMBOL ~xf86_resolution(); 
-private:
-	x11::display_ptr const dsp;
-	int const screen;
-	XF86VidModeModeInfo const &old_mode;
+template<
+	size_type N,
+	size_type M
+>
+struct basic_any_matrix {
+	typedef typename boost::variant<
+		math::matrix<
+			float,
+			N,
+			M
+		>,
+		math::matrix<
+			double,
+			N,
+			M
+		>
+	> type;
 };
 
 }

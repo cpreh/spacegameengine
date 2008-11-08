@@ -20,6 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../uniform_setter.hpp"
 #include "../init.hpp"
+#include <sge/renderer/matrix_convert.hpp>
+#include <sge/renderer/vector_convert.hpp>
+#include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/once.hpp>
 
@@ -55,41 +58,68 @@ sge::ogl::glsl::uniform_setter::operator()(
 	
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	space_unit const f) const
+	renderer::any_arithmetic const &f) const
 {
-	uniform_1f(location, f);
+	uniform_1f(
+		location,
+		renderer::arithmetic_convert<GLfloat>(f));
 	return uniform_type::float1;
 }
 
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	math::vector2 const &v) const
+	renderer::any_vector2 const &v) const
 {
-	uniform_2fv(location, 1u, v.data());
+	uniform_2fv(
+		location,
+		1u,
+		renderer::vector_convert<
+			math::vector<GLfloat, 2>
+		>(
+			v).data());
 	return uniform_type::float2;
 }
 
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	math::vector3 const &v) const
+	renderer::any_vector3 const &v) const
 {
-	uniform_3fv(location, 1u, v.data());
+	uniform_3fv(
+		location,
+		1u,
+		renderer::vector_convert<
+			math::vector<GLfloat, 3>
+		>(
+			v).data());
 	return uniform_type::float3;
 }
 	
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	math::vector4 const &v) const
+	renderer::any_vector4 const &v) const
 {
-	uniform_4fv(location, 1u, v.data());
+	uniform_4fv(
+		location,
+		1u,
+		renderer::vector_convert<
+			math::vector<GLfloat, 4>
+		>(
+			v).data());
 	return uniform_type::float4;
 }
 
 sge::ogl::glsl::uniform_type::type
-	sge::ogl::glsl::uniform_setter::operator()(
-		math::space_matrix const &m) const
+sge::ogl::glsl::uniform_setter::operator()(
+	renderer::any_matrix const &m) const
 {
-	uniform_matrix_4fv(location, 1u, false, m.data());
+	uniform_matrix_4fv(
+		location,
+		1u,
+		false,
+		renderer::matrix_convert<
+			math::matrix<GLfloat, 4, 4>
+		>(
+			m).data());
 	return uniform_type::matrix4x4;
 }
 
@@ -116,6 +146,7 @@ void initialize_uniform_setter()
 		uniform_3fv = glUniform3fvARB;
 		uniform_4fv = glUniform4fvARB;
 		uniform_matrix_4fv = glUniformMatrix4fvARB;
+
 	}
 }
 

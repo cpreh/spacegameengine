@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef sge::math::basic_rect<
+typedef sge::math::rect<
 	sge::sprite::funit
 > frect;
 
@@ -107,7 +107,7 @@ sge::sprite::fill_position_rotated(
 		sinx = std::sin(rot),
 		cosx = std::cos(rot);
 
-	math::basic_matrix<funit,2,2> const mat_rot(
+	math::matrix<funit,2,2> const mat_rot(
 		cosx, -sinx,
 		sinx,  cosx); 
 

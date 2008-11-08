@@ -37,10 +37,10 @@ namespace font
 
 typedef int                             unit;
 typedef unit                            size_type;
-typedef math::basic_vector<unit, 2>     pos;
-typedef math::basic_dim<size_type, 2>   dim;
+typedef math::vector<unit, 2>     pos;
+typedef math::dim<size_type, 2>   dim;
 typedef renderer::gray8_color           color;
-typedef math::basic_rect<unit>          rect;
+typedef math::rect<unit>          rect;
 
 typedef boost::gil::image<
 	color,

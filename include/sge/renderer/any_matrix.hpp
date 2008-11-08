@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_ANY_MATRIX_HPP_INCLUDED
 #define SGE_RENDERER_ANY_MATRIX_HPP_INCLUDED
 
-#include "../math/matrix_fwd.hpp"
+#include "basic_any_matrix.hpp"
 #include <boost/variant/variant.hpp>
 
 namespace sge
@@ -29,13 +29,7 @@ namespace sge
 namespace renderer
 {
 
-typedef math::basic_matrix<float, 4, 4> matrix_f;
-typedef math::basic_matrix<double, 4, 4> matrix_d;
-
-typedef boost::variant<
-	matrix_f,
-	matrix_d
-> any_matrix;
+typedef basic_any_matrix<4, 4>::type any_matrix;
 
 }
 }

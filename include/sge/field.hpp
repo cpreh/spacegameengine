@@ -32,8 +32,8 @@ class field
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	typedef math::basic_vector<size_type,2>      vector_type;
-	typedef math::basic_dim<size_type,2>         dim_type;
+	typedef math::vector<size_type,2>      vector_type;
+	typedef math::dim<size_type,2>         dim_type;
 
 	private:
 	dim_type   dim_;
@@ -133,15 +133,14 @@ class field
 	//array_type container() { return array; }
 	//array_type container() const { return array; }
 };
-typedef field<space_unit> space_field;
 }
 
 template<typename T,typename Ch,typename Traits>
 std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,const sge::field<T> &field)
 {
-	for (sge::space_field::size_type y = 0; y < field.h(); ++y)
+	for (typename sge::field<T>::size_type y = 0; y < field.h(); ++y)
 	{
-		for (sge::space_field::size_type x = 0; x < field.w(); ++x)
+		for (typename sge::field<T>::size_type x = 0; x < field.w(); ++x)
 			stream << field.pos(x,y) << stream.widen(' ');
 		stream << stream.widen('\n');
 	}

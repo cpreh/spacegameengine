@@ -40,7 +40,7 @@ raw_data(
 template<typename T, std::size_t N>
 const_raw_pointer
 raw_data(
-	math::basic_vector<T, N> const &v)
+	math::vector<T, N> const &v)
 {
 	return reinterpret_cast<const_raw_pointer>(v.data());
 }

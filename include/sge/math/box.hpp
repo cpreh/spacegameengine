@@ -21,20 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_BOX_HPP_INCLUDED
 #define SGE_MATH_BOX_HPP_INCLUDED
 
-#include "../su.hpp"
-
 namespace sge
 {
 namespace math
 {
 
-template<typename T> class basic_box {
+template<typename T> class box {
 public:
 	typedef T        value_type;
 	typedef T&       reference;
 	typedef const T& const_reference;
 
-	basic_box(const_reference left,
+	box(const_reference left,
 	          const_reference top,
 	          const_reference right,
 	          const_reference bottom,
@@ -69,12 +67,10 @@ private:
 };
 
 template<typename T>
-bool operator==(const basic_box<T>& l, const basic_box<T>& r);
+bool operator==(const box<T>& l, const box<T>& r);
 
 template<typename T>
-bool operator!=(const basic_box<T>& l, const basic_box<T>& r);
-
-typedef basic_box<space_unit> space_box;
+bool operator!=(const box<T>& l, const box<T>& r);
 
 }
 

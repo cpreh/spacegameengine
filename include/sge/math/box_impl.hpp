@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "compare.hpp"
 
 template<typename T>
-sge::math::basic_box<T>::basic_box(const_reference left_,
+sge::math::box<T>::box(const_reference left_,
                                    const_reference top_,
                                    const_reference right_,
                                    const_reference bottom_,
@@ -40,103 +40,103 @@ sge::math::basic_box<T>::basic_box(const_reference left_,
 {}
 
 template<typename T>
-typename sge::math::basic_box<T>::value_type sge::math::basic_box<T>::w() const
+typename sge::math::box<T>::value_type sge::math::box<T>::w() const
 {
 	return right() - left();
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::value_type sge::math::basic_box<T>::h() const
+typename sge::math::box<T>::value_type sge::math::box<T>::h() const
 {
 	return bottom() - top();
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::value_type sge::math::basic_box<T>::d() const
+typename sge::math::box<T>::value_type sge::math::box<T>::d() const
 {
 	return back() - front();
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::value_type sge::math::basic_box<T>::volume() const
+typename sge::math::box<T>::value_type sge::math::box<T>::volume() const
 {
 	return w() * h() * d();
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::const_reference sge::math::basic_box<T>::left() const
+typename sge::math::box<T>::const_reference sge::math::box<T>::left() const
 {
 	return left_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::const_reference sge::math::basic_box<T>::top() const
+typename sge::math::box<T>::const_reference sge::math::box<T>::top() const
 {
 	return top_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::const_reference sge::math::basic_box<T>::right() const
+typename sge::math::box<T>::const_reference sge::math::box<T>::right() const
 {
 	return right_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::const_reference sge::math::basic_box<T>::bottom() const
+typename sge::math::box<T>::const_reference sge::math::box<T>::bottom() const
 {
 	return bottom_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::const_reference sge::math::basic_box<T>::front() const
+typename sge::math::box<T>::const_reference sge::math::box<T>::front() const
 {
 	return front_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::const_reference sge::math::basic_box<T>::back() const
+typename sge::math::box<T>::const_reference sge::math::box<T>::back() const
 {
 	return back_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::reference sge::math::basic_box<T>::left()
+typename sge::math::box<T>::reference sge::math::box<T>::left()
 {
 	return left_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::reference sge::math::basic_box<T>::top()
+typename sge::math::box<T>::reference sge::math::box<T>::top()
 {
 	return top_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::reference sge::math::basic_box<T>::right()
+typename sge::math::box<T>::reference sge::math::box<T>::right()
 {
 	return right_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::reference sge::math::basic_box<T>::bottom()
+typename sge::math::box<T>::reference sge::math::box<T>::bottom()
 {
 	return bottom_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::reference sge::math::basic_box<T>::front()
+typename sge::math::box<T>::reference sge::math::box<T>::front()
 {
 	return front_;
 }
 
 template<typename T>
-typename sge::math::basic_box<T>::reference sge::math::basic_box<T>::back()
+typename sge::math::box<T>::reference sge::math::box<T>::back()
 {
 	return back_;
 }
 
 template<typename T>
-bool sge::math::operator==(const basic_box<T>& l, const basic_box<T>& r)
+bool sge::math::operator==(const box<T>& l, const box<T>& r)
 {
 	return compare(l.left,r.left)
 	    && compare(l.top,r.top)
@@ -147,7 +147,7 @@ bool sge::math::operator==(const basic_box<T>& l, const basic_box<T>& r)
 }
 
 template<typename T>
-bool sge::math::operator!=(const basic_box<T>& l, const basic_box<T>& r)
+bool sge::math::operator!=(const box<T>& l, const box<T>& r)
 {
 	return !(l==r);
 }

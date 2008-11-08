@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vector_convert.hpp>
-#include <sge/renderer/basic_any_vector.hpp>
-#include <sge/math/vector.hpp>
+#include <sge/renderer/matrix_convert.hpp>
+#include <sge/renderer/basic_any_matrix.hpp>
+#include <sge/math/matrix_impl.hpp>
 #include <sge/export.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
@@ -46,7 +46,7 @@ template<
 	typename Source
 >
 Dest const
-sge::renderer::vector_convert(
+sge::renderer::matrix_convert(
 	Source const &v)
 {
 	return boost::apply_visitor(
@@ -74,19 +74,17 @@ visitor<Dest>::operator()(
 
 }
 
-#define SGE_INSTANTIATE_VECTOR_CONVERT(t, n)\
+#define SGE_INSTANTIATE_MATRIX_CONVERT(t, n, m)\
 template SGE_SYMBOL \
-sge::math::vector<t, n> const \
-sge::renderer::vector_convert(\
-	sge::renderer::basic_any_vector<n>::type const &);
+sge::math::matrix<t, n, m> const \
+sge::renderer::matrix_convert(\
+	sge::renderer::basic_any_matrix<n, m>::type const &);
 
-#define SGE_INSTANTIATE_VECTOR_CONVERT_N(n)\
-SGE_INSTANTIATE_VECTOR_CONVERT(float, n)\
-SGE_INSTANTIATE_VECTOR_CONVERT(double, n)
+#define SGE_INSTANTIATE_MATRIX_CONVERT_N(n, m)\
+SGE_INSTANTIATE_MATRIX_CONVERT(float, n, m)\
+SGE_INSTANTIATE_MATRIX_CONVERT(double, n, m)
 
-SGE_INSTANTIATE_VECTOR_CONVERT_N(2)
-SGE_INSTANTIATE_VECTOR_CONVERT_N(3)
-SGE_INSTANTIATE_VECTOR_CONVERT_N(4)
+SGE_INSTANTIATE_MATRIX_CONVERT_N(4, 4)
 
-#undef SGE_INSTANTIATE_VECTOR_CONVERT_N
-#undef SGE_INSTANTIATE_VECTOR_CONVERT
+#undef SGE_INSTANTIATE_MATRIX_CONVERT_N
+#undef SGE_INSTANTIATE_MATRIX_CONVERT

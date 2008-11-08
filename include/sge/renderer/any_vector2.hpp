@@ -18,19 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_XF86_RESOLUTION_FWD_HPP_INCLUDED
-#define SGE_X11_XF86_RESOLUTION_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_ANY_VECTOR2_HPP_INCLUDED
+#define SGE_RENDERER_ANY_VECTOR2_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
+#include "basic_any_vector.hpp"
 
 namespace sge
 {
-namespace x11
+namespace renderer
 {
 
-class xf86_resolution;
-
-typedef shared_ptr<xf86_resolution> xf86_resolution_ptr;
+typedef basic_any_vector<2>::type any_vector2;
 
 }
 }
