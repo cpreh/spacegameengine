@@ -66,7 +66,7 @@ template<
 struct transform_pixels_binary_fn {
 	typedef void result_type;
 
-	transform_pixels_binary_fn(
+	explicit transform_pixels_binary_fn(
 		Op const &op)
 	:
 		op(op)
@@ -144,7 +144,6 @@ void transform_pixels(
 }
 
 template<
-	typename Dest,
 	typename Src1,
 	typename Op
 >
