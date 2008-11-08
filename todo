@@ -19,7 +19,6 @@
 *medium: implement vertex attributes for the static vertex format
 *medium: add sge::create_window to create (possibly) not renderable windows
 *medium: fix renderer::caps and the opengl implementation of them
-*high: remove space_unit
 *high: set up proper window information for X
 *high: split the code from ogl::device into windows and linux code
 *high: implement uniform arrays for glsl
