@@ -70,13 +70,13 @@ struct vector_visitor
 	
 	sge::ogl::glsl::attribute_type::type
 	operator()(
-		sge::math::basic_vector<
+		sge::math::vector<
 			float,
 			Arity
 		> const &) const;
 	sge::ogl::glsl::attribute_type::type
 	operator()(
-		sge::math::basic_vector<
+		sge::math::vector<
 			double,
 			Arity
 		> const &) const;
@@ -238,7 +238,7 @@ vector_visitor<
 	FunFloat,
 	FunDouble
 >::operator()(
-	sge::math::basic_vector<
+	sge::math::vector<
 		float,
 		Arity
 	> const &v) const
@@ -259,7 +259,7 @@ vector_visitor<
 	FunFloat,
 	FunDouble
 >::operator()(
-	sge::math::basic_vector<
+	sge::math::vector<
 		double,
 		Arity
 	> const &v) const

@@ -38,7 +38,7 @@ public:
 	typedef T                                 value_type;
 	typedef T&                                reference;
 	typedef const T&                          const_reference;
-	typedef math::basic_vector<value_type, 2> point_type;
+	typedef math::vector<value_type, 2> point_type;
 
 	basic_circle(
 		const_reference x,

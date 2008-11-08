@@ -28,7 +28,7 @@ namespace sge
 
 template<typename T> class basic_line2 {
 public:
-	typedef math::basic_vector<T,2> point;
+	typedef math::vector<T,2> point;
 	basic_line2(const point o, point d) : o(o), d(d) {}
 	bool intersects(const line2& r) const
 	{

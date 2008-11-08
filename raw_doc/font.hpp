@@ -152,7 +152,7 @@ Files to include: <sge/renderer/scoped_block.hpp>
 This loop, as in the first tutorial, loops forever until you close it somehow.
 Feel free to integrate an input system if you like. There's nothing much here
 that needs explanation. sge::font::pos() is the standard constructor for a
-sge::math::basic_vector, which initializes all components to
+sge::math::vector, which initializes all components to
 <tt>static_cast<T>(0)</tt>, so the rect in which the font is trapped in begins
 at the top left corner of the screen. The next line tells us that it takes up
 the whole screen. <tt>sge::math::structure_cast<T>(x)</tt> is basically just a

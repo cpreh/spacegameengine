@@ -30,7 +30,7 @@ namespace sge
 
 template<typename T> class basic_ray2 {
 public:
-	typedef math::basic_vector<T,2> vec;
+	typedef math::vector<T,2> vec;
 	basic_ray2(vec o, vec d) : o(o), d(d) {}
 	bool intersection(const basic_line_seg2<T>& r, vec& v) const 
 	{

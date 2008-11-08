@@ -34,7 +34,7 @@ template<
 >
 basic_matrix<T, 4, 4> const
 matrix_translation(
-	basic_vector<T, 3> const &v);
+	vector<T, 3> const &v);
 
 template<
 	typename T
@@ -50,7 +50,7 @@ template<
 >
 basic_matrix<T, 4, 4> const
 matrix_scaling(
-	basic_vector<T, 3> const &v);
+	vector<T, 3> const &v);
 
 template<
 	typename T

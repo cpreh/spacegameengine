@@ -37,7 +37,7 @@ namespace sprite
 
 typedef float                       funit;
 typedef int                         unit;
-typedef math::basic_vector<unit, 2> point;
+typedef math::vector<unit, 2> point;
 typedef math::basic_dim<unit, 2>    dim;
 typedef math::basic_rect<unit>      rect;
 typedef renderer::any_color         color;
@@ -50,12 +50,12 @@ typedef math::basic_rect<
 	funit
 > tex_rect;
 
-typedef math::basic_vector<
+typedef math::vector<
 	funit,
 	3
 > pos3;
 
-typedef math::basic_vector<
+typedef math::vector<
 	funit,
 	2
 > pos2;

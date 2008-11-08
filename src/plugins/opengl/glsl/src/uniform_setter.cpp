@@ -74,7 +74,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 		location,
 		1u,
 		renderer::vector_convert<
-			math::basic_vector<GLfloat, 2>
+			math::vector<GLfloat, 2>
 		>(
 			v).data());
 	return uniform_type::float2;
@@ -88,7 +88,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 		location,
 		1u,
 		renderer::vector_convert<
-			math::basic_vector<GLfloat, 3>
+			math::vector<GLfloat, 3>
 		>(
 			v).data());
 	return uniform_type::float3;
@@ -102,7 +102,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 		location,
 		1u,
 		renderer::vector_convert<
-			math::basic_vector<GLfloat, 4>
+			math::vector<GLfloat, 4>
 		>(
 			v).data());
 	return uniform_type::float4;

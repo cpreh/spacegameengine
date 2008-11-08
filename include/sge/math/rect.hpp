@@ -39,7 +39,7 @@ public:
 	typedef std::size_t             size_type;
 	typedef T&                      reference;
 	typedef const T&                const_reference;
-	typedef math::basic_vector<T,2> point_type;
+	typedef math::vector<T,2> point_type;
 	typedef math::basic_dim<T,2>    dim_type;
 
 	/**

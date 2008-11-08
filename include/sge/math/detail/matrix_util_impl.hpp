@@ -32,7 +32,7 @@ template<
 >
 sge::math::basic_matrix<T, 4, 4> const
 sge::math::matrix_translation(
-	basic_vector<T, 3> const &v)
+	vector<T, 3> const &v)
 {
 	return basic_matrix<T, 4, 4>
 	       (static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), v.x(),
@@ -52,7 +52,7 @@ sge::math::matrix_translation(
 	T const z)
 {
 	return matrix_translation(
-		basic_vector<T, 3>(
+		vector<T, 3>(
 			x,
 			y,
 			z));
@@ -63,7 +63,7 @@ template<
 >
 sge::math::basic_matrix<T, 4, 4> const
 sge::math::matrix_scaling(
-	basic_vector<T, 3> const &v)
+	vector<T, 3> const &v)
 {
 	return basic_matrix<T, 4, 4>
 	       (v.x(),  static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
@@ -82,7 +82,7 @@ sge::math::matrix_scaling(
 	T const z)
 {
 	return matrix_scaling(
-		basic_vector<T, 3>(
+		vector<T, 3>(
 			x,
 			y,
 			z));

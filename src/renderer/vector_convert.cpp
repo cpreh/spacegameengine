@@ -76,7 +76,7 @@ visitor<Dest>::operator()(
 
 #define SGE_INSTANTIATE_VECTOR_CONVERT(t, n)\
 template SGE_SYMBOL \
-sge::math::basic_vector<t, n> const \
+sge::math::vector<t, n> const \
 sge::renderer::vector_convert(\
 	sge::renderer::basic_any_vector<n>::type const &);
 

@@ -128,7 +128,7 @@ template<typename T, std::size_t N>
 basic_matrix<T,N,N> transpose(const basic_matrix<T,N,N>& m);
 
 template<typename T, std::size_t N, std::size_t M>
-basic_vector<T,M> operator* (const basic_matrix<T,N,M>& m, const basic_vector<T,N>& v);
+vector<T,M> operator* (const basic_matrix<T,N,M>& m, const vector<T,N>& v);
 
 template<typename D, typename S, std::size_t N, std::size_t M>
 basic_matrix<D, N, M> const

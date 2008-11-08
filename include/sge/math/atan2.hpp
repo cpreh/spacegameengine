@@ -32,7 +32,7 @@ namespace sge
 namespace math
 {
 /**
- * Wraps std::atan2 so it can be used with sge::math::basic_vector. Returns an
+ * Wraps std::atan2 so it can be used with sge::math::vector. Returns an
  * empty boost::optional if given the null vector
  */
 template<typename T>
@@ -41,7 +41,7 @@ inline typename boost::enable_if<
 	boost::optional<T>
 	>::type
 atan2(
-	sge::math::basic_vector<T,2> const &v)
+	sge::math::vector<T,2> const &v)
 {
 	return v.is_null()
 		? boost::optional<T>()

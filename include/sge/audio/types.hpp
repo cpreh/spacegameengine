@@ -34,7 +34,7 @@ typedef std::size_t sample_count;
 typedef raw_vector<unsigned char> sample_container;
 
 typedef float unit; // TODO: is float ok here?
-typedef math::basic_vector<unit, 3> point;
+typedef math::vector<unit, 3> point;
 
 struct angle
 {

@@ -129,9 +129,9 @@ struct set_pixel_fn
 */
 
 template<class T,std::size_t n,class F>
-sge::math::basic_vector<T,n> apply(sge::math::basic_vector<T,n> const &v,F f)
+sge::math::vector<T,n> apply(sge::math::vector<T,n> const &v,F f)
 {
-	sge::math::basic_vector<T,n> newone = v;
+	sge::math::vector<T,n> newone = v;
 	std::transform(newone.begin(),newone.end(),newone.begin(),f);
 	//BOOST_FOREACH(T &c,newone)
 	//	c = f(c);

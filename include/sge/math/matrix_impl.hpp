@@ -238,12 +238,12 @@ inline sge::math::basic_matrix<T,N,N> sge::math::transpose(const basic_matrix<T,
 }
 
 template<typename T, std::size_t N, std::size_t M>
-sge::math::basic_vector<T,M>
+sge::math::vector<T,M>
 sge::math::operator* (
 	const basic_matrix<T,N,M>& m,
-	const basic_vector<T,N>& v)
+	const vector<T,N>& v)
 {
-	typedef basic_vector<T,M> result_type;
+	typedef vector<T,M> result_type;
 	result_type ret(result_type::null());
 	for(typename result_type::size_type i = 0; i < M; ++i)
 		for(typename basic_matrix<T,N,M>::size_type j = 0; j < N; ++j)

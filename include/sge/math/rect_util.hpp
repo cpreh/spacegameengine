@@ -30,7 +30,7 @@ namespace math
 {
 
 template<typename T>
-bool contains(const basic_rect<T>& r, const basic_vector<T,2>& p);
+bool contains(const basic_rect<T>& r, const vector<T,2>& p);
 
 template<typename T>
 basic_rect<T> const intersection(basic_rect<T> const &,basic_rect<T> const &);

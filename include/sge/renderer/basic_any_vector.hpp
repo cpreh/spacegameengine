@@ -35,11 +35,11 @@ template<
 >
 struct basic_any_vector {
 	typedef typename boost::variant<
-		math::basic_vector<
+		math::vector<
 			float,
 			sz
 		>,
-		math::basic_vector<
+		math::vector<
 			double,
 			sz
 		>
