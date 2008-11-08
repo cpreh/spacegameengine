@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../color_actor.hpp"
+#include "../client_state_combiner.hpp"
 #include "../../error.hpp"
-//#include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -39,7 +39,8 @@ sge::ogl::vf::color_actor::color_actor(
 			SGE_TEXT(" glSecondaryColor is currently not supported."));
 }
 
-void sge::ogl::vf::color_actor::operator()() const
+void sge::ogl::vf::color_actor::operator()(
+	client_state_combiner &c) const
 {
 	SGE_OPENGL_SENTRY
 
@@ -49,5 +50,5 @@ void sge::ogl::vf::color_actor::operator()() const
 		stride(),
 		pointer());
 	
-	glEnableClientState(GL_COLOR_ARRAY);
+	c.enable(GL_COLOR_ARRAY);
 }

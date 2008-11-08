@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../attribute_actor.hpp"
 #include "../convert_num_elements.hpp"
+#include "../client_state_combiner.hpp"
 #include "../../error.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <boost/variant/apply_visitor.hpp>
@@ -37,7 +38,8 @@ sge::ogl::vf::attribute_actor::attribute_actor(
 			e.element().info()))
 {}
 
-void sge::ogl::vf::attribute_actor::operator()() const
+void sge::ogl::vf::attribute_actor::operator()(
+	client_state_combiner &c) const
 {
 	SGE_OPENGL_SENTRY
 
@@ -49,7 +51,7 @@ void sge::ogl::vf::attribute_actor::operator()() const
 		stride(),
 		pointer());
 	
-	glEnableVertexAttribArray(
-		static_cast<GLint>(
+	c.enable_attribute(
+		static_cast<GLuint>(
 			index()));
 }

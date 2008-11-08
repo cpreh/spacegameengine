@@ -18,42 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
+#include "../global_client_state.hpp"
+#include "../client_state.hpp"
+#include <sge/linear_set_impl.hpp>
 
-#include "pointer_actor.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-class dynamic_ordered_element;
-}
-}
-
-namespace ogl
-{
-namespace vf
+namespace
 {
 
-class client_state_combiner;
-
-class attribute_actor : public pointer_actor {
-public:
-	attribute_actor(
-		renderer::vf::dynamic_ordered_element const &,
-		renderer::vf::vertex_size stride);
-	void operator()(
-		client_state_combiner &) const;
-private:
-	GLint const elements;
-};
+sge::ogl::vf::client_state state;
 
 }
-}
+
+void sge::ogl::vf::global_client_state(
+	client_state const &s)
+{
+	state = s;
 }
 
-#endif
+sge::ogl::vf::client_state const &
+sge::ogl::vf::global_client_state()
+{
+	return state;
+}

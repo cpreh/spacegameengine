@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../normal_actor.hpp"
+#include "../client_state_combiner.hpp"
 #include "../../error.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/exception.hpp>
@@ -37,7 +38,8 @@ sge::ogl::vf::normal_actor::normal_actor(
 			SGE_TEXT("opengl does not support more than one normal type in the vertex format!"));
 }
 
-void sge::ogl::vf::normal_actor::operator()() const
+void sge::ogl::vf::normal_actor::operator()(
+	client_state_combiner &c) const
 {
 	SGE_OPENGL_SENTRY
 
@@ -46,5 +48,5 @@ void sge::ogl::vf::normal_actor::operator()() const
 		stride(),
 		pointer());
 	
-	glEnableClientState(GL_NORMAL_ARRAY);
+	c.enable(GL_NORMAL_ARRAY);
 }

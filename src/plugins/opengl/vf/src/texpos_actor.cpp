@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../texpos_actor.hpp"
+#include "../client_state_combiner.hpp"
 #include "../../error.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/exception.hpp>
@@ -45,11 +46,13 @@ sge::ogl::vf::texpos_actor::texpos_actor(
 			% GL_MAX_TEXTURE_COORDS).str());
 }
 
-void sge::ogl::vf::texpos_actor::operator()() const
+void sge::ogl::vf::texpos_actor::operator()(
+	client_state_combiner &c) const
 {
 	SGE_OPENGL_SENTRY
 
-	glClientActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + index()));
+	glClientActiveTexture(
+		static_cast<GLenum>(GL_TEXTURE0 + index()));
 
 	glTexCoordPointer(
 		elements,
@@ -57,5 +60,5 @@ void sge::ogl::vf::texpos_actor::operator()() const
 		stride(),
 		pointer());
 
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	c.enable(GL_TEXTURE_COORD_ARRAY);
 }

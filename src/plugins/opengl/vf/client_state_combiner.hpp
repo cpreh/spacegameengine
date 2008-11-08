@@ -18,38 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
+#define SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 
-#include "pointer_actor.hpp"
-#include <sge/renderer/vf/vertex_size.hpp>
+#include "client_state.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
-{
-class dynamic_ordered_element;
-}
-}
-
 namespace ogl
 {
 namespace vf
 {
 
-class client_state_combiner;
-
-class attribute_actor : public pointer_actor {
+class client_state_combiner : boost::noncopyable {
 public:
-	attribute_actor(
-		renderer::vf::dynamic_ordered_element const &,
-		renderer::vf::vertex_size stride);
-	void operator()(
-		client_state_combiner &) const;
+	explicit client_state_combiner(
+		client_state const &old_states);
+	void enable(
+		GLenum);
+	void enable_attribute(
+		GLuint);
+	~client_state_combiner();
 private:
-	GLint const elements;
+	client_state const old_states;
+	client_state new_states;
 };
 
 }
