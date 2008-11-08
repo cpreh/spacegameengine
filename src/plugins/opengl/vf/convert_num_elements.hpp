@@ -18,16 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_UNSPECIFIED_HPP_INCLUDED
-#define SGE_RENDERER_VF_UNSPECIFIED_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_CONVERT_NUM_ELEMENTS_HPP_INCLUDED
+#define SGE_OPENGL_VF_CONVERT_NUM_ELEMENTS_HPP_INCLUDED
 
-#include "vec_base.hpp"
-#include "single_base.hpp"
-#include "color_base.hpp"
-#include "vertex_size.hpp"
-#include "role.hpp"
-#include <boost/static_assert.hpp>
-#include <boost/utility/enable_if.hpp>
+#include "../common.hpp"
+#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
@@ -35,49 +30,22 @@ namespace renderer
 {
 namespace vf
 {
+class dynamic_vector;
+class dynamic_color;
+}
+}
 
-template<
-	typename Format,
-	vertex_size NumSubElements,
-	typename Enable = void
->
-struct unspecified
-: vec_base<
-	Format,
-	role::unspecified,
-	NumSubElements
-> {
-	BOOST_STATIC_ASSERT(
-		NumSubElements >= 2 && NumSubElements <= 4);
+namespace ogl
+{
+namespace vf
+{
+
+struct convert_num_elements : boost::static_visitor<GLint> {
+	GLint operator()(
+		renderer::vf::dynamic_vector const &) const;
+	GLint operator()(
+		renderer::vf::dynamic_color const &) const;
 };
-
-template<
-	typename Format
->
-struct unspecified<
-	Format,
-	1,
-	void
->
-: single_base<
-	Format,
-	role::unspecified
-> {};
-
-template<
-	typename Color
->
-struct unspecified<
-	Color,
-	1,
-	typename boost::enable_if<
-		typename Color::layout_t // TODO: make this better!
-	>::type
->
-: color_base<
-	Color,
-	role::unspecified
-> {};
 
 }
 }

@@ -29,6 +29,8 @@
 #include <exception>
 #include <cstdlib>
 
+#include <sge/renderer/vf/unspecified.hpp>
+
 int main()
 try
 {

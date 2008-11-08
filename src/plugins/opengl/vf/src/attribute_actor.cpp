@@ -18,39 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../to_actor.hpp"
-#include "../pos_actor.hpp"
-#include "../normal_actor.hpp"
-#include "../color_actor.hpp"
-#include "../texpos_actor.hpp"
 #include "../attribute_actor.hpp"
+#include "../convert_num_elements.hpp"
+#include "../../error.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <boost/variant/apply_visitor.hpp>
 
-sge::ogl::vf::actor_ptr 
-sge::ogl::vf::to_actor(
+sge::ogl::vf::attribute_actor::attribute_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride)
+:
+	pointer_actor(
+		e,
+		stride),
+	elements(
+		boost::apply_visitor(
+			convert_num_elements(),
+			e.element().info()))
+{}
+
+void sge::ogl::vf::attribute_actor::operator()() const
 {
-	switch(e.element().role()) {
-	case renderer::vf::role::pos:
-		return actor_ptr(
-			new pos_actor(e, stride));
-	case renderer::vf::role::normal:
-		return actor_ptr(
-			new normal_actor(e, stride));
-	case renderer::vf::role::color:
-		return actor_ptr(
-			new color_actor(e, stride));
-	case renderer::vf::role::texpos:
-		return actor_ptr(
-			new texpos_actor(e, stride));
-	case renderer::vf::role::unspecified:
-		return actor_ptr(
-			new attribute_actor(e, stride));
-	default:
-		throw exception(
-			SGE_TEXT("Invalid role in ogl vertex format!"));
-	}
+	SGE_OPENGL_SENTRY
+
+	glVertexAttribPointer(
+		static_cast<GLuint>(index()),
+		elements,
+		format(),
+		true, // normalized
+		stride(),
+		pointer());
+	
+	glEnableVertexAttribArray(
+		static_cast<GLint>(
+			index()));
 }

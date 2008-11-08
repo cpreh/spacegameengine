@@ -18,50 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_COLOR_HPP_INCLUDED
-#define SGE_RENDERER_COLOR_HPP_INCLUDED
+#include "../convert_num_elements.hpp"
+#include <sge/renderer/vf/dynamic_vector.hpp>
+#include <sge/renderer/vf/dynamic_color.hpp>
 
-#include "../typeswitch.hpp"
-#include <boost/gil/pixel.hpp>
-#include <boost/gil/rgba.hpp>
-#include <boost/gil/gray.hpp>
-#include <boost/gil/channel.hpp>
-
-namespace sge
+GLint sge::ogl::vf::convert_num_elements::operator()(
+	renderer::vf::dynamic_vector const &v) const
 {
-namespace renderer
-{
-
-typedef uint8 color_channel_8;
-typedef boost::gil::bits32f color_channel_f32;
-typedef float color_channel_f32_raw;
-
-typedef boost::gil::pixel<
-	color_channel_8,
-	boost::gil::rgba_layout_t
-> rgba8_color;
-
-typedef boost::gil::pixel<
-	color_channel_8,
-	boost::gil::argb_layout_t
-> argb8_color;
-
-typedef boost::gil::pixel<
-	color_channel_8,
-	boost::gil::bgra_layout_t
-> bgra8_color;
-
-typedef boost::gil::pixel<
-	color_channel_f32,
-	boost::gil::rgba_layout_t
-> rgba_f32_color;
-
-typedef boost::gil::pixel<
-	uint8,
-	boost::gil::gray_layout_t
-> gray8_color;
-
-}
+	return static_cast<GLint>(
+		v.elements());
 }
 
-#endif
+GLint sge::ogl::vf::convert_num_elements::operator()(
+	renderer::vf::dynamic_color const &) const
+{
+	return 4;
+}
