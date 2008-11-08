@@ -63,6 +63,38 @@ private:
 template<
 	typename Op
 >
+struct transform_pixels_binary_fn {
+	typedef void result_type;
+
+	transform_pixels_binary_fn(
+		Op const &op)
+	:
+		op(op)
+	{}
+
+	template<
+		typename Src1,
+		typename Src2,
+		typename Dest
+	>
+	void operator()(
+		Src1 const &src1,
+		Src2 const &src2,
+		Dest const &dest) const
+	{
+		boost::gil::transform_pixels(
+			src1,
+			src2,
+			dest,
+			op);
+	}
+private:
+	Op const op;
+};
+
+template<
+	typename Op
+>
 void transform_pixels(
 	const_image_view const &src,
 	image_view const &dst,
@@ -109,6 +141,28 @@ void transform_pixels(
 				op),
 			_1,
 			dest));
+}
+
+template<
+	typename Dest,
+	typename Src1,
+	typename Op
+>
+void transform_pixels(
+	Src1 const &src1,
+	const_image_view const &src2,
+	image_view const &dest,
+	Op const &op)
+{
+	boost::gil::apply_operation(
+		dest,
+		src2,
+		boost::bind(
+			transform_pixels_binary_fn<Op>(
+				op),
+			src1,
+			_1,
+			_2));
 }
 
 }
