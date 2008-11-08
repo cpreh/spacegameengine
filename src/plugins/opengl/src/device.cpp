@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/math/matrix_impl.hpp>
+#include <sge/log/headers.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <sstream>
 

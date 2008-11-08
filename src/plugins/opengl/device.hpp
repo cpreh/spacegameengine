@@ -36,8 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "glx/current.hpp"
 #include "glx/context.hpp"
 #if defined(SGE_HAVE_XF86_VMODE)
-#include "xf86_vidmode_array.hpp"
-#include "xf86_resolution.hpp"
+#include "xf86/vidmode_array.hpp"
+#include "xf86/resolution.hpp"
 #endif
 #include <sge/x11/window_fwd.hpp>
 #else
