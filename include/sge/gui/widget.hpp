@@ -37,39 +37,38 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 		SGE_SYMBOL explicit parent_data(manager &);
 
 		widgets::container *parent_widget() const { return widget_; }
-		manager &parent_manager() { return manager_; }
+		manager &parent_manager() const { return manager_; }
 	};
 
-	SGE_SYMBOL widget(
+	SGE_SYMBOL explicit widget(
 		parent_data,
 		size_policy_t const & = size_policy_t::default_policy);
 
 	// getters and setters go here
-	point const &pos() const { return pos_; }
-	dim const &size() const { return size_; }
+	point const &pos() const;
+	dim const &size() const;
 
 	// parent stuff
-	manager &parent_manager() { return manager_; }
-	manager const &parent_manager() const { return manager_; }
+	manager &parent_manager();
+	manager const &parent_manager() const;
 	
-	widgets::container *parent_widget() { return parent_; }
-	widgets::container const *parent_widget() const { return parent_; }
+	widgets::container *parent_widget();
+	widgets::container const *parent_widget() const;
 
-	size_policy_t const &size_policy() const { return size_policy_; }
-	void size_policy(size_policy_t const &s) { size_policy_ = s; }
+	size_policy_t const &size_policy() const;
+	void size_policy(size_policy_t const &s);
 
 	SGE_SYMBOL void size(dim const &);
 	SGE_SYMBOL void pos(point const &);
 	SGE_SYMBOL void compile();
 	SGE_SYMBOL bool is_container() const;
 
-	// pure virtuals
 	virtual dim const size_hint() const = 0;
 	virtual void process(events::invalid_area const &);
-	virtual void process(events::mouse_enter const &) {}
-	virtual void process(events::mouse_leave const &) {}
-	virtual void process(events::mouse_move const &) {}
-	virtual void process(events::mouse_click const &) {}
+	virtual void process(events::mouse_enter const &);
+	virtual void process(events::mouse_leave const &);
+	virtual void process(events::mouse_move const &);
+	virtual void process(events::mouse_click const &);
 
 	// virtuals
 	SGE_SYMBOL virtual ~widget();
@@ -77,17 +76,14 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	SGE_SYMBOL rect const relative_area() const;
 	SGE_SYMBOL rect const absolute_area() const;
 
-	void set_size_raw(dim const &d) { size_ = d; }
-	void set_pos_raw(point const &p) { pos_ = p; }
-	virtual void do_compile() {}
+	void set_size_raw(dim const &d);
+	void set_pos_raw(point const &p);
 
 	protected:
-	virtual void do_size(dim const &s) { set_size_raw(s); }
-	virtual void do_pos(point const &p) { set_pos_raw(p); }
-	virtual widget *do_recalculate_focus(point const &) { return this; }
+	virtual widget *do_recalculate_focus(point const &);
+	virtual void do_compile();
 
 	private:
-	// parent data
 	widgets::container *const parent_;
 	manager &manager_;
 

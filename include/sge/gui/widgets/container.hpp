@@ -19,13 +19,13 @@ class SGE_CLASS_SYMBOL container : public widget
 	SGE_SYMBOL explicit container(parent_data);
 	SGE_SYMBOL void add_child(widget &);
 	SGE_SYMBOL void remove_child(widget &);
-	child_container &children() { return children_; }
-	child_container const &children() const { return children_; }
+	child_container &children();
+	child_container const &children() const;
 	template<typename T>
 	void layout() { layout_.reset(new T(*this)); }
-	layout_ptr layout() { return layout_.get(); }
-	const_layout_ptr layout() const { return layout_.get(); }
-	void size_hint(dim const &s) { size_hint_ = s; }
+	layout_ptr layout();
+	const_layout_ptr layout() const;
+	void size_hint(dim const &);
 	dim const size_hint() const;
 	SGE_SYMBOL void process(events::invalid_area const &);
 	SGE_SYMBOL bool has_child(widget const &) const;

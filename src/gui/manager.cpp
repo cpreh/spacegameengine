@@ -1,13 +1,17 @@
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widget.hpp>
+#include <sge/image/object.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/widgets/container.hpp>
 #include <sge/gui/events/invalid_area.hpp>
+#include <sge/image/loader.hpp>
 #include <sge/gui/events/mouse_enter.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/input/classification.hpp>
 #include <sge/gui/events/mouse_click.hpp>
 #include <sge/media.hpp>
 #include <sge/math/rect_impl.hpp>
@@ -15,6 +19,7 @@
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_lock.hpp>
+#include <sge/input/system.hpp>
 #include <sge/renderer/image_view_impl.hpp>
 #include <sge/renderer/texture_software.hpp>
 #include <sge/renderer/texture_rw.hpp>
@@ -60,7 +65,7 @@ sge::gui::manager::manager(
 			texture::part_ptr(
 				new texture::part_raw(
 					rend->create_texture(
-					il->load_image(media_path()/SGE_TEXT("mainskin/cursor_pressed.png"))->view(),
+					il->load(media_path()/SGE_TEXT("mainskin/cursor_pressed.png"))->view(),
 					renderer::linear_filter,
 					renderer::resource_flags::readable))),
 			sprite::texture_dim,
@@ -168,7 +173,7 @@ void sge::gui::manager::recalculate_mouse_focus()
 		SGE_LOG_DEBUG(mylogger,log::_1 << "no widget currently has the focus, so letting it recalculate");
 		BOOST_FOREACH(widget_data &wd,widgets_)
 		{
-			if (math::contains(wd.spr.get_rect(),click_point))
+			if (math::contains(wd.spr.rect(),click_point))
 			{
 				wd.ptr->process(events::mouse_enter(click_point));
 				mouse_focus = wd.ptr->recalculate_focus(click_point);
