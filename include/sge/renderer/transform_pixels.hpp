@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "image_view.hpp"
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/gil/algorithm.hpp>
+#include <boost/bind.hpp>
 
 namespace sge
 {
@@ -31,31 +32,28 @@ namespace renderer
 {
 
 template<
-	typename Dst,
 	typename Op
 >
 struct transform_pixels_fn {
 	typedef void result_type;
 
-	Dst &_dst;
-
-	transform_pixels_fn(
-		Dst& dst,
+	explicit transform_pixels_fn(
 		Op const &op)
 	:
-		_dst(dst),
 		op(op)
 	{}
 
 	template<
-		typename Src
+		typename Src,
+		typename Dest
 	>
 	void operator()(
-		Src const &src) const
+		Src const &src,
+		Dest const &dest) const
 	{
 		boost::gil::transform_pixels(
-			_dst,
 			src,
+			dest,
 			op);
 	}
 private:
@@ -63,31 +61,54 @@ private:
 };
 
 template<
-	typename Src,
-	typename Dst,
 	typename Op
 >
-void variant_transform_pixels_fn(
-	boost::gil::variant<Src> const &src,
-	boost::gil::variant<Dst> const &dst,
-	Op const &op)
-{
-	transform_pixels_fn<Dst, Op> fn(dst, op);
-	boost::gil::apply_operation(src, fn);
-}
-
-template<
-	typename Op
->
-SGE_SYMBOL void transform_pixels(
+void transform_pixels(
 	const_image_view const &src,
 	image_view const &dst,
 	Op const &op)
 {
-	variant_transform_pixels_fn(
+	boost::gil::apply_operation(
 		src,
 		dst,
-		op);
+		transform_pixels_fn<Op>(
+			op));
+}
+
+template<
+	typename Src,
+	typename Op
+>
+void transform_pixels(
+	Src const &src,
+	image_view const &dest,
+	Op const &op)
+{
+	boost::gil::apply_operation(
+		dest,
+		boost::bind(
+			transform_pixels_fn<Op>(
+				op),
+			src,
+			_1));
+}
+
+template<
+	typename Dest,
+	typename Op
+>
+void transform_pixels(
+	const_image_view const &src,
+	Dest const &dest,
+	Op const &op)
+{
+	boost::gil::apply_operation(
+		src,
+		boost::bind(
+			transform_pixels_fn<Op>(
+				op),
+			_1,
+			dest));
 }
 
 }
