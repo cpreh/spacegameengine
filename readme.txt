@@ -16,18 +16,24 @@ Please follow the instructions below.
 
 2. How to install
   If you are using Windows you might be interested in chapter 3.
-  Generally you can type 'cmake' in a command prompt and see which generators
+  First, create a directory where the build files will go and cd into
+  that directory.
+  For example:
+    mkdir build && cd build
+  Now you can type 'cmake ..' and see which generators
   are available. For example a generator can be UNIX makefiles, VC++ project
   files and such.
-  Type 'cmake -G "Unix Makefiles" .' for example to build Unix makefiles that can
+  Type 'cmake -G "Unix Makefiles" ..' for example to build Unix makefiles that can
   later be used by make to compile sge.
+  If there is only one meaningful generator available on your system,
+  cmake will default to that.
 
   Now you have to choose which plugins you want cmake to build.
   This step is very important and I recommend users of a POSIX system to at
   least enable DEVIL, FREETYPE, OPENGL and X11INPUT.
   This can be done in the following way:
   'cmake -DENABLE_DEVIL:=1 -DENABLE_FREETYPE:=1
-  -DENABLE_OPENGL:=1-DENABLE_X11INPUT:=1 .'
+  -DENABLE_OPENGL:=1-DENABLE_X11INPUT:=1 ..'
 
   At the moment the following options are available:
   - DEVIL (build the devil image loader plugin)
@@ -35,6 +41,7 @@ Please follow the instructions below.
   - DINPUT (build the direct input plugin - Windows only)
   - FREETYPE (build the freetype font plugin)
   - GUI (build the gui)
+  - MAD (build the mad mp123 loader plugin)
   - OPENAL (build the openal audio plugin)
   - OPENGL (build the opengl plugin)
   - TEST (build the tests)
@@ -43,12 +50,12 @@ Please follow the instructions below.
   - X11INPUT (build the x11 input plugin - X11 only)
 
   Last you have to specify where sge will install into.
-  The default is /usr. You can change the behaviour if you type
-  'cmake -D CMAKE_INSTALL_PREFIX="prefix"'.
+  The default is /usr/local. You can change the behaviour if you type
+  'cmake -D CMAKE_INSTALL_PREFIX="prefix" ..'.
   For example, if you want to have a local install, type
-  'cmake -D CMAKE_INSTALL_PREFIX="/home/me/local"'
+  'cmake -D CMAKE_INSTALL_PREFIX="/home/me/local" ..'
 
-  If you think you have enabled enough, run 'cmake .' again and use the build
+  If you think you have enabled enough, run 'cmake ..' again and use the build
   system you have specified the generator for, usually 'make'.
 
   Last run make install with an optional DESTDIR argument to install sge.
@@ -66,7 +73,7 @@ Please follow the instructions below.
 
 4. Installing on Gentoo
   If you are a gentoo user you can use the ebuild provided in the repository.
-  Put it into one of you overlays that won't be overridden by a sync.
+  Put it into one of your overlays that won't be overridden by a sync.
   The category should be 'games-engines'.
   So for example I put it into
   '/usr/local/overlays/mine/games-engines/spacegameengine'.

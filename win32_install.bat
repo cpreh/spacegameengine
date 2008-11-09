@@ -32,7 +32,10 @@
 @goto Exit
 
 :Config
-@call cmake -G %target% -D CMAKE_LIBRARYPATH=./project/win32/lib/ -D ENABLE_DEVIL:=1 -D ENABLE_TEST:=1 -D ENABLE_OPENGL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_OPENAL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TRUETYPE:=1 .
+@mkdir build
+@cd build
+@call cmake -G %target% -D CMAKE_LIBRARYPATH=./project/win32/lib/ -D ENABLE_DEVIL:=1 -D ENABLE_OPENGL:=1 -D ENABLE_DINPUT:=1 -D ENABLE_FREETYPE:=1 -D ENABLE_OPENAL:=1 -D ENABLE_VORBIS:=1 -D ENABLE_WAVE:=1 -D ENABLE_TEST:=1 -D ENABLE_TRUETYPE:=1 ..
+@cd ..
 
 :Cleanup
 @IF EXIST projects\windows\lib32 call rd /S /Q projects\windows\lib32
