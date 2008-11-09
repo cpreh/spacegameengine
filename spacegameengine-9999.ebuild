@@ -4,7 +4,7 @@
 
 inherit games git
 
-DESCRIPTION="A portable easy to use engine written in C++"
+DESCRIPTION="A portable, easy to use engine written in C++"
 HOMEPAGE="http://spacegameengine.sourceforge.net/"
 
 EGIT_REPO_URI="git://git.tuxfamily.org/gitroot/sge/spacegameengine.git"
