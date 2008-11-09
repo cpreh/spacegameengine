@@ -50,10 +50,12 @@ Please follow the instructions below.
   - X11INPUT (build the x11 input plugin - X11 only)
 
   Last you have to specify where sge will install into.
-  The default is /usr/local. You can change the behaviour if you type
+  The default is /usr/local on UNIX. You can change the behaviour if you type
   'cmake -D CMAKE_INSTALL_PREFIX="prefix" ..'.
   For example, if you want to have a local install, type
   'cmake -D CMAKE_INSTALL_PREFIX="/home/me/local" ..'
+  If you don't want to install sge, type 'cmake -D DONT_INSTALL:=1 ..'.
+  sge will then run out of the source directory only.
 
   If you think you have enabled enough, run 'cmake ..' again and use the build
   system you have specified the generator for, usually 'make'.
