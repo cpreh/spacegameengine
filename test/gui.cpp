@@ -1,3 +1,4 @@
+#if 0
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/renderer/texture_software.hpp>
 
@@ -36,9 +37,13 @@ struct end_program
 };
 }
 
+#endif
 int main()
+#if 0
 try
+#endif
 {
+#if 0
 	sge::systems sys;
 	// basic stuff
 	sys.init<sge::init::core>();
@@ -88,7 +93,9 @@ try
 		sge::renderer::scoped_block block(sys.renderer);
 		m.draw();
 	}
+#endif
 } 
+#if 0
 catch (sge::exception const &e)
 {
 	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT("\n");
@@ -101,3 +108,4 @@ catch (...)
 {
 	std::cerr << "caught unknown exception\n";
 }
+#endif

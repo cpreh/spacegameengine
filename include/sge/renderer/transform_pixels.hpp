@@ -25,11 +25,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/gil/algorithm.hpp>
 #include <boost/bind.hpp>
+#include <cstddef>
 
 namespace sge
 {
 namespace renderer
 {
+
+template<
+	typename View1,
+	typename View2,
+	typename View3,
+	typename F
+>
+void transform_pixels_static(
+	View1 const &src1,
+	View2 const &src2,
+	View3 const &dst,
+	F const &fun)
+{
+	for (std::size_t y = 0; y < dst.height(); ++y)
+	{
+		typename View1::x_iterator const src1_it = src1.row_begin(y);
+		typename View2::x_iterator const src2_it = src2.row_begin(y);
+		typename View3::x_iterator const dst_it = dst.row_begin(y);
+		for (std::size_t x = 0; x < dst.width(); ++x)
+			//dstIt[x]=fun(srcIt1[x],srcIt2[x]);
+			fun(dst_it[x], src1_it[x], src2_it[x]);
+	}
+}
 
 template<
 	typename Op
@@ -82,7 +106,7 @@ struct transform_pixels_binary_fn {
 		Src2 const &src2,
 		Dest const &dest) const
 	{
-		boost::gil::transform_pixels(
+		transform_pixels_static(
 			src1,
 			src2,
 			dest,

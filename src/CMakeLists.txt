@@ -14,6 +14,10 @@ FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	signals
 	system)
 
+IF(NOT Boost_FOUND)
+	MESSAGE(STATUS "Boost not found!")
+ENDIF()
+
 IF(Boost_INCLUDE_DIR)
 	INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 ELSE()

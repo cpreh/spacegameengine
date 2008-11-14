@@ -22,10 +22,14 @@ void sge::gui::font_drawer_canvas::draw_char(
 	canvas_.blit_font(
 		math::structure_cast<unit>(p),
 		data,
-		fg_,
-		bg_);
+		fg_);
 }
 
 void sge::gui::font_drawer_canvas::end_rendering()
 {
+}
+
+void sge::gui::font_drawer_canvas::fg(color const &_fg)
+{
+	fg_ = _fg;
 }
