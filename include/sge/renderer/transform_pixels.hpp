@@ -96,14 +96,14 @@ struct transform_pixels_binary_fn {
 	{}
 
 	template<
+		typename Dest,
 		typename Src1,
-		typename Src2,
-		typename Dest
+		typename Src2
 	>
 	void operator()(
+		Dest const &dest,
 		Src1 const &src1,
-		Src2 const &src2,
-		Dest const &dest) const
+		Src2 const &src2) const
 	{
 		transform_pixels_static(
 			src1,

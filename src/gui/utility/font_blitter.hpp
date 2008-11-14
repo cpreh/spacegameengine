@@ -15,10 +15,8 @@ namespace utility
 class font_blitter
 {
 	public:
-	typedef color dest_pixel_type;  
-
 	explicit font_blitter(
-		dest_pixel_type font_color);
+		color const &font_color);
 
 	template<
 		typename Dst,
@@ -31,14 +29,14 @@ class font_blitter
 		Src2 const &font_value) const;
 	
 	private:
-	dest_pixel_type const font_color;
+	color const font_color;
 };
 }
 }
 }
 
 sge::gui::utility::font_blitter::font_blitter(
-	dest_pixel_type const font_color)
+	color const &font_color)
 	: font_color(font_color)
 {
 }
