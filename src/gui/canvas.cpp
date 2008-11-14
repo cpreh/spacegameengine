@@ -242,7 +242,7 @@ void sge::gui::canvas::blit_font(
 			),
 		renderer::make_const_image_view(sub_view(is_rel_invalid)),
 		sub_view(is_rel_invalid),
-		utility::font_blitter<color,sge::font::color>(fg));
+		utility::font_blitter(fg));
 	/*
 	boost::gil::transform_pixels(
 		boost::gil::subimage_view(
