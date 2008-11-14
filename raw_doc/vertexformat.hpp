@@ -218,17 +218,20 @@ So far we have seen how to create a vertex format for a position and a color.
 There are, however, more possible roles and some even can be used more than
 once.
 
+The next code snippet shows how to declare a <em> normal role </em>.
+
 \code
 typedef sge::renderer::vf::normal<
 	float
 > normal_type;
 \endcode
 
-FIles to include: <sge/renderer/vf/normal.hpp>
+Files to include: <sge/renderer/vf/normal.hpp>
 
-The above code can be used to specify a <em> normal role </em> for a
-vertex format. Notice the absence of the element count type.
+Notice the absence of the element count type.
 Normals always have to consist of three subelements, namely x, y and z.
+
+We can also declare a <em> texture coordinate role </em>.
 
 \code
 typedef sge::renderer::vf::texpos<
@@ -239,8 +242,34 @@ typedef sge::renderer::vf::texpos<
 
 Files to include: <sge/renderer/vf/texpos.hpp>
 
-This code specifies a <em> texture coordinate role </em> for a vertex format.
-It should be used with 2-dimensional textures only.
+This role should be used with 2-dimensional textures only.
+
+Lastly, the vertex format also supports an <em> unspecific role </em>.
+This role can be used with any data and is meant as additional input to
+a shader.
+The syntax is similar to the other vertex element roles you have just seen.
+Which kind of data an <em> unspecific role </em> holds is determined by
+two template parameters: First the element type and second the element count.
+
+\code
+typedef sge::renderer::vf::unspecific<
+	float,
+	3
+> unspec_vec3; // vector of three floats
+
+typedef sge::renderer::vf::unspecified<
+	double,
+	1
+> unspec_d1; // single value of double
+
+typedef sge::renderer::vf::unspecified<
+	sge::renderer::bgra8_color
+> unspec_bgra8; // bgra8 color
+\endcode
+
+The magic the <em> unspecified </em> template does here is just for
+convenience. You could have use the base types of the vertex roles as well,
+as you can with the other vertex roles as well.
 
 \section multiple_roles Multiple roles of the same type
 
