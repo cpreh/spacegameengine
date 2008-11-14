@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../string.hpp"
 #include "../export.hpp"
 #include "action_var.hpp"
+//#include "action_var_impl.hpp"
 #include "arg_list.hpp"
 #include <boost/noncopyable.hpp>
 #include <deque>
@@ -77,8 +78,8 @@ private:
 
 	typedef std::deque<string> history_container;
 
-	const renderer::device_ptr rend;
-	const font::font_ptr fn;
+	renderer::device_ptr const rend;
+	font::font_ptr const fn;
 	signals::scoped_connection ic,irc;
 	sprite::system ss;
 	sprite::object bg;

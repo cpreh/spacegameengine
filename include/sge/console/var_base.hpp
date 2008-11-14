@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../string.hpp"
 #include "../export.hpp"
+#include "../workarounds.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -31,12 +32,12 @@ namespace con
 {
 
 class SGE_CLASS_SYMBOL var_base : boost::noncopyable {
-	string name_;
+	string const name_;
 public:
-	SGE_SYMBOL var_base(const string &);
+	SGE_SYMBOL explicit var_base(string const &);
 	SGE_SYMBOL void late_construct();
 	SGE_SYMBOL string const name() const;
-#ifndef _MSC_VER
+#ifndef SGE_MSVC_VIRTUAL_BASE_REFERENCE_BUG
 	virtual void set(const string &) = 0;
 	virtual string const get() const = 0;
 #else

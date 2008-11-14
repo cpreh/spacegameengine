@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "var_base.hpp"
 #include "../string.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -30,23 +31,22 @@ namespace con
 {
 
 template<typename T,typename A>
-struct action_var_base : public var_base
-{
+struct SGE_CLASS_SYMBOL action_var_base : public var_base {
 	typedef T value_type;
 	typedef A action_type;
 
-	void set(const string &s);
+	void set(string const &s);
 	
 	string const get() const;
 
-	const T &value() const;
+	T const &value() const;
 
-	void value(const T &_t); 
+	void value(T const &_t); 
 
 	action_var_base(
-		const string &name,
-		A _a,
-		const value_type &_t = value_type());
+		string const &name,
+		A const &a,
+		value_type const &_t = value_type());
 private:
 	action_type a;
 	value_type t;

@@ -21,13 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/var_base.hpp>
 #include <sge/console/console.hpp>
 #include <sge/console/singleton.hpp>
-#ifdef _MSC_VER
+#ifndef SGE_MSVC_VIRTUAL_BASE_REFERENCE_BUG
 #include <sge/console/exception.hpp>
 #include <sge/text.hpp>
 #endif
 
-sge::con::var_base::var_base(const string &name_)
-: name_(name_)
+sge::con::var_base::var_base(
+	string const &name_)
+:
+	name_(name_)
 {}
 
 void sge::con::var_base::late_construct()
@@ -46,14 +48,17 @@ sge::con::var_base::name() const
 	return name_;
 }
 
-#ifdef _MSC_VER
-void sge::con::var_base::set(const string&)
+#ifndef SGE_MSVC_VIRTUAL_BASE_REFERENCE_BUG
+void sge::con::var_base::set(
+	string const &)
 {
-	throw exception(SGE_TEXT("var_base::set() is abstract (dumb VC++ hack)!"));
+	throw exception(
+		SGE_TEXT("var_base::set() is abstract (dumb VC++ hack)!"));
 }
 
 sge::string const sge::con::var_base::get() const
 {
-	throw exception(SGE_TEXT("var_base::get() is abstract (dumb VC++ hack)!"));
+	throw exception(
+		SGE_TEXT("var_base::get() is abstract (dumb VC++ hack)!"));
 }
 #endif

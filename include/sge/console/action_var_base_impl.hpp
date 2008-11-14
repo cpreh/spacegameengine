@@ -34,7 +34,7 @@ void sge::con::action_var_base<T, A>::set(
 	{
 		value(boost::lexical_cast<T>(s));
 	} 
-	catch (const boost::bad_lexical_cast &)
+	catch (boost::bad_lexical_cast const &)
 	{
 		throw exception(
 			SGE_TEXT("couldn't parse variable \"")
@@ -57,7 +57,8 @@ const T &sge::con::action_var_base<T, A>::value() const
 }
 
 template<typename T, typename A>
-void sge::con::action_var_base<T, A>::value(const T &_t) 
+void sge::con::action_var_base<T, A>::value(
+	T const &_t) 
 { 
 	t = _t;
 	t = a(_t,t); 
@@ -65,12 +66,13 @@ void sge::con::action_var_base<T, A>::value(const T &_t)
 
 template<typename T, typename A>
 sge::con::action_var_base<T, A>::action_var_base(
-	const string &name,
-	A const _a,
-	const value_type &_t) 
- : var_base(name),
-   a(_a),
-   t(a(_t,_t))
+	string const &name,
+	A const &a_,
+	value_type const &t_) 
+:
+	var_base(name),
+	a(a_),
+	t(a(t_,t_))
 {
 	late_construct();
 }
