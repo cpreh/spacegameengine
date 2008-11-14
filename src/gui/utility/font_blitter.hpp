@@ -12,20 +12,18 @@ namespace gui
 {
 namespace utility
 {
-template<class DstPixel,class FontPixel>
+template<class DstPixel>
 class font_blitter
 {
 	public:
-	//typedef boost::gil::pixel<Channel,Layout> pixel_type;  
 	typedef DstPixel dest_pixel_type;  
-	typedef FontPixel font_pixel_type;  
 
 	font_blitter(dest_pixel_type font_color);
 
-	dest_pixel_type const operator()(
-		dest_pixel_type const &src_color,
-		font_pixel_type const &font_value) const;
-	
+	template<class Dest,class Font>
+	operator()(
+		Dest const &src_color,
+		Font const &font_value) const;
 	private:
 	dest_pixel_type const font_color;
 };
@@ -33,23 +31,24 @@ class font_blitter
 }
 }
 
-template<class DstPixel,class FontPixel>
-sge::gui::utility::font_blitter<DstPixel,FontPixel>::font_blitter(
+template<class DstPixel>
+sge::gui::utility::font_blitter<DstPixel>::font_blitter(
 	dest_pixel_type const font_color)
 	: font_color(font_color)
 {
 }
 
-template<class DstPixel,class FontPixel>
-typename sge::gui::utility::font_blitter<DstPixel,FontPixel>::dest_pixel_type const 
-	sge::gui::utility::font_blitter<DstPixel,FontPixel>::operator()(
-		dest_pixel_type const &src_color,
-		font_pixel_type const &font_value) const
+template<class DstPixel>
+template<class Dest,class Font>
+typename sge::gui::utility::font_blitter<DstPixel>::dest_pixel_type const 
+	sge::gui::utility::font_blitter<DstPixel>::operator()(
+		Dest const &src_color,
+		Font const &font_value) const
 {
-	dest_pixel_type result;
+	Dest result;
 
-	boost::mpl::for_each<typename dest_pixel_type::layout_t::channel_mapping_t>(
-		font_channel_blitter<dest_pixel_type>(
+	boost::mpl::for_each<typename Dest::layout_t::channel_mapping_t>(
+		font_channel_blitter<Dest>(
 			src_color,
 			font_color,
 			result));
