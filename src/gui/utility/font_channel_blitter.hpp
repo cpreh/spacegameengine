@@ -23,7 +23,7 @@ struct font_channel_blitter
 	void operator()(T &) const;
 private:
 	DstPixel const &bgcolor,fontcolor;
-	sge::font::color const &font;
+	FontPixel const &font;
 	DstPixel &result;
 };
 }

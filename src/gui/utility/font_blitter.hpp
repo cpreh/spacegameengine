@@ -3,6 +3,7 @@
 
 #include "font_channel_blitter.hpp"
 #include <sge/gui/types.hpp>
+#include <sge/renderer/color_convert.hpp>
 #include <boost/mpl/for_each.hpp>
 
 namespace sge
@@ -55,8 +56,8 @@ sge::gui::utility::font_blitter::operator()(
 {
 	boost::mpl::for_each<typename Dst::layout_t::channel_mapping_t>(
 		font_channel_blitter<Dst,Src2>(
-			src_color,
-			font_color,
+			renderer::color_convert<Dst>(src_color),
+			renderer::color_convert<Dst>(font_color),
 			font_value,
 			result));
 }
