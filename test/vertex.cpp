@@ -12,10 +12,14 @@
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/state/states.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/color.hpp>
+#include <sge/renderer/colors.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_type.hpp>
@@ -111,6 +115,11 @@ try
 			== sge::input::kc::key_escape)
 		[var(running)=false])
 	);
+
+	rend->set_state(
+		sge::renderer::state::list
+			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::color_::clear_color = sge::renderer::colors::black()));
 	
 	while(running)
 	{

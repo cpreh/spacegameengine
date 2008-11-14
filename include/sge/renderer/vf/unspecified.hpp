@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "color_base.hpp"
 #include "vertex_size.hpp"
 #include "role.hpp"
+#include "../color_channel.hpp"
 #include <boost/static_assert.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -70,8 +71,8 @@ template<
 struct unspecified<
 	Color,
 	1,
-	typename boost::enable_if<
-		typename Color::layout_t // TODO: make this better!
+	typename color_channel<
+		Color
 	>::type
 >
 : color_base<
