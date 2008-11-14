@@ -231,7 +231,7 @@ Files to include: <sge/renderer/vf/normal.hpp>
 Notice the absence of the element count type.
 Normals always have to consist of three subelements, namely x, y and z.
 
-We can also declare a <em> texture coordinate role </em>.
+We can also declare a <em>texture coordinate role</em>.
 
 \code
 typedef sge::renderer::vf::texpos<
@@ -244,15 +244,15 @@ Files to include: <sge/renderer/vf/texpos.hpp>
 
 This role should be used with 2-dimensional textures only.
 
-Lastly, the vertex format also supports an <em> unspecific role </em>.
+Lastly, the vertex format also supports an <em>unspecific role</em>.
 This role can be used with any data and is meant as additional input to
 a shader.
 The syntax is similar to the other vertex element roles you have just seen.
-Which kind of data an <em> unspecific role </em> holds is determined by
+Which kind of data an <em>unspecific role</em> holds is determined by
 two template parameters: First the element type and second the element count.
 
 \code
-typedef sge::renderer::vf::unspecific<
+typedef sge::renderer::vf::unspecified<
 	float,
 	3
 > unspec_vec3; // vector of three floats
@@ -267,9 +267,11 @@ typedef sge::renderer::vf::unspecified<
 > unspec_bgra8; // bgra8 color
 \endcode
 
-The magic the <em> unspecified </em> template does here is just for
-convenience. You could have use the base types of the vertex roles as well,
-as you can with the other vertex roles as well.
+Files to include: <sge/renderer/vf/unspecified.hpp>
+
+The magic the <em>unspecified</em> template does here is just for
+convenience. You could have used the base types of the vertex roles as well,
+as you can with the other vertex roles.
 
 \section multiple_roles Multiple roles of the same type
 
@@ -290,7 +292,6 @@ Simply repeat the role's type in the mpl::vector to get the role twice!
 The next thing is: How do we access multiple elements of the same
 role type through a vertex?
 Here is how:
-
 
 \code
 vertex &r(*it); // suppose we already have the other stuff in place
@@ -316,13 +317,11 @@ same value.
 
 \section limitations_multiple_roles Limitations of multiple roles
 
-More than one <em> pos role </em> is meaningless. It is therefore not allowed.
-The same goes for more than one <em> normal role </em>.
-At the moment only one <em> color role </em> is supported.
-There can be up to an implementation defined number of <em> texture pos roles </em>
-in the format.
-Vertex attributes for shaders are not accounted for at the moment.
-These will be added in the near future.
+More than one <em>pos role</em> is meaningless. It is therefore not allowed.
+The same goes for more than one <em>normal role</em>.
+At the moment only one <em>color role</em> is supported.
+There can be up to an implementation defined number of <em>texture pos roles</em>
+and <em>unspecified roles</em> in the vertex format.
 
 \section limitations_element_types Limitations of the element types
 
