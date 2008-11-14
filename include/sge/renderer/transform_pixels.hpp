@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "image_view.hpp"
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
-#include <boost/gil/algorithm.hpp>
 #include <boost/bind.hpp>
 #include <cstddef>
 
