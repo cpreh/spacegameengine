@@ -11,6 +11,7 @@ INCLUDE (CheckIncludeFile)
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (CheckCXXSourceCompiles)
 INCLUDE (CheckCXXSourceRuns)
+INCLUDE (FindPkgConfig)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
@@ -64,7 +65,7 @@ INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/include)
 SET (LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 SET (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
-IF (WIN32)
+IF (DONT_INSTALL)
 	SET (pluginpath ${CMAKE_BINARY_DIR}/plugins)
 	SET (media_dest ${CMAKE_SOURCE_DIR}/media)
 ELSE ()
@@ -72,6 +73,26 @@ ELSE ()
 	SET (include_dest ${CMAKE_INSTALL_PREFIX}/include/)
 	SET (media_dest ${CMAKE_INSTALL_PREFIX}/share/games/sge/media/)
 ENDIF ()
+
+IF (NOT DONT_INSTALL)
+	SET (pkgfile "${CMAKE_BINARY_DIR}/spacegameengine.pc")
+	FILE(WRITE ${pkgfile}
+		"prefix=${CMAKE_INSTALL_PREFIX}\n"
+		"exec_preifx=\${prefix}\n"
+		"libdir=\${prefix}/lib\n"
+		"includedir=\${prefix}/include\n"
+		"\n"
+		"Name: Spacegameengine\n"
+		"Description: A portable, easy to use engine written in C++\n"
+		"Version: 0.1\n"
+		"Requires:\n"
+		"Libs: -L\${libdir} -lsgecore\n"
+		"Cflags: -I\${includedir}/sge")
+	IF(HAVE_VARIADIC_TEMPLATES)
+		FILE(APPEND ${pkgfile} " -std=c++0x")
+		INSTALL (FILES ${pkgfile} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
+	ENDIF()
+ENDIF()
 
 MACRO (INSTALL_HEADERS subpath)
 	FILE (GLOB sgeheaders include/${subpath}/*.h*)

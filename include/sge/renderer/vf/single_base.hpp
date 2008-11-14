@@ -40,8 +40,8 @@ struct single_base
 : element_base<
 	Role
 > {
-	typename Format subelement_type;
-	typename Format packed_type;
+	typedef Format subelement_type;
+	typedef Format packed_type;
 	static vertex_size const num_subelements = 1;
 };
 

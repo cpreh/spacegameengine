@@ -45,7 +45,7 @@ typename sge::gui::utility::font_blitter<DstPixel>::dest_pixel_type const
 		Dest const &src_color,
 		Font const &font_value) const
 {
-	Dest result;
+	dest_pixel_type result;
 
 	boost::mpl::for_each<typename Dest::layout_t::channel_mapping_t>(
 		font_channel_blitter<Dest>(

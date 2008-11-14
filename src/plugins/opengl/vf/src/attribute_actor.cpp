@@ -18,37 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../color_actor.hpp"
+#include "../attribute_actor.hpp"
+#include "../convert_num_elements.hpp"
 #include "../client_state_combiner.hpp"
-#include "../../error.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include "../vertex_attrib.hpp"
+#include <sge/renderer/vf/dynamic_ordered_element.hpp>
+#include <boost/variant/apply_visitor.hpp>
 
-sge::ogl::vf::color_actor::color_actor(
+sge::ogl::vf::attribute_actor::attribute_actor(
 	renderer::vf::dynamic_ordered_element const &e,
 	renderer::vf::vertex_size const stride)
 :
 	pointer_actor(
 		e,
 		stride),
-	elements(4) // TODO: maybe allow colors without alpha?
-{
-	if(index() > 0)
-		throw exception(
-			SGE_TEXT("opengl does not support more than one color type in the vertex format!")
-			SGE_TEXT(" glSecondaryColor is currently not supported."));
-}
+	elements(
+		boost::apply_visitor(
+			convert_num_elements(),
+			e.element().info()))
+{}
 
-void sge::ogl::vf::color_actor::operator()(
+void sge::ogl::vf::attribute_actor::operator()(
 	client_state_combiner &c) const
 {
-	SGE_OPENGL_SENTRY
-
-	glColorPointer(
+	vertex_attrib_pointer(
+		static_cast<GLuint>(index()),
 		elements,
 		format(),
+		true, // normalized
 		stride(),
 		pointer());
 	
-	c.enable(GL_COLOR_ARRAY);
+	c.enable_attribute(
+		static_cast<GLuint>(
+			index()));
 }

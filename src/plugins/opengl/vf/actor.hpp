@@ -30,8 +30,11 @@ namespace ogl
 namespace vf
 {
 
+class client_state_combiner;
+
 struct actor : boost::noncopyable {
-	virtual void operator()() const = 0;
+	virtual void operator()(
+		client_state_combiner &) const = 0;
 	virtual ~actor();
 };
 

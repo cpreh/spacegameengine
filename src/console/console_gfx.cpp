@@ -7,18 +7,18 @@
 #include <sge/math/matrix_util.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/time/millisecond.hpp>
-#include <sge/iostream.hpp>
 #include <sge/fstream.hpp>
 #include <sge/text.hpp>
+#include <sge/iostream.hpp>
 #include <boost/bind.hpp>
 #include <boost/range.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/none.hpp>
+#include <ostream>
 #include <locale>
 #include <set>
-#include <ostream>
 
 sge::con::console_gfx::console_gfx(
 	renderer::device_ptr const rend,
@@ -133,9 +133,7 @@ void sge::con::console_gfx::tabcomplete(string &il)
 	if (left == right)
 		return;
 	
-	const string to_complete = il.substr(left,right-left);
-
-	//cerr << "trying to complete " << to_complete << "\n";
+	string const to_complete = il.substr(left,right-left);
 	
 	typedef std::set<string> string_set;
 	string_set completions;
@@ -326,14 +324,14 @@ void sge::con::console_gfx::draw()
 		font::align_v::bottom);
 
 	// draw history
-	const std::size_t total_lines = bg.size().h()/fn->height();
+	std::size_t const total_lines = bg.size().h()/fn->height();
 
 	// go from history_pos to min(history_pos+total_lines,end)
 	history_container::iterator history_it = history_pos;
 	for (std::size_t i = 0; i < total_lines && history_it != history.end(); ++i)
 		history_it++;
 
-	const string history_string = 
+	string const history_string = 
 		boost::algorithm::join(
 			boost::make_iterator_range(
 				history_container::const_reverse_iterator(history_it),
@@ -367,7 +365,7 @@ bool sge::con::console_gfx::active() const
 	return active_;
 }
 
-void sge::con::console_gfx::print(const string &s)
+void sge::con::console_gfx::print(string const &s)
 {
 	// if we are at the very bottom, then stay there
 	if (history_pos == history.begin())

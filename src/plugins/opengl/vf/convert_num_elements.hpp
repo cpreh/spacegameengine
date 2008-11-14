@@ -18,37 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../color_actor.hpp"
-#include "../client_state_combiner.hpp"
-#include "../../error.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_OPENGL_VF_CONVERT_NUM_ELEMENTS_HPP_INCLUDED
+#define SGE_OPENGL_VF_CONVERT_NUM_ELEMENTS_HPP_INCLUDED
 
-sge::ogl::vf::color_actor::color_actor(
-	renderer::vf::dynamic_ordered_element const &e,
-	renderer::vf::vertex_size const stride)
-:
-	pointer_actor(
-		e,
-		stride),
-	elements(4) // TODO: maybe allow colors without alpha?
+#include "../common.hpp"
+#include <boost/variant/static_visitor.hpp>
+
+namespace sge
 {
-	if(index() > 0)
-		throw exception(
-			SGE_TEXT("opengl does not support more than one color type in the vertex format!")
-			SGE_TEXT(" glSecondaryColor is currently not supported."));
+namespace renderer
+{
+namespace vf
+{
+class dynamic_vector;
+class dynamic_color;
+}
 }
 
-void sge::ogl::vf::color_actor::operator()(
-	client_state_combiner &c) const
+namespace ogl
 {
-	SGE_OPENGL_SENTRY
+namespace vf
+{
 
-	glColorPointer(
-		elements,
-		format(),
-		stride(),
-		pointer());
-	
-	c.enable(GL_COLOR_ARRAY);
+struct convert_num_elements : boost::static_visitor<GLint> {
+	GLint operator()(
+		renderer::vf::dynamic_vector const &) const;
+	GLint operator()(
+		renderer::vf::dynamic_color const &) const;
+};
+
 }
+}
+}
+
+#endif

@@ -34,7 +34,8 @@ enum type {
 	pos,
 	normal,
 	texpos,
-	color
+	color,
+	unspecified
 };
 }
 

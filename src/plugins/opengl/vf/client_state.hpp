@@ -18,37 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../color_actor.hpp"
-#include "../client_state_combiner.hpp"
-#include "../../error.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
+#define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
 
-sge::ogl::vf::color_actor::color_actor(
-	renderer::vf::dynamic_ordered_element const &e,
-	renderer::vf::vertex_size const stride)
-:
-	pointer_actor(
-		e,
-		stride),
-	elements(4) // TODO: maybe allow colors without alpha?
+#include "../common.hpp"
+#include <sge/linear_set.hpp>
+
+namespace sge
 {
-	if(index() > 0)
-		throw exception(
-			SGE_TEXT("opengl does not support more than one color type in the vertex format!")
-			SGE_TEXT(" glSecondaryColor is currently not supported."));
-}
-
-void sge::ogl::vf::color_actor::operator()(
-	client_state_combiner &c) const
+namespace ogl
 {
-	SGE_OPENGL_SENTRY
+namespace vf
+{
 
-	glColorPointer(
-		elements,
-		format(),
-		stride(),
-		pointer());
+struct client_state {
+	typedef linear_set<
+		GLenum
+	> normal_state_set;
+
+	typedef linear_set<
+		GLuint
+	> index_state_set;
+
+	void enable(
+		GLenum);
+	void enable_attribute(
+		GLuint);
 	
-	c.enable(GL_COLOR_ARRAY);
+	normal_state_set const &normal_states() const;
+	index_state_set const &attribute_states() const;
+private:
+	normal_state_set normal_states_;
+	index_state_set attribute_states_;
+};
+
 }
+}
+}
+
+#endif

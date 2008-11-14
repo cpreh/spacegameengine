@@ -18,37 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../color_actor.hpp"
-#include "../client_state_combiner.hpp"
-#include "../../error.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
+#define SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
 
-sge::ogl::vf::color_actor::color_actor(
-	renderer::vf::dynamic_ordered_element const &e,
-	renderer::vf::vertex_size const stride)
-:
-	pointer_actor(
-		e,
-		stride),
-	elements(4) // TODO: maybe allow colors without alpha?
+#include "pointer_actor.hpp"
+#include <sge/renderer/vf/vertex_size.hpp>
+
+namespace sge
 {
-	if(index() > 0)
-		throw exception(
-			SGE_TEXT("opengl does not support more than one color type in the vertex format!")
-			SGE_TEXT(" glSecondaryColor is currently not supported."));
+namespace renderer
+{
+namespace vf
+{
+class dynamic_ordered_element;
+}
 }
 
-void sge::ogl::vf::color_actor::operator()(
-	client_state_combiner &c) const
+namespace ogl
 {
-	SGE_OPENGL_SENTRY
+namespace vf
+{
 
-	glColorPointer(
-		elements,
-		format(),
-		stride(),
-		pointer());
-	
-	c.enable(GL_COLOR_ARRAY);
+class client_state_combiner;
+
+class attribute_actor : public pointer_actor {
+public:
+	attribute_actor(
+		renderer::vf::dynamic_ordered_element const &,
+		renderer::vf::vertex_size stride);
+	void operator()(
+		client_state_combiner &) const;
+private:
+	GLint const elements;
+};
+
 }
+}
+}
+
+#endif

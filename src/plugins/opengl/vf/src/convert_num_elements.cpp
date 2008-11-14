@@ -18,37 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../color_actor.hpp"
-#include "../client_state_combiner.hpp"
-#include "../../error.hpp"
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include "../convert_num_elements.hpp"
+#include <sge/renderer/vf/dynamic_vector.hpp>
+#include <sge/renderer/vf/dynamic_color.hpp>
 
-sge::ogl::vf::color_actor::color_actor(
-	renderer::vf::dynamic_ordered_element const &e,
-	renderer::vf::vertex_size const stride)
-:
-	pointer_actor(
-		e,
-		stride),
-	elements(4) // TODO: maybe allow colors without alpha?
+GLint sge::ogl::vf::convert_num_elements::operator()(
+	renderer::vf::dynamic_vector const &v) const
 {
-	if(index() > 0)
-		throw exception(
-			SGE_TEXT("opengl does not support more than one color type in the vertex format!")
-			SGE_TEXT(" glSecondaryColor is currently not supported."));
+	return static_cast<GLint>(
+		v.elements());
 }
 
-void sge::ogl::vf::color_actor::operator()(
-	client_state_combiner &c) const
+GLint sge::ogl::vf::convert_num_elements::operator()(
+	renderer::vf::dynamic_color const &) const
 {
-	SGE_OPENGL_SENTRY
-
-	glColorPointer(
-		elements,
-		format(),
-		stride(),
-		pointer());
-	
-	c.enable(GL_COLOR_ARRAY);
+	return 4;
 }

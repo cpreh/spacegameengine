@@ -26,21 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "color_base.hpp"
 #include "vertex_size.hpp"
 #include "role.hpp"
+#include "../color_channel.hpp"
 #include <boost/static_assert.hpp>
-
-namespace boost
-{
-namespace gil
-{
-
-// TODO: move this away!
-template<
-	typename Channel,
-	typename Layout
-> class pixel;
-
-}
-}
+#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {
@@ -51,7 +39,8 @@ namespace vf
 
 template<
 	typename Format,
-	vertex_size NumSubElements
+	vertex_size NumSubElements,
+	typename Enable = void
 >
 struct unspecified
 : vec_base<
@@ -68,7 +57,8 @@ template<
 >
 struct unspecified<
 	Format,
-	1
+	1,
+	void
 >
 : single_base<
 	Format,
@@ -76,15 +66,17 @@ struct unspecified<
 > {};
 
 template<
-	typename Channel,
-	typename Layout
+	typename Color
 >
-struct unspecified
+struct unspecified<
+	Color,
+	1,
+	typename color_channel<
+		Color
+	>::type
+>
 : color_base<
-	boost::gil::pixel<
-		Channel,
-		Layout
-	>,
+	Color,
 	role::unspecified
 > {};
 

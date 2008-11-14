@@ -35,8 +35,8 @@ namespace con
 template<typename T>
 struct action_var
 {
-	typedef boost::function<T (const T &,const T &)> fn;
-	typedef action_var_base<T,fn> type;
+	typedef boost::function<T (T const &, T const &)> fn;
+	typedef action_var_base<T, fn> type;
 };
 
 }

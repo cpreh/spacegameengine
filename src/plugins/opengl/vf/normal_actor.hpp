@@ -39,13 +39,16 @@ namespace ogl
 namespace vf
 {
 
+class client_state_combiner;
+
 class normal_actor : public pointer_actor {
 public:
 	normal_actor(
 		renderer::vf::dynamic_ordered_element const &,
 		renderer::vf::vertex_size stride);
-
-	void operator()() const;
+private:
+	void operator()(
+		client_state_combiner &) const;
 };
 
 }

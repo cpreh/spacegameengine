@@ -21,11 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../common.hpp"
 #include "../format.hpp"
 #include "../to_actor.hpp"
+#include "../client_state_combiner.hpp"
+#include "../global_client_state.hpp"
+#include <sge/linear_set_impl.hpp>
 #include <boost/foreach.hpp>
 
 sge::ogl::vf::format::format(
 	renderer::vf::dynamic_format const &fmt)
-: fmt(fmt)
+:
+	fmt(fmt)
 {
 	renderer::vf::dynamic_ordered_element_list const &elems(
 		fmt.elements());
@@ -43,12 +47,9 @@ sge::ogl::vf::format::get() const
 
 void sge::ogl::vf::format::use_me() const
 {
-	glDisableClientState(GL_VERTEX_ARRAY);
-        glDisableClientState(GL_NORMAL_ARRAY);
-        glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-        glDisableClientState(GL_SECONDARY_COLOR_ARRAY);
+	client_state_combiner states_(
+		global_client_state());	
 
 	BOOST_FOREACH(actor_array::const_reference c, actors)
-		c();
+		c(states_);
 }

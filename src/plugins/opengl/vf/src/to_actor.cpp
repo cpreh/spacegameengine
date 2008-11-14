@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../normal_actor.hpp"
 #include "../color_actor.hpp"
 #include "../texpos_actor.hpp"
+#include "../attribute_actor.hpp"
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -45,6 +46,9 @@ sge::ogl::vf::to_actor(
 	case renderer::vf::role::texpos:
 		return actor_ptr(
 			new texpos_actor(e, stride));
+	case renderer::vf::role::unspecified:
+		return actor_ptr(
+			new attribute_actor(e, stride));
 	default:
 		throw exception(
 			SGE_TEXT("Invalid role in ogl vertex format!"));
