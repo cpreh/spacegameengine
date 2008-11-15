@@ -49,7 +49,8 @@ void sge::mad::stream::sync()
 	pos += static_cast<size_type>(stdstream.gcount());
 
 	if (stdstream.bad())
-		throw audio::exception("mad: error reading from mpeg file");
+		throw audio::exception(
+			SGE_TEXT("mad: error reading from mpeg file"));
 
 	if (stdstream.eof())
 	{
