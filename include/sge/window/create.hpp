@@ -18,33 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_INSTANCE_HPP_INCLUDED
-#define SGE_WINDOW_INSTANCE_HPP_INCLUDED
+#ifndef SGE_WINDOW_CREATE_HPP_INCLUDED
+#define SGE_WINDOW_CREATE_HPP_INCLUDED
 
-#include "dim_type.hpp"
-#include "pos_type.hpp"
-#include "../mainloop/dispatchable.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include "instance_fwd.hpp"
 
 namespace sge
 {
 namespace window
 {
 
-class SGE_CLASS_SYMBOL instance : public mainloop::dispatchable {
-public:
-	typedef window::pos_type pos_type;
-	typedef window::dim_type dim_type;
+struct parameters;
 
-	virtual void title(
-		string const &title) = 0;
-	virtual dim_type const size() const = 0;
-	virtual pos_type const viewport_offset() const = 0;
-	virtual void size(
-		dim_type const &) = 0;
-	SGE_SYMBOL virtual ~instance();
-};
+instance_ptr const
+create(
+	parameters const &);	
 
 }
 }
