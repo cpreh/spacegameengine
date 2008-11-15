@@ -5,11 +5,11 @@
 #include <sge/font/drawer_3d.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/mainloop/dispatch.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iostream.hpp>
-#include <sge/window.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -46,7 +46,7 @@ try
 
 	while (true)
 	{
-		sge::window::dispatch();
+		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block(sys.renderer());
 		font.draw_text(
 			SGE_TEXT("hello world"),

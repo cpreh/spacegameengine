@@ -1,7 +1,6 @@
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <sge/window.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/signals/scoped_connection.hpp>
@@ -25,6 +24,7 @@
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/math/vector.hpp>
+#include <sge/mainloop/dispatch.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
@@ -123,9 +123,9 @@ try
 	
 	while(running)
 	{
+		sge::mainloop::dispatch();
+
 		sge::renderer::scoped_block const block_(rend);
-		sge::window::dispatch();
-		is->dispatch();
 
 		rend->render(
 			vb,

@@ -21,20 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
 #define SGE_INPUT_SYSTEM_HPP_INCLUDED
 
+#include "system_fwd.hpp"
 #include "callback.hpp"
 #include "../window/instance_fwd.hpp"
 #include "../signals/connection.hpp"
+#include "../mainloop/dispatchable.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
 #include "../export.hpp"
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace input
 {
 
-class SGE_CLASS_SYMBOL system : boost::noncopyable {
+class SGE_CLASS_SYMBOL system : public mainloop::dispatchable {
 public:
 	virtual signals::connection const
 	register_callback(
@@ -44,8 +45,6 @@ public:
 	register_repeat_callback(
 		repeat_callback const &c) = 0;
 	
-	virtual void dispatch() = 0;
-
 	virtual window::instance_ptr const window() const = 0;
 
 	SGE_SYMBOL virtual ~system();

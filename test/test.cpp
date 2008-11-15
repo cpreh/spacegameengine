@@ -39,8 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/states.hpp>
 #include <sge/renderer/state/scoped.hpp>
 #include <sge/renderer/subimage_view.hpp>
-#include <sge/media.hpp>
-#include <sge/window.hpp>
+#include <sge/mainloop/dispatch.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
@@ -48,6 +47,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/object.hpp>
 #include <sge/image/create_texture.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/mainloop/dispatch.hpp>
+#include <sge/media.hpp>
 #include <sge/endianness.hpp>
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
@@ -88,7 +89,7 @@ try
 		sge::renderer::window_mode::windowed,
 		sge::renderer::vsync::on);
 	
-	sge::window_ptr const wnd(
+	sge::window::instance_ptr const wnd(
 		rs->create_window(
 			param));
 
@@ -97,7 +98,7 @@ try
 		static_cast<sge::renderer::adapter_type>(0),
 		wnd);
 
-	const sge::input::system_ptr is(input_plugin->get()(rend->get_window()));
+	const sge::input::system_ptr is(input_plugin->get()(rend->window()));
 
 	const sge::plugin::plugin<sge::image::loader>::ptr_type image_plugin = pm.get_plugin<sge::image::loader>().load();
 	const sge::image::loader_ptr image_loader(image_plugin->get()());
@@ -158,6 +159,8 @@ try
 	sge::string const some_text(SGE_TEXT("de\nEFygY\ngyhgh"));
 	while(running)
 	{
+		sge::mainloop::dispatch();
+
 		sge::renderer::state::scoped const states_(
 			rend,
 			sge::renderer::state::list
@@ -167,9 +170,6 @@ try
 			);
 
 		sge::renderer::scoped_block const block_(rend);
-
-		rend->get_window()->dispatch();
-		is->dispatch();
 	}
 	return EXIT_SUCCESS;
 }

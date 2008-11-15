@@ -11,11 +11,11 @@
 #include <sge/image/loader.hpp>
 #include <sge/image/object.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/mainloop/dispatch.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
-#include <sge/window.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -79,7 +79,7 @@ try
 
 	while (true)
 	{
-		sge::window::dispatch();
+		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block_(sys.renderer());
 		ss.render(rendered_stuff);
 	}

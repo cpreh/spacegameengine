@@ -18,17 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAINLOOP_DISPATCH_HPP_INCLUDED
-#define SGE_MAINLOOP_DISPATCH_HPP_INCLUDED
-
-#include "../export.hpp"
+#ifndef SGE_MAINLOOP_INSTANCES_HPP_INCLUDED
+#define SGE_MAINLOOP_INSTANCES_HPP_INCLUDED
 
 namespace sge
 {
 namespace mainloop
 {
 
-SGE_SYMBOL void dispatch();
+struct dispatchable;
+
+void add_instance(
+	dispatchable *);
+
+void remove_instance(
+	dispatchable *);
+
+void dispatch_instances();
 
 }
 }

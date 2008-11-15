@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <boost/foreach.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
@@ -29,15 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
 #include <boost/assign/list_of.hpp>
-#include <set>
-
-namespace
-{
-
-typedef std::set<sge::x11::window *> instance_map;
-static instance_map instances;
-
-}
 
 sge::x11::window::window(
 	pos_type const &pos,
@@ -80,14 +70,12 @@ sge::x11::window::window(
 		const_cast<XSetWindowAttributes*>(&swa)),
 
 	title(t);
-	instances.insert(this);
 }
 
 sge::x11::window::~window()
 {
 	SGE_X11_SENTRY
 
-	instances.erase(this);
 	XDestroyWindow(dsp_(), wnd);
 }
 
@@ -230,27 +218,16 @@ void sge::x11::window::add_event_mask(
 
 void sge::x11::window::dispatch()
 {
-
-}
-
-/*
-void sge::window::dispatch()
-{
 	SGE_X11_SENTRY
 
 	XEvent xev;
-	BOOST_FOREACH(instance_map::value_type ptr, instances)
+	while(XCheckWindowEvent(dsp_(), get(), event_mask, &xev))
 	{
-		x11::window &wnd = *ptr;
-		while(XCheckWindowEvent(wnd.dsp_(), wnd.get_window(), wnd.event_mask, &xev))
-		{
-			if(XFilterEvent(&xev, None))
-				continue;
-
-			wnd.signals[xev.type](xev);
-		}
+		if(XFilterEvent(&xev, None))
+			continue;
+		signals[xev.type](xev);
 	}
-}*/
+}
 
 sge::window::pos_type const
 sge::x11::window::viewport_offset() const

@@ -13,11 +13,11 @@
 #include <sge/image/loader.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/signals/scoped_connection.hpp>
+#include <sge/mainloop/dispatch.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <sge/window.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -110,7 +110,7 @@ try
 
 	while (running)
 	{
-		sge::window::dispatch();
+		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block_(sys.renderer());
 		ss.render(my_object);
 	}

@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/iostream.hpp>
 #include <sge/media.hpp>
-#include <sge/window.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
@@ -48,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/default_creator.hpp>
 #include <sge/texture/default_creator_impl.hpp>
+#include <sge/mainloop/dispatch.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
@@ -208,9 +208,8 @@ try
 
 	while(running)
 	{
+		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block_(sys.renderer());
-		sge::window::dispatch();
-		sys.input_system()->dispatch();
 		sge::sprite::system::container sprites;
 		sprites.push_back(bg);
 		sprites.push_back(pointer);

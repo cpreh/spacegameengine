@@ -60,7 +60,8 @@ FILE (GLOB sgecorefiles
 	sprite/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
-	time/*.cpp)
+	time/*.cpp
+	window/*.cpp)
 
 IF (${SGE_HAVE_X11})
 	FILE (GLOB sgecorex11files
