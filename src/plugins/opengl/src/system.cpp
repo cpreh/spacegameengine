@@ -76,7 +76,7 @@ sge::ogl::system::create_window(
 		dsp,
 		dsp->default_screen(),
 		glx::choose_visual(
-			param.mode().depth,
+			param.mode().bit_depth(),
 			param.dbuffer(),
 			param.sbuffer()).data()));
 	
@@ -88,7 +88,7 @@ sge::ogl::system::create_window(
 	return window::instance_ptr(
 		new x11::window(
 			window::pos_type::null(),
-			param.mode().size,
+			param.mode().size(),
 			default_title,
 			dsp,
 			param.wmode() == renderer::window_mode::fullscreen,
@@ -97,7 +97,7 @@ sge::ogl::system::create_window(
 #elif defined(SGE_WINDOWS_PLATFORM)
 	windows::window_ptr const wnd(
 		new windows::window(
-			param.mode().size,
+			param.mode().size(),
 			default_title));
 
 	windows::choose_and_set_pixel_format(
@@ -108,7 +108,7 @@ sge::ogl::system::create_window(
 		PFD_SUPPORT_OPENGL |
 		PFD_DOUBLEBUFFER,
 		PFD_TYPE_RGBA,
-		static_cast<BYTE>(param.mode().depth),
+		static_cast<BYTE>(param.mode().bit_depth()),
 		static_cast<BYTE>(param.dbuffer()),
 		static_cast<BYTE>(param.sbuffer()));
 

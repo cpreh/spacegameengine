@@ -23,34 +23,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 	
 sge::renderer::display_mode::display_mode(
-	screen_size_t const &size,
-	bit_depth::type const depth,
-	refresh_rate_type const refresh_rate)
+	screen_size_t const &size_,
+	bit_depth::type const bit_depth_,
+	refresh_rate_type const refresh_rate_)
  :
-	size(size),
-	depth(depth),
-	refresh_rate(refresh_rate)
+	size_(size_),
+	bit_depth_(bit_depth_),
+	refresh_rate_(refresh_rate_)
 {}
 
-sge::renderer::screen_unit
-sge::renderer::display_mode::width() const
+sge::renderer::screen_size_t const &
+sge::renderer::display_mode::size() const
 {
-	return size.w();
+	return size_;
 }
 
-sge::renderer::screen_unit
-sge::renderer::display_mode::height() const
+sge::renderer::display_mode::bit_depth_t
+sge::renderer::display_mode::bit_depth() const
 {
-	return size.h();
+	return bit_depth_;
+}
+
+sge::renderer::refresh_rate_type
+sge::renderer::display_mode::refresh_rate() const
+{
+	return refresh_rate_;
 }
 
 bool sge::renderer::operator== (
 	display_mode const &l,
 	display_mode const &r)
 {
-	return l.depth == r.depth
-		&& l.size == r.size
-		&& l.refresh_rate == r.refresh_rate;
+	return l.bit_depth() == r.bit_depth()
+		&& l.size() == r.size()
+		&& l.refresh_rate() == r.refresh_rate();
 }
 
 bool sge::renderer::operator!= (
@@ -66,12 +72,12 @@ sge::renderer::operator<<(
 	display_mode const &mode)
 {
 	return s << SGE_TEXT('(')
-	         << mode.width()
+	         << mode.size().w()
 	         << SGE_TEXT('x')
-	         << mode.height()
+	         << mode.size().h()
 	         << SGE_TEXT('x')
-	         << mode.depth
+	         << mode.bit_depth()
 	         << SGE_TEXT('@')
-	         << mode.refresh_rate
+	         << mode.refresh_rate()
 	         << SGE_TEXT(')');
 }

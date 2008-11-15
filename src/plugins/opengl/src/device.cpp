@@ -86,10 +86,10 @@ sge::ogl::device::device(
 		DEVMODE settings;
 		memset(&settings,0,sizeof(DEVMODE));
 		settings.dmSize = sizeof(DEVMODE);
-		settings.dmPelsWidth    = param.mode().width();
-		settings.dmPelsHeight   = param.mode().height();
-		settings.dmBitsPerPel   = static_cast<UINT>(param.mode().depth);
-		settings.dmDisplayFrequency = param.mode().refresh_rate;
+		settings.dmPelsWidth    = param.mode().size().w();
+		settings.dmPelsHeight   = param.mode().size().h();
+		settings.dmBitsPerPel   = static_cast<UINT>(param.mode().bit_depth());
+		settings.dmDisplayFrequency = param.mode().refresh_rate();
 		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
 		{
@@ -299,7 +299,7 @@ sge::ogl::device::window() const
 sge::renderer::screen_size_t const
 sge::ogl::device::screen_size() const
 {
-	return param.mode().size;
+	return param.mode().size();
 }
 
 void sge::ogl::device::render(
@@ -480,7 +480,7 @@ void sge::ogl::device::set_render_target(
 				math::structure_cast<
 					target::dim_type::value_type>(
 						screen_size()),
-				param.mode().depth));
+				param.mode().bit_depth()));
 		render_target_->bind_me();
 		window::pos_type const offset = wnd->viewport_offset();
 		set_viewport(

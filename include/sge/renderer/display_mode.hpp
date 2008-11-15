@@ -39,12 +39,15 @@ struct display_mode {
 		bit_depth::type depth,
 		refresh_rate_type refresh_rate = 0);
 	
-	screen_size_t     size;
-	bit_depth::type   depth;
-	refresh_rate_type refresh_rate;
+	typedef bit_depth::type bit_depth_t;
 
-	SGE_SYMBOL screen_unit width() const;
-	SGE_SYMBOL screen_unit height() const;
+	SGE_SYMBOL screen_size_t const &size() const;
+	SGE_SYMBOL bit_depth_t bit_depth() const;
+	SGE_SYMBOL refresh_rate_type refresh_rate() const;
+private:
+	screen_size_t     size_;
+	bit_depth_t       bit_depth_;
+	refresh_rate_type refresh_rate_;
 };
 
 SGE_SYMBOL ostream &
