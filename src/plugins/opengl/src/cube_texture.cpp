@@ -51,15 +51,16 @@ template class sge::ogl::basic_texture<sge::renderer::cube_texture>;
 sge::ogl::cube_texture::cube_texture(
 	size_type const sz,
 	renderer::color_format::type const format,
-	renderer::filter_args const &filter,
+	renderer::texture_filter const &filter,
 	resource_flag_type const flags)
- : detail::cube_texture_base(
- 	filter,
-	flags,
-	cube_texture_type(),
-	format),
-  sz(sz),
-  locked_texture(0)
+:
+	detail::cube_texture_base(
+		filter,
+		flags,
+		cube_texture_type(),
+		format),
+	sz(sz),
+	locked_texture(0)
 {
 	// TODO: move this to a checker class
 	if(!have_cube_texture())

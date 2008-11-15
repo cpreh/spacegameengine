@@ -41,7 +41,7 @@ sge::renderer::glsl::program_ptr const sge::renderer::device::no_program;
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
 	const_image_view const &v,
-	filter_args const &filter,
+	texture_filter const &filter,
 	resource_flag_t const flags)
 {
 	texture_ptr const tex(

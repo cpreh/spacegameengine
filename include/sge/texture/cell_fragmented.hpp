@@ -33,7 +33,7 @@ namespace sge
 {
 namespace renderer
 {
-struct filter_args;
+struct texture_filter;
 }
 
 namespace texture
@@ -43,7 +43,7 @@ class cell_fragmented : public fragmented {
 public:
 	SGE_SYMBOL cell_fragmented(
 		renderer::device_ptr rend,
-		renderer::filter_args const &filter,
+		renderer::texture_filter const &filter,
 		renderer::dim_type const &cell_size);
 	SGE_SYMBOL part_ptr const
 	consume_fragment(

@@ -36,7 +36,7 @@ public:
 	SGE_SYMBOL grid_fragmented_texture(
 		renderer::device_ptr rend,
 		const renderer::texture::dim_type&,
-		const renderer::filter_args& filter);
+		const renderer::texture_filter& filter);
 	SGE_SYMBOL const virtual_texture_ptr consume_fragment(
 		const renderer::texture::dim_type&);
 	SGE_SYMBOL void return_fragment(
@@ -45,7 +45,7 @@ public:
 	SGE_SYMBOL bool repeatable() const;
 private:
 	const renderer::device_ptr   rend;
-	const renderer::filter_args  my_filter;
+	const renderer::texture_filter  my_filter;
 	renderer::texture::size_type part_width,
 	                             part_height;
 	renderer::texture_ptr        tex;

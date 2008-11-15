@@ -18,32 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_SIZED_CREATOR_HPP_INCLUDED
-#define SGE_TEXTURE_SIZED_CREATOR_HPP_INCLUDED
-
-#include "fragmented_auto_ptr.hpp"
-#include "../renderer/texture_filter.hpp"
-#include "../renderer/device_fwd.hpp"
-#include "../renderer/dim_types.hpp"
+#ifndef SGE_RENDERER_ANISOTROPY_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_ANISOTROPY_TYPE_HPP_INCLUDED
 
 namespace sge
 {
-namespace texture
+namespace renderer
 {
 
-template<typename T>
-class sized_creator {
-public:
-	sizede_creator(
-		renderer::device_ptr rend,
-	        renderer::texture_filter const &filter,
-	        renderer::texture::dim_type const &dim);
-	fragmented_auto_ptr operator()() const;
-private:
-	renderer::device_ptr        rend;
-	renderer::texture_filter       filter;
-	renderer::dim_type          dim;
-};
+typedef unsigned anisotropy_type;
 
 }
 }

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<typename T>
 sge::texture::sized_creator<T>::sized_creator(
 	renderer::device_ptr const rend,
-	renderer::filter_args const &filter,
+	renderer::texture_filter const &filter,
 	renderer::texture::dim_type const &dim)
 :
 	rend(rend),

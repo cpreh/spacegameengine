@@ -21,19 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 #define SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 
+#include "loader_fwd.hpp"
+#include "object_fwd.hpp"
 #include "../path.hpp"
 #include "../export.hpp"
 #include "../renderer/resource_flags.hpp"
 #include "../renderer/device_fwd.hpp"
 #include "../renderer/texture_fwd.hpp"
-#include "loader_fwd.hpp"
-#include "object_fwd.hpp"
 
 namespace sge
 {
 namespace renderer
 {
-struct filter_args;
+struct texture_filter;
 }
 
 namespace image
@@ -43,7 +43,7 @@ SGE_SYMBOL renderer::texture_ptr const
 create_texture(
 	renderer::device_ptr r,
 	object_ptr p,
-	renderer::filter_args const &filter,
+	renderer::texture_filter const &filter,
 	renderer::resource_flag_t flags);
 
 SGE_SYMBOL renderer::texture_ptr const
@@ -51,7 +51,7 @@ create_texture(
 	path const &,
 	renderer::device_ptr r,
 	loader_ptr p,
-	renderer::filter_args const &filter,
+	renderer::texture_filter const &filter,
 	renderer::resource_flag_t flags);
 
 }

@@ -39,7 +39,7 @@ class no_fragmented : public fragmented {
 public:
 	SGE_SYMBOL no_fragmented(
 		renderer::device_ptr rend,
-		renderer::filter_args const &filter);
+		renderer::texture_filter const &filter);
 	SGE_SYMBOL part_ptr const consume_fragment(
 		renderer::dim_type const &);
 	SGE_SYMBOL void return_fragment(
@@ -48,7 +48,7 @@ public:
 	SGE_SYMBOL bool repeatable() const;
 private:
 	renderer::device_ptr const   rend;
-	renderer::filter_args const  filter;
+	renderer::texture_filter const  filter;
 	renderer::texture_ptr        tex;
 };
 

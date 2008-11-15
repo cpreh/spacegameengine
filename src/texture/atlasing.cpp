@@ -91,14 +91,15 @@ sge::renderer::dim_type const
 sge::texture::atlased_texture_dim(
 	renderer::device_ptr const rend)
 {
-	renderer::size_type const max_size = rend->get_caps().max_tex_size;
+	renderer::size_type const max_size
+		= rend->get_caps().max_texture_edge_size();
 	return renderer::dim_type(max_size, max_size);
 }
 
 sge::renderer::texture_ptr const
 sge::texture::atlased_texture(
 	renderer::device_ptr const rend,
-	renderer::filter_args const &filter)
+	renderer::texture_filter const &filter)
 {
 	return rend->create_texture(
 		atlased_texture_dim(rend),

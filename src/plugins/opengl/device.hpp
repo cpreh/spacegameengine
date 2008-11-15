@@ -103,7 +103,6 @@ public:
 
 	void set_render_target(renderer::texture_ptr target);
 	void set_viewport(renderer::viewport const &);
-	const renderer::viewport &get_viewport() const;
 	void enable_light(renderer::light_index index, bool enable);
 	void set_light(renderer::light_index index, renderer::light const &);
 	void set_texture_stage_op(
@@ -134,20 +133,20 @@ public:
 	create_texture(
 		renderer::dim_type const &,
 		renderer::color_format::type,
-		renderer::filter_args const &,
+		renderer::texture_filter const &,
 		renderer::resource_flag_t);
 
 	/*const renderer::volume_texture_ptr
 	create_volume_texture(
 		renderer::volume_texture::image_view_array const &,
-		const renderer::filter_args& filter,
+		const renderer::texture_filter& filter,
 		renderer::volume_texture::resource_flag_type flags);*/
 
 	renderer::cube_texture_ptr const
 	create_cube_texture(
 		renderer::size_type border_size,
 		renderer::color_format::type,
-		renderer::filter_args const &,
+		renderer::texture_filter const &,
 		renderer::resource_flag_t);
 
 	renderer::vertex_buffer_ptr const

@@ -47,7 +47,7 @@ public:
 	texture(
 		dim_type const &,
 		renderer::color_format::type format,
-		renderer::filter_args const &filter,
+		renderer::texture_filter const &filter,
 		resource_flag_type flags,
 		optional_type type
 			= optional_type());

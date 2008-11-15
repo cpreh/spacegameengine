@@ -30,7 +30,7 @@ namespace sge
 {
 namespace renderer
 {
-struct filter_args;
+struct texture_filter;
 }
 
 namespace texture
@@ -69,7 +69,7 @@ atlased_texture_dim(
 renderer::texture_ptr const
 atlased_texture(
 	renderer::device_ptr rend,
-	renderer::filter_args const &filter);
+	renderer::texture_filter const &filter);
 
 renderer::lock_rect const
 inner_atlased_rect(

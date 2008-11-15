@@ -21,14 +21,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps.hpp>
 
 sge::renderer::caps::caps(
-	adapter_type const adapter_number,
-	string const &driver_name,
-	string const &description,
-	unsigned const max_tex_size,
-	unsigned const max_anisotropy_level)
-: adapter_number(adapter_number),
-  driver_name(driver_name),
-  description(description),
-  max_tex_size(max_tex_size),
-  max_anisotropy_level(max_anisotropy_level)
+	adapter_type const adapter_,
+	string const &driver_name_,
+	string const &description_,
+	size_type const max_texture_edge_size_,
+	anisotropy_type const max_anisotropy_)
+:
+	adapter_(adapter_),
+	driver_name_(driver_name_),
+	description_(description_),
+	max_texture_edge_size_(max_texture_edge_size_),
+	max_anisotropy_(max_anisotropy_)
 {}
+
+sge::renderer::adapter_type
+sge::renderer::caps::adapter() const
+{
+	return adapter_;
+}
+
+sge::string const &
+sge::renderer::caps::driver_name() const
+{
+	return driver_name_;
+}
+
+sge::string const &
+sge::renderer::caps::description() const
+{
+	return description_;
+}
+
+sge::renderer::size_type
+sge::renderer::caps::max_texture_edge_size() const
+{
+	return max_texture_edge_size_;
+}
+
+sge::renderer::anisotropy_type
+sge::renderer::caps::max_anisotropy() const
+{
+	return max_anisotropy_;
+}

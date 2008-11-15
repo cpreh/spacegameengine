@@ -37,11 +37,11 @@ class default_creator {
 public:
 	default_creator(
 		renderer::device_ptr rend,
-		renderer::filter_args const &filter);
+		renderer::texture_filter const &filter);
 	fragmented_auto_ptr operator()() const;
 private:
 	renderer::device_ptr  rend;
-	renderer::filter_args filter;
+	renderer::texture_filter filter;
 };
 
 }
