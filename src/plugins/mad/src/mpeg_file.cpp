@@ -94,6 +94,24 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read_all(sample_container
 	return dest.size()/bytes_per_sample();
 }
 
+sge::mad::mpeg_file::channel_type
+sge::mad::mpeg_file::channels() const
+{
+	return static_cast<channel_type>(2);
+}
+
+sge::mad::mpeg_file::sample_count
+sge::mad::mpeg_file::sample_rate() const
+{
+	return sample_rate_;
+}
+
+sge::mad::mpeg_file::sample_count
+sge::mad::mpeg_file::bits_per_sample() const
+{
+	return static_cast<sample_count>(16);
+}
+
 void sge::mad::mpeg_file::reset()
 {
 	s.reset();

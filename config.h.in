@@ -14,7 +14,7 @@
 #endif
 
 #ifdef __GNUC__
-#define SGE_NARROW_STRING
+//#define SGE_NARROW_STRING
 #cmakedefine SGE_HAVE_GCC_VISIBILITY
 #endif
 

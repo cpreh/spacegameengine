@@ -27,6 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
+typedef boost::filesystem::ifstream cifstream;
+typedef boost::filesystem::ofstream cofstream;
+typedef boost::filesystem::fstream cfstream;
+
 #ifndef SGE_NARROW_STRING
 typedef boost::filesystem::wifstream ifstream;
 typedef boost::filesystem::wofstream ofstream;
