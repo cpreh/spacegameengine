@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../shared_ptr.hpp"
 #include "../string.hpp"
-#include "../window.hpp"
+#include "../window/instance.hpp"
 #include "../export.hpp"
 #include "../signals/connection.hpp"
 #include "../signals/signal.hpp"
@@ -40,7 +40,7 @@ namespace sge
 namespace windows
 {
 
-class window : public sge::window {
+class window : public sge::window::instance {
 public:
 	typedef unsigned event_type;
 	typedef boost::optional<LRESULT> callback_return_type;
@@ -82,7 +82,9 @@ public:
 		event_type msg,
 		WPARAM wparam,
 		LPARAM lparam);
-	SGE_SYMBOL window_pos const viewport_offset() const;
+	SGE_SYMBOL pos_type const viewport_offset() const;
+
+	SGE_SYMBOL void dispatch();
 private:
 	typedef math::rect<unsigned> decoration_rect;
 	decoration_rect decoration_size;

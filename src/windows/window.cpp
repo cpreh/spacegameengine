@@ -118,7 +118,7 @@ sge::windows::window::~window()
 }
 
 void sge::windows::window::size(
-	window_size const &nsz)
+	dim_type const &nsz)
 {
 	if(SetWindowPos(
 		hwnd(),
@@ -141,14 +141,14 @@ void sge::windows::window::title(
 			SGE_TEXT("SetWindowText() failed!"));
 }
 
-sge::windows::window::window_size const
+sge::windows::window::dim_type const
 sge::windows::window::size() const
 {
 	RECT rect;
 	if(GetWindowRect(handle, &rect) == FALSE)
 		throw exception(
 			SGE_TEXT("GetWindowRect() failed!"));
-	return window_size(
+	return dim_type(
 		rect.right - rect.left - decoration_size.left() - decoration_size.right(),
 		rect.bottom - rect.top - decoration_size.top() + decoration_size.bottom()
 	);
@@ -199,10 +199,10 @@ sge::windows::window::execute_callback(
 		: callback_return_type();
 }
 
-void sge::window::dispatch()
+void sge::windows::window::dispatch()
 {
 	MSG msg;
-	while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+	while(PeekMessage(&msg, handle, 0, 0, PM_REMOVE))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
