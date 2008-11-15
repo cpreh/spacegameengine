@@ -43,7 +43,9 @@ sge::texture::no_fragmented::consume_fragment(
 	if(tex)
 		return part_ptr();
 
-	renderer::dim_type const real_dim(atlased_bounds(dim));
+	renderer::dim_type const real_dim(
+		atlased_bounds(
+			dim));
 
 	tex = rend->create_texture(
 		real_dim,
@@ -62,7 +64,7 @@ sge::texture::no_fragmented::consume_fragment(
 	return part_ptr(
 		new part_fragmented(
 			renderer::lock_rect(
-				renderer::lock_rect::point_type(0,0),
+				renderer::lock_rect::point_type::null(),
 				atlased_size(dim)),
 			*this,
 			need_atlasing(dim.w()),

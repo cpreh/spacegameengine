@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/texture_util.hpp>
+#include <sge/renderer/subimage_view.hpp>
+#include <sge/renderer/image_view_dim.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
 
@@ -164,19 +167,33 @@ void sge::texture::atlas_h(
 	renderer::const_image_view const &src,
 	renderer::lock_rect const &outer_area)
 {
-	// FIXME: use a GIL view here!
-	/*tex->sub_data(
-		src,
-	        renderer::lock_rect(
+	renderer::dim_type const dim(
+		renderer::image_view_dim(
+			src));
+
+	renderer::sub_data(
+		tex,
+		renderer::subimage_view(
+			src,
+			renderer::lock_rect(
+				0,
+				0,
+				dim.w(),
+				1)),
+		renderer::texture_pos_type(
 			outer_area.left() + 1,
-			outer_area.top(),
-			outer_area.right() - 1,
-			outer_area.top() + 1));
-	tex->sub_data(
-		src + area().w() * (area().h() - 1),
-		renderer::lock_rect(
-			outer_area().left() + 1,
-			outer_area().bottom() - 1,
-			outer_area().right() - 1,
-			outer_area().bottom()));*/
+			outer_area.top()));
+	
+	renderer::sub_data(
+		tex,
+		renderer::subimage_view(
+			src,
+			renderer::lock_rect(
+				0,
+				dim.h() - 1,
+				dim.w(),
+				dim.h())),
+		renderer::texture_pos_type(
+			outer_area.left() + 1,
+			outer_area.bottom() - 1));
 }
