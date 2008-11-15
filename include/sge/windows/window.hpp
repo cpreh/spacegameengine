@@ -45,7 +45,7 @@ public:
 	typedef unsigned event_type;
 	typedef boost::optional<LRESULT> callback_return_type;
 
-	struct signal_combiner;
+	//struct signal_combiner;
 
 	typedef callback_return_type
 	callback_signature_type(
@@ -59,12 +59,12 @@ public:
 	> callback_type;
 
 	typedef signals::signal<
-		callback_signature_type,
-		signal_combiner
+		callback_signature_type//,
+	//	signal_combiner
 	> signal_type;
 
 	SGE_SYMBOL window(
-		window::dim_type const &sz,
+		dim_type const &sz,
 		string const &title);
 	SGE_SYMBOL ~window();
 

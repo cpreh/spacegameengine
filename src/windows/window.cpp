@@ -38,7 +38,7 @@ LRESULT CALLBACK wnd_proc(
 }
 
 // TODO: why did HackLife do this?
-struct sge::windows::window::signal_combiner {
+/*struct sge::windows::window::signal_combiner {
 	typedef callback_return_type result_type;
 
 	template<typename InputIterator>
@@ -54,10 +54,10 @@ struct sge::windows::window::signal_combiner {
 		}
 		return result_type();
 	}
-};
+};*/
 
 sge::windows::window::window(
-	window::dim_type const sz,
+	dim_type const &sz,
 	string const &title)
 {
 	TCHAR const *const window_classname = TEXT("SpacegameWindow");

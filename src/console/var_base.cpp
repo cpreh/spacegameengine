@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/var_base.hpp>
 #include <sge/console/console.hpp>
 #include <sge/console/singleton.hpp>
-#ifndef SGE_MSVC_VIRTUAL_BASE_REFERENCE_BUG
+#ifdef SGE_MSVC_VIRTUAL_BASE_REFERENCE_BUG
 #include <sge/console/exception.hpp>
 #include <sge/text.hpp>
 #endif
@@ -48,7 +48,7 @@ sge::con::var_base::name() const
 	return name_;
 }
 
-#ifndef SGE_MSVC_VIRTUAL_BASE_REFERENCE_BUG
+#ifdef SGE_MSVC_VIRTUAL_BASE_REFERENCE_BUG
 void sge::con::var_base::set(
 	string const &)
 {
