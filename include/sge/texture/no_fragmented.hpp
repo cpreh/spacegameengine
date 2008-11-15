@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/device_fwd.hpp"
 #include "../renderer/dim_types.hpp"
 #include "../renderer/texture_filter.hpp"
+#include "../renderer/color_format.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -39,6 +40,7 @@ class no_fragmented : public fragmented {
 public:
 	SGE_SYMBOL no_fragmented(
 		renderer::device_ptr rend,
+		renderer::color_format::type,
 		renderer::texture_filter const &filter);
 	SGE_SYMBOL part_ptr const consume_fragment(
 		renderer::dim_type const &);
@@ -47,9 +49,10 @@ public:
 	SGE_SYMBOL renderer::texture_ptr const get_texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
-	renderer::device_ptr const   rend;
-	renderer::texture_filter const  filter;
-	renderer::texture_ptr        tex;
+	renderer::device_ptr const         rend;
+	renderer::color_format::type const format;
+	renderer::texture_filter const     filter;
+	renderer::texture_ptr              tex;
 };
 
 }

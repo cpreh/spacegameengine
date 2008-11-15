@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../field.hpp"
 #include "../renderer/texture_fwd.hpp"
 #include "../renderer/dim_types.hpp"
+#include "../renderer/color_format.hpp"
 
 namespace sge
 {
@@ -43,6 +44,7 @@ class cell_fragmented : public fragmented {
 public:
 	SGE_SYMBOL cell_fragmented(
 		renderer::device_ptr rend,
+		renderer::color_format::type,
 		renderer::texture_filter const &filter,
 		renderer::dim_type const &cell_size);
 	SGE_SYMBOL part_ptr const

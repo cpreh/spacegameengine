@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture_fwd.hpp"
 #include "../renderer/device_fwd.hpp"
 #include "../renderer/image_view.hpp"
+#include "../renderer/color_format.hpp"
 #include "../renderer/dim_types.hpp"
 
 namespace sge
@@ -69,6 +70,7 @@ atlased_texture_dim(
 renderer::texture_ptr const
 atlased_texture(
 	renderer::device_ptr rend,
+	renderer::color_format::type,
 	renderer::texture_filter const &filter);
 
 renderer::lock_rect const

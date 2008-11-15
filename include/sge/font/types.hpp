@@ -35,20 +35,21 @@ namespace sge
 namespace font
 {
 
-typedef int                             unit;
-typedef unit                            size_type;
+typedef int                       unit;
+typedef unit                      size_type;
 typedef math::vector<unit, 2>     pos;
 typedef math::dim<size_type, 2>   dim;
-typedef renderer::gray8_color           color;
+typedef renderer::gray8_color     color;
 typedef math::rect<unit>          rect;
 
 typedef boost::gil::image<
 	color,
-	false>                          image;
-typedef boost::gil::gray8c_view_t       const_image_view;
-typedef boost::gil::gray8_view_t        image_view;
+	false
+>                                 image;
+typedef boost::gil::gray8c_view_t const_image_view;
+typedef boost::gil::gray8_view_t  image_view;
 
-dim const gil_dim_to_sge(image::point_t const&);
+dim const gil_dim_to_sge(image::point_t const &);
 
 }
 }

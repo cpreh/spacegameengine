@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
@@ -76,7 +76,13 @@ try
 	const sge::image::object_ptr img1(pl->load(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
 	                             img2(pl->load(sge::media_path() / SGE_TEXT("grass.png")));
 
-	const sge::texture::default_creator<sge::texture::no_fragmented> creator(rend, sge::renderer::linear_filter);
+	sge::texture::default_creator<
+		sge::texture::no_fragmented
+	> const creator(
+		rend,
+		sge::renderer::color_format::rgba8,
+		sge::renderer::linear_filter);
+
 	sge::texture::manager tex_man(rend, creator);
 
 	const sge::texture::part_ptr tex1(sge::texture::add(tex_man, img1)),

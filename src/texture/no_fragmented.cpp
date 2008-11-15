@@ -28,9 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::texture::no_fragmented::no_fragmented(
 	renderer::device_ptr const rend,
+	renderer::color_format::type const format,
 	renderer::texture_filter const &filter)
  :
  	rend(rend),
+	format(format),
  	filter(filter)
 {}
 
@@ -47,7 +49,7 @@ sge::texture::no_fragmented::consume_fragment(
 
 	tex = rend->create_texture(
 		real_dim,
-		renderer::color_format::rgba8,
+		format,
 		filter,
 		renderer::resource_flags::none);
 

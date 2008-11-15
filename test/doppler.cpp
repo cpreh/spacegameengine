@@ -133,6 +133,7 @@ try
 	sge::texture::default_creator<sge::texture::no_fragmented> const 
 		creator(
 			sys.renderer(),
+			sge::renderer::color_format::rgba8,
 			sge::renderer::linear_filter);
 
 	sge::texture::manager tex_man(sys.renderer(),creator);
