@@ -41,7 +41,11 @@ ELSEIF (${WIN32})
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 
-ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
+IF (CMAKE_CACHE_MINOR_VERSION LESS 6)
+	ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
+ELSE ()
+	ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
+ENDIF ()
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
