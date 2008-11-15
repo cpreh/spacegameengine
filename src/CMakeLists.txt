@@ -41,7 +41,7 @@ ELSEIF (${WIN32})
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 
-IF (CMAKE_CACHE_MINOR_VERSION LESS 6)
+IF (HAVE_LESS_THAN_CMAKE_2_6)
 	ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
 ELSE ()
 	ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
