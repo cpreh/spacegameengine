@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_SYSTEM_HPP_INCLUDED
 
 #include "callback.hpp"
-#include "../window_fwd.hpp"
+#include "../window/instance_fwd.hpp"
 #include "../signals/connection.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
@@ -46,12 +46,10 @@ public:
 	
 	virtual void dispatch() = 0;
 
-	virtual window_ptr const get_window() const = 0;
+	virtual window::instance_ptr const window() const = 0;
 
 	SGE_SYMBOL virtual ~system();
 };
-
-typedef shared_ptr<system> system_ptr;
 
 }
 
@@ -63,7 +61,7 @@ namespace detail
 template<> struct traits<input::system> {
 	SGE_SYMBOL static address_name plugin_loader_name();
 	SGE_SYMBOL static capabilities::type get_plugin_type();
-	typedef input::system* (*loader_fun)(window_ptr);
+	typedef input::system* (*loader_fun)(window::instance_ptr);
 };
 
 }

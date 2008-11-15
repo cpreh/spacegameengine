@@ -92,7 +92,7 @@ sge::texture::atlased_texture_dim(
 	renderer::device_ptr const rend)
 {
 	renderer::size_type const max_size
-		= rend->get_caps().max_texture_edge_size();
+		= rend->caps().max_texture_edge_size();
 	return renderer::dim_type(max_size, max_size);
 }
 

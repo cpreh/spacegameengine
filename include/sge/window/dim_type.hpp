@@ -19,38 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_HPP_INCLUDED
-#define SGE_WINDOW_HPP_INCLUDED
+#ifndef SGE_WINDOW_DIM_TYPE_HPP_INCLUDED
+#define SGE_WINDOW_DIM_TYPE_HPP_INCLUDED
 
-#include "math/dim.hpp"
-#include "math/vector.hpp"
-#include "string.hpp"
-#include "export.hpp"
-#include <boost/noncopyable.hpp>
+#include "../math/dim.hpp"
 
 namespace sge
 {
+namespace window
+{
 
-class SGE_CLASS_SYMBOL window : boost::noncopyable {
-public:
-	typedef int pos_type;
-	typedef unsigned size_type;
-	typedef math::vector<pos_type,2> window_pos;
-	typedef math::dim<size_type,2> window_size;
+typedef math::dim<unsigned, 2> dim_type;
 
-	virtual void title(string const &title) = 0;
-	virtual window_size const size() const = 0;
-	virtual window_pos const viewport_offset() const = 0;
-	SGE_SYMBOL size_type width() const;
-	SGE_SYMBOL size_type height() const;
-	virtual void size(window_size const &newsize) = 0;
-	SGE_SYMBOL virtual ~window();
-
-	SGE_SYMBOL static void dispatch();
-};
-
-//window_ptr create_window();
-
+}
 }
 
 #endif

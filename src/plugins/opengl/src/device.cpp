@@ -71,9 +71,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::ogl::device::device(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
-	window_ptr const wnd_param)
- : param(param),
-   current_states(renderer::state::default_())
+	window::instance_ptr const wnd_param)
+:
+	param(param),
+	current_states(renderer::state::default_())
 {
 //	if(adapter > 0)
 //		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
@@ -271,15 +272,15 @@ void sge::ogl::device::end_rendering()
 	SGE_OPENGL_SENTRY
 	glXSwapBuffers(
 		wnd->display()->get(),
-		wnd->get_window());
+		wnd->get());
 #elif defined(SGE_WINDOWS_PLATFORM)
 	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception(SGE_TEXT("wglSwapLayerBuffers() failed!"));
 #endif
 }
 
-sge::renderer::caps const
-sge::ogl::device::get_caps() const
+sge::renderer::device::caps_t const
+sge::ogl::device::caps() const
 {
 	return renderer::caps(
 		0,
@@ -289,8 +290,8 @@ sge::ogl::device::get_caps() const
 		0); // FIXME
 }
 
-sge::window_ptr const
-sge::ogl::device::get_window() const
+sge::window::instance_ptr const
+sge::ogl::device::window() const
 {
 	return wnd;
 }
@@ -413,7 +414,7 @@ void sge::ogl::device::set_viewport(
 #ifdef SGE_HAVE_X11
 void sge::ogl::device::reset_viewport_on_map(const XEvent&)
 {
-	center_viewport(wnd->width(), wnd->height());
+	center_viewport(wnd->size().w(), wnd->size().h());
 }
 
 void sge::ogl::device::reset_viewport_on_configure(const XEvent& e)
@@ -481,7 +482,7 @@ void sge::ogl::device::set_render_target(
 						screen_size()),
 				param.mode().depth));
 		render_target_->bind_me();
-		window::window_pos const offset = wnd->viewport_offset();
+		window::pos_type const offset = wnd->viewport_offset();
 		set_viewport(
 			renderer::viewport(
 				offset,

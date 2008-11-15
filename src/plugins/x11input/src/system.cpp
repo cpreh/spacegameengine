@@ -134,8 +134,8 @@ void sge::x11input::system::dispatch()
 {
 }
 
-sge::window_ptr const
-sge::x11input::system::get_window() const
+sge::window::instance_ptr const
+sge::x11input::system::window() const
 {
 	return wnd;
 }

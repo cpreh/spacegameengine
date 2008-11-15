@@ -35,7 +35,7 @@ sge::x11input::keyboard_grab::keyboard_grab(
 	handle_grab(
 		XGrabKeyboard(
 			wnd->display()->get(),
-			wnd->get_window(),
+			wnd->get(),
 			True,
 			GrabModeAsync,
 			GrabModeAsync,

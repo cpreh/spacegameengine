@@ -18,56 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <X11/Xlib.h>
-#include <sge/x11/display.hpp>
-#include <sge/x11/window.hpp>
-#include <sge/x11/sentry.hpp>
-#include "../pointer.hpp"
+#ifndef SGE_WINDOW_INSTANCE_FWD_HPP_INCLUDED
+#define SGE_WINDOW_INSTANCE_FWD_HPP_INCLUDED
 
-sge::x11input::mouse_pos const
-sge::x11input::get_pointer(
-        x11::window_ptr const wnd)
+#include "../shared_ptr.hpp"
+
+namespace sge
 {
-	Window root_return,
-	       child_return;
-	int root_x_return,
-	    root_y_return,
-	    win_x_return,
-	    win_y_return;
-	unsigned mask_return;
+namespace window
+{
 
-	SGE_X11_SENTRY
+class instance;
 
-	XQueryPointer(
-		wnd->display()->get(),
-		wnd->get(),
-		&root_return,
-		&child_return,
-		&root_x_return,
-		&root_y_return,
-		&win_x_return,
-		&win_y_return,
-		&mask_return);
+typedef shared_ptr<instance> instance_ptr;
 
-	return mouse_pos(
-		win_x_return,
-		win_y_return);
+}
 }
 
-void sge::x11input::warp_pointer(
-	x11::window_ptr const wnd,
-	mouse_pos const &pos)
-{
-	SGE_X11_SENTRY
-
-	XWarpPointer(
-		wnd->display()->get(),
-		None,
-		wnd->get(),
-		0,
-		0,
-		0,
-		0,
-		pos.x(),
-		pos.y());
-}
+#endif

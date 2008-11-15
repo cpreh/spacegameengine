@@ -46,7 +46,7 @@ sge::renderer::device_ptr const
 sge::ogl::system::create_renderer(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
-	window_ptr const wnd)
+	window::instance_ptr const wnd)
 {
 	if(ref.lock())
 		throw exception(
@@ -61,7 +61,7 @@ sge::ogl::system::create_renderer(
 	return r;
 }
 
-sge::window_ptr const
+sge::window::instance_ptr const
 sge::ogl::system::create_window(
 	renderer::parameters const &param)
 {
@@ -85,9 +85,9 @@ sge::ogl::system::create_window(
 			dsp,
 			visual->info()));
 
-	return window_ptr(
+	return window::instance_ptr(
 		new x11::window(
-			window::window_pos(0,0),
+			window::pos_type::null(),
 			param.mode().size,
 			default_title,
 			dsp,

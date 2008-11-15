@@ -2,7 +2,7 @@
 #include <sge/renderer/color_format_stride.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/make_image_view.hpp>
-#include <sge/renderer/image_view_factory.hpp>
+#include <sge/renderer/subimage_view.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/assert.hpp>

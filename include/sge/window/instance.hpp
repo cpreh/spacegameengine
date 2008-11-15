@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,17 +19,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window.hpp>
+#ifndef SGE_WINDOW_INSTANCE_HPP_INCLUDED
+#define SGE_WINDOW_INSTANCE_HPP_INCLUDED
 
-sge::window::size_type sge::window::width() const
+#include "dim_type.hpp"
+#include "pos_type.hpp"
+#include "../mainloop/dispatchable.hpp"
+#include "../string.hpp"
+#include "../export.hpp"
+
+namespace sge
 {
-	return size().w();
+namespace window
+{
+
+class SGE_CLASS_SYMBOL instance : public mainloop::dispatchable {
+public:
+	typedef window::pos_type pos_type;
+	typedef window::dim_type dim_type;
+
+	virtual void title(
+		string const &title) = 0;
+	virtual dim_type const size() const = 0;
+	virtual pos_type const viewport_offset() const = 0;
+	virtual void size(
+		dim_type const &) = 0;
+	SGE_SYMBOL virtual ~instance();
+};
+
+}
 }
 
-sge::window::size_type sge::window::height() const
-{
-	return size().h();
-}
-
-sge::window::~window()
-{}
+#endif

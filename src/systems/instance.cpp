@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/font/system.hpp>
-#include <sge/window.hpp>
+#include <sge/window/instance.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>
@@ -55,7 +55,7 @@ struct sge::systems::instance::impl {
 	plugin::plugin<font::system>::ptr_type     font_plugin;
 	font::system_ptr                           font_system;
 	
-	window_ptr                                 window_;
+	window::instance_ptr                       window_;
 
 	void init_renderer(
 		renderer::parameters const &);
@@ -205,7 +205,7 @@ void sge::systems::instance::impl::init_input()
 {
 	// TODO: create a window here too if not done already, using sge::create_window
 	input_plugin = plugin_manager.get_plugin<sge::input::system>().load();
-	input_system.reset(input_plugin->get()(renderer->get_window()));
+	input_system.reset(input_plugin->get()(renderer->window()));
 }
 
 void sge::systems::instance::impl::init_image()

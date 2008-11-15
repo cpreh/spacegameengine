@@ -35,7 +35,7 @@ sge::ogl::glx::current::current(
 {
 	if(glXMakeCurrent(
 		dsp->get(),
-		wnd.get_window(),
+		wnd.get(),
 		context->get())
 	== false)
 		throw exception(

@@ -47,6 +47,7 @@ FILE (GLOB sgecorefiles
 	input/*.cpp
 	log/*.cpp
 	log/format/*.cpp
+	mainloop/*.cpp
 	model/*.cpp
 	plugin/*.cpp
 	random/*.cpp

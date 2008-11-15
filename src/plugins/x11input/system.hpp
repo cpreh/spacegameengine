@@ -56,7 +56,7 @@ private:
 		input::repeat_callback const &c);
 
 	void dispatch();
-	window_ptr const get_window() const;
+	window::instance_ptr const window() const;
 
 	void emit_callback(
 		input::key_pair const &);

@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_types.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/window_fwd.hpp>
+#include <sge/window/instance_fwd.hpp>
 #include <sge/signals/connection_manager.hpp>
 #include "common.hpp"
 #include <boost/scoped_ptr.hpp>
@@ -65,7 +65,7 @@ public:
 	device(
 		renderer::parameters const &param,
 		renderer::adapter_type adapter,
-		window_ptr wnd);
+		window::instance_ptr wnd);
 
 	void begin_rendering();
 	void end_rendering();
@@ -161,9 +161,9 @@ public:
 		renderer::size_type sz,
 		renderer::resource_flag_t flags);
 
-	renderer::caps const get_caps() const;
+	caps_t const caps() const;
 	renderer::screen_size_t const screen_size() const;
-	window_ptr const get_window() const;
+	window::instance_ptr const window() const;
 private:
 	GLenum get_clear_bit(
 		renderer::state::bool_::trampoline_type const &) const;

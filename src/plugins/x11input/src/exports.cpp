@@ -40,7 +40,7 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info *const i)
 	i->min_core_version = 0x1;
 }
 
-SGE_EXPORT_SYMBOL sge::input::system* create_input_system(sge::window_ptr const w)
+SGE_EXPORT_SYMBOL sge::input::system* create_input_system(sge::window::instance_ptr const w)
 {
 	if(!w)
 		throw sge::exception(

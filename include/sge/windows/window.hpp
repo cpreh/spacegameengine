@@ -24,13 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/function.hpp>
 #include <boost/optional.hpp>
-#include <boost/signals.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
 #include "../shared_ptr.hpp"
 #include "../string.hpp"
 #include "../window.hpp"
 #include "../export.hpp"
+#include "../signals/connection.hpp"
+#include "../signals/signal.hpp"
+#include "../math/rect.hpp"
 #include "windows.hpp"
 
 namespace sge
@@ -40,47 +42,58 @@ namespace windows
 
 class window : public sge::window {
 public:
-	typedef unsigned win32_event_type;
-	typedef boost::optional<LRESULT> win32_callback_return_type;
+	typedef unsigned event_type;
+	typedef boost::optional<LRESULT> callback_return_type;
 
-	struct win32_signal_combiner {
-		typedef win32_callback_return_type result_type;
-		template<typename InputIterator> result_type operator()(InputIterator first, InputIterator last) const
-		{
-			while (first != last)
-			{
-				if (*first)
-					return **first;
-				++first;
-			}
-			return result_type();
-		}
-	};
+	struct signal_combiner;
 
-	typedef win32_callback_return_type win32_callback_signature_type(window&, win32_event_type, WPARAM, LPARAM);
-	typedef boost::function<win32_callback_signature_type> win32_callback_type;
-	typedef boost::signal<win32_callback_signature_type, win32_signal_combiner> win32_signal_type;
+	typedef callback_return_type
+	callback_signature_type(
+		window &,
+		event_type,
+		WPARAM,
+		LPARAM);
 
-	SGE_SYMBOL window(window_size sz, const string& title = string());
+	typedef boost::function<
+		callback_signature_type
+	> callback_type;
+
+	typedef signals::signal<
+		callback_signature_type,
+		signal_combiner
+	> signal_type;
+
+	SGE_SYMBOL window(
+		window::dim_type const &sz,
+		string const &title);
 	SGE_SYMBOL ~window();
 
-	SGE_SYMBOL void title(const string& t);
-	SGE_SYMBOL void size(window_size const &newsize);
-	SGE_SYMBOL window_size const size() const;
+	SGE_SYMBOL void title(string const &t);
+	SGE_SYMBOL void size(dim_type const &newsize);
+	SGE_SYMBOL window::dim_type const size() const;
 	SGE_SYMBOL string const title() const;
 	SGE_SYMBOL HWND hwnd() const;
-	SGE_SYMBOL boost::signals::connection register_callback(win32_event_type, win32_callback_type);
-	SGE_SYMBOL win32_callback_return_type execute_callback(win32_event_type msg, WPARAM wparam, LPARAM lparam);
+	SGE_SYMBOL signals::connection
+	register_callback(
+		event_type,
+		callback_type);
+	SGE_SYMBOL callback_return_type
+	execute_callback(
+		event_type msg,
+		WPARAM wparam,
+		LPARAM lparam);
 	SGE_SYMBOL window_pos const viewport_offset() const;
 private:
-	struct {
-		unsigned r, l, t, b;
-	} decoration_size;
+	typedef math::rect<unsigned> decoration_rect;
+	decoration_rect decoration_size;
 	HWND        handle;
 	static bool wndclass_created;
 
-	typedef boost::ptr_map<win32_event_type, win32_signal_type> win32_signal_map;
-	win32_signal_map signals;
+	typedef boost::ptr_map<
+		event_type,
+		signal_type
+	> signal_map;
+	signal_map signals;
 };
 
 typedef shared_ptr<window> window_ptr;

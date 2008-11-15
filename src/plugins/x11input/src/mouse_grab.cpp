@@ -44,14 +44,14 @@ sge::x11input::mouse_grab::mouse_grab(
 			handle_grab(
 				XGrabPointer(
 					wnd->display()->get(),
-					wnd->get_window(),
+					wnd->get(),
 					True,
 					PointerMotionMask
 					| ButtonPressMask
 					| ButtonReleaseMask,
 					GrabModeAsync,
 					GrabModeAsync,
-					wnd->get_window(),
+					wnd->get(),
 					cur.get(),
 					CurrentTime));
 			return;
