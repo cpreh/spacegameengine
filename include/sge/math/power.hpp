@@ -86,19 +86,23 @@ template<typename T> inline dim<T, 2> next_pow_2(const dim<T, 2>& r)
  * Checks if an unsigned type is a power of two
  */
 template<typename T>
-inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type
-is_power_of_2(const T t)
+inline typename boost::enable_if<
+	boost::is_unsigned<T>,
+	bool
+>::type
+is_power_of_2(
+	T const t)
 {
 	return t && !(t & (t - 1));
 }
 
-/**
- * Checks if both coordinates of an unsigned sge::math::dim are powers of
- * two
- */
 template<typename T>
-inline typename boost::enable_if<boost::is_unsigned<T>, bool>::type
-is_power_of_2(const dim<T, 2>& d)
+inline typename boost::enable_if<
+	boost::is_unsigned<T>,
+	bool
+>::type
+is_power_of_2(
+	dim<T, 2> const &d)
 {
 	return is_power_of_2(d.w()) && is_power_of_2(d.h());
 }

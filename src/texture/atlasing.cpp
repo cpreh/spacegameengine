@@ -129,43 +129,45 @@ sge::texture::inner_atlased_rect(
 void sge::texture::atlas_w(
 	renderer::texture_ptr const tex,
 	renderer::const_image_view const &src,
-	renderer::lock_rect const &outer_area)
+	renderer::lock_rect const &outer_area,
+	renderer::lock_rect const &inner_area)
 {
-	// FIXME: use a gil image here
-	/*typedef std::vector<renderer::texture::value_type> pixel_vector;
-	pixel_vector height_pixels(outer_area().h());
+	renderer::dim_type const dim(
+		renderer::image_view_dim(
+			src));
 
-	height_pixels.front() = *src;
-	for(pixel_vector::size_type h = 1; h < height_pixels.size() - 1; ++h)
-		height_pixels[h] = *(src + area().w() * h);
-	height_pixels.back() = *(src + area().w() * (area().h() - 1));
-
-	my_texture()->set_data(
-		height_pixels.data(),
-		renderer::lock_rect(
-			outer_area().left(),
-			outer_area().top(),
-			outer_area().left() + 1,
-			outer_area().bottom()));
-
-	height_pixels.front() = *(src + area().w() - 1); 
-	for(pixel_vector::size_type h = 1; h < height_pixels.size() - 1; ++h)
-		height_pixels[h] = *(src + area().w() * (h + 1) - 1);
-	height_pixels.back() = *(src + area().w() * area().h() - 1);
-
-	my_texture()->set_data(
-		height_pixels.data(),
-	        renderer::lock_rect(
-			outer_area().right() - 1,
-			outer_area().top(),
-			outer_area().right(),
-			outer_area().bottom()));*/
+	renderer::sub_data(
+		tex,
+		renderer::subimage_view(
+			src,
+			renderer::lock_rect(
+				0,
+				0,
+				1,
+				dim.h())),
+		renderer::texture_pos_type(
+			outer_area.left(),
+			inner_area.top()));
+	
+	renderer::sub_data(
+		tex,
+		renderer::subimage_view(
+			src,
+			renderer::lock_rect(
+				dim.w() - 1,
+				0,
+				dim.w(),
+				dim.h())),
+		renderer::texture_pos_type(
+			outer_area.right() - 1,
+			inner_area.top()));
 }
 	
 void sge::texture::atlas_h(
 	renderer::texture_ptr const tex,
 	renderer::const_image_view const &src,
-	renderer::lock_rect const &outer_area)
+	renderer::lock_rect const &outer_area,
+	renderer::lock_rect const &inner_area)
 {
 	renderer::dim_type const dim(
 		renderer::image_view_dim(
@@ -181,7 +183,7 @@ void sge::texture::atlas_h(
 				dim.w(),
 				1)),
 		renderer::texture_pos_type(
-			outer_area.left() + 1,
+			inner_area.left(),
 			outer_area.top()));
 	
 	renderer::sub_data(
@@ -194,6 +196,6 @@ void sge::texture::atlas_h(
 				dim.w(),
 				dim.h())),
 		renderer::texture_pos_type(
-			outer_area.left() + 1,
+			inner_area.left(),
 			outer_area.bottom() - 1));
 }
