@@ -27,7 +27,10 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 	  s(stdstream)
 {
 	if (!stdstream.is_open())
-		throw audio::exception(SGE_TEXT("couldn't open file \"")+p.string()+SGE_TEXT("\""));
+		throw audio::exception(
+			SGE_TEXT("couldn't open file \"")
+			+ p.string()
+			+ SGE_TEXT('"'));
 	
 	// throw away first frame if it's the id3 tag
 	char id3[3];
