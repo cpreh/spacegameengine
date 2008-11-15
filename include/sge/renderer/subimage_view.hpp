@@ -18,32 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/image_view_factory.hpp>
-#include <sge/math/rect_impl.hpp>
-#include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#ifndef SGE_RENDERER_SUBIMAGE_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_SUBIMAGE_VIEW_HPP_INCLUDED
 
-// FIXME: unify these
-sge::renderer::image_view const sge::renderer::subimage_view(
+#include "image_view.hpp"
+#include "dim_types.hpp"
+#include "../export.hpp"
+
+namespace sge
+{
+namespace renderer
+{
+
+SGE_SYMBOL image_view const
+subimage_view(
 	image_view const &src,
-	lock_rect const &lr)
-{
-	return boost::gil::subimage_view(
-		src,
-		static_cast<int>(lr.left()),
-		static_cast<int>(lr.top()),
-		static_cast<int>(lr.w()),
-		static_cast<int>(lr.h()));
+	lock_rect const &);
+
+SGE_SYMBOL const_image_view const
+subimage_view(
+	const_image_view const &src,
+	lock_rect const &);
+
+}
 }
 
-sge::renderer::const_image_view const sge::renderer::subimage_view(
-	const_image_view const &src,
-	lock_rect const &lr)
-{
-	return boost::gil::subimage_view(
-		src,
-		static_cast<int>(lr.left()),
-		static_cast<int>(lr.top()),
-		static_cast<int>(lr.w()),
-		static_cast<int>(lr.h()));
-}
+#endif

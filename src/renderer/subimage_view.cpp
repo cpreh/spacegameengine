@@ -18,29 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMAGE_VIEW_FACTORY_HPP_INCLUDED
-#define SGE_RENDERER_IMAGE_VIEW_FACTORY_HPP_INCLUDED
+#include <sge/renderer/subimage_view.hpp>
+#include <sge/math/rect_impl.hpp>
+#include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 
-#include "image_view.hpp"
-#include "dim_types.hpp"
-#include "../export.hpp"
-
-namespace sge
-{
-namespace renderer
+namespace
 {
 
-SGE_SYMBOL image_view const
-subimage_view(
+template<
+	typename View
+>
+View const
+subimage_view_impl(
+	View const &,
+	sge::renderer::lock_rect const &);
+
+}
+
+sge::renderer::image_view const
+sge::renderer::subimage_view(
 	image_view const &src,
-	lock_rect const &);
+	lock_rect const &lr)
+{
+	return subimage_view_impl(
+		src,
+		lr);
+}
 
-SGE_SYMBOL const_image_view const
-subimage_view(
+sge::renderer::const_image_view const
+sge::renderer::subimage_view(
 	const_image_view const &src,
-	lock_rect const &);
+	lock_rect const &lr)
+{
+	return subimage_view_impl(
+		src,
+		lr);
+}
+
+namespace
+{
+
+template<
+	typename View
+>
+View const
+subimage_view_impl(
+	View const &v,
+	sge::renderer::lock_rect const &r)
+{
+	return boost::gil::subimage_view(
+		v,
+		static_cast<int>(r.left()),
+		static_cast<int>(r.top()),
+		static_cast<int>(r.w()),
+		static_cast<int>(r.h()));
+}
 
 }
-}
-
-#endif

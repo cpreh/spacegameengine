@@ -32,13 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
-#include <sge/renderer/image_view_factory.hpp>
 #include <sge/renderer/any_color_print.hpp>
 #include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/states.hpp>
 #include <sge/renderer/state/scoped.hpp>
+#include <sge/renderer/subimage_view.hpp>
 #include <sge/media.hpp>
 #include <sge/window.hpp>
 #include <sge/input/system.hpp>
