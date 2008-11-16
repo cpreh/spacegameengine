@@ -25,20 +25,23 @@ systems::parameterless::image.
 \code
 sge::systems::instance const sys(
 	sge::systems::list()
-	(sge::renderer::parameters(
-		sge::renderer::display_mode(
-			sge::renderer::screen_size_t(
-				640,
-				480),
-			sge::renderer::bit_depth::depth32),
-		sge::renderer::depth_buffer::off,
-		sge::renderer::stencil_buffer::off,
-		sge::renderer::window_mode::windowed))
+	(sge::window::parameters(
+		SGE_TEXT("sge tutorial01"),
+		sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size_t(
+					640,
+					480),
+				sge::renderer::bit_depth::depth32),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed)))
 	(sge::systems::parameterless::image));
 \endcode
 
-You have to include <sge/systems/instance.hpp>, <sge/systems/list.hpp>
-and <sge/renderer/parameters.hpp> for that.
+You have to include <sge/systems/instance.hpp>, <sge/systems/list.hpp>,
+<sge/window/parameters.hpp>, <sge/text.hpp> and
+<sge/renderer/parameters.hpp> for that.
 
 And that's it. If you start the program now you probably see a 640x480 window
 popping up for a split second. Our first sge program! Just for convenience,
@@ -48,20 +51,24 @@ here's the whole program:
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/text.hpp>
 
 int main()
 {
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
-					640,
-					480),
-				sge::renderer::bit_depth::depth32),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+		(sge::window::parameters(
+			SGE_TEXT("sge tutorial01"),
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size_t(
+						640,
+						480),
+					sge::renderer::bit_depth::depth32),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed)))
 		(sge::systems::parameterless::image));
 }
 \endcode
@@ -179,17 +186,19 @@ starting it. So let's add a main loop which keeps it going!
 \code
 while (true)
 {
-	sge::window::dispatch();
-	sge::renderer::scoped_block block_(sys.renderer());
+	sge::mainloop::dispatch();
+	sge::renderer::scoped_block const block_(sys.renderer());
 	ss.render(my_object);
 }
 \endcode
 
-Files to include: <sge/renderer/scoped_block.hpp>, <sge/window.hpp>.
+Files to include: <sge/renderer/scoped_block.hpp>,
+<sge/mainloop/dispatch.hpp>.
 
 Inside the endless loop (we'll fix that when we introduce the <em>input
-system</em>), sge::window::dispatch is called. This is just a maintenance
-function so the window properties are updated. You can try removing this line
+system</em>), sge::mainloop::dispatch is called.
+This calls the dispatch function for all <em>dispatchable</em> objects
+that have been created so far. You can try removing this line
 and see what happens if you like.
 
 If you want to render something on the screen, you have to call

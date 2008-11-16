@@ -58,19 +58,22 @@ So let's start at the top, the <em>font system</em>. We use our old shortcut sge
 \code
 sge::systems::instance const sys(
 	sge::systems::list()
-	(sge::renderer::parameters(
-		sge::renderer::display_mode(
-			sge::renderer::screen_size_t(
-				640,
-				480),
-			sge::renderer::bit_depth::depth32),
-		sge::renderer::depth_buffer::off,
-		sge::renderer::stencil_buffer::off,
-		sge::renderer::window_mode::windowed))
+	(sge::window::parameters(
+		SGE_TEXT("sge font tutorial"),
+		sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size_t(
+					640,
+					480),
+				sge::renderer::bit_depth::depth32),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed)))
 	(sge::systems::parameterless::font));
 \endcode
 
-Files to include: <sge/systems/instance.hpp>, <sge/systems/list.hpp>
+Files to include: <sge/systems/instance.hpp>, <sge/systems/list.hpp>,
+<sge/renderer/parameters.hpp>, <sge/window/parameters.hpp>, <sge/text.hpp>.
 
 Since the system doesn't receive any parameters, we can go on to the next
 component, the <em>font metrics</em>. As seen in the diagram, we use sge::font::system to load a metric:
@@ -140,7 +143,7 @@ Now that we know, here's the main loop:
 \code
 while (true)
 {
-	sge::window::dispatch();
+	sge::mainloop::dispatch();
 	sge::renderer::scoped_block const block(sys.renderer);
 	font.draw_text(
 		SGE_TEXT("hello world"),
@@ -154,7 +157,8 @@ while (true)
 }
 \endcode
 
-Files to include: <sge/renderer/scoped_block.hpp>, <sge/window.hpp>
+Files to include: <sge/renderer/scoped_block.hpp>,
+<sge/mainloop/dispatch.hpp>
 
 This loop, as in the first tutorial, loops forever until you close it somehow.
 Feel free to integrate an input system if you like. There's nothing much here
