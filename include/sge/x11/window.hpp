@@ -53,6 +53,8 @@ public:
 		dim_type const &,
 		string const &title,
 		display_ptr,
+		int screen,
+		int depth,
 		bool fullscreen,
 		const_visual_ptr,
 		colormap_ptr);

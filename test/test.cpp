@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/create_texture.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/window/parameters.hpp>
 #include <sge/media.hpp>
 #include <sge/endianness.hpp>
 #include <sge/exception.hpp>
@@ -91,7 +92,9 @@ try
 	
 	sge::window::instance_ptr const wnd(
 		rs->create_window(
-			param));
+			sge::window::parameters(
+				SGE_TEXT("sgetest"),
+				param)));
 
 	const sge::renderer::device_ptr rend = rs->create_renderer(
 		param,

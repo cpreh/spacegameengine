@@ -58,7 +58,7 @@ struct sge::systems::instance::impl {
 	window::instance_ptr                       window_;
 
 	void init_renderer(
-		renderer::parameters const &);
+		window::parameters const &);
 	void init_input();
 	void init_image();
 	void init_audio_player();
@@ -73,7 +73,7 @@ struct visitor : boost::static_visitor<> {
 		sge::systems::instance::impl &);
 	
 	void operator()(
-		sge::renderer::parameters const &) const;
+		sge::window::parameters const &) const;
 	void operator()(
 		sge::systems::parameterless::type) const;
 private:
@@ -156,7 +156,7 @@ visitor::visitor(
 {}
 
 void visitor::operator()(
-	sge::renderer::parameters const &p) const
+	sge::window::parameters const &p) const
 {
 	impl_.init_renderer(p);
 }
@@ -186,7 +186,7 @@ void visitor::operator()(
 }
 
 void sge::systems::instance::impl::init_renderer(
-	renderer::parameters const &p)
+	window::parameters const &p)
 {
 	renderer_plugin = plugin_manager.get_plugin<renderer::system>().load();
 	renderer_system.reset(renderer_plugin->get()());
@@ -196,7 +196,7 @@ void sge::systems::instance::impl::init_renderer(
 			p);
 	
 	renderer = renderer_system->create_renderer(
-		p,
+		p.param(),
 		static_cast<renderer::adapter_type>(0),
 		window_);
 }

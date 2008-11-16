@@ -38,7 +38,7 @@ public:
 		window::instance_ptr);
 
 	window::instance_ptr const create_window(
-		renderer::parameters const &);
+		window::parameters const &);
 
 	renderer::caps_array const caps() const;
 private:

@@ -18,34 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_COLORMAP_HPP_INCLUDED
-#define SGE_X11_COLORMAP_HPP_INCLUDED
+#include <sge/x11/create_window.hpp>
+#include <sge/x11/colormap.hpp>
+#include <sge/x11/visual.hpp>
+#include <sge/x11/display.hpp>
+#include <sge/x11/window.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/renderer/parameters.hpp>
 
-#include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "visual_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::window::instance_ptr const
+sge::x11::create_window(
+	sge::window::parameters const &param,
+	display_ptr const dsp,
+	int const screen,
+	int const depth,
+	visual_ptr const visual)
 {
-namespace x11
-{
+	x11::colormap_ptr const colormap(
+		new x11::colormap(
+			dsp,
+			screen,
+			visual));
 
-class colormap : boost::noncopyable {
-public:
-	SGE_SYMBOL colormap(
-		display_ptr,
-		int screen,
-		visual_ptr);
-	SGE_SYMBOL ~colormap();
-	SGE_SYMBOL Colormap &get();
-private:
-	display_ptr const dsp;
-	Colormap          c;
-};
+	renderer::parameters const &rparam(
+		param.param());
 
+	return sge::window::instance_ptr(
+		new window(
+			window::pos_type::null(),
+			rparam.mode().size(),
+			param.title(),
+			dsp,
+			screen,
+			depth,
+			rparam.wmode() == renderer::window_mode::fullscreen,
+			visual,
+			colormap));
 }
-}
-
-#endif

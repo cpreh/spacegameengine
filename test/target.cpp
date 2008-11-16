@@ -26,16 +26,17 @@ try
 {
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
-					1024,
-					768),
-				sge::renderer::bit_depth::depth32),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
-		//(sge::systems::parameterless::input)
+		(sge::window::parameters(
+			SGE_TEXT("sge targettest"),
+			(sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size_t(
+						1024,
+						768),
+					sge::renderer::bit_depth::depth32),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed))))
 		(sge::systems::parameterless::image));
 
 	sge::sprite::system ss(sys.renderer());

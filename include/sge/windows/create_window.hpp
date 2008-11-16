@@ -18,32 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_COLORMAP_HPP_INCLUDED
-#define SGE_X11_COLORMAP_HPP_INCLUDED
+#ifndef SGE_WINDOWS_CREATE_WINDOW_HPP_INCLUDED
+#define SGE_WINDOWS_CREATE_WINDOW_HPP_INCLUDED
 
-#include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "visual_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include "../window/instance_fwd.hpp"
 
 namespace sge
 {
-namespace x11
+namespace window
+{
+struct parameters;
+}
+
+namespace windows
 {
 
-class colormap : boost::noncopyable {
-public:
-	SGE_SYMBOL colormap(
-		display_ptr,
-		int screen,
-		visual_ptr);
-	SGE_SYMBOL ~colormap();
-	SGE_SYMBOL Colormap &get();
-private:
-	display_ptr const dsp;
-	Colormap          c;
-};
+window::instance_ptr const
+create_window(
+	sge::window::parameters const &);
 
 }
 }

@@ -32,6 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace window
+{
+struct parameters;
+}
+
 namespace renderer
 {
 
@@ -49,8 +54,9 @@ public:
 		adapter_type adapter,
 		window::instance_ptr wnd) = 0;
 
-	virtual window::instance_ptr const create_window(
-		parameters const &) = 0;
+	virtual window::instance_ptr const
+	create_window(
+		window::parameters const &) = 0;
 
 	virtual caps_array const caps() const = 0;
 	
