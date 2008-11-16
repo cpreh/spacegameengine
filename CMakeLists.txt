@@ -31,14 +31,6 @@ CHECK_CXX_COMPILER_FLAG(
 	HAVE_VARIADIC_TEMPLATES
 )
 
-CHECK_CXX_SOURCE_COMPILES(
-	"#include <boost/cstdint.hpp>
-	 int main()
-	 {
-	   boost::uint_least64_t test;
-	 }"
-	 SGE_HAVE_ATLEAST_UINT64)
-
 IF (CMAKE_COMPILER_IS_GNUCXX)
 	CHECK_CXX_COMPILER_FLAG(
 		"-fvisibility=hidden"
@@ -141,11 +133,17 @@ ELSE()
 	MESSAGE(STATUS "Boost libraries not found.")
 ENDIF()
 
+CHECK_CXX_SOURCE_COMPILES(
+	"#include <boost/cstdint.hpp>
+	 int main()
+	 {
+	   boost::uint_least64_t test;
+	 }"
+	 SGE_HAVE_ATLEAST_UINT64)
 
 ADD_SUBDIRECTORY (src)
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/include/sge/config.h)
-
 
 IF (${ENABLE_TEST})
 	ADD_SUBDIRECTORY (test)
