@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-template<typename T> struct heap_deleter {
-	void operator()(T* const t) const
+template<typename T>
+struct heap_deleter {
+	void operator()(T *const t) const
 	{
 		delete t;
 	}

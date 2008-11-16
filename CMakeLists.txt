@@ -28,8 +28,10 @@ SET (CMAKE_VERBOSE_MAKEFILE ON)
 
 CHECK_CXX_COMPILER_FLAG(
 	"-std=c++0x"
-	HAVE_VARIADIC_TEMPLATES
+	SGE_HAVE_VARIADIC_TEMPLATES
 )
+
+
 
 IF (CMAKE_COMPILER_IS_GNUCXX)
 	CHECK_CXX_COMPILER_FLAG(
@@ -47,7 +49,7 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		SET (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fvisibility=hidden")
 	ENDIF ()
 
-	IF (HAVE_VARIADIC_TEMPLATES)
+	IF (SGE_HAVE_VARIADIC_TEMPLATES)
 		ADD_DEFINITIONS ("-Wold-style-cast -std=c++0x")
 	ELSE ()
 		# C++ 98 has no long long but boost insists on using it anyway
@@ -90,7 +92,7 @@ IF (NOT DONT_INSTALL)
 		"Requires:\n"
 		"Libs: -L\${libdir} -lsgecore\n"
 		"Cflags: -I\${includedir}/sge")
-	IF(HAVE_VARIADIC_TEMPLATES)
+	IF(SGE_HAVE_VARIADIC_TEMPLATES)
 		FILE(APPEND ${pkgfile} " -std=c++0x")
 		INSTALL (FILES ${pkgfile} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
 	ENDIF()
@@ -142,6 +144,8 @@ CHECK_CXX_SOURCE_COMPILES(
 	 SGE_HAVE_ATLEAST_UINT64)
 
 ADD_SUBDIRECTORY (src)
+set(SGE_HAVE_X11 X11_FOUND)
+
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/include/sge/config.h)
 

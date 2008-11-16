@@ -75,15 +75,15 @@ public:
 	SGE_SYMBOL void rotate_around();
 	SGE_SYMBOL void repeat(repetition_type);
 	SGE_SYMBOL void color(color_t c);
-	SGE_SYMBOL void center(	point const &);
+	SGE_SYMBOL void center(point const &);
 	
-	SGE_SYMBOL const unit& x() const;
-	SGE_SYMBOL const unit& y() const;
-	SGE_SYMBOL const depth_type& z() const;
-	SGE_SYMBOL const point& pos() const;
-	SGE_SYMBOL const unit& w() const;
-	SGE_SYMBOL const unit& h() const;
-	SGE_SYMBOL const dim& size() const;
+	SGE_SYMBOL unit const &x() const;
+	SGE_SYMBOL unit const &y() const;
+	SGE_SYMBOL depth_type const &z() const;
+	SGE_SYMBOL point const &pos() const;
+	SGE_SYMBOL unit const &w() const;
+	SGE_SYMBOL unit const &h() const;
+	SGE_SYMBOL dim const &size() const;
 	SGE_SYMBOL bool visible() const;
 	SGE_SYMBOL rect_t const rect() const;
 	SGE_SYMBOL point center() const;
@@ -93,8 +93,8 @@ public:
 	SGE_SYMBOL color_t const color() const;
 	SGE_SYMBOL rect_t const bounding_quad() const;
 	SGE_SYMBOL circle const bounding_circle() const;
-	SGE_SYMBOL const point rotation_center() const;
-	SGE_SYMBOL const texture::part_ptr texture() const;
+	SGE_SYMBOL point const rotation_center() const;
+	SGE_SYMBOL texture::part_ptr const texture() const;
 private:
 	point               pos_;
 	dim                 size_;
