@@ -32,6 +32,7 @@ ENDIF()
 
 IF (SGE_HAVE_POSIX)
 	find_package(X11 REQUIRED)
+ENDIF()
 
 FILE (GLOB sgecorefiles 
 	*.cpp
