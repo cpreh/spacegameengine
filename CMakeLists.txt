@@ -143,6 +143,8 @@ ENDIF()
 
 
 ADD_SUBDIRECTORY (src)
+set(SGE_HAVE_X11 X11_FOUND)
+
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/include/sge/config.h)
 
