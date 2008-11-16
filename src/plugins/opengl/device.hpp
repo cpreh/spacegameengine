@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_types.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/window_fwd.hpp>
+#include <sge/window/instance_fwd.hpp>
 #include <sge/signals/connection_manager.hpp>
 #include "common.hpp"
 #include <boost/scoped_ptr.hpp>
@@ -65,7 +65,7 @@ public:
 	device(
 		renderer::parameters const &param,
 		renderer::adapter_type adapter,
-		window_ptr wnd);
+		window::instance_ptr wnd);
 
 	void begin_rendering();
 	void end_rendering();
@@ -103,7 +103,6 @@ public:
 
 	void set_render_target(renderer::texture_ptr target);
 	void set_viewport(renderer::viewport const &);
-	const renderer::viewport &get_viewport() const;
 	void enable_light(renderer::light_index index, bool enable);
 	void set_light(renderer::light_index index, renderer::light const &);
 	void set_texture_stage_op(
@@ -134,20 +133,20 @@ public:
 	create_texture(
 		renderer::dim_type const &,
 		renderer::color_format::type,
-		renderer::filter_args const &,
+		renderer::texture_filter const &,
 		renderer::resource_flag_t);
 
 	/*const renderer::volume_texture_ptr
 	create_volume_texture(
 		renderer::volume_texture::image_view_array const &,
-		const renderer::filter_args& filter,
+		const renderer::texture_filter& filter,
 		renderer::volume_texture::resource_flag_type flags);*/
 
 	renderer::cube_texture_ptr const
 	create_cube_texture(
 		renderer::size_type border_size,
 		renderer::color_format::type,
-		renderer::filter_args const &,
+		renderer::texture_filter const &,
 		renderer::resource_flag_t);
 
 	renderer::vertex_buffer_ptr const
@@ -162,9 +161,9 @@ public:
 		renderer::size_type sz,
 		renderer::resource_flag_t flags);
 
-	renderer::caps const get_caps() const;
+	caps_t const caps() const;
 	renderer::screen_size_t const screen_size() const;
-	window_ptr const get_window() const;
+	window::instance_ptr const window() const;
 private:
 	GLenum get_clear_bit(
 		renderer::state::bool_::trampoline_type const &) const;

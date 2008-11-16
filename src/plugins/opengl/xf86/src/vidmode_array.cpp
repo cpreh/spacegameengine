@@ -92,12 +92,12 @@ sge::ogl::xf86::vidmode_array::switch_to_mode(
 	int best = -1;
 	for(size_type i = 1; i < size(); ++i)
 	{
-		const XF86VidModeModeInfo& mode = (*this)[i];
-		const unsigned rate = refresh_rate(mode);
+		XF86VidModeModeInfo const &mode = (*this)[i];
+		unsigned const rate = refresh_rate(mode);
 
-		if(mode.hdisplay == pmode.width() &&
-		   mode.vdisplay == pmode.height() &&
-		   rate  >= pmode.refresh_rate &&
+		if(mode.hdisplay == pmode.size().w() &&
+		   mode.vdisplay == pmode.size().h() &&
+		   rate  >= pmode.refresh_rate() &&
 		   (best == -1 || rate >= refresh_rate((*this)[best])))
 			best = static_cast<int>(i);
 	}

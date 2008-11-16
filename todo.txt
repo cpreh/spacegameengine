@@ -7,20 +7,18 @@
 *low: rework sge::math to contain views and have less code duplication
 *low: add speed of sound and velocity to sounds
 *low: replace every cerr and cout output with sge's log system
+*low: add scripting proxies, scripting framework and backend with flusspferd
+*low: other font formatting like bold, italic, underline and colors
 *medium: breakpoints for the font
 *medium: implement "loop and play once on kill" to sound buffer
-*medium: export more from the input system (like keyboard, mouse and joystick interfaces)
-*medium: other font formatting like bold, italic, underline and colors
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
 *medium: add a convenient method to check for key combinations in the input system
-*medium: add a convenient method for the main loop (instead of window::dispatch and input::system::process) 
-*medium: add support for _EXT vertex elements in opengl (binormal, tangent, etc)
+*medium: add support for more vertex elements (like fog, etc.)
 *medium: implement GLSL getter
-*medium: add sge::create_window to create (possibly) not renderable windows
 *medium: fix renderer::caps and the opengl implementation of them
 *high: set up proper window information for X
 *high: split the code from ogl::device into windows and linux code
 *high: implement uniform arrays for glsl
 *high: Improve the cmake script, search for libraries per default.
 *high: fix dga
-*high: implement window_parameters
+*high: add Xrandr support and split the resolution switching code in opengl

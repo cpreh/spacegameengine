@@ -26,12 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../export.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
-#include "../window_fwd.hpp"
+#include "../window/instance_fwd.hpp"
 #include <boost/noncopyable.hpp>
 #include <vector>
 
 namespace sge
 {
+namespace window
+{
+struct parameters;
+}
+
 namespace renderer
 {
 
@@ -47,10 +52,11 @@ public:
 	create_renderer(
 		parameters const &param,
 		adapter_type adapter,
-		window_ptr wnd) = 0;
+		window::instance_ptr wnd) = 0;
 
-	virtual window_ptr const create_window(
-		parameters const &) = 0;
+	virtual window::instance_ptr const
+	create_window(
+		window::parameters const &) = 0;
 
 	virtual caps_array const caps() const = 0;
 	

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
 #include "../export.hpp"
-#include "../window_fwd.hpp"
+#include "../window/instance_fwd.hpp"
 #include "any_matrix.hpp"
 #include "vertex_buffer_fwd.hpp"
 #include "index_buffer_fwd.hpp"
@@ -68,7 +68,7 @@ class dynamic_format;
 }
 
 class viewport;
-struct filter_args;
+struct texture_filter;
 struct material;
 struct caps;
 struct light;
@@ -147,24 +147,24 @@ public:
 
 	SGE_SYMBOL texture_ptr const create_texture(
 		const_image_view const &,
-		filter_args const &filter,
+		texture_filter const &filter,
 		resource_flag_t flags);
 
 	virtual texture_ptr const create_texture(
 		dim_type const &dim,
 		color_format::type format,
-		filter_args const &filter,
+		texture_filter const &filter,
 		resource_flag_t flags) = 0;
 
 	/*virtual const volume_texture_ptr create_volume_texture(
 		volume_texture::image_view_array const &,
-		filter_args const &filter,
+		texture_filter const &filter,
 		resource_flag_t flags) = 0;*/
 
 	virtual cube_texture_ptr const create_cube_texture(
 		size_type border_size,
 		color_format::type format,
-		filter_args const &filter,
+		texture_filter const &filter,
 		resource_flag_t flags) = 0;
 
 	SGE_SYMBOL vertex_buffer_ptr const create_vertex_buffer(
@@ -185,9 +185,11 @@ public:
 		size_type size,
 		resource_flag_t flags) = 0;
 
-	virtual caps const get_caps() const = 0;
+	typedef renderer::caps caps_t;
+
+	virtual caps_t const caps() const = 0;
 	virtual screen_size_t const screen_size() const = 0;
-	virtual window_ptr const get_window() const = 0;
+	virtual window::instance_ptr const window() const = 0;
 
 	SGE_SYMBOL virtual ~device();
 };

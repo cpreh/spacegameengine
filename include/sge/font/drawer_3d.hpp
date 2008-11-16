@@ -61,13 +61,16 @@ private:
 		char_type,
 		const_image_view const &);
 
-	renderer::device_ptr                             rend;
-	renderer::any_color                              col;
-	texture::manager                                 texman;
-	typedef std::map<char_type, texture::part_ptr>   texture_map;
-	texture_map                                      textures;
-	sprite::system                                   sys;
-	sprite::system::container                        sprites;
+	renderer::device_ptr            rend;
+	renderer::any_color             col;
+	texture::manager                texman;
+	typedef std::map<
+		char_type,
+		texture::part_ptr
+	>                               texture_map;
+	texture_map                     textures;
+	sprite::system                  sys;
+	sprite::system::container       sprites;
 };
 
 }

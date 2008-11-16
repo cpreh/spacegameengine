@@ -40,7 +40,7 @@ sge::x11input::get_pointer(
 
 	XQueryPointer(
 		wnd->display()->get(),
-		wnd->get_window(),
+		wnd->get(),
 		&root_return,
 		&child_return,
 		&root_x_return,
@@ -63,7 +63,7 @@ void sge::x11input::warp_pointer(
 	XWarpPointer(
 		wnd->display()->get(),
 		None,
-		wnd->get_window(),
+		wnd->get(),
 		0,
 		0,
 		0,

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/display.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/iconv.hpp>
 	
 sge::x11::color::color(
 	display_ptr const dsp,
@@ -35,7 +36,7 @@ sge::x11::color::color(
 	if(XAllocNamedColor(
 		dsp->get(),
 		colormap,
-		name.c_str(),
+		iconv(name).c_str(),
 		&color_,
 		&dummy)
 	== 0)

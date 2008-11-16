@@ -18,17 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window.hpp>
+#include <sge/window/instance.hpp>
 
-sge::window::size_type sge::window::width() const
-{
-	return size().w();
-}
-
-sge::window::size_type sge::window::height() const
-{
-	return size().h();
-}
-
-sge::window::~window()
+sge::window::instance::~instance()
 {}

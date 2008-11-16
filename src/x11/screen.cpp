@@ -18,18 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_FWD_HPP_INCLUDED
-#define SGE_WINDOW_FWD_HPP_INCLUDED
+#include <sge/x11/screen.hpp>
+#include <sge/x11/display.hpp>
+#include <X11/Xlib.h>
 
-#include "shared_ptr.hpp"
-
-namespace sge
+int sge::x11::default_screen(
+	display_ptr const dsp)
 {
-
-class window;
-
-typedef shared_ptr<window> window_ptr;
-
+	return XDefaultScreen(dsp->get());
 }
-
-#endif

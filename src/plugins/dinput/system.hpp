@@ -46,7 +46,7 @@ public:
 	register_repeat_callback(
 		input::repeat_callback const &c);
 	void dispatch();
-	sge::window_ptr const get_window() const;
+	window::instance_ptr const window() const;
 private:
 	signal_type sig;
 	repeat_signal_type repeat_sig;

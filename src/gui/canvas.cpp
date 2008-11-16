@@ -59,15 +59,13 @@ sge::gui::canvas::canvas(
 
 void sge::gui::canvas::reset_font(
 	font::metrics_ptr _metrics,
-	color const fg,
-	color const bg)
+	color const fg)
 {
 	metrics = _metrics;
 
 	// temporarily convert to canvas_drawer to set foreground and background
 	font_drawer_canvas &cd = static_cast<font_drawer_canvas &>(*drawer);
 	cd.fg(fg);
-	cd.bg(bg);
 
 	font.reset(new font::font(metrics,drawer));
 }
@@ -174,8 +172,7 @@ sge::gui::canvas::view_type sge::gui::canvas::sub_view(rect const &r)
 void sge::gui::canvas::blit_font(
 	point const &pos,
 	font::const_image_view const &data,
-	color const fg,
-	color const bg)
+	color const fg)
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << "character height is " << data.height() 
 						                     << ", drawing it at position " << pos);
@@ -229,8 +226,6 @@ void sge::gui::canvas::blit_font(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << "intersection relative to invalid rect is: " << is_rel_invalid);
-	
-	//converter conv(fg,bg);
 	
 	sge::renderer::transform_pixels(
 		boost::gil::subimage_view(

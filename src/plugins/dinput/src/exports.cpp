@@ -39,7 +39,7 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info* const p)
 }
 
 SGE_EXPORT_SYMBOL sge::input::system* create_input_system(
-	sge::window_ptr const w)
+	sge::window::instance_ptr const w)
 {
 	sge::windows::window_ptr const ww = sge::dynamic_pointer_cast<sge::windows::window>(w);
 	return new sge::dinput::system(ww);

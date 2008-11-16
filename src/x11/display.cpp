@@ -55,8 +55,3 @@ void sge::x11::display::sync()
 {
 	XSync(get(), False);
 }
-
-int sge::x11::display::default_screen() const
-{
-	return XDefaultScreen(get());
-}

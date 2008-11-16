@@ -55,9 +55,17 @@ void sge::texture::part_fragmented::data(
 		inner_area_.pos());
 
 	if(need_atlasing_h)
-		atlas_h(my_texture(), src, outer_area_);
+		atlas_h(
+			my_texture(),
+			src,
+			outer_area_,
+			inner_area_);
 	if(need_atlasing_w)
-		atlas_w(my_texture(), src, outer_area_);
+		atlas_w(
+			my_texture(),
+			src,
+			outer_area_,
+			inner_area_);
 }
 
 sge::renderer::lock_rect const &

@@ -30,13 +30,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::texture::cell_fragmented::cell_fragmented(
 	renderer::device_ptr const rend,
-	renderer::filter_args const &filter,
+	renderer::color_format::type const format,
+	renderer::texture_filter const &filter,
 	renderer::dim_type const &cell_size)
 :
 	rend(rend),
 	cell_size(cell_size),
-	cells(atlased_texture_dim(rend) / cell_size, false),
-	tex(atlased_texture(rend, filter))
+	cells(
+		atlased_texture_dim(rend) / cell_size,
+		false),
+	tex(
+		atlased_texture(
+			rend,
+			format,
+			filter))
 {}
 
 sge::texture::part_ptr const
@@ -47,12 +54,12 @@ sge::texture::cell_fragmented::consume_fragment(
 		throw exception(
 			SGE_TEXT("Invalid request for consume_fragments in texture::cell_fragmented!"));
 	// TODO maybe optimize this with a stack?
-	const field_type::iterator it = std::find(cells.begin(), cells.end(), false);
+	field_type::iterator const it = std::find(cells.begin(), cells.end(), false);
 	if(it == cells.end())
 		return part_ptr();
 	*it = true;
 	
-	const field_type::vector_type pos = cells.position(it);
+	field_type::vector_type const pos = cells.position(it);
 	return part_ptr(
 		new part_fragmented(
 			renderer::lock_rect(

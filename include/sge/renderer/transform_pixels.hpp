@@ -49,8 +49,7 @@ void transform_pixels_static( // TODO: rename this when all overloads are there
 		typename View2::x_iterator const src2_it = src2.row_begin(y);
 		typename View3::x_iterator const dst_it = dst.row_begin(y);
 		for (std::ptrdiff_t x = 0; x < dst.width(); ++x)
-			//dstIt[x]=fun(srcIt1[x],srcIt2[x]);
-			fun(dst_it[x], src1_it[x], src2_it[x]);
+			fun(src1_it[x], src2_it[x], dst_it[x]);
 	}
 }
 
@@ -177,8 +176,8 @@ void transform_pixels(
 	Op const &op)
 {
 	boost::gil::apply_operation(
-		dest,
 		src2,
+		dest,
 		boost::bind(
 			transform_pixels_binary_fn<Op>(
 				op),

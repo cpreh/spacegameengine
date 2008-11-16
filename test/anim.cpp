@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/iostream.hpp>
 #include <sge/media.hpp>
-#include <sge/window.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
@@ -44,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/time/millisecond.hpp>
 #include <sge/time/second.hpp>
+#include <sge/mainloop/dispatch.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
@@ -55,17 +55,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
-					1024,
-					768),
-				sge::renderer::bit_depth::depth32),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+		(sge::window::parameters(
+			SGE_TEXT("sge animtest"),
+			(sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size_t(
+						1024,
+						768),
+					sge::renderer::bit_depth::depth32),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed))))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image));
 	
@@ -76,7 +78,13 @@ try
 	const sge::image::object_ptr img1(pl->load(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
 	                             img2(pl->load(sge::media_path() / SGE_TEXT("grass.png")));
 
-	const sge::texture::default_creator<sge::texture::no_fragmented> creator(rend, sge::renderer::linear_filter);
+	sge::texture::default_creator<
+		sge::texture::no_fragmented
+	> const creator(
+		rend,
+		sge::renderer::color_format::rgba8,
+		sge::renderer::linear_filter);
+
 	sge::texture::manager tex_man(rend, creator);
 
 	const sge::texture::part_ptr tex1(sge::texture::add(tex_man, img1)),
@@ -130,8 +138,8 @@ try
 
 	while(running)
 	{
+		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block_(rend);
-		sge::window::dispatch();
 		is->dispatch();
 		anim.process();
 		ss.render(spr);

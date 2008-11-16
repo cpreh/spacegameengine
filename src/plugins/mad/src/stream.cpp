@@ -49,13 +49,14 @@ void sge::mad::stream::sync()
 	pos += static_cast<size_type>(stdstream.gcount());
 
 	if (stdstream.bad())
-		throw audio::exception("mad: error reading from mpeg file");
+		throw audio::exception(
+			SGE_TEXT("mad: error reading from mpeg file"));
 
 	if (stdstream.eof())
 	{
 		SGE_LOG_DEBUG(
 			log(),
-			log::_1 << "mad: arrived at end of stream");
+			log::_1 << SGE_TEXT("arrived at end of stream"));
 
 		byte_container::iterator guard_start = bytes.begin()+pos;
 		std::fill(
@@ -95,16 +96,21 @@ sge::mad::frame &sge::mad::stream::decode(decoding_mode::type const mode)
 	{
 		SGE_LOG_DEBUG(
 			log(),
-			log::_1 << "mad: got decoder error " << madstream.error 
-			        << " and in strict mode, so exiting");
+			log::_1
+				<< SGE_TEXT("mad: got decoder error ")
+				<< madstream.error 
+				<< SGE_TEXT(" and in strict mode, so exiting"));
 		throw audio::exception(
-			SGE_TEXT("mad: first frame resulted in an error: ")+error_string());
+			SGE_TEXT("mad: first frame resulted in an error: ")
+			+ error_string());
 	}
 
 	// we just need more data, not really an error
 	if (madstream.error == MAD_ERROR_BUFLEN)
 	{
-		SGE_LOG_DEBUG(log(),log::_1 << "mad: got buflen error, decoding some more");
+		SGE_LOG_DEBUG(
+			log(),
+			log::_1 << SGE_TEXT("got buflen error, decoding some more"));
 		return decode(decoding_mode::recover);
 	}
 
@@ -121,7 +127,8 @@ sge::mad::frame &sge::mad::stream::decode(decoding_mode::type const mode)
 
 	// the error is really an error and it's not recoverable from
 	throw audio::exception(
-		SGE_TEXT("mad: unrecoverable error in mpeg stream: ")+error_string());
+		SGE_TEXT("mad: unrecoverable error in mpeg stream: ")
+		+error_string());
 }
 
 bool sge::mad::stream::eof() const
@@ -141,12 +148,16 @@ sge::string const sge::mad::stream::error_string() const
 
 void sge::mad::stream::reset()
 {
-	SGE_LOG_DEBUG(log(),log::_1 << "resetting file");
+	SGE_LOG_DEBUG(
+		log(),
+		log::_1 << SGE_TEXT("resetting file"));
 	mad_stream_finish(&madstream);
 	mad_stream_init(&madstream);
 	madstream.buffer = 0;
 	stdstream.clear();
 	stdstream.seekg(static_cast<std::streampos>(0));
 	sync();
-	SGE_LOG_DEBUG(log(),log::_1 << "file reset");
+	SGE_LOG_DEBUG(
+		log(),
+		log::_1 << SGE_TEXT("file reset"));
 }

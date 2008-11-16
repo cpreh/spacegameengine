@@ -141,8 +141,8 @@ BOOL sge::dinput::system::di_enum_devices_callback(
 	return DIENUM_CONTINUE;
 }
 
-sge::window_ptr const
-sge::dinput::system::get_window() const
+sge::window::instance_ptr const
+sge::dinput::system::window() const
 {
-	return sge::static_pointer_cast<sge::window>(wnd);
+	return sge::static_pointer_cast<sge::window::instance>(wnd);
 }

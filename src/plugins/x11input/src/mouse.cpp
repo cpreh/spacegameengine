@@ -52,7 +52,7 @@ sge::x11input::mouse::mouse(
 		SGE_TEXT("black")),
 	no_bmp_(
 		wnd->display(),
-		wnd->get_window()),
+		wnd->get()),
 	cur(
 		wnd->display(),
 		no_bmp_.get(),
@@ -154,8 +154,8 @@ void sge::x11input::mouse::warped_motion(
 	
 	mouse_coordinate_t const
 		MOUSE_FUDGE_FACTOR = 8,
-		w = wnd->width(),
-		h = wnd->height();
+		w = wnd->size().w(),
+		h = wnd->size().h();
 	
 	mouse_coordinate_t
 		deltax = xevent.xmotion.x - mouse_last.x(),

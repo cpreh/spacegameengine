@@ -30,12 +30,9 @@ ELSE()
 	MESSAGE(STATUS "Boost libraries not found.")
 ENDIF()
 
-IF (${SGE_HAVE_POSIX})
-	CHECK_INCLUDE_FILE(
-		 X11/Xlib.h
-		 SGE_HAVE_X11
-	)
-ENDIF ()
+IF (SGE_HAVE_POSIX)
+	find_package(X11 REQUIRED)
+ENDIF()
 
 FILE (GLOB sgecorefiles 
 	*.cpp
@@ -47,6 +44,7 @@ FILE (GLOB sgecorefiles
 	input/*.cpp
 	log/*.cpp
 	log/format/*.cpp
+	mainloop/*.cpp
 	model/*.cpp
 	plugin/*.cpp
 	random/*.cpp
@@ -59,19 +57,24 @@ FILE (GLOB sgecorefiles
 	sprite/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
-	time/*.cpp)
+	time/*.cpp
+	window/*.cpp)
 
-IF (${SGE_HAVE_X11})
+IF (X11_FOUND)
 	FILE (GLOB sgecorex11files
 		x11/*.cpp)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorex11files})
-ELSEIF (${WIN32})
+ELSEIF (WIN32)
 	FILE (GLOB sgecorewindowsfiles
 		windows/*.cpp)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 
-ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
+IF (HAVE_LESS_THAN_CMAKE_2_6)
+	ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
+ELSE ()
+	ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
+ENDIF ()
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
@@ -86,15 +89,15 @@ IF (NOT MSVC)
 		boost_system)
 ENDIF ()
 
-IF (${UNIX})
-	TARGET_LINK_LIBRARIES (sgecore X11 dl rt)
-ELSEIF (${WIN32})
+IF (UNIX)
+	TARGET_LINK_LIBRARIES (sgecore ${X11_LIBRARIES} dl rt)
+ELSEIF (WIN32)
 	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
 ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
-IF (${ENABLE_GUI})
+IF (ENABLE_GUI)
 	ADD_SUBDIRECTORY (gui)
 ENDIF ()
 

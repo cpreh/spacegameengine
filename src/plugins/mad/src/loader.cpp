@@ -22,8 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../loader.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/text.hpp>
 
-sge::audio::file_ptr const sge::mad::loader::load(const path &filename)
+sge::audio::file_ptr const
+sge::mad::loader::load(
+	path const &filename)
 {
 	return audio::file_ptr(new mpeg_file(filename));
 }
@@ -38,7 +41,11 @@ bool sge::mad::loader::is_valid_file(path const &filename) const
 	{
 		SGE_LOG_DEBUG(
 			log::global(),
-			log::_1 << "couldn't load " << filename << ": " << e.what());
+			log::_1
+				<< SGE_TEXT("couldn't load ")
+				<< filename
+				<< SGE_TEXT(": ")
+				<< e.what());
 		return false;
 	}
 	return true;

@@ -20,23 +20,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture_filter.hpp>
 
-sge::renderer::filter_args::filter_args(
-	const min_filter::type min_filter,
-	const mag_filter::type mag_filter,
-	const anisotropy_level_type anisotropy_level)
- : min_filter(min_filter),
-   mag_filter(mag_filter),
-   anisotropy_level(anisotropy_level)
+sge::renderer::texture_filter::texture_filter(
+	min_filter::type const min_filter_,
+	mag_filter::type const mag_filter_,
+	anisotropy_type const anisotropy_)
+:
+	min_filter_(min_filter_),
+	mag_filter_(mag_filter_),
+	anisotropy_(anisotropy_)
 {}
 
-sge::renderer::filter_args const
-sge::renderer::linear_filter(min_filter::linear, mag_filter::linear);
+sge::renderer::min_filter::type
+sge::renderer::texture_filter::min_filter() const
+{
+	return min_filter_;
+}
 
-sge::renderer::filter_args const
-sge::renderer::point_filter(min_filter::point, mag_filter::point);
+sge::renderer::mag_filter::type
+sge::renderer::texture_filter::mag_filter() const
+{
+	return mag_filter_;
+}
 
-sge::renderer::filter_args const
-sge::renderer::mip_filter(min_filter::mipmap, mag_filter::linear);
+sge::renderer::anisotropy_type
+sge::renderer::texture_filter::anisotropy() const
+{
+	return anisotropy_;
+}
 
-sge::renderer::filter_args const
-sge::renderer::trilinear_filter(min_filter::trilinear, mag_filter::linear);
+sge::renderer::texture_filter const
+sge::renderer::linear_filter(
+	min_filter::linear,
+	mag_filter::linear);
+
+sge::renderer::texture_filter const
+sge::renderer::point_filter(
+	min_filter::point,
+	mag_filter::point);
+
+sge::renderer::texture_filter const
+sge::renderer::mip_filter(
+	min_filter::mipmap,
+	mag_filter::linear);
+
+sge::renderer::texture_filter const
+sge::renderer::trilinear_filter(
+	min_filter::trilinear,
+	mag_filter::linear);

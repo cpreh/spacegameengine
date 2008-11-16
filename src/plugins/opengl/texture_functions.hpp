@@ -28,7 +28,7 @@ namespace sge
 {
 namespace renderer
 {
-struct filter_args;
+struct texture_filter;
 }
 
 namespace ogl
@@ -44,7 +44,7 @@ void set_texture(
 	GLenum target,
 	GLenum format,
 	GLenum type,
-	renderer::filter_args const &filter,
+	renderer::texture_filter const &filter,
 	renderer::dim_type const &dim,
 	const_texture_pointer src);
 
@@ -59,7 +59,7 @@ void set_texture_rect(
 	GLenum target,
 	GLenum format,
 	GLenum type,
-	renderer::filter_args const &filter,
+	renderer::texture_filter const &filter,
 	renderer::dim_type const &dim,
 	renderer::lock_rect const &dest,
 	const_texture_pointer src);
@@ -80,7 +80,7 @@ void bind_texture(
 
 void set_texture_filter(
 	GLenum type,
-	renderer::filter_args const &filter);
+	renderer::texture_filter const &filter);
 
 }
 }

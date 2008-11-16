@@ -19,20 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11/visual.hpp>
+#include <sge/x11/display.hpp>
 
 sge::x11::visual::visual(
-	XVisualInfo *const info_)
+	display_ptr const dsp,
+	int const screen)
 :
-	info_(info_)
+	visual_(
+		XDefaultVisual(
+			dsp->get(),
+			screen))
+{}
+
+sge::x11::visual::visual(
+	Visual *const visual_)
+:
+	visual_(visual_)
 {}
 
 sge::x11::visual::~visual()
-{
-	XFree(info_);
-}
+{}
 
-XVisualInfo const &
-sge::x11::visual::info() const
+Visual *
+sge::x11::visual::get() const
 {
-	return *info_;
+	return visual_;
 }

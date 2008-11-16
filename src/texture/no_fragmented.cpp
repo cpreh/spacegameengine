@@ -23,16 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/math/power.hpp>
-#include <sge/log/global.hpp>
-#include <sge/log/logger.hpp>
-#include <sge/log/temporary_output.hpp>
+#include <sge/log/headers.hpp>
 #include <ostream>
 
 sge::texture::no_fragmented::no_fragmented(
 	renderer::device_ptr const rend,
-	renderer::filter_args const &filter)
+	renderer::color_format::type const format,
+	renderer::texture_filter const &filter)
  :
  	rend(rend),
+	format(format),
  	filter(filter)
 {}
 
@@ -43,26 +43,31 @@ sge::texture::no_fragmented::consume_fragment(
 	if(tex)
 		return part_ptr();
 
-	renderer::dim_type const real_dim(atlased_bounds(dim));
+	renderer::dim_type const real_dim(
+		atlased_bounds(
+			dim));
 
 	tex = rend->create_texture(
 		real_dim,
-		renderer::color_format::rgba8,
+		format,
 		filter,
 		renderer::resource_flags::none);
 
 	if(real_dim != dim)
-		log::global().log(
-			log::level::warning,
-			log::_1 << SGE_TEXT("You used a texture::no_fragmented whose dimensions are not a power of 2.")\
-		                   SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
-		                   SGE_TEXT(" The texture's size was ") << dim << SGE_TEXT('.')
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("You used a texture::no_fragmented whose dimensions are not a power of 2.")\
+				SGE_TEXT(" This is slower to load and requires more texture memory because it needs atlasing and thus is not intuitive.")\
+				SGE_TEXT(" The texture's size was ")
+				<< dim
+				<< SGE_TEXT('.')
 		);
 
 	return part_ptr(
 		new part_fragmented(
 			renderer::lock_rect(
-				renderer::lock_rect::point_type(0,0),
+				renderer::lock_rect::point_type::null(),
 				atlased_size(dim)),
 			*this,
 			need_atlasing(dim.w()),

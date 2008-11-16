@@ -19,21 +19,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/exception.hpp>
 #include <sge/windows/window.hpp>
 #include <sge/windows/conv.hpp>
+#include <sge/math/rect_impl.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/array.hpp>
 
 namespace
 {
-	LRESULT CALLBACK wnd_proc(HWND,unsigned,WPARAM,LPARAM);
+
+LRESULT CALLBACK wnd_proc(
+	HWND,
+	UINT,
+	WPARAM,
+	LPARAM);
+
 }
 
+// TODO: why did HackLife do this?
+/*struct sge::windows::window::signal_combiner {
+	typedef callback_return_type result_type;
+
+	template<typename InputIterator>
+	result_type operator()(
+		InputIterator first,
+		InputIterator const last) const
+	{
+		while (first != last)
+		{
+			if (*first)
+				return **first;
+			++first;
+		}
+		return result_type();
+	}
+};*/
+
 sge::windows::window::window(
-	window_size const sz,
+	dim_type const &sz,
 	string const &title)
 {
-	const TCHAR* const window_classname = TEXT("SpacegameWindow");
+	TCHAR const *const window_classname = TEXT("SpacegameWindow");
 
 	HINSTANCE instance = GetModuleHandle(0);
 
@@ -53,33 +80,36 @@ sge::windows::window::window(
 		wndclass.cbSize = sizeof(WNDCLASSEX);
 		wndclass.style = 0;
 		if(!RegisterClassEx(&wndclass))
-			throw exception(SGE_TEXT("RegisterClassEx() failed!"));
+			throw exception(
+				SGE_TEXT("RegisterClassEx() failed!"));
 		wndclass_created = true;
 	}
 
 	DWORD flags = (WS_VISIBLE | WS_OVERLAPPEDWINDOW);
 	RECT r = { 0, 0, 0, 0 };
 	if (!AdjustWindowRect(&r, flags, false))
-		throw exception(SGE_TEXT("AdjustWindowRect() failed!"));
+		throw exception(
+			SGE_TEXT("AdjustWindowRect() failed!"));
 
-	decoration_size.l = static_cast<unsigned>(-r.left);
-	decoration_size.r = static_cast<unsigned>(r.right);
-	decoration_size.t = static_cast<unsigned>(-r.top);
-	decoration_size.b = static_cast<unsigned>(r.bottom);
+	decoration_size.left() = static_cast<unsigned>(-r.left);
+	decoration_size.right() = static_cast<unsigned>(r.right);
+	decoration_size.top() = static_cast<unsigned>(-r.top);
+	decoration_size.bottom() = static_cast<unsigned>(r.bottom);
 
 	handle = CreateWindow(window_classname,
 		sge_str_to_win(title).c_str(),
 		flags,
 		0,
 		0,
-		decoration_size.l + decoration_size.r + sz.w(),
-		decoration_size.b + decoration_size.t + sz.h(),
+		decoration_size.left() + decoration_size.right() + sz.w(),
+		decoration_size.bottom() + decoration_size.top() + sz.h(),
 		0,
 		0,
 		instance,
 		this);
 	if(!handle)
-		throw exception(SGE_TEXT("CreateWindow() failed!"));
+		throw exception(
+			SGE_TEXT("CreateWindow() failed!"));
 }
 
 sge::windows::window::~window()
@@ -88,45 +118,48 @@ sge::windows::window::~window()
 }
 
 void sge::windows::window::size(
-	window_size const &nsz)
+	dim_type const &nsz)
 {
 	if(SetWindowPos(
 		hwnd(),
 		HWND_TOP,
 		0,
 		0,
-		decoration_size.l + decoration_size.r + nsz.w(),
-		decoration_size.t + decoration_size.b + nsz.h(),
+		decoration_size.left() + decoration_size.right() + nsz.w(),
+		decoration_size.top() + decoration_size.bottom() + nsz.h(),
 		SWP_SHOWWINDOW
 	) == 0)
-		throw exception(SGE_TEXT("SetWindowPos() failed!"));
+		throw exception(
+			SGE_TEXT("SetWindowPos() failed!"));
 }
 
 void sge::windows::window::title(
 	string const &title)
 {
 	if(SetWindowText(hwnd(),sge_str_to_win(title).c_str()) == 0)
-		throw exception(SGE_TEXT("SetWindowText() failed!"));
+		throw exception(
+			SGE_TEXT("SetWindowText() failed!"));
 }
 
-sge::windows::window::window_size const
+sge::windows::window::dim_type const
 sge::windows::window::size() const
 {
 	RECT rect;
 	if(GetWindowRect(handle, &rect) == FALSE)
-		throw exception(SGE_TEXT("GetWindowRect() failed!"));
-	return window_size(
-		rect.right - rect.left - decoration_size.l - decoration_size.r,
-		rect.bottom - rect.top - decoration_size.t + decoration_size.b
+		throw exception(
+			SGE_TEXT("GetWindowRect() failed!"));
+	return dim_type(
+		rect.right - rect.left - decoration_size.left() - decoration_size.right(),
+		rect.bottom - rect.top - decoration_size.top() + decoration_size.bottom()
 	);
 }
 
-sge::windows::window::window_pos const
+sge::window::pos_type const
 sge::windows::window::viewport_offset() const
 {
-	return window_pos(
+	return window::pos_type(
 		0,
-		-2*decoration_size.b
+		-2*decoration_size.bottom()
 	);
 }
 
@@ -146,24 +179,30 @@ HWND sge::windows::window::hwnd() const
 	return handle;
 }
 
-boost::signals::connection sge::windows::window::register_callback(win32_event_type msg, win32_callback_type func)
+boost::signals::connection
+sge::windows::window::register_callback(
+	event_type const msg,
+	callback_type const func)
 {
 	return signals[msg].connect(func);
 }
 
-sge::windows::window::win32_callback_return_type sge::windows::window::execute_callback(win32_event_type msg, WPARAM wparam, LPARAM lparam)
+sge::windows::window::callback_return_type
+sge::windows::window::execute_callback(
+	event_type const msg,
+	WPARAM const wparam,
+	LPARAM const lparam)
 {
-	sge::windows::window::win32_signal_map::iterator it = signals.find(msg);
-	if (it != signals.end())
-		return (*(it->second))(*this, msg, wparam, lparam);
-	else
-		return sge::windows::window::win32_callback_return_type();
+	sge::windows::window::signal_map::iterator const it = signals.find(msg);
+	return it != signals.end()
+		? (*(it->second))(*this, msg, wparam, lparam)
+		: callback_return_type();
 }
 
-void sge::window::dispatch()
+void sge::windows::window::dispatch()
 {
 	MSG msg;
-	while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+	while(PeekMessage(&msg, handle, 0, 0, PM_REMOVE))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
@@ -174,42 +213,45 @@ bool sge::windows::window::wndclass_created(false);
 
 namespace
 {
-	LRESULT CALLBACK wnd_proc(HWND hwnd, unsigned msg, WPARAM wparam, LPARAM lparam)
+
+LRESULT CALLBACK wnd_proc(HWND hwnd, unsigned msg, WPARAM wparam, LPARAM lparam)
+{
+	if (msg == WM_CREATE)
 	{
-		if (msg == WM_CREATE)
-		{
-			CREATESTRUCT* const s = reinterpret_cast<CREATESTRUCT*>(lparam);
-			SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(s->lpCreateParams));
-		}
-
-		sge::windows::window *wnd = reinterpret_cast<sge::windows::window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
-		if (wnd)
-		{
-			sge::windows::window::win32_callback_return_type ret =
-				wnd->execute_callback(msg, wparam, lparam);
-			if (ret)
-				return *ret;
-		}
-
-		LRESULT returnvalue = TRUE;
-		switch(msg) {
-		case WM_CLOSE:
-			return 0;
-		case WM_CREATE:
-			break;
-		case WM_ACTIVATE:
-		{
-			sge::windows::window* const wnd = reinterpret_cast<sge::windows::window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
-			const bool active = wparam != 0 ? true : false;
-			//wnd->set_active(active); // FIXME
-			if(!active)
-				ShowWindow(wnd->hwnd(),SW_MINIMIZE);
-		}
-		return 0;
-		default:
-			return DefWindowProc(hwnd,msg,wparam,lparam);
-		}
-
-		return returnvalue;
+		CREATESTRUCT* const s = reinterpret_cast<CREATESTRUCT*>(lparam);
+		SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(s->lpCreateParams));
 	}
+
+	sge::windows::window *wnd = reinterpret_cast<sge::windows::window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+	if (wnd)
+	{
+		sge::windows::window::callback_return_type const ret =
+			wnd->execute_callback(msg, wparam, lparam);
+		if (ret)
+			return *ret;
+	}
+
+	switch(msg) {
+	case WM_CLOSE:
+		return 0;
+	case WM_CREATE:
+		break;
+	case WM_ACTIVATE:
+	{
+		sge::windows::window* const wnd
+			= reinterpret_cast<sge::windows::window*>(
+				GetWindowLongPtr(hwnd, GWLP_USERDATA));
+
+		bool const active = wparam != 0 ? true : false;
+		//wnd->set_active(active); // FIXME
+		if(!active)
+			ShowWindow(wnd->hwnd(),SW_MINIMIZE);
+		return 0;
+	}
+	default:
+		return DefWindowProc(hwnd,msg,wparam,lparam);
+	}
+	return TRUE;
+}
+
 }

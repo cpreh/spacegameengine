@@ -35,10 +35,10 @@ public:
 	create_renderer(
 		renderer::parameters const &param,
 		renderer::adapter_type adapter,
-		window_ptr);
+		window::instance_ptr);
 
-	window_ptr const create_window(
-		renderer::parameters const &);
+	window::instance_ptr const create_window(
+		window::parameters const &);
 
 	renderer::caps_array const caps() const;
 private:

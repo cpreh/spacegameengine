@@ -8,8 +8,6 @@
 #include <cmath>
 #include <boost/cstdint.hpp>
 
-#include <sge/iostream.hpp>
-
 namespace
 {
 // FIXME: this is just bad, but mad doesn't give you much guarantees on it's

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_FILTER_HPP_INCLUDED
 #define SGE_TEXTURE_FILTER_HPP_INCLUDED
 
+#include "anisotropy_type.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -46,20 +47,22 @@ namespace mag_filter
 	};
 }
 
-struct filter_args {
-	typedef unsigned anisotropy_level_type;
-
-	SGE_SYMBOL filter_args(
+struct texture_filter {
+	SGE_SYMBOL texture_filter(
 		min_filter::type min_filter,
 		mag_filter::type mag_filter,
-		anisotropy_level_type anisotropy_level = 0);
-
-	min_filter::type      min_filter;
-	mag_filter::type      mag_filter;
-	anisotropy_level_type anisotropy_level;
+		anisotropy_type anisotropy_level = 0);
+	
+	SGE_SYMBOL min_filter::type min_filter() const;
+	SGE_SYMBOL mag_filter::type mag_filter() const;
+	SGE_SYMBOL anisotropy_type anisotropy() const;
+private:
+	min_filter::type  min_filter_;
+	mag_filter::type  mag_filter_;
+	anisotropy_type   anisotropy_;
 };
 
-SGE_SYMBOL extern filter_args const
+SGE_SYMBOL extern texture_filter const
 	linear_filter,
 	point_filter,
 	mip_filter,

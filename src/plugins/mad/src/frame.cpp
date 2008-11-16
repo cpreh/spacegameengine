@@ -32,57 +32,56 @@ unsigned sge::mad::frame::layer() const
 		case MAD_LAYER_III:
 			return 3;
 		default:
-			throw audio::exception(SGE_TEXT("invalid mad layer"));
+			throw audio::exception(
+				SGE_TEXT("invalid mad layer"));
 	}
 }
 
 sge::string const sge::mad::frame::info() const
 {
 	sge::ostringstream ss;
-	ss << MAD_NCHANNELS(&frame_.header) << " channels\n";
-	ss << frame_.header.samplerate << " sample rate\n";
+	ss << MAD_NCHANNELS(&frame_.header) << SGE_TEXT(" channels\n");
+	ss << frame_.header.samplerate << SGE_TEXT(" sample rate\n");
 
-	ss << "layer ";
+	ss << SGE_TEXT("layer ");
 	switch(frame_.header.layer)
 	{
 	 case MAD_LAYER_I:
-			ss << "I";
+		ss << SGE_TEXT('I');
 		break;
 	 case MAD_LAYER_II:
-		ss << "II";
+		ss << SGE_TEXT("II");
 		break;
 	 case MAD_LAYER_III:
-		 ss << "III";
+		 ss << SGE_TEXT("III");
 		break;
 	 default:
-		ss << "(unexpected layer value)";
+		ss << SGE_TEXT("(unexpected layer value)");
 		break;
 	}
 
-	ss << "\n";
-	ss << "mode ";
+	ss << SGE_TEXT("\nmode ");
 
 	switch(frame_.header.mode)
 	{
 	case MAD_MODE_SINGLE_CHANNEL:
-		 ss << "single channel";
+		 ss << SGE_TEXT("single channel");
 		 break;
 	case MAD_MODE_DUAL_CHANNEL:
-		ss << "dual channel";
+		ss << SGE_TEXT("dual channel");
 		break;
 	case MAD_MODE_JOINT_STEREO:
-		ss << "joint (MS/intensity) stereo";
+		ss << SGE_TEXT("joint (MS/intensity) stereo");
 		 break;
 	case MAD_MODE_STEREO:
-		ss << "normal LR stereo";
+		ss << SGE_TEXT("normal LR stereo");
 		break;
 	default:
-		ss << "(unexpected mode value)";
+		ss << SGE_TEXT("(unexpected mode value)");
 		break;
 	}
 
-	ss << '\n';
-	ss << "bit rate " << frame_.header.bitrate;
+	ss << SGE_TEXT("\nbit rate ") << frame_.header.bitrate;
 
 	return ss.str();
 }

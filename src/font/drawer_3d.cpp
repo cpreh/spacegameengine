@@ -48,6 +48,7 @@ sge::font::drawer_3d::drawer_3d(
 		rend,
 		texture::default_creator<texture::rect_fragmented>(
 			rend,
+			renderer::color_format::rgba8, // TODO
 			renderer::linear_filter)),
 	sys(rend)
 {}

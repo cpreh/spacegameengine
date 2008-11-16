@@ -20,21 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11/colormap.hpp>
 #include <sge/x11/display.hpp>
+#include <sge/x11/visual.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 sge::x11::colormap::colormap(
 	display_ptr const dsp,
-	XVisualInfo const &vi)
-: dsp(dsp),
-  c(
-	XCreateColormap(
-		dsp->get(),
-		XRootWindow(
+	int const screen,
+	visual_ptr const visual)
+:
+	dsp(dsp),
+	c(
+		XCreateColormap(
 			dsp->get(),
-			vi.screen),
-		vi.visual,
-		AllocNone))
+			XRootWindow(
+				dsp->get(),
+				screen),
+			visual->get(),
+			AllocNone))
 {
 	if(get() == 0)
 		throw exception(
@@ -48,7 +51,7 @@ sge::x11::colormap::~colormap()
 		get());
 }
 
-Colormap& sge::x11::colormap::get()
+Colormap &sge::x11::colormap::get()
 {
 	return c;
 }

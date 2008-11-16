@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
 #elif defined(SGE_HAVE_X11)
+#include "../glx/visual.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
@@ -71,9 +72,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::ogl::device::device(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
-	window_ptr const wnd_param)
- : param(param),
-   current_states(renderer::state::default_())
+	window::instance_ptr const wnd_param)
+:
+	param(param),
+	current_states(renderer::state::default_())
 {
 //	if(adapter > 0)
 //		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
@@ -85,10 +87,10 @@ sge::ogl::device::device(
 		DEVMODE settings;
 		memset(&settings,0,sizeof(DEVMODE));
 		settings.dmSize = sizeof(DEVMODE);
-		settings.dmPelsWidth    = param.mode().width();
-		settings.dmPelsHeight   = param.mode().height();
-		settings.dmBitsPerPel   = static_cast<UINT>(param.mode().depth);
-		settings.dmDisplayFrequency = param.mode().refresh_rate;
+		settings.dmPelsWidth    = param.mode().size().w();
+		settings.dmPelsHeight   = param.mode().size().h();
+		settings.dmBitsPerPel   = static_cast<UINT>(param.mode().bit_depth());
+		settings.dmDisplayFrequency = param.mode().refresh_rate();
 		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
 		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
 		{
@@ -125,7 +127,7 @@ sge::ogl::device::device(
 		modes.reset(
 			new xf86::vidmode_array(
 				dsp,
-				dsp->default_screen()));
+				wnd->screen()));
 		resolution = modes->switch_to_mode(param.mode());
 		if(!resolution)
 		{
@@ -145,7 +147,11 @@ sge::ogl::device::device(
 	x11::const_visual_ptr const visual(
 		wnd->visual());
 
-	context.reset(new glx::context(dsp, visual->info()));
+	context.reset(
+		new glx::context(
+			dsp,
+			dynamic_pointer_cast<glx::visual const>(visual)
+				->info()));
 
 	if(!windowed)
 		wnd->map();
@@ -211,7 +217,7 @@ sge::renderer::texture_ptr const
 sge::ogl::device::create_texture(
 	renderer::texture::dim_type const &dim,
 	renderer::color_format::type const format,
-	renderer::filter_args const &filter,
+	renderer::texture_filter const &filter,
 	renderer::texture::resource_flag_type const flags)
 {
 	return renderer::texture_ptr(
@@ -239,7 +245,7 @@ sge::ogl::device::create_vertex_buffer(
 const sge::renderer::volume_texture_ptr
 sge::ogl::device::create_volume_texture(
 	renderer::volume_texture::image_view_array const &src,
-	const renderer::filter_args& filter,
+	const renderer::texture_filter& filter,
 	const renderer::volume_texture::resource_flag_type flags)
 {
 	/*return renderer::volume_texture_ptr(
@@ -254,7 +260,7 @@ sge::renderer::cube_texture_ptr const
 sge::ogl::device::create_cube_texture(
 	renderer::size_type const border_size,
 	renderer::color_format::type const format,
-	renderer::filter_args const &filter,
+	renderer::texture_filter const &filter,
 	renderer::resource_flag_t const flags)
 {
 	return renderer::cube_texture_ptr(
@@ -271,15 +277,15 @@ void sge::ogl::device::end_rendering()
 	SGE_OPENGL_SENTRY
 	glXSwapBuffers(
 		wnd->display()->get(),
-		wnd->get_window());
+		wnd->get());
 #elif defined(SGE_WINDOWS_PLATFORM)
 	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
 		throw exception(SGE_TEXT("wglSwapLayerBuffers() failed!"));
 #endif
 }
 
-sge::renderer::caps const
-sge::ogl::device::get_caps() const
+sge::renderer::device::caps_t const
+sge::ogl::device::caps() const
 {
 	return renderer::caps(
 		0,
@@ -289,8 +295,8 @@ sge::ogl::device::get_caps() const
 		0); // FIXME
 }
 
-sge::window_ptr const
-sge::ogl::device::get_window() const
+sge::window::instance_ptr const
+sge::ogl::device::window() const
 {
 	return wnd;
 }
@@ -298,7 +304,7 @@ sge::ogl::device::get_window() const
 sge::renderer::screen_size_t const
 sge::ogl::device::screen_size() const
 {
-	return param.mode().size;
+	return param.mode().size();
 }
 
 void sge::ogl::device::render(
@@ -413,7 +419,7 @@ void sge::ogl::device::set_viewport(
 #ifdef SGE_HAVE_X11
 void sge::ogl::device::reset_viewport_on_map(const XEvent&)
 {
-	center_viewport(wnd->width(), wnd->height());
+	center_viewport(wnd->size().w(), wnd->size().h());
 }
 
 void sge::ogl::device::reset_viewport_on_configure(const XEvent& e)
@@ -479,9 +485,9 @@ void sge::ogl::device::set_render_target(
 				math::structure_cast<
 					target::dim_type::value_type>(
 						screen_size()),
-				param.mode().depth));
+				param.mode().bit_depth()));
 		render_target_->bind_me();
-		window::window_pos const offset = wnd->viewport_offset();
+		window::pos_type const offset = wnd->viewport_offset();
 		set_viewport(
 			renderer::viewport(
 				offset,
@@ -594,7 +600,7 @@ sge::ogl::device::create_glsl_program(
 }
 
 void sge::ogl::device::set_glsl_program(
-	const renderer::glsl::program_ptr prog)
+	renderer::glsl::program_ptr const prog)
 {
 	glsl::set_program_impl(prog);
 }

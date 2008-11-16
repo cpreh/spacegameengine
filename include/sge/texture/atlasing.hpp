@@ -24,13 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture_fwd.hpp"
 #include "../renderer/device_fwd.hpp"
 #include "../renderer/image_view.hpp"
+#include "../renderer/color_format.hpp"
 #include "../renderer/dim_types.hpp"
 
 namespace sge
 {
 namespace renderer
 {
-struct filter_args;
+struct texture_filter;
 }
 
 namespace texture
@@ -69,7 +70,8 @@ atlased_texture_dim(
 renderer::texture_ptr const
 atlased_texture(
 	renderer::device_ptr rend,
-	renderer::filter_args const &filter);
+	renderer::color_format::type,
+	renderer::texture_filter const &filter);
 
 renderer::lock_rect const
 inner_atlased_rect(
@@ -80,13 +82,14 @@ inner_atlased_rect(
 void atlas_w(
 	renderer::texture_ptr,
 	renderer::const_image_view const &src,
-	renderer::lock_rect const &outer_area);
+	renderer::lock_rect const &outer_area,
+	renderer::lock_rect const &inner_area);
 	
 void atlas_h(
 	renderer::texture_ptr,
 	renderer::const_image_view const &src,
-	renderer::lock_rect const &outer_area);
-
+	renderer::lock_rect const &outer_area,
+	renderer::lock_rect const &inner_area);
 }
 }
 

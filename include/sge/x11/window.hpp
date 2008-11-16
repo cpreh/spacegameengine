@@ -25,58 +25,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "display_fwd.hpp"
 #include "visual_fwd.hpp"
 #include "colormap_fwd.hpp"
-#include "../window.hpp"
+#include "../window/instance.hpp"
+#include "../signals/connection.hpp"
+#include "../signals/signal.hpp"
 #include "../export.hpp"
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <boost/function.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
-#include <boost/signals.hpp>
 
 namespace sge
 {
 namespace x11
 {
 
-class SGE_CLASS_SYMBOL window : public sge::window {
-	friend class sge::window;
+class SGE_CLASS_SYMBOL window : public sge::window::instance {
+	//friend class sge::window;
 public:
-	typedef int x11_event_type;
-	typedef long x11_event_mask_type;
+	typedef int event_type;
+	typedef long event_mask_type;
 
-	typedef void x11_function_type(XEvent const &);
-	typedef boost::function<x11_function_type> x11_callback_type;
+	typedef void function_type(XEvent const &);
+	typedef boost::function<function_type> callback_type;
 
 	SGE_SYMBOL window(
-		window_pos const &,
-		window_size const &,
+		pos_type const &,
+		dim_type const &,
 		string const &title,
 		display_ptr,
+		int screen,
+		int depth,
 		bool fullscreen,
 		const_visual_ptr,
 		colormap_ptr);
 	SGE_SYMBOL ~window();
 
 	SGE_SYMBOL void title(string const &title);
-	SGE_SYMBOL void size(window_size const &sz);
-	SGE_SYMBOL window_size const size() const;
-	SGE_SYMBOL window_pos const viewport_offset() const;
+	SGE_SYMBOL void size(dim_type const &sz);
+	SGE_SYMBOL dim_type const size() const;
+	SGE_SYMBOL pos_type const viewport_offset() const;
 	SGE_SYMBOL bool fullscreen() const;
 
-	SGE_SYMBOL Window get_window() const;
+	SGE_SYMBOL Window get() const;
 	SGE_SYMBOL int screen() const;
 	SGE_SYMBOL display_ptr const display() const;
 	SGE_SYMBOL const_visual_ptr const visual() const;
 	SGE_SYMBOL void map();
 	SGE_SYMBOL void map_raised();
 
-	SGE_SYMBOL boost::signals::connection register_callback(
-		x11_event_type,
-		x11_callback_type const &);
+	SGE_SYMBOL signals::connection
+	register_callback(
+		event_type,
+		callback_type const &);
+	
+	SGE_SYMBOL void dispatch();
 private:
-	Display* dsp_() const;
+	Display *dsp_() const;
 
-	void add_event_mask(x11_event_type);
+	void add_event_mask(event_type);
 
 	display_ptr         dsp;
 	const_visual_ptr    visual_;
@@ -84,10 +90,15 @@ private:
 	int                 screen_;
 	Window              wnd;
 	bool                fullscreen_;
-	x11_event_mask_type event_mask;
+	event_mask_type     event_mask;
 
-	typedef boost::signal<x11_function_type> x11_signal_type;
-	typedef boost::ptr_map<x11_event_type, x11_signal_type> signal_map;
+	typedef signals::signal<
+		function_type
+	> signal_type;
+	typedef boost::ptr_map<
+		event_type,
+		signal_type
+	> signal_map;
 	signal_map signals;
 };
 

@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CAPS_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_HPP_INCLUDED
 
+#include "adapter.hpp"
+#include "anisotropy_type.hpp"
+#include "size_type.hpp"
 #include "../export.hpp"
 #include "../string.hpp"
-#include "adapter.hpp"
 
 namespace sge
 {
@@ -32,17 +34,23 @@ namespace renderer
 
 struct caps {
 	SGE_SYMBOL caps(
-		adapter_type adapter_number,
+		adapter_type adapter_,
 		string const &driver_name,
 		string const &description,
-		unsigned max_tex_size,
-		unsigned max_anisotropy_level);
+		size_type max_texure_edge_size,
+		anisotropy_type max_anisotropy_);
 		
-	adapter_type       adapter_number;
-	string             driver_name;
-	string             description;
-	unsigned           max_tex_size;
-	unsigned           max_anisotropy_level;
+	SGE_SYMBOL adapter_type adapter() const;
+	SGE_SYMBOL string const &driver_name() const;
+	SGE_SYMBOL string const &description() const;
+	SGE_SYMBOL size_type max_texture_edge_size() const;
+	SGE_SYMBOL anisotropy_type max_anisotropy() const; 
+private:
+	adapter_type       adapter_;
+	string             driver_name_;
+	string             description_;
+	size_type          max_texture_edge_size_;
+	anisotropy_type    max_anisotropy_;
 };
 
 }

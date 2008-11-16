@@ -2,3 +2,5 @@ bin
 build
 doc
 include/sge/config.h
+projects/windows/lib32_install.log
+projects/windows/lib32

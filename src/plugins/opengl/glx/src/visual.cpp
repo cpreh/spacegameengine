@@ -18,29 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMAGE_VIEW_FACTORY_HPP_INCLUDED
-#define SGE_RENDERER_IMAGE_VIEW_FACTORY_HPP_INCLUDED
+#include "../visual.hpp"
 
-#include "image_view.hpp"
-#include "dim_types.hpp"
-#include "../export.hpp"
+sge::ogl::glx::visual::visual(
+	XVisualInfo *const info_)
+:
+	x11::visual(
+		info_->visual),
+	info_(info_)
+{}
 
-namespace sge
+sge::ogl::glx::visual::~visual()
 {
-namespace renderer
-{
-
-SGE_SYMBOL image_view const
-subimage_view(
-	image_view const &src,
-	lock_rect const &);
-
-SGE_SYMBOL const_image_view const
-subimage_view(
-	const_image_view const &src,
-	lock_rect const &);
-
-}
+	XFree(info_);
 }
 
-#endif
+XVisualInfo const &
+sge::ogl::glx::visual::info() const
+{
+	return *info_;
+}

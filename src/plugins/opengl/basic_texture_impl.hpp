@@ -50,7 +50,7 @@ GLuint sge::ogl::basic_texture<Base>::id() const
 }
 
 template<typename Base>
-sge::renderer::filter_args const &
+sge::renderer::texture_filter const &
 sge::ogl::basic_texture<Base>::filter() const
 {
 	return filter_;
@@ -178,7 +178,7 @@ GLenum sge::ogl::basic_texture<Base>::format_type() const
 
 template<typename Base>
 sge::ogl::basic_texture<Base>::basic_texture(
-	renderer::filter_args const &filter_,
+	renderer::texture_filter const &filter_,
 	resource_flag_type const flags_,
 	GLenum const type_,
 	renderer::color_format::type const cformat)

@@ -27,9 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<typename T>
 sge::texture::default_creator<T>::default_creator(
 	renderer::device_ptr const rend,
-	renderer::filter_args const &filter)
+	renderer::color_format::type const format,
+	renderer::texture_filter const &filter)
 :
 	rend(rend),
+	format(format),
 	filter(filter)
 {}
 
@@ -40,6 +42,7 @@ sge::texture::default_creator<T>::operator()() const
 	return fragmented_auto_ptr(
 		new T(
 			rend,
+			format,
 			filter));
 }
 

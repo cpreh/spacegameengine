@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/texture_util.hpp>
+#include <sge/renderer/subimage_view.hpp>
+#include <sge/renderer/image_view_dim.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
 
@@ -88,18 +91,20 @@ sge::renderer::dim_type const
 sge::texture::atlased_texture_dim(
 	renderer::device_ptr const rend)
 {
-	renderer::size_type const max_size = rend->get_caps().max_tex_size;
+	renderer::size_type const max_size
+		= rend->caps().max_texture_edge_size();
 	return renderer::dim_type(max_size, max_size);
 }
 
 sge::renderer::texture_ptr const
 sge::texture::atlased_texture(
 	renderer::device_ptr const rend,
-	renderer::filter_args const &filter)
+	renderer::color_format::type const format,
+	renderer::texture_filter const &filter)
 {
 	return rend->create_texture(
 		atlased_texture_dim(rend),
-		renderer::color_format::rgba8, // TODO: add a common format
+		format,
 		filter,
 		renderer::resource_flags::none);
 }
@@ -126,57 +131,73 @@ sge::texture::inner_atlased_rect(
 void sge::texture::atlas_w(
 	renderer::texture_ptr const tex,
 	renderer::const_image_view const &src,
-	renderer::lock_rect const &outer_area)
+	renderer::lock_rect const &outer_area,
+	renderer::lock_rect const &inner_area)
 {
-	// FIXME: use a gil image here
-	/*typedef std::vector<renderer::texture::value_type> pixel_vector;
-	pixel_vector height_pixels(outer_area().h());
+	renderer::dim_type const dim(
+		renderer::image_view_dim(
+			src));
 
-	height_pixels.front() = *src;
-	for(pixel_vector::size_type h = 1; h < height_pixels.size() - 1; ++h)
-		height_pixels[h] = *(src + area().w() * h);
-	height_pixels.back() = *(src + area().w() * (area().h() - 1));
-
-	my_texture()->set_data(
-		height_pixels.data(),
-		renderer::lock_rect(
-			outer_area().left(),
-			outer_area().top(),
-			outer_area().left() + 1,
-			outer_area().bottom()));
-
-	height_pixels.front() = *(src + area().w() - 1); 
-	for(pixel_vector::size_type h = 1; h < height_pixels.size() - 1; ++h)
-		height_pixels[h] = *(src + area().w() * (h + 1) - 1);
-	height_pixels.back() = *(src + area().w() * area().h() - 1);
-
-	my_texture()->set_data(
-		height_pixels.data(),
-	        renderer::lock_rect(
-			outer_area().right() - 1,
-			outer_area().top(),
-			outer_area().right(),
-			outer_area().bottom()));*/
+	renderer::sub_data(
+		tex,
+		renderer::subimage_view(
+			src,
+			renderer::lock_rect(
+				0,
+				0,
+				1,
+				dim.h())),
+		renderer::texture_pos_type(
+			outer_area.left(),
+			inner_area.top()));
+	
+	renderer::sub_data(
+		tex,
+		renderer::subimage_view(
+			src,
+			renderer::lock_rect(
+				dim.w() - 1,
+				0,
+				dim.w(),
+				dim.h())),
+		renderer::texture_pos_type(
+			outer_area.right() - 1,
+			inner_area.top()));
 }
 	
 void sge::texture::atlas_h(
 	renderer::texture_ptr const tex,
 	renderer::const_image_view const &src,
-	renderer::lock_rect const &outer_area)
+	renderer::lock_rect const &outer_area,
+	renderer::lock_rect const &inner_area)
 {
-	// FIXME: use a GIL view here!
-	/*tex->sub_data(
-		src,
-	        renderer::lock_rect(
-			outer_area.left() + 1,
-			outer_area.top(),
-			outer_area.right() - 1,
-			outer_area.top() + 1));
-	tex->sub_data(
-		src + area().w() * (area().h() - 1),
-		renderer::lock_rect(
-			outer_area().left() + 1,
-			outer_area().bottom() - 1,
-			outer_area().right() - 1,
-			outer_area().bottom()));*/
+	renderer::dim_type const dim(
+		renderer::image_view_dim(
+			src));
+
+	renderer::sub_data(
+		tex,
+		renderer::subimage_view(
+			src,
+			renderer::lock_rect(
+				0,
+				0,
+				dim.w(),
+				1)),
+		renderer::texture_pos_type(
+			inner_area.left(),
+			outer_area.top()));
+	
+	renderer::sub_data(
+		tex,
+		renderer::subimage_view(
+			src,
+			renderer::lock_rect(
+				0,
+				dim.h() - 1,
+				dim.w(),
+				dim.h())),
+		renderer::texture_pos_type(
+			inner_area.left(),
+			outer_area.bottom() - 1));
 }

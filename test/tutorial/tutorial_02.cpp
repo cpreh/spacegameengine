@@ -13,11 +13,12 @@
 #include <sge/image/loader.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/signals/scoped_connection.hpp>
+#include <sge/mainloop/dispatch.hpp>
+#include <sge/window/parameters.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <sge/window.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -72,15 +73,17 @@ try
 {
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
-					640,
-					480),
-				sge::renderer::bit_depth::depth32),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+		(sge::window::parameters(
+			SGE_TEXT("sge tutorial02"),
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size_t(
+						640,
+						480),
+					sge::renderer::bit_depth::depth32),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed)))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image));
 
@@ -110,7 +113,7 @@ try
 
 	while (running)
 	{
-		sge::window::dispatch();
+		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block_(sys.renderer());
 		ss.render(my_object);
 	}

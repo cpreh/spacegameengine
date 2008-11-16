@@ -1,4 +1,15 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.4)
+
+SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
+
+IF (CMAKE_MINOR_VERSION LESS 6)
+	SET (HAVE_LESS_THAN_CMAKE_2_6 true)
+ENDIF ()
+
+IF (NOT HAVE_LESS_THAN_CMAKE_2_6)
+	cmake_policy(SET CMP0003 NEW)
+	cmake_policy(SET CMP0005 NEW)
+ENDIF ()
 
 PROJECT (spacegameengine)
 
@@ -14,20 +25,11 @@ INCLUDE (CheckCXXSourceRuns)
 INCLUDE (FindPkgConfig)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
-SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
 CHECK_CXX_COMPILER_FLAG(
 	"-std=c++0x"
 	HAVE_VARIADIC_TEMPLATES
 )
-
-CHECK_CXX_SOURCE_COMPILES(
-	"#include <boost/cstdint.hpp>
-	 int main()
-	 {
-	   boost::uint_least64_t test;
-	 }"
-	 SGE_HAVE_ATLEAST_UINT64)
 
 IF (CMAKE_COMPILER_IS_GNUCXX)
 	CHECK_CXX_COMPILER_FLAG(
@@ -99,10 +101,49 @@ MACRO (INSTALL_HEADERS subpath)
 	INSTALL (FILES ${sgeheaders} DESTINATION ${include_dest}${subpath})
 ENDMACRO ()
 
+CHECK_CXX_SOURCE_RUNS(
+	"#include <unistd.h>
+	 #include <cstdlib>
+	 int main()
+	 {
+	   return _POSIX_VERSION >= 200100
+	          ? EXIT_SUCCESS
+		  : EXIT_FAILURE;
+	 }"
+	 SGE_HAVE_POSIX)
+
+FIND_PACKAGE(Boost 1.35.0 COMPONENTS
+	filesystem
+	signals
+	system)
+
+IF(NOT Boost_FOUND)
+	MESSAGE(STATUS "Boost not found!")
+ENDIF()
+
+IF(Boost_INCLUDE_DIR)
+	INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+ELSE()
+	MESSAGE(STATUS "Boost headers not found. You will have to specify them in your build environment or you can use -DBOOST_ROOT= to tell cmake where your boost installation is.")
+ENDIF()
+
+IF(Boost_LIBRARY_DIRS)
+	LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+ELSE()
+	MESSAGE(STATUS "Boost libraries not found.")
+ENDIF()
+
+CHECK_CXX_SOURCE_COMPILES(
+	"#include <boost/cstdint.hpp>
+	 int main()
+	 {
+	   boost::uint_least64_t test;
+	 }"
+	 SGE_HAVE_ATLEAST_UINT64)
+
 ADD_SUBDIRECTORY (src)
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/include/sge/config.h)
-
 
 IF (${ENABLE_TEST})
 	ADD_SUBDIRECTORY (test)
@@ -131,6 +172,7 @@ INSTALL_HEADERS (sge/image)
 INSTALL_HEADERS (sge/input)
 INSTALL_HEADERS (sge/log)
 INSTALL_HEADERS (sge/log/format)
+INSTALL_HEADERS (sge/mainloop)
 INSTALL_HEADERS (sge/math)
 INSTALL_HEADERS (sge/math/detail)
 INSTALL_HEADERS (sge/model)
@@ -147,3 +189,4 @@ INSTALL_HEADERS (sge/systems)
 INSTALL_HEADERS (sge/texture)
 INSTALL_HEADERS (sge/time)
 INSTALL_HEADERS (sge/type_traits)
+INSTALL_HEADERS (sge/window)

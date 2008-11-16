@@ -2,6 +2,7 @@
 #include "../log.hpp"
 #include <sge/raw_vector_impl.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/text.hpp>
 #include <algorithm>
 #include <iterator>
 
@@ -26,7 +27,10 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 	  s(stdstream)
 {
 	if (!stdstream.is_open())
-		throw audio::exception(SGE_TEXT("couldn't open file \"")+p.string()+SGE_TEXT("\""));
+		throw audio::exception(
+			SGE_TEXT("couldn't open file \"")
+			+ p.string()
+			+ SGE_TEXT('"'));
 	
 	// throw away first frame if it's the id3 tag
 	char id3[3];
@@ -42,7 +46,7 @@ sge::mad::mpeg_file::mpeg_file(path const &p)
 
 	SGE_LOG_INFO(
 		log(),
-		log::_1 << "mad: file info: \n" << f.info());
+		log::_1 << SGE_TEXT("mad: file info: \n") << f.info());
 
 	append(buffered_,f.synthesize());
 }
@@ -51,11 +55,11 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
 	sample_count const samples,
 	sample_container &dest)
 {
-	SGE_LOG_DEBUG(log(),log::_1 << "reading " << samples << " samples");
+	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("reading ") << samples << SGE_TEXT(" samples"));
 
 	if (s.eof())
 	{
-		SGE_LOG_DEBUG(log(),log::_1 << "we're at the end");
+		SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("we're at the end"));
 		return static_cast<sample_count>(0);
 	}
 
@@ -74,11 +78,11 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read(
 
 sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read_all(sample_container &dest)
 {
-	SGE_LOG_DEBUG(log(),log::_1 << "reading all samples");
+	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("reading all samples"));
 
 	if (s.eof() && buffered_.empty())
 	{
-		SGE_LOG_DEBUG(log(),log::_1 << "we're at the end");
+		SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("we're at the end"));
 		return static_cast<sample_count>(0);
 	}
 
@@ -88,6 +92,24 @@ sge::mad::mpeg_file::sample_count sge::mad::mpeg_file::read_all(sample_container
 		append(dest,s.decode(decoding_mode::recover).synthesize());
 
 	return dest.size()/bytes_per_sample();
+}
+
+sge::mad::mpeg_file::channel_type
+sge::mad::mpeg_file::channels() const
+{
+	return static_cast<channel_type>(2);
+}
+
+sge::mad::mpeg_file::sample_count
+sge::mad::mpeg_file::sample_rate() const
+{
+	return sample_rate_;
+}
+
+sge::mad::mpeg_file::sample_count
+sge::mad::mpeg_file::bits_per_sample() const
+{
+	return static_cast<sample_count>(16);
 }
 
 void sge::mad::mpeg_file::reset()

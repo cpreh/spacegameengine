@@ -18,32 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/image_view_factory.hpp>
-#include <sge/math/rect_impl.hpp>
-#include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/windows/create_window.hpp>
+#include <sge/windows/choose_and_set_pixel_format.hpp>
+#include <sge/windows/gdi_device.hpp>
+#include <sge/windows/window.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/renderer/parameters.hpp>
 
-// FIXME: unify these
-sge::renderer::image_view const sge::renderer::subimage_view(
-	image_view const &src,
-	lock_rect const &lr)
+sge::window::instance_ptr const
+sge::windows::create_window(
+	sge::window::parameters const &param)
 {
-	return boost::gil::subimage_view(
-		src,
-		static_cast<int>(lr.left()),
-		static_cast<int>(lr.top()),
-		static_cast<int>(lr.w()),
-		static_cast<int>(lr.h()));
-}
+	renderer::parameters const &rparam(
+		param.param());
 
-sge::renderer::const_image_view const sge::renderer::subimage_view(
-	const_image_view const &src,
-	lock_rect const &lr)
-{
-	return boost::gil::subimage_view(
-		src,
-		static_cast<int>(lr.left()),
-		static_cast<int>(lr.top()),
-		static_cast<int>(lr.w()),
-		static_cast<int>(lr.h()));
+	windows::window_ptr const wnd(
+		new windows::window(
+			rparam.mode().size(),
+			param.title()));
+
+	windows::choose_and_set_pixel_format(
+		windows::gdi_device(
+			wnd->hwnd(),
+			windows::gdi_device::get_tag()),
+		PFD_DRAW_TO_WINDOW |
+		PFD_SUPPORT_OPENGL |
+		PFD_DOUBLEBUFFER,
+		PFD_TYPE_RGBA,
+		static_cast<BYTE>(rparam.mode().bit_depth()),
+		static_cast<BYTE>(rparam.dbuffer()),
+		static_cast<BYTE>(rparam.sbuffer()));
+
+	return wnd;
 }

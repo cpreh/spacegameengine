@@ -26,20 +26,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::texture::rect_fragmented::rect_fragmented(
 	renderer::device_ptr const rend,
-	renderer::filter_args const &filter)
+	renderer::color_format::type const format,
+	renderer::texture_filter const &filter)
 :
 	rend(rend),
 	cur_x(0),
 	cur_y(0),
 	cur_height(0),
-	tex(atlased_texture(rend, filter))
+	tex(
+		atlased_texture(
+			rend,
+			format,
+			filter))
 {}
 
 sge::texture::part_ptr const
 sge::texture::rect_fragmented::consume_fragment(
-	const renderer::dim_type& dim)
+	renderer::dim_type const &dim)
 {
-	const renderer::texture::dim_type atlased_dim(atlased_size(dim, true));
+	renderer::texture::dim_type const atlased_dim(
+		atlased_size(
+			dim,
+			true));
 
 	// if there is no space left for the requested height
 	if(cur_y + dim.h() >= tex->dim().h())
@@ -56,7 +64,7 @@ sge::texture::rect_fragmented::consume_fragment(
 	if(cur_y + dim.h() >= tex->dim().h())
 		return part_ptr();
 
-	const part_ptr ret(
+	part_ptr const ret(
 		new part_fragmented(
 			renderer::lock_rect(
 				renderer::lock_rect::point_type(
@@ -74,12 +82,12 @@ sge::texture::rect_fragmented::consume_fragment(
 }
 
 void sge::texture::rect_fragmented::return_fragment(
-	const part&)
+	part const &)
 {
 	// FIXME
 }
 
-const sge::renderer::texture_ptr
+sge::renderer::texture_ptr const
 sge::texture::rect_fragmented::get_texture() const
 {
 	return tex;

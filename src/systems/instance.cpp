@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/font/system.hpp>
-#include <sge/window.hpp>
+#include <sge/window/instance.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>
@@ -55,10 +55,10 @@ struct sge::systems::instance::impl {
 	plugin::plugin<font::system>::ptr_type     font_plugin;
 	font::system_ptr                           font_system;
 	
-	window_ptr                                 window_;
+	window::instance_ptr                       window_;
 
 	void init_renderer(
-		renderer::parameters const &);
+		window::parameters const &);
 	void init_input();
 	void init_image();
 	void init_audio_player();
@@ -73,7 +73,7 @@ struct visitor : boost::static_visitor<> {
 		sge::systems::instance::impl &);
 	
 	void operator()(
-		sge::renderer::parameters const &) const;
+		sge::window::parameters const &) const;
 	void operator()(
 		sge::systems::parameterless::type) const;
 private:
@@ -156,7 +156,7 @@ visitor::visitor(
 {}
 
 void visitor::operator()(
-	sge::renderer::parameters const &p) const
+	sge::window::parameters const &p) const
 {
 	impl_.init_renderer(p);
 }
@@ -186,7 +186,7 @@ void visitor::operator()(
 }
 
 void sge::systems::instance::impl::init_renderer(
-	renderer::parameters const &p)
+	window::parameters const &p)
 {
 	renderer_plugin = plugin_manager.get_plugin<renderer::system>().load();
 	renderer_system.reset(renderer_plugin->get()());
@@ -196,7 +196,7 @@ void sge::systems::instance::impl::init_renderer(
 			p);
 	
 	renderer = renderer_system->create_renderer(
-		p,
+		p.param(),
 		static_cast<renderer::adapter_type>(0),
 		window_);
 }
@@ -205,7 +205,7 @@ void sge::systems::instance::impl::init_input()
 {
 	// TODO: create a window here too if not done already, using sge::create_window
 	input_plugin = plugin_manager.get_plugin<sge::input::system>().load();
-	input_system.reset(input_plugin->get()(renderer->get_window()));
+	input_system.reset(input_plugin->get()(renderer->window()));
 }
 
 void sge::systems::instance::impl::init_image()

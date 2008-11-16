@@ -46,7 +46,7 @@ protected:
 	void bind_me() const;
 	void set_my_filter() const;
 	GLuint id() const;
-	renderer::filter_args const& filter() const;
+	renderer::texture_filter const& filter() const;
 	
 	void do_lock(
 		lock_method::type mode,
@@ -75,7 +75,7 @@ public:
 	GLenum format_type() const;
 protected:
 	basic_texture(
-		renderer::filter_args const &filter,
+		renderer::texture_filter const &filter,
 		resource_flag_type flags,
 		GLenum type,
 		renderer::color_format::type);
@@ -86,7 +86,7 @@ private:
 	void check_locked() const;
 	void check_not_locked() const;
 
-	renderer::filter_args const            filter_;
+	renderer::texture_filter const            filter_;
 	resource_flag_type const               flags_;
 	GLuint const                           id_;
 

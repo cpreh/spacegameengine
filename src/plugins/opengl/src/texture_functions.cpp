@@ -36,16 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-bool need_mipmap(const sge::renderer::min_filter::type filter)
-{
-	switch(filter) {
-	case sge::renderer::min_filter::mipmap:
-	case sge::renderer::min_filter::trilinear:
-		return true;
-	default:
-		return false;
-	}
-}
+bool need_mipmap(
+	sge::renderer::min_filter::type);
 
 }
 
@@ -64,27 +56,33 @@ void sge::ogl::delete_texture(const GLuint id)
 }
 
 void sge::ogl::set_texture(
-	const GLenum tex_type,
-	const GLenum format,
-	const GLenum type,
-	const renderer::filter_args& filter,
-	const renderer::dim_type& dim,
-	const const_texture_pointer src)
+	GLenum const tex_type,
+	GLenum const format,
+	GLenum const type,
+	renderer::texture_filter const &filter,
+	renderer::dim_type const &dim,
+	const_texture_pointer const src)
 {
 	SGE_OPENGL_SENTRY
 	
 	if(dim.w() < 64 || dim.h() < 64)
-		log::global().log(
-			log::level::warning,
-			log::_1 << SGE_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
-			           SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT('.')
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("opengl implementations are not required to support textures smaller than 64x64.")\
+				SGE_TEXT(" Specified texture size was ")
+				<< dim
+				<< SGE_TEXT('.')
 		);
 
 	if(!math::is_power_of_2(dim))
-		log::global().log(
-			log::level::warning,
-			log::_1 << SGE_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
-			           SGE_TEXT(" Specified texture size was ") << dim << SGE_TEXT('.')
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("opengl implementations are not required to support textures with dimensions that are not a power of 2.")\
+				SGE_TEXT(" Specified texture size was ")
+				<< dim
+				<< SGE_TEXT('.')
 		);
 		
 	glTexImage2D(
@@ -98,7 +96,7 @@ void sge::ogl::set_texture(
 		type,
 		src);
 
-	if(need_mipmap(filter.min_filter))
+	if(need_mipmap(filter.min_filter()))
 		build_mipmaps(
 			tex_type,
 			format,
@@ -108,14 +106,15 @@ void sge::ogl::set_texture(
 }
 
 void sge::ogl::build_mipmaps(
-	const GLenum tex_type,
-	const GLenum format,
-	const GLenum type,
-	const renderer::dim_type& dim,
-	const const_texture_pointer src)
+	GLenum const tex_type,
+	GLenum const format,
+	GLenum const type,
+	renderer::dim_type const &dim,
+	const_texture_pointer const src)
 {
 	if(!src)
-		throw exception(SGE_TEXT("ogl::build_mipmaps: src is 0!"));
+		throw exception(
+			SGE_TEXT("ogl::build_mipmaps: src is 0!"));
 
 	SGE_OPENGL_SENTRY
 	
@@ -130,13 +129,13 @@ void sge::ogl::build_mipmaps(
 }
 
 void sge::ogl::set_texture_rect(
-	const GLenum tex_type,
-	const GLenum format,
-	const GLenum type,
-	const renderer::filter_args& filter,
-	const renderer::dim_type& dim,
-	const renderer::lock_rect& r,
-	const const_texture_pointer src)
+	GLenum const tex_type,
+	GLenum const format,
+	GLenum const type,
+	renderer::texture_filter const &filter,
+	renderer::dim_type const &dim,
+	renderer::lock_rect const &r,
+	const_texture_pointer const src)
 {
 	SGE_OPENGL_SENTRY
 	
@@ -151,7 +150,7 @@ void sge::ogl::set_texture_rect(
 				% r
 				% dim).str());
 
-	if(need_mipmap(filter.min_filter))
+	if(need_mipmap(filter.min_filter()))
 		throw exception(
 			SGE_TEXT("You can't specify an update rect while using mipmaps."));
 
@@ -183,9 +182,9 @@ void sge::ogl::get_tex_image(
 }
 
 void sge::ogl::tex_parameter_i(
-	const GLenum type,
-	const GLenum name,
-	const GLint value)
+	GLenum const type,
+	GLenum const name,
+	GLint const value)
 {
 	SGE_OPENGL_SENTRY
 	
@@ -193,8 +192,8 @@ void sge::ogl::tex_parameter_i(
 }
 
 void sge::ogl::bind_texture(
-	const GLenum type,
-	const GLuint value)
+	GLenum const type,
+	GLuint const value)
 {
 	SGE_OPENGL_SENTRY
 	
@@ -204,17 +203,28 @@ void sge::ogl::bind_texture(
 }
 
 void sge::ogl::set_texture_filter(
-	const GLenum type,
-	const renderer::filter_args& filter)
+	GLenum const type,
+	renderer::texture_filter const &filter)
 {
-	tex_parameter_i(type, GL_TEXTURE_MIN_FILTER, convert_cast(filter.min_filter));
-	tex_parameter_i(type, GL_TEXTURE_MAG_FILTER, convert_cast(filter.mag_filter));
-	if(filter.anisotropy_level)
+	tex_parameter_i(
+		type,
+		GL_TEXTURE_MIN_FILTER,
+		convert_cast(filter.min_filter()));
+	
+	tex_parameter_i(
+		type,
+		GL_TEXTURE_MAG_FILTER,
+		convert_cast(filter.mag_filter()));
+
+	if(filter.anisotropy())
 	{
 #if GL_EXT_texture_filter_anisotropic
 		try
 		{
-			tex_parameter_i(type, GL_TEXTURE_MAX_ANISOTROPY_EXT, filter.anisotropy_level);
+			tex_parameter_i(
+				type,
+				GL_TEXTURE_MAX_ANISOTROPY_EXT,
+				filter.anisotropy());
 		}
 		catch(exception const &)
 		{
@@ -222,14 +232,33 @@ void sge::ogl::set_texture_filter(
 				log::global(),
 				log::_1
 					<< SGE_TEXT("anisotropy level ")
-					<< filter.anisotropy_level
-					<< SGE_TEXT(" not supported!\n"));
+					<< filter.anisotropy()
+					<< SGE_TEXT(" not supported!"));
 		}
 #else
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("Warning: anisotropic filtering is not supported!");
+				<< SGE_TEXT("anisotropic filtering is not supported!");
 #endif
 	}
 }
+
+namespace
+{
+
+bool need_mipmap(
+	sge::renderer::min_filter::type const filter)
+{
+	switch(filter) {
+	case sge::renderer::min_filter::mipmap:
+	case sge::renderer::min_filter::trilinear:
+		return true;
+	default:
+		return false;
+	}
+}
+
+}
+
+
