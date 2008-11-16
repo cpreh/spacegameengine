@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/choose_and_set_pixel_format.hpp>
 #include <sge/windows/gdi_device.hpp>
 #include <sge/windows/window.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/renderer/parameters.hpp>
 
 sge::window::instance_ptr const
 sge::windows::create_window(
@@ -32,7 +34,7 @@ sge::windows::create_window(
 
 	windows::window_ptr const wnd(
 		new windows::window(
-			rparam().mode().size(),
+			rparam.mode().size(),
 			param.title()));
 
 	windows::choose_and_set_pixel_format(
