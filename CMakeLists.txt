@@ -1,4 +1,15 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.4)
+
+SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
+
+IF (CMAKE_MINOR_VERSION LESS 6)
+	SET (HAVE_LESS_THAN_CMAKE_2_6 true)
+ENDIF ()
+
+IF (NOT HAVE_LESS_THAN_CMAKE_2_6)
+	cmake_policy(SET CMP0003 NEW)
+	cmake_policy(SET CMP0005 NEW)
+ENDIF ()
 
 PROJECT (spacegameengine)
 
@@ -14,7 +25,6 @@ INCLUDE (CheckCXXSourceRuns)
 INCLUDE (FindPkgConfig)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
-SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
 CHECK_CXX_COMPILER_FLAG(
 	"-std=c++0x"
@@ -98,6 +108,39 @@ MACRO (INSTALL_HEADERS subpath)
 	FILE (GLOB sgeheaders include/${subpath}/*.h*)
 	INSTALL (FILES ${sgeheaders} DESTINATION ${include_dest}${subpath})
 ENDMACRO ()
+
+CHECK_CXX_SOURCE_RUNS(
+	"#include <unistd.h>
+	 #include <cstdlib>
+	 int main()
+	 {
+	   return _POSIX_VERSION >= 200100
+	          ? EXIT_SUCCESS
+		  : EXIT_FAILURE;
+	 }"
+	 SGE_HAVE_POSIX)
+
+FIND_PACKAGE(Boost 1.35.0 COMPONENTS
+	filesystem
+	signals
+	system)
+
+IF(NOT Boost_FOUND)
+	MESSAGE(STATUS "Boost not found!")
+ENDIF()
+
+IF(Boost_INCLUDE_DIR)
+	INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+ELSE()
+	MESSAGE(STATUS "Boost headers not found. You will have to specify them in your build environment or you can use -DBOOST_ROOT= to tell cmake where your boost installation is.")
+ENDIF()
+
+IF(Boost_LIBRARY_DIRS)
+	LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+ELSE()
+	MESSAGE(STATUS "Boost libraries not found.")
+ENDIF()
+
 
 ADD_SUBDIRECTORY (src)
 

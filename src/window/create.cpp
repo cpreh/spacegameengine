@@ -24,5 +24,5 @@ sge::window::instance_ptr const
 sge::window::create(
 	parameters const &param)
 {
-	// TODO:	
+	return instance_ptr(); // FIXME
 }

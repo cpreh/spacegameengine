@@ -32,7 +32,6 @@ ENDIF()
 
 IF (SGE_HAVE_POSIX)
 	find_package(X11 REQUIRED)
-ENDIF ()
 
 FILE (GLOB sgecorefiles 
 	*.cpp
@@ -70,7 +69,11 @@ ELSEIF (WIN32)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
 ENDIF ()
 
-ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
+IF (HAVE_LESS_THAN_CMAKE_2_6)
+	ADD_DEFINITIONS (-DPLUGIN_PATH="\\\"${pluginpath}\\\"" -DMEDIA_PATH="\\\"${media_dest}\\\"")
+ELSE ()
+	ADD_DEFINITIONS (-DPLUGIN_PATH="${pluginpath}" -DMEDIA_PATH="${media_dest}")
+ENDIF ()
 
 ADD_LIBRARY (sgecore SHARED ${sgecorefiles})
 
