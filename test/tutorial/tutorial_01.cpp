@@ -46,10 +46,10 @@ try
 			sge::renderer::resource_flags::none);
 	sge::sprite::object const my_object(
 		sge::sprite::point(0,0),
-		sge::make_shared_ptr<
-			sge::texture::part_ptr,
-			sge::texture::part_raw>(
-				image_texture),
+		sge::texture::part_ptr(
+			sge::make_shared_ptr<
+				sge::texture::part_raw>(
+					image_texture)),
 		sge::sprite::texture_dim);
 
 	while (true)

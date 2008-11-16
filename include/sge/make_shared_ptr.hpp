@@ -36,14 +36,15 @@ namespace sge
 
 #define SGE_MAKE_SHARED_PTR_FUN(z, n, text)\
 	template<\
-		typename SharedPtr,\
 		typename Type,\
 		BOOST_PP_ENUM_PARAMS_Z(\
 			z,\
 			BOOST_PP_INC(n),\
 			typename T)\
 	>\
-	SharedPtr const\
+	shared_ptr<\
+		Type\
+	> const\
 	make_shared_ptr(\
 		BOOST_PP_ENUM_BINARY_PARAMS(\
 			BOOST_PP_INC(n),\
@@ -51,7 +52,9 @@ namespace sge
 			const &param)\
 		)\
 	{\
-		return SharedPtr(\
+		return shared_ptr<\
+			Type\
+		>(\
 			new Type(\
 				BOOST_PP_ENUM_PARAMS_Z(\
 					z,\
@@ -64,13 +67,14 @@ namespace sge
 BOOST_PP_REPEAT(SGE_MAKE_SHARED_PTR_MAX_SIZE, SGE_MAKE_SHARED_PTR_FUN, void)
 
 template<
-	typename SharedPtr,
 	typename Type
 >
-SharedPtr const
+shared_ptr<
+	Type
+> const
 make_shared_ptr()
 {
-	return SharedPtr(
+	return shared_ptr<Type>(
 		new Type());
 }
 // TODO: can't the macro generate this, too?
