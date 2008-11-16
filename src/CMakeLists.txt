@@ -1,9 +1,37 @@
-IF (${SGE_HAVE_POSIX})
-	CHECK_INCLUDE_FILE(
-		 X11/Xlib.h
-		 SGE_HAVE_X11
-	)
-ENDIF ()
+CHECK_CXX_SOURCE_RUNS(
+	"#include <unistd.h>
+	 #include <cstdlib>
+	 int main()
+	 {
+	   return _POSIX_VERSION >= 200100
+	          ? EXIT_SUCCESS
+		  : EXIT_FAILURE;
+	 }"
+	 SGE_HAVE_POSIX)
+
+FIND_PACKAGE(Boost 1.35.0 COMPONENTS
+	filesystem
+	signals
+	system)
+
+IF(NOT Boost_FOUND)
+	MESSAGE(STATUS "Boost not found!")
+ENDIF()
+
+IF(Boost_INCLUDE_DIR)
+	INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+ELSE()
+	MESSAGE(STATUS "Boost headers not found. You will have to specify them in your build environment or you can use -DBOOST_ROOT= to tell cmake where your boost installation is.")
+ENDIF()
+
+IF(Boost_LIBRARY_DIRS)
+	LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+ELSE()
+	MESSAGE(STATUS "Boost libraries not found.")
+ENDIF()
+
+IF (SGE_HAVE_POSIX)
+	find_package(X11 REQUIRED)
 
 FILE (GLOB sgecorefiles 
 	*.cpp
@@ -31,11 +59,11 @@ FILE (GLOB sgecorefiles
 	time/*.cpp
 	window/*.cpp)
 
-IF (${SGE_HAVE_X11})
+IF (X11_FOUND)
 	FILE (GLOB sgecorex11files
 		x11/*.cpp)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorex11files})
-ELSEIF (${WIN32})
+ELSEIF (WIN32)
 	FILE (GLOB sgecorewindowsfiles
 		windows/*.cpp)
 	SET (sgecorefiles ${sgecorefiles} ${sgecorewindowsfiles})
@@ -60,15 +88,15 @@ IF (NOT MSVC)
 		boost_system)
 ENDIF ()
 
-IF (${UNIX})
-	TARGET_LINK_LIBRARIES (sgecore X11 dl rt)
-ELSEIF (${WIN32})
+IF (UNIX)
+	TARGET_LINK_LIBRARIES (sgecore ${X11_LIBRARIES} dl rt)
+ELSEIF (WIN32)
 	TARGET_LINK_LIBRARIES (sgecore gdi32 kernel32 user32)
 ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
-IF (${ENABLE_GUI})
+IF (ENABLE_GUI)
 	ADD_SUBDIRECTORY (gui)
 ENDIF ()
 
