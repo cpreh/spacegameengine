@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
 #elif defined(SGE_HAVE_X11)
+#include "../glx/visual.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
 #include <sge/x11/visual.hpp>
@@ -126,7 +127,7 @@ sge::ogl::device::device(
 		modes.reset(
 			new xf86::vidmode_array(
 				dsp,
-				dsp->default_screen()));
+				wnd->screen()));
 		resolution = modes->switch_to_mode(param.mode());
 		if(!resolution)
 		{
@@ -146,7 +147,11 @@ sge::ogl::device::device(
 	x11::const_visual_ptr const visual(
 		wnd->visual());
 
-	context.reset(new glx::context(dsp, visual->info()));
+	context.reset(
+		new glx::context(
+			dsp,
+			dynamic_pointer_cast<glx::visual const>(visual)
+				->info()));
 
 	if(!windowed)
 		wnd->map();

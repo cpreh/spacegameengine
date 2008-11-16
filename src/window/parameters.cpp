@@ -18,34 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_COLORMAP_HPP_INCLUDED
-#define SGE_X11_COLORMAP_HPP_INCLUDED
+#include <sge/window/parameters.hpp>
 
-#include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "visual_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+sge::window::parameters::parameters(
+	string const &title_,
+	renderer::parameters const &param_)
+:
+	title_(title_),
+	param_(param_)
+{}
 
-namespace sge
+sge::string const &
+sge::window::parameters::title() const
 {
-namespace x11
-{
-
-class colormap : boost::noncopyable {
-public:
-	SGE_SYMBOL colormap(
-		display_ptr,
-		int screen,
-		visual_ptr);
-	SGE_SYMBOL ~colormap();
-	SGE_SYMBOL Colormap &get();
-private:
-	display_ptr const dsp;
-	Colormap          c;
-};
-
-}
+	return title_;
 }
 
-#endif
+sge::renderer::parameters const &
+sge::window::parameters::param() const
+{
+	return param_;
+}

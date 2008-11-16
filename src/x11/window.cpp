@@ -34,6 +34,8 @@ sge::x11::window::window(
 	dim_type const &sz,
 	string const &t,
 	display_ptr const dsp,
+	int const screen_,
+	int const depth,
 	bool const fullscreen_,
 	const_visual_ptr const visual_,
 	colormap_ptr const colormap_)
@@ -41,7 +43,7 @@ sge::x11::window::window(
 	dsp(dsp),
 	visual_(visual_),
 	colormap_(colormap_),
-	screen_(visual_->info().screen),
+	screen_(screen_),
 	wnd(0),
 	fullscreen_(fullscreen_),
 	event_mask(0)
@@ -57,17 +59,19 @@ sge::x11::window::window(
 
 	wnd = XCreateWindow(
 		dsp->get(),
-		XRootWindow(dsp->get(), screen()),
+		XRootWindow(
+			dsp->get(),
+			screen()),
 		pos.x(),
 		pos.y(),
 		sz.w(),
 		sz.h(),
 		0,
-		visual_->info().depth,
+		depth,
 		InputOutput,
-		visual_->info().visual,
+		visual_->get(),
 		CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
-		const_cast<XSetWindowAttributes*>(&swa)),
+		const_cast<XSetWindowAttributes *>(&swa)),
 
 	title(t);
 }

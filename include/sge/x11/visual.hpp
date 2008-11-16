@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_VISUAL_HPP_INCLUDED
 #define SGE_X11_VISUAL_HPP_INCLUDED
 
-#include <X11/Xutil.h>
+#include <X11/Xlib.h>
+#include "display_fwd.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -32,14 +33,18 @@ namespace x11
 
 class visual : boost::noncopyable {
 public:
-	SGE_SYMBOL explicit visual(	
-		XVisualInfo *);
+	SGE_SYMBOL visual(
+		display_ptr,
+		int screen);
 	
-	SGE_SYMBOL ~visual();
+	SGE_SYMBOL explicit visual(	
+		Visual *);
+	
+	SGE_SYMBOL virtual ~visual();
 
-	SGE_SYMBOL XVisualInfo const &info() const;
+	SGE_SYMBOL Visual *get() const;
 private:
-	XVisualInfo *const info_;
+	Visual *const visual_;
 };
 
 }

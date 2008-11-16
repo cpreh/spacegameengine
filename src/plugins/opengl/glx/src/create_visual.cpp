@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <GL/glx.h>
 #include "../create_visual.hpp"
+#include "../visual.hpp"
 #include <sge/x11/display.hpp>
-#include <sge/x11/visual.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::x11::visual_ptr const
+sge::ogl::glx::visual_ptr const
 sge::ogl::glx::create_visual(
 	x11::display_ptr const dsp,
 	int const screen,
@@ -35,13 +35,13 @@ sge::ogl::glx::create_visual(
 		glXChooseVisual(
 			dsp->get(),
 			screen,
-			const_cast<int*>(
+			const_cast<int *>(
 				param)));
 	if(!info)
 		throw exception(
 			SGE_TEXT("glXChooseVisual() failed!"));
 	
-	return x11::visual_ptr(
-		new x11::visual(
+	return visual_ptr(
+		new visual(
 			info));
 }

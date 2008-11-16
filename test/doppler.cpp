@@ -108,13 +108,15 @@ try
 	sge::renderer::screen_size_t const screen_size(1024,768);
 	sge::systems::instance sys(
 		sge::systems::list()
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				screen_size,
-				sge::renderer::bit_depth::depth32),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+		(sge::window::parameters(
+			SGE_TEXT("sge dopplertest"),
+			(sge::renderer::parameters(
+				sge::renderer::display_mode(
+					screen_size,
+					sge::renderer::bit_depth::depth32),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed))))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::audio_player)
 		(sge::systems::parameterless::image));

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOW_PARMAETERS_HPP_INCLUDED
+#ifndef SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 #define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 
 #include "../string.hpp"
@@ -36,7 +36,7 @@ struct parameters {
 		renderer::parameters const &);
 	
 	SGE_SYMBOL string const &title() const;
-	SGE_SYMBOL renderer::parameters const &param();
+	SGE_SYMBOL renderer::parameters const &param() const;
 private:
 	string title_;
 	renderer::parameters param_;

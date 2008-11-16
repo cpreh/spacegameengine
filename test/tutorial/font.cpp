@@ -6,6 +6,7 @@
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/window/parameters.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -20,15 +21,17 @@ try
 {
 	sge::systems::instance const sys(
 		sge::systems::list()
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
-					640,
-					480),
-				sge::renderer::bit_depth::depth32),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+		(sge::window::parameters(
+			SGE_TEXT("sge fonttest"),
+			sge::renderer::parameters(
+				sge::renderer::display_mode(
+					sge::renderer::screen_size_t(
+						640,
+						480),
+					sge::renderer::bit_depth::depth32),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed)))
 		(sge::systems::parameterless::font));
 
 	sge::font::metrics_ptr const metrics = 

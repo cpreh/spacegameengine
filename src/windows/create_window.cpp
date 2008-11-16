@@ -18,34 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_COLORMAP_HPP_INCLUDED
-#define SGE_X11_COLORMAP_HPP_INCLUDED
+#include <sge/windows/create_window.hpp>
+#include <sge/windows/choose_and_set_pixel_format.hpp>
+#include <sge/windows/gdi_device.hpp>
+#include <sge/windows/window.hpp>
 
-#include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "visual_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::window::instance_ptr const
+sge::windows::create_window(
+	sge::window::parameters const &param)
 {
-namespace x11
-{
+	renderer::parameters const &rparam(
+		param.param());
 
-class colormap : boost::noncopyable {
-public:
-	SGE_SYMBOL colormap(
-		display_ptr,
-		int screen,
-		visual_ptr);
-	SGE_SYMBOL ~colormap();
-	SGE_SYMBOL Colormap &get();
-private:
-	display_ptr const dsp;
-	Colormap          c;
-};
+	windows::window_ptr const wnd(
+		new windows::window(
+			rparam().mode().size(),
+			param.title()));
 
+	windows::choose_and_set_pixel_format(
+		windows::gdi_device(
+			wnd->hwnd(),
+			windows::gdi_device::get_tag()),
+		PFD_DRAW_TO_WINDOW |
+		PFD_SUPPORT_OPENGL |
+		PFD_DOUBLEBUFFER,
+		PFD_TYPE_RGBA,
+		static_cast<BYTE>(rparam.mode().bit_depth()),
+		static_cast<BYTE>(rparam.dbuffer()),
+		static_cast<BYTE>(rparam.sbuffer()));
+
+	return wnd;
 }
-}
-
-#endif
