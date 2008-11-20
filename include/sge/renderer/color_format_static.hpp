@@ -55,7 +55,7 @@ struct color_format_static<argb8_color>
 >{};
 
 template<>
-struct color_format_static<rgba_f32_color>
+struct color_format_static<rgba32f_color>
 : boost::mpl::integral_c<
 	color_format::type,
 	color_format::rgbaf32

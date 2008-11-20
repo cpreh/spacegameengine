@@ -87,6 +87,8 @@ template SGE_EXPORT_SYMBOL x const sge::renderer::color_convert<x>(\
 SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::rgba8_color)
 SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::argb8_color)
 SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::bgra8_color)
-SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::rgba_f32_color)
+SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::rgba32f_color)
+SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::argb32f_color)
+SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::bgra32f_color)
 
 #undef SGE_INSTANTIATE_COLOR_CONVERT

@@ -132,7 +132,7 @@ void material_color(
 		face,
 		type,
 		sge::renderer::raw_color(
-			sge::renderer::color_convert<sge::renderer::rgba_f32_color>(
+			sge::renderer::color_convert<sge::renderer::rgba32f_color>(
 				color)).data());
 }
 

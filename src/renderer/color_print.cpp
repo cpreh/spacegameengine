@@ -109,5 +109,7 @@ SGE_INSTANTIATE_COLOR_PRINT(color_channel_8, rgba_layout_t)
 SGE_INSTANTIATE_COLOR_PRINT(color_channel_8, bgra_layout_t)
 SGE_INSTANTIATE_COLOR_PRINT(color_channel_8, argb_layout_t)
 SGE_INSTANTIATE_COLOR_PRINT(color_channel_f32, rgba_layout_t)
+SGE_INSTANTIATE_COLOR_PRINT(color_channel_f32, bgra_layout_t)
+SGE_INSTANTIATE_COLOR_PRINT(color_channel_f32, argb_layout_t)
 
 #undef SGE_INSTANTIATE_COLOR_PRINT

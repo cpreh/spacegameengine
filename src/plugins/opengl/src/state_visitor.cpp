@@ -143,8 +143,8 @@ void sge::ogl::state_visitor::operator()(
 		renderer::state::color_type
 	> rs;
 
-	renderer::rgba_f32_color const fcolor(
-		renderer::color_convert<renderer::rgba_f32_color>(
+	renderer::rgba32f_color const fcolor(
+		renderer::color_convert<renderer::rgba32f_color>(
 			s.value()));
 
 	switch(s.state()) {

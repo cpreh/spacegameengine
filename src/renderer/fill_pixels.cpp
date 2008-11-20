@@ -53,7 +53,8 @@ namespace
 
 visitor::visitor(
 	sge::renderer::image_view const &dest)
-: dest(dest)
+:
+	dest(dest)
 {}
 
 template<typename T>

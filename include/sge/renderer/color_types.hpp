@@ -18,21 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_COLOR_FLOAT_HPP_INCLUDED
-#define SGE_RENDERER_COLOR_FLOAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_COLOR_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_COLOR_TYPES_HPP_INCLUDED
 
 #include "color.hpp"
+#include <boost/mpl/vector.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-void check_color_float_channel(
-	color_channel_f32);
-
-void check_color_float(
-	rgba32f_color const &);
+typedef boost::mpl::vector<
+	rgba8_color,
+	argb8_color,
+	bgra8_color,
+	rgba32f_color,
+	argb32f_color,
+	bgra32f_color/*
+	rgba64f_color,
+	argb64f_color,
+	bgra64f_color*/
+> color_types;
 
 }
 }
