@@ -18,53 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/image_view_format.hpp>
-#include <sge/renderer/const_image_view_elements.hpp>
-#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
-#include <sge/mpl/index_of.hpp>
+#ifndef SGE_MPL_FIND_NTH_HPP_INCLUDED
+#define SGE_MPL_FIND_NTH_HPP_INCLUDED
 
-namespace
+#include <boost/mpl/begin.hpp>
+#include <boost/mpl/distance.hpp>
+#include <boost/mpl/find.hpp>
+
+namespace sge
 {
-
-struct format_fun {
-	typedef sge::renderer::color_format::type result_type;
-
-	template<
-		typename T
-	> 
-	result_type
-	operator()(
-		T const &) const;
-};
-
-}
-
-sge::renderer::color_format::type
-sge::renderer::image_view_format(
-	const_image_view const &view)
-{
-	return boost::gil::apply_operation(
-		view,
-		format_fun());
-}
-
-namespace
+namespace mpl
 {
 
 template<
-	typename T
+	typename Elements,
+	typename Element
 >
-format_fun::result_type
-format_fun::operator()(
-	T const &) const
-{
-	typedef typename sge::mpl::index_of<
-		sge::renderer::const_image_view_elements,
-		T
-	>::type index;
+struct index_of
+:
+boost::mpl::distance<
+	typename boost::mpl::begin<
+		Elements
+	>::type,
+	typename boost::mpl::find<
+		Elements,
+		Element
+	>::type
+> {};
 
-	return static_cast<sge::renderer::color_format::type>(
-		index::value);
+}
 }
 
-}
+#endif

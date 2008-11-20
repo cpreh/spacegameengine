@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::viewport::viewport(
 	pixel_pos_t const &pos_,
 	screen_size_t const &size_)
- : pos_(pos_),
-   size_(size_)
+:
+	pos_(pos_),
+	size_(size_)
 {}
 
 sge::renderer::pixel_pos_t const &

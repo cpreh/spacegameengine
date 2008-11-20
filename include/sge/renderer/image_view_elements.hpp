@@ -21,26 +21,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 #define SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 
-#include <boost/gil/typedefs.hpp>
+#include "color_types.hpp"
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <boost/gil/image_view.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/gil/step_iterator.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef boost::gil::rgba8_view_t   rgba8_view;
-typedef boost::gil::argb8_view_t   argb8_view;
-typedef boost::gil::bgra8_view_t   bgra8_view;
-typedef boost::gil::rgba32f_view_t rgba_f32_view;
+template<
+	typename Color
+>
+struct view_type {
+	typedef boost::gil::image_view<
+		boost::gil::memory_based_2d_locator<
+			boost::gil::memory_based_step_iterator<
+				Color *
+			>
+		>
+	> type;
+};
 
-typedef boost::mpl::vector<
-	rgba8_view,
-	argb8_view,
-	bgra8_view,
-	rgba_f32_view
-> image_view_elements;
+typedef boost::mpl::transform<
+	color_types,
+	view_type<
+		boost::mpl::placeholders::_1
+	>
+>::type image_view_elements;
 
 }
 }

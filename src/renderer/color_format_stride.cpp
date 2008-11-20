@@ -28,11 +28,13 @@ sge::renderer::color_format_stride(
 	color_format::type const fmt)
 {
 	switch(fmt) {
-	case color_format::argb8:
 	case color_format::rgba8:
+	case color_format::argb8:
 	case color_format::bgra8:
 		return sizeof(boost::uint32_t);
-	case color_format::rgbaf32:
+	case color_format::rgba32f:
+	case color_format::argb32f:
+	case color_format::bgra32f:
 		return sizeof(float) * 4;
 	default:
 		throw exception(

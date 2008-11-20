@@ -33,7 +33,9 @@ enum type {
 	rgba8,
 	argb8,
 	bgra8,
-	rgbaf32
+	rgba32f,
+	argb32f,
+	bgra32f
 };
 
 }
