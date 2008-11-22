@@ -33,9 +33,9 @@ typedef boost::mpl::vector<
 	rgba8_color,
 	argb8_color,
 	bgra8_color,
-	rgba32f_color/*,
+	rgba32f_color,
 	argb32f_color,
-	bgra32f_color*//*
+	bgra32f_color/*
 	rgba64f_color,
 	argb64f_color,
 	bgra64f_color*/

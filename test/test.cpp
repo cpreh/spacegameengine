@@ -128,7 +128,6 @@ try
 			sge::renderer::color_format::rgba8,
 			sge::renderer::linear_filter,
 			sge::renderer::resource_flags::readable));
-
 	{
 		sge::renderer::scoped_texture_lock const lock_(
 			sge::renderer::make_scoped_lock(

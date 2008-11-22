@@ -83,6 +83,6 @@ sge::devil::best_il_format(
 		return renderer::color_format::rgba8;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid color_format in best)il_format!"));
+			SGE_TEXT("Invalid color_format in best_il_format!"));
 	}
 }

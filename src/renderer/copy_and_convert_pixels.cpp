@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-template <typename CC>
+template<
+	typename CC
+>
 class copy_and_convert_pixels_fn
 : public boost::gil::binary_operation_obj<
 	copy_and_convert_pixels_fn<
@@ -62,7 +64,7 @@ public:
 		V1 const &src,
 		V2 const &dst) const
 	{
-		boost::gil::copy_pixels(
+		return boost::gil::copy_pixels(
 			boost::gil::color_converted_view<
 				typename V2::value_type
 			>(
@@ -76,14 +78,27 @@ public:
 		typename V2
 	>
 	result_type
-		apply_compatible(
-			V1 const &src,
-			V2 const &dst) const
+	apply_compatible(
+		V1 const &src,
+		V2 const &dst) const
 	{
 		// hack this because GIL thinks that two views
 		// don't need any conversion if they have the same set of channels
 		// which are in different order
 		return apply_incompatible(
+			src,
+			dst);
+	}
+
+	template<
+		typename V
+	>
+	result_type
+	apply_compatible(
+		V const &src,
+		V const &dst) const
+	{
+		return boost::gil::copy_pixels(
 			src,
 			dst);
 	}
@@ -95,7 +110,7 @@ void sge::renderer::copy_and_convert_pixels(
 	const_image_view const &src,
 	image_view const &dest)
 {
-        apply_operation(
+        boost::gil::apply_operation(
 		src,
 		dest,
 		copy_and_convert_pixels_fn<

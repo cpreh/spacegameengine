@@ -18,31 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_COLOR_FORMAT_HPP_INCLUDED
+#include <sge/renderer/color_format.hpp>
+#include <sge/renderer/image_view_elements.hpp>
+#include <boost/mpl/size.hpp>
+#include <boost/static_assert.hpp>
 
-namespace sge
-{
-namespace renderer
-{
-
-namespace color_format
-{
-
-enum type {
-	rgba8,
-	argb8,
-	bgra8,
-	rgba32f,
-	argb32f,
-	bgra32f,
-	size
-};
-
-}
-
-
-}
-}
-
-#endif
+BOOST_STATIC_ASSERT(
+	boost::mpl::size<sge::renderer::image_view_elements>::value
+	== sge::renderer::color_format::size);

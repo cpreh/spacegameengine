@@ -32,17 +32,19 @@ template<
 	typename Operation
 >
 class fold_color_format_operation {
-	typedef unsigned long counter_type;
 public:
 	typedef typename Operation::result_type result_type;
 
+	typedef unsigned long counter_type;
+
 	explicit fold_color_format_operation(
 		Operation const &op,
-		color_format::type const fmt)
+		color_format::type const fmt,
+		counter_type &count)
 	:
 		op(op),
 		fmt(fmt),
-		count(0)
+		count(count)
 	{}
 
 	template<typename T>
@@ -57,7 +59,7 @@ public:
 private:
 	Operation const op;
 	color_format::type const fmt;
-	mutable counter_type count;
+	mutable counter_type &count;
 };
 
 }

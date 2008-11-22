@@ -71,12 +71,13 @@ try
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image));
 	
-	const sge::input::system_ptr    is   = sys.input_system();
-	const sge::renderer::device_ptr rend = sys.renderer();
-	const sge::image::loader_ptr    pl   = sys.image_loader();
+	sge::input::system_ptr const    is   = sys.input_system();
+	sge::renderer::device_ptr const rend = sys.renderer();
+	sge::image::loader_ptr const    pl   = sys.image_loader();
 
-	const sge::image::object_ptr img1(pl->load(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
-	                             img2(pl->load(sge::media_path() / SGE_TEXT("grass.png")));
+	sge::image::object_ptr const
+		img1(pl->load(sge::media_path() / SGE_TEXT("cloudsquare.jpg"))),
+		img2(pl->load(sge::media_path() / SGE_TEXT("grass.png")));
 
 	sge::texture::default_creator<
 		sge::texture::no_fragmented
@@ -87,8 +88,9 @@ try
 
 	sge::texture::manager tex_man(rend, creator);
 
-	const sge::texture::part_ptr tex1(sge::texture::add(tex_man, img1)),
-	                             tex2(sge::texture::add(tex_man, img2));
+	sge::texture::part_ptr const
+		tex1(sge::texture::add(tex_man, img1)),
+		tex2(sge::texture::add(tex_man, img2));
 
 	sge::sprite::system ss(rend);
 	sge::sprite::object spr(
