@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_COLOR_CONVERT_HPP_INCLUDED
-#define SGE_RENDERER_COLOR_CONVERT_HPP_INCLUDED
+#ifndef SGE_RENDERER_ANY_COLOR_CONVERT_HPP_INCLUDED
+#define SGE_RENDERER_ANY_COLOR_CONVERT_HPP_INCLUDED
 
-#include <boost/gil/color_convert.hpp>
+#include "any_color.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -29,17 +30,11 @@ namespace renderer
 {
 
 template<
-	typename Dest,
-	typename Src
+	typename Dest
 >
-Dest const
-color_convert(
-	Src const &src)
-{
-	Dest dest;
-	boost::gil::color_convert(src, dest);
-	return dest;
-}
+SGE_SYMBOL Dest const
+any_color_convert(
+	any_color const &);
 
 }
 }

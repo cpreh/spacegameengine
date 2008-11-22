@@ -6,8 +6,6 @@
 #include <sge/renderer/color_convert.hpp>
 #include <boost/mpl/for_each.hpp>
 
-#include <boost/gil/color_convert.hpp>
-
 namespace sge
 {
 namespace gui
@@ -54,18 +52,10 @@ sge::gui::utility::font_blitter::operator()(
 	Src2 const &font_value,
 	Dst &result) const
 {
-	Dst src1, src2;
-	boost::gil::color_convert(src_color, src1);
-	boost::gil::color_convert(font_value, src2);
-
 	boost::mpl::for_each<typename Dst::layout_t::channel_mapping_t>(
 		font_channel_blitter<Dst,Src2>(
-			src1,
-			src2,
-			//src_color,
-			//font_color,
-			//renderer::color_convert<Dst>(src_color),
-			//renderer::color_convert<Dst>(font_color),
+			renderer::color_convert<Dst>(src_color),
+			renderer::color_convert<Dst>(font_value),
 			font_value,
 			result));
 }

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/color_convert.hpp>
+#include <sge/renderer/any_color_convert.hpp>
 #include <boost/mpl/for_each.hpp>
 #include <boost/gil/color_convert.hpp>
 #include <boost/variant/get.hpp>
@@ -42,8 +42,11 @@ private:
 
 }
 
-template<typename Dest>
-Dest const sge::renderer::color_convert(
+template<
+	typename Dest
+>
+Dest const
+sge::renderer::any_color_convert(
 	any_color const &col)
 {
 	Dest dest;
@@ -81,7 +84,8 @@ void conversion_helper<Dest>::operator()(
 }
 
 #define SGE_INSTANTIATE_COLOR_CONVERT(x)\
-template SGE_EXPORT_SYMBOL x const sge::renderer::color_convert<x>(\
+template SGE_EXPORT_SYMBOL x const \
+sge::renderer::any_color_convert<x>(\
 	sge::renderer::any_color const &);
 
 SGE_INSTANTIATE_COLOR_CONVERT(sge::renderer::rgba8_color)

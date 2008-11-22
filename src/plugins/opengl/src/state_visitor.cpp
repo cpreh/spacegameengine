@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../conversion.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
-#include <sge/renderer/color_convert.hpp>
+#include <sge/renderer/any_color_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/raw_color.hpp>
 #include <sge/renderer/state/var.hpp>
@@ -144,7 +144,7 @@ void sge::ogl::state_visitor::operator()(
 	> rs;
 
 	renderer::rgba32f_color const fcolor(
-		renderer::color_convert<renderer::rgba32f_color>(
+		renderer::any_color_convert<renderer::rgba32f_color>(
 			s.value()));
 
 	switch(s.state()) {
