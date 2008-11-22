@@ -71,13 +71,15 @@ sge::renderer::operator<<(
 	ostream &s,
 	display_mode const &mode)
 {
-	return s << SGE_TEXT('(')
-	         << mode.size().w()
-	         << SGE_TEXT('x')
-	         << mode.size().h()
-	         << SGE_TEXT('x')
-	         << mode.bit_depth()
-	         << SGE_TEXT('@')
-	         << mode.refresh_rate()
-	         << SGE_TEXT(')');
+	return s
+		<< SGE_TEXT('(')
+		<< mode.size().w()
+		<< SGE_TEXT('x')
+		<< mode.size().h()
+		<< SGE_TEXT('x')
+		<< static_cast<unsigned>(
+			mode.bit_depth())
+		<< SGE_TEXT('@')
+		<< mode.refresh_rate()
+		<< SGE_TEXT(')');
 }
