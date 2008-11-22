@@ -19,9 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/image_view_format.hpp>
-#include <sge/renderer/const_image_view_elements.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
-#include <sge/mpl/index_of.hpp>
+#include <sge/renderer/color_format_static.hpp>
 
 namespace
 {
@@ -58,13 +57,7 @@ format_fun::result_type
 format_fun::operator()(
 	T const &) const
 {
-	typedef typename sge::mpl::index_of<
-		sge::renderer::const_image_view_elements,
-		T
-	>::type index;
-
-	return static_cast<sge::renderer::color_format::type>(
-		index::value);
+	return sge::renderer::color_format_static<T>::value;
 }
 
 }

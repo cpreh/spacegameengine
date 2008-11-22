@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MPL_FIND_NTH_HPP_INCLUDED
-#define SGE_MPL_FIND_NTH_HPP_INCLUDED
+#ifndef SGE_MPL_INDEX_OF_HPP_INCLUDED
+#define SGE_MPL_INDEX_OF_HPP_INCLUDED
 
 #include <boost/mpl/begin.hpp>
 #include <boost/mpl/distance.hpp>
