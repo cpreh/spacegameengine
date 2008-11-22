@@ -2,6 +2,7 @@
 #define SGE_AUDIO_LISTENER_HPP_INCLUDED
 
 #include "types.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -16,6 +17,7 @@ class listener
 	virtual void vel(point const &) = 0;
 	virtual angle const direction() const = 0;
 	virtual void direction(angle const &) = 0;
+	SGE_SYMBOL virtual ~listener();
 };
 }
 }
