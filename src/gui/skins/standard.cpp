@@ -5,8 +5,8 @@
 #include <sge/renderer/colors.hpp>
 
 sge::gui::skins::standard::standard()
-	: bgcolor(renderer::colors::grey),
-		bgcolor_focused(renderer::colors::lightgrey)
+	: bgcolor(renderer::colors::grey()),
+		bgcolor_focused(renderer::colors::lightgrey())
 {
 }
 
@@ -26,7 +26,7 @@ void sge::gui::skins::standard::operator()(
 	// reset font
 	c.reset_font(
 		b.font(),
-		renderer::colors::black);
+		renderer::colors::black());
 	
 	// draw text centered
 	c.draw_text(
