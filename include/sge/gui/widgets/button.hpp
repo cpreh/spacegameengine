@@ -26,7 +26,6 @@ class SGE_CLASS_SYMBOL button : public widget
 	string const text() const { return text_; }
 	font::metrics_ptr const font() const { return font_; }
 	bool mouse_over() const { return mouse_over_; }
-	SGE_SYMBOL void process(events::invalid_area const &);
 	SGE_SYMBOL void process(events::mouse_enter const &);
 	SGE_SYMBOL void process(events::mouse_leave const &);
 	SGE_SYMBOL void process(events::mouse_click const &);

@@ -37,6 +37,7 @@ ENDIF ()
 
 IF (${ENABLE_GUI})
 	ADD_SGE_TEST(gui)
+	TARGET_LINK_LIBRARIES (sgeguitest sgegui)
 ENDIF ()
 
 #ADD_EXECUTABLE (islandtest island/main.cpp quadtree/quadtree.cpp quadtree/mathstuff.cpp island/island_extractor.cpp island/skydome.cpp)

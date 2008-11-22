@@ -2,6 +2,7 @@
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/widgets/button.hpp>
 #include <sge/gui/events/invalid_area.hpp>
+#include <sge/renderer/colors.hpp>
 
 sge::gui::skins::standard::standard()
 	: bgcolor(renderer::colors::grey),
@@ -15,11 +16,9 @@ void sge::gui::skins::standard::operator()(
 {
 	canvas c = e.canvas();
 	
-	color const col = b.mouse_over() ? bgcolor_focused : bgcolor;
-
 	c.draw_rect(
 		b.relative_area(),
-		col,
+		b.mouse_over() ? bgcolor_focused : bgcolor,
 		rect_type::filled);
 
 	SGE_ASSERT_MESSAGE(b.font(),SGE_TEXT("button: font missing while drawing button"));
@@ -27,13 +26,12 @@ void sge::gui::skins::standard::operator()(
 	// reset font
 	c.reset_font(
 		b.font(),
-		renderer::colors::black,
-		col);
+		renderer::colors::black);
 	
 	// draw text centered
 	c.draw_text(
 		b.text(),
-		b.point(),
+		b.pos(),
 		b.size(),
 		font::align_h::center,
 		font::align_v::center);
