@@ -113,7 +113,8 @@ try
 			(sge::renderer::parameters(
 				sge::renderer::display_mode(
 					screen_size,
-					sge::renderer::bit_depth::depth32),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care),
 				sge::renderer::depth_buffer::off,
 				sge::renderer::stencil_buffer::off,
 				sge::renderer::window_mode::windowed))))

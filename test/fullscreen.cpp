@@ -29,7 +29,8 @@ try
 					sge::renderer::screen_size_t(
 						800,
 						600),
-					sge::renderer::bit_depth::depth32),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care),
 				sge::renderer::depth_buffer::off,
 				sge::renderer::stencil_buffer::off,
 				sge::renderer::window_mode::fullscreen))));

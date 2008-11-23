@@ -18,38 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
-
-#include <X11/Xlib.h>
-#include <X11/extensions/Xrandr.h>
 #include <sge/renderer/refresh_rate.hpp>
 
-namespace sge
-{
-namespace ogl
-{
-namespace xrandr
-{
-
-class mode {
-public:
-	mode(
-		int index,
-		Rotation,
-		renderer::refresh_rate_type);
-	
-	int index() const;
-	Rotation rotation() const;
-	renderer::refresh_rate_type rate() const;
-private:
-	int const index_;
-	Rotation const rotation_;
-	renderer::refresh_rate_type const rate_;
-};
-
-}
-}
-}
-
-#endif
+sge::renderer::refresh_rate_type const
+sge::renderer::refresh_rate_dont_care(0);
