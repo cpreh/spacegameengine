@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../modes.hpp"
 #include "../check_extension.hpp"
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
@@ -26,50 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::ogl::xf86vmode::modes::modes(
-	x11::display_ptr const dsp,
-	int const screen_)
-:
-	dsp(dsp),
-	screen_(screen_)
+void sge::ogl::xf86vmode::check_extension(
+	x11::display_ptr const dsp)
 {
-	check_extension(
-		dsp);
-	
-	int mode_count;
-	XF86VidModeModeInfo **ret;
-	if(XF86VidModeGetAllModeLines(
+	int event_base, error_base;
+	if(XF86VidModeQueryExtension(
 		dsp->get(),
-		screen(),
-		&mode_count,
-		&ret)
+		&event_base,
+		&error_base)
 	== False)
 		throw exception(
-			SGE_TEXT("XF86VidModeGetAllModeLines() failed"));
-	modes_.reset(ret);
-	sz = mode_count >= 0 ? mode_count : 0;
-}
-
-XF86VidModeModeInfo const &
-sge::ogl::xf86vmode::modes::operator[](
-	size_type const index) const
-{
-	return (*modes_)[index];
-}
-
-sge::ogl::xf86vmode::modes::size_type
-sge::ogl::xf86vmode::modes::size() const
-{
-	return sz;
-}
-
-sge::x11::display_ptr const
-sge::ogl::xf86vmode::modes::display() const
-{
-	return dsp;
-}
-
-int sge::ogl::xf86vmode::modes::screen() const
-{
-	return screen_;
+			SGE_TEXT("xf86vmode video modes queried but extension is not present!"));
 }

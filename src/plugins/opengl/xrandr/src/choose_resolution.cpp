@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../resolution.hpp"
 #include "../mode.hpp"
 #include "../current_resolution.hpp"
+#include "../check_extension.hpp"
 #include <sge/renderer/display_mode.hpp>
 #include <sge/x11/window.hpp>
-#include <sge/x11/display.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -35,18 +35,8 @@ sge::ogl::xrandr::choose_resolution(
 	x11::window_ptr const wnd,
 	renderer::display_mode const &mode)
 {
-	{
-		int event_base_return,
-		    error_base_return;
-		
-		if(XRRQueryExtension(
-			wnd->display()->get(),
-			&event_base_return,
-			&error_base_return)
-		== False)
-			throw exception(
-				SGE_TEXT("xrandr extension not present!"));
-	}
+	check_extension(
+		wnd->display());
 
 	configuration_ptr const config(
 		make_shared_ptr<configuration>(
