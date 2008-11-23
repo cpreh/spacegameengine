@@ -22,18 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOWS_WINDOW_HPP_INCLUDED
 #define SGE_WINDOWS_WINDOW_HPP_INCLUDED
 
-#include <boost/function.hpp>
-#include <boost/optional.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
-
-#include "../shared_ptr.hpp"
+#include "window_fwd.hpp"
+#include "windows.hpp"
 #include "../string.hpp"
 #include "../window/instance.hpp"
 #include "../export.hpp"
 #include "../signals/connection.hpp"
 #include "../signals/signal.hpp"
 #include "../math/rect.hpp"
-#include "windows.hpp"
+#include <boost/function.hpp>
+#include <boost/optional.hpp>
+#include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
 {
@@ -97,8 +96,6 @@ private:
 	> signal_map;
 	signal_map signals;
 };
-
-typedef shared_ptr<window> window_ptr;
 
 }
 }

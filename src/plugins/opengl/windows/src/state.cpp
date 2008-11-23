@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../state.hpp"
-#include "../change_display_mode.hpp"
+#include "../change_display_settings.hpp"
 #include <sge/renderer/parameters.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -37,17 +37,17 @@ sge::ogl::windows::state::state(
 			wnd_)),
 	hdc(
 		wnd->hwnd(),
-		windows::gdi_device::get_tag()),
+		sge::windows::gdi_device::get_tag()),
 	context(
 		wgl::context(
-			*hdc)),
+			hdc)),
 	current(
 		wgl::current(
-			*hdc,
-			*context))
+			hdc,
+			context))
 {
 
-	if(!windowed)
+	if(param.wmode() == renderer::window_mode::fullscreen)
 		change_display_settings(
 			param.mode());	
 }
