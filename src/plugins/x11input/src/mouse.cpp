@@ -86,6 +86,9 @@ sge::x11input::mouse::mouse(
 		mouse_last = get_pointer(wnd);
 }
 
+sge::x11input::mouse::~mouse()
+{}
+
 void sge::x11input::mouse::grab()
 {
 	dga_.enable(true);

@@ -50,6 +50,7 @@ public:
 	mouse(
 		x11::window_ptr,
 		input::callback const &);
+	~mouse();
 private:
 	void grab();
 	void ungrab();

@@ -24,29 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11::display::display()
 :
-	d(XOpenDisplay(0)),
-	wrapped(false)
+	d(XOpenDisplay(0))
 {
 	if(!d)
 		throw exception(
 			SGE_TEXT("XOpenDisplay failed or dsp is 0!"));
 }
 
-sge::x11::display::display(
-	Display *const dsp,
-	wrap_tag)
-:
-	d(dsp),
-	wrapped(true)
-{}
-
 sge::x11::display::~display()
 {
-	if(!wrapped)
-		XCloseDisplay(d);
+	XCloseDisplay(d);
 }
 
-Display* sge::x11::display::get() const
+Display *sge::x11::display::get() const
 {
 	return d;
 }

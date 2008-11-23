@@ -39,7 +39,6 @@ namespace x11
 {
 
 class SGE_CLASS_SYMBOL window : public sge::window::instance {
-	//friend class sge::window;
 public:
 	typedef int event_type;
 	typedef long event_mask_type;
