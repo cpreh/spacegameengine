@@ -1,3 +1,5 @@
+// Note: The priorities reflect the importance of the task regarding the time
+// it should be implemented not the overall importance for sge
 *very low: get information about 3d facilities such as a scene graph
 *low: add a safer weak_ptr for Deleter template parameter
 *low: add joystick support to dinput and xinput
@@ -9,6 +11,12 @@
 *low: replace every cerr and cout output with sge's log system
 *low: add scripting proxies, scripting framework and backend with flusspferd
 *low: other font formatting like bold, italic, underline and colors
+*low: improve the image loader (let it also load from and save to streams)
+*low: implement an image loader with Magick++
+*low: add a skeleton class for the mainloop
+*low: use boost::exception for stack traces
+*low: implement a lot of different exception types to make errors
+distinguishable
 *medium: breakpoints for the font
 *medium: implement "loop and play once on kill" to sound buffer
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
