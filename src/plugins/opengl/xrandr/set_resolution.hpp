@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../resolution.hpp"
-#include "../set_resolution.hpp"
+#ifndef SGE_OPENGL_XRANDR_SET_RESOLUTION_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_SET_RESOLUTION_HPP_INCLUDED
 
-sge::ogl::xrandr::resolution::resolution(
-	sge::x11::window_ptr const wnd,
-	configuration_ptr const config,
-	mode const &new_mode,
-	mode const &old_mode)
-:
-	wnd(wnd),
-	config(config),
-	old_mode(old_mode)
+#include "configuration_fwd.hpp"
+#include <sge/x11/window_fwd.hpp>
+
+namespace sge
 {
-	set_resolution(
-		wnd,
-		config,
-		new_mode);
+namespace ogl
+{
+namespace xrandr
+{
+
+class mode;
+
+void set_resolution(
+	sge::x11::window_ptr,
+	configuration_ptr,
+	mode const &);
+
+}
+}
 }
 
-sge::ogl::xrandr::resolution::~resolution()
-{
-	set_resolution(
-		wnd,
-		config,
-		old_mode);
-}
+#endif

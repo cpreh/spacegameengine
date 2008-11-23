@@ -18,29 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../resolution.hpp"
 #include "../set_resolution.hpp"
+#include "../mode.hpp"
+#include "../configuration.hpp"
+#include <sge/x11/window.hpp>
+#include <sge/x11/display.hpp>
+#include <X11/Xlib.h>
+#include <X11/extensions/Xrandr.h>
 
-sge::ogl::xrandr::resolution::resolution(
+void sge::ogl::xrandr::set_resolution(
 	sge::x11::window_ptr const wnd,
 	configuration_ptr const config,
-	mode const &new_mode,
-	mode const &old_mode)
-:
-	wnd(wnd),
-	config(config),
-	old_mode(old_mode)
+	mode const &m)
 {
-	set_resolution(
-		wnd,
-		config,
-		new_mode);
-}
-
-sge::ogl::xrandr::resolution::~resolution()
-{
-	set_resolution(
-		wnd,
-		config,
-		old_mode);
+	if(m.rate() != renderer::refresh_rate_dont_care)
+		XRRSetScreenConfigAndRate(
+			wnd->display()->get(),
+			config->get(),
+			wnd->get(),
+			m.index(),
+			m.rotation(),
+			static_cast<short>(m.rate()),
+			CurrentTime);
+	else
+		XRRSetScreenConfig(
+			wnd->display()->get(),
+			config->get(),
+			wnd->get(),
+			m.index(),
+			m.rotation(),
+			CurrentTime);
+	
+	// TODO: error handling!
 }

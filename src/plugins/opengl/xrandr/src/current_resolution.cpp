@@ -18,29 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../resolution.hpp"
-#include "../set_resolution.hpp"
+#include "../current_resolution.hpp"
+#include "../mode.hpp"
+#include "../configuration.hpp"
+#include <X11/Xlib.h>
+#include <X11/extensions/Xrandr.h>
 
-sge::ogl::xrandr::resolution::resolution(
-	sge::x11::window_ptr const wnd,
-	configuration_ptr const config,
-	mode const &new_mode,
-	mode const &old_mode)
-:
-	wnd(wnd),
-	config(config),
-	old_mode(old_mode)
+sge::ogl::xrandr::mode const
+sge::ogl::xrandr::current_resolution(
+	configuration_ptr const config)
 {
-	set_resolution(
-		wnd,
-		config,
-		new_mode);
-}
-
-sge::ogl::xrandr::resolution::~resolution()
-{
-	set_resolution(
-		wnd,
-		config,
-		old_mode);
+	int cur_size;
+	Rotation cur_rotation;
+	cur_size = XRRConfigCurrentConfiguration(
+		config->get(),
+		&cur_rotation);
+	
+	short const rate = XRRConfigCurrentRate(
+		config->get());
+	
+	// TODO: error checking!
+	return mode(
+		cur_size,
+		cur_rotation,
+		rate);
 }

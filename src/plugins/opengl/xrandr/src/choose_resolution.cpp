@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../configuration.hpp"
 #include "../resolution.hpp"
 #include "../mode.hpp"
+#include "../current_resolution.hpp"
 #include <sge/renderer/display_mode.hpp>
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
@@ -60,14 +61,6 @@ sge::ogl::xrandr::choose_resolution(
 	if(nsizes == 0)
 		throw exception(
 			SGE_TEXT("XRRConfigSizes() failed!"));
-	int cur_size;
-	Rotation cur_rotation;
-	cur_size = XRRConfigCurrentConfiguration(
-		config->get(),
-		&cur_rotation);
-	
-	short const rate = XRRConfigCurrentRate(
-		config->get());
 
 	// TODO: how do we check for errors here?
 	
@@ -82,10 +75,8 @@ sge::ogl::xrandr::choose_resolution(
 						i,
 						RR_Rotate_0,
 						mode.refresh_rate()),
-					xrandr::mode(
-						cur_size,
-						cur_rotation,
-						rate)));
+					current_resolution(
+						config)));
 	throw exception(
 		SGE_TEXT("No matching resolution found!"));
 }
