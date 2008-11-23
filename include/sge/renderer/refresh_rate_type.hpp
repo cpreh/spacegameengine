@@ -18,49 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
-#define SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
-
-#include "bit_depth.hpp"
-#include "screen_types.hpp"
-#include "refresh_rate_type.hpp"
-#include "../export.hpp"
-#include "../ostream.hpp"
+#ifndef SGE_RENDERER_REFRESH_RATE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_REFRESH_RATE_TYPE_HPP_INCLUDED
 
 namespace sge
 {
 namespace renderer
 {
 
-struct display_mode {
-	SGE_SYMBOL display_mode(
-		screen_size_t const &sz,
-		bit_depth::type depth,
-		refresh_rate_type refresh_rate = 0);
-	
-	typedef bit_depth::type bit_depth_t;
-
-	SGE_SYMBOL screen_size_t const &size() const;
-	SGE_SYMBOL bit_depth_t bit_depth() const;
-	SGE_SYMBOL refresh_rate_type refresh_rate() const;
-private:
-	screen_size_t     size_;
-	bit_depth_t       bit_depth_;
-	refresh_rate_type refresh_rate_;
-};
-
-SGE_SYMBOL ostream &
-operator<<(
-	ostream &,
-	display_mode const &mode);
-
-SGE_SYMBOL bool operator== (
-	display_mode const &l,
-	display_mode const &r);
-
-SGE_SYMBOL bool operator!= (
-	display_mode const &l,
-	display_mode const &r);
+typedef unsigned refresh_rate_type;
 
 }
 }

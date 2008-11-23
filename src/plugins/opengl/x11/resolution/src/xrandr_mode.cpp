@@ -18,19 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../xf86_vmode.hpp"
-#include <sge/x11/display.hpp>
-#include <sge/renderer/display_mode.hpp>
+#include "../xrandr_mode.hpp"
+#include "../../../xrandr/choose_resolution.hpp"
 
-sge::ogl::x11::resolution::xf86_vmode::xf86_vmode(
+sge::ogl::x11::resolution::xrandr_mode::xrandr_mode(
 	renderer::display_mode const &mode,
-	sge::x11::display_ptr const display,
-	int const screen)
+	sge::x11::window_ptr const wnd)
 :
-	modes(
-		display,
-		screen),
 	resolution(
-		modes.switch_to_mode(
+		xrandr::choose_resolution(
+			wnd,
 			mode))
 {}

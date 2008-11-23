@@ -18,19 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../xf86_vmode.hpp"
+#include "../resolution.hpp"
+#include "../configuration.hpp"
+#include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
-#include <sge/renderer/display_mode.hpp>
+#include <X11/Xlib.h>
+#include <X11/extensions/Xrandr.h>
 
-sge::ogl::x11::resolution::xf86_vmode::xf86_vmode(
-	renderer::display_mode const &mode,
-	sge::x11::display_ptr const display,
-	int const screen)
+sge::ogl::xrandr::resolution::resolution(
+	sge::x11::window_ptr const wnd,
+	configuration_ptr const config,
+	mode const &new_mode,
+	mode const &old_mode)
 :
-	modes(
-		display,
-		screen),
-	resolution(
-		modes.switch_to_mode(
-			mode))
-{}
+	wnd(wnd),
+	config(config),
+	old_mode(old_mode)
+{
+	XRRSetScreenConfigAndRate(
+		wnd->display()->get(),
+		config->get(),
+		wnd->get(),
+		new_mode.index(),
+		new_mode.rotation(),
+		static_cast<short>(new_mode.rate()),
+		CurrentTime);
+}
+
+sge::ogl::xrandr::resolution::~resolution()
+{
+	XRRSetScreenConfigAndRate(
+		wnd->display()->get(),
+		config->get(),
+		wnd->get(),
+		old_mode.index(),
+		old_mode.rotation(),
+		static_cast<short>(old_mode.rate()),
+		CurrentTime);
+}

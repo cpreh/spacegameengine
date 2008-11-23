@@ -18,19 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../xf86_vmode.hpp"
+#include "../configuration.hpp"
+#include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
-#include <sge/renderer/display_mode.hpp>
 
-sge::ogl::x11::resolution::xf86_vmode::xf86_vmode(
-	renderer::display_mode const &mode,
-	sge::x11::display_ptr const display,
-	int const screen)
+sge::ogl::xrandr::configuration::configuration(
+	x11::window_ptr const wnd)
 :
-	modes(
-		display,
-		screen),
-	resolution(
-		modes.switch_to_mode(
-			mode))
-{}
+	config(
+		XRRGetScreenInfo(
+			wnd->display()->get(),
+			wnd->get()))
+{
+	// TODO: which errors can XRRGetScreenInfo generate?
+}
+
+XRRScreenConfiguration *
+sge::ogl::xrandr::configuration::get() const
+{
+	return config;
+}
+
+sge::ogl::xrandr::configuration::~configuration()
+{
+	XRRFreeScreenConfigInfo(
+		config);
+}

@@ -18,19 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../xf86_vmode.hpp"
-#include <sge/x11/display.hpp>
-#include <sge/renderer/display_mode.hpp>
+#include "../mode.hpp"
 
-sge::ogl::x11::resolution::xf86_vmode::xf86_vmode(
-	renderer::display_mode const &mode,
-	sge::x11::display_ptr const display,
-	int const screen)
+sge::ogl::xrandr::mode::mode(
+	int const index_,
+	Rotation const rotation_,
+	renderer::refresh_rate_type const rate_)
 :
-	modes(
-		display,
-		screen),
-	resolution(
-		modes.switch_to_mode(
-			mode))
+	index_(index_),
+	rotation_(rotation_),
+	rate_(rate_)
 {}
+	
+int sge::ogl::xrandr::mode::index() const
+{
+	return index_;
+}
+
+Rotation
+sge::ogl::xrandr::mode::rotation() const
+{
+	return rotation_;
+}
+
+sge::renderer::refresh_rate_type
+sge::ogl::xrandr::mode::rate() const
+{
+	return rate_;
+}

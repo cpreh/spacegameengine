@@ -31,6 +31,19 @@ IF (X11_FOUND)
 			x11/resolution/src/xf86_vmode.cpp)
 		SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglxf86files})
 	ENDIF()
+
+	IF(X11_Xrandr_FOUND)
+		FIND_LIBRARY(
+			SGE_HAVE_XRANDR
+			"Xrandr")
+
+		INCLUDE_DIRECTORIES(${X11_Xrandr_INCLUDE_PATH})
+
+		FILE (GLOB sgeopenglxrandrfiles
+			xrandr/src/*.cpp
+			x11/resolution/src/xrandr_mode.cpp)
+		SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglxrandrfiles})
+	ENDIF()
 ELSEIF (WIN32)
 	FILE (GLOB sgeopenglwglfiles
 		wgl/src/*.cpp
@@ -50,6 +63,9 @@ IF (UNIX)
 	TARGET_LINK_LIBRARIES (sgeopengl GLEW ${X11_LIBRARIES})
 	IF(X11_xf86vmode_FOUND)
 		TARGET_LINK_LIBRARIES(sgeopengl Xxf86vm)
+	ENDIF()
+	IF(X11_Xrandr_FOUND)
+		TARGET_LINK_LIBRARIES(sgeopengl Xrandr)
 	ENDIF()
 ELSEIF (WIN32)
 	TARGET_LINK_LIBRARIES (sgeopengl glew32)

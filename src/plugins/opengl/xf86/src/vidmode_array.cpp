@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../vidmode_array.hpp"
 #include "../resolution.hpp"
 #include <sge/x11/display.hpp>
-#include <sge/log/headers.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/math/round_div_int.hpp>
@@ -35,19 +35,15 @@ sge::ogl::xf86::vidmode_array::vidmode_array(
 	dsp(dsp),
 	screen(screen)
 {
-	int event_base, error_base;
-	if(XF86VidModeQueryExtension(
-		dsp->get(),
-		&event_base,
-		&error_base)
-	== False)
 	{
-		SGE_LOG_WARNING(
-			log::global(),
-			log::_1
-				<< SGE_TEXT("xf86 video modes queried but extension is not present!"));
-		sz = 0;
-		return;
+		int event_base, error_base;
+		if(XF86VidModeQueryExtension(
+			dsp->get(),
+			&event_base,
+			&error_base)
+		== False)
+			throw exception(
+				SGE_TEXT("xf86 video modes queried but extension is not present!"));
 	}
 
 	int mode_count;
@@ -58,8 +54,8 @@ sge::ogl::xf86::vidmode_array::vidmode_array(
 		&mode_count,
 		&ret)
 	== False)
-		throw exception(SGE_TEXT(
-			"XF86VidModeGetAllModeLines() failed"));
+		throw exception(
+			SGE_TEXT("XF86VidModeGetAllModeLines() failed"));
 	modes.reset(ret);
 	sz = mode_count >= 0 ? mode_count : 0;
 }
@@ -102,12 +98,13 @@ sge::ogl::xf86::vidmode_array::switch_to_mode(
 			best = static_cast<int>(i);
 	}
 	
-	return best != -1
-		? resolution_ptr(
-			new resolution(
-				dsp,
-				screen,
-				(*this)[best],
-				(*this)[0]))
-		: resolution_ptr();
+	if(best == -1)
+		throw exception(
+			SGE_TEXT("No matching resolution found in xf86!"));
+	return resolution_ptr(
+		make_shared_ptr<resolution>(
+			dsp,
+			screen,
+			(*this)[best],
+			(*this)[0]));
 }
