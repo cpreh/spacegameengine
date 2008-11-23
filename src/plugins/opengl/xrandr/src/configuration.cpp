@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../configuration.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
+#include <sge/x11/sentry.hpp>
 
 sge::ogl::xrandr::configuration::configuration(
 	x11::window_ptr const wnd)
@@ -30,7 +31,7 @@ sge::ogl::xrandr::configuration::configuration(
 			wnd->display()->get(),
 			wnd->get()))
 {
-	// TODO: which errors can XRRGetScreenInfo generate?
+	SGE_X11_SENTRY
 }
 
 XRRScreenConfiguration *

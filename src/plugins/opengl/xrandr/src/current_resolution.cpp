@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../current_resolution.hpp"
 #include "../mode.hpp"
 #include "../configuration.hpp"
+#include <sge/x11/sentry.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 
@@ -28,6 +29,8 @@ sge::ogl::xrandr::mode const
 sge::ogl::xrandr::current_resolution(
 	configuration_ptr const config)
 {
+	SGE_X11_SENTRY
+
 	int cur_size;
 	Rotation cur_rotation;
 	cur_size = XRRConfigCurrentConfiguration(

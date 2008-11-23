@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../configuration.hpp"
 #include <sge/x11/window.hpp>
 #include <sge/x11/display.hpp>
+#include <sge/x11/sentry.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
 
@@ -31,6 +32,8 @@ void sge::ogl::xrandr::set_resolution(
 	configuration_ptr const config,
 	mode const &m)
 {
+	SGE_X11_SENTRY
+
 	if(m.rate() != renderer::refresh_rate_dont_care)
 		XRRSetScreenConfigAndRate(
 			wnd->display()->get(),
@@ -48,6 +51,4 @@ void sge::ogl::xrandr::set_resolution(
 			m.index(),
 			m.rotation(),
 			CurrentTime);
-	
-	// TODO: error handling!
 }

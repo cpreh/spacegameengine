@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../check_extension.hpp"
 #include <sge/renderer/display_mode.hpp>
 #include <sge/x11/window.hpp>
+#include <sge/x11/sentry.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -42,17 +43,13 @@ sge::ogl::xrandr::choose_resolution(
 		make_shared_ptr<configuration>(
 			wnd));
 	
+	SGE_X11_SENTRY
+
 	int nsizes;
 	XRRScreenSize *const sizes
 		= XRRConfigSizes(
 			config->get(),
 			&nsizes);
-	
-	if(nsizes == 0)
-		throw exception(
-			SGE_TEXT("XRRConfigSizes() failed!"));
-
-	// TODO: how do we check for errors here?
 	
 	for(int i = 0; i < nsizes; ++i)
 		if(static_cast<renderer::screen_unit>(sizes[i].width) == mode.size().w()
