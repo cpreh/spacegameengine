@@ -44,20 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../material.hpp"
 #include "../glew.hpp"
 #include "../fbo_target.hpp"
-#if defined(SGE_WINDOWS_PLATFORM)
-#include <sge/windows/windows.hpp>
-#include <sge/windows/window.hpp>
-#elif defined(SGE_HAVE_X11)
-#include "../glx/visual.hpp"
-#include <sge/x11/window.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/x11/visual.hpp>
-#include <boost/bind.hpp>
-#else
-#error "Implement me!"
-#endif
-#include <sge/bit.hpp>
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -65,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/math/matrix_impl.hpp>
-#include <sge/log/headers.hpp>
+#include <sge/window/instance.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/bind.hpp>
 #include <sstream>
