@@ -4,7 +4,6 @@
 #include <sge/gui/max_dim.hpp>
 #include <sge/gui/font_drawer_canvas.hpp>
 #include <sge/renderer/scoped_lock.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/font/font.hpp>

@@ -30,7 +30,9 @@ namespace sge
 namespace renderer
 {
 
-template<typename Color>
+template<
+	typename Color
+>
 struct color_format_static {
 	static color_format::type const value
 		= static_cast<color_format::type>(

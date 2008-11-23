@@ -3,12 +3,13 @@
 
 #include "sound_fwd.hpp"
 #include "../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
-class pool
+class SGE_CLASS_SYMBOL pool : boost::noncopyable
 {
 	public:
 	virtual void add(sound_ptr,bool continue_playing = true) = 0;

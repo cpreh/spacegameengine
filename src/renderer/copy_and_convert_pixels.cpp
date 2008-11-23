@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/copy_and_convert_pixels.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/gil/algorithm.hpp>
 

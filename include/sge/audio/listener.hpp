@@ -3,12 +3,13 @@
 
 #include "types.hpp"
 #include "../export.hpp"
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
-class listener
+class SGE_CLASS_SYMBOL listener : boost::noncopyable
 {
 	public:
 	virtual point const pos() const = 0;

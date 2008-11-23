@@ -20,7 +20,6 @@
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/input/system.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <sge/renderer/texture_software.hpp>
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/texture/part_raw.hpp>

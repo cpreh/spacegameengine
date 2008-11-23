@@ -7,7 +7,6 @@
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/foreach.hpp>
 

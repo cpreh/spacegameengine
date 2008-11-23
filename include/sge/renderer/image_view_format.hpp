@@ -30,7 +30,8 @@ namespace sge
 namespace renderer
 {
 
-SGE_SYMBOL color_format::type image_view_format(
+SGE_SYMBOL color_format::type
+image_view_format(
 	const_image_view const &);
 
 }
