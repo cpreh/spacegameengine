@@ -33,7 +33,8 @@ IF (X11_FOUND)
 	ENDIF()
 ELSEIF (WIN32)
 	FILE (GLOB sgeopenglwglfiles
-		wgl/src/*.cpp)
+		wgl/src/*.cpp
+		windows/src/*.cpp)
 	SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglwglfiles})
 ENDIF ()
 
