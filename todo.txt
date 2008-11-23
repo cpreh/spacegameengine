@@ -25,8 +25,7 @@ distinguishable
 *medium: implement GLSL getter
 *medium: fix renderer::caps and the opengl implementation of them
 *high: set up proper window information for X
-*high: split the code from ogl::device into windows and linux code
 *high: implement uniform arrays for glsl
 *high: Improve the cmake script, search for libraries per default.
 *high: fix dga
-*high: add Xrandr support and split the resolution switching code in opengl
+*high: add Xrandr support
