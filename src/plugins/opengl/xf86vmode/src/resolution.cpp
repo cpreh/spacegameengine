@@ -18,24 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XF86_RESOLUTION_FWD_HPP_INCLUDED
-#define SGE_OPENGL_XF86_RESOLUTION_FWD_HPP_INCLUDED
+#include "../resolution.hpp"
+#include <sge/x11/display.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include <sge/shared_ptr.hpp>
-
-namespace sge
+sge::ogl::xf86vmode::resolution::resolution(
+	x11::display_ptr const dsp,
+	int const screen,
+	XF86VidModeModeInfo const &new_mode,
+	XF86VidModeModeInfo const &old_mode)
+:
+	dsp(dsp),
+	screen(screen),
+	old_mode(old_mode)
 {
-namespace ogl
+	if(XF86VidModeSwitchToMode(
+		dsp->get(),
+		screen,
+		const_cast<XF86VidModeModeInfo*>(
+			&new_mode))
+	== False)
+		throw exception(
+			SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
+
+	XF86VidModeSetViewPort(
+		dsp->get(),
+		screen,
+		0,
+		0);
+}
+
+sge::ogl::xf86vmode::resolution::~resolution()
 {
-namespace xf86
-{
-
-class resolution;
-
-typedef shared_ptr<resolution> resolution_ptr;
-
+	XF86VidModeSwitchToMode(
+		dsp->get(),
+		screen,
+		const_cast<XF86VidModeModeInfo*>(
+			&old_mode));
 }
-}
-}
-
-#endif

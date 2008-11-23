@@ -18,43 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTON_XF86_VMODE_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTON_XF86_VMODE_HPP_INCLUDED
+#include "../calc_refresh_rate.hpp"
+#include <sge/math/round_div_int.hpp>
 
-#include "instance.hpp"
-#include "../../xf86vmode/modes.hpp"
-#include "../../xf86vmode/resolution.hpp"
-#include <sge/renderer/adapter.hpp>
-#include <sge/x11/display_fwd.hpp>
-
-namespace sge
+unsigned sge::ogl::xf86vmode::calc_refresh_rate(
+	XF86VidModeModeInfo const &mode)
 {
-namespace renderer
-{
-struct display_mode;
+	return math::round_div_int(
+		1000 * mode.dotclock,
+		static_cast<unsigned>(mode.htotal * mode.vtotal));
 }
-
-namespace ogl
-{
-namespace x11
-{
-namespace resolution
-{
-
-class xf86_vmode : public instance {
-public:
-	xf86_vmode(
-		renderer::display_mode const &,
-		sge::x11::display_ptr,
-		int screen);
-private:
-	xf86vmode::modes          const modes;
-	xf86vmode::resolution_ptr const resolution;
-};
-
-}
-}
-}
-}
-
-#endif

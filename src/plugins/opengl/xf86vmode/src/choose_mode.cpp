@@ -18,42 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include "../choose_mode.hpp"
+#include "../modes.hpp"
+#include "../calc_refresh_rate.hpp"
 #include "../resolution.hpp"
-#include <sge/x11/display.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/renderer/display_mode.hpp>
+#include <sge/make_shared_ptr.hpp>
 
-sge::ogl::xf86::resolution::resolution(
-	x11::display_ptr const dsp,
-	int const screen,
-	XF86VidModeModeInfo const &new_mode,
-	XF86VidModeModeInfo const &old_mode)
-:
-	dsp(dsp),
-	screen(screen),
-	old_mode(old_mode)
+sge::ogl::xf86vmode::resolution_ptr const
+sge::ogl::xf86vmode::choose_mode(
+	renderer::display_mode const &pmode,
+	modes const &m)
 {
-	if(XF86VidModeSwitchToMode(
-		dsp->get(),
-		screen,
-		const_cast<XF86VidModeModeInfo*>(
-			&new_mode))
-	== False)
+	int best = -1;
+	for(modes::size_type i = 1; i < m.size(); ++i)
+	{
+		XF86VidModeModeInfo const &mode = m[i];
+		unsigned const rate = calc_refresh_rate(mode);
+
+		if(mode.hdisplay == pmode.size().w() &&
+		   mode.vdisplay == pmode.size().h() &&
+		   rate  >= pmode.refresh_rate() &&
+		   (best == -1 || rate >= calc_refresh_rate(m[best])))
+			best = static_cast<int>(i);
+	}
+	
+	if(best == -1)
 		throw exception(
-			SGE_TEXT("XF86VidModeSwitchToMode() failed!"));
-
-	XF86VidModeSetViewPort(
-		dsp->get(),
-		screen,
-		0,
-		0);
+			SGE_TEXT("No matching resolution found in xf86vmode!"));
+	return resolution_ptr(
+		make_shared_ptr<resolution>(
+			m.display(),
+			m.screen(),
+			m[best],
+			m[0]));
 }
 
-sge::ogl::xf86::resolution::~resolution()
-{
-	XF86VidModeSwitchToMode(
-		dsp->get(),
-		screen,
-		const_cast<XF86VidModeModeInfo*>(
-			&old_mode));
-}
+

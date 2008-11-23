@@ -18,41 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTON_XF86_VMODE_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTON_XF86_VMODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_XF86VMODE_MODES_HPP_INCLUDED
+#define SGE_OPENGL_XF86VMODE_MODES_HPP_INCLUDED
 
-#include "instance.hpp"
-#include "../../xf86vmode/modes.hpp"
-#include "../../xf86vmode/resolution.hpp"
-#include <sge/renderer/adapter.hpp>
+#include <X11/Xlib.h>
+#include <X11/extensions/xf86vmode.h>
+#include "resolution_fwd.hpp"
+#include <sge/x11/deleter.hpp>
 #include <sge/x11/display_fwd.hpp>
+#include <sge/shared_ptr.hpp>
+#include <boost/noncopyable.hpp>
+#include <cstddef>
 
 namespace sge
 {
-namespace renderer
-{
-struct display_mode;
-}
-
 namespace ogl
 {
-namespace x11
-{
-namespace resolution
+namespace xf86vmode
 {
 
-class xf86_vmode : public instance {
+class modes : boost::noncopyable {
 public:
-	xf86_vmode(
-		renderer::display_mode const &,
-		sge::x11::display_ptr,
+	typedef std::size_t size_type;
+
+	modes(
+		sge::x11::display_ptr dsp,
 		int screen);
+
+	XF86VidModeModeInfo const &
+	operator[](
+		size_type index) const;
+
+	size_type size() const;
+
+	sge::x11::display_ptr const display() const;
+	int screen() const;
 private:
-	xf86vmode::modes          const modes;
-	xf86vmode::resolution_ptr const resolution;
+	sge::x11::display_ptr const dsp;
+	int const screen_;
+	typedef shared_ptr<
+		XF86VidModeModeInfo *,
+		sge::x11::deleter
+	> vidmode_ptr;
+
+	vidmode_ptr modes_;
+	size_type sz;
 };
 
-}
 }
 }
 }

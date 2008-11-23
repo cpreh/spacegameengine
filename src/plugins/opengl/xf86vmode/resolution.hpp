@@ -18,41 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_X11_RESOLUTON_XF86_VMODE_HPP_INCLUDED
-#define SGE_OPENGL_X11_RESOLUTON_XF86_VMODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_XF86VMODE_RESOLUTION_HPP_INCLUDED
+#define SGE_OPENGL_XF86VMODE_RESOLUTION_HPP_INCLUDED
 
-#include "instance.hpp"
-#include "../../xf86vmode/modes.hpp"
-#include "../../xf86vmode/resolution.hpp"
-#include <sge/renderer/adapter.hpp>
+#include <X11/Xlib.h>
+#include <X11/extensions/xf86vmode.h>
 #include <sge/x11/display_fwd.hpp>
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-struct display_mode;
-}
-
 namespace ogl
 {
-namespace x11
-{
-namespace resolution
+namespace xf86vmode
 {
 
-class xf86_vmode : public instance {
+class resolution : boost::noncopyable {
 public:
-	xf86_vmode(
-		renderer::display_mode const &,
+	resolution(
 		sge::x11::display_ptr,
-		int screen);
+		int screen,
+		XF86VidModeModeInfo const &new_mode,
+		XF86VidModeModeInfo const &old_mode);
+	~resolution(); 
 private:
-	xf86vmode::modes          const modes;
-	xf86vmode::resolution_ptr const resolution;
+	sge::x11::display_ptr const dsp;
+	int const screen;
+	XF86VidModeModeInfo const old_mode;
 };
 
-}
 }
 }
 }

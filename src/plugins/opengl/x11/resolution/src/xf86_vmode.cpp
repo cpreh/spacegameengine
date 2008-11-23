@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../xf86_vmode.hpp"
+#include "../../../xf86vmode/choose_mode.hpp"
 #include <sge/x11/display.hpp>
 #include <sge/renderer/display_mode.hpp>
 
@@ -31,6 +32,7 @@ sge::ogl::x11::resolution::xf86_vmode::xf86_vmode(
 		display,
 		screen),
 	resolution(
-		modes.switch_to_mode(
-			mode))
+		xf86vmode::choose_mode(
+			mode,
+			modes))
 {}

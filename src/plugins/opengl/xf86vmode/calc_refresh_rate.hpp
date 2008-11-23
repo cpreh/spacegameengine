@@ -18,34 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XF86_RESOLUTION_HPP_INCLUDED
-#define SGE_OPENGL_XF86_RESOLUTION_HPP_INCLUDED
+#ifndef SGE_OPENGL_XF86VMODE_CALC_REFRESH_RATE_HPP_INCLUDED
+#define SGE_OPENGL_XF86VMODE_CALC_REFRESH_RATE_HPP_INCLUDED
 
 #include <X11/Xlib.h>
 #include <X11/extensions/xf86vmode.h>
-#include <sge/x11/display_fwd.hpp>
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace ogl
 {
-namespace xf86
+namespace xf86vmode
 {
 
-class resolution : boost::noncopyable {
-public:
-	resolution(
-		sge::x11::display_ptr,
-		int screen,
-		XF86VidModeModeInfo const &new_mode,
-		XF86VidModeModeInfo const &old_mode);
-	~resolution(); 
-private:
-	sge::x11::display_ptr const dsp;
-	int const screen;
-	XF86VidModeModeInfo const old_mode;
-};
+unsigned calc_refresh_rate(
+	XF86VidModeModeInfo const &);
 
 }
 }
