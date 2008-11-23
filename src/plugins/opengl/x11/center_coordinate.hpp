@@ -18,29 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_CENTER_COORDINATE_HPP_INCLUDED
+#define SGE_OPENGL_X11_CENTER_COORDINATE_HPP_INCLUDED
 
-#include "visual_fwd.hpp"
-#include <X11/Xutil.h>
-#include <sge/x11/visual.hpp>
+#include <sge/renderer/screen_types.hpp>
 
 namespace sge
 {
 namespace ogl
 {
-namespace glx
+namespace x11
 {
 
-class visual : public sge::x11::visual {
-public:
-	explicit visual(
-		XVisualInfo *);
-	~visual();
-	XVisualInfo const &info() const;
-private:
-	XVisualInfo *const info_;
-};
+renderer::pixel_unit
+center_coordinate(
+	renderer::pixel_unit window_sz,
+	renderer::screen_unit res_sz);
 
 }
 }

@@ -18,37 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/viewport.hpp>
+#include <sge/config.h>
+#include "../create.hpp"
+#if defined(SGE_HAVE_XF86_VMODE)
+#include "../xf86_vmode.hpp"
+#endif
+#include <sge/renderer/parameters.hpp>
+#include <sge/log/headers.hpp>
+#include <sge/x11/window.hpp>
 #include <sge/text.hpp>
-#include <ostream>
 
-sge::renderer::viewport::viewport(
-	pixel_pos_t const &pos_,
-	screen_size_t const &size_)
-:
-	pos_(pos_),
-	size_(size_)
-{}
-
-sge::renderer::pixel_pos_t const &
-sge::renderer::viewport::pos() const
+sge::ogl::x11::resolution::auto_ptr
+sge::ogl::x11::resolution::create(
+	sge::x11::window_ptr const wnd,
+	renderer::parameters const &param,
+	renderer::adapter_type const adapter)
 {
-	return pos_;
-}
-
-sge::renderer::screen_size_t const &
-sge::renderer::viewport::size() const
-{
-	return size_;
-}
-
-sge::ostream &
-sge::renderer::operator<<(
-	ostream &s,
-	viewport const &v)
-{
-	return s
-		<< v.pos()
-		<< SGE_TEXT(' ')
-		<< v.size();
+	if(param.wmode() == renderer::window_mode::windowed)
+		return auto_ptr();
+#if defined(SGE_HAVE_XRANDR)
+	return auto_ptr(
+		new xrandr_mode(
+			wnd));
+#elif defined(SGE_HAVE_XF86_VMODE)
+	return auto_ptr(
+		new xf86_vmode(
+			param.mode(),
+			wnd->display(),
+			wnd->screen()));
+#else
+	SGE_LOG_WARNING(
+		log::global(),
+		log::_1
+			<< SGE_TEXT("sge cannot switch resolutions because ")
+			<< SGE_TEXT("no known method is compiled in!"));
+	return auto_ptr();
+#endif
 }

@@ -18,32 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
+#include "../xf86_vmode.hpp"
+#include <sge/x11/display.hpp>
+#include <sge/log/headers.hpp>
+#include <sge/renderer/display_mode.hpp>
+#include <sge/text.hpp>
 
-#include "visual_fwd.hpp"
-#include <X11/Xutil.h>
-#include <sge/x11/visual.hpp>
-
-namespace sge
+sge::ogl::x11::resolution::xf86_vmode::xf86_vmode(
+	renderer::display_mode const &mode,
+	sge::x11::display_ptr const display,
+	int const screen)
+:
+	modes(
+		display,
+		screen),
+	resolution(
+		modes.switch_to_mode(
+			mode))
 {
-namespace ogl
-{
-namespace glx
-{
-
-class visual : public sge::x11::visual {
-public:
-	explicit visual(
-		XVisualInfo *);
-	~visual();
-	XVisualInfo const &info() const;
-private:
-	XVisualInfo *const info_;
-};
-
+	if(!resolution)
+	{
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("No resolution matches against ")
+				<< mode
+				<< SGE_TEXT("! Falling back to window mode!"));
+	}
 }
-}
-}
-
-#endif

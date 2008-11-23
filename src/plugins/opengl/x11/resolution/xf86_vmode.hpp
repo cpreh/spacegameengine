@@ -18,30 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_RESOLUTON_XF86_VMODE_HPP_INCLUDED
+#define SGE_OPENGL_X11_RESOLUTON_XF86_VMODE_HPP_INCLUDED
 
-#include "visual_fwd.hpp"
-#include <X11/Xutil.h>
-#include <sge/x11/visual.hpp>
+#include "instance.hpp"
+#include "../../xf86/vidmode_array.hpp"
+#include "../../xf86/resolution.hpp"
+#include <sge/renderer/adapter.hpp>
+#include <sge/x11/display_fwd.hpp>
 
 namespace sge
 {
+namespace renderer
+{
+struct display_mode;
+}
+
 namespace ogl
 {
-namespace glx
+namespace x11
+{
+namespace resolution
 {
 
-class visual : public sge::x11::visual {
+class xf86_vmode : public instance {
 public:
-	explicit visual(
-		XVisualInfo *);
-	~visual();
-	XVisualInfo const &info() const;
+	xf86_vmode(
+		renderer::display_mode const &,
+		sge::x11::display_ptr,
+		int screen);
 private:
-	XVisualInfo *const info_;
+	xf86::vidmode_array const  modes;
+	xf86::resolution_ptr const resolution;
 };
 
+}
 }
 }
 }

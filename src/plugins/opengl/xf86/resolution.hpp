@@ -37,13 +37,13 @@ namespace xf86
 class resolution : boost::noncopyable {
 public:
 	SGE_SYMBOL resolution(
-		x11::display_ptr,
+		sge::x11::display_ptr,
 		int screen,
 		XF86VidModeModeInfo const &new_mode,
 		XF86VidModeModeInfo const &old_mode);
 	SGE_SYMBOL ~resolution(); 
 private:
-	x11::display_ptr const dsp;
+	sge::x11::display_ptr const dsp;
 	int const screen;
 	XF86VidModeModeInfo const old_mode;
 };

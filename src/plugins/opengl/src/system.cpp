@@ -65,8 +65,8 @@ sge::ogl::system::create_window(
 	window::parameters const &param)
 {
 #if defined(SGE_HAVE_X11)
-	x11::display_ptr const dsp(
-		new x11::display());
+	sge::x11::display_ptr const dsp(
+		new sge::x11::display());
 
 	renderer::parameters const &rparam(
 		param.param());
@@ -74,13 +74,13 @@ sge::ogl::system::create_window(
 	glx::visual_ptr const visual(
 		glx::create_visual(
 			dsp,
-			x11::default_screen(dsp),
+			sge::x11::default_screen(dsp),
 			glx::choose_visual(
 				rparam.mode().bit_depth(),
 				rparam.dbuffer(),
 				rparam.sbuffer()).data()));
 	
-	return x11::create_window(
+	return sge::x11::create_window(
 		param,
 		dsp,
 		visual->info().screen,

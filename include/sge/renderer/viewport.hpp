@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "screen_types.hpp"
 #include "../export.hpp"
+#include "../ostream.hpp"
 
 namespace sge
 {
@@ -41,6 +42,11 @@ private:
 	pixel_pos_t   pos_;
 	screen_size_t size_;
 };
+
+SGE_SYMBOL ostream &
+operator<<(
+	ostream &,
+	viewport const &);
 
 }
 }

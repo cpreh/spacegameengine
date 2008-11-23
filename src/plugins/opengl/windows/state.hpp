@@ -18,30 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
+#ifndef SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
 
-#include "visual_fwd.hpp"
-#include <X11/Xutil.h>
-#include <sge/x11/visual.hpp>
+#include "../viewport_fun.hpp"
+#include "../wgl/context.gpp"
+#include "../wgl/current.hpp"
+#include <sge/windows/gdi_device.hpp>
+#include <sge/renderer/adapter.hpp>
+#include <sge/window/instance_fwd.hpp>
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
+namespace renderer
+{
+struct parameters;
+}
 namespace ogl
 {
-namespace glx
+namespace windows
 {
 
-class visual : public sge::x11::visual {
+class state : boost::noncopyable {
 public:
-	explicit visual(
-		XVisualInfo *);
-	~visual();
-	XVisualInfo const &info() const;
+	state(
+		renderer::parameters const &,
+		renderer::adapter_type,
+		window::instance_ptr,
+		view_port_fun const &);
+	
+	void swap_buffers();
 private:
-	XVisualInfo *const info_;
-};
-
+	sge::windows::window_ptr const wnd;
+	sge::windows::gdi_device const hdc;
+	wgl::context             const context;
+	wgl::current             const current;
 }
 }
 }

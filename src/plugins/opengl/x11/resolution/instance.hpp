@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_RESOLUTON_INSTANCE_HPP_INCLUDED
+#define SGE_OPENGL_X11_RESOLUTON_INSTANCE_HPP_INCLUDED
 
-#include "visual_fwd.hpp"
-#include <X11/Xutil.h>
-#include <sge/x11/visual.hpp>
+#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace ogl
 {
-namespace glx
+namespace x11
+{
+namespace resolution
 {
 
-class visual : public sge::x11::visual {
+class instance : boost::noncopyable {
 public:
-	explicit visual(
-		XVisualInfo *);
-	~visual();
-	XVisualInfo const &info() const;
-private:
-	XVisualInfo *const info_;
+	virtual ~instance();	
 };
 
+}
 }
 }
 }

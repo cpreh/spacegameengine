@@ -23,23 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config.h>
 #include "target.hpp"
-#include "fbo_target.hpp"
+#include "fbo_target_fwd.hpp"
+#include "common.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
-#include "wgl/context.hpp"
-#include "wgl/current.hpp"
-#include <sge/windows/gdi_device.hpp>
-#include <sge/windows/window.hpp>
-#include <sge/windows/windows.hpp>
+#include "windows/state.hpp"
 #elif defined(SGE_HAVE_X11)
-#include <X11/Xlib.h>
-#include <GL/glx.h>
-#include "glx/current.hpp"
-#include "glx/context.hpp"
-#if defined(SGE_HAVE_XF86_VMODE)
-#include "xf86/vidmode_array.hpp"
-#include "xf86/resolution.hpp"
-#endif
-#include <sge/x11/window_fwd.hpp>
+#include "x11/state.hpp"
 #else
 #error "Implement me!"
 #endif
@@ -50,9 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
-#include <sge/signals/connection_manager.hpp>
-#include "common.hpp"
-#include <boost/scoped_ptr.hpp>
 #include <stack>
 
 namespace sge
@@ -174,34 +160,19 @@ private:
 	fbo_target_ptr const
 	create_render_target();
 
-	renderer::parameters          param;
-	renderer::state::list         current_states;
+	renderer::parameters const param;
+	window::instance_ptr const wnd;
+	renderer::state::list      current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
-	windows::window_ptr               wnd;
-	boost::scoped_ptr<windows::gdi_device>  hdc;
-	boost::scoped_ptr<wgl::context> context;
-	boost::scoped_ptr<wgl::current> current;
+	windows::state state;
 #elif defined(SGE_HAVE_X11)
-	void reset_viewport_on_map(XEvent const &);
-	void reset_viewport_on_configure(XEvent const &);
-	void center_viewport(int w, int h);
-
-	glx::context_ptr                      context;
-	x11::window_ptr                       wnd;
-	boost::scoped_ptr<glx::current>       current;
-#if defined(SGE_HAVE_XF86_VMODE)
-	boost::scoped_ptr<
-		xf86::vidmode_array
-	>                                     modes;
-	xf86::resolution_ptr                  resolution;
+	x11::state state;
 #endif
-	signals::connection_manager           con_manager;
-#endif
-	target_ptr                            render_target_;
+	target_ptr                  render_target_;
 	typedef std::stack<
 		renderer::state::list
 	> stack_type;
-	stack_type                            state_levels;
+	stack_type                  state_levels;
 };
 
 }

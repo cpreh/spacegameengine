@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../split_states.hpp"
 #include "../material.hpp"
 #include "../glew.hpp"
+#include "../fbo_target.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
 #include <sge/windows/windows.hpp>
 #include <sge/windows/window.hpp>
@@ -66,111 +67,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <boost/variant/apply_visitor.hpp>
+#include <boost/bind.hpp>
 #include <sstream>
 
-// TODO: maybe support different adapters?
 sge::ogl::device::device(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
-	window::instance_ptr const wnd_param)
+	window::instance_ptr const wnd)
 :
 	param(param),
-	current_states(renderer::state::default_())
+	wnd(wnd),
+	current_states(renderer::state::default_()),
+	state(
+		param,
+		adapter,
+		wnd,
+		boost::bind(
+			&device::set_viewport,
+			this,
+			_1))
 {
-//	if(adapter > 0)
-//		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
-
-	bool windowed = true; // param.windowed;
-#if defined(SGE_WINDOWS_PLATFORM)
-	if(!windowed)
-	{
-		DEVMODE settings;
-		memset(&settings,0,sizeof(DEVMODE));
-		settings.dmSize = sizeof(DEVMODE);
-		settings.dmPelsWidth    = param.mode().size().w();
-		settings.dmPelsHeight   = param.mode().size().h();
-		settings.dmBitsPerPel   = static_cast<UINT>(param.mode().bit_depth());
-		settings.dmDisplayFrequency = param.mode().refresh_rate();
-		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
-		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
-		{
-			//sge::cerr << SGE_TEXT("Cannot change resolution to ") << param.mode << SGE_TEXT("! Reverting to window mode!\n");
-			windowed = false;
-		}
-	}
-
-	wnd = polymorphic_pointer_cast<windows::window>(wnd_param);
-
-	hdc.reset(
-		new windows::gdi_device(
-			wnd->hwnd(),
-			windows::gdi_device::get_tag()));
-
-	context.reset(
-		new wgl::context(
-			*hdc));
-
-	current.reset(
-		new wgl::current(
-			*hdc,
-			*context));
-
-#elif defined(SGE_HAVE_X11)
-	wnd = polymorphic_pointer_cast<x11::window>(wnd_param);
-
-	x11::display_ptr const dsp(
-		wnd->display());
-
-	if(!windowed)
-	{
-#if defined(SGE_HAVE_XF86_VMODE)
-		modes.reset(
-			new xf86::vidmode_array(
-				dsp,
-				wnd->screen()));
-		resolution = modes->switch_to_mode(param.mode());
-		if(!resolution)
-		{
-			SGE_LOG_WARNING(
-				log::global(),
-				log::_1
-					<< SGE_TEXT("No resolution matches against ")
-					<< param.mode()
-					<< SGE_TEXT("! Falling back to window mode!"));
-			windowed = true;
-		}
-#else
-		//
-#endif
-	}
-
-	x11::const_visual_ptr const visual(
-		wnd->visual());
-
-	context.reset(
-		new glx::context(
-			dsp,
-			dynamic_pointer_cast<glx::visual const>(visual)
-				->info()));
-
-	if(!windowed)
-		wnd->map();
-	else
-		wnd->map_raised();
-
-	current.reset(new glx::current(dsp, *wnd, context));
-
- 	con_manager.connect(
-		wnd->register_callback(
-			MapNotify,
-			boost::bind(&device::reset_viewport_on_map, this, _1)));
-	con_manager.connect(
-		wnd->register_callback(
-			ConfigureNotify,
-			boost::bind(&device::reset_viewport_on_configure, this, _1)));
-	
-	dsp->sync();
-#endif
 	initialize_glew();
 
 	initialize_vbo();
@@ -273,15 +189,7 @@ sge::ogl::device::create_cube_texture(
 
 void sge::ogl::device::end_rendering()
 {
-#if defined(SGE_HAVE_X11)
-	SGE_OPENGL_SENTRY
-	glXSwapBuffers(
-		wnd->display()->get(),
-		wnd->get());
-#elif defined(SGE_WINDOWS_PLATFORM)
-	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
-		throw exception(SGE_TEXT("wglSwapLayerBuffers() failed!"));
-#endif
+	state.swap_buffers();
 }
 
 sge::renderer::device::caps_t const
@@ -415,41 +323,6 @@ void sge::ogl::device::set_viewport(
 		v.size().w(),
 		v.size().h());
 }
-
-#ifdef SGE_HAVE_X11
-void sge::ogl::device::reset_viewport_on_map(const XEvent&)
-{
-	center_viewport(wnd->size().w(), wnd->size().h());
-}
-
-void sge::ogl::device::reset_viewport_on_configure(const XEvent& e)
-{
-	const XConfigureEvent& r(e.xconfigure);
-	center_viewport(r.width, r.height);
-}
-
-void sge::ogl::device::center_viewport(const int w, const int h)
-{
-	const renderer::pixel_unit screen_w =
-		static_cast<renderer::pixel_unit>(screen_size().w()),
-		         screen_h =
-		static_cast<renderer::pixel_unit>(screen_size().h()),
-	                 x =
-		w > screen_w
-		? (w - screen_w) / 2
-		: 0,
-	                 y =
-		h > screen_h
-		? (h - screen_h) / 2
-		: 0;
-
-	set_viewport(
-		renderer::viewport(
-			renderer::pixel_pos_t(
-				x, y),
-			screen_size()));
-}
-#endif
 
 void sge::ogl::device::transform(
 	renderer::any_matrix const &matrix)

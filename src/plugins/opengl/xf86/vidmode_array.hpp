@@ -48,7 +48,7 @@ public:
 	typedef std::size_t size_type;
 
 	SGE_SYMBOL vidmode_array(
-		x11::display_ptr dsp,
+		sge::x11::display_ptr dsp,
 		int screen);
 	SGE_SYMBOL XF86VidModeModeInfo const &
 	operator[](
@@ -62,11 +62,11 @@ public:
 	switch_to_mode(
 		renderer::display_mode const &) const;
 private:
-	x11::display_ptr const dsp;
+	sge::x11::display_ptr const dsp;
 	int const screen;
 	typedef shared_ptr<
 		XF86VidModeModeInfo*,
-		x11::deleter
+		sge::x11::deleter
 	> vidmode_ptr;
 
 	vidmode_ptr modes;

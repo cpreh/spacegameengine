@@ -18,32 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
+#include "../state.hpp"
+#include "../change_display_mode.hpp"
+#include <sge/renderer/parameters.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/windows/window.hpp>
+#include <sge/windows/windows.hpp>
 
-#include "visual_fwd.hpp"
-#include <X11/Xutil.h>
-#include <sge/x11/visual.hpp>
-
-namespace sge
+sge::ogl::windows::state::state(
+	renderer::parameters const &param,
+	renderer::adapter_type const adapter,
+	window::instance_ptr const wnd_,
+	view_port_fun const &)
+:
+	wnd(
+		polymorphic_pointer_cast<sge::windows::window>(
+			wnd_)),
+	hdc(
+		wnd->hwnd(),
+		windows::gdi_device::get_tag()),
+	context(
+		wgl::context(
+			*hdc)),
+	current(
+		wgl::current(
+			*hdc,
+			*context))
 {
-namespace ogl
+
+	if(!windowed)
+		change_display_settings(
+			param.mode());	
+}
+
+void sge::ogl::windows::state::swap_buffers()
 {
-namespace glx
-{
-
-class visual : public sge::x11::visual {
-public:
-	explicit visual(
-		XVisualInfo *);
-	~visual();
-	XVisualInfo const &info() const;
-private:
-	XVisualInfo *const info_;
-};
-
+	if(wglSwapLayerBuffers(hdc.hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
+		throw exception(
+			SGE_TEXT("wglSwapLayerBuffers() failed!"));
 }
-}
-}
-
-#endif

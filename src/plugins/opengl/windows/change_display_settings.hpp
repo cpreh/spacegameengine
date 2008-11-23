@@ -18,29 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_HPP_INCLUDED
-
-#include "visual_fwd.hpp"
-#include <X11/Xutil.h>
-#include <sge/x11/visual.hpp>
+#ifndef SGE_OPENGL_WINDOWS_CHANGE_DISPLAY_SETTINGS_HPP_INCLUDED
+#define SGE_OPENGL_WINDOWS_CHANGE_DISPLAY_SETTINGS_HPP_INCLUDED
 
 namespace sge
 {
+namespace renderer
+{
+struct display_mode;
+}
 namespace ogl
 {
-namespace glx
+namespace windows
 {
 
-class visual : public sge::x11::visual {
-public:
-	explicit visual(
-		XVisualInfo *);
-	~visual();
-	XVisualInfo const &info() const;
-private:
-	XVisualInfo *const info_;
-};
+void change_display_settings(
+	renderer::display_mode const &);
 
 }
 }

@@ -13,7 +13,10 @@ FILE (GLOB sgeopenglfiles
 	
 IF (X11_FOUND)
 	FILE (GLOB sgeopenglx11files
-		glx/src/*.cpp)
+		glx/src/*.cpp
+		x11/src/*.cpp
+		x11/resolution/src/create.cpp
+		x11/resolution/src/instance.cpp)
 	SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglx11files})
 
 	IF(X11_xf86vmode_FOUND)
@@ -24,7 +27,8 @@ IF (X11_FOUND)
 		INCLUDE_DIRECTORIES(${X11_xf86vmode_INCLUDE_PATH})
 
 		FILE (GLOB sgeopenglxf86files
-			xf86/src/*.cpp)
+			xf86/src/*.cpp
+			x11/resolution/src/xf86_vmode.cpp)
 		SET (sgeopenglfiles ${sgeopenglfiles} ${sgeopenglxf86files})
 	ENDIF()
 ELSEIF (WIN32)
