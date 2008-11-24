@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_STRING_HPP_INCLUDED
 
 #include "char.hpp"
-#include <memory>
 #include <string>
 
 namespace sge

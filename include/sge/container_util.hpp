@@ -18,44 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VECTOR_HPP_INCLUDED
-#define SGE_VECTOR_HPP_INCLUDED
-
-#include <vector>
+#ifndef SGE_CONTAINER_UTIL_HPP_INCLUDED
+#define SGE_CONTAINER_UTIL_HPP_INCLUDED
 
 namespace sge
 {
 
-template<typename T, typename A>
-inline typename std::vector<T,A>::pointer
+// these functions may be used on vector
+// (C++2003)
+// and on basic_string
+// (DR of 2005)
+
+template<
+	typename Container 
+>
+typename Container::pointer
 data(
-	std::vector<T,A> &v)
+	Container &c)
 {
-	return v.empty() ? 0 : &v[0];
+	return c.empty() ? 0 : &c[0];
 }
 
-template<typename T, typename A>
-inline typename std::vector<T,A>::const_pointer
+template<
+	typename Container
+>
+typename Container::const_pointer
 data(
-	std::vector<T,A> const &v)
+	Container const &c)
 {
-	return v.empty() ? 0 : &v[0];
+	return c.empty() ? 0 : &c[0];
 }
 
-template<typename T, typename A>
-inline typename std::vector<T,A>::pointer
+template<
+	typename Container 
+>
+typename Container::pointer
 data_end(
-	std::vector<T,A> &v)
+	Container &c)
 {
-	return data(v) ? data(v) : data(v) + v.size();
+	return c.empty() ? 0 : &c[0] + c.size();
 }
 
-template<typename T, typename A>
-inline typename std::vector<T,A>::const_pointer
+template<
+	typename Container
+>
+typename Container::const_pointer
 data_end(
-	std::vector<T,A> const &v)
+	Container const &c)
 {
-	return data(v) ? data(v) : data(v) + v.size();
+	return c.empty() ? 0 : &c[0] + c.size();
 }
 
 }

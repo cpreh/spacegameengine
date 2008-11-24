@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/image.hpp>
-#include <sge/vector.hpp>
 #include <boost/gil/algorithm.hpp>
 
 namespace
