@@ -21,14 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CODECVT_HPP_INCLUDED
 #define SGE_CODECVT_HPP_INCLUDED
 
-#include <string>
 #include "export.hpp"
+#include <string>
 
 namespace sge
 {
 
-SGE_SYMBOL std::string narrow(const std::wstring&);
-SGE_SYMBOL std::wstring widen(const std::string&);
+SGE_SYMBOL std::string const
+narrow(
+	std::wstring const &);
+
+SGE_SYMBOL std::wstring const
+widen(
+	std::string const &);
 
 }
 

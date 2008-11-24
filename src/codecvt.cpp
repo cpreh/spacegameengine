@@ -34,46 +34,71 @@ typedef std::codecvt<wchar_t, char, state_type> codecvt_t;
 
 template<typename OutCh> struct call_traits;
 
-template<> struct call_traits<char> {
-	static std::codecvt_base::result conv(const codecvt_t& cvt,
-	                                      state_type& state,
-	                                      wchar_t const *const from,
-	                                      wchar_t const *const from_end,
-	                                      wchar_t const*& from_next,
-	                                      char *const to,
-	                                      char *const to_limit,
-	                                      char*& to_next)
+template<>
+struct call_traits<char> {
+	static std::codecvt_base::result
+	conv(
+		codecvt_t const &cvt,
+		state_type &state,
+		wchar_t const *const from,
+		wchar_t const *const from_end,
+		wchar_t const *&from_next,
+		char *const to,
+		char *const to_limit,
+		char *&to_next)
 	{
-		return cvt.out(state, from, from_end, from_next, to, to_limit, to_next);
+		return cvt.out(
+			state,
+			from,
+			from_end,
+			from_next,
+			to,
+			to_limit,
+			to_next);
 	}
 };
 
-template<> struct call_traits<wchar_t> {
-	static std::codecvt_base::result conv(const codecvt_t& cvt,
-	                                      state_type& state,
-	                                      char const *const from,
-	                                      char const *const from_end,
-	                                      char const*& from_next,
-	                                      wchar_t *const to,
-	                                      wchar_t *const to_limit,
-	                                      wchar_t*& to_next)
+template<>
+struct call_traits<wchar_t> {
+	static std::codecvt_base::result
+	conv(
+		codecvt_t const &cvt,
+		state_type &state,
+		char const *const from,
+	        char const *const from_end,
+	        char const *&from_next,
+	        wchar_t *const to,
+	        wchar_t *const to_limit,
+	        wchar_t *&to_next)
 	{
-		return cvt.in(state, from, from_end, from_next, to, to_limit, to_next);
+		return cvt.in(
+			state,
+			from,
+			from_end,
+			from_next,
+			to,
+			to_limit,
+			to_next);
 	}
 };
 
-std::locale get_locale()
+std::locale const get_locale()
 {
 	static std::locale loc;
 	return loc;
 }
 
-template<typename Out, typename In>
-std::basic_string<Out> convert(const std::basic_string<In>& s)
+template<
+	typename Out,
+	typename In
+>
+std::basic_string<Out> const
+convert(
+	std::basic_string<In> const &s)
 {
 	std::locale loc(get_locale());
 
-	const codecvt_t& conv(std::use_facet<codecvt_t>(loc));
+	codecvt_t const &conv(std::use_facet<codecvt_t>(loc));
 	typedef sge::raw_vector<Out> buffer_type;
 	buffer_type buffer(s.size());
 
@@ -114,12 +139,16 @@ std::basic_string<Out> convert(const std::basic_string<In>& s)
 
 }
 
-std::string sge::narrow(const std::wstring& s)
+std::string const
+sge::narrow(
+	std::wstring const &s)
 {
 	return convert<char>(s);
 }
 
-std::wstring sge::widen(const std::string& s)
+std::wstring const
+sge::widen(
+	std::string const &s)
 {
 	return convert<wchar_t>(s);
 }

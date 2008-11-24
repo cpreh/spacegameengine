@@ -19,23 +19,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/iconv.hpp>
+#ifndef SGE_NARROW_STRING
 #include <sge/codecvt.hpp>
 
-#ifndef SGE_NARROW_STRING
-
-SGE_SYMBOL sge::string sge::iconv(const std::string& input)
+sge::string const
+sge::iconv(
+	std::string const &input)
 {
 	return widen(input);
 }
 
-SGE_SYMBOL std::string sge::iconv(const string& input)
+std::string const
+sge::iconv(
+	string const &input)
 {
 	return narrow(input);
 }
 
 #else
 
-SGE_SYMBOL sge::string sge::iconv(const string& s)
+sge::string const
+sge::iconv(
+	string const &s)
 {
 	return s;
 }

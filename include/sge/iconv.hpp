@@ -30,13 +30,17 @@ namespace sge
 {
 
 #ifndef SGE_NARROW_STRING
-SGE_SYMBOL string  iconv(
-	const std::string& input);
+SGE_SYMBOL string const
+iconv(
+	std::string const &input);
 
-SGE_SYMBOL std::string iconv(
-	const string& input);
+SGE_SYMBOL std::string const
+iconv(
+	string const &input);
 #else
-SGE_SYMBOL string iconv(const string&);
+SGE_SYMBOL string const
+iconv(
+	string const &);
 #endif
 
 }
