@@ -5,12 +5,14 @@
 #include <sge/font/drawer_3d.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iostream.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -41,8 +43,9 @@ try
 			static_cast<sge::font::size_type>(15));
 	
 	sge::font::drawer_ptr const drawer(
-		new sge::font::drawer_3d(
-			sys.renderer()));
+		sge::make_shared_ptr<sge::font::drawer_3d>(
+			sys.renderer(),
+			sge::renderer::colors::white()));
 	
 	sge::font::font font(
 		metrics,

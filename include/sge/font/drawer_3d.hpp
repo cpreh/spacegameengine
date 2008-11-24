@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../export.hpp"
 #include "../renderer/any_color.hpp"
-#include "../renderer/colors.hpp"
 #include "../renderer/device.hpp"
 #include "../texture/manager.hpp"
 #include "../texture/part.hpp"
@@ -43,7 +42,7 @@ class SGE_CLASS_SYMBOL drawer_3d : public drawer {
 public:
 	SGE_SYMBOL drawer_3d(
 		renderer::device_ptr rend,
-		renderer::any_color const &col = renderer::colors::white());
+		renderer::any_color const &col);
 	SGE_SYMBOL void begin_rendering(
 		size_type buffer_chars,
 		pos const &start,

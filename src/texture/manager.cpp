@@ -32,6 +32,9 @@ sge::texture::manager::manager(
 	onalloc_(onalloc_)
 {}
 
+sge::texture::manager::~manager()
+{}
+
 sge::texture::part_ptr const
 sge::texture::manager::add(
 	renderer::const_image_view const &src)

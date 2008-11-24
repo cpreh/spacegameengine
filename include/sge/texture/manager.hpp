@@ -46,6 +46,7 @@ public:
 	SGE_SYMBOL manager(
 		renderer::device_ptr rend,
 		onalloc_function const &);
+	SGE_SYMBOL ~manager();
 	SGE_SYMBOL part_ptr const add(
 		renderer::const_image_view const &src);
 	SGE_SYMBOL renderer::device_ptr const get_renderer() const;
