@@ -57,7 +57,9 @@ format_fun::result_type
 format_fun::operator()(
 	T const &) const
 {
-	return sge::renderer::color_format_static<T>::value;
+	return sge::renderer::color_format_static<
+		typename T::locator::value_type
+	>::value;
 }
 
 }
