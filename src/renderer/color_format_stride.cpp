@@ -23,10 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <boost/cstdint.hpp>
 
+#include <sge/iostream.hpp>
+#include <ostream>
+
 sge::renderer::size_type
 sge::renderer::color_format_stride(
 	color_format::type const fmt)
 {
+	sge::cerr << fmt << '\n';
 	switch(fmt) {
 	case color_format::rgba8:
 	case color_format::argb8:
