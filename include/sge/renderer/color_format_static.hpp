@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "color_types.hpp"
 #include "color_format.hpp"
 #include "../mpl/index_of.hpp"
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -40,6 +41,8 @@ struct color_format_static {
 				color_types,
 				Color
 			>::value);
+	BOOST_STATIC_ASSERT(
+		value < color_format::size);
 };
 
 }
