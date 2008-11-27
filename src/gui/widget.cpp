@@ -19,6 +19,8 @@ sge::gui::widget::widget(
 	size_policy_t const &size_policy_)
 	:	parent_(parent_data_.parent_widget()),
 	  manager_(parent_data_.parent_manager()),
+		pos_(point::null()),
+		size_(dim::null()),
 		size_policy_(size_policy_)
 {
 	if (parent_widget())

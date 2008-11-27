@@ -111,6 +111,16 @@ public:
 BOOST_PP_REPEAT(SGE_MATH_DIM_MAX_SIZE, SGE_MATH_DIM_SET, void)
 #endif
 
+	static dim const null()
+	{
+		dim ret;
+		
+		for(size_type i = 0; i < Dim; ++i)
+			ret[i] = static_cast<value_type>(0);
+
+		return ret;
+	}
+
 	/**
 	 * Does range checking with an assertion
 	 */

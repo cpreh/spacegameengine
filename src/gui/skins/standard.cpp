@@ -31,7 +31,7 @@ void sge::gui::skins::standard::operator()(
 	// draw text centered
 	c.draw_text(
 		b.text(),
-		b.pos(),
+		point::null(),
 		b.size(),
 		font::align_h::center,
 		font::align_v::center);

@@ -1,8 +1,13 @@
 #include <sge/renderer/texture_rw.hpp>
+#include <sge/renderer/device.hpp>
 #include <sge/renderer/texture_software.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/states.hpp>
+#include <sge/renderer/state/scoped.hpp>
 
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/button.hpp>
@@ -62,7 +67,11 @@ try
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
 	
-	sge::gui::manager m(sys.renderer(),sys.image_loader(),sys.input_system(),sys.font_system());
+	sge::gui::manager m(
+		sys.renderer(),
+		sys.image_loader(),
+		sys.input_system(),
+		sys.font_system());
 
 	sge::gui::widgets::container top((sge::gui::widget::parent_data(m)));
 	top.layout<sge::gui::layouts::horizontal>();
@@ -93,6 +102,16 @@ try
 	
 	// compile the stuff!
 	top.compile();
+
+	// set sensible render states
+	sys.renderer()->set_state(
+		sge::renderer::state::list
+			(sge::renderer::state::depth_func::off)
+			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::color_::clear_color = 
+				sge::renderer::rgba8_color(0, 0, 0, 255))
+			(sge::renderer::state::cull_mode::off)
+		);
 	
 	bool running = true;
 	end_program p(running);

@@ -71,7 +71,7 @@ sge::gui::manager::manager(
 			sprite::defaults::color_,
 			static_cast<sge::sprite::depth_type>(0)),
 		// top left
-		cursor_click(),
+		cursor_click(point::null()),
 		keyboard_focus(0),
 		mouse_focus(0),
 		skin_(new skins::standard())
@@ -157,21 +157,32 @@ void sge::gui::manager::add(widget &w)
 
 void sge::gui::manager::recalculate_mouse_focus()
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << "in top level recalculate_mouse_focus");
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("in top level recalculate_mouse_focus"));
 
 	point const click_point = math::structure_cast<unit>(cursor.pos()+cursor_click);
 
 	if (mouse_focus)
 	{
-		SGE_LOG_DEBUG(mylogger,log::_1 << "a widget currently has the focus, so letting it recalculate");
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("a widget currently has the focus, recalculating"));
 		mouse_focus = mouse_focus->recalculate_focus(click_point);
 	}
 	
 	if (!mouse_focus)
 	{
-		SGE_LOG_DEBUG(mylogger,log::_1 << "no widget currently has the focus, so letting it recalculate");
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << 
+				SGE_TEXT("no widget currently has the focus, so letting it recalculate"));
 		BOOST_FOREACH(widget_data &wd,widgets_)
 		{
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("checking if ") << wd.spr.rect() << SGE_TEXT(" contains ")
+				        << click_point);
 			if (math::contains(wd.spr.rect(),click_point))
 			{
 				wd.ptr->process(events::mouse_enter(click_point));
@@ -293,7 +304,7 @@ void sge::gui::manager::input_callback(input::key_pair const &k)
 {
 	if (input::is_mouse_axis(k.key().code()))
 	{
-		SGE_LOG_DEBUG(mylogger,log::_1 << "mouse move " << key_to_mouse_coords(k));
+	//	SGE_LOG_DEBUG(mylogger,log::_1 << "mouse move " << key_to_mouse_coords(k));
 		cursor.pos() += key_to_mouse_coords(k);
 		recalculate_mouse_focus();
 		return;

@@ -21,7 +21,8 @@ sge::gui::widgets::container::container(
 			parent,
 			size_policy_t(
 				axis_policy::type(axis_policy::can_grow) | axis_policy::can_shrink,
-				axis_policy::type(axis_policy::can_grow) | axis_policy::can_shrink))
+				axis_policy::type(axis_policy::can_grow) | axis_policy::can_shrink)),
+		size_hint_(dim::null())
 {
 }
 
@@ -67,7 +68,7 @@ sge::gui::dim const sge::gui::widgets::container::size_hint() const
 		SGE_TEXT("container doesn't have a layout, yet tried to call size_hint"));
 	
 	// FIXME: make size_hint axis based (independent axes)
-	if (size_hint_ != dim())
+	if (size_hint_ != dim::null())
 	{
 		SGE_LOG_DEBUG(mylogger,
 			log::_1 << SGE_TEXT("size hint manually set to ") << size_hint_);
