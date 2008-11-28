@@ -121,27 +121,3 @@ bool sge::gui::widgets::container::has_child(widget const &w) const
 
 	return false;
 }
-
-sge::gui::widget *sge::gui::widgets::container::do_recalculate_focus(point const &p)
-{
-	BOOST_FOREACH(widget &child,children())
-	{
-		if (math::contains(child.absolute_area(),p))
-		{
-			/*
-			SGE_LOG_DEBUG(
-				mylogger,
-				log::_1 << SGE_TEXT("a child has the focus, sending enter"));
-				*/
-			child.process(events::mouse_enter(p));
-			return child.do_recalculate_focus(p);
-		}
-	}
-	
-	/*
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("no child has the focus, doing nothing"));
-		*/
-	return this;
-}

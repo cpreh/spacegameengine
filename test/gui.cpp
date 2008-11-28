@@ -14,6 +14,7 @@
 #include <sge/gui/widgets/container.hpp>
 #include <sge/gui/layouts/vertical.hpp>
 #include <sge/gui/layouts/horizontal.hpp>
+#include <sge/gui/skins/standard.hpp>
 #include <sge/gui/font_drawer_canvas.hpp>
 
 #include <sge/log/headers.hpp>
@@ -93,7 +94,8 @@ try
 		sys.renderer(),
 		sys.image_loader(),
 		sys.input_system(),
-		sys.font_system());
+		sys.font_system(),
+		sge::gui::skin_ptr(new sge::gui::skins::standard()));
 
 	sge::gui::widgets::container top((sge::gui::widget::parent_data(m)));
 	top.layout<sge::gui::layouts::horizontal>();

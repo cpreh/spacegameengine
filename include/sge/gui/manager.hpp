@@ -2,6 +2,7 @@
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
 #include "detail/keyboard_manager.hpp"
+#include "detail/mouse_manager.hpp"
 #include "types.hpp"
 #include "skin.hpp"
 #include "widget_fwd.hpp"
@@ -29,7 +30,8 @@ class manager
 		renderer::device_ptr,
 		image::loader_ptr,
 		input::system_ptr,
-		font::system_ptr);
+		font::system_ptr,
+		skin_ptr);
 	SGE_SYMBOL void invalidate(rect const &);
 	SGE_SYMBOL void draw();
 	font::metrics_ptr const standard_font() { return standard_font_; }
@@ -59,20 +61,17 @@ class manager
 	input::system_ptr const is;
 	font::system_ptr const fs;
 	font::metrics_ptr const standard_font_;
-	signals::scoped_connection ic;
 	sprite::system ss;
-	sprite::object cursor;
-	sprite::point cursor_click;
 
 	// other internal stuff
 	widget_container widgets_;
 	dirt_container dirt_;
 
-	// focus
-	widget *mouse_focus;
-	detail::keyboard_manager keyboard_;
-
 	skin_ptr skin_;
+
+	// focus
+	detail::mouse_manager mouse_;
+	detail::keyboard_manager keyboard_;
 
 	// this is called by widget's constructor and destructor
 	void add(widget &);
@@ -87,11 +86,7 @@ class manager
 	widget_data &get_data(widget &);
 	widget_container::iterator get_data_iterator(widget &);
 	widget_data &parent_widget_data(widget &);
-	void recalculate_mouse_focus();
 	detail::keyboard_manager &keyboard();
-
-	// registered input callback
-	void input_callback(input::key_pair const &);
 
 	void redraw_dirt();
 };

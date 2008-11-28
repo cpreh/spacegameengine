@@ -88,7 +88,6 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	void set_pos_raw(point const &p);
 
 	protected:
-	virtual widget *do_recalculate_focus(point const &);
 	virtual void do_compile();
 
 	private:
@@ -99,8 +98,6 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	dim size_,size_hint_;
 	size_policy_t size_policy_;
 	keyboard_focus::type keyboard_focus_;
-
-	widget *recalculate_focus(point const &mouse_click);
 
 	// friend functions
 	friend class layout;

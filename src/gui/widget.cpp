@@ -176,36 +176,3 @@ void sge::gui::widget::set_pos_raw(point const &p)
 void sge::gui::widget::do_compile() 
 {
 }
-
-sge::gui::widget *sge::gui::widget::do_recalculate_focus(point const &) 
-{ 
-	return this; 
-}
-
-sge::gui::widget *sge::gui::widget::recalculate_focus(point const &mouse_click)
-{
-	// pointer is no longer inside widget area
-	if (!math::contains(absolute_area(),mouse_click))
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("mouse no longer inside widget, sending leave"));
-
-		process(events::mouse_leave());
-		
-		if (!parent_widget())
-			return 0;
-
-		return parent_widget()->recalculate_focus(mouse_click);
-	}
-
-	widget *const new_focus = do_recalculate_focus(mouse_click);
-	if (new_focus == this)
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("focus hasn't changed, sending mouse_move"));
-		process(events::mouse_move(mouse_click));
-	}
-	return new_focus;
-}

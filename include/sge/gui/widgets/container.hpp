@@ -31,7 +31,6 @@ class SGE_CLASS_SYMBOL container : public widget
 	SGE_SYMBOL bool has_child(widget const &) const;
 	private:
 	void do_compile();
-	widget *do_recalculate_focus(point const &);
 
 	child_container children_;
 	layout_auto_ptr layout_;
