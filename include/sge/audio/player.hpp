@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "types.hpp"
 #include "sound_fwd.hpp"
 #include "pool_fwd.hpp"
-#include "../plugin/traits.hpp"
-#include "../plugin/capabilities.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -46,21 +44,6 @@ struct SGE_CLASS_SYMBOL player : boost::noncopyable {
 };
 
 }
-
-namespace plugin
-{
-namespace detail
-{
-
-template<> struct traits<audio::player> {
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type get_plugin_type();
-	typedef audio::player* (*loader_fun)();
-};
-
-}
-}
-
 }
 
 #endif // PLAYER_HPP

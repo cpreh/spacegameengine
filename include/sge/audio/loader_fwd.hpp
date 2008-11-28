@@ -18,7 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/player.hpp>
+#ifndef SGE_AUDIO_LOADER_FWD_HPP_INCLUDED
+#define SGE_AUDIO_LOADER_FWD_HPP_INCLUDED
 
-sge::audio::player::~player()
-{}
+#include "../shared_ptr.hpp"
+
+namespace sge
+{
+namespace audio
+{
+
+class loader;
+
+typedef shared_ptr<loader> loader_ptr;
+
+}
+}
+
+#endif

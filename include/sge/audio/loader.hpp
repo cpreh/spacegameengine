@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "file.hpp"
 #include "../string.hpp"
 #include "../path.hpp"
-#include "../shared_ptr.hpp"
-#include "../plugin/traits.hpp"
-#include "../plugin/capabilities.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -37,29 +34,15 @@ namespace audio
 
 class SGE_CLASS_SYMBOL loader : boost::noncopyable {
 public:
-	virtual const file_ptr load(const path& file) = 0;
-	virtual bool is_valid_file(const path& file) const = 0;
+	virtual file_ptr const
+	load(
+		path const &file) = 0;
+	virtual bool is_valid_file(
+		path const &file) const = 0;
 	SGE_SYMBOL virtual ~loader();
 };
 
-typedef shared_ptr<loader> loader_ptr;
-
-}
-
-namespace plugin
-{
-namespace detail
-{
-
-template<> struct traits<audio::loader> {
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type get_plugin_type();
-	typedef audio::loader* (*loader_fun)();
-};
-
 }
 }
 
-}
-
-#endif // AUDIO_HPP
+#endif
