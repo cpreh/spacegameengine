@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/subimage_view.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/plugin.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/image/loader.hpp>

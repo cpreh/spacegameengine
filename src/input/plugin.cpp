@@ -18,38 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
-#define SGE_INPUT_SYSTEM_HPP_INCLUDED
+#include <sge/input/plugin.hpp>
+#include <sge/plugin/detail/instantiate_types.hpp>
 
-#include "system_fwd.hpp"
-#include "callback.hpp"
-#include "../window/instance_fwd.hpp"
-#include "../signals/connection.hpp"
-#include "../mainloop/dispatchable.hpp"
-#include "../export.hpp"
-
-namespace sge
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<sge::input::system>::plugin_loader_name()
 {
-namespace input
-{
-
-class SGE_CLASS_SYMBOL system : public mainloop::dispatchable {
-public:
-	virtual signals::connection const
-	register_callback(
-		callback const &c) = 0;
-
-	virtual signals::connection const
-	register_repeat_callback(
-		repeat_callback const &c) = 0;
-	
-	virtual sge::window::instance_ptr const
-	window() const = 0;
-
-	SGE_SYMBOL virtual ~system();
-};
-
-}
+	return SGE_ADDRESS_NAME("create_input_system");
 }
 
-#endif
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<sge::input::system>::get_plugin_type()
+{
+	return capabilities::input;
+}
+
+SGE_PLUGIN_INSTANTIATE_TYPES(sge::input::system)
