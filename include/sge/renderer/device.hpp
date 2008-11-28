@@ -129,7 +129,8 @@ public:
 	SGE_SYMBOL static texture_ptr const default_target;
 	virtual void target(texture_ptr) = 0;
 
-	virtual void viewport(viewport const &) = 0;
+	virtual void viewport(
+		renderer::viewport const &) = 0;
 
 	virtual glsl::program_ptr const
 	create_glsl_program(
