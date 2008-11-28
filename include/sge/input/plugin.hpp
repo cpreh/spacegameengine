@@ -36,7 +36,7 @@ namespace detail
 
 template<> struct traits<input::system> {
 	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type get_plugin_type();
+	SGE_SYMBOL static capabilities::type plugin_type();
 	typedef input::system* (*loader_fun)(window::instance_ptr);
 };
 

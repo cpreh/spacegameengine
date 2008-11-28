@@ -28,7 +28,7 @@ sge::plugin::detail::traits<sge::image::loader>::plugin_loader_name()
 }
 
 sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::image::loader>::get_plugin_type()
+sge::plugin::detail::traits<sge::image::loader>::plugin_type()
 {
 	return capabilities::image_loader;
 }

@@ -28,7 +28,7 @@ sge::plugin::iterator<T>
 sge::plugin::manager::begin()
 {
 	return iterator<T>(
-		categories[detail::traits<T>::get_plugin_type()].begin());
+		categories[detail::traits<T>::plugin_type()].begin());
 }
 
 template<typename T>
@@ -36,7 +36,7 @@ sge::plugin::iterator<T>
 sge::plugin::manager::end()
 {
 	return iterator<T>(
-		categories[detail::traits<T>::get_plugin_type()].end());
+		categories[detail::traits<T>::plugin_type()].end());
 }
 
 template<typename T>
@@ -56,8 +56,8 @@ template<typename T>
 sge::plugin::manager::size_type
 sge::plugin::manager::size() const
 {
-	const plugin_map::const_iterator it = categories.find(
-		detail::traits<T>::get_plugin_type());
+	plugin_map::const_iterator const it = categories.find(
+		detail::traits<T>::plugin_type());
 	return it == categories.end()
 		? 0
 		: it->second.size();

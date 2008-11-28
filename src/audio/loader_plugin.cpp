@@ -28,7 +28,7 @@ sge::plugin::detail::traits<sge::audio::loader>::plugin_loader_name()
 }
 
 sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::audio::loader>::get_plugin_type()
+sge::plugin::detail::traits<sge::audio::loader>::plugin_type()
 {
 	return capabilities::audio_loader;
 }
