@@ -37,5 +37,4 @@ sge::audio::file_ptr const sge::audio::multi_loader::load(path const &file)
 		SGE_TEXT("couldn't find any audio loaders for file \"")
 		+ file.string()
 		+ SGE_TEXT('"'));
-	return file_ptr();
 }
