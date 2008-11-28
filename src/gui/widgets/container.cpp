@@ -12,7 +12,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("container"));
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("container"),false);
 }
 
 sge::gui::widgets::container::container(
@@ -26,12 +26,14 @@ sge::gui::widgets::container::container(
 {
 }
 
-sge::gui::widgets::container::child_container &sge::gui::widgets::container::children() 
+sge::gui::widgets::container::child_container &
+	sge::gui::widgets::container::children() 
 { 
 	return children_; 
 }
 
-sge::gui::widgets::container::child_container const &sge::gui::widgets::container::children() const 
+sge::gui::widgets::container::child_container const &
+	sge::gui::widgets::container::children() const 
 { 
 	return children_; 
 }
@@ -54,10 +56,12 @@ void sge::gui::widgets::container::size_hint(dim const &s)
 void sge::gui::widgets::container::add_child(widget &w)
 {
 	children_.push_back(&w);
+	parent_manager().add(w);
 }
 
 void sge::gui::widgets::container::remove_child(widget &w)
 {
+	parent_manager().remove(w);
 	children_.erase_if(&boost::lambda::_1 == boost::lambda::constant(&w));
 }
 
@@ -124,16 +128,20 @@ sge::gui::widget *sge::gui::widgets::container::do_recalculate_focus(point const
 	{
 		if (math::contains(child.absolute_area(),p))
 		{
+			/*
 			SGE_LOG_DEBUG(
 				mylogger,
 				log::_1 << SGE_TEXT("a child has the focus, sending enter"));
+				*/
 			child.process(events::mouse_enter(p));
 			return child.do_recalculate_focus(p);
 		}
 	}
 	
+	/*
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("no child has the focus, doing nothing"));
+		*/
 	return this;
 }

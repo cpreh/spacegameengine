@@ -1,18 +1,19 @@
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widget.hpp>
-#include <sge/image/object.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/widgets/container.hpp>
 #include <sge/gui/events/invalid_area.hpp>
-#include <sge/image/loader.hpp>
 #include <sge/gui/events/mouse_enter.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
+#include <sge/gui/events/mouse_click.hpp>
+
+#include <sge/image/object.hpp>
+#include <sge/image/loader.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/input/classification.hpp>
-#include <sge/gui/events/mouse_click.hpp>
 #include <sge/media.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/rect_util.hpp>
@@ -33,7 +34,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"));
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"),false);
 }
 
 sge::gui::manager::widget_data::widget_data(
@@ -72,7 +73,7 @@ sge::gui::manager::manager(
 			static_cast<sge::sprite::depth_type>(0)),
 		// top left
 		cursor_click(point::null()),
-		keyboard_focus(0),
+		keyboard(is),
 		mouse_focus(0),
 		skin_(new skins::standard())
 {
@@ -80,14 +81,19 @@ sge::gui::manager::manager(
 
 void sge::gui::manager::reposition(widget &w,point const &d)
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << "repositioning sprite to " << d);
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("repositioning sprite to ") << d);
 	// just reset sprite position
 	get_data(w).spr.pos() = math::structure_cast<sprite::unit>(d);
 }
 
 void sge::gui::manager::resize(widget &w,dim const &d)
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << "resizing widget from " << w.size() << " to " << d);
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("resizing widget from ") << w.size() 
+		        << SGE_TEXT(" to ") << d);
 
 	// TODO: if the widget is shrunk, you could fill the extra space with
 	// transparent pixels so you don't have to create a whole new texture. if it
@@ -152,37 +158,47 @@ sge::gui::manager::widget_data &sge::gui::manager::parent_widget_data(widget &w)
 
 void sge::gui::manager::add(widget &w)
 {
-	widgets_.push_back(widget_data(w,renderer::texture_ptr(),sprite::object()));
+	keyboard.widget_add(w);
+	if (!w.parent_widget())
+		widgets_.push_back(widget_data(w,renderer::texture_ptr(),sprite::object()));
 }
 
 void sge::gui::manager::recalculate_mouse_focus()
 {
+	/*
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("in top level recalculate_mouse_focus"));
+		*/
 
 	point const click_point = math::structure_cast<unit>(cursor.pos()+cursor_click);
 
 	if (mouse_focus)
 	{
+		/*
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("a widget currently has the focus, recalculating"));
+			*/
 		mouse_focus = mouse_focus->recalculate_focus(click_point);
 	}
 	
 	if (!mouse_focus)
 	{
+		/*
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << 
 				SGE_TEXT("no widget currently has the focus, so letting it recalculate"));
+				*/
 		BOOST_FOREACH(widget_data &wd,widgets_)
 		{
+			/*
 			SGE_LOG_DEBUG(
 				mylogger,
 				log::_1 << SGE_TEXT("checking if ") << wd.spr.rect() << SGE_TEXT(" contains ")
 				        << click_point);
+								*/
 			if (math::contains(wd.spr.rect(),click_point))
 			{
 				wd.ptr->process(events::mouse_enter(click_point));
@@ -192,7 +208,17 @@ void sge::gui::manager::recalculate_mouse_focus()
 		}
 	}
 
-	SGE_LOG_DEBUG(mylogger,log::_1 << "finished recalculating focus");
+	//SGE_LOG_DEBUG(mylogger,log::_1 << "finished recalculating focus");
+}
+
+void sge::gui::manager::request_keyboard_focus(widget &w)
+{
+	keyboard.request_focus(w);
+}
+
+void sge::gui::manager::keyboard_focus(widget &w,keyboard_focus::type const n)
+{
+	keyboard.keyboard_focus(w,n);
 }
 
 void sge::gui::manager::compile(widget &w)
@@ -203,7 +229,6 @@ void sge::gui::manager::compile(widget &w)
 
 	resize(w,w.size());
 	reposition(w,w.pos());
-
 	recalculate_mouse_focus();
 }
 
@@ -274,6 +299,11 @@ void sge::gui::manager::draw()
 
 void sge::gui::manager::remove(widget &w)
 {
+	keyboard.widget_remove(w);
+
+	if (w.parent_widget())
+		return;
+	
 	// FIXME: is_container = ugly
 	bool recalculate = 
 		mouse_focus == &w || 
@@ -304,7 +334,6 @@ void sge::gui::manager::input_callback(input::key_pair const &k)
 {
 	if (input::is_mouse_axis(k.key().code()))
 	{
-	//	SGE_LOG_DEBUG(mylogger,log::_1 << "mouse move " << key_to_mouse_coords(k));
 		cursor.pos() += key_to_mouse_coords(k);
 		recalculate_mouse_focus();
 		return;

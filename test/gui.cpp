@@ -26,7 +26,11 @@
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/input/key_state_tracker.hpp>
+#include <sge/input/key_type.hpp>
+#include <sge/input/system.hpp>
+#include <sge/input/key_pair.hpp>
 #include <sge/iostream.hpp>
 #include <sge/string.hpp>
 #include <sge/exception.hpp>
@@ -39,6 +43,23 @@ struct end_program
 {
 	end_program(bool &running) : running(running) {}
 	void operator()() const { running = false; }
+	bool &running;
+};
+
+class input_functor
+{
+	public:
+	explicit input_functor(bool &running)
+		: running(running)
+	{
+	}
+
+	void operator()(sge::input::key_pair const &k) const
+	{
+		if (k.key().code() == sge::input::kc::key_escape)
+			running = false;
+	}
+	private:
 	bool &running;
 };
 }
@@ -66,6 +87,7 @@ try
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
+
 	
 	sge::gui::manager m(
 		sys.renderer(),
@@ -115,6 +137,8 @@ try
 	
 	bool running = true;
 	end_program p(running);
+	sge::signals::scoped_connection const conn =
+		sys.input_system()->register_callback(input_functor(running));
 	left_top.clicked.connect(p);
 	while (running)
 	{

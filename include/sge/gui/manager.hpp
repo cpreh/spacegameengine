@@ -1,8 +1,11 @@
 #ifndef SGE_GUI_MANAGER_HPP_INCLUDED
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
+#include "detail/keyboard_manager.hpp"
 #include "types.hpp"
 #include "skin.hpp"
+#include "widget_fwd.hpp"
+#include "widgets/container_fwd.hpp"
 #include "../renderer/device_fwd.hpp"
 #include "../renderer/texture_fwd.hpp"
 #include "../input/system_fwd.hpp"
@@ -19,9 +22,6 @@ namespace sge
 {
 namespace gui
 {
-// forward declaration
-class widget;
-
 class manager
 {
 	public:
@@ -37,6 +37,7 @@ class manager
 
 	private:
 	friend class widget;
+	friend class widgets::container;
 
 	struct widget_data
 	{
@@ -68,7 +69,7 @@ class manager
 	dirt_container dirt_;
 
 	// focus
-	widget *keyboard_focus;
+	detail::keyboard_manager keyboard;
 	widget *mouse_focus;
 
 	skin_ptr skin_;
@@ -87,6 +88,8 @@ class manager
 	widget_container::iterator get_data_iterator(widget &);
 	widget_data &parent_widget_data(widget &);
 	void recalculate_mouse_focus();
+	void request_keyboard_focus(widget &);
+	void keyboard_focus(widget &,keyboard_focus::type);
 
 	// registered input callback
 	void input_callback(input::key_pair const &);

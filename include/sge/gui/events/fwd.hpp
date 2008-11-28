@@ -11,8 +11,10 @@ class invalid_area;
 class mouse_move;
 class mouse_enter;
 class mouse_leave;
-class mouse_exit;
+class keyboard_enter;
+class keyboard_leave;
 class mouse_click;
+class key;
 }
 }
 }

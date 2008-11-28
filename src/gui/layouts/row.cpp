@@ -6,8 +6,7 @@
 
 namespace
 {
-sge::gui::logger layoutlog(sge::gui::global_log(),SGE_TEXT("layouts"));
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("row"));
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("row"),false);
 
 template<typename T>
 bool bitfield_and(T const &a,T const &b)

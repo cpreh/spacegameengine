@@ -11,17 +11,19 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("widget"));
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("widget"),true);
 }
 
 sge::gui::widget::widget(
 	parent_data parent_data_,
-	size_policy_t const &size_policy_)
+	size_policy_t const &size_policy_,
+	keyboard_focus::type keyboard_focus_)
 	:	parent_(parent_data_.parent_widget()),
 	  manager_(parent_data_.parent_manager()),
 		pos_(point::null()),
 		size_(dim::null()),
-		size_policy_(size_policy_)
+		size_policy_(size_policy_),
+		keyboard_focus_(keyboard_focus_)
 {
 	if (parent_widget())
 		parent_widget()->add_child(*this);
@@ -69,6 +71,16 @@ void sge::gui::widget::size_policy(size_policy_t const &s)
 	size_policy_ = s; 
 }
 
+sge::gui::keyboard_focus::type sge::gui::widget::keyboard_focus() const
+{
+	return keyboard_focus_;
+}
+
+void sge::gui::widget::keyboard_focus(keyboard_focus::type const n)
+{
+	parent_manager().keyboard_focus(*this,keyboard_focus_ = n);
+}
+
 void sge::gui::widget::size(dim const &d)
 {
 	set_size_raw(d);
@@ -113,6 +125,15 @@ void sge::gui::widget::process(events::mouse_enter const &) {}
 void sge::gui::widget::process(events::mouse_leave const &) {}
 void sge::gui::widget::process(events::mouse_move const &) {}
 void sge::gui::widget::process(events::mouse_click const &) {}
+void sge::gui::widget::process(events::key const &) {}
+void sge::gui::widget::process(events::keyboard_enter const &) 
+{
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_enter"));
+}
+void sge::gui::widget::process(events::keyboard_leave const &) 
+{
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_leave"));
+}
 
 bool sge::gui::widget::is_container() const
 {

@@ -18,7 +18,6 @@
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/gil/extension/dynamic_image/image_view_factory.hpp>
 #include <boost/mpl/for_each.hpp>
-#include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/bind.hpp>
 
@@ -29,21 +28,18 @@
 
 namespace
 {
-
 template<class T,std::size_t n,class F>
 sge::math::vector<T,n> apply(sge::math::vector<T,n> const &v,F f)
 {
 	sge::math::vector<T,n> newone = v;
 	std::transform(newone.begin(),newone.end(),newone.begin(),f);
-	//BOOST_FOREACH(T &c,newone)
-	//	c = f(c);
 	return newone;
+}
 }
 
 namespace
 {
 sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("canvas"),false);
-}
 }
 
 sge::gui::canvas::canvas(
@@ -82,7 +78,10 @@ void sge::gui::canvas::draw_rect(
 	color const c,
 	rect_type::type const t)
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << "draw_rect: rel_rect: " << rel_rect << " (dimension: " << rel_rect.dim() << ", position: " << rel_rect.pos());
+	SGE_LOG_DEBUG(
+		mylogger,log::_1 << "draw_rect: rel_rect: " << rel_rect 
+		                 << " (dimension: " << rel_rect.dim() << ", position: " 
+										 << rel_rect.pos());
 
 	rect const abs_rect(rel_rect.pos()+widget_pos(),rel_rect.dim());
 
@@ -101,21 +100,30 @@ void sge::gui::canvas::draw_rect(
 	// locked area. if they don't intersect, nothing is to be drawn
 	if (!math::intersects(abs_rect,invalid_area()))
 	{
-		SGE_LOG_DEBUG(mylogger,log::_1 << "rect " << abs_rect << " and invalid area " << invalid_area() << " don't intersect, returning");
+		SGE_LOG_DEBUG(
+			mylogger,log::_1 << "rect " << abs_rect << " and invalid area " 
+			                 << invalid_area() << " don't intersect, returning");
 		return;
 	}
 
 	math::rect<int> const is =
 		math::structure_cast<int>(math::intersection(abs_rect,invalid_area()));
 
-	SGE_LOG_DEBUG(mylogger,log::_1 << "rect " << abs_rect << " and invalid area " << invalid_area() << " intersection " << is);
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << "rect " << abs_rect << " and invalid area " 
+		        << invalid_area() << " intersection " << is);
 
 	switch (t)
 	{
 		case rect_type::filled:
 		{
-			SGE_LOG_DEBUG(mylogger,log::_1 << "chose type 'filled', so filling sub view " << is.left()-invalid_area().left() << "," 
-				<< is.top()-invalid_area().top() << "," << is.w() << "," << is.h());
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("chose type 'filled', so filling sub view ") 
+				        << is.left()-invalid_area().left() << "," 
+				        << is.top()-invalid_area().top() << "," << is.w() 
+								<< "," << is.h());
 
 			renderer::fill_pixels(
 				boost::gil::subimage_view(
@@ -193,11 +201,17 @@ void sge::gui::canvas::blit_font(
 	// then leave it out
 	if (!math::intersects(abs_data_area,invalid_area()))
 	{
-		SGE_LOG_DEBUG(mylogger,log::_1 << abs_data_area << " and invalid area " << invalid_area() << " do not intersect, returning");
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << abs_data_area << " and invalid area " 
+			        << invalid_area() << " do not intersect, returning");
 		return;
 	}
 	
-	SGE_LOG_DEBUG(mylogger,log::_1 << abs_data_area << " and invalid area " << invalid_area() << " intersect, continuing");
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << abs_data_area << " and invalid area " 
+		        << invalid_area() << " intersect, continuing");
 
 	// calculate absolute intersection between invalid and data area
 	rect const is_abs = math::intersection(abs_data_area,invalid_area());
@@ -238,32 +252,6 @@ void sge::gui::canvas::blit_font(
 		renderer::make_const_image_view(sub_view(is_rel_invalid)),
 		sub_view(is_rel_invalid),
 		utility::font_blitter(fg));
-	/*
-	boost::gil::transform_pixels(
-		boost::gil::subimage_view(
-			data,
-			is_rel_data.left(),
-			is_rel_data.top(),
-			is_rel_data.w(),
-			is_rel_data.h()
-			),
-		sub_view(is_rel_invalid),
-		sub_view(is_rel_invalid),
-		font_converter()
-	);
-	*/
-	/*
-	sge::renderer::copy_and_convert_pixels(
-		boost::gil::subimage_view(
-			data,
-			is_rel_data.left(),
-			is_rel_data.top(),
-			is_rel_data.w(),
-			is_rel_data.h()
-			),
-		sub_view(is_rel_invalid),
-		conv);
-	*/
 }
 
 void sge::gui::canvas::draw_text(

@@ -18,7 +18,7 @@ void sge::gui::skins::standard::operator()(
 	
 	c.draw_rect(
 		b.relative_area(),
-		b.mouse_over() ? bgcolor_focused : bgcolor,
+		b.mouse_over() ? bgcolor_focused : (b.key_over() ? renderer::colors::red() : bgcolor),
 		rect_type::filled);
 
 	SGE_ASSERT_MESSAGE(b.font(),SGE_TEXT("button: font missing while drawing button"));
