@@ -126,7 +126,7 @@ try
 	top.compile();
 
 	// set sensible render states
-	sys.renderer()->set_state(
+	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)

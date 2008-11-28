@@ -41,7 +41,7 @@ try
 	sge::renderer::device_ptr const rend(
 		sys.renderer());
 
-	rend->set_state(
+	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(255, 255, 0, 255)));

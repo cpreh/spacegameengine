@@ -65,12 +65,12 @@ sge::ogl::device::device(
 	param(param),
 	wnd(wnd),
 	current_states(renderer::state::default_()),
-	state(
+	state_(
 		param,
 		adapter,
 		wnd,
 		boost::bind(
-			&device::set_viewport,
+			&device::viewport,
 			this,
 			_1))
 {
@@ -79,7 +79,7 @@ sge::ogl::device::device(
 	initialize_vbo();
 	initialize_pbo();
 
-	set_state(
+	state(
 		renderer::state::default_());
 	
 	target(
@@ -103,7 +103,7 @@ sge::ogl::device::create_index_buffer(
 	renderer::resource_flag_t const flags)
 {
 	return renderer::index_buffer_ptr(
-		new index_buffer(
+		new ogl::index_buffer(
 			format,
 			sz,
 			flags));
@@ -124,7 +124,7 @@ sge::ogl::device::create_texture(
 	renderer::texture::resource_flag_type const flags)
 {
 	return renderer::texture_ptr(
-		new texture(
+		new ogl::texture(
 			dim,
 			format,
 			filter,
@@ -138,7 +138,7 @@ sge::ogl::device::create_vertex_buffer(
 	renderer::resource_flag_t const flags)
 {
 	return renderer::vertex_buffer_ptr(
-		new vertex_buffer(
+		new ogl::vertex_buffer(
 			format,
 			sz,
 			flags));
@@ -176,7 +176,7 @@ sge::ogl::device::create_cube_texture(
 
 void sge::ogl::device::end_rendering()
 {
-	state.swap_buffers();
+	state_.swap_buffers();
 }
 
 sge::renderer::device::caps_t const
@@ -218,12 +218,14 @@ void sge::ogl::device::render(
 		throw exception(
 			SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
 
-	set_vertex_buffer(vb);
-	set_index_buffer(ib);
+	vertex_buffer(vb);
+	index_buffer(ib);
 
 	GLenum const prim_type = convert_cast(ptype);
 
-	index_buffer const &gl_ib = dynamic_cast<index_buffer const &>(*ib);
+	ogl::index_buffer const &
+		gl_ib = dynamic_cast<ogl::index_buffer const &>(
+			*ib);
 
 	SGE_OPENGL_SENTRY
 
@@ -246,7 +248,7 @@ void sge::ogl::device::render(
 		throw exception(
 			SGE_TEXT("vb may not be 0 for renderer::render!"));
 
-	set_vertex_buffer(vb);
+	vertex_buffer(vb);
 
 	GLenum const prim_type = convert_cast(ptype);
 
@@ -258,7 +260,7 @@ void sge::ogl::device::render(
 		static_cast<GLint>(num_vertices));
 }
 
-void sge::ogl::device::set_state(
+void sge::ogl::device::state(
 	renderer::state::list const &states)
 {
 	split_states split(current_states);
@@ -276,7 +278,7 @@ void sge::ogl::device::push_state(
 	state_levels.push(
 		current_states);
 
-	set_state(
+	state(
 		renderer::state::combine(
 			current_states,
 			states));
@@ -284,7 +286,7 @@ void sge::ogl::device::push_state(
 
 void sge::ogl::device::pop_state()
 {
-	set_state(state_levels.top());
+	state(state_levels.top());
 	state_levels.pop();
 }
 
@@ -294,13 +296,13 @@ GLenum sge::ogl::device::get_clear_bit(
 	return current_states.get(s) ? convert_clear_bit(s) : 0;
 }
 
-void sge::ogl::device::set_material(
+void sge::ogl::device::material(
 	renderer::material const &mat)
 {
 	ogl::set_material(mat);
 }
 
-void sge::ogl::device::set_viewport(
+void sge::ogl::device::viewport(
 	renderer::viewport const &v)
 {
 	SGE_OPENGL_SENTRY
@@ -348,22 +350,22 @@ void sge::ogl::device::target(
 				param.mode().bit_depth()));
 		target_->bind_me();
 		window::pos_type const offset = wnd->viewport_offset();
-		set_viewport(
+		viewport(
 			renderer::viewport(
 				offset,
 				wnd->size()));
 		return;
 	}
 
-	shared_ptr<texture> const p(
-		dynamic_pointer_cast<texture>(
+	shared_ptr<ogl::texture> const p(
+		dynamic_pointer_cast<ogl::texture>(
 			ntarget));
 	
 	fbo_target_ptr const ftarget = create_target();
 
 	ftarget->bind_texture(p);
 
-	set_viewport(
+	viewport(
 		renderer::viewport(
 			renderer::pixel_pos_t(0, 0),
 			math::structure_cast<renderer::screen_unit>(
@@ -378,7 +380,7 @@ sge::ogl::device::target() const
 	return target_;
 }
 
-void sge::ogl::device::set_texture(
+void sge::ogl::device::texture(
 	renderer::const_texture_base_ptr const tex,
 	renderer::stage_type const stage)
 {
@@ -404,7 +406,7 @@ void sge::ogl::device::enable_light(
 	enable(glindex, enable_);
 }
 
-void sge::ogl::device::set_light(
+void sge::ogl::device::light(
 	renderer::light_index const index,
 	renderer::light const &l)
 {
@@ -413,7 +415,7 @@ void sge::ogl::device::set_light(
 		l);
 }
 
-void sge::ogl::device::set_texture_stage_op(
+void sge::ogl::device::texture_stage_op(
 	renderer::stage_type const stage,
 	renderer::texture_stage_op::type const op,
 	renderer::texture_stage_op_value::type const value)
@@ -422,7 +424,7 @@ void sge::ogl::device::set_texture_stage_op(
 	set_texture_stage_scale(value);
 }
 
-void sge::ogl::device::set_texture_stage_arg(
+void sge::ogl::device::texture_stage_arg(
 	renderer::stage_type const stage,
 	renderer::texture_stage_arg::type const arg,
 	renderer::texture_stage_arg_value::type const value)
@@ -460,22 +462,26 @@ sge::ogl::device::create_glsl_program(
 		ps_stream.str());
 }
 
-void sge::ogl::device::set_glsl_program(
+void sge::ogl::device::glsl_program(
 	renderer::glsl::program_ptr const prog)
 {
 	glsl::set_program_impl(prog);
 }
 
-void sge::ogl::device::set_vertex_buffer(
+void sge::ogl::device::vertex_buffer(
 	renderer::const_vertex_buffer_ptr const vb)
 {
-	vertex_buffer const &ovb = dynamic_cast<vertex_buffer const &>(*vb);
+	ogl::vertex_buffer const &
+		ovb = dynamic_cast<ogl::vertex_buffer const &>(
+			*vb);
 	ovb.set_format();
 }
 
-void sge::ogl::device::set_index_buffer(
+void sge::ogl::device::index_buffer(
 	renderer::const_index_buffer_ptr const ib)
 {
-	index_buffer const &oib = dynamic_cast<index_buffer const &>(*ib);
+	ogl::index_buffer const &
+		oib = dynamic_cast<ogl::index_buffer const &>(
+			*ib);
 	oib.bind_me();
 }

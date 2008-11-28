@@ -134,7 +134,7 @@ try
 		[var(running)=false])
 	);
 
-	rend->set_state(
+	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 	);
