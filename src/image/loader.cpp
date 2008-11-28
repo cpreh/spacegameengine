@@ -19,21 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/loader.hpp>
-#include <sge/plugin/detail/instantiate_types.hpp>
 
 sge::image::loader::~loader()
 {}
-
-sge::plugin::detail::address_name
-sge::plugin::detail::traits<sge::image::loader>::plugin_loader_name()
-{
-	return SGE_ADDRESS_NAME("create_image_loader");
-}
-
-sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::image::loader>::get_plugin_type()
-{
-	return capabilities::image_loader;
-}
-
-SGE_PLUGIN_INSTANTIATE_TYPES(sge::image::loader)

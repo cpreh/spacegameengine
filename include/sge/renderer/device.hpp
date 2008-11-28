@@ -126,8 +126,8 @@ public:
 	virtual void texture_transform(
 		any_matrix const &mat) = 0;
 
-	SGE_SYMBOL static texture_ptr const default_render_target;
-	virtual void set_render_target(texture_ptr target) = 0;
+	SGE_SYMBOL static texture_ptr const default_target;
+	virtual void target(texture_ptr) = 0;
 
 	virtual void set_viewport(viewport const &) = 0;
 
@@ -143,7 +143,7 @@ public:
 	SGE_SYMBOL static glsl::program_ptr const no_program;
 	virtual void set_glsl_program(glsl::program_ptr) = 0;
 
-	virtual const_target_ptr const get_target() const = 0;
+	virtual const_target_ptr const target() const = 0;
 
 	SGE_SYMBOL texture_ptr const create_texture(
 		const_image_view const &,
@@ -189,7 +189,7 @@ public:
 
 	virtual caps_t const caps() const = 0;
 	virtual screen_size_t const screen_size() const = 0;
-	virtual window::instance_ptr const window() const = 0;
+	virtual sge::window::instance_ptr const window() const = 0;
 
 	SGE_SYMBOL virtual ~device();
 };

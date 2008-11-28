@@ -55,7 +55,7 @@ void render(
 		texture::part_ptr const vtex = cur->texture();
 		rend->set_texture(
 			vtex
-			? vtex->my_texture()
+			? vtex->texture()
 			: renderer::device::no_texture);
 		
 		rend->render(

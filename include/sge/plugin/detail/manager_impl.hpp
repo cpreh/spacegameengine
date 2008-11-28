@@ -41,12 +41,12 @@ sge::plugin::manager::end()
 
 template<typename T>
 typename sge::plugin::iterator<T>::reference
-sge::plugin::manager::get_plugin(
+sge::plugin::manager::plugin(
 	size_type const index)
 {
 	if(index >= size<T>())
 		throw exception(
-			SGE_TEXT("get_plugin(): No plugins found of type: \"")
+			SGE_TEXT("plugin(): No plugins found of type: \"")
 			+ iconv(typeid(T).name())
 			+ SGE_TEXT("\"!"));
 	return *(begin<T>()+index);

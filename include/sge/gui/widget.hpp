@@ -60,7 +60,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	size_policy_t const &size_policy() const;
 	void size_policy(size_policy_t const &s);
 
-	keyboard_focus::type keyboard_focus() const;
+	gui::keyboard_focus::type keyboard_focus() const;
 	void keyboard_focus(keyboard_focus::type);
 
 	SGE_SYMBOL void size(dim const &);

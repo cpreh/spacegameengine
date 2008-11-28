@@ -56,13 +56,13 @@ sge::texture::part_raw::area() const
 }
 
 sge::renderer::texture_ptr const
-sge::texture::part_raw::my_texture()
+sge::texture::part_raw::texture()
 {
 	return tex;
 }
 
 sge::renderer::const_texture_ptr const
-sge::texture::part_raw::my_texture() const
+sge::texture::part_raw::texture() const
 {
 	return tex;
 }

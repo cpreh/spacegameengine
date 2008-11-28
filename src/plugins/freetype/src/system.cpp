@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../system.hpp"
 #include "../metrics.hpp"
 
-const sge::font::metrics_ptr
+sge::font::metrics_ptr const
 sge::ft::system::create_font(
-	const path& font_name,
-	const font::size_type font_size)
+	path const &font_name,
+	font::size_type const font_size)
 {
 	loaded_fonts_list::mapped_type &wfptr = loaded_fonts[
 		loaded_fonts_list::key_type(
@@ -36,8 +36,12 @@ sge::ft::system::create_font(
 	font::metrics_ptr fptr(wfptr.lock());
 	if (!fptr)
 	{
-		fptr.reset(new metrics(library_, font_name, font_size));
-		wfptr = fptr.get_boost_ptr();
+		fptr.reset(
+			new metrics(
+				library_,
+				font_name,
+				font_size));
+		wfptr = fptr.boost_ptr();
 	}
 	return fptr;
 }

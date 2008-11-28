@@ -88,7 +88,7 @@ void sge::texture::rect_fragmented::return_fragment(
 }
 
 sge::renderer::texture_ptr const
-sge::texture::rect_fragmented::get_texture() const
+sge::texture::rect_fragmented::texture() const
 {
 	return tex;
 }

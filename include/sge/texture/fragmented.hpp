@@ -34,11 +34,12 @@ namespace texture
 
 class SGE_CLASS_SYMBOL fragmented : boost::noncopyable {
 public:
-	virtual part_ptr const consume_fragment(
+	virtual part_ptr const
+	consume_fragment(
 		renderer::dim_type const &) = 0;
 	virtual void return_fragment(
 		part const &) = 0;
-	virtual renderer::texture_ptr const get_texture() const = 0;
+	virtual renderer::texture_ptr const texture() const = 0;
 	virtual bool repeatable() const = 0;
 	SGE_SYMBOL virtual ~fragmented();
 };

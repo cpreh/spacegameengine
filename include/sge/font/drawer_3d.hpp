@@ -56,7 +56,7 @@ public:
 		renderer::any_color const &col);
 private:
 	texture::part_ptr const
-	get_cached_texture(
+	cached_texture(
 		char_type,
 		const_image_view const &);
 

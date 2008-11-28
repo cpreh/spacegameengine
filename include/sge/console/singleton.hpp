@@ -31,9 +31,11 @@ namespace sge
 namespace con
 {
 
-struct singleton
-{
-	typedef std::map<string,string> config_map;
+struct singleton {
+	typedef std::map<
+		string,
+		string
+	> config_map;
 
 	var_map vars;
 	callback_map funcs;
@@ -43,14 +45,34 @@ struct singleton
 
 	singleton();
 
-	void add(const string &,var_base &);
-	void erase(const string &);
-	void add(const string &,const callback &);
-	void eval(const string &);
-	void read_config(const path &);
-	string get_var(const string &);
-	void set_var(const string &,const string &);
-	void latch(const string &,const string &);
+	void add(
+		string const &,
+		var_base &);
+
+	void add(
+		string const &,
+		callback const &);
+
+	void erase(
+		string const &);
+
+	void eval(
+		string const &);
+
+	void read_config(
+		path const &);
+
+	string const
+	var(
+		string const &);
+
+	void var(
+		string const &,
+		string const &);
+
+	void latch(
+		string const &,
+		string const &);
 };
 
 singleton &instance();

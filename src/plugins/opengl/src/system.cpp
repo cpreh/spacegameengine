@@ -56,7 +56,7 @@ sge::ogl::system::create_renderer(
 			param,
 			adapter,
 			wnd));
-	ref = r.get_boost_ptr();
+	ref = r.boost_ptr();
 	return r;
 }
 
@@ -87,7 +87,7 @@ sge::ogl::system::create_window(
 		visual->info().depth,
 		visual);
 #elif defined(SGE_WINDOWS_PLATFORM)
-	return windows::create_window(
+	return sge::windows::create_window(
 		param);
 #else
 #error "Implement me!"

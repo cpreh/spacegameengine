@@ -19,21 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/system.hpp>
-#include <sge/plugin/detail/instantiate_types.hpp>
 
 sge::input::system::~system()
 {}
-
-sge::plugin::detail::address_name
-sge::plugin::detail::traits<sge::input::system>::plugin_loader_name()
-{
-	return SGE_ADDRESS_NAME("create_input_system");
-}
-
-sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::input::system>::get_plugin_type()
-{
-	return capabilities::input;
-}
-
-SGE_PLUGIN_INSTANTIATE_TYPES(sge::input::system)

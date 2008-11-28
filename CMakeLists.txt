@@ -150,9 +150,64 @@ CHECK_CXX_SOURCE_COMPILES(
 	 }"
 	 SGE_HAVE_ATLEAST_UINT64)
 
-ADD_SUBDIRECTORY (src)
-set(SGE_HAVE_X11 X11_FOUND)
+CHECK_CXX_SOURCE_RUNS(
+	"#include <unistd.h>
+	 #include <cstdlib>
+	 int main()
+	 {
+	   return _POSIX_VERSION >= 200100
+	          ? EXIT_SUCCESS
+		  : EXIT_FAILURE;
+	 }"
+	 SGE_HAVE_POSIX)
 
+FIND_PACKAGE(Boost 1.35.0 COMPONENTS
+	filesystem
+	signals
+	system)
+
+IF(NOT Boost_FOUND)
+	MESSAGE(STATUS "Boost not found!")
+ENDIF()
+
+IF(Boost_INCLUDE_DIR)
+	INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+ELSE()
+	MESSAGE(STATUS "Boost headers not found. You will have to specify them in your build environment or you can use -DBOOST_ROOT= to tell cmake where your boost installation is.")
+ENDIF()
+
+IF(Boost_LIBRARY_DIRS)
+	LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+ELSE()
+	MESSAGE(STATUS "Boost libraries not found.")
+ENDIF()
+
+IF (SGE_HAVE_POSIX)
+	find_package(X11 REQUIRED)
+
+#TODO: dga should not be searched here
+# but we need it in sgecore as a workaround
+	IF(ENABLE_DGA)
+		CHECK_CXX_SOURCE_COMPILES("
+			#include <X11/Xlib.h>
+			#include <X11/extensions/xf86dga.h>
+			int main() {}"
+			HAVE_XF86_DGA_H
+		)
+	
+		IF (HAVE_XF86_DGA_H)
+			FIND_LIBRARY(
+				HAVE_XF86_DGA
+				"Xxf86dga")
+		ENDIF()
+	ENDIF()
+
+	IF (X11_FOUND)
+		set(SGE_HAVE_X11 true)
+	ENDIF()
+ENDIF()
+
+ADD_SUBDIRECTORY (src)
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/include/sge/config.h)
 

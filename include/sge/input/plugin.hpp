@@ -18,55 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_FILTER_HPP_INCLUDED
-#define SGE_TEXTURE_FILTER_HPP_INCLUDED
+#ifndef SGE_INPUT_PLUGIN_HPP_INCLUDED
+#define SGE_INPUT_PLUGIN_HPP_INCLUDED
 
-#include "anisotropy_type.hpp"
+#include "system.hpp"
+#include "../window/instance_fwd.hpp"
+#include "../plugin/traits.hpp"
+#include "../plugin/capabilities.hpp"
 #include "../export.hpp"
 
 namespace sge
 {
-namespace renderer
+namespace plugin
+{
+namespace detail
 {
 
-namespace min_filter
-{
-	enum type {
-		point,
-		linear,
-		mipmap,
-		trilinear
-	};
-}
-
-namespace mag_filter
-{
-	enum type {
-		point,
-		linear
-	};
-}
-
-struct texture_filter {
-	SGE_SYMBOL texture_filter(
-		renderer::min_filter::type min_filter,
-		renderer::mag_filter::type mag_filter,
-		anisotropy_type anisotropy_level = 0);
-	
-	SGE_SYMBOL renderer::min_filter::type min_filter() const;
-	SGE_SYMBOL renderer::mag_filter::type mag_filter() const;
-	SGE_SYMBOL anisotropy_type anisotropy() const;
-private:
-	renderer::min_filter::type  min_filter_;
-	renderer::mag_filter::type  mag_filter_;
-	anisotropy_type             anisotropy_;
+template<> struct traits<input::system> {
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static capabilities::type get_plugin_type();
+	typedef input::system* (*loader_fun)(window::instance_ptr);
 };
 
-SGE_SYMBOL extern texture_filter const
-	linear_filter,
-	point_filter,
-	mip_filter,
-	trilinear_filter;
+}
 }
 }
 

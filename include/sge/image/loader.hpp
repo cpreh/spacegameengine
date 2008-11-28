@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_LOADER_HPP_INCLUDED
 #define SGE_IMAGE_LOADER_HPP_INCLUDED
 
-#include "../plugin/traits.hpp"
-#include "../plugin/capabilities.hpp"
 #include "../path.hpp"
 #include "../export.hpp"
 #include "../renderer/image_view.hpp"
@@ -55,21 +53,6 @@ public:
 };
 
 }
-
-namespace plugin
-{
-namespace detail
-{
-
-template<> struct traits<image::loader> {
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type get_plugin_type();
-	typedef image::loader* (*loader_fun)();
-};
-
-}
-}
-
 }
 
 #endif

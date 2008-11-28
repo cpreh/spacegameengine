@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/variant/apply_visitor.hpp>
 
 sge::renderer::texture_ptr const sge::renderer::device::no_texture;
-sge::renderer::texture_ptr const sge::renderer::device::default_render_target;
+sge::renderer::texture_ptr const sge::renderer::device::default_target;
 sge::renderer::glsl::program_ptr const sge::renderer::device::no_program;
 
 

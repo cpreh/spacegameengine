@@ -53,7 +53,7 @@ public:
 	SGE_SYMBOL void return_fragment(
 		part const &);
 	SGE_SYMBOL renderer::texture_ptr const
-	get_texture() const;
+	texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
 	typedef field<

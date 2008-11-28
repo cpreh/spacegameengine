@@ -40,9 +40,9 @@ sge::plugin::context<T>::load()
 		return polymorphic_pointer_cast<plugin<T> >(ptr_base);
 	
 	shared_ptr<plugin<T> > const new_ptr(
-		new plugin<T>(base_->get_path()));
+		new plugin<T>(base_->path()));
 
-	base_->ref = new_ptr.get_boost_ptr();
+	base_->ref = new_ptr.boost_ptr();
 	return new_ptr;
 }
 

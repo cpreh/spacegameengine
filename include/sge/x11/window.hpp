@@ -71,7 +71,7 @@ public:
 	SGE_SYMBOL void map();
 	SGE_SYMBOL void map_raised();
 
-	SGE_SYMBOL signals::connection
+	SGE_SYMBOL sge::signals::connection
 	register_callback(
 		event_type,
 		callback_type const &);
@@ -90,7 +90,7 @@ private:
 	bool                fullscreen_;
 	event_mask_type     event_mask;
 
-	typedef signals::signal<
+	typedef sge::signals::signal<
 		function_type
 	> signal_type;
 	typedef boost::ptr_map<

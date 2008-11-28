@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	
 sge::renderer::display_mode::display_mode(
 	screen_size_t const &size_,
-	bit_depth::type const bit_depth_,
+	renderer::bit_depth::type const bit_depth_,
 	refresh_rate_type const refresh_rate_)
  :
 	size_(size_),
@@ -38,7 +38,7 @@ sge::renderer::display_mode::size() const
 	return size_;
 }
 
-sge::renderer::display_mode::bit_depth_t
+sge::renderer::bit_depth::type
 sge::renderer::display_mode::bit_depth() const
 {
 	return bit_depth_;

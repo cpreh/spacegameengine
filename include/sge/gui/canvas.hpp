@@ -55,9 +55,9 @@ class canvas
 	view_type const texture_;
 	rect const widget_;
 	rect const invalid_;
-	font::drawer_ptr const drawer;
-	font::metrics_ptr metrics;
-	font::font_ptr font;
+	sge::font::drawer_ptr const drawer;
+	sge::font::metrics_ptr metrics;
+	sge::font::font_ptr font;
 
 	view_type sub_view(rect const &);
 	

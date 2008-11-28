@@ -18,39 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
+#include <sge/input/plugin.hpp>
+#include <sge/plugin/detail/instantiate_types.hpp>
 
-#include "dynamic_any.hpp"
-#include "role.hpp"
-#include "vertex_size.hpp"
-#include "../../export.hpp"
-
-namespace sge
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<sge::input::system>::plugin_loader_name()
 {
-namespace renderer
-{
-namespace vf
-{
-
-class dynamic_element {
-public:
-	SGE_SYMBOL dynamic_element(
-		dynamic_any const &,
-		vf::role::type,
-		vertex_size index);
-	
-	SGE_SYMBOL dynamic_any const &info() const;
-	SGE_SYMBOL vf::role::type role() const;
-	SGE_SYMBOL vertex_size index() const;
-private:
-	dynamic_any    info_;
-	vf::role::type role_;
-	vertex_size    index_;
-};
-
-}
-}
+	return SGE_ADDRESS_NAME("create_input_system");
 }
 
-#endif
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<sge::input::system>::get_plugin_type()
+{
+	return capabilities::input;
+}
+
+SGE_PLUGIN_INSTANTIATE_TYPES(sge::input::system)

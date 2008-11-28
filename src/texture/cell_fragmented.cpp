@@ -78,7 +78,7 @@ void sge::texture::cell_fragmented::return_fragment(
 }
 
 sge::renderer::texture_ptr const
-sge::texture::cell_fragmented::get_texture() const
+sge::texture::cell_fragmented::texture() const
 {
 	return tex;
 }
