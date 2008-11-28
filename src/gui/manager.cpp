@@ -34,7 +34,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"),false);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"),true);
 }
 
 sge::gui::manager::widget_data::widget_data(
@@ -199,6 +199,10 @@ void sge::gui::manager::recalculate_mouse_focus()
 				log::_1 << SGE_TEXT("checking if ") << wd.spr.rect() << SGE_TEXT(" contains ")
 				        << click_point);
 								*/
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("wd.spr.rect()=") << wd.spr.rect() << SGE_TEXT(", ")
+				        << wd.ptr->absolute_area());
 			if (math::contains(wd.spr.rect(),click_point))
 			{
 				wd.ptr->process(events::mouse_enter(click_point));
@@ -342,6 +346,6 @@ void sge::gui::manager::input_callback(input::key_pair const &k)
 		mouse_focus->process(
 			events::mouse_click(
 				math::structure_cast<unit>(cursor.pos()+cursor_click),
-				k.key().code()));
+				k));
 	}
 }

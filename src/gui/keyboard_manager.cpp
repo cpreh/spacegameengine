@@ -99,24 +99,6 @@ void sge::gui::detail::keyboard_manager::cycle_focus()
 	switch_focus(next);
 }
 
-void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair const &k)
-{
-	if (widgets.empty())
-		return;
-	
-	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
-		return;
-	
-	if (k.key().code() == sge::input::kc::key_tab)
-	{
-		if (!sge::math::almost_zero(k.value()))
-			cycle_focus();
-		return;
-	}
-	
-	if (focus)
-		(**focus)->process(events::key(k));
-}
 
 // This is called by manager whenever a widget changes its behaviour towards the
 // keyboard focus. If a widget decides not to accept the focus anymore, we have to
@@ -169,6 +151,25 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 		}
 		break;
 	}
+}
+
+void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair const &k)
+{
+	if (widgets.empty())
+		return;
+	
+	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
+		return;
+	
+	if (k.key().code() == sge::input::kc::key_tab)
+	{
+		if (!sge::math::almost_zero(k.value()))
+			cycle_focus();
+		return;
+	}
+	
+	if (focus)
+		(**focus)->process(events::key(k));
 }
 
 void sge::gui::detail::keyboard_manager::switch_focus(widget_container::iterator n)

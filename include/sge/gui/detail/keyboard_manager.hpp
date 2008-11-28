@@ -22,7 +22,6 @@ class keyboard_manager
 	void request_focus(widget &);
 	void widget_remove(widget &);
 	void cycle_focus();
-	void input_callback(sge::input::key_pair const &);
 	void keyboard_focus(widget &,keyboard_focus::type);
 	private:
 	typedef std::list<widget *> widget_container;
@@ -31,6 +30,7 @@ class keyboard_manager
 	boost::optional<widget_container::iterator> focus;
 	sge::signals::scoped_connection ic;
 
+	void input_callback(sge::input::key_pair const &);
 	void switch_focus(widget_container::iterator);
 };
 }

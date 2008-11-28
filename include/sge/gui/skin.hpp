@@ -3,6 +3,7 @@
 
 #include "../export.hpp"
 #include "../shared_ptr.hpp"
+#include "../path.hpp"
 
 namespace sge
 {
@@ -27,6 +28,7 @@ class skin
 	public:
 	SGE_SYMBOL void draw(widget &,events::invalid_area const &);
 	virtual void operator()(widgets::button &,events::invalid_area const &) = 0;
+	virtual path const cursor_path() const = 0;
 	virtual void default_handler(widget &,events::invalid_area const &);
 	virtual ~skin() {}
 };
