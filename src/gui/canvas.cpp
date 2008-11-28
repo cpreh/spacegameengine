@@ -1,4 +1,5 @@
 #include "utility/font_blitter.hpp"
+#include "utility/set_pixel.hpp"
 
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
@@ -46,10 +47,11 @@ sge::gui::canvas::canvas(
 	view_type const &texture_,
 	rect const &widget_,
 	rect const &invalid_)
-	: texture_(texture_),
-		widget_(widget_),
-		invalid_(invalid_),
-	  drawer(new font_drawer_canvas(*this))
+:
+	texture_(texture_),
+	widget_(widget_),
+	invalid_(invalid_),
+	drawer(new font_drawer_canvas(*this))
 {
 }
 
@@ -278,8 +280,14 @@ void sge::gui::canvas::draw_pixel(point const &p,color const c)
 	// transform pixel coordinate (which is relative to the widget origin)
 	// to a position relative to the invalid area origin
 	point const tf = p_abs - point(invalid_area().left(),invalid_area().top());
-	// FIXME
-	//boost::gil::apply_operation(texture_,set_pixel_fn(c,tf));
+	boost::gil::apply_operation(
+		boost::gil::subimage_view(
+			view(),
+			p_abs.x(),
+			p_abs.y(),
+			1,
+			1),
+		utility::set_pixel(c));
 }
 
 void sge::gui::canvas::draw_line(point const &a,point const &b,color const color_)
