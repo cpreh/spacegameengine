@@ -18,40 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_LOADER_HPP_INCLUDED
-#define SGE_IMAGE_LOADER_HPP_INCLUDED
+#ifndef SGE_IMAGE_PLUGIN_HPP_INCLUDED
+#define SGE_IMAGE_PLUGIN_HPP_INCLUDED
 
-#include "../path.hpp"
+#include "loader.hpp"
+#include "../plugin/traits.hpp"
+#include "../plugin/capabilities.hpp"
 #include "../export.hpp"
-#include "../renderer/image_view.hpp"
-#include "object_fwd.hpp"
-#include "format.hpp"
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
-namespace image
+namespace plugin
+{
+namespace detail
 {
 
-class SGE_CLASS_SYMBOL loader : boost::noncopyable {
-public:
-	virtual const object_ptr
-	load(
-		path const &) = 0;
-
-	/*virtual object_ptr const
-	load(
-		format::type type,
-		object::const_pointer format_data,
-		object::size_type size) = 0;*/
-
-	virtual object_ptr const
-	create(
-		renderer::const_image_view const &) = 0;
-
-	SGE_SYMBOL virtual ~loader();
+template<>
+struct traits<image::loader> {
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static capabilities::type get_plugin_type();
+	typedef image::loader* (*loader_fun)();
 };
 
+}
 }
 }
 
