@@ -32,7 +32,7 @@ void sge::renderer::screenshot(
 	il->create(
 		const_scoped_target_lock(
 			make_scoped_lock(
-				rend->get_target()
+				rend->target()
 			)
 		).value()
 	)->save(file);

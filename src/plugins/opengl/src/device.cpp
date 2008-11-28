@@ -82,8 +82,8 @@ sge::ogl::device::device(
 	set_state(
 		renderer::state::default_());
 	
-	set_render_target(
-		default_render_target);
+	target(
+		default_target);
 }
 
 void sge::ogl::device::begin_rendering()
@@ -110,7 +110,7 @@ sge::ogl::device::create_index_buffer(
 }
 
 sge::ogl::fbo_target_ptr const
-sge::ogl::device::create_render_target()
+sge::ogl::device::create_target()
 {
 	return fbo_target_ptr(
 		new fbo_target());
@@ -335,18 +335,18 @@ void sge::ogl::device::texture_transform(
 		matrix);
 }
 
-void sge::ogl::device::set_render_target(
-	renderer::texture_ptr const target)
+void sge::ogl::device::target(
+	renderer::texture_ptr const ntarget)
 {
-	if(!target)
+	if(!ntarget)
 	{
-		render_target_.reset(
-			new default_target(
+		target_.reset(
+			new ogl::default_target(
 				math::structure_cast<
 					target::dim_type::value_type>(
 						screen_size()),
 				param.mode().bit_depth()));
-		render_target_->bind_me();
+		target_->bind_me();
 		window::pos_type const offset = wnd->viewport_offset();
 		set_viewport(
 			renderer::viewport(
@@ -356,11 +356,12 @@ void sge::ogl::device::set_render_target(
 	}
 
 	shared_ptr<texture> const p(
-		dynamic_pointer_cast<texture>(target));
+		dynamic_pointer_cast<texture>(
+			ntarget));
 	
-	fbo_target_ptr const ntarget = create_render_target();
+	fbo_target_ptr const ftarget = create_target();
 
-	ntarget->bind_texture(p);
+	ftarget->bind_texture(p);
 
 	set_viewport(
 		renderer::viewport(
@@ -368,13 +369,13 @@ void sge::ogl::device::set_render_target(
 			math::structure_cast<renderer::screen_unit>(
 				p->dim())));
 	
-	render_target_ = ntarget;
+	target_ = ftarget;
 }
 
 sge::renderer::const_target_ptr const
-sge::ogl::device::get_target() const
+sge::ogl::device::target() const
 {
-	return render_target_;
+	return target_;
 }
 
 void sge::ogl::device::set_texture(

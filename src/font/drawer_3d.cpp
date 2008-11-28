@@ -74,7 +74,7 @@ void sge::font::drawer_3d::draw_char(
 		sprite::object(
 			p,
 			d.content()
-				? get_cached_texture(
+				? cached_texture(
 					ch,
 					data)
 				: texture::part_ptr(),
@@ -94,7 +94,7 @@ void sge::font::drawer_3d::set_color(
 }
 
 sge::texture::part_ptr const
-sge::font::drawer_3d::get_cached_texture(
+sge::font::drawer_3d::cached_texture(
 	char_type const ch,
 	const_image_view const &data)
 {

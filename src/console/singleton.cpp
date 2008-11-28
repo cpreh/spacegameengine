@@ -8,8 +8,7 @@ as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Lesser General Public License for more details.
 
 You should have received a copy of the GNU Lesser General Public License
@@ -95,66 +94,68 @@ struct filtered_file
 
 
 sge::con::singleton::singleton()
-: prefix(SGE_TEXT('/'))
+:
+	prefix(SGE_TEXT('/'))
 {}
 	
-sge::con::singleton &sge::con::instance()
+void sge::con::singleton::add(
+	sge::string const &name,
+	sge::con::callback const &v)
 {
-	static sge::con::singleton s;
-	return s;
+	std::pair<callback_map::iterator, bool> const ret = funcs.insert(
+		std::make_pair(
+			name,
+			v));
+
+	if (!ret.second)
+		throw exception(
+			SGE_TEXT("console function ")
+			+ name
+			+ SGE_TEXT(" registered twice!"));
 }
 
-sge::string sge::con::singleton::get_var(const sge::string &name)
+void sge::con::singleton::add(
+	sge::string const &name,
+	sge::con::var_base &v)
 {
-	var_map::const_iterator const i = vars.find(name);
-	if (i == vars.end())
-		throw exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
-	return i->second->get();
+	std::pair<var_map::iterator, bool> const ret = vars.insert(
+		std::make_pair(
+			name,
+			&v));
+	
+	if (!ret.second)
+		throw exception(
+			SGE_TEXT("console variable ")
+			+ name
+			+ SGE_TEXT(" registered twice!"));
+
+	// TODO: this might be pretty slow
+	config_map::const_iterator i = config_vars.find(name);
+	if (i != config_vars.end())
+		v.set(i->second);
 }
 
-void sge::con::singleton::latch(const sge::string &name,const sge::string &value)
+void sge::con::singleton::erase(
+	sge::string const &name)
 {
-	config_vars[name] = value;
+	/*callback_map::size_type erases = 0;
+	erases += funcs.erase(name);
+	erases += vars.erase(name);
+
+	if(erases == 0)
+		throw exception(
+			SGE_TEXT("console function ")
+			+ name
+			+ SGE_TEXT(" not registered!"));*/
+	if(vars.erase(name) == 0)
+		throw exception(
+			SGE_TEXT("console variable ")
+			+ name
+			+ SGE_TEXT(" not registered!"));
 }
 
-void sge::con::singleton::set_var(const sge::string &name,const sge::string &value)
-{
-	sge::con::var_map::const_iterator const i = vars.find(name);
-	if (i == vars.end())
-		throw exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
-	return i->second->set(value);
-}
-
-void sge::con::singleton::read_config(const sge::path &fn)
-{
-	typedef filtered_file<sge_whitespace_filter> file_type;
-
-	file_type file(fn);
-
-	for (file_type::const_iterator i = file.begin(); i != file.end(); ++i)
-	{
-		const sge::string::size_type equals = i->find(SGE_TEXT('='));
-		if (equals == sge::string::npos)
-			throw exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": no '=' found"));
-
-		const sge::string name = i->substr(0,equals),value = i->substr(equals+1);
-		if (name.empty())
-			throw exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": empty variable name"));
-
-		// just a warning about multiply defined variables
-		if (config_vars.find(name) != config_vars.end())
-			SGE_LOG_WARNING(
-				log::global(),
-				log::_1
-					<< SGE_TEXT("console variable \"")
-					<< name
-					<< SGE_TEXT("\" already registered from another file"));
-
-		config_vars[name] = value;
-	}
-}
-
-void sge::con::singleton::eval(const sge::string &line)
+void sge::con::singleton::eval(
+	sge::string const &line)
 {
 	sge::con::arg_list args;
 
@@ -201,53 +202,66 @@ void sge::con::singleton::eval(const sge::string &line)
 	}
 }
 
-void sge::con::singleton::erase(const sge::string &name)
+void sge::con::singleton::read_config(
+	sge::path const &fn)
 {
-	/*callback_map::size_type erases = 0;
-	erases += funcs.erase(name);
-	erases += vars.erase(name);
+	typedef filtered_file<sge_whitespace_filter> file_type;
 
-	if(erases == 0)
-		throw exception(
-			SGE_TEXT("console function ")
-			+ name
-			+ SGE_TEXT(" not registered!"));*/
-	if(vars.erase(name) == 0)
-		throw exception(
-			SGE_TEXT("console variable ")
-			+ name
-			+ SGE_TEXT(" not registered!"));
+	file_type file(fn);
+
+	for (file_type::const_iterator i = file.begin(); i != file.end(); ++i)
+	{
+		sge::string::size_type const equals = i->find(SGE_TEXT('='));
+		if (equals == sge::string::npos)
+			throw exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": no '=' found"));
+
+		sge::string const name = i->substr(0,equals),value = i->substr(equals+1);
+		if (name.empty())
+			throw exception(SGE_TEXT("error parsing \"")+fn.string()+SGE_TEXT("\": empty variable name"));
+
+		// just a warning about multiply defined variables
+		if (config_vars.find(name) != config_vars.end())
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< SGE_TEXT("console variable \"")
+					<< name
+					<< SGE_TEXT("\" already registered from another file"));
+
+		config_vars[name] = value;
+	}
 }
 
-void sge::con::singleton::add(const sge::string &name,const sge::con::callback &v)
+sge::string const
+sge::con::singleton::var(
+	sge::string const &name)
 {
-	std::pair<callback_map::iterator, bool> const ret = funcs.insert(
-		std::make_pair(
-			name,
-			v));
-
-	if (!ret.second)
-		throw exception(
-			SGE_TEXT("console function ")
-			+ name
-			+ SGE_TEXT(" registered twice!"));
+	var_map::const_iterator const i = vars.find(name);
+	if (i == vars.end())
+		throw exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
+	return i->second->get();
 }
 
-void sge::con::singleton::add(const sge::string &name,sge::con::var_base &v)
+void sge::con::singleton::var(
+	sge::string const &name,
+	sge::string const &value)
 {
-	std::pair<var_map::iterator, bool> const ret = vars.insert(
-		std::make_pair(
-			name,
-			&v));
-	
-	if (!ret.second)
-		throw exception(
-			SGE_TEXT("console variable ")
-			+ name
-			+ SGE_TEXT(" registered twice!"));
+	sge::con::var_map::const_iterator const i = vars.find(name);
+	if (i == vars.end())
+		throw exception(SGE_TEXT("variable \"")+name+SGE_TEXT("\" not found"));
+	return i->second->set(value);
+}
 
-	// TODO: this might be pretty slow
-	config_map::const_iterator i = config_vars.find(name);
-	if (i != config_vars.end())
-		v.set(i->second);
+void sge::con::singleton::latch(
+	sge::string const &name,
+	sge::string const &value)
+{
+	config_vars[name] = value;
+}
+
+sge::con::singleton &
+sge::con::instance()
+{
+	static sge::con::singleton s;
+	return s;
 }

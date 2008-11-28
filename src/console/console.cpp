@@ -43,12 +43,12 @@ const sge::con::callback_map &sge::con::funcs()
 
 sge::string const sge::con::get_var(const sge::string &name)
 {
-	return instance().get_var(name);
+	return instance().var(name);
 }
 
 void sge::con::set_var(const sge::string &name,const sge::string &value)
 {
-	instance().set_var(name,value);
+	instance().var(name,value);
 }
 
 void sge::con::latch(const sge::string &name,const sge::string &value)

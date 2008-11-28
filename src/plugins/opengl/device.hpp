@@ -87,7 +87,7 @@ public:
 	void texture_transform(
 		renderer::any_matrix const &);
 
-	void set_render_target(renderer::texture_ptr target);
+	void target(renderer::texture_ptr);
 	void set_viewport(renderer::viewport const &);
 	void enable_light(renderer::light_index index, bool enable);
 	void set_light(renderer::light_index index, renderer::light const &);
@@ -113,7 +113,7 @@ public:
 		renderer::glsl::program_ptr);
 
 	renderer::const_target_ptr const
-	get_target() const;
+	target() const;
 
 	renderer::texture_ptr const
 	create_texture(
@@ -158,7 +158,7 @@ private:
 	void set_index_buffer(renderer::const_index_buffer_ptr ib);
 
 	fbo_target_ptr const
-	create_render_target();
+	create_target();
 
 	renderer::parameters const param;
 	window::instance_ptr const wnd;
@@ -168,7 +168,7 @@ private:
 #elif defined(SGE_HAVE_X11)
 	x11::state state;
 #endif
-	target_ptr                  render_target_;
+	target_ptr                  target_;
 	typedef std::stack<
 		renderer::state::list
 	> stack_type;
