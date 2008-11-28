@@ -188,7 +188,7 @@ void visitor::operator()(
 void sge::systems::instance::impl::init_renderer(
 	window::parameters const &p)
 {
-	renderer_plugin = plugin_manager.get_plugin<renderer::system>().load();
+	renderer_plugin = plugin_manager.plugin<renderer::system>().load();
 	renderer_system.reset(renderer_plugin->get()());
 
 	if(!window_)
@@ -204,24 +204,24 @@ void sge::systems::instance::impl::init_renderer(
 void sge::systems::instance::impl::init_input()
 {
 	// TODO: create a window here too if not done already, using sge::create_window
-	input_plugin = plugin_manager.get_plugin<sge::input::system>().load();
+	input_plugin = plugin_manager.plugin<sge::input::system>().load();
 	input_system.reset(input_plugin->get()(renderer->window()));
 }
 
 void sge::systems::instance::impl::init_image()
 {
-	image_loader_plugin = plugin_manager.get_plugin<sge::image::loader>().load();
+	image_loader_plugin = plugin_manager.plugin<sge::image::loader>().load();
 	image_loader.reset(image_loader_plugin->get()());
 }
 
 void sge::systems::instance::impl::init_audio_player()
 {
-	audio_player_plugin = plugin_manager.get_plugin<sge::audio::player>().load();
+	audio_player_plugin = plugin_manager.plugin<sge::audio::player>().load();
 	audio_player.reset(audio_player_plugin->get()());
 }
 
 void sge::systems::instance::impl::init_font()
 {
-	font_plugin = plugin_manager.get_plugin<sge::font::system>().load();
+	font_plugin = plugin_manager.plugin<sge::font::system>().load();
 	font_system.reset(font_plugin->get()());
 }

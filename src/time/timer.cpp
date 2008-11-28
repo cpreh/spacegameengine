@@ -22,29 +22,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/resolution.hpp>
 
 sge::time::timer::timer(
-	fun const& fun_)
-: fun_(fun_),
-  interval_(0),
-  last_time_(fun_()),
-  active_(false)
+	fun const &fun_)
+:
+	fun_(fun_),
+	interval_(0),
+	last_time_(fun_()),
+	active_(false)
 {}
 
 sge::time::timer::timer(
-	resolution const& res_,
+	resolution const &res_,
 	const bool active_,
-	fun const& fun_)
-: fun_(fun_),
-  interval_(res_.get()),
-  last_time_(fun_()),
-  active_(active_)
+	fun const &fun_)
+:
+	fun_(fun_),
+	interval_(res_.get()),
+	last_time_(fun_()),
+	active_(active_)
 {}
 
-sge::time::timer::frames_type sge::time::timer::update()
+sge::time::timer::frames_type
+sge::time::timer::update()
 {
-	const frames_type f = elapsed_frames();
-	if(f >= 1)
+	frames_type const f = elapsed_frames();
+	if(f >= static_cast<frames_type>(1))
 		reset();
-	return f < 1 ? 0 : f;
+	return f < static_cast<frames_type>(1)
+		? static_cast<frames_type>(0)
+		: f;
 }
 
 bool sge::time::timer::update_b()

@@ -62,8 +62,8 @@ sge::texture::manager::init_texture(
 	return p;
 }
 
-const sge::renderer::device_ptr
-sge::texture::manager::get_renderer() const
+sge::renderer::device_ptr const
+sge::texture::manager::renderer() const
 {
 	return rend;
 }

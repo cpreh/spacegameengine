@@ -41,8 +41,8 @@ public:
 	SGE_SYMBOL void data(
 		renderer::const_image_view const &src);
 	SGE_SYMBOL renderer::lock_rect const &area() const;
-	SGE_SYMBOL renderer::texture_ptr const my_texture();
-	SGE_SYMBOL renderer::const_texture_ptr const my_texture() const;
+	SGE_SYMBOL renderer::texture_ptr const texture();
+	SGE_SYMBOL renderer::const_texture_ptr const texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
 	renderer::lock_rect   const area_;

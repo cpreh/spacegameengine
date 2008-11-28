@@ -32,6 +32,6 @@ bool sge::sprite::tex_equal_visible(
 		texb(r.texture());
 	return !texa || !texb
 		? texa == texb
-		: (texa->my_texture() == texb->my_texture()
+		: (texa->texture() == texb->texture()
 		   && l.visible() == r.visible());
 }
