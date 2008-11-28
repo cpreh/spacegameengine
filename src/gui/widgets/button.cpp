@@ -64,6 +64,11 @@ void sge::gui::widgets::button::process(events::mouse_click const &)
 	clicked();
 }
 
+void sge::gui::widgets::button::process(events::key const &)
+{
+	clicked();
+}
+
 void sge::gui::widgets::button::process(events::keyboard_enter const &)
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_enter"));

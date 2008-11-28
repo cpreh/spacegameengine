@@ -73,8 +73,8 @@ sge::gui::manager::manager(
 			static_cast<sge::sprite::depth_type>(0)),
 		// top left
 		cursor_click(point::null()),
-		keyboard(is),
 		mouse_focus(0),
+		keyboard_(is),
 		skin_(new skins::standard())
 {
 }
@@ -158,7 +158,7 @@ sge::gui::manager::widget_data &sge::gui::manager::parent_widget_data(widget &w)
 
 void sge::gui::manager::add(widget &w)
 {
-	keyboard.widget_add(w);
+	keyboard_.widget_add(w);
 	if (!w.parent_widget())
 		widgets_.push_back(widget_data(w,renderer::texture_ptr(),sprite::object()));
 }
@@ -211,14 +211,9 @@ void sge::gui::manager::recalculate_mouse_focus()
 	//SGE_LOG_DEBUG(mylogger,log::_1 << "finished recalculating focus");
 }
 
-void sge::gui::manager::request_keyboard_focus(widget &w)
+sge::gui::detail::keyboard_manager &sge::gui::manager::keyboard()
 {
-	keyboard.request_focus(w);
-}
-
-void sge::gui::manager::keyboard_focus(widget &w,keyboard_focus::type const n)
-{
-	keyboard.keyboard_focus(w,n);
+	return keyboard_;
 }
 
 void sge::gui::manager::compile(widget &w)
@@ -299,7 +294,7 @@ void sge::gui::manager::draw()
 
 void sge::gui::manager::remove(widget &w)
 {
-	keyboard.widget_remove(w);
+	keyboard_.widget_remove(w);
 
 	if (w.parent_widget())
 		return;

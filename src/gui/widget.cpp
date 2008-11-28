@@ -78,7 +78,7 @@ sge::gui::keyboard_focus::type sge::gui::widget::keyboard_focus() const
 
 void sge::gui::widget::keyboard_focus(keyboard_focus::type const n)
 {
-	parent_manager().keyboard_focus(*this,keyboard_focus_ = n);
+	parent_manager().keyboard().keyboard_focus(*this,keyboard_focus_ = n);
 }
 
 void sge::gui::widget::size(dim const &d)
@@ -125,11 +125,16 @@ void sge::gui::widget::process(events::mouse_enter const &) {}
 void sge::gui::widget::process(events::mouse_leave const &) {}
 void sge::gui::widget::process(events::mouse_move const &) {}
 void sge::gui::widget::process(events::mouse_click const &) {}
-void sge::gui::widget::process(events::key const &) {}
+
+void sge::gui::widget::process(events::key const &) 
+{
+}
+
 void sge::gui::widget::process(events::keyboard_enter const &) 
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_enter"));
 }
+
 void sge::gui::widget::process(events::keyboard_leave const &) 
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_leave"));

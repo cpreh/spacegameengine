@@ -30,6 +30,7 @@ class SGE_CLASS_SYMBOL button : public widget
 	SGE_SYMBOL void process(events::mouse_leave const &);
 	SGE_SYMBOL void process(events::mouse_click const &);
 	SGE_SYMBOL void process(events::keyboard_enter const &);
+	SGE_SYMBOL void process(events::key const &);
 	SGE_SYMBOL void process(events::keyboard_leave const &);
 
 	// signals

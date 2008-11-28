@@ -87,7 +87,7 @@ void sge::gui::detail::keyboard_manager::cycle_focus()
 	// If no widget currently has the focus, take the first one on the list
 	if (!focus)
 	{
-		focus.reset(widgets.begin());
+		switch_focus(widgets.begin());
 		return;
 	}
 
@@ -107,9 +107,10 @@ void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair con
 	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
 		return;
 	
-	if (k.key().code() == sge::input::kc::key_tab && !sge::math::almost_zero(k.value()))
+	if (k.key().code() == sge::input::kc::key_tab)
 	{
-		cycle_focus();
+		if (!sge::math::almost_zero(k.value()))
+			cycle_focus();
 		return;
 	}
 	
@@ -154,16 +155,18 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 		}
 		break;
 		case keyboard_focus::receive:
-		widget_container::iterator wi = std::find(
-				widgets.begin(),
-				widgets.end(),&w);
+		{
+			widget_container::iterator wi = std::find(
+					widgets.begin(),
+					widgets.end(),&w);
 
-		// The widget has the focus and has had it before? Then 
-		// there's nothing to do
-		if (wi != widgets.end())
-			return;
+			// The widget has the focus and has had it before? Then 
+			// there's nothing to do
+			if (wi != widgets.end())
+				return;
 
-		widget_add(w);
+			widget_add(w);
+		}
 		break;
 	}
 }
@@ -172,6 +175,6 @@ void sge::gui::detail::keyboard_manager::switch_focus(widget_container::iterator
 {
 	if (focus)
 		(**focus)->process(events::keyboard_leave());
-	*focus = n;
+	focus.reset(n);
 	(**focus)->process(events::keyboard_enter());
 }

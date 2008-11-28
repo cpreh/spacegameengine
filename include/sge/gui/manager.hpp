@@ -69,8 +69,8 @@ class manager
 	dirt_container dirt_;
 
 	// focus
-	detail::keyboard_manager keyboard;
 	widget *mouse_focus;
+	detail::keyboard_manager keyboard_;
 
 	skin_ptr skin_;
 
@@ -88,8 +88,7 @@ class manager
 	widget_container::iterator get_data_iterator(widget &);
 	widget_data &parent_widget_data(widget &);
 	void recalculate_mouse_focus();
-	void request_keyboard_focus(widget &);
-	void keyboard_focus(widget &,keyboard_focus::type);
+	detail::keyboard_manager &keyboard();
 
 	// registered input callback
 	void input_callback(input::key_pair const &);
