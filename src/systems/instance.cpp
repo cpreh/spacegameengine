@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/font/system.hpp>
+#include <sge/font/plugin.hpp>
 #include <sge/window/instance.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>

@@ -18,7 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/system.hpp>
+#ifndef SGE_FONT_PLUGIN_HPP_INCLUDED
+#define SGE_FONT_PLUGIN_HPP_INCLUDED
 
-sge::font::system::~system()
-{}
+#include "system.hpp"
+#include "../plugin/traits.hpp"
+#include "../plugin/capabilities.hpp"
+#include "../export.hpp"
+
+namespace sge
+{
+namespace plugin
+{
+namespace detail
+{
+
+template<> struct traits<font::system> {
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static capabilities::type get_plugin_type();
+	typedef font::system* (*loader_fun)();
+};
+
+}
+}
+}
+
+#endif
