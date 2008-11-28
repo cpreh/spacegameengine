@@ -87,7 +87,7 @@ sge::ogl::system::create_window(
 		visual->info().depth,
 		visual);
 #elif defined(SGE_WINDOWS_PLATFORM)
-	return windows::create_window(
+	return sge::windows::create_window(
 		param);
 #else
 #error "Implement me!"
