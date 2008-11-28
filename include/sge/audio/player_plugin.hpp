@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_PLUGIN_HPP_INCLUDED
-#define SGE_INPUT_PLUGIN_HPP_INCLUDED
+#ifndef SGE_AUDIO_PLAYER_PLUGIN_HPP_INCLUDED
+#define SGE_AUDIO_PLAYER_PLUGIN_HPP_INCLUDED
 
-#include "system.hpp"
-#include "../window/instance_fwd.hpp"
+#include "player.hpp"
+#include "../export.hpp"
 #include "../plugin/traits.hpp"
 #include "../plugin/capabilities.hpp"
-#include "../export.hpp"
 
 namespace sge
 {
@@ -34,10 +33,10 @@ namespace plugin
 namespace detail
 {
 
-template<> struct traits<input::system> {
+template<> struct traits<audio::player> {
 	SGE_SYMBOL static address_name plugin_loader_name();
 	SGE_SYMBOL static capabilities::type plugin_type();
-	typedef input::system* (*loader_fun)(window::instance_ptr);
+	typedef audio::player* (*loader_fun)();
 };
 
 }

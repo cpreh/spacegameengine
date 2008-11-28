@@ -18,30 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_PLUGIN_HPP_INCLUDED
-#define SGE_INPUT_PLUGIN_HPP_INCLUDED
+#include <sge/audio/player_plugin.hpp>
+#include <sge/plugin/detail/instantiate_types.hpp>
 
-#include "system.hpp"
-#include "../window/instance_fwd.hpp"
-#include "../plugin/traits.hpp"
-#include "../plugin/capabilities.hpp"
-#include "../export.hpp"
-
-namespace sge
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<sge::audio::player>::plugin_loader_name()
 {
-namespace plugin
-{
-namespace detail
-{
-
-template<> struct traits<input::system> {
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type plugin_type();
-	typedef input::system* (*loader_fun)(window::instance_ptr);
-};
-
-}
-}
+	return SGE_ADDRESS_NAME("create_audio_player");
 }
 
-#endif
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<sge::audio::player>::plugin_type()
+{
+	return capabilities::audio_player;
+}
+
+SGE_PLUGIN_INSTANTIATE_TYPES(sge::audio::player)

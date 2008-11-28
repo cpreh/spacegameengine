@@ -28,7 +28,7 @@ sge::plugin::detail::traits<sge::font::system>::plugin_loader_name()
 }
 
 sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::font::system>::get_plugin_type()
+sge::plugin::detail::traits<sge::font::system>::plugin_type()
 {
 	return capabilities::font;
 }

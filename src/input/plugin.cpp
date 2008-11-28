@@ -28,7 +28,7 @@ sge::plugin::detail::traits<sge::input::system>::plugin_loader_name()
 }
 
 sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::input::system>::get_plugin_type()
+sge::plugin::detail::traits<sge::input::system>::plugin_type()
 {
 	return capabilities::input;
 }
