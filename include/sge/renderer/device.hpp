@@ -189,7 +189,7 @@ public:
 
 	virtual caps_t const caps() const = 0;
 	virtual screen_size_t const screen_size() const = 0;
-	virtual window::instance_ptr const window() const = 0;
+	virtual sge::window::instance_ptr const window() const = 0;
 
 	SGE_SYMBOL virtual ~device();
 };

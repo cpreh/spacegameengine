@@ -23,7 +23,7 @@ class SGE_CLASS_SYMBOL button : public widget
 	SGE_SYMBOL dim const size_hint() const;
 	dim const minimum_size() const { return size_hint(); }
 	string const text() const { return text_; }
-	font::metrics_ptr const font() const { return font_; }
+	sge::font::metrics_ptr const font() const { return font_; }
 	bool mouse_over() const { return mouse_over_; }
 	bool key_over() const { return key_over_; }
 	SGE_SYMBOL void process(events::mouse_enter const &);

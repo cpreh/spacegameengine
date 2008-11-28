@@ -37,25 +37,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/foreach.hpp>
 
 struct sge::systems::instance::impl {
-	plugin::manager                            plugin_manager;
+	plugin::manager                                 plugin_manager;
 
-	plugin::plugin<renderer::system>::ptr_type renderer_plugin;
-	renderer::system_ptr                       renderer_system;
-	renderer::device_ptr                       renderer;
+	plugin::plugin<sge::renderer::system>::ptr_type renderer_plugin;
+	sge::renderer::system_ptr                       renderer_system;
+	sge::renderer::device_ptr                       renderer;
 
-	plugin::plugin<input::system>::ptr_type    input_plugin;
-	input::system_ptr                          input_system;
+	plugin::plugin<input::system>::ptr_type         input_plugin;
+	input::system_ptr                               input_system;
 
-	plugin::plugin<image::loader>::ptr_type    image_loader_plugin;
-	image::loader_ptr                          image_loader;
+	plugin::plugin<image::loader>::ptr_type         image_loader_plugin;
+	image::loader_ptr                               image_loader;
 
-	plugin::plugin<audio::player>::ptr_type    audio_player_plugin;
-	audio::player_ptr                          audio_player;
+	plugin::plugin<audio::player>::ptr_type         audio_player_plugin;
+	audio::player_ptr                               audio_player;
 
-	plugin::plugin<font::system>::ptr_type     font_plugin;
-	font::system_ptr                           font_system;
+	plugin::plugin<font::system>::ptr_type          font_plugin;
+	font::system_ptr                                font_system;
 	
-	window::instance_ptr                       window_;
+	window::instance_ptr                            window_;
 
 	void init_renderer(
 		window::parameters const &);

@@ -35,20 +35,18 @@ namespace vf
 
 class dynamic_element {
 public:
-	typedef role::type role_t;
-
 	SGE_SYMBOL dynamic_element(
 		dynamic_any const &,
-		role::type,
+		vf::role::type,
 		vertex_size index);
 	
 	SGE_SYMBOL dynamic_any const &info() const;
-	SGE_SYMBOL role_t role() const;
+	SGE_SYMBOL vf::role::type role() const;
 	SGE_SYMBOL vertex_size index() const;
 private:
-	dynamic_any info_;
-	role_t      role_;
-	vertex_size index_;
+	dynamic_any    info_;
+	vf::role::type role_;
+	vertex_size    index_;
 };
 
 }

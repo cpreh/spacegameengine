@@ -31,10 +31,10 @@ namespace vf
 {
 
 template<
-	role::type Role
+	vf::role::type Role
 >
 struct element_base {
-	static role::type const role = Role;
+	static vf::role::type const role = Role;
 };
 
 }

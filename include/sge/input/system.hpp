@@ -45,7 +45,7 @@ public:
 	register_repeat_callback(
 		repeat_callback const &c) = 0;
 	
-	virtual window::instance_ptr const window() const = 0;
+	virtual sge::window::instance_ptr const window() const = 0;
 
 	SGE_SYMBOL virtual ~system();
 };
