@@ -52,7 +52,7 @@ public:
 		pos const &,
 		const_image_view const &data);
 	SGE_SYMBOL void end_rendering();
-	SGE_SYMBOL void set_color(
+	SGE_SYMBOL void color(
 		renderer::any_color const &col);
 private:
 	texture::part_ptr const
