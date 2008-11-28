@@ -72,7 +72,7 @@ void sge::sprite::system::render(
 		vb,
 		ib);
 
-	set_matrices();
+	matrices();
 
 	renderer::device_ptr const rend(
 		get_renderer());

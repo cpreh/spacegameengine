@@ -45,7 +45,7 @@ protected:
 	SGE_SYMBOL void allocate_buffers(
 		std::size_t needed_sprites);
 
-	void set_matrices();
+	void matrices();
 
 	SGE_SYMBOL renderer::vertex_buffer_ptr const
 	get_vertex_buffer() const;
