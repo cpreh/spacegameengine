@@ -19,21 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/system.hpp>
-#include <sge/plugin/detail/instantiate_types.hpp>
 
 sge::renderer::system::~system()
 {}
-
-sge::plugin::detail::address_name
-sge::plugin::detail::traits<sge::renderer::system>::plugin_loader_name()
-{
-	return SGE_ADDRESS_NAME("create_renderer_system");
-}
-
-sge::plugin::capabilities::type
-sge::plugin::detail::traits<sge::renderer::system>::get_plugin_type()
-{
-	return capabilities::renderer;
-}
-
-SGE_PLUGIN_INSTANTIATE_TYPES(sge::renderer::system)

@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "adapter.hpp"
 #include "device_fwd.hpp"
 #include "../export.hpp"
-#include "../plugin/traits.hpp"
-#include "../plugin/capabilities.hpp"
 #include "../window/instance_fwd.hpp"
 #include <boost/noncopyable.hpp>
 #include <vector>
@@ -64,21 +62,6 @@ public:
 };
 
 }
-
-namespace plugin
-{
-namespace detail
-{
-
-template<> struct traits<renderer::system> {
-	SGE_SYMBOL static address_name plugin_loader_name();
-	SGE_SYMBOL static capabilities::type get_plugin_type();
-	typedef renderer::system* (*loader_fun)();
-};
-
-}
-}
-
 }
 
 #endif

@@ -18,32 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
+#include <sge/renderer/plugin.hpp>
+#include <sge/plugin/detail/instantiate_types.hpp>
 
-#include "../context.hpp"
-#include "../context_base.hpp"
-#include "../plugin.hpp"
-
-template<typename T>
-sge::plugin::context<T>::context(
-	context_base& base_)
-: base_(&base_)
-{}
-
-template<typename T>
-typename sge::plugin::context<T>::ptr_type
-sge::plugin::context<T>::load()
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<sge::renderer::system>::plugin_loader_name()
 {
-	shared_ptr<base> const ptr_base(base_->ref.lock());
-	if(ptr_base)
-		return polymorphic_pointer_cast<plugin<T> >(ptr_base);
-	
-	shared_ptr<plugin<T> > const new_ptr(
-		new plugin<T>(base_->path()));
-
-	base_->ref = new_ptr.boost_ptr();
-	return new_ptr;
+	return SGE_ADDRESS_NAME("create_renderer_system");
 }
 
-#endif
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<sge::renderer::system>::get_plugin_type()
+{
+	return capabilities::renderer;
+}
+
+SGE_PLUGIN_INSTANTIATE_TYPES(sge::renderer::system)

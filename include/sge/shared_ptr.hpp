@@ -63,27 +63,27 @@ public:
 
 	template<class Y>
 	shared_ptr(shared_ptr<Y> const & r)
-	: impl(r.get_boost_ptr())
+	: impl(r.boost_ptr())
 	{}
 
 	template<class Y>
 	shared_ptr(shared_ptr<Y> const & r, boost::detail::static_cast_tag)
-	: impl(r.get_boost_ptr(), boost::detail::static_cast_tag())
+	: impl(r.boost_ptr(), boost::detail::static_cast_tag())
 	{}
 
 	template<class Y>
 	shared_ptr(shared_ptr<Y> const & r, boost::detail::const_cast_tag)
-	: impl(r.get_boost_ptr(), boost::detail::const_cast_tag())
+	: impl(r.boost_ptr(), boost::detail::const_cast_tag())
 	{}
 
 	template<class Y>
 	shared_ptr(shared_ptr<Y> const & r, boost::detail::dynamic_cast_tag)
-	: impl(r.get_boost_ptr(), boost::detail::dynamic_cast_tag())
+	: impl(r.boost_ptr(), boost::detail::dynamic_cast_tag())
 	{}
 
 	template<class Y>
 	shared_ptr(shared_ptr<Y> const & r, boost::detail::polymorphic_cast_tag)
-	: impl(r.get_boost_ptr(), boost::detail::polymorphic_cast_tag())
+	: impl(r.boost_ptr(), boost::detail::polymorphic_cast_tag())
 	{}
 #ifndef BOOST_NO_AUTO_PTR
 
@@ -184,7 +184,8 @@ public:
 		std::swap(impl, other.impl);
  	}
 
-	const impl_type& get_boost_ptr() const
+	impl_type const&
+	boost_ptr() const
 	{
 		return impl;
 	}
@@ -201,7 +202,7 @@ private:
 
 template<class T, class U> inline bool operator==(shared_ptr<T> const & a, shared_ptr<U> const & b)
 {
-	return a.get_boost_ptr() == b.get_boost_ptr();
+	return a.boost_ptr() == b.boost_ptr();
 }
 
 template<class T, class U> inline bool operator!=(shared_ptr<T> const & a, shared_ptr<U> const & b)
@@ -211,7 +212,7 @@ template<class T, class U> inline bool operator!=(shared_ptr<T> const & a, share
 
 template<class T, class U> inline bool operator<(shared_ptr<T> const & a, shared_ptr<U> const & b)
 {
-	return a.get_boost_ptr() < b.get_boost_ptr();
+	return a.boost_ptr() < b.boost_ptr();
 }
 
 template<class T> inline void swap(shared_ptr<T> & a, shared_ptr<T> & b)
@@ -239,7 +240,7 @@ template<typename T, typename U> shared_ptr<T> polymorphic_pointer_cast(const sh
 	return shared_ptr<T>(r, boost::detail::polymorphic_cast_tag());
 }
 
-template<class T> inline T * get_pointer(shared_ptr<T> const & p)
+template<class T> inline T * pointer(shared_ptr<T> const & p)
 {
     return p.get();
 }
