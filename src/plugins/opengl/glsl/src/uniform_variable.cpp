@@ -32,7 +32,7 @@ sge::ogl::glsl::uniform_variable<Native>::uniform_variable(
 	renderer::glsl::string const &name)
 :
 	location(
-		get_uniform_location<Native>(
+		uniform_location<Native>(
 			program,
 			name.c_str())),
 	stored_type(

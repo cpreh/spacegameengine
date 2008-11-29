@@ -21,18 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_COLOR_CONVERT_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_CONVERT_HPP_INCLUDED
 
-#include "any_color.hpp"
-#include "../export.hpp"
+#include <boost/gil/color_convert.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-template<typename Dest>
-SGE_SYMBOL Dest const
+template<
+	typename Dest,
+	typename Src
+>
+Dest const
 color_convert(
-	any_color const &);
+	Src const &src)
+{
+	Dest dest;
+	boost::gil::color_convert(src, dest);
+	return dest;
+}
 
 }
 }

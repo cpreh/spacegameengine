@@ -51,7 +51,7 @@ public:
 		size_type sz,
 		resource_flag_type flags);
 	
-	renderer::index_format::type get_index_format() const;
+	renderer::index_format::type index_format() const;
 
 	GLenum format() const;
 	const_pointer buffer_offset(

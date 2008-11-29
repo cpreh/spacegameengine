@@ -32,17 +32,12 @@ namespace x11
 
 class SGE_CLASS_SYMBOL display : boost::noncopyable {
 public:
-	struct wrap_tag {};
 	SGE_SYMBOL display();
-	SGE_SYMBOL display(
-		Display *dsp,
-		wrap_tag);
 	SGE_SYMBOL ~display();
 	SGE_SYMBOL Display *get() const;
 	SGE_SYMBOL void sync();
 private:
-	Display  *d;
-	bool     wrapped;
+	Display  *const d;
 };
 
 }

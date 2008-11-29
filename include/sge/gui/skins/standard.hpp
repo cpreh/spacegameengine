@@ -3,6 +3,7 @@
 
 #include "../skin.hpp"
 #include "../types.hpp"
+#include "../../export.hpp"
 
 namespace sge
 {
@@ -13,8 +14,9 @@ namespace skins
 class standard : public skin
 {
 	public:
-	standard();
-	void operator()(widgets::button &,events::invalid_area const &);
+	SGE_SYMBOL standard();
+	SGE_SYMBOL void operator()(widgets::button &,events::invalid_area const &);
+	SGE_SYMBOL path const cursor_path() const;
 	private:
 	color bgcolor,bgcolor_focused;
 };

@@ -113,7 +113,8 @@ try
 			(sge::renderer::parameters(
 				sge::renderer::display_mode(
 					screen_size,
-					sge::renderer::bit_depth::depth32),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care),
 				sge::renderer::depth_buffer::off,
 				sge::renderer::stencil_buffer::off,
 				sge::renderer::window_mode::windowed))))
@@ -202,7 +203,7 @@ try
 	sge::signals::scoped_connection const pc(
 		sys.input_system()->register_callback(sprite_functor(pointer,sound_siren)));
 
-	sys.renderer()->set_state(
+	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))

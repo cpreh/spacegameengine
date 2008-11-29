@@ -37,13 +37,13 @@ sge::ogl::glsl::shader<Native>::shader(
 
 	compile_shader<Native>(id());
 	
-	if(get_compile_status<Native>(id()) == GL_FALSE)
+	if(compile_status<Native>(id()) == GL_FALSE)
 	{
 		typedef boost::array<char, 1024> errorlog_array;
 		errorlog_array errorlog;
 
 		GLint len;
-		get_shader_info_log<Native>(
+		shader_info_log<Native>(
 			id(),
 			static_cast<GLint>(errorlog.size() - 1u),
 			&len,

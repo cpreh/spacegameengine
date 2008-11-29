@@ -36,12 +36,12 @@ namespace glx
 class context : boost::noncopyable {
 public:
 	context(
-		x11::display_ptr,
+		sge::x11::display_ptr,
 		XVisualInfo const &vi);
 	~context();
-	GLXContext& get();
+	GLXContext &get();
 private:
-	x11::display_ptr const dsp;
+	sge::x11::display_ptr const dsp;
 	GLXContext c;
 };
 

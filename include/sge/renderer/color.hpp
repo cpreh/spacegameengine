@@ -54,7 +54,34 @@ typedef boost::gil::pixel<
 typedef boost::gil::pixel<
 	color_channel_f32,
 	boost::gil::rgba_layout_t
-> rgba_f32_color;
+> rgba32f_color;
+
+typedef boost::gil::pixel<
+	color_channel_f32,
+	boost::gil::argb_layout_t
+> argb32f_color;
+
+typedef boost::gil::pixel<
+	color_channel_f32,
+	boost::gil::bgra_layout_t
+> bgra32f_color;
+
+/*
+typedef boost::gil::pixel<
+	color_channel_f64,
+	boost::gil::rgba_layout_t
+> rgba64f_color;
+
+typedef boost::gil::pixel<
+	color_channel_f64,
+	boost::gil::argb_layout_t
+> argb64f_color;
+
+typedef boost::gil::pixel<
+	color_channel_f64,
+	boost::gil::bgra_layout_t
+> bgra64f_color;
+*/
 
 typedef boost::gil::pixel<
 	uint8,

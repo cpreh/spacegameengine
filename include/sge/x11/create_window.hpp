@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "visual_fwd.hpp"
 #include "display_fwd.hpp"
 #include "../window/instance_fwd.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
@@ -35,7 +36,7 @@ struct parameters;
 namespace x11
 {
 
-sge::window::instance_ptr const
+SGE_SYMBOL sge::window::instance_ptr const
 create_window(
 	sge::window::parameters const &,
 	display_ptr,

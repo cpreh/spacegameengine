@@ -36,7 +36,13 @@ enum type {
 	float2,
 	float3,
 	float4,
-	matrix4x4
+	matrix4x4,
+	int1_array,
+	float1_array,
+	float2_array,
+	float3_array,
+	float4_array,
+	matrix4x4_array
 };
 }
 

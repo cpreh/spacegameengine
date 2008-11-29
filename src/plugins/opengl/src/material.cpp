@@ -22,7 +22,7 @@ along with this program; if not, write to the Free Software Foundation, Inc., 51
 #include "../error.hpp"
 #include <sge/renderer/material.hpp>
 #include <sge/renderer/raw_color.hpp>
-#include <sge/renderer/color_convert.hpp>
+#include <sge/renderer/any_color_convert.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
@@ -132,7 +132,7 @@ void material_color(
 		face,
 		type,
 		sge::renderer::raw_color(
-			sge::renderer::color_convert<sge::renderer::rgba_f32_color>(
+			sge::renderer::any_color_convert<sge::renderer::rgba32f_color>(
 				color)).data());
 }
 

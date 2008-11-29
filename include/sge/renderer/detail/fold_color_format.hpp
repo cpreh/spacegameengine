@@ -52,6 +52,10 @@ fold_color_format(
 		image_view_elements
 	>::type e;
 
+	typename fold_color_format_operation<
+		Operation
+	>::counter_type counter(0);
+
 	return boost::fusion::fold(
 		e,
 		typename Operation::result_type(),
@@ -59,7 +63,8 @@ fold_color_format(
 			Operation
 			>(
 				op,
-				fmt));
+				fmt,
+				counter));
 }
 
 }

@@ -32,7 +32,7 @@ void sge::renderer::check_color_float_channel(
 }
 
 void sge::renderer::check_color_float(
-	rgba_f32_color const &c)
+	rgba32f_color const &c)
 {
 	for(unsigned i = 0; i < 4; ++i) // TODO: can we do this better?
 		check_color_float_channel(c[i]);

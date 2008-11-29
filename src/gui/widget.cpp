@@ -11,20 +11,24 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("widget"));
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("widget"),true);
 }
 
 sge::gui::widget::widget(
 	parent_data parent_data_,
-	size_policy_t const &size_policy_)
+	size_policy_t const &size_policy_,
+	keyboard_focus::type keyboard_focus_)
 	:	parent_(parent_data_.parent_widget()),
 	  manager_(parent_data_.parent_manager()),
-		size_policy_(size_policy_)
+		pos_(point::null()),
+		size_(dim::null()),
+		size_policy_(size_policy_),
+		keyboard_focus_(keyboard_focus_)
 {
 	if (parent_widget())
 		parent_widget()->add_child(*this);
 	else
-		parent_manager().add(*this);
+	parent_manager().add(*this);
 }
 
 sge::gui::point const &sge::gui::widget::pos() const
@@ -67,10 +71,20 @@ void sge::gui::widget::size_policy(size_policy_t const &s)
 	size_policy_ = s; 
 }
 
+sge::gui::keyboard_focus::type sge::gui::widget::keyboard_focus() const
+{
+	return keyboard_focus_;
+}
+
+void sge::gui::widget::keyboard_focus(keyboard_focus::type const n)
+{
+	parent_manager().keyboard().keyboard_focus(*this,keyboard_focus_ = n);
+}
+
 void sge::gui::widget::size(dim const &d)
 {
 	set_size_raw(d);
-	compile();
+	parent_manager().invalidate(*this);
 }
 
 void sge::gui::widget::pos(point const &d)
@@ -85,21 +99,9 @@ void sge::gui::widget::pos(point const &d)
 
 void sge::gui::widget::compile()
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << "compiling");
-
-	if (parent_widget())
-	{
-		parent_widget()->compile();
-		return;
-	}
-	
-	SGE_LOG_DEBUG(mylogger,log::_1 << "running do_compile");
+	SGE_ASSERT(!parent_widget());
 	set_size_raw(size_hint());
 	do_compile();
-
-	// signal manager to recompile according to (new) size and position
-	SGE_LOG_DEBUG(mylogger,log::_1 << "running manager::compile");
-	parent_manager().compile(*this);
 }
 
 void sge::gui::widget::process(events::invalid_area const &e)
@@ -111,6 +113,17 @@ void sge::gui::widget::process(events::mouse_enter const &) {}
 void sge::gui::widget::process(events::mouse_leave const &) {}
 void sge::gui::widget::process(events::mouse_move const &) {}
 void sge::gui::widget::process(events::mouse_click const &) {}
+void sge::gui::widget::process(events::key const &) {}
+
+void sge::gui::widget::process(events::keyboard_enter const &) 
+{
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_enter"));
+}
+
+void sge::gui::widget::process(events::keyboard_leave const &) 
+{
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_leave"));
+}
 
 bool sge::gui::widget::is_container() const
 {
@@ -147,37 +160,4 @@ void sge::gui::widget::set_pos_raw(point const &p)
 
 void sge::gui::widget::do_compile() 
 {
-}
-
-sge::gui::widget *sge::gui::widget::do_recalculate_focus(point const &) 
-{ 
-	return this; 
-}
-
-sge::gui::widget *sge::gui::widget::recalculate_focus(point const &mouse_click)
-{
-	// pointer is no longer inside widget area
-	if (!math::contains(absolute_area(),mouse_click))
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("mouse no longer inside widget, sending leave"));
-
-		process(events::mouse_leave());
-		
-		if (!parent_widget())
-			return 0;
-
-		return parent_widget()->recalculate_focus(mouse_click);
-	}
-
-	widget *const new_focus = do_recalculate_focus(mouse_click);
-	if (new_focus == this)
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("focus hasn't changed, sending mouse_move"));
-		process(events::mouse_move(mouse_click));
-	}
-	return new_focus;
 }

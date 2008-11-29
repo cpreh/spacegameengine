@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/lock_flags.hpp>
 
-bool sge::renderer::lock_flag_read(lock_flag_t const mode)
+bool sge::renderer::lock_flag_read(
+	lock_flag_t const mode)
 {
 	return mode == lock_flags::readwrite;
 }

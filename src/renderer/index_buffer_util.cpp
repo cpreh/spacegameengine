@@ -29,7 +29,7 @@ sge::renderer::resize(
 	size_type const newsize)
 {
 	return rend->create_index_buffer(
-		ib->get_index_format(),
+		ib->index_format(),
 		newsize,
 		ib->flags());
 }

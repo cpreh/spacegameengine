@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::scoped_block::scoped_block(
 	device_ptr const rend)
-: rend(rend)
+:
+	rend(rend)
 {
 	rend->begin_rendering();
 }

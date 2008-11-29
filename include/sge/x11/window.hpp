@@ -1,7 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
-Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -25,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "display_fwd.hpp"
 #include "visual_fwd.hpp"
 #include "colormap_fwd.hpp"
+#include "wm_hints.hpp"
+#include "size_hints.hpp"
 #include "../window/instance.hpp"
 #include "../signals/connection.hpp"
 #include "../signals/signal.hpp"
@@ -40,7 +41,6 @@ namespace x11
 {
 
 class SGE_CLASS_SYMBOL window : public sge::window::instance {
-	//friend class sge::window;
 public:
 	typedef int event_type;
 	typedef long event_mask_type;
@@ -73,7 +73,7 @@ public:
 	SGE_SYMBOL void map();
 	SGE_SYMBOL void map_raised();
 
-	SGE_SYMBOL signals::connection
+	SGE_SYMBOL sge::signals::connection
 	register_callback(
 		event_type,
 		callback_type const &);
@@ -84,6 +84,9 @@ private:
 
 	void add_event_mask(event_type);
 
+	void hints();
+	void set_size_hints();
+
 	display_ptr         dsp;
 	const_visual_ptr    visual_;
 	const_colormap_ptr  colormap_;
@@ -91,8 +94,10 @@ private:
 	Window              wnd;
 	bool                fullscreen_;
 	event_mask_type     event_mask;
+	wm_hints            hints_;
+	size_hints          size_hints_;
 
-	typedef signals::signal<
+	typedef sge::signals::signal<
 		function_type
 	> signal_type;
 	typedef boost::ptr_map<

@@ -54,8 +54,8 @@ struct instance : boost::noncopyable {
 	
 	SGE_SYMBOL plugin::manager &plugin_manager();
 
-	SGE_SYMBOL renderer::system_ptr const renderer_system() const;
-	SGE_SYMBOL renderer::device_ptr const renderer() const;
+	SGE_SYMBOL sge::renderer::system_ptr const renderer_system() const;
+	SGE_SYMBOL sge::renderer::device_ptr const renderer() const;
 
 	SGE_SYMBOL input::system_ptr const input_system() const;
 
@@ -65,7 +65,7 @@ struct instance : boost::noncopyable {
 
 	SGE_SYMBOL font::system_ptr const font_system() const;
 
-	SGE_SYMBOL window::instance_ptr const window() const;
+	SGE_SYMBOL sge::window::instance_ptr const window() const;
 
 	struct impl;
 private:

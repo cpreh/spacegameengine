@@ -34,7 +34,8 @@ class library : boost::noncopyable {
 private:
 	void* handle;
 public:
-	SGE_SYMBOL library(const path&);
+	SGE_SYMBOL explicit library(
+		path const &);
 	SGE_SYMBOL ~library();
 
 	template<typename Fun>

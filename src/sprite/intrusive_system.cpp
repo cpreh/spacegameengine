@@ -38,10 +38,10 @@ sge::sprite::intrusive_system::intrusive_system(
 
 void sge::sprite::intrusive_system::render()
 {
-	set_matrices();
+	matrices();
 
 	renderer::device_ptr const rend(
-		get_renderer());
+		renderer());
 
 	renderer::state::scoped const state_(
 		rend,
@@ -58,19 +58,19 @@ void sge::sprite::intrusive_system::render(
 	allocate_buffers(sprites.size());
 
 	renderer::vertex_buffer_ptr const vb(
-		get_vertex_buffer());
+		vertex_buffer());
 	
 	renderer::index_buffer_ptr const ib(
-		get_index_buffer());
+		index_buffer());
 
 	fill_geometry(
 		sprites.begin(),
 		sprites.end(),
-		get_vertex_buffer(),
-		get_index_buffer());
+		vertex_buffer(),
+		index_buffer());
 
 	renderer::device_ptr const rend(
-		get_renderer());
+		renderer());
 
 	sprite::render(
 		sprites.begin(),

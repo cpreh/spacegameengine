@@ -98,10 +98,80 @@ sge::math::matrix<T, N, M>::data() const
 }
 
 template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::pointer
+sge::math::matrix<T, N, M>::data_end()
+{
+	return data_ + size();
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::const_pointer
+sge::math::matrix<T, N, M>::data_end() const
+{
+	return data_ + size();
+}
+
+template<typename T, std::size_t N, std::size_t M>
 typename sge::math::matrix<T, N, M>::size_type
 sge::math::matrix<T, N, M>::size() const
 {
 	return Dim;
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::iterator
+sge::math::matrix<T, N, M>::begin()
+{
+	return data();
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::const_iterator
+sge::math::matrix<T, N, M>::begin() const
+{
+	return data();
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::iterator
+sge::math::matrix<T, N, M>::end()
+{
+	return data_end();
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::const_iterator
+sge::math::matrix<T, N, M>::end() const
+{
+	return data_end();
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::reverse_iterator
+sge::math::matrix<T, N, M>::rbegin()
+{
+	return reverse_iterator(end());
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::const_reverse_iterator
+sge::math::matrix<T, N, M>::rbegin() const
+{
+	return reverse_iterator(end());
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::reverse_iterator
+sge::math::matrix<T, N, M>::rend()
+{
+	return reverse_iterator(begin());
+}
+
+template<typename T, std::size_t N, std::size_t M>
+typename sge::math::matrix<T, N, M>::const_reverse_iterator
+sge::math::matrix<T, N, M>::rend() const
+{
+	return reverse_iterator(begin());
 }
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES

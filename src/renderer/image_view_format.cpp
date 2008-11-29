@@ -19,21 +19,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/image_view_format.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <sge/renderer/color_format_static.hpp>
+
+namespace
+{
+
+struct format_fun {
+	typedef sge::renderer::color_format::type result_type;
+
+	template<
+		typename T
+	> 
+	result_type
+	operator()(
+		T const &) const;
+};
+
+}
 
 sge::renderer::color_format::type
 sge::renderer::image_view_format(
 	const_image_view const &view)
 {
-	if(view.current_type_is<rgba8_view::const_t>())
-		return color_format::rgba8;
-	if(view.current_type_is<argb8_view::const_t>())
-		return color_format::argb8;
-	if(view.current_type_is<bgra8_view::const_t>())
-		return color_format::bgra8;
-	if(view.current_type_is<rgba_f32_view::const_t>())
-		return color_format::rgbaf32;
-	throw exception(
-		SGE_TEXT("Unknown view type in image_view_format()!"));
+	return boost::gil::apply_operation(
+		view,
+		format_fun());
+}
+
+namespace
+{
+
+template<
+	typename T
+>
+format_fun::result_type
+format_fun::operator()(
+	T const &) const
+{
+	return sge::renderer::color_format_static<
+		typename T::locator::value_type
+	>::value;
+}
+
 }

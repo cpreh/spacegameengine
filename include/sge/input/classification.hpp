@@ -22,23 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CLASSIFICATION_HPP_INCLUDED
 
 #include "key_code.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
 namespace input
 {
 
-bool is_mouse_button(key_code key);
+SGE_SYMBOL bool is_mouse_button(key_code key);
 
-bool is_mouse_axis(key_code key);
+SGE_SYMBOL bool is_mouse_axis(key_code key);
 
-bool is_keyboard_key(key_code key);
+SGE_SYMBOL bool is_keyboard_key(key_code key);
 
-bool is_shift(key_code key);
+SGE_SYMBOL bool is_shift(key_code key);
 
-bool is_ctrl(key_code key);
+SGE_SYMBOL bool is_ctrl(key_code key);
 
-bool is_alt(key_code key);
+SGE_SYMBOL bool is_alt(key_code key);
 
 }
 }

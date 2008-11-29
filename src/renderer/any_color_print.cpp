@@ -54,7 +54,8 @@ namespace
 
 visitor::visitor(
 	sge::ostream &s)
-: s(s)
+:
+	s(s)
 {}
 
 template<typename T>

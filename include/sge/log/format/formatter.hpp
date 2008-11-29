@@ -38,6 +38,7 @@ public:
 	virtual string const
 	format(
 		string const &) const = 0;
+	SGE_SYMBOL virtual ~formatter();
 };
 
 typedef shared_ptr<formatter> formatter_ptr;

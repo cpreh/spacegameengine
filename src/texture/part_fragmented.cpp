@@ -50,19 +50,19 @@ void sge::texture::part_fragmented::data(
 	renderer::const_image_view const &src)
 {
 	renderer::sub_data(
-		my_texture(),
+		texture(),
 		src,
 		inner_area_.pos());
 
 	if(need_atlasing_h)
 		atlas_h(
-			my_texture(),
+			texture(),
 			src,
 			outer_area_,
 			inner_area_);
 	if(need_atlasing_w)
 		atlas_w(
-			my_texture(),
+			texture(),
 			src,
 			outer_area_,
 			inner_area_);
@@ -75,15 +75,15 @@ sge::texture::part_fragmented::area() const
 }
 
 sge::renderer::texture_ptr const
-sge::texture::part_fragmented::my_texture()
+sge::texture::part_fragmented::texture()
 {
-	return fragment.get_texture();
+	return fragment.texture();
 }
 
 sge::renderer::const_texture_ptr const
-sge::texture::part_fragmented::my_texture() const
+sge::texture::part_fragmented::texture() const
 {
-	return fragment.get_texture();
+	return fragment.texture();
 }
 
 bool sge::texture::part_fragmented::repeatable() const

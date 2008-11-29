@@ -70,13 +70,13 @@ void sge::ogl::glsl::program<Native>::link()
 {
 	link_program<Native>(id());
 
-	if(get_link_status<Native>(id()) == GL_FALSE)
+	if(link_status<Native>(id()) == GL_FALSE)
 	{
 		typedef boost::array<char, 1024> errorlog_array;
 		errorlog_array errorlog;
 
 		GLint len;
-		get_program_info_log<Native>(
+		program_info_log<Native>(
 			id(),
 			static_cast<GLint>(errorlog.size() - 1u),
 			&len,

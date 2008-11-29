@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/detail/helper.hpp>
-#include <sge/renderer/color_convert.hpp>
+#include <sge/renderer/any_color_convert.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/math/rect_impl.hpp>
@@ -123,7 +123,7 @@ sge::sprite::fill_color(
 	color const acol)
 {
 	base_color const col(
-		renderer::color_convert<base_color>(
+		renderer::any_color_convert<base_color>(
 			acol));
 	
 	for(unsigned i = 0; i < detail::vertices_per_sprite; ++i)

@@ -19,12 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/viewport.hpp>
+#include <sge/text.hpp>
+#include <ostream>
 
 sge::renderer::viewport::viewport(
 	pixel_pos_t const &pos_,
 	screen_size_t const &size_)
- : pos_(pos_),
-   size_(size_)
+:
+	pos_(pos_),
+	size_(size_)
 {}
 
 sge::renderer::pixel_pos_t const &
@@ -37,4 +40,15 @@ sge::renderer::screen_size_t const &
 sge::renderer::viewport::size() const
 {
 	return size_;
+}
+
+sge::ostream &
+sge::renderer::operator<<(
+	ostream &s,
+	viewport const &v)
+{
+	return s
+		<< v.pos()
+		<< SGE_TEXT(' ')
+		<< v.size();
 }

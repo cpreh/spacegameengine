@@ -78,7 +78,7 @@ void sge::ogl::glsl::link_program<true>(
 }
 
 template<>
-GLint sge::ogl::glsl::get_program_integer<true>(
+GLint sge::ogl::glsl::program_integer<true>(
 	const GLenum what,
 	const traits<true>::handle program)
 {
@@ -89,10 +89,10 @@ GLint sge::ogl::glsl::get_program_integer<true>(
 }
 
 template<>
-GLint sge::ogl::glsl::get_link_status<true>(
+GLint sge::ogl::glsl::link_status<true>(
 	const traits<true>::handle program)
 {
-	return get_program_integer<true>(
+	return program_integer<true>(
 		GL_LINK_STATUS,
 		program);
 }
@@ -106,7 +106,7 @@ void sge::ogl::glsl::use_program<true>(
 }
 
 template<>
-void sge::ogl::glsl::get_program_info_log<true>(
+void sge::ogl::glsl::program_info_log<true>(
 	const traits<true>::handle program,
 	const GLint maxlen,
 	GLint *const len,

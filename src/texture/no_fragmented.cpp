@@ -81,7 +81,7 @@ void sge::texture::no_fragmented::return_fragment(
 }
 
 sge::renderer::texture_ptr const
-sge::texture::no_fragmented::get_texture() const
+sge::texture::no_fragmented::texture() const
 {
 	return tex;
 }

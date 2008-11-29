@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config.h>
 #include <boost/foreach.hpp>
 #include "../device.hpp"
 #include "../vertex_buffer.hpp"
@@ -43,20 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../split_states.hpp"
 #include "../material.hpp"
 #include "../glew.hpp"
-#if defined(SGE_WINDOWS_PLATFORM)
-#include <sge/windows/windows.hpp>
-#include <sge/windows/window.hpp>
-#elif defined(SGE_HAVE_X11)
-#include "../glx/visual.hpp"
-#include <sge/x11/window.hpp>
-#include <sge/x11/display.hpp>
-#include <sge/x11/visual.hpp>
-#include <boost/bind.hpp>
-#else
-#error "Implement me!"
-#endif
-#include <sge/bit.hpp>
+#include "../fbo_target.hpp"
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/viewport.hpp>
@@ -64,123 +52,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/math/matrix_impl.hpp>
-#include <sge/log/headers.hpp>
+#include <sge/window/instance.hpp>
 #include <boost/variant/apply_visitor.hpp>
+#include <boost/bind.hpp>
 #include <sstream>
 
-// TODO: maybe support different adapters?
 sge::ogl::device::device(
 	renderer::parameters const &param,
 	renderer::adapter_type const adapter,
-	window::instance_ptr const wnd_param)
+	window::instance_ptr const wnd)
 :
 	param(param),
-	current_states(renderer::state::default_())
+	wnd(wnd),
+	current_states(renderer::state::default_()),
+	state_(
+		param,
+		adapter,
+		wnd,
+		boost::bind(
+			&device::viewport,
+			this,
+			_1))
 {
-//	if(adapter > 0)
-//		sge::cerr << SGE_TEXT("stub: adapter cannot be > 0 for opengl plugin (adapter was ") << adapter << SGE_TEXT(").\n");
-
-	bool windowed = true; // param.windowed;
-#if defined(SGE_WINDOWS_PLATFORM)
-	if(!windowed)
-	{
-		DEVMODE settings;
-		memset(&settings,0,sizeof(DEVMODE));
-		settings.dmSize = sizeof(DEVMODE);
-		settings.dmPelsWidth    = param.mode().size().w();
-		settings.dmPelsHeight   = param.mode().size().h();
-		settings.dmBitsPerPel   = static_cast<UINT>(param.mode().bit_depth());
-		settings.dmDisplayFrequency = param.mode().refresh_rate();
-		settings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH|DM_PELSHEIGHT | DM_DISPLAYFREQUENCY;
-		if(ChangeDisplaySettings(&settings,CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
-		{
-			//sge::cerr << SGE_TEXT("Cannot change resolution to ") << param.mode << SGE_TEXT("! Reverting to window mode!\n");
-			windowed = false;
-		}
-	}
-
-	wnd = polymorphic_pointer_cast<windows::window>(wnd_param);
-
-	hdc.reset(
-		new windows::gdi_device(
-			wnd->hwnd(),
-			windows::gdi_device::get_tag()));
-
-	context.reset(
-		new wgl::context(
-			*hdc));
-
-	current.reset(
-		new wgl::current(
-			*hdc,
-			*context));
-
-#elif defined(SGE_HAVE_X11)
-	wnd = polymorphic_pointer_cast<x11::window>(wnd_param);
-
-	x11::display_ptr const dsp(
-		wnd->display());
-
-	if(!windowed)
-	{
-#if defined(SGE_HAVE_XF86_VMODE)
-		modes.reset(
-			new xf86::vidmode_array(
-				dsp,
-				wnd->screen()));
-		resolution = modes->switch_to_mode(param.mode());
-		if(!resolution)
-		{
-			SGE_LOG_WARNING(
-				log::global(),
-				log::_1
-					<< SGE_TEXT("No resolution matches against ")
-					<< param.mode()
-					<< SGE_TEXT("! Falling back to window mode!"));
-			windowed = true;
-		}
-#else
-		//
-#endif
-	}
-
-	x11::const_visual_ptr const visual(
-		wnd->visual());
-
-	context.reset(
-		new glx::context(
-			dsp,
-			dynamic_pointer_cast<glx::visual const>(visual)
-				->info()));
-
-	if(!windowed)
-		wnd->map();
-	else
-		wnd->map_raised();
-
-	current.reset(new glx::current(dsp, *wnd, context));
-
- 	con_manager.connect(
-		wnd->register_callback(
-			MapNotify,
-			boost::bind(&device::reset_viewport_on_map, this, _1)));
-	con_manager.connect(
-		wnd->register_callback(
-			ConfigureNotify,
-			boost::bind(&device::reset_viewport_on_configure, this, _1)));
-	
-	dsp->sync();
-#endif
 	initialize_glew();
 
 	initialize_vbo();
 	initialize_pbo();
 
-	set_state(
+	state(
 		renderer::state::default_());
 	
-	set_render_target(
-		default_render_target);
+	target(
+		default_target);
 }
 
 void sge::ogl::device::begin_rendering()
@@ -188,9 +91,9 @@ void sge::ogl::device::begin_rendering()
 	SGE_OPENGL_SENTRY
 
 	glClear(
-		get_clear_bit(renderer::state::bool_::clear_backbuffer)
-		| get_clear_bit(renderer::state::bool_::clear_zbuffer)
-		| get_clear_bit(renderer::state::bool_::clear_stencil));
+		clear_bit(renderer::state::bool_::clear_backbuffer)
+		| clear_bit(renderer::state::bool_::clear_zbuffer)
+		| clear_bit(renderer::state::bool_::clear_stencil));
 }
 
 sge::renderer::index_buffer_ptr const
@@ -200,14 +103,14 @@ sge::ogl::device::create_index_buffer(
 	renderer::resource_flag_t const flags)
 {
 	return renderer::index_buffer_ptr(
-		new index_buffer(
+		new ogl::index_buffer(
 			format,
 			sz,
 			flags));
 }
 
 sge::ogl::fbo_target_ptr const
-sge::ogl::device::create_render_target()
+sge::ogl::device::create_target()
 {
 	return fbo_target_ptr(
 		new fbo_target());
@@ -221,7 +124,7 @@ sge::ogl::device::create_texture(
 	renderer::texture::resource_flag_type const flags)
 {
 	return renderer::texture_ptr(
-		new texture(
+		new ogl::texture(
 			dim,
 			format,
 			filter,
@@ -235,7 +138,7 @@ sge::ogl::device::create_vertex_buffer(
 	renderer::resource_flag_t const flags)
 {
 	return renderer::vertex_buffer_ptr(
-		new vertex_buffer(
+		new ogl::vertex_buffer(
 			format,
 			sz,
 			flags));
@@ -273,15 +176,7 @@ sge::ogl::device::create_cube_texture(
 
 void sge::ogl::device::end_rendering()
 {
-#if defined(SGE_HAVE_X11)
-	SGE_OPENGL_SENTRY
-	glXSwapBuffers(
-		wnd->display()->get(),
-		wnd->get());
-#elif defined(SGE_WINDOWS_PLATFORM)
-	if(wglSwapLayerBuffers(hdc->hdc(), WGL_SWAP_MAIN_PLANE) == FALSE)
-		throw exception(SGE_TEXT("wglSwapLayerBuffers() failed!"));
-#endif
+	state_.swap_buffers();
 }
 
 sge::renderer::device::caps_t const
@@ -323,12 +218,14 @@ void sge::ogl::device::render(
 		throw exception(
 			SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
 
-	set_vertex_buffer(vb);
-	set_index_buffer(ib);
+	vertex_buffer(vb);
+	index_buffer(ib);
 
 	GLenum const prim_type = convert_cast(ptype);
 
-	index_buffer const &gl_ib = dynamic_cast<index_buffer const &>(*ib);
+	ogl::index_buffer const &
+		gl_ib = dynamic_cast<ogl::index_buffer const &>(
+			*ib);
 
 	SGE_OPENGL_SENTRY
 
@@ -351,7 +248,7 @@ void sge::ogl::device::render(
 		throw exception(
 			SGE_TEXT("vb may not be 0 for renderer::render!"));
 
-	set_vertex_buffer(vb);
+	vertex_buffer(vb);
 
 	GLenum const prim_type = convert_cast(ptype);
 
@@ -363,7 +260,7 @@ void sge::ogl::device::render(
 		static_cast<GLint>(num_vertices));
 }
 
-void sge::ogl::device::set_state(
+void sge::ogl::device::state(
 	renderer::state::list const &states)
 {
 	split_states split(current_states);
@@ -381,7 +278,7 @@ void sge::ogl::device::push_state(
 	state_levels.push(
 		current_states);
 
-	set_state(
+	state(
 		renderer::state::combine(
 			current_states,
 			states));
@@ -389,23 +286,23 @@ void sge::ogl::device::push_state(
 
 void sge::ogl::device::pop_state()
 {
-	set_state(state_levels.top());
+	state(state_levels.top());
 	state_levels.pop();
 }
 
-GLenum sge::ogl::device::get_clear_bit(
+GLenum sge::ogl::device::clear_bit(
 	renderer::state::bool_::trampoline_type const &s) const
 {
 	return current_states.get(s) ? convert_clear_bit(s) : 0;
 }
 
-void sge::ogl::device::set_material(
+void sge::ogl::device::material(
 	renderer::material const &mat)
 {
 	ogl::set_material(mat);
 }
 
-void sge::ogl::device::set_viewport(
+void sge::ogl::device::viewport(
 	renderer::viewport const &v)
 {
 	SGE_OPENGL_SENTRY
@@ -415,41 +312,6 @@ void sge::ogl::device::set_viewport(
 		v.size().w(),
 		v.size().h());
 }
-
-#ifdef SGE_HAVE_X11
-void sge::ogl::device::reset_viewport_on_map(const XEvent&)
-{
-	center_viewport(wnd->size().w(), wnd->size().h());
-}
-
-void sge::ogl::device::reset_viewport_on_configure(const XEvent& e)
-{
-	const XConfigureEvent& r(e.xconfigure);
-	center_viewport(r.width, r.height);
-}
-
-void sge::ogl::device::center_viewport(const int w, const int h)
-{
-	const renderer::pixel_unit screen_w =
-		static_cast<renderer::pixel_unit>(screen_size().w()),
-		         screen_h =
-		static_cast<renderer::pixel_unit>(screen_size().h()),
-	                 x =
-		w > screen_w
-		? (w - screen_w) / 2
-		: 0,
-	                 y =
-		h > screen_h
-		? (h - screen_h) / 2
-		: 0;
-
-	set_viewport(
-		renderer::viewport(
-			renderer::pixel_pos_t(
-				x, y),
-			screen_size()));
-}
-#endif
 
 void sge::ogl::device::transform(
 	renderer::any_matrix const &matrix)
@@ -475,49 +337,50 @@ void sge::ogl::device::texture_transform(
 		matrix);
 }
 
-void sge::ogl::device::set_render_target(
-	renderer::texture_ptr const target)
+void sge::ogl::device::target(
+	renderer::texture_ptr const ntarget)
 {
-	if(!target)
+	if(!ntarget)
 	{
-		render_target_.reset(
-			new default_target(
+		target_.reset(
+			new ogl::default_target(
 				math::structure_cast<
 					target::dim_type::value_type>(
 						screen_size()),
 				param.mode().bit_depth()));
-		render_target_->bind_me();
+		target_->bind_me();
 		window::pos_type const offset = wnd->viewport_offset();
-		set_viewport(
+		viewport(
 			renderer::viewport(
 				offset,
 				wnd->size()));
 		return;
 	}
 
-	shared_ptr<texture> const p(
-		dynamic_pointer_cast<texture>(target));
+	shared_ptr<ogl::texture> const p(
+		dynamic_pointer_cast<ogl::texture>(
+			ntarget));
 	
-	fbo_target_ptr const ntarget = create_render_target();
+	fbo_target_ptr const ftarget = create_target();
 
-	ntarget->bind_texture(p);
+	ftarget->bind_texture(p);
 
-	set_viewport(
+	viewport(
 		renderer::viewport(
 			renderer::pixel_pos_t(0, 0),
 			math::structure_cast<renderer::screen_unit>(
 				p->dim())));
 	
-	render_target_ = ntarget;
+	target_ = ftarget;
 }
 
 sge::renderer::const_target_ptr const
-sge::ogl::device::get_target() const
+sge::ogl::device::target() const
 {
-	return render_target_;
+	return target_;
 }
 
-void sge::ogl::device::set_texture(
+void sge::ogl::device::texture(
 	renderer::const_texture_base_ptr const tex,
 	renderer::stage_type const stage)
 {
@@ -543,7 +406,7 @@ void sge::ogl::device::enable_light(
 	enable(glindex, enable_);
 }
 
-void sge::ogl::device::set_light(
+void sge::ogl::device::light(
 	renderer::light_index const index,
 	renderer::light const &l)
 {
@@ -552,7 +415,7 @@ void sge::ogl::device::set_light(
 		l);
 }
 
-void sge::ogl::device::set_texture_stage_op(
+void sge::ogl::device::texture_stage_op(
 	renderer::stage_type const stage,
 	renderer::texture_stage_op::type const op,
 	renderer::texture_stage_op_value::type const value)
@@ -561,7 +424,7 @@ void sge::ogl::device::set_texture_stage_op(
 	set_texture_stage_scale(value);
 }
 
-void sge::ogl::device::set_texture_stage_arg(
+void sge::ogl::device::texture_stage_arg(
 	renderer::stage_type const stage,
 	renderer::texture_stage_arg::type const arg,
 	renderer::texture_stage_arg_value::type const value)
@@ -599,22 +462,26 @@ sge::ogl::device::create_glsl_program(
 		ps_stream.str());
 }
 
-void sge::ogl::device::set_glsl_program(
+void sge::ogl::device::glsl_program(
 	renderer::glsl::program_ptr const prog)
 {
 	glsl::set_program_impl(prog);
 }
 
-void sge::ogl::device::set_vertex_buffer(
+void sge::ogl::device::vertex_buffer(
 	renderer::const_vertex_buffer_ptr const vb)
 {
-	vertex_buffer const &ovb = dynamic_cast<vertex_buffer const &>(*vb);
+	ogl::vertex_buffer const &
+		ovb = dynamic_cast<ogl::vertex_buffer const &>(
+			*vb);
 	ovb.set_format();
 }
 
-void sge::ogl::device::set_index_buffer(
+void sge::ogl::device::index_buffer(
 	renderer::const_index_buffer_ptr const ib)
 {
-	index_buffer const &oib = dynamic_cast<index_buffer const &>(*ib);
+	ogl::index_buffer const &
+		oib = dynamic_cast<ogl::index_buffer const &>(
+			*ib);
 	oib.bind_me();
 }

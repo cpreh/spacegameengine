@@ -32,6 +32,9 @@ sge::texture::manager::manager(
 	onalloc_(onalloc_)
 {}
 
+sge::texture::manager::~manager()
+{}
+
 sge::texture::part_ptr const
 sge::texture::manager::add(
 	renderer::const_image_view const &src)
@@ -59,8 +62,8 @@ sge::texture::manager::init_texture(
 	return p;
 }
 
-const sge::renderer::device_ptr
-sge::texture::manager::get_renderer() const
+sge::renderer::device_ptr const
+sge::texture::manager::renderer() const
 {
 	return rend;
 }

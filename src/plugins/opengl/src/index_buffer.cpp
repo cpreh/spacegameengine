@@ -45,7 +45,7 @@ sge::ogl::index_buffer::index_buffer(
 {}
 
 sge::renderer::index_format::type
-sge::ogl::index_buffer::get_index_format() const
+sge::ogl::index_buffer::index_format() const
 {
 	return format_;
 }
@@ -81,7 +81,7 @@ sge::ogl::index_buffer::view()
 	return renderer::make_index_view(
 		detail::index_buffer_base::data(),
 		lock_size(),
-		get_index_format());
+		index_format());
 }
 
 sge::renderer::const_dynamic_index_view const
@@ -90,5 +90,5 @@ sge::ogl::index_buffer::view() const
 	return renderer::make_index_view(
 		detail::index_buffer_base::data(),
 		lock_size(),
-		get_index_format());
+		index_format());
 }

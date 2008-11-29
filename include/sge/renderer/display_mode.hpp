@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "bit_depth.hpp"
 #include "screen_types.hpp"
+#include "refresh_rate.hpp"
 #include "../export.hpp"
 #include "../ostream.hpp"
 
@@ -31,23 +32,19 @@ namespace sge
 namespace renderer
 {
 
-typedef unsigned refresh_rate_type;
-
 struct display_mode {
 	SGE_SYMBOL display_mode(
 		screen_size_t const &sz,
-		bit_depth::type depth,
-		refresh_rate_type refresh_rate = 0);
+		renderer::bit_depth::type depth,
+		refresh_rate_type refresh_rate);
 	
-	typedef bit_depth::type bit_depth_t;
-
 	SGE_SYMBOL screen_size_t const &size() const;
-	SGE_SYMBOL bit_depth_t bit_depth() const;
+	SGE_SYMBOL renderer::bit_depth::type bit_depth() const;
 	SGE_SYMBOL refresh_rate_type refresh_rate() const;
 private:
-	screen_size_t     size_;
-	bit_depth_t       bit_depth_;
-	refresh_rate_type refresh_rate_;
+	screen_size_t             size_;
+	renderer::bit_depth::type bit_depth_;
+	refresh_rate_type         refresh_rate_;
 };
 
 SGE_SYMBOL ostream &

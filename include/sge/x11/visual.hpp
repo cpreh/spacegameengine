@@ -31,7 +31,7 @@ namespace sge
 namespace x11
 {
 
-class visual : boost::noncopyable {
+class SGE_CLASS_SYMBOL visual : boost::noncopyable {
 public:
 	SGE_SYMBOL visual(
 		display_ptr,

@@ -4,9 +4,9 @@
 
 sge::gui::events::mouse_click::mouse_click(
 	point const &pos_,
-	input::key_code const button_) 
+	input::key_pair const &kp) 
 	: pos_(pos_),
-	  button_(button_)
+	  kp(kp)
 {
-	SGE_ASSERT(input::is_mouse_button(button()));
+	SGE_ASSERT(input::is_mouse_button(kp.key().code()));
 }

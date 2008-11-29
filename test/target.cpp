@@ -33,7 +33,8 @@ try
 					sge::renderer::screen_size_t(
 						1024,
 						768),
-					sge::renderer::bit_depth::depth32),
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care),
 				sge::renderer::depth_buffer::off,
 				sge::renderer::stencil_buffer::off,
 				sge::renderer::window_mode::windowed))))
@@ -66,12 +67,12 @@ try
 
 	{
 		sge::renderer::scoped_block const block_(sys.renderer());
-		sys.renderer()->set_render_target(target);
+		sys.renderer()->target(target);
 		ss.render(my_object);
 		ss.render(my_object_2);
 	}
 
-	sys.renderer()->set_render_target(sge::renderer::device::default_render_target);
+	sys.renderer()->target(sge::renderer::device::default_target);
 
 	sge::sprite::object rendered_stuff(
 		sge::sprite::point(0,0),

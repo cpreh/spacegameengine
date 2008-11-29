@@ -30,7 +30,7 @@ sge::ogl::glsl::attribute_variable<Native>::attribute_variable(
 	renderer::glsl::string const &name)
 :
 	location(
-		get_attrib_location<Native>(
+		attrib_location<Native>(
 			program,
 			name.c_str())),
 	stored_type(

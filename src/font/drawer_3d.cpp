@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/image.hpp>
-#include <sge/vector.hpp>
 #include <boost/gil/algorithm.hpp>
 
 namespace
@@ -75,7 +74,7 @@ void sge::font::drawer_3d::draw_char(
 		sprite::object(
 			p,
 			d.content()
-				? get_cached_texture(
+				? cached_texture(
 					ch,
 					data)
 				: texture::part_ptr(),
@@ -88,14 +87,14 @@ void sge::font::drawer_3d::end_rendering()
 	sys.render(sprites.begin(), sprites.end());
 }
 
-void sge::font::drawer_3d::set_color(
+void sge::font::drawer_3d::color(
 	renderer::any_color const &new_color)
 {
 	col = new_color;
 }
 
 sge::texture::part_ptr const
-sge::font::drawer_3d::get_cached_texture(
+sge::font::drawer_3d::cached_texture(
 	char_type const ch,
 	const_image_view const &data)
 {

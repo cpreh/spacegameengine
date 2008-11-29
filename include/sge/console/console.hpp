@@ -31,17 +31,41 @@ namespace sge
 namespace con
 {
 
-SGE_SYMBOL void prefix(const string::value_type &);
+SGE_SYMBOL void prefix(
+	string::value_type const &);
+
 SGE_SYMBOL string::value_type prefix();
-SGE_SYMBOL void add(const string &,const callback &);
-SGE_SYMBOL void eval(const string &);
-SGE_SYMBOL void chat_callback(const callback &);
-SGE_SYMBOL void read_config(const path &);
-SGE_SYMBOL const var_map &vars();
-SGE_SYMBOL const callback_map &funcs();
-SGE_SYMBOL sge::string const get_var(const sge::string &);
-SGE_SYMBOL void set_var(const sge::string &,const sge::string &);
-SGE_SYMBOL void latch(const sge::string &,const sge::string &);
+
+SGE_SYMBOL void add(
+	string const &,
+	callback const &);
+
+SGE_SYMBOL void eval(
+	string const &);
+
+SGE_SYMBOL void chat_callback(
+	callback const &);
+
+SGE_SYMBOL void read_config(
+	path const &);
+
+SGE_SYMBOL var_map const &
+vars();
+
+SGE_SYMBOL callback_map const &
+funcs();
+
+SGE_SYMBOL sge::string const
+get_var(
+	sge::string const &);
+
+SGE_SYMBOL void set_var(
+	sge::string const &,
+	sge::string const &);
+
+SGE_SYMBOL void latch(
+	sge::string const &,
+	sge::string const &);
 
 }
 }

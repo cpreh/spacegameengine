@@ -32,7 +32,7 @@ namespace glsl
 {
 
 template<bool Native>
-GLint get_attrib_location(
+GLint attrib_location(
 	typename traits<Native>::handle program,
 	char const *name);
 

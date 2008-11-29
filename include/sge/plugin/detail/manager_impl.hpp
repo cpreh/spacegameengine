@@ -28,7 +28,7 @@ sge::plugin::iterator<T>
 sge::plugin::manager::begin()
 {
 	return iterator<T>(
-		categories[detail::traits<T>::get_plugin_type()].begin());
+		categories[detail::traits<T>::plugin_type()].begin());
 }
 
 template<typename T>
@@ -36,17 +36,17 @@ sge::plugin::iterator<T>
 sge::plugin::manager::end()
 {
 	return iterator<T>(
-		categories[detail::traits<T>::get_plugin_type()].end());
+		categories[detail::traits<T>::plugin_type()].end());
 }
 
 template<typename T>
 typename sge::plugin::iterator<T>::reference
-sge::plugin::manager::get_plugin(
+sge::plugin::manager::plugin(
 	size_type const index)
 {
 	if(index >= size<T>())
 		throw exception(
-			SGE_TEXT("get_plugin(): No plugins found of type: \"")
+			SGE_TEXT("plugin(): No plugins found of type: \"")
 			+ iconv(typeid(T).name())
 			+ SGE_TEXT("\"!"));
 	return *(begin<T>()+index);
@@ -56,8 +56,8 @@ template<typename T>
 sge::plugin::manager::size_type
 sge::plugin::manager::size() const
 {
-	const plugin_map::const_iterator it = categories.find(
-		detail::traits<T>::get_plugin_type());
+	plugin_map::const_iterator const it = categories.find(
+		detail::traits<T>::plugin_type());
 	return it == categories.end()
 		? 0
 		: it->second.size();

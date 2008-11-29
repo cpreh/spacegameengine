@@ -36,28 +36,29 @@ namespace sprite
 
 class system_base : boost::noncopyable {
 public:
-	SGE_SYMBOL renderer::device_ptr const
-	get_renderer() const;
+	SGE_SYMBOL sge::renderer::device_ptr const
+	renderer() const;
 protected:
 	explicit system_base(
-		renderer::device_ptr rend);
+		sge::renderer::device_ptr rend);
 	
 	SGE_SYMBOL void allocate_buffers(
 		std::size_t needed_sprites);
 
-	void set_matrices();
+	void matrices();
 
-	SGE_SYMBOL renderer::vertex_buffer_ptr const
-	get_vertex_buffer() const;
+	SGE_SYMBOL sge::renderer::vertex_buffer_ptr const
+	vertex_buffer() const;
 
-	SGE_SYMBOL renderer::index_buffer_ptr const
-	get_index_buffer() const;
+	SGE_SYMBOL sge::renderer::index_buffer_ptr const
+	index_buffer() const;
 private:
-	renderer::device_ptr const  rend;
-	renderer::vertex_buffer_ptr vb;
-	renderer::index_buffer_ptr  ib;
-	matrix const                transform_matrix,
-	                            projection_matrix;
+	sge::renderer::device_ptr const  rend;
+	sge::renderer::vertex_buffer_ptr vb;
+	sge::renderer::index_buffer_ptr  ib;
+	matrix const
+		transform_matrix,
+		projection_matrix;
 };
 
 }

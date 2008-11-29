@@ -24,19 +24,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/math/matrix_impl.hpp>
+#include <sge/array_wrapper_impl.hpp>
 #include <sge/once.hpp>
+#include <sge/raw_vector_impl.hpp>
 
 namespace
 {
 
 PFNGLUNIFORM1IPROC uniform_1i;
+PFNGLUNIFORM1IVPROC uniform_1iv;
 PFNGLUNIFORM1FPROC uniform_1f;
+PFNGLUNIFORM1FVPROC uniform_1fv;
 PFNGLUNIFORM2FVPROC uniform_2fv;
 PFNGLUNIFORM3FVPROC uniform_3fv;
 PFNGLUNIFORM3FVPROC uniform_4fv;
 PFNGLUNIFORMMATRIX4FVPROC uniform_matrix_4fv;
 
 void initialize_uniform_setter();
+
+template<
+	typename Dest,
+	typename T
+>
+sge::raw_vector<Dest> const
+convert_array(
+	sge::array_wrapper<T> const &);
 
 }
 
@@ -58,69 +70,132 @@ sge::ogl::glsl::uniform_setter::operator()(
 	
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	renderer::any_arithmetic const &f) const
+	renderer::glsl::float_type const &f) const
 {
 	uniform_1f(
 		location,
-		renderer::arithmetic_convert<GLfloat>(f));
+		f);
 	return uniform_type::float1;
 }
 
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	renderer::any_vector2 const &v) const
+	renderer::glsl::vector2 const &v) const
 {
 	uniform_2fv(
 		location,
 		1u,
-		renderer::vector_convert<
-			math::vector<GLfloat, 2>
-		>(
-			v).data());
+		v.data());
 	return uniform_type::float2;
 }
 
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	renderer::any_vector3 const &v) const
+	renderer::glsl::vector3 const &v) const
 {
 	uniform_3fv(
 		location,
 		1u,
-		renderer::vector_convert<
-			math::vector<GLfloat, 3>
-		>(
-			v).data());
+		v.data());
 	return uniform_type::float3;
 }
 	
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	renderer::any_vector4 const &v) const
+	renderer::glsl::vector4 const &v) const
 {
 	uniform_4fv(
 		location,
 		1u,
-		renderer::vector_convert<
-			math::vector<GLfloat, 4>
-		>(
-			v).data());
+		v.data());
 	return uniform_type::float4;
 }
 
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	renderer::any_matrix const &m) const
+	renderer::glsl::matrix4x4 const &m) const
 {
 	uniform_matrix_4fv(
 		location,
 		1u,
 		false,
-		renderer::matrix_convert<
-			math::matrix<GLfloat, 4, 4>
-		>(
-			m).data());
+		m.data());
 	return uniform_type::matrix4x4;
+}
+
+sge::ogl::glsl::uniform_type::type
+sge::ogl::glsl::uniform_setter::operator()(
+	array_wrapper<renderer::glsl::int_type> const &m) const
+{
+	uniform_1iv(
+		location,
+		m.size(),
+		m.data());
+	return uniform_type::int1_array;
+}
+
+sge::ogl::glsl::uniform_type::type
+sge::ogl::glsl::uniform_setter::operator()(
+	array_wrapper<renderer::glsl::float_type> const &m) const
+{
+	uniform_1fv(
+		location,
+		m.size(),
+		m.data());
+	return uniform_type::float1_array;
+}
+
+sge::ogl::glsl::uniform_type::type
+sge::ogl::glsl::uniform_setter::operator()(
+	array_wrapper<renderer::glsl::vector2> const &a) const
+{
+	uniform_2fv(
+		location,
+		a.size(),
+		convert_array<
+			GLfloat
+		>(a).data());
+	return uniform_type::float2_array;
+}
+
+sge::ogl::glsl::uniform_type::type
+sge::ogl::glsl::uniform_setter::operator()(
+	array_wrapper<renderer::glsl::vector3> const &a) const
+{
+	uniform_3fv(
+		location,
+		a.size(),
+		convert_array<
+			GLfloat
+		>(a).data());
+	return uniform_type::float3_array;
+}
+
+sge::ogl::glsl::uniform_type::type
+sge::ogl::glsl::uniform_setter::operator()(
+	array_wrapper<renderer::glsl::vector4> const &a) const
+{
+	uniform_4fv(
+		location,
+		a.size(),
+		convert_array<
+			GLfloat
+		>(a).data());
+	return uniform_type::float4_array;
+}
+
+sge::ogl::glsl::uniform_type::type
+sge::ogl::glsl::uniform_setter::operator()(
+	array_wrapper<renderer::glsl::matrix4x4> const &a) const
+{
+	uniform_matrix_4fv(
+		location,
+		a.size(),
+		false,
+		convert_array<
+			GLfloat
+		>(a).data());
+	return uniform_type::matrix4x4_array;
 }
 
 namespace
@@ -132,7 +207,9 @@ void initialize_uniform_setter()
 	if(sge::ogl::glsl::is_native())
 	{
 		uniform_1i = glUniform1i;
+		uniform_1iv = glUniform1iv;
 		uniform_1f = glUniform1f;
+		uniform_1fv = glUniform1fv;
 		uniform_2fv = glUniform2fv;
 		uniform_3fv = glUniform3fv;
 		uniform_4fv = glUniform4fv;
@@ -141,13 +218,28 @@ void initialize_uniform_setter()
 	else
 	{
 		uniform_1i = glUniform1iARB;
+		uniform_1iv = glUniform1ivARB;
 		uniform_1f = glUniform1fARB;
+		uniform_1fv = glUniform1fvARB;
 		uniform_2fv = glUniform2fvARB;
 		uniform_3fv = glUniform3fvARB;
 		uniform_4fv = glUniform4fvARB;
 		uniform_matrix_4fv = glUniformMatrix4fvARB;
-
 	}
+}
+
+template<
+	typename Dest,
+	typename T
+>
+sge::raw_vector<Dest> const
+convert_array(
+	sge::array_wrapper<T> const &a)
+{
+	sge::raw_vector<Dest> ret;
+	for(typename sge::array_wrapper<T>::iterator it(a.begin()); it != a.end(); ++it)
+		ret.insert(ret.end(), it->begin(), it->end());
+	return ret;
 }
 
 }

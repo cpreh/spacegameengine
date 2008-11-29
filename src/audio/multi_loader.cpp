@@ -1,5 +1,6 @@
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/exception.hpp>
+#include <sge/audio/loader_plugin.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
@@ -37,5 +38,4 @@ sge::audio::file_ptr const sge::audio::multi_loader::load(path const &file)
 		SGE_TEXT("couldn't find any audio loaders for file \"")
 		+ file.string()
 		+ SGE_TEXT('"'));
-	return file_ptr();
 }

@@ -32,7 +32,7 @@ void check_color_float_channel(
 	color_channel_f32);
 
 void check_color_float(
-	rgba_f32_color const &);
+	rgba32f_color const &);
 
 }
 }

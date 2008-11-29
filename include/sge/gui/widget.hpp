@@ -1,8 +1,11 @@
 #ifndef SGE_GUI_WIDGET_HPP_INCLUDED
 #define SGE_GUI_WIDGET_HPP_INCLUDED
 
+#include "widgets/container_fwd.hpp"
 #include "events/fwd.hpp"
+#include "keyboard_focus.hpp"
 #include "types.hpp"
+#include "manager_fwd.hpp"
 #include "size_policy.hpp"
 #include "../export.hpp"
 
@@ -14,14 +17,6 @@ namespace sge
 {
 namespace gui
 {
-// forward declarations
-namespace widgets
-{
-class container;
-}
-class manager;
-
-// declaration
 class SGE_CLASS_SYMBOL widget : boost::noncopyable
 {
 	public:
@@ -42,7 +37,8 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 
 	SGE_SYMBOL explicit widget(
 		parent_data,
-		size_policy_t const & = size_policy_t::default_policy);
+		size_policy_t const & = size_policy_t::default_policy,
+		keyboard_focus::type receives_keys = keyboard_focus::ignore);
 
 	// getters and setters go here
 	point const &pos() const;
@@ -58,6 +54,9 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	size_policy_t const &size_policy() const;
 	void size_policy(size_policy_t const &s);
 
+	gui::keyboard_focus::type keyboard_focus() const;
+	void keyboard_focus(keyboard_focus::type);
+
 	SGE_SYMBOL void size(dim const &);
 	SGE_SYMBOL void pos(point const &);
 	SGE_SYMBOL void compile();
@@ -69,6 +68,9 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	virtual void process(events::mouse_leave const &);
 	virtual void process(events::mouse_move const &);
 	virtual void process(events::mouse_click const &);
+	virtual void process(events::key const &);
+	virtual void process(events::keyboard_enter const &);
+	virtual void process(events::keyboard_leave const &);
 
 	// virtuals
 	SGE_SYMBOL virtual ~widget();
@@ -80,7 +82,6 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	void set_pos_raw(point const &p);
 
 	protected:
-	virtual widget *do_recalculate_focus(point const &);
 	virtual void do_compile();
 
 	private:
@@ -90,8 +91,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	point pos_;
 	dim size_,size_hint_;
 	size_policy_t size_policy_;
-
-	widget *recalculate_focus(point const &mouse_click);
+	keyboard_focus::type keyboard_focus_;
 
 	// friend functions
 	friend class layout;

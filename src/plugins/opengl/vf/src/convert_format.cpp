@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../convert_format.hpp"
+#include "../../color_convert.hpp"
 #include <sge/renderer/vf/dynamic_vector.hpp>
 #include <sge/renderer/vf/dynamic_color.hpp>
 #include <sge/exception.hpp>
@@ -43,15 +44,6 @@ GLenum sge::ogl::vf::convert_format::operator()(
 GLenum sge::ogl::vf::convert_format::operator()(
 	renderer::vf::dynamic_color const &c) const
 {
-	switch(c.color_format()) {
-	case renderer::color_format::rgba8:
-	case renderer::color_format::bgra8:
-	case renderer::color_format::argb8:
-		return GL_UNSIGNED_BYTE;
-	case renderer::color_format::rgbaf32:
-		return GL_FLOAT;
-	default:
-		throw exception(
-			SGE_TEXT("Invalid color_format in ogl::vf::convert_format!"));
-	}
+	return to_format_type(
+		c.color_format());
 }

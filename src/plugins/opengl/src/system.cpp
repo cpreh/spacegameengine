@@ -56,7 +56,7 @@ sge::ogl::system::create_renderer(
 			param,
 			adapter,
 			wnd));
-	ref = r.get_boost_ptr();
+	ref = r.boost_ptr();
 	return r;
 }
 
@@ -65,8 +65,8 @@ sge::ogl::system::create_window(
 	window::parameters const &param)
 {
 #if defined(SGE_HAVE_X11)
-	x11::display_ptr const dsp(
-		new x11::display());
+	sge::x11::display_ptr const dsp(
+		new sge::x11::display());
 
 	renderer::parameters const &rparam(
 		param.param());
@@ -74,20 +74,20 @@ sge::ogl::system::create_window(
 	glx::visual_ptr const visual(
 		glx::create_visual(
 			dsp,
-			x11::default_screen(dsp),
+			sge::x11::default_screen(dsp),
 			glx::choose_visual(
 				rparam.mode().bit_depth(),
 				rparam.dbuffer(),
 				rparam.sbuffer()).data()));
 	
-	return x11::create_window(
+	return sge::x11::create_window(
 		param,
 		dsp,
 		visual->info().screen,
 		visual->info().depth,
 		visual);
 #elif defined(SGE_WINDOWS_PLATFORM)
-	return windows::create_window(
+	return sge::windows::create_window(
 		param);
 #else
 #error "Implement me!"

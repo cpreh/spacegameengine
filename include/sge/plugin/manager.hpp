@@ -54,7 +54,8 @@ public:
 	SGE_SYMBOL iterator<T> end();
 
 	template<typename T>
-	SGE_SYMBOL typename iterator<T>::reference get_plugin(
+	SGE_SYMBOL typename iterator<T>::reference
+	plugin(
 		size_type index = 0);
 
 	template<typename T>

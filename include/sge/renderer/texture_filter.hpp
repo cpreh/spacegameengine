@@ -49,17 +49,17 @@ namespace mag_filter
 
 struct texture_filter {
 	SGE_SYMBOL texture_filter(
-		min_filter::type min_filter,
-		mag_filter::type mag_filter,
+		renderer::min_filter::type min_filter,
+		renderer::mag_filter::type mag_filter,
 		anisotropy_type anisotropy_level = 0);
 	
-	SGE_SYMBOL min_filter::type min_filter() const;
-	SGE_SYMBOL mag_filter::type mag_filter() const;
+	SGE_SYMBOL renderer::min_filter::type min_filter() const;
+	SGE_SYMBOL renderer::mag_filter::type mag_filter() const;
 	SGE_SYMBOL anisotropy_type anisotropy() const;
 private:
-	min_filter::type  min_filter_;
-	mag_filter::type  mag_filter_;
-	anisotropy_type   anisotropy_;
+	renderer::min_filter::type  min_filter_;
+	renderer::mag_filter::type  mag_filter_;
+	anisotropy_type             anisotropy_;
 };
 
 SGE_SYMBOL extern texture_filter const

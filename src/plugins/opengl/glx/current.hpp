@@ -41,12 +41,12 @@ namespace glx
 class current : boost::noncopyable {
 public:
 	current(
-		x11::display_ptr,
-		x11::window const &,
+		sge::x11::display_ptr,
+		sge::x11::window const &,
 		context_ptr);
 	~current();
 private:
-	x11::display_ptr const dsp;
+	sge::x11::display_ptr const dsp;
 	context_ptr const context;
 };
 

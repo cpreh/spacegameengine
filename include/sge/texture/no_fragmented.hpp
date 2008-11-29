@@ -46,7 +46,8 @@ public:
 		renderer::dim_type const &);
 	SGE_SYMBOL void return_fragment(
 		part const &);
-	SGE_SYMBOL renderer::texture_ptr const get_texture() const;
+	SGE_SYMBOL renderer::texture_ptr const
+	texture() const;
 	SGE_SYMBOL bool repeatable() const;
 private:
 	renderer::device_ptr const         rend;

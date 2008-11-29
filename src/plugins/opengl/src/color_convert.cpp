@@ -34,12 +34,14 @@ sge::ogl::color_convert(
 		case GL_UNSIGNED_BYTE:
 			return renderer::color_format::rgba8;
 		case GL_FLOAT:
-			return renderer::color_format::rgbaf32;
+			return renderer::color_format::rgba32f;
 		}
 	case GL_BGRA:
 		switch(format_type) {
 		case GL_UNSIGNED_BYTE:
 			return renderer::color_format::bgra8;
+		case GL_FLOAT:
+			return renderer::color_format::bgra32f;
 		}
 	}
 	throw exception(
@@ -50,11 +52,13 @@ GLenum sge::ogl::to_format(
 	renderer::color_format::type const fmt)
 {
 	switch(fmt) {
-	case renderer::color_format::argb8:
 	case renderer::color_format::rgba8:
-	case renderer::color_format::rgbaf32:
+	case renderer::color_format::rgba32f:
 		return GL_RGBA;
+	case renderer::color_format::argb8:
+	case renderer::color_format::argb32f:
 	case renderer::color_format::bgra8:
+	case renderer::color_format::bgra32f:
 		return GL_BGRA;
 	default:
 		throw exception(
@@ -66,11 +70,13 @@ GLenum sge::ogl::to_format_type(
 	renderer::color_format::type const fmt)
 {
 	switch(fmt) {
-	case renderer::color_format::argb8:
 	case renderer::color_format::rgba8:
+	case renderer::color_format::argb8:
 	case renderer::color_format::bgra8:
 		return GL_UNSIGNED_BYTE;
-	case renderer::color_format::rgbaf32:
+	case renderer::color_format::rgba32f:
+	case renderer::color_format::argb32f:
+	case renderer::color_format::bgra32f:
 		return GL_FLOAT;
 	default:
 		throw exception(

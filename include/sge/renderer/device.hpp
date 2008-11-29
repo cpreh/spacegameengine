@@ -91,31 +91,31 @@ public:
 		size_type num_vertices,
 		nonindexed_primitive_type::type ptype) = 0;
 
-	virtual void set_state(
-		state::list const &) = 0;
+	virtual void state(
+		renderer::state::list const &) = 0;
 	virtual void push_state(
-		state::list const &) = 0;
+		renderer::state::list const &) = 0;
 	virtual void pop_state() = 0;
 
-	virtual void set_material(
-		material const &mat) = 0;
+	virtual void material(
+		renderer::material const &mat) = 0;
 	virtual void enable_light(
 		light_index index,
 		bool enable) = 0;
-	virtual void set_light(
+	virtual void light(
 		light_index index,
-		light const &) = 0;
-	virtual void set_texture_stage_op(
+		renderer::light const &) = 0;
+	virtual void texture_stage_op(
 		stage_type stage,
-		texture_stage_op::type,
-		texture_stage_op_value::type) = 0;
-	virtual void set_texture_stage_arg(
+		renderer::texture_stage_op::type,
+		renderer::texture_stage_op_value::type) = 0;
+	virtual void texture_stage_arg(
 		stage_type stage,
-		texture_stage_arg::type,
-		texture_stage_arg_value::type) = 0;
+		renderer::texture_stage_arg::type,
+		renderer::texture_stage_arg_value::type) = 0;
 
 	SGE_SYMBOL static texture_ptr const no_texture;
-	virtual void set_texture(
+	virtual void texture(
 		const_texture_base_ptr tex,
 		stage_type stage = 0) = 0;
 
@@ -126,10 +126,11 @@ public:
 	virtual void texture_transform(
 		any_matrix const &mat) = 0;
 
-	SGE_SYMBOL static texture_ptr const default_render_target;
-	virtual void set_render_target(texture_ptr target) = 0;
+	SGE_SYMBOL static texture_ptr const default_target;
+	virtual void target(texture_ptr) = 0;
 
-	virtual void set_viewport(viewport const &) = 0;
+	virtual void viewport(
+		renderer::viewport const &) = 0;
 
 	virtual glsl::program_ptr const
 	create_glsl_program(
@@ -141,9 +142,9 @@ public:
 		glsl::istream &pixel_shader_source) = 0;
 
 	SGE_SYMBOL static glsl::program_ptr const no_program;
-	virtual void set_glsl_program(glsl::program_ptr) = 0;
+	virtual void glsl_program(renderer::glsl::program_ptr) = 0;
 
-	virtual const_target_ptr const get_target() const = 0;
+	virtual const_target_ptr const target() const = 0;
 
 	SGE_SYMBOL texture_ptr const create_texture(
 		const_image_view const &,
@@ -189,7 +190,7 @@ public:
 
 	virtual caps_t const caps() const = 0;
 	virtual screen_size_t const screen_size() const = 0;
-	virtual window::instance_ptr const window() const = 0;
+	virtual sge::window::instance_ptr const window() const = 0;
 
 	SGE_SYMBOL virtual ~device();
 };

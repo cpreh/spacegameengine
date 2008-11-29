@@ -21,45 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_COLOR_FORMAT_STATIC_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_FORMAT_STATIC_HPP_INCLUDED
 
-#include "color.hpp"
+#include "color_types.hpp"
 #include "color_format.hpp"
-#include <boost/mpl/integral_c.hpp>
+#include "../mpl/index_of.hpp"
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-template<typename Color>
-struct color_format_static;
-
-template<>
-struct color_format_static<rgba8_color>
-: boost::mpl::integral_c<
-	color_format::type,
-	color_format::rgba8
->{};
-
-template<>
-struct color_format_static<bgra8_color>
-: boost::mpl::integral_c<
-	color_format::type,
-	color_format::bgra8
->{};
-
-template<>
-struct color_format_static<argb8_color>
-: boost::mpl::integral_c<
-	color_format::type,
-	color_format::argb8
->{};
-
-template<>
-struct color_format_static<rgba_f32_color>
-: boost::mpl::integral_c<
-	color_format::type,
-	color_format::rgbaf32
->{};
+template<
+	typename Color
+>
+struct color_format_static {
+	static color_format::type const value
+		= static_cast<color_format::type>(
+			mpl::index_of<
+				color_types,
+				Color
+			>::value);
+	BOOST_STATIC_ASSERT(
+		value < color_format::size);
+};
 
 }
 }

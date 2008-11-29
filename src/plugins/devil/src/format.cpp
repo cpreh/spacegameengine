@@ -77,10 +77,12 @@ sge::devil::best_il_format(
 	case renderer::color_format::rgba8:
 		return fmt;
 	case renderer::color_format::argb8:
-	case renderer::color_format::rgbaf32:
+	case renderer::color_format::rgba32f:
+	case renderer::color_format::argb32f:
+	case renderer::color_format::bgra32f:
 		return renderer::color_format::rgba8;
 	default:
 		throw exception(
-			SGE_TEXT("Invalid color_format in best)il_format!"));
+			SGE_TEXT("Invalid color_format in best_il_format!"));
 	}
 }

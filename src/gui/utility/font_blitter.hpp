@@ -54,10 +54,8 @@ sge::gui::utility::font_blitter::operator()(
 {
 	boost::mpl::for_each<typename Dst::layout_t::channel_mapping_t>(
 		font_channel_blitter<Dst,Src2>(
-			src_color,
-			font_color,
-			//renderer::color_convert<Dst>(src_color),
-			//renderer::color_convert<Dst>(font_color),
+			renderer::color_convert<Dst>(src_color),
+			renderer::color_convert<Dst>(font_value),
 			font_value,
 			result));
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::raw_color_f32 const
 sge::renderer::raw_color(
-	rgba_f32_color const &c)
+	rgba32f_color const &c)
 {
 	raw_color_f32 const ret = {
 	{

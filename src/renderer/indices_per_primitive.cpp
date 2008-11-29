@@ -36,5 +36,3 @@ sge::renderer::indices_per_primitive(
 			SGE_TEXT("indices_per_primitive: Invalid indexed_primitive_format!"));
 	}
 }
-
-

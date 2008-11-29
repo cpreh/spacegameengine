@@ -26,36 +26,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/renderer/system.hpp>
+#include <sge/renderer/plugin.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/plugin.hpp>
 #include <sge/image/loader.hpp>
+#include <sge/image/plugin.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/player_plugin.hpp>
 #include <sge/font/system.hpp>
+#include <sge/font/plugin.hpp>
 #include <sge/window/instance.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>
 
 struct sge::systems::instance::impl {
-	plugin::manager                            plugin_manager;
+	plugin::manager                                 plugin_manager;
 
-	plugin::plugin<renderer::system>::ptr_type renderer_plugin;
-	renderer::system_ptr                       renderer_system;
-	renderer::device_ptr                       renderer;
+	plugin::plugin<sge::renderer::system>::ptr_type renderer_plugin;
+	sge::renderer::system_ptr                       renderer_system;
+	sge::renderer::device_ptr                       renderer;
 
-	plugin::plugin<input::system>::ptr_type    input_plugin;
-	input::system_ptr                          input_system;
+	plugin::plugin<input::system>::ptr_type         input_plugin;
+	input::system_ptr                               input_system;
 
-	plugin::plugin<image::loader>::ptr_type    image_loader_plugin;
-	image::loader_ptr                          image_loader;
+	plugin::plugin<image::loader>::ptr_type         image_loader_plugin;
+	image::loader_ptr                               image_loader;
 
-	plugin::plugin<audio::player>::ptr_type    audio_player_plugin;
-	audio::player_ptr                          audio_player;
+	plugin::plugin<audio::player>::ptr_type         audio_player_plugin;
+	audio::player_ptr                               audio_player;
 
-	plugin::plugin<font::system>::ptr_type     font_plugin;
-	font::system_ptr                           font_system;
+	plugin::plugin<font::system>::ptr_type          font_plugin;
+	font::system_ptr                                font_system;
 	
-	window::instance_ptr                       window_;
+	window::instance_ptr                            window_;
 
 	void init_renderer(
 		window::parameters const &);
@@ -188,7 +193,7 @@ void visitor::operator()(
 void sge::systems::instance::impl::init_renderer(
 	window::parameters const &p)
 {
-	renderer_plugin = plugin_manager.get_plugin<renderer::system>().load();
+	renderer_plugin = plugin_manager.plugin<renderer::system>().load();
 	renderer_system.reset(renderer_plugin->get()());
 
 	if(!window_)
@@ -204,24 +209,24 @@ void sge::systems::instance::impl::init_renderer(
 void sge::systems::instance::impl::init_input()
 {
 	// TODO: create a window here too if not done already, using sge::create_window
-	input_plugin = plugin_manager.get_plugin<sge::input::system>().load();
+	input_plugin = plugin_manager.plugin<sge::input::system>().load();
 	input_system.reset(input_plugin->get()(renderer->window()));
 }
 
 void sge::systems::instance::impl::init_image()
 {
-	image_loader_plugin = plugin_manager.get_plugin<sge::image::loader>().load();
+	image_loader_plugin = plugin_manager.plugin<sge::image::loader>().load();
 	image_loader.reset(image_loader_plugin->get()());
 }
 
 void sge::systems::instance::impl::init_audio_player()
 {
-	audio_player_plugin = plugin_manager.get_plugin<sge::audio::player>().load();
+	audio_player_plugin = plugin_manager.plugin<sge::audio::player>().load();
 	audio_player.reset(audio_player_plugin->get()());
 }
 
 void sge::systems::instance::impl::init_font()
 {
-	font_plugin = plugin_manager.get_plugin<sge::font::system>().load();
+	font_plugin = plugin_manager.plugin<sge::font::system>().load();
 	font_system.reset(font_plugin->get()());
 }

@@ -50,7 +50,7 @@ area_texc(
 			        << repeat
 			        << SGE_TEXT('!'));
 
-	renderer::const_texture_ptr const tex = part->my_texture();
+	renderer::const_texture_ptr const tex = part->texture();
 	return tex
 		? renderer::lock_rect_to_coords(
 			part->area(),

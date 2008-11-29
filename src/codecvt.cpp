@@ -18,95 +18,149 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/raw_vector_impl.hpp>
+#include <sge/codecvt.hpp>
+#include <sge/container_util.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/vector.hpp>
-#include <sge/codecvt.hpp>
 #include <locale>
-
+#include <iterator>
 
 namespace
 {
 
 typedef std::mbstate_t state_type;
-typedef std::codecvt<wchar_t, char, state_type> codecvt_t;
 
-template<typename OutCh> struct call_traits;
+typedef std::codecvt<
+	wchar_t,
+	char,
+	state_type
+> codecvt_t;
 
-template<> struct call_traits<char> {
-	static std::codecvt_base::result conv(const codecvt_t& cvt,
-	                                      state_type& state,
-	                                      wchar_t const *const from,
-	                                      wchar_t const *const from_end,
-	                                      wchar_t const*& from_next,
-	                                      char *const to,
-	                                      char *const to_limit,
-	                                      char*& to_next)
+template<
+	typename OutCh
+>
+struct call_traits;
+
+template<>
+struct call_traits<char> {
+	static std::codecvt_base::result
+	conv(
+		codecvt_t const &cvt,
+		state_type &state,
+		wchar_t const *const from,
+		wchar_t const *const from_end,
+		wchar_t const *&from_next,
+		char *const to,
+		char *const to_limit,
+		char *&to_next)
 	{
-		return cvt.out(state, from, from_end, from_next, to, to_limit, to_next);
+		return cvt.out(
+			state,
+			from,
+			from_end,
+			from_next,
+			to,
+			to_limit,
+			to_next);
 	}
 };
 
-template<> struct call_traits<wchar_t> {
-	static std::codecvt_base::result conv(const codecvt_t& cvt,
-	                                      state_type& state,
-	                                      char const *const from,
-	                                      char const *const from_end,
-	                                      char const*& from_next,
-	                                      wchar_t *const to,
-	                                      wchar_t *const to_limit,
-	                                      wchar_t*& to_next)
+template<>
+struct call_traits<wchar_t> {
+	static std::codecvt_base::result
+	conv(
+		codecvt_t const &cvt,
+		state_type &state,
+		char const *const from,
+	        char const *const from_end,
+	        char const *&from_next,
+	        wchar_t *const to,
+	        wchar_t *const to_limit,
+	        wchar_t *&to_next)
 	{
-		return cvt.in(state, from, from_end, from_next, to, to_limit, to_next);
+		return cvt.in(
+			state,
+			from,
+			from_end,
+			from_next,
+			to,
+			to_limit,
+			to_next);
 	}
 };
 
-std::locale get_locale()
+std::locale const
+get_locale()
 {
 	static std::locale loc;
 	return loc;
 }
 
-template<typename Out, typename In>
-std::basic_string<Out> convert(const std::basic_string<In>& s)
+template<
+	typename Out,
+	typename In
+>
+std::basic_string<Out> const
+convert(
+	std::basic_string<In> const &s)
 {
-	std::locale loc(get_locale());
+	typedef std::basic_string<
+		Out
+	> return_type;
 
-	const codecvt_t& conv(std::use_facet<codecvt_t>(loc));
-	typedef sge::raw_vector<Out> buffer_type;
-	buffer_type buffer(s.size());
+	if(s.empty())
+		return return_type();
+	
+	std::locale const &loc(
+		get_locale());
 
-	const In* from = s.data();
+	codecvt_t const &conv(
+		std::use_facet<codecvt_t>(
+			loc));
+	
+	return_type ret(
+		s.size(),
+		0);
+
 	state_type state;
-	std::basic_string<Out> ret;
-	bool too_little_space = false;
-	std::codecvt_base::result result = codecvt_t::partial;
-	while(result != std::codecvt_base::ok)
+
+	Out *to = sge::data(ret);
+	for(In const *from = s.data(), *from_next; from != from_next; from = from_next)
 	{
-		const In* from_next;
-		Out* const to = buffer.data();
-		Out* to_next;
-		result = call_traits<Out>::conv(conv, state,
-		                                from, s.data() + s.size(), from_next,
-		                                to, to + buffer.size(), to_next);
+		Out *to_next;
+		std::codecvt_base::result const result = call_traits<Out>::conv(
+			conv,
+			state,
+			from,
+			sge::data_end(s),
+			from_next,
+			to,
+			sge::data_end(ret),
+			to_next);
+
 		switch(result) {
 		case std::codecvt_base::noconv:
-			throw sge::exception(SGE_TEXT("codecvt: noconv!"));
+			throw sge::exception(
+				SGE_TEXT("codecvt: noconv!"));
 		case std::codecvt_base::error:
-			throw sge::exception(SGE_TEXT("codecvt: error!"));
+			throw sge::exception(
+				SGE_TEXT("codecvt: error!"));
 		case std::codecvt_base::partial:
-			if(too_little_space)
 			{
-				buffer.resize(buffer.size()*2);
-				too_little_space = false;
+				typename return_type::difference_type const diff(
+					std::distance(
+						sge::data(ret),
+						to_next));
+				ret.resize(ret.size() * 2);
+				to = sge::data(ret) + diff;
 			}
-			else
-				too_little_space = true;
-		case std::codecvt_base::ok:
-			ret.append(to, to_next); 
-			from = from_next;
 			break;
+		case std::codecvt_base::ok:
+			to = to_next;
+			break;
+		default:
+			throw sge::exception(
+				SGE_TEXT("Unknown return value in codecvt!"));
 		}
 	}
 	return ret;
@@ -114,12 +168,16 @@ std::basic_string<Out> convert(const std::basic_string<In>& s)
 
 }
 
-std::string sge::narrow(const std::wstring& s)
+std::string const
+sge::narrow(
+	std::wstring const &s)
 {
 	return convert<char>(s);
 }
 
-std::wstring sge::widen(const std::string& s)
+std::wstring const
+sge::widen(
+	std::string const &s)
 {
 	return convert<wchar_t>(s);
 }

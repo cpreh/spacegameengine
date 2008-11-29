@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/library_impl.hpp>
 
 sge::plugin::context_base::context_base(
-	path const &path_)
+	sge::path const &path_)
 : path_(path_)
 {
 	typedef void (*version_function)(sge::plugin::info*);
 
-	library lib(get_path());
+	library lib(path());
 	version_function vf = lib.load_function<version_function>("plugin_version_info");
 	info info_;
 	vf(&info_);
@@ -61,8 +61,8 @@ sge::plugin::context_base::type() const
 	return type_;
 }
 
-const sge::path&
-sge::plugin::context_base::get_path() const
+sge::path const &
+sge::plugin::context_base::path() const
 {
 	return path_;
 }

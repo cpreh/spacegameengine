@@ -38,7 +38,7 @@ unsigned const init_sprites = 1;
 }
 
 sge::renderer::device_ptr const
-sge::sprite::system_base::get_renderer() const
+sge::sprite::system_base::renderer() const
 {
 	return rend;
 }
@@ -81,20 +81,20 @@ void sge::sprite::system_base::allocate_buffers(
 		num_sprites * detail::indices_per_sprite);
 }
 
-void sge::sprite::system_base::set_matrices()
+void sge::sprite::system_base::matrices()
 {
 	rend->transform(transform_matrix);
 	rend->projection(projection_matrix);
 }
 
 sge::renderer::vertex_buffer_ptr const
-sge::sprite::system_base::get_vertex_buffer() const
+sge::sprite::system_base::vertex_buffer() const
 {
 	return vb;
 }
 
 sge::renderer::index_buffer_ptr const
-sge::sprite::system_base::get_index_buffer() const
+sge::sprite::system_base::index_buffer() const
 {
 	return ib;
 }

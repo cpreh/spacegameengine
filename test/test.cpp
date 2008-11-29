@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/context_base.hpp>
+#include <sge/renderer/plugin.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/system.hpp>
@@ -41,9 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/subimage_view.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/plugin.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/image/loader.hpp>
+#include <sge/image/plugin.hpp>
 #include <sge/image/object.hpp>
 #include <sge/image/create_texture.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -77,14 +80,15 @@ try
 	bool running = true;
 	sge::plugin::manager pm;
 
-	const sge::plugin::plugin<sge::renderer::system>::ptr_type renderer_plugin = pm.get_plugin<sge::renderer::system>().load();
-	const sge::plugin::plugin<sge::input::system>::ptr_type input_plugin = pm.get_plugin<sge::input::system>().load();
+	const sge::plugin::plugin<sge::renderer::system>::ptr_type renderer_plugin = pm.plugin<sge::renderer::system>().load();
+	const sge::plugin::plugin<sge::input::system>::ptr_type input_plugin = pm.plugin<sge::input::system>().load();
 
 	const sge::renderer::system_ptr rs(renderer_plugin->get()());
 	const sge::renderer::parameters param(
 		sge::renderer::display_mode(
 			sge::renderer::screen_size_t(1280, 1024),
-			sge::renderer::bit_depth::depth32),
+			sge::renderer::bit_depth::depth32,
+			sge::renderer::refresh_rate_dont_care),
 		sge::renderer::depth_buffer::off,
 		sge::renderer::stencil_buffer::off,
 		sge::renderer::window_mode::windowed,
@@ -103,7 +107,7 @@ try
 
 	const sge::input::system_ptr is(input_plugin->get()(rend->window()));
 
-	const sge::plugin::plugin<sge::image::loader>::ptr_type image_plugin = pm.get_plugin<sge::image::loader>().load();
+	const sge::plugin::plugin<sge::image::loader>::ptr_type image_plugin = pm.plugin<sge::image::loader>().load();
 	const sge::image::loader_ptr image_loader(image_plugin->get()());
 
 	using boost::lambda::var;
@@ -128,7 +132,6 @@ try
 			sge::renderer::color_format::rgba8,
 			sge::renderer::linear_filter,
 			sge::renderer::resource_flags::readable));
-
 	{
 		sge::renderer::scoped_texture_lock const lock_(
 			sge::renderer::make_scoped_lock(
@@ -152,7 +155,7 @@ try
 				SGE_TEXT("sge_test.png"));
 	}
 
-	rend->set_state(
+	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)

@@ -1,3 +1,5 @@
+// Note: The priorities reflect the importance of the task regarding the time
+// it should be implemented not the overall importance for sge
 *very low: get information about 3d facilities such as a scene graph
 *low: add a safer weak_ptr for Deleter template parameter
 *low: add joystick support to dinput and xinput
@@ -9,6 +11,12 @@
 *low: replace every cerr and cout output with sge's log system
 *low: add scripting proxies, scripting framework and backend with flusspferd
 *low: other font formatting like bold, italic, underline and colors
+*low: improve the image loader (let it also load from and save to streams)
+*low: implement an image loader with Magick++
+*low: use boost::exception for stack traces
+*low: implement a lot of different exception types to make errors distinguishable
+*low: put x11 and windows stuff in their own libraries (probably do this with
+sprite, texture, console, etc. as well)
 *medium: breakpoints for the font
 *medium: implement "loop and play once on kill" to sound buffer
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
@@ -16,9 +24,5 @@
 *medium: add support for more vertex elements (like fog, etc.)
 *medium: implement GLSL getter
 *medium: fix renderer::caps and the opengl implementation of them
-*high: set up proper window information for X
-*high: split the code from ogl::device into windows and linux code
-*high: implement uniform arrays for glsl
+*medium: add adapter support to opengl
 *high: Improve the cmake script, search for libraries per default.
-*high: fix dga
-*high: add Xrandr support and split the resolution switching code in opengl

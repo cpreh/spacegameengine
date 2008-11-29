@@ -63,7 +63,9 @@ sge::renderer::make_image_view(
 			color_format_stride(
 				format),
 			pitch),
-		format); } 
+		format);
+}
+
 sge::renderer::const_image_view const
 sge::renderer::make_image_view(
 	unsigned char const * const data,

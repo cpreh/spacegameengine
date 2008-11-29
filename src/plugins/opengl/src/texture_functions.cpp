@@ -88,7 +88,7 @@ void sge::ogl::set_texture(
 	glTexImage2D(
 		tex_type,
 		0,
-		format,
+		4,
 		static_cast<GLsizei>(dim.w()),
 		static_cast<GLsizei>(dim.h()),
 		0,

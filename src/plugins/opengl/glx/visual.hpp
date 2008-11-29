@@ -32,7 +32,7 @@ namespace ogl
 namespace glx
 {
 
-class visual : public x11::visual {
+class visual : public sge::x11::visual {
 public:
 	explicit visual(
 		XVisualInfo *);

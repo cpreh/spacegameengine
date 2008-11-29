@@ -6,6 +6,8 @@
 #cmakedefine SGE_HAVE_POSIX
 #cmakedefine SGE_HAVE_ATLEAST_UINT64
 #cmakedefine SGE_HAVE_XF86_VMODE
+#cmakedefine SGE_HAVE_XRANDR
+#cmakedefine SGE_NARROW_STRING
 
 #ifdef _WIN32
 #define SGE_WINDOWS_PLATFORM 1
@@ -14,7 +16,6 @@
 #endif
 
 #ifdef __GNUC__
-//#define SGE_NARROW_STRING
 #cmakedefine SGE_HAVE_GCC_VISIBILITY
 #endif
 

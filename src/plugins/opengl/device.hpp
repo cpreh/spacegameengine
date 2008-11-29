@@ -23,23 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config.h>
 #include "target.hpp"
-#include "fbo_target.hpp"
+#include "fbo_target_fwd.hpp"
+#include "common.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)
-#include "wgl/context.hpp"
-#include "wgl/current.hpp"
-#include <sge/windows/gdi_device.hpp>
-#include <sge/windows/window.hpp>
-#include <sge/windows/windows.hpp>
+#include "windows/state.hpp"
 #elif defined(SGE_HAVE_X11)
-#include <X11/Xlib.h>
-#include <GL/glx.h>
-#include "glx/current.hpp"
-#include "glx/context.hpp"
-#if defined(SGE_HAVE_XF86_VMODE)
-#include "xf86/vidmode_array.hpp"
-#include "xf86/resolution.hpp"
-#endif
-#include <sge/x11/window_fwd.hpp>
+#include "x11/state.hpp"
 #else
 #error "Implement me!"
 #endif
@@ -50,9 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/window/instance_fwd.hpp>
-#include <sge/signals/connection_manager.hpp>
-#include "common.hpp"
-#include <boost/scoped_ptr.hpp>
 #include <stack>
 
 namespace sge
@@ -83,16 +69,17 @@ public:
 		renderer::size_type num_vertices,
 		renderer::nonindexed_primitive_type::type ptype);
 
-	void set_state(renderer::state::list const &);
+	void state(renderer::state::list const &);
 
 	void push_state(renderer::state::list const &);
 
 	void pop_state();
 
-	void set_texture(
+	void texture(
 		renderer::const_texture_base_ptr tex,
 		renderer::stage_type stage);
-	void set_material(const renderer::material& mat);
+	void material(
+		renderer::material const &);
 
 	void transform(
 		renderer::any_matrix const &);
@@ -101,15 +88,23 @@ public:
 	void texture_transform(
 		renderer::any_matrix const &);
 
-	void set_render_target(renderer::texture_ptr target);
-	void set_viewport(renderer::viewport const &);
-	void enable_light(renderer::light_index index, bool enable);
-	void set_light(renderer::light_index index, renderer::light const &);
-	void set_texture_stage_op(
+	void target(renderer::texture_ptr);
+
+	void viewport(
+		renderer::viewport const &);
+
+	void enable_light(
+		renderer::light_index index,
+		bool enable);
+
+	void light(
+		renderer::light_index index,
+		renderer::light const &);
+	void texture_stage_op(
 		renderer::stage_type stage,
 		renderer::texture_stage_op::type,
 		renderer::texture_stage_op_value::type);
-	void set_texture_stage_arg(
+	void texture_stage_arg(
 		renderer::stage_type stage,
 		renderer::texture_stage_arg::type,
 		renderer::texture_stage_arg_value::type);
@@ -123,11 +118,11 @@ public:
 		renderer::glsl::istream &vertex_shader_source,
 		renderer::glsl::istream &pixel_shader_source);
 	
-	void set_glsl_program(
+	void glsl_program(
 		renderer::glsl::program_ptr);
 
 	renderer::const_target_ptr const
-	get_target() const;
+	target() const;
 
 	renderer::texture_ptr const
 	create_texture(
@@ -165,43 +160,28 @@ public:
 	renderer::screen_size_t const screen_size() const;
 	window::instance_ptr const window() const;
 private:
-	GLenum get_clear_bit(
+	GLenum clear_bit(
 		renderer::state::bool_::trampoline_type const &) const;
 
-	void set_vertex_buffer(renderer::const_vertex_buffer_ptr vb);
-	void set_index_buffer(renderer::const_index_buffer_ptr ib);
+	void vertex_buffer(renderer::const_vertex_buffer_ptr vb);
+	void index_buffer(renderer::const_index_buffer_ptr ib);
 
 	fbo_target_ptr const
-	create_render_target();
+	create_target();
 
-	renderer::parameters          param;
-	renderer::state::list         current_states;
+	renderer::parameters const param;
+	window::instance_ptr const wnd;
+	renderer::state::list      current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
-	windows::window_ptr               wnd;
-	boost::scoped_ptr<windows::gdi_device>  hdc;
-	boost::scoped_ptr<wgl::context> context;
-	boost::scoped_ptr<wgl::current> current;
+	windows::state state_;
 #elif defined(SGE_HAVE_X11)
-	void reset_viewport_on_map(XEvent const &);
-	void reset_viewport_on_configure(XEvent const &);
-	void center_viewport(int w, int h);
-
-	glx::context_ptr                      context;
-	x11::window_ptr                       wnd;
-	boost::scoped_ptr<glx::current>       current;
-#if defined(SGE_HAVE_XF86_VMODE)
-	boost::scoped_ptr<
-		xf86::vidmode_array
-	>                                     modes;
-	xf86::resolution_ptr                  resolution;
+	x11::state state_;
 #endif
-	signals::connection_manager           con_manager;
-#endif
-	target_ptr                            render_target_;
+	target_ptr                  target_;
 	typedef std::stack<
 		renderer::state::list
 	> stack_type;
-	stack_type                            state_levels;
+	stack_type                  state_levels;
 };
 
 }

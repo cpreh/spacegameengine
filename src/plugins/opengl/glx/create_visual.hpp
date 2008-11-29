@@ -33,7 +33,7 @@ namespace glx
 
 visual_ptr const
 create_visual(
-	x11::display_ptr,
+	sge::x11::display_ptr,
 	int screen,
 	int const *attributes);
 

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "target.hpp"
 #include "texture.hpp"
 #include <sge/renderer/texture_fwd.hpp>
-#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
@@ -50,8 +49,6 @@ private:
 	texture_ptr           texture_target;
 	GLuint                fbo;
 };
-
-typedef shared_ptr<fbo_target> fbo_target_ptr;
 
 }
 }

@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/fill_pixels.hpp>
-#include <sge/renderer/image_view_impl.hpp>
 #include <boost/gil/extension/dynamic_image/algorithm.hpp>
+#include <boost/gil/extension/dynamic_image/apply_operation.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
@@ -53,7 +53,8 @@ namespace
 
 visitor::visitor(
 	sge::renderer::image_view const &dest)
-: dest(dest)
+:
+	dest(dest)
 {}
 
 template<typename T>
