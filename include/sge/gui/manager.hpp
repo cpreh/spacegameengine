@@ -88,8 +88,8 @@ class manager
 	void reposition(widget &,point const &);
 
 	// internal search functions (just convenience)
-	widget_data &get_data(widget &);
-	widget_container::iterator get_data_iterator(widget &);
+	widget_data &data(widget &);
+	widget_container::iterator data_iterator(widget &);
 	widget_data &parent_widget_data(widget &);
 	detail::keyboard_manager &keyboard();
 

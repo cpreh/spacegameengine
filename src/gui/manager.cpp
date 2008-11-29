@@ -135,7 +135,7 @@ void sge::gui::manager::resize(widget &w,dim const &d)
 	// transparent pixels so you don't have to create a whole new texture. if it
 	// is enlarged, you could create a texture which is too large so subsequent
 	// resize operations won't eat much performance
-	widget_data &wd = get_data(w);
+	widget_data &wd = data(w);
 
 	renderer::texture_ptr software_texture(new renderer::texture_software(
 		math::structure_cast<renderer::texture::dim_type::value_type>(d),
@@ -175,7 +175,7 @@ void sge::gui::manager::reposition(widget &w,point const &d)
 
 sge::gui::manager::widget_data &sge::gui::manager::get_data(widget &w)
 {
-	widget_container::iterator wi = get_data_iterator(w);
+	widget_container::iterator wi = data_iterator(w);
 	SGE_ASSERT_MESSAGE(wi != widgets_.end(),SGE_TEXT("widget is not a top level widget"));
 	return *wi;
 }
@@ -190,9 +190,9 @@ sge::gui::manager::widget_container::iterator sge::gui::manager::get_data_iterat
 
 sge::gui::manager::widget_data &sge::gui::manager::parent_widget_data(widget &w)
 {
-	// top level widget? then forward to get_data
+	// top level widget? then forward to data
 	if (!w.parent_widget())
-		return get_data(w);
+		return data(w);
 	return parent_widget_data(*w.parent_widget());
 }
 
