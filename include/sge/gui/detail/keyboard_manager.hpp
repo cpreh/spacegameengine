@@ -7,6 +7,7 @@
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <boost/optional.hpp>
+#include <boost/ptr_container/ptr_list.hpp>
 
 namespace sge
 {
@@ -22,15 +23,15 @@ class keyboard_manager
 	void request_focus(widget &);
 	void widget_remove(widget &);
 	void cycle_focus();
-	void input_callback(sge::input::key_pair const &);
 	void keyboard_focus(widget &,keyboard_focus::type);
 	private:
-	typedef std::list<widget *> widget_container;
+	typedef boost::ptr_list<widget,boost::view_clone_allocator> widget_container;
 
 	widget_container widgets;
 	boost::optional<widget_container::iterator> focus;
 	sge::signals::scoped_connection ic;
 
+	void input_callback(sge::input::key_pair const &);
 	void switch_focus(widget_container::iterator);
 };
 }

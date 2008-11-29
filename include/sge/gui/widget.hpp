@@ -1,9 +1,11 @@
 #ifndef SGE_GUI_WIDGET_HPP_INCLUDED
 #define SGE_GUI_WIDGET_HPP_INCLUDED
 
+#include "widgets/container_fwd.hpp"
 #include "events/fwd.hpp"
 #include "keyboard_focus.hpp"
 #include "types.hpp"
+#include "manager_fwd.hpp"
 #include "size_policy.hpp"
 #include "../export.hpp"
 
@@ -15,14 +17,6 @@ namespace sge
 {
 namespace gui
 {
-// forward declarations
-namespace widgets
-{
-class container;
-}
-class manager;
-
-// declaration
 class SGE_CLASS_SYMBOL widget : boost::noncopyable
 {
 	public:
@@ -88,7 +82,6 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	void set_pos_raw(point const &p);
 
 	protected:
-	virtual widget *do_recalculate_focus(point const &);
 	virtual void do_compile();
 
 	private:
@@ -99,8 +92,6 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	dim size_,size_hint_;
 	size_policy_t size_policy_;
 	keyboard_focus::type keyboard_focus_;
-
-	widget *recalculate_focus(point const &mouse_click);
 
 	// friend functions
 	friend class layout;

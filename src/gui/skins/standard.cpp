@@ -3,6 +3,7 @@
 #include <sge/gui/widgets/button.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/renderer/colors.hpp>
+#include <sge/media.hpp>
 
 sge::gui::skins::standard::standard()
 	: bgcolor(renderer::colors::grey()),
@@ -35,4 +36,9 @@ void sge::gui::skins::standard::operator()(
 		b.size(),
 		font::align_h::center,
 		font::align_v::center);
+}
+
+sge::path const sge::gui::skins::standard::cursor_path() const
+{
+	return media_path()/SGE_TEXT("mainskin")/SGE_TEXT("cursor_pressed.png");
 }

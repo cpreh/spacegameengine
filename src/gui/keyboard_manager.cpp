@@ -1,3 +1,4 @@
+#include "utility/ptr_find.hpp"
 #include <sge/gui/detail/keyboard_manager.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/events/keyboard_enter.hpp>
@@ -33,9 +34,13 @@ void sge::gui::detail::keyboard_manager::widget_add(widget &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("adding widget"));
 	
 	SGE_ASSERT(
-		std::find(widgets.begin(),widgets.end(),&w) 
+		utility::ptr_find(widgets.begin(),widgets.end(),&w) 
 			== widgets.end());
 
 	widgets.push_back(&w);
@@ -43,7 +48,7 @@ void sge::gui::detail::keyboard_manager::widget_add(widget &w)
 
 void sge::gui::detail::keyboard_manager::request_focus(widget &w)
 {
-	widget_container::iterator wi = std::find(
+	widget_container::iterator wi = utility::ptr_find(
 			widgets.begin(),
 			widgets.end(),&w);
 	
@@ -63,7 +68,7 @@ void sge::gui::detail::keyboard_manager::widget_remove(widget &w)
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
 	
-	widget_container::iterator wi = std::find(
+	widget_container::iterator wi = utility::ptr_find(
 			widgets.begin(),
 			widgets.end(),&w);
 	
@@ -99,24 +104,6 @@ void sge::gui::detail::keyboard_manager::cycle_focus()
 	switch_focus(next);
 }
 
-void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair const &k)
-{
-	if (widgets.empty())
-		return;
-	
-	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
-		return;
-	
-	if (k.key().code() == sge::input::kc::key_tab)
-	{
-		if (!sge::math::almost_zero(k.value()))
-			cycle_focus();
-		return;
-	}
-	
-	if (focus)
-		(**focus)->process(events::key(k));
-}
 
 // This is called by manager whenever a widget changes its behaviour towards the
 // keyboard focus. If a widget decides not to accept the focus anymore, we have to
@@ -129,7 +116,7 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 	{
 		case keyboard_focus::ignore:
 		{
-			widget_container::iterator wi = std::find(
+			widget_container::iterator wi = utility::ptr_find(
 					widgets.begin(),
 					widgets.end(),&w);
 			
@@ -156,7 +143,10 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 		break;
 		case keyboard_focus::receive:
 		{
-			widget_container::iterator wi = std::find(
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("adding widget after focus change"));
+			widget_container::iterator wi = utility::ptr_find(
 					widgets.begin(),
 					widgets.end(),&w);
 
@@ -171,10 +161,29 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 	}
 }
 
+void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair const &k)
+{
+	if (widgets.empty())
+		return;
+	
+	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
+		return;
+	
+	if (k.key().code() == sge::input::kc::key_tab)
+	{
+		if (!sge::math::almost_zero(k.value()))
+			cycle_focus();
+		return;
+	}
+	
+	if (focus)
+		(*focus)->process(events::key(k));
+}
+
 void sge::gui::detail::keyboard_manager::switch_focus(widget_container::iterator n)
 {
 	if (focus)
-		(**focus)->process(events::keyboard_leave());
+		(*focus)->process(events::keyboard_leave());
 	focus.reset(n);
-	(**focus)->process(events::keyboard_enter());
+	(*focus)->process(events::keyboard_enter());
 }
