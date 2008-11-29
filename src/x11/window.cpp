@@ -46,7 +46,8 @@ sge::x11::window::window(
 	screen_(screen_),
 	wnd(0),
 	fullscreen_(fullscreen_),
-	event_mask(0)
+	event_mask(0),
+	hints_()
 {
 	SGE_X11_SENTRY
 
@@ -72,6 +73,11 @@ sge::x11::window::window(
 		visual_->get(),
 		CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
 		const_cast<XSetWindowAttributes *>(&swa)),
+
+	XSetWMHints(
+		display()->get(),
+		get(),
+		hints_.get());	
 
 	title(t);
 }

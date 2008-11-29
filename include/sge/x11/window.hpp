@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "display_fwd.hpp"
 #include "visual_fwd.hpp"
 #include "colormap_fwd.hpp"
+#include "wm_hints.hpp"
 #include "../window/instance.hpp"
 #include "../signals/connection.hpp"
 #include "../signals/signal.hpp"
@@ -89,6 +90,7 @@ private:
 	Window              wnd;
 	bool                fullscreen_;
 	event_mask_type     event_mask;
+	wm_hints            hints_;
 
 	typedef sge::signals::signal<
 		function_type
