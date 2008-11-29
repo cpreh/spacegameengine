@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../raw_vector.hpp"
 #include "../math/vector.hpp"
-#include "../export.hpp"
 #include <cstddef>
 
 namespace sge
 {
 namespace audio
 {
+
 typedef unsigned channel_type;
 typedef std::size_t sample_count;
 typedef raw_vector<unsigned char> sample_container;
@@ -36,13 +36,6 @@ typedef raw_vector<unsigned char> sample_container;
 typedef float unit; // TODO: is float ok here?
 typedef math::vector<unit, 3> point;
 
-struct angle
-{
-	point forward,up;
-
-	SGE_SYMBOL angle();
-	SGE_SYMBOL angle(point const &forward,point const &up);
-};
 }
 }
 
