@@ -81,7 +81,7 @@ void sge::sprite::system_base::allocate_buffers(
 		num_sprites * detail::indices_per_sprite);
 }
 
-void sge::sprite::system_base::set_matrices()
+void sge::sprite::system_base::matrices()
 {
 	rend->transform(transform_matrix);
 	rend->projection(projection_matrix);

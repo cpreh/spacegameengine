@@ -38,7 +38,7 @@ sge::sprite::intrusive_system::intrusive_system(
 
 void sge::sprite::intrusive_system::render()
 {
-	set_matrices();
+	matrices();
 
 	renderer::device_ptr const rend(
 		get_renderer());
