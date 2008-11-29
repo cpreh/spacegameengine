@@ -18,29 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_WM_HINTS_HPP_INCLUDED
-#define SGE_X11_WM_HINTS_HPP_INCLUDED
+#include <sge/x11/size_hints.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-
-namespace sge
+sge::x11::size_hints::size_hints(
+	int const min_w,
+	int const min_h,
+	int const desired_w,
+	int const desired_h)
+:
+	hints(
+		XAllocSizeHints())
 {
-namespace x11
+	if(!hints)
+		throw exception(
+			SGE_TEXT("XAllocSizeHints() failed!"));
+	
+	hints->flags = PSize | PMinSize;
+	hints->min_width = min_w;
+	hints->min_height = min_h;
+	hints->base_width = desired_w;
+	hints->base_height = desired_h;
+}
+
+XSizeHints *
+sge::x11::size_hints::get() const
 {
-
-class wm_hints : boost::noncopyable {
-public:
-	SGE_SYMBOL wm_hints();
-	SGE_SYMBOL ~wm_hints();
-	SGE_SYMBOL XWMHints *get() const;
-private:
-	XWMHints *const hints;
-};
-
-}
+	return hints;
 }
 
-#endif
+sge::x11::size_hints::~size_hints()
+{
+	XFree(hints);
+}

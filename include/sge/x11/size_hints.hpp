@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11_WM_HINTS_HPP_INCLUDED
-#define SGE_X11_WM_HINTS_HPP_INCLUDED
+#ifndef SGE_X11_SIZE_HINTS_HPP_INCLUDED
+#define SGE_X11_SIZE_HINTS_HPP_INCLUDED
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -31,13 +31,17 @@ namespace sge
 namespace x11
 {
 
-class wm_hints : boost::noncopyable {
+class size_hints : boost::noncopyable {
 public:
-	SGE_SYMBOL wm_hints();
-	SGE_SYMBOL ~wm_hints();
-	SGE_SYMBOL XWMHints *get() const;
+	SGE_SYMBOL size_hints(
+		int min_w,
+		int min_h,
+		int desired_w,
+		int desired_h);
+	SGE_SYMBOL ~size_hints();
+	SGE_SYMBOL XSizeHints *get() const;
 private:
-	XWMHints *const hints;
+	XSizeHints *const hints;
 };
 
 }

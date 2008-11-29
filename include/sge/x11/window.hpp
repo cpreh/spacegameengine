@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "visual_fwd.hpp"
 #include "colormap_fwd.hpp"
 #include "wm_hints.hpp"
+#include "size_hints.hpp"
 #include "../window/instance.hpp"
 #include "../signals/connection.hpp"
 #include "../signals/signal.hpp"
@@ -83,6 +84,9 @@ private:
 
 	void add_event_mask(event_type);
 
+	void hints();
+	void set_size_hints();
+
 	display_ptr         dsp;
 	const_visual_ptr    visual_;
 	const_colormap_ptr  colormap_;
@@ -91,6 +95,7 @@ private:
 	bool                fullscreen_;
 	event_mask_type     event_mask;
 	wm_hints            hints_;
+	size_hints          size_hints_;
 
 	typedef sge::signals::signal<
 		function_type

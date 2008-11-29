@@ -47,7 +47,11 @@ sge::x11::window::window(
 	wnd(0),
 	fullscreen_(fullscreen_),
 	event_mask(0),
-	hints_()
+	hints_(), size_hints_(
+		sz.w(),
+		sz.h(),
+		sz.w(),
+		sz.h())
 {
 	SGE_X11_SENTRY
 
@@ -74,11 +78,8 @@ sge::x11::window::window(
 		CWColormap | CWOverrideRedirect | CWBorderPixel | CWEventMask,
 		const_cast<XSetWindowAttributes *>(&swa)),
 
-	XSetWMHints(
-		display()->get(),
-		get(),
-		hints_.get());	
-
+	hints();
+	set_size_hints();
 	title(t);
 }
 
@@ -172,11 +173,6 @@ void sge::x11::window::map_raised()
 	XMapRaised(dsp->get(), get());
 }
 
-Display* sge::x11::window::dsp_() const
-{
-	return display()->get();
-}
-
 boost::signals::connection
 sge::x11::window::register_callback(
 	event_type const event,
@@ -208,6 +204,30 @@ boost::assign::map_list_of
 	(ConfigureRequest, SubstructureRedirectMask)
 	(ConfigureNotify, StructureNotifyMask);
 
+void sge::x11::window::dispatch()
+{
+	SGE_X11_SENTRY
+
+	XEvent xev;
+	while(XCheckWindowEvent(dsp_(), get(), event_mask, &xev))
+	{
+		if(XFilterEvent(&xev, None))
+			continue;
+		signals[xev.type](xev);
+	}
+}
+
+sge::window::pos_type const
+sge::x11::window::viewport_offset() const
+{
+	return pos_type::null();
+}
+
+Display* sge::x11::window::dsp_() const
+{
+	return display()->get();
+}
+
 void sge::x11::window::add_event_mask(
 	event_type const event)
 {
@@ -226,21 +246,22 @@ void sge::x11::window::add_event_mask(
 	}
 }
 
-void sge::x11::window::dispatch()
+void sge::x11::window::hints()
 {
 	SGE_X11_SENTRY
 
-	XEvent xev;
-	while(XCheckWindowEvent(dsp_(), get(), event_mask, &xev))
-	{
-		if(XFilterEvent(&xev, None))
-			continue;
-		signals[xev.type](xev);
-	}
+	XSetWMHints(
+		dsp_(),
+		get(),
+		hints_.get());	
 }
 
-sge::window::pos_type const
-sge::x11::window::viewport_offset() const
+void sge::x11::window::set_size_hints()
 {
-	return pos_type::null();
+	SGE_X11_SENTRY
+
+	XSetWMNormalHints(
+		dsp_(),
+		get(),
+		size_hints_.get());
 }
