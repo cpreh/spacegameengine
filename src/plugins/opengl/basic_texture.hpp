@@ -86,7 +86,7 @@ private:
 	void check_locked() const;
 	void check_not_locked() const;
 
-	renderer::texture_filter const            filter_;
+	renderer::texture_filter const         filter_;
 	resource_flag_type const               flags_;
 	GLuint const                           id_;
 

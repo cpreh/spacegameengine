@@ -7,12 +7,12 @@ inherit games git
 DESCRIPTION="A portable, easy to use engine written in C++"
 HOMEPAGE="http://spacegameengine.sourceforge.net/"
 
-EGIT_REPO_URI="git://git.tuxfamily.org/gitroot/sge/spacegameengine.git"
+EGIT_REPO_URI="git://freundlich.mine.nu/spacegameengine.git"
 
 LICENSE="LGPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="devil dga mad openal opengl test truetype vorbis wave x11input"
+IUSE="devil dga mad narrowstring openal opengl test truetype vorbis wave x11input"
 
 DEPEND="${RDEPEND}
         >=dev-util/cmake-2.6
@@ -25,6 +25,7 @@ RDEPEND=">=dev-libs/boost-1.35
          openal? ( media-libs/openal )
          opengl? (
              media-libs/glew
+			 x11-libs/libXrandr
              x11-libs/libXxf86vm )
          truetype? ( media-libs/freetype )
          x11input? ( dga? ( x11-libs/libXxf86dga ) )
@@ -41,6 +42,7 @@ src_compile() {
 	use devil && myconf="${myconf} -D ENABLE_DEVIL:=1"
 	use dga && myconf="${myconf} -D ENABLE_DGA:=1"
 	use mad && myconf="${myconf} -D ENABLE_MAD:=1"
+	use narrowstring && myconf="${myconf} -D ENABLE_NARROW_STRING:=1"
 	use opengl && myconf="${myconf} -D ENABLE_OPENGL:=1"
 	use openal && myconf="${myconf} -D ENABLE_OPENAL:=1"
 	use test && myconf="${myconf} -D ENABLE_TEST:=1"
@@ -49,15 +51,19 @@ src_compile() {
 	use wave && myconf="${myconf} -D ENABLE_WAVE:=1"
 	use x11input && myconf="${myconf} -D ENABLE_X11INPUT:=1"
 
+	mkdir build
+	cd build
+
 	cmake ${myconf} \
 		-DCMAKE_C_FLAGS="${CFLAGS}" \
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		. || die "cmake failed"
+		.. || die "cmake failed"
 
 	emake || die "emake failed"
 }
 
 src_install() {
+	cd build
 	emake DESTDIR=${D} install || die "emake install failed"
 }

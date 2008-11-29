@@ -68,7 +68,7 @@ void sge::mad::stream::sync()
 
 	input_buffer.swap(bytes);
 
-	mad_stream_buffer(&madstream,&input_buffer[0],pos);
+	mad_stream_buffer(&madstream,input_buffer.data(),pos);
 	madstream.error = MAD_ERROR_NONE;
 }
 
@@ -98,7 +98,7 @@ sge::mad::frame &sge::mad::stream::decode(decoding_mode::type const mode)
 			log(),
 			log::_1
 				<< SGE_TEXT("mad: got decoder error ")
-				<< madstream.error 
+				<< static_cast<unsigned>(madstream.error)
 				<< SGE_TEXT(" and in strict mode, so exiting"));
 		throw audio::exception(
 			SGE_TEXT("mad: first frame resulted in an error: ")

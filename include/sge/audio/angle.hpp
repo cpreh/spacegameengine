@@ -18,32 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LINE2_HPP_INCLUDED
-#define SGE_LINE2_HPP_INCLUDED
+#ifndef SGE_AUDIO_ANGLE_HPP_INCLUDED
+#define SGE_AUDIO_ANGLE_HPP_INCLUDED
 
-#include "vector.hpp"
+#include "types.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
+namespace audio
+{
 
-template<typename T> class line2 {
-public:
-	typedef math::vector<T,2> point;
-	line2(const point o, point d) : o(o), d(d) {}
-	bool intersects(const line2& r) const
-	{
-		const T& a1 = d.x, a2 = d.y, a3 = r.d.x, a4 = r.d.y;
-		return (a2*a3 - a1*a4);
-	}
-private:
-	point o,d;
+struct angle
+{
+	point forward,up;
+
+	SGE_SYMBOL angle();
+	SGE_SYMBOL angle(
+		point const &forward,
+		point const &up);
 };
 
-template<typename T> inline bool intersects(const line2<T>& l, const line2<T>& r)
-{
-	return l.intersects(r);
 }
-
 }
 
 #endif

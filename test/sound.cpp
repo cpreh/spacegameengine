@@ -83,11 +83,19 @@ try
 		? sys.audio_player()->create_stream_sound(soundfile)
 		: sys.audio_player()->create_nonstream_sound(soundfile);
 
-	sys.audio_player()->listener().pos(sge::audio::point(0,0,0));
+	sys.audio_player()->listener().pos(
+		sge::audio::point(
+			static_cast<sge::audio::unit>(0),
+			static_cast<sge::audio::unit>(0),
+			static_cast<sge::audio::unit>(0)));
 	if (revolving)
 	{
 		sound->positional(true);
-		sound->pos(sge::audio::point(-1,0,0));
+		sound->pos(
+			sge::audio::point(
+				static_cast<sge::audio::unit>(-1),
+				static_cast<sge::audio::unit>(0),
+				static_cast<sge::audio::unit>(0)));
 	}
 	sound->play(sge::audio::play_mode::once);
 
@@ -99,7 +107,11 @@ try
 			sge::audio::unit const angle = 
 				static_cast<sge::audio::unit>(
 					frame_timer.elapsed_frames() * (2 * sge::math::PI * speed));
-			sound->pos(sge::audio::point(std::sin(angle),0,std::cos(angle)));
+			sound->pos(
+				sge::audio::point(
+					std::sin(angle),
+					static_cast<sge::audio::unit>(0),
+					std::cos(angle)));
 		}
 
 		sound->update();

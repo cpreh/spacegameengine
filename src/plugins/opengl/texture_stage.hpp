@@ -35,19 +35,14 @@ void tex_envf_ext(GLenum arg, GLenum value);
 void set_texture_stage_scale(
 	renderer::texture_stage_op_value::type value);
 
-// TODO: explicitly instantiate this
-template<typename Arg, typename Value>
+template<
+	typename Arg,
+	typename Value
+>
 void set_texture_stage(
-	const renderer::stage_type stage,
-	const Arg arg,
-	const Value value)
-{
-	set_texture_level(stage);
-	const GLenum glarg = convert_cast(arg),
-	             glvalue = convert_cast(value);
-
-	tex_envf_ext(glarg, glvalue);
-}
+	renderer::stage_type stage,
+	Arg arg,
+	Value value);
 
 }
 }
