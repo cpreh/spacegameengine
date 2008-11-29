@@ -26,6 +26,8 @@ distinguishable
 *medium: add support for more vertex elements (like fog, etc.)
 *medium: implement GLSL getter
 *medium: fix renderer::caps and the opengl implementation of them
+*medium: add adapter support to opengl
+*high: make the sprite system's sorting configurable
 *high: set up proper window information for X
 *high: implement uniform arrays for glsl
 *high: Improve the cmake script, search for libraries per default.
