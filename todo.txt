@@ -13,7 +13,6 @@
 *low: other font formatting like bold, italic, underline and colors
 *low: improve the image loader (let it also load from and save to streams)
 *low: implement an image loader with Magick++
-*low: add a skeleton class for the mainloop
 *low: use boost::exception for stack traces
 *low: implement a lot of different exception types to make errors distinguishable
 *low: put x11 and windows stuff in their own libraries (probably do this with
