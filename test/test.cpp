@@ -155,7 +155,7 @@ try
 				SGE_TEXT("sge_test.png"));
 	}
 
-	rend->set_state(
+	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)

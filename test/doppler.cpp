@@ -203,7 +203,7 @@ try
 	sge::signals::scoped_connection const pc(
 		sys.input_system()->register_callback(sprite_functor(pointer,sound_siren)));
 
-	sys.renderer()->set_state(
+	sys.renderer()->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))

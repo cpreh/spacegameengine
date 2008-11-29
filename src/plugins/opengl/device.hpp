@@ -69,16 +69,17 @@ public:
 		renderer::size_type num_vertices,
 		renderer::nonindexed_primitive_type::type ptype);
 
-	void set_state(renderer::state::list const &);
+	void state(renderer::state::list const &);
 
 	void push_state(renderer::state::list const &);
 
 	void pop_state();
 
-	void set_texture(
+	void texture(
 		renderer::const_texture_base_ptr tex,
 		renderer::stage_type stage);
-	void set_material(const renderer::material& mat);
+	void material(
+		renderer::material const &);
 
 	void transform(
 		renderer::any_matrix const &);
@@ -88,14 +89,22 @@ public:
 		renderer::any_matrix const &);
 
 	void target(renderer::texture_ptr);
-	void set_viewport(renderer::viewport const &);
-	void enable_light(renderer::light_index index, bool enable);
-	void set_light(renderer::light_index index, renderer::light const &);
-	void set_texture_stage_op(
+
+	void viewport(
+		renderer::viewport const &);
+
+	void enable_light(
+		renderer::light_index index,
+		bool enable);
+
+	void light(
+		renderer::light_index index,
+		renderer::light const &);
+	void texture_stage_op(
 		renderer::stage_type stage,
 		renderer::texture_stage_op::type,
 		renderer::texture_stage_op_value::type);
-	void set_texture_stage_arg(
+	void texture_stage_arg(
 		renderer::stage_type stage,
 		renderer::texture_stage_arg::type,
 		renderer::texture_stage_arg_value::type);
@@ -109,7 +118,7 @@ public:
 		renderer::glsl::istream &vertex_shader_source,
 		renderer::glsl::istream &pixel_shader_source);
 	
-	void set_glsl_program(
+	void glsl_program(
 		renderer::glsl::program_ptr);
 
 	renderer::const_target_ptr const
@@ -154,8 +163,8 @@ private:
 	GLenum get_clear_bit(
 		renderer::state::bool_::trampoline_type const &) const;
 
-	void set_vertex_buffer(renderer::const_vertex_buffer_ptr vb);
-	void set_index_buffer(renderer::const_index_buffer_ptr ib);
+	void vertex_buffer(renderer::const_vertex_buffer_ptr vb);
+	void index_buffer(renderer::const_index_buffer_ptr ib);
 
 	fbo_target_ptr const
 	create_target();
@@ -164,9 +173,9 @@ private:
 	window::instance_ptr const wnd;
 	renderer::state::list      current_states;
 #if defined(SGE_WINDOWS_PLATFORM)
-	windows::state state;
+	windows::state state_;
 #elif defined(SGE_HAVE_X11)
-	x11::state state;
+	x11::state state_;
 #endif
 	target_ptr                  target_;
 	typedef std::stack<

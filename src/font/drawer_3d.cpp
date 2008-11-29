@@ -87,7 +87,7 @@ void sge::font::drawer_3d::end_rendering()
 	sys.render(sprites.begin(), sprites.end());
 }
 
-void sge::font::drawer_3d::set_color(
+void sge::font::drawer_3d::color(
 	renderer::any_color const &new_color)
 {
 	col = new_color;
