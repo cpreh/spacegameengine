@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <cstdlib>
 
-#define SGE_MAINLOOP_CATCH_BLOCK() \
+#define SGE_MAINLOOP_CATCH_BLOCK \
 catch(sge::exception const &e)\
 {\
 	sge::cerr << e.what() << SGE_TEXT('\n');\
