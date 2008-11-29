@@ -4,6 +4,7 @@
 #include "detail/keyboard_manager.hpp"
 #include "detail/mouse_manager.hpp"
 #include "detail/update_manager.hpp"
+#include "detail/render_manager.hpp"
 #include "types.hpp"
 #include "skin.hpp"
 #include "widget_fwd.hpp"
@@ -45,40 +46,18 @@ class manager
 	friend class widget;
 	friend class widgets::container;
 
-	struct widget_data
-	{
-		widget_data(
-			widget&,
-			renderer::texture_ptr,
-			sprite::object const &);
-
-		widget *ptr;
-		renderer::texture_ptr texture;
-		sprite::object spr;
-	};
-
-	typedef std::vector<widget_data> widget_container;
-	typedef std::vector<rect> dirt_container;
-	typedef std::set<widget*> recompile_container;
-
-	// engine relevant stuff
 	renderer::device_ptr const rend;
 	image::loader_ptr const il;
 	input::system_ptr const is;
 	font::system_ptr const fs;
 	font::metrics_ptr const standard_font_;
-	sprite::system ss;
-
-	// other internal stuff
-	widget_container widgets_;
-	dirt_container dirt_;
-	recompile_container recompiles_;
 
 	skin_ptr skin_;
 
-	// focus
 	detail::mouse_manager mouse_;
+	detail::render_manager render_;
 	detail::keyboard_manager keyboard_;
+	detail::update_manager updates_;
 
 	// this is called by widget's constructor and destructor
 	void add(widget &);
@@ -88,14 +67,7 @@ class manager
 	void resize(widget &,dim const &);
 	void reposition(widget &,point const &);
 
-	// internal search functions (just convenience)
-	widget_data &data(widget &);
-	widget_container::iterator data_iterator(widget &);
-	widget_data &parent_widget_data(widget &);
 	detail::keyboard_manager &keyboard();
-
-	void redraw_dirt();
-	void recompile();
 };
 }
 }

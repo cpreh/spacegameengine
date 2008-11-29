@@ -63,7 +63,7 @@ sge::gui::detail::mouse_manager::mouse_manager(
 {
 }
 
-void sge::gui::detail::mouse_manager::widget_add(widget &w)
+void sge::gui::detail::mouse_manager::add(widget &w)
 {
 	// We only store top level widgets as "starting points" for our focus search
 	if (!w.parent_widget())
@@ -79,7 +79,7 @@ sge::sprite::object const sge::gui::detail::mouse_manager::cursor() const
 	return cursor_;
 }
 
-void sge::gui::detail::mouse_manager::widget_remove(widget &w)
+void sge::gui::detail::mouse_manager::remove(widget &w)
 {
 	// We've got a problem if
 	// (a) the currently focused widget should be deleted, or...

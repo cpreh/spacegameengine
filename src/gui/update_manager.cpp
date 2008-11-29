@@ -1,7 +1,15 @@
 #include <sge/gui/detail/update_manager.hpp>
+#include <sge/gui/widget.hpp>
+#include <sge/gui/widgets/container.hpp>
+#include <sge/gui/detail/render_manager.hpp>
+#include <sge/gui/detail/mouse_manager.hpp>
+#include <boost/foreach.hpp>
 
-sge::gui::detail::update_manager::update_manager(mouse_manager &mouse)
-	: mouse(mouse)
+sge::gui::detail::update_manager::update_manager(
+	mouse_manager &mouse,
+	render_manager &render)
+	: mouse(mouse),
+	  render(render)
 {
 }
 
@@ -19,7 +27,7 @@ void sge::gui::detail::update_manager::remove(widget &w)
 	{
 		++next;
 
-		if (v == w || has_parent(v,w))
+		if ((*it) == &w || has_parent(**it,w))
 			recompiles.erase(it);
 	}
 
@@ -53,12 +61,23 @@ void sge::gui::detail::update_manager::draw()
 	BOOST_FOREACH(widget *w,parents)
 	{
 		w->compile();
-		// TODO: resize and reposition belong to manager, add a callback or
-		// something here
-		resize(*w,w->size());
-		reposition(*w,w->pos());
+		render.resize(*w,w->size());
+		render.reposition(*w,w->pos());
 	}
 
 	mouse.recalculate_focus();
 	recompiles.clear();
+}
+
+bool sge::gui::detail::update_manager::has_parent(
+	widget const &v,
+	widget const &w)
+{
+	if (!v.parent_widget())
+		return false;
+	
+	if (v.parent_widget() == &w)
+		return true;
+	
+	return has_parent(*v.parent_widget(),w);
 }

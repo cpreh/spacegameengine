@@ -5,6 +5,7 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/texture_software.hpp>
@@ -44,7 +45,7 @@ void sge::gui::detail::render_manager::draw()
 		redraw_dirt();
 
 	sprite::system::container sprites;
-	BOOST_FOREACH(widgets::value_type const &w,widgets)
+	BOOST_FOREACH(widget_container::value_type const &w,widgets)
 		sprites.push_back(w.second.sprite);
 	sprites.push_back(mouse.cursor());
 	ss.render(sprites.begin(),sprites.end());
@@ -55,7 +56,7 @@ void sge::gui::detail::render_manager::remove(widget &w)
 	if (w.parent_widget())
 		return;
 	
-	widget_container::iterator wi = std::find(widgets.begin(),widgets.end(),&w);
+	widget_container::iterator wi = widgets.find(&w);
 	SGE_ASSERT(wi != widgets.end());
 	widgets.erase(wi);
 }

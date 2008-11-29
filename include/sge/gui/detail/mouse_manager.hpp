@@ -1,16 +1,16 @@
 #ifndef SGE_GUI_DETAIL_MOUSE_MANAGER_HPP_INCLUDED
 #define SGE_GUI_DETAIL_MOUSE_MANAGER_HPP_INCLUDED
 
-#include <sge/gui/skin.hpp>
-#include <sge/gui/types.hpp>
-#include <sge/gui/widget_fwd.hpp>
-#include <sge/gui/widgets/container_fwd.hpp>
-#include <sge/input/system_fwd.hpp>
-#include <sge/image/loader_fwd.hpp>
-#include <sge/input/key_pair_fwd.hpp>
-#include <sge/signals/scoped_connection.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/renderer/device_fwd.hpp>
+#include "../skin.hpp"
+#include "../types.hpp"
+#include "../widget_fwd.hpp"
+#include "../widgets/container_fwd.hpp"
+#include "../../input/system_fwd.hpp"
+#include "../../image/loader_fwd.hpp"
+#include "../../input/key_pair_fwd.hpp"
+#include "../../signals/scoped_connection.hpp"
+#include "../../sprite/object.hpp"
+#include "../../renderer/device_fwd.hpp"
 
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -29,9 +29,9 @@ class mouse_manager
 		renderer::device_ptr,
 		skin &);
 	
-	void widget_add(widget &);
+	void add(widget &);
 	sprite::object const cursor() const;
-	void widget_remove(widget &);
+	void remove(widget &);
 	void recalculate_focus();
 	private:
 	typedef boost::ptr_vector<widget,boost::view_clone_allocator> widget_container;

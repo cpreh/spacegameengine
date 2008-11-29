@@ -30,7 +30,7 @@ sge::gui::detail::keyboard_manager::keyboard_manager(sge::input::system_ptr cons
 // below is called from a base class constructor, so widget::process(keyboard_enter)
 // is called instead of most_derived::process(keyboard_enter), so the policy is: No 
 // widget initially has the focus.
-void sge::gui::detail::keyboard_manager::widget_add(widget &w)
+void sge::gui::detail::keyboard_manager::add(widget &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
@@ -63,7 +63,7 @@ void sge::gui::detail::keyboard_manager::request_focus(widget &w)
 	switch_focus(wi);
 }
 
-void sge::gui::detail::keyboard_manager::widget_remove(widget &w)
+void sge::gui::detail::keyboard_manager::remove(widget &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
@@ -155,7 +155,7 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 			if (wi != widgets.end())
 				return;
 
-			widget_add(w);
+			add(w);
 		}
 		break;
 	}

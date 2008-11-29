@@ -1,13 +1,13 @@
 #ifndef SGE_GUI_DETAIL_RENDER_MANAGER_HPP_INCLUDED
 #define SGE_GUI_DETAIL_RENDER_MANAGER_HPP_INCLUDED
 
-#include <sge/gui/types.hpp>
-#include <sge/gui/detail/manager_fwd.hpp>
-#include <sge/gui/widget_fwd.hpp>
-#include <sge/renderer/device_fwd.hpp>
-#include <sge/renderer/texture_fwd.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/object.hpp>
+#include "../types.hpp"
+#include "../detail/manager_fwd.hpp"
+#include "../widget_fwd.hpp"
+#include "../../renderer/device_fwd.hpp"
+#include "../../renderer/texture_fwd.hpp"
+#include "../../sprite/system.hpp"
+#include "../../sprite/object.hpp"
 #include <map>
 #include <vector>
 
