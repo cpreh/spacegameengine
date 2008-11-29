@@ -3,6 +3,7 @@
 
 #include "detail/keyboard_manager.hpp"
 #include "detail/mouse_manager.hpp"
+#include "detail/update_manager.hpp"
 #include "types.hpp"
 #include "skin.hpp"
 #include "widget_fwd.hpp"

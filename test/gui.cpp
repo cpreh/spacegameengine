@@ -18,6 +18,8 @@
 #include <sge/gui/font_drawer_canvas.hpp>
 
 #include <sge/log/headers.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/time/second.hpp>
 #include <sge/font/drawer.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/font.hpp>
@@ -116,16 +118,14 @@ try
 		sge::gui::widget::parent_data(left),
 		SGE_TEXT("(left bottom) me!"));
 
-	sge::gui::widgets::button right_top(
-		sge::gui::widget::parent_data(right),
-		SGE_TEXT("(right top) me!"));
+	sge::shared_ptr<sge::gui::widgets::button>
+		right_top(new sge::gui::widgets::button(
+			sge::gui::widget::parent_data(right),
+			SGE_TEXT("(right top) me!")));
 
 	sge::gui::widgets::button right_bottom(
 		sge::gui::widget::parent_data(right),
 		SGE_TEXT("(right bottom) me!"));
-	
-	// compile the stuff!
-	top.compile();
 
 	// set sensible render states
 	sys.renderer()->state(
@@ -142,10 +142,18 @@ try
 	sge::signals::scoped_connection const conn =
 		sys.input_system()->register_callback(input_functor(running));
 	left_top.clicked.connect(p);
+	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
 	while (running)
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block block(sys.renderer());
+
+		if (delete_timer.active() && delete_timer.expired())
+		{
+			delete_timer.deactivate();
+			right_top.reset();
+		}
+
 		m.draw();
 	}
 } 

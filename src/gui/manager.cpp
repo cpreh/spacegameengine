@@ -170,17 +170,17 @@ void sge::gui::manager::reposition(widget &w,point const &d)
 		mylogger,
 		log::_1 << SGE_TEXT("repositioning sprite to ") << d);
 	// just reset sprite position
-	get_data(w).spr.pos() = math::structure_cast<sprite::unit>(d);
+	data(w).spr.pos() = math::structure_cast<sprite::unit>(d);
 }
 
-sge::gui::manager::widget_data &sge::gui::manager::get_data(widget &w)
+sge::gui::manager::widget_data &sge::gui::manager::data(widget &w)
 {
 	widget_container::iterator wi = data_iterator(w);
 	SGE_ASSERT_MESSAGE(wi != widgets_.end(),SGE_TEXT("widget is not a top level widget"));
 	return *wi;
 }
 
-sge::gui::manager::widget_container::iterator sge::gui::manager::get_data_iterator(
+sge::gui::manager::widget_container::iterator sge::gui::manager::data_iterator(
 	widget &w)
 {
 	return std::find_if(widgets_.begin(),widgets_.end(),
