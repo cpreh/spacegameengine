@@ -37,15 +37,6 @@ namespace
 sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"),true);
 }
 
-sge::gui::manager::widget_data::widget_data(
-	widget &w,
-	renderer::texture_ptr texture,
-	sprite::object const &spr)
-	: ptr(&w),
-		texture(texture),
-		spr(spr)
-{
-}
 
 sge::gui::manager::manager(
 	renderer::device_ptr const rend,
@@ -66,13 +57,71 @@ sge::gui::manager::manager(
 {
 }
 
-void sge::gui::manager::reposition(widget &w,point const &d)
+void sge::gui::manager::invalidate(rect const &r)
 {
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("repositioning sprite to ") << d);
-	// just reset sprite position
-	get_data(w).spr.pos() = math::structure_cast<sprite::unit>(d);
+	dirt_.push_back(r);
+}
+
+void sge::gui::manager::invalidate(widget &w)
+{
+	recompiles_.insert(&w);
+}
+
+void sge::gui::manager::draw()
+{
+	if (!recompiles_.empty())
+		recompile();
+	
+	if (!dirt_.empty())
+		redraw_dirt();
+
+	sprite::system::container sprites;
+	BOOST_FOREACH(widget_data &w,widgets_)
+		sprites.push_back(w.spr);
+	sprites.push_back(mouse_.cursor());
+	ss.render(sprites.begin(),sprites.end());
+}
+
+sge::font::metrics_ptr const sge::gui::manager::standard_font()
+{
+	return standard_font_;
+}
+
+sge::gui::skin_ptr const sge::gui::manager::skin() 
+{ 
+	return skin_; 
+}
+
+sge::gui::manager::widget_data::widget_data(
+	widget &w,
+	renderer::texture_ptr texture,
+	sprite::object const &spr)
+	: ptr(&w),
+		texture(texture),
+		spr(spr)
+{
+}
+
+void sge::gui::manager::add(widget &w)
+{
+	keyboard_.widget_add(w);
+	mouse_.widget_add(w);
+	recompiles_.insert(&w);
+
+	if (!w.parent_widget())
+		widgets_.push_back(widget_data(w,renderer::texture_ptr(),sprite::object()));
+}
+
+void sge::gui::manager::remove(widget &w)
+{
+	keyboard_.widget_remove(w);
+	mouse_.widget_remove(w);
+	recompiles_.insert(&w);
+
+	if (!w.parent_widget())
+		widgets_.erase(std::find_if(widgets_.begin(),widgets_.end(),
+			boost::lambda::bind(&widget_data::ptr,boost::lambda::_1) == 
+				boost::lambda::constant(&w)));
 }
 
 void sge::gui::manager::resize(widget &w,dim const &d)
@@ -115,6 +164,15 @@ void sge::gui::manager::resize(widget &w,dim const &d)
 	invalidate(rect(w.pos(),d));
 }
 
+void sge::gui::manager::reposition(widget &w,point const &d)
+{
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("repositioning sprite to ") << d);
+	// just reset sprite position
+	get_data(w).spr.pos() = math::structure_cast<sprite::unit>(d);
+}
+
 sge::gui::manager::widget_data &sge::gui::manager::get_data(widget &w)
 {
 	widget_container::iterator wi = get_data_iterator(w);
@@ -130,11 +188,6 @@ sge::gui::manager::widget_container::iterator sge::gui::manager::get_data_iterat
 				boost::lambda::constant(&w));
 }
 
-void sge::gui::manager::invalidate(rect const &r)
-{
-	dirt_.push_back(r);
-}
-
 sge::gui::manager::widget_data &sge::gui::manager::parent_widget_data(widget &w)
 {
 	// top level widget? then forward to get_data
@@ -143,29 +196,9 @@ sge::gui::manager::widget_data &sge::gui::manager::parent_widget_data(widget &w)
 	return parent_widget_data(*w.parent_widget());
 }
 
-void sge::gui::manager::add(widget &w)
-{
-	keyboard_.widget_add(w);
-	mouse_.widget_add(w);
-
-	if (!w.parent_widget())
-		widgets_.push_back(widget_data(w,renderer::texture_ptr(),sprite::object()));
-}
-
 sge::gui::detail::keyboard_manager &sge::gui::manager::keyboard()
 {
 	return keyboard_;
-}
-
-void sge::gui::manager::compile(widget &w)
-{
-	SGE_ASSERT_MESSAGE(
-		get_data_iterator(w) != widgets_.end(),
-		SGE_TEXT("tried to compile a non toplevel widget"));
-
-	resize(w,w.size());
-	reposition(w,w.pos());
-	mouse_.recalculate_focus();
 }
 
 void sge::gui::manager::redraw_dirt()
@@ -237,27 +270,32 @@ void sge::gui::manager::redraw_dirt()
 		log::_1 << SGE_TEXT("checking intersections completed"));
 }
 
-void sge::gui::manager::draw()
+void sge::gui::manager::recompile()
 {
-	if (!dirt_.empty())
-		redraw_dirt();
+	// The standard behaviour for widgets which need recompiling is to determine
+	// their topmost parent. Then, each parent is recompile completely
+	recompile_container parents;
+	BOOST_FOREACH(widget *w,recompiles_)
+	{
+		widget *parent = 0,*it = w;
+		while (it != 0)
+		{
+			parent = it;
+			it = it->parent_widget();
+		}
 
-	sprite::system::container sprites;
-	BOOST_FOREACH(widget_data &w,widgets_)
-		sprites.push_back(w.spr);
-	sprites.push_back(mouse_.cursor());
-	ss.render(sprites.begin(),sprites.end());
-}
+		SGE_ASSERT(parent != 0);
 
-void sge::gui::manager::remove(widget &w)
-{
-	keyboard_.widget_remove(w);
-	mouse_.widget_remove(w);
+		parents.insert(parent);
+	}
 
-	if (w.parent_widget())
-		return;
-	
-	widgets_.erase(std::find_if(widgets_.begin(),widgets_.end(),
-		boost::lambda::bind(&widget_data::ptr,boost::lambda::_1) == 
-			boost::lambda::constant(&w)));
+	BOOST_FOREACH(widget *w,parents)
+	{
+		w->compile();
+		resize(*w,w->size());
+		reposition(*w,w->pos());
+	}
+
+	mouse_.recalculate_focus();
+	recompiles_.clear();
 }

@@ -18,6 +18,8 @@
 #include "../signals/scoped_connection.hpp"
 #include "../image/loader_fwd.hpp"
 #include "../export.hpp"
+#include <set>
+#include <vector>
 
 namespace sge
 {
@@ -33,9 +35,10 @@ class manager
 		font::system_ptr,
 		skin_ptr);
 	SGE_SYMBOL void invalidate(rect const &);
+	SGE_SYMBOL void invalidate(widget &);
 	SGE_SYMBOL void draw();
-	font::metrics_ptr const standard_font() { return standard_font_; }
-	skin_ptr const skin() { return skin_; }
+	SGE_SYMBOL font::metrics_ptr const standard_font();
+	SGE_SYMBOL skin_ptr const skin();
 
 	private:
 	friend class widget;
@@ -52,8 +55,10 @@ class manager
 		renderer::texture_ptr texture;
 		sprite::object spr;
 	};
+
 	typedef std::vector<widget_data> widget_container;
 	typedef std::vector<rect> dirt_container;
+	typedef std::set<widget*> recompile_container;
 
 	// engine relevant stuff
 	renderer::device_ptr const rend;
@@ -66,6 +71,7 @@ class manager
 	// other internal stuff
 	widget_container widgets_;
 	dirt_container dirt_;
+	recompile_container recompiles_;
 
 	skin_ptr skin_;
 
@@ -76,7 +82,6 @@ class manager
 	// this is called by widget's constructor and destructor
 	void add(widget &);
 	void remove(widget &);
-	void compile(widget &);
 
 	// this is called by widget's size/pos function (if it encounters a top level widget)
 	void resize(widget &,dim const &);
@@ -89,6 +94,7 @@ class manager
 	detail::keyboard_manager &keyboard();
 
 	void redraw_dirt();
+	void recompile();
 };
 }
 }
