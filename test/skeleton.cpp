@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 struct app : public sge::mainloop::skeleton {
 	app();
+private:
 	void loop();
 	void key_event(
 		sge::input::key_pair const &);
