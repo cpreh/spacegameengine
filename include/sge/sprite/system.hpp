@@ -42,23 +42,33 @@ public:
 	typedef boost::function<
 		void (
 			object *,
-			object *,
-			bool (*)(object const &, object const &))
+			object *)
 	> sort_method;
 
+	typedef boost::function<
+		bool (
+			object const &,
+			object const &)
+	> equal_method;
+
 	SGE_SYMBOL static sort_method const default_sort;
+	SGE_SYMBOL static equal_method const default_equal;
 
 	SGE_SYMBOL void render(
 		container::iterator begin,
 		container::iterator end,
 		sort_method const &
-			= default_sort);
+			= default_sort,
+		equal_method const &
+			= default_equal);
 
 	SGE_SYMBOL void render(
 		object *begin,
 		object *end,
 		sort_method const &
-			= default_sort);
+			= default_sort,
+		equal_method const &
+			= default_equal);
 	
 	SGE_SYMBOL void render(
 		object);

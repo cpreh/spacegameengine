@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
+#include <boost/bind.hpp>
 #include <iterator>
 
 sge::sprite::system::system(
@@ -40,7 +41,8 @@ sge::sprite::system::system(
 void sge::sprite::system::render(
 	container::iterator const begin,
 	container::iterator const end,
-	sort_method const &sort_fun)
+	sort_method const &sort_fun,
+	equal_method const &equal_fun)
 {
 	if(begin == end)
 		return;
@@ -48,23 +50,25 @@ void sge::sprite::system::render(
 	render(
 		beg,
 		beg + std::distance(begin, end),
-		sort_fun);
+		sort_fun,
+		equal_fun);
 }
 
 void sge::sprite::system::render(
 	object *const beg,
 	object *const end,
-	sort_method const &sort_fun)
+	sort_method const &sort_fun,
+	equal_method const &equal_fun)
 {
-	sort_fun(beg, end, less);
+	sort_fun(beg, end);
 	
 	allocate_buffers(std::distance(beg, end));
 
 	renderer::vertex_buffer_ptr const vb(
-		get_vertex_buffer());
+		vertex_buffer());
 	
 	renderer::index_buffer_ptr const ib(
-		get_index_buffer());
+		index_buffer());
 
 	fill_geometry(
 		beg,
@@ -75,7 +79,7 @@ void sge::sprite::system::render(
 	matrices();
 
 	renderer::device_ptr const rend(
-		get_renderer());
+		renderer());
 
 	renderer::state::scoped const state_(
 		rend,
@@ -85,7 +89,7 @@ void sge::sprite::system::render(
 	sprite::render(
 		beg,
 		end,
-		equal,
+		equal_fun,
 		rend,
 		vb,
 		ib);
@@ -99,8 +103,17 @@ void sge::sprite::system::render(
 
 sge::sprite::system::sort_method const
 sge::sprite::system::default_sort(
-	std::stable_sort<
-		sge::sprite::object *,
-		bool (*)(sge::sprite::object const &, sge::sprite::object const &)
-	>
+	boost::bind(
+		std::stable_sort<
+			sge::sprite::object *,
+			bool (*)(sge::sprite::object const &, sge::sprite::object const &)
+		>,
+		_1,
+		_2,
+		sge::sprite::less
+	)
 );
+
+sge::sprite::system::equal_method const
+sge::sprite::system::default_equal(
+	sge::sprite::equal);
