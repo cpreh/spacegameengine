@@ -104,7 +104,7 @@ public:
 		bool enable) = 0;
 	virtual void light(
 		light_index index,
-		light const &) = 0;
+		renderer::light const &) = 0;
 	virtual void texture_stage_op(
 		stage_type stage,
 		renderer::texture_stage_op::type,
