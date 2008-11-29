@@ -29,7 +29,8 @@ namespace sge
 namespace ogl
 {
 
-renderer::color_format::type color_convert(
+renderer::color_format::type
+color_convert(
 	GLenum format,
 	GLenum format_type);
 

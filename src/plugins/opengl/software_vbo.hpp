@@ -32,19 +32,36 @@ namespace ogl
 class software_vbo : public vbo_base {
 public:
 	GLuint gen_buffer();
-	void delete_buffer(GLuint);
-	void bind_buffer(GLenum type, GLuint);
-	void* map_buffer(GLenum type, GLenum flags);
-	void unmap_buffer(GLenum type);
-	void buffer_data(GLenum type,
-	                 GLsizei size,
-	                 const void* data,
-	                 GLenum flags);
-	void buffer_sub_data(GLenum type,
-	                     GLsizei first,
-	                     GLsizei size,
-	                     const void* data);
-	void* buffer_offset(GLenum type, GLsizei offset);
+
+	void delete_buffer(
+		GLuint);
+
+	void bind_buffer(
+		GLenum type,
+		GLuint);
+
+	void *map_buffer(
+		GLenum type,
+		GLenum flags);
+
+	void unmap_buffer(
+		GLenum type);
+
+	void buffer_data(
+		GLenum type,
+		GLsizei size,
+		void const *data,
+		GLenum flags);
+
+	void buffer_sub_data(
+		GLenum type,
+		GLsizei first,
+		GLsizei size,
+		void const *data);
+
+	void *buffer_offset(
+		GLenum type,
+		GLsizei offset);
 
 	static GLenum unique_id();
 };

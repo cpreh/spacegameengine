@@ -37,13 +37,14 @@ sge::ogl::basic_buffer<Type, Impl>::basic_buffer(
 	size_type const stride_,
 	resource_flag_type const flags_,
 	const_pointer const src)
- : sz(sz),
-   stride_(stride_),
-   flags_(flags_),
-   dest(0),
-   id(Impl().gen_buffer()),
-   lock_offset(0),
-   lock_size_(0)
+:
+	sz(sz),
+	stride_(stride_),
+	flags_(flags_),
+	dest(0),
+	id(Impl().gen_buffer()),
+	lock_offset(0),
+	lock_size_(0)
 {
 	allocate_buffer(src);
 }

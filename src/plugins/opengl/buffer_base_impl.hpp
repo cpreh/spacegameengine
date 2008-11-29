@@ -34,11 +34,12 @@ sge::ogl::buffer_base<Base, Type, Impl>::buffer_base(
 	size_type const stride,
 	resource_flag_type const flags,
 	const_pointer const src)
-: buf(
-	sz,
-	stride,
-	flags,
-	src)
+:
+	buf(
+		sz,
+		stride,
+		flags,
+		src)
 {}
 
 template<
