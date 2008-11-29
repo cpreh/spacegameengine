@@ -1,9 +1,11 @@
 #ifndef SGE_GUI_WIDGET_HPP_INCLUDED
 #define SGE_GUI_WIDGET_HPP_INCLUDED
 
+#include "widgets/container_fwd.hpp"
 #include "events/fwd.hpp"
 #include "keyboard_focus.hpp"
 #include "types.hpp"
+#include "manager_fwd.hpp"
 #include "size_policy.hpp"
 #include "../export.hpp"
 
@@ -15,14 +17,6 @@ namespace sge
 {
 namespace gui
 {
-// forward declarations
-namespace widgets
-{
-class container;
-}
-class manager;
-
-// declaration
 class SGE_CLASS_SYMBOL widget : boost::noncopyable
 {
 	public:
