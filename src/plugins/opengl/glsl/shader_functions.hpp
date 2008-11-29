@@ -47,16 +47,16 @@ void compile_shader(
 	typename traits<Native>::handle shader);
 
 template<bool Native>
-GLint get_shader_integer(
+GLint shader_integer(
 	GLenum what,
 	typename traits<Native>::handle shader);
 
 template<bool Native>
-GLint get_compile_status(
+GLint compile_status(
 	typename traits<Native>::handle shader);
 
 template<bool Native>
-void get_shader_info_log(
+void shader_info_log(
 	typename traits<Native>::handle program,
 	GLint maxlen,
 	GLint *len,

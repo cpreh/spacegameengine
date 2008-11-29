@@ -54,7 +54,7 @@ void sge::ogl::glsl::compile_shader<true>(
 }
 
 template<>
-GLint sge::ogl::glsl::get_shader_integer<true>(
+GLint sge::ogl::glsl::shader_integer<true>(
 	const GLenum what,
 	const traits<true>::handle shader)
 {
@@ -65,16 +65,16 @@ GLint sge::ogl::glsl::get_shader_integer<true>(
 }
 
 template<>
-GLint sge::ogl::glsl::get_compile_status<true>(
+GLint sge::ogl::glsl::compile_status<true>(
 	const traits<true>::handle shader)
 {
-	return get_shader_integer<true>(
+	return shader_integer<true>(
 		GL_COMPILE_STATUS,
 		shader);
 }
 
 template<>
-void sge::ogl::glsl::get_shader_info_log<true>(
+void sge::ogl::glsl::shader_info_log<true>(
 	const traits<true>::handle shader,
 	const GLint maxlen,
 	GLint *const len,

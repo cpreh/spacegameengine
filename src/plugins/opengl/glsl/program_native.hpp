@@ -60,12 +60,12 @@ void link_program<true>(
 	traits<true>::handle program);
 
 template<>
-GLint get_program_integer<true>(
+GLint program_integer<true>(
 	GLenum what,
 	traits<true>::handle program);
 
 template<>
-GLint get_link_status<true>(
+GLint link_status<true>(
 	traits<true>::handle program);
 
 template<>
@@ -73,7 +73,7 @@ void use_program<true>(
 	traits<true>::handle program);
 
 template<>
-void get_program_info_log<true>(
+void program_info_log<true>(
 	traits<true>::handle program,
 	GLint maxlen,
 	GLint *len,

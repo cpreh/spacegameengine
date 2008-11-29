@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../error.hpp"
 
 template<>
-GLint sge::ogl::glsl::get_uniform_location<true>(
+GLint sge::ogl::glsl::uniform_location<true>(
 	const traits<true>::handle program,
 	char const *const name)
 {

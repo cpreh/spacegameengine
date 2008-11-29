@@ -33,7 +33,7 @@ namespace glsl
 {
 
 template<>
-GLint get_attrib_location<false>(
+GLint attrib_location<false>(
 	traits<false>::handle program,
 	char const *name);
 

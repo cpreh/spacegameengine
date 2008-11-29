@@ -48,16 +48,16 @@ void compile_shader<false>(
 	traits<false>::handle shader);
 
 template<>
-GLint get_shader_integer<false>(
+GLint shader_integer<false>(
 	GLenum what,
 	traits<false>::handle shader);
 
 template<>
-GLint get_compile_status<false>(
+GLint compile_status<false>(
 	traits<false>::handle shader);
 
 template<>
-void get_shader_info_log<false>(
+void shader_info_log<false>(
 	traits<false>::handle program,
 	GLint maxlen,
 	GLint *len,

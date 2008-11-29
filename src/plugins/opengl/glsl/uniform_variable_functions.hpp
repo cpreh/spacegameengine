@@ -32,7 +32,7 @@ namespace glsl
 {
 
 template<bool Native>
-GLint get_uniform_location(
+GLint uniform_location(
 	typename traits<Native>::handle program,
 	char const *name);
 

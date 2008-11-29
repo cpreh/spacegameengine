@@ -91,9 +91,9 @@ void sge::ogl::device::begin_rendering()
 	SGE_OPENGL_SENTRY
 
 	glClear(
-		get_clear_bit(renderer::state::bool_::clear_backbuffer)
-		| get_clear_bit(renderer::state::bool_::clear_zbuffer)
-		| get_clear_bit(renderer::state::bool_::clear_stencil));
+		clear_bit(renderer::state::bool_::clear_backbuffer)
+		| clear_bit(renderer::state::bool_::clear_zbuffer)
+		| clear_bit(renderer::state::bool_::clear_stencil));
 }
 
 sge::renderer::index_buffer_ptr const
@@ -290,7 +290,7 @@ void sge::ogl::device::pop_state()
 	state_levels.pop();
 }
 
-GLenum sge::ogl::device::get_clear_bit(
+GLenum sge::ogl::device::clear_bit(
 	renderer::state::bool_::trampoline_type const &s) const
 {
 	return current_states.get(s) ? convert_clear_bit(s) : 0;

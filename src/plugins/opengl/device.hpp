@@ -160,7 +160,7 @@ public:
 	renderer::screen_size_t const screen_size() const;
 	window::instance_ptr const window() const;
 private:
-	GLenum get_clear_bit(
+	GLenum clear_bit(
 		renderer::state::bool_::trampoline_type const &) const;
 
 	void vertex_buffer(renderer::const_vertex_buffer_ptr vb);
