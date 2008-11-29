@@ -27,5 +27,4 @@ sprite, texture, console, etc. as well)
 *medium: fix renderer::caps and the opengl implementation of them
 *medium: add adapter support to opengl
 *high: make the sprite system's sorting configurable
-*high: implement uniform arrays for glsl
 *high: Improve the cmake script, search for libraries per default.

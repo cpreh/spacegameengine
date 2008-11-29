@@ -24,11 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "traits.hpp"
 #include "uniform_type.hpp"
 #include <sge/renderer/glsl/int_types.hpp>
-#include <sge/renderer/any_arithmetic.hpp>
-#include <sge/renderer/any_matrix.hpp>
-#include <sge/renderer/any_vector2.hpp>
-#include <sge/renderer/any_vector3.hpp>
-#include <sge/renderer/any_vector4.hpp>
+#include <sge/renderer/glsl/float_types.hpp>
+#include <sge/renderer/glsl/matrix_types.hpp>
+#include <sge/renderer/glsl/vector_types.hpp>
+#include <sge/array_wrapper.hpp>
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
@@ -49,23 +48,47 @@ public:
 	
 	uniform_type::type
 	operator()(
-		renderer::any_arithmetic const &) const;
+		renderer::glsl::float_type const &) const;
 
 	uniform_type::type
 	operator()(
-		renderer::any_vector2 const &) const;
+		renderer::glsl::vector2 const &) const;
 	
 	uniform_type::type
 	operator()(
-		renderer::any_vector3 const &) const;
+		renderer::glsl::vector3 const &) const;
 	
 	uniform_type::type
 	operator()(
-		renderer::any_vector4 const &) const;
+		renderer::glsl::vector4 const &) const;
 
 	uniform_type::type
 	operator()(
-		renderer::any_matrix const &) const;
+		renderer::glsl::matrix4x4 const &) const;
+
+	uniform_type::type
+	operator()(
+		array_wrapper<renderer::glsl::int_type> const &) const;
+	
+	uniform_type::type
+	operator()(
+		array_wrapper<renderer::glsl::float_type> const &) const;
+		
+	uniform_type::type
+	operator()(
+		array_wrapper<renderer::glsl::vector2> const &) const;
+
+	uniform_type::type
+	operator()(
+		array_wrapper<renderer::glsl::vector3> const &) const;
+
+	uniform_type::type
+	operator()(
+		array_wrapper<renderer::glsl::vector4> const &) const;
+
+	uniform_type::type
+	operator()(
+		array_wrapper<renderer::glsl::matrix4x4> const &) const;
 private:
 	GLint const location;
 };

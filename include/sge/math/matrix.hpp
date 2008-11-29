@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 #include <cstddef>
 #include <iosfwd>
+#include <iterator>
 
 #ifndef SGE_MATH_MATRIX_MAX_SIZE
 #define SGE_MATH_MATRIX_MAX_SIZE 16
@@ -60,6 +61,10 @@ public:
 	typedef const T& const_reference;
 	typedef T* pointer;
 	typedef const T* const_pointer;
+	typedef pointer iterator;
+	typedef const_pointer const_iterator;
+	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 	typedef std::size_t size_type;
 	typedef detail::matrix_proxy_impl<value_type&, value_type*, N> proxy;
 	typedef detail::matrix_proxy_impl<const value_type&, const value_type*, N> const_proxy;
@@ -81,7 +86,17 @@ public:
 	const const_proxy operator[](const size_type j) const;
 	pointer data();
 	const_pointer data() const;
+	pointer data_end();
+	const_pointer data_end() const;
 	size_type size() const;
+	iterator begin();
+	const_iterator begin() const;
+	iterator end();
+	const_iterator end() const;
+	reverse_iterator rbegin();
+	const_reverse_iterator rbegin() const;
+	reverse_iterator rend();
+	const_reverse_iterator rend() const;
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 	template<typename... Args>
 	void set(const_reference arg, Args... args);

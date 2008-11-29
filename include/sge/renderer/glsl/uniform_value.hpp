@@ -22,11 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_VALUE_HPP_INCLUDED
 
 #include "int_types.hpp"
-#include "../any_arithmetic.hpp"
-#include "../any_matrix.hpp"
-#include "../any_vector2.hpp"
-#include "../any_vector3.hpp"
-#include "../any_vector4.hpp"
+#include "float_types.hpp"
+#include "vector_types.hpp"
+#include "matrix_types.hpp"
+#include "../../array_wrapper.hpp"
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/copy.hpp>
+#include <boost/mpl/back_inserter.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <boost/variant/variant.hpp>
 
 namespace sge
@@ -36,14 +40,43 @@ namespace renderer
 namespace glsl
 {
 
-typedef boost::variant<
+namespace detail
+{
+
+typedef boost::mpl::vector<
 	int_type,
-	any_arithmetic,
-	any_vector2,
-	any_vector3,
-	any_vector4,
-	any_matrix
-> uniform_value;
+	float_type,
+	vector2,
+	vector3,
+	vector4,
+	matrix4x4
+> uniform_base_values;
+
+// TODO: replace this with a vector and a matrix of dyanmic size
+
+template<
+	typename T
+> struct make_array_wrapper {
+	typedef array_wrapper<
+		T
+	> type;
+};
+
+}
+
+typedef boost::make_variant_over<
+	boost::mpl::copy<
+		detail::uniform_base_values,
+		boost::mpl::back_inserter<
+			boost::mpl::transform<
+				detail::uniform_base_values,
+				detail::make_array_wrapper<
+					boost::mpl::_1
+				>
+			>::type
+		>
+	>::type
+>::type uniform_value;
 
 }
 }
