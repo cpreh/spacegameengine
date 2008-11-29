@@ -85,7 +85,7 @@ void sge::gui::manager::reposition(widget &w,point const &d)
 		mylogger,
 		log::_1 << SGE_TEXT("repositioning sprite to ") << d);
 	// just reset sprite position
-	get_data(w).spr.pos() = math::structure_cast<sprite::unit>(d);
+	data(w).spr.pos() = math::structure_cast<sprite::unit>(d);
 }
 
 void sge::gui::manager::resize(widget &w,dim const &d)
@@ -99,7 +99,7 @@ void sge::gui::manager::resize(widget &w,dim const &d)
 	// transparent pixels so you don't have to create a whole new texture. if it
 	// is enlarged, you could create a texture which is too large so subsequent
 	// resize operations won't eat much performance
-	widget_data &wd = get_data(w);
+	widget_data &wd = data(w);
 
 	renderer::texture_ptr software_texture(new renderer::texture_software(
 		math::structure_cast<renderer::texture::dim_type::value_type>(d),
@@ -128,14 +128,15 @@ void sge::gui::manager::resize(widget &w,dim const &d)
 	invalidate(rect(w.pos(),d));
 }
 
-sge::gui::manager::widget_data &sge::gui::manager::get_data(widget &w)
+sge::gui::manager::widget_data &sge::gui::manager::data(widget &w)
 {
-	widget_container::iterator wi = get_data_iterator(w);
+	widget_container::iterator wi = data_iterator(w);
 	SGE_ASSERT_MESSAGE(wi != widgets_.end(),SGE_TEXT("widget is not a top level widget"));
 	return *wi;
 }
 
-sge::gui::manager::widget_container::iterator sge::gui::manager::get_data_iterator(widget &w)
+sge::gui::manager::widget_container::iterator
+sge::gui::manager::data_iterator(widget &w)
 {
 	return std::find_if(widgets_.begin(),widgets_.end(),
 			boost::lambda::bind(&widget_data::ptr,boost::lambda::_1) == 
@@ -150,9 +151,9 @@ void sge::gui::manager::invalidate(rect const &r)
 
 sge::gui::manager::widget_data &sge::gui::manager::parent_widget_data(widget &w)
 {
-	// top level widget? then forward to get_data
+	// top level widget? then forward to data
 	if (!w.parent_widget())
-		return get_data(w);
+		return data(w);
 	return parent_widget_data(*w.parent_widget());
 }
 
@@ -219,7 +220,7 @@ sge::gui::detail::keyboard_manager &sge::gui::manager::keyboard()
 void sge::gui::manager::compile(widget &w)
 {
 	SGE_ASSERT_MESSAGE(
-		get_data_iterator(w) != widgets_.end(),
+		data_iterator(w) != widgets_.end(),
 		SGE_TEXT("tried to compile a non toplevel widget"));
 
 	resize(w,w.size());
