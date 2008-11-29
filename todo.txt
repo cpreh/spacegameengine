@@ -15,10 +15,9 @@
 *low: implement an image loader with Magick++
 *low: add a skeleton class for the mainloop
 *low: use boost::exception for stack traces
-*low: implement a lot of different exception types to make errors
+*low: implement a lot of different exception types to make errors distinguishable
 *low: put x11 and windows stuff in their own libraries (probably do this with
 sprite, texture, console, etc. as well)
-distinguishable
 *medium: breakpoints for the font
 *medium: implement "loop and play once on kill" to sound buffer
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
