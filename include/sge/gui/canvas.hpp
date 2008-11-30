@@ -45,8 +45,16 @@ class canvas
 		font::align_h::type,
 		font::align_v::type,
 		font::flag_t = font::flags::default_);
-	SGE_SYMBOL void draw_line(point const &,point const &,color);
-	SGE_SYMBOL void draw_line_strip(point_container const &,color,bool loop = true);
+	SGE_SYMBOL void draw_line(
+		point const &,
+		point const &,
+		color,
+		bool dashed = false);
+	SGE_SYMBOL void draw_line_strip(
+		point_container const &,
+		color,
+		bool dashed = false,
+		bool loop = true);
 	SGE_SYMBOL void reset_font(font::metrics_ptr,color fg);
 	SGE_SYMBOL void draw_pixel(point const &,color);
 	view_type view() { return texture_; }

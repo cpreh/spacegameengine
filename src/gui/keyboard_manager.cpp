@@ -74,12 +74,15 @@ void sge::gui::detail::keyboard_manager::remove(widget &w)
 	
 	SGE_ASSERT(wi != widgets.end());
 	
-	// the widget to delete has the focus? then take the next one
+	// the widget to delete has the focus? then reset focus
 	if (focus && *focus == wi)
+		focus.reset();
+/* old (alternative) behaviour was to take the next possible widget
 		switch_focus(
 			boost::next(*focus) == widgets.end() 
 				? widgets.begin()
 				: boost::next(*focus));
+				*/
 	
 	widgets.erase(wi);
 }

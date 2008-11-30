@@ -146,7 +146,7 @@ void sge::gui::canvas::draw_rect(
 			ps.push_back(point(point(rel_rect.right()-1,rel_rect.top())));
 			ps.push_back(point(point(rel_rect.right()-1,rel_rect.bottom()-1)));
 			ps.push_back(point(point(rel_rect.left(),rel_rect.bottom()-1)));
-			draw_line_strip(ps,c,true);
+			draw_line_strip(ps,c,false,true);
 		}
 		break;
 	}
@@ -155,6 +155,7 @@ void sge::gui::canvas::draw_rect(
 void sge::gui::canvas::draw_line_strip(
 	point_container const &points,
 	color const c,
+	bool const dashed,
 	bool const loop)
 {
 	SGE_ASSERT(points.size() > 1);
@@ -162,10 +163,10 @@ void sge::gui::canvas::draw_line_strip(
 	for (point_container::size_type i = static_cast<point_container::size_type>(0); 
 		i < static_cast<point_container::size_type>(points.size()-1); 
 		++i)
-		draw_line(points[i],points[i+1],c);
+		draw_line(points[i],points[i+1],c,dashed);
 
 	if (loop)
-		draw_line(points[points.size()-1],points[0],c);
+		draw_line(points[points.size()-1],points[0],c,dashed);
 }
 
 sge::gui::canvas::view_type sge::gui::canvas::sub_view(rect const &r)
@@ -283,14 +284,18 @@ void sge::gui::canvas::draw_pixel(point const &p,color const c)
 	boost::gil::apply_operation(
 		boost::gil::subimage_view(
 			view(),
-			p_abs.x(),
-			p_abs.y(),
+			tf.x(),
+			tf.y(),
 			1,
 			1),
 		utility::set_pixel(c));
 }
 
-void sge::gui::canvas::draw_line(point const &a,point const &b,color const color_)
+void sge::gui::canvas::draw_line(
+	point const &a,
+	point const &b,
+	color const color_,
+	bool const dashed)
 {
 	SGE_ASSERT_MESSAGE(
 		math::contains(widget_area(),widget_pos() + a) && 
@@ -312,6 +317,8 @@ void sge::gui::canvas::draw_line(point const &a,point const &b,color const color
 
 	// set first pixel
 	draw_pixel(pos,color_);
+
+	unsigned count = 0;
  
 	// t counts the pixels
 	for(unit t = static_cast<unit>(0),
@@ -324,6 +331,7 @@ void sge::gui::canvas::draw_line(point const &a,point const &b,color const color
 			// parallel step
 			pos += pd;
 
-		draw_pixel(pos,color_);
+		if (!dashed || (count++) % 2 == 0)
+			draw_pixel(pos,color_);
 	}
 }

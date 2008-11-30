@@ -48,7 +48,10 @@ template<class DstPixel,class FontPixel>
 template<class T>
 void sge::gui::utility::font_channel_blitter<DstPixel,FontPixel>::operator()(T &t) const
 {
-	float const font_value = static_cast<float>(font[t])/255.0f;
+	//if (t == 3)
+	//	return;
+	//float const font_value = static_cast<float>(font[t])/255.0f;
+	float const font_value = static_cast<float>(font[0])/255.0f;
 	result[t] = static_cast<typename renderer::color_channel<typename boost::remove_const<DstPixel>::type>::type>(
 		static_cast<float>(fontcolor[t])*font_value+
 		static_cast<float>(bgcolor[t])*(1.0f-font_value));
