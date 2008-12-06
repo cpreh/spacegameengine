@@ -172,15 +172,18 @@ void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair con
 	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
 		return;
 	
+	if (focus)
+	{
+		if (!(*focus)->process(events::key(k)))
+			return;
+	}
+
 	if (k.key().code() == sge::input::kc::key_tab)
 	{
 		if (!sge::math::almost_zero(k.value()))
 			cycle_focus();
 		return;
 	}
-	
-	if (focus)
-		(*focus)->process(events::key(k));
 }
 
 void sge::gui::detail::keyboard_manager::switch_focus(widget_container::iterator n)

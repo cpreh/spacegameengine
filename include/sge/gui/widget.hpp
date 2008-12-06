@@ -4,6 +4,7 @@
 #include "widgets/container_fwd.hpp"
 #include "events/fwd.hpp"
 #include "keyboard_focus.hpp"
+#include "key_handling.hpp"
 #include "types.hpp"
 #include "manager_fwd.hpp"
 #include "size_policy.hpp"
@@ -68,7 +69,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	virtual void process(events::mouse_leave const &);
 	virtual void process(events::mouse_move const &);
 	virtual void process(events::mouse_click const &);
-	virtual void process(events::key const &);
+	virtual key_handling::type process(events::key const &);
 	virtual void process(events::keyboard_enter const &);
 	virtual void process(events::keyboard_leave const &);
 
@@ -89,7 +90,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	manager &manager_;
 
 	point pos_;
-	dim size_,size_hint_;
+	dim size_;
 	size_policy_t size_policy_;
 	keyboard_focus::type keyboard_focus_;
 

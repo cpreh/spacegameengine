@@ -113,7 +113,11 @@ void sge::gui::widget::process(events::mouse_enter const &) {}
 void sge::gui::widget::process(events::mouse_leave const &) {}
 void sge::gui::widget::process(events::mouse_move const &) {}
 void sge::gui::widget::process(events::mouse_click const &) {}
-void sge::gui::widget::process(events::key const &) {}
+
+sge::gui::key_handling::type sge::gui::widget::process(events::key const &) 
+{ 
+	return key_handling::process; 
+}
 
 void sge::gui::widget::process(events::keyboard_enter const &) 
 {

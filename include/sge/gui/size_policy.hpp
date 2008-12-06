@@ -29,7 +29,7 @@ class size_policy
 		return i == static_cast<std::size_t>(0) ? x() : y(); 
 	}
 
-	static size_policy const default_policy;
+	SGE_SYMBOL static size_policy const default_policy;
 	private:
 	axis_policy::type x_,y_;
 };

@@ -5,9 +5,13 @@
 #include "detail/mouse_manager.hpp"
 #include "detail/update_manager.hpp"
 #include "detail/render_manager.hpp"
+#include "detail/time_manager.hpp"
+#include "timer/callback.hpp"
+#include "timer/fwd.hpp"
 #include "types.hpp"
 #include "skin.hpp"
 #include "widget_fwd.hpp"
+#include "timer/fwd.hpp"
 #include "widgets/container_fwd.hpp"
 #include "../renderer/device_fwd.hpp"
 #include "../renderer/texture_fwd.hpp"
@@ -17,6 +21,7 @@
 #include "../font/metrics_fwd.hpp"
 #include "../sprite/object.hpp"
 #include "../sprite/system.hpp"
+#include "../time/resolution.hpp"
 #include "../signals/scoped_connection.hpp"
 #include "../image/loader_fwd.hpp"
 #include "../export.hpp"
@@ -38,6 +43,9 @@ class manager
 		skin_ptr);
 	SGE_SYMBOL void invalidate(rect const &);
 	SGE_SYMBOL void invalidate(widget &);
+	SGE_SYMBOL timer::object_ptr const register_timer(
+		time::resolution const &,
+		timer::callback);
 	SGE_SYMBOL void draw();
 	SGE_SYMBOL font::metrics_ptr const standard_font();
 	SGE_SYMBOL skin_ptr const skin();
@@ -58,6 +66,7 @@ class manager
 	detail::render_manager render_;
 	detail::keyboard_manager keyboard_;
 	detail::update_manager updates_;
+	detail::time_manager timer_;
 
 	// this is called by widget's constructor and destructor
 	void add(widget &);

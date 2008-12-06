@@ -31,20 +31,30 @@ sge::gui::manager::manager(
 {
 }
 
-void sge::gui::manager::invalidate(rect const &r)
+void sge::gui::manager::invalidate(
+	rect const &r)
 {
 	render_.invalidate(r);
 }
 
-void sge::gui::manager::invalidate(widget &w)
+void sge::gui::manager::invalidate(
+	widget &w)
 {
 	updates_.add(w);
+}
+
+sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
+	time::resolution const &r,
+	timer::callback const cb)
+{
+	return timer_.add(r,cb);
 }
 
 void sge::gui::manager::draw()
 {
 	updates_.draw();
 	render_.draw();
+	timer_.draw();
 }
 
 sge::font::metrics_ptr const sge::gui::manager::standard_font()

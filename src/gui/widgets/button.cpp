@@ -1,9 +1,11 @@
 #include <sge/gui/widgets/button.hpp>
 #include <sge/gui/events/invalid_area.hpp>
+#include <sge/gui/events/key.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/max_dim.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/font_drawer_canvas.hpp>
+#include <sge/input/key_type.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
@@ -64,9 +66,15 @@ void sge::gui::widgets::button::process(events::mouse_click const &)
 	clicked();
 }
 
-void sge::gui::widgets::button::process(events::key const &)
+sge::gui::key_handling::type sge::gui::widgets::button::process(
+	events::key const &k)
 {
-	clicked();
+	if (k.value().key().code() == input::kc::key_return)
+	{
+		clicked();
+		return key_handling::ignore;
+	}
+	return key_handling::process;
 }
 
 void sge::gui::widgets::button::process(events::keyboard_enter const &)
