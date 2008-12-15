@@ -120,7 +120,9 @@ void sge::con::console_gfx::tabcomplete(string &il)
 
 	// determine which word we are in, if it's the first, complete a command,
 	// if it's any other, complete a variable
-	string::size_type right = cursor_pos,left = il.rfind(SGE_TEXT(' '),right-1);
+	string::size_type
+		right = cursor_pos,
+		left = il.rfind(SGE_TEXT(' '),right-1);
 
 	const bool is_command = left == std::string::npos;
 

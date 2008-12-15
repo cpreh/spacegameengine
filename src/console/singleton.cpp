@@ -157,6 +157,7 @@ void sge::con::singleton::erase(
 void sge::con::singleton::eval(
 	sge::string const &line)
 {
+	// TODO: rewrite this with spirit-2!
 	sge::con::arg_list args;
 
 	sge::string command_str;
