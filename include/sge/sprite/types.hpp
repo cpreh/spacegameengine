@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/any_color.hpp"
 #include "../math/vector.hpp"
 #include "../math/dim.hpp"
-#include "../math/rect.hpp"
+#include "../math/rect_decl.hpp"
 #include "../math/matrix.hpp"
 #include "../math/circle.hpp"
 

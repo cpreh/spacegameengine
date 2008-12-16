@@ -4,6 +4,8 @@
 #include "../widget.hpp"
 #include "../timer/fwd.hpp"
 #include "../events/fwd.hpp"
+#include "../../math/vector.hpp"
+#include "../../renderer/image.hpp"
 #include "../../font/metrics_fwd.hpp"
 #include "../../export.hpp"
 
@@ -26,6 +28,7 @@ class SGE_CLASS_SYMBOL edit : public widget
 	SGE_SYMBOL font::metrics_ptr const font() const;
 
 	SGE_SYMBOL void process(events::keyboard_enter const &);
+	SGE_SYMBOL void process(events::invalid_area const &);
 	SGE_SYMBOL key_handling::type process(events::key const &);
 	SGE_SYMBOL void process(events::keyboard_leave const &);
 	private:
@@ -33,8 +36,11 @@ class SGE_CLASS_SYMBOL edit : public widget
 	font::metrics_ptr font_;
 	dim desired_size_;
 	timer::object_ptr timer_;
+	bool cursor_visible_;
+	image buffer_;
 
 	void blink_callback();
+	void resize(math::vector<bool,2> const &);
 };
 }
 }

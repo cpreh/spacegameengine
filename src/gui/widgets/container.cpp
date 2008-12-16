@@ -6,7 +6,6 @@
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
-#include <sge/math/rect_impl.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/foreach.hpp>
 
@@ -87,13 +86,8 @@ sge::gui::dim const sge::gui::widgets::container::size_hint() const
 void sge::gui::widgets::container::process(events::invalid_area const &e)
 {
 	BOOST_FOREACH(widget &w,children())
-		if (math::intersects(w.absolute_area(),e.canvas().invalid_area()))
-			w.process(
-				events::invalid_area(
-					canvas(
-						e.canvas().view(),
-						w.absolute_area(),
-						e.canvas().invalid_area())));
+		if (math::intersects(w.absolute_area(),e.area()))
+			w.process(e);
 }
 
 void sge::gui::widgets::container::do_compile()

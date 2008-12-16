@@ -25,7 +25,7 @@ class mouse_manager
 	public:
 	mouse_manager(
 		input::system_ptr,
-		image::loader_ptr,
+		sge::image::loader_ptr,
 		renderer::device_ptr,
 		skin &);
 	

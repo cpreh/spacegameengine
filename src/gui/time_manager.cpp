@@ -20,5 +20,6 @@ void sge::gui::detail::time_manager::draw()
 			continue;
 		}
 		(*i).lock()->update();
+		++i;
 	}
 }

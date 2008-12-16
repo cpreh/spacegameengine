@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../export.hpp"
 #include "../signals/connection.hpp"
 #include "../signals/signal.hpp"
-#include "../math/rect.hpp"
+#include "../math/rect_decl.hpp"
 #include <boost/function.hpp>
 #include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_map.hpp>

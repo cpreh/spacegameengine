@@ -2,7 +2,7 @@
 #define SGE_GUI_EVENTS_INVALID_AREA_HPP_INCLUDED
 
 #include "../types.hpp"
-#include "../canvas.hpp"
+#include "../../renderer/image_view.hpp"
 #include "../../export.hpp"
 
 namespace sge
@@ -11,18 +11,17 @@ namespace gui
 {
 namespace events
 {
-
 class invalid_area
 {
 	public:
-	// NOTE: this is a hack so we can create the 'canvas()' accessor function
-	typedef sge::gui::canvas canvas_t;
-
-	SGE_SYMBOL invalid_area(canvas_t);
-	canvas_t &canvas() { return canvas_; }
-	canvas_t const &canvas() const { return canvas_; }
+	SGE_SYMBOL invalid_area(renderer::image_view const &,rect const &);
+	renderer::image_view const &texture() const { return texture_; }
+	rect const area() const { return area_; }
 	private:
-	canvas_t canvas_;
+	// image view
+	renderer::image_view texture_;
+	// the (absolute) area which is invalid
+	rect const area_;
 };
 }
 }
