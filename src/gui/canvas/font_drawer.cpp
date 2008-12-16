@@ -31,7 +31,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 				static_cast<renderer::size_type>(p.x()),
 				static_cast<renderer::size_type>(p.y()),
 				static_cast<renderer::size_type>(p.x()+data.width()),
-				static_cast<renderer::size_type>(p.x()+data.height())));
+				static_cast<renderer::size_type>(p.y()+data.height())));
 	
 	renderer::transform_pixels(
 		data,
