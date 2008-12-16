@@ -37,7 +37,7 @@ class manager
 	public:
 	SGE_SYMBOL manager(
 		renderer::device_ptr,
-		image::loader_ptr,
+		sge::image::loader_ptr,
 		input::system_ptr,
 		font::system_ptr,
 		skin_ptr);
@@ -55,7 +55,7 @@ class manager
 	friend class widgets::container;
 
 	renderer::device_ptr const rend;
-	image::loader_ptr const il;
+	sge::image::loader_ptr const il;
 	input::system_ptr const is;
 	font::system_ptr const fs;
 	font::metrics_ptr const standard_font_;

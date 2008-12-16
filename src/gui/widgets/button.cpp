@@ -4,14 +4,12 @@
 #include <sge/gui/manager.hpp>
 #include <sge/gui/max_dim.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/font_drawer_canvas.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/renderer/scoped_lock.hpp>
+#include <sge/font/font.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/font/font.hpp>
-#include <sge/math/rect_impl.hpp>
-#include <iostream>
 
 namespace
 {
@@ -33,13 +31,13 @@ sge::gui::widgets::button::button(
 {
 	if (!font_)
 		font_ = parent_manager().standard_font();
-
+	
 	SGE_ASSERT_MESSAGE(font_,SGE_TEXT("button: no standard font could be set by manager"));
 }
 
 sge::gui::dim const sge::gui::widgets::button::size_hint() const
 {
-	font::font fn(font_,font::drawer_ptr());	
+	font::font fn(font_);	
 
 	// NOTE: we have to give text_size a huge rectangle because it won't
 	// return a valid rectangle otherwise

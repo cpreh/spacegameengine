@@ -13,7 +13,7 @@ sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"),true);
 
 sge::gui::manager::manager(
 	renderer::device_ptr const rend,
-	image::loader_ptr const il,
+	sge::image::loader_ptr const il,
 	input::system_ptr const is,
 	font::system_ptr const fs,
 	skin_ptr skin_)

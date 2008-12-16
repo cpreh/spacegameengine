@@ -15,7 +15,6 @@
 #include <sge/gui/layouts/vertical.hpp>
 #include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
-#include <sge/gui/font_drawer_canvas.hpp>
 
 #include <sge/log/headers.hpp>
 #include <sge/time/timer.hpp>

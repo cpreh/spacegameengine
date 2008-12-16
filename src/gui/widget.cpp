@@ -7,7 +7,6 @@
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
-#include <sge/math/rect_impl.hpp>
 
 namespace
 {
@@ -39,6 +38,16 @@ sge::gui::point const &sge::gui::widget::pos() const
 sge::gui::dim const &sge::gui::widget::size() const
 {
 	return size_;
+}
+
+sge::gui::image &sge::gui::widget::buffer()
+{
+	return buffer_;
+}
+
+sge::gui::image const &sge::gui::widget::buffer() const 
+{
+	return buffer_;
 }
 
 sge::gui::manager &sge::gui::widget::parent_manager() 

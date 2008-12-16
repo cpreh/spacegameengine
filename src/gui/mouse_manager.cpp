@@ -8,7 +8,6 @@
 #include <sge/gui/widgets/container.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
-#include <sge/math/rect_impl.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
@@ -41,7 +40,7 @@ sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 
 sge::gui::detail::mouse_manager::mouse_manager(
 	input::system_ptr const is,
-	image::loader_ptr const il,
+	sge::image::loader_ptr const il,
 	renderer::device_ptr const rend,
 	skin &s)
 	: ic(

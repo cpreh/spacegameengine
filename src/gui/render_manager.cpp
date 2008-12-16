@@ -5,7 +5,6 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
-#include <sge/math/rect_impl.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/texture_software.hpp>
@@ -99,6 +98,11 @@ void sge::gui::detail::render_manager::resize(widget &w,dim const &d)
 				sprite::dim(math::structure_cast<sprite::unit>(d)),
 				sprite::defaults::color_,
 				static_cast<sprite::depth_type>(1));
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("adding dirty region ") 
+		        << rect(w.pos(),d));
 	
 	dirt.push_back(rect(w.pos(),d));
 }
@@ -120,7 +124,10 @@ void sge::gui::detail::render_manager::invalidate(rect const &r)
 void sge::gui::detail::render_manager::redraw_dirt()
 {
 	// calculate bounding rect of all dirt rects
-	rect const bound = math::bounding<unit>(dirt.begin(),dirt.end());
+	rect const bound = math::bounding<unit>(
+		dirt.begin(),
+		dirt.end());
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("bounding rect of all dirty regions is ") << bound);
@@ -163,8 +170,10 @@ void sge::gui::detail::render_manager::redraw_dirt()
 
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("locking ") << is_local 
-							<< SGE_TEXT(" and sending invalid_area event"));
+			log::_1 << SGE_TEXT("locking (local) ") << is_local 
+							<< SGE_TEXT(" and sending invalid_area event with ")
+							<< is
+							<< SGE_TEXT(" (global)"));
 
 		renderer::scoped_texture_lock lock_(
 			renderer::make_scoped_lock(
@@ -175,10 +184,8 @@ void sge::gui::detail::render_manager::redraw_dirt()
 
 		w.process(
 			events::invalid_area(
-				canvas(
-					lock_.value(),
-					w.absolute_area(),
-					is)));
+				lock_.value(),
+				is));
 
 		SGE_LOG_DEBUG(
 			mylogger,
