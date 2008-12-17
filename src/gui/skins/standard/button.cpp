@@ -5,9 +5,8 @@
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/renderer/colors.hpp>
-#include <sge/renderer/subimage_view.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
-#include <sge/renderer/copy_and_convert_pixels.hpp>
+#include "../../utility/blit.hpp"
 #include <sge/media.hpp>
 
 namespace
@@ -15,60 +14,8 @@ namespace
 sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("skin"),true);
 }
 
-namespace
-{
-void blit(
-	sge::gui::const_image_view const &src,
-	sge::gui::rect const &src_rect,
-	sge::gui::image_view const dst,
-	sge::gui::rect const &dst_rect)
-{
-	// Calculate intersection of source and destination
-	sge::gui::rect const is = sge::math::intersection(
-		src_rect,
-		dst_rect);
-	
-	// No intersection? then leave now.
-	if (is == sge::gui::rect::null())
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			sge::log::_1 << SGE_TEXT("no intersection, not blitting"));
-		return;
-	}
-
-	SGE_LOG_DEBUG(
-		mylogger,
-		sge::log::_1 << SGE_TEXT("intersection from ")
-		             << src_rect
-								 << SGE_TEXT(" with ")
-								 << dst_rect
-								 << SGE_TEXT(" is ")
-								 << is);
-	
-	// Move intersection rect to origin of invalid rect
-	sge::gui::rect const is_translated(
-		is.pos()-dst_rect.pos(),
-		is.dim());
-	
-	// Get sub view(s) and blit
-	sge::renderer::copy_and_convert_pixels(
-		src,
-		sge::renderer::subimage_view(
-			dst,
-			sge::math::structure_cast<sge::renderer::size_type>(
-				is_translated)));
-}
-}
-
-sge::gui::skins::standard::standard()
-	: bgcolor(renderer::colors::grey()),
-		bgcolor_focused(renderer::colors::lightgrey())
-{
-}
-
 void sge::gui::skins::standard::operator()(
-	widgets::button &b,
+	widgets::button const &b,
 	events::invalid_area const &e)
 {
 	// resize internal buffer if neccessary
@@ -182,15 +129,9 @@ void sge::gui::skins::standard::operator()(
 		        << b.text()
 		        << SGE_TEXT("\")"));
 
-	blit(
+	utility::blit(
 		renderer::make_const_image_view(c.view()),
 		rect(b.pos(),c.size()),
 		e.texture(),
 		e.area());
-}
-
-
-sge::path const sge::gui::skins::standard::cursor_path() const
-{
-	return media_path()/SGE_TEXT("mainskin")/SGE_TEXT("cursor_pressed.png");
 }
