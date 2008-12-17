@@ -45,8 +45,8 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	// getters and setters go here
 	point const &pos() const;
 	dim const &size() const;
-	image &buffer();
-	image const &buffer() const;
+	image &buffer() const;
+	//image const &buffer() const;
 
 	// parent stuff
 	manager &parent_manager();
@@ -96,7 +96,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	dim size_;
 	size_policy_t size_policy_;
 	keyboard_focus::type keyboard_focus_;
-	image buffer_;
+	mutable image buffer_;
 
 	// friend functions
 	friend class layout;

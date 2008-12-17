@@ -28,7 +28,6 @@ class SGE_CLASS_SYMBOL edit : public widget
 	SGE_SYMBOL font::metrics_ptr const font() const;
 
 	SGE_SYMBOL void process(events::keyboard_enter const &);
-	SGE_SYMBOL void process(events::invalid_area const &);
 	SGE_SYMBOL key_handling::type process(events::key const &);
 	SGE_SYMBOL void process(events::keyboard_leave const &);
 	private:

@@ -4,30 +4,20 @@
 #include "../export.hpp"
 #include "../shared_ptr.hpp"
 #include "../path.hpp"
+#include "events/fwd.hpp"
+#include "widget_fwd.hpp"
+#include "widgets/fwd.hpp"
 
 namespace sge
 {
 namespace gui
 {
-// forward declarations
-class widget;
-
-namespace events 
-{
-class invalid_area;
-}
-
-namespace widgets
-{
-class button;
-}
-
-
 class skin
 {
 	public:
 	SGE_SYMBOL void draw(widget &,events::invalid_area const &);
-	virtual void operator()(widgets::button &,events::invalid_area const &) = 0;
+	virtual void operator()(widgets::button const &,events::invalid_area const &) = 0;
+	virtual void operator()(widgets::edit &,events::invalid_area const &) = 0;
 	virtual path const cursor_path() const = 0;
 	virtual void default_handler(widget &,events::invalid_area const &);
 	virtual ~skin() {}

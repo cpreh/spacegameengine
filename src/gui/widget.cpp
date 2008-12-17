@@ -40,15 +40,17 @@ sge::gui::dim const &sge::gui::widget::size() const
 	return size_;
 }
 
-sge::gui::image &sge::gui::widget::buffer()
+sge::gui::image &sge::gui::widget::buffer() const
 {
 	return buffer_;
 }
 
+/*
 sge::gui::image const &sge::gui::widget::buffer() const 
 {
 	return buffer_;
 }
+*/
 
 sge::gui::manager &sge::gui::widget::parent_manager() 
 { 

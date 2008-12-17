@@ -1,6 +1,8 @@
 #include "dispatch_type.hpp"
 #include <sge/gui/skin.hpp>
 #include <sge/gui/widgets/button.hpp>
+#include <sge/gui/widgets/edit.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/mpl/vector.hpp>
@@ -8,7 +10,7 @@
 
 void sge::gui::skin::draw(widget &w,events::invalid_area const &e)
 {
-	dispatch_type<boost::mpl::vector<widgets::button>,void>(
+	dispatch_type<widgets::types,void>(
 		*this,
 		w,
 		e,

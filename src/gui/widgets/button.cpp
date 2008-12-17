@@ -1,8 +1,8 @@
+#include "../utility/max_dim.hpp"
 #include <sge/gui/widgets/button.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/gui/max_dim.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/renderer/scoped_lock.hpp>
@@ -42,7 +42,7 @@ sge::gui::dim const sge::gui::widgets::button::size_hint() const
 	// NOTE: we have to give text_size a huge rectangle because it won't
 	// return a valid rectangle otherwise
 	dim const font_dim = math::structure_cast<unit>(
-		fn.text_size(text_,math::max_dim<font::unit>()).size());
+		fn.text_size(text_,utility::max_dim<font::unit>()).size());
 
 	return dim(static_cast<unit>(font_dim.w()+2),static_cast<unit>(font_dim.h()+2));
 }
