@@ -30,7 +30,8 @@ sge::gui::widgets::edit::edit(
 	  font_(font_),
 		desired_size_(desired_size_),
 		cursor_visible_(cursor_visible_),
-		buffer_()
+		buffer_(),
+		scroll_pos_(point::null())
 {
 }
 
@@ -51,6 +52,11 @@ sge::string const sge::gui::widgets::edit::text() const
 sge::font::metrics_ptr const sge::gui::widgets::edit::font() const
 {
 	return font_;
+}
+
+sge::gui::point const &sge::gui::widgets::edit::scroll_pos() const
+{
+	return scroll_pos_;
 }
 
 void sge::gui::widgets::edit::process(events::keyboard_enter const &)

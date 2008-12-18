@@ -46,7 +46,6 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	point const &pos() const;
 	dim const &size() const;
 	image &buffer() const;
-	//image const &buffer() const;
 
 	// parent stuff
 	manager &parent_manager();
@@ -99,9 +98,9 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	mutable image buffer_;
 
 	// friend functions
-	friend class layout;
-	friend class manager;
-	friend class widgets::container;
+	//friend class layout;
+	//friend class manager;
+	//friend class widgets::container;
 };
 }
 }

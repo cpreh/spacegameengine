@@ -26,6 +26,7 @@ class SGE_CLASS_SYMBOL edit : public widget
 	SGE_SYMBOL dim const size_hint() const;
 	SGE_SYMBOL string const text() const;
 	SGE_SYMBOL font::metrics_ptr const font() const;
+	SGE_SYMBOL point const &scroll_pos() const;
 
 	SGE_SYMBOL void process(events::keyboard_enter const &);
 	SGE_SYMBOL key_handling::type process(events::key const &);
@@ -37,6 +38,7 @@ class SGE_CLASS_SYMBOL edit : public widget
 	timer::object_ptr timer_;
 	bool cursor_visible_;
 	image buffer_;
+	point scroll_pos_;
 
 	void blink_callback();
 	void resize(math::vector<bool,2> const &);

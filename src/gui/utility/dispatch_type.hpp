@@ -8,6 +8,12 @@
 #include <boost/mpl/next.hpp>
 #include <typeinfo>
 
+namespace sge
+{
+namespace gui
+{
+namespace utility
+{
 template<typename Result, bool done = true>
 struct dispatch_type_impl {
 	template<
@@ -96,6 +102,9 @@ dispatch_type(
 			t,
 			t2,
 			def_handler);
+}
+}
+}
 }
 
 #endif
