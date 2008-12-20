@@ -27,9 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/arithmetic/inc.hpp>
 
 #ifndef SGE_MAKE_PTR_BASE_MAX_SIZE
-#define SGE_MAKE_PTR_BASE_MAX_SIZE 10
+#define SGE_MAKE_PTR_BASE_MAX_SIZE 20
 #endif
 
+#ifndef SGE_DETAIL_MAKE_PTR_BASE_FUN
 #define SGE_DETAIL_MAKE_PTR_BASE_FUN(z, n, ptr_type)\
 	template<\
 		typename Type,\
@@ -59,7 +60,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 				)\
 			);\
 	}
+#endif
 
+#ifndef SGE_DETAIL_MAKE_PTR_BASE
 #define SGE_DETAIL_MAKE_PTR_BASE(ptr_type)\
 BOOST_PP_REPEAT(\
 	SGE_MAKE_PTR_BASE_MAX_SIZE,\
@@ -76,6 +79,7 @@ make_##ptr_type()\
 	return ptr_type<Type>(\
 		new Type());\
 }
+#endif
 // TODO: can't the macro generate this, too?
 
 #endif
