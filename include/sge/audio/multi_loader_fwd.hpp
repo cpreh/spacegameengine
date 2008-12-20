@@ -18,39 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
-#define SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
-
-#include "multi_loader_fwd.hpp"
-#include "loader_fwd.hpp"
-#include "file_fwd.hpp"
-#include "../path.hpp"
-#include "../plugin/context.hpp"
-#include <boost/noncopyable.hpp>
-#include <vector>
+#ifndef SGE_AUDIO_MULTI_LOADER_FWD_HPP_INCLUDED
+#define SGE_AUDIO_MULTI_LOADER_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace plugin
-{
-class manager;
-}
-
 namespace audio
 {
 
-class SGE_CLASS_SYMBOL multi_loader : boost::noncopyable 
-{
-public:
-	SGE_SYMBOL explicit multi_loader(plugin::manager &);
-	SGE_SYMBOL file_ptr const load(path const &);
-private:
-	typedef std::vector<plugin::context<loader>::ptr_type> plugin_container;
-	typedef std::vector<loader_ptr> loader_container;
-
-	plugin_container plugins;
-	loader_container loaders;
-};
+class multi_loader;
 
 }
 }
