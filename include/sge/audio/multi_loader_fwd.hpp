@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAKE_SHARED_PTR_HPP_INCLUDED
-#define SGE_MAKE_SHARED_PTR_HPP_INCLUDED
-
-#include "detail/make_ptr_base.hpp"
-#include "shared_ptr.hpp"
+#ifndef SGE_AUDIO_MULTI_LOADER_FWD_HPP_INCLUDED
+#define SGE_AUDIO_MULTI_LOADER_FWD_HPP_INCLUDED
 
 namespace sge
 {
+namespace audio
+{
 
-SGE_DETAIL_MAKE_PTR_BASE(shared_ptr)
+class multi_loader;
 
+}
 }
 
 #endif

@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAKE_SHARED_PTR_HPP_INCLUDED
-#define SGE_MAKE_SHARED_PTR_HPP_INCLUDED
+#ifndef SGE_AUTO_PTR_HPP_INCLUDED
+#define SGE_AUTO_PTR_HPP_INCLUDED
 
-#include "detail/make_ptr_base.hpp"
-#include "shared_ptr.hpp"
+#include <memory>
 
 namespace sge
 {
 
-SGE_DETAIL_MAKE_PTR_BASE(shared_ptr)
+using std::auto_ptr;
 
 }
 

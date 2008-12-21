@@ -18,17 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAKE_SHARED_PTR_HPP_INCLUDED
-#define SGE_MAKE_SHARED_PTR_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_FWD_HPP_INCLUDED
+#define SGE_MATH_VECTOR_FWD_HPP_INCLUDED
 
-#include "detail/make_ptr_base.hpp"
-#include "shared_ptr.hpp"
+#include <cstddef>
 
 namespace sge
 {
+namespace math
+{
 
-SGE_DETAIL_MAKE_PTR_BASE(shared_ptr)
+template<
+	typename T,
+	std::size_t Dim
+>
+class vector;
 
+}
 }
 
 #endif
