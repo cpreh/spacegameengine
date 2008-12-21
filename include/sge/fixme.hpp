@@ -18,24 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/color_float.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/todo.hpp>
+#ifndef SGE_FIXME_HPP_INCLUDED
+#define SGE_FIXME_HPP_INCLUDED
 
-void sge::renderer::check_color_float_channel(
-	color_channel_f32 const c)
-{
-	if(c < static_cast<color_channel_f32>(0)
-	|| c > static_cast<color_channel_f32>(1))
-		throw exception(
-			SGE_TEXT("float color out of range!"));
-}
+#include "detail/message.hpp"
 
-void sge::renderer::check_color_float(
-	rgba32f_color const &c)
-{
-	SGE_TODO("can we do this better?")
-	for(unsigned i = 0; i < 4; ++i)
-		check_color_float_channel(c[i]);
-}
+#define SGE_FIXME(x)\
+SGE_DETAIL_MESSAGE("FIXME: " x)
+
+#endif
