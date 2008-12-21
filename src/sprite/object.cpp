@@ -30,10 +30,10 @@ sge::sprite::dim const sge::sprite::texture_dim(
 	std::numeric_limits<unit>::max(),
 	std::numeric_limits<unit>::max());
 
-sge::texture::part_ptr const sge::sprite::no_texture;
+sge::texture::const_part_ptr const sge::sprite::no_texture;
 
 sge::sprite::point const sge::sprite::defaults::pos_(0,0);
-sge::texture::part_ptr const sge::sprite::defaults::texture_(no_texture);
+sge::texture::const_part_ptr const sge::sprite::defaults::texture_(no_texture);
 sge::sprite::dim const sge::sprite::defaults::dim_(0,0);
 sge::sprite::color const sge::sprite::defaults::color_(sge::renderer::colors::white());
 sge::sprite::depth_type const sge::sprite::defaults::depth_(0);
@@ -42,7 +42,7 @@ bool const sge::sprite::defaults::visible_(true);
 
 sge::sprite::object::object(
 	boost::optional<point> const pos_,
-	boost::optional<texture::part_ptr> const vtex,
+	boost::optional<texture::const_part_ptr> const vtex,
 	boost::optional<dim> const size_,
 	boost::optional<color_t> const color_,
 	boost::optional<depth_type> const z_,
@@ -108,7 +108,7 @@ void sge::sprite::object::visible(const bool nvisible)
 }
 
 void sge::sprite::object::texture(
-	::sge::texture::part_ptr const vtex)
+	::sge::texture::const_part_ptr const vtex)
 {
 	tex = vtex;
 }
@@ -207,7 +207,8 @@ sge::sprite::object::color() const
 	return color_;
 }
 
-const sge::texture::part_ptr sge::sprite::object::texture() const
+sge::texture::const_part_ptr const
+sge::sprite::object::texture() const
 {
 	return tex;
 }

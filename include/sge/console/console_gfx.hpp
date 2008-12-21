@@ -54,7 +54,7 @@ class console_gfx : boost::noncopyable {
 public:
 	SGE_SYMBOL console_gfx(
 		renderer::device_ptr,
-		texture::part_ptr,
+		texture::const_part_ptr,
 		font::font_ptr,
 		input::system_ptr,
 		sprite::point const &,

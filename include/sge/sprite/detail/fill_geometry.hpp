@@ -80,7 +80,7 @@ void fill_geometry(
 		else
 			fill_position_rotated(vb_it, spr.rect(), spr.rotation(), spr.rotation_center(), spr.z());
 
-		if(texture::part_ptr const tex = spr.texture())
+		if(texture::const_part_ptr const tex = spr.texture())
 			fill_tex_coordinates(vb_it, texture::area_texc(tex, spr.repeat()));
 
 		vb_it = fill_color(vb_it, spr.color());

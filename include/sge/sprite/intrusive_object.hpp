@@ -52,7 +52,7 @@ public:
 		intrusive_system &,
 		order_type,
 		boost::optional<point> = defaults::pos_,
-		boost::optional<texture::part_ptr> = defaults::texture_,
+		boost::optional<texture::const_part_ptr> = defaults::texture_,
 		boost::optional<dim> = defaults::dim_,
 		boost::optional<color_t> = defaults::color_,
 		boost::optional<depth_type> = defaults::depth_,

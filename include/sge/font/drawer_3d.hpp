@@ -55,7 +55,7 @@ public:
 	SGE_SYMBOL void color(
 		renderer::any_color const &col);
 private:
-	texture::part_ptr const
+	texture::const_part_ptr const
 	cached_texture(
 		char_type,
 		const_image_view const &);
@@ -65,7 +65,7 @@ private:
 	texture::manager                texman;
 	typedef std::map<
 		char_type,
-		texture::part_ptr
+		texture::const_part_ptr
 	>                               texture_map;
 	texture_map                     textures;
 	sprite::system                  sys;

@@ -22,7 +22,7 @@
 
 sge::con::console_gfx::console_gfx(
 	renderer::device_ptr const rend,
-	texture::part_ptr const texture,
+	texture::const_part_ptr const texture,
 	font::font_ptr const fn,
 	input::system_ptr const is,
 	sprite::point const &pos,

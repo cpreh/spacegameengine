@@ -35,13 +35,13 @@ class animation_entity {
 public:
 	SGE_SYMBOL animation_entity(
 		time::resolution const &delay,
-		texture::part_ptr tex);
+		texture::const_part_ptr tex);
 	SGE_SYMBOL time::unit delay() const;
-	SGE_SYMBOL texture::part_ptr const tex() const;
+	SGE_SYMBOL texture::const_part_ptr const tex() const;
 	SGE_SYMBOL renderer::dim_type const dim() const;
 private:
-	time::unit          delay_;
-	texture::part_ptr   tex_;
+	time::unit              delay_;
+	texture::const_part_ptr tex_;
 };
 
 }

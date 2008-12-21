@@ -77,7 +77,7 @@ void sge::font::drawer_3d::draw_char(
 				? cached_texture(
 					ch,
 					data)
-				: texture::part_ptr(),
+				: texture::const_part_ptr(),
 			d,
 			col));
 }
@@ -93,7 +93,7 @@ void sge::font::drawer_3d::color(
 	col = new_color;
 }
 
-sge::texture::part_ptr const
+sge::texture::const_part_ptr const
 sge::font::drawer_3d::cached_texture(
 	char_type const ch,
 	const_image_view const &data)

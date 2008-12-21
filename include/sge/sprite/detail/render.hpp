@@ -52,11 +52,12 @@ void render(
 			num_objects,
 			comp);
 
-		texture::part_ptr const vtex = cur->texture();
+		texture::const_part_ptr const vtex = cur->texture();
 		rend->texture(
 			vtex
 			? vtex->texture()
-			: renderer::device::no_texture);
+			: renderer::const_texture_ptr(
+				renderer::device::no_texture));
 		
 		rend->render(
 			vb,

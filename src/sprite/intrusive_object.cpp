@@ -25,7 +25,7 @@ sge::sprite::intrusive_object::intrusive_object(
 	intrusive_system &sys,
 	order_type const order_,
 	boost::optional<point> const pos_,
-	boost::optional<texture::part_ptr> const vtex,
+	boost::optional<texture::const_part_ptr> const vtex,
 	boost::optional<dim> const size_,
 	boost::optional<color_t> const color_,
 	boost::optional<depth_type> const z_,

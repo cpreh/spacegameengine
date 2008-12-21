@@ -43,7 +43,7 @@ bool sge::sprite::less(
 		lz = l.z(),
 		rz = r.z();
 
-	texture::part_ptr const
+	texture::const_part_ptr const
 		ltex = l.texture(),
 		rtex = r.texture();
 

@@ -32,13 +32,13 @@ namespace sprite
 {
 
 SGE_SYMBOL extern const dim texture_dim;
-SGE_SYMBOL extern const texture::part_ptr no_texture;
+SGE_SYMBOL extern const texture::const_part_ptr no_texture;
 
 namespace defaults
 {
 
 SGE_SYMBOL extern point const pos_;
-SGE_SYMBOL extern texture::part_ptr const texture_;
+SGE_SYMBOL extern texture::const_part_ptr const texture_;
 SGE_SYMBOL extern const dim dim_;
 SGE_SYMBOL extern const color color_;
 SGE_SYMBOL extern const depth_type depth_;
@@ -54,7 +54,7 @@ public:
 
 	SGE_SYMBOL object(
 		boost::optional<point> = defaults::pos_,
-		boost::optional<texture::part_ptr> = defaults::texture_,
+		boost::optional<texture::const_part_ptr> = defaults::texture_,
 		boost::optional<dim> = defaults::dim_,
 		boost::optional<color_t> = defaults::color_,
 		boost::optional<depth_type> = defaults::depth_,
@@ -69,7 +69,7 @@ public:
 	SGE_SYMBOL dim& size();
 	SGE_SYMBOL depth_type& z();
 	SGE_SYMBOL void visible(bool visible);
-	SGE_SYMBOL void texture(texture::part_ptr);
+	SGE_SYMBOL void texture(texture::const_part_ptr);
 	SGE_SYMBOL void rotation(rotation_type rot);
 	SGE_SYMBOL void rotate_around(point p);
 	SGE_SYMBOL void rotate_around();
@@ -94,18 +94,18 @@ public:
 	SGE_SYMBOL rect_t const bounding_quad() const;
 	SGE_SYMBOL circle const bounding_circle() const;
 	SGE_SYMBOL point const rotation_center() const;
-	SGE_SYMBOL texture::part_ptr const texture() const;
+	SGE_SYMBOL texture::const_part_ptr const texture() const;
 private:
-	point               pos_;
-	dim                 size_;
-	depth_type          z_;
-	rotation_type       rotation_;
-	texture::part_ptr   tex;
-	point               rot_around_;
-	repetition_type     repeat_;
-	color_t             color_;
-	bool                visible_;
-	bool                use_rot_around;
+	point                   pos_;
+	dim                     size_;
+	depth_type              z_;
+	rotation_type           rotation_;
+	texture::const_part_ptr tex;
+	point                   rot_around_;
+	repetition_type         repeat_;
+	color_t                 color_;
+	bool                    visible_;
+	bool                    use_rot_around;
 };
 
 }
