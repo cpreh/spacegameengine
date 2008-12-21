@@ -1,4 +1,3 @@
-#include <sge/gui/widgets/container.hpp>
 #include <sge/gui/layouts/row.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/iostream.hpp>
@@ -21,7 +20,7 @@ bool bitfield_and(T const &a,T const &b)
 }
 }
 
-sge::gui::layouts::row::row(widgets::container &w)
+sge::gui::layouts::row::row(widget &w)
 	: layout(w)
 {
 }

@@ -4,7 +4,6 @@
 #include "../skin.hpp"
 #include "../types.hpp"
 #include "../widget_fwd.hpp"
-#include "../widgets/container_fwd.hpp"
 #include "../../input/system_fwd.hpp"
 #include "../../image/loader_fwd.hpp"
 #include "../../input/key_pair_fwd.hpp"
@@ -45,7 +44,6 @@ class mouse_manager
 	void input_callback(input::key_pair const &);
 	widget *recalculate_focus(widget &w,point const &);
 	widget *do_recalculate_focus(widget &,point const &);
-	widget *do_recalculate_focus(widgets::container &,point const &);
 };
 }
 }

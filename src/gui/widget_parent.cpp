@@ -1,6 +1,6 @@
-#include <sge/gui/widgets/container.hpp>
+#include <sge/gui/widget.hpp>
 
-sge::gui::widget::parent_data::parent_data(widgets::container &wref)
+sge::gui::widget::parent_data::parent_data(widget &wref)
 	: widget_(&wref),manager_(wref.parent_manager())
 {
 }

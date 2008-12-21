@@ -12,7 +12,6 @@
 #include "skin.hpp"
 #include "widget_fwd.hpp"
 #include "timer/fwd.hpp"
-#include "widgets/container_fwd.hpp"
 #include "../renderer/device_fwd.hpp"
 #include "../renderer/texture_fwd.hpp"
 #include "../input/system_fwd.hpp"
@@ -49,10 +48,10 @@ class manager
 	SGE_SYMBOL void draw();
 	SGE_SYMBOL font::metrics_ptr const standard_font();
 	SGE_SYMBOL skin_ptr const skin();
+	SGE_SYMBOL const_skin_ptr const skin() const;
 
 	private:
 	friend class widget;
-	friend class widgets::container;
 
 	renderer::device_ptr const rend;
 	sge::image::loader_ptr const il;

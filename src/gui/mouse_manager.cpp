@@ -5,7 +5,6 @@
 #include <sge/gui/events/mouse_enter.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
-#include <sge/gui/widgets/container.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
@@ -83,9 +82,7 @@ void sge::gui::detail::mouse_manager::remove(widget &w)
 	// We've got a problem if
 	// (a) the currently focused widget should be deleted, or...
 	// (b) one of its children
-	if (focus == &w || 
-		  (w.is_container() && 
-			 dynamic_cast<widgets::container const &>(w).has_child(*focus)))
+	if (focus == &w || w.has_child(*focus))
 	{
 		// If so, we start at the focused widget and traverse the tree upwards until
 		// we reach the widget's parent (it could be 0).
@@ -206,19 +203,6 @@ sge::gui::widget *sge::gui::detail::mouse_manager::recalculate_focus(
 
 sge::gui::widget *sge::gui::detail::mouse_manager::do_recalculate_focus(
 	widget &w,
-	point const &mouse_click)
-{
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("this child is a container: ") << w.is_container());
-
-	return w.is_container() 
-			? do_recalculate_focus(static_cast<widgets::container &>(w),mouse_click)
-			: &w;
-}
-
-sge::gui::widget *sge::gui::detail::mouse_manager::do_recalculate_focus(
-	widgets::container &w,
 	point const &p)
 {
 	BOOST_FOREACH(widget &child,w.children())

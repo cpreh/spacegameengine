@@ -1,8 +1,8 @@
 #include <sge/gui/layout.hpp>
-#include <sge/gui/widgets/container.hpp>
+#include <sge/gui/widget.hpp>
 #include <sge/iostream.hpp>
 
-sge::gui::layout::layout(widgets::container &w)
+sge::gui::layout::layout(widget &w)
 	: w(w)
 {
 }

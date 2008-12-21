@@ -67,6 +67,11 @@ sge::gui::skin_ptr const sge::gui::manager::skin()
 	return skin_; 
 }
 
+sge::gui::const_skin_ptr const sge::gui::manager::skin() const
+{ 
+	return skin_; 
+}
+
 void sge::gui::manager::add(widget &w)
 {
 	keyboard_.add(w);

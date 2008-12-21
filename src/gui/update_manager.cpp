@@ -1,6 +1,5 @@
 #include <sge/gui/detail/update_manager.hpp>
 #include <sge/gui/widget.hpp>
-#include <sge/gui/widgets/container.hpp>
 #include <sge/gui/detail/render_manager.hpp>
 #include <sge/gui/detail/mouse_manager.hpp>
 #include <boost/foreach.hpp>

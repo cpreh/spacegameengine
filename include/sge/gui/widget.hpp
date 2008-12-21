@@ -1,11 +1,11 @@
 #ifndef SGE_GUI_WIDGET_HPP_INCLUDED
 #define SGE_GUI_WIDGET_HPP_INCLUDED
 
-#include "widgets/container_fwd.hpp"
 #include "events/fwd.hpp"
 #include "keyboard_focus.hpp"
 #include "key_handling.hpp"
 #include "types.hpp"
+#include "layout_fwd.hpp"
 #include "manager_fwd.hpp"
 #include "size_policy.hpp"
 #include "../renderer/image.hpp"
@@ -23,17 +23,18 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 {
 	public:
 	typedef sge::gui::size_policy size_policy_t;
+	typedef boost::ptr_vector<widget,boost::view_clone_allocator> child_container;
 
 	class parent_data
 	{
-		widgets::container *const widget_;
+		widget *const widget_;
 		manager &manager_;
 
 		public:
-		SGE_SYMBOL explicit parent_data(widgets::container &);
+		SGE_SYMBOL explicit parent_data(widget &);
 		SGE_SYMBOL explicit parent_data(manager &);
 
-		widgets::container *parent_widget() const { return widget_; }
+		widget *parent_widget() const { return widget_; }
 		manager &parent_manager() const { return manager_; }
 	};
 
@@ -43,29 +44,42 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 		keyboard_focus::type receives_keys = keyboard_focus::ignore);
 
 	// getters and setters go here
-	point const &pos() const;
-	dim const &size() const;
-	image &buffer() const;
+	SGE_SYMBOL point const &pos() const;
+	SGE_SYMBOL dim const &size() const;
+	SGE_SYMBOL image &buffer() const;
 
 	// parent stuff
-	manager &parent_manager();
-	manager const &parent_manager() const;
+	SGE_SYMBOL manager &parent_manager();
+	SGE_SYMBOL manager const &parent_manager() const;
 	
-	widgets::container *parent_widget();
-	widgets::container const *parent_widget() const;
+	SGE_SYMBOL widget *parent_widget();
+	SGE_SYMBOL widget const *parent_widget() const;
 
-	size_policy_t const &size_policy() const;
-	void size_policy(size_policy_t const &s);
+	SGE_SYMBOL size_policy_t const &size_policy() const;
+	SGE_SYMBOL void size_policy(size_policy_t const &s);
 
-	gui::keyboard_focus::type keyboard_focus() const;
-	void keyboard_focus(keyboard_focus::type);
+	SGE_SYMBOL gui::keyboard_focus::type keyboard_focus() const;
+	SGE_SYMBOL void keyboard_focus(keyboard_focus::type);
+
+	SGE_SYMBOL child_container &children();
+	SGE_SYMBOL child_container const &children() const;
+
+	SGE_SYMBOL void add_child(widget &);
+	SGE_SYMBOL void remove_child(widget &);
+
+	template<typename T>
+	void layout() { layout_.reset(new T(*this)); }
+
+	SGE_SYMBOL layout_ptr layout();
+	SGE_SYMBOL const_layout_ptr layout() const;
+
+	SGE_SYMBOL bool has_child(widget const &) const;
 
 	SGE_SYMBOL void size(dim const &);
 	SGE_SYMBOL void pos(point const &);
 	SGE_SYMBOL void compile();
-	SGE_SYMBOL bool is_container() const;
 
-	virtual dim const size_hint() const = 0;
+	virtual dim const size_hint() const;
 	virtual void process(events::invalid_area const &);
 	virtual void process(events::mouse_enter const &);
 	virtual void process(events::mouse_leave const &);
@@ -84,11 +98,8 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	void set_size_raw(dim const &d);
 	void set_pos_raw(point const &p);
 
-	protected:
-	virtual void do_compile();
-
 	private:
-	widgets::container *const parent_;
+	widget *const parent_;
 	manager &manager_;
 
 	point pos_;
@@ -96,11 +107,8 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	size_policy_t size_policy_;
 	keyboard_focus::type keyboard_focus_;
 	mutable image buffer_;
-
-	// friend functions
-	//friend class layout;
-	//friend class manager;
-	//friend class widgets::container;
+	child_container children_;
+	layout_auto_ptr layout_;
 };
 }
 }

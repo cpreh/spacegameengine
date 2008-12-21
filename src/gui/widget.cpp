@@ -1,12 +1,14 @@
+#include "utility/ptr_delete_first.hpp"
 #include <sge/gui/widget.hpp>
+#include <sge/gui/layout.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/widgets/container.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
+#include <boost/foreach.hpp>
 
 namespace
 {
@@ -45,13 +47,6 @@ sge::gui::image &sge::gui::widget::buffer() const
 	return buffer_;
 }
 
-/*
-sge::gui::image const &sge::gui::widget::buffer() const 
-{
-	return buffer_;
-}
-*/
-
 sge::gui::manager &sge::gui::widget::parent_manager() 
 { 
 	return manager_; 
@@ -62,12 +57,12 @@ sge::gui::manager const &sge::gui::widget::parent_manager() const
 	return manager_; 
 }
 
-sge::gui::widgets::container *sge::gui::widget::parent_widget() 
+sge::gui::widget *sge::gui::widget::parent_widget() 
 { 
 	return parent_; 
 }
 
-sge::gui::widgets::container const *sge::gui::widget::parent_widget() const 
+sge::gui::widget const *sge::gui::widget::parent_widget() const 
 { 
 	return parent_; 
 }
@@ -92,6 +87,50 @@ void sge::gui::widget::keyboard_focus(keyboard_focus::type const n)
 	parent_manager().keyboard().keyboard_focus(*this,keyboard_focus_ = n);
 }
 
+sge::gui::widget::child_container &sge::gui::widget::children()
+{
+	return children_;
+}
+
+sge::gui::widget::child_container const &sge::gui::widget::children() const
+{
+	return children_;
+}
+
+void sge::gui::widget::add_child(widget &w)
+{
+	children_.push_back(&w);
+}
+
+void sge::gui::widget::remove_child(widget &w)
+{
+	utility::ptr_delete_first(children_,&w);
+}
+
+sge::gui::layout_ptr sge::gui::widget::layout()
+{ 
+	return layout_.get(); 
+}
+
+sge::gui::const_layout_ptr sge::gui::widget::layout() const 
+{ 
+	return layout_.get(); 
+}
+
+bool sge::gui::widget::has_child(widget const &w) const
+{
+	BOOST_FOREACH(widget const &child,children())
+	{
+		if (&w == &child)
+			return true;
+
+		if (child.has_child(w))
+			return true;
+	}
+
+	return false;
+}
+
 void sge::gui::widget::size(dim const &d)
 {
 	set_size_raw(d);
@@ -112,7 +151,15 @@ void sge::gui::widget::compile()
 {
 	SGE_ASSERT(!parent_widget());
 	set_size_raw(size_hint());
-	do_compile();
+	if (layout())
+		layout()->update();
+}
+
+sge::gui::dim const sge::gui::widget::size_hint() const
+{
+	if (layout())
+		return layout()->size_hint();
+	return parent_manager().skin()->size_hint(*this);
 }
 
 void sge::gui::widget::process(events::invalid_area const &e)
@@ -138,11 +185,6 @@ void sge::gui::widget::process(events::keyboard_enter const &)
 void sge::gui::widget::process(events::keyboard_leave const &) 
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_leave"));
-}
-
-bool sge::gui::widget::is_container() const
-{
-	return dynamic_cast<widgets::container const *>(this);
 }
 
 sge::gui::widget::~widget()
@@ -171,8 +213,4 @@ void sge::gui::widget::set_size_raw(dim const &d)
 void sge::gui::widget::set_pos_raw(point const &p) 
 { 
 	pos_ = p; 
-}
-
-void sge::gui::widget::do_compile() 
-{
 }

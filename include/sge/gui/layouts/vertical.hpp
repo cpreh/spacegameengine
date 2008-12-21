@@ -13,7 +13,7 @@ namespace layouts
 class SGE_CLASS_SYMBOL vertical : public row
 {
 	public:
-	SGE_SYMBOL vertical(widgets::container &);
+	SGE_SYMBOL vertical(widget &);
 	private:
 	std::size_t master() const { return static_cast<std::size_t>(1); }
 };
