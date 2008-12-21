@@ -16,6 +16,7 @@
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -50,12 +51,19 @@ try
 
 	sge::sprite::object my_object(
 			sge::sprite::point(100,0),
-			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
+			sge::texture::const_part_ptr(
+				sge::make_shared_ptr<
+					sge::texture::part_raw
+				>(
+					image_texture)),
 			sge::sprite::texture_dim);
 
 	sge::sprite::object my_object_2(
 			sge::sprite::point(100,20),
-			sge::texture::part_ptr(new sge::texture::part_raw(image_texture)),
+			sge::texture::const_part_ptr(
+				sge::make_shared_ptr<
+					sge::texture::part_raw
+				>(image_texture)),
 			sge::sprite::texture_dim);
 	
 	sge::renderer::texture_ptr const target = 
@@ -76,7 +84,10 @@ try
 
 	sge::sprite::object rendered_stuff(
 		sge::sprite::point(0,0),
-		sge::texture::part_ptr(new sge::texture::part_raw(target)),
+		sge::texture::const_part_ptr(
+			sge::make_shared_ptr<
+				sge::texture::part_raw
+			>(target)),
 		sge::sprite::texture_dim);
 
 	while (true)

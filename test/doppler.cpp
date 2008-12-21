@@ -141,7 +141,7 @@ try
 
 	sge::texture::manager tex_man(sys.renderer(),creator);
 
-	sge::texture::part_ptr const 
+	sge::texture::const_part_ptr const 
 		tex_bg(
 			sge::texture::add(
 				tex_man, 

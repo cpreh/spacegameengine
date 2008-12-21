@@ -89,14 +89,14 @@ try
 
 	sge::texture::manager tex_man(rend, creator);
 
-	sge::texture::part_ptr const
+	sge::texture::const_part_ptr const
 		tex1(sge::texture::add(tex_man, img1)),
 		tex2(sge::texture::add(tex_man, img2));
 
 	sge::sprite::system ss(rend);
 	sge::sprite::object spr(
-		sge::sprite::point(0,0),
-		sge::texture::part_ptr(),
+		sge::sprite::point(0, 0),
+		sge::sprite::defaults::texture_,
 		sge::sprite::dim(
 			rend->screen_size().w(),
 			static_cast<sge::sprite::unit>(
