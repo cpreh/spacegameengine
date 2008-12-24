@@ -1,8 +1,15 @@
 #include <sge/gui/detail/update_manager.hpp>
 #include <sge/gui/widget.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/gui/detail/render_manager.hpp>
 #include <sge/gui/detail/mouse_manager.hpp>
 #include <boost/foreach.hpp>
+#include <typeinfo>
+
+namespace
+{
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("update manager"),true);
+}
 
 sge::gui::detail::update_manager::update_manager(
 	mouse_manager &mouse,
@@ -59,6 +66,11 @@ void sge::gui::detail::update_manager::draw()
 
 	BOOST_FOREACH(widget *w,parents)
 	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("compiling widget of type ") 
+			        << typeid(w).name());
+
 		w->compile();
 		render.resize(*w,w->size());
 		render.reposition(*w,w->pos());

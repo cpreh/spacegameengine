@@ -5,11 +5,13 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
+#include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
 #include <boost/foreach.hpp>
+#include <typeinfo>
 
 namespace
 {
@@ -154,6 +156,9 @@ void sge::gui::widget::pos(point const &d)
 
 void sge::gui::widget::compile()
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("in compile"));
 	layout()->update();
 }
 
@@ -164,7 +169,12 @@ sge::gui::dim const sge::gui::widget::size_hint() const
 
 void sge::gui::widget::process(events::invalid_area const &e)
 {
+	// draw itself, then draw children
 	parent_manager().skin()->draw(*this,e);
+
+	BOOST_FOREACH(widget &w,children())
+		if (math::intersects(e.area(),w.absolute_area()))
+			w.process(e);
 }
 
 void sge::gui::widget::process(events::mouse_enter const &) {}

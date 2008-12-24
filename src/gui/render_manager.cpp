@@ -203,4 +203,3 @@ void sge::gui::detail::render_manager::redraw_dirt()
 		mylogger,
 		log::_1 << SGE_TEXT("checking intersections completed"));
 }
-

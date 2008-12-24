@@ -60,6 +60,14 @@ class call_size_hint
 
 void sge::gui::skin::draw(widget &w,events::invalid_area const &e)
 {
+	if (typeid(w) == typeid(widget))
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("draw called for widget, doing nothing"));
+		return;
+	}
+
 	utility::type_comparator<widgets::types>(
 		w,
 		call_draw(*this,e),
@@ -68,10 +76,13 @@ void sge::gui::skin::draw(widget &w,events::invalid_area const &e)
 
 sge::gui::dim const sge::gui::skin::size_hint(widget const &w) const
 {
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("calling size hint for ")
-		        << typeid(w).name());
+	if (typeid(w) == typeid(widget))
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("size_hint called for widget, returning null"));
+		return dim::null();
+	}
 
 	return utility::type_comparator<widgets::types>(
 		w,
@@ -81,6 +92,12 @@ sge::gui::dim const sge::gui::skin::size_hint(widget const &w) const
 
 void sge::gui::skin::default_handler(widget &,events::invalid_area const &)
 {
+	/*
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("tried to draw a widget which has no drawing code: ") 
+		        << typeid(w).name());
+						*/
 	throw exception(SGE_TEXT("tried to draw a widget whose type is not drawable"));
 }
 

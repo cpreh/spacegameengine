@@ -13,7 +13,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("skin"),true);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("skins::standard::button"),true);
 }
 
 void sge::gui::skins::standard::draw(

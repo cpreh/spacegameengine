@@ -7,7 +7,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("row"),false);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("layouts::row"),false);
 }
 
 sge::gui::layouts::row::row(widget &w)
@@ -25,7 +25,8 @@ sge::gui::dim const sge::gui::layouts::row::size_hint() const
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("calculated size hint to ") << hint);
+		log::_1 << SGE_TEXT("returning size hint") 
+		        << hint);
 	return hint;
 }
 
