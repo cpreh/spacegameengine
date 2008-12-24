@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	>\
 	ptr_type<\
 		Type\
-	> const \
+	> \
 	make_##ptr_type (\
 		BOOST_PP_ENUM_BINARY_PARAMS(\
 			BOOST_PP_INC(n),\
@@ -73,7 +73,7 @@ template<\
 >\
 ptr_type<\
 	Type\
-> const \
+> \
 make_##ptr_type()\
 {\
 	return ptr_type<Type>(\

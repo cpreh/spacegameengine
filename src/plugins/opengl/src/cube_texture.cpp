@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/make_auto_ptr.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/array.hpp>
 
@@ -66,16 +67,22 @@ sge::ogl::cube_texture::cube_texture(
 	sz(sz),
 	locked_texture(0)
 {
-	// TODO: move this to a checker class
 	if(!have_cube_texture())
 		sge::ogl::on_not_supported(
 			SGE_TEXT("cube texture"),
 			SGE_TEXT("1.3"),
 	       		SGE_TEXT("gl_arb_cube_texture"));
 
-	for(unsigned i = 0; i < 6; ++i)
-		textures.push_back(
-			new texture(
+	for(
+		unsigned i = 0;
+		i < static_cast<unsigned>(
+			sge::renderer::cube_side::num_elements);
+		++i)
+	{
+		std::auto_ptr<texture> p(
+			make_auto_ptr<
+				texture
+			>(
 				texture::dim_type(
 					sz,
 					sz),
@@ -85,6 +92,10 @@ sge::ogl::cube_texture::cube_texture(
 				convert_cube_side(
 					static_cast<renderer::cube_side::type>(i))
 		));
+
+		textures.push_back(
+			p);
+	}
 }
 
 sge::renderer::image_view const

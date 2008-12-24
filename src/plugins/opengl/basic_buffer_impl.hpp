@@ -89,7 +89,6 @@ void sge::ogl::basic_buffer<Type, Impl>::lock(
 	
 	GLuint const glflags = ogl_lock_method(lockflags);
 	bind_me();
-	// TODO: we can not partially map this buffer! :(
 	dest = static_cast<pointer>(Impl().map_buffer(Type(), glflags));
 	lock_offset = first * stride();
 	lock_size_ = count * stride();
