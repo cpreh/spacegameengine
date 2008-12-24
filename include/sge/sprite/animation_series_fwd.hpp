@@ -19,40 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_SPRITE_ANIMATON_SERIES_HPP_INCLUDED
-#define SGE_SPRITE_ANIMATON_SERIES_HPP_INCLUDED
-
-#include "animation_series_fwd.hpp"
-#include "animation_entity.hpp"
-#include "../renderer/dim_types.hpp"
-#include "../export.hpp"
-#include <vector>
+#ifndef SGE_SPRITE_ANIMATON_SERIES_FWD_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATON_SERIES_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace sprite
 {
 
-class animation_series {
-public:
-	typedef std::vector<
-		animation_entity
-	> entity_vector;
-	typedef entity_vector::const_iterator const_iterator;
-
-	SGE_SYMBOL animation_series();
-	SGE_SYMBOL animation_series(
-		entity_vector const&);
-	SGE_SYMBOL void push_back(
-		animation_entity const&);
-	SGE_SYMBOL const_iterator begin() const;
-	SGE_SYMBOL const_iterator end() const;
-	SGE_SYMBOL bool empty() const;
-
-	SGE_SYMBOL const renderer::dim_type dim() const;
-private:
-	entity_vector entities;
-};
+class animation_series;
 
 }
 }
