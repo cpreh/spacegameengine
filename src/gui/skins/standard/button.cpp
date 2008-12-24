@@ -1,12 +1,14 @@
+#include "../../utility/blit.hpp"
+#include "../../utility/max_dim.hpp"
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/widgets/button.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/math/rect_util.hpp>
+#include <sge/font/font.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
-#include "../../utility/blit.hpp"
 #include <sge/media.hpp>
 
 namespace
@@ -14,7 +16,7 @@ namespace
 sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("skin"),true);
 }
 
-void sge::gui::skins::standard::operator()(
+void sge::gui::skins::standard::draw(
 	widgets::button const &b,
 	events::invalid_area const &e)
 {
@@ -134,4 +136,21 @@ void sge::gui::skins::standard::operator()(
 		rect(b.pos(),c.size()),
 		e.texture(),
 		e.area());
+}
+
+sge::gui::dim const sge::gui::skins::standard::size_hint(
+	widgets::button const &b) const
+{
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("calling size hint for button"));
+
+	font::font fn(b.font());	
+
+	// NOTE: we have to give text_size a huge rectangle because it won't
+	// return a valid rectangle otherwise
+	dim const font_dim = math::structure_cast<unit>(
+		fn.text_size(b.text(),utility::max_dim<font::unit>()).size());
+
+	return dim(static_cast<unit>(font_dim.w()+2),static_cast<unit>(font_dim.h()+2));
 }

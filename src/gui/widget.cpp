@@ -1,6 +1,7 @@
 #include "utility/ptr_delete_first.hpp"
 #include <sge/gui/widget.hpp>
 #include <sge/gui/layout.hpp>
+#include <sge/gui/layouts/null.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
@@ -24,7 +25,8 @@ sge::gui::widget::widget(
 		pos_(point::null()),
 		size_(dim::null()),
 		size_policy_(size_policy_),
-		keyboard_focus_(keyboard_focus_)
+		keyboard_focus_(keyboard_focus_),
+		layout_(new layouts::null(*this))
 {
 	if (parent_widget())
 		parent_widget()->add_child(*this);
@@ -107,6 +109,15 @@ void sge::gui::widget::remove_child(widget &w)
 	utility::ptr_delete_first(children_,&w);
 }
 
+void sge::gui::widget::layout(layout_auto_ptr n)
+{
+	SGE_ASSERT_MESSAGE(
+		&(n->connected_widget()) == this,
+		SGE_TEXT("widget specified for layout is not the widget the layout is assigned to"));
+		
+	layout_ = n;
+}
+
 sge::gui::layout_ptr sge::gui::widget::layout()
 { 
 	return layout_.get(); 
@@ -133,33 +144,22 @@ bool sge::gui::widget::has_child(widget const &w) const
 
 void sge::gui::widget::size(dim const &d)
 {
-	set_size_raw(d);
-	parent_manager().invalidate(*this);
+	layout()->size(d);
 }
 
 void sge::gui::widget::pos(point const &d)
 {
-	set_pos_raw(d);
-
-	// is this widget a top level widget? then call the manager to reposition the
-	// underlying sprite
-	if (!parent_widget())
-		parent_manager().reposition(*this,d);
+	layout()->pos(d);
 }
 
 void sge::gui::widget::compile()
 {
-	SGE_ASSERT(!parent_widget());
-	set_size_raw(size_hint());
-	if (layout())
-		layout()->update();
+	layout()->update();
 }
 
 sge::gui::dim const sge::gui::widget::size_hint() const
 {
-	if (layout())
-		return layout()->size_hint();
-	return parent_manager().skin()->size_hint(*this);
+	return layout()->size_hint();
 }
 
 void sge::gui::widget::process(events::invalid_area const &e)
@@ -208,9 +208,11 @@ sge::gui::rect const sge::gui::widget::absolute_area() const
 void sge::gui::widget::set_size_raw(dim const &d) 
 { 
 	size_ = d; 
+	parent_manager().resize(*this,d);
 }
 
 void sge::gui::widget::set_pos_raw(point const &p) 
 { 
 	pos_ = p; 
+	parent_manager().reposition(*this,p);
 }

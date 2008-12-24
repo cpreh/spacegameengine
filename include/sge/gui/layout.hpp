@@ -16,6 +16,8 @@ class SGE_CLASS_SYMBOL layout
 	SGE_SYMBOL layout(widget &);
 
 	virtual void update() = 0;
+	virtual void pos(point const &) = 0;
+	virtual void size(dim const &) = 0;
 	virtual dim const size_hint() const = 0;
 
 	widget &connected_widget() { return w; }
@@ -25,7 +27,7 @@ class SGE_CLASS_SYMBOL layout
 	protected:
 	void set_widget_size(widget &,dim const &);
 	void set_widget_pos(widget &,point const &);
-	void widget_compile(widget &);
+	void compile_widget(widget &);
 
 	private:
 	widget &w;

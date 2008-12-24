@@ -15,8 +15,10 @@ class standard : public skin
 {
 	public:
 	SGE_SYMBOL standard();
-	SGE_SYMBOL void operator()(widgets::button const &,events::invalid_area const &);
-	SGE_SYMBOL void operator()(widgets::edit const &,events::invalid_area const &);
+	SGE_SYMBOL void draw(widgets::button const &,events::invalid_area const &);
+	SGE_SYMBOL void draw(widgets::edit const &,events::invalid_area const &);
+	SGE_SYMBOL dim const size_hint(widgets::button const &) const;
+	//SGE_SYMBOL dim const size_hint(widgets::edit const &);
 	SGE_SYMBOL path const cursor_path() const;
 	private:
 	color bgcolor,bgcolor_focused;

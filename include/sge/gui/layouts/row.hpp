@@ -19,6 +19,8 @@ class SGE_CLASS_SYMBOL row : public layout
 	public:
 	SGE_SYMBOL row(widget &);
 	SGE_SYMBOL void update();
+	SGE_SYMBOL void pos(point const &);
+	SGE_SYMBOL void size(dim const &);
 	SGE_SYMBOL dim const size_hint() const;
 	private:
 	// NOTE: this is actually quite hacky, I first tried to return a reference to

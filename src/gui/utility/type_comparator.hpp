@@ -6,6 +6,8 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/add_const.hpp>
+#include <boost/mpl/transform_view.hpp>
+#include <boost/type_traits/add_pointer.hpp>
 #include <boost/mpl/if.hpp>
 
 namespace sge
@@ -32,24 +34,15 @@ struct type_comparator_impl
 	}
 	
 	template<typename U>
-	void operator()(U &)
+	void operator()(U *)
 	{
 		if (typeid(U) != typeid(obj))
 			return;
 
 		++count;
-		/*cb(
-			dynamic_cast<typename boost::mpl::if_<boost::is_const<Obj>,U const,U>::type &>(obj));*/
-	//	cb(static_cast<U &>(obj));
-		/*
-			dynamic_cast<
-				typename boost::mpl::if_<
-					boost::is_const<Obj>,
-						typename boost::add_reference< 
-							typename boost::add_const<U>::type >::type,
-						typename boost::add_reference<U>::type >::type>(
-					obj));
-						*/
+
+		typedef typename boost::mpl::if_<boost::is_const<Obj>,U const,U>::type dest_type;
+		cb(dynamic_cast<dest_type &>(obj));
 	}
 
 	private:
@@ -65,18 +58,26 @@ template<
 	typename Fallback>
 typename Callback::result_type type_comparator(
 	Obj &obj,
-	Callback &cb,
-	//Fallback fb)
-	Fallback)
+	Callback cb,
+	Fallback fb)
 {
 	unsigned count;
-	boost::mpl::for_each<Types>(
+
+	// add pointers so widgets::* don't get default-constructed
+	typedef typename 
+		boost::mpl::transform_view< 
+			Types, 
+			boost::add_pointer<boost::mpl::_> >::type ptr_types;
+
+	boost::mpl::for_each<ptr_types>(
 		type_comparator_impl<Obj,Callback>(
 			obj,
 			cb,
 			count));
-	//if (!count)
-	//	return fb(obj);
+
+	if (!count)
+		return fb(obj);
+
 	return cb.value();
 }
 }

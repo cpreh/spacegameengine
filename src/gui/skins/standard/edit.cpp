@@ -1,8 +1,7 @@
 #include <sge/gui/skins/standard.hpp>
 
-void sge::gui::skins::standard::operator()(
-	widgets::edit const &w,
-	events::invalid_area const &e)
+void sge::gui::skins::standard::draw(
+	widgets::edit const &,
+	events::invalid_area const &)
 {
-	
 }

@@ -47,7 +47,7 @@ sge::gui::detail::mouse_manager::mouse_manager(
 	  		boost::bind(&mouse_manager::input_callback,this,_1))),
 	  cursor_(
 			sprite::defaults::pos_,
-			texture::part_ptr(
+			texture::const_part_ptr(
 				new texture::part_raw(
 					rend->create_texture(
 					il->load(s.cursor_path())->view(),

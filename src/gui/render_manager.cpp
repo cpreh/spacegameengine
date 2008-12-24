@@ -62,6 +62,10 @@ void sge::gui::detail::render_manager::remove(widget &w)
 
 void sge::gui::detail::render_manager::resize(widget &w,dim const &d)
 {
+	// widget is not a top level widget
+	if (widgets.find(&w) == widgets.end())
+		return;
+	
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("resizing widget from ") << w.size() 
@@ -94,7 +98,7 @@ void sge::gui::detail::render_manager::resize(widget &w,dim const &d)
 							
 	wd.sprite = sprite::object(
 				sprite::point(math::structure_cast<sprite::unit>(w.pos())),
-				texture::part_ptr(new texture::part_raw(hardware_texture)),
+				texture::const_part_ptr(new texture::part_raw(hardware_texture)),
 				sprite::dim(math::structure_cast<sprite::unit>(d)),
 				sprite::defaults::color_,
 				static_cast<sprite::depth_type>(1));
@@ -109,6 +113,10 @@ void sge::gui::detail::render_manager::resize(widget &w,dim const &d)
 
 void sge::gui::detail::render_manager::reposition(widget &w,point const &d)
 {
+	// widget is not a top level widget
+	if (widgets.find(&w) == widgets.end())
+		return;
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("repositioning sprite to ") << d);

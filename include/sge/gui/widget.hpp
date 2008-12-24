@@ -43,9 +43,10 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 		size_policy_t const & = size_policy_t::default_policy,
 		keyboard_focus::type receives_keys = keyboard_focus::ignore);
 
-	// getters and setters go here
 	SGE_SYMBOL point const &pos() const;
 	SGE_SYMBOL dim const &size() const;
+	SGE_SYMBOL void size(dim const &);
+	SGE_SYMBOL void pos(point const &);
 	SGE_SYMBOL image &buffer() const;
 
 	// parent stuff
@@ -67,16 +68,13 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	SGE_SYMBOL void add_child(widget &);
 	SGE_SYMBOL void remove_child(widget &);
 
-	template<typename T>
-	void layout() { layout_.reset(new T(*this)); }
+	SGE_SYMBOL void layout(layout_auto_ptr);
 
 	SGE_SYMBOL layout_ptr layout();
 	SGE_SYMBOL const_layout_ptr layout() const;
 
 	SGE_SYMBOL bool has_child(widget const &) const;
 
-	SGE_SYMBOL void size(dim const &);
-	SGE_SYMBOL void pos(point const &);
 	SGE_SYMBOL void compile();
 
 	virtual dim const size_hint() const;
@@ -95,10 +93,11 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	SGE_SYMBOL rect const relative_area() const;
 	SGE_SYMBOL rect const absolute_area() const;
 
+	private:
+	friend class layout;
 	void set_size_raw(dim const &d);
 	void set_pos_raw(point const &p);
 
-	private:
 	widget *const parent_;
 	manager &manager_;
 

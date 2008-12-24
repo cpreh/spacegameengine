@@ -4,10 +4,17 @@
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/events/fwd.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/bind.hpp>
+#include <typeinfo>
+
+namespace
+{
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("skin"),true);
+}
 
 namespace
 {
@@ -23,8 +30,7 @@ class call_draw
 		  e(e) {}
 
 	template<typename V>
-	//void operator()(V &v) { s.draw(v,e); }
-	void operator()(V &) { }
+	void operator()(V &v) { s.draw(v,e); }
 
 	void value() const {}
 	private:
@@ -40,7 +46,10 @@ class call_size_hint
 	call_size_hint(sge::gui::skin const &s) : s(s) {}
 
 	template<typename V>
-	void operator()(V const &v) { sh = s.size_hint(v); }
+	void operator()(V const &v) 
+	{ 
+		sh = s.size_hint(v); 
+	}
 
 	sge::gui::dim const value() const { return sh; }
 	private:
@@ -51,25 +60,23 @@ class call_size_hint
 
 void sge::gui::skin::draw(widget &w,events::invalid_area const &e)
 {
-	call_draw cd(*this,e);
-	boost::function<void (widget &)> fn = 
-		boost::bind(&skin::default_handler,this,_1,boost::ref(e));
 	utility::type_comparator<widgets::types>(
 		w,
-		cd,
-		fn);
+		call_draw(*this,e),
+		boost::bind(&skin::default_handler,this,_1,boost::ref(e)));
 }
 
-//sge::gui::dim const sge::gui::skin::size_hint(widget const &w) const
-sge::gui::dim const sge::gui::skin::size_hint(widget const &) const
+sge::gui::dim const sge::gui::skin::size_hint(widget const &w) const
 {
-	return dim();
-	/*
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("calling size hint for ")
+		        << typeid(w).name());
+
 	return utility::type_comparator<widgets::types>(
 		w,
 		call_size_hint(*this),
 		boost::bind(&skin::default_hint_handler,this,_1));
-		*/
 }
 
 void sge::gui::skin::default_handler(widget &,events::invalid_area const &)
@@ -77,7 +84,7 @@ void sge::gui::skin::default_handler(widget &,events::invalid_area const &)
 	throw exception(SGE_TEXT("tried to draw a widget whose type is not drawable"));
 }
 
-sge::gui::dim const sge::gui::skin::default_hint_handler(widget const &)
+sge::gui::dim const sge::gui::skin::default_hint_handler(widget const &) const
 {
 	throw exception(SGE_TEXT("tried to hint a widget whose type is not drawable"));
 }

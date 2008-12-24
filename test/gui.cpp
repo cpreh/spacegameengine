@@ -11,7 +11,6 @@
 
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/button.hpp>
-#include <sge/gui/widgets/container.hpp>
 #include <sge/gui/layouts/vertical.hpp>
 #include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
@@ -36,6 +35,7 @@
 #include <sge/iostream.hpp>
 #include <sge/string.hpp>
 #include <sge/exception.hpp>
+#include <sge/make_auto_ptr.hpp>
 
 #include <iostream>
 
@@ -97,17 +97,17 @@ try
 		sys.input_system(),
 		sys.font_system(),
 		sge::gui::skin_ptr(new sge::gui::skins::standard()));
-
-	sge::gui::widgets::container top((sge::gui::widget::parent_data(m)));
-	top.layout<sge::gui::layouts::horizontal>();
+	
+	sge::gui::widget top((sge::gui::widget::parent_data(m)));
+	top.layout(sge::make_auto_ptr<sge::gui::layouts::horizontal>(top));
 	top.pos(sge::gui::point(10,10));
-	top.size_hint(sge::gui::dim(400,300));
+	top.size(sge::gui::dim(400,300));
 
-	sge::gui::widgets::container left((sge::gui::widget::parent_data(top)));
-	left.layout<sge::gui::layouts::vertical>();
+	sge::gui::widget left((sge::gui::widget::parent_data(top)));
+	left.layout(sge::make_auto_ptr<sge::gui::layouts::vertical>(left));
 
-	sge::gui::widgets::container right((sge::gui::widget::parent_data(top)));
-	right.layout<sge::gui::layouts::vertical>();
+	sge::gui::widget right((sge::gui::widget::parent_data(top)));
+	right.layout(sge::make_auto_ptr<sge::gui::layouts::vertical>(right));
 
 	sge::gui::widgets::button left_top(
 		sge::gui::widget::parent_data(left),
@@ -141,17 +141,17 @@ try
 	sge::signals::scoped_connection const conn =
 		sys.input_system()->register_callback(input_functor(running));
 	left_top.clicked.connect(p);
-	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
+	//sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
 	while (running)
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block block(sys.renderer());
 
-		if (delete_timer.active() && delete_timer.expired())
-		{
-			delete_timer.deactivate();
-			right_top.reset();
-		}
+		//if (delete_timer.active() && delete_timer.expired())
+		//{
+		//	delete_timer.deactivate();
+		//	right_top.reset();
+		//}
 
 		m.draw();
 	}
