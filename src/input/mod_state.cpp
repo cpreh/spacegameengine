@@ -24,8 +24,8 @@ sge::input::mod_state::mod_state(
 	bool const shift,
 	bool const alt,
 	bool const ctrl)
-: shift(shift),
-  alt(alt),
-  ctrl(ctrl)
+:
+	shift(shift),
+	alt(alt),
+	ctrl(ctrl)
 {}
-

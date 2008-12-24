@@ -7,6 +7,7 @@
 #cmakedefine SGE_HAVE_ATLEAST_UINT64
 #cmakedefine SGE_HAVE_XF86_VMODE
 #cmakedefine SGE_HAVE_XRANDR
+#cmakedefine SGE_HAVE_PRAGMA_MESSAGE
 #cmakedefine SGE_NARROW_STRING
 
 #ifdef _WIN32

@@ -62,10 +62,21 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		# C++ 98 has no long long but boost insists on using it anyway
 		ADD_DEFINITIONS ("-Wno-long-long")
 	ENDIF ()
+
+	SET (CMAKE_REQUIRED_FLAGS "-Wall -Werror")
+
+	CHECK_CXX_SOURCE_COMPILES(
+		"#pragma message \"test\"
+		 int main() {}"
+		SGE_HAVE_PRAGMA_MESSAGE)
+	
+	SET (CMAKE_REQUIRED_FLAGS "")
 ELSEIF (MSVC)
 	ADD_DEFINITIONS ("/W4 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714")
 	SET (WINLIBS projects/windows/lib32)
 	SET (WININCLUDES ${CMAKE_SOURCE_DIR}/${WINLIBS})
+
+	SET (SGE_HAVE_PRAGMA_MESSAGE 1)
 
 	ADD_DEFINITIONS (-DUNICODE=1 -D_UNICODE=1)
 ENDIF ()
