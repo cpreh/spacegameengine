@@ -18,33 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_STATES_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_STATES_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/texture_stage.hpp>
-#include <sge/renderer/stage_type.hpp>
+#include <sge/renderer/state/states.hpp>
 
 namespace sge
 {
 namespace ogl
 {
 
-void tex_envf_ext(
-	GLenum arg,
-	GLenum value);
+GLenum
+convert_states(
+	renderer::state::bool_::type);
 
-void set_texture_stage_scale(
-	renderer::texture_stage_op_value::type value);
+GLenum
+convert_states(
+	renderer::state::cull_mode::type);
 
-template<
-	typename Arg,
-	typename Value
->
-void set_texture_stage(
-	renderer::stage_type stage,
-	Arg arg,
-	Value value);
+GLenum
+convert_states(
+	renderer::state::depth_func::type);
+
+GLenum 
+convert_states(
+	renderer::state::stencil_func::type);
+
+GLenum
+convert_states(
+	renderer::state::alpha_func::type);
+
+GLenum
+convert_states(
+	renderer::state::fog_mode::type);
+
+GLenum
+convert_states(
+	renderer::state::source_blend_func::type);
+
+GLenum
+convert_states(
+	renderer::state::dest_blend_func::type);
+
+GLenum
+convert_states(
+	renderer::state::draw_mode::type);
+
 
 }
 }

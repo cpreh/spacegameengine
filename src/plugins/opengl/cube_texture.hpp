@@ -71,8 +71,6 @@ private:
 	mutable texture_vector     textures;
 };
 
-GLenum convert_cast(renderer::cube_side::type const &);
-
 void disable_cube_texture();
 
 }

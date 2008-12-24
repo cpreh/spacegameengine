@@ -18,35 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
+#include "../convert_resource_flags.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/texture_stage.hpp>
-#include <sge/renderer/stage_type.hpp>
-
-namespace sge
+GLuint sge::ogl::convert_resource_flags(
+	renderer::resource_flag_t const f)
 {
-namespace ogl
-{
-
-void tex_envf_ext(
-	GLenum arg,
-	GLenum value);
-
-void set_texture_stage_scale(
-	renderer::texture_stage_op_value::type value);
-
-template<
-	typename Arg,
-	typename Value
->
-void set_texture_stage(
-	renderer::stage_type stage,
-	Arg arg,
-	Value value);
-
+	return (f & renderer::resource_flags::dynamic)
+		? GL_DYNAMIC_DRAW
+		: GL_STATIC_DRAW;
 }
-}
-
-#endif

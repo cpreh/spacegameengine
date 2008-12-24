@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../state_visitor.hpp"
 #include "../split_states.hpp"
-#include "../conversion.hpp"
+#include "../convert_states.hpp"
+#include "../convert_fog_float_state.hpp"
 #include "../enable.hpp"
 #include "../error.hpp"
 #include <sge/renderer/any_color_convert.hpp>
@@ -126,7 +127,7 @@ void sge::ogl::state_visitor::operator()(
 		break;
 	case rs::enable_alpha_blending:
 	case rs::enable_lighting:
-		enable(convert_cast(s), s.value());
+		enable(convert_states(s), s.value());
 		break;
 	default:
 		throw exception(
@@ -184,7 +185,7 @@ void sge::ogl::state_visitor::operator()(
 	enable(GL_CULL_FACE);
 	
 	SGE_OPENGL_SENTRY
-	glCullFace(convert_cast(m));
+	glCullFace(convert_states(m));
 }
 
 void sge::ogl::state_visitor::operator()(
@@ -199,7 +200,7 @@ void sge::ogl::state_visitor::operator()(
 	enable(GL_DEPTH_TEST);
 
 	SGE_OPENGL_SENTRY
-	glDepthFunc(convert_cast(f));
+	glDepthFunc(convert_states(f));
 }
 
 void sge::ogl::state_visitor::operator()(
@@ -226,7 +227,7 @@ void sge::ogl::state_visitor::operator()(
 	enable(GL_FOG);
 
 	SGE_OPENGL_SENTRY
-	glFogi(GL_FOG_MODE, convert_cast(m));
+	glFogi(GL_FOG_MODE, convert_states(m));
 }
 
 void sge::ogl::state_visitor::operator()(
@@ -235,7 +236,7 @@ void sge::ogl::state_visitor::operator()(
 	SGE_OPENGL_SENTRY
 	glPolygonMode(
 		GL_FRONT_AND_BACK,
-		convert_cast(m));
+		convert_states(m));
 }
 
 void sge::ogl::state_visitor::operator()(

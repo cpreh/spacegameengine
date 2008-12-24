@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../cube_texture.hpp"
 #include "../volume_texture.hpp"
-#include "../conversion.hpp"
+#include "../convert_clear_bit.hpp"
 #include "../default_target.hpp"
 #include "../light.hpp"
 #include "../enable.hpp"
@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../material.hpp"
 #include "../glew.hpp"
 #include "../fbo_target.hpp"
+#include "../convert_primitive.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
@@ -221,7 +222,7 @@ void sge::ogl::device::render(
 	vertex_buffer(vb);
 	index_buffer(ib);
 
-	GLenum const prim_type = convert_cast(ptype);
+	GLenum const prim_type = convert_primitive(ptype);
 
 	ogl::index_buffer const &
 		gl_ib = dynamic_cast<ogl::index_buffer const &>(
@@ -250,7 +251,7 @@ void sge::ogl::device::render(
 
 	vertex_buffer(vb);
 
-	GLenum const prim_type = convert_cast(ptype);
+	GLenum const prim_type = convert_primitive(ptype);
 
 	SGE_OPENGL_SENTRY
 

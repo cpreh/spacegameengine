@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../error.hpp"
 #include "../texture_stage.hpp"
+#include "../convert_texture_stage.hpp"
+#include "../multi_texture.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -65,7 +67,7 @@ void sge::ogl::tex_envf_ext(
 void sge::ogl::set_texture_stage_scale(
 	renderer::texture_stage_op_value::type const value)
 {
-	const GLenum scale = stage_value_scale(value);
+	GLenum const scale = stage_value_scale(value);
 	tex_envf_ext(GL_RGB_SCALE, scale);
 	tex_envf_ext(GL_ALPHA_SCALE, scale);
 }
@@ -81,8 +83,8 @@ void sge::ogl::set_texture_stage(
 {
 	set_texture_level(stage);
 	GLenum const
-		glarg = convert_cast(arg),
-		glvalue = convert_cast(value);
+		glarg = convert_texture_stage(arg),
+		glvalue = convert_texture_stage(value);
 
 	tex_envf_ext(glarg, glvalue);
 }

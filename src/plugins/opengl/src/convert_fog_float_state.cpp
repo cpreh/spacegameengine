@@ -18,35 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
+#include "../convert_fog_float_state.hpp"
+#include <sge/renderer/state/var.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/texture_stage.hpp>
-#include <sge/renderer/stage_type.hpp>
-
-namespace sge
+GLenum
+sge::ogl::convert_fog_float_state(
+	renderer::state::float_::type const s)
 {
-namespace ogl
-{
+	typedef renderer::state::traits<
+		renderer::state::float_type
+	> rs;
 
-void tex_envf_ext(
-	GLenum arg,
-	GLenum value);
-
-void set_texture_stage_scale(
-	renderer::texture_stage_op_value::type value);
-
-template<
-	typename Arg,
-	typename Value
->
-void set_texture_stage(
-	renderer::stage_type stage,
-	Arg arg,
-	Value value);
-
+	switch(s.state()) {
+	case rs::fog_start:
+		return GL_FOG_START;
+	case rs::fog_end:
+		return GL_FOG_END;
+	case rs::fog_density:
+		return GL_FOG_DENSITY;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid fog float_state!"));
+	}
 }
-}
-
-#endif

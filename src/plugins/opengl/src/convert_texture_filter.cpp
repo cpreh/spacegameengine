@@ -18,35 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
+#include "../convert_texture_filter.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/texture_stage.hpp>
-#include <sge/renderer/stage_type.hpp>
-
-namespace sge
+GLenum sge::ogl::convert_texture_filter(
+	renderer::min_filter::type const arg)
 {
-namespace ogl
-{
-
-void tex_envf_ext(
-	GLenum arg,
-	GLenum value);
-
-void set_texture_stage_scale(
-	renderer::texture_stage_op_value::type value);
-
-template<
-	typename Arg,
-	typename Value
->
-void set_texture_stage(
-	renderer::stage_type stage,
-	Arg arg,
-	Value value);
-
-}
+	switch(arg) {
+	case renderer::min_filter::point:
+		return GL_NEAREST;
+	case renderer::min_filter::linear:
+		return GL_LINEAR;
+	case renderer::min_filter::mipmap:
+		return GL_LINEAR_MIPMAP_NEAREST;
+	case renderer::min_filter::trilinear:
+		return GL_LINEAR_MIPMAP_LINEAR;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid min_filter!"));
+	}
 }
 
-#endif
+GLenum sge::ogl::convert_texture_filter(
+	renderer::mag_filter::type const arg)
+{
+	switch(arg) {
+	case renderer::mag_filter::point:
+		return GL_NEAREST;
+	case renderer::mag_filter::linear:
+		return GL_LINEAR;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid mag_filter!"));
+	}
+}
+
+

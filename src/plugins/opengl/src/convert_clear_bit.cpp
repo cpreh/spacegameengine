@@ -18,35 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_STAGE_HPP_INCLUDED
+#include "../convert_clear_bit.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/texture_stage.hpp>
-#include <sge/renderer/stage_type.hpp>
-
-namespace sge
+GLenum
+sge::ogl::convert_clear_bit(
+	renderer::state::bool_::trampoline_type const &s)
 {
-namespace ogl
-{
+	typedef renderer::state::traits<
+		renderer::state::bool_type
+	> rs;
 
-void tex_envf_ext(
-	GLenum arg,
-	GLenum value);
-
-void set_texture_stage_scale(
-	renderer::texture_stage_op_value::type value);
-
-template<
-	typename Arg,
-	typename Value
->
-void set_texture_stage(
-	renderer::stage_type stage,
-	Arg arg,
-	Value value);
-
+	switch(s.state()) {
+	case rs::clear_backbuffer:
+		return GL_COLOR_BUFFER_BIT;
+	case rs::clear_zbuffer:
+		return GL_DEPTH_BUFFER_BIT;
+	case rs::clear_stencil:
+		return GL_STENCIL_BUFFER_BIT;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid bool_state in convert_clear_bit()!"));
+	}
 }
-}
-
-#endif

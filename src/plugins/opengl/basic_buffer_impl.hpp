@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_BUFFER_IMPL_HPP_INCLUDED
 
 #include "basic_buffer.hpp"
-#include "conversion.hpp"
 #include "common.hpp"
 #include "vbo_base.hpp"
 #include "lock_method.hpp"
+#include "convert_resource_flags.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
