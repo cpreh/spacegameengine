@@ -118,19 +118,6 @@ public:
 		data_[U] = n;
 	}
 
-	vector(const vector& r)
-	{
-		for(size_type i = 0; i < Dim; ++i)
-			data_[i] = r[i];
-	}
-
-	vector& operator=(const vector& r)
-	{
-		for(size_type i = 0; i < Dim; ++i)
-			data_[i] = r[i];
-		return *this;
-	}
-
 	vector& operator+=(const vector& r)
 	{
 		for(size_type i = 0; i < Dim; ++i)
