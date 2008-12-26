@@ -26,6 +26,10 @@ void sge::gui::detail::update_manager::add(widget &w)
 
 void sge::gui::detail::update_manager::remove(widget &w)
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("deleting a widget"));
+
 	// remove now dead references from recompile list
 	for (recompile_container::iterator it = recompiles.begin(),next = it; 
 		   it != recompiles.end(); 
@@ -39,7 +43,12 @@ void sge::gui::detail::update_manager::remove(widget &w)
 
 	// if there is a parent, set it to recompile
 	if (w.parent_widget())
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("for the widget to delete there is a parent, so recompiling"));
 		recompiles.insert(w.parent_widget());
+	}
 }
 
 void sge::gui::detail::update_manager::draw()

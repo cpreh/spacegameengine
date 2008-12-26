@@ -183,7 +183,7 @@ try
 #if TESTING_LEVEL == TL_REMOVE_WIDGETS
 		if (delete_timer.active() && delete_timer.expired())
 		{
-			sge::cerr << SGE_TEXT("removing button\n");
+			sge::cerr << SGE_TEXT("sge: gui test program: removing button\n");
 			delete_timer.deactivate();
 			right_top.reset();
 		}
