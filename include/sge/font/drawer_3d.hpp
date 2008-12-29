@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/manager.hpp"
 #include "../texture/part.hpp"
 #include "../sprite/system.hpp"
+#include "../sprite/container.hpp"
 #include "../sprite/object.hpp"
 #include "drawer.hpp"
 #include "types.hpp"
@@ -69,7 +70,7 @@ private:
 	>                               texture_map;
 	texture_map                     textures;
 	sprite::system                  sys;
-	sprite::system::container       sprites;
+	sprite::container               sprites;
 };
 
 }

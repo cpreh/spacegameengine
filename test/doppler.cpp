@@ -213,7 +213,7 @@ try
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block_(sys.renderer());
-		sge::sprite::system::container sprites;
+		sge::sprite::container sprites;
 		sprites.push_back(bg);
 		sprites.push_back(pointer);
 		sprites.push_back(tux);

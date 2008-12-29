@@ -43,7 +43,7 @@ void sge::gui::detail::render_manager::draw()
 	if (!dirt.empty())
 		redraw_dirt();
 
-	sprite::system::container sprites;
+	sprite::container sprites;
 	BOOST_FOREACH(widget_container::value_type const &w,widgets)
 		sprites.push_back(w.second.sprite);
 	sprites.push_back(mouse.cursor());
