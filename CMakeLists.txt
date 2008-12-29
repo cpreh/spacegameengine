@@ -132,6 +132,15 @@ CHECK_CXX_SOURCE_RUNS(
 	 }"
 	 SGE_HAVE_POSIX)
 
+CHECK_CXX_SOURCE_COMPILES(
+	"struct test {
+	   test(test const &) = delete;
+	   test &operator=(test const &) = default;
+	 };
+	 int main()
+	 {}"
+	 SGE_HAVE_DEFAULTED_AND_DELETED_FUNCTIONS)
+
 FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	filesystem
 	signals

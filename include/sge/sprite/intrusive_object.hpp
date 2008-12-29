@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_OBJECT_HPP_INCLUDED
 
 #include "object.hpp"
+#include "intrusive_object_fwd.hpp"
+#include "intrusive_order.hpp"
 #include "../export.hpp"
 #include <boost/intrusive/list_hook.hpp>
 #include <boost/optional.hpp>
@@ -46,7 +48,7 @@ typedef boost::intrusive::list_base_hook<
 
 class intrusive_object : public object, public detail::object_base_hook {
 public:
-	typedef unsigned order_type;
+	typedef intrusive_order order_type;
 
 	SGE_SYMBOL intrusive_object(
 		intrusive_system &,
