@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CIRCLE_HPP_INCLUDED
 #define SGE_CIRCLE_HPP_INCLUDED
 
+#include "circle_fwd.hpp"
 #include "vector.hpp"
 
 namespace sge
@@ -35,9 +36,9 @@ namespace math
 template<typename T>
 class circle {
 public:
-	typedef T                                 value_type;
-	typedef T&                                reference;
-	typedef const T&                          const_reference;
+	typedef T                           value_type;
+	typedef T&                          reference;
+	typedef const T&                    const_reference;
 	typedef math::vector<value_type, 2> point_type;
 
 	circle(

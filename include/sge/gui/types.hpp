@@ -1,7 +1,10 @@
 #ifndef SGE_GUI_TYPES_HPP_INCLUDED
 #define SGE_GUI_TYPES_HPP_INCLUDED
 
-#include "../sprite/types.hpp"
+#include "../sprite/unit.hpp"
+#include "../sprite/point.hpp"
+#include "../sprite/dim.hpp"
+#include "../sprite/rect.hpp"
 #include "../sprite/fwd.hpp"
 #include "../math/vector.hpp"
 #include "../math/rect.hpp"

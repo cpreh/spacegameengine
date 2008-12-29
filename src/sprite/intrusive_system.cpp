@@ -49,7 +49,7 @@ void sge::sprite::intrusive_system::render()
 
 	renderer::state::scoped const state_(
 		rend,
-		render_states()
+		detail::render_states()
 	);
 
 	BOOST_FOREACH(sprite_level_map::value_type const &v, sprite_levels)
@@ -67,7 +67,7 @@ void sge::sprite::intrusive_system::render(
 	renderer::index_buffer_ptr const ib(
 		index_buffer());
 
-	fill_geometry(
+	detail::fill_geometry(
 		sprites.begin(),
 		sprites.end(),
 		vertex_buffer(),
@@ -76,10 +76,10 @@ void sge::sprite::intrusive_system::render(
 	renderer::device_ptr const rend(
 		renderer());
 
-	sprite::render(
+	detail::render(
 		sprites.begin(),
 		sprites.end(),
-		tex_equal_visible,
+		detail::tex_equal_visible,
 		rend,
 		vb,
 		ib);

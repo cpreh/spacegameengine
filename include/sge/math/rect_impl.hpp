@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <ostream>
 #include <boost/lexical_cast.hpp>
-#include <sge/exception.hpp>
+#include "../exception.hpp"
+#include "../text.hpp"
+#include "rect_decl.hpp"
 #include "compare.hpp"
 
 template<typename T>

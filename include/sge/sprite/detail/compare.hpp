@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_COMPARE_HPP_INCLUDED
-#define SGE_SPRITE_COMPARE_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_COMPARE_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_COMPARE_HPP_INCLUDED
 
 namespace sge
 {
@@ -28,9 +28,13 @@ namespace sprite
 
 class object;
 
+namespace detail
+{
+
 bool equal(object const &, object const &);
 bool less(object const &, object const &);
 
+}
 }
 }
 

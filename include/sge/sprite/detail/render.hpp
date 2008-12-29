@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_RENDER_HPP_INCLUDED
-#define SGE_SPRITE_RENDER_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_RENDER_HPP_INCLUDED
 
+#include "constants.hpp"
 #include "../../renderer/size_type.hpp"
 #include "../../renderer/device.hpp"
 #include "../../renderer/texture.hpp"
@@ -31,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace sprite
+{
+namespace detail
 {
 
 template<typename In, typename Comp>
@@ -74,6 +77,7 @@ void render(
 	rend->texture(renderer::device::no_texture);
 }
 
+}
 }
 }
 

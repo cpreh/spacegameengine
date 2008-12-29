@@ -18,17 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_HELDER_HPP_INCLUDED
-#define SGE_SPRITE_HELDER_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_HELDER_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_HELDER_HPP_INCLUDED
 
 #include "vertex_format.hpp"
-#include "../types.hpp"
+#include "tex_rect.hpp"
+#include "../rect.hpp"
+#include "../depth_type.hpp"
+#include "../rotation_type.hpp"
+#include "../color.hpp"
+#include "../point.hpp"
 #include "../../renderer/vf/iterator.hpp"
 #include "../../renderer/index_view.hpp"
 
 namespace sge
 {
 namespace sprite
+{
+namespace detail
 {
 
 typedef renderer::index_view_16 index_view;
@@ -70,6 +77,7 @@ fill_indices(
 	index_view::iterator it,
 	index_view::value_type start);
 
+}
 }
 }
 

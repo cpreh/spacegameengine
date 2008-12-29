@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_FILL_GEOMETRY_HPP_INCLUDED
-#define SGE_SPRITE_FILL_GEOMETRY_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
 
 #include "vertex_format.hpp"
 #include "helper.hpp"
@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace sprite
+{
+namespace detail
 {
 
 template<typename It>
@@ -87,6 +89,7 @@ void fill_geometry(
 	}
 }
 
+}
 }
 }
 

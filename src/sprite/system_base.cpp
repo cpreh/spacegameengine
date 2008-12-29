@@ -50,7 +50,7 @@ sge::sprite::system_base::system_base(
 	vb(
 		rend->create_vertex_buffer(
 			renderer::vf::make_dynamic_format<
-				vertex_format
+				detail::vertex_format
 			>(),
 			init_sprites * detail::vertices_per_sprite,
 			renderer::resource_flags::dynamic)),
