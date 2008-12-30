@@ -18,41 +18,73 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
-#define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
+#ifndef SGE_CONTAINER_MAP_DECL_HPP_INCLUDED
+#define SGE_CONTAINER_MAP_DECL_HPP_INCLUDED
 
-#include "../common.hpp"
-#include <sge/container/linear_set.hpp>
+#include "map_fwd.hpp"
+#include <utility>
 
 namespace sge
 {
-namespace ogl
-{
-namespace vf
+namespace container
 {
 
-struct client_state {
-	typedef container::linear_set<
-		GLenum
-	> normal_state_set;
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp 
+>
+class map {
+	typedef MapType<
+		Key,
+		Mapped,
+		Comp<
+			Key
+		>,
+		Alloc<
+			std::pair<
+				Key,
+				Mapped
+			>
+		>
+	> internal_type;
+public:
+	typedef typename internal_type::key_type key_type;
+	typedef typename internal_type::mapped_type mapped_type;
 
-	typedef container::linear_set<
-		GLuint
-	> index_state_set;
+	map();
+	explicit map(
+		internal_type const &);
 
-	void enable(
-		GLenum);
-	void enable_attribute(
-		GLuint);
+	void insert(
+		key_type const &,
+		mapped_type const &);
 	
-	normal_state_set const &normal_states() const;
-	index_state_set const &attribute_states() const;
+	void erase(
+		key_type const &);
+
+	mapped_type const &
+	operator[](
+		key_type const &) const;
+	
+	mapped_type &
+	operator[](
+		key_type const &);
 private:
-	normal_state_set normal_states_;
-	index_state_set attribute_states_;
+	internal_type impl_;
 };
 
-}
 }
 }
 

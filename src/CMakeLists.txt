@@ -3,6 +3,7 @@ FILE (GLOB sgecorefiles
 	archive/*.cpp
 	audio/*.cpp
 	console/*.cpp
+	container/*.cpp
 	font/*.cpp
 	image/*.cpp
 	input/*.cpp

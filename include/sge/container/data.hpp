@@ -18,41 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
-#define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
-
-#include "../common.hpp"
-#include <sge/container/linear_set.hpp>
+#ifndef SGE_CONTAINER_DATA_HPP_INCLUDED
+#define SGE_CONTAINER_DATA_HPP_INCLUDED
 
 namespace sge
 {
-namespace ogl
-{
-namespace vf
+namespace container
 {
 
-struct client_state {
-	typedef container::linear_set<
-		GLenum
-	> normal_state_set;
+// these functions may be used on vector
+// (C++2003)
+// and on basic_string
+// (DR of 2005)
 
-	typedef container::linear_set<
-		GLuint
-	> index_state_set;
-
-	void enable(
-		GLenum);
-	void enable_attribute(
-		GLuint);
-	
-	normal_state_set const &normal_states() const;
-	index_state_set const &attribute_states() const;
-private:
-	normal_state_set normal_states_;
-	index_state_set attribute_states_;
-};
-
+template<
+	typename Container 
+>
+typename Container::pointer
+data(
+	Container &c)
+{
+	return c.empty() ? 0 : &c[0];
 }
+
+template<
+	typename Container
+>
+typename Container::const_pointer
+data(
+	Container const &c)
+{
+	return c.empty() ? 0 : &c[0];
+}
+
+template<
+	typename Container 
+>
+typename Container::pointer
+data_end(
+	Container &c)
+{
+	return c.empty() ? 0 : &c[0] + c.size();
+}
+
+template<
+	typename Container
+>
+typename Container::const_pointer
+data_end(
+	Container const &c)
+{
+	return c.empty() ? 0 : &c[0] + c.size();
+}
+
 }
 }
 

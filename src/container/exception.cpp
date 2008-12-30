@@ -18,57 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONTAINER_UTIL_HPP_INCLUDED
-#define SGE_CONTAINER_UTIL_HPP_INCLUDED
+#include <sge/container/exception.hpp>
 
-namespace sge
-{
-
-// these functions may be used on vector
-// (C++2003)
-// and on basic_string
-// (DR of 2005)
-
-template<
-	typename Container 
->
-typename Container::pointer
-data(
-	Container &c)
-{
-	return c.empty() ? 0 : &c[0];
-}
-
-template<
-	typename Container
->
-typename Container::const_pointer
-data(
-	Container const &c)
-{
-	return c.empty() ? 0 : &c[0];
-}
-
-template<
-	typename Container 
->
-typename Container::pointer
-data_end(
-	Container &c)
-{
-	return c.empty() ? 0 : &c[0] + c.size();
-}
-
-template<
-	typename Container
->
-typename Container::const_pointer
-data_end(
-	Container const &c)
-{
-	return c.empty() ? 0 : &c[0] + c.size();
-}
-
-}
-
-#endif
+sge::container::exception::exception(
+	string const &e)
+:
+	sge::exception(e)
+{}

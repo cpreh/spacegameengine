@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/codecvt.hpp>
-#include <sge/container_util.hpp>
+#include <sge/container/data.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <locale>
@@ -124,7 +124,7 @@ convert(
 
 	state_type state;
 
-	Out *to = sge::data(ret);
+	Out *to = sge::container::data(ret);
 	for(In const *from = s.data(), *from_next; from != from_next; from = from_next)
 	{
 		Out *to_next;
@@ -132,10 +132,10 @@ convert(
 			conv,
 			state,
 			from,
-			sge::data_end(s),
+			sge::container::data_end(s),
 			from_next,
 			to,
-			sge::data_end(ret),
+			sge::container::data_end(ret),
 			to_next);
 
 		switch(result) {
@@ -149,10 +149,10 @@ convert(
 			{
 				typename return_type::difference_type const diff(
 					std::distance(
-						sge::data(ret),
+						sge::container::data(ret),
 						to_next));
 				ret.resize(ret.size() * 2);
-				to = sge::data(ret) + diff;
+				to = sge::container::data(ret) + diff;
 			}
 			break;
 		case std::codecvt_base::ok:

@@ -18,42 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
-#define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
+#ifndef SGE_CONTAINER_MAP_HPP_INCLUDED
+#define SGE_CONTAINER_MAP_HPP_INCLUDED
 
-#include "../common.hpp"
-#include <sge/container/linear_set.hpp>
-
-namespace sge
-{
-namespace ogl
-{
-namespace vf
-{
-
-struct client_state {
-	typedef container::linear_set<
-		GLenum
-	> normal_state_set;
-
-	typedef container::linear_set<
-		GLuint
-	> index_state_set;
-
-	void enable(
-		GLenum);
-	void enable_attribute(
-		GLuint);
-	
-	normal_state_set const &normal_states() const;
-	index_state_set const &attribute_states() const;
-private:
-	normal_state_set normal_states_;
-	index_state_set attribute_states_;
-};
-
-}
-}
-}
+#include "map_decl.hpp"
+#include "map_impl.hpp"
 
 #endif

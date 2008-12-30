@@ -1,5 +1,5 @@
-#ifndef SGE_LINEAR_MAP_HPP_INCLUDED
-#define SGE_LINEAR_MAP_HPP_INCLUDED
+#ifndef SGE_CONTAINER_LINEAR_MAP_HPP_INCLUDED
+#define SGE_CONTAINER_LINEAR_MAP_HPP_INCLUDED
 
 // std::less
 #include <functional>
@@ -12,6 +12,9 @@
 
 namespace sge
 {
+namespace container
+{
+
 template<
 	class Key,
 	class T,
@@ -101,27 +104,29 @@ class linear_map
 	value_compare comp_;
 	container_type container_;
 };
+
+template<class Key,class T,class Compare,class Allocator>
+bool operator==(linear_map<Key,T,Compare,Allocator> const &,linear_map<Key,T,Compare,Allocator> const &);
+
+template<class Key,class T,class Compare,class Allocator>
+bool operator!=(linear_map<Key,T,Compare,Allocator> const &,linear_map<Key,T,Compare,Allocator> const &);
+
+template<class Key,class T,class Compare,class Allocator>
+bool operator<(linear_map<Key,T,Compare,Allocator> const &,linear_map<Key,T,Compare,Allocator> const &);
+
+template<class Key,class T,class Compare,class Allocator>
+bool operator>(linear_map<Key,T,Compare,Allocator> const &,linear_map<Key,T,Compare,Allocator> const &);
+
+template<class Key,class T,class Compare,class Allocator>
+bool operator>=(linear_map<Key,T,Compare,Allocator> const &,linear_map<Key,T,Compare,Allocator> const &);
+
+template<class Key,class T,class Compare,class Allocator>
+bool operator<=(linear_map<Key,T,Compare,Allocator> const &,linear_map<Key,T,Compare,Allocator> const &);
+
+template<class Key,class T,class Compare,class Allocator>
+void swap(linear_map<Key,T,Compare,Allocator> &,linear_map<Key,T,Compare,Allocator> &);
+
 }
-
-template<class Key,class T,class Compare,class Allocator>
-bool operator==(sge::linear_map<Key,T,Compare,Allocator> const &,sge::linear_map<Key,T,Compare,Allocator> const &);
-
-template<class Key,class T,class Compare,class Allocator>
-bool operator!=(sge::linear_map<Key,T,Compare,Allocator> const &,sge::linear_map<Key,T,Compare,Allocator> const &);
-
-template<class Key,class T,class Compare,class Allocator>
-bool operator<(sge::linear_map<Key,T,Compare,Allocator> const &,sge::linear_map<Key,T,Compare,Allocator> const &);
-
-template<class Key,class T,class Compare,class Allocator>
-bool operator>(sge::linear_map<Key,T,Compare,Allocator> const &,sge::linear_map<Key,T,Compare,Allocator> const &);
-
-template<class Key,class T,class Compare,class Allocator>
-bool operator>=(sge::linear_map<Key,T,Compare,Allocator> const &,sge::linear_map<Key,T,Compare,Allocator> const &);
-
-template<class Key,class T,class Compare,class Allocator>
-bool operator<=(sge::linear_map<Key,T,Compare,Allocator> const &,sge::linear_map<Key,T,Compare,Allocator> const &);
-
-template<class Key,class T,class Compare,class Allocator>
-void swap(sge::linear_map<Key,T,Compare,Allocator> &,sge::linear_map<Key,T,Compare,Allocator> &);
+}
 
 #endif
