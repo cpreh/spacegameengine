@@ -5,7 +5,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("layouts::null"),true);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("layouts::null"),false);
 }
 
 sge::gui::layouts::null::null(widget &w)

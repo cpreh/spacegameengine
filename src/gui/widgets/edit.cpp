@@ -1,26 +1,10 @@
-#include "../utility/max_dim.hpp"
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/timer/object.hpp>
-#include <sge/font/font.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/time/second.hpp>
 #include <sge/gui/manager.hpp>
 #include <boost/bind.hpp>
-
-namespace
-{
-sge::string const string_square(sge::gui::dim const &s)
-{
-	sge::string const line(
-		static_cast<sge::string::size_type>(s.w()),
-		SGE_TEXT('W'));
-	sge::string result;
-	for (sge::gui::unit i = 0; i < s.h(); ++i)
-		result += line;
-	return result;
-}
-}
 
 sge::gui::widgets::edit::edit(
 	parent_data parent,
@@ -33,15 +17,6 @@ sge::gui::widgets::edit::edit(
 		buffer_(),
 		scroll_pos_(point::null())
 {
-}
-
-sge::gui::dim const sge::gui::widgets::edit::size_hint() const
-{
-	return math::structure_cast<unit>(
-		font::font(font_).text_size(
-			string_square(desired_size_),
-			utility::max_dim<font::unit>())
-		.size());
 }
 
 sge::string const sge::gui::widgets::edit::text() const
@@ -57,6 +32,11 @@ sge::font::metrics_ptr const sge::gui::widgets::edit::font() const
 sge::gui::point const &sge::gui::widgets::edit::scroll_pos() const
 {
 	return scroll_pos_;
+}
+
+sge::gui::dim const sge::gui::widgets::edit::desired_size() const
+{
+	return desired_size_;
 }
 
 void sge::gui::widgets::edit::process(events::keyboard_enter const &)
@@ -93,10 +73,10 @@ void sge::gui::widgets::edit::resize(math::vector<bool,2> const &b)
 		static_cast<unit>(buffer_.height()));
 	
 	if (b.x())
-		n.x() *= 2;
+		n.x() *= static_cast<unit>(2);
 	
 	if (b.y())
-		n.y() *= 2;
+		n.y() *= static_cast<unit>(2);
 	
 	image nb(
 		static_cast<image::coord_t>(n.x()),

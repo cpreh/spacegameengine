@@ -15,7 +15,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("widget"),true);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("widget"),false);
 }
 
 sge::gui::widget::widget(

@@ -16,7 +16,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("keyboard_manager"),true);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("keyboard_manager"),false);
 }
 
 sge::gui::detail::keyboard_manager::keyboard_manager(sge::input::system_ptr const is)
