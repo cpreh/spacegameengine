@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../global_client_state.hpp"
 #include "../client_state.hpp"
-#include <sge/linear_set_impl.hpp>
+#include <sge/container/linear_set_impl.hpp>
 
 namespace
 {

@@ -18,10 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONTAINER_UTIL_HPP_INCLUDED
-#define SGE_CONTAINER_UTIL_HPP_INCLUDED
+#ifndef SGE_CONTAINER_DATA_HPP_INCLUDED
+#define SGE_CONTAINER_DATA_HPP_INCLUDED
 
 namespace sge
+{
+namespace container
 {
 
 // these functions may be used on vector
@@ -69,6 +71,7 @@ data_end(
 	return c.empty() ? 0 : &c[0] + c.size();
 }
 
+}
 }
 
 #endif

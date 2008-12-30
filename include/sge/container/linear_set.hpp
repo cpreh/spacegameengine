@@ -12,6 +12,9 @@
 
 namespace sge
 {
+namespace container
+{
+
 template<
 	class Key,
 	class Compare = std::less<Key>, 
@@ -88,27 +91,29 @@ class linear_set
 	typedef typename container_type::iterator nonconst_iterator;
 	nonconst_iterator to_nonconst(iterator);
 };
+
+template<class T,class Compare,class Allocator>
+bool operator==(linear_set<T,Compare,Allocator> const &,linear_set<T,Compare,Allocator> const &);
+
+template<class T,class Compare,class Allocator>
+bool operator!=(linear_set<T,Compare,Allocator> const &,linear_set<T,Compare,Allocator> const &);
+
+template<class T,class Compare,class Allocator>
+bool operator<(linear_set<T,Compare,Allocator> const &,linear_set<T,Compare,Allocator> const &);
+
+template<class T,class Compare,class Allocator>
+bool operator>(linear_set<T,Compare,Allocator> const &,linear_set<T,Compare,Allocator> const &);
+
+template<class T,class Compare,class Allocator>
+bool operator>=(linear_set<T,Compare,Allocator> const &,linear_set<T,Compare,Allocator> const &);
+
+template<class T,class Compare,class Allocator>
+bool operator<=(linear_set<T,Compare,Allocator> const &,linear_set<T,Compare,Allocator> const &);
+
+template<class T,class Compare,class Allocator>
+void swap(linear_set<T,Compare,Allocator> &,linear_set<T,Compare,Allocator> &);
+
 }
-
-template<class T,class Compare,class Allocator>
-bool operator==(sge::linear_set<T,Compare,Allocator> const &,sge::linear_set<T,Compare,Allocator> const &);
-
-template<class T,class Compare,class Allocator>
-bool operator!=(sge::linear_set<T,Compare,Allocator> const &,sge::linear_set<T,Compare,Allocator> const &);
-
-template<class T,class Compare,class Allocator>
-bool operator<(sge::linear_set<T,Compare,Allocator> const &,sge::linear_set<T,Compare,Allocator> const &);
-
-template<class T,class Compare,class Allocator>
-bool operator>(sge::linear_set<T,Compare,Allocator> const &,sge::linear_set<T,Compare,Allocator> const &);
-
-template<class T,class Compare,class Allocator>
-bool operator>=(sge::linear_set<T,Compare,Allocator> const &,sge::linear_set<T,Compare,Allocator> const &);
-
-template<class T,class Compare,class Allocator>
-bool operator<=(sge::linear_set<T,Compare,Allocator> const &,sge::linear_set<T,Compare,Allocator> const &);
-
-template<class T,class Compare,class Allocator>
-void swap(sge::linear_set<T,Compare,Allocator> &,sge::linear_set<T,Compare,Allocator> &);
+}
 
 #endif
