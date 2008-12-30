@@ -40,7 +40,7 @@ sge::sprite::intrusive_object::intrusive_object(
 		z_,
 		rotation_,
 		visible_),
-	sys(sys),
+	sys(&sys),
 	order_(order_)
 {
 	add_me();
@@ -84,9 +84,17 @@ sge::sprite::intrusive_object::order() const
 	return order_;
 }
 
+void sge::sprite::intrusive_object::transfer(
+	intrusive_system &nsys)
+{
+	unlink();
+	sys = &nsys;
+	add_me();
+}
+
 void sge::sprite::intrusive_object::add_me()
 {
-	sys.add(
+	sys->add(
 		*this,
 		order_);
 }
