@@ -71,11 +71,14 @@ public:
 	SGE_SYMBOL void order(
 		order_type);
 	SGE_SYMBOL order_type order() const;
+
+	SGE_SYMBOL void transfer(
+		intrusive_system &);
 private:
 	void add_me();
 
-	intrusive_system &sys;
-	order_type       order_;
+	intrusive_system *sys;
+	order_type        order_;
 };
 
 
