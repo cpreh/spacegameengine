@@ -18,25 +18,75 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_INTRUSIVE_COMPARE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_INTRUSIVE_COMPARE_HPP_INCLUDED
+#ifndef SGE_MINMAX_PAIR_IMPL_HPP_INCLUDED
+#define SGE_MINMAX_PAIR_IMPL_HPP_INCLUDED
 
-namespace sge
+#include "minmax_pair_decl.hpp"
+#include "exception.hpp"
+#include "format.hpp"
+#include "text.hpp"
+
+template<
+	typename T
+>
+sge::minmax_pair<T>::minmax_pair(
+	T const &min_,
+	T const &max_)
+:
+	min_(min_),
+	max_(max_)
 {
-namespace sprite
-{
-
-class intrusive_object;
-
-namespace detail
-{
-
-bool tex_equal_visible(
-	intrusive_object const &,
-	intrusive_object const &);
-
+	check();
 }
+
+template<
+	typename T
+>
+T sge::minmax_pair<T>::min() const
+{
+	return min_;
 }
+
+template<
+	typename T
+>
+T sge::minmax_pair<T>::max() const
+{
+	return max_;
+}
+
+template<
+	typename T
+>
+void sge::minmax_pair<T>::min(
+	T const &nmin)
+{
+	min_ = nmin;
+	check();
+}
+
+template<
+	typename T
+>
+void sge::minmax_pair<T>::max(
+	T const &nmax)
+{
+	max_ = nmax;
+	check();
+}
+
+template<
+	typename T
+>
+void sge::minmax_pair<T>::check()
+{
+	if(min() > max())
+		throw exception(
+			(format(
+				SGE_TEXT("minmax_pair out of range: %1% > %2%"))
+			% min()
+			% max())
+				.str());
 }
 
 #endif

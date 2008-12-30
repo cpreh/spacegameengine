@@ -18,20 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/sprite/detail/render_states.hpp>
-#include <sge/renderer/state/var.hpp>
+#ifndef SGE_NONCOPYABLE_HPP_INCLUDED
+#define SGE_NONCOPYABLE_HPP_INCLUDED
 
-sge::renderer::state::list const &
-sge::sprite::detail::render_states()
-{
-	static renderer::state::list const states_ = renderer::state::list
-		(renderer::state::bool_::enable_lighting = false)
-		(renderer::state::bool_::enable_alpha_blending = true)
-		(renderer::state::source_blend_func::src_alpha)
-		(renderer::state::dest_blend_func::inv_src_alpha)
-		(renderer::state::cull_mode::off)
-		(renderer::state::depth_func::off)
-		(renderer::state::stencil_func::off)
-		(renderer::state::draw_mode::fill);
-	return states_;
-}
+#include "config.h"
+
+#ifdef SGE_HAVE_DEFAULTED_AND_DELETED_FUNCTIONS
+
+#define SGE_NONCOPYABLE(classname) \
+classname(classname const &) = delete; \
+classname &operator=(classname const &) = delete;
+
+#else
+
+#define SGE_NONCOPYABLE(classname) \
+private: \
+classname(classname const &); \
+classname &operator=(classname const &);
+
+#endif
+
+#endif

@@ -26,6 +26,11 @@ namespace sge
 namespace math
 {
 
+template<
+	typename T
+>
+class rect;
+
 }
 }
 

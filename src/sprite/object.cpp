@@ -44,7 +44,7 @@ sge::sprite::object::object(
 	boost::optional<point> const pos_,
 	boost::optional<texture::const_part_ptr> const vtex,
 	boost::optional<dim> const size_,
-	boost::optional<color_t> const color_,
+	boost::optional<sprite::color> const color_,
 	boost::optional<depth_type> const z_,
 	boost::optional<rotation_type> const rotation_,
 	boost::optional<bool> const visible_)
@@ -118,7 +118,8 @@ void sge::sprite::object::rotation(const rotation_type rot)
 	rotation_ = rot;
 }
 
-void sge::sprite::object::rotate_around(const point p)
+void sge::sprite::object::rotate_around(
+	point const & p)
 {
 	use_rot_around = true;
 	rot_around_ = p;
@@ -135,7 +136,7 @@ void sge::sprite::object::repeat(const repetition_type r)
 }
 
 void sge::sprite::object::color(
-	color_t const c)
+	sprite::color const &c)
 {
 	color_ = c;
 }
@@ -186,7 +187,8 @@ void sge::sprite::object::center(
 	pos() = p-sge::sprite::point(w()/2,h()/2);
 }
 
-sge::sprite::point sge::sprite::object::center() const
+sge::sprite::point const
+sge::sprite::object::center() const
 {
 	return  point(x() + w() / 2, y() + h() / 2);
 }
@@ -201,7 +203,7 @@ sge::sprite::repetition_type sge::sprite::object::repeat() const
 	return repeat_;
 }
 
-sge::sprite::object::color_t const
+sge::sprite::color const
 sge::sprite::object::color() const
 {
 	return color_;
@@ -226,10 +228,12 @@ sge::sprite::object::radius() const
 		);
 }
 
-sge::sprite::object::rect_t const
+sge::sprite::rect const
 sge::sprite::object::rect() const
 {
-	return rect_t(pos(),size());
+	return sprite::rect(
+		pos(),
+		size());
 }
 
 sge::sprite::rect const
@@ -238,7 +242,7 @@ sge::sprite::object::bounding_quad() const
 	if(math::almost_zero(rotation()))
 		return rect();
 	funit const rad = radius();
-	return rect_t(
+	return sprite::rect(
 		static_cast<sprite::unit>(
 			static_cast<funit>(
 				center().x()) - rad),

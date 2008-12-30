@@ -70,7 +70,7 @@ void sge::sprite::system::render(
 	renderer::index_buffer_ptr const ib(
 		index_buffer());
 
-	fill_geometry(
+	detail::fill_geometry(
 		beg,
 		end,
 		vb,
@@ -83,10 +83,10 @@ void sge::sprite::system::render(
 
 	renderer::state::scoped const state_(
 		rend,
-		render_states()
+		detail::render_states()
 	);
 
-	sprite::render(
+	detail::render(
 		beg,
 		end,
 		equal_fun,
@@ -110,10 +110,10 @@ sge::sprite::system::default_sort(
 		>,
 		_1,
 		_2,
-		sge::sprite::less
+		sge::sprite::detail::less
 	)
 );
 
 sge::sprite::system::equal_method const
 sge::sprite::system::default_equal(
-	sge::sprite::equal);
+	sge::sprite::detail::equal);

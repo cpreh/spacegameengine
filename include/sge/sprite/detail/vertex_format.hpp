@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_VERTEX_FORMAT_HPP_INCLUDED
-#define SGE_SPRITE_VERTEX_FORMAT_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 
-#include "../types.hpp"
+#include "../funit.hpp"
 #include "../../renderer/vf/format.hpp"
 #include "../../renderer/vf/pos.hpp"
 #include "../../renderer/vf/color.hpp"
@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace sprite
+{
+namespace detail
 {
 
 typedef renderer::rgba8_color base_color;
@@ -48,6 +50,7 @@ typedef renderer::vf::format<
 	>
 > vertex_format;
 
+}
 }
 }
 

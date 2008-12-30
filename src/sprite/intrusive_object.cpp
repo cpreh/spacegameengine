@@ -27,7 +27,7 @@ sge::sprite::intrusive_object::intrusive_object(
 	boost::optional<point> const pos_,
 	boost::optional<texture::const_part_ptr> const vtex,
 	boost::optional<dim> const size_,
-	boost::optional<color_t> const color_,
+	boost::optional<sprite::color> const color_,
 	boost::optional<depth_type> const z_,
 	boost::optional<rotation_type> const rotation_,
 	boost::optional<bool> const visible_)

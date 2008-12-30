@@ -21,10 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_HPP_INCLUDED
 
-#include "types.hpp"
+#include "point.hpp"
+#include "dim.hpp"
+#include "color.hpp"
+#include "depth_type.hpp"
+#include "rotation_type.hpp"
+#include "repetition_type.hpp"
+#include "unit.hpp"
+#include "circle.hpp"
+#include "rect.hpp"
 #include "../export.hpp"
 #include "../texture/part_fwd.hpp"
 #include <boost/optional.hpp>
+
+#include "../todo.hpp"
+SGE_TODO("move some of those sprite functions into free function")
 
 namespace sge
 {
@@ -49,14 +60,11 @@ SGE_SYMBOL extern const bool visible_;
 
 class object {
 public:
-	typedef sprite::rect rect_t;
-	typedef sprite::color color_t;
-
 	SGE_SYMBOL object(
 		boost::optional<point> = defaults::pos_,
 		boost::optional<texture::const_part_ptr> = defaults::texture_,
 		boost::optional<dim> = defaults::dim_,
-		boost::optional<color_t> = defaults::color_,
+		boost::optional<sprite::color> = defaults::color_,
 		boost::optional<depth_type> = defaults::depth_,
 		boost::optional<rotation_type> = defaults::rotation_,
 		boost::optional<bool> visible = defaults::visible_);
@@ -71,10 +79,10 @@ public:
 	SGE_SYMBOL void visible(bool visible);
 	SGE_SYMBOL void texture(texture::const_part_ptr);
 	SGE_SYMBOL void rotation(rotation_type rot);
-	SGE_SYMBOL void rotate_around(point p);
+	SGE_SYMBOL void rotate_around(point const &);
 	SGE_SYMBOL void rotate_around();
 	SGE_SYMBOL void repeat(repetition_type);
-	SGE_SYMBOL void color(color_t c);
+	SGE_SYMBOL void color(sprite::color const &);
 	SGE_SYMBOL void center(point const &);
 	
 	SGE_SYMBOL unit const &x() const;
@@ -85,13 +93,13 @@ public:
 	SGE_SYMBOL unit const &h() const;
 	SGE_SYMBOL dim const &size() const;
 	SGE_SYMBOL bool visible() const;
-	SGE_SYMBOL rect_t const rect() const;
-	SGE_SYMBOL point center() const;
+	SGE_SYMBOL sprite::rect const rect() const;
+	SGE_SYMBOL point const center() const;
 	SGE_SYMBOL rotation_type rotation() const;
 	SGE_SYMBOL funit radius() const;
 	SGE_SYMBOL repetition_type repeat() const;
-	SGE_SYMBOL color_t const color() const;
-	SGE_SYMBOL rect_t const bounding_quad() const;
+	SGE_SYMBOL sprite::color const color() const;
+	SGE_SYMBOL sprite::rect const bounding_quad() const;
 	SGE_SYMBOL circle const bounding_circle() const;
 	SGE_SYMBOL point const rotation_center() const;
 	SGE_SYMBOL texture::const_part_ptr const texture() const;
@@ -103,7 +111,7 @@ private:
 	texture::const_part_ptr tex;
 	point                   rot_around_;
 	repetition_type         repeat_;
-	color_t                 color_;
+	sprite::color           color_;
 	bool                    visible_;
 	bool                    use_rot_around;
 };
