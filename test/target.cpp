@@ -5,9 +5,16 @@
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/system.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/state/states.hpp>
+#include <sge/renderer/state/var.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/colors.hpp>
+#include <sge/input/system.hpp>
+#include <sge/input/key_type.hpp>
+#include <sge/input/key_pair.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/object.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -17,6 +24,9 @@
 #include <sge/text.hpp>
 #include <sge/media.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/bind.hpp>
+#include <boost/lambda/if.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -39,7 +49,8 @@ try
 				sge::renderer::depth_buffer::off,
 				sge::renderer::stencil_buffer::off,
 				sge::renderer::window_mode::windowed))))
-		(sge::systems::parameterless::image));
+		(sge::systems::parameterless::image)
+		(sge::systems::parameterless::input));
 
 	sge::sprite::system ss(sys.renderer());
 	sge::image::object_ptr const image = sys.image_loader()->load(sge::media_path() / SGE_TEXT("tux.png"));
@@ -90,7 +101,29 @@ try
 			>(target)),
 		sge::sprite::texture_dim);
 
-	while (true)
+	sys.renderer()->state(
+		sge::renderer::state::list
+			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::color_::clear_color = sge::renderer::colors::red()));
+
+	using boost::lambda::var;
+	using boost::lambda::bind;
+	using boost::lambda::if_;
+
+	bool running = true;
+
+	sge::signals::scoped_connection const cb(
+		sys.input_system()->register_callback(
+			if_(
+				bind(
+					&sge::input::key_type::code,
+					bind(
+						&sge::input::key_pair::key,
+						boost::lambda::_1))
+					== sge::input::kc::key_escape)
+				[var(running)=false]));
+
+	while (running)
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block_(sys.renderer());

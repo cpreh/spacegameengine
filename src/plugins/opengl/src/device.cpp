@@ -65,7 +65,8 @@ sge::ogl::device::device(
 :
 	param(param),
 	wnd(wnd),
-	current_states(renderer::state::default_()),
+	current_states(
+		renderer::state::default_()),
 	state_(
 		param,
 		adapter,
