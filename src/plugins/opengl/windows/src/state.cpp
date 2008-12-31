@@ -58,3 +58,6 @@ void sge::ogl::windows::state::swap_buffers()
 		throw exception(
 			SGE_TEXT("wglSwapLayerBuffers() failed!"));
 }
+
+void sge::ogl::windows::state::reset_viewport()
+{}

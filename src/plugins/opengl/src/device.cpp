@@ -354,12 +354,7 @@ void sge::ogl::device::target(
 						screen_size()),
 				param.mode().bit_depth()));
 		target_->bind_me();
-		window::pos_type const offset = wnd->viewport_offset();
 		state_.reset_viewport();
-//		viewport(
-//			renderer::viewport(
-//				offset,
-//				wnd->size()));
 		fbo_active = false;
 		projection_internal();
 		return;
