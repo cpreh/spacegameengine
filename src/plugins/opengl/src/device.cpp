@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glew.hpp"
 #include "../fbo_target.hpp"
 #include "../convert_primitive.hpp"
+#include "../fbo_projection.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
@@ -498,33 +499,12 @@ sge::ogl::device::create_target()
 		new fbo_target());
 }
 
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
-
-namespace
-{
-
-struct multiply_visitor : boost::static_visitor<sge::renderer::any_matrix> {
-	template<
-		typename T
-	>
-	sge::renderer::any_matrix const
-	operator()(
-		T const &t) const
-	{
-		return t * sge::math::matrix_scaling<typename T::value_type>(1, -1, 1);
-	}
-};
-
-}
-
 void sge::ogl::device::projection_internal()
 {
 	set_matrix(
 		GL_PROJECTION,
 		fbo_active
-		? boost::apply_visitor(
-			multiply_visitor(),
+		? fbo_projection(
 			projection_)
 		: projection_);
 		
