@@ -95,6 +95,13 @@ void sge::ogl::x11::state::swap_buffers()
 		wnd->get());
 }
 
+void sge::ogl::x11::state::reset_viewport()
+{
+	center_viewport(
+		wnd->size().w(),
+		wnd->size().h());
+}
+
 void sge::ogl::x11::state::reset_viewport_on_map(
 	XEvent const &)
 {

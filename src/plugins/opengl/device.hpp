@@ -163,11 +163,16 @@ private:
 	GLenum clear_bit(
 		renderer::state::bool_::trampoline_type const &) const;
 
-	void vertex_buffer(renderer::const_vertex_buffer_ptr vb);
-	void index_buffer(renderer::const_index_buffer_ptr ib);
+	void vertex_buffer(
+		renderer::const_vertex_buffer_ptr);
+	
+	void index_buffer(
+		renderer::const_index_buffer_ptr);
 
 	fbo_target_ptr const
 	create_target();
+
+	void projection_internal();
 
 	renderer::parameters const param;
 	window::instance_ptr const wnd;
@@ -177,7 +182,10 @@ private:
 #elif defined(SGE_HAVE_X11)
 	x11::state state_;
 #endif
+	bool                        fbo_active;
+	renderer::any_matrix        projection_;
 	target_ptr                  target_;
+
 	typedef std::stack<
 		renderer::state::list
 	> stack_type;
