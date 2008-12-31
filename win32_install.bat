@@ -20,6 +20,7 @@
 @if "%1" == "vc7" set target="Visual Studio 7 .NET 2003"
 @if "%1" == "vc8" set target="Visual Studio 8 2005"
 @if "%1" == "vc9" set target="Visual Studio 9 2008"
+@if "%1" == "mingw" set target="MinGW Makefiles"
 
 @if "%1" == "help" goto Help
 @if "%1" == "-h" goto Help
@@ -53,10 +54,11 @@
 :Help
 @echo "win32_install [option]"
 @echo Option can be:
-@echo   vc7  - Visual Studio 7 (.NET 2003)
-@echo   vc8  - Visual Studio 8 (.NET 2005)
-@echo   vc9  - Visual Studio 9 (.NET 2008)
-@echo   help - Displays this help.
+@echo   vc7   - Visual Studio 7 (.NET 2003)
+@echo   vc8   - Visual Studio 8 (.NET 2005)
+@echo   vc9   - Visual Studio 9 (.NET 2008)
+@echo   mingw - MinGW Makefiles
+@echo   help  - Displays this help.
 goto Exit
 
 :ExitMessage

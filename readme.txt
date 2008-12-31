@@ -72,6 +72,8 @@ Please follow the instructions below.
   'win32install.bat vc9'.
   The script will enable most of the plugins as sge packs their needed libraries
   for windows.
+  mingw has spurious concept checks on by default.
+  Please turn them off by editing c++config.h.
 
 4. Installing on Gentoo
   If you are a gentoo user you can use the ebuild provided in the repository.
