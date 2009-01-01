@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glew.hpp"
 #include "../fbo_target.hpp"
 #include "../convert_primitive.hpp"
+#include "../fbo_projection.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
@@ -53,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/math/matrix_impl.hpp>
+#include <sge/math/matrix_util.hpp>
 #include <sge/window/instance.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/bind.hpp>
@@ -65,7 +67,8 @@ sge::ogl::device::device(
 :
 	param(param),
 	wnd(wnd),
-	current_states(renderer::state::default_()),
+	current_states(
+		renderer::state::default_()),
 	state_(
 		param,
 		adapter,
@@ -73,7 +76,12 @@ sge::ogl::device::device(
 		boost::bind(
 			&device::viewport,
 			this,
-			_1))
+			_1)),
+	fbo_active(
+		false),
+	projection_(
+		math::matrix_identity<float>())
+
 {
 	initialize_glew();
 
@@ -85,6 +93,8 @@ sge::ogl::device::device(
 	
 	target(
 		default_target);
+	
+	projection_internal();
 }
 
 void sge::ogl::device::begin_rendering()
@@ -108,13 +118,6 @@ sge::ogl::device::create_index_buffer(
 			format,
 			sz,
 			flags));
-}
-
-sge::ogl::fbo_target_ptr const
-sge::ogl::device::create_target()
-{
-	return fbo_target_ptr(
-		new fbo_target());
 }
 
 sge::renderer::texture_ptr const
@@ -325,9 +328,11 @@ void sge::ogl::device::transform(
 void sge::ogl::device::projection(
 	renderer::any_matrix const &matrix)
 {
-	set_matrix(
-		GL_PROJECTION,
-		matrix);
+	projection_ = matrix;
+	projection_internal();
+//	set_matrix(
+//		GL_PROJECTION,
+//		matrix);
 }
 
 void sge::ogl::device::texture_transform(
@@ -350,11 +355,9 @@ void sge::ogl::device::target(
 						screen_size()),
 				param.mode().bit_depth()));
 		target_->bind_me();
-		window::pos_type const offset = wnd->viewport_offset();
-		viewport(
-			renderer::viewport(
-				offset,
-				wnd->size()));
+		state_.reset_viewport();
+		fbo_active = false;
+		projection_internal();
 		return;
 	}
 
@@ -373,6 +376,8 @@ void sge::ogl::device::target(
 				p->dim())));
 	
 	target_ = ftarget;
+	fbo_active = true;
+	projection_internal();
 }
 
 sge::renderer::const_target_ptr const
@@ -485,4 +490,22 @@ void sge::ogl::device::index_buffer(
 		oib = dynamic_cast<ogl::index_buffer const &>(
 			*ib);
 	oib.bind_me();
+}
+
+sge::ogl::fbo_target_ptr const
+sge::ogl::device::create_target()
+{
+	return fbo_target_ptr(
+		new fbo_target());
+}
+
+void sge::ogl::device::projection_internal()
+{
+	set_matrix(
+		GL_PROJECTION,
+		fbo_active
+		? fbo_projection(
+			projection_)
+		: projection_);
+		
 }

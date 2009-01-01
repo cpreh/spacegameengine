@@ -18,48 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
-#define SGE_OPENGL_WINDOWS_STATE_HPP_INCLUDED
+#include "../fbo_projection.hpp"
+#include <sge/math/matrix_util.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
 
-#include "../viewport_fun.hpp"
-#include "../wgl/context.hpp"
-#include "../wgl/current.hpp"
-#include <sge/windows/gdi_device.hpp>
-#include <sge/windows/window_fwd.hpp>
-#include <sge/renderer/adapter.hpp>
-#include <sge/window/instance_fwd.hpp>
-#include <boost/noncopyable.hpp>
-
-namespace sge
-{
-namespace renderer
-{
-struct parameters;
-}
-namespace ogl
-{
-namespace windows
+namespace
 {
 
-class state : boost::noncopyable {
-public:
-	state(
-		renderer::parameters const &,
-		renderer::adapter_type,
-		window::instance_ptr,
-		view_port_fun const &);
-	
-	void swap_buffers();
-	void reset_viewport();
-private:
-	sge::windows::window_ptr const wnd;
-	sge::windows::gdi_device const hdc;
-	wgl::context             const context;
-	wgl::current             const current;
+struct multiply_visitor
+: boost::static_visitor<
+	sge::renderer::any_matrix
+> {
+	template<
+		typename T
+	>
+	sge::renderer::any_matrix const
+	operator()(
+		T const &t) const;
 };
 
 }
-}
+
+sge::renderer::any_matrix const
+sge::ogl::fbo_projection(
+	renderer::any_matrix const &m)
+{
+	return boost::apply_visitor(
+		multiply_visitor(),
+		m);
 }
 
-#endif
+namespace
+{
+
+template<
+	typename T
+>
+sge::renderer::any_matrix const
+multiply_visitor::operator()(
+	T const &t) const
+{
+	typedef typename T::value_type value_type;
+	return t * sge::math::matrix_scaling<
+		value_type
+	>(
+		static_cast<value_type>(1),
+		static_cast<value_type>(-1),
+		static_cast<value_type>(1));
+}
+
+}

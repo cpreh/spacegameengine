@@ -46,6 +46,7 @@ public:
 	typedef std::size_t size_type;
 
 	SGE_SYMBOL manager();
+	SGE_SYMBOL ~manager();
 
 	template<typename T>
 	SGE_SYMBOL iterator<T> begin();

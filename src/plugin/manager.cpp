@@ -73,3 +73,6 @@ sge::plugin::manager::manager()
 				categories[static_cast<capabilities::type>(i)].push_back(&*it);
 		}
 }
+
+sge::plugin::manager::~manager()
+{}
