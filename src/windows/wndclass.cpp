@@ -52,6 +52,13 @@ sge::windows::wndclass::wndclass(
 
 sge::windows::wndclass::~wndclass()
 {
-	UnregisterWndClass(
-		class_name.c_str());
+	UnregisterClass(
+		class_name.c_str(),
+		module_handle());
+}
+
+sge::string const &
+sge::windows::wndclass::name() const
+{
+	return class_name;
 }

@@ -25,9 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/iconv.hpp>
 #include <sge/funptr_cast.hpp>
 #ifdef SGE_WINDOWS_PLATFORM
-#include <sge/windows/conv.hpp>
 #include <sge/windows/windows.hpp>
-#include <boost/array.hpp>
+#include <sge/windows/format_message.hpp>
 #elif SGE_POSIX_PLATFORM
 #include <dlfcn.h>
 #else
@@ -44,7 +43,12 @@ sge::library::library(const path& nname)
   , name_(nname)
 {
 	if(!handle)
-		throw exception(string(SGE_TEXT("failed to load library: ")) + name().string() + SGE_TEXT(" : ") + liberror());
+		throw exception(
+			string(
+				SGE_TEXT("failed to load library: "))
+				+ name().string()
+				+ SGE_TEXT(" : ")
+				+ liberror());
 }
 
 sge::library::~library()
@@ -64,7 +68,9 @@ const sge::path& sge::library::name() const
 	return name_;
 }
 
-sge::library::base_fun sge::library::load_address_base(const std::string& fun)
+sge::library::base_fun
+sge::library::load_address_base(
+	std::string const &fun)
 {
 	return funptr_cast<base_fun>(
 #ifdef SGE_WINDOWS_PLATFORM
@@ -78,26 +84,25 @@ sge::library::base_fun sge::library::load_address_base(const std::string& fun)
 sge::string sge::library::liberror()
 {
 #ifdef SGE_POSIX_PLATFORM
-	return iconv(dlerror());
+	return iconv(
+		dlerror());
 #else
-	const DWORD lasterror = GetLastError();
-	boost::array<string::value_type, 256> errmsg;
-	if(FormatMessage(
-		FORMAT_MESSAGE_FROM_SYSTEM,
-		0, // ignored
-		lasterror, // message id
-		0, // language id
-		errmsg.c_array(),
-		errmsg.size()-1,
-		0
-	) == 0)
-		return string(SGE_TEXT("FormatMessage() failed!"));
-	return string(errmsg.data());
+	return windows::format_message(
+		GetLastError());
 #endif
 }
 
-sge::library::load_function_exception::load_function_exception(const string &lib, const std::string &fun)
-: exception(SGE_TEXT("Failed to load function ") + iconv(fun) + SGE_TEXT(" from library ") + lib + SGE_TEXT(" : ") + liberror()),
-  lib(lib),
-  func(fun)
+sge::library::load_function_exception::load_function_exception(
+	string const &lib,
+	std::string const &fun)
+:
+	exception(
+		SGE_TEXT("Failed to load function ")
+		+ iconv(fun)
+		+ SGE_TEXT(" from library ")
+		+ lib
+		+ SGE_TEXT(" : ")
+		+ liberror()),
+	lib(lib),
+	func(fun)
 {}

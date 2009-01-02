@@ -19,52 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/windows/wndclass_pool.hpp>
-#include <sge/windows/wndclass.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
-#include <map>
+#ifndef SGE_WINDOWS_FORMAT_MESSAGE_HPP_INCLUDED
+#define SGE_WINDOWS_FORMAT_MESSAGE_HPP_INCLUDED
 
-// TODO: we have to somehow free the weak_ptrs
+#include "windows.hpp"
+#include "../string.hpp"
+#include "../export.hpp"
 
-namespace
+namespace sge
+{
+namespace windows
 {
 
-typedef boost::weak_ptr<
-	sge::windows::wndclass
-> wndclass_weak_ptr;
-
-typedef std::map<
-	sge::string,
-	wndclass_weak_ptr
-> wndclass_map;
-
-wndclass_map wndclasses;
+SGE_SYMBOL string const
+format_message(
+	DWORD);
 
 }
-
-sge::windows::wndclass_ptr const
-sge::windows::wndclass_pool(
-	string const &name,
-	WNDPROC const proc)
-{
-	wndclass_weak_ptr &ptr(
-		wndclasses[name]);
-	
-	{
-		wndclass_ptr const ref(
-			ptr.lock());
-		if(ref)
-			return ref;
-	}
-
-	wndclass_ptr const nref(
-		make_shared_ptr<
-			wndclass
-		>(
-			name,
-			proc));
-	ptr = nref.boost_ptr();
-
-	return nref;
 }
+
+#endif

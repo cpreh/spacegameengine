@@ -39,6 +39,8 @@ public:
 		string const &class_name,
 		WNDPROC);
 	SGE_SYMBOL ~wndclass();
+
+	SGE_SYMBOL string const &name() const;
 private:
 	string const class_name;	
 };

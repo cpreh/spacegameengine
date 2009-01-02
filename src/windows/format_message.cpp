@@ -19,52 +19,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/windows/wndclass_pool.hpp>
-#include <sge/windows/wndclass.hpp>
-#include <sge/make_shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
-#include <map>
+#include <sge/windows/format_message.hpp>
+#include <sge/windows/windows.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <boost/array.hpp>
 
-// TODO: we have to somehow free the weak_ptrs
-
-namespace
+sge::string const
+sge::windows::format_message(
+	DWORD const error)
 {
+	boost::array<
+		char_type,
+		1024
+	> errmsg;
 
-typedef boost::weak_ptr<
-	sge::windows::wndclass
-> wndclass_weak_ptr;
-
-typedef std::map<
-	sge::string,
-	wndclass_weak_ptr
-> wndclass_map;
-
-wndclass_map wndclasses;
-
-}
-
-sge::windows::wndclass_ptr const
-sge::windows::wndclass_pool(
-	string const &name,
-	WNDPROC const proc)
-{
-	wndclass_weak_ptr &ptr(
-		wndclasses[name]);
-	
-	{
-		wndclass_ptr const ref(
-			ptr.lock());
-		if(ref)
-			return ref;
-	}
-
-	wndclass_ptr const nref(
-		make_shared_ptr<
-			wndclass
-		>(
-			name,
-			proc));
-	ptr = nref.boost_ptr();
-
-	return nref;
+	if(FormatMessage(
+		FORMAT_MESSAGE_FROM_SYSTEM,
+		0, // ignored
+		error, // message id
+		0, // language id
+		errmsg.c_array(),
+		errmsg.size()-1,
+		0
+	) == 0)
+		throw exception(
+			SGE_TEXT("FormatMessage() failed!"));
+	return string(
+		errmsg.data());
 }

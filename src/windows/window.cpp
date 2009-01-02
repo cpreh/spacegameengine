@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window.hpp>
 #include <sge/windows/wndclass.hpp>
 #include <sge/windows/wndclass_pool.hpp>
+#include <sge/windows/module_handle.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -80,7 +81,7 @@ sge::windows::window::window(
 	decoration_size.bottom() = static_cast<unsigned>(r.bottom);
 
 	handle = CreateWindow(
-		wnd_class_->name().c_str(),
+		wndclass_->name().c_str(),
 		title.c_str(),
 		flags,
 		0,
@@ -121,7 +122,7 @@ void sge::windows::window::size(
 void sge::windows::window::title(
 	string const &title)
 {
-	if(SetWindowText(hwnd(),sge_str_to_win(title).c_str()) == 0)
+	if(SetWindowText(hwnd(), title.c_str()) == 0)
 		throw exception(
 			SGE_TEXT("SetWindowText() failed!"));
 }
@@ -193,8 +194,6 @@ void sge::windows::window::dispatch()
 		DispatchMessage(&msg);
 	}
 }
-
-bool sge::windows::window::wndclass_created(false);
 
 namespace
 {

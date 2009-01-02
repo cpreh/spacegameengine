@@ -65,7 +65,8 @@ public:
 
 	SGE_SYMBOL window(
 		dim_type const &sz,
-		sge::string const &title);
+		sge::string const &title,
+		sge::string const &class_name);
 	SGE_SYMBOL ~window();
 
 	SGE_SYMBOL void title(sge::string const &t);
