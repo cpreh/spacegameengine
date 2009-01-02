@@ -93,10 +93,3 @@ sge::ogl::system::create_window(
 #error "Implement me!"
 #endif
 }
-
-sge::renderer::caps_array const
-sge::ogl::system::caps() const
-{
-	renderer::caps_array v;
-	return v; // FIXME
-}
