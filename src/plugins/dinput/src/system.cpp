@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/windows/window.hpp>
-#include <sge/windows/conv.hpp>
 #include <boost/foreach.hpp>
 
 sge::dinput::system::system(
@@ -86,8 +85,7 @@ BOOL sge::dinput::system::di_enum_devices_callback(
 			ddi->dwDevType & 0xFF);
 
 	string const product_name
-		= windows::win_str_to_sge(
-			ddi->tszProductName);
+		= ddi->tszProductName;
 
 	switch(dev_type) {
 	case DI8DEVTYPE_KEYBOARD:

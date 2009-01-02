@@ -31,7 +31,7 @@ namespace window
 {
 
 struct parameters {
-	static string const default_class_name;
+	SGE_SYMBOL static string const default_class_name;
 
 	SGE_SYMBOL parameters(
 		string const &title,
