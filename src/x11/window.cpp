@@ -38,7 +38,8 @@ sge::x11::window::window(
 	int const depth,
 	bool const fullscreen_,
 	const_visual_ptr const visual_,
-	colormap_ptr const colormap_)
+	colormap_ptr const colormap_,
+	string const &class_name)
 :
 	dsp(dsp),
 	visual_(visual_),
@@ -47,11 +48,15 @@ sge::x11::window::window(
 	wnd(0),
 	fullscreen_(fullscreen_),
 	event_mask(0),
-	hints_(), size_hints_(
+	hints_(),
+	size_hints_(
 		sz.w(),
 		sz.h(),
 		sz.w(),
-		sz.h())
+		sz.h()),
+	class_hint_(
+		t,
+		class_name)
 {
 	SGE_X11_SENTRY
 
@@ -80,6 +85,7 @@ sge::x11::window::window(
 
 	hints();
 	set_size_hints();
+	set_class_hint();
 	title(t);
 }
 
@@ -264,4 +270,14 @@ void sge::x11::window::set_size_hints()
 		dsp_(),
 		get(),
 		size_hints_.get());
+}
+
+void sge::x11::window::set_class_hint()
+{
+	SGE_X11_SENTRY
+
+	XSetClassHint(
+		dsp_(),
+		get(),
+		class_hint_.get());
 }

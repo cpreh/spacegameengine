@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "window_fwd.hpp"
 #include "windows.hpp"
+#include "wndclass_fwd.hpp"
 #include "../string.hpp"
 #include "../window/instance.hpp"
 #include "../export.hpp"
@@ -64,13 +65,13 @@ public:
 
 	SGE_SYMBOL window(
 		dim_type const &sz,
-		string const &title);
+		sge::string const &title);
 	SGE_SYMBOL ~window();
 
-	SGE_SYMBOL void title(string const &t);
+	SGE_SYMBOL void title(sge::string const &t);
 	SGE_SYMBOL void size(dim_type const &newsize);
 	SGE_SYMBOL window::dim_type const size() const;
-	SGE_SYMBOL string const title() const;
+	SGE_SYMBOL sge::string const title() const;
 	SGE_SYMBOL HWND hwnd() const;
 	SGE_SYMBOL signals::connection
 	register_callback(
@@ -85,10 +86,14 @@ public:
 
 	SGE_SYMBOL void dispatch();
 private:
-	typedef math::rect<unsigned> decoration_rect;
+	wndclass_ptr const wndclass_;
+
+	typedef math::rect<
+		unsigned
+	> decoration_rect;
+
 	decoration_rect decoration_size;
 	HWND        handle;
-	static bool wndclass_created;
 
 	typedef boost::ptr_map<
 		event_type,

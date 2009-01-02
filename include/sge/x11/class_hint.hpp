@@ -18,18 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/windows/conv.hpp>
+#ifndef SGE_X11_CLASS_HINT_HPP_INCLUDED
+#define SGE_X11_CLASS_HINT_HPP_INCLUDED
 
-sge::windows::string const
-sge::windows::sge_str_to_win(
-	sge::string const &in)
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include "../export.hpp"
+#include "../string.hpp"
+#include "../noncopyable.hpp"
+#include "../scoped_ptr.hpp"
+
+namespace sge
 {
-	return in;
+namespace x11
+{
+
+class class_hint {
+	SGE_NONCOPYABLE(class_hint)
+public:
+	SGE_SYMBOL class_hint(
+		string const &app_name,
+		string const &class_name);
+	SGE_SYMBOL ~class_hint();
+	SGE_SYMBOL XClassHint *get() const;
+private:
+	struct impl;
+
+	scoped_ptr<impl> impl_;
+	std::string const app_name,
+	                  res_name;
+};
+
+}
 }
 
-sge::string const
-sge::windows::win_str_to_sge(
-	string const &in)
-{
-	return in;
-}
+#endif

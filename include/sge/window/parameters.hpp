@@ -31,15 +31,20 @@ namespace window
 {
 
 struct parameters {
+	static string const default_class_name;
+
 	SGE_SYMBOL parameters(
 		string const &title,
-		renderer::parameters const &);
+		renderer::parameters const &,
+		string const &class_name = default_class_name);
 	
 	SGE_SYMBOL string const &title() const;
 	SGE_SYMBOL renderer::parameters const &param() const;
+	SGE_SYMBOL string const &class_name() const;
 private:
 	string title_;
 	renderer::parameters param_;
+	string class_name_;
 };
 
 }

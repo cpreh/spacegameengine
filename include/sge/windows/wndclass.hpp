@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,36 +19,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window/parameters.hpp>
+#ifndef SGE_WINDOWS_WNDCLASS_HPP_INCLUDED
+#define SGE_WINDOWS_WNDCLASS_HPP_INCLUDED
 
-sge::string const
-sge::window::parameters::default_class_name(
-	SGE_TEXT("sgeclass"));
+#include "windows.hpp"
+#include "../noncopyable.hpp"
+#include "../string.hpp"
+#include "../export.hpp"
 
-sge::window::parameters::parameters(
-	string const &title_,
-	renderer::parameters const &param_,
-	string const &class_name_)
-:
-	title_(title_),
-	param_(param_),
-	class_name_(class_name_)
-{}
-
-sge::string const &
-sge::window::parameters::title() const
+namespace sge
 {
-	return title_;
+namespace windows
+{
+
+class wndclass {
+	SGE_NONCOPYABLE(wndclass)
+public:
+	SGE_SYMBOL wndclass(
+		string const &class_name,
+		WNDPROC);
+	SGE_SYMBOL ~wndclass();
+private:
+	string const class_name;	
+};
+
+}
 }
 
-sge::renderer::parameters const &
-sge::window::parameters::param() const
-{
-	return param_;
-}
-
-sge::string const &
-sge::window::parameters::class_name() const
-{
-	return class_name_;
-}
+#endif

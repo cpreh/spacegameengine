@@ -1,6 +1,7 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -18,29 +19,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOWS_CONV_HPP_INCLUDED
-#define SGE_WINDOWS_CONV_HPP_INCLUDED
+#include <sge/windows/wndclass_pool.hpp>
+#include <sge/windows/wndclass.hpp>
+#include <sge/make_shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
+#include <map>
 
-#include <string>
-#include <sstream>
-#include "../string.hpp"
-#include "../export.hpp"
-#include "windows.hpp"
+// TODO: we have to somehow free the weak_ptrs
 
-namespace sge
-{
-namespace windows
+namespace
 {
 
-typedef std::basic_string<TCHAR> string;
-typedef std::basic_stringstream<TCHAR> stringstream;
-typedef std::basic_ostringstream<TCHAR> ostringstream;
-typedef std::basic_istringstream<TCHAR> istringstream;
+typedef std::map<
+	sge::string,
+	boost::weak_ptr<
+		sge::windows::wndclass
+	>
+> wndclass_map;
 
-SGE_SYMBOL string const sge_str_to_win(sge::string const &);
-SGE_SYMBOL sge::string const win_str_to_sge(string const &);
+wndclass_map wndclasses;
 
 }
-}
 
-#endif
+wndclass_ptr const
+wndclass_pool(
+	string const &name,
+	WNDPROC const proc)
+{
+	boost::weak_ptr &ptr(
+		wndclasses[name]);
+	
+	{
+		wndclass_ptr const ref(
+			ptr.lock());
+		if(ref)
+			return ref;
+	}
+
+	wndclass_ptr const nref(
+		make_shared_ptr<
+			wndclass
+		>(
+			name,
+			proc));
+	ptr = nref.boost_ptr();
+
+	return nref;
+}

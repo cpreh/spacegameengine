@@ -18,36 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window/parameters.hpp>
+#include <sge/windows/module_handle.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-sge::string const
-sge::window::parameters::default_class_name(
-	SGE_TEXT("sgeclass"));
-
-sge::window::parameters::parameters(
-	string const &title_,
-	renderer::parameters const &param_,
-	string const &class_name_)
-:
-	title_(title_),
-	param_(param_),
-	class_name_(class_name_)
-{}
-
-sge::string const &
-sge::window::parameters::title() const
+HINSTANCE
+sge::windows::module_handle()
 {
-	return title_;
+	HINSTANCE const instance = GetModuleHandle(0);
+	if(!instance)
+		throw exception(
+			SGE_TEXT("GetModuleHandle() failed!"));
+	return instance;
 }
 
-sge::renderer::parameters const &
-sge::window::parameters::param() const
-{
-	return param_;
-}
-
-sge::string const &
-sge::window::parameters::class_name() const
-{
-	return class_name_;
-}

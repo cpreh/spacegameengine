@@ -18,36 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window/parameters.hpp>
+#ifndef SGE_WINDOWS_MODULE_HANDLE_HPP_INCLUDED
+#define SGE_WINDOWS_MODULE_HANDLE_HPP_INCLUDED
 
-sge::string const
-sge::window::parameters::default_class_name(
-	SGE_TEXT("sgeclass"));
+#include "windows.hpp"
 
-sge::window::parameters::parameters(
-	string const &title_,
-	renderer::parameters const &param_,
-	string const &class_name_)
-:
-	title_(title_),
-	param_(param_),
-	class_name_(class_name_)
-{}
-
-sge::string const &
-sge::window::parameters::title() const
+namespace sge
 {
-	return title_;
+namespace windows
+{
+
+HINSTANCE module_handle();
+
+}
 }
 
-sge::renderer::parameters const &
-sge::window::parameters::param() const
-{
-	return param_;
-}
-
-sge::string const &
-sge::window::parameters::class_name() const
-{
-	return class_name_;
-}
+#endif
