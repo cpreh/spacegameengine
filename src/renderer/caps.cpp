@@ -24,13 +24,13 @@ sge::renderer::caps::caps(
 	adapter_type const adapter_,
 	string const &driver_name_,
 	string const &description_,
-	size_type const max_texture_edge_size_,
+	dim_type const &max_texture_size_,
 	anisotropy_type const max_anisotropy_)
 :
 	adapter_(adapter_),
 	driver_name_(driver_name_),
 	description_(description_),
-	max_texture_edge_size_(max_texture_edge_size_),
+	max_texture_size_(max_texture_size_),
 	max_anisotropy_(max_anisotropy_)
 {}
 
@@ -52,10 +52,10 @@ sge::renderer::caps::description() const
 	return description_;
 }
 
-sge::renderer::size_type
-sge::renderer::caps::max_texture_edge_size() const
+sge::renderer::dim_type const &
+sge::renderer::caps::max_texture_size() const
 {
-	return max_texture_edge_size_;
+	return max_texture_size_;
 }
 
 sge::renderer::anisotropy_type

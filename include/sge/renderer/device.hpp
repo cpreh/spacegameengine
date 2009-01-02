@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_stage.hpp"
 #include "stage_type.hpp"
 #include "size_type.hpp"
-#include "dim_types.hpp"
+#include "dim_type.hpp"
 #include "screen_types.hpp"
 #include "resource_flags.hpp"
 #include "index_view_fwd.hpp"

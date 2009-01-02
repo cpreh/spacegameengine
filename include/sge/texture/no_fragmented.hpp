@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "fragmented.hpp"
 #include "part_fwd.hpp"
 #include "../renderer/device_fwd.hpp"
-#include "../renderer/dim_types.hpp"
+#include "../renderer/dim_type.hpp"
 #include "../renderer/texture_filter.hpp"
 #include "../renderer/color_format.hpp"
 #include "../export.hpp"
@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-
 namespace texture
 {
 

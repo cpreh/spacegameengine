@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_SUBIMAGE_VIEW_HPP_INCLUDED
 
 #include "image_view.hpp"
-#include "dim_types.hpp"
+#include "lock_rect.hpp"
 #include "../export.hpp"
 
 namespace sge

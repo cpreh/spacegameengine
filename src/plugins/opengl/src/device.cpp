@@ -190,7 +190,9 @@ sge::ogl::device::caps() const
 		0,
 		SGE_TEXT("fixme"),
 		SGE_TEXT("fixme"),
-		1024,
+		renderer::dim_type(
+			1024,
+			1024),
 		0); // FIXME
 }
 

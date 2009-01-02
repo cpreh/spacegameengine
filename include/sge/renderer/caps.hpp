@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "adapter.hpp"
 #include "anisotropy_type.hpp"
-#include "size_type.hpp"
+#include "dim_type.hpp"
 #include "../export.hpp"
 #include "../string.hpp"
 
@@ -37,19 +37,19 @@ struct caps {
 		adapter_type adapter_,
 		string const &driver_name,
 		string const &description,
-		size_type max_texure_edge_size,
+		dim_type const &max_texure_size,
 		anisotropy_type max_anisotropy_);
 		
 	SGE_SYMBOL adapter_type adapter() const;
 	SGE_SYMBOL string const &driver_name() const;
 	SGE_SYMBOL string const &description() const;
-	SGE_SYMBOL size_type max_texture_edge_size() const;
+	SGE_SYMBOL dim_type const &max_texture_size() const;
 	SGE_SYMBOL anisotropy_type max_anisotropy() const; 
 private:
 	adapter_type       adapter_;
 	string             driver_name_;
 	string             description_;
-	size_type          max_texture_edge_size_;
+	dim_type           max_texture_size_;
 	anisotropy_type    max_anisotropy_;
 };
 

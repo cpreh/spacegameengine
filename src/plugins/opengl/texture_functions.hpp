@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_FUNCTIONS_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/renderer/dim_types.hpp>
+#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/lock_rect.hpp>
 
 namespace sge
 {

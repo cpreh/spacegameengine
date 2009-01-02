@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "animation_series_fwd.hpp"
 #include "animation_entity.hpp"
-#include "../renderer/dim_types.hpp"
+#include "../renderer/dim_type.hpp"
 #include "../export.hpp"
 #include <vector>
 

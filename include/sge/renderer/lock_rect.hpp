@@ -18,40 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
-#define SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
+#ifndef SGE_RENDERER_LOCK_RECT_HPP_INCLUDED
+#define SGE_RENDERER_LOCK_RECT_HPP_INCLUDED
 
-#include "dim_type.hpp"
-#include "lock_rect.hpp"
-#include "../math/rect.hpp"
-#include "../math/dim.hpp"
+#include "size_type.hpp"
+#include "../math/rect_decl.hpp"
 
 namespace sge
 {
 namespace renderer
 {
 
-template<
-	typename T
->
-math::rect<T> const
-lock_rect_to_coords(
-	lock_rect const &l,
-	dim_type const &dim,
-	T const repeat)
-{
-	math::rect<T> const srect(
-		math::structure_cast<T>(l));
-	
-	math::dim<T, 2> const sdim(
-		math::structure_cast<T>(dim));
-
-	return math::rect<T>(
-		srect.left() / sdim.w(),
-		srect.top() / sdim.h(),
-		repeat * srect.right() / sdim.w(),
-		repeat * srect.bottom() / sdim.h());
-}
+typedef math::rect<size_type> lock_rect;
 
 }
 }
