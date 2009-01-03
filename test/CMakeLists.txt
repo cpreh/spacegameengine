@@ -1,10 +1,6 @@
 ADD_EXECUTABLE (sgetest test.cpp)
 TARGET_LINK_LIBRARIES (sgetest sgecore)
 
-IF (NOT MSVC)
-	TARGET_LINK_LIBRARIES (sgetest boost_signals)
-ENDIF ()
-
 INSTALL (TARGETS sgetest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 ADD_EXECUTABLE (tutorial_01 tutorial/tutorial_01.cpp)
@@ -33,9 +29,9 @@ ADD_SGE_TEST(target)
 ADD_SGE_TEST(vertex)
 
 # TODO: this should be part of the macro
-IF (NOT MSVC)
-	TARGET_LINK_LIBRARIES (sgesoundtest boost_program_options)
-ENDIF ()
+#IF (NOT MSVC)
+#	TARGET_LINK_LIBRARIES (sgesoundtest ${Boost_program_options_LIBRARIES})
+#ENDIF ()
 
 IF (${ENABLE_GUI})
 	ADD_SGE_TEST(gui)

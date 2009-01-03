@@ -143,6 +143,7 @@ CHECK_CXX_SOURCE_COMPILES(
 
 FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	filesystem
+	program_options
 	signals
 	system)
 
