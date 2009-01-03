@@ -18,16 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/filesystem/next_file.hpp>
+#include <sge/filesystem/first_file.hpp>
 #include <sge/filesystem/skip_directories.hpp>
-#include <sge/filesystem/is_regular.hpp>
 
 sge::filesystem::directory_iterator const
-sge::filesystem::next_file(
-	directory_iterator it)
+sge::filesystem::first_file(
+	path const &p)
 {
-	if(it != directory_iterator() && filesystem::is_regular(*it))
-		++it;
-	
-	return skip_directories(it);
+	return skip_directories(
+		directory_iterator(p));
 }
