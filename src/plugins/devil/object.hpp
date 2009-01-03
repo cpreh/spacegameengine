@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DEVIL_OBJECT_HPP_INCLUDED
 
 #include "image_impl.hpp"
-#include <sge/path.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/image/object.hpp>
 #include <sge/image/format.hpp>
 
@@ -34,7 +34,7 @@ namespace devil
 class object : public image::object {
 public:
 	explicit object(
-		path const &);
+		filesystem::path const &);
 	/*object(
 		image::format::type type,
 		const_pointer format_data,
@@ -46,7 +46,7 @@ public:
 		renderer::const_image_view const &);
 	const dim_type dim() const;
 	void resample(dim_type const &);
-	void save(path const &);
+	void save(filesystem::path const &);
 private:
 	void bind_me() const;
 	image_impl impl;

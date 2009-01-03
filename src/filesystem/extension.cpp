@@ -18,66 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_SINGLETON_HPP_INCLUDED
-#define SGE_CON_SINGLETON_HPP_INCLUDED
+#include <sge/filesystem/extension.hpp>
+#include <boost/filesystem/convenience.hpp>
 
-#include "types.hpp"
-#include "../filesystem/path.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
-
-namespace sge
+sge::string const
+sge::filesystem::extension(
+	path const &p)
 {
-namespace con
-{
-
-struct singleton {
-	typedef std::map<
-		string,
-		string
-	> config_map;
-
-	var_map vars;
-	callback_map funcs;
-	config_map config_vars;
-	callback chat;
-	string::value_type prefix;
-
-	singleton();
-
-	void add(
-		string const &,
-		var_base &);
-
-	void add(
-		string const &,
-		callback const &);
-
-	void erase(
-		string const &);
-
-	void eval(
-		string const &);
-
-	void read_config(
-		filesystem::path const &);
-
-	string const
-	var(
-		string const &);
-
-	void var(
-		string const &,
-		string const &);
-
-	void latch(
-		string const &,
-		string const &);
-};
-
-singleton &instance();
-
+	return boost::filesystem::extension(p);
 }
-}
-
-#endif

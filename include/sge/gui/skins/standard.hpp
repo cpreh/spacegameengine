@@ -20,7 +20,7 @@ class standard : public skin
 	SGE_SYMBOL void draw(widgets::edit const &,events::invalid_area const &);
 	SGE_SYMBOL dim const size_hint(widgets::button const &) const;
 	//SGE_SYMBOL dim const size_hint(widgets::edit const &);
-	SGE_SYMBOL path const cursor_path() const;
+	SGE_SYMBOL filesystem::path const cursor_path() const;
 	private:
 	color bgcolor,bgcolor_focused;
 };

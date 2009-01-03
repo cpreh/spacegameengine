@@ -105,3 +105,6 @@ sge::gui::dim const sge::gui::skin::default_hint_handler(widget const &) const
 {
 	throw exception(SGE_TEXT("tried to hint a widget whose type is not drawable"));
 }
+	
+sge::gui::skin::~skin()
+{}

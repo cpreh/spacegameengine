@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "capabilities.hpp"
 #include "../export.hpp"
 #include "../string.hpp"
-#include "../path.hpp"
+#include "../filesystem/path.hpp"
 #include <boost/weak_ptr.hpp>
 
 namespace sge
@@ -38,17 +38,17 @@ template<typename T> class context;
 class context_base {
 public:
 	SGE_SYMBOL explicit context_base(
-		sge::path const &p);
+		filesystem::path const &p);
 
 	SGE_SYMBOL string const &name() const;
 	SGE_SYMBOL string const &description() const;
 	SGE_SYMBOL unsigned version() const;
 	SGE_SYMBOL capabilities::type type() const;
-	SGE_SYMBOL sge::path const &path() const;
+	SGE_SYMBOL filesystem::path const &path() const;
 private:
 	template<typename T> friend class context;
 	boost::weak_ptr<base> ref;
-	sge::path          path_;
+	filesystem::path   path_;
 	string             name_;
 	string             description_;
 	unsigned           version_;

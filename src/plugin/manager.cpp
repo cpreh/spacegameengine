@@ -23,11 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_base.hpp>
 #include <sge/library.hpp>
 #include <sge/iconv.hpp>
-#include <sge/path.hpp>
+#include <sge/filesystem/directory_iterator.hpp>
+#include <sge/filesystem/is_directory.hpp>
+#include <sge/filesystem/extension.hpp>
 #include <sge/text.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/convenience.hpp>
-#include <boost/filesystem/operations.hpp>
 
 const char* const plugin_path =
 #ifndef _MSC_VER
@@ -48,10 +47,10 @@ const sge::string::const_pointer plugin_extension =
 
 sge::plugin::manager::manager()
 {
-	const directory_iterator end;
-	for(directory_iterator it(iconv(plugin_path)); it != end; ++it)
+	filesystem::directory_iterator const end;
+	for(filesystem::directory_iterator it(iconv(plugin_path)); it != end; ++it)
 	{
-		if(boost::filesystem::is_directory(*it) || boost::filesystem::extension(*it)!=plugin_extension)
+		if(filesystem::is_directory(*it) || filesystem::extension(*it) != plugin_extension)
 			continue;
 
 		try {

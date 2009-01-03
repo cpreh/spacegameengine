@@ -33,14 +33,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #error "Implement me!"
 #endif
 
-sge::library::library(const path& nname)
- :
+namespace
+{
+
+sge::string const liberror();
+
+}
+
+sge::library::library(
+	filesystem::path const &nname)
+:
 #ifdef SGE_WINDOWS_PLATFORM
-  handle(reinterpret_cast<void*>(LoadLibrary(nname.string().c_str())))
+	handle(reinterpret_cast<void*>(LoadLibrary(nname.string().c_str())))
 #elif SGE_POSIX_PLATFORM
-   handle(dlopen(iconv(nname.string()).c_str(), RTLD_NOW | RTLD_GLOBAL))
+	handle(dlopen(iconv(nname.string()).c_str(), RTLD_NOW | RTLD_GLOBAL))
 #endif
-  , name_(nname)
+	, name_(nname)
 {
 	if(!handle)
 		throw exception(
@@ -63,7 +71,8 @@ sge::library::~library()
 	}
 }
 
-const sge::path& sge::library::name() const
+sge::filesystem::path const &
+sge::library::name() const
 {
 	return name_;
 }
@@ -81,17 +90,6 @@ sge::library::load_address_base(
 	);
 }
 
-sge::string sge::library::liberror()
-{
-#ifdef SGE_POSIX_PLATFORM
-	return iconv(
-		dlerror());
-#else
-	return windows::format_message(
-		GetLastError());
-#endif
-}
-
 sge::library::load_function_exception::load_function_exception(
 	string const &lib,
 	std::string const &fun)
@@ -106,3 +104,20 @@ sge::library::load_function_exception::load_function_exception(
 	lib(lib),
 	func(fun)
 {}
+
+namespace
+{
+
+sge::string const
+liberror()
+{
+#ifdef SGE_POSIX_PLATFORM
+	return sge::iconv(
+		dlerror());
+#else
+	return sge::windows::format_message(
+		GetLastError());
+#endif
+}
+
+}

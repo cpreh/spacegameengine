@@ -2,7 +2,7 @@
 #define SGE_VORBIS_FILE_HPP_INCLUDED
 
 #include <sge/audio/file.hpp>
-#include <sge/path.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/file.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <vorbis/vorbisfile.h>
@@ -19,13 +19,14 @@ class file : public audio::file
 	typedef audio::channel_type channel_type;
 	typedef audio::sample_container sample_container;
 
-	file(path const &);
+	explicit file(
+		filesystem::path const &);
 	sample_count read(sample_count samples, sample_container &);
 	sample_count read_all(sample_container &);
 
-	channel_type channels() const { return channels_; }
-	sample_count sample_rate() const { return sample_rate_; }
-	sample_count bits_per_sample() const { return static_cast<sample_count>(16); }
+	channel_type channels() const;
+	sample_count sample_rate() const;
+	sample_count bits_per_sample() const;
 	void reset();
 
 	~file();

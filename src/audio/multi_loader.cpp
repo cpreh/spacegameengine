@@ -4,6 +4,7 @@
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
+#include <sge/filesystem/exists.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 
@@ -22,9 +23,9 @@ sge::audio::multi_loader::~multi_loader()
 
 sge::audio::file_ptr const
 sge::audio::multi_loader::load(
-	path const &file)
+	filesystem::path const &file)
 {
-	if (!boost::filesystem::exists(file))
+	if (!filesystem::exists(file))
 		throw exception(
 			SGE_TEXT("file \"")
 			+ file.string()

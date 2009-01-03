@@ -38,7 +38,7 @@ sge::image::create_texture(
 
 sge::renderer::texture_ptr const
 sge::image::create_texture(
-	path const &file,
+	filesystem::path const &file,
 	renderer::device_ptr const r,
 	loader_ptr const p,
 	renderer::texture_filter const &filter,

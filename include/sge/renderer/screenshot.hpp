@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "device_fwd.hpp"
 #include "../image/loader_fwd.hpp"
-#include "../path.hpp"
+#include "../filesystem/path.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -34,7 +34,7 @@ namespace renderer
 SGE_SYMBOL void screenshot(
 	const_device_ptr rend,
 	image::loader_ptr il,
-	path const &);
+	filesystem::path const &);
 
 }
 }

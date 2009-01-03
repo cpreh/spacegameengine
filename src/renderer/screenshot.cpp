@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void sge::renderer::screenshot(
 	const_device_ptr const rend,
 	image::loader_ptr const il,
-	path const &file)
+	filesystem::path const &file)
 {
 	il->create(
 		const_scoped_target_lock(

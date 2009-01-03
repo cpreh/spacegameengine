@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../shared_ptr.hpp"
 #include "../library.hpp"
 #include "../export.hpp"
-#include "../path.hpp"
+#include "../filesystem/path.hpp"
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -41,7 +41,7 @@ public:
 	typedef shared_ptr<plugin<T> > ptr_type;
 
 	SGE_SYMBOL explicit plugin(
-		path const &);
+		filesystem::path const &);
 	SGE_SYMBOL loader_fun get() const;
 private:
 	library lib;

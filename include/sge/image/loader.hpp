@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_LOADER_HPP_INCLUDED
 #define SGE_IMAGE_LOADER_HPP_INCLUDED
 
-#include "../path.hpp"
+#include "../filesystem/path.hpp"
 #include "../export.hpp"
 #include "../renderer/image_view.hpp"
 #include "object_fwd.hpp"
@@ -37,7 +37,7 @@ class SGE_CLASS_SYMBOL loader : boost::noncopyable {
 public:
 	virtual const object_ptr
 	load(
-		path const &) = 0;
+		filesystem::path const &) = 0;
 
 	/*virtual object_ptr const
 	load(

@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VORBIS_LOADER_HPP_INCLUDED
 #define SGE_VORBIS_LOADER_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
-#include <sge/path.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/audio/loader.hpp>
-#include <sge/audio/file.hpp>
+#include <sge/audio/file_fwd.hpp>
 
 namespace sge
 {
@@ -34,8 +33,12 @@ namespace vorbis
 class loader : public audio::loader
 {
 public:
-	const audio::file_ptr load(const path &);
-	bool is_valid_file(const path &) const;
+	audio::file_ptr const
+	load(
+		filesystem::path const &);
+	
+	bool is_valid_file(
+		filesystem::path const &) const;
 };
 
 }

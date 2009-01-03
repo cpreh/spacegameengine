@@ -22,9 +22,11 @@ void move(S &container,T it,T const end,U dest)
 }
 }
 
-sge::mad::mpeg_file::mpeg_file(path const &p)
-	: stdstream(p),
-	  s(stdstream)
+sge::mad::mpeg_file::mpeg_file(
+	filesystem::path const &p)
+:
+	stdstream(p),
+	s(stdstream)
 {
 	if (!stdstream.is_open())
 		throw audio::exception(

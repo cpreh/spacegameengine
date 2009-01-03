@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "file.hpp"
 #include "../string.hpp"
-#include "../path.hpp"
+#include "../filesystem/path.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -36,9 +36,9 @@ class SGE_CLASS_SYMBOL loader : boost::noncopyable {
 public:
 	virtual file_ptr const
 	load(
-		path const &file) = 0;
+		filesystem::path const &file) = 0;
 	virtual bool is_valid_file(
-		path const &file) const = 0;
+		filesystem::path const &file) const = 0;
 	SGE_SYMBOL virtual ~loader();
 };
 

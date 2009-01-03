@@ -4,6 +4,7 @@ FILE (GLOB sgecorefiles
 	audio/*.cpp
 	console/*.cpp
 	container/*.cpp
+	filesystem/*.cpp
 	font/*.cpp
 	image/*.cpp
 	input/*.cpp

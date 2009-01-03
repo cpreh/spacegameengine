@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CON_CONSOLE_HPP_INCLUDED
 
 #include "types.hpp"
+#include "../filesystem/path.hpp"
 #include "../string.hpp"
-#include "../path.hpp"
 #include "../export.hpp"
 
 namespace sge
@@ -47,7 +47,7 @@ SGE_SYMBOL void chat_callback(
 	callback const &);
 
 SGE_SYMBOL void read_config(
-	path const &);
+	filesystem::path const &);
 
 SGE_SYMBOL var_map const &
 vars();

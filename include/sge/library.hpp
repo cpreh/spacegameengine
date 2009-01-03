@@ -21,34 +21,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBRARY_HPP_INCLUDED
 #define SGE_LIBRARY_HPP_INCLUDED
 
-#include <string>
-#include <boost/noncopyable.hpp>
 #include "exception.hpp"
 #include "export.hpp"
-#include "path.hpp"
+#include "noncopyable.hpp"
+#include "filesystem/path.hpp"
+#include <string>
 
 namespace sge
 {
 
-class library : boost::noncopyable {
+class library {
+	SGE_NONCOPYABLE(library)
 private:
 	void* handle;
 public:
 	SGE_SYMBOL explicit library(
-		path const &);
+		filesystem::path const &);
 	SGE_SYMBOL ~library();
 
 	template<typename Fun>
-	Fun load_function(const std::string& fun);
+	Fun load_function(
+		std::string const &fun);
 
-	SGE_SYMBOL const path& name() const;
+	SGE_SYMBOL filesystem::path const &
+	name() const;
 private:
 	typedef void*(*base_fun)();
-	SGE_SYMBOL base_fun load_address_base(const std::string& fun);
+	SGE_SYMBOL base_fun
+	load_address_base(
+		std::string const &fun);
 
-	static string liberror();
-
-	path name_;
+	filesystem::path const name_;
 public:
 	struct load_function_exception : public exception {
 		string lib;
