@@ -18,28 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
+#ifndef SGE_PLUGIN_VERSION_FUN_HPP_INCLUDED
+#define SGE_PLUGIN_VERSION_FUN_HPP_INCLUDED
 
-#include "../plugin.hpp"
-#include "../traits.hpp"
-#include "../../library/object_impl.hpp"
+#include "../../library/function_string.hpp"
 
-template<typename T>
-sge::plugin::plugin<T>::plugin(
-	filesystem::path const &p)
-:
-	lib(p),
-	loader(
-		lib.load_function<loader_fun>(
-			detail::traits<T>::plugin_loader_name()))
-{}
-
-template<typename T>
-typename sge::plugin::plugin<T>::loader_fun
-sge::plugin::plugin<T>::get() const
+namespace sge
 {
-	return loader;
+namespace plugin
+{
+
+extern library::function_string const
+version_fun;
+
+}
 }
 
 #endif

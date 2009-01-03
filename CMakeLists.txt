@@ -26,7 +26,13 @@ INCLUDE (FindPkgConfig)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 
-OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" OFF)
+IF (MSVC)
+	SET (DEFAULT_NARROW_STRING OFF)
+ELSE ()
+	SET (DEFAULT_NARROW_STRING ON)
+ENDIF ()
+
+OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" DEFAULT_NARROW_STRING)
 
 IF (ENABLE_NARROW_STRING)
 	SET (SGE_NARROW_STRING true)
@@ -241,6 +247,7 @@ INSTALL_HEADERS (sge/filesystem/detail)
 INSTALL_HEADERS (sge/font)
 INSTALL_HEADERS (sge/image)
 INSTALL_HEADERS (sge/input)
+INSTALL_HEADERS (sge/library)
 INSTALL_HEADERS (sge/log)
 INSTALL_HEADERS (sge/log/format)
 INSTALL_HEADERS (sge/mainloop)

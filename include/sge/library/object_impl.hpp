@@ -18,50 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBRARY_HPP_INCLUDED
-#define SGE_LIBRARY_HPP_INCLUDED
+#ifndef SGE_LIBRARY_OBJECT_IMPL_HPP_INCLDUED
+#define SGE_LIBRARY_OBJECT_IMPL_HPP_INCLDUED
 
-#include "exception.hpp"
-#include "export.hpp"
-#include "noncopyable.hpp"
-#include "filesystem/path.hpp"
-#include <string>
+#include "object.hpp"
+#include "function_not_found.hpp"
 
-namespace sge
+template<
+	typename Fun
+>
+Fun sge::library::object::load_function(
+	function_string const &fun)
 {
-
-class library {
-	SGE_NONCOPYABLE(library)
-private:
-	void* handle;
-public:
-	SGE_SYMBOL explicit library(
-		filesystem::path const &);
-	SGE_SYMBOL ~library();
-
-	template<typename Fun>
-	Fun load_function(
-		std::string const &fun);
-
-	SGE_SYMBOL filesystem::path const &
-	name() const;
-private:
-	typedef void*(*base_fun)();
-	SGE_SYMBOL base_fun
-	load_address_base(
-		std::string const &fun);
-
-	filesystem::path const name_;
-public:
-	struct load_function_exception : public exception {
-		string lib;
-		std::string func;
-		SGE_SYMBOL load_function_exception(
-			const string &lib,
-			const std::string &fun);
-	};
-};
-
+	Fun const ptr = reinterpret_cast<Fun>(load_address_base(fun));
+	if(!ptr)
+		throw function_not_found(name().string(), fun);
+	return ptr;
 }
 
 #endif

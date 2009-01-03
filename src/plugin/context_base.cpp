@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/library_impl.hpp>
+#include <sge/plugin/detail/version_fun.hpp>
+#include <sge/library/object_impl.hpp>
 
 sge::plugin::context_base::context_base(
 	filesystem::path const &path_)
@@ -29,8 +30,8 @@ sge::plugin::context_base::context_base(
 {
 	typedef void (*version_function)(sge::plugin::info*);
 
-	library lib(path());
-	version_function vf = lib.load_function<version_function>("plugin_version_info");
+	library::object lib(path());
+	version_function vf = lib.load_function<version_function>(version_fun);
 	info info_;
 	vf(&info_);
 	name_ = info_.name;

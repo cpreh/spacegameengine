@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
 
-#include "../plugin.hpp"
-#include "../traits.hpp"
-#include "../../library/object_impl.hpp"
-
-template<typename T>
-sge::plugin::plugin<T>::plugin(
-	filesystem::path const &p)
-:
-	lib(p),
-	loader(
-		lib.load_function<loader_fun>(
-			detail::traits<T>::plugin_loader_name()))
-{}
-
-template<typename T>
-typename sge::plugin::plugin<T>::loader_fun
-sge::plugin::plugin<T>::get() const
-{
-	return loader;
-}
-
+#include <sge/config.h>
+#include <sge/library/error.hpp>
+#ifdef SGE_WINDOWS_PLATFORM
+#include <sge/windows/windows.hpp>
+#include <sge/windows/format_message.hpp>
+#elif SGE_POSIX_PLATFORM
+#include <sge/iconv.hpp>
+#include <dlfcn.h>
+#else
+#error "Implement me!"
 #endif
+
+sge::string const
+sge::library::error()
+{
+#ifdef SGE_POSIX_PLATFORM
+	return sge::iconv(
+		dlerror());
+#else
+	return sge::windows::format_message(
+		GetLastError());
+#endif
+}

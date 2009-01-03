@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config.h>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context_base.hpp>
-#include <sge/library.hpp>
+#include <sge/plugin/detail/version_fun.hpp>
+#include <sge/library/function_not_found.hpp>
 #include <sge/iconv.hpp>
 #include <sge/filesystem/directory_iterator.hpp>
 #include <sge/filesystem/is_directory.hpp>
@@ -56,11 +57,12 @@ sge::plugin::manager::manager()
 		try {
 			plugins.push_back(context_base(*it));
 		} catch(
-			library::load_function_exception const &e) {
+			library::function_not_found const &e) {
 			// ignore info loading error - it's just a DLL, not a plugin...
 			// nothing to worry about (and especially nothing that justifies
 			// aborting the program ...)
-			if (e.func != "plugin_version_info") throw;
+			if (e.func() != version_fun)
+				throw;
 		}
 	}
 

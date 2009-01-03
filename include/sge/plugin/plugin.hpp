@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "traits.hpp"
 #include "base.hpp"
 #include "../shared_ptr.hpp"
-#include "../library.hpp"
 #include "../export.hpp"
+#include "../library/object.hpp"
 #include "../filesystem/path.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -44,7 +44,7 @@ public:
 		filesystem::path const &);
 	SGE_SYMBOL loader_fun get() const;
 private:
-	library lib;
+	library::object lib;
 	loader_fun const loader;
 };
 

@@ -18,28 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
-#define SGE_PLUGIN_PLUGIN_IMPL_HPP_INCLUDED
+#ifndef SGE_LIBRARY_OBJECT_HPP_INCLUDED
+#define SGE_LIBRARY_OBJECT_HPP_INCLUDED
 
-#include "../plugin.hpp"
-#include "../traits.hpp"
-#include "../../library/object_impl.hpp"
+#include "function_string.hpp"
+#include "../export.hpp"
+#include "../noncopyable.hpp"
+#include "../filesystem/path.hpp"
 
-template<typename T>
-sge::plugin::plugin<T>::plugin(
-	filesystem::path const &p)
-:
-	lib(p),
-	loader(
-		lib.load_function<loader_fun>(
-			detail::traits<T>::plugin_loader_name()))
-{}
-
-template<typename T>
-typename sge::plugin::plugin<T>::loader_fun
-sge::plugin::plugin<T>::get() const
+namespace sge
 {
-	return loader;
+namespace library
+{
+
+class object {
+	SGE_NONCOPYABLE(object)
+private:
+	void* handle;
+public:
+	SGE_SYMBOL explicit object(
+		filesystem::path const &);
+	SGE_SYMBOL ~object();
+
+	template<typename Fun>
+	Fun load_function(
+		function_string const &fun);
+
+	SGE_SYMBOL filesystem::path const &
+	name() const;
+private:
+	typedef void*(*base_fun)();
+	SGE_SYMBOL base_fun
+	load_address_base(
+		function_string const &fun);
+
+	filesystem::path const name_;
+};
+
+}
 }
 
 #endif

@@ -8,11 +8,13 @@ FILE (GLOB sgecorefiles
 	font/*.cpp
 	image/*.cpp
 	input/*.cpp
+	library/*.cpp
 	log/*.cpp
 	log/format/*.cpp
 	mainloop/*.cpp
 	model/*.cpp
 	plugin/*.cpp
+	plugin/detail/*.cpp
 	random/*.cpp
 	renderer/*.cpp
 	renderer/glsl/*.cpp

@@ -19,28 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config.h>
+#include <sge/library/object.hpp>
+#include <sge/library/error.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/library.hpp>
-#include <sge/iconv.hpp>
-#include <sge/funptr_cast.hpp>
 #ifdef SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
-#include <sge/windows/format_message.hpp>
 #elif SGE_POSIX_PLATFORM
+#include <sge/iconv.hpp>
+#include <sge/funptr_cast.hpp>
 #include <dlfcn.h>
 #else
 #error "Implement me!"
 #endif
 
-namespace
-{
-
-sge::string const liberror();
-
-}
-
-sge::library::library(
+sge::library::object::object(
 	filesystem::path const &nname)
 :
 #ifdef SGE_WINDOWS_PLATFORM
@@ -53,13 +46,13 @@ sge::library::library(
 	if(!handle)
 		throw exception(
 			string(
-				SGE_TEXT("failed to load library: "))
+				SGE_TEXT("failed to load library::object: "))
 				+ name().string()
 				+ SGE_TEXT(" : ")
-				+ liberror());
+				+ error());
 }
 
-sge::library::~library()
+sge::library::object::~object()
 {
 	if(handle)
 	{
@@ -72,52 +65,20 @@ sge::library::~library()
 }
 
 sge::filesystem::path const &
-sge::library::name() const
+sge::library::object::name() const
 {
 	return name_;
 }
 
-sge::library::base_fun
-sge::library::load_address_base(
+sge::library::object::base_fun
+sge::library::object::load_address_base(
 	std::string const &fun)
 {
-	return funptr_cast<base_fun>(
 #ifdef SGE_WINDOWS_PLATFORM
-		GetProcAddress(static_cast<HINSTANCE__*>(handle), fun.c_str())
+	return reinterpret_cast<base_fun>(
+		GetProcAddress(static_cast<HINSTANCE__*>(handle), fun.c_str()));
 #elif SGE_POSIX_PLATFORM
-		dlsym(handle, fun.c_str())
+	return funptr_cast<base_fun>(
+		dlsym(handle, fun.c_str()));
 #endif
-	);
-}
-
-sge::library::load_function_exception::load_function_exception(
-	string const &lib,
-	std::string const &fun)
-:
-	exception(
-		SGE_TEXT("Failed to load function ")
-		+ iconv(fun)
-		+ SGE_TEXT(" from library ")
-		+ lib
-		+ SGE_TEXT(" : ")
-		+ liberror()),
-	lib(lib),
-	func(fun)
-{}
-
-namespace
-{
-
-sge::string const
-liberror()
-{
-#ifdef SGE_POSIX_PLATFORM
-	return sge::iconv(
-		dlerror());
-#else
-	return sge::windows::format_message(
-		GetLastError());
-#endif
-}
-
 }
