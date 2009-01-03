@@ -36,17 +36,17 @@ private:
 
 
 sge::x11::class_hint::class_hint(
-	string const &app_name,
-	string const &res_name)
+	string const &app_name_,
+	string const &res_name_)
 :
 	impl_(
 		new impl()),
 	app_name(
 		iconv(
-			app_name)),
+			app_name_)),
 	res_name(
 		iconv(
-			res_name))
+			res_name_))
 {
 	XClassHint *const hint(
 		get());
