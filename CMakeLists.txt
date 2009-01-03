@@ -210,6 +210,8 @@ ADD_SUBDIRECTORY (src)
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/include/sge/config.h)
 
+OPTION(ENABLE_TEST "Build the tests" OFF)
+
 IF (${ENABLE_TEST})
 	ADD_SUBDIRECTORY (test)
 ENDIF ()
