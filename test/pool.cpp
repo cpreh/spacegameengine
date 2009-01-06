@@ -23,7 +23,7 @@ try
 {
 	sge::log::global().activate_hierarchy(sge::log::level::debug);
 
-	sge::path const file_name(sge::media_path() / SGE_TEXT("ding.wav"));
+	sge::filesystem::path const file_name(sge::media_path() / SGE_TEXT("ding.wav"));
 
 	bool const streaming = false;
 

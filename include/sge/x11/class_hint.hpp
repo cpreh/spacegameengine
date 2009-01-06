@@ -18,39 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PATH_HPP_INCLUDED
-#define SGE_PATH_HPP_INCLUDED
+#ifndef SGE_X11_CLASS_HINT_HPP_INCLUDED
+#define SGE_X11_CLASS_HINT_HPP_INCLUDED
 
-#include "string.hpp"
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include "../export.hpp"
+#include "../string.hpp"
+#include "../noncopyable.hpp"
+#include "../scoped_ptr.hpp"
 
 namespace sge
 {
-
-namespace detail
+namespace x11
 {
 
-template<typename Ch>
-struct choose_path_traits;
+class class_hint {
+	SGE_NONCOPYABLE(class_hint)
+public:
+	SGE_SYMBOL class_hint(
+		string const &app_name,
+		string const &class_name);
+	SGE_SYMBOL ~class_hint();
+	SGE_SYMBOL XClassHint *get() const;
+private:
+	struct impl;
 
-template<>
-struct choose_path_traits<char> {
-	typedef boost::filesystem::path_traits type;
+	scoped_ptr<impl> impl_;
+	std::string const app_name,
+	                  res_name;
 };
-
-template<>
-struct choose_path_traits<wchar_t> {
-	typedef boost::filesystem::wpath_traits type;
-};
-
-typedef string path_string;
 
 }
-
-typedef boost::filesystem::basic_path<detail::path_string, detail::choose_path_traits<char_type>::type> path;
-typedef boost::filesystem::basic_directory_iterator<path> directory_iterator;
-
 }
 
 #endif

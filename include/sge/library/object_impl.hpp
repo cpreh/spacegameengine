@@ -18,29 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOWS_CONV_HPP_INCLUDED
-#define SGE_WINDOWS_CONV_HPP_INCLUDED
+#ifndef SGE_LIBRARY_OBJECT_IMPL_HPP_INCLDUED
+#define SGE_LIBRARY_OBJECT_IMPL_HPP_INCLDUED
 
-#include <string>
-#include <sstream>
-#include "../string.hpp"
-#include "../export.hpp"
-#include "windows.hpp"
+#include "object.hpp"
+#include "function_not_found.hpp"
 
-namespace sge
+template<
+	typename Fun
+>
+Fun sge::library::object::load_function(
+	function_string const &fun)
 {
-namespace windows
-{
-
-typedef std::basic_string<TCHAR> string;
-typedef std::basic_stringstream<TCHAR> stringstream;
-typedef std::basic_ostringstream<TCHAR> ostringstream;
-typedef std::basic_istringstream<TCHAR> istringstream;
-
-SGE_SYMBOL string const sge_str_to_win(sge::string const &);
-SGE_SYMBOL sge::string const win_str_to_sge(string const &);
-
-}
+	Fun const ptr = reinterpret_cast<Fun>(load_address_base(fun));
+	if(!ptr)
+		throw function_not_found(name().string(), fun);
+	return ptr;
 }
 
 #endif

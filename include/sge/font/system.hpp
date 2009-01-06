@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "types.hpp"
 #include "metrics_fwd.hpp"
-#include "../path.hpp"
+#include "../filesystem/path.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 
@@ -36,7 +36,7 @@ class SGE_CLASS_SYMBOL system : boost::noncopyable {
 public:
 	SGE_SYMBOL virtual ~system();
 	virtual metrics_ptr const create_font(
-		path const &font_path,
+		filesystem::path const &,
 		size_type font_height) = 0;
 };
 

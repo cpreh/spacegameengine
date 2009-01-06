@@ -4,14 +4,17 @@ FILE (GLOB sgecorefiles
 	audio/*.cpp
 	console/*.cpp
 	container/*.cpp
+	filesystem/*.cpp
 	font/*.cpp
 	image/*.cpp
 	input/*.cpp
+	library/*.cpp
 	log/*.cpp
 	log/format/*.cpp
 	mainloop/*.cpp
 	model/*.cpp
 	plugin/*.cpp
+	plugin/detail/*.cpp
 	random/*.cpp
 	renderer/*.cpp
 	renderer/glsl/*.cpp
@@ -66,6 +69,8 @@ ELSEIF (WIN32)
 ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+
+OPTION (ENABLE_GUI "Build the gui" OFF)
 
 IF (ENABLE_GUI)
 	ADD_SUBDIRECTORY (gui)

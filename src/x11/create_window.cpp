@@ -53,5 +53,6 @@ sge::x11::create_window(
 			depth,
 			rparam.wmode() == renderer::window_mode::fullscreen,
 			visual,
-			colormap));
+			colormap,
+			param.class_name()));
 }

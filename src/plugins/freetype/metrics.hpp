@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "library.hpp"
 #include "face.hpp"
 #include "freetype.hpp"
-#include <sge/path.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/string.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/types.hpp>
@@ -37,14 +37,25 @@ namespace ft
 
 class metrics : public font::metrics {
 public:
-	metrics(library& lib, const path& font_path, font::size_type font_height);
-	const font::char_metric_ptr load_char(char_type c);
+	metrics(
+		library &lib,
+		filesystem::path const &font_path,
+		font::size_type font_height);
+	
+	font::char_metric_ptr const
+	load_char(
+		char_type c);
+	
 	font::unit line_height() const;
 private:
 	face face_;
 	font::size_type pixel_size;
 
-	typedef std::map<char_type, font::char_metric_ptr> buffer_type;
+	typedef std::map<
+		char_type,
+		font::char_metric_ptr
+	> buffer_type;
+
 	buffer_type buffer;
 };
 

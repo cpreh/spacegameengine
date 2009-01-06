@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<typename T>
 sge::plugin::context<T>::context(
-	context_base& base_)
-: base_(&base_)
+	context_base &base_)
+:
+	base_(&base_)
 {}
 
 template<typename T>

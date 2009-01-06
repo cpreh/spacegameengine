@@ -33,9 +33,11 @@ sge::string ogg_error(int const code)
 }
 }
 
-sge::vorbis::file::file(path const &p)
-	: file_name(p.string()),
-	  stdstream(p)
+sge::vorbis::file::file(
+	filesystem::path const &p)
+:
+	file_name(p.string()),
+	stdstream(p)
 {
 	if (!stdstream.is_open())
 		throw audio::exception(SGE_TEXT("vorbis: couldn't open file \"")+file_name+SGE_TEXT("\""));
@@ -116,6 +118,24 @@ sge::audio::sample_count sge::vorbis::file::read_all(
 	while (read(static_cast<sample_count>(16*4096),data))
 		;
 	return data.size()/bytes_per_sample();
+}
+
+sge::vorbis::file::channel_type
+sge::vorbis::file::channels() const
+{
+	return channels_;
+}
+
+sge::vorbis::file::sample_count
+sge::vorbis::file::sample_rate() const
+{
+	return sample_rate_;
+}
+
+sge::vorbis::file::sample_count
+sge::vorbis::file::bits_per_sample() const
+{
+	return static_cast<sample_count>(16);
 }
 
 void sge::vorbis::file::reset()

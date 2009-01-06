@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/make_shared_ptr.hpp>
 
 sge::window::instance_ptr const
 sge::windows::create_window(
@@ -33,9 +34,12 @@ sge::windows::create_window(
 		param.param());
 
 	windows::window_ptr const wnd(
-		new windows::window(
+		make_shared_ptr<
+			windows::window
+		>(
 			rparam.mode().size(),
-			param.title()));
+			param.title(),
+			param.class_name()));
 
 	windows::choose_and_set_pixel_format(
 		windows::gdi_device(

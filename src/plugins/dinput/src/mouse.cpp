@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../mouse.hpp"
 #include <sge/input/key_pair.hpp>
-#include <sge/windows/conv.hpp>
 
 namespace
 {
@@ -66,16 +65,27 @@ void sge::dinput::mouse::dispatch(signal_type &sig)
 	for(unsigned i = 0; i < elements; ++i)
 	{
 		if(is_di_mouse_axis(data[i].dwOfs))
-			sig(input::key_pair(keys[data[i].dwOfs], reinterpret_cast<long&>(data[i].dwData)));
+			sig(
+				input::key_pair(
+					keys[data[i].dwOfs],
+					reinterpret_cast<long &>(data[i].dwData)));
 		else
-			sig(input::key_pair(keys[data[i].dwOfs],(data[i].dwData & 0x80) ? static_cast<input::key_state>(1) : 0));
+			sig(
+				input::key_pair(
+					keys[data[i].dwOfs],
+					(data[i].dwData & 0x80)
+						? static_cast<input::key_state>(1)
+						: 0));
 	}
 }
 
 BOOL sge::dinput::mouse::enum_mouse_keys(LPCDIDEVICEOBJECTINSTANCE ddoi, LPVOID s)
 {
 	mouse& m = *static_cast<mouse*>(s);
-	m.keys[ddoi->dwOfs] = input::key_type(windows::win_str_to_sge(ddoi->tszName) + m.name(),create_mouse_code(ddoi->dwOfs));
+	m.keys[ddoi->dwOfs] = input::key_type(
+		ddoi->tszName + m.name(),
+		create_mouse_code(
+			ddoi->dwOfs));
 	return DIENUM_CONTINUE;
 }
 
@@ -85,9 +95,9 @@ namespace
 sge::input::key_code create_mouse_code(const DWORD ofs)
 {
 	if(ofs == cast_key(DIMOFS_BUTTON0))
-    return sge::input::kc::mouse_l;
+		return sge::input::kc::mouse_l;
 	else if(ofs == cast_key(DIMOFS_BUTTON1))
-    return sge::input::kc::mouse_r;
+		return sge::input::kc::mouse_r;
 	else if(ofs == cast_key(DIMOFS_BUTTON2))
 		return sge::input::kc::mouse_m;
 	else if(ofs == cast_key(DIMOFS_X))
@@ -98,4 +108,5 @@ sge::input::key_code create_mouse_code(const DWORD ofs)
 		return sge::input::kc::mouse_z_axis;
 	return sge::input::kc::none;
 }
+
 }

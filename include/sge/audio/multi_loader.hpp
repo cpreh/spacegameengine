@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "multi_loader_fwd.hpp"
 #include "loader_fwd.hpp"
 #include "file_fwd.hpp"
-#include "../path.hpp"
+#include "../filesystem/path.hpp"
 #include "../plugin/context.hpp"
 #include <boost/noncopyable.hpp>
 #include <vector>
@@ -42,11 +42,23 @@ namespace audio
 class SGE_CLASS_SYMBOL multi_loader : boost::noncopyable 
 {
 public:
-	SGE_SYMBOL explicit multi_loader(plugin::manager &);
-	SGE_SYMBOL file_ptr const load(path const &);
+	SGE_SYMBOL explicit multi_loader(
+		plugin::manager &);
+	SGE_SYMBOL ~multi_loader();
+
+	SGE_SYMBOL file_ptr const
+	load(
+		filesystem::path const &);
 private:
-	typedef std::vector<plugin::context<loader>::ptr_type> plugin_container;
-	typedef std::vector<loader_ptr> loader_container;
+	typedef std::vector<
+		plugin::context<
+			loader
+		>::ptr_type
+	> plugin_container;
+
+	typedef std::vector<
+		loader_ptr
+	> loader_container;
 
 	plugin_container plugins;
 	loader_container loaders;

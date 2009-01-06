@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CON_SINGLETON_HPP_INCLUDED
 
 #include "types.hpp"
-#include "../path.hpp"
+#include "../filesystem/path.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
 
@@ -60,7 +60,7 @@ struct singleton {
 		string const &);
 
 	void read_config(
-		path const &);
+		filesystem::path const &);
 
 	string const
 	var(

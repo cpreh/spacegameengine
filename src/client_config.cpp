@@ -27,13 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
 
-sge::path sge::client_config_path()
+sge::filesystem::path const
+sge::client_config_path()
 {
 #ifdef SGE_POSIX_PLATFORM
 	const char* const ret = std::getenv("HOME");
 	if(!ret)
-		throw exception(SGE_TEXT("client_config_path(): Can't find \"HOME\"!"));
-	return path(iconv(ret));
+		throw exception(
+			SGE_TEXT("client_config_path(): Can't find \"HOME\"!"));
+	return filesystem::path(iconv(ret));
 #else
 	return SGE_TEXT(""); // FIXME
 #endif

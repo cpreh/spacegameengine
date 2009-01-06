@@ -42,6 +42,7 @@ class SGE_CLASS_SYMBOL edit : public widget
 
 	void blink_callback();
 	void resize(math::vector<bool,2> const &);
+	void redraw();
 };
 }
 }

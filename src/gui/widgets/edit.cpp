@@ -84,3 +84,13 @@ void sge::gui::widgets::edit::resize(math::vector<bool,2> const &b)
 	
 	buffer_ = nb;
 }
+
+void sge::gui::widgets::edit::redraw()
+{
+	canvas::object c(buffer_);
+
+	// erase buffer to draw the font on
+	c.draw_rect(
+		c.area(),
+		internal_color(0,0,0,0));
+}

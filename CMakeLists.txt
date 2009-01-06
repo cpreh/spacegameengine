@@ -26,7 +26,13 @@ INCLUDE (FindPkgConfig)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 
-OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" OFF)
+IF (MSVC)
+	SET (DEFAULT_NARROW_STRING OFF)
+ELSE ()
+	SET (DEFAULT_NARROW_STRING ON)
+ENDIF ()
+
+OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" DEFAULT_NARROW_STRING)
 
 IF (ENABLE_NARROW_STRING)
 	SET (SGE_NARROW_STRING true)
@@ -143,6 +149,7 @@ CHECK_CXX_SOURCE_COMPILES(
 
 FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	filesystem
+	program_options
 	signals
 	system)
 
@@ -210,7 +217,9 @@ ADD_SUBDIRECTORY (src)
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/include/sge/config.h)
 
-IF (${ENABLE_TEST})
+OPTION(ENABLE_TEST "Build the tests" OFF)
+
+IF (ENABLE_TEST)
 	ADD_SUBDIRECTORY (test)
 ENDIF ()
 
@@ -233,9 +242,12 @@ INSTALL_HEADERS (sge/audio/player)
 INSTALL_HEADERS (sge/console)
 INSTALL_HEADERS (sge/container)
 INSTALL_HEADERS (sge/detail)
+INSTALL_HEADERS (sge/filesystem)
+INSTALL_HEADERS (sge/filesystem/detail)
 INSTALL_HEADERS (sge/font)
 INSTALL_HEADERS (sge/image)
 INSTALL_HEADERS (sge/input)
+INSTALL_HEADERS (sge/library)
 INSTALL_HEADERS (sge/log)
 INSTALL_HEADERS (sge/log/format)
 INSTALL_HEADERS (sge/mainloop)

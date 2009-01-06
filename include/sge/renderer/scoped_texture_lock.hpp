@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "scoped_lock_wrapper.hpp"
 #include "scoped_lock.hpp"
 #include "lock_flags.hpp"
-#include "dim_types.hpp"
+#include "lock_rect.hpp"
 #include "../export.hpp"
 
 namespace sge

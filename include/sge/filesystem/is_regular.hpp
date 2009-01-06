@@ -18,18 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/windows/conv.hpp>
+#ifndef SGE_FILESYSTEM_IS_REGULAR_HPP_INCLUDED
+#define SGE_FILESYSTEM_IS_REGULAR_HPP_INCLUDED
 
-sge::windows::string const
-sge::windows::sge_str_to_win(
-	sge::string const &in)
+#include "path.hpp"
+#include "../export.hpp"
+
+namespace sge
 {
-	return in;
+namespace filesystem
+{
+
+SGE_SYMBOL bool
+is_regular(
+	path const &);
+
+}
 }
 
-sge::string const
-sge::windows::win_str_to_sge(
-	string const &in)
-{
-	return in;
-}
+#endif

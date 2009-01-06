@@ -26,7 +26,8 @@ sge::string::value_type sge::con::prefix()
 	return instance().prefix;
 }
 
-void sge::con::read_config(const path &s)
+void sge::con::read_config(
+	filesystem::path const &s)
 {
 	instance().read_config(s);
 }

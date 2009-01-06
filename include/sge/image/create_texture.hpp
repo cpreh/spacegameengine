@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "loader_fwd.hpp"
 #include "object_fwd.hpp"
-#include "../path.hpp"
+#include "../filesystem/path.hpp"
 #include "../export.hpp"
 #include "../renderer/resource_flags.hpp"
 #include "../renderer/device_fwd.hpp"
@@ -48,7 +48,7 @@ create_texture(
 
 SGE_SYMBOL renderer::texture_ptr const
 create_texture(
-	path const &,
+	filesystem::path const &,
 	renderer::device_ptr r,
 	loader_ptr p,
 	renderer::texture_filter const &filter,

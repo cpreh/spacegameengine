@@ -31,7 +31,8 @@ class SGE_CLASS_SYMBOL object
 
 	SGE_SYMBOL void draw_rect(
 		rect const &,
-		color,rect_type::type);
+		color,
+		rect_type::type);
 
 	SGE_SYMBOL void draw_text(
 		font::metrics_ptr,

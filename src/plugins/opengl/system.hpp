@@ -39,8 +39,6 @@ public:
 
 	window::instance_ptr const create_window(
 		window::parameters const &);
-
-	renderer::caps_array const caps() const;
 private:
 	boost::weak_ptr<renderer::device> ref;
 };

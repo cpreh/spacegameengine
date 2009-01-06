@@ -29,10 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/assert.hpp>
 #include <boost/cstdint.hpp>
 
-sge::wave::file::file(path const &filename)
-: filename_(filename.string()),
-  swap_(boost::logic::indeterminate),
-  file_(filename_)
+sge::wave::file::file(
+	filesystem::path const &filename)
+:
+	filename_(filename.string()),
+	swap_(boost::logic::indeterminate),
+	file_(filename_)
 {
 	if (!file_.is_open())
 		throw audio::exception(

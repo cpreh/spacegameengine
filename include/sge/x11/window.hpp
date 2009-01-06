@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "colormap_fwd.hpp"
 #include "wm_hints.hpp"
 #include "size_hints.hpp"
+#include "class_hint.hpp"
 #include "../window/instance.hpp"
 #include "../signals/connection.hpp"
 #include "../signals/signal.hpp"
@@ -57,7 +58,8 @@ public:
 		int depth,
 		bool fullscreen,
 		const_visual_ptr,
-		colormap_ptr);
+		colormap_ptr,
+		string const &class_name);
 	SGE_SYMBOL ~window();
 
 	SGE_SYMBOL void title(string const &title);
@@ -86,6 +88,7 @@ private:
 
 	void hints();
 	void set_size_hints();
+	void set_class_hint();
 
 	display_ptr         dsp;
 	const_visual_ptr    visual_;
@@ -96,6 +99,7 @@ private:
 	event_mask_type     event_mask;
 	wm_hints            hints_;
 	size_hints          size_hints_;
+	class_hint          class_hint_;
 
 	typedef sge::signals::signal<
 		function_type

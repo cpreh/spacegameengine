@@ -1,7 +1,7 @@
 #ifndef SGE_MAD_MPEG_FILE_HPP_INCLUDED
 #define SGE_MAD_MPEG_FILE_HPP_INCLUDED
 
-#include <sge/path.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/fstream.hpp>
 #include <sge/audio/file.hpp>
 #include "stream.hpp"
@@ -19,7 +19,8 @@ class mpeg_file : public audio::file
 	typedef audio::channel_type channel_type;
 	typedef audio::sample_container sample_container;
 
-	explicit mpeg_file(path const &);
+	explicit mpeg_file(
+		filesystem::path const &);
 
 	sample_count read(sample_count samples, sample_container &);
 	sample_count read_all(sample_container &);

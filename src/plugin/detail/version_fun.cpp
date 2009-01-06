@@ -18,13 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "library.hpp"
+#include <sge/plugin/detail/version_fun.hpp>
 
-template<typename Fun>
-Fun sge::library::load_function(const std::string& fun)
-{
-	const Fun ptr = reinterpret_cast<Fun>(load_address_base(fun));
-	if(!ptr)
-		throw library::load_function_exception(name().string(), fun);
-	return ptr;
-}
+sge::library::function_string const
+sge::plugin::version_fun(
+	"plugin_version_info");

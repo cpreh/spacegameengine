@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MAD_LOADER_HPP_INCLUDED
 
 #include <sge/shared_ptr.hpp>
-#include <sge/path.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/audio/loader.hpp>
 
 namespace sge
@@ -33,8 +33,11 @@ namespace mad
 class loader : public audio::loader
 {
 public:
-	audio::file_ptr const load(path const &);
-	bool is_valid_file(path const &) const;
+	audio::file_ptr const
+	load(
+		filesystem::path const &);
+	bool is_valid_file(
+		filesystem::path const &) const;
 };
 
 }

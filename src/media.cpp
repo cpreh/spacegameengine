@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media.hpp>
 #include <sge/iconv.hpp>
 
-sge::path sge::media_path()
+sge::filesystem::path const
+sge::media_path()
 {
 	return iconv(MEDIA_PATH);
 }
