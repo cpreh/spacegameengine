@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/windows.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 
 sge::string const
 sge::windows::format_message(
 	DWORD const error)
 {
-	boost::array<
+	std::tr1::array<
 		char_type,
 		1024
 	> errmsg;

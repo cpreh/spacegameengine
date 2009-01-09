@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include <sge/input/key_pair.hpp>
 #include <sge/iostream.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 #include <ostream>
 
 sge::dinput::keyboard::keyboard(
@@ -93,7 +93,7 @@ sge::char_type
 sge::dinput::keyboard::keycode_to_char(
 	input::key_code const key) const
 {
-	boost::array<BYTE,256> state;
+	std::tr1::array<BYTE,256> state;
 	const BYTE key_up = 0, key_down = 0x80;
 	state[VK_SHIFT]   = modifiers.shift ? key_down : key_up;
 	state[VK_MENU]    = modifiers.alt   ? key_down : key_up;

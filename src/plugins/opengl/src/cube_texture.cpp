@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <boost/assign/list_of.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 
 namespace
 {
@@ -190,7 +190,7 @@ GLenum
 convert_cube_side(
 	sge::renderer::cube_side::type const &s)
 {
-	typedef boost::array<
+	typedef std::tr1::array<
 		GLenum,
 		sge::renderer::cube_side::num_elements
 	> cube_side_array;

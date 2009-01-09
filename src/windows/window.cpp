@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/rect_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 
 namespace
 {
@@ -153,7 +153,7 @@ sge::string const
 sge::windows::window::title() const
 {
 	// TODO: read the length first!
-	boost::array<TCHAR, 1024> buffer;
+	std::tr1::array<TCHAR, 1024> buffer;
 	if(GetWindowText(hwnd(), buffer.c_array(), buffer.size()) == 0)
 		throw exception(
 			SGE_TEXT("GetWindowText() failed!"));

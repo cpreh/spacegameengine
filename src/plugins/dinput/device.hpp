@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window.hpp>
 #include <sge/input/key_type.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 #include <cstddef>
 
 namespace sge
@@ -55,7 +55,7 @@ protected:
 		REFGUID rguidProp,
 		LPCDIPROPHEADER pdiph);
 
-	typedef boost::array<
+	typedef std::tr1::array<
 		DIDEVICEOBJECTDATA,
 		buffer_size
 	> input_buffer;
