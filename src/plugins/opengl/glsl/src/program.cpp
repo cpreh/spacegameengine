@@ -27,14 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
 
 template<bool Native>
 sge::ogl::glsl::program<Native>::program(
 	renderer::glsl::string const &vs_source,
 	renderer::glsl::string const &ps_source)
-: id_(create_program<Native>())
+:
+	id_(create_program<Native>())
 {
 	attach_shader(
 		shader_ptr(
@@ -72,7 +73,10 @@ void sge::ogl::glsl::program<Native>::link()
 
 	if(link_status<Native>(id()) == GL_FALSE)
 	{
-		typedef boost::array<char, 1024> errorlog_array;
+		typedef std::tr1::array<
+			char,
+			1024
+		> errorlog_array;
 		errorlog_array errorlog;
 
 		GLint len;

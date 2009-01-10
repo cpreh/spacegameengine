@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <istream>
 #include <string>
 #include <vector>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 #include <boost/cstdint.hpp>
 #include "../math/vector.hpp"
 #include "../renderer/index_buffer.hpp"
@@ -69,10 +69,10 @@ private:
 	struct tag {
 		tag(std::istream& is);
 		
-		string_type                   name;
-		vec3                          origin;
-		typedef boost::array<vec3, 3> axis_array;
-		axis_array                    axis;
+		string_type                      name;
+		vec3                             origin;
+		typedef std::tr1::array<vec3, 3> axis_array;
+		axis_array                       axis;
 	};
 
 	struct surface {
@@ -87,7 +87,7 @@ private:
 
 		struct triangle {
 			triangle(std::istream& is);
-			typedef boost::array<s32, 3> index_array;
+			typedef std::tr1::array<s32, 3> index_array;
 			index_array indices;
 		};
 

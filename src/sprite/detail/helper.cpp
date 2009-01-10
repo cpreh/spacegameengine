@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
 #include <cmath>
 
@@ -91,7 +91,7 @@ sge::sprite::detail::fill_position_rotated(
 	pos2 const centerf(
 		math::structure_cast<funit>(center));
 
-	typedef boost::array<pos2, detail::vertices_per_sprite> position_array;
+	typedef std::tr1::array<pos2, detail::vertices_per_sprite> position_array;
 	position_array const positions = {{
 		pos2(
 			static_cast<funit>(rbs.left()),

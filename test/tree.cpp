@@ -1,7 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
-Copyright (C) 2007       Simon Stienen    (s.stienen@slashlife.org)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -19,32 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/windows/format_message.hpp>
-#include <sge/windows/windows.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <boost/tr1/array.hpp>
+#include <sge/container/tree.hpp>
+#include <sge/make_auto_ptr.hpp>
+#include <string>
+#include <iostream>
+#include <ostream>
 
-sge::string const
-sge::windows::format_message(
-	DWORD const error)
+int main()
 {
-	std::tr1::array<
-		char_type,
-		1024
-	> errmsg;
+	typedef sge::container::tree<
+		std::string
+	> string_tree;
 
-	if(FormatMessage(
-		FORMAT_MESSAGE_FROM_SYSTEM,
-		0, // ignored
-		error, // message id
-		0, // language id
-		errmsg.c_array(),
-		errmsg.size()-1,
-		0
-	) == 0)
-		throw exception(
-			SGE_TEXT("FormatMessage() failed!"));
-	return string(
-		errmsg.data());
+	string_tree tree("hello");
+
+	{
+		string_tree::auto_ptr child1(
+			sge::make_auto_ptr<
+				string_tree
+			>("blubb"));
+		
+		tree.push_back(
+			child1);
+	}
+
+	std::cout << tree.value() << ' ' << tree.back().value() << '\n';
 }

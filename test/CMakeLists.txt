@@ -26,6 +26,7 @@ ADD_SGE_TEST(random)
 ADD_SGE_TEST(skeleton)
 ADD_SGE_TEST(sound)
 ADD_SGE_TEST(target)
+ADD_SGE_TEST(tree)
 ADD_SGE_TEST(vertex)
 
 # TODO: this should be part of the macro

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/string.hpp>
 #include <sge/iconv.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 #include <map>
 #include <ostream>
 #include <utility>
@@ -48,7 +48,7 @@ sge::x11input::keyboard_key(
 {
 	XComposeStatus state;
 	KeySym ks;
-	boost::array<char, 32> keybuf;
+	std::tr1::array<char, 32> keybuf;
 
 	SGE_X11_SENTRY
 
