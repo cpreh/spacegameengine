@@ -111,8 +111,6 @@ int main()
 	inorder_trav trav(
 		tree);
 	
-	//for(inorder_trav::iterator it = trav.begin(); it != trav.end(); ++it)
-	//	std::cout << (*it).value() << '\n';
-
-	//std::cout << tree.value() << ' ' << tree.back().value() << '\n';
+	for(inorder_trav::iterator it = trav.begin(); it != trav.end(); ++it)
+		std::cout << (*it).value() << '\n';
 }

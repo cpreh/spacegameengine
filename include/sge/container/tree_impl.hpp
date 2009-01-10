@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONTAINER_TREE_IMPL_HPP_INCLUDED
 
 #include "tree_decl.hpp"
+#include "ptr_equal.hpp"
 #include <algorithm>
 
 template<
@@ -146,10 +147,11 @@ template<
 typename sge::container::tree<T>::iterator
 sge::container::tree<T>::child_position()
 {
-	return std::find(
+	return std::find_if(
 		parent().begin(),
 		parent().end(),
-		this);
+		make_ptr_equal(
+			this));
 }
 
 template<
