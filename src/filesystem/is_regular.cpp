@@ -24,5 +24,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 bool sge::filesystem::is_regular(
 	path const &p)
 {
-	return boost::filesystem::is_regular(p);
+	return boost::filesystem::is_regular_file(p);
 }

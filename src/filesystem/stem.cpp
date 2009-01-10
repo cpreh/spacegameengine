@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/filesystem/basename.hpp>
-#include <boost/filesystem/convenience.hpp>
+#include <sge/filesystem/stem.hpp>
 
 sge::string const
-sge::filesystem::basename(
+sge::filesystem::stem(
 	path const &p)
 {
-	return boost::filesystem::basename(p);
+	return p.stem();
 }

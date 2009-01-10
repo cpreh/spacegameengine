@@ -19,11 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/filesystem/extension.hpp>
-#include <boost/filesystem/convenience.hpp>
 
 sge::string const
 sge::filesystem::extension(
 	path const &p)
 {
-	return boost::filesystem::extension(p);
+	return p.extension();
 }

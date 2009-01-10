@@ -53,6 +53,8 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 	"-Woverloaded-virtual -Wnon-virtual-dtor -Wctor-dtor-privacy"
 	"-Wsign-promo")
 
+	ADD_DEFINITIONS(-D BOOST_FILESYSTEM_NO_DEPRECATED)
+
 	SET (CMAKE_CXX_FLAGS_RELEASE "-O3 -fomit-frame-pointer -DNDEBUG")
 	SET (CMAKE_CXX_FLAGS_DEBUG "-g")
 

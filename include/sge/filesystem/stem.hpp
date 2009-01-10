@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FILESYSTEM_BASENAME_HPP_INCLUDED
-#define SGE_FILESYSTEM_BASENAME_HPP_INCLUDED
+#ifndef SGE_FILESYSTEM_STEM_HPP_INCLUDED
+#define SGE_FILESYSTEM_STEM_HPP_INCLUDED
 
 #include "path.hpp"
 #include "../string.hpp"
@@ -31,7 +31,7 @@ namespace filesystem
 {
 
 SGE_SYMBOL string const
-basename(
+stem(
 	path const &);
 
 }
