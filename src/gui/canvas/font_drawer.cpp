@@ -9,7 +9,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::canvas::global_log(),SGE_TEXT("font_drawer"),true);
+sge::gui::logger mylogger(sge::gui::canvas::global_log(),SGE_TEXT("font_drawer"),false);
 }
 
 sge::gui::canvas::font_drawer::font_drawer(
@@ -49,10 +49,18 @@ void sge::gui::canvas::font_drawer::draw_char(
 				static_cast<renderer::size_type>(pos.y()+data.height())));
 	
 	if (character_pos)
-		sge::cerr << "counter: " << counter 
-		          << " | character pos: " << *character_pos << "\n";
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("counter: ") << counter << SGE_TEXT(" | ")
+			        << SGE_TEXT("character pos: ") << *character_pos);
+	}
 	else
-		sge::cerr << "character position invalid\n";
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("character position invalid"));
+	}
 
 	if (character_pos && counter++ == *character_pos)
 		*p = math::structure_cast<unit>(pos);

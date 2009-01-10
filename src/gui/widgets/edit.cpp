@@ -25,7 +25,7 @@ sge::gui::widgets::edit::edit(
 			keyboard_focus::receive),
 	  font_(_font),
 		desired_size_(desired_size_),
-		cursor_visible_(cursor_visible_),
+		cursor_visible_(true),
 		text_buffer_(),
 		scroll_pos_(point::null()),
 		cursor_pos(static_cast<string::size_type>(0))
@@ -95,6 +95,9 @@ void sge::gui::widgets::edit::process(events::keyboard_leave const &)
 void sge::gui::widgets::edit::blink_callback()
 {
 	cursor_visible_ = !cursor_visible_;
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("blinking cursor, visibility: ") << cursor_visible_);
 	redraw();
 	parent_manager().invalidate(absolute_area());
 }
@@ -175,14 +178,18 @@ void sge::gui::widgets::edit::redraw()
 			cursor_pos,
 			&p);
 	
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("drawing cursor at ") << p);
 
-		// draw cursor
-		c.draw_line(
-			p,
-			point(p.x(),p.y()+10),
-			internal_color(0x00,0x00,0x00,0xff));
+		if (cursor_visible_)
+		{
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("drawing cursor at ") << p);
+
+			// draw cursor
+			c.draw_line(
+				p,
+				point(p.x(),p.y()+10),
+				internal_color(0x00,0x00,0x00,0xff));
+		}
 	}
 }
