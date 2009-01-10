@@ -1,27 +1,16 @@
-#include <sge/gui/widgets/container.hpp>
 #include <sge/gui/layouts/row.hpp>
+#include <sge/gui/widget.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/iostream.hpp>
 #include <boost/foreach.hpp>
+#include "../utility/bitfield_and.hpp"
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("row"),false);
-
-template<typename T>
-bool bitfield_and(T const &a,T const &b)
-{
-	T const result = a & b;
-	BOOST_FOREACH(typename T::value_type const v,result)
-	{
-		if (v)
-			return true;
-	}
-	return false;
-}
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("layouts::row"),false);
 }
 
-sge::gui::layouts::row::row(widgets::container &w)
+sge::gui::layouts::row::row(widget &w)
 	: layout(w)
 {
 }
@@ -36,7 +25,8 @@ sge::gui::dim const sge::gui::layouts::row::size_hint() const
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("calculated size hint to ") << hint);
+		log::_1 << SGE_TEXT("returning size hint") 
+		        << hint);
 	return hint;
 }
 
@@ -77,7 +67,7 @@ void sge::gui::layouts::row::adapt(
 						<< SGE_TEXT(" pixels to each widget"));
 
 	BOOST_FOREACH(widget_map::value_type &p,sizes)
-		if (bitfield_and(p.first->size_policy().index(axis),flag))
+		if (utility::bitfield_and(p.first->size_policy().index(axis),flag))
 			p.second[axis] += addition;
 }
 
@@ -161,9 +151,9 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 			static_cast<unit>(
 				connected_widget().pos()[slave()]+usable[slave()]/2-p.second[slave()]/2);
 		
-		set_widget_size(*p.first,p.second);
-		set_widget_pos(*p.first,pos);
-		widget_compile(*p.first);
+		layout::set_widget_size(*p.first,p.second);
+		layout::set_widget_pos(*p.first,pos);
+		layout::compile_widget(*p.first);
 
 		pos[master()] += p.second[master()]+increment;
 	}
@@ -192,14 +182,27 @@ void sge::gui::layouts::row::update()
 	update_widgets(usable);
 }
 
+void sge::gui::layouts::row::pos(point const &p)
+{
+	layout::set_widget_pos(connected_widget(),p);
+	update();
+}
+
+void sge::gui::layouts::row::size(dim const &s)
+{
+	layout::set_widget_size(connected_widget(),s);
+	update();
+}
+
 unsigned sge::gui::layouts::row::count_flags(
 	axis_policy::type const flags,
 	std::size_t const axis) const
 {
 	unsigned count = static_cast<unsigned>(0);
 	BOOST_FOREACH(widget const &w,connected_widget().children())
-		//if (bitfield_and(w.size_policy().index(axis),flags))
+		//if (utility::bitfield_and(w.size_policy().index(axis),flags))
 		if (w.size_policy().index(axis) & flags)
 			++count;
 	return count;
 }
+

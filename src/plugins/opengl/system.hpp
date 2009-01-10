@@ -37,10 +37,10 @@ public:
 		renderer::adapter_type adapter,
 		window::instance_ptr);
 
-	window::instance_ptr const create_window(
-		window::parameters const &);
-
-	renderer::caps_array const caps() const;
+	window::instance_ptr const
+	create_window(
+		window::parameters const &,
+		renderer::parameters const &);
 private:
 	boost::weak_ptr<renderer::device> ref;
 };

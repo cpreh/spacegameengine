@@ -2,6 +2,7 @@
 #define SGE_GUI_LAYOUTS_ROW_HPP_INCLUDED
 
 #include "../layout.hpp"
+#include "../widget_fwd.hpp"
 #include "../../export.hpp"
 #include "../size_policy.hpp"
 #include <vector>
@@ -11,14 +12,15 @@ namespace sge
 {
 namespace gui
 {
-class widget;
 namespace layouts
 {
 class SGE_CLASS_SYMBOL row : public layout
 {
 	public:
-	SGE_SYMBOL row(widgets::container &);
+	SGE_SYMBOL row(widget &);
 	SGE_SYMBOL void update();
+	SGE_SYMBOL void pos(point const &);
+	SGE_SYMBOL void size(dim const &);
 	SGE_SYMBOL dim const size_hint() const;
 	private:
 	// NOTE: this is actually quite hacky, I first tried to return a reference to

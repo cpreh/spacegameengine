@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "color.hpp"
 #include "../export.hpp"
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef boost::array<
+typedef std::tr1::array<
 	color_channel_f32_raw,
 	4
 > raw_color_f32;

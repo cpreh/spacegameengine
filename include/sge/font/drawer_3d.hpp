@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/manager.hpp"
 #include "../texture/part.hpp"
 #include "../sprite/system.hpp"
+#include "../sprite/container.hpp"
 #include "../sprite/object.hpp"
 #include "drawer.hpp"
 #include "types.hpp"
@@ -55,7 +56,7 @@ public:
 	SGE_SYMBOL void color(
 		renderer::any_color const &col);
 private:
-	texture::part_ptr const
+	texture::const_part_ptr const
 	cached_texture(
 		char_type,
 		const_image_view const &);
@@ -65,11 +66,11 @@ private:
 	texture::manager                texman;
 	typedef std::map<
 		char_type,
-		texture::part_ptr
+		texture::const_part_ptr
 	>                               texture_map;
 	texture_map                     textures;
 	sprite::system                  sys;
-	sprite::system::container       sprites;
+	sprite::container               sprites;
 };
 
 }

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
 
 #include "../common.hpp"
-#include <sge/linear_set.hpp>
+#include <sge/container/linear_set.hpp>
 
 namespace sge
 {
@@ -32,11 +32,11 @@ namespace vf
 {
 
 struct client_state {
-	typedef linear_set<
+	typedef container::linear_set<
 		GLenum
 	> normal_state_set;
 
-	typedef linear_set<
+	typedef container::linear_set<
 		GLuint
 	> index_state_set;
 

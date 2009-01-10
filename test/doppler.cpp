@@ -109,15 +109,16 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge dopplertest"),
-			(sge::renderer::parameters(
-				sge::renderer::display_mode(
-					screen_size,
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care),
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::windowed))))
+			SGE_TEXT("sge dopplertest")
+		))
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				screen_size,
+				sge::renderer::bit_depth::depth32,
+				sge::renderer::refresh_rate_dont_care),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::audio_player)
 		(sge::systems::parameterless::image));
@@ -126,10 +127,10 @@ try
 		image_bg(
 			sys.image_loader()->load(
 				sge::media_path()/SGE_TEXT("grass.png"))),
-	  image_pointer(
+		image_pointer(
 			sys.image_loader()->load(
 				sge::media_path()/SGE_TEXT("mainskin")/SGE_TEXT("cursor.png"))),
-	  image_tux(
+		image_tux(
 			sys.image_loader()->load(
 				sge::media_path()/SGE_TEXT("tux.png")));
 
@@ -141,7 +142,7 @@ try
 
 	sge::texture::manager tex_man(sys.renderer(),creator);
 
-	sge::texture::part_ptr const 
+	sge::texture::const_part_ptr const 
 		tex_bg(
 			sge::texture::add(
 				tex_man, 
@@ -213,7 +214,7 @@ try
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block_(sys.renderer());
-		sge::sprite::system::container sprites;
+		sge::sprite::container sprites;
 		sprites.push_back(bg);
 		sprites.push_back(pointer);
 		sprites.push_back(tux);

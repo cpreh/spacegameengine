@@ -44,7 +44,7 @@ public:
 
 	SGE_SYMBOL ptr_type load();
 private:
-	context_base* base_;
+	context_base *base_;
 };
 
 }

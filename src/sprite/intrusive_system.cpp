@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/intrusive_system.hpp>
+#include <sge/sprite/intrusive_object.hpp>
 #include <sge/sprite/detail/render_states.hpp>
 #include <sge/sprite/detail/intrusive_compare.hpp>
 #include <sge/sprite/detail/fill_geometry.hpp>
@@ -36,6 +37,9 @@ sge::sprite::intrusive_system::intrusive_system(
 	system_base(rend)
 {}
 
+sge::sprite::intrusive_system::~intrusive_system()
+{}
+
 void sge::sprite::intrusive_system::render()
 {
 	matrices();
@@ -45,7 +49,7 @@ void sge::sprite::intrusive_system::render()
 
 	renderer::state::scoped const state_(
 		rend,
-		render_states()
+		detail::render_states()
 	);
 
 	BOOST_FOREACH(sprite_level_map::value_type const &v, sprite_levels)
@@ -63,7 +67,7 @@ void sge::sprite::intrusive_system::render(
 	renderer::index_buffer_ptr const ib(
 		index_buffer());
 
-	fill_geometry(
+	detail::fill_geometry(
 		sprites.begin(),
 		sprites.end(),
 		vertex_buffer(),
@@ -72,10 +76,10 @@ void sge::sprite::intrusive_system::render(
 	renderer::device_ptr const rend(
 		renderer());
 
-	sprite::render(
+	detail::render(
 		sprites.begin(),
 		sprites.end(),
-		tex_equal_visible,
+		detail::tex_equal_visible,
 		rend,
 		vb,
 		ib);

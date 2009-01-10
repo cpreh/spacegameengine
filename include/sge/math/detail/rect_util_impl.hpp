@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
 #define SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
 
+#include "../../assert.hpp"
 #include <algorithm>
 
 template<typename T>
@@ -49,24 +50,6 @@ bool sge::math::intersects(const rect<T>& l, const rect<T>& r)
 }
 
 template<typename T>
-bool sge::math::intersects(const rect<T>& r, const line_seg2<T>& l)
-{
-	typedef typename line_seg2<T>::vec vec;
-	return intersects(line_seg2<T>(vec(r.left(), r.top()),
-	                                     vec(r.left(),  r.bottom())),
-	                  l)
-	   ||  intersects(line_seg2<T>(vec(r.left(), r.bottom()), 
-	                                     vec(r.right(), r.bottom())),
-	                  l)
-	   ||  intersects(line_seg2<T>(vec(r.right(), r.bottom()),
-	                                     vec(r.right(), r.top())),
-	                  l)
-	   ||  intersects(line_seg2<T>(vec(r.right(), r.top()),
-	                                     vec(r.left,  r.top)),
-	                  l);
-}
-
-template<typename T>
 sge::math::rect<T> const sge::math::intersection(rect<T> const &r1,rect<T> const &r2)
 {
 	if (!intersects(r1,r2))
@@ -87,7 +70,9 @@ sge::math::rect<T> const sge::math::intersection(rect<T> const &r1,rect<T> const
 template<typename T,typename U>
 sge::math::rect<T> const sge::math::bounding(U it,U const end)
 {
-	rect<T> r;
+	SGE_ASSERT(it != end);
+
+	rect<T> r(*it);
 
   for (;it != end; ++it)
   {

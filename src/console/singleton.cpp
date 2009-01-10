@@ -65,7 +65,7 @@ struct filtered_file
 	typedef T filter_type;
 	typedef typename filter_type::argument_type string_type;
 	typedef typename string_type::value_type char_type;
-	typedef sge::path filename_type;
+	typedef sge::filesystem::path filename_type;
 	typedef std::vector<string_type> line_vector;
 	typedef typename boost::filter_iterator<filter_type,typename line_vector::const_iterator> const_iterator;
 	typedef typename boost::filter_iterator<filter_type,typename line_vector::iterator> iterator;
@@ -157,6 +157,7 @@ void sge::con::singleton::erase(
 void sge::con::singleton::eval(
 	sge::string const &line)
 {
+	// TODO: rewrite this with spirit-2!
 	sge::con::arg_list args;
 
 	sge::string command_str;
@@ -203,7 +204,7 @@ void sge::con::singleton::eval(
 }
 
 void sge::con::singleton::read_config(
-	sge::path const &fn)
+	sge::filesystem::path const &fn)
 {
 	typedef filtered_file<sge_whitespace_filter> file_type;
 

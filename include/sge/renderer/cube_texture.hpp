@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "image_view.hpp"
 #include "texture_base.hpp"
-#include "dim_types.hpp"
+#include "lock_rect.hpp"
 #include "../export.hpp"
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 
 namespace sge
 {
@@ -47,7 +47,7 @@ namespace cube_side
 
 class SGE_CLASS_SYMBOL cube_texture : public texture_base {
 public:
-	typedef boost::array<
+	typedef std::tr1::array<
 		image_view,
 		cube_side::num_elements
 	> image_view_6;

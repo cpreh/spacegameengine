@@ -1,45 +1,38 @@
 #ifndef SGE_GUI_LAYOUT_HPP_INCLUDED
 #define SGE_GUI_LAYOUT_HPP_INCLUDED
 
+#include "widget_fwd.hpp"
+#include "layout_fwd.hpp"
 #include "types.hpp"
 #include "../export.hpp"
-#include <boost/scoped_ptr.hpp>
-#include <memory>
 
 namespace sge
 {
 namespace gui
 {
-class widget;
-namespace widgets
-{
-class container;
-}
-
 class SGE_CLASS_SYMBOL layout
 {
 	public:
-	SGE_SYMBOL layout(widgets::container &);
+	SGE_SYMBOL layout(widget &);
 
 	virtual void update() = 0;
+	virtual void pos(point const &) = 0;
+	virtual void size(dim const &) = 0;
 	virtual dim const size_hint() const = 0;
 
-	widgets::container &connected_widget() { return w; }
-	widgets::container const &connected_widget() const { return w; }
+	widget &connected_widget() { return w; }
+	widget const &connected_widget() const { return w; }
 
 	virtual ~layout() {}
 	protected:
 	void set_widget_size(widget &,dim const &);
 	void set_widget_pos(widget &,point const &);
-	void widget_compile(widget &);
+	void compile_widget(widget &);
 
 	private:
-	widgets::container &w;
+	widget &w;
 };
 
-typedef boost::scoped_ptr<layout> layout_auto_ptr;
-typedef layout* layout_ptr;
-typedef layout const * const_layout_ptr;
 }
 }
 

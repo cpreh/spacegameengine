@@ -68,16 +68,10 @@ public:
 		const_pointer data,
 		size_type first,
 		size_type count);
-	void resize(size_type);
 
 	size_type size() const;
 	size_type stride() const;
 	resource_flag_type flags() const;
-
-	void resize(
-		size_type newsize,
-		size_type newstride,
-		const_pointer src);
 
 	pointer data();
 	const_pointer data() const;

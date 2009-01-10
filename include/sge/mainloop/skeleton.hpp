@@ -35,7 +35,7 @@ class list;
 }
 namespace input
 {
-struct key_pair;
+class key_pair;
 }
 
 namespace mainloop

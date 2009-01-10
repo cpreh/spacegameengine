@@ -67,11 +67,10 @@ private:
 	mutable renderer::texture  *locked_texture;
 
 	typedef boost::ptr_vector<
-		renderer::texture> texture_vector;
+		renderer::texture
+	> texture_vector;
 	mutable texture_vector     textures;
 };
-
-GLenum convert_cast(renderer::cube_side::type const &);
 
 void disable_cube_texture();
 

@@ -27,10 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::ft::metrics::metrics(
 	library &lib,
-	path const &font_path,
+	filesystem::path const &font_path,
 	font::size_type const font_height)
-: face_(lib, font_path),
-  pixel_size(font_height)
+:
+	face_(lib, font_path),
+	pixel_size(font_height)
 {
 	if(FT_Select_Charmap(face_.get(), FT_ENCODING_UNICODE) != 0)
 		throw exception(SGE_TEXT("No Unicode code map found!"));
@@ -57,7 +58,11 @@ sge::ft::metrics::load_char(
 	return metric;
 }
 
-sge::font::unit sge::ft::metrics::line_height() const
+sge::font::unit
+sge::ft::metrics::line_height() const
 {
-	return static_cast<font::unit>(face_->size->metrics.height / 64);
+	return static_cast<
+		font::unit
+	>(
+		face_->size->metrics.height / 64);
 }

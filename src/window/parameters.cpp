@@ -19,13 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/window/parameters.hpp>
+#include <sge/text.hpp>
+
+sge::string const
+sge::window::parameters::default_class(
+	SGE_TEXT("sgeclass"));
 
 sge::window::parameters::parameters(
 	string const &title_,
-	renderer::parameters const &param_)
+	string const &class_name_)
 :
 	title_(title_),
-	param_(param_)
+	dim_(),
+	class_name_(class_name_)
+{}
+
+sge::window::parameters::parameters(
+	string const &title_,
+	dim_type const &dim_,
+	string const &class_name_)
+:
+	title_(title_),
+	dim_(dim_),
+	class_name_(class_name_)
 {}
 
 sge::string const &
@@ -34,8 +50,21 @@ sge::window::parameters::title() const
 	return title_;
 }
 
-sge::renderer::parameters const &
-sge::window::parameters::param() const
+sge::string const &
+sge::window::parameters::class_name() const
 {
-	return param_;
+	return class_name_;
+}
+
+sge::window::parameters::optional_dim const &
+sge::window::parameters::dim() const
+{
+	return dim_;
+}
+
+void
+sge::window::parameters::dim(
+	dim_type const &d)
+{
+	dim_ = d;
 }

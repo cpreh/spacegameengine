@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "fwd.hpp"
 #include "system_base.hpp"
+#include "container.hpp"
 #include "../export.hpp"
 #include <boost/function.hpp>
-#include <vector>
 
 namespace sge
 {
@@ -37,8 +37,6 @@ public:
 	SGE_SYMBOL explicit system(
 		renderer::device_ptr rend);
 	
-	typedef std::vector<object> container;
-
 	typedef boost::function<
 		void (
 			object *,

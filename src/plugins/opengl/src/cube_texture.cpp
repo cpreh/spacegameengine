@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../cube_texture.hpp"
-#include "../conversion.hpp"
 #include "../error.hpp"
 #include "../texture_functions.hpp"
 #include "../basic_texture_impl.hpp"
@@ -32,7 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/make_auto_ptr.hpp>
 #include <boost/assign/list_of.hpp>
+#include <boost/tr1/array.hpp>
 
 namespace
 {
@@ -40,6 +41,10 @@ namespace
 void initialize_cube_texture();
 GLenum cube_texture_type();
 bool have_cube_texture();
+
+GLenum
+convert_cube_side(
+	sge::renderer::cube_side::type const &s);
 
 GLenum gl_cube_texture_type;
 bool have_cube_texture_;
@@ -62,25 +67,35 @@ sge::ogl::cube_texture::cube_texture(
 	sz(sz),
 	locked_texture(0)
 {
-	// TODO: move this to a checker class
 	if(!have_cube_texture())
 		sge::ogl::on_not_supported(
 			SGE_TEXT("cube texture"),
 			SGE_TEXT("1.3"),
 	       		SGE_TEXT("gl_arb_cube_texture"));
 
-	for(unsigned i = 0; i < 6; ++i)
-		textures.push_back(
-			new texture(
+	for(
+		unsigned i = 0;
+		i < static_cast<unsigned>(
+			sge::renderer::cube_side::num_elements);
+		++i)
+	{
+		std::auto_ptr<texture> p(
+			make_auto_ptr<
+				texture
+			>(
 				texture::dim_type(
 					sz,
 					sz),
 				format,
 				filter,
 				flags,
-				convert_cast(
+				convert_cube_side(
 					static_cast<renderer::cube_side::type>(i))
 		));
+
+		textures.push_back(
+			p);
+	}
 }
 
 sge::renderer::image_view const
@@ -137,33 +152,6 @@ void sge::ogl::cube_texture::check_not_locked() const
 			SGE_TEXT("ogl::cube_texture: already locked!"));
 }
 
-GLenum sge::ogl::convert_cast(renderer::cube_side::type const &s)
-{
-	typedef boost::array<GLenum, sge::renderer::cube_side::num_elements> cube_side_array;
-	static const cube_side_array cube_sides = cube_texture_type() == GL_TEXTURE_CUBE_MAP
-		? boost::assign::list_of
-			(GL_TEXTURE_CUBE_MAP_POSITIVE_Z)
-			(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z)
-			(GL_TEXTURE_CUBE_MAP_NEGATIVE_X)
-			(GL_TEXTURE_CUBE_MAP_POSITIVE_X)
-			(GL_TEXTURE_CUBE_MAP_POSITIVE_Y)
-			(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y)
-		: boost::assign::list_of
-			(GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB)
-			(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB)
-			(GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB)
-			(GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB)
-			(GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB)
-			(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB);
-
-
-	const cube_side_array::size_type pos = static_cast<cube_side_array::size_type>(s);
-	if(pos >= cube_sides.size())
-		throw exception(SGE_TEXT("Invalid cube_side!"));
-
-	return cube_sides[pos];
-}
-
 void sge::ogl::disable_cube_texture()
 {
 	if(have_cube_texture())
@@ -197,5 +185,42 @@ bool have_cube_texture()
 	initialize_cube_texture();
 	return have_cube_texture_;
 }
+
+GLenum
+convert_cube_side(
+	sge::renderer::cube_side::type const &s)
+{
+	typedef std::tr1::array<
+		GLenum,
+		sge::renderer::cube_side::num_elements
+	> cube_side_array;
+
+	static const cube_side_array cube_sides
+		= cube_texture_type() == GL_TEXTURE_CUBE_MAP
+			? boost::assign::list_of
+				(GL_TEXTURE_CUBE_MAP_POSITIVE_Z)
+				(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z)
+				(GL_TEXTURE_CUBE_MAP_NEGATIVE_X)
+				(GL_TEXTURE_CUBE_MAP_POSITIVE_X)
+				(GL_TEXTURE_CUBE_MAP_POSITIVE_Y)
+				(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y)
+			: boost::assign::list_of
+				(GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB)
+				(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB)
+				(GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB)
+				(GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB)
+				(GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB)
+				(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB);
+
+
+	cube_side_array::size_type const pos = static_cast<cube_side_array::size_type>(s);
+
+	if(pos >= cube_sides.size())
+		throw sge::exception(
+			SGE_TEXT("Invalid cube_side!"));
+
+	return cube_sides[pos];
+}
+
 
 }

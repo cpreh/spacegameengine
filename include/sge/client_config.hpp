@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CLIENT_CONFIG_HPP_INCLUDED
 
 #include "export.hpp"
-#include "path.hpp"
+#include "filesystem/path.hpp"
 
 namespace sge
 {
 
-SGE_SYMBOL path client_config_path();
+SGE_SYMBOL filesystem::path const
+client_config_path();
 
 }
 

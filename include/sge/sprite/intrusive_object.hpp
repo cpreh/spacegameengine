@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_OBJECT_HPP_INCLUDED
 
 #include "object.hpp"
+#include "intrusive_object_fwd.hpp"
+#include "intrusive_order.hpp"
 #include "../export.hpp"
 #include <boost/intrusive/list_hook.hpp>
 #include <boost/optional.hpp>
@@ -46,15 +48,15 @@ typedef boost::intrusive::list_base_hook<
 
 class intrusive_object : public object, public detail::object_base_hook {
 public:
-	typedef unsigned order_type;
+	typedef intrusive_order order_type;
 
 	SGE_SYMBOL intrusive_object(
 		intrusive_system &,
 		order_type,
 		boost::optional<point> = defaults::pos_,
-		boost::optional<texture::part_ptr> = defaults::texture_,
+		boost::optional<texture::const_part_ptr> = defaults::texture_,
 		boost::optional<dim> = defaults::dim_,
-		boost::optional<color_t> = defaults::color_,
+		boost::optional<sprite::color> = defaults::color_,
 		boost::optional<depth_type> = defaults::depth_,
 		boost::optional<rotation_type> = defaults::rotation_,
 		boost::optional<bool> visible = defaults::visible_);
@@ -69,11 +71,14 @@ public:
 	SGE_SYMBOL void order(
 		order_type);
 	SGE_SYMBOL order_type order() const;
+
+	SGE_SYMBOL void transfer(
+		intrusive_system &);
 private:
 	void add_me();
 
-	intrusive_system &sys;
-	order_type       order_;
+	intrusive_system *sys;
+	order_type        order_;
 };
 
 

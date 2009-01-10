@@ -30,7 +30,7 @@ sge::gui::detail::keyboard_manager::keyboard_manager(sge::input::system_ptr cons
 // below is called from a base class constructor, so widget::process(keyboard_enter)
 // is called instead of most_derived::process(keyboard_enter), so the policy is: No 
 // widget initially has the focus.
-void sge::gui::detail::keyboard_manager::widget_add(widget &w)
+void sge::gui::detail::keyboard_manager::add(widget &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
@@ -63,7 +63,7 @@ void sge::gui::detail::keyboard_manager::request_focus(widget &w)
 	switch_focus(wi);
 }
 
-void sge::gui::detail::keyboard_manager::widget_remove(widget &w)
+void sge::gui::detail::keyboard_manager::remove(widget &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
@@ -74,12 +74,15 @@ void sge::gui::detail::keyboard_manager::widget_remove(widget &w)
 	
 	SGE_ASSERT(wi != widgets.end());
 	
-	// the widget to delete has the focus? then take the next one
+	// the widget to delete has the focus? then reset focus
 	if (focus && *focus == wi)
+		focus.reset();
+/* old (alternative) behaviour was to take the next possible widget
 		switch_focus(
 			boost::next(*focus) == widgets.end() 
 				? widgets.begin()
 				: boost::next(*focus));
+				*/
 	
 	widgets.erase(wi);
 }
@@ -155,7 +158,7 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 			if (wi != widgets.end())
 				return;
 
-			widget_add(w);
+			add(w);
 		}
 		break;
 	}
@@ -169,19 +172,23 @@ void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair con
 	if (input::is_mouse_axis(k.key().code()) || input::is_mouse_button(k.key().code()))
 		return;
 	
+	if (focus)
+	{
+		if (!(*focus)->process(events::key(k)))
+			return;
+	}
+
 	if (k.key().code() == sge::input::kc::key_tab)
 	{
 		if (!sge::math::almost_zero(k.value()))
 			cycle_focus();
 		return;
 	}
-	
-	if (focus)
-		(*focus)->process(events::key(k));
 }
 
 void sge::gui::detail::keyboard_manager::switch_focus(widget_container::iterator n)
 {
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("switching focus"));
 	if (focus)
 		(*focus)->process(events::keyboard_leave());
 	focus.reset(n);

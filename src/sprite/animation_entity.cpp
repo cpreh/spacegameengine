@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::sprite::animation_entity::animation_entity(
 	time::resolution const &res,
-	texture::part_ptr const tex_)
+	texture::const_part_ptr const tex_)
 :
 	delay_(res.get()),
 	tex_(tex_)
@@ -37,7 +37,7 @@ sge::sprite::animation_entity::delay() const
 	return delay_;	
 }
 
-sge::texture::part_ptr const
+sge::texture::const_part_ptr const
 sge::sprite::animation_entity::tex() const
 {
 	return tex_;

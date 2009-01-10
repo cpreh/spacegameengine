@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TYPE_INFO_HPP_INCLUDED
 #define SGE_TYPE_INFO_HPP_INCLUDED
 
+#include "export.hpp"
 #include <typeinfo>
 
 namespace sge
@@ -28,26 +29,28 @@ namespace sge
 
 class type_info {
 public:
-	type_info(const std::type_info&);
+	SGE_SYMBOL type_info(
+		std::type_info const &);
 
-	const std::type_info& get() const;
-	bool before(const type_info& rhs) const;
-	const char* name() const;
+	SGE_SYMBOL std::type_info const &get() const;
+	SGE_SYMBOL bool before(
+		type_info const &rhs) const;
+	SGE_SYMBOL char const *name() const;
 private:
 	const std::type_info* info_;
 };
 
-bool operator==(const type_info& lhs, const type_info& rhs);
+SGE_SYMBOL bool operator==(const type_info& lhs, const type_info& rhs);
 
-bool operator<(const type_info& lhs, const type_info& rhs);
+SGE_SYMBOL bool operator<(const type_info& lhs, const type_info& rhs);
 
-bool operator!=(const type_info& lhs, const type_info& rhs);
+SGE_SYMBOL bool operator!=(const type_info& lhs, const type_info& rhs);
 
-bool operator>(const type_info& lhs, const type_info& rhs);
+SGE_SYMBOL bool operator>(const type_info& lhs, const type_info& rhs);
 
-bool operator<=(const type_info& lhs, const type_info& rhs);
+SGE_SYMBOL bool operator<=(const type_info& lhs, const type_info& rhs);
 
-bool operator>=(const type_info& lhs, const type_info& rhs);
+SGE_SYMBOL bool operator>=(const type_info& lhs, const type_info& rhs);
 
 }
 

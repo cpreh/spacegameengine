@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../error.hpp"
-#include "../conversion.hpp"
 #include "../texture_functions.hpp"
+#include "../convert_texture_filter.hpp"
+#include "../glew.hpp"
 #include "../pbo.hpp" // TODO: maybe put this somewhere else
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -39,6 +40,8 @@ namespace
 bool need_mipmap(
 	sge::renderer::min_filter::type);
 
+bool have_anisotropic_filter();
+
 }
 
 GLuint sge::ogl::gen_texture()
@@ -50,8 +53,11 @@ GLuint sge::ogl::gen_texture()
 	return id;
 }
 
-void sge::ogl::delete_texture(const GLuint id)
+void sge::ogl::delete_texture(
+	GLuint const id)
 {
+	SGE_OPENGL_SENTRY
+
 	glDeleteTextures(1, &id);
 }
 
@@ -209,38 +215,40 @@ void sge::ogl::set_texture_filter(
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MIN_FILTER,
-		convert_cast(filter.min_filter()));
+		convert_texture_filter(filter.min_filter()));
 	
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MAG_FILTER,
-		convert_cast(filter.mag_filter()));
+		convert_texture_filter(filter.mag_filter()));
 
-	if(filter.anisotropy())
+	if(!filter.anisotropy())
+		return;
+	
+	if(!have_anisotropic_filter())
 	{
-#if GL_EXT_texture_filter_anisotropic
-		try
-		{
-			tex_parameter_i(
-				type,
-				GL_TEXTURE_MAX_ANISOTROPY_EXT,
-				filter.anisotropy());
-		}
-		catch(exception const &)
-		{
-			SGE_LOG_WARNING(
-				log::global(),
-				log::_1
-					<< SGE_TEXT("anisotropy level ")
-					<< filter.anisotropy()
-					<< SGE_TEXT(" not supported!"));
-		}
-#else
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("anisotropic filtering is not supported!");
-#endif
+				<< SGE_TEXT("anisotropic filtering is not supported!"));
+		return;
+	}
+	
+	try
+	{
+		tex_parameter_i(
+			type,
+			GL_TEXTURE_MAX_ANISOTROPY_EXT,
+			filter.anisotropy());
+	}
+	catch(exception const &)
+	{
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("anisotropy level ")
+				<< filter.anisotropy()
+				<< SGE_TEXT(" not supported!"));
 	}
 }
 
@@ -259,6 +267,12 @@ bool need_mipmap(
 	}
 }
 
+bool have_anisotropic_filter()
+{
+	static bool const b =
+		sge::ogl::glew_is_supported(
+			"GL_EXT_texture_filter_anisotropic");
+	return b;
 }
 
-
+}

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_UTIL_HPP_INCLUDED
 #define SGE_MATH_RECT_UTIL_HPP_INCLUDED
 
-#include "line_seg2.hpp"
 #include "rect.hpp"
 
 namespace sge
@@ -43,9 +42,6 @@ bool contains(const rect<T>& outer, const rect<T>& inner);
 
 template<typename T>
 bool intersects(const rect<T>& l, const rect<T>& r);
-
-template<typename T>
-bool intersects(const rect<T>& r, const line_seg2<T>& l);
 
 }
 }

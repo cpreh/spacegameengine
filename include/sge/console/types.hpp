@@ -33,7 +33,7 @@ namespace con
 
 class var_base;
 
-typedef boost::function<void (const arg_list &)> callback;
+typedef boost::function<void (arg_list const &)> callback;
 typedef std::map<string, var_base*> var_map;
 typedef std::map<string, callback> callback_map; 
 

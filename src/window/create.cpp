@@ -54,8 +54,9 @@ sge::window::create(
 		param,
 		dsp,
 		screen,
-		param.param().mode().bit_depth(),
-		visual);
+		32,//param.param().mode().bit_depth(), FIXME
+		visual,
+		false);
 
 #else
 #error "Implement me!"

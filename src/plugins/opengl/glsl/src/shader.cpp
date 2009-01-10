@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 
 template<bool Native>
 sge::ogl::glsl::shader<Native>::shader(
 	GLenum const type,
 	renderer::glsl::string const &source)
-: id_(create_shader<Native>(type))
+:
+	id_(create_shader<Native>(type))
 {
 	const char* const ptr = source.c_str();
 	const GLint len = static_cast<GLint>(source.size());
@@ -39,7 +40,10 @@ sge::ogl::glsl::shader<Native>::shader(
 	
 	if(compile_status<Native>(id()) == GL_FALSE)
 	{
-		typedef boost::array<char, 1024> errorlog_array;
+		typedef std::tr1::array<
+			char,
+			1024
+		> errorlog_array;
 		errorlog_array errorlog;
 
 		GLint len;

@@ -19,10 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../keyboard.hpp"
-#include <sge/windows/conv.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/iostream.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 #include <ostream>
 
 sge::dinput::keyboard::keyboard(
@@ -77,8 +76,16 @@ void sge::dinput::keyboard::dispatch(signal_type &sig)
 BOOL sge::dinput::keyboard::enum_keyboard_keys(LPCDIDEVICEOBJECTINSTANCE ddoi,  LPVOID s)
 {
 	keyboard &k = *static_cast<keyboard*>(s);
-	input::key_type::string const key_name(windows::win_str_to_sge(ddoi->tszName));
-	k.keys[ddoi->dwOfs] = input::key_type(k.name() + key_name, k.conv.create_key_code(ddoi->dwOfs), key_name.size() == 1 ? key_name[0] : 0);
+	input::key_type::string const key_name(
+		ddoi->tszName);
+
+	k.keys[ddoi->dwOfs] = input::key_type(
+		k.name() + key_name,
+		k.conv.create_key_code(
+			ddoi->dwOfs),
+		key_name.size() == 1
+			? key_name[0]
+			: 0);
 	return DIENUM_CONTINUE;
 }
 
@@ -86,7 +93,7 @@ sge::char_type
 sge::dinput::keyboard::keycode_to_char(
 	input::key_code const key) const
 {
-	boost::array<BYTE,256> state;
+	std::tr1::array<BYTE,256> state;
 	const BYTE key_up = 0, key_down = 0x80;
 	state[VK_SHIFT]   = modifiers.shift ? key_down : key_up;
 	state[VK_MENU]    = modifiers.alt   ? key_down : key_up;

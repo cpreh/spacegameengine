@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MEDIA_HPP_INCLUDED
 
 #include "export.hpp"
-#include "path.hpp"
+#include "filesystem/path.hpp"
 
 namespace sge
 {
 
-SGE_SYMBOL path media_path();
+SGE_SYMBOL filesystem::path const
+media_path();
 
 }
 

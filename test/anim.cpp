@@ -58,17 +58,18 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge animtest"),
-			(sge::renderer::parameters(
-				sge::renderer::display_mode(
-					sge::renderer::screen_size_t(
-						1024,
-						768),
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care),
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::windowed))))
+			SGE_TEXT("sge animtest")
+		))
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size_t(
+					1024,
+					768),
+				sge::renderer::bit_depth::depth32,
+				sge::renderer::refresh_rate_dont_care),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image));
 	
@@ -89,14 +90,14 @@ try
 
 	sge::texture::manager tex_man(rend, creator);
 
-	sge::texture::part_ptr const
+	sge::texture::const_part_ptr const
 		tex1(sge::texture::add(tex_man, img1)),
 		tex2(sge::texture::add(tex_man, img2));
 
 	sge::sprite::system ss(rend);
 	sge::sprite::object spr(
-		sge::sprite::point(0,0),
-		sge::texture::part_ptr(),
+		sge::sprite::point(0, 0),
+		sge::sprite::defaults::texture_,
 		sge::sprite::dim(
 			rend->screen_size().w(),
 			static_cast<sge::sprite::unit>(

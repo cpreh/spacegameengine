@@ -15,7 +15,7 @@ PROJECT (spacegameengine)
 
 IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 	message(FATAL_ERROR "In-source builds are not permitted. Make a separate folder for building:\nmkdir build; cd build; cmake ..\nBefore that, remove the files that cmake just created:\nrm -rf CMakeCache.txt CMakeFiles")
-ENDIF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+ENDIF()
 
 
 INCLUDE (CheckIncludeFile)
@@ -26,7 +26,13 @@ INCLUDE (FindPkgConfig)
 
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 
-OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" OFF)
+IF (MSVC)
+	SET (DEFAULT_NARROW_STRING OFF)
+ELSE ()
+	SET (DEFAULT_NARROW_STRING ON)
+ENDIF ()
+
+OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" DEFAULT_NARROW_STRING)
 
 IF (ENABLE_NARROW_STRING)
 	SET (SGE_NARROW_STRING true)
@@ -62,10 +68,21 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		# C++ 98 has no long long but boost insists on using it anyway
 		ADD_DEFINITIONS ("-Wno-long-long")
 	ENDIF ()
+
+	SET (CMAKE_REQUIRED_FLAGS "-Wall -Werror")
+
+	CHECK_CXX_SOURCE_COMPILES(
+		"#pragma message \"test\"
+		 int main() {}"
+		SGE_HAVE_PRAGMA_MESSAGE)
+	
+	SET (CMAKE_REQUIRED_FLAGS "")
 ELSEIF (MSVC)
 	ADD_DEFINITIONS ("/W4 /wd4512 /wd4355 /wd4800 /wd4996 /wd4714")
 	SET (WINLIBS projects/windows/lib32)
 	SET (WININCLUDES ${CMAKE_SOURCE_DIR}/${WINLIBS})
+
+	SET (SGE_HAVE_PRAGMA_MESSAGE 1)
 
 	ADD_DEFINITIONS (-DUNICODE=1 -D_UNICODE=1)
 ENDIF ()
@@ -121,8 +138,18 @@ CHECK_CXX_SOURCE_RUNS(
 	 }"
 	 SGE_HAVE_POSIX)
 
+CHECK_CXX_SOURCE_COMPILES(
+	"struct test {
+	   test(test const &) = delete;
+	   test &operator=(test const &) = default;
+	 };
+	 int main()
+	 {}"
+	 SGE_HAVE_DEFAULTED_AND_DELETED_FUNCTIONS)
+
 FIND_PACKAGE(Boost 1.35.0 COMPONENTS
 	filesystem
+	program_options
 	signals
 	system)
 
@@ -133,13 +160,13 @@ ENDIF()
 IF(Boost_INCLUDE_DIR)
 	INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 ELSE()
-	MESSAGE(STATUS "Boost headers not found. You will have to specify them in your build environment or you can use -DBOOST_ROOT= to tell cmake where your boost installation is.")
+	MESSAGE(STATUS "Boost headers not found. You will have to specify them in your build environment or you can use -DBOOST_ROOT= or -DBoost_INCLUDE_DIR to tell cmake where your boost installation is.")
 ENDIF()
 
 IF(Boost_LIBRARY_DIRS)
 	LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 ELSE()
-	MESSAGE(STATUS "Boost libraries not found.")
+	MESSAGE(STATUS "Boost libraries not found. Please set -DBoost_LIBRARY_DIR manually.")
 ENDIF()
 
 CHECK_CXX_SOURCE_COMPILES(
@@ -160,27 +187,6 @@ CHECK_CXX_SOURCE_RUNS(
 		  : EXIT_FAILURE;
 	 }"
 	 SGE_HAVE_POSIX)
-
-FIND_PACKAGE(Boost 1.35.0 COMPONENTS
-	filesystem
-	signals
-	system)
-
-IF(NOT Boost_FOUND)
-	MESSAGE(STATUS "Boost not found!")
-ENDIF()
-
-IF(Boost_INCLUDE_DIR)
-	INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
-ELSE()
-	MESSAGE(STATUS "Boost headers not found. You will have to specify them in your build environment or you can use -DBOOST_ROOT= to tell cmake where your boost installation is.")
-ENDIF()
-
-IF(Boost_LIBRARY_DIRS)
-	LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
-ELSE()
-	MESSAGE(STATUS "Boost libraries not found.")
-ENDIF()
 
 IF (SGE_HAVE_POSIX)
 	find_package(X11 REQUIRED)
@@ -211,7 +217,9 @@ ADD_SUBDIRECTORY (src)
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_SOURCE_DIR}/include/sge/config.h)
 
-IF (${ENABLE_TEST})
+OPTION(ENABLE_TEST "Build the tests" OFF)
+
+IF (ENABLE_TEST)
 	ADD_SUBDIRECTORY (test)
 ENDIF ()
 
@@ -232,10 +240,14 @@ INSTALL_HEADERS (sge/audio)
 INSTALL_HEADERS (sge/audio/loader)
 INSTALL_HEADERS (sge/audio/player)
 INSTALL_HEADERS (sge/console)
+INSTALL_HEADERS (sge/container)
 INSTALL_HEADERS (sge/detail)
+INSTALL_HEADERS (sge/filesystem)
+INSTALL_HEADERS (sge/filesystem/detail)
 INSTALL_HEADERS (sge/font)
 INSTALL_HEADERS (sge/image)
 INSTALL_HEADERS (sge/input)
+INSTALL_HEADERS (sge/library)
 INSTALL_HEADERS (sge/log)
 INSTALL_HEADERS (sge/log/format)
 INSTALL_HEADERS (sge/mainloop)

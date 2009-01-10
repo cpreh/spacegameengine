@@ -5,10 +5,8 @@
 #include <sge/gui/events/mouse_enter.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
-#include <sge/gui/widgets/container.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
-#include <sge/math/rect_impl.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
@@ -25,7 +23,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("mouse_manager"),true);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("mouse_manager"),false);
 
 sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 {
@@ -41,7 +39,7 @@ sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 
 sge::gui::detail::mouse_manager::mouse_manager(
 	input::system_ptr const is,
-	image::loader_ptr const il,
+	sge::image::loader_ptr const il,
 	renderer::device_ptr const rend,
 	skin &s)
 	: ic(
@@ -49,7 +47,7 @@ sge::gui::detail::mouse_manager::mouse_manager(
 	  		boost::bind(&mouse_manager::input_callback,this,_1))),
 	  cursor_(
 			sprite::defaults::pos_,
-			texture::part_ptr(
+			texture::const_part_ptr(
 				new texture::part_raw(
 					rend->create_texture(
 					il->load(s.cursor_path())->view(),
@@ -63,7 +61,7 @@ sge::gui::detail::mouse_manager::mouse_manager(
 {
 }
 
-void sge::gui::detail::mouse_manager::widget_add(widget &w)
+void sge::gui::detail::mouse_manager::add(widget &w)
 {
 	// We only store top level widgets as "starting points" for our focus search
 	if (!w.parent_widget())
@@ -79,14 +77,12 @@ sge::sprite::object const sge::gui::detail::mouse_manager::cursor() const
 	return cursor_;
 }
 
-void sge::gui::detail::mouse_manager::widget_remove(widget &w)
+void sge::gui::detail::mouse_manager::remove(widget &w)
 {
 	// We've got a problem if
 	// (a) the currently focused widget should be deleted, or...
 	// (b) one of its children
-	if (focus == &w || 
-		  (w.is_container() && 
-			 dynamic_cast<widgets::container const &>(w).has_child(*focus)))
+	if (focus == &w || w.has_child(*focus))
 	{
 		// If so, we start at the focused widget and traverse the tree upwards until
 		// we reach the widget's parent (it could be 0).
@@ -207,19 +203,6 @@ sge::gui::widget *sge::gui::detail::mouse_manager::recalculate_focus(
 
 sge::gui::widget *sge::gui::detail::mouse_manager::do_recalculate_focus(
 	widget &w,
-	point const &mouse_click)
-{
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("this child is a container: ") << w.is_container());
-
-	return w.is_container() 
-			? do_recalculate_focus(static_cast<widgets::container &>(w),mouse_click)
-			: &w;
-}
-
-sge::gui::widget *sge::gui::detail::mouse_manager::do_recalculate_focus(
-	widgets::container &w,
 	point const &p)
 {
 	BOOST_FOREACH(widget &child,w.children())

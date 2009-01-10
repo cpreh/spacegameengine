@@ -20,7 +20,6 @@ class SGE_CLASS_SYMBOL button : public widget
 		string const &,
 		font::metrics_ptr = font::metrics_ptr());
 
-	SGE_SYMBOL dim const size_hint() const;
 	dim const minimum_size() const { return size_hint(); }
 	string const text() const { return text_; }
 	sge::font::metrics_ptr const font() const { return font_; }
@@ -30,7 +29,7 @@ class SGE_CLASS_SYMBOL button : public widget
 	SGE_SYMBOL void process(events::mouse_leave const &);
 	SGE_SYMBOL void process(events::mouse_click const &);
 	SGE_SYMBOL void process(events::keyboard_enter const &);
-	SGE_SYMBOL void process(events::key const &);
+	SGE_SYMBOL key_handling::type process(events::key const &);
 	SGE_SYMBOL void process(events::keyboard_leave const &);
 
 	// signals

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "safe_bool.hpp"
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 #include <iterator>
 #include <limits>
 #include <cstddef>
@@ -51,7 +51,7 @@ public:
 private:
 	typedef InternalType internal_type;
 	static const size_type element_bits = std::numeric_limits<internal_type>::digits;
-	typedef boost::array<internal_type, Size / element_bits + (Size % element_bits ? 1 : 0)> array_type;
+	typedef std::tr1::array<internal_type, Size / element_bits + (Size % element_bits ? 1 : 0)> array_type;
 	array_type array;
 
 	static void clear_bit(internal_type &t, size_type bit);

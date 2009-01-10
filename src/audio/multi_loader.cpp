@@ -4,10 +4,12 @@
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
+#include <sge/filesystem/exists.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 
-sge::audio::multi_loader::multi_loader(plugin::manager &pm)
+sge::audio::multi_loader::multi_loader(
+	plugin::manager &pm)
 {
 	for (plugin::iterator<loader> i = pm.begin<loader>(); i != pm.end<loader>(); ++i)
 	{
@@ -16,9 +18,14 @@ sge::audio::multi_loader::multi_loader(plugin::manager &pm)
 	}
 }	
 
-sge::audio::file_ptr const sge::audio::multi_loader::load(path const &file)
+sge::audio::multi_loader::~multi_loader()
+{}
+
+sge::audio::file_ptr const
+sge::audio::multi_loader::load(
+	filesystem::path const &file)
 {
-	if (!boost::filesystem::exists(file))
+	if (!filesystem::exists(file))
 		throw exception(
 			SGE_TEXT("file \"")
 			+ file.string()

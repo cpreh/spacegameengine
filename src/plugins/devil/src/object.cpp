@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view_dim.hpp>
 
 sge::devil::object::object(
-	path const &file)
+	filesystem::path const &file)
 {
 	bind_me();
 	if(ilLoadImage(
@@ -161,7 +161,8 @@ void sge::devil::object::resample(
 	check_errors();
 }
 
-void sge::devil::object::save(path const &file)
+void sge::devil::object::save(
+	filesystem::path const &file)
 {
 	bind_me();
 

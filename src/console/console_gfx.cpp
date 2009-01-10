@@ -10,6 +10,7 @@
 #include <sge/fstream.hpp>
 #include <sge/text.hpp>
 #include <sge/iostream.hpp>
+#include <sge/fixme.hpp>
 #include <boost/bind.hpp>
 #include <boost/range.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -22,7 +23,7 @@
 
 sge::con::console_gfx::console_gfx(
 	renderer::device_ptr const rend,
-	texture::part_ptr const texture,
+	texture::const_part_ptr const texture,
 	font::font_ptr const fn,
 	input::system_ptr const is,
 	sprite::point const &pos,
@@ -120,7 +121,9 @@ void sge::con::console_gfx::tabcomplete(string &il)
 
 	// determine which word we are in, if it's the first, complete a command,
 	// if it's any other, complete a variable
-	string::size_type right = cursor_pos,left = il.rfind(SGE_TEXT(' '),right-1);
+	string::size_type
+		right = cursor_pos,
+		left = il.rfind(SGE_TEXT(' '),right-1);
 
 	const bool is_command = left == std::string::npos;
 
@@ -206,7 +209,7 @@ void sge::con::console_gfx::key_action(const input::key_type &k)
 	// is a printable character? then append to input
 	if(std::isprint(k.char_code(),std::locale()))
 	{
-		// FIXME: input system doesn't work!
+		SGE_FIXME("input system doesn't work!")
 		if ((k.char_code() == SGE_TEXT('w') || k.char_code() == SGE_TEXT('W')))
 		{
 			if (cursor_pos == 0)

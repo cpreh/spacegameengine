@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_VECTOR_HPP_INCLUDED
 
 #include "../config.h"
+#include "vector_fwd.hpp"
 #include "compare.hpp"
 #include "mod.hpp"
 #include "../exception.hpp"
@@ -115,19 +116,6 @@ public:
 		for(size_type i = 0; i < U; ++i)
 			data_[i] = v[i];
 		data_[U] = n;
-	}
-
-	vector(const vector& r)
-	{
-		for(size_type i = 0; i < Dim; ++i)
-			data_[i] = r[i];
-	}
-
-	vector& operator=(const vector& r)
-	{
-		for(size_type i = 0; i < Dim; ++i)
-			data_[i] = r[i];
-		return *this;
 	}
 
 	vector& operator+=(const vector& r)
@@ -427,10 +415,6 @@ public:
 		              x()*r.y() - y()*r.x());
 	}
 
-	/** 
-	 * Compares the vector against the default constructed (and thus "nullified")
-	 * vector
-	 */
 	bool is_null() const
 	{
 		return *this == null();

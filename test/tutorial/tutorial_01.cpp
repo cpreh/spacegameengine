@@ -25,17 +25,18 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge tutorial01"),
-			sge::renderer::parameters(
-				sge::renderer::display_mode(
-					sge::renderer::screen_size_t(
-						640,
-						480),
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care),
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::windowed)))
+			SGE_TEXT("sge tutorial01")
+		))
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size_t(
+					640,
+					480),
+				sge::renderer::bit_depth::depth32,
+				sge::renderer::refresh_rate_dont_care),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::image));
 
 	sge::sprite::system ss(sys.renderer());
@@ -47,10 +48,11 @@ try
 			sge::renderer::resource_flags::none);
 	sge::sprite::object const my_object(
 		sge::sprite::point(0,0),
-		sge::texture::part_ptr(
+		sge::texture::const_part_ptr(
 			sge::make_shared_ptr<
-				sge::texture::part_raw>(
-					image_texture)),
+				sge::texture::part_raw
+			>(
+				image_texture)),
 		sge::sprite::texture_dim);
 
 	while (true)

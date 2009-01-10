@@ -57,6 +57,7 @@ public:
 		view_port_fun const &);
 	
 	void swap_buffers();
+	void reset_viewport();
 private:
 	void reset_viewport_on_map(
 		XEvent const &);

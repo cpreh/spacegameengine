@@ -61,10 +61,10 @@ sge::ogl::default_target::stride() const
 
 GLenum sge::ogl::default_target::format() const
 {
-	return GL_RGBA;
+	return GL_RGBA; // FIXME
 }
 
 GLenum sge::ogl::default_target::format_type() const
 {
-	return GL_UNSIGNED_BYTE;
+	return GL_UNSIGNED_BYTE; // FIXME
 }

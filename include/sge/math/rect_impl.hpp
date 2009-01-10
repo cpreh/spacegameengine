@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <ostream>
 #include <boost/lexical_cast.hpp>
-#include <sge/exception.hpp>
-#include "rect.hpp"
+#include "../exception.hpp"
+#include "../text.hpp"
+#include "rect_decl.hpp"
 #include "compare.hpp"
 
 template<typename T>
@@ -64,6 +65,12 @@ sge::math::rect<T>::rect(
   bottom_(sz.h())
 {
 	check();
+}
+
+template<typename T>
+sge::math::rect<T> const sge::math::rect<T>::null()
+{
+	return rect(point_type::null(),dim_type::null());
 }
 
 template<typename T>

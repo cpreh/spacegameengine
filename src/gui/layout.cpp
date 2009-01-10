@@ -1,8 +1,8 @@
 #include <sge/gui/layout.hpp>
-#include <sge/gui/widgets/container.hpp>
+#include <sge/gui/widget.hpp>
 #include <sge/iostream.hpp>
 
-sge::gui::layout::layout(widgets::container &w)
+sge::gui::layout::layout(widget &w)
 	: w(w)
 {
 }
@@ -17,7 +17,7 @@ void sge::gui::layout::set_widget_pos(widget &w,point const &d)
 	w.set_pos_raw(d);
 }
 
-void sge::gui::layout::widget_compile(widget &w)
+void sge::gui::layout::compile_widget(widget &w)
 {
-	w.do_compile();
+	w.compile();
 }

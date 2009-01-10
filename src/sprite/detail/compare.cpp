@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/math/compare.hpp>
 
-bool sge::sprite::equal(
+bool sge::sprite::detail::equal(
 	object const &l,
 	object const &r)
 {
@@ -31,7 +31,7 @@ bool sge::sprite::equal(
 	       l.texture() == r.texture();
 }
 
-bool sge::sprite::less(
+bool sge::sprite::detail::less(
 	object const &l,
 	object const &r)
 {
@@ -43,7 +43,7 @@ bool sge::sprite::less(
 		lz = l.z(),
 		rz = r.z();
 
-	texture::part_ptr const
+	texture::const_part_ptr const
 		ltex = l.texture(),
 		rtex = r.texture();
 

@@ -62,14 +62,12 @@ sge::ogl::system::create_renderer(
 
 sge::window::instance_ptr const
 sge::ogl::system::create_window(
-	window::parameters const &param)
+	window::parameters const &param,
+	renderer::parameters const &rparam)
 {
 #if defined(SGE_HAVE_X11)
 	sge::x11::display_ptr const dsp(
 		new sge::x11::display());
-
-	renderer::parameters const &rparam(
-		param.param());
 
 	glx::visual_ptr const visual(
 		glx::create_visual(
@@ -85,18 +83,12 @@ sge::ogl::system::create_window(
 		dsp,
 		visual->info().screen,
 		visual->info().depth,
-		visual);
+		visual,
+		rparam.wmode() == renderer::window_mode::fullscreen);
 #elif defined(SGE_WINDOWS_PLATFORM)
 	return sge::windows::create_window(
 		param);
 #else
 #error "Implement me!"
 #endif
-}
-
-sge::renderer::caps_array const
-sge::ogl::system::caps() const
-{
-	renderer::caps_array v;
-	return v; // FIXME
 }

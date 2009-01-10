@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../split_states.hpp"
 #include "../common.hpp"
 #include "../error.hpp"
-#include "../conversion.hpp"
+#include "../convert_states.hpp"
 #include "../enable.hpp"
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
@@ -51,7 +51,7 @@ void sge::ogl::split_states::update_stencil()
 	SGE_OPENGL_SENTRY
 
 	glStencilFunc(
-		convert_cast(
+		convert_states(
 			method),
 		static_cast<GLint>(
 			states.get(renderer::state::int_::stencil_ref)),
@@ -64,9 +64,9 @@ void sge::ogl::split_states::update_blend()
 	SGE_OPENGL_SENTRY
 
 	glBlendFunc(
-		convert_cast(
+		convert_states(
 			states.get<renderer::state::source_blend_func::type>()),
-		convert_cast(
+		convert_states(
 			states.get<renderer::state::dest_blend_func::type>()));
 }
 
@@ -86,7 +86,7 @@ void sge::ogl::split_states::update_alpha_test()
 	SGE_OPENGL_SENTRY
 
 	glAlphaFunc(
-		convert_cast(
+		convert_states(
 			func),
 		renderer::arithmetic_convert<
 			GLfloat

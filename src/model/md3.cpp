@@ -138,7 +138,7 @@ void sge::md3_model::fill_vertices(
 
 bool sge::md3_model::read_and_check_id3p(std::istream& is)
 {
-	typedef boost::array<u8, 4> id3p_array;
+	typedef std::tr1::array<u8, 4> id3p_array;
 	id3p_array id3p,
 	           to_check = { { 0x49, 0x44, 0x50, 0x33 } };
 	for(id3p_array::iterator i = id3p.begin(); i != id3p.end(); ++i)
@@ -149,7 +149,7 @@ bool sge::md3_model::read_and_check_id3p(std::istream& is)
 template<std::size_t Max>
 inline sge::md3_model::string_type sge::md3_model::read_string(std::istream& is)
 {
-	boost::array<u8, Max> tmp_name;
+	std::tr1::array<u8, Max> tmp_name;
 	is.read(reinterpret_cast<char*>(tmp_name.c_array()), tmp_name.size());
 
 	if(!std::count(tmp_name.begin(), tmp_name.end(), 0))

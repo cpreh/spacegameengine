@@ -42,7 +42,8 @@ create_window(
 	display_ptr,
 	int screen,
 	int depth,
-	visual_ptr);
+	visual_ptr,
+	bool fullscreen);
 
 }
 }

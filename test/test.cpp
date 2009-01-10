@@ -71,9 +71,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <cstdlib>
 
+#include <sge/container/map.hpp>
+#include <map>
+
 int main()
 try
 {
+	typedef sge::container::map<
+		std::map,
+		int,
+		int
+	> my_map;
+
+	my_map test_map;
+	test_map.insert(
+		10,
+		42);
+
 	sge::log::global().activate_hierarchy(
 		sge::log::level::debug);
 	
@@ -98,7 +112,11 @@ try
 		rs->create_window(
 			sge::window::parameters(
 				SGE_TEXT("sgetest"),
-				param)));
+				sge::window::dim_type(
+					1280,
+					1024)
+			),
+			param));
 
 	const sge::renderer::device_ptr rend = rs->create_renderer(
 		param,

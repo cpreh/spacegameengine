@@ -21,63 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAKE_SHARED_PTR_HPP_INCLUDED
 #define SGE_MAKE_SHARED_PTR_HPP_INCLUDED
 
+#include "detail/make_ptr_base.hpp"
 #include "shared_ptr.hpp"
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/arithmetic/inc.hpp>
+#include "todo.hpp"
 
 namespace sge
 {
 
-#ifndef SGE_MAKE_SHARED_PTR_MAX_SIZE
-#define SGE_MAKE_SHARED_PTR_MAX_SIZE 10
-#endif
+SGE_TODO("somehow make the return value of this const")
 
-#define SGE_MAKE_SHARED_PTR_FUN(z, n, text)\
-	template<\
-		typename Type,\
-		BOOST_PP_ENUM_PARAMS_Z(\
-			z,\
-			BOOST_PP_INC(n),\
-			typename T)\
-	>\
-	shared_ptr<\
-		Type\
-	> const\
-	make_shared_ptr(\
-		BOOST_PP_ENUM_BINARY_PARAMS(\
-			BOOST_PP_INC(n),\
-			T,\
-			const &param)\
-		)\
-	{\
-		return shared_ptr<\
-			Type\
-		>(\
-			new Type(\
-				BOOST_PP_ENUM_PARAMS_Z(\
-					z,\
-					BOOST_PP_INC(n),\
-					param)\
-				)\
-			);\
-	}
-
-BOOST_PP_REPEAT(SGE_MAKE_SHARED_PTR_MAX_SIZE, SGE_MAKE_SHARED_PTR_FUN, void)
-
-template<
-	typename Type
->
-shared_ptr<
-	Type
-> const
-make_shared_ptr()
-{
-	return shared_ptr<Type>(
-		new Type());
-}
-// TODO: can't the macro generate this, too?
+SGE_DETAIL_MAKE_PTR_BASE(shared_ptr)
 
 }
 

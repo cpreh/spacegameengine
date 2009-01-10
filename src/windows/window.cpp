@@ -20,11 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/windows/window.hpp>
-#include <sge/windows/conv.hpp>
+#include <sge/windows/wndclass.hpp>
+#include <sge/windows/wndclass_pool.hpp>
+#include <sge/windows/module_handle.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 
 namespace
 {
@@ -58,34 +60,16 @@ LRESULT CALLBACK wnd_proc(
 
 sge::windows::window::window(
 	dim_type const &sz,
-	string const &title)
+	string const &title,
+	string const &class_name)
+:
+	wndclass_(
+		wndclass_pool(
+			class_name,
+			wnd_proc))
 {
-	TCHAR const *const window_classname = TEXT("SpacegameWindow");
 
-	HINSTANCE instance = GetModuleHandle(0);
-
-	if(!wndclass_created)
-	{
-		WNDCLASSEX wndclass;
-		wndclass.cbClsExtra = 0;
-		wndclass.cbWndExtra = 0;
-		wndclass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW+1);
-		wndclass.hCursor = 0;
-		wndclass.hIcon = 0;
-		wndclass.hIconSm = 0;
-		wndclass.hInstance = instance;
-		wndclass.lpfnWndProc = wnd_proc;
-		wndclass.lpszClassName = window_classname;
-		wndclass.lpszMenuName = 0;
-		wndclass.cbSize = sizeof(WNDCLASSEX);
-		wndclass.style = 0;
-		if(!RegisterClassEx(&wndclass))
-			throw exception(
-				SGE_TEXT("RegisterClassEx() failed!"));
-		wndclass_created = true;
-	}
-
-	DWORD flags = (WS_VISIBLE | WS_OVERLAPPEDWINDOW);
+	DWORD const flags = (WS_VISIBLE | WS_OVERLAPPEDWINDOW);
 	RECT r = { 0, 0, 0, 0 };
 	if (!AdjustWindowRect(&r, flags, false))
 		throw exception(
@@ -96,8 +80,9 @@ sge::windows::window::window(
 	decoration_size.top() = static_cast<unsigned>(-r.top);
 	decoration_size.bottom() = static_cast<unsigned>(r.bottom);
 
-	handle = CreateWindow(window_classname,
-		sge_str_to_win(title).c_str(),
+	handle = CreateWindow(
+		wndclass_->name().c_str(),
+		title.c_str(),
 		flags,
 		0,
 		0,
@@ -105,8 +90,9 @@ sge::windows::window::window(
 		decoration_size.bottom() + decoration_size.top() + sz.h(),
 		0,
 		0,
-		instance,
+		module_handle(),
 		this);
+	
 	if(!handle)
 		throw exception(
 			SGE_TEXT("CreateWindow() failed!"));
@@ -136,7 +122,7 @@ void sge::windows::window::size(
 void sge::windows::window::title(
 	string const &title)
 {
-	if(SetWindowText(hwnd(),sge_str_to_win(title).c_str()) == 0)
+	if(SetWindowText(hwnd(), title.c_str()) == 0)
 		throw exception(
 			SGE_TEXT("SetWindowText() failed!"));
 }
@@ -167,7 +153,7 @@ sge::string const
 sge::windows::window::title() const
 {
 	// TODO: read the length first!
-	boost::array<TCHAR, 1024> buffer;
+	std::tr1::array<TCHAR, 1024> buffer;
 	if(GetWindowText(hwnd(), buffer.c_array(), buffer.size()) == 0)
 		throw exception(
 			SGE_TEXT("GetWindowText() failed!"));
@@ -209,12 +195,15 @@ void sge::windows::window::dispatch()
 	}
 }
 
-bool sge::windows::window::wndclass_created(false);
-
 namespace
 {
 
-LRESULT CALLBACK wnd_proc(HWND hwnd, unsigned msg, WPARAM wparam, LPARAM lparam)
+LRESULT CALLBACK
+wnd_proc(
+	HWND const hwnd,
+	unsigned const msg,
+	WPARAM const wparam,
+	LPARAM const lparam)
 {
 	if (msg == WM_CREATE)
 	{
@@ -222,7 +211,7 @@ LRESULT CALLBACK wnd_proc(HWND hwnd, unsigned msg, WPARAM wparam, LPARAM lparam)
 		SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(s->lpCreateParams));
 	}
 
-	sge::windows::window *wnd = reinterpret_cast<sge::windows::window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+	sge::windows::window *const wnd = reinterpret_cast<sge::windows::window*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 	if (wnd)
 	{
 		sge::windows::window::callback_return_type const ret =
@@ -243,7 +232,6 @@ LRESULT CALLBACK wnd_proc(HWND hwnd, unsigned msg, WPARAM wparam, LPARAM lparam)
 				GetWindowLongPtr(hwnd, GWLP_USERDATA));
 
 		bool const active = wparam != 0 ? true : false;
-		//wnd->set_active(active); // FIXME
 		if(!active)
 			ShowWindow(wnd->hwnd(),SW_MINIMIZE);
 		return 0;

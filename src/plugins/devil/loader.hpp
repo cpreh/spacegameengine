@@ -36,7 +36,7 @@ public:
 
 	image::object_ptr const
 	load(
-		path const &);
+		filesystem::path const &);
 	
 	/*image::object_ptr const
 	load_image(

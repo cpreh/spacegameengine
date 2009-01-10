@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WAVE_FILE_HPP_INCLUDED
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
-#include <sge/path.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/string.hpp>
 #include <sge/audio/file.hpp>
 #include <boost/logic/tribool.hpp>
@@ -36,7 +36,8 @@ namespace wave
 class file : public audio::file 
 {
 public:
-	file(path const &);
+	explicit file(
+		filesystem::path const &);
 
 	sge::string const to_string() const;
 

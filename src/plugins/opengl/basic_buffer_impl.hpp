@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BASIC_BUFFER_IMPL_HPP_INCLUDED
 
 #include "basic_buffer.hpp"
-#include "conversion.hpp"
 #include "common.hpp"
 #include "vbo_base.hpp"
 #include "lock_method.hpp"
+#include "convert_resource_flags.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -37,13 +37,14 @@ sge::ogl::basic_buffer<Type, Impl>::basic_buffer(
 	size_type const stride_,
 	resource_flag_type const flags_,
 	const_pointer const src)
- : sz(sz),
-   stride_(stride_),
-   flags_(flags_),
-   dest(0),
-   id(Impl().gen_buffer()),
-   lock_offset(0),
-   lock_size_(0)
+:
+	sz(sz),
+	stride_(stride_),
+	flags_(flags_),
+	dest(0),
+	id(Impl().gen_buffer()),
+	lock_offset(0),
+	lock_size_(0)
 {
 	allocate_buffer(src);
 }
@@ -88,7 +89,6 @@ void sge::ogl::basic_buffer<Type, Impl>::lock(
 	
 	GLuint const glflags = ogl_lock_method(lockflags);
 	bind_me();
-	// TODO: we can not partially map this buffer! :(
 	dest = static_cast<pointer>(Impl().map_buffer(Type(), glflags));
 	lock_offset = first * stride();
 	lock_size_ = count * stride();
@@ -145,18 +145,6 @@ void sge::ogl::basic_buffer<Type, Impl>::sub_data(
 template<
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
-void sge::ogl::basic_buffer<Type, Impl>::resize(
-	size_type const nsz)
-{
-	resize(
-		nsz,
-		stride(),
-		0); // TODO: maybe copy the old data over?
-}
-
-template<
-	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)()>
 typename sge::ogl::basic_buffer<Type, Impl>::size_type
 sge::ogl::basic_buffer<Type, Impl>::size() const
 {
@@ -179,21 +167,6 @@ typename sge::ogl::basic_buffer<Type, Impl>::resource_flag_type
 sge::ogl::basic_buffer<Type, Impl>::flags() const
 {
 	return flags_;
-}
-
-template<
-	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)()>
-void sge::ogl::basic_buffer<Type, Impl>::resize(
-	const size_type newsize,
-	const size_type newstride,
-	const const_pointer src)
-{
-	if(dest)
-		throw exception(SGE_TEXT("ogl_buffer::resize(), buffer must be unlocked!"));
-	stride_ = newstride;
-	sz = newsize;
-	allocate_buffer(src);
 }
 
 template<

@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
 
-#include "intrusive_object.hpp"
+#include "intrusive_system_fwd.hpp"
+#include "intrusive_object.hpp" // TODO: can we get rid of this?
+#include "intrusive_order.hpp"
 #include "system_base.hpp"
 #include "../renderer/device_fwd.hpp"
 #include <boost/intrusive/list.hpp>
@@ -37,23 +39,26 @@ class intrusive_system : public system_base {
 public:
 	SGE_SYMBOL explicit intrusive_system(
 		renderer::device_ptr);
+	SGE_SYMBOL ~intrusive_system();
 	
 	SGE_SYMBOL void render();
 private:
 	typedef boost::intrusive::list<
 		intrusive_object,
-		boost::intrusive::constant_time_size<false>
+		boost::intrusive::constant_time_size<
+			false
+		>
 	> sprite_list;
 
 	void render(
 		sprite_list const &);
 	void add(
 		intrusive_object &,
-		intrusive_object::order_type);
+		intrusive_order);
 	friend class intrusive_object;
 
 	typedef boost::ptr_map<
-		intrusive_object::order_type,
+		intrusive_order,
 		sprite_list
 	> sprite_level_map;
 

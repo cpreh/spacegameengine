@@ -50,6 +50,7 @@ public:
 		view_port_fun const &);
 	
 	void swap_buffers();
+	void reset_viewport();
 private:
 	sge::windows::window_ptr const wnd;
 	sge::windows::gdi_device const hdc;

@@ -45,7 +45,7 @@ sge::texture::manager::add(
 
 	fragmented_textures.push_back(onalloc_());
 
-	if(const part_ptr p = init_texture(fragmented_textures.back(), src))
+	if(part_ptr const p = init_texture(fragmented_textures.back(), src))
 		return p;
 	throw image_too_big();
 }
@@ -55,7 +55,7 @@ sge::texture::manager::init_texture(
 	fragmented& tex,
 	renderer::const_image_view const &src) const
 {
-	const part_ptr p = tex.consume_fragment(
+	part_ptr const p = tex.consume_fragment(
 		renderer::image_view_dim(src));
 	if(p)
 		p->data(src);
@@ -75,5 +75,7 @@ void sge::texture::manager::onalloc(
 }
 
 sge::texture::manager::image_too_big::image_too_big()
-: exception(SGE_TEXT("texture::manager::add_texture() image too big!"))
+:
+	exception(
+		SGE_TEXT("texture::manager::add_texture() image too big!"))
 {}

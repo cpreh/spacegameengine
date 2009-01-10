@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../time/types.hpp"
 #include "../export.hpp"
 #include "../texture/part_fwd.hpp"
-#include "../renderer/dim_types.hpp"
+#include "../renderer/dim_type.hpp"
 
 namespace sge
 {
@@ -35,13 +35,13 @@ class animation_entity {
 public:
 	SGE_SYMBOL animation_entity(
 		time::resolution const &delay,
-		texture::part_ptr tex);
+		texture::const_part_ptr tex);
 	SGE_SYMBOL time::unit delay() const;
-	SGE_SYMBOL texture::part_ptr const tex() const;
+	SGE_SYMBOL texture::const_part_ptr const tex() const;
 	SGE_SYMBOL renderer::dim_type const dim() const;
 private:
-	time::unit          delay_;
-	texture::part_ptr   tex_;
+	time::unit              delay_;
+	texture::const_part_ptr tex_;
 };
 
 }

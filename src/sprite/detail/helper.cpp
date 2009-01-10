@@ -19,11 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/detail/helper.hpp>
+#include <sge/sprite/detail/pos3.hpp>
+#include <sge/sprite/detail/pos2.hpp>
+#include <sge/sprite/detail/tex_pos.hpp>
+#include <sge/sprite/detail/constants.hpp>
 #include <sge/renderer/any_color_convert.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/math/matrix_impl.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <boost/array.hpp>
+#include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
 #include <cmath>
 
@@ -36,8 +40,8 @@ typedef sge::math::rect<
 
 }
 
-sge::sprite::vertex_iterator const
-sge::sprite::fill_position(
+sge::sprite::detail::vertex_iterator const
+sge::sprite::detail::fill_position(
 	vertex_iterator it,
 	rect const &rs,
 	depth_type const z)
@@ -52,8 +56,8 @@ sge::sprite::fill_position(
 	return it;
 }
 
-sge::sprite::vertex_iterator const
-sge::sprite::fill_tex_coordinates(
+sge::sprite::detail::vertex_iterator const
+sge::sprite::detail::fill_tex_coordinates(
 	vertex_iterator it,
 	tex_rect const &rt)
 {
@@ -65,8 +69,8 @@ sge::sprite::fill_tex_coordinates(
 	return it;
 }
 
-sge::sprite::vertex_iterator const
-sge::sprite::fill_vertices(
+sge::sprite::detail::vertex_iterator const
+sge::sprite::detail::fill_vertices(
 	vertex_iterator const it,
 	rect const &rs,
 	tex_rect const &rt,
@@ -76,8 +80,8 @@ sge::sprite::fill_vertices(
 	return fill_tex_coordinates(it, rt);
 }
 
-sge::sprite::vertex_iterator const
-sge::sprite::fill_position_rotated(
+sge::sprite::detail::vertex_iterator const
+sge::sprite::detail::fill_position_rotated(
 	vertex_iterator it,
 	rect const &rbs,
 	rotation_type const rot,
@@ -87,7 +91,7 @@ sge::sprite::fill_position_rotated(
 	pos2 const centerf(
 		math::structure_cast<funit>(center));
 
-	typedef boost::array<pos2, detail::vertices_per_sprite> position_array;
+	typedef std::tr1::array<pos2, detail::vertices_per_sprite> position_array;
 	position_array const positions = {{
 		pos2(
 			static_cast<funit>(rbs.left()),
@@ -117,8 +121,8 @@ sge::sprite::fill_position_rotated(
 	return it;
 }
 
-sge::sprite::vertex_iterator const
-sge::sprite::fill_color(
+sge::sprite::detail::vertex_iterator const
+sge::sprite::detail::fill_color(
 	vertex_iterator it,
 	color const acol)
 {
@@ -131,8 +135,8 @@ sge::sprite::fill_color(
 	return it;
 }
 
-sge::sprite::index_view::iterator
-sge::sprite::fill_indices(
+sge::sprite::detail::index_view::iterator
+sge::sprite::detail::fill_indices(
 	index_view::iterator it,
 	index_view::value_type const start)
 {

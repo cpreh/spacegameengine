@@ -3,14 +3,18 @@ FILE (GLOB sgecorefiles
 	archive/*.cpp
 	audio/*.cpp
 	console/*.cpp
+	container/*.cpp
+	filesystem/*.cpp
 	font/*.cpp
 	image/*.cpp
 	input/*.cpp
+	library/*.cpp
 	log/*.cpp
 	log/format/*.cpp
 	mainloop/*.cpp
 	model/*.cpp
 	plugin/*.cpp
+	plugin/detail/*.cpp
 	random/*.cpp
 	renderer/*.cpp
 	renderer/glsl/*.cpp
@@ -47,10 +51,8 @@ SET_TARGET_PROPERTIES (sgecore PROPERTIES DEFINE_SYMBOL SGE_EXPORTS)
 IF (NOT MSVC)
 	TARGET_LINK_LIBRARIES (
 		sgecore
-		boost_filesystem
-		boost_signals
-		boost_regex
-		boost_system)
+		${Boost_LIBRARIES}
+	)
 ENDIF ()
 
 IF (UNIX)
@@ -67,6 +69,8 @@ ELSEIF (WIN32)
 ENDIF ()
 
 INSTALL (TARGETS sgecore DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+
+OPTION (ENABLE_GUI "Build the gui" OFF)
 
 IF (ENABLE_GUI)
 	ADD_SUBDIRECTORY (gui)

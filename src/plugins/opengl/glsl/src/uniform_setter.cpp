@@ -129,7 +129,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 {
 	uniform_1iv(
 		location,
-		m.size(),
+		static_cast<GLsizei>(m.size()),
 		m.data());
 	return uniform_type::int1_array;
 }
@@ -140,7 +140,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 {
 	uniform_1fv(
 		location,
-		m.size(),
+		static_cast<GLsizei>(m.size()),
 		m.data());
 	return uniform_type::float1_array;
 }
@@ -151,7 +151,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 {
 	uniform_2fv(
 		location,
-		a.size(),
+		static_cast<GLsizei>(a.size()),
 		convert_array<
 			GLfloat
 		>(a).data());
@@ -164,7 +164,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 {
 	uniform_3fv(
 		location,
-		a.size(),
+		static_cast<GLsizei>(a.size()),
 		convert_array<
 			GLfloat
 		>(a).data());
@@ -177,7 +177,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 {
 	uniform_4fv(
 		location,
-		a.size(),
+		static_cast<GLsizei>(a.size()),
 		convert_array<
 			GLfloat
 		>(a).data());
@@ -190,7 +190,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 {
 	uniform_matrix_4fv(
 		location,
-		a.size(),
+		static_cast<GLsizei>(a.size()),
 		false,
 		convert_array<
 			GLfloat

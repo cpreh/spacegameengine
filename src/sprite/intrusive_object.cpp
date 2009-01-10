@@ -25,9 +25,9 @@ sge::sprite::intrusive_object::intrusive_object(
 	intrusive_system &sys,
 	order_type const order_,
 	boost::optional<point> const pos_,
-	boost::optional<texture::part_ptr> const vtex,
+	boost::optional<texture::const_part_ptr> const vtex,
 	boost::optional<dim> const size_,
-	boost::optional<color_t> const color_,
+	boost::optional<sprite::color> const color_,
 	boost::optional<depth_type> const z_,
 	boost::optional<rotation_type> const rotation_,
 	boost::optional<bool> const visible_)
@@ -40,7 +40,7 @@ sge::sprite::intrusive_object::intrusive_object(
 		z_,
 		rotation_,
 		visible_),
-	sys(sys),
+	sys(&sys),
 	order_(order_)
 {
 	add_me();
@@ -84,9 +84,17 @@ sge::sprite::intrusive_object::order() const
 	return order_;
 }
 
+void sge::sprite::intrusive_object::transfer(
+	intrusive_system &nsys)
+{
+	unlink();
+	sys = &nsys;
+	add_me();
+}
+
 void sge::sprite::intrusive_object::add_me()
 {
-	sys.add(
+	sys->add(
 		*this,
 		order_);
 }

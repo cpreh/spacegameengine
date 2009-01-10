@@ -32,7 +32,7 @@ sge::devil::loader::loader()
 
 sge::image::object_ptr const
 sge::devil::loader::load(
-	path const &p)
+	filesystem::path const &p)
 {
 	return image::object_ptr(
 		new object(p));
