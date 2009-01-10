@@ -18,11 +18,6 @@ Beg ptr_find(Beg b,End const e,Ptr const s)
 		e,
 		container::make_ptr_equal(
 			s));
-/*
-  for (;b != e; ++b)
-    if (&(*b) == s)
-      return b;
-  return b;*/
 }
 }
 }
