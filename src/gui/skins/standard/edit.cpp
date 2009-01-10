@@ -1,7 +1,13 @@
 #include "../../utility/max_dim.hpp"
+#include "../../utility/blit.hpp"
 #include <sge/font/font.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
+#include <sge/gui/events/invalid_area.hpp>
+#include <sge/gui/canvas.hpp>
+#include <sge/iostream.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
+#include <boost/gil/image.hpp>
 
 namespace
 {
@@ -32,15 +38,47 @@ sge::gui::dim const sge::gui::skins::standard::size_hint(
 }
 
 void sge::gui::skins::standard::draw(
-	widgets::edit const &,
-	events::invalid_area const &)
+	widgets::edit const &w,
+	events::invalid_area const &e)
 {
-	canvas::object c(buffer_);
+	sge::cerr << SGE_TEXT("drawing edit of size: ") << dim(
+		static_cast<unit>(w.text_buffer().width()+2),
+		static_cast<unit>(w.text_buffer().height())+2) << SGE_TEXT("\n");
+	
+	// resize internal buffer
+	w.buffer() = image(
+		static_cast<image::coord_t>(w.text_buffer().width()+2),
+		static_cast<image::coord_t>(w.text_buffer().height()+2));
 
-	// fill completely with white
+	canvas::object c(w.buffer());
+
+	// fill completely with background color
 	c.draw_rect(
 		c.area(),
-		internal_color(0xff,0xff,0xff,0xff));
+		internal_color(0xee,0xee,0xee,0xff),
+		canvas::rect_type::solid);
+	
+	dim const buffer_size = dim(
+		static_cast<unit>(w.text_buffer().width()),
+		static_cast<unit>(w.text_buffer().height()));
 
-	// draw borders
+	// blit the image at position 1,1
+	utility::blit(
+		renderer::const_image_view(
+			boost::gil::const_view(
+				w.text_buffer())),
+		rect(
+			point::null(),
+			buffer_size),
+		c.view(),
+		rect(
+			point(1,1),
+			buffer_size)
+		);
+
+	utility::blit_invalid(
+		renderer::make_const_image_view(c.view()),
+		rect(w.pos(),c.size()),
+		e.texture(),
+		e.area());
 }

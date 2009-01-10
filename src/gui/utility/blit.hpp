@@ -9,11 +9,17 @@ namespace gui
 {
 namespace utility
 {
+void blit_invalid(
+	const_image_view const &,
+	rect const &src_rect,
+	image_view,
+	rect const &invalid_rect);
+
 void blit(
 	const_image_view const &,
-	rect const &,
+	rect const &src_rect,
 	image_view,
-	rect const &);
+	rect const &dst_rect);
 }
 }
 }

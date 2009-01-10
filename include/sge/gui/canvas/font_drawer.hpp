@@ -6,6 +6,8 @@
 #include "../../renderer/image_view.hpp"
 #include "../../export.hpp"
 
+#include <boost/optional.hpp>
+
 namespace sge
 {
 namespace gui
@@ -15,7 +17,11 @@ namespace canvas
 class SGE_CLASS_SYMBOL font_drawer : public font::drawer
 {
 	public:
-	SGE_SYMBOL font_drawer(image_view &,color);
+	SGE_SYMBOL font_drawer(
+		image_view &,
+		color,
+		boost::optional<string::size_type> character_pos = boost::none,
+		point * = 0);
 
 	// NOTE: this is font::drawer::size_type, _not_ font::size_type!
 	SGE_SYMBOL void begin_rendering(
@@ -32,6 +38,9 @@ class SGE_CLASS_SYMBOL font_drawer : public font::drawer
 private:
 	image_view &texture_;
 	color const c;
+	unsigned counter;
+	boost::optional<unsigned> character_pos;
+	point *p;
 };
 }
 }

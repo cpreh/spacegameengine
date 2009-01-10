@@ -8,7 +8,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("update manager"),false);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("update manager"),true);
 }
 
 sge::gui::detail::update_manager::update_manager(

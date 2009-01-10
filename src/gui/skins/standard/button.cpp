@@ -134,7 +134,7 @@ void sge::gui::skins::standard::draw(
 		        << b.text()
 		        << SGE_TEXT("\")"));
 
-	utility::blit(
+	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
 		rect(b.pos(),c.size()),
 		e.texture(),

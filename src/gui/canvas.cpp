@@ -1,4 +1,6 @@
+#include "canvas/log.hpp"
 #include <sge/gui/canvas.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/text.hpp>
 #include <boost/gil/image.hpp>
