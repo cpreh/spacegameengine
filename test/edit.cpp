@@ -77,15 +77,15 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge gui test"),
-			(sge::renderer::parameters(
-				sge::renderer::display_mode(
-					screen_size,
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care),
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::windowed))))
+			SGE_TEXT("sge gui test")))
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				screen_size,
+				sge::renderer::bit_depth::depth32,
+				sge::renderer::refresh_rate_dont_care),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
