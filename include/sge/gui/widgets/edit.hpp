@@ -23,10 +23,13 @@ class SGE_CLASS_SYMBOL edit : public widget
 		dim const &desired_size,
 		font::metrics_ptr = font::metrics_ptr());
 	
-	SGE_SYMBOL dim const size_hint() const;
 	SGE_SYMBOL string const text() const;
+	SGE_SYMBOL void text(string const &);
 	SGE_SYMBOL font::metrics_ptr const font() const;
 	SGE_SYMBOL point const &scroll_pos() const;
+	SGE_SYMBOL dim const desired_size() const;
+	SGE_SYMBOL image &text_buffer();
+	SGE_SYMBOL image const &text_buffer() const;
 
 	SGE_SYMBOL void process(events::keyboard_enter const &);
 	SGE_SYMBOL key_handling::type process(events::key const &);
@@ -37,11 +40,13 @@ class SGE_CLASS_SYMBOL edit : public widget
 	dim desired_size_;
 	timer::object_ptr timer_;
 	bool cursor_visible_;
-	image buffer_;
+	image text_buffer_;
 	point scroll_pos_;
+	string::size_type cursor_pos;
 
 	void blink_callback();
-	void resize(math::vector<bool,2> const &);
+	void resize(dim const &);
+	void redraw();
 };
 }
 }

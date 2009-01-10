@@ -13,7 +13,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("skins::standard::button"),true);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("skins::standard::button"),
+	false);
 }
 
 void sge::gui::skins::standard::draw(
@@ -131,7 +134,7 @@ void sge::gui::skins::standard::draw(
 		        << b.text()
 		        << SGE_TEXT("\")"));
 
-	utility::blit(
+	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
 		rect(b.pos(),c.size()),
 		e.texture(),

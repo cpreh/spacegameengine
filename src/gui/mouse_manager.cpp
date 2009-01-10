@@ -23,7 +23,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("mouse_manager"),true);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("mouse_manager"),false);
 
 sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 {

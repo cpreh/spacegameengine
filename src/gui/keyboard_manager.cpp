@@ -188,6 +188,7 @@ void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair con
 
 void sge::gui::detail::keyboard_manager::switch_focus(widget_container::iterator n)
 {
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("switching focus"));
 	if (focus)
 		(*focus)->process(events::keyboard_leave());
 	focus.reset(n);

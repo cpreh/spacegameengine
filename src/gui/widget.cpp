@@ -15,7 +15,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("widget"),true);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("widget"),false);
 }
 
 sge::gui::widget::widget(
@@ -32,7 +32,6 @@ sge::gui::widget::widget(
 {
 	if (parent_widget())
 		parent_widget()->add_child(*this);
-	else
 	parent_manager().add(*this);
 }
 
@@ -201,8 +200,7 @@ sge::gui::widget::~widget()
 {
 	if (parent_widget())
 		parent_widget()->remove_child(*this);
-	else
-		parent_manager().remove(*this);
+	parent_manager().remove(*this);
 }
 
 sge::gui::rect const sge::gui::widget::relative_area() const

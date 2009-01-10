@@ -10,7 +10,7 @@
 #include <sge/renderer/state/scoped.hpp>
 
 #include <sge/gui/manager.hpp>
-#include <sge/gui/widgets/button.hpp>
+#include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/layouts/vertical.hpp>
 #include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
@@ -36,8 +36,8 @@
 #include <sge/string.hpp>
 #include <sge/exception.hpp>
 #include <sge/make_shared_ptr.hpp>
+
 #include <iostream>
-#include <ostream>
 
 namespace
 {
@@ -66,13 +66,6 @@ class input_functor
 };
 }
 
-#define TL_SINGLE_BUTTON 0
-#define TL_MULTIPLE_BUTTONS 1
-#define TL_CHILD_CONTAINERS 2
-#define TL_REMOVE_WIDGETS 3
-
-#define TESTING_LEVEL TL_REMOVE_WIDGETS
-
 int main()
 try
 {
@@ -84,16 +77,15 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge gui test")
-		))
-		(sge::renderer::parameters(
-			sge::renderer::display_mode(
-				screen_size,
-				sge::renderer::bit_depth::depth32,
-				sge::renderer::refresh_rate_dont_care),
-			sge::renderer::depth_buffer::off,
-			sge::renderer::stencil_buffer::off,
-			sge::renderer::window_mode::windowed))
+			SGE_TEXT("sge gui test"),
+			(sge::renderer::parameters(
+				sge::renderer::display_mode(
+					screen_size,
+					sge::renderer::bit_depth::depth32,
+					sge::renderer::refresh_rate_dont_care),
+				sge::renderer::depth_buffer::off,
+				sge::renderer::stencil_buffer::off,
+				sge::renderer::window_mode::windowed))))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
@@ -106,49 +98,10 @@ try
 		sys.font_system(),
 		sge::gui::skin_ptr(new sge::gui::skins::standard()));
 	
-#if TESTING_LEVEL == TL_SINGLE_BUTTON
-	sge::gui::widgets::button b((sge::gui::widget::parent_data(m)),SGE_TEXT("Button A"));
+	sge::gui::widgets::edit b((sge::gui::widget::parent_data(m)),sge::gui::dim(30,30));
 	b.pos(sge::gui::point(10,10));
 	b.size(sge::gui::dim(400,300));
-#elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
-	sge::gui::widget top((sge::gui::widget::parent_data(m)));
-	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)));
-	top.pos(sge::gui::point(10,10));
-	top.size(sge::gui::dim(400,300));
-
-	sge::gui::widgets::button left((sge::gui::widget::parent_data(top)),SGE_TEXT("Button A"));
-	sge::gui::widgets::button right((sge::gui::widget::parent_data(top)),SGE_TEXT("Button B"));
-#elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
-	sge::gui::widget top((sge::gui::widget::parent_data(m)));
-	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)));
-	top.pos(sge::gui::point(10,10));
-	top.size(sge::gui::dim(400,300));
-
-	sge::gui::widget left((sge::gui::widget::parent_data(top)));
-	left.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(left)));
-
-	sge::gui::widget right((sge::gui::widget::parent_data(top)));
-	right.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(right)));
-
-	sge::gui::widgets::button left_top(
-		sge::gui::widget::parent_data(left),
-		SGE_TEXT("(left top) me!"));
-	
-	sge::gui::widgets::button left_bottom(
-		sge::gui::widget::parent_data(left),
-		SGE_TEXT("(left bottom) me!"));
-
-	sge::shared_ptr<sge::gui::widgets::button>
-		right_top(new sge::gui::widgets::button(
-			sge::gui::widget::parent_data(right),
-			SGE_TEXT("(right top) me!")));
-
-	sge::gui::widgets::button right_bottom(
-		sge::gui::widget::parent_data(right),
-		SGE_TEXT("(right bottom) me!"));
-#else
-#error "invalid testing level"
-#endif
+	b.text(SGE_TEXT("test"));
 
 	// set sensible render states
 	sys.renderer()->state(
@@ -165,31 +118,10 @@ try
 	sge::signals::scoped_connection const conn =
 		sys.input_system()->register_callback(input_functor(running));
 	
-#if TESTING_LEVEL == TL_SINGLE_BUTTON
-	b.clicked.connect(p);
-#elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
-	left.clicked.connect(p);
-#elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
-	left_top.clicked.connect(p);
-#endif
-	
-#if TESTING_LEVEL == TL_REMOVE_WIDGETS
-	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
-#endif
 	while (running)
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block block(sys.renderer());
-
-#if TESTING_LEVEL == TL_REMOVE_WIDGETS
-		if (delete_timer.active() && delete_timer.expired())
-		{
-			sge::cerr << SGE_TEXT("sge: gui test program: removing button\n");
-			delete_timer.deactivate();
-			right_top.reset();
-		}
-#endif
-
 		m.draw();
 	}
 } 

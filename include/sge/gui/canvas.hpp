@@ -11,6 +11,8 @@
 #include "../font/font.hpp"
 #include "../renderer/image_view.hpp"
 
+#include <boost/optional.hpp>
+
 #include <vector>
 
 namespace sge
@@ -31,7 +33,8 @@ class SGE_CLASS_SYMBOL object
 
 	SGE_SYMBOL void draw_rect(
 		rect const &,
-		color,rect_type::type);
+		color,
+		rect_type::type);
 
 	SGE_SYMBOL void draw_text(
 		font::metrics_ptr,
@@ -41,7 +44,9 @@ class SGE_CLASS_SYMBOL object
 		dim const &max_size,
 		font::align_h::type,
 		font::align_v::type,
-		font::flag_t = font::flags::default_);
+		font::flag_t = font::flags::default_,
+		boost::optional<string::size_type> character_pos = boost::none,
+		point * = 0);
 
 	SGE_SYMBOL void draw_line(
 		point const &,

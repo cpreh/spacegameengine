@@ -9,7 +9,7 @@ namespace gui
 {
 namespace canvas
 {
-extern sge::gui::logger log;
+sge::log::logger &global_log();
 }
 }
 }

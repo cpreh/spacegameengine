@@ -2,7 +2,7 @@
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/gui/log.hpp>
+#include <sge/gui/widgets/log.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/iostream.hpp>
@@ -10,7 +10,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("button"),true);
+sge::gui::logger mylogger(sge::gui::widgets::global_log(),SGE_TEXT("button"),true);
 }
 
 sge::gui::widgets::button::button(

@@ -36,6 +36,8 @@ ADD_SGE_TEST(vertex)
 
 IF (${ENABLE_GUI})
 	ADD_SGE_TEST(gui)
+	ADD_SGE_TEST(edit)
+	TARGET_LINK_LIBRARIES (sgeedittest sgegui)
 	TARGET_LINK_LIBRARIES (sgeguitest sgegui)
 ENDIF ()
 
