@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONTAINER_TREE_IMPL_HPP_INCLUDED
 
 #include "tree_decl.hpp"
+#include <algorithm>
 
 template<
 	typename T
@@ -148,7 +149,7 @@ sge::container::tree<T>::child_position()
 	return std::find(
 		parent().begin(),
 		parent().end(),
-		*this);
+		this);
 }
 
 template<
@@ -397,6 +398,15 @@ typename sge::container::tree<T>::size_type
 sge::container::tree<T>::max_size() const
 {
 	return children().max_size();
+}
+
+template<
+	typename T
+>
+bool
+sge::container::tree<T>::empty() const
+{
+	return !size();
 }
 
 #endif

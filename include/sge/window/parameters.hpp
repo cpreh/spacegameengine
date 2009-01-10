@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 #define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 
+#include "dim_type.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
-#include "../renderer/parameters.hpp"
+#include <boost/optional.hpp>
 
 namespace sge
 {
@@ -31,19 +32,35 @@ namespace window
 {
 
 struct parameters {
-	SGE_SYMBOL static string const default_class_name;
+	SGE_SYMBOL static string const default_class;
 
+	SGE_SYMBOL explicit parameters(
+		string const &title,
+		string const &class_name = default_class);
 	SGE_SYMBOL parameters(
 		string const &title,
-		renderer::parameters const &,
-		string const &class_name = default_class_name);
+		dim_type const &dim,
+		string const &class_name = default_class);
 	
-	SGE_SYMBOL string const &title() const;
-	SGE_SYMBOL renderer::parameters const &param() const;
-	SGE_SYMBOL string const &class_name() const;
+	SGE_SYMBOL string const &
+	title() const;
+
+	SGE_SYMBOL string const &
+	class_name() const;
+
+	typedef boost::optional<
+		dim_type
+	> optional_dim;
+
+	SGE_SYMBOL optional_dim const &
+	dim() const;
+
+	SGE_SYMBOL void
+	dim(
+		dim_type const &);
 private:
 	string title_;
-	renderer::parameters param_;
+	optional_dim dim_;
 	string class_name_;
 };
 

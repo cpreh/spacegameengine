@@ -23,17 +23,18 @@ try
 	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge fullscreen test"),
-			sge::renderer::parameters(
-				sge::renderer::display_mode(
-					sge::renderer::screen_size_t(
-						800,
-						600),
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care),
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::fullscreen))));
+			SGE_TEXT("sge fullscreen test")
+		))
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size_t(
+					800,
+					600),
+				sge::renderer::bit_depth::depth32,
+				sge::renderer::refresh_rate_dont_care),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::fullscreen)));
 	
 	sge::time::timer tm(
 		sge::time::second(10));

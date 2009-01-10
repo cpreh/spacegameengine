@@ -37,9 +37,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/font/plugin.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/window/create.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>
+#include <boost/optional.hpp>
 
 struct sge::systems::instance::impl {
 	plugin::manager                                 plugin_manager;
@@ -62,7 +64,11 @@ struct sge::systems::instance::impl {
 	
 	window::instance_ptr                            window_;
 
+	boost::optional<window::parameters>             wparam_;
+
 	void init_renderer(
+		renderer::parameters const &);
+	void init_window(
 		window::parameters const &);
 	void init_input();
 	void init_image();
@@ -77,6 +83,8 @@ struct visitor : boost::static_visitor<> {
 	explicit visitor(
 		sge::systems::instance::impl &);
 	
+	void operator()(
+		sge::renderer::parameters const &) const;
 	void operator()(
 		sge::window::parameters const &) const;
 	void operator()(
@@ -160,10 +168,17 @@ visitor::visitor(
 	impl_(impl_)
 {}
 
+
+void visitor::operator()(
+	sge::renderer::parameters const &p) const
+{
+	impl_.init_renderer(p);
+}
+
 void visitor::operator()(
 	sge::window::parameters const &p) const
 {
-	impl_.init_renderer(p);
+	impl_.init_window(p);
 }
 
 void visitor::operator()(
@@ -190,27 +205,52 @@ void visitor::operator()(
 
 }
 
-void sge::systems::instance::impl::init_renderer(
+void sge::systems::instance::impl::init_window(
 	window::parameters const &p)
+{
+	wparam_.reset(p);
+}
+
+void sge::systems::instance::impl::init_renderer(
+	renderer::parameters const &p)
 {
 	renderer_plugin = plugin_manager.plugin<renderer::system>().load();
 	renderer_system.reset(renderer_plugin->get()());
 
 	if(!window_)
+	{
+		if(!wparam_)
+			throw exception(
+				SGE_TEXT("systems: renderer device requested, but no window parameter given!"));
+
+		if(!wparam_->dim())
+			wparam_->dim(
+				p.mode().size());
+
 		window_ = renderer_system->create_window(
+			*wparam_,
 			p);
+	}
 	
 	renderer = renderer_system->create_renderer(
-		p.param(),
+		p,
 		static_cast<renderer::adapter_type>(0),
 		window_);
 }
 
 void sge::systems::instance::impl::init_input()
 {
-	// TODO: create a window here too if not done already, using sge::create_window
+	if(!window_)
+	{
+		if(!wparam_)
+			throw exception(
+				SGE_TEXT("systems: input system requested, but no window parameter given!"));
+		window_ = sge::window::create(
+			*wparam_);
+	}
+			
 	input_plugin = plugin_manager.plugin<sge::input::system>().load();
-	input_system.reset(input_plugin->get()(renderer->window()));
+	input_system.reset(input_plugin->get()(window_));
 }
 
 void sge::systems::instance::impl::init_image()

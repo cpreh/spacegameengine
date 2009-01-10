@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::window::instance_ptr const
 sge::x11::create_window(
@@ -32,7 +34,8 @@ sge::x11::create_window(
 	display_ptr const dsp,
 	int const screen,
 	int const depth,
-	visual_ptr const visual)
+	visual_ptr const visual,
+	bool const fullscreen)
 {
 	x11::colormap_ptr const colormap(
 		new x11::colormap(
@@ -40,18 +43,19 @@ sge::x11::create_window(
 			screen,
 			visual));
 
-	renderer::parameters const &rparam(
-		param.param());
+	if(!param.dim())
+		throw exception(
+			SGE_TEXT("x11::create_window: Please specify the window's dimensions!"));
 
 	return sge::window::instance_ptr(
 		new window(
 			window::pos_type::null(),
-			rparam.mode().size(),
+			*param.dim(),
 			param.title(),
 			dsp,
 			screen,
 			depth,
-			rparam.wmode() == renderer::window_mode::fullscreen,
+			fullscreen,
 			visual,
 			colormap,
 			param.class_name()));

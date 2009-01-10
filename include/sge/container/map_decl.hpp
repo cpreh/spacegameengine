@@ -67,6 +67,13 @@ public:
 	explicit map(
 		internal_type const &);
 
+	template<
+		typename In
+	>
+	map(
+		In beg,
+		In end);
+
 	void insert(
 		key_type const &,
 		mapped_type const &);

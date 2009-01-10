@@ -117,8 +117,8 @@ public:
 	
 	size_type size() const;
 	size_type max_size() const;
+	bool empty() const;
 private:
-
 	T value_;
 	tree *parent_;
 	child_list children_;

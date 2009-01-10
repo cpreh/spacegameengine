@@ -23,6 +23,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 #include <iostream>
 #include <ostream>
+#include <iterator>
+
+namespace
+{
+
+template<
+	typename Tree
+>
+struct inorder_traversal {
+	explicit inorder_traversal(
+		Tree &tree_)
+	:
+		tree_(tree_)
+	{}
+
+	typedef typename Tree::iterator tree_iterator;
+
+	struct iterator {
+		explicit iterator(
+			tree_iterator const &it)
+		:
+			it(it)
+		{}
+
+		iterator &operator++()
+		{
+			if(!it->empty())
+				it = it->begin();
+			else if(it->has_parent())
+				it = it->child_position();	
+			return *this;
+		}
+		
+		typename std::iterator_traits<tree_iterator>::reference
+		operator *() const
+		{
+			return *it;	
+		}
+
+		bool operator!=(
+			iterator const &it) const
+		{
+			return *this != it;
+		}
+	private:
+		tree_iterator it;
+	};
+
+	iterator begin()
+	{
+		return iterator(tree_.begin());
+	}
+	iterator end()
+	{
+		return iterator(tree_.end());
+	}
+private:
+	Tree &tree_;
+};
+
+}
 
 int main()
 {
@@ -42,5 +103,16 @@ int main()
 			child1);
 	}
 
-	std::cout << tree.value() << ' ' << tree.back().value() << '\n';
+	typedef 
+	inorder_traversal<
+		string_tree
+	> inorder_trav;
+
+	inorder_trav trav(
+		tree);
+	
+	//for(inorder_trav::iterator it = trav.begin(); it != trav.end(); ++it)
+	//	std::cout << (*it).value() << '\n';
+
+	//std::cout << tree.value() << ' ' << tree.back().value() << '\n';
 }

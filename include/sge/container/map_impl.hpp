@@ -96,6 +96,40 @@ template<
 		typename
 	> class Comp
 >
+template<
+	typename In
+>
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::map(
+	In const beg,
+	In const end)
+:
+	impl_(
+		beg,
+		end)
+{}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
 void sge::container::map<
 	MapType,
 	Key,

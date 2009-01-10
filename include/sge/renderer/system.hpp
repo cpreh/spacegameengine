@@ -49,7 +49,8 @@ public:
 
 	virtual window::instance_ptr const
 	create_window(
-		window::parameters const &) = 0;
+		window::parameters const &,
+		renderer::parameters const &) = 0;
 
 	SGE_SYMBOL virtual ~system();
 };

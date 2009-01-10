@@ -112,7 +112,11 @@ try
 		rs->create_window(
 			sge::window::parameters(
 				SGE_TEXT("sgetest"),
-				param)));
+				sge::window::dim_type(
+					1280,
+					1024)
+			),
+			param));
 
 	const sge::renderer::device_ptr rend = rs->create_renderer(
 		param,

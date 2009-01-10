@@ -25,17 +25,18 @@ try
 	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
-			SGE_TEXT("sge tutorial01"),
-			sge::renderer::parameters(
-				sge::renderer::display_mode(
-					sge::renderer::screen_size_t(
-						640,
-						480),
-					sge::renderer::bit_depth::depth32,
-					sge::renderer::refresh_rate_dont_care),
-				sge::renderer::depth_buffer::off,
-				sge::renderer::stencil_buffer::off,
-				sge::renderer::window_mode::windowed)))
+			SGE_TEXT("sge tutorial01")
+		))
+		(sge::renderer::parameters(
+			sge::renderer::display_mode(
+				sge::renderer::screen_size_t(
+					640,
+					480),
+				sge::renderer::bit_depth::depth32,
+				sge::renderer::refresh_rate_dont_care),
+			sge::renderer::depth_buffer::off,
+			sge::renderer::stencil_buffer::off,
+			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::image));
 
 	sge::sprite::system ss(sys.renderer());

@@ -19,9 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/any_compare.hpp>
+#include <sge/container/map.hpp>
+#include <sge/type_info.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
+#include <boost/assign/list_of.hpp>
 #include <typeinfo>
+#include <map>
 
 namespace
 {
@@ -30,26 +34,21 @@ struct compare : boost::static_visitor<bool> {
 	bool operator()(
 		sge::systems::parameterless::type const &,
 		sge::systems::parameterless::type const &) const;
-
-	template<typename T>
-	bool operator()(
-		sge::renderer::parameters const &,
-		T const &) const;
-
-	template<typename T>
-	bool operator()(
-		T const &,
-		sge::renderer::parameters const &) const;
-
-	bool operator()(
-		sge::renderer::parameters const &,
-		sge::renderer::parameters const &) const;
 	
-	template<typename T, typename U>
+	template<
+		typename T,
+		typename U
+	>
 	bool operator()(
 		T const &,
 		U const &) const;
 };
+
+typedef unsigned priority_type;
+
+priority_type
+priority(
+	sge::type_info const &);
 
 }
 
@@ -73,35 +72,30 @@ bool compare::operator()(
 	return a < b;
 }
 
-template<typename T>
-bool compare::operator()(
-	sge::renderer::parameters const &,
-	T const &) const
-{
-	return true;
-}
-
-template<typename T>
-bool compare::operator()(
-	T const &,
-	sge::renderer::parameters const &) const
-{
-	return false;
-}
-
-bool compare::operator()(
-	sge::renderer::parameters const &,
-	sge::renderer::parameters const &) const
-{
-	return false;
-}
-
 template<typename T, typename U>
 bool compare::operator()(
 	T const &,
 	U const &) const
 {
-	return typeid(T).before(typeid(U));
+	return priority(typeid(T))
+		< priority(typeid(U));
+}
+
+priority_type
+priority(
+	sge::type_info const &t)
+{
+	static sge::container::map<
+		std::map,
+		sge::type_info,
+		priority_type
+	> const priorities =
+		boost::assign::map_list_of
+			(sge::type_info(typeid(sge::window::parameters)), 0)
+			(sge::type_info(typeid(sge::renderer::parameters)), 1)
+			(sge::type_info(typeid(sge::systems::parameterless::type)), 2);
+	
+	return priorities[t];
 }
 
 }
