@@ -189,15 +189,9 @@ void
 sge::container::tree<T>::push_back(
 	auto_ptr r)
 {
-	/*
 	insert(
 		end(),
-		r);*/
-	children().push_back(
 		r);
-	
-	children().back().parent(
-		*this);
 }
 
 template<
@@ -357,10 +351,13 @@ sge::container::tree<T>::insert(
 	iterator const it,
 	auto_ptr r)
 {
+	tree<T> &ref(*r);
+
 	children().insert(
 		it,
 		r);
-	r->parent(
+	
+	ref.parent(
 		*this);
 }
 
