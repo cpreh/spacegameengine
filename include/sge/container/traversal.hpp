@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/iterator/iterator_facade.hpp>
 #include <stack>
 
-#include <sge/iostream.hpp>
-#include <ostream>
-
 namespace sge
 {
 namespace container
@@ -74,7 +71,6 @@ public:
 	private:
 		void increment()
 		{
-			sge::cerr << "increment\n";
 			if(!it->empty())
 			{
 				positions.push(it);
@@ -89,7 +85,6 @@ public:
 				}
 				++it;
 			}
-			sge::cerr << "increment end\n";
 		}
 
 		void decrement()
@@ -105,7 +100,7 @@ public:
 		bool equal(
 			iterator const &s) const
 		{
-			return s.it  != it;
+			return s.it  == it;
 		}
 
 		tree_iterator it;
