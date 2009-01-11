@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <iostream>
 #include <ostream>
 #include <iterator>
+#include <stack>
 
 namespace
 {
@@ -31,8 +32,8 @@ namespace
 template<
 	typename Tree
 >
-struct inorder_traversal {
-	explicit inorder_traversal(
+struct traversal {
+	explicit traversal(
 		Tree &tree_)
 	:
 		tree_(tree_)
@@ -40,19 +41,35 @@ struct inorder_traversal {
 
 	typedef typename Tree::iterator tree_iterator;
 
+	typedef std::stack<
+		tree_iterator
+	> stack_type;
+
 	struct iterator {
-		explicit iterator(
-			tree_iterator const &it)
+		iterator(
+			tree_iterator const &it,
+			stack_type &positions)
 		:
-			it(it)
+			it(it),
+			positions(positions)
 		{}
 
 		iterator &operator++()
 		{
 			if(!it->empty())
+			{
+				positions.push(it);
 				it = it->begin();
-			else if(it->has_parent())
-				it = it->child_position();	
+			}
+			else
+			{
+				while(!positions.empty() && positions.top() != positions.top()->parent().end())
+				{
+					it = positions.top();
+					positions.pop();
+				}
+				++it;
+			}
 			return *this;
 		}
 		
@@ -63,24 +80,27 @@ struct inorder_traversal {
 		}
 
 		bool operator!=(
-			iterator const &it) const
+			iterator const &s) const
 		{
-			return *this != it;
+			return s.it  != it;
 		}
 	private:
 		tree_iterator it;
+		stack_type &positions;
 	};
 
 	iterator begin()
 	{
-		return iterator(tree_.begin());
+		return iterator(tree_.begin(), positions);
 	}
 	iterator end()
 	{
-		return iterator(tree_.end());
+		return iterator(tree_.end(), positions);
 	}
 private:
 	Tree &tree_;
+
+	stack_type positions;
 };
 
 }
@@ -103,14 +123,24 @@ int main()
 			child1);
 	}
 
-	typedef 
-	inorder_traversal<
-		string_tree
-	> inorder_trav;
+	{
+		string_tree::auto_ptr child2(
+			sge::make_auto_ptr<
+				string_tree
+			>("blah"));
+	
+		tree.push_back(
+			child2);
+	}
 
-	inorder_trav trav(
+	typedef 
+	traversal<
+		string_tree
+	> traversal_type;
+
+	traversal_type trav(
 		tree);
 	
-	for(inorder_trav::iterator it = trav.begin(); it != trav.end(); ++it)
-		std::cout << (*it).value() << '\n';
+	for(traversal_type::iterator it = trav.begin(); it != trav.end(); ++it)
+		std::cout << (*it).value() << std::endl;
 }
