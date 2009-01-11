@@ -189,10 +189,9 @@ void
 sge::container::tree<T>::push_back(
 	auto_ptr r)
 {
-	children().push_back(
+	insert(
+		end(),
 		r);
-	back().parent(
-		*this);	
 }
 
 template<
@@ -211,10 +210,9 @@ void
 sge::container::tree<T>::push_front(
 	auto_ptr r)
 {
-	children().push_front(
+	insert(
+		begin(),
 		r);
-	front().parent(
-		*this);
 }
 
 template<
@@ -356,7 +354,7 @@ sge::container::tree<T>::insert(
 	children().insert(
 		it,
 		r);
-	r.parent(
+	r->parent(
 		*this);
 }
 
@@ -383,7 +381,7 @@ sge::container::tree<T>::erase(
 		beg,
 		end);
 }
-	
+
 template<
 	typename T
 >
@@ -408,7 +406,7 @@ template<
 bool
 sge::container::tree<T>::empty() const
 {
-	return !size();
+	return children().empty();
 }
 
 #endif
