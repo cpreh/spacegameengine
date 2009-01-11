@@ -87,9 +87,13 @@ public:
 
 	void push_back(
 		auto_ptr);
+	void push_back(
+		T const &);
 	void pop_back();
 	void push_front(
 		auto_ptr);
+	void push_front(
+		T const &);
 	void pop_front();
 	void clear();
 
@@ -110,6 +114,9 @@ public:
 	void insert(
 		iterator,
 		auto_ptr);
+	void insert(
+		iterator,
+		T const &);
 	void erase(
 		iterator);
 	void erase(

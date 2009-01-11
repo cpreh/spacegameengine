@@ -53,6 +53,9 @@ int main()
 			child2);
 	}
 
+	tree.push_back(
+		"foobar");
+
 	typedef 
 	sge::container::traversal<
 		string_tree const

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "tree_decl.hpp"
 #include "ptr_equal.hpp"
+#include "../make_auto_ptr.hpp"
 #include <algorithm>
 
 template<
@@ -212,6 +213,18 @@ template<
 	typename T
 >
 void
+sge::container::tree<T>::push_back(
+	T const &t)
+{
+	insert(
+		end(),
+		t);
+}
+
+template<
+	typename T
+>
+void
 sge::container::tree<T>::pop_back()
 {
 	children().pop_back();
@@ -227,6 +240,18 @@ sge::container::tree<T>::push_front(
 	insert(
 		begin(),
 		r);
+}
+
+template<
+	typename T
+>
+void
+sge::container::tree<T>::push_front(
+	T const &t)
+{
+	insert(
+		begin(),
+		t);
 }
 
 template<
@@ -373,6 +398,24 @@ sge::container::tree<T>::insert(
 	
 	ref.parent(
 		*this);
+}
+
+template<
+	typename T
+>
+void
+sge::container::tree<T>::insert(
+	iterator const it,
+	T const &t)
+{
+	auto_ptr ptr(
+		make_auto_ptr<
+			tree<T>
+		>(
+			t));
+	insert(
+		it,
+		ptr);
 }
 
 template<
