@@ -25,4 +25,6 @@ sprite, texture, console, etc. as well)
 *medium: implement GLSL getter
 *medium: fix renderer::caps and the opengl implementation of them
 *medium: add adapter support to opengl
+*medium: Fix the console's input history.
 *high: Improve the cmake script, search for libraries per default.
+*high: Fix the console callbacks. They have to return signals::connection.

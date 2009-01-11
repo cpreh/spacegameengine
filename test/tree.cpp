@@ -19,91 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/container/tree.hpp>
+#include <sge/container/traversal.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <string>
 #include <iostream>
 #include <ostream>
-#include <iterator>
-#include <stack>
-
-namespace
-{
-
-template<
-	typename Tree
->
-struct traversal {
-	explicit traversal(
-		Tree &tree_)
-	:
-		tree_(tree_)
-	{}
-
-	typedef typename Tree::iterator tree_iterator;
-
-	typedef std::stack<
-		tree_iterator
-	> stack_type;
-
-	struct iterator {
-		iterator(
-			tree_iterator const &it,
-			stack_type &positions)
-		:
-			it(it),
-			positions(positions)
-		{}
-
-		iterator &operator++()
-		{
-			if(!it->empty())
-			{
-				positions.push(it);
-				it = it->begin();
-			}
-			else
-			{
-				while(!positions.empty() && positions.top() != positions.top()->parent().end())
-				{
-					it = positions.top();
-					positions.pop();
-				}
-				++it;
-			}
-			return *this;
-		}
-		
-		typename std::iterator_traits<tree_iterator>::reference
-		operator *() const
-		{
-			return *it;	
-		}
-
-		bool operator!=(
-			iterator const &s) const
-		{
-			return s.it  != it;
-		}
-	private:
-		tree_iterator it;
-		stack_type &positions;
-	};
-
-	iterator begin()
-	{
-		return iterator(tree_.begin(), positions);
-	}
-	iterator end()
-	{
-		return iterator(tree_.end(), positions);
-	}
-private:
-	Tree &tree_;
-
-	stack_type positions;
-};
-
-}
 
 int main()
 {
@@ -134,7 +54,7 @@ int main()
 	}
 
 	typedef 
-	traversal<
+	sge::container::traversal<
 		string_tree
 	> traversal_type;
 
