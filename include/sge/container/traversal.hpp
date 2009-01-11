@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONTAINER_TRAVERSAL_HPP_INCLUDED
 
 #include <boost/iterator/iterator_facade.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_const.hpp>
 #include <stack>
 
 namespace sge
@@ -41,7 +43,13 @@ struct traversal {
 
 	struct iterator;
 private:
-	typedef typename Tree::iterator tree_iterator;
+	typedef typename boost::mpl::if_<
+		boost::is_const<
+			Tree
+		>,
+		typename Tree::const_iterator,
+		typename Tree::iterator
+	>::type tree_iterator;
 
 	typedef std::stack<
 		tree_iterator
@@ -49,9 +57,9 @@ private:
 
 	typedef boost::iterator_facade<
 		iterator,
-		typename Tree::value_type,
+		typename tree_iterator::value_type,
 		boost::bidirectional_traversal_tag,
-		typename Tree::reference
+		typename tree_iterator::reference
 	> iterator_base;
 public:
 	struct iterator : iterator_base {
@@ -113,11 +121,11 @@ public:
 		stack_type positions;
 	};
 
-	iterator const begin()
+	iterator const begin() const
 	{
 		return iterator(tree_.begin());
 	}
-	iterator const end()
+	iterator const end() const
 	{
 		return iterator(tree_.end());
 	}

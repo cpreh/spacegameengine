@@ -78,6 +78,7 @@ public:
 	auto_ptr release(
 		iterator);
 	iterator child_position();
+	const_iterator child_position() const;
 	
 	void value(
 		T const &);

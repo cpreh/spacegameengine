@@ -157,6 +157,20 @@ sge::container::tree<T>::child_position()
 template<
 	typename T
 >
+typename sge::container::tree<T>::const_iterator
+sge::container::tree<T>::child_position() const
+{
+	return const_iterator(
+		const_cast<
+			tree<T> &
+		>(
+			*this)
+		.child_position());
+}
+
+template<
+	typename T
+>
 void
 sge::container::tree<T>::value(
 	T const &v)

@@ -55,10 +55,10 @@ int main()
 
 	typedef 
 	sge::container::traversal<
-		string_tree
+		string_tree const
 	> traversal_type;
 
-	traversal_type trav(
+	traversal_type const trav(
 		tree);
 	
 	for(traversal_type::iterator it = trav.begin(); it != trav.end(); ++it)
