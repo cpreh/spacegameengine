@@ -67,6 +67,12 @@ public:
 		typedef typename iterator_base::difference_type difference_type;
 		typedef typename iterator_base::iterator_category iterator_category;
 
+		tree_iterator const
+		internal() const
+		{
+			return it;
+		}
+
 		friend class boost::iterator_core_access;
 	private:
 		void increment()
