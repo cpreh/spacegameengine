@@ -176,8 +176,10 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 
 //#define XK_Meta_L                        0xffe7  /* Left meta */
 //#define XK_Meta_R                        0xffe8  /* Right meta */
-//#define XK_Alt_L                         0xffe9  /* Left alt */
-//#define XK_Alt_R                         0xffea  /* Right alt */
+#define XK_Alt_L                         0xffe9  /* Left alt */
+#define XK_Alt_R                         0xffea  /* Right alt */
+	(XK_Alt_L, sge::input::kc::key_alt)
+	(XK_Alt_R, sge::input::kc::key_altgr)
 //#define XK_Super_L                       0xffeb  /* Left super */
 //#define XK_Super_R                       0xffec  /* Right super */
 //#define XK_Hyper_L                       0xffed  /* Left hyper */
