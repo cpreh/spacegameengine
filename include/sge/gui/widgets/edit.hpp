@@ -34,19 +34,20 @@ class SGE_CLASS_SYMBOL edit : public widget
 	SGE_SYMBOL void process(events::keyboard_enter const &);
 	SGE_SYMBOL key_handling::type process(events::key const &);
 	SGE_SYMBOL void process(events::keyboard_leave const &);
+
+	SGE_SYMBOL void refresh() const;
 	private:
 	string text_;
 	font::metrics_ptr font_;
 	dim desired_size_;
 	timer::object_ptr timer_;
 	bool cursor_visible_;
-	image text_buffer_;
+	mutable image text_buffer_;
 	point scroll_pos_;
 	string::size_type cursor_pos;
 
 	void blink_callback();
-	void resize(dim const &);
-	void redraw();
+	void resize(dim const &) const;
 };
 }
 }

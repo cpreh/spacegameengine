@@ -7,8 +7,9 @@
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/iostream.hpp>
+#include <sge/math/compare.hpp>
 #include <boost/bind.hpp>
+#include <locale>
 
 namespace
 {
@@ -44,7 +45,7 @@ sge::string const sge::gui::widgets::edit::text() const
 void sge::gui::widgets::edit::text(string const &n)
 {
 	text_ = n;
-	redraw();
+	parent_manager().invalidate(absolute_area());
 }
 
 sge::font::metrics_ptr const sge::gui::widgets::edit::font() const
@@ -82,9 +83,14 @@ void sge::gui::widgets::edit::process(events::keyboard_enter const &)
 
 sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const &k)
 {
-	text_ += k.value().key().char_code();
-	redraw();
+	if (math::almost_zero(k.value().value()))
+		return key_handling::process;
+	
+	if (k.value().key().char_code() != 0)
+		text_ += k.value().key().char_code();
+
 	parent_manager().invalidate(absolute_area());
+
 	return key_handling::process;
 }
 
@@ -99,11 +105,10 @@ void sge::gui::widgets::edit::blink_callback()
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("blinking cursor, visibility: ") << cursor_visible_);
-	redraw();
 	parent_manager().invalidate(absolute_area());
 }
 
-void sge::gui::widgets::edit::resize(dim const &d)
+void sge::gui::widgets::edit::resize(dim const &d) const
 {
 	dim const text_size(
 		static_cast<unit>(text_buffer_.width()),
@@ -122,7 +127,7 @@ void sge::gui::widgets::edit::resize(dim const &d)
 	text_buffer_ = nb;
 }
 
-void sge::gui::widgets::edit::redraw()
+void sge::gui::widgets::edit::refresh() const
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("redrawing text buffer"));
 

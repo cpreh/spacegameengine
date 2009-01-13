@@ -41,21 +41,23 @@ void sge::gui::skins::standard::draw(
 	widgets::edit const &w,
 	events::invalid_area const &e)
 {
-	sge::cerr << SGE_TEXT("drawing edit of size: ") << dim(
-		static_cast<unit>(w.text_buffer().width()+2),
-		static_cast<unit>(w.text_buffer().height())+2) << SGE_TEXT("\n");
+	// re-render text buffer
+	w.refresh();
 	
 	// resize internal buffer
-	w.buffer() = image(
-		static_cast<image::coord_t>(w.text_buffer().width()+2),
-		static_cast<image::coord_t>(w.text_buffer().height()+2));
+	if (w.buffer().width() != w.size().w() || w.buffer().height() != w.size().h())
+	{
+		w.buffer() = image(
+			static_cast<image::coord_t>(w.size().w()),
+			static_cast<image::coord_t>(w.size().h()));
+	}
 
 	canvas::object c(w.buffer());
 
 	// fill completely with background color
 	c.draw_rect(
 		c.area(),
-		internal_color(0xee,0xee,0xee,0xff),
+		internal_color(0x55,0x55,0x55,0xff),
 		canvas::rect_type::solid);
 	
 	dim const buffer_size = dim(
