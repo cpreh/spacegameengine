@@ -7,7 +7,6 @@
 *low: add a d3d10 plugin
 *low: add model loaders, a model class and more for models
 *low: rework sge::math to contain views and have less code duplication
-*low: add speed of sound and velocity to sounds
 *low: replace every cerr and cout output with sge's log system
 *low: add scripting proxies, scripting framework and backend with flusspferd
 *low: other font formatting like bold, italic, underline and colors

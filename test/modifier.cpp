@@ -55,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
 #include <boost/assign/list_of.hpp>
+#include <boost/foreach.hpp>
 #include <exception>
 #include <ostream>
 #include <cstdlib>
@@ -82,19 +83,16 @@ class modifier_filter
 		is->register_callback(
 			boost::bind(&modifier_filter::input_callback,this,_1));
 
-		/*
-		modifiers.insert(
-				modifiers::shift,
-				static_cast<sge::input::key_state>(0));
+		using namespace sge::input::kc;
 
-		modifiers.insert(
-				modifiers::ctrl,
-				static_cast<sge::input::key_state>(0));
+		std::vector<sge::input::key_code> const codes = 
+			boost::assign::list_of
+			(key_lshift)(key_rshift)
+			(key_lctrl)(key_rctrl)
+			(key_alt)(key_altgr);
 
-		modifiers.insert(
-				modifiers::alt,
-				static_cast<sge::input::key_state>(0));
-				*/
+		BOOST_FOREACH(sge::input::key_code const c,codes)
+			modifiers.insert(c,static_cast<sge::input::key_state>(0));
 	}
 
 	sge::signals::scoped_connection const register_callback(
@@ -108,6 +106,7 @@ class modifier_filter
 
 	void input_callback(sge::input::key_pair const &k)
 	{
+		sge::cerr << "got " << k.key().char_code() << "\n";
 		if (sge::input::is_shift(k.key().code()) || 
 		    sge::input::is_ctrl(k.key().code())  ||
 				sge::input::is_alt(k.key().code()))

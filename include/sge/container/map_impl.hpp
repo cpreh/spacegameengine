@@ -256,7 +256,7 @@ sge::container::map<
 	key_type const &k)
 {
 	return const_cast<
-		key_type &
+		mapped_type &
 	>(
 		const_cast<
 			map const &
