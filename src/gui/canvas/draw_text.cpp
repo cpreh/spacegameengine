@@ -1,9 +1,10 @@
+#include "log.hpp"
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/canvas/font_drawer.hpp>
 #include <sge/font/font.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
-#include "log.hpp"
+#include <algorithm>
 
 void sge::gui::canvas::object::draw_text(
 		font::metrics_ptr const metrics,
@@ -20,6 +21,18 @@ void sge::gui::canvas::object::draw_text(
 	SGE_ASSERT(!cp || *cp < text.length());
 
 	SGE_LOG_DEBUG(global_log(),log::_1 << SGE_TEXT("drawing text: ") << text);
+
+	// determine which invisible characters have to be filtered
+	if (cp)
+	{
+		string::size_type const filter = 
+			std::count(
+				text.begin(),
+				text.begin()+(*cp)+1,
+				SGE_TEXT('\n'));
+		
+		cp = (*cp) - filter;
+	}
 
 	font::font(
 		metrics,

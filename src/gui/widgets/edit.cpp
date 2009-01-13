@@ -14,22 +14,25 @@
 namespace
 {
 sge::gui::logger mylogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),true);
+sge::gui::logger mygraphlogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),false);
 }
 
 sge::gui::widgets::edit::edit(
 	parent_data parent,
+	line_type const type,
 	dim const &desired_size_,
 	font::metrics_ptr const _font)
 	: widget(
 			parent,
 			size_policy::default_policy,
 			keyboard_focus::receive),
+		type(type),
 	  font_(_font),
 		desired_size_(desired_size_),
 		cursor_visible_(true),
 		text_buffer_(),
 		scroll_pos_(point::null()),
-		cursor_pos(static_cast<string::size_type>(0))
+		cursor(text_)
 {
 	if (!font_)
 		font_ = parent_manager().standard_font();
@@ -86,16 +89,16 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const 
 	if (math::almost_zero(k.value().value()))
 		return key_handling::process;
 	
-	if (k.value().key().char_code() != 0)
+	if (type == single_line && k.value().key().code() == input::kc::key_return)
 	{
-		text_ += k.value().key().char_code();
+		return_pressed();
+		return key_handling::process;
 	}
-	else
-	{
-		if (k.value().key().code() == sge::input::kc::key_return)
-			text_ += SGE_TEXT('\n');
-	}
+	
+	// hand over to delegate
+	cursor.key_callback(k.value());
 
+	// invalidate since something might have changed
 	parent_manager().invalidate(absolute_area());
 
 	return key_handling::process;
@@ -110,7 +113,7 @@ void sge::gui::widgets::edit::blink_callback()
 {
 	cursor_visible_ = !cursor_visible_;
 	SGE_LOG_DEBUG(
-		mylogger,
+		mygraphlogger,
 		log::_1 << SGE_TEXT("blinking cursor, visibility: ") << cursor_visible_);
 	parent_manager().invalidate(absolute_area());
 }
@@ -123,7 +126,7 @@ void sge::gui::widgets::edit::resize(dim const &d) const
 
 	if (text_size.w() > d.w() && text_size.h() > d.h())
 	{
-		SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("no resize needed"));
+		SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("no resize needed"));
 		return;
 	}
 	
@@ -136,16 +139,19 @@ void sge::gui::widgets::edit::resize(dim const &d) const
 
 void sge::gui::widgets::edit::refresh() const
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("redrawing text buffer"));
+	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("redrawing text buffer"));
 
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("getting font size"));
+	string const ntext = text_+SGE_TEXT(' ');
+
+	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("getting font size"));
 	dim const d = math::structure_cast<unit>(
 		font::font(font()).text_size(
-			text(),
+			ntext,
 			utility::max_dim<font::unit>())
 		.size());
 
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("resizing buffer"));
+	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("resizing buffer"));
+
 	
 	// text larger than buffer? resize!
 	resize(d);
@@ -154,59 +160,74 @@ void sge::gui::widgets::edit::refresh() const
 
 	// TODO: use a transparent background here and blit it with alpha blending
 	// enabled OR introduce widgets::edit::background_color
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("filling background"));
+	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("filling background"));
 
 	c.draw_rect(
 		c.area(),
 		internal_color(0xff,0xff,0xff,0xff),
 		canvas::rect_type::solid);
 	
-	if (!text().empty())
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("drawing text: ") << text());
-
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("cursor position is: ") << cursor_pos);
-
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("text buffer size is: ")
-							<< dim(text_buffer_.width(),text_buffer_.height()));
-
-		point p;
-		c.draw_text(
-			font(),
-			internal_color(0x00,0x00,0x00,0xff),
-			text(),
-			point::null(),
-			dim(
-				static_cast<unit>(text_buffer_.width()),
-				static_cast<unit>(text_buffer_.height())),
-			font::align_h::left,
-			font::align_v::top,
-			font::flags::default_,
-			cursor_pos,
-			&p);
 	
-		if (cursor_visible_)
-		{
-			SGE_LOG_DEBUG(
-				mylogger,
-				log::_1 << SGE_TEXT("drawing cursor at ") << p);
+	if (ntext.empty())
+		return;
+	
+	SGE_LOG_DEBUG(
+		mygraphlogger,
+		log::_1 << SGE_TEXT("drawing text: ") << ntext);
 
-			unit const cursor_height = 
-				std::min(
-					static_cast<unit>(font()->line_height()/2),
-					c.area().h());
+	SGE_LOG_DEBUG(
+		mygraphlogger,
+		log::_1 << SGE_TEXT("cursor position is: ") << cursor.pos());
 
-			// draw cursor
-			c.draw_line(
-				p,
-				point(p.x(),p.y()+cursor_height),
-				internal_color(0x00,0x00,0x00,0xff));
-		}
+	SGE_LOG_DEBUG(
+		mygraphlogger,
+		log::_1 << SGE_TEXT("text buffer size is: ")
+						<< dim(text_buffer_.width(),text_buffer_.height()));
+
+	point p;
+	c.draw_text(
+		font(),
+		internal_color(0x00,0x00,0x00,0xff),
+		ntext,
+		point::null(),
+		dim(
+			static_cast<unit>(text_buffer_.width()),
+			static_cast<unit>(text_buffer_.height())),
+		font::align_h::left,
+		font::align_v::top,
+		font::flags::default_,
+		cursor.pos(),
+		&p);
+
+	if (cursor_visible_)
+	{
+		unit const cursor_line = static_cast<unit>(
+			std::count(
+				ntext.begin(),
+				ntext.begin()+cursor.pos()+1,
+				SGE_TEXT('\n')));
+
+		SGE_LOG_DEBUG(
+			mygraphlogger,
+			log::_1 << SGE_TEXT("the cursor is on line ") << cursor_line
+							<< SGE_TEXT("and stands on the character: '") << ntext[cursor.pos()] 
+							<< SGE_TEXT("'")); 
+
+		unit const 
+			cursor_start = 
+				static_cast<unit>(cursor_line*font()->line_height()),
+			cursor_end = 
+			//	std::min(c.area().h()-1,cursor_start + font()->line_height());
+				static_cast<unit>(cursor_start+2);
+
+		SGE_LOG_DEBUG(
+			mygraphlogger,
+			log::_1 << SGE_TEXT("drawing cursor at ") << cursor_start); 
+
+		// draw cursor
+		c.draw_line(
+			point(p.x(),cursor_start),
+			point(p.x(),cursor_end),
+			internal_color(0x00,0x00,0x00,0xff));
 	}
 }

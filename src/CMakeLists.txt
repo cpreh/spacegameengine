@@ -8,6 +8,7 @@ FILE (GLOB sgecorefiles
 	font/*.cpp
 	image/*.cpp
 	input/*.cpp
+	input/modifier/*.cpp
 	library/*.cpp
 	log/*.cpp
 	log/format/*.cpp

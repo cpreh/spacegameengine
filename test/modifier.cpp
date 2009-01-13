@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/signals/signal.hpp>
 #include <sge/input/classification.hpp>
+#include <sge/input/modifier/filter.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/container/map.hpp>
 #include <boost/lambda/lambda.hpp>
@@ -61,98 +62,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <cstdlib>
 #include <map>
 
-namespace modifier
-{
-
-namespace types
-{
-enum type { shift,ctrl,alt };
-}
-
-struct object
-{
-	typedef std::vector<sge::input::key_code> code_container;
-	code_container codes;
-	modifier::types::type t;
-
-	object(code_container const &codes,modifier::types::type const t)
-		: codes(codes),t(t) {}
-};
-
-typedef std::vector<object> container;
-
-container const &list()
-{
-	static container mods = 
-		boost::assign::list_of
-		(object(
-				boost::assign::list_of
-					(sge::input::kc::key_lshift)
-					(sge::input::kc::key_rshift),
-				types::shift))
-		(object(
-				boost::assign::list_of
-					(sge::input::kc::key_lctrl)
-					(sge::input::kc::key_rctrl),
-				types::ctrl))
-		(object(
-				boost::assign::list_of
-					(sge::input::kc::key_alt)
-					(sge::input::kc::key_altgr),
-				types::alt)).to_container(mods);
-	return mods;
-}
-
-typedef sge::container::map<
-	std::map,
-	sge::input::key_code,
-	sge::input::key_state> states;
-
-class filter
-{
-	public:
-	typedef void fn_callback_type (sge::input::key_pair const &,states const &);
-	typedef boost::function<fn_callback_type> callback_type;
-
-	explicit filter(sge::input::system_ptr const is)
-	{
-		is->register_callback(
-			boost::bind(&filter::input_callback,this,_1));
-
-		BOOST_FOREACH(object const &o,list())
-			BOOST_FOREACH(sge::input::key_code const &c,o.codes)
-				modifiers.insert(c,static_cast<sge::input::key_state>(0));
-	}
-
-	sge::signals::scoped_connection const register_callback(
-		callback_type const &f)
-	{
-		return signal.connect(f);
-	}
-	private:
-	sge::signals::signal<fn_callback_type> signal;
-	states modifiers;
-
-	void input_callback(sge::input::key_pair const &k)
-	{
-		BOOST_FOREACH(object const &o,list())
-		{
-			BOOST_FOREACH(sge::input::key_code const &c,o.codes)
-			{
-				if (c == k.key().code())
-				{
-					modifiers[k.key().code()] = k.value();
-					return;
-				}
-			}
-		}
-
-		signal(k,modifiers);
-	}
-};
-}
-
-void mod_callback(sge::input::key_pair const &kp,modifier::states const &mods)
+void mod_callback(
+	sge::input::key_pair const &kp,
+	sge::input::modifier::states const &mods)
 {
 	if (mods[sge::input::kc::key_lshift])
 		sge::cerr << SGE_TEXT("S-");
@@ -203,7 +115,7 @@ try
 		[var(running)=false])
 	);
 
-	modifier::filter mf(sys.input_system());
+	sge::input::modifier::filter mf(sys.input_system());
 
 	sge::signals::scoped_connection const pc(
 		mf.register_callback(&mod_callback));
