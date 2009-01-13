@@ -6,7 +6,7 @@
 #include <sge/gui/timer/object.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/time/second.hpp>
+#include <sge/time/second_f.hpp>
 #include <sge/iostream.hpp>
 #include <boost/bind.hpp>
 
@@ -76,13 +76,14 @@ void sge::gui::widgets::edit::process(events::keyboard_enter const &)
 {
 	timer_ = 
 		parent_manager().register_timer(
-			sge::time::second(1),
+			sge::time::second_f(static_cast<time::funit>(0.5)),
 			boost::bind(&edit::blink_callback,this));
 }
 
 sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const &k)
 {
 	text_ += k.value().key().char_code();
+	redraw();
 	parent_manager().invalidate(absolute_area());
 	return key_handling::process;
 }
@@ -178,17 +179,21 @@ void sge::gui::widgets::edit::redraw()
 			cursor_pos,
 			&p);
 	
-
 		if (cursor_visible_)
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
 				log::_1 << SGE_TEXT("drawing cursor at ") << p);
 
+			unit const cursor_height = 
+				std::min(
+					static_cast<unit>(font()->line_height()/2),
+					c.area().h());
+
 			// draw cursor
 			c.draw_line(
 				p,
-				point(p.x(),p.y()+10),
+				point(p.x(),p.y()+cursor_height),
 				internal_color(0x00,0x00,0x00,0xff));
 		}
 	}

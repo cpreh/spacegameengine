@@ -28,6 +28,7 @@ ADD_SGE_TEST(sound)
 ADD_SGE_TEST(target)
 ADD_SGE_TEST(tree)
 ADD_SGE_TEST(vertex)
+ADD_SGE_TEST(modifier)
 
 # TODO: this should be part of the macro
 #IF (NOT MSVC)
