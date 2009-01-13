@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/sentry.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/string.hpp>
 #include <sge/iconv.hpp>
@@ -58,8 +59,12 @@ sge::x11input::keyboard_key(
 		static_cast<int>(keybuf.size()),
 		&ks,
 		&state);
+	
+	// debug stuff
+	//sge::cerr << "the lookup string was: " << std::string(&keybuf[0],&keybuf[num_chars]) << " (" << num_chars << "), char code was " << static_cast<int>(keybuf[0]) << ", keysym: " <<static_cast<unsigned long>(ks) << " or '" << static_cast<char>(ks) << "'\n";
 
-	char const code = keybuf[0];
+	// xev does it this way
+	char const code = static_cast<char>(ks);
 
 	if(num_chars > 1)
 	{
