@@ -87,7 +87,14 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const 
 		return key_handling::process;
 	
 	if (k.value().key().char_code() != 0)
+	{
 		text_ += k.value().key().char_code();
+	}
+	else
+	{
+		if (k.value().key().code() == sge::input::kc::key_return)
+			text_ += SGE_TEXT('\n');
+	}
 
 	parent_manager().invalidate(absolute_area());
 
