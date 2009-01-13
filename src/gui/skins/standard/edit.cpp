@@ -75,7 +75,11 @@ void sge::gui::skins::standard::draw(
 		c.view(),
 		rect(
 			point(1,1),
-			buffer_size)
+			buffer_size),
+		rect(
+			point(1,1),
+			dim(w.size().w()-2,w.size().h()-2)
+			)
 		);
 
 	utility::blit_invalid(
