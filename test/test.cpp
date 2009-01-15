@@ -71,23 +71,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <cstdlib>
 
-#include <sge/container/map.hpp>
-#include <map>
-
 int main()
 try
 {
-	typedef sge::container::map<
-		std::map,
-		int,
-		int
-	> my_map;
-
-	my_map test_map;
-	test_map.insert(
-		10,
-		42);
-
 	sge::log::global().activate_hierarchy(
 		sge::log::level::debug);
 	

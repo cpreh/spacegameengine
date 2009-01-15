@@ -38,10 +38,12 @@ SGE_SYMBOL void
 prefix(
 	string::value_type const &);
 
-SGE_SYMBOL string::value_type
+SGE_SYMBOL 
+string::value_type
 prefix();
 
-SGE_SYMBOL signals::connection const
+SGE_SYMBOL
+signals::connection const
 add(
 	string const &,
 	callback const &);
@@ -50,7 +52,8 @@ SGE_SYMBOL
 void eval(
 	string const &);
 
-SGE_SYMBOL signals::connection const
+SGE_SYMBOL
+signals::connection const
 chat_callback(
 	callback const &);
 
