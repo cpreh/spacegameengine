@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CON_SINGLETON_HPP_INCLUDED
 #define SGE_CON_SINGLETON_HPP_INCLUDED
 
-#include "var_map.hpp"
-#include "callback_map.hpp"
-#include "callback.hpp"
-#include "signal.hpp"
-#include "../signals/connection.hpp"
-#include "../filesystem/path.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include "../var_map.hpp"
+#include "../callback_map.hpp"
+#include "../callback.hpp"
+#include "../signal.hpp"
+#include "../../signals/connection.hpp"
+#include "../../filesystem/path.hpp"
+#include "../../string.hpp"
+#include "../../export.hpp"
 #include <map>
 
 namespace sge

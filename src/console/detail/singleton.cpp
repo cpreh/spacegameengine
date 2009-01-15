@@ -17,7 +17,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/console/singleton.hpp>
+#include <sge/console/detail/singleton.hpp>
 #include <sge/console/exception.hpp>
 #include <sge/console/var_base.hpp>
 #include <sge/log/headers.hpp>

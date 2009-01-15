@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/console.hpp>
-#include <sge/console/singleton.hpp>
+#include <sge/console/detail/singleton.hpp>
 
 void sge::con::eval(
 	string const &s)

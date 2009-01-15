@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/var_base.hpp>
 #include <sge/console/console.hpp>
-#include <sge/console/singleton.hpp>
+#include <sge/console/detail/singleton.hpp>
 #ifdef SGE_MSVC_VIRTUAL_BASE_REFERENCE_BUG
 #include <sge/console/exception.hpp>
 #include <sge/text.hpp>
