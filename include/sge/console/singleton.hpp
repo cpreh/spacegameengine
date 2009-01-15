@@ -21,15 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CON_SINGLETON_HPP_INCLUDED
 #define SGE_CON_SINGLETON_HPP_INCLUDED
 
-#include "types.hpp"
+#include "var_map.hpp"
+#include "callback_map.hpp"
+#include "callback.hpp"
+#include "signal.hpp"
+#include "../signals/connection.hpp"
 #include "../filesystem/path.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
+#include <map>
 
 namespace sge
 {
 namespace con
 {
+
+class var_base;
 
 struct singleton {
 	typedef std::map<
@@ -40,16 +47,18 @@ struct singleton {
 	var_map vars;
 	callback_map funcs;
 	config_map config_vars;
-	callback chat;
+	signal chat;
 	string::value_type prefix;
 
 	singleton();
 
-	void add(
+	void
+	add(
 		string const &,
 		var_base &);
 
-	void add(
+	signals::connection const
+	add(
 		string const &,
 		callback const &);
 

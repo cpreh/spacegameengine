@@ -18,24 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_TYPES_HPP_INCLUDED
-#define SGE_CON_TYPES_HPP_INCLUDED
+#ifndef SGE_CON_CALLBACK_TYPE_HPP_INCLUDED
+#define SGE_CON_CALLBACK_TYPE_HPP_INCLUDED
 
 #include "arg_list.hpp"
-#include "../string.hpp"
-#include <boost/function.hpp>
-#include <map> 
 
 namespace sge
 {
 namespace con
 {
 
-class var_base;
-
-typedef boost::function<void (arg_list const &)> callback;
-typedef std::map<string, var_base*> var_map;
-typedef std::map<string, callback> callback_map; 
+typedef void (callback_type)(arg_list const &);
 
 }
 }
