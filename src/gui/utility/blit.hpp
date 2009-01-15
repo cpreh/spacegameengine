@@ -19,7 +19,8 @@ void blit(
 	const_image_view const &,
 	rect const &src_rect,
 	image_view,
-	rect const &dst_rect);
+	rect const &dst_rect,
+	rect const &clip_rect);
 }
 }
 }

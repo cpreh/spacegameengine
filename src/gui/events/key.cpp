@@ -3,7 +3,9 @@
 #include <sge/assert.hpp>
 
 sge::gui::events::key::key(
-	input::key_pair const &kp) 
-	: kp(kp)
+	input::key_pair const &kp,
+	bool const repeated_) 
+	: kp(kp),
+	  repeated_(repeated_)
 {
 }

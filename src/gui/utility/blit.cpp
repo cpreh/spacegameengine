@@ -37,17 +37,26 @@ void sge::gui::utility::blit(
 	const_image_view const &src,
 	rect const &src_rect,
 	image_view const dst,
-	rect const &dst_rect)
+	rect const &dst_rect,
+	rect const &clip_rect)
 {
 	SGE_ASSERT(src_rect.dim() == dst_rect.dim());
+
+	rect const clipped = math::intersection(
+		dst_rect,
+		clip_rect);
 	
+	rect const src_trans = rect(
+		clipped.pos() - dst_rect.pos(),
+		clipped.dim());
+
 	renderer::copy_and_convert_pixels(
 		renderer::subimage_view(
 			src,
 			math::structure_cast<renderer::size_type>(
-				src_rect)),
+				src_trans)),
 		renderer::subimage_view(
 			dst,
 			math::structure_cast<renderer::size_type>(
-				dst_rect)));
+				clipped)));
 }

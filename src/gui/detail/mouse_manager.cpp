@@ -1,5 +1,5 @@
-#include "utility/ptr_delete_first.hpp"
-#include "utility/ptr_find.hpp"
+#include "../utility/ptr_delete_first.hpp"
+#include "../utility/ptr_find.hpp"
 #include <sge/gui/detail/mouse_manager.hpp>
 #include <sge/gui/events/mouse_click.hpp>
 #include <sge/gui/events/mouse_enter.hpp>

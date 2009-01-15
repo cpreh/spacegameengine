@@ -5,6 +5,7 @@
 #include "../keyboard_focus.hpp"
 #include "../../input/system_fwd.hpp"
 #include "../../input/key_pair_fwd.hpp"
+#include "../../input/key_type.hpp"
 #include "../../signals/scoped_connection.hpp"
 #include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
@@ -30,8 +31,10 @@ class keyboard_manager
 	widget_container widgets;
 	boost::optional<widget_container::iterator> focus;
 	signals::scoped_connection ic;
+	signals::scoped_connection irc;
 
-	void input_callback(input::key_pair const &);
+	void input_callback(input::key_pair const &,bool);
+	void repeat_callback(input::key_type const &);
 	void switch_focus(widget_container::iterator);
 };
 }

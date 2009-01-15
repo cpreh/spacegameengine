@@ -98,10 +98,13 @@ try
 		sys.font_system(),
 		sge::gui::skin_ptr(new sge::gui::skins::standard()));
 	
-	sge::gui::widgets::edit b((sge::gui::widget::parent_data(m)),sge::gui::dim(30,30));
+	sge::gui::widgets::edit b(
+		(sge::gui::widget::parent_data(m)),
+		sge::gui::widgets::edit::single_line,
+		sge::gui::dim(30,30));
 	b.pos(sge::gui::point(10,10));
 	b.size(sge::gui::dim(400,300));
-	b.text(SGE_TEXT("test"));
+	//b.text(SGE_TEXT("test"));
 
 	// set sensible render states
 	sys.renderer()->state(

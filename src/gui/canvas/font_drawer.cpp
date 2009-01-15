@@ -63,7 +63,12 @@ void sge::gui::canvas::font_drawer::draw_char(
 	}
 
 	if (character_pos && counter++ == *character_pos)
+	{
 		*p = math::structure_cast<unit>(pos);
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("found character!"));
+	}
 	
 	renderer::transform_pixels(
 		data,

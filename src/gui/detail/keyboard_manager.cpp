@@ -1,4 +1,4 @@
-#include "utility/ptr_find.hpp"
+#include "../utility/ptr_find.hpp"
 #include <sge/gui/detail/keyboard_manager.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/events/keyboard_enter.hpp>
@@ -22,7 +22,10 @@ sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("keyboard_manager"),tr
 sge::gui::detail::keyboard_manager::keyboard_manager(sge::input::system_ptr const is)
 	: ic(
 	     is->register_callback(
-			   boost::bind(&keyboard_manager::input_callback,this,_1)))
+			   boost::bind(&keyboard_manager::input_callback,this,_1,false))),
+	  irc(
+	     is->register_repeat_callback(
+			   boost::bind(&keyboard_manager::repeat_callback,this,_1)))
 {
 }
 
@@ -164,7 +167,19 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 	}
 }
 
-void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair const &k)
+void sge::gui::detail::keyboard_manager::repeat_callback(
+	input::key_type const &k)
+{
+	input_callback(
+		input::key_pair(
+			k,
+			static_cast<input::key_state>(1)),
+		true);
+}
+
+void sge::gui::detail::keyboard_manager::input_callback(
+	input::key_pair const &k,
+	bool const repeated)
 {
 	if (widgets.empty())
 		return;
@@ -174,7 +189,7 @@ void sge::gui::detail::keyboard_manager::input_callback(sge::input::key_pair con
 	
 	if (focus)
 	{
-		if (!(*focus)->process(events::key(k)))
+		if (!(*focus)->process(events::key(k,repeated)))
 			return;
 	}
 

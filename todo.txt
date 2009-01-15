@@ -23,6 +23,9 @@ sprite, texture, console, etc. as well)
 *medium: add support for more vertex elements (like fog, etc.)
 *medium: implement GLSL getter
 *medium: fix renderer::caps and the opengl implementation of them
+*medium: add multiline functionality to widgets::edit
+*medium: add widgets::image_button
+*medium: add modifiers to gui
 *medium: add adapter support to opengl
 *medium: Fix the console's input history.
 *high: Improve the cmake script, search for libraries per default.
