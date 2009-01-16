@@ -57,7 +57,8 @@ void sge::gui::skins::standard::draw(
 	// fill completely with background color
 	c.draw_rect(
 		c.area(),
-		internal_color(0x55,0x55,0x55,0xff),
+	//	internal_color(0x55,0x55,0x55,0xff),
+		internal_color(0xff,0xff,0xff,0xff),
 		canvas::rect_type::solid);
 	
 	dim const buffer_size = dim(

@@ -3,16 +3,29 @@
 
 #include "../widget.hpp"
 #include "../../export.hpp"
+#include "../../font/metrics_fwd.hpp"
 
 namespace sge
 {
 namespace gui
 {
+namespace widgets
+{
 class SGE_CLASS_SYMBOL label : public widget
 {
 	public:
-	label(string const &);
+	SGE_SYMBOL label(
+		parent_data,
+		string const &,
+		font::metrics_ptr = font::metrics_ptr());
+	
+	font::metrics_ptr const font() const { return font_; }
+	string const text() const { return text_; }
+	private:
+	string text_;
+	font::metrics_ptr font_;
 };
+}
 }
 }
 

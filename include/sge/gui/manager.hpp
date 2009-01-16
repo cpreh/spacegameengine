@@ -21,7 +21,6 @@
 #include "../sprite/object.hpp"
 #include "../sprite/system.hpp"
 #include "../time/resolution.hpp"
-#include "../signals/scoped_connection.hpp"
 #include "../image/loader_fwd.hpp"
 #include "../export.hpp"
 #include <set>

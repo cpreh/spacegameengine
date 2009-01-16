@@ -20,11 +20,12 @@ sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("keyboard_manager"),tr
 }
 
 sge::gui::detail::keyboard_manager::keyboard_manager(sge::input::system_ptr const is)
-	: ic(
-	     is->register_callback(
+	: input_filter(is),
+	  ic(
+	     input_filter.register_callback(
 			   boost::bind(&keyboard_manager::input_callback,this,_1,false))),
 	  irc(
-	     is->register_repeat_callback(
+	     input_filter.register_repeat_callback(
 			   boost::bind(&keyboard_manager::repeat_callback,this,_1)))
 {
 }
@@ -168,17 +169,20 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 }
 
 void sge::gui::detail::keyboard_manager::repeat_callback(
-	input::key_type const &k)
+	input::key_type const &k,
+	input::modifier::states const &s)
 {
 	input_callback(
 		input::key_pair(
 			k,
 			static_cast<input::key_state>(1)),
+		s,
 		true);
 }
 
 void sge::gui::detail::keyboard_manager::input_callback(
 	input::key_pair const &k,
+	input::modifier::states const &s,
 	bool const repeated)
 {
 	if (widgets.empty())
@@ -189,7 +193,7 @@ void sge::gui::detail::keyboard_manager::input_callback(
 	
 	if (focus)
 	{
-		if (!(*focus)->process(events::key(k,repeated)))
+		if (!(*focus)->process(events::key(k,s,repeated)))
 			return;
 	}
 

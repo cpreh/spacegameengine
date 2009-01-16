@@ -19,7 +19,6 @@ sprite, texture, console, etc. as well)
 *medium: breakpoints for the font
 *medium: implement "loop and play once on kill" to sound buffer
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
-*medium: add a convenient method to check for key combinations in the input system
 *medium: add support for more vertex elements (like fog, etc.)
 *medium: implement GLSL getter
 *medium: fix renderer::caps and the opengl implementation of them

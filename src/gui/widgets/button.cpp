@@ -1,10 +1,8 @@
 #include <sge/gui/widgets/button.hpp>
-#include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/log.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/renderer/scoped_lock.hpp>
 #include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 

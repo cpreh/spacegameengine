@@ -37,9 +37,11 @@ ADD_SGE_TEST(modifier)
 
 IF (${ENABLE_GUI})
 	ADD_SGE_TEST(gui)
+	ADD_SGE_TEST(menu)
 	ADD_SGE_TEST(edit)
 	TARGET_LINK_LIBRARIES (sgeedittest sgegui)
 	TARGET_LINK_LIBRARIES (sgeguitest sgegui)
+	TARGET_LINK_LIBRARIES (sgemenutest sgegui)
 ENDIF ()
 
 #ADD_EXECUTABLE (islandtest island/main.cpp quadtree/quadtree.cpp quadtree/mathstuff.cpp island/island_extractor.cpp island/skydome.cpp)

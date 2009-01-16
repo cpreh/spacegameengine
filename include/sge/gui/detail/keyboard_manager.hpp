@@ -4,6 +4,8 @@
 #include "../widget_fwd.hpp"
 #include "../keyboard_focus.hpp"
 #include "../../input/system_fwd.hpp"
+#include "../../input/modifier/filter.hpp"
+#include "../../input/modifier/states.hpp"
 #include "../../input/key_pair_fwd.hpp"
 #include "../../input/key_type.hpp"
 #include "../../signals/scoped_connection.hpp"
@@ -28,13 +30,19 @@ class keyboard_manager
 	private:
 	typedef boost::ptr_list<widget,boost::view_clone_allocator> widget_container;
 
+	input::modifier::filter input_filter;
 	widget_container widgets;
 	boost::optional<widget_container::iterator> focus;
 	signals::scoped_connection ic;
 	signals::scoped_connection irc;
 
-	void input_callback(input::key_pair const &,bool);
-	void repeat_callback(input::key_type const &);
+	void input_callback(
+		input::key_pair const &,
+		input::modifier::states const &,
+		bool);
+	void repeat_callback(
+		input::key_type const &,
+		input::modifier::states const &);
 	void switch_focus(widget_container::iterator);
 };
 }

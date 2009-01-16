@@ -1,8 +1,9 @@
 #include "utility/type_comparator.hpp"
 #include <sge/gui/skin.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/widgets/button.hpp>
 #include <sge/gui/widgets/edit.hpp>
-#include <sge/gui/widgets/fwd.hpp>
+#include <sge/gui/widgets/label.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/exception.hpp>
@@ -83,6 +84,11 @@ sge::gui::dim const sge::gui::skin::size_hint(widget const &w) const
 			log::_1 << SGE_TEXT("size_hint called for widget, returning null"));
 		return dim::null();
 	}
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("size_hint called for widget ") 
+		        << typeid(w).name());
 
 	return utility::type_comparator<widgets::types>(
 		w,

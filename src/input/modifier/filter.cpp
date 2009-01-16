@@ -10,6 +10,9 @@ sge::input::modifier::filter::filter(sge::input::system_ptr const is)
 	is->register_callback(
 		boost::bind(&filter::input_callback,this,_1));
 
+	is->register_repeat_callback(
+		boost::bind(&filter::input_repeat_callback,this,_1));
+
 	BOOST_FOREACH(object const &o,list())
 		BOOST_FOREACH(key_code const &c,o.codes)
 			modifiers.insert(c,static_cast<key_state>(0));
@@ -36,4 +39,9 @@ void sge::input::modifier::filter::input_callback(key_pair const &k)
 	}
 
 	signal(k,modifiers);
+}
+
+void sge::input::modifier::filter::input_repeat_callback(key_type const &k)
+{
+	repeat_signal(k,modifiers);
 }
