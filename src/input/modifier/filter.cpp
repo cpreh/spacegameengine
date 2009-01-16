@@ -24,6 +24,12 @@ sge::signals::scoped_connection const sge::input::modifier::filter::register_cal
 	return signal.connect(f);
 }
 
+sge::signals::scoped_connection const sge::input::modifier::filter::register_repeat_callback(
+	repeat_callback_type const &f)
+{
+	return repeat_signal.connect(f);
+}
+
 void sge::input::modifier::filter::input_callback(key_pair const &k)
 {
 	BOOST_FOREACH(object const &o,list())
