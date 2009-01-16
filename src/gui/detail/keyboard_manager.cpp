@@ -23,10 +23,10 @@ sge::gui::detail::keyboard_manager::keyboard_manager(sge::input::system_ptr cons
 	: input_filter(is),
 	  ic(
 	     input_filter.register_callback(
-			   boost::bind(&keyboard_manager::input_callback,this,_1,false))),
+			   boost::bind(&keyboard_manager::input_callback,this,_1,_2,false))),
 	  irc(
 	     input_filter.register_repeat_callback(
-			   boost::bind(&keyboard_manager::repeat_callback,this,_1)))
+			   boost::bind(&keyboard_manager::repeat_callback,this,_1,_2)))
 {
 }
 
