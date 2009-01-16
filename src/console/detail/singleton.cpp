@@ -17,10 +17,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/console/singleton.hpp>
+#include <sge/console/detail/singleton.hpp>
 #include <sge/console/exception.hpp>
 #include <sge/console/var_base.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/make_auto_ptr.hpp>
+#include <sge/auto_ptr.hpp>
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 
@@ -98,32 +100,46 @@ sge::con::singleton::singleton()
 	prefix(SGE_TEXT('/'))
 {}
 	
-void sge::con::singleton::add(
+sge::signals::connection const
+sge::con::singleton::add(
 	sge::string const &name,
 	sge::con::callback const &v)
 {
-	std::pair<callback_map::iterator, bool> const ret = funcs.insert(
-		std::make_pair(
-			name,
-			v));
+	callback_map::iterator const it(
+		funcs.find(name));
+	if(it != funcs.end())
+		return it->second->connect(
+			v);	
 
-	if (!ret.second)
+	auto_ptr<
+		signal
+	> sig(
+		make_auto_ptr<
+			signal
+		>());
+
+	std::pair<callback_map::iterator, bool> const ret
+		= funcs.insert(
+			name,
+			sig);
+	if(ret.second == false)
 		throw exception(
 			SGE_TEXT("console function ")
 			+ name
 			+ SGE_TEXT(" registered twice!"));
+	return ret.first->second->connect(
+		v);
 }
 
 void sge::con::singleton::add(
 	sge::string const &name,
 	sge::con::var_base &v)
 {
-	std::pair<var_map::iterator, bool> const ret = vars.insert(
+	if(vars.insert(
 		std::make_pair(
 			name,
-			&v));
-	
-	if (!ret.second)
+			&v))
+	.second == false)
 		throw exception(
 			SGE_TEXT("console variable ")
 			+ name
@@ -138,15 +154,6 @@ void sge::con::singleton::add(
 void sge::con::singleton::erase(
 	sge::string const &name)
 {
-	/*callback_map::size_type erases = 0;
-	erases += funcs.erase(name);
-	erases += vars.erase(name);
-
-	if(erases == 0)
-		throw exception(
-			SGE_TEXT("console function ")
-			+ name
-			+ SGE_TEXT(" not registered!"));*/
 	if(vars.erase(name) == 0)
 		throw exception(
 			SGE_TEXT("console variable ")
@@ -190,10 +197,7 @@ void sge::con::singleton::eval(
 	parse(line.begin(),line.end(),r);
 
 	if (command_str.empty())
-	{
-		if (chat)
-			chat(args);
-	}
+		chat(args);
 	else
 	{
 		args.insert(args.begin(),command_str);

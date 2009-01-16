@@ -24,7 +24,8 @@ struct stdlib
 	SGE_SYMBOL void listfuncs(const arg_list &);
 	SGE_SYMBOL void latch(const arg_list &);
 
-	SGE_SYMBOL explicit stdlib(const callback_type &);
+	SGE_SYMBOL explicit stdlib(
+		callback_type const &);
 };
 
 }

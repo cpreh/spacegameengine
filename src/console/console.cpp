@@ -1,22 +1,49 @@
-#include <sge/console/console.hpp>
-#include <sge/console/singleton.hpp>
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
-void sge::con::eval(const string &s)
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
+#include <sge/console/console.hpp>
+#include <sge/console/detail/singleton.hpp>
+
+void sge::con::eval(
+	string const &s)
 {
 	instance().eval(s);
 }
 
-void sge::con::chat_callback(const callback &c)
+sge::signals::connection const
+sge::con::chat_callback(
+	callback const &c)
 {
-	instance().chat = c;
+	return instance().chat.connect(c);
 }
 
-void sge::con::add(const string &name,const callback &c)
+sge::signals::connection const
+sge::con::add(
+	string const &name,
+	callback const &c)
 {
-	instance().add(name,c);
+	return instance().add(name, c);
 }
 
-void sge::con::prefix(const string::value_type &c)
+void sge::con::prefix(
+	string::value_type const &c)
 {
 	instance().prefix = c;
 }
@@ -32,27 +59,35 @@ void sge::con::read_config(
 	instance().read_config(s);
 }
 
-const sge::con::var_map &sge::con::vars()
+sge::con::var_map const &
+sge::con::vars()
 {
 	return instance().vars;
 }
 
-const sge::con::callback_map &sge::con::funcs()
+sge::con::callback_map const &
+sge::con::funcs()
 {
 	return instance().funcs;
 }
 
-sge::string const sge::con::get_var(const sge::string &name)
+sge::string const
+sge::con::get_var(
+	sge::string const &name)
 {
 	return instance().var(name);
 }
 
-void sge::con::set_var(const sge::string &name,const sge::string &value)
+void sge::con::set_var(
+	sge::string const &name,
+	sge::string const &value)
 {
 	instance().var(name,value);
 }
 
-void sge::con::latch(const sge::string &name,const sge::string &value)
+void sge::con::latch(
+	sge::string const &name,
+	sge::string const &value)
 {
 	instance().latch(name,value);
 }

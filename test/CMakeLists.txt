@@ -19,6 +19,7 @@ MACRO (ADD_SGE_TEST name)
 ENDMACRO ()
 
 ADD_SGE_TEST(anim)
+ADD_SGE_TEST(console)
 ADD_SGE_TEST(doppler)
 ADD_SGE_TEST(fullscreen)
 ADD_SGE_TEST(pool)
