@@ -25,13 +25,15 @@ sge::renderer::caps::caps(
 	string const &driver_name_,
 	string const &description_,
 	dim_type const &max_texture_size_,
-	anisotropy_type const max_anisotropy_)
+	anisotropy_type const max_anisotropy_,
+	bool const render_target_supported_)
 :
 	adapter_(adapter_),
 	driver_name_(driver_name_),
 	description_(description_),
 	max_texture_size_(max_texture_size_),
-	max_anisotropy_(max_anisotropy_)
+	max_anisotropy_(max_anisotropy_),
+	render_target_supported_(render_target_supported_)
 {}
 
 sge::renderer::adapter_type
@@ -62,4 +64,10 @@ sge::renderer::anisotropy_type
 sge::renderer::caps::max_anisotropy() const
 {
 	return max_anisotropy_;
+}
+
+bool
+sge::renderer::caps::render_target_supported() const
+{
+	return render_target_supported_;
 }

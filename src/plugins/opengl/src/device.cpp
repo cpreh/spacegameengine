@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../multi_texture.hpp"
 #include "../texture_stage.hpp"
 #include "../basic_buffer_impl.hpp"
-#include "../get.hpp"
 #include "../error.hpp"
 #include "../state_visitor.hpp"
 #include "../glsl/impl.hpp"
@@ -45,6 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../fbo_target.hpp"
 #include "../convert_primitive.hpp"
 #include "../fbo_projection.hpp"
+#include "../get_string.hpp"
+#include "../get_int.hpp"
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/caps.hpp>
@@ -186,14 +187,24 @@ void sge::ogl::device::end_rendering()
 sge::renderer::device::caps_t const
 sge::ogl::device::caps() const
 {
+	GLint const max_texture_size(
+		get_int(
+			GL_MAX_TEXTURE_SIZE));
+	
 	return renderer::caps(
 		0,
-		SGE_TEXT("fixme"),
-		SGE_TEXT("fixme"),
+		get_string(
+			GL_VENDOR),
+		get_string(
+			GL_RENDERER)
+		+ SGE_TEXT(' ')
+		+ get_string(
+			GL_VERSION),
 		renderer::dim_type(
-			1024,
-			1024),
-		0); // FIXME
+			max_texture_size,
+			max_texture_size),
+		GL_TEXTURE_MAX_ANISOTROPY_EXT,
+		glGenFramebuffersEXT);
 }
 
 sge::window::instance_ptr const

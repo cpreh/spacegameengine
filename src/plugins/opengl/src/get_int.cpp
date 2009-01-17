@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../get.hpp"
+#include "../get_int.hpp"
 #include "../error.hpp"
 
-GLint sge::ogl::get_int(const GLenum what)
+GLint sge::ogl::get_int(
+	GLenum const what)
 {
 	SGE_OPENGL_SENTRY
 	

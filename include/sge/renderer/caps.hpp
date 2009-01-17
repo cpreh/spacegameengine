@@ -38,19 +38,22 @@ struct caps {
 		string const &driver_name,
 		string const &description,
 		dim_type const &max_texure_size,
-		anisotropy_type max_anisotropy_);
+		anisotropy_type max_anisotropy_,
+		bool render_target_supported);
 		
 	SGE_SYMBOL adapter_type adapter() const;
 	SGE_SYMBOL string const &driver_name() const;
 	SGE_SYMBOL string const &description() const;
 	SGE_SYMBOL dim_type const &max_texture_size() const;
 	SGE_SYMBOL anisotropy_type max_anisotropy() const; 
+	SGE_SYMBOL bool render_target_supported() const;
 private:
 	adapter_type       adapter_;
 	string             driver_name_;
 	string             description_;
 	dim_type           max_texture_size_;
 	anisotropy_type    max_anisotropy_;
+	bool               render_target_supported_;
 };
 
 }

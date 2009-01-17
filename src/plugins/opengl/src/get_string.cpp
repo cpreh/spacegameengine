@@ -18,45 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_LOCK_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#include "../get_string.hpp"
+#include <sge/text.hpp>
+#include <sge/exception.hpp>
+#include <sge/iconv.hpp>
 
-#include "../scoped_lock.hpp"
-
-template<typename T, typename Value>
-sge::renderer::scoped_lock<T, Value>::scoped_lock(
-	scoped_lock_wrapper<T, Value> const &w)
-:
-	w(w)
-{}
-
-template<typename T, typename Value>
-void sge::renderer::scoped_lock<T, Value>::unlock()
+sge::string const
+sge::ogl::get_string(
+	GLenum const what)
 {
-	if(w.set())
-	{
-		w.unlock();
-		release();
-	}
+	GLubyte const *const ret(
+		glGetString(
+			what));
+	if(!ret)
+		throw exception(
+			SGE_TEXT("glGetString() failed!"));
+	
+	return iconv(
+		reinterpret_cast<char const *>(
+			ret));
 }
-
-template<typename T, typename Value>
-void sge::renderer::scoped_lock<T, Value>::release()
-{
-	w.reset();
-}
-
-template<typename T, typename Value>
-Value const
-sge::renderer::scoped_lock<T, Value>::value() const
-{
-	return w.value();
-}
-
-template<typename T, typename Value>
-sge::renderer::scoped_lock<T, Value>::~scoped_lock()
-{
-	unlock();
-}
-
-#endif
