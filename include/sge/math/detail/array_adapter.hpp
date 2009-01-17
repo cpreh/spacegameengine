@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DETAIL_VIEW_STORAGE_HPP_INCLUDED
-#define SGE_MATH_DETAIL_VIEW_STORAGE_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_ARRAY_ADAPTER_HPP_INCLUDED
+#define SGE_MATH_DETAIL_ARRAY_ADAPTER_HPP_INCLUDED
 
 namespace sge
 {
@@ -29,27 +29,35 @@ namespace detail
 {
 
 template<
-	typename T,
-	typename N
+	typename Derived
 >
-class view_storage {
-public:
-	typedef typename N::value_type size_type;
-	typedef T &reference;
-	typedef T *pointer;
+struct array_adapter {
+	typename Derived::reference at(
+		typename Derived::size_type);
+	typename Derived::const_reference at(
+		typename Derived::size_type) const;
 
-	view_storage(
-		pointer,
-		size_type);
+	typename Derived::pointer data_end();
+	typename Derived::const_pointer data_end() const;
 
-	reference
-	operator[](
-		size_type);
-	
-	size_type size() const;
+	typename Derived::iterator begin();
+	typename Derived::const_iterator begin() const;
+	typename Derived::iterator end();
+	typename Derived::const_iterator end() const;
+	typename Derived::reverse_iterator rbegin();
+	typename Derived::const_reverse_iterator rbegin() const;
+	typename Derived::reverse_iterator rend();
+	typename Derived::const_reverse_iterator rend() const;
+
+	bool empty() const;
+
+	bool operator==(
+		Derived const &) const;
+	bool operator!=(
+		Derived const &) const;
 private:
-	pointer rep;
-	size_type sz;
+	Derived &this_();
+	Derived const &this_() const;
 };
 
 }

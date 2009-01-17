@@ -40,7 +40,7 @@ struct static_ {
 	typedef basic<
 		T,
 		boost::mpl::integral_c<
-			size_type
+			size_type,
 			N
 		>,
 		T[N]

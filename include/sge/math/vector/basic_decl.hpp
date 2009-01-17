@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_VECTOR_BASIC_DECL_HPP_INCLUDED
 
 #include "../detail/make_op_decl.hpp"
-#include "../detail/make_variadic_constructor.hpp"
+#include "../detail/make_variadic_constructor_decl.hpp"
+#include "../detail/array_adapter.hpp"
 #include <iterator>
 
 #ifndef SGE_MATH_VECTOR_MAX_CTOR_PARAMS
@@ -41,7 +42,10 @@ template<
 	typename N,
 	typename S
 >
-struct basic { typedef typename N::value_type size_type;
+struct basic
+: array_adapter<basic<T, N, S> > {
+
+	typedef typename N::value_type size_type;
 	typedef T value_type;
 	typedef T &reference;
 	typedef T const &const_reference;
@@ -62,7 +66,7 @@ struct basic { typedef typename N::value_type size_type;
 		In end);
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_VECTOR_MAX_CTOR_PARAMS
-	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(basic)
+	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(basic)
 #undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
 
 #define SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(op)\
@@ -82,28 +86,10 @@ SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
 	operator[](
 		size_type);
 
-	const_reference
-	at(
-		size_type) const;
-	
-	reference
-	at(
-		size_type);
-	
 	pointer data();
 	const_pointer data() const;
 	
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
-	reverse_iterator rbegin();
-	const_reverse_iterator rbegin() const;
-	reverse_iterator rend();
-	const_reverse_iterator rend() const;
-
 	size_type size() const;
-	bool empty() const;
 
 	static basic const
 	null();

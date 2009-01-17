@@ -28,6 +28,9 @@ namespace sge
 {
 namespace math
 {
+namespace matrix
+{
+#if 0
 
 template<
 	typename T
@@ -132,9 +135,12 @@ matrix_orthogonal_xy(
 	T right,
 	T top,
 	T bottom);
+#endif
+
+}
 }
 }
 
-#include "detail/matrix_util_impl.hpp"
+//#include "detail/util_impl.hpp"
 
 #endif

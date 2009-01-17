@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/make_op_decl.hpp"
 #include "../detail/make_variadic_constructor_decl.hpp"
 #include "../detail/view_storage.hpp"
+#include "../detail/array_adapter.hpp"
 #include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
 #include <iterator>
@@ -45,7 +46,8 @@ template<
 	typename M,
 	typename S
 >
-class basic {
+class basic
+: detail::array_adapter<basic<T, N, M, S> > {
 public:
 	BOOST_STATIC_ASSERT((
 		boost::is_same<
@@ -107,30 +109,10 @@ SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
 	operator[](
 		size_type) const;
 	
-	const_reference
-	at(
-		size_type) const;
-	
-	reference
-	at(
-		size_type);
-	
 	pointer data();
 	const_pointer data() const;
-	pointer data_end();
-	const_pointer data_end() const;
-	
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
-	reverse_iterator rbegin();
-	const_reverse_iterator rbegin() const;
-	reverse_iterator rend();
-	const_reverse_iterator rend() const;
 
 	size_type size() const;
-	bool empty() const;
 private:
 	S storage;
 };
@@ -176,6 +158,7 @@ structure_cast(
 
 #endif
 
+}
 }
 }
 

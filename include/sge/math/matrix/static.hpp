@@ -18,23 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_BASIC_FWD_HPP_INCLUDED
-#define SGE_MATH_MATRIX_BASIC_FWD_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_STATIC_HPP_INCLUDED
+#define SGE_MATH_MATRIX_STATIC_HPP_INCLUDED
+
+#include "basic_fwd.hpp"
+#include "../size_type.hpp"
+#include <boost/mpl/integral_c.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace matrix
+namespace matrix 
 {
 
 template<
 	typename T,
-	typename N,
-	typename M,
-	typename S
+	size_type N,
+	size_type M
 >
-class basic;
+struct static_ {
+	typedef basic<
+		T,
+		boost::mpl::integral_c<
+			size_type,
+			N
+		>,
+		boost::mpl::integral_c<
+			size_type,
+			M
+		>,
+		T[N * M]
+	> type;
+};
 
 }
 }

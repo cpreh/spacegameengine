@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_TYPES_HPP_INCLUDED
 
 #include "../raw_vector.hpp"
-#include "../math/vector.hpp"
+#include <sge/math/vector/static.hpp>
+#include <sge/math/vector/basic_decl.hpp>
 #include <cstddef>
 
 namespace sge
@@ -34,7 +35,7 @@ typedef std::size_t sample_count;
 typedef raw_vector<unsigned char> sample_container;
 
 typedef float unit; // TODO: is float ok here?
-typedef math::vector<unit, 3> point;
+typedef math::vector::static_<unit, 3>::type point;
 
 }
 }
