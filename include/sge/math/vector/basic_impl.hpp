@@ -81,6 +81,42 @@ sge::math::vector::basic<T, N, S>::resize(
 		sz);
 }
 
+#if 0
+	const_reference
+	at(
+		size_type) const;
+	
+	reference
+	at(
+		size_type);
+	
+	pointer data();
+	const_pointer data() const;
+	
+	iterator begin();
+	const_iterator begin() const;
+	iterator end();
+	const_iterator end() const;
+	reverse_iterator rbegin();
+	const_reverse_iterator rbegin() const;
+	reverse_iterator rend();
+	const_reverse_iterator rend() const;
+
+	size_type size() const;
+	bool empty() const;
+
+	static basic const
+	null();
+
+	reference x();
+	const_reference x() const;
+	reference y();
+	const_reference y() const;
+	reference z();
+	const_reference z() const;
+	reference w();
+	const_reference w() const;
+#endif
 
 template<
 	typename T,

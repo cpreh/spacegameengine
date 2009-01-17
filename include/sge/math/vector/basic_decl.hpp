@@ -22,10 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_VECTOR_BASIC_DECL_HPP_INCLUDED
 
 #include "../detail/make_op_decl.hpp"
+#include "../detail/make_variadic_constructor.hpp"
+#include <iterator>
 
 namespace sge
 {
 namespace math
+{
+namespace vector
 {
 
 #define SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(op)\
@@ -112,6 +116,7 @@ private:
 	S storage;
 };
 
+}
 }
 }
 

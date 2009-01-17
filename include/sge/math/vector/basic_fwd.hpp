@@ -18,22 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_FWD_HPP_INCLUDED
-#define SGE_MATH_VECTOR_FWD_HPP_INCLUDED
-
-#include <cstddef>
+#ifndef SGE_MATH_VECTOR_BASIC_FWD_HPP_INCLUDED
+#define SGE_MATH_VECTOR_BASIC_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace math
 {
+namespace vector
+{
 
 template<
 	typename T,
-	std::size_t Dim
+	typename N,
+	typename S
 >
-class vector;
+class basic;
 
+}
 }
 }
 
