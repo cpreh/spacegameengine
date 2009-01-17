@@ -12,7 +12,6 @@
 *low: other font formatting like bold, italic, underline and colors
 *low: improve the image loader (let it also load from and save to streams)
 *low: implement an image loader with Magick++
-*low: use boost::exception for stack traces
 *low: implement a lot of different exception types to make errors distinguishable
 *low: put x11 and windows stuff in their own libraries (probably do this with
 sprite, texture, console, etc. as well)
@@ -21,7 +20,6 @@ sprite, texture, console, etc. as well)
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
 *medium: add support for more vertex elements (like fog, etc.)
 *medium: implement GLSL getter
-*medium: fix renderer::caps and the opengl implementation of them
 *medium: add multiline functionality to widgets::edit
 *medium: add widgets::image_button
 *medium: add modifiers to gui
