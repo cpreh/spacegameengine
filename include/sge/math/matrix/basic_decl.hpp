@@ -18,77 +18,108 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_HPP_INCLUDED
-#define SGE_MATH_MATRIX_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_BASIC_DECL_HPP_INCLUDED
+#define SGE_MATH_MATRIX_BASIC_DECL_HPP_INCLUDED
 
-#include "../config.h"
-#include "matrix_proxy.hpp"
-#include "vector.hpp"
-#ifndef SGE_HAVE_VARIADIC_TEMPLATES
+#include "../detail/make_op_decl.hpp"
+#include "../detail/make_variadic_constructor_decl.hpp"
+#include "../detail/view_storage.hpp"
+#include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
-#include <boost/preprocessor/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/arithmetic/add.hpp>
-#endif
-#include <cstddef>
-#include <iosfwd>
 #include <iterator>
 
-#ifndef SGE_MATH_MATRIX_MAX_SIZE
-#define SGE_MATH_MATRIX_MAX_SIZE 16
+#ifndef SGE_MATH_MATRIX_MAX_CTOR_PARAMS
+#define SGE_MATH_MATRIX_MAX_CTOR_PARAMS 16
 #endif
 
 namespace sge
 {
 namespace math
 {
+namespace matrix
+{
 
-/**
- * matrix uses variadic templates where available
- *
- * \attention To use matrix' functions you have to include
- * <sge/math/matrix_impl.hpp>!
- */
-template<typename T, std::size_t N, std::size_t M>
-class matrix {
-	enum { Dim = N*M };
-#ifndef SGE_HAVE_VARIADIC_TEMPLATES
-	BOOST_STATIC_ASSERT(Dim > 1 && Dim <= SGE_MATH_MATRIX_MAX_SIZE);
-#endif
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
+class basic {
 public:
+	BOOST_STATIC_ASSERT((
+		boost::is_same<
+			typename N::value_type,
+			typename M::value_type
+		>::value))
+
+	typedef typename N::value_type size_type;
 	typedef T value_type;
-	typedef T& reference;
-	typedef const T& const_reference;
-	typedef T* pointer;
-	typedef const T* const_pointer;
+	typedef vector::basic<
+		T,
+		N
+		detail::view_storage<
+			T,
+			N
+		>
+	> reference;
+
+	typedef vector::basic<
+		T,
+		N,
+		detail::view_storage<
+			T const,
+			N
+		>
+	> const_reference;
+
+	typedef T *pointer;
+	typedef T const *const_pointer;
 	typedef pointer iterator;
 	typedef const_pointer const_iterator;
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-	typedef std::size_t size_type;
-	typedef detail::matrix_proxy_impl<value_type&, value_type*, N> proxy;
-	typedef detail::matrix_proxy_impl<const value_type&, const value_type*, N> const_proxy;
 
-#ifdef SGE_HAVE_VARIADIC_TEMPLATES
-	template<typename... Args>
-	explicit matrix(Args... args);
-#else
-#define SGE_MATH_MATRIX_CTOR_ASSIGN_N(z, n, text) data_[n] = text##n;
-#define SGE_MATH_MATRIX_CTOR(z, n, text) matrix(BOOST_PP_ENUM_PARAMS(BOOST_PP_ADD(n,1), T const& param)) { BOOST_STATIC_ASSERT(BOOST_PP_ADD(n,1)==Dim); BOOST_PP_REPEAT(BOOST_PP_ADD(n,1), SGE_MATH_MATRIX_CTOR_ASSIGN_N, param) }
-	BOOST_PP_REPEAT(SGE_MATH_MATRIX_MAX_SIZE, SGE_MATH_MATRIX_CTOR, void)
-#endif
+	basic();
 
-	matrix();
-	matrix& operator+=(const matrix& r);
-	matrix& operator-=(const matrix& r);
-	matrix& operator*=(const value_type& v);
-	const proxy operator[](const size_type j);
-	const const_proxy operator[](const size_type j) const;
+	template<
+		typename In
+	>
+	basic(
+		In beg,
+		In end);
+
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_MATRIX_MAX_CTOR_PARAMS
+	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(basic)
+#undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
+
+#define SGE_MATH_MATRIX_BASIC_DECLARE_OPERATOR(op)\
+SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
+	SGE_MATH_MATRIX_BASIC_DECLARE_OPERATOR(+=)
+	SGE_MATH_MATRIX_BASIC_DECLARE_OPERATOR(-=)
+#undef SGE_MAT_MATRIX_BASIC_DECLARE_OPERATOR
+
+	reference
+	operator[](
+		size_type);
+	
+	const_reference const
+	operator[](
+		size_type) const;
+	
+	const_reference
+	at(
+		size_type) const;
+	
+	reference
+	at(
+		size_type);
+	
 	pointer data();
 	const_pointer data() const;
 	pointer data_end();
 	const_pointer data_end() const;
-	size_type size() const;
+	
 	iterator begin();
 	const_iterator begin() const;
 	iterator end();
@@ -97,21 +128,14 @@ public:
 	const_reverse_iterator rbegin() const;
 	reverse_iterator rend();
 	const_reverse_iterator rend() const;
-#ifdef SGE_HAVE_VARIADIC_TEMPLATES
-	template<typename... Args>
-	void set(const_reference arg, Args... args);
-private:
-	template<typename... Args>
-	void set_impl(size_type i, const_reference arg, Args... args);
-	
-	void set_impl(size_type i, const_reference arg);
 
-	reference at(size_type);
-#endif
+	size_type size() const;
+	bool empty() const;
 private:
-	value_type data_[Dim];
+	S storage;
 };
 
+#if 0
 template<typename T, std::size_t N, std::size_t M>
 matrix<T,N,M> operator+ (const matrix<T,N,M>& r);
 
@@ -149,6 +173,8 @@ template<typename D, typename S, std::size_t N, std::size_t M>
 matrix<D, N, M> const
 structure_cast(
 	matrix<S, N, M> const &s);
+
+#endif
 
 }
 }

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_UTIL_IMPL_HPP_INCLUDED
 #define SGE_MATH_MATRIX_UTIL_IMPL_HPP_INCLUDED
 
-#include "../matrix_util.hpp"
-#include "../matrix_impl.hpp"
-#include "../../text.hpp"
-#include "../../exception.hpp"
+#include "../util.hpp"
+#include "../basic_impl.hpp"
+#include <sge/text.hpp>
+#include <sge/exception.hpp>
 #include <cmath>
 
 template<

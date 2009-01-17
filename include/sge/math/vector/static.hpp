@@ -18,106 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DETAIL_STORAGE_DIM_HPP_INCLUDED
-#define SGE_MATH_DETAIL_STORAGE_DIM_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_STATIC_HPP_INCLUDED
+#define SGE_MATH_VECTOR_STATIC_HPP_INCLUDED
+
+#include "basic_fwd.hpp"
+#include "../size_type.hpp"
+#include <boost/mpl/integral_c.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace detail
+namespace vector
 {
-
-template<
-	typename N,
-	typename T
->
-N storage_dim(
-	T const &t)
-{
-	return t.size();
-}
-
-template<
-	typename N,
-	typename T
->
-N storage_dim(
-	T[N] const t)
-{
-	return N;
-}
-
-/*
-template<
-	typename T
->
-struct storage_dim;
 
 template<
 	typename T,
-	std::size_t M
+	size_type N
 >
-struct storage_dim<
-	T[M]
-> {
-	template<
-		typename N,
-		typename X
-	>
-	static N get(
-		X)
-	{
-		return M;
-	}
-};
-
-template<
-	typename T,
-	typename A
->
-struct storage_dim<
-	std::vector<
+struct static_ {
+	typedef basic<
 		T,
-		A
-	>
-> {
-	template<
-		typename N
-	>
-	static N get(
-		std::vector<
-			T,
-			A
-		> const &v)
-	{
-		return v.size();
-	}
-};
-
-template<
-	typename T,
-	typename N
->
-struct storage_dim<
-	view_storage<
-		T,
-		N
-	>
-> {
-	template<
-		typename N
-	>
-	static N get(
-		view_storage<
-			T,
+		boost::mpl::integral_c<
+			size_type
 			N
-		> const &v)
-	{
-		return v.size();
-	}
+		>,
+		T[N]
+	> type;
 };
-*/
 
 }
 }

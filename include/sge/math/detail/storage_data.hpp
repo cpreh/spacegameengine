@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DETAIL_STORAGE_DIM_HPP_INCLUDED
-#define SGE_MATH_DETAIL_STORAGE_DIM_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_STORAGE_DATA_HPP_INCLUDED
+#define SGE_MATH_DETAIL_STORAGE_DATA_HPP_INCLUDED
 
 namespace sge
 {
@@ -29,95 +29,28 @@ namespace detail
 {
 
 template<
-	typename N,
 	typename T
 >
-N storage_dim(
+typename storage_data_traits<
+	T
+>::type
+storage_data(
 	T const &t)
 {
-	return t.size();
+	return t.data();
 }
 
 template<
-	typename N,
 	typename T
 >
-N storage_dim(
-	T[N] const t)
+typename storage_data_traits<
+	T
+>::type
+storage_data(
+	T const* const t)
 {
-	return N;
+	return t;
 }
-
-/*
-template<
-	typename T
->
-struct storage_dim;
-
-template<
-	typename T,
-	std::size_t M
->
-struct storage_dim<
-	T[M]
-> {
-	template<
-		typename N,
-		typename X
-	>
-	static N get(
-		X)
-	{
-		return M;
-	}
-};
-
-template<
-	typename T,
-	typename A
->
-struct storage_dim<
-	std::vector<
-		T,
-		A
-	>
-> {
-	template<
-		typename N
-	>
-	static N get(
-		std::vector<
-			T,
-			A
-		> const &v)
-	{
-		return v.size();
-	}
-};
-
-template<
-	typename T,
-	typename N
->
-struct storage_dim<
-	view_storage<
-		T,
-		N
-	>
-> {
-	template<
-		typename N
-	>
-	static N get(
-		view_storage<
-			T,
-			N
-		> const &v)
-	{
-		return v.size();
-	}
-};
-*/
 
 }
 }

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_HPP_INCLUDED
-#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL_HPP_INCLUDED
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL_HPP_INCLUDED
 
 #include <sge/config.h>
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
@@ -29,48 +29,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
-#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(template_pre, def_pre, name) \
-	template_pre \
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(name) \
 	template<typename... Args> \
-	def_pre::name(Args... args) \
-	{ \
-		initial_size(sizeof(args)); \
-		set_impl(args...); \
-	} \
-\
-	template_pre \
+	explicit name(Args... args); \
+private: \
 	template<typename... Args> \
-	void def_pre::set_impl( \
-		size_type const i, \
+	void set_impl( \
+		size_type i, \
 		const_reference arg, \
-		Args... args) \
-	{ \
-		(*this)[i] = arg; \
-		set_impl(i + 1, args...); \
-	} \
+		Args... args); \
 \
-	template_pre \
-	void def_pre::set_impl( \
-		size_type const i, \
-		const_reference arg) \
-	{ \
-		(*this)[i] = arg; \
-	}
+	void set_impl( \
+		size_type i, \
+		const_reference arg);
 #else
-#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_ASSIGN(z, n, text)\
-(*this)[n] = text##n;
 
-#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL(z, n, text)\
-text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& param))\
-{\
-	initial_size(n); \
-	BOOST_PP_REPEAT(BOOST_PP_INC(n), SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_ASSIGN, param)\
-}
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL_IMPL(z, n, text)\
+text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& param));
 
-#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(template_pre, def_pre, name)\
-BOOST_PP_REPEAT(SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE, SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL, def_pre ## :: ## name)
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(name)\
+BOOST_PP_REPEAT(SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE, SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL_IMPL, name)
 
-#undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL
+#undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL_IMPL
 #endif
+
 
 #endif

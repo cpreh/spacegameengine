@@ -25,6 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/make_variadic_constructor.hpp"
 #include <iterator>
 
+#ifndef SGE_MATH_VECTOR_MAX_CTOR_PARAMS
+#define SGE_MATH_VECTOR_MAX_CTOR_PARAMS 4
+#endif
+
 namespace sge
 {
 namespace math
@@ -32,16 +36,12 @@ namespace math
 namespace vector
 {
 
-#define SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(op)\
-SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
-
 template<
 	typename T,
 	typename N,
 	typename S
 >
-struct basic {
-	typedef typename N::value_type size_type;
+struct basic { typedef typename N::value_type size_type;
 	typedef T value_type;
 	typedef T &reference;
 	typedef T const &const_reference;
@@ -53,16 +53,26 @@ struct basic {
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
 	basic();
-#ifndef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
-#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE 4
+
+	template<
+		typename In
+	>
+	basic(
+		In beg,
+		In end);
+
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_VECTOR_MAX_CTOR_PARAMS
 	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(basic)
 #undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
 
+#define SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(op)\
+SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
 	SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(+=)
 	SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(-=)
 	SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(*=)
 	SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(/=)
 	SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(%=)
+#undef SGE_MAT_VECTOR_BASIC_DECLARE_OPERATOR
 
 	const_reference
 	operator[](
