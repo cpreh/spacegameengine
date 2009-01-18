@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Derived
 >
-typename Derived::reference
 sge::math::array_adapter<Derived>::at(
 	typename Derived::size_type const index)
 {

@@ -18,23 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DIM_HPP_INCLUDED
-#define SGE_SPRITE_DIM_HPP_INCLUDED
+#ifndef SGE_MATH_DIM_STATIC_HPP_INCLUDED
+#define SGE_MATH_DIM_STATIC_HPP_INCLUDED
 
-#include "unit.hpp"
-#include <sge/math/dim/static.hpp>
-#include <sge/math/dim/basic_decl.hpp>
+#include "basic_fwd.hpp"
+#include "../size_type.hpp"
+#include <boost/mpl/integral_c.hpp>
 
 namespace sge
 {
-namespace sprite
+namespace math
+{
+namespace dim
 {
 
-typedef math::dim::static_<
-	unit,
-	2
->::type dim;
+template<
+	typename T,
+	size_type N
+>
+struct static_ {
+	typedef basic<
+		T,
+		boost::mpl::integral_c<
+			size_type,
+			N
+		>,
+		T[N]
+	> type;
+};
 
+}
 }
 }
 

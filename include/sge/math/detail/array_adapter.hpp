@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_ARRAY_ADAPTER_HPP_INCLUDED
 #define SGE_MATH_DETAIL_ARRAY_ADAPTER_HPP_INCLUDED
 
+#include <iterator>
+
 namespace sge
 {
 namespace math
@@ -29,25 +31,40 @@ namespace detail
 {
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference = ValueType &,
+	typename ConstReference = Reference const
 >
 struct array_adapter {
-	typename Derived::reference at(
-		typename Derived::size_type);
-	typename Derived::const_reference at(
-		typename Derived::size_type) const;
+	typedef SizeType size_type;
+	typedef ValueType value_type;
+	typedef Reference reference;
+	typedef ConstReference const_reference;
+	typedef value_type *pointer;
+	typedef value_type const *const_pointer;
+	typedef pointer iterator;
+	typedef const_pointer const_iterator;
+	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	typename Derived::pointer data_end();
-	typename Derived::const_pointer data_end() const;
+	reference at(
+		size_type);
+	const_reference at(
+		size_type) const;
 
-	typename Derived::iterator begin();
-	typename Derived::const_iterator begin() const;
-	typename Derived::iterator end();
-	typename Derived::const_iterator end() const;
-	typename Derived::reverse_iterator rbegin();
-	typename Derived::const_reverse_iterator rbegin() const;
-	typename Derived::reverse_iterator rend();
-	typename Derived::const_reverse_iterator rend() const;
+	pointer data_end();
+	const_pointer data_end() const;
+
+	iterator begin();
+	const_iterator begin() const;
+	iterator end();
+	const_iterator end() const;
+	reverse_iterator rbegin();
+	const_reverse_iterator rbegin() const;
+	reverse_iterator rend();
+	const_reverse_iterator rend() const;
 
 	bool empty() const;
 

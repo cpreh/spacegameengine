@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_BASIC_DECL_HPP_INCLUDED
 #define SGE_MATH_VECTOR_BASIC_DECL_HPP_INCLUDED
 
+#include "basic_fwd.hpp"
 #include "../detail/make_op_decl.hpp"
 #include "../detail/make_variadic_constructor_decl.hpp"
 #include "../detail/array_adapter.hpp"
-#include <iterator>
 
 #ifndef SGE_MATH_VECTOR_MAX_CTOR_PARAMS
 #define SGE_MATH_VECTOR_MAX_CTOR_PARAMS 4
@@ -36,25 +36,47 @@ namespace math
 {
 namespace vector
 {
+namespace detail
+{
 
 template<
 	typename T,
 	typename N,
 	typename S
 >
-struct basic
-: array_adapter<basic<T, N, S> > {
+struct typedef_helper {
+	typedef math::detail::array_adapter<
+		basic<
+			T,
+			N,
+			S
+		>,
+		T,
+		typename N::value_type
+	> type;
+};
 
-	typedef typename N::value_type size_type;
-	typedef T value_type;
-	typedef T &reference;
-	typedef T const &const_reference;
-	typedef T *pointer;
-	typedef T const *const_pointer;
-	typedef pointer iterator;
-	typedef const_pointer const_iterator;
-	typedef std::reverse_iterator<iterator> reverse_iterator;
-	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+class basic
+: detail::typedef_helper<T, N, S>::type {
+	typedef typename detail::typedef_helper<T, N, S>::type base;
+public:
+	typedef typename base::size_type size_type;
+	typedef typename base::value_type value_type;
+	typedef typename base::reference reference;
+	typedef typename base::const_reference const_reference;
+	typedef typename base::pointer pointer;
+	typedef typename base::const_pointer const_pointer;
+	typedef typename base::iterator iterator;
+	typedef typename base::const_iterator const_iterator;
+	typedef typename base::reverse_iterator reverse_iterator;
+	typedef typename base::const_reverse_iterator const_reverse_iterator;
 
 	basic();
 

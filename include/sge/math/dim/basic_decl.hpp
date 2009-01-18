@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/make_op_decl.hpp"
 #include "../detail/make_variadic_constructor_decl.hpp"
 #include "../detail/array_adapter.hpp"
-#include <iterator>
 
 #ifndef SGE_MATH_DIM_MAX_CTOR_PARAMS
 #define SGE_MATH_DIM_MAX_CTOR_PARAMS 3
@@ -36,6 +35,28 @@ namespace math
 {
 namespace dim
 {
+namespace detail
+{
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+struct typedef_helper {
+	typedef math::detail::array_adapter<
+		basic<
+			T,
+			N,
+			S
+		>,
+		T,
+		typename N::value_type
+	> type;
+};
+
+}
+
 
 template<
 	typename T,
@@ -43,18 +64,19 @@ template<
 	typename S
 >
 class basic
-: array_adapter<basic<T, N, S> > {
+: detail::typedef_helper<T, N, S>::type {
+	typedef typename detail::typedef_helper<T, N, S>::type base;
 public:
-	typedef typename N::value_type size_type;
-	typedef T value_type;
-	typedef T &reference;
-	typedef T const &const_reference;
-	typedef T *pointer;
-	typedef T const *const_pointer;
-	typedef pointer iterator;
-	typedef const_pointer  const_iterator;
-	typedef std::reverse_iterator<iterator> reverse_iterator;
-	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+	typedef typename base::size_type size_type;
+	typedef typename base::value_type value_type;
+	typedef typename base::reference reference;
+	typedef typename base::const_reference const_reference;
+	typedef typename base::pointer pointer;
+	typedef typename base::const_pointer const_pointer;
+	typedef typename base::iterator iterator;
+	typedef typename base::const_iterator const_iterator;
+	typedef typename base::reverse_iterator reverse_iterator;
+	typedef typename base::const_reverse_iterator const_reverse_iterator;
 
 	basic();
 
