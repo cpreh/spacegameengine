@@ -27,9 +27,14 @@ namespace detail
 {
 
 template<
-	typename T,
+	typename T
 >
 struct structure_cast_fun {
+	typedef T result_type;
+
+	template<
+		typename U
+	>
 	T operator()(
 		U const &u) const
 	{

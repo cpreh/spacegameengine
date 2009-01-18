@@ -18,36 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_POS_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_POS_TYPE_HPP_INCLUDED
 
-#include "detail/structure_cast_fun.hpp"
-#include <boost/iterator/transform_iterator.hpp>
+#include "size_type.hpp"
+#include <sge/math/vector/static.hpp>
+#include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
 {
-
-template<
-	typename T,
-	typename U
->
-T const
-structure_cast(
-	U const &u)
+namespace renderer
 {
-	typedef detail::structure_cast_fun<T> op_type;
 
-	op_type const op(op_type());
+typedef math::vector::static_<
+	size_type,
+	2
+>::type texture_pos_type;
 
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op),
-		boost::make_transform_iterator(
-			u.end(),
-			op));
 }
-
 }
 
 #endif

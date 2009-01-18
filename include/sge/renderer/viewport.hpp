@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VIEWPORT_HPP_INCLUDED
 #define SGE_RENDERER_VIEWPORT_HPP_INCLDUED
 
-#include "screen_types.hpp"
+#include "pixel_pos_t.hpp"
+#include "screen_size_t.hpp"
 #include "../export.hpp"
 #include "../ostream.hpp"
 

@@ -66,6 +66,11 @@ struct array_adapter {
 	reverse_iterator rend();
 	const_reverse_iterator rend() const;
 
+	value_type &back();
+	value_type const &back() const;
+	value_type &front();
+	value_type const &front() const;
+
 	bool empty() const;
 
 	bool operator==(

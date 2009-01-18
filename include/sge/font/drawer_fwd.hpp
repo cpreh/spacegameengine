@@ -18,36 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
+#ifndef SGE_FONT_DRAWER_FWD_HPP_INCLUDED
+#define SGE_FONT_DRAWER_FWD_HPP_INCLUDED
 
-#include "detail/structure_cast_fun.hpp"
-#include <boost/iterator/transform_iterator.hpp>
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
-
-template<
-	typename T,
-	typename U
->
-T const
-structure_cast(
-	U const &u)
+namespace font
 {
-	typedef detail::structure_cast_fun<T> op_type;
 
-	op_type const op(op_type());
+class drawer;
 
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op),
-		boost::make_transform_iterator(
-			u.end(),
-			op));
+typedef shared_ptr<drawer> drawer_ptr;
+
 }
-
 }
 
 #endif

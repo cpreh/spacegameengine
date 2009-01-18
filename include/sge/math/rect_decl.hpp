@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_DECL_HPP_INCLUDED
 #define SGE_MATH_RECT_DECL_HPP_INCLUDED
 
-#include "dim.hpp"
-#include "vector.hpp"
+#include "dim/static.hpp"
+#include "dim/basic_decl.hpp"
+#include "vector/static.hpp"
+#include "vector/basic_decl.hpp"
 #include <iosfwd>
 #include <cstddef>
 
@@ -33,14 +35,24 @@ namespace math
 /**
  * \attention To use rect's functions you have to include <sge/math/rect_impl.hpp>!
  */
-template<typename T> class rect {
+template<
+	typename T
+>
+class rect {
 public:
-	typedef T                       value_type;
-	typedef std::size_t             size_type;
-	typedef T&                      reference;
-	typedef const T&                const_reference;
-	typedef math::vector<T,2> point_type;
-	typedef math::dim<T,2>    dim_type;
+	typedef T value_type;
+	typedef std::size_t size_type;
+	typedef T &reference;
+	typedef T const &const_reference;
+
+	typedef typename math::vector::static_<
+		T,
+		2
+	>::type point_type;
+	typedef typename math::dim::static_<
+		T,
+		2
+	>::type dim_type;
 
 	/**
 	 * Default constructs all parameters which are not given(sets them to zero
@@ -125,11 +137,13 @@ template<typename T, typename Ch, typename Traits>
 std::basic_ostream<Ch,Traits>& operator<<(std::basic_ostream<Ch,Traits>& s,
                                           const rect<T>& r);
 
-/**
- * Casts a sge::math::rect<T> to sge::math::rect<S> using static_cast
- */
-template<typename D, typename S>
-rect<D> const structure_cast(const rect<S>& r);
+template<
+	typename D,
+	typename S
+>
+D const
+structure_cast(
+	rect<S> const &);
 
 }
 }

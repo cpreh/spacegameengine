@@ -18,36 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
+#ifndef SGE_MATH_DIM_IO_HPP_INCLUDED
+#define SGE_MATH_DIM_IO_HPP_INCLUDED
 
-#include "detail/structure_cast_fun.hpp"
-#include <boost/iterator/transform_iterator.hpp>
+#include "basic_decl.hpp"
+#include "basic_impl.hpp"
+#include <ostream>
 
 namespace sge
+{
+namespace math
+{
+namespace dim
 {
 
 template<
 	typename T,
-	typename U
+	typename N,
+	typename S,
+	typename Ch,
+	typename Traits
 >
-T const
-structure_cast(
-	U const &u)
+std::basic_ostream<Ch, Traits> &
+operator<< (
+	std::basic_ostream<Ch, Traits> &s,
+	basic<T, N, S> const &v)
 {
-	typedef detail::structure_cast_fun<T> op_type;
-
-	op_type const op(op_type());
-
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op),
-		boost::make_transform_iterator(
-			u.end(),
-			op));
+	s << s.widen('(');
+	if(v.size() > 1)
+		for(typename basic<T, N, S>::size_type i = 0; i < v.size() - 1; ++i)
+			s << v[i] << s.widen(',');
+	if(!v.empty())
+		s << v.back();
+	return s << s.widen(')');
 }
 
+}
+}
 }
 
 #endif

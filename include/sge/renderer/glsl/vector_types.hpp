@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_VECTOR_TYPES_HPP_INCLUDED
 
 #include "float_types.hpp"
-#include "../../math/vector.hpp"
+#include <sge/math/vector/dynamic.hpp>
+#include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
 {
@@ -31,9 +32,9 @@ namespace renderer
 namespace glsl
 {
 
-typedef math::vector<float_type, 2> vector2;
-typedef math::vector<float_type, 3> vector3;
-typedef math::vector<float_type, 4> vector4;
+typedef math::vector::dynamic<
+	float_type
+> vector;
 
 }
 }

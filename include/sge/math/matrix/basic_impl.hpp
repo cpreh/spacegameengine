@@ -62,13 +62,14 @@ template<
 	typename M,
 	typename S
 >
-typename const sge::math::matrix::basic<T, N, M, S>::reference
+typename sge::math::matrix::basic<T, N, M, S>::reference
 sge::math::matrix::basic<T, N, M, S>::operator[](
 	size_type const j)
 {
+	/*
 	return reference(
-		data() + j * N,
-		M);
+		data() + j * N::value,
+		M);*/
 }
 
 template<
@@ -77,41 +78,13 @@ template<
 	typename M,
 	typename S
 >
-typename const sge::math::matrix::basic<T, N, M, S>::const_reference
-sge::math::matrix::basic<T, N, M>::operator[](
+typename sge::math::matrix::basic<T, N, M, S>::const_reference const
+sge::math::matrix::basic<T, N, M, S>::operator[](
 	size_type const j) const
 {
 	return const_reference(
-		data() + j * N,
-		M);
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename const sge::math::matrix::basic<T, N, M, S>::reference
-sge::math::matrix::basic<T, N, M, S>::at(
-	size_type const j)
-{
-	SGE_ASSERT(j > M);
-	return (*this)[j];
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename const sge::math::matrix::basic<T, N, M, S>::const_reference
-sge::math::matrix::basic<T, N, M, S>::at(
-	size_type const j) const
-{
-	SGE_ASSERT(j > M);
-	return (*this)[j];
+		data() + j * N::value,
+		M::value);
 }
 
 template<
@@ -121,7 +94,7 @@ template<
 	typename S
 >
 typename sge::math::matrix::basic<T, N, M, S>::pointer
-sge::math::matrix::basic<T, N, M>::data()
+sge::math::matrix::basic<T, N, M, S>::data()
 {
 	return storage_data(
 		storage);
@@ -146,143 +119,11 @@ template<
 	typename M,
 	typename S
 >
-typename sge::math::matrix::basic<T, N, M, S>::pointer
-sge::math::matrix::basic<T, N, M, S>::data_end()
-{
-	return data() + size();
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename sge::math::matrix::basic<T, N, M, S>::const_pointer
-sge::math::matrix<T, N, M>::data_end() const
-{
-	return data() + size();
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename sge::math::matrix::basic<T, N, M, S>::iterator
-sge::math::matrix::basic<T, N, M, S>::begin()
-{
-	return data();
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename sge::math::matrix::basic<T, N, M, S>::const_iterator
-sge::math::matrix::basic<T, N, M, S>::begin() const
-{
-	return data();
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename sge::math::matrix::basic<T, N, M, S>::iterator
-sge::math::matrix::basic<T, N, M, S>::end()
-{
-	return data_end();
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename sge::math::matrix::basic<T, N, M, S>::const_iterator
-sge::math::matrix::basic<T, N, M, S>::end() const
-{
-	return data_end();
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename sge::math::matrix::basic<T, N, M, S>::reverse_iterator
-sge::math::matrix::basic<T, N, M, S>::rbegin()
-{
-	return reverse_iterator(end());
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename sge::math::matrix::basic<T, N, M, S>::const_reverse_iterator
-sge::math::matrix::basic<T, N, M, S>::rbegin() const
-{
-	return reverse_iterator(end());
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename sge::math::matrix::basic<T, N, M, S>::reverse_iterator
-sge::math::matrix::basic<T, N, M, S>::rend()
-{
-	return reverse_iterator(begin());
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-typename sge::math::matrix::basic<T, N, M, S>::const_reverse_iterator
-sge::math::matrix::basic<T, N, M, S>::rend() const
-{
-	return reverse_iterator(begin());
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
 typename sge::math::matrix::basic<T, N, M, S>::size_type
 sge::math::matrix::basic<T, N, M, S>::size() const
 {
 	return storage_dim(
 		storage);
-}
-
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S
->
-bool
-sge::math::matrix::basic<T, N, M, S>::empty() const
-{
-	return size() == 0;
 }
 
 #if 0

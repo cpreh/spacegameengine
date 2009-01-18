@@ -18,12 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/types.hpp>
+#ifndef SGE_MATH_MATRIX_TRANSLATION_HPP_INCLUDED
+#define SGE_MATH_MATRIX_TRANSLATION_HPP_INCLUDED
 
-sge::font::dim const
-sge::font::gil_dim_to_sge(image::point_t const &d)
+#include "static.hpp"
+#include "../vector/static.hpp"
+
+namespace sge
 {
-	return dim(
-		static_cast<dim::value_type>(d.x),
-		static_cast<dim::value_type>(d.y));
+namespace math
+{
+namespace matrix
+{
+
+template<
+	typename T
+>
+typename static_<T, 4, 4>::type const
+scaling(
+	typename vector::static_<T, 3>::type const &);
+
 }
+}
+}
+
+#endif

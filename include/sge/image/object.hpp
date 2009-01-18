@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../export.hpp"
 #include "../filesystem/path.hpp"
-#include "../math/dim.hpp"
 #include "../renderer/image_view.hpp"
+#include <sge/math/dim/static.hpp>
+#include <sge/math/dim/basic_decl.hpp>
 #include <boost/noncopyable.hpp>
 #include <cstddef>
 
@@ -35,8 +36,12 @@ namespace image
 
 class SGE_CLASS_SYMBOL object : boost::noncopyable {
 public:
-	typedef std::size_t             size_type;
-	typedef math::dim<size_type, 2> dim_type;
+	typedef std::size_t size_type;
+
+	typedef math::dim::static_<
+		size_type,
+		2
+	>::type dim_type;
 
 	virtual void data(
 		renderer::const_image_view const &) = 0;

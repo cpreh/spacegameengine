@@ -22,3 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::drawer::~drawer()
 {}
+
+sge::font::drawer::drawer()
+{}

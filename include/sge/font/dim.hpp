@@ -18,18 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_POS_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_POS_TYPES_HPP_INCLUDED
+#ifndef SGE_FONT_DIM_HPP_INCLUDED
+#define SGE_FONT_DIM_HPP_INCLUDED
 
-#include "size_type.hpp"
-#include "../math/vector.hpp"
+#include "unit.hpp"
+#include <sge/math/dim/static.hpp>
+#include <sge/math/dim/basic_decl.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace font
 {
 
-typedef math::vector<size_type, 2> texture_pos_type;
+typedef math::dim::static_<
+	unit,
+	2
+>::type dim;
 
 }
 }

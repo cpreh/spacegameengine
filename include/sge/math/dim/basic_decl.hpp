@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DIM_BASIC_DECL_HPP_INCLUDED
 #define SGE_MATH_DIM_BASIC_DECL_HPP_INCLUDED
 
+#include "basic_fwd.hpp"
 #include "../detail/make_op_decl.hpp"
 #include "../detail/make_variadic_constructor_decl.hpp"
 #include "../detail/array_adapter.hpp"
@@ -64,7 +65,7 @@ template<
 	typename S
 >
 class basic
-: detail::typedef_helper<T, N, S>::type {
+: public detail::typedef_helper<T, N, S>::type {
 	typedef typename detail::typedef_helper<T, N, S>::type base;
 public:
 	typedef typename base::size_type size_type;
@@ -90,7 +91,7 @@ public:
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_DIM_MAX_CTOR_PARAMS
 	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(basic)
 #undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
-
+public:
 	reference
 	operator[](
 		size_type);
@@ -116,7 +117,7 @@ public:
 //		return std::accumulate(begin(), end(), 1, std::multiplies<size_type>());
 //	}
 
-	static dim const
+	static basic const
 	null();
 private:
 	S storage;

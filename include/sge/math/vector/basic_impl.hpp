@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/make_op_def.hpp"
 #include "../detail/initial_size.hpp"
 
+#if 0
 template<
 	typename T,
 	typename N,
@@ -81,6 +82,7 @@ sge::math::vector::basic<T, N, S>::resize(
 		sz);
 }
 
+#endif
 #if 0
 	const_reference
 	at(
@@ -127,7 +129,7 @@ void
 sge::math::vector::basic<T, N, S>::initial_size(
 	size_type const sz)
 {
-	::initial_size(
+	math::detail::initial_size(
 		storage,
 		sz);
 }

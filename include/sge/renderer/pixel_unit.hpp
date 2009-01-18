@@ -1,5 +1,4 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
+/* spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
@@ -18,36 +17,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
-
-#include "detail/structure_cast_fun.hpp"
-#include <boost/iterator/transform_iterator.hpp>
+#ifndef SGE_RENDERER_PIXEL_UNIT_HPP_INCLUDED
+#define SGE_RENDERER_PIXEL_UNIT_HPP_INCLUDED
 
 namespace sge
 {
-
-template<
-	typename T,
-	typename U
->
-T const
-structure_cast(
-	U const &u)
+namespace renderer
 {
-	typedef detail::structure_cast_fun<T> op_type;
 
-	op_type const op(op_type());
+typedef int pixel_unit;
 
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op),
-		boost::make_transform_iterator(
-			u.end(),
-			op));
 }
-
 }
 
 #endif

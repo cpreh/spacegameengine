@@ -1,4 +1,5 @@
-/* spacegameengine is a portable easy to use game engine written in C++.
+/*
+spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
@@ -17,22 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCREEN_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_SCREEN_TYPES_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_DYNAMIC_HPP_INCLUDED
+#define SGE_MATH_VECTOR_DYNAMIC_HPP_INCLUDED
 
-#include "../math/vector.hpp"
-#include "../math/dim.hpp"
+#include "basic_fwd.hpp"
+#include "../detail/dynamic_size.hpp"
+#include "../detail/dynamic_storage.hpp"
 
 namespace sge
 {
-namespace renderer
+namespace math
+{
+namespace vector
 {
 
-typedef int                        pixel_unit;
-typedef unsigned                   screen_unit;
-typedef math::vector<pixel_unit,2> pixel_pos_t;
-typedef math::dim<screen_unit,2>   screen_size_t;
+template<
+	typename T
+>
+struct dynamic {
+	typedef basic<
+		T,
+		math::detail::dynamic_size,
+		typename math::detail::dynamic_storage<
+			T
+		>::type
+	> type;
+};
 
+}
 }
 }
 

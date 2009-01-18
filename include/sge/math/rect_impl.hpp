@@ -234,13 +234,4 @@ std::basic_ostream<Ch,Traits>& sge::math::operator<<(std::basic_ostream<Ch,Trait
 	         << s.widen(')');
 }
 
-template<typename D, typename S>
-sge::math::rect<D> const
-sge::math::structure_cast(rect<S> const &r)
-{
-	return rect<D>(
-		structure_cast<D>(r.pos()),
-		structure_cast<D>(r.dim()));
-}
-
 #endif

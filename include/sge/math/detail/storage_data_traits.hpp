@@ -18,36 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
-
-#include "detail/structure_cast_fun.hpp"
-#include <boost/iterator/transform_iterator.hpp>
+#ifndef SGE_MATH_DETAIL_STORAGE_DATA_TRAITS_HPP_INCLUDED
+#define SGE_MATH_DETAIL_STORAGE_DATA_TRAITS_HPP_INCLUDED
 
 namespace sge
 {
+namespace math
+{
+namespace detail
+{
 
 template<
-	typename T,
-	typename U
+	typename T
 >
-T const
-structure_cast(
-	U const &u)
-{
-	typedef detail::structure_cast_fun<T> op_type;
+struct storage_data_traits {
+	typedef typename T::pointer type;
+};
 
-	op_type const op(op_type());
+template<
+	typename T
+>
+struct storage_data_traits<
+	T *
+> {
+	typedef T *type;
+};
 
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op),
-		boost::make_transform_iterator(
-			u.end(),
-			op));
 }
-
+}
 }
 
 #endif

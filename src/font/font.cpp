@@ -20,7 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/font.hpp>
 #include <sge/font/char_metric.hpp>
+#include <sge/font/metrics.hpp>
+#include <sge/font/drawer.hpp>
+#include <sge/font/text_size_t.hpp>
 #include <sge/math/rect_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/next_prior.hpp>
@@ -34,28 +38,39 @@ sge::font::font::font(
 	drawer_(drawer_)
 {}
 
+sge::font::font::~font()
+{}
+
 sge::font::unit sge::font::font::height() const
 {
 	return metrics()->line_height();
 }
 
-const sge::font::text_size_t
+sge::font::text_size_t const
 sge::font::font::draw_text(
-	const string& text,
-	const pos start_pos,
-	const dim max_sz,
-	const align_h::type align_h,
-	const align_v::type align_v,
-	const flag_t flags) const
+	string const &text,
+	pos const start_pos,
+	dim const max_sz,
+	align_h::type const align_h,
+	align_v::type const align_v,
+	flag_t const flags) const
 {
 	if(!drawer())
 		throw exception(
 			SGE_TEXT("font::drawer not set in font::draw_text!"));
 
 	if(text.empty() || height() > max_sz.h())
-		return text_size_t(dim(0,0), text.begin(), text.begin());
+		return text_size_t(
+			dim::null(),
+			text.begin(),
+			text.begin());
 
-	const text_size_t total_size = text_size(text.begin(), text.end(), max_sz, flags);
+	text_size_t const total_size
+		= text_size(
+			text.begin(),
+			text.end(),
+			max_sz,
+			flags);
 
 	pos pos_ = start_pos;
 	switch(align_v) {

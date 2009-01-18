@@ -18,38 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FONT_TYPES_HPP_INCLUDED
-#define SGE_FONT_TYPES_HPP_INCLUDED
+#ifndef SGE_FONT_IMAGE_VIEW_HPP_INCLUDED
+#define SGE_FONT_IMAGE_VIEW_HPP_INCLUDED
 
-#include "../renderer/color.hpp"
-#include "../math/vector.hpp"
-#include "../math/dim.hpp"
-#include "../math/rect_decl.hpp"
-#include "../string.hpp"
-#include <boost/gil/image.hpp>
+#include "color.hpp"
 #include <boost/gil/image_view.hpp>
-#include <boost/gil/typedefs.hpp>
+#include <boost/gil/step_iterator.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-typedef int                       unit;
-typedef unit                      size_type;
-typedef math::vector<unit, 2>     pos;
-typedef math::dim<size_type, 2>   dim;
-typedef renderer::gray8_color     color;
-typedef math::rect<unit>          rect;
+// TODO: make a helper class for this
 
-typedef boost::gil::image<
-	color,
-	false
->                                 image;
-typedef boost::gil::gray8c_view_t const_image_view;
-typedef boost::gil::gray8_view_t  image_view;
+typedef boost::gil::image_view<
+	boost::gil::memory_based_2d_locator<
+		boost::gil::memory_based_step_iterator<
+			color *
+		>
+	>
+> image_view;
 
-dim const gil_dim_to_sge(image::point_t const &);
+typedef image_view::const_t const_image_view;
 
 }
 }

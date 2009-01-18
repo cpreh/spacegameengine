@@ -21,15 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_FONT_HPP_INCLUDED
 #define SGE_FONT_FONT_HPP_INCLUDED
 
-#include "../shared_ptr.hpp"
+#include "pos.hpp"
+#include "dim.hpp"
+#include "unit.hpp"
+#include "drawer_fwd.hpp"
+#include "metrics_fwd.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
 #include "../renderer/size_type.hpp"
-#include "types.hpp"
-#include "drawer.hpp"
-#include "system.hpp"
-#include "metrics.hpp"
-#include "text_size_t.hpp"
 
 namespace sge
 {
@@ -65,6 +64,8 @@ namespace flags
 }
 typedef unsigned flag_t;
 
+class text_size_t;
+
 class SGE_CLASS_SYMBOL font {
 public:
 	typedef renderer::size_type size_type;
@@ -72,42 +73,43 @@ public:
 	SGE_SYMBOL explicit font(
 		metrics_ptr metrics,
 		drawer_ptr drawer = drawer_ptr());
+	SGE_SYMBOL ~font();
 
 	SGE_SYMBOL unit height() const;
 
-	SGE_SYMBOL const text_size_t
+	SGE_SYMBOL text_size_t const
 	draw_text(
-		const string& text,
+		string const &text,
 		pos start_pos,
 		dim max_size,
 		align_h::type = align_h::left,
 		align_v::type = align_v::top,
 		flag_t flags = flags::default_) const;
 
-	SGE_SYMBOL const text_size_t
+	SGE_SYMBOL text_size_t const
 	line_width(
 		string::const_iterator beg,
 		string::const_iterator end,
 		unit width,
 		flag_t tflags) const;
 
-	SGE_SYMBOL const text_size_t
+	SGE_SYMBOL text_size_t const
 	text_size(
 		string::const_iterator beg,
 		string::const_iterator end,
 		dim max_size,
 		flag_t flags = flags::default_) const;
 
-	SGE_SYMBOL const text_size_t
+	SGE_SYMBOL text_size_t const
 	text_size(
-		const string& s, 
+		string const &s, 
 		dim max_size,
 		flag_t flags = flags::default_) const;
 
 	SGE_SYMBOL unit char_space(char_type ch) const;
 
-	SGE_SYMBOL const metrics_ptr metrics() const;
-	SGE_SYMBOL const drawer_ptr drawer() const;
+	SGE_SYMBOL metrics_ptr const metrics() const;
+	SGE_SYMBOL drawer_ptr const drawer() const;
 private:
 	metrics_ptr       metrics_;
 	drawer_ptr        drawer_;

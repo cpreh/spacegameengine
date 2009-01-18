@@ -64,7 +64,7 @@ template<
 	typename S
 >
 class basic
-: detail::typedef_helper<T, N, S>::type {
+: public detail::typedef_helper<T, N, S>::type {
 	typedef typename detail::typedef_helper<T, N, S>::type base;
 public:
 	typedef typename base::size_type size_type;
@@ -90,6 +90,7 @@ public:
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_VECTOR_MAX_CTOR_PARAMS
 	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(basic)
 #undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
+public:
 
 #define SGE_MATH_VECTOR_BASIC_DECLARE_OPERATOR(op)\
 SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
@@ -175,56 +176,6 @@ template<typename T, std::size_t Dim>
 typename vector<T,Dim>::value_type dot(const vector<T,Dim>& l, const vector<T,Dim>& r)
 {
 	return l.dot(r);
-}
-
-/**
- * Outputs the vector in the format \f$(v_0,\ldots,v_n)\f$.
- */
-template<typename T, std::size_t Dim,typename Ch, typename Traits>
-inline std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& s, const vector<T,Dim>& v)
-{
-	s << s.widen('(');
-	for(typename vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
-		s << v[i] << s.widen(',');
-	return s << v[Dim-1] << s.widen(')');
-}
-
-/**
- * Reads the vector from the stream in the format \f$(v_0,\ldots,v_n)\f$.
- */
-template<typename T, std::size_t Dim,typename Ch, typename Traits>
-std::basic_istream<Ch,Traits>& operator>> (std::basic_istream<Ch,Traits>& s, vector<T,Dim>& v)
-{
-	Ch c;
-	s >> c;
-	if(c != s.widen('('))
-		s.setstate(std::ios_base::failbit);
-	for(typename vector<T,Dim>::size_type i = 0; i < Dim-1; ++i)
-	{
-		s >> v[i] >> c;
-		if(c != s.widen(','))
-			s.setstate(std::ios_base::failbit);
-	}
-	s >> v[Dim-1] >> c;
-	if(c != s.widen(')'))
-		s.setstate(std::ios_base::failbit);
-	return s;
-}
-
-/**
- * Casts the vector<T> to vector<D> (using static_cast).
- */
-template<typename D, typename S, std::size_t Dim>
-vector<D, Dim> structure_cast(const vector<S, Dim>& s)
-{
-	typedef vector<D, Dim> ret_type;
-	ret_type ret;
-	for(typename ret_type::size_type i = 0; i < Dim; ++i)
-		ret[i] = static_cast<D>(s[i]);
-	return ret;
-}
-
-}
 }
 
 #endif

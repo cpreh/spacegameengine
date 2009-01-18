@@ -18,36 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_DYNAMIC_SIZE_HPP_INCLUDED
+#define SGE_MATH_DETAIL_DYNAMIC_SIZE_HPP_INCLUDED
 
-#include "detail/structure_cast_fun.hpp"
-#include <boost/iterator/transform_iterator.hpp>
+#include "../size_type.hpp"
+#include <boost/mpl/integral_c.hpp>
 
 namespace sge
 {
-
-template<
-	typename T,
-	typename U
->
-T const
-structure_cast(
-	U const &u)
+namespace math
 {
-	typedef detail::structure_cast_fun<T> op_type;
+namespace detail
+{
 
-	op_type const op(op_type());
+typedef boost::mpl::integral_c<
+	size_type,
+	0
+> dynamic_size;
 
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op),
-		boost::make_transform_iterator(
-			u.end(),
-			op));
 }
-
+}
 }
 
 #endif

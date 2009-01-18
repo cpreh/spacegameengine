@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_unsigned.hpp>
-#include "dim.hpp"
+#include "dim/static.hpp"
+#include "dim/basic_decl.hpp"
 
 namespace sge
 {
@@ -77,9 +78,14 @@ template<typename T> inline T next_pow_2(const T t) {
 /**
  * "Rounds up" both components of \c r to the next power of two
  */
-template<typename T> inline dim<T, 2> next_pow_2(const dim<T, 2>& r)
+template<typename T>
+typename dim::static_<T, 2>::type const
+next_pow_2(
+	typename dim::static_<T, 2>::type const &r)
 {
-	return dim<T, 2>(next_pow_2(r.w()), next_pow_2(r.h()));
+	return typename dim::static_<T, 2>::type(
+		next_pow_2(r.w()),
+		next_pow_2(r.h()));
 }
 
 /**
@@ -97,12 +103,12 @@ is_power_of_2(
 }
 
 template<typename T>
-inline typename boost::enable_if<
+typename boost::enable_if<
 	boost::is_unsigned<T>,
 	bool
 >::type
 is_power_of_2(
-	dim<T, 2> const &d)
+	typename dim::static_<T, 2>::type const &d)
 {
 	return is_power_of_2(d.w()) && is_power_of_2(d.h());
 }

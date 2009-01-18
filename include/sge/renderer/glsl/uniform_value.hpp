@@ -46,13 +46,9 @@ namespace detail
 typedef boost::mpl::vector<
 	int_type,
 	float_type,
-	vector2,
-	vector3,
-	vector4,
-	matrix4x4
+	vector,
+	matrix
 > uniform_base_values;
-
-// TODO: replace this with a vector and a matrix of dyanmic size
 
 template<
 	typename T

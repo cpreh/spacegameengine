@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_STORAGE_DIM_HPP_INCLUDED
 #define SGE_MATH_DETAIL_STORAGE_DIM_HPP_INCLUDED
 
+#include <cstddef>
+
 namespace sge
 {
 namespace math
@@ -29,21 +31,22 @@ namespace detail
 {
 
 template<
-	typename N,
 	typename T
 >
-N storage_dim(
+typename T::size_type
+storage_dim(
 	T const &t)
 {
 	return t.size();
 }
 
 template<
-	typename N,
+	std::size_t N,
 	typename T
 >
-N storage_dim(
-	T[N] const t)
+std::size_t
+storage_dim(
+	T t[N])
 {
 	return N;
 }

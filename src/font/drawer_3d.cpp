@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/drawer_3d.hpp>
+#include <sge/font/image.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/math/rect_impl.hpp>
@@ -34,6 +35,10 @@ struct converter {
 		sge::font::color const src,
 		sge::renderer::rgba8_color &dest) const;
 };
+
+sge::font::dim const
+gil_dim_to_sge(
+	sge::font::image::point_t const &);
 
 }
 
@@ -137,6 +142,15 @@ void converter::operator()(
 		255,
 		255,
 		src);
+}
+
+sge::font::dim const
+gil_dim_to_sge(
+	sge::font::image::point_t const &d)
+{
+	return sge::font::dim(
+		static_cast<sge::font::dim::value_type>(d.x),
+		static_cast<sge::font::dim::value_type>(d.y));
 }
 
 }

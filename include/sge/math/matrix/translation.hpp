@@ -18,36 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_TRANSLATION_HPP_INCLUDED
+#define SGE_MATH_MATRIX_TRANSLATION_HPP_INCLUDED
 
-#include "detail/structure_cast_fun.hpp"
-#include <boost/iterator/transform_iterator.hpp>
+#include "static.hpp"
+#include "../vector/static.hpp"
 
 namespace sge
 {
+namespace math
+{
+namespace matrix
+{
 
 template<
-	typename T,
-	typename U
+	typename T
 >
-T const
-structure_cast(
-	U const &u)
-{
-	typedef detail::structure_cast_fun<T> op_type;
+typename static_<T, 4, 4>::type const
+translation(
+	typename vector::static_<T, 3>::type const &);
 
-	op_type const op(op_type());
-
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op),
-		boost::make_transform_iterator(
-			u.end(),
-			op));
 }
-
+}
 }
 
 #endif

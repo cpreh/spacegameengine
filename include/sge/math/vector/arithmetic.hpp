@@ -18,36 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
-
-#include "detail/structure_cast_fun.hpp"
-#include <boost/iterator/transform_iterator.hpp>
+#ifndef SGE_MATH_VECTOR_ARITHMETIC_HPP_INCLUDED
+#define SGE_MATH_VECTOR_ARTIHMETIC_HPP_INCLUDED
 
 namespace sge
 {
-
-template<
-	typename T,
-	typename U
->
-T const
-structure_cast(
-	U const &u)
+namespace math
 {
-	typedef detail::structure_cast_fun<T> op_type;
+namespace vector
+{
 
-	op_type const op(op_type());
-
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op),
-		boost::make_transform_iterator(
-			u.end(),
-			op));
+#define SGE_MATH_MAKE_FREE_VECTOR_FUNCTION(op)\
+template<\
+	typename T,\
+	typename N,\
+	typename S\
+>\
+basic<T, N, S> const \
+operator op(\
+	basic<T, N, S> const &a,\
+	basic<T, N, S> const &b)\
+{\
+	return basic<T, N, S>(a) op##= b;\
 }
 
+SGE_MATH_MAKE_FREE_VECTOR_FUNCTION(+)
+SGE_MATH_MAKE_FREE_VECTOR_FUNCTION(-)
+SGE_MATH_MAKE_FREE_VECTOR_FUNCTION(*)
+SGE_MATH_MAKE_FREE_VECTOR_FUNCTION(/)
+SGE_MATH_MAKE_FREE_VECTOR_FUNCTION(%)
+
+#undef SGE_MATH_MAKE_FREE_VECTOR_FUNCTION
+
+}
+}
 }
 
 #endif

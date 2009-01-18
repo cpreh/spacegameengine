@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "dim_type.hpp"
 #include "lock_rect.hpp"
-#include "../math/rect.hpp"
-#include "../math/dim.hpp"
+#include <sge/math/rect.hpp>
+#include <sge/math/dim/static.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/structure_cast.hpp>
 
 namespace sge
 {
@@ -40,11 +42,13 @@ lock_rect_to_coords(
 	dim_type const &dim,
 	T const repeat)
 {
-	math::rect<T> const srect(
-		math::structure_cast<T>(l));
+	typedef math::rect<T> ret_type;
+	ret_type const srect(
+		math::structure_cast<ret_type>(l));
 	
-	math::dim<T, 2> const sdim(
-		math::structure_cast<T>(dim));
+	typedef typename math::dim::static_<T, 2>::type sdim_type;
+	sdim_type const sdim(
+		structure_cast<sdim_type>(dim));
 
 	return math::rect<T>(
 		srect.left() / sdim.w(),
