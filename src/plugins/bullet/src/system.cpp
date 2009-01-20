@@ -10,50 +10,15 @@
 #include <boost/spirit/home/phoenix/core/value.hpp>
 #include <boost/bind.hpp>
 
-#if 0
-#include <functional>
-namespace
-{
-template<
-	typename FirstArg,
-	typename SecondArg,
-	typename Return>
-struct binary_const 
-	: public std::binary_function<FirstArg,SecondArg,Return>
-{
-	public:
-	binary_const(result_type const _t)
-		: t(_t) {}
-	
-	result_type operator()(
-		first_argument_type const &,
-		second_argument_type const &) const
-	{
-		return t;
-	}
-
-	private:
-	result_type const t;
-};
-}
-#endif
-
 sge::bullet::system::system()
-	: /*test_(
-			binary_const<
-				collision::sattelite,
-				collision::sattelite,
-				bool>(false)),*/
-		test_(boost::phoenix::val(false)),
-		configuration(new btDefaultCollisionConfiguration()),
+	: configuration(new btDefaultCollisionConfiguration()),
 	  dispatcher(
 			new sge::bullet::dispatcher(
 				*configuration,
 				callback_signal_)),
 		broadphase(new btDbvtBroadphase()),
 		constraint_solver(new btSequentialImpulseConstraintSolver()),
-		overlap_callback_(
-			new overlap_callback(test_)),
+		overlap_callback_(boost::phoenix::val(false)),
 		world_(
 			new btDiscreteDynamicsWorld(
 				dispatcher.get(),
@@ -63,7 +28,7 @@ sge::bullet::system::system()
 		// mass, motion state*, shape*
 		zero_body_(static_cast<unit>(0),0,0)
 {
-	world_->getPairCache()->setOverlapFilterCallback(overlap_callback_.get());
+	world_->getPairCache()->setOverlapFilterCallback(&overlap_callback_);
 	// bullet sets a default gravity, so we have to reset this
 	world_->setGravity(
 		point(
@@ -75,7 +40,7 @@ sge::bullet::system::system()
 void sge::bullet::system::test_callback(
 	collision::test_callback const &_test)
 {
-	test_ = _test;
+	overlap_callback_.reset(_test);
 }
 
 sge::signals::connection const sge::bullet::system::register_callback(

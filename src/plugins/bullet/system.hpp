@@ -2,6 +2,7 @@
 #define SGE_BULLET_SYSTEM_HPP_INCLUDED
 
 #include "types.hpp"
+#include "overlap_callback.hpp"
 #include <sge/collision/system.hpp>
 #include <sge/signals/signal.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -32,7 +33,7 @@ class system : public collision::system
 	boost::scoped_ptr<dispatcher_type> dispatcher;
 	boost::scoped_ptr<broadphase_type> broadphase;
 	boost::scoped_ptr<constraint_solver_type> constraint_solver;
-	boost::scoped_ptr<filter_callback_type> overlap_callback_;
+	overlap_callback overlap_callback_;
 	boost::scoped_ptr<world_type> world_;
 	body_type zero_body_;
 };
