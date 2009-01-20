@@ -18,29 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
+#include <sge/collision/plugin.hpp>
+#include <sge/plugin/detail/instantiate_types.hpp>
 
-#include "parameterless.hpp"
-#include "../window/parameters.hpp"
-#include "../renderer/parameters.hpp"
-#include "../collision/parameters.hpp"
-#include <boost/variant/variant.hpp>
-
-namespace sge
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<sge::collision::system>::plugin_loader_name()
 {
-namespace systems
-{
-
-typedef boost::variant<
-	window::parameters,
-	renderer::parameters,
-	collision::parameters,
-	parameterless::type
-	// TODO: add image format and audio format, too!
-> any;
-
-}
+	return SGE_ADDRESS_NAME("create_collision_system");
 }
 
-#endif
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<sge::collision::system>::plugin_type()
+{
+	return capabilities::collision_system;
+}
+
+SGE_PLUGIN_INSTANTIATE_TYPES(sge::collision::system)

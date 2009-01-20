@@ -93,7 +93,8 @@ priority(
 		boost::assign::map_list_of
 			(sge::type_info(typeid(sge::window::parameters)), 0)
 			(sge::type_info(typeid(sge::renderer::parameters)), 1)
-			(sge::type_info(typeid(sge::systems::parameterless::type)), 2);
+			(sge::type_info(typeid(sge::collision::parameters)), 2)
+			(sge::type_info(typeid(sge::systems::parameterless::type)), 3);
 	
 	return priorities[t];
 }

@@ -18,27 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_HPP_INCLUDED
+#ifndef SGE_COLLISION_SYSTEM_FWD_HPP_INCLUDED
+#define SGE_COLLISION_SYSTEM_FWD_HPP_INCLUDED
 
-#include "parameterless.hpp"
-#include "../window/parameters.hpp"
-#include "../renderer/parameters.hpp"
-#include "../collision/parameters.hpp"
-#include <boost/variant/variant.hpp>
+#include "../shared_ptr.hpp"
 
 namespace sge
 {
-namespace systems
+namespace collision
 {
 
-typedef boost::variant<
-	window::parameters,
-	renderer::parameters,
-	collision::parameters,
-	parameterless::type
-	// TODO: add image format and audio format, too!
-> any;
+class system;
+
+typedef shared_ptr<system> system_ptr;
 
 }
 }
