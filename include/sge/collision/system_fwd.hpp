@@ -18,24 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
-#define SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
+#ifndef SGE_COLLISION_SYSTEM_FWD_HPP_INCLUDED
+#define SGE_COLLISION_SYSTEM_FWD_HPP_INCLUDED
+
+#include "../shared_ptr.hpp"
 
 namespace sge
 {
-namespace systems
+namespace collision
 {
 
-namespace parameterless
-{
-enum type {
-	input,
-	image,
-	audio_player,
-	collision_system,
-	font
-};
-}
+class system;
+
+typedef shared_ptr<system> system_ptr;
 
 }
 }

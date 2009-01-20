@@ -67,7 +67,7 @@ sge::x11input::keyboard_key(
 	// xev does it this way
 	char const code = 
 		ks > static_cast<KeySym>(std::numeric_limits<char>::max())
-		? 0
+		? static_cast<char>(0)
 		: static_cast<char>(ks);
 
 	if(num_chars > 1)

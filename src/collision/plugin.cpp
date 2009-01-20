@@ -18,26 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
-#define SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
+#include <sge/collision/plugin.hpp>
+#include <sge/plugin/detail/instantiate_types.hpp>
 
-namespace sge
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<sge::collision::system>::plugin_loader_name()
 {
-namespace systems
-{
-
-namespace parameterless
-{
-enum type {
-	input,
-	image,
-	audio_player,
-	collision_system,
-	font
-};
+	return SGE_ADDRESS_NAME("create_collision_system");
 }
 
-}
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<sge::collision::system>::plugin_type()
+{
+	return capabilities::collision_system;
 }
 
-#endif
+SGE_PLUGIN_INSTANTIATE_TYPES(sge::collision::system)

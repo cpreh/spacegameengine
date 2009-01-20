@@ -18,26 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
-#define SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
+#include "../system.hpp"
+#include <sge/export.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/plugin/info.hpp>
 
-namespace sge
-{
-namespace systems
+extern "C"
 {
 
-namespace parameterless
+SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info *const i)
 {
-enum type {
-	input,
-	image,
-	audio_player,
-	collision_system,
-	font
-};
+	if(!i)
+		return;
+	i->name = SGE_TEXT("bullet plugin");
+	i->description = SGE_TEXT("");
+	i->type = sge::plugin::capabilities::collision_system;
+	i->plugin_version = 0x1;
+	i->min_core_version = 0x1;
+}
+
+SGE_EXPORT_SYMBOL sge::collision::system* create_collision_system()
+{
+	return new sge::bullet::system();
 }
 
 }
-}
-
-#endif

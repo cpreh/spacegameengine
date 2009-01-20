@@ -18,25 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
-#define SGE_SYSTEMS_PARAMETERLESS_HPP_INCLUDED
+#ifndef SGE_COLLISION_PLUGIN_HPP_INCLUDED
+#define SGE_COLLISION_PLUGIN_HPP_INCLUDED
+
+#include "system.hpp"
+#include "../plugin/traits.hpp"
+#include "../plugin/capabilities.hpp"
+#include "../export.hpp"
 
 namespace sge
 {
-namespace systems
+namespace plugin
 {
-
-namespace parameterless
+namespace detail
 {
-enum type {
-	input,
-	image,
-	audio_player,
-	collision_system,
-	font
+template<> struct traits<collision::system> {
+	SGE_SYMBOL static address_name plugin_loader_name();
+	SGE_SYMBOL static capabilities::type plugin_type();
+	typedef collision::system* (*loader_fun)();
 };
-}
 
+}
 }
 }
 

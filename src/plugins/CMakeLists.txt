@@ -2,6 +2,7 @@ IF (WIN32)
 	SET (LIBRARY_OUTPUT_PATH ${pluginpath})
 ENDIF ()
 
+OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 OPTION (ENABLE_DEVIL "Build the devil image loader plugin" OFF)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
 OPTION (ENABLE_FREETYPE "Build the freetype font plugin" OFF)
@@ -11,6 +12,10 @@ OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
 OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" OFF)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" OFF)
 OPTION (ENABLE_X11INPUT "Build the x11 input plugin" OFF)
+
+IF(ENABLE_BULLET)
+	ADD_SUBDIRECTORY (bullet)
+ENDIF ()
 
 IF(ENABLE_D3D9)
 	ADD_SUBDIRECTORY (d3d9)
