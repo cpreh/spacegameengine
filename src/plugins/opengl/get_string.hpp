@@ -18,45 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_LOCK_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#ifndef SGE_OPENGL_GET_STRING_HPP_INCLUDED
+#define SGE_OPENGL_GET_STRING_HPP_INCLUDED
 
-#include "../scoped_lock.hpp"
+#include "common.hpp"
+#include <sge/string.hpp>
 
-template<typename T, typename Value>
-sge::renderer::scoped_lock<T, Value>::scoped_lock(
-	scoped_lock_wrapper<T, Value> const &w)
-:
-	w(w)
-{}
-
-template<typename T, typename Value>
-void sge::renderer::scoped_lock<T, Value>::unlock()
+namespace sge
 {
-	if(w.set())
-	{
-		w.unlock();
-		release();
-	}
+namespace ogl
+{
+
+string const
+get_string(
+	GLenum);
+
 }
-
-template<typename T, typename Value>
-void sge::renderer::scoped_lock<T, Value>::release()
-{
-	w.reset();
-}
-
-template<typename T, typename Value>
-Value const
-sge::renderer::scoped_lock<T, Value>::value() const
-{
-	return w.value();
-}
-
-template<typename T, typename Value>
-sge::renderer::scoped_lock<T, Value>::~scoped_lock()
-{
-	unlock();
 }
 
 #endif

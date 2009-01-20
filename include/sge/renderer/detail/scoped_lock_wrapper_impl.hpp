@@ -27,8 +27,9 @@ template<typename T, typename Value>
 sge::renderer::scoped_lock_wrapper<T, Value>::scoped_lock_wrapper(
 	T const t,
 	Value const &v)
-: t(t),
-  v(v)
+:
+	t(t),
+	v(v)
 {}
 
 template<typename T, typename Value>
