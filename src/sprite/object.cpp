@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/circle_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/texture/part.hpp>
+#include <sge/structure_cast.hpp>
 #include <cmath>
 #include <limits>
 
@@ -54,7 +56,7 @@ sge::sprite::object::object(
 		size_
 		? *size_ == texture_dim
 			? dim(
-				math::structure_cast<unit>(
+				structure_cast<dim>(
 					(*vtex)->area().dim()))
 			: *size_
 		: defaults::dim_),
@@ -184,7 +186,9 @@ bool sge::sprite::object::visible() const
 void sge::sprite::object::center(
 	point const &p)
 {
-	pos() = p-sge::sprite::point(w()/2,h()/2);
+	pos() = p - sge::sprite::point(
+		w() / 2,
+		h() / 2);
 }
 
 sge::sprite::point const

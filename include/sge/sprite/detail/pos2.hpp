@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_POS2_HPP_INCLUDED
 
 #include "../funit.hpp"
-#include "../../math/vector_fwd.hpp"
+#include <sge/math/vector/static.hpp>
 
 namespace sge
 {
@@ -31,10 +31,10 @@ namespace sprite
 namespace detail
 {
 
-typedef math::vector<
+typedef math::vector::static_<
 	funit,
 	2
-> pos2;
+>::type pos2;
 
 }
 }

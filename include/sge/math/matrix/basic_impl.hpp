@@ -66,10 +66,9 @@ typename sge::math::matrix::basic<T, N, M, S>::reference
 sge::math::matrix::basic<T, N, M, S>::operator[](
 	size_type const j)
 {
-	/*
 	return reference(
 		data() + j * N::value,
-		M);*/
+		M::value);
 }
 
 template<
@@ -96,7 +95,7 @@ template<
 typename sge::math::matrix::basic<T, N, M, S>::pointer
 sge::math::matrix::basic<T, N, M, S>::data()
 {
-	return storage_data(
+	return math::detail::storage_data(
 		storage);
 }
 
@@ -109,8 +108,10 @@ template<
 typename sge::math::matrix::basic<T, N, M, S>::const_pointer
 sge::math::matrix::basic<T, N, M, S>::data() const
 {
-	return storage_data(
-		storage);
+	return const_cast<
+		basic &
+	>(
+		*this).data();
 }
 
 template<
@@ -142,40 +143,6 @@ inline sge::math::matrix<T,N,N> sge::math::operator* (const matrix<T,M1,N>& a, c
 		}
 	return ret;
 }
-#endif
-
-#if 0
-template<typename T, std::size_t N, std::size_t M>
-inline bool sge::math::operator== (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
-{
-	return std::equal(l.begin(), l.end(), r.begin(), std::ptr_fun(compare<T>));
-}
-
-template<typename T, std::size_t N, std::size_t M>
-inline bool sge::math::operator!= (const matrix<T,N,M>& l, const matrix<T,N,M>& r)
-{
-	return !(l==r);
-}
-
-template<typename T, std::size_t N, std::size_t M,typename Ch, typename Traits>
-inline std::basic_ostream<Ch,Traits>& sge::math::operator<< (std::basic_ostream<Ch,Traits>& s, const matrix<T,N,M>& m)
-{
-	s << s.widen('(');
-	for(typename matrix<T,N,M>::size_type j = 0; j < N; ++j)
-	{
-		s << s.widen('(');
-		for(typename matrix<T,N,M>::size_type i = 0; i < M; ++i)
-		{
-			s << m[j][i];
-			if(i != M-1)
-				s << s.widen(',');
-		}
-		s << s.widen(')');
-		if(j != N-1)
-			s << s.widen(',');
-	}
-	return s << s.widen(')');
-}
 
 template<typename T, std::size_t N>
 inline sge::math::matrix<T,N,N> sge::math::transpose(const matrix<T,N,N>& m)
@@ -184,20 +151,6 @@ inline sge::math::matrix<T,N,N> sge::math::transpose(const matrix<T,N,N>& m)
 	for(typename matrix<T,N,N>::size_type j = 0; j < N; ++j)
 		for(typename matrix<T,N,N>::size_type i = 0; i < N; ++i)
 			ret[i][j] = m[j][i];
-	return ret;
-}
-
-template<typename T, std::size_t N, std::size_t M>
-sge::math::vector<T,M>
-sge::math::operator* (
-	const matrix<T,N,M>& m,
-	const vector<T,N>& v)
-{
-	typedef vector<T,M> result_type;
-	result_type ret(result_type::null());
-	for(typename result_type::size_type i = 0; i < M; ++i)
-		for(typename matrix<T,N,M>::size_type j = 0; j < N; ++j)
-			ret[i] += v[j] * m[j][i];
 	return ret;
 }
 

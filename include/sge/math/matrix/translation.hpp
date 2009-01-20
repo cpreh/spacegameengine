@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_MATRIX_TRANSLATION_HPP_INCLUDED
 
 #include "static.hpp"
-#include "../vector/static.hpp"
 
 namespace sge
 {
@@ -36,7 +35,9 @@ template<
 >
 typename static_<T, 4, 4>::type const
 translation(
-	typename vector::static_<T, 3>::type const &);
+	T x,
+	T y,
+	T z);
 
 }
 }

@@ -18,26 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_SCALING_HPP_INCLUDED
-#define SGE_MATH_MATRIX_SCALING_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_VECTOR_HPP_INCLUDED
+#define SGE_MATH_MATRIX_VECTOR_HPP_INCLUDED
 
-#include "static.hpp"
+#include "basic_impl.hpp"
+#include "../vector/static.hpp"
+#include "../vector/basic_impl.hpp"
 
 namespace sge
 {
 namespace math
 {
-namespace matrix
+namespace matrix 
 {
 
 template<
-	typename T
+	typename T,
+	typename N,
+	typename M,
+	typename S1,
+	typename S2
 >
-typename static_<T, 4, 4>::type const
-scaling(
-	T x,
-	T y,
-	T z);
+sge::math::vector::basic<T, M, S1>
+operator *(
+	basic<T, N, M, S1> const &m,
+	vector::basic<T, N, S2> const &v)
+{
+	typedef vector::basic<T, M, S1> result_type;
+	result_type ret(
+		result_type::null());
+	
+	for(typename result_type::size_type i = 0; i < v.size(); ++i)
+		for(typename basic<T, N, M, S2>::size_type j = 0; j < N::value; ++j)
+			ret[i] += v[j] * m[j][i];
+	return ret;
+}
 
 }
 }

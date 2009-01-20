@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_SCALING_HPP_INCLUDED
-#define SGE_MATH_MATRIX_SCALING_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_ORTHOGONAL_XY_HPP_INCLUDED
+#define SGE_MATH_MATRIX_ORTHOGONAL_XY_HPP_INCLUDED
 
 #include "static.hpp"
+#include "../vector/static.hpp"
 
 namespace sge
 {
@@ -34,10 +35,7 @@ template<
 	typename T
 >
 typename static_<T, 4, 4>::type const
-scaling(
-	T x,
-	T y,
-	T z);
+orthogonal_xy();
 
 }
 }

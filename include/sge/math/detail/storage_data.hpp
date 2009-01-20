@@ -33,15 +33,14 @@ namespace detail
 template<
 	typename T
 >
-typename storage_data_traits<
-	T
->::type
+T *
 storage_data(
-	T const &t)
+	T *const t)
 {
-	return t.data();
+	return t;
 }
 
+/*
 template<
 	typename T
 >
@@ -49,10 +48,11 @@ typename storage_data_traits<
 	T
 >::type
 storage_data(
-	T const* const t)
+	T &t)
 {
-	return t;
+	return t.data();
 }
+*/
 
 }
 }
