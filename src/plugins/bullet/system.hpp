@@ -13,7 +13,8 @@ namespace bullet
 class system : public collision::system
 {
 	public:
-	system(collision::test_callback const &);
+	system();
+	void test_callback(collision::test_callback const &);
 	sge::signals::connection const 
 		register_callback(collision::callback const &);
 	collision::object_ptr const create_circle(
@@ -24,6 +25,7 @@ class system : public collision::system
 	body_type &zero_body();
 	~system();
 	private:
+	collision::test_callback test_;
 	collision::callback_signal callback_signal_;
 
 	boost::scoped_ptr<configuration_type> configuration;

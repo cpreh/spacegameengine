@@ -38,9 +38,9 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info *const i)
 	i->min_core_version = 0x1;
 }
 
-SGE_EXPORT_SYMBOL sge::collision::system* create_collision_system(sge::collision::test_callback const &t)
+SGE_EXPORT_SYMBOL sge::collision::system* create_collision_system()
 {
-	return new sge::bullet::system(t);
+	return new sge::bullet::system();
 }
 
 }

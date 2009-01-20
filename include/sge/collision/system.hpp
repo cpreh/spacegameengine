@@ -18,16 +18,12 @@ namespace collision
 class SGE_CLASS_SYMBOL system : public boost::noncopyable
 {
 	public:
-	SGE_SYMBOL explicit system(test_callback const &);
+	virtual void test_callback(sge::collision::test_callback const & = 0);
 	virtual sge::signals::connection const 
 		register_callback(callback const &) = 0;
 	virtual object_ptr const create_circle(sattelite_ptr,unit radius) = 0;
 	virtual void update(time::funit delta) = 0;
 	SGE_SYMBOL virtual ~system();
-	protected:
-	SGE_SYMBOL bool test(sattelite const &,sattelite const &);
-	private:
-	test_callback test_;
 };
 }
 }

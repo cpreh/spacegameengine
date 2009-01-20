@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "parameterless.hpp"
 #include "../window/parameters.hpp"
 #include "../renderer/parameters.hpp"
-#include "../collision/parameters.hpp"
 #include <boost/variant/variant.hpp>
 
 namespace sge
@@ -35,7 +34,6 @@ namespace systems
 typedef boost::variant<
 	window::parameters,
 	renderer::parameters,
-	collision::parameters,
 	parameterless::type
 	// TODO: add image format and audio format, too!
 > any;

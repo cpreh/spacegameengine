@@ -7,10 +7,44 @@
 #include <bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
 #include <bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <boost/spirit/home/phoenix/core/value.hpp>
 #include <boost/bind.hpp>
 
-sge::bullet::system::system(collision::test_callback const &test)
-	: collision::system(test),
+#if 0
+#include <functional>
+namespace
+{
+template<
+	typename FirstArg,
+	typename SecondArg,
+	typename Return>
+struct binary_const 
+	: public std::binary_function<FirstArg,SecondArg,Return>
+{
+	public:
+	binary_const(result_type const _t)
+		: t(_t) {}
+	
+	result_type operator()(
+		first_argument_type const &,
+		second_argument_type const &) const
+	{
+		return t;
+	}
+
+	private:
+	result_type const t;
+};
+}
+#endif
+
+sge::bullet::system::system()
+	: /*test_(
+			binary_const<
+				collision::sattelite,
+				collision::sattelite,
+				bool>(false)),*/
+		test_(boost::phoenix::val(false)),
 		configuration(new btDefaultCollisionConfiguration()),
 	  dispatcher(
 			new sge::bullet::dispatcher(
@@ -19,8 +53,7 @@ sge::bullet::system::system(collision::test_callback const &test)
 		broadphase(new btDbvtBroadphase()),
 		constraint_solver(new btSequentialImpulseConstraintSolver()),
 		overlap_callback_(
-			new overlap_callback(
-				boost::bind(&system::test,this,_1,_2))),
+			new overlap_callback(test_)),
 		world_(
 			new btDiscreteDynamicsWorld(
 				dispatcher.get(),
@@ -37,6 +70,12 @@ sge::bullet::system::system(collision::test_callback const &test)
 			static_cast<unit>(0),
 			static_cast<unit>(0),
 			static_cast<unit>(0)));
+}
+
+void sge::bullet::system::test_callback(
+	collision::test_callback const &_test)
+{
+	test_ = _test;
 }
 
 sge::signals::connection const sge::bullet::system::register_callback(

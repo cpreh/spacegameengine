@@ -26,7 +26,6 @@
 #include <sge/collision/sattelite.hpp>
 #include <sge/collision/object.hpp>
 #include <sge/collision/system.hpp>
-#include <sge/collision/parameters.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
@@ -91,8 +90,10 @@ try
 			sge::renderer::depth_buffer::off,
 			sge::renderer::stencil_buffer::off,
 			sge::renderer::window_mode::windowed))
-		(sge::collision::parameters(&dispatch))
+		(sge::systems::parameterless::collision_system)
 		(sge::systems::parameterless::image));
+	
+	sys.collision_system()->test_callback(&dispatch);
 
 	sge::signals::connection c = sys.collision_system()->register_callback(&collision);
 

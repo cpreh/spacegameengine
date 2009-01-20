@@ -1,14 +1,14 @@
 #ifndef SGE_COLLISION_SATTELITE_FWD_HPP_INCLUDED
 #define SGE_COLLISION_SATTELITE_FWD_HPP_INCLUDED
 
-#include <memory>
+#include <sge/auto_ptr.hpp>
 
 namespace sge
 {
 namespace collision
 {
 class sattelite;
-typedef std::auto_ptr<sattelite> sattelite_ptr;
+typedef sge::auto_ptr<sattelite> sattelite_ptr;
 }
 }
 

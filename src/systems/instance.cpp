@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player_plugin.hpp>
 #include <sge/collision/system.hpp>
 #include <sge/collision/plugin.hpp>
-#include <sge/collision/parameters.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/plugin.hpp>
 #include <sge/window/instance.hpp>
@@ -77,8 +76,7 @@ struct sge::systems::instance::impl {
 	void init_window(
 		window::parameters const &);
 	void init_input();
-	void init_collision_system(
-		collision::parameters const &);
+	void init_collision_system();
 	void init_image();
 	void init_audio_player();
 	void init_font();
@@ -95,8 +93,6 @@ struct visitor : boost::static_visitor<> {
 		sge::renderer::parameters const &) const;
 	void operator()(
 		sge::window::parameters const &) const;
-	void operator()(
-		sge::collision::parameters const &) const;
 	void operator()(
 		sge::systems::parameterless::type) const;
 private:
@@ -198,12 +194,6 @@ void visitor::operator()(
 }
 
 void visitor::operator()(
-	sge::collision::parameters const &p) const
-{
-	impl_.init_collision_system(p);
-}
-
-void visitor::operator()(
 	sge::systems::parameterless::type const p) const
 {
 	switch(p) {
@@ -215,6 +205,9 @@ void visitor::operator()(
 		break;
 	case sge::systems::parameterless::audio_player:
 		impl_.init_audio_player();
+		break;
+	case sge::systems::parameterless::collision_system:
+		impl_.init_collision_system();
 		break;
 	case sge::systems::parameterless::font:
 		impl_.init_font();
@@ -233,11 +226,10 @@ void sge::systems::instance::impl::init_window(
 	wparam_.reset(p);
 }
 
-void sge::systems::instance::impl::init_collision_system(
-	collision::parameters const &p)
+void sge::systems::instance::impl::init_collision_system()
 {
 	collision_plugin = plugin_manager.plugin<sge::collision::system>().load();
-	collision_system.reset(collision_plugin->get()(p.test()));
+	collision_system.reset(collision_plugin->get()());
 }
 
 void sge::systems::instance::impl::init_renderer(

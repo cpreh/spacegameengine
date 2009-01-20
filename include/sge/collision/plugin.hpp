@@ -35,7 +35,7 @@ namespace detail
 template<> struct traits<collision::system> {
 	SGE_SYMBOL static address_name plugin_loader_name();
 	SGE_SYMBOL static capabilities::type plugin_type();
-	typedef collision::system* (*loader_fun)(collision::test_callback const &);
+	typedef collision::system* (*loader_fun)();
 };
 
 }

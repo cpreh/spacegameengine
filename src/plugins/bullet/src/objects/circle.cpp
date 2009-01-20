@@ -1,5 +1,6 @@
 #include "../../objects/circle.hpp"
 #include "../../system.hpp"
+#include <sge/collision/sattelite.hpp>
 #include <bullet/BulletCollision/CollisionShapes/btSphereShape.h>
 
 sge::bullet::objects::circle::circle(
