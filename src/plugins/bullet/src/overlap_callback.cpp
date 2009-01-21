@@ -8,6 +8,12 @@ sge::bullet::overlap_callback::overlap_callback(
 {
 }
 
+void sge::bullet::overlap_callback::reset(
+	collision::test_callback const &_dispatch)
+{
+	dispatch = _dispatch;
+}
+
 bool sge::bullet::overlap_callback::needBroadphaseCollision(
 	btBroadphaseProxy * const a,
 	btBroadphaseProxy * const b) const

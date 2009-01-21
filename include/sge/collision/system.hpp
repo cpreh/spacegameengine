@@ -18,7 +18,7 @@ namespace collision
 class SGE_CLASS_SYMBOL system : public boost::noncopyable
 {
 	public:
-	virtual void test_callback(sge::collision::test_callback const & = 0);
+	virtual void test_callback(sge::collision::test_callback const &) = 0;
 	virtual sge::signals::connection const 
 		register_callback(callback const &) = 0;
 	virtual object_ptr const create_circle(sattelite_ptr,unit radius) = 0;

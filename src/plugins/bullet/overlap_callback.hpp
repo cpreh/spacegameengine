@@ -18,6 +18,8 @@ class overlap_callback : public btOverlapFilterCallback
 	bool needBroadphaseCollision(
 		btBroadphaseProxy*,
 		btBroadphaseProxy*) const;
+	
+	void reset(collision::test_callback const &);
 	private:
 	collision::test_callback dispatch;
 };
