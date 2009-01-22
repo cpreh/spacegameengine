@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../player.hpp"
-#include "../pool.hpp"
 #include "../nonstream_sound.hpp"
 #include "../stream_sound.hpp"
 #include "../error.hpp"
@@ -79,11 +78,6 @@ sge::openal::player::create_stream_sound(
 	audio::file_ptr const _audio_file)
 {
 	return audio::sound_ptr(new stream_sound(_audio_file,*this));
-}
-
-sge::audio::pool_ptr const sge::openal::player::create_pool()
-{
-	return audio::pool_ptr(new pool());
 }
 
 ALuint sge::openal::player::register_nonstream_sound(

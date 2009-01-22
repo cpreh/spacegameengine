@@ -34,7 +34,8 @@ namespace audio
 
 class SGE_CLASS_SYMBOL sound : boost::noncopyable {
 public:
-	virtual void play(play_mode::type) = 0;
+	virtual void play(sge::audio::play_mode::type) = 0;
+	virtual sge::audio::play_mode::type play_mode() const = 0;
 	virtual void toggle_pause() = 0;
 	virtual sound_status::type status() const = 0;
 	virtual void stop() = 0;

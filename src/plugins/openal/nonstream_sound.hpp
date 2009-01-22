@@ -34,6 +34,7 @@ class nonstream_sound : public source
 {
 public:
 	nonstream_sound(audio::file_ptr,player&);
+	using source::play_mode;
 	void play_mode(audio::play_mode::type);
 	~nonstream_sound();
 private:
