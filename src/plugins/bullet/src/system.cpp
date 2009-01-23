@@ -59,7 +59,7 @@ sge::collision::objects::circle_ptr const sge::bullet::system::create_circle(
 void sge::bullet::system::update(time::funit const delta)
 {
 	/*
-	world->stepSimulation(
+	world_->stepSimulation(
 		delta,
 		static_cast<int>(
 			static_cast<unit>(delta)/

@@ -5,8 +5,8 @@
 #include "system_fwd.hpp"
 #include "constraint.hpp"
 #include "motion_state.hpp"
+#include <sge/collision/types.hpp>
 #include <sge/collision/sattelite_fwd.hpp>
-#include <sge/collision/object.hpp>
 
 namespace sge
 {
