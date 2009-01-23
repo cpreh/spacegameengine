@@ -36,7 +36,10 @@ bool sge::texture::need_atlasing(
 bool sge::texture::need_atlasing(
 	renderer::dim_type const &dim)
 {
-	return !math::is_power_of_2(dim);
+	return need_atlasing(
+		dim.w())
+	|| need_atlasing(
+		dim.h());
 }
 
 sge::renderer::size_type

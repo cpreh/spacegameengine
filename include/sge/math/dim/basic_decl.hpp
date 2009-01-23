@@ -92,6 +92,16 @@ public:
 	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(basic)
 #undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
 public:
+
+#define SGE_MATH_DIM_BASIC_DECLARE_OPERATOR(op)\
+SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
+	SGE_MATH_DIM_BASIC_DECLARE_OPERATOR(+=)
+	SGE_MATH_DIM_BASIC_DECLARE_OPERATOR(-=)
+	SGE_MATH_DIM_BASIC_DECLARE_OPERATOR(*=)
+	SGE_MATH_DIM_BASIC_DECLARE_OPERATOR(/=)
+	SGE_MATH_DIM_BASIC_DECLARE_OPERATOR(%=)
+#undef SGE_MATH_DIM_BASIC_DECLARE_OPERATOR
+
 	reference
 	operator[](
 		size_type);
@@ -122,38 +132,6 @@ public:
 private:
 	S storage;
 };
-
-#if 0
-
-template<typename T, std::size_t Dim, typename Ch, typename Traits>
-std::basic_ostream<Ch,Traits> &operator<<(std::basic_ostream<Ch,Traits> &stream,const dim<T,Dim> &v)
-{
-	stream << stream.widen('(');
-	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
-		stream << v[i] << stream.widen(',');
-	return stream << v[Dim-1] << stream.widen(')');
-}
-
-template<typename T, std::size_t Dim, typename Ch, typename Traits>
-std::basic_istream<Ch,Traits>& operator>>(std::basic_istream<Ch,Traits>& s, dim<T,Dim>& v)
-{
-	Ch c;
-	s >> c;
-	if(c != s.widen('('))
-		s.setstate(std::ios_base::failbit);
-	for(typename dim<T,Dim>::size_type i = 0; i < Dim-1; ++i)
-	{
-		s >> v[i] >> c;
-		if (c != s.widen(','))
-			s.setstate(std::ios_base::failbit);
-	}
-	s >> v[Dim-1] >> c;
-	if (c != s.widen(')'))
-		s.setstate(std::ios_base::failbit);
-	return s;
-}
-
-#endif
 
 }
 }

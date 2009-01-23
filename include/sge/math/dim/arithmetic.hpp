@@ -18,40 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_RECT_UTIL_HPP_INCLUDED
-#define SGE_MATH_RECT_UTIL_HPP_INCLUDED
-
-#include "rect.hpp"
-#include "vector/basic_decl.hpp"
+#ifndef SGE_MATH_DIM_ARITHMETIC_HPP_INCLUDED
+#define SGE_MATH_DIM_ARTIHMETIC_HPP_INCLUDED
 
 namespace sge
 {
 namespace math
 {
+namespace dim
+{
 
-template<
-	typename T,
-	typename S
->
-bool contains(
-	rect<T> const &,
-	vector::basic<T, boost::mpl::integral_c<size_type, 2>, S> const &);
+#define SGE_MATH_MAKE_FREE_DIM_FUNCTION(op)\
+template<\
+	typename T,\
+	typename N,\
+	typename S\
+>\
+basic<T, N, S> const \
+operator op(\
+	basic<T, N, S> const &a,\
+	basic<T, N, S> const &b)\
+{\
+	return basic<T, N, S>(a) op##= b;\
+}
 
-template<typename T>
-rect<T> const intersection(rect<T> const &,rect<T> const &);
+SGE_MATH_MAKE_FREE_DIM_FUNCTION(+)
+SGE_MATH_MAKE_FREE_DIM_FUNCTION(-)
+SGE_MATH_MAKE_FREE_DIM_FUNCTION(*)
+SGE_MATH_MAKE_FREE_DIM_FUNCTION(/)
+SGE_MATH_MAKE_FREE_DIM_FUNCTION(%)
 
-template<typename T,typename U>
-rect<T> const bounding(U begin,U const end);
-
-template<typename T>
-bool contains(const rect<T>& outer, const rect<T>& inner);
-
-template<typename T>
-bool intersects(const rect<T>& l, const rect<T>& r);
+#undef SGE_MATH_MAKE_FREE_DIM_FUNCTION
 
 }
 }
-
-//#include "detail/rect_util_impl.hpp"
+}
 
 #endif

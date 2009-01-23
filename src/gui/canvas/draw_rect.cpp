@@ -23,7 +23,7 @@ void sge::gui::canvas::object::draw_rect(
 			renderer::fill_pixels(
 				renderer::subimage_view(
 					view_,
-					math::structure_cast<renderer::size_type>(r)),
+					math::structure_cast<renderer::lock_rect>(r)),
 				c);
 		break;
 		case rect_type::outline:

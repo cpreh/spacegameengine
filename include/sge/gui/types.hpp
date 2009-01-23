@@ -6,7 +6,8 @@
 #include "../sprite/dim.hpp"
 #include "../sprite/rect.hpp"
 #include "../sprite/fwd.hpp"
-#include "../math/vector.hpp"
+#include "../math/vector/basic_decl.hpp"
+#include "../math/vector/static.hpp"
 #include "../math/rect.hpp"
 #include "../input/key_type.hpp"
 #include "../input/key_state.hpp"
@@ -23,7 +24,7 @@ typedef sprite::unit unit;
 typedef sprite::point point;
 typedef sprite::dim dim;
 typedef sprite::rect rect;
-typedef math::vector<input::key_state,2u> mouse_point;
+typedef math::vector::static_<input::key_state,2u>::type mouse_point;
 
 namespace direction
 {

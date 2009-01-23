@@ -18,49 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VEC_DIM_HPP_INCLUDED
-#define SGE_MATH_VEC_DIM_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_DIM_HPP_INCLUDED
+#define SGE_MATH_VECTOR_DIM_HPP_INCLUDED
 
-#include "dim.hpp"
-#include "vector.hpp"
+#include "basic_impl.hpp"
+#include "../dim/basic_impl.hpp"
 
 namespace sge
 {
 namespace math
 {
-
-template<typename T, std::size_t Dim>
-vector<T, Dim> operator+(vector<T, Dim> l, const dim<T, Dim>& r)
+namespace vector
 {
-	for(std::size_t i = 0; i < Dim; ++i)
-		l[i] += r[i];
-	return l;
+
+#define SGE_MATH_MAKE_FREE_VECTOR_DIM_FUNCTION(op)\
+template<\
+	typename T,\
+	typename N,\
+	typename S1,\
+	typename S2\
+>\
+basic<T, N, S1> const \
+operator op(\
+	basic<T, N, S1> a,\
+	dim::basic<T, N, S2> const &b)\
+{\
+	for(typename N::value_type i = 0; i < a.size(); ++i)\
+		a[i] op##= b[i];\
+	return a;\
 }
 
-template<typename T, std::size_t Dim>
-vector<T, Dim> operator-(vector<T, Dim> l, const dim<T, Dim>& r)
-{
-	for(std::size_t i = 0; i < Dim; ++i)
-		l[i] -= r[i];
-	return l;
-}
+SGE_MATH_MAKE_FREE_VECTOR_DIM_FUNCTION(+)
+SGE_MATH_MAKE_FREE_VECTOR_DIM_FUNCTION(-)
+SGE_MATH_MAKE_FREE_VECTOR_DIM_FUNCTION(*)
+SGE_MATH_MAKE_FREE_VECTOR_DIM_FUNCTION(/)
+SGE_MATH_MAKE_FREE_VECTOR_DIM_FUNCTION(%)
 
-template<typename T, std::size_t Dim>
-vector<T, Dim> operator*(vector<T, Dim> l, const dim<T, Dim>& r)
-{
-	for(std::size_t i = 0; i < Dim; ++i)
-		l[i] *= r[i];
-	return l;
-}
+#undef SGE_MATH_MAKE_FREE_VECTOR_DIM_FUNCTION
 
-template<typename T, std::size_t Dim>
-vector<T, Dim> operator/(vector<T, Dim> l, const dim<T, Dim>& r)
-{
-	for(std::size_t i = 0; i < Dim; ++i)
-		l[i] /= r[i];
-	return l;
 }
-
 }
 }
 

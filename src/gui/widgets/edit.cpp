@@ -6,8 +6,15 @@
 #include <sge/gui/timer/object.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/manager.hpp>
+#include <sge/font/text_size_t.hpp>
+#include <sge/font/metrics.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/math/compare.hpp>
+#include <sge/math/vector/io.hpp>
+#include <sge/math/dim/io.hpp>
+#include <sge/assert.hpp>
+#include <sge/text.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/bind.hpp>
 #include <locale>
 
@@ -144,7 +151,7 @@ void sge::gui::widgets::edit::refresh() const
 	string const ntext = text_+SGE_TEXT(' ');
 
 	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("getting font size"));
-	dim const d = math::structure_cast<unit>(
+	dim const d = structure_cast<dim>(
 		font::font(font()).text_size(
 			ntext,
 			utility::max_dim<font::unit>())

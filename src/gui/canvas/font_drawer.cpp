@@ -3,7 +3,8 @@
 #include <sge/renderer/transform_pixels.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/subimage_view.hpp>
-#include <sge/iostream.hpp>
+#include <sge/log/headers.hpp>
+#include <sge/structure_cast.hpp>
 #include "log.hpp"
 #include "utility/font_blitter.hpp"
 
@@ -64,7 +65,7 @@ void sge::gui::canvas::font_drawer::draw_char(
 
 	if (character_pos && counter++ == *character_pos)
 	{
-		*p = math::structure_cast<unit>(pos);
+		*p = structure_cast<point>(pos);
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("found character!"));

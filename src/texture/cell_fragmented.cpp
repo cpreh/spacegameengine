@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing.hpp>
 #include <sge/texture/cell_fragmented.hpp>
 #include <sge/texture/part_fragmented.hpp>
-#include <sge/math/vec_dim.hpp>
+#include <sge/math/vector/dim.hpp>
+#include <sge/math/dim/arithmetic.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/raw_vector_impl.hpp>
 #include <sge/exception.hpp>

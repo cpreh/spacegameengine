@@ -39,12 +39,12 @@ template<
 	typename S1,
 	typename S2
 >
-sge::math::vector::basic<T, M, S1>
+sge::math::vector::basic<T, M, S2>
 operator *(
 	basic<T, N, M, S1> const &m,
 	vector::basic<T, N, S2> const &v)
 {
-	typedef vector::basic<T, M, S1> result_type;
+	typedef vector::basic<T, M, S2> result_type;
 	result_type ret(
 		result_type::null());
 	
