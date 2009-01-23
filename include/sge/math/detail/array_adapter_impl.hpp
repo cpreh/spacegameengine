@@ -28,26 +28,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-sge::math::array_adapter<Derived>::at(
-	typename Derived::size_type const index)
+Reference
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::at(
+	size_type const index)
 {
 	SGE_ASSERT(index < this_().size());
 	return this_()[index];
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-typename Derived::const_reference
-sge::math::array_adapter<Derived>::at(
-	typename Derived::size_type const index) const
+ConstReference
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::at(
+	size_type const index) const
 {
 	SGE_ASSERT(index < this_().size());
 	return this_()[index];
 }
 
+#if 0
 template<
 	typename Derived
 >
@@ -199,3 +221,7 @@ sge::math::array_adapter<Derived>::this_() const
 {
 	return static_cast<Derived &>(*this);
 }
+
+#endif
+
+#endif

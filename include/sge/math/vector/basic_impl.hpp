@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_VECTOR_BASIC_IMPL_HPP_INCLUDED
 
 #include "basic_decl.hpp"
+#include "../detail/array_adapter_impl.hpp"
 #include "../detail/make_op_def.hpp"
 #include "../detail/initial_size.hpp"
 
-#if 0
 template<
 	typename T,
 	typename N,
@@ -45,6 +45,7 @@ SGE_MATH_VECTOR_BASIC_DEFINE_OPERATOR(%=)
 
 #undef SGE_MATH_VECTOR_BASIC_DEFINE_OPERATOR
 
+#if 0
 template<
 	typename T,
 	typename N,

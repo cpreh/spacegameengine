@@ -18,55 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DIM_BASIC_IMPL_HPP_INCLUDED
-#define SGE_MATH_DIM_BASIC_IMPL_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
 
 #include "basic_decl.hpp"
-
-template<
-	typename T,
-	typename N,
-	typename S
->
-sge::math::dim::basic<T, N, S>::basic()
-{}
-
-#if 0
-	template<
-		typename In
-	>
-	basic(
-		In beg,
-		In end);
-
-	reference
-	operator[](
-		size_type);
-
-	const_reference
-	operator[](
-		size_type) const;
-	
-	pointer data();
-	const_pointer data() const;
-	
-	size_type size() const;
-	
-	reference w();
-	const_reference w() const;
-	reference h();
-	const_reference h() const;
-	reference d();
-	const_reference d() const;
-
-	size_type content() const;
-//	{
-//		return std::accumulate(begin(), end(), 1, std::multiplies<size_type>());
-//	}
-
-	static basic const
-	null();
-
-#endif
+#include "basic_impl.hpp"
+#include "arithmetic.hpp"
+#include "io.hpp"
 
 #endif

@@ -45,10 +45,7 @@ name< \
 	Expr const &expr) \
 { \
 	size_type const dim( \
-		storage_dim<S>:: template get< \
-			size_type \
-		>( \
-			storage)); \
+		storage_dim(storage);\
 	for( \
 		size_type i = 0; \
 		i < dim; \
