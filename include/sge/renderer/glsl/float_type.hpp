@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_MATRIX_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_MATRIX_TYPES_HPP_INCLUDED
-
-#include "float_types.hpp"
-#include <sge/math/matrix/dynamic.hpp>
-#include <sge/math/matrix/basic_decl.hpp>
+#ifndef SGE_RENDERER_GLSL_FLOAT_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_FLOAT_TYPE_HPP_INCLUDED
 
 namespace sge
 {
@@ -32,9 +28,7 @@ namespace renderer
 namespace glsl
 {
 
-typedef math::matrix::dynamic<
-	float_type
-> matrix;
+typedef float float_type;
 
 }
 }

@@ -18,25 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_VECTOR_TYPES_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_VECTOR_TYPES_HPP_INCLUDED
+#ifndef SGE_RENDERER_ANY_DYNAMIC_VECTOR_HPP_INCLUDED
+#define SGE_RENDERER_ANY_DYNAMIC_VECTOR_HPP_INCLUDED
 
-#include "float_types.hpp"
 #include <sge/math/vector/dynamic.hpp>
 #include <sge/math/vector/basic_decl.hpp>
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {
 namespace renderer
 {
-namespace glsl
-{
 
-typedef math::vector::dynamic<
-	float_type
-> vector;
+typedef boost::variant<
+	math::vector::dynamic<
+		float
+	>::type,
+	math::vector::dynamic<
+		double
+	>::type
+> any_dynamic_vector;
 
-}
 }
 }
 

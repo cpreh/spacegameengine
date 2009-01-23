@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_ATTRIBUTE_VALUE_HPP_INCLUDED
 
 #include "../any_arithmetic.hpp"
-#include "../any_vector2.hpp"
-#include "../any_vector3.hpp"
-#include "../any_vector4.hpp"
+#include "../any_dynamic_vector.hpp"
 #include <boost/variant/variant.hpp>
 
 namespace sge
@@ -36,9 +34,7 @@ namespace glsl
 
 typedef boost::variant<
 	any_arithmetic,
-	any_vector2,
-	any_vector3,
-	any_vector4
+	any_dynamic_vector
 > attribute_value;
 
 }

@@ -24,9 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "traits.hpp"
 #include "attribute_type.hpp"
 #include <sge/renderer/any_arithmetic.hpp>
-#include <sge/renderer/any_vector2.hpp>
-#include <sge/renderer/any_vector3.hpp>
-#include <sge/renderer/any_vector4.hpp>
+#include <sge/renderer/any_dynamic_vector.hpp>
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
@@ -47,15 +45,7 @@ public:
 
 	attribute_type::type
 	operator()(
-		renderer::any_vector2 const &) const;
-	
-	attribute_type::type
-	operator()(
-		renderer::any_vector3 const &) const;
-	
-	attribute_type::type
-	operator()(
-		renderer::any_vector4 const &) const;
+		renderer::any_dynamic_vector const &) const;
 private:
 	GLint const location;
 };

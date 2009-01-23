@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../error.hpp"
 #include <boost/variant/apply_visitor.hpp>
 
+#include <sge/text.hpp>
+#include <sge/exception.hpp>
+
 template<bool Native>
 sge::ogl::glsl::attribute_variable<Native>::attribute_variable(
 	handle const program,

@@ -38,7 +38,15 @@ PFNGLUNIFORM1FVPROC uniform_1fv;
 PFNGLUNIFORM2FVPROC uniform_2fv;
 PFNGLUNIFORM3FVPROC uniform_3fv;
 PFNGLUNIFORM3FVPROC uniform_4fv;
+PFNGLUNIFORMMATRIX2FVPROC uniform_matrix_2fv;
+PFNGLUNIFORMMATRIX3FVPROC uniform_matrix_3fv;
 PFNGLUNIFORMMATRIX4FVPROC uniform_matrix_4fv;
+PFNGLUNIFORMMATRIX2X3FVPROC uniform_matrix_2x3fv;
+PFNGLUNIFORMMATRIX3X2FVPROC uniform_matrix_3x2fv;
+PFNGLUNIFORMMATRIX2X4FVPROC uniform_matrix_2x4fv;
+PFNGLUNIFORMMATRIX4X2FVPROC uniform_matrix_4x2fv;
+PFNGLUNIFORMMATRIX3X4FVPROC uniform_matrix_3x4fv;
+PFNGLUNIFORMMATRIX4X3FVPROC uniform_matrix_4x3fv;
 
 void initialize_uniform_setter();
 
@@ -80,35 +88,31 @@ sge::ogl::glsl::uniform_setter::operator()(
 
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	renderer::glsl::vector2 const &v) const
+	renderer::glsl::vector const &v) const
 {
-	uniform_2fv(
-		location,
-		1u,
-		v.data());
-	return uniform_type::float2;
-}
-
-sge::ogl::glsl::uniform_type::type
-sge::ogl::glsl::uniform_setter::operator()(
-	renderer::glsl::vector3 const &v) const
-{
-	uniform_3fv(
-		location,
-		1u,
-		v.data());
-	return uniform_type::float3;
-}
-	
-sge::ogl::glsl::uniform_type::type
-sge::ogl::glsl::uniform_setter::operator()(
-	renderer::glsl::vector4 const &v) const
-{
-	uniform_4fv(
-		location,
-		1u,
-		v.data());
-	return uniform_type::float4;
+	switch(v.dim()) {
+	case 2:
+		uniform_2fv(
+			location,
+			1u,
+			v.data());
+		return uniform_type::float2;
+	case 3:
+		uniform_3fv(
+			location,
+			1u,
+			v.data());
+		return uniform_type::float3;
+	case 4:
+		uniform_4fv(
+			location,
+			1u,
+			v.data());
+		return uniform_type::float4;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid vector size in glsl uniform variable."));
+	}
 }
 
 sge::ogl::glsl::uniform_type::type
