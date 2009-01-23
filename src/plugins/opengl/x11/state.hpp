@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glx/current.hpp"
 #include "../glx/context.hpp"
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/screen_types.hpp>
+#include <sge/renderer/screen_size_t.hpp>
+#include <sge/renderer/pixel_unit.hpp>
 #include <sge/window/instance_fwd.hpp>
 #include <sge/signals/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>

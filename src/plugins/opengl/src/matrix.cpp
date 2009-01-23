@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../matrix.hpp"
 #include "../error.hpp"
-#include <sge/math/matrix.hpp>
-#include <sge/math/matrix_impl.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
+#include <sge/math/matrix/static.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/variant/static_visitor.hpp>
 
@@ -30,9 +30,9 @@ namespace
 
 struct visitor : boost::static_visitor<> {
 	void operator()(
-		sge::math::matrix<float, 4, 4> const &m) const;
+		sge::math::matrix::static_<float, 4, 4>::type const &m) const;
 	void operator()(
-		sge::math::matrix<double, 4, 4> const &m) const;
+		sge::math::matrix::static_<double, 4, 4>::type const &m) const;
 };
 
 }
@@ -64,7 +64,7 @@ namespace
 {
 
 void visitor::operator()(
-	sge::math::matrix<float, 4, 4>const &m) const
+	sge::math::matrix::static_<float, 4, 4>::type const &m) const
 {
 	SGE_OPENGL_SENTRY
 	glLoadTransposeMatrixf(
@@ -72,7 +72,7 @@ void visitor::operator()(
 }
 	
 void visitor::operator()(
-	sge::math::matrix<double, 4, 4> const &m) const
+	sge::math::matrix::static_<double, 4, 4>::type const &m) const
 {
 	SGE_OPENGL_SENTRY
 	glLoadTransposeMatrixd(

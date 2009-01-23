@@ -18,23 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGINS_OPENGL_VECTOR3F_HPP_INCLUDED
-#define SGE_PLUGINS_OPENGL_VECTOR3F_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_IDENTITY_HPP_INCLUDED
+#define SGE_MATH_MATRIX_IDENTITY_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_decl.hpp>
+#include "static.hpp"
 
 namespace sge
 {
-namespace ogl
+namespace math
+{
+namespace matrix
 {
 
-typedef math::vector::static_<
-	GLfloat,
-	3
->::type vector3f;
+template<
+	typename T
+>
+typename static_<T, 4, 4>::type const
+identity();
 
+}
 }
 }
 
