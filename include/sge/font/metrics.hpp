@@ -34,6 +34,8 @@ namespace font
 
 class SGE_CLASS_SYMBOL metrics {
 	SGE_NONCOPYABLE(metrics)
+protected:
+	SGE_SYMBOL metrics();
 public:
 	virtual char_metric_ptr const load_char(
 		char_type c) = 0;

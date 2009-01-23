@@ -2,6 +2,7 @@
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/subimage_view.hpp>
 #include <sge/math/rect_util.hpp>
+#include <sge/math/vector/arithmetic.hpp>
 #include <sge/assert.hpp>
 
 void sge::gui::utility::blit_invalid(
@@ -21,7 +22,7 @@ void sge::gui::utility::blit_invalid(
 
 	// Move intersection rect to origin of invalid rect
 	rect const is_translated(
-		is.pos()-dst_rect.pos(),
+		is.pos() - dst_rect.pos(),
 		is.dim());
 	
 	// Get sub view(s) and blit
@@ -29,7 +30,7 @@ void sge::gui::utility::blit_invalid(
 		src,
 		renderer::subimage_view(
 			dst,
-			math::structure_cast<renderer::size_type>(
+			math::structure_cast<renderer::lock_rect>(
 				is_translated)));
 }
 
@@ -53,10 +54,10 @@ void sge::gui::utility::blit(
 	renderer::copy_and_convert_pixels(
 		renderer::subimage_view(
 			src,
-			math::structure_cast<renderer::size_type>(
+			math::structure_cast<renderer::lock_rect>(
 				src_trans)),
 		renderer::subimage_view(
 			dst,
-			math::structure_cast<renderer::size_type>(
+			math::structure_cast<renderer::lock_rect>(
 				clipped)));
 }

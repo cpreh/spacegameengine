@@ -5,6 +5,8 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
+#include <sge/math/dim/io.hpp>
+#include <sge/math/vector/io.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/texture_software.hpp>
@@ -15,6 +17,7 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
 
@@ -79,11 +82,11 @@ void sge::gui::detail::render_manager::resize(widget &w,dim const &d)
 
 	renderer::texture_ptr software_texture(
 		new renderer::texture_software(
-			math::structure_cast<renderer::texture::dim_type::value_type>(d),
+			structure_cast<renderer::texture::dim_type>(d),
 			renderer::color_format::rgba8));
 
 	renderer::texture_ptr hardware_texture = rend->create_texture(
-		math::structure_cast<renderer::texture::dim_type::value_type>(d),
+		structure_cast<renderer::texture::dim_type>(d),
 		renderer::color_format::rgba8,
 		renderer::linear_filter,
 		renderer::resource_flags::dynamic);
@@ -97,11 +100,11 @@ void sge::gui::detail::render_manager::resize(widget &w,dim const &d)
 			hardware_texture));
 							
 	wd.sprite = sprite::object(
-				sprite::point(math::structure_cast<sprite::unit>(w.pos())),
-				texture::const_part_ptr(new texture::part_raw(hardware_texture)),
-				sprite::dim(math::structure_cast<sprite::unit>(d)),
-				sprite::defaults::color_,
-				static_cast<sprite::depth_type>(1));
+			sprite::point(structure_cast<sprite::point>(w.pos())),
+			texture::const_part_ptr(new texture::part_raw(hardware_texture)),
+			sprite::dim(structure_cast<sprite::dim>(d)),
+			sprite::defaults::color_,
+			static_cast<sprite::depth_type>(1));
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -121,7 +124,7 @@ void sge::gui::detail::render_manager::reposition(widget &w,point const &d)
 		mylogger,
 		log::_1 << SGE_TEXT("repositioning sprite to ") << d);
 	// just reset sprite position
-	widgets[&w].sprite.pos() = math::structure_cast<sprite::unit>(d);
+	widgets[&w].sprite.pos() = structure_cast<sprite::point>(d);
 }
 
 void sge::gui::detail::render_manager::invalidate(rect const &r)
@@ -186,7 +189,7 @@ void sge::gui::detail::render_manager::redraw_dirt()
 		renderer::scoped_texture_lock lock_(
 			renderer::make_scoped_lock(
 				wd.texture,
-				math::structure_cast<renderer::lock_rect::value_type>(is_local),
+				math::structure_cast<renderer::lock_rect>(is_local),
 				renderer::lock_flags::readwrite
 			));
 

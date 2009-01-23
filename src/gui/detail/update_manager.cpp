@@ -3,6 +3,8 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/detail/render_manager.hpp>
 #include <sge/gui/detail/mouse_manager.hpp>
+#include <sge/assert.hpp>
+#include <sge/text.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
