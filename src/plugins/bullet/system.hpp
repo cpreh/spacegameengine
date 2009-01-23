@@ -18,7 +18,7 @@ class system : public collision::system
 	void test_callback(collision::test_callback const &);
 	sge::signals::connection const 
 		register_callback(collision::callback const &);
-	collision::object_ptr const create_circle(
+	collision::objects::circle_ptr const create_circle(
 		collision::sattelite_ptr,
 		collision::unit);
 	void update(time::funit delta);

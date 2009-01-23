@@ -55,8 +55,6 @@ public:
 
 	audio::unit speed_of_sound() const;
 	void speed_of_sound(audio::unit);
-
-	audio::pool_ptr const create_pool();
 private:
 	typedef boost::ptr_list<stream_sound,boost::view_clone_allocator> 
 		stream_sound_container;

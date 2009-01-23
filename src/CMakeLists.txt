@@ -5,6 +5,7 @@ FILE (GLOB sgecorefiles
 	console/*.cpp
 	console/detail/*.cpp
 	collision/*.cpp
+	collision/objects/*.cpp
 	container/*.cpp
 	filesystem/*.cpp
 	font/*.cpp

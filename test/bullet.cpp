@@ -1,4 +1,3 @@
-
 #include <sge/math/vector.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/sleep.hpp>
@@ -24,7 +23,7 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/collision/sattelite.hpp>
-#include <sge/collision/object.hpp>
+#include <sge/collision/objects/circle.hpp>
 #include <sge/collision/system.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
@@ -107,20 +106,20 @@ try
 		sge::sprite::defaults::texture_,
 		sge::sprite::dim(10,10));
 	
-	sge::collision::object_ptr o_a = 
+	sge::collision::objects::circle_ptr o_a = 
 		sys.collision_system()->create_circle(
 			sge::collision::sattelite_ptr(
 				new object(s_a)),
 			static_cast<sge::collision::unit>(5));
 
-	sge::collision::object_ptr o_b = 
+	sge::collision::objects::circle_ptr o_b = 
 		sys.collision_system()->create_circle(
 			sge::collision::sattelite_ptr(
 				new object(s_b)),
 			static_cast<sge::collision::unit>(5));
 
-	o_a->pos(sge::collision::point(100,100,0));
-	o_b->pos(sge::collision::point(200,100,0));
+	o_a->center(sge::collision::point(100,100,0));
+	o_b->center(sge::collision::point(200,100,0));
 	o_a->speed(sge::collision::point(20,0,0));
 	o_b->speed(sge::collision::point(-20,0,0));
 

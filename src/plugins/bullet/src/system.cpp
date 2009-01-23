@@ -49,17 +49,17 @@ sge::signals::connection const sge::bullet::system::register_callback(
 	return callback_signal_.connect(fn);
 }
 
-sge::collision::object_ptr const sge::bullet::system::create_circle(
+sge::collision::objects::circle_ptr const sge::bullet::system::create_circle(
 	collision::sattelite_ptr sat,
 	collision::unit const radius)
 {
-	return collision::object_ptr(new objects::circle(*this,sat,radius));
+	return collision::objects::circle_ptr(new objects::circle(*this,sat,radius));
 }
 
 void sge::bullet::system::update(time::funit const delta)
 {
 	/*
-	world->stepSimulation(
+	world_->stepSimulation(
 		delta,
 		static_cast<int>(
 			static_cast<unit>(delta)/

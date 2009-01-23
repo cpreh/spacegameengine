@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_SOUND_FWD_HPP_INCLUDED
 
 #include "../shared_ptr.hpp"
+#include <boost/weak_ptr.hpp>
 
 namespace sge
 {

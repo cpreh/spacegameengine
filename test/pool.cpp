@@ -4,6 +4,8 @@
 #include <sge/audio/exception.hpp>
 #include <sge/audio/sound.hpp>
 #include <sge/audio/listener.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/time/second.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
@@ -34,21 +36,27 @@ try
 	sge::audio::multi_loader loader(sys.plugin_manager());
 	
 	sge::audio::file_ptr const soundfile = loader.load(file_name);
-	sge::audio::pool_ptr const pool = sys.audio_player()->create_pool();
+	sge::audio::pool pool;
 
+	sge::audio::sound_ptr sound = 
+		streaming 
+		? sys.audio_player()->create_stream_sound(soundfile)
+		: sys.audio_player()->create_nonstream_sound(soundfile);
+
+	sound->play(sge::audio::play_mode::loop);
+
+	pool.add(sound,sge::audio::stop_mode::play_once);
+
+	sge::time::timer t(sge::time::second(2));
+	while (!pool.sounds_finished())
 	{
-		sge::audio::sound_ptr const sound = 
-			streaming 
-			? sys.audio_player()->create_stream_sound(soundfile)
-			: sys.audio_player()->create_nonstream_sound(soundfile);
-
-		pool->add(sound,true);
-
-		sound->play(sge::audio::play_mode::once);
+		pool.update();
+		if (t.update_b())
+		{
+			sge::cerr << SGE_TEXT("killing sound\n");
+			sound.reset();
+		}
 	}
-
-	while (!pool->sounds_finished())
-		pool->update();
 } catch (const sge::audio::exception &e) {
 	sge::cerr << SGE_TEXT("audio exception caught: ") << e.what() << SGE_TEXT('\n');
 	return EXIT_FAILURE;

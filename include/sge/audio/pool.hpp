@@ -1,21 +1,27 @@
 #ifndef SGE_AUDIO_POOL_HPP_INCLUDED
 #define SGE_AUDIO_POOL_HPP_INCLUDED
 
+#include "stop_mode.hpp"
 #include "sound_fwd.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
+#include <vector>
 
 namespace sge
 {
 namespace audio
 {
-class SGE_CLASS_SYMBOL pool : boost::noncopyable
+class SGE_CLASS_SYMBOL pool : public boost::noncopyable
 {
 	public:
-	virtual void add(sound_ptr,bool continue_playing = true) = 0;
-	virtual void update() = 0;
-	virtual bool sounds_finished() const = 0;
-	SGE_SYMBOL virtual ~pool();
+	SGE_SYMBOL void add(sound_ptr,stop_mode::type);
+	SGE_SYMBOL void update();
+	SGE_SYMBOL bool sounds_finished() const;
+	private:
+	typedef std::pair<sound_ptr,stop_mode::type> value_type;
+	typedef std::vector<value_type> container_type;
+
+	container_type sounds;
 };
 
 }

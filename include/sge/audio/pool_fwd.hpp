@@ -30,8 +30,6 @@ namespace audio
 
 class pool;
 
-typedef shared_ptr<pool> pool_ptr;
-
 }
 }
 
