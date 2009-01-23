@@ -12,7 +12,7 @@ namespace sge
 {
 namespace bullet
 {
-class object : public collision::object
+class object
 {
 	public:
 	object(
