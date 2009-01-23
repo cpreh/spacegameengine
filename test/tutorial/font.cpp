@@ -3,6 +3,8 @@
 #include <sge/font/metrics.hpp>
 #include <sge/font/font.hpp>
 #include <sge/font/drawer_3d.hpp>
+#include <sge/font/system.hpp>
+#include <sge/font/text_size_t.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/colors.hpp>
@@ -13,6 +15,7 @@
 #include <sge/text.hpp>
 #include <sge/iostream.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/structure_cast.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -58,10 +61,8 @@ try
 		sge::renderer::scoped_block const block(sys.renderer());
 		font.draw_text(
 			SGE_TEXT("hello world"),
-			sge::font::pos(
-				static_cast<sge::font::unit>(0),
-				static_cast<sge::font::unit>(0)),
-			sge::math::structure_cast<sge::font::unit>(
+			sge::font::pos::null(),
+			sge::structure_cast<sge::font::dim>(
 				sys.renderer()->screen_size()),
 			sge::font::align_h::center,
 			sge::font::align_v::center);

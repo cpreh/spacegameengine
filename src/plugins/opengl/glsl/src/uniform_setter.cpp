@@ -23,16 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix_convert.hpp>
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
-#include <sge/math/matrix_impl.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
 #include <sge/array_wrapper_impl.hpp>
 #include <sge/once.hpp>
 #include <sge/raw_vector_impl.hpp>
+
+#if 0
 
 namespace
 {
 
 PFNGLUNIFORM1IPROC uniform_1i;
 PFNGLUNIFORM1IVPROC uniform_1iv;
+PFNGLUNIFORM2IVPROC uniform_2iv;
+PFNGLUNIFORM3IVPROC uniform_3iv;
+PFNGLUNIFORM4IVPROC uniform_4iv;
 PFNGLUNIFORM1FPROC uniform_1f;
 PFNGLUNIFORM1FVPROC uniform_1fv;
 PFNGLUNIFORM2FVPROC uniform_2fv;
@@ -88,7 +93,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	renderer::glsl::vector const &v) const
+	renderer::glsl::uniform_vector const &v) const
 {
 	switch(v.dim()) {
 	case 2:
@@ -117,7 +122,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 
 sge::ogl::glsl::uniform_type::type
 sge::ogl::glsl::uniform_setter::operator()(
-	renderer::glsl::matrix4x4 const &m) const
+	renderer::glsl::uniform_matrix const &m) const
 {
 	uniform_matrix_4fv(
 		location,
@@ -212,12 +217,23 @@ void initialize_uniform_setter()
 	{
 		uniform_1i = glUniform1i;
 		uniform_1iv = glUniform1iv;
+		uniform_2iv = glUniform2iv;
+		uniform_3iv = glUniform3iv;
+		uniform_4iv = glUniform4iv;
 		uniform_1f = glUniform1f;
 		uniform_1fv = glUniform1fv;
 		uniform_2fv = glUniform2fv;
 		uniform_3fv = glUniform3fv;
 		uniform_4fv = glUniform4fv;
+		uniform_matrix_2fv = glUniformMatrix2fv;
+		uniform_matrix_3fv = glUniformMatrix3fv;
 		uniform_matrix_4fv = glUniformMatrix4fv;
+		uniform_matrix_2x3fv = glUniformMatrix2x3fv;
+		uniform_matrix_3x2fv = glUniformMatrix3x2fv;
+		uniform_matrix_2x4fv = glUniformMatrix2x4fv;
+		uniform_matrix_4x2fv = glUniformMatrix4x2fv;
+		uniform_matrix_3x4fv = glUniformMatrix3x4fv;
+		uniform_matrix_4x3fv = glUniformMatrix4x3fv;
 	}
 	else
 	{
@@ -247,3 +263,5 @@ convert_array(
 }
 
 }
+
+#endif

@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_MOUSE_COORDINATE_HPP_INCLUDED
 #define SGE_X11INPUT_MOUSE_COORDINATE_HPP_INCLUDED
 
-#include <sge/math/vector.hpp>
+#include <sge/math/vector/basic_decl.hpp>
+#include <sge/math/vector/static.hpp>
 
 namespace sge
 {
@@ -30,10 +31,10 @@ namespace x11input
 
 typedef int mouse_coordinate_t;
 
-typedef math::vector<
+typedef math::vector::static_<
 	mouse_coordinate_t,
 	2
-> mouse_pos;
+>::type mouse_pos;
 
 }
 }

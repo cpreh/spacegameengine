@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../uniform_setter.hpp"
 #include "../uniform_get.hpp"
 #include "../../error.hpp"
-#include <sge/math/matrix.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
 template<bool Native>
