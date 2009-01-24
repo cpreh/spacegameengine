@@ -23,7 +23,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("render manager"),false);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("render manager"),
+	false);
 }
 
 sge::gui::detail::render_manager::render_manager(

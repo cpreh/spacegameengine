@@ -44,9 +44,12 @@ name< \
 >::operator op ( \
 	Expr const &expr) \
 { \
-	size_type const dim( \
-		::sge::math::detail::storage_dim(\
-			storage));\
+	size_type const dim(\
+		static_cast<\
+			size_type\
+		>( \
+			::sge::math::detail::storage_dim(\
+				storage)));\
 	for( \
 		size_type i = 0; \
 		i < dim; \

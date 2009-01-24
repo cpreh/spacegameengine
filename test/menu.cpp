@@ -50,6 +50,28 @@ struct end_program
 	bool &running;
 };
 
+struct show_data
+{
+	show_data(
+		bool &_running,
+		sge::gui::widgets::edit const &_hostname,
+		sge::gui::widgets::edit const &_port) 
+			: running(_running),
+			  hostname(_hostname),
+				port(_port) {}
+
+	void operator()() const 
+	{
+		running = false; 
+		sge::cerr << SGE_TEXT("game would now connect to ") 
+		          << hostname.text() << SGE_TEXT(" on port ") 
+							<< port.text() << SGE_TEXT("\n");
+	}
+
+	bool &running;
+	sge::gui::widgets::edit const &hostname,&port;
+};
+
 class input_functor
 {
 	public:
@@ -132,7 +154,7 @@ try
 	sge::gui::widgets::button connect(
 		(sge::gui::widget::parent_data(top)),
 		SGE_TEXT("Connect"));
-
+	
 	// set sensible render states
 	sys.renderer()->state(
 		sge::renderer::state::list
@@ -147,6 +169,15 @@ try
 	end_program p(running);
 	sge::signals::scoped_connection const conn =
 		sys.input_system()->register_callback(input_functor(running));
+	
+	top.pos(sge::gui::point(10,10));
+
+	sge::signals::connection cc = 
+		connect.clicked.connect(
+			show_data(
+				running,
+				host_edit,
+				port_edit));
 	
 	while (running)
 	{

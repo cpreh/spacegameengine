@@ -158,7 +158,6 @@ void sge::gui::widgets::edit::refresh() const
 		.size());
 
 	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("resizing buffer"));
-
 	
 	// text larger than buffer? resize!
 	resize(d);
@@ -173,7 +172,6 @@ void sge::gui::widgets::edit::refresh() const
 		c.area(),
 		internal_color(0xff,0xff,0xff,0xff),
 		canvas::rect_type::solid);
-	
 	
 	if (ntext.empty())
 		return;
@@ -206,6 +204,10 @@ void sge::gui::widgets::edit::refresh() const
 		cursor.pos(),
 		&p);
 
+	SGE_LOG_DEBUG(
+		mygraphlogger,
+		log::_1 << SGE_TEXT("text drawn"));
+
 	if (cursor_visible_)
 	{
 		unit const cursor_line = static_cast<unit>(
@@ -224,8 +226,8 @@ void sge::gui::widgets::edit::refresh() const
 			cursor_start = 
 				static_cast<unit>(cursor_line*font()->line_height()),
 			cursor_end = 
-			//	std::min(c.area().h()-1,cursor_start + font()->line_height());
-				static_cast<unit>(cursor_start+2);
+				std::min(c.area().h()-1,cursor_start + font()->line_height());
+			//	static_cast<unit>(cursor_start+2);
 
 		SGE_LOG_DEBUG(
 			mygraphlogger,
@@ -237,4 +239,10 @@ void sge::gui::widgets::edit::refresh() const
 			point(p.x(),cursor_end),
 			internal_color(0x00,0x00,0x00,0xff));
 	}
+
+	if (p.x() > size().w())
+	 	// FIXME: + 5 is a bit awkward
+		scroll_pos_.x() = p.x() - size().w() + 5;
+	else
+		scroll_pos_.x() = static_cast<unit>(0);
 }

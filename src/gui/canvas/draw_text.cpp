@@ -21,8 +21,6 @@ void sge::gui::canvas::object::draw_text(
 {
 	SGE_ASSERT(!cp || *cp < text.length());
 
-	SGE_LOG_DEBUG(global_log(),log::_1 << SGE_TEXT("drawing text: ") << text);
-
 	// determine which invisible characters have to be filtered
 	if (cp)
 	{
