@@ -46,14 +46,17 @@ void render(
 	renderer::index_buffer_ptr const ib)
 {
 	renderer::size_type first_index = 0;
-	for(In cur(beg); cur != end; )
+	for(In cur(beg), next(cur); cur != end; cur = next )
 	{
 		renderer::size_type num_objects;
-		In const next = first_mismatch_if(
+		next = first_mismatch_if(
 			cur,
 			end,
 			num_objects,
 			comp);
+
+		if(!cur->visible())
+			continue;
 
 		texture::const_part_ptr const vtex = cur->texture();
 		rend->texture(
@@ -71,7 +74,6 @@ void render(
 			num_objects * 2,
 			first_index);
 		first_index += num_objects * detail::indices_per_sprite;
-		cur = next;
 	}
 
 	rend->texture(renderer::device::no_texture);
