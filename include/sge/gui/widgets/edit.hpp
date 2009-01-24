@@ -52,7 +52,7 @@ class SGE_CLASS_SYMBOL edit : public widget
 	timer::object_ptr timer_;
 	bool cursor_visible_;
 	mutable image text_buffer_;
-	point scroll_pos_;
+	mutable point scroll_pos_;
 	detail::cursor_delegate cursor;
 
 	void blink_callback();

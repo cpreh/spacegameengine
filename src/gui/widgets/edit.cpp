@@ -151,7 +151,6 @@ void sge::gui::widgets::edit::refresh() const
 		.size());
 
 	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("resizing buffer"));
-
 	
 	// text larger than buffer? resize!
 	resize(d);
@@ -166,7 +165,6 @@ void sge::gui::widgets::edit::refresh() const
 		c.area(),
 		internal_color(0xff,0xff,0xff,0xff),
 		canvas::rect_type::solid);
-	
 	
 	if (ntext.empty())
 		return;
@@ -234,4 +232,10 @@ void sge::gui::widgets::edit::refresh() const
 			point(p.x(),cursor_end),
 			internal_color(0x00,0x00,0x00,0xff));
 	}
+
+	if (p.x() > size().w())
+	 	// FIXME: + 5 is a bit awkward
+		scroll_pos_.x() = p.x() - size().w() + 5;
+	else
+		scroll_pos_.x() = static_cast<unit>(0);
 }

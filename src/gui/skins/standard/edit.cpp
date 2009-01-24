@@ -85,22 +85,21 @@ void sge::gui::skins::standard::draw(
 		static_cast<unit>(w.text_buffer().width()),
 		static_cast<unit>(w.text_buffer().height()));
 
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("blitting text on internal buffer"));
+	point const scroll_origin = w.scroll_pos();
 
-	// blit the image at position 1,1
+	dim const scroll_size = buffer_size - dim(scroll_origin.x(),scroll_origin.y());
+	
 	utility::blit(
 		renderer::const_image_view(
 			boost::gil::const_view(
 				w.text_buffer())),
 		rect(
-			point::null(),
-			buffer_size),
+			scroll_origin,
+			scroll_size),
 		c.view(),
 		rect(
 			point(1,1),
-			buffer_size),
+			scroll_size),
 		rect(
 			point(1,1),
 			dim(w.size().w()-2,w.size().h()-2)

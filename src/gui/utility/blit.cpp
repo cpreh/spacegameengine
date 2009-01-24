@@ -59,7 +59,10 @@ void sge::gui::utility::blit(
 
 	renderer::copy_and_convert_pixels(
 		renderer::subimage_view(
-			src,
+			renderer::subimage_view(
+				src,
+				math::structure_cast<renderer::size_type>(
+					src_rect)),
 			math::structure_cast<renderer::size_type>(
 				src_trans)),
 		renderer::subimage_view(

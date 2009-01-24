@@ -155,7 +155,6 @@ try
 		(sge::gui::widget::parent_data(top)),
 		SGE_TEXT("Connect"));
 	
-
 	// set sensible render states
 	sys.renderer()->state(
 		sge::renderer::state::list
@@ -170,6 +169,8 @@ try
 	end_program p(running);
 	sge::signals::scoped_connection const conn =
 		sys.input_system()->register_callback(input_functor(running));
+	
+	top.pos(sge::gui::point(10,10));
 
 	sge::signals::connection cc = 
 		connect.clicked.connect(
