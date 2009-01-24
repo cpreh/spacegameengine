@@ -35,7 +35,7 @@ template<
 	typename ValueType,
 	typename SizeType,
 	typename Reference = ValueType &,
-	typename ConstReference = Reference const
+	typename ConstReference = ValueType const &
 >
 struct array_adapter {
 	typedef SizeType size_type;

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATRIX_PROXY_HPP_INCLUDED
-#define SGE_MATRIX_PROXY_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_CHECKED_ACCESS_HPP_INCLUDED
+#define SGE_MATH_DETAIL_CHECKED_ACCESS_HPP_INCLUDED
 
-#include <cstddef>
+#include "../size_type.hpp"
 
 namespace sge
 {
@@ -30,21 +30,27 @@ namespace math
 namespace detail
 {
 
-template<typename Reference, typename Pointer, std::size_t Stride>
-class matrix_proxy_impl {
-public:
-	typedef std::size_t size_type;
-	/**
-	 * This operator has \em no range checking!
-	 */
-	Reference operator[](const size_type y) const { return p[y*Stride + x]; }
-	matrix_proxy_impl(size_type x, const Pointer p) : x(x), p(p) {}
-private:
-	const size_type x;
-	const Pointer p;
+template<
+	size_type N,
+	typename T
+>
+typename T::reference
+checked_access(
+	T &t)
+{
+	return t[N];
+}
 
-	matrix_proxy_impl& operator=(const matrix_proxy_impl&);
-};
+template<
+	size_type N,
+	typename T
+>
+typename T::const_reference
+checked_access(
+	T const &t)
+{
+	return t[N];
+}
 
 }
 }

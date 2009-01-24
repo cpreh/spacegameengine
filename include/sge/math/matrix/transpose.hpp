@@ -18,39 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DETAIL_VIEW_STORAGE_HPP_INCLUDED
-#define SGE_MATH_DETAIL_VIEW_STORAGE_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_TRANSPOSE_HPP_INCLUDED
+#define SGE_MATH_MATRIX_TRANSPOSE_HPP_INCLUDED
+
+#include "basic_fwd.hpp"
 
 namespace sge
 {
 namespace math
 {
-namespace detail
+namespace matrix
 {
 
 template<
 	typename T,
-	typename N
+	typename N,
+	typename S
 >
-class view_storage {
-public:
-	typedef typename N::value_type size_type;
-	typedef T &reference;
-	typedef T *pointer;
-
-	view_storage(
-		pointer,
-		size_type);
-
-	reference
-	operator[](
-		size_type) const;
-	
-	size_type size() const;
-private:
-	pointer rep;
-	size_type sz;
-};
+basic<T, N, N, S> const
+transpose(
+	basic<T, N, N, S> const &);
 
 }
 }

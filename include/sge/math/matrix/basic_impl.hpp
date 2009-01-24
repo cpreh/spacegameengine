@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_IMPL_HPP_INCLUDED
-#define SGE_MATH_MATRIX_IMPL_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_BASIC_IMPL_HPP_INCLUDED
+#define SGE_MATH_MATRIX_BASIC_IMPL_HPP_INCLUDED
 
 #include "basic_decl.hpp"
 #include "../compare.hpp"
+#include "../detail/array_adapter_impl.hpp"
 #include "../detail/storage_data.hpp"
+#include "../detail/view_storage_impl.hpp"
 #include "../detail/make_variadic_constructor.hpp"
 #include <sge/exception.hpp>
 #include <algorithm>
@@ -67,8 +69,9 @@ sge::math::matrix::basic<T, N, M, S>::operator[](
 	size_type const j)
 {
 	return reference(
-		data() + j * N::value,
-		M::value);
+		typename reference::storage_type(
+			data() + j * N::value,
+			M::value));
 }
 
 template<
@@ -82,8 +85,9 @@ sge::math::matrix::basic<T, N, M, S>::operator[](
 	size_type const j) const
 {
 	return const_reference(
-		data() + j * N::value,
-		M::value);
+		typename const_reference::storage_type(
+			data() + j * N::value,
+			M::value));
 }
 
 template<
@@ -126,36 +130,5 @@ sge::math::matrix::basic<T, N, M, S>::size() const
 	return storage_dim(
 		storage);
 }
-
-#if 0
-template<typename T, std::size_t N, std::size_t M1, std::size_t M2>
-inline sge::math::matrix<T,N,N> sge::math::operator* (const matrix<T,M1,N>& a, const matrix<T,N,M2>& b)
-{
-	typedef matrix<T,M1,M2> result_type;
-	result_type ret;
-	for(typename matrix<T,M1,N>::size_type i = 0; i < M1; ++i)
-		for(typename matrix<T,N,M2>::size_type j = 0; j < M2; ++j)
-		{
-			typename result_type::value_type v(0);
-			for(typename result_type::size_type r = 0; r < N; ++r)
-				v += a[i][r] * b[r][j];
-			ret[i][j] = v;
-		}
-	return ret;
-}
-
-template<typename T, std::size_t N>
-inline sge::math::matrix<T,N,N> sge::math::transpose(const matrix<T,N,N>& m)
-{
-	matrix<T,N,N> ret;
-	for(typename matrix<T,N,N>::size_type j = 0; j < N; ++j)
-		for(typename matrix<T,N,N>::size_type i = 0; i < N; ++i)
-			ret[i][j] = m[j][i];
-	return ret;
-}
-
-}
-
-#endif
 
 #endif

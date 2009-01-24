@@ -41,7 +41,7 @@ template<
 >
 typename sge::math::detail::view_storage<T, N>::reference
 sge::math::detail::view_storage<T, N>::operator[](
-	size_type const i)
+	size_type const i) const
 {
 	return rep[i];
 }
@@ -55,3 +55,5 @@ sge::math::detail::view_storage<T, N>::size() const
 {
 	return sz;
 }
+
+#endif

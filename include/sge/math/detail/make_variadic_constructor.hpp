@@ -34,7 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	template<typename... Args> \
 	def_pre::name(Args... args) \
 	{ \
-		initial_size(sizeof(args)); \
+		::sge::math::detail::initial_size(\
+			storage,\
+			sizeof...(args)); \
 		set_impl(args...); \
 	} \
 \
@@ -63,7 +65,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL(z, n, text)\
 text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& param))\
 {\
-	initial_size(n); \
+	::sge::math::detail::initial_size(\
+		storage,\
+		n); \
 	BOOST_PP_REPEAT(BOOST_PP_INC(n), SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_ASSIGN, param)\
 }
 

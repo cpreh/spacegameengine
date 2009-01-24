@@ -25,6 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/array_adapter_impl.hpp"
 #include "../detail/make_op_def.hpp"
 #include "../detail/initial_size.hpp"
+#include "../detail/storage_data.hpp"
+#include "../detail/storage_dim.hpp"
+#include "../detail/checked_access.hpp"
+#include "../detail/make_variadic_constructor.hpp"
 
 template<
 	typename T,
@@ -33,6 +37,39 @@ template<
 >
 sge::math::vector::basic<T, N, S>::basic()
 {}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+template<
+	typename In
+>
+sge::math::vector::basic<T, N, S>::basic(
+	In const beg,
+	In const end)
+{
+	
+}
+
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_VECTOR_MAX_CTOR_PARAMS
+#define SGE_MATH_TEMPLATE_PRE\
+	template<\
+		typename T,\
+		typename N,\
+		typename S\
+	>
+#define SGE_MATH_DEF_PRE\
+	sge::math::vector::basic<T, N, S>
+
+SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(
+	SGE_MATH_TEMPLATE_PRE,
+	SGE_MATH_DEF_PRE,
+	basic)
+#undef SGE_MATH_DEF_PRE
+#undef SGE_MATH_TEMPLATE_PRE
+#undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
 
 #define SGE_MATH_VECTOR_BASIC_DEFINE_OPERATOR(op)\
 SGE_MATH_DETAIL_MAKE_OP_DEF(sge::math::vector::basic, op)
@@ -45,7 +82,6 @@ SGE_MATH_VECTOR_BASIC_DEFINE_OPERATOR(%=)
 
 #undef SGE_MATH_VECTOR_BASIC_DEFINE_OPERATOR
 
-#if 0
 template<
 	typename T,
 	typename N,
@@ -83,43 +119,146 @@ sge::math::vector::basic<T, N, S>::resize(
 		sz);
 }
 
-#endif
-#if 0
-	const_reference
-	at(
-		size_type) const;
-	
-	reference
-	at(
-		size_type);
-	
-	pointer data();
-	const_pointer data() const;
-	
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
-	reverse_iterator rbegin();
-	const_reverse_iterator rbegin() const;
-	reverse_iterator rend();
-	const_reverse_iterator rend() const;
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::pointer
+sge::math::vector::basic<T, N, S>::data()
+{
+	return math::detail::storage_data(
+		storage);
+}
 
-	size_type size() const;
-	bool empty() const;
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::const_pointer
+sge::math::vector::basic<T, N, S>::data() const
+{
+	return math::detail::storage_data(
+		storage);
+}
+	
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::size_type
+sge::math::vector::basic<T, N, S>::size() const
+{
+	return static_cast<
+		size_type
+	>(
+		math::detail::storage_dim(
+			storage));
+}
 
-	static basic const
-	null();
+template<
+	typename T,
+	typename N,
+	typename S
+>
+sge::math::vector::basic<T, N, S> const
+sge::math::vector::basic<T, N, S>::null()
+{
+	basic ret;
+	for(size_type i = 0; i < N::value; ++i)
+		ret[i] = static_cast<value_type>(0);
+	return ret;
+}
 
-	reference x();
-	const_reference x() const;
-	reference y();
-	const_reference y() const;
-	reference z();
-	const_reference z() const;
-	reference w();
-	const_reference w() const;
-#endif
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::reference
+sge::math::vector::basic<T, N, S>::x()
+{
+	return math::detail::checked_access<0>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::const_reference
+sge::math::vector::basic<T, N, S>::x() const
+{
+	return math::detail::checked_access<0>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::reference
+sge::math::vector::basic<T, N, S>::y()
+{
+	return math::detail::checked_access<1>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::const_reference
+sge::math::vector::basic<T, N, S>::y() const
+{
+	return math::detail::checked_access<1>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::reference
+sge::math::vector::basic<T, N, S>::z()
+{
+	return math::detail::checked_access<2>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::const_reference
+sge::math::vector::basic<T, N, S>::z() const
+{
+	return math::detail::checked_access<2>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::reference
+sge::math::vector::basic<T, N, S>::w()
+{
+	return math::detail::checked_access<3>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::vector::basic<T, N, S>::const_reference
+sge::math::vector::basic<T, N, S>::w() const
+{
+	return math::detail::checked_access<3>(*this);
+}
 
 template<
 	typename T,
@@ -134,6 +273,5 @@ sge::math::vector::basic<T, N, S>::initial_size(
 		storage,
 		sz);
 }
-
 
 #endif

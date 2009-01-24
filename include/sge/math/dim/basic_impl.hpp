@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_DIM_BASIC_IMPL_HPP_INCLUDED
 
 #include "basic_decl.hpp"
+#include "../detail/array_adapter_impl.hpp"
 
 template<
 	typename T,
