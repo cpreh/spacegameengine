@@ -1,5 +1,5 @@
-#include <sge/gui/detail/render_manager.hpp>
-#include <sge/gui/detail/mouse_manager.hpp>
+#include <sge/gui/detail/managers/render.hpp>
+#include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
@@ -29,22 +29,22 @@ sge::gui::logger mylogger(
 	false);
 }
 
-sge::gui::detail::render_manager::render_manager(
-	renderer::device_ptr const rend,
-	mouse_manager &mouse)
-	: rend(rend),
+sge::gui::detail::managers::render::render(
+	renderer::device_ptr const _rend,
+	managers::mouse &_mouse)
+	: rend(_rend),
 	  ss(rend),
-		mouse(mouse)
+		mouse_(_mouse)
 {
 }
 
-void sge::gui::detail::render_manager::add(widget &w)
+void sge::gui::detail::managers::render::add(widget &w)
 {
 	if (!w.parent_widget())
 		widgets[&w] = widget_data();
 }
 
-void sge::gui::detail::render_manager::draw()
+void sge::gui::detail::managers::render::draw()
 {
 	if (!dirt.empty())
 		redraw_dirt();
@@ -52,11 +52,11 @@ void sge::gui::detail::render_manager::draw()
 	sprite::container sprites;
 	BOOST_FOREACH(widget_container::value_type const &w,widgets)
 		sprites.push_back(w.second.sprite);
-	sprites.push_back(mouse.cursor());
+	sprites.push_back(mouse_.cursor());
 	ss.render(sprites.begin(),sprites.end());
 }
 
-void sge::gui::detail::render_manager::remove(widget &w)
+void sge::gui::detail::managers::render::remove(widget &w)
 {
 	if (w.parent_widget())
 		return;
@@ -66,7 +66,7 @@ void sge::gui::detail::render_manager::remove(widget &w)
 	widgets.erase(wi);
 }
 
-void sge::gui::detail::render_manager::resize(widget &w,dim const &d)
+void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 {
 	// widget is not a top level widget
 	if (widgets.find(&w) == widgets.end())
@@ -117,7 +117,7 @@ void sge::gui::detail::render_manager::resize(widget &w,dim const &d)
 	dirt.push_back(rect(w.pos(),d));
 }
 
-void sge::gui::detail::render_manager::reposition(widget &w,point const &d)
+void sge::gui::detail::managers::render::reposition(widget &w,point const &d)
 {
 	// widget is not a top level widget
 	if (widgets.find(&w) == widgets.end())
@@ -130,12 +130,12 @@ void sge::gui::detail::render_manager::reposition(widget &w,point const &d)
 	widgets[&w].sprite.pos() = structure_cast<sprite::point>(d);
 }
 
-void sge::gui::detail::render_manager::invalidate(rect const &r)
+void sge::gui::detail::managers::render::invalidate(rect const &r)
 {
 	dirt.push_back(r);
 }
 
-void sge::gui::detail::render_manager::redraw_dirt()
+void sge::gui::detail::managers::render::redraw_dirt()
 {
 	// calculate bounding rect of all dirt rects
 	rect const bound = math::bounding<unit>(

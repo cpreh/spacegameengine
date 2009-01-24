@@ -1,11 +1,11 @@
 #ifndef SGE_GUI_MANAGER_HPP_INCLUDED
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
-#include "detail/keyboard_manager.hpp"
-#include "detail/mouse_manager.hpp"
-#include "detail/update_manager.hpp"
-#include "detail/render_manager.hpp"
-#include "detail/time_manager.hpp"
+#include "detail/managers/keyboard.hpp"
+#include "detail/managers/mouse.hpp"
+#include "detail/managers/update.hpp"
+#include "detail/managers/render.hpp"
+#include "detail/managers/time.hpp"
 #include "timer/callback.hpp"
 #include "timer/fwd.hpp"
 #include "types.hpp"
@@ -60,11 +60,13 @@ class manager
 
 	skin_ptr skin_;
 
-	detail::mouse_manager mouse_;
-	detail::render_manager render_;
-	detail::keyboard_manager keyboard_;
-	detail::update_manager updates_;
-	detail::time_manager timer_;
+	detail::managers::mouse    mouse_;
+	detail::managers::render   render_;
+	detail::managers::keyboard keyboard_;
+	detail::managers::update   updates_;
+	detail::managers::time     timer_;
+
+	std::vector<detail::submanager*> submanagers;
 
 	// this is called by widget's constructor and destructor
 	void add(widget &);
@@ -74,7 +76,7 @@ class manager
 	void resize(widget &,dim const &);
 	void reposition(widget &,point const &);
 
-	detail::keyboard_manager &keyboard();
+	detail::managers::keyboard &keyboard();
 };
 }
 }

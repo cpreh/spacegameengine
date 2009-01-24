@@ -1,14 +1,15 @@
-#ifndef SGE_GUI_KEYBOARD_MANAGER_HPP_INCLUDED
-#define SGE_GUI_KEYBOARD_MANAGER_HPP_INCLUDED
+#ifndef SGE_GUI_DETAIL_MANAGERS_KEYBOARD_MANAGER_HPP_INCLUDED
+#define SGE_GUI_DETAIL_MANAGERS_KEYBOARD_MANAGER_HPP_INCLUDED
 
-#include "../widget_fwd.hpp"
-#include "../keyboard_focus.hpp"
-#include "../../input/system_fwd.hpp"
-#include "../../input/modifier/filter.hpp"
-#include "../../input/modifier/states.hpp"
-#include "../../input/key_pair_fwd.hpp"
-#include "../../input/key_type.hpp"
-#include "../../signals/scoped_connection.hpp"
+#include "../submanager.hpp"
+#include "../../widget_fwd.hpp"
+#include "../../keyboard_focus.hpp"
+#include "../../../input/system_fwd.hpp"
+#include "../../../input/modifier/filter.hpp"
+#include "../../../input/modifier/states.hpp"
+#include "../../../input/key_pair_fwd.hpp"
+#include "../../../input/key_type.hpp"
+#include "../../../signals/scoped_connection.hpp"
 #include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 
@@ -18,10 +19,12 @@ namespace gui
 {
 namespace detail
 {
-class keyboard_manager
+namespace managers
+{
+class keyboard : public submanager
 {
 	public:
-	keyboard_manager(input::system_ptr);
+	keyboard(input::system_ptr);
 	void add(widget &);
 	void request_focus(widget &);
 	void remove(widget &);
@@ -45,6 +48,7 @@ class keyboard_manager
 		input::modifier::states const &);
 	void switch_focus(widget_container::iterator);
 };
+}
 }
 }
 }

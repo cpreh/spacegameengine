@@ -1,9 +1,10 @@
-#ifndef SGE_GUI_DETAIL_TIME_MANAGER_HPP_INCLUDED
-#define SGE_GUI_DETAIL_TIME_MANAGER_HPP_INCLUDED
+#ifndef SGE_GUI_DETAIL_MANAGERS_TIME_HPP_INCLUDED
+#define SGE_GUI_DETAIL_MANAGERS_TIME_HPP_INCLUDED
 
-#include "../../time/resolution.hpp"
-#include "../timer/callback.hpp"
-#include "../timer/fwd.hpp"
+#include "../submanager.hpp"
+#include "../../../time/resolution.hpp"
+#include "../../timer/callback.hpp"
+#include "../../timer/fwd.hpp"
 #include <boost/weak_ptr.hpp>
 #include <vector>
 
@@ -13,11 +14,13 @@ namespace gui
 {
 namespace detail
 {
-class time_manager
+namespace managers
+{
+class time : public submanager
 {
 	public:
 	timer::object_ptr const add(
-		time::resolution const &,
+		sge::time::resolution const &,
 		timer::callback);
 	void draw();
 	private:
@@ -25,6 +28,7 @@ class time_manager
 	typedef std::vector<weak_object_ptr> timer_container;
 	timer_container timers;
 };
+}
 }
 }
 }

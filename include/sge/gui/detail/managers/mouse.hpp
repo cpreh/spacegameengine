@@ -1,15 +1,16 @@
-#ifndef SGE_GUI_DETAIL_MOUSE_MANAGER_HPP_INCLUDED
-#define SGE_GUI_DETAIL_MOUSE_MANAGER_HPP_INCLUDED
+#ifndef SGE_GUI_DETAIL_MANAGERS_MOUSE_HPP_INCLUDED
+#define SGE_GUI_DETAIL_MANAGERS_MOUSE_HPP_INCLUDED
 
-#include "../skin.hpp"
-#include "../types.hpp"
-#include "../widget_fwd.hpp"
-#include "../../input/system_fwd.hpp"
-#include "../../image/loader_fwd.hpp"
-#include "../../input/key_pair_fwd.hpp"
-#include "../../signals/scoped_connection.hpp"
-#include "../../sprite/object.hpp"
-#include "../../renderer/device_fwd.hpp"
+#include "../submanager.hpp"
+#include "../../skin.hpp"
+#include "../../types.hpp"
+#include "../../widget_fwd.hpp"
+#include "../../../input/system_fwd.hpp"
+#include "../../../image/loader_fwd.hpp"
+#include "../../../input/key_pair_fwd.hpp"
+#include "../../../signals/scoped_connection.hpp"
+#include "../../../sprite/object.hpp"
+#include "../../../renderer/device_fwd.hpp"
 
 #include <boost/ptr_container/ptr_vector.hpp>
 
@@ -19,10 +20,12 @@ namespace gui
 {
 namespace detail
 {
-class mouse_manager
+namespace managers
+{
+class mouse : public submanager
 {
 	public:
-	mouse_manager(
+	mouse(
 		input::system_ptr,
 		sge::image::loader_ptr,
 		renderer::device_ptr,
@@ -45,6 +48,7 @@ class mouse_manager
 	widget *recalculate_focus(widget &w,point const &);
 	widget *do_recalculate_focus(widget &,point const &);
 };
+}
 }
 }
 }
