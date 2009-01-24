@@ -20,17 +20,24 @@ void sge::gui::utility::blit_invalid(
 		return;
 
 	// Move intersection rect to origin of invalid rect
-	rect const is_translated(
+	rect const is_translated_dst(
 		is.pos()-dst_rect.pos(),
+		is.dim());
+
+	rect const is_translated_src(
+		is.pos()-src_rect.pos(),
 		is.dim());
 	
 	// Get sub view(s) and blit
 	renderer::copy_and_convert_pixels(
-		src,
+		renderer::subimage_view(
+			src,
+			math::structure_cast<renderer::size_type>(
+				is_translated_src)),
 		renderer::subimage_view(
 			dst,
 			math::structure_cast<renderer::size_type>(
-				is_translated)));
+				is_translated_dst)));
 }
 
 void sge::gui::utility::blit(

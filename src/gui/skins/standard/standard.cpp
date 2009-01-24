@@ -14,7 +14,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("skins: standard"),
-	false);
+	true);
 }
 
 sge::gui::skins::standard::standard()
@@ -57,6 +57,10 @@ void sge::gui::skins::standard::fallback(
 		internal_color(0xee,0xeb,0xe7,0xff),
 		canvas::rect_type::solid);
 	
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("blitting to texture"));
+
 	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
 		rect(w.pos(),c.size()),
