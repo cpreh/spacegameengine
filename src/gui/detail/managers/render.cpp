@@ -53,10 +53,10 @@ void sge::gui::detail::managers::render::activation(
 	switch (t)
 	{
 		case activation_state::active:
-			widgets[&w].sprite.visible(false);
+			widgets[&w].sprite.visible(true);
 		break;
 		case activation_state::inactive:
-			widgets[&w].sprite.visible(true);
+			widgets[&w].sprite.visible(false);
 		break;
 	}
 }
@@ -125,6 +125,16 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 				sprite::dim(math::structure_cast<sprite::unit>(d)),
 				sprite::defaults::color_,
 				static_cast<sprite::depth_type>(1));
+	
+	switch (w.activation())
+	{
+		case activation_state::active:
+			wd.sprite.visible(true);
+		break;
+		case activation_state::inactive:
+			wd.sprite.visible(false);
+		break;
+	}
 
 	SGE_LOG_DEBUG(
 		mylogger,

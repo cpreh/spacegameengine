@@ -55,16 +55,13 @@ struct show_data
 	show_data(
 		bool &_running,
 		sge::gui::widgets::edit const &_hostname,
-		sge::gui::widgets::edit const &_port,
-		sge::gui::widget &_top) 
+		sge::gui::widgets::edit const &_port) 
 			: running(_running),
 			  hostname(_hostname),
-				port(_port),
-				top_(_top) {}
+				port(_port) {}
 
 	void operator()() const 
 	{
-	//	top_.activation(sge::gui::activation_state::inactive);
 		running = false; 
 		sge::cerr << SGE_TEXT("game would now connect to ") 
 		          << hostname.text() << SGE_TEXT(" on port ") 
@@ -73,7 +70,6 @@ struct show_data
 
 	bool &running;
 	sge::gui::widgets::edit const &hostname,&port;
-	sge::gui::widget &top_;
 };
 
 class input_functor
@@ -100,6 +96,32 @@ class input_functor
 	private:
 	bool &running;
 	sge::gui::widget &top_;
+};
+
+class connect_functor
+{
+	public:
+	connect_functor(
+		sge::gui::widget &_connect_menu,
+		sge::gui::widget &_main_menu)
+		: connect_menu_(_connect_menu),
+		  main_menu_(_main_menu)
+		{}
+	
+	void connect_to_server()
+	{
+		main_menu_.activation(sge::gui::activation_state::inactive);
+		connect_menu_.activation(sge::gui::activation_state::active);
+	}
+
+	void return_to_menu()
+	{
+		connect_menu_.activation(sge::gui::activation_state::inactive);
+		main_menu_.activation(sge::gui::activation_state::active);
+	}
+	private:
+		sge::gui::widget &connect_menu_;
+		sge::gui::widget &main_menu_;
 };
 }
 
@@ -138,8 +160,8 @@ try
 		(sge::gui::widget::parent_data(m)));
 	top.pos(sge::gui::point(100,100));
 	top.size(sge::gui::dim(500,300));
-	top.activation(sge::gui::activation_state::inactive);
 	top.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(top)));
+	top.activation(sge::gui::activation_state::inactive);
 
 	sge::gui::widget host(
 		(sge::gui::widget::parent_data(top)));
@@ -168,6 +190,11 @@ try
 	sge::gui::widgets::button connect(
 		(sge::gui::widget::parent_data(top)),
 		SGE_TEXT("Connect"));
+
+	sge::gui::widgets::button return_menu(
+		(sge::gui::widget::parent_data(top)),
+		SGE_TEXT("Return"));
+
 	
 	sge::gui::widget main_menu(
 		(sge::gui::widget::parent_data(m)));
@@ -180,6 +207,10 @@ try
 	sge::gui::widgets::button menu_connect(
 		(sge::gui::widget::parent_data(main_menu)),
 		SGE_TEXT("Connect to server"));
+	
+	connect_functor cf(
+		top,
+		main_menu);
 
 	sge::gui::widgets::button menu_start(
 		(sge::gui::widget::parent_data(main_menu)),
@@ -206,16 +237,20 @@ try
 			input_functor(
 				running,
 				top));
-	
-	sge::signals::connection cc = 
-		connect.clicked.connect(
-			show_data(
-				running,
-				host_edit,
-				port_edit,
-				top));
 
-	sge::signals::connection ec = 
+	sge::signals::connection mc0 = menu_connect.clicked.connect(
+		boost::bind(&connect_functor::connect_to_server,&cf));
+
+	sge::signals::connection mc1 = return_menu.clicked.connect(
+		boost::bind(&connect_functor::return_to_menu,&cf));
+
+	sge::signals::connection mc2 = connect.clicked.connect(
+		show_data(
+			running,
+			host_edit,
+			port_edit));
+	
+	sge::signals::connection mc3 = 
 		menu_exit.clicked.connect(
 			p);
 	
