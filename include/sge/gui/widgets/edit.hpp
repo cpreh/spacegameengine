@@ -38,6 +38,7 @@ class SGE_CLASS_SYMBOL edit : public widget
 
 	SGE_SYMBOL void process(events::keyboard_enter const &);
 	SGE_SYMBOL key_handling::type process(events::key const &);
+	SGE_SYMBOL void process(events::mouse_click const &);
 	SGE_SYMBOL void process(events::keyboard_leave const &);
 
 	SGE_SYMBOL void refresh() const;

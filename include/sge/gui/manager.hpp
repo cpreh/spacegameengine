@@ -49,6 +49,7 @@ class manager
 	SGE_SYMBOL skin_ptr const skin();
 	SGE_SYMBOL const_skin_ptr const skin() const;
 
+	SGE_SYMBOL detail::managers::keyboard &keyboard();
 	private:
 	friend class widget;
 
@@ -77,8 +78,6 @@ class manager
 	void resize(widget &,dim const &);
 	void reposition(widget &,point const &);
 	void activation(widget &,activation_state::type);
-
-	detail::managers::keyboard &keyboard();
 };
 }
 }

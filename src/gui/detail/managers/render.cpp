@@ -224,8 +224,7 @@ void sge::gui::detail::managers::render::redraw_dirt()
 			renderer::make_scoped_lock(
 				wd.texture,
 				math::structure_cast<renderer::lock_rect::value_type>(is_local),
-				renderer::lock_flags::readwrite
-			));
+				renderer::lock_flags::readwrite));
 
 		w.process(
 			events::invalid_area(
