@@ -134,9 +134,6 @@ SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
 	void resize(
 		size_type);
 private:
-	void initial_size(
-		size_type);
-	
 	S storage;
 };
 

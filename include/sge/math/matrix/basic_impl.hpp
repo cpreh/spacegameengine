@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_decl.hpp"
 #include "../compare.hpp"
+#include "../vector/basic_impl.hpp"
 #include "../detail/array_adapter_impl.hpp"
 #include "../detail/storage_data.hpp"
 #include "../detail/view_storage_impl.hpp"
 #include "../detail/make_variadic_constructor.hpp"
-#include <sge/exception.hpp>
 #include <algorithm>
 
 template<

@@ -10,6 +10,8 @@
 #include <sge/renderer/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>

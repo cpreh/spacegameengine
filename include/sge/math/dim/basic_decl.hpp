@@ -123,12 +123,12 @@ SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
 	const_reference d() const;
 
 	size_type content() const;
-//	{
-//		return std::accumulate(begin(), end(), 1, std::multiplies<size_type>());
-//	}
 
 	static basic const
 	null();
+
+	void resize(
+		size_type);
 private:
 	S storage;
 };

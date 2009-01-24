@@ -123,8 +123,8 @@ sge::sprite::detail::fill_position_rotated(
 		cosx, -sinx,
 		sinx,  cosx); 
 
-	BOOST_FOREACH(position_array::const_reference p, positions)
-		(*it++).set<vertex_pos>(pos3((mat_rot * p) + centerf, z));
+	//BOOST_FOREACH(position_array::const_reference p, positions)
+	//	(*it++).set<vertex_pos>(pos3((mat_rot * p) + centerf, z));
 
 	return it;
 }

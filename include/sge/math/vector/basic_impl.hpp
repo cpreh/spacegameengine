@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_decl.hpp"
 #include "../detail/array_adapter_impl.hpp"
 #include "../detail/make_op_def.hpp"
-#include "../detail/initial_size.hpp"
 #include "../detail/storage_data.hpp"
 #include "../detail/storage_dim.hpp"
 #include "../detail/checked_access.hpp"
@@ -36,6 +35,17 @@ template<
 	typename S
 >
 sge::math::vector::basic<T, N, S>::basic()
+{}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+sge::math::vector::basic<T, N, S>::basic(
+	storage_type const &storage)
+:
+	storage(storage)
 {}
 
 template<
@@ -67,6 +77,7 @@ SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(
 	SGE_MATH_TEMPLATE_PRE,
 	SGE_MATH_DEF_PRE,
 	basic)
+
 #undef SGE_MATH_DEF_PRE
 #undef SGE_MATH_TEMPLATE_PRE
 #undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
@@ -258,20 +269,6 @@ typename sge::math::vector::basic<T, N, S>::const_reference
 sge::math::vector::basic<T, N, S>::w() const
 {
 	return math::detail::checked_access<3>(*this);
-}
-
-template<
-	typename T,
-	typename N,
-	typename S
->
-void
-sge::math::vector::basic<T, N, S>::initial_size(
-	size_type const sz)
-{
-	math::detail::initial_size(
-		storage,
-		sz);
 }
 
 #endif

@@ -23,6 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_decl.hpp"
 #include "../detail/array_adapter_impl.hpp"
+#include "../detail/make_op_def.hpp"
+#include "../detail/storage_data.hpp"
+#include "../detail/storage_dim.hpp"
+#include "../detail/checked_access.hpp"
+#include "../detail/make_variadic_constructor.hpp"
+#include <numeric>
+#include <functional>
 
 template<
 	typename T,
@@ -32,42 +39,207 @@ template<
 sge::math::dim::basic<T, N, S>::basic()
 {}
 
-#if 0
-	template<
-		typename In
+template<
+	typename T,
+	typename N,
+	typename S
+>
+template<
+	typename In
+>
+sge::math::dim::basic<T, N, S>::basic(
+	In const beg,
+	In const end)
+{
+}
+
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_DIM_MAX_CTOR_PARAMS
+#define SGE_MATH_TEMPLATE_PRE\
+	template<\
+		typename T,\
+		typename N,\
+		typename S\
 	>
-	basic(
-		In beg,
-		In end);
+#define SGE_MATH_DEF_PRE\
+	sge::math::dim::basic<T, N, S>
 
-	reference
-	operator[](
-		size_type);
+SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(
+	SGE_MATH_TEMPLATE_PRE,
+	SGE_MATH_DEF_PRE,
+	basic)
 
-	const_reference
-	operator[](
-		size_type) const;
+#undef SGE_MATH_DEF_PRE
+#undef SGE_MATH_TEMPLATE_PRE
+#undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE
+
+#define SGE_MATH_DIM_BASIC_DEFINE_OPERATOR(op)\
+SGE_MATH_DETAIL_MAKE_OP_DEF(sge::math::dim::basic, op)
+
+SGE_MATH_DIM_BASIC_DEFINE_OPERATOR(+=)
+SGE_MATH_DIM_BASIC_DEFINE_OPERATOR(-=)
+SGE_MATH_DIM_BASIC_DEFINE_OPERATOR(*=)
+SGE_MATH_DIM_BASIC_DEFINE_OPERATOR(/=)
+SGE_MATH_DIM_BASIC_DEFINE_OPERATOR(%=)
+
+#undef SGE_MATH_DIM_BASIC_DEFINE_OPERATOR
+
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::reference
+sge::math::dim::basic<T, N, S>::operator[](
+	size_type const index)
+{
+	return storage[index];
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::const_reference
+sge::math::dim::basic<T, N, S>::operator[](
+	size_type const index) const
+{
+	return storage[index];
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::pointer
+sge::math::dim::basic<T, N, S>::data()
+{
+	return math::detail::storage_data(
+		storage);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::const_pointer
+sge::math::dim::basic<T, N, S>::data() const
+{
+	return math::detail::storage_data(
+		storage);
+}
 	
-	pointer data();
-	const_pointer data() const;
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::size_type
+sge::math::dim::basic<T, N, S>::size() const
+{
+	return static_cast<
+		size_type
+	>(
+		math::detail::storage_dim(
+			storage));
+}
 	
-	size_type size() const;
-	
-	reference w();
-	const_reference w() const;
-	reference h();
-	const_reference h() const;
-	reference d();
-	const_reference d() const;
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::reference
+sge::math::dim::basic<T, N, S>::w()
+{
+	return math::detail::checked_access<0>(*this);
+}
 
-	size_type content() const;
-//	{
-//		return std::accumulate(begin(), end(), 1, std::multiplies<size_type>());
-//	}
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::const_reference
+sge::math::dim::basic<T, N, S>::w() const
+{
+	return math::detail::checked_access<0>(*this);
+}
 
-	static basic const
-	null();
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::reference
+sge::math::dim::basic<T, N, S>::h()
+{
+	return math::detail::checked_access<1>(*this);
+}
 
-#endif
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::const_reference
+sge::math::dim::basic<T, N, S>::h() const
+{
+	return math::detail::checked_access<1>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::reference
+sge::math::dim::basic<T, N, S>::d()
+{
+	return math::detail::checked_access<2>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::const_reference
+sge::math::dim::basic<T, N, S>::d() const
+{
+	return math::detail::checked_access<2>(*this);
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename sge::math::dim::basic<T, N, S>::size_type
+sge::math::dim::basic<T, N, S>::content() const
+{
+	return std::accumulate(
+		this->begin(),
+		this->end(),
+		1,
+		std::multiplies<size_type>());
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+sge::math::dim::basic<T, N, S> const
+sge::math::dim::basic<T, N, S>::null()
+{
+	basic ret;
+	for(size_type i = 0; i < N::value; ++i)
+		ret[i] = static_cast<value_type>(0);
+	return ret;
+}
 
 #endif
