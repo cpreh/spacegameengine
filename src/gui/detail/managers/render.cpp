@@ -50,6 +50,7 @@ void sge::gui::detail::managers::render::activation(
 	
 	SGE_ASSERT(widgets.find(&w) != widgets.end());
 
+	/*
 	switch (t)
 	{
 		case activation_state::active:
@@ -59,6 +60,7 @@ void sge::gui::detail::managers::render::activation(
 			widgets[&w].sprite.visible(false);
 		break;
 	}
+	*/
 }
 
 void sge::gui::detail::managers::render::draw()
@@ -126,6 +128,7 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 				sprite::defaults::color_,
 				static_cast<sprite::depth_type>(1));
 	
+	/*
 	switch (w.activation())
 	{
 		case activation_state::active:
@@ -135,6 +138,7 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 			wd.sprite.visible(false);
 		break;
 	}
+	*/
 
 	SGE_LOG_DEBUG(
 		mylogger,

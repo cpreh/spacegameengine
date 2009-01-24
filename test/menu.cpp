@@ -105,7 +105,14 @@ class connect_functor
 		sge::gui::widget &_connect_menu,
 		sge::gui::widget &_main_menu)
 		: connect_menu_(_connect_menu),
-		  main_menu_(_main_menu)
+		  main_menu_(_main_menu),
+			pos_connect(50,50),
+			vantage_connect(-2000,200),
+			pos_main(50,50),
+			vantage_main(200,-2000),
+			real_main(time_vector::null()),
+			real_connect(time_vector::null()),
+			speed(50)
 		{}
 	
 	void connect_to_server()
@@ -119,9 +126,34 @@ class connect_functor
 		connect_menu_.activation(sge::gui::activation_state::inactive);
 		main_menu_.activation(sge::gui::activation_state::active);
 	}
+
+	void update(sge::time::funit const delta)
+	{
+		if (connect_menu_.activation() == sge::gui::activation_state::active)
+		{
+			real_main += speed * delta * (vantage_main - real_main);
+			real_connect += speed * delta * (pos_connect - real_connect);
+		}
+		else
+		{
+			real_main += speed * delta * (pos_main - real_main);
+			real_connect += speed * delta * (vantage_connect - real_connect);
+		}
+		main_menu_.pos(sge::math::structure_cast<sge::gui::unit>(real_main));
+		connect_menu_.pos(sge::math::structure_cast<sge::gui::unit>(real_connect));
+	}
 	private:
-		sge::gui::widget &connect_menu_;
-		sge::gui::widget &main_menu_;
+	typedef sge::math::vector<sge::time::funit,2> time_vector;
+
+	sge::gui::widget &connect_menu_;
+	sge::gui::widget &main_menu_;
+	time_vector pos_connect;
+	time_vector vantage_connect;
+	time_vector pos_main;
+	time_vector vantage_main;
+	time_vector real_main;
+	time_vector real_connect;
+	sge::time::funit speed;
 };
 }
 
@@ -161,7 +193,6 @@ try
 	top.pos(sge::gui::point(100,100));
 	top.size(sge::gui::dim(500,300));
 	top.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(top)));
-	top.activation(sge::gui::activation_state::inactive);
 
 	sge::gui::widget host(
 		(sge::gui::widget::parent_data(top)));
@@ -253,11 +284,16 @@ try
 	sge::signals::connection mc3 = 
 		menu_exit.clicked.connect(
 			p);
+
+	top.activation(sge::gui::activation_state::inactive);
 	
+	sge::time::timer frame_timer(sge::time::second(1));
 	while (running)
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block block(sys.renderer());
+		cf.update(frame_timer.elapsed_frames());
+		frame_timer.reset();
 		m.draw();
 	}
 } 
