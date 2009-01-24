@@ -89,7 +89,7 @@ class input_functor
 
 	void operator()(sge::input::key_pair const &k) const
 	{
-		if (k.key().code() == sge::input::kc::key_f1)
+		if (k.key().code() == sge::input::kc::key_f1 && k.value())
 			top_.activation(
 				top_.activation() == sge::gui::activation_state::active
 					? sge::gui::activation_state::inactive
@@ -138,6 +138,7 @@ try
 		(sge::gui::widget::parent_data(m)));
 	top.pos(sge::gui::point(100,100));
 	top.size(sge::gui::dim(500,300));
+	top.activation(sge::gui::activation_state::inactive);
 	top.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(top)));
 
 	sge::gui::widget host(
@@ -168,23 +169,25 @@ try
 		(sge::gui::widget::parent_data(top)),
 		SGE_TEXT("Connect"));
 	
-	/*
 	sge::gui::widget main_menu(
 		(sge::gui::widget::parent_data(m)));
-	
+	main_menu.pos(sge::gui::point(100,100));
+	main_menu.size(sge::gui::dim(300,400));
 	main_menu.layout(
 		sge::make_shared_ptr<sge::gui::layouts::vertical>(
 			boost::ref(main_menu)));
 	
-	sge::gui::widgets::button menu_exit(
+	sge::gui::widgets::button menu_connect(
 		(sge::gui::widget::parent_data(main_menu)),
 		SGE_TEXT("Connect to server"));
 
-	sge::gui::widgets::button menu_exit(
+	sge::gui::widgets::button menu_start(
 		(sge::gui::widget::parent_data(main_menu)),
 		SGE_TEXT("Start server"));
-		*/
 
+	sge::gui::widgets::button menu_exit(
+		(sge::gui::widget::parent_data(main_menu)),
+		SGE_TEXT("Exit"));
 	
 	// set sensible render states
 	sys.renderer()->state(
@@ -204,8 +207,6 @@ try
 				running,
 				top));
 	
-	top.pos(sge::gui::point(10,10));
-
 	sge::signals::connection cc = 
 		connect.clicked.connect(
 			show_data(
@@ -213,6 +214,10 @@ try
 				host_edit,
 				port_edit,
 				top));
+
+	sge::signals::connection ec = 
+		menu_exit.clicked.connect(
+			p);
 	
 	while (running)
 	{
