@@ -51,6 +51,17 @@ storage_dim(
 	return N;
 }
 
+template<
+	std::size_t N,
+	typename T
+>
+std::size_t
+storage_dim(
+	T const t[N])
+{
+	return N;
+}
+
 /*
 template<
 	typename T

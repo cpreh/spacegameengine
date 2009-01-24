@@ -69,25 +69,59 @@ sge::math::detail::array_adapter<
 	return this_()[index];
 }
 
+template<
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
+>
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::pointer
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::data_end()
+{
+	return this_().data() + this_().size();
+}
+
+template<
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
+>
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::const_pointer
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::data_end() const
+{
+	return this_().data() + this_().size();
+}
+
 #if 0
-template<
-	typename Derived
->
-typename Derived::pointer
-sge::math::array_adapter<Derived>::data_end()
-{
-	return this_().data() + this_().size();
-}
-
-template<
-	typename Derived
->
-typename Derived::const_pointer
-sge::math::array_adapter<Derived>::data_end() const
-{
-	return this_().data() + this_().size();
-}
-
 template<
 	typename Derived
 >

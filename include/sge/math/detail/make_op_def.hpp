@@ -45,7 +45,8 @@ name< \
 	Expr const &expr) \
 { \
 	size_type const dim( \
-		storage_dim(storage);\
+		::sge::math::detail::storage_dim(\
+			storage));\
 	for( \
 		size_type i = 0; \
 		i < dim; \

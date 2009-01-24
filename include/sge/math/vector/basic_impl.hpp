@@ -35,7 +35,7 @@ sge::math::vector::basic<T, N, S>::basic()
 {}
 
 #define SGE_MATH_VECTOR_BASIC_DEFINE_OPERATOR(op)\
-SGE_MATH_DETAIL_MAKE_OP_DEF(basic, op)
+SGE_MATH_DETAIL_MAKE_OP_DEF(sge::math::vector::basic, op)
 
 SGE_MATH_VECTOR_BASIC_DEFINE_OPERATOR(+=)
 SGE_MATH_VECTOR_BASIC_DEFINE_OPERATOR(-=)
