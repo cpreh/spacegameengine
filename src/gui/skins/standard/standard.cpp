@@ -14,7 +14,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("skins: standard"),
-	true);
+	false);
 }
 
 sge::gui::skins::standard::standard()

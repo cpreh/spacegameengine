@@ -193,7 +193,7 @@ void sge::gui::detail::keyboard_manager::input_callback(
 	
 	if (focus)
 	{
-		if (!(*focus)->process(events::key(k,s,repeated)))
+		if ((*focus)->process(events::key(k,s,repeated)) == key_handling::ignore)
 			return;
 	}
 
