@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "pixel_unit.hpp"
 #include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
 {

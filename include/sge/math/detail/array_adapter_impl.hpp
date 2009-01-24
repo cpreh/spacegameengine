@@ -121,100 +121,256 @@ sge::math::detail::array_adapter<
 	return this_().data() + this_().size();
 }
 
-#if 0
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-typename Derived::iterator
-sge::math::array_adapter<Derived>::begin()
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::iterator
+sge::math::detail::array_adapter<
+	Derived
+	,ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::begin()
 {
-	return typename Derived::iterator(
+	return iterator(
 		this_().data());
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-typename Derived::const_iterator
-sge::math::array_adapter<Derived>::begin() const
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::const_iterator
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::begin() const
 {
-	return typename Derived::const_iterator(
+	return const_iterator(
 		this_().data());
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-typename Derived::iterator
-sge::math::array_adapter<Derived>::end()
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::iterator
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::end()
 {
-	return typename Derived::iterator(
+	return iterator(
 		data_end());
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-typename Derived::const_iterator
-sge::math::array_adapter<Derived>::end() const
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::const_iterator
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::end() const
 {
-	return typename Derived::const_iterator(
+	return const_iterator(
 		data_end());
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-typename Derived::reverse_iterator
-sge::math::array_adapter<Derived>::rbegin()
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::reverse_iterator
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::rbegin()
 {
-	return typename Derived::reverse_iterator(
+	return reverse_iterator(
 		end());
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-typename Derived::const_reverse_iterator
-sge::math::array_adapter<Derived>::rbegin() const
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::const_reverse_iterator
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::rbegin() const
 {
-	return typename Derived::const_reverse_iterator(
+	return const_reverse_iterator(
 		end());
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-typename Derived::reverse_iterator
-sge::math::array_adapter<Derived>::rend()
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::reverse_iterator
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::rend()
 {
-	return typename Derived::reverse_iterator(
+	return reverse_iterator(
 		begin());
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-typename Derived::const_reverse_iterator
-sge::math::array_adapter<Derived>::rend() const
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::const_reverse_iterator
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::rend() const
 {
-	return typename Derived::const_reverse_iterator(
+	return const_reverse_iterator(
 		begin());
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
 bool
-sge::math::array_adapter<Derived>::empty() const
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::empty() const
 {
 	return !this_().size();
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
-bool sge::math::array_adapter<Derived>::operator==(
+bool
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::operator==(
 	Derived const &r) const
 {
 	return this_().size() == r.size()
@@ -224,38 +380,66 @@ bool sge::math::array_adapter<Derived>::operator==(
 			r.begin(),
 			std::ptr_fun(
 				compare<
-					typename Derived::value_type
-				>()));
+					ValueType	
+				>));
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
 bool
-sge::math::array_adapter<Derived>::operator!=(
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::operator!=(
 	Derived const &r) const
 {
 	return *this != r;
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
 Derived &
-sge::math::array_adapter<Derived>::this_()
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::this_()
 {
 	return static_cast<Derived &>(*this);
 }
 
 template<
-	typename Derived
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
 >
 Derived const &
-sge::math::array_adapter<Derived>::this_() const
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::this_() const
 {
-	return static_cast<Derived &>(*this);
+	return static_cast<Derived const &>(*this);
 }
-
-#endif
 
 #endif
