@@ -30,6 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_VECTOR_MAX_CTOR_PARAMS 4
 #endif
 
+
+#include <sge/type_traits/is_iterator.hpp>
+#include <boost/utility/enable_if.hpp>
+
 namespace sge
 {
 namespace math
@@ -90,7 +94,12 @@ public:
 	>
 	basic(
 		In beg,
-		In end);
+		typename boost::enable_if<
+			is_iterator<
+				In
+			>,
+			In
+		>::type end);
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_VECTOR_MAX_CTOR_PARAMS
 	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(basic)

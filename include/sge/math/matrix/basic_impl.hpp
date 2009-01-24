@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/storage_data.hpp"
 #include "../detail/view_storage_impl.hpp"
 #include "../detail/make_variadic_constructor.hpp"
+#include "../detail/initial_size.hpp"
 #include <algorithm>
 
 template<
@@ -52,6 +53,11 @@ sge::math::matrix::basic<T, N, M, S>::basic(
 	In const beg,
 	In const end)
 {
+	math::detail::initial_size(
+		storage,
+		std::distance(
+			beg,
+			end));
 	std::copy(
 		beg,
 		end,

@@ -18,37 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
+#ifndef SGE_TYPE_TRAITS_IS_ITERATOR_HPP_INCLUDED
+#define SGE_TYPE_TRAITS_IS_ITERATOR_HPP_INCLUDED
 
-#include "detail/structure_cast_fun.hpp"
-#include <boost/iterator/transform_iterator.hpp>
+#include <boost/type_traits/integral_constant.hpp>
+#include <iterator>
+
+namespace boost
+{
+
+template<
+	typename T,
+	typename I,
+	typename R,
+	typename V
+>
+class transform_iterator;
+
+}
 
 namespace sge
 {
 
 template<
-	typename T,
-	typename U
+	typename  T
 >
-T const
-structure_cast(
-	U const &u)
-{
-	typedef detail::structure_cast_fun<
-		typename T::value_type
-	> op_type;
+struct is_iterator
+: boost::false_type
+{};
 
-	op_type const op = op_type();
+template<
+	typename T,
+	typename U,
+	typename V,
+	typename W,
+	typename X
+>
+struct is_iterator<
+	std::iterator<T,U,V,W,X> 
+>
+: boost::true_type
+{};
 
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op),
-		boost::make_transform_iterator(
-			u.end(),
-			op));
-}
+template<
+	typename U,
+	typename I,
+	typename R,
+	typename V
+>
+struct is_iterator<
+	boost::transform_iterator<U, I, R, V>
+>
+: boost::true_type
+{};
+
+template<
+	typename T
+>
+struct is_iterator<T *>
+: boost::true_type
+{};
 
 }
 

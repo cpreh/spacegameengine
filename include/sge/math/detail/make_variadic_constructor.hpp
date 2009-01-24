@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		::sge::math::detail::initial_size(\
 			storage,\
 			sizeof...(args)); \
-		set_impl(args...); \
+		set_impl(0, args...); \
 	} \
 \
 	template_pre \
