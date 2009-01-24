@@ -101,26 +101,21 @@ void sge::ogl::texture::unlock() const
 	if(lock_flag_write(lock_mode()))
 	{
 		bind_me();
-		if(!lock_rect_)
-			set_texture_rect(
-				type(),
-				format(),
-				format_type(),
-				filter(),
-				dim(),
-				renderer::lock_rect(
+
+		renderer::lock_rect const lr(
+			lock_rect_
+				? *lock_rect_
+				: renderer::lock_rect(
 					renderer::lock_rect::point_type::null(),
-					dim()),
-				write_buffer());
-		else
-			set_texture_rect(
-				type(),
-				format(),
-				format_type(),
-				filter(),
-				dim(),
-				*lock_rect_,
-				write_buffer());
+					dim()));
+		set_texture_rect(
+			type(),
+			format(),
+			format_type(),
+			filter(),
+			dim(),
+			lr,
+			write_buffer());
 	}
 	do_unlock();
 }
