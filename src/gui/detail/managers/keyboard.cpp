@@ -1,5 +1,5 @@
-#include "../utility/ptr_find.hpp"
-#include <sge/gui/detail/keyboard_manager.hpp>
+#include "../../utility/ptr_find.hpp"
+#include <sge/gui/detail/managers/keyboard.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/events/keyboard_enter.hpp>
 #include <sge/gui/events/keyboard_leave.hpp>
@@ -16,17 +16,20 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("keyboard_manager"),true);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("managers: keyboard"),
+	true);
 }
 
-sge::gui::detail::keyboard_manager::keyboard_manager(sge::input::system_ptr const is)
+sge::gui::detail::managers::keyboard::keyboard(sge::input::system_ptr const is)
 	: input_filter(is),
 	  ic(
 	     input_filter.register_callback(
-			   boost::bind(&keyboard_manager::input_callback,this,_1,_2,false))),
+			   boost::bind(&keyboard::input_callback,this,_1,_2,false))),
 	  irc(
 	     input_filter.register_repeat_callback(
-			   boost::bind(&keyboard_manager::repeat_callback,this,_1,_2)))
+			   boost::bind(&keyboard::repeat_callback,this,_1,_2)))
 {
 }
 
@@ -34,7 +37,7 @@ sge::gui::detail::keyboard_manager::keyboard_manager(sge::input::system_ptr cons
 // below is called from a base class constructor, so widget::process(keyboard_enter)
 // is called instead of most_derived::process(keyboard_enter), so the policy is: No 
 // widget initially has the focus.
-void sge::gui::detail::keyboard_manager::add(widget &w)
+void sge::gui::detail::managers::keyboard::add(widget &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
@@ -50,7 +53,7 @@ void sge::gui::detail::keyboard_manager::add(widget &w)
 	widgets.push_back(&w);
 }
 
-void sge::gui::detail::keyboard_manager::request_focus(widget &w)
+void sge::gui::detail::managers::keyboard::request_focus(widget &w)
 {
 	widget_container::iterator wi = utility::ptr_find(
 			widgets.begin(),
@@ -67,7 +70,7 @@ void sge::gui::detail::keyboard_manager::request_focus(widget &w)
 	switch_focus(wi);
 }
 
-void sge::gui::detail::keyboard_manager::remove(widget &w)
+void sge::gui::detail::managers::keyboard::remove(widget &w)
 {
 	if (w.keyboard_focus() == keyboard_focus::ignore)
 		return;
@@ -91,7 +94,7 @@ void sge::gui::detail::keyboard_manager::remove(widget &w)
 	widgets.erase(wi);
 }
 
-void sge::gui::detail::keyboard_manager::cycle_focus()
+void sge::gui::detail::managers::keyboard::cycle_focus()
 {
 	if (widgets.empty())
 		return;
@@ -115,7 +118,7 @@ void sge::gui::detail::keyboard_manager::cycle_focus()
 // This is called by manager whenever a widget changes its behaviour towards the
 // keyboard focus. If a widget decides not to accept the focus anymore, we have to
 // delete it and possibly nominate a new focused widget
-void sge::gui::detail::keyboard_manager::keyboard_focus(
+void sge::gui::detail::managers::keyboard::keyboard_focus(
 	widget &w,
 	keyboard_focus::type const n)
 {
@@ -168,7 +171,7 @@ void sge::gui::detail::keyboard_manager::keyboard_focus(
 	}
 }
 
-void sge::gui::detail::keyboard_manager::repeat_callback(
+void sge::gui::detail::managers::keyboard::repeat_callback(
 	input::key_type const &k,
 	input::modifier::states const &s)
 {
@@ -180,7 +183,7 @@ void sge::gui::detail::keyboard_manager::repeat_callback(
 		true);
 }
 
-void sge::gui::detail::keyboard_manager::input_callback(
+void sge::gui::detail::managers::keyboard::input_callback(
 	input::key_pair const &k,
 	input::modifier::states const &s,
 	bool const repeated)
@@ -205,7 +208,7 @@ void sge::gui::detail::keyboard_manager::input_callback(
 	}
 }
 
-void sge::gui::detail::keyboard_manager::switch_focus(widget_container::iterator n)
+void sge::gui::detail::managers::keyboard::switch_focus(widget_container::iterator n)
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("switching focus"));
 	if (focus)

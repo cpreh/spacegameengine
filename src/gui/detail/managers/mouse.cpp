@@ -1,6 +1,6 @@
-#include "../utility/ptr_delete_first.hpp"
-#include "../utility/ptr_find.hpp"
-#include <sge/gui/detail/mouse_manager.hpp>
+#include "../../utility/ptr_delete_first.hpp"
+#include "../../utility/ptr_find.hpp"
+#include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/events/mouse_click.hpp>
 #include <sge/gui/events/mouse_enter.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
@@ -23,7 +23,7 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("mouse_manager"),false);
+sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("managers: mouse"),false);
 
 sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 {
@@ -37,14 +37,14 @@ sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 }
 }
 
-sge::gui::detail::mouse_manager::mouse_manager(
+sge::gui::detail::managers::mouse::mouse(
 	input::system_ptr const is,
 	sge::image::loader_ptr const il,
 	renderer::device_ptr const rend,
 	skin &s)
 	: ic(
 	  	is->register_callback(
-	  		boost::bind(&mouse_manager::input_callback,this,_1))),
+	  		boost::bind(&mouse::input_callback,this,_1))),
 	  cursor_(
 			sprite::defaults::pos_,
 			texture::const_part_ptr(
@@ -61,7 +61,7 @@ sge::gui::detail::mouse_manager::mouse_manager(
 {
 }
 
-void sge::gui::detail::mouse_manager::add(widget &w)
+void sge::gui::detail::managers::mouse::add(widget &w)
 {
 	// We only store top level widgets as "starting points" for our focus search
 	if (!w.parent_widget())
@@ -72,12 +72,12 @@ void sge::gui::detail::mouse_manager::add(widget &w)
 	recalculate_focus();
 }
 
-sge::sprite::object const sge::gui::detail::mouse_manager::cursor() const
+sge::sprite::object const sge::gui::detail::managers::mouse::cursor() const
 {
 	return cursor_;
 }
 
-void sge::gui::detail::mouse_manager::remove(widget &w)
+void sge::gui::detail::managers::mouse::remove(widget &w)
 {
 	// We've got a problem if
 	// (a) the currently focused widget should be deleted, or...
@@ -103,7 +103,7 @@ void sge::gui::detail::mouse_manager::remove(widget &w)
 	}
 }
 
-void sge::gui::detail::mouse_manager::recalculate_focus()
+void sge::gui::detail::managers::mouse::recalculate_focus()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -144,7 +144,7 @@ void sge::gui::detail::mouse_manager::recalculate_focus()
 	}
 }
 
-void sge::gui::detail::mouse_manager::input_callback(
+void sge::gui::detail::managers::mouse::input_callback(
 	input::key_pair const &k)
 {
 	if (input::is_mouse_axis(k.key().code()))
@@ -168,7 +168,7 @@ void sge::gui::detail::mouse_manager::input_callback(
 }
 
 
-sge::gui::widget *sge::gui::detail::mouse_manager::recalculate_focus(
+sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
 	widget &w,
 	point const &mouse_click)
 {
@@ -201,7 +201,7 @@ sge::gui::widget *sge::gui::detail::mouse_manager::recalculate_focus(
 	return new_focus;
 }
 
-sge::gui::widget *sge::gui::detail::mouse_manager::do_recalculate_focus(
+sge::gui::widget *sge::gui::detail::managers::mouse::do_recalculate_focus(
 	widget &w,
 	point const &p)
 {

@@ -1,30 +1,33 @@
-#include <sge/gui/detail/update_manager.hpp>
+#include <sge/gui/detail/managers/update.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/detail/render_manager.hpp>
-#include <sge/gui/detail/mouse_manager.hpp>
+#include <sge/gui/detail/managers/render.hpp>
+#include <sge/gui/detail/managers/mouse.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("update manager"),false);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("managers: update"),
+	false);
 }
 
-sge::gui::detail::update_manager::update_manager(
-	mouse_manager &mouse,
-	render_manager &render)
-	: mouse(mouse),
-	  render(render)
+sge::gui::detail::managers::update::update(
+	mouse &_mouse,
+	render &_render)
+	: mouse_(_mouse),
+	  render_(_render)
 {
 }
 
-void sge::gui::detail::update_manager::add(widget &w)
+void sge::gui::detail::managers::update::add(widget &w)
 {
 	recompiles.insert(&w);
 }
 
-void sge::gui::detail::update_manager::remove(widget &w)
+void sge::gui::detail::managers::update::remove(widget &w)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -51,7 +54,7 @@ void sge::gui::detail::update_manager::remove(widget &w)
 	}
 }
 
-void sge::gui::detail::update_manager::draw()
+void sge::gui::detail::managers::update::draw()
 {
 	if (recompiles.empty())
 		return;
@@ -81,15 +84,15 @@ void sge::gui::detail::update_manager::draw()
 			        << typeid(w).name());
 
 		w->compile();
-		render.resize(*w,w->size());
-		render.reposition(*w,w->pos());
+		render_.resize(*w,w->size());
+		render_.reposition(*w,w->pos());
 	}
 
-	mouse.recalculate_focus();
+	mouse_.recalculate_focus();
 	recompiles.clear();
 }
 
-bool sge::gui::detail::update_manager::has_parent(
+bool sge::gui::detail::managers::update::has_parent(
 	widget const &v,
 	widget const &w)
 {

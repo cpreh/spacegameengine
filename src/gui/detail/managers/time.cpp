@@ -1,8 +1,8 @@
-#include <sge/gui/detail/time_manager.hpp>
+#include <sge/gui/detail/managers/time.hpp>
 #include <sge/gui/timer/object.hpp>
 
-sge::gui::timer::object_ptr const sge::gui::detail::time_manager::add(
-	time::resolution const &r,
+sge::gui::timer::object_ptr const sge::gui::detail::managers::time::add(
+	sge::time::resolution const &r,
 	timer::callback const cb)
 {
 	timer::object_ptr p(new timer::object(r,cb));
@@ -10,7 +10,7 @@ sge::gui::timer::object_ptr const sge::gui::detail::time_manager::add(
 	return p;
 }
 
-void sge::gui::detail::time_manager::draw()
+void sge::gui::detail::managers::time::draw()
 {
 	for (timer_container::iterator i = timers.begin(); i != timers.end();)
 	{
