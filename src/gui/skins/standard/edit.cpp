@@ -4,10 +4,18 @@
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/canvas.hpp>
+#include <sge/gui/log.hpp>
 #include <sge/iostream.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
 #include <boost/gil/image.hpp>
+
+namespace
+{
+sge::gui::logger mylogger(
+	sge::gui::global_log(),SGE_TEXT("skins: standard: edit"),
+	true);
+}
 
 namespace
 {
@@ -41,15 +49,27 @@ void sge::gui::skins::standard::draw(
 	widgets::edit const &w,
 	events::invalid_area const &e)
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("refreshing edit buffer"));
 	// re-render text buffer
 	w.refresh();
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("refreshed edit buffer"));
 	
 	// resize internal buffer
 	if (w.buffer().width() != w.size().w() || w.buffer().height() != w.size().h())
 	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("allocating new image space"));
 		w.buffer() = image(
 			static_cast<image::coord_t>(w.size().w()),
 			static_cast<image::coord_t>(w.size().h()));
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("allocated new image space"));
 	}
 
 	canvas::object c(w.buffer());
@@ -64,6 +84,10 @@ void sge::gui::skins::standard::draw(
 	dim const buffer_size = dim(
 		static_cast<unit>(w.text_buffer().width()),
 		static_cast<unit>(w.text_buffer().height()));
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("blitting text on internal buffer"));
 
 	// blit the image at position 1,1
 	utility::blit(
@@ -83,9 +107,17 @@ void sge::gui::skins::standard::draw(
 			)
 		);
 
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("blitting internal buffer to texture"));
+
 	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
 		rect(w.pos(),c.size()),
 		e.texture(),
 		e.area());
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("blitting complete"));
 }

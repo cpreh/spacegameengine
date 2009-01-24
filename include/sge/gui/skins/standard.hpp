@@ -15,6 +15,7 @@ class standard : public skin
 {
 	public:
 	SGE_SYMBOL standard();
+	SGE_SYMBOL void fallback(widget const &,events::invalid_area const &);
 	SGE_SYMBOL void draw(widget const &,events::invalid_area const &);
 	SGE_SYMBOL void draw(widgets::button const &,events::invalid_area const &);
 	SGE_SYMBOL void draw(widgets::edit const &,events::invalid_area const &);

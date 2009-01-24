@@ -19,6 +19,7 @@ class skin
 	SGE_SYMBOL void draw(widget &,events::invalid_area const &);
 	SGE_SYMBOL dim const size_hint(widget const &) const;
 
+	virtual void fallback(widget const &,events::invalid_area const &) = 0;
 	virtual void draw(widgets::button const &,events::invalid_area const &) = 0;
 	virtual void draw(widgets::edit const &,events::invalid_area const &) = 0;
 	virtual void draw(widgets::label const &,events::invalid_area const &) = 0;

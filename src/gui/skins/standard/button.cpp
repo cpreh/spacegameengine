@@ -15,7 +15,7 @@ namespace
 {
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
-	SGE_TEXT("skins::standard::button"),
+	SGE_TEXT("skins: standard: button"),
 	false);
 }
 

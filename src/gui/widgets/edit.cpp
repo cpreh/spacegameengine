@@ -14,7 +14,7 @@
 namespace
 {
 sge::gui::logger mylogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),true);
-sge::gui::logger mygraphlogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),false);
+sge::gui::logger mygraphlogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),true);
 }
 
 sge::gui::widgets::edit::edit(
@@ -199,6 +199,10 @@ void sge::gui::widgets::edit::refresh() const
 		cursor.pos(),
 		&p);
 
+	SGE_LOG_DEBUG(
+		mygraphlogger,
+		log::_1 << SGE_TEXT("text drawn"));
+
 	if (cursor_visible_)
 	{
 		unit const cursor_line = static_cast<unit>(
@@ -217,8 +221,8 @@ void sge::gui::widgets::edit::refresh() const
 			cursor_start = 
 				static_cast<unit>(cursor_line*font()->line_height()),
 			cursor_end = 
-			//	std::min(c.area().h()-1,cursor_start + font()->line_height());
-				static_cast<unit>(cursor_start+2);
+				std::min(c.area().h()-1,cursor_start + font()->line_height());
+			//	static_cast<unit>(cursor_start+2);
 
 		SGE_LOG_DEBUG(
 			mygraphlogger,

@@ -65,7 +65,8 @@ void sge::gui::skin::draw(widget &w,events::invalid_area const &e)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("draw called for widget, doing nothing"));
+			log::_1 << SGE_TEXT("draw called for widget, falling back"));
+		fallback(w,e);
 		return;
 	}
 
