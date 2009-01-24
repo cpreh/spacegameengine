@@ -26,6 +26,7 @@ class keyboard : public submanager
 	public:
 	keyboard(input::system_ptr);
 	void add(widget &);
+	void activation(widget &,activation_state::type);
 	void request_focus(widget &);
 	void remove(widget &);
 	void cycle_focus();

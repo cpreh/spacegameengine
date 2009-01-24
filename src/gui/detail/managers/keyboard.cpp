@@ -6,6 +6,7 @@
 #include <sge/gui/widget.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/assert.hpp>
+#include <sge/exception.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/classification.hpp>
@@ -20,6 +21,20 @@ sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: keyboard"),
 	true);
+
+bool active(sge::gui::widget const &w)
+{
+	switch (w.activation())
+	{
+		case sge::gui::activation_state::active:
+			if (!w.parent_widget())
+				return true;
+			return active(*w.parent_widget());
+		case sge::gui::activation_state::inactive:
+			return false;
+	}
+	throw sge::exception(SGE_TEXT("missed an activation state"));
+}
 }
 
 sge::gui::detail::managers::keyboard::keyboard(sge::input::system_ptr const is)
@@ -39,8 +54,13 @@ sge::gui::detail::managers::keyboard::keyboard(sge::input::system_ptr const is)
 // widget initially has the focus.
 void sge::gui::detail::managers::keyboard::add(widget &w)
 {
+	/* TODO: think about this
+	BOOST_FOREACH(widget &v,w.children())
+		add(v);
+		*/
+
 	if (w.keyboard_focus() == keyboard_focus::ignore)
-		return;
+		return; 
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -51,6 +71,23 @@ void sge::gui::detail::managers::keyboard::add(widget &w)
 			== widgets.end());
 
 	widgets.push_back(&w);
+}
+
+void sge::gui::detail::managers::keyboard::activation(
+	widget &w,
+	activation_state::type const a)
+{
+	if (!focus)
+		return;
+
+	if (!w.has_child(**focus) && &(**focus) != &w)
+		return;
+
+	if (a == activation_state::active)
+		return;
+	
+	(*focus)->process(events::keyboard_leave());
+	focus.reset();
 }
 
 void sge::gui::detail::managers::keyboard::request_focus(widget &w)
@@ -99,18 +136,36 @@ void sge::gui::detail::managers::keyboard::cycle_focus()
 	if (widgets.empty())
 		return;
 	
-	// If no widget currently has the focus, take the first one on the list
+	// If no widget currently has the focus, take the first (active) one on the
+	// list
 	if (!focus)
 	{
-		switch_focus(widgets.begin());
+		for (widget_container::iterator i = widgets.begin(); 
+		     i != widgets.end(); 
+				 ++i) 
+		{
+			if (active(*i))
+			{
+				switch_focus(i);
+				break;
+			}
+		}
 		return;
 	}
 
-	widget_container::iterator next = boost::next(*focus);
+	SGE_ASSERT((*focus)->activation() == activation_state::active);
 
+	widget_container::iterator next = boost::next(*focus);
 	if (next == widgets.end())
 		next = widgets.begin();
-	
+
+	while (!active(*next))
+	{
+		++next;
+		if (next == widgets.end())
+			next = widgets.begin();
+	}
+
 	switch_focus(next);
 }
 

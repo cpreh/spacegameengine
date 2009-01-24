@@ -44,6 +44,26 @@ void sge::gui::detail::managers::render::add(widget &w)
 		widgets[&w] = widget_data();
 }
 
+void sge::gui::detail::managers::render::activation(
+	widget &w,
+	activation_state::type const t)
+{
+	if (w.parent_widget())
+		return;
+	
+	SGE_ASSERT(widgets.find(&w) != widgets.end());
+
+	switch (t)
+	{
+		case activation_state::active:
+			widgets[&w].sprite.visible(false);
+		break;
+		case activation_state::inactive:
+			widgets[&w].sprite.visible(true);
+		break;
+	}
+}
+
 void sge::gui::detail::managers::render::draw()
 {
 	if (!dirt.empty())

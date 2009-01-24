@@ -28,7 +28,8 @@ sge::gui::widget::widget(
 		size_(dim::null()),
 		size_policy_(size_policy_),
 		keyboard_focus_(keyboard_focus_),
-		layout_(new layouts::null(*this))
+		layout_(new layouts::null(*this)),
+		activation_(activation_state::active)
 {
 	if (parent_widget())
 		parent_widget()->add_child(*this);
@@ -108,6 +109,19 @@ void sge::gui::widget::add_child(widget &w)
 void sge::gui::widget::remove_child(widget &w)
 {
 	utility::ptr_delete_first(children_,&w);
+}
+
+void sge::gui::widget::activation(activation_state::type _activation)
+{
+	if (_activation == activation())
+		return;
+	parent_manager().activation(*this,activation_);
+	activation_ = _activation;
+}
+
+sge::gui::activation_state::type sge::gui::widget::activation() const
+{
+	return activation_;
 }
 
 void sge::gui::widget::layout(layout_auto_ptr n)

@@ -174,7 +174,6 @@ void sge::gui::detail::managers::mouse::input_callback(
 			k));
 }
 
-
 sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
 	widget &w,
 	point const &mouse_click)

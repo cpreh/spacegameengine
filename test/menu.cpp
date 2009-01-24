@@ -55,13 +55,16 @@ struct show_data
 	show_data(
 		bool &_running,
 		sge::gui::widgets::edit const &_hostname,
-		sge::gui::widgets::edit const &_port) 
+		sge::gui::widgets::edit const &_port,
+		sge::gui::widget &_top) 
 			: running(_running),
 			  hostname(_hostname),
-				port(_port) {}
+				port(_port),
+				top_(_top) {}
 
 	void operator()() const 
 	{
+	//	top_.activation(sge::gui::activation_state::inactive);
 		running = false; 
 		sge::cerr << SGE_TEXT("game would now connect to ") 
 		          << hostname.text() << SGE_TEXT(" on port ") 
@@ -70,23 +73,33 @@ struct show_data
 
 	bool &running;
 	sge::gui::widgets::edit const &hostname,&port;
+	sge::gui::widget &top_;
 };
 
 class input_functor
 {
 	public:
-	explicit input_functor(bool &running)
-		: running(running)
+	explicit input_functor(
+		bool &running,
+		sge::gui::widget &_top)
+		: running(running),
+		  top_(_top)
 	{
 	}
 
 	void operator()(sge::input::key_pair const &k) const
 	{
+		if (k.key().code() == sge::input::kc::key_f1)
+			top_.activation(
+				top_.activation() == sge::gui::activation_state::active
+					? sge::gui::activation_state::inactive
+					: sge::gui::activation_state::active);
 		if (k.key().code() == sge::input::kc::key_escape)
 			running = false;
 	}
 	private:
 	bool &running;
+	sge::gui::widget &top_;
 };
 }
 
@@ -155,6 +168,24 @@ try
 		(sge::gui::widget::parent_data(top)),
 		SGE_TEXT("Connect"));
 	
+	/*
+	sge::gui::widget main_menu(
+		(sge::gui::widget::parent_data(m)));
+	
+	main_menu.layout(
+		sge::make_shared_ptr<sge::gui::layouts::vertical>(
+			boost::ref(main_menu)));
+	
+	sge::gui::widgets::button menu_exit(
+		(sge::gui::widget::parent_data(main_menu)),
+		SGE_TEXT("Connect to server"));
+
+	sge::gui::widgets::button menu_exit(
+		(sge::gui::widget::parent_data(main_menu)),
+		SGE_TEXT("Start server"));
+		*/
+
+	
 	// set sensible render states
 	sys.renderer()->state(
 		sge::renderer::state::list
@@ -168,7 +199,10 @@ try
 	bool running = true;
 	end_program p(running);
 	sge::signals::scoped_connection const conn =
-		sys.input_system()->register_callback(input_functor(running));
+		sys.input_system()->register_callback(
+			input_functor(
+				running,
+				top));
 	
 	top.pos(sge::gui::point(10,10));
 
@@ -177,7 +211,8 @@ try
 			show_data(
 				running,
 				host_edit,
-				port_edit));
+				port_edit,
+				top));
 	
 	while (running)
 	{
