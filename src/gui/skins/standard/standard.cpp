@@ -27,7 +27,7 @@ sge::gui::skins::standard::standard()
 sge::filesystem::path const
 sge::gui::skins::standard::cursor_path() const
 {
-	return media_path()/SGE_TEXT("cursor.png");
+	return media_path() / SGE_TEXT("gui") / SGE_TEXT("cursor.png");
 }
 
 void sge::gui::skins::standard::fallback(
