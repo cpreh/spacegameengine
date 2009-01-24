@@ -72,9 +72,11 @@ class manager
 	void add(widget &);
 	void remove(widget &);
 
-	// this is called by widget's size/pos function (if it encounters a top level widget)
+	// this is called by widget's size/pos/.. function (if it encounters a top
+	// level widget)
 	void resize(widget &,dim const &);
 	void reposition(widget &,point const &);
+	void activation(widget &,activation_state::type);
 
 	detail::managers::keyboard &keyboard();
 };

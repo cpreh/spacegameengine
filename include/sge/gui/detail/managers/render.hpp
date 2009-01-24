@@ -28,6 +28,7 @@ class render : public submanager
 		mouse &);
 	void add(widget &);
 	void draw();
+	void activation(widget &,activation_state::type);
 	void remove(widget &);
 	void resize(widget &,dim const &);
 	void reposition(widget &,point const &);

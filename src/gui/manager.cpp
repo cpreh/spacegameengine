@@ -104,6 +104,12 @@ void sge::gui::manager::reposition(widget &w,point const &d)
 		m->reposition(w,d);
 }
 
+void sge::gui::manager::activation(widget &w,activation_state::type const _n)
+{
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->activation(w,_n);
+}
+
 sge::gui::detail::managers::keyboard &sge::gui::manager::keyboard()
 {
 	return keyboard_;
