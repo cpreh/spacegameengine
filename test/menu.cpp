@@ -55,16 +55,13 @@ struct show_data
 	show_data(
 		bool &_running,
 		sge::gui::widgets::edit const &_hostname,
-		sge::gui::widgets::edit const &_port,
-		sge::gui::widget &_top) 
+		sge::gui::widgets::edit const &_port) 
 			: running(_running),
 			  hostname(_hostname),
-				port(_port),
-				top_(_top) {}
+				port(_port) {}
 
 	void operator()() const 
 	{
-	//	top_.activation(sge::gui::activation_state::inactive);
 		running = false; 
 		sge::cerr << SGE_TEXT("game would now connect to ") 
 		          << hostname.text() << SGE_TEXT(" on port ") 
@@ -73,7 +70,6 @@ struct show_data
 
 	bool &running;
 	sge::gui::widgets::edit const &hostname,&port;
-	sge::gui::widget &top_;
 };
 
 class input_functor
@@ -89,7 +85,7 @@ class input_functor
 
 	void operator()(sge::input::key_pair const &k) const
 	{
-		if (k.key().code() == sge::input::kc::key_f1)
+		if (k.key().code() == sge::input::kc::key_f1 && k.value())
 			top_.activation(
 				top_.activation() == sge::gui::activation_state::active
 					? sge::gui::activation_state::inactive
@@ -100,6 +96,64 @@ class input_functor
 	private:
 	bool &running;
 	sge::gui::widget &top_;
+};
+
+class connect_functor
+{
+	public:
+	connect_functor(
+		sge::gui::widget &_connect_menu,
+		sge::gui::widget &_main_menu)
+		: connect_menu_(_connect_menu),
+		  main_menu_(_main_menu),
+			pos_connect(50,50),
+			vantage_connect(-2000,200),
+			pos_main(50,50),
+			vantage_main(200,-2000),
+			real_main(time_vector::null()),
+			real_connect(time_vector::null()),
+			speed(50)
+		{}
+	
+	void connect_to_server()
+	{
+		main_menu_.activation(sge::gui::activation_state::inactive);
+		connect_menu_.activation(sge::gui::activation_state::active);
+	}
+
+	void return_to_menu()
+	{
+		connect_menu_.activation(sge::gui::activation_state::inactive);
+		main_menu_.activation(sge::gui::activation_state::active);
+	}
+
+	void update(sge::time::funit const delta)
+	{
+		if (connect_menu_.activation() == sge::gui::activation_state::active)
+		{
+			real_main += speed * delta * (vantage_main - real_main);
+			real_connect += speed * delta * (pos_connect - real_connect);
+		}
+		else
+		{
+			real_main += speed * delta * (pos_main - real_main);
+			real_connect += speed * delta * (vantage_connect - real_connect);
+		}
+		main_menu_.pos(sge::math::structure_cast<sge::gui::unit>(real_main));
+		connect_menu_.pos(sge::math::structure_cast<sge::gui::unit>(real_connect));
+	}
+	private:
+	typedef sge::math::vector<sge::time::funit,2> time_vector;
+
+	sge::gui::widget &connect_menu_;
+	sge::gui::widget &main_menu_;
+	time_vector pos_connect;
+	time_vector vantage_connect;
+	time_vector pos_main;
+	time_vector vantage_main;
+	time_vector real_main;
+	time_vector real_connect;
+	sge::time::funit speed;
 };
 }
 
@@ -167,24 +221,35 @@ try
 	sge::gui::widgets::button connect(
 		(sge::gui::widget::parent_data(top)),
 		SGE_TEXT("Connect"));
+
+	sge::gui::widgets::button return_menu(
+		(sge::gui::widget::parent_data(top)),
+		SGE_TEXT("Return"));
+
 	
-	/*
 	sge::gui::widget main_menu(
 		(sge::gui::widget::parent_data(m)));
-	
+	main_menu.pos(sge::gui::point(100,100));
+	main_menu.size(sge::gui::dim(300,400));
 	main_menu.layout(
 		sge::make_shared_ptr<sge::gui::layouts::vertical>(
 			boost::ref(main_menu)));
 	
-	sge::gui::widgets::button menu_exit(
+	sge::gui::widgets::button menu_connect(
 		(sge::gui::widget::parent_data(main_menu)),
 		SGE_TEXT("Connect to server"));
+	
+	connect_functor cf(
+		top,
+		main_menu);
+
+	sge::gui::widgets::button menu_start(
+		(sge::gui::widget::parent_data(main_menu)),
+		SGE_TEXT("Start server"));
 
 	sge::gui::widgets::button menu_exit(
 		(sge::gui::widget::parent_data(main_menu)),
-		SGE_TEXT("Start server"));
-		*/
-
+		SGE_TEXT("Exit"));
 	
 	// set sensible render states
 	sys.renderer()->state(
@@ -203,21 +268,32 @@ try
 			input_functor(
 				running,
 				top));
-	
-	top.pos(sge::gui::point(10,10));
 
-	sge::signals::connection cc = 
-		connect.clicked.connect(
-			show_data(
-				running,
-				host_edit,
-				port_edit,
-				top));
+	sge::signals::connection mc0 = menu_connect.clicked.connect(
+		boost::bind(&connect_functor::connect_to_server,&cf));
+
+	sge::signals::connection mc1 = return_menu.clicked.connect(
+		boost::bind(&connect_functor::return_to_menu,&cf));
+
+	sge::signals::connection mc2 = connect.clicked.connect(
+		show_data(
+			running,
+			host_edit,
+			port_edit));
 	
+	sge::signals::connection mc3 = 
+		menu_exit.clicked.connect(
+			p);
+
+	top.activation(sge::gui::activation_state::inactive);
+	
+	sge::time::timer frame_timer(sge::time::second(1));
 	while (running)
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block block(sys.renderer());
+		cf.update(frame_timer.elapsed_frames());
+		frame_timer.reset();
 		m.draw();
 	}
 } 

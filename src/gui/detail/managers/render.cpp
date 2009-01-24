@@ -53,15 +53,17 @@ void sge::gui::detail::managers::render::activation(
 	
 	SGE_ASSERT(widgets.find(&w) != widgets.end());
 
+	/*
 	switch (t)
 	{
 		case activation_state::active:
-			widgets[&w].sprite.visible(false);
-		break;
-		case activation_state::inactive:
 			widgets[&w].sprite.visible(true);
 		break;
+		case activation_state::inactive:
+			widgets[&w].sprite.visible(false);
+		break;
 	}
+	*/
 }
 
 void sge::gui::detail::managers::render::draw()
@@ -123,11 +125,23 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 			hardware_texture));
 							
 	wd.sprite = sprite::object(
-			sprite::point(structure_cast<sprite::point>(w.pos())),
-			texture::const_part_ptr(new texture::part_raw(hardware_texture)),
-			sprite::dim(structure_cast<sprite::dim>(d)),
-			sprite::defaults::color_,
-			static_cast<sprite::depth_type>(1));
+		sprite::point(structure_cast<sprite::point>(w.pos())),
+		texture::const_part_ptr(new texture::part_raw(hardware_texture)),
+		sprite::dim(structure_cast<sprite::dim>(d)),
+		sprite::defaults::color_,
+		static_cast<sprite::depth_type>(1));
+	
+	/*
+	switch (w.activation())
+	{
+		case activation_state::active:
+			wd.sprite.visible(true);
+		break;
+		case activation_state::inactive:
+			wd.sprite.visible(false);
+		break;
+	}
+	*/
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -213,8 +227,7 @@ void sge::gui::detail::managers::render::redraw_dirt()
 			renderer::make_scoped_lock(
 				wd.texture,
 				math::structure_cast<renderer::lock_rect>(is_local),
-				renderer::lock_flags::readwrite
-			));
+				renderer::lock_flags::readwrite));
 
 		w.process(
 			events::invalid_area(

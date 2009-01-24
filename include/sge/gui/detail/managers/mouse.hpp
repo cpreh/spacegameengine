@@ -32,6 +32,7 @@ class mouse : public submanager
 		skin &);
 	
 	void add(widget &);
+	void activation(widget &,activation_state::type);
 	sprite::object const cursor() const;
 	void remove(widget &);
 	void recalculate_focus();

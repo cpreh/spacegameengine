@@ -38,6 +38,20 @@ sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 		static_cast<sge::sprite::unit>(0),
 		static_cast<sge::sprite::unit>(k.value()));
 }
+
+bool active(sge::gui::widget const &w)
+{
+	switch (w.activation())
+	{
+		case sge::gui::activation_state::active:
+			if (!w.parent_widget())
+				return true;
+			return active(*w.parent_widget());
+		case sge::gui::activation_state::inactive:
+			return false;
+	}
+	throw sge::exception(SGE_TEXT("missed an activation state"));
+}
 }
 
 sge::gui::detail::managers::mouse::mouse(
@@ -76,6 +90,13 @@ void sge::gui::detail::managers::mouse::add(widget &w)
 	
 	// It could be the case that the newly added widget is below the cursor and should
 	// thus get the focus, so we recalculate
+	recalculate_focus();
+}
+
+void sge::gui::detail::managers::mouse::activation(
+	widget &,
+	activation_state::type)
+{
 	recalculate_focus();
 }
 
@@ -141,7 +162,8 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 				log::_1 << SGE_TEXT("checking if ") << w.absolute_area() 
 				        << SGE_TEXT(" contains ") << click_point);
 
-			if (math::contains(w.absolute_area(),click_point))
+			if (w.activation() == activation_state::active && 
+			    math::contains(w.absolute_area(),click_point))
 			{
 				w.process(events::mouse_enter(click_point));
 				focus = recalculate_focus(w,click_point);
@@ -179,7 +201,8 @@ sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
 	point const &mouse_click)
 {
 	// Pointer is no longer inside widget area
-	if (!math::contains(w.absolute_area(),mouse_click))
+	if (!math::contains(w.absolute_area(),mouse_click) ||
+	    !active(w))
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -213,7 +236,8 @@ sge::gui::widget *sge::gui::detail::managers::mouse::do_recalculate_focus(
 {
 	BOOST_FOREACH(widget &child,w.children())
 	{
-		if (math::contains(child.absolute_area(),p))
+		if (child.activation() == activation_state::active && 
+		    math::contains(child.absolute_area(),p))
 		{
 			SGE_LOG_DEBUG(
 				mylogger,

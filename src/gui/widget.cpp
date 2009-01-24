@@ -115,8 +115,8 @@ void sge::gui::widget::activation(activation_state::type _activation)
 {
 	if (_activation == activation())
 		return;
-	parent_manager().activation(*this,activation_);
 	activation_ = _activation;
+	parent_manager().activation(*this,activation_);
 }
 
 sge::gui::activation_state::type sge::gui::widget::activation() const

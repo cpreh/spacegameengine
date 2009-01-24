@@ -111,6 +111,11 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const 
 	return key_handling::process;
 }
 
+void sge::gui::widgets::edit::process(events::mouse_click const &e)
+{
+	parent_manager().keyboard().request_focus(*this);
+}
+
 void sge::gui::widgets::edit::process(events::keyboard_leave const &)
 {
 	timer_.reset();
