@@ -112,7 +112,7 @@ class connect_functor
 			vantage_main(200,-2000),
 			real_main(time_vector::null()),
 			real_connect(time_vector::null()),
-			speed(50)
+			speed(10)
 		{}
 	
 	void connect_to_server()
@@ -286,7 +286,7 @@ try
 			p);
 
 	top.activation(sge::gui::activation_state::inactive);
-	
+
 	sge::time::timer frame_timer(sge::time::second(1));
 	while (running)
 	{
@@ -295,6 +295,8 @@ try
 		cf.update(frame_timer.elapsed_frames());
 		frame_timer.reset();
 		m.draw();
+		m.invalidate(top.absolute_area());
+		m.invalidate(main_menu.absolute_area());
 	}
 } 
 catch (sge::exception const &e)
