@@ -70,7 +70,8 @@ sge::gui::detail::managers::mouse::mouse(
 			sprite::texture_dim,
 			sprite::defaults::color_,
 			static_cast<sprite::depth_type>(0)),
-	  cursor_click(point::null()),
+	//  cursor_click(point::null()),
+	  cursor_click(16,16),
 		focus(0)
 {
 }
