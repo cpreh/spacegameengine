@@ -62,10 +62,7 @@ sge::gui::detail::managers::mouse::mouse(
 :
 	ic(
 	  	is->register_callback(
-	  		boost::bind(
-				&mouse::input_callback,
-				this,
-				_1))),
+	  		boost::bind(&mouse::input_callback,this,_1))),
 	cursor_(
 		sprite::defaults::pos_,
 		texture::const_part_ptr(
@@ -77,7 +74,8 @@ sge::gui::detail::managers::mouse::mouse(
 		sprite::texture_dim,
 		sprite::defaults::color_,
 		static_cast<sprite::depth_type>(0)),
-	cursor_click(point::null()),
+	//  cursor_click(point::null()),
+	cursor_click(16,16),
 	focus(0)
 {
 }
