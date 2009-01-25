@@ -36,12 +36,12 @@ private: \
 	template<typename... Args> \
 	void set_impl( \
 		size_type i, \
-		const_reference arg, \
+		value_type const &arg, \
 		Args... args); \
 \
 	void set_impl( \
 		size_type i, \
-		const_reference arg);
+		value_type const &arg);
 #else
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL_IMPL(z, n, text)\

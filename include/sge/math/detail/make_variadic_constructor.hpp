@@ -45,19 +45,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	template<typename... Args> \
 	void def_pre::set_impl( \
 		size_type const i, \
-		const_reference arg, \
+		value_type const &arg, \
 		Args... args) \
 	{ \
-		(*this)[i] = arg; \
+		*(data() + i) = arg; \
 		set_impl(i + 1, args...); \
 	} \
 \
 	template_pre \
 	void def_pre::set_impl( \
 		size_type const i, \
-		const_reference arg) \
+		value_type const &arg) \
 	{ \
-		(*this)[i] = arg; \
+		*(data() + i) = arg; \
 	}
 #else
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_ASSIGN(z, n, text)\
