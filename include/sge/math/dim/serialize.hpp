@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DIM_ARITHMETIC_HPP_INCLUDED
-#define SGE_MATH_DIM_ARTIHMETIC_HPP_INCLUDED
+#ifndef SGE_MATH_DIM_SERIALIZE_HPP_INCLUDED
+#define SGE_MATH_DIM_SERIALIZE_HPP_INCLUDED
 
 #include "basic_impl.hpp"
 
@@ -30,27 +30,20 @@ namespace math
 namespace dim
 {
 
-#define SGE_MATH_MAKE_FREE_DIM_FUNCTION(op)\
-template<\
-	typename T,\
-	typename N,\
-	typename S\
->\
-basic<T, N, S> const \
-operator op(\
-	basic<T, N, S> const &a,\
-	basic<T, N, S> const &b)\
-{\
-	return basic<T, N, S>(a) op##= b;\
+template<
+	typename T,
+	typename N,
+	typename S,
+	typename Archive
+> 
+void serialize(
+	Archive &ar,
+	basic<T, N, S> &v,
+	unsigned)
+{
+	for (typename basic<T, N, S>::size_type i = 0; i < v.size(); ++i)
+		ar & v[i];
 }
-
-SGE_MATH_MAKE_FREE_DIM_FUNCTION(+)
-SGE_MATH_MAKE_FREE_DIM_FUNCTION(-)
-SGE_MATH_MAKE_FREE_DIM_FUNCTION(*)
-SGE_MATH_MAKE_FREE_DIM_FUNCTION(/)
-SGE_MATH_MAKE_FREE_DIM_FUNCTION(%)
-
-#undef SGE_MATH_MAKE_FREE_DIM_FUNCTION
 
 }
 }
