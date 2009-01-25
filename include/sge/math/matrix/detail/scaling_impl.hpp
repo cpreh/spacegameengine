@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_SCALING_IMPL_HPP_INCLUDED
 #define SGE_MATH_MATRIX_SCALING_IMPL_HPP_INCLUDED
 
+#include "../basic_impl.hpp"
+
 template<
 	typename T
 >
-sge::math::matrix::static_<T, 4, 4> const
+typename sge::math::matrix::static_<T, 4, 4>::type const
 sge::math::matrix::scaling(
 	T const x,
 	T const y,
@@ -36,7 +38,5 @@ sge::math::matrix::scaling(
 	        static_cast<T>(0),  static_cast<T>(0), z, static_cast<T>(0),
 	        static_cast<T>(0),  static_cast<T>(0), static_cast<T>(0), static_cast<T>(1));
 }
-
-
 
 #endif

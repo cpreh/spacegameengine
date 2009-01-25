@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
 sge::texture::rect_fragmented::rect_fragmented(
 	renderer::device_ptr const rend,

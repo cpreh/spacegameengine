@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "array_adapter.hpp"
 #include <sge/math/compare.hpp>
 #include <sge/assert.hpp>
+#include <boost/next_prior.hpp>
 #include <functional>
 #include <algorithm>
 
@@ -335,6 +336,111 @@ sge::math::detail::array_adapter<
 {
 	return const_reverse_iterator(
 		begin());
+}
+
+template<
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
+>
+
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::value_type &
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::back()
+{
+	return *boost::prior(end());
+}
+
+template<
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
+>
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::value_type const &
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::back() const
+{
+	return *boost::prior(end());
+}
+
+template<
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
+>
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::value_type &
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::front()
+{
+	return *begin();
+}
+
+template<
+	typename Derived,
+	typename ValueType,
+	typename SizeType,
+	typename Reference,
+	typename ConstReference
+>
+typename
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::value_type const &
+sge::math::detail::array_adapter<
+	Derived,
+	ValueType,
+	SizeType,
+	Reference,
+	ConstReference
+>::front() const
+{
+	return *begin();
 }
 
 template<

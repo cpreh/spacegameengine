@@ -48,6 +48,8 @@ operator op(\
 SGE_MATH_MAKE_FREE_MATRIX_FUNCTION(+)
 SGE_MATH_MAKE_FREE_MATRIX_FUNCTION(-)
 
+#undef SGE_MATH_MAKE_FREE_MATRIX_FUNCTION
+
 template<
 	typename T,
 	typename N,

@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "any_color.hpp"
 #include "any_vector3.hpp"
 #include "any_arithmetic.hpp"
-#include "../export.hpp"
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

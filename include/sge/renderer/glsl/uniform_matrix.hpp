@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "float_type.hpp"
 #include "int_type.hpp"
 #include <sge/math/matrix/dynamic.hpp>
-#include <sge/math/matrix/basic_decl.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
 #include <boost/variant/variant.hpp>
 
 namespace sge

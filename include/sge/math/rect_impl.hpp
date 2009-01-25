@@ -21,12 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_IMPL_HPP_INCLUDED
 #define SGE_MATH_RECT_IMPL_HPP_INCLUDED
 
-#include <ostream>
-#include <boost/lexical_cast.hpp>
-#include "../exception.hpp"
-#include "../text.hpp"
 #include "rect_decl.hpp"
 #include "compare.hpp"
+#include "vector/basic_impl.hpp"
+#include "dim/basic_impl.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/structure_cast.hpp>
+#include <boost/lexical_cast.hpp>
+#include <ostream>
 
 template<typename T>
 sge::math::rect<T>::rect(
@@ -34,10 +37,11 @@ sge::math::rect<T>::rect(
 	value_type const &top_,
 	value_type const &right_,
 	value_type const &bottom_)
-: left_(left_),
-  top_(top_),
-  right_(right_),
-  bottom_(bottom_)
+:
+	left_(left_),
+	top_(top_),
+	right_(right_),
+	bottom_(bottom_)
 {
 	check();
 }
@@ -46,10 +50,11 @@ template<typename T>
 sge::math::rect<T>::rect(
 	point_type const &pos,
 	dim_type const &sz)
-: left_(pos.x()),
-  top_(pos.y()),
-  right_(pos.x() + sz.w()),
-  bottom_(pos.y() + sz.h())
+:
+	left_(pos.x()),
+	top_(pos.y()),
+	right_(pos.x() + sz.w()),
+	bottom_(pos.y() + sz.h())
 {
 	check();
 }
@@ -57,12 +62,13 @@ sge::math::rect<T>::rect(
 template<typename T>
 sge::math::rect<T>::rect(
 	dim_type const &sz)
-: left_(
-	static_cast<value_type>(0)),
-  top_(
-  	static_cast<value_type>(0)),
-  right_(sz.w()),
-  bottom_(sz.h())
+:
+	left_(
+		static_cast<value_type>(0)),
+	top_(
+		static_cast<value_type>(0)),
+	right_(sz.w()),
+	bottom_(sz.h())
 {
 	check();
 }
@@ -227,11 +233,31 @@ template<typename T, typename Ch, typename Traits>
 std::basic_ostream<Ch,Traits>& sge::math::operator<<(std::basic_ostream<Ch,Traits>& s,
                                                      const rect<T>& r)
 {
-	return s << s.widen('(')
+	return s
+		<< s.widen('(')
 			<< s.widen('(') << r.left() << s.widen(',') << r.top() << s.widen(')')
-	         << s.widen(',')
+		<< s.widen(',')
 	 		<< s.widen('(') << r.right() << s.widen(',') << r.bottom() << s.widen(')')
-	         << s.widen(')');
+		<< s.widen(')');
+}
+
+template<
+	typename D,
+	typename S
+>
+D const
+sge::math::structure_cast(
+	rect<S> const &r)
+{
+	return D(
+		sge::structure_cast<
+			typename D::point_type
+		>(
+			r.pos()),
+		sge::structure_cast<
+			typename D::dim_type
+		>(
+			r.dim()));
 }
 
 #endif

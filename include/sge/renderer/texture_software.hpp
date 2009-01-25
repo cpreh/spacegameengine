@@ -5,6 +5,7 @@
 #include "color_format.hpp"
 #include "../raw_vector.hpp"
 #include "../export.hpp"
+#include <sge/math/dim/basic_impl.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace sge
@@ -15,11 +16,12 @@ class SGE_CLASS_SYMBOL texture_software : public texture
 {
 public:
 	SGE_SYMBOL texture_software(dim_type const &,color_format::type);
-	dim_type const dim() const { return dim_; }
+	SGE_SYMBOL ~texture_software();
+	SGE_SYMBOL dim_type const dim() const;
 	SGE_SYMBOL image_view const lock(lock_rect const &,lock_flag_t);
 	SGE_SYMBOL const_image_view const lock(lock_rect const &) const;
 	SGE_SYMBOL void unlock() const;
-	resource_flag_t flags() const { return resource_flags::dynamic; }
+	SGE_SYMBOL resource_flag_t flags() const;
 private:
 	typedef raw_vector<unsigned char> internal_vector;
 

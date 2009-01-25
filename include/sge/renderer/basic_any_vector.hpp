@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "size_type.hpp"
 #include <sge/math/vector/static.hpp>
-#include <sge/math/vector/basic_decl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <boost/variant/variant.hpp>
 
 namespace sge

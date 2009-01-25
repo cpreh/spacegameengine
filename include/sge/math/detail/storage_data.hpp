@@ -21,14 +21,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_STORAGE_DATA_HPP_INCLUDED
 #define SGE_MATH_DETAIL_STORAGE_DATA_HPP_INCLUDED
 
-#include "storage_data_traits.hpp"
-
 namespace sge
 {
 namespace math
 {
 namespace detail
 {
+
+template<
+	typename T
+>
+typename T::pointer
+storage_data(
+	T &t)
+{
+	return t.data();
+}
+
+template<
+	typename T
+>
+typename T::const_pointer
+storage_data(
+	T const &t)
+{
+	return t.data();
+}
 
 template<
 	typename T
@@ -40,19 +58,15 @@ storage_data(
 	return t;
 }
 
-/*
 template<
 	typename T
 >
-typename storage_data_traits<
-	T
->::type
+T const *
 storage_data(
-	T &t)
+	T const *const t)
 {
-	return t.data();
+	return t;
 }
-*/
 
 }
 }
