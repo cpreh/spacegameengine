@@ -140,6 +140,9 @@ public:
 
 	size_type size() const;
 
+	size_type rows() const;
+	size_type columns() const;
+
 	static basic const
 	identity();
 private:

@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_CONSTRUCT_HPP_INCLUDED
 #define SGE_MATH_VECTOR_CONSTRUCT_HPP_INCLUDED
 
+#include "basic_impl.hpp"
+#include "static.hpp"
+
 namespace sge
 {
 namespace math
@@ -33,7 +36,24 @@ template<
 	typename N,
 	typename S
 >
-construct();
+typename static_<
+	T,
+	N::value + 1
+>::type const
+construct(
+	basic<T, N, S> const &base,
+	T const &t)
+{
+	typename static_<
+		T,
+		N::value + 1
+	>::type ret;
+
+	for(typename basic<T, N, S>::size_type i = 0; i < base.size(); ++i)
+		ret[i] = base[i];
+	ret[N::value] = t;
+	return ret;
+}
 
 }
 }

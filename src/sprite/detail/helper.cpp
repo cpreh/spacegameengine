@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix/vector.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/construct.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/structure_cast.hpp>
 #include <boost/tr1/array.hpp>
@@ -123,9 +124,11 @@ sge::sprite::detail::fill_position_rotated(
 		cosx, -sinx,
 		sinx,  cosx); 
 
-	//BOOST_FOREACH(position_array::const_reference p, positions)
-	//	(*it++).set<vertex_pos>(pos3((mat_rot * p) + centerf, z));
-
+	BOOST_FOREACH(position_array::const_reference p, positions)
+		(*it++).set<vertex_pos>(
+			construct(
+				(mat_rot * p) + centerf,
+				z));
 	return it;
 }
 
