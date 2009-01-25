@@ -1,17 +1,25 @@
 #include <sge/gui/canvas.hpp>
 #include <sge/math/signum.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
 #include <boost/bind.hpp>
 #include <algorithm>
 #include <cmath>
 
 namespace
 {
-template<class T,std::size_t n,class F>
-sge::math::vector<T,n> const apply(
-	sge::math::vector<T,n> const &v,
+template<
+	typename T,
+	typename N,
+	typename S,
+	typename F
+>
+sge::math::vector::basic<T, N, S> const
+apply(
+	sge::math::vector::basic<T, N, S> const &v,
 	F f)
 {
-	sge::math::vector<T,n> newone = v;
+	sge::math::vector::basic<T, N, S> newone = v;
 	std::transform(newone.begin(),newone.end(),newone.begin(),f);
 	return newone;
 }

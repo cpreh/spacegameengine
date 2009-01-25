@@ -25,8 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/constants.hpp>
 #include <sge/renderer/any_color_convert.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/math/matrix_impl.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
+#include <sge/math/matrix/vector.hpp>
+#include <sge/math/matrix/static.hpp>
+#include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/construct.hpp>
 #include <sge/math/rect_impl.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
 #include <cmath>
@@ -46,7 +51,7 @@ sge::sprite::detail::fill_position(
 	rect const &rs,
 	depth_type const z)
 {
-	frect const r = math::structure_cast<funit>(rs);
+	frect const r = math::structure_cast<frect>(rs);
 
 	(*it++).set<vertex_pos>(pos3(r.left(), r.top(), z));
 	(*it++).set<vertex_pos>(pos3(r.right(), r.top(), z));
@@ -89,7 +94,7 @@ sge::sprite::detail::fill_position_rotated(
 	depth_type const z)
 {
 	pos2 const centerf(
-		math::structure_cast<funit>(center));
+		structure_cast<pos2>(center));
 
 	typedef std::tr1::array<pos2, detail::vertices_per_sprite> position_array;
 	position_array const positions = {{
@@ -111,13 +116,19 @@ sge::sprite::detail::fill_position_rotated(
 		sinx = std::sin(rot),
 		cosx = std::cos(rot);
 
-	math::matrix<funit,2,2> const mat_rot(
+	math::matrix::static_<
+		funit,
+		2,
+		2
+	>::type const mat_rot(
 		cosx, -sinx,
 		sinx,  cosx); 
 
 	BOOST_FOREACH(position_array::const_reference p, positions)
-		(*it++).set<vertex_pos>(pos3((mat_rot * p) + centerf, z));
-
+		(*it++).set<vertex_pos>(
+			construct(
+				(mat_rot * p) + centerf,
+				z));
 	return it;
 }
 

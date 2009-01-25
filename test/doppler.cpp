@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/iostream.hpp>
 #include <sge/media.hpp>
-#include <sge/math/matrix_impl.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
@@ -48,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/default_creator.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
@@ -161,7 +161,7 @@ try
 	sge::sprite::object bg(
 		sge::sprite::point(0,0),
 		tex_bg,
-		sge::math::structure_cast<sge::sprite::unit>(
+		sge::structure_cast<sge::sprite::dim>(
 			screen_size));
 
 	sge::sprite::object pointer(

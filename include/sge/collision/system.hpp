@@ -2,7 +2,7 @@
 #define SGE_COLLISION_SYSTEM_HPP_INCLUDED
 
 #include "system_fwd.hpp"
-#include "types.hpp"
+#include "unit.hpp"
 #include "callbacks.hpp"
 #include "sattelite_fwd.hpp"
 #include "objects/fwd.hpp"

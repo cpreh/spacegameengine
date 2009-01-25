@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
 #include <sge/renderer/light.hpp>
+#include <sge/math/vector/construct.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 namespace
 {
@@ -131,11 +133,12 @@ void light_pos(
 	sge::renderer::any_vector3 const &pos)
 {
 	sge::ogl::vector4f const pos4(
-		sge::renderer::vector_convert<
-			sge::ogl::vector3f
-		>(
-			pos),
-		static_cast<GLfloat>(1));
+		sge::math::vector::construct(
+			sge::renderer::vector_convert<
+				sge::ogl::vector3f
+			>(
+				pos),
+			static_cast<GLfloat>(1)));
 	
 	light_float_ptr(
 		index,

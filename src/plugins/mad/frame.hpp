@@ -4,6 +4,7 @@
 #include "synth.hpp"
 #include <mad.h>
 #include <sge/audio/types.hpp>
+#include <sge/string.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge

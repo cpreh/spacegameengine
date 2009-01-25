@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_POINT_HPP_INCLUDED
 
 #include "unit.hpp"
-#include "../math/vector.hpp"
+#include <sge/math/vector/static.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-typedef math::vector<
+typedef math::vector::static_<
 	unit,
 	2
-> point;
+>::type point;
 
 }
 }

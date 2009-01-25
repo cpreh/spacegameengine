@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/iostream.hpp>
 #include <sge/media.hpp>
-#include <sge/math/matrix_impl.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
@@ -107,7 +106,7 @@ try
 		boost::none,
 		boost::none);
 
-	const sge::sprite::animation_series::entity_vector series = 
+	sge::sprite::animation_series::entity_vector const series = 
 		boost::assign::list_of
 			(sge::sprite::animation_entity(
 				sge::time::millisecond(500),

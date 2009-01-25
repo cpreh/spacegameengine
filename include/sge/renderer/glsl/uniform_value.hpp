@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_VALUE_HPP_INCLUDED
 
-#include "int_types.hpp"
-#include "float_types.hpp"
-#include "vector_types.hpp"
-#include "matrix_types.hpp"
+#include "int_type.hpp"
+#include "float_type.hpp"
+#include "uniform_vector.hpp"
+#include "uniform_matrix.hpp"
 #include "../../array_wrapper.hpp"
+#include <sge/math/matrix/basic_impl.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/copy.hpp>
@@ -46,13 +47,9 @@ namespace detail
 typedef boost::mpl::vector<
 	int_type,
 	float_type,
-	vector2,
-	vector3,
-	vector4,
-	matrix4x4
+	uniform_vector,
+	uniform_matrix
 > uniform_base_values;
-
-// TODO: replace this with a vector and a matrix of dyanmic size
 
 template<
 	typename T

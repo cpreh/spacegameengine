@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_color.hpp>
 #include <sge/renderer/vf/dynamic_ordered_element.hpp>
 #include <sge/renderer/convert_pixels_conditional.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <boost/variant/get.hpp>
 #include <boost/assign/list_of.hpp>
 

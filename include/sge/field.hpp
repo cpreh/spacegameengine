@@ -6,8 +6,8 @@
 #include <iterator>
 #include <memory>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include "math/vector.hpp"
-#include "math/dim.hpp"
+#include <sge/math/vector/static.hpp>
+#include <sge/math/dim/static.hpp>
 #include "exception.hpp"
 #include "format.hpp"
 
@@ -32,8 +32,8 @@ class field
 	typedef std::reverse_iterator<iterator>       reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	typedef math::vector<size_type,2>      vector_type;
-	typedef math::dim<size_type,2>         dim_type;
+	typedef typename math::vector::static_<size_type,2>::type      vector_type;
+	typedef typename math::dim::static_<size_type,2>::type         dim_type;
 
 	private:
 	dim_type   dim_;

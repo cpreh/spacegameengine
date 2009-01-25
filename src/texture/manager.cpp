@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/renderer/image_view_dim.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/text.hpp>
 #include <boost/foreach.hpp>
 
 sge::texture::manager::manager(
@@ -40,7 +42,7 @@ sge::texture::manager::add(
 	renderer::const_image_view const &src)
 {
 	BOOST_FOREACH(fragmented& tex, fragmented_textures)
-		if(const part_ptr p = init_texture(tex, src))
+		if(part_ptr const p = init_texture(tex, src))
 			return p;
 
 	fragmented_textures.push_back(onalloc_());

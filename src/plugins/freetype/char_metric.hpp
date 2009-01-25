@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FT_CHAR_METRIC_HPP_INCLUDED
 #define SGE_FT_CHAR_METRIC_HPP_INCLUDED
 
-#include <sge/raw_vector.hpp>
-#include <sge/string.hpp>
-#include <sge/font/types.hpp>
+#include <sge/char.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/image_view.hpp>
+#include <sge/font/image.hpp>
 #include <sge/font/char_metric.hpp>
+#include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
 {
@@ -38,6 +41,8 @@ public:
 	char_metric(
 		face &,
 		char_type);
+
+	~char_metric();
 
 	font::const_image_view const pixmap() const;
 	font::pos const offset() const;

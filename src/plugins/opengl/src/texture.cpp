@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
+#include <sge/math/dim/io.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/format.hpp>
 #include <sge/exception.hpp>

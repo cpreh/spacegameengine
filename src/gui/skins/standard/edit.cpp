@@ -1,13 +1,15 @@
 #include "../../utility/max_dim.hpp"
 #include "../../utility/blit.hpp"
 #include <sge/font/font.hpp>
+#include <sge/font/text_size_t.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
+#include <sge/math/dim/arithmetic.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/iostream.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/gil/image.hpp>
 
 namespace
@@ -34,15 +36,15 @@ sge::string const string_square(sge::gui::dim const &s)
 sge::gui::dim const sge::gui::skins::standard::size_hint(
 	widgets::edit const &w) const
 {
-	dim d = math::structure_cast<unit>(
+	dim const d = structure_cast<dim>(
 		font::font(w.font()).text_size(
 			string_square(w.desired_size()),
 			utility::max_dim<font::unit>())
 		.size());
 	
 	return dim(
-		d.w()+2,
-		d.h()+2);
+		d.w() + 2,
+		d.h() + 2);
 }
 
 void sge::gui::skins::standard::draw(

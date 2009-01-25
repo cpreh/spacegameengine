@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/color_format_stride.hpp>
 #include <sge/renderer/detail/fold_color_format.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <boost/gil/image_view_factory.hpp>
 
 namespace
 {
+
 struct operation {
 	typedef sge::renderer::image_view result_type;
 

@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../fbo_projection.hpp"
-#include <sge/math/matrix_util.hpp>
+#include <sge/math/matrix/scaling.hpp>
+#include <sge/math/matrix/arithmetic.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
@@ -60,7 +61,7 @@ multiply_visitor::operator()(
 	T const &t) const
 {
 	typedef typename T::value_type value_type;
-	return t * sge::math::matrix_scaling<
+	return t * sge::math::matrix::scaling<
 		value_type
 	>(
 		static_cast<value_type>(1),

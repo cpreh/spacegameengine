@@ -2,6 +2,7 @@
 #include "../error.hpp"
 #include "../log.hpp"
 #include "../openal.hpp"
+#include <sge/math/vector/io.hpp>
 
 sge::openal::listener::listener()
 	: pos_(),

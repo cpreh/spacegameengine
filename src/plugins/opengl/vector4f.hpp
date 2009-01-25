@@ -22,17 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1401, USA.
 #define SGE_PLUGINS_OPENGL_VECTOR4F_HPP_INCLUDED
 
 #include "common.hpp"
-#include <sge/math/vector.hpp>
+#include <sge/math/vector/static.hpp>
+#include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
 {
 namespace ogl
 {
 
-typedef math::vector<
+typedef math::vector::static_<
 	GLfloat,
 	4
-> vector4f;
+>::type vector4f;
 
 }
 }

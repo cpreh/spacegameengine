@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/visual.hpp>
 #include <sge/x11/colormap.hpp>
 #include <sge/x11/sentry.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>

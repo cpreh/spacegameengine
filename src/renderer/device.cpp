@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vf/dynamic_format.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/algorithm/copy_n.hpp>
 #include <boost/variant/apply_visitor.hpp>
 

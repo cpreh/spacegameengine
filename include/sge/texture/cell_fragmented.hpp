@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture_fwd.hpp"
 #include "../renderer/dim_type.hpp"
 #include "../renderer/color_format.hpp"
+#include <sge/math/dim/basic_decl.hpp>
 
 namespace sge
 {
@@ -47,13 +48,18 @@ public:
 		renderer::color_format::type,
 		renderer::texture_filter const &filter,
 		renderer::dim_type const &cell_size);
+	SGE_SYMBOL ~cell_fragmented();
+
 	SGE_SYMBOL part_ptr const
 	consume_fragment(
 		renderer::dim_type const &);
+
 	SGE_SYMBOL void return_fragment(
 		part const &);
+
 	SGE_SYMBOL renderer::texture_ptr const
 	texture() const;
+
 	SGE_SYMBOL bool repeatable() const;
 private:
 	typedef field<

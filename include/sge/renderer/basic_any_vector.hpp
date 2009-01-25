@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_BASIC_ANY_VECTOR_HPP_INCLUDED
 
 #include "size_type.hpp"
-#include "../math/vector.hpp"
+#include <sge/math/vector/static.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <boost/variant/variant.hpp>
 
 namespace sge
@@ -35,14 +36,14 @@ template<
 >
 struct basic_any_vector {
 	typedef typename boost::variant<
-		math::vector<
+		typename math::vector::static_<
 			float,
 			sz
-		>,
-		math::vector<
+		>::type,
+		typename math::vector::static_<
 			double,
 			sz
-		>
+		>::type
 	> type;
 };
 

@@ -25,9 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "face.hpp"
 #include "freetype.hpp"
 #include <sge/filesystem/path.hpp>
-#include <sge/string.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/font/types.hpp>
+#include <sge/font/size_type.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/char.hpp>
 #include <map>
 
 namespace sge

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system_base.hpp>
 #include <sge/sprite/detail/vertex_format.hpp>
 #include <sge/sprite/detail/constants.hpp>
-#include <sge/math/matrix_impl.hpp>
-#include <sge/math/matrix_util.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
+#include <sge/math/matrix/orthogonal_xy.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/vertex_buffer_util.hpp>
@@ -62,7 +62,7 @@ sge::sprite::system_base::system_base(
 	transform_matrix(
 		renderer::matrix_pixel_to_space<funit>(rend->screen_size())),
 	projection_matrix(
-		math::matrix_orthogonal_xy<funit>())
+		math::matrix::orthogonal_xy<funit>())
 {}
 
 void sge::sprite::system_base::allocate_buffers(

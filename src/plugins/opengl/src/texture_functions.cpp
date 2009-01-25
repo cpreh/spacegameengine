@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/format.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
+#include <sge/math/dim/io.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/log/logger.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/temporary_output.hpp>
@@ -81,7 +83,7 @@ void sge::ogl::set_texture(
 				<< SGE_TEXT('.')
 		);
 
-	if(!math::is_power_of_2(dim))
+	if(!math::is_power_of_2(dim.w()) || !math::is_power_of_2(dim.h()))
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1

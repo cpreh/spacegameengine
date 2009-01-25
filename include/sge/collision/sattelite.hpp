@@ -2,7 +2,7 @@
 #define SGE_COLLISION_SATTELITE_HPP_INCLUDED
 
 #include "sattelite_fwd.hpp"
-#include "types.hpp"
+#include "point.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>
 

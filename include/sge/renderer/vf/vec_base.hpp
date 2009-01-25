@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vertex_size.hpp"
 #include "role.hpp"
 #include "element_base.hpp"
-#include "../../math/vector.hpp"
+#include <sge/math/vector/static.hpp>
 
 namespace sge
 {
@@ -43,7 +43,12 @@ struct vec_base
 	Role
 > {
 	typedef Format subelement_type;
-	typedef math::vector<Format, NumSubElements> packed_type;
+
+	typedef typename math::vector::static_<
+		Format,
+		NumSubElements
+	>::type packed_type;
+
 	static vertex_size const num_subelements = NumSubElements;
 };
 

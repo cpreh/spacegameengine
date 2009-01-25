@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "rect.hpp"
 #include "../export.hpp"
 #include "../texture/part_fwd.hpp"
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <boost/optional.hpp>
 
 #include "../todo.hpp"

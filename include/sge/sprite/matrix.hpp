@@ -22,18 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_MATRIX_HPP_INCLUDED
 
 #include "funit.hpp"
-#include "../math/matrix.hpp"
+#include <sge/math/matrix/static.hpp>
 
 namespace sge
 {
 namespace sprite
 {
 
-typedef math::matrix<
+typedef math::matrix::static_<
 	funit,
 	4,
 	4
-> matrix;
+>::type matrix;
 
 }
 }

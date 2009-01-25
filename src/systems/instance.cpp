@@ -40,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/plugin.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/create.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>

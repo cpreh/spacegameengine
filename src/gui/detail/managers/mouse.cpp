@@ -8,6 +8,8 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
+#include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/io.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/classification.hpp>
@@ -17,7 +19,8 @@
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/text.hpp>
-
+#include <sge/assert.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 
@@ -56,23 +59,24 @@ sge::gui::detail::managers::mouse::mouse(
 	sge::image::loader_ptr const il,
 	renderer::device_ptr const rend,
 	skin &s)
-	: ic(
+:
+	ic(
 	  	is->register_callback(
 	  		boost::bind(&mouse::input_callback,this,_1))),
-	  cursor_(
-			sprite::defaults::pos_,
-			texture::const_part_ptr(
-				new texture::part_raw(
-					rend->create_texture(
-					il->load(s.cursor_path())->view(),
-					renderer::linear_filter,
-					renderer::resource_flags::readable))),
-			sprite::texture_dim,
-			sprite::defaults::color_,
-			static_cast<sprite::depth_type>(0)),
+	cursor_(
+		sprite::defaults::pos_,
+		texture::const_part_ptr(
+			new texture::part_raw(
+				rend->create_texture(
+				il->load(s.cursor_path())->view(),
+				renderer::linear_filter,
+				renderer::resource_flags::readable))),
+		sprite::texture_dim,
+		sprite::defaults::color_,
+		static_cast<sprite::depth_type>(0)),
 	//  cursor_click(point::null()),
-	  cursor_click(16,16),
-		focus(0)
+	cursor_click(16,16),
+	focus(0)
 {
 }
 
@@ -131,7 +135,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		mylogger,
 		log::_1 << SGE_TEXT("in top level recalculate_focus"));
 
-	point const click_point = math::structure_cast<unit>(cursor_.pos()+cursor_click);
+	point const click_point = structure_cast<point>(cursor_.pos()+cursor_click);
 
 	if (focus)
 	{
@@ -185,8 +189,8 @@ void sge::gui::detail::managers::mouse::input_callback(
 
 	focus->process(
 		events::mouse_click(
-			math::structure_cast<unit>(
-				cursor_.pos()+cursor_click),
+			structure_cast<point>(
+				cursor_.pos() + cursor_click),
 			k));
 }
 

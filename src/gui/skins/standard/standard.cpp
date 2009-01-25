@@ -7,6 +7,7 @@
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
+#include <sge/math/dim/io.hpp>
 #include <sge/media.hpp>
 #include <sge/text.hpp>
 
@@ -41,10 +42,11 @@ void sge::gui::skins::standard::fallback(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("resizing from ") 
-			        << dim(w.buffer().width(),w.buffer().height())
-							<< SGE_TEXT(" to ")
-							<< w.size());
+			log::_1
+				<< SGE_TEXT("resizing from ") 
+				<< dim(w.buffer().width(),w.buffer().height())
+				<< SGE_TEXT(" to ")
+				<< w.size());
 		w.buffer() = image(
 			static_cast<image::coord_t>(w.size().w()),
 			static_cast<image::coord_t>(w.size().h()));

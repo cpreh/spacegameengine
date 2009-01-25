@@ -5,7 +5,6 @@
 #include "../widget.hpp"
 #include "../timer/fwd.hpp"
 #include "../events/fwd.hpp"
-#include "../../math/vector.hpp"
 #include "../../renderer/image.hpp"
 #include "../../font/metrics_fwd.hpp"
 #include "../../signals/signal.hpp"

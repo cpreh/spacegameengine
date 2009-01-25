@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
 
 #include "bit_depth.hpp"
-#include "screen_types.hpp"
+#include "screen_size_t.hpp"
 #include "refresh_rate.hpp"
-#include "../export.hpp"
-#include "../ostream.hpp"
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/export.hpp>
+#include <sge/ostream.hpp>
 
 namespace sge
 {

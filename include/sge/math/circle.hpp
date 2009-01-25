@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CIRCLE_HPP_INCLUDED
 
 #include "circle_fwd.hpp"
-#include "vector.hpp"
+#include "vector/static.hpp"
+#include "vector/basic_decl.hpp"
 
 namespace sge
 {
@@ -33,13 +34,18 @@ namespace math
  * \attention To use circle's functions you have to include
  * <sge/math/circle_impl.hpp>!
  */
-template<typename T>
+template<
+	typename T
+>
 class circle {
 public:
-	typedef T                           value_type;
-	typedef T&                          reference;
-	typedef const T&                    const_reference;
-	typedef math::vector<value_type, 2> point_type;
+	typedef T value_type;
+	typedef T &reference;
+	typedef T const &const_reference;
+	typedef typename vector::static_<
+		value_type,
+		2
+	>::type point_type;
 
 	circle(
 		const_reference x,

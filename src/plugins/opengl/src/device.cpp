@@ -54,9 +54,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/default.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
-#include <sge/math/matrix_impl.hpp>
-#include <sge/math/matrix_util.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/window/instance.hpp>
+#include <sge/structure_cast.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/bind.hpp>
 #include <sstream>
@@ -81,7 +82,7 @@ sge::ogl::device::device(
 	fbo_active(
 		false),
 	projection_(
-		math::matrix_identity<float>())
+		math::matrix::static_<float, 4, 4>::type::identity())
 
 {
 	initialize_glew();
@@ -361,12 +362,15 @@ void sge::ogl::device::target(
 {
 	if(!ntarget)
 	{
-		target_.reset(
-			new ogl::default_target(
-				math::structure_cast<
-					target::dim_type::value_type>(
-						screen_size()),
-				param.mode().bit_depth()));
+		target_ =
+			make_shared_ptr<
+				ogl::default_target
+			>(
+				structure_cast<
+					target::dim_type
+				>(
+					screen_size()),
+				param.mode().bit_depth());
 		target_->bind_me();
 		state_.reset_viewport();
 		fbo_active = false;
@@ -385,7 +389,7 @@ void sge::ogl::device::target(
 	viewport(
 		renderer::viewport(
 			renderer::pixel_pos_t(0, 0),
-			math::structure_cast<renderer::screen_unit>(
+			structure_cast<renderer::screen_size_t>(
 				p->dim())));
 	
 	target_ = ftarget;

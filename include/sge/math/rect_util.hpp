@@ -22,14 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_RECT_UTIL_HPP_INCLUDED
 
 #include "rect.hpp"
+#include "vector/basic_fwd.hpp"
 
 namespace sge
 {
 namespace math
 {
 
-template<typename T>
-bool contains(const rect<T>& r, const vector<T,2>& p);
+template<
+	typename T,
+	typename N,
+	typename S
+>
+bool contains(
+	rect<T> const &,
+	vector::basic<T, N, S> const &);
 
 template<typename T>
 rect<T> const intersection(rect<T> const &,rect<T> const &);

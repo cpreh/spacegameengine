@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_TEXT_SIZE_T_HPP_INCLUDED
 #define SGE_FONT_TEXT_SIZE_T_HPP_INCLUDED
 
-#include "../string.hpp"
-#include "types.hpp"
+#include "dim.hpp"
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/export.hpp>
+#include <sge/string.hpp>
 
 namespace sge
 {
@@ -34,11 +36,11 @@ public:
 	typedef string::const_iterator const_iterator;
 
 	SGE_SYMBOL text_size_t(
-		dim sz,
+		dim const &sz,
 		string::const_iterator end,
 		string::const_iterator next_begin);
 
-	SGE_SYMBOL const dim size() const;
+	SGE_SYMBOL dim const &size() const;
 	SGE_SYMBOL const_iterator end() const;
 	SGE_SYMBOL const_iterator next_begin() const;
 private:

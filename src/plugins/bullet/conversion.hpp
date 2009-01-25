@@ -1,7 +1,7 @@
 #ifndef SGE_BULLET_CONVERSION_HPP_INCLUDED
 #define SGE_BULLET_CONVERSION_HPP_INCLUDED
 
-#include <sge/collision/types.hpp>
+#include <sge/collision/point.hpp>
 #include "types.hpp"
 
 namespace sge

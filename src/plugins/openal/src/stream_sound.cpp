@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../file_format.hpp"
 #include <sge/audio/sound.hpp>
-#include <sge/iostream.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/raw_vector_impl.hpp>
+#include <sge/assert.hpp>
 #include <boost/lexical_cast.hpp>
 
 sge::openal::stream_sound::stream_sound(audio::file_ptr const _audio_file, player &_player)
