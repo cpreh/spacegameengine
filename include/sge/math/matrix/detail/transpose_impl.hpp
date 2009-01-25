@@ -18,26 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_IDENTITY_HPP_INCLUDED
-#define SGE_MATH_MATRIX_IDENTITY_HPP_INCLUDED
-
-#include "static.hpp"
-
-namespace sge
-{
-namespace math
-{
-namespace matrix
-{
+#ifndef SGE_MATH_MATRIX_TRANSPOSE_HPP_INCLUDED
+#define SGE_MATH_MATRIX_TRANSPOSE_HPP_INCLUDED
 
 template<
-	typename T
+	typename T,
+	typename N,
+	typename S
 >
-typename static_<T, 4, 4>::type const
-identity();
+sge::math::matrix::basic<T, N, N, S> const
+sge::math::matrix::transpose(
+	basic<T, N, N, S> const &t)
+{
+	// FIXME!
+	basic<T, N, N, S> ret;
 
-}
-}
+	typedef typename basic<T, N, N, S>::size_type size_type;
+	for(size_type i = 0; i < t.rows(); ++i)
+		for(size_type j = 0; j < t.columns(); ++j)
+			if(j < t.rows() && i < t.columns())
+				ret[j][i] = t[i][j];
+	return ret;
 }
 
 #endif

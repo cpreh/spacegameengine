@@ -139,50 +139,12 @@ public:
 	const_pointer data() const;
 
 	size_type size() const;
+
+	static basic const
+	identity();
 private:
 	S storage;
 };
-
-#if 0
-template<typename T, std::size_t N, std::size_t M>
-matrix<T,N,M> operator+ (const matrix<T,N,M>& r);
-
-template<typename T, std::size_t N, std::size_t M>
-matrix<T,N,M> operator- (const matrix<T,N,M>& r);
-
-template<typename T, std::size_t N, std::size_t M>
-matrix<T,N,M> operator+ (const matrix<T,N,M>& l, const matrix<T,N,M>& r);
-
-template<typename T, std::size_t N, std::size_t M>
-matrix<T,N,M> operator- (const matrix<T,N,M>& l, const matrix<T,N,M>& r);
-
-template<typename T, std::size_t N, std::size_t M>
-matrix<T,N,M> operator* (const typename matrix<T,N,M>::value_type& l, const matrix<T,N,M>& r);
-
-template<typename T, std::size_t N, std::size_t M1, std::size_t M2>
-matrix<T,N,N> operator* (const matrix<T,M1,N>& a, const matrix<T,N,M2>& b);
-
-template<typename T, std::size_t N, std::size_t M>
-bool operator== (const matrix<T,N,M>& l, const matrix<T,N,M>& r);
-
-template<typename T, std::size_t N, std::size_t M>
-bool operator!= (const matrix<T,N,M>& l, const matrix<T,N,M>& r);
-
-template<typename T, std::size_t N, std::size_t M,typename Ch, typename Traits>
-std::basic_ostream<Ch,Traits>& operator<< (std::basic_ostream<Ch,Traits>& s, const matrix<T,N,M>& m);
-
-template<typename T, std::size_t N>
-matrix<T,N,N> transpose(const matrix<T,N,N>& m);
-
-template<typename T, std::size_t N, std::size_t M>
-vector<T,M> operator* (const matrix<T,N,M>& m, const vector<T,N>& v);
-
-template<typename D, typename S, std::size_t N, std::size_t M>
-matrix<D, N, M> const
-structure_cast(
-	matrix<S, N, M> const &s);
-
-#endif
 
 }
 }

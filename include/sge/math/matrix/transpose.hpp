@@ -43,4 +43,6 @@ transpose(
 }
 }
 
+#include "detail/transpose_impl.hpp"
+
 #endif

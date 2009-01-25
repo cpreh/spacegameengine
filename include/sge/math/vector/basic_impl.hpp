@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/checked_access.hpp"
 #include "../detail/make_variadic_constructor.hpp"
 #include "../detail/initial_size.hpp"
+#include <iterator>
 #include <algorithm>
 
 template<
@@ -76,7 +77,6 @@ sge::math::vector::basic<T, N, S>::basic(
 		beg,
 		end,
 		data());
-
 }
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_VECTOR_MAX_CTOR_PARAMS

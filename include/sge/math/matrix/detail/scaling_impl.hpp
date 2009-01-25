@@ -18,31 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_SCALING_HPP_INCLUDED
-#define SGE_MATH_MATRIX_SCALING_HPP_INCLUDED
-
-#include "static.hpp"
-
-namespace sge
-{
-namespace math
-{
-namespace matrix
-{
+#ifndef SGE_MATH_MATRIX_SCALING_IMPL_HPP_INCLUDED
+#define SGE_MATH_MATRIX_SCALING_IMPL_HPP_INCLUDED
 
 template<
 	typename T
 >
-typename static_<T, 4, 4>::type const
-scaling(
-	T x,
-	T y,
-	T z);
+sge::math::matrix::static_<T, 4, 4> const
+sge::math::matrix::scaling(
+	T const x,
+	T const y,
+	T const z)
+{
+	return typename static_<T, 4, 4>::type
+	       (x,  static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
+	        static_cast<T>(0), y,  static_cast<T>(0), static_cast<T>(0),
+	        static_cast<T>(0),  static_cast<T>(0), z, static_cast<T>(0),
+	        static_cast<T>(0),  static_cast<T>(0), static_cast<T>(0), static_cast<T>(1));
+}
 
-}
-}
-}
 
-#include "detail/scaling_impl.hpp"
 
 #endif

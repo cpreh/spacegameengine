@@ -25,14 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/make_op_decl.hpp"
 #include "../detail/make_variadic_constructor_decl.hpp"
 #include "../detail/array_adapter.hpp"
+#include <sge/type_traits/is_iterator.hpp>
+#include <boost/utility/enable_if.hpp>
 
 #ifndef SGE_MATH_VECTOR_MAX_CTOR_PARAMS
 #define SGE_MATH_VECTOR_MAX_CTOR_PARAMS 4
 #endif
-
-
-#include <sge/type_traits/is_iterator.hpp>
-#include <boost/utility/enable_if.hpp>
 
 namespace sge
 {

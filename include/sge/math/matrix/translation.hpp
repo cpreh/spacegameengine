@@ -43,4 +43,6 @@ translation(
 }
 }
 
+#include "detail/translation_impl.hpp"
+
 #endif

@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/make_op_decl.hpp"
 #include "../detail/make_variadic_constructor_decl.hpp"
 #include "../detail/array_adapter.hpp"
+#include <sge/type_traits/is_iterator.hpp>
+#include <boost/utility/enable_if.hpp>
 
 #ifndef SGE_MATH_DIM_MAX_CTOR_PARAMS
 #define SGE_MATH_DIM_MAX_CTOR_PARAMS 3
@@ -86,7 +88,12 @@ public:
 	>
 	basic(
 		In beg,
-		In end);
+		typename boost::enable_if<
+			is_iterator<
+				In
+			>,
+			In
+		>::type end);
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_DIM_MAX_CTOR_PARAMS
 	SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(basic)

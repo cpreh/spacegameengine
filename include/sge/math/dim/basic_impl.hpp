@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/make_variadic_constructor.hpp"
 #include <numeric>
 #include <functional>
+#include <iterator>
+#include <algorithm>
 
 template<
 	typename T,
@@ -49,8 +51,22 @@ template<
 >
 sge::math::dim::basic<T, N, S>::basic(
 	In const beg,
-	In const end)
+		typename boost::enable_if<
+		is_iterator<
+			In
+		>,
+		In
+	>::type const end)
 {
+	math::detail::initial_size(
+		storage,
+		std::distance(
+			beg,
+			end));
+	std::copy(
+		beg,
+		end,
+		data());
 }
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_DIM_MAX_CTOR_PARAMS

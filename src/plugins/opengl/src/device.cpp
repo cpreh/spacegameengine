@@ -55,7 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/indices_per_primitive.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
-#include <sge/math/matrix/identity.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
@@ -83,7 +82,7 @@ sge::ogl::device::device(
 	fbo_active(
 		false),
 	projection_(
-		math::matrix::identity<float>())
+		math::matrix::static_<float, 4, 4>::type::identity())
 
 {
 	initialize_glew();

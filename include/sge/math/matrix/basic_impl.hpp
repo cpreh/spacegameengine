@@ -137,4 +137,23 @@ sge::math::matrix::basic<T, N, M, S>::size() const
 		storage);
 }
 
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
+sge::math::matrix::basic<T, N, M, S> const
+sge::math::matrix::basic<T, N, M, S>::identity()
+{
+	basic<T, N, M, S> ret;
+	for(size_type i = 0; i < N::value; ++i)
+		for(size_type j = 0; j < M::value; ++j)
+			ret[i][j] =
+				i == j
+				? static_cast<T>(1)
+				: static_cast<T>(0);
+	return ret;
+}
+
 #endif

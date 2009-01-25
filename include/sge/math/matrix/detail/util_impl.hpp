@@ -27,67 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <cmath>
 
-template<
-	typename T
->
-sge::math::matrix<T, 4, 4> const
-sge::math::matrix_translation(
-	vector<T, 3> const &v)
-{
-	return matrix<T, 4, 4>
-	       (static_cast<T>(1), static_cast<T>(0), static_cast<T>(0), v.x(),
-	        static_cast<T>(0), static_cast<T>(1), static_cast<T>(0), v.y(),
-	        static_cast<T>(0), static_cast<T>(0), static_cast<T>(1), v.z(),
-	        static_cast<T>(0), static_cast<T>(0), static_cast<T>(0), static_cast<T>(1));
-
-}
-
-template<
-	typename T
->
-sge::math::matrix<T, 4, 4> const
-sge::math::matrix_translation(
-	T const x,
-	T const y,
-	T const z)
-{
-	return matrix_translation(
-		vector<T, 3>(
-			x,
-			y,
-			z));
-}
-
-template<
-	typename T
->
-sge::math::matrix<T, 4, 4> const
-sge::math::matrix_scaling(
-	vector<T, 3> const &v)
-{
-	return matrix<T, 4, 4>
-	       (v.x(),  static_cast<T>(0), static_cast<T>(0), static_cast<T>(0),
-	        static_cast<T>(0), v.y(),  static_cast<T>(0), static_cast<T>(0),
-	        static_cast<T>(0),  static_cast<T>(0), v.z(), static_cast<T>(0),
-	        static_cast<T>(0),  static_cast<T>(0), static_cast<T>(0), static_cast<T>(1));
-}
-
-template<
-	typename T
->
-sge::math::matrix<T, 4, 4> const
-sge::math::matrix_scaling(
-	T const x,
-	T const y,
-	T const z)
-{
-	return matrix_scaling(
-		vector<T, 3>(
-			x,
-			y,
-			z));
-}
-
 #undef near
 #undef far
 

@@ -41,4 +41,6 @@ orthogonal_xy();
 }
 }
 
+#include "detail/orthogonal_xy_impl.hpp"
+
 #endif
