@@ -1,21 +1,41 @@
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <sge/iostream.hpp>
 #include <sge/exception.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <sge/assert.hpp>
+#include <sge/text.hpp>
 #include <typeinfo>
 
-sge::renderer::texture_rw::texture_rw(texture_ptr const read,texture_ptr const write)
-	: read(read),
-	  write(write)
+struct sge::renderer::texture_rw::lock_data {
+	lock_rect area;
+	boost::optional<image_view> view;
+
+	lock_data(
+		lock_rect const &area,
+		boost::optional<image_view> const view = boost::none)
+	:
+		area(area),
+		view(view)
+	{}
+};
+
+sge::renderer::texture_rw::texture_rw(
+	texture_ptr const read,
+	texture_ptr const write)
+:
+	read(read),
+	write(write)
 {
 	SGE_ASSERT_MESSAGE(
 		read->dim() == write->dim(),
 		SGE_TEXT("read dimension has to be the same as write dimension"));
 }
+
+sge::renderer::texture_rw::~texture_rw()
+{}
 
 sge::renderer::texture_rw::dim_type const sge::renderer::texture_rw::dim() const
 {
@@ -50,4 +70,10 @@ void sge::renderer::texture_rw::unlock() const
 
 	read->unlock();
 	locked.reset();
+}
+
+sge::renderer::resource_flag_t
+sge::renderer::texture_rw::flags() const
+{
+	return resource_flags::dynamic;
 }

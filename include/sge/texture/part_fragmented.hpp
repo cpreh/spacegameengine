@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture_fwd.hpp"
 #include "../renderer/lock_rect.hpp"
 #include "../renderer/image_view.hpp"
+#include <sge/math/rect_decl.hpp>
 
 namespace sge
 {
@@ -41,6 +42,7 @@ public:
 		fragmented &,
 		bool need_atlasing_w,
 		bool need_atlasing_h);
+
 	SGE_SYMBOL void data(
 		renderer::const_image_view const &src);
 	SGE_SYMBOL renderer::lock_rect const &area() const;
