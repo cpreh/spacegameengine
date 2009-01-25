@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/angle.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/static.hpp>
+#include <sge/math/point_rotate.hpp>
 
 int main()
 {
@@ -35,4 +36,19 @@ int main()
 	sge::math::angle_to<float>(
 		vec,
 		vec);
+	
+	sge::math::vector::static_<
+		float,
+		2
+	>::type const vecf(
+		static_cast<float>(1),
+		static_cast<float>(2));
+	
+	sge::math::atan2(vecf);
+
+	sge::math::point_rotate(
+		vecf,
+		vecf,
+		3.f);
+
 }

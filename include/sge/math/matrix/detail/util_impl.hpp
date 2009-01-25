@@ -124,22 +124,6 @@ sge::math::matrix_rotation_x(
 template<
 	typename T
 >
-sge::math::matrix<T, 2, 2> const
-sge::math::matrix_rotation_2d(
-	T const angle)
-{
-	T const
-		sinx = std::sin(angle),
-        	cosx = std::cos(angle);
-
-	return matrix<T, 2, 2>(
-		cosx, -sinx,
-		sinx,  cosx);
-}
-
-template<
-	typename T
->
 sge::math::matrix<T, 4, 4> const
 sge::math::matrix_identity()
 {

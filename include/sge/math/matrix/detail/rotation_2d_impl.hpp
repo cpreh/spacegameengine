@@ -18,30 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_POINT_ROTATE_HPP_INCLUDED
-#define SGE_MATH_POINT_ROTATE_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_ROTATION_2D_IMPL_HPP_INCLUDED
+#define SGE_MATH_MATRIX_ROTATION_2D_IMPL_HPP_INCLUDED
 
-#include "vector/basic_decl.hpp"
-
-namespace sge
-{
-namespace math
-{
+#include "../basic_impl.hpp"
+#include <cmath>
 
 template<
-	typename T,
-	typename N,
-	typename S
+	typename T
 >
-vector::basic<T, N, S> const
-point_rotate(
-	vector::basic<T, N, S> const &point,
-	vector::basic<T, N, S> const &around,
-	T rot);
+typename sge::math::matrix::static_<T, 2, 2>::type const
+sge::math::matrix::rotation_2d(
+	T const angle)
+{
+	T const
+		sinx = std::sin(angle),
+        	cosx = std::cos(angle);
 
+	return typename static_<T, 2, 2>::type(
+		cosx, -sinx,
+		sinx,  cosx);
 }
-}
-
-#include "detail/point_rotate_impl.hpp"
 
 #endif

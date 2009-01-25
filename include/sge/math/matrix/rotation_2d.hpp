@@ -18,30 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_POINT_ROTATE_HPP_INCLUDED
-#define SGE_MATH_POINT_ROTATE_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_ROTATION_2D_HPP_INCLUDED
+#define SGE_MATH_MATRIX_ROTATION_2D_HPP_INCLUDED
 
-#include "vector/basic_decl.hpp"
+#include "static.hpp"
 
 namespace sge
 {
 namespace math
 {
+namespace matrix
+{
 
 template<
-	typename T,
-	typename N,
-	typename S
+	typename T
 >
-vector::basic<T, N, S> const
-point_rotate(
-	vector::basic<T, N, S> const &point,
-	vector::basic<T, N, S> const &around,
-	T rot);
+typename static_<T, 2, 2>::type const
+rotation_2d(
+	T angle);
 
 }
 }
+}
 
-#include "detail/point_rotate_impl.hpp"
+#include "detail/rotation_2d_impl.hpp"
 
 #endif
