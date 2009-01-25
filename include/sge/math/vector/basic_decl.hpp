@@ -116,6 +116,10 @@ SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
 	basic &
 	operator*=(
 		value_type const &);
+	
+	basic &
+	operator/=(
+		value_type const &);
 
 	const_reference
 	operator[](

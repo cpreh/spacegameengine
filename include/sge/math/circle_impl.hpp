@@ -22,22 +22,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_CIRCLE_IMPL_HPP_INCLUDED
 
 #include "circle.hpp"
+#include "vector/basic_impl.hpp"
+#include "vector/arithmetic.hpp"
+#include "vector/length.hpp"
 
 template<typename T>
 sge::math::circle<T>::circle(
 	const_reference x,
 	const_reference y,
 	const_reference radius_)
-: origin_(x, y),
-  radius_(radius_)
+:
+	origin_(x, y),
+	radius_(radius_)
 {}
 
 template<typename T>
 sge::math::circle<T>::circle(
 	const point_type& origin_,
 	const_reference radius_)
- : origin_(origin_),
-   radius_(radius_)
+:
+	origin_(origin_),
+	radius_(radius_)
 {}
 
 template<typename T>
@@ -73,7 +78,7 @@ bool sge::math::intersects(
 	circle<T> const &a,
 	circle<T> const &b)
 {
-	return (a.origin() - b.origin()).length()
+	return length(a.origin() - b.origin())
 	< a.radius() + b.radius();
 }
 

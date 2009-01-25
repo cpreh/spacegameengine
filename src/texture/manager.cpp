@@ -41,7 +41,7 @@ sge::texture::part_ptr const
 sge::texture::manager::add(
 	renderer::const_image_view const &src)
 {
-	BOOST_FOREACH(fragmented& tex, fragmented_textures)
+	BOOST_FOREACH(fragmented &tex, fragmented_textures)
 		if(part_ptr const p = init_texture(tex, src))
 			return p;
 

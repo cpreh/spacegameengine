@@ -99,6 +99,33 @@ SGE_MATH_DIM_BASIC_DEFINE_OPERATOR(%=)
 
 #undef SGE_MATH_DIM_BASIC_DEFINE_OPERATOR
 
+template<
+	typename T,
+	typename N,
+	typename S
+>
+sge::math::dim::basic<T, N, S> &
+sge::math::dim::basic<T, N, S>::operator*=(
+	value_type const &v)
+{
+	for(size_type i = 0; i < size(); ++i)
+		(*this)[i] *= v;
+	return *this;
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+sge::math::dim::basic<T, N, S> &
+sge::math::dim::basic<T, N, S>::operator/=(
+	value_type const &v)
+{
+	for(size_type i = 0; i < size(); ++i)
+		(*this)[i] /= v;
+	return *this;
+}
 
 template<
 	typename T,

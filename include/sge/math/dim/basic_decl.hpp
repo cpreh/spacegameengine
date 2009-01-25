@@ -109,6 +109,14 @@ SGE_MATH_DETAIL_MAKE_OP_DECL(basic, op)
 	SGE_MATH_DIM_BASIC_DECLARE_OPERATOR(%=)
 #undef SGE_MATH_DIM_BASIC_DECLARE_OPERATOR
 
+	basic &
+	operator*=(
+		value_type const &);
+	
+	basic &
+	operator/=(
+		value_type const &);
+
 	reference
 	operator[](
 		size_type);
