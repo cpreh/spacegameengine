@@ -152,7 +152,7 @@ sge::ogl::glsl::uniform_setter::operator()(
 		v);
 
 /*
-	switch(v.dim()) {
+	switch(v.size()) {
 	case 2:
 		uniform_2fv(
 			location,

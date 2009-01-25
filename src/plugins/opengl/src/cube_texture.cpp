@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../glew.hpp"
 #include <sge/renderer/scoped_lock.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
