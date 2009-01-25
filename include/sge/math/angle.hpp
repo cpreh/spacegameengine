@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "atan2.hpp"
 #include "vector/basic_impl.hpp"
 #include "vector/arithmetic.hpp"
+#include "vector/static.hpp"
 #include "mod.hpp"
 #include "constants.hpp"
 #include <sge/exception.hpp>
@@ -49,14 +50,18 @@ template<
 typename boost::enable_if<
 	boost::is_floating_point<Dest>,
 	boost::optional<Dest>
-	>::type
+>::type
 angle_to(
 	vector::basic<T, N, S> const &from,
 	vector::basic<T, N, S> const &to)
 {
+	// FIXME
 	return atan2(
 		structure_cast<
-			vector::basic<Dest, N, S>
+			typename vector::static_<
+				Dest,
+				N::value
+			>::type
 		>(
 			to - from));
 }
@@ -74,9 +79,13 @@ typename boost::enable_if<
 angle_to(
 	vector::basic<T, N, S> const &to)
 {
+	// FIXME
 	return atan2(
 		structure_cast<
-			vector::basic<Dest, N, S>
+			typename vector::static_<
+				Dest,
+				N::value
+			>::type
 		>(
 			to));
 }

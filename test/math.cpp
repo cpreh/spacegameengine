@@ -26,12 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 {
 	sge::math::vector::static_<
-		float,
+		int,
 		2
 	>::type const vec(
-		static_cast<float>(1),
-		static_cast<float>(2));
+		1,
+		2);
 	
-	sge::math::atan2(
+	sge::math::angle_to<float>(
+		vec,
 		vec);
 }
