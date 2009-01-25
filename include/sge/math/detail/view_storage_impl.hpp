@@ -29,9 +29,13 @@ template<
 >
 sge::math::detail::view_storage<T, N>::view_storage(
 	pointer const rep,
+	size_type const index,
+	size_type const stride,
 	size_type const sz)
 :
 	rep(rep),
+	index(index),
+	stride(stride),
 	sz(sz)
 {}
 
@@ -43,7 +47,7 @@ typename sge::math::detail::view_storage<T, N>::reference
 sge::math::detail::view_storage<T, N>::operator[](
 	size_type const i) const
 {
-	return rep[i];
+	return rep[i * stride + index];
 }
 	
 template<

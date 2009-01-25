@@ -106,8 +106,10 @@ sge::math::matrix::basic<T, N, M, S>::operator[](
 {
 	return reference(
 		typename reference::storage_type(
-			data() + j * N::value,
-			M::value));
+			data(),
+			j,
+			columns(),
+			rows()));
 }
 
 template<
@@ -122,8 +124,10 @@ sge::math::matrix::basic<T, N, M, S>::operator[](
 {
 	return const_reference(
 		typename const_reference::storage_type(
-			data() + j * N::value,
-			M::value));
+			data(),
+			j,
+			columns(),
+			rows()));
 }
 
 template<

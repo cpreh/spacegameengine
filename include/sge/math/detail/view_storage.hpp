@@ -40,7 +40,9 @@ public:
 
 	view_storage(
 		pointer,
-		size_type);
+		size_type index,
+		size_type stride,
+		size_type size);
 
 	reference
 	operator[](
@@ -49,7 +51,10 @@ public:
 	size_type size() const;
 private:
 	pointer rep;
-	size_type sz;
+	size_type
+		index,
+		stride,
+		sz;
 };
 
 }

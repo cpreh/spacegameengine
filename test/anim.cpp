@@ -106,7 +106,7 @@ try
 		boost::none,
 		boost::none);
 
-	const sge::sprite::animation_series::entity_vector series = 
+	sge::sprite::animation_series::entity_vector const series = 
 		boost::assign::list_of
 			(sge::sprite::animation_entity(
 				sge::time::millisecond(500),
