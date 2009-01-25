@@ -18,41 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_ATAN2_HPP_INCLUDED
-#define SGE_MATH_ATAN2_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_ROTATION_2D_HPP_INCLUDED
+#define SGE_MATH_MATRIX_ROTATION_2D_HPP_INCLUDED
 
-#include "vector/basic_impl.hpp"
-#include "vector/is_null.hpp"
-#include <boost/optional.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <cmath>
+#include "static.hpp"
 
 namespace sge
 {
 namespace math
 {
-/**
- * Wraps std::atan2 so it can be used with sge::math::vector. Returns an
- * empty boost::optional if given the null vector
- */
-template<
-	typename T,
-	typename N,
-	typename S
->
-inline typename boost::enable_if<
-	boost::is_floating_point<T>,
-	boost::optional<T>
-	>::type
-atan2(
-	sge::math::vector::basic<T, N, S> const &v)
+namespace matrix
 {
-	return is_null(v)
-		? boost::optional<T>()
-		: std::atan2(v.y(), v.x());
+
+template<
+	typename T
+>
+typename static_<T, 2, 2>::type const
+rotation_2d(
+	T angle);
+
 }
 }
 }
+
+#include "detail/rotation_2d_impl.hpp"
 
 #endif

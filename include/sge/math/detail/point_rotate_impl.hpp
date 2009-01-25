@@ -22,19 +22,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_POINT_ROTATE_IMPL_HPP_INCLUDED
 
 #include "../point_rotate.hpp"
-#include "../matrix_impl.hpp"
-#include "../matrix_util.hpp"
+#include "../matrix/basic_impl.hpp"
+#include "../matrix/rotation_2d.hpp"
+#include "../matrix/vector.hpp"
+#include "../vector/arithmetic.hpp"
+#include "../vector/basic_impl.hpp"
 
 template<
-	typename T
+	typename T,
+	typename N,
+	typename S
 >
-sge::math::vector<T, 2> const
+sge::math::vector::basic<T, N, S> const
 sge::math::point_rotate(
-	vector<T, 2> const &point,
-	vector<T, 2> const &around,
+	vector::basic<T, N, S> const &point,
+	vector::basic<T, N, S> const &around,
 	T const rot)
 {
-	return (matrix_rotation_2d(rot) * (point - around)) + around;
+	return (matrix::rotation_2d(rot) * (point - around)) + around;
 }
 
 #endif

@@ -18,41 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_ATAN2_HPP_INCLUDED
-#define SGE_MATH_ATAN2_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_ROTATION_2D_IMPL_HPP_INCLUDED
+#define SGE_MATH_MATRIX_ROTATION_2D_IMPL_HPP_INCLUDED
 
-#include "vector/basic_impl.hpp"
-#include "vector/is_null.hpp"
-#include <boost/optional.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
+#include "../basic_impl.hpp"
 #include <cmath>
 
-namespace sge
-{
-namespace math
-{
-/**
- * Wraps std::atan2 so it can be used with sge::math::vector. Returns an
- * empty boost::optional if given the null vector
- */
 template<
-	typename T,
-	typename N,
-	typename S
+	typename T
 >
-inline typename boost::enable_if<
-	boost::is_floating_point<T>,
-	boost::optional<T>
-	>::type
-atan2(
-	sge::math::vector::basic<T, N, S> const &v)
+typename sge::math::matrix::static_<T, 2, 2>::type const
+sge::math::matrix::rotation_2d(
+	T const angle)
 {
-	return is_null(v)
-		? boost::optional<T>()
-		: std::atan2(v.y(), v.x());
-}
-}
+	T const
+		sinx = std::sin(angle),
+        	cosx = std::cos(angle);
+
+	return typename static_<T, 2, 2>::type(
+		cosx, -sinx,
+		sinx,  cosx);
 }
 
 #endif
