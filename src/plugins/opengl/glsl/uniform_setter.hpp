@@ -37,40 +37,40 @@ namespace ogl
 namespace glsl
 {
 
-class uniform_setter : public boost::static_visitor<uniform_type::type> {
+class uniform_setter : public boost::static_visitor<uniform_type> {
 public:
 	explicit uniform_setter(
 		GLint location);
 	
-	uniform_type::type
+	uniform_type const
 	operator()(
 		renderer::glsl::int_type) const;
 	
-	uniform_type::type
+	uniform_type const
 	operator()(
 		renderer::glsl::float_type const &) const;
 
-	uniform_type::type
+	uniform_type const
 	operator()(
 		renderer::glsl::uniform_vector const &) const;
 	
-	uniform_type::type
+	uniform_type const
 	operator()(
 		renderer::glsl::uniform_matrix const &) const;
 
-	uniform_type::type
+	uniform_type const
 	operator()(
 		array_wrapper<renderer::glsl::int_type> const &) const;
 	
-	uniform_type::type
+	uniform_type const
 	operator()(
 		array_wrapper<renderer::glsl::float_type> const &) const;
 		
-	uniform_type::type
+	uniform_type const
 	operator()(
 		array_wrapper<renderer::glsl::uniform_vector> const &) const;
 
-	uniform_type::type
+	uniform_type const
 	operator()(
 		array_wrapper<renderer::glsl::uniform_matrix> const &) const;
 private:

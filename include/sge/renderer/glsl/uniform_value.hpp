@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "uniform_vector.hpp"
 #include "uniform_matrix.hpp"
 #include "../../array_wrapper.hpp"
+#include <sge/math/matrix/basic_impl.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/copy.hpp>

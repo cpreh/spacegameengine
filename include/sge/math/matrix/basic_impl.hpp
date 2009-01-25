@@ -169,6 +169,29 @@ sge::math::matrix::basic<T, N, M, S>::size() const
 		math::detail::storage_dim(
 			storage));
 }
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
+typename sge::math::matrix::basic<T, N, M, S>::size_type
+sge::math::matrix::basic<T, N, M, S>::rows() const
+{
+	return N::value; // FIXME 
+}
+
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
+typename sge::math::matrix::basic<T, N, M, S>::size_type
+sge::math::matrix::basic<T, N, M, S>::columns() const
+{
+	return M::value; // FIXME
+}
 
 template<
 	typename T,

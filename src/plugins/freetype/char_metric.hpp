@@ -42,6 +42,8 @@ public:
 		face &,
 		char_type);
 
+	~char_metric();
+
 	font::const_image_view const pixmap() const;
 	font::pos const offset() const;
 	font::unit x_advance() const;

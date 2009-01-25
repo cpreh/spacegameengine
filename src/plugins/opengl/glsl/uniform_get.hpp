@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
 
-#include "uniform_type.hpp"
 #include "../common.hpp"
 #include <sge/renderer/glsl/uniform_value.hpp>
 
@@ -32,10 +31,12 @@ namespace ogl
 namespace glsl
 {
 
+struct uniform_type;
+
 renderer::glsl::uniform_value const
 uniform_get(
 	GLint location,
-	uniform_type::type);
+	uniform_type const &);
 
 }
 }

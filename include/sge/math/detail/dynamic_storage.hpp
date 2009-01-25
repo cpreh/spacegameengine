@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_DYNAMIC_STORAGE_HPP_INCLUDED
 #define SGE_MATH_DETAIL_DYNAMIC_STORAGE_HPP_INCLUDED
 
-#include <sge/raw_vector.hpp>
+#include <sge/raw_vector_impl.hpp>
 
 namespace sge
 {

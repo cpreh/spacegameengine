@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLSL_UNIFORM_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_GLSL_UNIFORM_TYPE_HPP_INCLUDED
 
+#include "uniform_element_type.hpp"
+
 namespace sge
 {
 namespace ogl
@@ -28,23 +30,16 @@ namespace ogl
 namespace glsl
 {
 
-namespace uniform_type {
-enum type {
-	nothing,
-	int1,
-	float1,
-	float2,
-	float3,
-	float4,
-	matrix4x4,
-	int1_array,
-	float1_array,
-	float2_array,
-	float3_array,
-	float4_array,
-	matrix4x4_array
+struct uniform_type {
+	typedef unsigned size_type;
+
+	uniform_type(
+		uniform_element_type::type,
+		size_type elements);
+private:
+	uniform_element_type::type type_;
+	size_type elements_;
 };
-}
 
 }
 }

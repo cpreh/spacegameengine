@@ -34,7 +34,8 @@ class face;
 
 class glyph : boost::noncopyable {
 public:
-	glyph(const face&);
+	explicit glyph(
+		face const &);
 	~glyph();
 	FT_BitmapGlyph bitmap_glyph() const;
 private:

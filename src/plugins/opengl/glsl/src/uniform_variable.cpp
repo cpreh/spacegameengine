@@ -35,7 +35,8 @@ sge::ogl::glsl::uniform_variable<Native>::uniform_variable(
 			program,
 			name.c_str())),
 	stored_type(
-		uniform_type::nothing)
+		uniform_element_type::nothing,
+		0)
 {}
 
 template<bool Native>

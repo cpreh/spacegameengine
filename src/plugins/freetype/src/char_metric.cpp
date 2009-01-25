@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../face.hpp"
 #include "../glyph.hpp"
 #include "../char_metric.hpp"
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/log/headers.hpp>
@@ -81,7 +82,11 @@ sge::ft::char_metric::char_metric(
 	boost::gil::copy_pixels(src, boost::gil::view(buffer));
 }
 
-sge::font::pos const sge::ft::char_metric::offset() const
+sge::ft::char_metric::~char_metric()
+{}
+
+sge::font::pos const
+sge::ft::char_metric::offset() const
 {
 	return offset_;
 }

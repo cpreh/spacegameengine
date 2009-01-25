@@ -22,10 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_MATRIX_HPP_INCLUDED
 
 #include "float_type.hpp"
-#include "int_type.hpp"
 #include <sge/math/matrix/dynamic.hpp>
-#include <sge/math/matrix/basic_impl.hpp>
-#include <boost/variant/variant.hpp>
 
 namespace sge
 {
@@ -34,14 +31,9 @@ namespace renderer
 namespace glsl
 {
 
-typedef boost::variant<
-	math::matrix::dynamic<
-		float_type
-	>,
-	math::matrix::dynamic<
-		int_type
-	>
-> uniform_matrix;
+typedef math::matrix::dynamic<
+	float_type
+>::type uniform_matrix;
 
 }
 }
