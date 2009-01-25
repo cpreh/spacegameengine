@@ -52,6 +52,32 @@ SGE_MATH_MAKE_FREE_VECTOR_FUNCTION(%)
 
 #undef SGE_MATH_MAKE_FREE_VECTOR_FUNCTION
 
+template<
+	typename T,
+	typename N,
+	typename S
+>
+basic<T, N, S> const
+operator *(
+	basic<T, N, S> a,
+	T const &s)
+{
+	return a *= s;
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+basic<T, N, S> const
+operator *(
+	T const &s,
+	basic<T, N, S> const &a)
+{
+	return a * s;
+}
+
 }
 }
 }

@@ -17,6 +17,9 @@
 #include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
 
+#include <sge/math/vector/static.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
@@ -35,11 +38,14 @@
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/iostream.hpp>
-#include <sge/string.hpp>
+#include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/structure_cast.hpp>
 
 #include <iostream>
+#include <ostream>
+#include <exception>
 
 namespace
 {
@@ -63,9 +69,10 @@ struct show_data
 	void operator()() const 
 	{
 		running = false; 
-		sge::cerr << SGE_TEXT("game would now connect to ") 
-		          << hostname.text() << SGE_TEXT(" on port ") 
-							<< port.text() << SGE_TEXT("\n");
+		sge::cerr
+			<< SGE_TEXT("game would now connect to ") 
+			<< hostname.text() << SGE_TEXT(" on port ") 
+			<< port.text() << SGE_TEXT('\n');
 	}
 
 	bool &running;
@@ -139,11 +146,11 @@ class connect_functor
 			real_main += speed * delta * (pos_main - real_main);
 			real_connect += speed * delta * (vantage_connect - real_connect);
 		}
-		main_menu_.pos(sge::math::structure_cast<sge::gui::unit>(real_main));
-		connect_menu_.pos(sge::math::structure_cast<sge::gui::unit>(real_connect));
+		main_menu_.pos(sge::structure_cast<sge::gui::point>(real_main));
+		connect_menu_.pos(sge::structure_cast<sge::gui::point>(real_connect));
 	}
 	private:
-	typedef sge::math::vector<sge::time::funit,2> time_vector;
+	typedef sge::math::vector::static_<sge::time::funit,2>::type time_vector;
 
 	sge::gui::widget &connect_menu_;
 	sge::gui::widget &main_menu_;
@@ -301,11 +308,11 @@ try
 } 
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT("\n");
+	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT('\n');
 }
 catch (std::exception const &e)
 {
-	std::cerr << "caught std exception: " << e.what() << "\n";
+	std::cerr << "caught std exception: " << e.what() << '\n';
 }
 catch (...)
 {

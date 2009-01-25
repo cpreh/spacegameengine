@@ -23,7 +23,6 @@
 #include <sge/input/system.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/math/vector.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/lambda/lambda.hpp>
