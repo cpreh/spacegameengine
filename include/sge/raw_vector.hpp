@@ -22,15 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RAW_VECTOR_HPP_INCLUDED
 
 #include "config.h"
+#include "raw_vector_fwd.hpp"
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_pod.hpp>
 #include <iterator>
-#include <memory>
 
 namespace sge
 {
 
-template<typename T, typename A = std::allocator<T> >
+template<
+	typename T,
+	typename A
+>
 class raw_vector {
 	BOOST_STATIC_ASSERT(boost::is_pod<T>::value);
 public:
