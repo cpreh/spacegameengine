@@ -18,17 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_ANY_VECTOR4_HPP_INCLUDED
-#define SGE_RENDERER_ANY_VECTOR4_HPP_INCLUDED
+#ifndef SGE_COLLISION_POINT_HPP_INCLUDED
+#define SGE_COLLISION_POINT_HPP_INCLUDED
 
-#include "basic_any_vector.hpp"
+#include "unit.hpp"
+#include <sge/math/vector/static.hpp>
 
 namespace sge
 {
-namespace renderer
+namespace collision
 {
 
-typedef basic_any_vector<4>::type any_vector4;
+typedef math::vector::static_<
+	unit,
+	3
+>::type point;
 
 }
 }

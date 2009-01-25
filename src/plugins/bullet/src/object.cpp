@@ -3,6 +3,7 @@
 #include "../system.hpp"
 #include "../conversion.hpp"
 #include <sge/collision/sattelite.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <boost/bind.hpp>
 
 sge::bullet::object::object(
@@ -10,20 +11,21 @@ sge::bullet::object::object(
 	collision::sattelite_ptr _sat,
 	shape_ptr _shape,
 	unit const _mass)
-	: sat(_sat),
-		world_(sys.world()),
-	  shape_(_shape),
-		motion_state_(
-			boost::bind(&object::position_changed,this,_1)),
-		body_(
-			btRigidBody::btRigidBodyConstructionInfo(
-				static_cast<unit>(_mass),
-				&motion_state_,
-				shape_.get())),
-		constraint_(
-			world_,
-			body_,
-			sys.zero_body())
+:
+	sat(_sat),
+	world_(sys.world()),
+	shape_(_shape),
+	motion_state_(
+		boost::bind(&object::position_changed,this,_1)),
+	body_(
+		btRigidBody::btRigidBodyConstructionInfo(
+			static_cast<unit>(_mass),
+			&motion_state_,
+			shape_.get())),
+	constraint_(
+		world_,
+		body_,
+		sys.zero_body())
 {
 	body_.setUserPointer(sat.get());
 	world_.addRigidBody(&body_);

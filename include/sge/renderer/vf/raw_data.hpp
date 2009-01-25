@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
 
 #include "raw_pointer.hpp"
-#include <sge/math/vector/basic_decl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <boost/gil/pixel.hpp>
 
 namespace sge

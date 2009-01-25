@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "screen_unit.hpp"
 #include <sge/math/dim/static.hpp>
-#include <sge/math/dim/basic_decl.hpp>
 
 namespace sge
 {
@@ -32,7 +31,7 @@ namespace renderer
 typedef math::dim::static_<
 	screen_unit,
 	2
->::type   screen_size_t;
+>::type screen_size_t;
 
 }
 }

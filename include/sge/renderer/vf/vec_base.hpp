@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vertex_size.hpp"
 #include "role.hpp"
 #include "element_base.hpp"
-#include <sge/math/vector/basic_decl.hpp>
 #include <sge/math/vector/static.hpp>
 
 namespace sge

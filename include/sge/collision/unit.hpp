@@ -18,17 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_ANY_VECTOR2_HPP_INCLUDED
-#define SGE_RENDERER_ANY_VECTOR2_HPP_INCLUDED
-
-#include "basic_any_vector.hpp"
+#ifndef SGE_COLLISION_UNIT_HPP_INCLUDED
+#define SGE_COLLISION_UNIT_HPP_INCLUDED
 
 namespace sge
 {
-namespace renderer
+namespace collision
 {
 
-typedef basic_any_vector<2>::type any_vector2;
+typedef float unit;
 
 }
 }

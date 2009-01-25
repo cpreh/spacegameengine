@@ -2,7 +2,7 @@
 #define SGE_COLLISION_OBJECTS_CIRCLE_HPP_INCLUDED
 
 #include "fwd.hpp"
-#include "../types.hpp"
+#include "../point.hpp"
 #include "../sattelite_fwd.hpp"
 #include "../../export.hpp"
 #include <boost/noncopyable.hpp>

@@ -1,4 +1,5 @@
 #include "../conversion.hpp"
+#include <sge/math/vector/basic_impl.hpp>
 
 sge::bullet::point const sge::bullet::sge_to_bullet(collision::point const &v)
 {

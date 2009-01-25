@@ -3,6 +3,7 @@
 
 #include "openal.hpp"
 #include <sge/audio/sound.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 namespace sge
 {
