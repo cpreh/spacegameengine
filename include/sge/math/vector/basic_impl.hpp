@@ -128,6 +128,20 @@ template<
 	typename N,
 	typename S
 >
+sge::math::vector::basic<T, N, S> &
+sge::math::vector::basic<T, N, S>::operator/=(
+	value_type const &v)
+{
+	for(size_type i = 0; i < size(); ++i)
+		(*this)[i] /= v;
+	return *this;
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
 typename sge::math::vector::basic<T, N, S>::const_reference
 sge::math::vector::basic<T, N, S>::operator[](
 	size_type const index) const

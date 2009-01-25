@@ -18,39 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/math/atan2.hpp>
-#include <sge/math/angle.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/normalize.hpp>
-#include <sge/math/point_rotate.hpp>
+#ifndef SGE_MATH_VECTOR_LENGTH_QUAD_HPP_INCLUDED
+#define SGE_MATH_VECTOR_LENGTH_QUAD_HPP_INCLUDED
 
-int main()
+#include "basic_impl.hpp"
+#include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <numeric>
+
+namespace sge
 {
-	sge::math::vector::static_<
-		int,
-		2
-	>::type const vec(
-		1,
-		2);
-	
-	sge::math::angle_to<float>(
-		vec,
-		vec);
-	
-	sge::math::vector::static_<
-		float,
-		2
-	>::type const vecf(
-		static_cast<float>(1),
-		static_cast<float>(2));
-	
-	sge::math::atan2(vecf);
+namespace math
+{
+namespace vector
+{
 
-	sge::math::point_rotate(
-		vecf,
-		vecf,
-		3.f);
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename basic<T, N, S>::value_type
+length_quad(
+	basic<T, N, S> const &v)
+{
+	using boost::phoenix::arg_names::arg1;
+	using boost::phoenix::arg_names::arg2;
 
-	normalize(vecf);
+	return std::accumulate(
+		v.begin(),
+		v.end(),
+		static_cast<T>(0),
+		arg1 + arg2 * arg2);
 }
+
+}
+}
+}
+
+#endif

@@ -78,6 +78,19 @@ operator *(
 	return a * s;
 }
 
+template<
+	typename T,
+	typename N,
+	typename S
+>
+basic<T, N, S> const
+operator /(
+	basic<T, N, S> a,
+	T const &s)
+{
+	return a /= s;
+}
+
 }
 }
 }
