@@ -35,7 +35,7 @@ template<
 >
 bool contains(
 	rect<T> const &,
-	vector::basic<T, boost::mpl::integral_c<size_type, 2>, S> const &);
+	vector::basic<T, S> const &);
 
 template<typename T>
 rect<T> const intersection(rect<T> const &,rect<T> const &);
@@ -52,6 +52,6 @@ bool intersects(const rect<T>& l, const rect<T>& r);
 }
 }
 
-//#include "detail/rect_util_impl.hpp"
+#include "detail/rect_util_impl.hpp"
 
 #endif
