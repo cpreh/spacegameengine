@@ -52,6 +52,59 @@ SGE_MATH_MAKE_FREE_DIM_FUNCTION(%)
 
 #undef SGE_MATH_MAKE_FREE_DIM_FUNCTION
 
+template<
+	typename T,
+	typename N,
+	typename S
+>
+basic<T, N, S> const
+operator -(
+	basic<T, N, S> a)
+{
+	for(typename basic<T, N, S>::size_type i = 0; i < a.size(); ++i)
+		a[i] = -a[i];
+	return a;
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+basic<T, N, S> const
+operator *(
+	basic<T, N, S> a,
+	T const &s)
+{
+	return a *= s;
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+basic<T, N, S> const
+operator *(
+	T const &s,
+	basic<T, N, S> const &a)
+{
+	return a * s;
+}
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+basic<T, N, S> const
+operator /(
+	basic<T, N, S> a,
+	T const &s)
+{
+	return a /= s;
+}
+
 }
 }
 }
