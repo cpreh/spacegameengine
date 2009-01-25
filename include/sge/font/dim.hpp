@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "unit.hpp"
 #include <sge/math/dim/static.hpp>
-#include <sge/math/dim/basic_decl.hpp>
 
 namespace sge
 {

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../filesystem/path.hpp"
 #include "../renderer/image_view.hpp"
 #include <sge/math/dim/static.hpp>
-#include <sge/math/dim/basic_decl.hpp>
 #include <boost/noncopyable.hpp>
 #include <cstddef>
 
