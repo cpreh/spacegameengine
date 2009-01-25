@@ -24,8 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/math/power.hpp>
 #include <sge/math/dim/io.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
+#include <sge/make_shared_ptr.hpp>
+#include <boost/ref.hpp>
 #include <ostream>
 
 sge::texture::no_fragmented::no_fragmented(
@@ -67,11 +71,13 @@ sge::texture::no_fragmented::consume_fragment(
 		);
 
 	return part_ptr(
-		new part_fragmented(
+		make_shared_ptr<
+			part_fragmented
+		>(
 			renderer::lock_rect(
 				renderer::lock_rect::point_type::null(),
 				atlased_size(dim)),
-			*this,
+			boost::ref(*this),
 			need_atlasing(dim.w()),
 			need_atlasing(dim.h())));
 }

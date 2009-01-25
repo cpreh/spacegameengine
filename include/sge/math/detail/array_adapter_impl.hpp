@@ -507,7 +507,7 @@ sge::math::detail::array_adapter<
 >::operator!=(
 	Derived const &r) const
 {
-	return *this != r;
+	return !(*this == r);
 }
 
 template<

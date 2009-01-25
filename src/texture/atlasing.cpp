@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view_dim.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
 bool sge::texture::need_atlasing(
 	renderer::size_type const s)
@@ -36,10 +37,11 @@ bool sge::texture::need_atlasing(
 bool sge::texture::need_atlasing(
 	renderer::dim_type const &dim)
 {
-	return need_atlasing(
-		dim.w())
-	|| need_atlasing(
-		dim.h());
+	return 
+		need_atlasing(
+			dim.w())
+		|| need_atlasing(
+			dim.h());
 }
 
 sge::renderer::size_type
