@@ -3,6 +3,7 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/gui/canvas.hpp>
+#include <sge/gui/media_path.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
