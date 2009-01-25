@@ -72,9 +72,6 @@ private:
 
 	dim_type const lock_dim() const;
 	
-	void set_texture(
-		const_pointer src) const;
-
 	dim_type const               dim_;
 	mutable boost::optional<
 		renderer::lock_rect> lock_rect_;
