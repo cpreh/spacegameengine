@@ -30,7 +30,8 @@ sge::gui::image_view &sge::gui::canvas::object::view()
 	return view_;
 }
 
-sge::gui::const_image_view const &sge::gui::canvas::object::view() const
+sge::gui::const_image_view const
+sge::gui::canvas::object::view() const
 {
 	return renderer::make_const_image_view(view_);
 }
