@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_UTIL_HPP_INCLUDED
-#define SGE_TEXTURE_UTIL_HPP_INCLUDED
+#ifndef SGE_TEXTURE_DETAIL_CONTAINER_POSITION_HPP_INCLUDED
+#define SGE_TEXTURE_DETAIL_CONTAINER_POSITION_HPP_INCLUDED
 
-#include "part_fwd.hpp"
-#include "../export.hpp"
-#include "../image/object_fwd.hpp"
+#include "fragmented_queue.hpp"
+#include "fragmented_list.hpp"
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {
 namespace texture
 {
+namespace detail
+{
 
-class manager;
+typedef boost::variant<
+	fragmented_queue::iterator,
+	fragmented_list::iterator
+> container_position;
 
-SGE_SYMBOL part_ptr const add(
-	manager &,
-	image::object_ptr);
-
+}
 }
 }
 

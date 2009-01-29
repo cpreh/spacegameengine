@@ -18,41 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ASSERT_HPP_INCLUDED
-#define SGE_ASSERT_HPP_INCLUDED
+#include <sge/texture/detail/fragmented_sort.hpp>
+#include <sge/texture/fragmented.hpp>
 
-#include "string.hpp"
-#include "text.hpp"
-#include "export.hpp"
-#include "stringize.hpp"
-#include "file.hpp"
-
-namespace sge
+bool
+sge::texture::detail::fragmented_sort::operator()(
+	fragmented const &a,
+	fragmented const &b) const
 {
-namespace detail
-{
-SGE_SYMBOL void process_assert(
-	string const &file,
-	string const &line,
-	string const &condition,
-	string const &message = string(),
-	string const &function = string());
+	return a.free_value() < b.free_value();
 }
-}
-
-#define SGE_ASSERT_MESSAGE(cond,message)\
-if (!(cond))\
-	sge::detail::process_assert(\
-		SGE_FILE,\
-		SGE_STRINGIZE(__LINE__),\
-		SGE_STRINGIZE(cond),\
-		message);
-
-#define SGE_ASSERT(cond)\
-if (!(cond))\
-	sge::detail::process_assert(\
-		SGE_FILE,\
-		SGE_STRINGIZE(__LINE__),\
-		SGE_STRINGIZE(cond));
-
-#endif

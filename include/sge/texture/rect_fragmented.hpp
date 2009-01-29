@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture_fwd.hpp"
 #include "../renderer/dim_type.hpp"
 #include "../renderer/color_format.hpp"
+#include <sge/renderer/size_type.hpp>
 
 namespace sge
 {
@@ -39,27 +40,34 @@ struct texture_filter;
 namespace texture
 {
 
-// FIXME
-// this is just a temporary hack
 class rect_fragmented : public fragmented {
 public:
 	SGE_SYMBOL rect_fragmented(
 		renderer::device_ptr rend,
 		renderer::color_format::type,
 		renderer::texture_filter const &filter);
-	SGE_SYMBOL part_ptr const consume_fragment(
+private:
+	SGE_SYMBOL part_ptr const
+	consume_fragment(
 		renderer::dim_type const &);
-	SGE_SYMBOL void return_fragment(
+	SGE_SYMBOL void on_return_fragment(
 		part const &);
 	SGE_SYMBOL renderer::texture_ptr const
 	texture() const;
 	SGE_SYMBOL bool repeatable() const;
-private:
+
+	SGE_SYMBOL free_type
+	free_value() const;
+
+	SGE_SYMBOL bool
+	empty() const;
+
 	renderer::device_ptr  const  rend;
 	renderer::size_type          cur_x,
 	                             cur_y,
 	                             cur_height;
 	renderer::texture_ptr const  tex;
+	renderer::size_type          texture_count;
 };
 
 }

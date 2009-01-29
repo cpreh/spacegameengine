@@ -20,46 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/iostream.hpp>
-#include <sge/media.hpp>
-#include <sge/signals/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/state/list.hpp>
-#include <sge/audio/player.hpp>
-#include <sge/log/headers.hpp>
-#include <sge/audio/listener.hpp>
-#include <sge/audio/multi_loader.hpp>
-#include <sge/audio/file.hpp>
-#include <sge/audio/sound.hpp>
-#include <sge/renderer/state/var.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/sprite/texture_animation.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/texture/util.hpp>
-#include <sge/texture/no_fragmented.hpp>
-#include <sge/texture/default_creator.hpp>
-#include <sge/texture/default_creator_impl.hpp>
-#include <sge/signals/signal.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/input/classification.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/container/map.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/logger.hpp>
+#include <sge/iostream.hpp>
+#include <sge/text.hpp>
+#include <sge/exception.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/if.hpp>
-#include <boost/assign/list_of.hpp>
-#include <boost/foreach.hpp>
 #include <exception>
 #include <ostream>
 #include <cstdlib>
-#include <map>
 
 void mod_callback(
 	sge::input::key_pair const &kp,
@@ -74,7 +54,7 @@ void mod_callback(
 	if (mods[sge::input::kc::key_alt])
 		sge::cerr << SGE_TEXT("A-");
 	
-	sge::cerr << kp.key().char_code() << SGE_TEXT("\n");
+	sge::cerr << kp.key().char_code() << SGE_TEXT('\n');
 }
 
 int main()

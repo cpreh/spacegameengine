@@ -49,19 +49,26 @@ public:
 		renderer::texture_filter const &filter,
 		renderer::dim_type const &cell_size);
 	SGE_SYMBOL ~cell_fragmented();
-
+private:
 	SGE_SYMBOL part_ptr const
 	consume_fragment(
 		renderer::dim_type const &);
 
-	SGE_SYMBOL void return_fragment(
+	SGE_SYMBOL void
+	on_return_fragment(
 		part const &);
 
 	SGE_SYMBOL renderer::texture_ptr const
 	texture() const;
 
 	SGE_SYMBOL bool repeatable() const;
-private:
+
+	SGE_SYMBOL free_type
+	free_value() const;
+
+	SGE_SYMBOL bool
+	empty() const;
+
 	typedef field<
 		bool,
 		raw_vector

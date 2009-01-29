@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/iostream.hpp>
 #include <sge/media.hpp>
+#include <sge/exception.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
@@ -36,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/texture_animation.hpp>
 #include <sge/texture/manager.hpp>
-#include <sge/texture/util.hpp>
+#include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/default_creator.hpp>
 #include <sge/texture/default_creator_impl.hpp>
@@ -90,8 +91,8 @@ try
 	sge::texture::manager tex_man(rend, creator);
 
 	sge::texture::const_part_ptr const
-		tex1(sge::texture::add(tex_man, img1)),
-		tex2(sge::texture::add(tex_man, img2));
+		tex1(sge::texture::add_image(tex_man, img1)),
+		tex2(sge::texture::add_image(tex_man, img2));
 
 	sge::sprite::system ss(rend);
 	sge::sprite::object spr(

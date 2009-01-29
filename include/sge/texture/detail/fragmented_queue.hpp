@@ -18,15 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/util.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/image/object.hpp>
+#ifndef SGE_TEXTURE_DETAIL_FRAGMENTED_QUEUE_HPP_INCLUDED
+#define SGE_TEXTURE_DETAIL_FRAGMENTED_QUEUE_HPP_INCLUDED
 
-sge::texture::part_ptr const
-sge::texture::add(
-	manager &man,
-	image::object_ptr const img)
+#include "fragmented_sort.hpp"
+#include <boost/ptr_container/ptr_set.hpp>
+
+namespace sge
 {
-	return man.add(
-		img->view());
+namespace texture
+{
+
+class fragmented;
+
+namespace detail
+{
+
+typedef boost::ptr_multiset<
+	fragmented,
+	fragmented_sort
+> fragmented_queue;
+
 }
+}
+}
+
+#endif
