@@ -71,7 +71,7 @@ sge::texture::manager::renderer() const
 }
 
 void sge::texture::manager::onalloc(
-	const onalloc_function& fun)
+	onalloc_function const &fun)
 {
 	onalloc_ = fun;
 }
