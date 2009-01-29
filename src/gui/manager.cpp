@@ -18,17 +18,20 @@ sge::gui::manager::manager(
 	input::system_ptr const is,
 	font::system_ptr const fs,
 	skin_ptr skin_)
-	: rend(rend),
-	  il(il),
-	  is(is),
-		fs(fs),
-		standard_font_(
-			fs->create_font(sge::media_path()/SGE_TEXT("fonts/default.ttf"),15)),
-		skin_(skin_),
-		mouse_(is,il,rend,*skin_),
-		render_(rend,mouse_),
-		keyboard_(is),
-		updates_(mouse_,render_)
+:
+	rend(rend),
+	il(il),
+	is(is),
+	fs(fs),
+	standard_font_(
+		fs->create_font(
+			sge::media_path() / SGE_TEXT("fonts/default.ttf"),
+			15)),
+	skin_(skin_),
+	mouse_(is,il,rend,*skin_),
+	render_(rend,mouse_),
+	keyboard_(is),
+	updates_(mouse_,render_)
 {
 	submanagers = boost::assign::list_of<detail::submanager*>
 				(&mouse_)
@@ -37,6 +40,9 @@ sge::gui::manager::manager(
 				(&updates_)
 				(&timer_);
 }
+
+sge::gui::manager::~manager()
+{}
 
 void sge::gui::manager::invalidate(
 	rect const &r)
