@@ -156,7 +156,7 @@ sge::windows::window::title() const
 {
 	// TODO: read the length first!
 	std::tr1::array<TCHAR, 1024> buffer;
-	if(GetWindowText(hwnd(), buffer.c_array(), buffer.size()) == 0)
+	if(GetWindowText(hwnd(), buffer.data(), buffer.size()) == 0)
 		throw exception(
 			SGE_TEXT("GetWindowText() failed!"));
 	return string(buffer.data());

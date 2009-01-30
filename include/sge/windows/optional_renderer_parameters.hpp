@@ -18,27 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOWS_CREATE_WINDOW_HPP_INCLUDED
-#define SGE_WINDOWS_CREATE_WINDOW_HPP_INCLUDED
+#ifndef SGE_WINDOWS_OPTONAL_RENDERER_PARAMETERS_HPP_INCLUDED
+#define SGE_WINDOWS_OPTONAL_RENDERER_PARAMETERS_HPP_INCLUDED
 
-#include "optional_renderer_parameters.hpp"
-#include "../window/instance_fwd.hpp"
-#include "../export.hpp"
+#include <sge/renderer/parameters.hpp>
+#include <boost/optional.hpp>
 
 namespace sge
 {
-namespace window
-{
-struct parameters;
-}
-
 namespace windows
 {
 
-SGE_SYMBOL sge::window::instance_ptr const
-create_window(
-	sge::window::parameters const &,
-	optional_renderer_parameters const &);
+typedef boost::optional<
+	renderer::parameters
+> optional_renderer_parameters;
 
 }
 }

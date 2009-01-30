@@ -29,30 +29,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::window::instance_ptr const
 sge::windows::create_window(
-	sge::window::parameters const &param)
+	sge::window::parameters const &param,
+	optional_renderer_parameters const &rparam)
 {
-	renderer::parameters const &rparam(
-		param.param());
-
 	windows::window_ptr const wnd(
 		make_shared_ptr<
 			windows::window
 		>(
-			rparam.mode().size(),
+			*param.dim(),
 			param.title(),
 			param.class_name()));
 
-	windows::choose_and_set_pixel_format(
-		windows::gdi_device(
-			wnd->hwnd(),
-			windows::gdi_device::get_tag()),
-		PFD_DRAW_TO_WINDOW |
-		PFD_SUPPORT_OPENGL |
-		PFD_DOUBLEBUFFER,
-		PFD_TYPE_RGBA,
-		static_cast<BYTE>(rparam.mode().bit_depth()),
-		static_cast<BYTE>(rparam.dbuffer()),
-		static_cast<BYTE>(rparam.sbuffer()));
+	if(rparam)
+		windows::choose_and_set_pixel_format(
+			windows::gdi_device(
+				wnd->hwnd(),
+				windows::gdi_device::get_tag()),
+			PFD_DRAW_TO_WINDOW |
+			PFD_SUPPORT_OPENGL |
+			PFD_DOUBLEBUFFER,
+			PFD_TYPE_RGBA,
+			static_cast<BYTE>(rparam->mode().bit_depth()),
+			static_cast<BYTE>(rparam->dbuffer()),
+			static_cast<BYTE>(rparam->sbuffer()));
 
 	return wnd;
 }
