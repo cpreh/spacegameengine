@@ -30,10 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
-#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(template_pre, def_pre, name) \
-	template_pre \
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(name) \
+	SGE_MATH_TEMPLATE_PRE \
 	template<typename... Args> \
-	def_pre::name(Args... args) \
+	SGE_MATH_DEF_PRE::name(Args... args) \
 	{ \
 		::sge::math::detail::initial_size(\
 			storage,\
@@ -41,9 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		set_impl(0, args...); \
 	} \
 \
-	template_pre \
+	SGE_MATH_TEMPLATE_PRE \
 	template<typename... Args> \
-	void def_pre::set_impl( \
+	void SGE_MATH_DEF_PRE::set_impl( \
 		size_type const i, \
 		value_type const &arg, \
 		Args... args) \
@@ -52,8 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		set_impl(i + 1, args...); \
 	} \
 \
-	template_pre \
-	void def_pre::set_impl( \
+	SGE_MATH_TEMPLATE_PRE \
+	void SGE_MATH_DEF_PRE::set_impl( \
 		size_type const i, \
 		value_type const &arg) \
 	{ \
@@ -61,10 +61,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	}
 #else
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_ASSIGN(z, n, text)\
-(*this)[n] = text##n;
+*(data() + n) = text##n;
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL(z, n, text)\
-text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& param))\
+SGE_MATH_TEMPLATE_PRE \
+SGE_MATH_DEF_PRE :: text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& param))\
 {\
 	::sge::math::detail::initial_size(\
 		storage,\
@@ -72,10 +73,9 @@ text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& param))\
 	BOOST_PP_REPEAT(BOOST_PP_INC(n), SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_ASSIGN, param)\
 }
 
-#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(template_pre, def_pre, name)\
-BOOST_PP_REPEAT(SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE, SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL, def_pre ## :: ## name)
+#define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(name)\
+BOOST_PP_REPEAT(SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE, SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL, name)
 
-#undef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL
 #endif
 
 #endif

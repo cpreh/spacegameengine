@@ -184,12 +184,6 @@ vector<T,Dim> cross(const vector<T,Dim>& l, const vector<T,Dim>& r)
 }
 
 template<typename T, std::size_t Dim>
-vector<T,Dim> normalize(vector<T,Dim> l)
-{
-	return l.normalize();
-}
-
-template<typename T, std::size_t Dim>
 typename vector<T,Dim>::value_type dot(const vector<T,Dim>& l, const vector<T,Dim>& r)
 {
 	return l.dot(r);
