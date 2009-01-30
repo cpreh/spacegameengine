@@ -39,7 +39,7 @@ sge::windows::format_message(
 		0, // ignored
 		error, // message id
 		0, // language id
-		errmsg.c_array(),
+		errmsg.data(),
 		errmsg.size()-1,
 		0
 	) == 0)
