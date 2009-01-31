@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/raw_vector_impl.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/variant/static_visitor.hpp>
+#include <boost/variant/get.hpp>
 
 namespace
 {
@@ -210,7 +211,10 @@ sge::ogl::glsl::uniform_setter::operator()(
 
 	return uniform_type(
 		uniform_element_type::int1,
-		m.size());
+		static_cast<
+			uniform_type::size_type
+		>(
+			m.size()));
 }
 
 sge::ogl::glsl::uniform_type const
@@ -224,7 +228,10 @@ sge::ogl::glsl::uniform_setter::operator()(
 
 	return uniform_type(
 		uniform_element_type::float1,
-		m.size());
+		static_cast<
+			uniform_type::size_type
+		>(
+			m.size()));
 }
 
 sge::ogl::glsl::uniform_type const
@@ -254,7 +261,10 @@ sge::ogl::glsl::uniform_setter::operator()(
 		>(a).data(),
 		a.begin()->rows(),
 		a.begin()->columns(),
-		a.size());
+		static_cast<
+			GLsizei
+		>(
+			a.size()));
 }
 
 namespace
@@ -363,15 +373,34 @@ vector_array_visitor::operator()(
 		T,
 		N,
 		S
-	> const &) const
+	> const &v) const
 {
-	/*
 	sge::raw_vector<
 		T
 	> narray;
 
-	for(typename sge::array_wrapper<T>::iterator it(a.begin()); it != a.end(); ++it)
-		ret.insert(ret.end(), it->begin(), it->end());*/
+	for(array_type::iterator it = arr.begin(); it != arr.end(); ++it)
+	{
+		typedef sge::math::vector::basic<
+			T,
+			N,
+			S
+		> vec_type;
+
+		vec_type const v(
+			boost::get<
+				vec_type
+			>(
+				*it));
+
+		narray.insert(narray.end(), v.begin(), v.end());
+	}
+
+	return set_vector(
+		location,
+		narray.data(),
+		v.size(),
+		arr.size());
 }
 
 sge::ogl::glsl::uniform_type const
