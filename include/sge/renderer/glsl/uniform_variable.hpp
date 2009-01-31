@@ -34,6 +34,8 @@ namespace glsl
 
 class SGE_CLASS_SYMBOL uniform_variable {
 	SGE_NONCOPYABLE(uniform_variable)
+protected:
+	SGE_SYMBOL uniform_variable();
 public:
 	virtual uniform_value const get() const = 0;
 	virtual void set(uniform_value const &) = 0;
