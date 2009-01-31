@@ -6,6 +6,7 @@
 #include <sge/audio/listener.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
@@ -20,7 +21,7 @@
 #include <cstdlib>
 #include <cmath>
 
-int main(int, char *[])
+int main()
 try
 {
 	sge::log::global().activate_hierarchy(sge::log::level::debug);

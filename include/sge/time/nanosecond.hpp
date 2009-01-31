@@ -21,18 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_NANOSECOND_HPP_INCLUDED
 #define SGE_TIME_NANOSECOND_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "resolution.hpp"
+#include "unit.hpp"
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-class nanosecond : public resolution {
-public:
-	SGE_SYMBOL explicit nanosecond(unit);
-};
+class resolution;
+
+SGE_SYMBOL resolution const
+nanosecond(
+	unit);
 
 }
 }

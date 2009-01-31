@@ -19,17 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/time/nanosecond.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/time/time.hpp>
 
-namespace
-{
-
-sge::time::unit const factor(1000 * 1000 * 1000);
-
-}
-
-sge::time::nanosecond::nanosecond(
+sge::time::resolution const
+sge::time::nanosecond(
 	unit const tm)
-: resolution(
-	tm * hz() / factor)
-{}
+{
+	return resolution(
+		tm * hz() / (1000 * 1000 * 1000));
+}

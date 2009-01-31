@@ -13,6 +13,7 @@
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/millisecond.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/math/vector/basic_impl.hpp>

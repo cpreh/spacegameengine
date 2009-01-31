@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../signals/scoped_connection.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
-#include "../time/timer.hpp"
-#include "../time/types.hpp"
+#include <sge/time/timer.hpp>
+#include <sge/time/unit.hpp>
 #include "../texture/part_fwd.hpp"
 #include "../string.hpp"
 #include "../export.hpp"

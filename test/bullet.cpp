@@ -2,7 +2,7 @@
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/iostream.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/states.hpp>
