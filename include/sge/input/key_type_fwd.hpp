@@ -18,44 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_KEY_TYPE_HPP_INCLUDED
-#define SGE_INPUT_KEY_TYPE_HPP_INCLUDED
-
-#include "key_code.hpp"
-#include "../export.hpp"
-#include "../string.hpp"
+#ifndef SGE_INPUT_KEY_TYPE_FWD_HPP_INCLUDED
+#define SGE_INPUT_KEY_TYPE_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace input
 {
 
-class key_type {
-public:
-	typedef sge::string        string;
-	typedef string::value_type char_type;
-
-	SGE_SYMBOL explicit key_type(
-		string const &name = string(),
-		key_code code = kc::none,
-		char_type char_code = 0);
-
-	SGE_SYMBOL string const &name() const;
-	SGE_SYMBOL key_code code() const;
-	SGE_SYMBOL char_type char_code() const;
-
-	SGE_SYMBOL void char_code(char_type);
-private:
-	string    name_;
-	key_code  code_;
-	char_type char_code_;
-};
-
-SGE_SYMBOL bool operator<(key_type const &l, key_type const &r);
-
-SGE_SYMBOL bool operator==(key_type const &l, key_type const &r);
-
-SGE_SYMBOL bool operator!=(key_type const &l, key_type const &r);
+class key_type;
 
 }
 }
