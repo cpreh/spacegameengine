@@ -3,7 +3,9 @@
 
 #include "synth.hpp"
 #include <mad.h>
-#include <sge/audio/types.hpp>
+#include <sge/audio/sample_count.hpp>
+#include <sge/audio/channel_type.hpp>
+#include <sge/audio/sample_container.hpp>
 #include <sge/string.hpp>
 #include <boost/noncopyable.hpp>
 

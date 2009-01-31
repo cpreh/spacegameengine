@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_HPP_INCLUDED
 
-#include "types.hpp"
+#include "unit.hpp"
+#include "point.hpp"
 #include "play_mode.hpp"
 #include "sound_status.hpp"
-#include "../export.hpp"
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -32,7 +34,10 @@ namespace sge
 namespace audio
 {
 
-class SGE_CLASS_SYMBOL sound : boost::noncopyable {
+class SGE_CLASS_SYMBOL sound {
+	SGE_NONCOPYABLE(sound)
+protected:
+	SGE_SYMBOL sound();
 public:
 	virtual void play(sge::audio::play_mode::type) = 0;
 	virtual sge::audio::play_mode::type play_mode() const = 0;

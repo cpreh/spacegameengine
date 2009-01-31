@@ -15,6 +15,7 @@
 #include <sge/time/millisecond.hpp>
 #include <sge/time/sleep.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/time/sleep.hpp>

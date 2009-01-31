@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/angle.hpp>
 
 sge::audio::angle::angle()
+:
+	forward(),
+	up()
 {}
 
 sge::audio::angle::angle(

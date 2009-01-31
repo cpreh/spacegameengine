@@ -18,25 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_FORMAT_DEFAULT_LEVEL_HPP_INCLUDED
-#define SGE_LOG_FORMAT_DEFAULT_LEVEL_HPP_INCLUDED
+#ifndef SGE_AUDIO_SAMPLE_COUNT_HPP_INCLUDED
+#define SGE_AUDIO_SAMPLE_COUNT_HPP_INCLUDED
 
-#include "formatter_fwd.hpp"
-#include "../level.hpp"
-#include <sge/export.hpp>
+#include <cstddef>
 
 namespace sge
 {
-namespace log
-{
-namespace format
+namespace audio
 {
 
-SGE_SYMBOL const_formatter_ptr const
-default_level(
-	level::type);
+typedef std::size_t sample_count;
 
-}
 }
 }
 

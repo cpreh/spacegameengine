@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture_fwd.hpp"
 #include "../renderer/dim_type.hpp"
 #include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -36,7 +36,8 @@ namespace texture
 
 class manager;
 
-class SGE_CLASS_SYMBOL fragmented : boost::noncopyable {
+class SGE_CLASS_SYMBOL fragmented {
+	SGE_NONCOPYABLE(fragmented)
 protected:
 	SGE_SYMBOL fragmented();
 public:

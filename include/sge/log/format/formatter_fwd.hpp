@@ -17,25 +17,25 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef SGE_AUDIO_TYPES_HPP_INCLUDED
-#define SGE_AUDIO_TYPES_HPP_INCLUDED
 
-#include "../raw_vector.hpp"
-#include <sge/math/vector/static.hpp>
-#include <cstddef>
+#ifndef SGE_LOG_FORMAT_FORMATTER_FWD_HPP_INCLUDED
+#define SGE_LOG_FORMAT_FORMATTER_FWD_HPP_INCLUDED
+
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
-namespace audio
+namespace log
+{
+namespace format
 {
 
-typedef unsigned channel_type;
-typedef std::size_t sample_count;
-typedef raw_vector<unsigned char> sample_container;
+class formatter;
 
-typedef float unit; // TODO: is float ok here?
-typedef math::vector::static_<unit, 3>::type point;
+typedef shared_ptr<formatter> formatter_ptr;
+typedef shared_ptr<formatter const> const_formatter_ptr;
 
+}
 }
 }
 

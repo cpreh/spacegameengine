@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_FORMAT_CHAIN_HPP_INCLUDED
 #define SGE_LOG_FORMAT_CHAIN_HPP_INCLUDED
 
+#include "formatter_fwd.hpp"
 #include "formatter.hpp"
 #include "../../string.hpp"
 #include "../../export.hpp"
@@ -34,16 +35,18 @@ namespace format
 
 class SGE_CLASS_SYMBOL chain : public formatter {
 public:
-	chain(
+	SGE_SYMBOL chain(
 		const_formatter_ptr parent,
 		const_formatter_ptr child);
+	SGE_SYMBOL ~chain();
 	
 	SGE_SYMBOL string const
 	format(
 		string const &) const;
 private:
-	const_formatter_ptr const parent,
-	                          child;
+	const_formatter_ptr const
+		parent,
+		child;
 };
 
 }

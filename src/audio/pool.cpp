@@ -5,7 +5,12 @@
 #include <sge/text.hpp>
 #include <boost/foreach.hpp>
 
-void sge::audio::pool::add(audio::sound_ptr const s,stop_mode::type const pm)
+sge::audio::pool::pool()
+{}
+
+void sge::audio::pool::add(
+	audio::sound_ptr const s,
+	stop_mode::type const pm)
 {
 	sounds.push_back(value_type(s,pm));
 }

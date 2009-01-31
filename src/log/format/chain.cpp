@@ -25,13 +25,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::log::format::chain::chain(
 	const_formatter_ptr const parent,
 	const_formatter_ptr const child)
-: parent(parent),
-  child(child)
+:
+	parent(parent),
+	child(child)
 {
 	if(!parent || !child)
 		throw exception(
 			SGE_TEXT("format::chain(): one of the formatters is zero!"));
 }
+
+sge::log::format::chain::~chain()
+{}
 
 sge::string const
 sge::log::format::chain::format(

@@ -21,18 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LISTENER_HPP_INCLUDED
 #define SGE_AUDIO_LISTENER_HPP_INCLUDED
 
-#include "types.hpp"
-#include "angle.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include "point.hpp"
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
-class SGE_CLASS_SYMBOL listener : boost::noncopyable
+
+struct angle;
+
+class SGE_CLASS_SYMBOL listener
 {
-	public:
+	SGE_NONCOPYABLE(listener)
+protected:
+	SGE_SYMBOL listener();
+public:
 	virtual point const pos() const = 0;
 	virtual void pos(point const &) = 0;
 	virtual point const vel() const = 0;
@@ -41,6 +46,7 @@ class SGE_CLASS_SYMBOL listener : boost::noncopyable
 	virtual void direction(angle const &) = 0;
 	SGE_SYMBOL virtual ~listener();
 };
+
 }
 }
 
