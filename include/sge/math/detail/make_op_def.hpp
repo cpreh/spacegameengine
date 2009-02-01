@@ -24,24 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "storage_dim.hpp"
 
 #define SGE_MATH_DETAIL_MAKE_OP_DEF(name, op)\
-template< \
-	typename T, \
-	typename N, \
-	typename S \
-> \
+SGE_MATH_DETAIL_TEMPLATE_PRE \
 template< \
 	typename Expr \
 > \
-name< \
-	T, \
-	N, \
-	S \
-> & \
-name< \
-	T, \
-	N, \
-	S \
->::operator op ( \
+SGE_MATH_DETAIL_DEF_PRE \
+ & \
+SGE_MATH_DETAIL_DEF_PRE \
+::operator op ( \
 	Expr const &expr) \
 { \
 	size_type const dim(\
