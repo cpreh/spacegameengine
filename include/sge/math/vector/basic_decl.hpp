@@ -69,6 +69,7 @@ class basic
 : public detail::typedef_helper<T, N, S>::type {
 	typedef typename detail::typedef_helper<T, N, S>::type base;
 public:
+	typedef N dim_type;
 	typedef S storage_type;
 
 	typedef typename base::size_type size_type;
@@ -169,12 +170,6 @@ void place(vector<T,Dim>& v,
 	v.x() = radius * std::sin(high_angle) * std::cos(plane_angle);
 	v.z() = radius * std::sin(high_angle) * std::sin(plane_angle);
 	v.y() = radius * std::cos(high_angle);
-}
-
-template<typename T, std::size_t Dim>
-void swap(vector<T,Dim>& a, vector<T,Dim>& b)
-{
-	a.swap(b);
 }
 
 template<typename T, std::size_t Dim>
