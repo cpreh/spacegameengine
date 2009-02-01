@@ -21,7 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_CHECKED_ACCESS_HPP_INCLUDED
 #define SGE_MATH_DETAIL_CHECKED_ACCESS_HPP_INCLUDED
 
+#include "dynamic_size.hpp"
 #include "../size_type.hpp"
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -34,7 +38,13 @@ template<
 	size_type N,
 	typename T
 >
-typename T::reference
+typename boost::enable_if<
+	boost::is_same<
+		typename T::dim_type,
+		detail::dynamic_size
+	>,
+	typename T::reference
+>::type
 checked_access(
 	T &t)
 {
@@ -45,10 +55,58 @@ template<
 	size_type N,
 	typename T
 >
-typename T::const_reference
+typename boost::disable_if<
+	boost::is_same<
+		typename T::dim_type,
+		detail::dynamic_size
+	>,
+	typename T::reference
+>::type
+checked_access(
+	T &t)
+{
+	typedef typename T::dim_type dim_type;
+	BOOST_STATIC_ASSERT(
+		N < dim_type::value);
+	
+	return t[N];
+}
+
+template<
+	size_type N,
+	typename T
+>
+typename boost::enable_if<
+	boost::is_same<
+		typename T::dim_type,
+		detail::dynamic_size
+	>,
+	typename T::const_reference
+>::type
 checked_access(
 	T const &t)
 {
+	return t[N];
+}
+
+template<
+	size_type N,
+	typename T
+>
+typename boost::disable_if<
+	boost::is_same<
+		typename T::dim_type,
+		detail::dynamic_size
+	>,
+	typename T::const_reference
+>::type
+checked_access(
+	T const &t)
+{
+	typedef typename T::dim_type dim_type;
+	BOOST_STATIC_ASSERT(
+		N < dim_type::value);
+	
 	return t[N];
 }
 

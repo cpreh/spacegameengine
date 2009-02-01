@@ -51,11 +51,11 @@ private:
 	char_type char_code_;
 };
 
-bool operator<(key_type const &l, key_type const &r);
+SGE_SYMBOL bool operator<(key_type const &l, key_type const &r);
 
-bool operator==(key_type const &l, key_type const &r);
+SGE_SYMBOL bool operator==(key_type const &l, key_type const &r);
 
-bool operator!=(key_type const &l, key_type const &r);
+SGE_SYMBOL bool operator!=(key_type const &l, key_type const &r);
 
 }
 }

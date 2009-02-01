@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_UNIFORM_TYPE_HPP_INCLUDED
 
 #include "uniform_element_type.hpp"
+#include "../common.hpp"
 
 namespace sge
 {
@@ -31,7 +32,7 @@ namespace glsl
 {
 
 struct uniform_type {
-	typedef unsigned size_type;
+	typedef GLsizei size_type;
 
 	uniform_type(
 		uniform_element_type::type,

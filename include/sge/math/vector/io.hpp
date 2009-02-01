@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "basic_impl.hpp"
 #include <ostream>
+#include <istream>
 
 namespace sge
 {
@@ -50,6 +51,30 @@ operator<< (
 	if(!v.empty())
 		s << v.back();
 	return s << s.widen(')');
+}
+
+template<
+	typename T,
+	typename N,
+	typename S,
+	typename Ch,
+	typename Traits
+>
+std::basic_istream<Ch, Traits> &
+operator >> (
+	std::basic_istream<Ch, Traits> &s,
+	basic<T, N, S> &v)
+{
+	// FIXME
+	/*
+	Ch c;
+	s >> c;
+	if(c != s.widen('('))
+	{
+		s.setstate(std::ios_base::failbit);
+		return s;
+	}*/
+	return s; 
 }
 
 }

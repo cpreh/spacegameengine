@@ -20,6 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/sound.hpp>
 
+sge::audio::sound::sound()
+{}
+
 void sge::audio::sound::update()
 {}
 

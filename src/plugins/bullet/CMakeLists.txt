@@ -5,8 +5,7 @@ IF (MSVC)
 	LINK_DIRECTORIES (${CMAKE_SOURCE_DIR}/${WINLIBS}/libbullet/lib)
 ELSE ()
 	pkg_check_modules (BULLET bullet)
-	# FIXME FIXME FIXME
-	INCLUDE_DIRECTORIES (/usr/include/bullet)
+	INCLUDE_DIRECTORIES(${BULLET_INCLUDE_DIRS})
 ENDIF ()
 
 ADD_LIBRARY (sgebullet SHARED ${sgebulletfiles})

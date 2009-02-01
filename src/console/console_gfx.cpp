@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/time/millisecond.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/fstream.hpp>
 #include <sge/text.hpp>
 #include <sge/iostream.hpp>

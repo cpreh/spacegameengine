@@ -21,20 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_SECOND_F_HPP_INCLUDED
 #define SGE_TIME_SECOND_F_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "resolution.hpp"
-#include "types.hpp"
+#include "funit.hpp"
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-class second_f : public resolution {
-public:
-	SGE_SYMBOL explicit second_f(
-		funit);
-};
+class resolution;
+
+SGE_SYMBOL resolution const
+second_f(
+	funit);
 
 }
 }

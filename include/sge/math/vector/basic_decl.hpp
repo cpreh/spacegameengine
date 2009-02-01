@@ -69,6 +69,7 @@ class basic
 : public detail::typedef_helper<T, N, S>::type {
 	typedef typename detail::typedef_helper<T, N, S>::type base;
 public:
+	typedef N dim_type;
 	typedef S storage_type;
 
 	typedef typename base::size_type size_type;
@@ -172,21 +173,9 @@ void place(vector<T,Dim>& v,
 }
 
 template<typename T, std::size_t Dim>
-void swap(vector<T,Dim>& a, vector<T,Dim>& b)
-{
-	a.swap(b);
-}
-
-template<typename T, std::size_t Dim>
 vector<T,Dim> cross(const vector<T,Dim>& l, const vector<T,Dim>& r)
 {
 	return l.cross(r);
-}
-
-template<typename T, std::size_t Dim>
-vector<T,Dim> normalize(vector<T,Dim> l)
-{
-	return l.normalize();
 }
 
 template<typename T, std::size_t Dim>

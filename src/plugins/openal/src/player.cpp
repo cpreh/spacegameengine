@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../file_format.hpp"
 #include "../log.hpp"
+#include "../buffer.hpp"
 #include <sge/audio/sound.hpp>
 #include <sge/audio/pool.hpp>
 #include <sge/audio/exception.hpp>
@@ -53,6 +54,9 @@ sge::openal::player::player()
 				static_cast<audio::unit>(1),
 				static_cast<audio::unit>(0))));
 }
+
+sge::openal::player::~player()
+{}
 
 sge::audio::unit sge::openal::player::speed_of_sound() const
 {
@@ -130,4 +134,10 @@ void sge::openal::player::unregister_nonstream_sound(ALuint const buffer)
 
 		break;
 	}
+}
+
+sge::audio::listener &
+sge::openal::player::listener()
+{
+	return listener_;
 }

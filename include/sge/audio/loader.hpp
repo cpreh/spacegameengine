@@ -21,18 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
-#include "file.hpp"
-#include "../string.hpp"
-#include "../filesystem/path.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include "file_fwd.hpp"
+#include <sge/filesystem/path.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
 
-class SGE_CLASS_SYMBOL loader : boost::noncopyable {
+class SGE_CLASS_SYMBOL loader {
+	SGE_NONCOPYABLE(loader)
+protected:
+	SGE_SYMBOL loader();
 public:
 	virtual file_ptr const
 	load(

@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "level.hpp"
 #include "level_stream.hpp"
-#include "format/formatter.hpp"
-#include "../ostream.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include "format/formatter_fwd.hpp"
+#include <sge/ostream.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -37,7 +37,8 @@ namespace log
 
 class temporary_output;
 
-class logger : boost::noncopyable {
+class logger {
+	SGE_NONCOPYABLE(logger)
 public:
 	SGE_SYMBOL logger(
 		ostream &sink,
@@ -51,6 +52,7 @@ public:
 		logger &parent,
 		string const &prefix,
 		bool active = true);
+	SGE_SYMBOL ~logger();
 	SGE_SYMBOL void log(
 		level::type,
 		temporary_output const &);

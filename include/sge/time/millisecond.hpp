@@ -21,18 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_MILLISECOND_HPP_INCLUDED
 #define SGE_TIME_MILLISECOND_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "resolution.hpp"
+#include "unit.hpp"
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace time
 {
 
-class millisecond : public resolution {
-public:
-	SGE_SYMBOL explicit millisecond(unit);
-};
+class resolution;
+
+SGE_SYMBOL resolution const
+millisecond(
+	unit);
 
 }
 }

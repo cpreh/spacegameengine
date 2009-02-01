@@ -29,6 +29,7 @@ FILE (GLOB sgecorefiles
 	sprite/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
+	texture/detail/*.cpp
 	time/*.cpp
 	window/*.cpp)
 

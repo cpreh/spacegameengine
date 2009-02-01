@@ -80,8 +80,6 @@ sge::math::dim::basic<T, N, S>::basic(
 	sge::math::dim::basic<T, N, S>
 
 SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(
-	SGE_MATH_TEMPLATE_PRE,
-	SGE_MATH_DEF_PRE,
 	basic)
 
 #undef SGE_MATH_DEF_PRE

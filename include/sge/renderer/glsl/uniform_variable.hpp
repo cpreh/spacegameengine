@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
 
 #include "uniform_value.hpp"
-#include "../../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,10 @@ namespace renderer
 namespace glsl
 {
 
-class SGE_CLASS_SYMBOL uniform_variable : boost::noncopyable {
+class SGE_CLASS_SYMBOL uniform_variable {
+	SGE_NONCOPYABLE(uniform_variable)
+protected:
+	SGE_SYMBOL uniform_variable();
 public:
 	virtual uniform_value const get() const = 0;
 	virtual void set(uniform_value const &) = 0;

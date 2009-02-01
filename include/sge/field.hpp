@@ -91,7 +91,6 @@ class field
 
 	allocator_type get_allocator() const { return array.get_allocator(); }
 
-	void zero() { std::fill(begin(),end(),static_cast<value_type>(0)); }
 	void resize(const size_type &x,const size_type &y, const_reference value = value_type()) { resize(dim_type(x,y), value); }
 	void resize(const dim_type &n, const_reference value = value_type()) { if (dim_ == n) return; dim_ = n; array.resize(field_count(), value); }
 

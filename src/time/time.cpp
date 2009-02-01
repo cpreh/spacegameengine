@@ -140,4 +140,3 @@ bool initializer::use_performance_counter() const
 }
 
 #endif
-

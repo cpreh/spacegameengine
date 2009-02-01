@@ -29,8 +29,13 @@ namespace sge
 
 class SGE_CLASS_SYMBOL exception {
 public:
-	SGE_SYMBOL explicit exception(string const &s);
-	SGE_SYMBOL string const &what() const;
+	SGE_SYMBOL explicit exception(
+		string const &s);
+
+	SGE_SYMBOL string const &
+	what() const;
+
+	SGE_SYMBOL virtual ~exception();
 private:
 	string s;
 };

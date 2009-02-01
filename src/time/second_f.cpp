@@ -19,13 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/time/second_f.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/time/time.hpp>
 
-sge::time::second_f::second_f(
+sge::time::resolution const
+sge::time::second_f(
 	funit const tm)
-:
-	resolution(
+{
+	return resolution(
 		static_cast<unit>(
 			tm * static_cast<funit>(
-				hz())))
-{}
+				hz())));
+}

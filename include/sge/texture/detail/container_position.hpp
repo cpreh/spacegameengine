@@ -17,25 +17,27 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef SGE_AUDIO_TYPES_HPP_INCLUDED
-#define SGE_AUDIO_TYPES_HPP_INCLUDED
 
-#include "../raw_vector.hpp"
-#include <sge/math/vector/static.hpp>
-#include <cstddef>
+#ifndef SGE_TEXTURE_DETAIL_CONTAINER_POSITION_HPP_INCLUDED
+#define SGE_TEXTURE_DETAIL_CONTAINER_POSITION_HPP_INCLUDED
+
+#include "fragmented_queue.hpp"
+#include "fragmented_list.hpp"
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {
-namespace audio
+namespace texture
+{
+namespace detail
 {
 
-typedef unsigned channel_type;
-typedef std::size_t sample_count;
-typedef raw_vector<unsigned char> sample_container;
+typedef boost::variant<
+	fragmented_queue::iterator,
+	fragmented_list::iterator
+> container_position;
 
-typedef float unit; // TODO: is float ok here?
-typedef math::vector::static_<unit, 3>::type point;
-
+}
 }
 }
 

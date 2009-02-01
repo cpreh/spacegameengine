@@ -36,7 +36,8 @@ sge::window::create(
 {
 #if defined(SGE_WINDOWS_PLATFORM)
 	return windows::create_window(
-		param);
+		param,
+		windows::optional_renderer_parameters());
 #elif defined(SGE_HAVE_X11)
 	x11::display_ptr const dsp(
 		new x11::display());

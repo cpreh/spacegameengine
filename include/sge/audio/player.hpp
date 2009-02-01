@@ -21,20 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_PLAYER_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_HPP_INCLUDED
 
-#include "file.hpp"
-#include "types.hpp"
+#include "file_fwd.hpp"
+#include "unit.hpp"
 #include "sound_fwd.hpp"
 #include "pool_fwd.hpp"
-#include "../export.hpp"
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace audio
 {
+
 class listener;
 
-struct SGE_CLASS_SYMBOL player : boost::noncopyable {
-	virtual audio::listener& listener() = 0;
+struct SGE_CLASS_SYMBOL player {
+	SGE_NONCOPYABLE(player)
+protected:
+	SGE_SYMBOL player();
+public:
+	virtual audio::listener &listener() = 0;
 	virtual unit speed_of_sound() const = 0;
 	virtual void speed_of_sound(unit) = 0;
 	virtual sound_ptr const create_nonstream_sound(file_ptr) = 0;

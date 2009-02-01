@@ -82,7 +82,8 @@ sge::texture::no_fragmented::consume_fragment(
 			need_atlasing(dim.h())));
 }
 
-void sge::texture::no_fragmented::return_fragment(
+void
+sge::texture::no_fragmented::on_return_fragment(
 	part const &)
 {
 	tex.reset();
@@ -97,4 +98,16 @@ sge::texture::no_fragmented::texture() const
 bool sge::texture::no_fragmented::repeatable() const
 {
 	return true;
+}
+
+sge::texture::free_type
+sge::texture::no_fragmented::free_value() const
+{
+	return empty() ? 0 : 1000000; // FIXME
+}
+
+bool
+sge::texture::no_fragmented::empty() const
+{
+	return !tex;
 }

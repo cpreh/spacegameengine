@@ -21,10 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <limits>
 
-sge::audio::sample_count sge::audio::file::bytes_per_sample() const
+sge::audio::file::file()
+{}
+
+sge::audio::sample_count
+sge::audio::file::bytes_per_sample() const
 {
 	return static_cast<audio::sample_count>(
-		bits_per_sample()/std::numeric_limits<unsigned char>::digits);
+		bits_per_sample() / std::numeric_limits<unsigned char>::digits);
 }
 
 sge::audio::file::~file()

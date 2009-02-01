@@ -50,6 +50,8 @@ public:
 	pointer data() const;
 	pointer data_end() const;
 	size_type size() const;
+
+	bool empty() const;
 private:
 	pointer
 		first,

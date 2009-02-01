@@ -2,7 +2,7 @@
 #define SGE_MAD_SYNTH_HPP_INCLUDED
 
 #include <mad.h>
-#include <sge/audio/types.hpp>
+#include <sge/audio/sample_count.hpp>
 #include <boost/cstdint.hpp>
 #include <utility>
 #include <vector>

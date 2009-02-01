@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/level_stream.hpp>
 #include <sge/log/temporary_output.hpp>
 #include <sge/log/format/create_chain.hpp>
+#include <sge/log/format/formatter.hpp>
 
 sge::log::level_stream::level_stream(
 	ostream &dest_,
@@ -29,6 +30,9 @@ sge::log::level_stream::level_stream(
 	dest_(dest_),
 	formatter_(formatter_),
 	enabled_(false)
+{}
+
+sge::log::level_stream::~level_stream()
 {}
 
 void sge::log::level_stream::enable()

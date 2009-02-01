@@ -29,7 +29,7 @@ class SGE_CLASS_SYMBOL object
 	SGE_SYMBOL dim const size() const;
 	SGE_SYMBOL rect const area() const;
 	SGE_SYMBOL image_view &view();
-	SGE_SYMBOL const_image_view const &view() const;
+	SGE_SYMBOL const_image_view const view() const;
 
 	SGE_SYMBOL void draw_rect(
 		rect const &,

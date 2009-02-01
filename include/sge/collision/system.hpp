@@ -7,7 +7,7 @@
 #include "sattelite_fwd.hpp"
 #include "objects/fwd.hpp"
 #include "../export.hpp"
-#include <sge/time/types.hpp>
+#include <sge/time/funit.hpp>
 #include <sge/signals/connection.hpp>
 #include <boost/noncopyable.hpp>
 

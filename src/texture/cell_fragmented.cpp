@@ -74,7 +74,8 @@ sge::texture::cell_fragmented::consume_fragment(
 			true));
 }
 
-void sge::texture::cell_fragmented::return_fragment(
+void
+sge::texture::cell_fragmented::on_return_fragment(
 	part const &t)
 {
 	field_type::vector_type const pos = t.area().pos() * cell_size;
@@ -91,4 +92,16 @@ sge::texture::cell_fragmented::texture() const
 bool sge::texture::cell_fragmented::repeatable() const
 {
 	return false;
+}
+
+sge::texture::free_type
+sge::texture::cell_fragmented::free_value() const
+{
+	return empty() ? 0 : cell_size.content(); 
+}
+
+bool
+sge::texture::cell_fragmented::empty() const
+{
+	return std::find(cells.begin(), cells.end(), false) == cells.end(); // TODO: optimize this!
 }
