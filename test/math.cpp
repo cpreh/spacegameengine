@@ -20,9 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/math/atan2.hpp>
 #include <sge/math/angle.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/normalize.hpp>
+#include <sge/math/vector/vector.hpp>
 #include <sge/math/point_rotate.hpp>
 
 int main()

@@ -18,17 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_DOT_HPP_INCLUDED
+#define SGE_MATH_VECTOR_DOT_HPP_INCLUDED
 
-#include "basic_decl.hpp"
 #include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "cross.hpp"
-#include "dot.hpp"
-#include "io.hpp"
-#include "length.hpp"
-#include "normalize.hpp"
-#include "place.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+
+namespace sge
+{
+namespace math
+{
+namespace vector
+{
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+typename basic<T, N, S>::value_type
+dot(
+	basic<T, N, S> const &l,
+	basic<T, N, S> const &r)
+{
+	if(l.size() != r.size())
+		throw exception(
+			SGE_TEXT("Dimensions of vectors do not match in dot()!"));
+
+	T result(static_cast<T>(0));
+	
+	for(typename basic<T, N, S>::size_type i = 0; i < l.dim(); ++i)
+		result += l[i] * r[i];
+	
+	return result;
+}
+
+}
+}
+}
 
 #endif
