@@ -18,53 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/math/atan2.hpp>
-#include <sge/math/angle.hpp>
-#include <sge/math/vector/vector.hpp>
-#include <sge/math/matrix/matrix.hpp>
-#include <sge/math/matrix/dynamic.hpp>
-#include <sge/math/point_rotate.hpp>
-#include <boost/assign/list_of.hpp>
+#ifndef SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
+#define SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
 
-int main()
-{
-	sge::math::vector::static_<
-		int,
-		2
-	>::type const vec(
-		1,
-		2);
-	
-	sge::math::angle_to<float>(
-		vec,
-		vec);
-	
-	sge::math::vector::static_<
-		float,
-		2
-	>::type const vecf(
-		static_cast<float>(1),
-		static_cast<float>(2));
-	
-	sge::math::atan2(vecf);
+#include "basic_decl.hpp"
+#include "basic_impl.hpp"
+#include "arithmetic.hpp"
+#include "io.hpp"
+#include "vector.hpp"
 
-	sge::math::point_rotate(
-		vecf,
-		vecf,
-		3.f);
-	
-	typedef sge::math::matrix::dynamic<
-		float
-	>::type dynamic_float_matrix;
-
-	dynamic_float_matrix matrix(
-		dynamic_float_matrix::dim_type(
-			2,
-			3),
-		boost::assign::list_of
-			(0)(0)
-			(1)(1)
-			(2)(2));
-
-	normalize(vecf);
-}
+#endif

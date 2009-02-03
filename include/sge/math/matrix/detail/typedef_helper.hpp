@@ -18,53 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/math/atan2.hpp>
-#include <sge/math/angle.hpp>
-#include <sge/math/vector/vector.hpp>
-#include <sge/math/matrix/matrix.hpp>
-#include <sge/math/matrix/dynamic.hpp>
-#include <sge/math/point_rotate.hpp>
-#include <boost/assign/list_of.hpp>
+#ifndef SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPERL_HPP_INCLUDED
+#define SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPERL_HPP_INCLUDED
 
-int main()
+#include "../basic_fwd.hpp"
+#include "../../detail/array_adapter.hpp"
+#include "../../detail/view_storage.hpp"
+#include "../../vector/basic_decl.hpp"
+
+namespace sge
 {
-	sge::math::vector::static_<
-		int,
-		2
-	>::type const vec(
-		1,
-		2);
-	
-	sge::math::angle_to<float>(
-		vec,
-		vec);
-	
-	sge::math::vector::static_<
-		float,
-		2
-	>::type const vecf(
-		static_cast<float>(1),
-		static_cast<float>(2));
-	
-	sge::math::atan2(vecf);
+namespace math
+{
+namespace matrix
+{
+namespace detail
+{
 
-	sge::math::point_rotate(
-		vecf,
-		vecf,
-		3.f);
-	
-	typedef sge::math::matrix::dynamic<
-		float
-	>::type dynamic_float_matrix;
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
+struct typedef_helper {
+	typedef math::detail::array_adapter<
+		basic<
+			T,
+			N,
+			M,
+			S
+		>,
+		T,
+		typename N::value_type,
+		vector::basic<
+			T,
+			N,
+			math::detail::view_storage<
+				T,
+				N
+			>
+		>,
+		vector::basic<
+			T,
+			N,
+			math::detail::view_storage<
+				T const,
+				N
+			>
+		>
+	> type;
+};
 
-	dynamic_float_matrix matrix(
-		dynamic_float_matrix::dim_type(
-			2,
-			3),
-		boost::assign::list_of
-			(0)(0)
-			(1)(1)
-			(2)(2));
-
-	normalize(vecf);
 }
+}
+}
+}
+
+#endif

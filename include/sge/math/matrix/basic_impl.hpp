@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_decl.hpp"
 #include "../compare.hpp"
 #include "../vector/basic_impl.hpp"
+#include "../dim/basic_impl.hpp"
 #include "../detail/array_adapter_impl.hpp"
 #include "../detail/storage_data.hpp"
 #include "../detail/storage_dim.hpp"
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../detail/make_variadic_constructor.hpp"
 #include "../detail/initial_size.hpp"
 #include "../detail/make_op_def.hpp"
+#include <sge/assert.hpp>
 #include <algorithm>
 
 template<
@@ -64,6 +66,28 @@ sge::math::matrix::basic<T, N, M, S>::basic(
 		beg,
 		end,
 		data());
+}
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
+template<
+	typename Container
+>
+sge::math::matrix::basic<T, N, M, S>::basic(
+	dim_type const &d,
+	Container const &c)
+{	
+	resize(d);
+
+	SGE_ASSERT(c.size() == size());
+	
+	std::copy(
+		c.begin(),
+		c.end(),
+		storage.begin());
 }
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_MAX_SIZE SGE_MATH_MATRIX_MAX_CTOR_PARAMS
@@ -180,7 +204,7 @@ template<
 typename sge::math::matrix::basic<T, N, M, S>::size_type
 sge::math::matrix::basic<T, N, M, S>::rows() const
 {
-	return N::value; // FIXME 
+	return dim_base::rows();
 }
 
 template<
@@ -192,7 +216,7 @@ template<
 typename sge::math::matrix::basic<T, N, M, S>::size_type
 sge::math::matrix::basic<T, N, M, S>::columns() const
 {
-	return M::value; // FIXME
+	return dim_base::columns();
 }
 
 template<
@@ -212,6 +236,23 @@ sge::math::matrix::basic<T, N, M, S>::identity()
 				? static_cast<T>(1)
 				: static_cast<T>(0);
 	return ret;
+}
+
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
+void
+sge::math::matrix::basic<T, N, M, S>::resize(
+	dim_type const &d)
+{
+	dim_base::columns(d.w());
+	dim_base::rows(d.h());
+
+	storage.resize(
+		d.w() * d.h());
 }
 
 #endif

@@ -69,7 +69,7 @@ class basic
 : public detail::typedef_helper<T, N, S>::type {
 	typedef typename detail::typedef_helper<T, N, S>::type base;
 public:
-	typedef N dim_type;
+	typedef N dim_wrapper;
 	typedef S storage_type;
 
 	typedef typename base::size_type size_type;
