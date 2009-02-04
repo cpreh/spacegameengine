@@ -20,10 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/math/atan2.hpp>
 #include <sge/math/angle.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/static.hpp>
-#include <sge/math/vector/normalize.hpp>
+#include <sge/math/vector/vector.hpp>
+#include <sge/math/matrix/matrix.hpp>
+#include <sge/math/matrix/dynamic.hpp>
+#include <sge/math/dim/dim.hpp>
 #include <sge/math/point_rotate.hpp>
+#include <boost/assign/list_of.hpp>
 
 int main()
 {
@@ -51,6 +53,19 @@ int main()
 		vecf,
 		vecf,
 		3.f);
+	
+	typedef sge::math::matrix::dynamic<
+		float
+	>::type dynamic_float_matrix;
+
+	dynamic_float_matrix matrix(
+		dynamic_float_matrix::dim_type(
+			2,
+			3),
+		boost::assign::list_of
+			(0)(0)
+			(1)(1)
+			(2)(2));
 
 	normalize(vecf);
 }

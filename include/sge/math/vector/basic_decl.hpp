@@ -69,7 +69,7 @@ class basic
 : public detail::typedef_helper<T, N, S>::type {
 	typedef typename detail::typedef_helper<T, N, S>::type base;
 public:
-	typedef N dim_type;
+	typedef N dim_wrapper;
 	typedef S storage_type;
 
 	typedef typename base::size_type size_type;
@@ -155,33 +155,6 @@ private:
 
 }
 }
-}
-
-#endif
-
-#if 0
-template<typename T, std::size_t Dim>
-void place(vector<T,Dim>& v,
-           const typename vector<T,Dim>::const_reference radius,
-           const typename vector<T,Dim>::const_reference high_angle,
-           const typename vector<T,Dim>::const_reference plane_angle,
-           typename boost::enable_if_c<Dim==3,T>::type* = 0)
-{
-	v.x() = radius * std::sin(high_angle) * std::cos(plane_angle);
-	v.z() = radius * std::sin(high_angle) * std::sin(plane_angle);
-	v.y() = radius * std::cos(high_angle);
-}
-
-template<typename T, std::size_t Dim>
-vector<T,Dim> cross(const vector<T,Dim>& l, const vector<T,Dim>& r)
-{
-	return l.cross(r);
-}
-
-template<typename T, std::size_t Dim>
-typename vector<T,Dim>::value_type dot(const vector<T,Dim>& l, const vector<T,Dim>& r)
-{
-	return l.dot(r);
 }
 
 #endif

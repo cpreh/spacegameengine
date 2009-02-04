@@ -18,17 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_CROSS_HPP_INCLUDED
+#define SGE_MATH_VECTOR_CROSS_HPP_INCLUDED
 
-#include "basic_decl.hpp"
 #include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "cross.hpp"
-#include "dot.hpp"
-#include "io.hpp"
-#include "length.hpp"
-#include "normalize.hpp"
-#include "place.hpp"
+
+namespace sge
+{
+namespace math
+{
+namespace vector
+{
+
+template<
+	typename T,
+	typename N,
+	typename S
+>
+basic<T, N, S> const
+cross(
+	basic<T, N, S> const &l,
+	basic<T, N, S> const &r)
+{
+	return basic<T, N, S>(
+		l.y() * r.z() - l.z() * r.y(),
+		l.z() * r.x() - l.x() * r.z(),
+		l.x() * r.y() - l.y() * r.x());
+}
+
+}
+}
+}
 
 #endif

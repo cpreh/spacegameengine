@@ -18,17 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_PLACE_HPP_INCLUDED
+#define SGE_MATH_VECTOR_PLACE_HPP_INCLUDED
 
-#include "basic_decl.hpp"
 #include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "cross.hpp"
-#include "dot.hpp"
-#include "io.hpp"
-#include "length.hpp"
-#include "normalize.hpp"
-#include "place.hpp"
+#include "static.hpp"
+#include <cmath>
+
+namespace sge
+{
+namespace math
+{
+namespace vector
+{
+
+template<
+	typename T
+>
+typename static_<T, 3>::type const
+place(
+	T const &radius,
+	T const &high_angle,
+	T const &plane_angle)
+{
+	return typename static_<T, 3>::type(
+		radius * std::sin(high_angle) * std::cos(plane_angle),
+		radius * std::cos(high_angle),
+		radius * std::sin(high_angle) * std::sin(plane_angle));
+}
+
+}
+}
+}
 
 #endif

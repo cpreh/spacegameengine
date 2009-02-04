@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(name) \
-	SGE_MATH_TEMPLATE_PRE \
+	SGE_MATH_DETAIL_TEMPLATE_PRE \
 	template<typename... Args> \
-	SGE_MATH_DEF_PRE::name(Args... args) \
+	SGE_MATH_DETAIL_DEF_PRE::name(Args... args) \
 	{ \
 		::sge::math::detail::initial_size(\
 			storage,\
@@ -41,9 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		set_impl(0, args...); \
 	} \
 \
-	SGE_MATH_TEMPLATE_PRE \
+	SGE_MATH_DETAIL_TEMPLATE_PRE \
 	template<typename... Args> \
-	void SGE_MATH_DEF_PRE::set_impl( \
+	void SGE_MATH_DETAIL_DEF_PRE::set_impl( \
 		size_type const i, \
 		value_type const &arg, \
 		Args... args) \
@@ -52,8 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 		set_impl(i + 1, args...); \
 	} \
 \
-	SGE_MATH_TEMPLATE_PRE \
-	void SGE_MATH_DEF_PRE::set_impl( \
+	SGE_MATH_DETAIL_TEMPLATE_PRE \
+	void SGE_MATH_DETAIL_DEF_PRE::set_impl( \
 		size_type const i, \
 		value_type const &arg) \
 	{ \
@@ -64,8 +64,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 *(data() + n) = text##n;
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_IMPL(z, n, text)\
-SGE_MATH_TEMPLATE_PRE \
-SGE_MATH_DEF_PRE :: text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& param))\
+SGE_MATH_DETAIL_TEMPLATE_PRE \
+SGE_MATH_DETAIL_DEF_PRE :: text(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), T const& param))\
 {\
 	::sge::math::detail::initial_size(\
 		storage,\

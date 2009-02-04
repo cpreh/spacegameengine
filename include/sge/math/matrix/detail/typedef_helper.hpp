@@ -18,17 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
-#define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPERL_HPP_INCLUDED
+#define SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPERL_HPP_INCLUDED
 
-#include "basic_decl.hpp"
-#include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "cross.hpp"
-#include "dot.hpp"
-#include "io.hpp"
-#include "length.hpp"
-#include "normalize.hpp"
-#include "place.hpp"
+#include "../basic_fwd.hpp"
+#include "../../detail/array_adapter.hpp"
+#include "../../detail/view_storage.hpp"
+#include "../../vector/basic_decl.hpp"
+
+namespace sge
+{
+namespace math
+{
+namespace matrix
+{
+namespace detail
+{
+
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
+struct typedef_helper {
+	typedef math::detail::array_adapter<
+		basic<
+			T,
+			N,
+			M,
+			S
+		>,
+		T,
+		typename N::value_type,
+		vector::basic<
+			T,
+			N,
+			math::detail::view_storage<
+				T,
+				N
+			>
+		>,
+		vector::basic<
+			T,
+			N,
+			math::detail::view_storage<
+				T const,
+				N
+			>
+		>
+	> type;
+};
+
+}
+}
+}
+}
 
 #endif

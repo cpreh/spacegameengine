@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_IO_HPP_INCLUDED
-#define SGE_MATH_MATRIX_IO_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_DETAIL_DIM_STORAGE_HPP_INCLUDED
+#define SGE_MATH_MATRIX_DETAIL_DIM_STORAGE_HPP_INCLUDED
 
-#include "basic_impl.hpp"
-#include <ostream>
+#include "../../detail/dynamic_size.hpp"
 
 namespace sge
 {
@@ -30,39 +29,65 @@ namespace math
 {
 namespace matrix
 {
+namespace detail
+{
 
 template<
-	typename T,
 	typename N,
-	typename M,
-	typename S,
-	typename Ch,
-	typename Traits
+	typename M
 >
-std::basic_ostream<Ch,Traits> &
-operator<< (
-	std::basic_ostream<Ch,Traits> &s,
-	basic<T, N, M, S> const &m)
-{
-	typedef typename basic<T, N, M, S>::size_type size_type;
+class dim_storage {
+public:
+	typedef typename N::value_type size_type;
 
-	s << s.widen('(');
-	for(size_type j = 0; j < m.rows(); ++j)
+	size_type columns() const
 	{
-		s << s.widen('(');
-		for(size_type i = 0; i < m.columns(); ++i)
-		{
-			s << m[j][i];
-			if(i != m.columns() - 1)
-				s << s.widen(',');
-		}
-		s << s.widen(')');
-		if(j != m.rows() - 1)
-			s << s.widen(',');
+		return N::value;
 	}
-	return s << s.widen(')');
-}
 
+	size_type rows() const
+	{
+		return M::value;
+	}
+};
+
+template<>
+class dim_storage<
+	math::detail::dynamic_size,
+	math::detail::dynamic_size
+> {
+public:
+	typedef math::detail::dynamic_size::value_type size_type;
+
+	size_type columns() const
+	{
+		return columns_;
+	}
+
+	size_type rows() const
+	{
+		return rows_;
+	}
+
+	void columns(
+		size_type const ncolumns)
+	{
+		columns_ = ncolumns;
+	}
+
+	void rows(
+		size_type const nrows)
+	{
+		rows_ = nrows;
+	}
+
+private:
+	size_type
+		columns_,
+		rows_;
+};
+
+}
 }
 }
 }

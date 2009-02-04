@@ -40,7 +40,7 @@ template<
 >
 typename boost::enable_if<
 	boost::is_same<
-		typename T::dim_type,
+		typename T::dim_wrapper,
 		detail::dynamic_size
 	>,
 	typename T::reference
@@ -57,7 +57,7 @@ template<
 >
 typename boost::disable_if<
 	boost::is_same<
-		typename T::dim_type,
+		typename T::dim_wrapper,
 		detail::dynamic_size
 	>,
 	typename T::reference
@@ -65,9 +65,9 @@ typename boost::disable_if<
 checked_access(
 	T &t)
 {
-	typedef typename T::dim_type dim_type;
+	typedef typename T::dim_wrapper dim_wrapper;
 	BOOST_STATIC_ASSERT(
-		N < dim_type::value);
+		N < dim_wrapper::value);
 	
 	return t[N];
 }
@@ -78,7 +78,7 @@ template<
 >
 typename boost::enable_if<
 	boost::is_same<
-		typename T::dim_type,
+		typename T::dim_wrapper,
 		detail::dynamic_size
 	>,
 	typename T::const_reference
@@ -95,7 +95,7 @@ template<
 >
 typename boost::disable_if<
 	boost::is_same<
-		typename T::dim_type,
+		typename T::dim_wrapper,
 		detail::dynamic_size
 	>,
 	typename T::const_reference
@@ -103,9 +103,9 @@ typename boost::disable_if<
 checked_access(
 	T const &t)
 {
-	typedef typename T::dim_type dim_type;
+	typedef typename T::dim_wrapper dim_wrapper;
 	BOOST_STATIC_ASSERT(
-		N < dim_type::value);
+		N < dim_wrapper::value);
 	
 	return t[N];
 }

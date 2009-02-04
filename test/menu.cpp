@@ -111,16 +111,25 @@ class connect_functor
 	connect_functor(
 		sge::gui::widget &_connect_menu,
 		sge::gui::widget &_main_menu)
-		: connect_menu_(_connect_menu),
-		  main_menu_(_main_menu),
-			pos_connect(50,50),
-			vantage_connect(-2000,200),
-			pos_main(50,50),
-			vantage_main(200,-2000),
-			real_main(time_vector::null()),
-			real_connect(time_vector::null()),
-			speed(10)
-		{}
+	:
+		connect_menu_(_connect_menu),
+		main_menu_(_main_menu),
+		pos_connect(
+			static_cast<sge::time::funit>(50),
+			static_cast<sge::time::funit>(50)),
+		vantage_connect(
+			static_cast<sge::time::funit>(-2000),
+			static_cast<sge::time::funit>(200)),
+		pos_main(
+			static_cast<sge::time::funit>(50),
+			static_cast<sge::time::funit>(50)),
+		vantage_main(
+			static_cast<sge::time::funit>(200),
+			static_cast<sge::time::funit>(-2000)),
+		real_main(time_vector::null()),
+		real_connect(time_vector::null()),
+		speed(static_cast<sge::time::funit>(10))
+	{}
 	
 	void connect_to_server()
 	{
