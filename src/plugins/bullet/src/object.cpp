@@ -47,6 +47,7 @@ sge::collision::point const sge::bullet::object::pos() const
 void sge::bullet::object::speed(collision::point const &v)
 {
 	body_.setLinearVelocity(sge_to_bullet(v));
+	body_.setActivationState(DISABLE_DEACTIVATION);
 }
 
 sge::collision::point const sge::bullet::object::speed() const
