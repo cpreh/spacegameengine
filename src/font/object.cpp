@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/font.hpp>
+#include <sge/font/object.hpp>
 #include <sge/font/char_metric.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/drawer.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/next_prior.hpp>
 #include <locale>
 
-sge::font::font::font(
+sge::font::object::object(
 	metrics_ptr const metrics_,
 	drawer_ptr const drawer_)
 :
@@ -39,19 +39,20 @@ sge::font::font::font(
 	drawer_(drawer_)
 {}
 
-sge::font::font::~font()
+sge::font::object::~object()
 {}
 
-sge::font::unit sge::font::font::height() const
+sge::font::unit
+sge::font::object::height() const
 {
 	return metrics()->line_height();
 }
 
 sge::font::text_size_t const
-sge::font::font::draw_text(
+sge::font::object::draw_text(
 	string const &text,
-	pos const start_pos,
-	dim const max_sz,
+	pos const &start_pos,
+	dim const &max_sz,
 	align_h::type const align_h,
 	align_v::type const align_v,
 	flag_t const flags) const
@@ -93,7 +94,7 @@ sge::font::font::draw_text(
 
 	while(sbeg != total_size.next_begin())
 	{
-		const text_size_t line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
+		text_size_t const line_size = line_width(sbeg, text.end(), max_sz.w(), flags);
 
 		pos_.x() = start_pos.x();
 		
@@ -129,23 +130,25 @@ sge::font::font::draw_text(
 	return total_size;
 }
 
-sge::font::unit sge::font::font::char_space(const char_type ch) const
+sge::font::unit
+sge::font::object::char_space(
+	char_type const ch) const
 {
 	return metrics()->load_char(ch)->x_advance();
 }
 
-const sge::font::text_size_t
-sge::font::font::text_size(
+sge::font::text_size_t const
+sge::font::object::text_size(
 	string::const_iterator sbeg,
-	const string::const_iterator send,
-	const dim max_sz,
-	const flag_t flags) const
+	string::const_iterator const send,
+	dim const &max_sz,
+	flag_t const flags) const
 {
 	dim sz(0,0);
 	while(sbeg != send && sz.h() + height() <= max_sz.h())
 	{
-		const text_size_t line_size = line_width(sbeg, send, max_sz.w(), flags);
-		const unit line_w = line_size.size().w();
+		text_size_t const line_size = line_width(sbeg, send, max_sz.w(), flags);
+		unit const line_w = line_size.size().w();
 		sz.w() = std::max(sz.w(), line_w);
 		sz.h() += height();
 		sbeg = line_size.next_begin();
@@ -156,11 +159,11 @@ sge::font::font::text_size(
 	return text_size_t(sz, sbeg, sbeg);
 }
 
-const sge::font::text_size_t
-sge::font::font::text_size(
-	const string& s,
-	const dim max_sz,
-	const flag_t flags) const
+sge::font::text_size_t const
+sge::font::object::text_size(
+	string const &s,
+	dim const &max_sz,
+	flag_t const flags) const
 {
 	return text_size(
 		s.begin(),
@@ -169,12 +172,12 @@ sge::font::font::text_size(
 		flags);
 }
 
-const sge::font::text_size_t
-sge::font::font::line_width(
+sge::font::text_size_t const
+sge::font::object::line_width(
 	string::const_iterator sbeg,
-	const string::const_iterator send,
-	const unit width,
-	const flag_t flags) const
+	string::const_iterator const send,
+	unit const width,
+	flag_t const flags) const
 {
 	unit w(0), last_width(0);
 	string::const_iterator last_white = sbeg;
@@ -200,14 +203,14 @@ sge::font::font::line_width(
 	return text_size_t(dim(w, height()), send, send);
 }
 
-const sge::font::metrics_ptr
-sge::font::font::metrics() const
+sge::font::metrics_ptr const
+sge::font::object::metrics() const
 {
 	return metrics_;
 }
 
-const sge::font::drawer_ptr
-sge::font::font::drawer() const
+sge::font::drawer_ptr const
+sge::font::object::drawer() const
 {
 	return drawer_;
 }

@@ -8,6 +8,7 @@
 #include <sge/gui/manager.hpp>
 #include <sge/font/text_size_t.hpp>
 #include <sge/font/metrics.hpp>
+#include <sge/font/object.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/math/vector/io.hpp>
@@ -157,7 +158,7 @@ void sge::gui::widgets::edit::refresh() const
 
 	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("getting font size"));
 	dim const d = structure_cast<dim>(
-		font::font(font()).text_size(
+		font::object(font()).text_size(
 			ntext,
 			utility::max_dim<font::unit>())
 		.size());

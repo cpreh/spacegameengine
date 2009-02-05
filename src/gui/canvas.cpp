@@ -11,6 +11,9 @@ sge::gui::canvas::object::object(image &texture_)
 {
 }
 
+sge::gui::canvas::object::~object()
+{}
+
 sge::gui::dim const sge::gui::canvas::object::size() const
 {
 	return dim(
