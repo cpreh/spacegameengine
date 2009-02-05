@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_FLOAT_ARRAY_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_FLOAT_ARRAY_HPP_INCLUDED
 
-#include "uniform_value.hpp"
+#include <sge/renderer/glsl/uniform/float_array_type.hpp>
+#include <sge/renderer/glsl/float_type.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,17 +31,28 @@ namespace renderer
 {
 namespace glsl
 {
+namespace uniform
+{
 
-class SGE_CLASS_SYMBOL uniform_variable {
-	SGE_NONCOPYABLE(uniform_variable)
-protected:
-	SGE_SYMBOL uniform_variable();
+class float_array {
 public:
-	virtual uniform_value const get() const = 0;
-	virtual void set(uniform_value const &) = 0;
-	SGE_SYMBOL virtual ~uniform_variable();
+	typedef float_type const *const_pointer;
+
+	SGE_SYMBOL float_array(
+		const_pointer data,
+		float_array_type::type);
+
+	SGE_SYMBOL const_pointer
+	data() const;
+
+	SGE_SYMBOL float_array_type::type
+	type() const;
+private:
+	const_pointer data_;
+	float_array_type::type type_;
 };
 
+}
 }
 }
 }

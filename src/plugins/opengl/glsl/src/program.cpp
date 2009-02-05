@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../program.hpp"
 #include "../program_functions.hpp"
 #include "../attribute_variable.hpp"
-#include "../uniform_variable.hpp"
+#include "../uniform/variable.hpp"
 #include "../../error.hpp"
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
 
@@ -53,6 +54,7 @@ sge::ogl::glsl::program<Native>::program(
 template<bool Native>
 sge::ogl::glsl::program<Native>::~program()
 {
+	// FIXME: this is not RAII safe!
 	BOOST_FOREACH(shader_ptr &s, shaders)
 		detach_shader<Native>(id(), s->id());
 	delete_program<Native>(id());
@@ -114,12 +116,17 @@ void sge::ogl::glsl::program<Native>::use(
 }
 
 template<bool Native>
-sge::renderer::glsl::uniform_variable_ptr const
+sge::renderer::glsl::uniform::variable_ptr const
 sge::ogl::glsl::program<Native>::uniform(
 	renderer::glsl::string const &name)
 {
-	return renderer::glsl::uniform_variable_ptr(
-		new uniform_variable<Native>(id(), name));
+	return make_shared_ptr<
+		uniform::variable<
+			Native
+		>
+	>(
+		id(),
+		name);
 }
 
 template<bool Native>
@@ -135,7 +142,6 @@ template<bool Native>
 void sge::ogl::glsl::program<Native>::use_ffp()
 {
 	use_program<Native>(0);
-	//glUseProgram(0);
 }
 
 template<bool Native>

@@ -18,46 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../uniform_variable.hpp"
-#include "../uniform_variable_functions.hpp"
-#include "../uniform_setter.hpp"
-#include "../uniform_get.hpp"
-#include "../../error.hpp"
+#include "../variable.hpp"
+#include "../variable_functions.hpp"
+#include "../value_setter.hpp"
+#include "../array_setter.hpp"
+#include "../get.hpp"
+#include "../../../error.hpp"
 #include <boost/variant/apply_visitor.hpp>
 
 template<bool Native>
-sge::ogl::glsl::uniform_variable<Native>::uniform_variable(
+sge::ogl::glsl::uniform::variable<Native>::variable(
 	handle const program,
 	renderer::glsl::string const &name)
 :
 	location(
-		uniform_location<Native>(
+		uniform::location<Native>(
 			program,
 			name.c_str())),
 	stored_type(
-		uniform_element_type::nothing,
+		element_type::nothing,
 		0)
 {}
 
 template<bool Native>
-sge::renderer::glsl::uniform_value const
-sge::ogl::glsl::uniform_variable<Native>::get() const
+sge::renderer::glsl::uniform::any_value const
+sge::ogl::glsl::uniform::variable<Native>::get() const
 {
-	return uniform_get(
+	return uniform::get(
 		location,
 		stored_type);
 }
 
 template<bool Native>
-void sge::ogl::glsl::uniform_variable<Native>::set(
-	renderer::glsl::uniform_value const &v)
+void sge::ogl::glsl::uniform::variable<Native>::set(
+	renderer::glsl::uniform::value const &v)
 {
 	SGE_OPENGL_SENTRY
 	stored_type = boost::apply_visitor(
-		uniform_setter(
+		value_setter(
 			location),
 		v);
 }
 
-template class sge::ogl::glsl::uniform_variable<true>;
-template class sge::ogl::glsl::uniform_variable<false>;
+template<bool Native>
+void sge::ogl::glsl::uniform_variable<Native>::set(
+	renderer::glsl::uniform::array const &v)
+{
+	SGE_OPENGL_SENTRY
+	stored_type = boost::apply_visitor(
+		array_setter(
+			location),
+		v);
+}
+template class sge::ogl::glsl::uniform::variable<true>;
+template class sge::ogl::glsl::uniform::variable<false>;

@@ -18,10 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/glsl/program.hpp>
+#ifndef SGE_RENDERER_GLSL_UNIFORM_ANY_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_ANY_VALUE_HPP_INCLUDED
 
-sge::renderer::glsl::program::program()
-{}
+#include <sge/renderer/glsl/uniform/value.hpp>
+#include <sge/renderer/glsl/uniform/array.hpp>
+#include <boost/variant/variant.hpp>
 
-sge::renderer::glsl::program::~program()
-{}
+namespace sge
+{
+namespace renderer
+{
+namespace glsl
+{
+namespace uniform
+{
+
+typedef boost::variant<
+	value,
+	array
+> any_value;
+
+}
+}
+}
+}
+
+#endif

@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../uniform_variable_arb.hpp"
-#include "../../error.hpp"
+#include "../variable_arb.hpp"
+#include "../../../error.hpp"
 
 template<>
-GLint sge::ogl::glsl::uniform_location<false>(
-	const traits<false>::handle program,
+GLint sge::ogl::glsl::uniform::location<false>(
+	traits<false>::handle const program,
 	char const *const name)
 {
 	SGE_OPENGL_SENTRY

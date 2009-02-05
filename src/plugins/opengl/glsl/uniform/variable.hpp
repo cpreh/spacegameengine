@@ -18,17 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_PROGRAM_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
 
-#include "../common.hpp"
-#include "shader.hpp"
-#include "traits.hpp"
-#include <sge/shared_ptr.hpp>
-#include <sge/renderer/glsl/program_fwd.hpp>
-#include <sge/renderer/glsl/program.hpp>
+#include "type.hpp"
+#include "../traits.hpp"
+#include "../../common.hpp"
+#include <sge/renderer/glsl/uniform/variable.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <vector>
 
 namespace sge
 {
@@ -36,40 +33,30 @@ namespace ogl
 {
 namespace glsl
 {
+namespace uniform
+{
 
 template<bool Native>
-class program : public renderer::glsl::program {
+class variable : public renderer::glsl::uniform::variable {
 public:
 	typedef typename traits<Native>::handle handle;
-	typedef typename shader<Native>::shared_ptr shader_ptr;
+	variable(
+		handle program,
+		renderer::glsl::string const &name);
 
-	program(
-		renderer::glsl::string const &vs_source,
-		renderer::glsl::string const &ps_source);
-	~program();
-	static void use(
-		renderer::glsl::program_ptr);
+	renderer::glsl::uniform::any_value const
+	get() const;
+
+	void set(
+		renderer::glsl::uniform::value const &);
+	void set(
+		renderer::glsl::uniform::array const &);
 private:
-	renderer::glsl::uniform::variable_ptr const
-	uniform(
-		renderer::glsl::string const&);
-	
-	renderer::glsl::attribute_variable_ptr const
-	attribute(
-		renderer::glsl::string const&);
-	
-	static void use_ffp();
-	void use();
-	void attach_shader(
-		shader_ptr shader);
-	void link();
-	handle id() const;
-
-	typedef std::vector<shader_ptr> shader_vector;
-	shader_vector                   shaders;
-	GLuint                          id_;
+	GLuint const location;
+	type         stored_type;
 };
 
+}
 }
 }
 }

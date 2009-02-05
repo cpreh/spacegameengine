@@ -18,38 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_ARRAY_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_ARRAY_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "uniform_type.hpp"
-#include "../common.hpp"
-#include <sge/renderer/glsl/uniform_variable.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/uniform/int_array.hpp>
+#include <sge/renderer/glsl/uniform/float_array.hpp>
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 namespace glsl
 {
+namespace uniform
+{
 
-template<bool Native>
-class uniform_variable : public renderer::glsl::uniform_variable {
-public:
-	typedef typename traits<Native>::handle handle;
-	uniform_variable(
-		handle program,
-		renderer::glsl::string const &name);
+typedef boost::variant<
+	int_array,
+	float_array
+> array;
 
-	renderer::glsl::uniform_value const get() const;
-	void set(
-		renderer::glsl::uniform_value const &);
-private:
-	GLuint const  location;
-	uniform_type  stored_type;
-};
-
+}
 }
 }
 }

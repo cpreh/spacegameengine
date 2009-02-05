@@ -18,10 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/glsl/program.hpp>
+#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_NATIVE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_NATIVE_HPP_INCLUDED
 
-sge::renderer::glsl::program::program()
-{}
+#include "../../common.hpp"
+#include "../traits.hpp"
+#include "variable_functions.hpp"
 
-sge::renderer::glsl::program::~program()
-{}
+namespace sge
+{
+namespace ogl
+{
+namespace glsl
+{
+namespace uniform
+{
+
+template<>
+GLint location<true>(
+	traits<true>::handle program,
+	char const *name);
+
+}
+}
+}
+}
+
+#endif

@@ -9,6 +9,7 @@ ENDIF()
 FILE (GLOB sgeopenglfiles
 	src/*.cpp
 	glsl/src/*.cpp
+	glsl/uniform/src/*.cpp
 	vf/src/*.cpp)
 	
 IF (X11_FOUND)

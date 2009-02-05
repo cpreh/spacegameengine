@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_VECTOR_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_INT_ARRAY_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_INT_ARRAY_HPP_INCLUDED
 
-#include "float_type.hpp"
-#include "int_type.hpp"
-#include <sge/math/vector/dynamic.hpp>
-#include <sge/math/vector/basic_impl.hpp>
-#include <boost/variant/variant.hpp>
+#include <sge/renderer/glsl/uniform/int_array_type.hpp>
+#include <sge/renderer/glsl/int_type.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -33,16 +31,28 @@ namespace renderer
 {
 namespace glsl
 {
+namespace uniform
+{
 
-typedef boost::variant<
-	math::vector::dynamic<
-		float_type
-	>::type,
-	math::vector::dynamic<
-		int_type
-	>::type
-> uniform_vector;
+class int_array {
+public:
+	typedef int_type const *const_pointer;
 
+	SGE_SYMBOL int_array(
+		const_pointer data,
+		int_array_type::type);
+
+	SGE_SYMBOL const_pointer
+	data() const;
+
+	SGE_SYMBOL int_array_type::type
+	type() const;
+private:
+	const_pointer data_;
+	int_array_type::type type_;
+};
+
+}
 }
 }
 }

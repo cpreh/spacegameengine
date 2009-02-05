@@ -3,40 +3,31 @@ spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public License
+modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+GNU General Public License for more details.
 
-You should have received a copy of the GNU Lesser General Public License
+You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_VARIABLE_FWD_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_VARIABLE_FWD_HPP_INCLUDED
+#include "../variable_native.hpp"
+#include "../../../error.hpp"
 
-#include "../../shared_ptr.hpp"
-
-namespace sge
+template<>
+GLint sge::ogl::glsl::uniform::location<true>(
+	traits<true>::handle const program,
+	char const *const name)
 {
-namespace renderer
-{
-namespace glsl
-{
-
-class uniform_variable;
-
-typedef shared_ptr<uniform_variable> uniform_variable_ptr;
-typedef shared_ptr<uniform_variable const> const_uniform_variable_ptr;
-
+	SGE_OPENGL_SENTRY
+	return glGetUniformLocation(
+		program,
+		name);
 }
-}
-}
-
-#endif

@@ -18,10 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/glsl/uniform_variable.hpp>
+#ifndef SGE_RENDERER_GLSL_UNIFORM_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_VALUE_HPP_INCLUDED
 
-sge::renderer::glsl::uniform_variable::uniform_variable()
-{}
+#include <sge/renderer/glsl/int_type.hpp>
+#include <sge/renderer/glsl/float_type.hpp>
+#include <sge/renderer/glsl/uniform/vector.hpp>
+#include <sge/renderer/glsl/uniform/matrix.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
+#include <boost/variant/variant.hpp>
 
-sge::renderer::glsl::uniform_variable::~uniform_variable()
-{}
+namespace sge
+{
+namespace renderer
+{
+namespace glsl
+{
+namespace uniform
+{
+
+typedef boost::variant<
+	int_type,
+	float_type,
+	vector,
+	matrix
+> value;
+
+}
+}
+}
+}
+
+#endif

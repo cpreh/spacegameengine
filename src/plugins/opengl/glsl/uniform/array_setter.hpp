@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_FUNCTIONS_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_FUNCTIONS_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_UNIFORM_ARRAY_SETTER_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_ARRAY_SETTER_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "../common.hpp"
+#include <sge/renderer/glsl/uniform/int_array.hpp>
+#include <sge/renderer/glsl/uniform/float_array.hpp>
+#include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
@@ -30,12 +31,25 @@ namespace ogl
 {
 namespace glsl
 {
+namespace uniform
+{
 
-template<bool Native>
-GLint uniform_location(
-	typename traits<Native>::handle program,
-	char const *name);
+class array_setter : public boost::static_visitor<type> {
+public:
+	explicit array_setter(
+		GLint location);
+	
+	type const
+	operator()(
+		renderer::glsl::uniform::int_array const &) const;
 
+	type const
+	operator()(
+		renderer::glsl::uniform::float_array const &) const;
+
+};
+
+}
 }
 }
 }

@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../uniform_setter.hpp"
-#include "../init.hpp"
+#if 0
+#include "../value_setter.hpp"
+#include "../../init.hpp"
 #include <sge/renderer/matrix_convert.hpp>
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/arithmetic_convert.hpp>
@@ -627,3 +628,4 @@ set_matrix(
 }
 
 }
+#endif

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 
-#include "uniform_variable_fwd.hpp"
-#include "attribute_variable_fwd.hpp"
-#include "string.hpp"
-#include "../../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/renderer/glsl/uniform/variable_fwd.hpp>
+#include <sge/renderer/glsl/attribute_variable_fwd.hpp>
+#include <sge/renderer/glsl/string.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,15 +34,19 @@ namespace renderer
 namespace glsl
 {
 
-class SGE_CLASS_SYMBOL program : boost::noncopyable {
+class SGE_CLASS_SYMBOL program {
+	SGE_NONCOPYABLE(program)
+protected:
+	SGE_SYMBOL program();
 public:
-	virtual uniform_variable_ptr const
+	virtual glsl::uniform::variable_ptr const
 	uniform(
 		string const &) = 0;
 
 	virtual attribute_variable_ptr const
 	attribute(
 		string const &) = 0;
+	
 	SGE_SYMBOL virtual ~program(); 
 };
 

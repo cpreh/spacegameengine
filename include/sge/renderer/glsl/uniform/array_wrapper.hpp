@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_MATRIX_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_MATRIX_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_ARRAY_WRAPPER_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_ARRAY_WRAPPER_HPP_INCLUDED
 
-#include "float_type.hpp"
-#include <sge/math/matrix/dynamic.hpp>
+#include <sge/renderer/glsl/uniform/value.hpp>
+#include <sge/array_wrapper.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/variant/variant.hpp>
 
 namespace sge
 {
@@ -30,11 +33,33 @@ namespace renderer
 {
 namespace glsl
 {
+namespace uniform
+{
 
-typedef math::matrix::dynamic<
-	float_type
->::type uniform_matrix;
+namespace detail
+{
 
+template<
+	typename T
+>
+struct make_array_wrapper {
+	typedef array_wrapper<
+		T
+	> type;
+};
+
+}
+
+typedef boost::make_variant_over<
+	boost::mpl::transform<
+		value::types,
+		detail::make_array_wrapper<
+			boost::mpl::_1
+		>
+	>::type
+>::type array_wrapper;
+
+}
 }
 }
 }
