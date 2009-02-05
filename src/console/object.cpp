@@ -1,6 +1,6 @@
 #include <sge/console/object.hpp>
 #include <sge/console/exception.hpp>
-#include <sge/console/callback.hpp>
+#include <sge/console/callbacks.hpp>
 #include <sge/console/function.hpp>
 #include <sge/console/var_base.hpp>
 #include <sge/iostream.hpp>
@@ -40,7 +40,7 @@ sge::signals::connection const sge::console::object::insert(
 
 	SGE_ASSERT(ret.second);
 
-	return ret.first->second->signal_.connect(c);
+	return ret.first->second->signal().connect(c);
 }
 
 sge::signals::connection const sge::console::object::register_fallback(
@@ -106,7 +106,7 @@ void sge::console::object::eval(string const &sp)
 	if (i == funcs_.end())
 		throw exception(SGE_TEXT("couldn't find command \"")+args[0]+SGE_TEXT("\""));
 
-	i->second->signal_(args);
+	i->second->signal()(args);
 }
 
 sge::console::var_map const &sge::console::object::vars() const

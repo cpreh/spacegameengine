@@ -3,23 +3,24 @@
 
 #include <sge/console/object_fwd.hpp>
 #include <sge/string.hpp>
+#include <sge/export.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace console
 {
-class var_base : public boost::noncopyable
+class SGE_CLASS_SYMBOL var_base : public boost::noncopyable
 {
 	public:
-	var_base(
+	SGE_SYMBOL var_base(
 		object &,
 		sge::string const &);
 	
 	virtual void string(sge::string const &) = 0;
 	virtual sge::string const string() const = 0;
 
-	sge::string const name() const;
+	SGE_SYMBOL sge::string const name() const;
 	
 	virtual ~var_base();
 	private:
