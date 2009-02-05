@@ -18,23 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_CALLBACK_MAP_HPP_INCLUDED
-#define SGE_CON_CALLBACK_MAP_HPP_INCLUDED
+#ifndef SGE_CONSOLE_CALLBACK_MAP_HPP_INCLUDED
+#define SGE_CONSOLE_CALLBACK_MAP_HPP_INCLUDED
 
-#include "signal.hpp"
-#include "../string.hpp"
+#include <sge/console/signals.hpp>
+#include <sge/console/function.hpp>
+#include <sge/string.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 
 namespace sge
 {
-namespace con
+namespace console
 {
-
 typedef boost::ptr_map<
 	string,
-	signal	
+	function
 > callback_map; 
-
 }
 }
 

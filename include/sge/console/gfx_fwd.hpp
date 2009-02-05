@@ -18,20 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_SIGNAL_HPP_INCLUDED
-#define SGE_CON_SIGNAL_HPP_INCLUDED
-
-#include "callback_type.hpp"
-#include "../signals/signal.hpp"
+#ifndef SGE_CONSOLE_GFX_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_FWD_HPP_INCLUDED
 
 namespace sge
 {
-namespace con
+namespace console
 {
 
-typedef signals::signal<
-	callback_type
-> signal;
+class gfx;
 
 }
 }

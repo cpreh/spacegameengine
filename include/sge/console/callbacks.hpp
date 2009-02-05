@@ -18,16 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_CONSOLE_GFX_FWD_HPP_INCLUDED
-#define SGE_CON_CONSOLE_GFX_FWD_HPP_INCLUDED
+#ifndef SGE_CONSOLE_CALLBACKS_HPP_INCLUDED
+#define SGE_CONSOLE_CALLBACKS_HPP_INCLUDED
+
+#include <sge/console/callback_types.hpp>
+#include <boost/function.hpp>
 
 namespace sge
 {
-namespace con
+namespace console
 {
-
-class console_gfx;
-
+typedef boost::function<
+	callback_type
+> callback;
+typedef boost::function<
+	fallback_type
+> fallback;
 }
 }
 

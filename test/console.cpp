@@ -22,17 +22,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/renderer/parameters.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/console/console.hpp>
+#include <sge/console/object.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
+#include <boost/foreach.hpp>
 #include <ostream>
 #include <cstdlib>
 
-void func(
-	sge::con::arg_list const &)
+void fallback(
+	sge::string const &arg)
 {
+	sge::cout << SGE_TEXT("fallback called with argument:") 
+                  << arg << SGE_TEXT("\n");
+}
+
+void func(
+	sge::console::arg_list const &args)
+{
+	sge::cout << SGE_TEXT("function called with arguments:\n");
+	BOOST_FOREACH(sge::console::arg_list::const_reference s,args)
+		sge::cout << s << SGE_TEXT("\n");
 }
 
 int main()
@@ -55,10 +66,20 @@ try
 			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::input)
 		(sge::systems::parameterless::image));
+
+	sge::console::object o(SGE_TEXT('/'));
 	
-	sge::con::add(
+	sge::signals::connection const c0 = o.insert(
 		SGE_TEXT("test"),
-		func);
+		func,
+		SGE_TEXT("just a test function"));
+
+	sge::signals::connection const c1 = o.register_fallback(
+		&fallback);
+
+	o.eval(SGE_TEXT("/test \"foo bar\" baz quux"));
+	o.eval(SGE_TEXT("test \"foo bar\" baz quux"));
+	o.eval(SGE_TEXT("/\"test\" \"foo bar\" baz quux"));
 }
 catch(sge::exception const &e)
 {

@@ -8,7 +8,7 @@
 
 namespace sge
 {
-namespace con
+namespace console
 {
 
 struct stdlib
