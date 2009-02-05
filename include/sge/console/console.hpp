@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_CONSOLE_HPP_INCLUDED
-#define SGE_CON_CONSOLE_HPP_INCLUDED
+#ifndef SGE_CONSOLE_CONSOLE_HPP_INCLUDED
+#define SGE_CONSOLE_CONSOLE_HPP_INCLUDED
 
 #include "callback.hpp"
 #include "callback_map.hpp"
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace con
+namespace console
 {
 
 SGE_SYMBOL void

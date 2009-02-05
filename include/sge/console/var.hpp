@@ -18,35 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_VAR_HPP_INCLUDED
-#define SGE_CON_VAR_HPP_INCLUDED
+#ifndef SGE_CONSOLE_VAR_HPP_INCLUDED
+#define SGE_CONSOLE_VAR_HPP_INCLUDED
 
-#include "var_base.hpp"
-#include "../string.hpp"
+#include <sge/console/var_base.hpp>
+#include <sge/console/object_fwd.hpp>
+#include <sge/string.hpp>
 
 namespace sge
 {
-namespace con
+namespace console
 {
-
 template<typename T>
 class var : public var_base {
 public:
 	typedef T value_type;
 
-	void set(const string &s); 
-	string const get() const;
-
-	const T &value() const;
-	void value(const T &_t);
-
 	var(
-		const string &name,
-		const value_type &t = value_type());
+		object &,
+		string const &name,
+		value_type const & = value_type());
+
+	void string(sge::string const &); 
+	sge::string const string() const;
+
+	value_type const &value() const;
+	void value(value_type const &);
+
 private:
 	value_type t;
 };
-
 }
 }
 

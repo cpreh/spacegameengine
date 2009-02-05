@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_CONSOLE_GFX_HPP_INCLUDED
-#define SGE_CON_CONSOLE_GFX_HPP_INCLUDED
+#ifndef SGE_CONSOLE_GFX_HPP_INCLUDED
+#define SGE_CONSOLE_GFX_HPP_INCLUDED
 
 #include "../font/font_fwd.hpp"
 #include "../renderer/device_fwd.hpp"
@@ -32,8 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture/part_fwd.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
-#include "action_var.hpp"
-//#include "action_var_impl.hpp"
 #include "arg_list.hpp"
 #include <boost/noncopyable.hpp>
 #include <deque>
@@ -41,18 +39,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace input
+namespace console
 {
-class key_type;
-class key_pair;
-}
-
-namespace con
+class gfx : public boost::noncopyable 
 {
-
-class console_gfx : boost::noncopyable {
 public:
-	SGE_SYMBOL console_gfx(
+	SGE_SYMBOL gfx(
 		renderer::device_ptr,
 		texture::const_part_ptr,
 		font::font_ptr,

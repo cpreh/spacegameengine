@@ -18,20 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_VAR_IMPL_HPP_INCLUDED
-#define SGE_CON_VAR_IMPL_HPP_INCLUDED
+#ifndef SGE_CONSOLE_VAR_IMPL_HPP_INCLUDED
+#define SGE_CONSOLE_VAR_IMPL_HPP_INCLUDED
 
-#include "var.hpp"
-#include "exception.hpp"
-#include "../text.hpp"
+#include <sge/console/var.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/lexical_cast.hpp>
 
 template<typename T>
-void sge::con::var<T>::set(string const &s) 
+void sge::console::var<T>::string(sge::string const &s) 
 { 
 	try
 	{
-		t = boost::lexical_cast<T>(s); 
+		t = boost::lexical_cast<value_type>(s); 
 	} 
 	catch (boost::bad_lexical_cast const &)
 	{
@@ -44,29 +44,32 @@ void sge::con::var<T>::set(string const &s)
 
 template<typename T>
 sge::string const
-sge::con::var<T>::get() const
+sge::console::var<T>::string() const
 {
-	return boost::lexical_cast<string>(t);
+	return boost::lexical_cast<sge::string>(t);
 }
 
 template<typename T>
-T const &sge::con::var<T>::value() const
+T const &sge::console::var<T>::value() const
 {
 	return t;
 }
 
 template<typename T>
-void sge::con::var<T>::value(T const &_t)
+void sge::console::var<T>::value(T const &_t)
 {
 	t = _t;
 }
 
 template<typename T>
-sge::con::var<T>::var(
-	string const &name,
+sge::console::var<T>::var(
+	object &object_,
+	sge::string const &name,
 	value_type const &t) 
 :
-	var_base(name),
+	var_base(
+		object_,
+		name),
 	t(t)
 {
 	late_construct();

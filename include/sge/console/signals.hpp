@@ -18,18 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_CALLBACK_TYPE_HPP_INCLUDED
-#define SGE_CON_CALLBACK_TYPE_HPP_INCLUDED
+#ifndef SGE_CONSOLE_SIGNALS_HPP_INCLUDED
+#define SGE_CONSOLE_SIGNALS_HPP_INCLUDED
 
-#include "arg_list.hpp"
+#include <sge/console/callback_types.hpp>
+#include <sge/signals/signal.hpp>
 
 namespace sge
 {
-namespace con
+namespace console
 {
+typedef signals::signal<
+	callback_type
+> signal;
 
-typedef void (callback_type)(arg_list const &);
-
+typedef signals::signal<
+	fallback_type
+> fallback_signal;
 }
 }
 

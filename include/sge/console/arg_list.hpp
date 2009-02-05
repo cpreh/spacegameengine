@@ -18,19 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CON_ARG_LIST_HPP_INCLUDED
-#define SGE_CON_ARG_LIST_HPP_INCLUDED
+#ifndef SGE_CONSOLE_ARG_LIST_HPP_INCLUDED
+#define SGE_CONSOLE_ARG_LIST_HPP_INCLUDED
 
-#include "../string.hpp"
+#include <sge/string.hpp>
 #include <vector>
 
 namespace sge
 {
-namespace con
+namespace console
 {
-
 typedef std::vector<string> arg_list;
-
 }
 }
 
