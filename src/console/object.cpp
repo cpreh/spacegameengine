@@ -114,6 +114,11 @@ sge::console::var_map const &sge::console::object::vars() const
 	return vars_;
 }
 
+sge::console::var_map &sge::console::object::vars()
+{
+	return vars_;
+}
+
 sge::console::callback_map const &sge::console::object::functions() const
 {
 	return funcs_;

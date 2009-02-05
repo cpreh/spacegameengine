@@ -30,6 +30,7 @@ class SGE_CLASS_SYMBOL object : public boost::noncopyable
 	
 	SGE_SYMBOL void eval(string const &);
 	SGE_SYMBOL var_map const &vars() const;
+	SGE_SYMBOL var_map &vars();
 	SGE_SYMBOL callback_map const &functions() const;
 	private:
 	friend class var_base;
