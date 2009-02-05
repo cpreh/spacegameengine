@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "flags.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
-#include "../renderer/size_type.hpp"
 
 namespace sge
 {
@@ -42,8 +41,6 @@ class text_size_t;
 
 class SGE_CLASS_SYMBOL object {
 public:
-	typedef renderer::size_type size_type;
-
 	SGE_SYMBOL explicit object(
 		metrics_ptr metrics,
 		drawer_ptr drawer = drawer_ptr());
