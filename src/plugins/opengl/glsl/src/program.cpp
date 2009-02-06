@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../program.hpp"
 #include "../program_functions.hpp"
-#include "../attribute_variable.hpp"
+#include "../attribute/variable.hpp"
 #include "../uniform/variable.hpp"
 #include "../../error.hpp"
 #include <sge/exception.hpp>
@@ -130,12 +130,12 @@ sge::ogl::glsl::program<Native>::uniform(
 }
 
 template<bool Native>
-sge::renderer::glsl::attribute_variable_ptr const
+sge::renderer::glsl::attribute::variable_ptr const
 sge::ogl::glsl::program<Native>::attribute(
 	renderer::glsl::string const &name)
 {
-	return renderer::glsl::attribute_variable_ptr(
-		new attribute_variable<Native>(id(), name));
+	return renderer::glsl::attribute::variable_ptr(
+		new attribute::variable<Native>(id(), name));
 }
 
 template<bool Native>

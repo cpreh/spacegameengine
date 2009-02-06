@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attribute_variable_arb.hpp"
-#include "../../error.hpp"
+#include "../variable_native.hpp"
+#include "../../../error.hpp"
 
 template<>
-GLint sge::ogl::glsl::attrib_location<false>(
-	const traits<false>::handle program,
+GLint sge::ogl::glsl::attribute::location<true>(
+	const traits<true>::handle program,
 	char const *const name)
 {
 	SGE_OPENGL_SENTRY
-	return glGetAttribLocationARB(
+	return glGetAttribLocation(
 		program,
 		name);
 }

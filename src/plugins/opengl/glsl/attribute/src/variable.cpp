@@ -18,31 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attribute_variable.hpp"
-#include "../attribute_variable_functions.hpp"
-#include "../attribute_setter.hpp"
-#include "../../error.hpp"
+#include "../variable.hpp"
+#include "../variable_functions.hpp"
+#include "../setter.hpp"
+#include "../../../error.hpp"
 #include <boost/variant/apply_visitor.hpp>
 
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 
 template<bool Native>
-sge::ogl::glsl::attribute_variable<Native>::attribute_variable(
+sge::ogl::glsl::attribute::variable<Native>::variable(
 	handle const program,
 	renderer::glsl::string const &name)
 :
 	location(
-		attrib_location<Native>(
+		attribute::location<Native>(
 			program,
 			name.c_str())),
 	stored_type(
-		attribute_type::nothing)
+		type::nothing)
 {}
 
 template<bool Native>
-sge::renderer::glsl::attribute_value const
-sge::ogl::glsl::attribute_variable<Native>::get() const
+sge::renderer::glsl::attribute::value const
+sge::ogl::glsl::attribute::variable<Native>::get() const
 {
 	// FIXME
 	throw exception(
@@ -50,15 +50,15 @@ sge::ogl::glsl::attribute_variable<Native>::get() const
 }
 
 template<bool Native>
-void sge::ogl::glsl::attribute_variable<Native>::set(
-	renderer::glsl::attribute_value const &v)
+void sge::ogl::glsl::attribute::variable<Native>::set(
+	renderer::glsl::attribute::value const &v)
 {
 	SGE_OPENGL_SENTRY
 	stored_type = boost::apply_visitor(
-		attribute_setter(
+		setter(
 			location),
 		v);
 }
 
-template class sge::ogl::glsl::attribute_variable<true>;
-template class sge::ogl::glsl::attribute_variable<false>;
+template class sge::ogl::glsl::attribute::variable<true>;
+template class sge::ogl::glsl::attribute::variable<false>;

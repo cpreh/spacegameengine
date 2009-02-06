@@ -18,16 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../attribute_variable_native.hpp"
-#include "../../error.hpp"
+#ifndef SGE_OPENGL_GLSL_ATTRIBUTE_SETTER_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_ATTRIBUTE_SETTER_HPP_INCLUDED
 
-template<>
-GLint sge::ogl::glsl::attrib_location<true>(
-	const traits<true>::handle program,
-	char const *const name)
+#include "type.hpp"
+#include "../traits.hpp"
+#include <sge/renderer/any_arithmetic.hpp>
+#include <sge/renderer/any_dynamic_vector.hpp>
+#include <boost/variant/static_visitor.hpp>
+
+namespace sge
 {
-	SGE_OPENGL_SENTRY
-	return glGetAttribLocation(
-		program,
-		name);
+namespace ogl
+{
+namespace glsl
+{
+namespace attribute
+{
+
+class setter : public boost::static_visitor<type::type> {
+public:
+	explicit setter(
+		GLint location);
+	
+	type::type
+	operator()(
+		renderer::any_arithmetic const &) const;
+
+	type::type
+	operator()(
+		renderer::any_dynamic_vector const &) const;
+private:
+	GLint const location;
+};
+
 }
+}
+}
+}
+
+#endif

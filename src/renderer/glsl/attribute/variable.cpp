@@ -18,25 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_ATTRIBUTE_VARIABLE_FWD_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_ATTRIBUTE_VARIABLE_FWD_HPP_INCLUDED
+#include <sge/renderer/glsl/attribute/variable.hpp>
 
-#include "../../shared_ptr.hpp"
+sge::renderer::glsl::attribute::variable::variable()
+{}
 
-namespace sge
-{
-namespace renderer
-{
-namespace glsl
-{
-
-class attribute_variable;
-
-typedef shared_ptr<attribute_variable> attribute_variable_ptr;
-typedef shared_ptr<attribute_variable const> const_attribute_variable_ptr;
-
-}
-}
-}
-
-#endif
+sge::renderer::glsl::attribute::variable::~variable()
+{}

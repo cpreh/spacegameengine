@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_GLSL_PROGRAM_HPP_INCLUDED
 
 #include <sge/renderer/glsl/uniform/variable_fwd.hpp>
-#include <sge/renderer/glsl/attribute_variable_fwd.hpp>
+#include <sge/renderer/glsl/attribute/variable_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -43,7 +43,7 @@ public:
 	uniform(
 		string const &) = 0;
 
-	virtual attribute_variable_ptr const
+	virtual attribute::variable_ptr const
 	attribute(
 		string const &) = 0;
 	

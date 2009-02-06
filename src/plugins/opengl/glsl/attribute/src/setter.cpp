@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../error.hpp"
-#include "../attribute_setter.hpp"
-#include "../init.hpp"
+#include "../../../error.hpp"
+#include "../../init.hpp"
+#include "../setter.hpp"
 #include <sge/math/vector/dynamic.hpp>
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
@@ -43,17 +43,17 @@ PFNGLVERTEXATTRIB2DVPROC vertex_attrib_2dv;
 PFNGLVERTEXATTRIB3DVPROC vertex_attrib_3dv;
 PFNGLVERTEXATTRIB4DVPROC vertex_attrib_4dv;
 
-void initialize_attribute_setter();
+void initialize_setter();
 
 struct arithmetic_visitor
-: boost::static_visitor<sge::ogl::glsl::attribute_type::type> {
+: boost::static_visitor<sge::ogl::glsl::attribute::type::type> {
 	explicit arithmetic_visitor(
 		GLint location);
 		
-	sge::ogl::glsl::attribute_type::type
+	sge::ogl::glsl::attribute::type::type
 	operator()(
 		float) const;
-	sge::ogl::glsl::attribute_type::type
+	sge::ogl::glsl::attribute::type::type
 	operator()(
 		double) const;
 private:
@@ -61,17 +61,17 @@ private:
 };
 
 struct vector_visitor 
-: boost::static_visitor<sge::ogl::glsl::attribute_type::type> {
+: boost::static_visitor<sge::ogl::glsl::attribute::type::type> {
 	explicit vector_visitor(
 		GLint location);
 	
-	sge::ogl::glsl::attribute_type::type
+	sge::ogl::glsl::attribute::type::type
 	operator()(
 		sge::math::vector::dynamic<
 			float
 		>::type const &) const;
 	
-	sge::ogl::glsl::attribute_type::type
+	sge::ogl::glsl::attribute::type::type
 	operator()(
 		sge::math::vector::dynamic<
 			double
@@ -83,16 +83,16 @@ private:
 }
 
 
-sge::ogl::glsl::attribute_setter::attribute_setter(
+sge::ogl::glsl::attribute::setter::setter(
 	GLint const location)
 :
 	location(location)
 {
-	initialize_attribute_setter();
+	initialize_setter();
 }
 	
-sge::ogl::glsl::attribute_type::type
-sge::ogl::glsl::attribute_setter::operator()(
+sge::ogl::glsl::attribute::type::type
+sge::ogl::glsl::attribute::setter::operator()(
 	renderer::any_arithmetic const &f) const
 {
 	return boost::apply_visitor(
@@ -101,8 +101,8 @@ sge::ogl::glsl::attribute_setter::operator()(
 		f);
 }
 
-sge::ogl::glsl::attribute_type::type
-sge::ogl::glsl::attribute_setter::operator()(
+sge::ogl::glsl::attribute::type::type
+sge::ogl::glsl::attribute::setter::operator()(
 	renderer::any_dynamic_vector const &v) const
 {
 	return boost::apply_visitor(
@@ -114,7 +114,7 @@ sge::ogl::glsl::attribute_setter::operator()(
 namespace
 {
 
-void initialize_attribute_setter()
+void initialize_setter()
 {
 	SGE_FUNCTION_ONCE
 	if(sge::ogl::glsl::is_native())
@@ -147,24 +147,24 @@ arithmetic_visitor::arithmetic_visitor(
 	location(location)
 {}
 
-sge::ogl::glsl::attribute_type::type
+sge::ogl::glsl::attribute::type::type
 arithmetic_visitor::operator()(
 	float const f) const
 {
 	SGE_OPENGL_SENTRY
 
 	vertex_attrib_1f(location, f);
-	return sge::ogl::glsl::attribute_type::float1;
+	return sge::ogl::glsl::attribute::type::float1;
 }
 
-sge::ogl::glsl::attribute_type::type
+sge::ogl::glsl::attribute::type::type
 arithmetic_visitor::operator()(
 	double const d) const
 {
 	SGE_OPENGL_SENTRY
 
 	vertex_attrib_1d(location, d);
-	return sge::ogl::glsl::attribute_type::double1;
+	return sge::ogl::glsl::attribute::type::double1;
 }
 
 
@@ -174,7 +174,7 @@ vector_visitor::vector_visitor(
 	location(location)
 {}
 	
-sge::ogl::glsl::attribute_type::type
+sge::ogl::glsl::attribute::type::type
 vector_visitor::operator()(
 	sge::math::vector::dynamic<
 		float
@@ -203,11 +203,11 @@ vector_visitor::operator()(
 			SGE_TEXT("vector size not right in glsl attribute variable!"));
 	}
 
-	return static_cast<sge::ogl::glsl::attribute_type::type>(
-		sge::ogl::glsl::attribute_type::int1 + v.size());
+	return static_cast<sge::ogl::glsl::attribute::type::type>(
+		sge::ogl::glsl::attribute::type::int1 + v.size());
 }
 
-sge::ogl::glsl::attribute_type::type
+sge::ogl::glsl::attribute::type::type
 vector_visitor::operator()(
 	sge::math::vector::dynamic<
 		double
@@ -236,8 +236,8 @@ vector_visitor::operator()(
 			SGE_TEXT("vector size not right in glsl attribute variable!"));
 	}
 
-	return static_cast<sge::ogl::glsl::attribute_type::type>(
-		sge::ogl::glsl::attribute_type::float4 + v.size());
+	return static_cast<sge::ogl::glsl::attribute::type::type>(
+		sge::ogl::glsl::attribute::type::float4 + v.size());
 }
 
 }

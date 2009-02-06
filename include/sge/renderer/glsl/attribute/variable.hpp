@@ -18,39 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "attribute_type.hpp"
-#include "../common.hpp"
-#include <sge/renderer/glsl/attribute_variable.hpp>
-#include <sge/renderer/glsl/string.hpp>
+#include <sge/renderer/glsl/attribute/value.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace renderer
 {
 namespace glsl
 {
+namespace attribute
+{
 
-template<bool Native>
-class attribute_variable : public renderer::glsl::attribute_variable {
+class SGE_CLASS_SYMBOL variable {
+	SGE_NONCOPYABLE(variable)
+protected:
+	SGE_SYMBOL variable();
 public:
-	typedef typename traits<Native>::handle handle;
-
-	attribute_variable(
-		handle program,
-		renderer::glsl::string const &name);
-	
-	renderer::glsl::attribute_value const get() const;
-	void set(
-		renderer::glsl::attribute_value const &);
-private:
-	GLint const          location;
-	attribute_type::type stored_type;
+	virtual value const get() const = 0;
+	virtual void set(value const &) = 0;
+	SGE_SYMBOL virtual ~variable();
 };
 
+}
 }
 }
 }

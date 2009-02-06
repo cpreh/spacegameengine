@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_NATIVE_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_NATIVE_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_ATTRIBUTE_VARIABLE_HPP_INCLUDED
 
-#include "../common.hpp"
-#include "attribute_variable_functions.hpp"
-#include "traits.hpp"
+#include "type.hpp"
+#include "../traits.hpp"
+#include "../../common.hpp"
+#include <sge/renderer/glsl/attribute/variable.hpp>
+#include <sge/renderer/glsl/string.hpp>
 
 namespace sge
 {
@@ -31,12 +33,27 @@ namespace ogl
 {
 namespace glsl
 {
+namespace attribute
+{
 
-template<>
-GLint attrib_location<true>(
-	traits<true>::handle program,
-	char const *name);
+template<bool Native>
+class variable : public renderer::glsl::attribute::variable {
+public:
+	typedef typename traits<Native>::handle handle;
 
+	variable(
+		handle program,
+		renderer::glsl::string const &name);
+	
+	renderer::glsl::attribute::value const get() const;
+	void set(
+		renderer::glsl::attribute::value const &);
+private:
+	GLint const location;
+	type::type  stored_type;
+};
+
+}
 }
 }
 }
