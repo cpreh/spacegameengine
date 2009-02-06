@@ -30,17 +30,18 @@ sge::gui::widgets::edit::edit(
 	line_type const type,
 	dim const &desired_size_,
 	font::metrics_ptr const _font)
-	: widget(
-			parent,
-			size_policy::default_policy,
-			keyboard_focus::receive),
-		type(type),
-	  font_(_font),
-		desired_size_(desired_size_),
-		cursor_visible_(true),
-		text_buffer_(),
-		scroll_pos_(point::null()),
-		cursor(text_)
+:
+	widget(
+		parent,
+		size_policy::default_policy,
+		keyboard_focus::receive),
+	type(type),
+	font_(_font),
+	desired_size_(desired_size_),
+	cursor_visible_(true),
+	text_buffer_(),
+	scroll_pos_(point::null()),
+	cursor(text_)
 {
 	if (!font_)
 		font_ = parent_manager().standard_font();
