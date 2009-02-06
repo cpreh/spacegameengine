@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
 #define SGE_RENDERER_GLSL_UNIFORM_VARIABLE_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/array.hpp>
 #include <sge/renderer/glsl/uniform/value.hpp>
-#include <sge/renderer/glsl/uniform/any_value.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 
@@ -43,21 +41,23 @@ class SGE_CLASS_SYMBOL variable {
 protected:
 	SGE_SYMBOL variable();
 public:
-	virtual any_value const
+	virtual value const
 	get() const = 0;
 
 	virtual void
 	set(
 		value const &) = 0;
 
-	virtual void
+	/*
+	SGE_SYMBOL void
 	set(
-		array const &) = 0;
+		any_array const &);
 
 	SGE_SYMBOL void
 	set(
-		array_wrapper const &);
-
+		singular_value const &);
+	*/
+	
 	SGE_SYMBOL virtual ~variable();
 };
 

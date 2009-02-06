@@ -44,13 +44,11 @@ public:
 		handle program,
 		renderer::glsl::string const &name);
 
-	renderer::glsl::uniform::any_value const
+	renderer::glsl::uniform::value const
 	get() const;
 
 	void set(
 		renderer::glsl::uniform::value const &);
-	void set(
-		renderer::glsl::uniform::array const &);
 private:
 	GLuint const location;
 	type         stored_type;

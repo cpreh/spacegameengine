@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_FLOAT_ARRAY_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_FLOAT_ARRAY_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_DETAIL_BASIC_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_DETAIL_BASIC_VALUE_HPP_INCLUDED
+
+#include <sge/renderer/size_type.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -29,26 +32,37 @@ namespace glsl
 {
 namespace uniform
 {
-
-namespace float_array_type
+namespace detail
 {
-enum type {
-	float1,
-	float2,
-	float3,
-	float4,
-	matrix2x2,
-	matrix3x3,
-	matrix4x4,
-	matrix2x3,
-	matrix3x2,
-	matrix2x4,
-	matrix4x2,
-	matrix3x4,
-	matrix4x3
-};
-}
 
+template<
+	typename Value,
+	typename Type
+>
+class basic_value {
+public:
+	typedef Value const *const_pointer;
+
+	SGE_SYMBOL basic_value(
+		const_pointer,
+		size_type size,
+		Type);
+	
+	SGE_SYMBOL const_pointer
+	data() const;
+
+	SGE_SYMBOL size_type
+	size() const;
+
+	SGE_SYMBOL Type
+	type() const;
+private:
+	const_pointer data_;
+	size_type size_;
+	Type type_;
+};
+
+}
 }
 }
 }

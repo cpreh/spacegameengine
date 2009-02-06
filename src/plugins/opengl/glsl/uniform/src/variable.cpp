@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../variable.hpp"
 #include "../variable_functions.hpp"
-#include "../value_setter.hpp"
-#include "../array_setter.hpp"
+#include "../setter.hpp"
 #include "../get.hpp"
 #include "../../../error.hpp"
 #include <boost/variant/apply_visitor.hpp>
@@ -41,7 +40,7 @@ sge::ogl::glsl::uniform::variable<Native>::variable(
 {}
 
 template<bool Native>
-sge::renderer::glsl::uniform::any_value const
+sge::renderer::glsl::uniform::value const
 sge::ogl::glsl::uniform::variable<Native>::get() const
 {
 	return uniform::get(
@@ -55,20 +54,10 @@ void sge::ogl::glsl::uniform::variable<Native>::set(
 {
 	SGE_OPENGL_SENTRY
 	stored_type = boost::apply_visitor(
-		value_setter(
+		setter(
 			location),
 		v);
 }
 
-template<bool Native>
-void sge::ogl::glsl::uniform_variable<Native>::set(
-	renderer::glsl::uniform::array const &v)
-{
-	SGE_OPENGL_SENTRY
-	stored_type = boost::apply_visitor(
-		array_setter(
-			location),
-		v);
-}
 template class sge::ogl::glsl::uniform::variable<true>;
 template class sge::ogl::glsl::uniform::variable<false>;

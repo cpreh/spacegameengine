@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_INT_ARRAY_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_INT_ARRAY_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_FLOAT_VALUE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_FLOAT_VALUE_TYPE_HPP_INCLUDED
 
 namespace sge
 {
@@ -30,13 +30,22 @@ namespace glsl
 namespace uniform
 {
 
-namespace int_array_type
+namespace float_value_type
 {
 enum type {
-	int1,
-	int2,
-	int3,
-	int4
+	float1,
+	float2,
+	float3,
+	float4,
+	matrix2x2,
+	matrix3x3,
+	matrix4x4,
+	matrix2x3,
+	matrix3x2,
+	matrix2x4,
+	matrix4x2,
+	matrix3x4,
+	matrix4x3
 };
 }
 

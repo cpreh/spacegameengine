@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_ARRAY_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_ARRAY_HPP_INCLUDED
+#ifndef SGE_RENDERER_GLSL_UNIFORM_INT_VALUE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_INT_VALUE_HPP_INCLUDED
 
-#include <sge/renderer/glsl/uniform/int_array.hpp>
-#include <sge/renderer/glsl/uniform/float_array.hpp>
-#include <boost/variant/variant.hpp>
+#include <sge/renderer/glsl/uniform/detail/basic_value.hpp>
+#include <sge/renderer/glsl/uniform/int_value_type.hpp>
+#include <sge/renderer/glsl/int_type.hpp>
 
 namespace sge
 {
@@ -34,11 +34,11 @@ namespace glsl
 namespace uniform
 {
 
-typedef boost::variant<
-	int_array,
-	float_array
-> array;
-
+typedef detail::basic_value<
+	int_type,
+	int_value_type::type
+> int_value;
+	
 }
 }
 }

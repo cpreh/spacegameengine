@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLSL_UNIFORM_VARIABLE_SETTER_HPP_INCLUDED
-#define SGE_OPENGL_GLSL_UNIFORM_VARIABLE_SETTER_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLSL_UNIFORM_SETTER_HPP_INCLUDED
+#define SGE_OPENGL_GLSL_UNIFORM_SETTER_HPP_INCLUDED
 
 #include "type.hpp"
-#include <sge/renderer/glsl/int_type.hpp>
-#include <sge/renderer/glsl/float_type.hpp>
-#include <sge/renderer/glsl/uniform/matrix.hpp>
-#include <sge/renderer/glsl/uniform/vector.hpp>
+#include <sge/renderer/glsl/uniform/int_value.hpp>
+#include <sge/renderer/glsl/uniform/float_value.hpp>
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
@@ -37,43 +35,18 @@ namespace glsl
 namespace uniform
 {
 
-class variable_setter : public boost::static_visitor<type> {
+class setter : public boost::static_visitor<type> {
 public:
-	explicit variable_setter(
+	explicit setter(
 		GLint location);
 	
 	type const
 	operator()(
-		renderer::glsl::int_type) const;
+		renderer::glsl::uniform::int_value const &) const;
 	
 	type const
 	operator()(
-		renderer::glsl::float_type const &) const;
-
-	type const
-	operator()(
-		renderer::glsl::uniform::vector const &) const;
-	
-	type const
-	operator()(
-		renderer::glsl::uniform::matrix const &) const;
-
-	/*
-	uniform_type const
-	operator()(
-		array_wrapper<renderer::glsl::int_type> const &) const;
-	
-	uniform_type const
-	operator()(
-		array_wrapper<renderer::glsl::float_type> const &) const;
-		
-	uniform_type const
-	operator()(
-		array_wrapper<renderer::glsl::uniform_vector> const &) const;
-
-	uniform_type const
-	operator()(
-		array_wrapper<renderer::glsl::uniform_matrix> const &) const;*/
+		renderer::glsl::uniform::float_value const &) const;
 private:
 	GLint const location;
 };

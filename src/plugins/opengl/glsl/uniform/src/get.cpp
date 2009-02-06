@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
-sge::renderer::glsl::uniform::any_value const
+sge::renderer::glsl::uniform::value const
 sge::ogl::glsl::uniform::get(
 	GLint const location,
 	type const &t)

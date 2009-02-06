@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLSL_UNIFORM_GET_HPP_INCLUDED
 
 #include "../../common.hpp"
-#include <sge/renderer/glsl/uniform/any_value.hpp>
+#include <sge/renderer/glsl/uniform/value.hpp>
 
 namespace sge
 {
@@ -35,7 +35,7 @@ namespace uniform
 
 struct type;
 
-renderer::glsl::uniform::any_value const
+renderer::glsl::uniform::value const
 get(
 	GLint location,
 	type const &);

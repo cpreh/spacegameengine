@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_GLSL_UNIFORM_INT_ARRAY_HPP_INCLUDED
-#define SGE_RENDERER_GLSL_UNIFORM_INT_ARRAY_HPP_INCLUDED
-
-#include <sge/renderer/glsl/uniform/int_array_type.hpp>
-#include <sge/renderer/glsl/int_type.hpp>
-#include <sge/export.hpp>
+#ifndef SGE_RENDERER_GLSL_UNIFORM_INT_VALUE_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_GLSL_UNIFORM_INT_VALUE_TYPE_HPP_INCLUDED
 
 namespace sge
 {
@@ -34,23 +30,15 @@ namespace glsl
 namespace uniform
 {
 
-class int_array {
-public:
-	typedef int_type const *const_pointer;
-
-	SGE_SYMBOL int_array(
-		const_pointer data,
-		int_array_type::type);
-
-	SGE_SYMBOL const_pointer
-	data() const;
-
-	SGE_SYMBOL int_array_type::type
-	type() const;
-private:
-	const_pointer data_;
-	int_array_type::type type_;
+namespace int_value_type
+{
+enum type {
+	int1,
+	int2,
+	int3,
+	int4
 };
+}
 
 }
 }
