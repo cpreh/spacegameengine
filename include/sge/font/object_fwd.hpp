@@ -18,37 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../error.hpp"
-#include "../common.hpp"
-#include <sge/format.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/iconv.hpp>
-#include <exception>
+#ifndef SGE_FONT_OBJECT_FWD_HPP_INCLUDED
+#define SGE_FONT_OBJECT_FWD_HPP_INCLUDED
 
-sge::ogl::sentry::sentry(
-	std::string const &file_name,
-	int const line,
-	string const &description)
-:
-	file_name(file_name),
-	line(line),
-	description(description)
-{}
+#include <sge/shared_ptr.hpp>
 
-sge::ogl::sentry::~sentry()
+namespace sge
 {
-	if(std::uncaught_exception())
-		return;
+namespace font
+{
 
-	GLenum const error = glGetError();
-	if(error != GL_NO_ERROR)
-		throw exception(
-			((format(
-				SGE_TEXT("opengl failed in file \"%1%\", line %2%. The error code was %3%. Description: \"%4%\""))
-				% iconv(file_name)
-				% line
-				% error
-				% description)
-				.str()));
+class object;
+
+typedef shared_ptr<object> object_ptr;
+
 }
+}
+
+#endif

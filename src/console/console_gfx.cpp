@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/console_gfx.hpp>
 #include <sge/console/console.hpp>
 #include <sge/console/action_var_base_impl.hpp>
-#include <sge/font/font.hpp>
+#include <sge/font/object.hpp>
 #include <sge/font/text_size_t.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::con::console_gfx::console_gfx(
 	renderer::device_ptr const rend,
 	texture::const_part_ptr const texture,
-	font::font_ptr const fn,
+	font::object_ptr const fn,
 	input::system_ptr const is,
 	sprite::point const &pos,
 	sprite::dim const &size)

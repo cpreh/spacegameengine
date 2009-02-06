@@ -1,6 +1,6 @@
 #include "../../utility/max_dim.hpp"
 #include "../../utility/blit.hpp"
-#include <sge/font/font.hpp>
+#include <sge/font/object.hpp>
 #include <sge/font/text_size_t.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/math/dim/arithmetic.hpp>
@@ -37,7 +37,7 @@ sge::gui::dim const sge::gui::skins::standard::size_hint(
 	widgets::edit const &w) const
 {
 	dim const d = structure_cast<dim>(
-		font::font(w.font()).text_size(
+		font::object(w.font()).text_size(
 			string_square(w.desired_size()),
 			utility::max_dim<font::unit>())
 		.size());

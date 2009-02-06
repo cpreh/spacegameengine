@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../pbo.hpp" // TODO: maybe put this somewhere else
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/log/headers.hpp>
 #include <sge/format.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
 #include <sge/math/dim/io.hpp>
@@ -71,8 +71,6 @@ void sge::ogl::set_texture(
 	renderer::dim_type const &dim,
 	const_texture_pointer const src)
 {
-	SGE_OPENGL_SENTRY
-	
 	if(dim.w() < 64 || dim.h() < 64)
 		SGE_LOG_WARNING(
 			log::global(),
@@ -93,6 +91,11 @@ void sge::ogl::set_texture(
 				<< SGE_TEXT('.')
 		);
 		
+	SGE_OPENGL_SENTRY_STR(
+		(sge::format(
+			SGE_TEXT("Creation of texture with size %1% failed!"))
+		% dim).str());
+	
 	glTexImage2D(
 		tex_type,
 		0,
