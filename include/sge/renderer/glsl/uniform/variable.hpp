@@ -41,23 +41,13 @@ class SGE_CLASS_SYMBOL variable {
 protected:
 	SGE_SYMBOL variable();
 public:
-	virtual value const
-	get() const = 0;
+	//virtual value const
+	//get() const = 0;
 
 	virtual void
 	set(
 		value const &) = 0;
 
-	/*
-	SGE_SYMBOL void
-	set(
-		any_array const &);
-
-	SGE_SYMBOL void
-	set(
-		singular_value const &);
-	*/
-	
 	SGE_SYMBOL virtual ~variable();
 };
 
