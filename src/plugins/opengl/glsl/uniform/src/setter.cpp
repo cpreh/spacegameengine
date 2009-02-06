@@ -33,12 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-//PFNGLUNIFORM1IPROC uniform_1i;
 PFNGLUNIFORM1IVPROC uniform_1iv;
 PFNGLUNIFORM2IVPROC uniform_2iv;
 PFNGLUNIFORM3IVPROC uniform_3iv;
 PFNGLUNIFORM4IVPROC uniform_4iv;
-//PFNGLUNIFORM1FPROC uniform_1f;
 PFNGLUNIFORM1FVPROC uniform_1fv;
 PFNGLUNIFORM2FVPROC uniform_2fv;
 PFNGLUNIFORM3FVPROC uniform_3fv;
@@ -114,8 +112,10 @@ sge::ogl::glsl::uniform::setter::operator()(
 	return set_int(
 		location,
 		i.data(),
-		element_size(i.type()),
-		i.size());
+		element_size(
+			i.type()),
+		static_cast<GLsizei>(
+			i.size()));
 }
 	
 sge::ogl::glsl::uniform::type const
@@ -126,14 +126,19 @@ sge::ogl::glsl::uniform::setter::operator()(
 		? set_matrix(
 			location,
 			f.data(),
-			element_columns(f.type()),
-			element_rows(f.type()),
-			f.size())
+			element_columns(
+				f.type()),
+			element_rows(
+				f.type()),
+			static_cast<GLsizei>(
+				f.size()))
 		: set_float(
 			location,
 			f.data(),
-			element_size(f.type()),
-			f.size());
+			element_size(
+				f.type()),
+			static_cast<GLsizei>(
+				f.size()));
 }
 
 namespace
@@ -144,12 +149,10 @@ void initialize_setter()
 	SGE_FUNCTION_ONCE
 	if(sge::ogl::glsl::is_native())
 	{
-		//uniform_1i = glUniform1i;
 		uniform_1iv = glUniform1iv;
 		uniform_2iv = glUniform2iv;
 		uniform_3iv = glUniform3iv;
 		uniform_4iv = glUniform4iv;
-		//uniform_1f = glUniform1f;
 		uniform_1fv = glUniform1fv;
 		uniform_2fv = glUniform2fv;
 		uniform_3fv = glUniform3fv;
@@ -166,12 +169,10 @@ void initialize_setter()
 	}
 	else
 	{
-		//uniform_1i = glUniform1iARB;
 		uniform_1iv = glUniform1ivARB;
 		uniform_2iv = glUniform2ivARB;
 		uniform_3iv = glUniform3ivARB;
 		uniform_4iv = glUniform4ivARB;
-		//uniform_1f = glUniform1fARB;
 		uniform_1fv = glUniform1fvARB;
 		uniform_2fv = glUniform2fvARB;
 		uniform_3fv = glUniform3fvARB;
