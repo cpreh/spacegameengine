@@ -30,18 +30,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL(name) \
-	template<typename... Args> \
+	template<\
+		typename... Args\
+	> \
 	explicit name(Args... args); \
 private: \
-	template<typename... Args> \
+	template<\
+		typename... Args,\
+		typename Arg\
+	> \
 	void set_impl( \
 		size_type i, \
-		value_type const &arg, \
+		Arg const &arg, \
 		Args... args); \
 \
+	template<\
+		typename Arg\
+	>\
 	void set_impl( \
 		size_type i, \
-		value_type const &arg);
+		Arg const &arg);
 #else
 
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_DECL_IMPL(z, n, text)\

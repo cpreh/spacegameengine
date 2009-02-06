@@ -32,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifdef SGE_HAVE_VARIADIC_TEMPLATES
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR(name) \
 	SGE_MATH_DETAIL_TEMPLATE_PRE \
-	template<typename... Args> \
+	template<\
+		typename... Args\
+	> \
 	SGE_MATH_DETAIL_DEF_PRE::name(Args... args) \
 	{ \
 		::sge::math::detail::initial_size(\
@@ -42,10 +44,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	} \
 \
 	SGE_MATH_DETAIL_TEMPLATE_PRE \
-	template<typename... Args> \
+	template<\
+		typename... Args,\
+		typename Arg\
+	> \
 	void SGE_MATH_DETAIL_DEF_PRE::set_impl( \
 		size_type const i, \
-		value_type const &arg, \
+		Arg const &arg, \
 		Args... args) \
 	{ \
 		*(data() + i) = arg; \
@@ -53,9 +58,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	} \
 \
 	SGE_MATH_DETAIL_TEMPLATE_PRE \
+	template<\
+		typename Arg\
+	>\
 	void SGE_MATH_DETAIL_DEF_PRE::set_impl( \
 		size_type const i, \
-		value_type const &arg) \
+		Arg const &arg) \
 	{ \
 		*(data() + i) = arg; \
 	}
