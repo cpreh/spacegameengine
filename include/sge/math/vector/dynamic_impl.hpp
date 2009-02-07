@@ -18,37 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_DYNAMIC_HPP_INCLUDED
-#define SGE_MATH_MATRIX_DYNAMIC_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_DYNAMIC_IMPL_HPP_INCLUDED
+#define SGE_MATH_VECTOR_DYNAMIC_IMPL_HPP_INCLUDED
 
-#include "basic_fwd.hpp"
-#include "../detail/dynamic_size.hpp"
-#include "../detail/dynamic_storage.hpp"
-#include <sge/raw_vector.hpp>
-
-namespace sge
-{
-namespace math
-{
-namespace matrix 
-{
-
-template<
-	typename T
->
-struct dynamic {
-	typedef basic<
-		T,
-		math::detail::dynamic_size,
-		math::detail::dynamic_size,
-		typename math::detail::dynamic_storage<
-			T
-		>::type
-	> type;
-};
-
-}
-}
-}
+#include <sge/math/vector/dynamic.hpp>
+#include <sge/raw_vector_impl.hpp>
 
 #endif

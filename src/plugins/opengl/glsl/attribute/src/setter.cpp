@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../../../error.hpp"
 #include "../../init.hpp"
 #include "../setter.hpp"
-#include <sge/math/vector/dynamic.hpp>
+#include <sge/math/vector/dynamic_impl.hpp>
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>

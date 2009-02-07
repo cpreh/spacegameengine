@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_fwd.hpp"
 #include "../detail/dynamic_size.hpp"
 #include "../detail/dynamic_storage.hpp"
+#include <sge/raw_vector.hpp>
 
 namespace sge
 {
