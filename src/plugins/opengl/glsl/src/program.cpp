@@ -86,7 +86,7 @@ void sge::ogl::glsl::program<Native>::link()
 			id(),
 			static_cast<GLint>(errorlog.size() - 1u),
 			&len,
-			errorlog.c_array());
+			errorlog.data());
 		if(static_cast<errorlog_array::size_type>(len) >= errorlog.size())
 			throw exception(SGE_TEXT("GLSL link info too big!"));
 		errorlog[len] = '\0';
