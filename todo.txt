@@ -16,6 +16,8 @@
 sprite, texture, console, etc. as well)
 *low: replace every boost::noncopyable by SGE_NONCOPYABLE
 *low: get rid of as much warnings as possible from -Weffc++
+*low: implement opengl-3 features
+*low: add support for multiple opengl contexts
 *medium: breakpoints for the font
 *medium: implement "loop and play once on kill" to sound buffer
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)

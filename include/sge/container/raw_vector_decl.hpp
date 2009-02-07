@@ -18,16 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RAW_VECTOR_HPP_INCLUDED
-#define SGE_RAW_VECTOR_HPP_INCLUDED
+#ifndef SGE_CONTAINER_RAW_VECTOR_DECL_HPP_INCLUDED
+#define SGE_CONTAINER_RAW_VECTOR_DECL_HPP_INCLUDED
 
-#include "config.h"
-#include "raw_vector_fwd.hpp"
+#include <sge/container/raw_vector_fwd.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_pod.hpp>
 #include <iterator>
 
 namespace sge
+{
+namespace container
 {
 
 template<
@@ -72,23 +73,23 @@ public:
 	pointer data();
 	const_pointer data() const;
 
-	explicit raw_vector(const A& a = A());
-	explicit raw_vector(size_type sz, const A& a = A()); // uninitialized vector
-	raw_vector(size_type sz, const T& t, const A& a = A());
+	explicit raw_vector(A const &a = A());
+	explicit raw_vector(size_type sz, A const &a = A()); // uninitialized vector
+	raw_vector(size_type sz, T const &t, A const &a = A());
 
 	template <typename In>
-	raw_vector (In beg, In end, const A& a = A());
+	raw_vector (In beg, In end, A const &a = A());
 
-	raw_vector (const raw_vector& x);
+	raw_vector (raw_vector const &x);
 	~raw_vector();
 
-	raw_vector& operator= (const raw_vector& x);
+	raw_vector &operator= (raw_vector const &x);
 	
 	template <typename In>
 	void assign (In beg, In end);
-	void assign (size_type n, const T& value);
+	void assign (size_type n, T const &value);
 
-	void push_back (const T& x);
+	void push_back (T const &x);
 	void pop_back();
 	void clear();
 		
@@ -99,7 +100,7 @@ public:
 
 	void swap (raw_vector& x);
 	void resize_uninitialized(size_type sz);
-	void resize(size_type sz, const T& value = T());
+	void resize(size_type sz, T const &value = T());
 	void reserve(size_type sz);
 
 	allocator_type get_allocator() const;
@@ -118,8 +119,8 @@ private:
 	void deallocate();
 
 	struct impl {
-		impl(const A&);
-		impl(const A&, size_type);
+		explicit impl(A const &);
+		impl(A const &, size_type);
 
 		A a;
 		pointer first,
@@ -152,6 +153,7 @@ template <typename T, typename A>
 void swap(raw_vector<T, A>& x, raw_vector<T, A>& y);
 
 
+}
 }
 
 #endif

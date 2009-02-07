@@ -3,7 +3,7 @@
 #include <sge/text.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/endianness.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/assert.hpp>
 #include <sge/iostream.hpp>
 #include <algorithm>

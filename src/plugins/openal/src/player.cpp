@@ -29,13 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/pool.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/foreach.hpp>
 
 sge::openal::player::player()
-	: device_(),
-	  context_(device_)
+:
+	device_(),
+	context_(device_)
 {
 	context_.make_current();
 	// set our own speed of sound standard rather than relying on OpenAL

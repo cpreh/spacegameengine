@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_DYNAMIC_HPP_INCLUDED
 #define SGE_MATH_VECTOR_DYNAMIC_HPP_INCLUDED
 
-#include "basic_fwd.hpp"
-#include "../detail/dynamic_size.hpp"
-#include "../detail/dynamic_storage.hpp"
-#include <sge/raw_vector.hpp>
+#include <sge/math/vector/basic_fwd.hpp>
+#include <sge/math/detail/dynamic_size.hpp>
+#include <sge/math/detail/dynamic_storage.hpp>
+#include <sge/container/raw_vector_decl.hpp>
 
 namespace sge
 {

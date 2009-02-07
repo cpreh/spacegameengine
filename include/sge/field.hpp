@@ -128,9 +128,6 @@ class field
 	size_type h() const { return dim_.h(); }
 	size_type field_count() const { return dim_.w()*dim_.h(); }
 	dim_type dim() const { return dim_; }
-
-	//array_type container() { return array; }
-	//array_type container() const { return array; }
 };
 }
 

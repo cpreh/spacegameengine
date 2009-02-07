@@ -18,32 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_CHOOSE_VISUAL_HPP_INCLUDED
-#define SGE_OPENGL_GLX_CHOOSE_VISUAL_HPP_INCLUDED
+#ifndef SGE_CONTAINER_RAW_VECTOR_FWD_HPP_INCLUDED
+#define SGE_CONTAINER_RAW_VECTOR_FWD_HPP_INCLUDED
 
-#include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/depth_buffer.hpp>
-#include <sge/renderer/stencil_buffer.hpp>
-#include <sge/container/raw_vector_fwd.hpp>
+#include <memory>
 
 namespace sge
 {
-namespace ogl
-{
-namespace glx
+namespace container
 {
 
-typedef sge::container::raw_vector<
-	int
-> visual_attribute_array;
+template<
+	typename T,
+	typename A = std::allocator<T>
+>
+class raw_vector;
 
-visual_attribute_array const
-choose_visual(
-	renderer::bit_depth::type,
-	renderer::depth_buffer::type,
-	renderer::stencil_buffer::type);
-
-}
 }
 }
 
