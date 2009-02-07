@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/color_format.hpp>
 #include <sge/math/dim/basic_decl.hpp>
+#include <sge/container/field_decl.hpp>
 #include <sge/export.hpp>
-#include <sge/field.hpp>
 
 namespace sge
 {
@@ -69,7 +69,7 @@ private:
 	SGE_SYMBOL bool
 	empty() const;
 
-	typedef field<
+	typedef container::field<
 		bool,
 		container::raw_vector
 	> field_type;
