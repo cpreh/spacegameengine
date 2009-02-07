@@ -34,8 +34,6 @@ namespace glsl
 namespace uniform
 {
 
-class array_wrapper;
-
 class SGE_CLASS_SYMBOL variable {
 	SGE_NONCOPYABLE(variable)
 protected:
