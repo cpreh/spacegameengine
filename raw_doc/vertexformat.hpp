@@ -179,7 +179,7 @@ This sets the first vertex's position of our vertex buffer to (-1, 1, 0).
 Note the dots behind the numbers: They turn our numbers into double literals.
 The packed_type of a vertex element's role is the associated compound type
 for this element. In this case this will be an
-sge::math::basic_vector<double, 3>.
+sge::math::vector::static_<double, 3>::type.
 Next we set the color, too.
 
 \code
@@ -203,7 +203,7 @@ We could have also used the yellow constant to set the color.
 \code
 r.set<color_type>(
 	sge::renderer::color_convert<col4>(
-		sge::renderer::colors::yellow));
+		sge::renderer::colors::yellow()));
 \endcode
 
 Files to include: <sge/renderer/colors.hpp>, <sge/renderer/color_convert.hpp>
