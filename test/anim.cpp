@@ -30,8 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/input/system.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_pair.hpp>
+#include <sge/input/action.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
@@ -45,9 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/if.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/assign/list_of.hpp>
 #include <cstdlib>
 #include <exception>
@@ -122,18 +120,15 @@ try
 		sge::sprite::texture_animation::loop_method::repeat,
 		spr);
 
-	using boost::lambda::var;
-	using boost::lambda::bind;
-	using boost::lambda::if_;
-
 	bool running = true;
 
 	sge::signals::scoped_connection const cb(
 		is->register_callback(
-			if_(bind(&sge::input::key_type::code,
-				bind(&sge::input::key_pair::key,boost::lambda::_1))
-			== sge::input::kc::key_escape)
-		[var(running)=false])
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
 	);
 
 	rend->state(
@@ -145,7 +140,6 @@ try
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block_(rend);
-		is->dispatch();
 		anim.process();
 		ss.render(spr);
 	}
