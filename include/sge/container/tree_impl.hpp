@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "tree_decl.hpp"
 #include "ptr_equal.hpp"
+#include "../make_auto_ptr.hpp"
 #include <algorithm>
 
 template<
@@ -157,6 +158,20 @@ sge::container::tree<T>::child_position()
 template<
 	typename T
 >
+typename sge::container::tree<T>::const_iterator
+sge::container::tree<T>::child_position() const
+{
+	return const_iterator(
+		const_cast<
+			tree<T> &
+		>(
+			*this)
+		.child_position());
+}
+
+template<
+	typename T
+>
 void
 sge::container::tree<T>::value(
 	T const &v)
@@ -189,10 +204,21 @@ void
 sge::container::tree<T>::push_back(
 	auto_ptr r)
 {
-	children().push_back(
+	insert(
+		end(),
 		r);
-	back().parent(
-		*this);	
+}
+
+template<
+	typename T
+>
+void
+sge::container::tree<T>::push_back(
+	T const &t)
+{
+	insert(
+		end(),
+		t);
 }
 
 template<
@@ -211,10 +237,21 @@ void
 sge::container::tree<T>::push_front(
 	auto_ptr r)
 {
-	children().push_front(
+	insert(
+		begin(),
 		r);
-	front().parent(
-		*this);
+}
+
+template<
+	typename T
+>
+void
+sge::container::tree<T>::push_front(
+	T const &t)
+{
+	insert(
+		begin(),
+		t);
 }
 
 template<
@@ -353,11 +390,32 @@ sge::container::tree<T>::insert(
 	iterator const it,
 	auto_ptr r)
 {
+	tree<T> &ref(*r);
+
 	children().insert(
 		it,
 		r);
-	r.parent(
+	
+	ref.parent(
 		*this);
+}
+
+template<
+	typename T
+>
+void
+sge::container::tree<T>::insert(
+	iterator const it,
+	T const &t)
+{
+	auto_ptr ptr(
+		make_auto_ptr<
+			tree<T>
+		>(
+			t));
+	insert(
+		it,
+		ptr);
 }
 
 template<
@@ -383,7 +441,7 @@ sge::container::tree<T>::erase(
 		beg,
 		end);
 }
-	
+
 template<
 	typename T
 >
@@ -408,7 +466,7 @@ template<
 bool
 sge::container::tree<T>::empty() const
 {
-	return !size();
+	return children().empty();
 }
 
 #endif

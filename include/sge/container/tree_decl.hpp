@@ -78,6 +78,7 @@ public:
 	auto_ptr release(
 		iterator);
 	iterator child_position();
+	const_iterator child_position() const;
 	
 	void value(
 		T const &);
@@ -86,9 +87,13 @@ public:
 
 	void push_back(
 		auto_ptr);
+	void push_back(
+		T const &);
 	void pop_back();
 	void push_front(
 		auto_ptr);
+	void push_front(
+		T const &);
 	void pop_front();
 	void clear();
 
@@ -109,6 +114,9 @@ public:
 	void insert(
 		iterator,
 		auto_ptr);
+	void insert(
+		iterator,
+		T const &);
 	void erase(
 		iterator);
 	void erase(

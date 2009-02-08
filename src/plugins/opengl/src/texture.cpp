@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
+#include <sge/math/dim/io.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/format.hpp>
 #include <sge/exception.hpp>
@@ -46,18 +48,25 @@ GLenum const texture_type = GL_TEXTURE_2D;
 sge::ogl::texture::texture(
 	dim_type const &d,
 	renderer::color_format::type const format_,
-	renderer::texture_filter const &filter,
+	renderer::texture_filter const &filter_,
 	resource_flag_type const flags,
-	optional_type const type)
+	optional_type const type_)
 :
 	detail::texture_base(
-		filter,
+		filter_,
 		flags,
-		type ? *type : texture_type,
+		type_ ? *type_ : texture_type,
 		format_),
 	dim_(d)
 {
-	set_texture(0);	
+	pre_setdata();
+	set_texture(
+		type(),
+		format(),
+		format_type(),
+		filter(),
+		dim(),
+		0);
 }
 
 sge::ogl::texture::dim_type const
@@ -93,21 +102,22 @@ void sge::ogl::texture::unlock() const
 	pre_unlock();
 	if(lock_flag_write(lock_mode()))
 	{
-		if(!lock_rect_)
-			set_texture(
-				write_buffer());
-		else
-		{
-			bind_me();
-			set_texture_rect(
-				type(),
-				format(),
-				format_type(),
-				filter(),
-				dim(),
-				*lock_rect_,
-				write_buffer());
-		}
+		bind_me();
+
+		renderer::lock_rect const lr(
+			lock_rect_
+				? *lock_rect_
+				: renderer::lock_rect(
+					renderer::lock_rect::point_type::null(),
+					dim()));
+		set_texture_rect(
+			type(),
+			format(),
+			format_type(),
+			filter(),
+			dim(),
+			lr,
+			write_buffer());
 	}
 	do_unlock();
 }
@@ -185,17 +195,4 @@ sge::ogl::texture::lock_dim() const
 	return lock_rect_
 		? lock_rect_->dim()
 		: dim();
-}
-
-void sge::ogl::texture::set_texture(
-	const_pointer const p) const
-{
-	pre_setdata();
-	ogl::set_texture(
-		type(),
-		format(),
-		format_type(),
-		filter(),
-		dim(),
-		p);
 }

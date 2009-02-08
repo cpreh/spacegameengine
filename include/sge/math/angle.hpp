@@ -22,12 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MATH_ANGLE_HPP_INCLUDED
 
 #include "atan2.hpp"
-#include "vector.hpp"
+#include "vector/basic_impl.hpp"
+#include "vector/arithmetic.hpp"
+#include "vector/static.hpp"
 #include "mod.hpp"
 #include "constants.hpp"
-#include "../exception.hpp"
-#include "../text.hpp"
-#include "../format.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/format.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/optional.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -38,27 +41,53 @@ namespace sge
 namespace math
 {
 
-template<typename Dest, typename T>
+template<
+	typename Dest,
+	typename T,
+	typename N,
+	typename S
+>
 typename boost::enable_if<
 	boost::is_floating_point<Dest>,
 	boost::optional<Dest>
-	>::type
+>::type
 angle_to(
-	const vector<T, 2>& from,
-	const vector<T, 2>& to)
+	vector::basic<T, N, S> const &from,
+	vector::basic<T, N, S> const &to)
 {
-	return atan2(structure_cast<Dest>(to - from));
+	// FIXME
+	return atan2(
+		structure_cast<
+			typename vector::static_<
+				Dest,
+				N::value
+			>::type
+		>(
+			to - from));
 }
 
-template<typename Dest, typename T>
+template<
+	typename Dest,
+	typename T,
+	typename N,
+	typename S
+>
 typename boost::enable_if<
 	boost::is_floating_point<Dest>,
 	boost::optional<Dest>
 	>::type
 angle_to(
-	const vector<T, 2>& to)
+	vector::basic<T, N, S> const &to)
 {
-	return atan2(structure_cast<Dest>(to));
+	// FIXME
+	return atan2(
+		structure_cast<
+			typename vector::static_<
+				Dest,
+				N::value
+			>::type
+		>(
+			to));
 }
 
 template<

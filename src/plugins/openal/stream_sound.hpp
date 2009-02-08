@@ -25,9 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "source.hpp"
 #include <sge/audio/sound.hpp>
 #include <sge/audio/file.hpp>
-#include <sge/math/vector.hpp>
 #include <sge/shared_ptr.hpp>
-#include <sge/string.hpp>
 
 namespace sge
 {
@@ -36,7 +34,9 @@ namespace openal
 class stream_sound : public source
 {
 	public:
-	stream_sound(audio::file_ptr,player&);
+	stream_sound(
+		audio::file_ptr,
+		player &);
 	void update();
 	void do_play();
 	private:

@@ -43,8 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/plugin.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_pair.hpp>
+#include <sge/input/action.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/plugin.hpp>
 #include <sge/image/object.hpp>
@@ -58,36 +57,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/iostream.hpp>
-#include <sge/math/vector.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/renderer/color.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
-#include <boost/gil/extension/dynamic_image/algorithm.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/if.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <exception>
 #include <ostream>
 #include <cstdlib>
 
-#include <sge/container/map.hpp>
-#include <map>
-
 int main()
 try
 {
-	typedef sge::container::map<
-		std::map,
-		int,
-		int
-	> my_map;
-
-	my_map test_map;
-	test_map.insert(
-		10,
-		42);
-
 	sge::log::global().activate_hierarchy(
 		sge::log::level::debug);
 	
@@ -128,21 +110,14 @@ try
 	const sge::plugin::plugin<sge::image::loader>::ptr_type image_plugin = pm.plugin<sge::image::loader>().load();
 	const sge::image::loader_ptr image_loader(image_plugin->get()());
 
-	using boost::lambda::var;
-	using boost::lambda::bind;
-//	using boost::lambda::_1;
-	using boost::lambda::if_;
-
 	sge::signals::scoped_connection const cb(
 		is->register_callback(
-			if_(
-				bind(
-					&sge::input::key_type::code,
-					bind(
-						&sge::input::key_pair::key,
-						boost::lambda::_1))
-					== sge::input::kc::key_escape)
-				[var(running)=false]));
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
+	);
 
 	sge::renderer::texture_ptr const testtex(
 		rend->create_texture(

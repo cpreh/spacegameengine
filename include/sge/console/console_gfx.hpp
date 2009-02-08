@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CON_CONSOLE_GFX_HPP_INCLUDED
 #define SGE_CON_CONSOLE_GFX_HPP_INCLUDED
 
-#include "../font/font_fwd.hpp"
+#include <sge/font/object_fwd.hpp>
 #include "../renderer/device_fwd.hpp"
 #include "../input/system_fwd.hpp"
 #include "../signals/scoped_connection.hpp"
 #include "../sprite/system.hpp"
 #include "../sprite/object.hpp"
-#include "../time/timer.hpp"
-#include "../time/types.hpp"
+#include <sge/time/timer.hpp>
+#include <sge/time/unit.hpp>
 #include "../texture/part_fwd.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
@@ -55,7 +55,7 @@ public:
 	SGE_SYMBOL console_gfx(
 		renderer::device_ptr,
 		texture::const_part_ptr,
-		font::font_ptr,
+		font::object_ptr,
 		input::system_ptr,
 		sprite::point const &,
 		sprite::dim const &);
@@ -79,7 +79,7 @@ private:
 	typedef std::deque<string> history_container;
 
 	renderer::device_ptr const rend;
-	font::font_ptr const fn;
+	font::object_ptr const fn;
 	signals::scoped_connection ic,irc;
 	sprite::system ss;
 	sprite::object bg;

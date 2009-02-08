@@ -1,6 +1,7 @@
 #include <sge/gui/canvas.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
+#include <sge/math/vector/io.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/subimage_view.hpp>
@@ -20,7 +21,7 @@ void sge::gui::canvas::object::draw_pixel(
 	renderer::fill_pixels(
 		renderer::subimage_view(
 			view_,
-			math::structure_cast<renderer::size_type>(
+			math::structure_cast<renderer::lock_rect>(
 				rect(
 					p,
 					dim(1,1)))),

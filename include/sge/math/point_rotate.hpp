@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_POINT_ROTATE_HPP_INCLUDED
 #define SGE_MATH_POINT_ROTATE_HPP_INCLUDED
 
-#include "vector.hpp"
+#include "vector/basic_decl.hpp"
 
 namespace sge
 {
@@ -29,12 +29,14 @@ namespace math
 {
 
 template<
-	typename T
+	typename T,
+	typename N,
+	typename S
 >
-vector<T, 2> const
+vector::basic<T, N, S> const
 point_rotate(
-	vector<T, 2> const &point,
-	vector<T, 2> const &around,
+	vector::basic<T, N, S> const &point,
+	vector::basic<T, N, S> const &around,
 	T rot);
 
 }

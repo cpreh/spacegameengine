@@ -25,16 +25,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../error.hpp"
 #include "../file_format.hpp"
 #include <sge/audio/sound.hpp>
-#include <sge/iostream.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
+#include <sge/assert.hpp>
 #include <boost/lexical_cast.hpp>
 
 sge::openal::stream_sound::stream_sound(audio::file_ptr const _audio_file, player &_player)
-	: player_(_player),
-	  audio_file_(_audio_file),
-		buffer_samples_(static_cast<audio::sample_count>(2*_audio_file->sample_rate())),
-		format_(file_format(*_audio_file))
+:
+	player_(_player),
+	audio_file_(_audio_file),
+	buffer_samples_(static_cast<audio::sample_count>(2*_audio_file->sample_rate())),
+	format_(file_format(*_audio_file))
 {
 	alGenBuffers(static_cast<ALsizei>(2), al_buffers_); SGE_OPENAL_ERROR_CHECK;
 }

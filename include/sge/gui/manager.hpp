@@ -1,11 +1,11 @@
 #ifndef SGE_GUI_MANAGER_HPP_INCLUDED
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
-#include "detail/keyboard_manager.hpp"
-#include "detail/mouse_manager.hpp"
-#include "detail/update_manager.hpp"
-#include "detail/render_manager.hpp"
-#include "detail/time_manager.hpp"
+#include "detail/managers/keyboard.hpp"
+#include "detail/managers/mouse.hpp"
+#include "detail/managers/update.hpp"
+#include "detail/managers/render.hpp"
+#include "detail/managers/time.hpp"
 #include "timer/callback.hpp"
 #include "timer/fwd.hpp"
 #include "types.hpp"
@@ -21,9 +21,9 @@
 #include "../sprite/object.hpp"
 #include "../sprite/system.hpp"
 #include "../time/resolution.hpp"
-#include "../signals/scoped_connection.hpp"
 #include "../image/loader_fwd.hpp"
 #include "../export.hpp"
+#include "../noncopyable.hpp"
 #include <set>
 #include <vector>
 
@@ -31,8 +31,9 @@ namespace sge
 {
 namespace gui
 {
-class manager
+class manager 
 {
+	SGE_NONCOPYABLE(manager)
 	public:
 	SGE_SYMBOL manager(
 		renderer::device_ptr,
@@ -40,6 +41,7 @@ class manager
 		input::system_ptr,
 		font::system_ptr,
 		skin_ptr);
+	SGE_SYMBOL ~manager();
 	SGE_SYMBOL void invalidate(rect const &);
 	SGE_SYMBOL void invalidate(widget &);
 	SGE_SYMBOL timer::object_ptr const register_timer(
@@ -50,6 +52,7 @@ class manager
 	SGE_SYMBOL skin_ptr const skin();
 	SGE_SYMBOL const_skin_ptr const skin() const;
 
+	SGE_SYMBOL detail::managers::keyboard &keyboard();
 	private:
 	friend class widget;
 
@@ -61,21 +64,23 @@ class manager
 
 	skin_ptr skin_;
 
-	detail::mouse_manager mouse_;
-	detail::render_manager render_;
-	detail::keyboard_manager keyboard_;
-	detail::update_manager updates_;
-	detail::time_manager timer_;
+	detail::managers::mouse    mouse_;
+	detail::managers::render   render_;
+	detail::managers::keyboard keyboard_;
+	detail::managers::update   updates_;
+	detail::managers::time     timer_;
+
+	std::vector<detail::submanager*> submanagers;
 
 	// this is called by widget's constructor and destructor
 	void add(widget &);
 	void remove(widget &);
 
-	// this is called by widget's size/pos function (if it encounters a top level widget)
+	// this is called by widget's size/pos/.. function (if it encounters a top
+	// level widget)
 	void resize(widget &,dim const &);
 	void reposition(widget &,point const &);
-
-	detail::keyboard_manager &keyboard();
+	void activation(widget &,activation_state::type);
 };
 }
 }

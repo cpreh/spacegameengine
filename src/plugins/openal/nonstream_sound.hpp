@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENAL_NONSTREAM_SOUND_INCLUDED
 #define SGE_OPENAL_NONSTREAM_SOUND_INCLUDED
 
-#include <sge/audio/file.hpp>
+#include <sge/audio/file_fwd.hpp>
 #include "source.hpp"
 
 namespace sge
@@ -34,6 +34,7 @@ class nonstream_sound : public source
 {
 public:
 	nonstream_sound(audio::file_ptr,player&);
+	using source::play_mode;
 	void play_mode(audio::play_mode::type);
 	~nonstream_sound();
 private:

@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
 #define SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
 
-#include "screen_types.hpp"
-#include "../math/matrix.hpp"
-#include "../math/matrix_impl.hpp"
-#include "../math/matrix_util.hpp"
+#include "screen_size_t.hpp"
+#include <sge/math/matrix/static.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
+#include <sge/math/matrix/translation.hpp>
+#include <sge/math/matrix/scaling.hpp>
+#include <sge/math/matrix/arithmetic.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
 namespace sge
 {
@@ -34,15 +37,15 @@ namespace renderer
 template<
 	typename T
 >
-math::matrix<T, 4, 4> const
+typename math::matrix::static_<T, 4, 4>::type const
 matrix_pixel_to_space(
 	screen_size_t const &sz)
 {
-	return math::matrix_translation(
+	return math::matrix::translation(
 		static_cast<T>(-static_cast<int>(sz.w()) / 2),
 		static_cast<T>(-static_cast<int>(sz.h()) / 2),
 		static_cast<T>(0))
-		* math::matrix_scaling(
+		* math::matrix::scaling(
 			static_cast<T>(2) / static_cast<T>(sz.w()),
 	        	static_cast<T>(-2) / static_cast<T>(sz.h()),
 	        	static_cast<T>(1));

@@ -21,18 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_TIMER_HPP_INCLUDED
 #define SGE_TIME_TIMER_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "types.hpp"
+#include "unit.hpp"
+#include "funit.hpp"
 #include "fun.hpp"
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace time
 {
 
+class resolution;
+
 class timer {
 public:
-	typedef float      frames_type;
+	typedef funit      frames_type;
 	typedef unit       interval_type;
 
 	SGE_SYMBOL explicit timer(

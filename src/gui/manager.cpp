@@ -4,12 +4,13 @@
 #include <sge/font/system.hpp>
 #include <sge/media.hpp>
 #include <sge/iostream.hpp>
+#include <boost/assign/list_of.hpp>
+#include <boost/foreach.hpp>
 
 namespace
 {
 sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"),true);
 }
-
 
 sge::gui::manager::manager(
 	renderer::device_ptr const rend,
@@ -17,30 +18,44 @@ sge::gui::manager::manager(
 	input::system_ptr const is,
 	font::system_ptr const fs,
 	skin_ptr skin_)
-	: rend(rend),
-	  il(il),
-	  is(is),
-		fs(fs),
-		standard_font_(
-			fs->create_font(sge::media_path()/SGE_TEXT("fonts/default.ttf"),15)),
-		skin_(skin_),
-		mouse_(is,il,rend,*skin_),
-		render_(rend,mouse_),
-		keyboard_(is),
-		updates_(mouse_,render_)
+:
+	rend(rend),
+	il(il),
+	is(is),
+	fs(fs),
+	standard_font_(
+		fs->create_font(
+			sge::media_path() / SGE_TEXT("fonts/default.ttf"),
+			15)),
+	skin_(skin_),
+	mouse_(is,il,rend,*skin_),
+	render_(rend,mouse_),
+	keyboard_(is),
+	updates_(mouse_,render_)
 {
+	submanagers = boost::assign::list_of<detail::submanager*>
+				(&mouse_)
+				(&render_)
+				(&keyboard_)
+				(&updates_)
+				(&timer_);
 }
+
+sge::gui::manager::~manager()
+{}
 
 void sge::gui::manager::invalidate(
 	rect const &r)
 {
-	render_.invalidate(r);
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->invalidate(r);
 }
 
 void sge::gui::manager::invalidate(
 	widget &w)
 {
-	updates_.add(w);
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->add(w);
 }
 
 sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
@@ -52,9 +67,8 @@ sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
 
 void sge::gui::manager::draw()
 {
-	updates_.draw();
-	render_.draw();
-	timer_.draw();
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->draw();
 }
 
 sge::font::metrics_ptr const sge::gui::manager::standard_font()
@@ -74,31 +88,35 @@ sge::gui::const_skin_ptr const sge::gui::manager::skin() const
 
 void sge::gui::manager::add(widget &w)
 {
-	keyboard_.add(w);
-	mouse_.add(w);
-	updates_.add(w);
-	render_.add(w);
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->add(w);
 }
 
 void sge::gui::manager::remove(widget &w)
 {
-	keyboard_.remove(w);
-	mouse_.remove(w);
-	updates_.remove(w);
-	render_.remove(w);
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->remove(w);
 }
 
 void sge::gui::manager::resize(widget &w,dim const &d)
 {
-	render_.resize(w,d);
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->resize(w,d);
 }
 
 void sge::gui::manager::reposition(widget &w,point const &d)
 {
-	render_.reposition(w,d);
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->reposition(w,d);
 }
 
-sge::gui::detail::keyboard_manager &sge::gui::manager::keyboard()
+void sge::gui::manager::activation(widget &w,activation_state::type const _n)
+{
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->activation(w,_n);
+}
+
+sge::gui::detail::managers::keyboard &sge::gui::manager::keyboard()
 {
 	return keyboard_;
 }

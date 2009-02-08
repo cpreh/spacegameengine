@@ -8,7 +8,9 @@
 #include "canvas/strip_type.hpp"
 #include "../export.hpp"
 #include "../font/metrics_fwd.hpp"
-#include "../font/font.hpp"
+#include "../font/align_h.hpp"
+#include "../font/align_v.hpp"
+#include "../font/flags.hpp"
 #include "../renderer/image_view.hpp"
 
 #include <boost/optional.hpp>
@@ -24,12 +26,13 @@ namespace canvas
 class SGE_CLASS_SYMBOL object
 {
 	public:
-	SGE_SYMBOL object(image &);
+	SGE_SYMBOL explicit object(image &);
+	SGE_SYMBOL ~object();
 
 	SGE_SYMBOL dim const size() const;
 	SGE_SYMBOL rect const area() const;
 	SGE_SYMBOL image_view &view();
-	SGE_SYMBOL const_image_view const &view() const;
+	SGE_SYMBOL const_image_view const view() const;
 
 	SGE_SYMBOL void draw_rect(
 		rect const &,

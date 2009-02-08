@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 
 sge::renderer::device_ptr const
 sge::ogl::system::create_renderer(
@@ -87,7 +87,8 @@ sge::ogl::system::create_window(
 		rparam.wmode() == renderer::window_mode::fullscreen);
 #elif defined(SGE_WINDOWS_PLATFORM)
 	return sge::windows::create_window(
-		param);
+		param,
+		rparam);
 #else
 #error "Implement me!"
 #endif

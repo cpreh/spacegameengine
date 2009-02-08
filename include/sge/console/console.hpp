@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CON_CONSOLE_HPP_INCLUDED
 #define SGE_CON_CONSOLE_HPP_INCLUDED
 
-#include "types.hpp"
+#include "callback.hpp"
+#include "callback_map.hpp"
+#include "var_map.hpp"
+#include "../signals/connection.hpp"
 #include "../filesystem/path.hpp"
 #include "../string.hpp"
 #include "../export.hpp"
@@ -31,22 +34,31 @@ namespace sge
 namespace con
 {
 
-SGE_SYMBOL void prefix(
+SGE_SYMBOL void
+prefix(
 	string::value_type const &);
 
-SGE_SYMBOL string::value_type prefix();
+SGE_SYMBOL 
+string::value_type
+prefix();
 
-SGE_SYMBOL void add(
+SGE_SYMBOL
+signals::connection const
+add(
 	string const &,
 	callback const &);
 
-SGE_SYMBOL void eval(
+SGE_SYMBOL
+void eval(
 	string const &);
 
-SGE_SYMBOL void chat_callback(
+SGE_SYMBOL
+signals::connection const
+chat_callback(
 	callback const &);
 
-SGE_SYMBOL void read_config(
+SGE_SYMBOL void
+read_config(
 	filesystem::path const &);
 
 SGE_SYMBOL var_map const &
@@ -59,11 +71,13 @@ SGE_SYMBOL sge::string const
 get_var(
 	sge::string const &);
 
-SGE_SYMBOL void set_var(
+SGE_SYMBOL void
+set_var(
 	sge::string const &,
 	sge::string const &);
 
-SGE_SYMBOL void latch(
+SGE_SYMBOL void
+latch(
 	sge::string const &,
 	sge::string const &);
 

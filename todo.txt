@@ -6,23 +6,28 @@
 *low: make the d3d9 plugin functional again
 *low: add a d3d10 plugin
 *low: add model loaders, a model class and more for models
-*low: rework sge::math to contain views and have less code duplication
-*low: add speed of sound and velocity to sounds
 *low: replace every cerr and cout output with sge's log system
 *low: add scripting proxies, scripting framework and backend with flusspferd
 *low: other font formatting like bold, italic, underline and colors
 *low: improve the image loader (let it also load from and save to streams)
 *low: implement an image loader with Magick++
-*low: use boost::exception for stack traces
 *low: implement a lot of different exception types to make errors distinguishable
 *low: put x11 and windows stuff in their own libraries (probably do this with
 sprite, texture, console, etc. as well)
+*low: replace every boost::noncopyable by SGE_NONCOPYABLE
+*low: get rid of as much warnings as possible from -Weffc++
+*low: implement opengl-3 features
+*low: add support for multiple opengl contexts
 *medium: breakpoints for the font
 *medium: implement "loop and play once on kill" to sound buffer
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
-*medium: add a convenient method to check for key combinations in the input system
 *medium: add support for more vertex elements (like fog, etc.)
 *medium: implement GLSL getter
-*medium: fix renderer::caps and the opengl implementation of them
+*medium: add multiline functionality to widgets::edit
+*medium: add widgets::image_button
+*medium: add modifiers to gui
 *medium: add adapter support to opengl
+*medium: Fix the console's input history.
 *high: Improve the cmake script, search for libraries per default.
+*high: fix glsl uniform variables
+*high: finish the dynamic math funtions and make all operations safer

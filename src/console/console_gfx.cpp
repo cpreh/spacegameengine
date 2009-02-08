@@ -1,16 +1,38 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/console/console_gfx.hpp>
 #include <sge/console/console.hpp>
 #include <sge/console/action_var_base_impl.hpp>
-#include <sge/font/font.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/text_size_t.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
-#include <sge/math/matrix_util.hpp>
-#include <sge/math/matrix_impl.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
 #include <sge/time/millisecond.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/fstream.hpp>
 #include <sge/text.hpp>
 #include <sge/iostream.hpp>
 #include <sge/fixme.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/bind.hpp>
 #include <boost/range.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -24,7 +46,7 @@
 sge::con::console_gfx::console_gfx(
 	renderer::device_ptr const rend,
 	texture::const_part_ptr const texture,
-	font::font_ptr const fn,
+	font::object_ptr const fn,
 	input::system_ptr const is,
 	sprite::point const &pos,
 	sprite::dim const &size)
@@ -320,9 +342,10 @@ void sge::con::console_gfx::draw()
 		cursor_active = !cursor_active;
 
 	// draw input line
-	fn->draw_text(iln,
-		math::structure_cast<font::unit>(bg.pos()),
-		math::structure_cast<font::unit>(bg.size()),
+	fn->draw_text(
+		iln,
+		structure_cast<font::pos>(bg.pos()),
+		structure_cast<font::dim>(bg.size()),
 		font::align_h::left,
 		font::align_v::bottom);
 
@@ -342,9 +365,10 @@ void sge::con::console_gfx::draw()
 			SGE_TEXT("\n"));
 
 	// draw history lines
-	fn->draw_text(history_string,
-		math::structure_cast<font::unit>(bg.pos()),
-		font::dim(bg.size().w(),bg.size().h()-fn->height()),
+	fn->draw_text(
+		history_string,
+		structure_cast<font::pos>(bg.pos()),
+		font::dim(bg.size().w(), bg.size().h() - fn->height()),
 		font::align_h::left,
 		font::align_v::bottom);
 }

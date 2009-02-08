@@ -47,8 +47,6 @@ sge::library::object::object(
 		throw exception(
 			string(
 				SGE_TEXT("failed to load library::object: "))
-				+ name().string()
-				+ SGE_TEXT(" : ")
 				+ error());
 }
 

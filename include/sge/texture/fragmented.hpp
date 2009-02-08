@@ -22,26 +22,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 
 #include "part_fwd.hpp"
+#include "free_type.hpp"
+#include "detail/optional_container_position.hpp"
 #include "../renderer/texture_fwd.hpp"
 #include "../renderer/dim_type.hpp"
 #include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace texture
 {
 
-class SGE_CLASS_SYMBOL fragmented : boost::noncopyable {
+class manager;
+
+class SGE_CLASS_SYMBOL fragmented {
+	SGE_NONCOPYABLE(fragmented)
+protected:
+	SGE_SYMBOL fragmented();
 public:
+	SGE_SYMBOL virtual ~fragmented();
+
 	virtual part_ptr const
 	consume_fragment(
 		renderer::dim_type const &) = 0;
-	virtual void return_fragment(
+
+	SGE_SYMBOL void
+	return_fragment(
+		part const &);
+	
+	virtual renderer::texture_ptr const
+	texture() const = 0;
+
+	virtual bool
+	repeatable() const = 0;
+
+	virtual free_type
+	free_value() const = 0;
+
+	virtual bool empty() const = 0;
+	SGE_SYMBOL bool full() const;
+
+	SGE_SYMBOL void
+	manager(
+		texture::manager *);
+
+	SGE_SYMBOL texture::manager *
+	manager() const;
+
+	SGE_SYMBOL void
+	virtual on_return_fragment(
 		part const &) = 0;
-	virtual renderer::texture_ptr const texture() const = 0;
-	virtual bool repeatable() const = 0;
-	SGE_SYMBOL virtual ~fragmented();
+
+	SGE_SYMBOL void
+	container_position(
+		detail::container_position const &);
+private:
+	texture::manager *man;
+	detail::optional_container_position iter;
 };
 
 }

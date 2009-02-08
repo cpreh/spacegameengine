@@ -34,10 +34,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/plugin.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin.hpp>
+#include <sge/collision/system.hpp>
+#include <sge/collision/plugin.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/plugin.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/create.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>
@@ -59,6 +63,9 @@ struct sge::systems::instance::impl {
 	plugin::plugin<audio::player>::ptr_type         audio_player_plugin;
 	audio::player_ptr                               audio_player;
 
+	plugin::plugin<collision::system>::ptr_type     collision_plugin;
+	collision::system_ptr                           collision_system;
+
 	plugin::plugin<font::system>::ptr_type          font_plugin;
 	font::system_ptr                                font_system;
 	
@@ -71,6 +78,7 @@ struct sge::systems::instance::impl {
 	void init_window(
 		window::parameters const &);
 	void init_input();
+	void init_collision_system();
 	void init_image();
 	void init_audio_player();
 	void init_font();
@@ -153,6 +161,12 @@ sge::systems::instance::audio_player() const
 	return impl_->audio_player;
 }
 
+sge::collision::system_ptr const
+sge::systems::instance::collision_system() const
+{
+	return impl_->collision_system;
+}
+
 sge::font::system_ptr const
 sge::systems::instance::font_system() const
 {
@@ -194,6 +208,9 @@ void visitor::operator()(
 	case sge::systems::parameterless::audio_player:
 		impl_.init_audio_player();
 		break;
+	case sge::systems::parameterless::collision_system:
+		impl_.init_collision_system();
+		break;
 	case sge::systems::parameterless::font:
 		impl_.init_font();
 		break;
@@ -209,6 +226,12 @@ void sge::systems::instance::impl::init_window(
 	window::parameters const &p)
 {
 	wparam_.reset(p);
+}
+
+void sge::systems::instance::impl::init_collision_system()
+{
+	collision_plugin = plugin_manager.plugin<sge::collision::system>().load();
+	collision_system.reset(collision_plugin->get()());
 }
 
 void sge::systems::instance::impl::init_renderer(
@@ -264,6 +287,7 @@ void sge::systems::instance::impl::init_audio_player()
 	audio_player_plugin = plugin_manager.plugin<sge::audio::player>().load();
 	audio_player.reset(audio_player_plugin->get()());
 }
+
 
 void sge::systems::instance::impl::init_font()
 {

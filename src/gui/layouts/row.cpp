@@ -1,7 +1,9 @@
 #include <sge/gui/layouts/row.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/math/dim/io.hpp>
 #include <sge/iostream.hpp>
+#include <sge/assert.hpp>
 #include <boost/foreach.hpp>
 #include "../utility/bitfield_and.hpp"
 

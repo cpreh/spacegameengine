@@ -19,17 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/sprite/animation_series.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
 sge::sprite::animation_series::animation_series()
 {}
 
 sge::sprite::animation_series::animation_series(
-	entity_vector const& entities)
-: entities(entities)
+	entity_vector const &entities)
+:
+	entities(entities)
 {}
 
 void sge::sprite::animation_series::push_back(
-	animation_entity const& entity)
+	animation_entity const &entity)
 {
 	entities.push_back(entity);
 }

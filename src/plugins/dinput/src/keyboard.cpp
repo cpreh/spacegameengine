@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../keyboard.hpp"
 #include <sge/input/key_pair.hpp>
 #include <sge/iostream.hpp>
+#include <sge/text.hpp>
 #include <boost/tr1/array.hpp>
 #include <ostream>
 
@@ -103,7 +104,7 @@ sge::dinput::keyboard::keycode_to_char(
 	const unsigned vk = MapVirtualKeyEx(dik, 1, kblayout);
 
 	WORD result;
-	if(ToAsciiEx(vk, dik, state.c_array(), &result, 0, kblayout) == 1)
+	if(ToAsciiEx(vk, dik, state.data(), &result, 0, kblayout) == 1)
 		return *reinterpret_cast<char*>(&result);
 	sge::cerr << SGE_TEXT("stub: Key names with more than one char are not supported.\n");
 	return 0;

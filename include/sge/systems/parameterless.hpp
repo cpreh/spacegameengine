@@ -32,6 +32,7 @@ enum type {
 	input,
 	image,
 	audio_player,
+	collision_system,
 	font
 };
 }

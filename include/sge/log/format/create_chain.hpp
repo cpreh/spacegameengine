@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_FORMAT_CREATE_CHAIN_HPP_INCLUDED
 #define SGE_LOG_FORMAT_CREATE_CHAIN_HPP_INCLUDED
 
-#include "formatter.hpp"
-#include "../../export.hpp"
+#include "formatter_fwd.hpp"
+#include <sge/export.hpp>
 
 namespace sge
 {

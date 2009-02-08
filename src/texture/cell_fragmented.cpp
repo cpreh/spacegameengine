@@ -21,9 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing.hpp>
 #include <sge/texture/cell_fragmented.hpp>
 #include <sge/texture/part_fragmented.hpp>
-#include <sge/math/vec_dim.hpp>
+#include <sge/math/vector/dim.hpp>
+#include <sge/math/dim/arithmetic.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/rect_impl.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
+#include <sge/container/field_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
@@ -44,6 +47,9 @@ sge::texture::cell_fragmented::cell_fragmented(
 			rend,
 			format,
 			filter))
+{}
+
+sge::texture::cell_fragmented::~cell_fragmented()
 {}
 
 sge::texture::part_ptr const
@@ -69,7 +75,8 @@ sge::texture::cell_fragmented::consume_fragment(
 			true));
 }
 
-void sge::texture::cell_fragmented::return_fragment(
+void
+sge::texture::cell_fragmented::on_return_fragment(
 	part const &t)
 {
 	field_type::vector_type const pos = t.area().pos() * cell_size;
@@ -86,4 +93,16 @@ sge::texture::cell_fragmented::texture() const
 bool sge::texture::cell_fragmented::repeatable() const
 {
 	return false;
+}
+
+sge::texture::free_type
+sge::texture::cell_fragmented::free_value() const
+{
+	return empty() ? 0 : cell_size.content(); 
+}
+
+bool
+sge::texture::cell_fragmented::empty() const
+{
+	return std::find(cells.begin(), cells.end(), false) == cells.end(); // TODO: optimize this!
 }

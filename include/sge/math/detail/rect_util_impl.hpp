@@ -21,12 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
 #define SGE_MATH_RECT_UTIL_IMPL_HPP_INCLUDED
 
-#include "../../assert.hpp"
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/assert.hpp>
 #include <algorithm>
 
-template<typename T>
-bool sge::math::contains(const rect<T>& r, 
-                           const vector<T,2>& p)
+template<
+	typename T,
+	typename N,
+	typename S
+>
+bool
+sge::math::contains(
+	rect<T> const &r, 
+	vector::basic<T, N, S> const &p)
 {
 	return p.x() >= r.left() && p.x() <= r.right() &&
 	       p.y() >= r.top()  && p.y() <= r.bottom();
@@ -67,22 +74,25 @@ sge::math::rect<T> const sge::math::intersection(rect<T> const &r1,rect<T> const
 
 }
 
-template<typename T,typename U>
+template<
+	typename T,
+	typename U
+>
 sge::math::rect<T> const sge::math::bounding(U it,U const end)
 {
 	SGE_ASSERT(it != end);
 
 	rect<T> r(*it);
 
-  for (;it != end; ++it)
-  {
-    r.left() = std::min(it->left(),r.left());
-    r.right() = std::max(it->right(),r.right());
-    r.top() = std::min(it->top(),r.top());
-    r.bottom() = std::max(it->bottom(),r.bottom());
-  }
-
-  return r;
+	for (;it != end; ++it)
+	{
+		r.left() = std::min(it->left(),r.left());
+		r.right() = std::max(it->right(),r.right());
+		r.top() = std::min(it->top(),r.top());
+		r.bottom() = std::max(it->bottom(),r.bottom());
+	}
+	
+	return r;
 
 }
 

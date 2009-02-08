@@ -21,14 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_CELL_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_CELL_FRAGMENTED_HPP_INCLUDED
 
-#include "fragmented.hpp"
-#include "part_fwd.hpp"
-#include "../export.hpp"
-#include "../raw_vector.hpp"
-#include "../field.hpp"
-#include "../renderer/texture_fwd.hpp"
-#include "../renderer/dim_type.hpp"
-#include "../renderer/color_format.hpp"
+#include <sge/texture/fragmented.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <sge/container/raw_vector_decl.hpp>
+#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/color_format.hpp>
+#include <sge/math/dim/basic_decl.hpp>
+#include <sge/container/field_decl.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -47,18 +48,30 @@ public:
 		renderer::color_format::type,
 		renderer::texture_filter const &filter,
 		renderer::dim_type const &cell_size);
+	SGE_SYMBOL ~cell_fragmented();
+private:
 	SGE_SYMBOL part_ptr const
 	consume_fragment(
 		renderer::dim_type const &);
-	SGE_SYMBOL void return_fragment(
+
+	SGE_SYMBOL void
+	on_return_fragment(
 		part const &);
+
 	SGE_SYMBOL renderer::texture_ptr const
 	texture() const;
+
 	SGE_SYMBOL bool repeatable() const;
-private:
-	typedef field<
+
+	SGE_SYMBOL free_type
+	free_value() const;
+
+	SGE_SYMBOL bool
+	empty() const;
+
+	typedef container::field<
 		bool,
-		raw_vector
+		container::raw_vector
 	> field_type;
 
 	renderer::device_ptr      const rend;

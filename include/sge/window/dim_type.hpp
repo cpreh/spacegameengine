@@ -21,14 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_DIM_TYPE_HPP_INCLUDED
 #define SGE_WINDOW_DIM_TYPE_HPP_INCLUDED
 
-#include "../math/dim.hpp"
+#include <sge/math/dim/static.hpp>
 
 namespace sge
 {
 namespace window
 {
 
-typedef math::dim<unsigned, 2> dim_type;
+typedef math::dim::static_<
+	unsigned,
+	2
+>::type dim_type;
 
 }
 }

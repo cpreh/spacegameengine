@@ -28,11 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture.hpp"
 #include "../glew.hpp"
 #include <sge/renderer/scoped_lock.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/once.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/make_auto_ptr.hpp>
-#include <boost/assign/list_of.hpp>
 #include <boost/tr1/array.hpp>
 
 namespace
@@ -186,34 +186,42 @@ bool have_cube_texture()
 	return have_cube_texture_;
 }
 
+typedef std::tr1::array<
+	GLenum,
+	sge::renderer::cube_side::num_elements
+> cube_side_array;
+
+cube_side_array const
+normal_cube_sides = {{
+	GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+	GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
+	GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+	GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+	GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+	GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+}},
+arb_cube_sides = {{
+	GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB,
+	GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB,
+	GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB,
+	GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB,
+	GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB,
+	GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB
+}};
+
 GLenum
 convert_cube_side(
 	sge::renderer::cube_side::type const &s)
 {
-	typedef std::tr1::array<
-		GLenum,
-		sge::renderer::cube_side::num_elements
-	> cube_side_array;
-
 	static const cube_side_array cube_sides
 		= cube_texture_type() == GL_TEXTURE_CUBE_MAP
-			? boost::assign::list_of
-				(GL_TEXTURE_CUBE_MAP_POSITIVE_Z)
-				(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z)
-				(GL_TEXTURE_CUBE_MAP_NEGATIVE_X)
-				(GL_TEXTURE_CUBE_MAP_POSITIVE_X)
-				(GL_TEXTURE_CUBE_MAP_POSITIVE_Y)
-				(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y)
-			: boost::assign::list_of
-				(GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB)
-				(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z_ARB)
-				(GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB)
-				(GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB)
-				(GL_TEXTURE_CUBE_MAP_POSITIVE_Y_ARB)
-				(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB);
+			? normal_cube_sides
+			: arb_cube_sides;
 
-
-	cube_side_array::size_type const pos = static_cast<cube_side_array::size_type>(s);
+	cube_side_array::size_type const pos
+		= static_cast<
+			cube_side_array::size_type
+		>(s);
 
 	if(pos >= cube_sides.size())
 		throw sge::exception(

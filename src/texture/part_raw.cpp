@@ -43,6 +43,9 @@ sge::texture::part_raw::part_raw(
 	tex(tex)
 {}
 
+sge::texture::part_raw::~part_raw()
+{}
+
 void sge::texture::part_raw::data(
 	renderer::const_image_view const &src)
 {

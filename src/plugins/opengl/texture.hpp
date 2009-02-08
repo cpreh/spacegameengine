@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/image.hpp>
 #include <sge/renderer/color_format.hpp>
+#include <sge/math/dim/basic_decl.hpp>
+#include <sge/math/rect_decl.hpp>
 #include <sge/shared_ptr.hpp>
 #include <boost/optional.hpp>
 
@@ -72,9 +74,6 @@ private:
 
 	dim_type const lock_dim() const;
 	
-	void set_texture(
-		const_pointer src) const;
-
 	dim_type const               dim_;
 	mutable boost::optional<
 		renderer::lock_rect> lock_rect_;

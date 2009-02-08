@@ -18,19 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_PLAYER_INCLUDED
-#define SGE_OPENAL_PLAYER_INCLUDED
+#ifndef SGE_OPENAL_PLAYER_HPP_INCLUDED
+#define SGE_OPENAL_PLAYER_HPP_INCLUDED
 
 #include "device.hpp"
 #include "context.hpp"
 #include "openal.hpp"
-#include "buffer.hpp"
 #include "listener.hpp"
 
 #include <sge/audio/player.hpp>
 #include <sge/audio/sound_fwd.hpp>
 #include <sge/audio/pool_fwd.hpp>
-#include <sge/audio/types.hpp>
+#include <sge/audio/unit.hpp>
 
 #include <boost/ptr_container/ptr_list.hpp>
 
@@ -39,29 +38,33 @@ namespace sge
 namespace openal
 {
 class stream_sound;
+class buffer;
 
 class player : public audio::player
 {
 public:
 	player();
+	~player();
 
 	ALuint register_nonstream_sound(audio::file_ptr);
 	void unregister_nonstream_sound(ALuint);
 
-	audio::listener &listener() { return listener_; }
+	audio::listener &listener();
 		
 	audio::sound_ptr const create_nonstream_sound(audio::file_ptr);
 	audio::sound_ptr const create_stream_sound(audio::file_ptr);
 
 	audio::unit speed_of_sound() const;
 	void speed_of_sound(audio::unit);
-
-	audio::pool_ptr const create_pool();
 private:
-	typedef boost::ptr_list<stream_sound,boost::view_clone_allocator> 
-		stream_sound_container;
-	typedef boost::ptr_list<buffer> 
-		nonstream_sound_container;
+	typedef boost::ptr_list<
+		stream_sound,
+		boost::view_clone_allocator
+	> stream_sound_container;
+
+	typedef boost::ptr_list<
+		buffer
+	> nonstream_sound_container;
 
 	stream_sound_container    stream_sounds;
 	nonstream_sound_container nonstream_sounds;

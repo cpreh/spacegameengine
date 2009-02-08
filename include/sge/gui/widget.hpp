@@ -3,6 +3,7 @@
 
 #include "events/fwd.hpp"
 #include "keyboard_focus.hpp"
+#include "activation_state.hpp"
 #include "key_handling.hpp"
 #include "types.hpp"
 #include "layout_fwd.hpp"
@@ -19,7 +20,7 @@ namespace sge
 {
 namespace gui
 {
-class SGE_CLASS_SYMBOL widget : boost::noncopyable
+class SGE_CLASS_SYMBOL widget : public boost::noncopyable
 {
 	public:
 	typedef sge::gui::size_policy size_policy_t;
@@ -68,6 +69,9 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	SGE_SYMBOL void add_child(widget &);
 	SGE_SYMBOL void remove_child(widget &);
 
+	SGE_SYMBOL void activation(activation_state::type);
+	SGE_SYMBOL activation_state::type activation() const;
+
 	SGE_SYMBOL void layout(layout_auto_ptr);
 
 	SGE_SYMBOL layout_ptr layout();
@@ -108,6 +112,7 @@ class SGE_CLASS_SYMBOL widget : boost::noncopyable
 	mutable image buffer_;
 	child_container children_;
 	layout_auto_ptr layout_;
+	activation_state::type activation_;
 };
 }
 }

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
 #define SGE_FONT_SYSTEM_HPP_INCLUDED
 
-#include "types.hpp"
 #include "metrics_fwd.hpp"
+#include "size_type.hpp"
 #include "../filesystem/path.hpp"
 #include "../export.hpp"
 #include <boost/noncopyable.hpp>

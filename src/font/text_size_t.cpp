@@ -21,25 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_size_t.hpp>
 
 sge::font::text_size_t::text_size_t(
-	const dim size_,
-	const string::const_iterator end_,
-	const string::const_iterator next_begin_)
- : size_(size_),
-   end_(end_),
-   next_begin_(next_begin_)
+	dim const &size_,
+	string::const_iterator const end_,
+	string::const_iterator const next_begin_)
+:
+	size_(size_),
+	end_(end_),
+	next_begin_(next_begin_)
 {}
 	
-const sge::font::dim sge::font::text_size_t::size() const
+sge::font::dim const &
+sge::font::text_size_t::size() const
 {
 	return size_;
 }
 
-sge::font::text_size_t::const_iterator sge::font::text_size_t::end() const
+sge::font::text_size_t::const_iterator
+sge::font::text_size_t::end() const
 {
 	return end_;
 }
 
-sge::font::text_size_t::const_iterator sge::font::text_size_t::next_begin() const
+sge::font::text_size_t::const_iterator
+sge::font::text_size_t::next_begin() const
 {
 	return next_begin_;
 }

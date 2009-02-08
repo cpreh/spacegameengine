@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_ATAN2_HPP_INCLUDED
 #define SGE_MATH_ATAN2_HPP_INCLUDED
 
-#include "vector.hpp"
+#include "vector/basic_impl.hpp"
+#include "vector/is_null.hpp"
 #include <boost/optional.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
@@ -35,15 +36,19 @@ namespace math
  * Wraps std::atan2 so it can be used with sge::math::vector. Returns an
  * empty boost::optional if given the null vector
  */
-template<typename T>
+template<
+	typename T,
+	typename N,
+	typename S
+>
 inline typename boost::enable_if<
 	boost::is_floating_point<T>,
 	boost::optional<T>
 	>::type
 atan2(
-	sge::math::vector<T,2> const &v)
+	sge::math::vector::basic<T, N, S> const &v)
 {
-	return v.is_null()
+	return is_null(v)
 		? boost::optional<T>()
 		: std::atan2(v.y(), v.x());
 }

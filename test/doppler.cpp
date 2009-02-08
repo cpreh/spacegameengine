@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/iostream.hpp>
 #include <sge/media.hpp>
-#include <sge/math/matrix_impl.hpp>
+#include <sge/exception.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
@@ -36,21 +36,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/input/system.hpp>
-#include <sge/input/key_type.hpp>
+#include <sge/input/action.hpp>
 #include <sge/input/key_pair.hpp>
+#include <sge/input/key_code.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/texture_animation.hpp>
 #include <sge/texture/manager.hpp>
-#include <sge/texture/util.hpp>
+#include <sge/texture/add_image.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/default_creator.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/if.hpp>
+#include <sge/structure_cast.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/assign/list_of.hpp>
 #include <exception>
 #include <ostream>
@@ -144,15 +145,15 @@ try
 
 	sge::texture::const_part_ptr const 
 		tex_bg(
-			sge::texture::add(
+			sge::texture::add_image(
 				tex_man, 
 				image_bg)),
 		tex_pointer(
-			sge::texture::add(
+			sge::texture::add_image(
 				tex_man, 
 				image_pointer)),
 		tex_tux(
-			sge::texture::add(
+			sge::texture::add_image(
 				tex_man, 
 				image_tux));
 	
@@ -161,7 +162,7 @@ try
 	sge::sprite::object bg(
 		sge::sprite::point(0,0),
 		tex_bg,
-		sge::math::structure_cast<sge::sprite::unit>(
+		sge::structure_cast<sge::sprite::dim>(
 			screen_size));
 
 	sge::sprite::object pointer(
@@ -187,18 +188,15 @@ try
 	sound_siren->rolloff(static_cast<sge::audio::unit>(1)/static_cast<sge::audio::unit>(screen_size.h()));
 	sound_siren->play(sge::audio::play_mode::loop);
 
-	using boost::lambda::var;
-	using boost::lambda::bind;
-	using boost::lambda::if_;
-
 	bool running = true;
 
 	sge::signals::scoped_connection const cb(
 		sys.input_system()->register_callback(
-			if_(bind(&sge::input::key_type::code,
-				bind(&sge::input::key_pair::key,boost::lambda::_1))
-			== sge::input::kc::key_escape)
-		[var(running)=false])
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
 	);
 
 	sge::signals::scoped_connection const pc(

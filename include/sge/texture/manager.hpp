@@ -23,14 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "part_fwd.hpp"
 #include "fragmented_auto_ptr.hpp"
+#include "detail/container_position.hpp"
 #include "../export.hpp"
-#include "../exception.hpp"
 #include "../renderer/device_fwd.hpp"
-#include "../renderer/texture_fwd.hpp"
 #include "../renderer/image_view.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <boost/function.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
 
 namespace sge
 {
@@ -39,33 +37,41 @@ namespace texture
 
 class fragmented;
 
-class manager : boost::noncopyable {
+class manager {
+	SGE_NONCOPYABLE(manager)
 public:
-	typedef boost::function<fragmented_auto_ptr ()> onalloc_function;
+	typedef boost::function<
+		fragmented_auto_ptr ()
+	> onalloc_function;
 
 	SGE_SYMBOL manager(
 		sge::renderer::device_ptr rend,
 		onalloc_function const &);
 	SGE_SYMBOL ~manager();
-	SGE_SYMBOL part_ptr const add(
+
+	SGE_SYMBOL part_ptr const
+	add(
 		sge::renderer::const_image_view const &src);
+
 	SGE_SYMBOL sge::renderer::device_ptr const
 	renderer() const;
-	SGE_SYMBOL void onalloc(onalloc_function const &);
 
-	class SGE_CLASS_SYMBOL image_too_big : public exception {
-	public:
-		SGE_SYMBOL image_too_big();
-	};
+	SGE_SYMBOL void
+	onalloc(
+		onalloc_function const &);
 private:
-	part_ptr const init_texture(
-		fragmented &,
-		sge::renderer::const_image_view const &src) const;
+	friend class fragmented;
 
+	void
+	part_freed(
+		detail::container_position const &,
+		fragmented const &);
+	
 	sge::renderer::device_ptr const     rend;
 	onalloc_function                    onalloc_;
-	typedef boost::ptr_list<fragmented> fragmented_texture_list;
-	fragmented_texture_list             fragmented_textures;
+
+	detail::fragmented_queue            free_textures;
+	detail::fragmented_list             full_textures;
 };
 
 }

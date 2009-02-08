@@ -10,6 +10,7 @@
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>

@@ -1,4 +1,15 @@
-FILE (GLOB sgeguifiles *.cpp events/*.cpp layouts/*.cpp widgets/*.cpp skins/*.cpp timer/*.cpp canvas/*.cpp skins/standard/*.cpp utility/*.cpp)
+FILE (GLOB sgeguifiles 
+		*.cpp 
+		events/*.cpp 
+		layouts/*.cpp 
+		widgets/*.cpp 
+		skins/*.cpp 
+		timer/*.cpp 
+		canvas/*.cpp 
+		skins/standard/*.cpp 
+		utility/*.cpp
+		detail/*.cpp 
+		detail/managers/*.cpp)
 
 ADD_LIBRARY (sgegui SHARED ${sgeguifiles})
 TARGET_LINK_LIBRARIES (sgegui sgecore)

@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<typename T, typename Value>
 sge::renderer::scoped_lock<T, Value>::scoped_lock(
-	scoped_lock_wrapper<T, Value> const& w)
- : w(w)
+	scoped_lock_wrapper<T, Value> const &w)
+:
+	w(w)
 {}
 
 template<typename T, typename Value>

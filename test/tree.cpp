@@ -19,71 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/container/tree.hpp>
+#include <sge/container/traversal.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <string>
 #include <iostream>
 #include <ostream>
-#include <iterator>
-
-namespace
-{
-
-template<
-	typename Tree
->
-struct inorder_traversal {
-	explicit inorder_traversal(
-		Tree &tree_)
-	:
-		tree_(tree_)
-	{}
-
-	typedef typename Tree::iterator tree_iterator;
-
-	struct iterator {
-		explicit iterator(
-			tree_iterator const &it)
-		:
-			it(it)
-		{}
-
-		iterator &operator++()
-		{
-			if(!it->empty())
-				it = it->begin();
-			else if(it->has_parent())
-				it = it->child_position();	
-			return *this;
-		}
-		
-		typename std::iterator_traits<tree_iterator>::reference
-		operator *() const
-		{
-			return *it;	
-		}
-
-		bool operator!=(
-			iterator const &it) const
-		{
-			return *this != it;
-		}
-	private:
-		tree_iterator it;
-	};
-
-	iterator begin()
-	{
-		return iterator(tree_.begin());
-	}
-	iterator end()
-	{
-		return iterator(tree_.end());
-	}
-private:
-	Tree &tree_;
-};
-
-}
 
 int main()
 {
@@ -103,14 +43,27 @@ int main()
 			child1);
 	}
 
-	typedef 
-	inorder_traversal<
-		string_tree
-	> inorder_trav;
+	{
+		string_tree::auto_ptr child2(
+			sge::make_auto_ptr<
+				string_tree
+			>("blah"));
+	
+		tree.push_back(
+			child2);
+	}
 
-	inorder_trav trav(
+	tree.push_back(
+		"foobar");
+
+	typedef 
+	sge::container::traversal<
+		string_tree const
+	> traversal_type;
+
+	traversal_type const trav(
 		tree);
 	
-	for(inorder_trav::iterator it = trav.begin(); it != trav.end(); ++it)
-		std::cout << (*it).value() << '\n';
+	for(traversal_type::iterator it = trav.begin(); it != trav.end(); ++it)
+		std::cout << (*it).value() << std::endl;
 }

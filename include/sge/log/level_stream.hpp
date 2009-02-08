@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_LEVEL_STREAM_HPP_INCLUDED
 #define SGE_LOG_LEVEL_STREAM_HPP_INCLUDED
 
-#include "../ostream.hpp"
-#include "../export.hpp"
-#include "format/formatter.hpp"
+#include <sge/ostream.hpp>
+#include <sge/export.hpp>
+#include "format/formatter_fwd.hpp"
 
 namespace sge
 {
@@ -38,6 +38,7 @@ class level_stream {
 		ostream &,
 		format::const_formatter_ptr);
 public:
+	SGE_SYMBOL ~level_stream();
 	SGE_SYMBOL void enable();
 	SGE_SYMBOL void disable();
 	SGE_SYMBOL bool enabled() const;

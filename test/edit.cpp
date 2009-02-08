@@ -1,9 +1,5 @@
-#include <sge/renderer/texture_rw.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/texture_software.hpp>
-#include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/states.hpp>
@@ -16,28 +12,22 @@
 #include <sge/gui/skins/standard.hpp>
 
 #include <sge/log/headers.hpp>
-#include <sge/time/timer.hpp>
-#include <sge/time/second.hpp>
-#include <sge/font/drawer.hpp>
-#include <sge/font/system.hpp>
-#include <sge/font/font.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/system.hpp>
-#include <sge/texture/part_raw.hpp>
 #include <sge/signals/scoped_connection.hpp>
-#include <sge/input/key_state_tracker.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/iostream.hpp>
-#include <sge/string.hpp>
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
 
 #include <iostream>
+#include <ostream>
+#include <exception>
+#include <cstdlib>
 
 namespace
 {
@@ -98,10 +88,13 @@ try
 		sys.font_system(),
 		sge::gui::skin_ptr(new sge::gui::skins::standard()));
 	
-	sge::gui::widgets::edit b((sge::gui::widget::parent_data(m)),sge::gui::dim(30,30));
+	sge::gui::widgets::edit b(
+		(sge::gui::widget::parent_data(m)),
+		sge::gui::widgets::edit::single_line,
+		sge::gui::dim(30,30));
 	b.pos(sge::gui::point(10,10));
 	b.size(sge::gui::dim(400,300));
-	b.text(SGE_TEXT("test"));
+	//b.text(SGE_TEXT("test"));
 
 	// set sensible render states
 	sys.renderer()->state(
@@ -127,13 +120,16 @@ try
 } 
 catch (sge::exception const &e)
 {
-	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT("\n");
+	sge::cerr << SGE_TEXT("caught sge exception: ") << e.what() << SGE_TEXT('\n');
+	return EXIT_FAILURE;
 }
 catch (std::exception const &e)
 {
-	std::cerr << "caught std exception: " << e.what() << "\n";
+	std::cerr << "caught std exception: " << e.what() << '\n';
+	return EXIT_FAILURE;
 }
 catch (...)
 {
 	std::cerr << "caught unknown exception\n";
+	return EXIT_FAILURE;
 }

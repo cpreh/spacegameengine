@@ -21,14 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_POS_TYPE_HPP_INCLUDED
 #define SGE_WINDOW_POS_TYPE_HPP_INCLUDED
 
-#include "../math/vector.hpp"
+#include <sge/math/vector/static.hpp>
 
 namespace sge
 {
 namespace window
 {
 
-typedef math::vector<int, 2> pos_type;
+typedef math::vector::static_<
+	int,
+	2
+>::type pos_type;
 
 }
 }

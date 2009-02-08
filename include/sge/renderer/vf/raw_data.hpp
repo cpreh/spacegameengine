@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
 
 #include "raw_pointer.hpp"
-#include "../../math/vector.hpp"
+#include <sge/math/vector/basic_impl.hpp>
 #include <boost/gil/pixel.hpp>
 
 namespace sge
@@ -37,10 +37,14 @@ const_raw_pointer
 raw_data(
 	T const &t);
 
-template<typename T, std::size_t N>
+template<
+	typename T,
+	typename N,
+	typename S
+>
 const_raw_pointer
 raw_data(
-	math::vector<T, N> const &v)
+	math::vector::basic<T, N, S> const &v)
 {
 	return reinterpret_cast<const_raw_pointer>(v.data());
 }

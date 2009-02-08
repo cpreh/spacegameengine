@@ -35,7 +35,8 @@ namespace capabilities
 		audio_player     = 1 << 3,
 		font             = 1 << 4,
 		audio_loader     = 1 << 5,
-		last_guard_      = 1 << 6
+		collision_system = 1 << 6,
+		last_guard_      = 1 << 7
 	};
 }
 

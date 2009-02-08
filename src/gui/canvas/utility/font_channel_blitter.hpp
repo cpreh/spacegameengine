@@ -1,9 +1,7 @@
 #ifndef SGE_GUI_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 #define SGE_GUI_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 
-#include <sge/font/types.hpp>
 #include <sge/renderer/color_channel.hpp>
-
 #include <boost/gil/color_base.hpp>
 #include <boost/type_traits/remove_const.hpp>
 

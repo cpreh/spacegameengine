@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vector_convert.hpp>
 #include <sge/renderer/basic_any_vector.hpp>
-#include <sge/math/vector.hpp>
+#include <sge/math/vector/static.hpp>
+#include <sge/math/vector/basic_decl.hpp>
 #include <sge/export.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 
@@ -67,8 +69,8 @@ Dest const
 visitor<Dest>::operator()(
 	T const &v) const
 {
-	return sge::math::structure_cast<
-		typename Dest::value_type
+	return sge::structure_cast<
+		Dest
 	>(v);
 }
 
@@ -76,7 +78,7 @@ visitor<Dest>::operator()(
 
 #define SGE_INSTANTIATE_VECTOR_CONVERT(t, n)\
 template SGE_SYMBOL \
-sge::math::vector<t, n> const \
+sge::math::vector::static_<t, n>::type const \
 sge::renderer::vector_convert(\
 	sge::renderer::basic_any_vector<n>::type const &);
 

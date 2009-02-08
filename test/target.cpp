@@ -1,8 +1,29 @@
+/*
+spacegameengine is a portable easy to use game engine written in C++.
+Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
+
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/scoped_target.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
@@ -12,8 +33,7 @@
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/input/system.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_pair.hpp>
+#include <sge/input/action.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/object.hpp>
@@ -24,9 +44,8 @@
 #include <sge/text.hpp>
 #include <sge/media.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/if.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -62,21 +81,21 @@ try
 			sge::renderer::resource_flags::readable);
 
 	sge::sprite::object my_object(
-			sge::sprite::point(100,0),
-			sge::texture::const_part_ptr(
-				sge::make_shared_ptr<
-					sge::texture::part_raw
-				>(
-					image_texture)),
-			sge::sprite::texture_dim);
+		sge::sprite::point(100,0),
+		sge::texture::const_part_ptr(
+			sge::make_shared_ptr<
+				sge::texture::part_raw
+			>(
+				image_texture)),
+		sge::sprite::texture_dim);
 
 	sge::sprite::object my_object_2(
-			sge::sprite::point(100,20),
-			sge::texture::const_part_ptr(
-				sge::make_shared_ptr<
-					sge::texture::part_raw
-				>(image_texture)),
-			sge::sprite::texture_dim);
+		sge::sprite::point(100,20),
+		sge::texture::const_part_ptr(
+			sge::make_shared_ptr<
+				sge::texture::part_raw
+			>(image_texture)),
+		sge::sprite::texture_dim);
 	
 	sge::renderer::texture_ptr const target = 
 		sys.renderer()->create_texture(
@@ -86,13 +105,16 @@ try
 			sge::renderer::resource_flags::none);
 
 	{
-		sge::renderer::scoped_block const block_(sys.renderer());
-		sys.renderer()->target(target);
+		sge::renderer::scoped_block const block_(
+			sys.renderer());
+
+		sge::renderer::scoped_target const target_(
+			sys.renderer(),
+			target);
+
 		ss.render(my_object);
 		ss.render(my_object_2);
 	}
-
-	sys.renderer()->target(sge::renderer::device::default_target);
 
 	sge::sprite::object rendered_stuff(
 		sge::sprite::point(0,0),
@@ -107,22 +129,16 @@ try
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color_::clear_color = sge::renderer::colors::red()));
 
-	using boost::lambda::var;
-	using boost::lambda::bind;
-	using boost::lambda::if_;
-
 	bool running = true;
 
 	sge::signals::scoped_connection const cb(
 		sys.input_system()->register_callback(
-			if_(
-				bind(
-					&sge::input::key_type::code,
-					bind(
-						&sge::input::key_pair::key,
-						boost::lambda::_1))
-					== sge::input::kc::key_escape)
-				[var(running)=false]));
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
+	);
 
 	while (running)
 	{

@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_DRAWER_3D_HPP_INCLUDED
 #define SGE_FONT_DRAWER_3D_HPP_INCLUDED
 
+#include "drawer.hpp"
+#include "pos.hpp"
+#include "dim.hpp"
+#include "image_view.hpp"
 #include "../export.hpp"
 #include "../renderer/any_color.hpp"
 #include "../renderer/device.hpp"
@@ -29,8 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../sprite/system.hpp"
 #include "../sprite/container.hpp"
 #include "../sprite/object.hpp"
-#include "drawer.hpp"
-#include "types.hpp"
 #include <map>
 
 namespace sge

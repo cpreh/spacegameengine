@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/resolution.hpp>
 
 sge::time::resolution::resolution(
-	const unit res_)
-: res_(res_)
+	unit const res_)
+:
+	res_(res_)
 {}
 
 sge::time::unit

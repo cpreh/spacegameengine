@@ -19,17 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/time/millisecond.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/time/time.hpp>
 
-namespace
-{
-
-sge::time::unit const factor(1000);
-
-}
-
-sge::time::millisecond::millisecond(
+sge::time::resolution const
+sge::time::millisecond(
 	unit const tm)
-: resolution(
-	tm * hz() / factor)
-{}
+{
+	return resolution(
+		tm * hz() / 1000);
+}

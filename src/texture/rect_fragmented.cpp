@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
 sge::texture::rect_fragmented::rect_fragmented(
 	renderer::device_ptr const rend,
@@ -37,7 +38,8 @@ sge::texture::rect_fragmented::rect_fragmented(
 		atlased_texture(
 			rend,
 			format,
-			filter))
+			filter)),
+	texture_count(0)
 {}
 
 sge::texture::part_ptr const
@@ -78,13 +80,15 @@ sge::texture::rect_fragmented::consume_fragment(
 	cur_x += dim.w() + 1;
 	cur_height = std::max(cur_height, dim.h());
 
+	++texture_count;
+
 	return ret;
 }
 
-void sge::texture::rect_fragmented::return_fragment(
+void sge::texture::rect_fragmented::on_return_fragment(
 	part const &)
 {
-	// FIXME
+	--texture_count;
 }
 
 sge::renderer::texture_ptr const
@@ -96,4 +100,20 @@ sge::texture::rect_fragmented::texture() const
 bool sge::texture::rect_fragmented::repeatable() const
 {
 	return false;
+}
+
+sge::texture::free_type
+sge::texture::rect_fragmented::free_value() const
+{
+	return static_cast<
+		free_type
+	>(
+		(texture()->dim().h() - cur_height)
+		* texture()->dim().w());
+}
+
+bool
+sge::texture::rect_fragmented::empty() const
+{
+	return !texture_count;
 }

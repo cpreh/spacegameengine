@@ -21,14 +21,11 @@
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/input/system.hpp>
-#include <sge/input/key_type.hpp>
-#include <sge/input/key_pair.hpp>
-#include <sge/math/vector.hpp>
+#include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <boost/mpl/vector.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/if.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <ostream>
 #include <exception>
 #include <cstdlib>
@@ -104,18 +101,13 @@ try
 
 	bool running = true;
 
-	sge::input::system_ptr const is = sys.input_system();
-
-	using boost::lambda::var;
-	using boost::lambda::bind;
-	using boost::lambda::if_;
-
 	sge::signals::scoped_connection const cb(
-		is->register_callback(
-			if_(bind(&sge::input::key_type::code,
-				bind(&sge::input::key_pair::key,boost::lambda::_1))
-			== sge::input::kc::key_escape)
-		[var(running)=false])
+		sys.input_system()->register_callback(
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
 	);
 
 	rend->state(

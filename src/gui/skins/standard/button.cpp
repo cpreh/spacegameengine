@@ -6,16 +6,20 @@
 #include <sge/gui/widgets/button.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/math/rect_util.hpp>
-#include <sge/font/font.hpp>
+#include <sge/math/dim/io.hpp>
+#include <sge/font/object.hpp>
+#include <sge/font/text_size_t.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/media.hpp>
+#include <sge/assert.hpp>
+#include <sge/structure_cast.hpp>
 
 namespace
 {
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
-	SGE_TEXT("skins::standard::button"),
+	SGE_TEXT("skins: standard: button"),
 	false);
 }
 
@@ -29,10 +33,11 @@ void sge::gui::skins::standard::draw(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("resizing from ") 
-			        << dim(b.buffer().width(),b.buffer().height())
-							<< SGE_TEXT(" to ")
-							<< b.size());
+			log::_1
+				<< SGE_TEXT("resizing from ") 
+				<< dim(b.buffer().width(),b.buffer().height())
+				<< SGE_TEXT(" to ")
+				<< b.size());
 		b.buffer() = image(
 			static_cast<image::coord_t>(b.size().w()),
 			static_cast<image::coord_t>(b.size().h()));
@@ -148,11 +153,11 @@ sge::gui::dim const sge::gui::skins::standard::size_hint(
 		mylogger,
 		log::_1 << SGE_TEXT("calling size hint for button"));
 
-	font::font fn(b.font());	
+	font::object fn(b.font());	
 
 	// NOTE: we have to give text_size a huge rectangle because it won't
 	// return a valid rectangle otherwise
-	dim const font_dim = math::structure_cast<unit>(
+	dim const font_dim = structure_cast<dim>(
 		fn.text_size(b.text(),utility::max_dim<font::unit>()).size());
 
 	return dim(static_cast<unit>(font_dim.w()+2),static_cast<unit>(font_dim.h()+2));

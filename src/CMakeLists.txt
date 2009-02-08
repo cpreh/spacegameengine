@@ -3,11 +3,15 @@ FILE (GLOB sgecorefiles
 	archive/*.cpp
 	audio/*.cpp
 	console/*.cpp
+	console/detail/*.cpp
+	collision/*.cpp
+	collision/objects/*.cpp
 	container/*.cpp
 	filesystem/*.cpp
 	font/*.cpp
 	image/*.cpp
 	input/*.cpp
+	input/modifier/*.cpp
 	library/*.cpp
 	log/*.cpp
 	log/format/*.cpp
@@ -18,6 +22,8 @@ FILE (GLOB sgecorefiles
 	random/*.cpp
 	renderer/*.cpp
 	renderer/glsl/*.cpp
+	renderer/glsl/attribute/*.cpp
+	renderer/glsl/uniform/*.cpp
 	renderer/state/*.cpp
 	renderer/vf/*.cpp
 	signals/*.cpp
@@ -25,6 +31,7 @@ FILE (GLOB sgecorefiles
 	sprite/detail/*.cpp
 	systems/*.cpp
 	texture/*.cpp
+	texture/detail/*.cpp
 	time/*.cpp
 	window/*.cpp)
 
