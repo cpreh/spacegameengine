@@ -17,7 +17,7 @@ IUSE="bullet devil dga gui mad narrowstring openal opengl test truetype vorbis w
 DEPEND="${RDEPEND}
         >=dev-util/cmake-2.6
         dev-util/pkgconfig"
-RDEPEND=">=dev-libs/boost-1.35
+RDEPEND=">=dev-libs/boost-1.37
          x11-libs/libX11
          virtual/libc
 		 bullet? ( sci-physics/bullet )

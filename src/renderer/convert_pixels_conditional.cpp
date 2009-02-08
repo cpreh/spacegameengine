@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
+#include <boost/spirit/home/phoenix/bind/bind_function.hpp>
+#include <boost/spirit/home/phoenix/core/argument.hpp>
+#include <boost/spirit/home/phoenix/operator/comparison.hpp>
 #include <algorithm>
 
 void sge::renderer::convert_pixels_conditional(
@@ -48,10 +49,13 @@ void sge::renderer::convert_pixels_conditional(
 		std::find_if(
 			formats.begin(),
 			formats.end(),
-			boost::lambda::bind(
+			boost::phoenix::bind(
 				&color_format_stride,
-				boost::lambda::_1)
-			== stride));
+				boost::phoenix::arg_names::arg1
+			)
+			== stride
+		)
+	);
 	
 	if(it == formats.end())
 		throw exception(
