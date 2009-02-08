@@ -35,7 +35,7 @@ sge::systems::instance const sys(
 Now we can use the input system to register an <em>input callback</em> which is
 called each time the mouse is moved or some key is pressed. We want this
 callback to end the main loop. We certainly have more than one choice to do
-this, but we'll discuss only one of the solutions to the problem. First, we
+this, but we'll discuss a verbose but simple solution to the problem. First, we
 modify the main loop:
 
 \code
@@ -50,8 +50,9 @@ while (running)
 \endcode
 
 Now all the callback has to do is set <tt>running</tt> to <tt>false</tt>. We can
-pass any functor as a callback to the input system, as long as it's callable via
-<tt>operator()</tt> and it accepts a <tt>sge::input::key_pair</tt> argument.
+pass any functor as a callback to the input system, as long as it is convertible
+to the appropriate boost::function type which is <em>sge::input::callback</em>.
+This callback function type takes a single argument: <em>sge::input::key_pair</em>.
 Here's the code for our functor:
 
 \code
@@ -88,7 +89,9 @@ before <tt>while (running)</tt>:
 
 \code
 sge::signals::scoped_connection const conn = 
-	sys.input_system()->register_callback(input_functor(running));
+	sys.input_system()->register_callback(
+		input_functor(
+			running));
 \endcode
 
 Headers to include <sge/signals/scoped_connection.hpp>, <sge/input/system.hpp>
@@ -134,7 +137,9 @@ somewhere before <tt>while (running)</tt>:
 
 \code
 sge::signals::scoped_connection const conn_other =
-	sys.input_system->register_callback(sprite_functor(my_object));
+	sys.input_system->register_callback(
+		sprite_functor(
+			my_object));
 \endcode
 
 And watch tux move as your mouse moves. That's it for the input tutorial.

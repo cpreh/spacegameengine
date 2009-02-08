@@ -20,7 +20,8 @@ the dirty details of initialization for us. The systems::instance object needs
 a list of things we want it to initialize. For the renderer we pass a
 renderer::parameters structure since we have to tell the renderer a few
 settings. The image plugin can be initialized just by passing
-systems::parameterless::image.
+systems::parameterless::image. Also the window::parameters structure is
+needed because the renderer needs an initialized window.
 
 \code
 sge::systems::instance const sys(
@@ -83,7 +84,7 @@ Now that we've initialized the subsystems, we can access them via
 \section sec3 Drawing an image
 
 The next goal is to draw an image on our newly created window which we can move
-around later on. In computer graphics, a two dimensional "object" is called a
+around later on. In computer graphics a two dimensional "object" is called a
 <em>sprite</em>. To draw one or more sprites in sge you have to create a
 sge::sprite::system, which gets the renderer in its constructor.
 
@@ -108,7 +109,7 @@ Files to include: <sge/text.hpp>, <sge/image/loader.hpp>, <sge/image/object.hpp>
 
 There are a few new things here, first of all <tt>sys.image_loader()</tt> is a
 smart pointer, so we cannot use the . (dot) operator to access the \link
-sge::image::loader::load load \endlink function. The same applies
+sge::image::loader::load load\endlink function. The same applies
 to renderer and any other subsystem class.
 
 And what about this strange SGE_TEXT thingy around the string? Well, if you want
@@ -148,7 +149,7 @@ that we're not interested in changing this texture dynamically.
 
 Anyway, in theory, we would now be able to use the texture to paste it onto a
 sprite. If you look at the constructor of sge::sprite::object you'll see that it
-doesn't take a <em>texture_ptr</em>, but a <em>part_ptr</em>. That's because you
+doesn't take a <em>texture_ptr</em>, but a <em>const_part_ptr</em>. That's because you
 don't have to create a separate texture for each sprite, but you can also create
 a big texture containing smaller sub textures and assign those sub textures to
 the sprites. This is called "atlasing" and can really boost performance since
@@ -159,18 +160,19 @@ just a wrapper for a single texture. Watch!
 
 \code
 sge::sprite::object const my_object(
-	sge::sprite::point(0,0),
-	sge::texture::part_ptr(
+	sge::sprite::point(0, 0),
+	sge::texture::const_part_ptr(
 		sge::make_shared_ptr<
-			sge::texture::part_raw>(
-				image_texture)),
+			sge::texture::part_raw
+		>(
+			image_texture)),
 	sge::sprite::texture_dim);
 \endcode
 
 Files to include: <sge/texture/part_raw.hpp>, <sge/sprite/object.hpp>,
 <sge/make_shared_ptr.hpp>.
 
-We use make_shared_ptr to create a texture::part_ptr from a new
+We use make_shared_ptr to create a texture::const_part_ptr from a new
 texture::part_raw which takes image_texture as an argument.
 The reason behind this is that having a new expression in an argument list
 which is given to a shared ptr might leak memory because even the order of
@@ -202,8 +204,7 @@ Files to include: <sge/renderer/scoped_block.hpp>,
 Inside the endless loop (we'll fix that when we introduce the <em>input
 system</em>), sge::mainloop::dispatch is called.
 This calls the dispatch function for all <em>dispatchable</em> objects
-that have been created so far. You can try removing this line
-and see what happens if you like.
+that have been created so far.
 
 If you want to render something on the screen, you have to call
 renderer::begin_rendering and renderer::end_rendering. Yet, since we write our code
@@ -227,7 +228,7 @@ iostream equivalents (called <tt>sge::cerr</tt>, <tt>sge::cout</tt> and
 <tt>std::cout</tt> or <tt>std::wcout</tt>.
 
 When you start the program now you'll see tux on the top left corner of the
-screen. To close the program...well, do something radical, it won't close that
+screen. To close the program... well, do something radical, it won't close that
 easily. But we're working on that in \ref tutorial_2 "part 2" of the tutorial,
 where we add input support.
 */

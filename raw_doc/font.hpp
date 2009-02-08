@@ -21,7 +21,7 @@ the particular font. sge currently uses freetype to load those metrics.
 Drawing the font onto some canvas is separated from the loading. The <em>font
 drawer</em> is responsible for that. 
 
-The glue between the metric and the drawer is the sge::font::font class. It's
+The glue between the metric and the drawer is the sge::font::object class. It's
 responsible for things such as text alignment and managing special characters
 like a newline sensibly.
 
@@ -33,22 +33,22 @@ digraph font_graph
 	font_system [label="font::system",shape=box,URL="\ref sge::font::system"]
 	font_metrics [label="font::metrics",shape=box,URL="\ref sge::font::metrics"]
 	font_drawer [label="font::drawer",shape=box URL="\ref sge::font::drawer"]
-	font_font [label="font::font",shape=box URL="\ref sge::font::font"]
+	font_object [label="font::object",shape=box URL="\ref sge::font::object"]
 
 	screen [label="screen",style=dashed]
 	texture [label="texture",style=dashed]
 
 	text [label="text to draw",style=dashed]
 
-	text -> font_font [style=dashed]
+	text -> font_object [style=dashed]
 
 	font_drawer -> screen [style=dashed]
 	font_drawer -> texture [style=dashed]
 
 	font_system -> font_metrics [label="  loads"]
-	font_metrics -> font_font [label="is passed to"]
-	font_drawer -> font_font [label="  is passed to"]
-	font_font -> font_drawer [label="passes info"]
+	font_metrics -> font_object [label="is passed to"]
+	font_drawer -> font_object [label="  is passed to"]
+	font_object -> font_drawer [label="passes info"]
 }
 \enddot
 
@@ -109,27 +109,32 @@ compilers will issue a warning if there's no explicit cast here.
 
 \code
 sge::font::drawer_ptr const drawer(
-	new sge::font::drawer_3d(
-		sys.renderer()));
+	sge::make_shared_ptr<sge::font::drawer_3d>(
+		sys.renderer(),
+		sge::renderer::colors::white()));
 \endcode
 
-Files to include: <sge/font/drawer_3d.hpp>
+Files to include: <sge/font/drawer_3d.hpp>, <sge/renderer/colors.hpp>,
+<sge/make_shared_ptr.hpp>
 
-The statement creates the font drawer. sge::font::font expects a
+The statement creates the font drawer. sge::font::object expects a
 sge::font::drawer_ptr (which is a smart pointer), so we have to put drawer_3d
-inside one. There's no specific reason why sge::font::font is configured that
-way, it could also take an sge::font::drawer reference, but that's how it is.
+inside one.
+The second argument to the font::drawer_3d is the color it is going to use
+for text printing. Here we choose a predefined color: white.
+<em>sge::make_shared_ptr</em> is a function to create a shared_ptr for us,
+so we don't have to use new explicitly.
 
 \section tut_fonts_drawing Drawing the text
 Now we can create a font and start drawing text. Creating the font is trivial:
 
 \code
-sge::font::font font(metrics, drawer);
+sge::font::object font(metrics, drawer);
 \endcode
 
-Files to include: <sge/font/font.hpp>
+Files to include: <sge/font/object.hpp>
 
-Drawing a text, however, takes a few more lines. sge::font::font::draw_text takes 6 parameters:
+Drawing a text, however, takes a few more lines. sge::font::object::draw_text takes 6 parameters:
 
 <ul>
 <li> <tt>text</tt> - The text to be drawn
@@ -146,13 +151,13 @@ Now that we know, here's the main loop:
 while (true)
 {
 	sge::mainloop::dispatch();
-	sge::renderer::scoped_block const block(sys.renderer);
+	sge::renderer::scoped_block const block(sys.renderer());
 	font.draw_text(
 		SGE_TEXT("hello world"),
 		sge::font::pos(
 			static_cast<sge::font::unit>(0),
 			static_cast<sge::font::unit>(0)),
-		sge::math::structure_cast<sge::font::unit>(
+		sge::structure_cast<sge::font::dim>(
 			sys.renderer()->screen_size()),
 		sge::font::align_h::center,
 		sge::font::align_v::center);
@@ -160,7 +165,8 @@ while (true)
 \endcode
 
 Files to include: <sge/renderer/scoped_block.hpp>,
-<sge/mainloop/dispatch.hpp>
+<sge/mainloop/dispatch.hpp>, <sge/font/text_size_t.hpp>,
+<sge/structure_cast.hpp>
 
 This loop, as in the first tutorial, loops forever until you close it somehow.
 Feel free to integrate an input system if you like. There's nothing much here
@@ -168,11 +174,11 @@ that needs explanation.
 The first line tells us that the text should be draw beginning at (0,0) in
 pixel coordinates.
 The second line tells us that it takes up
-the whole screen. <tt>sge::math::structure_cast<T>(x)</tt> is basically just a
+the whole screen. <tt>sge:::structure_cast<T>(x)</tt> is basically just a
 shorthand for 
 
 \code
-sge::math::dim<T>(static_cast<T>(x.w()),...);
+T(static_cast<typename T::value_type>(x[0], ...);
 \endcode
 
 since sge::renderer::screen_unit doesn't have to be the same as sge::font::unit.
