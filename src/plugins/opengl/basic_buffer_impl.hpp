@@ -126,9 +126,9 @@ template<
 	GLenum (*Type)(),
 	sge::ogl::vbo_base& (*Impl)()>
 void sge::ogl::basic_buffer<Type, Impl>::sub_data(
-	const const_pointer data,
-	const size_type first,
-	const size_type count)
+	const_pointer const data,
+	size_type const first,
+	size_type const count)
 {
 	if(first + count > size())
 		throw exception(SGE_TEXT("ogl_buffer::sub_data(), first + count out of range!"));
@@ -186,7 +186,7 @@ typename sge::ogl::basic_buffer<Type, Impl>::const_pointer
 sge::ogl::basic_buffer<Type, Impl>::data() const
 {
 	return const_cast<const_pointer>(
-		const_cast<basic_buffer&>(*this).data());
+		const_cast<basic_buffer &>(*this).data());
 }
 
 template<

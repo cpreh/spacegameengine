@@ -31,17 +31,17 @@ SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 	sge::ogl::index_buffer_type,
 	sge::ogl::vb_ib_vbo_impl)
 
-
 sge::ogl::index_buffer::index_buffer(
 	renderer::index_format::type const format_,
 	size_type const sz,
 	renderer::resource_flag_t const flags)
-: detail::index_buffer_base(
-	sz,
-	renderer::index_format_stride(format_),
-	flags,
-	0),
-  format_(format_)
+:
+	detail::index_buffer_base(
+		sz,
+		renderer::index_format_stride(format_),
+		flags,
+		0),
+	format_(format_)
 {}
 
 sge::renderer::index_format::type
