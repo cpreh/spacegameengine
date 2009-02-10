@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "index_view.hpp"
 #include "index_format.hpp"
-#include "../export.hpp"
+#include <sge/renderer/size_type.hpp>
+#include <sge/export.hpp>
 #include <cstddef>
 
 namespace sge
@@ -31,18 +32,16 @@ namespace sge
 namespace renderer
 {
 
-// FIXME: use something else instead of std::size_t
-
 SGE_SYMBOL dynamic_index_view const
 make_index_view(
 	unsigned char *data,
-	std::size_t sz,
+	size_type sz,
 	index_format::type);
 
 SGE_SYMBOL const_dynamic_index_view const
 make_index_view(
 	unsigned char const *data,
-	std::size_t sz,
+	size_type sz,
 	index_format::type);
 
 }
