@@ -18,54 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DETAIL_GENERATE_VISITOR_HPP_INCLUDED
 
-#include "common.hpp"
-#include "buffer_base.hpp"
-#include "vbo.hpp"
-#include <sge/renderer/index_buffer.hpp>
+#include <boost/variant/static_visitor.hpp>
+//#include <boost/foreach.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace renderer
+{
+namespace index
 {
 namespace detail
 {
-typedef buffer_base<
-	renderer::index_buffer,
-	index_buffer_type,
-	vb_ib_vbo_impl
-> index_buffer_base;
-}
 
-class index_buffer
-: public detail::index_buffer_base {
-public:
-	typedef detail::index_buffer_base base;
-	using base::size_type;
-	using base::const_pointer;
+template<
+	typename Gen
+>
+struct generate_visitor : boost::static_visitor<> {
+	explicit generate_visitor(
+		Gen const &gen)
+	:
+		gen(gen)
+	{}
 
-	index_buffer(
-		renderer::index::format::type format,
-		size_type sz,
-		resource_flag_type flags);
-	
-	renderer::index::format::type index_format() const;
-
-	GLenum format() const;
-	const_pointer buffer_offset(
-		size_type) const;
-	void bind_me() const;
+	template<
+		typename View
+	>
+	void operator()(
+		View const &v) const
+	{
+		//BOOST_FOREACH(typename View::reference r, v)
+		for(typename View::iterator it(v.begin()), end(v.end()); it != end; ++it)
+			*it = gen.operator()<typename View::value_type>();
+	}
 private:
-	view_type const view();
-	const_view_type const view() const;
-
-	renderer::index::format::type const format_;
+	Gen const gen;
 };
 
 }
 }
+}
+}
 
 #endif
-

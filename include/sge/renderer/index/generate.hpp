@@ -18,21 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index_format_stride.hpp>
-#include <sge/renderer/index_view.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_RENDERER_INDEX_GENERATE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_GENERATE_HPP_INCLUDED
 
-std::size_t sge::renderer::index_format_stride(
-	index_format::type const f)
+#include <sge/renderer/index/detail/generate_visitor.hpp>
+#include <sge/renderer/index/view.hpp>
+#include <boost/variant/apply_visitor.hpp>
+
+namespace sge
 {
-	switch(f) {
-	case index_format::index16:
-		return sizeof(index_view_16::value_type);
-	case index_format::index32:
-		return sizeof(index_view_32::value_type);
-	default:
-		throw exception(
-			SGE_TEXT("Invalid index_format in index_format_stride()!"));
-	}
+namespace renderer
+{
+namespace index
+{
+
+template<
+	typename Gen
+>
+void
+generate(
+	view const &v,
+	Gen const &gen)
+{
+	boost::apply_visitor(
+		detail::generate_visitor<Gen>(
+			gen),
+		v);
 }
+
+}
+}
+}
+
+#endif

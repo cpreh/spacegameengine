@@ -18,35 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_VIEW_FWD_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_VIEW_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_VIEW_32_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_VIEW_32_HPP_INCLUDED
 
-#include "../typeswitch.hpp"
-#include <boost/variant/variant.hpp>
+#include <sge/renderer/index/impl/basic_view.hpp>
+#include <sge/typeswitch.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace index
+{
 
-template<typename Index>
-class index_view;
+typedef detail::basic_view<uint32> view_32;
+typedef detail::basic_view<uint32 const> const_view_32;
 
-typedef index_view<uint16> index_view_16;
-typedef index_view<uint16 const> const_index_view_16;
-typedef index_view<uint32> index_view_32;
-typedef index_view<uint32 const> const_index_view_32;
-
-typedef boost::variant<
-	index_view_16,
-	index_view_32
-> dynamic_index_view;
-
-typedef boost::variant<
-	const_index_view_16,
-	const_index_view_32
-> const_dynamic_index_view;
-
+}
 }
 }
 

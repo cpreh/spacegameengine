@@ -56,11 +56,14 @@ sge::sprite::system_base::system_base(
 			renderer::resource_flags::dynamic)),
 	ib(
 		rend->create_index_buffer(
-			renderer::index_format::index16,
+			renderer::index::format::i16,
 			init_sprites * detail::indices_per_sprite,
 			renderer::resource_flags::dynamic)),
 	transform_matrix(
-		renderer::matrix_pixel_to_space<funit>(rend->screen_size())),
+		renderer::matrix_pixel_to_space<
+			funit
+		>(
+			rend->screen_size())),
 	projection_matrix(
 		math::matrix::orthogonal_xy<funit>())
 {}

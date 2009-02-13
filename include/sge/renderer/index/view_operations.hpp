@@ -21,56 +21,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_VIEW_OPERATIONS_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_VIEW_OPERATIONS_HPP_INCLUDED
 
-#include "index_view.hpp"
-#include "index_format.hpp"
-#include "../export.hpp"
+#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <sge/export.hpp>
 #include <boost/variant/static_visitor.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace index
+{
 
-struct index_view_size
-: boost::static_visitor<index_size> {
-	typedef index_size size_type;
+struct view_size
+: boost::static_visitor<size_type> {
 
-	template<typename T>
-	SGE_SYMBOL size_type operator()(T const &) const;
+	template<
+		typename T
+	>
+	SGE_SYMBOL size_type
+	operator()(
+		T const &) const;
 };
 
-struct index_view_stride
-: boost::static_visitor<index_size> {
-	typedef index_size size_type;
+struct view_stride
+: boost::static_visitor<size_type> {
 
-	template<typename T>
-	SGE_SYMBOL size_type operator()(T const &) const;
+	template<
+		typename T
+	>
+	SGE_SYMBOL size_type
+	operator()(
+		T const &) const;
 };
 
-struct index_view_data
-: boost::static_visitor<unsigned char *> {
-	typedef index_size size_type;
+struct view_format
+: boost::static_visitor<format::type> {
 
-	template<typename T>
-	SGE_SYMBOL unsigned char *operator()(T const &) const;
+	template<
+		typename T
+	>
+	SGE_SYMBOL format::type
+	operator()(
+		T const &) const;
 };
 
-struct index_view_data_const
-: boost::static_visitor<unsigned char const *> {
-	typedef index_size size_type;
-
-	template<typename T>
-	SGE_SYMBOL unsigned char const *operator()(T const &) const;
-};
-
-struct index_view_format
-: boost::static_visitor<index_format::type> {
-	typedef index_size size_type;
-
-	template<typename T>
-	SGE_SYMBOL index_format::type operator()(T const &) const;
-};
-
+}
 }
 }
 

@@ -18,45 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
 
-#include "index_format.hpp"
-#include "size_type.hpp"
-#include "index_view_fwd.hpp"
-#include "../export.hpp"
+#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace index
+{
 
-typedef size_type index_size;
+SGE_SYMBOL size_type
+format_stride(
+	format::type);
 
-template<typename Index>
-class index_view {
-public:
-	typedef index_size size_type;
-	typedef Index value_type;
-	typedef value_type *pointer;
-	typedef pointer iterator;
-
-	SGE_SYMBOL index_view(
-		pointer,
-		size_type);
-
-	SGE_SYMBOL pointer data() const;
-	SGE_SYMBOL size_type size() const;
-
-	SGE_SYMBOL iterator begin() const;
-	SGE_SYMBOL iterator end() const;
-
-	SGE_SYMBOL index_format::type format() const;
-private:
-	pointer data_;
-	size_type size_;
-};
-
+}
 }
 }
 

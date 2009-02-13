@@ -21,17 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_FILL_GEOMETRY_HPP_INCLUDED
 
-#include "vertex_format.hpp"
-#include "helper.hpp"
-#include "../../renderer/vertex_buffer.hpp"
-#include "../../renderer/index_buffer.hpp"
-#include "../../renderer/scoped_index_lock.hpp"
-#include "../../renderer/scoped_vertex_lock.hpp"
-#include "../../renderer/vf/view.hpp"
-#include "../../renderer/vf/iterator.hpp"
-#include "../../renderer/vf/vertex.hpp"
-#include "../../texture/part.hpp"
-#include "../../texture/area_texc.hpp"
+#include <sge/sprite/detail/vertex_format.hpp>
+#include <sge/sprite/detail/index_generator.hpp>
+#include <sge/sprite/detail/helper.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/index/generate.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/vertex.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/texture/area_texc.hpp>
 #include <boost/variant/get.hpp>
 
 namespace sge
@@ -41,8 +43,7 @@ namespace sprite
 namespace detail
 {
 
-template<typename It>
-void fill_geometry(
+template<typename It> void fill_geometry(
 	It begin,
 	It const end,
 	renderer::vertex_buffer_ptr const vb,
@@ -62,10 +63,10 @@ void fill_geometry(
 		vertex_format
 	> vertex_view;
 
-	index_view const indices(boost::get<index_view>(iblock.value())); // FIXME: gcc-4.4 says that dereferencing result breaks aliasing
+	//index_view const indices(boost::get<index_view>(iblock.value())); // FIXME: gcc-4.4 says that dereferencing result breaks aliasing
 	vertex_view const vertices(vblock.value());
 
-	index_view::iterator ib_it = indices.begin();
+	//index_view::iterator ib_it = indices.begin();
 
 	vertex_view::iterator vb_it = vertices.begin();
 
@@ -75,7 +76,7 @@ void fill_geometry(
 
 		if(!spr.visible())
 			continue;
-		ib_it = fill_indices(ib_it, static_cast<index_view::value_type>(vb_it - vertices.begin()));
+		//ib_it = fill_indices(ib_it, static_cast<index_view::value_type>(vb_it - vertices.begin()));
 
 		if(math::almost_zero(spr.rotation()))
 			fill_position(vb_it, spr.rect(), spr.z());
@@ -87,6 +88,10 @@ void fill_geometry(
 
 		vb_it = fill_color(vb_it, spr.color());
 	}
+
+	renderer::index::generate(
+		iblock.value(),
+		index_generator());
 }
 
 }

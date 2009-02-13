@@ -18,54 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_INDEX_GENERATOR_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_INDEX_GENERATOR_HPP_INCLUDED
 
-#include "common.hpp"
-#include "buffer_base.hpp"
-#include "vbo.hpp"
-#include <sge/renderer/index_buffer.hpp>
+#include <sge/sprite/detail/index_array.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace sprite
 {
 namespace detail
 {
-typedef buffer_base<
-	renderer::index_buffer,
-	index_buffer_type,
-	vb_ib_vbo_impl
-> index_buffer_base;
-}
 
-class index_buffer
-: public detail::index_buffer_base {
-public:
-	typedef detail::index_buffer_base base;
-	using base::size_type;
-	using base::const_pointer;
+struct index_generator {
+	index_generator()
+	:
+		index(1),
+		ptr(
+			index_array.begin())
+	{
+	}
 
-	index_buffer(
-		renderer::index::format::type format,
-		size_type sz,
-		resource_flag_type flags);
-	
-	renderer::index::format::type index_format() const;
+	template<
+		typename T
+	>
+	T operator()() const
+	{
+		T const ret(
+			static_cast<
+				T
+			>(
+				*ptr++ * index));
 
-	GLenum format() const;
-	const_pointer buffer_offset(
-		size_type) const;
-	void bind_me() const;
+		if(ptr == index_array.end())
+		{
+			ptr = index_array.begin();
+			++index;
+		}
+		return ret;
+	}
 private:
-	view_type const view();
-	const_view_type const view() const;
-
-	renderer::index::format::type const format_;
+	mutable index_array_type::value_type index;
+	mutable index_array_type::const_iterator ptr;
 };
 
 }
 }
+}
 
 #endif
-

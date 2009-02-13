@@ -111,12 +111,14 @@ void sge::ogl::device::begin_rendering()
 
 sge::renderer::index_buffer_ptr const
 sge::ogl::device::create_index_buffer(
-	renderer::index_format::type const format,
+	renderer::index::format::type const format,
 	renderer::size_type const sz,
 	renderer::resource_flag_t const flags)
 {
 	return renderer::index_buffer_ptr(
-		new ogl::index_buffer(
+		make_shared_ptr<
+			ogl::index_buffer
+		>(
 			format,
 			sz,
 			flags));

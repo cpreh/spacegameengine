@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color.hpp"
 #include "../point.hpp"
 #include "../../renderer/vf/iterator.hpp"
-#include "../../renderer/index_view.hpp"
+//#include "../../renderer/index_view.hpp"
 
 namespace sge
 {
@@ -38,7 +38,7 @@ namespace sprite
 namespace detail
 {
 
-typedef renderer::index_view_16 index_view;
+//typedef renderer::index_view_16 index_view;
 typedef renderer::vf::iterator<vertex_format> vertex_iterator;
 
 vertex_iterator const
@@ -72,10 +72,12 @@ fill_color(
 	vertex_iterator it,
 	color col);
 
+/*
 index_view::iterator
 fill_indices(
 	index_view::iterator it,
 	index_view::value_type start);
+*/
 
 }
 }

@@ -18,18 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/workarounds.hpp>
+#include <sge/renderer/index/view_16.hpp>
+#include <sge/renderer/index/impl/basic_view_impl.hpp>
+#include <sge/typeswitch.hpp>
 
-#ifndef SGE_MSVC_STATIC_CONST_INTEGRAL_DEFINITION_BUG
-
-sge::renderer::size_type const
-sge::renderer::index_buffer::npos;
-
-#endif
-
-sge::renderer::index_buffer::index_buffer()
-{}
-
-sge::renderer::index_buffer::~index_buffer()
-{}
+template class sge::renderer::index::detail::basic_view<sge::uint16>;
+template class sge::renderer::index::detail::basic_view<sge::uint16 const>;

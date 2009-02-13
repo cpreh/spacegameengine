@@ -18,33 +18,74 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_MAKE_INDEX_VIEW_HPP_INCLUDED
-#define SGE_RENDERER_MAKE_INDEX_VIEW_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DETAIL_FOTMAT_TRAITS_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DETAIL_FOTMAT_TRAITS_HPP_INCLUDED
 
-#include "index_view.hpp"
-#include "index_format.hpp"
-#include <sge/renderer/size_type.hpp>
-#include <sge/export.hpp>
-#include <cstddef>
+#include <sge/renderer/index/format.hpp>
+#include <sge/typeswitch.hpp>
+#include <boost/mpl/integral_c.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace index
+{
+namespace detail
+{
 
-SGE_SYMBOL dynamic_index_view const
-make_index_view(
-	unsigned char *data,
-	size_type sz,
-	index_format::type);
+template<
+	typename
+>
+struct format_traits;
 
-SGE_SYMBOL const_dynamic_index_view const
-make_index_view(
-	unsigned char const *data,
-	size_type sz,
-	index_format::type);
+template<>
+struct format_traits<
+	uint16	
+>
+:
+boost::mpl::integral_c<
+	format::type,
+	format::i16
+>
+{};
 
+template<>
+struct format_traits<
+	uint16 const
+>
+:
+format_traits<
+	uint16
+>
+{};
+
+template<>
+struct format_traits<
+	uint32	
+>
+:
+boost::mpl::integral_c<
+	format::type,
+	format::i32
+>
+{};
+
+template<>
+struct format_traits<
+	uint32 const
+>
+:
+format_traits<
+	uint32
+>
+{};
+
+}
+}
 }
 }
 
 #endif
+
+

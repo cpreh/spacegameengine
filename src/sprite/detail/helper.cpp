@@ -146,6 +146,7 @@ sge::sprite::detail::fill_color(
 	return it;
 }
 
+/*
 sge::sprite::detail::index_view::iterator
 sge::sprite::detail::fill_indices(
 	index_view::iterator it,
@@ -159,4 +160,4 @@ sge::sprite::detail::fill_indices(
 	(*it++) = static_cast<index_view::value_type>(start + 3);
 
 	return it;
-}
+}*/

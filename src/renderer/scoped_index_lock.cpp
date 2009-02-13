@@ -29,8 +29,8 @@ sge::renderer::scoped_index_lock_wrapper const
 sge::renderer::make_scoped_lock(
 	index_buffer_ptr const t,
 	lock_flag_t const flags,
-	index_buffer::size_type const first,
-	index_buffer::size_type const count)
+	size_type const first,
+	size_type const count)
 {
 	return scoped_index_lock_wrapper(
 		t,
@@ -43,8 +43,8 @@ sge::renderer::make_scoped_lock(
 sge::renderer::const_scoped_index_lock_wrapper const
 sge::renderer::make_scoped_lock(
 	const_index_buffer_ptr const t,
-	index_buffer::size_type const first,
-	index_buffer::size_type const count)
+	size_type const first,
+	size_type const count)
 {
 	return const_scoped_index_lock_wrapper(
 		t,

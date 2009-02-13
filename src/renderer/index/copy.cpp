@@ -18,23 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_STRIDE_HPP_INCLUDED
+#include <sge/renderer/index/copy.hpp>
+#include <sge/exception.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <sge/text.hpp>
+#include <algorithm>
 
-#include "index_format.hpp"
-#include "../export.hpp"
-#include <cstddef>
-
-namespace sge
-{
-namespace renderer
+namespace
 {
 
-// FIXME: fix the std::size_t here!
-SGE_SYMBOL std::size_t index_format_stride(
-	index_format::type);
+struct copy_visitor : boost::static_visitor<> {
+	
+	template<
+		typename T
+	>
+	void operator()(
+		T const &src,
+		T &dest) const
+	{
+		std::copy(
+			src.begin(),
+			src.end(),
+			dest.begin());
+	}
+
+	template<
+		typename T,
+		typename U
+	>
+	void operator()(
+		T,
+		U) const
+	{
+		throw sge::exception(
+			SGE_TEXT("Incompatible index::views in index::copy!"));
+	}
+};
 
 }
-}
 
-#endif
+void
+sge::renderer::index::copy(
+	const_view const &src,
+	view const &dest)
+{
+	boost::apply_visitor(
+		copy_visitor(),
+		src,
+		dest);
+}

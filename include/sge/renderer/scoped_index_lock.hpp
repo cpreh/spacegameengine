@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "index_buffer_fwd.hpp"
 #include "index_buffer.hpp"
-#include "index_view.hpp"
+#include <sge/renderer/index/view.hpp>
 #include "scoped_lock_wrapper.hpp"
 #include "scoped_lock.hpp"
 #include "lock_flags.hpp"
@@ -37,22 +37,22 @@ namespace renderer
 
 typedef scoped_lock<
 	index_buffer_ptr,
-	dynamic_index_view
+	index::view
 > scoped_index_lock;
 
 typedef scoped_lock<
 	const_index_buffer_ptr,
-	const_dynamic_index_view
+	index::const_view
 > const_scoped_index_lock;
 
 typedef scoped_lock_wrapper<
 	index_buffer_ptr,
-	dynamic_index_view
+	index::view
 > scoped_index_lock_wrapper;
 
 typedef scoped_lock_wrapper<
 	const_index_buffer_ptr,
-	const_dynamic_index_view
+	index::const_view
 > const_scoped_index_lock_wrapper;
 
 SGE_SYMBOL scoped_index_lock_wrapper const

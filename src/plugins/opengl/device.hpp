@@ -152,7 +152,7 @@ public:
 
 	renderer::index_buffer_ptr const
 	create_index_buffer(
-		renderer::index_format::type,
+		renderer::index::format::type,
 		renderer::size_type sz,
 		renderer::resource_flag_t flags);
 

@@ -18,18 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/workarounds.hpp>
+#include <sge/sprite/detail/index_array.hpp>
 
-#ifndef SGE_MSVC_STATIC_CONST_INTEGRAL_DEFINITION_BUG
-
-sge::renderer::size_type const
-sge::renderer::index_buffer::npos;
-
-#endif
-
-sge::renderer::index_buffer::index_buffer()
-{}
-
-sge::renderer::index_buffer::~index_buffer()
-{}
+sge::sprite::detail::index_array_type const
+sge::sprite::detail::index_array = { {
+	0,
+	1,
+	2,
+	0,
+	2,
+	3
+} };

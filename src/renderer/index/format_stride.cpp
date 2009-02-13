@@ -18,23 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
+#include <sge/renderer/index/format_stride.hpp>
+#include <sge/renderer/index/view.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-namespace sge
+sge::renderer::size_type
+sge::renderer::index::format_stride(
+	format::type const f)
 {
-namespace renderer
-{
-
-namespace index_format
-{
-	enum type {
-		index16,
-		index32
-	};
+	switch(f) {
+	case format::i16:
+		return sizeof(view_16::value_type);
+	case format::i32:
+		return sizeof(view_32::value_type);
+	default:
+		throw exception(
+			SGE_TEXT("Invalid index::format in index::format_stride()!"));
+	}
 }
-
-}
-}
-
-#endif

@@ -18,54 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DETAIL_BASIC_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DETAIL_BASIC_VIEW_HPP_INCLUDED
 
-#include "common.hpp"
-#include "buffer_base.hpp"
-#include "vbo.hpp"
-#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
-namespace ogl
+namespace renderer
+{
+namespace index
 {
 namespace detail
 {
-typedef buffer_base<
-	renderer::index_buffer,
-	index_buffer_type,
-	vb_ib_vbo_impl
-> index_buffer_base;
-}
 
-class index_buffer
-: public detail::index_buffer_base {
+template<
+	typename Index
+>
+class basic_view {
 public:
-	typedef detail::index_buffer_base base;
-	using base::size_type;
-	using base::const_pointer;
+	typedef Index value_type;
+	typedef value_type &reference;
+	typedef value_type *pointer;
+	typedef pointer iterator;
 
-	index_buffer(
-		renderer::index::format::type format,
-		size_type sz,
-		resource_flag_type flags);
-	
-	renderer::index::format::type index_format() const;
+	SGE_SYMBOL basic_view(
+		pointer,
+		size_type);
 
-	GLenum format() const;
-	const_pointer buffer_offset(
-		size_type) const;
-	void bind_me() const;
+	SGE_SYMBOL pointer data() const;
+	SGE_SYMBOL size_type size() const;
+
+	SGE_SYMBOL iterator begin() const;
+	SGE_SYMBOL iterator end() const;
+
+	SGE_SYMBOL index::format::type format() const;
 private:
-	view_type const view();
-	const_view_type const view() const;
-
-	renderer::index::format::type const format_;
+	pointer data_;
+	size_type size_;
 };
 
 }
 }
+}
+}
 
 #endif
-
