@@ -63,10 +63,7 @@ template<typename It> void fill_geometry(
 		vertex_format
 	> vertex_view;
 
-	//index_view const indices(boost::get<index_view>(iblock.value())); // FIXME: gcc-4.4 says that dereferencing result breaks aliasing
 	vertex_view const vertices(vblock.value());
-
-	//index_view::iterator ib_it = indices.begin();
 
 	vertex_view::iterator vb_it = vertices.begin();
 
