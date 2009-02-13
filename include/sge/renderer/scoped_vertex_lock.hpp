@@ -20,50 +20,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_VERTEX_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_VERTEX_LOCK_HPP_INCLUDED
 
-#include "vertex_buffer_fwd.hpp"
-#include "vertex_buffer.hpp"
-#include "scoped_lock_wrapper.hpp"
-#include "scoped_lock.hpp"
-#include "vf/dynamic_view.hpp"
-#include "../export.hpp"
+#include <sge/renderer/detail/scoped_buffer_lock.hpp>
+#include <sge/renderer/detail/const_scoped_buffer_lock.hpp>
+#include <sge/renderer/vf/dynamic_view.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef scoped_lock<
+typedef detail::scoped_buffer_lock<
 	vertex_buffer_ptr,
 	vf::dynamic_view
 > scoped_vertex_lock;
 
-typedef scoped_lock<
+typedef detail::const_scoped_buffer_lock<
 	const_vertex_buffer_ptr,
 	vf::const_dynamic_view
 > const_scoped_vertex_lock;
-
-typedef scoped_lock_wrapper<
-	vertex_buffer_ptr,
-	vf::dynamic_view
-> scoped_vertex_lock_wrapper;
-
-typedef scoped_lock_wrapper<
-	const_vertex_buffer_ptr,
-	vf::const_dynamic_view
-> const_scoped_vertex_lock_wrapper;
-
-SGE_SYMBOL scoped_vertex_lock_wrapper const
-make_scoped_lock(
-	vertex_buffer_ptr t,
-	lock_flag_t flags,
-	size_type first = 0,
-	size_type count = vertex_buffer::npos);
-
-SGE_SYMBOL const_scoped_vertex_lock_wrapper const
-make_scoped_lock(
-	const_vertex_buffer_ptr t,
-	size_type first = 0,
-	size_type count = vertex_buffer::npos);
 
 }
 }

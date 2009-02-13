@@ -18,20 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/impl/scoped_buffer_lock_impl.hpp>
-#include <sge/renderer/impl/const_scoped_buffer_lock_impl.hpp>
-#include <sge/renderer/index_buffer.hpp>
+#ifndef SGE_RENDERER_DETAIL_SCOPED_BUFFER_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_DETAIL_SCOPED_BUFFER_LOCK_HPP_INCLUDED
+
+#include <sge/renderer/detail/npos.hpp>
+#include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
 
-template SGE_SYMBOL class
-sge::renderer::detail::scoped_buffer_lock<
-	sge::renderer::index_buffer_ptr,
-	sge::renderer::index::view
->;
+namespace sge
+{
+namespace renderer
+{
+namespace detail
+{
 
-template SGE_SYMBOL class
-sge::renderer::detail::const_scoped_buffer_lock<
-	sge::renderer::const_index_buffer_ptr,
-	sge::renderer::index::const_view
->;
+template<
+	typename Ptr,
+	typename View
+>
+class scoped_buffer_lock {
+	SGE_NONCOPYABLE(scoped_buffer_lock)
+public:
+	SGE_SYMBOL scoped_buffer_lock(
+		Ptr,
+		lock_flag_t,
+		size_type first = 0,
+		size_type count = npos);
+	
+	SGE_SYMBOL View const
+	value() const;
+
+	SGE_SYMBOL ~scoped_buffer_lock();
+private:
+	Ptr const ptr;
+	View const view;
+};
+
+}
+}
+}
+
+#endif

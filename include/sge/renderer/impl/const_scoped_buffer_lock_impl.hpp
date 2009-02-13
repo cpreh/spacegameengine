@@ -18,20 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_index_lock.hpp>
-#include <sge/renderer/impl/scoped_buffer_lock_impl.hpp>
-#include <sge/renderer/impl/const_scoped_buffer_lock_impl.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/export.hpp>
+#ifndef SGE_RENDERER_IMPL_CONST_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
+#define SGE_RENDERER_IMPL_CONST_SCOPED_BUFFER_LOCK_IMPL_HPP_INCLUDED
 
-template SGE_SYMBOL class
-sge::renderer::detail::scoped_buffer_lock<
-	sge::renderer::index_buffer_ptr,
-	sge::renderer::index::view
->;
+#include <sge/renderer/detail/const_scoped_buffer_lock.hpp>
 
-template SGE_SYMBOL class
-sge::renderer::detail::const_scoped_buffer_lock<
-	sge::renderer::const_index_buffer_ptr,
-	sge::renderer::index::const_view
->;
+template<
+	typename Ptr,
+	typename View
+>
+sge::renderer::detail::const_scoped_buffer_lock<Ptr, View>::const_scoped_buffer_lock(
+	Ptr const ptr,
+	size_type const first,
+	size_type const count)
+:
+	ptr(ptr),
+	view(
+		ptr->lock(
+			first,
+			count))
+{}
+
+template<
+	typename Ptr,
+	typename View
+>
+View const
+sge::renderer::detail::const_scoped_buffer_lock<Ptr, View>::value() const
+{
+	return view;
+}
+
+template<
+	typename Ptr,
+	typename View
+>
+sge::renderer::detail::const_scoped_buffer_lock<Ptr, View>::~const_scoped_buffer_lock()
+{
+	ptr->unlock();
+}
+
+#endif

@@ -54,9 +54,8 @@ void fill_geometry(
 	renderer::index_buffer_ptr const ib)
 {
 	renderer::scoped_vertex_lock const vblock(
-		renderer::make_scoped_lock(
-			vb,
-			renderer::lock_flags::writeonly));
+		vb,
+		renderer::lock_flags::writeonly);
 
 	typedef renderer::vf::view<
 		vertex_format
@@ -90,12 +89,10 @@ void fill_geometry(
 
 	renderer::index::generate(
 		renderer::scoped_index_lock(
-			renderer::make_scoped_lock(
-				ib,
-				renderer::lock_flags::writeonly,
-				0,
-				count * detail::indices_per_sprite
-			)
+			ib,
+			renderer::lock_flags::writeonly,
+			0,
+			count * detail::indices_per_sprite
 		).value(),
 		index_generator());
 }

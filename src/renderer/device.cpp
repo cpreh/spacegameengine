@@ -78,9 +78,8 @@ sge::renderer::device::create_vertex_buffer(
 			flags));
 	
 	scoped_vertex_lock const lock(
-		make_scoped_lock(
-			vb,
-			lock_flags::writeonly));
+		vb,
+		lock_flags::writeonly);
 	
 	copy_n(
 		view.data(),
@@ -109,23 +108,12 @@ sge::renderer::device::create_index_buffer(
 			flags));
 	
 	scoped_index_lock const lock(
-		make_scoped_lock(
-			ib,
-			lock_flags::writeonly));
+		ib,
+		lock_flags::writeonly);
 	
 	index::copy(
 		view,
 		lock.value());
-	/*
-		boost::apply_visitor(
-			index_view_data_const(),
-			view),
-		sz * boost::apply_visitor(
-			index_view_stride(),
-			view),
-		boost::apply_visitor(
-			index_view_data(),
-			lock.value()));*/
 	
 	return ib;
 }

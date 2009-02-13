@@ -76,9 +76,8 @@ try
 
 	{
 		sge::renderer::scoped_vertex_lock const vblock(
-			sge::renderer::make_scoped_lock(
-				vb,
-				sge::renderer::lock_flags::writeonly));
+			vb,
+			sge::renderer::lock_flags::writeonly);
 
 		typedef sge::renderer::vf::view<
 			format
