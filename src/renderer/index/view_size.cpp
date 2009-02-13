@@ -18,56 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_VIEW_OPERATIONS_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_VIEW_OPERATIONS_HPP_INCLUDED
-
-#include <sge/renderer/index/view.hpp>
-#include <sge/renderer/index/format.hpp>
-#include <sge/export.hpp>
+#include <sge/renderer/index/view_size.hpp>
 #include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace
 {
 
-struct view_size
-: boost::static_visitor<size_type> {
-
+struct visitor
+: boost::static_visitor<
+	sge::renderer::size_type
+> {
 	template<
 		typename T
 	>
-	SGE_SYMBOL size_type
-	operator()(
-		T const &) const;
-};
-
-struct view_stride
-: boost::static_visitor<size_type> {
-
-	template<
-		typename T
-	>
-	SGE_SYMBOL size_type
-	operator()(
-		T const &) const;
-};
-
-struct view_format
-: boost::static_visitor<format::type> {
-
-	template<
-		typename T
-	>
-	SGE_SYMBOL format::type
+	sge::renderer::size_type
 	operator()(
 		T const &) const;
 };
 
 }
-}
+
+sge::renderer::size_type
+sge::renderer::index::view_size(
+	const_view const &v)
+{
+	return boost::apply_visitor(
+		visitor(),
+		v);
 }
 
-#endif
+namespace
+{
+
+template<
+	typename T
+>
+sge::renderer::size_type
+visitor::operator()(
+	T const &t) const
+{
+	return t.size();
+}
+
+}

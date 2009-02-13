@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/index/view_operations.hpp>
+#include <sge/renderer/index/view_format.hpp>
+#include <sge/renderer/index/view_size.hpp>
 #include <sge/renderer/index/copy.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
@@ -93,17 +94,12 @@ sge::renderer::device::create_index_buffer(
 	index::const_view const &view,
 	resource_flag_t const flags)
 {
-	size_type const sz(
-		boost::apply_visitor(
-			index::view_size(),
-			view));
-
 	index_buffer_ptr const ib(
 		create_index_buffer(
-			boost::apply_visitor(
-				index::view_format(),
+			index::view_format(
 				view),
-			sz,
+			index::view_size(
+				view),
 			flags));
 	
 	scoped_index_lock const lock(
