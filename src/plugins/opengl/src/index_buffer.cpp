@@ -83,12 +83,12 @@ sge::ogl::index_buffer::view()
 		return renderer::index::view_16(
 			reinterpret_cast<renderer::index::view_16::pointer>(
 				data()),
-			lock_size());
+			lock_size() / stride());
 	case renderer::index::format::i32:
 		return renderer::index::view_32(
 			reinterpret_cast<renderer::index::view_32::pointer>(
 				data()),
-			lock_size());
+			lock_size() / stride());
 	default:
 		throw exception(
 			SGE_TEXT("Invalid format in ogl::index_buffer::view()!"));
@@ -103,12 +103,12 @@ sge::ogl::index_buffer::view() const
 		return renderer::index::const_view_16(
 			reinterpret_cast<renderer::index::const_view_16::pointer>(
 				data()),
-			lock_size());
+			lock_size() / stride());
 	case renderer::index::format::i32:
 		return renderer::index::const_view_32(
 			reinterpret_cast<renderer::index::const_view_32::pointer>(
 				data()),
-			lock_size());
+			lock_size() / stride());
 	default:
 		throw exception(
 			SGE_TEXT("Invalid stride in ogl::index_buffer::view()!"));

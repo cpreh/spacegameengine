@@ -55,11 +55,11 @@ protected:
 	index_buffer() const;
 private:
 	sge::renderer::device_ptr const  rend;
-	sge::renderer::vertex_buffer_ptr vb;
-	sge::renderer::index_buffer_ptr  ib;
 	matrix const
 		transform_matrix,
 		projection_matrix;
+	sge::renderer::vertex_buffer_ptr vb;
+	sge::renderer::index_buffer_ptr  ib;
 };
 
 }
