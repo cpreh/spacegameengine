@@ -26,8 +26,8 @@ sge::renderer::scoped_vertex_lock_wrapper const
 sge::renderer::make_scoped_lock(
 	vertex_buffer_ptr const t,
 	lock_flag_t const flags,
-	vertex_buffer::size_type const first,
-	vertex_buffer::size_type const count)
+	size_type const first,
+	size_type const count)
 {
 	return scoped_vertex_lock_wrapper(
 		t,
@@ -40,8 +40,8 @@ sge::renderer::make_scoped_lock(
 sge::renderer::const_scoped_vertex_lock_wrapper const
 sge::renderer::make_scoped_lock(
 	const_vertex_buffer_ptr const t,
-	vertex_buffer::size_type const first,
-	vertex_buffer::size_type const count)
+	size_type const first,
+	size_type const count)
 {
 	return const_scoped_vertex_lock_wrapper(
 		t,

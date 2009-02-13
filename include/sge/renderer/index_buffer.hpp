@@ -43,7 +43,7 @@ public:
 	typedef index::view                    view_type;
 	typedef index::const_view              const_view_type;
 
-	static size_type const npos = static_cast<size_type>(-1);
+	SGE_SYMBOL static size_type const npos;
 
 	virtual view_type const lock(
 		lock_flag_type flags,
@@ -59,7 +59,7 @@ public:
 	virtual size_type size() const = 0;
 	virtual resource_flag_t flags() const = 0;
 
-	virtual index::format::type index_format() const = 0;
+	virtual index::format::type format() const = 0;
 
 	SGE_SYMBOL virtual ~index_buffer();
 };

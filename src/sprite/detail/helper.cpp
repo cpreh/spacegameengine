@@ -145,19 +145,3 @@ sge::sprite::detail::fill_color(
 		(*it++).set<vertex_color>(col);
 	return it;
 }
-
-/*
-sge::sprite::detail::index_view::iterator
-sge::sprite::detail::fill_indices(
-	index_view::iterator it,
-	index_view::value_type const start)
-{
-	(*it++) = static_cast<index_view::value_type>(start + 0);
-	(*it++) = static_cast<index_view::value_type>(start + 1);
-	(*it++) = static_cast<index_view::value_type>(start + 2);
-	(*it++) = static_cast<index_view::value_type>(start + 0);
-	(*it++) = static_cast<index_view::value_type>(start + 2);
-	(*it++) = static_cast<index_view::value_type>(start + 3);
-
-	return it;
-}*/

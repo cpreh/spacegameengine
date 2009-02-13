@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_INDEX_GENERATOR_HPP_INCLUDED
 
 #include <sge/sprite/detail/index_array.hpp>
+#include <sge/sprite/detail/constants.hpp>
 
 namespace sge
 {
@@ -33,7 +34,7 @@ namespace detail
 struct index_generator {
 	index_generator()
 	:
-		index(1),
+		index(0),
 		ptr(
 			index_array.begin())
 	{
@@ -48,12 +49,17 @@ struct index_generator {
 			static_cast<
 				T
 			>(
-				*ptr++ * index));
+				*ptr++ + index
+			)
+		);
 
 		if(ptr == index_array.end())
 		{
 			ptr = index_array.begin();
-			++index;
+			index += static_cast<
+				index_array_type::value_type
+			>(
+				vertices_per_sprite);
 		}
 		return ret;
 	}

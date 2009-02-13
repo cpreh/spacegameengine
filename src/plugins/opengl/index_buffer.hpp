@@ -51,11 +51,14 @@ public:
 		size_type sz,
 		resource_flag_type flags);
 	
-	renderer::index::format::type index_format() const;
+	renderer::index::format::type format() const;
 
-	GLenum format() const;
-	const_pointer buffer_offset(
+	GLenum gl_format() const;
+
+	const_pointer
+	buffer_offset(
 		size_type) const;
+
 	void bind_me() const;
 private:
 	view_type const view();

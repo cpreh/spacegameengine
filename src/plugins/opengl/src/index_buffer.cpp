@@ -44,12 +44,12 @@ sge::ogl::index_buffer::index_buffer(
 {}
 
 sge::renderer::index::format::type
-sge::ogl::index_buffer::index_format() const
+sge::ogl::index_buffer::format() const
 {
 	return format_;
 }
 
-GLenum sge::ogl::index_buffer::format() const
+GLenum sge::ogl::index_buffer::gl_format() const
 {
 	switch(format_) {
 	case renderer::index::format::i16:
@@ -78,7 +78,7 @@ sge::renderer::index::view const
 sge::ogl::index_buffer::view()
 {
 	// FIXME: allocate the buffer so type punning is not needed!
-	switch(index_format()) {
+	switch(format()) {
 	case renderer::index::format::i16:
 		return renderer::index::view_16(
 			reinterpret_cast<renderer::index::view_16::pointer>(
@@ -98,7 +98,7 @@ sge::ogl::index_buffer::view()
 sge::renderer::index::const_view const
 sge::ogl::index_buffer::view() const
 {
-	switch(index_format()) {
+	switch(format()) {
 	case renderer::index::format::i16:
 		return renderer::index::const_view_16(
 			reinterpret_cast<renderer::index::const_view_16::pointer>(

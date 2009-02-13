@@ -56,14 +56,14 @@ SGE_SYMBOL scoped_vertex_lock_wrapper const
 make_scoped_lock(
 	vertex_buffer_ptr t,
 	lock_flag_t flags,
-	vertex_buffer::size_type first = 0,
-	vertex_buffer::size_type count = vertex_buffer::npos);
+	size_type first = 0,
+	size_type count = vertex_buffer::npos);
 
 SGE_SYMBOL const_scoped_vertex_lock_wrapper const
 make_scoped_lock(
 	const_vertex_buffer_ptr t,
-	vertex_buffer::size_type first = 0,
-	vertex_buffer::size_type count = vertex_buffer::npos);
+	size_type first = 0,
+	size_type count = vertex_buffer::npos);
 
 }
 }

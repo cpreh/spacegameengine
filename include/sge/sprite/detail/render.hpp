@@ -59,6 +59,7 @@ void render(
 			continue;
 
 		texture::const_part_ptr const vtex = cur->texture();
+
 		rend->texture(
 			vtex
 			? vtex->texture()
@@ -73,6 +74,7 @@ void render(
 			renderer::indexed_primitive_type::triangle,
 			num_objects * 2,
 			first_index);
+
 		first_index += num_objects * detail::indices_per_sprite;
 	}
 

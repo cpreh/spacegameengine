@@ -253,7 +253,7 @@ void sge::ogl::device::render(
 		prim_type,
 		static_cast<GLsizei>(
 			renderer::indices_per_primitive(ptype) * pcount),
-		gl_ib.format(),
+		gl_ib.gl_format(),
 		gl_ib.buffer_offset(
 			first_index));
 }

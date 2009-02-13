@@ -23,10 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "lock_flags.hpp"
 #include "resource_flags.hpp"
-#include "vf/vertex_size.hpp"
 #include "vf/dynamic_view.hpp"
-#include "../shared_ptr.hpp"
-#include "../export.hpp"
+#include <sge/renderer/size_type.hpp>
+#include <sge/export.hpp>
 #include <boost/noncopyable.hpp>
 
 namespace sge
@@ -41,15 +40,13 @@ class dynamic_format;
 
 class SGE_CLASS_SYMBOL vertex_buffer : boost::noncopyable {
 public:
-	typedef vf::vertex_size         size_type;
-	
 	typedef resource_flag_t         resource_flag_type;
 	typedef lock_flag_t             lock_flag_type;
 
 	typedef vf::dynamic_view        view_type;
 	typedef vf::const_dynamic_view  const_view_type;
 
-	static const size_type npos = static_cast<size_type>(-1);
+	SGE_SYMBOL static size_type const npos;
 
 	virtual view_type const lock(
 		lock_flag_type flags,
