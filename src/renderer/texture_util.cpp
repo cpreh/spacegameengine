@@ -31,12 +31,11 @@ void sge::renderer::sub_data(
 	texture_pos_type const &p)
 {
 	scoped_texture_lock const lock_(
-		sge::renderer::make_scoped_lock(
-			tex,
-			lock_rect(
-				p,
-				image_view_dim(view)),
-			lock_flags::writeonly));
+		tex,
+		lock_rect(
+			p,
+			image_view_dim(view)),
+		lock_flags::writeonly);
 
 	copy_and_convert_pixels(
 		view,

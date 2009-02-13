@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/texture_software.hpp>
 #include <sge/renderer/color_format_stride.hpp>
-#include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/subimage_view.hpp>
 #include <sge/container/raw_vector_impl.hpp>

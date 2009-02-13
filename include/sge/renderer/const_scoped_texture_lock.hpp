@@ -18,22 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_INDEX_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_CONST_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/detail/scoped_buffer_lock.hpp>
-#include <sge/renderer/index/view.hpp>
-#include <sge/renderer/index_buffer_fwd.hpp>
+#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/noncopyable.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef detail::scoped_buffer_lock<
-	index_buffer_ptr,
-	index::view
-> scoped_index_lock;
+class const_scoped_texture_lock {
+	SGE_NONCOPYABLE(const_scoped_texture_lock)
+public:
+	SGE_SYMBOL const_scoped_texture_lock(
+		const_texture_ptr,
+		lock_rect const &);
+	
+	SGE_SYMBOL explicit const_scoped_texture_lock(
+		const_texture_ptr);
+
+	SGE_SYMBOL const_image_view const
+	value() const;
+
+	SGE_SYMBOL ~const_scoped_texture_lock();
+private:
+	const_texture_ptr const tex;
+	const_image_view const view;
+};
 
 }
 }

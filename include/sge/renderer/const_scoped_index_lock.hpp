@@ -18,39 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_CONST_SCOPED_INDEX_LOCK_HPP_INCLUDED
 
-#include "scoped_lock_wrapper.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/renderer/detail/const_scoped_buffer_lock.hpp>
+#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index_buffer_fwd.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-template<typename T, typename Value>
-class scoped_lock : boost::noncopyable {
-public:
-	typedef scoped_lock_wrapper<
-		T,
-		Value
-	> wrapper;
-
-	SGE_SYMBOL explicit scoped_lock(
-		wrapper const& w);
-
-	SGE_SYMBOL void release();
-
-	SGE_SYMBOL Value const value() const;
-
-	SGE_SYMBOL ~scoped_lock();
-private:
-	void unlock();
-
-	wrapper w;
-};
+typedef detail::const_scoped_buffer_lock<
+	const_index_buffer_ptr,
+	index::const_view
+> const_scoped_index_lock;
 
 }
 }

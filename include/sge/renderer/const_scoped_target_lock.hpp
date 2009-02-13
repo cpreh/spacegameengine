@@ -18,39 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_TARGET_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_TARGET_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONST_SCOPED_TARGET_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_CONST_SCOPED_TARGET_LOCK_HPP_INCLUDED
 
-#include "target_fwd.hpp"
-#include "image_view.hpp"
-#include "scoped_lock_wrapper.hpp"
-#include "scoped_lock.hpp"
-#include "lock_rect.hpp"
-#include "../export.hpp"
+#include <sge/renderer/target_fwd.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/noncopyable.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef scoped_lock<
-	const_target_ptr,
-	const_image_view
-> const_scoped_target_lock;
+class const_scoped_target_lock {
+	SGE_NONCOPYABLE(const_scoped_target_lock)
+public:	
+	SGE_SYMBOL explicit const_scoped_target_lock(
+		const_target_ptr);
 
-typedef scoped_lock_wrapper<
-	const_target_ptr,
-	const_image_view
-> const_scoped_target_lock_wrapper;
+	SGE_SYMBOL const_scoped_target_lock(
+		const_target_ptr,
+		lock_rect const &);
 
-SGE_SYMBOL const_scoped_target_lock_wrapper const
-make_scoped_lock(
-	const_target_ptr);
+	SGE_SYMBOL const_image_view const
+	value() const;
 
-SGE_SYMBOL const_scoped_target_lock_wrapper const
-make_scoped_lock(
-	const_target_ptr,
-	lock_rect const &);
+	SGE_SYMBOL ~const_scoped_target_lock();
+private:
+	const_target_ptr const target;
+	const_image_view const view;
+};
 
 }
 }

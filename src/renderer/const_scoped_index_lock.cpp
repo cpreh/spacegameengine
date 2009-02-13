@@ -18,42 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_LOCK_WRAPPER_IMPL_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_LOCK_WRAPPER_IMPL_HPP_INCLUDED
+#include <sge/renderer/const_scoped_index_lock.hpp>
+#include <sge/renderer/impl/const_scoped_buffer_lock_impl.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/export.hpp>
 
-#include "../scoped_lock_wrapper.hpp"
-
-template<typename T, typename Value>
-sge::renderer::scoped_lock_wrapper<T, Value>::scoped_lock_wrapper(
-	T const t,
-	Value const &v)
-:
-	t(t),
-	v(v)
-{}
-
-template<typename T, typename Value>
-bool sge::renderer::scoped_lock_wrapper<T, Value>::set() const
-{
-	return t;
-}
-
-template<typename T, typename Value>
-void sge::renderer::scoped_lock_wrapper<T, Value>::unlock()
-{
-	t->unlock();
-}
-
-template<typename T, typename Value>
-void sge::renderer::scoped_lock_wrapper<T, Value>::reset()
-{
-	t.reset();
-}
-
-template<typename T, typename Value>
-Value const sge::renderer::scoped_lock_wrapper<T, Value>::value() const
-{
-	return v;
-}
-
-#endif
+template SGE_SYMBOL class
+sge::renderer::detail::const_scoped_buffer_lock<
+	sge::renderer::const_index_buffer_ptr,
+	sge::renderer::index::const_view
+>;

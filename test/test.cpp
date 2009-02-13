@@ -127,14 +127,13 @@ try
 			sge::renderer::resource_flags::readable));
 	{
 		sge::renderer::scoped_texture_lock const lock_(
-			sge::renderer::make_scoped_lock(
-				testtex,
-				sge::renderer::lock_rect(
-					100,
-					100,
-					200,
-					200),
-				sge::renderer::lock_flags::readwrite));
+			testtex,
+			sge::renderer::lock_rect(
+				100,
+				100,
+				200,
+				200),
+			sge::renderer::lock_flags::readwrite);
 
 		sge::renderer::fill_pixels(
 			sge::renderer::subimage_view(

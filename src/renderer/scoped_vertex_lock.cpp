@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/impl/scoped_buffer_lock_impl.hpp>
-#include <sge/renderer/impl/const_scoped_buffer_lock_impl.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/export.hpp>
 
@@ -28,10 +27,4 @@ template SGE_SYMBOL class
 sge::renderer::detail::scoped_buffer_lock<
 	sge::renderer::vertex_buffer_ptr,
 	sge::renderer::vf::dynamic_view
->;
-
-template SGE_SYMBOL class
-sge::renderer::detail::const_scoped_buffer_lock<
-	sge::renderer::const_vertex_buffer_ptr,
-	sge::renderer::vf::const_dynamic_view
 >;

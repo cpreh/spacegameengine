@@ -19,53 +19,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/detail/instantiate_scoped_lock.hpp>
 #include <sge/renderer/texture.hpp>
 
-sge::renderer::scoped_texture_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	texture_ptr const t,
+sge::renderer::scoped_texture_lock::scoped_texture_lock(
+	texture_ptr const tex,
 	lock_flag_t const flags)
-{
-	return scoped_texture_lock_wrapper(
-		t,
-		t->lock(flags));
-}
+:
+	tex(tex),
+	view(
+		tex->lock(
+			flags))
+{}
 
-sge::renderer::scoped_texture_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	texture_ptr const t,
-	lock_rect const &r,
+sge::renderer::scoped_texture_lock::scoped_texture_lock(
+	texture_ptr const tex,
+	lock_rect const &rect,
 	lock_flag_t const flags)
+:
+	tex(tex),
+	view(
+		tex->lock(
+			rect,
+			flags))
+{}
+
+sge::renderer::image_view const
+sge::renderer::scoped_texture_lock::value() const
 {
-	return scoped_texture_lock_wrapper(
-		t,
-		t->lock(r, flags));
+	return view;
 }
 
-sge::renderer::const_scoped_texture_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	const_texture_ptr const t,
-	lock_rect const &r)
+sge::renderer::scoped_texture_lock::~scoped_texture_lock()
 {
-	return const_scoped_texture_lock_wrapper(
-		t,
-		t->lock(r));
+	tex->unlock();
 }
-
-sge::renderer::const_scoped_texture_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	const_texture_ptr const t)
-{
-	return const_scoped_texture_lock_wrapper(
-		t,
-		t->lock());
-}
-
-SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(
-	sge::renderer::texture_ptr,
-	sge::renderer::image_view)
-
-SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(
-	sge::renderer::const_texture_ptr,
-	sge::renderer::const_image_view)

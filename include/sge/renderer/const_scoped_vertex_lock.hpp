@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/scoped_target_lock.hpp>
-#include <sge/renderer/detail/instantiate_scoped_lock.hpp>
-#include <sge/renderer/target.hpp>
+#ifndef SGE_RENDERER_CONST_SCOPED_VERTEX_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_CONST_SCOPED_VERTEX_LOCK_HPP_INCLUDED
 
-sge::renderer::const_scoped_target_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	const_target_ptr const t)
+#include <sge/renderer/detail/const_scoped_buffer_lock.hpp>
+#include <sge/renderer/vf/dynamic_view.hpp>
+#include <sge/renderer/vertex_buffer_fwd.hpp>
+
+namespace sge
 {
-	return const_scoped_target_lock_wrapper(
-		t,
-		t->lock());
+namespace renderer
+{
+
+typedef detail::const_scoped_buffer_lock<
+	const_vertex_buffer_ptr,
+	vf::const_dynamic_view
+> const_scoped_vertex_lock;
+
+}
 }
 
-sge::renderer::const_scoped_target_lock_wrapper const
-sge::renderer::make_scoped_lock(
-	const_target_ptr const t,
-	lock_rect const &r)
-{
-	return const_scoped_target_lock_wrapper(
-		t,
-		t->lock(r));
-}
-
-SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(
-	sge::renderer::const_target_ptr,
-	sge::renderer::const_image_view)
+#endif

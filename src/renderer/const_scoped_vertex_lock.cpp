@@ -18,32 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_SCOPED_LOCK_WRAPPER_HPP_INCLUDED
-#define SGE_RENDERER_SCOPED_LOCK_WRAPPER_HPP_INCLUDED
+#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/impl/const_scoped_buffer_lock_impl.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/export.hpp>
 
-#include "../export.hpp"
-
-namespace sge
-{
-namespace renderer
-{
-
-template<typename T, typename Value>
-class scoped_lock_wrapper {
-public:
-	SGE_SYMBOL scoped_lock_wrapper(
-		T const t,
-		Value const &v);
-	SGE_SYMBOL bool set() const;
-	SGE_SYMBOL void unlock();
-	SGE_SYMBOL void reset();
-	SGE_SYMBOL Value const value() const;
-private:
-	T t;
-	Value const v;
-};
-
-}
-}
-
-#endif
+template SGE_SYMBOL class
+sge::renderer::detail::const_scoped_buffer_lock<
+	sge::renderer::const_vertex_buffer_ptr,
+	sge::renderer::vf::const_dynamic_view
+>;

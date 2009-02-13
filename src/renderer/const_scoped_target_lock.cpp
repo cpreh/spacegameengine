@@ -18,14 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INSTANTIATE_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_INSTANTIATE_SCOPED_LOCK_HPP_INCLUDED
+#include <sge/renderer/const_scoped_target_lock.hpp>
+#include <sge/renderer/target.hpp>
+	
+sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
+	const_target_ptr const target)
+:
+	target(target),
+	view(
+		target->lock())
+{}
 
-#include "scoped_lock_impl.hpp"
-#include "scoped_lock_wrapper_impl.hpp"
+sge::renderer::const_scoped_target_lock::const_scoped_target_lock(
+	const_target_ptr const target,
+	lock_rect const &rect)
+:
+	target(target),
+	view(
+		target->lock(
+			rect))
+{}
 
-#define SGE_RENDERER_INSTANTIATE_SCOPED_LOCK(t, v)\
-template class sge::renderer::scoped_lock<t, v>;\
-template class sge::renderer::scoped_lock_wrapper<t, v>;
+sge::renderer::const_image_view const
+sge::renderer::const_scoped_target_lock::value() const
+{
+	return view;
+}
 
-#endif
+sge::renderer::const_scoped_target_lock::~const_scoped_target_lock()
+{
+	target->unlock();
+}

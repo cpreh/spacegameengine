@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "vf/dynamic_view.hpp"
 #include <sge/renderer/size_type.hpp>
 #include <sge/export.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -38,7 +38,10 @@ namespace vf
 class dynamic_format;
 }
 
-class SGE_CLASS_SYMBOL vertex_buffer : boost::noncopyable {
+class SGE_CLASS_SYMBOL vertex_buffer {
+	SGE_NONCOPYABLE(vertex_buffer)
+protected:
+	SGE_SYMBOL vertex_buffer();
 public:
 	typedef resource_flag_t         resource_flag_type;
 	typedef lock_flag_t             lock_flag_type;

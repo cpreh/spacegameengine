@@ -55,9 +55,8 @@ sge::renderer::device::create_texture(
 			flags));
 	
 	scoped_texture_lock const lock(
-		make_scoped_lock(
-			tex,
-			lock_flags::writeonly));
+		tex,
+		lock_flags::writeonly);
 
 	copy_and_convert_pixels(
 		v,
