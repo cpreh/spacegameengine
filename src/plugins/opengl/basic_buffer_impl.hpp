@@ -49,7 +49,7 @@ sge::ogl::basic_buffer<Type, Impl, T>::basic_buffer(
 	lock_size_(0)
 {
 	GLuint const glflags = convert_resource_flags(flags());
-	size_type const nsz = size() * stride_ * sizeof(value_type);
+	size_type const nsz = size() * byte_stride();
 
 	if(nsz == 0)
 		throw exception(
@@ -135,7 +135,7 @@ void sge::ogl::basic_buffer<Type, Impl, T>::unlock()
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 void sge::ogl::basic_buffer<Type, Impl, T>::sub_data(
@@ -150,8 +150,8 @@ void sge::ogl::basic_buffer<Type, Impl, T>::sub_data(
 	bind_me();
 	Impl().buffer_sub_data(
 		Type(),
-		static_cast<GLsizei>(first * stride_ * sizeof(value_type)),
-		static_cast<GLsizei>(count * stride_ * sizeof(value_type)),
+		static_cast<GLsizei>(first * byte_stride()),
+		static_cast<GLsizei>(count * byte_stride()),
 		data);
 }
 
@@ -168,7 +168,7 @@ sge::ogl::basic_buffer<Type, Impl, T>::size() const
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 typename sge::ogl::basic_buffer<Type, Impl, T>::size_type
@@ -179,7 +179,18 @@ sge::ogl::basic_buffer<Type, Impl, T>::stride() const
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
+	typename T
+>
+typename sge::ogl::basic_buffer<Type, Impl, T>::size_type
+sge::ogl::basic_buffer<Type, Impl, T>::byte_stride() const
+{
+	return stride() * sizeof(value_type);
+}
+
+template<
+	GLenum (*Type)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 typename sge::ogl::basic_buffer<Type, Impl, T>::resource_flag_type
@@ -190,7 +201,7 @@ sge::ogl::basic_buffer<Type, Impl, T>::flags() const
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 typename sge::ogl::basic_buffer<Type, Impl, T>::pointer
@@ -202,7 +213,7 @@ sge::ogl::basic_buffer<Type, Impl, T>::data()
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 typename sge::ogl::basic_buffer<Type, Impl, T>::const_pointer
@@ -214,7 +225,7 @@ sge::ogl::basic_buffer<Type, Impl, T>::data() const
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 typename sge::ogl::basic_buffer<Type, Impl, T>::size_type
@@ -225,7 +236,7 @@ sge::ogl::basic_buffer<Type, Impl, T>::lock_size() const
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 void sge::ogl::basic_buffer<Type, Impl, T>::bind(
@@ -236,7 +247,7 @@ void sge::ogl::basic_buffer<Type, Impl, T>::bind(
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 void sge::ogl::basic_buffer<Type, Impl, T>::unbind()
@@ -246,7 +257,7 @@ void sge::ogl::basic_buffer<Type, Impl, T>::unbind()
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 void sge::ogl::basic_buffer<Type, Impl, T>::bind_me() const
@@ -256,7 +267,7 @@ void sge::ogl::basic_buffer<Type, Impl, T>::bind_me() const
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 typename sge::ogl::basic_buffer<Type, Impl, T>::pointer
@@ -267,12 +278,12 @@ sge::ogl::basic_buffer<Type, Impl, T>::buffer_offset(
 		Impl().buffer_offset(
 			Type(),
 			static_cast<GLsizei>(
-				sizeof(value_type) * sz * stride())));
+				sz * byte_stride())));
 }
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 void sge::ogl::basic_buffer<Type, Impl, T>::check_lock() const

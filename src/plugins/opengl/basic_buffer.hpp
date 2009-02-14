@@ -70,6 +70,7 @@ public:
 
 	size_type size() const;
 	size_type stride() const;
+	size_type byte_stride() const;
 	resource_flag_type flags() const;
 
 	pointer data();
