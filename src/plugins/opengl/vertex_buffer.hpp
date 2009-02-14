@@ -48,8 +48,7 @@ typedef buffer_base<
 > vertex_buffer_base;
 }
 
-class vertex_buffer
-: public detail::vertex_buffer_base {	
+class vertex_buffer : public renderer::vertex_buffer
 public:
 	typedef detail::vertex_buffer_base base;
 	typedef base::view_type            view_type;

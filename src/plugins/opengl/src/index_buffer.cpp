@@ -21,96 +21,165 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../index_buffer.hpp"
 #include "../vbo.hpp"
 #include "../instantiate_buffer_base.hpp"
-#include <sge/renderer/index/format_stride.hpp>
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
+#include <sge/renderer/index/view_16.hpp>
+#include <sge/renderer/index/view_32.hpp>
+#include <sge/typeswitch.hpp>
 
-SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
+/*SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
 	sge::renderer::index_buffer,
 	sge::ogl::index_buffer_type,
-	sge::ogl::vb_ib_vbo_impl)
+	sge::ogl::vb_ib_vbo_impl)*/
 
-sge::ogl::index_buffer::index_buffer(
-	renderer::index::format::type const format_,
+namespace
+{
+
+template<
+	typename T
+>
+struct traits;
+
+template<>
+struct traits<
+	sge::uint16
+> {
+	static GLenum const gl_format = GL_UNSIGNED_SHORT;
+	static sge::renderer::index::format::type const format = sge::renderer::index::format::i16;
+	typedef sge::renderer::index::view_16 view;
+	typedef sge::renderer::index::const_view_16 const_view;
+};
+
+template<>
+struct traits<
+	sge::uint32
+> {
+	static GLenum const gl_format = GL_UNSIGNED_INT;
+	static sge::renderer::index::format::type const format = sge::renderer::index::format::i32;
+	typedef sge::renderer::index::view_32 view;
+	typedef sge::renderer::index::const_view_32 const_view;
+};
+
+}
+
+template<
+	typename T
+>
+sge::ogl::index_buffer<T>::index_buffer(
 	size_type const sz,
-	renderer::resource_flag_t const flags)
+	resource_flag_type const flags)
 :
-	detail::index_buffer_base(
+	buf(
 		sz,
-		renderer::index::format_stride(format_),
+		sizeof(T),
 		flags,
-		0),
-	format_(format_)
+		0)
 {}
 
-sge::renderer::index::format::type
-sge::ogl::index_buffer::format() const
+template<
+	typename T
+>
+GLenum
+sge::ogl::index_buffer<T>::gl_format() const
 {
-	return format_;
+	return traits<
+		T
+	>::gl_format;
 }
 
-GLenum sge::ogl::index_buffer::gl_format() const
-{
-	switch(format_) {
-	case renderer::index::format::i16:
-		return GL_UNSIGNED_SHORT;
-	case renderer::index::format::i32:
-		return GL_UNSIGNED_INT;
-	default:
-		throw exception(
-			SGE_TEXT("Wrong format in ogl::index_buffer!"));
-	}
-}
-
-sge::ogl::index_buffer::const_pointer
-sge::ogl::index_buffer::buffer_offset(
+template<
+	typename T
+>
+void *
+sge::ogl::index_buffer<T>::buffer_offset(
 	size_type const sz) const
 {
-	return base::buffer_offset(sz);
+	return buf.buffer_offset(
+		sz);
 }
 
-void sge::ogl::index_buffer::bind_me() const
+template<
+	typename T
+>
+void
+sge::ogl::index_buffer<T>::bind_me() const
 {
-	base::bind_me();
+	buf.bind_me();
 }
 
-sge::renderer::index::view const
-sge::ogl::index_buffer::view()
+template<
+	typename T
+>
+typename sge::ogl::index_buffer<T>::view_type const
+sge::ogl::index_buffer<T>::lock(
+	lock_flag_type const flags,
+	size_type const offset,
+	size_type const range)
 {
-	// FIXME: allocate the buffer so type punning is not needed!
-	switch(format()) {
-	case renderer::index::format::i16:
-		return renderer::index::view_16(
-			reinterpret_cast<renderer::index::view_16::pointer>(
-				data()),
-			lock_size() / stride());
-	case renderer::index::format::i32:
-		return renderer::index::view_32(
-			reinterpret_cast<renderer::index::view_32::pointer>(
-				data()),
-			lock_size() / stride());
-	default:
-		throw exception(
-			SGE_TEXT("Invalid format in ogl::index_buffer::view()!"));
-	}
+	buf.lock(
+		convert_lock_method(
+			flags),
+		offset,
+		range);
+	
+	return typename traits<T>::view(
+		buf.data(),
+		buf.lock_size());
 }
 
-sge::renderer::index::const_view const
-sge::ogl::index_buffer::view() const
+template<
+	typename T
+>
+typename sge::ogl::index_buffer<T>::const_view_type const
+sge::ogl::index_buffer<T>::lock(
+	size_type const offset,
+	size_type const range) const
 {
-	switch(format()) {
-	case renderer::index::format::i16:
-		return renderer::index::const_view_16(
-			reinterpret_cast<renderer::index::const_view_16::pointer>(
-				data()),
-			lock_size() / stride());
-	case renderer::index::format::i32:
-		return renderer::index::const_view_32(
-			reinterpret_cast<renderer::index::const_view_32::pointer>(
-				data()),
-			lock_size() / stride());
-	default:
-		throw exception(
-			SGE_TEXT("Invalid stride in ogl::index_buffer::view()!"));
-	}
+	buf.lock(
+		lock_method::readonly,
+		offset,
+		range);
+
+	return typename traits<T>::const_view(
+		buf.data(),
+		buf.lock_size());
 }
+
+template<
+	typename T
+>
+void
+sge::ogl::index_buffer<T>::unlock() const
+{
+	buf.unlock();
+}
+
+template<
+	typename T
+>
+typename sge::ogl::index_buffer<T>::size_type
+sge::ogl::index_buffer<T>::size() const
+{
+	return buf.size();
+}
+
+template<
+	typename T
+>
+typename sge::ogl::index_buffer<T>::resource_flag_type
+sge::ogl::index_buffer<T>::flags() const
+{
+	return buf.flags();
+}
+
+template<
+	typename T
+>
+sge::renderer::index::format::type
+sge::ogl::index_buffer<T>::format() const
+{
+	return traits<
+		T
+	>::format;
+}
+
+template class sge::ogl::index_buffer<sge::uint16>;
+template class sge::ogl::index_buffer<sge::uint32>;

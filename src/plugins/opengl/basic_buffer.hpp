@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include "lock_method.hpp"
 #include <sge/renderer/resource_flags.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <cstddef>
 
 namespace sge
@@ -36,11 +36,14 @@ class vbo_base;
 
 template<
 	GLenum (*Type)(),
-	vbo_base& (*Impl)()>
-class basic_buffer : boost::noncopyable {
+	vbo_base& (*Impl)(),
+	typename T = unsigned char
+>
+class basic_buffer {
+	SGE_NONCOPYABLE(basic_buffer)
 public:
 	typedef std::size_t                          size_type;
-	typedef unsigned char                        value_type;
+	typedef T                                    value_type;
 	typedef value_type                           *pointer;
 	typedef value_type const                     *const_pointer;
 	typedef renderer::resource_flag_t            resource_flag_type;
@@ -53,7 +56,7 @@ public:
 		const_pointer src);
 	~basic_buffer();
 
-	static const size_type npos = static_cast<size_type>(-1);
+	static size_type const npos = static_cast<size_type>(-1);
 
 	void lock(
 		lock_flag_type lock_flags,
@@ -80,12 +83,14 @@ public:
 	static void unbind();
 	void bind_me() const;
 	
-	pointer buffer_offset(
+	pointer
+	buffer_offset(
 		size_type offset) const;
 private:
 	static void bind(GLuint id);
 	void check_lock() const;
-	void allocate_buffer(const_pointer src);
+	void allocate_buffer(
+		const_pointer src);
 
 	size_type          sz,
 	                   stride_;

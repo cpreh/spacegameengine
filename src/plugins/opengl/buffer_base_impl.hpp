@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_BUFFER_BASE_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_BASE_IMPL_HPP_INCLUDED
 
+/*
 #include "buffer_base.hpp"
 #include "basic_buffer_impl.hpp"
 #include "vbo_base.hpp"
@@ -28,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Base,
 	GLenum (*Type)(),
-	sge::ogl::vbo_base &(*Impl)()>
+	sge::ogl::vbo_base &(*Impl)(),
+	typename T
+>
 sge::ogl::buffer_base<Base, Type, Impl>::buffer_base(
 	size_type const sz,
 	size_type const stride,
@@ -172,5 +175,6 @@ sge::ogl::buffer_base<Base, Type, Impl>::flags() const
 {
 	return buf.flags();
 }
+*/
 
 #endif

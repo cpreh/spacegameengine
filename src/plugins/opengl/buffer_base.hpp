@@ -34,11 +34,14 @@ class vbo_base;
 template<
 	typename Base,
 	GLenum (*Type)(),
-	vbo_base &(*Impl)()>
+	vbo_base &(*Impl)(),
+	typename T = unsigned char
+>
 class buffer_base : public Base {
 	typedef basic_buffer<
 		Type,
-		Impl
+		Impl,
+		T
 	> buffer_type;
 protected:
 	typedef typename buffer_type::size_type       size_type;
@@ -56,11 +59,17 @@ protected:
 		const_pointer src);
 	
 	pointer data();
+
 	const_pointer data() const;
+
 	size_type lock_size() const;
+
 	size_type stride() const;
+
 	void bind_me() const;
-	const_pointer buffer_offset(
+
+	const_pointer
+	buffer_offset(
 		size_type) const;
 private:
 	view_type const lock(

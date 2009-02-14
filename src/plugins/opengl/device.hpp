@@ -166,9 +166,6 @@ private:
 	void vertex_buffer(
 		renderer::const_vertex_buffer_ptr);
 	
-	void index_buffer(
-		renderer::const_index_buffer_ptr);
-
 	fbo_target_ptr const
 	create_target();
 

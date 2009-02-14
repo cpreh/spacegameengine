@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "lock_flags.hpp"
-#include "resource_flags.hpp"
-#include "vf/dynamic_view.hpp"
+#include <sge/renderer/vf/dynamic_view.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/resource_flags.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 
@@ -43,6 +43,7 @@ class SGE_CLASS_SYMBOL vertex_buffer {
 protected:
 	SGE_SYMBOL vertex_buffer();
 public:
+	typedef renderer::size_type     size_type;
 	typedef resource_flag_t         resource_flag_type;
 	typedef lock_flag_t             lock_flag_type;
 
