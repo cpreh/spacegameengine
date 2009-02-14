@@ -24,6 +24,7 @@ class time : public submanager
 		timer::callback);
 	void draw();
 	private:
+	using submanager::add;
 	typedef boost::weak_ptr<timer::object> weak_object_ptr;
 	typedef std::vector<weak_object_ptr> timer_container;
 	timer_container timers;
