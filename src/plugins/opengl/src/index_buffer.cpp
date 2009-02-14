@@ -64,7 +64,7 @@ sge::ogl::index_buffer<T>::index_buffer(
 :
 	buf(
 		sz,
-		sizeof(T),
+		1,
 		flags,
 		0)
 {}

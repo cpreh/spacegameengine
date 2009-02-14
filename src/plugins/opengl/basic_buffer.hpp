@@ -63,10 +63,6 @@ public:
 		size_type first = 0,
 		size_type count = npos);
 	void unlock();
-	void data(
-		const_pointer,
-		size_type stride,
-		size_type size);
 	void sub_data(
 		const_pointer data,
 		size_type first,
@@ -89,8 +85,6 @@ public:
 private:
 	static void bind(GLuint id);
 	void check_lock() const;
-	void allocate_buffer(
-		const_pointer src);
 
 	size_type          sz,
 	                   stride_;

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 sge::ogl::basic_buffer<Type, Impl, T>::basic_buffer(
@@ -48,12 +48,28 @@ sge::ogl::basic_buffer<Type, Impl, T>::basic_buffer(
 	lock_offset(0),
 	lock_size_(0)
 {
-	allocate_buffer(src);
+	GLuint const glflags = convert_resource_flags(flags());
+	size_type const nsz = size() * stride_ * sizeof(value_type);
+
+	if(nsz == 0)
+		throw exception(
+			SGE_TEXT("ogl_buffer: cannot create an empty buffer!"));
+
+	bind_me();
+
+	Impl().buffer_data(
+		Type(),
+		static_cast<GLsizei>(nsz),
+		reinterpret_cast<
+			unsigned char const *
+		>(
+			src),
+		glflags);
 }
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 sge::ogl::basic_buffer<Type, Impl, T>::~basic_buffer()
@@ -66,7 +82,7 @@ sge::ogl::basic_buffer<Type, Impl, T>::~basic_buffer()
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 void sge::ogl::basic_buffer<Type, Impl, T>::lock(
@@ -102,7 +118,7 @@ void sge::ogl::basic_buffer<Type, Impl, T>::lock(
 
 template<
 	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
+	sge::ogl::vbo_base &(*Impl)(),
 	typename T
 >
 void sge::ogl::basic_buffer<Type, Impl, T>::unlock()
@@ -122,21 +138,6 @@ template<
 	sge::ogl::vbo_base& (*Impl)(),
 	typename T
 >
-void sge::ogl::basic_buffer<Type, Impl, T>::data(
-	const_pointer const src,
-	size_type const stride,
-	size_type const size_)
-{
-	sz = size_;
-	stride_ = stride;
-	allocate_buffer(src);
-}
-
-template<
-	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
-	typename T
->
 void sge::ogl::basic_buffer<Type, Impl, T>::sub_data(
 	const_pointer const data,
 	size_type const first,
@@ -149,8 +150,8 @@ void sge::ogl::basic_buffer<Type, Impl, T>::sub_data(
 	bind_me();
 	Impl().buffer_sub_data(
 		Type(),
-		static_cast<GLsizei>(first * stride_),
-		static_cast<GLsizei>(count * stride_),
+		static_cast<GLsizei>(first * stride_ * sizeof(value_type)),
+		static_cast<GLsizei>(count * stride_ * sizeof(value_type)),
 		data);
 }
 
@@ -265,7 +266,8 @@ sge::ogl::basic_buffer<Type, Impl, T>::buffer_offset(
 	return static_cast<pointer>(
 		Impl().buffer_offset(
 			Type(),
-			static_cast<GLsizei>(sz * stride())));
+			static_cast<GLsizei>(
+				sizeof(value_type) * sz * stride())));
 }
 
 template<
@@ -278,32 +280,6 @@ void sge::ogl::basic_buffer<Type, Impl, T>::check_lock() const
 	if(!dest)
 		throw exception(
 			SGE_TEXT("ogl_buffer used but the buffer has not been locked!"));
-}
-
-template<
-	GLenum (*Type)(),
-	sge::ogl::vbo_base& (*Impl)(),
-	typename T
->
-void sge::ogl::basic_buffer<Type, Impl, T>::allocate_buffer(
-	const_pointer const src)
-{
-	GLuint const glflags = convert_resource_flags(flags());
-	size_type const nsz = size() * stride_;
-
-	if(nsz == 0)
-		throw exception(
-			SGE_TEXT("ogl_buffer: cannot create an empty buffer!"));
-
-	bind_me();
-	Impl().buffer_data(
-		Type(),
-		static_cast<GLsizei>(nsz),
-		reinterpret_cast<
-			unsigned char const *
-		>(
-			src),
-		glflags);
 }
 
 #endif
