@@ -20,15 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../index_buffer.hpp"
 #include "../vbo.hpp"
-#include "../instantiate_buffer_base.hpp"
+#include "../instantiate_basic_buffer.hpp"
 #include <sge/renderer/index/view_16.hpp>
 #include <sge/renderer/index/view_32.hpp>
 #include <sge/typeswitch.hpp>
-
-/*SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
-	sge::renderer::index_buffer,
-	sge::ogl::index_buffer_type,
-	sge::ogl::vb_ib_vbo_impl)*/
 
 namespace
 {
@@ -181,5 +176,15 @@ sge::ogl::index_buffer<T>::format() const
 	>::format;
 }
 
-template class sge::ogl::index_buffer<sge::uint16>;
-template class sge::ogl::index_buffer<sge::uint32>;
+#define SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(t) \
+template class sge::ogl::index_buffer<t>; \
+template class sge::ogl::basic_buffer<\
+	sge::ogl::index_buffer_type,\
+	sge::ogl::vb_ib_vbo_impl,\
+	t\
+>;
+
+SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(sge::uint16)
+SGE_OPENGL_INSTANTIATE_INDEX_BUFFER(sge::uint32)
+
+#undef SGE_OPENGL_INSTANTIATE_INDEX_BUFFER

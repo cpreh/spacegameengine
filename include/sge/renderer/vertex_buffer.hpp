@@ -66,8 +66,6 @@ public:
 	virtual size_type size() const = 0;
 	virtual resource_flag_type flags() const = 0;
 
-	virtual size_type stride() const = 0;
-
 	virtual vf::dynamic_format const &format() const = 0;
 
 	SGE_SYMBOL virtual ~vertex_buffer();
