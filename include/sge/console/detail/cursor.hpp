@@ -15,6 +15,7 @@ class cursor
 {
 	public:
 	cursor();
+	void reset();
 	sge::string const edited(bool) const;
 	sge::string const string() const;
 	void string(sge::string const &);

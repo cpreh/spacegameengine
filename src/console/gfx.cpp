@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/structure_cast.hpp>
+#include <sge/iostream.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/bind.hpp>
 
@@ -72,6 +73,8 @@ sge::console::gfx::gfx(
 
 void sge::console::gfx::draw()
 {
+	ss.render(bg);
+
 	string const s = 
 		boost::algorithm::join(
 			output_history_.lines_inside(
@@ -83,6 +86,8 @@ void sge::console::gfx::draw()
 						static_cast<detail::history::unit>(bg.h()-fn.height()))),
 				static_cast<detail::history::unit>(fn.height())),
 			SGE_TEXT("\n"));
+	
+	//sge::cerr << "drawing text: " << s << "\n";
 
 	// draw history lines
 	fn.draw_text(
@@ -91,9 +96,14 @@ void sge::console::gfx::draw()
 		font::dim(bg.w(), bg.h() - fn.height()),
 		font::align_h::left,
 		font::align_v::bottom);
+	
+	string const il = input_line_.edited(cursor_active_);
+
+	//if (!il.empty())
+	//	sge::cerr << SGE_TEXT("input line is: ") << il << SGE_TEXT("\n");
 
 	fn.draw_text(
-		input_line_.edited(cursor_active_),
+		il,
 		font::pos(
 			static_cast<font::unit>(bg.x()),
 			static_cast<font::unit>(bg.y()+bg.h()-fn.height())),
@@ -132,6 +142,8 @@ void sge::console::gfx::key_action(
 	input::key_type const &k,
 	input::modifier::states const &s)
 {
+	//sge::cerr << "got character: " << k.char_code() << "\n";
+
 	if (!active_)
 		return;
 
@@ -202,6 +214,9 @@ void sge::console::gfx::key_action(
 
 			// add executed command to each history (at the front)...
 			input_history_.push_front(input_line_.string());
+
+			// clear input line
+			input_line_.reset();
 		break;
 		// else we get a million warnings about unhandled enumeration values
 		default: break;

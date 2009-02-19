@@ -28,6 +28,8 @@ class history
 	typedef math::dim::static_<unit,2>::type dim;
 	typedef math::vector::static_<unit,2>::type point;
 
+	history();
+
 	iterator_pair const lines_inside(
 		rect const &,
 		unit height) const;
