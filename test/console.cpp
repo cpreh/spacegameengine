@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/arg_list.hpp>
+#include <sge/console/gfx.hpp>
+#include <sge/font/system.hpp>
 #include <sge/text.hpp>
+#include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <boost/foreach.hpp>
@@ -65,6 +68,7 @@ try
 			sge::renderer::stencil_buffer::off,
 			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::input)
+		(sge::systems::parameterless::font)
 		(sge::systems::parameterless::image));
 
 	sge::console::object o(SGE_TEXT('/'));
@@ -80,6 +84,27 @@ try
 	o.eval(SGE_TEXT("/test \"foo bar\" baz quux"));
 	o.eval(SGE_TEXT("test \"foo bar\" baz quux"));
 	o.eval(SGE_TEXT("/\"test\" \"foo bar\" baz quux"));
+
+	sge::console::gfx gfx_(
+		o,
+		sys.renderer(),
+		sge::renderer::rgba8_color(0,0,0,0),
+		sys.font_system()->create_font(
+			sge::media_path()/SGE_TEXT("fonts")/SGE_TEXT("default.ttf"),
+			15),
+		sys.input_system(),
+		sge::sprite::object(
+			sge::sprite::point(0,0),
+			boost::none,
+			sge::sprite::dim(400,300)));
+	
+	gfx_.active(true);
+	
+	bool running = true;
+	while (running)
+	{
+		gfx_.draw();
+	}
 }
 catch(sge::exception const &e)
 {

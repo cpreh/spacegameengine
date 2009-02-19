@@ -21,21 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_GFX_HPP_INCLUDED
 #define SGE_CONSOLE_GFX_HPP_INCLUDED
 
-#include "../font/font_fwd.hpp"
-#include "../renderer/device_fwd.hpp"
-#include "../input/system_fwd.hpp"
-#include "../signals/scoped_connection.hpp"
-#include "../sprite/system.hpp"
-#include "../sprite/object.hpp"
-#include "../time/timer.hpp"
-#include "../time/types.hpp"
-#include "../texture/part_fwd.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
-#include "arg_list.hpp"
+#include <sge/console/object_fwd.hpp>
+#include <sge/console/detail/history.hpp>
+#include <sge/console/detail/cursor.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/any_color.hpp>
+#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/font.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <sge/input/modifier/filter.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/signals/connection.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/system.hpp>
 #include <boost/noncopyable.hpp>
 #include <deque>
-#include <cstddef>
 
 namespace sge
 {
@@ -45,50 +45,40 @@ class gfx : public boost::noncopyable
 {
 public:
 	SGE_SYMBOL gfx(
+		object &,
 		renderer::device_ptr,
-		texture::const_part_ptr,
-		font::font_ptr,
+		renderer::any_color font_color,
+		font::metrics_ptr,
 		input::system_ptr,
-		sprite::point const &,
-		sprite::dim const &);
-	SGE_SYMBOL void key_callback(
-		input::key_pair const &);
-	SGE_SYMBOL void key_action(
-		input::key_type const &);
+		sprite::object const &);
+
 	SGE_SYMBOL void draw();
-	SGE_SYMBOL time::unit
-	change_cursor_rate(
-		time::unit);
-	SGE_SYMBOL void toggle(); 
 	SGE_SYMBOL bool active() const;
-	SGE_SYMBOL void print(string const &);
-	SGE_SYMBOL void clear(arg_list const &);
-	SGE_SYMBOL void dump(arg_list const &);
-
+	SGE_SYMBOL void active(bool);
 private:
-	void tabcomplete(string &);
-
-	typedef std::deque<string> history_container;
-
-	renderer::device_ptr const rend;
-	font::font_ptr const fn;
-	signals::scoped_connection ic,irc;
+	object &object_;
+	font::font fn;
+	input::modifier::filter mf;
+	signals::connection const ic,irc;
 	sprite::system ss;
 	sprite::object bg;
 	bool active_;
 
-	// input and history stuff
-	time::timer cursor_timer;
-	action_var<time::unit>::type cursor_rate;
-	bool cursor_active;
-	string::value_type cursor_char;
-	string il;
-	string::size_type cursor_pos;
-	history_container history;
-	history_container input_history;
-	history_container::iterator history_pos;
-	history_container::iterator input_history_pos;
-	std::size_t history_size;
+	detail::cursor input_line_;
+	time::timer cursor_blink_;
+	bool cursor_active_;
+	detail::history input_history_;
+	detail::history output_history_;
+
+	SGE_SYMBOL void key_callback(
+		input::key_pair const &,
+		input::modifier::states const &);
+
+	SGE_SYMBOL void key_action(
+		input::key_type const &,
+		input::modifier::states const &);
+
+	void tab_complete(string &);
 };
 
 }
