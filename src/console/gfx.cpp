@@ -87,8 +87,6 @@ void sge::console::gfx::draw()
 				static_cast<detail::history::unit>(fn.height())),
 			SGE_TEXT("\n"));
 	
-	//sge::cerr << "drawing text: " << s << "\n";
-
 	// draw history lines
 	fn.draw_text(
 		s,
@@ -98,9 +96,6 @@ void sge::console::gfx::draw()
 		font::align_v::bottom);
 	
 	string const il = input_line_.edited(cursor_active_);
-
-	//if (!il.empty())
-	//	sge::cerr << SGE_TEXT("input line is: ") << il << SGE_TEXT("\n");
 
 	fn.draw_text(
 		il,

@@ -61,20 +61,6 @@ void func(
 		sge::cout << s << SGE_TEXT("\n");
 }
 
-#if 0
-struct quit
-{
-	quit(bool &running)
-		: running(running) {}
-
-	void operator()() const
-	{
-		running = false;
-	}
-	
-	bool &running;
-};
-#endif
 void quit(bool &running,sge::console::arg_list const &)
 {
 	running = false;

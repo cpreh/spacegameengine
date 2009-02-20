@@ -58,8 +58,8 @@ struct eval_grammar : boost::spirit::qi::grammar<
 {
 	typedef boost::spirit::ascii::space_type space_type;
 
-        eval_grammar() : eval_grammar::base_type(start)
-        {
+	eval_grammar() : eval_grammar::base_type(start)
+	{
 		using boost::spirit::char_;
 		using boost::spirit::ascii::space;
 		using namespace boost::phoenix;
@@ -69,12 +69,12 @@ struct eval_grammar : boost::spirit::qi::grammar<
 		quoted_string %=    '"' >> +(char_ - '"') >> '"';
 		argument %=        quoted_string | word;
 		start %=           argument % (+space);
-        }
+	}
 
-        boost::spirit::qi::rule<Iterator, sge::string()> word;
-        boost::spirit::qi::rule<Iterator, sge::string()> quoted_string;
-        boost::spirit::qi::rule<Iterator, sge::string()> argument;
-        boost::spirit::qi::rule<Iterator, sge::console::arg_list()> start;
+	boost::spirit::qi::rule<Iterator, sge::string()> word;
+	boost::spirit::qi::rule<Iterator, sge::string()> quoted_string;
+	boost::spirit::qi::rule<Iterator, sge::string()> argument;
+	boost::spirit::qi::rule<Iterator, sge::console::arg_list()> start;
 };
 }
 
@@ -90,12 +90,12 @@ void sge::console::object::eval(string const &sp)
 	}
 
 	string const s = sp.substr(1);
-	
+
 	arg_list args;
 	eval_grammar<string::const_iterator> grammar;
 	string::const_iterator beg = s.begin();
 
-        boost::spirit::qi::parse(
+  boost::spirit::qi::parse(
 		beg,
 		s.end(),
 		grammar,
