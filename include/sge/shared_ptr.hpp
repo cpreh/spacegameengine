@@ -21,15 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHARED_PTR_HPP_INCLUDED
 #define SGE_SHARED_PTR_HPP_INCLUDED
 
-#include <sge/heap_deleter.hpp>
+#include <sge/shared_ptr_fwd.hpp>
+#include <sge/weak_ptr_fwd.hpp>
 #include <boost/shared_ptr.hpp>
 
 namespace sge
 {
 
-using boost::weak_ptr;
-
-template<typename T, template<typename> class Deleter = heap_deleter>
+template<
+	typename T,
+	template<
+		typename
+	> class Deleter
+>
 class shared_ptr {
 public:
 	typedef boost::shared_ptr<T> impl_type;
@@ -42,12 +46,6 @@ public:
 	: impl()
 	{}
 
-	// FIXME: dangerous
-	template<typename U>
-	explicit shared_ptr(const boost::shared_ptr<U>& p)
-	: impl(p)
-	{}
-
 	template<class Y>
 	explicit shared_ptr( Y *const p )
 	: impl(p, deleter())
@@ -57,8 +55,10 @@ public:
 	: impl(p, deleter(), a)
 	{}
 
-	template<class Y>
-	explicit shared_ptr(weak_ptr<Y> const & r)
+	template<
+		typename Y
+	>
+	explicit shared_ptr(weak_ptr<Y, Deleter> const & r)
 	: impl(r)
 	{}
 
@@ -177,6 +177,18 @@ private:
 		return Deleter<T>();
 	}
 	
+	// this is used to create a shared_ptr
+	// from a weak_ptr
+	template<
+		typename U
+	>
+	explicit shared_ptr(
+		boost::shared_ptr<U> const &p)
+	:
+		impl(p)
+	{}
+
+
 	template<
 		typename Other,
 		template<
@@ -184,6 +196,8 @@ private:
 		> class OtherDeleter
 	>
 	friend class shared_ptr;
+
+	friend class weak_ptr<T, Deleter>;
 };
 
 template<

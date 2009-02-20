@@ -18,44 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FT_SYSTEM_HPP_INCLUDED
-#define SGE_FT_SYSTEM_HPP_INCLUDED
+#ifndef SGE_WEAK_PTR_FWD_HPP_INCLUDED
+#define SGE_WEAK_PTR_FWD_HPP_INCLUDED
 
-#include "library.hpp"
-#include <sge/filesystem/path.hpp>
-#include <sge/font/system.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/weak_ptr.hpp>
-#include <map>
-#include <utility>
+#include <sge/heap_deleter.hpp>
 
 namespace sge
 {
-namespace ft
-{
 
-class system : public font::system {
-public:
-	font::metrics_ptr const
-	create_font(
-		filesystem::path const &font_name,
-		font::size_type font_size);
-private:
-	library library_;
-	typedef std::map<
-		std::pair<
-			font::size_type,
-			filesystem::path
-		>,
-		weak_ptr<
-			font::metrics
-		>
-	> loaded_fonts_list;
-	loaded_fonts_list loaded_fonts;
-};
+template<
+	typename T,
+	template<
+		typename
+	> class Deleter = heap_deleter
+>
+class weak_ptr;
 
-}
 }
 
 #endif
-

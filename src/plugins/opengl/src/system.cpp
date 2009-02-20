@@ -56,7 +56,7 @@ sge::ogl::system::create_renderer(
 			param,
 			adapter,
 			wnd));
-	ref = r.boost_ptr();
+	ref = r;
 	return r;
 }
 

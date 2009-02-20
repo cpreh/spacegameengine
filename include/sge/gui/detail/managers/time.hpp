@@ -5,7 +5,7 @@
 #include "../../../time/resolution.hpp"
 #include "../../timer/callback.hpp"
 #include "../../timer/fwd.hpp"
-#include <boost/weak_ptr.hpp>
+#include <sge/weak_ptr.hpp>
 #include <vector>
 
 namespace sge
@@ -25,7 +25,7 @@ class time : public submanager
 	void draw();
 	private:
 	using submanager::add;
-	typedef boost::weak_ptr<timer::object> weak_object_ptr;
+	typedef weak_ptr<timer::object> weak_object_ptr;
 	typedef std::vector<weak_object_ptr> timer_container;
 	timer_container timers;
 };

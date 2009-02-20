@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/wndclass_pool.hpp>
 #include <sge/windows/wndclass.hpp>
 #include <sge/make_shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
+#include <sge/weak_ptr.hpp>
 #include <map>
 
 // TODO: we have to somehow free the weak_ptrs
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef boost::weak_ptr<
+typedef sge::weak_ptr<
 	sge::windows::wndclass
 > wndclass_weak_ptr;
 
@@ -64,7 +64,7 @@ sge::windows::wndclass_pool(
 		>(
 			name,
 			proc));
-	ptr = nref.boost_ptr();
+	ptr = nref;
 
 	return nref;
 }
