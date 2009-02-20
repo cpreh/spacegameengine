@@ -21,18 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
 #define SGE_FONT_SYSTEM_HPP_INCLUDED
 
-#include "metrics_fwd.hpp"
-#include "size_type.hpp"
-#include "../filesystem/path.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/size_type.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace font
 {
 
-class SGE_CLASS_SYMBOL system : boost::noncopyable {
+class SGE_CLASS_SYMBOL system {
+	SGE_NONCOPYABLE(system)
+protected:
+	SGE_SYMBOL system();
 public:
 	SGE_SYMBOL virtual ~system();
 	virtual metrics_ptr const create_font(

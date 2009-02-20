@@ -28,11 +28,11 @@ namespace font
 
 namespace align_v
 {
-	enum type {
-		top,
-		bottom,
-		center
-	};
+enum type {
+	top,
+	bottom,
+	center
+};
 }
 
 }

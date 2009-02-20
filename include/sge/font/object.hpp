@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_OBJECT_HPP_INCLUDED
 #define SGE_FONT_OBJECT_HPP_INCLUDED
 
-#include "pos.hpp"
-#include "dim.hpp"
-#include "unit.hpp"
-#include "drawer_fwd.hpp"
-#include "metrics_fwd.hpp"
-#include "align_h.hpp"
-#include "align_v.hpp"
-#include "flags.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include <sge/font/pos.hpp>
+#include <sge/font/dim.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/drawer_fwd.hpp>
+#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/align_h.hpp>
+#include <sge/font/align_v.hpp>
+#include <sge/font/flags.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
