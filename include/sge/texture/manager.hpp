@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "part_fwd.hpp"
 #include "fragmented_auto_ptr.hpp"
 #include "detail/container_position.hpp"
-#include "../export.hpp"
-#include "../renderer/device_fwd.hpp"
-#include "../renderer/image_view.hpp"
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/image_view.hpp>
 #include <sge/noncopyable.hpp>
+#include <sge/export.hpp>
 #include <boost/function.hpp>
 
 namespace sge

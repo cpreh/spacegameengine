@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_CREATE_WINDOW_HPP_INCLUDED
 #define SGE_X11_CREATE_WINDOW_HPP_INCLUDED
 
-#include "visual_fwd.hpp"
-#include "display_fwd.hpp"
-#include "../window/instance_fwd.hpp"
-#include "../export.hpp"
+#include <sge/x11/visual_fwd.hpp>
+#include <sge/x11/display_fwd.hpp>
+#include <sge/window/instance_fwd.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

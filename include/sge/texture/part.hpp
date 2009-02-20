@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_PART_HPP_INCLUDED
 #define SGE_TEXTURE_PART_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "../renderer/texture_fwd.hpp"
-#include "../renderer/image_view.hpp"
-#include "../renderer/lock_rect.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,7 +34,10 @@ namespace texture
 
 class fragmented;
 
-class SGE_CLASS_SYMBOL part : boost::noncopyable {
+class SGE_CLASS_SYMBOL part {
+	SGE_NONCOPYABLE(part)
+protected:
+	SGE_SYMBOL part();
 public:
 	SGE_SYMBOL virtual ~part();
 

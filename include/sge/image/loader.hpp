@@ -21,19 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_LOADER_HPP_INCLUDED
 #define SGE_IMAGE_LOADER_HPP_INCLUDED
 
-#include "../filesystem/path.hpp"
-#include "../export.hpp"
-#include "../renderer/image_view.hpp"
-#include "object_fwd.hpp"
-#include "format.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/image/object_fwd.hpp>
+//#include <sge/image/format.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace image
 {
 
-class SGE_CLASS_SYMBOL loader : boost::noncopyable {
+class SGE_CLASS_SYMBOL loader {
+	SGE_NONCOPYABLE(loader)
+protected:
+	SGE_SYMBOL loader();
 public:
 	virtual const object_ptr
 	load(

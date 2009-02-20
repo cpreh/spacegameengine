@@ -28,7 +28,9 @@ namespace sge
 namespace x11
 {
 
-template<typename T>
+template<
+	typename T
+>
 struct deleter {
 	void operator()(T* const t) const
 	{

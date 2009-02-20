@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 #define SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
-#include "part_fwd.hpp"
-#include "part.hpp"
-#include "../renderer/lock_rect_to_coords.hpp"
-#include "../renderer/texture.hpp"
-#include "../math/rect_impl.hpp"
-#include "../math/compare.hpp"
-#include "../log/headers.hpp"
+#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/renderer/lock_rect_to_coords.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/math/rect_impl.hpp>
+#include <sge/math/compare.hpp>
+#include <sge/log/headers.hpp>
 #include <ostream>
 
 namespace sge

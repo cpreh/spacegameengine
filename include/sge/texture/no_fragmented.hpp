@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../renderer/texture_filter.hpp"
 #include "../renderer/color_format.hpp"
 #include "../export.hpp"
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
