@@ -93,5 +93,13 @@ sge::array_wrapper<T>::size() const
 		end());
 }
 
+template<
+	typename T
+>
+bool
+sge::array_wrapper<T>::empty() const
+{
+	return begin() == end();
+}
 
 #endif

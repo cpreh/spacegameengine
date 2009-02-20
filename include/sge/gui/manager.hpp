@@ -23,6 +23,7 @@
 #include "../time/resolution.hpp"
 #include "../image/loader_fwd.hpp"
 #include "../export.hpp"
+#include "../noncopyable.hpp"
 #include <set>
 #include <vector>
 
@@ -30,8 +31,9 @@ namespace sge
 {
 namespace gui
 {
-class manager
+class manager 
 {
+	SGE_NONCOPYABLE(manager)
 	public:
 	SGE_SYMBOL manager(
 		renderer::device_ptr,
@@ -39,6 +41,7 @@ class manager
 		input::system_ptr,
 		font::system_ptr,
 		skin_ptr);
+	SGE_SYMBOL ~manager();
 	SGE_SYMBOL void invalidate(rect const &);
 	SGE_SYMBOL void invalidate(widget &);
 	SGE_SYMBOL timer::object_ptr const register_timer(

@@ -18,29 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TIME_TYPES_HPP_INCLUDED
-#define SGE_TIME_TYPES_HPP_INCLUDED
+#ifndef SGE_LOG_FORMAT_FORMATTER_FWD_HPP_INCLUDED
+#define SGE_LOG_FORMAT_FORMATTER_FWD_HPP_INCLUDED
 
-#include "../config.h"
-#ifdef SGE_HAVE_ATLEAST_UINT64
-#include <boost/cstdint.hpp>
-#endif
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
-namespace time
+namespace log
+{
+namespace format
 {
 
-#ifndef SGE_HAVE_ATLEAST_UINT64
-typedef unsigned long unit;
-#else
-typedef boost::uint_least64_t unit;
-#endif
+class formatter;
 
-typedef float funit;
+typedef shared_ptr<formatter> formatter_ptr;
+typedef shared_ptr<formatter const> const_formatter_ptr;
 
-class resolution;
-
+}
 }
 }
 

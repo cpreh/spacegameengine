@@ -2,7 +2,7 @@
 #include <sge/time/sleep.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/second_f.hpp>
-#include <sge/iostream.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/states.hpp>
@@ -117,11 +117,26 @@ try
 				new object(s_b)),
 			static_cast<sge::collision::unit>(5));
 
-	o_a->center(sge::collision::point(100,100,0));
-	o_b->center(sge::collision::point(200,100,0));
-	o_a->speed(sge::collision::point(20,0,0));
-	o_b->speed(sge::collision::point(-20,0,0));
-
+	o_a->center(
+		sge::collision::point(
+			static_cast<sge::collision::unit>(100),
+			static_cast<sge::collision::unit>(100),
+			static_cast<sge::collision::unit>(0)));
+	o_b->center(
+		sge::collision::point(
+			static_cast<sge::collision::unit>(200),
+			static_cast<sge::collision::unit>(100),
+			static_cast<sge::collision::unit>(0)));
+	o_a->speed(
+		sge::collision::point(
+			static_cast<sge::collision::unit>(20),
+			static_cast<sge::collision::unit>(0),
+			static_cast<sge::collision::unit>(0)));
+	o_b->speed(
+		sge::collision::point(
+			static_cast<sge::collision::unit>(-20),
+			static_cast<sge::collision::unit>(0),
+			static_cast<sge::collision::unit>(0)));
 
 	sge::sprite::system ss(sys.renderer());
 	

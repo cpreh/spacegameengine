@@ -18,23 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_UTIL_HPP_INCLUDED
-#define SGE_TEXTURE_UTIL_HPP_INCLUDED
+#ifndef SGE_AUDIO_SAMPLE_COUNT_HPP_INCLUDED
+#define SGE_AUDIO_SAMPLE_COUNT_HPP_INCLUDED
 
-#include "part_fwd.hpp"
-#include "../export.hpp"
-#include "../image/object_fwd.hpp"
+#include <cstddef>
 
 namespace sge
 {
-namespace texture
+namespace audio
 {
 
-class manager;
-
-SGE_SYMBOL part_ptr const add(
-	manager &,
-	image::object_ptr);
+typedef std::size_t sample_count;
 
 }
 }

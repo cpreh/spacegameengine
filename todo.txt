@@ -14,6 +14,8 @@
 *low: implement a lot of different exception types to make errors distinguishable
 *low: put x11 and windows stuff in their own libraries (probably do this with
 sprite, texture, console, etc. as well)
+*low: replace every boost::noncopyable by SGE_NONCOPYABLE
+*low: get rid of as much warnings as possible from -Weffc++
 *medium: breakpoints for the font
 *medium: implement "loop and play once on kill" to sound buffer
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
@@ -27,4 +29,3 @@ sprite, texture, console, etc. as well)
 *high: Improve the cmake script, search for libraries per default.
 *high: fix glsl uniform variables
 *high: finish the dynamic math funtions and make all operations safer
-*high: rework atlasing to make it perform better

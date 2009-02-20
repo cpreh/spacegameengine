@@ -41,4 +41,3 @@ void sge::time::sleep(
 #error "Implement me!"
 #endif
 }
-

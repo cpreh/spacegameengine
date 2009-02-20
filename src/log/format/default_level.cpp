@@ -21,14 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/format/default_level.hpp>
 #include <sge/log/format/inserter.hpp>
 #include <sge/log/level_string.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <sge/text.hpp>
 
 sge::log::format::const_formatter_ptr const
 sge::log::format::default_level(
 	level::type const level_)
 {
-	return const_formatter_ptr(
-		new inserter(
-			level_to_string(level_)
-			+ SGE_TEXT(": %1%\n")));
+	return make_shared_ptr<
+		inserter
+	>(
+		level_to_string(level_)
+		+ SGE_TEXT(": %1%\n"));
 }

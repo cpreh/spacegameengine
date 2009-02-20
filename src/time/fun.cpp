@@ -28,13 +28,14 @@ sge::time::fun fun_(sge::time::time);
 
 }
 
-sge::time::fun sge::time::default_time_fun()
+sge::time::fun const
+sge::time::default_time_fun()
 {
 	return fun_;
 }
 
 void sge::time::default_time_fun(
-	fun const& nfun)
+	fun const &nfun)
 {
 	fun_ = nfun;
 }

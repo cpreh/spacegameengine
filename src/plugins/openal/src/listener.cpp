@@ -3,10 +3,12 @@
 #include "../log.hpp"
 #include "../openal.hpp"
 #include <sge/math/vector/io.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 sge::openal::listener::listener()
-	: pos_(),
-	  vel_()
+:
+	pos_(),
+	vel_()
 {
 }
 

@@ -31,3 +31,6 @@ sge::exception::what() const
 {
 	return s;
 }
+
+sge::exception::~exception()
+{}

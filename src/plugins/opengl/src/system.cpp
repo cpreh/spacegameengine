@@ -87,7 +87,8 @@ sge::ogl::system::create_window(
 		rparam.wmode() == renderer::window_mode::fullscreen);
 #elif defined(SGE_WINDOWS_PLATFORM)
 	return sge::windows::create_window(
-		param);
+		param,
+		rparam);
 #else
 #error "Implement me!"
 #endif

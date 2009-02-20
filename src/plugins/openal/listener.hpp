@@ -2,6 +2,8 @@
 #define SGE_OPENAL_LISTENER_HPP_INCLUDED
 
 #include <sge/audio/listener.hpp>
+#include <sge/audio/angle.hpp>
+#include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
 {

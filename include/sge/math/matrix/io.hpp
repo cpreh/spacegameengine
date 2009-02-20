@@ -50,14 +50,14 @@ operator<< (
 	for(size_type j = 0; j < m.rows(); ++j)
 	{
 		s << s.widen('(');
-		for(:size_type i = 0; i < m.columns(); ++i)
+		for(size_type i = 0; i < m.columns(); ++i)
 		{
 			s << m[j][i];
-			if(i != M-1)
+			if(i != m.columns() - 1)
 				s << s.widen(',');
 		}
 		s << s.widen(')');
-		if(j != N-1)
+		if(j != m.rows() - 1)
 			s << s.widen(',');
 	}
 	return s << s.widen(')');

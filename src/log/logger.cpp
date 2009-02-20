@@ -70,6 +70,9 @@ sge::log::logger::logger(
 			&logger::inherit_levels, this, boost::ref(parent), _1));
 }
 
+sge::log::logger::~logger()
+{}
+
 void sge::log::logger::log(
 	level::type const level_,
 	temporary_output const &helper)

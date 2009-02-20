@@ -6,6 +6,8 @@
 #include <sge/math/vector/basic_impl.hpp>
 #include <boost/bind.hpp>
 
+#include <iostream>
+
 sge::bullet::object::object(
 	system &sys,
 	collision::sattelite_ptr _sat,
@@ -48,6 +50,7 @@ void sge::bullet::object::speed(collision::point const &v)
 {
 	body_.activate(true);
 	body_.setLinearVelocity(sge_to_bullet(v));
+	body_.setActivationState(ACTIVE_TAG);
 }
 
 sge::collision::point const sge::bullet::object::speed() const

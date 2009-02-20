@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/texture/util.hpp>
-#include <sge/texture/manager.hpp>
-#include <sge/image/object.hpp>
+#ifndef SGE_TIME_FUNIT_HPP_INCLUDED
+#define SGE_TIME_FUNIT_HPP_INCLUDED
 
-sge::texture::part_ptr const
-sge::texture::add(
-	manager &man,
-	image::object_ptr const img)
+namespace sge
 {
-	return man.add(
-		img->view());
+namespace time
+{
+
+typedef float funit;
+
 }
+}
+
+#endif

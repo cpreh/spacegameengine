@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOWS_CREATE_WINDOW_HPP_INCLUDED
 #define SGE_WINDOWS_CREATE_WINDOW_HPP_INCLUDED
 
+#include "optional_renderer_parameters.hpp"
 #include "../window/instance_fwd.hpp"
 #include "../export.hpp"
 
@@ -36,7 +37,8 @@ namespace windows
 
 SGE_SYMBOL sge::window::instance_ptr const
 create_window(
-	sge::window::parameters const &);
+	sge::window::parameters const &,
+	optional_renderer_parameters const &);
 
 }
 }
