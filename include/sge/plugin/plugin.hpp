@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "traits.hpp"
 #include "base.hpp"
-#include "../shared_ptr.hpp"
-#include "../export.hpp"
-#include "../library/object.hpp"
-#include "../filesystem/path.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/library/object.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/noncopyable.hpp>
+#include <sge/shared_ptr.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -35,7 +35,8 @@ namespace plugin
 {
 
 template<typename T>
-class plugin : boost::noncopyable, public base {
+class plugin : public base {
+	SGE_NONCOPYABLE(plugin)
 public:
 	typedef typename detail::traits<T>::loader_fun loader_fun;
 	typedef shared_ptr<plugin<T> > ptr_type;

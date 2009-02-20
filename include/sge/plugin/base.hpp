@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_BASE_HPP_INCLUDED
 #define SGE_PLUGIN_BASE_HPP_INCLUDED
 
-#include "../export.hpp"
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -29,6 +30,10 @@ namespace plugin
 {
 
 struct base {
+	SGE_NONCOPYABLE(base)
+protected:
+	SGE_SYMBOL base();
+public:
 	SGE_SYMBOL virtual ~base();
 };
 

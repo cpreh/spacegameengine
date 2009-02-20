@@ -21,18 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASE_HPP_INCLUDED
 
-#include "resource_flags.hpp"
-#include "lock_flags.hpp"
-#include "size_type.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL texture_base : boost::noncopyable {
+class SGE_CLASS_SYMBOL texture_base {
+	SGE_NONCOPYABLE(texture_base)
+protected:
+	SGE_SYMBOL texture_base();
 public:
 	typedef renderer::size_type                   size_type;
 	typedef resource_flag_t                       resource_flag_type;

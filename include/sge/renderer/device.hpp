@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DEVICE_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "../window/instance_fwd.hpp"
 #include "any_matrix.hpp"
 #include "vertex_buffer_fwd.hpp"
 #include "index_buffer_fwd.hpp"
@@ -47,7 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "resource_flags.hpp"
 #include "index/view.hpp"
 #include "index/format.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/window/instance_fwd.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -73,7 +73,10 @@ struct material;
 struct caps;
 struct light;
 
-class SGE_CLASS_SYMBOL device : boost::noncopyable {
+class SGE_CLASS_SYMBOL device {
+	SGE_NONCOPYABLE(device)
+protected:
+	SGE_SYMBOL device();
 public:
 	virtual void begin_rendering() = 0;
 	virtual void end_rendering() = 0;
