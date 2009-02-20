@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_MULTI_LOADER_HPP_INCLUDED
 
-#include "multi_loader_fwd.hpp"
-#include "loader_fwd.hpp"
-#include "file_fwd.hpp"
-#include "../filesystem/path.hpp"
-#include "../plugin/context.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/audio/multi_loader_fwd.hpp>
+#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/file_fwd.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/plugin/context.hpp>
+#include <sge/noncopyable.hpp>
 #include <vector>
 
 namespace sge
@@ -39,8 +39,9 @@ class manager;
 namespace audio
 {
 
-class SGE_CLASS_SYMBOL multi_loader : boost::noncopyable 
+class SGE_CLASS_SYMBOL multi_loader 
 {
+	SGE_NONCOPYABLE(multi_loader)
 public:
 	SGE_SYMBOL explicit multi_loader(
 		plugin::manager &);

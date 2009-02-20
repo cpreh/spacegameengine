@@ -21,15 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAINLOOP_DISPATCHABLE_HPP_INCLUDED
 #define SGE_MAINLOOP_DISPATCHABLE_HPP_INCLUDED
 
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace mainloop
 {
 
-struct dispatchable : private boost::noncopyable {
+struct dispatchable {
+	SGE_NONCOPYABLE(dispatchable)
+public:
 	virtual void dispatch() = 0;
 protected:
 	SGE_SYMBOL dispatchable();

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAINLOOP_SKELETON_HPP_INCLUDED
 #define SGE_MAINLOOP_SKELETON_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "../systems/instance.hpp"
-#include "../signals/scoped_connection.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/systems/instance.hpp>
+#include <sge/signals/scoped_connection.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 #include <boost/optional.hpp>
 
 namespace sge
@@ -41,7 +41,8 @@ class key_pair;
 namespace mainloop
 {
 
-class SGE_CLASS_SYMBOL skeleton : boost::noncopyable {
+class SGE_CLASS_SYMBOL skeleton {
+	SGE_NONCOPYABLE(skeleton)
 public:
 	SGE_SYMBOL void run();
 protected:
