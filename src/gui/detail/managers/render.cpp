@@ -5,8 +5,8 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
-#include <sge/math/dim/io.hpp>
-#include <sge/math/vector/io.hpp>
+#include <sge/math/dim/output.hpp>
+#include <sge/math/vector/output.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/texture_software.hpp>

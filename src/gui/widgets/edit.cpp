@@ -11,8 +11,8 @@
 #include <sge/font/object.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/math/compare.hpp>
-#include <sge/math/vector/io.hpp>
-#include <sge/math/dim/io.hpp>
+#include <sge/math/vector/output.hpp>
+#include <sge/math/dim/output.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/structure_cast.hpp>

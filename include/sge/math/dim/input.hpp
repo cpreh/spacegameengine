@@ -18,13 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
-#define SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
+#ifndef SGE_MAT_DIM_INPUT_HPP_INCLUDED
+#define SGE_MAT_DIM_INPUT_HPP_INCLUDED
 
-#include "basic_decl.hpp"
-#include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "output.hpp"
-#include "vector.hpp"
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/detail/is_dynamic.hpp>
+#include <sge/math/detail/one_dimensional_input.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <iosfwd>
+
+namespace sge
+{
+namespace math
+{
+namespace dim
+{
+
+template<
+	typename T,
+	typename N,
+	typename S,
+	typename Ch,
+	typename Traits
+>
+typename boost::disable_if<
+	math::detail::is_dynamic<
+		N
+	>,
+	std::basic_istream<Ch, Traits> &
+>::type
+operator >> (
+	std::basic_istream<Ch, Traits> &s,
+	basic<T, N, S> &v)
+{
+	return math::detail::one_dimensional_input(
+		s,
+		v);
+}
+
+}
+}
+}
 
 #endif

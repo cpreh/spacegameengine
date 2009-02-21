@@ -18,13 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
-#define SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_IS_DYNAMIC_HPP_INCLUDED
+#define SGE_MATH_DETAIL_IS_DYNAMIC_HPP_INCLUDED
 
-#include "basic_decl.hpp"
-#include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "output.hpp"
-#include "vector.hpp"
+#include <sge/math/detail/dynamic_size.hpp>
+#include <boost/type_traits/is_same.hpp>
+
+namespace sge
+{
+namespace math
+{
+namespace detail
+{
+
+template<
+	typename T
+>
+struct is_dynamic
+:
+boost::is_same<
+	T,
+	dynamic_size
+>
+{};
+
+}
+}
+}
 
 #endif

@@ -18,49 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_IO_HPP_INCLUDED
-#define SGE_MATH_MATRIX_IO_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_ONE_DIMENSIONAL_INPUT_HPP_INCLUDED
+#define SGE_MATH_DETAIL_ONE_DIMENSIONAL_INPUT_HPP_INCLUDED
 
-#include "basic_impl.hpp"
-#include <ostream>
+#include <istream>
 
 namespace sge
 {
 namespace math
 {
-namespace matrix
+namespace detail
 {
 
 template<
-	typename T,
-	typename N,
-	typename M,
-	typename S,
 	typename Ch,
-	typename Traits
+	typename Traits,
+	typename T
 >
-std::basic_ostream<Ch,Traits> &
-operator<< (
-	std::basic_ostream<Ch,Traits> &s,
-	basic<T, N, M, S> const &m)
+std::basic_istream<Ch, Traits> &
+one_dimensional_input(
+	std::basic_istream<Ch, Traits> &s,
+	T &v)
 {
-	typedef typename basic<T, N, M, S>::size_type size_type;
-
-	s << s.widen('(');
-	for(size_type j = 0; j < m.rows(); ++j)
+	Ch c;
+	s >> c;
+	if(c != s.widen('('))
 	{
-		s << s.widen('(');
-		for(size_type i = 0; i < m.columns(); ++i)
-		{
-			s << m[j][i];
-			if(i != m.columns() - 1)
-				s << s.widen(',');
-		}
-		s << s.widen(')');
-		if(j != m.rows() - 1)
-			s << s.widen(',');
+		s.setstate(std::ios_base::failbit);
+		return s;
 	}
-	return s << s.widen(')');
+
+	for(typename T::size_type i = 0; i < v.size() - 1; ++i)
+	{
+		s >> v[i];
+		s >> c;
+		if(c != s.widen(','))
+		{
+			s.setstate(std::ios_base::failbit);
+			return s;
+		}
+	}
+	
+	s >> v.back();
+
+	s >> c;
+	if(c != s.widen(')'))
+		s.setstate(std::ios_base::failbit);
+
+	return s; 
 }
 
 }

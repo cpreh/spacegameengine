@@ -25,14 +25,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix/dynamic_impl.hpp>
 #include <sge/math/dim/dim.hpp>
 #include <sge/math/point_rotate.hpp>
+#include <sge/iostream.hpp>
 #include <boost/assign/list_of.hpp>
+#include <istream>
+#include <ostream>
 
 int main()
 {
 	sge::math::vector::static_<
 		int,
 		2
-	>::type const vec(
+	>::type vec(
 		1,
 		2);
 	
@@ -68,4 +71,8 @@ int main()
 			(2)(2));
 
 	normalize(vecf);
+
+	sge::cin >> vec;
+
+	sge::cout << vec << SGE_TEXT('\n');
 }

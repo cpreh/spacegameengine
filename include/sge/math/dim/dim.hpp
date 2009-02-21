@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "basic_decl.hpp"
 #include "basic_impl.hpp"
 #include "arithmetic.hpp"
-#include "io.hpp"
+#include "input.hpp"
+#include "output.hpp"
 
 #endif

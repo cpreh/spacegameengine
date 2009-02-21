@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/math/matrix/dynamic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
-#include <sge/math/dim/io.hpp>
+#include <sge/math/dim/output.hpp>
 #include <sge/math/size_type.hpp>
 #include <sge/format.hpp>
 #include <sge/text.hpp>

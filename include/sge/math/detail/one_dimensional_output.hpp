@@ -18,13 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
-#define SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_ONE_DIMENSIONAL_OUTPUT_HPP_INCLUDED
+#define SGE_MATH_DETAIL_ONE_DIMENSIONAL_OUTPUT_HPP_INCLUDED
 
-#include "basic_decl.hpp"
-#include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "output.hpp"
-#include "vector.hpp"
+#include <ostream>
+
+namespace sge
+{
+namespace math
+{
+namespace detail
+{
+
+template<
+	typename Ch,
+	typename Traits,
+	typename T
+>
+std::basic_ostream<Ch, Traits> &
+one_dimensional_output(
+	std::basic_ostream<Ch, Traits> &s,
+	T const &v)
+{
+	s << s.widen('(');
+	if(v.size() > 1)
+		for(typename T::size_type i = 0; i < v.size() - 1; ++i)
+			s << v[i] << s.widen(',');
+	if(!v.empty())
+		s << v.back();
+	return s << s.widen(')');
+}
+
+}
+}
+}
 
 #endif

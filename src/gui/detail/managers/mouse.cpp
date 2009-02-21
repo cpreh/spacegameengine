@@ -9,7 +9,7 @@
 #include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/vector/arithmetic.hpp>
-#include <sge/math/vector/io.hpp>
+#include <sge/math/vector/output.hpp>
 #include <sge/input/key_pair.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/classification.hpp>

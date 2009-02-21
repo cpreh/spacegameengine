@@ -8,7 +8,7 @@
 #include <sge/renderer/state/states.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/math/vector/io.hpp>
+#include <sge/math/vector/output.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>

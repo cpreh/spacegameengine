@@ -18,13 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
-#define SGE_MATH_MATRIX_MATRIX_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_OUTPUT_HPP_INCLUDED
+#define SGE_MATH_MATRIX_OUTPUT_HPP_INCLUDED
 
-#include "basic_decl.hpp"
 #include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "output.hpp"
-#include "vector.hpp"
+#include <ostream>
+
+namespace sge
+{
+namespace math
+{
+namespace matrix
+{
+
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S,
+	typename Ch,
+	typename Traits
+>
+std::basic_ostream<Ch,Traits> &
+operator<< (
+	std::basic_ostream<Ch,Traits> &s,
+	basic<T, N, M, S> const &m)
+{
+	typedef typename basic<T, N, M, S>::size_type size_type;
+
+	s << s.widen('(');
+	for(size_type j = 0; j < m.rows(); ++j)
+	{
+		s << s.widen('(');
+		for(size_type i = 0; i < m.columns(); ++i)
+		{
+			s << m[j][i];
+			if(i != m.columns() - 1)
+				s << s.widen(',');
+		}
+		s << s.widen(')');
+		if(j != m.rows() - 1)
+			s << s.widen(',');
+	}
+	return s << s.widen(')');
+}
+
+}
+}
+}
 
 #endif
