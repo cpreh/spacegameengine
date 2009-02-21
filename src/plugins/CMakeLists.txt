@@ -42,7 +42,12 @@ ENDIF(OPENGL_FOUND)
 
 OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" OFF)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" OFF)
-OPTION (ENABLE_X11INPUT "Build the x11 input plugin" OFF)
+
+IF(X11_Xinput_FOUND)
+	OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ON)
+ELSE(X11_Xinput_FOUND)
+	OPTION (ENABLE_X11INPUT "Build the x11 input plugin" OFF)
+ENDIF(X11_Xinput_FOUND)
 
 IF(ENABLE_BULLET)
 	ADD_SUBDIRECTORY (bullet)
