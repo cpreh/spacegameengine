@@ -38,7 +38,7 @@ namespace wgl
 class context;
 
 class current {
-	SGE_NONCOPYABLE(context)
+	SGE_NONCOPYABLE(current)
 public:
 	current(
 		windows::gdi_device const &,

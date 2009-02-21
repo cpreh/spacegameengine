@@ -107,7 +107,7 @@ sge::dinput::keyboard::keycode_to_char(
 	if(ToAsciiEx(vk, dik, state.data(), &result, 0, kblayout) == 1)
 		return *reinterpret_cast<char*>(&result);
 	
-	DS_LOG_WARNING(
+	SGE_LOG_WARNING(
 		log::global(),
 		log::_1
 			<< SGE_TEXT("stub: Key names with more than one char are not supported."));
