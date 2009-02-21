@@ -20,5 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../device.hpp"
 
+sge::x11input::device::device()
+{}
+
 sge::x11input::device::~device()
 {}

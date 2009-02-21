@@ -18,29 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CONTEXT_FWD_HPP_INCLUDED
 
-#include <sge/noncopyable.hpp>
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
 namespace ogl
 {
-namespace vf
+namespace glx
 {
 
-class client_state_combiner;
+class context;
 
-struct actor {
-	SGE_NONCOPYABLE(actor)
-protected:
-	actor();
-public:
-	virtual void operator()(
-		client_state_combiner &) const = 0;
-	virtual ~actor();
-};
+typedef shared_ptr<context> context_ptr;
 
 }
 }

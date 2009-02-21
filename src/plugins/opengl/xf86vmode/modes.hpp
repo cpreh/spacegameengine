@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/deleter.hpp>
 #include <sge/x11/display_fwd.hpp>
 #include <sge/shared_ptr.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <cstddef>
 
 namespace sge
@@ -37,7 +37,8 @@ namespace ogl
 namespace xf86vmode
 {
 
-class modes : boost::noncopyable {
+class modes {
+	SGE_NONCOPYABLE(modes)
 public:
 	typedef std::size_t size_type;
 

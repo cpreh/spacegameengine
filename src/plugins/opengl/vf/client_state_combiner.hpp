@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 
 #include "client_state.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,7 +31,8 @@ namespace ogl
 namespace vf
 {
 
-class client_state_combiner : boost::noncopyable {
+class client_state_combiner {
+	SGE_NONCOPYABLE(client_state_combiner)
 public:
 	explicit client_state_combiner(
 		client_state const &old_states);

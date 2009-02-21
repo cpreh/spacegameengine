@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_MOUSE_GRAB_HPP_INCLUDED
 
 #include <sge/x11/window_fwd.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,7 +34,8 @@ class cursor;
 namespace x11input
 {
 
-class mouse_grab : boost::noncopyable {
+class mouse_grab {
+	SGE_NONCOPYABLE(mouse_grab)
 public:
 	mouse_grab(
 		x11::window_ptr,

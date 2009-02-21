@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/windows/window_fwd.hpp>
 #include <sge/renderer/adapter.hpp>
 #include <sge/window/instance_fwd.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -41,7 +41,8 @@ namespace ogl
 namespace windows
 {
 
-class state : boost::noncopyable {
+class state {
+	SGE_NONCOPYABLE(state)
 public:
 	state(
 		renderer::parameters const &,
