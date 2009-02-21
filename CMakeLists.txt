@@ -39,11 +39,17 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		"-fvisibility=hidden"
 		SGE_HAVE_GCC_VISIBILITY)
 
+	OPTION (ENABLE_DEBUG_WARNINGS "Enable -Wpadded and -Weffc++" OFF)
+
 	ADD_DEFINITIONS ("-pedantic-errors -Wall -Wextra -Wconversion"
 	"-Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self"
 	"-Woverloaded-virtual -Wnon-virtual-dtor -Wctor-dtor-privacy"
 	"-Wsign-promo -Wstrict-aliasing=1 -Wmissing-declarations"
 	"-Wold-style-cast")
+
+	IF(ENABLE_DEBUG_WARNINGS)
+		ADD_DEFINITIONS("-Wpadded -Weffc++")
+	ENDIF()
 
 	ADD_DEFINITIONS(-D BOOST_FILESYSTEM_NO_DEPRECATED)
 
