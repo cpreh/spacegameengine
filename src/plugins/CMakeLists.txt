@@ -2,8 +2,18 @@ IF (WIN32)
 	SET (LIBRARY_OUTPUT_PATH ${pluginpath})
 ENDIF ()
 
+
+FIND_PACKAGE(DevIL)
+
+
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
-OPTION (ENABLE_DEVIL "Build the devil image loader plugin" OFF)
+
+IF(DevIL_FOUND)
+	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ON)
+ELSE (DevIL_FOUND)
+	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" OFF)
+ENDIF(DevIL_FOUND)
+
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
 OPTION (ENABLE_FREETYPE "Build the freetype font plugin" OFF)
 OPTION (ENABLE_MAD "Build the mad mp3 loader plugin" OFF)

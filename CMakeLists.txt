@@ -1,12 +1,16 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
+SET (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
+
 
 PROJECT (spacegameengine)
 
 IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 	message(FATAL_ERROR "In-source builds are not permitted. Make a separate folder for building:\nmkdir build; cd build; cmake ..\nBefore that, remove the files that cmake just created:\nrm -rf CMakeCache.txt CMakeFiles")
 ENDIF()
+
+
 
 
 INCLUDE (CheckIncludeFile)
