@@ -7,7 +7,7 @@ FIND_PACKAGE(DevIL)
 FIND_PACKAGE(OpenGL)
 FIND_PACKAGE(OpenAL)
 FIND_PACKAGE(Freetype)
-
+FIND_PACKAGE(Vorbis)
 
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 
@@ -40,7 +40,13 @@ ELSE(OPENGL_FOUND)
 	OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
 ENDIF(OPENGL_FOUND)
 
-OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" OFF)
+
+IF(VORBIS_FOUND)
+	OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" ON)
+ELSE(VORBIS_FOUND)	
+	OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" OFF)
+ENDIF(VORBIS_FOUND)
+
 OPTION (ENABLE_WAVE "Build the wave loader plugin" OFF)
 
 IF(X11_Xinput_FOUND)
