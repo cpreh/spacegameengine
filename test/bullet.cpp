@@ -8,28 +8,25 @@
 #include <sge/renderer/state/states.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/scoped_block.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture_filter.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/image/object.hpp>
+#include <sge/input/system.hpp>
+#include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/texture/part_raw.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/collision/sattelite.hpp>
 #include <sge/collision/objects/circle.hpp>
 #include <sge/collision/system.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/exception.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
-#include <sge/make_shared_ptr.hpp>
-
-#include <boost/bind.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <iostream>
 #include <exception>
 #include <ostream>
@@ -89,7 +86,7 @@ try
 			sge::renderer::stencil_buffer::off,
 			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::collision_system)
-		(sge::systems::parameterless::image));
+		(sge::systems::parameterless::input));
 	
 	sys.collision_system()->test_callback(&dispatch);
 
@@ -147,7 +144,18 @@ try
 		);
 
 	bool running = true;
+
+	sge::signals::scoped_connection const cb(
+		sys.input_system()->register_callback(
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
+	);
+
 	sge::time::timer frame_timer(sge::time::second(1));
+
 	while (running)
 	{
 		sys.collision_system()->update(frame_timer.elapsed_frames());
