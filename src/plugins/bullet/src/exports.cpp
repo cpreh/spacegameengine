@@ -29,7 +29,7 @@ extern "C"
 
 SGE_EXPORT_SYMBOL void
 plugin_version_info(
-	sge::plugin::info *const i);
+	sge::plugin::info *);
 
 SGE_EXPORT_SYMBOL sge::collision::system *
 create_collision_system();

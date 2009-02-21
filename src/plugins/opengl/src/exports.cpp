@@ -28,7 +28,7 @@ extern "C"
 
 SGE_EXPORT_SYMBOL void
 plugin_version_info(
-	sge::plugin::info *const p);
+	sge::plugin::info *);
 
 SGE_EXPORT_SYMBOL sge::renderer::system *
 create_renderer_system();
