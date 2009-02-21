@@ -6,6 +6,8 @@ ENDIF ()
 FIND_PACKAGE(DevIL)
 FIND_PACKAGE(OpenGL)
 FIND_PACKAGE(OpenAL)
+FIND_PACKAGE(Freetype)
+
 
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 
@@ -16,7 +18,13 @@ ELSE (DevIL_FOUND)
 ENDIF(DevIL_FOUND)
 
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
-OPTION (ENABLE_FREETYPE "Build the freetype font plugin" OFF)
+
+IF(FREETYPE_FOUND)
+	OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ON)
+ELSE(FREETYPE_FOUND)
+	OPTION (ENABLE_FREETYPE "Build the freetype font plugin" OFF)
+ENDIF(FREETYPE_FOUND)
+
 OPTION (ENABLE_MAD "Build the mad mp3 loader plugin" OFF)
 
 IF(OPENAL_FOUND)
