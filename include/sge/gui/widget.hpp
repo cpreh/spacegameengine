@@ -10,18 +10,19 @@
 #include "manager_fwd.hpp"
 #include "size_policy.hpp"
 #include "../renderer/image.hpp"
-#include "../export.hpp"
+#include <sge/noncopyable.hpp>
+#include <sge/export.hpp>
 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/function.hpp>
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
 namespace gui
 {
-class SGE_CLASS_SYMBOL widget : public boost::noncopyable
+class SGE_CLASS_SYMBOL widget
 {
+	SGE_NONCOPYABLE(widget)
 	public:
 	typedef sge::gui::size_policy size_policy_t;
 	typedef boost::ptr_vector<widget,boost::view_clone_allocator> child_container;

@@ -39,10 +39,11 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		"-fvisibility=hidden"
 		SGE_HAVE_GCC_VISIBILITY)
 
-	ADD_DEFINITIONS ("-ansi -pedantic-errors -Wall -Wextra -Wconversion"
+	ADD_DEFINITIONS ("-pedantic-errors -Wall -Wextra -Wconversion"
 	"-Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self"
 	"-Woverloaded-virtual -Wnon-virtual-dtor -Wctor-dtor-privacy"
-	"-Wsign-promo")
+	"-Wsign-promo -Wstrict-aliasing=1 -Wmissing-declarations"
+	"-Wold-style-cast")
 
 	ADD_DEFINITIONS(-D BOOST_FILESYSTEM_NO_DEPRECATED)
 
@@ -56,10 +57,10 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 	ENDIF ()
 
 	IF (SGE_HAVE_VARIADIC_TEMPLATES)
-		ADD_DEFINITIONS ("-Wold-style-cast -std=c++0x")
+		ADD_DEFINITIONS ("-std=c++0x")
 	ELSE ()
 		# C++ 98 has no long long but boost insists on using it anyway
-		ADD_DEFINITIONS ("-Wno-long-long")
+		ADD_DEFINITIONS ("-Wno-long-long -ansi")
 	ENDIF ()
 
 	SET (CMAKE_REQUIRED_FLAGS "-Wall -Werror")
