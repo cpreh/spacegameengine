@@ -33,7 +33,7 @@ sge::signals::connection const sge::console::object::insert(
 			function
 		>(description));
 
-	std::pair<callback_map::iterator,bool> const ret = 
+	std::pair<function_map::iterator,bool> const ret = 
 		funcs_.insert(
 			name,
 			sig);
@@ -101,7 +101,7 @@ void sge::console::object::eval(string const &sp)
 		grammar,
 		args);
 
-	callback_map::iterator i = funcs_.find(args[0]);
+	function_map::iterator i = funcs_.find(args[0]);
 
 	if (i == funcs_.end())
 		throw exception(SGE_TEXT("couldn't find command \"")+args[0]+SGE_TEXT("\""));
@@ -109,17 +109,17 @@ void sge::console::object::eval(string const &sp)
 	i->second->signal()(args);
 }
 
-sge::console::var_map const &sge::console::object::vars() const
+sge::console::variable_map const &sge::console::object::variables() const
 {
 	return vars_;
 }
 
-sge::console::var_map &sge::console::object::vars()
+sge::console::variable_map &sge::console::object::variables()
 {
 	return vars_;
 }
 
-sge::console::callback_map const &sge::console::object::functions() const
+sge::console::function_map const &sge::console::object::functions() const
 {
 	return funcs_;
 }

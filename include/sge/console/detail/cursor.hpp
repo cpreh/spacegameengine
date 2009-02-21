@@ -2,8 +2,8 @@
 #define SGE_CONSOLE_DETAIL_CURSOR_HPP_INCLUDED
 
 #include <sge/string.hpp>
-#include <sge/console/var_map.hpp>
-#include <sge/console/callback_map.hpp>
+#include <sge/console/variable_map.hpp>
+#include <sge/console/function_map.hpp>
 
 namespace sge
 {
@@ -29,8 +29,8 @@ class cursor
 	void insert(char_type);
 	bool at_start() const;
 	void complete_word(
-		var_map const &,
-		callback_map const &);
+		variable_map const &,
+		function_map const &);
 	private:
 	sge::string line_;
 	sge::string::size_type pos_;

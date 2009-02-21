@@ -121,6 +121,11 @@ void sge::console::gfx::active(bool const _active)
 	active_ = _active;
 }
 
+void sge::console::gfx::print(string const &s)
+{
+	output_history_.push_back(s);
+}
+
 void sge::console::gfx::key_callback(
 	input::key_pair const &k,
 	input::modifier::states const &s)
@@ -168,7 +173,7 @@ void sge::console::gfx::key_action(
 			input_line_.erase_char();
 		break;
 		case input::kc::key_tab:
-			input_line_.complete_word(object_.vars(),object_.functions());
+			input_line_.complete_word(object_.variables(),object_.functions());
 		break;
 		case input::kc::key_pageup:
 			output_history_.up();
@@ -206,7 +211,7 @@ void sge::console::gfx::key_action(
 			}
 			catch (exception const &e)
 			{
-				output_history_.push_back(SGE_TEXT("console error: ")+e.what());
+				print(SGE_TEXT("console error: ")+e.what());
 			}
 
 			// add executed command to each history (at the front)...

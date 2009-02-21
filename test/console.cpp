@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/gfx.hpp>
+#include <sge/console/stdlib.hpp>
 #include <sge/font/system.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
@@ -137,6 +138,11 @@ try
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(0, 0, 0, 0))
 	);
+
+	sge::console::stdlib lib(
+		o,
+		boost::bind(&sge::console::gfx::print,&gfx_,_1),
+		boost::bind(&sge::console::gfx::print,&gfx_,_1));
 
 	gfx_.active(true);
 	

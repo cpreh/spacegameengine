@@ -2,8 +2,8 @@
 #define SGE_CONSOLE_OBJECT_HPP_INCLUDED
 
 #include <sge/console/callbacks.hpp>
-#include <sge/console/var_map.hpp>
-#include <sge/console/callback_map.hpp>
+#include <sge/console/variable_map.hpp>
+#include <sge/console/function_map.hpp>
 #include <sge/console/var_base_fwd.hpp>
 #include <sge/signals/connection.hpp>
 #include <sge/export.hpp>
@@ -29,14 +29,14 @@ class SGE_CLASS_SYMBOL object : public boost::noncopyable
 	);
 	
 	SGE_SYMBOL void eval(string const &);
-	SGE_SYMBOL var_map const &vars() const;
-	SGE_SYMBOL var_map &vars();
-	SGE_SYMBOL callback_map const &functions() const;
+	SGE_SYMBOL variable_map const &variables() const;
+	SGE_SYMBOL variable_map &variables();
+	SGE_SYMBOL function_map const &functions() const;
 	private:
 	friend class var_base;
 	
-	var_map vars_;
-	callback_map funcs_;
+	variable_map vars_;
+	function_map funcs_;
 	fallback_signal fallback_;
 	string::value_type prefix_;
 

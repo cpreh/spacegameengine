@@ -55,6 +55,7 @@ public:
 	SGE_SYMBOL void draw();
 	SGE_SYMBOL bool active() const;
 	SGE_SYMBOL void active(bool);
+	SGE_SYMBOL void print(string const &);
 private:
 	object &object_;
 	font::object fn;
