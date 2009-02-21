@@ -10,7 +10,7 @@
 
 namespace
 {
-// FIXME: this is just bad, but mad doesn't give you much guarantees on it's
+// FIXME: this is just bad, but mad doesn't give you much guarantees on its
 // number system
 sge::mad::synth::sample_type mad_to_native(mad_fixed_t fixed)
 {
@@ -21,12 +21,6 @@ sge::mad::synth::sample_type mad_to_native(mad_fixed_t fixed)
 
 	fixed=fixed>>(MAD_F_FRACBITS-15);
 
-	//sge::cout << "stupid: " << fixed << "\n";
-	//sge::cout << "smart: " << (mad_f_todouble(fixed)*std::numeric_limits<boost::int16_t>::max()) << "\n";
-	//sge::cout << "before: " << fixed << "\n";
-	//sge::cout << "after: " << (mad_f_tofixed(mad_f_todouble(fixed))) << "\n";
-	
-	//sge::cout << "double-rep: " << mad_f_todouble(fixed)*double(std::numeric_limits<mad_fixed_t>::max()) << "\n";
 	//return static_cast<sge::mad::synth::sample_type>(mad_f_todouble(fixed)*double(std::numeric_limits<boost::int16_t>::max()));
 
 	return static_cast<sge::mad::synth::sample_type>(fixed);
