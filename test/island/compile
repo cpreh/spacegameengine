@@ -1,3 +1,0 @@
-#!/bin/sh
-
-g++ skydome.cpp main.cpp ../quadtree/quadtree.cpp ../quadtree/mathstuff.cpp island_extractor.cpp -lsgecore -Wall -Wextra -ansi -pedantic -ggdb
