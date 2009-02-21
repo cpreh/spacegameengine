@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/any_color.hpp>
 #include <sge/font/metrics_fwd.hpp>
-#include <sge/font/font.hpp>
+#include <sge/font/object.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
@@ -57,7 +57,7 @@ public:
 	SGE_SYMBOL void active(bool);
 private:
 	object &object_;
-	font::font fn;
+	font::object fn;
 	input::modifier::filter mf;
 	signals::connection const ic,irc;
 	sprite::system ss;

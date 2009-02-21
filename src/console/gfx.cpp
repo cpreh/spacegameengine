@@ -143,7 +143,10 @@ void sge::console::gfx::key_action(
 
 	if ((k.char_code() == SGE_TEXT('w') || k.char_code() == SGE_TEXT('W'))
 	    && (s[input::kc::key_lctrl] || s[input::kc::key_rctrl]))
+	{
 		input_line_.erase_word();
+		return;
+	}
 	
 	// is a printable character? then append to input
 	if(std::isprint(k.char_code(),std::locale()))
