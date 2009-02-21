@@ -47,7 +47,7 @@ ELSE(VORBIS_FOUND)
 	OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" OFF)
 ENDIF(VORBIS_FOUND)
 
-OPTION (ENABLE_WAVE "Build the wave loader plugin" OFF)
+OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
 IF(X11_Xinput_FOUND)
 	OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ON)
