@@ -5,6 +5,7 @@ ENDIF ()
 
 FIND_PACKAGE(DevIL)
 FIND_PACKAGE(OpenGL)
+FIND_PACKAGE(OpenAL)
 
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 
@@ -17,7 +18,13 @@ ENDIF(DevIL_FOUND)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
 OPTION (ENABLE_FREETYPE "Build the freetype font plugin" OFF)
 OPTION (ENABLE_MAD "Build the mad mp3 loader plugin" OFF)
-OPTION (ENABLE_OPENAL "Build the openal audio plugin" OFF)
+
+IF(OPENAL_FOUND)
+	OPTION (ENABLE_OPENAL "Build the openal audio plugin" ON)
+ELSE(OPENAL_FOUND)
+	OPTION (ENABLE_OPENAL "Build the openal audio plugin" OFF)
+ENDIF(OPENAL_FOUND)
+
 
 IF(OPENGL_FOUND)
 	OPTION (ENABLE_OPENGL "Build the opengl render plugin" ON)
