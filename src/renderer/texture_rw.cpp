@@ -63,9 +63,15 @@ void sge::renderer::texture_rw::unlock() const
 	// we didn't just lock to read?
 	if (locked->view)
 	{
-		scoped_texture_lock lock_(
-			make_scoped_lock(write,locked->area,lock_flags::writeonly));
-		copy_and_convert_pixels(make_const_image_view(*locked->view),lock_.value());
+		scoped_texture_lock const lock_(
+			write,
+			locked->area,
+			lock_flags::writeonly);
+		
+		copy_and_convert_pixels(
+			make_const_image_view(
+				*locked->view),
+			lock_.value());
 	}
 
 	read->unlock();

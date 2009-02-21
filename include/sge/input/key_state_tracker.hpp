@@ -21,13 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
 #define SGE_INPUT_KEY_STATE_TRACKER_HPP_INCLUDED
 
-#include "system_fwd.hpp"
-#include "key_code.hpp"
-#include "key_type.hpp"
-#include "key_state.hpp"
-#include "../signals/scoped_connection.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/input/key_state_tracker_fwd.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <sge/input/key_code.hpp>
+#include <sge/input/key_type_fwd.hpp>
+#include <sge/input/key_state.hpp>
+#include <sge/input/key_pair_fwd.hpp>
+#include <sge/signals/scoped_connection.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 #include <map>
 
 namespace sge
@@ -37,7 +39,8 @@ namespace input
 
 class key_pair;
 
-class key_state_tracker : boost::noncopyable {
+class key_state_tracker {
+	SGE_NONCOPYABLE(key_state_tracker)
 public:
 	SGE_SYMBOL explicit key_state_tracker(
 		system_ptr);

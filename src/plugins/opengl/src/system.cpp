@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/parameters.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 
 sge::renderer::device_ptr const
 sge::ogl::system::create_renderer(
@@ -56,7 +56,7 @@ sge::ogl::system::create_renderer(
 			param,
 			adapter,
 			wnd));
-	ref = r.boost_ptr();
+	ref = r;
 	return r;
 }
 

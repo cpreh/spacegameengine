@@ -225,6 +225,20 @@ template<
 	typename M,
 	typename S
 >
+typename sge::math::matrix::basic<T, N, M, S>::dim_type const
+sge::math::matrix::basic<T, N, M, S>::dim() const
+{
+	return dim_type(
+		columns(),
+		rows());
+}
+
+template<
+	typename T,
+	typename N,
+	typename M,
+	typename S
+>
 sge::math::matrix::basic<T, N, M, S> const
 sge::math::matrix::basic<T, N, M, S>::identity()
 {

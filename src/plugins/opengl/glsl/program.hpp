@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../common.hpp"
 #include "shader.hpp"
 #include "traits.hpp"
-#include <sge/shared_ptr.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/program.hpp>
 #include <sge/renderer/glsl/string.hpp>
@@ -50,11 +49,11 @@ public:
 	static void use(
 		renderer::glsl::program_ptr);
 private:
-	renderer::glsl::uniform_variable_ptr const
+	renderer::glsl::uniform::variable_ptr const
 	uniform(
 		renderer::glsl::string const&);
 	
-	renderer::glsl::attribute_variable_ptr const
+	renderer::glsl::attribute::variable_ptr const
 	attribute(
 		renderer::glsl::string const&);
 	

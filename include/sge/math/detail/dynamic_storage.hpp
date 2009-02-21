@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_DYNAMIC_STORAGE_HPP_INCLUDED
 #define SGE_MATH_DETAIL_DYNAMIC_STORAGE_HPP_INCLUDED
 
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_fwd.hpp>
 
 namespace sge
 {
@@ -34,7 +34,7 @@ template<
 	typename T
 >
 struct dynamic_storage {
-	typedef raw_vector<
+	typedef container::raw_vector<
 		T
 	> type;
 };

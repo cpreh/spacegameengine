@@ -21,15 +21,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHARED_PTR_HPP_INCLUDED
 #define SGE_SHARED_PTR_HPP_INCLUDED
 
+#include <sge/shared_ptr_fwd.hpp>
+#include <sge/weak_ptr_fwd.hpp>
 #include <boost/shared_ptr.hpp>
-#include "heap_deleter.hpp"
 
 namespace sge
 {
 
-using boost::weak_ptr;
-
-template<typename T, template<typename> class Deleter = heap_deleter>
+template<
+	typename T,
+	template<
+		typename
+	> class Deleter
+>
 class shared_ptr {
 public:
 	typedef boost::shared_ptr<T> impl_type;
@@ -39,12 +43,7 @@ public:
 	typedef typename impl_type::reference reference;
 
 	shared_ptr()
-	{}
-
-	// FIXME: dangerous
-	template<typename U>
-	explicit shared_ptr(const boost::shared_ptr<U>& p)
-	: impl(p)
+	: impl()
 	{}
 
 	template<class Y>
@@ -56,8 +55,10 @@ public:
 	: impl(p, deleter(), a)
 	{}
 
-	template<class Y>
-	explicit shared_ptr(weak_ptr<Y> const & r)
+	template<
+		typename Y
+	>
+	explicit shared_ptr(weak_ptr<Y, Deleter> const & r)
 	: impl(r)
 	{}
 
@@ -85,20 +86,11 @@ public:
 	shared_ptr(shared_ptr<Y> const & r, boost::detail::polymorphic_cast_tag)
 	: impl(r.boost_ptr(), boost::detail::polymorphic_cast_tag())
 	{}
-#ifndef BOOST_NO_AUTO_PTR
 
 	template<class Y>
 	explicit shared_ptr(std::auto_ptr<Y> & r)
 	: impl(r)
 	{}
-
-	/*template<class Ap>
-	explicit shared_ptr( Ap r, typename boost::detail::sp_enable_if_auto_ptr<Ap, int>::type = 0 )
-	: impl(r)
-	{}*/
-
-
-#endif // BOOST_NO_AUTO_PTR
 
 	template<class Y>
 	shared_ptr & operator=(shared_ptr<Y> const & r)
@@ -107,8 +99,6 @@ public:
 		return *this;
 	}
 
-#ifndef BOOST_NO_AUTO_PTR
-
 	template<class Y>
 	shared_ptr & operator=( std::auto_ptr<Y> & r )
 	{
@@ -116,23 +106,13 @@ public:
 		return *this;
 	}
 
-	/*template<class Ap>
-	typename boost::detail::sp_enable_if_auto_ptr< Ap, shared_ptr & >::type operator=( Ap r )
-	{
-		impl = a.
-		this_type( r ).swap( *this );
-		 return *this;
-	}*/
-
-
-#endif // BOOST_NO_AUTO_PTR
-
-	void reset() // never throws in 1.30+
+	void reset()
 	{
 		impl.reset();
 	}
 
-	template<class Y> void reset(Y *const p) // Y must be complete
+	template<class Y>
+	void reset(Y *const p)
 	{
         	impl.reset(p, deleter());
 	}
@@ -184,7 +164,7 @@ public:
 		std::swap(impl, other.impl);
  	}
 
-	impl_type const&
+	impl_type const 
 	boost_ptr() const
 	{
 		return impl;
@@ -197,58 +177,179 @@ private:
 		return Deleter<T>();
 	}
 	
-	template<typename Other, template<typename> class OtherDeleter> friend class shared_ptr;
+	// this is used to create a shared_ptr
+	// from a weak_ptr
+	template<
+		typename U
+	>
+	explicit shared_ptr(
+		boost::shared_ptr<U> const &p)
+	:
+		impl(p)
+	{}
+
+
+	template<
+		typename Other,
+		template<
+			typename
+		> class OtherDeleter
+	>
+	friend class shared_ptr;
+
+	friend class weak_ptr<T, Deleter>;
 };
 
-template<class T, class U> inline bool operator==(shared_ptr<T> const & a, shared_ptr<U> const & b)
+template<
+	typename T,
+	typename U,
+	template<
+		typename
+	> class Deleter
+>
+bool operator==(
+	shared_ptr<T, Deleter> const &a,
+	shared_ptr<U, Deleter> const &b)
 {
 	return a.boost_ptr() == b.boost_ptr();
 }
 
-template<class T, class U> inline bool operator!=(shared_ptr<T> const & a, shared_ptr<U> const & b)
+template<
+	typename T,
+	typename U,
+	template<
+		typename
+	> class Deleter
+>
+bool operator!=(
+	shared_ptr<T, Deleter> const &a,
+	shared_ptr<U, Deleter> const &b)
 {
 	return !(a==b);
 }
 
-template<class T, class U> inline bool operator<(shared_ptr<T> const & a, shared_ptr<U> const & b)
+template<
+	typename T,
+	typename U,
+	template<
+		typename
+	> class Deleter
+>
+bool operator<(
+	shared_ptr<T, Deleter> const &a,
+	shared_ptr<U, Deleter> const &b)
 {
 	return a.boost_ptr() < b.boost_ptr();
 }
 
-template<class T> inline void swap(shared_ptr<T> & a, shared_ptr<T> & b)
+template<
+	typename T,
+	typename U,
+	template<
+		typename
+	> class Deleter
+>
+void
+swap(
+	shared_ptr<T, Deleter> &a,
+	shared_ptr<T, Deleter> &b)
 {
 	a.swap(b);
 }
 
-template<class T, class U> shared_ptr<T> static_pointer_cast(shared_ptr<U> const & r)
+template<
+	typename T,
+	typename U,
+	template<
+		typename
+	> class Deleter
+>
+shared_ptr<T, Deleter> const
+static_pointer_cast(
+	shared_ptr<U, Deleter> const &r)
 {
-	return shared_ptr<T>(r, boost::detail::static_cast_tag());
+	return shared_ptr<T, Deleter>(
+		r,
+		boost::detail::static_cast_tag());
 }
 
-template<class T, class U> shared_ptr<T> const_pointer_cast(shared_ptr<U> const & r)
+template<
+	typename T,
+	typename U,
+	template<
+		typename
+	> class Deleter
+>
+shared_ptr<T, Deleter> const
+const_pointer_cast(
+	shared_ptr<U, Deleter> const &r)
 {
-	return shared_ptr<T>(r, boost::detail::const_cast_tag());
+	return shared_ptr<T, Deleter>(
+		r,
+		boost::detail::const_cast_tag());
 }
 
-template<class T, class U> shared_ptr<T> dynamic_pointer_cast(shared_ptr<U> const & r)
+template<
+	typename T,
+	typename U,
+	template<
+		typename
+	> class Deleter
+>
+shared_ptr<T, Deleter> const
+dynamic_pointer_cast(
+	shared_ptr<U, Deleter> const &r)
 {
-	return shared_ptr<T>(r, boost::detail::dynamic_cast_tag());
+	return shared_ptr<T, Deleter>(
+		r,
+		boost::detail::dynamic_cast_tag());
 }
 
-template<typename T, typename U> shared_ptr<T> polymorphic_pointer_cast(const shared_ptr<U>& r)
+template<
+	typename T,
+	typename U,
+	template<
+		typename
+	> class Deleter
+>
+shared_ptr<T, Deleter> const
+polymorphic_pointer_cast(
+	shared_ptr<U, Deleter> const &r)
 {
-	return shared_ptr<T>(r, boost::detail::polymorphic_cast_tag());
+	return shared_ptr<T, Deleter>(
+		r,
+		boost::detail::polymorphic_cast_tag());
 }
 
-template<class T> inline T * pointer(shared_ptr<T> const & p)
+/*
+template<
+	typename T,
+	template<
+		typename
+	> class Deleter
+>
+T *pointer(
+	shared_ptr<T, Deleter> const & p)
 {
     return p.get();
 }
+*/
 
-template<class E, class T, class Y> std::basic_ostream<E, T> & operator<< (std::basic_ostream<E, T> & os, shared_ptr<Y> const & p)
+template<
+	typename Ch,
+	typename Traits,
+	typename T,
+	template<
+		typename
+	> class Deleter
+>
+std::basic_ostream<Ch, Traits> &
+operator<< (
+	std::basic_ostream<Ch, Traits> &os,
+	shared_ptr<T, Deleter> const & p)
 {
-    os << p.get();
-    return os;
+	os << p.get();
+	return os;
 }
 
 }

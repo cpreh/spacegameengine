@@ -3,8 +3,6 @@
 #include <sge/gui/log.hpp>
 #include <sge/font/system.hpp>
 #include <sge/media.hpp>
-#include <sge/iostream.hpp>
-#include <boost/assign/list_of.hpp>
 #include <boost/foreach.hpp>
 
 namespace
@@ -33,12 +31,13 @@ sge::gui::manager::manager(
 	keyboard_(is),
 	updates_(mouse_,render_)
 {
-	submanagers = boost::assign::list_of<detail::submanager*>
-				(&mouse_)
-				(&render_)
-				(&keyboard_)
-				(&updates_)
-				(&timer_);
+	// TODO: find a way to initialize this in the constructor
+	// that works for both gcc-4.3 and gcc-4.4.
+	submanagers.push_back(&mouse_);
+	submanagers.push_back(&render_);
+	submanagers.push_back(&keyboard_);
+	submanagers.push_back(&updates_);
+	submanagers.push_back(&timer_);
 }
 
 sge::gui::manager::~manager()

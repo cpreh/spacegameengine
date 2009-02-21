@@ -1,7 +1,7 @@
 #include "../stream.hpp"
 #include "../frame.hpp"
 #include "../log.hpp"
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/text.hpp>
 #include <sge/string.hpp>
 #include <sge/assert.hpp>

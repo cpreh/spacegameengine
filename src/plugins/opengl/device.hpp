@@ -152,7 +152,7 @@ public:
 
 	renderer::index_buffer_ptr const
 	create_index_buffer(
-		renderer::index_format::type,
+		renderer::index::format::type,
 		renderer::size_type sz,
 		renderer::resource_flag_t flags);
 
@@ -166,9 +166,6 @@ private:
 	void vertex_buffer(
 		renderer::const_vertex_buffer_ptr);
 	
-	void index_buffer(
-		renderer::const_index_buffer_ptr);
-
 	fbo_target_ptr const
 	create_target();
 

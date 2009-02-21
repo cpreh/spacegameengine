@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "buffer_base.hpp"
 #include "vbo.hpp"
+#include "basic_buffer.hpp"
 #include "vf/format.hpp"
 #include <sge/renderer/vertex_buffer.hpp>
 
@@ -35,27 +35,11 @@ namespace vf
 class dynamic_format;
 }
 }
-
 namespace ogl
 {
 
-namespace detail
-{
-typedef buffer_base<
-	renderer::vertex_buffer,
-	vertex_buffer_type,
-	vb_ib_vbo_impl
-> vertex_buffer_base;
-}
-
-class vertex_buffer
-: public detail::vertex_buffer_base {	
+class vertex_buffer : public renderer::vertex_buffer {
 public:
-	typedef detail::vertex_buffer_base base;
-	typedef base::view_type            view_type;
-	typedef base::const_view_type      const_view_type;
-	typedef base::resource_flag_type   resource_flag_type;
-
 	vertex_buffer(
 		renderer::vf::dynamic_format const &,
 		size_type sz,
@@ -63,15 +47,33 @@ public:
 
 	void set_format() const;
 private:
-	view_type const view();
-	const_view_type const view() const;
+	view_type const
+	lock(
+		lock_flag_type flags,
+		size_type offset,
+		size_type range);
+
+	const_view_type const
+	lock(
+		size_type offset,
+		size_type range) const;
+
+	void unlock() const;
+
+	size_type size() const;
+	resource_flag_type flags() const;
 
 	renderer::vf::dynamic_format const &
 	format() const;
 
-	void pre_unlock() const;
-
 	vf::format const format_;
+
+	typedef basic_buffer<
+		vertex_buffer_type,
+		vb_ib_vbo_impl
+	> buffer_type;
+
+	mutable buffer_type buf;
 };
 
 }

@@ -22,16 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_CURSOR_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include "display_fwd.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/x11/display_fwd.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace x11
 {
 
-class cursor : boost::noncopyable {
+class cursor {
+	SGE_NONCOPYABLE(cursor)
 public:
 	SGE_SYMBOL cursor(
 		display_ptr,

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SYSTEM_HPP_INCLUDED
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
-#include "adapter.hpp"
-#include "device_fwd.hpp"
-#include "../export.hpp"
-#include "../window/instance_fwd.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/renderer/adapter.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/window/instance_fwd.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -39,7 +39,10 @@ namespace renderer
 
 struct parameters;
 
-class SGE_CLASS_SYMBOL system : boost::noncopyable {
+class SGE_CLASS_SYMBOL system {
+	SGE_NONCOPYABLE(system)
+protected:
+	SGE_SYMBOL system();
 public:
 	virtual device_ptr const
 	create_renderer(

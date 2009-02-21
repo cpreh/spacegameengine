@@ -1,7 +1,7 @@
 #include "log.hpp"
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/canvas/font_drawer.hpp>
-#include <sge/font/font.hpp>
+#include <sge/font/object.hpp>
 #include <sge/font/text_size_t.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
@@ -33,10 +33,14 @@ void sge::gui::canvas::object::draw_text(
 		cp = (*cp) - filter;
 	}
 
-	font::font(
+	font::object(
 		metrics,
 		font::drawer_ptr(
-			new font_drawer(view_,c,cp,p))
+			new font_drawer(
+				view_,
+				c,
+				cp,
+				p))
 	).draw_text(
 		text,
 		pos,

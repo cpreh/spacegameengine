@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCOPED_PTR_HPP_INCLUDED
 #define SGE_SCOPED_PTR_HPP_INCLUDED
 
-#include "auto_ptr.hpp"
-#include "heap_deleter.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/auto_ptr.hpp>
+#include <sge/heap_deleter.hpp>
+#include <sge/noncopyable.hpp>
 #include <algorithm>
 
 namespace sge
@@ -35,9 +35,10 @@ template<
 		typename
 	> class Deleter = heap_deleter
 >
-class scoped_ptr : boost::noncopyable {
+class scoped_ptr {
+	SGE_NONCOPYABLE(scoped_ptr)
 public:
-	typedef T * pointer;
+	typedef T *pointer;
 
 	explicit scoped_ptr(
 		pointer p = 0)

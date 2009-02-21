@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/workarounds.hpp>
+#include <sge/renderer/detail/npos.hpp>
 
-#ifndef SGE_MSVC_STATIC_CONST_INTEGRAL_DEFINITION_BUG
+sge::renderer::vertex_buffer::vertex_buffer()
+{}
 
-sge::renderer::vertex_buffer::size_type const
-sge::renderer::vertex_buffer::npos;
-
-#endif
+sge::renderer::size_type const
+sge::renderer::vertex_buffer::npos(
+	sge::renderer::detail::npos);
 
 sge::renderer::vertex_buffer::~vertex_buffer()
 {}

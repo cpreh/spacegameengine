@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/image_view_dim.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 
 namespace
@@ -41,11 +42,12 @@ namespace
 {
 
 sge::renderer::dim_type const
-gil_dim_to_sge(sge::renderer::image_view::point_t const &v)
+gil_dim_to_sge(
+	sge::renderer::image_view::point_t const &v)
 {
 	return sge::renderer::dim_type(
-		v.x,
-		v.y);
+		static_cast<sge::renderer::size_type>(v.x),
+		static_cast<sge::renderer::size_type>(v.y));
 }
 
 }

@@ -1,6 +1,5 @@
 #include <sge/assert.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
 #include <sge/sstream.hpp>
 #include <ostream>
 
@@ -22,6 +21,5 @@ void sge::detail::process_assert(
 	if (!message.empty())
 		ss << SGE_TEXT(", ") << message;
 
-	cerr << ss.str() << SGE_TEXT('\n');
 	throw exception(ss.str());
 }

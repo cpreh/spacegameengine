@@ -25,18 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/signals/scoped_connection.hpp>
 #include <sge/input/classification.hpp>
 #include <sge/input/modifier/filter.hpp>
+#include <sge/input/action.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
 #include <sge/iostream.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/if.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <exception>
 #include <ostream>
 #include <cstdlib>
@@ -80,18 +80,15 @@ try
 			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::input));
 	
-	using boost::lambda::var;
-	using boost::lambda::bind;
-	using boost::lambda::if_;
-
 	bool running = true;
 
 	sge::signals::scoped_connection const cb(
 		sys.input_system()->register_callback(
-			if_(bind(&sge::input::key_type::code,
-				bind(&sge::input::key_pair::key,boost::lambda::_1))
-			== sge::input::kc::key_escape)
-		[var(running)=false])
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
 	);
 
 	sge::input::modifier::filter mf(sys.input_system());

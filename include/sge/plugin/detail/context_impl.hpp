@@ -21,29 +21,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
 #define SGE_PLUGIN_CONTEXT_IMPL_HPP_INCLUDED
 
-#include "../context.hpp"
-#include "../context_base.hpp"
-#include "../plugin.hpp"
+#include <sge/plugin/context.hpp>
+#include <sge/plugin/context_base.hpp>
+#include <sge/plugin/plugin.hpp>
+#include <sge/make_shared_ptr.hpp>
 
-template<typename T>
+template<
+	typename T
+>
 sge::plugin::context<T>::context(
 	context_base &base_)
 :
 	base_(&base_)
 {}
 
-template<typename T>
+template<
+	typename T
+>
 typename sge::plugin::context<T>::ptr_type
 sge::plugin::context<T>::load()
 {
-	shared_ptr<base> const ptr_base(base_->ref.lock());
+	shared_ptr<base> const ptr_base(
+		base_->ref.lock());
+
 	if(ptr_base)
-		return polymorphic_pointer_cast<plugin<T> >(ptr_base);
+		return polymorphic_pointer_cast<
+			plugin<T>
+		>(
+			ptr_base);
 	
 	shared_ptr<plugin<T> > const new_ptr(
-		new plugin<T>(base_->path()));
+		make_shared_ptr<
+			plugin<T>
+		>(
+			base_->path()));
 
-	base_->ref = new_ptr.boost_ptr();
+	base_->ref = new_ptr;
 	return new_ptr;
 }
 

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SIGNALS_CONNECTION_MANAGER_HPP_INCLUDED
 #define SGE_SIGNALS_CONNECTION_MANAGER_HPP_INCLUDED
 
-#include "connection.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/signals/connection.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 #include <vector>
 
 namespace sge
@@ -32,8 +32,10 @@ namespace signals
 {
 
 // TODO: we should use boost::signals::trackable instead
-class connection_manager : boost::noncopyable {
+class connection_manager {
+	SGE_NONCOPYABLE(connection_manager)
 public:
+	SGE_SYMBOL connection_manager();
 	SGE_SYMBOL ~connection_manager();
 
 	SGE_SYMBOL void connect(

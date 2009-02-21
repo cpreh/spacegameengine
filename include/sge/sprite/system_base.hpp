@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_SYSTEM_BASE_HPP_INCLUDED
 #define SGE_SPRITE_SYSTEM_BASE_HPP_INCLUDED
 
-#include "matrix.hpp"
+#include <sge/sprite/matrix.hpp>
 #include <sge/renderer/vertex_buffer_fwd.hpp>
 #include <sge/renderer/index_buffer_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/math/matrix/basic_decl.hpp>
 #include <sge/export.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <cstddef>
 
 namespace sge
@@ -35,7 +35,8 @@ namespace sge
 namespace sprite
 {
 
-class system_base : boost::noncopyable {
+class system_base {
+	SGE_NONCOPYABLE(system_base)
 public:
 	SGE_SYMBOL sge::renderer::device_ptr const
 	renderer() const;
@@ -55,11 +56,11 @@ protected:
 	index_buffer() const;
 private:
 	sge::renderer::device_ptr const  rend;
-	sge::renderer::vertex_buffer_ptr vb;
-	sge::renderer::index_buffer_ptr  ib;
 	matrix const
 		transform_matrix,
 		projection_matrix;
+	sge::renderer::vertex_buffer_ptr vb;
+	sge::renderer::index_buffer_ptr  ib;
 };
 
 }

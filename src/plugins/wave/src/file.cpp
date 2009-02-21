@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/endianness.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/istream_util.hpp>
 #include <sge/sstream.hpp>
 #include <sge/format.hpp>
@@ -183,9 +183,11 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 
 std::string const sge::wave::file::extract_header(string const &_desc)
 {
-	raw_vector<char>::size_type const byte_count = 
-		static_cast<raw_vector<char>::size_type>(4);
-	raw_vector<char> bytes(byte_count);
+	typedef container::raw_vector<char> char_vector;
+
+	char_vector::size_type const byte_count = 
+		static_cast<char_vector::size_type>(4);
+	char_vector bytes(byte_count);
 	file_.read(&bytes[0],byte_count);
 	if (file_.bad())
 		throw audio::exception(

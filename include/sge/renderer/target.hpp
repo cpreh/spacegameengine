@@ -21,20 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TARGET_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_HPP_INCLUDED
 
-#include "dim_type.hpp"
-#include "lock_rect.hpp"
-#include "size_type.hpp"
-#include "image_view.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
-#include <cstddef>
+#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-class SGE_CLASS_SYMBOL target : boost::noncopyable {
+class SGE_CLASS_SYMBOL target {
+	SGE_NONCOPYABLE(target)
+protected:
+	SGE_SYMBOL target();
 public:
 	typedef renderer::size_type          size_type;
 	typedef renderer::dim_type           dim_type;

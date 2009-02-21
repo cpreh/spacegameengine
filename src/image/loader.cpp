@@ -20,5 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/loader.hpp>
 
+sge::image::loader::loader()
+{}
+
 sge::image::loader::~loader()
 {}

@@ -1,7 +1,6 @@
 // Note: The priorities reflect the importance of the task regarding the time
 // it should be implemented not the overall importance for sge
 *very low: get information about 3d facilities such as a scene graph
-*low: add a safer weak_ptr for Deleter template parameter
 *low: add joystick support to dinput and xinput
 *low: make the d3d9 plugin functional again
 *low: add a d3d10 plugin
@@ -16,6 +15,8 @@
 sprite, texture, console, etc. as well)
 *low: replace every boost::noncopyable by SGE_NONCOPYABLE
 *low: get rid of as much warnings as possible from -Weffc++
+*low: implement opengl-3 features
+*low: add support for multiple opengl contexts
 *medium: breakpoints for the font
 *medium: implement "loop and play once on kill" to sound buffer
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)

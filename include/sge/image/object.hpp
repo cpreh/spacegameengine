@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_OBJECT_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "../filesystem/path.hpp"
-#include "../renderer/image_view.hpp"
+#include <sge/filesystem/path.hpp>
+#include <sge/renderer/image_view.hpp>
 #include <sge/math/dim/static.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
+#include <sge/export.hpp>
 #include <cstddef>
 
 namespace sge
@@ -33,7 +33,10 @@ namespace sge
 namespace image
 {
 
-class SGE_CLASS_SYMBOL object : boost::noncopyable {
+class SGE_CLASS_SYMBOL object {
+	SGE_NONCOPYABLE(object)
+protected:
+	SGE_SYMBOL object();
 public:
 	typedef std::size_t size_type;
 

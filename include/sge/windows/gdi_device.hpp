@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOWS_GDI_DEVICE_HPP_INCLUDED
 #define SGE_WINDOWS_GDI_DEVICE_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
-#include "../export.hpp"
-#include "windows.hpp"
+#include <sge/windows/windows.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace windows
-{
+{ 
 
-class gdi_device : boost::noncopyable {
+class gdi_device {
+	SGE_NONCOPYABLE(gdi_device)
 public:
 	struct get_tag{};
 	SGE_SYMBOL gdi_device(

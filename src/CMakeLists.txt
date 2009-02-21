@@ -21,7 +21,11 @@ FILE (GLOB sgecorefiles
 	plugin/detail/*.cpp
 	random/*.cpp
 	renderer/*.cpp
+	renderer/detail/*.cpp
+	renderer/index/*.cpp
 	renderer/glsl/*.cpp
+	renderer/glsl/attribute/*.cpp
+	renderer/glsl/uniform/*.cpp
 	renderer/state/*.cpp
 	renderer/vf/*.cpp
 	signals/*.cpp

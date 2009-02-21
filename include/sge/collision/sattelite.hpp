@@ -3,16 +3,19 @@
 
 #include "sattelite_fwd.hpp"
 #include "point.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace collision
 {
-class SGE_CLASS_SYMBOL sattelite : public boost::noncopyable
+class SGE_CLASS_SYMBOL sattelite 
 {
-	public:
+	SGE_NONCOPYABLE(sattelite)
+protected:
+	SGE_SYMBOL sattelite();
+public:
 	virtual void position_change(point const &) = 0;
 	SGE_SYMBOL virtual ~sattelite();
 };
