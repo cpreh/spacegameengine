@@ -38,6 +38,12 @@ sge::openal::context::context(
 	SGE_LOG_DEBUG(log(),log::_1 << SGE_TEXT("created audio context"))
 }
 
+ALCcontext *
+sge::openal::context::alcontext()
+{
+	return context_;
+}
+
 void sge::openal::context::make_current()
 {
 	SGE_LOG_DEBUG(log(),

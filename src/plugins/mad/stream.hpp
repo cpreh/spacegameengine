@@ -6,15 +6,16 @@
 #include <mad.h>
 #include <sge/container/raw_vector_decl.hpp>
 #include <sge/string.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <iosfwd>
 
 namespace sge
 {
 namespace mad
 {
-class stream : boost::noncopyable
+class stream
 {
+	SGE_NONCOPYABLE(stream)
 	public:
 	explicit stream(std::istream &);
 	frame &decode(decoding_mode::type);

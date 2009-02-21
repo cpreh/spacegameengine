@@ -21,14 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DEVIL_LIBRARY_HPP_INCLUDED
 #define SGE_DEVIL_LIBRARY_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace devil
 {
 
-struct library : boost::noncopyable {
+struct library {
+	SGE_NONCOPYABLE(library)
+public:
 	library();
 	~library();
 };

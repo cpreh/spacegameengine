@@ -3,14 +3,15 @@
 
 #include "types.hpp"
 #include <bullet/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace bullet
 {
-class constraint : public boost::noncopyable
+class constraint 
 {
+	SGE_NONCOPYABLE(constraint)
 	public:
 	constraint(
 		world_type &,

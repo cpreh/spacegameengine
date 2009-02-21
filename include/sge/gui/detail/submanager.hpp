@@ -4,7 +4,7 @@
 #include "../widget_fwd.hpp"
 #include "../activation_state.hpp"
 #include "../types.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -12,8 +12,11 @@ namespace gui
 {
 namespace detail
 {
-class submanager : public boost::noncopyable
+class submanager
 {
+	SGE_NONCOPYABLE(submanager)
+	protected:
+	submanager();
 	public:
 	virtual void resize(widget &,dim const &);
 	virtual void reposition(widget &,point const &);

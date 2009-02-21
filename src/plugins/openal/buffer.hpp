@@ -1,7 +1,7 @@
 #ifndef SGE_OPENAL_BUFFER_HPP_INCLUDED
 #define SGE_OPENAL_BUFFER_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include "openal.hpp"
 
 namespace sge
@@ -13,11 +13,12 @@ class file;
 
 namespace openal
 {
-class buffer : public boost::noncopyable
+class buffer
 {
+	SGE_NONCOPYABLE(buffer)
 	public:
-	buffer(audio::file &);
-	ALuint albuffer() const { return buffer_; }
+	explicit buffer(audio::file &);
+	ALuint albuffer() const;
 	audio::file &file();
 	audio::file const &file() const;
 	void add_instance();

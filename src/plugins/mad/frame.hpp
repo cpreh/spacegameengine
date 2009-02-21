@@ -7,14 +7,15 @@
 #include <sge/audio/channel_type.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/string.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace mad
 {
-class frame : boost::noncopyable
+class frame
 {
+	SGE_NONCOPYABLE(frame)
 	public:
 	frame();
 	mad_frame &madframe();
