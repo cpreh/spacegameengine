@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_TRAMPOLINE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_TRAMPOLINE_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "../../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/renderer/state/traits.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,10 +32,17 @@ namespace renderer
 namespace state
 {
 
-template<typename T> struct var;
+template<
+	typename T
+>
+struct var;
 
-template<typename T>
-struct trampoline : boost::noncopyable {
+template<
+	typename T
+>
+struct trampoline {
+	SGE_NONCOPYABLE(trampoline)
+public:
 	typedef typename traits<T>::available_states state_type;
 	typedef var<T> var_type;
 

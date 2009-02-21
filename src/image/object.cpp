@@ -20,5 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/object.hpp>
 
+sge::image::object::object()
+{}
+
 sge::image::object::~object()
 {}

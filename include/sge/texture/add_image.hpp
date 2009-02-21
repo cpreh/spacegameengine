@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ADD_IMAGE_HPP_INCLUDED
 #define SGE_TEXTURE_ADD_IMAGE_HPP_INCLUDED
 
-#include "part_fwd.hpp"
-#include "../export.hpp"
-#include "../image/object_fwd.hpp"
+#include <sge/texture/part_fwd.hpp>
+#include <sge/image/object_fwd.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

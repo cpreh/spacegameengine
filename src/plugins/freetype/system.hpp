@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/filesystem/path.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/metrics.hpp>
-#include <boost/weak_ptr.hpp>
+#include <sge/weak_ptr.hpp>
 #include <map>
 #include <utility>
 
@@ -47,7 +47,7 @@ private:
 			font::size_type,
 			filesystem::path
 		>,
-		boost::weak_ptr<
+		weak_ptr<
 			font::metrics
 		>
 	> loaded_fonts_list;

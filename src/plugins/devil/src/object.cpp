@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/iconv.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/renderer/color_format_stride.hpp>
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/copy_and_convert_pixels.hpp>
@@ -101,7 +101,7 @@ void sge::devil::object::data(
 {
 	bind_me();
 
-	typedef raw_vector<
+	typedef container::raw_vector<
 		unsigned char
 	> raw_vector_t;
 

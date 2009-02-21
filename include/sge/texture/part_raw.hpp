@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_PART_RAW_HPP_INCLUDED
 
 #include "part.hpp"
-#include "../export.hpp"
 #include "../renderer/texture_fwd.hpp"
 #include "../renderer/lock_rect.hpp"
 #include <sge/math/rect_impl.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

@@ -22,15 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11_DISPLAY_HPP_INCLUDED
 
 #include <X11/Xlib.h>
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace x11
 {
 
-class SGE_CLASS_SYMBOL display : boost::noncopyable {
+class SGE_CLASS_SYMBOL display {
+	SGE_NONCOPYABLE(display)
 public:
 	SGE_SYMBOL display();
 	SGE_SYMBOL ~display();

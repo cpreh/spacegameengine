@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/angle.hpp>
 #include <sge/math/vector/vector.hpp>
 #include <sge/math/matrix/matrix.hpp>
-#include <sge/math/matrix/dynamic.hpp>
+#include <sge/math/matrix/dynamic_impl.hpp>
 #include <sge/math/dim/dim.hpp>
 #include <sge/math/point_rotate.hpp>
 #include <boost/assign/list_of.hpp>

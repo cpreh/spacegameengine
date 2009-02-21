@@ -35,6 +35,7 @@ class SGE_CLASS_SYMBOL button : public widget
 	// signals
 	boost::signal<void ()> clicked;
 	private:
+	using widget::process;
 	string text_;
 	font::metrics_ptr font_;
 	bool mouse_over_;

@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view_format.hpp>
 #include <sge/renderer/image_view_dim.hpp>
-#include <sge/renderer/index_view_operations.hpp>
+#include <sge/renderer/index/view_format.hpp>
+#include <sge/renderer/index/view_size.hpp>
+#include <sge/renderer/index/copy.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
@@ -38,6 +40,8 @@ sge::renderer::texture_ptr const sge::renderer::device::no_texture;
 sge::renderer::texture_ptr const sge::renderer::device::default_target;
 sge::renderer::glsl::program_ptr const sge::renderer::device::no_program;
 
+sge::renderer::device::device()
+{}
 
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
@@ -54,9 +58,8 @@ sge::renderer::device::create_texture(
 			flags));
 	
 	scoped_texture_lock const lock(
-		make_scoped_lock(
-			tex,
-			lock_flags::writeonly));
+		tex,
+		lock_flags::writeonly);
 
 	copy_and_convert_pixels(
 		v,
@@ -77,9 +80,8 @@ sge::renderer::device::create_vertex_buffer(
 			flags));
 	
 	scoped_vertex_lock const lock(
-		make_scoped_lock(
-			vb,
-			lock_flags::writeonly));
+		vb,
+		lock_flags::writeonly);
 	
 	copy_n(
 		view.data(),
@@ -91,37 +93,24 @@ sge::renderer::device::create_vertex_buffer(
 
 sge::renderer::index_buffer_ptr const
 sge::renderer::device::create_index_buffer(
-	const_dynamic_index_view const &view,
+	index::const_view const &view,
 	resource_flag_t const flags)
 {
-	size_type const sz(
-		boost::apply_visitor(
-			index_view_size(),
-			view));
-
 	index_buffer_ptr const ib(
 		create_index_buffer(
-			boost::apply_visitor(
-				index_view_format(),
+			index::view_format(
 				view),
-			sz,
+			index::view_size(
+				view),
 			flags));
 	
 	scoped_index_lock const lock(
-		make_scoped_lock(
-			ib,
-			lock_flags::writeonly));
+		ib,
+		lock_flags::writeonly);
 	
-	copy_n(
-		boost::apply_visitor(
-			index_view_data_const(),
-			view),
-		sz * boost::apply_visitor(
-			index_view_stride(),
-			view),
-		boost::apply_visitor(
-			index_view_data(),
-			lock.value()));
+	index::copy(
+		view,
+		lock.value());
 	
 	return ib;
 }

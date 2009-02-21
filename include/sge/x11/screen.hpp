@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_SCREEN_HPP_INCLUDED
 #define SGE_X11_SCREEN_HPP_INCLUDED
 
-#include "display_fwd.hpp"
-#include "../export.hpp"
+#include <sge/x11/display_fwd.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

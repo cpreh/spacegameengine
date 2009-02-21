@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "lock_flags.hpp"
-#include "resource_flags.hpp"
-#include "vf/vertex_size.hpp"
-#include "vf/dynamic_view.hpp"
-#include "../shared_ptr.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/renderer/vf/dynamic_view.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/lock_flags.hpp>
+#include <sge/renderer/resource_flags.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -39,17 +38,19 @@ namespace vf
 class dynamic_format;
 }
 
-class SGE_CLASS_SYMBOL vertex_buffer : boost::noncopyable {
+class SGE_CLASS_SYMBOL vertex_buffer {
+	SGE_NONCOPYABLE(vertex_buffer)
+protected:
+	SGE_SYMBOL vertex_buffer();
 public:
-	typedef vf::vertex_size         size_type;
-	
+	typedef renderer::size_type     size_type;
 	typedef resource_flag_t         resource_flag_type;
 	typedef lock_flag_t             lock_flag_type;
 
 	typedef vf::dynamic_view        view_type;
 	typedef vf::const_dynamic_view  const_view_type;
 
-	static const size_type npos = static_cast<size_type>(-1);
+	SGE_SYMBOL static size_type const npos;
 
 	virtual view_type const lock(
 		lock_flag_type flags,
@@ -64,8 +65,6 @@ public:
 
 	virtual size_type size() const = 0;
 	virtual resource_flag_type flags() const = 0;
-
-	virtual size_type stride() const = 0;
 
 	virtual vf::dynamic_format const &format() const = 0;
 

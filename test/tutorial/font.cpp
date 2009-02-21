@@ -1,7 +1,7 @@
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/font/font.hpp>
+#include <sge/font/object.hpp>
 #include <sge/font/drawer_3d.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text_size_t.hpp>
@@ -53,7 +53,7 @@ try
 			sys.renderer(),
 			sge::renderer::colors::white()));
 	
-	sge::font::font font(
+	sge::font::object font(
 		metrics,
 		drawer);
 

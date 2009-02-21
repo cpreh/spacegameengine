@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "capabilities.hpp"
 #include "category_array.hpp"
-#include "../export.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 #include <vector>
 #include <map>
 #include <cstddef>
@@ -39,9 +39,11 @@ class context_base;
 template<typename T>
 class iterator;
 
-class manager : boost::noncopyable {
+class manager {
 	typedef std::vector<context_base> plugin_array;
 	typedef std::map<capabilities::type, category_array> plugin_map;
+
+	SGE_NONCOPYABLE(manager)
 public:
 	typedef std::size_t size_type;
 

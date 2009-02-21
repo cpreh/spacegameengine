@@ -21,58 +21,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_SCOPED_TEXTURE_LOCK_HPP_INCLUDED
 
-#include "texture_fwd.hpp"
-#include "image_view.hpp"
-#include "scoped_lock_wrapper.hpp"
-#include "scoped_lock.hpp"
-#include "lock_flags.hpp"
-#include "lock_rect.hpp"
-#include "../export.hpp"
+#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/lock_flags.hpp>
+#include <sge/noncopyable.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace renderer
 {
 
-typedef scoped_lock<
-	texture_ptr,
-	image_view
-> scoped_texture_lock;
+class scoped_texture_lock {
+	SGE_NONCOPYABLE(scoped_texture_lock)
+public:
+	SGE_SYMBOL scoped_texture_lock(
+		texture_ptr,
+		lock_flag_t);
+	
+	SGE_SYMBOL scoped_texture_lock(
+		texture_ptr,
+		lock_rect const &,
+		lock_flag_t);
+	
+	SGE_SYMBOL image_view const
+	value() const;
 
-typedef scoped_lock<
-	const_texture_ptr,
-	const_image_view
-> const_scoped_texture_lock;
-
-typedef scoped_lock_wrapper<
-	texture_ptr,
-	image_view
-> scoped_texture_lock_wrapper;
-
-typedef scoped_lock_wrapper<
-	const_texture_ptr,
-	const_image_view
-> const_scoped_texture_lock_wrapper;
-
-SGE_SYMBOL scoped_texture_lock_wrapper const
-make_scoped_lock(
-	texture_ptr,
-	lock_flag_t);
-
-SGE_SYMBOL scoped_texture_lock_wrapper const
-make_scoped_lock(
-	texture_ptr t,
-	lock_rect const &r,
-	lock_flag_t flags);
-
-SGE_SYMBOL const_scoped_texture_lock_wrapper const
-make_scoped_lock(
-	const_texture_ptr t,
-	lock_rect const &r);
-
-SGE_SYMBOL const_scoped_texture_lock_wrapper const
-make_scoped_lock(
-	const_texture_ptr t);
+	SGE_SYMBOL ~scoped_texture_lock();
+private:
+	texture_ptr const tex;
+	image_view const view;
+};
 
 }
 }

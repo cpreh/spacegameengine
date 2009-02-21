@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 #define SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 
-#include "../renderer/device_fwd.hpp"
-#include "../renderer/system_fwd.hpp"
-#include "../font/system_fwd.hpp"
-#include "../input/system_fwd.hpp"
-#include "../image/loader_fwd.hpp"
-#include "../audio/player_fwd.hpp"
-#include "../collision/system_fwd.hpp"
-#include "../window/instance_fwd.hpp"
-#include "../export.hpp"
-#include <boost/scoped_ptr.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/system_fwd.hpp>
+#include <sge/font/system_fwd.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <sge/image/loader_fwd.hpp>
+#include <sge/audio/player_fwd.hpp>
+#include <sge/collision/system_fwd.hpp>
+#include <sge/window/instance_fwd.hpp>
+#include <sge/export.hpp>
+#include <sge/scoped_ptr.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -45,7 +45,9 @@ namespace systems
 
 class list;
 
-struct instance : boost::noncopyable {
+struct instance {
+	SGE_NONCOPYABLE(instance)
+public:
 	SGE_SYMBOL explicit instance(
 		list const &);
 	SGE_SYMBOL ~instance();
@@ -72,7 +74,7 @@ struct instance : boost::noncopyable {
 
 	struct impl;
 private:
-	boost::scoped_ptr<impl> impl_;
+	sge::scoped_ptr<impl> impl_;
 };
 
 }

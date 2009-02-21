@@ -111,15 +111,33 @@ void sge::ogl::device::begin_rendering()
 
 sge::renderer::index_buffer_ptr const
 sge::ogl::device::create_index_buffer(
-	renderer::index_format::type const format,
+	renderer::index::format::type const format,
 	renderer::size_type const sz,
 	renderer::resource_flag_t const flags)
 {
-	return renderer::index_buffer_ptr(
-		new ogl::index_buffer(
-			format,
-			sz,
-			flags));
+	switch(format) {
+	case renderer::index::format::i16:
+		return renderer::index_buffer_ptr(
+			make_shared_ptr<
+				ogl::index_buffer<
+					uint16
+				>
+			>(
+				sz,
+				flags));
+	case renderer::index::format::i32:
+		return renderer::index_buffer_ptr(
+			make_shared_ptr<
+				ogl::index_buffer<
+					uint32
+				>
+			>(
+				sz,
+				flags));
+	default:
+		throw exception(
+			SGE_TEXT("Invalid index::format!"));
+	}
 }
 
 sge::renderer::texture_ptr const
@@ -237,13 +255,16 @@ void sge::ogl::device::render(
 			SGE_TEXT("ib may not be 0 for renderer::render for indexed primitives!"));
 
 	vertex_buffer(vb);
-	index_buffer(ib);
 
 	GLenum const prim_type = convert_primitive(ptype);
 
-	ogl::index_buffer const &
-		gl_ib = dynamic_cast<ogl::index_buffer const &>(
+	index_buffer_base const &
+		gl_ib = dynamic_cast<
+			index_buffer_base const &
+		>(
 			*ib);
+
+	gl_ib.bind_me();
 
 	SGE_OPENGL_SENTRY
 
@@ -251,7 +272,7 @@ void sge::ogl::device::render(
 		prim_type,
 		static_cast<GLsizei>(
 			renderer::indices_per_primitive(ptype) * pcount),
-		gl_ib.format(),
+		gl_ib.gl_format(),
 		gl_ib.buffer_offset(
 			first_index));
 }
@@ -344,9 +365,6 @@ void sge::ogl::device::projection(
 {
 	projection_ = matrix;
 	projection_internal();
-//	set_matrix(
-//		GL_PROJECTION,
-//		matrix);
 }
 
 void sge::ogl::device::texture_transform(
@@ -498,15 +516,6 @@ void sge::ogl::device::vertex_buffer(
 		ovb = dynamic_cast<ogl::vertex_buffer const &>(
 			*vb);
 	ovb.set_format();
-}
-
-void sge::ogl::device::index_buffer(
-	renderer::const_index_buffer_ptr const ib)
-{
-	ogl::index_buffer const &
-		oib = dynamic_cast<ogl::index_buffer const &>(
-			*ib);
-	oib.bind_me();
 }
 
 sge::ogl::fbo_target_ptr const

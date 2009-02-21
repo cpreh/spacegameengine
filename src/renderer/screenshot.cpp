@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/screenshot.hpp>
-#include <sge/renderer/scoped_target_lock.hpp>
+#include <sge/renderer/const_scoped_target_lock.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/object.hpp>
@@ -31,9 +31,7 @@ void sge::renderer::screenshot(
 {
 	il->create(
 		const_scoped_target_lock(
-			make_scoped_lock(
-				rend->target()
-			)
+			rend->target()
 		).value()
 	)->save(file);
 }

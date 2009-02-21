@@ -2,7 +2,7 @@
 #include "../synth.hpp"
 #include <sge/sstream.hpp>
 #include <sge/audio/exception.hpp>
-#include <sge/raw_vector_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/log/headers.hpp>
 
 sge::mad::frame::frame()

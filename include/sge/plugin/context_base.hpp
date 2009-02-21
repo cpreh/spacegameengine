@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
 #define SGE_PLUGIN_CONTEXT_BASE_HPP_INCLUDED
 
-#include "base.hpp"
-#include "capabilities.hpp"
-#include "../export.hpp"
-#include "../string.hpp"
-#include "../filesystem/path.hpp"
-#include <boost/weak_ptr.hpp>
+#include <sge/plugin/base.hpp>
+#include <sge/plugin/capabilities.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/export.hpp>
+#include <sge/string.hpp>
+#include <sge/weak_ptr.hpp>
 
 namespace sge
 {
@@ -47,7 +47,7 @@ public:
 	SGE_SYMBOL filesystem::path const &path() const;
 private:
 	template<typename T> friend class context;
-	boost::weak_ptr<base> ref;
+	weak_ptr<base>     ref;
 	filesystem::path   path_;
 	string             name_;
 	string             description_;

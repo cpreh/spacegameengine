@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11_WINDOW_HPP_INCLUDED
 #define SGE_X11_WINDOW_HPP_INCLUDED
 
-#include "display_fwd.hpp"
-#include "visual_fwd.hpp"
-#include "colormap_fwd.hpp"
-#include "wm_hints.hpp"
-#include "size_hints.hpp"
-#include "class_hint.hpp"
-#include "../window/instance.hpp"
-#include "../signals/connection.hpp"
-#include "../signals/signal.hpp"
-#include "../export.hpp"
+#include <sge/x11/display_fwd.hpp>
+#include <sge/x11/visual_fwd.hpp>
+#include <sge/x11/colormap_fwd.hpp>
+#include <sge/x11/wm_hints.hpp>
+#include <sge/x11/size_hints.hpp>
+#include <sge/x11/class_hint.hpp>
+#include <sge/window/instance.hpp>
+#include <sge/signals/connection.hpp>
+#include <sge/signals/signal.hpp>
+#include <sge/export.hpp>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <boost/function.hpp>

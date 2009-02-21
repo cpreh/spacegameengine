@@ -12,7 +12,6 @@
 #include <sge/renderer/texture_software.hpp>
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
-#include <sge/renderer/scoped_lock.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/text.hpp>
@@ -223,11 +222,10 @@ void sge::gui::detail::managers::render::redraw_dirt()
 							<< is
 							<< SGE_TEXT(" (global)"));
 
-		renderer::scoped_texture_lock lock_(
-			renderer::make_scoped_lock(
-				wd.texture,
-				math::structure_cast<renderer::lock_rect>(is_local),
-				renderer::lock_flags::readwrite));
+		renderer::scoped_texture_lock const lock_(
+			wd.texture,
+			math::structure_cast<renderer::lock_rect>(is_local),
+			renderer::lock_flags::readwrite);
 
 		w.process(
 			events::invalid_area(

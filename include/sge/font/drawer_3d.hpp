@@ -21,18 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_DRAWER_3D_HPP_INCLUDED
 #define SGE_FONT_DRAWER_3D_HPP_INCLUDED
 
-#include "drawer.hpp"
-#include "pos.hpp"
-#include "dim.hpp"
-#include "image_view.hpp"
-#include "../export.hpp"
-#include "../renderer/any_color.hpp"
-#include "../renderer/device.hpp"
-#include "../texture/manager.hpp"
-#include "../texture/part.hpp"
-#include "../sprite/system.hpp"
-#include "../sprite/container.hpp"
-#include "../sprite/object.hpp"
+#include <sge/font/drawer.hpp>
+#include <sge/font/pos.hpp>
+#include <sge/font/dim.hpp>
+#include <sge/font/image_view.hpp>
+#include <sge/renderer/any_color.hpp>
+#include <sge/texture/manager.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <sge/sprite/system.hpp>
+#include <sge/sprite/container.hpp>
+#include <sge/export.hpp>
 #include <map>
 
 namespace sge
@@ -46,6 +44,8 @@ public:
 	SGE_SYMBOL drawer_3d(
 		renderer::device_ptr rend,
 		renderer::any_color const &col);
+	SGE_SYMBOL ~drawer_3d();
+
 	SGE_SYMBOL void begin_rendering(
 		size_type buffer_chars,
 		pos const &start,

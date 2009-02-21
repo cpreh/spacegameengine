@@ -25,15 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix/orthogonal_xy.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
-#include <sge/renderer/vertex_buffer_util.hpp>
-#include <sge/renderer/index_buffer_util.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/matrix_pixel_to_space.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
 
 namespace
 {
 
-unsigned const init_sprites = 1;
+sge::renderer::vf::dynamic_format const dyn_vertex_fmt(
+	sge::renderer::vf::make_dynamic_format<
+		sge::sprite::detail::vertex_format
+	>()
+);
 
 }
 
@@ -47,20 +51,11 @@ sge::sprite::system_base::system_base(
 	renderer::device_ptr const rend)
 :
 	rend(rend),
-	vb(
-		rend->create_vertex_buffer(
-			renderer::vf::make_dynamic_format<
-				detail::vertex_format
-			>(),
-			init_sprites * detail::vertices_per_sprite,
-			renderer::resource_flags::dynamic)),
-	ib(
-		rend->create_index_buffer(
-			renderer::index_format::index16,
-			init_sprites * detail::indices_per_sprite,
-			renderer::resource_flags::dynamic)),
 	transform_matrix(
-		renderer::matrix_pixel_to_space<funit>(rend->screen_size())),
+		renderer::matrix_pixel_to_space<
+			funit
+		>(
+			rend->screen_size())),
 	projection_matrix(
 		math::matrix::orthogonal_xy<funit>())
 {}
@@ -68,17 +63,18 @@ sge::sprite::system_base::system_base(
 void sge::sprite::system_base::allocate_buffers(
 	std::size_t const num_sprites)
 {
-	if(vb->size() >= num_sprites * detail::vertices_per_sprite)
+	if(vb && vb->size() >= num_sprites * detail::vertices_per_sprite)
 		return;
 
-	vb = renderer::resize(
-		vb,
-		rend,
-		num_sprites * detail::vertices_per_sprite);
-	ib = renderer::resize(
-		ib,
-		rend,
-		num_sprites * detail::indices_per_sprite);
+	vb = rend->create_vertex_buffer(
+		dyn_vertex_fmt,
+		num_sprites * detail::vertices_per_sprite,
+		renderer::resource_flags::dynamic);
+
+	ib = rend->create_index_buffer(
+		renderer::index::format::i16,
+		num_sprites * detail::indices_per_sprite,
+		renderer::resource_flags::dynamic);
 }
 
 void sge::sprite::system_base::matrices()

@@ -45,6 +45,7 @@ class SGE_CLASS_SYMBOL edit : public widget
 	// will only be called for single_line
 	signals::signal<void ()> return_pressed;
 	private:
+	using widget::process;
 	line_type type;
 	string text_;
 	font::metrics_ptr font_;

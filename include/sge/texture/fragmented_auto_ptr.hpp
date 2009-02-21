@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_FRAGMENTED_AUTO_PTR_HPP_INCLUDED
 #define SGE_TEXTURE_FRAGMENTED_AUTO_PTR_HPP_INCLUDED
 
-#include <memory>
+#include <sge/auto_ptr.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace texture
 
 class fragmented;
 
-typedef std::auto_ptr<fragmented> fragmented_auto_ptr;
+typedef auto_ptr<fragmented> fragmented_auto_ptr;
 
 }
 }

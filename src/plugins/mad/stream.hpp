@@ -4,7 +4,7 @@
 #include "frame.hpp"
 #include "decoding_mode.hpp"
 #include <mad.h>
-#include <sge/raw_vector.hpp>
+#include <sge/container/raw_vector_decl.hpp>
 #include <sge/string.hpp>
 #include <boost/noncopyable.hpp>
 #include <iosfwd>
@@ -24,7 +24,7 @@ class stream : boost::noncopyable
 
 	private:
 	typedef unsigned char byte_type;
-	typedef sge::raw_vector<byte_type> byte_container;
+	typedef sge::container::raw_vector<byte_type> byte_container;
 	typedef byte_container::size_type size_type;
 
 	static size_type const input_size,mad_buffer_guard_size;

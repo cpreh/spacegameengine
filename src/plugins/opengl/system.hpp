@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SYSTEM_HPP_INCLUDED
 
 #include <sge/renderer/system.hpp>
-#include <boost/weak_ptr.hpp>
+#include <sge/weak_ptr.hpp>
 
 namespace sge
 {
@@ -42,7 +42,7 @@ public:
 		window::parameters const &,
 		renderer::parameters const &);
 private:
-	boost::weak_ptr<renderer::device> ref;
+	weak_ptr<renderer::device> ref;
 };
 
 }

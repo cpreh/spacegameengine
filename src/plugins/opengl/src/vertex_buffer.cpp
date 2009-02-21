@@ -20,13 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../vertex_buffer.hpp"
 #include "../vbo.hpp"
-#include "../instantiate_buffer_base.hpp"
 #include "../convert_vertex_colors.hpp"
+#include "../instantiate_basic_buffer.hpp"
 #include <boost/foreach.hpp>
 #include <cassert>
 
-SGE_OPENGL_INSTANTIATE_BUFFER_BASE(
-	sge::renderer::vertex_buffer,
+SGE_OPENGL_INSTANTIATE_BASIC_BUFFER(
 	sge::ogl::vertex_buffer_type,
 	sge::ogl::vb_ib_vbo_impl)
 
@@ -35,45 +34,56 @@ sge::ogl::vertex_buffer::vertex_buffer(
 	size_type const sz,
 	resource_flag_type const flags)
 :
-	detail::vertex_buffer_base(
+	format_(format_),
+	buf(
 		sz,
 		format_.stride(),
 		flags,
-		0),
-	format_(format_)
+		0)
 {}
 
 void sge::ogl::vertex_buffer::set_format() const
 {
-	bind_me();
+	buf.bind_me();
 	format_.use_me();
 }
 
 sge::ogl::vertex_buffer::view_type const
-sge::ogl::vertex_buffer::view()
+sge::ogl::vertex_buffer::lock(
+	lock_flag_type const flags,
+	size_type const offset,
+	size_type const range)
 {
+	buf.lock(
+		convert_lock_method(
+			flags),
+		offset,
+		range);
+	
 	return view_type(
-		detail::vertex_buffer_base::data(),
-		detail::vertex_buffer_base::lock_size(),
+		buf.data(),
+		buf.lock_size(),
 		format());
 }
 
 sge::ogl::vertex_buffer::const_view_type const
-sge::ogl::vertex_buffer::view() const
+sge::ogl::vertex_buffer::lock(
+	size_type const offset,
+	size_type const range) const
 {
+	buf.lock(
+		lock_method::readonly,
+		offset,
+		range);
+
 	return const_view_type(
-		detail::vertex_buffer_base::data(),
-		detail::vertex_buffer_base::lock_size(),
+		buf.data(),
+		buf.lock_size(),
 		format());
 }
 
-sge::renderer::vf::dynamic_format const &
-sge::ogl::vertex_buffer::format() const
-{
-	return format_.get();
-}
-
-void sge::ogl::vertex_buffer::pre_unlock() const
+void
+sge::ogl::vertex_buffer::unlock() const
 {
 	renderer::vf::dynamic_ordered_element_list const &elems(
 		format().elements());
@@ -81,13 +91,34 @@ void sge::ogl::vertex_buffer::pre_unlock() const
 	renderer::size_type const stride(
 		format().stride());
 
-	assert(lock_size() % stride == 0);
+	assert(buf.lock_size() % stride == 0);
 
 	BOOST_FOREACH(renderer::vf::dynamic_ordered_element_list::const_reference elem, elems)
 		if(elem.element().role() == renderer::vf::role::color)
 			convert_vertex_colors(
 				elem,
 				stride,
-				lock_size() / stride,
-				const_cast<unsigned char *>(data())); // FIXME
+				buf.lock_size() / stride,
+				const_cast<unsigned char *>(
+					buf.data())); // FIXME
+	
+	buf.unlock();
+}
+
+sge::ogl::vertex_buffer::size_type
+sge::ogl::vertex_buffer::size() const
+{
+	return buf.size();
+}
+
+sge::ogl::vertex_buffer::resource_flag_type
+sge::ogl::vertex_buffer::flags() const
+{
+	return buf.flags();
+}
+
+sge::renderer::vf::dynamic_format const &
+sge::ogl::vertex_buffer::format() const
+{
+	return format_.get();
 }

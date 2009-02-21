@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/bit_depth.hpp>
 #include <sge/renderer/depth_buffer.hpp>
 #include <sge/renderer/stencil_buffer.hpp>
-#include <sge/raw_vector.hpp>
+#include <sge/container/raw_vector_fwd.hpp>
 
 namespace sge
 {
@@ -33,7 +33,9 @@ namespace ogl
 namespace glx
 {
 
-typedef sge::raw_vector<int> visual_attribute_array;
+typedef sge::container::raw_vector<
+	int
+> visual_attribute_array;
 
 visual_attribute_array const
 choose_visual(

@@ -28,10 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::ogl::sentry::sentry(
 	std::string const &file_name,
-	int const line)
+	int const line,
+	string const &description)
 :
 	file_name(file_name),
-	line(line)
+	line(line),
+	description(description)
 {}
 
 sge::ogl::sentry::~sentry()
@@ -43,7 +45,10 @@ sge::ogl::sentry::~sentry()
 	if(error != GL_NO_ERROR)
 		throw exception(
 			((format(
-				SGE_TEXT("opengl failed in file \"%1%\", line %2%. The error code was %3%."))
-				% iconv(file_name) % line % error)
+				SGE_TEXT("opengl failed in file \"%1%\", line %2%. The error code was %3%. Description: \"%4%\""))
+				% iconv(file_name)
+				% line
+				% error
+				% description)
 				.str()));
 }

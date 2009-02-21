@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SAMPLE_CONTAINER_HPP_INCLUDED
 #define SGE_AUDIO_SAMPLE_CONTAINER_HPP_INCLUDED
 
-#include <sge/raw_vector_fwd.hpp>
+#include <sge/container/raw_vector_fwd.hpp>
 
 namespace sge
 {
 namespace audio
 {
 
-typedef raw_vector<
+typedef container::raw_vector<
 	unsigned char
 > sample_container;
 
