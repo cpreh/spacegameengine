@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device.hpp>
 #include <sge/texture/default_creator.hpp>
 #include <sge/texture/manager.hpp>
-#include <sge/texture/util.hpp>
+#include <sge/texture/add_image.hpp>
 #include <sge/texture/default_creator_impl.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/image/loader.hpp>
@@ -115,7 +115,7 @@ try
 
 	sge::texture::const_part_ptr const 
 		tex_bg(
-			sge::texture::add(
+			sge::texture::add_image(
 				tex_man, 
 				image_bg));
 

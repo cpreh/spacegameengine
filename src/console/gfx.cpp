@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_size_t.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
+#include <sge/time/resolution.hpp>
 #include <sge/structure_cast.hpp>
 #include <sge/iostream.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -137,8 +138,6 @@ void sge::console::gfx::key_action(
 	input::key_type const &k,
 	input::modifier::states const &s)
 {
-	//sge::cerr << "got character: " << k.char_code() << "\n";
-
 	if (!active_)
 		return;
 
@@ -162,8 +161,8 @@ void sge::console::gfx::key_action(
 		case input::kc::key_backspace:
 			if (input_line_.at_start())
 				return;
-			input_line_.erase_char();
 			input_line_.left();
+			input_line_.erase_char();
 		break;
 		case input::kc::key_tab:
 			input_line_.complete_word(object_.vars(),object_.functions());
