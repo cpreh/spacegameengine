@@ -27,7 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 extern "C"
 {
 
-SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info *const i)
+SGE_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *);
+
+SGE_EXPORT_SYMBOL sge::collision::system *
+create_collision_system();
+
+SGE_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *const i)
 {
 	if(!i)
 		return;
@@ -38,7 +47,8 @@ SGE_EXPORT_SYMBOL void plugin_version_info(sge::plugin::info *const i)
 	i->min_core_version = 0x1;
 }
 
-SGE_EXPORT_SYMBOL sge::collision::system* create_collision_system()
+SGE_EXPORT_SYMBOL sge::collision::system *
+create_collision_system()
 {
 	return new sge::bullet::system();
 }

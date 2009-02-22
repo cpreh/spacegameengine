@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "freetype.hpp"
 #include <sge/filesystem/path.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -32,7 +32,8 @@ namespace ft
 
 class library;
 
-class face : boost::noncopyable {
+class face {
+	SGE_NONCOPYABLE(face)
 public:
 	face(
 		library &,

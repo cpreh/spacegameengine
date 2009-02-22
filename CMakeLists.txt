@@ -1,12 +1,16 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 SET (CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
+SET (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
+
 
 PROJECT (spacegameengine)
 
 IF(${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 	message(FATAL_ERROR "In-source builds are not permitted. Make a separate folder for building:\nmkdir build; cd build; cmake ..\nBefore that, remove the files that cmake just created:\nrm -rf CMakeCache.txt CMakeFiles")
 ENDIF()
+
+
 
 
 INCLUDE (CheckIncludeFile)
@@ -39,10 +43,17 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		"-fvisibility=hidden"
 		SGE_HAVE_GCC_VISIBILITY)
 
-	ADD_DEFINITIONS ("-ansi -pedantic-errors -Wall -Wextra -Wconversion"
+	OPTION (ENABLE_DEBUG_WARNINGS "Enable -Wpadded and -Weffc++" OFF)
+
+	ADD_DEFINITIONS ("-pedantic-errors -Wall -Wextra -Wconversion"
 	"-Wfloat-equal -Wredundant-decls -Wstrict-null-sentinel -Winit-self"
 	"-Woverloaded-virtual -Wnon-virtual-dtor -Wctor-dtor-privacy"
-	"-Wsign-promo")
+	"-Wsign-promo -Wstrict-aliasing=1 -Wmissing-declarations"
+	"-Wold-style-cast")
+
+	IF(ENABLE_DEBUG_WARNINGS)
+		ADD_DEFINITIONS("-Wpadded -Weffc++")
+	ENDIF()
 
 	ADD_DEFINITIONS(-D BOOST_FILESYSTEM_NO_DEPRECATED)
 
@@ -56,10 +67,10 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 	ENDIF ()
 
 	IF (SGE_HAVE_VARIADIC_TEMPLATES)
-		ADD_DEFINITIONS ("-Wold-style-cast -std=c++0x")
+		ADD_DEFINITIONS ("-std=c++0x")
 	ELSE ()
 		# C++ 98 has no long long but boost insists on using it anyway
-		ADD_DEFINITIONS ("-Wno-long-long")
+		ADD_DEFINITIONS ("-Wno-long-long -ansi")
 	ENDIF ()
 
 	SET (CMAKE_REQUIRED_FLAGS "-Wall -Werror")

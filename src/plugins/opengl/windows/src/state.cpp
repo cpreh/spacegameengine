@@ -39,12 +39,10 @@ sge::ogl::windows::state::state(
 		wnd->hwnd(),
 		sge::windows::gdi_device::get_tag()),
 	context(
-		wgl::context(
-			hdc)),
+		hdc),
 	current(
-		wgl::current(
-			hdc,
-			context))
+		hdc,
+		context)
 {
 
 	if(param.wmode() == renderer::window_mode::fullscreen)

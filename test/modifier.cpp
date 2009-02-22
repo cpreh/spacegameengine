@@ -41,6 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <cstdlib>
 
+namespace
+{
+
 void mod_callback(
 	sge::input::key_pair const &kp,
 	sge::input::modifier::states const &mods)
@@ -55,6 +58,8 @@ void mod_callback(
 		sge::cerr << SGE_TEXT("A-");
 	
 	sge::cerr << kp.key().char_code() << SGE_TEXT('\n');
+}
+
 }
 
 int main()

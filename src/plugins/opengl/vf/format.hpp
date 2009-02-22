@@ -23,9 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "actor.hpp"
 #include <sge/renderer/vf/dynamic_format.hpp>
-#include <boost/function.hpp>
+#include <sge/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,7 +33,8 @@ namespace ogl
 namespace vf
 {
 
-class format : boost::noncopyable {
+class format {	
+	SGE_NONCOPYABLE(format)
 public:
 	explicit format(
 		renderer::vf::dynamic_format const &);

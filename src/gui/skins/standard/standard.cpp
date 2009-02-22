@@ -7,7 +7,7 @@
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
-#include <sge/math/dim/io.hpp>
+#include <sge/math/dim/output.hpp>
 #include <sge/media.hpp>
 #include <sge/text.hpp>
 

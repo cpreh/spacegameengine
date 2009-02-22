@@ -13,7 +13,6 @@
 *low: implement a lot of different exception types to make errors distinguishable
 *low: put x11 and windows stuff in their own libraries (probably do this with
 sprite, texture, console, etc. as well)
-*low: replace every boost::noncopyable by SGE_NONCOPYABLE
 *low: get rid of as much warnings as possible from -Weffc++
 *low: implement opengl-3 features
 *low: add support for multiple opengl contexts

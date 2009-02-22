@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/headers.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/power.hpp>
-#include <sge/math/dim/io.hpp>
+#include <sge/math/dim/output.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/log/logger.hpp>
 #include <sge/log/global.hpp>

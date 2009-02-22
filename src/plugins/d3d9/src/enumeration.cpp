@@ -42,9 +42,6 @@ sge::d3d9::create_renderer_caps(
 	if(sys->GetAdapterIdentifier(adapter,0,&identifier) != D3D_OK)
 		throw exception(SGE_TEXT("GetAdapterIdentifier failed"));
 
-	if(caps.MaxTextureWidth != caps.MaxTextureHeight)
-		sge::cerr << SGE_TEXT("Warning: MaxTextureWidth != MaxTextureHeight (case not handled)\n");
-
 	/*display_mode_array display_modes;
 	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_A1R5G5B5, sys);
 	add_display_modes(display_modes, adapter, bit_depth::depth16, D3DFMT_X1R5G5B5, sys);

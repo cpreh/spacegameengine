@@ -22,14 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_KEYBOARD_GRAB_HPP_INCLUDED
 
 #include <sge/x11/window_fwd.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace x11input
 {
 
-class keyboard_grab : boost::noncopyable {
+class keyboard_grab {
+	SGE_NONCOPYABLE(keyboard_grab)
 public:
 	explicit keyboard_grab(
 		x11::window_ptr);

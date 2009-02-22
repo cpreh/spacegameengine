@@ -18,38 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../loader.hpp"
-#include <sge/export.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_MATH_DETAIL_ONE_DIMENSIONAL_INPUT_HPP_INCLUDED
+#define SGE_MATH_DETAIL_ONE_DIMENSIONAL_INPUT_HPP_INCLUDED
 
-extern "C"
+#include <istream>
+
+namespace sge
+{
+namespace math
+{
+namespace detail
 {
 
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *);
-
-SGE_EXPORT_SYMBOL sge::audio::loader *
-create_audio_loader();
-
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const p)
+template<
+	typename Ch,
+	typename Traits,
+	typename T
+>
+std::basic_istream<Ch, Traits> &
+one_dimensional_input(
+	std::basic_istream<Ch, Traits> &s,
+	T &v)
 {
-	if(!p)
-		return;
-	p->name = SGE_TEXT("vorbis loader plugin");
-	p->description = SGE_TEXT("");
-	p->plugin_version = 0x1;
-	p->min_core_version = 0x1;
-	p->type = sge::plugin::capabilities::audio_loader;
+	Ch c;
+	s >> c;
+	if(c != s.widen('('))
+	{
+		s.setstate(std::ios_base::failbit);
+		return s;
+	}
+
+	for(typename T::size_type i = 0; i < v.size() - 1; ++i)
+	{
+		s >> v[i];
+		s >> c;
+		if(c != s.widen(','))
+		{
+			s.setstate(std::ios_base::failbit);
+			return s;
+		}
+	}
+	
+	s >> v.back();
+
+	s >> c;
+	if(c != s.widen(')'))
+		s.setstate(std::ios_base::failbit);
+
+	return s; 
 }
 
-SGE_EXPORT_SYMBOL sge::audio::loader *
-create_audio_loader()
-{
-	return new sge::vorbis::loader();
+}
+}
 }
 
-}
+#endif

@@ -148,7 +148,9 @@ sge::ogl::device::create_texture(
 	renderer::texture::resource_flag_type const flags)
 {
 	return renderer::texture_ptr(
-		new ogl::texture(
+		make_shared_ptr<
+			ogl::texture
+		>(
 			dim,
 			format,
 			filter,
@@ -162,7 +164,9 @@ sge::ogl::device::create_vertex_buffer(
 	renderer::resource_flag_t const flags)
 {
 	return renderer::vertex_buffer_ptr(
-		new ogl::vertex_buffer(
+		make_shared_ptr<
+			ogl::vertex_buffer
+		>(
 			format,
 			sz,
 			flags));
@@ -176,7 +180,9 @@ sge::ogl::device::create_volume_texture(
 	const renderer::volume_texture::resource_flag_type flags)
 {
 	/*return renderer::volume_texture_ptr(
-		new volume_texture(
+		make_shared_ptr<
+			volume_texture
+		>(
 			src,
 			filter,
 			flags));*/
@@ -191,7 +197,9 @@ sge::ogl::device::create_cube_texture(
 	renderer::resource_flag_t const flags)
 {
 	return renderer::cube_texture_ptr(
-		new cube_texture(
+		make_shared_ptr<
+			cube_texture
+		>(
 			border_size,
 			format,
 			filter,
@@ -521,8 +529,9 @@ void sge::ogl::device::vertex_buffer(
 sge::ogl::fbo_target_ptr const
 sge::ogl::device::create_target()
 {
-	return fbo_target_ptr(
-		new fbo_target());
+	return make_shared_ptr<
+		fbo_target
+	>();
 }
 
 void sge::ogl::device::projection_internal()

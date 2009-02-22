@@ -18,38 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../loader.hpp"
-#include <sge/export.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_MATH_DETAIL_IS_DYNAMIC_HPP_INCLUDED
+#define SGE_MATH_DETAIL_IS_DYNAMIC_HPP_INCLUDED
 
-extern "C"
+#include <sge/math/detail/dynamic_size.hpp>
+#include <boost/type_traits/is_same.hpp>
+
+namespace sge
+{
+namespace math
+{
+namespace detail
 {
 
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *);
-
-SGE_EXPORT_SYMBOL sge::audio::loader *
-create_audio_loader();
-
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const p)
-{
-	if(!p)
-		return;
-	p->name = SGE_TEXT("vorbis loader plugin");
-	p->description = SGE_TEXT("");
-	p->plugin_version = 0x1;
-	p->min_core_version = 0x1;
-	p->type = sge::plugin::capabilities::audio_loader;
-}
-
-SGE_EXPORT_SYMBOL sge::audio::loader *
-create_audio_loader()
-{
-	return new sge::vorbis::loader();
-}
+template<
+	typename T
+>
+struct is_dynamic
+:
+boost::is_same<
+	T,
+	dynamic_size
+>
+{};
 
 }
+}
+}
+
+#endif

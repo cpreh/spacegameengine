@@ -31,12 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <cstdlib>
 
-void fallback(
-	sge::string const &arg)
+namespace
 {
-	sge::cout << SGE_TEXT("fallback called with argument:") 
-                  << arg << SGE_TEXT("\n");
-}
 
 void func(
 	sge::console::arg_list const &args)
@@ -44,6 +40,8 @@ void func(
 	sge::cout << SGE_TEXT("function called with arguments:\n");
 	BOOST_FOREACH(sge::console::arg_list::const_reference s,args)
 		sge::cout << s << SGE_TEXT("\n");
+}
+
 }
 
 int main()

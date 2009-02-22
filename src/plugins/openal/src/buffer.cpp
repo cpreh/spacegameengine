@@ -3,10 +3,18 @@
 #include <sge/audio/file.hpp>
 
 sge::openal::buffer::buffer(audio::file &file_)
-	: file_(file_),refcount_(static_cast<unsigned>(1))
+:
+	file_(file_),
+	refcount_(static_cast<unsigned>(1))
 {
 	alGenBuffers(static_cast<ALsizei>(1),&buffer_);
 	SGE_OPENAL_ERROR_CHECK
+}
+
+ALuint
+sge::openal::buffer::albuffer() const
+{
+	return buffer_;
 }
 
 sge::audio::file &sge::openal::buffer::file()

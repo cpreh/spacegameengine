@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 
 #include <sge/windows/windows.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -36,7 +36,8 @@ namespace ogl
 namespace wgl
 {
 
-class context : boost::noncopyable {
+class context {
+	SGE_NONCOPYABLE(context)
 public:
 	explicit context(
 		windows::gdi_device const &);

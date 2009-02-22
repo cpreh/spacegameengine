@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_IO_HPP_INCLUDED
-#define SGE_MATH_VECTOR_IO_HPP_INCLUDED
+#ifndef SGE_MATH_VECTOR_INPUT_HPP_INCLUDED
+#define SGE_MATH_VECTOR_INPUT_HPP_INCLUDED
 
-#include "basic_impl.hpp"
-#include <ostream>
-#include <istream>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/detail/is_dynamic.hpp>
+#include <sge/math/detail/one_dimensional_input.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <iosfwd>
 
 namespace sge
 {
@@ -39,42 +41,19 @@ template<
 	typename Ch,
 	typename Traits
 >
-std::basic_ostream<Ch, Traits> &
-operator<< (
-	std::basic_ostream<Ch, Traits> &s,
-	basic<T, N, S> const &v)
-{
-	s << s.widen('(');
-	if(v.size() > 1)
-		for(typename basic<T, N, S>::size_type i = 0; i < v.size() - 1; ++i)
-			s << v[i] << s.widen(',');
-	if(!v.empty())
-		s << v.back();
-	return s << s.widen(')');
-}
-
-template<
-	typename T,
-	typename N,
-	typename S,
-	typename Ch,
-	typename Traits
->
-std::basic_istream<Ch, Traits> &
-operator >> (
+typename boost::disable_if<
+	math::detail::is_dynamic<
+		N
+	>,
+	std::basic_istream<Ch, Traits> &
+>::type
+operator>> (
 	std::basic_istream<Ch, Traits> &s,
 	basic<T, N, S> &v)
 {
-	// FIXME
-	/*
-	Ch c;
-	s >> c;
-	if(c != s.widen('('))
-	{
-		s.setstate(std::ios_base::failbit);
-		return s;
-	}*/
-	return s; 
+	return math::detail::one_dimensional_input(
+		s,
+		v);
 }
 
 }

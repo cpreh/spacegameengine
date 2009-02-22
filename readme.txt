@@ -12,7 +12,7 @@ Please follow the instructions below.
   - probably pkgconfig (if you are not on Windows)
   - boost (see boost.org)
 
-  The boost version used is currently required to be 1.35 or later.
+  The boost version used is currently required to be 1.36 or later.
 
 2. How to install
   If you are using Windows you might be interested in chapter 3.
@@ -36,6 +36,7 @@ Please follow the instructions below.
   -DENABLE_OPENGL:=1-DENABLE_X11INPUT:=1 ..'
 
   At the moment the following options are available:
+  - BULLET (build the bullet collision plugin)
   - DEVIL (build the devil image loader plugin)
   - DGA (build the engine with xf86dga where appropriate - X11 only)
   - DINPUT (build the direct input plugin - Windows only)
@@ -75,21 +76,13 @@ Please follow the instructions below.
   mingw has spurious concept checks on by default.
   Please turn them off by editing c++config.h.
 
-4. Installing on Gentoo
-  If you are a gentoo user you can use the ebuild provided in the repository.
-  Put it into one of your overlays that won't be overridden by a sync.
-  The category should be 'games-engines'.
-  So for example I put it into
-  '/usr/local/overlays/mine/games-engines/spacegameengine'.
-  You should at least enable the use flags 'devil freetype opengl xinput'.
-
-5. Troubleshooting
+4. Troubleshooting
   - sge won't compile because I installed boost in $some_random_directory!
 
     cmake tries to find boost itself. If it fails, read 'cmake --help-full' and
     search for Boost in there. For example you can specify BOOST_ROOT to point
     to your boost installation. 
 
-6. Contact
+5. Contact
   - If you have any problems please visit #sge-sanguis on QuakeNet or drop me
     a mail to sefi <at> s-e-f-i.de.

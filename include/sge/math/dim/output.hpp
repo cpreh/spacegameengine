@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_DIM_IO_HPP_INCLUDED
-#define SGE_MATH_DIM_IO_HPP_INCLUDED
+#ifndef SGE_MATH_DIM_OUTPUT_HPP_INCLUDED
+#define SGE_MATH_DIM_OUTPUT_HPP_INCLUDED
 
-#include "basic_impl.hpp"
-#include <ostream>
-#include <istream>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/detail/one_dimensional_output.hpp>
+#include <iosfwd>
 
 namespace sge
 {
@@ -44,37 +44,9 @@ operator<< (
 	std::basic_ostream<Ch, Traits> &s,
 	basic<T, N, S> const &v)
 {
-	s << s.widen('(');
-	if(v.size() > 1)
-		for(typename basic<T, N, S>::size_type i = 0; i < v.size() - 1; ++i)
-			s << v[i] << s.widen(',');
-	if(!v.empty())
-		s << v.back();
-	return s << s.widen(')');
-}
-
-template<
-	typename T,
-	typename N,
-	typename S,
-	typename Ch,
-	typename Traits
->
-std::basic_istream<Ch, Traits> &
-operator >> (
-	std::basic_istream<Ch, Traits> &s,
-	basic<T, N, S> &v)
-{
-	// FIXME
-	/*
-	Ch c;
-	s >> c;
-	if(c != s.widen('('))
-	{
-		s.setstate(std::ios_base::failbit);
-		return s;
-	}*/
-	return s; 
+	return math::detail::one_dimensional_output(
+		s,
+		v);
 }
 
 }

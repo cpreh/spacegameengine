@@ -18,50 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_IO_HPP_INCLUDED
-#define SGE_MATH_MATRIX_IO_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CONTEXT_FWD_HPP_INCLUDED
 
-#include "basic_impl.hpp"
-#include <ostream>
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
-namespace math
+namespace ogl
 {
-namespace matrix
+namespace glx
 {
 
-template<
-	typename T,
-	typename N,
-	typename M,
-	typename S,
-	typename Ch,
-	typename Traits
->
-std::basic_ostream<Ch,Traits> &
-operator<< (
-	std::basic_ostream<Ch,Traits> &s,
-	basic<T, N, M, S> const &m)
-{
-	typedef typename basic<T, N, M, S>::size_type size_type;
+class context;
 
-	s << s.widen('(');
-	for(size_type j = 0; j < m.rows(); ++j)
-	{
-		s << s.widen('(');
-		for(size_type i = 0; i < m.columns(); ++i)
-		{
-			s << m[j][i];
-			if(i != m.columns() - 1)
-				s << s.widen(',');
-		}
-		s << s.widen(')');
-		if(j != m.rows() - 1)
-			s << s.widen(',');
-	}
-	return s << s.widen(')');
-}
+typedef shared_ptr<context> context_ptr;
 
 }
 }

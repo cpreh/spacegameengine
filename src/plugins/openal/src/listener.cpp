@@ -2,7 +2,7 @@
 #include "../error.hpp"
 #include "../log.hpp"
 #include "../openal.hpp"
-#include <sge/math/vector/io.hpp>
+#include <sge/math/vector/output.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 
 sge::openal::listener::listener()

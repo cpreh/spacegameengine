@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "di.hpp"
 #include "signal.hpp"
-#include <sge/windows/window.hpp>
+#include <sge/windows/window_fwd.hpp>
 #include <sge/input/key_type.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <boost/tr1/array.hpp>
 #include <cstddef>
 
@@ -34,7 +34,8 @@ namespace sge
 namespace dinput
 {
 
-class device : boost::noncopyable {
+class device {
+	SGE_NONCOPYABLE(device)
 public:
 	virtual void dispatch(signal_type &) = 0;
 	virtual ~device();
@@ -81,8 +82,6 @@ private:
 		windows::window::win32_callback_return_type operator()(windows::window&, windows::window::win32_event_type, WPARAM wparam, LPARAM lparam);
 	};*/
 };
-
-typedef shared_ptr<device> device_ptr;
 
 }
 }

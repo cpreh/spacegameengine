@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_LOCK_HPP_INCLUDED
 
 #include "lock_method.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <cstddef>
 
 namespace sge
@@ -29,7 +29,10 @@ namespace sge
 namespace ogl
 {
 
-class texture_lock : boost::noncopyable {
+class texture_lock {
+	SGE_NONCOPYABLE(texture_lock)
+protected:
+	texture_lock();
 public:
 	// FIXME: make these typedefs consistent!
 	typedef std::size_t size_type;

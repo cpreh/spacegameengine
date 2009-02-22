@@ -2,16 +2,65 @@ IF (WIN32)
 	SET (LIBRARY_OUTPUT_PATH ${pluginpath})
 ENDIF ()
 
+
+FIND_PACKAGE(DevIL)
+FIND_PACKAGE(OpenGL)
+FIND_PACKAGE(OpenAL)
+FIND_PACKAGE(Freetype)
+FIND_PACKAGE(Vorbis)
+FIND_PACKAGE(Mad)
+
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
-OPTION (ENABLE_DEVIL "Build the devil image loader plugin" OFF)
+OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
-OPTION (ENABLE_FREETYPE "Build the freetype font plugin" OFF)
-OPTION (ENABLE_MAD "Build the mad mp3 loader plugin" OFF)
-OPTION (ENABLE_OPENAL "Build the openal audio plugin" OFF)
-OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
-OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" OFF)
-OPTION (ENABLE_WAVE "Build the wave loader plugin" OFF)
-OPTION (ENABLE_X11INPUT "Build the x11 input plugin" OFF)
+
+
+IF(MAD_FOUND)
+	OPTION (ENABLE_MAD "Build the mad mp3 loader plugin" ON)
+ELSE(MAD_FOUND)
+	OPTION (ENABLE_MAD "Build the mad mp3 loader plugin" OFF)
+ENDIF(MAD_FOUND)
+
+IF(DevIL_FOUND)
+	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" ON)
+ELSE (DevIL_FOUND)
+	OPTION (ENABLE_DEVIL "Build the devil image loader plugin" OFF)
+ENDIF(DevIL_FOUND)
+
+
+IF(FREETYPE_FOUND)
+	OPTION (ENABLE_FREETYPE "Build the freetype font plugin" ON)
+ELSE(FREETYPE_FOUND)
+	OPTION (ENABLE_FREETYPE "Build the freetype font plugin" OFF)
+ENDIF(FREETYPE_FOUND)
+
+
+IF(OPENAL_FOUND)
+	OPTION (ENABLE_OPENAL "Build the openal audio plugin" ON)
+ELSE(OPENAL_FOUND)
+	OPTION (ENABLE_OPENAL "Build the openal audio plugin" OFF)
+ENDIF(OPENAL_FOUND)
+
+
+IF(OPENGL_FOUND)
+	OPTION (ENABLE_OPENGL "Build the opengl render plugin" ON)
+ELSE(OPENGL_FOUND)
+	OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
+ENDIF(OPENGL_FOUND)
+
+
+IF(VORBIS_FOUND)
+	OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" ON)
+ELSE(VORBIS_FOUND)	
+	OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" OFF)
+ENDIF(VORBIS_FOUND)
+
+
+IF(X11_Xinput_FOUND)
+	OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ON)
+ELSE(X11_Xinput_FOUND)
+	OPTION (ENABLE_X11INPUT "Build the x11 input plugin" OFF)
+ENDIF(X11_Xinput_FOUND)
 
 IF(ENABLE_BULLET)
 	ADD_SUBDIRECTORY (bullet)

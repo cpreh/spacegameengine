@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "arithmetic.hpp"
 #include "cross.hpp"
 #include "dot.hpp"
-#include "io.hpp"
+#include "input.hpp"
 #include "length.hpp"
 #include "normalize.hpp"
+#include "output.hpp"
 #include "place.hpp"
 
 #endif

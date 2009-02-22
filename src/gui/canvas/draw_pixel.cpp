@@ -1,7 +1,7 @@
 #include <sge/gui/canvas.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
-#include <sge/math/vector/io.hpp>
+#include <sge/math/vector/output.hpp>
 #include <sge/text.hpp>
 #include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/subimage_view.hpp>

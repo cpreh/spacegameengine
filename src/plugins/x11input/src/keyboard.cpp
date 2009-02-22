@@ -71,9 +71,7 @@ void sge::x11input::keyboard::ungrab()
 void sge::x11input::keyboard::on_key_event(
 	XEvent const &xev)
 {
-	XKeyEvent const &key_event(
-		reinterpret_cast<XKeyEvent const &>(
-			xev));
+	XKeyEvent const &key_event(xev.xkey);
 	
 	input::key_type const key(
 		keyboard_key(

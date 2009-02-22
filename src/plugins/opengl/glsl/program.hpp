@@ -36,7 +36,9 @@ namespace ogl
 namespace glsl
 {
 
-template<bool Native>
+template<
+	bool Native
+>
 class program : public renderer::glsl::program {
 public:
 	typedef typename traits<Native>::handle handle;

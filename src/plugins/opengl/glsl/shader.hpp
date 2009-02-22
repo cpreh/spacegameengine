@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "traits.hpp"
 #include <sge/shared_ptr.hpp>
 #include <sge/renderer/glsl/string.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,8 +34,11 @@ namespace ogl
 namespace glsl
 {
 
-template<bool Native>
-class shader : boost::noncopyable {
+template<
+	bool Native
+>
+class shader {
+	SGE_NONCOPYABLE(shader)
 public:
 	typedef typename traits<Native>::handle handle;
 

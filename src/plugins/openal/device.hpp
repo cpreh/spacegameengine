@@ -2,17 +2,18 @@
 #define SGE_OPENAL_DEVICE_HPP_INCLUDED
 
 #include "openal.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace openal
 {
-class device : boost::noncopyable
+class device
 {
+	SGE_NONCOPYABLE(device)
 	public:
-	device(ALCchar const * = 0);
-	ALCdevice *aldevice() { return device_; }
+	explicit device(ALCchar const * = 0);
+	ALCdevice *aldevice();
 	~device();
 
 	private:

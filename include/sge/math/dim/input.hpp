@@ -18,38 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../loader.hpp"
-#include <sge/export.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/text.hpp>
+#ifndef SGE_MAT_DIM_INPUT_HPP_INCLUDED
+#define SGE_MAT_DIM_INPUT_HPP_INCLUDED
 
-extern "C"
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/detail/is_dynamic.hpp>
+#include <sge/math/detail/one_dimensional_input.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <iosfwd>
+
+namespace sge
+{
+namespace math
+{
+namespace dim
 {
 
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *);
-
-SGE_EXPORT_SYMBOL sge::audio::loader *
-create_audio_loader();
-
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const p)
+template<
+	typename T,
+	typename N,
+	typename S,
+	typename Ch,
+	typename Traits
+>
+typename boost::disable_if<
+	math::detail::is_dynamic<
+		N
+	>,
+	std::basic_istream<Ch, Traits> &
+>::type
+operator >> (
+	std::basic_istream<Ch, Traits> &s,
+	basic<T, N, S> &v)
 {
-	if(!p)
-		return;
-	p->name = SGE_TEXT("vorbis loader plugin");
-	p->description = SGE_TEXT("");
-	p->plugin_version = 0x1;
-	p->min_core_version = 0x1;
-	p->type = sge::plugin::capabilities::audio_loader;
-}
-
-SGE_EXPORT_SYMBOL sge::audio::loader *
-create_audio_loader()
-{
-	return new sge::vorbis::loader();
+	return math::detail::one_dimensional_input(
+		s,
+		v);
 }
 
 }
+}
+}
+
+#endif

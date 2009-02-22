@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "configuration_fwd.hpp"
 #include <sge/x11/window_fwd.hpp>
+#include <sge/noncopyable.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/Xrandr.h>
-#include <boost/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,7 +34,8 @@ namespace ogl
 namespace xrandr
 {
 
-class configuration : boost::noncopyable {
+class configuration {
+	SGE_NONCOPYABLE(configuration)
 public:
 	explicit configuration(
 		sge::x11::window_ptr);

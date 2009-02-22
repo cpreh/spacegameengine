@@ -35,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window_fwd.hpp>
 #include <sge/x11/visual_fwd.hpp>
 #include <sge/x11/display_fwd.hpp>
-#include <boost/scoped_ptr.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/scoped_ptr.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -50,7 +50,8 @@ namespace ogl
 namespace x11
 {
 
-class state : boost::noncopyable {
+class state {
+	SGE_NONCOPYABLE(state)
 public:
 	state(
 		renderer::parameters const &,
@@ -76,7 +77,7 @@ private:
 	sge::x11::const_visual_ptr const visual;
 	glx::context_ptr           const context;
 	glx::current               const current;
-	boost::scoped_ptr<
+	scoped_ptr<
 		resolution::instance
 	> resolution_;
 	signals::connection_manager con_manager;
