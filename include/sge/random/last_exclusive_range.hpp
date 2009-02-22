@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RANDOM_LAST_EXCLUSIVE_RANGE_HPP_INCLUDED
 #define SGE_RANDOM_LAST_EXCLUSIVE_RANGE_HPP_INCLUDED
 
-#include "range.hpp"
-#include "exclusive_range_error.hpp"
-#include "../text.hpp"
+#include <sge/random/range.hpp>
+#include <sge/random/exclusive_range_error.hpp>
+#include <sge/text.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
 

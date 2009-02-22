@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOWS_MODULE_HANDLE_HPP_INCLUDED
 #define SGE_WINDOWS_MODULE_HANDLE_HPP_INCLUDED
 
-#include "windows.hpp"
+#include <sge/windows/windows.hpp>
 
 namespace sge
 {

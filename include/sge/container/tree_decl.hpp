@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONTAINER_TREE_DECL_HPP_INCLUDED
 #define SGE_CONTAINER_TREE_DECL_HPP_INCLUDED
 
-#include "tree_fwd.hpp"
+#include <sge/container/tree_fwd.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <memory>
 

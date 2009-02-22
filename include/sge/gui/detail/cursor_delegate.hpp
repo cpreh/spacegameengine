@@ -1,8 +1,8 @@
 #ifndef SGE_GUI_DETAIL_CURSOR_DELEGATE_HPP_INCLUDED
 #define SGE_GUI_DETAIL_CURSOR_DELEGATE_HPP_INCLUDED
 
-#include "../../string.hpp"
-#include "../../input/key_pair_fwd.hpp"
+#include <sge/string.hpp>
+#include <sge/input/key_pair_fwd.hpp>
 
 namespace sge
 {

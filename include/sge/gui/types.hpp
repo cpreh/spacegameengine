@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_TYPES_HPP_INCLUDED
 #define SGE_GUI_TYPES_HPP_INCLUDED
 
-#include "../sprite/unit.hpp"
-#include "../sprite/point.hpp"
-#include "../sprite/dim.hpp"
-#include "../sprite/rect.hpp"
-#include "../sprite/fwd.hpp"
-#include "../math/rect.hpp" // TODO
-#include "../renderer/image_view.hpp"
-#include "../renderer/image.hpp"
-#include "../renderer/any_color.hpp"
+#include <sge/sprite/unit.hpp>
+#include <sge/sprite/point.hpp>
+#include <sge/sprite/dim.hpp>
+#include <sge/sprite/rect.hpp>
+#include <sge/sprite/fwd.hpp>
+#include <sge/math/rect.hpp> // TODO
+#include <sge/renderer/image_view.hpp>
+#include <sge/renderer/image.hpp>
+#include <sge/renderer/any_color.hpp>
 
 namespace sge
 {

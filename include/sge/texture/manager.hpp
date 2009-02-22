@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
-#include "part_fwd.hpp"
-#include "fragmented_auto_ptr.hpp"
-#include "detail/container_position.hpp"
+#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/fragmented_auto_ptr.hpp>
+#include <sge/texture/detail/container_position.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <sge/noncopyable.hpp>

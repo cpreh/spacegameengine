@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
 #define SGE_MATH_VECTOR_VECTOR_HPP_INCLUDED
 
-#include "basic_decl.hpp"
-#include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "cross.hpp"
-#include "dot.hpp"
-#include "input.hpp"
-#include "length.hpp"
-#include "normalize.hpp"
-#include "output.hpp"
-#include "place.hpp"
+#include <sge/math/vector/basic_decl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/cross.hpp>
+#include <sge/math/vector/dot.hpp>
+#include <sge/math/vector/input.hpp>
+#include <sge/math/vector/length.hpp>
+#include <sge/math/vector/normalize.hpp>
+#include <sge/math/vector/output.hpp>
+#include <sge/math/vector/place.hpp>
 
 #endif

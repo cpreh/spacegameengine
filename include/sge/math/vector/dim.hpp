@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_DIM_HPP_INCLUDED
 #define SGE_MATH_VECTOR_DIM_HPP_INCLUDED
 
-#include "basic_impl.hpp"
-#include "../dim/basic_impl.hpp"
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
 namespace sge
 {

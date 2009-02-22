@@ -36,6 +36,6 @@ T read_be(
 
 }
 
-#include "detail/istream_endianness_impl.hpp"
+#include <sge/detail/istream_endianness_impl.hpp>
 
 #endif

@@ -1,10 +1,10 @@
 #ifndef SGE_RENDERER_TEXTURE_RW_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_RW_HPP_INCLUDED
 
-#include "texture_fwd.hpp"
-#include "texture.hpp"
-#include "lock_rect.hpp"
-#include "../export.hpp"
+#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/texture.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/export.hpp>
 #include <boost/optional.hpp>
 #include <boost/scoped_ptr.hpp>
 

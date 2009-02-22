@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_SYSTEM_HPP_INCLUDED
 
-#include "intrusive_system_fwd.hpp"
-#include "intrusive_object.hpp" // TODO: can we get rid of this?
-#include "intrusive_order.hpp"
-#include "system_base.hpp"
-#include "../renderer/device_fwd.hpp"
+#include <sge/sprite/intrusive_system_fwd.hpp>
+#include <sge/sprite/intrusive_object.hpp> // TODO: can we get rid of this?
+#include <sge/sprite/intrusive_order.hpp>
+#include <sge/sprite/system_base.hpp>
+#include <sge/renderer/device_fwd.hpp>
 #include <boost/intrusive/list.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/noncopyable.hpp>

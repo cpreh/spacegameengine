@@ -1,9 +1,9 @@
 #ifndef SGE_GUI_EVENTS_KEY_HPP_INCLUDED
 #define SGE_GUI_EVENTS_KEY_HPP_INCLUDED
 
-#include "../../input/key_pair.hpp"
-#include "../../input/modifier/states.hpp"
-#include "../../export.hpp"
+#include <sge/input/key_pair.hpp>
+#include <sge/input/modifier/states.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

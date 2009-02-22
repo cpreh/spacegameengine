@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_VAR_HPP_INCLUDED
 #define SGE_RENDERER_STATE_VAR_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "../../export.hpp"
+#include <sge/renderer/state/traits.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

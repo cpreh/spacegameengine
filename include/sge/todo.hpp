@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TODO_HPP_INCLUDED
 #define SGE_TODO_HPP_INCLUDED
 
-#include "detail/message.hpp"
+#include <sge/detail/message.hpp>
 
 #define SGE_TODO(x)\
 SGE_DETAIL_MESSAGE("TODO: " x)

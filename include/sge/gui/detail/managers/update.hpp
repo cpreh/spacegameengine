@@ -1,9 +1,9 @@
 #ifndef SGE_GUI_DETAIL_MANAGERS_UPDATE_HPP_INCLUDED
 #define SGE_GUI_DETAIL_MANAGERS_UPDATE_HPP_INCLUDED
 
-#include "fwd.hpp"
-#include "../submanager.hpp"
-#include "../../widget_fwd.hpp"
+#include <sge/gui/detail/managers/fwd.hpp>
+#include <sge/gui/detail/submanager.hpp>
+#include <sge/gui/widget_fwd.hpp>
 #include <set>
 
 namespace sge

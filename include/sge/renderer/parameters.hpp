@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_PARAMETERS_HPP_INCLUDED
 
-#include "display_mode.hpp"
-#include "multi_sampling.hpp"
-#include "depth_buffer.hpp"
-#include "stencil_buffer.hpp"
-#include "window_mode.hpp"
-#include "vsync.hpp"
-#include "../export.hpp"
+#include <sge/renderer/display_mode.hpp>
+#include <sge/renderer/multi_sampling.hpp>
+#include <sge/renderer/depth_buffer.hpp>
+#include <sge/renderer/stencil_buffer.hpp>
+#include <sge/renderer/window_mode.hpp>
+#include <sge/renderer/vsync.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

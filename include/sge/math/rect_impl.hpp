@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_IMPL_HPP_INCLUDED
 #define SGE_MATH_RECT_IMPL_HPP_INCLUDED
 
-#include "rect_decl.hpp"
-#include "compare.hpp"
-#include "vector/basic_impl.hpp"
-#include "dim/basic_impl.hpp"
+#include <sge/math/rect_decl.hpp>
+#include <sge/math/compare.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/structure_cast.hpp>

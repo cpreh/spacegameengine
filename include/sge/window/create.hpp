@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_CREATE_HPP_INCLUDED
 #define SGE_WINDOW_CREATE_HPP_INCLUDED
 
-#include "instance_fwd.hpp"
-#include "../export.hpp"
+#include <sge/window/instance_fwd.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

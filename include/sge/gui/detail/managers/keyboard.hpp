@@ -1,15 +1,15 @@
 #ifndef SGE_GUI_DETAIL_MANAGERS_KEYBOARD_MANAGER_HPP_INCLUDED
 #define SGE_GUI_DETAIL_MANAGERS_KEYBOARD_MANAGER_HPP_INCLUDED
 
-#include "../submanager.hpp"
-#include "../../widget_fwd.hpp"
-#include "../../keyboard_focus.hpp"
-#include "../../../input/system_fwd.hpp"
-#include "../../../input/modifier/filter.hpp"
-#include "../../../input/modifier/states.hpp"
-#include "../../../input/key_pair_fwd.hpp"
-#include "../../../input/key_type.hpp"
-#include "../../../signals/scoped_connection.hpp"
+#include <sge/gui/detail/submanager.hpp>
+#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/keyboard_focus.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <sge/input/modifier/filter.hpp>
+#include <sge/input/modifier/states.hpp>
+#include <sge/input/key_pair_fwd.hpp>
+#include <sge/input/key_type.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 

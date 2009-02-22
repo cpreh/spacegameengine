@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBRARY_FUNCTION_NOT_FOUND_HPP_INCLUDED
 #define SGE_LIBRARY_FUNCTION_NOT_FOUND_HPP_INCLUDED
 
-#include "function_string.hpp"
-#include "../exception.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include <sge/library/function_string.hpp>
+#include <sge/exception.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

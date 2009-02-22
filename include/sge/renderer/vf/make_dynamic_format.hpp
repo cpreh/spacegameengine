@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_MAKE_DYNAMIC_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_VF_MAKE_DYNAMIC_FORMAT_HPP_INCLUDED
 
-#include "dynamic_element_list.hpp"
-#include "dynamic_offset_list.hpp"
-#include "make_dynamic_elements.hpp"
-#include "make_dynamic_offsets.hpp"
-#include "dynamic_format.hpp"
+#include <sge/renderer/vf/dynamic_element_list.hpp>
+#include <sge/renderer/vf/dynamic_offset_list.hpp>
+#include <sge/renderer/vf/make_dynamic_elements.hpp>
+#include <sge/renderer/vf/make_dynamic_offsets.hpp>
+#include <sge/renderer/vf/dynamic_format.hpp>
 #include <boost/mpl/for_each.hpp>
 
 namespace sge

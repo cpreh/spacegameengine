@@ -22,15 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOWS_WINDOW_HPP_INCLUDED
 #define SGE_WINDOWS_WINDOW_HPP_INCLUDED
 
-#include "window_fwd.hpp"
-#include "windows.hpp"
-#include "wndclass_fwd.hpp"
-#include "../string.hpp"
-#include "../window/instance.hpp"
-#include "../export.hpp"
-#include "../signals/connection.hpp"
-#include "../signals/signal.hpp"
-#include "../math/rect_decl.hpp"
+#include <sge/windows/window_fwd.hpp>
+#include <sge/windows/windows.hpp>
+#include <sge/windows/wndclass_fwd.hpp>
+#include <sge/string.hpp>
+#include <sge/window/instance.hpp>
+#include <sge/export.hpp>
+#include <sge/signals/connection.hpp>
+#include <sge/signals/signal.hpp>
+#include <sge/math/rect_decl.hpp>
 #include <boost/function.hpp>
 #include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_map.hpp>

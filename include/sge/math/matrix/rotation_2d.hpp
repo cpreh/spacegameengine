@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_ROTATION_2D_HPP_INCLUDED
 #define SGE_MATH_MATRIX_ROTATION_2D_HPP_INCLUDED
 
-#include "static.hpp"
+#include <sge/math/matrix/static.hpp>
 
 namespace sge
 {
@@ -41,6 +41,6 @@ rotation_2d(
 }
 }
 
-#include "detail/rotation_2d_impl.hpp"
+#include <sge/math/matrix/detail/rotation_2d_impl.hpp>
 
 #endif

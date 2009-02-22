@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_KEY_TYPE_HPP_INCLUDED
 #define SGE_INPUT_KEY_TYPE_HPP_INCLUDED
 
-#include "key_code.hpp"
-#include "../export.hpp"
-#include "../string.hpp"
+#include <sge/input/key_code.hpp>
+#include <sge/export.hpp>
+#include <sge/string.hpp>
 
 namespace sge
 {

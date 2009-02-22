@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DETAIL_MESSAGE_HPP_INCLUDED
 #define SGE_DETAIL_MESSAGE_HPP_INCLUDED
 
-#include "../config.h"
+#include <sge/config.h>
 
 #ifdef SGE_HAVE_PRAMGA_MESSAGE
 #define SGE_DETAIL_MESSAGE(x)\

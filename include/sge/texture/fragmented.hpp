@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 
-#include "part_fwd.hpp"
-#include "free_type.hpp"
-#include "detail/optional_container_position.hpp"
+#include <sge/texture/part_fwd.hpp>
+#include <sge/texture/free_type.hpp>
+#include <sge/texture/detail/optional_container_position.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/renderer/dim_type.hpp>
 #include <sge/export.hpp>

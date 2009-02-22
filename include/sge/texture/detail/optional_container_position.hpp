@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_DETAIL_OPTIONAL_CONTAINER_POSITION_HPP_INCLUDED
 #define SGE_TEXTURE_DETAIL_OPTIONAL_CONTAINER_POSITION_HPP_INCLUDED
 
-#include "container_position.hpp"
+#include <sge/texture/detail/container_position.hpp>
 #include <boost/optional.hpp>
 
 namespace sge

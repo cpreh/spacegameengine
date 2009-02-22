@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIME_MILLISECOND_HPP_INCLUDED
 #define SGE_TIME_MILLISECOND_HPP_INCLUDED
 
-#include "unit.hpp"
+#include <sge/time/unit.hpp>
 #include <sge/export.hpp>
 
 namespace sge

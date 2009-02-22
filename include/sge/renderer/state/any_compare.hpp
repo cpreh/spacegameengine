@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_ANY_COMPARE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_ANY_COMPARE_HPP_INCLUDED
 
-#include "any.hpp"
+#include <sge/renderer/state/any.hpp>
 #include <functional>
 
 namespace sge

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAINLOOP_CATCH_BLOCK_HPP_INCLUDED
 #define SGE_MAINLOOP_CATCH_BLOCK_HPP_INCLUDED
 
-#include "../exception.hpp"
-#include "../text.hpp"
-#include "../iostream.hpp"
-#include "../exception.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/iostream.hpp>
+#include <sge/exception.hpp>
 #include <exception>
 #include <iostream>
 #include <ostream>

@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_WIDGETS_LOG_HPP_INCLUDED
 #define SGE_GUI_WIDGETS_LOG_HPP_INCLUDED
 
-#include "../log.hpp"
+#include <sge/gui/log.hpp>
 
 namespace sge
 {

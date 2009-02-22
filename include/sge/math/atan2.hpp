@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_ATAN2_HPP_INCLUDED
 #define SGE_MATH_ATAN2_HPP_INCLUDED
 
-#include "vector/basic_impl.hpp"
-#include "vector/is_null.hpp"
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/is_null.hpp>
 #include <boost/optional.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_floating_point.hpp>

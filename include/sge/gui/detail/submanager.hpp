@@ -1,9 +1,9 @@
 #ifndef SGE_GUI_DETAIL_SUBMANAGER_HPP_INCLUDED
 #define SGE_GUI_DETAIL_SUBMANAGER_HPP_INCLUDED
 
-#include "../widget_fwd.hpp"
-#include "../activation_state.hpp"
-#include "../types.hpp"
+#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/activation_state.hpp>
+#include <sge/gui/types.hpp>
 #include <sge/noncopyable.hpp>
 
 namespace sge

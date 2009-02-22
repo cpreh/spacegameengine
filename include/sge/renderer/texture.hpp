@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_HPP_INCLUDED
 
-#include "../export.hpp"
-#include "texture_base.hpp"
-#include "image_view.hpp"
-#include "dim_type.hpp"
-#include "lock_rect.hpp"
-#include "texture_pos_type.hpp"
+#include <sge/export.hpp>
+#include <sge/renderer/texture_base.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/texture_pos_type.hpp>
 
 namespace sge
 {

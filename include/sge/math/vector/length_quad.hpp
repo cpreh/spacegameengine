@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_VECTOR_LENGTH_QUAD_HPP_INCLUDED
 #define SGE_MATH_VECTOR_LENGTH_QUAD_HPP_INCLUDED
 
-#include "basic_impl.hpp"
+#include <sge/math/vector/basic_impl.hpp>
 #include <boost/spirit/home/phoenix/operator/arithmetic.hpp>
 #include <boost/spirit/home/phoenix/core/argument.hpp>
 #include <numeric>

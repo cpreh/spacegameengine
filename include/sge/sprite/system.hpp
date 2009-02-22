@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_SYSTEM_HPP_INCLUDED
 #define SGE_SPRITE_SYSTEM_HPP_INCLUDED
 
-#include "fwd.hpp"
-#include "system_base.hpp"
-#include "container.hpp"
-#include "../export.hpp"
+#include <sge/sprite/fwd.hpp>
+#include <sge/sprite/system_base.hpp>
+#include <sge/sprite/container.hpp>
+#include <sge/export.hpp>
 #include <boost/function.hpp>
 
 namespace sge

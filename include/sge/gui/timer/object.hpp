@@ -1,10 +1,10 @@
 #ifndef SGE_GUI_TIMER_OBJECT_HPP_INCLUDED
 #define SGE_GUI_TIMER_OBJECT_HPP_INCLUDED
 
-#include "fwd.hpp"
-#include "callback.hpp"
-#include "../../time/timer.hpp"
-#include "../../time/resolution.hpp"
+#include <sge/gui/timer/fwd.hpp>
+#include <sge/gui/timer/callback.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/time/resolution.hpp>
 #include <boost/function.hpp>
 
 namespace sge

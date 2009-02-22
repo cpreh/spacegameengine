@@ -1,13 +1,13 @@
 #ifndef SGE_GUI_SKIN_HPP_INCLUDED
 #define SGE_GUI_SKIN_HPP_INCLUDED
 
-#include "types.hpp"
-#include "../filesystem/path.hpp"
-#include "../export.hpp"
-#include "../shared_ptr.hpp"
-#include "events/fwd.hpp"
-#include "widget_fwd.hpp"
-#include "widgets/fwd.hpp"
+#include <sge/gui/types.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/export.hpp>
+#include <sge/shared_ptr.hpp>
+#include <sge/gui/events/fwd.hpp>
+#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 
 namespace sge
 {

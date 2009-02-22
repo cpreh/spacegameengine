@@ -1,14 +1,14 @@
 #ifndef SGE_GUI_WIDGETS_TEXT_HPP_INCLUDED
 #define SGE_GUI_WIDGETS_TEXT_HPP_INCLUDED
 
-#include "../detail/cursor_delegate.hpp"
-#include "../widget.hpp"
-#include "../timer/fwd.hpp"
-#include "../events/fwd.hpp"
-#include "../../renderer/image.hpp"
-#include "../../font/metrics_fwd.hpp"
-#include "../../signals/signal.hpp"
-#include "../../export.hpp"
+#include <sge/gui/detail/cursor_delegate.hpp>
+#include <sge/gui/widget.hpp>
+#include <sge/gui/timer/fwd.hpp>
+#include <sge/gui/events/fwd.hpp>
+#include <sge/renderer/image.hpp>
+#include <sge/font/metrics_fwd.hpp>
+#include <sge/signals/signal.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

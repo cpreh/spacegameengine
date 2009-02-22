@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RANDOM_UNIFORM_HPP_INCLUDED
 #define SGE_RANDOM_UNIFORM_HPP_INCLUDED
 
-#include "default_generator.hpp"
-#include "uniform_distribution.hpp"
-#include "../time/time.hpp"
+#include <sge/random/default_generator.hpp>
+#include <sge/random/uniform_distribution.hpp>
+#include <sge/time/time.hpp>
 #include <boost/tr1/random.hpp>
 
 namespace sge

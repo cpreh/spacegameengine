@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_BASIC_DECL_HPP_INCLUDED
 #define SGE_MATH_MATRIX_BASIC_DECL_HPP_INCLUDED
 
-#include "basic_fwd.hpp"
-#include "detail/typedef_helper.hpp"
-#include "detail/dim_storage.hpp"
-#include "../detail/make_op_decl.hpp"
-#include "../detail/make_variadic_constructor_decl.hpp"
-#include "../dim/static.hpp"
+#include <sge/math/matrix/basic_fwd.hpp>
+#include <sge/math/matrix/detail/typedef_helper.hpp>
+#include <sge/math/matrix/detail/dim_storage.hpp>
+#include <sge/math/detail/make_op_decl.hpp>
+#include <sge/math/detail/make_variadic_constructor_decl.hpp>
+#include <sge/math/dim/static.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>
 

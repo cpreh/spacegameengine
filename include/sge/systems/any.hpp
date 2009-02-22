@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_ANY_HPP_INCLUDED
 #define SGE_SYSTEMS_ANY_HPP_INCLUDED
 
-#include "parameterless.hpp"
-#include "../window/parameters.hpp"
-#include "../renderer/parameters.hpp"
+#include <sge/systems/parameterless.hpp>
+#include <sge/window/parameters.hpp>
+#include <sge/renderer/parameters.hpp>
 #include <boost/variant/variant.hpp>
 
 namespace sge

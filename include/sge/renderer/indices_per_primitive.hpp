@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDICES_PER_PRIMITIVE_HPP_INCLUDED
 #define SGE_RENDERER_INDICES_PER_PRIMITIVE_HPP_INCLUDED
 
-#include "size_type.hpp"
-#include "primitive.hpp"
-#include "../export.hpp"
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/primitive.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

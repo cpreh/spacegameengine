@@ -1,13 +1,13 @@
 #ifndef SGE_INPUT_MODIFIER_FILTER_HPP_INCLUDED
 #define SGE_INPUT_MODIFIER_FILTER_HPP_INCLUDED
 
-#include "states.hpp"
-#include "../../export.hpp"
-#include "../key_pair_fwd.hpp"
-#include "../key_type.hpp"
-#include "../system_fwd.hpp"
-#include "../../signals/connection.hpp"
-#include "../../signals/signal.hpp"
+#include <sge/input/modifier/states.hpp>
+#include <sge/export.hpp>
+#include <sge/input/key_pair_fwd.hpp>
+#include <sge/input/key_type.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <sge/signals/connection.hpp>
+#include <sge/signals/signal.hpp>
 #include <boost/function.hpp>
 
 namespace sge

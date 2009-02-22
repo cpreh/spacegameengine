@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LIGHT_HPP_INCLUDED
 #define SGE_RENDERER_LIGHT_HPP_INCLUDED
 
-#include "any_color.hpp"
-#include "any_vector3.hpp"
-#include "any_arithmetic.hpp"
+#include <sge/renderer/any_color.hpp>
+#include <sge/renderer/any_vector3.hpp>
+#include <sge/renderer/any_arithmetic.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/export.hpp>
 

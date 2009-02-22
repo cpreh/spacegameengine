@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FORMAT_HPP_INCLUDED
 #define SGE_FORMAT_HPP_INCLUDED
 
-#include "config.h"
-#include "string.hpp"
-#include "export.hpp"
+#include <sge/config.h>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 #include <boost/format.hpp>
 
 namespace sge

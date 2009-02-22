@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_LOADER_PLUGIN_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_PLUGIN_HPP_INCLUDED
 
-#include "loader.hpp"
-#include "../plugin/traits.hpp"
-#include "../plugin/capabilities.hpp"
-#include "../export.hpp"
+#include <sge/audio/loader.hpp>
+#include <sge/plugin/traits.hpp>
+#include <sge/plugin/capabilities.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

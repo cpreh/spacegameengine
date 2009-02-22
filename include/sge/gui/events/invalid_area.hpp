@@ -1,9 +1,9 @@
 #ifndef SGE_GUI_EVENTS_INVALID_AREA_HPP_INCLUDED
 #define SGE_GUI_EVENTS_INVALID_AREA_HPP_INCLUDED
 
-#include "../types.hpp"
-#include "../../renderer/image_view.hpp"
-#include "../../export.hpp"
+#include <sge/gui/types.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

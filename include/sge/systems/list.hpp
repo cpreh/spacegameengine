@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_LIST_HPP_INCLUDED
 #define SGE_SYSTEMS_LIST_HPP_INCLUDED
 
-#include "any.hpp"
-#include "any_compare.hpp"
-#include "../export.hpp"
+#include <sge/systems/any.hpp>
+#include <sge/systems/any_compare.hpp>
+#include <sge/export.hpp>
 #include <set>
 
 namespace sge

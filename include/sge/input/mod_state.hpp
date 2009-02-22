@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOD_STATE_HPP_INCLUDED
 #define SGE_INPUT_MOD_STATE_HPP_INCLUDED
 
-#include "../export.hpp"
+#include <sge/export.hpp>
 
 namespace sge
 {

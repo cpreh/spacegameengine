@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../manager.hpp"
-#include "../../exception.hpp"
-#include "../../text.hpp"
-#include "../../iconv.hpp"
+#include <sge/plugin/manager.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/iconv.hpp>
 
 template<typename T>
 sge::plugin::iterator<T>

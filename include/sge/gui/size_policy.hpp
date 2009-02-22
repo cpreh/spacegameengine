@@ -1,10 +1,10 @@
 #ifndef SGE_GUI_SIZE_POLICY_HPP_INCLUDED
 #define SGE_GUI_SIZE_POLICY_HPP_INCLUDED
 
-#include "../bitfield.hpp"
+#include <sge/bitfield.hpp>
 // hrhr, no impl crap for me!
-#include "../bitfield_impl.hpp"
-#include "../export.hpp"
+#include <sge/bitfield_impl.hpp>
+#include <sge/export.hpp>
 #include <cstddef>
 
 namespace sge

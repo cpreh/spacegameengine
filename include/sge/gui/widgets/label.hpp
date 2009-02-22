@@ -1,9 +1,9 @@
 #ifndef SGE_GUI_WIDGETS_LABEL_HPP_INCLUDED
 #define SGE_GUI_WIDGETS_LABEL_HPP_INCLUDED
 
-#include "../widget.hpp"
-#include "../../export.hpp"
-#include "../../font/metrics_fwd.hpp"
+#include <sge/gui/widget.hpp>
+#include <sge/export.hpp>
+#include <sge/font/metrics_fwd.hpp>
 
 namespace sge
 {

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_OBJECT_HPP_INCLUDED
 
-#include "object.hpp"
-#include "intrusive_object_fwd.hpp"
-#include "intrusive_order.hpp"
-#include "../export.hpp"
+#include <sge/sprite/object.hpp>
+#include <sge/sprite/intrusive_object_fwd.hpp>
+#include <sge/sprite/intrusive_order.hpp>
+#include <sge/export.hpp>
 #include <boost/intrusive/list_hook.hpp>
 #include <boost/optional.hpp>
 

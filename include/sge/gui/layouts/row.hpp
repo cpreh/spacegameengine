@@ -1,10 +1,10 @@
 #ifndef SGE_GUI_LAYOUTS_ROW_HPP_INCLUDED
 #define SGE_GUI_LAYOUTS_ROW_HPP_INCLUDED
 
-#include "../layout.hpp"
-#include "../widget_fwd.hpp"
-#include "../../export.hpp"
-#include "../size_policy.hpp"
+#include <sge/gui/layout.hpp>
+#include <sge/gui/widget_fwd.hpp>
+#include <sge/export.hpp>
+#include <sge/gui/size_policy.hpp>
 #include <vector>
 #include <cstddef>
 

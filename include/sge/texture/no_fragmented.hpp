@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_NO_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_NO_FRAGMENTED_HPP_INCLUDED
 
-#include "fragmented.hpp"
-#include "part_fwd.hpp"
-#include "../renderer/device_fwd.hpp"
-#include "../renderer/dim_type.hpp"
-#include "../renderer/texture_filter.hpp"
-#include "../renderer/color_format.hpp"
-#include "../export.hpp"
+#include <sge/texture/fragmented.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/texture_filter.hpp>
+#include <sge/renderer/color_format.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

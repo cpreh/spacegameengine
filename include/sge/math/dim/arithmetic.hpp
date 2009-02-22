@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DIM_ARITHMETIC_HPP_INCLUDED
 #define SGE_MATH_DIM_ARTIHMETIC_HPP_INCLUDED
 
-#include "basic_impl.hpp"
+#include <sge/math/dim/basic_impl.hpp>
 
 namespace sge
 {

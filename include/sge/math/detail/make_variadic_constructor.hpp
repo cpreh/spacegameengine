@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_HPP_INCLUDED
 #define SGE_MATH_DETAIL_MAKE_VARIADIC_CONSTRUCTOR_HPP_INCLUDED
 
-#include "initial_size.hpp"
+#include <sge/math/detail/initial_size.hpp>
 #include <sge/config.h>
 #ifndef SGE_HAVE_VARIADIC_TEMPLATES
 #include <boost/preprocessor/arithmetic/inc.hpp>

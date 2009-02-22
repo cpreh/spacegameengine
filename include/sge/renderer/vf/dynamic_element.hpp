@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_ELEMENT_HPP_INCLUDED
 
-#include "dynamic_any.hpp"
-#include "role.hpp"
-#include "vertex_size.hpp"
-#include "../../export.hpp"
+#include <sge/renderer/vf/dynamic_any.hpp>
+#include <sge/renderer/vf/role.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

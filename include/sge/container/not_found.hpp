@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONTAINER_NOT_FOUND_HPP_INCLUDED
 #define SGE_CONTAINER_NOT_FOUND_HPP_INCLUDED
 
-#include "exception.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include <sge/container/exception.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

@@ -1,8 +1,8 @@
 #ifndef SGE_COLLISION_SATTELITE_HPP_INCLUDED
 #define SGE_COLLISION_SATTELITE_HPP_INCLUDED
 
-#include "sattelite_fwd.hpp"
-#include "point.hpp"
+#include <sge/collision/sattelite_fwd.hpp>
+#include <sge/collision/point.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 

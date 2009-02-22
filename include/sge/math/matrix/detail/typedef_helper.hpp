@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPERL_HPP_INCLUDED
 #define SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPERL_HPP_INCLUDED
 
-#include "../basic_fwd.hpp"
-#include "../../detail/array_adapter.hpp"
-#include "../../detail/view_storage.hpp"
-#include "../../vector/basic_decl.hpp"
+#include <sge/math/matrix/basic_fwd.hpp>
+#include <sge/math/detail/array_adapter.hpp>
+#include <sge/math/detail/view_storage.hpp>
+#include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
 {

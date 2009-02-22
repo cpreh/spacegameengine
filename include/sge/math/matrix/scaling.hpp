@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_SCALING_HPP_INCLUDED
 #define SGE_MATH_MATRIX_SCALING_HPP_INCLUDED
 
-#include "static.hpp"
+#include <sge/math/matrix/static.hpp>
 
 namespace sge
 {
@@ -43,6 +43,6 @@ scaling(
 }
 }
 
-#include "detail/scaling_impl.hpp"
+#include <sge/math/matrix/detail/scaling_impl.hpp>
 
 #endif

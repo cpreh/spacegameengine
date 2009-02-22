@@ -1,8 +1,8 @@
 #ifndef SGE_GUI_LAYOUTS_VERTICAL_HPP_INCLUDED
 #define SGE_GUI_LAYOUTS_VERTICAL_HPP_INCLUDED
 
-#include "row.hpp"
-#include "../../export.hpp"
+#include <sge/gui/layouts/row.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CONST_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 #define SGE_RENDERER_CONST_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 
-#include "image_view_elements.hpp"
+#include <sge/renderer/image_view_elements.hpp>
 #include <boost/gil/extension/dynamic_image/any_image_view.hpp>
 
 namespace sge

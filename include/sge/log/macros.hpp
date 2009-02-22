@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_MACROS_HPP_INCLUDED
 #define SGE_LOG_MACROS_HPP_INCLUDED
 
-#include "level.hpp"
+#include <sge/log/level.hpp>
 
 #define SGE_LOG_LEVEL_IF_ENABLED(stream, l, x)\
 	if(stream.enabled(l))\

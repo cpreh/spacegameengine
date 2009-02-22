@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VERTEX_FORMAT_HPP_INCLUDED
 
-#include "../funit.hpp"
-#include "../../renderer/vf/format.hpp"
-#include "../../renderer/vf/pos.hpp"
-#include "../../renderer/vf/color.hpp"
-#include "../../renderer/vf/texpos.hpp"
-#include "../../renderer/color.hpp"
+#include <sge/sprite/funit.hpp>
+#include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/color.hpp>
+#include <sge/renderer/vf/texpos.hpp>
+#include <sge/renderer/color.hpp>
 #include <boost/mpl/vector.hpp>
 
 namespace sge

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONTAINER_MAP_DECL_HPP_INCLUDED
 #define SGE_CONTAINER_MAP_DECL_HPP_INCLUDED
 
-#include "map_fwd.hpp"
+#include <sge/container/map_fwd.hpp>
 #include <utility>
 
 namespace sge

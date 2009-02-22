@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_ANGLE_HPP_INCLUDED
 #define SGE_MATH_ANGLE_HPP_INCLUDED
 
-#include "atan2.hpp"
-#include "vector/basic_impl.hpp"
-#include "vector/arithmetic.hpp"
-#include "vector/static.hpp"
-#include "mod.hpp"
-#include "constants.hpp"
+#include <sge/math/atan2.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/static.hpp>
+#include <sge/math/mod.hpp>
+#include <sge/math/constants.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/format.hpp>

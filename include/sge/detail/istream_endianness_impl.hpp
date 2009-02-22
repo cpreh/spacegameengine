@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ISTREAM_ENDIANNESS_IMPL_HPP_INCLUDED
 #define SGE_ISTREAM_ENDIANNESS_IMPL_HPP_INCLUDED
 
-#include "../endianness.hpp"
-#include "../istream_util.hpp"
+#include <sge/endianness.hpp>
+#include <sge/istream_util.hpp>
 
 template<typename T>
 T sge::read_le(

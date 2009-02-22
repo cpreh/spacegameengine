@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_EVENTS_MOUSE_LEAVE_HPP_INCLUDED
 #define SGE_GUI_EVENTS_MOUSE_LEAVE_HPP_INCLUDED
 
-#include "../types.hpp"
+#include <sge/gui/types.hpp>
 
 namespace sge
 {

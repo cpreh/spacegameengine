@@ -1,9 +1,9 @@
 #ifndef SGE_INPUT_MODIFIER_STATES_HPP_INCLUDED
 #define SGE_INPUT_MODIFIER_STATES_HPP_INCLUDED
 
-#include "../../container/map.hpp"
-#include "../key_code.hpp"
-#include "../key_state.hpp"
+#include <sge/container/map.hpp>
+#include <sge/input/key_code.hpp>
+#include <sge/input/key_state.hpp>
 #include <map>
 
 namespace sge

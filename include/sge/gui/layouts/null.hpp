@@ -1,8 +1,8 @@
 #ifndef SGE_GUI_LAYOUTS_NULL_HPP_INCLUDED
 #define SGE_GUI_LAYOUTS_NULL_HPP_INCLUDED
 
-#include "../layout.hpp"
-#include "../../export.hpp"
+#include <sge/gui/layout.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

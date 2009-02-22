@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FILE_HPP_INCLUDED
 #define SGE_FILE_HPP_INCLUDED
 
-#include "text.hpp"
+#include <sge/text.hpp>
 
 //#define SGE_DETAIL_WIDEN2(s) L ## s
 #ifdef SGE_NARROW_STRING

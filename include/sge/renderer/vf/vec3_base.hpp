@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
 #define SGE_RENDERER_VF_VEC3_BASE_HPP_INCLUDED
 
-#include "vec_base.hpp"
-#include "vertex_size.hpp"
-#include "role.hpp"
+#include <sge/renderer/vf/vec_base.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
+#include <sge/renderer/vf/role.hpp>
 
 namespace sge
 {

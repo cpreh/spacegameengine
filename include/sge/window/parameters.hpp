@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 #define SGE_WINDOW_PARAMETERS_HPP_INCLUDED
 
-#include "dim_type.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include <sge/window/dim_type.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <boost/optional.hpp>
 

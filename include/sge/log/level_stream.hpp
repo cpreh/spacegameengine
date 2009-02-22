@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/ostream.hpp>
 #include <sge/export.hpp>
-#include "format/formatter_fwd.hpp"
+#include <sge/log/format/formatter_fwd.hpp>
 
 namespace sge
 {

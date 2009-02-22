@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAILMAKE_OP_DEF_HPP_INCLUDED
 #define SGE_MATH_DETAILMAKE_OP_DEF_HPP_INCLUDED
 
-#include "storage_dim.hpp"
+#include <sge/math/detail/storage_dim.hpp>
 
 #define SGE_MATH_DETAIL_MAKE_OP_DEF(name, op)\
 SGE_MATH_DETAIL_TEMPLATE_PRE \

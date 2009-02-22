@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAKE_AUTO_PTR_HPP_INCLUDED
 #define SGE_MAKE_AUTO_PTR_HPP_INCLUDED
 
-#include "auto_ptr.hpp"
-#include "detail/make_ptr_base.hpp"
+#include <sge/auto_ptr.hpp>
+#include <sge/detail/make_ptr_base.hpp>
 
 namespace sge
 {

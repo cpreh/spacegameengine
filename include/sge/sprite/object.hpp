@@ -21,22 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_HPP_INCLUDED
 
-#include "point.hpp"
-#include "dim.hpp"
-#include "color.hpp"
-#include "depth_type.hpp"
-#include "rotation_type.hpp"
-#include "repetition_type.hpp"
-#include "unit.hpp"
-#include "circle.hpp"
-#include "rect.hpp"
-#include "../export.hpp"
-#include "../texture/part_fwd.hpp"
+#include <sge/sprite/point.hpp>
+#include <sge/sprite/dim.hpp>
+#include <sge/sprite/color.hpp>
+#include <sge/sprite/depth_type.hpp>
+#include <sge/sprite/rotation_type.hpp>
+#include <sge/sprite/repetition_type.hpp>
+#include <sge/sprite/unit.hpp>
+#include <sge/sprite/circle.hpp>
+#include <sge/sprite/rect.hpp>
+#include <sge/export.hpp>
+#include <sge/texture/part_fwd.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <boost/optional.hpp>
 
-#include "../todo.hpp"
+#include <sge/todo.hpp>
 SGE_TODO("move some of those sprite functions into free function")
 
 namespace sge

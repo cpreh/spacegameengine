@@ -1,10 +1,10 @@
 #ifndef SGE_GUI_LOG_HPP_INCLUDED
 #define SGE_GUI_LOG_HPP_INCLUDED
 
-#include "../log/logger.hpp"
-#include "../log/level.hpp"
-#include "../log/macros.hpp"
-#include "../log/temporary_output.hpp"
+#include <sge/log/logger.hpp>
+#include <sge/log/level.hpp>
+#include <sge/log/macros.hpp>
+#include <sge/log/temporary_output.hpp>
 
 namespace sge
 {

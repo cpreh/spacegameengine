@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_BITFIELD_HPP_INCLUDED
 #define SGE_BITFIELD_HPP_INCLUDED
 
-#include "safe_bool.hpp"
+#include <sge/safe_bool.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/tr1/array.hpp>
 #include <iterator>

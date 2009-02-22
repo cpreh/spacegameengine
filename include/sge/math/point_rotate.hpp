@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_POINT_ROTATE_HPP_INCLUDED
 #define SGE_MATH_POINT_ROTATE_HPP_INCLUDED
 
-#include "vector/basic_decl.hpp"
+#include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
 {
@@ -42,6 +42,6 @@ point_rotate(
 }
 }
 
-#include "detail/point_rotate_impl.hpp"
+#include <sge/math/detail/point_rotate_impl.hpp>
 
 #endif

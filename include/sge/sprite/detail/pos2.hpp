@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_POS2_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_POS2_HPP_INCLUDED
 
-#include "../funit.hpp"
+#include <sge/sprite/funit.hpp>
 #include <sge/math/vector/static.hpp>
 
 namespace sge

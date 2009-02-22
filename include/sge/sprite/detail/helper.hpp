@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_HELDER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_HELDER_HPP_INCLUDED
 
-#include "vertex_format.hpp"
-#include "tex_rect.hpp"
-#include "../rect.hpp"
-#include "../depth_type.hpp"
-#include "../rotation_type.hpp"
-#include "../color.hpp"
-#include "../point.hpp"
-#include "../../renderer/vf/iterator.hpp"
+#include <sge/sprite/detail/vertex_format.hpp>
+#include <sge/sprite/detail/tex_rect.hpp>
+#include <sge/sprite/rect.hpp>
+#include <sge/sprite/depth_type.hpp>
+#include <sge/sprite/rotation_type.hpp>
+#include <sge/sprite/color.hpp>
+#include <sge/sprite/point.hpp>
+#include <sge/renderer/vf/iterator.hpp>
 
 namespace sge
 {

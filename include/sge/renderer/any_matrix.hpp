@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_ANY_MATRIX_HPP_INCLUDED
 #define SGE_RENDERER_ANY_MATRIX_HPP_INCLUDED
 
-#include "basic_any_matrix.hpp"
+#include <sge/renderer/basic_any_matrix.hpp>
 #include <boost/variant/variant.hpp>
 
 namespace sge

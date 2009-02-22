@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <boost/tr1/array.hpp>
 #include <boost/cstdint.hpp>
-#include "../math/vector.hpp"
-#include "../renderer/index_buffer.hpp"
-#include "../renderer/types.hpp"
-#include "../renderer/vertex_buffer.hpp"
+#include <sge/math/vector.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/types.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
 
 namespace sge
 {

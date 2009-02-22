@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_POINT_ROTATE_IMPL_HPP_INCLUDED
 #define SGE_MATH_POINT_ROTATE_IMPL_HPP_INCLUDED
 
-#include "../point_rotate.hpp"
-#include "../matrix/basic_impl.hpp"
-#include "../matrix/rotation_2d.hpp"
-#include "../matrix/vector.hpp"
-#include "../vector/arithmetic.hpp"
-#include "../vector/basic_impl.hpp"
+#include <sge/math/point_rotate.hpp>
+#include <sge/math/matrix/basic_impl.hpp>
+#include <sge/math/matrix/rotation_2d.hpp>
+#include <sge/math/matrix/vector.hpp>
+#include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 template<
 	typename T,

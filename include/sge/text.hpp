@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXT_HPP_INCLUDED
 #define SGE_TEXT_HPP_INCLUDED
 
-#include "config.h"
+#include <sge/config.h>
 
 #ifndef SGE_NARROW_STRING
 #define SGE_TEXT(x) L ## x

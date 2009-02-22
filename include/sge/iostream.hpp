@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IOSTREAM_HPP_INCLUDED
 #define SGE_IOSTREAM_HPP_INCLUDED
 
-#include "istream.hpp"
-#include "ostream.hpp"
-#include "export.hpp"
+#include <sge/istream.hpp>
+#include <sge/ostream.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

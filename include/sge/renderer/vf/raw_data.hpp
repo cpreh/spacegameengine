@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
 #define SGE_RENDERER_VF_RAW_DATA_HPP_INCLUDED
 
-#include "raw_pointer.hpp"
+#include <sge/renderer/vf/raw_pointer.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <boost/gil/pixel.hpp>
 

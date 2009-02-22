@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_PLUGIN_HPP_INCLUDED
 #define SGE_INPUT_PLUGIN_HPP_INCLUDED
 
-#include "system.hpp"
-#include "../window/instance_fwd.hpp"
-#include "../plugin/traits.hpp"
-#include "../plugin/capabilities.hpp"
-#include "../export.hpp"
+#include <sge/input/system.hpp>
+#include <sge/window/instance_fwd.hpp>
+#include <sge/plugin/traits.hpp>
+#include <sge/plugin/capabilities.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

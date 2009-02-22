@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_PLAYER_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_HPP_INCLUDED
 
-#include "file_fwd.hpp"
-#include "unit.hpp"
-#include "sound_fwd.hpp"
-#include "pool_fwd.hpp"
+#include <sge/audio/file_fwd.hpp>
+#include <sge/audio/unit.hpp>
+#include <sge/audio/sound_fwd.hpp>
+#include <sge/audio/pool_fwd.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 #define SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
 
-#include "color_types.hpp"
+#include <sge/renderer/color_types.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/gil/image_view.hpp>

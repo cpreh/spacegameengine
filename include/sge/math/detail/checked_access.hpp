@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_CHECKED_ACCESS_HPP_INCLUDED
 #define SGE_MATH_DETAIL_CHECKED_ACCESS_HPP_INCLUDED
 
-#include "dynamic_size.hpp"
-#include "../size_type.hpp"
+#include <sge/math/detail/dynamic_size.hpp>
+#include <sge/math/size_type.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/static_assert.hpp>

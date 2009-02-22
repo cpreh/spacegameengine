@@ -1,16 +1,16 @@
 #ifndef SGE_GUI_DETAIL_MANAGERS_MOUSE_HPP_INCLUDED
 #define SGE_GUI_DETAIL_MANAGERS_MOUSE_HPP_INCLUDED
 
-#include "../submanager.hpp"
-#include "../../skin.hpp"
-#include "../../types.hpp"
-#include "../../widget_fwd.hpp"
-#include "../../../input/system_fwd.hpp"
-#include "../../../image/loader_fwd.hpp"
-#include "../../../input/key_pair_fwd.hpp"
-#include "../../../signals/scoped_connection.hpp"
-#include "../../../sprite/object.hpp"
-#include "../../../renderer/device_fwd.hpp"
+#include <sge/gui/detail/submanager.hpp>
+#include <sge/gui/skin.hpp>
+#include <sge/gui/types.hpp>
+#include <sge/gui/widget_fwd.hpp>
+#include <sge/input/system_fwd.hpp>
+#include <sge/image/loader_fwd.hpp>
+#include <sge/input/key_pair_fwd.hpp>
+#include <sge/signals/scoped_connection.hpp>
+#include <sge/sprite/object.hpp>
+#include <sge/renderer/device_fwd.hpp>
 
 #include <boost/ptr_container/ptr_vector.hpp>
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_BOX_IMPL_HPP_INCLUDED
 #define SGE_MATH_BOX_IMPL_HPP_INCLUDED
 
-#include "box.hpp"
-#include "compare.hpp"
+#include <sge/math/box.hpp>
+#include <sge/math/compare.hpp>
 
 template<typename T>
 sge::math::box<T>::box(const_reference left_,

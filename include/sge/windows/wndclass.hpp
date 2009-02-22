@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOWS_WNDCLASS_HPP_INCLUDED
 #define SGE_WINDOWS_WNDCLASS_HPP_INCLUDED
 
-#include "windows.hpp"
-#include "../noncopyable.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include <sge/windows/windows.hpp>
+#include <sge/noncopyable.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

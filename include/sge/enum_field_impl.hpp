@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ENUM_FIELD_IMPL_HPP_INCLUDED
 #define SGE_ENUM_FIELD_IMPL_HPP_INCLUDED
 
-#include "enum_field.hpp"
+#include <sge/enum_field.hpp>
 
 namespace sge
 {

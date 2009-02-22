@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_ASSERT_HPP_INCLUDED
 #define SGE_ASSERT_HPP_INCLUDED
 
-#include "string.hpp"
-#include "text.hpp"
-#include "export.hpp"
-#include "stringize.hpp"
-#include "file.hpp"
+#include <sge/string.hpp>
+#include <sge/text.hpp>
+#include <sge/export.hpp>
+#include <sge/stringize.hpp>
+#include <sge/file.hpp>
 
 namespace sge
 {

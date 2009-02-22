@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_COLOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_COLOR_HPP_INCLUDED
 
-#include "color_base.hpp"
-#include "role.hpp"
+#include <sge/renderer/vf/color_base.hpp>
+#include <sge/renderer/vf/role.hpp>
 
 namespace sge
 {

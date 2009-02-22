@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DIM_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_DIM_TYPE_HPP_INCLUDED
 
-#include "size_type.hpp"
+#include <sge/renderer/size_type.hpp>
 #include <sge/math/dim/static.hpp>
 
 namespace sge

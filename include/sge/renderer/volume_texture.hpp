@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if 0
 
-#include "../export.hpp"
-#include "../math/dim.hpp"
-#include "../math/box.hpp"
-#include "texture_base.hpp"
-#include "image_view.hpp"
+#include <sge/export.hpp>
+#include <sge/math/dim.hpp>
+#include <sge/math/box.hpp>
+#include <sge/renderer/texture_base.hpp>
+#include <sge/renderer/image_view.hpp>
 #include <vector>
 
 namespace sge

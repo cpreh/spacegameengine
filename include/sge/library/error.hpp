@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBRARY_ERROR_HPP_INCLUDED
 #define SGE_LIBRARY_ERROR_HPP_INCLUDED
 
-#include "../string.hpp"
+#include <sge/string.hpp>
 
 namespace sge
 {

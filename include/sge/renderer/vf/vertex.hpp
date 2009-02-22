@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 
-#include "../../algorithm/copy_n.hpp"
-#include "../../mpl/find_nth.hpp"
-#include "raw_data.hpp"
-#include "calc_offset.hpp"
-#include "element_stride.hpp"
-#include "vertex_size.hpp"
+#include <sge/algorithm/copy_n.hpp>
+#include <sge/mpl/find_nth.hpp>
+#include <sge/renderer/vf/raw_data.hpp>
+#include <sge/renderer/vf/calc_offset.hpp>
+#include <sge/renderer/vf/element_stride.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/deref.hpp>

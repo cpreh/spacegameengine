@@ -35,6 +35,6 @@ read(
 
 }
 
-#include "detail/istream_util_impl.hpp"
+#include <sge/detail/istream_util_impl.hpp>
 
 #endif

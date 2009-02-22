@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_LAYOUT_FWD_HPP_INCLUDED
 #define SGE_GUI_LAYOUT_FWD_HPP_INCLUDED
 
-#include "../shared_ptr.hpp" 
+#include <sge/shared_ptr.hpp> 
 
 namespace sge
 {

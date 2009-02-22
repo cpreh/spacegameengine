@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LOG_TEMPORARY_OUTPUT_HPP_INCLUDED
 #define SGE_LOG_TEMPORARY_OUTPUT_HPP_INCLUDED
 
-#include "output_helper.hpp"
-#include "../export.hpp"
-#include "../shared_ptr.hpp"
-#include "../sstream.hpp"
-#include "../string.hpp"
+#include <sge/log/output_helper.hpp>
+#include <sge/export.hpp>
+#include <sge/shared_ptr.hpp>
+#include <sge/sstream.hpp>
+#include <sge/string.hpp>
 #include <ostream>
 
 namespace sge

@@ -1,10 +1,10 @@
 #ifndef SGE_GUI_DETAIL_MANAGERS_TIME_HPP_INCLUDED
 #define SGE_GUI_DETAIL_MANAGERS_TIME_HPP_INCLUDED
 
-#include "../submanager.hpp"
-#include "../../../time/resolution.hpp"
-#include "../../timer/callback.hpp"
-#include "../../timer/fwd.hpp"
+#include <sge/gui/detail/submanager.hpp>
+#include <sge/time/resolution.hpp>
+#include <sge/gui/timer/callback.hpp>
+#include <sge/gui/timer/fwd.hpp>
 #include <sge/weak_ptr.hpp>
 #include <vector>
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FILESYSTEM_PATH_HPP_INCLUDED
 #define SGE_FILESYSTEM_PATH_HPP_INCLUDED
 
-#include "detail/path_traits.hpp"
-#include "../char.hpp"
+#include <sge/filesystem/detail/path_traits.hpp>
+#include <sge/char.hpp>
 #include <boost/filesystem/path.hpp>
 
 namespace sge

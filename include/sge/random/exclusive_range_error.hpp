@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RANDOM_EXCLUSIVE_RANGE_ERROR_HPP_INCLUDED
 #define SGE_RANDOM_EXCLUSIVE_RANGE_ERROR_HPP_INCLUDED
 
-#include "../exception.hpp"
-#include "../export.hpp"
+#include <sge/exception.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

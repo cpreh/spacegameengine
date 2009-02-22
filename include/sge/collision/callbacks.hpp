@@ -1,7 +1,7 @@
 #ifndef SGE_COLLISION_CALLBACKS_HPP_INCLUDED
 #define SGE_COLLISION_CALLBACKS_HPP_INCLUDED
 
-#include "sattelite_fwd.hpp"
+#include <sge/collision/sattelite_fwd.hpp>
 #include <sge/signals/signal.hpp>
 #include <boost/function.hpp>
 

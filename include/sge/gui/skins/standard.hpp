@@ -1,9 +1,9 @@
 #ifndef SGE_GUI_SKINS_STANDARD_HPP_INCLUDED
 #define SGE_GUI_SKINS_STANDARD_HPP_INCLUDED
 
-#include "../skin.hpp"
-#include "../types.hpp"
-#include "../../export.hpp"
+#include <sge/gui/skin.hpp>
+#include <sge/gui/types.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

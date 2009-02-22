@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_ITERATOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_ITERATOR_HPP_INCLUDED
 
-#include "vertex_size.hpp"
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <boost/type_traits/make_signed.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <iterator>

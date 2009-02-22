@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_NONCOPYABLE_HPP_INCLUDED
 #define SGE_NONCOPYABLE_HPP_INCLUDED
 
-#include "config.h"
+#include <sge/config.h>
 
 #ifdef SGE_HAVE_DEFAULTED_AND_DELETED_FUNCTIONS
 

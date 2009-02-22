@@ -29,6 +29,6 @@ Out copy_n(In beg, Size sz, Out out);
 
 }
 
-#include "detail/copy_n_impl.hpp"
+#include <sge/algorithm/detail/copy_n_impl.hpp>
 
 #endif

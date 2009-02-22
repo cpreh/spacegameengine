@@ -1,8 +1,8 @@
 #ifndef SGE_GUI_EVENTS_MOUSE_ENTER_HPP_INCLUDED
 #define SGE_GUI_EVENTS_MOUSE_ENTER_HPP_INCLUDED
 
-#include "../types.hpp"
-#include "../../export.hpp"
+#include <sge/gui/types.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

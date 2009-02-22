@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAKE_SHARED_PTR_HPP_INCLUDED
 #define SGE_MAKE_SHARED_PTR_HPP_INCLUDED
 
-#include "detail/make_ptr_base.hpp"
-#include "shared_ptr.hpp"
-#include "todo.hpp"
+#include <sge/detail/make_ptr_base.hpp>
+#include <sge/shared_ptr.hpp>
+#include <sge/todo.hpp>
 
 namespace sge
 {

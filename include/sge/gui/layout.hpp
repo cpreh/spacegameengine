@@ -1,10 +1,10 @@
 #ifndef SGE_GUI_LAYOUT_HPP_INCLUDED
 #define SGE_GUI_LAYOUT_HPP_INCLUDED
 
-#include "widget_fwd.hpp"
-#include "layout_fwd.hpp"
-#include "types.hpp"
-#include "../export.hpp"
+#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/layout_fwd.hpp>
+#include <sge/gui/types.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
 #define SGE_SPRITE_TEXTURE_ANIMATION_HPP_INCLUDED
 
-#include "animation.hpp"
-#include "animation_series.hpp"
-#include "../renderer/dim_type.hpp"
-#include "../time/timer.hpp"
-#include "../time/fun.hpp"
-#include "../export.hpp"
+#include <sge/sprite/animation.hpp>
+#include <sge/sprite/animation_series.hpp>
+#include <sge/renderer/dim_type.hpp>
+#include <sge/time/timer.hpp>
+#include <sge/time/fun.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

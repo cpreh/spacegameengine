@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBRARY_OBJECT_IMPL_HPP_INCLDUED
 #define SGE_LIBRARY_OBJECT_IMPL_HPP_INCLDUED
 
-#include "object.hpp"
-#include "function_not_found.hpp"
+#include <sge/library/object.hpp>
+#include <sge/library/function_not_found.hpp>
 
 template<
 	typename Fun

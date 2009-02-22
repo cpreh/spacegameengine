@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_ATLASING_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_HPP_INCLUDED
 
-#include "../renderer/texture_fwd.hpp"
-#include "../renderer/device_fwd.hpp"
-#include "../renderer/image_view.hpp"
-#include "../renderer/color_format.hpp"
-#include "../renderer/dim_type.hpp"
-#include "../renderer/lock_rect.hpp"
+#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/renderer/color_format.hpp>
+#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/lock_rect.hpp>
 
 namespace sge
 {

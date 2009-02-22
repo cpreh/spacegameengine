@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 #define SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 
-#include "category_array.hpp"
-#include "../export.hpp"
+#include <sge/plugin/category_array.hpp>
+#include <sge/export.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
 

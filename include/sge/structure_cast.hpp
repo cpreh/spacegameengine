@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
 #define SGE_STRUCTURE_CAST_HPP_INCLUDED
 
-#include "detail/structure_cast_fun.hpp"
+#include <sge/detail/structure_cast_fun.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 
 namespace sge

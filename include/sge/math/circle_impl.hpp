@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_CIRCLE_IMPL_HPP_INCLUDED
 #define SGE_MATH_CIRCLE_IMPL_HPP_INCLUDED
 
-#include "circle.hpp"
-#include "vector/basic_impl.hpp"
-#include "vector/arithmetic.hpp"
-#include "vector/length.hpp"
+#include <sge/math/circle.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/length.hpp>
 
 template<typename T>
 sge::math::circle<T>::circle(

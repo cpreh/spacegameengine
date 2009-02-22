@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_ARRAY_ADAPTER_IMPL_HPP_INCLUDED
 #define SGE_MATH_DETAIL_ARRAY_ADAPTER_IMPL_HPP_INCLUDED
 
-#include "array_adapter.hpp"
+#include <sge/math/detail/array_adapter.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/assert.hpp>
 #include <boost/next_prior.hpp>

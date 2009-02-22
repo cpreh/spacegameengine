@@ -21,17 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_BASIC_IMPL_HPP_INCLUDED
 #define SGE_MATH_MATRIX_BASIC_IMPL_HPP_INCLUDED
 
-#include "basic_decl.hpp"
-#include "../compare.hpp"
-#include "../vector/basic_impl.hpp"
-#include "../dim/basic_impl.hpp"
-#include "../detail/array_adapter_impl.hpp"
-#include "../detail/storage_data.hpp"
-#include "../detail/storage_dim.hpp"
-#include "../detail/view_storage_impl.hpp"
-#include "../detail/make_variadic_constructor.hpp"
-#include "../detail/initial_size.hpp"
-#include "../detail/make_op_def.hpp"
+#include <sge/math/matrix/basic_decl.hpp>
+#include <sge/math/compare.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/detail/array_adapter_impl.hpp>
+#include <sge/math/detail/storage_data.hpp>
+#include <sge/math/detail/storage_dim.hpp>
+#include <sge/math/detail/view_storage_impl.hpp>
+#include <sge/math/detail/make_variadic_constructor.hpp>
+#include <sge/math/detail/initial_size.hpp>
+#include <sge/math/detail/make_op_def.hpp>
 #include <sge/assert.hpp>
 #include <algorithm>
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_DETAIL_CONTAINER_POSITION_HPP_INCLUDED
 #define SGE_TEXTURE_DETAIL_CONTAINER_POSITION_HPP_INCLUDED
 
-#include "fragmented_queue.hpp"
-#include "fragmented_list.hpp"
+#include <sge/texture/detail/fragmented_queue.hpp>
+#include <sge/texture/detail/fragmented_list.hpp>
 #include <boost/variant/variant.hpp>
 
 namespace sge

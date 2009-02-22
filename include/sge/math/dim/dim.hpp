@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DIM_DIM_HPP_INCLUDED
 #define SGE_MATH_DIM_DIM_HPP_INCLUDED
 
-#include "basic_decl.hpp"
-#include "basic_impl.hpp"
-#include "arithmetic.hpp"
-#include "input.hpp"
-#include "output.hpp"
+#include <sge/math/dim/basic_decl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/dim/arithmetic.hpp>
+#include <sge/math/dim/input.hpp>
+#include <sge/math/dim/output.hpp>
 
 #endif

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONTAINER_RAW_VECTOR_HPP_INCLUDED
 #define SGE_CONTAINER_RAW_VECTOR_HPP_INCLUDED
 
-#include "raw_vector_decl.hpp"
-#include "raw_vector_impl.hpp"
+#include <sge/container/raw_vector_decl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 
 #endif

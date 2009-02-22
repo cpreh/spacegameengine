@@ -1,10 +1,10 @@
 #ifndef SGE_GUI_CANVAS_DRAWER_HPP_INCLUDED
 #define SGE_GUI_CANVAS_DRAWER_HPP_INCLUDED
 
-#include "../types.hpp"
-#include "../../font/drawer.hpp"
-#include "../../renderer/image_view.hpp"
-#include "../../export.hpp"
+#include <sge/gui/types.hpp>
+#include <sge/font/drawer.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/export.hpp>
 
 #include <boost/optional.hpp>
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_ORTHOGONAL_XY_HPP_INCLUDED
 #define SGE_MATH_MATRIX_ORTHOGONAL_XY_HPP_INCLUDED
 
-#include "static.hpp"
-#include "../vector/static.hpp"
+#include <sge/math/matrix/static.hpp>
+#include <sge/math/vector/static.hpp>
 
 namespace sge
 {
@@ -41,6 +41,6 @@ orthogonal_xy();
 }
 }
 
-#include "detail/orthogonal_xy_impl.hpp"
+#include <sge/math/matrix/detail/orthogonal_xy_impl.hpp>
 
 #endif

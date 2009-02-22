@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_INSTANCE_HPP_INCLUDED
 #define SGE_WINDOW_INSTANCE_HPP_INCLUDED
 
-#include "dim_type.hpp"
-#include "pos_type.hpp"
-#include "../mainloop/dispatchable.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include <sge/window/dim_type.hpp>
+#include <sge/window/pos_type.hpp>
+#include <sge/mainloop/dispatchable.hpp>
+#include <sge/string.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

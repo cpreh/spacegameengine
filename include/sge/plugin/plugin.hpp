@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_PLUGIN_HPP_INCLUDED
 #define SGE_PLUGIN_PLUGIN_HPP_INCLUDED
 
-#include "traits.hpp"
-#include "base.hpp"
+#include <sge/plugin/traits.hpp>
+#include <sge/plugin/base.hpp>
 #include <sge/library/object.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/noncopyable.hpp>

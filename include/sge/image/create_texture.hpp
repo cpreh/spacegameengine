@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 #define SGE_IMAGE_CREATE_TEXTURE_HPP_INCLUDED
 
-#include "loader_fwd.hpp"
-#include "object_fwd.hpp"
-#include "../filesystem/path.hpp"
-#include "../export.hpp"
-#include "../renderer/resource_flags.hpp"
-#include "../renderer/device_fwd.hpp"
-#include "../renderer/texture_fwd.hpp"
+#include <sge/image/loader_fwd.hpp>
+#include <sge/image/object_fwd.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/export.hpp>
+#include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/device_fwd.hpp>
+#include <sge/renderer/texture_fwd.hpp>
 
 namespace sge
 {

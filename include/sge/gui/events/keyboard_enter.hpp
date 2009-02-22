@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_EVENTS_KEYBOARD_ENTER_HPP_INCLUDED
 #define SGE_GUI_EVENTS_KEYBOARD_ENTER_HPP_INCLUDED
 
-#include "../../export.hpp"
+#include <sge/export.hpp>
 
 namespace sge
 {

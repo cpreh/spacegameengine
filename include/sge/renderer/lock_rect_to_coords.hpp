@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 
-#include "dim_type.hpp"
-#include "lock_rect.hpp"
+#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/lock_rect.hpp>
 #include <sge/math/rect.hpp>
 #include <sge/math/dim/static.hpp>
 #include <sge/math/dim/basic_impl.hpp>

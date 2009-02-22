@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOWS_WNDCLASS_POOL_HPP_INCLUDED
 #define SGE_WINDOWS_WNDCLASS_POOL_HPP_INCLUDED
 
-#include "wndclass_fwd.hpp"
-#include "windows.hpp"
-#include "../string.hpp"
+#include <sge/windows/wndclass_fwd.hpp>
+#include <sge/windows/windows.hpp>
+#include <sge/string.hpp>
 
 namespace sge
 {

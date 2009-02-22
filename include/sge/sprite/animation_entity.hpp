@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_ANIMATION_ENTITY_HPP_INCLUDED
 
 #include <sge/time/unit.hpp>
-#include "../export.hpp"
-#include "../texture/part_fwd.hpp"
-#include "../renderer/dim_type.hpp"
+#include <sge/export.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <sge/renderer/dim_type.hpp>
 
 namespace sge
 {

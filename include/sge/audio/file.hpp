@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_FILE_HPP_INCLUDED
 #define SGE_AUDIO_FILE_HPP_INCLUDED
 
-#include "sample_count.hpp"
-#include "sample_container.hpp"
-#include "channel_type.hpp"
+#include <sge/audio/sample_count.hpp>
+#include <sge/audio/sample_container.hpp>
+#include <sge/audio/channel_type.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 #include <cstddef>

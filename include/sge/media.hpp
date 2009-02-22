@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_HPP_INCLUDED
 #define SGE_MEDIA_HPP_INCLUDED
 
-#include "export.hpp"
-#include "filesystem/path.hpp"
+#include <sge/export.hpp>
+#include <sge/filesystem/path.hpp>
 
 namespace sge
 {

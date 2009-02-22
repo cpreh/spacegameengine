@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FILESYSTEM_NEXT_FILE_HPP_INCLUDED
 #define SGE_FILESYSTEM_NEXT_FILE_HPP_INCLUDED
 
-#include "directory_iterator.hpp"
-#include "../export.hpp"
+#include <sge/filesystem/directory_iterator.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {

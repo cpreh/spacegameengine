@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 
-#include "part.hpp"
-#include "../export.hpp"
-#include "../renderer/texture_fwd.hpp"
-#include "../renderer/lock_rect.hpp"
-#include "../renderer/image_view.hpp"
+#include <sge/texture/part.hpp>
+#include <sge/export.hpp>
+#include <sge/renderer/texture_fwd.hpp>
+#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/image_view.hpp>
 #include <sge/math/rect_impl.hpp>
 
 namespace sge

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_RECT_HPP_INCLUDED
 #define SGE_MATH_RECT_HPP_INCLUDED
 
-#include "rect_decl.hpp"
-#include "rect_impl.hpp"
+#include <sge/math/rect_decl.hpp>
+#include <sge/math/rect_impl.hpp>
 
 #endif

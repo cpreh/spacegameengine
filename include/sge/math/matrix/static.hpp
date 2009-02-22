@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_STATIC_HPP_INCLUDED
 #define SGE_MATH_MATRIX_STATIC_HPP_INCLUDED
 
-#include "basic_fwd.hpp"
-#include "../size_type.hpp"
+#include <sge/math/matrix/basic_fwd.hpp>
+#include <sge/math/size_type.hpp>
 #include <boost/mpl/integral_c.hpp>
 
 namespace sge

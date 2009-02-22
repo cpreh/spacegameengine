@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MAINLOOP_DISPATCH_HPP_INCLUDED
 #define SGE_MAINLOOP_DISPATCH_HPP_INCLUDED
 
-#include "../export.hpp"
+#include <sge/export.hpp>
 
 namespace sge
 {

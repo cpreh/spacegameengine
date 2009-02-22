@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_DETAIL_FOLD_COLOR_FORMAT_HPP_INCLUDED
 
-#include "fold_color_format_operation.hpp"
-#include "../image_view_elements.hpp"
-#include "../const_image_view_elements.hpp"
-#include "../color_format.hpp"
+#include <sge/renderer/detail/fold_color_format_operation.hpp>
+#include <sge/renderer/image_view_elements.hpp>
+#include <sge/renderer/const_image_view_elements.hpp>
+#include <sge/renderer/color_format.hpp>
 #include <boost/fusion/algorithm/iteration/fold.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/type_traits/is_same.hpp>

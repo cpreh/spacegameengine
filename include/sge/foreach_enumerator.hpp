@@ -30,6 +30,6 @@ void foreach_enumerator(
 
 }
 
-#include "detail/foreach_enumerator_impl.hpp"
+#include <sge/detail/foreach_enumerator_impl.hpp>
 
 #endif

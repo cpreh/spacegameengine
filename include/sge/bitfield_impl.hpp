@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_BITFIELD_IMPL_HPP_INCLUDED
 #define SGE_BITFIELD_IMPL_HPP_INCLUDED
 
-#include "bitfield.hpp"
-#include "functional.hpp"
+#include <sge/bitfield.hpp>
+#include <sge/functional.hpp>
 #include <algorithm>
 
 template<typename Enum, Enum Size, typename InternalType>

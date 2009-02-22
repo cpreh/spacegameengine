@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONTAINER_MAP_IMPL_HPP_INCLUDED
 #define SGE_CONTAINER_MAP_IMPL_HPP_INCLUDED
 
-#include "map_decl.hpp"
-#include "insert_failed.hpp"
-#include "not_found.hpp"
-#include "../text.hpp"
+#include <sge/container/map_decl.hpp>
+#include <sge/container/insert_failed.hpp>
+#include <sge/container/not_found.hpp>
+#include <sge/text.hpp>
 #include <utility>
 
 template<

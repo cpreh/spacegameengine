@@ -1,15 +1,15 @@
 #ifndef SGE_GUI_WIDGET_HPP_INCLUDED
 #define SGE_GUI_WIDGET_HPP_INCLUDED
 
-#include "events/fwd.hpp"
-#include "keyboard_focus.hpp"
-#include "activation_state.hpp"
-#include "key_handling.hpp"
-#include "types.hpp"
-#include "layout_fwd.hpp"
-#include "manager_fwd.hpp"
-#include "size_policy.hpp"
-#include "../renderer/image.hpp"
+#include <sge/gui/events/fwd.hpp>
+#include <sge/gui/keyboard_focus.hpp>
+#include <sge/gui/activation_state.hpp>
+#include <sge/gui/key_handling.hpp>
+#include <sge/gui/types.hpp>
+#include <sge/gui/layout_fwd.hpp>
+#include <sge/gui/manager_fwd.hpp>
+#include <sge/gui/size_policy.hpp>
+#include <sge/renderer/image.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
 

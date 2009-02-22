@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_MATRIX_TRANSPOSE_HPP_INCLUDED
 #define SGE_MATH_MATRIX_TRANSPOSE_HPP_INCLUDED
 
-#include "basic_fwd.hpp"
+#include <sge/math/matrix/basic_fwd.hpp>
 
 namespace sge
 {
@@ -43,6 +43,6 @@ transpose(
 }
 }
 
-#include "detail/transpose_impl.hpp"
+#include <sge/math/matrix/detail/transpose_impl.hpp>
 
 #endif

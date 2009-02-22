@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_HPP_INCLUDED
 
-#include "unit.hpp"
-#include "point.hpp"
-#include "play_mode.hpp"
-#include "sound_status.hpp"
+#include <sge/audio/unit.hpp>
+#include <sge/audio/point.hpp>
+#include <sge/audio/play_mode.hpp>
+#include <sge/audio/sound_status.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 #include <boost/noncopyable.hpp>
