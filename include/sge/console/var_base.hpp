@@ -4,14 +4,15 @@
 #include <sge/console/object_fwd.hpp>
 #include <sge/string.hpp>
 #include <sge/export.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace console
 {
-class SGE_CLASS_SYMBOL var_base : public boost::noncopyable
+class SGE_CLASS_SYMBOL var_base
 {
+	SGE_NONCOPYABLE(var_base)
 	public:
 	SGE_SYMBOL var_base(
 		object &,

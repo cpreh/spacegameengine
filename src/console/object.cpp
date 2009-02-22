@@ -95,7 +95,7 @@ void sge::console::object::eval(string const &sp)
 	eval_grammar<string::const_iterator> grammar;
 	string::const_iterator beg = s.begin();
 
-  boost::spirit::qi::parse(
+	boost::spirit::qi::parse(
 		beg,
 		s.end(),
 		grammar,
