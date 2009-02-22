@@ -45,7 +45,7 @@ class gfx : public boost::noncopyable
 {
 public:
 	SGE_SYMBOL gfx(
-		object &,
+		sge::console::object &,
 		renderer::device_ptr,
 		renderer::any_color font_color,
 		font::metrics_ptr,
@@ -56,8 +56,10 @@ public:
 	SGE_SYMBOL bool active() const;
 	SGE_SYMBOL void active(bool);
 	SGE_SYMBOL void print(string const &);
+	SGE_SYMBOL sge::console::object &object();
+	SGE_SYMBOL sge::console::object const &object() const;
 private:
-	object &object_;
+	sge::console::object &object_;
 	font::object fn;
 	input::modifier::filter mf;
 	signals::connection const ic,irc;

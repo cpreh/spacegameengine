@@ -29,11 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/resolution.hpp>
 #include <sge/structure_cast.hpp>
 #include <sge/iostream.hpp>
-#include <boost/algorithm/string/join.hpp>
 #include <boost/bind.hpp>
+#include <boost/foreach.hpp>
 
 sge::console::gfx::gfx(
-	object &_object,
+	sge::console::object &_object,
 	renderer::device_ptr const _rend,
 	renderer::any_color const _font_color,
 	font::metrics_ptr const _metrics,
@@ -76,25 +76,25 @@ void sge::console::gfx::draw()
 {
 	ss.render(bg);
 
-	string const s = 
-		boost::algorithm::join(
-			output_history_.lines_inside(
+	font::unit current_y = static_cast<font::unit>(bg.y()+bg.h()-2*fn.height());
+	BOOST_FOREACH(string const s,output_history_.lines_inside(
 				detail::history::rect(
 					structure_cast<detail::history::point>(
 						bg.pos()),
 					detail::history::dim(
 						static_cast<detail::history::unit>(bg.w()),
 						static_cast<detail::history::unit>(bg.h()-fn.height()))),
-				static_cast<detail::history::unit>(fn.height())),
-			SGE_TEXT("\n"));
-	
-	// draw history lines
-	fn.draw_text(
-		s,
-		bg.pos(),
-		font::dim(bg.w(), bg.h() - fn.height()),
-		font::align_h::left,
-		font::align_v::bottom);
+				static_cast<detail::history::unit>(fn.height())))
+	{
+		// draw history lines
+		fn.draw_text(
+			s,
+			font::pos(bg.x(),current_y),
+			font::dim(bg.w(), bg.h() - fn.height()),
+			font::align_h::left,
+			font::align_v::top);
+		current_y -= fn.height();
+	}
 	
 	string const il = input_line_.edited(cursor_active_);
 
@@ -123,7 +123,17 @@ void sge::console::gfx::active(bool const _active)
 
 void sge::console::gfx::print(string const &s)
 {
-	output_history_.push_back(s);
+	output_history_.push_front(s);
+}
+
+sge::console::object &sge::console::gfx::object()
+{
+	return object_;
+}
+
+sge::console::object const &sge::console::gfx::object() const
+{
+	return object_;
 }
 
 void sge::console::gfx::key_callback(

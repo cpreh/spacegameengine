@@ -22,6 +22,7 @@ class history
 	typedef std::deque<string> container;
 	typedef container::iterator iterator;
 	typedef container::const_iterator const_iterator;
+	typedef container::const_reverse_iterator const_reverse_iterator;
 	typedef boost::iterator_range<const_iterator> iterator_pair;
 	typedef unsigned unit;
 	typedef math::rect<unit> rect;

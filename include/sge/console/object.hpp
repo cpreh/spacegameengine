@@ -22,7 +22,7 @@ class SGE_CLASS_SYMBOL object : public boost::noncopyable
 	SGE_SYMBOL signals::connection const insert(
 		string const &name,
 		callback const &,
-		string const &description);
+		string const &description = string());
 
 	SGE_SYMBOL signals::connection const register_fallback(
 		fallback const &
