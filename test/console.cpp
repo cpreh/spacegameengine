@@ -50,17 +50,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-void func(
-	sge::console::arg_list const &args)
+void fallback(
+	sge::string const &arg)
 {
-	sge::cout << SGE_TEXT("function called with arguments:\n");
-	BOOST_FOREACH(sge::console::arg_list::const_reference s,args)
-		sge::cout << s << SGE_TEXT("\n");
+	sge::cout << SGE_TEXT("fallback called with argument:") << arg << SGE_TEXT("\n");
 }
 
 void quit(bool &running,sge::console::arg_list const &)
 {
 	running = false;
+}
+
 }
 
 int main()
