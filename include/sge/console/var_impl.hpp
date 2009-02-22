@@ -72,7 +72,7 @@ sge::console::var<T>::var(
 		name),
 	t(t)
 {
-	late_construct();
+	//late_construct();
 }
 
 #endif

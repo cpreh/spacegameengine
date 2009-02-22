@@ -6,7 +6,7 @@
 #include "../key_pair_fwd.hpp"
 #include "../key_type.hpp"
 #include "../system_fwd.hpp"
-#include "../../signals/scoped_connection.hpp"
+#include "../../signals/connection.hpp"
 #include "../../signals/signal.hpp"
 #include <boost/function.hpp>
 
@@ -26,11 +26,12 @@ class SGE_CLASS_SYMBOL filter
 
 	SGE_SYMBOL explicit filter(system_ptr);
 
-	SGE_SYMBOL signals::scoped_connection const register_callback(
+	SGE_SYMBOL signals::connection const register_callback(
 		callback_type const &);
-	SGE_SYMBOL signals::scoped_connection const register_repeat_callback(
+	SGE_SYMBOL signals::connection const register_repeat_callback(
 		repeat_callback_type const &);
 	private:
+	signals::connection ic,irc;
 	signals::signal<fn_callback_type> signal;
 	signals::signal<fn_repeat_callback_type> repeat_signal;
 	states modifiers;

@@ -2,10 +2,11 @@
 #define SGE_CONSOLE_OBJECT_HPP_INCLUDED
 
 #include <sge/console/callbacks.hpp>
-#include <sge/console/var_map.hpp>
-#include <sge/console/callback_map.hpp>
+#include <sge/console/variable_map.hpp>
+#include <sge/console/function_map.hpp>
 #include <sge/console/var_base_fwd.hpp>
 #include <sge/signals/connection.hpp>
+#include <sge/export.hpp>
 
 #include <boost/noncopyable.hpp>
 
@@ -13,28 +14,29 @@ namespace sge
 {
 namespace console
 {
-class object : public boost::noncopyable
+class SGE_CLASS_SYMBOL object : public boost::noncopyable
 {
 	public:
-	object(string::value_type prefix);
+	SGE_SYMBOL object(string::value_type prefix);
 	
-	signals::connection const insert(
+	SGE_SYMBOL signals::connection const insert(
 		string const &name,
 		callback const &,
-		string const &description);
+		string const &description = string());
 
-	signals::connection const register_fallback(
+	SGE_SYMBOL signals::connection const register_fallback(
 		fallback const &
 	);
 	
-	void eval(string const &);
-	var_map const &vars() const;
-	callback_map const &functions() const;
+	SGE_SYMBOL void eval(string const &);
+	SGE_SYMBOL variable_map const &variables() const;
+	SGE_SYMBOL variable_map &variables();
+	SGE_SYMBOL function_map const &functions() const;
 	private:
 	friend class var_base;
 	
-	var_map vars_;
-	callback_map funcs_;
+	variable_map vars_;
+	function_map funcs_;
 	fallback_signal fallback_;
 	string::value_type prefix_;
 

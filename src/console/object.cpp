@@ -1,6 +1,6 @@
 #include <sge/console/object.hpp>
 #include <sge/console/exception.hpp>
-#include <sge/console/callback.hpp>
+#include <sge/console/callbacks.hpp>
 #include <sge/console/function.hpp>
 #include <sge/console/var_base.hpp>
 #include <sge/iostream.hpp>
@@ -33,14 +33,14 @@ sge::signals::connection const sge::console::object::insert(
 			function
 		>(description));
 
-	std::pair<callback_map::iterator,bool> const ret = 
+	std::pair<function_map::iterator,bool> const ret = 
 		funcs_.insert(
 			name,
 			sig);
 
 	SGE_ASSERT(ret.second);
 
-	return ret.first->second->signal_.connect(c);
+	return ret.first->second->signal().connect(c);
 }
 
 sge::signals::connection const sge::console::object::register_fallback(
@@ -58,8 +58,8 @@ struct eval_grammar : boost::spirit::qi::grammar<
 {
 	typedef boost::spirit::ascii::space_type space_type;
 
-        eval_grammar() : eval_grammar::base_type(start)
-        {
+	eval_grammar() : eval_grammar::base_type(start)
+	{
 		using boost::spirit::char_;
 		using boost::spirit::ascii::space;
 		using namespace boost::phoenix;
@@ -69,12 +69,12 @@ struct eval_grammar : boost::spirit::qi::grammar<
 		quoted_string %=    '"' >> +(char_ - '"') >> '"';
 		argument %=        quoted_string | word;
 		start %=           argument % (+space);
-        }
+	}
 
-        boost::spirit::qi::rule<Iterator, sge::string()> word;
-        boost::spirit::qi::rule<Iterator, sge::string()> quoted_string;
-        boost::spirit::qi::rule<Iterator, sge::string()> argument;
-        boost::spirit::qi::rule<Iterator, sge::console::arg_list()> start;
+	boost::spirit::qi::rule<Iterator, sge::string()> word;
+	boost::spirit::qi::rule<Iterator, sge::string()> quoted_string;
+	boost::spirit::qi::rule<Iterator, sge::string()> argument;
+	boost::spirit::qi::rule<Iterator, sge::console::arg_list()> start;
 };
 }
 
@@ -90,31 +90,36 @@ void sge::console::object::eval(string const &sp)
 	}
 
 	string const s = sp.substr(1);
-	
+
 	arg_list args;
 	eval_grammar<string::const_iterator> grammar;
 	string::const_iterator beg = s.begin();
 
-        boost::spirit::qi::parse(
+  boost::spirit::qi::parse(
 		beg,
 		s.end(),
 		grammar,
 		args);
 
-	callback_map::iterator i = funcs_.find(args[0]);
+	function_map::iterator i = funcs_.find(args[0]);
 
 	if (i == funcs_.end())
 		throw exception(SGE_TEXT("couldn't find command \"")+args[0]+SGE_TEXT("\""));
 
-	i->second->signal_(args);
+	i->second->signal()(args);
 }
 
-sge::console::var_map const &sge::console::object::vars() const
+sge::console::variable_map const &sge::console::object::variables() const
 {
 	return vars_;
 }
 
-sge::console::callback_map const &sge::console::object::functions() const
+sge::console::variable_map &sge::console::object::variables()
+{
+	return vars_;
+}
+
+sge::console::function_map const &sge::console::object::functions() const
 {
 	return funcs_;
 }

@@ -36,7 +36,7 @@ public:
 
 	var(
 		object &,
-		string const &name,
+		sge::string const &name,
 		value_type const & = value_type());
 
 	void string(sge::string const &); 

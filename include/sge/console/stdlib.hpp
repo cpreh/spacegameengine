@@ -1,33 +1,38 @@
 #ifndef SGE_CONSOLE_STDLIB_HPP_INCLUDED
 #define SGE_CONSOLE_STDLIB_HPP_INCLUDED
 
-#include "arg_list.hpp"
-#include "../string.hpp"
-#include "../export.hpp"
+#include <sge/console/object_fwd.hpp>
+#include <sge/console/function_map.hpp>
+#include <sge/signals/connection.hpp>
 #include <boost/function.hpp>
 
 namespace sge
 {
 namespace console
 {
-
-struct stdlib
+class stdlib
 {
-	typedef boost::function<void (const sge::string &)> callback_type;
+	public:
+	typedef boost::function<void (string const &)> print_callback;
+	typedef boost::function<void (string const &)> error_callback;
+	stdlib(
+		object &,
+		print_callback const &,
+		error_callback const &);
+	private:
+	object &object_;
+	print_callback print_;
+	error_callback error_;
+	signals::connection get,set,help,lsfuncs,lsvars,man;
+	
+	void fn_get(arg_list const &);
+	void fn_set(arg_list const &);
+	void fn_help(arg_list const &);
+	void fn_lsvars(arg_list const &);
+	void fn_man(arg_list const &);
 
-	callback_type print;
-
-	SGE_SYMBOL void set(const arg_list &);
-	SGE_SYMBOL void get(const arg_list &);
-	SGE_SYMBOL void help(const arg_list &);
-	SGE_SYMBOL void listvars(const arg_list &);
-	SGE_SYMBOL void listfuncs(const arg_list &);
-	SGE_SYMBOL void latch(const arg_list &);
-
-	SGE_SYMBOL explicit stdlib(
-		callback_type const &);
+	void print_function(function_map::const_reference);
 };
-
 }
 }
 

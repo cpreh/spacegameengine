@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_CALLBACK_MAP_HPP_INCLUDED
-#define SGE_CONSOLE_CALLBACK_MAP_HPP_INCLUDED
+#ifndef SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
+#define SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
 
 #include <sge/console/signals.hpp>
 #include <sge/console/function.hpp>
@@ -33,7 +33,7 @@ namespace console
 typedef boost::ptr_map<
 	string,
 	function
-> callback_map; 
+> function_map; 
 }
 }
 

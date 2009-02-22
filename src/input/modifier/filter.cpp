@@ -6,25 +6,25 @@
 #include <boost/bind.hpp>
 
 sge::input::modifier::filter::filter(sge::input::system_ptr const is)
+	: ic(
+			is->register_callback(
+				boost::bind(&filter::input_callback,this,_1))),
+	  irc(
+			is->register_repeat_callback(
+				boost::bind(&filter::input_repeat_callback,this,_1)))
 {
-	is->register_callback(
-		boost::bind(&filter::input_callback,this,_1));
-
-	is->register_repeat_callback(
-		boost::bind(&filter::input_repeat_callback,this,_1));
-
 	BOOST_FOREACH(object const &o,list())
 		BOOST_FOREACH(key_code const &c,o.codes)
 			modifiers.insert(c,static_cast<key_state>(0));
 }
 
-sge::signals::scoped_connection const sge::input::modifier::filter::register_callback(
+sge::signals::connection const sge::input::modifier::filter::register_callback(
 	callback_type const &f)
 {
 	return signal.connect(f);
 }
 
-sge::signals::scoped_connection const sge::input::modifier::filter::register_repeat_callback(
+sge::signals::connection const sge::input::modifier::filter::register_repeat_callback(
 	repeat_callback_type const &f)
 {
 	return repeat_signal.connect(f);
