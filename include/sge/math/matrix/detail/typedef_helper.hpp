@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPERL_HPP_INCLUDED
-#define SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPERL_HPP_INCLUDED
+#ifndef SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPER_HPP_INCLUDED
+#define SGE_MATH_MATRIX_DETAIL_TYPEDEF_HELPER_HPP_INCLUDED
 
 #include <sge/math/matrix/basic_fwd.hpp>
 #include <sge/math/detail/array_adapter.hpp>

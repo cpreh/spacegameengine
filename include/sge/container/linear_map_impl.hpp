@@ -1,4 +1,11 @@
+<<<<<<< HEAD:include/sge/container/linear_map_impl.hpp
 #include <sge/container/linear_map.hpp>
+=======
+#ifndef SGE_CONTAINER_LINEAR_MAP_IMPL_HPP_INCLUDED
+#define SGE_CONTAINER_LINEAR_MAP_IMPL_HPP_INCLUDED
+
+#include "linear_map.hpp"
+>>>>>>> bc0f74e150fe8758b2118e1d35f7ba0e0db1075a:include/sge/container/linear_map_impl.hpp
 // std::swap
 #include <algorithm>
 #include <utility>
@@ -302,3 +309,5 @@ std::pair<
 {
 	return std::make_pair(lower_bound(k),upper_bound(k));
 }
+
+#endif

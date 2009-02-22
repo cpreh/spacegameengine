@@ -1,5 +1,5 @@
-#ifndef SGE_GUI_WIDGETS_TEXT_HPP_INCLUDED
-#define SGE_GUI_WIDGETS_TEXT_HPP_INCLUDED
+#ifndef SGE_GUI_WIDGETS_EDIT_HPP_INCLUDED
+#define SGE_GUI_WIDGETS_EDIT_HPP_INCLUDED
 
 #include <sge/gui/detail/cursor_delegate.hpp>
 #include <sge/gui/widget.hpp>

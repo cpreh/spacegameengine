@@ -34,15 +34,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signals/connection.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <deque>
 
 namespace sge
 {
 namespace console
 {
-class gfx : public boost::noncopyable 
+class gfx
 {
+	SGE_NONCOPYABLE(gfx)
 public:
 	SGE_SYMBOL gfx(
 		sge::console::object &,

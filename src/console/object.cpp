@@ -11,10 +11,10 @@
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_object.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
-#include <boost/spirit/phoenix/operators.hpp>
 
 sge::console::object::object(string::value_type const _prefix)
-	: prefix_(_prefix)
+:
+	prefix_(_prefix)
 {
 }
 
@@ -62,8 +62,6 @@ struct eval_grammar : boost::spirit::qi::grammar<
 	{
 		using boost::spirit::char_;
 		using boost::spirit::ascii::space;
-		using namespace boost::phoenix;
-		using namespace boost::spirit::arg_names;
 
 		word  %=           +(char_ - space);
 		quoted_string %=    '"' >> +(char_ - '"') >> '"';
@@ -95,7 +93,7 @@ void sge::console::object::eval(string const &sp)
 	eval_grammar<string::const_iterator> grammar;
 	string::const_iterator beg = s.begin();
 
-  boost::spirit::qi::parse(
+	boost::spirit::qi::parse(
 		beg,
 		s.end(),
 		grammar,

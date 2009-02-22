@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_POINT_ROTATE_IMPL_HPP_INCLUDED
-#define SGE_MATH_POINT_ROTATE_IMPL_HPP_INCLUDED
+#ifndef SGE_MATH_DETAIL_POINT_ROTATE_IMPL_HPP_INCLUDED
+#define SGE_MATH_DETAIL_POINT_ROTATE_IMPL_HPP_INCLUDED
 
 #include <sge/math/point_rotate.hpp>
 #include <sge/math/matrix/basic_impl.hpp>

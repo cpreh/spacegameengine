@@ -7,17 +7,17 @@
 #include <sge/console/var_base_fwd.hpp>
 #include <sge/signals/connection.hpp>
 #include <sge/export.hpp>
-
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace console
 {
-class SGE_CLASS_SYMBOL object : public boost::noncopyable
+class SGE_CLASS_SYMBOL object
 {
+	SGE_NONCOPYABLE(object)
 	public:
-	SGE_SYMBOL object(string::value_type prefix);
+	SGE_SYMBOL explicit object(string::value_type prefix);
 	
 	SGE_SYMBOL signals::connection const insert(
 		string const &name,

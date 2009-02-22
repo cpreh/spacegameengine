@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_HELDER_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_HELDER_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_HELPER_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_HELPER_HPP_INCLUDED
 
 #include <sge/sprite/detail/vertex_format.hpp>
 #include <sge/sprite/detail/tex_rect.hpp>

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CIRCLE_HPP_INCLUDED
-#define SGE_CIRCLE_HPP_INCLUDED
+#ifndef SGE_MATH_CIRCLE_HPP_INCLUDED
+#define SGE_MATH_CIRCLE_HPP_INCLUDED
 
 #include <sge/math/circle_fwd.hpp>
 #include <sge/math/vector/static.hpp>

@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 
-#ifndef SGE_SPRITE_ANIMATON_SERIES_HPP_INCLUDED
-#define SGE_SPRITE_ANIMATON_SERIES_HPP_INCLUDED
+#ifndef SGE_SPRITE_ANIMATION_SERIES_HPP_INCLUDED
+#define SGE_SPRITE_ANIMATION_SERIES_HPP_INCLUDED
 
 #include <sge/sprite/animation_series_fwd.hpp>
 #include <sge/sprite/animation_entity.hpp>

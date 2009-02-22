@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WINDOWS_HPP_INCLUDED
-#define SGE_WINDOWS_HPP_INCLUDED
+#ifndef SGE_WINDOWS_WINDOWS_HPP_INCLUDED
+#define SGE_WINDOWS_WINDOWS_HPP_INCLUDED
 
 // TODO: some more macros for windows
 #define WIN32_LEAN_AND_MEAN
