@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FILESYSTEM_SKIP_IRECTORIES_HPP_INCLUDED
-#define SGE_FILESYSTEM_SKIP_IRECTORIES_HPP_INCLUDED
+#ifndef SGE_FILESYSTEM_SKIP_DIRECTORIES_HPP_INCLUDED
+#define SGE_FILESYSTEM_SKIP_DIRECTORIES_HPP_INCLUDED
 
 #include "directory_iterator.hpp"
 #include "../export.hpp"

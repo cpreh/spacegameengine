@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_FRAMES_COUNTER_HPP_INCLUDED
-#define SGE_FRAMES_COUNTER_HPP_INCLUDED
+#ifndef SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
+#define SGE_TIME_FRAMES_COUNTER_HPP_INCLUDED
 
 #include "timer.hpp"
 #include "../string.hpp"

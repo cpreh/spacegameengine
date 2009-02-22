@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MD3_MODEL_HPP_INCLUDED
-#define SGE_MD3_MODEL_HPP_INCLUDED
+#ifndef SGE_MODEL_MD3_HPP_INCLUDED
+#define SGE_MODEL_MD3_HPP_INCLUDED
 
 #if 0
 #include <istream>

@@ -1,5 +1,5 @@
-#ifndef SGE_GUI_CANVAS_DRAWER_HPP_INCLUDED
-#define SGE_GUI_CANVAS_DRAWER_HPP_INCLUDED
+#ifndef SGE_GUI_CANVAS_FONT_DRAWER_HPP_INCLUDED
+#define SGE_GUI_CANVAS_FONT_DRAWER_HPP_INCLUDED
 
 #include "../types.hpp"
 #include "../../font/drawer.hpp"

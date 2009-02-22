@@ -1,7 +1,6 @@
 #ifndef SGE_CONSOLE_DETAIL_HISTORY_HPP_INCLUDED
 #define SGE_CONSOLE_DETAIL_HISTORY_HPP_INCLUDED
 
-#include <sge/console/detail/cursor_fwd.hpp>
 #include <sge/math/vector/vector.hpp>
 #include <sge/math/dim/basic_decl.hpp>
 #include <sge/math/rect.hpp>

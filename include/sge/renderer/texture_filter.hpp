@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_FILTER_HPP_INCLUDED
-#define SGE_TEXTURE_FILTER_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_FILTER_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_FILTER_HPP_INCLUDED
 
 #include "anisotropy_type.hpp"
 #include "../export.hpp"

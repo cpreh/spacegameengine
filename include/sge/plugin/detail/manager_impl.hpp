@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_PLUGIN_DETAIL_MANAGER_IMPL_HPP_INCLUDED
+#define SGE_PLUGIN_DETAIL_MANAGER_IMPL_HPP_INCLUDED
+
 #include "../manager.hpp"
 #include "../../exception.hpp"
 #include "../../text.hpp"
@@ -62,3 +65,5 @@ sge::plugin::manager::size() const
 		? 0
 		: it->second.size();
 }
+
+#endif

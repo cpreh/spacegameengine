@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_DETAIL_FOREACH_ENUMERATOR_IMPL_HPP_INCLUDED
+#define SGE_DETAIL_FOREACH_ENUMERATOR_IMPL_HPP_INCLUDED
+
 template<typename EnumField, typename Callback>
 void sge::foreach_enumerator(
 	Callback const &fun)
@@ -28,3 +31,5 @@ void sge::foreach_enumerator(
 			static_cast<typename EnumField::wrapped_type>(
 				i));
 }
+
+#endif
