@@ -34,10 +34,10 @@ IF (ENABLE_NARROW_STRING)
 ENDIF()
 
 IF (CMAKE_COMPILER_IS_GNUCXX)
-	CHECK_CXX_COMPILER_FLAG(
-		"-std=c++0x"
-		SGE_HAVE_VARIADIC_TEMPLATES
-	)
+	#CHECK_CXX_COMPILER_FLAG(
+	#	"-std=c++0x"
+	#	SGE_HAVE_VARIADIC_TEMPLATES
+	#)
 
 	CHECK_CXX_COMPILER_FLAG(
 		"-fvisibility=hidden"
@@ -66,12 +66,12 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 		SET (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fvisibility=hidden")
 	ENDIF ()
 
-	IF (SGE_HAVE_VARIADIC_TEMPLATES)
-		ADD_DEFINITIONS ("-std=c++0x")
-	ELSE ()
+	#IF (SGE_HAVE_VARIADIC_TEMPLATES)
+	#	ADD_DEFINITIONS ("-std=c++0x")
+	#ELSE ()
 		# C++ 98 has no long long but boost insists on using it anyway
 		ADD_DEFINITIONS ("-Wno-long-long -ansi")
-	ENDIF ()
+	#ENDIF ()
 
 	SET (CMAKE_REQUIRED_FLAGS "-Wall -Werror")
 
@@ -120,10 +120,10 @@ IF (NOT DONT_INSTALL)
 		"Requires:\n"
 		"Libs: -L\${libdir} -lsgecore\n"
 		"Cflags: -I\${includedir}/sge")
-	IF(SGE_HAVE_VARIADIC_TEMPLATES)
-		FILE(APPEND ${pkgfile} " -std=c++0x")
-		INSTALL (FILES ${pkgfile} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
-	ENDIF()
+	#IF(SGE_HAVE_VARIADIC_TEMPLATES)
+	#	FILE(APPEND ${pkgfile} " -std=c++0x")
+	#	INSTALL (FILES ${pkgfile} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig)
+	#ENDIF()
 ENDIF()
 
 MACRO (INSTALL_HEADERS subpath)
