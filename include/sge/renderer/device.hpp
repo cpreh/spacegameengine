@@ -29,11 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/cube_texture_fwd.hpp>
 //#include <sge/renderer/volume_texture.hpp>
 #include <sge/renderer/target_fwd.hpp>
+#include <sge/renderer/vf/dynamic_view.hpp>
 #include <sge/renderer/light_index.hpp>
 #include <sge/renderer/glsl/program_fwd.hpp>
 #include <sge/renderer/glsl/string.hpp>
 #include <sge/renderer/glsl/istream.hpp>
-#include <sge/dynamic_view_fwd.hpp>
 #include <sge/renderer/primitive.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <sge/renderer/color_format.hpp>
