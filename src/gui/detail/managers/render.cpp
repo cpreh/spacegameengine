@@ -8,7 +8,7 @@
 #include <sge/math/dim/output.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/texture_filter.hpp>
+#include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/texture_software.hpp>
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
@@ -104,7 +104,7 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 	// resize operations won't eat much performance
 	widget_data &wd = widgets[&w];
 
-	renderer::texture_ptr software_texture(
+	renderer::texture_ptr const software_texture(
 		new renderer::texture_software(
 			structure_cast<renderer::texture::dim_type>(d),
 			renderer::color_format::rgba8));
@@ -112,7 +112,7 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 	renderer::texture_ptr hardware_texture = rend->create_texture(
 		structure_cast<renderer::texture::dim_type>(d),
 		renderer::color_format::rgba8,
-		renderer::linear_filter,
+		renderer::filter::linear,
 		renderer::resource_flags::dynamic);
 	
 	// NOTE: the sprite::object has to get a texture convertible to

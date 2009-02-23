@@ -18,16 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_ANISOTROPY_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_ANISOTROPY_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_FILTER_POINT_HPP_INCLUDED
+#define SGE_RENDERER_FILTER_POINT_HPP_INCLUDED
+
+#include <sge/renderer/filter/texture.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace renderer
 {
+namespace filter
+{
 
-typedef unsigned anisotropy_type;
+SGE_SYMBOL extern texture const point;
 
+}
 }
 }
 

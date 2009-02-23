@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_lock.hpp"
 #include "texture_base.hpp"
 #include "lock_method.hpp"
-#include <sge/renderer/texture_filter.hpp>
+#include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <sge/renderer/color_format.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -46,7 +46,7 @@ protected:
 	void bind_me() const;
 	void set_my_filter() const;
 	GLuint id() const;
-	renderer::texture_filter const& filter() const;
+	renderer::filter::texture const &filter() const;
 	
 	void do_lock(
 		lock_method::type mode,
@@ -75,7 +75,7 @@ public:
 	GLenum format_type() const;
 protected:
 	basic_texture(
-		renderer::texture_filter const &filter,
+		renderer::filter::texture const &filter,
 		resource_flag_type flags,
 		GLenum type,
 		renderer::color_format::type);
@@ -86,7 +86,7 @@ private:
 	void check_locked() const;
 	void check_not_locked() const;
 
-	renderer::texture_filter const         filter_;
+	renderer::filter::texture const        filter_;
 	resource_flag_type const               flags_;
 	GLuint const                           id_;
 

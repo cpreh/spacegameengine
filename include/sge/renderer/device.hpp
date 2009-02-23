@@ -55,20 +55,20 @@ namespace renderer
 {
 namespace state
 {
-
 class list;
-
 }
 
 namespace vf
 {
-
 class dynamic_format;
+}
 
+namespace filter
+{
+struct texture;
 }
 
 class viewport;
-struct texture_filter;
 struct material;
 struct caps;
 struct light;
@@ -151,25 +151,25 @@ public:
 
 	SGE_SYMBOL texture_ptr const create_texture(
 		const_image_view const &,
-		texture_filter const &filter,
+		filter::texture const &filter,
 		resource_flag_t flags);
 
 	virtual texture_ptr const create_texture(
 		dim_type const &dim,
 		color_format::type format,
-		texture_filter const &filter,
+		filter::texture const &filter,
 		resource_flag_t flags) = 0;
 
 	/*virtual const volume_texture_ptr create_volume_texture(
 		volume_texture::image_view_array const &,
-		texture_filter const &filter,
+		filter::texture const &filter,
 		resource_flag_t flags) = 0;*/
 
 	virtual cube_texture_ptr const
 	create_cube_texture(
 		size_type border_size,
 		color_format::type format,
-		texture_filter const &filter,
+		filter::texture const &filter,
 		resource_flag_t flags) = 0;
 
 	SGE_SYMBOL vertex_buffer_ptr const

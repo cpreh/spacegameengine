@@ -22,6 +22,7 @@ FILE (GLOB sgecorefiles
 	random/*.cpp
 	renderer/*.cpp
 	renderer/detail/*.cpp
+	renderer/filter/*.cpp
 	renderer/index/*.cpp
 	renderer/glsl/*.cpp
 	renderer/glsl/attribute/*.cpp

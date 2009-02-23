@@ -33,7 +33,10 @@ namespace sge
 {
 namespace renderer
 {
-struct texture_filter;
+namespace filter
+{
+struct texture;
+}
 }
 
 namespace image
@@ -43,7 +46,7 @@ SGE_SYMBOL renderer::texture_ptr const
 create_texture(
 	renderer::device_ptr r,
 	object_ptr p,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	renderer::resource_flag_t flags);
 
 SGE_SYMBOL renderer::texture_ptr const
@@ -51,7 +54,7 @@ create_texture(
 	filesystem::path const &,
 	renderer::device_ptr r,
 	loader_ptr p,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	renderer::resource_flag_t flags);
 
 }

@@ -34,7 +34,10 @@ namespace sge
 {
 namespace renderer
 {
-struct texture_filter;
+namespace filter
+{
+struct texture;
+}
 }
 
 namespace texture
@@ -45,7 +48,7 @@ public:
 	SGE_SYMBOL rect_fragmented(
 		renderer::device_ptr rend,
 		renderer::color_format::type,
-		renderer::texture_filter const &filter);
+		renderer::filter::texture const &filter);
 private:
 	SGE_SYMBOL part_ptr const
 	consume_fragment(

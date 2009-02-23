@@ -46,7 +46,7 @@ GLenum const texture_type = GL_TEXTURE_2D;
 sge::ogl::texture::texture(
 	dim_type const &d,
 	renderer::color_format::type const format_,
-	renderer::texture_filter const &filter_,
+	renderer::filter::texture const &filter_,
 	resource_flag_type const flags,
 	optional_type const type_)
 :

@@ -30,16 +30,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/any_color_print.hpp>
 #include <sge/renderer/fill_pixels.hpp>
+#include <sge/renderer/subimage_view.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/states.hpp>
 #include <sge/renderer/state/scoped.hpp>
-#include <sge/renderer/subimage_view.hpp>
+#include <sge/renderer/filter/linear.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/plugin.hpp>
@@ -123,7 +123,7 @@ try
 		rend->create_texture(
 			sge::renderer::texture::dim_type(256, 256),
 			sge::renderer::color_format::rgba8,
-			sge::renderer::linear_filter,
+			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::readable));
 	{
 		sge::renderer::scoped_texture_lock const lock_(

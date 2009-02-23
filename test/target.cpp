@@ -24,14 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/scoped_target.hpp>
-#include <sge/renderer/texture_filter.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/parameters.hpp>
+#include <sge/renderer/colors.hpp>
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/state/states.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/list.hpp>
-#include <sge/renderer/colors.hpp>
+#include <sge/renderer/filter/linear.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/signals/scoped_connection.hpp>
@@ -77,7 +77,7 @@ try
 	sge::renderer::texture_ptr const image_texture = 
 		sys.renderer()->create_texture(
 			image->view(),
-			sge::renderer::linear_filter,
+			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::readable);
 
 	sge::sprite::object my_object(
@@ -101,7 +101,7 @@ try
 		sys.renderer()->create_texture(
 			sge::renderer::texture::dim_type(640,480),
 			sge::renderer::color_format::rgba8,
-			sge::renderer::linear_filter,
+			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none);
 
 	{

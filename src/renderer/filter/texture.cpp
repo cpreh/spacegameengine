@@ -18,35 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
-#define SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
+#include <sge/renderer/filter/texture.hpp>
 
-#include <sge/texture/sized_creator.hpp>
-#include <sge/renderer/device.hpp>
-
-template<typename T>
-sge::texture::sized_creator<T>::sized_creator(
-	renderer::device_ptr const rend,
-	renderer::color_format::type const format,
-	renderer::filter::texture const &filter,
-	renderer::texture::dim_type const &dim)
+sge::renderer::filter::texture::texture(
+	filter::min::type const min_,
+	filter::mag::type const mag_,
+	anisotropy_type const anisotropy_)
 :
-	rend(rend),
-	format(format),
-	filter(filter),
-	dim(dim)
+	min_(min_),
+	mag_(mag_),
+	anisotropy_(anisotropy_)
 {}
 
-template<typename T>
-sge::texture::fragmented_auto_ptr
-sge::texture::sized_creator<T>::operator()() const
+sge::renderer::filter::min::type
+sge::renderer::filter::texture::min() const
 {
-	return fragmented_auto_ptr(
-		new T(
-			rend,
-			format,
-			filter,
-			dim));
+	return min_;
 }
 
-#endif
+sge::renderer::filter::mag::type
+sge::renderer::filter::texture::mag() const
+{
+	return mag_;
+}
+
+sge::renderer::filter::anisotropy_type
+sge::renderer::filter::texture::anisotropy() const
+{
+	return anisotropy_;
+}

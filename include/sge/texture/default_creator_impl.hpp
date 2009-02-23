@@ -28,7 +28,7 @@ template<typename T>
 sge::texture::default_creator<T>::default_creator(
 	renderer::device_ptr const rend,
 	renderer::color_format::type const format,
-	renderer::texture_filter const &filter)
+	renderer::filter::texture const &filter)
 :
 	rend(rend),
 	format(format),

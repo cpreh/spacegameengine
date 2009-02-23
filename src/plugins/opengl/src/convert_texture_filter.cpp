@@ -23,16 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 
 GLenum sge::ogl::convert_texture_filter(
-	renderer::min_filter::type const arg)
+	renderer::filter::min::type const arg)
 {
 	switch(arg) {
-	case renderer::min_filter::point:
+	case renderer::filter::min::point:
 		return GL_NEAREST;
-	case renderer::min_filter::linear:
+	case renderer::filter::min::linear:
 		return GL_LINEAR;
-	case renderer::min_filter::mipmap:
+	case renderer::filter::min::mipmap:
 		return GL_LINEAR_MIPMAP_NEAREST;
-	case renderer::min_filter::trilinear:
+	case renderer::filter::min::trilinear:
 		return GL_LINEAR_MIPMAP_LINEAR;
 	default:
 		throw exception(
@@ -41,12 +41,12 @@ GLenum sge::ogl::convert_texture_filter(
 }
 
 GLenum sge::ogl::convert_texture_filter(
-	renderer::mag_filter::type const arg)
+	renderer::filter::mag::type const arg)
 {
 	switch(arg) {
-	case renderer::mag_filter::point:
+	case renderer::filter::mag::point:
 		return GL_NEAREST;
-	case renderer::mag_filter::linear:
+	case renderer::filter::mag::linear:
 		return GL_LINEAR;
 	default:
 		throw exception(

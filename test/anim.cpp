@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
+#include <sge/renderer/filter/linear.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/image/loader.hpp>
@@ -85,7 +86,7 @@ try
 	> const creator(
 		rend,
 		sge::renderer::color_format::rgba8,
-		sge::renderer::linear_filter);
+		sge::renderer::filter::linear);
 
 	sge::texture::manager tex_man(rend, creator);
 

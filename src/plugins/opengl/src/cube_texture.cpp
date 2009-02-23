@@ -55,7 +55,7 @@ template class sge::ogl::basic_texture<sge::renderer::cube_texture>;
 sge::ogl::cube_texture::cube_texture(
 	size_type const sz,
 	renderer::color_format::type const format,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	resource_flag_type const flags)
 :
 	detail::cube_texture_base(

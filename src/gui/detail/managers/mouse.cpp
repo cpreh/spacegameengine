@@ -17,10 +17,11 @@
 #include <sge/image/loader.hpp>
 #include <sge/image/object.hpp>
 #include <sge/renderer/device.hpp>
-#include <sge/renderer/texture_filter.hpp>
+#include <sge/renderer/filter/linear.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
 #include <sge/structure_cast.hpp>
+#include <sge/make_shared_ptr.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 
@@ -66,10 +67,12 @@ sge::gui::detail::managers::mouse::mouse(
 	cursor_(
 		sprite::defaults::pos_,
 		texture::const_part_ptr(
-			new texture::part_raw(
+			make_shared_ptr<
+				texture::part_raw
+			>(
 				rend->create_texture(
 				il->load(s.cursor_path())->view(),
-				renderer::linear_filter,
+				renderer::filter::linear,
 				renderer::resource_flags::readable))),
 		sprite::texture_dim,
 		sprite::defaults::color_,

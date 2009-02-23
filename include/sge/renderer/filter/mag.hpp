@@ -18,35 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
-#define SGE_TEXTURE_SIZED_CREATOR_IMPL_HPP_INCLUDED
+#ifndef SGE_RENDERER_FILTER_MAG_HPP_INCLUDED
+#define SGE_RENDERER_FILTER_MAG_HPP_INCLUDED
 
-#include <sge/texture/sized_creator.hpp>
-#include <sge/renderer/device.hpp>
-
-template<typename T>
-sge::texture::sized_creator<T>::sized_creator(
-	renderer::device_ptr const rend,
-	renderer::color_format::type const format,
-	renderer::filter::texture const &filter,
-	renderer::texture::dim_type const &dim)
-:
-	rend(rend),
-	format(format),
-	filter(filter),
-	dim(dim)
-{}
-
-template<typename T>
-sge::texture::fragmented_auto_ptr
-sge::texture::sized_creator<T>::operator()() const
+namespace sge
 {
-	return fragmented_auto_ptr(
-		new T(
-			rend,
-			format,
-			filter,
-			dim));
+namespace renderer
+{
+namespace filter
+{
+
+namespace mag
+{
+enum type {
+	point,
+	linear
+};
+}
+
+}
+}
 }
 
 #endif

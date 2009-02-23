@@ -46,7 +46,7 @@ sge::renderer::device::device()
 sge::renderer::texture_ptr const
 sge::renderer::device::create_texture(
 	const_image_view const &v,
-	texture_filter const &filter,
+	filter::texture const &filter,
 	resource_flag_t const flags)
 {
 	texture_ptr const tex(

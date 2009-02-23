@@ -103,7 +103,7 @@ sge::renderer::texture_ptr const
 sge::texture::atlased_texture(
 	renderer::device_ptr const rend,
 	renderer::color_format::type const format,
-	renderer::texture_filter const &filter)
+	renderer::filter::texture const &filter)
 {
 	return rend->create_texture(
 		atlased_texture_dim(rend),
