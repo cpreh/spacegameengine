@@ -25,16 +25,11 @@ sprite, texture, console, etc. as well)
 *low: add tab completion to console::gfx
 *low: add terminal interface to console::object
 *medium: breakpoints for the font
-*medium: add multiline support to widgets::edit
-*medium: implement "loop and play once on kill" to sound buffer
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
 *medium: add support for more vertex elements (like fog, etc.)
 *medium: implement GLSL getter
 *medium: add multiline functionality to widgets::edit
-*medium: add widgets::image_button
-*medium: add modifiers to gui
 *medium: add adapter support to opengl
-*medium: Fix the console's input history.
 *high: use relative coordinates in widgets, take care of proper invalidation
 *high: Improve the cmake script, search for libraries per default.
 *high: fix glsl uniform variables
