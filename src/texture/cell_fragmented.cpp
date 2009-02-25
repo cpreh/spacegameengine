@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::texture::cell_fragmented::cell_fragmented(
 	renderer::device_ptr const rend,
 	renderer::color_format::type const format,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	renderer::dim_type const &cell_size)
 :
 	rend(rend),

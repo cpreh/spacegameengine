@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/power.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/dim/basic_impl.hpp>
+#include <sge/renderer/filter/texture.hpp>
 #include <sge/log/logger.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/temporary_output.hpp>
@@ -40,7 +41,7 @@ namespace
 {
 
 bool need_mipmap(
-	sge::renderer::min_filter::type);
+	sge::renderer::filter::min::type);
 
 bool have_anisotropic_filter();
 
@@ -67,7 +68,7 @@ void sge::ogl::set_texture(
 	GLenum const tex_type,
 	GLenum const format,
 	GLenum const type,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	renderer::dim_type const &dim,
 	const_texture_pointer const src)
 {
@@ -107,7 +108,7 @@ void sge::ogl::set_texture(
 		type,
 		src);
 
-	if(need_mipmap(filter.min_filter()))
+	if(need_mipmap(filter.min()))
 		build_mipmaps(
 			tex_type,
 			format,
@@ -143,7 +144,7 @@ void sge::ogl::set_texture_rect(
 	GLenum const tex_type,
 	GLenum const format,
 	GLenum const type,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	renderer::dim_type const &dim,
 	renderer::lock_rect const &r,
 	const_texture_pointer const src)
@@ -161,7 +162,7 @@ void sge::ogl::set_texture_rect(
 				% r
 				% dim).str());
 
-	if(need_mipmap(filter.min_filter()))
+	if(need_mipmap(filter.min()))
 		throw exception(
 			SGE_TEXT("You can't specify an update rect while using mipmaps."));
 
@@ -215,17 +216,17 @@ void sge::ogl::bind_texture(
 
 void sge::ogl::set_texture_filter(
 	GLenum const type,
-	renderer::texture_filter const &filter)
+	renderer::filter::texture const &filter)
 {
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MIN_FILTER,
-		convert_texture_filter(filter.min_filter()));
+		convert_texture_filter(filter.min()));
 	
 	tex_parameter_i(
 		type,
 		GL_TEXTURE_MAG_FILTER,
-		convert_texture_filter(filter.mag_filter()));
+		convert_texture_filter(filter.mag()));
 
 	if(!filter.anisotropy())
 		return;
@@ -261,11 +262,11 @@ namespace
 {
 
 bool need_mipmap(
-	sge::renderer::min_filter::type const filter)
+	sge::renderer::filter::min::type const filter)
 {
 	switch(filter) {
-	case sge::renderer::min_filter::mipmap:
-	case sge::renderer::min_filter::trilinear:
+	case sge::renderer::filter::min::mipmap:
+	case sge::renderer::filter::min::trilinear:
 		return true;
 	default:
 		return false;

@@ -44,7 +44,7 @@ public:
 	cube_texture(
 		size_type border_size,
 		renderer::color_format::type format,
-		const renderer::texture_filter& filter,
+		renderer::filter::texture const &,
 		resource_flag_type flags);
 
 	renderer::image_view const lock(

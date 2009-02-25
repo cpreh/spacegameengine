@@ -27,7 +27,7 @@ sge::renderer::texture_ptr const
 sge::image::create_texture(
 	renderer::device_ptr const r,
 	object_ptr const p,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	renderer::resource_flag_t const flags)
 {
 	return r->create_texture(
@@ -41,7 +41,7 @@ sge::image::create_texture(
 	filesystem::path const &file,
 	renderer::device_ptr const r,
 	loader_ptr const p,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	renderer::resource_flag_t const flags)
 {
 	return create_texture(

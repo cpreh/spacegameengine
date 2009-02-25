@@ -144,7 +144,7 @@ sge::renderer::texture_ptr const
 sge::ogl::device::create_texture(
 	renderer::texture::dim_type const &dim,
 	renderer::color_format::type const format,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	renderer::texture::resource_flag_type const flags)
 {
 	return renderer::texture_ptr(
@@ -193,7 +193,7 @@ sge::renderer::cube_texture_ptr const
 sge::ogl::device::create_cube_texture(
 	renderer::size_type const border_size,
 	renderer::color_format::type const format,
-	renderer::texture_filter const &filter,
+	renderer::filter::texture const &filter,
 	renderer::resource_flag_t const flags)
 {
 	return renderer::cube_texture_ptr(

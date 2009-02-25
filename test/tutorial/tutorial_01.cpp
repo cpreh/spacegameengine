@@ -3,7 +3,7 @@
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/renderer/texture_filter.hpp>
+#include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/object.hpp>
@@ -44,7 +44,7 @@ try
 	sge::renderer::texture_ptr const image_texture = 
 		sys.renderer()->create_texture(
 			image->view(),
-			sge::renderer::linear_filter,
+			sge::renderer::filter::linear,
 			sge::renderer::resource_flags::none);
 	sge::sprite::object const my_object(
 		sge::sprite::point(0,0),

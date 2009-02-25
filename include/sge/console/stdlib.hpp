@@ -4,6 +4,7 @@
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/function_map.hpp>
 #include <sge/signals/connection.hpp>
+#include <sge/export.hpp>
 #include <boost/function.hpp>
 
 namespace sge
@@ -15,7 +16,7 @@ class stdlib
 	public:
 	typedef boost::function<void (string const &)> print_callback;
 	typedef boost::function<void (string const &)> error_callback;
-	stdlib(
+	SGE_SYMBOL stdlib(
 		object &,
 		print_callback const &,
 		error_callback const &);

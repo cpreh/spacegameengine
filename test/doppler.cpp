@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
+#include <sge/renderer/filter/linear.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/audio/listener.hpp>
@@ -139,7 +140,7 @@ try
 		creator(
 			sys.renderer(),
 			sge::renderer::color_format::rgba8,
-			sge::renderer::linear_filter);
+			sge::renderer::filter::linear);
 
 	sge::texture::manager tex_man(sys.renderer(),creator);
 

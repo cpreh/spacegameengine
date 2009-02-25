@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_SIZED_CREATOR_HPP_INCLUDED
 
 #include <sge/texture/fragmented_auto_ptr.hpp>
-#include <sge/renderer/texture_filter.hpp>
+#include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/color_format.hpp>
 #include <sge/renderer/dim_types.hpp>
@@ -38,14 +38,14 @@ public:
 	sizede_creator(
 		renderer::device_ptr rend,
 		renderer::color_format::type format,
-	        renderer::texture_filter const &filter,
+	        renderer::filter::texture const &filter,
 	        renderer::texture::dim_type const &dim);
 	fragmented_auto_ptr operator()() const;
 private:
-	renderer::device_ptr         rend;
-	renderer::color_format::type format;
-	renderer::texture_filter     filter;
-	renderer::dim_type           dim;
+	renderer::device_ptr            rend;
+	renderer::color_format::type    format;
+	renderer::filter::texture       filter;
+	renderer::dim_type              dim;
 };
 
 }
