@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_pair.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
+#include <sge/exception.hpp>
 #include <boost/tr1/array.hpp>
 #include <ostream>
 
@@ -52,11 +53,12 @@ void sge::dinput::keyboard::dispatch(signal_type &sig)
 	DWORD elements;
 	if(!get_input(data,elements))
 		return;
+	
 	for(unsigned i = 0; i < elements; ++i)
 	{
 		input::key_type key = keys[data[i].dwOfs];
 
-		const bool key_value = static_cast<bool>(data[i].dwData & 0x80);
+		bool const key_value = static_cast<bool>(data[i].dwData & 0x80);
 		switch(data[i].dwOfs) {
 		case VK_CONTROL:
 			modifiers.ctrl = key_value;
@@ -95,22 +97,42 @@ sge::dinput::keyboard::keycode_to_char(
 	input::key_code const key) const
 {
 	std::tr1::array<BYTE,256> state;
-	const BYTE key_up = 0, key_down = 0x80;
+	BYTE const key_up = 0, key_down = 0x80;
 	state[VK_SHIFT]   = modifiers.shift ? key_down : key_up;
 	state[VK_MENU]    = modifiers.alt   ? key_down : key_up;
 	state[VK_CONTROL] = modifiers.ctrl  ? key_down : key_up;
 
-	const unsigned dik = conv.create_dik(key);
-	const unsigned vk = MapVirtualKeyEx(dik, 1, kblayout);
+	unsigned const
+		dik = conv.create_dik(key),
+		vk = MapVirtualKeyEx(dik, 1, kblayout);
 
 	WORD result;
-	if(ToAsciiEx(vk, dik, state.data(), &result, 0, kblayout) == 1)
-		return *reinterpret_cast<char*>(&result);
-	
-	SGE_LOG_WARNING(
-		log::global(),
-		log::_1
-			<< SGE_TEXT("stub: Key names with more than one char are not supported."));
-	
-	return 0;
+	switch(
+		ToAsciiEx(
+			vk,
+			dik,
+			state.data(),
+			&result,
+			0,
+			kblayout))
+	{
+	case 0:
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("No translation found for dik: ")
+				<< dik);
+		return 0;
+	case 1:
+		return static_cast<char_type>(result & 0xFF);
+	case 2:
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("stub: Key names with more than one char are not supported."));
+		return 0;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid return value of ToAsciiEx!"));
+	}
 }
