@@ -18,33 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MAINLOOP_CATCH_BLOCK_HPP_INCLUDED
-#define SGE_MAINLOOP_CATCH_BLOCK_HPP_INCLUDED
+#ifndef SGE_COUT_HPP_INCLUDED
+#define SGE_COUT_HPP_INCLUDED
 
-#include <sge/exception.hpp>
-#include <sge/text.hpp>
-#include <sge/cerr.hpp>
-#include <sge/exception.hpp>
-#include <exception>
-#include <iostream>
+#include <sge/ostream.hpp>
+#include <sge/export.hpp>
 #include <ostream>
-#include <cstdlib>
 
-#define SGE_MAINLOOP_CATCH_BLOCK \
-catch(sge::exception const &e)\
-{\
-	sge::cerr << e.what() << SGE_TEXT('\n');\
-	return EXIT_FAILURE;\
-}\
-catch(std::exception const &e)\
-{\
-	std::cerr << e.what() << '\n';\
-	return EXIT_FAILURE;\
-}\
-catch(...)\
-{\
-	sge::cerr << SGE_TEXT("Unknown exception.\n");\
-	return EXIT_FAILURE;\
+namespace sge
+{
+
+SGE_SYMBOL extern ostream &cout;
+
 }
 
 #endif

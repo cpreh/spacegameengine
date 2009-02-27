@@ -1,5 +1,4 @@
 #include <sge/console/detail/cursor.hpp>
-#include <sge/iostream.hpp>
 #include <sge/text.hpp>
 
 sge::console::detail::cursor::cursor()

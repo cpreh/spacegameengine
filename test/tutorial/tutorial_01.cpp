@@ -11,7 +11,7 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
 #include <sge/text.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <exception>

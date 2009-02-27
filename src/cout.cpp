@@ -18,17 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/iostream.hpp>
+#include <sge/cout.hpp>
+#include <sge/config.h>
 #include <iostream>
 
+sge::ostream &
+sge::cout(
 #ifndef SGE_NARROW_STRING
-sge::istream& sge::cin(std::wcin);
-sge::ostream& sge::cout(std::wcout);
-sge::ostream& sge::cerr(std::wcerr);
-sge::ostream& sge::clog(std::wclog);
+	std::wcout
 #else
-sge::istream& sge::cin(std::cin);
-sge::ostream& sge::cout(std::cout);
-sge::ostream& sge::cerr(std::cerr);
-sge::ostream& sge::clog(std::clog);
+	std::cout
 #endif
+);

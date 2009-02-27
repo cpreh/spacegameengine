@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/random/uniform.hpp>
 #include <sge/random/inclusive_range.hpp>
 #include <sge/random/last_exclusive_range.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
+#include <sge/cout.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <iostream>

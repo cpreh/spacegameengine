@@ -15,7 +15,7 @@
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <sge/structure_cast.hpp>
 #include <exception>

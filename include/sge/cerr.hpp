@@ -18,20 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IOSTREAM_HPP_INCLUDED
-#define SGE_IOSTREAM_HPP_INCLUDED
+#ifndef SGE_CERR_HPP_INCLUDED
+#define SGE_CERR_HPP_INCLUDED
 
-#include <sge/istream.hpp>
 #include <sge/ostream.hpp>
 #include <sge/export.hpp>
+#include <ostream>
 
 namespace sge
 {
 
-SGE_SYMBOL extern istream& cin;
-SGE_SYMBOL extern ostream& cout;
-SGE_SYMBOL extern ostream& cerr;
-SGE_SYMBOL extern ostream& clog;
+SGE_SYMBOL extern ostream &cerr;
 
 }
 

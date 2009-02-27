@@ -4,7 +4,6 @@
 #include "../openal.hpp"
 #include "../log.hpp"
 #include <sge/audio/exception.hpp>
-#include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <boost/foreach.hpp>
 #include <vector>

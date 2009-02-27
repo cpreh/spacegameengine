@@ -5,7 +5,6 @@
 #include <sge/endianness.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/assert.hpp>
-#include <sge/iostream.hpp>
 #include <algorithm>
 #include <iterator>
 

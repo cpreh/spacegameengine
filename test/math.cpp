@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/matrix/dynamic_impl.hpp>
 #include <sge/math/dim/dim.hpp>
 #include <sge/math/point_rotate.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cin.hpp>
+#include <sge/cout.hpp>
 #include <boost/assign/list_of.hpp>
 #include <istream>
 #include <ostream>

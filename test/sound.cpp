@@ -9,7 +9,7 @@
 #include <sge/media.hpp>
 #include <sge/math/constants.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/millisecond.hpp>
