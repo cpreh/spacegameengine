@@ -3,7 +3,6 @@
 #include <sge/input/key_type.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/assert.hpp>
-#include <sge/iostream.hpp>
 #include <boost/next_prior.hpp>
 
 sge::console::detail::history::history()

@@ -3,7 +3,6 @@
 #include <sge/console/callbacks.hpp>
 #include <sge/console/function.hpp>
 #include <sge/console/var_base.hpp>
-#include <sge/iostream.hpp>
 #include <sge/auto_ptr.hpp>
 #include <sge/make_auto_ptr.hpp>
 #include <sge/assert.hpp>

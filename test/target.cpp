@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
 #include <sge/make_shared_ptr.hpp>

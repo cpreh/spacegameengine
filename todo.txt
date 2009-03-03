@@ -5,7 +5,6 @@
 *low: make the d3d9 plugin functional again
 *low: add a d3d10 plugin
 *low: add model loaders, a model class and more for models
-*low: replace every cerr and cout output with sge's log system
 *low: add scripting proxies, scripting framework and backend with flusspferd
 *low: other font formatting like bold, italic, underline and colors
 *low: improve the image loader (let it also load from and save to streams)

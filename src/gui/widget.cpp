@@ -7,7 +7,6 @@
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 #include <sge/math/rect_util.hpp>
 #include <boost/foreach.hpp>

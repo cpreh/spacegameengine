@@ -1,6 +1,5 @@
 #include <sge/gui/layout.hpp>
 #include <sge/gui/widget.hpp>
-#include <sge/iostream.hpp>
 
 sge::gui::layout::layout(widget &w)
 	: w(w)

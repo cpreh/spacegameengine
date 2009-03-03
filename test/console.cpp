@@ -42,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
+#include <sge/cout.hpp>
 #include <boost/foreach.hpp>
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
@@ -55,7 +56,7 @@ namespace
 void fallback(
 	sge::string const &arg)
 {
-	sge::cout << SGE_TEXT("fallback called with argument:") << arg << SGE_TEXT("\n");
+	sge::cout << SGE_TEXT("fallback called with argument:") << arg << SGE_TEXT('\n');
 }
 
 void quit(bool &running,sge::console::arg_list const &)

@@ -13,7 +13,7 @@
 #include <sge/time/resolution.hpp>
 #include <sge/text.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
 #include <ostream>
 #include <exception>
 #include <cstdlib>

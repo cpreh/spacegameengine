@@ -23,11 +23,10 @@
 #include <sge/collision/system.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
 #include <sge/text.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
-#include <iostream>
 #include <exception>
 #include <ostream>
 #include <iostream>

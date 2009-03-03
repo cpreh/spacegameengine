@@ -155,12 +155,16 @@ sge::dinput::key_converter::key_converter()
 		vr[v[i]] = static_cast<DWORD>(i);
 }
 
-sge::input::key_code sge::dinput::key_converter::create_key_code(const DWORD ofs) const
+sge::input::key_code
+sge::dinput::key_converter::create_key_code(
+	DWORD const ofs) const
 {
 	return v.at(ofs);
 }
 
-DWORD sge::dinput::key_converter::create_dik(const input::key_code key) const
+DWORD
+sge::dinput::key_converter::create_dik(
+	input::key_code const key) const
 {
 	return vr.find(key)->second;
 }

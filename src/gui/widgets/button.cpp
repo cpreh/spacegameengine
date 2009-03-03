@@ -3,7 +3,6 @@
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/log.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/iostream.hpp>
 #include <sge/assert.hpp>
 
 namespace

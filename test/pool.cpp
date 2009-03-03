@@ -9,7 +9,7 @@
 #include <sge/time/resolution.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
 #include <sge/systems/instance.hpp>
@@ -17,7 +17,6 @@
 #include <ostream>
 #include <exception>
 #include <iostream>
-#include <ostream>
 #include <cstdlib>
 #include <cmath>
 

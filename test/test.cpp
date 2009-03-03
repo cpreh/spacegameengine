@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/string.hpp>
 #include <sge/signals/scoped_connection.hpp>
-#include <sge/iostream.hpp>
+#include <sge/cerr.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/renderer/color.hpp>
 #include <sge/log/global.hpp>
