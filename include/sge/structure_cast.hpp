@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/detail/structure_cast_fun.hpp>
 #include <boost/iterator/transform_iterator.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/static_assert.hpp>
 
 namespace sge
 {
@@ -41,13 +43,23 @@ structure_cast(
 
 	op_type const op = op_type();
 
+	BOOST_STATIC_ASSERT((
+		boost::is_same<
+			typename T::dim_wrapper,
+			typename U::dim_wrapper
+		>::value
+	));
+
 	return T(
 		boost::make_transform_iterator(
 			u.begin(),
-			op),
+			op
+		),
 		boost::make_transform_iterator(
 			u.end(),
-			op));
+			op
+		)
+	);
 }
 
 }
