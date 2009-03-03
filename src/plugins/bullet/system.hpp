@@ -20,6 +20,8 @@ class system : public collision::system
 		register_callback(collision::callback const &);
 	collision::objects::circle_ptr const create_circle(
 		collision::sattelite_ptr,
+		collision::point const &center,
+		collision::point const &speed,
 		collision::unit);
 	void update(time::funit delta);
 	world_type &world();

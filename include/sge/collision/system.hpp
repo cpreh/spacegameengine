@@ -3,6 +3,7 @@
 
 #include <sge/collision/system_fwd.hpp>
 #include <sge/collision/unit.hpp>
+#include <sge/collision/point.hpp>
 #include <sge/collision/callbacks.hpp>
 #include <sge/collision/sattelite_fwd.hpp>
 #include <sge/collision/objects/circle_fwd.hpp>
@@ -31,7 +32,10 @@ public:
 	
 	virtual objects::circle_ptr const
 	create_circle(
-		sattelite_ptr,unit radius) = 0;
+		sattelite_ptr,
+		point const &center,
+		point const &speed,
+		unit radius) = 0;
 
 	virtual void
 	update(

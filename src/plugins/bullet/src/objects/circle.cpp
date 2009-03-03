@@ -6,6 +6,8 @@
 sge::bullet::objects::circle::circle(
 	system &s,
 	collision::sattelite_ptr sat,
+	collision::point const &_center,
+	collision::point const &_speed,
 	collision::unit const radius)
 	: object(
 			s,
@@ -13,6 +15,8 @@ sge::bullet::objects::circle::circle(
 			shape_ptr(new btSphereShape(radius)),
 			static_cast<unit>(1))
 {
+	center(_center);
+	speed(_speed);
 }
 
 sge::collision::point const sge::bullet::objects::circle::speed() const

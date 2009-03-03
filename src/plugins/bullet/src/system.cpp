@@ -51,9 +51,17 @@ sge::signals::connection const sge::bullet::system::register_callback(
 
 sge::collision::objects::circle_ptr const sge::bullet::system::create_circle(
 	collision::sattelite_ptr sat,
+	collision::point const &center,
+	collision::point const &speed,
 	collision::unit const radius)
 {
-	return collision::objects::circle_ptr(new objects::circle(*this,sat,radius));
+	return collision::objects::circle_ptr(
+		new objects::circle(
+			*this,
+			sat,
+			center,
+			speed,
+			radius));
 }
 
 void sge::bullet::system::update(time::funit const delta)

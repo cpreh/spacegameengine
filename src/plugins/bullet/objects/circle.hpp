@@ -16,6 +16,8 @@ class circle : public object, public collision::objects::circle
 	circle(
 		system &,
 		collision::sattelite_ptr,
+		collision::point const &center,
+		collision::point const &speed,
 		collision::unit radius);
 	
 	void speed(sge::collision::point const &);

@@ -105,34 +105,29 @@ try
 		sys.collision_system()->create_circle(
 			sge::collision::sattelite_ptr(
 				new object(s_a)),
+			sge::collision::point(
+				static_cast<sge::collision::unit>(100),
+				static_cast<sge::collision::unit>(0),
+				static_cast<sge::collision::unit>(0)),
+			sge::collision::point(
+				static_cast<sge::collision::unit>(-20),
+				static_cast<sge::collision::unit>(0),
+				static_cast<sge::collision::unit>(0)),
 			static_cast<sge::collision::unit>(5));
 
 	sge::collision::objects::circle_ptr o_b = 
 		sys.collision_system()->create_circle(
 			sge::collision::sattelite_ptr(
 				new object(s_b)),
+			sge::collision::point(
+				static_cast<sge::collision::unit>(20),
+				static_cast<sge::collision::unit>(0),
+				static_cast<sge::collision::unit>(0)),
+			sge::collision::point(
+				static_cast<sge::collision::unit>(20),
+				static_cast<sge::collision::unit>(0),
+				static_cast<sge::collision::unit>(0)),
 			static_cast<sge::collision::unit>(5));
-
-	o_a->center(
-		sge::collision::point(
-			static_cast<sge::collision::unit>(100),
-			static_cast<sge::collision::unit>(100),
-			static_cast<sge::collision::unit>(0)));
-	o_b->center(
-		sge::collision::point(
-			static_cast<sge::collision::unit>(200),
-			static_cast<sge::collision::unit>(100),
-			static_cast<sge::collision::unit>(0)));
-	o_a->speed(
-		sge::collision::point(
-			static_cast<sge::collision::unit>(20),
-			static_cast<sge::collision::unit>(0),
-			static_cast<sge::collision::unit>(0)));
-	o_b->speed(
-		sge::collision::point(
-			static_cast<sge::collision::unit>(-20),
-			static_cast<sge::collision::unit>(0),
-			static_cast<sge::collision::unit>(0)));
 
 	sge::sprite::system ss(sys.renderer());
 	
