@@ -11,6 +11,7 @@ FIND_PACKAGE(Vorbis)
 FIND_PACKAGE(Mad)
 
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
+OPTION (ENABLE_ODE "Build the ode collision plugin" OFF)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
 
@@ -64,6 +65,10 @@ ENDIF(X11_Xinput_FOUND)
 
 IF(ENABLE_BULLET)
 	ADD_SUBDIRECTORY (bullet)
+ENDIF ()
+
+IF(ENABLE_ODE)
+	ADD_SUBDIRECTORY (ode)
 ENDIF ()
 
 IF(ENABLE_D3D9)
