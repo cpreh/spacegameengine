@@ -3,6 +3,7 @@
 #include <sge/structure_cast.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/cerr.hpp>
+#include <cmath>
 
 sge::ode::system::system()
 	: library_(),
@@ -50,14 +51,14 @@ void
 sge::ode::system::update(
 	time::funit delta)
 {
-	time::funit const step_size = static_cast<time::funit>(0.001);
-	unsigned iterations = static_cast<unsigned>(delta/step_size);
-	if (iterations == 0)
-		iterations = 1;
+	time::funit const step_size = static_cast<time::funit>(0.0001);
+	unsigned iterations = static_cast<unsigned>(std::ceil(delta/step_size));
+	//if (iterations == 0)
+	//	iterations = 1;
 
 	dSpaceCollide(space_.id(),this,&internal_static_collide);
 
-	//sge::cerr << "step size is " << step_size << ", delta is " << delta << ", doing " << iterations << " iterations\n";
+	sge::cerr << "step size is " << step_size << ", delta is " << delta << ", doing " << iterations << " iterations\n";
 
 	for (unsigned i = 0; i < iterations; ++i)
 		dWorldStep(
