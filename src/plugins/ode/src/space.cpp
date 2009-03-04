@@ -1,7 +1,8 @@
 #include "../space.hpp"
 
 sge::ode::space::space()
-	: id_(dHashSpaceCreate())
+	//: id_(dHashSpaceCreate(0))
+	: id_(dSimpleSpaceCreate(0))
 {
 }
 

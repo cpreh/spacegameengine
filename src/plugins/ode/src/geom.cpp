@@ -6,7 +6,7 @@ sge::ode::geom::geom(
 	body &_body)
 	: id_(_id)
 {
-	dGeomSetBody(id(),_body);
+	dGeomSetBody(id(),_body.id());
 }
 
 dGeomID &sge::ode::geom::id()

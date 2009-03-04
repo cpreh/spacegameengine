@@ -18,7 +18,7 @@ public:
 		world &,
 		point const &center,
 		point const &speed,
-		sattelite &);
+		collision::sattelite &);
 	void pos(point const &);
 	void speed(point const &);
 	point const pos() const;

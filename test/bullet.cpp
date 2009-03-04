@@ -92,12 +92,12 @@ try
 	sge::signals::connection c = sys.collision_system()->register_callback(&collision);
 
 	sge::sprite::object s_a(
-		sge::sprite::point(100,100),
+		sge::sprite::point(600,0),
 		sge::sprite::defaults::texture_,
 		sge::sprite::dim(10,10));
 
 	sge::sprite::object s_b(
-		sge::sprite::point(200,100),
+		sge::sprite::point(10,0),
 		sge::sprite::defaults::texture_,
 		sge::sprite::dim(10,10));
 	
@@ -106,11 +106,11 @@ try
 			sge::collision::sattelite_ptr(
 				new object(s_a)),
 			sge::collision::point(
-				static_cast<sge::collision::unit>(100),
+				static_cast<sge::collision::unit>(600),
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)),
 			sge::collision::point(
-				static_cast<sge::collision::unit>(-20),
+				static_cast<sge::collision::unit>(-100),
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)),
 			static_cast<sge::collision::unit>(5));
@@ -120,11 +120,11 @@ try
 			sge::collision::sattelite_ptr(
 				new object(s_b)),
 			sge::collision::point(
-				static_cast<sge::collision::unit>(20),
+				static_cast<sge::collision::unit>(10),
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)),
 			sge::collision::point(
-				static_cast<sge::collision::unit>(20),
+				static_cast<sge::collision::unit>(100),
 				static_cast<sge::collision::unit>(0),
 				static_cast<sge::collision::unit>(0)),
 			static_cast<sge::collision::unit>(5));
@@ -153,6 +153,7 @@ try
 	while (running)
 	{
 		sys.collision_system()->update(frame_timer.elapsed_frames());
+		frame_timer.reset();
 
 		sge::time::sleep(sge::time::second_f(1.0f/60.0f));
 

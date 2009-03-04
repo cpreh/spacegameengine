@@ -1,6 +1,15 @@
 #ifndef SGE_ODE_OBJECTS_CIRCLE_HPP_INCLUDED
 #define SGE_ODE_OBJECTS_CIRCLE_HPP_INCLUDED
 
+#include "../space_fwd.hpp"
+#include "../world_fwd.hpp"
+#include "../body.hpp"
+#include "../geom.hpp"
+#include "../plane_joint.hpp"
+#include <sge/collision/objects/circle.hpp>
+#include <sge/collision/sattelite.hpp>
+#include <ode/ode.h>
+
 namespace sge
 {
 namespace ode
@@ -11,7 +20,7 @@ class circle : public collision::objects::circle
 {
 public:
 	circle(
-		sattelite_ptr,
+		collision::sattelite_ptr,
 		space &,
 		world &,
 		point const &center,
@@ -26,7 +35,7 @@ private:
 	body body_;
 	geom geom_;
 	plane_joint joint_;
-	sattelite_ptr sattelite_;
+	collision::sattelite_ptr sattelite_;
 };
 }
 }

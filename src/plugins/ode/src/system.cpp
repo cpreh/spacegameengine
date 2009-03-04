@@ -1,6 +1,7 @@
 #include "../system.hpp"
 #include "../objects/circle.hpp"
 #include <sge/structure_cast.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 sge::ode::system::system()
 	: library_(),
@@ -10,7 +11,7 @@ sge::ode::system::system()
 	// this could be set to disable the auto disable feature
 	//dWorldSetAutoDisableFlag(world_.id(),0);
 	
-	dSpaceCollide(space_.id(),this,&internal_static_callback);
+	dSpaceCollide(space_.id(),this,&internal_static_collide);
 }
 
 void
@@ -20,19 +21,19 @@ sge::ode::system::test_callback(
 	test_callback_ = _test_callback;
 }
 
-signals::connection const 
+sge::signals::connection const 
 sge::ode::system::register_callback(
-	callback const &c)
+	collision::callback const &c)
 {
 	return callback_.connect(c);
 }
 
 sge::collision::objects::circle_ptr const
 sge::ode::system::create_circle(
-	sattelite_ptr _sattelite,
+	collision::sattelite_ptr _sattelite,
 	collision::point const &center,
 	collision::point const &speed,
-	unit radius)
+	collision::unit radius)
 {
 	return sge::collision::objects::circle_ptr(
 		new objects::circle(
@@ -50,6 +51,8 @@ sge::ode::system::update(
 {
 	time::funit const step_size = static_cast<time::funit>(0.01);
 	unsigned const iterations = static_cast<unsigned>(delta/step_size);
+
+	dSpaceCollide(space_.id(),this,&internal_static_collide);
 
 	for (unsigned i = 0; i < iterations; ++i)
 		dWorldStep(
@@ -70,8 +73,10 @@ void sge::ode::system::internal_collide(dGeomID g1,dGeomID g2)
 	if (!test_callback_)
 		return;
 	
-	sattelite &s1 = *static_cast<sattelite*>(dGeomGetData(g1));
-	sattelite &s2 = *static_cast<sattelite*>(dGeomGetData(g2));
+	collision::sattelite &s1 = 
+		*static_cast<collision::sattelite*>(dGeomGetData(g1));
+	collision::sattelite &s2 = 
+		*static_cast<collision::sattelite*>(dGeomGetData(g2));
 
 	if (test_callback_(s1,s2))
 	{
@@ -79,6 +84,8 @@ void sge::ode::system::internal_collide(dGeomID g1,dGeomID g2)
 		// so to be sure, allocate one dContactGeom here
 		dContactGeom g;
 		if (dCollide(g1,g2,1,&g,0))
+		{
 			callback_(s1,s2);
+		}
 	}
 }

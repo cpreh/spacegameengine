@@ -22,14 +22,14 @@ public:
 
 	signals::connection const 
 	register_callback(
-		callback const &);
+		collision::callback const &);
 	
-	objects::circle_ptr const
+	collision::objects::circle_ptr const
 	create_circle(
-		sattelite_ptr,
+		collision::sattelite_ptr,
 		collision::point const &center,
 		collision::point const &speed,
-		unit radius);
+		collision::unit radius);
 
 	void
 	update(
