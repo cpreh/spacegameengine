@@ -2,6 +2,7 @@
 #include "../objects/circle.hpp"
 #include <sge/structure_cast.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/cerr.hpp>
 
 sge::ode::system::system()
 	: library_(),
@@ -9,7 +10,7 @@ sge::ode::system::system()
 		space_()
 {
 	// this could be set to disable the auto disable feature
-	//dWorldSetAutoDisableFlag(world_.id(),0);
+	dWorldSetAutoDisableFlag(world_.id(),0);
 	
 	dSpaceCollide(space_.id(),this,&internal_static_collide);
 }
@@ -49,10 +50,14 @@ void
 sge::ode::system::update(
 	time::funit delta)
 {
-	time::funit const step_size = static_cast<time::funit>(0.01);
-	unsigned const iterations = static_cast<unsigned>(delta/step_size);
+	time::funit const step_size = static_cast<time::funit>(0.001);
+	unsigned iterations = static_cast<unsigned>(delta/step_size);
+	if (iterations == 0)
+		iterations = 1;
 
 	dSpaceCollide(space_.id(),this,&internal_static_collide);
+
+	//sge::cerr << "step size is " << step_size << ", delta is " << delta << ", doing " << iterations << " iterations\n";
 
 	for (unsigned i = 0; i < iterations; ++i)
 		dWorldStep(
