@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MATH_DETAIL_INITIAL_SIZE_HPP_INCLUDED
 #define SGE_MATH_DETAIL_INITIAL_SIZE_HPP_INCLUDED
 
+//#include <sge/text.hpp>
+//#include <sge/exception.hpp>
+#include <cstddef>
+
 namespace sge
 {
 namespace math
@@ -41,12 +45,18 @@ void initial_size(
 
 template<
 	typename T,
-	typename S
+	typename S,
+	std::size_t N
 >
 void initial_size(
-	T *,
-	S)
-{}
+	T (&)[N],
+	S)// const s)
+{
+/*	if(N != s)
+		throw exception(
+			SGE_TEXT("Iterator constructor out of range!")
+		);*/
+}
 
 }
 }
