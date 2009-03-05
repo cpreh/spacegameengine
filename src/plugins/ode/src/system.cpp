@@ -58,7 +58,7 @@ sge::ode::system::update(
 
 	dSpaceCollide(space_.id(),this,&internal_static_collide);
 
-	sge::cerr << "step size is " << step_size << ", delta is " << delta << ", doing " << iterations << " iterations\n";
+	//sge::cerr << "step size is " << step_size << ", delta is " << delta << ", doing " << iterations << " iterations\n";
 
 	for (unsigned i = 0; i < iterations; ++i)
 		dWorldStep(
@@ -89,7 +89,7 @@ void sge::ode::system::internal_collide(dGeomID g1,dGeomID g2)
 		// manual states that the contact array has to contain at least 1 element,
 		// so to be sure, allocate one dContactGeom here
 		dContactGeom g;
-		if (dCollide(g1,g2,1,&g,0))
+		if (dCollide(g1,g2,1,&g,sizeof(dContactGeom)))
 		{
 			callback_(s1,s2);
 		}
