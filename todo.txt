@@ -11,8 +11,6 @@
 *low: implement an image loader with Magick++
 *low: implement a lot of different exception types to make errors distinguishable
 *low: put x11 and windows stuff in their own libraries (probably do this with
-*low: add collision world below collision system (system initializes the
-      library, world one of the worlds)
 *low: add constructor parameters to sound creation functions
 sprite, texture, console, etc. as well)
 *low: get rid of as much warnings as possible from -Weffc++

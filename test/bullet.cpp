@@ -21,6 +21,7 @@
 #include <sge/collision/sattelite.hpp>
 #include <sge/collision/objects/circle.hpp>
 #include <sge/collision/system.hpp>
+#include <sge/collision/world.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
@@ -57,7 +58,7 @@ class object : public sge::collision::sattelite
 
 	void position_change(sge::collision::point const &p)
 	{
-		sge::cerr << "position_change to " << p << "\n";
+	//	sge::cerr << "position_change to " << p << "\n";
 		sprite_.x() = static_cast<sge::sprite::unit>(p.x());
 		sprite_.y() = static_cast<sge::sprite::unit>(p.y());
 	}
@@ -87,9 +88,12 @@ try
 		(sge::systems::parameterless::collision_system)
 		(sge::systems::parameterless::input));
 	
-	sys.collision_system()->test_callback(&dispatch);
+	sge::collision::world_ptr const world = 
+		sys.collision_system()->create_world();
+	
+	world->test_callback(&dispatch);
 
-	sge::signals::connection c = sys.collision_system()->register_callback(&collision);
+	sge::signals::connection c = world->register_callback(&collision);
 
 	sge::sprite::object s_a(
 		sge::sprite::point(600,0),
@@ -102,7 +106,7 @@ try
 		sge::sprite::dim(10,10));
 	
 	sge::collision::objects::circle_ptr o_a = 
-		sys.collision_system()->create_circle(
+		world->create_circle(
 			sge::collision::sattelite_ptr(
 				new object(s_a)),
 			sge::collision::point(
@@ -116,7 +120,7 @@ try
 			static_cast<sge::collision::unit>(5));
 
 	sge::collision::objects::circle_ptr o_b = 
-		sys.collision_system()->create_circle(
+		world->create_circle(
 			sge::collision::sattelite_ptr(
 				new object(s_b)),
 			sge::collision::point(
@@ -153,7 +157,7 @@ try
 
 	while (running)
 	{
-		sys.collision_system()->update(frame_timer.elapsed_frames());
+		world->update(frame_timer.elapsed_frames());
 		frame_timer.reset();
 
 		sge::time::sleep(sge::time::second_f(1.0f/60.0f));

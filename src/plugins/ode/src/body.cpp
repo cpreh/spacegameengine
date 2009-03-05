@@ -1,11 +1,11 @@
 #include "../body.hpp"
-#include "../world.hpp"
+#include "../world_wrapper.hpp"
 #include <sge/structure_cast.hpp>
 #include <sge/collision/sattelite.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 
 sge::ode::body::body(
-	world &world_,
+	world_wrapper &world_,
 	point const &center,
 	point const &speed,
 	collision::sattelite &_sattelite)

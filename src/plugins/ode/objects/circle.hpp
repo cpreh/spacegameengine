@@ -2,7 +2,7 @@
 #define SGE_ODE_OBJECTS_CIRCLE_HPP_INCLUDED
 
 #include "../space_fwd.hpp"
-#include "../world_fwd.hpp"
+#include "../world_wrapper_fwd.hpp"
 #include "../body.hpp"
 #include "../geom.hpp"
 #include "../plane_joint.hpp"
@@ -22,7 +22,7 @@ public:
 	circle(
 		collision::sattelite_ptr,
 		space &,
-		world &,
+		world_wrapper &,
 		point const &center,
 		point const &speed,
 		dReal radius);

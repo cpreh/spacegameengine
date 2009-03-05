@@ -11,13 +11,13 @@
 #include <iostream>
 
 sge::bullet::object::object(
-	system &sys,
+	world &sys,
 	collision::sattelite_ptr _sat,
 	shape_ptr _shape,
 	unit const _mass)
 :
 	sat(_sat),
-	world_(sys.world()),
+	world_(sys.world_internal()),
 	shape_(_shape),
 	motion_state_(
 		boost::bind(&object::position_changed,this,_1)),
