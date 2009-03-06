@@ -23,17 +23,19 @@ sge::gui::logger mylogger(
 }
 
 sge::gui::widget::widget(
-	parent_data parent_data_,
-	size_policy_t const &size_policy_,
-	keyboard_focus::type keyboard_focus_)
+	parent_data const &parent_data_,
+	parameters const &params)
 	:	parent_(parent_data_.parent_widget()),
 	  manager_(parent_data_.parent_manager()),
-		pos_(point::null()),
-		size_(dim::null()),
-		size_policy_(size_policy_),
-		keyboard_focus_(keyboard_focus_),
-		layout_(new layouts::null(*this)),
-		activation_(activation_state::active)
+		pos_(params.pos()),
+		size_(params.size()),
+		size_policy_(params.size_policy()),
+		keyboard_focus_(params.keyboard_focus()),
+		layout_(
+			params.layout() 
+			? params.layout() 
+			: layout_auto_ptr(new layouts::null(*this))),
+		activation_(params.activation())
 {
 	if (parent_widget())
 		parent_widget()->add_child(*this);

@@ -88,11 +88,12 @@ try
 		>());
 	
 	sge::gui::widgets::edit b(
-		(sge::gui::widget::parent_data(m)),
+		m,
+		sge::gui::widget::parameters()
+			.pos(sge::gui::point(10,10))
+			.size(sge::gui::dim(400,300)),
 		sge::gui::widgets::edit::single_line,
 		sge::gui::dim(30,30));
-	b.relative_pos(sge::gui::point(10,10));
-	b.size(sge::gui::dim(400,300));
 	//b.text(SGE_TEXT("test"));
 
 	// set sensible render states

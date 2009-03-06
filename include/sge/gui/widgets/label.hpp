@@ -15,7 +15,8 @@ class SGE_CLASS_SYMBOL label : public widget
 {
 	public:
 	SGE_SYMBOL label(
-		parent_data,
+		parent_data const &,
+		parameters,
 		string const &,
 		font::metrics_ptr = font::metrics_ptr());
 	

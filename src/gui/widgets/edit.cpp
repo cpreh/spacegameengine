@@ -26,18 +26,18 @@ sge::gui::logger mygraphlogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),
 }
 
 sge::gui::widgets::edit::edit(
-	parent_data parent,
-	line_type const type,
-	dim const &desired_size_,
+	parent_data const &_parent,
+	parameters _params,
+	line_type const _type,
+	dim const &_desired_size,
 	font::metrics_ptr const _font)
 :
 	widget(
-		parent,
-		size_policy::default_policy,
-		keyboard_focus::receive),
-	type(type),
+		_parent,
+		_params.keyboard_focus(keyboard_focus::receive)),
+	type(_type),
 	font_(_font),
-	desired_size_(desired_size_),
+	desired_size_(_desired_size),
 	cursor_visible_(true),
 	text_buffer_(),
 	scroll_pos_(point::null()),

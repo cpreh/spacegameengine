@@ -199,8 +199,7 @@ try
 		sys.font_system(),
 		sge::gui::skin_ptr(new sge::gui::skins::standard()));
 	
-	sge::gui::widget top(
-		(sge::gui::widget::parent_data(m)));
+	sge::gui::widget top(m);
 	top.relative_pos(sge::gui::point(100,100));
 	top.size(sge::gui::dim(500,300));
 	top.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(top)));

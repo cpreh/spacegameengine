@@ -9,6 +9,7 @@
 #include <sge/gui/layout_fwd.hpp>
 #include <sge/gui/manager_fwd.hpp>
 #include <sge/gui/size_policy.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/renderer/image.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
@@ -24,6 +25,7 @@ class SGE_CLASS_SYMBOL widget
 {
 	SGE_NONCOPYABLE(widget)
 	public:
+	// FIXME: rename this
 	typedef sge::gui::size_policy size_policy_t;
 	typedef boost::ptr_vector<widget,boost::view_clone_allocator> child_container;
 
@@ -33,17 +35,49 @@ class SGE_CLASS_SYMBOL widget
 		manager &manager_;
 
 		public:
-		SGE_SYMBOL explicit parent_data(widget &);
-		SGE_SYMBOL explicit parent_data(manager &);
+		SGE_SYMBOL parent_data(widget &);
+		SGE_SYMBOL parent_data(manager &);
 
 		widget *parent_widget() const { return widget_; }
 		manager &parent_manager() const { return manager_; }
 	};
 
+	class parameters
+	{
+		public:
+		parameters(
+			point const &_pos = point::null(),
+			dim const &_size = dim::null(),
+			layout_auto_ptr const _layout = layout_auto_ptr(),
+			size_policy_t const &_size_policy = size_policy_t::default_policy,
+			keyboard_focus::type const &_keyboard_focus = keyboard_focus::ignore,
+			activation_state::type const _activation = activation_state::active);
+
+		parameters &pos(point const &);
+		parameters &size(dim const &);
+		parameters &size_policy(size_policy_t const &);
+		parameters &keyboard_focus(keyboard_focus::type const &);
+		parameters &layout(layout_auto_ptr);
+		parameters &activation_state(activation_state::type);
+
+		point const &pos() const;
+		dim const &size() const;
+		size_policy_t const &size_policy() const;
+		keyboard_focus::type const &keyboard_focus() const;
+		layout_auto_ptr layout() const;
+		activation_state::type activation() const;
+		private:
+		point pos_;
+		dim size_;
+		size_policy_t size_policy_;
+		keyboard_focus::type keyboard_focus_;
+		layout_auto_ptr layout_;
+		activation_state::type activation_;
+	};
+
 	SGE_SYMBOL explicit widget(
-		parent_data,
-		size_policy_t const & = size_policy_t::default_policy,
-		keyboard_focus::type receives_keys = keyboard_focus::ignore);
+		parent_data const &,
+		parameters const &);
 
 	SGE_SYMBOL point const screen_pos() const;
 	SGE_SYMBOL point const absolute_pos() const;

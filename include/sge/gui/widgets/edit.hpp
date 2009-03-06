@@ -22,7 +22,8 @@ class SGE_CLASS_SYMBOL edit : public widget
 	enum line_type { single_line,multi_line };
 
 	SGE_SYMBOL edit(
-		parent_data,
+		parent_data const &,
+		parameters,
 		line_type,
 		dim const &desired_size,
 		font::metrics_ptr = font::metrics_ptr());

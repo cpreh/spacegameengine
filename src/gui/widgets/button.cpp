@@ -11,14 +11,19 @@ sge::gui::logger mylogger(sge::gui::widgets::global_log(),SGE_TEXT("button"),tru
 }
 
 sge::gui::widgets::button::button(
-	parent_data parent_,
-	string const &text_,
+	parent_data const &_parent,
+	parameters _params,
+	string const &_text,
 	font::metrics_ptr _font)
 	: widget(
-			parent_,
-			size_policy_t(axis_policy::can_grow,axis_policy::none),
-			keyboard_focus::receive),
-	  text_(text_),
+			_parent,
+			_params.size_policy(
+				size_policy_t(
+					axis_policy::can_grow,
+					axis_policy::none)).
+				keyboard_focus(
+					keyboard_focus::receive)),
+	  text_(_text),
 	  font_(_font),
 		mouse_over_(false),
 		key_over_(false)

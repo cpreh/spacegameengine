@@ -16,7 +16,8 @@ class SGE_CLASS_SYMBOL button : public widget
 {
 	public:
 	SGE_SYMBOL button(
-		parent_data,
+		parent_data const &,
+		parameters,
 		string const &,
 		font::metrics_ptr = font::metrics_ptr());
 
