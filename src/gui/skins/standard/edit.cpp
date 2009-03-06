@@ -51,6 +51,9 @@ void sge::gui::skins::standard::draw(
 	widgets::edit const &w,
 	events::invalid_area const &e)
 {
+	if (w.size() == dim::null())
+		return;
+
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("refreshing edit buffer"));
@@ -114,7 +117,7 @@ void sge::gui::skins::standard::draw(
 
 	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
-		rect(w.pos(),c.size()),
+		rect(w.absolute_pos(),c.size()),
 		e.texture(),
 		e.area());
 

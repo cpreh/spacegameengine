@@ -36,7 +36,9 @@ void sge::gui::skins::standard::draw(
 			mylogger,
 			log::_1
 				<< SGE_TEXT("resizing from ") 
-				<< dim(b.buffer().width(),b.buffer().height())
+				<< dim(
+					static_cast<unit>(b.buffer().width()),
+					static_cast<unit>(b.buffer().height()))
 				<< SGE_TEXT(" to ")
 				<< b.size());
 		b.buffer() = image(
@@ -84,7 +86,7 @@ void sge::gui::skins::standard::draw(
 
 	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
-		rect(b.pos(),c.size()),
+		rect(point::null(),c.size()),
 		e.texture(),
 		e.area());
 }

@@ -27,6 +27,13 @@ void sge::gui::skins::standard::draw(
 	widgets::button const &b,
 	events::invalid_area const &e)
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("drawing button"));
+
+	if (b.size() == dim::null())
+		return;
+
 	// resize internal buffer if neccessary
 	if (b.buffer().width() != static_cast<image::coord_t>(b.size().w()) ||
 	    b.buffer().height() != static_cast<image::coord_t>(b.size().h()))
@@ -139,9 +146,16 @@ void sge::gui::skins::standard::draw(
 		        << b.text()
 		        << SGE_TEXT("\")"));
 
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("source rect is \"")
+		        << rect(b.absolute_pos(),c.size())
+		        << SGE_TEXT(", invalid rect is ")
+						<< e.area());
+
 	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
-		rect(b.pos(),c.size()),
+		rect(b.absolute_pos(),c.size()),
 		e.texture(),
 		e.area());
 }

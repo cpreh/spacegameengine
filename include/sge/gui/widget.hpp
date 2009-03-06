@@ -45,10 +45,12 @@ class SGE_CLASS_SYMBOL widget
 		size_policy_t const & = size_policy_t::default_policy,
 		keyboard_focus::type receives_keys = keyboard_focus::ignore);
 
-	SGE_SYMBOL point const &pos() const;
-	SGE_SYMBOL dim const &size() const;
+	SGE_SYMBOL point const screen_pos() const;
+	SGE_SYMBOL point const absolute_pos() const;
+	SGE_SYMBOL point const relative_pos() const;
+	SGE_SYMBOL void relative_pos(point const &);
+	SGE_SYMBOL dim const size() const;
 	SGE_SYMBOL void size(dim const &);
-	SGE_SYMBOL void pos(point const &);
 	SGE_SYMBOL image &buffer() const;
 
 	// parent stuff
@@ -57,6 +59,9 @@ class SGE_CLASS_SYMBOL widget
 	
 	SGE_SYMBOL widget *parent_widget();
 	SGE_SYMBOL widget const *parent_widget() const;
+
+	SGE_SYMBOL widget &oldest_parent();
+	SGE_SYMBOL widget const &oldest_parent() const;
 
 	SGE_SYMBOL size_policy_t const &size_policy() const;
 	SGE_SYMBOL void size_policy(size_policy_t const &s);
@@ -95,8 +100,8 @@ class SGE_CLASS_SYMBOL widget
 	// virtuals
 	SGE_SYMBOL virtual ~widget();
 
-	SGE_SYMBOL rect const relative_area() const;
 	SGE_SYMBOL rect const absolute_area() const;
+	SGE_SYMBOL rect const screen_area() const;
 
 	private:
 	friend class layout;

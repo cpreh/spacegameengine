@@ -23,22 +23,38 @@ class SGE_CLASS_SYMBOL row : public layout
 	SGE_SYMBOL void size(dim const &);
 	SGE_SYMBOL dim const size_hint() const;
 	private:
-	// NOTE: this is actually quite hacky, I first tried to return a reference to
-	// the w() or h() component, but then you get const issues which _might_ be
-	// resolved somehow virtual dim::size_type master(dim const &) const = 0;
-	virtual std::size_t master() const = 0;
-	std::size_t slave() const 
-	{ 
-		return master() == static_cast<std::size_t>(0) 
-			? static_cast<std::size_t>(1) 
-			: static_cast<std::size_t>(0); 
-	}
+	virtual dim::reference master(
+		dim &) const = 0;
+	virtual dim::const_reference master(
+		dim const &) const = 0;
+	virtual point::reference master(
+		point &) const = 0;
+	virtual point::const_reference master(
+		point const &) const = 0;
+	dim::reference slave(
+		dim &) const;
+	dim::const_reference slave(
+		dim const &) const;
+	point::reference slave(
+		point &) const;
+	point::const_reference slave(
+		point const &) const;
 
-	void adapt(dim const &,dim const &,axis_policy::type,std::size_t);
-	void adapt_outer(dim const &,dim const &,std::size_t);
-	void update_widgets(dim const &);
+	void adapt(
+		dim const &,
+		dim const &,
+		axis_policy::type,
+		dim::size_type);
+	void adapt_outer(
+		dim const &,
+		dim const &,
+		dim::size_type);
+	void update_widgets(
+		dim const &);
 	void reset_cache();
-	unsigned count_flags(axis_policy::type,std::size_t) const;
+	unsigned count_flags(
+		axis_policy::type,
+		dim::size_type) const;
 
 	typedef std::vector<std::pair<widget*,dim> > widget_map;
 	//typedef std::map<widget*,dim> widget_map;

@@ -2,7 +2,12 @@
 #include <sge/math/signum.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/output.hpp>
+#include <sge/math/rect_util.hpp>
+#include <sge/text.hpp>
+#include <sge/exception.hpp>
 #include <boost/bind.hpp>
+#include <boost/lexical_cast.hpp>
 #include <algorithm>
 #include <cmath>
 
@@ -31,6 +36,15 @@ void sge::gui::canvas::object::draw_line(
 	color const color_,
 	line_type::type const type)
 {
+	if (!math::contains(area(),a) || !math::contains(area(),b))
+		throw sge::exception(
+			SGE_TEXT("tried to draw line from ")+
+			boost::lexical_cast<sge::string>(a)+
+			SGE_TEXT(" to ")+
+			boost::lexical_cast<sge::string>(b)+
+			SGE_TEXT(" in ")+
+			boost::lexical_cast<sge::string>(area()));
+	
 	// increment in each direction, is also diagonal step
  	point const dd = apply(b-a,boost::bind(&math::signum<unit>,_1));
 	// absolute distance between the points

@@ -14,7 +14,9 @@ namespace events
 class invalid_area
 {
 	public:
-	SGE_SYMBOL invalid_area(renderer::image_view const &,rect const &);
+	SGE_SYMBOL invalid_area(
+		renderer::image_view const &,
+		rect const &);
 	renderer::image_view const &texture() const { return texture_; }
 	rect const area() const { return area_; }
 	private:

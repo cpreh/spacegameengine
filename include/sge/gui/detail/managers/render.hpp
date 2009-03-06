@@ -44,12 +44,16 @@ class render : public submanager
 
 	struct dirt
 	{
-		widget *widget_;
-		rect rect_;
+		sge::gui::widget *widget_;
+		sge::gui::rect rect_;
 
 		dirt(
-			widget &,
-			rect const &);
+			sge::gui::widget &,
+			sge::gui::rect const &);
+
+		sge::gui::widget &widget();
+		sge::gui::widget const &widget() const;
+		sge::gui::rect const rect() const;
 	};
 
 	typedef std::map<widget*,widget_data> widget_container;
