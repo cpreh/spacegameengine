@@ -1,14 +1,11 @@
 #include "../object.hpp"
 #include "../motion_state.hpp"
-#include "../system.hpp"
+#include "../world.hpp"
 #include "../conversion.hpp"
 #include <sge/collision/sattelite.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/output.hpp>
-#include <sge/cerr.hpp>
 #include <boost/bind.hpp>
-
-#include <iostream>
 
 sge::bullet::object::object(
 	world &sys,
@@ -51,7 +48,6 @@ sge::collision::point const sge::bullet::object::pos() const
 
 void sge::bullet::object::speed(collision::point const &v)
 {
-	//sge::cerr << "setting velocity to " << v << "\n";
 	//body_.activate(true);
 	body_.setLinearVelocity(sge_to_bullet(v));
 	//body_.setActivationState(ACTIVE_TAG);

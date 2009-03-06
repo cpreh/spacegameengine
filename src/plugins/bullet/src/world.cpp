@@ -11,22 +11,23 @@
 #include <boost/bind.hpp>
 
 sge::bullet::world::world()
-	: configuration(new btDefaultCollisionConfiguration()),
-	  dispatcher(
-			new sge::bullet::dispatcher(
-				*configuration,
-				callback_signal_)),
-		broadphase(new btDbvtBroadphase()),
-		constraint_solver(new btSequentialImpulseConstraintSolver()),
-		overlap_callback_(boost::phoenix::val(false)),
-		world_(
-			new btDiscreteDynamicsWorld(
-				dispatcher.get(),
-				broadphase.get(),
-				constraint_solver.get(),
-				configuration.get())),
-		// mass, motion state*, shape*
-		zero_body_(static_cast<unit>(0),0,0)
+:
+	configuration(new btDefaultCollisionConfiguration()),
+	dispatcher(
+		new sge::bullet::dispatcher(
+			*configuration,
+			callback_signal_)),
+	broadphase(new btDbvtBroadphase()),
+	constraint_solver(new btSequentialImpulseConstraintSolver()),
+	overlap_callback_(boost::phoenix::val(false)),
+	world_(
+		new btDiscreteDynamicsWorld(
+			dispatcher.get(),
+			broadphase.get(),
+			constraint_solver.get(),
+			configuration.get())),
+	// mass, motion state*, shape*
+	zero_body_(static_cast<unit>(0),0,0)
 {
 	world_->getPairCache()->setOverlapFilterCallback(&overlap_callback_);
 	// bullet sets a default gravity, so we have to reset this

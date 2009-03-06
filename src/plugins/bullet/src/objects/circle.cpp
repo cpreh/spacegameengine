@@ -1,19 +1,19 @@
 #include "../../objects/circle.hpp"
-#include "../../system.hpp"
 #include <sge/collision/sattelite.hpp>
 #include <bullet/BulletCollision/CollisionShapes/btSphereShape.h>
 
 sge::bullet::objects::circle::circle(
-	system &s,
+	world &s,
 	collision::sattelite_ptr sat,
 	collision::point const &_center,
 	collision::point const &_speed,
 	collision::unit const radius)
-	: object(
-			s,
-			sat,
-			shape_ptr(new btSphereShape(radius)),
-			static_cast<unit>(1))
+:
+	object(
+		s,
+		sat,
+		shape_ptr(new btSphereShape(radius)),
+		static_cast<unit>(1))
 {
 	center(_center);
 	speed(_speed);
