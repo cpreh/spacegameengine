@@ -2,7 +2,7 @@
 #include "../conversion.hpp"
 #include <sge/math/vector/vector.hpp>
 #include <sge/math/vector/output.hpp>
-#include <sge/cerr.hpp>
+//#include <sge/cerr.hpp>
 
 namespace
 {
@@ -16,13 +16,17 @@ btTransform const make_transform(sge::bullet::point const &p)
 }
 
 sge::bullet::motion_state::motion_state(change_callback const &_callback)
-	: pos_(
-			make_transform(
-				point(
-					static_cast<unit>(0),
-					static_cast<unit>(0),
-					static_cast<unit>(0)))),
-		callback(_callback)
+:
+	pos_(
+		make_transform(
+			point(
+				static_cast<unit>(0),
+				static_cast<unit>(0),
+				static_cast<unit>(0)
+			)
+		)
+	),
+	callback(_callback)
 {
 }
 
@@ -46,8 +50,8 @@ void sge::bullet::motion_state::getWorldTransform(btTransform &t) const
 // called only by bullet internally
 void sge::bullet::motion_state::setWorldTransform(btTransform const &t)
 {
-	if (bullet_to_sge(t.getOrigin()) == sge::collision::point::null())
-		sge::cerr << "bullet set new position to: " << bullet_to_sge(t.getOrigin()) << "\n";
+	//if (bullet_to_sge(t.getOrigin()) == sge::collision::point::null())
+	//	sge::cerr << "bullet set new position to: " << bullet_to_sge(t.getOrigin()) << '\n';
 	//pos_ = t;
 	pos_ = make_transform(t.getOrigin());
 	callback(pos_.getOrigin());
