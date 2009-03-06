@@ -32,13 +32,13 @@ sge::gui::widgets::button::button(
 void sge::gui::widgets::button::process(events::mouse_enter const &)
 {
 	mouse_over_ = true;
-	parent_manager().invalidate(absolute_area());
+	parent_manager().invalidate(*this,absolute_area());
 }
 
 void sge::gui::widgets::button::process(events::mouse_leave const &)
 {
 	mouse_over_ = false;
-	parent_manager().invalidate(absolute_area());
+	parent_manager().invalidate(*this,absolute_area());
 }
 
 void sge::gui::widgets::button::process(events::mouse_click const &)
@@ -61,12 +61,12 @@ void sge::gui::widgets::button::process(events::keyboard_enter const &)
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_enter"));
 	key_over_ = true;
-	parent_manager().invalidate(absolute_area());
+	parent_manager().invalidate(*this,absolute_area());
 }
 
 void sge::gui::widgets::button::process(events::keyboard_leave const &)
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_leave"));
 	key_over_ = false;
-	parent_manager().invalidate(absolute_area());
+	parent_manager().invalidate(*this,absolute_area());
 }

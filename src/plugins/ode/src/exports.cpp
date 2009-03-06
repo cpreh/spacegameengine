@@ -18,50 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_STRUCTURE_CAST_HPP_INCLUDED
-#define SGE_STRUCTURE_CAST_HPP_INCLUDED
+#include "../system.hpp"
+#include <sge/export.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
+#include <sge/plugin/info.hpp>
 
-#include <sge/detail/structure_cast_fun.hpp>
-#include <boost/iterator/transform_iterator.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/static_assert.hpp>
-
-namespace sge
+extern "C"
 {
 
-template<
-	typename T,
-	typename U
->
-T const
-structure_cast(
-	U const &u)
+SGE_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *);
+
+SGE_EXPORT_SYMBOL sge::collision::system *
+create_collision_system();
+
+SGE_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *const i)
 {
-	typedef detail::structure_cast_fun<
-		typename T::value_type
-	> op_type;
+	if(!i)
+		return;
+	i->name = SGE_TEXT("ode plugin");
+	i->description = SGE_TEXT("");
+	i->type = sge::plugin::capabilities::collision_system;
+	i->plugin_version = 0x1;
+	i->min_core_version = 0x1;
+}
 
-	op_type const op = op_type();
-
-	BOOST_STATIC_ASSERT((
-		boost::is_same<
-			typename T::dim_wrapper,
-			typename U::dim_wrapper
-		>::value
-	));
-
-	return T(
-		boost::make_transform_iterator(
-			u.begin(),
-			op
-		),
-		boost::make_transform_iterator(
-			u.end(),
-			op
-		)
-	);
+SGE_EXPORT_SYMBOL sge::collision::system *
+create_collision_system()
+{
+	return new sge::ode::system();
 }
 
 }
-
-#endif

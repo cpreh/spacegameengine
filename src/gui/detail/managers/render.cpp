@@ -5,6 +5,7 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
+#include <sge/math/power.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/renderer/device.hpp>
@@ -26,6 +27,14 @@ sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("render manager"),
 	false);
+}
+
+sge::gui::detail::managers::render::dirt::dirt(
+	widget &_widget,
+	rect const &_rect)
+	: widget_(&_widget),
+	  rect_(_rect)
+{
 }
 
 sge::gui::detail::managers::render::render(
@@ -52,7 +61,6 @@ void sge::gui::detail::managers::render::activation(
 	
 	SGE_ASSERT(widgets.find(&w) != widgets.end());
 
-	/*
 	switch (t)
 	{
 		case activation_state::active:
@@ -62,13 +70,12 @@ void sge::gui::detail::managers::render::activation(
 			widgets[&w].sprite.visible(false);
 		break;
 	}
-	*/
 }
 
 void sge::gui::detail::managers::render::draw()
 {
-	if (!dirt.empty())
-		redraw_dirt();
+	if (!dirt_.empty())
+		clean();
 
 	sprite::container sprites;
 	BOOST_FOREACH(widget_container::value_type const &w,widgets)
@@ -89,8 +96,10 @@ void sge::gui::detail::managers::render::remove(widget &w)
 
 void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 {
-	// widget is not a top level widget
-	if (widgets.find(&w) == widgets.end())
+	widget_container::iterator wi = widgets.find(&w);
+	
+	// widget is not a top level widget, so we don't care
+	if (wi == widgets.end())
 		return;
 	
 	SGE_LOG_DEBUG(
@@ -98,87 +107,113 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 		log::_1 << SGE_TEXT("resizing widget from ") << w.size() 
 		        << SGE_TEXT(" to ") << d);
 
-	// TODO: if the widget is shrunk, you could fill the extra space with
-	// transparent pixels so you don't have to create a whole new texture. if it
-	// is enlarged, you could create a texture which is too large so subsequent
-	// resize operations won't eat much performance
-	widget_data &wd = widgets[&w];
-
-	renderer::texture_ptr const software_texture(
-		new renderer::texture_software(
-			structure_cast<renderer::texture::dim_type>(d),
-			renderer::color_format::rgba8));
-
-	renderer::texture_ptr hardware_texture = rend->create_texture(
-		structure_cast<renderer::texture::dim_type>(d),
-		renderer::color_format::rgba8,
-		renderer::filter::linear,
-		renderer::resource_flags::dynamic);
+	widget_data &wd = wi->second;
 	
-	// NOTE: the sprite::object has to get a texture convertible to
-	// sge::ogl::texture, so we give it hardware_texture below. the sprite_texture
-	// serves as a canvas for the widgets and we pass it here
-	wd.texture.reset(
-		new renderer::texture_rw(
-			software_texture,
-			hardware_texture));
-							
-	wd.sprite = sprite::object(
-		sprite::point(structure_cast<sprite::point>(w.pos())),
-		texture::const_part_ptr(new texture::part_raw(hardware_texture)),
-		sprite::dim(structure_cast<sprite::dim>(d)),
-		sprite::defaults::color_,
-		static_cast<sprite::depth_type>(1));
-	
-	/*
-	switch (w.activation())
+	// check if the current texture is large enough to hold the new widget
+	dim const new_dim = 
+		dim(
+			math::next_pow_2(d.w()),
+			math::next_pow_2(d.h()));
+
+	if (!wd.texture || structure_cast<dim>(wd.texture->dim()) == new_dim)
 	{
-		case activation_state::active:
-			wd.sprite.visible(true);
-		break;
-		case activation_state::inactive:
-			wd.sprite.visible(false);
-		break;
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("new resolution is ")
+			        << new_dim);
+
+		renderer::texture_ptr const software_texture(
+			new renderer::texture_software(
+				structure_cast<renderer::texture::dim_type>(new_dim),
+				renderer::color_format::rgba8));
+
+		renderer::texture_ptr hardware_texture = rend->create_texture(
+			structure_cast<renderer::texture::dim_type>(new_dim),
+			renderer::color_format::rgba8,
+			renderer::filter::linear,
+			renderer::resource_flags::dynamic);
+		
+		// NOTE: the sprite::object has to get a texture convertible to
+		// sge::ogl::texture, so we give it hardware_texture below. the sprite_texture
+		// serves as a canvas for the widgets and we pass it here
+		wd.texture.reset(
+			new renderer::texture_rw(
+				software_texture,
+				hardware_texture));
+								
+		wd.sprite = sprite::object(
+			sprite::point(structure_cast<sprite::point>(w.pos())),
+			texture::const_part_ptr(new texture::part_raw(hardware_texture)),
+			sprite::dim(structure_cast<sprite::dim>(new_dim)),
+			sprite::defaults::color_,
+			static_cast<sprite::depth_type>(1));
+		
+		switch (w.activation())
+		{
+			case activation_state::active:
+				wd.sprite.visible(true);
+			break;
+			case activation_state::inactive:
+				wd.sprite.visible(false);
+			break;
+		}
 	}
-	*/
+	else
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("resolution suffices, doing nothing"));
+	}
 
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("adding dirty region ") 
 		        << rect(w.pos(),d));
-	
-	dirt.push_back(rect(w.pos(),d));
+		
+	invalidate(
+		w,
+		rect(
+			w.pos(),
+			new_dim));
 }
 
-void sge::gui::detail::managers::render::reposition(widget &w,point const &d)
+void sge::gui::detail::managers::render::reposition(
+	widget &w,
+	point const &d)
 {
+	widget_container::iterator wi = widgets.find(&w);
 	// widget is not a top level widget
-	if (widgets.find(&w) == widgets.end())
+	if (wi == widgets.end())
 		return;
 
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("repositioning sprite to ") << d);
 	// just reset sprite position
-	widgets[&w].sprite.pos() = structure_cast<sprite::point>(d);
+	wi->second.sprite.pos() = structure_cast<sprite::point>(d);
 }
 
-void sge::gui::detail::managers::render::invalidate(rect const &r)
+void sge::gui::detail::managers::render::invalidate(
+	widget &w,
+	rect const &r)
 {
-	dirt.push_back(r);
+	dirt_.push_back(dirt(w,r));
 }
 
-void sge::gui::detail::managers::render::redraw_dirt()
+void sge::gui::detail::managers::render::clean()
 {
+	std::vector<rect> rects;
+	BOOST_FOREACH(dirt_container::const_reference d,dirt_)
+		rects.push_back(d.rect_);
 	// calculate bounding rect of all dirt rects
 	rect const bound = math::bounding<unit>(
-		dirt.begin(),
-		dirt.end());
+		rects.begin(),
+		rects.end());
 
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("bounding rect of all dirty regions is ") << bound);
-	dirt.clear();
+	dirt_.clear();
 	
 	SGE_LOG_DEBUG(
 		mylogger,

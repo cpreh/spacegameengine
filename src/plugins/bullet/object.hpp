@@ -2,7 +2,7 @@
 #define SGE_BULLET_OBJECT_HPP_INCLUDED
 
 #include "types.hpp"
-#include "system_fwd.hpp"
+#include "world_fwd.hpp"
 #include "constraint.hpp"
 #include "motion_state.hpp"
 #include <sge/collision/point.hpp>
@@ -18,7 +18,7 @@ class object
 {
 	public:
 	object(
-		system &,
+		world &,
 		collision::sattelite_ptr,
 		shape_ptr,
 		unit mass);

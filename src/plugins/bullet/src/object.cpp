@@ -1,21 +1,20 @@
 #include "../object.hpp"
 #include "../motion_state.hpp"
-#include "../system.hpp"
+#include "../world.hpp"
 #include "../conversion.hpp"
 #include <sge/collision/sattelite.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/output.hpp>
 #include <boost/bind.hpp>
 
-#include <iostream>
-
 sge::bullet::object::object(
-	system &sys,
+	world &sys,
 	collision::sattelite_ptr _sat,
 	shape_ptr _shape,
 	unit const _mass)
 :
 	sat(_sat),
-	world_(sys.world()),
+	world_(sys.world_internal()),
 	shape_(_shape),
 	motion_state_(
 		boost::bind(&object::position_changed,this,_1)),
@@ -31,6 +30,7 @@ sge::bullet::object::object(
 {
 	body_.setUserPointer(sat.get());
 	world_.addRigidBody(&body_);
+	body_.setActivationState(DISABLE_DEACTIVATION);
 }
 	  
 void sge::bullet::object::pos(collision::point const &p)
@@ -48,9 +48,9 @@ sge::collision::point const sge::bullet::object::pos() const
 
 void sge::bullet::object::speed(collision::point const &v)
 {
-	body_.activate(true);
+	//body_.activate(true);
 	body_.setLinearVelocity(sge_to_bullet(v));
-	body_.setActivationState(ACTIVE_TAG);
+	//body_.setActivationState(ACTIVE_TAG);
 }
 
 sge::collision::point const sge::bullet::object::speed() const

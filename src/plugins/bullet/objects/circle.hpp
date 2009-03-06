@@ -10,12 +10,15 @@ namespace bullet
 {
 namespace objects
 {
+
 class circle : public object, public collision::objects::circle
 {
 	public:
 	circle(
-		system &,
+		world &,
 		collision::sattelite_ptr,
+		collision::point const &center,
+		collision::point const &speed,
 		collision::unit radius);
 	
 	void speed(sge::collision::point const &);

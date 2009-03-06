@@ -37,7 +37,7 @@ ADD_SGE_TEST(modifier)
 #	TARGET_LINK_LIBRARIES (sgesoundtest ${Boost_program_options_LIBRARIES})
 #ENDIF ()
 
-IF (${ENABLE_BULLET})
+IF (${ENABLE_ODE})
 	ADD_SGE_TEST(bullet)
 ENDIF ()
 

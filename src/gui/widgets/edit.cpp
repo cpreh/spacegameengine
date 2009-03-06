@@ -57,7 +57,9 @@ sge::string const sge::gui::widgets::edit::text() const
 void sge::gui::widgets::edit::text(string const &n)
 {
 	text_ = n;
-	parent_manager().invalidate(absolute_area());
+	parent_manager().invalidate(
+		*this,
+		absolute_area());
 }
 
 sge::font::metrics_ptr const sge::gui::widgets::edit::font() const
@@ -108,12 +110,14 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const 
 	cursor.key_callback(k.value());
 
 	// invalidate since something might have changed
-	parent_manager().invalidate(absolute_area());
+	parent_manager().invalidate(
+		*this,
+		absolute_area());
 
 	return key_handling::process;
 }
 
-void sge::gui::widgets::edit::process(events::mouse_click const &e)
+void sge::gui::widgets::edit::process(events::mouse_click const &)
 {
 	parent_manager().keyboard().request_focus(*this);
 }
@@ -129,7 +133,9 @@ void sge::gui::widgets::edit::blink_callback()
 	SGE_LOG_DEBUG(
 		mygraphlogger,
 		log::_1 << SGE_TEXT("blinking cursor, visibility: ") << cursor_visible_);
-	parent_manager().invalidate(absolute_area());
+	parent_manager().invalidate(
+		*this,
+		absolute_area());
 }
 
 void sge::gui::widgets::edit::resize(dim const &d) const
@@ -194,7 +200,9 @@ void sge::gui::widgets::edit::refresh() const
 	SGE_LOG_DEBUG(
 		mygraphlogger,
 		log::_1 << SGE_TEXT("text buffer size is: ")
-						<< dim(text_buffer_.width(),text_buffer_.height()));
+						<< dim(
+							static_cast<unit>(text_buffer_.width()),
+							static_cast<unit>(text_buffer_.height())));
 
 	point p;
 	c.draw_text(

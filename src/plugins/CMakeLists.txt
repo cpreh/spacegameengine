@@ -4,6 +4,7 @@ ENDIF ()
 
 
 FIND_PACKAGE(DevIL)
+FIND_PACKAGE(ODE)
 FIND_PACKAGE(OpenGL)
 FIND_PACKAGE(OpenAL)
 FIND_PACKAGE(Freetype)
@@ -14,6 +15,11 @@ OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
 
+IF(ODE_FOUND)
+	OPTION (ENABLE_ODE "Build the ode collision plugin" ON)
+ELSE(ODE_FOUND)
+	OPTION (ENABLE_ODE "Build the ode collision plugin" OFF)
+ENDIF(ODE_FOUND)
 
 IF(MAD_FOUND)
 	OPTION (ENABLE_MAD "Build the mad mp3 loader plugin" ON)
@@ -64,6 +70,10 @@ ENDIF(X11_Xinput_FOUND)
 
 IF(ENABLE_BULLET)
 	ADD_SUBDIRECTORY (bullet)
+ENDIF ()
+
+IF(ENABLE_ODE)
+	ADD_SUBDIRECTORY (ode)
 ENDIF ()
 
 IF(ENABLE_D3D9)
