@@ -23,7 +23,7 @@ sge::ode::space::space(
 			0, 
 			center, 
 			extents, 
-			3);
+			8);
 	}
 }
 
