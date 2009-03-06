@@ -146,8 +146,12 @@ class connect_functor
 			real_main += speed * delta * (pos_main - real_main);
 			real_connect += speed * delta * (vantage_connect - real_connect);
 		}
-		main_menu_.pos(sge::structure_cast<sge::gui::point>(real_main));
-		connect_menu_.pos(sge::structure_cast<sge::gui::point>(real_connect));
+		main_menu_.relative_pos(
+			sge::structure_cast<sge::gui::point>(
+				real_main));
+		connect_menu_.relative_pos(
+			sge::structure_cast<sge::gui::point>(
+				real_connect));
 	}
 	private:
 	typedef sge::math::vector::static_<sge::time::funit,2>::type time_vector;
@@ -197,7 +201,7 @@ try
 	
 	sge::gui::widget top(
 		(sge::gui::widget::parent_data(m)));
-	top.pos(sge::gui::point(100,100));
+	top.relative_pos(sge::gui::point(100,100));
 	top.size(sge::gui::dim(500,300));
 	top.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(top)));
 
@@ -236,7 +240,7 @@ try
 	
 	sge::gui::widget main_menu(
 		(sge::gui::widget::parent_data(m)));
-	main_menu.pos(sge::gui::point(100,100));
+	main_menu.relative_pos(sge::gui::point(100,100));
 	main_menu.size(sge::gui::dim(300,400));
 	main_menu.layout(
 		sge::make_shared_ptr<sge::gui::layouts::vertical>(
@@ -302,8 +306,8 @@ try
 		cf.update(frame_timer.elapsed_frames());
 		frame_timer.reset();
 		m.draw();
-		m.invalidate(top.absolute_area());
-		m.invalidate(main_menu.absolute_area());
+		m.invalidate(top,top.absolute_area());
+		m.invalidate(main_menu,main_menu.absolute_area());
 	}
 } 
 catch (sge::exception const &e)

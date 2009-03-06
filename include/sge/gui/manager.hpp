@@ -42,8 +42,9 @@ class manager
 		font::system_ptr,
 		skin_ptr);
 	SGE_SYMBOL ~manager();
-	SGE_SYMBOL void invalidate(rect const &);
-	SGE_SYMBOL void invalidate(widget &);
+	SGE_SYMBOL void invalidate(
+		widget &,
+		rect const &);
 	SGE_SYMBOL timer::object_ptr const register_timer(
 		time::resolution const &,
 		timer::callback);

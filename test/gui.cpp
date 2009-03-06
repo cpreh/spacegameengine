@@ -100,12 +100,12 @@ try
 	
 #if TESTING_LEVEL == TL_SINGLE_BUTTON
 	sge::gui::widgets::button b((sge::gui::widget::parent_data(m)),SGE_TEXT("Button A"));
-	b.pos(sge::gui::point(10,10));
+	b.relative_pos(sge::gui::point(10,10));
 	b.size(sge::gui::dim(400,300));
 #elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
 	sge::gui::widget top((sge::gui::widget::parent_data(m)));
 	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)));
-	top.pos(sge::gui::point(10,10));
+	top.relative_pos(sge::gui::point(10,10));
 	top.size(sge::gui::dim(400,300));
 
 	sge::gui::widgets::button left((sge::gui::widget::parent_data(top)),SGE_TEXT("Button A"));
@@ -113,8 +113,10 @@ try
 #elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
 	sge::gui::widget top((sge::gui::widget::parent_data(m)));
 	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)));
-	top.pos(sge::gui::point(10,10));
+	top.relative_pos(sge::gui::point(10,10));
 	top.size(sge::gui::dim(400,300));
+
+	sge::cerr << "added top level widget\n";
 
 	sge::gui::widget left((sge::gui::widget::parent_data(top)));
 	left.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(left)));
@@ -138,6 +140,8 @@ try
 	sge::gui::widgets::button right_bottom(
 		sge::gui::widget::parent_data(right),
 		SGE_TEXT("(right bottom) me!"));
+
+	sge::cerr << "added buttons and children\n";
 #else
 #error "invalid testing level"
 #endif
@@ -164,6 +168,7 @@ try
 #elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
 	left_top.clicked.connect(p);
 #endif
+	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
 	
 #if TESTING_LEVEL == TL_REMOVE_WIDGETS
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));

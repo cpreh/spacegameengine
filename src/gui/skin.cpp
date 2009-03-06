@@ -14,7 +14,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("skin"),false);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("skin"),
+	false);
 }
 
 namespace
@@ -69,6 +72,10 @@ void sge::gui::skin::draw(widget &w,events::invalid_area const &e)
 		fallback(w,e);
 		return;
 	}
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("draw called for some other widget"));
 
 	utility::type_comparator<widgets::types>(
 		w,

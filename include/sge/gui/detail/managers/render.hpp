@@ -32,7 +32,9 @@ class render : public submanager
 	void remove(widget &);
 	void resize(widget &,dim const &);
 	void reposition(widget &,point const &);
-	void invalidate(rect const &);
+	void invalidate(
+		widget &,
+		rect const &);
 	private:
 	struct widget_data
 	{
@@ -40,16 +42,30 @@ class render : public submanager
 		sprite::object sprite;
 	};
 
+	struct dirt
+	{
+		sge::gui::widget *widget_;
+		sge::gui::rect rect_;
+
+		dirt(
+			sge::gui::widget &,
+			sge::gui::rect const &);
+
+		sge::gui::widget &widget();
+		sge::gui::widget const &widget() const;
+		sge::gui::rect const rect() const;
+	};
+
 	typedef std::map<widget*,widget_data> widget_container;
-	typedef std::vector<rect> dirt_container;
+	typedef std::vector<dirt> dirt_container;
 
 	renderer::device_ptr rend;
 	sprite::system ss;
 	mouse &mouse_;
 	widget_container widgets;
-	dirt_container dirt;
+	dirt_container dirt_;
 
-	void redraw_dirt();
+	void clean();
 };
 }
 }

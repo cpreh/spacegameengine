@@ -27,7 +27,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("managers: mouse"),false);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("managers: mouse"),
+	true);
 
 sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 {
@@ -160,11 +163,11 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
-				log::_1 << SGE_TEXT("checking if ") << w.absolute_area() 
+				log::_1 << SGE_TEXT("checking if ") << w.screen_area() 
 				        << SGE_TEXT(" contains ") << click_point);
 
 			if (w.activation() == activation_state::active && 
-			    math::contains(w.absolute_area(),click_point))
+			    math::contains(w.screen_area(),click_point))
 			{
 				w.process(events::mouse_enter(click_point));
 				focus = recalculate_focus(w,click_point);
@@ -202,7 +205,7 @@ sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
 	point const &mouse_click)
 {
 	// Pointer is no longer inside widget area
-	if (!math::contains(w.absolute_area(),mouse_click) ||
+	if (!math::contains(w.screen_area(),mouse_click) ||
 	    !active(w))
 	{
 		SGE_LOG_DEBUG(
@@ -238,7 +241,7 @@ sge::gui::widget *sge::gui::detail::managers::mouse::do_recalculate_focus(
 	BOOST_FOREACH(widget &child,w.children())
 	{
 		if (child.activation() == activation_state::active && 
-		    math::contains(child.absolute_area(),p))
+		    math::contains(child.screen_area(),p))
 		{
 			SGE_LOG_DEBUG(
 				mylogger,

@@ -1,7 +1,9 @@
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/math/rect_util.hpp>
 #include <sge/font/system.hpp>
+#include <sge/assert.hpp>
 #include <sge/media.hpp>
 #include <boost/foreach.hpp>
 
@@ -44,17 +46,12 @@ sge::gui::manager::~manager()
 {}
 
 void sge::gui::manager::invalidate(
+	widget &w,
 	rect const &r)
 {
+	SGE_ASSERT(math::contains(w.absolute_area(),r));
 	BOOST_FOREACH(detail::submanager *m,submanagers)
-		m->invalidate(r);
-}
-
-void sge::gui::manager::invalidate(
-	widget &w)
-{
-	BOOST_FOREACH(detail::submanager *m,submanagers)
-		m->add(w);
+		m->invalidate(w,r);
 }
 
 sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
