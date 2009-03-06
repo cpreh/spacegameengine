@@ -1,6 +1,10 @@
 #include "../world.hpp"
+#include "../circle.hpp"
+#include "../grid_entry.hpp"
+#include <sge/collision/satellite.hpp>
 #include <sge/make_shared_ptr.hpp>
 #include <boost/bind.hpp>
+#include <boost/ref.hpp>
 
 sge::cell::world::world(
 	collision::optional_rect const &rect)
@@ -21,12 +25,12 @@ void
 sge::cell::world::test_callback(
 	::sge::collision::test_callback const &cb)
 {
-	test_callback = cb;
+	test_callback_ = cb;
 }
 
 sge::signals::connection const 
 sge::cell::world::register_callback(
-	callback const &cb)
+	collision::callback const &cb)
 {
 	return sig.connect(
 		cb
@@ -35,26 +39,33 @@ sge::cell::world::register_callback(
 	
 sge::collision::objects::circle_ptr const
 sge::cell::world::create_circle(
-	sattelite_ptr sat,
-	point const &center,
-	point const &speed,
-	unit const radius)
+	collision::satellite_ptr sat,
+	collision::point const &center,
+	collision::point const &speed,
+	collision::unit const radius)
 {
-	return make_shared_ptr<
-		circle
-	>(
+	/*
+	return collision::objects::circle_ptr( //make_shared_ptr<
+		new circle(
+	//>(
 		sat,
 		center,
 		speed,
 		radius,
 		grid_,
-		sig,
 		boost::bind(
 			&world::call_test,
 			this,
 			_1,
 			_2
-		)
+		),
+		sig
+	));*/
+	boost::bind(
+		&world::call_test,
+		this,
+		_1,
+		_2
 	);
 }
 
@@ -71,8 +82,8 @@ sge::cell::world::call_test(
 	collision::satellite &a,
 	collision::satellite &b)
 {
-	return test_callback
-		? test_callback(
+	return test_callback_
+		? test_callback_(
 			a,
 			b
 		)

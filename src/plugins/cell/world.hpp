@@ -1,7 +1,9 @@
 #ifndef SGE_CELL_WORLD_HPP_INCLUDED
 #define SGE_CELL_WORLD_HPP_INCLUDED
 
+#include "grid.hpp"
 #include <sge/collision/world.hpp>
+#include <sge/collision/optional_rect.hpp>
 
 namespace sge
 {
@@ -19,14 +21,14 @@ public:
 
 	signals::connection const 
 	register_callback(
-		callback const &);
+		collision::callback const &);
 	
-	objects::circle_ptr const
+	collision::objects::circle_ptr const
 	create_circle(
-		sattelite_ptr,
-		point const &center,
-		point const &speed,
-		unit radius);
+		collision::satellite_ptr,
+		collision::point const &center,
+		collision::point const &speed,
+		collision::unit radius);
 
 	void
 	update(
@@ -38,7 +40,8 @@ private:
 	);
 
 	grid grid_;
-	collision::test_callback test_callback;
+	collision::callback_signal sig;
+	collision::test_callback test_callback_;
 };
 
 }

@@ -1,7 +1,10 @@
 #ifndef SGE_CELL_GRID_HPP_INCLUDED
 #define SGE_CELL_GRID_HPP_INCLUDED
 
+#include "field_type.hpp"
 #include <sge/collision/rect.hpp>
+#include <sge/container/field_decl.hpp>
+#include <sge/time/funit.hpp>
 #include <sge/noncopyable.hpp>
 
 namespace sge
@@ -13,7 +16,7 @@ class grid {
 	SGE_NONCOPYABLE(grid)
 public:
 	explicit grid(
-		rect const &);
+		collision::rect const &);
 	
 	void update(
 		time::funit);

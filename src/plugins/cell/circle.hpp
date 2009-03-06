@@ -1,8 +1,12 @@
 #ifndef SGE_CELL_CIRCLE_HPP_INCLUDED
 #define SGE_CELL_CIRCLE_HPP_INCLUDED
 
+#include "backlink_list.hpp"
 #include <sge/collision/objects/circle.hpp>
 #include <sge/collision/callbacks.hpp>
+#include <sge/collision/satellite_fwd.hpp>
+#include <sge/math/vector/basic_decl.hpp>
+#include <sge/time/funit.hpp>
 
 namespace sge
 {
@@ -11,21 +15,31 @@ namespace cell
 
 class grid;
 
-class circle : public collision::circle {
+class circle : public collision::objects::circle {
 public:
 	circle(
-		satellite_ptr,
-		point const &center,
-		point const &speed,
-		unit radius,
+		collision::satellite_ptr,
+		collision::point const &center,
+		collision::point const &speed,
+		collision::unit radius,
 		grid &,
 		collision::test_callback const &,
 		collision::callback_signal &);
 	
-	void center(point const &);
-	point const center() const;
-	void speed(point const &);
-	point const speed() const;
+	void center(
+		collision::point const &);
+	
+	collision::point const
+	center() const;
+
+	void speed(
+		collision::point const &);
+	
+	collision::point const
+	speed() const;
+
+	collision::unit radius() const;
+	collision::satellite &satellite();
 
 	void update(
 		time::funit);
@@ -34,11 +48,12 @@ public:
 private:
 	void reposition();
 
-	satellite_ptr sat_;
+	collision::satellite_ptr sat;
 
-	poinr center_,
-	      speed_;
-	unit const radius_;
+	collision::point
+		center_,
+		speed_;
+	collision::unit const radius_;
 
 	grid &grid_;
 	backlink_list backlinks;

@@ -3,7 +3,6 @@
 
 #include <sge/collision/objects/circle_fwd.hpp>
 #include <sge/collision/point.hpp>
-#include <sge/collision/sattelite_fwd.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 
