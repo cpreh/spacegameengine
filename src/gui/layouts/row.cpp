@@ -235,7 +235,8 @@ void sge::gui::layouts::row::update()
 void sge::gui::layouts::row::pos(point const &p)
 {
 	layout::set_widget_pos(connected_widget(),p);
-	update();
+	if (connected_widget().parent_widget())
+		update();
 }
 
 void sge::gui::layouts::row::size(dim const &s)

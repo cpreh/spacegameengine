@@ -42,7 +42,9 @@ void sge::gui::skins::standard::draw(
 			mylogger,
 			log::_1
 				<< SGE_TEXT("resizing from ") 
-				<< dim(b.buffer().width(),b.buffer().height())
+				<< dim(
+					static_cast<unit>(b.buffer().width()),
+					static_cast<unit>(b.buffer().height()))
 				<< SGE_TEXT(" to ")
 				<< b.size());
 		b.buffer() = image(

@@ -306,8 +306,8 @@ try
 		cf.update(frame_timer.elapsed_frames());
 		frame_timer.reset();
 		m.draw();
-		m.invalidate(top,top.absolute_area());
-		m.invalidate(main_menu,main_menu.absolute_area());
+		//m.invalidate(top,top.absolute_area());
+		//m.invalidate(main_menu,main_menu.absolute_area());
 	}
 } 
 catch (sge::exception const &e)
