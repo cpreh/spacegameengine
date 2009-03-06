@@ -5,7 +5,7 @@
 #include <sge/collision/unit.hpp>
 #include <sge/collision/point.hpp>
 #include <sge/collision/callbacks.hpp>
-#include <sge/collision/sattelite_fwd.hpp>
+#include <sge/collision/satellite_fwd.hpp>
 #include <sge/collision/objects/circle_fwd.hpp>
 #include <sge/time/funit.hpp>
 #include <sge/signals/connection.hpp>
@@ -32,7 +32,7 @@ public:
 	
 	virtual objects::circle_ptr const
 	create_circle(
-		sattelite_ptr,
+		satellite_ptr,
 		point const &center,
 		point const &speed,
 		unit radius) = 0;

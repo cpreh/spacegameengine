@@ -1,24 +1,45 @@
 #include "../../objects/circle.hpp"
 #include "../../space.hpp"
 #include "../../world_wrapper.hpp"
+#include <sge/collision/satellite.hpp>
 #include <sge/structure_cast.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/output.hpp>
 
 sge::ode::objects::circle::circle(
-	collision::sattelite_ptr _sattelite,
+	collision::satellite_ptr _satellite,
 	space &space_,
 	world_wrapper &world_,
 	point const &center,
 	point const &speed,
 	dReal radius)
-	: body_(world_,center,speed,*_sattelite),
-		geom_(dCreateSphere(space_.id(),radius),body_),
-		joint_(world_,body_),
-		sattelite_(_sattelite)
+:
+	body_(
+		world_,
+		center,
+		speed,
+		*_satellite
+	),
+	geom_(
+		dCreateSphere(
+			space_.id(),
+			radius
+		),
+		body_
+	),
+	joint_(
+		world_,
+		body_
+	),
+	satellite_(
+		_satellite
+	)
 {
-	dGeomSetData(geom_.id(),sattelite_.get());
+	dGeomSetData(geom_.id(),satellite_.get());
 }
+
+sge::ode::objects::circle::~circle()
+{}
 
 void sge::ode::objects::circle::center(collision::point const &p)
 {

@@ -7,7 +7,7 @@
 #include "../geom.hpp"
 #include "../plane_joint.hpp"
 #include <sge/collision/objects/circle.hpp>
-#include <sge/collision/sattelite.hpp>
+#include <sge/collision/satellite_fwd.hpp>
 #include <ode/ode.h>
 
 namespace sge
@@ -20,12 +20,14 @@ class circle : public collision::objects::circle
 {
 public:
 	circle(
-		collision::sattelite_ptr,
+		collision::satellite_ptr,
 		space &,
 		world_wrapper &,
 		point const &center,
 		point const &speed,
 		dReal radius);
+
+	~circle();
 
 	void center(collision::point const &);
 	collision::point const center() const;
@@ -35,7 +37,7 @@ private:
 	body body_;
 	geom geom_;
 	plane_joint joint_;
-	collision::sattelite_ptr sattelite_;
+	collision::satellite_ptr satellite_;
 };
 }
 }

@@ -26,7 +26,7 @@ public:
 	
 	collision::objects::circle_ptr const
 	create_circle(
-		collision::sattelite_ptr,
+		collision::satellite_ptr,
 		collision::point const &center,
 		collision::point const &speed,
 		collision::unit radius);
