@@ -13,8 +13,8 @@ namespace detail
 class cursor_delegate
 {
 	public:
-	cursor_delegate(string &);
-	string::size_type pos() const { return pos_; }
+	explicit cursor_delegate(string &);
+	string::size_type pos() const;
 	void key_callback(input::key_pair const &);
 	private:
 	string &text;

@@ -43,7 +43,7 @@ sge::gui::widgets::edit::edit(
 	type(_type),
 	font_(_font),
 	desired_size_(_desired_size),
-	cursor_visible_(true),
+	cursor_visible_(false),
 	text_buffer_(),
 	scroll_pos_(point::null()),
 	cursor(text_)
@@ -94,6 +94,7 @@ sge::gui::image const &sge::gui::widgets::edit::text_buffer() const
 
 void sge::gui::widgets::edit::process(events::keyboard_enter const &)
 {
+	cursor_visible_ = true;
 	timer_ = 
 		parent_manager().register_timer(
 			sge::time::second_f(static_cast<time::funit>(0.5)),
@@ -129,6 +130,7 @@ void sge::gui::widgets::edit::process(events::mouse_click const &)
 
 void sge::gui::widgets::edit::process(events::keyboard_leave const &)
 {
+	cursor_visible_ = false;
 	timer_.reset();
 }
 
