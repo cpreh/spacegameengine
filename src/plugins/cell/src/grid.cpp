@@ -12,8 +12,8 @@ sge::cell::grid::grid(
 	rect_(rect_),
 	field_(
 		field_type::dim_type(
-			static_cast<field_type::size_type>(rect_.w() / 100),
-			static_cast<field_type::size_type>(rect_.h() / 100)
+			static_cast<field_type::size_type>(rect_.w() / 50),
+			static_cast<field_type::size_type>(rect_.h() / 50)
 		)
 	)
 {}
