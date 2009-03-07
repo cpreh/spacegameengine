@@ -3,6 +3,7 @@
 
 #include "register_callback.hpp"
 #include "unregister_callback.hpp"
+#include "collision_callback.hpp"
 #include "circle_list.hpp"
 #include <sge/collision/objects/circle.hpp>
 #include <sge/collision/callbacks.hpp>
@@ -28,7 +29,7 @@ public:
 		collision::unit radius,
 		grid &,
 		collision::test_callback const &,
-		collision::callback_signal &,
+		collision_callback const &,
 		register_callback const &,
 		unregister_callback const &);
 	
@@ -68,7 +69,7 @@ private:
 	> backlink_vector;
 
 	collision::test_callback const test_callback;
-	collision::callback_signal &callback;
+	collision_callback const callback;
 	register_callback const register_;
 	unregister_callback const unregister_;
 	circle_list::iterator const list_pos;

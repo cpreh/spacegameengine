@@ -17,7 +17,7 @@ sge::cell::circle::circle(
 	collision::unit const radius_,
 	grid &grid_,
 	collision::test_callback const &test_callback,
-	collision::callback_signal &callback,
+	collision_callback const &callback,
 	register_callback const &register_,
 	unregister_callback const &unregister_)
 :
@@ -119,8 +119,8 @@ sge::cell::circle::update(
 				)
 			)
 				callback(
-					circ.satellite(),
-					satellite()
+					circ,
+					*this
 				);
 		}
 	}

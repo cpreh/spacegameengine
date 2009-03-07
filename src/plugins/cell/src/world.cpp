@@ -6,6 +6,7 @@
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
 #include <boost/next_prior.hpp>
+#include <boost/foreach.hpp>
 
 sge::cell::world::world(
 	collision::optional_rect const &rect)
@@ -75,8 +76,11 @@ sge::cell::world::create_circle(
 			_1,
 			_2
 		),
-		boost::ref(
-			sig
+		boost::bind(
+			&world::on_collide,
+			this,
+			_1,
+			_2
 		),
 		boost::bind(
 			&world::register_,
@@ -109,6 +113,18 @@ sge::cell::world::update(
 		else
 			++current_it;
 	}
+
+	BOOST_FOREACH(
+		collision_vector::reference r,
+		collisions
+	)
+		if(r.first != 0)
+			sig(
+				r.first->satellite(),
+				r.second->satellite()
+			);
+	
+	collisions.clear();
 }
 
 bool
@@ -138,10 +154,34 @@ void
 sge::cell::world::unregister(
 	circle_list::iterator const it)
 {
+	circle *const ptr(
+		*it
+	);
+
 	if(it == current_it)
 	{
 		current_it = boost::next(it);
 		it_erased = true;
 	}
 	objects.erase(it);
+
+	BOOST_FOREACH(
+		collision_vector::reference r,
+		collisions
+	)
+		if(r.first == ptr || r.second == ptr)
+			r.first = r.second = 0;	
+}
+
+void 
+sge::cell::world::on_collide(
+	circle &a,
+	circle &b)
+{
+	collisions.push_back(
+		collision_pair(
+			&a,
+			&b
+		)
+	);
 }
