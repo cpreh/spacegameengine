@@ -21,6 +21,9 @@ sge::cell::world::world(
 	)
 {}
 
+sge::cell::world::~world()
+{}
+
 void
 sge::cell::world::test_callback(
 	::sge::collision::test_callback const &cb)

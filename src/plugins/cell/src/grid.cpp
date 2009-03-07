@@ -8,9 +8,14 @@
 sge::cell::grid::grid(
 	collision::rect const &rect_)
 :
-	rect_(rect_)
-{
-}
+	rect_(rect_),
+	field_(
+		field_type::dim_type(
+			rect_.w() / 100,
+			rect_.h() / 100
+		)
+	)
+{}
 
 void
 sge::cell::grid::update(
