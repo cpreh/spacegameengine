@@ -45,6 +45,7 @@ sge::console::gfx::gfx(
 		font::drawer_ptr(new font::drawer_3d(
 			_rend,
 			_font_color))),
+	is(_is),
 	mf(_is),
 	ic(
 		mf.register_callback(
@@ -70,6 +71,9 @@ sge::console::gfx::gfx(
 	output_history_()
 {
 }
+
+sge::console::gfx::~gfx()
+{}
 
 void sge::console::gfx::draw()
 {
