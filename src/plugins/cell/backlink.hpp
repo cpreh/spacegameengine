@@ -16,7 +16,8 @@ public:
 		grid_entry &,
 		circle_list::iterator);
 	
-	grid_entry &entry() const;
+	grid_entry &entry();
+	void unlink();
 private:
 	grid_entry &entry_;
 	circle_list::iterator it;

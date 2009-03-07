@@ -2,6 +2,7 @@
 #include "../grid_entry.hpp"
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/arithmetic.hpp>
+#include <sge/container/field_impl.hpp>
 #include <sge/structure_cast.hpp>
 #include <boost/foreach.hpp>
 
@@ -11,10 +12,13 @@ sge::cell::grid::grid(
 	rect_(rect_),
 	field_(
 		field_type::dim_type(
-			rect_.w() / 100,
-			rect_.h() / 100
+			static_cast<field_type::size_type>(rect_.w() / 100),
+			static_cast<field_type::size_type>(rect_.h() / 100)
 		)
 	)
+{}
+
+sge::cell::grid::~grid()
 {}
 
 void

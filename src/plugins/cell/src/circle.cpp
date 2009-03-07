@@ -4,6 +4,7 @@
 #include "../grid_entry.hpp"
 #include "../backlink.hpp"
 #include <sge/collision/satellite.hpp>
+#include <sge/container/field_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <boost/foreach.hpp>
 
@@ -52,6 +53,12 @@ sge::collision::point const
 sge::cell::circle::speed() const
 {
 	return speed_;
+}
+
+sge::collision::unit
+sge::cell::circle::radius() const
+{
+	return radius_;
 }
 
 sge::collision::satellite &
@@ -112,6 +119,12 @@ sge::cell::circle::reposition()
 		grid_.field()
 	);
 
+	BOOST_FOREACH(
+		backlink_list::reference r,
+		backlinks
+	)
+		r.unlink();
+	
 	backlinks.clear();
 
 	for(
