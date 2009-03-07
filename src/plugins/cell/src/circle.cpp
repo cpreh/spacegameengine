@@ -26,7 +26,6 @@ sge::cell::circle::circle(
 	speed_(speed_),
 	radius_(radius_),
 	grid_(grid_),
-	backlinks(),
 	test_callback(test_callback),
 	callback(callback),
 	register_(register_),
@@ -35,7 +34,8 @@ sge::cell::circle::circle(
 		register_(
 			*this
 		)
-	)
+	),
+	backlinks()
 {
 	reposition();
 }
@@ -91,7 +91,7 @@ sge::cell::circle::update(
 	reposition();
 
 	BOOST_FOREACH(
-		backlink_list::reference r,
+		backlink_vector::reference r,
 		backlinks
 	)
 	{
@@ -100,22 +100,26 @@ sge::cell::circle::update(
 		);
 		
 		BOOST_FOREACH(
-			circle_list::reference circ,
+			intrusive_backlink_list::reference link,
 			e.entries()
 		)
 		{
+			circle &circ(
+				link.circle()
+			);
+
 			if(
 				test_callback(
-					circ->satellite(),
+					circ.satellite(),
 					satellite()
 				)
 				&& collides(
-					*circ,
+					circ,
 					*this
 				)
 			)
 				callback(
-					circ->satellite(),
+					circ.satellite(),
 					satellite()
 				);
 		}
@@ -124,12 +128,6 @@ sge::cell::circle::update(
 
 sge::cell::circle::~circle()
 {
-	BOOST_FOREACH(
-		backlink_list::reference r,
-		backlinks
-	)
-		r.unlink();
-
 	unregister_(
 		list_pos
 	);
@@ -139,18 +137,11 @@ void
 sge::cell::circle::reposition()
 {
 	// TODO: optimize this!
+	backlinks.clear();
 
 	field_type &field(
 		grid_.field()
 	);
-
-	BOOST_FOREACH(
-		backlink_list::reference r,
-		backlinks
-	)
-		r.unlink();
-	
-	backlinks.clear();
 
 	for(
 		collision::unit x = center().x() - radius();
@@ -176,17 +167,10 @@ sge::cell::circle::reposition()
 				)
 			);
 
-			circle_list &list(
-				e.entries()
-			);
-
 			backlinks.push_back(
 				backlink(
 					e,
-					list.insert(
-						list.begin(),
-						this
-					)
+					*this
 				)
 			);
 		}

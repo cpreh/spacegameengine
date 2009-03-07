@@ -2,7 +2,6 @@
 #define SGE_CELL_GRID_HPP_INCLUDED
 
 #include "field_type.hpp"
-#include "circle_list.hpp"
 #include <sge/collision/rect.hpp>
 #include <sge/container/field_decl.hpp>
 #include <sge/math/vector/static.hpp>

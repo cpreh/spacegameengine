@@ -1,7 +1,6 @@
 #ifndef SGE_CELL_CIRCLE_HPP_INCLUDED
 #define SGE_CELL_CIRCLE_HPP_INCLUDED
 
-#include "backlink_list.hpp"
 #include "register_callback.hpp"
 #include "unregister_callback.hpp"
 #include "circle_list.hpp"
@@ -10,6 +9,7 @@
 #include <sge/collision/satellite_fwd.hpp>
 #include <sge/math/vector/basic_decl.hpp>
 #include <sge/time/funit.hpp>
+#include <vector>
 
 namespace sge
 {
@@ -17,6 +17,7 @@ namespace cell
 {
 
 class grid;
+class backlink;
 
 class circle : public collision::objects::circle {
 public:
@@ -61,12 +62,17 @@ private:
 	collision::unit const radius_;
 
 	grid &grid_;
-	backlink_list backlinks;
+
+	typedef std::vector<
+		backlink
+	> backlink_vector;
+
 	collision::test_callback const test_callback;
 	collision::callback_signal &callback;
 	register_callback const register_;
 	unregister_callback const unregister_;
 	circle_list::iterator const list_pos;
+	backlink_vector backlinks;
 };
 
 }
