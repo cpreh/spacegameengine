@@ -6,8 +6,6 @@
 #include <sge/collision/world.hpp>
 #include <sge/collision/time_unit.hpp>
 #include <sge/collision/optional_rect.hpp>
-#include <utility>
-#include <vector>
 
 namespace sge
 {
@@ -59,22 +57,10 @@ private:
 		circle_list::iterator);
 
 	grid grid_;
-	bool it_erased;
+	bool test_running;
 	circle_list objects;
-	circle_list::iterator current_it;
 	collision::callback_signal sig;
 	collision::test_callback test_callback_;
-
-	typedef std::pair<
-		circle *,
-		circle *
-	> collision_pair;
-
-	typedef std::vector<
-		collision_pair
-	> collision_vector;
-
-	collision_vector collisions;
 };
 
 }

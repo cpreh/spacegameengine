@@ -8,6 +8,7 @@
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/dim.hpp>
 #include <sge/structure_cast.hpp>
+#include <sge/exception.hpp>
 #include <boost/foreach.hpp>
 
 sge::cell::circle::circle(
@@ -109,7 +110,8 @@ sge::cell::circle::update(
 			);
 
 			if(
-				test_callback(
+				&circ != this
+				&& test_callback(
 					circ.satellite(),
 					satellite()
 				)
@@ -154,24 +156,30 @@ sge::cell::circle::reposition()
 			y += grid_.cell_size().h()
 		)
 		{
-			grid_entry &e(
-				field.pos(
-					sge::structure_cast<
-						field_type::vector_type
-					>(
-						(grid::pos_type(
-							x,
-							y
-						) - grid_.pos()) / grid_.cell_size()
+			try
+			{
+				grid_entry &e(
+					field.pos(
+						sge::structure_cast<
+							field_type::vector_type
+						>(
+							(grid::pos_type(
+								x,
+								y
+							) - grid_.pos()) / grid_.cell_size()
+						)
 					)
-				)
-			);
+				);
 
-			backlinks.push_back(
-				backlink(
-					e,
-					*this
-				)
-			);
+				backlinks.push_back(
+					backlink(
+						e,
+						*this
+					)
+				);
+			}
+			catch(sge::exception const &)
+			{
+			}
 		}
 }

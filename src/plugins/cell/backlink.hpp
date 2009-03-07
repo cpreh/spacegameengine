@@ -23,9 +23,18 @@ public:
 		grid_entry &,
 		cell::circle &);
 	
+	backlink(
+		backlink const &);
+
+	backlink &
+	operator=(
+		backlink const &);
+	
 	grid_entry &entry();
 	cell::circle &circle();
 private:
+	void add_me();
+
 	grid_entry *entry_;
 	cell::circle *circle_;
 };

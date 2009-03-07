@@ -3,9 +3,10 @@
 #include "../grid_entry.hpp"
 #include <sge/collision/satellite.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
-#include <boost/next_prior.hpp>
 #include <boost/foreach.hpp>
 
 sge::cell::world::world(
@@ -21,13 +22,8 @@ sge::cell::world::world(
 			1000
 		)
 	),
-	it_erased(
-		false
-	),
+	test_running(false),
 	objects(),
-	current_it(
-		objects.end()
-	),
 	sig(),
 	test_callback_()
 {}
@@ -99,32 +95,18 @@ void
 sge::cell::world::update(
 	collision::time_unit const delta)
 {
-	current_it = objects.begin();
-	while(
-		current_it != objects.end()
-	)
-	{
-		(*current_it)->update(
-			delta
-		);
-
-		if(it_erased)
-			it_erased = false;
-		else
-			++current_it;
-	}
+	// TODO: use scoped_exit here!
+	test_running = true;
 
 	BOOST_FOREACH(
-		collision_vector::reference r,
-		collisions
+		circle_list::reference r,
+		objects	
 	)
-		if(r.first != 0)
-			sig(
-				r.first->satellite(),
-				r.second->satellite()
-			);
+		r->update(
+			delta
+		);
 	
-	collisions.clear();
+	test_running = false;
 }
 
 bool
@@ -154,23 +136,12 @@ void
 sge::cell::world::unregister(
 	circle_list::iterator const it)
 {
-	circle *const ptr(
-		*it
-	);
-
-	if(it == current_it)
-	{
-		current_it = boost::next(it);
-		it_erased = true;
-	}
+	if(test_running)
+		throw exception(
+			SGE_TEXT("A collision object has been erased as a reaction to a collision!")
+		);
+	
 	objects.erase(it);
-
-	BOOST_FOREACH(
-		collision_vector::reference r,
-		collisions
-	)
-		if(r.first == ptr || r.second == ptr)
-			r.first = r.second = 0;	
 }
 
 void 
@@ -178,10 +149,8 @@ sge::cell::world::on_collide(
 	circle &a,
 	circle &b)
 {
-	collisions.push_back(
-		collision_pair(
-			&a,
-			&b
-		)
+	sig(
+		a.satellite(),
+		b.satellite()
 	);
 }
