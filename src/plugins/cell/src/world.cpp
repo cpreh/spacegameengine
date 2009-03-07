@@ -20,10 +20,15 @@ sge::cell::world::world(
 			1000
 		)
 	),
+	it_erased(
+		false
+	),
 	objects(),
 	current_it(
 		objects.end()
-	)
+	),
+	sig(),
+	test_callback_()
 {}
 
 sge::cell::world::~world()
@@ -90,15 +95,20 @@ void
 sge::cell::world::update(
 	collision::time_unit const delta)
 {
-	current_it = objects.begin();
 	for(
-		;
-		current_it != objects.end();
-		++current_it
+		circle_list::iterator it = objects.begin();
+		it != objects.end();
 	)
-		(*current_it)->update(
+	{
+		(*it)->update(
 			delta
 		);
+
+		if(it_erased)
+			it_erased = false;
+		else
+			++it;
+	}
 }
 
 bool
@@ -129,9 +139,9 @@ sge::cell::world::unregister(
 	circle_list::iterator const it)
 {
 	if(it == current_it)
-		current_it =
-			current_it == objects.begin()
-			? objects.begin()
-			: boost::prior(it);
+	{
+		current_it = boost::next(it);
+		it_erased = true;
+	}
 	objects.erase(it);
 }

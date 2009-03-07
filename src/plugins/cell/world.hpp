@@ -53,10 +53,11 @@ private:
 		circle_list::iterator);
 
 	grid grid_;
-	collision::callback_signal sig;
-	collision::test_callback test_callback_;
+	bool it_erased;
 	circle_list objects;
 	circle_list::iterator current_it;
+	collision::callback_signal sig;
+	collision::test_callback test_callback_;
 };
 
 }
