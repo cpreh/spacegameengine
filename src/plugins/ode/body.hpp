@@ -3,7 +3,7 @@
 
 #include "world_wrapper_fwd.hpp"
 #include "point.hpp"
-#include <sge/collision/sattelite_fwd.hpp>
+#include <sge/collision/satellite_fwd.hpp>
 #include <boost/noncopyable.hpp>
 #include <ode/ode.h>
 
@@ -18,7 +18,7 @@ public:
 		world_wrapper &,
 		point const &center,
 		point const &speed,
-		collision::sattelite &);
+		collision::satellite &);
 	void pos(point const &);
 	void speed(point const &);
 	point const pos() const;

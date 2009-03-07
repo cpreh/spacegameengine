@@ -1,5 +1,6 @@
 #include "../world.hpp"
 #include "../objects/circle.hpp"
+#include <sge/collision/satellite.hpp>
 
 sge::ode::world::world(
 	boost::optional<collision::rect> const &p)
@@ -27,14 +28,14 @@ sge::ode::world::register_callback(
 
 sge::collision::objects::circle_ptr const
 sge::ode::world::create_circle(
-	collision::sattelite_ptr _sattelite,
+	collision::satellite_ptr _satellite,
 	collision::point const &center,
 	collision::point const &speed,
 	collision::unit radius)
 {
 	return sge::collision::objects::circle_ptr(
 		new objects::circle(
-			_sattelite,
+			_satellite,
 			space_,
 			world_,
 			structure_cast<point>(center),
@@ -75,10 +76,10 @@ void sge::ode::world::internal_collide(dGeomID g1,dGeomID g2)
 	if (!test_callback_)
 		return;
 	
-	collision::sattelite &s1 = 
-		*static_cast<collision::sattelite*>(dGeomGetData(g1));
-	collision::sattelite &s2 = 
-		*static_cast<collision::sattelite*>(dGeomGetData(g2));
+	collision::satellite &s1 = 
+		*static_cast<collision::satellite*>(dGeomGetData(g1));
+	collision::satellite &s2 = 
+		*static_cast<collision::satellite*>(dGeomGetData(g2));
 
 	if (test_callback_(s1,s2))
 	{
