@@ -34,7 +34,12 @@ sge::gui::widgets::edit::edit(
 :
 	widget(
 		_parent,
-		_params.keyboard_focus(keyboard_focus::receive)),
+		_params
+			.keyboard_focus(keyboard_focus::receive)
+			.size_policy(
+				size_policy_t(
+					axis_policy::can_grow,
+					axis_policy::none))),
 	type(_type),
 	font_(_font),
 	desired_size_(_desired_size),
