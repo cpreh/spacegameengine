@@ -95,19 +95,19 @@ void
 sge::cell::world::update(
 	collision::time_unit const delta)
 {
-	for(
-		circle_list::iterator it = objects.begin();
-		it != objects.end();
+	current_it = objects.begin();
+	while(
+		current_it != objects.end()
 	)
 	{
-		(*it)->update(
+		(*current_it)->update(
 			delta
 		);
 
 		if(it_erased)
 			it_erased = false;
 		else
-			++it;
+			++current_it;
 	}
 }
 
