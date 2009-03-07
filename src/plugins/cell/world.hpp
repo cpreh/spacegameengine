@@ -2,7 +2,7 @@
 #define SGE_CELL_WORLD_HPP_INCLUDED
 
 #include "grid.hpp"
-#include "circle_list.hpp"
+#include "intrusive_circle_list.hpp"
 #include <sge/collision/world.hpp>
 #include <sge/collision/time_unit.hpp>
 #include <sge/collision/optional_rect.hpp>
@@ -49,16 +49,9 @@ private:
 		circle &,
 		circle &);
 
-	circle_list::iterator
-	register_(
-		circle &);
-	
-	void unregister(
-		circle_list::iterator);
-
 	grid grid_;
 	bool test_running;
-	circle_list objects;
+	intrusive_circle_list objects;
 	collision::callback_signal sig;
 	collision::test_callback test_callback_;
 };

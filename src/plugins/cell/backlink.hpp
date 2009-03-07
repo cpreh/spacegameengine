@@ -1,7 +1,6 @@
 #ifndef SGE_CELL_BACKLINK_HPP_INCLUDED
 #define SGE_CELL_BACKLINK_HPP_INCLUDED
 
-#include "circle_list.hpp"
 #include <boost/intrusive/list_hook.hpp>
 
 namespace sge
@@ -10,6 +9,7 @@ namespace cell
 {
 
 class grid_entry;
+class circle;
 
 class backlink
 :

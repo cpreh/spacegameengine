@@ -18,9 +18,7 @@ sge::cell::circle::circle(
 	collision::unit const radius_,
 	grid &grid_,
 	collision::test_callback const &test_callback,
-	collision_callback const &callback,
-	register_callback const &register_,
-	unregister_callback const &unregister_)
+	collision_callback const &callback)
 :
 	sat(sat),
 	center_(center_),
@@ -29,13 +27,6 @@ sge::cell::circle::circle(
 	grid_(grid_),
 	test_callback(test_callback),
 	callback(callback),
-	register_(register_),
-	unregister_(unregister_),
-	list_pos(
-		register_(
-			*this
-		)
-	),
 	backlinks()
 {
 	reposition();
@@ -129,11 +120,7 @@ sge::cell::circle::update(
 }
 
 sge::cell::circle::~circle()
-{
-	unregister_(
-		list_pos
-	);
-}
+{}
 
 void
 sge::cell::circle::reposition()
