@@ -3,7 +3,7 @@
 
 #include "collision_callback.hpp"
 #include <sge/collision/objects/circle.hpp>
-#include <sge/collision/callbacks.hpp>
+#include <sge/collision/test_callback.hpp>
 #include <sge/collision/satellite_fwd.hpp>
 #include <sge/math/vector/basic_decl.hpp>
 #include <sge/time/funit.hpp>

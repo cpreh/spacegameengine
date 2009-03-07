@@ -2,7 +2,7 @@
 #define SGE_BULLET_DISPATCHER_HPP_INCLUDED
 
 #include <bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.h>
-#include <sge/collision/callbacks.hpp>
+#include <sge/collision/callback.hpp>
 
 class btCollisionConfiguration;
 class btBroadphasePair;

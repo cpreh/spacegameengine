@@ -4,7 +4,8 @@
 #include <sge/collision/world_fwd.hpp>
 #include <sge/collision/unit.hpp>
 #include <sge/collision/point.hpp>
-#include <sge/collision/callbacks.hpp>
+#include <sge/collision/callback.hpp>
+#include <sge/collision/test_callback.hpp>
 #include <sge/collision/satellite_fwd.hpp>
 #include <sge/collision/time_unit.hpp>
 #include <sge/collision/objects/circle_fwd.hpp>
