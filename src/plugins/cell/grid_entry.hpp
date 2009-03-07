@@ -12,9 +12,6 @@ namespace cell
 
 class grid_entry {
 public:
-	void update(
-		collision::time_unit);
-	
 	circle_list &
 	entries();
 private:

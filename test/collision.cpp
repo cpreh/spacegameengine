@@ -58,7 +58,7 @@ class object : public sge::collision::satellite
 
 	void position_change(sge::collision::point const &p)
 	{
-	//	sge::cerr << "position_change to " << p << "\n";
+		sge::cerr << "position_change to " << p << '\n';
 		sprite_.x() = static_cast<sge::sprite::unit>(p.x());
 		sprite_.y() = static_cast<sge::sprite::unit>(p.y());
 	}
@@ -89,11 +89,24 @@ try
 		(sge::systems::parameterless::input));
 	
 	sge::collision::world_ptr const world = 
-		sys.collision_system()->create_world();
+		sys.collision_system()->create_world(
+			sge::collision::rect(
+				sge::collision::rect::point_type(
+					-500,
+					-500
+				),
+				sge::collision::rect::dim_type(
+					1000,
+					1000
+				)
+			)
+		);
 	
 	world->test_callback(&dispatch);
 
-	sge::signals::connection c = world->register_callback(&collision);
+	sge::signals::scoped_connection c(
+		world->register_callback(&collision)
+	);
 
 	sge::sprite::object s_a(
 		sge::sprite::point(600,0),
@@ -105,7 +118,7 @@ try
 		sge::sprite::defaults::texture_,
 		sge::sprite::dim(10,10));
 	
-	sge::collision::objects::circle_ptr o_a = 
+	sge::collision::objects::circle_ptr const o_a = 
 		world->create_circle(
 			sge::collision::satellite_ptr(
 				new object(s_a)),
@@ -119,7 +132,7 @@ try
 				static_cast<sge::collision::unit>(0)),
 			static_cast<sge::collision::unit>(5));
 
-	sge::collision::objects::circle_ptr o_b = 
+	sge::collision::objects::circle_ptr const o_b = 
 		world->create_circle(
 			sge::collision::satellite_ptr(
 				new object(s_b)),

@@ -5,6 +5,7 @@
 #include <sge/make_shared_ptr.hpp>
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
+#include <boost/next_prior.hpp>
 
 sge::cell::world::world(
 	collision::optional_rect const &rect)
@@ -18,6 +19,10 @@ sge::cell::world::world(
 			1000,
 			1000
 		)
+	),
+	objects(),
+	current_it(
+		objects.end()
 	)
 {}
 
@@ -47,30 +52,53 @@ sge::cell::world::create_circle(
 	collision::point const &speed,
 	collision::unit const radius)
 {
-	return collision::objects::circle_ptr( //make_shared_ptr<
-		new circle(
-	//>(
-		sat,
+	return make_shared_ptr<
+		circle
+	>(
+		boost::ref(
+			sat
+		),
 		center,
 		speed,
 		radius,
-		grid_,
+		boost::ref(
+			grid_
+		),
 		boost::bind(
 			&world::call_test,
 			this,
 			_1,
 			_2
 		),
-		sig
-	));
+		boost::ref(
+			sig
+		),
+		boost::bind(
+			&world::register_,
+			this,
+			_1
+		),
+		boost::bind(
+			&world::unregister,
+			this,
+			_1
+		)
+	);
 }
 
 void
 sge::cell::world::update(
 	collision::time_unit const delta)
 {
-	grid_.update(
-		delta);
+	current_it = objects.begin();
+	for(
+		;
+		current_it != objects.end();
+		++current_it
+	)
+		(*current_it)->update(
+			delta
+		);
 }
 
 bool
@@ -84,4 +112,26 @@ sge::cell::world::call_test(
 			b
 		)
 		: false;
+}
+
+sge::cell::circle_list::iterator
+sge::cell::world::register_(
+	circle &c)
+{
+	return objects.insert(
+		objects.begin(),
+		&c
+	);
+}
+
+void
+sge::cell::world::unregister(
+	circle_list::iterator const it)
+{
+	if(it == current_it)
+		current_it =
+			current_it == objects.begin()
+			? objects.begin()
+			: boost::prior(it);
+	objects.erase(it);
 }

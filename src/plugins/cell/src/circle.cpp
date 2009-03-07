@@ -6,6 +6,8 @@
 #include <sge/collision/satellite.hpp>
 #include <sge/container/field_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/dim.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/foreach.hpp>
 
 sge::cell::circle::circle(
@@ -15,7 +17,9 @@ sge::cell::circle::circle(
 	collision::unit const radius_,
 	grid &grid_,
 	collision::test_callback const &test_callback,
-	collision::callback_signal &callback)
+	collision::callback_signal &callback,
+	register_callback const &register_,
+	unregister_callback const &unregister_)
 :
 	sat(sat),
 	center_(center_),
@@ -24,7 +28,14 @@ sge::cell::circle::circle(
 	grid_(grid_),
 	backlinks(),
 	test_callback(test_callback),
-	callback(callback)
+	callback(callback),
+	register_(register_),
+	unregister_(unregister_),
+	list_pos(
+		register_(
+			*this
+		)
+	)
 {
 	reposition();
 }
@@ -72,6 +83,10 @@ sge::cell::circle::update(
 	time::funit const delta)
 {
 	center_ += speed_ * delta;
+
+	satellite().position_change(
+		center()
+	);
 	
 	reposition();
 
@@ -108,7 +123,17 @@ sge::cell::circle::update(
 }
 
 sge::cell::circle::~circle()
-{}
+{
+	BOOST_FOREACH(
+		backlink_list::reference r,
+		backlinks
+	)
+		r.unlink();
+
+	unregister_(
+		list_pos
+	);
+}
 
 void
 sge::cell::circle::reposition()
@@ -140,12 +165,18 @@ sge::cell::circle::reposition()
 		{
 			grid_entry &e(
 				field.pos(
-					static_cast<field_type::size_type>(x / grid_.cell_size().w()),
-					static_cast<field_type::size_type>(y / grid_.cell_size().h())
+					sge::structure_cast<
+						field_type::vector_type
+					>(
+						(grid::pos_type(
+							x,
+							y
+						) - grid_.pos()) / grid_.cell_size()
+					)
 				)
 			);
 
-			circle_list list(
+			circle_list &list(
 				e.entries()
 			);
 

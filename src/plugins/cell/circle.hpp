@@ -2,6 +2,9 @@
 #define SGE_CELL_CIRCLE_HPP_INCLUDED
 
 #include "backlink_list.hpp"
+#include "register_callback.hpp"
+#include "unregister_callback.hpp"
+#include "circle_list.hpp"
 #include <sge/collision/objects/circle.hpp>
 #include <sge/collision/callbacks.hpp>
 #include <sge/collision/satellite_fwd.hpp>
@@ -24,7 +27,9 @@ public:
 		collision::unit radius,
 		grid &,
 		collision::test_callback const &,
-		collision::callback_signal &);
+		collision::callback_signal &,
+		register_callback const &,
+		unregister_callback const &);
 	
 	void center(
 		collision::point const &);
@@ -59,6 +64,9 @@ private:
 	backlink_list backlinks;
 	collision::test_callback const test_callback;
 	collision::callback_signal &callback;
+	register_callback const register_;
+	unregister_callback const unregister_;
+	circle_list::iterator const list_pos;
 };
 
 }
