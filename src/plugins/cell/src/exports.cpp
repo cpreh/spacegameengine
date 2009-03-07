@@ -39,8 +39,8 @@ plugin_version_info(
 {
 	if(!i)
 		return;
-	i->name = SGE_TEXT("bullet");
-	i->description = SGE_TEXT("");
+	i->name = SGE_TEXT("cell");
+	i->description = SGE_TEXT("This plugin provides an experimental implementation for collision detecting with a grid.");
 	i->type = sge::plugin::capabilities::collision_system;
 	i->plugin_version = 0x1;
 	i->min_core_version = 0x1;
@@ -49,7 +49,7 @@ plugin_version_info(
 SGE_EXPORT_SYMBOL sge::collision::system *
 create_collision_system()
 {
-	return new sge::bullet::system();
+	return new sge::cell::system();
 }
 
 }

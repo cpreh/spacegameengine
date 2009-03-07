@@ -39,7 +39,7 @@ plugin_version_info(
 {
 	if(!i)
 		return;
-	i->name = SGE_TEXT("ode plugin");
+	i->name = SGE_TEXT("ode");
 	i->description = SGE_TEXT("");
 	i->type = sge::plugin::capabilities::collision_system;
 	i->plugin_version = 0x1;
