@@ -10,7 +10,9 @@ namespace ode
 {
 typedef math::vector::static_<
 	dReal,
-	3>::type point;
+	3
+>::type point;
+
 }
 }
 

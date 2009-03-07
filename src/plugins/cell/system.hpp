@@ -10,7 +10,7 @@ namespace cell
 
 class system : public collision::system {
 public:
-	world_ptr const
+	collision::world_ptr const
 	create_world(
 		collision::optional_rect const &);
 };

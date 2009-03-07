@@ -4,13 +4,14 @@ sge::bullet::constraint::constraint(
 	world_type &world,
 	body_type &body,
 	body_type &zero_body)
-	: world(world),
-	  constraint_(
-			body,
-			zero_body,
-			btTransform::getIdentity(),
-			btTransform::getIdentity(),
-			false)
+:
+	world(world),
+	constraint_(
+		body,
+		zero_body,
+		btTransform::getIdentity(),
+		btTransform::getIdentity(),
+		false)
 {
 	// Use limit(axis, a, b) where a>b to disable limits on that axis
 	constraint_.setLimit(0,1,0); // Disable X axis limits

@@ -18,38 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include <sge/export.hpp>
-#include <sge/text.hpp>
-#include <sge/plugin/info.hpp>
+#include "../listener.hpp"
+#include <sge/math/vector/basic_impl.hpp>
 
-extern "C"
+sge::audio_null::listener::listener()
+:
+	pos_(
+		audio::point::null()
+	),
+	vel_(
+		audio::point::null()
+	),
+	direction_()
+{}
+
+sge::audio::point const
+sge::audio_null::listener::pos() const
 {
-
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *);
-
-SGE_EXPORT_SYMBOL sge::collision::system *
-create_collision_system();
-
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const i)
-{
-	if(!i)
-		return;
-	i->name = SGE_TEXT("ode plugin");
-	i->description = SGE_TEXT("");
-	i->type = sge::plugin::capabilities::collision_system;
-	i->plugin_version = 0x1;
-	i->min_core_version = 0x1;
+	return pos_;
 }
 
-SGE_EXPORT_SYMBOL sge::collision::system *
-create_collision_system()
+void
+sge::audio_null::listener::pos(
+	audio::point const &p)
 {
-	return new sge::ode::system();
+	pos_ = p;
 }
 
+sge::audio::point const
+sge::audio_null::listener::vel() const
+{
+	return vel_;
 }
+
+void
+sge::audio_null::listener::vel(
+	audio::point const &p)
+{
+	vel_ = p;
+}
+
+sge::audio::angle const
+sge::audio_null::listener::direction() const
+{
+	return direction_;
+}
+
+void
+sge::audio_null::listener::direction(
+	audio::angle const &d)
+{
+	direction_ = d;
+}
+

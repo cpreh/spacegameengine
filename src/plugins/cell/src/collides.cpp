@@ -14,11 +14,17 @@ sge::cell::collides(
 
 	return sge::math::intersects(
 		circle_type(
-			a.center(),
+			circle_type::point_type(
+				a.center().x(),
+				a.center().y()
+			),
 			a.radius()
 		),
 		circle_type(
-			b.center(),
+			circle_type::point_type(
+				b.center().x(),
+				b.center().y()
+			),
 			b.radius()
 		)
 	);

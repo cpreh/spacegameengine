@@ -3,6 +3,7 @@
 
 #include "grid.hpp"
 #include <sge/collision/world.hpp>
+#include <sge/collision/time_unit.hpp>
 #include <sge/collision/optional_rect.hpp>
 
 namespace sge
@@ -15,9 +16,11 @@ public:
 	explicit world(
 		collision::optional_rect const &);
 
+	~world();
+
 	void
 	test_callback(
-		::sge::collision::test_callback const &);
+		collision::test_callback const &);
 
 	signals::connection const 
 	register_callback(
@@ -32,11 +35,11 @@ public:
 
 	void
 	update(
-		time::funit delta);
+		collision::time_unit delta);
 private:
 	bool call_test(
-		collision::satellite &,
-		collision::satellite &
+		collision::satellite const &,
+		collision::satellite const &
 	);
 
 	grid grid_;

@@ -6,8 +6,8 @@
 #include <sge/collision/point.hpp>
 #include <sge/collision/callbacks.hpp>
 #include <sge/collision/satellite_fwd.hpp>
+#include <sge/collision/time_unit.hpp>
 #include <sge/collision/objects/circle_fwd.hpp>
-#include <sge/time/funit.hpp>
 #include <sge/signals/connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
@@ -24,7 +24,7 @@ protected:
 public:
 	virtual void
 	test_callback(
-		::sge::collision::test_callback const &) = 0;
+		collision::test_callback const &) = 0;
 
 	virtual signals::connection const 
 	register_callback(
@@ -39,7 +39,7 @@ public:
 
 	virtual void
 	update(
-		time::funit delta) = 0;
+		time_unit delta) = 0;
 	
 	SGE_SYMBOL virtual ~world();
 };

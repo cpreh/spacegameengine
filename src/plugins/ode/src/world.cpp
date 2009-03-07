@@ -3,9 +3,10 @@
 #include <sge/collision/satellite.hpp>
 
 sge::ode::world::world(
-	boost::optional<collision::rect> const &p)
-	: world_(),
-		space_(p)
+	collision::optional_rect const &p)
+:
+	world_(),
+	space_(p)
 {
 	// this could be set to disable the auto disable feature
 	dWorldSetAutoDisableFlag(world_.id(),0);
@@ -45,9 +46,9 @@ sge::ode::world::create_circle(
 
 void
 sge::ode::world::update(
-	time::funit delta)
+	collision::time_unit const delta)
 {
-	time::funit const step_size = static_cast<time::funit>(0.0001);
+	collision::time_unit const step_size = static_cast<collision::time_unit>(0.0001);
 	//unsigned iterations = static_cast<unsigned>(std::ceil(delta/step_size));
 	unsigned iterations = static_cast<unsigned>(delta/step_size);
 	//if (iterations == 0)

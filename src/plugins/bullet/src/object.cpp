@@ -2,14 +2,13 @@
 #include "../motion_state.hpp"
 #include "../world.hpp"
 #include "../conversion.hpp"
-#include <sge/collision/sattelite.hpp>
+#include <sge/collision/satellite.hpp>
 #include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/output.hpp>
 #include <boost/bind.hpp>
 
 sge::bullet::object::object(
 	world &sys,
-	collision::sattelite_ptr _sat,
+	collision::satellite_ptr _sat,
 	shape_ptr _shape,
 	unit const _mass)
 :
@@ -17,7 +16,12 @@ sge::bullet::object::object(
 	world_(sys.world_internal()),
 	shape_(_shape),
 	motion_state_(
-		boost::bind(&object::position_changed,this,_1)),
+		boost::bind(
+			&object::position_changed,
+			this,
+			_1
+		)
+	),
 	body_(
 		btRigidBody::btRigidBodyConstructionInfo(
 			static_cast<unit>(_mass),

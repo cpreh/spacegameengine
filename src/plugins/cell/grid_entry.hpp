@@ -3,6 +3,7 @@
 
 #include "circle_list.hpp"
 #include <sge/collision/rect.hpp>
+#include <sge/collision/time_unit.hpp>
 
 namespace sge
 {
@@ -11,19 +12,12 @@ namespace cell
 
 class grid_entry {
 public:
-	explicit grid_entry(
-		collision::rect const &);
-
 	void update(
-		time::funit);
+		collision::time_unit);
 	
-	collision::rect const &
-	rect() const;
-
 	circle_list &
-	entries() const;
+	entries();
 private:
-	collision::rect const rect_;
 	circle_list entries_;
 };
 

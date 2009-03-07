@@ -11,6 +11,7 @@ FIND_PACKAGE(Freetype)
 FIND_PACKAGE(Vorbis)
 FIND_PACKAGE(Mad)
 
+OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" ON)
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 OPTION (ENABLE_CELL "Build the cell collision plugin" ON)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
@@ -68,6 +69,10 @@ IF(X11_Xinput_FOUND)
 ELSE(X11_Xinput_FOUND)
 	OPTION (ENABLE_X11INPUT "Build the x11 input plugin" OFF)
 ENDIF(X11_Xinput_FOUND)
+
+IF(ENABLE_AUDIO_NULL)
+	ADD_SUBDIRECTORY (audio_null)
+ENDIF ()
 
 IF(ENABLE_BULLET)
 	ADD_SUBDIRECTORY (bullet)

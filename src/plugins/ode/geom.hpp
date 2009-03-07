@@ -2,15 +2,16 @@
 #define SGE_ODE_GEOM_HPP_INCLUDED
 
 #include "body_fwd.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <ode/ode.h>
 
 namespace sge
 {
 namespace ode
 {
-class geom : boost::noncopyable
+class geom
 {
+	SGE_NONCOPYABLE(geom)
 public:
 	geom(
 		dGeomID,

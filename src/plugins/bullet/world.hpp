@@ -13,21 +13,30 @@ namespace bullet
 {
 class world : public collision::world
 {
-	public:
+public:
 	world();
-	void test_callback(collision::test_callback const &);
+
+	void test_callback(
+		collision::test_callback const &);
+
 	sge::signals::connection const 
-		register_callback(collision::callback const &);
-	collision::objects::circle_ptr const create_circle(
-		collision::sattelite_ptr,
+	register_callback(
+		collision::callback const &);
+
+	collision::objects::circle_ptr const
+	create_circle(
+		collision::satellite_ptr,
 		collision::point const &center,
 		collision::point const &speed,
 		collision::unit);
-	void update(time::funit delta);
+
+	void update(
+		collision::time_unit delta);
+
 	world_type &world_internal();
 	body_type &zero_body();
 	~world();
-	private:
+private:
 	collision::test_callback test_;
 	collision::callback_signal callback_signal_;
 

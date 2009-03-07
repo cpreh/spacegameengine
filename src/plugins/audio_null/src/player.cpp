@@ -18,38 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include <sge/export.hpp>
-#include <sge/text.hpp>
-#include <sge/plugin/info.hpp>
+#include "../player.hpp"
+#include "../sound.hpp"
+#include <sge/make_shared_ptr.hpp>
 
-extern "C"
+sge::audio_null::player::player()
+:
+	listener_(),
+	speed_of_sound_(0)
+{}
+
+sge::audio::listener &
+sge::audio_null::player::listener()
 {
-
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *);
-
-SGE_EXPORT_SYMBOL sge::collision::system *
-create_collision_system();
-
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const i)
-{
-	if(!i)
-		return;
-	i->name = SGE_TEXT("ode plugin");
-	i->description = SGE_TEXT("");
-	i->type = sge::plugin::capabilities::collision_system;
-	i->plugin_version = 0x1;
-	i->min_core_version = 0x1;
+	return listener_;
 }
 
-SGE_EXPORT_SYMBOL sge::collision::system *
-create_collision_system()
+sge::audio::unit
+sge::audio_null::player::speed_of_sound() const
 {
-	return new sge::ode::system();
+	return speed_of_sound_;
 }
 
+void
+sge::audio_null::player::speed_of_sound(
+	audio::unit const nspeed)
+{
+	speed_of_sound_ = nspeed;
+}
+
+sge::audio::sound_ptr const
+sge::audio_null::player::create_nonstream_sound(
+	audio::file_ptr)
+{
+	return  make_shared_ptr<
+		sound
+	>();
+}
+
+sge::audio::sound_ptr const
+sge::audio_null::player::create_stream_sound(
+	audio::file_ptr)
+{
+	return  make_shared_ptr<
+		sound
+	>();
 }

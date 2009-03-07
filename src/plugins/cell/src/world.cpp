@@ -21,6 +21,9 @@ sge::cell::world::world(
 	)
 {}
 
+sge::cell::world::~world()
+{}
+
 void
 sge::cell::world::test_callback(
 	::sge::collision::test_callback const &cb)
@@ -44,7 +47,6 @@ sge::cell::world::create_circle(
 	collision::point const &speed,
 	collision::unit const radius)
 {
-	/*
 	return collision::objects::circle_ptr( //make_shared_ptr<
 		new circle(
 	//>(
@@ -60,18 +62,12 @@ sge::cell::world::create_circle(
 			_2
 		),
 		sig
-	));*/
-	boost::bind(
-		&world::call_test,
-		this,
-		_1,
-		_2
-	);
+	));
 }
 
 void
 sge::cell::world::update(
-	time::funit const delta)
+	collision::time_unit const delta)
 {
 	grid_.update(
 		delta);
@@ -79,8 +75,8 @@ sge::cell::world::update(
 
 bool
 sge::cell::world::call_test(
-	collision::satellite &a,
-	collision::satellite &b)
+	collision::satellite const &a,
+	collision::satellite const &b)
 {
 	return test_callback_
 		? test_callback_(

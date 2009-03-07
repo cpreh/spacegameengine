@@ -18,38 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../system.hpp"
-#include <sge/export.hpp>
-#include <sge/text.hpp>
-#include <sge/plugin/info.hpp>
+#ifndef SGE_AUDIO_NULL_LISTENER_HPP_INCLUDED
+#define SGE_AUDIO_NULL_LISTENER_HPP_INCLUDED
 
-extern "C"
+#include <sge/audio/listener.hpp>
+#include <sge/audio/angle.hpp>
+#include <sge/math/vector/basic_decl.hpp>
+
+namespace sge
+{
+namespace audio_null
 {
 
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *);
-
-SGE_EXPORT_SYMBOL sge::collision::system *
-create_collision_system();
-
-SGE_EXPORT_SYMBOL void
-plugin_version_info(
-	sge::plugin::info *const i)
-{
-	if(!i)
-		return;
-	i->name = SGE_TEXT("ode plugin");
-	i->description = SGE_TEXT("");
-	i->type = sge::plugin::capabilities::collision_system;
-	i->plugin_version = 0x1;
-	i->min_core_version = 0x1;
-}
-
-SGE_EXPORT_SYMBOL sge::collision::system *
-create_collision_system()
-{
-	return new sge::ode::system();
-}
+class listener : public audio::listener {
+public:
+	listener();
+	audio::point const pos() const;
+	void pos(audio::point const &);
+	audio::point const vel() const;
+	void vel(audio::point const &);
+	audio::angle const direction() const;
+	void direction(audio::angle const &);
+private:
+	audio::point
+		pos_,
+		vel_;
+	audio::angle direction_;
+};
 
 }
+}
+
+#endif

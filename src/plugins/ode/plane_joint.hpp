@@ -3,15 +3,16 @@
 
 #include "world_wrapper_fwd.hpp"
 #include "body_fwd.hpp"
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 #include <ode/ode.h>
 
 namespace sge
 {
 namespace ode
 {
-class plane_joint : boost::noncopyable
+class plane_joint
 {
+	SGE_NONCOPYABLE(plane_joint)
 public:
 	plane_joint(
 		world_wrapper &,
