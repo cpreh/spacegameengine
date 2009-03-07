@@ -3,12 +3,12 @@
 
 #include <list>
 
-class circle;
-
 namespace sge
 {
 namespace cell
 {
+
+class circle;
 
 typedef std::list<
 	circle *

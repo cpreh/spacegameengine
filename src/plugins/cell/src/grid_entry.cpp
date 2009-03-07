@@ -1,16 +1,24 @@
 #include "../grid_entry.hpp"
+#include "../circle.hpp"
+#include <boost/foreach.hpp>
 
 void
 sge::cell::grid_entry::update(
-	time::funit const delta)
+	collision::time_unit const delta)
 {
 	BOOST_FOREACH(
-		weak_circle_list::reference r,
-		refs
+		circle_list::reference r,
+		entries_	
 	)
 	{
 		r->update(
 			delta
 		);
 	}
+}
+
+sge::cell::circle_list &
+sge::cell::grid_entry::entries()
+{
+	return entries_;
 }

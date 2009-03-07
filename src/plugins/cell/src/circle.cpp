@@ -3,6 +3,8 @@
 #include "../grid.hpp"
 #include "../grid_entry.hpp"
 #include "../backlink.hpp"
+#include <sge/collision/satellite.hpp>
+#include <sge/math/vector/arithmetic.hpp>
 #include <boost/foreach.hpp>
 
 sge::cell::circle::circle(
@@ -62,7 +64,7 @@ void
 sge::cell::circle::update(
 	time::funit const delta)
 {
-	//center_ += speed_ * delta;
+	center_ += speed_ * delta;
 	
 	reposition();
 
@@ -115,18 +117,18 @@ sge::cell::circle::reposition()
 	for(
 		collision::unit x = center().x() - radius();
 		x < center().x() + radius();
-		x += grid.cell_size().w()
+		x += grid_.cell_size().w()
 	)
 		for(
 			collision::unit y = center().y() - radius();
 			y < center().y() + radius();
-			y += grid.cell_size().h()
+			y += grid_.cell_size().h()
 		)
 		{
 			grid_entry &e(
-				field.at_xy(
-					x / grid.cell_size.w(),
-					y / grid.cell_size.h()
+				field.pos(
+					static_cast<field_type::size_type>(x / grid_.cell_size().w()),
+					static_cast<field_type::size_type>(y / grid_.cell_size().h())
 				)
 			);
 
@@ -135,10 +137,12 @@ sge::cell::circle::reposition()
 			);
 
 			backlinks.push_back(
-				e,
-				list.insert(
-					list.begin(),
-					this
+				backlink(
+					e,
+					list.insert(
+						list.begin(),
+						this
+					)
 				)
 			);
 		}
