@@ -42,9 +42,6 @@ sge::gui::manager::manager(
 	submanagers.push_back(&timer_);
 }
 
-sge::gui::manager::~manager()
-{}
-
 void sge::gui::manager::invalidate(
 	widget &w,
 	rect const &r)
@@ -116,3 +113,5 @@ sge::gui::detail::managers::keyboard &sge::gui::manager::keyboard()
 {
 	return keyboard_;
 }
+
+sge::gui::manager::~manager() {}

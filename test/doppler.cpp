@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/loader.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
+#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/texture_animation.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/add_image.hpp>
@@ -161,10 +162,11 @@ try
 	sge::sprite::system ss(sys.renderer());
 
 	sge::sprite::object bg(
-		sge::sprite::point(0,0),
-		tex_bg,
-		sge::structure_cast<sge::sprite::dim>(
-			screen_size));
+		sge::sprite::parameters()
+			.texture(tex_bg)
+			.size(
+				sge::structure_cast<sge::sprite::dim>(
+					screen_size)));
 
 	sge::sprite::object pointer(
 		sge::sprite::point(0,0),

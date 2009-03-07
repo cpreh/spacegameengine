@@ -86,7 +86,7 @@ void sge::gui::skins::standard::draw(
 
 	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
-		rect(point::null(),c.size()),
+		rect(b.absolute_pos(),c.size()),
 		e.texture(),
 		e.area());
 }

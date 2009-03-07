@@ -34,6 +34,7 @@ class SGE_CLASS_SYMBOL button : public widget
 	SGE_SYMBOL void process(events::keyboard_leave const &);
 
 	// signals
+	// FIXME: add a function for this
 	boost::signal<void ()> clicked;
 	private:
 	using widget::process;

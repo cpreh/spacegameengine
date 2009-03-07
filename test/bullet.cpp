@@ -18,9 +18,9 @@
 #include <sge/input/action.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
-#include <sge/collision/sattelite.hpp>
 #include <sge/collision/objects/circle.hpp>
 #include <sge/collision/system.hpp>
+#include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/exception.hpp>
@@ -36,19 +36,19 @@
 namespace
 {
 bool dispatch(
-	sge::collision::sattelite const &,
-	sge::collision::sattelite const &)
+	sge::collision::satellite const &,
+	sge::collision::satellite const &)
 {
 	std::cerr << "dispatch called\n";
 	return true;
 }
 
-void collision(sge::collision::sattelite &,sge::collision::sattelite &)
+void collision(sge::collision::satellite &,sge::collision::satellite &)
 {
 	std::cerr << "a collision!\n";
 }
 
-class object : public sge::collision::sattelite
+class object : public sge::collision::satellite
 {
 	public:
 	object(sge::sprite::object &sprite_)
@@ -107,7 +107,7 @@ try
 	
 	sge::collision::objects::circle_ptr o_a = 
 		world->create_circle(
-			sge::collision::sattelite_ptr(
+			sge::collision::satellite_ptr(
 				new object(s_a)),
 			sge::collision::point(
 				static_cast<sge::collision::unit>(600),
@@ -121,7 +121,7 @@ try
 
 	sge::collision::objects::circle_ptr o_b = 
 		world->create_circle(
-			sge::collision::sattelite_ptr(
+			sge::collision::satellite_ptr(
 				new object(s_b)),
 			sge::collision::point(
 				static_cast<sge::collision::unit>(10),

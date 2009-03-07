@@ -37,8 +37,8 @@ class keyboard : public submanager
 	input::modifier::filter input_filter;
 	widget_container widgets;
 	boost::optional<widget_container::iterator> focus;
-	signals::scoped_connection ic;
-	signals::scoped_connection irc;
+	signals::scoped_connection const ic;
+	signals::scoped_connection const irc;
 
 	void input_callback(
 		input::key_pair const &,

@@ -40,7 +40,7 @@ class mouse : public submanager
 	typedef boost::ptr_vector<widget,boost::view_clone_allocator> widget_container;
 
 	widget_container widgets;
-	signals::scoped_connection ic;
+	signals::scoped_connection const ic;
 	sprite::object cursor_;
 	sprite::point cursor_click;
 	widget *focus;
