@@ -26,38 +26,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace audio
+namespace audio_null
 {
 
 class sound : public audio::sound {
 public:
 	sound();
 
-	void play(sge::audio::play_mode::type);
-	sge::audio::play_mode::type play_mode() const;
+	void play(audio::play_mode::type);
+	audio::play_mode::type play_mode() const;
 	void toggle_pause();
-	sound_status::type status() const;
+	audio::sound_status::type status() const;
 	void stop();
 
-	point const pos() const;
-	void pos(point const &);
-	point const vel() const;
-	void vel(point const &);
-	void attenuation(unit);
-	unit attenuation() const;
-	void rolloff(unit);
-	unit rolloff() const;
+	audio::point const pos() const;
+	void pos(audio::point const &);
+	audio::point const vel() const;
+	void vel(audio::point const &);
+	void attenuation(audio::unit);
+	audio::unit attenuation() const;
+	void rolloff(audio::unit);
+	audio::unit rolloff() const;
 	bool positional() const;
 	void positional(bool);
-	void direction(point const &);
-	point const direction() const;
-	void inner_cone_angle(unit);
-	unit inner_cone_angle() const;
-	void outer_cone_angle(unit);
-	unit outer_cone_angle() const;
+	void direction(audio::point const &);
+	audio::point const direction() const;
+	void inner_cone_angle(audio::unit);
+	audio::unit inner_cone_angle() const;
+	void outer_cone_angle(audio::unit);
+	audio::unit outer_cone_angle() const;
 private:
 	audio::play_mode::type play_mode_;		
-	audio::sound_status::type const sound_status_;
+	audio::sound_status::type const status_;
 	audio::point
 		pos_,
 		vel_;

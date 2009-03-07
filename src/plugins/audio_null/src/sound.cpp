@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../sound.hpp"
+#include <sge/math/vector/basic_impl.hpp>
 
 sge::audio_null::sound::sound()
 :
 	play_mode_(
 		audio::play_mode::once
 	),
-	sound_status_(
+	status_(
 		audio::sound_status::stopped
 	),
 	pos_(
@@ -40,7 +41,7 @@ sge::audio_null::sound::sound()
 	rolloff_(
 		static_cast<audio::unit>(0)
 	),
-	positional(
+	positional_(
 		false
 	),
 	direction_(
@@ -92,7 +93,7 @@ sge::audio_null::sound::pos() const
 
 void
 sge::audio_null::sound::pos(
-	point const &npos)
+	audio::point const &npos)
 {
 	pos_ = npos;
 }
@@ -105,14 +106,14 @@ sge::audio_null::sound::vel() const
 
 void
 sge::audio_null::sound::vel(
-	point const &nvel)
+	audio::point const &nvel)
 {
 	vel_ = nvel;
 }
 
 void
 sge::audio_null::sound::attenuation(
-	unit const nattenuation)
+	audio::unit const nattenuation)
 {
 	attenuation_ = nattenuation;
 }
@@ -125,7 +126,7 @@ sge::audio_null::sound::attenuation() const
 
 void
 sge::audio_null::sound::rolloff(
-	unit const nrolloff)
+	audio::unit const nrolloff)
 {
 	rolloff_ = nrolloff;
 }
@@ -151,7 +152,7 @@ sge::audio_null::sound::positional(
 
 void
 sge::audio_null::sound::direction(
-	point const &ndirection)
+	audio::point const &ndirection)
 {
 	direction_ = ndirection;
 }
@@ -164,7 +165,7 @@ sge::audio_null::sound::direction() const
 
 void
 sge::audio_null::sound::inner_cone_angle(
-	unit const ninner_cone_angle)
+	audio::unit const ninner_cone_angle)
 {
 	inner_cone_angle_ = ninner_cone_angle;
 }
@@ -177,7 +178,7 @@ sge::audio_null::sound::inner_cone_angle() const
 
 void
 sge::audio_null::sound::outer_cone_angle(
-	unit const nouter_cone_angle)
+	audio::unit const nouter_cone_angle)
 {
 	outer_cone_angle_ = nouter_cone_angle;
 }

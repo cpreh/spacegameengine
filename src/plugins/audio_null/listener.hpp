@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_NULL_LISTENER_HPP_INCLUDED
 
 #include <sge/audio/listener.hpp>
+#include <sge/audio/angle.hpp>
 #include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
