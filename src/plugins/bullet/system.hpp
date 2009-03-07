@@ -10,8 +10,9 @@ namespace bullet
 class system : public sge::collision::system
 {
 public:
-	sge::collision::world_ptr const create_world(
-		boost::optional<sge::collision::rect> const &);
+	sge::collision::world_ptr const
+	create_world(
+		collision::optional_rect const &);
 };
 }
 }

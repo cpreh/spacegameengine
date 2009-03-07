@@ -1,14 +1,15 @@
 #ifndef SGE_ODE_LIBRARY_HPP_INCLUDED
 #define SGE_ODE_LIBRARY_HPP_INCLUDED
 
-#include <boost/noncopyable.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
 namespace ode
 {
-class library : boost::noncopyable
+class library
 {
+	SGE_NONCOPYABLE(library)
 	public:
 	library();
 	~library();

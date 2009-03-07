@@ -7,7 +7,7 @@
 #include "motion_state.hpp"
 #include <sge/collision/point.hpp>
 #include <sge/collision/unit.hpp>
-#include <sge/collision/sattelite_fwd.hpp>
+#include <sge/collision/satellite_fwd.hpp>
 #include <sge/math/vector/basic_decl.hpp>
 
 namespace sge
@@ -16,10 +16,10 @@ namespace bullet
 {
 class object
 {
-	public:
+public:
 	object(
 		world &,
-		collision::sattelite_ptr,
+		collision::satellite_ptr,
 		shape_ptr,
 		unit mass);
 
@@ -28,11 +28,11 @@ class object
 	void speed(collision::point const &);
 	collision::point const speed() const;
 	~object();
-	private:
+private:
 	friend class motion_state;
 	void position_changed(point const &);
 
-	collision::sattelite_ptr sat;
+	collision::satellite_ptr sat;
 	world_type &world_;
 	shape_ptr shape_;
 	motion_state motion_state_;

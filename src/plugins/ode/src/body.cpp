@@ -9,7 +9,12 @@ sge::ode::body::body(
 	point const &center,
 	point const &speed,
 	collision::satellite &_satellite)
-	: id_(dBodyCreate(world_.id()))
+:
+	id_(
+		dBodyCreate(
+			world_.id()
+		)
+	)
 {
 	dBodySetPosition(id(),center.x(),center.y(),center.z());
 	dBodySetLinearVel(id(),speed.x(),speed.y(),speed.z());

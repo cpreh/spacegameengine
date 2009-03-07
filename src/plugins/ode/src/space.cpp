@@ -1,8 +1,9 @@
 #include "../space.hpp"
 
 sge::ode::space::space(
-	boost::optional<collision::rect> const &_rect)
-	: id_()
+	collision::optional_rect const &_rect)
+:
+	id_()
 {
 	if (!_rect)
 	{

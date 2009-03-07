@@ -16,7 +16,7 @@ class circle : public object, public collision::objects::circle
 	public:
 	circle(
 		world &,
-		collision::sattelite_ptr,
+		collision::satellite_ptr,
 		collision::point const &center,
 		collision::point const &speed,
 		collision::unit radius);

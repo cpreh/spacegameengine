@@ -3,7 +3,7 @@
 
 sge::collision::world_ptr const
 sge::bullet::system::create_world(
-	boost::optional<sge::collision::rect> const &r)
+	collision::optional_rect const &r)
 {
 	return collision::world_ptr(
 		new world());

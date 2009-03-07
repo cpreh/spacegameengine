@@ -33,7 +33,7 @@ public:
 
 	void
 	update(
-		time::funit delta);
+		collision::time_unit delta);
 private:
 	world_wrapper world_;
 	space space_;

@@ -1,10 +1,10 @@
 #include "../../objects/circle.hpp"
-#include <sge/collision/sattelite.hpp>
+#include <sge/collision/satellite.hpp>
 #include <bullet/BulletCollision/CollisionShapes/btSphereShape.h>
 
 sge::bullet::objects::circle::circle(
 	world &s,
-	collision::sattelite_ptr sat,
+	collision::satellite_ptr sat,
 	collision::point const &_center,
 	collision::point const &_speed,
 	collision::unit const radius)
