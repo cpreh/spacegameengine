@@ -3,20 +3,50 @@
 
 sge::cell::backlink::backlink(
 	grid_entry &entry_,
-	circle_list::iterator const it)
+	cell::circle &circle_)
 :
-	entry_(entry_),
-	it(it)
+	entry_(&entry_),
+	circle_(&circle_)
 {}
+
+sge::cell::backlink::backlink(
+	backlink const &l)
+:
+	entry_(l.entry_),
+	circle_(l.circle_)
+{
+	add_me();
+}
+
+sge::cell::backlink &
+sge::cell::backlink::operator=(
+	backlink const &l)
+{
+	if(&l == this)
+		return *this;
+	unlink();
+	entry_ = l.entry_;
+	circle_ = l.circle_;
+	add_me();
+	return *this;
+}
 
 sge::cell::grid_entry &
 sge::cell::backlink::entry()
 {
-	return entry_;
+	return *entry_;
 }
 
-void sge::cell::backlink::unlink()
+sge::cell::circle &
+sge::cell::backlink::circle()
 {
-	entry_.entries().erase(
-		it);
+	return *circle_;
+}
+
+void
+sge::cell::backlink::add_me()
+{
+	entry().entries().push_back(
+		*this
+	);
 }

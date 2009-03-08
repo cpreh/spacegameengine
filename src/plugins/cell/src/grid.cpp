@@ -1,10 +1,10 @@
 #include "../grid.hpp"
 #include "../grid_entry.hpp"
+#include "../circle.hpp"
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/arithmetic.hpp>
 #include <sge/container/field_impl.hpp>
 #include <sge/structure_cast.hpp>
-#include <boost/foreach.hpp>
 
 sge::cell::grid::grid(
 	collision::rect const &rect_)
@@ -12,8 +12,8 @@ sge::cell::grid::grid(
 	rect_(rect_),
 	field_(
 		field_type::dim_type(
-			static_cast<field_type::size_type>(rect_.w() / 100),
-			static_cast<field_type::size_type>(rect_.h() / 100)
+			static_cast<field_type::size_type>(rect_.w() / 50),
+			static_cast<field_type::size_type>(rect_.h() / 50)
 		)
 	)
 {}
@@ -21,22 +21,16 @@ sge::cell::grid::grid(
 sge::cell::grid::~grid()
 {}
 
-void
-sge::cell::grid::update(
-	time::funit const delta)
-{
-	BOOST_FOREACH(
-		field_type::reference r,
-		field_
-	)
-		r.update(
-			delta);
-}
-
 sge::cell::field_type &
 sge::cell::grid::field()
 {
 	return field_;
+}
+
+sge::cell::grid::pos_type const
+sge::cell::grid::pos() const
+{
+	return rect_.pos();
 }
 
 sge::cell::grid::dim_type const

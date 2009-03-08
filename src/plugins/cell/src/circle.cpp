@@ -6,6 +6,8 @@
 #include <sge/collision/satellite.hpp>
 #include <sge/container/field_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/vector/dim.hpp>
+#include <sge/structure_cast.hpp>
 #include <boost/foreach.hpp>
 
 sge::cell::circle::circle(
@@ -15,16 +17,16 @@ sge::cell::circle::circle(
 	collision::unit const radius_,
 	grid &grid_,
 	collision::test_callback const &test_callback,
-	collision::callback_signal &callback)
+	collision_callback const &callback)
 :
 	sat(sat),
 	center_(center_),
 	speed_(speed_),
 	radius_(radius_),
 	grid_(grid_),
-	backlinks(),
 	test_callback(test_callback),
-	callback(callback)
+	callback(callback),
+	backlinks()
 {
 	reposition();
 }
@@ -72,11 +74,15 @@ sge::cell::circle::update(
 	time::funit const delta)
 {
 	center_ += speed_ * delta;
+
+	satellite().position_change(
+		center()
+	);
 	
 	reposition();
 
 	BOOST_FOREACH(
-		backlink_list::reference r,
+		backlink_vector::reference r,
 		backlinks
 	)
 	{
@@ -85,23 +91,28 @@ sge::cell::circle::update(
 		);
 		
 		BOOST_FOREACH(
-			circle_list::reference circ,
+			intrusive_backlink_list::reference link,
 			e.entries()
 		)
 		{
+			circle &circ(
+				link.circle()
+			);
+
 			if(
-				test_callback(
-					circ->satellite(),
+				&circ != this
+				&& test_callback(
+					circ.satellite(),
 					satellite()
 				)
 				&& collides(
-					*circ,
+					circ,
 					*this
 				)
 			)
 				callback(
-					circ->satellite(),
-					satellite()
+					circ,
+					*this
 				);
 		}
 	}
@@ -114,18 +125,11 @@ void
 sge::cell::circle::reposition()
 {
 	// TODO: optimize this!
+	backlinks.clear();
 
 	field_type &field(
 		grid_.field()
 	);
-
-	BOOST_FOREACH(
-		backlink_list::reference r,
-		backlinks
-	)
-		r.unlink();
-	
-	backlinks.clear();
 
 	for(
 		collision::unit x = center().x() - radius();
@@ -138,24 +142,39 @@ sge::cell::circle::reposition()
 			y += grid_.cell_size().h()
 		)
 		{
-			grid_entry &e(
-				field.pos(
-					static_cast<field_type::size_type>(x / grid_.cell_size().w()),
-					static_cast<field_type::size_type>(y / grid_.cell_size().h())
+			grid::pos_type const pos(
+				(grid::pos_type(
+					x,
+					y
+				) - grid_.pos()) / grid_.cell_size()
+			);
+
+			field_type::vector_type const fpos(
+				sge::structure_cast<
+					field_type::vector_type
+				>(
+					pos
 				)
 			);
 
-			circle_list list(
-				e.entries()
+			if(
+				pos.x() < 0
+				|| pos.y() < 0
+				|| fpos.x() >= field.dim().w()
+				|| fpos.y() >= field.dim().h()
+			)
+				continue;
+			
+			grid_entry &e(
+				field.pos(
+					fpos
+				)
 			);
 
 			backlinks.push_back(
 				backlink(
 					e,
-					list.insert(
-						list.begin(),
-						this
-					)
+					*this
 				)
 			);
 		}

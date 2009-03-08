@@ -3,8 +3,11 @@
 #include "../grid_entry.hpp"
 #include <sge/collision/satellite.hpp>
 #include <sge/make_shared_ptr.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
+#include <boost/foreach.hpp>
 
 sge::cell::world::world(
 	collision::optional_rect const &rect)
@@ -18,7 +21,11 @@ sge::cell::world::world(
 			1000,
 			1000
 		)
-	)
+	),
+	test_running(false),
+	objects(),
+	sig(),
+	test_callback_()
 {}
 
 sge::cell::world::~world()
@@ -47,30 +54,56 @@ sge::cell::world::create_circle(
 	collision::point const &speed,
 	collision::unit const radius)
 {
-	return collision::objects::circle_ptr( //make_shared_ptr<
-		new circle(
-	//>(
-		sat,
-		center,
-		speed,
-		radius,
-		grid_,
-		boost::bind(
-			&world::call_test,
-			this,
-			_1,
-			_2
-		),
-		sig
-	));
+	shared_ptr<
+		circle
+	> const ptr(
+		 make_shared_ptr<
+			circle
+		>(
+			boost::ref(
+				sat
+			),
+			center,
+			speed,
+			radius,
+			boost::ref(
+				grid_
+			),
+			boost::bind(
+				&world::call_test,
+				this,
+				_1,
+				_2
+			),
+			boost::bind(
+				&world::on_collide,
+				this,
+				_1,
+				_2
+			)
+		)
+	);
+
+	objects.push_back(*ptr);
+	return ptr;
 }
 
 void
 sge::cell::world::update(
 	collision::time_unit const delta)
 {
-	grid_.update(
-		delta);
+	// TODO: use scoped_exit here!
+	test_running = true;
+
+	BOOST_FOREACH(
+		intrusive_circle_list::reference r,
+		objects	
+	)
+		r.update(
+			delta
+		);
+	
+	test_running = false;
 }
 
 bool
@@ -84,4 +117,15 @@ sge::cell::world::call_test(
 			b
 		)
 		: false;
+}
+
+void 
+sge::cell::world::on_collide(
+	circle &a,
+	circle &b)
+{
+	sig(
+		a.satellite(),
+		b.satellite()
+	);
 }

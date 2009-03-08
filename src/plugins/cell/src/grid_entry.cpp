@@ -1,23 +1,20 @@
 #include "../grid_entry.hpp"
-#include "../circle.hpp"
-#include <boost/foreach.hpp>
 
-void
-sge::cell::grid_entry::update(
-	collision::time_unit const delta)
+sge::cell::grid_entry::grid_entry()
+{}
+
+sge::cell::grid_entry::grid_entry(
+	grid_entry const &)
+{}
+
+sge::cell::grid_entry &
+sge::cell::grid_entry::operator=(
+	grid_entry const &)
 {
-	BOOST_FOREACH(
-		circle_list::reference r,
-		entries_	
-	)
-	{
-		r->update(
-			delta
-		);
-	}
+	return *this;
 }
 
-sge::cell::circle_list &
+sge::cell::intrusive_backlink_list &
 sge::cell::grid_entry::entries()
 {
 	return entries_;

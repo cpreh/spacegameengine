@@ -2,6 +2,7 @@
 #define SGE_CELL_WORLD_HPP_INCLUDED
 
 #include "grid.hpp"
+#include "intrusive_circle_list.hpp"
 #include <sge/collision/world.hpp>
 #include <sge/collision/time_unit.hpp>
 #include <sge/collision/optional_rect.hpp>
@@ -10,6 +11,8 @@ namespace sge
 {
 namespace cell
 {
+
+class circle;
 
 class world : public collision::world {
 public:
@@ -42,7 +45,13 @@ private:
 		collision::satellite const &
 	);
 
+	void on_collide(
+		circle &,
+		circle &);
+
 	grid grid_;
+	bool test_running;
+	intrusive_circle_list objects;
 	collision::callback_signal sig;
 	collision::test_callback test_callback_;
 };

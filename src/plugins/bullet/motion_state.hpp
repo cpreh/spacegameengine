@@ -3,7 +3,6 @@
 
 #include "types.hpp"
 #include <bullet/LinearMath/btMotionState.h>
-#include <sge/collision/callbacks.hpp>
 #include <boost/function.hpp>
 
 namespace sge

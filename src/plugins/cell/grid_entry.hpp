@@ -1,9 +1,7 @@
 #ifndef SGE_CELL_GRID_ENTRY_HPP_INCLUDED
 #define SGE_CELL_GRID_ENTRY_HPP_INCLUDED
 
-#include "circle_list.hpp"
-#include <sge/collision/rect.hpp>
-#include <sge/collision/time_unit.hpp>
+#include "intrusive_backlink_list.hpp"
 
 namespace sge
 {
@@ -12,13 +10,18 @@ namespace cell
 
 class grid_entry {
 public:
-	void update(
-		collision::time_unit);
-	
-	circle_list &
+	grid_entry();
+
+	grid_entry(
+		grid_entry const &);
+	grid_entry &
+	operator=(
+		grid_entry const &);
+
+	intrusive_backlink_list &
 	entries();
 private:
-	circle_list entries_;
+	intrusive_backlink_list entries_;
 };
 
 }

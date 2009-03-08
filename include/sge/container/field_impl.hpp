@@ -688,18 +688,11 @@ template<
 >	
 void
 sge::container::field<T, ArrayType, Alloc>::range_check(
-#ifdef SGE_FIELD_RANGE_CHECK
 	size_type const x,
 	size_type const y
-#else
-	size_type,
-	size_type
-#endif
 ) const
 { 
-#ifdef SGE_FIELD_RANGE_CHECK
 	SGE_ASSERT(x < dim_.w() && y < dim_.h());
-#endif
 }
 
 template<

@@ -69,7 +69,7 @@ sge::plugin::manager::manager()
 	for(plugin_array::iterator it = plugins.begin(); it != plugins.end(); ++it)
 		for(unsigned i = 1; i < capabilities::last_guard_; i <<= 1)
 		{
-			const unsigned type = it->type();
+			unsigned const type = it->type();
 			if(type & i)
 				categories[static_cast<capabilities::type>(i)].push_back(&*it);
 		}
