@@ -177,7 +177,7 @@ try
 #elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
 	left.clicked.connect(p);
 #elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
-	left_top.clicked.connect(p);
+	sge::signals::scoped_connection const conn2 = left_top.register_clicked(p);
 #endif
 	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
 	
