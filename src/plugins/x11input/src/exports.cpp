@@ -42,8 +42,8 @@ plugin_version_info(
 {
 	if(!i)
 		return;
-	i->name = SGE_TEXT("X input plugin");
-	i->description = SGE_TEXT("");
+	i->name = SGE_TEXT("x11input");
+	i->description = SGE_TEXT("Handles keyboard and mouse.");
 	i->type = sge::plugin::capabilities::input;
 	i->plugin_version = 0x1;
 	i->min_core_version = 0x1;
