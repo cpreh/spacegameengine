@@ -61,7 +61,7 @@ try
 
 	sge::renderer::screen_size_t const screen_size(640,480);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
 			SGE_TEXT("sge gui test")))
@@ -120,7 +120,7 @@ try
 	while (running)
 	{
 		sge::mainloop::dispatch();
-		sge::renderer::scoped_block block(sys.renderer());
+		sge::renderer::scoped_block const block(sys.renderer());
 		m.draw();
 	}
 } 
