@@ -48,7 +48,7 @@ void sge::gui::widgets::button::process(events::mouse_leave const &)
 
 void sge::gui::widgets::button::process(events::mouse_click const &)
 {
-	clicked();
+	clicked_();
 }
 
 sge::gui::key_handling::type sge::gui::widgets::button::process(
@@ -56,7 +56,7 @@ sge::gui::key_handling::type sge::gui::widgets::button::process(
 {
 	if (k.value().key().code() == input::kc::key_return)
 	{
-		clicked();
+		clicked_();
 		return key_handling::ignore;
 	}
 	return key_handling::process;
@@ -74,4 +74,10 @@ void sge::gui::widgets::button::process(events::keyboard_leave const &)
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_leave"));
 	key_over_ = false;
 	parent_manager().invalidate(*this,absolute_area());
+}
+
+sge::signals::connection const sge::gui::widgets::button::register_clicked(
+	clicked_fn const &_clicked)
+{
+	return clicked_.connect(_clicked);
 }

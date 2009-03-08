@@ -4,7 +4,9 @@
 #include <sge/gui/widget.hpp>
 #include <sge/export.hpp>
 #include <sge/font/metrics_fwd.hpp>
-#include <boost/signals.hpp>
+#include <sge/signals/signal.hpp>
+#include <sge/signals/connection.hpp>
+#include <boost/function.hpp>
 
 namespace sge
 {
@@ -33,15 +35,16 @@ class SGE_CLASS_SYMBOL button : public widget
 	SGE_SYMBOL key_handling::type process(events::key const &);
 	SGE_SYMBOL void process(events::keyboard_leave const &);
 
-	// signals
-	// FIXME: add a function for this
-	boost::signal<void ()> clicked;
+	typedef boost::function<void ()> clicked_fn;
+	signals::connection const register_clicked(
+		clicked_fn const &);
 	private:
 	using widget::process;
 	string text_;
 	font::metrics_ptr font_;
 	bool mouse_over_;
 	bool key_over_;
+	boost::signal<void ()> clicked_;
 };
 }
 }
