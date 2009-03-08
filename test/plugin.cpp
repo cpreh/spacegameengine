@@ -108,11 +108,11 @@ print_plugins::operator()() const
 		);
 
 		sge::cout
-			<< SGE_TEXT('\t')
+			<< SGE_TEXT("\tname: \"")
 			<< base.name()
-			<< SGE_TEXT(", ")
+			<< SGE_TEXT("\", description: \"")
 			<< base.description()
-			<< SGE_TEXT('\n');
+			<< SGE_TEXT("\"\n");
 	}
 }
 
