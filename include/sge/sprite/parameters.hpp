@@ -9,7 +9,6 @@
 #include <sge/sprite/depth_type.hpp>
 #include <sge/sprite/rotation_type.hpp>
 #include <sge/sprite/repetition_type.hpp>
-#include <sge/sprite/object.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/export.hpp>
 
@@ -17,6 +16,9 @@ namespace sge
 {
 namespace sprite
 {
+
+class object;
+
 class parameters
 {
 public:
