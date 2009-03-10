@@ -1,4 +1,3 @@
-#include "../utility/to_internal_image.hpp"
 #include <sge/gui/widgets/image_label.hpp>
 #include <sge/image/object.hpp>
 #include <sge/structure_cast.hpp>

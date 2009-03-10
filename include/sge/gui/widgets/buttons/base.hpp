@@ -16,10 +16,6 @@ namespace buttons
 class SGE_CLASS_SYMBOL base : public widget
 {
 	public:
-	SGE_SYMBOL base(
-		parent_data const &,
-		parameters);
-
 	bool mouse_over() const { return mouse_over_; }
 	bool key_over() const { return key_over_; }
 
@@ -38,6 +34,11 @@ class SGE_CLASS_SYMBOL base : public widget
 	bool mouse_over_;
 	bool key_over_;
 	boost::signal<void ()> clicked_;
+
+	protected:
+	SGE_SYMBOL base(
+		parent_data const &,
+		parameters);
 };
 }
 }
