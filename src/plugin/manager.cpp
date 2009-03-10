@@ -88,7 +88,7 @@ sge::plugin::manager::manager()
 					<< it->path().string()
 					<< SGE_TEXT(" doesn't seem to be a valid sge plugin")
 					<< SGE_TEXT(" because the function \"")
-					<< e.func()
+					<< iconv(e.func())
 					<< SGE_TEXT("\" is missing!")
 			);
 		}
