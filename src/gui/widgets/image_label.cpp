@@ -3,7 +3,7 @@
 sge::gui::widgets::image_label::image_label(
 	widget::parent_data const &_parent,
 	widget::parameters _params,
-	sge::gui::image const &_image)
+	sge::gui::const_image_ptr const &_image)
 	: widget(
 			_parent,
 			_params
@@ -13,8 +13,8 @@ sge::gui::widgets::image_label::image_label(
 						axis_policy::none))
 				.size(
 					dim(
-						static_cast<unit>(_image.width()),
-						static_cast<unit>(_image.height()))))
+						static_cast<unit>(_image->width()),
+						static_cast<unit>(_image->height()))))
 {
-	buffer() = _image;
+	buffer() = *_image;
 }

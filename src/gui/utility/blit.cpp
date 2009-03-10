@@ -56,33 +56,33 @@ template<class DstPixel>
 template<class T>
 void channel_blitter<DstPixel>::operator()(T &t) const
 {
-	// don't touch alpha channel while blitting
 	if (t == 3)
 	{
 		result[t] = 
 			static_cast<channel_type>(
 				std::min(
-					src[t]+dest[t],
-					std::numeric_limits<channel_type>::max()));
+					static_cast<float>(src[t])+static_cast<float>(dest[t]),
+					static_cast<float>(
+						std::numeric_limits<channel_type>::max())));
+		return;
 	}
-	else
-	{
-		channel_type const range = 
+
+	float const range = 
+		static_cast<float>(
 			std::numeric_limits<channel_type>::max()-
-			std::numeric_limits<channel_type>::min();
+			std::numeric_limits<channel_type>::min());
 
-		float const src_floating = 
-			(src_alpha-std::numeric_limits<channel_type>::min())/range;
-		float const dest_floating = 
-			(dest_alpha-std::numeric_limits<channel_type>::min())/range;
+	float const src_floating = 
+		static_cast<float>(src_alpha-std::numeric_limits<channel_type>::min())/static_cast<float>(range);
+	float const dest_floating = 
+		static_cast<float>(dest_alpha-std::numeric_limits<channel_type>::min())/static_cast<float>(range);
 
-		result[t] = static_cast<channel_type>(
-			static_cast<float>(src[t])*src_floating+
-			static_cast<float>(dest[t])*
-				std::max(
-					dest_floating-src_floating,
-					0.0f));
-	}
+	result[t] = static_cast<channel_type>(
+		static_cast<float>(src[t])*src_floating+
+		static_cast<float>(dest[t])*
+			std::max(
+				dest_floating-src_floating,
+				0.0f));
 }
 
 class blitter
@@ -182,7 +182,6 @@ void sge::gui::utility::blit(
 		clipped.pos() - dst_rect.pos(),
 		clipped.dim());
 
-	/*
 	renderer::transform_pixels(
 		renderer::subimage_view(
 			renderer::subimage_view(
@@ -191,17 +190,11 @@ void sge::gui::utility::blit(
 					src_rect)),
 			math::structure_cast<renderer::lock_rect>(
 				src_trans)),
-		renderer::make_const_image_view(
-			renderer::subimage_view(
-				dst,
-				math::structure_cast<renderer::lock_rect>(
-					clipped))),
 		renderer::subimage_view(
 			dst,
 			math::structure_cast<renderer::lock_rect>(
 				clipped)),
 		blitter());
-		*/
 
 	/*
 	renderer::copy_and_convert_pixels(

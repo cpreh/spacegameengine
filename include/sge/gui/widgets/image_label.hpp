@@ -15,7 +15,7 @@ public:
 	image_label(
 		widget::parent_data const &,
 		widget::parameters,
-		sge::gui::image const &);
+		sge::gui::const_image_ptr const &);
 };
 }
 }

@@ -65,37 +65,37 @@ void sge::gui::skins::standard::draw(
 	c.draw_line(
 		point(c.size().w()-1,0),
 		point(c.size().w()-1,c.size().h()-1),
-		internal_color(0x00,0x00,0x00,0x00));
+		internal_color(0x00,0x00,0x00,0xff));
 
 	c.draw_line(
 		point(0,c.size().h()-1),
 		point(c.size().w()-1,c.size().h()-1),
-		internal_color(0x00,0x00,0x00,0x00));
+		internal_color(0x00,0x00,0x00,0xff));
 	
 	if (b.key_over())
 	{
 		c.draw_line(
 			point(2,2),
 			point(c.size().w()-3,2),
-			internal_color(0x00,0x00,0x00,0x00),
+			internal_color(0x00,0x00,0x00,0xff),
 			canvas::line_type::dashed);
 
 		c.draw_line(
 			point(c.size().w()-3,2),
 			point(c.size().w()-3,c.size().h()-3),
-			internal_color(0x00,0x00,0x00,0x00),
+			internal_color(0x00,0x00,0x00,0xff),
 			canvas::line_type::dashed);
 
 		c.draw_line(
 			point(c.size().w()-3,c.size().h()-3),
 			point(2,c.size().h()-3),
-			internal_color(0x00,0x00,0x00,0x00),
+			internal_color(0x00,0x00,0x00,0xff),
 			canvas::line_type::dashed);
 
 		c.draw_line(
 			point(2,c.size().h()-3),
 			point(2,2),
-			internal_color(0x00,0x00,0x00,0x00),
+			internal_color(0x00,0x00,0x00,0xff),
 			canvas::line_type::dashed);
 	}
 

@@ -163,7 +163,7 @@ try
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color_::clear_color = 
-				sge::renderer::rgba8_color(0, 0, 0, 255))
+				sge::renderer::rgba8_color(255, 0, 0, 255))
 			(sge::renderer::state::cull_mode::off)
 		);
 	
