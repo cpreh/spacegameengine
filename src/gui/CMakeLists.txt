@@ -7,6 +7,7 @@ FILE (GLOB sgeguifiles
 		timer/*.cpp 
 		canvas/*.cpp 
 		skins/standard/*.cpp 
+		skins/standard/buttons/*.cpp 
 		utility/*.cpp
 		detail/*.cpp 
 		detail/managers/*.cpp)

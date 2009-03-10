@@ -1,8 +1,8 @@
-#include "../../utility/max_dim.hpp"
+#include "../../../utility/max_dim.hpp"
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/widgets/button.hpp>
+#include <sge/gui/widgets/buttons/text.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/font/object.hpp>
@@ -16,12 +16,12 @@ namespace
 {
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
-	SGE_TEXT("skins: standard: button"),
+	SGE_TEXT("skins: standard: buttons: text"),
 	false);
 }
 
 void sge::gui::skins::standard::draw(
-	widgets::button const &b,
+	widgets::buttons::text const &b,
 	events::invalid_area const &e)
 {
 	if (b.size() == dim::null())
@@ -106,14 +106,14 @@ void sge::gui::skins::standard::draw(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("drawing text (button \"")
-		        << b.text()
+		        << b.caption()
 		        << SGE_TEXT("\")"));
 
 	// draw text centered
 	c.draw_text(
 		b.font(),
 		renderer::colors::black(),
-		b.text(),
+		b.caption(),
 		point::null(),
 		c.size(),
 		font::align_h::center,
@@ -122,7 +122,7 @@ void sge::gui::skins::standard::draw(
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("blitting (button \"")
-		        << b.text()
+		        << b.caption()
 		        << SGE_TEXT("\")"));
 
 	SGE_LOG_DEBUG(
@@ -136,7 +136,7 @@ void sge::gui::skins::standard::draw(
 }
 
 sge::gui::dim const sge::gui::skins::standard::size_hint(
-	widgets::button const &b) const
+	widgets::buttons::text const &b) const
 {
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -147,7 +147,7 @@ sge::gui::dim const sge::gui::skins::standard::size_hint(
 	// NOTE: we have to give text_size a huge rectangle because it won't
 	// return a valid rectangle otherwise
 	dim const font_dim = structure_cast<dim>(
-		fn.text_size(b.text(),utility::max_dim<font::unit>()).size());
+		fn.text_size(b.caption(),utility::max_dim<font::unit>()).size());
 
 	return dim(static_cast<unit>(font_dim.w()+2),static_cast<unit>(font_dim.h()+2));
 }

@@ -2,6 +2,7 @@
 #define SGE_GUI_WIDGETS_IMAGE_HPP_INCLUDED
 
 #include <sge/gui/widget.hpp>
+#include <sge/gui/types.hpp>
 
 namespace sge
 {
@@ -15,7 +16,7 @@ public:
 	image_label(
 		widget::parent_data const &,
 		widget::parameters,
-		sge::gui::const_image_ptr const &);
+		const_image_ptr);
 };
 }
 }
