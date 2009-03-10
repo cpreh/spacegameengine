@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../glx/current.hpp"
 #include "../glx/context.hpp"
 #include <sge/renderer/adapter.hpp>
-#include <sge/renderer/screen_size_t.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/math/dim/basic_decl.hpp>
 #include <sge/window/instance_fwd.hpp>
@@ -71,7 +71,7 @@ private:
 		renderer::pixel_unit h);
 
 	view_port_fun              const set_viewport;
-	renderer::screen_size_t    const screen_size_;
+	renderer::screen_size      const screen_size_;
 	sge::x11::window_ptr       const wnd;
 	sge::x11::display_ptr      const display;
 	sge::x11::const_visual_ptr const visual;

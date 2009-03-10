@@ -240,7 +240,7 @@ sge::ogl::device::window() const
 	return wnd;
 }
 
-sge::renderer::screen_size_t const
+sge::renderer::screen_size const
 sge::ogl::device::screen_size() const
 {
 	return param.mode().size();
@@ -414,9 +414,14 @@ void sge::ogl::device::target(
 
 	viewport(
 		renderer::viewport(
-			renderer::pixel_pos_t(0, 0),
-			structure_cast<renderer::screen_size_t>(
-				p->dim())));
+			renderer::pixel_pos::null(),
+			structure_cast<
+				renderer::screen_size
+			>(
+				p->dim()
+			)
+		)
+	);
 	
 	target_ = ftarget;
 	fbo_active = true;

@@ -59,7 +59,7 @@ try
 	sge::log::global().activate_hierarchy(
 		sge::log::level::debug);
 
-	sge::renderer::screen_size_t const screen_size(640,480);
+	sge::renderer::screen_size const screen_size(640,480);
 
 	sge::systems::instance const sys(
 		sge::systems::list()

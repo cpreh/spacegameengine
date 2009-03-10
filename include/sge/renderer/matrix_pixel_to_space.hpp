@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
 #define SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
 
-#include <sge/renderer/screen_size_t.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/math/matrix/static.hpp>
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/math/matrix/translation.hpp>
@@ -39,7 +39,7 @@ template<
 >
 typename math::matrix::static_<T, 4, 4>::type const
 matrix_pixel_to_space(
-	screen_size_t const &sz)
+	screen_size const &sz)
 {
 	return math::matrix::translation(
 		static_cast<T>(-static_cast<int>(sz.w()) / 2),

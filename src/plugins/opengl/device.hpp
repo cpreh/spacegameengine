@@ -157,7 +157,7 @@ public:
 		renderer::resource_flag_t flags);
 
 	renderer::caps const caps() const;
-	renderer::screen_size_t const screen_size() const;
+	renderer::screen_size const screen_size() const;
 	window::instance_ptr const window() const;
 private:
 	GLenum clear_bit(
