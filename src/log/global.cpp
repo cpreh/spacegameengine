@@ -29,6 +29,7 @@ sge::log::global()
 	static logger global_(
 		cout,
 		SGE_TEXT("sge: "),
+		true,
 		log::level::warning
 	);
 	return global_;
