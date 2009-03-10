@@ -1,8 +1,3 @@
-ADD_EXECUTABLE (sgetest test.cpp)
-TARGET_LINK_LIBRARIES (sgetest sgecore)
-
-INSTALL (TARGETS sgetest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-
 ADD_EXECUTABLE (tutorial_01 tutorial/tutorial_01.cpp)
 TARGET_LINK_LIBRARIES (tutorial_01 sgecore)
 

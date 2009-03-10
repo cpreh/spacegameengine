@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_code.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/font/text_size_t.hpp>
+#include <sge/font/text_size.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/time/resolution.hpp>

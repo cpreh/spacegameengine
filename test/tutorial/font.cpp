@@ -4,7 +4,7 @@
 #include <sge/font/object.hpp>
 #include <sge/font/drawer_3d.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/text_size_t.hpp>
+#include <sge/font/text_size.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/colors.hpp>
@@ -33,7 +33,7 @@ try
 			))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
+				sge::renderer::screen_size(
 					640,
 					480),
 				sge::renderer::bit_depth::depth32,

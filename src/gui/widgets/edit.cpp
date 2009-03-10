@@ -6,7 +6,7 @@
 #include <sge/gui/timer/object.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/font/text_size_t.hpp>
+#include <sge/font/text_size.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
 #include <sge/time/second_f.hpp>

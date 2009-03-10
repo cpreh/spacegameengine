@@ -1,5 +1,4 @@
-/*
-spacegameengine is a portable easy to use game engine written in C++.
+/* spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2007  Carl Philipp Reh (sefi@s-e-f-i.de)
 
 This program is free software; you can redistribute it and/or
@@ -18,32 +17,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/text_size_t.hpp>
+#ifndef SGE_RENDERER_SCREEN_SIZE_HPP_INCLUDED
+#define SGE_RENDERER_SCREEN_SIZE_HPP_INCLUDED
 
-sge::font::text_size_t::text_size_t(
-	dim const &size_,
-	string::const_iterator const end_,
-	string::const_iterator const next_begin_)
-:
-	size_(size_),
-	end_(end_),
-	next_begin_(next_begin_)
-{}
-	
-sge::font::dim const &
-sge::font::text_size_t::size() const
+#include <sge/renderer/screen_unit.hpp>
+#include <sge/math/dim/static.hpp>
+
+namespace sge
 {
-	return size_;
+namespace renderer
+{
+
+typedef math::dim::static_<
+	screen_unit,
+	2
+>::type screen_size;
+
+}
 }
 
-sge::font::text_size_t::const_iterator
-sge::font::text_size_t::end() const
-{
-	return end_;
-}
-
-sge::font::text_size_t::const_iterator
-sge::font::text_size_t::next_begin() const
-{
-	return next_begin_;
-}
+#endif

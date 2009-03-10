@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DISPLAY_MODE_HPP_INCLUDED
 
 #include <sge/renderer/bit_depth.hpp>
-#include <sge/renderer/screen_size_t.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/refresh_rate.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/export.hpp>
@@ -35,15 +35,15 @@ namespace renderer
 
 struct display_mode {
 	SGE_SYMBOL display_mode(
-		screen_size_t const &sz,
+		screen_size const &sz,
 		renderer::bit_depth::type depth,
 		refresh_rate_type refresh_rate);
 	
-	SGE_SYMBOL screen_size_t const &size() const;
+	SGE_SYMBOL screen_size const &size() const;
 	SGE_SYMBOL renderer::bit_depth::type bit_depth() const;
 	SGE_SYMBOL refresh_rate_type refresh_rate() const;
 private:
-	screen_size_t             size_;
+	screen_size               size_;
 	renderer::bit_depth::type bit_depth_;
 	refresh_rate_type         refresh_rate_;
 };

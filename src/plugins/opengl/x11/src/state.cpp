@@ -128,12 +128,17 @@ void sge::ogl::x11::state::center_viewport(
 {
 	set_viewport(
 		renderer::viewport(
-			renderer::pixel_pos_t(
+			renderer::pixel_pos(
 				center_coordinate(
 					w,
-					screen_size_.w()),
+					screen_size_.w()
+				),
 				center_coordinate(
 					h,
-					screen_size_.h())),
-			screen_size_));
+					screen_size_.h()
+				)
+			),
+			screen_size_
+		)
+	);
 }

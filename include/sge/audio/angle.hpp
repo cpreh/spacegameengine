@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_ANGLE_HPP_INCLUDED
 
 #include <sge/audio/point.hpp>
-#include <sge/export.hpp>
 #include <sge/math/vector/basic_impl.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -32,12 +32,28 @@ namespace audio
 
 struct angle
 {
-	point forward, up;
-
 	SGE_SYMBOL angle();
 	SGE_SYMBOL angle(
 		point const &forward,
 		point const &up);
+	
+	SGE_SYMBOL point const &
+	forward() const;
+
+	SGE_SYMBOL void
+	forward(
+		point const &);
+	
+	SGE_SYMBOL point const
+	up() const;
+
+	SGE_SYMBOL void
+	up(
+		point const &);
+private:
+	point
+		forward_,
+		up_;
 };
 
 }
