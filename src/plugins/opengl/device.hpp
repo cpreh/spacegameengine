@@ -156,7 +156,7 @@ public:
 		renderer::size_type sz,
 		renderer::resource_flag_t flags);
 
-	caps_t const caps() const;
+	renderer::caps const caps() const;
 	renderer::screen_size_t const screen_size() const;
 	window::instance_ptr const window() const;
 private:

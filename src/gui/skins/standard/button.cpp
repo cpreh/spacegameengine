@@ -6,7 +6,7 @@
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/font/object.hpp>
-#include <sge/font/text_size_t.hpp>
+#include <sge/font/text_size.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/media.hpp>
 #include <sge/assert.hpp>

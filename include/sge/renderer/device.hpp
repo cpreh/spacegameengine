@@ -194,9 +194,7 @@ public:
 		size_type size,
 		resource_flag_t flags) = 0;
 
-	typedef renderer::caps caps_t;
-
-	virtual caps_t const caps() const = 0;
+	virtual renderer::caps const caps() const = 0;
 	virtual screen_size_t const screen_size() const = 0;
 	virtual sge::window::instance_ptr const window() const = 0;
 

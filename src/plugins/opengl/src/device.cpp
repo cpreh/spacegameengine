@@ -211,7 +211,7 @@ void sge::ogl::device::end_rendering()
 	state_.swap_buffers();
 }
 
-sge::renderer::device::caps_t const
+sge::renderer::caps const
 sge::ogl::device::caps() const
 {
 	GLint const max_texture_size(

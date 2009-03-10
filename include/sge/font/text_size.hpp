@@ -18,32 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/text_size_t.hpp>
+#ifndef SGE_FONT_TEXT_SIZE_HPP_INCLUDED
+#define SGE_FONT_TEXT_SIZE_HPP_INCLUDED
 
-sge::font::text_size_t::text_size_t(
-	dim const &size_,
-	string::const_iterator const end_,
-	string::const_iterator const next_begin_)
-:
-	size_(size_),
-	end_(end_),
-	next_begin_(next_begin_)
-{}
-	
-sge::font::dim const &
-sge::font::text_size_t::size() const
+#include <sge/font/dim.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/export.hpp>
+#include <sge/string.hpp>
+
+namespace sge
 {
-	return size_;
+namespace font
+{
+
+class text_size {
+public:
+	typedef string::const_iterator const_iterator;
+
+	SGE_SYMBOL text_size(
+		dim const &sz,
+		string::const_iterator end,
+		string::const_iterator next_begin);
+
+	SGE_SYMBOL dim const &size() const;
+	SGE_SYMBOL const_iterator end() const;
+	SGE_SYMBOL const_iterator next_begin() const;
+private:
+	dim            size_;
+	const_iterator end_,
+	               next_begin_;
+};
+
+}
 }
 
-sge::font::text_size_t::const_iterator
-sge::font::text_size_t::end() const
-{
-	return end_;
-}
-
-sge::font::text_size_t::const_iterator
-sge::font::text_size_t::next_begin() const
-{
-	return next_begin_;
-}
+#endif
