@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/detail/version_fun.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/library/function_not_found.hpp>
 #include <sge/iconv.hpp>
 #include <sge/filesystem/directory_iterator.hpp>
@@ -63,6 +64,13 @@ sge::plugin::manager::manager()
 			// aborting the program ...)
 			if (e.func() != version_fun)
 				throw;
+
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< it->path().string()
+					<< SGE_TEXT(" doesn't seem to be a valid sge plugin!")
+			);
 		}
 	}
 
