@@ -43,38 +43,70 @@ public:
 	SGE_SYMBOL logger(
 		ostream &sink,
 		format::const_formatter_ptr formatter,
-		bool active = true);
+		bool enabled = true,
+		level::type = level::debug);
+
 	SGE_SYMBOL logger(
 		ostream &sink,
 		string const &prefix,
-		bool active = true);
+		bool enabled = true,
+		level::type = level::debug);
+
 	SGE_SYMBOL logger(
 		logger &parent,
 		string const &prefix,
-		bool active = true);
+		bool enabled = true);
+
 	SGE_SYMBOL ~logger();
-	SGE_SYMBOL void log(
+
+	SGE_SYMBOL void
+	log(
 		level::type,
 		temporary_output const &);
-	SGE_SYMBOL level_stream &level_sink(
+	
+	SGE_SYMBOL level_stream &
+	level_sink(
 		level::type);
-	SGE_SYMBOL level_stream const &level_sink(
+	
+	SGE_SYMBOL level_stream const &
+	level_sink(
 		level::type) const;
-	SGE_SYMBOL void activate(
+	
+	SGE_SYMBOL void
+	activate(
 		level::type);
-	SGE_SYMBOL void deactivate(
+	
+	SGE_SYMBOL void
+	deactivate(
 		level::type);
-	SGE_SYMBOL void activate_hierarchy(
+
+	SGE_SYMBOL void
+	activate_hierarchy(
 		level::type);
-	SGE_SYMBOL void deactivate_hierarchy(
+
+	SGE_SYMBOL void
+	deactivate_hierarchy(
 		level::type);
-	SGE_SYMBOL bool enabled(
+
+	SGE_SYMBOL bool
+	activated(
 		level::type) const;
-	SGE_SYMBOL ostream &sink() const;
+	
+	SGE_SYMBOL void
+	enable(
+		bool);
+
+	SGE_SYMBOL bool
+	enabled() const;
+
+	SGE_SYMBOL ostream &
+	sink() const;
+
 	SGE_SYMBOL format::const_formatter_ptr const
 	formatter() const;
 private:
-	void init_levels();
+	void init_levels(
+		level::type);
 	void init_level(
 		level::type);
 	void inherit_levels(
@@ -91,8 +123,8 @@ private:
 		level_stream
 	> level_vector;
 
+	bool                        enabled_;
 	level_vector                level_streams;
-	bool                        active;
 };
 
 }

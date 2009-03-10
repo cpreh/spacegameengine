@@ -13,7 +13,10 @@ namespace gui
 class logger : public sge::log::logger
 {
 	public:
-	logger(sge::log::logger &parent,string const &prefix,bool = true);
+	logger(
+		sge::log::logger &parent,
+		string const &prefix,
+		bool active = true);
 };
 
 sge::log::logger &global_log();

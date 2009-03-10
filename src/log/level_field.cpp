@@ -23,4 +23,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template struct sge::enum_field<
 	sge::log::level::type,
-	sge::log::level::size>;
+	sge::log::level::size
+>;
