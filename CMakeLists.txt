@@ -27,6 +27,9 @@ ELSE ()
 	OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" ON)
 ENDIF ()
 
+IF (ENABLE_NARROW_STRING)
+       SET (SGE_NARROW_STRING true)
+ENDIF()
 
 IF (CMAKE_COMPILER_IS_GNUCXX)
 	#CHECK_CXX_COMPILER_FLAG(
