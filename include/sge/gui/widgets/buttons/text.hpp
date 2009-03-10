@@ -19,7 +19,7 @@ namespace buttons
 class SGE_CLASS_SYMBOL text : public base
 {
 	public:
-	SGE_SYMBOL button(
+	SGE_SYMBOL text(
 		parent_data const &,
 		parameters,
 		string const &,

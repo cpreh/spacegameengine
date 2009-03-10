@@ -16,7 +16,7 @@ namespace buttons
 class SGE_CLASS_SYMBOL base : public widget
 {
 	public:
-	SGE_SYMBOL button(
+	SGE_SYMBOL base(
 		parent_data const &,
 		parameters);
 
