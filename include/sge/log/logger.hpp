@@ -43,19 +43,19 @@ public:
 	SGE_SYMBOL logger(
 		ostream &sink,
 		format::const_formatter_ptr formatter,
-		bool enabled = true,
-		level::type = level::debug);
+		bool enabled ,
+		level::type);
 
 	SGE_SYMBOL logger(
 		ostream &sink,
 		string const &prefix,
-		bool enabled = true,
-		level::type = level::debug);
+		bool enabled,
+		level::type);
 
 	SGE_SYMBOL logger(
 		logger &parent,
 		string const &prefix,
-		bool enabled = true);
+		bool enabled);
 
 	SGE_SYMBOL ~logger();
 

@@ -20,7 +20,8 @@ sge::gui::logger::logger(
 :
 	sge::log::logger(
 		parent,
-		prefix + SGE_TEXT(": ")
+		prefix + SGE_TEXT(": "),
+		active
 	)
 {
 }
