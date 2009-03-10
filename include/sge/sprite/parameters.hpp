@@ -11,6 +11,7 @@
 #include <sge/sprite/repetition_type.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/texture/part_fwd.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -18,19 +19,19 @@ namespace sprite
 {
 class parameters
 {
-	public:
-	parameters();
+public:
+	SGE_SYMBOL parameters();
 
-	parameters &pos(point const &);
-	parameters &texture(texture::const_part_ptr);
-	parameters &size(dim const &);
-	parameters &color(sge::sprite::color const &);
-	parameters &depth(depth_type);
-	parameters &rotation(rotation_type);
-	parameters &visible(bool);
+	SGE_SYMBOL parameters &pos(point const &);
+	SGE_SYMBOL parameters &texture(texture::const_part_ptr);
+	SGE_SYMBOL parameters &size(dim const &);
+	SGE_SYMBOL parameters &color(sge::sprite::color const &);
+	SGE_SYMBOL parameters &depth(depth_type);
+	SGE_SYMBOL parameters &rotation(rotation_type);
+	SGE_SYMBOL parameters &visible(bool);
 
-	operator sge::sprite::object() const;
-	private:
+	SGE_SYMBOL operator sge::sprite::object() const;
+private:
 	point pos_;
 	texture::const_part_ptr texture_;
 	dim size_;

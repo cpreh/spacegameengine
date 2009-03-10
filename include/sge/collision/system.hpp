@@ -21,7 +21,7 @@ public:
 	create_world(
 		optional_rect const & = boost::none) = 0;
 	
-	virtual ~system();
+	SGE_SYMBOL virtual ~system();
 };
 }
 }
