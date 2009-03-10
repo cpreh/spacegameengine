@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/context_base.hpp>
 #include <sge/plugin/detail/version_fun.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/library/function_not_found.hpp>
 #include <sge/iconv.hpp>
 #include <sge/filesystem/directory_iterator.hpp>
@@ -29,14 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/filesystem/extension.hpp>
 #include <sge/text.hpp>
 
-const char* const plugin_path =
+char const *const plugin_path =
 #ifndef _MSC_VER
 PLUGIN_PATH
 #else
 PLUGIN_PATH "/" CMAKE_INTDIR
 #endif
   ;
-const sge::string::const_pointer plugin_extension =
+sge::char_type const *const plugin_extension =
 #ifdef SGE_POSIX_PLATFORM
 	SGE_TEXT(".so")
 #elif SGE_WINDOWS_PLATFORM
@@ -48,11 +49,28 @@ const sge::string::const_pointer plugin_extension =
 
 sge::plugin::manager::manager()
 {
+	SGE_LOG_DEBUG(
+		log::global(),
+		log::_1
+			<< SGE_TEXT("Scanning for plugins in ")
+			<< plugin_path
+	);
+
 	filesystem::directory_iterator const end;
 	for(filesystem::directory_iterator it(iconv(plugin_path)); it != end; ++it)
 	{
 		if(filesystem::is_directory(*it) || filesystem::extension(*it) != plugin_extension)
+		{
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< it->path().string()
+					<< SGE_TEXT(" does not have the extension ")
+					<< plugin_extension
+					<< SGE_TEXT(" and thus is ignored!")
+			);
 			continue;
+		}
 
 		try {
 			plugins.push_back(context_base(*it));
@@ -63,6 +81,16 @@ sge::plugin::manager::manager()
 			// aborting the program ...)
 			if (e.func() != version_fun)
 				throw;
+
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< it->path().string()
+					<< SGE_TEXT(" doesn't seem to be a valid sge plugin")
+					<< SGE_TEXT(" because the function \"")
+					<< iconv(e.func())
+					<< SGE_TEXT("\" is missing!")
+			);
 		}
 	}
 

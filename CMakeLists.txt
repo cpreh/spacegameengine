@@ -22,16 +22,11 @@ INCLUDE (FindPkgConfig)
 SET (CMAKE_VERBOSE_MAKEFILE ON)
 
 IF (MSVC)
-	SET (DEFAULT_NARROW_STRING OFF)
+	OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" OFF)
 ELSE ()
-	SET (DEFAULT_NARROW_STRING ON)
+	OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" ON)
 ENDIF ()
 
-OPTION (ENABLE_NARROW_STRING "Build sge with std::string instead of std::wstring" DEFAULT_NARROW_STRING)
-
-IF (ENABLE_NARROW_STRING)
-	SET (SGE_NARROW_STRING true)
-ENDIF()
 
 IF (CMAKE_COMPILER_IS_GNUCXX)
 	#CHECK_CXX_COMPILER_FLAG(

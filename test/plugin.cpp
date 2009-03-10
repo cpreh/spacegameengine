@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/mpl/for_each.hpp>
+#include <sge/log/global.hpp>
+#include <sge/log/logger.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>
 #include <boost/mpl/vector.hpp>
@@ -55,6 +57,10 @@ private:
 
 int main()
 {
+	sge::log::global().activate_hierarchy(
+		sge::log::level::debug
+	);
+
 	sge::plugin::manager man;
 
 	typedef boost::mpl::vector<
