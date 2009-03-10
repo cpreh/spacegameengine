@@ -125,18 +125,21 @@ convert(
 	state_type state;
 
 	Out *to = sge::container::data(ret);
-	for(In const *from = s.data(), *from_next; from != from_next; from = from_next)
+	for(In const *from = s.data(), *from_next = 0; from != from_next; from = from_next)
 	{
 		Out *to_next;
-		std::codecvt_base::result const result = call_traits<Out>::conv(
-			conv,
-			state,
-			from,
-			sge::container::data_end(s),
-			from_next,
-			to,
-			sge::container::data_end(ret),
-			to_next);
+		std::codecvt_base::result const result(
+			call_traits<Out>::conv(
+				conv,
+				state,
+				from,
+				sge::container::data_end(s),
+				from_next,
+				to,
+				sge::container::data_end(ret),
+				to_next
+			)
+		);
 
 		switch(result) {
 		case std::codecvt_base::noconv:
