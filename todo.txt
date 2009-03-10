@@ -30,6 +30,7 @@ sprite, texture, console, etc. as well)
 *low: add sge::gui::manager::get_sprite(widget &)
 *low: add slider widget
 *low: add checkbox widget
+*low: what happens if you invalidate a widget and make it smaller afterwards?
 *medium: breakpoints for the font
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
 *medium: add support for more vertex elements (like fog, etc.)
