@@ -1,8 +1,8 @@
 #ifndef SGE_GUI_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 #define SGE_GUI_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 
+#include "../../utility/normalization.hpp"
 #include <sge/renderer/color_channel.hpp>
-#include <sge/cerr.hpp>
 #include <boost/gil/color_base.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
@@ -47,26 +47,24 @@ sge::gui::utility::font_channel_blitter<DstPixel,FontPixel>::font_channel_blitte
   result(result)
 {}
 
+
 template<class DstPixel,class FontPixel>
 template<class T>
 void sge::gui::utility::font_channel_blitter<DstPixel,FontPixel>::operator()(T &t) const
 {
 	// FIXME: add range value, divide by max-min (for font_channel_type and channel_type)
-	float const font_value = 
-		static_cast<float>(font[0])/
-		static_cast<float>(std::numeric_limits<channel_type>::max());
+	float const font_value = normalize<float>(font[0]);
 
 	if (t == 3)
 	{
 		result[t] = 
-			static_cast<channel_type>(
+			denormalize<channel_type>(
 				std::min(
-					static_cast<float>(bgcolor[t])+static_cast<float>(font_value),
-					1.0f)*255.0f);
-		//result[t] = std::numeric_limits<channel_type>::max();
-		//result[t] = static_cast<channel_type>(font_value*255.0f);
+					normalize<float>(bgcolor[t])+static_cast<float>(font_value),
+					1.0f));
 		return;
 	}
+
 	result[t] = static_cast<channel_type>(
 		static_cast<float>(fontcolor[t])*font_value+
 		static_cast<float>(bgcolor[t])*(1.0f-font_value));

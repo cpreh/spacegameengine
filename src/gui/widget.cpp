@@ -10,6 +10,7 @@
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/assert.hpp>
+#include <sge/cerr.hpp>
 #include <sge/math/rect_util.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
@@ -37,6 +38,10 @@ sge::gui::widget::widget(
 			: layout_auto_ptr(new layouts::null(*this))),
 		activation_(params.activation())
 {
+	SGE_ASSERT_MESSAGE(
+		&(layout_->connected_widget()) == this,
+		SGE_TEXT("widget specified for layout is not the widget the layout is assigned to"));
+
 	if (parent_widget())
 		parent_widget()->add_child(*this);
 	parent_manager().add(*this);

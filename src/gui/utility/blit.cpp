@@ -1,4 +1,5 @@
 #include "blit.hpp"
+#include "normalization.hpp"
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/subimage_view.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
@@ -58,24 +59,16 @@ void channel_blitter<DstPixel>::operator()(T &t) const
 {
 	if (t == 3)
 	{
-		result[t] = 
-			static_cast<channel_type>(
-				std::min(
-					static_cast<float>(src[t])+static_cast<float>(dest[t]),
-					static_cast<float>(
-						std::numeric_limits<channel_type>::max())));
+		if (src[t]+dest[t] > std::numeric_limits<channel_type>::max())
+			result[t] = std::numeric_limits<channel_type>::max();
+		else
+			result[t] = static_cast<channel_type>(src[t]+dest[t]);
+			
 		return;
 	}
 
-	float const range = 
-		static_cast<float>(
-			std::numeric_limits<channel_type>::max()-
-			std::numeric_limits<channel_type>::min());
-
-	float const src_floating = 
-		static_cast<float>(src_alpha-std::numeric_limits<channel_type>::min())/static_cast<float>(range);
-	float const dest_floating = 
-		static_cast<float>(dest_alpha-std::numeric_limits<channel_type>::min())/static_cast<float>(range);
+	float const src_floating = sge::gui::utility::normalize<float>(src_alpha);
+	float const dest_floating = sge::gui::utility::normalize<float>(dest_alpha);
 
 	result[t] = static_cast<channel_type>(
 		static_cast<float>(src[t])*src_floating+
@@ -139,19 +132,6 @@ void sge::gui::utility::blit_invalid(
 	rect const is_translated_src(
 		is.pos()-src_rect.pos(),
 		is.dim());
-	
-	/*
-	// Get sub view(s) and blit
-	renderer::copy_and_convert_pixels(
-		renderer::subimage_view(
-			src,
-			math::structure_cast<renderer::lock_rect>(
-				is_translated_src)),
-		renderer::subimage_view(
-			dst,
-			math::structure_cast<renderer::lock_rect>(
-				is_translated_dst)));
-				*/
 
 	renderer::transform_pixels(
 		renderer::subimage_view(
@@ -195,18 +175,4 @@ void sge::gui::utility::blit(
 			math::structure_cast<renderer::lock_rect>(
 				clipped)),
 		blitter());
-
-	/*
-	renderer::copy_and_convert_pixels(
-		renderer::subimage_view(
-			renderer::subimage_view(
-				src,
-				math::structure_cast<renderer::lock_rect>(
-					src_rect)),
-			math::structure_cast<renderer::lock_rect>(
-				src_trans)),
-		renderer::subimage_view(
-			dst,
-			math::structure_cast<renderer::lock_rect>(
-				clipped)));*/
 }
