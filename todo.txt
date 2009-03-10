@@ -24,6 +24,12 @@ sprite, texture, console, etc. as well)
 *low: internal widget positioning
 *low: add tab completion to console::gfx
 *low: add terminal interface to console::object
+*low: change cursor when pointing over widgets::edit
+*low: don't reset sprite in sge::gui::detail::managers::render::resize
+*low: assign z value to sge::gui::widget
+*low: add sge::gui::manager::get_sprite(widget &)
+*low: add slider widget
+*low: add checkbox widget
 *medium: breakpoints for the font
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
 *medium: add support for more vertex elements (like fog, etc.)

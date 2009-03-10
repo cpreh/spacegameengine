@@ -2,9 +2,7 @@
 #include "../../utility/blit.hpp"
 #include <sge/font/object.hpp>
 #include <sge/font/text_size_t.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
 #include <sge/math/dim/arithmetic.hpp>
-#include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/widgets/edit.hpp>
@@ -63,19 +61,7 @@ void sge::gui::skins::standard::draw(
 		mylogger,
 		log::_1 << SGE_TEXT("refreshed edit buffer"));
 	
-	// resize internal buffer
-	if (w.buffer().width() != w.size().w() || w.buffer().height() != w.size().h())
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("allocating new image space"));
-		w.buffer() = image(
-			static_cast<image::coord_t>(w.size().w()),
-			static_cast<image::coord_t>(w.size().h()));
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("allocated new image space"));
-	}
+	resize_buffer(w);
 
 	canvas::object c(w.buffer());
 
@@ -111,17 +97,5 @@ void sge::gui::skins::standard::draw(
 			)
 		);
 
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("blitting internal buffer to texture"));
-
-	utility::blit_invalid(
-		renderer::make_const_image_view(c.view()),
-		rect(w.absolute_pos(),c.size()),
-		e.texture(),
-		e.area());
-
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("blitting complete"));
+	blit_invalid(w,c,e);
 }

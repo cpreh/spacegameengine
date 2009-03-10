@@ -45,7 +45,7 @@ class SGE_CLASS_SYMBOL widget
 	class parameters
 	{
 		public:
-		parameters(
+		explicit parameters(
 			point const &_pos = point::null(),
 			dim const &_size = dim::null(),
 			layout_auto_ptr const _layout = layout_auto_ptr(),

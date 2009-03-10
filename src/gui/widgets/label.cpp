@@ -18,7 +18,7 @@ sge::gui::widgets::label::label(
 			_parent,
 			_params.size_policy(
 				size_policy_t(
-					axis_policy::can_grow,
+					axis_policy::none,
 					axis_policy::none))),
 	  text_(_text),
 	  font_(_font)

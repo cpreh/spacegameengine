@@ -24,11 +24,13 @@ class skin
 	virtual void draw(widgets::button const &,events::invalid_area const &) = 0;
 	virtual void draw(widgets::edit const &,events::invalid_area const &) = 0;
 	virtual void draw(widgets::label const &,events::invalid_area const &) = 0;
-	//virtual void draw(widgets::image_label const &,events::invalid_area const &) = 0;
+	virtual void draw(widgets::image_label const &,events::invalid_area const &) = 0;
+	virtual void draw(widgets::backdrop const &,events::invalid_area const &) = 0;
 	virtual dim const size_hint(widgets::button const &) const = 0;
 	virtual dim const size_hint(widgets::edit const &) const = 0;
 	virtual dim const size_hint(widgets::label const &) const = 0;
-	//virtual dim const size_hint(widgets::image_label const &) const = 0;
+	virtual dim const size_hint(widgets::image_label const &) const = 0;
+	virtual dim const size_hint(widgets::backdrop const &) const = 0;
 	virtual filesystem::path const cursor_path() const = 0;
 	virtual void default_handler(widget &,events::invalid_area const &);
 	virtual dim const default_hint_handler(widget const &) const;

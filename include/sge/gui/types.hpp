@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/image_view.hpp>
 #include <sge/renderer/image.hpp>
 #include <sge/renderer/any_color.hpp>
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
@@ -47,6 +48,8 @@ typedef renderer::image_view image_view;
 typedef renderer::const_image_view const_image_view;
 
 typedef renderer::rgba8_image image;
+typedef shared_ptr<image> image_ptr;
+typedef shared_ptr<image const> const_image_ptr;
 }
 }
 

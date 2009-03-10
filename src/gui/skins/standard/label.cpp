@@ -1,16 +1,12 @@
-#include "../../utility/blit.hpp"
 #include "../../utility/max_dim.hpp"
 #include <sge/gui/skins/standard.hpp>
+#include <sge/gui/widgets/label.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/widgets/label.hpp>
-#include <sge/gui/events/invalid_area.hpp>
-#include <sge/math/rect_util.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size_t.hpp>
 #include <sge/renderer/colors.hpp>
-#include <sge/renderer/make_const_image_view.hpp>
 #include <sge/media.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
@@ -28,23 +24,7 @@ void sge::gui::skins::standard::draw(
 	widgets::label const &b,
 	events::invalid_area const &e)
 {
-	// resize internal buffer if neccessary
-	if (b.buffer().width() != static_cast<image::coord_t>(b.size().w()) ||
-	    b.buffer().height() != static_cast<image::coord_t>(b.size().h()))
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1
-				<< SGE_TEXT("resizing from ") 
-				<< dim(
-					static_cast<unit>(b.buffer().width()),
-					static_cast<unit>(b.buffer().height()))
-				<< SGE_TEXT(" to ")
-				<< b.size());
-		b.buffer() = image(
-			static_cast<image::coord_t>(b.size().w()),
-			static_cast<image::coord_t>(b.size().h()));
-	}
+	resize_buffer(b);
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -53,9 +33,15 @@ void sge::gui::skins::standard::draw(
 	canvas::object c(b.buffer());
 
 	// Background
+	/*
 	c.draw_rect(
 		rect(c.size()),
 		internal_color(0xee,0xee,0xee,0xff),
+		canvas::rect_type::solid);
+		*/
+	c.draw_rect(
+		rect(c.size()),
+		internal_color(0x0,0x0,0x0,0x0),
 		canvas::rect_type::solid);
 
 	SGE_ASSERT_MESSAGE(
@@ -84,11 +70,7 @@ void sge::gui::skins::standard::draw(
 		        << b.text()
 		        << SGE_TEXT("\")"));
 
-	utility::blit_invalid(
-		renderer::make_const_image_view(c.view()),
-		rect(b.absolute_pos(),c.size()),
-		e.texture(),
-		e.area());
+	blit_invalid(b,c,e);
 }
 
 sge::gui::dim const sge::gui::skins::standard::size_hint(

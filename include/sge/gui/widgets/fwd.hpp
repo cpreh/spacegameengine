@@ -12,8 +12,15 @@ namespace widgets
 class button;
 class edit;
 class label;
+class image_label;
+class backdrop;
 
-typedef boost::mpl::vector<button,edit,label> types;
+typedef boost::mpl::vector<
+	button,
+	edit,
+	label,
+	image_label,
+	backdrop> types;
 }
 }
 }

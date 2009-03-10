@@ -5,6 +5,8 @@
 #include <sge/gui/widgets/button.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/widgets/label.hpp>
+#include <sge/gui/widgets/image_label.hpp>
+#include <sge/gui/widgets/backdrop.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/canvas.hpp>
