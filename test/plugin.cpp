@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/input/system.hpp>
+#include <sge/model/loader.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/mpl/for_each.hpp>
 #include <sge/log/global.hpp>
@@ -72,6 +73,7 @@ try
 		sge::font::system,
 		sge::image::loader,
 		sge::input::system,
+		sge::model::loader,
 		sge::renderer::system
 	> plugins;
 
