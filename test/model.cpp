@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
+#include <sge/math/matrix/perspective.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -56,8 +57,7 @@ try
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
-				sge::renderer::screen_size(
-					1024,
+				sge::renderer::screen_size( 1024,
 					768),
 				sge::renderer::bit_depth::depth32,
 				sge::renderer::refresh_rate_dont_care),
@@ -127,6 +127,15 @@ try
 				sge::input::kc::key_escape,
 				boost::phoenix::ref(running) = false
 			)
+		)
+	);
+
+	sys.renderer()->projection(
+		sge::math::matrix::perspective<float>(
+			0.75f,
+			0.9f,
+			-10.f,
+			100.f
 		)
 	);
 
