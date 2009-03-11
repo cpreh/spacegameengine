@@ -19,21 +19,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../object.hpp"
+#include "../vertex_format.hpp"
 #include <sge/math/pi.hpp>
 #include <sge/log/headers.hpp>
+#include <sge/renderer/vf/dynamic_view.hpp>
+#include <sge/renderer/vf/dynamic_format.hpp>
+#include <sge/renderer/vf/make_dynamic_format.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/vertex.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/istream_util.hpp>
-#include <cmath>
+#include <boost/tr1/array.hpp>
+#include <boost/foreach.hpp>
+#include <ios>
 #include <algorithm>
+#include <cmath>
 
 namespace
 {
 
 unsigned const max_qpath = 64;
 
-// TODO: replace float here!
-float const MD3_XYZ_SCALE = static_cast<float>(1) / static_cast<float>(64);
+sge::md3::funit const
+xyz_scale(
+	static_cast<sge::md3::funit>(1)
+	/ static_cast<sge::md3::funit>(64)
+);
 
 }
 
@@ -93,6 +106,18 @@ sge::md3::object::object(
 	is.seekg(start + ofs_eof);
 }
 
+sge::renderer::vf::dynamic_format const
+sge::md3::object::format() const
+{
+	static renderer::vf::dynamic_format const fmt(
+		renderer::vf::make_dynamic_format<
+			vertex_format
+		>()
+	);
+
+	return fmt;
+}
+
 sge::renderer::size_type
 sge::md3::object::vertices() const
 {
@@ -109,31 +134,46 @@ void
 sge::md3::object::copy_vertices(
 	renderer::vf::dynamic_view const &view)
 {
-	/*
-	if(offset + vertices() > vb->size())
-		throw exception(SGE_TEXT("md3::object::fill_vertices(): vertex buffer out of range!"));
+	if(vertices() > view.size())
+		throw exception(
+			SGE_TEXT("md3::model::copy_vertices(): view too small!")
+		);
 
-	renderer::vertex_buffer::iterator vbit = vb->begin() + offset;
-	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
-	{
-		const surface& surf = *surf_it;
+	typedef renderer::vf::view<
+		vertex_format	
+	> vertex_view;
+		
+	vertex_view const vertices(
+		view	
+	);
 
-		const renderer::vertex_buffer::iterator vbold = vbit;
-		for(surface::transformed_vertex_vector::size_type sz = 0; sz < surf.transformed_vertices.size(); ++sz)
+	vertex_view::iterator vbit = vertices.begin();
+
+	BOOST_FOREACH(
+		surface_vector::const_reference surf,
+		surfaces
+	)
+		for(
+			surface::transformed_vertex_vector::size_type sz = 0;
+			sz < surf.transformed_vertices.size();
+			++sz, ++vbit
+		)
 		{
-			const surface::transformed_vertex& v = surf.transformed_vertices.at(sz);
+			surface::transformed_vertex const &v(
+				surf.transformed_vertices.at(
+					sz
+				)
+			);
 
-			(vbit  )->pos()    = v.pos;
-			(vbit  )->normal() = v.normal;
-			(vbit++)->tex()    = surf.st.at(sz).tex;
-		}	
-	}
-	*/
+			(*vbit).set<vertex_pos>(v.pos);
+			(*vbit).set<vertex_normal>(v.normal);
+			(*vbit).set<vertex_texpos>(surf.st.at(sz).tex); // TODO: this may be wrong?
+		}
 }
 
 void
 sge::md3::object::copy_indices(
-	renderer::index::view const &)
+	renderer::index::view const &view)
 {
 	/*
 	if(offset + indices() > ib->size())
@@ -183,30 +223,35 @@ sge::md3::object::read_string(model::istream& is)
 
 inline sge::md3::object::vec3 sge::md3::object::convert_normal(const s16 normal)
 {
-	using std::sin;
-	using std::cos;
+	funit const
+		lat = static_cast<funit>((normal >> 8) & 255) * (2 * math::pi<funit>()) / 255,
+		lng = static_cast<funit>(normal & 255) * (2 * math::pi<funit>()) / 255;
 
-	f32 const
-		lat = static_cast<f32>((normal >> 8) & 255) * (2 * math::pi<f32>()) / 255,
-		lng = static_cast<f32>(normal & 255) * (2 * math::pi<f32>()) / 255;
-
-	return vec3(cos(lat) * sin(lng),
-	            sin(lat) * sin(lng),
-	            cos(lng));
+	return vec3(
+		std::cos(lat) * std::sin(lng),
+		std::sin(lat) * std::sin(lng),
+		std::cos(lng));
 }
 
 inline sge::md3::object::vec3
-sge::md3::object::read_vec3(model::istream& is)
+sge::md3::object::read_vec3(
+	model::istream &is)
 {
-	return vec3(read<f32>(is), read<f32>(is), read<f32>(is));
+	return vec3(
+		read<funit>(is),
+		read<funit>(is),
+		read<funit>(is)
+	);
 }
 
-inline sge::md3::object::frame::frame(model::istream& is)
-: min_bounds(read_vec3(is)),
-  max_bounds(read_vec3(is)),
-  local_origin(read_vec3(is)),
-  radius(read<f32>(is)),
-  name(read_string<16>(is))
+inline sge::md3::object::frame::frame(
+	model::istream &is)
+:
+	min_bounds(read_vec3(is)),
+	max_bounds(read_vec3(is)),
+	local_origin(read_vec3(is)),
+	radius(read<funit>(is)),
+	name(read_string<16>(is))
 {}
 
 inline sge::md3::object::tag::tag(model::istream& is)
@@ -232,14 +277,15 @@ inline sge::md3::object::surface::surface(model::istream& is, const s32 num_fram
 	if(num_frames != num_frames_head)
 		throw exception(SGE_TEXT("num_frames mismatch in md3::object::surface!"));
 
-	const s32 num_shaders   = read<s32>(is);
-	const s32 num_verts     = read<s32>(is);
-	const s32 num_triangles = read<s32>(is);
-	const s32 ofs_triangles = read<s32>(is);
-	const s32 ofs_shaders   = read<s32>(is);
-	const s32 ofs_st        = read<s32>(is);
-	const s32 ofs_xyznormal = read<s32>(is);
-	const s32 ofs_end       = read<s32>(is);
+	s32 const
+		num_shaders   = read<s32>(is),
+		num_verts     = read<s32>(is),
+		num_triangles = read<s32>(is),
+		ofs_triangles = read<s32>(is),
+		ofs_shaders   = read<s32>(is),
+		ofs_st        = read<s32>(is),
+		ofs_xyznormal = read<s32>(is),
+		ofs_end       = read<s32>(is);
 
 	is.seekg(start + ofs_triangles, std::ios_base::beg);
 	for(s32 i = 0; i < num_triangles; ++i)
@@ -264,35 +310,42 @@ inline sge::md3::object::surface::surface(model::istream& is, const s32 num_fram
 	is.seekg(start + ofs_end, std::ios_base::beg);
 }
 
-sge::md3::object::surface::shader::shader(model::istream& is)
-: name(read_string<max_qpath>(is)),
-  shader_index(read<s32>(is))
+sge::md3::object::surface::shader::shader(
+	model::istream &is)
+:
+	name(read_string<max_qpath>(is)),
+	shader_index(read<s32>(is))
 {}
 
-sge::md3::object::surface::triangle::triangle(model::istream& is)
+sge::md3::object::surface::triangle::triangle(
+	model::istream& is)
 {
 	for(index_array::iterator i = indices.begin(); i != indices.end(); ++i)
 		*i = read<s32>(is);
 }
 
-sge::md3::object::surface::texcoord::texcoord(model::istream& is)
-: tex(read<f32>(is), read<f32>(is))
+sge::md3::object::surface::texcoord::texcoord(
+	model::istream& is)
+:
+	tex(read<funit>(is), read<funit>(is))
 {}
 
-sge::md3::object::surface::vertex::vertex(model::istream& is)
-: x(read<s16>(is)),
-  y(read<s16>(is)),
-  z(read<s16>(is)),
-  normal(read<s16>(is))
+sge::md3::object::surface::vertex::vertex(
+	model::istream& is)
+:
+	x(read<s16>(is)),
+	y(read<s16>(is)),
+	z(read<s16>(is)),
+	normal(read<s16>(is))
 {}
 
 sge::md3::object::surface::transformed_vertex::transformed_vertex(
 	vertex const &v)
 :
 	pos(
-		static_cast<f32>(v.x) * MD3_XYZ_SCALE,
-		static_cast<f32>(v.y) * MD3_XYZ_SCALE,
-		static_cast<f32>(v.z) * MD3_XYZ_SCALE
+		static_cast<funit>(v.x) * xyz_scale,
+		static_cast<funit>(v.y) * xyz_scale,
+		static_cast<funit>(v.z) * xyz_scale
 	),
 	normal(
 		convert_normal(

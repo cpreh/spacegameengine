@@ -18,35 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_VF_NORMAL_HPP_INCLUDED
-#define SGE_RENDERER_VF_NORMAL_HPP_INCLUDED
-
-#include <sge/renderer/vf/vec3_base.hpp>
-#include <sge/renderer/vf/role.hpp>
-#include <sge/type_traits/is_float_or_double.hpp>
-#include <boost/static_assert.hpp>
+#ifndef SGE_MD3_FUNIT_HPP_INCLUDED
+#define SGE_MD3_FUNIT_HPP_INCLUDED
 
 namespace sge
 {
-namespace renderer
-{
-namespace vf
+namespace md3
 {
 
-template<
-	typename Format
->
-struct normal
-: vec3_base<
-	Format,
-	role::normal
-> {
-	BOOST_STATIC_ASSERT(
-		is_float_or_double<Format>::value
-	);
-};
+typedef float funit;
 
-}
 }
 }
 

@@ -34,11 +34,16 @@ namespace vf
 
 template<
 	typename Format,
-	role::type Role,
-	vertex_size NumElements
+	role::type Role
 >
 struct vec3_base
-: vec_base<Format, Role, 3, NumElements> {};
+:
+vec_base<
+	Format,
+	Role,
+	3
+>
+{};
 
 }
 }

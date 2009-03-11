@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MD3_OBJECT_HPP_INCLUDED
 #define SGE_MD3_OBJECT_HPP_INCLUDED
 
+#include "funit.hpp"
 #include <sge/model/object.hpp>
 #include <sge/model/istream.hpp>
 #include <sge/math/vector/static.hpp>
@@ -61,10 +62,9 @@ private:
 	typedef int16 s16;
 	typedef int32 s32;
 	typedef uint8 u8;
-	typedef float f32;
 	typedef std::basic_string<u8> string;
 	typedef math::vector::static_<
-		f32,
+		funit,
 		3
 	>::type vec3;
 
@@ -74,7 +74,7 @@ private:
 		vec3 min_bounds,
 		     max_bounds,
 		     local_origin;
-		f32  radius;
+		funit  radius;
 		string name;
 	};
 
@@ -107,7 +107,7 @@ private:
 			explicit texcoord(model::istream &);
 			
 			typedef math::vector::static_<
-				f32,
+				funit,
 				2
 			>::type tex_pos;
 
