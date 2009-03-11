@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/filesystem/directory_iterator.hpp>
 #include <sge/filesystem/is_directory.hpp>
 #include <sge/filesystem/extension.hpp>
+#include <sge/exception.hpp>
 #include <sge/text.hpp>
 
 char const *const plugin_path =
@@ -72,16 +73,12 @@ sge::plugin::manager::manager()
 			continue;
 		}
 
-		try {
+		try
+		{
 			plugins.push_back(context_base(*it));
-		} catch(
-			library::function_not_found const &e) {
-			// ignore info loading error - it's just a DLL, not a plugin...
-			// nothing to worry about (and especially nothing that justifies
-			// aborting the program ...)
-			if (e.func() != version_fun)
-				throw;
-
+		}
+		catch(library::function_not_found const &e)
+		{
 			SGE_LOG_WARNING(
 				log::global(),
 				log::_1
@@ -90,6 +87,17 @@ sge::plugin::manager::manager()
 					<< SGE_TEXT(" because the function \"")
 					<< iconv(e.func())
 					<< SGE_TEXT("\" is missing!")
+			);
+		}
+		catch(exception const &e)
+		{
+			SGE_LOG_WARNING(
+				log::global(),
+				log::_1
+					<< it->path().string()
+					<< SGE_TEXT(" failed to load: \"")
+					<< e.what()
+					<< SGE_TEXT("\"!")
 			);
 		}
 	}

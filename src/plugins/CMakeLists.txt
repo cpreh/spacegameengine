@@ -15,6 +15,7 @@ OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" ON)
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 OPTION (ENABLE_CELL "Build the cell collision plugin" ON)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
+OPTION (ENABLE_MD3 "Build the md3 model loader plugin" ON)
 OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
 IF(ODE_FOUND)
@@ -100,6 +101,10 @@ ENDIF ()
 
 IF (ENABLE_MAD)
 	ADD_SUBDIRECTORY (mad)
+ENDIF ()
+
+IF (ENABLE_MD3)
+	ADD_SUBDIRECTORY (md3)
 ENDIF ()
 
 IF(ENABLE_ODE)

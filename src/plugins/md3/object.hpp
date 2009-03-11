@@ -18,43 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_MD3_HPP_INCLUDED
-#define SGE_MODEL_MD3_HPP_INCLUDED
+#ifndef SGE_MD3_OBJECT_HPP_INCLUDED
+#define SGE_MD3_OBJECT_HPP_INCLUDED
 
-#if 0
-#include <istream>
-#include <string>
-#include <vector>
+#include <sge/model/object.hpp>
+#include <sge/model/istream.hpp>
+#include <sge/math/vector/static.hpp>
+#include <sge/math/vector/basic_decl.hpp>
+#include <sge/typeswitch.hpp>
 #include <boost/tr1/array.hpp>
-#include <boost/cstdint.hpp>
-#include <sge/math/vector.hpp>
-#include <sge/renderer/index_buffer.hpp>
-#include <sge/renderer/types.hpp>
-#include <sge/renderer/vertex_buffer.hpp>
+#include <vector>
+#include <string>
 
 namespace sge
 {
+namespace md3
+{
 
-class md3_model {
+class object : public model::object {
 public:
-	md3_model(std::istream& data);
+	explicit object(
+		model::istream &);
 
-	renderer::index_buffer::size_type indices() const;
-	renderer::vertex_buffer::size_type vertices() const;
+	renderer::vf::dynamic_format const
+	format() const;
 
-	void fill_vertices(
-		renderer::vertex_buffer_ptr,
-		renderer::vertex_buffer::size_type offset = 0);
-	void fill_indices(
-		renderer::index_buffer_ptr,
-		renderer::index_buffer::size_type offset = 0);
+	renderer::size_type
+	vertices() const;
+
+	renderer::size_type
+	indices() const;
+
+	void
+	copy_vertices(
+		renderer::vf::dynamic_view const &);
+	
+	void
+	copy_indices(
+		renderer::index::view const &);
 private:
-	typedef boost::int16_t s16;
-	typedef boost::int32_t s32;
-	typedef boost::uint8_t u8;
+	// TODO: split this!
+	typedef int16 s16;
+	typedef int32 s32;
+	typedef uint8 u8;
 	typedef float f32;
-	typedef std::basic_string<u8> string_type;
-	typedef math::vector3 vec3;
+	typedef std::basic_string<u8> string;
+	typedef math::vector::static_<
+		f32,
+		3
+	>::type vec3;
 
 	struct frame {
 		frame(std::istream& is);
@@ -63,13 +75,13 @@ private:
 		     max_bounds,
 		     local_origin;
 		f32  radius;
-		string_type name;
+		string name;
 	};
 
 	struct tag {
-		tag(std::istream& is);
+		explicit tag(model::istream& is);
 		
-		string_type                      name;
+		string                           name;
 		vec3                             origin;
 		typedef std::tr1::array<vec3, 3> axis_array;
 		axis_array                       axis;
@@ -79,26 +91,31 @@ private:
 		surface(std::istream& is, s32 num_frames);
 
 		struct shader {
-			shader(std::istream& is);
+			explicit shader(model::istream &);
 
-			string_type name;
+			string name;
 			s32 shader_index;
 		};
 
 		struct triangle {
-			triangle(std::istream& is);
+			explicit triangle(model::istream &);
 			typedef std::tr1::array<s32, 3> index_array;
 			index_array indices;
 		};
 
 		struct texcoord {
-			texcoord(std::istream& is);
+			explicit texcoord(model::istream &);
 			
-			renderer::tex_pos tex;
+			typedef math::vector::static_<
+				f32,
+				2
+			>::type tex_pos;
+
+			tex_pos tex;
 		};
 
 		struct vertex {
-			vertex(std::istream& is);
+			explicit vertex(model::istream &);
 
 			s16 x,
 			    y,
@@ -107,13 +124,13 @@ private:
 		};
 
 		struct transformed_vertex {
-			transformed_vertex(const vertex&);
+			explicit transformed_vertex(vertex const &);
 
 			vec3 pos,
 			     normal;
 		};
 
-		string_type name;
+		string name;
 
 		typedef std::vector<shader>   shader_vector;
 		shader_vector                 shaders;
@@ -128,19 +145,21 @@ private:
 		transformed_vertex_vector               transformed_vertices;
 	};
 
-	static bool read_and_check_id3p(std::istream&);
+	static bool read_and_check_id3p(model::istream &);
 
 	static vec3 read_vec3(std::istream&);
 
-	template<std::size_t Max>
-		static string_type read_string(std::istream&);
+	template<
+		string::size_type Max
+	>
+	static string const read_string(model::istream &);
 
 	static vec3 convert_normal(s16);
 
-	renderer::index_buffer::size_type indices_;
-	renderer::vertex_buffer::size_type vertices_;
+	renderer::size_type indices_;
+	renderer::size_type vertices_;
 
-	string_type name_;
+	string name_;
 
 	typedef std::vector<frame>   frames_vector;
 	frames_vector                frames;
@@ -153,6 +172,6 @@ private:
 };
 
 }
+}
 
-#endif
 #endif

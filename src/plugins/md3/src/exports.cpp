@@ -18,23 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJECT_FWD_HPP_INCLUDED
-#define SGE_MODEL_OBJECT_FWD_HPP_INCLUDED
+#include "../loader.hpp"
+#include <sge/export.hpp>
+#include <sge/text.hpp>
+#include <sge/plugin/info.hpp>
 
-#include <sge/shared_ptr.hpp>
-
-namespace sge
-{
-namespace model
+extern "C"
 {
 
-class object;
+SGE_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *);
 
-typedef shared_ptr<
-	object
-> object_ptr;
+SGE_EXPORT_SYMBOL sge::model::loader *
+create_model_loader();
+
+SGE_EXPORT_SYMBOL void
+plugin_version_info(
+	sge::plugin::info *const i)
+{
+	if(!i)
+		return;
+	i->name = SGE_TEXT("md3");
+	i->description = SGE_TEXT("Provides loading of md3 model files.");
+	i->type = sge::plugin::capabilities::model_loader;
+	i->plugin_version = 0x1;
+	i->min_core_version = 0x1;
+}
+
+SGE_EXPORT_SYMBOL sge::model::loader *
+create_model_loader()
+{
+	return new sge::md3::loader();
+}
 
 }
-}
-
-#endif

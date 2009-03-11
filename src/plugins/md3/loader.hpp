@@ -18,21 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJECT_FWD_HPP_INCLUDED
-#define SGE_MODEL_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_MD3_LOADER_HPP_INCLUDED
+#define SGE_MD3_LOADER_HPP_INCLUDED
 
-#include <sge/shared_ptr.hpp>
+#include <sge/model/loader.hpp>
 
 namespace sge
 {
-namespace model
+namespace md3 
 {
 
-class object;
-
-typedef shared_ptr<
-	object
-> object_ptr;
+class loader : public model::loader {
+public:
+	model::object_ptr const
+	load(
+		model::istream &);
+};
 
 }
 }

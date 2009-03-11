@@ -18,23 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MODEL_OBJECT_FWD_HPP_INCLUDED
-#define SGE_MODEL_OBJECT_FWD_HPP_INCLUDED
+#include "../loader.hpp"
+#include "../object.hpp"
+#include <sge/make_shared_ptr.hpp>
+#include <boost/ref.hpp>
 
-#include <sge/shared_ptr.hpp>
-
-namespace sge
+sge::model::object_ptr const
+sge::md3::loader::load(
+	model::istream &is)
 {
-namespace model
-{
-
-class object;
-
-typedef shared_ptr<
-	object
-> object_ptr;
-
+	return make_shared_ptr<
+		object
+	>(
+		boost::ref(
+			is
+		)
+	);
 }
-}
-
-#endif
