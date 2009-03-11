@@ -121,15 +121,15 @@ class SGE_CLASS_SYMBOL widget
 
 	SGE_SYMBOL void compile();
 
-	virtual dim const size_hint() const;
-	virtual void process(events::invalid_area const &);
-	virtual void process(events::mouse_enter const &);
-	virtual void process(events::mouse_leave const &);
-	virtual void process(events::mouse_move const &);
-	virtual void process(events::mouse_click const &);
-	virtual key_handling::type process(events::key const &);
-	virtual void process(events::keyboard_enter const &);
-	virtual void process(events::keyboard_leave const &);
+	SGE_SYMBOL virtual dim const size_hint() const;
+	SGE_SYMBOL virtual void process(events::invalid_area const &);
+	SGE_SYMBOL virtual void process(events::mouse_enter const &);
+	SGE_SYMBOL virtual void process(events::mouse_leave const &);
+	SGE_SYMBOL virtual void process(events::mouse_move const &);
+	SGE_SYMBOL virtual void process(events::mouse_click const &);
+	SGE_SYMBOL virtual key_handling::type process(events::key const &);
+	SGE_SYMBOL virtual void process(events::keyboard_enter const &);
+	SGE_SYMBOL virtual void process(events::keyboard_leave const &);
 
 	// virtuals
 	SGE_SYMBOL virtual ~widget();

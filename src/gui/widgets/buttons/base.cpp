@@ -12,7 +12,7 @@ sge::gui::logger mylogger(
 	true);
 }
 
-sge::gui::widgets::buttons::base(
+sge::gui::widgets::buttons::base::base(
 	parent_data const &_parent,
 	parameters _params)
 	: widget(
@@ -72,3 +72,5 @@ sge::signals::connection const sge::gui::widgets::buttons::base::register_clicke
 {
 	return clicked_.connect(_clicked);
 }
+
+sge::gui::widgets::buttons::base::~base() {}

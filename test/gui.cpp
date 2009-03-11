@@ -6,7 +6,7 @@
 #include <sge/renderer/state/scoped.hpp>
 
 #include <sge/gui/manager.hpp>
-#include <sge/gui/widgets/button.hpp>
+#include <sge/gui/widgets/buttons/text.hpp>
 #include <sge/gui/layouts/vertical.hpp>
 #include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
@@ -99,7 +99,7 @@ try
 		sge::gui::skin_ptr(new sge::gui::skins::standard()));
 	
 #if TESTING_LEVEL == TL_SINGLE_BUTTON
-	sge::gui::widgets::button b((sge::gui::widget::parent_data(m)),SGE_TEXT("Button A"));
+	sge::gui::widgets::buttons::text b((sge::gui::widget::parent_data(m)),SGE_TEXT("Button A"));
 	b.relative_pos(sge::gui::point(10,10));
 	b.size(sge::gui::dim(400,300));
 #elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
@@ -108,8 +108,8 @@ try
 	top.relative_pos(sge::gui::point(10,10));
 	top.size(sge::gui::dim(400,300));
 
-	sge::gui::widgets::button left((sge::gui::widget::parent_data(top)),SGE_TEXT("Button A"));
-	sge::gui::widgets::button right((sge::gui::widget::parent_data(top)),SGE_TEXT("Button B"));
+	sge::gui::widgets::buttons::text left((sge::gui::widget::parent_data(top)),SGE_TEXT("Button A"));
+	sge::gui::widgets::buttons::text right((sge::gui::widget::parent_data(top)),SGE_TEXT("Button B"));
 #elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
 	sge::gui::widget top(
 		sge::gui::widget::parent_data(m),
@@ -131,23 +131,23 @@ try
 		sge::gui::widget::parameters()
 			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(right))));
 
-	sge::gui::widgets::button left_top(
+	sge::gui::widgets::buttons::text left_top(
 		left,
 		sge::gui::widget::parameters(),
 		SGE_TEXT("(left top) me!"));
 	
-	sge::gui::widgets::button left_bottom(
+	sge::gui::widgets::buttons::text left_bottom(
 		left,
 		sge::gui::widget::parameters(),
 		SGE_TEXT("(left bottom) me!"));
 
-	sge::shared_ptr<sge::gui::widgets::button>
-		right_top(new sge::gui::widgets::button(
+	sge::shared_ptr<sge::gui::widgets::buttons::text>
+		right_top(new sge::gui::widgets::buttons::text(
 			right,
 			sge::gui::widget::parameters(),
 			SGE_TEXT("(right top) me!")));
 
-	sge::gui::widgets::button right_bottom(
+	sge::gui::widgets::buttons::text right_bottom(
 		right,
 		sge::gui::widget::parameters(),
 		SGE_TEXT("(right bottom) me!"));

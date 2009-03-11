@@ -21,7 +21,7 @@ sge::gui::widgets::buttons::image::image(
 						static_cast<unit>(normal_->height())))),
 		normal_(_normal),
 		hover_(_hover),
-		keyboard_(_keyboard)
+		keyboard_(_keyboard),
 		hover_keyboard_(_hover_keyboard)
 {
 	SGE_ASSERT(

@@ -13,19 +13,19 @@ sge::gui::logger mylogger(
 	true);
 }
 
-sge::gui::widgets::buttons::text(
+sge::gui::widgets::buttons::text::text(
 	parent_data const &_parent,
 	parameters _params,
-	string const &_text,
+	string const &_caption,
 	font::metrics_ptr _font)
-	: widget(
+	: base(
 			_parent,
 			_params
 				.size_policy(
 					size_policy_t(
 						axis_policy::can_grow,
 						axis_policy::none))),
-	  text_(_text),
+	  caption_(_caption),
 	  font_(_font)
 {
 	if (!font_)
