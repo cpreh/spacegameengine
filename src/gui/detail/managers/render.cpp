@@ -66,8 +66,9 @@ void sge::gui::detail::managers::render::add(widget &w)
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("adding new widget"));
+	widget *w_ptr = &w;
 	if (!w.parent_widget())
-		widgets[&w] = widget_data();
+		widgets.insert(w_ptr,new widget_data());
 }
 
 void sge::gui::detail::managers::render::activation(
@@ -96,7 +97,7 @@ void sge::gui::detail::managers::render::draw()
 
 	sprite::container sprites;
 	BOOST_FOREACH(widget_container::value_type const &w,widgets)
-		sprites.push_back(w.second.sprite);
+		sprites.push_back(w.second->sprite);
 	sprites.push_back(mouse_.cursor());
 	ss.render(sprites.begin(),sprites.end());
 }
@@ -136,7 +137,7 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 		log::_1 << SGE_TEXT("resizing widget from ") << w.size() 
 		        << SGE_TEXT(" to ") << d);
 
-	widget_data &wd = wi->second;
+	widget_data &wd = *wi->second;
 	
 	// check if the current texture is large enough to hold the new widget
 	dim const new_dim = 
@@ -170,18 +171,20 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 				software_texture,
 				hardware_texture));
 								
-		wd.sprite = sprite::object(
-			sprite::point(
+		wd.sprite.pos() = sprite::point(
 				structure_cast<sprite::point>(
-					w.screen_pos())),
+					w.screen_pos()));
+
+		wd.sprite.texture(
 			texture::const_part_ptr(
 				new texture::part_raw(
-					hardware_texture)),
-			sprite::dim(
+					hardware_texture)));
+
+		wd.sprite.size() = sprite::dim(
 				structure_cast<sprite::dim>(
-					new_dim)),
-			sprite::defaults::color_,
-			static_cast<sprite::depth_type>(1));
+					new_dim));
+
+		wd.sprite.z() = static_cast<sprite::depth_type>(1);
 		
 		switch (w.activation())
 		{
@@ -225,7 +228,7 @@ void sge::gui::detail::managers::render::reposition(
 		mylogger,
 		log::_1 << SGE_TEXT("repositioning sprite to ") << d);
 	// just reset sprite position
-	wi->second.sprite.pos() = structure_cast<sprite::point>(d);
+	wi->second->sprite.pos() = structure_cast<sprite::point>(d);
 }
 
 void sge::gui::detail::managers::render::invalidate(
@@ -240,7 +243,7 @@ sge::sprite::object &sge::gui::detail::managers::render::connected_sprite(
 {
 	widget_container::iterator wi = widgets.find(&w);
 	SGE_ASSERT(wi != widgets.end());
-	return wi->second.sprite;
+	return wi->second->sprite;
 }
 
 void sge::gui::detail::managers::render::clean()

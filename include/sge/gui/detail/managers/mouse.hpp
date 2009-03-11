@@ -31,6 +31,12 @@ class mouse : public submanager
 		renderer::device_ptr,
 		skin &);
 	
+	void resize(
+		widget &,
+		dim const &);
+	void reposition(
+		widget &,
+		point const &);
 	void add(widget &);
 	void draw();
 	void activation(widget &,activation_state::type);
