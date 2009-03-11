@@ -19,46 +19,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../object.hpp"
-/*#include <sge/model/md3.hpp>
-#include <sge/math/constants.hpp>
+#include <sge/math/pi.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <sge/istream_util.hpp>
-#include <sge/iostream.hpp>
 #include <cmath>
-#include <cstddef>
 #include <algorithm>
-#include <iostream>
-#include <ostream>
 
-const std::size_t max_qpath = 64;
-
-const sge::space_unit MD3_XYZ_SCALE = static_cast<sge::space_unit>(1)/64;
-
-sge::md3_model::md3_model(std::istream& is)
-: indices_(0),
-  vertices_(0)
+namespace
 {
-	const std::istream::off_type start = is.tellg();
+
+unsigned const max_qpath = 64;
+
+// TODO: replace float here!
+float const MD3_XYZ_SCALE = static_cast<float>(1) / static_cast<float>(64);
+
+}
+
+sge::md3::object::object(
+	model::istream &is)
+:
+	vertices_(0),
+	indices_(0)
+{
+	model::istream::off_type const start = is.tellg();
 
 	if(!read_and_check_id3p(is))
 		throw exception(SGE_TEXT("Invalid md3 format!"));
 
-	const s32 version = read<s32>(is);
+	s32 const version = read<s32>(is);
 	if(version != 15)
-		sge::cerr << SGE_TEXT("md3 version is not 15 but continuing anyway...\n");
+		SGE_LOG_WARNING(
+			log::global(),
+			log::_1 << SGE_TEXT("md3 version is not 15 but continuing anyway.")
+		);
 
 	name_ = read_string<max_qpath>(is);
 
 	read<s32>(is); // flags
 
-	const s32 num_frames   = read<s32>(is);
-	const s32 num_tags     = read<s32>(is);
-	const s32 num_surfaces = read<s32>(is);
-	                         read<s32>(is); // num_skins
-	const s32 ofs_frames   = read<s32>(is);
-	const s32 ofs_tags     = read<s32>(is);
-	const s32 ofs_surfaces = read<s32>(is);
-	const s32 ofs_eof      = read<s32>(is);
+	s32 const
+		num_frames = read<s32>(is),
+		num_tags     = read<s32>(is),
+		num_surfaces = read<s32>(is);
+	
+	read<s32>(is); // num_skins
+	
+	s32 const
+		ofs_frames   = read<s32>(is),
+		ofs_tags     = read<s32>(is),
+		ofs_surfaces = read<s32>(is),
+		ofs_eof      = read<s32>(is);
 
 	is.seekg(start + ofs_frames, std::ios_base::beg);
 	for(s32 i = 0; i < num_frames; ++i)
@@ -72,7 +84,7 @@ sge::md3_model::md3_model(std::istream& is)
 	for(s32 i = 0; i < num_surfaces; ++i)
 	{
 		surfaces.push_back(surface(is, num_frames));
-		const surface& s = surfaces.back();
+		surface const &s = surfaces.back();
 		indices_ += s.triangles.size();
 		vertices_ += s.transformed_vertices.size();
 	}
@@ -81,44 +93,25 @@ sge::md3_model::md3_model(std::istream& is)
 	is.seekg(start + ofs_eof);
 }
 
-sge::renderer::index_buffer::size_type sge::md3_model::indices() const
-{
-	return indices_;
-}
-
-sge::renderer::vertex_buffer::size_type sge::md3_model::vertices() const
+sge::renderer::size_type
+sge::md3::object::vertices() const
 {
 	return vertices_;
 }
 
-void sge::md3_model::fill_indices(
-	const renderer::index_buffer_ptr ib,
-	const renderer::index_buffer::size_type offset)
+sge::renderer::size_type
+sge::md3::object::indices() const
 {
-	if(offset + indices() > ib->size())
-		throw exception(SGE_TEXT("md3_model::fill_indices(): index buffer out of range!"));
-
-	renderer::index_buffer::value_type ib_offset(0);
-	renderer::index_buffer::iterator ibit = ib->begin() + offset;
-	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
-	{
-		const surface& surf = *surf_it;
-		for(surface::triangle_vector::const_iterator it = surf.triangles.begin(); it != surf.triangles.end(); ++it)
-		{
-			*ibit++ = it->indices[0] + ib_offset;
-			*ibit++ = it->indices[1] + ib_offset;
-			*ibit++ = it->indices[2] + ib_offset;
-		}
-		ib_offset += static_cast<renderer::index_buffer::value_type>(surf.transformed_vertices.size());
-	}
+	return indices_;
 }
 
-void sge::md3_model::fill_vertices(
-	const renderer::vertex_buffer_ptr vb,
-	const renderer::vertex_buffer::size_type offset)
+void
+sge::md3::object::copy_vertices(
+	renderer::vf::dynamic_view const &view)
 {
+	/*
 	if(offset + vertices() > vb->size())
-		throw exception(SGE_TEXT("md3_model::fill_vertices(): vertex buffer out of range!"));
+		throw exception(SGE_TEXT("md3::object::fill_vertices(): vertex buffer out of range!"));
 
 	renderer::vertex_buffer::iterator vbit = vb->begin() + offset;
 	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
@@ -135,9 +128,35 @@ void sge::md3_model::fill_vertices(
 			(vbit++)->tex()    = surf.st.at(sz).tex;
 		}	
 	}
+	*/
 }
 
-bool sge::md3_model::read_and_check_id3p(std::istream& is)
+void
+sge::md3::object::copy_indices(
+	renderer::index::view const &)
+{
+	/*
+	if(offset + indices() > ib->size())
+		throw exception(SGE_TEXT("md3::object::fill_indices(): index buffer out of range!"));
+
+	renderer::index_buffer::value_type ib_offset(0);
+	renderer::index_buffer::iterator ibit = ib->begin() + offset;
+	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
+	{
+		const surface& surf = *surf_it;
+		for(surface::triangle_vector::const_iterator it = surf.triangles.begin(); it != surf.triangles.end(); ++it)
+		{
+			*ibit++ = it->indices[0] + ib_offset;
+			*ibit++ = it->indices[1] + ib_offset;
+			*ibit++ = it->indices[2] + ib_offset;
+		}
+		ib_offset += static_cast<renderer::index_buffer::value_type>(surf.transformed_vertices.size());
+	}
+	*/
+}
+
+
+bool sge::md3::object::read_and_check_id3p(model::istream& is)
 {
 	typedef std::tr1::array<u8, 4> id3p_array;
 	id3p_array id3p,
@@ -147,8 +166,11 @@ bool sge::md3_model::read_and_check_id3p(std::istream& is)
 	return std::equal(id3p.begin(), id3p.end(), to_check.begin());
 }
 
-template<std::size_t Max>
-inline sge::md3_model::string_type sge::md3_model::read_string(std::istream& is)
+template<
+	sge::md3::object::string::size_type Max
+>
+inline sge::md3::object::string const
+sge::md3::object::read_string(model::istream& is)
 {
 	std::tr1::array<u8, Max> tmp_name;
 	is.read(reinterpret_cast<char*>(tmp_name.c_array()), tmp_name.size());
@@ -159,25 +181,27 @@ inline sge::md3_model::string_type sge::md3_model::read_string(std::istream& is)
 	return tmp_name.data();
 }
 
-inline sge::md3_model::vec3 sge::md3_model::convert_normal(const s16 normal)
+inline sge::md3::object::vec3 sge::md3::object::convert_normal(const s16 normal)
 {
 	using std::sin;
 	using std::cos;
 
-	const space_unit lat = static_cast<space_unit>((normal >> 8) & 255) * (2 * math::pi<space_unit>()) / 255,
-	                 lng = static_cast<space_unit>(normal & 255) * (2 * math::pi<space_unit>()) / 255;
+	f32 const
+		lat = static_cast<f32>((normal >> 8) & 255) * (2 * math::pi<f32>()) / 255,
+		lng = static_cast<f32>(normal & 255) * (2 * math::pi<f32>()) / 255;
 
 	return vec3(cos(lat) * sin(lng),
 	            sin(lat) * sin(lng),
 	            cos(lng));
 }
 
-inline sge::md3_model::vec3 sge::md3_model::read_vec3(std::istream& is)
+inline sge::md3::object::vec3
+sge::md3::object::read_vec3(model::istream& is)
 {
 	return vec3(read<f32>(is), read<f32>(is), read<f32>(is));
 }
 
-inline sge::md3_model::frame::frame(std::istream& is)
+inline sge::md3::object::frame::frame(model::istream& is)
 : min_bounds(read_vec3(is)),
   max_bounds(read_vec3(is)),
   local_origin(read_vec3(is)),
@@ -185,7 +209,7 @@ inline sge::md3_model::frame::frame(std::istream& is)
   name(read_string<16>(is))
 {}
 
-inline sge::md3_model::tag::tag(std::istream& is)
+inline sge::md3::object::tag::tag(model::istream& is)
 : name(read_string<max_qpath>(is)),
   origin(read_vec3(is))
 {
@@ -193,9 +217,9 @@ inline sge::md3_model::tag::tag(std::istream& is)
 		*i = read_vec3(is);
 }
 
-inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_head)
+inline sge::md3::object::surface::surface(model::istream& is, const s32 num_frames_head)
 {
-	const std::istream::off_type start = is.tellg();
+	const model::istream::off_type start = is.tellg();
 
 	if(!read_and_check_id3p(is))
 		throw exception(SGE_TEXT("Invalid md3 surface!"));
@@ -206,7 +230,7 @@ inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_h
 	const s32 num_frames    = read<s32>(is);
 
 	if(num_frames != num_frames_head)
-		throw exception(SGE_TEXT("num_frames mismatch in md3_model::surface!"));
+		throw exception(SGE_TEXT("num_frames mismatch in md3::object::surface!"));
 
 	const s32 num_shaders   = read<s32>(is);
 	const s32 num_verts     = read<s32>(is);
@@ -231,36 +255,48 @@ inline sge::md3_model::surface::surface(std::istream& is, const s32 num_frames_h
 
 	is.seekg(start + ofs_xyznormal, std::ios_base::beg);
 	for(s32 i = 0; i < num_verts; ++i)
-		transformed_vertices.push_back(vertex(is));
+		transformed_vertices.push_back(
+			transformed_vertex(
+				vertex(is)
+			)
+		);
 
 	is.seekg(start + ofs_end, std::ios_base::beg);
 }
 
-sge::md3_model::surface::shader::shader(std::istream& is)
+sge::md3::object::surface::shader::shader(model::istream& is)
 : name(read_string<max_qpath>(is)),
   shader_index(read<s32>(is))
 {}
 
-sge::md3_model::surface::triangle::triangle(std::istream& is)
+sge::md3::object::surface::triangle::triangle(model::istream& is)
 {
 	for(index_array::iterator i = indices.begin(); i != indices.end(); ++i)
 		*i = read<s32>(is);
 }
 
-sge::md3_model::surface::texcoord::texcoord(std::istream& is)
+sge::md3::object::surface::texcoord::texcoord(model::istream& is)
 : tex(read<f32>(is), read<f32>(is))
 {}
 
-sge::md3_model::surface::vertex::vertex(std::istream& is)
+sge::md3::object::surface::vertex::vertex(model::istream& is)
 : x(read<s16>(is)),
   y(read<s16>(is)),
   z(read<s16>(is)),
   normal(read<s16>(is))
 {}
 
-sge::md3_model::surface::transformed_vertex::transformed_vertex(const vertex& v)
-: pos(static_cast<space_unit>(v.x) * MD3_XYZ_SCALE,
-      static_cast<space_unit>(v.y) * MD3_XYZ_SCALE,
-      static_cast<space_unit>(v.z) * MD3_XYZ_SCALE),
-  normal(convert_normal(v.normal))
-{}*/
+sge::md3::object::surface::transformed_vertex::transformed_vertex(
+	vertex const &v)
+:
+	pos(
+		static_cast<f32>(v.x) * MD3_XYZ_SCALE,
+		static_cast<f32>(v.y) * MD3_XYZ_SCALE,
+		static_cast<f32>(v.z) * MD3_XYZ_SCALE
+	),
+	normal(
+		convert_normal(
+			v.normal
+		)
+	)
+{}

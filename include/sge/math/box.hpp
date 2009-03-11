@@ -26,18 +26,22 @@ namespace sge
 namespace math
 {
 
-template<typename T> class box {
+template<
+	typename T
+>
+class box {
 public:
-	typedef T        value_type;
-	typedef T&       reference;
-	typedef const T& const_reference;
+	typedef T value_type;
+	typedef T &reference;
+	typedef T const &const_reference;
 
-	box(const_reference left,
-	          const_reference top,
-	          const_reference right,
-	          const_reference bottom,
-	          const_reference front,
-	          const_reference back);
+	box(
+		const_reference left,
+		const_reference top,
+		const_reference right,
+		const_reference bottom,
+		const_reference front,
+		const_reference back);
 
 	value_type w() const;
 	value_type h() const;
@@ -58,19 +62,28 @@ public:
 	reference front();
 	reference back();
 private:
-	value_type left_,
-	           top_,
-	           right_,
-	           bottom_,
-	           front_,
-	           back_;
+	value_type
+		left_,
+		top_,
+		right_,
+		bottom_,
+		front_,
+		back_;
 };
 
-template<typename T>
-bool operator==(const box<T>& l, const box<T>& r);
+template<
+	typename T
+>
+bool operator==(
+	box<T> const & l,
+	box<T> const &r);
 
-template<typename T>
-bool operator!=(const box<T>& l, const box<T>& r);
+template<
+	typename T
+>
+bool operator!=(
+	box<T> const &l,
+	box<T> const &r);
 
 }
 

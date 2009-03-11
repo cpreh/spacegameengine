@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/static.hpp>
 #include <sge/math/mod.hpp>
-#include <sge/math/constants.hpp>
+#include <sge/math/pi.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/format.hpp>
