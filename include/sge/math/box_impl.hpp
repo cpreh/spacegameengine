@@ -24,19 +24,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/box.hpp>
 #include <sge/math/compare.hpp>
 
-template<typename T>
-sge::math::box<T>::box(const_reference left_,
-                                   const_reference top_,
-                                   const_reference right_,
-                                   const_reference bottom_,
-                                   const_reference front_,
-                                   const_reference back_)
-: left_(left_),
-  top_(top_),
-  right_(right_),
-  bottom_(bottom_),
-  front_(front_),
-  back_(back_)
+template<
+	typename T
+>
+sge::math::box<T>::box(
+	const_reference left_,
+	const_reference top_,
+	const_reference right_,
+	const_reference bottom_,
+	const_reference front_,
+	const_reference back_)
+:
+	left_(left_),
+	top_(top_),
+	right_(right_),
+	bottom_(bottom_),
+	front_(front_),
+	back_(back_)
 {}
 
 template<typename T>
@@ -138,12 +142,12 @@ typename sge::math::box<T>::reference sge::math::box<T>::back()
 template<typename T>
 bool sge::math::operator==(const box<T>& l, const box<T>& r)
 {
-	return compare(l.left,r.left)
-	    && compare(l.top,r.top)
-	    && compare(l.right,r.right)
-	    && compare(l.bottom,r.bottom)
-	    && compare(l.front,r.front)
-	    && compare(l.back,r.back);
+	return compare(l.left(), r.left())
+	    && compare(l.top(), r.top())
+	    && compare(l.right(), r.right())
+	    && compare(l.bottom(), r.bottom())
+	    && compare(l.front(), r.front())
+	    && compare(l.back(), r.back());
 }
 
 template<typename T>
