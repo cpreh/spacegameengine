@@ -25,7 +25,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("skin"),
-	false);
+	true);
 }
 
 namespace
@@ -155,11 +155,13 @@ void sge::gui::skin::resize_buffer(widget const &b)
 void sge::gui::skin::blit_invalid(
 	widget const &w,
 	canvas::object &c,
-	events::invalid_area const &e)
+	events::invalid_area const &e,
+	bool const t)
 {
 	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
 		rect(w.absolute_pos(),c.size()),
 		e.texture(),
-		e.area());
+		e.area(),
+		t);
 }

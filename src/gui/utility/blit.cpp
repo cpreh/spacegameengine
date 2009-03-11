@@ -113,7 +113,8 @@ void sge::gui::utility::blit_invalid(
 	const_image_view const &src,
 	rect const &src_rect,
 	image_view const dst,
-	rect const &dst_rect)
+	rect const &dst_rect,
+	bool transparency)
 {
 	// Calculate intersection of source and destination
 	rect const is = math::intersection(
@@ -133,16 +134,31 @@ void sge::gui::utility::blit_invalid(
 		is.pos()-src_rect.pos(),
 		is.dim());
 
-	renderer::transform_pixels(
-		renderer::subimage_view(
-			src,
-			math::structure_cast<renderer::lock_rect>(
-				is_translated_src)),
-		renderer::subimage_view(
-			dst,
-			math::structure_cast<renderer::lock_rect>(
-				is_translated_dst)),
-		blitter());
+	if (transparency)
+	{
+		renderer::transform_pixels(
+			renderer::subimage_view(
+				src,
+				math::structure_cast<renderer::lock_rect>(
+					is_translated_src)),
+			renderer::subimage_view(
+				dst,
+				math::structure_cast<renderer::lock_rect>(
+					is_translated_dst)),
+			blitter());
+	}
+	else
+	{
+		renderer::copy_and_convert_pixels(
+			renderer::subimage_view(
+				src,
+				math::structure_cast<renderer::lock_rect>(
+					is_translated_src)),
+			renderer::subimage_view(
+				dst,
+				math::structure_cast<renderer::lock_rect>(
+					is_translated_dst)));
+	}
 }
 
 void sge::gui::utility::blit(
