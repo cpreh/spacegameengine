@@ -31,7 +31,6 @@
       console, etc. as well)
 *low: add slider widget
 *low: add checkbox widget
-*low: add sge::gui::manager::get_sprite(widget &)
 *low: change cursor when pointing over widgets::edit
 *low: assign z value to sge::gui::widget
 *low: internal widget positioning
@@ -41,5 +40,4 @@
 *low: add more function keys to widgets::edit (like home, end etc.)
 *low: store cursor's click point in a file
 *medium: add multiline functionality to widgets::edit
-*medium: don't reset sprite in sge::gui::detail::managers::render::resize
 *medium: what happens if you invalidate a widget and make it smaller afterwards?

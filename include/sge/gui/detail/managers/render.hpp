@@ -9,7 +9,7 @@
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
-#include <map>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <vector>
 
 namespace sge
@@ -57,7 +57,7 @@ class render : public submanager
 		sge::gui::rect const rect() const;
 	};
 
-	typedef std::map<widget*,widget_data> widget_container;
+	typedef boost::ptr_map<widget*,widget_data> widget_container;
 	typedef std::vector<dirt> dirt_container;
 
 	renderer::device_ptr rend;

@@ -87,6 +87,20 @@ sge::gui::detail::managers::mouse::mouse(
 {
 }
 
+void sge::gui::detail::managers::mouse::resize(
+	widget &,
+	dim const &)
+{
+	dirty_ = true;
+}
+
+void sge::gui::detail::managers::mouse::reposition(
+	widget &,
+	point const &)
+{
+	dirty_ = true;
+}
+
 void sge::gui::detail::managers::mouse::add(widget &w)
 {
 	// We only store top level widgets as "starting points" for our focus search
