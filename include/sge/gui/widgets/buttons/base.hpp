@@ -30,6 +30,7 @@ class SGE_CLASS_SYMBOL base : public widget
 	SGE_SYMBOL signals::connection const register_clicked(
 		clicked_fn const &);
 	
+	SGE_SYMBOL ~base();
 	private:
 	bool mouse_over_;
 	bool key_over_;
