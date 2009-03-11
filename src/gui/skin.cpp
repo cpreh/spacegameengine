@@ -4,7 +4,7 @@
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/widgets/label.hpp>
-#include <sge/gui/widgets/image_label.hpp>
+#include <sge/gui/widgets/graphics.hpp>
 #include <sge/gui/widgets/backdrop.hpp>
 #include <sge/gui/widgets/buttons/text.hpp>
 #include <sge/gui/widgets/buttons/image.hpp>

@@ -15,10 +15,11 @@ sge::gui::widgets::buttons::image::image(
 					size_policy_t(
 						axis_policy::none,
 						axis_policy::none))
+				/*
 				.size(
 					dim(
 						static_cast<unit>(normal_->width()),
-						static_cast<unit>(normal_->height())))),
+						static_cast<unit>(normal_->height())))*/),
 		normal_(_normal),
 		hover_(_hover),
 		keyboard_(_keyboard),

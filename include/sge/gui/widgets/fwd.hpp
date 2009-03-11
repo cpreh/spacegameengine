@@ -11,7 +11,7 @@ namespace widgets
 {
 class edit;
 class label;
-class image_label;
+class graphics;
 class backdrop;
 
 namespace buttons
@@ -25,7 +25,7 @@ typedef boost::mpl::vector<
 	buttons::image,
 	edit,
 	label,
-	image_label,
+	graphics,
 	backdrop> types;
 }
 }

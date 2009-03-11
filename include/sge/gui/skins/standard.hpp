@@ -21,13 +21,13 @@ class standard : public skin
 	SGE_SYMBOL void draw(widgets::buttons::image const &,events::invalid_area const &);
 	SGE_SYMBOL void draw(widgets::edit const &,events::invalid_area const &);
 	SGE_SYMBOL void draw(widgets::label const &,events::invalid_area const &);
-	SGE_SYMBOL void draw(widgets::image_label const &,events::invalid_area const &);
+	SGE_SYMBOL void draw(widgets::graphics const &,events::invalid_area const &);
 	SGE_SYMBOL void draw(widgets::backdrop const &,events::invalid_area const &);
 	SGE_SYMBOL dim const size_hint(widgets::buttons::text const &) const;
 	SGE_SYMBOL dim const size_hint(widgets::buttons::image const &) const;
 	SGE_SYMBOL dim const size_hint(widgets::edit const &) const;
 	SGE_SYMBOL dim const size_hint(widgets::label const &) const;
-	SGE_SYMBOL dim const size_hint(widgets::image_label const &) const;
+	SGE_SYMBOL dim const size_hint(widgets::graphics const &) const;
 	SGE_SYMBOL dim const size_hint(widgets::backdrop const &) const;
 	SGE_SYMBOL filesystem::path const cursor_path() const;
 	private:

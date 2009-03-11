@@ -35,6 +35,7 @@ class render : public submanager
 	void invalidate(
 		widget &,
 		rect const &);
+	sge::sprite::object &connected_sprite(widget &);
 	private:
 	struct widget_data
 	{
