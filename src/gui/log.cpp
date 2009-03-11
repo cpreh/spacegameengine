@@ -7,7 +7,7 @@ sge::log::logger &sge::gui::global_log()
 	static logger global(
 		sge::log::global(),
 		SGE_TEXT("gui"),
-		log::level::debug
+		true
 	);
 
 	return global;
