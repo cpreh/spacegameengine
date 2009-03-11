@@ -23,15 +23,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/context.hpp>
+#include <sge/plugin/iterator.hpp>
 #include <sge/model/plugin.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/model/loader_fwd.hpp>
 #include <sge/model/object.hpp>
+#include <sge/renderer/vf/dynamic_format.hpp>
+#include <sge/renderer/vertex_buffer.hpp>
+#include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/device.hpp>
+#include <sge/mainloop/catch_block.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
 #include <fstream>
 
 int main()
+try
 {
 	sge::systems::instance sys(
 		sge::systems::list()
@@ -51,14 +58,10 @@ int main()
 		(sge::systems::parameterless::input)
 	);
 	
-//	sge::plugin::manager plugin_manager;
-//	plugin_manager.plugin<sge::model::loader>();
-
-/*
 	sge::plugin::plugin<
 		sge::model::loader
 	>::ptr_type const  model_plugin(
-		plugin_manager.plugin<sge::model::loader>()
+		sys.plugin_manager().plugin<sge::model::loader>()
 		.load()
 	);
 
@@ -76,6 +79,23 @@ int main()
 			ifs
 		)
 	);
-	*/
+
+	sge::renderer::vertex_buffer_ptr const vb(
+		sys.renderer()->create_vertex_buffer(
+			object->format(),
+			object->vertices(),
+			sge::renderer::resource_flags::none
+		)
+	);
+
+	sge::renderer::index_buffer_ptr const ib(
+		sys.renderer()->create_index_buffer(
+			sge::renderer::index::format::i16,
+			object->indices(),
+			sge::renderer::resource_flags::none
+		)
+	);
+
 
 }
+SGE_MAINLOOP_CATCH_BLOCK

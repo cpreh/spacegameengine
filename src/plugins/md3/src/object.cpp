@@ -298,6 +298,16 @@ sge::md3::object::read_vec3(
 	);
 }
 
+inline sge::md3::object::frame::frame(
+	model::istream &is)
+:
+	min_bounds(read_vec3(is)),
+	max_bounds(read_vec3(is)),
+	local_origin(read_vec3(is)),
+	radius(read<funit>(is)),
+	name(read_string<16>(is))
+{}
+
 inline sge::md3::object::tag::tag(model::istream& is)
 :
 	name(read_string<max_qpath>(is)),

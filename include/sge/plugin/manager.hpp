@@ -56,6 +56,7 @@ public:
 	template<typename T>
 	SGE_SYMBOL iterator<T> end();
 
+	// FIXME: use a different typedef here so we don't have to include iterator!
 	template<typename T>
 	SGE_SYMBOL typename iterator<T>::reference
 	plugin(
