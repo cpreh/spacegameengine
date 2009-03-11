@@ -28,13 +28,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/loader.hpp>
 #include <sge/model/loader_fwd.hpp>
 #include <sge/model/object.hpp>
+#include <sge/input/system.hpp>
+#include <sge/input/action.hpp>
 #include <sge/renderer/vf/dynamic_format.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/scoped_vertex_lock.hpp>
+#include <sge/renderer/scoped_index_lock.hpp>
+#include <sge/renderer/scoped_block.hpp>
+#include <sge/signals/scoped_connection.hpp>
 #include <sge/mainloop/catch_block.hpp>
+#include <sge/mainloop/dispatch.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
+#include <boost/spirit/home/phoenix/core/reference.hpp>
+#include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <fstream>
 
 int main()
@@ -96,6 +105,48 @@ try
 		)
 	);
 
+	object->copy_vertices(
+		sge::renderer::scoped_vertex_lock(
+			vb,
+			sge::renderer::lock_flags::writeonly
+		).value()
+	);
 
+	object->copy_indices(
+		sge::renderer::scoped_index_lock(
+			ib,
+			sge::renderer::lock_flags::writeonly
+		).value()
+	);
+
+	bool running = true;
+
+	sge::signals::scoped_connection const cb(
+		sys.input_system()->register_callback(
+			sge::input::action(
+				sge::input::kc::key_escape,
+				boost::phoenix::ref(running) = false
+			)
+		)
+	);
+
+	while(running)
+	{
+		sge::mainloop::dispatch();
+
+		sge::renderer::scoped_block const block_(
+			sys.renderer()
+		);
+
+		sys.renderer()->render(
+			vb,
+			ib,
+			0,
+			vb->size(),
+			sge::renderer::indexed_primitive_type::triangle,
+			ib->size() / 3,
+			0
+		);
+	}
 }
 SGE_MAINLOOP_CATCH_BLOCK
