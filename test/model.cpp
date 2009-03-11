@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic_format.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
@@ -132,7 +133,9 @@ try
 
 	sys.renderer()->projection(
 		sge::math::matrix::perspective<float>(
-			0.75f,
+			sge::renderer::aspect<float>(
+				sys.renderer()->screen_size()
+			),
 			0.9f,
 			-10.f,
 			100.f

@@ -18,25 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
-#define SGE_RENDERER_MATRIX_PIXEL_TO_SPACE_HPP_INCLUDED
-
-#include <sge/renderer/screen_size.hpp>
-#include <sge/math/matrix/static.hpp>
-
-namespace sge
-{
-namespace renderer
-{
+#include <sge/renderer/aspect.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/instantiate_arithmetic.hpp>
 
 template<
 	typename T
 >
-typename math::matrix::static_<T, 4, 4>::type const
-matrix_pixel_to_space(
-	screen_size const &sz);
-
+T
+sge::renderer::aspect(
+	screen_size const &sz)
+{
+	return
+		static_cast<T>(sz.h())
+		/ static_cast<T>(sz.w());
 }
-}
 
-#endif
+#define SGE_INSTANTIATE_ASPECT(x)\
+template x sge::renderer::aspect(sge::renderer::screen_size const &);
+
+SGE_MATH_INSTANTIATE_ARITHMETIC(SGE_INSTANTIATE_ASPECT)
+
+#undef SGE_INSTANTIATE_ASPECT
