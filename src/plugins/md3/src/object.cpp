@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/view_size.hpp>
+#include <sge/renderer/index/make_const_view.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/istream_util.hpp>
@@ -136,7 +139,7 @@ sge::md3::object::copy_vertices(
 {
 	if(vertices() > view.size())
 		throw exception(
-			SGE_TEXT("md3::model::copy_vertices(): view too small!")
+			SGE_TEXT("md3::object::copy_vertices(): view too small!")
 		);
 
 	typedef renderer::vf::view<
@@ -175,10 +178,12 @@ void
 sge::md3::object::copy_indices(
 	renderer::index::view const &view)
 {
-	/*
-	if(offset + indices() > ib->size())
-		throw exception(SGE_TEXT("md3::object::fill_indices(): index buffer out of range!"));
+	if(indices() > renderer::index::view_size(renderer::index::make_const_view(view)))
+		throw exception(
+			SGE_TEXT("md3::object::copy_indices(): view tool small!")
+		);
 
+	/*
 	renderer::index_buffer::value_type ib_offset(0);
 	renderer::index_buffer::iterator ibit = ib->begin() + offset;
 	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
