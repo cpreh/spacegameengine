@@ -18,30 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#include <sge/model/plugin.hpp>
+#include <sge/plugin/detail/instantiate_types.hpp>
 
-namespace sge
+sge::plugin::detail::address_name
+sge::plugin::detail::traits<sge::model::loader>::plugin_loader_name()
 {
-namespace plugin
-{
-namespace capabilities
-{
-enum type {
-	nothing          = 0,
-	renderer         = 1,
-	input            = 1 << 1,
-	image_loader     = 1 << 2,
-	audio_player     = 1 << 3,
-	font             = 1 << 4,
-	audio_loader     = 1 << 5,
-	collision_system = 1 << 6,
-	model_loader     = 1 << 7,
-	last_guard_      = 1 << 8
-};
+	return SGE_ADDRESS_NAME("create_model_loader");
 }
 
-}
+sge::plugin::capabilities::type
+sge::plugin::detail::traits<sge::model::loader>::plugin_type()
+{
+	return capabilities::model_loader;
 }
 
-#endif
+SGE_PLUGIN_INSTANTIATE_TYPES(sge::model::loader)

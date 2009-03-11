@@ -18,28 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
-#define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
+#ifndef SGE_MODEL_OBJECT_HPP_INCLUDED
+#define SGE_MODEL_OBJECT_HPP_INCLUDED
+
+#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/noncopyable.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
-namespace plugin
+namespace renderer
 {
-namespace capabilities
+namespace vf
 {
-enum type {
-	nothing          = 0,
-	renderer         = 1,
-	input            = 1 << 1,
-	image_loader     = 1 << 2,
-	audio_player     = 1 << 3,
-	font             = 1 << 4,
-	audio_loader     = 1 << 5,
-	collision_system = 1 << 6,
-	model_loader     = 1 << 7,
-	last_guard_      = 1 << 8
-};
+class dynamic_format;
+class dynamic_view;
 }
+}
+namespace model
+{
+
+class SGE_CLASS_SYMBOL object {
+	SGE_NONCOPYABLE(object)
+protected:
+	SGE_SYMBOL object();
+public:
+	// very basic interface
+	// will need a lot more abstraction
+	
+	virtual renderer::vf::dynamic_format const
+	format() const = 0;
+
+	virtual renderer::size_type
+	vertices() const = 0;
+
+	virtual renderer::size_type
+	indices() const = 0;
+
+	virtual void
+	copy_vertices(
+		renderer::vf::dynamic_view const &) = 0;
+	
+	virtual void
+	copy_indices(
+		renderer::index::view const &) = 0;
+	
+	SGE_SYMBOL virtual ~object();
+};
 
 }
 }
