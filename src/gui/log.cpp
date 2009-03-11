@@ -10,6 +10,12 @@ sge::log::logger &sge::gui::global_log()
 		true
 	);
 
+  global.activate(log::level::debug);
+  global.activate(log::level::info);
+  global.activate(log::level::warning);
+  global.activate(log::level::error);
+  global.activate(log::level::fatal);
+
 	return global;
 }
 

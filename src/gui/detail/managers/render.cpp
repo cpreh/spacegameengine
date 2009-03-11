@@ -63,6 +63,9 @@ sge::gui::detail::managers::render::render(
 
 void sge::gui::detail::managers::render::add(widget &w)
 {
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("adding new widget"));
 	if (!w.parent_widget())
 		widgets[&w] = widget_data();
 }
@@ -232,6 +235,14 @@ void sge::gui::detail::managers::render::invalidate(
 	dirt_.push_back(dirt(w,r));
 }
 
+sge::sprite::object &sge::gui::detail::managers::render::connected_sprite(
+	widget &w)
+{
+	widget_container::iterator wi = widgets.find(&w);
+	SGE_ASSERT(wi != widgets.end());
+	return wi->second.sprite;
+}
+
 void sge::gui::detail::managers::render::clean()
 {
 	if (dirt_.empty())
@@ -275,7 +286,7 @@ void sge::gui::detail::managers::render::clean()
 			log::_1 << SGE_TEXT("sending invalidate for area: ")
 			        << d.rect());
 
-		d.widget().process(
+		p.process(
 			events::invalid_area(
 				lock_.value(),
 				d.rect()));

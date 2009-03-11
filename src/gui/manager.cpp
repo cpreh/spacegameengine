@@ -74,6 +74,12 @@ sge::gui::skin_ptr const sge::gui::manager::skin()
 	return skin_; 
 }
 
+sge::sprite::object &sge::gui::manager::connected_sprite(
+	widget &w)
+{
+	return render_.connected_sprite(w);
+}
+
 sge::gui::const_skin_ptr const sge::gui::manager::skin() const
 { 
 	return skin_; 

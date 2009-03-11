@@ -32,6 +32,7 @@ class mouse : public submanager
 		skin &);
 	
 	void add(widget &);
+	void draw();
 	void activation(widget &,activation_state::type);
 	sprite::object const cursor() const;
 	void remove(widget &);
@@ -44,6 +45,7 @@ class mouse : public submanager
 	sprite::object cursor_;
 	sprite::point cursor_click;
 	widget *focus;
+	bool dirty_;
 
 	void input_callback(input::key_pair const &);
 	widget *recalculate_focus(widget &w,point const &);

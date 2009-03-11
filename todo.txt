@@ -11,33 +11,35 @@
 *low: implement an image loader with Magick++
 *low: implement a lot of different exception types to make errors distinguishable
 *low: put x11 and windows stuff in their own libraries (probably do this with
-*low: add constructor parameters to sound creation functions
-sprite, texture, console, etc. as well)
 *low: get rid of as much warnings as possible from -Weffc++
 *low: implement opengl-3 features
 *low: add support for multiple opengl contexts
-*low: add more function keys to widgets::edit (like home, end etc.)
-*low: store cursor's click point in a file
-*low: visualize "button pressed" in widgets::button
-*low: implement widgets::image_button
-*low: blit text in widgets::edit using alpha channel
-*low: internal widget positioning
-*low: add tab completion to console::gfx
-*low: add terminal interface to console::object
-*low: change cursor when pointing over widgets::edit
-*low: don't reset sprite in sge::gui::detail::managers::render::resize
-*low: assign z value to sge::gui::widget
-*low: add sge::gui::manager::get_sprite(widget &)
-*low: add slider widget
-*low: add checkbox widget
-*low: what happens if you invalidate a widget and make it smaller afterwards?
 *medium: breakpoints for the font
 *medium: add wrapper around axis to the input system (i.e. keyleft/keyright)
 *medium: add support for more vertex elements (like fog, etc.)
 *medium: implement GLSL getter
-*medium: add multiline functionality to widgets::edit
 *medium: add adapter support to opengl
 *high: use relative coordinates in widgets, take care of proper invalidation
 *high: Improve the cmake script, search for libraries per default.
 *high: fix glsl uniform variables
 *high: finish the dynamic math funtions and make all operations safer
+
+// phillemann's stuff:
+
+*very low: add terminal interface to console::object
+*low: add constructor parameters to sound creation functions sprite, texture,
+      console, etc. as well)
+*low: add slider widget
+*low: add checkbox widget
+*low: add sge::gui::manager::get_sprite(widget &)
+*low: change cursor when pointing over widgets::edit
+*low: assign z value to sge::gui::widget
+*low: internal widget positioning
+*low: blit text in widgets::edit using alpha channel
+*low: add tab completion to console::gfx
+*low: visualize "button pressed" in widgets::buttons::text
+*low: add more function keys to widgets::edit (like home, end etc.)
+*low: store cursor's click point in a file
+*medium: add multiline functionality to widgets::edit
+*medium: don't reset sprite in sge::gui::detail::managers::render::resize
+*medium: what happens if you invalidate a widget and make it smaller afterwards?

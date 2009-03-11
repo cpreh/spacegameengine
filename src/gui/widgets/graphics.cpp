@@ -1,8 +1,8 @@
-#include <sge/gui/widgets/image_label.hpp>
+#include <sge/gui/widgets/graphics.hpp>
 #include <sge/image/object.hpp>
 #include <sge/structure_cast.hpp>
 
-sge::gui::widgets::image_label::image_label(
+sge::gui::widgets::graphics::graphics(
 	widget::parent_data const &_parent,
 	widget::parameters _params,
 	const_image_ptr const _image)
@@ -12,13 +12,7 @@ sge::gui::widgets::image_label::image_label(
 				.size_policy(
 					size_policy_t(
 						axis_policy::none,
-						axis_policy::none))
-				.size(
-					dim(
-						static_cast<unit>(
-							_image->width()),
-						static_cast<unit>(
-							_image->height()))))
+						axis_policy::none)))
 {
 	buffer() = *_image;
 }

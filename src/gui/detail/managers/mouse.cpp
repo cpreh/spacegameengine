@@ -82,7 +82,8 @@ sge::gui::detail::managers::mouse::mouse(
 		static_cast<sprite::depth_type>(0)),
 	//  cursor_click(point::null()),
 	cursor_click(16,16),
-	focus(0)
+	focus(0),
+	dirty_(false)
 {
 }
 
@@ -94,14 +95,23 @@ void sge::gui::detail::managers::mouse::add(widget &w)
 	
 	// It could be the case that the newly added widget is below the cursor and should
 	// thus get the focus, so we recalculate
-	recalculate_focus();
+	dirty_ = true;
+}
+
+void sge::gui::detail::managers::mouse::draw()
+{
+	if (dirty_)
+	{
+		recalculate_focus();
+		dirty_ = false;
+	}
 }
 
 void sge::gui::detail::managers::mouse::activation(
 	widget &,
 	activation_state::type)
 {
-	recalculate_focus();
+	dirty_ = true;
 }
 
 sge::sprite::object const sge::gui::detail::managers::mouse::cursor() const

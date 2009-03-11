@@ -20,7 +20,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("widget"),
-	true);
+	false);
 }
 
 sge::gui::widget::widget(

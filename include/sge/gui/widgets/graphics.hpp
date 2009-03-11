@@ -1,5 +1,5 @@
-#ifndef SGE_GUI_WIDGETS_IMAGE_HPP_INCLUDED
-#define SGE_GUI_WIDGETS_IMAGE_HPP_INCLUDED
+#ifndef SGE_GUI_WIDGETS_GRAPHICS_HPP_INCLUDED
+#define SGE_GUI_WIDGETS_GRAPHICS_HPP_INCLUDED
 
 #include <sge/gui/widget.hpp>
 #include <sge/gui/types.hpp>
@@ -10,10 +10,10 @@ namespace gui
 {
 namespace widgets
 {
-class image_label : public widget
+class graphics : public widget
 {
 public:
-	image_label(
+	graphics(
 		widget::parent_data const &,
 		widget::parameters,
 		const_image_ptr);

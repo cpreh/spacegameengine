@@ -1,6 +1,7 @@
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/math/dim/output.hpp>
 #include <sge/gui/widgets/buttons/image.hpp>
 
 namespace
@@ -30,8 +31,6 @@ void sge::gui::skins::standard::draw(
 	widgets::buttons::image const &b,
 	events::invalid_area const &e)
 {
-	resize_buffer(b);
-
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("creating canvas from buffer"));
@@ -46,5 +45,14 @@ void sge::gui::skins::standard::draw(
 sge::gui::dim const sge::gui::skins::standard::size_hint(
 	widgets::buttons::image const &b) const
 {
-	return b.size();
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("returning button dimension ")
+		        << dim(
+								static_cast<unit>(b.normal()->width()),
+								static_cast<unit>(b.normal()->height())));
+
+	return dim(
+		static_cast<unit>(b.normal()->width()),
+		static_cast<unit>(b.normal()->height()));
 }
