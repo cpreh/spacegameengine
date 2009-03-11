@@ -45,7 +45,8 @@ class skin
 	void blit_invalid(
 		widget const &,
 		canvas::object &,
-		events::invalid_area const &);
+		events::invalid_area const &,
+		bool transparency = true);
 };
 
 typedef shared_ptr<skin> skin_ptr;
