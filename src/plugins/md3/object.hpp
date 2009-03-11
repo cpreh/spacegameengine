@@ -156,8 +156,9 @@ private:
 
 	static vec3 convert_normal(s16);
 
-	renderer::size_type indices_;
-	renderer::size_type vertices_;
+	renderer::size_type
+		vertices_,
+		indices_;
 
 	string name_;
 
