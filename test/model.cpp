@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/math/matrix/perspective.hpp>
+#include <sge/math/pi.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -131,12 +132,14 @@ try
 		)
 	);
 
+	typedef float unit;
+
 	sys.renderer()->projection(
-		sge::math::matrix::perspective<float>(
-			sge::renderer::aspect<float>(
+		sge::math::matrix::perspective<unit>(
+			sge::renderer::aspect<unit>(
 				sys.renderer()->screen_size()
 			),
-			0.9f,
+			sge::math::pi<unit>() / static_cast<unit>(4),
 			-10.f,
 			100.f
 		)
