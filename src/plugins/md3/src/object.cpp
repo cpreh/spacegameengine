@@ -36,6 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/istream_util.hpp>
 #include <boost/tr1/array.hpp>
 #include <boost/foreach.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
 #include <ios>
 #include <algorithm>
 #include <cmath>
@@ -174,30 +176,76 @@ sge::md3::object::copy_vertices(
 		}
 }
 
+// TODO: split this, too!
+namespace
+{
+
+struct index_visitor : boost::static_visitor<> {
+	explicit index_visitor(
+		sge::md3::object::surface_vector const &surfaces_)
+	:
+		surfaces_(surfaces_)
+	{}
+	
+	template<
+		typename T
+	>
+	void operator()(
+		T const &t) const
+	{
+	
+	sge::renderer::size_type ib_offset(0);
+	typedef typename T::value_type value_type;
+	typename T::iterator it = t.begin();
+	BOOST_FOREACH(
+		sge::md3::object::surface_vector::const_reference surf,
+		surfaces_
+	)
+	{
+		BOOST_FOREACH(
+			sge::md3::object::surface::triangle_vector::const_reference r,
+			surf.triangles
+		)
+		{
+			BOOST_FOREACH(
+				sge::md3::object::surface::triangle::index_array::const_reference ind,
+				r.indices
+			)
+				*it++ = static_cast<value_type>(ind + ib_offset);
+		}
+		ib_offset += static_cast<sge::renderer::size_type>(
+			surf.transformed_vertices.size()
+		);
+	}
+		
+	}
+private:
+	sge::md3::object::surface_vector const &surfaces_;	
+};
+
+}
+
 void
 sge::md3::object::copy_indices(
 	renderer::index::view const &view)
 {
-	if(indices() > renderer::index::view_size(renderer::index::make_const_view(view)))
+	if(
+		indices() > renderer::index::view_size(
+			renderer::index::make_const_view(
+				view
+			)
+		)
+	)
 		throw exception(
 			SGE_TEXT("md3::object::copy_indices(): view tool small!")
 		);
 
-	/*
-	renderer::index_buffer::value_type ib_offset(0);
-	renderer::index_buffer::iterator ibit = ib->begin() + offset;
-	for(surface_vector::const_iterator surf_it = surfaces.begin(); surf_it != surfaces.end(); ++surf_it)
-	{
-		const surface& surf = *surf_it;
-		for(surface::triangle_vector::const_iterator it = surf.triangles.begin(); it != surf.triangles.end(); ++it)
-		{
-			*ibit++ = it->indices[0] + ib_offset;
-			*ibit++ = it->indices[1] + ib_offset;
-			*ibit++ = it->indices[2] + ib_offset;
-		}
-		ib_offset += static_cast<renderer::index_buffer::value_type>(surf.transformed_vertices.size());
-	}
-	*/
+	boost::apply_visitor(
+		index_visitor(
+			surfaces
+		),
+		view
+	);
 }
 
 
@@ -235,7 +283,8 @@ inline sge::md3::object::vec3 sge::md3::object::convert_normal(const s16 normal)
 	return vec3(
 		std::cos(lat) * std::sin(lng),
 		std::sin(lat) * std::sin(lng),
-		std::cos(lng));
+		std::cos(lng)
+	);
 }
 
 inline sge::md3::object::vec3
@@ -249,19 +298,10 @@ sge::md3::object::read_vec3(
 	);
 }
 
-inline sge::md3::object::frame::frame(
-	model::istream &is)
-:
-	min_bounds(read_vec3(is)),
-	max_bounds(read_vec3(is)),
-	local_origin(read_vec3(is)),
-	radius(read<funit>(is)),
-	name(read_string<16>(is))
-{}
-
 inline sge::md3::object::tag::tag(model::istream& is)
-: name(read_string<max_qpath>(is)),
-  origin(read_vec3(is))
+:
+	name(read_string<max_qpath>(is)),
+	origin(read_vec3(is))
 {
 	for(axis_array::iterator i = axis.begin(); i != axis.end(); ++i)
 		*i = read_vec3(is);

@@ -57,7 +57,7 @@ public:
 	void
 	copy_indices(
 		renderer::index::view const &);
-private:
+	
 	// TODO: split this!
 	typedef int16 s16;
 	typedef int32 s32;
