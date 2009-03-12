@@ -31,13 +31,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/renderer/vf/dynamic_format.hpp>
+#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/image/create_texture.hpp>
 #include <sge/signals/scoped_connection.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
@@ -67,6 +72,7 @@ try
 			sge::renderer::stencil_buffer::off,
 			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::input)
+		(sge::systems::parameterless::image)
 	);
 	
 	sge::plugin::plugin<
@@ -119,6 +125,26 @@ try
 			ib,
 			sge::renderer::lock_flags::writeonly
 		).value()
+	);
+
+	sge::renderer::texture_ptr const tex(
+		sge::image::create_texture(
+			sge::media_path() / SGE_TEXT("european_fnt.tga"),
+			sys.renderer(),
+			sys.image_loader(),
+			sge::renderer::filter::linear,
+			sge::renderer::resource_flags::none
+		)
+	);
+
+	sys.renderer()->texture(
+		tex
+	);
+
+	sys.renderer()->state(
+		sge::renderer::state::list
+			(sge::renderer::state::cull_mode::off)
+		
 	);
 
 	bool running = true;
