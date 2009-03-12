@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_DETAIL_MANAGER_IMPL_HPP_INCLUDED
 
 #include "../manager.hpp"
+#include "../context.hpp"
+#include "../iterator.hpp"
 #include "../../exception.hpp"
 #include "../../text.hpp"
 #include "../../iconv.hpp"
@@ -46,7 +48,7 @@ sge::plugin::manager::end()
 }
 
 template<typename T>
-typename sge::plugin::iterator<T>::reference
+sge::plugin::context<T>
 sge::plugin::manager::plugin(
 	size_type const index)
 {

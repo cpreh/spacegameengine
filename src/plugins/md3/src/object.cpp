@@ -194,30 +194,29 @@ struct index_visitor : boost::static_visitor<> {
 		T const &t) const
 	{
 	
-	sge::renderer::size_type ib_offset(0);
-	typedef typename T::value_type value_type;
-	typename T::iterator it = t.begin();
-	BOOST_FOREACH(
-		sge::md3::object::surface_vector::const_reference surf,
-		surfaces_
-	)
-	{
+		sge::renderer::size_type ib_offset(0);
+		typedef typename T::value_type value_type;
+		typename T::iterator it = t.begin();
 		BOOST_FOREACH(
-			sge::md3::object::surface::triangle_vector::const_reference r,
-			surf.triangles
+			sge::md3::object::surface_vector::const_reference surf,
+			surfaces_
 		)
 		{
 			BOOST_FOREACH(
-				sge::md3::object::surface::triangle::index_array::const_reference ind,
-				r.indices
+				sge::md3::object::surface::triangle_vector::const_reference r,
+				surf.triangles
 			)
-				*it++ = static_cast<value_type>(ind + ib_offset);
+			{
+				BOOST_FOREACH(
+					sge::md3::object::surface::triangle::index_array::const_reference ind,
+					r.indices
+				)
+					*it++ = static_cast<value_type>(ind + ib_offset);
+			}
+			ib_offset += static_cast<sge::renderer::size_type>(
+				surf.transformed_vertices.size()
+			);
 		}
-		ib_offset += static_cast<sge::renderer::size_type>(
-			surf.transformed_vertices.size()
-		);
-	}
-		
 	}
 private:
 	sge::md3::object::surface_vector const &surfaces_;	

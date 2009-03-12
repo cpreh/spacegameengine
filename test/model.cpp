@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/iterator.hpp>
 #include <sge/model/plugin.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/model/loader_fwd.hpp>
