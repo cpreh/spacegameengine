@@ -11,7 +11,7 @@ FIND_PACKAGE(Freetype)
 FIND_PACKAGE(Vorbis)
 FIND_PACKAGE(Mad)
 
-OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" ON)
+OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
 OPTION (ENABLE_CELL "Build the cell collision plugin" ON)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)

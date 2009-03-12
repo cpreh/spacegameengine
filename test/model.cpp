@@ -165,7 +165,7 @@ try
 				sys.renderer()->screen_size()
 			),
 			sge::math::pi<unit>() / static_cast<unit>(4),
-			-10.f,
+			-100.f,
 			100.f
 		)
 	);

@@ -165,9 +165,9 @@ sge::md3::object::copy_vertices(
 		)
 		{
 			surface::transformed_vertex const &v(
-				surf.transformed_vertices.at(
+				surf.transformed_vertices[
 					sz
-				)
+				]
 			);
 
 			(*vbit).set<vertex_pos>(v.pos);
@@ -276,8 +276,8 @@ sge::md3::object::read_string(model::istream& is)
 inline sge::md3::object::vec3 sge::md3::object::convert_normal(const s16 normal)
 {
 	funit const
-		lat = static_cast<funit>((normal >> 8) & 255) * (2 * math::pi<funit>()) / 255,
-		lng = static_cast<funit>(normal & 255) * (2 * math::pi<funit>()) / 255;
+		lat = static_cast<funit>((normal >> 8) & 255) * (math::twopi<funit>()) / 255,
+		lng = static_cast<funit>(normal & 255) * (math::twopi<funit>()) / 255;
 
 	return vec3(
 		std::cos(lat) * std::sin(lng),
