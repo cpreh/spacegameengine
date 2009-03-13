@@ -39,7 +39,7 @@ plugin_version_info(
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("freetype font plugin");
+	p->name = SGE_TEXT("freetype");
 	p->description = SGE_TEXT("");
 	p->min_core_version = 0x1;
 	p->plugin_version = 0x1;

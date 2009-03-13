@@ -39,7 +39,7 @@ plugin_version_info(
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("wave loader plugin");
+	p->name = SGE_TEXT("wave");
 	p->description = SGE_TEXT("");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
