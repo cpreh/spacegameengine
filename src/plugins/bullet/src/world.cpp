@@ -44,13 +44,15 @@ void sge::bullet::world::test_callback(
 	overlap_callback_.reset(_test);
 }
 
-sge::signals::connection const sge::bullet::world::register_callback(
+sge::signals::auto_connection
+sge::bullet::world::register_callback(
 	collision::callback const &fn)
 {
 	return callback_signal_.connect(fn);
 }
 
-sge::collision::objects::circle_ptr const sge::bullet::world::create_circle(
+sge::collision::objects::circle_ptr const
+sge::bullet::world::create_circle(
 	collision::satellite_ptr sat,
 	collision::point const &center,
 	collision::point const &speed,
