@@ -125,7 +125,7 @@ sge::cell::world::on_collide(
 	circle &b)
 {
 	sig(
-		a.satellite(),
-		b.satellite()
+		boost::ref(a.satellite()),
+		boost::ref(b.satellite())
 	);
 }

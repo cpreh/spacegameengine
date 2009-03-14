@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	BOOST_PP_ENUM_PARAMS_Z(z,BOOST_PP_INC(n),typename T)\
 	>\
 	void operator()(\
-		BOOST_PP_ENUM_BINARY_PARAMS(BOOST_PP_INC(n),T,&param))\
+		BOOST_PP_ENUM_BINARY_PARAMS(BOOST_PP_INC(n),T, const &param))\
 	{\
 		for (typename connection_list::iterator i = connections_.begin(); i != connections_.end(); ++i)\
 			i->function()(\
