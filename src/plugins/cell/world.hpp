@@ -25,7 +25,7 @@ public:
 	test_callback(
 		collision::test_callback const &);
 
-	signals::connection const 
+	signals::auto_connection
 	register_callback(
 		collision::callback const &);
 	

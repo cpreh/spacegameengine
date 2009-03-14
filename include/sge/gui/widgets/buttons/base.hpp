@@ -27,14 +27,14 @@ class SGE_CLASS_SYMBOL base : public widget
 	SGE_SYMBOL void process(events::keyboard_leave const &);
 
 	typedef boost::function<void ()> clicked_fn;
-	SGE_SYMBOL signals::connection const register_clicked(
+	SGE_SYMBOL signals::auto_connection register_clicked(
 		clicked_fn const &);
 	
 	SGE_SYMBOL ~base();
 	private:
 	bool mouse_over_;
 	bool key_over_;
-	boost::signal<void ()> clicked_;
+	sge::signals::signal<void ()> clicked_;
 
 	protected:
 	SGE_SYMBOL base(

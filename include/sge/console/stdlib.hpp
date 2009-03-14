@@ -24,7 +24,7 @@ class stdlib
 	object &object_;
 	print_callback print_;
 	error_callback error_;
-	signals::connection get,set,help,lsfuncs,lsvars,man;
+	signals::auto_connection get,set,help,lsfuncs,lsvars,man;
 	
 	void fn_get(arg_list const &);
 	void fn_set(arg_list const &);

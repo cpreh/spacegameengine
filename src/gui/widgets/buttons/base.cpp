@@ -28,13 +28,13 @@ sge::gui::widgets::buttons::base::base(
 void sge::gui::widgets::buttons::base::process(events::mouse_enter const &)
 {
 	mouse_over_ = true;
-	parent_manager().invalidate(*this,absolute_area());
+	parent_manager().invalidate(*this,rect(point::null(),size()));
 }
 
 void sge::gui::widgets::buttons::base::process(events::mouse_leave const &)
 {
 	mouse_over_ = false;
-	parent_manager().invalidate(*this,absolute_area());
+	parent_manager().invalidate(*this,rect(point::null(),size()));
 }
 
 void sge::gui::widgets::buttons::base::process(events::mouse_click const &)
@@ -57,17 +57,17 @@ void sge::gui::widgets::buttons::base::process(events::keyboard_enter const &)
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_enter"));
 	key_over_ = true;
-	parent_manager().invalidate(*this,absolute_area());
+	parent_manager().invalidate(*this,rect(point::null(),size()));
 }
 
 void sge::gui::widgets::buttons::base::process(events::keyboard_leave const &)
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_leave"));
 	key_over_ = false;
-	parent_manager().invalidate(*this,absolute_area());
+	parent_manager().invalidate(*this,rect(point::null(),size()));
 }
 
-sge::signals::connection const sge::gui::widgets::buttons::base::register_clicked(
+sge::signals::auto_connection sge::gui::widgets::buttons::base::register_clicked(
 	clicked_fn const &_clicked)
 {
 	return clicked_.connect(_clicked);

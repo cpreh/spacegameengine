@@ -181,7 +181,7 @@ void sge::x11::window::map_raised()
 	XMapRaised(dsp->get(), get());
 }
 
-boost::signals::connection
+sge::signals::auto_connection
 sge::x11::window::register_callback(
 	event_type const event,
 	callback_type const &callback)

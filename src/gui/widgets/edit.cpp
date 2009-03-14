@@ -64,7 +64,7 @@ void sge::gui::widgets::edit::text(string const &n)
 	text_ = n;
 	parent_manager().invalidate(
 		*this,
-		absolute_area());
+		rect(point::null(),size()));
 }
 
 sge::font::metrics_ptr const sge::gui::widgets::edit::font() const
@@ -118,7 +118,9 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const 
 	// invalidate since something might have changed
 	parent_manager().invalidate(
 		*this,
-		absolute_area());
+		rect(
+			point::null(),
+			size()));
 
 	return key_handling::process;
 }
@@ -142,7 +144,9 @@ void sge::gui::widgets::edit::blink_callback()
 		log::_1 << SGE_TEXT("blinking cursor, visibility: ") << cursor_visible_);
 	parent_manager().invalidate(
 		*this,
-		absolute_area());
+		rect(
+			point::null(),
+			size()));
 }
 
 void sge::gui::widgets::edit::resize(dim const &d) const

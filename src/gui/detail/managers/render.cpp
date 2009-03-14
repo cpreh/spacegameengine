@@ -8,6 +8,7 @@
 #include <sge/math/power.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/math/vector/output.hpp>
+#include <sge/math/vector/arithmetic.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/renderer/texture_software.hpp>
@@ -292,7 +293,9 @@ void sge::gui::detail::managers::render::clean()
 		p.process(
 			events::invalid_area(
 				lock_.value(),
-				d.rect()));
+				rect(
+					d.widget().absolute_pos()+d.rect().pos(),
+					d.rect().dim())));
 	}
 
 	dirt_.clear();

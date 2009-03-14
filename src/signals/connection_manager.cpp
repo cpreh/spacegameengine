@@ -19,22 +19,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/signals/connection_manager.hpp>
-#include <boost/foreach.hpp>
 
 sge::signals::connection_manager::connection_manager()
 :
 	connections()
 {}
 
-sge::signals::connection_manager::~connection_manager()
-{
-	BOOST_FOREACH(connection &c, connections)
-		c.disconnect();
-}
+sge::signals::connection_manager::connection_manager(
+	container const &_connections)
+:
+	connections(_connections)
+{}
 
 void sge::signals::connection_manager::connect(
-	connection const &v)
+	shared_connection const &v)
 {
 	connections.push_back(
 		v);
+}
+
+void sge::signals::connection_manager::connect(
+	auto_connection v)
+{
+	connections.push_back(
+		shared_connection(
+			v));
 }

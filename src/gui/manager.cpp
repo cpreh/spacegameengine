@@ -46,7 +46,6 @@ void sge::gui::manager::invalidate(
 	widget &w,
 	rect const &r)
 {
-	SGE_ASSERT(math::contains(w.absolute_area(),r));
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->invalidate(w,r);
 }

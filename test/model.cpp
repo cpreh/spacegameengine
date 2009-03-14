@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_block.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signals/connection.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/math/matrix/perspective.hpp>
@@ -121,7 +121,7 @@ try
 
 	bool running = true;
 
-	sge::signals::scoped_connection const cb(
+	sge::signals::auto_connection cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

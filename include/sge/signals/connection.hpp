@@ -21,14 +21,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SIGNALS_CONNECTION_HPP_INCLUDED
 #define SGE_SIGNALS_CONNECTION_HPP_INCLUDED
 
-#include <boost/signals/connection.hpp>
+#include <boost/intrusive/list_hook.hpp>
+#include <boost/intrusive/link_mode.hpp>
+#include <boost/noncopyable.hpp>
+#include <sge/auto_ptr.hpp>
+#include <sge/scoped_ptr.hpp>
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
 namespace signals
 {
 
-typedef boost::signals::connection connection;
+namespace detail
+{
+
+typedef boost::intrusive::list_base_hook<
+	boost::intrusive::link_mode<
+		boost::intrusive::auto_unlink
+	>
+> object_base_hook;
+
+}
+
+namespace detail
+{
+class connection : public object_base_hook, private boost::noncopyable
+{
+};
+}
+
+typedef auto_ptr<detail::connection> auto_connection;
+typedef scoped_ptr<detail::connection> scoped_connection;
+typedef shared_ptr<detail::connection> shared_connection;
 
 }
 }

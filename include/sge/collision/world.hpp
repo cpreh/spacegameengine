@@ -27,7 +27,7 @@ public:
 	test_callback(
 		collision::test_callback const &) = 0;
 
-	virtual signals::connection const 
+	virtual signals::auto_connection
 	register_callback(
 		callback const &) = 0;
 	

@@ -8,7 +8,7 @@
 #include <sge/input/system_fwd.hpp>
 #include <sge/image/loader_fwd.hpp>
 #include <sge/input/key_pair_fwd.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signals/connection.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 
@@ -47,7 +47,7 @@ class mouse : public submanager
 	typedef boost::ptr_vector<widget,boost::view_clone_allocator> widget_container;
 
 	widget_container widgets;
-	signals::scoped_connection const ic;
+	signals::auto_connection ic;
 	sprite::object cursor_;
 	sprite::point cursor_click;
 	widget *focus;

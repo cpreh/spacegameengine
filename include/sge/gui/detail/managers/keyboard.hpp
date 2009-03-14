@@ -9,7 +9,7 @@
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/input/key_type.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signals/connection.hpp>
 #include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 
@@ -37,8 +37,8 @@ class keyboard : public submanager
 	input::modifier::filter input_filter;
 	widget_container widgets;
 	boost::optional<widget_container::iterator> focus;
-	signals::scoped_connection const ic;
-	signals::scoped_connection const irc;
+	signals::auto_connection ic;
+	signals::auto_connection irc;
 
 	void input_callback(
 		input::key_pair const &,

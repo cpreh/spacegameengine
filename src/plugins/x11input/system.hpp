@@ -47,11 +47,11 @@ public:
 	explicit system(
 		x11::window_ptr wnd);
 private:
-	signals::connection const
+	signals::auto_connection
 	register_callback(
 		input::callback const &c);
 
-	signals::connection const
+	signals::auto_connection
 	register_repeat_callback(
 		input::repeat_callback const &c);
 

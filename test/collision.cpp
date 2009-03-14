@@ -22,7 +22,7 @@
 #include <sge/collision/system.hpp>
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signals/connection.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
@@ -104,7 +104,7 @@ try
 	
 	world->test_callback(&dispatch);
 
-	sge::signals::scoped_connection c(
+	sge::signals::auto_connection c(
 		world->register_callback(&collision)
 	);
 

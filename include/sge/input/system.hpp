@@ -35,11 +35,11 @@ namespace input
 
 class SGE_CLASS_SYMBOL system : public mainloop::dispatchable {
 public:
-	virtual signals::connection const
+	virtual signals::auto_connection
 	register_callback(
 		callback const &c) = 0;
 
-	virtual signals::connection const
+	virtual signals::auto_connection
 	register_repeat_callback(
 		repeat_callback const &c) = 0;
 	

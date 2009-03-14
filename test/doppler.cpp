@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cerr.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signals/connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>

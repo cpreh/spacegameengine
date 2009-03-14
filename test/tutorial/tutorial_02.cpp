@@ -12,7 +12,7 @@
 #include <sge/image/object.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signals/connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/exception.hpp>
@@ -108,10 +108,10 @@ try
 
 	bool running = true;
 
-	sge::signals::scoped_connection const conn =
+	sge::signals::auto_connection conn =
 		sys.input_system()->register_callback(input_functor(running));
 
-	sge::signals::scoped_connection const conn_other =
+	sge::signals::auto_connection conn_other =
 		sys.input_system()->register_callback(sprite_functor(my_object));
 
 	while (running)

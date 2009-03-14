@@ -38,7 +38,7 @@ sge::cell::world::test_callback(
 	test_callback_ = cb;
 }
 
-sge::signals::connection const 
+sge::signals::auto_connection
 sge::cell::world::register_callback(
 	collision::callback const &cb)
 {

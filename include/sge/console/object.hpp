@@ -19,12 +19,12 @@ class SGE_CLASS_SYMBOL object
 	public:
 	SGE_SYMBOL explicit object(string::value_type prefix);
 	
-	SGE_SYMBOL signals::connection const insert(
+	SGE_SYMBOL signals::auto_connection insert(
 		string const &name,
 		callback const &,
 		string const &description = string());
 
-	SGE_SYMBOL signals::connection const register_fallback(
+	SGE_SYMBOL signals::auto_connection register_fallback(
 		fallback const &
 	);
 	

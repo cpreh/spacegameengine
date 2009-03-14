@@ -92,12 +92,12 @@ try
 
 	sge::console::object o(SGE_TEXT('/'));
 	
-	sge::signals::connection const c0 = o.insert(
+	sge::signals::auto_connection c0 = o.insert(
 		SGE_TEXT("quit"),
 		boost::bind(&quit,boost::ref(running),_1),
 		SGE_TEXT("quit test"));
 
-	sge::signals::connection const c1 = o.register_fallback(
+	sge::signals::auto_connection c1 = o.register_fallback(
 		&fallback);
 
 	sge::image::object_ptr const 

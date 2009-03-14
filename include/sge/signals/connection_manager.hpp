@@ -31,21 +31,24 @@ namespace sge
 namespace signals
 {
 
-// TODO: we should use boost::signals::trackable instead
 class connection_manager {
 	SGE_NONCOPYABLE(connection_manager)
 public:
+	typedef std::vector<
+		shared_connection
+	> container;
+
 	SGE_SYMBOL connection_manager();
-	SGE_SYMBOL ~connection_manager();
+	SGE_SYMBOL connection_manager(container const &);
 
 	SGE_SYMBOL void connect(
-		connection const &);
-private:
-	typedef std::vector<
-		connection
-	> connection_vector;
+		shared_connection const &);
 
-	connection_vector connections;
+	SGE_SYMBOL void connect(
+		auto_connection);
+private:
+
+	container connections;
 };
 
 }
