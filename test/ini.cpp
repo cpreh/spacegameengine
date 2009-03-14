@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/grammar.hpp>
+#include <sge/parse/ini/parse.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>
@@ -59,12 +59,10 @@ int main()
 
 	sge::parse::ini::section_vector result;
 
-	if(!boost::spirit::qi::phrase_parse(
+	if(!sge::parse::ini::parse(
 		beg,
 		test.end(),
-		p,
-		result,
-		boost::spirit::ascii::space
+		result
 	))
 	{
 		std::cerr << "failure\n";
