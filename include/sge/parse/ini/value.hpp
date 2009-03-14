@@ -32,8 +32,8 @@ namespace ini
 {
 
 typedef boost::variant<
-	int,
 	double,
+	int,
 	string
 > value;
 

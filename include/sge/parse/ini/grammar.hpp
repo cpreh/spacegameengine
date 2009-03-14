@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 // TODO: include only the headers which are needed!
 #include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/phoenix_fusion.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_object.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
@@ -66,13 +67,20 @@ boost::spirit::qi::grammar<
 		using boost::spirit::double_;
 		using boost::spirit::lexeme;
 
-		value_ %= int_ | double_ | (+char_);
-		entry_ %= (+char_ - char_('=')) >> char_('=') >> value_;
+		char_seq %= +char_;
+		value_ %= double_ | int_ | char_seq;
+		entry_ %= +(char_ - char_('=')) >> char_('=') >> value_;
 		header_ %= lexeme['[' >> +(char_ - ']') >> ']'];
 		section_ %= header_ >> *entry_;
 		ini_ %= *section_;
 	}
 private:
+	boost::spirit::qi::rule<
+		In,
+		string(),
+		space_type
+	> char_seq;
+
 	boost::spirit::qi::rule<
 		In,
 		value(),
