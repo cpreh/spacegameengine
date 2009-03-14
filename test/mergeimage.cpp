@@ -62,7 +62,7 @@ calc_size(
 			1 << i
 		);
 		
-		if((sz / (dim.w() + 1)) * (sz / (dim.h() + 1)) > image_count)
+		if((sz / (dim.w() + 1)) * (sz / (dim.h() + 1)) >= image_count)
 			return sz;
 	}
 	throw sge::exception(
@@ -91,12 +91,14 @@ sort_paths(
 	boost::filesystem::path const &p)
 {
 	path_vector ret;
-	for(
-		boost::filesystem::directory_iterator it(p);
-		it != boost::filesystem::directory_iterator();
-		++it
-	)
-		ret.push_back(*it);
+
+	std::copy(
+		boost::filesystem::directory_iterator(p),
+		boost::filesystem::directory_iterator(),
+		std::back_inserter(
+			ret
+		)
+	);
 	
 	std::sort(
 		ret.begin(),
