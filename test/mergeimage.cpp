@@ -42,7 +42,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
 #include <sge/iconv.hpp>
+#include <boost/foreach.hpp>
+#include <algorithm>
 #include <iterator>
+#include <vector>
 #include <cstdlib>
 
 namespace
@@ -77,6 +80,30 @@ first_dim(
 	);
 	
 	return il->load(*it)->dim();
+}
+
+typedef std::vector<
+	sge::filesystem::path
+> path_vector;
+
+path_vector const
+sort_paths(
+	boost::filesystem::path const &p)
+{
+	path_vector ret;
+	for(
+		boost::filesystem::directory_iterator it(p);
+		it != boost::filesystem::directory_iterator();
+		++it
+	)
+		ret.push_back(*it);
+	
+	std::sort(
+		ret.begin(),
+		ret.end()
+	);
+
+	return ret;
 }
 
 }
@@ -154,17 +181,19 @@ try
 		sge::renderer::texture_pos_type::null()
 	);
 
-	for(
-		sge::filesystem::directory_iterator it(
+	path_vector const paths(
+		sort_paths(
 			path
-		);
-		it != sge::filesystem::directory_iterator();
-		++it
+		)
+	);
+	BOOST_FOREACH(
+		path_vector::const_reference path,
+		paths
 	)
 	{
 		sge::image::object_ptr const img(
 			il->load(
-				it->path()
+				path
 			)
 		);
 
