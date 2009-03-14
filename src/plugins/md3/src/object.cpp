@@ -165,9 +165,9 @@ sge::md3::object::copy_vertices(
 		)
 		{
 			surface::transformed_vertex const &v(
-				surf.transformed_vertices.at(
+				surf.transformed_vertices[
 					sz
-				)
+				]
 			);
 
 			(*vbit).set<vertex_pos>(v.pos);
@@ -194,30 +194,29 @@ struct index_visitor : boost::static_visitor<> {
 		T const &t) const
 	{
 	
-	sge::renderer::size_type ib_offset(0);
-	typedef typename T::value_type value_type;
-	typename T::iterator it = t.begin();
-	BOOST_FOREACH(
-		sge::md3::object::surface_vector::const_reference surf,
-		surfaces_
-	)
-	{
+		sge::renderer::size_type ib_offset(0);
+		typedef typename T::value_type value_type;
+		typename T::iterator it = t.begin();
 		BOOST_FOREACH(
-			sge::md3::object::surface::triangle_vector::const_reference r,
-			surf.triangles
+			sge::md3::object::surface_vector::const_reference surf,
+			surfaces_
 		)
 		{
 			BOOST_FOREACH(
-				sge::md3::object::surface::triangle::index_array::const_reference ind,
-				r.indices
+				sge::md3::object::surface::triangle_vector::const_reference r,
+				surf.triangles
 			)
-				*it++ = static_cast<value_type>(ind + ib_offset);
+			{
+				BOOST_FOREACH(
+					sge::md3::object::surface::triangle::index_array::const_reference ind,
+					r.indices
+				)
+					*it++ = static_cast<value_type>(ind + ib_offset);
+			}
+			ib_offset += static_cast<sge::renderer::size_type>(
+				surf.transformed_vertices.size()
+			);
 		}
-		ib_offset += static_cast<sge::renderer::size_type>(
-			surf.transformed_vertices.size()
-		);
-	}
-		
 	}
 private:
 	sge::md3::object::surface_vector const &surfaces_;	
@@ -277,8 +276,8 @@ sge::md3::object::read_string(model::istream& is)
 inline sge::md3::object::vec3 sge::md3::object::convert_normal(const s16 normal)
 {
 	funit const
-		lat = static_cast<funit>((normal >> 8) & 255) * (2 * math::pi<funit>()) / 255,
-		lng = static_cast<funit>(normal & 255) * (2 * math::pi<funit>()) / 255;
+		lat = static_cast<funit>((normal >> 8) & 255) * (math::twopi<funit>()) / 255,
+		lng = static_cast<funit>(normal & 255) * (math::twopi<funit>()) / 255;
 
 	return vec3(
 		std::cos(lat) * std::sin(lng),

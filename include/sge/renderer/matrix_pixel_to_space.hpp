@@ -23,11 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/screen_size.hpp>
 #include <sge/math/matrix/static.hpp>
-#include <sge/math/matrix/basic_impl.hpp>
-#include <sge/math/matrix/translation.hpp>
-#include <sge/math/matrix/scaling.hpp>
-#include <sge/math/matrix/arithmetic.hpp>
-#include <sge/math/dim/basic_impl.hpp>
 
 namespace sge
 {
@@ -39,17 +34,7 @@ template<
 >
 typename math::matrix::static_<T, 4, 4>::type const
 matrix_pixel_to_space(
-	screen_size const &sz)
-{
-	return math::matrix::translation(
-		static_cast<T>(-static_cast<int>(sz.w()) / 2),
-		static_cast<T>(-static_cast<int>(sz.h()) / 2),
-		static_cast<T>(0))
-		* math::matrix::scaling(
-			static_cast<T>(2) / static_cast<T>(sz.w()),
-	        	static_cast<T>(-2) / static_cast<T>(sz.h()),
-	        	static_cast<T>(1));
-}
+	screen_size const &sz);
 
 }
 }

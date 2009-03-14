@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/iterator.hpp>
 #include <sge/model/plugin.hpp>
 #include <sge/model/loader.hpp>
 #include <sge/model/loader_fwd.hpp>
@@ -31,16 +30,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
 #include <sge/renderer/vf/dynamic_format.hpp>
+#include <sge/renderer/filter/linear.hpp>
+#include <sge/renderer/state/list.hpp>
+#include <sge/renderer/state/var.hpp>
 #include <sge/renderer/vertex_buffer.hpp>
 #include <sge/renderer/index_buffer.hpp>
+#include <sge/renderer/aspect.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/texture.hpp>
 #include <sge/renderer/scoped_vertex_lock.hpp>
 #include <sge/renderer/scoped_index_lock.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/signals/connection.hpp>
+#include <sge/image/create_texture.hpp>
 #include <sge/mainloop/catch_block.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/math/matrix/perspective.hpp>
+#include <sge/math/pi.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -65,6 +71,7 @@ try
 			sge::renderer::stencil_buffer::off,
 			sge::renderer::window_mode::windowed))
 		(sge::systems::parameterless::input)
+		(sge::systems::parameterless::image)
 	);
 	
 	sge::plugin::plugin<
@@ -119,6 +126,26 @@ try
 		).value()
 	);
 
+	sge::renderer::texture_ptr const tex(
+		sge::image::create_texture(
+			sge::media_path() / SGE_TEXT("european_fnt.tga"),
+			sys.renderer(),
+			sys.image_loader(),
+			sge::renderer::filter::linear,
+			sge::renderer::resource_flags::none
+		)
+	);
+
+	sys.renderer()->texture(
+		tex
+	);
+
+	sys.renderer()->state(
+		sge::renderer::state::list
+			(sge::renderer::state::cull_mode::off)
+		
+	);
+
 	bool running = true;
 
 	sge::signals::auto_connection cb(
@@ -130,11 +157,15 @@ try
 		)
 	);
 
+	typedef float unit;
+
 	sys.renderer()->projection(
-		sge::math::matrix::perspective<float>(
-			0.75f,
-			0.9f,
-			-10.f,
+		sge::math::matrix::perspective<unit>(
+			sge::renderer::aspect<unit>(
+				sys.renderer()->screen_size()
+			),
+			sge::math::pi<unit>() / static_cast<unit>(4),
+			-100.f,
 			100.f
 		)
 	);

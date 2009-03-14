@@ -39,7 +39,7 @@ plugin_version_info(
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("openal audio player plugin");
+	p->name = SGE_TEXT("openal");
 	p->description = SGE_TEXT("");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
