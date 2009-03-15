@@ -4,7 +4,7 @@
 #include "types.hpp"
 #include "overlap_callback.hpp"
 #include <sge/collision/world.hpp>
-#include <sge/signals/signal.hpp>
+#include <sge/signals/connection.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace sge
@@ -19,7 +19,7 @@ public:
 	void test_callback(
 		collision::test_callback const &);
 
-	sge::signals::connection const 
+	sge::signals::auto_connection
 	register_callback(
 		collision::callback const &);
 

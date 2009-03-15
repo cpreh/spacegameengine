@@ -1,6 +1,7 @@
 #include "../world.hpp"
 #include "../objects/circle.hpp"
 #include <sge/collision/satellite.hpp>
+#include <boost/ref.hpp>
 
 sge::ode::world::world(
 	collision::optional_rect const &p)
@@ -88,8 +89,13 @@ void sge::ode::world::internal_collide(dGeomID g1,dGeomID g2)
 		// so to be sure, allocate one dContactGeom here
 		dContactGeom g;
 		if (dCollide(g1,g2,1,&g,sizeof(dContactGeom)))
-		{
-			callback_(s1,s2);
-		}
+			callback_(
+				boost::ref(
+					s1
+				),
+				boost::ref(
+					s2
+				)
+			);
 	}
 }
