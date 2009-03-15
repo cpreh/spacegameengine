@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SIGNAL_OBJECT_HPP_INCLUDED
 
 #include <sge/signal/detail/base.hpp>
+#include <sge/signal/detail/base_impl.hpp>
 #include <sge/signal/detail/operator_limit.hpp>
 #include <sge/signal/detail/define_operator.hpp>
 #include <sge/signal/detail/define_void_operator.hpp>
@@ -39,7 +40,7 @@ namespace signal
 template<
 	typename T,
 	typename Enable = void>
-class object : public detail::base<T>,private boost::noncopyable
+class object : public detail::base<T>
 {
 public:
 	typedef detail::base<T> base;
@@ -48,18 +49,10 @@ public:
 	typedef boost::function<result_type (result_type,result_type)> combiner_type;
 
 	object(
-		combiner_type const &);
+		combiner_type const &_combiner)
+		: combiner_(_combiner) {}
 	
-	result_type operator()()
-	{
-		result_type t;
-		for (typename connection_list::iterator i = base::connections().begin(); 
-		     i != base::connections().end(); 
-				 ++i)
-			combiner_(i->function()(),t);
-		return t;
-	}
-
+	SGE_SIGNAL_DETAIL_DEFINE_EMPTY_OPERATOR
 	BOOST_PP_REPEAT(SGE_SIGNAL_DETAIL_OPERATOR_LIMIT,SGE_SIGNAL_DETAIL_DEFINE_OPERATOR,nil)
 private:
 	combiner_type combiner_;
@@ -74,20 +67,13 @@ class object<
 			typename boost::function_traits<T>::result_type
 		>
 	>::type
-> : public detail::base<T>,private boost::noncopyable
+> : public detail::base<T>
 {
 public:
 	typedef detail::base<T> base;
 	typedef typename base::connection_list connection_list;
 
-	void operator()()
-	{
-		for (typename connection_list::iterator i = base::connections().begin(); 
-		     i != base::connections().end(); 
-				 ++i)
-			i->function()();
-	}
-
+	SGE_SIGNAL_DETAIL_DEFINE_EMPTY_VOID_OPERATOR
 	BOOST_PP_REPEAT(SGE_SIGNAL_DETAIL_OPERATOR_LIMIT,SGE_SIGNAL_DETAIL_DEFINE_VOID_OPERATOR,nil)
 };
 

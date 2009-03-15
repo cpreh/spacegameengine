@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "dga.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/callback.hpp>
-#include <sge/signals/connection_manager.hpp>
+#include <sge/signal/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>
 #include <sge/x11/color.hpp>
 #include <sge/x11/pixmap.hpp>
@@ -77,7 +77,7 @@ private:
 	mouse_pos             mouse_last;
 	dga                   dga_;
 
-	signals::connection_manager connections;
+	signal::connection_manager connections;
 
 	boost::scoped_ptr<
 		mouse_grab

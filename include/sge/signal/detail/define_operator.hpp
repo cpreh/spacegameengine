@@ -5,6 +5,17 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
+#define SGE_SIGNAL_DETAIL_DEFINE_EMPTY_OPERATOR\
+	result_type operator()()\
+	{\
+		result_type t = result_type();\
+		for (typename connection_list::iterator i = base::connections().begin();\
+		     i != base::connections().end();\
+				 ++i)\
+			t = combiner_(i->function()(),t);\
+		return t;\
+	}
+
 #define SGE_SIGNAL_DETAIL_DEFINE_OPERATOR(z,n,_)\
 	template<\
 	BOOST_PP_ENUM_PARAMS_Z(z,BOOST_PP_INC(n),typename T)\
@@ -16,7 +27,7 @@
 		for (typename connection_list::iterator i = base::connections().begin();\
 		     i != base::connections().end();\
 				 ++i)\
-			combiner_(\
+			t = combiner_(\
 				t,\
 				i->function()(\
 					BOOST_PP_ENUM_PARAMS_Z(z,BOOST_PP_INC(n),param)));\

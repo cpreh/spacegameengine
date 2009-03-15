@@ -11,7 +11,7 @@ sge::signal::auto_connection sge::signal::detail::base<T>::connect(
 }
 
 template<typename T>
-typename sge::signal::base<T>::connection_list &sge::signal::detail::base<T>::connect()
+typename sge::signal::detail::base<T>::connection_list &sge::signal::detail::base<T>::connections()
 {
 	return connections_;
 }

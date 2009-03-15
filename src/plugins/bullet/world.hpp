@@ -4,7 +4,6 @@
 #include "types.hpp"
 #include "overlap_callback.hpp"
 #include <sge/collision/world.hpp>
-#include <sge/signals/connection.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace sge
