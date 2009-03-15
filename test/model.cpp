@@ -148,7 +148,7 @@ try
 
 	bool running = true;
 
-	sge::signals::auto_connection cb(
+	sge::signal::auto_connection cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

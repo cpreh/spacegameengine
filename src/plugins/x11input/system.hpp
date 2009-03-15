@@ -78,8 +78,8 @@ private:
 
 	signal::connection_manager connections;
 
-	typedef signals:object<input::key_pair_fun> signal_type;
-	typedef signals:object<input::key_type_fun> repeat_signal_type;
+	typedef signal::object<input::key_pair_fun> signal_type;
+	typedef signal::object<input::key_type_fun> repeat_signal_type;
 
 	signal_type        sig;
 	repeat_signal_type repeat_sig;

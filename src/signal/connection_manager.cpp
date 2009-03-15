@@ -39,7 +39,7 @@ void sge::signal::connection_manager::connect(
 }
 
 void sge::signal::connection_manager::connect(
-	auto_connection &v)
+	auto_connection v)
 {
 	connections.push_back(
 		shared_connection(

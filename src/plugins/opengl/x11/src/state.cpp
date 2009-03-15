@@ -65,26 +65,22 @@ sge::ogl::x11::state::state(
 			param,
 			adapter))
 {
-	signals::auto_connection a = 
+ 	con_manager.connect(
 		wnd->register_callback(
 			MapNotify,
 			boost::bind(
 				&state::reset_viewport_on_map,
 				this,
-				_1));
- 	con_manager.connect(
-		a);
+				_1)));
 
-	signals::auto_connection b(
+	con_manager.connect(
 		wnd->register_callback(
 			ConfigureNotify,
 			boost::bind(
 				&state::reset_viewport_on_configure,
 				this,
 				_1)));
-		
-	con_manager.connect(
-		b);
+
 	if(resolution_)
 		wnd->map_raised();
 	else

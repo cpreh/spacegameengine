@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/math/dim/basic_decl.hpp>
 #include <sge/window/instance_fwd.hpp>
-#include <sge/signals/connection_manager.hpp>
+#include <sge/signal/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>
 #include <sge/x11/visual_fwd.hpp>
 #include <sge/x11/display_fwd.hpp>
@@ -80,7 +80,7 @@ private:
 	scoped_ptr<
 		resolution::instance
 	> resolution_;
-	signals::connection_manager con_manager;
+	signal::connection_manager con_manager;
 };
 
 }

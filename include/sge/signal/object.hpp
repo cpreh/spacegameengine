@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SIGNAL_OBJECT_HPP_INCLUDED
 
 #include <sge/signal/detail/base.hpp>
+#include <sge/signal/detail/base_impl.hpp>
 #include <sge/signal/detail/operator_limit.hpp>
 #include <sge/signal/detail/define_operator.hpp>
 #include <sge/signal/detail/define_void_operator.hpp>
@@ -39,7 +40,7 @@ namespace signal
 template<
 	typename T,
 	typename Enable = void>
-class object : public detail::base<T>,private boost::noncopyable
+class object : public detail::base<T>
 {
 public:
 	typedef detail::base<T> base;
@@ -74,7 +75,7 @@ class object<
 			typename boost::function_traits<T>::result_type
 		>
 	>::type
-> : public detail::base<T>,private boost::noncopyable
+> : public detail::base<T>
 {
 public:
 	typedef detail::base<T> base;

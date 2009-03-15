@@ -47,7 +47,7 @@ public:
 		shared_connection const &);
 
 	SGE_SYMBOL void connect(
-		auto_connection &);
+		auto_connection);
 private:
 	container connections;
 };

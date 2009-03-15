@@ -29,7 +29,7 @@ FILE (GLOB sgecorefiles
 	renderer/glsl/uniform/*.cpp
 	renderer/state/*.cpp
 	renderer/vf/*.cpp
-	signals/*.cpp
+	signal/*.cpp
 	sprite/*.cpp
 	sprite/detail/*.cpp
 	systems/*.cpp
