@@ -67,7 +67,7 @@ void sge::gui::widgets::buttons::base::process(events::keyboard_leave const &)
 	parent_manager().invalidate(*this,rect(point::null(),size()));
 }
 
-sge::signals::auto_connection sge::gui::widgets::buttons::base::register_clicked(
+sge::signal::auto_connection sge::gui::widgets::buttons::base::register_clicked(
 	clicked_fn const &_clicked)
 {
 	return clicked_.connect(_clicked);

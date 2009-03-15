@@ -53,14 +53,14 @@ sge::dinput::system::system(
 			SGE_TEXT("DirectInput Enumeration failed!"));
 }
 
-sge::signals::connection const
+sge::signal::auto_connection
 sge::dinput::system::register_callback(
 	input::callback const &c)
 {
 	return sig.connect(c);
 }
 
-sge::signals::connection const
+sge::signal::auto_connection
 sge::dinput::system::register_repeat_callback(
 	input::repeat_callback const &c)
 {

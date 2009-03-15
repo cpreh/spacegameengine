@@ -2,8 +2,8 @@
 #define SGE_GUI_WIDGETS_BUTTONS_BASE_HPP_INCLUDED
 
 #include <sge/gui/widget.hpp>
-#include <sge/signals/connection.hpp>
-#include <sge/signals/signal.hpp>
+#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/object.hpp>
 
 namespace sge
 {
@@ -27,14 +27,14 @@ class SGE_CLASS_SYMBOL base : public widget
 	SGE_SYMBOL void process(events::keyboard_leave const &);
 
 	typedef boost::function<void ()> clicked_fn;
-	SGE_SYMBOL signals::auto_connection register_clicked(
+	SGE_SYMBOL signal::auto_connection register_clicked(
 		clicked_fn const &);
 	
 	SGE_SYMBOL ~base();
 	private:
 	bool mouse_over_;
 	bool key_over_;
-	sge::signals::signal<void ()> clicked_;
+	sge::signal::object<void ()> clicked_;
 
 	protected:
 	SGE_SYMBOL base(

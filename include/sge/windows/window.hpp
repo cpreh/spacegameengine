@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/export.hpp>
-#include <sge/signals/connection.hpp>
-#include <sge/signals/signal.hpp>
+#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/object.hpp>
 #include <sge/math/rect_decl.hpp>
 #include <boost/function.hpp>
 #include <boost/optional.hpp>
@@ -58,7 +58,7 @@ public:
 		callback_signature_type
 	> callback_type;
 
-	typedef signals::signal<
+	typedef signal::object<
 		callback_signature_type//,
 	//	signal_combiner
 	> signal_type;
@@ -74,7 +74,7 @@ public:
 	SGE_SYMBOL window::dim_type const size() const;
 	SGE_SYMBOL sge::string const title() const;
 	SGE_SYMBOL HWND hwnd() const;
-	SGE_SYMBOL signals::connection
+	SGE_SYMBOL signal::auto_connection
 	register_callback(
 		event_type,
 		callback_type);

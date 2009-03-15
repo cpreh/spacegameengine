@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MAINLOOP_SKELETON_HPP_INCLUDED
 
 #include <sge/systems/instance.hpp>
-#include <sge/signals/connection.hpp>
+#include <sge/signal/shared_connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 #include <boost/optional.hpp>
@@ -60,7 +60,7 @@ private:
 	systems::instance const sys;
 
 	typedef boost::optional<
-		signals::shared_connection
+		signal::shared_connection
 	> optional_shared_connection;
 
 	optional_shared_connection input_con;

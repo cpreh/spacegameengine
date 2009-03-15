@@ -18,28 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/signals/connection_manager.hpp>
+#include <sge/signal/connection_manager.hpp>
 
-sge::signals::connection_manager::connection_manager()
+sge::signal::connection_manager::connection_manager()
 :
 	connections()
 {}
 
-sge::signals::connection_manager::connection_manager(
+sge::signal::connection_manager::connection_manager(
 	container const &_connections)
 :
 	connections(_connections)
 {}
 
-void sge::signals::connection_manager::connect(
+void sge::signal::connection_manager::connect(
 	shared_connection const &v)
 {
 	connections.push_back(
 		v);
 }
 
-void sge::signals::connection_manager::connect(
-	auto_connection v)
+void sge::signal::connection_manager::connect(
+	auto_connection &v)
 {
 	connections.push_back(
 		shared_connection(

@@ -5,7 +5,7 @@
 #include <sge/console/variable_map.hpp>
 #include <sge/console/function_map.hpp>
 #include <sge/console/var_base_fwd.hpp>
-#include <sge/signals/connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 
@@ -19,12 +19,12 @@ class SGE_CLASS_SYMBOL object
 	public:
 	SGE_SYMBOL explicit object(string::value_type prefix);
 	
-	SGE_SYMBOL signals::auto_connection insert(
+	SGE_SYMBOL sge::signal::auto_connection insert(
 		string const &name,
 		callback const &,
 		string const &description = string());
 
-	SGE_SYMBOL signals::auto_connection register_fallback(
+	SGE_SYMBOL sge::signal::auto_connection register_fallback(
 		fallback const &
 	);
 	

@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_SIGNALS_HPP_INCLUDED
 
 #include <sge/console/callback_types.hpp>
-#include <sge/signals/signal.hpp>
+#include <sge/signal/object.hpp>
 
 namespace sge
 {
 namespace console
 {
-typedef signals::signal<
+typedef signal::object<
 	callback_type
 > signal;
 
-typedef signals::signal<
+typedef signal::object<
 	fallback_type
 > fallback_signal;
 }

@@ -167,7 +167,7 @@ HWND sge::windows::window::hwnd() const
 	return handle;
 }
 
-boost::signals::connection
+sge::signal::auto_connection
 sge::windows::window::register_callback(
 	event_type const msg,
 	callback_type const func)

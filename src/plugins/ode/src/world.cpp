@@ -20,7 +20,7 @@ sge::ode::world::test_callback(
 	test_callback_ = _test_callback;
 }
 
-sge::signals::connection const 
+sge::signal::auto_connection
 sge::ode::world::register_callback(
 	collision::callback const &c)
 {

@@ -9,7 +9,7 @@
 #include <sge/collision/satellite_fwd.hpp>
 #include <sge/collision/time_unit.hpp>
 #include <sge/collision/objects/circle_fwd.hpp>
-#include <sge/signals/connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 
@@ -27,7 +27,7 @@ public:
 	test_callback(
 		collision::test_callback const &) = 0;
 
-	virtual signals::auto_connection
+	virtual signal::auto_connection
 	register_callback(
 		callback const &) = 0;
 	

@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/size_hints.hpp>
 #include <sge/x11/class_hint.hpp>
 #include <sge/window/instance.hpp>
-#include <sge/signals/connection.hpp>
-#include <sge/signals/signal.hpp>
+#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/object.hpp>
 #include <sge/export.hpp>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -75,7 +75,7 @@ public:
 	SGE_SYMBOL void map();
 	SGE_SYMBOL void map_raised();
 
-	SGE_SYMBOL sge::signals::auto_connection
+	SGE_SYMBOL sge::signal::auto_connection
 	register_callback(
 		event_type,
 		callback_type const &);
@@ -101,7 +101,7 @@ private:
 	size_hints          size_hints_;
 	class_hint          class_hint_;
 
-	typedef sge::signals::signal<
+	typedef sge::signal::object<
 		function_type
 	> signal_type;
 	typedef boost::ptr_map<

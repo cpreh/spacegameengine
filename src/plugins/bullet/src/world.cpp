@@ -44,7 +44,7 @@ void sge::bullet::world::test_callback(
 	overlap_callback_.reset(_test);
 }
 
-sge::signals::connection const sge::bullet::world::register_callback(
+sge::signal::auto_connection sge::bullet::world::register_callback(
 	collision::callback const &fn)
 {
 	return callback_signal_.connect(fn);

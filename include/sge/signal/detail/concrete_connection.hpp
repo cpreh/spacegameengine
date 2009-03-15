@@ -1,12 +1,12 @@
-#ifndef SGE_SIGNALS_DETAIL_CONCRETE_CONNECTION_HPP_INCLUDED
-#define SGE_SIGNALS_DETAIL_CONCRETE_CONNECTION_HPP_INCLUDED
+#ifndef SGE_SIGNAL_DETAIL_CONCRETE_CONNECTION_HPP_INCLUDED
+#define SGE_SIGNAL_DETAIL_CONCRETE_CONNECTION_HPP_INCLUDED
 
-#include <sge/signals/connection.hpp>
+#include <sge/signal/detail/connection.hpp>
 #include <boost/function.hpp>
 
 namespace sge
 {
-namespace signals
+namespace signal
 {
 namespace detail
 {

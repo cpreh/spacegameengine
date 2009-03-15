@@ -42,14 +42,15 @@ sge::mainloop::skeleton::skeleton(
 	if (!sys.input_system())
 		return;
 
-	signals::auto_connection a = 
+	// this is to avoid hassle with shared_ptr(auto_ptr &)
+	signal::auto_connection a = 
 		sys.input_system()->register_callback(
 			boost::bind(
 				&skeleton::key_event,
 				this,
 				_1));
 	
-	input_con = signals::shared_connection(a);
+	input_con = signal::shared_connection(a);
 }
 
 void sge::mainloop::skeleton::exit()

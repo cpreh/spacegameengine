@@ -4,8 +4,6 @@
 #include <sge/gui/widgets/buttons/base.hpp>
 #include <sge/export.hpp>
 #include <sge/font/metrics_fwd.hpp>
-#include <sge/signals/signal.hpp>
-#include <sge/signals/connection.hpp>
 #include <boost/function.hpp>
 
 namespace sge

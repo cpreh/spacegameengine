@@ -23,13 +23,13 @@ sge::input::modifier::filter::filter(sge::input::system_ptr const is)
 			modifiers.insert(c,static_cast<key_state>(0));
 }
 
-sge::signals::auto_connection sge::input::modifier::filter::register_callback(
+sge::signal::auto_connection sge::input::modifier::filter::register_callback(
 	callback_type const &f)
 {
 	return signal.connect(f);
 }
 
-sge::signals::auto_connection sge::input::modifier::filter::register_repeat_callback(
+sge::signal::auto_connection sge::input::modifier::filter::register_repeat_callback(
 	repeat_callback_type const &f)
 {
 	return repeat_signal.connect(f);

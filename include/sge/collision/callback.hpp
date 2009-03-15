@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_COLLISION_CALLBACK_HPP_INCLUDED
 #define SGE_COLLISION_CALLBACK_HPP_INCLUDED
 
-#include <sge/signals/signal.hpp>
+#include <sge/signal/object.hpp>
 #include <boost/function.hpp>
 
 namespace sge
@@ -33,7 +33,7 @@ class satellite;
 
 typedef void callback_fn(satellite &,satellite &);
 typedef boost::function<callback_fn> callback;
-typedef sge::signals::signal<callback_fn> callback_signal;
+typedef sge::signal::object<callback_fn> callback_signal;
 
 }
 }

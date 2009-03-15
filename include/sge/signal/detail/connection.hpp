@@ -18,19 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SIGNALS_CONNECTION_HPP_INCLUDED
-#define SGE_SIGNALS_CONNECTION_HPP_INCLUDED
+#ifndef SGE_SIGNAL_CONNECTION_HPP_INCLUDED
+#define SGE_SIGNAL_CONNECTION_HPP_INCLUDED
 
 #include <boost/intrusive/list_hook.hpp>
 #include <boost/intrusive/link_mode.hpp>
 #include <boost/noncopyable.hpp>
-#include <sge/auto_ptr.hpp>
-#include <sge/scoped_ptr.hpp>
-#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
-namespace signals
+namespace signal
 {
 
 namespace detail
@@ -46,15 +43,11 @@ typedef boost::intrusive::list_base_hook<
 
 namespace detail
 {
+// this class is intentionally left blank
 class connection : public object_base_hook, private boost::noncopyable
 {
 };
 }
-
-typedef auto_ptr<detail::connection> auto_connection;
-typedef scoped_ptr<detail::connection> scoped_connection;
-typedef shared_ptr<detail::connection> shared_connection;
-
 }
 }
 

@@ -18,36 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SIGNALS_CONNECTION_MANAGER_HPP_INCLUDED
-#define SGE_SIGNALS_CONNECTION_MANAGER_HPP_INCLUDED
+#ifndef SGE_SIGNAL_CONNECTION_MANAGER_HPP_INCLUDED
+#define SGE_SIGNAL_CONNECTION_MANAGER_HPP_INCLUDED
 
-#include <sge/signals/connection.hpp>
+#include <sge/signal/shared_connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/export.hpp>
-#include <sge/noncopyable.hpp>
+#include <boost/noncopyable.hpp>
 #include <vector>
 
 namespace sge
 {
-namespace signals
+namespace signal
 {
 
-class connection_manager {
-	SGE_NONCOPYABLE(connection_manager)
+class connection_manager : private boost::noncopyable
+{
 public:
 	typedef std::vector<
 		shared_connection
 	> container;
 
 	SGE_SYMBOL connection_manager();
-	SGE_SYMBOL connection_manager(container const &);
+	SGE_SYMBOL connection_manager(
+		container const &);
 
 	SGE_SYMBOL void connect(
 		shared_connection const &);
 
 	SGE_SYMBOL void connect(
-		auto_connection);
+		auto_connection &);
 private:
-
 	container connections;
 };
 
