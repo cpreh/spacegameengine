@@ -65,7 +65,7 @@ sge::ogl::x11::state::state(
 			param,
 			adapter))
 {
-	signals::auto_connection a = 
+	signal::auto_connection a = 
 		wnd->register_callback(
 			MapNotify,
 			boost::bind(
@@ -75,7 +75,7 @@ sge::ogl::x11::state::state(
  	con_manager.connect(
 		a);
 
-	signals::auto_connection b(
+	signal::auto_connection b(
 		wnd->register_callback(
 			ConfigureNotify,
 			boost::bind(

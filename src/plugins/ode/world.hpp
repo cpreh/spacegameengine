@@ -20,7 +20,7 @@ public:
 	test_callback(
 		::sge::collision::test_callback const &);
 
-	signals::auto_connection
+	signal::auto_connection
 	register_callback(
 		collision::callback const &);
 	

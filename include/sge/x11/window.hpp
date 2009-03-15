@@ -75,7 +75,7 @@ public:
 	SGE_SYMBOL void map();
 	SGE_SYMBOL void map_raised();
 
-	SGE_SYMBOL sge::signal::auto_connection
+	SGE_SYMBOL signal::auto_connection
 	register_callback(
 		event_type,
 		callback_type const &);
