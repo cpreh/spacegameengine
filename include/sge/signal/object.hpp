@@ -49,18 +49,10 @@ public:
 	typedef boost::function<result_type (result_type,result_type)> combiner_type;
 
 	object(
-		combiner_type const &);
+		combiner_type const &_combiner)
+		: combiner_(_combiner) {}
 	
-	result_type operator()()
-	{
-		result_type t;
-		for (typename connection_list::iterator i = base::connections().begin(); 
-		     i != base::connections().end(); 
-				 ++i)
-			combiner_(i->function()(),t);
-		return t;
-	}
-
+	SGE_SIGNAL_DETAIL_DEFINE_EMPTY_OPERATOR
 	BOOST_PP_REPEAT(SGE_SIGNAL_DETAIL_OPERATOR_LIMIT,SGE_SIGNAL_DETAIL_DEFINE_OPERATOR,nil)
 private:
 	combiner_type combiner_;
@@ -81,14 +73,7 @@ public:
 	typedef detail::base<T> base;
 	typedef typename base::connection_list connection_list;
 
-	void operator()()
-	{
-		for (typename connection_list::iterator i = base::connections().begin(); 
-		     i != base::connections().end(); 
-				 ++i)
-			i->function()();
-	}
-
+	SGE_SIGNAL_DETAIL_DEFINE_EMPTY_VOID_OPERATOR
 	BOOST_PP_REPEAT(SGE_SIGNAL_DETAIL_OPERATOR_LIMIT,SGE_SIGNAL_DETAIL_DEFINE_VOID_OPERATOR,nil)
 };
 
