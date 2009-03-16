@@ -20,7 +20,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: keyboard"),
-	true);
+	false);
 
 bool active(sge::gui::widget const &w)
 {

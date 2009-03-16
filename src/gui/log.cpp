@@ -7,8 +7,7 @@ sge::log::logger &sge::gui::global_log()
 	static logger global(
 		sge::log::global(),
 		SGE_TEXT("gui"),
-		true
-	);
+		true);
 
   global.activate(log::level::debug);
   global.activate(log::level::info);

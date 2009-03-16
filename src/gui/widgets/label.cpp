@@ -6,7 +6,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::widgets::global_log(),SGE_TEXT("label"),true);
+sge::gui::logger mylogger(
+	sge::gui::widgets::global_log(),
+	SGE_TEXT("label"),
+	false);
 }
 
 sge::gui::widgets::label::label(

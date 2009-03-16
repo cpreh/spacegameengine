@@ -49,7 +49,7 @@ public:
 	typedef boost::function<result_type (result_type,result_type)> combiner_type;
 
 	object(
-		combiner_type const &_combiner)
+		combiner_type const &_combiner = combiner_type())
 		: combiner_(_combiner) {}
 	
 	SGE_SIGNAL_DETAIL_DEFINE_EMPTY_OPERATOR

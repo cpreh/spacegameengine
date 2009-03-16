@@ -25,7 +25,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("skin"),
-	true);
+	false);
 }
 
 namespace

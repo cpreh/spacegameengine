@@ -21,7 +21,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),true);
+sge::gui::logger mylogger(
+	sge::gui::widgets::global_log(),
+	SGE_TEXT("edit"),
+	false);
 sge::gui::logger mygraphlogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),false);
 }
 

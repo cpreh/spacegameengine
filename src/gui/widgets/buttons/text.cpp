@@ -10,7 +10,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::widgets::global_log(),
 	SGE_TEXT("buttons::text"),
-	true);
+	false);
 }
 
 sge::gui::widgets::buttons::text::text(
