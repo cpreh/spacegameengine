@@ -32,6 +32,8 @@ class SGE_CLASS_SYMBOL base : public widget
 	
 	SGE_SYMBOL ~base();
 	private:
+	using widget::process;
+
 	bool mouse_over_;
 	bool key_over_;
 	sge::signal::object<void ()> clicked_;

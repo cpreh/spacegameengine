@@ -30,6 +30,7 @@ FILE (GLOB sgecorefiles
 	renderer/state/*.cpp
 	renderer/vf/*.cpp
 	signal/*.cpp
+	signal/detail/*.cpp
 	sprite/*.cpp
 	sprite/detail/*.cpp
 	systems/*.cpp
