@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_CALLBACK_TYPES_HPP_INCLUDED
 
 #include <sge/console/arg_list.hpp>
+#include <sge/string.hpp>
 
 namespace sge
 {

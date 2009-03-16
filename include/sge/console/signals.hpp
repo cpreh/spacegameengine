@@ -32,7 +32,7 @@ typedef signal::object<
 	callback_type
 > signal;
 
-typedef signal::object<
+typedef sge::signal::object<
 	fallback_type
 > fallback_signal;
 }

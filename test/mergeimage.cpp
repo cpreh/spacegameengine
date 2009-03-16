@@ -88,13 +88,13 @@ typedef std::vector<
 
 path_vector const
 sort_paths(
-	boost::filesystem::path const &p)
+	sge::filesystem::path const &p)
 {
 	path_vector ret;
 
 	std::copy(
-		boost::filesystem::directory_iterator(p),
-		boost::filesystem::directory_iterator(),
+		sge::filesystem::directory_iterator(p),
+		sge::filesystem::directory_iterator(),
 		std::back_inserter(
 			ret
 		)
