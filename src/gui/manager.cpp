@@ -9,7 +9,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"),true);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("manager"),
+	false);
 }
 
 sge::gui::manager::manager(

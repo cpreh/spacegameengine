@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_ASPECT_HPP_INCLUDED
 
 #include <sge/renderer/screen_size.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -31,7 +32,7 @@ namespace renderer
 template<
 	typename T
 >
-T
+SGE_SYMBOL T
 aspect(
 	screen_size const &);
 

@@ -35,7 +35,7 @@ sge::renderer::aspect(
 }
 
 #define SGE_INSTANTIATE_ASPECT(x)\
-template x sge::renderer::aspect(sge::renderer::screen_size const &);
+template SGE_SYMBOL x sge::renderer::aspect(sge::renderer::screen_size const &);
 
 SGE_MATH_INSTANTIATE_ARITHMETIC(SGE_INSTANTIATE_ASPECT)
 

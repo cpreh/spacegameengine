@@ -120,8 +120,8 @@ try
 	}
 	
 	sge::systems::instance const sys(
-		sge::systems::list
-		(sge::systems::parameterless::image)
+		(sge::systems::list
+		(sge::systems::parameterless::image))
 	);
 
 	sge::image::loader_ptr const il(

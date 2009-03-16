@@ -4,7 +4,10 @@
 
 sge::log::logger &sge::gui::widgets::global_log()
 {
-  static logger global(sge::gui::global_log(),SGE_TEXT("widgets"),true);
+  static logger global(
+		sge::gui::global_log(),
+		SGE_TEXT("widgets"),
+		false);
   global.activate(log::level::debug);
   global.activate(log::level::info);
   global.activate(log::level::warning);

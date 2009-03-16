@@ -265,7 +265,7 @@ inline sge::md3::object::string const
 sge::md3::object::read_string(model::istream& is)
 {
 	std::tr1::array<u8, Max> tmp_name;
-	is.read(reinterpret_cast<char*>(tmp_name.c_array()), tmp_name.size());
+	is.read(reinterpret_cast<char*>(tmp_name.data()), tmp_name.size());
 
 	if(!std::count(tmp_name.begin(), tmp_name.end(), 0))
 		throw exception(SGE_TEXT("String in md3 file not ended with a 0!"));
