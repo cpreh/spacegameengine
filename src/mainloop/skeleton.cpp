@@ -37,17 +37,21 @@ sge::mainloop::skeleton::skeleton(
 	systems::list const &s)
 :
 	running(true),
-	sys(s),
-	input_con(
-		sys.input_system()
-		? optional_scoped_connection(
-			sys.input_system()->register_callback(
-				boost::bind(
-					&skeleton::key_event,
-					this,
-					_1)))
-		: optional_scoped_connection())
-{}
+	sys(s)
+{
+	if (!sys.input_system())
+		return;
+
+	// this is to avoid hassle with shared_ptr(auto_ptr &)
+	signal::auto_connection a = 
+		sys.input_system()->register_callback(
+			boost::bind(
+				&skeleton::key_event,
+				this,
+				_1));
+	
+	input_con = signal::shared_connection(a);
+}
 
 void sge::mainloop::skeleton::exit()
 {

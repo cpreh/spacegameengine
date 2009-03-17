@@ -20,20 +20,20 @@ public:
 	test_callback(
 		::sge::collision::test_callback const &);
 
-	signals::connection const 
+	signal::auto_connection
 	register_callback(
 		collision::callback const &);
 	
 	collision::objects::circle_ptr const
 	create_circle(
-		collision::sattelite_ptr,
+		collision::satellite_ptr,
 		collision::point const &center,
 		collision::point const &speed,
 		collision::unit radius);
 
 	void
 	update(
-		time::funit delta);
+		collision::time_unit delta);
 private:
 	world_wrapper world_;
 	space space_;

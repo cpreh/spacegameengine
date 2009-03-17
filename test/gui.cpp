@@ -6,7 +6,7 @@
 #include <sge/renderer/state/scoped.hpp>
 
 #include <sge/gui/manager.hpp>
-#include <sge/gui/widgets/button.hpp>
+#include <sge/gui/widgets/buttons/text.hpp>
 #include <sge/gui/layouts/vertical.hpp>
 #include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
@@ -18,7 +18,7 @@
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
@@ -71,7 +71,7 @@ try
 	sge::log::global().activate_hierarchy(
 		sge::log::level::debug);
 
-	sge::renderer::screen_size_t const screen_size(640,480);
+	sge::renderer::screen_size const screen_size(640,480);
 
 	sge::systems::instance sys(
 		sge::systems::list()
@@ -99,45 +99,60 @@ try
 		sge::gui::skin_ptr(new sge::gui::skins::standard()));
 	
 #if TESTING_LEVEL == TL_SINGLE_BUTTON
-	sge::gui::widgets::button b((sge::gui::widget::parent_data(m)),SGE_TEXT("Button A"));
-	b.pos(sge::gui::point(10,10));
+	sge::gui::widgets::buttons::text b((sge::gui::widget::parent_data(m)),SGE_TEXT("Button A"));
+	b.relative_pos(sge::gui::point(10,10));
 	b.size(sge::gui::dim(400,300));
 #elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
 	sge::gui::widget top((sge::gui::widget::parent_data(m)));
 	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)));
-	top.pos(sge::gui::point(10,10));
+	top.relative_pos(sge::gui::point(10,10));
 	top.size(sge::gui::dim(400,300));
 
-	sge::gui::widgets::button left((sge::gui::widget::parent_data(top)),SGE_TEXT("Button A"));
-	sge::gui::widgets::button right((sge::gui::widget::parent_data(top)),SGE_TEXT("Button B"));
+	sge::gui::widgets::buttons::text left((sge::gui::widget::parent_data(top)),SGE_TEXT("Button A"));
+	sge::gui::widgets::buttons::text right((sge::gui::widget::parent_data(top)),SGE_TEXT("Button B"));
 #elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
-	sge::gui::widget top((sge::gui::widget::parent_data(m)));
-	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)));
-	top.pos(sge::gui::point(10,10));
-	top.size(sge::gui::dim(400,300));
+	sge::gui::widget top(
+		sge::gui::widget::parent_data(m),
+		sge::gui::widget::parameters()
+			.pos(sge::gui::point(10,10))
+			.layout(
+				sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)))
+			.size(sge::gui::dim(400,300)));
 
-	sge::gui::widget left((sge::gui::widget::parent_data(top)));
-	left.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(left)));
+	sge::cerr << "added top level widget\n";
 
-	sge::gui::widget right((sge::gui::widget::parent_data(top)));
-	right.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(right)));
+	sge::gui::widget left(
+		top,
+		sge::gui::widget::parameters()
+			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(left))));
 
-	sge::gui::widgets::button left_top(
-		sge::gui::widget::parent_data(left),
+	sge::gui::widget right(
+		top,
+		sge::gui::widget::parameters()
+			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(right))));
+
+	sge::gui::widgets::buttons::text left_top(
+		left,
+		sge::gui::widget::parameters(),
 		SGE_TEXT("(left top) me!"));
 	
-	sge::gui::widgets::button left_bottom(
-		sge::gui::widget::parent_data(left),
+	sge::gui::widgets::buttons::text left_bottom(
+		left,
+		sge::gui::widget::parameters(),
 		SGE_TEXT("(left bottom) me!"));
 
-	sge::shared_ptr<sge::gui::widgets::button>
-		right_top(new sge::gui::widgets::button(
-			sge::gui::widget::parent_data(right),
+	sge::shared_ptr<sge::gui::widgets::buttons::text>
+		right_top(new sge::gui::widgets::buttons::text(
+			right,
+			sge::gui::widget::parameters(),
 			SGE_TEXT("(right top) me!")));
 
-	sge::gui::widgets::button right_bottom(
-		sge::gui::widget::parent_data(right),
+	sge::gui::widgets::buttons::text right_bottom(
+		right,
+		sge::gui::widget::parameters(),
 		SGE_TEXT("(right bottom) me!"));
+
+	sge::cerr << "added buttons and children\n";
 #else
 #error "invalid testing level"
 #endif
@@ -148,13 +163,13 @@ try
 			(sge::renderer::state::depth_func::off)
 			(sge::renderer::state::bool_::clear_backbuffer = true)
 			(sge::renderer::state::color_::clear_color = 
-				sge::renderer::rgba8_color(0, 0, 0, 255))
+				sge::renderer::rgba8_color(255, 0, 0, 255))
 			(sge::renderer::state::cull_mode::off)
 		);
 	
 	bool running = true;
 	end_program p(running);
-	sge::signals::scoped_connection const conn =
+	sge::signal::auto_connection conn =
 		sys.input_system()->register_callback(input_functor(running));
 	
 #if TESTING_LEVEL == TL_SINGLE_BUTTON
@@ -162,8 +177,9 @@ try
 #elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
 	left.clicked.connect(p);
 #elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
-	left_top.clicked.connect(p);
+	sge::signal::auto_connection conn2 = left_top.register_clicked(p);
 #endif
+	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
 	
 #if TESTING_LEVEL == TL_REMOVE_WIDGETS
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));

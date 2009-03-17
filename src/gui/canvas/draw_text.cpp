@@ -2,7 +2,7 @@
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/canvas/font_drawer.hpp>
 #include <sge/font/object.hpp>
-#include <sge/font/text_size_t.hpp>
+#include <sge/font/text_size.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <algorithm>

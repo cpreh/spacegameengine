@@ -27,17 +27,18 @@ namespace plugin
 {
 namespace capabilities
 {
-	enum type {
-		nothing          = 0,
-		renderer         = 1,
-		input            = 1 << 1,
-		image_loader     = 1 << 2,
-		audio_player     = 1 << 3,
-		font             = 1 << 4,
-		audio_loader     = 1 << 5,
-		collision_system = 1 << 6,
-		last_guard_      = 1 << 7
-	};
+enum type {
+	nothing          = 0,
+	renderer         = 1,
+	input            = 1 << 1,
+	image_loader     = 1 << 2,
+	audio_player     = 1 << 3,
+	font             = 1 << 4,
+	audio_loader     = 1 << 5,
+	collision_system = 1 << 6,
+	model_loader     = 1 << 7,
+	last_guard_      = 1 << 8
+};
 }
 
 }

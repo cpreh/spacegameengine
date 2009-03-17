@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/callback.hpp>
 #include <sge/window/instance_fwd.hpp>
-#include <sge/signals/connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/mainloop/dispatchable.hpp>
 #include <sge/export.hpp>
 
@@ -35,11 +35,11 @@ namespace input
 
 class SGE_CLASS_SYMBOL system : public mainloop::dispatchable {
 public:
-	virtual signals::connection const
+	virtual signal::auto_connection
 	register_callback(
 		callback const &c) = 0;
 
-	virtual signals::connection const
+	virtual signal::auto_connection
 	register_repeat_callback(
 		repeat_callback const &c) = 0;
 	

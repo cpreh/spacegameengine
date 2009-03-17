@@ -1,19 +1,24 @@
 #include "../body.hpp"
 #include "../world_wrapper.hpp"
 #include <sge/structure_cast.hpp>
-#include <sge/collision/sattelite.hpp>
+#include <sge/collision/satellite.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 
 sge::ode::body::body(
 	world_wrapper &world_,
 	point const &center,
 	point const &speed,
-	collision::sattelite &_sattelite)
-	: id_(dBodyCreate(world_.id()))
+	collision::satellite &_satellite)
+:
+	id_(
+		dBodyCreate(
+			world_.id()
+		)
+	)
 {
 	dBodySetPosition(id(),center.x(),center.y(),center.z());
 	dBodySetLinearVel(id(),speed.x(),speed.y(),speed.z());
-	dBodySetData(id(),&_sattelite);
+	dBodySetData(id(),&_satellite);
 	dBodySetMovedCallback(id(),&body::moved);
 	dMass m;
 	dMassSetSphere(&m,1,0.5);
@@ -60,7 +65,7 @@ sge::ode::body::~body()
 void sge::ode::body::moved(dBodyID _id)
 {
 	dReal const * const p = dBodyGetPosition(_id);
-	static_cast<collision::sattelite*>(dBodyGetData(_id))->position_change(
+	static_cast<collision::satellite*>(dBodyGetData(_id))->position_change(
 		structure_cast<collision::point>(
 			point(p[0],p[1],p[2])));
 }

@@ -11,8 +11,11 @@ class system : public collision::system
 {
 public:
 	system();
-	sge::collision::world_ptr const create_world(
-		boost::optional<collision::rect> const &);
+
+	sge::collision::world_ptr const
+	create_world(
+		collision::optional_rect const &);
+
 	~system();
 };
 }

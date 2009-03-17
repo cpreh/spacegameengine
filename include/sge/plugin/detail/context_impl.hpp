@@ -60,4 +60,13 @@ sge::plugin::context<T>::load()
 	return new_ptr;
 }
 
+template<
+	typename T
+>
+sge::plugin::context_base const &
+sge::plugin::context<T>::info() const
+{
+	return *base_;
+}
+
 #endif

@@ -4,7 +4,8 @@
 sge::ode::geom::geom(
 	dGeomID _id,
 	body &_body)
-	: id_(_id)
+:
+	id_(_id)
 {
 	dGeomSetBody(id(),_body.id());
 }

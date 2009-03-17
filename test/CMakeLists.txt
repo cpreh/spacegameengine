@@ -1,8 +1,3 @@
-ADD_EXECUTABLE (sgetest test.cpp)
-TARGET_LINK_LIBRARIES (sgetest sgecore)
-
-INSTALL (TARGETS sgetest DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-
 ADD_EXECUTABLE (tutorial_01 tutorial/tutorial_01.cpp)
 TARGET_LINK_LIBRARIES (tutorial_01 sgecore)
 
@@ -19,10 +14,15 @@ MACRO (ADD_SGE_TEST name)
 ENDMACRO ()
 
 ADD_SGE_TEST(anim)
+ADD_SGE_TEST(collision)
 ADD_SGE_TEST(console)
 ADD_SGE_TEST(doppler)
 ADD_SGE_TEST(fullscreen)
+ADD_SGE_TEST(ini)
 ADD_SGE_TEST(math)
+ADD_SGE_TEST(mergeimage)
+ADD_SGE_TEST(model)
+ADD_SGE_TEST(plugin)
 ADD_SGE_TEST(pool)
 ADD_SGE_TEST(random)
 ADD_SGE_TEST(skeleton)
@@ -37,17 +37,11 @@ ADD_SGE_TEST(modifier)
 #	TARGET_LINK_LIBRARIES (sgesoundtest ${Boost_program_options_LIBRARIES})
 #ENDIF ()
 
-IF (${ENABLE_ODE})
-	ADD_SGE_TEST(bullet)
-ENDIF ()
-
-IF (${ENABLE_GUI})
+IF (ENABLE_GUI)
 	ADD_SGE_TEST(gui)
-	ADD_SGE_TEST(menu)
 	ADD_SGE_TEST(edit)
 	TARGET_LINK_LIBRARIES (sgeedittest sgegui)
 	TARGET_LINK_LIBRARIES (sgeguitest sgegui)
-	TARGET_LINK_LIBRARIES (sgemenutest sgegui)
 ENDIF ()
 
 #ADD_EXECUTABLE (islandtest island/main.cpp quadtree/quadtree.cpp quadtree/mathstuff.cpp island/island_extractor.cpp island/skydome.cpp)

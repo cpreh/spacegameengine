@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VIEWPORT_HPP_INCLUDED
 #define SGE_RENDERER_VIEWPORT_HPP_INCLUDED
 
-#include <sge/renderer/pixel_pos_t.hpp>
-#include <sge/renderer/screen_size_t.hpp>
+#include <sge/renderer/pixel_pos.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/export.hpp>
 #include <sge/ostream.hpp>
 #include <sge/math/vector/basic_impl.hpp>
@@ -36,14 +36,14 @@ namespace renderer
 class viewport {
 public:
 	SGE_SYMBOL viewport(
-		pixel_pos_t const &,
-		screen_size_t const &);
+		pixel_pos const &,
+		screen_size const &);
 
-	SGE_SYMBOL pixel_pos_t const &pos() const;
-	SGE_SYMBOL screen_size_t const &size() const;
+	SGE_SYMBOL pixel_pos const &pos() const;
+	SGE_SYMBOL screen_size const &size() const;
 private:
-	pixel_pos_t   pos_;
-	screen_size_t size_;
+	pixel_pos   pos_;
+	screen_size size_;
 };
 
 SGE_SYMBOL ostream &

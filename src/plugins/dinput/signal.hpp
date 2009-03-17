@@ -22,15 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_SIGNAL_HPP_INCLUDED
 
 #include <sge/input/callback.hpp>
-#include <boost/signals.hpp>
+#include <sge/signal/object.hpp>
 
 namespace sge
 {
 namespace dinput
 {
 
-typedef boost::signal<input::key_pair_fun> signal_type;
-typedef boost::signal<input::key_type_fun> repeat_signal_type;
+typedef sge::signal::object<input::key_pair_fun> signal_type;
+
+typedef sge::signal::object<input::key_type_fun> repeat_signal_type;
 
 }
 }

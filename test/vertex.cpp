@@ -3,7 +3,7 @@
 #include <sge/exception.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/renderer/vf/make_dynamic_format.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/pos.hpp>
@@ -40,7 +40,7 @@ try
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
+				sge::renderer::screen_size(
 					1024,
 					768),
 				sge::renderer::bit_depth::depth32,
@@ -100,7 +100,7 @@ try
 
 	bool running = true;
 
-	sge::signals::scoped_connection const cb(
+	sge::signal::auto_connection cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

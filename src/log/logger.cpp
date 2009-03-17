@@ -29,45 +29,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::log::logger::logger(
 	ostream &sink_,
 	format::const_formatter_ptr const formatter_,
-	bool const active)
+	bool const enabled_,
+	level::type const level_)
 :
 	sink_(sink_),
 	formatter_(formatter_),
-	active(active)
+	enabled_(enabled_),
+	level_streams()
 {
-	init_levels();
+	init_levels(
+		level_
+	);
 }
 
 sge::log::logger::logger(
 	ostream &sink_,
 	string const &prefix,
-	bool const active)
+	bool const enabled_,
+	level::type const level_)
 :
 	sink_(sink_),
 	formatter_(
   		format::create_prefix(
-			prefix)),
-	active(active)
+			prefix
+		)
+	),
+	enabled_(enabled_),
+	level_streams()
 {
-	init_levels();
+	init_levels(
+		level_
+	);
 }
 
 sge::log::logger::logger(
 	logger &parent,
 	string const &prefix,
-	bool const active)
+	bool const enabled_)
 :
 	sink_(parent.sink()),
 	formatter_(
 		format::create_chain(
 			parent.formatter(),
  	 		format::create_prefix(
-				prefix))),
-	active(active)
+				prefix
+			)
+		)
+	),
+	enabled_(enabled_),
+	level_streams()
 {
 	foreach_enumerator<level_field>(
 		boost::bind(
-			&logger::inherit_levels, this, boost::ref(parent), _1));
+			&logger::inherit_levels,
+			this,
+			boost::ref(parent),
+			_1
+		)
+	);
 }
 
 sge::log::logger::~logger()
@@ -77,7 +96,7 @@ void sge::log::logger::log(
 	level::type const level_,
 	temporary_output const &helper)
 {
-	if (!active || !enabled(level_))
+	if (!enabled() || !activated(level_))
 		return;
 	
 	level_sink(level_).log(helper, formatter());
@@ -126,10 +145,23 @@ void sge::log::logger::deactivate_hierarchy(
 		&logger::deactivate);
 }
 
-bool sge::log::logger::enabled(
+bool sge::log::logger::activated(
 	level::type const level_) const
 {
 	return level_sink(level_).enabled();
+}
+
+void
+sge::log::logger::enable(
+	bool const b)
+{
+	enabled_ = b;
+}
+
+bool
+sge::log::logger::enabled() const
+{
+	return enabled_;
 }
 
 sge::ostream &
@@ -144,11 +176,18 @@ sge::log::logger::formatter() const
 	return formatter_;
 }
 
-void sge::log::logger::init_levels()
+void sge::log::logger::init_levels(
+	level::type const level_)
 {
 	foreach_enumerator<level_field>(
 		boost::bind(
-			&logger::init_level, this, _1));
+			&logger::init_level, this, _1
+		)
+	);
+
+	activate_hierarchy(
+		level_
+	);
 }
 
 void sge::log::logger::init_level(

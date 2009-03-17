@@ -78,7 +78,7 @@ try
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
+				sge::renderer::screen_size(
 					1024,
 					768),
 				sge::renderer::bit_depth::depth32,
@@ -92,12 +92,12 @@ try
 
 	sge::console::object o(SGE_TEXT('/'));
 	
-	sge::signals::connection const c0 = o.insert(
+	sge::signal::auto_connection c0 = o.insert(
 		SGE_TEXT("quit"),
 		boost::bind(&quit,boost::ref(running),_1),
 		SGE_TEXT("quit test"));
 
-	sge::signals::connection const c1 = o.register_fallback(
+	sge::signal::auto_connection c1 = o.register_fallback(
 		&fallback);
 
 	sge::image::object_ptr const 

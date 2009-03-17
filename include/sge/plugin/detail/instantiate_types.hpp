@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_INSTANTIATE_TYPES(x)\
 template SGE_SYMBOL sge::plugin::iterator<x> sge::plugin::manager::begin<x>();\
 template SGE_SYMBOL sge::plugin::iterator<x> sge::plugin::manager::end<x>();\
-template SGE_SYMBOL sge::plugin::iterator<x>::reference sge::plugin::manager::plugin<x>(sge::plugin::manager::size_type);\
+template SGE_SYMBOL sge::plugin::context<x> sge::plugin::manager::plugin<x>(sge::plugin::manager::size_type);\
 template SGE_SYMBOL sge::plugin::manager::size_type sge::plugin::manager::size<x>() const;\
 template class sge::plugin::iterator<x>;\
 template class sge::plugin::plugin<x>;\

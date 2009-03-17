@@ -8,7 +8,7 @@
 #include <sge/input/system_fwd.hpp>
 #include <sge/image/loader_fwd.hpp>
 #include <sge/input/key_pair_fwd.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/renderer/device_fwd.hpp>
 
@@ -31,7 +31,14 @@ class mouse : public submanager
 		renderer::device_ptr,
 		skin &);
 	
+	void resize(
+		widget &,
+		dim const &);
+	void reposition(
+		widget &,
+		point const &);
 	void add(widget &);
+	void draw();
 	void activation(widget &,activation_state::type);
 	sprite::object const cursor() const;
 	void remove(widget &);
@@ -40,10 +47,11 @@ class mouse : public submanager
 	typedef boost::ptr_vector<widget,boost::view_clone_allocator> widget_container;
 
 	widget_container widgets;
-	signals::scoped_connection ic;
+	signal::auto_connection ic;
 	sprite::object cursor_;
 	sprite::point cursor_click;
 	widget *focus;
+	bool dirty_;
 
 	void input_callback(input::key_pair const &);
 	widget *recalculate_focus(widget &w,point const &);

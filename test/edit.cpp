@@ -35,11 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
-#include <sge/signals/scoped_connection.hpp>
 #include <sge/cerr.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -59,9 +58,9 @@ try
 	sge::log::global().activate_hierarchy(
 		sge::log::level::debug);
 
-	sge::renderer::screen_size_t const screen_size(640,480);
+	sge::renderer::screen_size const screen_size(640,480);
 
-	sge::systems::instance sys(
+	sge::systems::instance const sys(
 		sge::systems::list()
 		(sge::window::parameters(
 			SGE_TEXT("sge gui test")))
@@ -88,11 +87,12 @@ try
 		>());
 	
 	sge::gui::widgets::edit b(
-		(sge::gui::widget::parent_data(m)),
+		m,
+		sge::gui::widget::parameters()
+			.pos(sge::gui::point(10,10))
+			.size(sge::gui::dim(400,300)),
 		sge::gui::widgets::edit::single_line,
 		sge::gui::dim(30,30));
-	b.pos(sge::gui::point(10,10));
-	b.size(sge::gui::dim(400,300));
 	//b.text(SGE_TEXT("test"));
 
 	// set sensible render states
@@ -107,7 +107,7 @@ try
 	
 	bool running = true;
 
-	sge::signals::scoped_connection const cb(
+	sge::signal::auto_connection cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -119,7 +119,7 @@ try
 	while (running)
 	{
 		sge::mainloop::dispatch();
-		sge::renderer::scoped_block block(sys.renderer());
+		sge::renderer::scoped_block const block(sys.renderer());
 		m.draw();
 	}
 } 

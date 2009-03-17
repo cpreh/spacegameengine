@@ -5,7 +5,8 @@
 sge::ode::plane_joint::plane_joint(
 	world_wrapper &_world,
 	body &_body)
-	: id_(dJointCreatePlane2D(_world.id(),0))
+:
+	id_(dJointCreatePlane2D(_world.id(),0))
 {
 	dJointAttach(id(),_body.id(),0);
 }

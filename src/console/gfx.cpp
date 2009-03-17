@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_code.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/font/text_size_t.hpp>
+#include <sge/font/text_size.hpp>
 #include <sge/font/pos.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/time/resolution.hpp>
@@ -45,6 +45,7 @@ sge::console::gfx::gfx(
 		font::drawer_ptr(new font::drawer_3d(
 			_rend,
 			_font_color))),
+	is(_is),
 	mf(_is),
 	ic(
 		mf.register_callback(
@@ -70,6 +71,9 @@ sge::console::gfx::gfx(
 	output_history_()
 {
 }
+
+sge::console::gfx::~gfx()
+{}
 
 void sge::console::gfx::draw()
 {

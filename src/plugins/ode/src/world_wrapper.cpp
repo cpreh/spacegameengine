@@ -1,7 +1,8 @@
 #include "../world_wrapper.hpp"
 
 sge::ode::world_wrapper::world_wrapper()
-	 : id_(dWorldCreate())
+:
+	id_(dWorldCreate())
 {
 }
 

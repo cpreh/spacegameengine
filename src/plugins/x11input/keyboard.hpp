@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "device.hpp"
 #include <X11/Xlib.h>
 #include <sge/input/callback.hpp>
-#include <sge/signals/connection_manager.hpp>
+#include <sge/signal/connection_manager.hpp>
 #include <sge/x11/window_fwd.hpp>
 #include <boost/scoped_ptr.hpp>
 
@@ -53,7 +53,7 @@ private:
 	input::repeat_callback const repeat_callback;
 	bool const                   need_grab;
 
-	signals::connection_manager connections;
+	signal::connection_manager connections;
 
 	boost::scoped_ptr<
 		keyboard_grab

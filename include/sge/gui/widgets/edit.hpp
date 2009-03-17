@@ -7,7 +7,7 @@
 #include <sge/gui/events/fwd.hpp>
 #include <sge/renderer/image.hpp>
 #include <sge/font/metrics_fwd.hpp>
-#include <sge/signals/signal.hpp>
+#include <sge/signal/object.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -22,7 +22,8 @@ class SGE_CLASS_SYMBOL edit : public widget
 	enum line_type { single_line,multi_line };
 
 	SGE_SYMBOL edit(
-		parent_data,
+		parent_data const &,
+		parameters,
 		line_type,
 		dim const &desired_size,
 		font::metrics_ptr = font::metrics_ptr());
@@ -43,7 +44,7 @@ class SGE_CLASS_SYMBOL edit : public widget
 	SGE_SYMBOL void refresh() const;
 
 	// will only be called for single_line
-	signals::signal<void ()> return_pressed;
+	signal::object<void ()> return_pressed;
 	private:
 	using widget::process;
 	line_type type;

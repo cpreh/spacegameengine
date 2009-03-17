@@ -9,11 +9,24 @@ namespace gui
 {
 namespace widgets
 {
-class button;
 class edit;
 class label;
+class graphics;
+class backdrop;
 
-typedef boost::mpl::vector<button,edit,label> types;
+namespace buttons
+{
+class text;
+class image;
+}
+
+typedef boost::mpl::vector<
+	buttons::text,
+	buttons::image,
+	edit,
+	label,
+	graphics,
+	backdrop> types;
 }
 }
 }

@@ -43,6 +43,9 @@ public:
 	typedef shared_ptr<plugin<T> > ptr_type;
 
 	SGE_SYMBOL ptr_type load();
+
+	SGE_SYMBOL context_base const &
+	info() const;
 private:
 	context_base *base_;
 };

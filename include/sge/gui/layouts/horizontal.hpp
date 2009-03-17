@@ -13,9 +13,17 @@ namespace layouts
 class SGE_CLASS_SYMBOL horizontal : public row
 {
 	public:
-	SGE_SYMBOL horizontal(widget &);
+	SGE_SYMBOL horizontal(
+		widget &);
 	private:
-	std::size_t master() const { return static_cast<std::size_t>(0); }
+	dim::const_reference master(
+		dim const &) const;
+	dim::reference master(
+		dim &) const;
+	point::const_reference master(
+		point const &) const;
+	point::reference master(
+		point &) const;
 };
 }
 }

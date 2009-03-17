@@ -6,18 +6,24 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::widgets::global_log(),SGE_TEXT("label"),true);
+sge::gui::logger mylogger(
+	sge::gui::widgets::global_log(),
+	SGE_TEXT("label"),
+	false);
 }
 
 sge::gui::widgets::label::label(
-	parent_data parent_,
-	string const &text_,
+	parent_data const &_parent,
+	parameters _params,
+	string const &_text,
 	font::metrics_ptr _font)
 	: widget(
-			parent_,
-			size_policy_t(axis_policy::can_grow,axis_policy::can_grow),
-			keyboard_focus::ignore),
-	  text_(text_),
+			_parent,
+			_params.size_policy(
+				size_policy_t(
+					axis_policy::none,
+					axis_policy::none))),
+	  text_(_text),
 	  font_(_font)
 {
 	if (!font_)

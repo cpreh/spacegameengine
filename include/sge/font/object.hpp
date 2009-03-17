@@ -37,7 +37,7 @@ namespace sge
 namespace font
 {
 
-class text_size_t;
+class text_size;
 
 class SGE_CLASS_SYMBOL object {
 public:
@@ -48,7 +48,7 @@ public:
 
 	SGE_SYMBOL unit height() const;
 
-	SGE_SYMBOL text_size_t const
+	SGE_SYMBOL font::text_size const
 	draw_text(
 		string const &text,
 		pos const &start_pos,
@@ -57,21 +57,21 @@ public:
 		align_v::type = align_v::top,
 		flag_t flags = flags::default_) const;
 
-	SGE_SYMBOL text_size_t const
+	SGE_SYMBOL font::text_size const
 	line_width(
 		string::const_iterator beg,
 		string::const_iterator end,
 		unit width,
 		flag_t tflags) const;
 
-	SGE_SYMBOL text_size_t const
+	SGE_SYMBOL font::text_size const
 	text_size(
 		string::const_iterator beg,
 		string::const_iterator end,
 		dim const &max_size,
 		flag_t flags = flags::default_) const;
 
-	SGE_SYMBOL text_size_t const
+	SGE_SYMBOL font::text_size const
 	text_size(
 		string const &s, 
 		dim const &max_size,

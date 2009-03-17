@@ -17,7 +17,7 @@ sge::console::object::object(string::value_type const _prefix)
 {
 }
 
-sge::signals::connection const sge::console::object::insert(
+sge::signal::auto_connection sge::console::object::insert(
 	string const &name,
 	callback const &c,
 	string const &description)
@@ -42,7 +42,7 @@ sge::signals::connection const sge::console::object::insert(
 	return ret.first->second->signal().connect(c);
 }
 
-sge::signals::connection const sge::console::object::register_fallback(
+sge::signal::auto_connection sge::console::object::register_fallback(
 	fallback const &c)
 {
 	return fallback_.connect(c);

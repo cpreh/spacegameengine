@@ -4,7 +4,6 @@
 #include "types.hpp"
 #include "overlap_callback.hpp"
 #include <sge/collision/world.hpp>
-#include <sge/signals/signal.hpp>
 #include <boost/scoped_ptr.hpp>
 
 namespace sge
@@ -13,21 +12,30 @@ namespace bullet
 {
 class world : public collision::world
 {
-	public:
+public:
 	world();
-	void test_callback(collision::test_callback const &);
-	sge::signals::connection const 
-		register_callback(collision::callback const &);
-	collision::objects::circle_ptr const create_circle(
-		collision::sattelite_ptr,
+
+	void test_callback(
+		collision::test_callback const &);
+
+	signal::auto_connection
+	register_callback(
+		collision::callback const &);
+
+	collision::objects::circle_ptr const
+	create_circle(
+		collision::satellite_ptr,
 		collision::point const &center,
 		collision::point const &speed,
 		collision::unit);
-	void update(time::funit delta);
+
+	void update(
+		collision::time_unit delta);
+
 	world_type &world_internal();
 	body_type &zero_body();
 	~world();
-	private:
+private:
 	collision::test_callback test_;
 	collision::callback_signal callback_signal_;
 

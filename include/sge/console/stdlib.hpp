@@ -3,7 +3,7 @@
 
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/function_map.hpp>
-#include <sge/signals/connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/export.hpp>
 #include <boost/function.hpp>
 
@@ -24,7 +24,8 @@ class stdlib
 	object &object_;
 	print_callback print_;
 	error_callback error_;
-	signals::connection get,set,help,lsfuncs,lsvars,man;
+	// FIXME: connection_manager
+	sge::signal::auto_connection get,set,help,lsfuncs,lsvars,man;
 	
 	void fn_get(arg_list const &);
 	void fn_set(arg_list const &);

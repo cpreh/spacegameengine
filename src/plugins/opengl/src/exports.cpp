@@ -39,8 +39,8 @@ plugin_version_info(
 {
 	if(!p)
 		return;
-	p->name = SGE_TEXT("opengl renderer plugin");
-	p->description = SGE_TEXT("");
+	p->name = SGE_TEXT("opengl");
+	p->description = SGE_TEXT("Implements most of the functionality provided by opengl-2.1.");
 	p->plugin_version = 0x1;
 	p->min_core_version = 0x1;
 	p->type = sge::plugin::capabilities::renderer;

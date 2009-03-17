@@ -9,7 +9,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("manager"),true);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("manager"),
+	false);
 }
 
 sge::gui::manager::manager(
@@ -42,14 +45,10 @@ sge::gui::manager::manager(
 	submanagers.push_back(&timer_);
 }
 
-sge::gui::manager::~manager()
-{}
-
 void sge::gui::manager::invalidate(
 	widget &w,
 	rect const &r)
 {
-	SGE_ASSERT(math::contains(w.absolute_area(),r));
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->invalidate(w,r);
 }
@@ -75,6 +74,12 @@ sge::font::metrics_ptr const sge::gui::manager::standard_font()
 sge::gui::skin_ptr const sge::gui::manager::skin() 
 { 
 	return skin_; 
+}
+
+sge::sprite::object &sge::gui::manager::connected_sprite(
+	widget &w)
+{
+	return render_.connected_sprite(w);
 }
 
 sge::gui::const_skin_ptr const sge::gui::manager::skin() const
@@ -116,3 +121,5 @@ sge::gui::detail::managers::keyboard &sge::gui::manager::keyboard()
 {
 	return keyboard_;
 }
+
+sge::gui::manager::~manager() {}

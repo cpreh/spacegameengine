@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/tr1/array.hpp>
+#include <boost/ref.hpp>
 
 namespace
 {
@@ -167,7 +168,7 @@ HWND sge::windows::window::hwnd() const
 	return handle;
 }
 
-boost::signals::connection
+sge::signal::auto_connection
 sge::windows::window::register_callback(
 	event_type const msg,
 	callback_type const func)
@@ -183,7 +184,14 @@ sge::windows::window::execute_callback(
 {
 	sge::windows::window::signal_map::iterator const it = signals.find(msg);
 	return it != signals.end()
-		? (*(it->second))(*this, msg, wparam, lparam)
+		? (*(it->second))(
+			boost::ref(
+				*this
+			),
+			msg,
+			wparam,
+			lparam
+		)
 		: callback_return_type();
 }
 

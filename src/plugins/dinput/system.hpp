@@ -39,10 +39,10 @@ class system : public input::system {
 public:
 	explicit system(
 		windows::window_ptr w);
-	signals::connection const
+	signal::auto_connection
 	register_callback(
 		input::callback const &c);
-	signals::connection const
+	signal::auto_connection
 	register_repeat_callback(
 		input::repeat_callback const &c);
 	void dispatch();

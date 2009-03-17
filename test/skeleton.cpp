@@ -57,7 +57,7 @@ app::app()
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
+				sge::renderer::screen_size(
 					1024,
 					768),
 				sge::renderer::bit_depth::depth32,

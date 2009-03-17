@@ -37,6 +37,9 @@ namespace plugin
 class context_base;
 
 template<typename T>
+class context;
+
+template<typename T>
 class iterator;
 
 class manager {
@@ -57,7 +60,7 @@ public:
 	SGE_SYMBOL iterator<T> end();
 
 	template<typename T>
-	SGE_SYMBOL typename iterator<T>::reference
+	SGE_SYMBOL context<T>
 	plugin(
 		size_type index = 0);
 

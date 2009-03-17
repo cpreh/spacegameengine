@@ -52,12 +52,12 @@ void sge::openal::listener::direction(audio::angle const &n)
 {
 	ALfloat const vec[6] = 
 		{ 
-			static_cast<ALfloat>(n.forward.x()),
-			static_cast<ALfloat>(n.forward.y()),
-			static_cast<ALfloat>(n.forward.z()),
-			static_cast<ALfloat>(n.up.x()),
-			static_cast<ALfloat>(n.up.y()),
-			static_cast<ALfloat>(n.up.z()) 
+			static_cast<ALfloat>(n.forward().x()),
+			static_cast<ALfloat>(n.forward().y()),
+			static_cast<ALfloat>(n.forward().z()),
+			static_cast<ALfloat>(n.up().x()),
+			static_cast<ALfloat>(n.up().y()),
+			static_cast<ALfloat>(n.up().z()) 
 		};
 
 	alListenerfv(AL_POSITION, vec); SGE_OPENAL_ERROR_CHECK;

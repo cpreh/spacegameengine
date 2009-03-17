@@ -71,12 +71,15 @@ struct transform_pixels_fn {
 	>
 	void operator()(
 		Src const &src,
-		Dest const &dest) const
+		Dest const &dst) const
 	{
-		boost::gil::transform_pixels(
-			src,
-			dest,
-			op);
+		for (std::ptrdiff_t y = 0; y < dst.height(); ++y)
+		{
+			typename Src::x_iterator const src_it = src.row_begin(y);
+			typename Dest::x_iterator const dst_it = dst.row_begin(y);
+			for (std::ptrdiff_t x = 0; x < dst.width(); ++x)
+				op(src_it[x], dst_it[x]);
+		}
 	}
 private:
 	Op const op;
@@ -125,7 +128,7 @@ void transform_pixels(
 	boost::gil::apply_operation(
 		src,
 		dst,
-		transform_pixels_fn<Op>(
+		renderer::transform_pixels_fn<Op>(
 			op));
 }
 

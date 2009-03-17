@@ -1,11 +1,19 @@
 #include "utility/type_comparator.hpp"
+#include "utility/blit.hpp"
 #include <sge/gui/skin.hpp>
 #include <sge/gui/widgets/fwd.hpp>
-#include <sge/gui/widgets/button.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/widgets/label.hpp>
+#include <sge/gui/widgets/graphics.hpp>
+#include <sge/gui/widgets/backdrop.hpp>
+#include <sge/gui/widgets/buttons/text.hpp>
+#include <sge/gui/widgets/buttons/image.hpp>
 #include <sge/gui/events/fwd.hpp>
+#include <sge/gui/events/invalid_area.hpp>
+#include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/math/dim/output.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <boost/mpl/vector.hpp>
@@ -14,7 +22,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("skin"),false);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("skin"),
+	false);
 }
 
 namespace
@@ -70,6 +81,10 @@ void sge::gui::skin::draw(widget &w,events::invalid_area const &e)
 		return;
 	}
 
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("draw called for some other widget"));
+
 	utility::type_comparator<widgets::types>(
 		w,
 		call_draw(*this,e),
@@ -115,3 +130,38 @@ sge::gui::dim const sge::gui::skin::default_hint_handler(widget const &) const
 	
 sge::gui::skin::~skin()
 {}
+
+void sge::gui::skin::resize_buffer(widget const &b)
+{
+	// resize internal buffer if neccessary
+	if (b.buffer().width() != static_cast<image::coord_t>(b.size().w()) ||
+	    b.buffer().height() != static_cast<image::coord_t>(b.size().h()))
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1
+				<< SGE_TEXT("resizing from ") 
+				<< dim(
+					static_cast<unit>(b.buffer().width()),
+					static_cast<unit>(b.buffer().height()))
+				<< SGE_TEXT(" to ")
+				<< b.size());
+		b.buffer() = image(
+			static_cast<image::coord_t>(b.size().w()),
+			static_cast<image::coord_t>(b.size().h()));
+	}
+}
+
+void sge::gui::skin::blit_invalid(
+	widget const &w,
+	canvas::object &c,
+	events::invalid_area const &e,
+	bool const t)
+{
+	utility::blit_invalid(
+		renderer::make_const_image_view(c.view()),
+		rect(w.absolute_pos(),c.size()),
+		e.texture(),
+		e.area(),
+		t);
+}

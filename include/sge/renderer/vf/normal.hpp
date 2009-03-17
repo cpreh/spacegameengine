@@ -42,7 +42,8 @@ struct normal
 	role::normal
 > {
 	BOOST_STATIC_ASSERT(
-		is_float_or_double<Format>::value);
+		is_float_or_double<Format>::value
+	);
 };
 
 }

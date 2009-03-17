@@ -52,6 +52,8 @@ class manager
 	SGE_SYMBOL font::metrics_ptr const standard_font();
 	SGE_SYMBOL skin_ptr const skin();
 	SGE_SYMBOL const_skin_ptr const skin() const;
+	SGE_SYMBOL sge::sprite::object &connected_sprite(
+		widget &);
 
 	SGE_SYMBOL detail::managers::keyboard &keyboard();
 	private:

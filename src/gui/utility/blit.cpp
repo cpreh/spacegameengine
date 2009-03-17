@@ -1,15 +1,120 @@
 #include "blit.hpp"
+#include "normalization.hpp"
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/subimage_view.hpp>
+#include <sge/renderer/make_const_image_view.hpp>
+#include <sge/renderer/transform_pixels.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/assert.hpp>
+#include <sge/renderer/color_convert.hpp>
+#include <sge/renderer/any_color_convert.hpp>
+#include <sge/renderer/color_channel.hpp>
+#include <boost/mpl/for_each.hpp>
+#include <boost/gil/color_base.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <limits>
+#include <algorithm>
+
+namespace
+{
+template<class DstPixel>
+struct channel_blitter 
+{
+	typedef DstPixel pixel_type;
+	typedef typename sge::renderer::color_channel<typename boost::remove_const<DstPixel>::type>::type channel_type;
+
+	channel_blitter(
+		pixel_type const &src,
+		pixel_type const &dest,
+		channel_type const src_alpha,
+		channel_type const dest_alpha,
+		pixel_type &result);
+
+	template<class T>
+	void operator()(T &) const;
+private:
+	pixel_type const &src,dest;
+	channel_type const src_alpha,dest_alpha;
+	pixel_type &result;
+};
+
+template<class DstPixel>
+channel_blitter<DstPixel>::channel_blitter(
+	pixel_type const &src,
+	pixel_type const &dest,
+	channel_type const src_alpha,
+	channel_type const dest_alpha,
+	pixel_type &result)
+: src(src),
+  dest(dest),
+	src_alpha(src_alpha),
+	dest_alpha(dest_alpha),
+  result(result)
+{}
+
+template<class DstPixel>
+template<class T>
+void channel_blitter<DstPixel>::operator()(T &t) const
+{
+	if (t == 3)
+	{
+		if (src[t]+dest[t] > std::numeric_limits<channel_type>::max())
+			result[t] = std::numeric_limits<channel_type>::max();
+		else
+			result[t] = static_cast<channel_type>(src[t]+dest[t]);
+			
+		return;
+	}
+
+	float const src_floating = sge::gui::utility::normalize<float>(src_alpha);
+	float const dest_floating = sge::gui::utility::normalize<float>(dest_alpha);
+
+	result[t] = static_cast<channel_type>(
+		static_cast<float>(src[t])*src_floating+
+		static_cast<float>(dest[t])*
+			std::max(
+				dest_floating-src_floating,
+				0.0f));
+}
+
+class blitter
+{
+	public:
+	template<
+		typename Src,
+		typename Dst
+	>
+	void operator()(
+		Src const &src_color,
+		Dst &dst_color) const;
+};
+
+template<
+	typename Src,
+	typename Dst
+>
+void
+blitter::operator()(
+	Src const &src_color,
+	Dst &result) const
+{
+	boost::mpl::for_each<typename Dst::layout_t::channel_mapping_t>(
+		channel_blitter<Dst>(
+			sge::renderer::color_convert<Dst>(src_color),
+			result,
+			sge::renderer::color_convert<Dst>(src_color)[3],
+			result[3],
+			result));
+}
+}
 
 void sge::gui::utility::blit_invalid(
 	const_image_view const &src,
 	rect const &src_rect,
 	image_view const dst,
-	rect const &dst_rect)
+	rect const &dst_rect,
+	bool transparency)
 {
 	// Calculate intersection of source and destination
 	rect const is = math::intersection(
@@ -28,17 +133,32 @@ void sge::gui::utility::blit_invalid(
 	rect const is_translated_src(
 		is.pos()-src_rect.pos(),
 		is.dim());
-	
-	// Get sub view(s) and blit
-	renderer::copy_and_convert_pixels(
-		renderer::subimage_view(
-			src,
-			math::structure_cast<renderer::lock_rect>(
-				is_translated_src)),
-		renderer::subimage_view(
-			dst,
-			math::structure_cast<renderer::lock_rect>(
-				is_translated_dst)));
+
+	if (transparency)
+	{
+		renderer::transform_pixels(
+			renderer::subimage_view(
+				src,
+				math::structure_cast<renderer::lock_rect>(
+					is_translated_src)),
+			renderer::subimage_view(
+				dst,
+				math::structure_cast<renderer::lock_rect>(
+					is_translated_dst)),
+			blitter());
+	}
+	else
+	{
+		renderer::copy_and_convert_pixels(
+			renderer::subimage_view(
+				src,
+				math::structure_cast<renderer::lock_rect>(
+					is_translated_src)),
+			renderer::subimage_view(
+				dst,
+				math::structure_cast<renderer::lock_rect>(
+					is_translated_dst)));
+	}
 }
 
 void sge::gui::utility::blit(
@@ -58,7 +178,7 @@ void sge::gui::utility::blit(
 		clipped.pos() - dst_rect.pos(),
 		clipped.dim());
 
-	renderer::copy_and_convert_pixels(
+	renderer::transform_pixels(
 		renderer::subimage_view(
 			renderer::subimage_view(
 				src,
@@ -69,5 +189,6 @@ void sge::gui::utility::blit(
 		renderer::subimage_view(
 			dst,
 			math::structure_cast<renderer::lock_rect>(
-				clipped)));
+				clipped)),
+		blitter());
 }

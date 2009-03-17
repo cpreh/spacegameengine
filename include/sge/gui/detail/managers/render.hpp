@@ -9,7 +9,7 @@
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
-#include <map>
+#include <boost/ptr_container/ptr_map.hpp>
 #include <vector>
 
 namespace sge
@@ -35,6 +35,7 @@ class render : public submanager
 	void invalidate(
 		widget &,
 		rect const &);
+	sge::sprite::object &connected_sprite(widget &);
 	private:
 	struct widget_data
 	{
@@ -44,15 +45,19 @@ class render : public submanager
 
 	struct dirt
 	{
-		widget *widget_;
-		rect rect_;
+		sge::gui::widget *widget_;
+		sge::gui::rect rect_;
 
 		dirt(
-			widget &,
-			rect const &);
+			sge::gui::widget &,
+			sge::gui::rect const &);
+
+		sge::gui::widget &widget();
+		sge::gui::widget const &widget() const;
+		sge::gui::rect const rect() const;
 	};
 
-	typedef std::map<widget*,widget_data> widget_container;
+	typedef boost::ptr_map<widget*,widget_data> widget_container;
 	typedef std::vector<dirt> dirt_container;
 
 	renderer::device_ptr rend;

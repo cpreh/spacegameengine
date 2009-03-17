@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11/window_fwd.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/callback.hpp>
-#include <sge/signals/signal.hpp>
-#include <sge/signals/connection_manager.hpp>
+#include <sge/signal/object.hpp>
+#include <sge/signal/connection_manager.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 
 namespace sge
@@ -47,11 +47,11 @@ public:
 	explicit system(
 		x11::window_ptr wnd);
 private:
-	signals::connection const
+	signal::auto_connection
 	register_callback(
 		input::callback const &c);
 
-	signals::connection const
+	signal::auto_connection
 	register_repeat_callback(
 		input::repeat_callback const &c);
 
@@ -76,10 +76,10 @@ private:
 
 	device_vector devices;
 
-	signals::connection_manager connections;
+	signal::connection_manager connections;
 
-	typedef signals::signal<input::key_pair_fun> signal_type;
-	typedef signals::signal<input::key_type_fun> repeat_signal_type;
+	typedef signal::object<input::key_pair_fun> signal_type;
+	typedef signal::object<input::key_type_fun> repeat_signal_type;
 
 	signal_type        sig;
 	repeat_signal_type repeat_sig;

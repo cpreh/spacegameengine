@@ -20,16 +20,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/angle.hpp>
 
+// TODO: do we have to check the contents here
+// as not every (forward, up) pair is right
+
 sge::audio::angle::angle()
 :
-	forward(),
-	up()
+	forward_(),
+	up_()
 {}
 
 sge::audio::angle::angle(
-	point const &forward,
-	point const &up)
+	point const &forward_,
+	point const &up_)
 :
-	forward(forward),
-	up(up)
+	forward_(forward_),
+	up_(up_)
 {}
+
+sge::audio::point const &
+sge::audio::angle::forward() const
+{
+	return forward_;
+}
+
+void
+sge::audio::angle::forward(
+	point const &nforward)
+{
+	forward_ = nforward;
+}
+	
+sge::audio::point const
+sge::audio::angle::up() const
+{
+	return up_;
+}
+
+void
+sge::audio::angle::up(
+	point const &nup)
+{
+	up_ = nup;
+}

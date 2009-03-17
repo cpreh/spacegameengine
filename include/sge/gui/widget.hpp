@@ -9,6 +9,7 @@
 #include <sge/gui/layout_fwd.hpp>
 #include <sge/gui/manager_fwd.hpp>
 #include <sge/gui/size_policy.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/renderer/image.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
@@ -24,6 +25,7 @@ class SGE_CLASS_SYMBOL widget
 {
 	SGE_NONCOPYABLE(widget)
 	public:
+	// FIXME: rename this
 	typedef sge::gui::size_policy size_policy_t;
 	typedef boost::ptr_vector<widget,boost::view_clone_allocator> child_container;
 
@@ -33,22 +35,56 @@ class SGE_CLASS_SYMBOL widget
 		manager &manager_;
 
 		public:
-		SGE_SYMBOL explicit parent_data(widget &);
-		SGE_SYMBOL explicit parent_data(manager &);
+		SGE_SYMBOL parent_data(widget &);
+		SGE_SYMBOL parent_data(manager &);
 
 		widget *parent_widget() const { return widget_; }
 		manager &parent_manager() const { return manager_; }
 	};
 
-	SGE_SYMBOL explicit widget(
-		parent_data,
-		size_policy_t const & = size_policy_t::default_policy,
-		keyboard_focus::type receives_keys = keyboard_focus::ignore);
+	class parameters
+	{
+		public:
+		explicit parameters(
+			point const &_pos = point::null(),
+			dim const &_size = dim::null(),
+			layout_auto_ptr const _layout = layout_auto_ptr(),
+			size_policy_t const &_size_policy = size_policy_t::default_policy,
+			keyboard_focus::type const &_keyboard_focus = keyboard_focus::ignore,
+			activation_state::type const _activation = activation_state::active);
 
-	SGE_SYMBOL point const &pos() const;
-	SGE_SYMBOL dim const &size() const;
+		parameters &pos(point const &);
+		parameters &size(dim const &);
+		parameters &size_policy(size_policy_t const &);
+		parameters &keyboard_focus(keyboard_focus::type const &);
+		parameters &layout(layout_auto_ptr);
+		parameters &activation_state(activation_state::type);
+
+		point const &pos() const;
+		dim const &size() const;
+		size_policy_t const &size_policy() const;
+		keyboard_focus::type const &keyboard_focus() const;
+		layout_auto_ptr layout() const;
+		activation_state::type activation() const;
+		private:
+		point pos_;
+		dim size_;
+		size_policy_t size_policy_;
+		keyboard_focus::type keyboard_focus_;
+		layout_auto_ptr layout_;
+		activation_state::type activation_;
+	};
+
+	SGE_SYMBOL explicit widget(
+		parent_data const &,
+		parameters const &);
+
+	SGE_SYMBOL point const screen_pos() const;
+	SGE_SYMBOL point const absolute_pos() const;
+	SGE_SYMBOL point const relative_pos() const;
+	SGE_SYMBOL void relative_pos(point const &);
+	SGE_SYMBOL dim const size() const;
 	SGE_SYMBOL void size(dim const &);
-	SGE_SYMBOL void pos(point const &);
 	SGE_SYMBOL image &buffer() const;
 
 	// parent stuff
@@ -57,6 +93,9 @@ class SGE_CLASS_SYMBOL widget
 	
 	SGE_SYMBOL widget *parent_widget();
 	SGE_SYMBOL widget const *parent_widget() const;
+
+	SGE_SYMBOL widget &oldest_parent();
+	SGE_SYMBOL widget const &oldest_parent() const;
 
 	SGE_SYMBOL size_policy_t const &size_policy() const;
 	SGE_SYMBOL void size_policy(size_policy_t const &s);
@@ -82,21 +121,21 @@ class SGE_CLASS_SYMBOL widget
 
 	SGE_SYMBOL void compile();
 
-	virtual dim const size_hint() const;
-	virtual void process(events::invalid_area const &);
-	virtual void process(events::mouse_enter const &);
-	virtual void process(events::mouse_leave const &);
-	virtual void process(events::mouse_move const &);
-	virtual void process(events::mouse_click const &);
-	virtual key_handling::type process(events::key const &);
-	virtual void process(events::keyboard_enter const &);
-	virtual void process(events::keyboard_leave const &);
+	SGE_SYMBOL virtual dim const size_hint() const;
+	SGE_SYMBOL virtual void process(events::invalid_area const &);
+	SGE_SYMBOL virtual void process(events::mouse_enter const &);
+	SGE_SYMBOL virtual void process(events::mouse_leave const &);
+	SGE_SYMBOL virtual void process(events::mouse_move const &);
+	SGE_SYMBOL virtual void process(events::mouse_click const &);
+	SGE_SYMBOL virtual key_handling::type process(events::key const &);
+	SGE_SYMBOL virtual void process(events::keyboard_enter const &);
+	SGE_SYMBOL virtual void process(events::keyboard_leave const &);
 
 	// virtuals
 	SGE_SYMBOL virtual ~widget();
 
-	SGE_SYMBOL rect const relative_area() const;
 	SGE_SYMBOL rect const absolute_area() const;
+	SGE_SYMBOL rect const screen_area() const;
 
 	private:
 	friend class layout;

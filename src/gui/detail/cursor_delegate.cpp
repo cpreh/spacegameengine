@@ -9,6 +9,12 @@ sge::gui::detail::cursor_delegate::cursor_delegate(string &text)
 {
 }
 
+sge::string::size_type
+sge::gui::detail::cursor_delegate::pos() const
+{
+	return pos_;
+}
+
 void sge::gui::detail::cursor_delegate::key_callback(
 	input::key_pair const &c)
 {

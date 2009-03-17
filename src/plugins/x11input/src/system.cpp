@@ -116,14 +116,14 @@ sge::x11input::system::system(
 	}
 }
 
-sge::signals::connection const
+sge::signal::auto_connection
 sge::x11input::system::register_callback(
 	input::callback const &c)
 {
 	return sig.connect(c);
 }
 
-sge::signals::connection const
+sge::signal::auto_connection
 sge::x11input::system::register_repeat_callback(
 	input::repeat_callback const &c)
 {

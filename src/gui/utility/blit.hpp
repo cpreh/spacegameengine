@@ -13,7 +13,8 @@ void blit_invalid(
 	const_image_view const &,
 	rect const &src_rect,
 	image_view,
-	rect const &invalid_rect);
+	rect const &invalid_rect,
+	bool transparency = true);
 
 void blit(
 	const_image_view const &,

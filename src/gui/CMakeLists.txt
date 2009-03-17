@@ -3,10 +3,12 @@ FILE (GLOB sgeguifiles
 		events/*.cpp 
 		layouts/*.cpp 
 		widgets/*.cpp 
+		widgets/buttons/*.cpp 
 		skins/*.cpp 
 		timer/*.cpp 
 		canvas/*.cpp 
 		skins/standard/*.cpp 
+		skins/standard/buttons/*.cpp 
 		utility/*.cpp
 		detail/*.cpp 
 		detail/managers/*.cpp)

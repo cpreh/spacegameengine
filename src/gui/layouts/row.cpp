@@ -8,7 +8,10 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("layouts::row"),false);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("layouts::row"),
+	false);
 }
 
 sge::gui::layouts::row::row(widget &w)
@@ -21,14 +24,42 @@ sge::gui::dim const sge::gui::layouts::row::size_hint() const
 	dim hint = dim::null();
 	BOOST_FOREACH(widget const &w,connected_widget().children())
 	{
-		hint[master()] += w.size_hint()[master()];
-		hint[slave()] = std::max(hint[slave()],w.size_hint()[slave()]);
+		master(hint) += master(w.size_hint());
+		slave(hint) = std::max(slave(hint),slave(w.size_hint()));
 	}
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("returning size hint") 
 		        << hint);
 	return hint;
+}
+
+sge::gui::dim::reference sge::gui::layouts::row::slave(dim &d) const
+{
+	if (master(d) == d.w())
+		return d.h();
+	return d.w();
+}
+
+sge::gui::dim::const_reference sge::gui::layouts::row::slave(dim const &d) const
+{
+	if (master(d) == d.w())
+		return d.h();
+	return d.w();
+}
+
+sge::gui::point::reference sge::gui::layouts::row::slave(point &d) const
+{
+	if (master(d) == d.x())
+		return d.y();
+	return d.x();
+}
+
+sge::gui::point::const_reference sge::gui::layouts::row::slave(point const &d) const
+{
+	if (master(d) == d.x())
+		return d.y();
+	return d.x();
 }
 
 void sge::gui::layouts::row::reset_cache()
@@ -51,7 +82,7 @@ void sge::gui::layouts::row::adapt(
 	dim const &optimal,
 	dim const &usable,
 	axis_policy::type const flag,
-	std::size_t const axis)
+	dim::size_type const axis)
 {
 	unsigned const count = count_flags(flag,axis);
 
@@ -75,7 +106,7 @@ void sge::gui::layouts::row::adapt(
 void sge::gui::layouts::row::adapt_outer(
 	dim const &optimal,
 	dim const &usable,
-	std::size_t const axis)
+	dim::size_type const axis)
 {
 	// optimal > size
 	// count widgets with shrink flag and distribute (optimal - size) among
@@ -133,9 +164,14 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 	// calculate "bounding line" of all widgets on the master axis
 	unit bounding = static_cast<unit>(0);
 	BOOST_FOREACH(widget_map::value_type &p,sizes)
-		bounding += p.second[master()];
+		bounding += master(p.second);
+
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("bounding size in master direction is ")
+		        << bounding);
 	
-	unit const extra_space = static_cast<unit>(usable[master()]-bounding);
+	unit const extra_space = static_cast<unit>(master(usable)-bounding);
 	unit const increment = static_cast<unit>(extra_space/(sizes.size()+1));
 	
 	SGE_LOG_DEBUG(mylogger,
@@ -144,19 +180,24 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 		        << increment << SGE_TEXT(" is the increment"));
 
 	point pos;
-	pos[master()] = static_cast<unit>(connected_widget().pos()[master()]+increment);
+	master(pos) = increment;
 
 	BOOST_FOREACH(widget_map::value_type &p,sizes)
 	{
-		pos[slave()] = 
+		slave(pos) =
 			static_cast<unit>(
-				connected_widget().pos()[slave()]+usable[slave()]/2-p.second[slave()]/2);
+				slave(usable)/2-slave(p.second)/2);
+
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("setting widget (master) position to ")
+							<< master(pos));
 		
 		layout::set_widget_size(*p.first,p.second);
 		layout::set_widget_pos(*p.first,pos);
 		layout::compile_widget(*p.first);
 
-		pos[master()] += p.second[master()]+increment;
+		master(pos) += master(p.second)+increment;
 	}
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("update widgets end"));
 }
@@ -173,10 +214,18 @@ void sge::gui::layouts::row::update()
 		        << SGE_TEXT(", usable size: ") << usable);
 
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting master axis begin"));
-	adapt_outer(optimal,usable,master());
+	adapt_outer(
+		optimal,
+		usable,
+		master(
+			dim(0,1)));
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting master axis end"));
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting slave axis begin"));
-	adapt_outer(optimal,usable,slave());
+	adapt_outer(
+		optimal,
+		usable,
+		slave(
+			dim(0,1)));
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting slave axis end"));
 
 	// finally, set positions and sizes
@@ -186,7 +235,8 @@ void sge::gui::layouts::row::update()
 void sge::gui::layouts::row::pos(point const &p)
 {
 	layout::set_widget_pos(connected_widget(),p);
-	update();
+	if (connected_widget().parent_widget())
+		update();
 }
 
 void sge::gui::layouts::row::size(dim const &s)
@@ -197,7 +247,7 @@ void sge::gui::layouts::row::size(dim const &s)
 
 unsigned sge::gui::layouts::row::count_flags(
 	axis_policy::type const flags,
-	std::size_t const axis) const
+	dim::size_type const axis) const
 {
 	unsigned count = static_cast<unsigned>(0);
 	BOOST_FOREACH(widget const &w,connected_widget().children())

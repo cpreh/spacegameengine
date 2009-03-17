@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/time/timer.hpp>
-#include <sge/signals/connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/noncopyable.hpp>
@@ -52,6 +52,7 @@ public:
 		font::metrics_ptr,
 		input::system_ptr,
 		sprite::object const &);
+	SGE_SYMBOL ~gfx();
 
 	SGE_SYMBOL void draw();
 	SGE_SYMBOL bool active() const;
@@ -62,8 +63,9 @@ public:
 private:
 	sge::console::object &object_;
 	font::object fn;
+	input::system_ptr const is;
 	input::modifier::filter mf;
-	signals::connection const ic,irc;
+	sge::signal::auto_connection ic,irc;
 	sprite::system ss;
 	sprite::object bg;
 	bool active_;

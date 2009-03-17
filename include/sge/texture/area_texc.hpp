@@ -43,7 +43,7 @@ area_texc(
 	const_part_ptr const part,
 	T const repeat)
 {
-	if(!math::compare(repeat, static_cast<T>(1)) && part->repeatable())
+	if(!math::compare(repeat, static_cast<T>(1)) && !part->repeatable())
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1 << SGE_TEXT("texture not repeatable but repetition is ")

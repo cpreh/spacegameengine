@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 	
 sge::renderer::display_mode::display_mode(
-	screen_size_t const &size_,
+	screen_size const &size_,
 	renderer::bit_depth::type const bit_depth_,
 	refresh_rate_type const refresh_rate_)
  :
@@ -32,7 +32,7 @@ sge::renderer::display_mode::display_mode(
 	refresh_rate_(refresh_rate_)
 {}
 
-sge::renderer::screen_size_t const &
+sge::renderer::screen_size const &
 sge::renderer::display_mode::size() const
 {
 	return size_;

@@ -30,10 +30,6 @@ namespace sge
 namespace math
 {
 
-/**
- * \attention To use circle's functions you have to include
- * <sge/math/circle_impl.hpp>!
- */
 template<
 	typename T
 >
@@ -53,11 +49,11 @@ public:
 		const_reference radius);
 
 	circle(
-		const point_type& origin,
+		point_type const &origin,
 		const_reference radius);
 
-	point_type& origin();
-	const point_type& origin() const;
+	point_type &origin();
+	point_type const &origin() const;
 	reference radius();
 	const_reference radius() const;
 private:
@@ -67,8 +63,8 @@ private:
 
 template<typename T>
 bool intersects(
-	circle<T> const&,
-	circle<T> const&);
+	circle<T> const &,
+	circle<T> const &);
 
 }
 }

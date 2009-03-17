@@ -1,10 +1,13 @@
 #include "../world.hpp"
 #include "../objects/circle.hpp"
+#include <sge/collision/satellite.hpp>
+#include <boost/ref.hpp>
 
 sge::ode::world::world(
-	boost::optional<collision::rect> const &p)
-	: world_(),
-		space_(p)
+	collision::optional_rect const &p)
+:
+	world_(),
+	space_(p)
 {
 	// this could be set to disable the auto disable feature
 	dWorldSetAutoDisableFlag(world_.id(),0);
@@ -18,7 +21,7 @@ sge::ode::world::test_callback(
 	test_callback_ = _test_callback;
 }
 
-sge::signals::connection const 
+sge::signal::auto_connection
 sge::ode::world::register_callback(
 	collision::callback const &c)
 {
@@ -27,14 +30,14 @@ sge::ode::world::register_callback(
 
 sge::collision::objects::circle_ptr const
 sge::ode::world::create_circle(
-	collision::sattelite_ptr _sattelite,
+	collision::satellite_ptr _satellite,
 	collision::point const &center,
 	collision::point const &speed,
 	collision::unit radius)
 {
 	return sge::collision::objects::circle_ptr(
 		new objects::circle(
-			_sattelite,
+			_satellite,
 			space_,
 			world_,
 			structure_cast<point>(center),
@@ -44,9 +47,9 @@ sge::ode::world::create_circle(
 
 void
 sge::ode::world::update(
-	time::funit delta)
+	collision::time_unit const delta)
 {
-	time::funit const step_size = static_cast<time::funit>(0.0001);
+	collision::time_unit const step_size = static_cast<collision::time_unit>(0.0001);
 	//unsigned iterations = static_cast<unsigned>(std::ceil(delta/step_size));
 	unsigned iterations = static_cast<unsigned>(delta/step_size);
 	//if (iterations == 0)
@@ -75,10 +78,10 @@ void sge::ode::world::internal_collide(dGeomID g1,dGeomID g2)
 	if (!test_callback_)
 		return;
 	
-	collision::sattelite &s1 = 
-		*static_cast<collision::sattelite*>(dGeomGetData(g1));
-	collision::sattelite &s2 = 
-		*static_cast<collision::sattelite*>(dGeomGetData(g2));
+	collision::satellite &s1 = 
+		*static_cast<collision::satellite*>(dGeomGetData(g1));
+	collision::satellite &s2 = 
+		*static_cast<collision::satellite*>(dGeomGetData(g2));
 
 	if (test_callback_(s1,s2))
 	{
@@ -86,8 +89,13 @@ void sge::ode::world::internal_collide(dGeomID g1,dGeomID g2)
 		// so to be sure, allocate one dContactGeom here
 		dContactGeom g;
 		if (dCollide(g1,g2,1,&g,sizeof(dContactGeom)))
-		{
-			callback_(s1,s2);
-		}
+			callback_(
+				boost::ref(
+					s1
+				),
+				boost::ref(
+					s2
+				)
+			);
 	}
 }

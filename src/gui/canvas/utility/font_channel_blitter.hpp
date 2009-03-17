@@ -1,6 +1,7 @@
 #ifndef SGE_GUI_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 #define SGE_GUI_UTILITY_FONT_CHANNEL_BLITTER_HPP_INCLUDED
 
+#include "../../utility/normalization.hpp"
 #include <sge/renderer/color_channel.hpp>
 #include <boost/gil/color_base.hpp>
 #include <boost/type_traits/remove_const.hpp>
@@ -14,6 +15,9 @@ namespace utility
 template<class DstPixel,class FontPixel>
 struct font_channel_blitter 
 {
+	typedef typename renderer::color_channel<typename boost::remove_const<DstPixel>::type>::type channel_type;
+	typedef typename renderer::color_channel<typename boost::remove_const<FontPixel>::type>::type font_channel_type;
+	
 	font_channel_blitter(
 		DstPixel const &bgcolor,
 		DstPixel const &fontcolor,
@@ -43,15 +47,25 @@ sge::gui::utility::font_channel_blitter<DstPixel,FontPixel>::font_channel_blitte
   result(result)
 {}
 
+
 template<class DstPixel,class FontPixel>
 template<class T>
 void sge::gui::utility::font_channel_blitter<DstPixel,FontPixel>::operator()(T &t) const
 {
-	// don't touch alpha channel while blitting
+	// FIXME: add range value, divide by max-min (for font_channel_type and channel_type)
+	float const font_value = normalize<float>(font[0]);
+
 	if (t == 3)
+	{
+		result[t] = 
+			denormalize<channel_type>(
+				std::min(
+					normalize<float>(bgcolor[t])+static_cast<float>(font_value),
+					1.0f));
 		return;
-	float const font_value = static_cast<float>(font[0])/255.0f;
-	result[t] = static_cast<typename renderer::color_channel<typename boost::remove_const<DstPixel>::type>::type>(
+	}
+
+	result[t] = static_cast<channel_type>(
 		static_cast<float>(fontcolor[t])*font_value+
 		static_cast<float>(bgcolor[t])*(1.0f-font_value));
 }

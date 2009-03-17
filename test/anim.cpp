@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cerr.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
-#include <sge/signals/scoped_connection.hpp>
+#include <sge/signal/auto_connection.hpp>
 #include <sge/renderer/device.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
@@ -62,7 +62,7 @@ try
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
+				sge::renderer::screen_size(
 					1024,
 					768),
 				sge::renderer::bit_depth::depth32,
@@ -123,7 +123,7 @@ try
 
 	bool running = true;
 
-	sge::signals::scoped_connection const cb(
+	sge::signal::auto_connection cb(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

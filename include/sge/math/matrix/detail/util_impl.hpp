@@ -29,37 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <cmath>
 
-#undef near
-#undef far
-
-template<
-	typename T
->
-sge::math::matrix<T, 4, 4> const
-sge::math::matrix_perspective(
-	T const aspect,
-	T const fov,
-	T const near,
-	T const far)
-{
-	if(compare(far, near))
-		throw exception(
-			SGE_TEXT("matrix_perspective(): far may not be near!"));
-	if(almost_zero(near))
-		throw exception(
-			SGE_TEXT("matrix_perspective(): near must not be 0!"));
-
-	T const
-		h = static_cast<T>(1) / std::tan(fov / static_cast<T>(2)),
-		w = h / aspect,
-		q = (far + near) / (far - near);
-	return matrix<T, 4, 4>
-	       (    w, static_cast<T>(0),                     static_cast<T>(0), static_cast<T>(0),
-	        static_cast<T>(0),     h,                     static_cast<T>(0), static_cast<T>(0),
-	        static_cast<T>(0), static_cast<T>(0),                         q, static_cast<T>(1),
-	        static_cast<T>(0), static_cast<T>(0), static_cast<T>(2)*far*near/(near-far), static_cast<T>(0));
-}
-
 template<
 	typename T
 >

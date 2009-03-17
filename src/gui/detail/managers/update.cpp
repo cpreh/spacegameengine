@@ -60,11 +60,16 @@ void sge::gui::detail::managers::update::draw()
 {
 	if (recompiles.empty())
 		return;
+	
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("there is stuff to recompile"));
 
 	// The standard behaviour for widgets which need recompiling is to determine
 	// their topmost parent (a bit of overkill but it doesn't happen very often anyway); 
 	// then, each parent is recompiled completely
 	recompile_container parents;
+	// FIXME: use oldest_parent here
 	BOOST_FOREACH(widget *w,recompiles)
 	{
 		widget *parent = 0,*it = w;
@@ -86,8 +91,12 @@ void sge::gui::detail::managers::update::draw()
 			        << typeid(w).name());
 
 		w->compile();
-		render_.resize(*w,w->size());
-		render_.reposition(*w,w->pos());
+		render_.resize(
+			*w,
+			w->size());
+		render_.reposition(
+			*w,
+			w->screen_pos());
 	}
 
 	mouse_.recalculate_focus();

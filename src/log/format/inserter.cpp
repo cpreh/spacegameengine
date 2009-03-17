@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::log::format::inserter::inserter(
 	string const &format_string)
-: format_string(format_string)
+:
+	format_string(format_string)
 {}
 
 sge::string const

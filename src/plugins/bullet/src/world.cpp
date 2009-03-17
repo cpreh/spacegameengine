@@ -2,7 +2,7 @@
 #include "../overlap_callback.hpp"
 #include "../dispatcher.hpp"
 #include "../objects/circle.hpp"
-#include <sge/collision/sattelite.hpp>
+#include <sge/collision/satellite.hpp>
 #include <bullet/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
 #include <bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h>
@@ -44,14 +44,16 @@ void sge::bullet::world::test_callback(
 	overlap_callback_.reset(_test);
 }
 
-sge::signals::connection const sge::bullet::world::register_callback(
+sge::signal::auto_connection
+sge::bullet::world::register_callback(
 	collision::callback const &fn)
 {
 	return callback_signal_.connect(fn);
 }
 
-sge::collision::objects::circle_ptr const sge::bullet::world::create_circle(
-	collision::sattelite_ptr sat,
+sge::collision::objects::circle_ptr const
+sge::bullet::world::create_circle(
+	collision::satellite_ptr sat,
 	collision::point const &center,
 	collision::point const &speed,
 	collision::unit const radius)
@@ -65,7 +67,8 @@ sge::collision::objects::circle_ptr const sge::bullet::world::create_circle(
 			radius));
 }
 
-void sge::bullet::world::update(time::funit const delta)
+void sge::bullet::world::update(
+	collision::time_unit const delta)
 {
 	/*
 	world_->stepSimulation(

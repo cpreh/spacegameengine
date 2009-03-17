@@ -7,40 +7,70 @@
 #include <sge/gui/events/mouse_move.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/manager.hpp>
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
 #include <sge/assert.hpp>
+#include <sge/cerr.hpp>
 #include <sge/math/rect_util.hpp>
 #include <boost/foreach.hpp>
 #include <typeinfo>
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("widget"),false);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("widget"),
+	false);
 }
 
 sge::gui::widget::widget(
-	parent_data parent_data_,
-	size_policy_t const &size_policy_,
-	keyboard_focus::type keyboard_focus_)
+	parent_data const &parent_data_,
+	parameters const &params)
 	:	parent_(parent_data_.parent_widget()),
 	  manager_(parent_data_.parent_manager()),
-		pos_(point::null()),
-		size_(dim::null()),
-		size_policy_(size_policy_),
-		keyboard_focus_(keyboard_focus_),
-		layout_(new layouts::null(*this)),
-		activation_(activation_state::active)
+		pos_(params.pos()),
+		size_(params.size()),
+		size_policy_(params.size_policy()),
+		keyboard_focus_(params.keyboard_focus()),
+		layout_(
+			params.layout() 
+			? params.layout() 
+			: layout_auto_ptr(new layouts::null(*this))),
+		activation_(params.activation())
 {
+	SGE_ASSERT_MESSAGE(
+		&(layout_->connected_widget()) == this,
+		SGE_TEXT("widget specified for layout is not the widget the layout is assigned to"));
+
 	if (parent_widget())
 		parent_widget()->add_child(*this);
 	parent_manager().add(*this);
 }
 
-sge::gui::point const &sge::gui::widget::pos() const
+sge::gui::point const sge::gui::widget::screen_pos() const
 {
+	if (!parent_widget())
+		return pos_;
+	return pos_ + parent_widget()->screen_pos();
+}
+
+sge::gui::point const sge::gui::widget::absolute_pos() const
+{
+	if (!parent_widget())
+		return point::null();
+	if (!(parent_widget()->parent_widget()))
+		return pos_;
+	return pos_ + parent_widget()->absolute_pos();
+}
+
+sge::gui::point const sge::gui::widget::relative_pos() const
+{
+	if (!parent_widget())
+		return point::null();
 	return pos_;
 }
 
-sge::gui::dim const &sge::gui::widget::size() const
+sge::gui::dim const sge::gui::widget::size() const
 {
 	return size_;
 }
@@ -68,6 +98,20 @@ sge::gui::widget *sge::gui::widget::parent_widget()
 sge::gui::widget const *sge::gui::widget::parent_widget() const 
 { 
 	return parent_; 
+}
+
+sge::gui::widget &sge::gui::widget::oldest_parent()
+{ 
+	if (!parent_widget())
+		return *this;
+	return parent_widget()->oldest_parent();
+}
+
+sge::gui::widget const &sge::gui::widget::oldest_parent() const 
+{ 
+	if (!parent_widget())
+		return *this;
+	return parent_widget()->oldest_parent();
 }
 
 sge::gui::widget::size_policy_t const &sge::gui::widget::size_policy() const 
@@ -161,7 +205,7 @@ void sge::gui::widget::size(dim const &d)
 	layout()->size(d);
 }
 
-void sge::gui::widget::pos(point const &d)
+void sge::gui::widget::relative_pos(point const &d)
 {
 	layout()->pos(d);
 }
@@ -182,11 +226,33 @@ sge::gui::dim const sge::gui::widget::size_hint() const
 void sge::gui::widget::process(events::invalid_area const &e)
 {
 	// draw itself, then draw children
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("redrawing myself, region ")
+		        << e.area());
 	parent_manager().skin()->draw(*this,e);
 
 	BOOST_FOREACH(widget &w,children())
-		if (math::intersects(e.area(),w.absolute_area()))
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("checking if ")
+			        << w.absolute_area()
+							<< SGE_TEXT(" intersects with ")
+							<< e.area() 
+							<< SGE_TEXT(": ")
+							<< math::intersects(w.absolute_area(),e.area()));
+
+		if (math::intersects(w.absolute_area(),e.area()))
+		{
+			SGE_LOG_DEBUG(
+				mylogger,
+				log::_1 << SGE_TEXT("sending widget ")
+				        << typeid(w).name()
+								<< SGE_TEXT(" an invalid area event"));
 			w.process(e);
+		}
+	}
 }
 
 void sge::gui::widget::process(events::mouse_enter const &) {}
@@ -216,14 +282,14 @@ sge::gui::widget::~widget()
 	parent_manager().remove(*this);
 }
 
-sge::gui::rect const sge::gui::widget::relative_area() const
-{
-	return rect(point(static_cast<unit>(0),static_cast<unit>(0)), size());
-}
-
 sge::gui::rect const sge::gui::widget::absolute_area() const
 {
-	return rect(pos(), size());
+	return rect(absolute_pos(), size());
+}
+
+sge::gui::rect const sge::gui::widget::screen_area() const
+{
+	return rect(screen_pos(), size());
 }
 
 void sge::gui::widget::set_size_raw(dim const &d) 

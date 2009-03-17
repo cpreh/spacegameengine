@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../system.hpp"
 #include <sge/export.hpp>
-#include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/plugin/info.hpp>
 
@@ -40,7 +39,7 @@ plugin_version_info(
 {
 	if(!i)
 		return;
-	i->name = SGE_TEXT("ode plugin");
+	i->name = SGE_TEXT("ode");
 	i->description = SGE_TEXT("");
 	i->type = sge::plugin::capabilities::collision_system;
 	i->plugin_version = 0x1;

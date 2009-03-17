@@ -11,9 +11,12 @@ FIND_PACKAGE(Freetype)
 FIND_PACKAGE(Vorbis)
 FIND_PACKAGE(Mad)
 
+OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
-OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
+OPTION (ENABLE_CELL "Build the cell collision plugin" ON)
 OPTION (ENABLE_DINPUT "Build the Direct Input plugin" OFF)
+OPTION (ENABLE_MD3 "Build the md3 model loader plugin" ON)
+OPTION (ENABLE_WAVE "Build the wave loader plugin" ON)
 
 IF(ODE_FOUND)
 	OPTION (ENABLE_ODE "Build the ode collision plugin" ON)
@@ -68,12 +71,16 @@ ELSE(X11_Xinput_FOUND)
 	OPTION (ENABLE_X11INPUT "Build the x11 input plugin" OFF)
 ENDIF(X11_Xinput_FOUND)
 
+IF(ENABLE_AUDIO_NULL)
+	ADD_SUBDIRECTORY (audio_null)
+ENDIF ()
+
 IF(ENABLE_BULLET)
 	ADD_SUBDIRECTORY (bullet)
 ENDIF ()
 
-IF(ENABLE_ODE)
-	ADD_SUBDIRECTORY (ode)
+IF(ENABLE_CELL)
+	ADD_SUBDIRECTORY (cell)
 ENDIF ()
 
 IF(ENABLE_D3D9)
@@ -94,6 +101,14 @@ ENDIF ()
 
 IF (ENABLE_MAD)
 	ADD_SUBDIRECTORY (mad)
+ENDIF ()
+
+IF (ENABLE_MD3)
+	ADD_SUBDIRECTORY (md3)
+ENDIF ()
+
+IF(ENABLE_ODE)
+	ADD_SUBDIRECTORY (ode)
 ENDIF ()
 
 IF (ENABLE_OPENAL)

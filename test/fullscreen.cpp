@@ -28,7 +28,7 @@ try
 		))
 		(sge::renderer::parameters(
 			sge::renderer::display_mode(
-				sge::renderer::screen_size_t(
+				sge::renderer::screen_size(
 					800,
 					600),
 				sge::renderer::bit_depth::depth32,

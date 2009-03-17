@@ -6,7 +6,7 @@
 #include <sge/gui/timer/object.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/font/text_size_t.hpp>
+#include <sge/font/text_size.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
 #include <sge/time/second_f.hpp>
@@ -21,24 +21,32 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),true);
+sge::gui::logger mylogger(
+	sge::gui::widgets::global_log(),
+	SGE_TEXT("edit"),
+	false);
 sge::gui::logger mygraphlogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),false);
 }
 
 sge::gui::widgets::edit::edit(
-	parent_data parent,
-	line_type const type,
-	dim const &desired_size_,
+	parent_data const &_parent,
+	parameters _params,
+	line_type const _type,
+	dim const &_desired_size,
 	font::metrics_ptr const _font)
 :
 	widget(
-		parent,
-		size_policy::default_policy,
-		keyboard_focus::receive),
-	type(type),
+		_parent,
+		_params
+			.keyboard_focus(keyboard_focus::receive)
+			.size_policy(
+				size_policy_t(
+					axis_policy::can_grow,
+					axis_policy::none))),
+	type(_type),
 	font_(_font),
-	desired_size_(desired_size_),
-	cursor_visible_(true),
+	desired_size_(_desired_size),
+	cursor_visible_(false),
 	text_buffer_(),
 	scroll_pos_(point::null()),
 	cursor(text_)
@@ -59,7 +67,7 @@ void sge::gui::widgets::edit::text(string const &n)
 	text_ = n;
 	parent_manager().invalidate(
 		*this,
-		absolute_area());
+		rect(point::null(),size()));
 }
 
 sge::font::metrics_ptr const sge::gui::widgets::edit::font() const
@@ -89,6 +97,7 @@ sge::gui::image const &sge::gui::widgets::edit::text_buffer() const
 
 void sge::gui::widgets::edit::process(events::keyboard_enter const &)
 {
+	cursor_visible_ = true;
 	timer_ = 
 		parent_manager().register_timer(
 			sge::time::second_f(static_cast<time::funit>(0.5)),
@@ -112,7 +121,9 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const 
 	// invalidate since something might have changed
 	parent_manager().invalidate(
 		*this,
-		absolute_area());
+		rect(
+			point::null(),
+			size()));
 
 	return key_handling::process;
 }
@@ -124,6 +135,7 @@ void sge::gui::widgets::edit::process(events::mouse_click const &)
 
 void sge::gui::widgets::edit::process(events::keyboard_leave const &)
 {
+	cursor_visible_ = false;
 	timer_.reset();
 }
 
@@ -135,7 +147,9 @@ void sge::gui::widgets::edit::blink_callback()
 		log::_1 << SGE_TEXT("blinking cursor, visibility: ") << cursor_visible_);
 	parent_manager().invalidate(
 		*this,
-		absolute_area());
+		rect(
+			point::null(),
+			size()));
 }
 
 void sge::gui::widgets::edit::resize(dim const &d) const
