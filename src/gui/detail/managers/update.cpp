@@ -47,12 +47,12 @@ void sge::gui::detail::managers::update::remove(widget &w)
 	}
 
 	// if there is a parent, set it to recompile
-	if (w.parent_widget())
+	if (w.has_parent())
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("for the widget to delete there is a parent, so recompiling"));
-		recompiles.insert(w.parent_widget());
+		recompiles.insert(&(w.parent_widget()));
 	}
 }
 
@@ -69,9 +69,10 @@ void sge::gui::detail::managers::update::draw()
 	// their topmost parent (a bit of overkill but it doesn't happen very often anyway); 
 	// then, each parent is recompiled completely
 	recompile_container parents;
-	// FIXME: use oldest_parent here
+
 	BOOST_FOREACH(widget *w,recompiles)
 	{
+		/*
 		widget *parent = 0,*it = w;
 		while (it != 0)
 		{
@@ -81,6 +82,8 @@ void sge::gui::detail::managers::update::draw()
 
 		SGE_ASSERT(parent != 0);
 		parents.insert(parent);
+		*/
+		parents.insert(&(w->oldest_parent()));
 	}
 
 	BOOST_FOREACH(widget *w,parents)
@@ -107,11 +110,11 @@ bool sge::gui::detail::managers::update::has_parent(
 	widget const &v,
 	widget const &w)
 {
-	if (!v.parent_widget())
+	if (!v.has_parent())
 		return false;
 	
-	if (v.parent_widget() == &w)
+	if (&(v.parent_widget()) == &w)
 		return true;
 	
-	return has_parent(*v.parent_widget(),w);
+	return has_parent(v.parent_widget(),w);
 }

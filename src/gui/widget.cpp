@@ -42,30 +42,30 @@ sge::gui::widget::widget(
 		&(layout_->connected_widget()) == this,
 		SGE_TEXT("widget specified for layout is not the widget the layout is assigned to"));
 
-	if (parent_widget())
-		parent_widget()->add_child(*this);
+	if (has_parent())
+		parent_widget().add_child(*this);
 	parent_manager().add(*this);
 }
 
 sge::gui::point const sge::gui::widget::screen_pos() const
 {
-	if (!parent_widget())
+	if (!has_parent())
 		return pos_;
-	return pos_ + parent_widget()->screen_pos();
+	return pos_ + parent_widget().screen_pos();
 }
 
 sge::gui::point const sge::gui::widget::absolute_pos() const
 {
-	if (!parent_widget())
+	if (!has_parent())
 		return point::null();
-	if (!(parent_widget()->parent_widget()))
+	if (!parent_widget().has_parent())
 		return pos_;
-	return pos_ + parent_widget()->absolute_pos();
+	return pos_ + parent_widget().absolute_pos();
 }
 
 sge::gui::point const sge::gui::widget::relative_pos() const
 {
-	if (!parent_widget())
+	if (!has_parent())
 		return point::null();
 	return pos_;
 }
@@ -90,28 +90,33 @@ sge::gui::manager const &sge::gui::widget::parent_manager() const
 	return manager_; 
 }
 
-sge::gui::widget *sge::gui::widget::parent_widget() 
+sge::gui::widget &sge::gui::widget::parent_widget() 
 { 
-	return parent_; 
+	return *parent_; 
 }
 
-sge::gui::widget const *sge::gui::widget::parent_widget() const 
+sge::gui::widget const &sge::gui::widget::parent_widget() const 
 { 
-	return parent_; 
+	return *parent_; 
+}
+
+bool sge::gui::widget::has_parent() const
+{
+	return parent_;
 }
 
 sge::gui::widget &sge::gui::widget::oldest_parent()
 { 
-	if (!parent_widget())
+	if (!has_parent())
 		return *this;
-	return parent_widget()->oldest_parent();
+	return parent_widget().oldest_parent();
 }
 
 sge::gui::widget const &sge::gui::widget::oldest_parent() const 
 { 
-	if (!parent_widget())
+	if (!has_parent())
 		return *this;
-	return parent_widget()->oldest_parent();
+	return parent_widget().oldest_parent();
 }
 
 sge::gui::widget::size_policy_t const &sge::gui::widget::size_policy() const 
@@ -277,8 +282,8 @@ void sge::gui::widget::process(events::keyboard_leave const &)
 
 sge::gui::widget::~widget()
 {
-	if (parent_widget())
-		parent_widget()->remove_child(*this);
+	if (has_parent())
+		parent_widget().remove_child(*this);
 	parent_manager().remove(*this);
 }
 

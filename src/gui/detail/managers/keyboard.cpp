@@ -27,9 +27,9 @@ bool active(sge::gui::widget const &w)
 	switch (w.activation())
 	{
 		case sge::gui::activation_state::active:
-			if (!w.parent_widget())
+			if (!w.has_parent())
 				return true;
-			return active(*w.parent_widget());
+			return active(w.parent_widget());
 		case sge::gui::activation_state::inactive:
 			return false;
 	}

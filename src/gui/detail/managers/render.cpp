@@ -68,7 +68,7 @@ void sge::gui::detail::managers::render::add(widget &w)
 		mylogger,
 		log::_1 << SGE_TEXT("adding new widget"));
 	widget *w_ptr = &w;
-	if (!w.parent_widget())
+	if (!w.has_parent())
 		widgets.insert(w_ptr,new widget_data());
 }
 
@@ -76,7 +76,7 @@ void sge::gui::detail::managers::render::activation(
 	widget &w,
 	activation_state::type const t)
 {
-	if (w.parent_widget())
+	if (w.has_parent())
 		return;
 	
 	SGE_ASSERT(widgets.find(&w) != widgets.end());
@@ -117,7 +117,7 @@ void sge::gui::detail::managers::render::remove(widget &w)
 		i++;
 	}
 
-	if (w.parent_widget())
+	if (w.has_parent())
 		return;
 	
 	widget_container::iterator wi = widgets.find(&w);
@@ -270,7 +270,7 @@ void sge::gui::detail::managers::render::clean()
 		SGE_ASSERT(widgets.find(&p) != widgets.end());
 
 		rect const to_lock = 
-			d.widget().parent_widget()
+			d.widget().has_parent()
 			? d.widget().absolute_area()
 			: rect(point::null(),d.widget().size());
 

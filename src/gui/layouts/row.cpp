@@ -235,7 +235,7 @@ void sge::gui::layouts::row::update()
 void sge::gui::layouts::row::pos(point const &p)
 {
 	layout::set_widget_pos(connected_widget(),p);
-	if (connected_widget().parent_widget())
+	if (connected_widget().has_parent())
 		update();
 }
 

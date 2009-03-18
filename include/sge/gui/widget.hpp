@@ -91,8 +91,10 @@ class SGE_CLASS_SYMBOL widget
 	SGE_SYMBOL manager &parent_manager();
 	SGE_SYMBOL manager const &parent_manager() const;
 	
-	SGE_SYMBOL widget *parent_widget();
-	SGE_SYMBOL widget const *parent_widget() const;
+	SGE_SYMBOL widget &parent_widget();
+	SGE_SYMBOL widget const &parent_widget() const;
+
+	SGE_SYMBOL bool has_parent() const;
 
 	SGE_SYMBOL widget &oldest_parent();
 	SGE_SYMBOL widget const &oldest_parent() const;

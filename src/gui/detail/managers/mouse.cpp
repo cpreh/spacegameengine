@@ -48,9 +48,9 @@ bool active(sge::gui::widget const &w)
 	switch (w.activation())
 	{
 		case sge::gui::activation_state::active:
-			if (!w.parent_widget())
+			if (!w.has_parent())
 				return true;
-			return active(*w.parent_widget());
+			return active(w.parent_widget());
 		case sge::gui::activation_state::inactive:
 			return false;
 	}
@@ -104,7 +104,7 @@ void sge::gui::detail::managers::mouse::reposition(
 void sge::gui::detail::managers::mouse::add(widget &w)
 {
 	// We only store top level widgets as "starting points" for our focus search
-	if (!w.parent_widget())
+	if (!w.has_parent())
 		widgets.push_back(&w);
 	
 	// It could be the case that the newly added widget is below the cursor and should
@@ -142,16 +142,16 @@ void sge::gui::detail::managers::mouse::remove(widget &w)
 	{
 		// If so, we start at the focused widget and traverse the tree upwards until
 		// we reach the widget's parent (it could be 0).
-		widget *const parent = w.parent_widget();
+		widget *const parent = w.has_parent() ? &(w.parent_widget()) : 0;
 		while (focus != parent)
 		{
 			focus->process(events::mouse_leave());
-			focus = focus->parent_widget();
+			focus = focus->has_parent() ? &(focus->parent_widget()) : 0;
 		}
 	}
 
 	// And if it's a top level widget, we have to delete it from our widgets list
-	if (!w.parent_widget())
+	if (!w.has_parent())
 	{
 		SGE_ASSERT(
 			utility::ptr_find(widgets.begin(),widgets.end(),&w) != widgets.end());
@@ -239,11 +239,11 @@ sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
 		w.process(events::mouse_leave());
 		
 		// Pointer is in "free space" now
-		if (!w.parent_widget())
+		if (!w.has_parent())
 			return 0;
 
 		// Recalculate from the parent on
-		return recalculate_focus(*w.parent_widget(),mouse_click);
+		return recalculate_focus(w.parent_widget(),mouse_click);
 	}
 
 	widget *const new_focus = do_recalculate_focus(w,mouse_click);
