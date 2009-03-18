@@ -19,29 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/ini/parse.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>
 #include <iostream>
 #include <ostream>
 #include <string>
 #include <cstdlib>
-
-namespace
-{
-
-struct value_visitor : boost::static_visitor<> {
-	template<	
-		typename T
-	>
-	void operator()(
-		T const &t) const
-	{
-		std::cout << t;
-	}
-};
-
-}
 
 int main()
 {
@@ -50,7 +32,7 @@ int main()
 	> p;
 
 	std::string const test(
-		"[blabla]\nfoo = 42\nbar = 3.4\nimagepath = /tmp/test"
+		"[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test"
 	);
 
 	std::string::const_iterator beg(
@@ -74,23 +56,16 @@ int main()
 		result
 	)
 	{
-		std::cout << '[' << std::string(section.header.begin(), section.header.end()) << "]\n";
+		std::cout << '[' << section.header << "]\n";
 
 		BOOST_FOREACH(
 			sge::parse::ini::entry_vector::const_reference entry,
 			section.entries
 		)
-		{
 			std::cout
-				<< std::string(entry.name.begin(), entry.name.end())
-				<< " = ";
-
-			boost::apply_visitor(
-				value_visitor(),
-				entry.value_
-			);
-
-			std::cout << '\n';
-		}
+				<< entry.name
+				<< " = "
+				<< entry.value
+				<< '\n';
 	}
 }
