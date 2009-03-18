@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_INI_ENTRY_HPP_INCLUDED
 
 #include <sge/parse/ini/string.hpp>
-#include <sge/parse/ini/value.hpp>
 
 namespace sge
 {
@@ -32,8 +31,9 @@ namespace ini
 {
 
 struct entry {
-	string name;
-	value value_;
+	string
+		name,
+		value;
 };
 
 }

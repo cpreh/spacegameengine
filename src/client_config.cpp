@@ -31,7 +31,7 @@ sge::filesystem::path const
 sge::client_config_path()
 {
 #ifdef SGE_POSIX_PLATFORM
-	const char* const ret = std::getenv("HOME");
+	char const *const ret = std::getenv("HOME");
 	if(!ret)
 		throw exception(
 			SGE_TEXT("client_config_path(): Can't find \"HOME\"!"));

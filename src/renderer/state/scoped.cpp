@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::state::scoped::scoped(
 	device_ptr const rend,
 	list const &l)
-: rend(rend)
+:
+	rend(rend)
 {
 	rend->push_state(l);
 }

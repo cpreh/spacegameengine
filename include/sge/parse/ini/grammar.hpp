@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/entry.hpp>
-#include <sge/parse/ini/value.hpp>
 #include <sge/parse/ini/string.hpp>
 
 // TODO: include only the headers which are needed!
@@ -52,9 +51,9 @@ struct grammar
 boost::spirit::qi::grammar<
 	In,
 	section_vector(),
-	boost::spirit::ascii::space_type
+	boost::spirit::ascii::blank_type
 > {
-	typedef boost::spirit::ascii::space_type space_type;
+	typedef boost::spirit::ascii::blank_type space_type;
 
 	grammar()
 	:
@@ -63,14 +62,11 @@ boost::spirit::qi::grammar<
 		)
 	{
 		using boost::spirit::char_;
-		using boost::spirit::int_;
-		using boost::spirit::double_;
 		using boost::spirit::lexeme;
 
-		char_seq %= +char_;
-		value_ %= double_ | int_ | char_seq;
-		entry_ %= +(char_ - char_('=')) >> char_('=') >> value_;
-		header_ %= lexeme['[' >> +(char_ - ']') >> ']'];
+		char_seq %= +(char_ - char_('\n'));
+		entry_ %= +(char_ - char_('=')) >> char_('=') >> char_seq >> char_('\n');
+		header_ %= lexeme['[' >> +(char_ - ']') >> ']'] >> char_('\n');
 		section_ %= header_ >> *entry_;
 		ini_ %= *section_;
 	}
@@ -80,12 +76,6 @@ private:
 		string(),
 		space_type
 	> char_seq;
-
-	boost::spirit::qi::rule<
-		In,
-		value(),
-		space_type
-	> value_;
 
 	boost::spirit::qi::rule<
 		In,

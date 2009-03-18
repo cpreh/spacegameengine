@@ -49,7 +49,7 @@ parse(
 		end,
 		parser,
 		result,
-		boost::spirit::ascii::space
+		boost::spirit::ascii::blank
 	);
 }
 
