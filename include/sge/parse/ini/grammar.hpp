@@ -65,7 +65,7 @@ boost::spirit::qi::grammar<
 		using boost::spirit::lexeme;
 
 		char_seq %= +(char_ - char_('\n'));
-		entry_ %= +(char_ - char_('=')) >> char_('=') >> char_seq >> char_('\n');
+		entry_ %= !char_('[') >> +(char_ - char_('=')) >> char_('=') >> char_seq >> char_('\n');
 		header_ %= lexeme['[' >> +(char_ - ']') >> ']'] >> char_('\n');
 		section_ %= header_ >> *entry_;
 		ini_ %= *section_;

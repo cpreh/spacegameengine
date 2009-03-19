@@ -32,7 +32,8 @@ int main()
 	> p;
 
 	std::string const test(
-		"[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test"
+		"[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n"
+		"[section2]\nblubb=bar\n"
 	);
 
 	std::string::const_iterator beg(
@@ -67,5 +68,7 @@ int main()
 				<< " = "
 				<< entry.value
 				<< '\n';
+
+		std::cout << '\n';
 	}
 }
