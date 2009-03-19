@@ -17,6 +17,8 @@ FILE (GLOB sgecorefiles
 	log/format/*.cpp
 	mainloop/*.cpp
 	model/*.cpp
+	parse/*.cpp
+	parse/ini/*.cpp
 	plugin/*.cpp
 	plugin/detail/*.cpp
 	random/*.cpp
