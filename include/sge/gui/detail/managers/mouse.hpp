@@ -1,9 +1,10 @@
 #ifndef SGE_GUI_DETAIL_MANAGERS_MOUSE_HPP_INCLUDED
 #define SGE_GUI_DETAIL_MANAGERS_MOUSE_HPP_INCLUDED
 
+#include <sge/gui/dim.hpp>
+#include <sge/gui/point.hpp>
 #include <sge/gui/detail/submanager.hpp>
 #include <sge/gui/skin.hpp>
-#include <sge/gui/types.hpp>
 #include <sge/gui/widget_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/image/loader_fwd.hpp>

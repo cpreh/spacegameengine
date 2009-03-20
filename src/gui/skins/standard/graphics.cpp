@@ -2,6 +2,7 @@
 #include <sge/gui/widgets/graphics.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>

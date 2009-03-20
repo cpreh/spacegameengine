@@ -1,4 +1,5 @@
 #include <sge/gui/make_image.hpp>
+#include <sge/gui/dim.hpp>
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <sge/image/object.hpp>

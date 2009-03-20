@@ -1,11 +1,14 @@
 #ifndef SGE_GUI_WIDGET_HPP_INCLUDED
 #define SGE_GUI_WIDGET_HPP_INCLUDED
 
+#include <sge/gui/point.hpp>
+#include <sge/gui/dim.hpp>
+#include <sge/gui/rect.hpp>
+#include <sge/gui/image.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/gui/keyboard_focus.hpp>
 #include <sge/gui/activation_state.hpp>
 #include <sge/gui/key_handling.hpp>
-#include <sge/gui/types.hpp>
 #include <sge/gui/layout_fwd.hpp>
 #include <sge/gui/manager_fwd.hpp>
 #include <sge/gui/size_policy.hpp>

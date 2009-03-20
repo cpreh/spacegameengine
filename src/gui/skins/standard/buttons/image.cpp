@@ -1,6 +1,7 @@
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/gui/widgets/buttons/image.hpp>
 

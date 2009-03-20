@@ -1,8 +1,8 @@
 #ifndef SGE_GUI_EVENTS_INVALID_AREA_HPP_INCLUDED
 #define SGE_GUI_EVENTS_INVALID_AREA_HPP_INCLUDED
 
-#include <sge/gui/types.hpp>
-#include <sge/renderer/image_view.hpp>
+#include <sge/gui/image_view.hpp>
+#include <sge/gui/rect.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -15,13 +15,13 @@ class invalid_area
 {
 	public:
 	SGE_SYMBOL invalid_area(
-		renderer::image_view const &,
+		image_view const &,
 		rect const &);
-	renderer::image_view const &texture() const { return texture_; }
+	image_view const &texture() const { return texture_; }
 	rect const area() const { return area_; }
 	private:
 	// image view
-	renderer::image_view texture_;
+	image_view texture_;
 	// the (absolute) area which is invalid
 	rect const area_;
 };

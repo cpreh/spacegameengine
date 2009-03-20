@@ -3,7 +3,8 @@
 
 #include <sge/gui/widget_fwd.hpp>
 #include <sge/gui/layout_fwd.hpp>
-#include <sge/gui/types.hpp>
+#include <sge/gui/point.hpp>
+#include <sge/gui/dim.hpp>
 #include <sge/export.hpp>
 
 namespace sge

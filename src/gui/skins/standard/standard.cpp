@@ -1,6 +1,7 @@
 #include "../../utility/blit.hpp"
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/gui/internal_color.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/media_path.hpp>
@@ -32,9 +33,8 @@ sge::gui::skins::standard::cursor_path() const
 	return media_path() / SGE_TEXT("gui") / SGE_TEXT("cursor.png");
 }
 
-void sge::gui::skins::standard::fallback(
-	widget const &w,
-	events::invalid_area const &e)
+SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skins::standard::fallback(
+	SGE_GUI_SKIN_DRAW_PARAMS_NAMED(widget))
 {
 	resize_buffer(w);
 

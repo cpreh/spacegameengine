@@ -2,7 +2,6 @@
 #define SGE_GUI_UTILITY_FONT_BLITTER_HPP_INCLUDED
 
 #include "font_channel_blitter.hpp"
-#include <sge/gui/types.hpp>
 #include <sge/renderer/color_convert.hpp>
 #include <sge/renderer/any_color_convert.hpp>
 #include <boost/mpl/for_each.hpp>

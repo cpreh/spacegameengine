@@ -1,10 +1,10 @@
 #include "../../utility/blit.hpp"
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/widgets/backdrop.hpp>
+#include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/events/invalid_area.hpp>
-#include <sge/math/dim/output.hpp>
+#include <sge/gui/internal_color.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/text.hpp>

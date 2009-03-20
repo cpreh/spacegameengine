@@ -8,7 +8,6 @@
 #include <sge/gui/detail/managers/time.hpp>
 #include <sge/gui/timer/callback.hpp>
 #include <sge/gui/timer/fwd.hpp>
-#include <sge/gui/types.hpp>
 #include <sge/gui/skin.hpp>
 #include <sge/gui/widget_fwd.hpp>
 #include <sge/gui/timer/fwd.hpp>

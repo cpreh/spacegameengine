@@ -1,4 +1,5 @@
 #include <sge/gui/canvas.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/math/signum.hpp>
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/arithmetic.hpp>
@@ -64,8 +65,9 @@ void sge::gui::canvas::object::draw_line(
 	unsigned count = 0;
  
 	// t counts the pixels
-	for(unit t = static_cast<unit>(0),
-		err = static_cast<unit>(el/2-es); t < el; t += 1,err -= es) 
+	for(unit t = static_cast<unit>(0),err = static_cast<unit>(el/2-es); 
+	    t < el; 
+	    t += 1,err -= es) 
 	{
 		if(err < static_cast<unit>(0))
 			// make error term positive again, then do diagonal step

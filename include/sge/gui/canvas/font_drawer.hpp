@@ -1,10 +1,13 @@
 #ifndef SGE_GUI_CANVAS_FONT_DRAWER_HPP_INCLUDED
 #define SGE_GUI_CANVAS_FONT_DRAWER_HPP_INCLUDED
 
-#include <sge/gui/types.hpp>
+#include <sge/gui/image_view.hpp>
+#include <sge/gui/color.hpp>
+#include <sge/gui/point.hpp>
 #include <sge/font/drawer.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <sge/export.hpp>
+#include <sge/string.hpp>
 
 #include <boost/optional.hpp>
 

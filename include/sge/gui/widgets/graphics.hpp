@@ -2,7 +2,6 @@
 #define SGE_GUI_WIDGETS_GRAPHICS_HPP_INCLUDED
 
 #include <sge/gui/widget.hpp>
-#include <sge/gui/types.hpp>
 
 namespace sge
 {

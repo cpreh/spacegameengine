@@ -1,6 +1,7 @@
 #include "utility/type_comparator.hpp"
 #include "utility/blit.hpp"
 #include <sge/gui/skin.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/widgets/label.hpp>
@@ -70,14 +71,17 @@ class call_size_hint
 };
 }
 
-void sge::gui::skin::draw(widget &w,events::invalid_area const &e)
+SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skin::draw(
+	SGE_GUI_SKIN_DRAW_PARAMS_NAMED(widget))
 {
 	if (typeid(w) == typeid(widget))
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("draw called for widget, falling back"));
-		fallback(w,e);
+		fallback(
+			w,
+			e);
 		return;
 	}
 
@@ -87,11 +91,18 @@ void sge::gui::skin::draw(widget &w,events::invalid_area const &e)
 
 	utility::type_comparator<widgets::types>(
 		w,
-		call_draw(*this,e),
-		boost::bind(&skin::default_handler,this,_1,boost::ref(e)));
+		call_draw(
+			*this,
+			e),
+		boost::bind(
+			&skin::default_handler,
+			this,
+			_1,
+			boost::ref(e)));
 }
 
-sge::gui::dim const sge::gui::skin::size_hint(widget const &w) const
+SGE_GUI_SKIN_SIZE_RETURN(widget) sge::gui::skin::size_hint(
+	SGE_GUI_SKIN_SIZE_PARAMS_NAMED(widget)) const
 {
 	if (typeid(w) == typeid(widget))
 	{
@@ -112,18 +123,14 @@ sge::gui::dim const sge::gui::skin::size_hint(widget const &w) const
 		boost::bind(&skin::default_hint_handler,this,_1));
 }
 
-void sge::gui::skin::default_handler(widget &,events::invalid_area const &)
+SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skin::default_handler(
+	SGE_GUI_SKIN_DRAW_PARAMS(widget))
 {
-	/*
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("tried to draw a widget which has no drawing code: ") 
-		        << typeid(w).name());
-						*/
 	throw exception(SGE_TEXT("tried to draw a widget whose type is not drawable"));
 }
 
-sge::gui::dim const sge::gui::skin::default_hint_handler(widget const &) const
+SGE_GUI_SKIN_SIZE_RETURN(widget) sge::gui::skin::default_hint_handler(
+	SGE_GUI_SKIN_SIZE_PARAMS(widget)) const
 {
 	throw exception(SGE_TEXT("tried to hint a widget whose type is not drawable"));
 }

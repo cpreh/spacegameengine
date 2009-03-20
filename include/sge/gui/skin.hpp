@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_SKIN_HPP_INCLUDED
 #define SGE_GUI_SKIN_HPP_INCLUDED
 
-#include <sge/gui/types.hpp>
+#include <sge/gui/dim.hpp>
 #include <sge/gui/canvas_fwd.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/export.hpp>
@@ -10,6 +10,50 @@
 #include <sge/gui/widget_fwd.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 
+#define SGE_GUI_SKIN_DRAW_RETURN(name)\
+	void
+
+#define SGE_GUI_SKIN_SIZE_RETURN(name)\
+	sge::gui::dim const
+
+#define SGE_GUI_SKIN_DRAW_PARAMS(name)\
+	name const &,\
+	sge::gui::events::invalid_area const &
+
+#define SGE_GUI_SKIN_DRAW_PARAMS_NAMED(name)\
+	name const &w,\
+	sge::gui::events::invalid_area const &e
+
+#define SGE_GUI_SKIN_SIZE_PARAMS(name)\
+	name const &
+
+#define SGE_GUI_SKIN_SIZE_PARAMS_NAMED(name)\
+	name const &w
+
+#define SGE_GUI_SKIN_WIDGET_PURE(name)\
+	virtual SGE_GUI_SKIN_DRAW_RETURN(name) draw(\
+		SGE_GUI_SKIN_DRAW_PARAMS(widgets::name)) = 0;\
+	virtual SGE_GUI_SKIN_SIZE_RETURN(name) size_hint(\
+		SGE_GUI_SKIN_SIZE_PARAMS(widgets::name)) const = 0;
+
+#define SGE_GUI_SKIN_WIDGET(name)\
+	virtual SGE_GUI_SKIN_DRAW_RETURN(name) draw(\
+		SGE_GUI_SKIN_DRAW_PARAMS(widgets::name));\
+	virtual SGE_GUI_SKIN_SIZE_RETURN(name) size_hint(\
+		SGE_GUI_SKIN_SIZE_PARAMS(widgets::name)) const;
+
+#define SGE_GUI_SKIN_WIDGETS_PURE\
+	SGE_GUI_WIDGETS_FWD_APPLY(\
+		SGE_GUI_SKIN_WIDGET_PURE,\
+		SGE_GUI_SKIN_WIDGET_PURE,\
+		SGE_GUI_SKIN_WIDGET_PURE)
+
+#define SGE_GUI_SKIN_WIDGETS\
+	SGE_GUI_WIDGETS_FWD_APPLY(\
+		SGE_GUI_SKIN_WIDGET,\
+		SGE_GUI_SKIN_WIDGET,\
+		SGE_GUI_SKIN_WIDGET)
+
 namespace sge
 {
 namespace gui
@@ -17,26 +61,22 @@ namespace gui
 class skin
 {
 	public:
-	SGE_SYMBOL void draw(widget &,events::invalid_area const &);
-	SGE_SYMBOL dim const size_hint(widget const &) const;
+	SGE_SYMBOL SGE_GUI_SKIN_DRAW_RETURN(widget) draw(
+		SGE_GUI_SKIN_DRAW_PARAMS(widget));
+	SGE_SYMBOL SGE_GUI_SKIN_SIZE_RETURN(widget) size_hint(
+		SGE_GUI_SKIN_SIZE_PARAMS(widget)) const;
 
-	virtual void fallback(widget const &,events::invalid_area const &) = 0;
-	virtual void draw(widgets::buttons::text const &,events::invalid_area const &) = 0;
-	virtual void draw(widgets::buttons::image const &,events::invalid_area const &) = 0;
-	virtual void draw(widgets::edit const &,events::invalid_area const &) = 0;
-	virtual void draw(widgets::label const &,events::invalid_area const &) = 0;
-	virtual void draw(widgets::graphics const &,events::invalid_area const &) = 0;
-	virtual void draw(widgets::backdrop const &,events::invalid_area const &) = 0;
-	virtual dim const size_hint(widgets::buttons::text const &) const = 0;
-	virtual dim const size_hint(widgets::buttons::image const &) const = 0;
-	virtual dim const size_hint(widgets::edit const &) const = 0;
-	virtual dim const size_hint(widgets::label const &) const = 0;
-	virtual dim const size_hint(widgets::graphics const &) const = 0;
-	virtual dim const size_hint(widgets::backdrop const &) const = 0;
+	virtual SGE_GUI_SKIN_DRAW_RETURN(widget) fallback(
+		SGE_GUI_SKIN_DRAW_PARAMS(widget)) = 0;
+	virtual SGE_GUI_SKIN_DRAW_RETURN(widget) default_handler(
+		SGE_GUI_SKIN_DRAW_PARAMS(widget));
+	virtual SGE_GUI_SKIN_SIZE_RETURN(widget) default_hint_handler(
+		SGE_GUI_SKIN_SIZE_PARAMS(widget)) const;
+
 	virtual filesystem::path const cursor_path() const = 0;
-	virtual void default_handler(widget &,events::invalid_area const &);
-	virtual dim const default_hint_handler(widget const &) const;
 	SGE_SYMBOL virtual ~skin();
+
+	SGE_GUI_SKIN_WIDGETS_PURE
 
 	protected:
 	// NOTE: this can be a const widget since the buffer is mutable

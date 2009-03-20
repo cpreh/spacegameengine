@@ -1,7 +1,8 @@
 #ifndef SGE_GUI_UTILITY_BLIT_HPP_INCLUDED
 #define SGE_GUI_UTILITY_BLIT_HPP_INCLUDED
 
-#include <sge/gui/types.hpp>
+#include <sge/gui/image_view.hpp>
+#include <sge/gui/rect.hpp>
 
 namespace sge
 {

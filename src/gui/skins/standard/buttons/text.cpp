@@ -1,10 +1,11 @@
 #include "../../../utility/max_dim.hpp"
+#include <sge/gui/widgets/buttons/text.hpp>
+#include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/widgets/buttons/text.hpp>
-#include <sge/gui/events/invalid_area.hpp>
-#include <sge/math/dim/output.hpp>
+#include <sge/gui/unit.hpp>
+#include <sge/gui/internal_color.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/renderer/colors.hpp>
@@ -149,5 +150,7 @@ sge::gui::dim const sge::gui::skins::standard::size_hint(
 	dim const font_dim = structure_cast<dim>(
 		fn.text_size(b.caption(),utility::max_dim<font::unit>()).size());
 
-	return dim(static_cast<unit>(font_dim.w()+2),static_cast<unit>(font_dim.h()+2));
+	return dim(
+		static_cast<unit>(font_dim.w()+2),
+		static_cast<unit>(font_dim.h()+2));
 }

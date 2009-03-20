@@ -1,4 +1,6 @@
 #include "../utility/max_dim.hpp"
+#include <sge/gui/unit.hpp>
+#include <sge/gui/internal_color.hpp>
 #include <sge/gui/events/key.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/widgets/edit.hpp>

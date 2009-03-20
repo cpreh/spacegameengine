@@ -26,7 +26,6 @@
 
 // phillemann's stuff:
 
-*very low: add terminal interface to console::object
 *low: add constructor parameters to sound creation functions sprite, texture,
       console, etc. as well)
 *low: add slider widget
@@ -40,4 +39,3 @@
 *low: add more function keys to widgets::edit (like home, end etc.)
 *low: store cursor's click point in a file
 *medium: add multiline functionality to widgets::edit
-*medium: what happens if you invalidate a widget and make it smaller afterwards?

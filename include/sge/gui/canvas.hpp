@@ -1,8 +1,9 @@
 #ifndef SGE_GUI_CANVAS_HPP_INCLUDED
 #define SGE_GUI_CANVAS_HPP_INCLUDED
 
-#include <sge/gui/types.hpp>
 #include <sge/gui/widget.hpp>
+#include <sge/gui/image_view.hpp>
+#include <sge/gui/color.hpp>
 #include <sge/gui/canvas/rect_type.hpp>
 #include <sge/gui/canvas/line_type.hpp>
 #include <sge/gui/canvas/strip_type.hpp>

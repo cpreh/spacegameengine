@@ -1,8 +1,10 @@
 #include "../../utility/max_dim.hpp"
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/widgets/label.hpp>
+#include <sge/gui/internal_color.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
@@ -89,5 +91,7 @@ sge::gui::dim const sge::gui::skins::standard::size_hint(
 			b.text(),
 			utility::max_dim<font::unit>()).size());
 
-	return dim(static_cast<unit>(font_dim.w()),static_cast<unit>(font_dim.h()));
+	return dim(
+		static_cast<unit>(font_dim.w()),
+		static_cast<unit>(font_dim.h()));
 }

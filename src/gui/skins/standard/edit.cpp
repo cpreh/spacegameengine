@@ -1,8 +1,9 @@
 #include "../../utility/max_dim.hpp"
 #include "../../utility/blit.hpp"
+#include <sge/gui/internal_color.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
-#include <sge/math/dim/arithmetic.hpp>
+#include <sge/gui/unit.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/widgets/edit.hpp>

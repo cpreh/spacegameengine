@@ -30,29 +30,6 @@ sge::gui::logger mylogger(
 	false);
 }
 
-sge::gui::detail::managers::render::dirt::dirt(
-	sge::gui::widget &_widget,
-	sge::gui::rect const &_rect)
-	: widget_(&_widget),
-	  rect_(_rect)
-{
-}
-
-sge::gui::widget &sge::gui::detail::managers::render::dirt::widget()
-{
-	return *widget_;
-}
-
-sge::gui::widget const &sge::gui::detail::managers::render::dirt::widget() const
-{
-	return *widget_;
-}
-
-sge::gui::rect const sge::gui::detail::managers::render::dirt::rect() const
-{
-	return rect_;
-}
-
 sge::gui::detail::managers::render::render(
 	renderer::device_ptr const _rend,
 	managers::mouse &_mouse)
@@ -103,19 +80,10 @@ void sge::gui::detail::managers::render::draw()
 	ss.render(sprites.begin(),sprites.end());
 }
 
-void sge::gui::detail::managers::render::remove(widget &w)
+void sge::gui::detail::managers::render::remove(
+	widget &w)
 {
-	for (dirt_container::iterator i = dirt_.begin();
-			 i != dirt_.end();
-			 )
-	{
-		if (&(i->widget()) == &w)
-		{
-			i = dirt_.erase(i);
-			continue;
-		}
-		i++;
-	}
+	dirt_.erase(&w);
 
 	if (w.has_parent())
 		return;
@@ -125,11 +93,19 @@ void sge::gui::detail::managers::render::remove(widget &w)
 	widgets.erase(wi);
 }
 
-void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
+void sge::gui::detail::managers::render::resize(
+	widget &w,
+	dim const &d)
 {
-	widget_container::iterator wi = widgets.find(&w);
+	dirt_.erase(&w);
+	invalidate(
+		w,
+		rect(point::null(),d));
+
+	widget_container::iterator wi = widgets.find(
+		&w);
 	
-	// widget is not a top level widget, so we don't care
+	// widget is not a top level widget, so we don't care anymore
 	if (wi == widgets.end())
 		return;
 	
@@ -208,7 +184,7 @@ void sge::gui::detail::managers::render::resize(widget &w,dim const &d)
 		mylogger,
 		log::_1 << SGE_TEXT("adding dirty region ") 
 		        << rect(point::null(),d));
-		
+	
 	invalidate(
 		w,
 		rect(
@@ -236,7 +212,7 @@ void sge::gui::detail::managers::render::invalidate(
 	widget &w,
 	rect const &r)
 {
-	dirt_.push_back(dirt(w,r));
+	dirt_.insert(std::make_pair(&w,r));
 }
 
 sge::sprite::object &sge::gui::detail::managers::render::connected_sprite(
@@ -261,18 +237,17 @@ void sge::gui::detail::managers::render::clean()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("cleaning rect: ")
-			        << d.rect() 
+			        << d.second 
 							<< SGE_TEXT(" from widget: ")
-							<< typeid(d.widget()).name());
+							<< typeid(*d.first).name());
 
-		widget &p = d.widget().oldest_parent();
+		widget &p = d.first->oldest_parent();
 
 		SGE_ASSERT(widgets.find(&p) != widgets.end());
 
-		rect const to_lock = 
-			d.widget().has_parent()
-			? d.widget().absolute_area()
-			: rect(point::null(),d.widget().size());
+		rect const to_lock(
+			d.first->absolute_pos()+d.second.pos(),
+			d.second.dim());
 
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -288,14 +263,12 @@ void sge::gui::detail::managers::render::clean()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("sending invalidate for area: ")
-			        << d.rect());
+			        << d.second);
 
 		p.process(
 			events::invalid_area(
 				lock_.value(),
-				rect(
-					d.widget().absolute_pos()+d.rect().pos(),
-					d.rect().dim())));
+				to_lock));
 	}
 
 	dirt_.clear();

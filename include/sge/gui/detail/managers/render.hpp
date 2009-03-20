@@ -3,14 +3,13 @@
 
 #include <sge/gui/detail/managers/fwd.hpp>
 #include <sge/gui/detail/submanager.hpp>
-#include <sge/gui/types.hpp>
 #include <sge/gui/widget_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/sprite/object.hpp>
 #include <boost/ptr_container/ptr_map.hpp>
-#include <vector>
+#include <map>
 
 namespace sge
 {
@@ -43,22 +42,8 @@ class render : public submanager
 		sprite::object sprite;
 	};
 
-	struct dirt
-	{
-		sge::gui::widget *widget_;
-		sge::gui::rect rect_;
-
-		dirt(
-			sge::gui::widget &,
-			sge::gui::rect const &);
-
-		sge::gui::widget &widget();
-		sge::gui::widget const &widget() const;
-		sge::gui::rect const rect() const;
-	};
-
 	typedef boost::ptr_map<widget*,widget_data> widget_container;
-	typedef std::vector<dirt> dirt_container;
+	typedef std::multimap<widget*,rect> dirt_container;
 
 	renderer::device_ptr rend;
 	sprite::system ss;
