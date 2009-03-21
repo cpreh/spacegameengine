@@ -103,6 +103,9 @@ public:
 	operator[](
 		key_type const &);
 
+	bool contains(
+		key_type const &) const;
+
 	iterator begin();
 	iterator end();
 	const_iterator begin() const;

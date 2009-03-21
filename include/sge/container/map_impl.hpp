@@ -281,6 +281,35 @@ template<
 		typename
 	> class Comp
 >
+bool
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::contains(
+	key_type const &key) const
+{
+	return impl_.find(key) != impl_.end();
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
 typename sge::container::map<
 	MapType,
 	Key,

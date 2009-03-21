@@ -3,20 +3,22 @@
 #include <sge/input/modifier/states.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
+#include <sge/container/map_impl.hpp>
 #include <sge/assert.hpp>
 #include <boost/foreach.hpp>
 #include <boost/bind.hpp>
 
 sge::input::modifier::filter::filter(sge::input::system_ptr const is)
-	: signal(),
-	  repeat_signal(),
-		ic(
-			is->register_callback(
-				boost::bind(&filter::input_callback,this,_1))),
-	  irc(
-			is->register_repeat_callback(
-				boost::bind(&filter::input_repeat_callback,this,_1))),
-		modifiers()
+:
+	signal(),
+	repeat_signal(),
+	ic(
+		is->register_callback(
+			boost::bind(&filter::input_callback,this,_1))),
+	irc(
+		is->register_repeat_callback(
+			boost::bind(&filter::input_repeat_callback,this,_1))),
+	modifiers()
 {
 	BOOST_FOREACH(object const &o,list())
 		BOOST_FOREACH(key_code const &c,o.codes)

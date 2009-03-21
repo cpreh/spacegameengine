@@ -3,6 +3,7 @@
 
 #include <sge/input/modifier/states.hpp>
 #include <sge/export.hpp>
+#include <sge/container/map_decl.hpp>
 #include <sge/input/key_pair_fwd.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/system_fwd.hpp>

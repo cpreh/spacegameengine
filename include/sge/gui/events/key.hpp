@@ -3,6 +3,7 @@
 
 #include <sge/input/key_pair.hpp>
 #include <sge/input/modifier/states.hpp>
+#include <sge/container/map_decl.hpp>
 #include <sge/export.hpp>
 
 namespace sge
@@ -14,10 +15,14 @@ namespace events
 class key
 {
 	public:
-	SGE_SYMBOL key(input::key_pair const &,input::modifier::states const &,bool);
-	input::key_pair const value() const { return kp; }
-	input::modifier::states const modifiers() const { return s; }
-	bool repeated() const { return repeated_; };
+	SGE_SYMBOL key(
+		input::key_pair const &,
+		input::modifier::states const &,
+		bool repeated);
+	
+	SGE_SYMBOL input::key_pair const &value() const;
+	SGE_SYMBOL input::modifier::states const &modifiers() const;
+	SGE_SYMBOL bool repeated() const;
 	private:
 	input::key_pair const kp;
 	input::modifier::states const s;
