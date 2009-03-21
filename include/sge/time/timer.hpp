@@ -43,7 +43,8 @@ public:
 	SGE_SYMBOL explicit timer(
 		resolution const &interval,
 		bool active = true,
-		fun const & = default_time_fun());
+		fun const & = default_time_fun(),
+		bool expired = false);
 	SGE_SYMBOL frames_type update();
 	SGE_SYMBOL bool update_b();
 	SGE_SYMBOL frames_type elapsed_frames() const;
@@ -56,11 +57,13 @@ public:
 	SGE_SYMBOL void activate();
 	SGE_SYMBOL void deactivate();
 	SGE_SYMBOL bool active() const;
+	SGE_SYMBOL void expire();
 private:
 	fun           fun_;
 	interval_type interval_,
 	              last_time_;
-	bool          active_;
+	bool          active_,
+	              expired_;
 };
 
 }

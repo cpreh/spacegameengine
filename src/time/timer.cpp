@@ -27,18 +27,21 @@ sge::time::timer::timer(
 	fun_(fun_),
 	interval_(0),
 	last_time_(fun_()),
-	active_(false)
+	active_(false),
+	expired_(false)
 {}
 
 sge::time::timer::timer(
 	resolution const &res_,
 	bool const active_,
-	fun const &fun_)
+	fun const &fun_,
+	bool const expired_)
 :
 	fun_(fun_),
 	interval_(res_.get()),
 	last_time_(fun_()),
-	active_(active_)
+	active_(active_),
+	expired_(expired_)
 {}
 
 sge::time::timer::frames_type
@@ -66,6 +69,9 @@ sge::time::timer::elapsed_frames() const
 	if(!active())
 		return static_cast<frames_type>(0);
 
+	if(expired_)
+		return static_cast<frames_type>(1);
+	
 	return static_cast<frames_type>(fun_() - last_time())
 		/ static_cast<frames_type>(interval());
 }
@@ -75,14 +81,16 @@ sge::time::timer::reset()
 {
 	frames_type const f = elapsed_frames();
 	last_time_ = fun_();
+	expired_ = false;
 	return f;
 }
 
 bool sge::time::timer::expired() const
 {
-	if(!active())
-		return false;
-	return elapsed_frames() >= 1;
+	return
+		active()
+		&& (expired_
+		|| elapsed_frames() >= 1);
 }
 
 void  sge::time::timer::activate()
@@ -120,4 +128,9 @@ void sge::time::timer::interval(
 {
 	interval_ = i.get();
 	reset();
-	}
+}
+
+void sge::time::timer::expire()
+{
+	expired_ = true;
+}
