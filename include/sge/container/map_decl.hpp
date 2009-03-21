@@ -92,9 +92,20 @@ public:
 		key_type const &,
 		mapped_type const &);
 	
+	void insert(
+		value_type const &);
+	
 	void erase(
 		key_type const &);
+	
+	iterator
+	find(
+		key_type const &);
 
+	const_iterator
+	find(
+		key_type const &) const;
+	
 	mapped_type const &
 	operator[](
 		key_type const &) const;
@@ -110,6 +121,8 @@ public:
 	iterator end();
 	const_iterator begin() const;
 	const_iterator end() const;
+
+	size_type size() const;
 private:
 	internal_type impl_;
 };
