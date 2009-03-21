@@ -35,9 +35,11 @@ sge::sprite::texture_animation::texture_animation(
 	action(action),
 	cur_timer(
 		time::resolution(
-		0),
-	true,
-	time_function),
+			0
+		),
+		time::activation_state::active,
+		time_function
+	),
 	spr(spr),
 	pos(series.begin())
 {

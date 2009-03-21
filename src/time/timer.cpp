@@ -22,20 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/resolution.hpp>
 
 sge::time::timer::timer(
-	fun const &fun_)
-:
-	fun_(fun_),
-	interval_(0),
-	last_time_(fun_()),
-	active_(false),
-	expired_(false)
-{}
-
-sge::time::timer::timer(
 	resolution const &res_,
-	bool const active_,
+	activation_state::type const active_,
 	fun const &fun_,
-	bool const expired_)
+	expiration_state::type const expired_)
 :
 	fun_(fun_),
 	interval_(res_.get()),
@@ -69,7 +59,7 @@ sge::time::timer::elapsed_frames() const
 	if(!active())
 		return static_cast<frames_type>(0);
 
-	if(expired_)
+	if(expired_ == expiration_state::expired)
 		return static_cast<frames_type>(1);
 	
 	return static_cast<frames_type>(fun_() - last_time())
@@ -81,7 +71,7 @@ sge::time::timer::reset()
 {
 	frames_type const f = elapsed_frames();
 	last_time_ = fun_();
-	expired_ = false;
+	expired_ = expiration_state::not_expired;
 	return f;
 }
 
@@ -89,7 +79,7 @@ bool sge::time::timer::expired() const
 {
 	return
 		active()
-		&& (expired_
+		&& (expired_ == expiration_state::expired
 		|| elapsed_frames() >= 1);
 }
 
@@ -98,12 +88,12 @@ void  sge::time::timer::activate()
 	if(active())
 		return;
 	reset();
-	active_ = true;
+	active_ = activation_state::active;
 }
 
 void sge::time::timer::deactivate()
 {
-	active_ = false;
+	active_ = activation_state::inactive;
 }
 
 sge::time::timer::interval_type
@@ -120,7 +110,7 @@ sge::time::timer::last_time() const
 
 bool sge::time::timer::active() const
 {
-	return active_;
+	return active_ == activation_state::active;
 }
 
 void sge::time::timer::interval(
@@ -132,5 +122,5 @@ void sge::time::timer::interval(
 
 void sge::time::timer::expire()
 {
-	expired_ = true;
+	expired_ = expiration_state::expired;
 }

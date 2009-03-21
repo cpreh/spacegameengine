@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/unit.hpp>
 #include <sge/time/funit.hpp>
 #include <sge/time/fun.hpp>
+#include <sge/time/activation_state.hpp>
+#include <sge/time/expiration_state.hpp>
 #include <sge/export.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -34,17 +37,18 @@ namespace time
 class resolution;
 
 class timer {
+	SGE_NONCOPYABLE(timer)
 public:
 	typedef funit      frames_type;
 	typedef unit       interval_type;
 
 	SGE_SYMBOL explicit timer(
-		fun const & = default_time_fun());
-	SGE_SYMBOL explicit timer(
 		resolution const &interval,
-		bool active = true,
+		activation_state::type active_
+			= activation_state::active,
 		fun const & = default_time_fun(),
-		bool expired = false);
+		expiration_state::type expire_
+			= expiration_state::not_expired);
 	SGE_SYMBOL frames_type update();
 	SGE_SYMBOL bool update_b();
 	SGE_SYMBOL frames_type elapsed_frames() const;
@@ -59,11 +63,12 @@ public:
 	SGE_SYMBOL bool active() const;
 	SGE_SYMBOL void expire();
 private:
-	fun           fun_;
-	interval_type interval_,
-	              last_time_;
-	bool          active_,
-	              expired_;
+	fun const fun_;
+	interval_type
+		interval_,
+		last_time_;
+	activation_state::type active_;
+	expiration_state::type expired_;
 };
 
 }
