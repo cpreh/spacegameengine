@@ -24,14 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "texture_lock.hpp"
 #include "lock_method.hpp"
 #include <sge/renderer/resource_flags.hpp>
-#include <memory>
+#include <sge/auto_ptr.hpp>
 
 namespace sge
 {
 namespace ogl
 {
 
-typedef std::auto_ptr<texture_lock> texture_lock_auto_ptr;
+typedef auto_ptr<texture_lock> texture_lock_auto_ptr;
 
 texture_lock_auto_ptr create_texture_lock(
 	lock_method::type,

@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../software_vbo.hpp"
 #include "../vbo_util.hpp"
 #include "../glew.hpp"
-#include <boost/scoped_ptr.hpp>
+#include <sge/scoped_ptr.hpp>
 
 namespace
 {
 
-boost::scoped_ptr<sge::ogl::vbo_base> impl;
+sge::scoped_ptr<sge::ogl::vbo_base> impl;
 
 }
 

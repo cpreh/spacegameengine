@@ -5,8 +5,8 @@
 #include <sge/renderer/texture.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/export.hpp>
+#include <sge/scoped_ptr.hpp>
 #include <boost/optional.hpp>
-#include <boost/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -27,7 +27,7 @@ class SGE_CLASS_SYMBOL texture_rw : public texture
 	private:
 	mutable texture_ptr read, write;
 
-	mutable boost::scoped_ptr<lock_data> locked;
+	mutable scoped_ptr<lock_data> locked;
 };
 }
 }

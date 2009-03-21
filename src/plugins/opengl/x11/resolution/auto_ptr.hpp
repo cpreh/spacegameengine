@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_X11_RESOLUTON_AUTO_PTR_HPP_INCLUDED
 #define SGE_OPENGL_X11_RESOLUTON_AUTO_PTR_HPP_INCLUDED
 
-#include <memory>
+#include <sge/auto_ptr.hpp>
 
 namespace sge
 {
@@ -33,7 +33,7 @@ namespace resolution
 {
 
 class instance;
-typedef std::auto_ptr<instance> auto_ptr;
+typedef sge::auto_ptr<instance> auto_ptr;
 
 }
 }

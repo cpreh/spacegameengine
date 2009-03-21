@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/texture.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <sge/renderer/color_format.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <sge/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -94,7 +94,7 @@ private:
 	                                       format_type_;
 	size_type const                        stride_;
 
-	typedef boost::scoped_ptr<
+	typedef scoped_ptr<
 		texture_lock>                  scoped_lock_ptr;
 	mutable scoped_lock_ptr                lock_;
 };

@@ -48,7 +48,7 @@ public:
 	~shader();
 	handle id() const;
 
-	typedef boost::shared_ptr<shader<Native> > shared_ptr;
+	typedef sge::shared_ptr<shader<Native> > shared_ptr;
 private:
 	handle id_;
 };

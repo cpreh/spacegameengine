@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pixel_pack_buffer.hpp"
 #include <sge/shared_ptr.hpp>
 #include <sge/renderer/target.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <sge/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -44,8 +44,9 @@ private:
 	virtual GLenum format() const = 0;
 	virtual GLenum format_type() const = 0;
 
-	mutable boost::scoped_ptr<
-		pixel_pack_buffer> buffer;
+	mutable sge::scoped_ptr<
+		pixel_pack_buffer
+	> buffer;
 };
 
 typedef shared_ptr<target> target_ptr;

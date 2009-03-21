@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONTAINER_TREE_DECL_HPP_INCLUDED
 
 #include <sge/container/tree_fwd.hpp>
+#include <sge/auto_ptr.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
-#include <memory>
 
 namespace sge
 {
@@ -43,7 +43,7 @@ public:
 		tree
 	> child_list;
 
-	typedef std::auto_ptr<
+	typedef sge::auto_ptr<
 		tree
 	> auto_ptr;
 

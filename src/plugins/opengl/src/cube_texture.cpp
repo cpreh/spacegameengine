@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/make_auto_ptr.hpp>
+#include <sge/auto_ptr.hpp>
 #include <boost/tr1/array.hpp>
 
 namespace
@@ -78,7 +79,7 @@ sge::ogl::cube_texture::cube_texture(
 			sge::renderer::cube_side::num_elements);
 		++i)
 	{
-		std::auto_ptr<texture> p(
+		sge::auto_ptr<texture> p(
 			make_auto_ptr<
 				texture
 			>(

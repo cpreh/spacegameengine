@@ -4,7 +4,7 @@
 #include "types.hpp"
 #include "overlap_callback.hpp"
 #include <sge/collision/world.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <sge/scoped_ptr.hpp>
 
 namespace sge
 {
@@ -39,12 +39,12 @@ private:
 	collision::test_callback test_;
 	collision::callback_signal callback_signal_;
 
-	boost::scoped_ptr<configuration_type> configuration;
-	boost::scoped_ptr<dispatcher_type> dispatcher;
-	boost::scoped_ptr<broadphase_type> broadphase;
-	boost::scoped_ptr<constraint_solver_type> constraint_solver;
+	scoped_ptr<configuration_type> configuration;
+	scoped_ptr<dispatcher_type> dispatcher;
+	scoped_ptr<broadphase_type> broadphase;
+	scoped_ptr<constraint_solver_type> constraint_solver;
 	overlap_callback overlap_callback_;
-	boost::scoped_ptr<world_type> world_;
+	scoped_ptr<world_type> world_;
 	body_type zero_body_;
 };
 }
