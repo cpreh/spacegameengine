@@ -63,6 +63,20 @@ public:
 	typedef typename internal_type::key_type key_type;
 	typedef typename internal_type::mapped_type mapped_type;
 
+	typedef typename internal_type::value_type value_type;
+	typedef typename internal_type::key_compare key_compare;
+	typedef typename internal_type::allocator_type allocator_type;
+	typedef typename internal_type::reference reference;
+	typedef typename internal_type::const_reference const_reference;
+	typedef typename internal_type::iterator iterator;
+	typedef typename internal_type::const_iterator const_iterator;
+	typedef typename internal_type::size_type size_type;
+	typedef typename internal_type::difference_type difference_type;
+	typedef typename internal_type::pointer pointer;
+	typedef typename internal_type::const_pointer const_pointer;
+	typedef typename internal_type::reverse_iterator reverse_iterator;
+	typedef typename internal_type::const_reverse_iterator const_reverse_iterator;
+
 	map();
 	explicit map(
 		internal_type const &);
@@ -88,6 +102,11 @@ public:
 	mapped_type &
 	operator[](
 		key_type const &);
+
+	iterator begin();
+	iterator end();
+	const_iterator begin() const;
+	const_iterator end() const;
 private:
 	internal_type impl_;
 };

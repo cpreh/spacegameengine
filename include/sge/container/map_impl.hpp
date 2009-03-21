@@ -265,4 +265,139 @@ sge::container::map<
 				[k]);
 }
 
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::begin()
+{
+	return impl_.begin();
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::const_iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::begin() const
+{
+	return impl_.begin();
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::end()
+{
+	return impl_.end();
+}
+
+template<
+	template<
+		typename,
+		typename,
+		typename,
+		typename
+	> class MapType,
+	typename Key,
+	typename Mapped,
+	template<
+		typename
+	> class Alloc,
+	template<
+		typename
+	> class Comp
+>
+typename sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::const_iterator
+sge::container::map<
+	MapType,
+	Key,
+	Mapped,
+	Alloc,
+	Comp
+>::end() const
+{
+	return impl_.end();
+}
 #endif
