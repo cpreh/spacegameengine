@@ -32,7 +32,7 @@ sge::time::timer::timer(
 
 sge::time::timer::timer(
 	resolution const &res_,
-	const bool active_,
+	bool const active_,
 	fun const &fun_)
 :
 	fun_(fun_),
@@ -60,7 +60,8 @@ bool sge::time::timer::update_b()
 	return true;
 }
 
-sge::time::timer::frames_type sge::time::timer::elapsed_frames() const
+sge::time::timer::frames_type
+sge::time::timer::elapsed_frames() const
 {
 	if(!active())
 		return static_cast<frames_type>(0);
@@ -69,9 +70,10 @@ sge::time::timer::frames_type sge::time::timer::elapsed_frames() const
 		/ static_cast<frames_type>(interval());
 }
 
-sge::time::timer::frames_type sge::time::timer::reset()
+sge::time::timer::frames_type
+sge::time::timer::reset()
 {
-	const frames_type f = elapsed_frames();
+	frames_type const f = elapsed_frames();
 	last_time_ = fun_();
 	return f;
 }
@@ -96,12 +98,14 @@ void sge::time::timer::deactivate()
 	active_ = false;
 }
 
-sge::time::timer::interval_type sge::time::timer::interval() const
+sge::time::timer::interval_type
+sge::time::timer::interval() const
 {
 	return interval_;
 }
 
-sge::time::timer::interval_type sge::time::timer::last_time() const
+sge::time::timer::interval_type
+sge::time::timer::last_time() const
 {
 	return last_time_;
 }
@@ -112,8 +116,8 @@ bool sge::time::timer::active() const
 }
 
 void sge::time::timer::interval(
-	resolution const& i)
+	resolution const &i)
 {
 	interval_ = i.get();
 	reset();
-}
+	}
