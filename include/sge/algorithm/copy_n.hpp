@@ -23,10 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
+namespace algorithm
+{
 
-template<typename In, typename Out, typename Size>
-Out copy_n(In beg, Size sz, Out out);
+template<
+	typename In,
+	typename Out,
+	typename Size
+>
+Out
+copy_n(
+	In beg,
+	Size sz,
+	Out out);
 
+}
 }
 
 #include <sge/algorithm/detail/copy_n_impl.hpp>

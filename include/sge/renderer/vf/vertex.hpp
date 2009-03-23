@@ -144,7 +144,7 @@ private:
 				T
 			>::value));
 
-		copy_n(
+		algorithm::copy_n(
 			raw_data(t),
 			element_stride<
 				element
@@ -171,7 +171,7 @@ private:
 
 		packed_type ret;
 
-		copy_n(
+		algorithm::copy_n(
 			data + boost::mpl::deref<offset>::type::value,
 			element_stride<
 				element

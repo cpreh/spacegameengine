@@ -111,7 +111,7 @@ void sge::ogl::software_vbo::buffer_sub_data(
 		throw exception(
 			SGE_TEXT("buffer_sub_data(): data may not be 0!"));
 
-	copy_n(
+	algorithm::copy_n(
 		static_cast<const unsigned char*>(data) + first,
 		size,
 		buffer_object(bound_buffer(type))->second);

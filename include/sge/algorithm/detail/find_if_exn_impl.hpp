@@ -18,27 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ALGORITHM_DETAIL_COPY_N_IMPL_HPP_INCLUDED
-#define SGE_ALGORITHM_DETAIL_COPY_N_IMPL_HPP_INCLUDED
+#ifndef SGE_ALGORITHM_FIND_IF_EXN_IMPL_HPP_INCLUDED
+#define SGE_ALGORITHM_FIND_IF_EXN_IMPL_HPP_INCLUDED
 
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 #include <algorithm>
 
 template<
 	typename In,
-	typename Out,
-	typename Size
+	typename Comp
 >
-Out
-sge::algorithm::copy_n(
-	In const beg,
-	Size const sz,
-	Out const out)
+In
+sge::algorithm::find_if_exn(
+	In begin,
+	In end,
+	Comp const &comp)
 {
-	return std::copy(
-		beg,
-		beg + sz,
-		out
+	In const ret(
+		std::find_if(
+			begin,
+			end,
+			comp
+		)
 	);
+
+	if(ret == end)
+		throw exception(
+			SGE_TEXT("find_if_exn failed!")
+		);
+	
+	return ret;
 }
 
 #endif

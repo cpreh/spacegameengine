@@ -83,7 +83,7 @@ sge::renderer::device::create_vertex_buffer(
 		vb,
 		lock_flags::writeonly);
 	
-	copy_n(
+	algorithm::copy_n(
 		view.data(),
 		view.format().stride() * view.size(),
 		lock.value().data());

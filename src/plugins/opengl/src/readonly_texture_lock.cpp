@@ -72,7 +72,7 @@ void sge::ogl::readonly_texture_lock::copy_read_part(
 	size_type i(offset);
 	for(pointer p(dest); p != dest + lock_size;
 	    i += pitch + block_size, p += block_size)
-		copy_n(buffer.data() + i, block_size, p);
+		algorithm::copy_n(buffer.data() + i, block_size, p);
 }
 
 void sge::ogl::readonly_texture_lock::pre_unlock()
