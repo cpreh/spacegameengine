@@ -18,39 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_DYNAMIC_HPP_INCLUDED
-#define SGE_MATH_VECTOR_DYNAMIC_HPP_INCLUDED
+#ifndef SGE_RESTRICT_TYPEDEF_STRUCT_HPP_INCLUDED
+#define SGE_RESTRICT_TYPEDEF_STRUCT_HPP_INCLUDED
 
-#include <sge/math/vector/basic_fwd.hpp>
-#include <sge/math/detail/dynamic_size.hpp>
-#include <sge/math/detail/dynamic_storage.hpp>
-#include <sge/container/raw_vector_decl.hpp>
-#include <sge/restrict_typedef_struct.hpp>
-
-namespace sge
-{
-namespace math
-{
-namespace vector
-{
-
-template<
-	typename T
->
-struct dynamic {
-	typedef basic<
-		T,
-		math::detail::dynamic_size,
-		typename math::detail::dynamic_storage<
-			T
-		>::type
-	> type;
-
-	SGE_RESTRICT_TYPEDEF_STRUCT(dynamic)
-};
-
-}
-}
-}
+#define SGE_RESTRICT_TYPEDEF_STRUCT(classname) \
+private: \
+classname();
+// TODO: what can we add here?
 
 #endif

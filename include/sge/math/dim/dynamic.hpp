@@ -18,20 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_DYNAMIC_HPP_INCLUDED
-#define SGE_MATH_VECTOR_DYNAMIC_HPP_INCLUDED
+#ifndef SGE_MATH_DIM_DYNAMIC_HPP_INCLUDED
+#define SGE_MATH_DIM_DYNAMIC_HPP_INCLUDED
 
-#include <sge/math/vector/basic_fwd.hpp>
+#include <sge/math/dim/basic_fwd.hpp>
 #include <sge/math/detail/dynamic_size.hpp>
 #include <sge/math/detail/dynamic_storage.hpp>
-#include <sge/container/raw_vector_decl.hpp>
+#include <sge/container/raw_dim_decl.hpp>
 #include <sge/restrict_typedef_struct.hpp>
 
 namespace sge
 {
 namespace math
 {
-namespace vector
+namespace dim
 {
 
 template<
