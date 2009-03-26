@@ -32,7 +32,8 @@ namespace random
 {
 
 template<
-	typename T>
+	typename T
+>
 class range;
 
 template<

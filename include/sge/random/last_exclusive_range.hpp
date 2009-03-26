@@ -63,6 +63,20 @@ public:
 	}
 };
 
+template<
+	typename T
+>
+last_exclusive_range<T> const
+make_last_exclusive_range(
+	T const &first,
+	T const &last)
+{
+	return last_exclusive_range<T>(
+		first,
+		last
+	);
+}
+
 }
 }
 

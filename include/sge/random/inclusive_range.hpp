@@ -43,6 +43,20 @@ public:
 	{}
 };
 
+template<
+	typename T
+>
+inclusive_range<T> const
+make_inclusive_range(
+	T const &first,
+	T const &last)
+{
+	return inclusive_range<T>(
+		first,
+		last
+	);
+}
+
 }
 }
 
