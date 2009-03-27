@@ -3,6 +3,8 @@
 
 #include <sge/collision/objects/base_fwd.hpp>
 #include <sge/collision/point.hpp>
+#include <sge/noncopyable.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
@@ -12,12 +14,15 @@ namespace objects
 {
 class base
 {
+	SGE_NONCOPYABLE(base)
+protected:
+	SGE_SYMBOL base();
 public:
 	virtual void pos(point const &) = 0;
 	virtual point const pos() const = 0;
 	virtual void speed(point const &) = 0;
 	virtual point const speed() const = 0;
-	virtual ~base();
+	SGE_SYMBOL virtual ~base();
 };
 }
 }
