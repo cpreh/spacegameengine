@@ -51,7 +51,7 @@ sge::gui::widget::parameters::parameters &sge::gui::widget::parameters::layout(
 	return *this; 
 }
 
-sge::gui::widget::parameters::parameters &sge::gui::widget::parameters::activation_state(
+sge::gui::widget::parameters::parameters &sge::gui::widget::parameters::activation(
 	activation_state::type const _activation) 
 { 
 	activation_ = _activation; 

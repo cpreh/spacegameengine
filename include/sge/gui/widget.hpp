@@ -61,7 +61,7 @@ class SGE_CLASS_SYMBOL widget
 		parameters &size_policy(size_policy_t const &);
 		parameters &keyboard_focus(keyboard_focus::type const &);
 		parameters &layout(layout_auto_ptr);
-		parameters &activation_state(activation_state::type);
+		parameters &activation(activation_state::type);
 
 		point const &pos() const;
 		dim const &size() const;
