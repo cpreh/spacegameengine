@@ -17,6 +17,7 @@ public:
 	virtual point const pos() const = 0;
 	virtual void speed(point const &) = 0;
 	virtual point const speed() const = 0;
+	virtual ~base();
 };
 }
 }
