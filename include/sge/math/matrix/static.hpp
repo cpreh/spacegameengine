@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/math/matrix/basic_fwd.hpp>
 #include <sge/math/size_type.hpp>
+#include <sge/restrict_typedef_struct.hpp>
 #include <boost/mpl/integral_c.hpp>
 
 namespace sge
@@ -50,6 +51,8 @@ struct static_ {
 		>,
 		T[N * M]
 	> type;
+
+	SGE_RESTRICT_TYPEDEF_STRUCT(static_)
 };
 
 }
