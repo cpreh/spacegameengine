@@ -6,26 +6,27 @@
 #include <sge/audio/multi_loader.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
+#include <sge/time/resolution.hpp>
+#include <sge/filesystem/path.hpp>
+#include <sge/math/constants.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/path.hpp>
-#include <sge/math/constants.hpp>
+#include <sge/cerr.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <cmath>
 #include <cstdlib>
 
 namespace 
 {
 // replace!
-sge::path const sound_file(SGE_TEXT("your path here"));
+sge::filesystem::path const sound_file(SGE_TEXT("your path here"));
 }
 
 int main()
 try
 {
-	sge::systems::instance const sys(
+	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::systems::parameterless::audio_player));
 
