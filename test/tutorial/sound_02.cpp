@@ -5,50 +5,49 @@
 #include <sge/audio/file.hpp>
 #include <sge/audio/pool.hpp>
 #include <sge/audio/multi_loader.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
-#include <sge/path.hpp>
+#include <sge/cerr.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <cstdlib>
 
 namespace
 {
 // replace both!
-sge::path const sound_file_01(SGE_TEXT("file 01"));
-sge::path const sound_file_02(SGE_TEXT("file 02"));
+sge::filesystem::path const sound_file_01(SGE_TEXT("file 01"));
+sge::filesystem::path const sound_file_02(SGE_TEXT("file 02"));
 }
 
 int main()
 try
 {
-	sge::systems::instance const sys(
+	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::systems::parameterless::audio_player));
 
 	sge::audio::multi_loader loader(sys.plugin_manager());
 
-	sge::audio::pool_ptr const pool(sys.audio_player()->create_pool());
+	sge::audio::pool pool;
 
 	{
 		sge::audio::sound_ptr const sound_01 = 
 			sys.audio_player()->create_nonstream_sound(
-				load.load(sound_file_01));
+				loader.load(sound_file_01));
 
 		sge::audio::sound_ptr const sound_02 = 
 			sys.audio_player()->create_stream_sound(
-				load.load(sound_file_02));
+				loader.load(sound_file_02));
 
-		pool->add(sound_01,true);
-		pool->add(sound_02,true);
+		pool.add(sound_01, sge::audio::stop_mode::play_once);
+		pool.add(sound_02, sge::audio::stop_mode::play_once);
 
 		sound_01->play(sge::audio::play_mode::once);
 		sound_02->play(sge::audio::play_mode::once);
 	}
 
-	while (!pool->sounds_finished())
-		pool->update();
+	while (!pool.sounds_finished())
+		pool.update();
 }
 catch(sge::exception const &e)
 {

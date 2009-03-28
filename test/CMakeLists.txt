@@ -1,11 +1,4 @@
-ADD_EXECUTABLE (tutorial_01 tutorial/tutorial_01.cpp)
-TARGET_LINK_LIBRARIES (tutorial_01 sgecore)
-
-ADD_EXECUTABLE (tutorial_02 tutorial/tutorial_02.cpp)
-TARGET_LINK_LIBRARIES (tutorial_02 sgecore)
-
-ADD_EXECUTABLE (font tutorial/font.cpp)
-TARGET_LINK_LIBRARIES (font sgecore)
+ADD_SUBDIRECTORY(tutorial)
 
 MACRO (ADD_SGE_TEST name)
 	ADD_EXECUTABLE (sge${name}test ${name}.cpp)

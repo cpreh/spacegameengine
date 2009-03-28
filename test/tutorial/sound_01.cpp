@@ -4,24 +4,23 @@
 #include <sge/audio/sound.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/multi_loader.hpp>
-#include <sge/exception.hpp>
+#include <sge/filesystem/path.hpp>
 #include <sge/text.hpp>
-#include <sge/path.hpp>
+#include <sge/exception.hpp>
+#include <sge/cerr.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <cstdlib>
 
 namespace 
 {
 // replace!
-sge::path const sound_file(SGE_TEXT("your path here"));
+sge::filesystem::path const sound_file(SGE_TEXT("your path here"));
 }
 
 int main()
 try
 {
-	sge::systems::instance const sys(
+	sge::systems::instance sys(
 		sge::systems::list()
 		(sge::systems::parameterless::audio_player));
 
