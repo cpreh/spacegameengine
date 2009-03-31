@@ -1,8 +1,10 @@
 #include <sge/gui/widgets/buttons/base.hpp>
 #include <sge/gui/events/key.hpp>
+#include <sge/gui/events/mouse_click.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/log.hpp>
 #include <sge/input/key_type.hpp>
+#include <sge/input/key_code.hpp>
 
 namespace
 {
@@ -37,9 +39,10 @@ void sge::gui::widgets::buttons::base::process(events::mouse_leave const &)
 	parent_manager().invalidate(*this,rect(point::null(),size()));
 }
 
-void sge::gui::widgets::buttons::base::process(events::mouse_click const &)
+void sge::gui::widgets::buttons::base::process(events::mouse_click const &c)
 {
-	clicked_();
+	if (c.value().value())
+		clicked_();
 }
 
 sge::gui::key_handling::type sge::gui::widgets::buttons::base::process(

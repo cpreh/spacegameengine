@@ -71,9 +71,14 @@ sge::font::metrics_ptr const sge::gui::manager::standard_font()
 	return standard_font_;
 }
 
-sge::gui::skin_ptr const sge::gui::manager::skin() 
+sge::gui::skin &sge::gui::manager::skin() 
 { 
-	return skin_; 
+	return *skin_; 
+}
+
+sge::gui::skin const &sge::gui::manager::skin() const
+{ 
+	return *skin_; 
 }
 
 sge::sprite::object &sge::gui::manager::connected_sprite(
@@ -82,10 +87,6 @@ sge::sprite::object &sge::gui::manager::connected_sprite(
 	return render_.connected_sprite(w);
 }
 
-sge::gui::const_skin_ptr const sge::gui::manager::skin() const
-{ 
-	return skin_; 
-}
 
 void sge::gui::manager::add(widget &w)
 {

@@ -235,7 +235,7 @@ void sge::gui::widget::process(events::invalid_area const &e)
 		mylogger,
 		log::_1 << SGE_TEXT("redrawing myself, region ")
 		        << e.area());
-	parent_manager().skin()->draw(*this,e);
+	parent_manager().skin().draw(*this,e);
 
 	BOOST_FOREACH(widget &w,children())
 	{

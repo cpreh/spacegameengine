@@ -41,6 +41,6 @@ sge::gui::dim const sge::gui::layouts::null::size_hint() const
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("getting size hint from skin"));
-	return connected_widget().parent_manager().skin()->size_hint(
+	return connected_widget().parent_manager().skin().size_hint(
 		connected_widget());
 }

@@ -16,6 +16,7 @@ sge::gui::widgets::label::label(
 	parent_data const &_parent,
 	parameters _params,
 	string const &_text,
+	boost::optional<dim> _static_size,
 	font::metrics_ptr _font)
 	: widget(
 			_parent,
@@ -24,6 +25,7 @@ sge::gui::widgets::label::label(
 					axis_policy::none,
 					axis_policy::none))),
 	  text_(_text),
+		static_size_(_static_size),
 	  font_(_font)
 {
 	if (!font_)

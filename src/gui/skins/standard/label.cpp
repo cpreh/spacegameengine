@@ -1,4 +1,5 @@
 #include "../../utility/max_dim.hpp"
+#include "../../utility/string_square.hpp"
 #include <sge/gui/skins/standard.hpp>
 #include <sge/gui/widgets/label.hpp>
 #include <sge/gui/internal_color.hpp>
@@ -88,7 +89,9 @@ sge::gui::dim const sge::gui::skins::standard::size_hint(
 	// return a valid rectangle otherwise
 	dim const font_dim = structure_cast<dim>(
 		fn.text_size(
-			b.text(),
+			b.static_size() 
+				? utility::string_square(*b.static_size()) 
+				: b.text(),
 			utility::max_dim<font::unit>()).size());
 
 	return dim(

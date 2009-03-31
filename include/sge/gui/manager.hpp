@@ -49,8 +49,8 @@ class manager
 		timer::callback);
 	SGE_SYMBOL void draw();
 	SGE_SYMBOL font::metrics_ptr const standard_font();
-	SGE_SYMBOL skin_ptr const skin();
-	SGE_SYMBOL const_skin_ptr const skin() const;
+	SGE_SYMBOL sge::gui::skin &skin();
+	SGE_SYMBOL sge::gui::skin  const &skin() const;
 	SGE_SYMBOL sge::sprite::object &connected_sprite(
 		widget &);
 

@@ -38,4 +38,5 @@
 *low: visualize "button pressed" in widgets::buttons::text
 *low: add more function keys to widgets::edit (like home, end etc.)
 *low: store cursor's click point in a file
+*low: rename gui::skin to gui::skins::base, add skin_fwd.hpp
 *medium: add multiline functionality to widgets::edit

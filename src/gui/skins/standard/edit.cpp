@@ -1,4 +1,5 @@
 #include "../../utility/max_dim.hpp"
+#include "../../utility/string_square.hpp"
 #include "../../utility/blit.hpp"
 #include <sge/gui/internal_color.hpp>
 #include <sge/font/object.hpp>
@@ -18,26 +19,12 @@ sge::gui::logger mylogger(
 	false);
 }
 
-namespace
-{
-sge::string const string_square(sge::gui::dim const &s)
-{
-	sge::string const line(
-		static_cast<sge::string::size_type>(s.w()),
-		SGE_TEXT('W'));
-	sge::string result;
-	for (sge::gui::unit i = 0; i < s.h(); ++i)
-		result += line;
-	return result;
-}
-}
-
 sge::gui::dim const sge::gui::skins::standard::size_hint(
 	widgets::edit const &w) const
 {
 	dim const d = structure_cast<dim>(
 		font::object(w.font()).text_size(
-			string_square(w.desired_size()),
+			utility::string_square(w.desired_size()),
 			utility::max_dim<font::unit>())
 		.size());
 	

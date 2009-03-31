@@ -177,6 +177,15 @@ try
 		sge::sprite::point(screen_size.w()/2-16,screen_size.h()/2-16),
 		tex_tux,
 		sge::sprite::dim(32,32));
+	
+	tux.color(
+		sge::renderer::rgba8_color(
+			0xff,
+			0xff,
+			0xff,
+			0x40
+		)
+	);
 
 	sge::audio::multi_loader ml(sys.plugin_manager());
 	sge::audio::file_ptr const af_siren = ml.load(sge::media_path()/SGE_TEXT("siren.ogg"));
