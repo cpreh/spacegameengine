@@ -5,6 +5,7 @@ IF(NOT OPENGL_FOUND)
 	return()
 ENDIF()
 
+INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_DIR})
 
 FILE (GLOB sgeopenglfiles
 	src/*.cpp
