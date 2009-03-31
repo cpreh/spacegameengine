@@ -2,7 +2,7 @@
 #define SGE_OPENAL_OPENAL_HPP_INCLUDED
 
 #include <sge/config.h>
-#ifdef SGE_WINDOWS_PLATFORM
+#if defined(SGE_WINDOWS_PLATFORM) || defined(SGE_DARWIN_PLATFORM)
 #include <al.h>
 #include <alc.h>
 #else

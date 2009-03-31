@@ -4,12 +4,13 @@ ENDIF ()
 
 
 FIND_PACKAGE(DevIL)
+FIND_PACKAGE(Freetype)
+FIND_PACKAGE(GLEW)
+FIND_PACKAGE(Mad)
 FIND_PACKAGE(ODE)
 FIND_PACKAGE(OpenGL)
 FIND_PACKAGE(OpenAL)
-FIND_PACKAGE(Freetype)
 FIND_PACKAGE(Vorbis)
-FIND_PACKAGE(Mad)
 
 OPTION (ENABLE_AUDIO_NULL "Build the null audio player plugin" OFF)
 OPTION (ENABLE_BULLET "Build the bullet collision plugin" OFF)
