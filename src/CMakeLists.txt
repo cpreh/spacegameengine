@@ -69,7 +69,7 @@ IF (NOT MSVC)
 ENDIF ()
 
 IF (UNIX)
-	TARGET_LINK_LIBRARIES (sgecore ${X11_LIBRARIES} dl rt)
+	TARGET_LINK_LIBRARIES (sgecore ${X11_LIBRARIES} dl)
 
 #also link sgecore against Xxf86dga
 #otherwise XCloseDisplay will segfault on shutdown

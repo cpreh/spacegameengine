@@ -22,11 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/text.hpp>
 #include <sge/time/time.hpp>
 
+#if defined(SGE_HAVE_ATLEAST_UINT64) && defined(SGE_HAVE_CLOCK_GETTIME)
+#define SGE_USE_CLOCK_GETTIME
+#endif
+
 #ifdef SGE_POSIX_PLATFORM
-#ifndef SGE_HAVE_ATLEAST_UINT64
-#include <sys/time.h>
-#else
+#ifdef SGE_USE_CLOCK_GETTIME
 #include <time.h>
+#else
+#include <sys/time.h>
 #endif
 #elif SGE_WINDOWS_PLATFORM
 #include <sge/windows/windows.hpp>
@@ -58,7 +62,7 @@ private:
 sge::time::unit sge::time::time()
 {
 #ifdef SGE_POSIX_PLATFORM
-#ifndef SGE_HAVE_ATLEAST_UINT64
+#ifndef SGE_USE_CLOCK_GETTIME
 	struct timeval tv;
 	struct timezone tz;
 	if(gettimeofday(&tv,&tz) != 0)
@@ -75,6 +79,8 @@ sge::time::unit sge::time::time()
 	return instance.use_performance_counter()
 		? query_performance_counter()
 		: static_cast<time::unit>(GetTickCount());
+#else
+#error "Implement me!"
 #endif
 }
 

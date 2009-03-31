@@ -35,7 +35,7 @@ void sge::time::sleep(
 #ifdef SGE_WINDOWS_PLATFORM
 	Sleep(res.get() * 1000 / hz());
 #elif SGE_POSIX_PLATFORM
-	usleep(static_cast<__useconds_t>(
+	usleep(static_cast<useconds_t>(
 		res.get() * 1000 * 1000 / hz()));
 #else
 #error "Implement me!"

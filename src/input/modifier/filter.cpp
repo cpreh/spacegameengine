@@ -37,6 +37,9 @@ sge::signal::auto_connection sge::input::modifier::filter::register_repeat_callb
 	return repeat_signal.connect(f);
 }
 
+sge::input::modifier::filter::~filter()
+{}
+
 void sge::input::modifier::filter::input_callback(key_pair const &k)
 {
 	BOOST_FOREACH(object const &o,list())

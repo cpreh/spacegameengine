@@ -54,7 +54,7 @@ class map {
 		>,
 		Alloc<
 			std::pair<
-				Key,
+				Key const,
 				Mapped
 			>
 		>
