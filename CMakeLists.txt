@@ -137,12 +137,14 @@ CHECK_CXX_SOURCE_RUNS(
 	 }"
 	 SGE_HAVE_POSIX)
 
-CHECK_CXX_SOURCE_COMPILES(
-	"#include <time.h>
+CHECK_CXX_SOURCE_RUNS(
+	"#include <unistd.h>
+	 #include <cstdlib>
 	int main()
 	{
-		timespec tp;
-		clock_gettime(CLOCK_REALTIME, &tp); 
+		return _POSIX_TIMERS > 0
+			? EXIT_SUCCESS
+			: EXIT_FAILURE;
 	}"
 	SGE_HAVE_CLOCK_GETTIME)
 
