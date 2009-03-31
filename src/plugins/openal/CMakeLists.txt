@@ -1,5 +1,7 @@
 FILE (GLOB sgeopenalfiles src/*.cpp)
 
+INCLUDE_DIRECTORIES(${OPENAL_INCLUDE_DIR})
+
 ADD_LIBRARY (sgeopenal SHARED ${sgeopenalfiles})
 
 IF (${UNIX})
