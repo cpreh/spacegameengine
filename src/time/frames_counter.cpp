@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/time/frames_counter.hpp>
 #include <sge/time/second.hpp>
 #include <sge/time/resolution.hpp>
-#include <boost/lexical_cast.hpp>
+#include <sge/lexical_cast.hpp>
 
 sge::time::frames_counter::frames_counter()
 :
@@ -43,7 +43,7 @@ void sge::time::frames_counter::update()
 sge::string const
 sge::time::frames_counter::frames_str() const
 {
-	return boost::lexical_cast<string>(frames());
+	return lexical_cast<string>(frames());
 }
 
 sge::time::unit

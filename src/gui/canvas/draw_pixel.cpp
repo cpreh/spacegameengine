@@ -5,7 +5,7 @@
 #include <sge/text.hpp>
 #include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/subimage_view.hpp>
-#include <boost/lexical_cast.hpp>
+#include <sge/lexical_cast.hpp>
 
 void sge::gui::canvas::object::draw_pixel(
 	point const &p,
@@ -14,9 +14,9 @@ void sge::gui::canvas::object::draw_pixel(
 	SGE_ASSERT_MESSAGE(
 		math::contains(area(),p),
 		SGE_TEXT("tried to draw pixel ")+
-		boost::lexical_cast<string>(p)+
+		lexical_cast<string>(p)+
 		SGE_TEXT(" which is not inside rect ")+
-		boost::lexical_cast<string>(area()));
+		lexical_cast<string>(area()));
 	
 	renderer::fill_pixels(
 		renderer::subimage_view(

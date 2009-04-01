@@ -2,8 +2,8 @@
 #include <sge/console/object.hpp>
 #include <sge/console/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/lexical_cast.hpp>
 #include <boost/bind.hpp>
-#include <boost/lexical_cast.hpp>
 #include <boost/foreach.hpp>
 
 sge::console::stdlib::stdlib(
@@ -96,7 +96,7 @@ void sge::console::stdlib::fn_help(arg_list const &)
 {
 	function_map const &fns = object_.functions();
 
-	print_(boost::lexical_cast<string>(fns.size())+SGE_TEXT(" available functions:"));
+	print_(lexical_cast<string>(fns.size())+SGE_TEXT(" available functions:"));
 
 	BOOST_FOREACH(function_map::const_reference p,fns)
 		print_function(p);
@@ -106,7 +106,7 @@ void sge::console::stdlib::fn_lsvars(arg_list const &)
 {
 	variable_map const &vars = object_.variables();
 
-	print_(boost::lexical_cast<string>(vars.size())+SGE_TEXT(" available variables:"));
+	print_(lexical_cast<string>(vars.size())+SGE_TEXT(" available variables:"));
 
 	BOOST_FOREACH(variable_map::const_reference p,vars)
 		print_(p.first+SGE_TEXT('=')+p.second->string());

@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/container/raw_vector_impl.hpp>
-#include <boost/lexical_cast.hpp>
 #include <boost/foreach.hpp>
 
 sge::openal::player::player()

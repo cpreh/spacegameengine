@@ -3,7 +3,7 @@
 #include <sge/math/rect_util.hpp>
 #include <sge/renderer/fill_pixels.hpp>
 #include <sge/renderer/subimage_view.hpp>
-#include <boost/lexical_cast.hpp>
+#include <sge/lexical_cast.hpp>
 
 void sge::gui::canvas::object::draw_rect(
 	rect const &r,
@@ -13,9 +13,9 @@ void sge::gui::canvas::object::draw_rect(
 	SGE_ASSERT_MESSAGE(
 		math::contains(area(),r),
 		SGE_TEXT("tried to draw rectangle ")+
-			boost::lexical_cast<string>(r)+
+			lexical_cast<string>(r)+
 			SGE_TEXT(" which is not completely inside ")+
-			boost::lexical_cast<string>(area()));
+			lexical_cast<string>(area()));
 
 	switch (t)
 	{

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/structure_cast.hpp>
-#include <boost/lexical_cast.hpp>
+#include <sge/lexical_cast.hpp>
 #include <ostream>
 
 template<typename T>
@@ -173,7 +173,7 @@ void sge::math::rect<T>::check()
 {
 	if (right() < left() || bottom() < top())
 		throw exception(SGE_TEXT("tried to create a rectangle ")+
-			boost::lexical_cast<string>(*this)+SGE_TEXT(" which is invalid"));
+			lexical_cast<string>(*this)+SGE_TEXT(" which is invalid"));
 }
 
 template<typename T> 

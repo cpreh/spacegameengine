@@ -2,7 +2,7 @@
 #include <sge/audio/file.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/text.hpp>
-#include <boost/lexical_cast.hpp>
+#include <sge/lexical_cast.hpp>
 
 ALenum sge::openal::file_format(audio::file const &file)
 {
@@ -17,9 +17,9 @@ ALenum sge::openal::file_format(audio::file const &file)
 	
 	throw audio::exception(
 		SGE_TEXT("OpenAL error: Format not supported: ")
-		+ boost::lexical_cast<string>(file.bits_per_sample())
+		+ lexical_cast<string>(file.bits_per_sample())
 		+ SGE_TEXT(" bps, ")
-		+ boost::lexical_cast<string>(file.channels())
+		+ lexical_cast<string>(file.channels())
 		+ SGE_TEXT(" channels"));
 
 	return AL_FORMAT_MONO8;
