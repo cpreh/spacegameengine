@@ -50,7 +50,7 @@ const x11_to_sge_array x11_to_sge = boost::assign::map_list_of
 //	(XK_Begin, sge::input::kc::key_home)
 
 	//#define XK_Select                        0xff60  /* Select, mark */
-	//#define XK_Print                         0xff61
+	(XK_Print, sge::input::kc::key_print)
 	//#define XK_Execute                       0xff62  /* Execute, run, do */
 	(XK_Insert, sge::input::kc::key_insert)
 //#define XK_Undo                          0xff65

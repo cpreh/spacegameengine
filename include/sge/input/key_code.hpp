@@ -131,6 +131,7 @@ enum type {
 	key_semicolon,
 	key_slash,
 	key_underline,
+	key_print,
 	key_scroll,
 	key_pause,
 	key_lwin,
