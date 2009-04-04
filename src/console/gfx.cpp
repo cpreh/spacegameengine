@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/structure_cast.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
+#include <locale>
 
 sge::console::gfx::gfx(
 	sge::console::object &_object,
