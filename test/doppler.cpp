@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/signal/auto_connection.hpp>
 #include <sge/renderer/device.hpp>
+#include <sge/renderer/screenshot.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/scoped_block.hpp>
 #include <sge/renderer/state/list.hpp>
@@ -64,14 +65,27 @@ namespace
 class sprite_functor
 {
 	public:
-	explicit sprite_functor(sge::sprite::object &s,sge::audio::sound_ptr const sound)
-			: s(s),sound(sound)
+	explicit sprite_functor(
+		sge::renderer::device_ptr const rend,
+		sge::image::loader_ptr const il,
+		sge::sprite::object &s,
+		sge::audio::sound_ptr const sound)
+			: rend(rend),
+				il(il),
+			  s(s),
+			  sound(sound)
 		{}
 
 	void operator()(sge::input::key_pair const &k) const
 	{
 		switch (k.key().code())
 		{
+			case sge::input::kc::key_return:
+			sge::renderer::screenshot(
+				rend,
+				il,
+				SGE_TEXT("/tmp/screenie.png"));
+			break;
 			case sge::input::kc::mouse_x_axis:
 			s.pos().x() += k.value();
 			sound->vel(
@@ -98,6 +112,8 @@ class sprite_functor
 				static_cast<sge::audio::unit>(s.pos().y())));
 	}
 	private:
+	sge::renderer::device_ptr const rend;
+	sge::image::loader_ptr const il;
 	sge::sprite::object &s;
 	sge::audio::sound_ptr const sound;
 };
@@ -212,7 +228,12 @@ try
 	);
 
 	sge::signal::auto_connection pc(
-		sys.input_system()->register_callback(sprite_functor(pointer,sound_siren)));
+		sys.input_system()->register_callback(
+			sprite_functor(
+				sys.renderer(),
+				sys.image_loader(),
+				pointer,
+				sound_siren)));
 
 	sys.renderer()->state(
 		sge::renderer::state::list

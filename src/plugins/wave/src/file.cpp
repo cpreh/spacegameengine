@@ -17,11 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
 #include "../file.hpp"
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/endianness.hpp>
+#include <sge/endianness/is_little_endian.hpp>
+#include <sge/endianness/swap.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/istream_util.hpp>
 #include <sge/sstream.hpp>
@@ -86,7 +86,7 @@ sge::audio::sample_count sge::wave::file::read(
 
 	if (bytes_per_sample() > static_cast<audio::sample_count>(1) && swap_)
 		for (audio::sample_container::iterator i = _array.begin()+old_size; i != _array.end(); i += bytes_per_sample())
-			swap_endianness(i,bytes_per_sample());
+			endianness::swap(i,bytes_per_sample());
 
 	samples_read_ += samples_to_read;
 	return samples_to_read;
@@ -113,7 +113,7 @@ void sge::wave::file::read_riff()
 	else
 		throw audio::exception(SGE_TEXT("file \"")+filename_+SGE_TEXT("\" is not a riff file and thus not a wave file"));
 	
-	swap_ = file_bigendian == is_little_endian();
+	swap_ = file_bigendian == endianness::is_little_endian();
 
 	// throw away riff size
 	extract_primitive<boost::uint32_t>(SGE_TEXT("riff chunk size"));
@@ -214,5 +214,5 @@ T sge::wave::file::extract_primitive(string const &_desc)
 			+ filename_
 			+ SGE_TEXT("\""));
 
-	return swap_ ? swap_endianness(ret) : ret;
+	return swap_ ? endianness::swap(ret) : ret;
 }
