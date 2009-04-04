@@ -1,6 +1,8 @@
 FILE (GLOB sgeopenalfiles src/*.cpp)
 
-INCLUDE_DIRECTORIES(${OPENAL_INCLUDE_DIR})
+IF (NOT MSVC)
+	INCLUDE_DIRECTORIES(${OPENAL_INCLUDE_DIR})
+ENDIF ()
 
 ADD_LIBRARY (sgeopenal SHARED ${sgeopenalfiles})
 
