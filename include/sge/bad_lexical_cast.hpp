@@ -9,14 +9,14 @@ namespace sge
 class bad_lexical_cast : public exception
 {
 public:
-	SGE_SYMBOL explicit bad_lexical_cast(
+	SGE_SYMBOL bad_lexical_cast(
 		type_info const &source,
 		type_info const &dest);
 	
 	type_info const &source() const;
 	type_info const &destination() const;
 private:
-	type_info const source_,destination_;
+	type_info source_,destination_;
 };
 }
 

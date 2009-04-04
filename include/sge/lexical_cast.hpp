@@ -9,12 +9,14 @@ namespace sge
 template<
 	typename Dest,
 	typename Src>
-typename boost::disable_if<boost::is_same<Src,Dest>,Dest>::type const lexical_cast(
+typename boost::disable_if<boost::is_same<Src,Dest>,Dest>::type
+lexical_cast(
 	Src const &);
 
 template<
 	typename Src>
-Src const lexical_cast(
+Src
+lexical_cast(
 	Src const &);
 }
 

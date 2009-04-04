@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEVICE_HPP_INCLUDED
 
 #include <sge/config.h>
-#include "target.hpp"
+#include "target_fwd.hpp"
 #include "fbo_target_fwd.hpp"
 #include "common.hpp"
 #if defined(SGE_WINDOWS_PLATFORM)

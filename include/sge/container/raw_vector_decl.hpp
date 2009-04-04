@@ -112,6 +112,8 @@ public:
 
 	iterator erase(iterator position);
 	iterator erase(iterator first, iterator last);
+
+	void free_memory();
 private:
 	void range_check(size_type n) const;
 	size_type new_capacity(size_type new_size) const;

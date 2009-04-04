@@ -89,6 +89,13 @@ typename sge::container::raw_vector<T, A>::const_reference sge::container::raw_v
 }
 
 template<typename T, typename A>
+void sge::container::raw_vector<T, A>::free_memory()
+{
+	deallocate();
+	set_pointers(0, 0, 0);
+}
+
+template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::reference sge::container::raw_vector<T, A>::at(const size_type n)
 {
 	range_check(n);
@@ -347,15 +354,20 @@ void sge::container::raw_vector<T, A>::insert(const iterator position, const siz
 
 template<typename T, typename A>
 template<typename In>
-void sge::container::raw_vector<T, A>::insert(const iterator position, const In l, const In r)
+void sge::container::raw_vector<T, A>::insert(
+	iterator const position,
+	In const l,
+	In const r)
 {
-	const difference_type distance = r - l;//std::distance(l, r);
-	const size_type new_size = size() + distance;
+	// FIXME:
+	difference_type const distance = r - l;//std::distance(l, r);
+
+	size_type const new_size = size() + distance;
 	if(new_size > capacity())
 	{
-		const difference_type insert_sz = position - begin();
-		const size_type new_cap = new_capacity(new_size);
-		const pointer new_memory = i.a.allocate(new_cap);
+		difference_type const insert_sz = position - begin();
+		size_type const new_cap = new_capacity(new_size);
+		pointer const new_memory = i.a.allocate(new_cap);
 		std::uninitialized_copy(begin(), position, new_memory);
 		std::uninitialized_copy(l, r, new_memory + insert_sz);
 		std::uninitialized_copy(position, end(), new_memory + insert_sz + distance);

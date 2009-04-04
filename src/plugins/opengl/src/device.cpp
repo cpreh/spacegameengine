@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/foreach.hpp>
 #include "../device.hpp"
+#include "../pbo.hpp"
 #include "../vertex_buffer.hpp"
 #include "../index_buffer.hpp"
 #include "../vertex_buffer.hpp"

@@ -3,7 +3,8 @@
 #include <sge/type_info.hpp>
 
 template<typename Dest,typename Src>
-typename boost::disable_if<boost::is_same<Src,Dest>,Dest>::type const sge::lexical_cast(
+typename boost::disable_if<boost::is_same<Src,Dest>,Dest>::type
+sge::lexical_cast(
 	Src const &s)
 {
 	sge::stringstream ss;
@@ -16,7 +17,8 @@ typename boost::disable_if<boost::is_same<Src,Dest>,Dest>::type const sge::lexic
 }
 
 template<typename Src>
-Src const sge::lexical_cast(
+Src
+sge::lexical_cast(
 	Src const &s)
 {
 	return s;

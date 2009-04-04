@@ -19,9 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/container/map_impl.hpp>
+#include <sge/container/raw_vector_impl.hpp>
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/cout.hpp>
+#include <sge/assert.hpp>
 #include <boost/foreach.hpp>
 #include <map>
 
@@ -49,4 +51,32 @@ int main()
 			<< SGE_TEXT(": ")
 			<< r.second
 			<< '\n';
+	
+	typedef sge::container::raw_vector<
+		char
+	> vector_type;
+
+	std::string const test_string(
+		"abcdefg"
+	);
+
+	vector_type vec;
+
+	vec.reserve(42);
+
+	vec.insert(
+		vec.end(),
+		test_string.begin(),
+		test_string.end()
+	);
+
+	SGE_ASSERT(vec.size() == test_string.size());
+
+	vec.insert(
+		vec.begin() + test_string.size() / 2,
+		test_string.begin(),
+		test_string.end()
+	);
+
+	sge::cout << vec.size() << '\n';
 }

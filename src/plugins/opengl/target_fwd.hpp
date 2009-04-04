@@ -18,34 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_FWD_HPP_INCLUDED
 
-#include "common.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/container/raw_vector_decl.hpp>
+#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
 namespace ogl
 {
 
-class target : public sge::renderer::target {
-public:
-	virtual void bind_me() const = 0;
-private:
-	renderer::const_image_view const lock(
-		renderer::lock_rect const &dest) const;
-	void unlock() const;
-
-	virtual size_type stride() const = 0;
-	virtual GLenum format() const = 0;
-	virtual GLenum format_type() const = 0;
-
-	mutable sge::container::raw_vector<
-		unsigned char
-	> buffer;
-};
+class target;
+typedef shared_ptr<
+	target
+> target_ptr;
 
 }
 }
