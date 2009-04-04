@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "common.hpp"
 #include <sge/renderer/target.hpp>
 #include <sge/container/raw_vector_decl.hpp>
+#include <sge/noncopyable.hpp>
 
 namespace sge
 {
@@ -31,8 +32,12 @@ namespace ogl
 {
 
 class target : public sge::renderer::target {
+	SGE_NONCOPYABLE(target)
+protected:
+	target();
 public:
 	virtual void bind_me() const = 0;
+	virtual ~target();
 private:
 	renderer::const_image_view const lock(
 		renderer::lock_rect const &dest) const;

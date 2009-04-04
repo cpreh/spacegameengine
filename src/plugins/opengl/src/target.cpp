@@ -30,6 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
+sge::ogl::target::target()
+{}
+
+sge::ogl::target::~target()
+{}
+
 sge::renderer::const_image_view const
 sge::ogl::target::lock(
 	renderer::lock_rect const &dest) const
