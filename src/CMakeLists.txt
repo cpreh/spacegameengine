@@ -7,6 +7,7 @@ FILE (GLOB sgecorefiles
 	collision/*.cpp
 	collision/objects/*.cpp
 	container/*.cpp
+	endianness/*.cpp
 	filesystem/*.cpp
 	font/*.cpp
 	image/*.cpp

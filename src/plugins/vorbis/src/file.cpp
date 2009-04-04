@@ -2,7 +2,7 @@
 #include <sge/audio/exception.hpp>
 #include <sge/text.hpp>
 #include <sge/log/headers.hpp>
-#include <sge/endianness.hpp>
+#include <sge/endianness/is_little_endian.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/assert.hpp>
 #include <algorithm>
@@ -83,7 +83,7 @@ sge::audio::sample_count sge::vorbis::file::read(
 			&ogg_file,
 			reinterpret_cast<char *>(&newdata[bytes_read]),
 			static_cast<int>(bytes_to_read - bytes_read),
-			static_cast<int>(!is_little_endian()),
+			static_cast<int>(!endianness::is_little_endian()),
 			static_cast<int>(2), // 8 or 16 bit samples
 			static_cast<int>(1), // 0 is unsigned data, 1 is signed
 			&bitstream);
