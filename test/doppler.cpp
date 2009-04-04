@@ -148,7 +148,7 @@ try
 				sge::media_path()/SGE_TEXT("grass.png"))),
 		image_pointer(
 			sys.image_loader()->load(
-				sge::media_path()/SGE_TEXT("mainskin")/SGE_TEXT("cursor.png"))),
+				sge::media_path()/SGE_TEXT("gui")/SGE_TEXT("cursor.png"))),
 		image_tux(
 			sys.image_loader()->load(
 				sge::media_path()/SGE_TEXT("tux.png")));
@@ -182,17 +182,29 @@ try
 			.texture(tex_bg)
 			.size(
 				sge::structure_cast<sge::sprite::dim>(
-					screen_size)));
+					screen_size))
+			.depth(
+				static_cast<sge::sprite::depth_type>(2)));
 
 	sge::sprite::object pointer(
-		sge::sprite::point(0,0),
-		tex_pointer,
-		sge::sprite::texture_dim);
+		sge::sprite::parameters()
+			.texture(
+				tex_pointer)
+			.size(
+				sge::sprite::texture_dim)
+			.depth(
+				static_cast<sge::sprite::depth_type>(0)));
 
 	sge::sprite::object tux(
-		sge::sprite::point(screen_size.w()/2-16,screen_size.h()/2-16),
-		tex_tux,
-		sge::sprite::dim(32,32));
+		sge::sprite::parameters()
+			.pos(
+				sge::sprite::point(screen_size.w()/2-16,screen_size.h()/2-16))
+			.texture(
+				tex_tux)
+			.size(
+				sge::sprite::dim(32,32))
+			.depth(
+				static_cast<sge::sprite::depth_type>(1)));
 	
 	tux.color(
 		sge::renderer::rgba8_color(
