@@ -31,6 +31,8 @@ void sge::gui::skins::standard::draw(
 		internal_color(0xee,0xeb,0xe7,0xff),
 		canvas::rect_type::solid);
 
+	blit_invalid(w,c,e);
+	/*
 	utility::blit_invalid(
 		renderer::make_const_image_view(c.view()),
 		rect(
@@ -38,6 +40,7 @@ void sge::gui::skins::standard::draw(
 			c.size()),
 		e.texture(),
 		e.area());
+		*/
 }
 
 sge::gui::dim const sge::gui::skins::standard::size_hint(
