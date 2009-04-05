@@ -6,6 +6,7 @@ MACRO (ADD_SGE_TEST name)
 	INSTALL (TARGETS sge${name}test DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 ENDMACRO ()
 
+ADD_SGE_TEST(algorithm)
 ADD_SGE_TEST(anim)
 ADD_SGE_TEST(collision)
 ADD_SGE_TEST(console)
