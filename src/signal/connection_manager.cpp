@@ -45,3 +45,8 @@ void sge::signal::connection_manager::connect(
 		shared_connection(
 			v));
 }
+
+void sge::signal::connection_manager::clear()
+{
+	connections.clear();
+}

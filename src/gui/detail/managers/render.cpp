@@ -30,7 +30,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("render manager"),
-	true);
+	false);
 
 void wipe_texture(sge::renderer::texture_ptr const t)
 {

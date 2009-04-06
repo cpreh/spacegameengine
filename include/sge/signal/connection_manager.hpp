@@ -49,6 +49,8 @@ public:
 
 	SGE_SYMBOL void connect(
 		auto_connection);
+
+	void clear();
 private:
 	container connections;
 };
