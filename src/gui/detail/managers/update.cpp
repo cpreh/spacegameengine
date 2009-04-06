@@ -72,17 +72,10 @@ void sge::gui::detail::managers::update::draw()
 
 	BOOST_FOREACH(widget *w,recompiles)
 	{
-		/*
-		widget *parent = 0,*it = w;
-		while (it != 0)
-		{
-			parent = it;
-			it = it->parent_widget();
-		}
-
-		SGE_ASSERT(parent != 0);
-		parents.insert(parent);
-		*/
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("recompile list contains widget of type ") 
+			        << typeid(*w).name());
 		parents.insert(&(w->oldest_parent()));
 	}
 
@@ -91,7 +84,7 @@ void sge::gui::detail::managers::update::draw()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("compiling widget of type ") 
-			        << typeid(w).name());
+			        << typeid(*w).name());
 
 		w->compile();
 		render_.resize(

@@ -14,7 +14,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("skins::standard::backdrop"),
-	false);
+	true);
 }
 
 void sge::gui::skins::standard::draw(
@@ -32,15 +32,6 @@ void sge::gui::skins::standard::draw(
 		canvas::rect_type::solid);
 
 	blit_invalid(w,c,e);
-	/*
-	utility::blit_invalid(
-		renderer::make_const_image_view(c.view()),
-		rect(
-			w.absolute_pos(),
-			c.size()),
-		e.texture(),
-		e.area());
-		*/
 }
 
 sge::gui::dim const sge::gui::skins::standard::size_hint(

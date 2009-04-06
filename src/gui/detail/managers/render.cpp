@@ -15,6 +15,9 @@
 #include <sge/renderer/texture_rw.hpp>
 #include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/renderer/texture.hpp>
+#include <sge/renderer/fill_pixels.hpp>
+#include <sge/renderer/colors.hpp>
+#include <sge/renderer/scoped_texture_lock.hpp>
 #include <sge/texture/part_raw.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
@@ -27,7 +30,20 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("render manager"),
-	false);
+	true);
+
+void wipe_texture(sge::renderer::texture_ptr const t)
+{
+	sge::renderer::scoped_texture_lock const lock_(
+		t,
+		sge::renderer::lock_rect(
+			t->dim()),
+		sge::renderer::lock_flags::readwrite);
+	
+	sge::renderer::fill_pixels(
+		lock_.value(),
+		sge::renderer::colors::transparent());
+}
 }
 
 sge::gui::detail::managers::render::render(
@@ -46,7 +62,9 @@ void sge::gui::detail::managers::render::add(widget &w)
 		log::_1 << SGE_TEXT("adding new widget"));
 	widget *w_ptr = &w;
 	if (!w.has_parent())
-		widgets.insert(w_ptr,new widget_data());
+		widgets.insert(
+			w_ptr,
+			new widget_data());
 }
 
 void sge::gui::detail::managers::render::activation(
@@ -98,9 +116,11 @@ void sge::gui::detail::managers::render::resize(
 	dim const &d)
 {
 	dirt_.erase(&w);
+
 	invalidate(
 		w,
-		rect(point::null(),d));
+		rect(
+			d));
 
 	widget_container::iterator wi = widgets.find(
 		&w);
@@ -147,6 +167,8 @@ void sge::gui::detail::managers::render::resize(
 			new renderer::texture_rw(
 				software_texture,
 				hardware_texture));
+
+		wipe_texture(wd.texture);
 								
 		wd.sprite.pos() = sprite::point(
 				structure_cast<sprite::point>(
