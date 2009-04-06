@@ -14,17 +14,17 @@ sge::gui::logger mylogger(
 	false);
 }
 
-sge::gui::widgets::buttons::base::base(
-	parent_data const &_parent,
-	parameters _params)
-	: widget(
-			_parent,
-			_params
-				.keyboard_focus(
-					keyboard_focus::receive)),
-		mouse_over_(false),
-		key_over_(false)
+
+bool
+sge::gui::widgets::buttons::base::mouse_over() const
 {
+	return mouse_over_;
+}
+	
+bool
+sge::gui::widgets::buttons::base::key_over() const
+{
+	return key_over_;
 }
 
 void sge::gui::widgets::buttons::base::process(events::mouse_enter const &)
@@ -77,3 +77,17 @@ sge::signal::auto_connection sge::gui::widgets::buttons::base::register_clicked(
 }
 
 sge::gui::widgets::buttons::base::~base() {}
+
+sge::gui::widgets::buttons::base::base(
+	parent_data const &_parent,
+	parameters _params)
+:
+	widget(
+		_parent,
+		_params
+			.keyboard_focus(
+				keyboard_focus::receive)),
+	mouse_over_(false),
+	key_over_(false)
+{
+}
