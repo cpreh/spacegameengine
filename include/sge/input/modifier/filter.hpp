@@ -7,6 +7,7 @@
 #include <sge/input/key_type.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/signal/object.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
@@ -38,7 +39,7 @@ class SGE_CLASS_SYMBOL filter
 	private:
 	signal::object<fn_callback_type> signal;
 	signal::object<fn_repeat_callback_type> repeat_signal;
-	signal::auto_connection ic,irc;
+	signal::scoped_connection const ic, irc;
 	states modifiers;
 
 	void input_callback(key_pair const &);

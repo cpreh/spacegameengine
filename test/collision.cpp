@@ -22,7 +22,7 @@
 #include <sge/collision/system.hpp>
 #include <sge/collision/satellite.hpp>
 #include <sge/collision/world.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/exception.hpp>
 #include <sge/cerr.hpp>
 #include <sge/text.hpp>
@@ -104,7 +104,7 @@ try
 	
 	world->test_callback(&dispatch);
 
-	sge::signal::auto_connection c(
+	sge::signal::scoped_connection const c(
 		world->register_callback(&collision)
 	);
 
@@ -156,7 +156,7 @@ try
 
 	bool running = true;
 
-	sge::signal::auto_connection cb(
+	sge::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

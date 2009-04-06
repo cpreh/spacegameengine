@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/action.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/object.hpp>
 #include <sge/texture/part_raw.hpp>
@@ -131,7 +131,7 @@ try
 
 	bool running = true;
 
-	sge::signal::auto_connection cb(
+	sge::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,

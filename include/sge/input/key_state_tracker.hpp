@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key_type_fwd.hpp>
 #include <sge/input/key_state.hpp>
 #include <sge/input/key_pair_fwd.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/export.hpp>
 #include <sge/noncopyable.hpp>
 #include <map>
@@ -51,7 +51,7 @@ public:
 private:
 	void event_handler(key_pair const &key);
 
-	signal::auto_connection const con;
+	signal::scoped_connection const con;
 
 	typedef std::map<key_code, key_state> key_code_map;
 	typedef std::map<key_type, key_state> key_type_map;

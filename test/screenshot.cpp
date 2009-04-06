@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/loader.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/text.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
@@ -75,7 +75,7 @@ try
 
 	bool running = true;
 
-	sge::signal::auto_connection cb(
+	sge::signal::scoped_connection const cb(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -84,7 +84,7 @@ try
 		)
 	);
 
-	sge::signal::auto_connection cb2(
+	sge::signal::scoped_connection const cb2(
 		is->register_callback(
 			sge::input::action(
 				sge::input::kc::key_f12,

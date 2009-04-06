@@ -3,7 +3,7 @@
 
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/function_map.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/export.hpp>
 #include <boost/function.hpp>
 
@@ -13,19 +13,24 @@ namespace console
 {
 class stdlib
 {
-	public:
+public:
 	typedef boost::function<void (string const &)> print_callback;
 	typedef boost::function<void (string const &)> error_callback;
 	SGE_SYMBOL stdlib(
 		object &,
 		print_callback const &,
 		error_callback const &);
-	private:
+private:
 	object &object_;
 	print_callback print_;
 	error_callback error_;
 	// FIXME: connection_manager
-	sge::signal::auto_connection get,set,help,lsfuncs,lsvars,man;
+	sge::signal::scoped_connection
+		get,
+		set,
+		help,
+		lsfuncs
+		,lsvars,man;
 	
 	void fn_get(arg_list const &);
 	void fn_set(arg_list const &);

@@ -18,7 +18,7 @@
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/mainloop/dispatch.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/key_pair.hpp>
@@ -169,15 +169,22 @@ try
 	
 	bool running = true;
 	end_program p(running);
-	sge::signal::auto_connection conn =
-		sys.input_system()->register_callback(input_functor(running));
+	sge::signal::scoped_connection const conn(
+		sys.input_system()->register_callback(
+			input_functor(
+				running
+			)
+		)
+	);
 	
 #if TESTING_LEVEL == TL_SINGLE_BUTTON
 	b.clicked.connect(p);
 #elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
 	left.clicked.connect(p);
 #elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
-	sge::signal::auto_connection conn2 = left_top.register_clicked(p);
+	sge::signal::scoped_connection const conn2(
+		left_top.register_clicked(p)
+	);
 #endif
 	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
 	

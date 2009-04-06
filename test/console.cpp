@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx.hpp>
 #include <sge/console/stdlib.hpp>
 #include <sge/font/system.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
 #include <sge/exception.hpp>
@@ -92,13 +93,19 @@ try
 
 	sge::console::object o(SGE_TEXT('/'));
 	
-	sge::signal::auto_connection c0 = o.insert(
-		SGE_TEXT("quit"),
-		boost::bind(&quit,boost::ref(running),_1),
-		SGE_TEXT("quit test"));
+	sge::signal::scoped_connection const c0(
+		o.insert(
+			SGE_TEXT("quit"),
+			boost::bind(&quit,boost::ref(running),_1),
+			SGE_TEXT("quit test")
+		)
+	);
 
-	sge::signal::auto_connection c1 = o.register_fallback(
-		&fallback);
+	sge::signal::scoped_connection const c1(
+		o.register_fallback(
+			&fallback
+		)
+	);
 
 	sge::image::object_ptr const 
 		image_bg(

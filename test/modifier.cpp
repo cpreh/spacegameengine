@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/classification.hpp>
 #include <sge/input/modifier/filter.hpp>
 #include <sge/input/action.hpp>
-#include <sge/signal/auto_connection.hpp>
+#include <sge/signal/scoped_connection.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/log/global.hpp>
 #include <sge/log/logger.hpp>
@@ -88,7 +88,7 @@ try
 	
 	bool running = true;
 
-	sge::signal::auto_connection cb(
+	sge::signal::scoped_connection const cb(
 		sys.input_system()->register_callback(
 			sge::input::action(
 				sge::input::kc::key_escape,
@@ -99,7 +99,7 @@ try
 
 	sge::input::modifier::filter mf(sys.input_system());
 
-	sge::signal::auto_connection pc(
+	sge::signal::scoped_connection const pc(
 		mf.register_callback(&mod_callback));
 
 	while(running)
