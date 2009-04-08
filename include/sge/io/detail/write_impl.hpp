@@ -18,30 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ENDIANNESS_FROM_HOST_HPP_INCLUDED
-#define SGE_ENDIANNESS_FROM_HOST_HPP_INCLUDED
+#ifndef SGE_IO_DETAIL_WRITE_IMPL_HPP_INCLUDED
+#define SGE_IO_DETAIL_WRITE_IMPL_HPP_INCLUDED
 
-#include <sge/endianness/host_format.hpp>
-#include <sge/endianness/swap.hpp>
-
-namespace sge
-{
-namespace endianness
-{
+#include <sge/endianness/from_host.hpp>
+#include <ostream>
 
 template<
 	typename T
 >
-T from_host(
+typename boost::enable_if<boost::is_fundamental<T>, void>::type
+sge::io::write(
+	std::ostream &s,
 	T const &t,
-	format::type const fmt)
+	endianness::format::type const fmt)
 {
-	return fmt == host_format()
-		? t
-		: swap(t);
-}
+	T const tmp(
+		endianness::from_host(
+			t,
+			fmt
+		)
+	);
 
-}
+	s.write(
+		reinterpret_cast<char const *>(&tmp),
+		sizeof(T)
+	);
 }
 
 #endif
