@@ -50,7 +50,7 @@ public:
 	SGE_SYMBOL void connect(
 		auto_connection);
 
-	void clear();
+	SGE_SYMBOL void clear();
 private:
 	container connections;
 };
