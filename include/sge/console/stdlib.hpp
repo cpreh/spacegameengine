@@ -25,12 +25,13 @@ private:
 	print_callback print_;
 	error_callback error_;
 	// FIXME: connection_manager
-	sge::signal::scoped_connection
+	sge::signal::scoped_connection const
 		get,
 		set,
 		help,
-		lsfuncs
-		,lsvars,man;
+		lsfuncs,
+		lsvars,
+		man;
 	
 	void fn_get(arg_list const &);
 	void fn_set(arg_list const &);
