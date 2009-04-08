@@ -43,13 +43,13 @@ sge::container::raw_vector<T, A>::begin() const
 template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::iterator sge::container::raw_vector<T, A>::end()
 {
-	return i.last;
+	return data_end();
 }
 	
 template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::const_iterator sge::container::raw_vector<T, A>::end() const
 {
-	return i.last;
+	return data_end();
 }
 
 template<typename T, typename A>
@@ -134,20 +134,37 @@ typename sge::container::raw_vector<T, A>::const_reference sge::container::raw_v
 }
 
 template<typename T, typename A>
-typename sge::container::raw_vector<T, A>::pointer sge::container::raw_vector<T, A>::data()
+typename sge::container::raw_vector<T, A>::pointer
+sge::container::raw_vector<T, A>::data()
 {
 	return i.first;
 }
 
 template<typename T, typename A>
-typename sge::container::raw_vector<T, A>::const_pointer sge::container::raw_vector<T, A>::data() const
+typename sge::container::raw_vector<T, A>::const_pointer
+sge::container::raw_vector<T, A>::data() const
 {
 	return i.first;
+}
+
+template<typename T, typename A>
+typename sge::container::raw_vector<T, A>::pointer
+sge::container::raw_vector<T, A>::data_end()
+{
+	return i.last;
+}
+
+template<typename T, typename A>
+typename sge::container::raw_vector<T, A>::const_pointer
+sge::container::raw_vector<T, A>::data_end() const
+{
+	return i.last;
 }
 
 template<typename T, typename A>
 sge::container::raw_vector<T, A>::raw_vector(const A& a)
-: i(a)
+:
+	i(a)
 {}
 
 template<typename T, typename A>

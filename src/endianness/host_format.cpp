@@ -18,23 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ISTREAM_UTIL_HPP_INCLUDED
-#define SGE_ISTREAM_UTIL_HPP_INCLUDED
+#include <sge/endianness/host_format.hpp>
+#include <sge/config.h>
 
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_fundamental.hpp>
-#include <iosfwd>
-
-namespace sge
-{
-
-template<typename T>
-typename boost::enable_if<boost::is_fundamental<T>, T>::type
-read(
-	std::istream&);
-
-}
-
-#include <sge/detail/istream_util_impl.hpp>
-
+#if defined(SGE_LITTLE_ENDIAN) && defined(SGE_BIG_ENDIAN)
+#error "SGE_LITTLE_ENDIAN and SGE_BIG_ENDIAN defined!"
 #endif
+
+sge::endianness::format::type
+sge::endianness::host_format()
+{
+#if   defined(SGE_LITTLE_ENDIAN)
+	return format::little;
+#elif defined(SGE_BIG_ENDIAN)
+	return format::big;
+#else
+	// if unsigned long and char are of the same size
+	// endianness doesn't matter
+	typedef unsigned long type;
+	union {
+		type t;
+		unsigned char c[sizeof(type)];
+	} u;
+	u.t = 1u;
+
+	return u.c[0] == u.t
+		? format::little
+		: format::big;
+#endif
+}

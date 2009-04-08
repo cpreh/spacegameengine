@@ -18,10 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/endianness/is_little_endian.hpp>
-#include <sge/endianness/host_format.hpp>
+#ifndef SGE_IO_READ_HPP_INCLUDED
+#define SGE_IO_READ_HPP_INCLUDED
 
-bool sge::endianness::is_little_endian()
+#include <sge/endianness/format.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
+#include <iosfwd>
+
+namespace sge
 {
-	return host_format() == format::little;
+namespace io
+{
+
+template<
+	typename T
+>
+typename boost::enable_if<boost::is_fundamental<T>, T>::type
+read(
+	std::istream &,
+	endianness::format::type);
+
 }
+}
+
+#include <sge/io/detail/read_impl.hpp>
+
+#endif

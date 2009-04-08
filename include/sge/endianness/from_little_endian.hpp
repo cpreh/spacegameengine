@@ -8,12 +8,17 @@ namespace sge
 {
 namespace endianness
 {
-template<typename T>
-T from_little_endian(T const &t)
+
+template<
+	typename T
+>
+T from_little_endian(
+	T const &t)
 {
 	if(!is_little_endian())
 		return swap(t);
 	return t;
 }
+
 }
 }

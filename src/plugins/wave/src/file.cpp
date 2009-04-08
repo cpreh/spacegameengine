@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/endianness/is_little_endian.hpp>
 #include <sge/endianness/swap.hpp>
 #include <sge/container/raw_vector_impl.hpp>
-#include <sge/istream_util.hpp>
 #include <sge/sstream.hpp>
 #include <sge/format.hpp>
 #include <sge/assert.hpp>
@@ -81,11 +80,11 @@ sge::audio::sample_count sge::wave::file::read(
 			_array.size()+bytes_to_read));
 
 	file_.read(
-		reinterpret_cast<char*>(&_array[old_size]),
+		reinterpret_cast<char*>(_array.data() + old_size),
 		bytes_to_read);
 
 	if (bytes_per_sample() > static_cast<audio::sample_count>(1) && swap_)
-		for (audio::sample_container::iterator i = _array.begin()+old_size; i != _array.end(); i += bytes_per_sample())
+		for (audio::sample_container::pointer i = _array.data() + old_size; i != _array.data_end(); i += bytes_per_sample())
 			endianness::swap(i,bytes_per_sample());
 
 	samples_read_ += samples_to_read;
@@ -204,7 +203,10 @@ T sge::wave::file::extract_primitive(string const &_desc)
 {
 	SGE_ASSERT(swap_ != boost::logic::indeterminate);
 
-	T const ret = sge::read<T>(file_);
+	T ret;
+	file_.read(
+		reinterpret_cast<char *>(&ret), sizeof(T)
+	);
 
 	if (file_.bad())
 		throw audio::exception(

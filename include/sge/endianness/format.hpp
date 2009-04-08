@@ -18,21 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DETAIL_ISTREAM_UTIL_IMPL_HPP_INCLUDED
-#define SGE_DETAIL_ISTREAM_UTIL_IMPL_HPP_INCLUDED
+#ifndef SGE_ENDIANNESS_FORMAT_HPP_INCLUDED
+#define SGE_ENDIANNESS_FORMAT_HPP_INCLUDED
 
-#include <istream>
-
-template<typename T>
-typename boost::enable_if<boost::is_fundamental<T>, T>::type
-sge::read(
-	std::istream& s)
+namespace sge
 {
-	T t;
-	s.read(
-		reinterpret_cast<char*>(&t),
-		sizeof(T));
-	return t;
+namespace endianness
+{
+
+namespace format
+{
+enum type {
+	little,
+	big
+};
+}
+
+}
 }
 
 #endif

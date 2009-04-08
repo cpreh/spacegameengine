@@ -18,10 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/endianness/is_little_endian.hpp>
-#include <sge/endianness/host_format.hpp>
+#ifndef SGE_ENDIANNESS_HOST_FORMAT_HPP_INCLUDED
+#define SGE_ENDIANNESS_HOST_FORMAT_HPP_INCLUDED
 
-bool sge::endianness::is_little_endian()
+#include <sge/endianness/format.hpp>
+#include <sge/export.hpp>
+
+namespace sge
 {
-	return host_format() == format::little;
+namespace endianness
+{
+
+SGE_SYMBOL format::type
+host_format();
+
 }
+}
+
+#endif

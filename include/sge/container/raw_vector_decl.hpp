@@ -73,6 +73,9 @@ public:
 	pointer data();
 	const_pointer data() const;
 
+	pointer data_end();
+	const_pointer data_end() const;
+
 	explicit raw_vector(A const &a = A());
 	explicit raw_vector(size_type sz, A const &a = A()); // uninitialized vector
 	raw_vector(size_type sz, T const &t, A const &a = A());
