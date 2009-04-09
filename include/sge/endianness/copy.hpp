@@ -18,26 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ENDIANNESS_SWAP_HPP_INCLUDED
-#define SGE_ENDIANNESS_SWAP_HPP_INCLUDED
+#ifndef SGE_ENDIANNESS_COPY_HPP_INCLUDED
+#define SGE_ENDIANNESS_COPY_HPP_INCLUDED
 
 #include <sge/endianness/reverse_mem.hpp>
+#include <boost/type_traits/remove_pointer.hpp>
 
 namespace sge
 {
 namespace endianness
 {
 
-template<typename T>
-T swap(T t)
+template<
+	typename PtrIn,
+	typename PtrOut,
+	typename Size
+>
+PtrOut
+copy(
+	PtrIn beg,
+	PtrIn const end,
+	PtrOut dest,
+	Size const stride)
 {
-	reverse_mem(
-		reinterpret_cast<unsigned char*>(
-			&t), 
-		sizeof(
-			T));
-	return t;
+	Size counter = 0;
+
+	while(beg != end)
+	{
+		*dest++ = *beg++;
+		if(++counter == stride)
+		{
+			reverse_mem(
+				reinterpret_cast<
+					unsigned char *
+				>(
+					beg - stride 
+				),
+				stride * sizeof(typename boost::remove_pointer<PtrIn>::type)
+			);
+			counter = 0;
+		}
+	}
+
+	return dest;
 }
+
 }
 }
 

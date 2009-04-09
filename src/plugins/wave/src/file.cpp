@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/endianness/is_little_endian.hpp>
+#include <sge/endianness/copy.hpp>
 #include <sge/endianness/swap.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/sstream.hpp>
@@ -77,15 +78,25 @@ sge::audio::sample_count sge::wave::file::read(
 
 	_array.resize_uninitialized(
 		static_cast<audio::sample_container::size_type>(
-			_array.size()+bytes_to_read));
+			_array.size() + bytes_to_read));
+
+	audio::sample_container::pointer const old_pos(
+		_array.data() + old_size
+	);
 
 	file_.read(
-		reinterpret_cast<char*>(_array.data() + old_size),
+		reinterpret_cast<char*>(old_pos),
 		bytes_to_read);
 
 	if (bytes_per_sample() > static_cast<audio::sample_count>(1) && swap_)
-		for (audio::sample_container::pointer i = _array.data() + old_size; i != _array.data_end(); i += bytes_per_sample())
-			endianness::swap(i,bytes_per_sample());
+		endianness::copy(
+			old_pos,
+			_array.data_end(),
+			old_pos,
+			bytes_per_sample()
+		);
+		//for (audio::sample_container::pointer i = _array.data() + old_size; i != _array.data_end(); i += bytes_per_sample())
+		//	endianness::swap(i,bytes_per_sample());
 
 	samples_read_ += samples_to_read;
 	return samples_to_read;
