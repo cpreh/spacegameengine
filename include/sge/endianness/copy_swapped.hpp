@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ENDIANNESS_COPY_N_HPP_INCLUDED
-#define SGE_ENDIANNESS_COPY_N_HPP_INCLUDED
+#ifndef SGE_ENDIANNESS_COPY_SWAPPED_HPP_INCLUDED
+#define SGE_ENDIANNESS_COPY_SWAPPED_HPP_INCLUDED
 
-#include <sge/endianness/copy.hpp>
+#include <sge/endianness/reverse_mem.hpp>
 
 namespace sge
 {
@@ -29,25 +29,38 @@ namespace endianness
 {
 
 template<
-	typename PtrIn,
-	typename PtrOut,
+	typename T,
 	typename Size
 >
-PtrOut
-copy_n(
-	PtrIn const beg,
-	Size const n,
-	PtrOut const dest,
+T *
+copy_swapped(
+	T const * beg,
+	T const *const end,
+	T *dest,
 	Size const stride)
 {
-	return copy(
-		beg,
-		beg + n,
-		dest,
-		stride
-	);
+	Size counter = 0;
+
+	while(beg != end)
+	{
+		*dest++ = *beg++;
+		if(++counter == stride)
+		{
+			reverse_mem(
+				reinterpret_cast<
+					unsigned char *
+				>(
+					dest - stride 
+				),
+				stride * sizeof(T)
+			);
+			counter = 0;
+		}
+	}
+
+	return dest;
 }
-	
+
 }
 }
 

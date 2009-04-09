@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/endianness/is_little_endian.hpp>
-#include <sge/endianness/copy.hpp>
+#include <sge/endianness/copy_swapped.hpp>
 #include <sge/endianness/swap.hpp>
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/sstream.hpp>
@@ -88,8 +88,9 @@ sge::audio::sample_count sge::wave::file::read(
 		reinterpret_cast<char*>(old_pos),
 		bytes_to_read);
 
+	// TODO: replace this with copy_to_host
 	if (bytes_per_sample() > static_cast<audio::sample_count>(1) && swap_)
-		endianness::copy(
+		endianness::copy_swapped(
 			old_pos,
 			_array.data_end(),
 			old_pos,
@@ -214,6 +215,7 @@ T sge::wave::file::extract_primitive(string const &_desc)
 {
 	SGE_ASSERT(swap_ != boost::logic::indeterminate);
 
+	// TODO: replace this with io::read
 	T ret;
 	file_.read(
 		reinterpret_cast<char *>(&ret), sizeof(T)

@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ENDIANNESS_COPY_HPP_INCLUDED
-#define SGE_ENDIANNESS_COPY_HPP_INCLUDED
+#ifndef SGE_ENDIANNESS_COPY_N_FROM_HOST_HPP_INCLUDED
+#define SGE_ENDIANNESS_COPY_N_FROM_HOST_HPP_INCLUDED
 
-#include <sge/endianness/reverse_mem.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
+#include <sge/endianness/copy_n_swapped.hpp>
+#include <sge/endianness/host_format.hpp>
+#include <sge/endianness/format.hpp>
+#include <sge/algorithm/copy_n.hpp>
 
 namespace sge
 {
@@ -30,37 +32,28 @@ namespace endianness
 {
 
 template<
-	typename PtrIn,
-	typename PtrOut,
+	typename T,
 	typename Size
 >
-PtrOut
-copy(
-	PtrIn beg,
-	PtrIn const end,
-	PtrOut dest,
-	Size const stride)
+T *
+copy_n_from_host(
+	T const *const beg,
+	Size const n,
+	T *const dest,
+	Size const stride,
+	format::type const fmt)
 {
-	Size counter = 0;
-
-	while(beg != end)
-	{
-		*dest++ = *beg++;
-		if(++counter == stride)
-		{
-			reverse_mem(
-				reinterpret_cast<
-					unsigned char *
-				>(
-					beg - stride 
-				),
-				stride * sizeof(typename boost::remove_pointer<PtrIn>::type)
-			);
-			counter = 0;
-		}
-	}
-
-	return dest;
+	return fmt == host_format()
+		? algorithm::copy_n(
+			beg,
+			n,
+			dest)
+		: copy_n_swapped(
+			beg,
+			n,
+			dest,
+			stride
+		);
 }
 
 }
