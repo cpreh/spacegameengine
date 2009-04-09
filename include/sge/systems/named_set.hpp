@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_ANY_COMPARE_HPP_INCLUDED
-#define SGE_SYSTEMS_ANY_COMPARE_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_NAMED_SET_HPP_INCLUDED
+#define SGE_SYSTEMS_NAMED_SET_HPP_INCLUDED
 
-#include <sge/systems/any.hpp>
+#include <sge/systems/named_fwd.hpp>
+#include <set>
 #include <functional>
 
 namespace sge
@@ -29,11 +30,14 @@ namespace sge
 namespace systems
 {
 
-struct any_compare : std::binary_function<any const &, any const &, bool> {
-	bool operator()(
-		any const &,
-		any const &) const;
-};
+typedef std::set<
+	named,
+	std::pointer_to_binary_function<
+		named const &,
+		named const &,
+		bool
+	>
+> named_set;
 
 }
 }

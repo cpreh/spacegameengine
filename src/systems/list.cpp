@@ -19,33 +19,96 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/list.hpp>
+#include <sge/systems/named_compare.hpp>
+#include <sge/systems/name_dont_care.hpp>
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
+#include <functional>
 #include <ostream>
 
+namespace
+{
+
+sge::systems::named_set const
+init_states()
+{
+	return sge::systems::named_set(
+		std::ptr_fun(
+			sge::systems::named_compare
+		)
+	);
+}
+
+}
+
 sge::systems::list::list()
+:
+	states(
+		init_states()
+	)
 {}
 
 sge::systems::list::list(
-	any const &a)
+	any const &any_)
+:
+	states(
+		init_states()
+	)
 {
-	states.insert(a);
+	states.insert(
+		named(
+			any_,
+			name_dont_care
+		)
+	);
+}
+
+sge::systems::list::list(
+	named const &named_)
+:
+	states(
+		init_states()
+	)
+{
+	states.insert(
+		named_
+	);
 }
 
 sge::systems::list const
 sge::systems::list::operator()(
-	any const &a) const
+	any const &any_) const
+{
+	return (*this)(
+		named(
+			any_,
+			name_dont_care
+		)
+	);
+}
+
+sge::systems::list const
+sge::systems::list::operator()(
+	named const &named_) const
 {
 	list ret(*this);
-	if(!ret.states.insert(a).second)
+
+	if(
+		!ret.states.insert(
+			named_
+		).second
+	)
+	{
 		SGE_LOG_WARNING(
 			log::global(),
 			log::_1
-				<< SGE_TEXT("Duplicate system state given!"));
+				<< SGE_TEXT("Duplicate system state given!")
+		);
+	}
 	return ret;
 }
 
-sge::systems::list::any_set const &
+sge::systems::named_set const &
 sge::systems::list::get() const
 {
 	return states;

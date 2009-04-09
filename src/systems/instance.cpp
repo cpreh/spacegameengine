@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/name_dont_care.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/plugin.hpp>
 #include <sge/plugin/iterator.hpp>
@@ -40,12 +41,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/plugin.hpp>
 #include <sge/window/instance.hpp>
 #include <sge/window/create.hpp>
+#include <sge/log/headers.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
+#include <sge/string.hpp>
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/foreach.hpp>
 #include <boost/optional.hpp>
+#include <typeinfo>
 
 struct sge::systems::instance::impl {
 	plugin::manager                                 plugin_manager;
@@ -74,22 +78,49 @@ struct sge::systems::instance::impl {
 	boost::optional<window::parameters>             wparam_;
 
 	void init_renderer(
-		renderer::parameters const &);
+		renderer::parameters const &,
+		sge::string const &name);
+
 	void init_window(
-		window::parameters const &);
-	void init_input();
-	void init_collision_system();
-	void init_image();
-	void init_audio_player();
-	void init_font();
+		window::parameters const &,
+		sge::string const &name);
+
+	void init_input(
+		sge::string const &name);
+
+	void init_collision_system(
+		sge::string const &name);
+
+	void init_image(
+		sge::string const &name);
+
+	void init_audio_player(
+		sge::string const &name);
+
+	void init_font(
+		sge::string const &name);
+private:
+	template<
+		typename T
+	>
+	typename plugin::plugin<T>::ptr_type const
+	load_plugin(
+		string const &name);
+
+	template<
+		typename T
+	>
+	typename plugin::plugin<T>::ptr_type const
+	default_plugin();
 };
 
 namespace
 {
 
 struct visitor : boost::static_visitor<> {
-	explicit visitor(
-		sge::systems::instance::impl &);
+	visitor(
+		sge::systems::instance::impl &,
+		sge::string const &name);
 	
 	void operator()(
 		sge::renderer::parameters const &) const;
@@ -99,6 +130,7 @@ struct visitor : boost::static_visitor<> {
 		sge::systems::parameterless::type) const;
 private:
 	sge::systems::instance::impl &impl_;
+	sge::string const name;
 };
 
 }
@@ -118,11 +150,14 @@ sge::systems::instance::~instance()
 void sge::systems::instance::reinit(
 	list const &l)
 {
-	visitor v(*impl_);
-	BOOST_FOREACH(any const &a, l.get())
+	BOOST_FOREACH(named const &named_, l.get())
 		boost::apply_visitor(
-			v,
-			a);
+			visitor(
+				*impl_,
+				named_.name()
+			),
+			named_.value()
+		);
 }
 
 sge::plugin::manager &
@@ -177,22 +212,30 @@ namespace
 {
 
 visitor::visitor(
-	sge::systems::instance::impl &impl_)
+	sge::systems::instance::impl &impl_,
+	sge::string const &name)
 :
-	impl_(impl_)
+	impl_(impl_),
+	name(name)
 {}
 
 
 void visitor::operator()(
 	sge::renderer::parameters const &p) const
 {
-	impl_.init_renderer(p);
+	impl_.init_renderer(
+		p,
+		name
+	);
 }
 
 void visitor::operator()(
 	sge::window::parameters const &p) const
 {
-	impl_.init_window(p);
+	impl_.init_window(
+		p,
+		name
+	);
 }
 
 void visitor::operator()(
@@ -200,19 +243,19 @@ void visitor::operator()(
 {
 	switch(p) {
 	case sge::systems::parameterless::input:
-		impl_.init_input();
+		impl_.init_input(name);
 		break;
 	case sge::systems::parameterless::image:
-		impl_.init_image();
+		impl_.init_image(name);
 		break;
 	case sge::systems::parameterless::audio_player:
-		impl_.init_audio_player();
+		impl_.init_audio_player(name);
 		break;
 	case sge::systems::parameterless::collision_system:
-		impl_.init_collision_system();
+		impl_.init_collision_system(name);
 		break;
 	case sge::systems::parameterless::font:
-		impl_.init_font();
+		impl_.init_font(name);
 		break;
 	default:
 		throw sge::exception(
@@ -223,21 +266,18 @@ void visitor::operator()(
 }
 
 void sge::systems::instance::impl::init_window(
-	window::parameters const &p)
+	window::parameters const &p,
+	string const &name)
 {
 	wparam_.reset(p);
 }
 
-void sge::systems::instance::impl::init_collision_system()
-{
-	collision_plugin = plugin_manager.plugin<sge::collision::system>().load();
-	collision_system.reset(collision_plugin->get()());
-}
-
 void sge::systems::instance::impl::init_renderer(
-	renderer::parameters const &p)
+	renderer::parameters const &p,
+	string const &name)
 {
-	renderer_plugin = plugin_manager.plugin<renderer::system>().load();
+	//renderer_plugin = plugin_manager.plugin<renderer::system>().load();
+	renderer_plugin = load_plugin<renderer::system>(name);
 	renderer_system.reset(renderer_plugin->get()());
 
 	if(!window_)
@@ -261,7 +301,8 @@ void sge::systems::instance::impl::init_renderer(
 		window_);
 }
 
-void sge::systems::instance::impl::init_input()
+void sge::systems::instance::impl::init_input(
+	sge::string const &name)
 {
 	if(!window_)
 	{
@@ -272,25 +313,82 @@ void sge::systems::instance::impl::init_input()
 			*wparam_);
 	}
 			
-	input_plugin = plugin_manager.plugin<sge::input::system>().load();
+
+	//input_plugin = plugin_manager.plugin<sge::input::system>().load();
+	input_plugin = load_plugin<sge::input::system>(name);
 	input_system.reset(input_plugin->get()(window_));
 }
 
-void sge::systems::instance::impl::init_image()
+void sge::systems::instance::impl::init_collision_system(
+	string const &name)
 {
-	image_loader_plugin = plugin_manager.plugin<sge::image::loader>().load();
+	//collision_plugin = plugin_manager.plugin<sge::collision::system>().load();
+	collision_plugin = load_plugin<sge::collision::system>(name);
+	collision_system.reset(collision_plugin->get()());
+}
+
+void sge::systems::instance::impl::init_image(
+	string const &name)
+{
+	//image_loader_plugin = plugin_manager.plugin<sge::image::loader>().load();
+	image_loader_plugin = load_plugin<sge::image::loader>(name);
 	image_loader.reset(image_loader_plugin->get()());
 }
 
-void sge::systems::instance::impl::init_audio_player()
+void sge::systems::instance::impl::init_audio_player(
+	string const &name)
 {
-	audio_player_plugin = plugin_manager.plugin<sge::audio::player>().load();
+	//audio_player_plugin = plugin_manager.plugin<sge::audio::player>().load();
+	audio_player_plugin = load_plugin<sge::audio::player>(name);
 	audio_player.reset(audio_player_plugin->get()());
 }
 
 
-void sge::systems::instance::impl::init_font()
+void sge::systems::instance::impl::init_font(
+	string const &name)
 {
-	font_plugin = plugin_manager.plugin<sge::font::system>().load();
+	//font_plugin = plugin_manager.plugin<sge::font::system>().load();
+	font_plugin = load_plugin<sge::font::system>(name);
 	font_system.reset(font_plugin->get()());
+}
+
+template<
+	typename T
+>
+typename sge::plugin::plugin<T>::ptr_type const
+sge::systems::instance::impl::load_plugin(
+	string const &name)
+{
+	if(name == name_dont_care)
+		return default_plugin<T>();
+
+	for(
+		sge::plugin::iterator<T> it(plugin_manager.begin<T>());
+		it != plugin_manager.end<T>();
+		++it
+	)
+		if(it->info().name() == name)
+			return it->load();
+	
+	SGE_LOG_WARNING(
+		log::global(),
+		log::_1
+			<< SGE_TEXT("Tried to login plugin of type ")
+			<< typeid(T).name()
+			<< SGE_TEXT(" with name \"")
+			<< name
+			<< SGE_TEXT("\" but it could not be found!")
+			<< SGE_TEXT(" Trying to load a default plugin instead.")
+	);
+
+	return default_plugin<T>(); 
+}
+
+template<
+	typename T
+>
+typename sge::plugin::plugin<T>::ptr_type const
+sge::systems::instance::impl::default_plugin()
+{
+	return plugin_manager.plugin<T>().load();
 }
