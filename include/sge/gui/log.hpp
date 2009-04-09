@@ -12,7 +12,7 @@ namespace gui
 {
 class logger : public sge::log::logger
 {
-	public:
+public:
 	logger(
 		sge::log::logger &parent,
 		string const &prefix,

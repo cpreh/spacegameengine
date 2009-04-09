@@ -3,12 +3,17 @@
 
 #include <sge/image/object_fwd.hpp>
 #include <sge/gui/image.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace gui
 {
-image_ptr const make_image(sge::image::object_ptr);
+
+SGE_SYMBOL image_ptr const
+make_image(
+	sge::image::object_ptr);
+
 }
 }
 

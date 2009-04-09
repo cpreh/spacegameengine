@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/container/raw_vector_decl.hpp>
 #include <sge/assert.hpp>
 #include <boost/next_prior.hpp>
+#include <iterator>
 #include <algorithm>
 
 template<typename T, typename A>
@@ -376,8 +377,9 @@ void sge::container::raw_vector<T, A>::insert(
 	In const l,
 	In const r)
 {
-	// FIXME:
-	difference_type const distance = r - l;//std::distance(l, r);
+	difference_type const distance(
+		std::distance(l, r)
+	);
 
 	size_type const new_size = size() + distance;
 	if(new_size > capacity())
@@ -400,7 +402,8 @@ void sge::container::raw_vector<T, A>::insert(
 }
 
 template<typename T, typename A>
-typename sge::container::raw_vector<T, A>::iterator sge::container::raw_vector<T, A>::erase(const iterator position)
+typename sge::container::raw_vector<T, A>::iterator
+sge::container::raw_vector<T, A>::erase(const iterator position)
 {
 	std::uninitialized_copy(position + 1, end(), position);
 	--i.last;
@@ -463,8 +466,14 @@ sge::container::raw_vector<T,A>::impl::impl(const A& a_, const size_type sz)
 {}
 
 
-template <typename T, typename A>
-bool sge::container::operator==(const raw_vector<T, A>& x, const raw_vector<T,A>& y)
+template<
+	typename T,
+	typename A
+>
+bool
+sge::container::operator==(
+	raw_vector<T, A> const &x,
+	raw_vector<T,A> const &y)
 {
 	return x.size() == y.size() && std::equal(x.begin(), x.end(), y.begin());
 }

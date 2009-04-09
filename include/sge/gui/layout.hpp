@@ -13,24 +13,24 @@ namespace gui
 {
 class SGE_CLASS_SYMBOL layout
 {
-	public:
-	SGE_SYMBOL layout(widget &);
+public:
+	SGE_SYMBOL explicit layout(widget &);
 
 	virtual void update() = 0;
 	virtual void pos(point const &) = 0;
 	virtual void size(dim const &) = 0;
 	virtual dim const size_hint() const = 0;
 
-	widget &connected_widget() { return w; }
-	widget const &connected_widget() const { return w; }
+	SGE_SYMBOL widget &connected_widget();
+	SGE_SYMBOL widget const &connected_widget() const;
 
-	virtual ~layout() {}
-	protected:
+	SGE_SYMBOL virtual ~layout();
+protected:
 	void set_widget_size(widget &,dim const &);
 	void set_widget_pos(widget &,point const &);
 	void compile_widget(widget &);
 
-	private:
+private:
 	widget &w;
 };
 

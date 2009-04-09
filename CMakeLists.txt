@@ -58,7 +58,8 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 # -fvisibility=hidden causes problems without inlining, so just switch it on
 # in release mode
 	IF (SGE_HAVE_GCC_VISIBILITY)
-		SET (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fvisibility=hidden")
+		ADD_DEFINITIONS(-fvisibility=hidden)
+		#SET (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fvisibility=hidden")
 	ENDIF ()
 
 	#IF (SGE_HAVE_VARIADIC_TEMPLATES)
