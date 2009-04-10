@@ -71,7 +71,7 @@ sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::array_offset(
 template<typename Enum, Enum Size, typename InternalType>
 template<typename StoredType>
 // hack for VC++
-typename sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::ref_type
+typename sge::bitfield<Enum, Size, InternalType>:: template proxy_impl<StoredType>::ref_type
 sge::bitfield<Enum, Size, InternalType>::proxy_impl<StoredType>::operator=(
 	value_type const b)
 {
