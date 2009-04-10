@@ -31,6 +31,9 @@ namespace ogl
 void set_texture_level(
 	renderer::stage_type stage);
 
+void client_texture_level(
+	renderer::stage_type stage);
+
 }
 }
 

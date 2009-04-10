@@ -20,22 +20,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../multi_texture.hpp"
 #include "../common.hpp"
+#include "../error.hpp"
 #include "../glew.hpp"
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <ostream>
 #include <algorithm>
 
-void sge::ogl::set_texture_level(
-	renderer::stage_type const stage)
+namespace
 {
-	static bool const have_multi_texture(
-		glew_is_supported(
+
+bool have_multi_texture()
+{
+	static bool const ret(
+		sge::ogl::glew_is_supported(
 			"GL_VERSION_1_3"
 		)
 	);
 
-	if(!have_multi_texture)
+	return ret;
+}
+
+}
+
+void sge::ogl::set_texture_level(
+	renderer::stage_type const stage)
+{
+	if(!have_multi_texture())
 	{
 		if(stage == 0)
 			return;
@@ -67,5 +78,43 @@ void sge::ogl::set_texture_level(
 		return;
 	}
 	
-	glActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + stage));
+	SGE_OPENGL_SENTRY
+
+	glActiveTexture(
+		static_cast<
+			GLenum
+		>(
+			GL_TEXTURE0 + stage
+		)
+	);
+}
+
+void sge::ogl::client_texture_level(
+	renderer::stage_type const stage)
+{
+	if(!have_multi_texture())
+	{
+		if(stage == 0)
+			return;
+
+		SGE_LOG_ERROR(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("Tried to set texture coordinates for stage ")
+				<< stage
+				<< SGE_TEXT(" but opengl does not support it.")
+		);
+
+		return;
+	}
+
+	SGE_OPENGL_SENTRY
+
+	glClientActiveTexture(
+		static_cast<
+			GLenum
+		>(
+			GL_TEXTURE0 + stage
+		)
+	);
 }
