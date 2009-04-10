@@ -16,42 +16,48 @@ sge::gui::widget::parameters::parameters(
 {
 }
 
-sge::gui::widget::parameters::parameters &sge::gui::widget::parameters::pos(
+sge::gui::widget::parameters &
+sge::gui::widget::parameters::pos(
 	point const &_pos) 
 { 
 	pos_ = _pos; 
 	return *this; 
 }
 
-sge::gui::widget::parameters::parameters &sge::gui::widget::parameters::size(
+sge::gui::widget::parameters &
+sge::gui::widget::parameters::size(
 	dim const &_size) 
 { 
 	size_ = _size; 
 	return *this; 
 }
 
-sge::gui::widget::parameters::parameters &sge::gui::widget::parameters::size_policy(
+sge::gui::widget::parameters &
+sge::gui::widget::parameters::size_policy(
 	size_policy_t const &_size_policy) 
 { 
 	size_policy_ = _size_policy; 
 	return *this; 
 }
 
-sge::gui::widget::parameters::parameters &sge::gui::widget::parameters::keyboard_focus(
+sge::gui::widget::parameters &
+sge::gui::widget::parameters::keyboard_focus(
 	keyboard_focus::type const &_keyboard_focus) 
 { 
 	keyboard_focus_ = _keyboard_focus; 
 	return *this; 
 }
 
-sge::gui::widget::parameters::parameters &sge::gui::widget::parameters::layout(
+sge::gui::widget::parameters &
+sge::gui::widget::parameters::layout(
 	layout_auto_ptr _layout) 
 { 
 	layout_ = _layout; 
 	return *this; 
 }
 
-sge::gui::widget::parameters::parameters &sge::gui::widget::parameters::activation(
+sge::gui::widget::parameters &
+sge::gui::widget::parameters::activation(
 	activation_state::type const _activation) 
 { 
 	activation_ = _activation; 
