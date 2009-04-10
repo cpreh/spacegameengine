@@ -51,7 +51,9 @@ void sge::ogl::vf::texpos_actor::operator()(
 	client_state_combiner &c) const
 {
 	client_texture_level(
-		index()
+		static_cast<
+			renderer::stage_type
+		>(index())
 	);
 
 	SGE_OPENGL_SENTRY

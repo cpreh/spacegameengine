@@ -154,8 +154,7 @@ sge::dinput::key_converter::key_converter()
 	v[DIK_Z] = input::kc::key_z;
 
 	for(key_vector::size_type i = 0; i < v.size(); ++i)
-		if(v[i] != input::kc::none)
-			vr[v[i]] = static_cast<DWORD>(i);
+		vr[v[i]] = static_cast<DWORD>(i);
 }
 
 sge::input::key_code
