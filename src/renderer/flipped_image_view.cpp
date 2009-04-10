@@ -18,19 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/image_view_format.hpp>
-#include <sge/renderer/color_format_static.hpp>
+#include <sge/renderer/flipped_image_view.hpp>
 #include <boost/gil/extension/dynamic_image/apply_operation.hpp>
+#include <boost/gil/image_view_factory.hpp>
 
 namespace
 {
 
-struct format_fun {
-	typedef sge::renderer::color_format::type result_type;
+template<
+	typename View 
+>
+struct visitor {
+	typedef View const result_type;
 
 	template<
 		typename T
-	> 
+	>
 	result_type
 	operator()(
 		T const &) const;
@@ -38,28 +41,44 @@ struct format_fun {
 
 }
 
-sge::renderer::color_format::type
-sge::renderer::image_view_format(
-	const_image_view const &view)
+sge::renderer::image_view const
+sge::renderer::flipped_image_view(
+	image_view const &v)
 {
 	return boost::gil::apply_operation(
-		view,
-		format_fun());
+		v,
+		visitor<image_view>()
+	);
+}
+
+sge::renderer::const_image_view const
+sge::renderer::flipped_image_view(
+	const_image_view const &v)
+{
+	return boost::gil::apply_operation(
+		v,
+		visitor<const_image_view>()
+	);
 }
 
 namespace
 {
 
 template<
+	typename View
+>
+template<
 	typename T
 >
-format_fun::result_type
-format_fun::operator()(
-	T const &) const
+typename visitor<View>::result_type
+visitor<View>::operator()(
+	T const &v) const
 {
-	return sge::renderer::color_format_static<
-		typename T::locator::value_type
-	>::value;
+	return typename visitor<View>::result_type(
+		boost::gil::flipped_up_down_view(
+			v
+		)
+	);
 }
 
 }

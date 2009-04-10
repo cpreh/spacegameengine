@@ -7,6 +7,7 @@
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/state/states.hpp>
 #include <sge/renderer/scoped_block.hpp>
+#include <sge/renderer/colors.hpp>
 #include <sge/mainloop/dispatch.hpp>
 #include <sge/time/timer.hpp>
 #include <sge/time/second.hpp>
@@ -46,7 +47,10 @@ try
 	rend->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
-			(sge::renderer::state::color_::clear_color = sge::renderer::rgba8_color(255, 255, 0, 255)));
+			(sge::renderer::state::color_::clear_color
+				= sge::renderer::colors::yellow()
+			)
+	);
 
 	while(!tm.update_b())
 	{

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../color_convert.hpp"
 #include <sge/renderer/make_image_view.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
+#include <sge/renderer/flipped_image_view.hpp>
 #include <sge/math/rect_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/container/raw_vector_impl.hpp>
@@ -61,12 +62,14 @@ sge::ogl::target::lock(
 	);
 
 	return renderer::make_const_image_view(
-		renderer::make_image_view(
-			buffer.data(),
-			dim(),
-			color_convert(
-				format(),
-				format_type()
+		renderer::flipped_image_view(
+			renderer::make_image_view(
+				buffer.data(),
+				dim(),
+				color_convert(
+					format(),
+					format_type()
+				)
 			)
 		)
 	);

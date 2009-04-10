@@ -28,12 +28,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/list.hpp>
 #include <sge/renderer/state/var.hpp>
 #include <sge/renderer/screenshot.hpp>
+#include <sge/renderer/colors.hpp>
+#include <sge/renderer/filter/linear.hpp>
 #include <sge/input/action.hpp>
 #include <sge/input/system.hpp>
 #include <sge/image/loader.hpp>
+#include <sge/texture/manager.hpp>
+#include <sge/texture/default_creator_impl.hpp>
+#include <sge/texture/no_fragmented.hpp>
+#include <sge/texture/part.hpp>
+#include <sge/texture/add_image.hpp>
+#include <sge/sprite/system.hpp>
+#include <sge/sprite/parameters.hpp>
+#include <sge/sprite/object.hpp>
 #include <sge/signal/scoped_connection.hpp>
 #include <sge/window/parameters.hpp>
 #include <sge/text.hpp>
+#include <sge/media.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <boost/bind.hpp>
@@ -68,9 +79,45 @@ try
 		sys.input_system()
 	);
 
+	sge::image::loader_ptr const loader(
+		sys.image_loader()
+	);
+
+	sge::texture::manager tex_man(
+		device,
+		sge::texture::default_creator<
+			sge::texture::no_fragmented
+		>(
+			device,
+			sge::renderer::color_format::rgba8,
+			sge::renderer::filter::linear
+		)
+	);
+
+	sge::texture::const_part_ptr const tex(
+		sge::texture::add_image(
+			tex_man,
+			sys.image_loader()->load(
+				sge::media_path() / SGE_TEXT("tux.png")
+			)
+		)
+	);
+
+	sge::sprite::system ss(
+		device
+	);
+
+	sge::sprite::object bg(
+		sge::sprite::parameters()
+			.texture(tex)
+			.size(sge::sprite::texture_dim)
+	);
+
 	device->state(
 		sge::renderer::state::list
 			(sge::renderer::state::bool_::clear_backbuffer = true)
+			(sge::renderer::state::color_::clear_color
+				= sge::renderer::colors::green())
 	);
 
 	bool running = true;
@@ -91,7 +138,7 @@ try
 				boost::bind(
 					sge::renderer::screenshot,
 					device,
-					sys.image_loader(),
+					loader,
 					sge::filesystem::path(
 						SGE_TEXT("output.png")
 					)
@@ -107,6 +154,8 @@ try
 		sge::renderer::scoped_block const block_(
 			device
 		);
+
+		ss.render(bg);
 	}
 }
 SGE_MAINLOOP_CATCH_BLOCK

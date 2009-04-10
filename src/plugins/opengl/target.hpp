@@ -47,9 +47,11 @@ private:
 	virtual GLenum format() const = 0;
 	virtual GLenum format_type() const = 0;
 
-	mutable sge::container::raw_vector<
+	typedef sge::container::raw_vector<
 		unsigned char
-	> buffer;
+	> buffer_type;
+
+	mutable buffer_type buffer;
 };
 
 }

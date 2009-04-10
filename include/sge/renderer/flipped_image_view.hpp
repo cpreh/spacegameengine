@@ -18,43 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
-#define SGE_RENDERER_IMAGE_VIEW_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_RENDERER_FLIPPED_IMAGE_VIEW_HPP_INCLUDED
+#define SGE_RENDERER_FLIPPED_IMAGE_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/color_types.hpp>
-#include <boost/mpl/transform.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/gil/image_view.hpp>
-#include <boost/gil/step_iterator.hpp>
+#include <sge/renderer/image_view.hpp>
+#include <sge/export.hpp>
 
 namespace sge
 {
 namespace renderer
 {
-namespace detail
-{
 
-template<
-	typename Color
->
-struct view_type {
-	typedef boost::gil::image_view<
-		boost::gil::memory_based_2d_locator<
-			boost::gil::memory_based_step_iterator<
-				Color *
-			>
-		>
-	> type;
-};
+SGE_SYMBOL image_view const
+flipped_image_view(
+	image_view const &);
 
-}
-
-typedef boost::mpl::transform<
-	color_types,
-	detail::view_type<
-		boost::mpl::placeholders::_1
-	>
->::type image_view_elements;
+SGE_SYMBOL const_image_view const
+flipped_image_view(
+	const_image_view const &);
 
 }
 }
