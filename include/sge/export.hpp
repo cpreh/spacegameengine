@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #	define SGE_EXPORT_SYMBOL __declspec(dllexport)
 #	define SGE_IMPORT_SYMBOL __declspec(dllimport)
 
-#	ifdef SGE_EXPORTS
+#	ifdef sgecore_EXPORTS
 #		define SGE_SYMBOL SGE_EXPORT_SYMBOL
 #	else
 #		define SGE_SYMBOL SGE_IMPORT_SYMBOL
