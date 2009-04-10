@@ -3,7 +3,7 @@
 
 #include <sge/gui/skin.hpp>
 #include <sge/gui/color.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 
 namespace sge
 {
@@ -14,11 +14,11 @@ namespace skins
 class standard : public skin
 {
 	public:
-	SGE_SYMBOL standard();
-	SGE_SYMBOL SGE_GUI_SKIN_DRAW_RETURN(widget) fallback(
+	SGE_GUI_SYMBOL standard();
+	SGE_GUI_SYMBOL SGE_GUI_SKIN_DRAW_RETURN(widget) fallback(
 		SGE_GUI_SKIN_DRAW_PARAMS(widget));
 	SGE_GUI_SKIN_WIDGETS
-	SGE_SYMBOL filesystem::path const cursor_path() const;
+	SGE_GUI_SYMBOL filesystem::path const cursor_path() const;
 	private:
 	color bgcolor,bgcolor_focused;
 };

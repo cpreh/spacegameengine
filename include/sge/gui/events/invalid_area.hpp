@@ -3,7 +3,7 @@
 
 #include <sge/gui/image_view.hpp>
 #include <sge/gui/rect.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 
 namespace sge
 {
@@ -14,7 +14,7 @@ namespace events
 class invalid_area
 {
 	public:
-	SGE_SYMBOL invalid_area(
+	SGE_GUI_SYMBOL invalid_area(
 		image_view const &,
 		rect const &);
 	image_view const &texture() const { return texture_; }

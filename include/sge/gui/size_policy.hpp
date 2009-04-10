@@ -4,7 +4,7 @@
 #include <sge/bitfield.hpp>
 // hrhr, no impl crap for me!
 #include <sge/bitfield_impl.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 #include <cstddef>
 
 namespace sge
@@ -20,7 +20,7 @@ typedef bitfield<internal_type,size> type;
 class size_policy
 {
 	public:
-	SGE_SYMBOL size_policy(axis_policy::type const &x,axis_policy::type const &y);
+	SGE_GUI_SYMBOL size_policy(axis_policy::type const &x,axis_policy::type const &y);
 	axis_policy::type const &x() const { return x_; }
 	axis_policy::type const &y() const { return y_; }
 	// this is a hack so we can use it with the layouts::row::master stuff
@@ -29,7 +29,7 @@ class size_policy
 		return i == static_cast<std::size_t>(0) ? x() : y(); 
 	}
 
-	SGE_SYMBOL static size_policy const default_policy;
+	SGE_GUI_SYMBOL static size_policy const default_policy;
 	private:
 	axis_policy::type x_,y_;
 };

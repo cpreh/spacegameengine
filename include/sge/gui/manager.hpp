@@ -21,7 +21,7 @@
 #include <sge/sprite/system.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/image/loader_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 #include <sge/noncopyable.hpp>
 #include <set>
 #include <vector>
@@ -34,27 +34,27 @@ class manager
 {
 	SGE_NONCOPYABLE(manager)
 	public:
-	SGE_SYMBOL manager(
+	SGE_GUI_SYMBOL manager(
 		renderer::device_ptr,
 		sge::image::loader_ptr,
 		input::system_ptr,
 		font::system_ptr,
 		skin_ptr);
-	SGE_SYMBOL ~manager();
-	SGE_SYMBOL void invalidate(
+	SGE_GUI_SYMBOL ~manager();
+	SGE_GUI_SYMBOL void invalidate(
 		widget &,
 		rect const &);
-	SGE_SYMBOL timer::object_ptr const register_timer(
+	SGE_GUI_SYMBOL timer::object_ptr const register_timer(
 		time::resolution const &,
 		timer::callback);
-	SGE_SYMBOL void draw();
-	SGE_SYMBOL font::metrics_ptr const standard_font();
-	SGE_SYMBOL sge::gui::skin &skin();
-	SGE_SYMBOL sge::gui::skin  const &skin() const;
-	SGE_SYMBOL sge::sprite::object &connected_sprite(
+	SGE_GUI_SYMBOL void draw();
+	SGE_GUI_SYMBOL font::metrics_ptr const standard_font();
+	SGE_GUI_SYMBOL sge::gui::skin &skin();
+	SGE_GUI_SYMBOL sge::gui::skin  const &skin() const;
+	SGE_GUI_SYMBOL sge::sprite::object &connected_sprite(
 		widget &);
 
-	SGE_SYMBOL detail::managers::keyboard &keyboard();
+	SGE_GUI_SYMBOL detail::managers::keyboard &keyboard();
 	private:
 	friend class widget;
 

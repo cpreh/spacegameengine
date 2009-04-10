@@ -15,7 +15,7 @@
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/renderer/image.hpp>
 #include <sge/noncopyable.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/function.hpp>
@@ -38,8 +38,8 @@ class SGE_CLASS_SYMBOL widget
 		manager &manager_;
 
 		public:
-		SGE_SYMBOL parent_data(widget &);
-		SGE_SYMBOL parent_data(manager &);
+		SGE_GUI_SYMBOL parent_data(widget &);
+		SGE_GUI_SYMBOL parent_data(manager &);
 
 		widget *parent_widget() const { return widget_; }
 		manager &parent_manager() const { return manager_; }
@@ -78,69 +78,69 @@ class SGE_CLASS_SYMBOL widget
 		activation_state::type activation_;
 	};
 
-	SGE_SYMBOL explicit widget(
+	SGE_GUI_SYMBOL explicit widget(
 		parent_data const &,
 		parameters const &);
 
-	SGE_SYMBOL point const screen_pos() const;
-	SGE_SYMBOL point const absolute_pos() const;
-	SGE_SYMBOL point const relative_pos() const;
-	SGE_SYMBOL void relative_pos(point const &);
-	SGE_SYMBOL dim const size() const;
-	SGE_SYMBOL void size(dim const &);
-	SGE_SYMBOL image &buffer() const;
+	SGE_GUI_SYMBOL point const screen_pos() const;
+	SGE_GUI_SYMBOL point const absolute_pos() const;
+	SGE_GUI_SYMBOL point const relative_pos() const;
+	SGE_GUI_SYMBOL void relative_pos(point const &);
+	SGE_GUI_SYMBOL dim const size() const;
+	SGE_GUI_SYMBOL void size(dim const &);
+	SGE_GUI_SYMBOL image &buffer() const;
 
 	// parent stuff
-	SGE_SYMBOL manager &parent_manager();
-	SGE_SYMBOL manager const &parent_manager() const;
+	SGE_GUI_SYMBOL manager &parent_manager();
+	SGE_GUI_SYMBOL manager const &parent_manager() const;
 	
-	SGE_SYMBOL widget &parent_widget();
-	SGE_SYMBOL widget const &parent_widget() const;
+	SGE_GUI_SYMBOL widget &parent_widget();
+	SGE_GUI_SYMBOL widget const &parent_widget() const;
 
-	SGE_SYMBOL bool has_parent() const;
+	SGE_GUI_SYMBOL bool has_parent() const;
 
-	SGE_SYMBOL widget &oldest_parent();
-	SGE_SYMBOL widget const &oldest_parent() const;
+	SGE_GUI_SYMBOL widget &oldest_parent();
+	SGE_GUI_SYMBOL widget const &oldest_parent() const;
 
-	SGE_SYMBOL size_policy_t const &size_policy() const;
-	SGE_SYMBOL void size_policy(size_policy_t const &s);
+	SGE_GUI_SYMBOL size_policy_t const &size_policy() const;
+	SGE_GUI_SYMBOL void size_policy(size_policy_t const &s);
 
-	SGE_SYMBOL gui::keyboard_focus::type keyboard_focus() const;
-	SGE_SYMBOL void keyboard_focus(keyboard_focus::type);
+	SGE_GUI_SYMBOL gui::keyboard_focus::type keyboard_focus() const;
+	SGE_GUI_SYMBOL void keyboard_focus(keyboard_focus::type);
 
-	SGE_SYMBOL child_container &children();
-	SGE_SYMBOL child_container const &children() const;
+	SGE_GUI_SYMBOL child_container &children();
+	SGE_GUI_SYMBOL child_container const &children() const;
 
-	SGE_SYMBOL void add_child(widget &);
-	SGE_SYMBOL void remove_child(widget &);
+	SGE_GUI_SYMBOL void add_child(widget &);
+	SGE_GUI_SYMBOL void remove_child(widget &);
 
-	SGE_SYMBOL void activation(activation_state::type);
-	SGE_SYMBOL activation_state::type activation() const;
+	SGE_GUI_SYMBOL void activation(activation_state::type);
+	SGE_GUI_SYMBOL activation_state::type activation() const;
 
-	SGE_SYMBOL void layout(layout_auto_ptr);
+	SGE_GUI_SYMBOL void layout(layout_auto_ptr);
 
-	SGE_SYMBOL layout_ptr layout();
-	SGE_SYMBOL const_layout_ptr layout() const;
+	SGE_GUI_SYMBOL layout_ptr layout();
+	SGE_GUI_SYMBOL const_layout_ptr layout() const;
 
-	SGE_SYMBOL bool has_child(widget const &) const;
+	SGE_GUI_SYMBOL bool has_child(widget const &) const;
 
-	SGE_SYMBOL void compile();
+	SGE_GUI_SYMBOL void compile();
 
-	SGE_SYMBOL virtual dim const size_hint() const;
-	SGE_SYMBOL virtual void process(events::invalid_area const &);
-	SGE_SYMBOL virtual void process(events::mouse_enter const &);
-	SGE_SYMBOL virtual void process(events::mouse_leave const &);
-	SGE_SYMBOL virtual void process(events::mouse_move const &);
-	SGE_SYMBOL virtual void process(events::mouse_click const &);
-	SGE_SYMBOL virtual key_handling::type process(events::key const &);
-	SGE_SYMBOL virtual void process(events::keyboard_enter const &);
-	SGE_SYMBOL virtual void process(events::keyboard_leave const &);
+	SGE_GUI_SYMBOL virtual dim const size_hint() const;
+	SGE_GUI_SYMBOL virtual void process(events::invalid_area const &);
+	SGE_GUI_SYMBOL virtual void process(events::mouse_enter const &);
+	SGE_GUI_SYMBOL virtual void process(events::mouse_leave const &);
+	SGE_GUI_SYMBOL virtual void process(events::mouse_move const &);
+	SGE_GUI_SYMBOL virtual void process(events::mouse_click const &);
+	SGE_GUI_SYMBOL virtual key_handling::type process(events::key const &);
+	SGE_GUI_SYMBOL virtual void process(events::keyboard_enter const &);
+	SGE_GUI_SYMBOL virtual void process(events::keyboard_leave const &);
 
 	// virtuals
-	SGE_SYMBOL virtual ~widget();
+	SGE_GUI_SYMBOL virtual ~widget();
 
-	SGE_SYMBOL rect const absolute_area() const;
-	SGE_SYMBOL rect const screen_area() const;
+	SGE_GUI_SYMBOL rect const absolute_area() const;
+	SGE_GUI_SYMBOL rect const screen_area() const;
 
 	private:
 	friend class layout;

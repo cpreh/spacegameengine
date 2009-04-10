@@ -17,29 +17,29 @@ namespace buttons
 class SGE_CLASS_SYMBOL base : public widget
 {
 public:
-	SGE_SYMBOL bool mouse_over() const;
-	SGE_SYMBOL bool key_over() const;
+	SGE_GUI_SYMBOL bool mouse_over() const;
+	SGE_GUI_SYMBOL bool key_over() const;
 
-	SGE_SYMBOL void process(events::mouse_enter const &);
-	SGE_SYMBOL void process(events::mouse_leave const &);
-	SGE_SYMBOL void process(events::mouse_click const &);
-	SGE_SYMBOL void process(events::keyboard_enter const &);
-	SGE_SYMBOL key_handling::type process(events::key const &);
-	SGE_SYMBOL void process(events::keyboard_leave const &);
+	SGE_GUI_SYMBOL void process(events::mouse_enter const &);
+	SGE_GUI_SYMBOL void process(events::mouse_leave const &);
+	SGE_GUI_SYMBOL void process(events::mouse_click const &);
+	SGE_GUI_SYMBOL void process(events::keyboard_enter const &);
+	SGE_GUI_SYMBOL key_handling::type process(events::key const &);
+	SGE_GUI_SYMBOL void process(events::keyboard_leave const &);
 	using widget::process;
 
 	typedef boost::function<void ()> clicked_fn;
-	SGE_SYMBOL signal::auto_connection register_clicked(
+	SGE_GUI_SYMBOL signal::auto_connection register_clicked(
 		clicked_fn const &);
 	
-	SGE_SYMBOL ~base();
+	SGE_GUI_SYMBOL ~base();
 private:
 
 	bool mouse_over_;
 	bool key_over_;
 	sge::signal::object<void ()> clicked_;
 protected:
-	SGE_SYMBOL base(
+	SGE_GUI_SYMBOL base(
 		parent_data const &,
 		parameters);
 };

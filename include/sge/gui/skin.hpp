@@ -4,7 +4,7 @@
 #include <sge/gui/dim.hpp>
 #include <sge/gui/canvas_fwd.hpp>
 #include <sge/filesystem/path.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 #include <sge/shared_ptr.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/gui/widget_fwd.hpp>
@@ -61,9 +61,9 @@ namespace gui
 class skin
 {
 	public:
-	SGE_SYMBOL SGE_GUI_SKIN_DRAW_RETURN(widget) draw(
+	SGE_GUI_SYMBOL SGE_GUI_SKIN_DRAW_RETURN(widget) draw(
 		SGE_GUI_SKIN_DRAW_PARAMS(widget));
-	SGE_SYMBOL SGE_GUI_SKIN_SIZE_RETURN(widget) size_hint(
+	SGE_GUI_SYMBOL SGE_GUI_SKIN_SIZE_RETURN(widget) size_hint(
 		SGE_GUI_SKIN_SIZE_PARAMS(widget)) const;
 
 	virtual SGE_GUI_SKIN_DRAW_RETURN(widget) fallback(
@@ -74,7 +74,7 @@ class skin
 		SGE_GUI_SKIN_SIZE_PARAMS(widget)) const;
 
 	virtual filesystem::path const cursor_path() const = 0;
-	SGE_SYMBOL virtual ~skin();
+	SGE_GUI_SYMBOL virtual ~skin();
 
 	SGE_GUI_SKIN_WIDGETS_PURE
 

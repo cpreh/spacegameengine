@@ -2,7 +2,7 @@
 #define SGE_GUI_WIDGETS_BACKDROP_HPP_INCLUDED
 
 #include <sge/gui/widget.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 
 namespace sge
 {
@@ -13,7 +13,7 @@ namespace widgets
 class SGE_CLASS_SYMBOL backdrop : public widget
 {
 	public:
-	SGE_SYMBOL backdrop(
+	SGE_GUI_SYMBOL backdrop(
 		parent_data const &,
 		parameters);
 };

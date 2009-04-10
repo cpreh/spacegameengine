@@ -14,7 +14,7 @@ namespace buttons
 class SGE_CLASS_SYMBOL image : public base
 {
 public:
-	SGE_SYMBOL image(
+	SGE_GUI_SYMBOL image(
 		parent_data const &,
 		parameters,
 		const_image_ptr normal,
