@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include "../key_converter.hpp"
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
 sge::dinput::key_converter::key_converter()
 :
@@ -152,7 +154,8 @@ sge::dinput::key_converter::key_converter()
 	v[DIK_Z] = input::kc::key_z;
 
 	for(key_vector::size_type i = 0; i < v.size(); ++i)
-		vr[v[i]] = static_cast<DWORD>(i);
+		if(v[i] != input::kc::none)
+			vr[v[i]] = static_cast<DWORD>(i);
 }
 
 sge::input::key_code
@@ -166,5 +169,16 @@ DWORD
 sge::dinput::key_converter::create_dik(
 	input::key_code const key) const
 {
-	return vr.find(key)->second;
+	reverse_map::const_iterator const it(
+		vr.find(
+			key
+		)
+	);
+
+	if(it == vr.end())
+		throw exception(
+			SGE_TEXT("Input key not found in reverse map!")
+		);
+
+	return it->second;
 }
