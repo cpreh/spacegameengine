@@ -54,7 +54,7 @@ public:
 		void const *data);
 	void *buffer_offset(
 		GLenum type,
-		GLsizei offset);
+		GLsizei offset) const;
 };
 
 }

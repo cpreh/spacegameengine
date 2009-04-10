@@ -70,5 +70,5 @@ void
 sge::ogl::vf::pointer_actor::source(
 	vf::pointer const src)
 {
-	pointer_ = src;
+	pointer_ = static_cast<unsigned char const *>(src) + offset_;
 }

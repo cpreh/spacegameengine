@@ -121,7 +121,7 @@ void sge::ogl::hardware_vbo::buffer_sub_data(
 
 void *sge::ogl::hardware_vbo::buffer_offset(
 	GLenum,
-	GLsizei const offset)
+	GLsizei const offset) const
 {
 	return reinterpret_cast<void*>(offset);
 }

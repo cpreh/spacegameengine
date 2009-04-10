@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../multi_texture.hpp"
 #include "../common.hpp"
+#include "../glew.hpp"
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <ostream>
@@ -28,6 +29,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void sge::ogl::set_texture_level(
 	renderer::stage_type const stage)
 {
+	static bool const have_multi_texture(
+		glew_is_supported(
+			"GL_VERSION_1_3"
+		)
+	);
+
+	if(!have_multi_texture)
+	{
+		if(stage == 0)
+			return;
+
+		SGE_LOG_ERROR(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("Tried to set texture stage ")
+				<< stage
+				<< SGE_TEXT(" but opengl does not support it.")
+		);
+
+		return;
+	}
+
 	if(stage >= static_cast<renderer::stage_type>(
 		std::max(
 			GL_MAX_TEXTURE_COORDS,
@@ -43,6 +66,6 @@ void sge::ogl::set_texture_level(
 				<< SGE_TEXT(" ignored!"));
 		return;
 	}
-
+	
 	glActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + stage));
 }

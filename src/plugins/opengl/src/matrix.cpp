@@ -67,9 +67,8 @@ void visitor::operator()(
 	sge::math::matrix::static_<float, 4, 4>::type const &m) const
 {
 	SGE_OPENGL_SENTRY
-	glLoadMatrixf(m.data());
-	//glLoadTransposeMatrixf(
-	//	m.data());
+	glLoadTransposeMatrixf(
+		m.data());
 }
 	
 void visitor::operator()(

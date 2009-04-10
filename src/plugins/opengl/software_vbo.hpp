@@ -61,7 +61,7 @@ public:
 
 	void *buffer_offset(
 		GLenum type,
-		GLsizei offset);
+		GLsizei offset) const;
 
 	static GLenum unique_id();
 };
