@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/algorithm/copy_n.hpp>
 #include <sge/algorithm/append.hpp>
-#include <sge/cout.hpp>
-#include <vector>
+#include <sge/container/raw_vector_impl.hpp>
 #include <string>
+#include <ostream>
+#include <iostream>
 
 int main()
 {
-	typedef std::vector<
+	typedef sge::container::raw_vector<
 		unsigned char
 	> vector_type;
 
@@ -45,5 +46,5 @@ int main()
 		b
 	);
 
-	sge::cout << std::string(a.begin(), a.end()) << '\n';
+	std::cout << std::string(a.begin(), a.end()) << '\n';
 }
