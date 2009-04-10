@@ -39,14 +39,15 @@ public:
 	explicit format(
 		renderer::vf::dynamic_format const &);
 	renderer::vf::dynamic_format const &get() const;
-	void use_me() const;
+	void use_me(
+		pointer) const;
 private:
 	renderer::vf::dynamic_format const fmt;
 
 	typedef boost::ptr_vector<
 		actor
 	> actor_array;
-	actor_array actors;
+	mutable actor_array actors;
 };
 
 }

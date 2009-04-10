@@ -104,11 +104,11 @@ void sge::ogl::basic_buffer<Type, Impl, T>::lock(
 
 	if(count == npos)
 		count = size() - first;
-	
+
 	if(first + count > size())
 		throw exception(
 			SGE_TEXT("ogl_buffer::lock(): first + count > size()"));
-	
+
 	GLuint const glflags = ogl_lock_method(lockflags);
 	bind_me();
 	dest = static_cast<pointer>(Impl().map_buffer(Type(), glflags));
@@ -274,6 +274,8 @@ typename sge::ogl::basic_buffer<Type, Impl, T>::pointer
 sge::ogl::basic_buffer<Type, Impl, T>::buffer_offset(
 	size_type const sz) const
 {
+	bind_me();
+
 	return static_cast<pointer>(
 		Impl().buffer_offset(
 			Type(),
