@@ -34,7 +34,7 @@
 
 :Config
 @echo -- Creating build directory.
-@if exist build call rd /S /Q build
+@rem if exist build call rd /S /Q build
 @mkdir build
 @cd build
 @echo -- Configuring cmake.
