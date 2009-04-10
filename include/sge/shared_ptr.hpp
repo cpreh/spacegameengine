@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/shared_ptr_fwd.hpp>
 #include <sge/weak_ptr_fwd.hpp>
+#include <sge/auto_ptr.hpp>
 #include <boost/shared_ptr.hpp>
 
 namespace sge
@@ -88,9 +89,11 @@ public:
 	{}
 
 	template<class Y>
-	explicit shared_ptr(std::auto_ptr<Y> & r)
-	: impl(r)
-	{}
+	explicit shared_ptr(auto_ptr<Y> r)
+	//: impl(r)
+	{
+		impl = r;
+	}
 
 	template<class Y>
 	shared_ptr & operator=(shared_ptr<Y> const & r)
@@ -100,7 +103,7 @@ public:
 	}
 
 	template<class Y>
-	shared_ptr & operator=( std::auto_ptr<Y> & r )
+	shared_ptr & operator=( auto_ptr<Y> r )
 	{
  		impl = r;
 		return *this;
