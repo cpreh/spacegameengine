@@ -18,18 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../center_coordinate.hpp"
+#ifndef SGE_OPENGL_DEFAULT_TARGET_FWD_HPP_INCLUDED
+#define SGE_OPENGL_DEFAULT_TARGET_FWD_HPP_INCLUDED
 
-sge::renderer::pixel_unit
-sge::ogl::x11::center_coordinate(
-	renderer::pixel_unit const window_sz,
-	renderer::screen_unit const res_sz)
+#include <sge/shared_ptr.hpp>
+
+namespace sge
 {
-	renderer::pixel_unit const res_p(
-		static_cast<renderer::pixel_unit>(
-			res_sz));
-	
-	return window_sz > res_p
-		? (window_sz - res_p) / 2
-		: 0;
+namespace ogl
+{
+
+class default_target;
+
+typedef shared_ptr<
+	default_target
+> default_target_ptr;
+
 }
+}
+
+#endif

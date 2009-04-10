@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim_type.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/resource_flags.hpp>
+#include <sge/renderer/viewport_mode.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/format.hpp>
 #include <sge/renderer/device_fwd.hpp>
@@ -135,6 +136,9 @@ public:
 
 	virtual void viewport(
 		renderer::viewport const &) = 0;
+
+	virtual void viewport_mode(
+		renderer::viewport_mode::type) = 0;
 
 	virtual glsl::program_ptr const
 	create_glsl_program(

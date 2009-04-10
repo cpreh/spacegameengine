@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../texture_base.hpp"
 #include "../error.hpp"
 #include <sge/renderer/texture.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -80,6 +81,12 @@ sge::renderer::target::dim_type const
 sge::ogl::fbo_target::dim() const
 {
 	return texture_target->dim();
+}
+
+sge::renderer::pixel_pos const
+sge::ogl::fbo_target::pos() const
+{
+	return renderer::pixel_pos::null();
 }
 
 sge::ogl::fbo_target::size_type

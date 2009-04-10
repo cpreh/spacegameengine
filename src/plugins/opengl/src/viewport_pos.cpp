@@ -18,45 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_HPP_INCLUDED
+#include "../viewport_pos.hpp"
+#include "../center_coordinate.hpp"
+#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/arithmetic.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-#include "common.hpp"
-#include <sge/renderer/target.hpp>
-#include <sge/renderer/pixel_pos.hpp>
-#include <sge/container/raw_vector_decl.hpp>
-#include <sge/noncopyable.hpp>
-
-namespace sge
+sge::renderer::pixel_pos const
+sge::ogl::viewport_pos(
+	sge::renderer::pixel_pos const &pos,
+	sge::window::dim_type const &d,
+	sge::renderer::screen_size const &screen_size,
+	sge::renderer::viewport_mode::type const m)
 {
-namespace ogl
-{
-
-class target : public sge::renderer::target {
-	SGE_NONCOPYABLE(target)
-protected:
-	target();
-public:
-	virtual void bind_me() const = 0;
-	virtual ~target();
-private:
-	renderer::const_image_view const lock(
-		renderer::lock_rect const &dest) const;
-	void unlock() const;
-
-	virtual renderer::pixel_pos const pos() const = 0;
-	virtual size_type stride() const = 0;
-	virtual GLenum format() const = 0;
-	virtual GLenum format_type() const = 0;
-
-	typedef sge::container::raw_vector<
-		unsigned char
-	> buffer_type;
-
-	mutable buffer_type buffer;
-};
-
+	switch(m) {
+	case renderer::viewport_mode::centered_screen_size:
+		return pos + renderer::pixel_pos(
+			center_coordinate(
+				d.w(),
+				screen_size.w()
+			),
+			center_coordinate(
+				d.h(),
+				screen_size.h()
+			)
+		);
+	case renderer::viewport_mode::whole_window:
+		return pos;
+	default:
+		throw exception(
+			SGE_TEXT("Invalid viewport_mode!")
+		);
+	}
 }
-}
-
-#endif

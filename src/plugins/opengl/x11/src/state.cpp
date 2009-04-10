@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <GL/glx.h>
 #include "../state.hpp"
-#include "../center_coordinate.hpp"
 #include "../resolution/create.hpp"
 #include "../../glx/visual.hpp"
 #include "../../error.hpp"
@@ -98,19 +97,12 @@ void sge::ogl::x11::state::swap_buffers()
 		wnd->get());
 }
 
-void sge::ogl::x11::state::reset_viewport()
-{
-	center_viewport(
-		wnd->size().w(),
-		wnd->size().h());
-}
-
 void sge::ogl::x11::state::reset_viewport_on_map(
 	XEvent const &)
 {
-	center_viewport(
-		wnd->size().w(),
-		wnd->size().h());
+	set_viewport(
+		wnd->size()
+	);
 }
 
 void sge::ogl::x11::state::reset_viewport_on_configure(
@@ -119,28 +111,10 @@ void sge::ogl::x11::state::reset_viewport_on_configure(
 	XConfigureEvent const &r(
 		e.xconfigure);
 
-	center_viewport(
-		r.width,
-		r.height);
-}
-
-void sge::ogl::x11::state::center_viewport(
-	renderer::pixel_unit const w,
-	renderer::pixel_unit const h)
-{
 	set_viewport(
-		renderer::viewport(
-			renderer::pixel_pos(
-				center_coordinate(
-					w,
-					screen_size_.w()
-				),
-				center_coordinate(
-					h,
-					screen_size_.h()
-				)
-			),
-			screen_size_
+		window::dim_type(
+			r.width,
+			r.height
 		)
 	);
 }
