@@ -48,7 +48,7 @@ class SGE_CLASS_SYMBOL widget
 	class parameters
 	{
 		public:
-		explicit parameters(
+		SGE_GUI_SYMBOL explicit parameters(
 			point const &_pos = point::null(),
 			dim const &_size = dim::null(),
 			layout_auto_ptr const _layout = layout_auto_ptr(),
@@ -56,19 +56,19 @@ class SGE_CLASS_SYMBOL widget
 			keyboard_focus::type const &_keyboard_focus = keyboard_focus::ignore,
 			activation_state::type const _activation = activation_state::active);
 
-		parameters &pos(point const &);
-		parameters &size(dim const &);
-		parameters &size_policy(size_policy_t const &);
-		parameters &keyboard_focus(keyboard_focus::type const &);
-		parameters &layout(layout_auto_ptr);
-		parameters &activation(activation_state::type);
+		SGE_GUI_SYMBOL parameters &pos(point const &);
+		SGE_GUI_SYMBOL parameters &size(dim const &);
+		SGE_GUI_SYMBOL parameters &size_policy(size_policy_t const &);
+		SGE_GUI_SYMBOL parameters &keyboard_focus(keyboard_focus::type const &);
+		SGE_GUI_SYMBOL parameters &layout(layout_auto_ptr);
+		SGE_GUI_SYMBOL parameters &activation(activation_state::type);
 
-		point const &pos() const;
-		dim const &size() const;
-		size_policy_t const &size_policy() const;
-		keyboard_focus::type const &keyboard_focus() const;
-		layout_auto_ptr layout() const;
-		activation_state::type activation() const;
+		SGE_GUI_SYMBOL point const &pos() const;
+		SGE_GUI_SYMBOL dim const &size() const;
+		SGE_GUI_SYMBOL size_policy_t const &size_policy() const;
+		SGE_GUI_SYMBOL keyboard_focus::type const &keyboard_focus() const;
+		SGE_GUI_SYMBOL layout_auto_ptr layout() const;
+		SGE_GUI_SYMBOL activation_state::type activation() const;
 		private:
 		point pos_;
 		dim size_;
