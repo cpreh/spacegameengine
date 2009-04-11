@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/string.hpp>
+#include <sge/text.hpp>
 
 // TODO: include only the headers which are needed!
 #include <boost/spirit/include/qi.hpp>
@@ -64,9 +65,9 @@ boost::spirit::qi::grammar<
 		using boost::spirit::char_;
 		using boost::spirit::lexeme;
 
-		char_seq %= +(char_ - char_('\n'));
-		entry_ %= !char_('[') >> +(char_ - char_('=')) >> char_('=') >> char_seq >> char_('\n');
-		header_ %= lexeme['[' >> +(char_ - ']') >> ']'] >> char_('\n');
+		char_seq %= +(char_ - char_(SGE_TEXT('\n')));
+		entry_ %= !char_(SGE_TEXT('[')) >> +(char_ - char_(SGE_TEXT('='))) >> char_(SGE_TEXT('=')) >> char_seq >> char_(SGE_TEXT('\n'));
+		header_ %= lexeme[SGE_TEXT('[') >> +(char_ - SGE_TEXT(']')) >> SGE_TEXT(']')] >> char_(SGE_TEXT('\n'));
 		section_ %= header_ >> *entry_;
 		ini_ %= *section_;
 	}

@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/math/pi.hpp>
 #include <sge/text.hpp>
 #include <sge/media.hpp>
+#include <sge/iconv.hpp>
 #include <boost/spirit/home/phoenix/core/reference.hpp>
 #include <boost/spirit/home/phoenix/operator/self.hpp>
 #include <fstream>
@@ -86,7 +87,7 @@ try
 	);
 
 	std::ifstream ifs(
-		(sge::media_path() / SGE_TEXT("european_fnt_v2.md3")).string().c_str(),
+		sge::iconv((sge::media_path() / SGE_TEXT("european_fnt_v2.md3")).string()).c_str(),
 		std::ios_base::binary
 	);
 

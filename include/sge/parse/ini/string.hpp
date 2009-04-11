@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_STRING_HPP_INCLUDED
 #define SGE_PARSE_INI_STRING_HPP_INCLUDED
 
-#include <string>
+#include <sge/string.hpp>
 
 namespace sge
 {
@@ -30,7 +30,7 @@ namespace parse
 namespace ini
 {
 
-typedef std::string string;
+typedef sge::string string;
 
 }
 }

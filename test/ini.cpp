@@ -19,24 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/parse/ini/parse.hpp>
+#include <sge/string.hpp>
+#include <sge/cout.hpp>
+#include <sge/cerr.hpp>
+#include <sge/text.hpp>
 #include <boost/foreach.hpp>
-#include <iostream>
-#include <ostream>
-#include <string>
 #include <cstdlib>
 
 int main()
 {
 	sge::parse::ini::grammar<
-		std::string::const_iterator
+		sge::string::const_iterator
 	> p;
 
-	std::string const test(
-		"[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n"
-		"[section2]\nblubb=bar\n"
+	sge::string const test(
+		SGE_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
+		SGE_TEXT("[section2]\nblubb=bar\n")
 	);
 
-	std::string::const_iterator beg(
+	sge::string::const_iterator beg(
 		test.begin()
 	);
 
@@ -48,7 +49,7 @@ int main()
 		result
 	))
 	{
-		std::cerr << "failure\n";
+		sge::cerr << SGE_TEXT("failure\n");
 		return EXIT_FAILURE;
 	}
 
@@ -57,18 +58,18 @@ int main()
 		result
 	)
 	{
-		std::cout << '[' << section.header << "]\n";
+		sge::cout << SGE_TEXT('[') << section.header << SGE_TEXT("]\n");
 
 		BOOST_FOREACH(
 			sge::parse::ini::entry_vector::const_reference entry,
 			section.entries
 		)
-			std::cout
+			sge::cout
 				<< entry.name
-				<< " = "
+				<< SGE_TEXT(" = ")
 				<< entry.value
-				<< '\n';
+				<< SGE_TEXT('\n');
 
-		std::cout << '\n';
+		sge::cout << SGE_TEXT('\n');
 	}
 }
