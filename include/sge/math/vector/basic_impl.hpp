@@ -62,7 +62,7 @@ template<
 sge::math::vector::basic<T, N, S>::basic(
 	In const beg,
 	typename boost::enable_if<
-		is_iterator<
+		type_traits::is_iterator<
 			In
 		>,
 		In
