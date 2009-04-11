@@ -1,4 +1,4 @@
-#include "utility/ptr_delete_first.hpp"
+#include <sge/algorithm/ptr_container_erase.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/gui/layout.hpp>
 #include <sge/gui/layouts/null.hpp>
@@ -154,7 +154,9 @@ void sge::gui::widget::add_child(widget &w)
 
 void sge::gui::widget::remove_child(widget &w)
 {
-	utility::ptr_delete_first(children_,&w);
+	algorithm::ptr_container_erase(
+		children_,
+		&w);
 }
 
 void sge::gui::widget::activation(activation_state::type _activation)

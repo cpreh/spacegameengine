@@ -1,4 +1,4 @@
-#include "../../utility/ptr_delete_first.hpp"
+#include <sge/algorithm/ptr_container_erase.hpp>
 #include "../../utility/ptr_find.hpp"
 #include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/events/mouse_click.hpp>
@@ -155,7 +155,9 @@ void sge::gui::detail::managers::mouse::remove(widget &w)
 	{
 		SGE_ASSERT(
 			utility::ptr_find(widgets.begin(),widgets.end(),&w) != widgets.end());
-		utility::ptr_delete_first(widgets,&w);
+		algorithm::ptr_container_erase(
+			widgets,
+			&w);
 	}
 }
 
