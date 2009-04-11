@@ -22,10 +22,10 @@ class SGE_CLASS_SYMBOL label : public widget
 		boost::optional<dim> static_size = boost::none,
 		font::metrics_ptr = font::metrics_ptr());
 	
-	font::metrics_ptr const font() const { return font_; }
-	string const text() const { return text_; }
-	void text(string const &_text) { text_ = _text; }
-	boost::optional<dim> static_size() const { return static_size_; }
+	font::metrics_ptr const font() const;
+	string const text() const;
+	void text(string const &_text);
+	boost::optional<dim> const static_size() const;
 	private:
 	string text_;
 	boost::optional<dim> static_size_;

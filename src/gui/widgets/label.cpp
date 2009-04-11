@@ -51,7 +51,8 @@ void sge::gui::widgets::label::text(
 	compile();
 }
 
-boost::optional<sge::gui::dim> sge::gui::widgets::label::static_size() const 
+boost::optional<sge::gui::dim> const
+sge::gui::widgets::label::static_size() const 
 { 
 	return static_size_; 
 }
