@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/vector/length_quad.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <cmath>
 
 namespace sge
@@ -37,13 +39,40 @@ template<
 	typename N,
 	typename S
 >
-typename basic<T, N, S>::value_type
+typename boost::enable_if<
+	boost::is_floating_point<T>,
+	typename basic<T, N, S>::value_type
+>::type
 length(
 	basic<T, N, S> const &v)
 {
 	return std::sqrt(
 		length_quad(
-			v));
+			v
+		)
+	);
+}
+
+template<
+	typename Dest,
+	typename T,
+	typename N,
+	typename S
+>
+typename boost::disable_if<
+	boost::is_floating_point<T>,
+	Dest
+>::type
+length(
+	basic<T, N, S> const &v)
+{
+	return std::sqrt(
+		static_cast<Dest>(
+			length_quad(
+				v
+			)
+		)
+	);
 }
 
 }
