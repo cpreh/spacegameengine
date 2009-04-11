@@ -11,6 +11,7 @@ sge::assign::make_container<Container> &
 		typename container_type::const_reference r)
 {
 	c_.push_back(r);
+	return *this;
 }
 
 template<typename Container>

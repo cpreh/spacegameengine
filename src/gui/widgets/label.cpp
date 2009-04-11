@@ -33,3 +33,25 @@ sge::gui::widgets::label::label(
 	
 	SGE_ASSERT_MESSAGE(font_,SGE_TEXT("label: no standard font could be set by manager"));
 }
+
+sge::font::metrics_ptr const sge::gui::widgets::label::font() const 
+{ 
+	return font_; 
+}
+
+sge::string const sge::gui::widgets::label::text() const 
+{ 
+	return text_; 
+}
+
+void sge::gui::widgets::label::text(
+	string const &_text) 
+{ 
+	text_ = _text; 
+	compile();
+}
+
+boost::optional<sge::gui::dim> sge::gui::widgets::label::static_size() const 
+{ 
+	return static_size_; 
+}
