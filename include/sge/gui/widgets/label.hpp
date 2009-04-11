@@ -14,7 +14,7 @@ namespace widgets
 {
 class SGE_CLASS_SYMBOL label : public widget
 {
-	public:
+public:
 	SGE_GUI_SYMBOL label(
 		parent_data const &,
 		parameters,
@@ -22,11 +22,11 @@ class SGE_CLASS_SYMBOL label : public widget
 		boost::optional<dim> static_size = boost::none,
 		font::metrics_ptr = font::metrics_ptr());
 	
-	font::metrics_ptr const font() const;
-	string const text() const;
-	void text(string const &_text);
-	boost::optional<dim> const static_size() const;
-	private:
+	SGE_GUI_SYMBOL font::metrics_ptr const font() const;
+	SGE_GUI_SYMBOL string const text() const;
+	SGE_GUI_SYMBOL void text(string const &_text);
+	SGE_GUI_SYMBOL boost::optional<dim> const static_size() const;
+private:
 	string text_;
 	boost::optional<dim> static_size_;
 	font::metrics_ptr font_;
