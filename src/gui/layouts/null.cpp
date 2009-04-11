@@ -5,11 +5,16 @@
 
 namespace
 {
-sge::gui::logger mylogger(sge::gui::global_log(),SGE_TEXT("layouts::null"),false);
+sge::gui::logger mylogger(
+	sge::gui::global_log(),
+	SGE_TEXT("layouts::null"),
+	false);
 }
 
-sge::gui::layouts::null::null(widget &w)
-	: layout(w)
+sge::gui::layouts::null::null(
+	widget &w)
+: 
+	layout(w)
 {
 }
 
@@ -20,7 +25,8 @@ void sge::gui::layouts::null::update()
 		log::_1 << SGE_TEXT("in update, doing nothing"));
 }
 
-void sge::gui::layouts::null::pos(point const &p)
+void sge::gui::layouts::null::pos(
+	point const &p)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -28,7 +34,8 @@ void sge::gui::layouts::null::pos(point const &p)
 	layout::set_widget_pos(connected_widget(),p);
 }
 
-void sge::gui::layouts::null::size(dim const &p)
+void sge::gui::layouts::null::size(
+	dim const &p)
 {
 	SGE_LOG_DEBUG(
 		mylogger,

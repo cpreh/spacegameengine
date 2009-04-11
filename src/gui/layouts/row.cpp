@@ -14,8 +14,10 @@ sge::gui::logger mylogger(
 	false);
 }
 
-sge::gui::layouts::row::row(widget &w)
-	: layout(w)
+sge::gui::layouts::row::row(
+	widget &w)
+: 
+	layout(w)
 {
 }
 
@@ -204,10 +206,14 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 
 void sge::gui::layouts::row::update()
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("updating"));
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("updating"));
 
 	reset_cache();
-	dim const optimal = size_hint(),usable = connected_widget().size();
+	dim const 
+		optimal = size_hint(),
+		usable = connected_widget().size();
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("optimal size ") << optimal 

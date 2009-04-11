@@ -22,12 +22,16 @@ sge::gui::layout::connected_widget() const
 sge::gui::layout::~layout()
 {}
 
-void sge::gui::layout::set_widget_size(widget &w,dim const &d)
+void sge::gui::layout::set_widget_size(
+	widget &w,
+	dim const &d)
 {
 	w.set_size_raw(d);
 }
 
-void sge::gui::layout::set_widget_pos(widget &w,point const &d)
+void sge::gui::layout::set_widget_pos(
+	widget &w,
+	point const &d)
 {
 	w.set_pos_raw(d);
 }

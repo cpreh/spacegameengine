@@ -109,5 +109,7 @@ bool sge::gui::detail::managers::update::has_parent(
 	if (&(v.parent_widget()) == &w)
 		return true;
 	
-	return has_parent(v.parent_widget(),w);
+	return has_parent(
+		v.parent_widget(),
+		w);
 }
