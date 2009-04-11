@@ -119,7 +119,7 @@ void sge::ogl::software_vbo::buffer_sub_data(
 
 void *sge::ogl::software_vbo::buffer_offset(
 	GLenum const type,
-	GLsizei const offset)
+	GLsizei const offset) const
 {
 	return buffer_object(bound_buffer(type))->second + offset;
 }

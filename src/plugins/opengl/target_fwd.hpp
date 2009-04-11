@@ -29,6 +29,7 @@ namespace ogl
 {
 
 class target;
+
 typedef shared_ptr<
 	target
 > target_ptr;

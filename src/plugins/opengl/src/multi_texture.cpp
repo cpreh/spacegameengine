@@ -20,14 +20,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../multi_texture.hpp"
 #include "../common.hpp"
+#include "../error.hpp"
+#include "../glew.hpp"
 #include <sge/log/headers.hpp>
 #include <sge/text.hpp>
 #include <ostream>
 #include <algorithm>
 
+namespace
+{
+
+bool have_multi_texture()
+{
+	static bool const ret(
+		sge::ogl::glew_is_supported(
+			"GL_VERSION_1_3"
+		)
+	);
+
+	return ret;
+}
+
+}
+
 void sge::ogl::set_texture_level(
 	renderer::stage_type const stage)
 {
+	if(!have_multi_texture())
+	{
+		if(stage == 0)
+			return;
+
+		SGE_LOG_ERROR(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("Tried to set texture stage ")
+				<< stage
+				<< SGE_TEXT(" but opengl does not support it.")
+		);
+
+		return;
+	}
+
 	if(stage >= static_cast<renderer::stage_type>(
 		std::max(
 			GL_MAX_TEXTURE_COORDS,
@@ -43,6 +77,44 @@ void sge::ogl::set_texture_level(
 				<< SGE_TEXT(" ignored!"));
 		return;
 	}
+	
+	SGE_OPENGL_SENTRY
 
-	glActiveTexture(static_cast<GLenum>(GL_TEXTURE0 + stage));
+	glActiveTexture(
+		static_cast<
+			GLenum
+		>(
+			GL_TEXTURE0 + stage
+		)
+	);
+}
+
+void sge::ogl::client_texture_level(
+	renderer::stage_type const stage)
+{
+	if(!have_multi_texture())
+	{
+		if(stage == 0)
+			return;
+
+		SGE_LOG_ERROR(
+			log::global(),
+			log::_1
+				<< SGE_TEXT("Tried to set texture coordinates for stage ")
+				<< stage
+				<< SGE_TEXT(" but opengl does not support it.")
+		);
+
+		return;
+	}
+
+	SGE_OPENGL_SENTRY
+
+	glClientActiveTexture(
+		static_cast<
+			GLenum
+		>(
+			GL_TEXTURE0 + stage
+		)
+	);
 }

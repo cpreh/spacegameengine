@@ -18,43 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../common.hpp"
-#include "../format.hpp"
-#include "../to_actor.hpp"
-#include "../client_state_combiner.hpp"
-#include "../global_client_state.hpp"
-#include <sge/container/linear_set_impl.hpp>
-#include <boost/foreach.hpp>
+#ifndef SGE_OPENGL_BACKGROUND_DIM_HPP_INCLUDED
+#define SGE_OPENGL_BACKGROUND_DIM_HPP_INCLUDED
 
-sge::ogl::vf::format::format(
-	renderer::vf::dynamic_format const &fmt)
-:
-	fmt(fmt)
+#include <sge/renderer/dim_type.hpp>
+#include <sge/renderer/viewport_mode.hpp>
+#include <sge/renderer/screen_size.hpp>
+#include <sge/window/dim_type.hpp>
+
+namespace sge
 {
-	renderer::vf::dynamic_ordered_element_list const &elems(
-		fmt.elements());
-	
-	BOOST_FOREACH(renderer::vf::dynamic_ordered_element const &e, elems)
-		actors.push_back(
-			to_actor(e, fmt.stride()));
+namespace ogl
+{
+
+sge::renderer::dim_type const
+background_dim(
+	sge::renderer::viewport_mode::type,
+	sge::window::dim_type const &,
+	sge::renderer::screen_size const &);
+
+}
 }
 
-sge::renderer::vf::dynamic_format const &
-sge::ogl::vf::format::get() const
-{
-	return fmt;
-}
-
-void sge::ogl::vf::format::use_me(
-	pointer const src) const
-{
-	client_state_combiner states_(
-		global_client_state()
-	);
-
-	BOOST_FOREACH(actor_array::reference c, actors)
-	{
-		c.source(src);
-		c(states_);
-	}
-}
+#endif

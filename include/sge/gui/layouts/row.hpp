@@ -3,7 +3,7 @@
 
 #include <sge/gui/layout.hpp>
 #include <sge/gui/widget_fwd.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 #include <sge/gui/size_policy.hpp>
 #include <vector>
 #include <cstddef>
@@ -17,11 +17,11 @@ namespace layouts
 class SGE_CLASS_SYMBOL row : public layout
 {
 	public:
-	SGE_SYMBOL row(widget &);
-	SGE_SYMBOL void update();
-	SGE_SYMBOL void pos(point const &);
-	SGE_SYMBOL void size(dim const &);
-	SGE_SYMBOL dim const size_hint() const;
+	SGE_GUI_SYMBOL row(widget &);
+	SGE_GUI_SYMBOL void update();
+	SGE_GUI_SYMBOL void pos(point const &);
+	SGE_GUI_SYMBOL void size(dim const &);
+	SGE_GUI_SYMBOL dim const size_hint() const;
 	private:
 	virtual dim::reference master(
 		dim &) const = 0;

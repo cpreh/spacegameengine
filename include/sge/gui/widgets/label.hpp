@@ -2,7 +2,7 @@
 #define SGE_GUI_WIDGETS_LABEL_HPP_INCLUDED
 
 #include <sge/gui/widget.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 #include <sge/font/metrics_fwd.hpp>
 #include <boost/optional.hpp>
 
@@ -15,7 +15,7 @@ namespace widgets
 class SGE_CLASS_SYMBOL label : public widget
 {
 	public:
-	SGE_SYMBOL label(
+	SGE_GUI_SYMBOL label(
 		parent_data const &,
 		parameters,
 		string const &,

@@ -51,10 +51,14 @@ protected:
 	GLvoid const *pointer() const;
 	renderer::vf::vertex_size index() const;
 private:
+	void source(vf::pointer);
+
 	GLenum const format_;
 	GLsizei const stride_;
-	GLvoid const *const pointer_;
-	renderer::vf::vertex_size const index_;
+	vf::pointer pointer_;
+	renderer::vf::vertex_size const
+		index_,
+		offset_;
 };
 
 }

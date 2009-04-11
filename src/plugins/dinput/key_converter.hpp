@@ -39,7 +39,8 @@ public:
 private:
 	typedef std::vector<input::key_code> key_vector;
 	key_vector v;
-	std::map<input::key_code, DWORD> vr;
+	typedef std::map<input::key_code, DWORD> reverse_map;
+	reverse_map vr;
 };
 
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "common.hpp"
 #include <sge/renderer/target.hpp>
+#include <sge/renderer/pixel_pos.hpp>
 #include <sge/container/raw_vector_decl.hpp>
 #include <sge/noncopyable.hpp>
 
@@ -43,6 +44,7 @@ private:
 		renderer::lock_rect const &dest) const;
 	void unlock() const;
 
+	virtual renderer::pixel_pos const pos() const = 0;
 	virtual size_type stride() const = 0;
 	virtual GLenum format() const = 0;
 	virtual GLenum format_type() const = 0;

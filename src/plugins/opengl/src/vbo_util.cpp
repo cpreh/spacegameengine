@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../software_vbo.hpp"
 #include "../hardware_vbo.hpp"
 
-sge::ogl::vbo_base* sge::ogl::create_vbo_impl(const bool hw_supported)
+sge::ogl::vbo_base*
+sge::ogl::create_vbo_impl(
+	bool const hw_supported)
 {
 	return hw_supported
 	? static_cast<vbo_base*>(new hardware_vbo())

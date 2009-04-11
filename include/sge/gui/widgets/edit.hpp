@@ -8,7 +8,7 @@
 #include <sge/renderer/image.hpp>
 #include <sge/font/metrics_fwd.hpp>
 #include <sge/signal/object.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 
 namespace sge
 {
@@ -21,27 +21,27 @@ class SGE_CLASS_SYMBOL edit : public widget
 	public:
 	enum line_type { single_line,multi_line };
 
-	SGE_SYMBOL edit(
+	SGE_GUI_SYMBOL edit(
 		parent_data const &,
 		parameters,
 		line_type,
 		dim const &desired_size,
 		font::metrics_ptr = font::metrics_ptr());
 	
-	SGE_SYMBOL string const text() const;
-	SGE_SYMBOL void text(string const &);
-	SGE_SYMBOL font::metrics_ptr const font() const;
-	SGE_SYMBOL point const &scroll_pos() const;
-	SGE_SYMBOL dim const desired_size() const;
-	SGE_SYMBOL image &text_buffer();
-	SGE_SYMBOL image const &text_buffer() const;
+	SGE_GUI_SYMBOL string const text() const;
+	SGE_GUI_SYMBOL void text(string const &);
+	SGE_GUI_SYMBOL font::metrics_ptr const font() const;
+	SGE_GUI_SYMBOL point const &scroll_pos() const;
+	SGE_GUI_SYMBOL dim const desired_size() const;
+	SGE_GUI_SYMBOL image &text_buffer();
+	SGE_GUI_SYMBOL image const &text_buffer() const;
 
-	SGE_SYMBOL void process(events::keyboard_enter const &);
-	SGE_SYMBOL key_handling::type process(events::key const &);
-	SGE_SYMBOL void process(events::mouse_click const &);
-	SGE_SYMBOL void process(events::keyboard_leave const &);
+	SGE_GUI_SYMBOL void process(events::keyboard_enter const &);
+	SGE_GUI_SYMBOL key_handling::type process(events::key const &);
+	SGE_GUI_SYMBOL void process(events::mouse_click const &);
+	SGE_GUI_SYMBOL void process(events::keyboard_leave const &);
 
-	SGE_SYMBOL void refresh() const;
+	SGE_GUI_SYMBOL void refresh() const;
 
 	// will only be called for single_line
 	signal::object<void ()> return_pressed;

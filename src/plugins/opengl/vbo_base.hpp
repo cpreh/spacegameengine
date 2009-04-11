@@ -33,19 +33,26 @@ public:
 	virtual GLuint gen_buffer() = 0;
 	virtual void delete_buffer(GLuint) = 0;
 	virtual void bind_buffer(GLenum type, GLuint) = 0;
-	virtual void* map_buffer(GLenum type, GLenum flags) = 0;
+	virtual GLvoid *map_buffer(GLenum type, GLenum flags) = 0;
 	virtual void unmap_buffer(GLenum type) = 0;
-	virtual void buffer_data(GLenum type,
-	                         GLsizei size,
-	                         const void* data,
-	                         GLenum flags) = 0;
-	virtual void buffer_sub_data(GLenum type,
-	                             GLsizei first,
-	                             GLsizei size,
-	                             const void* data) = 0;
-	virtual void* buffer_offset(GLenum type, GLsizei offset) = 0;
 
-	virtual ~vbo_base() {}
+	virtual void buffer_data(
+		GLenum type,
+		GLsizei size,
+		GLvoid const *data,
+		GLenum flags) = 0;
+	
+	virtual void buffer_sub_data(
+		GLenum type,
+		GLsizei first,
+		GLsizei size,
+		GLvoid const *data) = 0;
+	
+	virtual GLvoid *buffer_offset(
+		GLenum type,
+		GLsizei offset) const = 0;
+
+	virtual ~vbo_base();
 };
 
 

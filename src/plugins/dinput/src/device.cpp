@@ -115,7 +115,7 @@ void sge::dinput::device::poll()
 }
 
 bool sge::dinput::device::get_input(
-	input_buffer data,
+	input_buffer &data,
 	DWORD &elements,
 	unsigned const d)
 {

@@ -67,6 +67,9 @@ private:
 		template<typename, typename> friend class iterator_impl;
 		static size_type bit_offset(size_type p);
 		static size_type array_offset(size_type p);
+
+		// hack for VC++
+		typedef proxy_impl &ref_type;
 	public:
 		proxy_impl& operator=(value_type b);
 		operator value_type() const;

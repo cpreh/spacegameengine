@@ -42,6 +42,7 @@ public:
 private:
 	dim_type const dim() const;
 
+	renderer::pixel_pos const pos() const;
 	size_type stride() const;
 	GLenum format() const;
 	GLenum format_type() const;

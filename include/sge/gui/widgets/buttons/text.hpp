@@ -2,7 +2,7 @@
 #define SGE_GUI_WIDGETS_BUTTONS_TEXT_HPP_INCLUDED
 
 #include <sge/gui/widgets/buttons/base.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 #include <sge/font/metrics_fwd.hpp>
 #include <boost/function.hpp>
 
@@ -17,7 +17,7 @@ namespace buttons
 class SGE_CLASS_SYMBOL text : public base
 {
 	public:
-	SGE_SYMBOL text(
+	SGE_GUI_SYMBOL text(
 		parent_data const &,
 		parameters,
 		string const &,

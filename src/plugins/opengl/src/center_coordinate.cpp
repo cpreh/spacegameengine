@@ -18,43 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../common.hpp"
-#include "../format.hpp"
-#include "../to_actor.hpp"
-#include "../client_state_combiner.hpp"
-#include "../global_client_state.hpp"
-#include <sge/container/linear_set_impl.hpp>
-#include <boost/foreach.hpp>
+#include "../center_coordinate.hpp"
 
-sge::ogl::vf::format::format(
-	renderer::vf::dynamic_format const &fmt)
-:
-	fmt(fmt)
+sge::renderer::pixel_unit
+sge::ogl::center_coordinate(
+	renderer::pixel_unit const window_sz,
+	renderer::screen_unit const res_sz)
 {
-	renderer::vf::dynamic_ordered_element_list const &elems(
-		fmt.elements());
+	renderer::pixel_unit const res_p(
+		static_cast<renderer::pixel_unit>(
+			res_sz));
 	
-	BOOST_FOREACH(renderer::vf::dynamic_ordered_element const &e, elems)
-		actors.push_back(
-			to_actor(e, fmt.stride()));
-}
-
-sge::renderer::vf::dynamic_format const &
-sge::ogl::vf::format::get() const
-{
-	return fmt;
-}
-
-void sge::ogl::vf::format::use_me(
-	pointer const src) const
-{
-	client_state_combiner states_(
-		global_client_state()
-	);
-
-	BOOST_FOREACH(actor_array::reference c, actors)
-	{
-		c.source(src);
-		c(states_);
-	}
+	return window_sz > res_p
+		? (window_sz - res_p) / 2
+		: 0;
 }

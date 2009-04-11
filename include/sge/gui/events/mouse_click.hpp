@@ -3,7 +3,7 @@
 
 #include <sge/gui/point.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/export.hpp>
+#include <sge/gui/export.hpp>
 
 namespace sge
 {
@@ -14,7 +14,7 @@ namespace events
 class mouse_click
 {
 	public:
-	SGE_SYMBOL mouse_click(
+	SGE_GUI_SYMBOL mouse_click(
 		point const &,
 		input::key_pair const &);
 	point const &pos() const { return pos_; }

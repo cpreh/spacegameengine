@@ -23,23 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config.h>
 
-#ifdef SGE_SYMBOL
-#	undef SGE_SYMBOL
-#endif
-
-#ifdef SGE_EXPORT_SYMBOL
-#	undef SGE_EXPORT_SYMBOL
-#endif
-
-#ifdef SGE_IMPORT_SYMBOL
-#	undef SGE_IMPORT_SYMBOL
-#endif
-
 #if defined(_MSC_VER)
 #	define SGE_EXPORT_SYMBOL __declspec(dllexport)
 #	define SGE_IMPORT_SYMBOL __declspec(dllimport)
 
-#	ifdef SGE_EXPORTS
+#	ifdef sgecore_EXPORTS
 #		define SGE_SYMBOL SGE_EXPORT_SYMBOL
 #	else
 #		define SGE_SYMBOL SGE_IMPORT_SYMBOL
@@ -49,10 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif defined(__GNUC__) && defined(SGE_HAVE_GCC_VISIBILITY)
 #	define SGE_SYMBOL __attribute__ ((visibility("default")))
 #	define SGE_EXPORT_SYMBOL SGE_SYMBOL
+#	define SGE_IMPORT_SYMBOL
 #	define SGE_CLASS_SYMBOL SGE_SYMBOL
 #else
 #	define SGE_SYMBOL
 #	define SGE_EXPORT_SYMBOL
+#	define SGE_IMPORT_SYMBOL
 #	define SGE_CLASS_SYMBOL
 #endif
 

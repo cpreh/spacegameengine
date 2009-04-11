@@ -21,20 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VIEWPORT_FUN_HPP_INCLUDED
 #define SGE_OPENGL_VIEWPORT_FUN_HPP_INCLUDED
 
+#include <sge/window/dim_type.hpp>
 #include <boost/function.hpp>
 
 namespace sge
 {
-namespace renderer
-{
-class viewport;
-}
-
 namespace ogl
 {
 
 typedef boost::function<
-	void (renderer::viewport const &)
+	void (window::dim_type const &)
 > view_port_fun;
 
 }

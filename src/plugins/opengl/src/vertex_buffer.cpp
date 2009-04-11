@@ -45,7 +45,9 @@ sge::ogl::vertex_buffer::vertex_buffer(
 void sge::ogl::vertex_buffer::set_format() const
 {
 	buf.bind_me();
-	format_.use_me();
+	format_.use_me(
+		buf.buffer_offset(0)
+	);
 }
 
 sge::ogl::vertex_buffer::view_type const

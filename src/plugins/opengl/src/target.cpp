@@ -52,8 +52,8 @@ sge::ogl::target::lock(
 	bind_me();
 
 	read_pixels(
-		dest.left(),
-		dest.top(),
+		pos().x() + dest.left(),
+		pos().y() + dest.top(),
 		dest.dim().w(),
 		dest.dim().h(),
 		format(),

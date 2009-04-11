@@ -18,43 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include "../../common.hpp"
-#include "../format.hpp"
-#include "../to_actor.hpp"
-#include "../client_state_combiner.hpp"
-#include "../global_client_state.hpp"
-#include <sge/container/linear_set_impl.hpp>
-#include <boost/foreach.hpp>
+#include "../background_dim.hpp"
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/structure_cast.hpp>
+#include <sge/exception.hpp>
+#include <sge/text.hpp>
 
-sge::ogl::vf::format::format(
-	renderer::vf::dynamic_format const &fmt)
-:
-	fmt(fmt)
+sge::renderer::dim_type const
+sge::ogl::background_dim(
+	sge::renderer::viewport_mode::type const m,
+	sge::window::dim_type const &d,
+	sge::renderer::screen_size const &sz)
 {
-	renderer::vf::dynamic_ordered_element_list const &elems(
-		fmt.elements());
-	
-	BOOST_FOREACH(renderer::vf::dynamic_ordered_element const &e, elems)
-		actors.push_back(
-			to_actor(e, fmt.stride()));
-}
-
-sge::renderer::vf::dynamic_format const &
-sge::ogl::vf::format::get() const
-{
-	return fmt;
-}
-
-void sge::ogl::vf::format::use_me(
-	pointer const src) const
-{
-	client_state_combiner states_(
-		global_client_state()
-	);
-
-	BOOST_FOREACH(actor_array::reference c, actors)
-	{
-		c.source(src);
-		c(states_);
+	switch(m) {
+	case renderer::viewport_mode::centered_screen_size:
+		return structure_cast<
+			renderer::dim_type
+		>(sz);
+	case renderer::viewport_mode::whole_window:
+		return structure_cast<
+			renderer::dim_type
+		>(d);
+	default:
+		throw exception(
+			SGE_TEXT("Invalid viewport_mode!")
+		);
 	}
 }

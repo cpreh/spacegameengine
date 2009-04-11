@@ -60,15 +60,11 @@ public:
 		view_port_fun const &);
 	
 	void swap_buffers();
-	void reset_viewport();
 private:
 	void reset_viewport_on_map(
 		XEvent const &);
 	void reset_viewport_on_configure(
 		XEvent const &);
-	void center_viewport(
-		renderer::pixel_unit w,
-		renderer::pixel_unit h);
 
 	view_port_fun              const set_viewport;
 	renderer::screen_size      const screen_size_;

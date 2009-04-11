@@ -62,7 +62,7 @@ protected:
 	> input_buffer;
 
 	bool get_input(
-		input_buffer buf,
+		input_buffer &buf,
 		DWORD &elements,
 		unsigned d = 0);
 	void enum_objects(

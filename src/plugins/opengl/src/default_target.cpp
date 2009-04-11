@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../common.hpp"
 #include "../default_target.hpp"
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
@@ -29,9 +30,30 @@ sge::ogl::default_target::default_target(
 	dim_type const & dim_,
 	renderer::bit_depth::type const depth_)
  :
+ 	pos_(renderer::pixel_pos::null()),
  	dim_(dim_),
 	depth_(depth_)
 {}
+
+void
+sge::ogl::default_target::pos(
+	renderer::pixel_pos const &p)
+{
+	pos_ = p;
+}
+
+void
+sge::ogl::default_target::dim(
+	dim_type const &d)
+{
+	dim_ = d;
+}
+
+sge::renderer::pixel_pos const
+sge::ogl::default_target::pos() const
+{
+	return pos_;
+}
 
 sge::renderer::target::dim_type const 
 sge::ogl::default_target::dim() const

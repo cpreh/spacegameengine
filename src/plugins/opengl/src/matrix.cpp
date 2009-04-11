@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "../matrix.hpp"
 #include "../error.hpp"
+#include "../glew.hpp"
 #include <sge/math/matrix/basic_impl.hpp>
 #include <sge/math/matrix/static.hpp>
+#include <sge/math/matrix/transpose.hpp>
 #include <boost/variant/apply_visitor.hpp>
 #include <boost/variant/static_visitor.hpp>
 
@@ -34,6 +36,17 @@ struct visitor : boost::static_visitor<> {
 	void operator()(
 		sge::math::matrix::static_<double, 4, 4>::type const &m) const;
 };
+
+bool have_transpose()
+{
+	static bool const ret(
+		sge::ogl::glew_is_supported(
+			"GL_VERSION_1_3"
+		)
+	);
+
+	return ret;
+}
 
 }
 
@@ -67,16 +80,35 @@ void visitor::operator()(
 	sge::math::matrix::static_<float, 4, 4>::type const &m) const
 {
 	SGE_OPENGL_SENTRY
-	glLoadTransposeMatrixf(
-		m.data());
+
+	if(have_transpose())
+		glLoadTransposeMatrixf(
+			m.data()
+		);
+	else
+		glLoadMatrixf(
+			sge::math::matrix::transpose(
+				m
+			).data()
+		);
 }
 	
 void visitor::operator()(
 	sge::math::matrix::static_<double, 4, 4>::type const &m) const
 {
 	SGE_OPENGL_SENTRY
-	glLoadTransposeMatrixd(
-		m.data());
+
+	if(have_transpose())
+		glLoadTransposeMatrixd(
+			m.data()
+		);
+	else
+		glLoadMatrixd(
+			sge::math::matrix::transpose(
+				m
+			).data()
+		);
+
 }
 
 }
