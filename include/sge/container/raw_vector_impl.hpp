@@ -424,6 +424,9 @@ void sge::container::raw_vector<T, A>::range_check(const size_type n) const
 	SGE_ASSERT(n < size());
 }
 
+#undef max
+// TODO: hide windows.h in asio
+
 template<typename T, typename A>
 typename sge::container::raw_vector<T, A>::size_type
 sge::container::raw_vector<T, A>::new_capacity(

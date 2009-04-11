@@ -57,7 +57,7 @@ angle_to(
 {
 	// FIXME
 	return atan2(
-		structure_cast<
+		::sge::structure_cast<
 			typename vector::static_<
 				Dest,
 				N::value
@@ -81,7 +81,7 @@ angle_to(
 {
 	// FIXME
 	return atan2(
-		structure_cast<
+		::sge::structure_cast<
 			typename vector::static_<
 				Dest,
 				N::value
