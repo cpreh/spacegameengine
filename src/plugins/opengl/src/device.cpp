@@ -385,7 +385,13 @@ void sge::ogl::device::viewport(
 	renderer::viewport const &v)
 {
 	viewport_ = v;
-	reset_viewport_default();
+	if(fbo_active)
+		ogl::viewport(
+			v,
+			target_->dim().h()
+		);
+	else
+		reset_viewport_default();
 }
 
 void sge::ogl::device::viewport_mode(
@@ -438,6 +444,9 @@ void sge::ogl::device::target(
 
 	ftarget->bind_texture(p);
 
+	target_ = ftarget;
+	fbo_active = true;
+
 	viewport(
 		renderer::viewport(
 			renderer::pixel_pos::null(),
@@ -449,8 +458,6 @@ void sge::ogl::device::target(
 		)
 	);
 	
-	target_ = ftarget;
-	fbo_active = true;
 	projection_internal();
 }
 
