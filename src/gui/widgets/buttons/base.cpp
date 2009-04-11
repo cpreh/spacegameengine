@@ -5,6 +5,7 @@
 #include <sge/gui/widgets/log.hpp>
 #include <sge/input/key_type.hpp>
 #include <sge/input/key_code.hpp>
+#include <sge/math/rect_impl.hpp>
 
 namespace
 {

@@ -3,12 +3,15 @@
 #include <sge/gui/unit.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/renderer/make_const_image_view.hpp>
+#include <sge/math/rect_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/text.hpp>
 #include <boost/gil/image.hpp>
 
 sge::gui::canvas::object::object(image &texture_)
-	: texture_(texture_),
-	  view_(boost::gil::view(texture_))
+:
+	texture_(texture_),
+	view_(boost::gil::view(texture_))
 {
 }
 

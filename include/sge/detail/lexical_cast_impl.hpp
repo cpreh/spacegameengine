@@ -1,13 +1,41 @@
-#include <sge/sstream.hpp>
 #include <sge/bad_lexical_cast.hpp>
-#include <sge/type_info.hpp>
+#include <sge/type_traits/is_string.hpp>
+#include <sge/mpl/value_type.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/static_assert.hpp>
+#include <sstream>
+#include <typeinfo>
 
-template<typename Dest,typename Src>
+template<
+	typename Dest,
+	typename Src
+>
 typename boost::disable_if<boost::is_same<Src,Dest>,Dest>::type
 sge::lexical_cast(
 	Src const &s)
 {
-	sge::stringstream ss;
+	BOOST_STATIC_ASSERT((
+		boost::mpl::or_<
+			type_traits::is_string<
+				Dest
+			>,
+			type_traits::is_string<
+				Src
+			>
+		>::value
+	));
+
+	std::basic_stringstream<
+		typename boost::mpl::eval_if<
+			type_traits::is_string<
+				Dest
+			>,
+			mpl::value_type<Dest>,
+			mpl::value_type<Src>
+		>::type
+	> ss;
+
 	Dest result;
 
 	if (!(ss << s && ss >> result))
@@ -16,7 +44,9 @@ sge::lexical_cast(
 	return result;
 }
 
-template<typename Src>
+template<
+	typename Src
+>
 Src
 sge::lexical_cast(
 	Src const &s)

@@ -18,64 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MATH_VECTOR_LENGTH_HPP_INCLUDED
-#define SGE_MATH_VECTOR_LENGTH_HPP_INCLUDED
+#ifndef SGE_TYPE_TRAITS_IS_STRING_HPP_INCLUDED
+#define SGE_TYPE_TRAITS_IS_STRING_HPP_INCLUDED
 
-#include <sge/math/vector/basic_impl.hpp>
-#include <sge/math/vector/length_quad.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <cmath>
+#include <boost/type_traits/integral_constant.hpp>
+#include <string>
 
 namespace sge
 {
-namespace math
-{
-namespace vector
+namespace type_traits
 {
 
 template<
-	typename T,
-	typename N,
-	typename S
+	typename T
 >
-typename boost::enable_if<
-	boost::is_floating_point<T>,
-	typename basic<T, N, S>::value_type
->::type
-length(
-	basic<T, N, S> const &v)
-{
-	return std::sqrt(
-		length_quad(
-			v
-		)
-	);
-}
+struct is_string
+:
+boost::false_type
+{};
 
 template<
-	typename Dest,
-	typename T,
-	typename N,
-	typename S
+	typename Ch,
+	typename Traits
 >
-typename boost::disable_if<
-	boost::is_floating_point<T>,
-	Dest
->::type
-length(
-	basic<T, N, S> const &v)
-{
-	return std::sqrt(
-		static_cast<Dest>(
-			length_quad(
-				v
-			)
-		)
-	);
-}
+struct is_string<
+	std::basic_string<
+		Ch,
+		Traits
+	>
+>
+:
+boost::true_type
+{};
 
-}
 }
 }
 

@@ -3,6 +3,7 @@
 
 #include <sge/gui/point.hpp>
 #include <sge/gui/export.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 namespace sge
 {

@@ -2,8 +2,9 @@
 #define SGE_GUI_EVENTS_MOUSE_CLICK_HPP_INCLUDED
 
 #include <sge/gui/point.hpp>
-#include <sge/input/key_pair.hpp>
 #include <sge/gui/export.hpp>
+#include <sge/input/key_pair.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 namespace sge
 {

@@ -7,3 +7,15 @@ sge::gui::events::invalid_area::invalid_area(
 	texture_(texture_),
 	area_(area_)
 {}
+
+sge::gui::image_view const &
+sge::gui::events::invalid_area::texture() const
+{
+	return texture_;
+}
+
+sge::gui::rect const
+sge::gui::events::invalid_area::area() const
+{
+	return area_;
+}

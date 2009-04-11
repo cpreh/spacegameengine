@@ -1,4 +1,6 @@
 #include <sge/gui/layouts/horizontal.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 
 sge::gui::layouts::horizontal::horizontal()
 	: row()

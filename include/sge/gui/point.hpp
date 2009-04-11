@@ -2,7 +2,6 @@
 #define SGE_GUI_POINT_HPP_INCLUDED
 
 #include <sge/sprite/point.hpp>
-#include <sge/math/vector/vector.hpp>
 
 namespace sge
 {

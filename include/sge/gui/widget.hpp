@@ -12,7 +12,8 @@
 #include <sge/gui/layout_fwd.hpp>
 #include <sge/gui/manager_fwd.hpp>
 #include <sge/gui/size_policy.hpp>
-#include <sge/math/vector/basic_impl.hpp>
+#include <sge/math/vector/basic_impl.hpp> // needed because of parameters, TODO: move them
+#include <sge/math/dim/basic_impl.hpp>
 #include <sge/renderer/image.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/gui/export.hpp>

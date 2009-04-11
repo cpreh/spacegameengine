@@ -9,6 +9,9 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
+#include <sge/math/rect_impl.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/dim/arithmetic.hpp>
 #include <sge/structure_cast.hpp>
 #include <boost/gil/image.hpp>
 

@@ -25,7 +25,7 @@ class SGE_CLASS_SYMBOL label : public widget
 	font::metrics_ptr const font() const;
 	string const text() const;
 	void text(string const &_text);
-	boost::optional<dim> static_size() const; 
+	boost::optional<dim> const static_size() const;
 	private:
 	string text_;
 	boost::optional<dim> static_size_;

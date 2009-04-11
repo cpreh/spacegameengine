@@ -3,6 +3,7 @@
 #include <sge/renderer/copy_and_convert_pixels.hpp>
 #include <sge/renderer/image_view.hpp>
 #include <sge/image/object.hpp>
+#include <sge/math/dim/basic_impl.hpp>
 
 sge::gui::image_ptr const sge::gui::make_image(
 	sge::image::object_ptr _image)

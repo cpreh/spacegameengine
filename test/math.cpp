@@ -75,5 +75,8 @@ int main()
 
 	sge::cin >> vec;
 
-	sge::cout << vec << SGE_TEXT('\n');
+	sge::cout
+		<< vec << SGE_TEXT('\n')
+		<< sge::math::vector::length<float>(vec) << SGE_TEXT('\n')
+		<< length(vecf) << SGE_TEXT('\n');
 }

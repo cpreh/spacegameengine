@@ -5,6 +5,8 @@
 #include <sge/gui/widget_fwd.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/size_policy.hpp>
+#include <sge/math/dim/basic_decl.hpp>
+#include <sge/math/vector/basic_decl.hpp>
 #include <vector>
 #include <cstddef>
 
