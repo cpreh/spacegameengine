@@ -13,8 +13,7 @@ namespace layouts
 class SGE_CLASS_SYMBOL horizontal : public row
 {
 	public:
-	SGE_GUI_SYMBOL horizontal(
-		widget &);
+	SGE_GUI_SYMBOL horizontal();
 	private:
 	dim::const_reference master(
 		dim const &) const;

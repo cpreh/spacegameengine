@@ -13,7 +13,7 @@ namespace layouts
 class null : public layout
 {
 	public:
-	SGE_GUI_SYMBOL null(widget &);
+	SGE_GUI_SYMBOL null();
 
 	SGE_GUI_SYMBOL void update();
 	SGE_GUI_SYMBOL void pos(point const &);

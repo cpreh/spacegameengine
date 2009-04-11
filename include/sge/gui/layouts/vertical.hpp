@@ -13,7 +13,7 @@ namespace layouts
 class SGE_CLASS_SYMBOL vertical : public row
 {
 	public:
-	SGE_GUI_SYMBOL vertical(widget &);
+	SGE_GUI_SYMBOL vertical();
 	private:
 	dim::const_reference master(
 		dim const &) const;

@@ -14,7 +14,7 @@ namespace gui
 class SGE_CLASS_SYMBOL layout
 {
 public:
-	SGE_GUI_SYMBOL explicit layout(widget &);
+	SGE_GUI_SYMBOL layout();
 
 	virtual void update() = 0;
 	virtual void pos(point const &) = 0;
@@ -31,7 +31,10 @@ protected:
 	void compile_widget(widget &);
 
 private:
-	widget &w;
+	widget *w;
+
+	friend class widget;
+	void connected_widget(widget &);
 };
 
 }

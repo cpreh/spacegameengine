@@ -35,12 +35,10 @@ sge::gui::widget::widget(
 		layout_(
 			params.layout() 
 			? params.layout() 
-			: layout_auto_ptr(new layouts::null(*this))),
+			: layout_auto_ptr(new layouts::null())),
 		activation_(params.activation())
 {
-	SGE_ASSERT_MESSAGE(
-		&(layout_->connected_widget()) == this,
-		SGE_TEXT("widget specified for layout is not the widget the layout is assigned to"));
+	layout_->connected_widget(*this);
 
 	if (has_parent())
 		parent_widget().add_child(*this);
@@ -174,11 +172,8 @@ sge::gui::activation_state::type sge::gui::widget::activation() const
 
 void sge::gui::widget::layout(layout_auto_ptr n)
 {
-	SGE_ASSERT_MESSAGE(
-		&(n->connected_widget()) == this,
-		SGE_TEXT("widget specified for layout is not the widget the layout is assigned to"));
-		
 	layout_ = n;
+	layout_->connected_widget(*this);
 }
 
 sge::gui::layout_ptr sge::gui::widget::layout()

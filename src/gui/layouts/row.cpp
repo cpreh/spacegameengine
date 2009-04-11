@@ -14,10 +14,9 @@ sge::gui::logger mylogger(
 	false);
 }
 
-sge::gui::layouts::row::row(
-	widget &w)
+sge::gui::layouts::row::row()
 : 
-	layout(w)
+	layout()
 {
 }
 

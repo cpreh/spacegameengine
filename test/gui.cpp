@@ -104,7 +104,7 @@ try
 	b.size(sge::gui::dim(400,300));
 #elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
 	sge::gui::widget top((sge::gui::widget::parent_data(m)));
-	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)));
+	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>());
 	top.relative_pos(sge::gui::point(10,10));
 	top.size(sge::gui::dim(400,300));
 
@@ -116,7 +116,7 @@ try
 		sge::gui::widget::parameters()
 			.pos(sge::gui::point(10,10))
 			.layout(
-				sge::make_shared_ptr<sge::gui::layouts::horizontal>(boost::ref(top)))
+				sge::make_shared_ptr<sge::gui::layouts::horizontal>())
 			.size(sge::gui::dim(400,300)));
 
 	sge::cerr << "added top level widget\n";
@@ -124,12 +124,12 @@ try
 	sge::gui::widget left(
 		top,
 		sge::gui::widget::parameters()
-			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(left))));
+			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
 
 	sge::gui::widget right(
 		top,
 		sge::gui::widget::parameters()
-			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>(boost::ref(right))));
+			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
 
 	sge::gui::widgets::buttons::text left_top(
 		left,

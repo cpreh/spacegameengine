@@ -17,7 +17,7 @@ namespace layouts
 class SGE_CLASS_SYMBOL row : public layout
 {
 	public:
-	SGE_GUI_SYMBOL row(widget &);
+	SGE_GUI_SYMBOL row();
 	SGE_GUI_SYMBOL void update();
 	SGE_GUI_SYMBOL void pos(point const &);
 	SGE_GUI_SYMBOL void size(dim const &);

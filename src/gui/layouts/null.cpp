@@ -11,10 +11,9 @@ sge::gui::logger mylogger(
 	false);
 }
 
-sge::gui::layouts::null::null(
-	widget &w)
+sge::gui::layouts::null::null()
 : 
-	layout(w)
+	layout()
 {
 }
 
