@@ -2,6 +2,9 @@
 #include <sge/gui/unit.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/gui/log.hpp>
+#include <sge/math/dim/output.hpp>
+#include <sge/math/dim/basic_impl.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/assert.hpp>
 #include <boost/foreach.hpp>
 #include "../utility/bitfield_and.hpp"

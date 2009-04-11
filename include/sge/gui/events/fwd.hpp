@@ -7,6 +7,7 @@ namespace gui
 {
 namespace events
 {
+// TODO: split this
 class invalid_area;
 class mouse_move;
 class mouse_enter;

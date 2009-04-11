@@ -7,6 +7,7 @@
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
 #include <sge/renderer/colors.hpp>

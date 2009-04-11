@@ -4,6 +4,7 @@
 #include <sge/gui/image_view.hpp>
 #include <sge/gui/rect.hpp>
 #include <sge/gui/export.hpp>
+#include <sge/math/rect_impl.hpp>
 
 namespace sge
 {
@@ -13,13 +14,13 @@ namespace events
 {
 class invalid_area
 {
-	public:
+public:
 	SGE_GUI_SYMBOL invalid_area(
 		image_view const &,
 		rect const &);
-	image_view const &texture() const { return texture_; }
-	rect const area() const { return area_; }
-	private:
+	SGE_GUI_SYMBOL image_view const &texture() const;
+	SGE_GUI_SYMBOL rect const area() const;
+private:
 	// image view
 	image_view texture_;
 	// the (absolute) area which is invalid
