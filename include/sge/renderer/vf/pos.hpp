@@ -45,7 +45,7 @@ struct pos
 	NumSubElements
 > {
 	BOOST_STATIC_ASSERT(
-		is_float_or_double<Format>::value);
+		type_traits::is_float_or_double<Format>::value);
 	
 	BOOST_STATIC_ASSERT(
 		NumSubElements >= 2 && NumSubElements <= 4);

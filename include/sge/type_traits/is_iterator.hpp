@@ -39,12 +39,15 @@ class transform_iterator;
 
 namespace sge
 {
+namespace type_traits
+{
 
 template<
 	typename  T
 >
 struct is_iterator
-: boost::false_type
+:
+boost::false_type
 {};
 
 template<
@@ -57,7 +60,8 @@ template<
 struct is_iterator<
 	std::iterator<T,U,V,W,X> 
 >
-: boost::true_type
+:
+boost::true_type
 {};
 
 template<
@@ -69,16 +73,19 @@ template<
 struct is_iterator<
 	boost::transform_iterator<U, I, R, V>
 >
-: boost::true_type
+:
+boost::true_type
 {};
 
 template<
 	typename T
 >
 struct is_iterator<T *>
-: boost::true_type
+:
+boost::true_type
 {};
 
+}
 }
 
 #endif
