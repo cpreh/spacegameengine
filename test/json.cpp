@@ -22,12 +22,130 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <sge/text.hpp>
 #include <sge/cerr.hpp>
+#include <sge/cout.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/foreach.hpp>
 #include <cstdlib>
+
+namespace
+{
+
+/*
+template<
+	typename Out
+>
+struct json_output
+:
+karma::grammar<
+	Out,
+	sge::parse::json::object
+> {
+	json_output()
+	:
+		json_output::base_type(
+			object_
+		)
+	{
+		member_ %=
+			lit(at_c<0>(_r0))
+			<< value_;
+
+		object_ %=
+			char_(SGE_TEXT('{'))
+			<< (*member_)
+			<< char_(SGE_TEXT('}'));
+	}
+private:
+	boost::spirit::karma::rule<
+		Out,
+		sge::parse::json::object()
+	> object_;
+}
+*/
+
+template<
+	typename T
+>
+void print(
+	T const &t)
+{
+	sge::cout << t;
+}
+
+void print(
+	sge::parse::json::null const &)
+{
+	sge::cout << SGE_TEXT("null");
+}
+
+void print(
+	sge::parse::json::object const &obj);
+void print(
+	sge::parse::json::value const &obj);
+
+void print(
+	sge::parse::json::array const &a)
+{
+	sge::cout << SGE_TEXT('[');
+	BOOST_FOREACH(
+		sge::parse::json::array::element_vector::const_reference r,
+		a.elements
+	)
+	{
+		print(r);
+		sge::cout << SGE_TEXT(',');
+	}
+
+	sge::cout << SGE_TEXT(']');
+}
+
+struct output_visitor : boost::static_visitor<> {
+	template<
+		typename T
+	>
+	void operator()(
+		T const &t) const
+	{
+		print(t);
+	}
+};
+
+void print(
+	sge::parse::json::value const &val)
+{
+	boost::apply_visitor(
+		output_visitor(),
+		val
+	);
+}
+
+void print(
+	sge::parse::json::object const &obj)
+{
+	BOOST_FOREACH(
+		sge::parse::json::object::member_vector::const_reference r,
+		obj.members
+	)
+	{
+		sge::cout
+			<< SGE_TEXT('{')
+			<< r.name
+			<< SGE_TEXT(": ");
+		
+		print(r.value_);
+
+		sge::cout
+			<< SGE_TEXT('}');
+	}
+}
+
+}
 
 int main()
 {
 	sge::string const test(
-		SGE_TEXT("{ \"foo\": 42 }")
+		SGE_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5 } }")
 	);
 
 	sge::string::const_iterator beg(
@@ -45,4 +163,10 @@ int main()
 		sge::cerr << SGE_TEXT("failure\n");
 		return EXIT_FAILURE;
 	}
+
+	print(
+		result
+	);
+
+	sge::cout << SGE_TEXT('\n');
 }
