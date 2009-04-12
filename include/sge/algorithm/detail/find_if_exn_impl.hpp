@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_ALGORITHM_FIND_IF_EXN_IMPL_HPP_INCLUDED
-#define SGE_ALGORITHM_FIND_IF_EXN_IMPL_HPP_INCLUDED
+#ifndef SGE_ALGORITHM_DETAIL_FIND_IF_EXN_IMPL_HPP_INCLUDED
+#define SGE_ALGORITHM_DETAIL_FIND_IF_EXN_IMPL_HPP_INCLUDED
 
 #include <sge/exception.hpp>
 #include <sge/text.hpp>

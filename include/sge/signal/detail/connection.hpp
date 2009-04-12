@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SIGNAL_CONNECTION_HPP_INCLUDED
-#define SGE_SIGNAL_CONNECTION_HPP_INCLUDED
+#ifndef SGE_SIGNAL_DETAIL_CONNECTION_HPP_INCLUDED
+#define SGE_SIGNAL_DETAIL_CONNECTION_HPP_INCLUDED
 
 #include <sge/noncopyable.hpp>
 #include <sge/export.hpp>
