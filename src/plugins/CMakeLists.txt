@@ -45,7 +45,7 @@ ELSE()
 ENDIF()
 
 
-IF(OPENGL_FOUND)
+IF(OPENGL_FOUND AND GLEW_FOUND)
 	OPTION (ENABLE_OPENGL "Build the opengl render plugin" ON)
 ELSE()
 	OPTION (ENABLE_OPENGL "Build the opengl render plugin" OFF)
