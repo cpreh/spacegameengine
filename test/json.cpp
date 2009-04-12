@@ -18,28 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/ini/parse.hpp>
+#include <sge/parse/json/parse.hpp>
 #include <sge/string.hpp>
-#include <sge/cout.hpp>
-#include <sge/cerr.hpp>
 #include <sge/text.hpp>
-#include <boost/foreach.hpp>
+#include <sge/cerr.hpp>
 #include <cstdlib>
 
 int main()
 {
 	sge::string const test(
-		SGE_TEXT("[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n")
-		SGE_TEXT("[section2]\nblubb=bar\n")
+		SGE_TEXT("{ \"foo\": 42 }")
 	);
 
 	sge::string::const_iterator beg(
 		test.begin()
 	);
 
-	sge::parse::ini::section_vector result;
+	sge::parse::json::object result;
 
-	if(!sge::parse::ini::parse(
+	if(!sge::parse::json::parse(
 		beg,
 		test.end(),
 		result
@@ -47,25 +44,5 @@ int main()
 	{
 		sge::cerr << SGE_TEXT("failure\n");
 		return EXIT_FAILURE;
-	}
-
-	BOOST_FOREACH(
-		sge::parse::ini::section_vector::const_reference section,
-		result
-	)
-	{
-		sge::cout << SGE_TEXT('[') << section.header << SGE_TEXT("]\n");
-
-		BOOST_FOREACH(
-			sge::parse::ini::entry_vector::const_reference entry,
-			section.entries
-		)
-			sge::cout
-				<< entry.name
-				<< SGE_TEXT(" = ")
-				<< entry.value
-				<< SGE_TEXT('\n');
-
-		sge::cout << SGE_TEXT('\n');
 	}
 }
