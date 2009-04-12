@@ -1,3 +1,6 @@
+#ifndef SGE_SIGNAL_DETAIL_BASE_IMPL_HPP_INCLUDED
+#define SGE_SIGNAL_DETAIL_BASE_IMPL_HPP_INCLUDED
+
 #include <sge/signal/detail/concrete_connection_impl.hpp>
 
 template<typename T>
@@ -21,3 +24,5 @@ sge::signal::detail::base<T>::connections()
 {
 	return connections_;
 }
+
+#endif

@@ -42,7 +42,6 @@ Please follow the instructions below.
   - DINPUT (build the direct input plugin - Windows only)
   - FREETYPE (build the freetype font plugin)
   - GUI (build the gui)
-  - MAD (build the mad mp123 loader plugin)
   - OPENAL (build the openal audio plugin)
   - OPENGL (build the opengl plugin)
   - TEST (build the tests)

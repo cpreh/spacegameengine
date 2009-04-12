@@ -1,3 +1,6 @@
+#ifndef SGE_SIGNAL_DETAIL_CONCRETE_CONNECTION_IMPL_HPP_INCLUDED
+#define SGE_SIGNAL_DETAIL_CONCRETE_CONNECTION_IMPL_HPP_INCLUDED
+
 template<typename T>
 sge::signal::detail::concrete_connection<T>::concrete_connection(
 	function_type const &_function)
@@ -11,3 +14,5 @@ typename sge::signal::detail::concrete_connection<T>::function_type &
 {
 	return function_;
 }
+
+#endif

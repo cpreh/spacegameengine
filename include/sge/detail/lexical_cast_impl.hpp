@@ -1,3 +1,6 @@
+#ifndef SGE_DETAIL_LEXICAL_CAST_IMPL_HPP_INCLUDED
+#define SGE_DETAIL_LEXICAL_CAST_IMPL_HPP_INCLUDED
+
 #include <sge/bad_lexical_cast.hpp>
 #include <sge/type_traits/is_string.hpp>
 #include <sge/mpl/value_type.hpp>
@@ -53,3 +56,5 @@ sge::lexical_cast(
 {
 	return s;
 }
+
+#endif

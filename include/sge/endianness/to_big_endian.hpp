@@ -1,5 +1,5 @@
-#ifndef SGE_ENDIANNESS_TO_big_ENDIAN_HPP_INCLUDED
-#define SGE_ENDIANNESS_TO_big_ENDIAN_HPP_INCLUDED
+#ifndef SGE_ENDIANNESS_TO_BIG_ENDIAN_HPP_INCLUDED
+#define SGE_ENDIANNESS_TO_BIG_ENDIAN_HPP_INCLUDED
 
 #include <sge/endianness/is_little_endian.hpp>
 #include <sge/endianness/swap.hpp>
