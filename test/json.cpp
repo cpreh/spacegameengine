@@ -31,39 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-/*
-template<
-	typename Out
->
-struct json_output
-:
-karma::grammar<
-	Out,
-	sge::parse::json::object
-> {
-	json_output()
-	:
-		json_output::base_type(
-			object_
-		)
-	{
-		member_ %=
-			lit(at_c<0>(_r0))
-			<< value_;
-
-		object_ %=
-			char_(SGE_TEXT('{'))
-			<< (*member_)
-			<< char_(SGE_TEXT('}'));
-	}
-private:
-	boost::spirit::karma::rule<
-		Out,
-		sge::parse::json::object()
-	> object_;
-}
-*/
-
 template<
 	typename T
 >
