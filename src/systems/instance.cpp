@@ -276,7 +276,6 @@ void sge::systems::instance::impl::init_renderer(
 	renderer::parameters const &p,
 	string const &name)
 {
-	//renderer_plugin = plugin_manager.plugin<renderer::system>().load();
 	renderer_plugin = load_plugin<renderer::system>(name);
 	renderer_system.reset(renderer_plugin->get()());
 
@@ -314,7 +313,6 @@ void sge::systems::instance::impl::init_input(
 	}
 			
 
-	//input_plugin = plugin_manager.plugin<sge::input::system>().load();
 	input_plugin = load_plugin<sge::input::system>(name);
 	input_system.reset(input_plugin->get()(window_));
 }
@@ -322,7 +320,6 @@ void sge::systems::instance::impl::init_input(
 void sge::systems::instance::impl::init_collision_system(
 	string const &name)
 {
-	//collision_plugin = plugin_manager.plugin<sge::collision::system>().load();
 	collision_plugin = load_plugin<sge::collision::system>(name);
 	collision_system.reset(collision_plugin->get()());
 }
@@ -330,7 +327,6 @@ void sge::systems::instance::impl::init_collision_system(
 void sge::systems::instance::impl::init_image(
 	string const &name)
 {
-	//image_loader_plugin = plugin_manager.plugin<sge::image::loader>().load();
 	image_loader_plugin = load_plugin<sge::image::loader>(name);
 	image_loader.reset(image_loader_plugin->get()());
 }
@@ -338,7 +334,6 @@ void sge::systems::instance::impl::init_image(
 void sge::systems::instance::impl::init_audio_player(
 	string const &name)
 {
-	//audio_player_plugin = plugin_manager.plugin<sge::audio::player>().load();
 	audio_player_plugin = load_plugin<sge::audio::player>(name);
 	audio_player.reset(audio_player_plugin->get()());
 }
@@ -347,7 +342,6 @@ void sge::systems::instance::impl::init_audio_player(
 void sge::systems::instance::impl::init_font(
 	string const &name)
 {
-	//font_plugin = plugin_manager.plugin<sge::font::system>().load();
 	font_plugin = load_plugin<sge::font::system>(name);
 	font_system.reset(font_plugin->get()());
 }
