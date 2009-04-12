@@ -431,8 +431,11 @@ sge::container::raw_vector<T, A>::erase(
 	iterator const l,
 	iterator const r)
 {
-	std::uninitialized_copy(r, end(), l);
-	i.last -= r - l;
+	if(l != r)
+	{
+		std::uninitialized_copy(r, end(), l);
+		i.last -= r - l;
+	}
 	return r;
 }
 
