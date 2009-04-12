@@ -26,6 +26,20 @@ sge::exception::exception(
 	s(s)
 {}
 
+sge::exception::exception(
+	exception const &e)
+:
+	s(e.s)
+{}
+
+sge::exception &
+sge::exception::operator=(
+	exception const &e)
+{
+	s = e.s;
+	return *this;
+}
+
 sge::string const &
 sge::exception::what() const
 {

@@ -32,6 +32,13 @@ public:
 	SGE_SYMBOL explicit exception(
 		string const &s);
 
+	SGE_SYMBOL exception(
+		exception const &);
+
+	SGE_SYMBOL exception &
+	operator=(
+		exception const &);
+
 	SGE_SYMBOL string const &
 	what() const;
 
