@@ -14,6 +14,23 @@ sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: compiler"),
 	false);
+
+
+bool has_parent(
+	sge::gui::widget const &v,
+	sge::gui::widget const &w)
+{
+	if (!v.has_parent())
+		return false;
+	
+	if (&(v.parent_widget()) == &w)
+		return true;
+	
+	return has_parent(
+		v.parent_widget(),
+		w);
+}
+
 }
 
 sge::gui::detail::managers::compiler::compiler(
@@ -24,9 +41,11 @@ sge::gui::detail::managers::compiler::compiler(
 {
 }
 
-void sge::gui::detail::managers::compiler::add(widget &/*w*/)
+void sge::gui::detail::managers::compiler::add(widget &w)
 {
-	//recompiles.insert(&w);
+	// since we cannot assume that widget is fully constructed (just the base
+	// class: widget), we defer invalidation to a later point of time
+	invalidates.insert(&w);
 }
 
 void sge::gui::detail::managers::compiler::remove(widget &w)
@@ -47,26 +66,38 @@ void sge::gui::detail::managers::compiler::remove(widget &w)
 			recompiles.erase(it);
 	}
 
-	if (deleted.find(&w) != deleted.end())
-		deleted.erase(&w);
+	// we don't want to do anything with the widget or it's parent right now
+	// because any action could fall back to 'w' at some point, so we just make
+	// an entry in the invalidated list which is iterated later
+	
+	// this could happen if a child of 'w' was deleted.
+	if (invalidates.find(&w) != invalidates.end())
+		invalidates.erase(&w);
 
 	if (w.has_parent())
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("inserting parent to deleted list"));
-		deleted.insert(&(w.parent_widget()));
+			log::_1 << SGE_TEXT("inserting parent to invalidates list"));
+		invalidates.insert(&(w.parent_widget()));
 	}
 }
 
 void sge::gui::detail::managers::compiler::update()
 {
-	if (recompiles.empty() && deleted.empty())
+	if (recompiles.empty() && invalidates.empty())
 		return;
 	
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("there is stuff to recompile"));
+	// the parents of invalidates widgets can now be safely invalidated
+	BOOST_FOREACH(widget *w,invalidates)
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("invalidating widget's parent: ")
+			        << typeid(*w).name());
+		w->invalidate(*w);
+	}
+	invalidates.clear();
 
 	BOOST_FOREACH(widget *w,recompiles)
 	{
@@ -74,29 +105,9 @@ void sge::gui::detail::managers::compiler::update()
 			mylogger,
 			log::_1 << SGE_TEXT("compiling widget of type ") 
 			        << typeid(*w).name());
-
 		w->compile();
-		if (!w->has_parent())
-		{
-			render_.resize(
-				*w,
-				w->size());
-			render_.reposition(
-				*w,
-				w->screen_pos());
-		}
 	}
 	recompiles.clear();
-
-	BOOST_FOREACH(widget *w,deleted)
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("invalidating deleted widget's parent: ")
-			        << typeid(*w).name());
-		w->invalidate(*w);
-	}
-	deleted.clear();
 
 	mouse_.recalculate_focus();
 }
@@ -105,19 +116,4 @@ void sge::gui::detail::managers::compiler::invalidate(
 	widget &w)
 {
 	recompiles.insert(&w);
-}
-
-bool sge::gui::detail::managers::compiler::has_parent(
-	widget const &v,
-	widget const &w)
-{
-	if (!v.has_parent())
-		return false;
-	
-	if (&(v.parent_widget()) == &w)
-		return true;
-	
-	return has_parent(
-		v.parent_widget(),
-		w);
 }

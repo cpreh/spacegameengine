@@ -21,6 +21,7 @@
 #include <sge/texture/part_raw.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
+#include <sge/cerr.hpp>
 #include <sge/structure_cast.hpp>
 #include <boost/foreach.hpp>
 #include <algorithm>
@@ -29,7 +30,7 @@ namespace
 {
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
-	SGE_TEXT("render manager"),
+	SGE_TEXT("managers: render"),
 	false);
 
 void wipe_image_view(
@@ -117,6 +118,8 @@ void sge::gui::detail::managers::render::remove(
 {
 	dirt_.erase(&w);
 
+	// the compiler manager takes care of redrawing the parent widget, so we can
+	// exit here
 	if (w.has_parent())
 		return;
 	
@@ -215,17 +218,6 @@ void sge::gui::detail::managers::render::resize(
 			mylogger,
 			log::_1 << SGE_TEXT("resolution suffices, doing nothing"));
 	}
-
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("adding dirty region ") 
-		        << rect(point::null(),d));
-	
-	dirty(
-		w,
-		rect(
-			point::null(),
-			d));
 }
 
 void sge::gui::detail::managers::render::reposition(
@@ -280,6 +272,9 @@ void sge::gui::detail::managers::render::clean()
 							<< typeid(*d.first).name());
 
 		widget &p = d.first->oldest_parent();
+
+		// FIXME: we could remove rectangles which are completely inside this one
+		// (maybe order by area first)
 
 		SGE_ASSERT(widgets.find(&p) != widgets.end());
 

@@ -47,7 +47,6 @@ sge::gui::widget::widget(
 	if (has_parent())
 		parent_widget().add_child(*this);
 	parent_manager().add(*this);
-	invalidate(*this);
 }
 
 sge::gui::point const sge::gui::widget::screen_pos() const

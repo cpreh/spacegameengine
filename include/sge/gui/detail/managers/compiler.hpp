@@ -28,9 +28,7 @@ class compiler : public submanager
 	mouse &mouse_;
 	render &render_;
 	recompile_container recompiles;
-	recompile_container deleted;
-
-	bool has_parent(widget const &,widget const &);
+	recompile_container invalidates;
 };
 }
 }

@@ -48,11 +48,11 @@ sge::gui::manager::manager(
 {
 	// TODO: find a way to initialize this in the constructor
 	// that works for both gcc-4.3 and gcc-4.4.
-	submanagers.push_back(&mouse_);
-	submanagers.push_back(&render_);
-	submanagers.push_back(&keyboard_);
 	submanagers.push_back(&compiler_);
+	submanagers.push_back(&mouse_);
+	submanagers.push_back(&keyboard_);
 	submanagers.push_back(&timer_);
+	submanagers.push_back(&render_);
 }
 
 void sge::gui::manager::dirty(
