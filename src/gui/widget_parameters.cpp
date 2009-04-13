@@ -1,18 +1,12 @@
 #include <sge/gui/widget.hpp>
 
-sge::gui::widget::parameters::parameters(
-	point const &_pos,
-	dim const &_size,
-	layout_auto_ptr const _layout,
-	size_policy_t const &_size_policy,
-	keyboard_focus::type const &_keyboard_focus,
-	activation_state::type const _activation)
-	: pos_(_pos),
-		size_(_size),
-		size_policy_(_size_policy),
-		keyboard_focus_(_keyboard_focus),
-		layout_(_layout),
-		activation_(_activation)
+sge::gui::widget::parameters::parameters()
+: 
+	pos_(point::null()),
+	size_(),
+	size_policy_(size_policy_t::default_policy),
+	keyboard_focus_(keyboard_focus::ignore),
+	activation_(activation_state::active)
 {
 }
 
@@ -69,7 +63,7 @@ sge::gui::point const &sge::gui::widget::parameters::pos() const
 	return pos_;
 }
 
-sge::gui::dim const &sge::gui::widget::parameters::size() const
+boost::optional<sge::gui::dim> const &sge::gui::widget::parameters::size() const
 {
 	return size_;
 }

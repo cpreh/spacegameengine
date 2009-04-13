@@ -1,5 +1,5 @@
-#ifndef SGE_GUI_DETAIL_MANAGERS_UPDATE_HPP_INCLUDED
-#define SGE_GUI_DETAIL_MANAGERS_UPDATE_HPP_INCLUDED
+#ifndef SGE_GUI_DETAIL_MANAGERS_COMPILER_HPP_INCLUDED
+#define SGE_GUI_DETAIL_MANAGERS_COMPILER_HPP_INCLUDED
 
 #include <sge/gui/detail/managers/fwd.hpp>
 #include <sge/gui/detail/submanager.hpp>
@@ -14,19 +14,21 @@ namespace detail
 {
 namespace managers
 {
-class update : public submanager
+class compiler : public submanager
 {
 	public:
-	update(mouse &,render &);
+	compiler(mouse &,render &);
 	void add(widget &);
-	void draw();
+	void update();
 	void remove(widget &);
+	void invalidate(widget &);
 	private:
 	typedef std::set<widget*> recompile_container;
 
 	mouse &mouse_;
 	render &render_;
 	recompile_container recompiles;
+	recompile_container deleted;
 
 	bool has_parent(widget const &,widget const &);
 };

@@ -17,29 +17,11 @@ sge::gui::layouts::null::null()
 {
 }
 
-void sge::gui::layouts::null::update()
+void sge::gui::layouts::null::compile()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("in update, doing nothing"));
-}
-
-void sge::gui::layouts::null::pos(
-	point const &p)
-{
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("in update, setting position"));
-	layout::set_widget_pos(connected_widget(),p);
-}
-
-void sge::gui::layouts::null::size(
-	dim const &p)
-{
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("in update, setting size"));
-	layout::set_widget_size(connected_widget(),p);
+		log::_1 << SGE_TEXT("in compile, doing nothing"));
 }
 
 sge::gui::dim const sge::gui::layouts::null::size_hint() const

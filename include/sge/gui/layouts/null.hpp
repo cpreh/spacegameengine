@@ -15,7 +15,7 @@ class null : public layout
 	public:
 	SGE_GUI_SYMBOL null();
 
-	SGE_GUI_SYMBOL void update();
+	SGE_GUI_SYMBOL void compile();
 	SGE_GUI_SYMBOL void pos(point const &);
 	SGE_GUI_SYMBOL void size(dim const &);
 	SGE_GUI_SYMBOL dim const size_hint() const;

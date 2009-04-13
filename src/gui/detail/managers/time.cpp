@@ -18,7 +18,7 @@ sge::gui::timer::object_ptr const sge::gui::detail::managers::time::add(
 	return p;
 }
 
-void sge::gui::detail::managers::time::draw()
+void sge::gui::detail::managers::time::update()
 {
 	for (timer_container::iterator i = timers.begin(); i != timers.end();)
 	{

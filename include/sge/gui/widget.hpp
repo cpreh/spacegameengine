@@ -20,6 +20,7 @@
 
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/function.hpp>
+#include <boost/optional.hpp>
 
 namespace sge
 {
@@ -49,14 +50,7 @@ class SGE_CLASS_SYMBOL widget
 	class parameters
 	{
 		public:
-		SGE_GUI_SYMBOL explicit parameters(
-			point const &_pos = point::null(),
-			dim const &_size = dim::null(),
-			layout_auto_ptr const _layout = layout_auto_ptr(),
-			size_policy_t const &_size_policy = size_policy_t::default_policy,
-			keyboard_focus::type const &_keyboard_focus = keyboard_focus::ignore,
-			activation_state::type const _activation = activation_state::active);
-
+		parameters();
 		SGE_GUI_SYMBOL parameters &pos(point const &);
 		SGE_GUI_SYMBOL parameters &size(dim const &);
 		SGE_GUI_SYMBOL parameters &size_policy(size_policy_t const &);
@@ -65,14 +59,14 @@ class SGE_CLASS_SYMBOL widget
 		SGE_GUI_SYMBOL parameters &activation(activation_state::type);
 
 		SGE_GUI_SYMBOL point const &pos() const;
-		SGE_GUI_SYMBOL dim const &size() const;
+		SGE_GUI_SYMBOL boost::optional<dim> const &size() const;
 		SGE_GUI_SYMBOL size_policy_t const &size_policy() const;
 		SGE_GUI_SYMBOL keyboard_focus::type const &keyboard_focus() const;
 		SGE_GUI_SYMBOL layout_auto_ptr layout() const;
 		SGE_GUI_SYMBOL activation_state::type activation() const;
 		private:
 		point pos_;
-		dim size_;
+		boost::optional<dim> size_;
 		size_policy_t size_policy_;
 		keyboard_focus::type keyboard_focus_;
 		layout_auto_ptr layout_;
@@ -126,8 +120,10 @@ class SGE_CLASS_SYMBOL widget
 	SGE_GUI_SYMBOL bool has_child(widget const &) const;
 
 	SGE_GUI_SYMBOL void compile();
+	SGE_GUI_SYMBOL void invalidate(widget &);
 
 	SGE_GUI_SYMBOL virtual dim const size_hint() const;
+	SGE_GUI_SYMBOL boost::optional<point> const pos_hint() const;
 	SGE_GUI_SYMBOL virtual void process(events::invalid_area const &);
 	SGE_GUI_SYMBOL virtual void process(events::mouse_enter const &);
 	SGE_GUI_SYMBOL virtual void process(events::mouse_leave const &);
@@ -145,14 +141,19 @@ class SGE_CLASS_SYMBOL widget
 
 	private:
 	friend class layout;
-	void set_size_raw(dim const &d);
-	void set_pos_raw(point const &p);
+
+	void set_size_raw(
+		dim const &d);
+	void set_pos_raw(
+		point const &p);
 
 	widget *const parent_;
 	manager &manager_;
 
 	point pos_;
 	dim size_;
+	boost::optional<dim> size_hint_;
+	boost::optional<point> pos_hint_;
 	size_policy_t size_policy_;
 	keyboard_focus::type keyboard_focus_;
 	mutable image buffer_;

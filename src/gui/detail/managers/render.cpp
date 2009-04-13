@@ -32,7 +32,16 @@ sge::gui::logger mylogger(
 	SGE_TEXT("render manager"),
 	false);
 
-void wipe_texture(sge::renderer::texture_ptr const t)
+void wipe_image_view(
+	sge::renderer::image_view const &v)
+{
+	sge::renderer::fill_pixels(
+		v,
+		sge::renderer::colors::transparent());
+}
+
+void wipe_texture(
+	sge::renderer::texture_ptr const t)
 {
 	sge::renderer::scoped_texture_lock const lock_(
 		t,
@@ -40,18 +49,17 @@ void wipe_texture(sge::renderer::texture_ptr const t)
 			t->dim()),
 		sge::renderer::lock_flags::readwrite);
 	
-	sge::renderer::fill_pixels(
-		lock_.value(),
-		sge::renderer::colors::transparent());
+	wipe_image_view(
+		lock_.value());
 }
 }
 
 sge::gui::detail::managers::render::render(
 	renderer::device_ptr const _rend,
-	managers::mouse &_mouse)
+	cursor &_cursor)
 	: rend(_rend),
 	  ss(rend),
-		mouse_(_mouse)
+		cursor_(_cursor)
 {
 }
 
@@ -87,15 +95,21 @@ void sge::gui::detail::managers::render::activation(
 	}
 }
 
-void sge::gui::detail::managers::render::draw()
+void sge::gui::detail::managers::render::update()
 {
 	clean();
+}
 
-	sprite::container sprites;
+void sge::gui::detail::managers::render::draw()
+{
+	sprites_.clear();
 	BOOST_FOREACH(widget_container::value_type const &w,widgets)
-		sprites.push_back(w.second->sprite);
-	sprites.push_back(mouse_.cursor());
-	ss.render(sprites.begin(),sprites.end());
+		sprites_.push_back(w.second->sprite);
+	sprites_.push_back(
+		cursor_.sprite());
+	ss.render(
+		sprites_.begin(),
+		sprites_.end());
 }
 
 void sge::gui::detail::managers::render::remove(
@@ -117,7 +131,7 @@ void sge::gui::detail::managers::render::resize(
 {
 	dirt_.erase(&w);
 
-	invalidate(
+	dirty(
 		w,
 		rect(
 			d));
@@ -207,7 +221,7 @@ void sge::gui::detail::managers::render::resize(
 		log::_1 << SGE_TEXT("adding dirty region ") 
 		        << rect(point::null(),d));
 	
-	invalidate(
+	dirty(
 		w,
 		rect(
 			point::null(),
@@ -223,14 +237,16 @@ void sge::gui::detail::managers::render::reposition(
 	if (wi == widgets.end())
 		return;
 
+	/*
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("repositioning sprite to ") << d);
+		*/
 	// just reset sprite position
 	wi->second->sprite.pos() = structure_cast<sprite::point>(d);
 }
 
-void sge::gui::detail::managers::render::invalidate(
+void sge::gui::detail::managers::render::dirty(
 	widget &w,
 	rect const &r)
 {
@@ -282,9 +298,11 @@ void sge::gui::detail::managers::render::clean()
 				to_lock),
 			renderer::lock_flags::readwrite);
 
+		wipe_image_view(lock_.value());
+
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("sending invalidate for area: ")
+			log::_1 << SGE_TEXT("sending dirty for area: ")
 			        << d.second);
 
 		p.process(

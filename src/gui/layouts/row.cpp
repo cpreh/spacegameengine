@@ -13,7 +13,7 @@ namespace
 {
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
-	SGE_TEXT("layouts::row"),
+	SGE_TEXT("layouts: row"),
 	false);
 }
 
@@ -21,6 +21,45 @@ sge::gui::layouts::row::row()
 : 
 	layout()
 {
+}
+
+void sge::gui::layouts::row::compile()
+{
+	if (!connected_widget().has_parent())
+		layout::set_widget_size(
+			connected_widget(),
+			connected_widget().size_hint());
+		
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("updating"));
+
+	reset_cache();
+	dim const 
+		optimal = size_hint(),
+		usable = connected_widget().size();
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("optimal size ") << optimal 
+		        << SGE_TEXT(", usable size: ") << usable);
+
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting master axis begin"));
+	adapt_outer(
+		optimal,
+		usable,
+		master(
+			dim(0,1)));
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting master axis end"));
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting slave axis begin"));
+	adapt_outer(
+		optimal,
+		usable,
+		slave(
+			dim(0,1)));
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting slave axis end"));
+
+	// finally, set positions and sizes
+	update_widgets(usable);
 }
 
 sge::gui::dim const sge::gui::layouts::row::size_hint() const
@@ -64,22 +103,6 @@ sge::gui::point::const_reference sge::gui::layouts::row::slave(point const &d) c
 	if (master(d) == d.x())
 		return d.y();
 	return d.x();
-}
-
-void sge::gui::layouts::row::reset_cache()
-{
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("resetting cache begin"));
-	sizes.clear();
-	BOOST_FOREACH(widget &w,connected_widget().children())
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("size hint for this child is ") << w.size_hint());
-		sizes.push_back(widget_map::value_type(&w,w.size_hint()));
-	}
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("resetting cache end"));
 }
 
 void sge::gui::layouts::row::adapt(
@@ -149,7 +172,7 @@ void sge::gui::layouts::row::adapt_outer(
 		{
 			SGE_LOG_DEBUG(mylogger,
 				log::_1 << SGE_TEXT("there are ") << count 
-				        << SGE_TEXT(" widgets which can show grow, growing those"));
+				        << SGE_TEXT(" widgets which can grow, growing those"));
 			adapt(optimal,usable,axis_policy::can_grow,axis);
 		}
 		else
@@ -163,7 +186,9 @@ void sge::gui::layouts::row::adapt_outer(
 
 void sge::gui::layouts::row::update_widgets(dim const &usable)
 {
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("update widgets begin"));
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("update widgets begin"));
 
 	// calculate "bounding line" of all widgets on the master axis
 	unit bounding = static_cast<unit>(0);
@@ -195,7 +220,9 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << SGE_TEXT("setting widget (master) position to ")
-							<< master(pos));
+							<< master(pos)
+							<< SGE_TEXT(" and size to ")
+							<< p.second);
 		
 		layout::set_widget_size(*p.first,p.second);
 		layout::set_widget_pos(*p.first,pos);
@@ -206,52 +233,22 @@ void sge::gui::layouts::row::update_widgets(dim const &usable)
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("update widgets end"));
 }
 
-void sge::gui::layouts::row::update()
+void sge::gui::layouts::row::reset_cache()
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("updating"));
-
-	reset_cache();
-	dim const 
-		optimal = size_hint(),
-		usable = connected_widget().size();
-	SGE_LOG_DEBUG(
-		mylogger,
-		log::_1 << SGE_TEXT("optimal size ") << optimal 
-		        << SGE_TEXT(", usable size: ") << usable);
-
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting master axis begin"));
-	adapt_outer(
-		optimal,
-		usable,
-		master(
-			dim(0,1)));
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting master axis end"));
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting slave axis begin"));
-	adapt_outer(
-		optimal,
-		usable,
-		slave(
-			dim(0,1)));
-	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("adapting slave axis end"));
-
-	// finally, set positions and sizes
-	update_widgets(usable);
+		log::_1 << SGE_TEXT("resetting cache begin"));
+	sizes.clear();
+	BOOST_FOREACH(widget &w,connected_widget().children())
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("size hint for this child is ") << w.size_hint());
+		sizes.push_back(widget_map::value_type(&w,w.size_hint()));
+	}
+	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("resetting cache end"));
 }
 
-void sge::gui::layouts::row::pos(point const &p)
-{
-	layout::set_widget_pos(connected_widget(),p);
-	if (connected_widget().has_parent())
-		update();
-}
-
-void sge::gui::layouts::row::size(dim const &s)
-{
-	layout::set_widget_size(connected_widget(),s);
-	update();
-}
 
 unsigned sge::gui::layouts::row::count_flags(
 	axis_policy::type const flags,
@@ -264,4 +261,3 @@ unsigned sge::gui::layouts::row::count_flags(
 			++count;
 	return count;
 }
-

@@ -26,7 +26,7 @@ class submanager
 	virtual void reposition(
 		widget &,
 		point const &);
-	virtual void draw();
+	virtual void update();
 	virtual void add(
 		widget &);
 	virtual void activation(
@@ -34,9 +34,11 @@ class submanager
 		activation_state::type);
 	virtual void remove(
 		widget &);
-	virtual void invalidate(
+	virtual void dirty(
 		widget &,
 		rect const &);
+	virtual void invalidate(
+		widget &);
 	virtual ~submanager();
 };
 }

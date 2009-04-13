@@ -1,4 +1,4 @@
-#include <sge/gui/detail/managers/update.hpp>
+#include <sge/gui/detail/managers/compiler.hpp>
 #include <sge/gui/widget.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/detail/managers/render.hpp>
@@ -12,11 +12,11 @@ namespace
 {
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
-	SGE_TEXT("managers: update"),
+	SGE_TEXT("managers: compiler"),
 	false);
 }
 
-sge::gui::detail::managers::update::update(
+sge::gui::detail::managers::compiler::compiler(
 	mouse &_mouse,
 	render &_render)
 	: mouse_(_mouse),
@@ -24,16 +24,17 @@ sge::gui::detail::managers::update::update(
 {
 }
 
-void sge::gui::detail::managers::update::add(widget &w)
+void sge::gui::detail::managers::compiler::add(widget &/*w*/)
 {
-	recompiles.insert(&w);
+	//recompiles.insert(&w);
 }
 
-void sge::gui::detail::managers::update::remove(widget &w)
+void sge::gui::detail::managers::compiler::remove(widget &w)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("deleting a widget"));
+		log::_1 << SGE_TEXT("deleting a widget of type ")
+		        << typeid(w).name());
 
 	// remove now dead references from recompile list
 	for (recompile_container::iterator it = recompiles.begin(),next = it; 
@@ -46,40 +47,28 @@ void sge::gui::detail::managers::update::remove(widget &w)
 			recompiles.erase(it);
 	}
 
-	// if there is a parent, set it to recompile
+	if (deleted.find(&w) != deleted.end())
+		deleted.erase(&w);
+
 	if (w.has_parent())
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("for the widget to delete there is a parent, so recompiling"));
-		recompiles.insert(&(w.parent_widget()));
+			log::_1 << SGE_TEXT("inserting parent to deleted list"));
+		deleted.insert(&(w.parent_widget()));
 	}
 }
 
-void sge::gui::detail::managers::update::draw()
+void sge::gui::detail::managers::compiler::update()
 {
-	if (recompiles.empty())
+	if (recompiles.empty() && deleted.empty())
 		return;
 	
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("there is stuff to recompile"));
 
-	// The standard behaviour for widgets which need recompiling is to determine
-	// their topmost parent (a bit of overkill but it doesn't happen very often anyway); 
-	// then, each parent is recompiled completely
-	recompile_container parents;
-
 	BOOST_FOREACH(widget *w,recompiles)
-	{
-		SGE_LOG_DEBUG(
-			mylogger,
-			log::_1 << SGE_TEXT("recompile list contains widget of type ") 
-			        << typeid(*w).name());
-		parents.insert(&(w->oldest_parent()));
-	}
-
-	BOOST_FOREACH(widget *w,parents)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -87,19 +76,38 @@ void sge::gui::detail::managers::update::draw()
 			        << typeid(*w).name());
 
 		w->compile();
-		render_.resize(
-			*w,
-			w->size());
-		render_.reposition(
-			*w,
-			w->screen_pos());
+		if (!w->has_parent())
+		{
+			render_.resize(
+				*w,
+				w->size());
+			render_.reposition(
+				*w,
+				w->screen_pos());
+		}
 	}
+	recompiles.clear();
+
+	BOOST_FOREACH(widget *w,deleted)
+	{
+		SGE_LOG_DEBUG(
+			mylogger,
+			log::_1 << SGE_TEXT("invalidating deleted widget's parent: ")
+			        << typeid(*w).name());
+		w->invalidate(*w);
+	}
+	deleted.clear();
 
 	mouse_.recalculate_focus();
-	recompiles.clear();
 }
 
-bool sge::gui::detail::managers::update::has_parent(
+void sge::gui::detail::managers::compiler::invalidate(
+	widget &w)
+{
+	recompiles.insert(&w);
+}
+
+bool sge::gui::detail::managers::compiler::has_parent(
 	widget const &v,
 	widget const &w)
 {

@@ -1,8 +1,8 @@
 #ifndef SGE_GUI_DETAIL_MANAGERS_RENDER_HPP_INCLUDED
 #define SGE_GUI_DETAIL_MANAGERS_RENDER_HPP_INCLUDED
 
-#include <sge/gui/detail/managers/fwd.hpp>
 #include <sge/gui/detail/submanager.hpp>
+#include <sge/gui/cursor.hpp>
 #include <sge/gui/widget_fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
@@ -24,14 +24,15 @@ class render : public submanager
 	public:
 	render(
 		renderer::device_ptr,
-		mouse &);
+		cursor &);
 	void add(widget &);
+	void update();
 	void draw();
 	void activation(widget &,activation_state::type);
 	void remove(widget &);
 	void resize(widget &,dim const &);
 	void reposition(widget &,point const &);
-	void invalidate(
+	void dirty(
 		widget &,
 		rect const &);
 	sge::sprite::object &connected_sprite(widget &);
@@ -47,7 +48,8 @@ class render : public submanager
 
 	renderer::device_ptr rend;
 	sprite::system ss;
-	mouse &mouse_;
+	sprite::container sprites_;
+	cursor &cursor_;
 	widget_container widgets;
 	dirt_container dirt_;
 

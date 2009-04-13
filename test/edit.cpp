@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/manager.hpp>
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/skins/standard.hpp>
+#include <sge/gui/default_cursor.hpp>
 
 #include <sge/log/logger.hpp>
 #include <sge/log/global.hpp>
@@ -82,9 +83,12 @@ try
 		sys.image_loader(),
 		sys.input_system(),
 		sys.font_system(),
-		sge::make_shared_ptr<
-			sge::gui::skins::standard
-		>());
+		sge::gui::skin_ptr(
+			new sge::gui::skins::standard()),
+		sge::gui::cursor_ptr(
+			new sge::gui::default_cursor(
+				sys.image_loader(),
+				sys.renderer())));
 	
 	sge::gui::widgets::edit b(
 		m,
@@ -120,6 +124,7 @@ try
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block const block(sys.renderer());
+		m.update();
 		m.draw();
 	}
 } 
