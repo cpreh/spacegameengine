@@ -224,6 +224,7 @@ void sge::gui::widget::relative_pos(
 	if (!has_parent())
 	{
 		parent_manager().reposition(*this,_pos_hint);
+		pos_ = _pos_hint;
 	}
 	else
 	{

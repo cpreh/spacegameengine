@@ -30,7 +30,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: mouse"),
-	false);
+	true);
 
 sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 {

@@ -14,7 +14,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("layouts: row"),
-	false);
+	true);
 }
 
 sge::gui::layouts::row::row()

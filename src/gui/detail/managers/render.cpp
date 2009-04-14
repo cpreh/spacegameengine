@@ -31,7 +31,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: render"),
-	false);
+	true);
 
 void wipe_image_view(
 	sge::renderer::image_view const &v)
@@ -159,7 +159,7 @@ void sge::gui::detail::managers::render::resize(
 			math::next_pow_2(d.w()),
 			math::next_pow_2(d.h()));
 
-	if (!wd.texture || structure_cast<dim>(wd.texture->dim()) == new_dim)
+	if (!wd.texture || structure_cast<dim>(wd.texture->dim()) != new_dim)
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
@@ -216,7 +216,9 @@ void sge::gui::detail::managers::render::resize(
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("resolution suffices, doing nothing"));
+			log::_1 << SGE_TEXT("texture resolution ")
+			        << wd.texture->dim() 
+							<< SGE_TEXT(" suffices, doing nothing"));
 	}
 }
 
