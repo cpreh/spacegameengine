@@ -32,7 +32,7 @@ sge::texture::part_raw::part_raw(
 {}
 
 sge::texture::part_raw::part_raw(
-  renderer::texture_ptr const tex)
+	renderer::texture_ptr const tex)
 :
 	area_(
 		static_cast<renderer::lock_rect::value_type>(0),

@@ -316,6 +316,7 @@ INSTALL_HEADERS (sge/texture)
 INSTALL_HEADERS (sge/texture/detail)
 INSTALL_HEADERS (sge/time)
 INSTALL_HEADERS (sge/type_traits)
+INSTALL_HEADERS (sge/utf8)
 INSTALL_HEADERS (sge/window)
 
 IF(ENABLE_GUI)
