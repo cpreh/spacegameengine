@@ -40,6 +40,7 @@ FILE (GLOB sgecorefiles
 	texture/*.cpp
 	texture/detail/*.cpp
 	time/*.cpp
+	utf8/*.cpp
 	window/*.cpp)
 
 IF (X11_FOUND)

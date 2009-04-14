@@ -198,6 +198,20 @@ CHECK_CXX_SOURCE_RUNS(
 	 }"
 	 SGE_HAVE_POSIX)
 
+CHECK_CXX_SOURCE_RUNS(
+	"#include <string>
+	#include <ostream>
+	#include <iostream>
+	#include <cstdlib>
+
+	int main()
+	{
+	  return std::string(\"ä\").size() == 1
+	         ? EXIT_FAILURE
+	         : EXIT_SUCCESS;
+	}"
+	SGE_STRING_IS_UTF8)
+
 IF (SGE_HAVE_POSIX)
 	find_package(X11 REQUIRED)
 
