@@ -50,7 +50,7 @@ class SGE_CLASS_SYMBOL widget
 	class parameters
 	{
 		public:
-		parameters();
+		SGE_GUI_SYMBOL parameters();
 		SGE_GUI_SYMBOL parameters &pos(point const &);
 		SGE_GUI_SYMBOL parameters &size(dim const &);
 		SGE_GUI_SYMBOL parameters &size_policy(size_policy_t const &);
@@ -73,7 +73,7 @@ class SGE_CLASS_SYMBOL widget
 		activation_state::type activation_;
 	};
 
-	SGE_GUI_SYMBOL explicit widget(
+	SGE_GUI_SYMBOL widget(
 		parent_data const &,
 		parameters const &);
 
