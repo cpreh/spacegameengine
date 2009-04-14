@@ -6,7 +6,9 @@
 #include <sge/renderer/state/scoped.hpp>
 
 #include <sge/gui/manager.hpp>
+#include <sge/gui/default_cursor.hpp>
 #include <sge/gui/widgets/buttons/text.hpp>
+#include <sge/gui/widgets/backdrop.hpp>
 #include <sge/gui/layouts/vertical.hpp>
 #include <sge/gui/layouts/horizontal.hpp>
 #include <sge/gui/skins/standard.hpp>
@@ -58,13 +60,6 @@ class input_functor
 };
 }
 
-#define TL_SINGLE_BUTTON 0
-#define TL_MULTIPLE_BUTTONS 1
-#define TL_CHILD_CONTAINERS 2
-#define TL_REMOVE_WIDGETS 3
-
-#define TESTING_LEVEL TL_REMOVE_WIDGETS
-
 int main()
 try
 {
@@ -96,22 +91,14 @@ try
 		sys.image_loader(),
 		sys.input_system(),
 		sys.font_system(),
-		sge::gui::skin_ptr(new sge::gui::skins::standard()));
+		sge::gui::skin_ptr(
+			new sge::gui::skins::standard()),
+		sge::gui::cursor_ptr(
+			new sge::gui::default_cursor(
+				sys.image_loader(),
+				sys.renderer())));
 	
-#if TESTING_LEVEL == TL_SINGLE_BUTTON
-	sge::gui::widgets::buttons::text b((sge::gui::widget::parent_data(m)),SGE_TEXT("Button A"));
-	b.relative_pos(sge::gui::point(10,10));
-	b.size(sge::gui::dim(400,300));
-#elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
-	sge::gui::widget top((sge::gui::widget::parent_data(m)));
-	top.layout(sge::make_shared_ptr<sge::gui::layouts::horizontal>());
-	top.relative_pos(sge::gui::point(10,10));
-	top.size(sge::gui::dim(400,300));
-
-	sge::gui::widgets::buttons::text left((sge::gui::widget::parent_data(top)),SGE_TEXT("Button A"));
-	sge::gui::widgets::buttons::text right((sge::gui::widget::parent_data(top)),SGE_TEXT("Button B"));
-#elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
-	sge::gui::widget top(
+	sge::gui::widgets::backdrop top(
 		sge::gui::widget::parent_data(m),
 		sge::gui::widget::parameters()
 			.pos(sge::gui::point(10,10))
@@ -153,9 +140,6 @@ try
 		SGE_TEXT("(right bottom) me!"));
 
 	sge::cerr << "added buttons and children\n";
-#else
-#error "invalid testing level"
-#endif
 
 	// set sensible render states
 	sys.renderer()->state(
@@ -177,34 +161,25 @@ try
 		)
 	);
 	
-#if TESTING_LEVEL == TL_SINGLE_BUTTON
-	b.clicked.connect(p);
-#elif TESTING_LEVEL == TL_MULTIPLE_BUTTONS
-	left.clicked.connect(p);
-#elif TESTING_LEVEL == TL_CHILD_CONTAINERS || TESTING_LEVEL == TL_REMOVE_WIDGETS
 	sge::signal::scoped_connection const conn2(
 		left_top.register_clicked(p)
 	);
-#endif
 	sge::cerr << SGE_TEXT("---------------------------\nall widgets added!\n");
 	
-#if TESTING_LEVEL == TL_REMOVE_WIDGETS
 	sge::time::timer delete_timer(sge::time::second(static_cast<sge::time::unit>(2)));
-#endif
 	while (running)
 	{
 		sge::mainloop::dispatch();
 		sge::renderer::scoped_block block(sys.renderer());
 
-#if TESTING_LEVEL == TL_REMOVE_WIDGETS
 		if (delete_timer.active() && delete_timer.expired())
 		{
 			sge::cerr << SGE_TEXT("sge: gui test program: removing button\n");
 			delete_timer.deactivate();
 			right_top.reset();
 		}
-#endif
 
+		m.update();
 		m.draw();
 	}
 } 

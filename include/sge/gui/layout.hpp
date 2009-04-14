@@ -16,10 +16,10 @@ class SGE_CLASS_SYMBOL layout
 public:
 	SGE_GUI_SYMBOL layout();
 
-	virtual void update() = 0;
-	virtual void pos(point const &) = 0;
-	virtual void size(dim const &) = 0;
+	virtual void compile() = 0;
 	virtual dim const size_hint() const = 0;
+	virtual void invalidate(
+		widget &);
 
 	SGE_GUI_SYMBOL widget &connected_widget();
 	SGE_GUI_SYMBOL widget const &connected_widget() const;

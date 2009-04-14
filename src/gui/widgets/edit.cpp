@@ -67,7 +67,7 @@ sge::string const sge::gui::widgets::edit::text() const
 void sge::gui::widgets::edit::text(string const &n)
 {
 	text_ = n;
-	parent_manager().invalidate(
+	parent_manager().dirty(
 		*this,
 		rect(point::null(),size()));
 }
@@ -120,8 +120,8 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const 
 	// hand over to delegate
 	cursor.key_callback(k.value());
 
-	// invalidate since something might have changed
-	parent_manager().invalidate(
+	// dirty since something might have changed
+	parent_manager().dirty(
 		*this,
 		rect(
 			point::null(),
@@ -147,7 +147,7 @@ void sge::gui::widgets::edit::blink_callback()
 	SGE_LOG_DEBUG(
 		mygraphlogger,
 		log::_1 << SGE_TEXT("blinking cursor, visibility: ") << cursor_visible_);
-	parent_manager().invalidate(
+	parent_manager().dirty(
 		*this,
 		rect(
 			point::null(),

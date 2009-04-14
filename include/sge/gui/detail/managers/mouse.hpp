@@ -5,6 +5,7 @@
 #include <sge/gui/point.hpp>
 #include <sge/gui/detail/submanager.hpp>
 #include <sge/gui/skin.hpp>
+#include <sge/gui/cursor.hpp>
 #include <sge/gui/widget_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/image/loader_fwd.hpp>
@@ -30,7 +31,7 @@ class mouse : public submanager
 		input::system_ptr,
 		sge::image::loader_ptr,
 		renderer::device_ptr,
-		skin &);
+		cursor &);
 	
 	void resize(
 		widget &,
@@ -39,9 +40,8 @@ class mouse : public submanager
 		widget &,
 		point const &);
 	void add(widget &);
-	void draw();
+	void update();
 	void activation(widget &,activation_state::type);
-	sprite::object const cursor() const;
 	void remove(widget &);
 	void recalculate_focus();
 	private:
@@ -49,8 +49,7 @@ class mouse : public submanager
 
 	widget_container widgets;
 	signal::scoped_connection const ic;
-	sprite::object cursor_;
-	sprite::point cursor_click;
+	cursor &cursor_;
 	widget *focus;
 	bool dirty_;
 

@@ -22,7 +22,7 @@ class time : public submanager
 	timer::object_ptr const add(
 		sge::time::resolution const &,
 		timer::callback);
-	void draw();
+	void update();
 	private:
 	using submanager::add;
 	typedef weak_ptr<timer::object> weak_object_ptr;

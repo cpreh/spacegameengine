@@ -36,6 +36,7 @@ sge::gui::skins::standard::cursor_path() const
 SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skins::standard::fallback(
 	SGE_GUI_SKIN_DRAW_PARAMS_NAMED(widget))
 {
+	/*
 	resize_buffer(w);
 
 	SGE_LOG_DEBUG(
@@ -58,5 +59,6 @@ SGE_GUI_SKIN_DRAW_RETURN(widget) sge::gui::skins::standard::fallback(
 		w,
 		c,
 		e,
-		false);
+		true);
+	*/
 }

@@ -65,8 +65,8 @@ void sge::gui::skins::standard::draw(
 		b.text(),
 		point::null(),
 		c.size(),
-		font::align_h::center,
-		font::align_v::center);
+		b.align_h(),
+		b.align_v());
 
 	SGE_LOG_DEBUG(
 		mylogger,
@@ -74,7 +74,11 @@ void sge::gui::skins::standard::draw(
 		        << b.text()
 		        << SGE_TEXT("\")"));
 
-	blit_invalid(b,c,e);
+	blit_invalid(
+		b,
+		c,
+		e,
+		true);
 }
 
 sge::gui::dim const sge::gui::skins::standard::size_hint(

@@ -5,7 +5,7 @@
 #include <sge/gui/canvas_fwd.hpp>
 #include <sge/filesystem/path.hpp>
 #include <sge/gui/export.hpp>
-#include <sge/shared_ptr.hpp>
+#include <sge/auto_ptr.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/gui/widget_fwd.hpp>
 #include <sge/gui/widgets/fwd.hpp>
@@ -89,8 +89,8 @@ class skin
 		bool transparency = true);
 };
 
-typedef shared_ptr<skin> skin_ptr;
-typedef shared_ptr<skin const> const_skin_ptr;
+typedef auto_ptr<skin> skin_ptr;
+typedef auto_ptr<skin const> const_skin_ptr;
 }
 }
 

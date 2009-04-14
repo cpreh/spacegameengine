@@ -20,7 +20,8 @@ sge::gui::manager::manager(
 	sge::image::loader_ptr const il,
 	input::system_ptr const is,
 	font::system_ptr const fs,
-	skin_ptr skin_)
+	skin_ptr _skin,
+	cursor_ptr _cursor)
 :
 	rend(rend),
 	il(il),
@@ -30,27 +31,46 @@ sge::gui::manager::manager(
 		fs->create_font(
 			sge::media_path() / SGE_TEXT("fonts/default.ttf"),
 			15)),
-	skin_(skin_),
-	mouse_(is,il,rend,*skin_),
-	render_(rend,mouse_),
+	skin_(_skin),
+	cursor_(_cursor),
+	mouse_(
+		is,
+		il,
+		rend,
+		*cursor_),
+	render_(
+		rend,
+		*cursor_),
 	keyboard_(is),
-	updates_(mouse_,render_)
+	compiler_(
+		mouse_,
+		render_)
 {
 	// TODO: find a way to initialize this in the constructor
 	// that works for both gcc-4.3 and gcc-4.4.
+	submanagers.push_back(&compiler_);
 	submanagers.push_back(&mouse_);
-	submanagers.push_back(&render_);
 	submanagers.push_back(&keyboard_);
-	submanagers.push_back(&updates_);
 	submanagers.push_back(&timer_);
+	submanagers.push_back(&render_);
 }
 
-void sge::gui::manager::invalidate(
+void sge::gui::manager::dirty(
 	widget &w,
 	rect const &r)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
-		m->invalidate(w,r);
+		m->dirty(
+			w,
+			r);
+}
+
+void sge::gui::manager::invalidate(
+	widget &w)
+{
+	BOOST_FOREACH(detail::submanager *m,submanagers)
+		m->invalidate(
+			w);
 }
 
 sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
@@ -60,10 +80,20 @@ sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
 	return timer_.add(r,cb);
 }
 
-void sge::gui::manager::draw()
+void sge::gui::manager::update()
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
-		m->draw();
+		m->update();
+}
+
+void sge::gui::manager::draw()
+{
+	render_.draw();
+}
+
+sge::gui::cursor const &sge::gui::manager::cursor() const
+{
+	return *cursor_;
 }
 
 sge::font::metrics_ptr const sge::gui::manager::standard_font()

@@ -62,26 +62,12 @@ sge::gui::detail::managers::mouse::mouse(
 	input::system_ptr const is,
 	sge::image::loader_ptr const il,
 	renderer::device_ptr const rend,
-	skin &s)
+	cursor &_cursor)
 :
 	ic(
 	  	is->register_callback(
 	  		boost::bind(&mouse::input_callback,this,_1))),
-	cursor_(
-		sprite::defaults::pos_,
-		texture::const_part_ptr(
-			make_shared_ptr<
-				texture::part_raw
-			>(
-				rend->create_texture(
-				il->load(s.cursor_path())->view(),
-				renderer::filter::linear,
-				renderer::resource_flags::readable))),
-		sprite::texture_dim,
-		sprite::defaults::color_,
-		static_cast<sprite::depth_type>(0)),
-	//  cursor_click(point::null()),
-	cursor_click(16,16),
+	cursor_(_cursor),
 	focus(0),
 	dirty_(false)
 {
@@ -112,7 +98,7 @@ void sge::gui::detail::managers::mouse::add(widget &w)
 	dirty_ = true;
 }
 
-void sge::gui::detail::managers::mouse::draw()
+void sge::gui::detail::managers::mouse::update()
 {
 	if (dirty_)
 	{
@@ -126,11 +112,6 @@ void sge::gui::detail::managers::mouse::activation(
 	activation_state::type)
 {
 	dirty_ = true;
-}
-
-sge::sprite::object const sge::gui::detail::managers::mouse::cursor() const
-{
-	return cursor_;
 }
 
 void sge::gui::detail::managers::mouse::remove(widget &w)
@@ -167,7 +148,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		mylogger,
 		log::_1 << SGE_TEXT("in top level recalculate_focus"));
 
-	point const click_point = structure_cast<point>(cursor_.pos()+cursor_click);
+	point const click_point = structure_cast<point>(cursor_.pos());
 
 	if (focus)
 	{
@@ -208,7 +189,8 @@ void sge::gui::detail::managers::mouse::input_callback(
 {
 	if (input::is_mouse_axis(k.key().code()))
 	{
-		cursor_.pos() += key_to_mouse_coords(k);
+		cursor_.pos(
+			cursor_.pos()+key_to_mouse_coords(k));
 		recalculate_focus();
 		return;
 	}
@@ -222,7 +204,7 @@ void sge::gui::detail::managers::mouse::input_callback(
 	focus->process(
 		events::mouse_click(
 			structure_cast<point>(
-				cursor_.pos() + cursor_click),
+				cursor_.pos()),
 			k));
 }
 

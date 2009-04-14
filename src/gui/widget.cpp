@@ -29,7 +29,11 @@ sge::gui::widget::widget(
 	:	parent_(parent_data_.parent_widget()),
 	  manager_(parent_data_.parent_manager()),
 		pos_(params.pos()),
-		size_(params.size()),
+		size_(dim::null()),
+		size_hint_(
+			params.size() 
+				? *params.size()
+				: boost::optional<dim>(boost::none)),
 		size_policy_(params.size_policy()),
 		keyboard_focus_(params.keyboard_focus()),
 		layout_(
@@ -134,7 +138,9 @@ sge::gui::keyboard_focus::type sge::gui::widget::keyboard_focus() const
 
 void sge::gui::widget::keyboard_focus(keyboard_focus::type const n)
 {
-	parent_manager().keyboard().keyboard_focus(*this,keyboard_focus_ = n);
+	parent_manager().keyboard().keyboard_focus(
+		*this,
+		keyboard_focus_ = n);
 }
 
 sge::gui::widget::child_container &sge::gui::widget::children()
@@ -159,7 +165,8 @@ void sge::gui::widget::remove_child(widget &w)
 		&w);
 }
 
-void sge::gui::widget::activation(activation_state::type _activation)
+void sge::gui::widget::activation(
+	activation_state::type _activation)
 {
 	if (_activation == activation())
 		return;
@@ -176,6 +183,7 @@ void sge::gui::widget::layout(layout_auto_ptr n)
 {
 	layout_ = n;
 	layout_->connected_widget(*this);
+	invalidate(*this);
 }
 
 sge::gui::layout_ptr sge::gui::widget::layout()
@@ -202,14 +210,26 @@ bool sge::gui::widget::has_child(widget const &w) const
 	return false;
 }
 
-void sge::gui::widget::size(dim const &d)
+void sge::gui::widget::size(
+	dim const &_size_hint)
 {
-	layout()->size(d);
+	size_hint_ = _size_hint;
+	invalidate(*this);
 }
 
-void sge::gui::widget::relative_pos(point const &d)
+void sge::gui::widget::relative_pos(
+	point const &_pos_hint)
 {
-	layout()->pos(d);
+	// NOTE: this is just a performance enhancement
+	if (!has_parent())
+	{
+		parent_manager().reposition(*this,_pos_hint);
+	}
+	else
+	{
+		pos_hint_ = _pos_hint;
+		invalidate(*this);
+	}
 }
 
 void sge::gui::widget::compile()
@@ -217,15 +237,33 @@ void sge::gui::widget::compile()
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("in compile"));
-	layout()->update();
+	layout()->compile();
+}
+
+void sge::gui::widget::invalidate(
+	widget &w)
+{
+	SGE_LOG_DEBUG(
+		mylogger,
+		log::_1 << SGE_TEXT("in compile"));
+	layout()->invalidate(
+		w);
 }
 
 sge::gui::dim const sge::gui::widget::size_hint() const
 {
+	if (size_hint_)
+		return *size_hint_;
 	return layout()->size_hint();
 }
 
-void sge::gui::widget::process(events::invalid_area const &e)
+boost::optional<sge::gui::point> const sge::gui::widget::pos_hint() const
+{
+	return pos_hint_;
+}
+
+void sge::gui::widget::process(
+	events::invalid_area const &e)
 {
 	// draw itself, then draw children
 	SGE_LOG_DEBUG(
@@ -262,17 +300,20 @@ void sge::gui::widget::process(events::mouse_leave const &) {}
 void sge::gui::widget::process(events::mouse_move const &) {}
 void sge::gui::widget::process(events::mouse_click const &) {}
 
-sge::gui::key_handling::type sge::gui::widget::process(events::key const &) 
+sge::gui::key_handling::type sge::gui::widget::process(
+	events::key const &) 
 { 
 	return key_handling::process; 
 }
 
-void sge::gui::widget::process(events::keyboard_enter const &) 
+void sge::gui::widget::process(
+	events::keyboard_enter const &) 
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_enter"));
 }
 
-void sge::gui::widget::process(events::keyboard_leave const &) 
+void sge::gui::widget::process(
+	events::keyboard_leave const &) 
 {
 	SGE_LOG_DEBUG(mylogger,log::_1 << SGE_TEXT("got keyboard_leave"));
 }
@@ -280,8 +321,10 @@ void sge::gui::widget::process(events::keyboard_leave const &)
 sge::gui::widget::~widget()
 {
 	if (has_parent())
-		parent_widget().remove_child(*this);
-	parent_manager().remove(*this);
+		parent_widget().remove_child(
+			*this);
+	parent_manager().remove(
+		*this);
 }
 
 sge::gui::rect const sge::gui::widget::absolute_area() const
@@ -294,13 +337,17 @@ sge::gui::rect const sge::gui::widget::screen_area() const
 	return rect(screen_pos(), size());
 }
 
-void sge::gui::widget::set_size_raw(dim const &d) 
+void sge::gui::widget::set_size_raw(
+	dim const &_size) 
 { 
-	size_ = d; 
-	parent_manager().resize(*this,d);
+	size_ = _size; 
+	parent_manager().resize(
+		*this,
+		size_);
 }
 
-void sge::gui::widget::set_pos_raw(point const &p) 
+void sge::gui::widget::set_pos_raw(
+	point const &p) 
 { 
 	pos_ = p; 
 	parent_manager().reposition(*this,p);

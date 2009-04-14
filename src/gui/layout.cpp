@@ -1,5 +1,6 @@
 #include <sge/gui/layout.hpp>
 #include <sge/gui/widget.hpp>
+#include <sge/gui/manager.hpp>
 #include <sge/exception.hpp>
 #include <sge/text.hpp>
 
@@ -7,6 +8,17 @@ sge::gui::layout::layout()
 :
 	w(0)
 {
+}
+
+void sge::gui::layout::invalidate(
+	widget &)
+{
+	if (connected_widget().has_parent())
+		connected_widget().parent_widget().invalidate(
+			connected_widget());
+	else
+		connected_widget().parent_manager().invalidate(
+			connected_widget());
 }
 
 sge::gui::widget &
