@@ -31,7 +31,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: render"),
-	true);
+	false);
 
 void wipe_image_view(
 	sge::renderer::image_view const &v)

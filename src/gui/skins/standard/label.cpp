@@ -61,7 +61,7 @@ void sge::gui::skins::standard::draw(
 	// draw text centered
 	c.draw_text(
 		b.font(),
-		renderer::colors::black(),
+		b.color(),
 		b.text(),
 		point::null(),
 		c.size(),

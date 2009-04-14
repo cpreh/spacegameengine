@@ -13,8 +13,7 @@ namespace
 sge::gui::logger mylogger(
 	sge::gui::global_log(),
 	SGE_TEXT("managers: compiler"),
-	true);
-
+	false);
 
 bool has_parent(
 	sge::gui::widget const &v,

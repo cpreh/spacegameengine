@@ -19,7 +19,8 @@ sge::gui::widgets::label::label(
 	sge::font::align_h::type _align_h,
 	sge::font::align_v::type _align_v,
 	boost::optional<dim> _static_size,
-	font::metrics_ptr _font)
+	font::metrics_ptr _font,
+	sge::gui::color const &_color)
 	: widget(
 			_parent,
 			_params.size_policy(
@@ -30,7 +31,8 @@ sge::gui::widgets::label::label(
 		align_h_(_align_h),
 		align_v_(_align_v),
 		static_size_(_static_size),
-	  font_(_font)
+	  font_(_font),
+		color_(_color)
 {
 	if (!font_)
 		font_ = parent_manager().standard_font();
@@ -41,6 +43,11 @@ sge::gui::widgets::label::label(
 sge::font::metrics_ptr const sge::gui::widgets::label::font() const 
 { 
 	return font_; 
+}
+
+sge::gui::color const sge::gui::widgets::label::color() const 
+{ 
+	return color_; 
 }
 
 sge::string const sge::gui::widgets::label::text() const 
