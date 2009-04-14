@@ -61,26 +61,37 @@ sge::utf8::convert(
 		s.end()
 	);
 #else
-	std::basic_ostringstream<
+	std::basic_istringstream<
 		ucs4
-	> oss;
-
-	oss.imbue(
-		utf8_locale()
-	);
-
-	std::copy(
-		s.begin(),
-		s.end(),
-		std::ostream_iterator<
-			ucs4,
-			ucs4	
-		>(
-			oss
+	> iss(
+		sge::string(
+			s.begin(),
+			s.end()
 		)
 	);
 
-	return oss.str();
+	iss.imbue(
+		utf8_locale()
+	);
+
+	sge::string ret;
+
+	typedef std::istream_iterator<
+		ucs4,
+		ucs4
+	> istream_iterator;
+
+	std::copy(
+		istream_iterator(
+			iss
+		),
+		istream_iterator(),
+		std::back_inserter(
+			ret
+		)
+	);
+
+	return ret;
 #endif
 }
 
@@ -94,33 +105,32 @@ sge::utf8::convert(
 		s.end()
 	);
 #else
-	std::basic_istringstream<
+	std::basic_ostringstream<
 		ucs4
-	> iss(
-		s
-	);
+	> oss;
 
-	iss.imbue(
+	oss.imbue(
 		utf8_locale()
 	);
 
-	utf8::string ret;
-
-	typedef std::istream_iterator<
-		ucs4,
-		ucs4
-	> istream_iterator;
-
 	std::copy(
-		istream_iterator(
-			is
-		),
-		istream_iterator(),
-		std::back_inserter(
-			ret
+		s.begin(),
+		s.end(),
+		std::ostream_iterator<
+			ucs4,
+			ucs4
+		>(
+			oss
 		)
 	);
 
-	return ret;
+	sge::string const &ret(
+		oss.str()
+	);
+
+	return utf8::string(
+		ret.begin(),
+		ret.end()
+	);
 #endif
 }
