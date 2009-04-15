@@ -154,6 +154,9 @@ void sge::texture::atlas_w(
 			outer_area.left(),
 			inner_area.top()));
 	
+	if(inner_area.right() + 1 == outer_area.right())
+		return;
+
 	renderer::sub_data(
 		tex,
 		renderer::subimage_view(
@@ -190,7 +193,10 @@ void sge::texture::atlas_h(
 		renderer::texture_pos_type(
 			inner_area.left(),
 			outer_area.top()));
-	
+
+	if(inner_area.bottom() + 1 == outer_area.bottom())
+		return;
+
 	renderer::sub_data(
 		tex,
 		renderer::subimage_view(
