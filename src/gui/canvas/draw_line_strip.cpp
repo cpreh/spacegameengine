@@ -1,4 +1,5 @@
 #include <sge/gui/canvas.hpp>
+#include <sge/math/vector/basic_impl.hpp>
 #include <sge/assert.hpp>
 
 void sge::gui::canvas::object::draw_line_strip(

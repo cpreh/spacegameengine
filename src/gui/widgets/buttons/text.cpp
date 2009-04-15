@@ -22,7 +22,7 @@ sge::gui::widgets::buttons::text::text(
 			_parent,
 			_params
 				.size_policy(
-					size_policy_t(
+					sge::gui::size_policy(
 						axis_policy::can_grow,
 						axis_policy::none))),
 	  caption_(_caption),

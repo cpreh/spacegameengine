@@ -1,8 +1,8 @@
 #ifndef SGE_GUI_LAYOUTS_ROW_HPP_INCLUDED
 #define SGE_GUI_LAYOUTS_ROW_HPP_INCLUDED
 
-#include <sge/gui/layout.hpp>
-#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/layouts/base.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/size_policy.hpp>
 #include <sge/math/dim/basic_decl.hpp>
@@ -16,7 +16,7 @@ namespace gui
 {
 namespace layouts
 {
-class SGE_CLASS_SYMBOL row : public layout
+class SGE_CLASS_SYMBOL row : public base
 {
 	public:
 	SGE_GUI_SYMBOL row();
@@ -60,7 +60,11 @@ class SGE_CLASS_SYMBOL row : public layout
 	void do_compile(
 		dim const &);
 
-	typedef std::vector<std::pair<widget*,dim> > widget_map;
+	typedef std::vector<
+		std::pair<
+			widgets::base*,
+			dim>
+			> widget_map;
 	//typedef std::map<widget*,dim> widget_map;
 	widget_map sizes;
 };

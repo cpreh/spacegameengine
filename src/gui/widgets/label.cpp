@@ -21,18 +21,19 @@ sge::gui::widgets::label::label(
 	boost::optional<dim> _static_size,
 	font::metrics_ptr _font,
 	sge::gui::color const &_color)
-	: widget(
-			_parent,
-			_params.size_policy(
-				size_policy_t(
-					axis_policy::none,
-					axis_policy::none))),
-	  text_(_text),
-		align_h_(_align_h),
-		align_v_(_align_v),
-		static_size_(_static_size),
-	  font_(_font),
-		color_(_color)
+: 
+	base(
+		_parent,
+		_params.size_policy(
+			sge::gui::size_policy(
+				axis_policy::none,
+				axis_policy::none))),
+	text_(_text),
+	align_h_(_align_h),
+	align_v_(_align_v),
+	static_size_(_static_size),
+	font_(_font),
+	color_(_color)
 {
 	if (!font_)
 		font_ = parent_manager().standard_font();

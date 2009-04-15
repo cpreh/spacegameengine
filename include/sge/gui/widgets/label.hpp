@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_WIDGETS_LABEL_HPP_INCLUDED
 #define SGE_GUI_WIDGETS_LABEL_HPP_INCLUDED
 
-#include <sge/gui/widget.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/gui/color.hpp>
 #include <sge/renderer/colors.hpp>
@@ -16,7 +16,7 @@ namespace gui
 {
 namespace widgets
 {
-class SGE_CLASS_SYMBOL label : public widget
+class SGE_CLASS_SYMBOL label : public base
 {
 public:
 	SGE_GUI_SYMBOL label(

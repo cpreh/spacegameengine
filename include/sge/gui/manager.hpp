@@ -8,8 +8,8 @@
 #include <sge/gui/detail/managers/time.hpp>
 #include <sge/gui/timer/callback.hpp>
 #include <sge/gui/timer/fwd.hpp>
-#include <sge/gui/skin.hpp>
-#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/skins/base.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/timer/fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
@@ -39,14 +39,14 @@ class manager
 		sge::image::loader_ptr,
 		input::system_ptr,
 		font::system_ptr,
-		skin_ptr,
+		skins::ptr,
 		cursor_ptr);
 	SGE_GUI_SYMBOL ~manager();
 	SGE_GUI_SYMBOL void dirty(
-		widget &,
+		widgets::base &,
 		rect const &);
 	SGE_GUI_SYMBOL void invalidate(
-		widget &);
+		widgets::base &);
 	SGE_GUI_SYMBOL timer::object_ptr const register_timer(
 		time::resolution const &,
 		timer::callback);
@@ -54,14 +54,14 @@ class manager
 	SGE_GUI_SYMBOL void draw();
 	SGE_GUI_SYMBOL sge::gui::cursor const &cursor() const;
 	SGE_GUI_SYMBOL font::metrics_ptr const standard_font();
-	SGE_GUI_SYMBOL sge::gui::skin &skin();
-	SGE_GUI_SYMBOL sge::gui::skin  const &skin() const;
+	SGE_GUI_SYMBOL sge::gui::skins::base &skin();
+	SGE_GUI_SYMBOL sge::gui::skins::base const &skin() const;
 	SGE_GUI_SYMBOL sge::sprite::object &connected_sprite(
-		widget &);
+		widgets::base &);
 
 	SGE_GUI_SYMBOL detail::managers::keyboard &keyboard();
 	private:
-	friend class widget;
+	friend class widgets::base;
 
 	renderer::device_ptr const rend;
 	sge::image::loader_ptr const il;
@@ -69,7 +69,7 @@ class manager
 	font::system_ptr const fs;
 	font::metrics_ptr const standard_font_;
 
-	skin_ptr skin_;
+	skins::ptr skin_;
 	cursor_ptr cursor_;
 
 	detail::managers::mouse    mouse_;
@@ -82,19 +82,19 @@ class manager
 	submanager_container submanagers;
 
 	// this is called by widget's constructor and destructor
-	void add(widget &);
-	void remove(widget &);
+	void add(widgets::base &);
+	void remove(widgets::base &);
 
 	// this is called by widget's size/pos/.. function (if it encounters a top
 	// level widget)
 	void resize(
-		widget &,
+		widgets::base &,
 		dim const &);
 	void reposition(
-		widget &,
+		widgets::base &,
 		point const &);
 	void activation(
-		widget &,
+		widgets::base &,
 		activation_state::type);
 };
 }

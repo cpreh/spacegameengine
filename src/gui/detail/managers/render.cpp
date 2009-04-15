@@ -1,9 +1,9 @@
 #include <sge/gui/detail/managers/render.hpp>
 #include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/events/invalid_area.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/canvas.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/power.hpp>
 #include <sge/math/dim/output.hpp>
@@ -64,12 +64,12 @@ sge::gui::detail::managers::render::render(
 {
 }
 
-void sge::gui::detail::managers::render::add(widget &w)
+void sge::gui::detail::managers::render::add(widgets::base &w)
 {
 	SGE_LOG_DEBUG(
 		mylogger,
 		log::_1 << SGE_TEXT("adding new widget"));
-	widget *w_ptr = &w;
+	widgets::base *w_ptr = &w;
 	if (!w.has_parent())
 		widgets.insert(
 			w_ptr,
@@ -77,7 +77,7 @@ void sge::gui::detail::managers::render::add(widget &w)
 }
 
 void sge::gui::detail::managers::render::activation(
-	widget &w,
+	widgets::base &w,
 	activation_state::type const t)
 {
 	if (w.has_parent())
@@ -114,7 +114,7 @@ void sge::gui::detail::managers::render::draw()
 }
 
 void sge::gui::detail::managers::render::remove(
-	widget &w)
+	widgets::base &w)
 {
 	dirt_.erase(&w);
 
@@ -129,7 +129,7 @@ void sge::gui::detail::managers::render::remove(
 }
 
 void sge::gui::detail::managers::render::resize(
-	widget &w,
+	widgets::base &w,
 	dim const &d)
 {
 	dirt_.erase(&w);
@@ -142,13 +142,13 @@ void sge::gui::detail::managers::render::resize(
 	widget_container::iterator wi = widgets.find(
 		&w);
 	
-	// widget is not a top level widget, so we don't care anymore
+	// widgets::base is not a top level widget, so we don't care anymore
 	if (wi == widgets.end())
 		return;
 	
 	SGE_LOG_DEBUG(
 		mylogger,
-		log::_1 << SGE_TEXT("resizing widget from ") << w.size() 
+		log::_1 << SGE_TEXT("resizing widgets::base from ") << w.size() 
 		        << SGE_TEXT(" to ") << d);
 
 	widget_data &wd = *wi->second;
@@ -223,11 +223,11 @@ void sge::gui::detail::managers::render::resize(
 }
 
 void sge::gui::detail::managers::render::reposition(
-	widget &w,
+	widgets::base &w,
 	point const &d)
 {
 	widget_container::iterator wi = widgets.find(&w);
-	// widget is not a top level widget
+	// widgets::base is not a top level widget
 	if (wi == widgets.end())
 		return;
 
@@ -241,14 +241,14 @@ void sge::gui::detail::managers::render::reposition(
 }
 
 void sge::gui::detail::managers::render::dirty(
-	widget &w,
+	widgets::base &w,
 	rect const &r)
 {
 	dirt_.insert(std::make_pair(&w,r));
 }
 
 sge::sprite::object &sge::gui::detail::managers::render::connected_sprite(
-	widget &w)
+	widgets::base &w)
 {
 	widget_container::iterator wi = widgets.find(&w);
 	SGE_ASSERT(wi != widgets.end());
@@ -273,7 +273,7 @@ void sge::gui::detail::managers::render::clean()
 							<< SGE_TEXT(" from widget: ")
 							<< typeid(*d.first).name());
 
-		widget &p = d.first->oldest_parent();
+		widgets::base &p = d.first->oldest_parent();
 
 		// FIXME: we could remove rectangles which are completely inside this one
 		// (maybe order by area first)

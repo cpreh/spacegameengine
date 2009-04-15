@@ -1,18 +1,22 @@
 #ifndef SGE_GUI_CANVAS_HPP_INCLUDED
 #define SGE_GUI_CANVAS_HPP_INCLUDED
 
-#include <sge/gui/widget.hpp>
-#include <sge/gui/image_view.hpp>
-#include <sge/gui/color.hpp>
 #include <sge/gui/canvas/rect_type.hpp>
 #include <sge/gui/canvas/line_type.hpp>
 #include <sge/gui/canvas/strip_type.hpp>
+#include <sge/gui/image.hpp>
+#include <sge/gui/point.hpp>
+#include <sge/gui/dim.hpp>
+#include <sge/gui/rect.hpp>
+#include <sge/gui/image_view.hpp>
+#include <sge/gui/color.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/font/metrics_fwd.hpp>
 #include <sge/font/align_h.hpp>
 #include <sge/font/align_v.hpp>
 #include <sge/font/flags.hpp>
 #include <sge/renderer/image_view.hpp>
+#include <sge/string.hpp>
 
 #include <boost/optional.hpp>
 

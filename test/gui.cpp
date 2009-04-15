@@ -91,7 +91,7 @@ try
 		sys.image_loader(),
 		sys.input_system(),
 		sys.font_system(),
-		sge::gui::skin_ptr(
+		sge::gui::skins::ptr(
 			new sge::gui::skins::standard()),
 		sge::gui::cursor_ptr(
 			new sge::gui::default_cursor(
@@ -99,8 +99,8 @@ try
 				sys.renderer())));
 	
 	sge::gui::widgets::backdrop top(
-		sge::gui::widget::parent_data(m),
-		sge::gui::widget::parameters()
+		sge::gui::widgets::parent_data(m),
+		sge::gui::widgets::parameters()
 			.pos(sge::gui::point(10,10))
 			.layout(
 				sge::make_shared_ptr<sge::gui::layouts::horizontal>()));
@@ -109,35 +109,35 @@ try
 
 	sge::cerr << "added top level widget\n";
 
-	sge::gui::widget left(
+	sge::gui::widgets::base left(
 		top,
-		sge::gui::widget::parameters()
+		sge::gui::widgets::parameters()
 			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
 
-	sge::gui::widget right(
+	sge::gui::widgets::base right(
 		top,
-		sge::gui::widget::parameters()
+		sge::gui::widgets::parameters()
 			.layout(sge::make_shared_ptr<sge::gui::layouts::vertical>()));
 
 	sge::gui::widgets::buttons::text left_top(
 		left,
-		sge::gui::widget::parameters(),
+		sge::gui::widgets::parameters(),
 		SGE_TEXT("(left top) me!"));
 	
 	sge::gui::widgets::buttons::text left_bottom(
 		left,
-		sge::gui::widget::parameters(),
+		sge::gui::widgets::parameters(),
 		SGE_TEXT("(left bottom) me!"));
 
 	sge::shared_ptr<sge::gui::widgets::buttons::text>
 		right_top(new sge::gui::widgets::buttons::text(
 			right,
-			sge::gui::widget::parameters(),
+			sge::gui::widgets::parameters(),
 			SGE_TEXT("(right top) me!")));
 
 	sge::gui::widgets::buttons::text right_bottom(
 		right,
-		sge::gui::widget::parameters(),
+		sge::gui::widgets::parameters(),
 		SGE_TEXT("(right bottom) me!"));
 
 	sge::cerr << "added buttons and children\n";

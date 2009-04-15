@@ -12,7 +12,7 @@ sge::gui::widgets::buttons::image::image(
 			_parent,
 			_params
 				.size_policy(
-					size_policy_t(
+					sge::gui::size_policy(
 						axis_policy::none,
 						axis_policy::none))
 				/*

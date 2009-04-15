@@ -3,7 +3,7 @@
 
 #include <sge/gui/detail/submanager.hpp>
 #include <sge/gui/cursor.hpp>
-#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/sprite/system.hpp>
@@ -25,17 +25,17 @@ class render : public submanager
 	render(
 		renderer::device_ptr,
 		cursor &);
-	void add(widget &);
+	void add(widgets::base &);
 	void update();
 	void draw();
-	void activation(widget &,activation_state::type);
-	void remove(widget &);
-	void resize(widget &,dim const &);
-	void reposition(widget &,point const &);
+	void activation(widgets::base &,activation_state::type);
+	void remove(widgets::base &);
+	void resize(widgets::base &,dim const &);
+	void reposition(widgets::base &,point const &);
 	void dirty(
-		widget &,
+		widgets::base &,
 		rect const &);
-	sge::sprite::object &connected_sprite(widget &);
+	sge::sprite::object &connected_sprite(widgets::base &);
 	private:
 	struct widget_data
 	{
@@ -43,8 +43,12 @@ class render : public submanager
 		sprite::object sprite;
 	};
 
-	typedef boost::ptr_map<widget*,widget_data> widget_container;
-	typedef std::multimap<widget*,rect> dirt_container;
+	typedef boost::ptr_map<
+		widgets::base*,
+		widget_data> widget_container;
+	typedef std::multimap<
+		widgets::base*,
+		rect> dirt_container;
 
 	renderer::device_ptr rend;
 	sprite::system ss;

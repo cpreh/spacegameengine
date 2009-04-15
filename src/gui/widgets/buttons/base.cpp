@@ -83,7 +83,7 @@ sge::gui::widgets::buttons::base::base(
 	parent_data const &_parent,
 	parameters _params)
 :
-	widget(
+	widgets::base(
 		_parent,
 		_params
 			.keyboard_focus(

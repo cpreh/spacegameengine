@@ -37,12 +37,12 @@ sge::gui::widgets::edit::edit(
 	dim const &_desired_size,
 	font::metrics_ptr const _font)
 :
-	widget(
+	base(
 		_parent,
 		_params
 			.keyboard_focus(keyboard_focus::receive)
 			.size_policy(
-				size_policy_t(
+				sge::gui::size_policy(
 					axis_policy::can_grow,
 					axis_policy::none))),
 	type(_type),

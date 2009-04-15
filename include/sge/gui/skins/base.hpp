@@ -1,14 +1,13 @@
-#ifndef SGE_GUI_SKIN_HPP_INCLUDED
-#define SGE_GUI_SKIN_HPP_INCLUDED
+#ifndef SGE_GUI_SKINS_BASE_HPP_INCLUDED
+#define SGE_GUI_SKINS_BASE_HPP_INCLUDED
 
+#include <sge/gui/events/fwd.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/dim.hpp>
 #include <sge/gui/canvas_fwd.hpp>
-#include <sge/filesystem/path.hpp>
 #include <sge/gui/export.hpp>
 #include <sge/auto_ptr.hpp>
-#include <sge/gui/events/fwd.hpp>
-#include <sge/gui/widget_fwd.hpp>
-#include <sge/gui/widgets/fwd.hpp>
+#include <sge/filesystem/path.hpp>
 
 #define SGE_GUI_SKIN_DRAW_RETURN(name)\
 	void
@@ -58,39 +57,39 @@ namespace sge
 {
 namespace gui
 {
-class skin
+namespace skins
+{
+class base
 {
 	public:
-	SGE_GUI_SYMBOL SGE_GUI_SKIN_DRAW_RETURN(widget) draw(
-		SGE_GUI_SKIN_DRAW_PARAMS(widget));
-	SGE_GUI_SYMBOL SGE_GUI_SKIN_SIZE_RETURN(widget) size_hint(
-		SGE_GUI_SKIN_SIZE_PARAMS(widget)) const;
+	SGE_GUI_SYMBOL SGE_GUI_SKIN_WIDGET(base);
 
-	virtual SGE_GUI_SKIN_DRAW_RETURN(widget) fallback(
-		SGE_GUI_SKIN_DRAW_PARAMS(widget)) = 0;
-	virtual SGE_GUI_SKIN_DRAW_RETURN(widget) default_handler(
-		SGE_GUI_SKIN_DRAW_PARAMS(widget));
-	virtual SGE_GUI_SKIN_SIZE_RETURN(widget) default_hint_handler(
-		SGE_GUI_SKIN_SIZE_PARAMS(widget)) const;
+	virtual SGE_GUI_SKIN_DRAW_RETURN(widgets::base) fallback(
+		SGE_GUI_SKIN_DRAW_PARAMS(widgets::base)) = 0;
+	SGE_GUI_SYMBOL virtual SGE_GUI_SKIN_DRAW_RETURN(widgets::base) default_handler(
+		SGE_GUI_SKIN_DRAW_PARAMS(widgets::base));
+	SGE_GUI_SYMBOL virtual SGE_GUI_SKIN_SIZE_RETURN(widgets::base) default_hint_handler(
+		SGE_GUI_SKIN_SIZE_PARAMS(widgets::base)) const;
 
 	virtual filesystem::path const cursor_path() const = 0;
-	SGE_GUI_SYMBOL virtual ~skin();
+	SGE_GUI_SYMBOL virtual ~base();
 
 	SGE_GUI_SKIN_WIDGETS_PURE
 
 	protected:
-	// NOTE: this can be a const widget since the buffer is mutable
+	// NOTE: this can be a const widgets::base since the buffer is mutable
 	void resize_buffer(
-		widget const &);
+		widgets::base const &);
 	void blit_invalid(
-		widget const &,
+		widgets::base const &,
 		canvas::object &,
 		events::invalid_area const &,
 		bool transparency = true);
 };
 
-typedef auto_ptr<skin> skin_ptr;
-typedef auto_ptr<skin const> const_skin_ptr;
+typedef auto_ptr<base> ptr;
+typedef auto_ptr<base const> const_ptr;
+}
 }
 }
 

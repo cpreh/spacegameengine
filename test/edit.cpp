@@ -83,7 +83,7 @@ try
 		sys.image_loader(),
 		sys.input_system(),
 		sys.font_system(),
-		sge::gui::skin_ptr(
+		sge::gui::skins::ptr(
 			new sge::gui::skins::standard()),
 		sge::gui::cursor_ptr(
 			new sge::gui::default_cursor(
@@ -92,7 +92,7 @@ try
 	
 	sge::gui::widgets::edit b(
 		m,
-		sge::gui::widget::parameters()
+		sge::gui::widgets::parameters()
 			.pos(sge::gui::point(10,10))
 			.size(sge::gui::dim(400,300)),
 		sge::gui::widgets::edit::single_line,

@@ -1,7 +1,7 @@
 #ifndef SGE_GUI_DETAIL_SUBMANAGER_HPP_INCLUDED
 #define SGE_GUI_DETAIL_SUBMANAGER_HPP_INCLUDED
 
-#include <sge/gui/widget_fwd.hpp>
+#include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/activation_state.hpp>
 #include <sge/gui/dim.hpp>
 #include <sge/gui/point.hpp>
@@ -21,24 +21,24 @@ class submanager
 	submanager();
 	public:
 	virtual void resize(
-		widget &,
+		widgets::base &,
 		dim const &);
 	virtual void reposition(
-		widget &,
+		widgets::base &,
 		point const &);
 	virtual void update();
 	virtual void add(
-		widget &);
+		widgets::base &);
 	virtual void activation(
-		widget &,
+		widgets::base &,
 		activation_state::type);
 	virtual void remove(
-		widget &);
+		widgets::base &);
 	virtual void dirty(
-		widget &,
+		widgets::base &,
 		rect const &);
 	virtual void invalidate(
-		widget &);
+		widgets::base &);
 	virtual ~submanager();
 };
 }

@@ -5,8 +5,8 @@
 #include <sge/gui/events/mouse_enter.hpp>
 #include <sge/gui/events/mouse_leave.hpp>
 #include <sge/gui/events/mouse_move.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/gui/widget.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/vector/arithmetic.hpp>
 #include <sge/math/vector/output.hpp>
@@ -14,14 +14,9 @@
 #include <sge/input/system.hpp>
 #include <sge/input/classification.hpp>
 #include <sge/texture/part_raw.hpp>
-#include <sge/image/loader.hpp>
-#include <sge/image/object.hpp>
-#include <sge/renderer/device.hpp>
-#include <sge/renderer/filter/linear.hpp>
 #include <sge/text.hpp>
 #include <sge/assert.hpp>
 #include <sge/structure_cast.hpp>
-#include <sge/make_shared_ptr.hpp>
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 
@@ -43,7 +38,7 @@ sge::sprite::point const key_to_mouse_coords(sge::input::key_pair const &k)
 		static_cast<sge::sprite::unit>(k.value()));
 }
 
-bool active(sge::gui::widget const &w)
+bool active(sge::gui::widgets::base const &w)
 {
 	switch (w.activation())
 	{
@@ -60,8 +55,6 @@ bool active(sge::gui::widget const &w)
 
 sge::gui::detail::managers::mouse::mouse(
 	input::system_ptr const is,
-	sge::image::loader_ptr const il,
-	renderer::device_ptr const rend,
 	cursor &_cursor)
 :
 	ic(
@@ -74,26 +67,26 @@ sge::gui::detail::managers::mouse::mouse(
 }
 
 void sge::gui::detail::managers::mouse::resize(
-	widget &,
+	widgets::base &,
 	dim const &)
 {
 	dirty_ = true;
 }
 
 void sge::gui::detail::managers::mouse::reposition(
-	widget &,
+	widgets::base &,
 	point const &)
 {
 	dirty_ = true;
 }
 
-void sge::gui::detail::managers::mouse::add(widget &w)
+void sge::gui::detail::managers::mouse::add(widgets::base &w)
 {
 	// We only store top level widgets as "starting points" for our focus search
 	if (!w.has_parent())
 		widgets.push_back(&w);
 	
-	// It could be the case that the newly added widget is below the cursor and should
+	// It could be the case that the newly added widgets::base is below the cursor and should
 	// thus get the focus, so we recalculate
 	dirty_ = true;
 }
@@ -108,22 +101,22 @@ void sge::gui::detail::managers::mouse::update()
 }
 
 void sge::gui::detail::managers::mouse::activation(
-	widget &,
+	widgets::base &,
 	activation_state::type)
 {
 	dirty_ = true;
 }
 
-void sge::gui::detail::managers::mouse::remove(widget &w)
+void sge::gui::detail::managers::mouse::remove(widgets::base &w)
 {
 	// We've got a problem if
-	// (a) the currently focused widget should be deleted, or...
+	// (a) the currently focused widgets::base should be deleted, or...
 	// (b) one of its children
 	if (focus == &w || w.has_child(*focus))
 	{
-		// If so, we start at the focused widget and traverse the tree upwards until
+		// If so, we start at the focused widgets::base and traverse the tree upwards until
 		// we reach the widget's parent (it could be 0).
-		widget *const parent = w.has_parent() ? &(w.parent_widget()) : 0;
+		widgets::base *const parent = w.has_parent() ? &(w.parent_widget()) : 0;
 		while (focus != parent)
 		{
 			focus->process(events::mouse_leave());
@@ -154,7 +147,7 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
-			log::_1 << SGE_TEXT("a widget currently has the focus, recalculating"));
+			log::_1 << SGE_TEXT("a widgets::base currently has the focus, recalculating"));
 			
 		focus = recalculate_focus(*focus,click_point);
 	}
@@ -164,9 +157,9 @@ void sge::gui::detail::managers::mouse::recalculate_focus()
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1 << 
-				SGE_TEXT("no widget currently has the focus, so letting it recalculate"));
+				SGE_TEXT("no widgets::base currently has the focus, so letting it recalculate"));
 
-		BOOST_FOREACH(widget &w,widgets)
+		BOOST_FOREACH(widgets::base &w,widgets)
 		{
 			SGE_LOG_DEBUG(
 				mylogger,
@@ -208,11 +201,11 @@ void sge::gui::detail::managers::mouse::input_callback(
 			k));
 }
 
-sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
-	widget &w,
+sge::gui::widgets::base *sge::gui::detail::managers::mouse::recalculate_focus(
+	widgets::base &w,
 	point const &mouse_click)
 {
-	// Pointer is no longer inside widget area
+	// Pointer is no longer inside widgets::base area
 	if (!math::contains(w.screen_area(),mouse_click) ||
 	    !active(w))
 	{
@@ -230,7 +223,7 @@ sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
 		return recalculate_focus(w.parent_widget(),mouse_click);
 	}
 
-	widget *const new_focus = do_recalculate_focus(w,mouse_click);
+	widgets::base *const new_focus = do_recalculate_focus(w,mouse_click);
 
 	if (new_focus == &w)
 	{
@@ -242,11 +235,11 @@ sge::gui::widget *sge::gui::detail::managers::mouse::recalculate_focus(
 	return new_focus;
 }
 
-sge::gui::widget *sge::gui::detail::managers::mouse::do_recalculate_focus(
-	widget &w,
+sge::gui::widgets::base *sge::gui::detail::managers::mouse::do_recalculate_focus(
+	widgets::base &w,
 	point const &p)
 {
-	BOOST_FOREACH(widget &child,w.children())
+	BOOST_FOREACH(widgets::base &child,w.children())
 	{
 		if (child.activation() == activation_state::active && 
 		    math::contains(child.screen_area(),p))

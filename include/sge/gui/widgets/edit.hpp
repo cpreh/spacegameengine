@@ -2,7 +2,7 @@
 #define SGE_GUI_WIDGETS_EDIT_HPP_INCLUDED
 
 #include <sge/gui/detail/cursor_delegate.hpp>
-#include <sge/gui/widget.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/timer/fwd.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/renderer/image.hpp>
@@ -16,7 +16,7 @@ namespace gui
 {
 namespace widgets
 {
-class SGE_CLASS_SYMBOL edit : public widget
+class SGE_CLASS_SYMBOL edit : public base
 {
 	public:
 	enum line_type { single_line,multi_line };
@@ -46,7 +46,7 @@ class SGE_CLASS_SYMBOL edit : public widget
 	// will only be called for single_line
 	signal::object<void ()> return_pressed;
 	private:
-	using widget::process;
+	using base::process;
 	line_type type;
 	string text_;
 	font::metrics_ptr font_;

@@ -7,11 +7,11 @@ namespace sge
 {
 namespace gui
 {
-class layout;
-
-typedef shared_ptr<layout> layout_auto_ptr;
-typedef layout* layout_ptr;
-typedef layout const * const_layout_ptr;
+namespace layouts
+{
+class base;
+typedef shared_ptr<base> auto_ptr;
+}
 }
 }
 

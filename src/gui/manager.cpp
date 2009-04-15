@@ -1,5 +1,5 @@
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/gui/widget.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/font/system.hpp>
@@ -20,7 +20,7 @@ sge::gui::manager::manager(
 	sge::image::loader_ptr const il,
 	input::system_ptr const is,
 	font::system_ptr const fs,
-	skin_ptr _skin,
+	skins::ptr _skin,
 	cursor_ptr _cursor)
 :
 	rend(rend),
@@ -35,8 +35,6 @@ sge::gui::manager::manager(
 	cursor_(_cursor),
 	mouse_(
 		is,
-		il,
-		rend,
 		*cursor_),
 	render_(
 		rend,
@@ -56,7 +54,7 @@ sge::gui::manager::manager(
 }
 
 void sge::gui::manager::dirty(
-	widget &w,
+	widgets::base &w,
 	rect const &r)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
@@ -66,7 +64,7 @@ void sge::gui::manager::dirty(
 }
 
 void sge::gui::manager::invalidate(
-	widget &w)
+	widgets::base &w)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->invalidate(
@@ -101,48 +99,48 @@ sge::font::metrics_ptr const sge::gui::manager::standard_font()
 	return standard_font_;
 }
 
-sge::gui::skin &sge::gui::manager::skin() 
+sge::gui::skins::base &sge::gui::manager::skin() 
 { 
 	return *skin_; 
 }
 
-sge::gui::skin const &sge::gui::manager::skin() const
+sge::gui::skins::base const &sge::gui::manager::skin() const
 { 
 	return *skin_; 
 }
 
 sge::sprite::object &sge::gui::manager::connected_sprite(
-	widget &w)
+	widgets::base &w)
 {
 	return render_.connected_sprite(w);
 }
 
 
-void sge::gui::manager::add(widget &w)
+void sge::gui::manager::add(widgets::base &w)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->add(w);
 }
 
-void sge::gui::manager::remove(widget &w)
+void sge::gui::manager::remove(widgets::base &w)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->remove(w);
 }
 
-void sge::gui::manager::resize(widget &w,dim const &d)
+void sge::gui::manager::resize(widgets::base &w,dim const &d)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->resize(w,d);
 }
 
-void sge::gui::manager::reposition(widget &w,point const &d)
+void sge::gui::manager::reposition(widgets::base &w,point const &d)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->reposition(w,d);
 }
 
-void sge::gui::manager::activation(widget &w,activation_state::type const _n)
+void sge::gui::manager::activation(widgets::base &w,activation_state::type const _n)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->activation(w,_n);
