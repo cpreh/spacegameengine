@@ -12,7 +12,8 @@ sge::gui::logger mylogger(
 	SGE_TEXT("skins: standard: buttons: image"),
 	false);
 
-sge::gui::image const &choose_image(sge::gui::widgets::buttons::image const &b)
+sge::gui::image const &choose_image(
+	sge::gui::widgets::buttons::image const &b)
 {
 	if (b.mouse_over())
 	{

@@ -8,10 +8,11 @@
 #include <sge/text.hpp>
 #include <boost/gil/image.hpp>
 
-sge::gui::canvas::object::object(image &texture_)
+sge::gui::canvas::object::object(
+	image &texture_)
 :
 	texture_(texture_),
-	view_(boost::gil::view(texture_))
+	view_(texture_.view())
 {
 }
 
@@ -20,9 +21,7 @@ sge::gui::canvas::object::~object()
 
 sge::gui::dim const sge::gui::canvas::object::size() const
 {
-	return dim(
-		static_cast<unit>(texture_.width()),
-		static_cast<unit>(texture_.height()));
+	return texture_.size();
 }
 
 sge::gui::rect const sge::gui::canvas::object::area() const

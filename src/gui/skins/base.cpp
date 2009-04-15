@@ -56,7 +56,8 @@ class call_size_hint
 	public:
 	typedef sge::gui::dim result_type;
 
-	call_size_hint(sge::gui::skins::base const &s) : s(s) {}
+	call_size_hint(
+		sge::gui::skins::base const &s) : s(s) {}
 
 	template<typename V>
 	void operator()(V const &v) 
@@ -138,24 +139,21 @@ SGE_GUI_SKIN_SIZE_RETURN(widgets::base) sge::gui::skins::base::default_hint_hand
 sge::gui::skins::base::~base()
 {}
 
-void sge::gui::skins::base::resize_buffer(widgets::base const &b)
+void sge::gui::skins::base::resize_buffer(
+	widgets::base const &b)
 {
 	// resize internal buffer if neccessary
-	if (b.buffer().width() != static_cast<image::coord_t>(b.size().w()) ||
-	    b.buffer().height() != static_cast<image::coord_t>(b.size().h()))
+	if (b.size() != b.buffer().size())
 	{
 		SGE_LOG_DEBUG(
 			mylogger,
 			log::_1
 				<< SGE_TEXT("resizing from ") 
-				<< dim(
-					static_cast<unit>(b.buffer().width()),
-					static_cast<unit>(b.buffer().height()))
+				<< b.buffer().size()
 				<< SGE_TEXT(" to ")
 				<< b.size());
-		b.buffer() = image(
-			static_cast<image::coord_t>(b.size().w()),
-			static_cast<image::coord_t>(b.size().h()));
+		b.buffer().resize(
+			b.size());
 	}
 }
 

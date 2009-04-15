@@ -3,7 +3,7 @@
 #include <sge/sprite/parameters.hpp>
 #include <sge/image/loader.hpp>
 #include <sge/image/object.hpp>
-#include <sge/texture/part_raw.hpp>
+#include <sge/texture/no_fragmented.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
@@ -19,7 +19,7 @@ sge::gui::default_cursor::default_cursor(
 			.texture(
 				texture::const_part_ptr(
 					make_shared_ptr<
-						texture::part_raw
+						texture::no_fragmented
 					>(
 						rend->create_texture(
 						il->load(

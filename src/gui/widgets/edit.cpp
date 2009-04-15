@@ -166,11 +166,10 @@ void sge::gui::widgets::edit::resize(dim const &d) const
 		return;
 	}
 	
-	image nb(
-		static_cast<image::coord_t>(text_size.w() >= d.w() ? text_size.w() : d.w()),
-		static_cast<image::coord_t>(text_size.h() >= d.h() ? text_size.h() : d.h()));
-	
-	text_buffer_ = nb;
+	text_buffer_.resize(
+		dim(
+			text_size.w() >= d.w() ? text_size.w() : d.w(),
+			text_size.h() >= d.h() ? text_size.h() : d.h()));
 }
 
 void sge::gui::widgets::edit::refresh() const

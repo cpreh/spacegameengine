@@ -10,12 +10,12 @@ sge::gui::image_ptr const sge::gui::make_image(
 {
 	sge::gui::image_ptr i(
 		new gui::image(
-			_image->dim().w(),
-			_image->dim().h()));
+			_image->size()));
 
 	renderer::copy_and_convert_pixels(
 		_image->view(),
-		renderer::image_view(boost::gil::view(*i)));
+		renderer::image_view(
+			i->view()));
 	
 	return i;
 }

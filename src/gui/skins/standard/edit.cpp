@@ -13,7 +13,6 @@
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/math/dim/arithmetic.hpp>
 #include <sge/structure_cast.hpp>
-#include <boost/gil/image.hpp>
 
 namespace
 {
@@ -73,8 +72,7 @@ void sge::gui::skins::standard::draw(
 	
 	utility::blit(
 		renderer::const_image_view(
-			boost::gil::const_view(
-				w.text_buffer())),
+			w.text_buffer().const_view()),
 		rect(
 			scroll_origin,
 			scroll_size),
