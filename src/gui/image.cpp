@@ -1,4 +1,6 @@
 #include <sge/gui/image.hpp>
+#include <sge/gui/image_view.hpp>
+#include <boost/gil/image.hpp>
 #include <sge/math/dim/basic_impl.hpp>
 #include <sge/gui/unit.hpp>
 
@@ -17,46 +19,34 @@ sge::gui::image::image(
 {
 }
 
-sge::gui::image::impl_type &sge::gui::image::impl()
-{
-	return impl_;
-}
-
-sge::gui::image::impl_type const &sge::gui::image::impl() const
-{
-	return impl_;
-}
-
 sge::gui::dim const sge::gui::image::size() const
 {
 	return 
 		dim(
 			static_cast<unit>(
-				impl().width()),
+				impl_.width()),
 			static_cast<unit>(
-				impl().height()));
+				impl_.height()));
 }
 
-sge::gui::image_view const sge::gui::image::view()
+sge::gui::image_view sge::gui::image::view()
 {
-	return 
-		boost::gil::view(
-			impl());
+	return image_view(
+		impl_);
 }
 
 sge::gui::const_image_view const sge::gui::image::const_view() const
 {
-	return 
-		boost::gil::const_view(
-			impl());
+	return const_image_view(
+		impl_);
 }
 
 void sge::gui::image::resize(
 	dim const &d)
 {
-	impl().recreate(
+	impl_.recreate(
 		static_cast<impl_type::coord_t>(
-			d.w())
+			d.w()),
 		static_cast<impl_type::coord_t>(
 			d.h()));
 }

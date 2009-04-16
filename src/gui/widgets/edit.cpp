@@ -1,4 +1,4 @@
-#include "../utility/max_dim.hpp"
+#include "../utility/unlimited_text_size.hpp"
 #include <sge/gui/unit.hpp>
 #include <sge/gui/internal_color.hpp>
 #include <sge/gui/events/key.hpp>
@@ -6,15 +6,13 @@
 #include <sge/gui/widgets/edit.hpp>
 #include <sge/gui/widgets/log.hpp>
 #include <sge/gui/timer/object.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/manager.hpp>
-#include <sge/font/text_size.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/object.hpp>
 #include <sge/time/second_f.hpp>
 #include <sge/math/compare.hpp>
 #include <sge/math/vector/output.hpp>
 #include <sge/math/dim/output.hpp>
+#include <sge/font/metrics.hpp>
 #include <sge/assert.hpp>
 #include <sge/text.hpp>
 #include <sge/structure_cast.hpp>
@@ -27,15 +25,18 @@ sge::gui::logger mylogger(
 	sge::gui::widgets::global_log(),
 	SGE_TEXT("edit"),
 	false);
-sge::gui::logger mygraphlogger(sge::gui::widgets::global_log(),SGE_TEXT("edit"),false);
+
+sge::gui::logger mygraphlogger(
+	sge::gui::widgets::global_log(),
+	SGE_TEXT("edit"),
+	false);
 }
 
 sge::gui::widgets::edit::edit(
 	parent_data const &_parent,
 	parameters _params,
 	line_type const _type,
-	dim const &_desired_size,
-	font::metrics_ptr const _font)
+	dim const &_desired_size)
 :
 	base(
 		_parent,
@@ -46,17 +47,12 @@ sge::gui::widgets::edit::edit(
 					axis_policy::can_grow,
 					axis_policy::none))),
 	type(_type),
-	font_(_font),
 	desired_size_(_desired_size),
 	cursor_visible_(false),
 	text_buffer_(),
 	scroll_pos_(point::null()),
 	cursor(text_)
 {
-	if (!font_)
-		font_ = parent_manager().standard_font();
-
-	SGE_ASSERT_MESSAGE(font_,SGE_TEXT("edit: no standard font could be set by manager"));
 }
 
 sge::string const sge::gui::widgets::edit::text() const
@@ -70,11 +66,6 @@ void sge::gui::widgets::edit::text(string const &n)
 	parent_manager().dirty(
 		*this,
 		rect(point::null(),size()));
-}
-
-sge::font::metrics_ptr const sge::gui::widgets::edit::font() const
-{
-	return font_;
 }
 
 sge::gui::point const &sge::gui::widgets::edit::scroll_pos() const
@@ -156,9 +147,7 @@ void sge::gui::widgets::edit::blink_callback()
 
 void sge::gui::widgets::edit::resize(dim const &d) const
 {
-	dim const text_size(
-		static_cast<unit>(text_buffer_.width()),
-		static_cast<unit>(text_buffer_.height()));
+	dim const text_size = text_buffer_.size();
 
 	if (text_size.w() > d.w() && text_size.h() > d.h())
 	{
@@ -174,16 +163,23 @@ void sge::gui::widgets::edit::resize(dim const &d) const
 
 void sge::gui::widgets::edit::refresh() const
 {
-	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("redrawing text buffer"));
+	SGE_LOG_DEBUG(
+		mygraphlogger,
+		log::_1 << SGE_TEXT("redrawing text buffer"));
 
 	string const ntext = text_+SGE_TEXT(' ');
 
-	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("getting font size"));
-	dim const d = structure_cast<dim>(
-		font::object(font()).text_size(
-			ntext,
-			utility::max_dim<font::unit>())
-		.size());
+	SGE_LOG_DEBUG(
+		mygraphlogger,
+		log::_1 << SGE_TEXT("getting font size"));
+
+	font_info const font = 
+		parent_manager().skin().standard_font();
+	
+	dim const d = 
+		utility::unlimited_text_size(
+			font.metrics(),
+			ntext);
 
 	SGE_LOG_DEBUG(mygraphlogger,log::_1 << SGE_TEXT("resizing buffer"));
 	
@@ -215,19 +211,14 @@ void sge::gui::widgets::edit::refresh() const
 	SGE_LOG_DEBUG(
 		mygraphlogger,
 		log::_1 << SGE_TEXT("text buffer size is: ")
-						<< dim(
-							static_cast<unit>(text_buffer_.width()),
-							static_cast<unit>(text_buffer_.height())));
+						<< text_buffer_.size());
 
 	point p;
 	c.draw_text(
-		font(),
-		internal_color(0x00,0x00,0x00,0xff),
+		font,
 		ntext,
 		point::null(),
-		dim(
-			static_cast<unit>(text_buffer_.width()),
-			static_cast<unit>(text_buffer_.height())),
+		text_buffer_.size(),
 		font::align_h::left,
 		font::align_v::top,
 		font::flags::default_,
@@ -254,9 +245,9 @@ void sge::gui::widgets::edit::refresh() const
 
 		unit const 
 			cursor_start = 
-				static_cast<unit>(cursor_line*font()->line_height()),
+				static_cast<unit>(cursor_line*font.metrics()->line_height()),
 			cursor_end = 
-				std::min(c.area().h()-1,cursor_start + font()->line_height());
+				std::min(c.area().h()-1,cursor_start + font.metrics()->line_height());
 			//	static_cast<unit>(cursor_start+2);
 
 		SGE_LOG_DEBUG(

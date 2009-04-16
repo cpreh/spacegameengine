@@ -3,11 +3,10 @@
 
 #include <sge/gui/widgets/base.hpp>
 #include <sge/gui/export.hpp>
-#include <sge/gui/color.hpp>
+#include <sge/gui/font_info.hpp>
 #include <sge/renderer/colors.hpp>
 #include <sge/font/align_h.hpp>
 #include <sge/font/align_v.hpp>
-#include <sge/font/metrics_fwd.hpp>
 #include <boost/optional.hpp>
 
 namespace sge
@@ -25,11 +24,8 @@ public:
 		string const &,
 		sge::font::align_h::type = sge::font::align_h::left,
 		sge::font::align_v::type = sge::font::align_v::top,
-		boost::optional<dim> static_size = boost::none,
-		font::metrics_ptr = font::metrics_ptr(),
-		sge::gui::color const & = renderer::colors::black());
+		boost::optional<dim> static_size = boost::none);
 	
-	SGE_GUI_SYMBOL font::metrics_ptr const font() const;
 	SGE_GUI_SYMBOL sge::gui::color const color() const;
 	SGE_GUI_SYMBOL string const text() const;
 	SGE_GUI_SYMBOL sge::font::align_h::type align_h() const;
@@ -41,7 +37,6 @@ public:
 	sge::font::align_h::type align_h_;
 	sge::font::align_v::type align_v_;
 	boost::optional<dim> static_size_;
-	font::metrics_ptr font_;
 	sge::gui::color color_;
 };
 }

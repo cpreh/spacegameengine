@@ -1,5 +1,6 @@
 #include <sge/gui/widgets/graphics.hpp>
 #include <sge/image/object.hpp>
+#include <sge/gui/image.hpp>
 #include <sge/structure_cast.hpp>
 
 sge::gui::widgets::graphics::graphics(

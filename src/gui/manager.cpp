@@ -2,7 +2,6 @@
 #include <sge/gui/manager.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/rect_util.hpp>
-#include <sge/font/system.hpp>
 #include <sge/assert.hpp>
 #include <sge/media.hpp>
 #include <boost/foreach.hpp>
@@ -19,18 +18,12 @@ sge::gui::manager::manager(
 	renderer::device_ptr const rend,
 	sge::image::loader_ptr const il,
 	input::system_ptr const is,
-	font::system_ptr const fs,
 	skins::ptr _skin,
 	cursor_ptr _cursor)
 :
 	rend(rend),
 	il(il),
 	is(is),
-	fs(fs),
-	standard_font_(
-		fs->create_font(
-			sge::media_path() / SGE_TEXT("fonts/default.ttf"),
-			15)),
 	skin_(_skin),
 	cursor_(_cursor),
 	mouse_(
@@ -92,11 +85,6 @@ void sge::gui::manager::draw()
 sge::gui::cursor const &sge::gui::manager::cursor() const
 {
 	return *cursor_;
-}
-
-sge::font::metrics_ptr const sge::gui::manager::standard_font()
-{
-	return standard_font_;
 }
 
 sge::gui::skins::base &sge::gui::manager::skin() 

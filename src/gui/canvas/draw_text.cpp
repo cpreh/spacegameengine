@@ -1,5 +1,5 @@
 #include "log.hpp"
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/canvas/font_drawer.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/text_size.hpp>
@@ -8,8 +8,7 @@
 #include <algorithm>
 
 void sge::gui::canvas::object::draw_text(
-	font::metrics_ptr const metrics,
-	color const c,
+	font_info const &font,
 	string const &text,
 	point const &pos,
 	dim const &max_size,
@@ -34,11 +33,11 @@ void sge::gui::canvas::object::draw_text(
 	}
 
 	font::object(
-		metrics,
+		font.metrics(),
 		font::drawer_ptr(
 			new font_drawer(
 				view_,
-				c,
+				font.color(),
 				cp,
 				p))
 	).draw_text(

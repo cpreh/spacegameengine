@@ -10,7 +10,7 @@
 #include <sge/gui/widgets/buttons/image.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/gui/events/invalid_area.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/math/dim/output.hpp>

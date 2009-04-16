@@ -11,7 +11,7 @@
 #include <sge/gui/image_view.hpp>
 #include <sge/gui/color.hpp>
 #include <sge/gui/export.hpp>
-#include <sge/font/metrics_fwd.hpp>
+#include <sge/gui/font_info.hpp>
 #include <sge/font/align_h.hpp>
 #include <sge/font/align_v.hpp>
 #include <sge/font/flags.hpp>
@@ -45,8 +45,7 @@ class SGE_CLASS_SYMBOL object
 		rect_type::type);
 
 	SGE_GUI_SYMBOL void draw_text(
-		font::metrics_ptr,
-		color,
+		font_info const &,
 		string const &,
 		point const &,
 		dim const &max_size,
@@ -74,7 +73,6 @@ class SGE_CLASS_SYMBOL object
 	private:
 	image &texture_;
 	image_view view_;
-	font::metrics_ptr metrics;
 };
 }
 }

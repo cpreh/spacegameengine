@@ -4,8 +4,9 @@
 #include <sge/gui/events/fwd.hpp>
 #include <sge/gui/widgets/fwd.hpp>
 #include <sge/gui/dim.hpp>
-#include <sge/gui/canvas_fwd.hpp>
+#include <sge/gui/canvas/fwd.hpp>
 #include <sge/gui/export.hpp>
+#include <sge/gui/font_info.hpp>
 #include <sge/auto_ptr.hpp>
 #include <sge/filesystem/path.hpp>
 
@@ -71,11 +72,11 @@ class base
 	SGE_GUI_SYMBOL virtual SGE_GUI_SKIN_SIZE_RETURN(widgets::base) default_hint_handler(
 		SGE_GUI_SKIN_SIZE_PARAMS(widgets::base)) const;
 
-	virtual filesystem::path const cursor_path() const = 0;
-	SGE_GUI_SYMBOL virtual ~base();
-
 	SGE_GUI_SKIN_WIDGETS_PURE
+	
+	virtual font_info const standard_font() const = 0;
 
+	SGE_GUI_SYMBOL virtual ~base();
 	protected:
 	// NOTE: this can be a const widgets::base since the buffer is mutable
 	void resize_buffer(

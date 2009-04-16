@@ -1,5 +1,5 @@
-#include "canvas/log.hpp"
-#include <sge/gui/canvas.hpp>
+#include "log.hpp"
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/unit.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/renderer/make_const_image_view.hpp>

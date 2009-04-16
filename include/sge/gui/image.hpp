@@ -2,6 +2,7 @@
 #define SGE_GUI_IMAGE_HPP_INCLUDED
 
 #include <sge/gui/dim.hpp>
+#include <sge/gui/image_fwd.hpp>
 #include <sge/gui/image_view.hpp>
 #include <sge/renderer/image.hpp>
 #include <sge/shared_ptr.hpp>
@@ -15,17 +16,14 @@ namespace gui
 class image
 {
 public:
-	typedef renderer::rgba8_image impl_type;
-
 	image();
 	explicit image(dim const &);
-	impl_type &impl();
-	impl_type const &impl() const;
 	dim const size() const;
-	image_view const view();
+	image_view view();
 	const_image_view const const_view() const;
 	void resize(dim const &);
 private:
+	typedef renderer::rgba8_image impl_type;
 	impl_type impl_;
 };
 }

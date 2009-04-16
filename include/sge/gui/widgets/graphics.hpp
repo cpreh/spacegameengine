@@ -2,6 +2,7 @@
 #define SGE_GUI_WIDGETS_GRAPHICS_HPP_INCLUDED
 
 #include <sge/gui/widgets/base.hpp>
+#include <sge/gui/image_fwd.hpp>
 #include <sge/gui/export.hpp>
 
 namespace sge
@@ -12,7 +13,6 @@ namespace widgets
 {
 class graphics : public base
 {
-
 public:
 	SGE_GUI_SYMBOL graphics(
 		widgets::parent_data const &,

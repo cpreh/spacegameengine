@@ -82,9 +82,9 @@ try
 		sys.renderer(),
 		sys.image_loader(),
 		sys.input_system(),
-		sys.font_system(),
 		sge::gui::skins::ptr(
-			new sge::gui::skins::standard()),
+			new sge::gui::skins::standard(
+				sys.font_system())),
 		sge::gui::cursor_ptr(
 			new sge::gui::default_cursor(
 				sys.image_loader(),

@@ -2,7 +2,7 @@
 #include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/events/invalid_area.hpp>
 #include <sge/gui/widgets/base.hpp>
-#include <sge/gui/canvas.hpp>
+#include <sge/gui/canvas/object.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/rect_util.hpp>
 #include <sge/math/power.hpp>

@@ -15,8 +15,6 @@
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/key_pair.hpp>
-#include <sge/font/system_fwd.hpp>
-#include <sge/font/metrics_fwd.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/time/resolution.hpp>
@@ -38,7 +36,6 @@ class manager
 		renderer::device_ptr,
 		sge::image::loader_ptr,
 		input::system_ptr,
-		font::system_ptr,
 		skins::ptr,
 		cursor_ptr);
 	SGE_GUI_SYMBOL ~manager();
@@ -53,7 +50,6 @@ class manager
 	SGE_GUI_SYMBOL void update();
 	SGE_GUI_SYMBOL void draw();
 	SGE_GUI_SYMBOL sge::gui::cursor const &cursor() const;
-	SGE_GUI_SYMBOL font::metrics_ptr const standard_font();
 	SGE_GUI_SYMBOL sge::gui::skins::base &skin();
 	SGE_GUI_SYMBOL sge::gui::skins::base const &skin() const;
 	SGE_GUI_SYMBOL sge::sprite::object &connected_sprite(
@@ -66,8 +62,6 @@ class manager
 	renderer::device_ptr const rend;
 	sge::image::loader_ptr const il;
 	input::system_ptr const is;
-	font::system_ptr const fs;
-	font::metrics_ptr const standard_font_;
 
 	skins::ptr skin_;
 	cursor_ptr cursor_;

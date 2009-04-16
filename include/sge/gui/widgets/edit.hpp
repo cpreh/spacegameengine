@@ -6,7 +6,6 @@
 #include <sge/gui/timer/fwd.hpp>
 #include <sge/gui/events/fwd.hpp>
 #include <sge/renderer/image.hpp>
-#include <sge/font/metrics_fwd.hpp>
 #include <sge/signal/object.hpp>
 #include <sge/gui/export.hpp>
 
@@ -25,12 +24,10 @@ class SGE_CLASS_SYMBOL edit : public base
 		parent_data const &,
 		parameters,
 		line_type,
-		dim const &desired_size,
-		font::metrics_ptr = font::metrics_ptr());
+		dim const &desired_size);
 	
 	SGE_GUI_SYMBOL string const text() const;
 	SGE_GUI_SYMBOL void text(string const &);
-	SGE_GUI_SYMBOL font::metrics_ptr const font() const;
 	SGE_GUI_SYMBOL point const &scroll_pos() const;
 	SGE_GUI_SYMBOL dim const desired_size() const;
 	SGE_GUI_SYMBOL image &text_buffer();
@@ -49,7 +46,6 @@ class SGE_CLASS_SYMBOL edit : public base
 	using base::process;
 	line_type type;
 	string text_;
-	font::metrics_ptr font_;
 	dim desired_size_;
 	timer::object_ptr timer_;
 	bool cursor_visible_;
