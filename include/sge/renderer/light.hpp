@@ -32,7 +32,8 @@ namespace sge
 namespace renderer
 {
 
-struct light {
+class light {
+public:
 	typedef any_vector3 position_type;
 	typedef any_vector3 direction_type;
 	typedef any_arithmetic attenuation_type;

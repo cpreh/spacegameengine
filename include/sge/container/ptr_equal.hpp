@@ -29,7 +29,8 @@ namespace container
 template<
 	typename Ptr
 >
-struct ptr_equal {
+class ptr_equal {
+public:
 	typedef bool result_type;
 
 	explicit ptr_equal(

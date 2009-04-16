@@ -144,7 +144,7 @@ sge::gui::keyboard_focus::type sge::gui::widgets::base::keyboard_focus() const
 
 void sge::gui::widgets::base::keyboard_focus(keyboard_focus::type const n)
 {
-	parent_manager().keyboard().keyboard_focus(
+	parent_manager().keyboard_focus(
 		*this,
 		keyboard_focus_ = n);
 }

@@ -9,7 +9,8 @@
 #include <sge/text.hpp>
 #include <typeinfo>
 
-struct sge::renderer::texture_rw::lock_data {
+class sge::renderer::texture_rw::lock_data {
+public:
 	lock_rect area;
 	boost::optional<image_view> view;
 

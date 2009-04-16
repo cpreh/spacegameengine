@@ -29,16 +29,20 @@ sge::gui::dim const sge::gui::image::size() const
 				impl_.height()));
 }
 
-sge::gui::image_view sge::gui::image::view()
+sge::gui::image_view const sge::gui::image::view()
 {
-	return image_view(
-		impl_);
+	return 
+		image_view(
+			boost::gil::view(
+				impl_));
 }
 
 sge::gui::const_image_view const sge::gui::image::const_view() const
 {
-	return const_image_view(
-		impl_);
+	return 
+		const_image_view(
+			boost::gil::const_view(
+				impl_));
 }
 
 void sge::gui::image::resize(

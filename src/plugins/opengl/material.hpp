@@ -25,7 +25,7 @@ namespace sge
 {
 namespace renderer
 {
-struct material;
+class material;
 }
 
 namespace ogl

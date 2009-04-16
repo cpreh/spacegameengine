@@ -34,9 +34,9 @@ namespace mpl
 {
 
 template<typename Elements>
-struct partial_sums 
+class partial_sums 
 :
-boost::mpl::fold<
+public boost::mpl::fold<
 	Elements,
 	boost::mpl::vector_c<int, 0>, // FIXME: is this ok?
 	boost::mpl::push_back<

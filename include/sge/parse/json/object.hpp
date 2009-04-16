@@ -31,7 +31,8 @@ namespace parse
 namespace json
 {
 
-struct object {
+class object {
+public:
 	typedef std::vector<
 		member
 	> member_vector;

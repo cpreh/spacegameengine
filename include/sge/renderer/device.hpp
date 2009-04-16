@@ -67,13 +67,13 @@ class dynamic_format;
 
 namespace filter
 {
-struct texture;
+class texture;
 }
 
 class viewport;
-struct material;
-struct caps;
-struct light;
+class material;
+class caps;
+class light;
 
 class SGE_CLASS_SYMBOL device {
 	SGE_NONCOPYABLE(device)

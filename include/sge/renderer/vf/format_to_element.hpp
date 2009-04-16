@@ -31,15 +31,17 @@ namespace vf
 {
 
 template<typename T>
-struct format_to_element;
+class format_to_element;
 
 template<>
-struct format_to_element<float> {
+class format_to_element<float> {
+public:
 	static element_type::type const value = element_type::float_;
 };
 
 template<>
-struct format_to_element<double> {
+class format_to_element<double> {
+public:
 	static element_type::type const value = element_type::double_;
 };
 

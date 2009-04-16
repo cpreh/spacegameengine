@@ -23,7 +23,7 @@ class SGE_CLASS_SYMBOL texture_rw : public texture
 	SGE_SYMBOL void unlock() const;
 	SGE_SYMBOL resource_flag_t flags() const;
 
-	struct lock_data;
+	class lock_data;
 	private:
 	mutable texture_ptr read, write;
 

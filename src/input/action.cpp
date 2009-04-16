@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct functor {
+class functor {
+public:
 	functor(
 		sge::input::kc::type const code,
 		sge::input::nullary_function const &fun)

@@ -28,7 +28,8 @@ namespace sge
 namespace input
 {
 
-struct mod_state {
+class mod_state {
+public:
 	SGE_SYMBOL mod_state(
 		bool shift,
 		bool alt,

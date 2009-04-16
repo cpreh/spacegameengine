@@ -28,7 +28,8 @@ namespace
 template<
 	typename Dst
 >
-struct image_view_data_fn {
+class image_view_data_fn {
+public:
 	typedef void result_type;
 	Dst &_dst;
 

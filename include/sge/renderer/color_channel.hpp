@@ -31,18 +31,19 @@ namespace renderer
 template<
 	typename Color
 >
-struct color_channel;
+class color_channel;
 
 template<
 	typename Channel,
 	typename Layout
 >
-struct color_channel<
+class color_channel<
 	boost::gil::pixel<
 		Channel,
 		Layout
 	>
 > {
+public:
 	typedef Channel type;
 };
 

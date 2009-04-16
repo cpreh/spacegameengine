@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct compare : boost::static_visitor<bool> {
+class compare : public boost::static_visitor<bool> {
+public:
 	template<typename T>
 	bool operator()(
 		sge::renderer::state::var<T> const &,

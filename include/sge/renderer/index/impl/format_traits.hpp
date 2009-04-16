@@ -37,46 +37,46 @@ namespace detail
 template<
 	typename
 >
-struct format_traits;
+class format_traits;
 
 template<>
-struct format_traits<
+class format_traits<
 	uint16	
 >
 :
-boost::mpl::integral_c<
+public boost::mpl::integral_c<
 	format::type,
 	format::i16
 >
 {};
 
 template<>
-struct format_traits<
+class format_traits<
 	uint16 const
 >
 :
-format_traits<
+public format_traits<
 	uint16
 >
 {};
 
 template<>
-struct format_traits<
+class format_traits<
 	uint32	
 >
 :
-boost::mpl::integral_c<
+public boost::mpl::integral_c<
 	format::type,
 	format::i32
 >
 {};
 
 template<>
-struct format_traits<
+class format_traits<
 	uint32 const
 >
 :
-format_traits<
+public format_traits<
 	uint32
 >
 {};

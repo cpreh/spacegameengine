@@ -25,7 +25,8 @@ namespace sge
 {
 
 template<typename T>
-struct heap_deleter {
+class heap_deleter {
+public:
 	void operator()(T *const t) const
 	{
 		delete t;

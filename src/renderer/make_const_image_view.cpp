@@ -26,7 +26,8 @@ namespace
 {
 
 template <typename Dst>
-struct variant_const_assign_fn {
+class variant_const_assign_fn {
+public:
 	typedef void result_type;
 	Dst &_dst;
 

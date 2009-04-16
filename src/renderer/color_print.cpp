@@ -29,7 +29,8 @@ namespace
 {
 
 template<typename Pixel>
-struct channel_printer {
+class channel_printer {
+public:
 	channel_printer(
 		sge::ostream &s,
 		Pixel const &p);

@@ -33,7 +33,8 @@ namespace vf
 
 class client_state_combiner;
 
-struct actor {
+class actor {
+public:
 	SGE_NONCOPYABLE(actor)
 protected:
 	actor();

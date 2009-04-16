@@ -34,7 +34,8 @@ namespace renderer
 template<
 	size_type sz
 >
-struct basic_any_vector {
+class basic_any_vector {
+public:
 	typedef typename boost::variant<
 		typename math::vector::static_<
 			float,

@@ -31,7 +31,8 @@ namespace parse
 namespace ini
 {
 
-struct section {
+class section {
+public:
 	string header;
 	entry_vector entries;
 };

@@ -29,9 +29,9 @@ namespace utf8
 {
 
 // TODO:
-struct traits
+class traits
 :
-std::char_traits<
+public std::char_traits<
 	char_type
 >
 {};

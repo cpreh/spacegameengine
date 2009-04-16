@@ -28,12 +28,12 @@ namespace sge
 {
 namespace renderer
 {
-struct parameters;
+class parameters;
 }
 namespace window
 {
 
-struct parameters;
+class parameters;
 
 SGE_SYMBOL instance_ptr const
 create(

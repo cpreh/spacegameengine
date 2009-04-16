@@ -31,7 +31,8 @@ namespace parse
 namespace json
 {
 
-struct array {
+class array {
+public:
 	typedef std::vector<
 		value
 	> element_vector;

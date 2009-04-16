@@ -29,7 +29,8 @@ namespace sge
 namespace plugin
 {
 
-struct base {
+class base {
+public:
 	SGE_NONCOPYABLE(base)
 protected:
 	SGE_SYMBOL base();

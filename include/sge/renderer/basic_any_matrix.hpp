@@ -35,7 +35,8 @@ template<
 	size_type N,
 	size_type M
 >
-struct basic_any_matrix {
+class basic_any_matrix {
+public:
 	typedef typename boost::variant<
 		typename math::matrix::static_<
 			float,

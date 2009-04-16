@@ -33,7 +33,8 @@ namespace renderer
 namespace filter
 {
 
-struct texture {
+class texture {
+public:
 	SGE_SYMBOL texture(
 		filter::min::type,
 		filter::mag::type,

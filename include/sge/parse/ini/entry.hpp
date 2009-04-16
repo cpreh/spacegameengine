@@ -30,7 +30,8 @@ namespace parse
 namespace ini
 {
 
-struct entry {
+class entry {
+public:
 	string
 		name,
 		value;

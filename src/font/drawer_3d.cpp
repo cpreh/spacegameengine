@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct converter {
+class converter {
+public:
 	void operator()(
 		sge::font::color const src,
 		sge::renderer::rgba8_color &dest) const;

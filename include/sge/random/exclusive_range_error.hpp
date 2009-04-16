@@ -29,7 +29,8 @@ namespace sge
 namespace random
 {
 
-struct exclusive_range_error : exception {
+class exclusive_range_error : public exception {
+public:
 	SGE_SYMBOL explicit exclusive_range_error(
 		string const &);
 };

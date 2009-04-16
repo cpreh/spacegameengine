@@ -31,10 +31,11 @@ namespace state
 {
 
 template<typename T>
-struct traits;
+class traits;
 
 template<>
-struct traits<int_type> {
+class traits<int_type> {
+public:
 	enum available_states {
 		stencil_clear_val,
 		stencil_ref
@@ -42,14 +43,16 @@ struct traits<int_type> {
 };
 
 template<>
-struct traits<uint_type> {
+class traits<uint_type> {
+public:
 	enum available_states {
 		stencil_mask
 	};
 };
 
 template<>
-struct traits<float_type> {
+class traits<float_type> {
+public:
 	enum available_states {
 		zbuffer_clear_val,
 		alpha_test_ref,
@@ -60,7 +63,8 @@ struct traits<float_type> {
 };
 
 template<>
-struct traits<bool_type> {
+class traits<bool_type> {
+public:
 	enum available_states {
 		clear_zbuffer,
 		clear_backbuffer,
@@ -72,7 +76,8 @@ struct traits<bool_type> {
 };
 
 template<>
-struct traits<color_type> {
+class traits<color_type> {
+public:
 	enum available_states {
 		clear_color,
 		ambient_light_color,

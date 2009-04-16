@@ -36,7 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct visitor : boost::static_visitor<> {
+class visitor : public boost::static_visitor<> {
+public:
 	explicit visitor(
 		sge::renderer::glsl::uniform::variable_ptr);
 	
@@ -58,7 +59,8 @@ private:
 	sge::renderer::glsl::uniform::variable_ptr const var;
 };
 
-struct vector_visitor : boost::static_visitor<> {
+class vector_visitor : public boost::static_visitor<> {
+public:
 	explicit vector_visitor(
 		sge::renderer::glsl::uniform::variable_ptr);
 		

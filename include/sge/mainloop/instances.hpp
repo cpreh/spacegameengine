@@ -26,7 +26,7 @@ namespace sge
 namespace mainloop
 {
 
-struct dispatchable;
+class dispatchable;
 
 void add_instance(
 	dispatchable *);

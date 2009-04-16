@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-struct renderer_parameters;
-struct renderer_caps;
+class renderer_parameters;
+class renderer_caps;
 
 namespace d3d9
 {

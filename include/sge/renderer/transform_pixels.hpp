@@ -56,7 +56,8 @@ void transform_pixels_static( // TODO: rename this when all overloads are there
 template<
 	typename Op
 >
-struct transform_pixels_fn {
+class transform_pixels_fn {
+public:
 	typedef void result_type;
 
 	explicit transform_pixels_fn(
@@ -88,7 +89,8 @@ private:
 template<
 	typename Op
 >
-struct transform_pixels_binary_fn {
+class transform_pixels_binary_fn {
+public:
 	typedef void result_type;
 
 	explicit transform_pixels_binary_fn(

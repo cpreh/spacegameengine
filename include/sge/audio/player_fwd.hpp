@@ -28,7 +28,7 @@ namespace sge
 namespace audio
 {
 
-struct player;
+class player;
 
 typedef shared_ptr<player> player_ptr;
 

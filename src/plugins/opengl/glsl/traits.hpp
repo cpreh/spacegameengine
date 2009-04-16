@@ -31,12 +31,14 @@ namespace glsl
 {
 
 template<bool Native>
-struct traits {
+class traits {
+public:
 	typedef GLuint handle;
 };
 
 template<>
-struct traits<false> {
+class traits<false> {
+public:
 	typedef GLhandleARB handle;
 };
 

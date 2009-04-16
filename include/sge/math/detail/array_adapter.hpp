@@ -37,7 +37,8 @@ template<
 	typename Reference = ValueType &,
 	typename ConstReference = ValueType const &
 >
-struct array_adapter {
+class array_adapter {
+public:
 	typedef SizeType size_type;
 	typedef ValueType value_type;
 	typedef Reference reference;

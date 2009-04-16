@@ -47,13 +47,14 @@ namespace ini
 template<
 	typename In
 >
-struct grammar
+class grammar
 :
-boost::spirit::qi::grammar<
+public boost::spirit::qi::grammar<
 	In,
 	section_vector(),
 	boost::spirit::ascii::blank_type
 > {
+public:
 	typedef boost::spirit::ascii::blank_type space_type;
 
 	grammar()

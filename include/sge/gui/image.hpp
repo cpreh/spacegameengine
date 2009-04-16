@@ -19,7 +19,7 @@ public:
 	image();
 	explicit image(dim const &);
 	dim const size() const;
-	image_view view();
+	image_view const view();
 	const_image_view const const_view() const;
 	void resize(dim const &);
 private:

@@ -31,7 +31,8 @@ namespace ogl
 namespace vf
 {
 
-struct client_state {
+class client_state {
+public:
 	typedef container::linear_set<
 		GLenum
 	> normal_state_set;

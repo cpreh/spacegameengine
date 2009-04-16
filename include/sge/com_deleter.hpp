@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 
-template<typename T> struct com_deleter {
+template<typename T> class com_deleter {
+public:
 	void operator()(T* const t) const
 	{
 		t->Release();

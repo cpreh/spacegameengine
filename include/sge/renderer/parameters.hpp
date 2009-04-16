@@ -34,7 +34,8 @@ namespace sge
 namespace renderer
 {
 
-struct parameters {
+class parameters {
+public:
 	SGE_SYMBOL parameters(
 		display_mode const &mode,
 		depth_buffer::type,

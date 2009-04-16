@@ -33,7 +33,8 @@ namespace detail
 {
 
 template<>
-struct traits<renderer::system> {
+class traits<renderer::system> {
+public:
 	SGE_SYMBOL static address_name plugin_loader_name();
 	SGE_SYMBOL static capabilities::type plugin_type();
 	typedef renderer::system* (*loader_fun)();

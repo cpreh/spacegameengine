@@ -1,16 +1,17 @@
 #ifndef SGE_GUI_MANAGER_HPP_INCLUDED
 #define SGE_GUI_MANAGER_HPP_INCLUDED
 
-#include <sge/gui/detail/managers/keyboard.hpp>
-#include <sge/gui/detail/managers/mouse.hpp>
-#include <sge/gui/detail/managers/compiler.hpp>
-#include <sge/gui/detail/managers/render.hpp>
-#include <sge/gui/detail/managers/time.hpp>
+#include <sge/gui/detail/managers/fwd.hpp>
 #include <sge/gui/timer/callback.hpp>
 #include <sge/gui/timer/fwd.hpp>
 #include <sge/gui/skins/base.hpp>
 #include <sge/gui/widgets/fwd.hpp>
-#include <sge/gui/timer/fwd.hpp>
+#include <sge/gui/cursor_fwd.hpp>
+#include <sge/gui/export.hpp>
+#include <sge/gui/rect.hpp>
+#include <sge/gui/point.hpp>
+#include <sge/gui/activation_state.hpp>
+#include <sge/gui/keyboard_focus.hpp>
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
@@ -19,8 +20,8 @@
 #include <sge/sprite/system.hpp>
 #include <sge/time/resolution.hpp>
 #include <sge/image/loader_fwd.hpp>
-#include <sge/gui/export.hpp>
 #include <sge/noncopyable.hpp>
+#include <sge/scoped_ptr.hpp>
 #include <set>
 #include <vector>
 
@@ -54,8 +55,7 @@ class manager
 	SGE_GUI_SYMBOL sge::gui::skins::base const &skin() const;
 	SGE_GUI_SYMBOL sge::sprite::object &connected_sprite(
 		widgets::base &);
-
-	SGE_GUI_SYMBOL detail::managers::keyboard &keyboard();
+	SGE_GUI_SYMBOL void request_keyboard_focus(widgets::base &);
 	private:
 	friend class widgets::base;
 
@@ -66,11 +66,12 @@ class manager
 	skins::ptr skin_;
 	cursor_ptr cursor_;
 
-	detail::managers::mouse    mouse_;
-	detail::managers::render   render_;
-	detail::managers::keyboard keyboard_;
-	detail::managers::compiler compiler_;
-	detail::managers::time     timer_;
+	// this is just to prevent the detail dependencies
+	scoped_ptr<detail::managers::mouse> mouse_;
+	scoped_ptr<detail::managers::render> render_;
+	scoped_ptr<detail::managers::keyboard> keyboard_;
+	scoped_ptr<detail::managers::compiler> compiler_;
+	scoped_ptr<detail::managers::time> timer_;
 
 	typedef std::vector<detail::submanager*> submanager_container;
 	submanager_container submanagers;
@@ -90,6 +91,9 @@ class manager
 	void activation(
 		widgets::base &,
 		activation_state::type);
+	void keyboard_focus(
+		widgets::base &,
+		keyboard_focus::type);
 };
 }
 }

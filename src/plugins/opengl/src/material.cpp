@@ -44,7 +44,8 @@ void material_color(
 	GLenum type,
 	sge::renderer::any_color const &);
 
-struct arithmetic_visitor : boost::static_visitor<> {
+class arithmetic_visitor : public boost::static_visitor<> {
+public:
 	arithmetic_visitor(
 		GLenum face,
 		GLenum type);

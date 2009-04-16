@@ -34,7 +34,8 @@ namespace detail
 {
 
 template<>
-struct traits<image::loader> {
+class traits<image::loader> {
+public:
 	SGE_SYMBOL static address_name plugin_loader_name();
 	SGE_SYMBOL static capabilities::type plugin_type();
 	typedef image::loader* (*loader_fun)();

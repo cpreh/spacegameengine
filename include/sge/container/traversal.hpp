@@ -34,14 +34,15 @@ namespace container
 template<
 	typename Tree
 >
-struct traversal {
+class traversal {
+public:
 	explicit traversal(
 		Tree &tree_)
 	:
 		tree_(tree_)
 	{}
 
-	struct iterator;
+	class iterator;
 private:
 	typedef typename boost::mpl::if_<
 		boost::is_const<
@@ -62,7 +63,8 @@ private:
 		typename tree_iterator::reference
 	> iterator_base;
 public:
-	struct iterator : iterator_base {
+	class iterator : public iterator_base {
+	public:
 		explicit iterator(
 			tree_iterator const &it)
 		:

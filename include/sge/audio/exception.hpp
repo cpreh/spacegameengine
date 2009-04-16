@@ -30,7 +30,8 @@ namespace sge
 namespace audio
 {
 
-struct SGE_CLASS_SYMBOL exception : public sge::exception  {
+class SGE_CLASS_SYMBOL exception : public sge::exception {
+public:
 	SGE_SYMBOL explicit exception(
 		string const &s);
 };

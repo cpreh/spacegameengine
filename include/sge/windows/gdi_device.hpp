@@ -33,7 +33,7 @@ namespace windows
 class gdi_device {
 	SGE_NONCOPYABLE(gdi_device)
 public:
-	struct get_tag{};
+	class get_tag{};
 	SGE_SYMBOL gdi_device(
 		HWND,
 		get_tag);

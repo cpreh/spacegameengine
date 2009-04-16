@@ -37,8 +37,9 @@ class render : public submanager
 		rect const &);
 	sge::sprite::object &connected_sprite(widgets::base &);
 	private:
-	struct widget_data
+	class widget_data
 	{
+	public:
 		renderer::texture_ptr texture;
 		sprite::object sprite;
 	};

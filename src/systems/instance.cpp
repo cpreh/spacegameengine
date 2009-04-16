@@ -51,7 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/optional.hpp>
 #include <typeinfo>
 
-struct sge::systems::instance::impl {
+class sge::systems::instance::impl {
+public:
 	plugin::manager                                 plugin_manager;
 
 	plugin::plugin<sge::renderer::system>::ptr_type renderer_plugin;
@@ -117,7 +118,8 @@ private:
 namespace
 {
 
-struct visitor : boost::static_visitor<> {
+class visitor : public boost::static_visitor<> {
+public:
 	visitor(
 		sge::systems::instance::impl &,
 		sge::string const &name);

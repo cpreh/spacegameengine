@@ -34,12 +34,12 @@ namespace random
 template<
 	typename T,
 	typename Enable = void>
-struct uniform_distribution;
+class uniform_distribution;
 
 template<
 	typename T
 >
-struct uniform_distribution<
+class uniform_distribution<
 	T,
 	typename boost::enable_if<
 		boost::is_floating_point<
@@ -47,13 +47,14 @@ struct uniform_distribution<
 		>
 	>::type
 > {
+public:
 	typedef std::tr1::uniform_real<T> type;
 };
 
 template<
 	typename T
 >
-struct uniform_distribution<
+class uniform_distribution<
 	T,
 	typename boost::enable_if<
 		boost::is_integral<
@@ -61,6 +62,7 @@ struct uniform_distribution<
 		>
 	>::type
 > {
+public:
 	typedef std::tr1::uniform_int<T> type;
 };
 

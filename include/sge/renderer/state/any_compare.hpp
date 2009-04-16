@@ -31,7 +31,8 @@ namespace renderer
 namespace state
 {
 
-struct any_compare : std::binary_function<any const &, any const &, bool> {
+class any_compare : public std::binary_function<any const &, any const &, bool> {
+public:
 	bool operator()(
 		any const &,
 		any const &) const;

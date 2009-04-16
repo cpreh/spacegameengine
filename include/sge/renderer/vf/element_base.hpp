@@ -33,7 +33,8 @@ namespace vf
 template<
 	vf::role::type Role
 >
-struct element_base {
+class element_base {
+public:
 	static vf::role::type const role = Role;
 };
 

@@ -5,6 +5,7 @@
 #include <sge/image/object.hpp>
 #include <sge/texture/no_fragmented.hpp>
 #include <sge/texture/part_raw.hpp>
+#include <sge/texture/consume_and_set_fragment.hpp>
 #include <sge/renderer/filter/linear.hpp>
 #include <sge/structure_cast.hpp>
 #include <sge/make_shared_ptr.hpp>
@@ -15,18 +16,20 @@ sge::gui::default_cursor::default_cursor(
 	sge::image::loader_ptr const il,
 	sge::renderer::device_ptr const rend)
 :
+	texture_(
+		rend,
+		renderer::color_format::rgba8,
+		renderer::filter::linear),
 	sprite_(
-		sge::sprite::parameters()
+		sprite::parameters()
 			.texture(
-				texture::const_part_ptr(
-					make_shared_ptr<
-						texture::part_raw
-					>(
-						rend->create_texture(
-						il->load(
-							media_path()/SGE_TEXT("gui")/SGE_TEXT("cursor.png"))->view(),
-						renderer::filter::linear,
-						renderer::resource_flags::readable))))
+				texture::consume_and_set_fragment(
+					texture_,
+					il->load(
+							media_path()/
+							SGE_TEXT("gui")/
+							SGE_TEXT("cursor.png"))
+						->view()))
 			.size(
 				sprite::texture_dim)
 			.depth(

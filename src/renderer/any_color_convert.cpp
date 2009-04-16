@@ -27,7 +27,8 @@ namespace
 {
 
 template<typename Dest>
-struct conversion_helper {
+class conversion_helper {
+public:
 	conversion_helper(
 		sge::renderer::any_color const &col,
 		Dest &dest);

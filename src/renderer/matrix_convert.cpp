@@ -33,7 +33,8 @@ namespace
 template<
 	typename Dest
 >
-struct visitor : boost::static_visitor<Dest> {
+class visitor : public boost::static_visitor<Dest> {
+public:
 	template<
 		typename T
 	>

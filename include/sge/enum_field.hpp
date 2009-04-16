@@ -25,7 +25,8 @@ namespace sge
 {
 
 template<typename Enum, Enum Size>
-struct enum_field {
+class enum_field {
+public:
 	typedef Enum wrapped_type;
 	static Enum const size = Size;
 };

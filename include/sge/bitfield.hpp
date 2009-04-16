@@ -83,7 +83,8 @@ public:
 	typedef value_type const_reference;
 private:
 	template<typename StoredType, typename Reference>
-	struct iterator_type_helper {
+	class iterator_type_helper {
+	public:
 		typedef boost::iterator_facade<
 			iterator_impl<
 				StoredType,

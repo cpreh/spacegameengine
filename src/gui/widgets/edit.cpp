@@ -123,7 +123,7 @@ sge::gui::key_handling::type sge::gui::widgets::edit::process(events::key const 
 
 void sge::gui::widgets::edit::process(events::mouse_click const &)
 {
-	parent_manager().keyboard().request_focus(*this);
+	parent_manager().request_keyboard_focus(*this);
 }
 
 void sge::gui::widgets::edit::process(events::keyboard_leave const &)

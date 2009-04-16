@@ -43,7 +43,8 @@ namespace detail
 {
 
 template<typename VertexFormat>
-struct iterator_base {
+class iterator_base {
+public:
 	typedef boost::iterator_facade<
 		iterator<VertexFormat>,
 		vertex<VertexFormat>,

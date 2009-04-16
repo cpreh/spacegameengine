@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-struct copy_visitor : boost::static_visitor<> {
-	
+class copy_visitor : public boost::static_visitor<> {
+public:
 	template<
 		typename T
 	>

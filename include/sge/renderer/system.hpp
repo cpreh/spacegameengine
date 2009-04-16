@@ -31,13 +31,13 @@ namespace sge
 {
 namespace window
 {
-struct parameters;
+class parameters;
 }
 
 namespace renderer
 {
 
-struct parameters;
+class parameters;
 
 class SGE_CLASS_SYMBOL system {
 	SGE_NONCOPYABLE(system)

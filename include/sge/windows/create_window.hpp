@@ -29,7 +29,7 @@ namespace sge
 {
 namespace window
 {
-struct parameters;
+class parameters;
 }
 
 namespace windows

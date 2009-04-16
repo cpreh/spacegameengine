@@ -33,7 +33,8 @@ namespace glsl
 namespace uniform
 {
 
-struct type {
+class type {
+public:
 	typedef GLsizei size_type;
 
 	type(

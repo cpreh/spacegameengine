@@ -28,7 +28,8 @@ namespace
 template<
 	typename View 
 >
-struct visitor {
+class visitor {
+public:
 	typedef View const result_type;
 
 	template<

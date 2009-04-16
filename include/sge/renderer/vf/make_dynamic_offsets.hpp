@@ -31,7 +31,8 @@ namespace renderer
 namespace vf
 {
 
-struct make_dynamic_offsets {
+class make_dynamic_offsets {
+public:
 	explicit make_dynamic_offsets(
 		dynamic_offset_list &offsets)
 	:

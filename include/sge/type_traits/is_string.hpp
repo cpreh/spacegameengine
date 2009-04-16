@@ -32,23 +32,23 @@ namespace type_traits
 template<
 	typename T
 >
-struct is_string
+class is_string
 :
-boost::false_type
+public boost::false_type
 {};
 
 template<
 	typename Ch,
 	typename Traits
 >
-struct is_string<
+class is_string<
 	std::basic_string<
 		Ch,
 		Traits
 	>
 >
 :
-boost::true_type
+public boost::true_type
 {};
 
 }

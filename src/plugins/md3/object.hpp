@@ -68,7 +68,8 @@ public:
 		3
 	>::type vec3;
 
-	struct frame {
+	class frame {
+	public:
 		frame(std::istream& is);
 		
 		vec3 min_bounds,
@@ -78,7 +79,8 @@ public:
 		string name;
 	};
 
-	struct tag {
+	class tag {
+	public:
 		explicit tag(model::istream& is);
 		
 		string                           name;
@@ -87,23 +89,27 @@ public:
 		axis_array                       axis;
 	};
 
-	struct surface {
+	class surface {
+	public:
 		surface(std::istream& is, s32 num_frames);
 
-		struct shader {
+		class shader {
+		public:
 			explicit shader(model::istream &);
 
 			string name;
 			s32 shader_index;
 		};
 
-		struct triangle {
+		class triangle {
+		public:
 			explicit triangle(model::istream &);
 			typedef std::tr1::array<s32, 3> index_array;
 			index_array indices;
 		};
 
-		struct texcoord {
+		class texcoord {
+		public:
 			explicit texcoord(model::istream &);
 			
 			typedef math::vector::static_<
@@ -114,7 +120,8 @@ public:
 			tex_pos tex;
 		};
 
-		struct vertex {
+		class vertex {
+		public:
 			explicit vertex(model::istream &);
 
 			s16 x,
@@ -123,7 +130,8 @@ public:
 			    normal;
 		};
 
-		struct transformed_vertex {
+		class transformed_vertex {
+		public:
 			explicit transformed_vertex(vertex const &);
 
 			vec3 pos,

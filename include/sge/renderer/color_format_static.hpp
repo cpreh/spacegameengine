@@ -34,7 +34,8 @@ namespace renderer
 template<
 	typename Color
 >
-struct color_format_static {
+class color_format_static {
+public:
 	static color_format::type const value
 		= static_cast<color_format::type>(
 			mpl::index_of<

@@ -38,12 +38,13 @@ template<
 	typename Format,
 	vertex_size NumSubElements
 >
-struct texpos
-: vec_base<
+class texpos
+: public vec_base<
 	Format,
 	role::texpos,
 	NumSubElements
 > {
+public:
 	BOOST_STATIC_ASSERT(
 		type_traits::is_float_or_double<Format>::value);
 

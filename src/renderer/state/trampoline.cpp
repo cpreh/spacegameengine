@@ -46,8 +46,8 @@ sge::renderer::state::trampoline<T>::state() const
 	return state_;
 }
 
-template struct sge::renderer::state::trampoline<sge::renderer::state::int_type>;
-template struct sge::renderer::state::trampoline<sge::renderer::state::uint_type>;
-template struct sge::renderer::state::trampoline<sge::renderer::state::float_type>;
-template struct sge::renderer::state::trampoline<sge::renderer::state::bool_type>;
-template struct sge::renderer::state::trampoline<sge::renderer::state::color_type>;
+template class sge::renderer::state::trampoline<sge::renderer::state::int_type>;
+template class sge::renderer::state::trampoline<sge::renderer::state::uint_type>;
+template class sge::renderer::state::trampoline<sge::renderer::state::float_type>;
+template class sge::renderer::state::trampoline<sge::renderer::state::bool_type>;
+template class sge::renderer::state::trampoline<sge::renderer::state::color_type>;

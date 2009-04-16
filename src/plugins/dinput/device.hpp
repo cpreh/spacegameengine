@@ -75,8 +75,9 @@ private:
 	string const              name_;
 	dinput_device_ptr         device_;
 
-	/*struct lost_focus_unacquire_handler
+	/*class lost_focus_unacquire_handler
 	{
+	public:
 		input_device &device;
 		lost_focus_unacquire_handler(input_device &dev) : device(dev) {}
 		windows::window::win32_callback_return_type operator()(windows::window&, windows::window::win32_event_type, WPARAM wparam, LPARAM lparam);

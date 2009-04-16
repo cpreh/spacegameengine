@@ -30,7 +30,8 @@ namespace sge
 namespace plugin
 {
 
-struct info {
+class info {
+public:
 	SGE_SYMBOL info();
 
 	char_type const      *name;

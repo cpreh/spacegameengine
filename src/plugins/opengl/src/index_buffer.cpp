@@ -31,12 +31,13 @@ namespace
 template<
 	typename T
 >
-struct traits;
+class traits;
 
 template<>
-struct traits<
+class traits<
 	sge::uint16
 > {
+public:
 	static GLenum const gl_format = GL_UNSIGNED_SHORT;
 	static sge::renderer::index::format::type const format = sge::renderer::index::format::i16;
 	typedef sge::renderer::index::view_16 view;
@@ -44,9 +45,10 @@ struct traits<
 };
 
 template<>
-struct traits<
+class traits<
 	sge::uint32
 > {
+public:
 	static GLenum const gl_format = GL_UNSIGNED_INT;
 	static sge::renderer::index::format::type const format = sge::renderer::index::format::i32;
 	typedef sge::renderer::index::view_32 view;

@@ -33,7 +33,8 @@ namespace sge
 namespace renderer
 {
 
-struct caps {
+class caps {
+public:
 	SGE_SYMBOL caps(
 		adapter_type adapter_,
 		string const &driver_name,

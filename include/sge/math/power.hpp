@@ -45,14 +45,16 @@ template<typename Base, typename Exp> Base pow_int(const Base base, const Exp e)
 	return ret;
 }
 
-template<bool is_integral> struct next_pow_2_implementation {
+template<bool is_integral> class next_pow_2_implementation {
+public:
 	template<typename T> static T next_pow_2(const T t)
 	{
 		return static_cast<T>(std::pow(static_cast<T>(2),std::ceil(std::log(static_cast<double>(t))/std::log(static_cast<double>(2)))));
 	}
 };
 
-template<> struct next_pow_2_implementation<true> {
+template<> class next_pow_2_implementation<true> {
+public:
 	template<typename T> static T next_pow_2(const T t)
 	{
 		if (t <= 0) std::log(static_cast<double>(-1)); // throw same exception as general template

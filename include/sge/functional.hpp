@@ -27,7 +27,8 @@ namespace sge
 {
 
 template <typename T>
-struct bit_and : public std::binary_function<T, T, T> {
+class bit_and : public std::binary_function<T, T, T> {
+public:
 	T operator()(
 		T const &x,
 		T const &y) const
@@ -37,7 +38,8 @@ struct bit_and : public std::binary_function<T, T, T> {
 };
 
 template <typename T>
-struct bit_or : public std::binary_function<T, T, T> {
+class bit_or : public std::binary_function<T, T, T> {
+public:
 	T operator()(
 		T const &x,
 		T const &y) const
@@ -47,7 +49,8 @@ struct bit_or : public std::binary_function<T, T, T> {
 };
 
 template <typename T>
-struct bit_xor : public std::binary_function<T, T, T> {
+class bit_xor : public std::binary_function<T, T, T> {
+public:
 	T operator()(
 		T const &x,
 		T const &y) const
@@ -57,7 +60,8 @@ struct bit_xor : public std::binary_function<T, T, T> {
 };
 
 template <typename T>
-struct bit_not : public std::unary_function<T, T> {
+class bit_not : public std::unary_function<T, T> {
+public:
 	T operator()(T const &x) const
 	{
 		return ~x;

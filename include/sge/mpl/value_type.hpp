@@ -29,7 +29,8 @@ namespace mpl
 template<
 	typename T
 >
-struct value_type {
+class value_type {
+public:
 	typedef typename T::value_type type;
 };
 

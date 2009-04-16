@@ -1,4 +1,9 @@
 #include <sge/gui/widgets/base.hpp>
+#include <sge/gui/detail/managers/mouse.hpp>
+#include <sge/gui/detail/managers/compiler.hpp>
+#include <sge/gui/detail/managers/render.hpp>
+#include <sge/gui/detail/managers/time.hpp>
+#include <sge/gui/detail/managers/keyboard.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/log.hpp>
 #include <sge/math/rect_util.hpp>
@@ -27,24 +32,31 @@ sge::gui::manager::manager(
 	skin_(_skin),
 	cursor_(_cursor),
 	mouse_(
-		is,
-		*cursor_),
+		new detail::managers::mouse(
+			is,
+			*cursor_)),
 	render_(
-		rend,
-		*cursor_),
-	keyboard_(is),
+		new detail::managers::render(
+			rend,
+			*cursor_)),
+	keyboard_(
+		new detail::managers::keyboard(
+			is)),
 	compiler_(
-		mouse_,
-		render_)
+		new detail::managers::compiler(
+			*mouse_,
+			*render_))
 {
 	// TODO: find a way to initialize this in the constructor
 	// that works for both gcc-4.3 and gcc-4.4.
-	submanagers.push_back(&compiler_);
-	submanagers.push_back(&mouse_);
-	submanagers.push_back(&keyboard_);
-	submanagers.push_back(&timer_);
-	submanagers.push_back(&render_);
+	submanagers.push_back(compiler_.get());
+	submanagers.push_back(mouse_.get());
+	submanagers.push_back(keyboard_.get());
+	submanagers.push_back(timer_.get());
+	submanagers.push_back(render_.get());
 }
+
+sge::gui::manager::~manager() {}
 
 void sge::gui::manager::dirty(
 	widgets::base &w,
@@ -68,7 +80,7 @@ sge::gui::timer::object_ptr const sge::gui::manager::register_timer(
 	time::resolution const &r,
 	timer::callback const cb)
 {
-	return timer_.add(r,cb);
+	return timer_->add(r,cb);
 }
 
 void sge::gui::manager::update()
@@ -79,7 +91,7 @@ void sge::gui::manager::update()
 
 void sge::gui::manager::draw()
 {
-	render_.draw();
+	render_->draw();
 }
 
 sge::gui::cursor const &sge::gui::manager::cursor() const
@@ -100,9 +112,14 @@ sge::gui::skins::base const &sge::gui::manager::skin() const
 sge::sprite::object &sge::gui::manager::connected_sprite(
 	widgets::base &w)
 {
-	return render_.connected_sprite(w);
+	return render_->connected_sprite(w);
 }
 
+void sge::gui::manager::request_keyboard_focus(
+	widgets::base &w)
+{
+	keyboard_->request_focus(w);
+}
 
 void sge::gui::manager::add(widgets::base &w)
 {
@@ -134,9 +151,11 @@ void sge::gui::manager::activation(widgets::base &w,activation_state::type const
 		m->activation(w,_n);
 }
 
-sge::gui::detail::managers::keyboard &sge::gui::manager::keyboard()
+void sge::gui::manager::keyboard_focus(
+	widgets::base &w,
+	keyboard_focus::type const f)
 {
-	return keyboard_;
+	keyboard_->keyboard_focus(
+		w,
+		f);
 }
-
-sge::gui::manager::~manager() {}
