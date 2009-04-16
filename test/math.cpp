@@ -73,10 +73,40 @@ int main()
 
 	normalize(vecf);
 
-	sge::cin >> vec;
+	//sge::cin >> vec;
 
 	sge::cout
 		<< vec << SGE_TEXT('\n')
 		<< sge::math::vector::length<float>(vec) << SGE_TEXT('\n')
 		<< length(vecf) << SGE_TEXT('\n');
+	
+	typedef sge::math::vector::static_<
+		double,
+		3
+	>::type vec3d;
+
+	{
+		vec3d
+			a(
+				1.0,
+				0.0,
+				0.0
+			),
+			b(
+				0.0,
+				1.0,
+				0.0
+			),
+			c(
+				0.0,
+				0.0,
+				-1.0
+			);
+
+		normalize(a);
+		normalize(b);
+		normalize(c);
+
+		sge::cout << cross(a, b) << SGE_TEXT(' ') << c << SGE_TEXT('\n');
+	}
 }
