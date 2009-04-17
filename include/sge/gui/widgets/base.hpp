@@ -42,9 +42,13 @@ class SGE_CLASS_SYMBOL base
 		parent_data const &,
 		parameters const &);
 
+	//! position on the screen
 	SGE_GUI_SYMBOL point const screen_pos() const;
+	//! position relative to the oldest parent (position on the sprite)
 	SGE_GUI_SYMBOL point const absolute_pos() const;
+	//! position relative to its parent (=screen_pos if the widget has no parent)
 	SGE_GUI_SYMBOL point const relative_pos() const;
+	//! this only sets the position immediately if it's a top level widget
 	SGE_GUI_SYMBOL void relative_pos(point const &);
 	SGE_GUI_SYMBOL dim const size() const;
 	SGE_GUI_SYMBOL void size(dim const &);

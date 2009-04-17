@@ -45,7 +45,7 @@ void sge::gui::skins::standard::draw(
 		*/
 	c.draw_rect(
 		rect(c.size()),
-		renderer::colors::black(),
+		renderer::colors::transparent(),
 		canvas::rect_type::solid);
 
 	SGE_LOG_DEBUG(

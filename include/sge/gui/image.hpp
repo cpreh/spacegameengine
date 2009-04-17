@@ -5,7 +5,6 @@
 #include <sge/gui/image_fwd.hpp>
 #include <sge/gui/image_view.hpp>
 #include <sge/renderer/image.hpp>
-#include <sge/shared_ptr.hpp>
 
 namespace sge
 {
