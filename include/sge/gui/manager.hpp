@@ -15,7 +15,6 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/key_pair.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/system.hpp>
 #include <sge/time/resolution.hpp>
@@ -35,7 +34,7 @@ class manager
 	public:
 	SGE_GUI_SYMBOL manager(
 		renderer::device_ptr,
-		sge::image::loader_ptr,
+		image::loader_ptr,
 		input::system_ptr,
 		skins::ptr,
 		cursor_ptr);
@@ -51,16 +50,17 @@ class manager
 	SGE_GUI_SYMBOL void update();
 	SGE_GUI_SYMBOL void draw();
 	SGE_GUI_SYMBOL sge::gui::cursor const &cursor() const;
-	SGE_GUI_SYMBOL sge::gui::skins::base &skin();
-	SGE_GUI_SYMBOL sge::gui::skins::base const &skin() const;
-	SGE_GUI_SYMBOL sge::sprite::object &connected_sprite(
+	SGE_GUI_SYMBOL skins::base &skin();
+	SGE_GUI_SYMBOL skins::base const &skin() const;
+	SGE_GUI_SYMBOL sprite::object &connected_sprite(
 		widgets::base &);
-	SGE_GUI_SYMBOL void request_keyboard_focus(widgets::base &);
+	SGE_GUI_SYMBOL void request_keyboard_focus(
+		widgets::base &);
 	private:
 	friend class widgets::base;
 
 	renderer::device_ptr const rend;
-	sge::image::loader_ptr const il;
+	image::loader_ptr const il;
 	input::system_ptr const is;
 
 	skins::ptr skin_;
