@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "../readonly_texture_lock.hpp"
 #include <sge/container/raw_vector_impl.hpp>
 #include <sge/algorithm/copy_n.hpp>
-#include <cassert>
+#include <sge/assert.hpp>
 
 sge::ogl::readonly_texture_lock::readonly_texture_lock(
 	size_type const lock_size,
@@ -52,7 +52,7 @@ void sge::ogl::readonly_texture_lock::post_lock()
 	// if the pitch is set we copy the part to read
 	// in our own buffer so that the user sees a contiguous array
 
-	assert(lock_size % block_size == 0);
+	SGE_ASSERT(lock_size % block_size == 0);
 
 	cutout_buffer.resize_uninitialized(
 		lock_size);
