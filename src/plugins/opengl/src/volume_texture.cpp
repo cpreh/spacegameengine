@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/string.hpp>
 #include <sge/once.hpp>
 #include <sge/math/box_impl.hpp>
-#include <cassert>
 
 namespace
 {
