@@ -25,7 +25,9 @@ sge::gui::skins::standard::standard(
 :
 	standard_font_(
 		fs->create_font(
-			media_path()/SGE_TEXT("cursor.png"),
+			media_path()/
+			SGE_TEXT("fonts")/
+			SGE_TEXT("default.ttf"),
 			static_cast<font::size_type>(
 				15)),
 		renderer::colors::black())

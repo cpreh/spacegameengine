@@ -45,7 +45,9 @@ sge::gui::manager::manager(
 	compiler_(
 		new detail::managers::compiler(
 			*mouse_,
-			*render_))
+			*render_)),
+	timer_(
+		new detail::managers::time())
 {
 	// TODO: find a way to initialize this in the constructor
 	// that works for both gcc-4.3 and gcc-4.4.
