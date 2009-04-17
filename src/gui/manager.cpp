@@ -1,14 +1,12 @@
-#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/detail/managers/mouse.hpp>
 #include <sge/gui/detail/managers/compiler.hpp>
 #include <sge/gui/detail/managers/render.hpp>
 #include <sge/gui/detail/managers/time.hpp>
 #include <sge/gui/detail/managers/keyboard.hpp>
+#include <sge/gui/widgets/base.hpp>
 #include <sge/gui/manager.hpp>
 #include <sge/gui/log.hpp>
-#include <sge/math/rect_util.hpp>
-#include <sge/assert.hpp>
-#include <sge/media.hpp>
+#include <sge/math/rect_impl.hpp>
 #include <boost/foreach.hpp>
 
 namespace
@@ -21,14 +19,10 @@ sge::gui::logger mylogger(
 
 sge::gui::manager::manager(
 	renderer::device_ptr const rend,
-	sge::image::loader_ptr const il,
 	input::system_ptr const is,
 	skins::ptr _skin,
 	cursor_ptr _cursor)
 :
-	rend(rend),
-	il(il),
-	is(is),
 	skin_(_skin),
 	cursor_(_cursor),
 	mouse_(
@@ -123,31 +117,39 @@ void sge::gui::manager::request_keyboard_focus(
 	keyboard_->request_focus(w);
 }
 
-void sge::gui::manager::add(widgets::base &w)
+void sge::gui::manager::add(
+	widgets::base &w)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->add(w);
 }
 
-void sge::gui::manager::remove(widgets::base &w)
+void sge::gui::manager::remove(
+	widgets::base &w)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->remove(w);
 }
 
-void sge::gui::manager::resize(widgets::base &w,dim const &d)
+void sge::gui::manager::resize(
+	widgets::base &w,
+	dim const &d)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->resize(w,d);
 }
 
-void sge::gui::manager::reposition(widgets::base &w,point const &d)
+void sge::gui::manager::reposition(
+	widgets::base &w,
+	point const &d)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->reposition(w,d);
 }
 
-void sge::gui::manager::activation(widgets::base &w,activation_state::type const _n)
+void sge::gui::manager::activation(
+	widgets::base &w,
+	activation_state::type const _n)
 {
 	BOOST_FOREACH(detail::submanager *m,submanagers)
 		m->activation(w,_n);

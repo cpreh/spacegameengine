@@ -80,7 +80,6 @@ try
 	
 	sge::gui::manager m(
 		sys.renderer(),
-		sys.image_loader(),
 		sys.input_system(),
 		sge::gui::skins::ptr(
 			new sge::gui::skins::standard(

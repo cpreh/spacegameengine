@@ -15,13 +15,10 @@
 #include <sge/renderer/device_fwd.hpp>
 #include <sge/renderer/texture_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/sprite/object.hpp>
-#include <sge/sprite/system.hpp>
+#include <sge/sprite/fwd.hpp>
 #include <sge/time/resolution.hpp>
-#include <sge/image/loader_fwd.hpp>
 #include <sge/noncopyable.hpp>
 #include <sge/scoped_ptr.hpp>
-#include <set>
 #include <vector>
 
 namespace sge
@@ -34,7 +31,6 @@ class manager
 	public:
 	SGE_GUI_SYMBOL manager(
 		renderer::device_ptr,
-		image::loader_ptr,
 		input::system_ptr,
 		skins::ptr,
 		cursor_ptr);
@@ -58,10 +54,6 @@ class manager
 		widgets::base &);
 	private:
 	friend class widgets::base;
-
-	renderer::device_ptr const rend;
-	image::loader_ptr const il;
-	input::system_ptr const is;
 
 	skins::ptr skin_;
 	cursor_ptr cursor_;

@@ -63,7 +63,7 @@ namespace skins
 class base
 {
 	public:
-	SGE_GUI_SYMBOL SGE_GUI_SKIN_WIDGET(base);
+	SGE_GUI_SYMBOL SGE_GUI_SKIN_WIDGET(base)
 
 	virtual SGE_GUI_SKIN_DRAW_RETURN(widgets::base) fallback(
 		SGE_GUI_SKIN_DRAW_PARAMS(widgets::base)) = 0;
